@@ -25,7 +25,7 @@ Voice::print() const
 {
 #ifndef NPRINT
     mtor << "start: "<< start<<eol;
-    for (PCursor<Voice_element*> vec(elts); vec.ok(); vec++)
+    for (iter_top(elts,vec); vec.ok(); vec++)
 	vec->print();
 #endif
 }
@@ -34,7 +34,7 @@ Moment
 Voice::last() const
 {
     Moment l =start;
-    for (PCursor<Voice_element*> vec(elts); vec.ok(); vec++)
+    for (iter_top(elts,vec); vec.ok(); vec++)
 	l  += vec->duration;
     return l;
 }
@@ -44,7 +44,7 @@ Voice_element::print() const
 {
 #ifndef NPRINT
     mtor << "voice_element { dur :"<< duration <<"\n";
-    for (PCursor<Request*> rc(reqs); rc.ok(); rc++) {
+    for (iter_top(reqs,rc); rc.ok(); rc++) {
 	rc->print();
     }
     mtor << "}\n";
