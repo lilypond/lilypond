@@ -53,7 +53,7 @@ class ostream;
 
 \item
   No operator[] is provided, since this would be enormously  slow. If needed,
-k  convert to char const* .
+  convert to char const* .
 \end{itemize}
 
 */
