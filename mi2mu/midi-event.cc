@@ -175,12 +175,13 @@ Midi_text::mudela_str( bool command_mode_bo )
 		|| ( text_str_.length_i() != (int)strlen( text_str_.ch_C() ) ) )
 		return "";
 
-	return "% " + text_str_ + "\n\t";
+	return "% " + text_str_ + "\n";
 }
 
 Midi_time::Midi_time( int num_i, int den_i, int clocks_4_i, int count_32_i )
-	: sync_dur_( 8 )
 {
+	sync_dur_.type_i_ = 8;
+	
 	sync_f_ = 1.0;
 	if ( count_32_i != 8 )
 		warning( String( "#32 in quarter: " ) + String( count_32_i ));
@@ -192,7 +193,9 @@ Midi_time::Midi_time( int num_i, int den_i, int clocks_4_i, int count_32_i )
 Moment
 Midi_time::bar_mom()
 {
-	return Moment( num_i_ ) * Duration_convert::dur2_mom( Duration( 1 << den_i_ ) );
+    Duration d;
+    d.type_i_ =  1 << den_i_ ;
+	return Moment( num_i_ ) * Duration_convert::dur2_mom( d );
 }
 
 int

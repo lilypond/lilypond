@@ -121,7 +121,8 @@ My_midi_parser::note_end_midi_event_p( int channel_i, int pitch_i, int dyn_i )
 //	running_i64_i64_a_[ channel_i ][ pitch_i ] = -1;
 //	assert( start_i64 != -1 ); // did we start?
 
-	Duration dur( 0 );
+	Duration dur;
+	dur.type_i_ = 0;
 	if ( Duration_convert::no_quantify_b_s )
 		dur = Duration_convert::ticks2_dur( (I64)now_i64_ - start_i64 );
 	else {
