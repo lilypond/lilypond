@@ -12,6 +12,8 @@
 #include <cstring>
 
 #include "source-file.hh"
+#include "memory-stream.hh"
+#include "ttftool.h"
 
 char *
 pfb2pfa (Byte const * pfb, int length)
@@ -22,7 +24,7 @@ pfb2pfa (Byte const * pfb, int length)
   Byte const * p = pfb;
   while (p  < pfb + length)  
     {
-      if (*p++ != 128)
+      if (*p++ != 128) 
 	break;
 
       Byte type = *p++;
@@ -86,4 +88,26 @@ LY_DEFINE(ly_pfb_to_pfa, "ly:pfb->pfa",
   delete str;
   return pfa_scm;
 }
+
+
+LY_DEFINE(ly_ttf_to_pfa, "ly:ttf->pfa",
+	  1, 0, 0, (SCM ttf_path),
+	  "Convert the contents of a TTF file to Type42 PFA, returning it as "
+	  " a string."
+	  )
+{
+  SCM_ASSERT_TYPE(scm_is_string (ttf_path), ttf_path,
+		  SCM_ARG1, __FUNCTION__, "string");
+
+  String path = ly_scm2string (ttf_path);
+
+  Memory_out_stream stream;
+  create_type42(path.to_str0 (),
+		stream.get_file());
+  SCM asscm = scm_from_locale_stringn (stream.get_string (),
+				       stream.get_length ());
+
+  return asscm;
+}
 	  
+

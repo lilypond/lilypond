@@ -5431,7 +5431,7 @@ key.  For example, when entering music for a B-flat trumpet which
 begins on concert D, one would write
 
 @example
-\transpose c bes { e4 @dots{} }
+\transpose c bes @{ e4 @dots{} @}
 @end example
 
 To print this music in B-flat again (ie producing a trumpet part,
@@ -5439,7 +5439,7 @@ instead of a concert pitch conductor's score) you would wrap the
 existing music with another @code{transpose}
 
 @example
-\transpose bes c { \transpose c bes { e4 @dots{} } }
+\transpose bes c @{ \transpose c bes @{ e4 @dots{} @} @}
 @end example
 
 
@@ -5472,7 +5472,7 @@ The transposition is entered after the keyword @code{\transposition}
 This command sets the property @code{instrumentTransposition}.  The value of
 this property is used for MIDI output and quotations.  It does not
 affect how notes are printed in the current staff.  To change the printed
-output, see @ref{transpose}.
+output, see @ref{Transpose}.
 
 The pitch to use for @code{\transposition} should correspond to the
 transposition of the notes.  For example, when entering a score in
