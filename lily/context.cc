@@ -63,8 +63,9 @@ Context::add_context (Context *t)
   if (!t->init_)
     {
       t->init_ = true;
+#ifdef TWEAK 
       Context_selector::register_context (t);
-        
+#endif  
       scm_gc_unprotect_object (ts);
       Context_def *td = unsmob_context_def (t->definition_);
 

@@ -202,8 +202,9 @@ make_item_from_properties (Translator *tr, SCM x, SCM cause)
   
   SCM props = updated_grob_properties (context, x);
   Item *it = new Item (props);
+#ifdef TWEAK 
   Grob_selector::register_grob (context, it);
-
+#endif
   dynamic_cast<Engraver*>(tr)->announce_grob (it, cause);
 
   return it;

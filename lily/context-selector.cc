@@ -20,14 +20,14 @@ Context_selector::register_context (Context *context)
   int count = 0;
   if (Context *first = retrieve_context (identify_context (context, 0)))
     {
-      count = robust_scm2int (first->get_property ("max"), 0);
+      count = robust_scm2int (first->get_property ("tweakCount"), 0);
       count++;
       SCM s = scm_int2num (count);
-      first->set_property ("max", s);
-      context->set_property ("count", s);
+      first->set_property ("tweakCount", s);
+      context->set_property ("tweakRank", s);
   }
-  /* FIXME: must alway set count, for get_property () not to segfault.  */
-  context->set_property ("count", scm_int2num (count));
+  /* FIXME: must alway set rank, for get_property () not to segfault.  */
+  context->set_property ("tweakRank", scm_int2num (count));
   store_context (identify_context (context, count), context);
 }
 
@@ -45,7 +45,7 @@ Context_selector::identify_context (Context *context)
 {
   return
     identify_context (context,
-		      robust_scm2int (context->get_property ("count"), 0));
+		      robust_scm2int (context->get_property ("tweakRank"), 0));
 }
 
 void

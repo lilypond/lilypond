@@ -1,3 +1,16 @@
+2004-11-11  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/context-property.cc (make_item_from_properties):
+	* lily/context.cc (add_context)[TWEAK]: Tweak registration behind
+	#ifdef.
+
+	* scm/define-context-properties.scm
+	(all-internal-translation-properties): Add tweakRank and tweakCount.
+
+	* lily/grob.cc: 
+	* scm/define-grob-properties.scm (all-internal-grob-properties):
+	Add tweak-rank and tweak-count.
+
 2004-11-10  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/output-gnome.scm (string->utf8-string, char->utf8-string):

@@ -26,21 +26,19 @@ Grob_selector::register_grob (Context *context, Grob *grob)
   Moment m = context->now_mom ();
   if (Grob *first = retrieve_grob (identify_grob (context, m, grob, 0)))
     {
-      count = robust_scm2int (first->get_property ("max"), 0);
+      count = robust_scm2int (first->get_property ("tweak-count"), 0);
       count++;
       SCM s = scm_int2num (count);
-      first->set_property ("max", s);
-      grob->set_property ("count", s);
+      first->set_property ("tweak-count", s);
+      grob->set_property ("tweak-rank", s);
     }
   grob->set_property ("context", context->self_scm ());
   SCM grob_id = identify_grob (context, m, grob, count);
   store_grob (grob_id, grob);
-#ifdef TWEAK 
   SCM tweak = ly_assoc_get (grob_id, tweaks_, SCM_BOOL_F);
   if (tweak != SCM_BOOL_F)
     grob->set_property (ly_symbol2string (scm_car (tweak)).to_str0 (),
 			scm_cadr (tweak));
-#endif  
 }
 
 SCM
@@ -59,7 +57,7 @@ Grob_selector::identify_grob (Grob *grob)
   return identify_grob (unsmob_context (grob->get_property ("context")),
 			Paper_column::when_mom (((Item*) grob)->get_column ()),
 			grob,
-			robust_scm2int (grob->get_property ("count"), 0));
+			robust_scm2int (grob->get_property ("tweak-rank"), 0));
 }
 
 void

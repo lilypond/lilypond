@@ -527,6 +527,8 @@ function is to protect objects from being garbage collected.")
      (center-element ,ly:grob? "grob which will be at the center of
 the group after aligning (when using
 Align_interface::center_on_element).")
+     (tweak-count ,number? "Number of otherwise unique Grobs.")
+     (tweak-rank ,number? "Identify otherwise unique Grobs.")
      (direction-source ,ly:grob? "in case side-relative-direction is
 set, which grob to get the direction from .")
      (dot ,ly:grob? "reference to Dots object.")
