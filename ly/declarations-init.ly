@@ -62,7 +62,6 @@ melismaEnd = \property Staff.melismaBusy = ##f
 	(font-series . medium)
     ))
     
-    #(set-paper-size "a4")
     \include "engraver-init.ly"
 }
 
@@ -108,6 +107,7 @@ paperTwentysix = \paper {
 }
 
 \paper { \paperTwenty }
+#(set-paper-size "a4")
 
 \include "dynamic-scripts-init.ly"
 \include "spanners-init.ly"

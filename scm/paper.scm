@@ -50,7 +50,7 @@
 ;; todo: take dimension arguments.
 
 
-(define (set-paper-dimensions m h w)
+(define (set-paper-dimensions m w h)
   (let*
       ( (mm (eval 'mm m)) )
 
@@ -65,7 +65,9 @@
 (define-public (set-paper-size name)
   (let*
       ((entry (assoc name paper-alist))
-       (m (current-module))
+       (pap (eval '$defaultpaper (current-module)))
+       (new-paper (ly:output-def-clone pap))
+       (m  (ly:output-def-scope new-paper))
        (mm (eval 'mm m))
        )
 
@@ -73,6 +75,10 @@
 	(begin
 	  (set! entry (eval  (cdr entry) m))
 	  (set-paper-dimensions m (car entry) (cdr entry))
+	  (module-define! m 'papersize name)
+	  (module-define! m 'papersizename name)
+	  (set-paper-dimensions m (car entry) (cdr entry))
+	  (module-define! (current-module) '$defaultpaper new-paper)
 	  )
 	(ly:warning (string-append "Unknown papersize: " name))
 	)))

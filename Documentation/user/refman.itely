@@ -7329,6 +7329,7 @@ entering the chant, as the following short excerpt demonstrates:
 @lilypond[raggedright,verbatim,noindent]
 \include "gregorian-init.ly"
 \score {
+<<
   \context VaticanaVoice {
     \property Score.BarNumber \set #'transparent = ##t
     \notes {
@@ -7339,7 +7340,8 @@ entering the chant, as the following short excerpt demonstrates:
   }
   \lyricsto "" \new LyricsVoice \lyrics {
     San- ctus, San- ctus, San- ctus
-  }
+  } >>
+  
 }
 @end lilypond
 
@@ -8454,7 +8456,7 @@ sizes. Each font is tuned for a different staff size: at smaller sizes
 the font gets heavier, to match the relatively heavier staff lines.
 The recommended font sizes are listed in the following table:
 
-@multitable @columnfractions  .3 .3 .4  
+@multitable @columnfractions  .25 .25 .25 .25
 
 @item @b{name}
 @tab @b{staff height (pt)}

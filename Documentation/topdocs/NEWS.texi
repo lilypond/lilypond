@@ -22,9 +22,9 @@ setting staff sizes is, both demonstrated in this fragment
 
 @example
   #(set-staff-size 15)
-  \paper {
+  \paper @{
     #(paper-set-staff-size (* 15 pt))
-  }   
+  @}   
 @end example
 
 @noindent
