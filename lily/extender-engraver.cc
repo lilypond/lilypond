@@ -71,7 +71,7 @@ Extender_engraver::do_process_requests ()
     {
       if (!last_lyric_l_)
 	{
-	  req_l_->warning ("Nothing to connect extender to on the left. Ignoring extender request");
+	  req_l_->warning (_ ("Nothing to connect extender to on the left.  Ignoring extender request."));
 	  return;
 	}
       

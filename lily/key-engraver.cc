@@ -67,7 +67,7 @@ Key_engraver::do_try_music (Music * req_l)
   if (Key_change_req *kc = dynamic_cast <Key_change_req *> (req_l))
     {
       if (keyreq_l_)
-	warning ("Fixme: key change merge.");
+	warning (_ ("FIXME: key change merge"));
       keyreq_l_ = kc;
       read_req (keyreq_l_);
       return true;

@@ -39,7 +39,7 @@ Melodic_req::transpose (Musical_pitch delta)
   
   if (abs (pitch_.accidental_i_) > 2)
     {
-	warning (_f ("transposition by %s makes accidental larger than two",
+	warning (_f ("Transposition by %s makes accidental larger than two",
 	  delta.str ()));
     }
 }

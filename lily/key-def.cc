@@ -28,7 +28,7 @@ Key_def::ordinary_accidentals_i () const
   int p;
   if (pitch_arr_.size () < 1) 
     {
-      warning (_ ("No key name: assuming `C'"));
+      warning (_ ("No key name, assuming `C'"));
       p = 0;
     }
   else
@@ -89,7 +89,7 @@ Key_def::transpose (Musical_pitch d)
         pitch_arr_[0].transpose (d);
       else
         {
-          warning (_ ("don't know how handle empty keys")); // TODO 
+          warning (_ ("Don't know how handle empty keys")); // TODO 
         }
     }
   else

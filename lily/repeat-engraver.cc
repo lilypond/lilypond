@@ -174,7 +174,7 @@ Repeat_engraver::do_process_requests ()
 	}
       else
 	{
-	  warning ("No bar engraver found. Ignoring repeats.");
+	  warning (_ ("No bar engraver found.  Ignoring repeats."));
 	}
 
       delete head->car_;

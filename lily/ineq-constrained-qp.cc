@@ -230,9 +230,9 @@ Ineq_constrained_qp::constraint_solve (Vector start) const
       act.drop_constraint (m);
     }
   if (iterations >= MAXITER)
-    WARN << _ ("didn't converge!") << '\n';
+    WARN << _ ("Didn't converge!") << '\n';
   if (act.degenerate_count_i_ >= MAXDEGEN)
-    WARN << _ ("Too much degeneracy. ") << '\n';
+    WARN << _ ("too much degeneracy") << '\n';
   DOUT <<  ": found " << x << " in " << iterations <<" iterations\n";
   assert_solution (x);
   return x;

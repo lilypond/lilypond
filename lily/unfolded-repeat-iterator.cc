@@ -142,7 +142,7 @@ Unfolded_repeat_iterator::do_process_and_next (Moment m)
       if (yeah)
 	set_translator (yeah->report_to_l ());
       else
-	music_l_->warning ( _("No one to print a volta bracket"));
+	music_l_->warning ( _("no one to print a volta bracket"));
     }
   while (1)
     {

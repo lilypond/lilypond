@@ -65,7 +65,7 @@ Midi_track_parser::note_end (Mudela_column* col_l, int channel_i, int pitch_i, i
       else
 	pp = &i->next_;
     }
-  warning (_f ("junking note-end event: channel = %d, pitch = %d", 
+  warning (_f ("Junking note-end event: channel = %d, pitch = %d", 
 	       channel_i, pitch_i));
 }
 

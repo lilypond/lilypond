@@ -146,7 +146,7 @@ Beam_engraver::do_removal_processing ()
   typeset_beam ();
   if (beam_p_)
     {
-      prev_start_req_->warning (_ ("Unfinished beam"));
+      prev_start_req_->warning (_ ("unfinished beam"));
       finished_beam_p_ = beam_p_;
       finished_beam_info_p_ = beam_info_p_;
       typeset_beam ();
@@ -171,7 +171,7 @@ Beam_engraver::acknowledge_element (Score_element_info info)
       Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (info.req_l_);
       if (!rhythmic_req)
 	{
-	  String s = _ ("Stem must have Rhythmic structure.");
+	  String s = _ ("Stem must have Rhythmic structure");
 	  if (info.req_l_)
 	    info.req_l_->warning (s);
 	  else
@@ -182,8 +182,8 @@ Beam_engraver::acknowledge_element (Score_element_info info)
       
       if (rhythmic_req->duration_.durlog_i_<= 2)
 	{
-	  rhythmic_req->warning (_ ("stem doesn't fit in beam"));
-	  prev_start_req_->warning (_ ("beam was started here"));
+	  rhythmic_req->warning (_ ("Stem doesn't fit in beam"));
+	  prev_start_req_->warning (_ ("Beam was started here"));
 	  return;
 	}
 

@@ -77,7 +77,7 @@ Stem_engraver::acknowledge_element(Score_element_info i)
 
       if (stem_p_->flag_i_ != duration_log)
 	{
-	  r->warning (_f("Adding note head to incompatible stem (type = %d)", 1 <<  stem_p_->flag_i_));
+	  r->warning (_f ("Adding note head to incompatible stem (type = %d)", 1 <<  stem_p_->flag_i_));
 	}
 
       stem_p_->add_head (h);

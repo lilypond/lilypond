@@ -62,7 +62,7 @@ Key_performer::do_try_music (Music* req_l)
   if (Key_change_req *kc = dynamic_cast <Key_change_req *> (req_l))
     {
       if (key_req_l_)
-	warning ("FIXME. Key change merge");
+	warning (_ ("FIXME: key change merge"));
 
       key_req_l_ = kc;
       return true;

@@ -61,7 +61,7 @@ Folded_repeat_iterator::do_process_and_next (Moment m)
     {
       bool success = try_music (music_l_);
       if (!success)
-	music_l_->warning ( _("No one to print a repeat brace"));
+	music_l_->warning ( _("no one to print a repeat brace"));
     }
   
   if (main_iter_p_)

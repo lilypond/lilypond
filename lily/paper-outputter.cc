@@ -127,7 +127,7 @@ Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
 
       if (a_off.length () > 100 CM)
 	{
-	  warning (_f("Improbable offset for object type `%s\'", nm));
+	  warning (_f ("improbable offset for object type: `%s'", nm));
 	  Axis a  =X_AXIS;
 	  while (a < NO_AXES)
 	    {

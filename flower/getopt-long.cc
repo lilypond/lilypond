@@ -138,22 +138,22 @@ Getopt_long::report (Errorcod c)
   switch (c)
     {
     case E_ARGEXPECT:
-      str += _f ("option `%s\' requires an argument",
+      str += _f ("Option `%s' requires an argument",
 	found_option_l_->str ());
       break;
     case  E_NOARGEXPECT:
-      str += _f ("option `%s\' doesn't allow an argument",
+      str += _f ("Option `%s' doesn't allow an argument",
 	found_option_l_->str ());
       break;
     case E_UNKNOWNOPTION:
-      str += _f ("unrecognized option: `%s\'",
+      str += _f ("unrecognized option: `%s'",
       String (argument_index_i_ 
 	      ? String ("-" + String_convert::form_str ("%c", 
 	        arg_value_ch_a_a_[array_index_i_][argument_index_i_]))
 	      : String (arg_value_ch_a_a_[array_index_i_])));
       break;
     case E_ILLEGALARG:
-      str += _f ("invalid argument `%s\' to option `%s'",
+      str += _f ("invalid argument `%s' to option `%s'",
         optional_argument_ch_C_, found_option_l_->str ());
     default:
       assert (false);

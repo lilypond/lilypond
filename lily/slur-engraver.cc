@@ -77,7 +77,7 @@ Slur_engraver::do_process_requests()
 	{
 	  if (slur_l_stack_.empty())
 
-	    slur_req_l->warning (_f ("can't find both ends of %s", _("slur")));
+	    slur_req_l->warning (_f ("Can't find both ends of %s", _("slur")));
 	  else
 	    {
 	      end_slur_l_arr_.push (slur_l_stack_.pop());

@@ -25,8 +25,8 @@ Time_signature_engraver::do_process_requests()
 
   if (!result)
     {
-      warning (_ ("lost in time") + ": " + _ ("can't find") 
-        + " Timing_translator");
+      warning (_ ("lost in time:"));
+      warning (_f ("Can't find: `%s'", " Timing_translator"));
       return ;
     }
   

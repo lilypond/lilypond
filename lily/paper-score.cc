@@ -128,7 +128,7 @@ Paper_score::calc_breaking ()
       delete algorithm_p;
       if (! sol.size ())
 	{
-	  warning (_ ("Can't solve this casting problem exactly; revert to Word_wrap"));
+	  warning (_ ("Can't solve this casting problem exactly; reverting to Word_wrap"));
 	  try_wrap = true;
 	}
     }
@@ -176,7 +176,7 @@ Paper_score::process ()
     }
 
   if (experimental_features_global_b)
-    *mlog << elem_p_arr_.size ()  + span_p_arr_.size () << _ (" elements. ");
+    *mlog << _f ("%s elements", elem_p_arr_.size () + span_p_arr_.size ());
 
   *mlog << "\n";
   *mlog << _ ("Line ... ");

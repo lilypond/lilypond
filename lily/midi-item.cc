@@ -300,7 +300,7 @@ Midi_instrument::str () const
 
   if (!found)
     {
-      warning (_f("No such instrument: `%s'", audio_l_->str_.ch_C ()));
+      warning (_f ("no such instrument: `%s'", audio_l_->str_.ch_C ()));
     }
   
   String str = to_str ((char) (0xc0 + channel_i_));

@@ -92,7 +92,7 @@ Real
 Paper_def::get_realvar (SCM s) const
 {
   if (!scope_p_->elem_b (s))
-    error (_f ("unknown paper variable: `%s\'", symbol_to_string (s)));
+    error (_f ("unknown paper variable: `%s'", symbol_to_string (s)));
   Real * p = scope_p_->elem (s)->access_content_Real (false);
   if (!p)
     {
@@ -248,7 +248,7 @@ Paper_def::paper_outputter_p (Paper_stream* os_p, Header* header_l, String origi
   Paper_outputter* p = new Paper_outputter (os_p);
 
   // for now; breaks -fscm output
-  p->output_comment (_ ("outputting Score, defined at: "));
+  p->output_comment (_ ("Outputting Score, defined at: "));
   p->output_comment (origin_str);
 
   p->output_version();
@@ -277,7 +277,7 @@ Paper_def::paper_stream_p () const
 
   if (outname != "-")
     outname += String (".") + output_global_ch;
-  *mlog << _f ("Paper output to %s...", 
+  *mlog << _f ("paper output to %s...", 
 	       outname == "-" ? String ("<stdout>") : outname) << endl;
 
   target_str_global_array.push (outname);

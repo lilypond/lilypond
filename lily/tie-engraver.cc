@@ -88,7 +88,7 @@ Tie_engraver::process_acknowledged ()
 	{
 	  if (now_heads_.size () != stopped_heads_.size ())
 	    {
-	      req_l_->warning ("Unequal number of note heads for tie");
+	      req_l_->warning (_ ("unequal number of note heads for tie"));
 	    }
 	  int sz = now_heads_.size () <? stopped_heads_.size ();
 
@@ -152,7 +152,7 @@ Tie_engraver::process_acknowledged ()
 
 	  if (!tie_p_arr_.size ())
 	    {
-	      req_l_->warning (_("No ties were created!"));
+	      req_l_->warning (_ ("No ties were created!"));
 	    }
 	  
 	}

@@ -53,7 +53,7 @@ mynewhandler()
 void
 float_handler (int)
 {
-  cerr << _ ("Floating point exception") << endl;
+  cerr << _ ("floating point exception") << endl;
   assert (false);
 }
 
@@ -136,7 +136,7 @@ set_debug (bool b)
 #ifdef MEMORY_PARANOID
   if (check_malloc_b)
     if (mcheck (0))
-      warning (_ ("can't set mem-checking") + "!");
+      warning (_ ("Can't set mem-checking!"));
 #endif
 }
 

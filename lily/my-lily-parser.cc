@@ -66,7 +66,7 @@ My_lily_parser::parse_file (String init, String s)
 
   if (!define_spot_array_.empty())
     {
-      warning (_ ("braces don't match"));
+      warning (_ ("Braces don't match"));
       error_level_i_ = 1;
     }
 
