@@ -10,7 +10,7 @@
 % llx lly urx ury command
 /mark_file_line
 {
-    /editorcommand exch def
+    /command exch def
     /ury exch def
     /urx exch def
     /lly exch def
@@ -18,11 +18,13 @@
     [
 	/Rect [ llx lly urx ury ]
 	/Border [ 0 0 0 0 ]
-	/Action 
-	<<
-	    /Subtype /Launch
-	    /File editorcommand
+%	/Action /Launch
+%	/File command
+	/Action <<
+	    /Subtype /URI
+	    /URI command
 	>>
+    
         /Subtype /Link
     /ANN
     pdfmark
