@@ -322,7 +322,7 @@
 		(font-encoding . latin1) ;; ugh.
 		)
 	      
-	      `(,(ly:pt (* factor 12.0))
+	      `(,(ly:pt (* factor 11.0))
 		. #(,(cons
 		     (ly:pt 12)
 		     (ly:make-pango-description-string

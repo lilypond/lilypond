@@ -234,7 +234,13 @@
 		       ((and bare-file-name
 			     (string-match "\\.(otf|cff)" bare-file-name))
 
-			(cached-file-contents (string-regexp-substitute "(otf|cff)" "cff.ps" bare-file-name)))
+			(for-each (lambda (tup)  (set! bare-file-name
+						       (string-regexp-substitute (car tup) (cdr tup) bare-file-name)))
+				  '(("/fonts/otf/" . "/ps/")
+				    ("/fonts/cff/" . "/cff/")
+				    ("\\.(otf|cff)" . ".cff.ps")))
+
+			(cached-file-contents bare-file-name))
 		       ((and bare-file-name (string-match "\\.ttf" bare-file-name))
 			(ly:ttf->pfa bare-file-name))
 		       (bare-file-name (cached-file-contents bare-file-name))

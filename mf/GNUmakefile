@@ -92,7 +92,7 @@ INSTALLATION_OUT_DIR1=$(local_lilypond_datadir)/tex
 INSTALLATION_OUT_FILES1=$(TEXTABLES)
 
 # must not be installed with .cff, pango/fontconfig does not like .cff fonts 
-INSTALLATION_OUT_DIR2=$(local_lilypond_datadir)/otf
+INSTALLATION_OUT_DIR2=$(local_lilypond_datadir)/fonts/otf
 INSTALLATION_OUT_FILES2=$(OTF_FILES)
 
 INSTALLATION_OUT_DIR3=$(local_lilypond_datadir)/fonts/tfm
@@ -107,13 +107,13 @@ INSTALLATION_OUT_FILES5=$(PFA_FILES)
 INSTALLATION_OUT_DIR6=$(local_lilypond_datadir)/fonts/map
 INSTALLATION_OUT_FILES6=$(outdir)/lilypond.map
 
-INSTALLATION_OUT_DIR7=$(local_lilypond_datadir)/cff/
+INSTALLATION_OUT_DIR7=$(local_lilypond_datadir)/fonts/cff/
 INSTALLATION_OUT_FILES7=$(CFF_FILES)
 
 INSTALLATION_OUT_DIR7=$(local_lilypond_datadir)/ps/
 INSTALLATION_OUT_FILES7=$(ENC_FILES)
 
-INSTALLATION_OUT_DIR9=$(local_lilypond_datadir)/svg
+INSTALLATION_OUT_DIR9=$(local_lilypond_datadir)/fonts/svg
 INSTALLATION_OUT_FILES9=$(SVG_FILES)
 
 

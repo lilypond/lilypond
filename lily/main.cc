@@ -233,7 +233,8 @@ setup_paths ()
 
   /* Adding mf/out make lilypond unchanged source directory, when setting
      LILYPONDPREFIX to lilypond-x.y.z */
-  char *suffixes[] = {"ly", "cff", "otf", "mf/out", "scm", "tfm", "ps", "svg",
+  char *suffixes[] = {"ly", "fonts/cff", "fonts/otf", "mf/out", "scm",
+		      "fonts/tfm", "ps", "fonts/svg",
 		      0};
 
   for (char **s = suffixes; *s; s++)

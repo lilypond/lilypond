@@ -10,8 +10,7 @@ installexe: all
 	-$(INSTALL) -d $(DESTDIR)$(bindir)
 	$(foreach a, $(EXECUTABLES), \
 		$(INSTALL) -m 755 $(outdir)/$(a) \
-		$(DESTDIR)$(bindir)/$(program_prefix)$(a)$(program_suffix) && \
-		strip $(bindir)/$(program_prefix)$(a)$(program_suffix) && ) true
+		$(DESTDIR)$(bindir)/$(program_prefix)$(a)$(program_suffix) && ) true
 	$(foreach a, $(SEXECUTABLES), \
 		$(INSTALL) -m 755 $(outdir)/$(a) $(DESTDIR)$(bindir) &&) true
 
