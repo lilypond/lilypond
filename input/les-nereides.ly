@@ -1,4 +1,4 @@
-\version "1.6.4"
+\version "1.7.2"
 
 \header {
     composer =   "ARTHUR GRAY"
@@ -85,7 +85,7 @@ treble =  \context Voice=treble \notes\relative c''{
 	    
     % currently, this can't be (small) italic, because in the paperblock
     % we set italic_magnifictation to get large italics.
-    cis''''4^"m.g."\arpeggio \spanrequest \start "text" (
+    cis''''4^"m.g."\arpeggio #(ly-export (make-span-event 'TextSpanEvent START)) (
 
     \property Voice.Stem \revert #'direction
 
@@ -93,7 +93,7 @@ treble =  \context Voice=treble \notes\relative c''{
         )cis8
 	\property Voice.Stem \revert #'direction
 	\property Voice.Stem \override #'direction = #0
-        [a16-5( fis dis \spanrequest \stop "text" ]
+        [a16-5( fis dis #(ly-export (make-span-event 'TextSpanEvent STOP)) ]
 	\property Staff.centralCPosition = #-6
 	
 	[cis32 a-1 fis-4 dis] [cis a )fis-2]

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.2"
 
 
 dashHat= "marcato"
@@ -9,36 +9,37 @@ dashLarger= "accent"
 dashDot= "staccato"
 dashUnderscore = "portato"
 
-thumb = \script "thumb"
-accent = \script "accent"
-marcato = \script "marcato"
-staccatissimo = \script "staccatissimo"
-portato = \script "portato"
-fermata = \script "fermata"
-stopped = \script "stopped"
-staccato = \script "staccato"
-tenuto = \script "tenuto"
-upbow = \script "upbow"
-downbow = \script "downbow"
-lheel = \script "lheel"
-rheel = \script "rheel"
-ltoe = \script "ltoe"
-rtoe = \script "rtoe"
-turn = \script "turn"
-open = \script "open"
-flageolet = \script "flageolet"
-reverseturn = \script "reverseturn"
-trill = \script "trill"
-prall = \script "prall"
-mordent = \script "mordent"
-upmordent = \script "upmordent"
-downmordent = \script "downmordent"
-prallprall = \script "prallprall"
-prallup = \script "prallup"
-pralldown = \script "pralldown"
-lineprall = \script "lineprall"
-prallmordent = \script "prallmordent"
-upprall = \script "upprall"
-downprall = \script "downprall"
-segno = \script "segno"
-coda = \script "coda"
+
+thumb = #(make-articulation "thumb")
+accent = #(make-articulation "accent")
+marcato = #(make-articulation "marcato")
+staccatissimo = #(make-articulation "staccatissimo")
+portato = #(make-articulation "portato")
+fermata = #(make-articulation "fermata")
+stopped = #(make-articulation "stopped")
+staccato = #(make-articulation "staccato")
+tenuto = #(make-articulation "tenuto")
+upbow = #(make-articulation "upbow")
+downbow = #(make-articulation "downbow")
+lheel = #(make-articulation "lheel")
+rheel = #(make-articulation "rheel")
+ltoe = #(make-articulation "ltoe")
+rtoe = #(make-articulation "rtoe")
+turn = #(make-articulation "turn")
+open = #(make-articulation "open")
+flageolet = #(make-articulation "flageolet")
+reverseturn = #(make-articulation "reverseturn")
+trill = #(make-articulation "trill")
+prall = #(make-articulation "prall")
+mordent = #(make-articulation "mordent")
+upmordent = #(make-articulation "upmordent")
+downmordent = #(make-articulation "downmordent")
+prallprall = #(make-articulation "prallprall")
+prallup = #(make-articulation "prallup")
+pralldown = #(make-articulation "pralldown")
+lineprall = #(make-articulation "lineprall")
+prallmordent = #(make-articulation "prallmordent")
+upprall = #(make-articulation "upprall")
+downprall = #(make-articulation "downprall")
+segno = #(make-articulation "segno")
+coda = #(make-articulation "coda")

@@ -1770,8 +1770,8 @@ over many measures. This is indicated by following the text with a
 dotted line.  You can create such texts using text spanners. The syntax
 is as follows:
 @example
-\spanrequest \start "text"
-\spanrequest \stop "text"
+ \startTextSpan
+ \stopTextSpan
 @end example
 LilyPond will respond by creating a @internalsref{TextSpanner} object (typically
 in @internalsref{Voice} context).  The string to be printed, as well as the
@@ -1784,7 +1784,7 @@ An application---or rather, a hack---is to fake octavation indications.
   \property Voice.TextSpanner \set #'edge-height = #'(0 . 1.5)
   \property Voice.TextSpanner \set #'edge-text = #'("8va " . "")
   \property Staff.centralCPosition = #-13
-  a\spanrequest \start "text" b c a \spanrequest \stop "text" }
+  a\startTextSpan b c a \stopTextSpan }
 @end lilypond
 
 
@@ -1916,7 +1916,6 @@ finger changes, use markup texts:
 @end lilypond
 
 
-@cindex @code{\script}
 @cindex scripts
 @cindex superscript
 @cindex subscript
@@ -2836,14 +2835,6 @@ current voice from its current staff to the Staff called
 Piano pedal instruction can be expressed using 
 @code{\sustainDown}, @code{\sustainUp}, @code{\unaCorda},
 @code{\treCorde}, @code{\sostenutoDown} and @code{\sostenutoUp}.
-
-These identifiers are shorthands for spanner commands of the types
-@internalsref{Sustain}, @internalsref{UnaCorda} and @internalsref{Sostenuto}:
-
-@lilypond[fragment,verbatim]
-c''4 \spanrequest \start "Sustain" c''4
-c''4 \spanrequest \stop "Sustain"
-@end lilypond
 
 The symbols that are printed can be modified by setting
 @code{pedal@var{X}Strings}, where @var{X} is one of the pedal types:

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.2"
 
 
 fragment = \notes {
@@ -7,7 +7,7 @@ fragment = \notes {
   \property Voice.TextSpanner \set #'edge-height = #'(0 . 1.5)
   \property Voice.TextSpanner \set #'edge-text = #'("8va " . "")
   \property Staff.centralCPosition = #-13
-  a\spanrequest \start "text" b c a \spanrequest \stop "text"
+  a#(ly-export (make-span-event 'TextSpanEvent START)) b c a #(ly-export (make-span-event 'TextSpanEvent STOP))
 }
 
 \paper { linewidth = -1. } 

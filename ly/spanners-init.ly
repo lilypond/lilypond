@@ -1,23 +1,26 @@
-\version "1.5.68"
+\version "1.7.2"
 
 
-#(define (make-span-request type spandir)
+#(define (make-span-event type spandir)
   (let* ((m (make-music-by-name  type)))
   (ly-set-mus-property! m 'span-direction spandir)
   m
   ))
 
-groupOpen = #(make-span-request 'NoteGroupingEvent START)
-groupClose = #(make-span-request 'NoteGroupingEvent STOP)
+groupOpen = #(make-span-event 'NoteGroupingEvent START)
+groupClose = #(make-span-event 'NoteGroupingEvent STOP)
 
 
-cr = #(make-span-request 'CrescendoEvent START)
-rc = #(make-span-request 'CrescendoEvent STOP)
-decr = #(make-span-request 'DecrescendoEvent START)
-rced = #(make-span-request 'DecrescendoEvent STOP)
+cr = #(make-span-event 'CrescendoEvent START)
+rc = #(make-span-event 'CrescendoEvent STOP)
+decr = #(make-span-event 'DecrescendoEvent START)
+rced = #(make-span-event 'DecrescendoEvent STOP)
+
+startTextSpan = #(make-span-event 'TextSpanEvent START)
+stopTextSpan = #(make-span-event 'TextSpanEvent STOP)
 
 cresc = \notes {
-  \commandspanrequest \start "crescendo" 
+  #(ly-export (make-event-chord (list cr)))
   \property Voice.crescendoText = #'((font-shape . italic) "cresc.")
   \property Voice.crescendoSpanner = #'dashed-line
 }
@@ -25,39 +28,39 @@ cresc = \notes {
 % ah, this is handy: maybe drop resetting of properties in
 % dynamic-engraver ?
 endcresc = \notes {
-  \commandspanrequest \stop "crescendo" 
+  #(ly-export (make-event-chord (list rc)))
   \property Voice.crescendoText \unset
   \property Voice.crescendoSpanner \unset
 }
 
 dim = \notes {
-  \commandspanrequest \start "decrescendo" 
+  #(ly-export (make-event-chord (list decr)))
+
   \property Voice.decrescendoText = #"dim."
   \property Voice.decrescendoSpanner = #'dashed-line
 }
 
 enddim = \notes {
-  \commandspanrequest \stop "decrescendo" 
+  #(ly-export (make-event-chord (list rced)))
    \property Voice.decrescendoText \unset
  \property Voice.decrescendoSpanner \unset
 }
 
 %{
 
-cresc = \spanrequest \start "crescendo"
-endcresc = \spanrequest \stop "crescendo"
+cresc = \spanevent \start "crescendo"
+endcresc = \spanevent \stop "crescendo"
 
 %}
 
 % better name sustainstart/stop? 
-sustainDown = \spanrequest \start "Sustain"
-sustainUp = \spanrequest \stop "Sustain"
+sustainUp = #(make-span-event 'SustainPedalEvent STOP)
 
-unaCorda = \spanrequest \start "UnaCorda"
-treCorde = \spanrequest \stop "UnaCorda"
+unaCorda = #(make-span-event 'UnaCordaEvent START)
+treCorde = #(make-span-event 'UnaCordaEvent STOP)
 
-sostenutoDown = \spanrequest \start "Sostenuto"
-sostenutoUp = \spanrequest \stop "Sostenuto"
+sostenutoDown = #(make-span-event 'SostenutoEvent START)
+sostenutoUp = #(make-span-event 'SostenutoEvent STOP)
 
 %crescpoco = \property Voice.crescendoText = "cresc. poco a poco"
 %decresc = \property Voice.crescendoText = "decr."

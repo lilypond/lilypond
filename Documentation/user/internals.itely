@@ -707,43 +707,6 @@ music = \notes { c'4 d'4( e'4 f'4 }
 More examples are given in the distributed example files in
 @code{input/test/}.
 
-
-@c .   {Span requests}
-@menu
-* Span requests::               
-@end menu
-
-@node Span requests
-@subsection Span requests
-@cindex Span requests
-
-Notational constructs that start and end on different notes can be
-entered using span requests.  The syntax is as follows:
-
-@example
-\spanrequest @var{startstop} @var{type}
-@end example
-
-@cindex @code{\start}
-@cindex @code{\stop}
-
-@noindent
-This defines a spanning request.  The @var{startstop} parameter is either
--1 (@code{\start}) or 1 (@code{\stop}) and @var{type} is a string that
-describes what should be started.  Much of the syntactic sugar is a
-shorthand for @code{\spanrequest}, for example
-
-@lilypond[fragment,verbatim,center]
-c'4-\spanrequest \start "slur"
-c'4-\spanrequest \stop "slur"
-@end lilypond
-
-Among the supported types are @code{crescendo}, @code{decrescendo},
-@code{beam}, @code{slur}.  This is an internal command.  Users are
-encouraged to use the shorthands which are defined in the initialization
-file @file{spanners.ly}.
-
-
 @c .   {Assignments}
 @node Assignments
 @subsection Assignments

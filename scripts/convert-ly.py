@@ -987,6 +987,49 @@ if 1:
 	
 	conversions.append (((1,7,1), conv, 'ly-make-music foo_bar_req -> make-music-by-name FooBarEvent'))
 
+
+if 1:
+	spanner_subst ={
+		"text" : 'TextSpanEvent',
+		"decrescendo" : 'DecrescendoEvent',
+		"crescendo" : 'CrescendoEvent',
+		"Sustain" : 'SustainPedalEvent',
+		"slur" : 'SlurEvent',
+		"UnaCorda" : 'UnaCordaEvent',
+		"Sostenuto" : 'SostenutoEvent',
+		}
+	def subst_ev_name (match):
+		stype = 'STOP'
+		if re.search ('start', match.group(1)):
+			stype= 'START'
+
+		mtype = spanner_subst[match.group(2)]
+		return "(make-span-event '%s %s)" % (mtype , stype)
+
+	def subst_definition_ev_name(match):
+		return ' = #%s' % subst_ev_name (match) 
+	def subst_inline_ev_name (match):
+		s = subst_ev_name (match)
+		return '#(ly-export %s)' % s
+	def subst_csp_definition (match):
+		return ' = #(make-event-chord (list %s))' % subst_ev_name (match)
+	def subst_csp_inline (match):
+		return '#(ly-export (make-event-chord (list %s)))' % subst_ev_name (match)
+		
+	def conv (str):
+		str = re.sub (r' *= *\\spanrequest *([^ ]+) *"([^"]+)"', subst_definition_ev_name, str)
+		str = re.sub (r'\\spanrequest *([^ ]+) *"([^"]+)"', subst_inline_ev_name, str)
+		str = re.sub (r' *= *\\commandspanrequest *([^ ]+) *"([^"]+)"', subst_csp_definition, str)
+		str = re.sub (r'\\commandspanrequest *([^ ]+) *"([^"]+)"', subst_csp_inline, str)
+		str = re.sub (r'ly-id ', 'ly-import ', str)
+
+		str = re.sub (r' *= *\\script "([^"]+)"', ' = #(make-articulation "\\1")', str)
+		str = re.sub (r'\\script "([^"]+)"', '#(ly-export (make-articulation "\\1"))', str)
+		return str
+
+	conversions.append (((1,7,2), conv, '\\spanrequest -> #(make-span-event .. ), \script -> #(make-articulation .. )'))
+
+
 ################################
 #	END OF CONVERSIONS	
 ################################
