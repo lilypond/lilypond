@@ -37,6 +37,7 @@ pedal = \notes {
     \translator {
       \type "Engraver_group_engraver"
       \name Dynamics
+      \alias Voice % So that \cresc works, for example.
       \consists "Output_property_engraver"
       
       minimumVerticalExtent = #'(-1 . 1)
