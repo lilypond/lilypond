@@ -21,7 +21,6 @@ cat >/dev/null <<EOC
    tar xzf /var/tmp/lilypond-*
    mv lilypond-1.9.8 lilypond-1.9.8-1
    cd -
-   export ABI=1.5
    ./bin/mknetrel -xX lilypond
 
 EOC
@@ -76,7 +75,7 @@ postconfig () {
 	rm -f config.cache
 	export HOST_CC=gcc
 	export HOST_CXX=g++
-	if [ "$ABI" != "1.5" ]; then
+	if [ "$ABI" = "1.3" ]; then
 	    HOST_CC=gcc-2.95
 	    HOST_CXX=g++-2.95
 	    (cd $src && ln -s GNUmakefile.in GNUmakefile)
