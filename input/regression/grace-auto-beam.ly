@@ -1,7 +1,7 @@
 \version "1.7.6"
 \header
 {
-    texidoc = "The autobeamer is not confusde by grace notes."
+    texidoc = "The autobeamer is not confused by grace notes."
 }
 
 \score{
