@@ -531,7 +531,6 @@ AncientRemoveEmptyStaffContext = \context {
     metronomeMarkFormatter = #format-metronome-markup
     graceSettings = #`#(
 	(Voice Stem direction 1)
-
 	;; TODO: should take from existing definition.
 	;; c&p from define-grobs.scm
 	

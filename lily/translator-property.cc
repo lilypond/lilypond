@@ -88,18 +88,25 @@ execute_pushpop_property (Context * trg,
 
 	  while (prev_alist != daddy)
 	    {
-	      if (!gh_equal_p (gh_caar (prev_alist), eltprop))
+	      if (gh_equal_p (gh_caar (prev_alist), eltprop))
 		{
-		  *tail = gh_cons (gh_car (prev_alist), daddy);
-		  tail = SCM_CDRLOC (*tail);
+		  prev_alist = gh_cdr (prev_alist);
+		  break ;
 		}
+
+	      
+	      *tail = gh_cons (gh_car (prev_alist), SCM_EOL);
+	      tail = SCM_CDRLOC (*tail);
 	      prev_alist = gh_cdr (prev_alist);
 	    }
 
-	  if (new_alist == SCM_EOL)
+	  if (new_alist == SCM_EOL && prev_alist == daddy)
 	    trg->unset_property (prop);
 	  else
-	    trg->internal_set_property (prop, gh_cons (new_alist, daddy));
+	    {
+	      *tail = prev_alist;
+	      trg->internal_set_property (prop, gh_cons (new_alist, daddy));
+	    }
 	}
     }
   else
