@@ -53,9 +53,21 @@ Lookup::~Lookup ()
 }
 
 Atom
-Lookup::accidental (int j) const
+Lookup::accidental (int j, bool cautionary) const
 {
-  return afm_find (String ("accidentals") + String ("-") + to_str (j));
+  Atom a = afm_find (String ("accidentals") + String ("-") + to_str (j));
+  if (cautionary) 
+    {
+      Box b=a.extent();
+      Atom lparen = afm_find (String ("accidentals") + String ("-("));
+      lparen.translate_axis(b.x().min(),X_AXIS);
+      b.unite(lparen.extent());
+      Atom rparen = afm_find (String ("accidentals") + String ("-)"));
+      rparen.translate_axis(b.x().max(),X_AXIS);
+      b.unite(rparen.extent());
+      a = Atom(lparen.str_ + a.str_ + rparen.str_, b);
+    }
+  return a;
 }
 
 void

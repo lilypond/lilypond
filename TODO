@@ -270,8 +270,6 @@ ydirection and hshift preset
 
 	* integrate midi-elts from mi2mu and lily?
 
-	* cautionary accidental
-
 	* score-bar-scripts
 	FMR: Free memory read:
 	  * This is occurring while in:

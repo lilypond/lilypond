@@ -70,7 +70,8 @@ Local_key_item::brew_molecule_p() const
       Real dy =
 	(c0_position_i_ + accidental_pitch_arr_[i].notename_i_)
 	* paper()->internote_f ();
-      Atom a (lookup_l ()->accidental (accidental_pitch_arr_[i].accidental_i_));
+      Atom a (lookup_l ()->accidental (accidental_pitch_arr_[i].accidental_i_, 
+	      accidental_pitch_arr_[i].cautionary_b_));
 
       a.translate_axis (dy, Y_AXIS);
       Molecule m(a);

@@ -347,7 +347,7 @@ label(notedesc)
 subsect(Basic Note Specification)
 
 A note specification has the form 
-var(pitch)[var(octavespec)][code(!)][var(duration)].
+var(pitch)[var(octavespec)][code(!)][code(?)][var(duration)].
 The pitch of the note is specified by the note's name.  
 
 LilyPond has predefined note names for various languages.  The default
@@ -395,9 +395,11 @@ will determine what accidentals to  typeset  depending on the  key and
 context.   
 A reminder accidental can be forced by
 using the  optional exclamation mark `code(!)'
-on a pitch.
+on the pitch.
+A cautionary accidental, i.e., an accidental within paranthesis
+can be obtained using the optional question mark `code(?)' on the pitch.
 mudela(fragment,verbatim,center)(
-cis' d' e' cis'  c'! d' e' c' 
+cis' d' e' cis'  c'? d' e' c'!  
 )
 
 

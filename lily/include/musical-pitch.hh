@@ -29,6 +29,8 @@ struct Musical_pitch : public Input
   int octave_i_;
   /// 0 natural, 1 sharp, etc
   int accidental_i_;
+  /// Used for cautionary accidentals
+  bool cautionary_b_;
 
   void init () ;
   Musical_pitch to_relative_octave (Musical_pitch);

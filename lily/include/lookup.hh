@@ -29,7 +29,7 @@ public:
   Lookup (Symtables const&);
   virtual ~Lookup ();
   
-  Atom accidental (int) const;
+  Atom accidental (int,bool) const;
   void add (String, Symtable*);
   virtual Atom afm_find (String s, bool warn=true) const = 0;
   Atom afm_find (String, String, bool warn=true) const;

@@ -1,3 +1,7 @@
+pl 17.mb2
+        - Full support for cautionary accidentals. Try input/test/accid.fly
+	  Note that the font has changed.
+
 pl 17.mb1
         - bf: No unnecessary warnings about time signatures
         - Added optional second argument of \key. Set to \major or \minor 

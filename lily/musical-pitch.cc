@@ -21,6 +21,7 @@ Musical_pitch::init ()
   notename_i_ = 0;
   octave_i_ = 0;
   accidental_i_ = 0;
+  cautionary_b_ = false;
 }
 
 void

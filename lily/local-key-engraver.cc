@@ -67,10 +67,9 @@ Local_key_engraver::process_acknowledged ()
 	      key_item_p_ = new Local_key_item;
 	      announce_element (Score_element_info (key_item_p_, 0));	      
 	    }
-	  ///////// TODO: Handle cautionary accidentals
 	  if (note_l->cautionary_b_)
 	    {
-	      warning (_("cautionary accidentals are not yet supported"));
+	      note_l->pitch_.cautionary_b_ = true;
 	    }
 
 	  key_item_p_->add (note_l->pitch_);
