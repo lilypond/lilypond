@@ -13,8 +13,8 @@
 ;;; where
 ;;;
 ;;;     function = begin or end
-;;;     shortest-duration-in-beam = numerator denominator; eg: 1 16
-;;;     time-signature = numerator denominator, eg: 4 4
+;;;     shortest-duration-in-beam = numerator denominator; e.g.: 1 16
+;;;     time-signature = numerator denominator, e.g.: 4 4
 ;;;
 ;;; unspecified or wildcard entries for duration or time-signature
 ;;; are given by * *

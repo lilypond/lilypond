@@ -66,7 +66,7 @@ files. The temporary directory is created in the current directory as @code{@cod
 @cindex bitmap
 @cindex pixmap
 @cindex thumbnail
-@cindex screenshot
+@cindex screen shot
     
 @item -s,--set=@var{key}=@var{val}
     Add @var{key}= @var{val} to the settings, overriding those specified
@@ -230,7 +230,7 @@ they will each be processed independently.  @footnote{The status of
   system defaults from within Scheme.}
 
 We strongly advise against making LilyPond formatting available
-through a webserver. That is, processing input from untrusted users,
+through a web server. That is, processing input from untrusted users,
 and returning the resulting PDF file. LilyPond is a big and complex
 program. It was not written with security in mind. Making it available
 to the outside world is a huge risk; consider the security
@@ -523,7 +523,7 @@ information.
 
 @node Point and click
 @section Point and click
-@cindex poind and click
+@cindex point and click
 
 @cindex source specials
 @cindex specials, source
@@ -641,7 +641,7 @@ with the following line:
 @example
 #(ly:set-point-and-click 'line-column)
 @end example
-@cindex line-colomn-location
+@cindex line-column-location
 and set @code{XEDITOR} to @code{emacsclient --no-wait +%l:%c %f}.  Vim
 users can set @var{XEDITOR} to @code{gvim --remote +:%l:norm%c| %f}.
 

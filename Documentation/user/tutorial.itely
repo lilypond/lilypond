@@ -93,7 +93,7 @@ the result looks like this:
 c d e f g a b
 @end lilypond
 
-The duration of a note is specfied by a number after the note name.
+The duration of a note is specified by a number after the note name.
 @samp{1} for a @rglos{whole note}, @samp{2} for a @rglos{half note},
 and so on
 
@@ -322,7 +322,7 @@ DVI output to `test.dvi'...
 @cindex xdvi
 
 The result is the file @file{test.pdf}@footnote{For @TeX{}
-afficionados: there is also a @file{test.dvi} file. It can be viewed
+aficionados: there is also a @file{test.dvi} file. It can be viewed
 with @code{xdvi}. The DVI uses a lot of PostScript specials, which do
 not show up in the magnifying glass. The specials also mean that the
 DVI file cannot be processed with @code{dvilj}. Use @code{dvips} for
@@ -337,7 +337,7 @@ http://www.cs.wisc.edu/~ghost/}, a freely available package for
 viewing and printing PDF and PostScript files.}
 
 On Windows, start up a text-editor@footnote{Any programmer-oriented
-editor will do, for example NotePad. Do not use word processor.  Its
+editor will do, for example Notepad. Do not use word processor.  Its
 formatting codes will confuse LilyPond} and enter
 
 
@@ -692,7 +692,7 @@ with more voices or more staves, we also combine expressions in
 parallel. Two voices that should play at the same time, are entered as
 a simultaneous combination of two sequences.  A ``simultaneous'' music
 expression is formed by enclosing expressions in @code{<<} and
-@code{>>}.  In the following example, three sequences (all contaning
+@code{>>}.  In the following example, three sequences (all containing
 two notes) are combined simultaneously:
  
 @lilypond[verbatim,relative=2]
@@ -1182,7 +1182,7 @@ following example shows a few common modifiers:
   \chords { c2 f4:m g4:maj7 gis1:dim7 }
 @end lilypond
 
-For leadsheets, chords are not printed on staves, but as names on a
+For lead sheets, chords are not printed on staves, but as names on a
 line of themselves. Hence, we have to override the context with
 @code{\new}, rendering the music expression in a @code{ChordNames}
 context

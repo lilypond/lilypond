@@ -28,7 +28,7 @@ from.
 
 The images below illustrate the difference between traditional
 engraving and typical computer output, and the third picture shows how
-LilyPond mimicks the traditional look. The left picture shows a scan
+LilyPond mimics the traditional look. The left picture shows a scan
 of a flat symbol from a Henle edition published in 2000. In the center
 show symbol from a hand engraved B@"{a}renreiter edition of the same
 music. The left scan illustrates typical flaws of computer print: the
@@ -175,7 +175,7 @@ How do we go about implementing typography?  If craftsmen need over
 ten years to become true masters, how could we simple hackers ever
 write a program to take over their jobs?
 
-The answer is: we cannot. Typography relies on human judgement of
+The answer is: we cannot. Typography relies on human judgment of
 appearance, so people cannot be replaced ultimately. However, much of
 the dull work can be automated. If LilyPond solves most of the common
 situations correctly, then this will be a huge improvement over
@@ -195,7 +195,7 @@ must access to the formatting engine. Hence, rules and settings cannot
 be fixed by us at compile time, but they must be accessible for users
 at run-time.
 
-@item Engraving is a matter of visual judgement, and therefore a matter of
+@item Engraving is a matter of visual judgment, and therefore a matter of
 taste. As knowledgeable as we are, users can disagree with our
 personal decisions. Therefore, the definitions of typographical style
 must also be accessible to the user.

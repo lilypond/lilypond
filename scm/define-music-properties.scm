@@ -51,10 +51,10 @@ descend in the context tree.")
      (drum-type ,symbol? "Which percussion instrument to play this note on.")
 
      (tags ,list? "List of symbols that for denoting extra details,
-eg. @code{\\tag #'part ...} could tag a piece of music as only being active in a part.")
+e.g. @code{\\tag #'part ...} could tag a piece of music as only being active in a part.")
 
 
-     (text-type ,symbol? "Particular type of text script (eg. finger, dynamic).")
+     (text-type ,symbol? "Particular type of text script (e.g. finger, dynamic).")
      (tempo-unit ,ly:duration? "The unit for the metronome count.")
      (tonic ,ly:pitch? "Base of the scale")
      (element ,ly:music? "The single child of a Music_wrapper music object, or the body of a repeat.")
