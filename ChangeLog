@@ -1,6 +1,10 @@
+2002-04-04  Han-Wen  <hanwen@cs.uu.nl>
+
+	* mf/feta-new-code.mf:  new dynamic f sign.
+
 2002-04-03  Han-Wen  <hanwen@cs.uu.nl>
 
-	* mf/feta-new-code.mf (currenttransform): new dynamic p sign.
+	* mf/feta-new-code.mf: new dynamic p sign.
 
 2002-04-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 

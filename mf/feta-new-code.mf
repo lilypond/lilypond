@@ -1,13 +1,38 @@
 
+%
+% piano p, grabbed from Ed Breitkopf Mozart horn concerto 3.
+%
+% Notes:
+%
+% * there is no dishing in the serif (but we do it anyway)
+%
+% * The cheek is a little fatter than the stem 
+% 
+% * The slant is extreme: 20 degrees
+%
+% * the twiddle (what'sitcalled) is a slightly darker than the serif
+%
+% * The hole in the cheek has a straight right side.
+%
+% * Corners are filled up.
+%
+%
 
 code := 111;
 save slant;
 slant := 20;
 currenttransform := identity;
-fet_beginchar("dynamic p", "p", "dynp")
-	set_char_box (0, 13/12 new_ex#, descender#, 1.0 new_ex#);
 
-	save twiddle_thick, stem_thick, cheek_thick, serif_thick;
+
+save serif_thick;
+
+serif_thick = round (1.0 stafflinethickness);
+med_thick = round (1.5 stafflinethickness);
+
+fet_beginchar("dynamic p", "p", "dynp")
+	set_char_box (0, 13/12 ex#, descender#, 1.0 ex#);
+
+	save twiddle_thick, stem_thick, cheek_thick;
 	save updir, fill_up;
 	save serif, dishing_angle, p, q;
 	save cheek_medium, left_serif_protude, right_serif_protude;
@@ -16,47 +41,50 @@ fet_beginchar("dynamic p", "p", "dynp")
 	path serif,q,p;
 
 	updir := dir (90 - slant );
-	twiddle_thick = 1.5 stafflinethickness;
-	cheek_medium = 1/6 new_ex;
-	serif_thick =1.0 stafflinethickness;
+	twiddle_thick = med_thick;
+	cheek_medium = 1/6 ex;
+
 	dishing_angle = 5;
 	fill_up := 1.5 serif_thick;
+	straigh_len = 0.5 ex;
 
-	stem_thick = 2/6 new_ex;
-	cheek_thick = 5/16 new_ex;
-	cheek_width = 3/4 new_ex;
-	left_serif_protude = 18/60 new_ex;
-	right_serif_protude= 15/60 new_ex;
+	stem_thick = 2/6 ex;
+	cheek_thick = 11/32 ex;
+	cheek_width = 0.72 ex;
+	left_serif_protude = 18/60 ex;
+	right_serif_protude= 15/60 ex;
 	
 	penpos1 (twiddle_thick, -slant - 5);
 	penpos2 (cheek_medium, 90 - slant );
 	penpos3 (cheek_medium, 90 - slant);
 
-	x4r - x4l = cheek_thick; 
-	penpos4 (whatever, -slant);
+%	x4r - x4l = cheek_thick; 
+	penpos4 (cheek_thick, -slant);
 	penpos5 (cheek_medium, -55);
 	penpos6 (stem_thick, 0);
+	penpos17 (straigh_len, 90 -slant);
+	z17 = z4l;
 
 	x6l = 0;
 	y6l = - descender + serif_thick/2;
 	x1l = x6l;
-	y1r = 0.5 new_ex;
-	y2r = new_ex;
+	y1r = 0.5 ex;
+	y2r = ex;
 	z7 = whatever * updir + z6l;
-	y7 = 43/60  new_ex;
+	y7 = 43/60  ex;
 	
 	z2l = whatever *updir + 0.3 [z7, z1r];
 	y8 = ypart (0.9 [z7, z2l]);
 	z8 = 2/3 [z6l, z6r] + whatever * updir;
 
 
-	y3r = new_ex;
+	y3r = ex;
 	z3l = 0.58 [(stem_thick, -descender), (stem_thick + cheek_width - cheek_thick, -descender)] + whatever * updir;
-	y4r = 1/3 new_ex;
+	y4r = 1/3 ex;
 	z4r = whatever*updir + (stem_thick+  cheek_width, -descender);
 
 	z5l = whatever*updir  + z3l;
-	y5l = 1/12 new_ex;
+	y5l = 1/12 ex;
 
 	z9 = z6r + whatever*updir;
 	y9 = y5l;
@@ -72,15 +100,15 @@ fet_beginchar("dynamic p", "p", "dynp")
 	pickup pencircle scaled 1;
 	fill p;
 
-	y12  = 0.5 new_ex;
+	y12  = 0.5 ex;
 	z12 = z6r + whatever*updir;
 
 	save inner_tension;
 	inner_tension = 1.4;
 	q :=
-		z4l{updir} .. tension 1.1 inner_tension .. z3l{left}.. z12{-updir} .. z5l{right} .. tension inner_tension .. cycle; 
+		z17l --- z17r  .. z3l{left}.. tension 1.05 .. z12{-updir} .. tension 1.05 .. z5l{right} .. cycle; 
 	unfill q;
-	penlabels (1, 2, 3, 4, 5, 6);
+	penlabels (1, 2, 3, 4, 5, 6, 17);
 
 
 
@@ -108,3 +136,96 @@ fet_beginchar("dynamic p", "p", "dynp")
 	draw z14{-(direction 0.85 of serif)} .. z15{updir};
 fet_endchar;
 
+% forte f, grabbed from Ed Breitkopf Mozart horn concerto 3.
+%
+% NOTES:
+%
+% * the bulbs are open.
+%
+% * blotting around the serif
+%
+%
+
+code := 101;
+fet_beginchar("dynamic f", "f", "dynf");
+	set_char_box (0, 1.25 ex#, descender#, ex# + ascender#);
+
+	save left_angle, right_angle;
+	save serif_length, serif_excentricity;
+	save f_thick;
+	save bulb_thick, bulb_diam, fill_up;
+	save p;
+	path p;	
+	bulb_diam = 7.5 / 40 ex;
+	fill_up = 1.5 serif_thick;
+	left_angle = slant  - 6;
+	right_angle = slant - 3;
+	f_thick = 3/8 ex;
+	bulb_thick = 8/40 ex;
+	serif_length = 0.96 ex;
+	serif_excentricity = 0.01 ex;
+
+	z1 = (0.375 ex,0);
+	y2 = y1 + ex;
+	z2l = z1 + whatever*dir (90 - left_angle);
+	penpos2 (f_thick, 0);
+
+	y3l = ex + ascender;
+	x3l = x1 + 1 ex;
+	penpos3 (med_thick, -90);
+	penpos4 (bulb_thick, -20);
+	z3r = whatever [z4r,z4l];
+
+	x4l - x3l = 1/10 ex;
+
+	penpos5(bulb_thick, -45);
+	x5r = 0.1 [x4l, x4r];
+	y5l = y4l - bulb_diam;
+
+	z6 = z2r + whatever* dir (90 - right_angle);
+	y6 = 3/8 ex;
+
+	x7 = x1 - 1/4 ex;
+	y7r = -descender;
+	penpos7(med_thick, -90);
+
+	penpos8 (bulb_thick, 160);
+	x8l = x7l - 1/10 ex;
+	z7l = whatever [z8r,z8l];
+
+	penpos9 (bulb_thick, 135);
+	x9r = 0.1 [x8l, x8r];
+	y9l = y8l + bulb_diam;
+	labels(1,6,9);
+	penlabels(2, 3,4,5, 7, 8,9);
+
+	p := z1 --- z2l 
+		.. tension 1.1
+		.. z3l{right} .. z4r{down}
+		.. z5r{left} .. z5l{up}
+		.. tension 0.8
+		.. z4l{up} .. z3r{left}
+		.. tension 1.1
+		.. z2r --- z6 .. tension 1.25 ..  z7r{left}
+		.. z8r{up} .. z9r{right} .. z9l{down} .. tension 0.8
+		.. z8l{down} .. z7l{right} .. cycle;
+	pickup pencircle scaled 1;
+	fill p;
+%	draw p;
+
+	pickup pencircle scaled serif_thick;
+	(rt x13) - (lft x14) = serif_length;
+	y13 = y14;
+	y14 = y2;
+	0.5 [x13, x14] = x2 + serif_excentricity;
+
+	draw z13 .. z14;
+
+%
+% TODO: insert blots around the serif
+%
+%
+%
+	penlabels(16);
+	labels(13,14,15);
+fet_endchar;

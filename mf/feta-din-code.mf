@@ -94,8 +94,6 @@ low_asterisk:=false;    % should the asterisk be centered at the axis?
 math_fitting:=false;    % should math-mode spacing be used?
 
 
-
-
 % "f" obviously has a _lot_ bigger slant than "p" (see Wanske p.239)
 % however; perhaps we need two f symbols:
 %  - a super-slanted one used in "f" "mf" "sfz" "sf", and
@@ -119,25 +117,8 @@ flare#:=M*52/36pt#;    % diameter of bulbs or breadth of terminals
 mode_setup;
 font_setup;
 
-num=-1;
-xbar:=M*u;
 
-save fcode;
 
-fcode = 101;
-input feta-ital-f;
-
-bar#:=M*17/36pt#;      % lowercase bar thickness
-slant:=.38;      % tilt ratio $(\Delta x/\Delta y)$
-stem#:=M*58/36pt#;    % lowercase stem breadth
-font_setup;
-xbar:=M*.4u;
-
-save fcode;
-
-fcode = 102;
-
-input feta-ital-f;
 
 slant:=.28;      % tilt ratio $(\Delta x/\Delta y)$
 stem#:=M*32/36pt#;    % lowercase stem breadth
