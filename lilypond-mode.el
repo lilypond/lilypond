@@ -44,7 +44,7 @@
 		     "duration" "font" "grace" "header" "in" "lyrics"
 		     "key" "keysignature" "mark" "musicalpitch"
 		     "time" "times" "midi" "mm" "name" "notenames"
-		     "notes" "partial" "paper" "penalty" "property" "pt"
+		     "notes" "partial" "paper" "penalty" "push" "pop" "property" "pt"
 		     "relative" "remove" "repeat" "repetitions" "addlyrics"
 		     "scm" "scmfile" "score" "script"
 		     "shape" "skip" "textscript" "tempo" "translator" "transpose"
