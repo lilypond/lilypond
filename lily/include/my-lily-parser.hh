@@ -48,6 +48,9 @@ public:
 
   My_lily_lexer * lexer_p_;
   bool ignore_version_b_;
+
+  SCM last_beam_start_;
+  void beam_check (SCM); 
   
   Input here_input () const;
   void push_spot ();

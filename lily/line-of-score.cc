@@ -51,7 +51,7 @@ void
 Line_of_score::typeset_grob (Grob * elem_p)
 {
   elem_p->pscore_l_ = pscore_l_;
-  Pointer_group_interface::add_element (this, ly_symbol2scm ("all-elements"),elem_p);
+  Pointer_group_interface::add_grob (this, ly_symbol2scm ("all-elements"),elem_p);
   scm_gc_unprotect_object (elem_p->self_scm ());
 }
 
@@ -469,7 +469,7 @@ Link_array<Grob>
 Line_of_score::column_l_arr ()const
 {
   Link_array<Grob> acs
-    = Pointer_group_interface__extract_elements (this, (Grob*) 0, "columns");
+    = Pointer_group_interface__extract_grobs (this, (Grob*) 0, "columns");
   bool bfound = false;
   for (int i= acs.size (); i -- ;)
     {

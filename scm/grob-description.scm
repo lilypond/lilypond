@@ -1,4 +1,3 @@
-
 ;;;; grob-description.scm -- part of generated backend documentation
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
@@ -425,8 +424,6 @@
 	
 	(PaperColumn . (
 		(axes 0)
-		(before-grace-spacing-factor . 1.2)
-                (before-musical-spacing-factor . 0.4)
  		(meta . ,(grob-description paper-column-interface axis-group-interface spaceable-element-interface))
 	))
 	(PhrasingSlur . (
@@ -453,8 +450,6 @@
 	
 	(NonMusicalPaperColumn . (
                 (axes 0)
-                (before-musical-spacing-factor . 1.0)
-		(column-space-strength . 2.0)
  		(meta . ,(grob-description paper-column-interface axis-group-interface spaceable-element-interface))
         ))
 
@@ -529,15 +524,13 @@
 		 ))
 	      
 	(SpacingSpanner . (
-		(spacing-procedure . ;; ,Third_spacing_spanner::set_springs
-				        ,Spacing_spanner::set_springs
-				   )
-		(stem-spacing-correction . 0.5)
+		(spacing-procedure .  ,Third_spacing_spanner::set_springs)
 		(grace-space-factor . 0.8)
 
 		;; TODO: change naming -- unintuitive
 		(arithmetic-basicspace . 2.0)
 		(arithmetic-multiplier . ,(* 0.9 1.32))
+
 		;; assume that notes at least this long are present.
 		(maximum-duration-for-spacing . ,(make-moment 1 8))
 		(meta . ,(grob-description  spacing-spanner-interface))
@@ -582,7 +575,8 @@
 	(NoteSpacing . (
 		(X-extent-callback . #f)
 		(Y-extent-callback . #f)
-
+		(stem-spacing-correction . 0.)
+		(space-factor . 1.0)
 		(meta . ,(grob-description note-spacing-interface))
 	))
 

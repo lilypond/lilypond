@@ -190,7 +190,7 @@ Spanner::set_bound (Direction d, Grob*s)
   */
   if (dynamic_cast<Paper_column*> (i))
     {
-      Pointer_group_interface::add_element (i, ly_symbol2scm ("bounded-by-me"), this);  
+      Pointer_group_interface::add_grob (i, ly_symbol2scm ("bounded-by-me"), this);  
     }
 }
 
@@ -398,4 +398,11 @@ Spanner::set_spacing_rods (SCM smob)
 
   r.add_to_cols ();
   return SCM_UNSPECIFIED;
+}
+
+
+Spanner*
+unsmob_spanner (SCM s )
+{
+  return dynamic_cast<Spanner*> (unsmob_grob (s));
 }

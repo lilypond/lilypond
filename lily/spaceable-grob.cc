@@ -67,7 +67,6 @@ Spaceable_grob::remove_interface (Grob*me)
 {
   me->remove_grob_property ("minimum-distances");
   me->remove_grob_property ("ideal-distances");
-  me->remove_grob_property ("dir-list");
 }
 
 

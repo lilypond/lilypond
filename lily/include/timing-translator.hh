@@ -20,12 +20,9 @@ class Timing_translator : public virtual Translator
 public:
   VIRTUAL_COPY_CONS (Translator);
   Timing_translator ();
-  Music *check_;
 
 protected: 
   virtual void initialize ();
-  virtual bool try_music (Music *req_l);
-  virtual void process_music ();
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
 

@@ -181,6 +181,9 @@ public:
 };
 
 DECLARE_UNSMOB(Grob,grob);
+Spanner* unsmob_spanner (SCM );
+Item* unsmob_item (SCM );
+
 
 #endif // STAFFELEM_HH
 

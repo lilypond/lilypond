@@ -11,7 +11,6 @@
 #include "musical-request.hh"
 #include "item.hh"
 #include "bar.hh"
-#include "timing-translator.hh"
 #include "staff-symbol-referencer.hh"
 #include "translator-group.hh"
 #include "engraver.hh"

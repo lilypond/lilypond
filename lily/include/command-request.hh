@@ -40,13 +40,6 @@ protected:
   VIRTUAL_COPY_CONS (Music);
 };
 
-/// check if we're at start of a  measure.
-class Barcheck_req  : public Request  {
-public:
-  bool do_equal_b (Request const *) const;
-  VIRTUAL_COPY_CONS (Music);
-};
-
 class Breathing_sign_req : public Request {
   VIRTUAL_COPY_CONS (Music);
 };

@@ -47,7 +47,7 @@ Item *
 Note_column::stem_l (Grob*me) 
 {
   SCM s = me->get_grob_property ("stem");
-  return  dynamic_cast<Item*> (unsmob_grob (s));
+  return  unsmob_item (s);
 }
   
 Slice
@@ -99,7 +99,7 @@ Note_column::add_head (Grob*me,Grob *h)
     }
   else if (Note_head::has_interface (h))
     {
-      Pointer_group_interface::add_element (me, ly_symbol2scm ("note-heads"),h);
+      Pointer_group_interface::add_grob (me, ly_symbol2scm ("note-heads"),h);
     }
   Axis_group_interface::add_element (me, h);
 }

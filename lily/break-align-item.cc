@@ -86,7 +86,7 @@ Break_align_interface::do_alignment (Grob *me)
 
   Link_array<Grob> elems;
   Link_array<Grob> all_elems
-    = Pointer_group_interface__extract_elements (me, (Grob*)0,
+    = Pointer_group_interface__extract_grobs (me, (Grob*)0,
 						 "elements");
   
   for (int i=0; i < all_elems.size (); i++) 

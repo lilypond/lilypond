@@ -135,7 +135,7 @@ Dot_column::add_head (Grob * me, Grob *rh)
     {
       Side_position_interface::add_support (me,rh);
 
-      Pointer_group_interface::add_element (me, ly_symbol2scm ("dots"), d);
+      Pointer_group_interface::add_grob (me, ly_symbol2scm ("dots"), d);
       d->add_offset_callback (Dot_column::force_shift_callback_proc , Y_AXIS);
       Axis_group_interface::add_element (me, d);
     }

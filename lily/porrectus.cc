@@ -47,7 +47,7 @@ Porrectus::get_left_head (Grob *me)
     }
   else
     {
-      Item *left_head = dynamic_cast<Item*> (unsmob_grob (left_head_scm));
+      Item *left_head = unsmob_item (left_head_scm);
       return left_head;
     }
 }
@@ -77,7 +77,7 @@ Porrectus::get_right_head (Grob *me)
     }
   else
     {
-      Item *right_head = dynamic_cast<Item*> (unsmob_grob (right_head_scm));
+      Item *right_head = unsmob_item (right_head_scm);
       return right_head;
     }
 }

@@ -1,3 +1,50 @@
+2001-12-29  Han-Wen  <hanwen@cs.uu.nl>
+	
+	* VERSION: 1.5.28 released
+
+        * lily/parser.yy (My_lily_parser): Slightly kludgy warning for
+        illicit beams on [c4 c4] etc.
+
+        * lily/bar-check-iterator.cc (Bar_check_iterator): new
+        file. Make separate iterator for Bar_checks. Bar_check now happen
+        outside engravers, meaning that you can use them with
+        skipTypesetting. Associated changes in other files.
+        
+        * lily/new-spacing-spanner.cc (stem_dir_correction): removed
+        function
+        
+        * lily/spacing-spanner.cc (stem_dir_correction): removed function
+
+        * lily/include/grob.hh (unsmob_item, unsmob_spanner): Add functions
+
+        * lily/bar.cc (before_line_breaking): remove bar-line spacing code.
+
+        * lily/stem.cc (set_spacing_hints): removed function
+
+        * lily/note-spacing.cc (stem_dir_correction): new stem-direction
+        correction for spacing; now take vertical extents of the stem into
+        account.  
+
+        * lily/third-try.cc: More hacking to get spacing working.
+
+        * lily/note-spacing-engraver.cc: new file, Note_spacing_engraver
+        sits at staff level and creates note spacing objects. Scrap it
+        again, and document why.
+
+        * lily/include/group-interface.hh: rename functions. 
+
+2001-12-27  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* stepmake/stepmake/c++-rules.make:
+	* stepmake/stepmake/c-rules.make: Fixes for bison-1.28.
+
+2001-12-25  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* make/lilypond-vars.make: 
+	* scripts/ly2dvi.py (setup_environment): 
+	* scripts/lilypond-book.py (setup_environment): Also set tex
+	memory options.
+
 2001-12-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* VERSION: 1.5.27 released.

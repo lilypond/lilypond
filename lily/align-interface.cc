@@ -65,7 +65,7 @@ Align_interface::align_to_fixed_distance (Grob *me , Axis a)
     }
   
   Link_array<Grob> elems
-    = Pointer_group_interface__extract_elements (me, (Grob*) 0, "elements");
+    = Pointer_group_interface__extract_grobs (me, (Grob*) 0, "elements");
 
   Real where_f=0;
 
@@ -150,7 +150,7 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
 
   Link_array<Grob> elems;
   Link_array<Grob> all_grobs
-    = Pointer_group_interface__extract_elements (me, (Grob*) 0, "elements");
+    = Pointer_group_interface__extract_grobs (me, (Grob*) 0, "elements");
   for (int i=0; i < all_grobs.size (); i++) 
     {
       Interval y = all_grobs[i]->extent (me, a);

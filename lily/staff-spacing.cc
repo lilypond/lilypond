@@ -1,5 +1,5 @@
 /*   
-staff-spacing.cc --  implement 
+staff-spacing.cc --  implement Staff_spacing
 
 source file of the GNU LilyPond music typesetter
 
@@ -16,3 +16,10 @@ Staff_spacing::has_interface (Grob* g)
   return g && g->has_interface (ly_symbol2scm ("staff-spacing-interface"));
 }
 
+
+/*
+  
+  TODO: move computation of clef/key-sig/whatever to first-note
+  distance here.
+
+*/

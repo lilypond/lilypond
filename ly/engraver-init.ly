@@ -21,7 +21,6 @@ StaffContext=\translator {
 	SeparatingGroupSpanner \override #'spacing-procedure
 	  =  #Separating_group_spanner::set_spacing_rods_and_seqs
 
-
 	\consists "Clef_engraver"
 	\consists "Key_engraver"
 	\consists "Time_signature_engraver"
@@ -32,7 +31,7 @@ StaffContext=\translator {
 	\consists "Piano_pedal_engraver"
 	\consists "Instrument_name_engraver"
 	\consists "Grob_pq_engraver"
-	
+
 	\consistsend "Axis_group_engraver"
 	
 	MinimumVerticalExtent = #'(-4 . 4)

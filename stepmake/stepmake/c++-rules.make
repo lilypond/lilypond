@@ -14,14 +14,14 @@ $(outdir)/%.lo: $(outdir)/%.cc
 
 $(outdir)/%.cc: %.yy
 	$(BISON) $<
-	@-mv -f parser.tab.c parser.tab.cc  # bison < 1.30
-	mv parser.tab.cc $@
+	@-mv -f $(*F).yy.tab.c $(*F).tab.cc  # bison < 1.30
+	mv $(*F).tab.cc $@
 
 $(outdir)/%.hh: %.yy
 	$(BISON) -d $<
-	@-mv -f parser.tab.h parser.tab.hh  # bison < 1.30
-	mv parser.tab.hh $@
-	rm -f parser.tab.c parser.tab.cc	# if this happens in the wrong order it triggers recompile of the .cc file 
+	@-mv -f $(*F).yy.tab.h $(*F).tab.hh  # bison < 1.30
+	mv $(*F).tab.hh $@
+	rm -f $(*F).tab.c $(*F).tab.cc	# if this happens in the wrong order it triggers recompile of the .cc file 
 
 $(outdir)/%.cc: %.ll
 	$(FLEX) -Cfe -p -p -t $< > $@

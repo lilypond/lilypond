@@ -3977,6 +3977,12 @@ A bar check is entered using the bar symbol, @code{|}:
   \time 3/4 c2 e4 | g2.
 @end example
 
+@cindex skipTypesetting
+
+Bar checks are not affected by @code{skipTypesetting}, so if you are
+debugging a large score, you are advised to run it with skipTypesetting
+first to correct all overfull and underfull measures.
+
 @c .  {Point and click}
 @node Point and click
 @subsection Point and click

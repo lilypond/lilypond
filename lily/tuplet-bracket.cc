@@ -48,7 +48,7 @@ Tuplet_bracket::brew_molecule (SCM smob)
   Grob *me= unsmob_grob (smob);
   Molecule  mol;
   Link_array<Grob> column_arr=
-    Pointer_group_interface__extract_elements (me, (Grob*)0, "columns");
+    Pointer_group_interface__extract_grobs (me, (Grob*)0, "columns");
 
 
   if (!column_arr.size ())
@@ -139,7 +139,7 @@ void
 Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy) 
 {
   Link_array<Grob> column_arr=
-    Pointer_group_interface__extract_elements (me, (Grob*)0, "columns");
+    Pointer_group_interface__extract_grobs (me, (Grob*)0, "columns");
 
 
   Grob * commony = me->common_refpoint (me->get_grob_property ("columns"), Y_AXIS);
@@ -220,7 +220,7 @@ void
 Tuplet_bracket::calc_dy (Grob*me,Real * dy)
 {
   Link_array<Grob> column_arr=
-    Pointer_group_interface__extract_elements (me, (Grob*)0, "columns");
+    Pointer_group_interface__extract_grobs (me, (Grob*)0, "columns");
 
   /*
     ugh. refps.
@@ -236,7 +236,7 @@ Tuplet_bracket::after_line_breaking (SCM smob)
 {
   Grob * me = unsmob_grob (smob);
   Link_array<Note_column> column_arr=
-    Pointer_group_interface__extract_elements (me, (Note_column*)0, "columns");
+    Pointer_group_interface__extract_grobs (me, (Note_column*)0, "columns");
 
   if (!column_arr.size ())
     {
@@ -292,7 +292,7 @@ Tuplet_bracket::get_default_dir (Grob*me)
 void
 Tuplet_bracket::add_column (Grob*me, Item*n)
 {
-  Pointer_group_interface::add_element (me, ly_symbol2scm ("columns"), n);
+  Pointer_group_interface::add_grob (me, ly_symbol2scm ("columns"), n);
   me->add_dependency (n);
 
   add_bound_item (dynamic_cast<Spanner*> (me), n);

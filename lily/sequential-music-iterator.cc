@@ -10,7 +10,6 @@
 #include "debug.hh"
 #include "sequential-music-iterator.hh"
 #include "music-list.hh"
-#include "request-chord-iterator.hh"
 
 
 /*

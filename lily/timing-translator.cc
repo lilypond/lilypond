@@ -14,39 +14,11 @@
 #include "global-translator.hh"
 #include "multi-measure-rest.hh"
 
-/*
-  TODO: change the rest of lily, so communication with
-  Timing_translator is only done through properties.  This means the
-  class declaration can go here.  */
-bool
-Timing_translator::try_music (Music*r)
-{
-  if (dynamic_cast<Barcheck_req*> (r))
-    {
-      check_ = r;
-      return true;
-    }
-  return false;
-}
 
-void
-Timing_translator::process_music ()
-{
-  if (check_ && measure_position ().main_part_)
-    {
-      check_->origin ()->warning (_f ("barcheck failed at: %s", 
-				      measure_position ().str ()));
-      Moment zero; 
-      
-      if (!to_boolean (get_property ("barCheckNoSynchronize")))
-	daddy_trans_l_->set_property ("measurePosition", zero.smobbed_copy ());
-    }
-}
 
 void
 Timing_translator::stop_translation_timestep ()
 {
-  check_ = 0;
   
   Translator *t = this;
   Global_translator *global_l =0;
@@ -127,7 +99,6 @@ Timing_translator::measure_position () const
 void
 Timing_translator::start_translation_timestep ()
 {
-  check_ = 0;
   Translator *t = this;
   Global_translator *global_l =0;
   do

@@ -163,12 +163,7 @@ Spacing_spanner::do_measure (Grob*me, Link_array<Grob> const & cols)
 	    don't want to create too much extra space for accidentals
 	  */
 	  if (Paper_column::musical_b (rc))
-	   {
-	      if (to_boolean (rc->get_grob_property ("contains-grace")))
-		right_dist *= gh_scm2double (rc->get_grob_property ("before-grace-spacing-factor")); // fixme.
-	      else
-		right_dist *= gh_scm2double (lc->get_grob_property ("before-musical-spacing-factor"));
-	   }
+	    right_dist *= gh_scm2double (lc->get_grob_property ("before-musical-spacing-factor"));
 
  	  s.distance_f_ = left_distance + right_dist;
 	    
@@ -407,14 +402,6 @@ Spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
 
 
 
-  /*
-    UGH: KLUDGE!
-  */
-  
-  if (delta_t > Moment (Rational (1,32)))
-    dist += stem_dir_correction (me, lc,rc);
-
-
   Moment *lm = unsmob_moment (lc->get_grob_property ("when"));
   Moment *rm = unsmob_moment (rc->get_grob_property ("when"));
 
@@ -429,57 +416,6 @@ Spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
   
   return dist;
 }
-
-
-/**
-   Correct for optical illusions. See [Wanske] p. 138. The combination
-   up-stem + down-stem should get extra space, the combination
-   down-stem + up-stem less.
-
-   This should be more advanced, since relative heights of the note
-   heads also influence required correction.
-
-   Also might not work correctly in case of multi voices or staff
-   changing voices
-
-   TODO: lookup correction distances?  More advanced correction?
-   Possibly turn this off?
-
-   TODO: have to check wether the stems are in the same staff.
-
-   This routine reads the DIR-LIST property of both its L and R arguments.  */
-Real
-Spacing_spanner::stem_dir_correction (Grob*me, Grob*l, Grob*r) 
-{
-  SCM dl = l->get_grob_property ("dir-list");
-  SCM dr = r->get_grob_property ("dir-list");
-  
-  if (scm_ilength (dl) != 1 || scm_ilength (dr) != 1)
-    return 0.;
-
-  dl = ly_car (dl);
-  dr = ly_car (dr);
-
-  assert (gh_number_p (dl) && gh_number_p (dr));
-  int d1 = gh_scm2int (dl);
-  int d2 = gh_scm2int (dr);
-
-  if (d1 == d2)
-    return 0.0;
-
-
-  Real correction = 0.0;
-  Real ssc = gh_scm2double (me->get_grob_property ("stem-spacing-correction"));
-
-  if (d1 && d2 && d1 * d2 == -1)
-    {
-      correction = d1 * ssc;
-    }
-  else
-    programming_error ("Stem directions not set correctly for optical correction");
-  return correction;
-}
-  
 
 MAKE_SCHEME_CALLBACK (Spacing_spanner, set_springs,1);
 SCM

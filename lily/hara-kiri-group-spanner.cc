@@ -99,5 +99,5 @@ void
 Hara_kiri_group_spanner::add_interesting_item (Grob* me,Grob* n)
 {
   me->add_dependency (n);
-  Pointer_group_interface::add_element (me, ly_symbol2scm ("items-worth-living"),n);
+  Pointer_group_interface::add_grob (me, ly_symbol2scm ("items-worth-living"),n);
 }

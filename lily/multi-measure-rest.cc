@@ -223,7 +223,7 @@ Multi_measure_rest::brew_molecule (SCM smob)
 void
 Multi_measure_rest::add_column (Grob*me,Item* c)
 {
-  Pointer_group_interface::add_element (me, ly_symbol2scm ("columns"),c);
+  Pointer_group_interface::add_grob (me, ly_symbol2scm ("columns"),c);
 
   add_bound_item (dynamic_cast<Spanner*> (me),c);
 }

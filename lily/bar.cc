@@ -159,27 +159,6 @@ Bar::before_line_breaking (SCM smob)
   if (! gh_equal_p (g, orig))
     me->set_grob_property ("glyph", g);
 
-  
-  /*
-    set a (pseudo) stem-direction, so we extra space is inserted
-    between stemup and barline.
-
-    TODO: should check if the barline is the leftmost object of the
-    break alignment.
-
-  */
-  if (gh_string_p (g))
-    {
-      Grob * col = item->column_l ();
-      SCM dirlist = col->get_grob_property ("dir-list");
-      SCM scmdir = gh_int2scm (-1); 
-      if (scm_memq (scmdir, dirlist) == SCM_BOOL_F)
-	{
-	  dirlist = gh_cons (scmdir, dirlist);
-	  col->set_grob_property ("dir-list", dirlist);
-	}
-    }
-  
   return SCM_UNSPECIFIED;
 }
   

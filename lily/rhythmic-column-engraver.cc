@@ -15,6 +15,35 @@
 #include "dot-column.hh"
 #include "musical-request.hh"
 #include "item.hh"
+#include "group-interface.hh"
+
+
+
+/*
+  this engraver  glues together stems, rests and note heads into a NoteColumn
+  grob.
+
+  It also generates spacing objects.  Originally, we have tried to
+  have the spacing functionality at different levels.
+  
+  - by simply using the sequence of Separation-item as
+  spacing-sequences (at staff level). Unfortunately, this fucks up if
+  there are different kinds of tuplets in different voices (8th and
+  8ths triplets combined made the program believe there were 1/12 th
+  notes.).
+
+  Doing it in a separate engraver using timing info is generally
+  complicated (start/end time management), and fucks up if a voice
+  changes staff.
+
+  Now we do it from here again. This has the problem that voices can
+  appear and disappear at will, leaving lots of loose ends (the note
+  spacing engraver don't know where to connect the last note of the
+  voice on the right with), but we don't complain about those, and let
+  the default spacing do its work.
+
+ */
+
 
 class Rhythmic_column_engraver :public Engraver
 {
@@ -58,6 +87,19 @@ Rhythmic_column_engraver::create_grobs ()
 	  note_column_ = new Item (get_property ("NoteColumn"));
 	  Note_column::set_interface (note_column_);
 	  announce_grob (note_column_, 0);
+
+
+         spacing_ = new Item (get_property ("NoteSpacing"));
+         spacing_->set_grob_property ("left-items", gh_cons (note_column_->self_scm (), SCM_EOL));
+         announce_grob (spacing_, 0);
+
+         if (last_spacing_)
+           {
+	     Pointer_group_interface::add_grob (last_spacing_,
+						ly_symbol2scm ("right-items" ),
+						note_column_);
+           }
+
 	}
 
       for (int i=0; i < rhead_l_arr_.size (); i++)
@@ -133,7 +175,7 @@ Rhythmic_column_engraver::start_translation_timestep ()
 
 ENTER_DESCRIPTION(Rhythmic_column_engraver,
 /* descr */       "Generates NoteColumn, an objects that groups stems, noteheads and rests.",
-/* creats*/       "NoteColumn",
+/* creats*/       "NoteColumn NoteSpacing",
 /* acks  */       "stem-interface rhythmic-head-interface dot-column-interface",
 /* reads */       "",
 /* write */       "");

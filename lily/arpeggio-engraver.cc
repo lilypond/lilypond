@@ -85,7 +85,7 @@ Arpeggio_engraver::create_grobs ()
       
       for (int i = 0; i < stems_.size (); i++)
 	{
-	  Pointer_group_interface::add_element (arpeggio_, ly_symbol2scm ("stems"), stems_[i]);
+	  Pointer_group_interface::add_grob (arpeggio_, ly_symbol2scm ("stems"), stems_[i]);
 	}
       for (int i = 0; i < supports_.size (); i++)
 	{
