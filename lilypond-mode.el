@@ -3,7 +3,7 @@
 ;;;
 ;;; source file of the GNU LilyPond music typesetter
 ;;; 
-;;; (c) 1999, 2000 Jan Nieuwenhuizen <janneke@gnu.org>
+;;; (c) 1999--2001 Jan Nieuwenhuizen <janneke@gnu.org>
 
 ;;; Inspired on auctex
 
@@ -19,7 +19,7 @@
 (require 'easymenu)
 (require 'compile)
 
-(defconst LilyPond-version "1.3.103"
+(defconst LilyPond-version "1.3.143"
   "`LilyPond-mode' version number.")
 
 (defconst LilyPond-help-address "bug-gnu-music@gnu.org"
@@ -27,6 +27,9 @@
 
 (defvar LilyPond-mode-hook nil
   "*Hook called by `LilyPond-mode'.")
+
+(defvar LilyPond-kick-xdvi nil
+  "If true, no simultaneous xdvi's are started, but reload signal is sent.")
 
 (defvar LilyPond-regexp-alist
   '(("\\([a-zA-Z]?:?[^:( \t\n]+\\)[:( \t]+\\([0-9]+\\)[:) \t]" 1 2))
@@ -292,6 +295,14 @@ Must be the car of an entry in `LilyPond-command-alist'."
 	   file))
       string)))
 
+(defun LilyPond-shell-process (name buffer command)
+  (let ((old (current-buffer)))
+    (switch-to-buffer-other-window buffer)
+    (goto-char (point-max))
+    (start-process-shell-command name buffer command)
+    (switch-to-buffer-other-window old)))
+  
+
 (defun LilyPond-command (name file)
   "Run command NAME on the file you get by calling FILE.
 
@@ -305,17 +316,19 @@ command."
     (if entry
 	(let ((command (LilyPond-command-expand (cadr entry)
 						(apply file nil))))
-	  (let* (
-		 (buffer-xdvi (get-buffer "*view*"))
-		 (process-xdvi (if buffer-xdvi (get-buffer-process buffer-xdvi) nil)))
-	    (if (and process-xdvi
-		     (string-equal name "View"))
-		;; Don't open new xdvi window, but force redisplay
-		;; We could make this an option.
-		(signal-process (process-id process-xdvi) 'SIGUSR1)
-	      (progn
-		(setq LilyPond-command-default name)
-		(LilyPond-compile-file command name))))))))
+	  (if (string-equal name "View")
+	      (let ((buffer-xdvi (get-buffer-create "*view*")))
+		(if LilyPond-kick-xdvi
+		  (let ((process-xdvi (get-buffer-process buffer-xdvi)))
+		    (if process-xdvi
+			;; Don't open new xdvi window, but force redisplay
+			;; We could make this an option.
+			(signal-process (process-id process-xdvi) 'SIGUSR1)
+		      (LilyPond-shell-process name buffer-xdvi command)))
+		  (LilyPond-shell-process name buffer-xdvi command)))
+	    (progn
+	      (setq LilyPond-command-default name)
+	      (LilyPond-compile-file command name)))))))
 	  
 ;; XEmacs stuff
 ;; Sadly we need this for a macro in Emacs 19.
