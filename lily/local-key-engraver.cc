@@ -1,7 +1,7 @@
 /*
   local-key-engraver.cc -- implement Local_key_engraver
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 // clean up!
 
@@ -18,8 +18,6 @@
 #include "engraver-group-engraver.hh"
 #include "grace-align-item.hh"
 #include "staff-symbol-referencer.hh"
-
-ADD_THIS_TRANSLATOR (Local_key_engraver);
 
 Local_key_engraver::Local_key_engraver()
 {
@@ -195,4 +193,8 @@ Local_key_engraver::do_process_requests()
       local_key_ = key_grav_l_->key_;
     }
 }
+
+
+
+ADD_THIS_TRANSLATOR(Local_key_engraver);
 

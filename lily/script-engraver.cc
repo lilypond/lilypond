@@ -1,7 +1,7 @@
 /*
   script-engraver.cc -- implement Script_engraver
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "script-engraver.hh"
@@ -13,11 +13,9 @@
 #include "rhythmic-head.hh"
 #include "dimension-cache.hh"
 
-ADD_THIS_TRANSLATOR (Script_engraver);
-
-Script_engraver::Script_engraver ()
+Script_engraver::Script_engraver()
 {
-  do_post_move_processing ();
+  do_post_move_processing();
 }
 
 bool
@@ -101,6 +99,12 @@ Script_engraver::do_process_requests()
 void
 Script_engraver::acknowledge_element (Score_element_info inf)
 {
+  bool them_grace = to_boolean (inf.elem_l_->get_elt_property ("grace"));
+  bool us_grace = to_boolean (get_property ("weAreGraceContext",0));
+
+  if (us_grace != them_grace)
+    return;
+  
   if (Stem *s = dynamic_cast<Stem*>(inf.elem_l_))
     {
       for (int i=0; i < script_p_arr_.size(); i++)
@@ -144,5 +148,7 @@ Script_engraver::do_post_move_processing()
 {
   script_req_l_arr_.clear();
 }
+
+ADD_THIS_TRANSLATOR(Script_engraver);
 
 

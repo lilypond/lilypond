@@ -4,14 +4,15 @@
    this is (Copyleft) 1996, Han-Wen Nienhuys, <hanwen@cs.uu.nl>
  */
 
+#include <string.h>
 #include <stdio.h>
 #include <iostream.h>
 #include <assert.h>
-#include <string.h>
 #include "config.h"
 #include "getopt-long.hh"
 #include "international.hh"
 #include "string-convert.hh"
+
 
 #if !HAVE_GETTEXT
 inline char*

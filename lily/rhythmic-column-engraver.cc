@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "dimension-cache.hh"
@@ -14,8 +14,6 @@
 #include "note-column.hh"
 #include "dot-column.hh"
 #include "musical-request.hh"
-
-ADD_THIS_TRANSLATOR (Rhythmic_column_engraver);
 
 Rhythmic_column_engraver::Rhythmic_column_engraver()
 {
@@ -121,4 +119,6 @@ Rhythmic_column_engraver::do_post_move_processing()
   dotcol_l_ =0;
   stem_l_ =0;
 }
+
+ADD_THIS_TRANSLATOR(Rhythmic_column_engraver);
 

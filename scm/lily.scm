@@ -61,7 +61,7 @@
   (control->string c)
   (string-append
    (string-append (number->string (car c)) " ")
-   (string-append (number->string (cadr c)) " ")))
+   (string-append (number->string (cdr c)) " ")))
 
 
 (define (font i)
@@ -89,6 +89,7 @@
 ;; Score_span_bars are only visible at start of line
 ;; i.e. if break_dir == RIGHT == 1
 (define Span_bar_engraver-visibility non-postbreak-visibility)
+(define Base_span_bar_engraver-visibility non-postbreak-visibility)
 (define mark-visibility non-prebreak-visibility)
 (define Span_score_bar_engraver-visibility postbreak-only-visibility)
 (define Piano_bar_engraver-visibility postbreak-only-visibility)
@@ -747,25 +748,22 @@
 ;
 ; How should a  bar line behave at a break? 
 ;
-
-; move this to paper.scm?
-; to override, see input/test/no-span.ly
-(define bar-break-glyph-alist
-  '((":|:" . (":|" . "|:"))
-    ("|" . ("|" . ""))
-    ("|s" . (nil . "|"))
-    ("|:" . ("|" . "|:"))
-    ("|." . ("|." . nil))
-    (":|" . (":|" . nil))
-    ("||" . ("||" . nil))
-    (".|." . (".|." . nil))
-    ("scorebar" . (nil . "scorepostbreak"))
-    ("brace" . (nil . "brace"))
-    ("bracket" . (nil . "bracket"))  
-    ))
-
 (define (break-barline glyph dir)
-   (let ((result (assoc glyph bar-break-glyph-alist)))
+   (let ((result (assoc glyph 
+			'((":|:" . (":|" . "|:"))
+			  ("|" . ("|" . ""))
+			  ("|s" . (nil . "|"))
+			  ("|:" . ("|" . "|:"))
+			  ("|." . ("|." . nil))
+			  (":|" . (":|" . nil))
+			  ("||" . ("||" . nil))
+			  (".|." . (".|." . nil))
+			  ("scorebar" . (nil . "scorepostbreak"))
+			  ("brace" . (nil . "brace"))
+			  ("bracket" . (nil . "bracket"))  
+			  )
+			)))
+
      (if (equal? result #f)
 	 (ly-warn (string-append "Unknown bar glyph: `" glyph "'"))
 	 (index-cell (cdr result) dir))

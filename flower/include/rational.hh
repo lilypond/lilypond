@@ -3,7 +3,7 @@
 
   source file of the Flower Library
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -13,7 +13,7 @@
 
 #include "compare.hh"
 #include "arithmetic-operator.hh"
-#include "fproto.hh"
+#include "flower-proto.hh"
 #include "string.hh"
 
 /**

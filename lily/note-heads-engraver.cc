@@ -1,7 +1,7 @@
 /*
   head-grav.cc -- part of GNU LilyPond
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "note-head.hh"
@@ -11,8 +11,6 @@
 #include "dots.hh"
 #include "dot-column.hh"
 #include "staff-symbol-referencer.hh"
-
-ADD_THIS_TRANSLATOR (Note_heads_engraver);
 
 Note_heads_engraver::Note_heads_engraver()
 {
@@ -119,4 +117,9 @@ Note_heads_engraver::do_pre_move_processing()
   
   note_req_l_arr_.clear ();
 }
+
+
+
+
+ADD_THIS_TRANSLATOR(Note_heads_engraver);
 

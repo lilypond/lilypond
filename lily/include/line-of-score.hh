@@ -1,7 +1,7 @@
 /*
   line-of-score.hh -- part of GNU LilyPond
 
-  (c) 1996--1999 Han-Wen Nienhuys
+  (c) 1996--2000 Han-Wen Nienhuys
 */
 
 #ifndef SCORELINE_HH

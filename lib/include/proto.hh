@@ -8,7 +8,7 @@
 #ifndef PROTO_HH
 #define PROTO_HH
 
-#include "fproto.hh"
+#include "flower-proto.hh"
 #include "real.hh"
 struct Duration;
 struct Duration_iterator;

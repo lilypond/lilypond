@@ -3,16 +3,15 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+
 
 #include "bar-number-engraver.hh"
 #include "timing-translator.hh"
 #include "timing-engraver.hh"
 #include "engraver-group-engraver.hh"
 #include "text-item.hh"
-
-ADD_THIS_TRANSLATOR (Bar_number_engraver);
 
 Bar_number_engraver::Bar_number_engraver()
 {
@@ -42,3 +41,5 @@ Bar_number_engraver::do_process_requests ()
 				 
     }
 }
+
+ADD_THIS_TRANSLATOR(Bar_number_engraver);

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1998--1999 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1998--2000 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #ifndef LILY_GUILE_HH
@@ -19,17 +19,14 @@ SCM ly_str02scm (char const*c);
 SCM ly_eval_str (String s);
 SCM ly_symbol2scm (char const *);
 String ly_symbol2string (SCM);
-SCM ly_set_x (String name , SCM val);
 
-SCM ly_append (SCM a, SCM b);
+SCM ly_offset2scm (Offset o);
+
 SCM ly_eval (SCM a);
-SCM ly_func_o (char const* name);
 SCM ly_parse_scm (char const* s, int* n);
 SCM ly_quote_scm (SCM s);
 void ly_display_scm (SCM s);
 String ly_scm2string (SCM s);
-SCM array_to_list (SCM *a , int l);
-
 
 #include "array.hh"
 
@@ -52,10 +49,10 @@ template<class T>void scm_to_array (SCM s, Array<T>* arr);
 
 //URG how templates suck!
 SCM to_scm (int i);
-void scm_to (SCM s, int* i);
+int scm_to (SCM s, int* i);
 
 SCM to_scm (Real r);
-void scm_to (SCM s, Real* r);
+Real scm_to (SCM s, Real* r);
 
 /*
   snarfing.

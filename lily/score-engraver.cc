@@ -3,9 +3,8 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-
 #include "debug.hh"
 #include "dimension-cache.hh"
 #include "line-of-score.hh"
@@ -17,9 +16,7 @@
 #include "command-request.hh"
 #include "paper-def.hh"
 
-ADD_THIS_TRANSLATOR (Score_engraver);
-
-Score_engraver::Score_engraver ()
+Score_engraver::Score_engraver()
 {
   scoreline_l_ =0;
   command_column_l_ =0;
@@ -257,6 +254,8 @@ Score_engraver::forbid_breaks ()
    */
   command_column_l_->remove_elt_property ("breakable");
 }
+
+ADD_THIS_TRANSLATOR(Score_engraver);
 
 void
 Score_engraver::do_add_processing ()

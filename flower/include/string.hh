@@ -12,15 +12,10 @@
 
 
 #include "arithmetic-operator.hh"
-#include "fproto.hh"
+#include "flower-proto.hh"
 #include "string-handle.hh"
-class ostream;
-/* Libg++ also has a String class.  Programming errors can lead to
-  confusion about which String is in use.  Uncomment the following if you have 
-  unexplained crashes after mucking with String
-  */
 
-//  #define String FlowerString
+class ostream;
 
 /** 
  

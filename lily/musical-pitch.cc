@@ -3,7 +3,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 1998--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1998--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
 #include "musical-pitch.hh"
@@ -22,11 +22,11 @@ to_scm (Musical_pitch p)
 /*
   TODO: check -- is_pitch () ?
  */
-void
-scm_to (SCM s, Musical_pitch* p)
+Musical_pitch
+scm_to (SCM s, Musical_pitch* )
 {
-  *p = Musical_pitch (gh_scm2int (gh_car (s)),
-		      gh_scm2int (gh_cadr (s)),
+  return Musical_pitch (gh_scm2int (gh_car (s)),
+			  gh_scm2int (gh_cadr (s)),
 		      gh_scm2int (gh_caddr (s)));
 }
 

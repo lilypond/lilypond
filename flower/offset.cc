@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 #include <math.h>
 
@@ -44,6 +44,23 @@ complex_multiply (Offset z1, Offset z2)
       z[X_AXIS] = z1[X_AXIS] * z2[X_AXIS] - z1[Y_AXIS]*z2[Y_AXIS];
       z[Y_AXIS] = z1[X_AXIS] * z2[Y_AXIS] + z1[Y_AXIS] * z2[X_AXIS];
   }
+  return z;
+}
+
+
+Offset
+complex_conjugate (Offset o)
+{
+  o[Y_AXIS] = - o[Y_AXIS];
+  return o;
+}
+
+Offset
+complex_divide (Offset z1, Offset z2)
+{
+  z2 = complex_conjugate (z2);
+  Offset z = complex_multiply (z1, z2);
+  z *= 1/z2.length ();
   return z;
 }
 

@@ -3,7 +3,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 1998--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1998--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
 
@@ -12,8 +12,6 @@
 #include "single-malt-grouping-item.hh"
 #include "paper-column.hh"
 #include "paper-def.hh"
-
-ADD_THIS_TRANSLATOR (Separating_line_group_engraver);
 
 Separating_line_group_engraver::Separating_line_group_engraver ()
 {
@@ -76,4 +74,8 @@ Separating_line_group_engraver::do_pre_move_processing ()
       nobreak_malt_p_ =0;
     }
 }
+
+
+
+ADD_THIS_TRANSLATOR( Separating_line_group_engraver);
 

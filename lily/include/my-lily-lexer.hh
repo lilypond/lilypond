@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #ifndef LEXER_HH
@@ -13,8 +13,7 @@
 
 #include "dictionary.hh"
 #include "lily-proto.hh"
-#include "lily-proto.hh"
-#include "fproto.hh"
+#include "flower-proto.hh"
 #include "array.hh"
 #include "string.hh"
 #include "includable-lexer.hh"
@@ -47,8 +46,6 @@ public:
   Input here_input () const;
 
   void start_main_input ();
-  bool notename_b (String) const;
-  bool chordmodifier_b (String) const;
   void set_chordmodifier_table (Notename_table*tab_p);
   void set_notename_table (Notename_table*tab_p);
   Identifier*lookup_identifier (String s);

@@ -10,19 +10,26 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 
 .* TODO
 . * use hash tabs iso. alist_ for elt property?
-. * tremolos.
+. * fix tremolos.
 . * internationalize GUILE msgs.
+. * with lily 1.3.17, i'm seeing tuplet markings slice mercilessly through
+whatever stands in their way.  for an example, see
+http://www4.smart.net/~jcovey/tmp/smith/closing.ps.gz
+on page 2, end of the second system.  is there any way around this?
 . * unbroken marks.
-. * put  property test  files in refman.
-. * fix slurdotted
+. * put property test files in refman.
+. * use gnome-print ParseAFM
+. * fix slurdotted!
 . * alignment within @itemize
-. * slur dashing.
+. * interstaff stems
 . * junk dstream output.
 . * agressive type-checking for SCM stuff.
+. * \prop slurdir in grace notes
 . * script columns
 . * Must stop before this music ends:
 verse=\lyrics {
 . * input/bugs/clef.sly: clef changes go missing
+. * clean up font metric handling. 
 . * input/test/grace.sly: wierd big spacing on grace notes
 . * TODO^2:
 .  * make  a TODO.texi, like http://www.gnu.org/software/guile/ideas.html
@@ -31,8 +38,6 @@ verse=\lyrics {
 . * context in embedded SCM errors.
 . * acc at tied note after linebreak.
 . * fix font-naming and selecting
-. * barcheck warning doesn't resync anymore
-. * provide settable/invisible span-score-bar bracket
 . * add context information to warnings
 Paper:
 waarschuwing: Kan niet beide uiteinden van bindingsboog vinden
@@ -40,7 +45,6 @@ MIDI:
 pa.ly:33:23: waarschuwing: Schroot verzoek: `Span_req':
   g' a4 bes8 \grace f8(
                          )es16 d es8 r c |
-. * sparse ties.
 . * chord tonic: placement of accidental  C#, Cb (from scm and C++)
 . * note head on stem err msg in dutch.
 . * why need to run -C mf twice?
@@ -55,7 +59,6 @@ John
 . * hara kiri _8 clef. 
 . * junk -M ? 
 . * mudela-book doco
-. * fix or replace feta-accordion.mf
 . * bracket pdf hack
 . * Mondrup:
 - if I change the property minVerticalAlign in a multi staff score with

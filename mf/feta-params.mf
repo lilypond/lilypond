@@ -1,22 +1,22 @@
 
 stafflines = 5;
 
-interline#:=staffsize#/(stafflines-1);
+staff_space#:=staffsize#/(stafflines-1);
 
 % URG!
-font_x_height  interline# ;
+font_x_height  staff_space# ;
 
 %
 %  [D.K.Roush & J.S.Gourlay] say this should be 0.072
 % We know better
 % generally, the "blackness" of most chars depends on this.
 %
-stafflinethickness#:=0.1 interline#;
+stafflinethickness#:=0.1 staff_space#;
 
 stemthickness# := stafflinethickness#;
 ledgerlinethickness# := 2 stafflinethickness#;
 
-define_pixels(interline, stemthickness);
+define_pixels(staff_space, stemthickness);
 define_pixels(stafflinethickness,ledgerlinethickness);
 
 %

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -23,6 +23,7 @@ class Axis_align_spanner;
   */
 class Base_span_bar_engraver : public Engraver
 {
+  Span_bar * spanbar_p_;
   Array<Bar*> bar_l_arr_;
 
 public:
@@ -36,7 +37,6 @@ protected:
     horizontal alignment priority, otherwise, hang the spanbar on the
     acknowledged bar.  */
   bool use_priority_b_;
-  Span_bar * spanbar_p_;
   
   virtual void acknowledge_element (Score_element_info);
   virtual void do_pre_move_processing();

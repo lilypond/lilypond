@@ -164,7 +164,8 @@ GraceContext=\translator {
 
 	\consists "Property_engraver";
 
-	stemStyle = #"grace" 
+	stemStyle = #"grace"
+	flagStyle = #"grace" 
 	weAreGraceContext = ##t 
 	fontSize = #-1
 	

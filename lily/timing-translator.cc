@@ -4,7 +4,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "debug.hh"
@@ -13,8 +13,6 @@
 #include "translator-group.hh"
 #include "global-translator.hh"
 #include "multi-measure-rest.hh"
-
-ADD_THIS_TRANSLATOR (Timing_translator);
 
 bool
 Timing_translator::do_try_music (Music*r)
@@ -108,6 +106,9 @@ Timing_translator::do_pre_move_processing()
 	global_l->add_moment_to_process (now_mom () + barleft);
     }
 }
+
+
+ADD_THIS_TRANSLATOR(Timing_translator);
 
 void
 Timing_translator::do_creation_processing()

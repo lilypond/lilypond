@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #ifndef LILY_PROTO_HH
@@ -16,7 +16,6 @@ struct Absolute_dynamic_req;
 struct Adobe_font_char_metric;
 struct Adobe_font_metric;
 struct Align_element;
-struct Align_note_column_engraver;
 struct All_font_metrics;
 struct Articulation_req;
 struct Atom;
@@ -56,7 +55,6 @@ struct Blank_req;
 struct Bow;
 struct Box;
 struct Bracket_req;
-struct Break_align_engraver;
 struct Break_align_item;
 struct Break_req;
 struct CHyphen_req;
@@ -88,7 +86,6 @@ struct Dot_column;
 struct Dots;
 struct Durational_req;
 struct Dynamic;
-struct Dynamic_engraver;
 struct Dynamic_req;
 struct Element_group;
 struct Element_group_item;
@@ -101,8 +98,6 @@ struct Font_metric;
 struct General_script_def;
 struct Global_translator;
 struct Grace_align_item;
-struct Grace_position_engraver;
-struct Grace_position_performer;
 struct Hara_kiri_group_spanner;
 struct Hara_kiri_line_group_engraver;
 struct Head_column;
@@ -131,7 +126,6 @@ struct Lyric_item;
 struct Lyric_req;
 struct Mark_req;
 struct Measure_grouping_req;
-struct Melisma_engraver;
 struct Melodic_req;
 struct Midi_def;
 struct Midi_duration;
@@ -172,7 +166,6 @@ struct Note_column;
 struct Note_column_engraver;
 struct Note_head;
 struct Note_head_engraver;
-struct Note_name_engraver;
 struct Note_performer;
 struct Note_req;
 struct Notename_table;
@@ -189,7 +182,6 @@ struct Performer;
 struct Performer;
 struct Performer_group_performer;
 struct Piano_brace;
-struct Property_engraver;
 struct Property_iterator;
 struct Rational;
 struct Re_rhythmed_music;
@@ -216,7 +208,6 @@ struct Score_element;
 struct Score_element_info;
 struct Score_performer;
 struct Script;
-struct Script_column_engraver;
 struct Script_req;
 struct Separating_group_spanner;
 struct Sequential_music;
@@ -229,7 +220,6 @@ struct Slur;
 struct Slur_engraver;
 struct Spacing_spanner;
 struct Span_bar;
-struct Span_bar_engraver;
 struct Span_req;
 struct Span_score_bar;
 struct Spanner;
@@ -240,7 +230,6 @@ struct Staff_performer;
 struct Staff_side;
 struct Staff_side_item;
 struct Staff_symbol;
-struct Staff_symbol_engraver;
 struct Stem;
 struct Stem_beam_engraver;
 struct Stem_req;
@@ -250,7 +239,6 @@ struct Super_element;
 struct Symtable;
 struct Symtables;
 struct Tempo_req;
-struct Tex_engraver;
 struct Tex_font_char_metric;
 struct Tex_font_metric;
 struct Tex_font_metric_reader;

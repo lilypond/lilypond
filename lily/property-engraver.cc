@@ -25,8 +25,6 @@ protected:
   VIRTUAL_COPY_CONS(Translator);
 };
 
-ADD_THIS_TRANSLATOR (Property_engraver);
-
 void
 Property_engraver::do_creation_processing ()
 {
@@ -73,3 +71,5 @@ Property_engraver::apply_properties (SCM p, Score_element *e)
 	e->set_elt_property (ly_symbol2string (elt_prop_name), val);
     }
 }
+
+ADD_THIS_TRANSLATOR(Property_engraver);

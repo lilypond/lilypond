@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>,
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>,
 
   Mats Bengtsson <matsb@s3.kth.se>
 */
@@ -46,8 +46,6 @@ public:
   Clef_engraver();
 };
 
-
-ADD_THIS_TRANSLATOR (Clef_engraver);
 
 Clef_engraver::Clef_engraver()
 {
@@ -213,4 +211,9 @@ Clef_engraver::do_post_move_processing()
 {
   clef_req_l_ = 0;
 }
+
+
+
+
+ADD_THIS_TRANSLATOR(Clef_engraver);
 

@@ -29,7 +29,6 @@ public:
   Grace_position_engraver();
 };
 
-ADD_THIS_TRANSLATOR (Grace_position_engraver);
 
 Grace_position_engraver::Grace_position_engraver ()
 {
@@ -106,4 +105,6 @@ Grace_position_engraver::do_post_move_processing ()
   support_.clear ();
   align_l_ =0;
 }
+
+ADD_THIS_TRANSLATOR(Grace_position_engraver);
 

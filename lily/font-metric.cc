@@ -10,7 +10,6 @@
 #include <math.h>
 #include <ctype.h>
 
-
 #include "font-metric.hh"
 
 Box
@@ -72,6 +71,7 @@ Font_metric::~Font_metric ()
 Font_metric::Font_metric ()
 {
   self_scm_ = SCM_EOL;
+  name_ = SCM_EOL;
   smobify_self ();
 }
 
@@ -98,7 +98,7 @@ Scaled_font_metric::Scaled_font_metric (Font_metric* m, int s)
 SCM
 Font_metric::description () const
 {
-  return gh_cons (ly_symbol2scm (name_str_.ch_C()), gh_int2scm (0));
+  return gh_cons (name_, gh_int2scm (0));
 }
 
 
@@ -119,17 +119,25 @@ Font_metric::do_smobify_self ()
 SCM
 Font_metric::mark_smob (SCM s)
 {
-  return SCM_EOL;
+  Font_metric * m = SMOB_TO_TYPE(Font_metric, s);
+  return m->name_;
 }
 
 int
 Font_metric::print_smob (SCM s, SCM port, scm_print_state * )
 {
-  scm_puts ("#<Font_metric>", port);
-  
+  Font_metric *m = unsmob_metrics (s);
+  scm_puts ("#<Font_metric ", port);
+  scm_display (m->name_, port);
+  scm_puts (">", port);
   return 1;
 }
 
-
-
-
+Font_metric *
+unsmob_metrics( SCM s)
+{
+  if (SMOB_IS_TYPE_B(Font_metric, s))
+    return SMOB_TO_TYPE(Font_metric, s);
+  else
+    return 0;
+}

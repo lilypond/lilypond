@@ -1,7 +1,7 @@
 /*
   slur-grav.cc -- implement Slur_engraver
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "proto.hh"
@@ -11,8 +11,6 @@
 #include "debug.hh"
 #include "note-column.hh"
 #include "translator-group.hh"
-
-ADD_THIS_TRANSLATOR (Slur_engraver);
 
 bool
 Slur_engraver::do_try_music (Music *req_l)
@@ -124,3 +122,5 @@ Slur_engraver::do_post_move_processing()
     }
 }
 
+
+ADD_THIS_TRANSLATOR(Slur_engraver);

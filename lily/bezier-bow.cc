@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1998--1999 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1998--2000 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include <math.h>
@@ -226,6 +226,19 @@ Bezier_bow::to_canonic_form ()
   if (dir_ == DOWN)
     {
       flipy (encompass_);
+    }
+
+  while (encompass_.size () > 1 && encompass_[1][X_AXIS] <= 0.0)
+    {
+      programming_error ("Degenerate slur: infinite steepness reqd");
+      encompass_.del (1);
+    }
+
+  Real l = encompass_.top ()[X_AXIS];
+  while (encompass_.size () > 1 && encompass_.top (1)[X_AXIS] >= l)
+    {
+      programming_error ("Degenerate slur: infinite steepness reqd");
+      encompass_.del (encompass_.size ()-2);
     }
 }
 

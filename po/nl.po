@@ -604,7 +604,7 @@ msgstr "Moet veertje zetten tussen verschillende kolommen"
 #: paper-def.cc:95
 #, c-format
 msgid "unknown paper variable: `%s'"
-msgstr "onbekende papier varanderlijke: `%s'"
+msgstr "onbekende papier veranderlijke: `%s'"
 
 #: paper-def.cc:99
 msgid "not a real variable"

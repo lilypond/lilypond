@@ -61,21 +61,11 @@
   
 (define generic-bar-properties
   (cons "Staff_bar" (list
-		     (list 'barSize number? 'bar-size)
-		     (list 'barType symbol? 'glyph)
-		     )
+		     (list 'barSize number? 'bar-size))
 	)
   )	
 
-(define generic-span-bar-properties
-  (cons "Span_bar" (list
-		     (list 'barSize number? 'bar-size)
-		     (list 'barType symbol? 'glyph)
-		     )
-	)
-  )	
-
-(define staff-symbol-properties
+(define generic-staff-symbol-properties
   (cons "Staff_symbol" (list
 			(list 'numberOfStaffLines number? 'line-count)
 			(list 'staffSpace number? 'staff-space)
@@ -159,6 +149,7 @@
    generic-timesig-properties
    generic-clef-properties
    generic-collision-properties
+   generic-staff-symbol-properties
    generic-All-properties      
    )
   )

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
     Jan Nieuwenhuizen <janneke@gnu.org>
 
 */
@@ -14,6 +14,8 @@
     * move paper vars to scm
 
 */
+
+
 #include <math.h>		// tanh.
 
 #include "directional-element-interface.hh"
@@ -22,7 +24,7 @@
 #include "beam.hh"
 #include "misc.hh"
 #include "debug.hh"
-#include "leastsquares.hh"
+#include "least-squares.hh"
 #include "stem.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
@@ -322,7 +324,8 @@ Beam::do_post_processing ()
 	  set_stem_length (y, dy);
 	}
 
-      set_elt_property ("y-position", gh_double2scm (y));
+      // UGH. Y is not in staff position unit?
+      set_elt_property ("y-position", gh_double2scm (y)); 
     }
 }
 
@@ -344,18 +347,18 @@ Beam::calc_position_and_height (Real* y, Real* dy) const
       return;
     }
 
-  Least_squares ls;
+  Array<Offset> ideals;
   Real x0 = first_visible_stem ()->hpos_f ();
   for (int i=0; i < stem_count (); i++)
     {
       Stem* s = stem (i);
       if (s->invisible_b ())
         continue;
-      ls.input.push (Offset (s->hpos_f () - x0, 
-        s->calc_stem_info ().idealy_f_));
+      ideals.push (Offset (s->hpos_f () - x0, 
+			   s->calc_stem_info ().idealy_f_));
     }
   Real dydx;
-  ls.minimise (dydx, *y); // duh, takes references
+  minimise_least_squares (&dydx, y, ideals); // duh, takes references
 
   Real dx = last_visible_stem ()->hpos_f () - x0;
   *dy = dydx * dx;

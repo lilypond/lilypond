@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "proto.hh"
@@ -13,7 +13,8 @@
 #include "paper-score.hh"
 #include "score-element.hh"
 
-ADD_THIS_TRANSLATOR (Engraver_group_engraver);
+
+ADD_THIS_TRANSLATOR(Engraver_group_engraver);
 
 void
 Engraver_group_engraver::announce_element (Score_element_info info)

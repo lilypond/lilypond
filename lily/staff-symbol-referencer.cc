@@ -99,7 +99,7 @@ Staff_symbol_referencer_interface::callback (Dimension_cache const * c)
   Real off =0.0;
   if (gh_number_p (pos))
     {
-      Real space = staff_symbol_referencer_interface (sc).staff_space ();
+      Real space = staff_symbol_referencer (sc).staff_space ();
       off = gh_scm2double (pos) * space/2.0;
     }
   sc->set_elt_property ("staff-position", gh_double2scm (0.0));
@@ -133,7 +133,7 @@ Staff_symbol_referencer_interface::set_position (Real p)
 }
 
 Staff_symbol_referencer_interface
-staff_symbol_referencer_interface (Score_element const*e)
+staff_symbol_referencer (Score_element const*e)
 {
   return e;			// gee, I'm so smart!
 }

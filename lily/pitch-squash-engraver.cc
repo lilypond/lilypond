@@ -3,15 +3,13 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
-
 #include "staff-symbol-referencer.hh"
+
 #include "pitch-squash-engraver.hh"
 #include "note-head.hh"
-
-ADD_THIS_TRANSLATOR (Pitch_squash_engraver);
 
 void
 Pitch_squash_engraver::acknowledge_element (Score_element_info i)
@@ -21,5 +19,7 @@ Pitch_squash_engraver::acknowledge_element (Score_element_info i)
       Staff_symbol_referencer_interface (nh).set_position(0);
     }
 }
+
+ADD_THIS_TRANSLATOR (Pitch_squash_engraver);
 
 

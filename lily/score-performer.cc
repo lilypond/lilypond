@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996,  1997--1999 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1996,  1997--2000 Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
 #include "score-performer.hh"
@@ -19,7 +19,9 @@
 #include "source.hh"
 #include "audio-staff.hh"
 
+
 ADD_THIS_TRANSLATOR (Score_performer);
+
 
 Score_performer::Score_performer ()
 {

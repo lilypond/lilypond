@@ -13,7 +13,7 @@ begingroup
 thick#:=1/16designsize;
 define_blacker_pixels(thick);
 
-rthin:=1/8*interline;
+rthin:=1/8*staff_space;
 % rthick:=2rthin;
 rthick:=2thick+rthin;
 
@@ -25,10 +25,10 @@ enddef;
 %
 save stem, ball_crook_stem, ball_crook_balldiam, flare;
 
-% stem#:=1/8*interline#;
-stem# = 1/5interline#;
-% flare# = 2/3interline#;
-flare# = 2/3interline# - 1/8stafflinethickness#;
+% stem#:=1/8*staff_space#;
+stem# = 1/5staff_space#;
+% flare# = 2/3staff_space#;
+flare# = 2/3staff_space# - 1/8stafflinethickness#;
 
 define_pixels(stem,flare);
 
@@ -38,8 +38,8 @@ ball_crook_balldiam =flare;
 
 save block_rest_y, block_rest_x;
 
-block_rest_y# = 5/8 interline#;
-block_rest_x# = 3/2 interline#;
+block_rest_y# = 5/8 staff_space#;
+block_rest_x# = 3/2 staff_space#;
 
 define_pixels(block_rest_y, block_rest_x);
 
@@ -90,10 +90,10 @@ fet_endchar;
 
 save breve_rest_y, breve_rest_x;
 
-breve_rest_y# =  interline#;
-breve_rest_x# = 3/5 interline#;
-multi_rest_x# = 2 interline#;
-multi_rest_y# = 1/3 interline#;
+breve_rest_y# =  staff_space#;
+breve_rest_x# = 3/5 staff_space#;
+multi_rest_x# = 2 staff_space#;
+multi_rest_y# = 1/3 staff_space#;
 
 define_pixels(breve_rest_y, breve_rest_x, multi_rest_x, multi_rest_y);
 
@@ -124,12 +124,12 @@ fet_beginchar("Quarter rest","2","quartrest");
 %	draw_staff (-2, 2, 0.0);	
 	save alpha, yshift, height;
 	alpha:=-50;
-	yshift# = -1.25 interline#;
-	height# = 2.8125 interline#;
+	yshift# = -1.25 staff_space#;
+	height# = 2.8125 staff_space#;
 	define_pixels (yshift, height);
 
 	
-	set_char_box(0, 27/25interline#,
+	set_char_box(0, 27/25staff_space#,
 	  -yshift#,
 	  yshift# + height#);
 	
@@ -154,15 +154,15 @@ fet_beginchar("Quarter rest","2","quartrest");
 	z13=z2r+1/2rthin*ne+1/2rthin*nw;
 
 	y1r = h;
-	x1l=1/3interline;
-	z2r=z1+interline*se;
+	x1l=1/3staff_space;
+	z2r=z1+staff_space*se;
 	z3=1/2[z2,z4];
-	x4=3/8interline;
+	x4=3/8staff_space;
 	y4= 0;
-	z5=z4l+1.3interline*se;
+	z5=z4l+1.3staff_space*se;
 	x6l=x4l;
 	y6l=y4r;
-	x7=2/5interline;
+	x7=2/5staff_space;
 	y7= -d;
 	
 	fill z1l{se}..{se}z10..z3l..z11{se}..{se}z5l..z5r{nw}..{nw}z12..z3r..z13{nw}..{nw}z1r.. cycle;
@@ -170,8 +170,8 @@ fet_beginchar("Quarter rest","2","quartrest");
 	penlabels(1,2,3,4,5,6,7);
 	penlabels(10,11,12,13);
 	
-%	  3/4 interline# + yshift#,
-%	  18/5interline# + yshift#)
+%	  3/4 staff_space# + yshift#,
+%	  18/5staff_space# + yshift#)
 
 	fet_endchar;
 
@@ -182,14 +182,14 @@ enddef;
 fet_beginchar("8th rest","3","eighthrest");
 %	draw_staff (-2, 2, 0.0);
 	save yshift, ballcorrection;
-	ballcorrection = 0.005 interline;
+	ballcorrection = 0.005 staff_space;
 
-	yshift# := -1.0 interline#;
+	yshift# := -1.0 staff_space#;
 	define_pixels(yshift);
 
 
-	set_char_box(0, 4/3interline#, -yshift#, yshift# +
-			5/3interline#+7/4stafflinethickness#);
+	set_char_box(0, 4/3staff_space#, -yshift#, yshift# +
+			5/3staff_space#+7/4stafflinethickness#);
 
 	%
 	% The curve is like a valley causing less space between
@@ -199,7 +199,7 @@ fet_beginchar("8th rest","3","eighthrest");
 
 	x1=w-stem/6;
 
-	y1 = yshift + 1.5 interline + flare/4 + ballcorrection; 
+	y1 = yshift + 1.5 staff_space + flare/4 + ballcorrection; 
 	rest_crook (z1,w-stem/6);
 	z2-z1=whatever*dir70;
 	y2= yshift + stem/2;
@@ -210,29 +210,29 @@ fet_beginchar("8th rest","3","eighthrest");
 fet_beginchar("16th rest","4","sixteenthrest");
 %	draw_staff (-2, 2, 0.0);
 	save yshift, ballcorrection;
-	ballcorrection = 0.005 interline;
+	ballcorrection = 0.005 staff_space;
 
-	yshift# := - 2 interline#;
+	yshift# := - 2 staff_space#;
 	define_pixels(yshift);
 
 	save alpha,cw,h,w, height;
 	alpha=74;
-	cw#=7/6interline#;
-	height# =  5/3interline#+interline#+7/4stafflinethickness#;
-	set_char_box(0, cw#+(height#-3/2interline#)/tand(alpha),
+	cw#=7/6staff_space#;
+	height# =  5/3staff_space#+staff_space#+7/4stafflinethickness#;
+	set_char_box(0, cw#+(height#-3/2staff_space#)/tand(alpha),
 		-yshift#, height# + yshift#);
 
 	define_pixels(cw);
 	save x,y;
 	x1=w-stem/6;
-	y1 = yshift + 2.5 interline + flare/4 + ballcorrection;
+	y1 = yshift + 2.5 staff_space + flare/4 + ballcorrection;
 
 	z2-z1=whatever*dir alpha;
 	y2= yshift + stem/2;
 	brush(z1,2/3stem,z2,stem);
 	rest_crook (z1,cw);
 	z3-z1=whatever*dir alpha;
-	y3=y1-interline;
+	y3=y1-staff_space;
 	rest_crook (z3,cw);
 	penlabels(1,2);
 	fet_endchar;
@@ -240,68 +240,68 @@ fet_beginchar("16th rest","4","sixteenthrest");
 fet_beginchar("32th rest","5","thirtysecondrest");
 %	draw_staff (-2, 2, 0.0);
 	save yshift, ballcorrection;
-	ballcorrection = 0.005 interline;
+	ballcorrection = 0.005 staff_space;
 
-	yshift# := -2 interline#;
+	yshift# := -2 staff_space#;
 	define_pixels(yshift);
 
 	save alpha,cw,h;
 	alpha=76;
-	cw#=7/6interline#;
-	h#=5/3interline#+2interline#+7/4stafflinethickness#;
+	cw#=7/6staff_space#;
+	h#=5/3staff_space#+2staff_space#+7/4stafflinethickness#;
 
-	set_char_box(0,	cw#+(h#-3/2interline#)/tand(alpha),
+	set_char_box(0,	cw#+(h#-3/2staff_space#)/tand(alpha),
 		-yshift#,yshift# +h#);
 	define_pixels(cw);
 	save x,y;
 	x1=w-stem/6;
-	y1 = yshift + 3.5 interline + flare/4 + ballcorrection;
+	y1 = yshift + 3.5 staff_space + flare/4 + ballcorrection;
 
 	z2-z1=whatever*dir alpha;
 	y2=stem/2 + yshift;
 	brush(z1,2/3stem,z2,stem);
 	rest_crook (z1,cw);
 	z3-z1=whatever*dir alpha;
-	y3=y1-interline;
+	y3=y1-staff_space;
 	rest_crook (z3,cw);
 	z4-z1=whatever*dir alpha;
-	y4=y1-2interline;
+	y4=y1-2staff_space;
 	rest_crook (z4,cw);
 	fet_endchar;
 
 fet_beginchar("64th rest","6","sixtyfourthrest");
 %	draw_staff (-2, 2, 0.0);
 	save yshift, ballcorrection;
-	ballcorrection = 0.005 interline;
+	ballcorrection = 0.005 staff_space;
 
-	yshift# := -3 interline#;
+	yshift# := -3 staff_space#;
 	define_pixels(yshift);
 
 	save alpha,cw,h,w;
 	alpha=78;
-	cw#=7/6interline#;
-	h#=5/3interline#+3interline#+7/4stafflinethickness#;
-	w#=cw#+(h#-3/2interline#)/tand(alpha);
+	cw#=7/6staff_space#;
+	h#=5/3staff_space#+3staff_space#+7/4stafflinethickness#;
+	w#=cw#+(h#-3/2staff_space#)/tand(alpha);
 	set_char_box(0,w#,-yshift# ,yshift# + h#);
 
 	define_pixels(cw);
 	save x,y;
 	x1=w-stem/6;
 
-	y1 = yshift + 4.5 interline + flare/4 + ballcorrection;
+	y1 = yshift + 4.5 staff_space + flare/4 + ballcorrection;
 
 	z2-z1=whatever*dir alpha;
 	y2=stem/2 + yshift;
 	brush (z1,2/3stem,z2,stem);
 	rest_crook (z1,cw);
 	z3-z1=whatever*dir alpha;
-	y3=y1-interline;
+	y3=y1-staff_space;
 	rest_crook (z3,cw);
 	z4-z1=whatever*dir alpha;
-	y4=y1-2interline;
+	y4=y1-2staff_space;
 	rest_crook (z4,cw);
 	z5-z1=whatever*dir alpha;
-	y5=y1-3interline;
+	y5=y1-3staff_space;
 	rest_crook (z5,cw);
 
 	fet_endchar;
@@ -309,36 +309,36 @@ fet_beginchar("64th rest","6","sixtyfourthrest");
 fet_beginchar("128th rest","7","hundredtwentyeighthrest"); 
 %	draw_staff (-2, 2, 0.0);
 	save yshift, ballcorrection;
-	ballcorrection = 0.005 interline;
+	ballcorrection = 0.005 staff_space;
 
-	yshift# := -3 interline#;
+	yshift# := -3 staff_space#;
 	define_pixels(yshift);
 	save alpha,cw,h,w;
 	alpha=78;
-	cw#=7/6interline#;
-	h#=5/3interline#+4interline#+7/4stafflinethickness#;
-	w#=cw#+(h#-3/2interline#)/tand(alpha);
+	cw#=7/6staff_space#;
+	h#=5/3staff_space#+4staff_space#+7/4stafflinethickness#;
+	w#=cw#+(h#-3/2staff_space#)/tand(alpha);
 	set_char_box(0,w#, -yshift#,yshift#  + h#);
 	define_pixels(cw);
 	save x,y;
 	x1=w-stem/6;
-	y1 = yshift + 5.5 interline + flare/4 + ballcorrection;
+	y1 = yshift + 5.5 staff_space + flare/4 + ballcorrection;
 
 	z2-z1=whatever*dir alpha;
 	y2=stem/2 + yshift;
 	brush (z1,2/3stem,z2,stem);
 	rest_crook (z1,cw);
 	z3-z1=whatever*dir alpha;
-	y3=y1-interline;
+	y3=y1-staff_space;
 	rest_crook (z3,cw);
 	z4-z1=whatever*dir alpha;
-	y4=y1-2interline;
+	y4=y1-2staff_space;
 	rest_crook (z4,cw);
 	z5-z1=whatever*dir alpha;
-	y5=y1-3interline;
+	y5=y1-3staff_space;
 	rest_crook (z5,cw);
 	z6-z1=whatever*dir alpha;
-	y6=y1-4interline;
+	y6=y1-4staff_space;
 	rest_crook (z6,cw);
 	
 	fet_endchar;
@@ -347,7 +347,7 @@ endgroup;
 
 % Rest symbols for mensural notation:
 
-mensrestsize# = .8interline#;
+mensrestsize# = .8staff_space#;
 
 fet_beginchar("Mensural 4th rest","2mensural","minimarest")
 	set_char_box(0,mensrestsize#,0,mensrestsize#);
@@ -376,7 +376,7 @@ fet_beginchar("Mensural 8th rest","3mensural","fusarest")
 fet_endchar
 
 fet_beginchar("Mensural 16th rest","4mensural","semifusarest")
-	set_char_box(0,mensrestsize#,0,interline#);
+	set_char_box(0,mensrestsize#,0,staff_space#);
         pickup pencircle scaled 2 stafflinethickness;
 	rt x1 = w;
 	bot y1 = 0;

@@ -3,12 +3,15 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c)  1997--2000 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "key-performer.hh"
 #include "command-request.hh"
 #include "audio-item.hh"
+
+
+
 
 ADD_THIS_TRANSLATOR (Key_performer);
 

@@ -3,13 +3,14 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
 #ifndef AUDIO_ELEMENT_HH
 #define AUDIO_ELEMENT_HH
 
+ #include <typeinfo>
 #include "virtual-methods.hh"
 
 class Audio_element

@@ -6,9 +6,9 @@
   (c) 1999 Jan Nieuwenhuizen <janneke@gnu.org>
   
  */
-
 #include "grace-performer-group.hh"
 #include "lily-guile.hh"
+
 #include "audio-element.hh"
 
 ADD_THIS_TRANSLATOR (Grace_performer_group);

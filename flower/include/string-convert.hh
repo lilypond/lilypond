@@ -8,7 +8,7 @@
 #define STRING_CONVERT_HH
 
 #include <stdarg.h>
-#include "fproto.hh"
+#include "flower-proto.hh"
 #include "string.hh"
 
 

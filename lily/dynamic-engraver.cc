@@ -3,9 +3,8 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-
 #include "debug.hh"
 #include "crescendo.hh"
 #include "musical-request.hh"
@@ -45,7 +44,7 @@ protected:
   virtual void do_post_move_processing();
 };
 
-ADD_THIS_TRANSLATOR (Dynamic_engraver);
+
 
 Dynamic_engraver::Dynamic_engraver()
 {
@@ -211,6 +210,10 @@ Dynamic_engraver::do_pre_move_processing()
 {
   typeset_all ();
 }
+
+
+
+ADD_THIS_TRANSLATOR(Dynamic_engraver);
 
 void
 Dynamic_engraver::do_removal_processing ()

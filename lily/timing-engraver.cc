@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "score-engraver.hh"
@@ -12,10 +12,13 @@
 #include "score-element-info.hh"
 #include "multi-measure-rest.hh"
 
-ADD_THIS_TRANSLATOR (Timing_engraver);
+
+
+ADD_THIS_TRANSLATOR(Timing_engraver);
+
 
 void
-Timing_engraver::do_post_move_processing ()
+Timing_engraver::do_post_move_processing( )
 {
   bar_req_l_ = 0;
   Timing_translator::do_post_move_processing ();

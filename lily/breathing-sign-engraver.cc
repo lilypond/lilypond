@@ -22,8 +22,6 @@ TODO:
 #include "note-head.hh"
 #include "local-key-item.hh"
 
-ADD_THIS_TRANSLATOR (Breathing_sign_engraver);
-
 
 Breathing_sign_engraver::Breathing_sign_engraver()
 {
@@ -68,3 +66,5 @@ Breathing_sign_engraver::do_post_move_processing()
 {
     breathing_sign_req_l_ = 0;
 }
+
+ADD_THIS_TRANSLATOR(Breathing_sign_engraver);

@@ -1,7 +1,7 @@
 /*
   multi_measure_rest-engraver.cc -- implement Multi_measure_rest_engraver
 
-  (c) 1998--1999 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1998--2000 Jan Nieuwenhuizen <janneke@gnu.org>
        Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
@@ -14,6 +14,7 @@
 #include "timing-translator.hh"
 #include "bar.hh"
 #include "staff-symbol-referencer.hh"
+
 
 ADD_THIS_TRANSLATOR (Multi_measure_rest_engraver);
 

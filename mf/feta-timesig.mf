@@ -10,8 +10,8 @@ fet_begingroup("timesig");
 
 def set_C_width =
 	save left_width, right_width;
-	left_width# := 0.9 interline#;
-	right_width# := .7 interline#;
+	left_width# := 0.9 staff_space#;
+	right_width# := .7 staff_space#;
 	define_pixels(left_width,right_width);
 enddef;
 
@@ -20,20 +20,20 @@ def draw_C =
 
   
 	hair# := stafflinethickness#;
-	bulb_rad# := 0.4 interline#;
+	bulb_rad# := 0.4 staff_space#;
 	define_pixels(hair, bulb_rad);
 	left_fatness = 0.55;
 	
 	x1r = x5r;
-	y1r = .45 interline;
-	z2 = (0, interline);
+	y1r = .45 staff_space;
+	z2 = (0, staff_space);
 	z3r = (-left_width, 0);
-	z4 = (0, -interline);
-	z5r = (right_width - stafflinethickness, -0.4 interline);
+	z4 = (0, -staff_space);
+	z5r = (right_width - stafflinethickness, -0.4 staff_space);
 	
 	penpos1(hair, 0);
 	penpos2(stafflinethickness, 90);
-	penpos3(left_fatness * interline, 180);
+	penpos3(left_fatness * staff_space, 180);
 	penpos4(stafflinethickness, -90);
 	penpos5(hair, -5);
 	
@@ -49,16 +49,16 @@ enddef;
 
 fet_beginchar ("4/4 meter", "C4/4", "fourfourmeter")
 	set_C_width;
-	set_char_box(left_width# + interline#, right_width# + interline#, 
-		interline#, interline#);
+	set_char_box(left_width# + staff_space#, right_width# + staff_space#, 
+		staff_space#, staff_space#);
 	
 	draw_C;
 fet_endchar;
 
 fet_beginchar ("2/2 meter", "C2/2", "allabreve")
 	set_C_width;
-	set_char_box(left_width# + interline#, right_width# + interline#, 
-		1.4 interline#, 1.4 interline#);
+	set_char_box(left_width# + staff_space#, right_width# + staff_space#, 
+		1.4 staff_space#, 1.4 staff_space#);
 	
 	draw_C;
 	save excentricity;
@@ -72,13 +72,13 @@ path threequartercircle;
 threequartercircle = halfcircle & quartercircle rotated 180;
 
 save Cdiameter,Cthickness;
-Cdiameter# := 3/2 interline#;
+Cdiameter# := 3/2 staff_space#;
 Cthickness# := 2 stafflinethickness#;
 define_pixels(Cdiameter,Cthickness);
 
 %% tempus imperfectum cum prolatione imperfecta
 fet_beginchar ("Mensural 4/4 meter", "old4/4", "oldfourfourmeter")
-	set_char_box(.5 Cdiameter# + interline#, .5 Cdiameter# + interline#, 
+	set_char_box(.5 Cdiameter# + staff_space#, .5 Cdiameter# + staff_space#, 
 		.5 Cdiameter#, .5 Cdiameter#);
 	
 	pickup pencircle scaled Cthickness;
@@ -87,8 +87,8 @@ fet_endchar;
 
 %% tempus imperfectum cum prolatione imperfecta proportio dupla
 fet_beginchar ("Mensural 2/2 meter", "old2/2", "oldallabreve")
-	set_char_box(.5 Cdiameter# + interline#, .5 Cdiameter# + interline#, 
-		interline#, interline#);
+	set_char_box(.5 Cdiameter# + staff_space#, .5 Cdiameter# + staff_space#, 
+		staff_space#, staff_space#);
 	
 	pickup pencircle scaled Cthickness;
 	draw threequartercircle rotated 45 scaled Cdiameter;
@@ -97,7 +97,7 @@ fet_endchar;
 
 %% tempus perfectum cum prolatione imperfecta
 fet_beginchar ("Mensural 3/2 meter", "old3/2", "oldthreetwometer")
-	set_char_box(.5 Cdiameter# + interline#, .5 Cdiameter# + interline#, 
+	set_char_box(.5 Cdiameter# + staff_space#, .5 Cdiameter# + staff_space#, 
 		.5 Cdiameter#, .5 Cdiameter#);
 	
 	pickup pencircle scaled Cthickness;
@@ -106,7 +106,7 @@ fet_endchar;
 
 %% tempus imperfectum cum prolatione perfecta
 fet_beginchar ("Mensural 6/4 meter", "old6/4", "oldsixfourmeter")
-	set_char_box(.5 Cdiameter# + interline#, .5 Cdiameter# + interline#, 
+	set_char_box(.5 Cdiameter# + staff_space#, .5 Cdiameter# + staff_space#, 
 		.5 Cdiameter#, .5 Cdiameter#);
 	
 	pickup pencircle scaled Cthickness;
@@ -117,7 +117,7 @@ fet_endchar;
 
 %% tempus perfectum cum prolatione perfecta
 fet_beginchar ("Mensural 9/4 meter", "old9/4", "oldninefourmeter")
-	set_char_box(.5 Cdiameter# + interline#, .5 Cdiameter# + interline#, 
+	set_char_box(.5 Cdiameter# + staff_space#, .5 Cdiameter# + staff_space#, 
 		.5 Cdiameter#, .5 Cdiameter#);
 	
 	pickup pencircle scaled Cthickness;
@@ -128,8 +128,8 @@ fet_endchar;
 
 %% tempus perfectum cum prolatione imperfecta proportio dupla
 fet_beginchar ("Mensural 3/4 meter", "old3/4", "oldthreefourmeter")
-	set_char_box(.5 Cdiameter# + interline#, .5 Cdiameter# + interline#, 
-		interline#, interline#);
+	set_char_box(.5 Cdiameter# + staff_space#, .5 Cdiameter# + staff_space#, 
+		staff_space#, staff_space#);
 	
 	pickup pencircle scaled Cthickness;
 	draw fullcircle scaled Cdiameter;
@@ -138,8 +138,8 @@ fet_endchar;
 
 %% tempus imperfectum cum prolatione perfecta proportio dupla
 fet_beginchar ("Mensural 6/8 meter", "old6/8", "oldsixeightmeter")
-	set_char_box(.5 Cdiameter# + interline#, .5 Cdiameter# + interline#, 
-		 interline#, interline#);
+	set_char_box(.5 Cdiameter# + staff_space#, .5 Cdiameter# + staff_space#, 
+		 staff_space#, staff_space#);
 	
 	pickup pencircle scaled Cthickness;
 	draw threequartercircle rotated 45 scaled Cdiameter;
@@ -150,8 +150,8 @@ fet_endchar;
 
 %% tempus perfectum cum prolatione perfecta proportio dupla
 fet_beginchar ("Mensural 9/8 meter", "old9/8", "oldnineeight")
-	set_char_box(.5 Cdiameter# + interline#, .5 Cdiameter# + interline#, 
-		interline#, interline#);
+	set_char_box(.5 Cdiameter# + staff_space#, .5 Cdiameter# + staff_space#, 
+		staff_space#, staff_space#);
 	
 	pickup pencircle scaled Cthickness;
 	draw fullcircle scaled Cdiameter;
@@ -162,7 +162,7 @@ fet_endchar;
 
 %% tempus imperfectum cum prolatione imperfecta diminutio simplex
 fet_beginchar ("Mensural 4/8 meter", "old4/8", "oldfoureightmeter")
-	set_char_box(.5 Cdiameter# + interline#, .5 Cdiameter# + interline#, 
+	set_char_box(.5 Cdiameter# + staff_space#, .5 Cdiameter# + staff_space#, 
 	.5 Cdiameter#, .5 Cdiameter#);
 	
 	pickup pencircle scaled Cthickness;
@@ -171,7 +171,7 @@ fet_endchar;
 
 %% tempus imperfectum cum prolatione perfecta diminutio simplex
 fet_beginchar ("Mensural 6/8 meter", "old6/8alt", "oldsixeightmeteralt")
-	set_char_box(.5 Cdiameter# + interline#, .5 Cdiameter# + interline#, 
+	set_char_box(.5 Cdiameter# + staff_space#, .5 Cdiameter# + staff_space#, 
 		.5 Cdiameter#, .5 Cdiameter#);
 	
 	pickup pencircle scaled Cthickness;
@@ -182,8 +182,8 @@ fet_endchar;
 
 %% tempus imperfectum cum prolatione imperfecta diminutio duplex
 fet_beginchar ("Mensural 2/4 meter", "old2/4", "oldtwofourmeter")
-	set_char_box(.5 Cdiameter# + interline#, .5 Cdiameter# + interline#, 
-		interline#, interline#);
+	set_char_box(.5 Cdiameter# + staff_space#, .5 Cdiameter# + staff_space#, 
+		staff_space#, staff_space#);
 	
 	pickup pencircle scaled Cthickness;
 	draw threequartercircle rotated 225 scaled Cdiameter;

@@ -3,20 +3,20 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
 #ifndef TIE_HH
 #define TIE_HH
 
-#include "bow.hh"
+#include "spanner.hh"
 #include "rod.hh"
 
 /**
   Connect two noteheads.
   */
-class Tie : public Bow
+class Tie : public Spanner
 {
 public:
   Tie ();
@@ -24,7 +24,15 @@ public:
   VIRTUAL_COPY_CONS(Score_element);
 
   Note_head* head (Direction) const;
+
 protected:
+  virtual Molecule* do_brew_molecule_p () const;
+  virtual Array<Offset> get_encompass_offset_arr () const;
+  Bezier get_curve () const;
+
+  Drul_array<Real> dy_f_drul_;
+  Drul_array<Real> dx_f_drul_;
+
   virtual void do_add_processing ();
   virtual void do_post_processing ();
   virtual Direction get_default_dir() const;

@@ -6,12 +6,9 @@
   (c) 1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
-
 #include "hara-kiri-vertical-group-spanner.hh"
 #include "hara-kiri-engraver.hh"
 #include "rhythmic-head.hh"
-
-ADD_THIS_TRANSLATOR (Hara_kiri_engraver);
 
 Axis_group_spanner*
 Hara_kiri_engraver::get_spanner_p () const
@@ -30,3 +27,4 @@ Hara_kiri_engraver::acknowledge_element (Score_element_info i)
     }
   
 }
+ADD_THIS_TRANSLATOR(Hara_kiri_engraver);

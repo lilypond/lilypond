@@ -11,8 +11,8 @@
 % mode_setup;
 
 %% staffsize#=16pt#;
-% interline#:=staffsize#/4;
-% stafflinethickness#:=0.1interline#;
+% staff_space#:=staffsize#/4;
+% stafflinethickness#:=0.1staff_space#;
 
 pi:=3.14159;
 
@@ -25,7 +25,7 @@ sleur_pen#:=stafflinethickness#;
 slurheightlimit#:=staffsize#/2;
 slurthick#:=1.8stafflinethickness#;
 
-define_pixels(staffsize,interline,stafflinethickness);
+define_pixels(staffsize,staff_space,stafflinethickness);
 define_pixels(sleur_pen,slurheightlimit,slurthick);
 
 sluralpha:=2slurheightlimit#/pi;

@@ -25,6 +25,8 @@ array_to_scm (Array<T> arr)
   Array<T> scm_to_array (SCM s)
 
   check scm?
+
+  UGH. junkme.
  */
 template<class T>void
 scm_to_array (SCM s, Array<T>* arr)
@@ -32,8 +34,7 @@ scm_to_array (SCM s, Array<T>* arr)
   arr->clear ();
   for (; gh_pair_p (s); s= gh_cdr (s))
     {
-      T t;
-      scm_to (gh_car (s), &t);
+      T t = scm_to (gh_car (s), (T*) 0);
       arr->push (t);
     }
 }

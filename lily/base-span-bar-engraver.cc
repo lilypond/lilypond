@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "dimension-cache.hh"
@@ -11,8 +11,6 @@
 #include "span-bar.hh"
 #include "base-span-bar-engraver.hh"
 #include "axis-align-spanner.hh"
-
-ADD_THIS_TRANSLATOR (Base_span_bar_engraver);
 
 Base_span_bar_engraver::Base_span_bar_engraver()
 {
@@ -51,7 +49,7 @@ Base_span_bar_engraver::acknowledge_element (Score_element_info i)
 	  --hwn
 	 */
 	{
-	  spanbar_p_ = get_span_bar_p ();
+	  spanbar_p_ = get_span_bar_p();
 	  spanbar_p_->set_parent (bar_l_arr_[0], Y_AXIS);
 	  String visnam =  String(name()) + "-visibility";
 	  
@@ -68,11 +66,9 @@ Base_span_bar_engraver::acknowledge_element (Score_element_info i)
 	    }
 	  
 	  announce_element (Score_element_info (spanbar_p_,0));
-
-	  if (!gh_string_p (spanbar_p_->get_elt_property ("glyph"))
-	      && !gh_string_p (spanbar_p_->get_elt_property ("default-glyph")))
-	    spanbar_p_-> set_elt_property ("default-glyph",
-					   bar_l_arr_[0]->get_elt_property ("default-glyph"));
+	  if (!gh_string_p (spanbar_p_->get_elt_property ("glyph")))
+	    spanbar_p_-> set_elt_property ("glyph",
+					   bar_l_arr_[0]->get_elt_property ("glyph"));
 	}
     }
 }
@@ -90,4 +86,7 @@ Base_span_bar_engraver::do_pre_move_processing()
   bar_l_arr_.set_size (0);
 }
 
+
+
+ADD_THIS_TRANSLATOR(Base_span_bar_engraver);
 

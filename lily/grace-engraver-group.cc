@@ -6,13 +6,11 @@
   (c) 1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
-
 #include "grace-engraver-group.hh"
 #include "lily-guile.hh"
+
 #include "score-element.hh"
 #include "musical-request.hh"
-
-ADD_THIS_TRANSLATOR (Grace_engraver_group);
 
 void
 Grace_engraver_group::start ()
@@ -93,6 +91,8 @@ Grace_engraver_group::each (Const_method_pointer method) const
  if (calling_self_b_)
     Engraver_group_engraver::each (method);
 }
+ADD_THIS_TRANSLATOR(Grace_engraver_group);
+
 
 /*
   don't let the commands trickle up.

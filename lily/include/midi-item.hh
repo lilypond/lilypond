@@ -1,7 +1,7 @@
 /*
   midi-item.hh -- declare Midi items
 
-  (c)  1997--1999 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c)  1997--2000 Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
 #ifndef MIDI_ITEM_HH

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "staff-symbol-referencer.hh"
@@ -15,8 +15,6 @@
 #include "stem-tremolo.hh"
 #include "staff-info.hh"
 #include "translator-group.hh"
-
-ADD_THIS_TRANSLATOR (Stem_engraver);
 
 Stem_engraver::Stem_engraver()
 {
@@ -139,4 +137,7 @@ Stem_engraver::do_try_music (Music* r)
     }
   return false;
 }
+
+
+ADD_THIS_TRANSLATOR(Stem_engraver);
 

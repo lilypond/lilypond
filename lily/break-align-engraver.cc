@@ -5,8 +5,7 @@
   
   (c) 1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
-*/
-
+ */
 #include "engraver.hh"
 #include "protected-scm.hh"
 #include "break-align-item.hh"
@@ -26,7 +25,9 @@ public:
   Break_align_engraver ();
 };
 
-ADD_THIS_TRANSLATOR (Break_align_engraver);
+
+
+ADD_THIS_TRANSLATOR(Break_align_engraver);
 
 void
 Break_align_engraver::add_column (SCM smob)

@@ -3,15 +3,13 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "note-column.hh"
 #include "collision-engraver.hh"
 #include "collision.hh"
 #include "dimension-cache.hh"
-
-ADD_THIS_TRANSLATOR (Collision_engraver);
 
 void
 Collision_engraver::process_acknowledged ()
@@ -56,3 +54,7 @@ Collision_engraver::Collision_engraver()
 {
   col_p_ =0;
 }
+
+
+
+ADD_THIS_TRANSLATOR(Collision_engraver);

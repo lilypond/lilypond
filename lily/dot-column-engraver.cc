@@ -3,15 +3,13 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 1998--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1998--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
 
 #include "dot-column-engraver.hh"
 #include "rhythmic-head.hh"
 #include "dot-column.hh"
-
-ADD_THIS_TRANSLATOR (Dot_column_engraver);
 
 Dot_column_engraver::Dot_column_engraver ()
 {
@@ -47,4 +45,7 @@ Dot_column_engraver::acknowledge_element (Score_element_info info)
 
   dotcol_p_->add_head (h);
 }
+
+
+ADD_THIS_TRANSLATOR(Dot_column_engraver);
 

@@ -3,7 +3,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 1998--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1998--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
 
@@ -14,8 +14,6 @@
 #include "time-scaled-music.hh"
 #include "beam.hh"
 #include "music-list.hh"
-
-ADD_THIS_TRANSLATOR (Tuplet_engraver);
 
 bool
 Tuplet_engraver::do_try_music (Music *r)
@@ -106,4 +104,7 @@ Tuplet_engraver::do_removal_processing ()
       typeset_element (started_span_p_arr_[i]);
     }  
 }
+
+ADD_THIS_TRANSLATOR(Tuplet_engraver);
+
 

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -37,7 +37,6 @@ public:
   VIRTUAL_COPY_CONS (Translator);
   
   virtual Span_bar * get_span_bar_p () const;
-  virtual void acknowledge_element (Score_element_info);
 };
 
 /**

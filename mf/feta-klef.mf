@@ -11,7 +11,7 @@
 fet_begingroup("clefs");
 
 %
-% [Ross] says that clefs take 1 interline space on the left and right
+% [Ross] says that clefs take 1 staff_space space on the left and right
 %
 def set_horizontal_spacing =
 	save left_space ,right_space;
@@ -24,7 +24,7 @@ enddef;
 % "arrow"
 def draw_c_clef (expr reduction) = 
 	save hair, norm, reduced_il, right_edge;
-	reduced_il#=interline#*reduction;
+	reduced_il#=staff_space#*reduction;
 	norm#:=2/3reduced_il#;
 	hair#:=1/6norm#;
 
@@ -101,7 +101,7 @@ fet_endchar;
 
 def draw_bass_clef(expr exact_center, reduction) = 
 	save reduced_il, left_tilt, left_thick, ball_to_right;
-	reduced_il# = interline# * reduction;
+	reduced_il# = staff_space# * reduction;
 	
 	set_horizontal_spacing;
 	ball_to_right# = 2.1 reduced_il#;
@@ -125,7 +125,7 @@ def draw_bass_clef(expr exact_center, reduction) =
 	x3l - x1l =  ball_to_right;
 	x2 = .5 [x1,x3];
 	x3l - x3r = .48 reduced_il;
-	y3l = -0.05 interline;
+	y3l = -0.05 staff_space;
 	x4 = x1l - stafflinethickness;
 	y4 = -2.2  reduced_il;
 	z5 = (x3l +  1/3 reduced_il, .5 reduced_il);
@@ -146,7 +146,7 @@ def draw_bass_clef(expr exact_center, reduction) =
 	penlabels(1,2,3,4);
 
 	save dot_diam;
-	2 dot_diam = reduction* (interline - stafflinethickness);
+	2 dot_diam = reduction* (staff_space - stafflinethickness);
 	pickup pencircle scaled dot_diam;
 	draw z5;
 	draw z5 yscaled -1;
@@ -158,10 +158,10 @@ fet_beginchar("F clef ", "F", "bassclef")
 	if test = 1:
 		draw_staff(-3,1);
 	fi;
-	draw_bass_clef((.5 interline#, 0), 1.0);
+	draw_bass_clef((.5 staff_space#, 0), 1.0);
 fet_endchar;
 fet_beginchar("F clef (reduced)", "F_change", "cbassclef")
-	draw_bass_clef((.4 interline#, 0),0.8);
+	draw_bass_clef((.4 staff_space#, 0),0.8);
 fet_endchar;
 
 
@@ -189,7 +189,7 @@ def draw_gclef (expr exact_center, reduction)=
 	save reduced_il, downstroke_dir, downstroke_angle, hair, center;
 	save breapth_factor, inner_thick_end, thinness, thickness, thinnib;
 	save inner_start_angle, thinness, thinpen;
-	reduced_il# = interline# * reduction;
+	reduced_il# = staff_space# * reduction;
 	define_pixels(reduced_il);
 	pair downstroke_dir, center;
 
@@ -302,10 +302,10 @@ fet_beginchar("G clef", "G", "trebleclef")
 	if test = 1:
 		draw_staff(-1,3);
 	fi;
-	draw_gclef((1.7 interline#,0), 1.0);
+	draw_gclef((1.7 staff_space#,0), 1.0);
 fet_endchar;
 fet_beginchar("G clef", "G_change", "ctrebleclef")
-	draw_gclef((1.3 interline#,0), .8);
+	draw_gclef((1.3 staff_space#,0), .8);
 fet_endchar;
 
 fet_endgroup("clefs");

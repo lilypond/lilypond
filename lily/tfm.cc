@@ -26,8 +26,14 @@ Tex_font_char_metric::Tex_font_char_metric ()
 {
   exists_b_ = false;
   code_ = 0;;
-  width_ = height_ = depth_ = italic_correction_ = 0;
-  width_fix_ = height_fix_ = depth_fix_ = italic_correction_fix_ = 0;
+  width_ = 0;
+  height_ = 0;
+  depth_ = 0;
+  italic_correction_ = 0;
+  width_fix_ = 0;
+  height_fix_ = 0;
+  depth_fix_ = 0;
+  italic_correction_fix_ = 0;
 }
 
 #define APPEND_CHAR_METRIC_ELT(k)  outstr += to_str (#k) + " "  + to_str (k ## _)  + "; "

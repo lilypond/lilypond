@@ -1,7 +1,7 @@
 /*
   bar.hh -- part of GNU LilyPond
 
-  (c) 1996--1999 Han-Wen Nienhuys
+  (c) 1996--2000 Han-Wen Nienhuys
 */
 
 #ifndef BAR_HH
@@ -15,7 +15,6 @@ class Bar:public Item {
 public:
   VIRTUAL_COPY_CONS(Score_element);
   Bar();
-
 protected:
   virtual void do_pre_processing ();
   virtual Molecule* do_brew_molecule_p () const;

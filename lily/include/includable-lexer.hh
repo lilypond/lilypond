@@ -3,7 +3,7 @@
 
   source file of the LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -14,7 +14,7 @@
 
 #include "string.hh"
 #include "parray.hh"
-#include "fproto.hh"
+#include "flower-proto.hh"
 #include "proto.hh"
 
 // GIGA urg!

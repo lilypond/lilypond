@@ -3,10 +3,12 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+
 #include <string.h>
+
 #include "group-interface.hh"
 #include "misc.hh"
 #include "paper-score.hh"

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996, 1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1996, 1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
     Jan Nieuwenhuizen <janneke@gnu.org>
 
   TODO: This is way too hairy
@@ -63,8 +63,8 @@ Stem::head_positions () const
   
   Drul_array<Note_head*> e (extremal_heads ());
 
-  return Interval (staff_symbol_referencer_interface (e[DOWN]).position_f (),
-		   staff_symbol_referencer_interface( e[UP]).position_f ()); 
+  return Interval (staff_symbol_referencer (e[DOWN]).position_f (),
+		   staff_symbol_referencer( e[UP]).position_f ()); 
 }
 
 
@@ -457,9 +457,7 @@ Stem::do_brew_molecule_p () const
   Interval stem_y(y1,y2);
   stem_y.unite (Interval (y2,y1));
 
-  Real dy = staff_symbol_referencer_interface (this)
-    .staff_space ()/2.0;
-
+  Real dy = staff_symbol_referencer (this).staff_space ()/2.0;
   Real head_wid = 0;
   if (support_head ())
     head_wid = support_head ()->extent (X_AXIS).length ();

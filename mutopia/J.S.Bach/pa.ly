@@ -226,6 +226,7 @@ pedal = \notes \relative c, {
 
 
 
+% these should be two separate scores...
 \score{
   \context Score <
    \context StaffGroup<
@@ -245,19 +246,26 @@ pedal = \notes \relative c, {
   >
 
 \paper {
-  textheight = 280.0 \mm;
-  % landscape: -- does not work? ly2dvi -L
-  %textheight = 160.0 \mm;
-  %linewidth = 290.0 \mm;
+  %textheight = 280.0 \mm;
+  % landscape:
+  textheight = 160.0 \mm;
+  linewidth = 290.0 \mm;
+%{
   \translator { 
     \OrchestralScoreContext 
     minVerticalAlign = 4.0*\staffheight;
     maxVerticalAlign = 4.0*\staffheight;
    }
+%}
   \translator { 
+    \StaffGroupContext
+    minVerticalAlign = 4.0*\staffheight;
+    maxVerticalAlign = 4.0*\staffheight;
+   }
+   \translator { 
     \PianoStaffContext
-    minVerticalAlign = 2.5*\staffheight;
-    maxVerticalAlign = 2.5*\staffheight;
+	minVerticalAlign = 2.5*\staffheight;
+	maxVerticalAlign = 2.5*\staffheight;
    }
   }
   \midi {

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "debug.hh"
@@ -12,9 +12,11 @@
 #include "collision.hh"
 #include "note-column.hh"
 
-ADD_THIS_TRANSLATOR (Rest_collision_engraver);
 
-Rest_collision_engraver::Rest_collision_engraver ()
+
+ADD_THIS_TRANSLATOR(Rest_collision_engraver);
+
+Rest_collision_engraver::Rest_collision_engraver()
 {
   rest_collision_p_ =0;
 }

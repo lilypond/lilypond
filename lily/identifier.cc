@@ -3,10 +3,11 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include <assert.h>
+
 #include "midi-def.hh"
 #include "paper-def.hh"
 #include "score.hh"
@@ -17,16 +18,12 @@
 #include "translator-group.hh"
 #include "notename-table.hh"
 
-
-
 Identifier::Identifier (int code)
 {
   token_code_i_ = code;
   accessed_b_ = 0;
   init_b_ = 0;
 }
-
-
 
 Identifier::Identifier (Identifier const&s)
   : Input (s)

@@ -1,7 +1,7 @@
 /*
   local-key-engraver.hh -- declare Local_key_engraver
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 

@@ -352,7 +352,7 @@ msgstr "Ne peut pas ouvrir `%s'\n"
 #: lookup.cc:104
 #, c-format
 msgid "Search path %s\n"
-msgstr "Chemin de recherche"
+msgstr "Chemin de recherche %s\n"
 
 #: lookup.cc:105
 msgid "Aborting"

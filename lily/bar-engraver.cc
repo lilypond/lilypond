@@ -17,8 +17,6 @@
 #include "engraver-group-engraver.hh"
 #include "warn.hh"
 
-ADD_THIS_TRANSLATOR (Bar_engraver);
-
 Bar_engraver::Bar_engraver()
 {
   bar_p_ =0;
@@ -40,7 +38,7 @@ Bar_engraver::create_bar ()
       SCM default_type = get_property ("defaultBarType", 0);
       if (gh_string_p (default_type))
 	{
-	  bar_p_->set_elt_property ("default-glyph", default_type); // gu.h
+	  bar_p_->set_elt_property ("glyph", default_type); // gu.h
 	}
 
 #if 0
@@ -78,14 +76,14 @@ Bar_engraver::request_bar (String requested_type)
       return;
     }
 
-  String current = ly_scm2string (bar_p_->get_elt_property ("default-glyph"));
+  String current = ly_scm2string (bar_p_->get_elt_property ("glyph"));
   
   if ((requested_type == "|:" && current== ":|")
     || (requested_type == ":|" && current == "|:"))
     requested_type = ":|:";
 
   
-  bar_p_->set_elt_property ("default-glyph",
+  bar_p_->set_elt_property ("glyph",
 			    ly_str02scm (requested_type.ch_C ()));
 }
 
@@ -115,7 +113,7 @@ Bar_engraver::do_process_requests()
   if (which.length_i ())
     {
       create_bar();
-      bar_p_->set_elt_property ("default-glyph",  ly_str02scm (which.ch_C ()));
+      bar_p_->set_elt_property ("glyph",  ly_str02scm (which.ch_C ()));
     }
   
   if (!bar_p_)
@@ -144,4 +142,8 @@ Bar_engraver::do_pre_move_processing()
       bar_p_ =0;
     }
 }
+
+ADD_THIS_TRANSLATOR(Bar_engraver);
+
+
 

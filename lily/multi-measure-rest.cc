@@ -3,7 +3,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 1998--1999 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1998--2000 Jan Nieuwenhuizen <janneke@gnu.org>
   
  */
 
@@ -90,7 +90,7 @@ Multi_measure_rest::do_brew_molecule_p () const
   
   mol_p->add_molecule (s);
   Real staff_space
-    = staff_symbol_referencer_interface (this).staff_space ();
+    = staff_symbol_referencer (this).staff_space ();
   if (measures_i_ == 1 && rest_symbol)
     {
       mol_p->translate_axis (staff_space, Y_AXIS);

@@ -33,8 +33,6 @@ public:
   Align_note_column_engraver ();
 };
 
-ADD_THIS_TRANSLATOR (Align_note_column_engraver);
-
 Align_note_column_engraver::Align_note_column_engraver()
 {
   align_item_p_ =0;
@@ -113,4 +111,6 @@ Align_note_column_engraver::do_post_move_processing ()
   now_column_l_ =0;
   accidental_l_ =0;
 }
+
+ADD_THIS_TRANSLATOR(Align_note_column_engraver);
 

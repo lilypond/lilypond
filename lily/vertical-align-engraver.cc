@@ -3,9 +3,8 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-
 #include "translator-group.hh"
 #include "axis-group-engraver.hh"
 #include "paper-column.hh"
@@ -13,8 +12,6 @@
 #include "axis-align-spanner.hh"
 #include "axis-group-spanner.hh"
 #include "span-bar.hh"
-
-ADD_THIS_TRANSLATOR (Vertical_align_engraver);
 
 Vertical_align_engraver::Vertical_align_engraver()
 {
@@ -82,3 +79,6 @@ Vertical_align_engraver::acknowledge_element (Score_element_info i)
     }  
 }
 
+
+
+ADD_THIS_TRANSLATOR(Vertical_align_engraver);

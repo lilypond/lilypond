@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "dimension-cache.hh"
@@ -44,14 +44,7 @@ Bar::do_brew_molecule_p () const
 void
 Bar::do_pre_processing ()
 {
-  SCM def = remove_elt_property ("default-glyph");
   SCM g = get_elt_property ("glyph");
-  if (!gh_string_p (g) && gh_string_p (def))
-    {
-      set_elt_property ("glyph", def);
-      g = get_elt_property ("glyph");
-    }
-
   SCM breakdir = gh_int2scm (break_status_dir ());
   
   if (gh_string_p (g))

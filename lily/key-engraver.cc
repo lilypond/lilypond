@@ -3,10 +3,9 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   */
 // clean me up 
-
 #include "key-engraver.hh"
 #include "key-item.hh"
 #include "command-request.hh"
@@ -16,8 +15,6 @@
 #include "bar.hh"
 #include "timing-translator.hh"
 #include "staff-symbol-referencer.hh"
-
-ADD_THIS_TRANSLATOR (Key_engraver);
 
 Key_engraver::Key_engraver ()
 {
@@ -203,4 +200,6 @@ Key_engraver::do_post_move_processing ()
   keyreq_l_ = 0;
   old_accidental_idx_arr_.clear ();
 }
+
+ADD_THIS_TRANSLATOR (Key_engraver);
 

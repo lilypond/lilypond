@@ -3,7 +3,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 1998--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1998--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
 
@@ -45,7 +45,7 @@ struct Musical_pitch : public Input
 };
 
 SCM to_scm (Musical_pitch p);
-void scm_to (SCM s, Musical_pitch* p);
+Musical_pitch scm_to (SCM s, Musical_pitch* p);
 
 #include "compare.hh"
 INSTANTIATE_COMPARE(Musical_pitch, Musical_pitch::compare);

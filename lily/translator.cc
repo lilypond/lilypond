@@ -3,12 +3,14 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+
 
 #include "translator.hh"
 #include "debug.hh"
 #include "translator-group.hh"
+
 #include "moment.hh"
 
 char const*
