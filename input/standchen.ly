@@ -1,16 +1,19 @@
-%{
-standchen.ly
+%{MudelaHeader
 
- St\"andchen (Serenade) "Leise flehen meine Lieder" D.957 No.4
- Franz Schubert (1797-1828)
- Text by Ludwig Rellstab (1799-1860)
+ filename: standchen.ly
+ title: St\"andchen (Serenade) "Leise flehen meine Lieder"
+ description:  D.957 No.4
+ composers: Franz Schubert (1797-1828)
+	 Text by Ludwig Rellstab (1799-1860)
+ entered-by:JCN
+ copyright:
 
- Copyright (c) 1995,1996,1997 Jan Nieuwenhuizen <jandigicash.com>
- 
- The purpose of this file is to demonstrate features of LilyPond.
- (there is an accompanying LaTeX file, standchen.tex)
+ Tested Features: multivoice, accents, lyrics, chords, piano music
 
+EndMudelaHeader
 %}
+\version "0.0.57";
+
 \version "0.0.57";
 
 commands = \melodic{

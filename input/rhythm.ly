@@ -1,3 +1,17 @@
+%{MudelaHeader
+
+ filename:rhythm.ly
+ title:
+ description: 
+ composers:HWN
+ entered-by:HWN
+ copyright:public domain
+
+ Tested Features: multiple meters, beaming
+EndMudelaHeader
+%}
+\version "0.0.57";
+
 %
 % 	Ive' got rhythm!
 %

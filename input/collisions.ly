@@ -2,12 +2,12 @@
 
  filename: collisions.ly
  title:
- description: 
+ description:  random counterpoint to test collisions
  composer(s): HWN
  entered-by: HWN
  copyright: public domain
 
- Tested Features:%test the Collision resolution 
+ Tested Features:test the Collision resolution 
 EndMudelaHeader
 %}
 \version "0.0.57";
