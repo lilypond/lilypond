@@ -153,10 +153,10 @@ number_accidentals_from_sig (bool *different, SCM sig, Pitch *pitch,
 	  if (ly_c_pair_p (ly_cdr (prev_local))
 	      && ly_c_number_p (laziness))
 	    {
-	      int barnum = ly_scm2int (ly_cddr (prev_local));
+	      int barnum = scm_to_int (ly_cddr (prev_local));
 
 	      prev_local = scm_cons (ly_car (prev_local), ly_cadr (prev_local));
-	      if (curbarnum <= barnum + ly_scm2int (laziness))
+	      if (curbarnum <= barnum + scm_to_int (laziness))
 		prev_alt = prev_local;
 	    }
 	}
@@ -168,7 +168,7 @@ number_accidentals_from_sig (bool *different, SCM sig, Pitch *pitch,
   prev_alt =  (prev_alt == SCM_BOOL_F) ? scm_int2num (0) : ly_cdr (prev_alt); 
     
   /* UGH. prev_acc can be #t in case of ties. What is this for?  */
-  int p = ly_c_number_p (prev_alt) ? ly_scm2int (prev_alt) : 0;
+  int p = ly_c_number_p (prev_alt) ? scm_to_int (prev_alt) : 0;
 
   int num;
   if (a == p && ly_c_number_p (prev_alt))

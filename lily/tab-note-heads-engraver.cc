@@ -100,7 +100,7 @@ Tab_note_heads_engraver::process_music ()
       bool string_found;
       if (tabstring_event)
 	{
-	  tab_string = ly_scm2int (tabstring_event->get_property ("string-number"));
+	  tab_string = scm_to_int (tabstring_event->get_property ("string-number"));
 	  string_found = true;
 	}
       else
@@ -119,7 +119,7 @@ Tab_note_heads_engraver::process_music ()
 	  Rhythmic_head::set_dots (note, d);
 	  
 	  if (dur.dot_count ()
-	      != ly_scm2int (d->get_property ("dot-count")))
+	      != scm_to_int (d->get_property ("dot-count")))
 	    d->set_property ("dot-count", scm_int2num (dur.dot_count ()));
 
 	  d->set_parent (note, Y_AXIS);
@@ -131,12 +131,12 @@ Tab_note_heads_engraver::process_music ()
       SCM scm_pitch = event->get_property ("pitch");
       SCM proc      = get_property ("tablatureFormat");
       SCM min_fret_scm = get_property ("minimumFret");
-      int min_fret = ly_c_number_p (min_fret_scm) ? ly_scm2int (min_fret_scm) : 0;
+      int min_fret = ly_c_number_p (min_fret_scm) ? scm_to_int (min_fret_scm) : 0;
 
       while (!string_found)
 	{
 	  int fret = unsmob_pitch (scm_pitch)->semitone_pitch ()
-	    - ly_scm2int (scm_list_ref (stringTunings,scm_int2num (tab_string-1)));
+	    - scm_to_int (scm_list_ref (stringTunings,scm_int2num (tab_string-1)));
 	  if (fret<min_fret)
 	    tab_string += high_string_one ? 1 : -1;
 	  else

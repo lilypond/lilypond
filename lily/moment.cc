@@ -76,17 +76,17 @@ LY_DEFINE (ly_make_moment, "ly:make-moment",
   if (gn != SCM_UNDEFINED)
     {
       SCM_ASSERT_TYPE (scm_is_integer (gn), gn, SCM_ARG3, __FUNCTION__, "integer");
-      grace_num = ly_scm2int (gn);
+      grace_num = scm_to_int (gn);
     }
 
   int grace_den = 1;
   if (gd != SCM_UNDEFINED)
     {
       SCM_ASSERT_TYPE (scm_is_integer (gd), gd, SCM_ARG4, __FUNCTION__, "integer");
-      grace_den = ly_scm2int (gd);
+      grace_den = scm_to_int (gd);
     }
 
-  return Moment (Rational (ly_scm2int (n), ly_scm2int (d)),
+  return Moment (Rational (scm_to_int (n), scm_to_int (d)),
 		 Rational (grace_num, grace_den)).smobbed_copy ();
 }
 

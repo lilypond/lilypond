@@ -143,7 +143,7 @@ SCM
 Arpeggio::width_callback (SCM smob, SCM axis)
 {
   Grob * me = unsmob_grob (smob);
-  Axis a = (Axis)ly_scm2int (axis);
+  Axis a = (Axis)scm_to_int (axis);
   assert (a == X_AXIS);
   Stencil arpeggio = Font_interface::get_default_font (me)->find_by_name ("scripts-arpeggio");
 

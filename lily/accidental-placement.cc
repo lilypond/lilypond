@@ -263,7 +263,7 @@ Accidental_placement::position_accidentals (Grob * me)
   for (SCM s = accs; ly_c_pair_p (s); s =ly_cdr (s))
     {
       Accidental_placement_entry *ape = new Accidental_placement_entry;
-      ape->notename_ = ly_scm2int (ly_caar (s));
+      ape->notename_ = scm_to_int (ly_caar (s));
       
       for (SCM t = ly_cdar (s); ly_c_pair_p (t); t =ly_cdr (t))
 	ape->grobs_.push (unsmob_grob (ly_car (t)));

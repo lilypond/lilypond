@@ -24,7 +24,7 @@ Gregorian_ligature::prefixes_to_str (Grob *primitive)
 {
   String str;
   int prefix_set =
-    ly_scm2int (primitive->get_property ("prefix-set"));
+    scm_to_int (primitive->get_property ("prefix-set"));
   check_prefix ("virga", VIRGA, prefix_set, &str);
   check_prefix ("stropha", STROPHA, prefix_set, &str);
   check_prefix ("inclinatum", INCLINATUM, prefix_set, &str);

@@ -32,7 +32,7 @@ int
 Rhythmic_head::dot_count (Grob*me) 
 {
   return get_dots (me)
-    ? ly_scm2int (get_dots (me)->get_property ("dot-count")) : 0;
+    ? scm_to_int (get_dots (me)->get_property ("dot-count")) : 0;
 }
 
 void
@@ -45,7 +45,7 @@ int
 Rhythmic_head::duration_log (Grob*me) 
 {
   SCM s = me->get_property ("duration-log");
-  return ly_c_number_p (s) ? ly_scm2int (s) : 0;
+  return ly_c_number_p (s) ? scm_to_int (s) : 0;
 }
 
 ADD_INTERFACE (Rhythmic_head,"rhythmic-head-interface",

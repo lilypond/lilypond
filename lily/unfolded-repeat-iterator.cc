@@ -30,7 +30,7 @@ Unfolded_repeat_iterator::get_music_list () const
   SCM body = get_music ()->get_property ("element");
   SCM alts = get_music ()->get_property ("elements");
   int alt_count = scm_ilength (alts);
-  int rep_count = ly_scm2int (get_music ()->get_property ("repeat-count"));
+  int rep_count = scm_to_int (get_music ()->get_property ("repeat-count"));
 
   for (int i = 0; i < rep_count; i++)
     {
@@ -93,7 +93,7 @@ Volta_repeat_iterator::construct_children ()
   SCM alts = get_music ()->get_property ("elements");
 
   alt_count_ = scm_ilength (alts);
-  rep_count_ = ly_scm2int (get_music ()->get_property ("repeat-count"));
+  rep_count_ = scm_to_int (get_music ()->get_property ("repeat-count"));
   done_count_ = 0;
 }
 

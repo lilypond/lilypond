@@ -157,7 +157,7 @@ LY_DEFINE (ly_get_glyph, "ly:get-glyph",
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
   SCM_ASSERT_TYPE (ly_c_number_p (index), index, SCM_ARG2, __FUNCTION__, "number");
 
-  return fm->get_ascii_char_stencil (ly_scm2int (index)).smobbed_copy ();
+  return fm->get_ascii_char_stencil (scm_to_int (index)).smobbed_copy ();
 }
 
 LY_DEFINE (ly_text_dimension,"ly:text-dimension",
@@ -274,5 +274,5 @@ get_encoded_index (Font_metric *m, String input_coding, int code)
 		      scm_makfrom0str (input_coding.to_str0 ()),
 		      scm_makfrom0str (font_coding.to_str0 ()),
 		      scm_int2num (code));
-  return ly_scm2int (s);
+  return scm_to_int (s);
 }

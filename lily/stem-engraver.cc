@@ -69,12 +69,12 @@ Stem_engraver::make_stem (Grob_info gi)
 
 	 the first and last (quarter) note bothe get one tremolo flag.  */
       int requested_type
-	= ly_scm2int (tremolo_ev_->get_property ("tremolo-type"));
+	= scm_to_int (tremolo_ev_->get_property ("tremolo-type"));
       SCM f = get_property ("tremoloFlags");
       if (!requested_type)
 	{
 	  if (ly_c_number_p (f))
-	    requested_type = ly_scm2int (f);
+	    requested_type = scm_to_int (f);
 	  else
 	    requested_type = 8;
 	}
@@ -141,13 +141,13 @@ Stem_engraver::stop_translation_timestep ()
       SCM prop = get_property ("stemLeftBeamCount");
       if (ly_c_number_p (prop))
 	{
-	  Stem::set_beaming (stem_,ly_scm2int (prop),LEFT);
+	  Stem::set_beaming (stem_,scm_to_int (prop),LEFT);
 	  context ()->unset_property (ly_symbol2scm ("stemLeftBeamCount"));
 	}
       prop = get_property ("stemRightBeamCount");
       if (ly_c_number_p (prop))
 	{
-	  Stem::set_beaming (stem_,ly_scm2int (prop), RIGHT);
+	  Stem::set_beaming (stem_,scm_to_int (prop), RIGHT);
 	  context ()->unset_property (ly_symbol2scm ("stemRightBeamCount"));
 	}
       stem_ = 0;

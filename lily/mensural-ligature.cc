@@ -114,7 +114,7 @@ internal_brew_primitive (Grob *me)
     }
 
   Stencil out;
-  int primitive = ly_scm2int (primitive_scm);
+  int primitive = scm_to_int (primitive_scm);
   int delta_pitch = 0;
   Real thickness = 0.0;
   Real flexa_width = 0.0;
@@ -166,7 +166,7 @@ internal_brew_primitive (Grob *me)
   SCM join_left_scm = me->get_property ("join-left-amount");
   if (join_left_scm != SCM_EOL)
     {
-      int join_left = ly_scm2int (join_left_scm);
+      int join_left = scm_to_int (join_left_scm);
       if (!join_left)
 	programming_error (_f ("Mensural_ligature: (join_left == 0)"));
       Real blotdiameter = (me->get_paper ()->get_dimension (ly_symbol2scm ("blotdiameter")));

@@ -138,7 +138,7 @@ New_fingering_engraver::add_fingering (Grob * head,
   
   Side_position_interface::add_support (ft.script_, head);
 
-  int d = ly_scm2int (event->get_property ("digit"));
+  int d = scm_to_int (event->get_property ("digit"));
   
   /*
     TODO:
@@ -179,7 +179,7 @@ New_fingering_engraver::position_scripts ()
   */
   for (int i = 0; i < fingerings_.size (); i++)
     {      
-      fingerings_[i].position_ = ly_scm2int (fingerings_[i].head_ -> get_property ( "staff-position"));
+      fingerings_[i].position_ = scm_to_int (fingerings_[i].head_ -> get_property ( "staff-position"));
     }
 
   for (int i = fingerings_.size (); i--;)

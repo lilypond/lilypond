@@ -176,9 +176,9 @@ Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
     {
       Item *primitive = dynamic_cast<Item*> (primitives[i].grob_);
       int prefix_set =
-	ly_scm2int (primitive->get_property ("prefix-set"));
+	scm_to_int (primitive->get_property ("prefix-set"));
       int context_info =
-	ly_scm2int (primitive->get_property ("context-info"));
+	scm_to_int (primitive->get_property ("context-info"));
 
       /*
        * Get glyph_name, delta_pitch and context_info for this head.
@@ -200,7 +200,7 @@ Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
 	  SCM delta_pitch_scm = prev_primitive->get_property ("delta-pitch");
 	  if (delta_pitch_scm != SCM_EOL)
 	    {
-	      delta_pitch = ly_scm2int (delta_pitch_scm);
+	      delta_pitch = scm_to_int (delta_pitch_scm);
 	    }
 	  else
 	    {
@@ -335,7 +335,7 @@ void
 check_for_prefix_loss (Item *primitive)
 {
   int prefix_set =
-    ly_scm2int (primitive->get_property ("prefix-set"));
+    scm_to_int (primitive->get_property ("prefix-set"));
   if (prefix_set & ~PES_OR_FLEXA)
     {
       String prefs = Gregorian_ligature::prefixes_to_str (primitive);
@@ -365,7 +365,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
     SCM delta_pitch_scm = primitive->get_property ("delta-pitch");
     if (delta_pitch_scm != SCM_EOL)
       {
-	delta_pitch = ly_scm2int (delta_pitch_scm);
+	delta_pitch = scm_to_int (delta_pitch_scm);
       }
     else
       {
@@ -377,9 +377,9 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 
     /* retrieve & complete prefix_set and context_info */
     int prefix_set =
-      ly_scm2int (primitive->get_property ("prefix-set"));
+      scm_to_int (primitive->get_property ("prefix-set"));
     int context_info =
-      ly_scm2int (primitive->get_property ("context-info"));
+      scm_to_int (primitive->get_property ("context-info"));
     if (is_stacked_head (prefix_set, context_info))
       {
 	context_info |= STACKED_HEAD;

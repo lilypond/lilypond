@@ -29,7 +29,7 @@ SCM
 Dot_column::force_shift_callback (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) ly_scm2int (axis);
+  Axis a = (Axis) scm_to_int (axis);
   assert (a == Y_AXIS);
   me = me->get_parent (X_AXIS);
 
@@ -47,7 +47,7 @@ SCM
 Dot_column::side_position (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) ly_scm2int (axis);
+  Axis a = (Axis) scm_to_int (axis);
   assert (a == X_AXIS);
 
   Grob * stem = unsmob_grob (me->get_property ("stem"));

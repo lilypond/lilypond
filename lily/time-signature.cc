@@ -36,8 +36,8 @@ Time_signature::print (SCM smob)
   int d = 4;
   if (ly_c_pair_p (frac))
     {
-      n = ly_scm2int (ly_car (frac));
-      d = ly_scm2int (ly_cdr (frac));
+      n = scm_to_int (ly_car (frac));
+      d = scm_to_int (ly_cdr (frac));
     }
 
   Stencil m;

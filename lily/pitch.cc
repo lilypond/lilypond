@@ -304,7 +304,7 @@ LY_DEFINE (ly_make_pitch, "ly:make-pitch",
   SCM_ASSERT_TYPE (scm_integer_p (note)== SCM_BOOL_T, note, SCM_ARG2, __FUNCTION__, "integer");
   SCM_ASSERT_TYPE (scm_integer_p (alter)== SCM_BOOL_T, alter, SCM_ARG3, __FUNCTION__, "integer");
 
-  Pitch p (ly_scm2int (octave), ly_scm2int (note), ly_scm2int (alter));
+  Pitch p (scm_to_int (octave), scm_to_int (note), scm_to_int (alter));
   return p.smobbed_copy ();
 }
 

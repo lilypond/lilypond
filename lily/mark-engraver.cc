@@ -119,7 +119,7 @@ Mark_engraver::process_music ()
 	  if (scm_integer_p (m) == SCM_BOOL_T
 	      && scm_exact_p (m) == SCM_BOOL_T)
 	    {
-	      int mark_count = ly_scm2int (m);
+	      int mark_count = scm_to_int (m);
 	      mark_count ++;
 	      context ()->set_property ("rehearsalMark",
 					    scm_int2num (mark_count));

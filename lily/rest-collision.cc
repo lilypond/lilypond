@@ -25,7 +25,7 @@ SCM
 Rest_collision::force_shift_callback (SCM element_smob, SCM axis)
 {
   Grob *them = unsmob_grob (element_smob);
-  Axis a = (Axis) ly_scm2int (axis);
+  Axis a = (Axis) scm_to_int (axis);
   assert (a == Y_AXIS);
 
   if (Note_column::has_rests (them))

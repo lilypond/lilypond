@@ -203,7 +203,7 @@ LY_DEFINE (ly_dir_p, "ly:dir?",
 {
   if (ly_c_number_p (s))
     {
-      int i = ly_scm2int (s);
+      int i = scm_to_int (s);
       return (i>= -1 && i <= 1)  ? SCM_BOOL_T : SCM_BOOL_F; 
     }
   return SCM_BOOL_F;
@@ -259,7 +259,7 @@ is_direction (SCM s)
 {
   if (ly_c_number_p (s))
     {
-      int i = ly_scm2int (s);
+      int i = scm_to_int (s);
       return i>= -1 && i <= 1; 
     }
   return false;
@@ -270,7 +270,7 @@ is_axis (SCM s)
 {
   if (ly_c_number_p (s))
     {
-      int i = ly_scm2int (s);
+      int i = scm_to_int (s);
       return i== 0 || i == 1;
     }
   return false;
@@ -279,11 +279,11 @@ is_axis (SCM s)
 Direction
 to_dir (SCM s)
 {
-  return scm_is_integer (s) ? (Direction) ly_scm2int (s) : CENTER;
+  return scm_is_integer (s) ? (Direction) scm_to_int (s) : CENTER;
 }
 
 Interval
-ly_scm2interval (SCM p)
+scm_to_interval (SCM p)
 {
   return Interval (ly_scm2double (ly_car (p)), ly_scm2double (ly_cdr (p)));
 }
@@ -361,7 +361,7 @@ LY_DEFINE (ly_number2string, "ly:number->string",
       sprintf (str, "%08.4f", r);
     }
   else
-    sprintf (str, "%d", ly_scm2int (s));
+    sprintf (str, "%d", scm_to_int (s));
 
   return scm_makfrom0str (str);
 }
@@ -710,7 +710,7 @@ int_list_to_slice (SCM l)
   s.set_empty ();
   for (; ly_c_pair_p (l); l = ly_cdr (l))
     if (ly_c_number_p (ly_car (l)))
-      s.add_point (ly_scm2int (ly_car (l))); 
+      s.add_point (scm_to_int (ly_car (l))); 
   return s;
 }
 
@@ -741,7 +741,7 @@ robust_scm2interval (SCM k, Drul_array<Real> v)
   i[LEFT]= v[LEFT];
   i[RIGHT]= v[RIGHT];
   if (is_number_pair (k))
-    i = ly_scm2interval (k);
+    i = scm_to_interval (k);
   return i;
 }
 
@@ -749,7 +749,7 @@ Drul_array<Real>
 robust_scm2drul (SCM k, Drul_array<Real> v)
 {
   if (is_number_pair (k))
-    v = ly_scm2interval (k);
+    v = scm_to_interval (k);
   return v;
 }
 
@@ -765,7 +765,7 @@ int
 robust_scm2int (SCM k, int o)
 {
   if (scm_integer_p (k) == SCM_BOOL_T)
-    o = ly_scm2int (k);
+    o = scm_to_int (k);
   return o;
 }
 

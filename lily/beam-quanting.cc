@@ -282,7 +282,7 @@ Beam::quanting (SCM smob)
   if (to_boolean (me->get_paper ()->lookup_variable (ly_symbol2scm ("debug-beam-quanting")))
       && ly_c_pair_p (inspect_quants))
     {
-      Drul_array<Real> ins = ly_scm2interval (inspect_quants);
+      Drul_array<Real> ins = scm_to_interval (inspect_quants);
 
       int i = 0;
 

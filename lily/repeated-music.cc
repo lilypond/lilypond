@@ -116,7 +116,7 @@ Repeated_music::body_get_length () const
 int
 Repeated_music::repeat_count () const
 {
-  return ly_scm2int (get_property ("repeat-count"));
+  return scm_to_int (get_property ("repeat-count"));
 }
 
 

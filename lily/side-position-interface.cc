@@ -54,7 +54,7 @@ SCM
 Side_position_interface::aligned_on_support_extents (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) ly_scm2int (axis);
+  Axis a = (Axis) scm_to_int (axis);
 
   return general_side_position (me, a, true);
 }
@@ -132,7 +132,7 @@ SCM
 Side_position_interface::aligned_on_support_refpoints (SCM smob, SCM axis)
 {
   Grob *me = unsmob_grob (smob);
-  Axis a = (Axis) ly_scm2int (axis);
+  Axis a = (Axis) scm_to_int (axis);
 
   return general_side_position (me, a, false); 
 }
@@ -197,7 +197,7 @@ SCM
 Side_position_interface::aligned_side (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) ly_scm2int (axis);
+  Axis a = (Axis) scm_to_int (axis);
   
   Direction d = Side_position_interface::get_direction (me);
   

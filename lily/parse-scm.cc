@@ -49,7 +49,7 @@ internal_ly_parse_scm (Parse_start * ps)
      Shouldn't scm_read () do this for us?  */
   scm_fill_input (port);
   SCM to = scm_ftell (port);
-  ps->nchars = ly_scm2int (to) - ly_scm2int (from);
+  ps->nchars = scm_to_int (to) - scm_to_int (from);
 
   /* Don't close the port here; if we re-enter this function via a
      continuation, then the next time we enter it, we'll get an error.

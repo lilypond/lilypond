@@ -21,7 +21,7 @@ SCM
 Rest::after_line_breaking (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  int bt = ly_scm2int (me->get_property ("duration-log"));
+  int bt = scm_to_int (me->get_property ("duration-log"));
   int lc = Staff_symbol_referencer::line_count (me);
   Real ss = Staff_symbol_referencer::staff_space (me);
   if (lc % 2)
@@ -122,7 +122,7 @@ Rest::brew_internal_stencil (SCM smob, bool ledgered)
   if (!ly_c_number_p (balltype_scm))
     return Stencil ().smobbed_copy ();
 
-  int balltype = ly_scm2int (balltype_scm);
+  int balltype = scm_to_int (balltype_scm);
   
   String style; 
   SCM style_scm = me->get_property ("style");
@@ -150,7 +150,7 @@ MAKE_SCHEME_CALLBACK (Rest,extent_callback,2);
 SCM
 Rest::extent_callback (SCM smob, SCM ax)
 {
-  Axis a = (Axis) ly_scm2int (ax);
+  Axis a = (Axis) scm_to_int (ax);
 
   /*
     Don't want ledgers: ledgers depend on Y position, which depends on

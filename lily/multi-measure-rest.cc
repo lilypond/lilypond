@@ -104,7 +104,7 @@ Multi_measure_rest::print (SCM smob)
   SCM m (me->get_property ("measure-count"));
   if (ly_c_number_p (m))
     {
-      measures = ly_scm2int (m);
+      measures = scm_to_int (m);
     }
 
   mol.translate_axis (x_off, X_AXIS);
@@ -120,14 +120,14 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
   SCM m (me->get_property ("measure-count"));
   if (ly_c_number_p (m))
     {
-      measures = ly_scm2int (m);
+      measures = scm_to_int (m);
     }
   if (measures <= 0)
     return Stencil ();
   
 
   SCM limit = me->get_property ("expand-limit");
-  if (measures > ly_scm2int (limit))
+  if (measures > scm_to_int (limit))
     {
       Real padding = 0.15;  
       Stencil s =  big_rest (me, (1.0 - 2*padding) * space);

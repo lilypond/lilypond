@@ -15,7 +15,7 @@ SCM
 Self_alignment_interface::centered_on_parent (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) ly_scm2int (axis);
+  Axis a = (Axis) scm_to_int (axis);
   Grob *him = me->get_parent (a);
   Interval he = him->extent (him, a);
   
@@ -27,7 +27,7 @@ SCM
 Self_alignment_interface::aligned_on_parent (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) ly_scm2int (axis);
+  Axis a = (Axis) scm_to_int (axis);
   Grob *him = me->get_parent (a);
   Interval he = him->extent (him, a);
   
@@ -60,7 +60,7 @@ Self_alignment_interface::centered_on_other_axis_parent (SCM element_smob,
 							 SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) ly_scm2int (axis);
+  Axis a = (Axis) scm_to_int (axis);
   Grob *him = me->get_parent (other_axis (a));
   Interval he = him->extent (him, a);
   
@@ -74,7 +74,7 @@ SCM
 Self_alignment_interface::aligned_on_self (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) ly_scm2int (axis);
+  Axis a = (Axis) scm_to_int (axis);
 
   SCM sym= (a == X_AXIS) ? ly_symbol2scm ("self-alignment-X")
     : ly_symbol2scm ("self-alignment-Y");

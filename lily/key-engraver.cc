@@ -156,7 +156,7 @@ Key_engraver::read_ev (Music const * r)
     }
   
   for (SCM s = n ; ly_c_pair_p (s); s = ly_cdr (s))
-    if (ly_scm2int (ly_cdar (s)))
+    if (scm_to_int (ly_cdar (s)))
       accs = scm_cons (ly_car (s), accs);
 
   context ()->set_property ("keySignature", accs);

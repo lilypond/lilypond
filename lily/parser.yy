@@ -783,7 +783,7 @@ output_def_body:
 			junk this ? there already is tempo stuff in
 			music.
 		*/
-		int m = ly_scm2int ($2->get_property ("metronome-count"));
+		int m = scm_to_int ($2->get_property ("metronome-count"));
 		Duration *d = unsmob_duration ($2->get_property ("tempo-unit"));
 		set_tempo ($$, d->get_length (), m);
 		scm_gc_unprotect_object ($2->self_scm ());
@@ -1072,7 +1072,7 @@ Prefix_composite_music:
 		fraction Music 	
 
 	{
-		int n = ly_scm2int (ly_car ($3)); int d = ly_scm2int (ly_cdr ($3));
+		int n = scm_to_int (ly_car ($3)); int d = scm_to_int (ly_cdr ($3));
 		Music *mp = $4;
 
 		$$= MY_MAKE_MUSIC ("TimeScaledMusic");
@@ -1481,7 +1481,7 @@ chord_body_element:
 		}
 		if (ly_c_number_p (check))
 		{
-			int q = ly_scm2int (check);
+			int q = scm_to_int (check);
 			n->set_property ("absolute-octave", scm_int2num (q-1));
 		}
 
@@ -2019,7 +2019,7 @@ multiplied_duration:
 		$$ = unsmob_duration ($$)->compressed ( $3) .smobbed_copy ();
 	}
 	| multiplied_duration '*' FRACTION {
-		Rational  m (ly_scm2int (ly_car ($3)), ly_scm2int (ly_cdr ($3)));
+		Rational  m (scm_to_int (ly_car ($3)), scm_to_int (ly_cdr ($3)));
 
 		$$ = unsmob_duration ($$)->compressed (m).smobbed_copy ();
 	}
@@ -2090,7 +2090,7 @@ bass_figure:
 		Music *m = unsmob_music ($1);
 		if ($2) {
 			SCM salter = m->get_property ("alteration");
-			int alter = ly_c_number_p (salter) ? ly_scm2int (salter) : 0;
+			int alter = ly_c_number_p (salter) ? scm_to_int (salter) : 0;
 			m->set_property ("alteration",
 				scm_int2num (alter + $2));
 		} else {
@@ -2155,7 +2155,7 @@ simple_element:
 
 		if (ly_c_number_p ($4))
 		{
-			int q = ly_scm2int ($4);
+			int q = scm_to_int ($4);
 			n->set_property ("absolute-octave", scm_int2num (q-1));
 		}
 
@@ -2395,7 +2395,7 @@ bare_int:
 	bare_number {
 		if (scm_integer_p ($1) == SCM_BOOL_T)
 		{
-			int k = ly_scm2int ($1);
+			int k = scm_to_int ($1);
 			$$ = k;
 		} else
 		{

@@ -19,7 +19,7 @@ SCM
 Align_interface::alignment_callback (SCM element_smob, SCM axis)
 {
   Grob * me = unsmob_grob (element_smob);
-  Axis ax = (Axis)ly_scm2int (axis);
+  Axis ax = (Axis)scm_to_int (axis);
   Grob * par = me->get_parent (ax);
   if (par && !to_boolean (par->get_property ("positioning-done")))
     {
@@ -33,7 +33,7 @@ SCM
 Align_interface::fixed_distance_alignment_callback (SCM element_smob, SCM axis)
 {
   Grob * me = unsmob_grob (element_smob);
-  Axis ax = (Axis)ly_scm2int (axis);
+  Axis ax = (Axis)scm_to_int (axis);
   Grob * par = me->get_parent (ax);
   if (par && !to_boolean (par->get_property ("positioning-done")))
     {
@@ -227,7 +227,7 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
 Axis
 Align_interface::axis (Grob*me)
 {
-  return  Axis (ly_scm2int (ly_car (me->get_property ("axes"))));
+  return  Axis (scm_to_int (ly_car (me->get_property ("axes"))));
 }
 
 void

@@ -205,7 +205,7 @@ provide_context_info (Array<Grob_info> primitives)
     Music *music_cause = primitives[i].music_cause ();
     int context_info = 0;
     int pitch = unsmob_pitch (music_cause->get_property ("pitch"))->steps ();
-    int prefix_set = ly_scm2int (primitive->get_property ("prefix-set"));
+    int prefix_set = scm_to_int (primitive->get_property ("prefix-set"));
 
     if (prefix_set & PES_OR_FLEXA)
       if (!i) // ligature may not start with 2nd head of pes or flexa

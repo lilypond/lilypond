@@ -233,7 +233,7 @@ Completion_heads_engraver::process_music ()
 	  /*
 	   measly attempt to save an eeny-weenie bit of memory.
 	  */
-	  if (dots != ly_scm2int (d->get_property ("dot-count")))
+	  if (dots != scm_to_int (d->get_property ("dot-count")))
 	    d->set_property ("dot-count", scm_int2num (dots));
 
 	  d->set_parent (note, Y_AXIS);
@@ -245,7 +245,7 @@ Completion_heads_engraver::process_music ()
       int pos = pit->steps ();
       SCM c0 = get_property ("middleCPosition");
       if (ly_c_number_p (c0))
-	pos += ly_scm2int (c0);
+	pos += scm_to_int (c0);
 
       note->set_property ("staff-position",   scm_int2num (pos));
       notes_.push (note);
