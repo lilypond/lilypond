@@ -1,3 +1,6 @@
+#ifndef TEXTSTR_HH
+#define TEXTSTR_HH
+
 #include <stdio.h>
 #include <ctype.h>
 
@@ -112,3 +115,4 @@ class Data_file : private Text_stream
 	exit(1);    
     }
 };
+#endif
