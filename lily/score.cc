@@ -15,8 +15,9 @@
 #include "main.hh"
 #include "source.hh"
 #include "source-file.hh"
-#include "midi-output.hh"
 #include "midi-def.hh"
+#include "midi-stream.hh"
+#include "audio-score.hh"
 #include "p-col.hh"
 #include "music-iterator.hh"
 #include "music.hh"
@@ -27,6 +28,7 @@ extern String default_out_fn;
 Score::Score()
 {
     pscore_p_=0;
+    audio_score_p_ = 0;
     paper_p_ = 0;
     midi_p_ = 0;
     errorlevel_i_ = 0;
@@ -44,6 +46,7 @@ Score::~Score()
 {
     delete music_p_;
     delete pscore_p_;
+    delete audio_score_p_;
     delete paper_p_;
     delete midi_p_;
 }
@@ -56,11 +59,20 @@ Score::run_translator(Global_translator * trans_l)
 								  trans_l);
     iter->construct_children();
 
+    if ( ! iter->ok() ) {
+	delete iter;
+	warning ("Need music in a score");
+	errorlevel_i_ =1;
+	return ;
+    }
+    
     trans_l->start();
+    
     while ( iter->ok() || trans_l->moments_left_i() ) {
 	Moment w = infinity_mom;
 	if (iter->ok() ) {
 	    w = iter->next_moment();
+	    mtor << w;
 	    iter->print();
 	}
 	trans_l->modify_next( w );
@@ -89,6 +101,7 @@ Score::midi()
 	return;
     
     *mlog << "\nCreating MIDI elements ..." << flush;
+    audio_score_p_ = new Audio_score( this );
     
     Global_translator* score_trans=  midi_p_->get_global_translator_p();
     run_translator( score_trans );
@@ -100,6 +113,8 @@ Score::midi()
 //	return;
     }
     *mlog << endl;
+
+    midi_output();
 }
     
 void
@@ -109,7 +124,7 @@ Score::paper()
 	return;
     
     *mlog << "\nCreating elements ..." << flush;
-    pscore_p_ = new PScore(paper_p_);
+    pscore_p_ = new Paper_score(paper_p_);
     
     Global_translator * score_trans=  paper_p_->get_global_translator_p();
     run_translator( score_trans );
@@ -121,7 +136,6 @@ Score::paper()
 //	return;
     }
     
-    // debugging
     *mlog << endl;
     pscore_p_->process();
 
@@ -129,22 +143,39 @@ Score::paper()
     paper_output();
 }
 
-
 void
-Score::set(Paper_def *pap_p)
+Score::midi_output()
 {
-    delete paper_p_;
-    paper_p_ = pap_p;
+    if ( midi_p_->outfile_str_ == "" )
+	midi_p_->outfile_str_ = default_out_fn + ".midi";
+
+    Midi_stream midi_stream( midi_p_->outfile_str_ );    
+    *mlog << "MIDI output to " << midi_p_->outfile_str_ << " ..." << endl;    
+
+    audio_score_p_->output( midi_stream );
+    *mlog << endl;
 }
 
 void
-Score::set(Midi_def* midi_p)
-{    
-    delete midi_p_;
-    midi_p_ = midi_p;
+Score::paper_output()
+{
+    if (paper_p_->outfile_str_=="")
+	paper_p_->outfile_str_ = default_out_fn + ".tex";
+
+    if ( errorlevel_i_ ) { 
+	*mlog << "lilypond: warning: no output to: " << paper_p_->outfile_str_ 
+	<< " (errorlevel=" << errorlevel_i_ << ")" << endl;
+        return;
+    }
+
+    *mlog << "TeX output to " << paper_p_->outfile_str_ << " ...\n";
+    
+    Tex_stream the_output(paper_p_->outfile_str_);
+    
+    the_output << "% outputting Score, defined at: " <<
+	location_str() << "\n";
+    pscore_p_->output(the_output);
 }
-
-
 
 void
 Score::print() const
@@ -160,39 +191,16 @@ Score::print() const
 }
 
 void
-Score::paper_output()
+Score::set(Paper_def *pap_p)
 {
-    if (paper_p_->outfile_str_=="")
-	paper_p_->outfile_str_ = default_out_fn + ".out";
-
-    if ( errorlevel_i_ ) { 
-	*mlog << "lilypond: warning: no output to: " << paper_p_->outfile_str_ 
-	<< " (errorlevel=" << errorlevel_i_ << ")" << endl;
-        return;
-    }
-
-    *mlog << "TeX output to " << paper_p_->outfile_str_ << " ...\n";
-    
-    Tex_stream the_output(paper_p_->outfile_str_);
-    
-    the_output << "% outputting Score, defined at: " <<
-	location_str() << "\n";
-    pscore_p_->output(the_output);
-    
+    delete paper_p_;
+    paper_p_ = pap_p;
 }
 
 void
-Score::midi_output()
-{
-#if 0
-    if (!midi_p_)
-	return;
-
-    if (midi_p_->outfile_str_ == "")
-	midi_p_->outfile_str_ = default_out_fn + ".midi";
-    
-    *mlog << "midi output to " << midi_p_->outfile_str_ << " ...\n";    
-    Midi_output(this, midi_p_);
-#endif
+Score::set(Midi_def* midi_p)
+{    
+    delete midi_p_;
+    midi_p_ = midi_p;
 }
 
