@@ -6,7 +6,7 @@ export PATH:=$(builddir)/lily/$(outconfbase):$(builddir)/buildscripts/$(outconfb
 
 # LilyPond is often run from within $(outdir), making a relative
 # PREFIX incorrect.
-export LILYPONDPREFIX:=$(build_lilypond_datadir)
+export LILYPONDPREFIX:=$(build_lilypond_datadir)/$(TOPLEVEL_VERSION)
 
 export PYTHONPATH:=$(builddir)/python/$(outconfbase):$(PYTHONPATH)
 

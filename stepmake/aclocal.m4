@@ -803,6 +803,8 @@ AC_DEFUN(STEPMAKE_KPATHSEA, [
     if test "$have_libkpathsea_so" = "maybe"; then
 	if test $shared_size -lt 40000 ; then
 	  have_libkpathsea_so=yes
+	else
+	  have_libkpathsea_so=no
 	fi
     fi
     
@@ -818,6 +820,9 @@ AC_DEFUN(STEPMAKE_KPATHSEA, [
     if test "$kpathsea_b" != no; then
         AC_MSG_RESULT(yes)
 	KPATHSEA=1
+	if "$have_libkpathsea_so" = "no" ; then
+	  KPATHSEA_LIBS="-lkpathsea"
+	fi
     else
         AC_MSG_RESULT(no)
 	KPATHSEA=0

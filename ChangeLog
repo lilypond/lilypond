@@ -1,5 +1,8 @@
 2005-03-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* make/lilypond.fedora.spec.in (Requires): scrap kpathsea/tex
+	requirements
+
 	* stepmake/aclocal.m4: check dynamic link, by checking if kpathsea
 	executable is < 40k
 

@@ -21,7 +21,7 @@ Buildrequires: freetype-devel >= 2.1
 Buildrequires: fontforge
 #fontforge must be >= 20041211 urg. 0.0.0-fdr.1.20041211
 
-Requires: tetex  tetex-latex libstdc++ python  tetex-dvips tetex-latex
+Requires: libstdc++ python 
 Requires: guile >= 1.6.4-8 ghostscript >= 8.15
 
 %description
@@ -48,7 +48,7 @@ Documentation and example files of LilyPond. An index is available at
 # In fact, do not take out the spaces between % and { in the above comment,
 # because RPM will gladly do a substitution anyway.
 
-./configure --disable-checking --prefix=%{_prefix} --enable-optimising
+./configure --without-kpathsea --disable-checking --prefix=%{_prefix} --enable-optimising
 
 
 make all
