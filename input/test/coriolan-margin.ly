@@ -12,8 +12,10 @@
   enteredby = 	 "JCN"
 
 
-texidoc = "Demonstration of how to set up an orchestral score."  
-}
+texidoc = "@cindex Orchestra Score
+@cindex Coriolan Score
+Demonstration of how to set up an orchestral score (Bethoven's Coriolan overture).
+" }
 
 raisedFlat = \markup { \raise #0.4 \smaller \smaller \musicglyph #"accidentals--1"  }
 

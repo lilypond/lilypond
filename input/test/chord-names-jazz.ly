@@ -1,4 +1,5 @@
 \version "1.7.18"
+% FIXME: doesn't display anything useful.
 \header {
 texidoc = "Jazz notation for chord names.
 

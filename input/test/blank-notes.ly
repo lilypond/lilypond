@@ -9,8 +9,8 @@
 You can suppress printing of Lilypond output.  This example shows you how to
 print invisible (or blank) notes.  This can be very useful when you want to
 do wierd tricks with Lilypond (especially with slurs, since you can't attach
-a slur to a rest or spacer rest)."
-}
+a slur to a rest or spacer rest).
+" }
 
 blanknotes = { \property Voice.NoteHead
 	       \override #'transparent  = ##t

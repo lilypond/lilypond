@@ -1,5 +1,8 @@
 \version "1.7.18"
-
+\header{
+	texinfo="@cindex Crescendi
+Lilypond can print crescendi in a number of different ways.
+" }
 \score{
 \notes\relative c''{
 a1\fff\> \!a-\pp

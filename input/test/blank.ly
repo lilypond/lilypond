@@ -1,8 +1,8 @@
 \version "1.7.18"
 \header {
   texidoc="@cindex Blank Paper
-Blank music paper with clefs"
-}
+Blank music paper with clefs.
+" }
 \score {
   \notes {
     % \clef violin

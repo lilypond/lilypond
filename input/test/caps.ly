@@ -1,8 +1,8 @@
 \version "1.7.18"
 \header {
-texidoc =  " Small caps is available as font-shape caps.
-
-	" }
+texidoc =  "@cindex Capital Letters
+You can set the font to use small caps.
+" }
 shapeSC   = \property Lyrics.LyricText \override #'font-shape = #'caps
  shapeNorm = \property Lyrics.LyricText \revert   #'font-shape
 

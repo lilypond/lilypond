@@ -1,10 +1,9 @@
-
 \version "1.7.18"
 \header {
 
-    texidoc = "Scales, but with clef and key signature at the end of the line."
-
-}
+    texidoc = "@cindex Clef End of Line
+Scales, but with clef and key signature at the end of the line.
+" }
 
 \score {
     \notes \transpose c c' {

@@ -3,8 +3,8 @@
 	texinfo="@cindex Beam Neutral Direction
 When a beam falls in the middle of the staff, Lilypond normally
 prints the beam pointing down.  However, this behaviour can be
-altered if desired."
-}
+altered if desired.
+" }
 
 fragment = \notes {
    b''8-[ b]

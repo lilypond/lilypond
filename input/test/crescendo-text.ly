@@ -1,5 +1,5 @@
 \version "1.7.18"
-
+% delete; covered by cresendi.ly
 
 fragment = \notes {
   \context Voice {

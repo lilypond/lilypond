@@ -3,7 +3,8 @@
 
 texidoc = "@cindex Bar Line Lyric Only
 You can move around Bar_engraver and
-Span_bar_engraver if you want bar lines on lyrics."  }
+Span_bar_engraver if you want bar lines on lyrics.
+"  }
 
 
 \score {

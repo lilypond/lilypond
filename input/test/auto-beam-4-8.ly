@@ -1,7 +1,8 @@
 \version "1.7.18"
 \header {
 	texidoc = "@cindex Auto Beaming 4/8
-You can override Lilypond's automatic beaming."
+You can override Lilypond's automatic beaming.
+"
 }
 
 \score{

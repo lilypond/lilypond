@@ -1,8 +1,8 @@
 \version "1.7.18"
 \header{
 	texidoc="@cindex Beam Isknee
-Lilypond can beam across a Piano Staff."
-}
+Lilypond can beam across a Piano Staff.
+" }
 \score{
 	\context PianoStaff <
 	\context Staff=one \notes\relative c'{

@@ -1,8 +1,8 @@
 \version "1.7.18"
 \header{
     texidoc="@cindex Beam Control
-Controlling beam positions."
-}
+Controlling beam positions.
+" }
 \score { 
     \context Voice \notes\relative c {
 	%% from upper staffline (position 4) to centre (position 0)

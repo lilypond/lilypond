@@ -5,7 +5,8 @@ You can add various stuff to notes using make-music.
 Here is an example of how to add an extra fingering. 
 
 In general, first do a display of the music you want to
-create, then write a function that will build the structure for you."
+create, then write a function that will build the structure for you.
+"
 } 
 
 #(define (make-text-script x) 

@@ -3,8 +3,8 @@
 % followvoice examples in input/test
 \header{
 	texidoc = "@cindex Piano followVoice
-followVoice: connect note heads with line when thread switches staff."
-}
+followVoice: connect note heads with line when thread switches staff.
+" }
 \score{
     \context PianoStaff <
         \context Staff=one \notes\relative c''{
