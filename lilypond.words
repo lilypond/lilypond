@@ -1,6 +1,6 @@
 \\accent
 \\accepts
-Accidental 
+Accidentals
 \\accompany
 \\addlyrics
 \\aeolian
@@ -59,6 +59,7 @@ ChordName
 \\CueVoiceContext
 \\decr
 \\default
+\\defaultAccidentals
 \\denies
 \\different
 \\dirs
@@ -105,7 +106,7 @@ FiguredBass
 fold
 \\font
 \\FontBody
-\\forgetAccidental
+\\forgetAccidentals
 \\fp
 \\fragment
 \\fz
@@ -129,6 +130,7 @@ Hairpin
 \\hsize
 \\improOff
 \\improOn
+\\in
 \\include
 InnerChoirStaff
 \\InnerChoirStaffContext
@@ -176,8 +178,9 @@ mezzosoprano
 \\mixolydian
 \\mm
 \\mm
-\\modernAccidental
+\\modernAccidentals
 \\modernCautionaries
+\\modernVoiceAccidentals
 \\modernVoiceCautionaries
 \\monstrous
 \\mp
@@ -202,6 +205,7 @@ NoteNames
 \\nt
 \\oboi
 \\oboiStaff
+\\once
 \\one
 \\onestaff
 \\open
@@ -226,6 +230,8 @@ NoteNames
 percent
 \\phrygian
 \\Piano
+\\pianoAccidentals
+\\pianoCautionaries
 PianoStaff
 \\PianoStaff
 \\PianoStaffContext
@@ -235,6 +241,7 @@ PianoStaff
 \\pp
 \\pper
 \\ppp
+\\pppp
 \\pprall
 \\prall
 \\pralldown
@@ -422,6 +429,7 @@ violin
 \\violinIStaff
 \\visible
 Voice
+\\voiceAccidentals
 \\voiceB
 \\voiceC
 \\VoiceContext
