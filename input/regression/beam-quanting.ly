@@ -20,7 +20,7 @@ Have some fun beam quanting
 
 \score {
     \notes\relative c'{
-        \property Voice.Beam \override #'height-quants = #beam-height-quants
+        \property Voice.Beam \override #'height-quant-function = #beam-height-quants
         \property Voice.Beam \override #'vertical-position-quant-function =
 	#beam-vertical-position-quants
         c8 c c c

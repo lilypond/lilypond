@@ -37,12 +37,14 @@
   
 ;; Note: quanting period is take as quants.top () - quants[0], 
 ;; which should be 1 (== 1 interline)
-(define (mean a b) (* 0.5 (+ a  b)))
+ (define (mean a b) (* 0.5 (+ a  b)))
 (define (default-beam-dy-quants beam stafflinethick)
-  (let ((thick (ly-get-grob-property beam 'thickness))
-	)
-    
+  (let ((thick (ly-get-grob-property beam 'thickness)))
+    ;; amazing.  this is wrong:
     (list 0 (mean thick stafflinethick) (+ thick stafflinethick) 1)
+    ;; it should be this: but the visual effect is even uglier,
+    ;; because dy quants are not synchronised with left y
+    ;; (list 0 (/ (- thick stafflinethick) 2) (- thick stafflinethick) 1)
     ))
 
 ;; two popular veritcal beam quantings
@@ -53,7 +55,7 @@
 (define (default-beam-y-quants beam multiplicity dy staff-line)
   (let* ((beam-straddle 0)
 	 (thick (ly-get-grob-property beam 'thickness))
-	 (beam-sit (/ (+ thick staff-line) 2))
+	 (beam-sit (/ (- thick staff-line) 2))
 	 (beam-hang (- 1 (/ (- thick staff-line) 2)))
 	 (quants (list beam-hang))
 	 )
@@ -68,7 +70,7 @@
 (define (beam-traditional-y-quants beam multiplicity dy staff-line)
   (let* ((beam-straddle 0)
 	(thick (ly-get-grob-property beam 'thickness))
-	(beam-sit (/ (+ thick staff-line) 2))
+	(beam-sit (/ (- thick staff-line) 2))
 	(beam-hang (- 1 (/ (- thick staff-line) 2)))
 	(quants '())
 	)

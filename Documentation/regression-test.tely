@@ -130,6 +130,8 @@ Grace note do weird things with timing. Fragile.
 
 @lilypondfile[printfilename]{beam-position.ly}
 
+@lilypondfile[printfilename]{beam-center-slope.ly}
+
 
 @lilypondfile[printfilename]{auto-beam-bar.ly}
 

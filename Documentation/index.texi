@@ -193,7 +193,7 @@ by computer}.
 @unnumberedsec Mailing lists
 
 If you have questions, do write to the mailing lists.  But don't forget
-to read the @uref{Documentation/topdocs/out-www/FAQ.html,Very Frequently
+to read the @uref{../topdocs/out-www/FAQ.html,Very Frequently
 Asked Questions} and @uref{http://appel.dyndns.org/wiki?LilyPondFaqs,
 Frequently Asked Questions} first.
 
@@ -217,7 +217,7 @@ Searchable archives are available from
 
 @item @uref{http://mail.gnu.org/mailman/listinfo/lilypond-user,lilypond-user@@gnu.org}
         For discussing every-day use of LilyPond, in particular the
-stable releases..
+stable releases.
 
 Searchable archives are available from
 @uref{http://www.mail-archive.com/lilypond-user@@gnu.org}.
