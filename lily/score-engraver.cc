@@ -138,10 +138,7 @@ Score_engraver::announce_grob (Grob_info info)
 {
   announce_info_arr_.push (info);
   pscore_p_->line_l_->typeset_grob (info.grob_l_);
-
-
 }
-
 
 void
 Score_engraver::typeset_grob (Grob *elem_p)
@@ -152,7 +149,6 @@ Score_engraver::typeset_grob (Grob *elem_p)
 
     elem_p_arr_.push (elem_p);
 }
-
 
 void
 Score_engraver::typeset_all ()

@@ -96,5 +96,5 @@ this engraver should be removed from @code{Score} and placed in
 @code{Staff}.",
 /* creats*/       "",
 /* acks  */       "",
-/* reads */       "timeSignatureFraction barCheckNoSynchronize barNonAuto whichBar barAlways defaultBarType skipBars timing oneBeat measureLength measurePosition currentBarNumber",
+/* reads */       "timeSignatureFraction barNonAuto whichBar barAlways defaultBarType skipBars timing oneBeat measureLength measurePosition currentBarNumber",
 /* write */       "");
