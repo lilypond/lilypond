@@ -516,7 +516,7 @@ def make_ps_images (ps_name, resolution = 90):
 		if os.path.isfile (rmfile):
 			os.unlink (rmfile)
 		
-		cmd = r'''gs -s  -sDEVICE=pnggray  -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -q -sOutputFile=%s -dNOPAUSE -r%d %s -c showpage -c quit''' % (output_file,
+		cmd = r'''gs -s  -sDEVICE=pnggray  -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -q -sOutputFile=%s -dNOPAUSE -r%d %s -c quit''' % (output_file,
 																      resolution, ps_name)
 
 	status = system (cmd)

@@ -230,7 +230,7 @@ Syntax: @var{note}\\cr
 
 Syntax: @code{\\key } @var{name} @var{scale}.")
 
-	(internal-class-name . "Key_change_ev")
+	(internal-class-name . "Event")
 	(types . (general-music key-change-event event))
 	))
     
@@ -568,7 +568,7 @@ Syntax @code{\\times @var{fraction} @var{music}}, e.g.
     (TransposedMusic
      . (
 	(description .	"Music that has been transposed.")
-	(internal-class-name . "Transposed_music")
+	(internal-class-name . "Music_wrapper")
 	(to-relative-callback . ,Relative_octave_music::no_relative_callback)
 	(types . (music-wrapper-music general-music transposed-music))
 	))
@@ -587,7 +587,7 @@ Syntax @code{\\times @var{fraction} @var{music}}, e.g.
 	(description .	"Music that can not be converted from relative to absolute notation.
 For example, transposed music.")
 	(to-relative-callback . ,Relative_octave_music::no_relative_callback)
-	(internal-class-name . "Un_relativable_music")
+	(internal-class-name . "Music_wrapper")
 	(types . (music-wrapper-music general-music unrelativable-music))
 	))
 
@@ -720,7 +720,7 @@ Syntax: @code{\\\\}")
     (VoltaRepeatedMusic
      . (
 	(iterator-ctor . ,Volta_repeat_iterator::constructor)
-	(internal-class-name . "Repeated_music")
+	(internal-class-name . "Music")
 	(description . "")
 	(start-callback .  ,Repeated_music::first_start)
 	(length-callback . ,Repeated_music::volta_music_length)
@@ -732,13 +732,13 @@ Syntax: @code{\\\\}")
 	(iterator-ctor . ,Unfolded_repeat_iterator::constructor)
 	(description .	"")
 	(start-callback .  ,Repeated_music::first_start)
-	(internal-class-name . "Repeated_music")
+	(internal-class-name . "Music")
 	(types . (general-music repeated-music unfolded-repeated-music))
 	(length-callback . ,Repeated_music::unfolded_music_length)
 	))
     (PercentRepeatedMusic
      . (
-	(internal-class-name . "Repeated_music")
+	(internal-class-name . "Music")
 	(description .	"Repeats encoded by percents.")
 	(iterator-ctor . ,Percent_repeat_iterator::constructor)
 	(start-callback .  ,Repeated_music::first_start)
@@ -750,7 +750,7 @@ Syntax: @code{\\\\}")
      . (
 	(iterator-ctor . ,Chord_tremolo_iterator::constructor)
 	(description .	"Repeated notes denoted by tremolo beams.")
-	(internal-class-name . "Repeated_music")
+	(internal-class-name . "Music")
 	(start-callback .  ,Repeated_music::first_start)
 
 	;; the length of the repeat is handled by shifting the note logs
@@ -761,7 +761,7 @@ Syntax: @code{\\\\}")
     
     (FoldedRepeatedMusic
      . (
-	(internal-class-name . "Repeated_music")
+	(internal-class-name . "Music")
 	(description .	"Repeats with alternatives placed in parallel. ")
 	(iterator-ctor	. ,Folded_repeat_iterator::constructor)
 	(start-callback .  ,Repeated_music::minimum_start)
