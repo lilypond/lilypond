@@ -6,7 +6,10 @@
 
 ;;;; NOTE:
 ;;;;
-;;;; * Get mftrace 1.0.12 or newer
+;;;; * Get mftrace 1.0.12 or newer to create the .pfa fonts:
+;;;;
+;;;;       make -C mf clean
+;;;;       make -C mf pfa
 ;;;;
 ;;;; * Get sodipodi-0.28 or newer
 ;;;;
