@@ -1,6 +1,11 @@
 \input texinfo
 @setfilename glossary.info
 
+@html
+<!--- @@WEB-TITLE@@=Glossary --->
+@end html
+
+
 @c @pagesizes 10.3in
 
 @c @everyheading @| @thispage @|

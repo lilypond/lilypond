@@ -29,7 +29,7 @@ which substitutes some @AT_VARIABLES@ as well.
      </td>
     <td align=center valign=middle width="80%" bgcolor="#e8ffe8">
       <h1>GNU LilyPond</h1>
-      <h2>Welcome to the home of the GNU Music Typesetter</h2>
+      <h2>@WEB-TITLE@</h2>
     </td>
   </tr>
 
@@ -41,7 +41,7 @@ which substitutes some @AT_VARIABLES@ as well.
       <b>What is LilyPond</b>
       </td></tr>
       <tr><td><font size="-1">
-    	<a href="@TOP@index.html#everyone">General information</a><br>
+    	<a href="@TOP@index.html">General information</a><br>
 	<a href="@TOP@short-examples.html">Simple examples</a><br>
 	<a href="@TOP@long-examples.html">Complex examples</a><br>
       </font></td></tr>
@@ -49,8 +49,8 @@ which substitutes some @AT_VARIABLES@ as well.
 	<b>Download </b>
       </td></tr>
       <tr><td><font size="-1">
-	<a href="@TOP@Documentation/topdocs/out-www/INSTALL.html#download-binaries">Linux</a><br>
-	<a href="@TOP@Documentation/windows/out-www/installing.html">Windows</a><br>
+	<a href="@TOP@Documentation/topdocs/out-www/INSTALL.html#download-binaries">GNU/Linux binaries</a><br>
+	<a href="@TOP@Documentation/windows/out-www/installing.html">GNU/Windows binaries</a><br>
 	<a href="@TOP@Documentation/topdocs/out-www/INSTALL.html#download-source">Source code</a><br>
       </font></td></tr>
       <tr><td bgcolor="#e8e8ff">

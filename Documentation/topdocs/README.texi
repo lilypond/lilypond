@@ -1,6 +1,11 @@
 \input texinfo @c -*-texinfo-*-
 @setfilename README.info
 @settitle This is the toplevel README to LilyPond
+
+@html
+<!--- @@WEB-TITLE@@=README --->
+@end html
+
 @node Top, , , 
 @top
 

@@ -2,6 +2,9 @@
 @setfilename FAQ.info
 @settitle FAQ - GNU LilyPond Frequently Asked Questions
 
+@html
+<!--- @@WEB-TITLE@@=Frequently Asked Questions --->
+@end html
 
 @node Top
 @chapter FAQ - GNU LilyPond Frequently Asked Questions

@@ -1,3 +1,7 @@
+@html
+<!--- @@WEB-TITLE@@=Windows Compilation --->
+@end html
+
 @section Obtaining LilyPond
 
 You can get the latest version of LilyPond at

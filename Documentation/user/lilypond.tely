@@ -2,6 +2,10 @@
 @setfilename lilypond.info
 @settitle GNU LilyPond
 
+@html
+<!--- @@WEB-TITLE@@=User Manual --->
+@end html
+
 
 @dircategory GNU music project
 @direntry

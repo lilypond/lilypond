@@ -17,6 +17,10 @@
 @node Reference Manual
 @chapter Reference Manual
 
+@html
+<!--- @@WEB-TITLE@@=Reference Manual --->
+@end html
+
 This document describes GNU LilyPond and its input format. The last
 revision of this document was made for LilyPond 1.4.1.  It supposes a
 passing familiarity with how LilyPond input works. New users are

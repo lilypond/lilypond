@@ -1,16 +1,35 @@
-%
-%  This is NOT a lilypond input file. It is an ABC file, see
-%  http://www.gre.ac.uk/~c.walshaw/abc/
-%  
-%  LilyPond includes import tools for Finale, Musedata, ABC, MIDI and PMX
-%
-X:1
-T:Paddy O'Rafferty
-C:Trad.
-M:6/8
-K:D
-dff cee|def gfe|dff cee|dfe dBA|dff cee|def gfe|faf gfe|1 dfe dBA:|2 dfe dcB||
-~A3 B3|gfe fdB|AFA B2c|dfe dcB|~A3 ~B3|efe efg|faf gfe|1 dfe dcB:|2 dfe dBA||
-fAA eAA|def gfe|fAA eAA|dfe dBA|fAA eAA|def gfe|faf gfe|dfe dBA:|
+\header {
+	footnotes = ""
+	tagline = "Lily was here (unknown version) -- automatically converted from ABC"
+}
+voicedefault = \notes {
+\property Score.defaultBarType="empty"
 
+        c''8        c''8        f''8              }               
+%    This is NOT a lilypond input file. It is an ABC file, see
+ %    http://www.gre.ac.uk/~c.walshaw/abc/
+     %    
+     
+%    LilyPond includes import tools for Finale, Musedata, ABC, MIDI and PMX
+               b''8 ^\downbow   a''8      f''8        d''''1    b'''1    a'''1  
+    b''8    a''8      e''''1      b''8    a''8      f''8        e''''1    
+d''''1    b'''1    a'''1      b''8    a''8      c''8      e''''1    f''8        
+b''8    a''8        b'''2 ^"~"         b''8 ^"~"-.   a''8        b''8    a''8   
+     f''8        d''''1    b'''1    a'''1      b''8    a''8        b''8    a''8 
+       a'''1    a'''1    e''''1    a'''1    a'''1      b''8    a''8        
+b'''1    a'''1      b''8    a''8      d''''1    e''''1    f''8      f''8      
+b'''1    a'''1      b''8    a''8      }                     c''8      \grace {  
+            }                   }           }   
+}\score{
+        \notes <
 
+	\context Staff="default"
+	{
+	    \voicedefault 
+	}
+
+    >
+	\paper {
+	}
+	\midi {}
+}

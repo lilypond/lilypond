@@ -2,6 +2,10 @@
 @setfilename INSTALL.info
 @settitle INSTALL - compiling and installing GNU LilyPond
 
+@html
+<!--- @@WEB-TITLE@@=Installation Instructions --->
+@end html
+
 @node Top, , , (dir)
 @top
 
