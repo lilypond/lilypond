@@ -53,6 +53,8 @@
 	(si . ,(make-pitch -1 6 0 ))
 	(sid . ,(make-pitch -1 6 1 ))
 	(sidd . ,(make-pitch -1 6 2 ))
+
+	;; Now that we have espanol.ly, should these be junked? --jcn
 	(dos . ,(make-pitch -1 0 1 ))
 	(doss . ,(make-pitch -1 0 2 ))
 	(res . ,(make-pitch -1 1 1 ))
