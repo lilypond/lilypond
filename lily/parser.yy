@@ -2477,8 +2477,10 @@ markup:
  		Score *score = $2;
  		Book *book = new Book;
 		book->scores_.push (score);
-
+			
 		Music_output_def *paper = get_paper (THIS);
+		book->bookpaper_ = get_bookpaper (THIS);
+
 		SCM s = book->to_stencil (paper, THIS->header_);
  		scm_gc_unprotect_object (score->self_scm ());
  		scm_gc_unprotect_object (book->self_scm ());

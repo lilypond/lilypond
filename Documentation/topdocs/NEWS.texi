@@ -8,11 +8,14 @@
 
 @itemize @bullet
 
+@item A new block, @code{\bookpaper} has been introduced to
+hold settings for paper size and output scaling.
+
 @item Support for fret diagrams  has been contributed by Carl
 D. Sorensen. @file{input/test/fret-diagram.ly} contains an example.
  
 @item The @code{--safe} mode has been revisited: it makes the basic
-ly: interface available, and stops malicious @TeX{} code.
+@code{ly:} interface available, and stops malicious @TeX{} code.
 
 @item Music syntax can now be extended seamlessly. As an example,
 here is the new implementation @code{\applymusic},
