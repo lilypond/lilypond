@@ -22,7 +22,10 @@ public:
   Drul_array<Offset> attachment_;
   Real score_;
   Bezier curve_;
-
+  Real height_;
+  
+  int index_;
+  
 #if DEBUG_SLUR_SCORING
   String score_card_;
 #endif
@@ -31,7 +34,6 @@ public:
 
   void generate_curve (Slur_score_state const &state, Real r0, Real h_inf);
   void score (Slur_score_state const&);
-
 protected:
   void score_extra_encompass (Slur_score_state const&);
   void score_slopes  (Slur_score_state const&);

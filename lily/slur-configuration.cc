@@ -94,11 +94,9 @@ fit_factor (Offset dz_unit, Offset dz_perp,
   return fit_factor;
 }
 	
-
-Bezier
-get_bezier (Slur_score_state const &state,
-	    Drul_array<Offset> attachments,
-	    Real r_0, Real h_inf)
+void
+Slur_configuration::generate_curve (Slur_score_state const &state,
+				    Real r_0, Real h_inf )
 {
   Link_array<Grob> encompasses = state.columns_;
 
@@ -131,7 +129,7 @@ get_bezier (Slur_score_state const &state,
 	avoid.push (z);
       }
 
-  Offset dz = attachments[RIGHT]- attachments[LEFT];;
+  Offset dz = attachment_[RIGHT]- attachment_[LEFT];;
   Offset dz_unit = dz;
   dz_unit *= 1 / dz.length ();
   Offset dz_perp = dz_unit * Offset (0, 1);
@@ -179,44 +177,36 @@ get_bezier (Slur_score_state const &state,
   Real x2 = (excentricity - indent);
   
   Bezier curve;
-  curve.control_[0] = attachments[LEFT];
-  curve.control_[1] = attachments[LEFT] + dz_perp * height * state.dir_
+  curve.control_[0] = attachment_[LEFT];
+  curve.control_[1] = attachment_[LEFT] + dz_perp * height * state.dir_
     + dz_unit * x1;
-  curve.control_[2] = attachments[RIGHT] + dz_perp * height * state.dir_
+  curve.control_[2] = attachment_[RIGHT] + dz_perp * height * state.dir_
     + dz_unit * x2;
-  curve.control_[3] = attachments[RIGHT];
+  curve.control_[3] = attachment_[RIGHT];
 
   Real ff = fit_factor (dz_unit, dz_perp, curve, state.dir_, avoid);
   
   height = height >? ((height * ff) <? max_h);
 
-  curve.control_[0] = attachments[LEFT];
-  curve.control_[1] = attachments[LEFT] + dz_perp * height * state.dir_
+  curve.control_[0] = attachment_[LEFT];
+  curve.control_[1] = attachment_[LEFT] + dz_perp * height * state.dir_
     + dz_unit * x1;
-  curve.control_[2] = attachments[RIGHT] + dz_perp * height * state.dir_
+  curve.control_[2] = attachment_[RIGHT] + dz_perp * height * state.dir_
     + dz_unit * x2;
-  curve.control_[3] = attachments[RIGHT];
+  curve.control_[3] = attachment_[RIGHT];
 
-  return curve;
+  curve_ = avoid_staff_line (state, curve);
+  height_ = height;
 }
 
 Slur_configuration::Slur_configuration()
 {
   score_ = 0.0;
+  index_ = -1; 
 };
 
-void
-Slur_configuration::generate_curve (Slur_score_state const &state,
-				    Real r_0, Real h_inf )
-{
-  Bezier bez = get_bezier (state,
-			   attachment_, r_0, h_inf);
 
-  bez = avoid_staff_line (state, bez);
-  attachment_[LEFT] = bez.control_[0];
-  attachment_[RIGHT] = bez.control_[3];
-  curve_ = bez;
-}
+
 
 void
 Slur_configuration::score_encompass (Slur_score_state const &state)
@@ -229,7 +219,6 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
     attachment points.
   */
   Array<Real> convex_head_distances;
-  Array<Real> edge_distances;
   for (int j = 0; j < state.encompass_infos_.size (); j++)
     {
       Real x = state.encompass_infos_[j].x_;
@@ -238,14 +227,6 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
       bool r_edge = j==state.encompass_infos_.size ()-1;
       bool edge =  l_edge || r_edge;
 
-
-      if (edge)
-	{
-	  edge_distances.push (fabs (attachment_[l_edge ? LEFT : RIGHT][Y_AXIS]
-				     - state.encompass_infos_[j].get_point (state.dir_)));
-	}
-	
-	
       if (! (x < attachment_[RIGHT][X_AXIS]
 	     && x > attachment_[LEFT][X_AXIS]))
 	continue;
@@ -330,16 +311,12 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
 	For slurs over 3 or 4 heads, the average distance is not a
 	good normalizer.
       */
-      int n =  convex_head_distances.size ();
-      if (convex_head_distances.size () <= 2)
+      Real n =  convex_head_distances.size ();
+      if (n <= 2)
 	{
-	  //	      Real min_edge_dist = 1e6;
-	  for (int j = 0; j < edge_distances.size (); j++)
-	    {
-	      avg_distance += edge_distances[j];
-	      n++;
-	    }
-
+	  Real fact = 1.0;
+	  avg_distance += height_ * fact;
+	  n += fact;
 	}
 
       /*
@@ -349,9 +326,11 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
       avg_distance /= n;
       variance_penalty = state.parameters_.head_slur_distance_max_ratio_;
       if (min_dist > 0.0)
-	variance_penalty = ((avg_distance / (min_dist  +state.parameters_.free_head_distance_)) - 1.0)
+	variance_penalty =
+	  (avg_distance / (min_dist + state.parameters_.absolute_closeness_measure_ ) - 1.0)
 	  <? variance_penalty;
 
+      variance_penalty = variance_penalty >? 0.0;
       variance_penalty *= state.parameters_.head_slur_distance_factor_;
     }
 #if DEBUG_SLUR_SCORING
