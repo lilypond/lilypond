@@ -74,6 +74,12 @@ introduction of the bzip2 feature.  Here's how I did it:
     cp -pv setup.exe $CYGWIN/dist/cygwin-1.3.6/new-setup.exe
     strip $CYGWIN/dist/cygwin-1.3.6/new-setup.exe
 @end example
+
+@ignore
+new setup:
+
+
+@end ignore
 @end quotation
 @item @var{--prefix=/usr/lilypond-x.y.x}
 The standard binary installation installs LilyPond into its own prefix.

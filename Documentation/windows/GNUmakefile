@@ -1,7 +1,7 @@
 
 depth=../..
 
-EXTRA_DIST_FILES = LilyPond.ico $(wildcard *.sh *.patch) setup.hint
+EXTRA_DIST_FILES = LilyPond.ico $(wildcard *.sh *.patch *.hint)
 
 STEPMAKE_TEMPLATES=documentation texinfo install install-out
 

@@ -35,31 +35,36 @@ footify:
 	$(footify) --index=./ `$(FIND) . -maxdepth 1 -name '*.html' -print`
 	$(footify-all-command)
 
-
 fonts:
 	$(MAKE) -C $(depth)/mf
 
 doc: lily fonts
 	$(MAKE) -C Documentation
 
-web-doc: pfa-fonts
+web-doc:  pfa-fonts
 	$(MAKE) out=www -C Documentation WWW
 	$(MAKE) footify
+
+pfa-fonts:
+	$(MAKE) MAKE_PFA_FILES=1 -C mf
+
+docdir = $(prefix)/share/doc/lilypond-$(TOPLEVEL_VERSION)
+install-html-doc: html-doc
+	$(INSTALL) -d $(docdir)/html 
+	tar -C $(docdir)/html -zxf $(outdir)/web.tar.gz
 
 # KPATHSEA=0: Hack for compiling without kpathsea -- not recommended
 my_tfm_path = $(TFM_PATH) /tmp /tmp /tmp /tmp /tmp /tmp 
 
 
 local-install:
-	mkdir -p $(datadir)
+	$(INSTALL) -d $(datadir)
 ifeq ($(KPATHSEA),0)
 	$(foreach i, 1 2 3 4 5, rm -f $(datadir)/tfm.$(i); $(LN_S) $(word $(i), $(my_tfm_path)) $(datadir)/tfm.$(i) ; )
 endif
 
 
 TOP_HTMLS = index.html short-examples.html long-examples.html
-
-index: web-doc
 
 short-examples: pfa-fonts
 	$(MAKE) out=www -C input WWW
@@ -70,9 +75,6 @@ long-examples: pfa-fonts
 	$(MAKE) out=www -C mutopia WWW
 	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o long-examples.html mutopia/
 
-pfa-fonts:
-	$(MAKE) MAKE_PFA_FILES=1 -C mf
-
 lily: lily/$(outdir)/lilypond
 
 lily/$(outdir)/lilypond:
@@ -81,8 +83,8 @@ lily/$(outdir)/lilypond:
 local-web: fontpaths fonts lily $(TOP_HTMLS:%.html=%) footify do-top-doc top-web
 
 top-web:
-	rm -f `find . -name \*.html~ -print`
-	find `find Documentation input mutopia *.png index.html -type d -name 'out-www'` \
+	cd $(builddir) && rm -f `find . -name \*.html~ -print`
+	cd $(builddir) && find `find Documentation input mutopia -type d -name 'out-www'` \
 		-not -name '*.dvi' -not -name '*ly' -not -name '*.tex' \
 		-not -name '*.ps' -not -name '*.eps' -not -name '*pk' \
 		-not -name '*.aux' -not -name '*.cp' -not -name '*.fn' \
@@ -90,14 +92,17 @@ top-web:
 		-not -name '*.pg' -not -name '*.tmp' -not -name '*.toc' \
 		-not -name '*.fns' -not -name '*.cps' -not -name '*.nexi' \
 		-not -name '*.texi' -not -name '*.texidoc' -not -name '*.tp' \
+		-not -name '*.pdfps' -not -name '*.eps.bbox' \
 		-not -name '*.log' -not -name 'out-www' -not -name '*.dep' \
 	    > $(outdir)/weblist
-	ls *.png *.html >> $(outdir)/weblist
-	cat $(outdir)/weblist | GZIP=-9v tar -czf $(outdir)/web.tar.gz  -T -
+	cd $(builddir) && ls *.png *.html >> $(outdir)/weblist
+	cat $(outdir)/weblist | (cd $(builddir); GZIP=-9v tar -czf $(outdir)/web.tar.gz  -T -)
 
 #WWW: local-WWW
 
+html-doc: local-web
 web: local-web
+index: local-web
 
 local-WWW-clean: top-WWW-clean
 

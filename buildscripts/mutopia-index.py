@@ -65,6 +65,9 @@ browser.
 the postscript files.
 """
 
+headertext_nopics= r"""
+<p>Nothing to be seen here, move along.
+"""
 
 #
 # FIXME breaks on multiple strings.
