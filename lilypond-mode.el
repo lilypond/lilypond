@@ -22,7 +22,7 @@
 (require 'easymenu)
 (require 'compile)
 
-(defconst LilyPond-version "1.7.18"
+(defconst LilyPond-version "1.7.19"
   "`LilyPond-mode' version number.")
 
 (defconst LilyPond-help-address "bug-lilypond@gnu.org"
@@ -164,7 +164,6 @@ in LilyPond-include-path."
 
 (defun LilyPond-running ()
   "Check the currently running LilyPond compiling jobs."
-  (interactive)
   (let ((process-names (list "lilypond" "tex" "2dvi" "2ps" "2midi" 
 			     "book" "latex"))
 	(running nil))
@@ -177,7 +176,6 @@ in LilyPond-include-path."
 
 (defun LilyPond-midi-running ()
   "Check the currently running Midi processes."
-  (interactive)
   (let ((process-names (list "midi" "midiall"))
 	(running nil))
     (while (setq process-name (pop process-names))
@@ -301,21 +299,18 @@ in LilyPond-include-path."
 
 (defun count-midi-words ()
   "Check number of midi-scores before the curser."
-  (interactive)
   (if (eq LilyPond-command-current 'LilyPond-command-region)
       (count-rexp (mark t) (point) "\\\\midi")
     (count-rexp (point-min) (point-max) "\\\\midi")))
  
 (defun count-midi-words-backwards ()
   "Check number of midi-scores before the curser."
-  (interactive)
   (if (eq LilyPond-command-current 'LilyPond-command-region)
       (count-rexp (mark t) (point) "\\\\midi")
     (count-rexp (point-min) (point) "\\\\midi")))
  
 (defun LilyPond-string-current-midi ()
   "Check the midi file of the following midi-score in the current document."
-  (interactive)
   (let ((fnameprefix (if (eq LilyPond-command-current 'LilyPond-command-master)
 			 (substring (LilyPond-master-file) 0 -3); suppose ".ly"
 		       LilyPond-region-file-prefix))
@@ -330,7 +325,6 @@ in LilyPond-include-path."
 
 (defun LilyPond-string-all-midi ()
   "Return the midi files of the current document in ascending order."
-  (interactive)
   (let ((fnameprefix (if (eq LilyPond-command-current 'LilyPond-command-master)
 			 (substring (LilyPond-master-file) 0 -3); suppose ".ly"
 		       LilyPond-region-file-prefix))
@@ -647,17 +641,8 @@ command."
 	      (if (string-equal job-string "no jobs")
 		  (LilyPond-compile-file command name))))))))
 	  
-;; XEmacs stuff
-;; Sadly we need this for a macro in Emacs 19.
-(eval-when-compile
-  ;; Imenu isn't used in XEmacs, so just ignore load errors.
-  (condition-case ()
-      (require 'imenu)
-    (error nil)))
-
 (defun LilyPond-mark-active ()
   "Check if there is an active mark."
-  (interactive)
   (and transient-mark-mode
        (if (string-match "XEmacs\\|Lucid" emacs-version) (mark) mark-active)))
 
@@ -706,8 +691,9 @@ command."
   (define-key LilyPond-mode-map ")" 'LilyPond-electric-close-paren)
   (define-key LilyPond-mode-map ">" 'LilyPond-electric-close-paren)
   (define-key LilyPond-mode-map "}" 'LilyPond-electric-close-paren)
-  (define-key LilyPond-mode-map [iso-lefttab] 'LilyPond-autocompletion) ; Emacs
-  (define-key LilyPond-mode-map [iso-left-tab] 'LilyPond-autocompletion) ; XEmacs
+  (if (string-match "XEmacs\\|Lucid" emacs-version)
+      (define-key LilyPond-mode-map [iso-left-tab] 'LilyPond-autocompletion)
+    (define-key LilyPond-mode-map [iso-lefttab] 'LilyPond-autocompletion))
   (define-key LilyPond-mode-map "\C-c\t" 'LilyPond-info-index-search)
   )
 
@@ -755,7 +741,8 @@ command."
     (cond
      ((string= x "q") (progn (setq xkey 27))) ; quit
      ((= xkey 13) (progn (insert "\n") (LilyPond-indent-line))) ; return
-     ((or (= xkey 127) (string= x "b")) ; backspace is a char only in Emacs
+     ((or (= xkey 127)     ; backspace is recognized as a char only in Emacs
+	  (string= x "b")) ; so, we need to define an another char for XEmacs
       (progn (narrow-to-region xinitpoint (point))
 	     (backward-kill-word 1)
 	     (widen)))
@@ -817,7 +804,6 @@ command."
 
 (defun LilyPond-pre-word-search ()
   "Fetch the alphabetic characters and \\ in front of the cursor."
-  (interactive)
   (let ((pre "")
 	(prelen 0)
 	(ch (char-before (- (point) 0))))
@@ -831,7 +817,6 @@ command."
 
 (defun LilyPond-post-word-search ()
   "Fetch the alphabetic characters behind the cursor."
-  (interactive)
   (let ((post "")
 	(postlen 0)
 	(ch (char-after (+ (point) 0))))
@@ -885,7 +870,7 @@ command."
   (info "lilypond-internals"))
   
 (defun LilyPond-info-index-search ()
-  "Inside Emacs, launch `info lilypond --index-search word-under-cursor'"
+  "In `*info*'-buffer, launch `info lilypond --index-search word-under-cursor'"
   (interactive)
   (let ((str (concat (LilyPond-pre-word-search) (LilyPond-post-word-search))))
     (if (and (> (length str) 0) 
@@ -896,13 +881,11 @@ command."
 
 (defun LilyPond-insert-string (pre)
   "Insert text to the buffer."
-  (interactive)
   (insert pre)
   (length pre))
 
 (defun LilyPond-insert-between (text pre post)
   "Insert text to the buffer if non-empty string is given."
-  (interactive)
   (let ((str (read-string text)))
     (if (string-equal str "")
 	0
@@ -1001,6 +984,7 @@ command."
 	  '([ "Midi all" LilyPond-command-all-midi t])
 	  ))
 
+;;; LilyPond-mode-menu should not be interactive, via "M-x LilyPond-<Tab>"
 (easy-menu-define LilyPond-mode-menu
   LilyPond-mode-map
   "Menu used in LilyPond mode."
@@ -1116,17 +1100,22 @@ LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
   (setq local-abbrev-table LilyPond-mode-abbrev-table)
   (use-local-map LilyPond-mode-map)
 
-  ;; In Emacs blink-...-on-screen needs to be declared (, not in XEmacs).
-  (make-local-variable 'blink-matching-paren-on-screen)
-  (setq blink-matching-paren-on-screen t)
+  ;; In Emacs blink-...-on-screen needs to be declared.
+  (if (not (string-match "XEmacs\\|Lucid" emacs-version))
+      (progn
+	(make-local-variable 'blink-matching-paren-on-screen)
+	(setq blink-matching-paren-on-screen t)))
 
+  ;; In XEmacs imenu was synched up with: FSF 20.4
   (make-local-variable 'imenu-generic-expression)
   (setq imenu-generic-expression LilyPond-imenu-generic-expression)
   (imenu-add-to-menubar "Index")
 
-  ;; In XEmacs one needs to use 'easy-menu-add' (, not in Emacs).
-  (easy-menu-add LilyPond-mode-menu)
-  (easy-menu-add LilyPond-command-menu)
+  ;; In XEmacs one needs to use 'easy-menu-add'.
+  (if (string-match "XEmacs\\|Lucid" emacs-version)
+      (progn
+	(easy-menu-add LilyPond-mode-menu)
+	(easy-menu-add LilyPond-command-menu)))
 
   ;; Use Command on Region even for inactive mark (region).
   (if (string-match "XEmacs\\|Lucid" emacs-version)
