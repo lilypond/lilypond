@@ -755,13 +755,13 @@ properties using the functions @code{ly:get-music-property} and
 
 An example is a function that reverses the order of elements in
 its argument:
-@example
+@lilypond[verbatim,singleline]
   #(define (rev-music-1 m)
      (ly:set-music-property! 'elements (reverse
        (ly:get-music-property mus 'elements)))
-   )
-  \apply #rev-music-1 @{ c4 d4 @}
-@end example
+     m)
+  \apply #rev-music-1 { c4 d4 }
+@end lilypond
 
 The use of such a function is very limited. The effect of this
 function is void when applied to an argument which is does not have
