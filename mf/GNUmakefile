@@ -32,6 +32,9 @@ ENCODING_FILE=$(findstring $(<:.mf=.enc), $(FETA_MF_FILES:.mf=.enc))
 MFTRACE_FLAGS=$(if $(ENCODING_FILE),--encoding $(ENCODING_FILE),)
 
 SAUTER_FONTS = cmbxti8
+MORE_SAUTER_FONTS = cmbxti7 cmbxti8 cmbxti12 cmbxti14 \
+        cmcsc7 cmcsc12 cmtt17 cmbx14 cmbx17 cmtt6 cmbx6 cmbx5 cmbxti5 \
+        cmti6 cmti5  cmss5 cmss6 cmss7
 
 ALL_FONTS = $(FETA_FONTS) $(SAUTER_FONTS)
 PFA_FILES = $(ALL_FONTS:%=$(outdir)/%.pfa)
@@ -39,7 +42,7 @@ PFB_FILES = $(PFA_FILES:%.pfa=%.pfb)
 
 # Make tfm files first, log files last, 
 # so that normally log files aren't made twice
-ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(AFM_FILES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) $(FETA_LIST_FILES) $(PFA_FILES) $(outdir)/lilypond.map $(outdir)/fonts.scale
+ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(AFM_FILES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) $(FETA_LIST_FILES) $(PFA_FILES) $(outdir)/lilypond.map $(outdir)/fonts.scale $(outdir)/Fontmap.lily
 
 #PRE_INSTALL=$(MAKE) "$(ALL_GEN_FILES)"
 INSTALLATION_DIR=$(local_lilypond_datadir)/fonts/source
@@ -60,7 +63,7 @@ INSTALLATION_OUT_DIR4=$(local_lilypond_datadir)/ly
 INSTALLATION_OUT_FILES4=$(FETA_LIST_FILES)
 
 INSTALLATION_OUT_DIR5=$(local_lilypond_datadir)/fonts/type1
-INSTALLATION_OUT_FILES5=$(PFA_FILES) $(outdir)/fonts.scale
+INSTALLATION_OUT_FILES5=$(PFA_FILES) $(outdir)/fonts.scale $(outdir)/Fontmap $(outdir)/Fontmap.lily
 
 INSTALLATION_OUT_DIR6=$(local_lilypond_datadir)/dvips/
 INSTALLATION_OUT_FILES6=$(outdir)/lilypond.map
@@ -120,7 +123,7 @@ get-pfa: get-rpm-pfa
 $(outdir)/%.afm  $(outdir)/%.enc  $(outdir)/%.tex $(outdir)/%list.ly $(outdir)/%.dep: $(outdir)/%.log $(outdir)/%.tfm
 	$(PYTHON) $(buildscript-dir)/mf-to-table.py --package=$(topdir) --outdir=$(outdir) --dep $(outdir)/$(<F:.log=.dep)  --afm $(outdir)/$(<F:.log=.afm)  --enc $(outdir)/$(<F:.log=.enc) --tex $(outdir)/$(<F:.log=.tex) --ly $(outdir)/$(<F:.log=list.ly) $<
 
-fontdir: $(addprefix $(outdir)/, lilypond.map lilypond.sfd private-fonts fonts.scale fonts.dir)
+fontdir: $(addprefix $(outdir)/, lilypond.map lilypond.sfd private-fonts fonts.scale fonts.dir Fontmap.lily)
 
 ## Urg
 mapentry=$(1) $(shell fgrep FontName $(outdir)/$(1).afm | sed -e 's/FontName *//') <$(1).pfaX
@@ -134,6 +137,20 @@ $(outdir)/lilypond.xmap: $(AFM_FILES)
 $(outdir)/lilypond.map: $(AFM_FILES)
 	for i in $(FETA_FONTS); do echo $$i $$(fgrep FontName $(outdir)/$$i.afm | sed -e 's/FontName *//') '<'$$i.pfa; done > $@
 	for i in $(SAUTER_FONTS); do echo "$$i $$i <$$i.pfa"; done >> $@
+
+$(outdir)/Fontmap:
+	echo '%!' > $@
+	echo '% Override default GS Fontmap' >> $@
+	echo '% To let gs load fonts from builddir, do:' >> $@
+	echo '% export GS_LIB=$$(pwd)/mf/out:' >> $@
+	echo '% See Fontmap.GS for the syntax of real Fontmap files.' >> $@
+	echo '(Fontmap.GS) .runlibfile' >> $@
+	echo '(Fontmap.lily) .runlibfile' >> $@
+
+$(outdir)/Fontmap.lily: $(AFM_FILES) $(outdir)/Fontmap
+	echo '%!' > $@
+	for i in $(FETA_FONTS); do echo "/$$(fgrep FontName $(outdir)/$$i.afm | sed -e 's/FontName *//') ($$i.pfa);"; done >> $@
+	for i in $(SAUTER_FONTS); do echo "$$i ($$i.pfa);"; done >> $@
 
 
 $(outdir)/fonts.scale: $(PFA_FILES)
