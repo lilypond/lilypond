@@ -315,14 +315,15 @@ lilypond -fgnome input/simple-song.ly
     (lineto def tx (- ty))
     (set-path-def props def)
     props))
-    
 
 (define (list->offsets accum coords)
   (if (null? coords)
       accum
       (cons (cons (car coords) (cadr coords))
-	    (list->offsets accum (cddr coords))
-      )))
+	    (list->offsets accum (cddr coords)))))
+
+(define (named-glyph font name)
+  (text font (integer->char (ly:font-get-glyph-index font name))))
 
 (define (polygon coords blotdiameter)
   (let*

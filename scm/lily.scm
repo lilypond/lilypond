@@ -128,6 +128,7 @@ predicates. Print a message at LOCATION if any predicate failed."
     ez-ball
     filledbox
     horizontal-line
+    named-glyph
     polygon
     repeat-slash
     round-filled-box
