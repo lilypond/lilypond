@@ -3,7 +3,7 @@
 # 
 # source file of the GNU LilyPond music typesetter
 #
-# (c)  1998--2003  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+# (c)  1998--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 #                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 ###  subst:\(^\|[^._a-z]\)\(abspath\|identify\|warranty\|progress\|warning\|error\|exit\|getopt_args\|option_help_str\|options_help_str\|help\|setup_temp\|read_pipe\|system\|cleanup_temp\|strip_extension\|cp_to_dir\|mkdir_p\|init\) *(
@@ -185,7 +185,15 @@ def options_help_str (opts):
 
 	str = ''
 	for s in strs:
-		str = str + '%s%s%s\n' % (s[0], ' ' * (w - len(s[0])  + 3), s[1])
+		first = 1
+		for ss in re.split ('\n\s*', s[1]):
+			if first:
+				str = str + '%s%s%s\n' \
+					% (s[0], ' ' * (w - len (s[0]) + 3), ss)
+				first = 0
+			else:
+				str = str + '%s%s\n' \
+					% (' ' * (w + 3), ss)
 	return str
 
 def help ():

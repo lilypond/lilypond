@@ -13,10 +13,11 @@ classic lilypond-book:
      lilypond-book --process="lilypond" BOOK.tely
 
 TODO:
-    *  ly-options: intertext ?
+    *  ly-options: intertext?
     *  --linewidth?
-    *  eps in latex / eps by lilypond -fps ?
+    *  eps in latex / eps by lilypond -fps?
     *  check latex parameters, twocolumn, multicolumn?
+    *  use --png --ps --pdf for making images?
 
     *  Converting from lilypond-book source, substitute:
        @mbinclude foo.itely -> @include foo.itely
@@ -29,20 +30,13 @@ import glob
 import stat
 import string
 
-#
-# TODO:
-#
-#  * use --png --ps --pdf for making images?
-#
-
-################################################################
 # Users of python modules should include this snippet
 # and customize variables below.
 
-# We'll suffer this path init stuff as long as we don't install our
-# python packages in <prefix>/lib/pythonx.y (and don't kludge around
-# it as we do with teTeX on Red Hat Linux: set some environment var
-# (PYTHONPATH) in profile).
+# We'll suffer this path initialization stuff as long as we don't install
+# our python packages in <prefix>/lib/pythonX.Y (and don't kludge around
+# it as we do with teTeX on Red Hat Linux: set some environment variables
+# (PYTHONPATH) in `etc/profile').
 
 # If set, LILYPONDPREFIX must take prevalence.
 # if datadir is not set, we're doing a build and LILYPONDPREFIX.
@@ -72,13 +66,12 @@ pseudo_filter_p = 0
 original_dir = os.getcwd ()
 
 help_summary = _ (
-'''Process LilyPond snippets in hybrid HTML, LaTeX or texinfo document.
+'''Process LilyPond snippets in hybrid HTML, LaTeX, or texinfo document.
 Example usage:
 
    lilypond-book --filter="tr '[a-z]' '[A-Z]'" BOOK
    lilypond-book --filter="convert-ly --no-version --from=2.0.0 -" BOOK
    lilypond-book --process='lilypond -I include' BOOK
-
 ''')
 
 copyright = ('Jan Nieuwenhuizen <janneke@gnu.org>',
@@ -86,7 +79,8 @@ copyright = ('Jan Nieuwenhuizen <janneke@gnu.org>',
 
 option_definitions = [
 	(_ ("EXT"), 'f', 'format',
-	  _ ("use output format EXT (texi [default], texi-html, latex, html)")),
+	  _ ('''use output format EXT (texi [default], texi-html,
+		latex, html)''')),
 	(_ ("FILTER"), 'F', 'filter',
 	  _ ("pipe snippets through FILTER [convert-ly -n -]")),
 	('', 'h', 'help',
