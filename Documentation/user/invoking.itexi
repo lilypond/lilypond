@@ -10,7 +10,6 @@ This chapter details the technicalities of running LilyPond.
 * Error messages::              
 * Reporting bugs::              
 * Editor support::              
-* Point and click::             
 * Invoking lilypond-latex::     
 @end menu
 
@@ -39,8 +38,8 @@ output).  If @file{filename.ly} contains more than one @code{\score}
 block, then the rest of the scores will be output in numbered files,
 starting with @file{filename-1.tex}.  Several files can be specified;
 they will each be processed independently.  @footnote{The status of
-GUILE is not reset across invocations, so be careful not to change any
-system defaults from within Scheme.}
+GUILE is not reset after processing a @code{.ly} files, so be careful
+not to change any system defaults from within Scheme.}
 
 
 @section Command line options
@@ -63,7 +62,7 @@ A comma separated list of back-end output formats to use.  Choices are
 @code{tex} (for @TeX{} output, to be processed with La@TeX{}, and
 @code{ps} for PostScript.
 
-Other output options are intended for developers. 
+There are other output options, but they are intended for developers.
 
 
 @cindex output format, setting
@@ -97,7 +96,8 @@ of the score.
 Do not trust the @code{.ly} input. 
 
 When LilyPond formatting available through a web server, the
-@code{--safe} @b{MUST} be passed.  This will prevent code like
+@code{--safe} @b{MUST} be passed.  This will prevent inline Scheme
+code from wreaking havoc, for example 
 
 @verbatim
   #(system "rm -rf /")
@@ -109,7 +109,7 @@ When LilyPond formatting available through a web server, the
 The @code{--safe} option works by evaluating in-line Scheme
 expressions in a special safe module. This safe module is derived from
 GUILE @file{safe-r5rs} module, but adds a number of functions of the
-LilyPond API. These functions are listed in @file{safe-lily.scm}.
+LilyPond API. These functions are listed in @file{scm/safe-lily.scm}.
 
 In addition, @code{--safe} disallows @code{\include} directives and
 disables the use of backslashes in @TeX{} strings.
@@ -324,129 +324,6 @@ information.
 
 @end table
 
-@node Point and click
-@section Point and click
-@cindex point and click
-
-@cindex source specials
-@cindex specials, source
-
-Point and click lets you find notes in the input by clicking on them in
-the Xdvi window. This makes it easier to find input that causes some
-error in the sheet music.
-
-To use it, you need the following software:
-@itemize @bullet
-@item a dvi viewer that supports src specials:
-@itemize @bullet
-@item Xdvi, version 22.36 or newer.  Available from
-@uref{ftp://ftp.math.berkeley.edu/pub/Software/TeX/xdvi.tar.gz,ftp.math.berkeley.edu}.
-
-   Most @TeX{} distributions ship with xdvik, which is always a few
-versions behind the official Xdvi. To find out which Xdvi you are
-running, try @code{xdvi -version} or @code{xdvi.bin -version}.
-@item KDVI.  A dvi viewer for KDE.  You need KDVI from KDE 3.0 or
-newer.  Enable option @emph{Inverse search} in the menu @emph{Settings}.
-
-Apparently, KDVI does not process PostScript specials correctly. Beams
-and slurs will not be visible in KDVI.
-
-@cindex Xdvi
-@cindex KDVI
-@cindex KDE
-
-
-
-@end itemize
-@item an editor with a client/server interface (or a lightweight GUI
-editor):
-
-@cindex editor
-
-@itemize @bullet
-@item Emacs. Emacs is an extensible text-editor.  It is available from
-@uref{http://www.gnu.org/software/emacs/}.  You need version 21 to use
-column location.
-
-@c move this elsewhere?
-
-
-@cindex Emacs
-@cindex Emacs mode
-@cindex lilypond-mode for Emacs
-@cindex syntax coloring
-
-@item XEmacs. XEmacs is very similar to Emacs.
-
-@cindex XEmacs
-
-@item NEdit.  NEdit runs under Windows, and Unix.
-  It is available from @uref{http://www.nedit.org}.
-
-@cindex NEdit
-
-@item GVim.  GVim is a GUI variant of VIM, the popular VI
-clone.  It is available from @uref{http://www.vim.org}.
-
-@cindex GVim
-@cindex Vim
-
-@end itemize
-@end itemize
-
-
-Xdvi must be configured to find the @TeX{} fonts and music
-fonts. Refer to the Xdvi documentation for more information.
-
-To use point-and-click, add one of these lines to the top of your .ly
-file:
-@example
-#(ly:set-point-and-click 'line)
-@end example
-@cindex line-location
-
-When viewing, Control-Mousebutton 1 will take you to the originating
-spot in the @file{.ly} file.  Control-Mousebutton 2 will show all
-clickable boxes.
-
-If you correct large files with point-and-click, be sure to start
-correcting at the end of the file. When you start at the top, and
-insert one line, all following locations will be off by a line.
-
-@cindex Emacs
-For using point-and-click with Emacs,  add the following
-In your Emacs startup file (usually @file{~/.emacs}):
-@example
-(server-start)
-@end example
-
-Make sure that the environment variable @var{XEDITOR} is set to
-@example
-emacsclient --no-wait +%l %f
-@end example
-@cindex @var{XEDITOR}
-If you use XEmacs instead of Emacs, you use @code{(gnuserve-start)} in
-your @file{.emacs}, and set @code{XEDITOR} to @code{gnuclient -q +%l %f}.
-
-For using Vim, set @code{XEDITOR} to @code{gvim --remote +%l %f}, or
-use this argument with Xdvi's @code{-editor} option.
-
-@cindex NEdit
-For using NEdit, set @code{XEDITOR} to @code{nc -noask +%l %f}, or
-use this argument with Xdvi's @code{-editor} option.
-
-If can also make your editor jump to the exact location of the note
-you clicked. This is only supported on Emacs and VIM. Users of Emacs version
-20 must apply the patch @file{emacsclient.patch}. Users of version 21
-must apply @file{server.el.patch} (version 21.2 and earlier).  At the
-top of the @code{ly} file, replace the @code{set-point-and-click} line
-with the following line:
-@example
-#(ly:set-point-and-click 'line-column)
-@end example
-@cindex line-column-location
-and set @code{XEDITOR} to @code{emacsclient --no-wait +%l:%c %f}.  Vim
-users can set @var{XEDITOR} to @code{gvim --remote +:%l:norm%c| %f}.
 
 
 

@@ -40,10 +40,6 @@ noBreak = #(make-event-chord (list (make-penalty-music 10001 0)))
 pageBreak = #(make-event-chord (list (make-penalty-music -10001 -10001)))
 noPageBreak = #(make-event-chord (list (make-penalty-music 0 10001)))
 
-%% why these defines?
-pagebreak = \pageBreak
-noPagebreak = \noPageBreak
-
 noBeam = #(make-music 'BeamForbidEvent) 
 pipeSymbol = #(make-music 'BarCheck)
 

@@ -170,12 +170,13 @@ this and other documentation.
 * Invoking LilyPond::              Operation.
 * Converting from other formats::  Converting to lilypond source format.
 * Integrating text and music::     Integrating text and music with lilypond-book.
-* Unified index::
+* Literature list::
 * Scheme tutorial::
 * Notation manual details::
-* Literature list::
-* Cheat sheet::     
+* Point and click::             
+* Unified index::
 * GNU Free Documentation License:: FDL.
+* Cheat sheet::     
 @end menu
 @end ifnottex
 
@@ -197,18 +198,20 @@ this and other documentation.
 
 
 @c FIXME: Index has two alphabetically sorted lists @code vs plain?
+
+
+@include literature.itely
+@include scheme-tutorial.itely
+@include notation-appendices.itely
+@include point-and-click.itely
+
 @node Unified index
-@unnumbered Unified index
+@appendix Unified index
 
 @printindex cp
 
-@include scheme-tutorial.itely
-@include notation-appendices.itely
-
-@include literature.itely
+@include fdl.itexi
 
 @include cheatsheet.itely
-
-@include fdl.itexi
 
 @bye

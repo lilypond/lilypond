@@ -1620,6 +1620,7 @@ titles.
 
 @menu
 * Setting global staff size::   
+* Vertical spacing of piano staves::  
 * Vertical spacing::            
 * Horizontal spacing::          
 * Line breaking::               
@@ -1660,7 +1661,7 @@ The recommended font sizes are listed in the following table:
 @tab 12.60
 @tab 4.4
 @tab
-
+ 
 @item feta14
 @tab 14.14
 @tab 5.0
@@ -1713,13 +1714,6 @@ This manual: @ref{Selecting font sizes}.
 
 
 
-@menu
-* Vertical spacing::            
-* Horizontal spacing::          
-* Line breaking::               
-* Page layout::                 
-@end menu
-
 
 @node Vertical spacing of piano staves
 @subsection Vertical spacing of piano staves
@@ -1736,14 +1730,35 @@ The distance of staves in a @code{PianoStaff} is set with the
 It can be adjusted as follows
 @verbatim
 \new PianoStaff \with {
-   \override VerticalAlignment #'forced-distance = #9
+   \override VerticalAlignment #'forced-distance = #7
 } {
   ...
 }
-@end example
-This would bring the staves together at a distance of 9 staff spaces,
+@end verbatim
+This would bring the staves together at a distance of 7 staff spaces,
 measured from the center line of each staff.
 
+The difference is demonstrated in the following example,
+@lilypond[verbatim]
+\relative <<
+  \new PianoStaff \with {
+    \override VerticalAlignment #'forced-distance = #7
+  } <<
+    \new Staff { c1 }
+    \new Staff { c }
+  >>
+  \new PianoStaff <<
+    \new Staff { c }
+    \new Staff { c }
+  >>
+>>    
+@end lilypond
+
+
+
+@refbugs
+
+@code{forced-distance} cannot be changed per system.
 
 @node Vertical spacing
 @subsection Vertical spacing
@@ -1807,50 +1822,57 @@ The quarter note is followed by 2 NHW, the half by 3 NHW, etc.
 c8 c4 c4 c4
 @end lilypond
 
-Normally, @code{spacing-increment} is set to 1.2, which is the
-width of a note head, and @code{shortest-duration-space} is set to
-2.0, meaning that the shortest note gets 2 NHW  of space. For normal
-notes, this space is always counted from the left edge of the symbol, so
-the shortest notes are generally followed by one NHW of space.
+Normally, @code{spacing-increment} is set to 1.2 staff space, which is
+approximately the width of a note head, and
+@code{shortest-duration-space} is set to 2.0, meaning that the
+shortest note gets 2.4 staff space (2.0 times the
+@code{spacing-increment}) of horizontal space. This space is counted
+from the left edge of the symbol, so the shortest notes are generally
+followed by one NHW of space.
 
 If one would follow the above procedure exactly, then adding a single
 32th note to a score that uses 8th and 16th notes, would widen up the
 entire score a lot. The shortest note is no longer a 16th, but a 32nd,
-thus adding 1 NHW to every note. To prevent this, the
-shortest duration for spacing is not the shortest note in the score,
-but the most commonly found shortest note.  Notes that are even
-shorter this are followed by a space that is proportional to their
-duration relative to the common shortest note.  So if we were to add
-only a few 16th notes to the example above, they would be followed by
-half a NHW:
+thus adding 1 NHW to every note. To prevent this, the shortest
+duration for spacing is not the shortest note in the score, but rather
+the one which occurs most frequently.
 
-@lilypond[fragment,verbatim,relative=2]
- c2 c4. c8 c4. c16[ c] c4. c8 c8 c8 c4 c4 c4
-@end lilypond
 
 The most common shortest duration is determined as follows: in every
 measure, the shortest duration is determined. The most common short
 duration, is taken as the basis for the spacing, with the stipulation
 that this shortest duration should always be equal to or shorter than
-1/8th note. The shortest duration is printed when you run lilypond
-with @code{--verbose}.  These durations may also be customized. If you
-set the @code{common-shortest-duration} in
-@internalsref{SpacingSpanner}, then this sets the base duration for
-spacing. The maximum duration for this base (normally 1/8th), is set
-through @code{base-shortest-duration}.
+1/8th note. The shortest duration is printed when you run
+@code{lilypond} with the @code{--verbose} option.
+
+These durations may also be customized. If you set the
+@code{common-shortest-duration} in @internalsref{SpacingSpanner}, then
+this sets the base duration for spacing. The maximum duration for this
+base (normally 1/8th), is set through @code{base-shortest-duration}.
 
 @cindex @code{common-shortest-duration}
 @cindex @code{base-shortest-duration}
 @cindex @code{stem-spacing-correction}
 @cindex @code{spacing}
 
-In the Introduction it was explained that stem directions influence
-spacing. This is controlled with @code{stem-spacing-correction}
-property in @internalsref{NoteSpacing}, which are generated for every
+Notes that are even shorter than the commoon shortest note are
+followed by a space that is proportional to their duration relative to
+the common shortest note.  So if we were to add only a few 16th notes
+to the example above, they would be followed by half a NHW:
+
+@lilypond[fragment,verbatim,relative=2]
+ c2 c4. c8 c4. c16[ c] c4. c8 c8 c8 c4 c4 c4
+@end lilypond
+
+
+In the introduction (see @ref{Engraving}), it was explained that stem
+directions influence spacing. This is controlled with the
+@code{stem-spacing-correction} property in the
+@internalsref{NoteSpacing}, object. These are generated for every
 @internalsref{Voice} context. The @code{StaffSpacing} object
 (generated at @internalsref{Staff} context) contains the same property
-for controlling the stem/bar line spacing. The following example
-shows these corrections, once with default settings, and once with
+for controlling the stem/bar line spacing. The following example shows
+these corrections, once with default settings, and once with
 exaggerated corrections:
 
 @lilypond[raggedright]
@@ -1863,18 +1885,6 @@ exaggerated corrections:
       b'4 e''4 b'4 e''4|      
 }
 @end lilypond
-
-@cindex SpacingSpanner, overriding properties
-
-Properties of the  @internalsref{SpacingSpanner} must be overridden
-from the @code{\paper} block, since the @internalsref{SpacingSpanner} is
-created before any property commands are interpreted.
-@example
-\paper @{ \context  @{
-  \Score
-  \override SpacingSpanner #'spacing-increment = #3.0
-@} @}
-@end example
 
 
 @seealso
@@ -1897,6 +1907,33 @@ following work-around may be used to insert extra space into a score.
 @end example
 
 No work-around exists for decreasing the amount of space.
+
+@node Line length
+@subsection Line length
+
+@cindex page breaks
+@cindex breaking pages
+
+@cindex @code{indent}
+@cindex @code{linewidth}
+
+The most basic settings influencing the spacing are @code{indent} and
+@code{linewidth}. They are set in the @code{\paper} block. They
+control the indentation of the first line of music, and the lengths of
+the lines.
+
+If  @code{raggedright} is set to true in the @code{\paper}
+block, then the lines are justified at their natural length. This
+useful for short fragments, and for checking how tight the natural
+spacing is.
+
+@cindex page layout
+@cindex vertical spacing
+
+The option @code{raggedlast} is similar to @code{raggedright}, but
+only affects the last line of the piece. No restrictions are put on
+that line. The result is similar to formatting text paragraphs. In a
+paragraph, the last line simply takes its natural length.
 
 
 @node Line breaking
@@ -1945,32 +1982,6 @@ This makes the following 28 measures (assuming 4/4 time) be broken every
 
 Internals: @internalsref{BreakEvent}.
 
-@node Line length and line breaking
-@subsection Line length and line breaking
-
-@cindex page breaks
-@cindex breaking pages
-
-@cindex @code{indent}
-@cindex @code{linewidth}
-
-The most basic settings influencing the spacing are @code{indent} and
-@code{linewidth}. They are set in the @code{\paper} block. They
-control the indentation of the first line of music, and the lengths of
-the lines.
-
-If  @code{raggedright} is set to true in the @code{\paper}
-block, then the lines are justified at their natural length. This
-useful for short fragments, and for checking how tight the natural
-spacing is.
-
-@cindex page layout
-@cindex vertical spacing
-
-The option @code{raggedlast} is similar to @code{raggedright}, but
-only affects the last line of the piece. No restrictions are put on
-that line. The result is similar to formatting paragraphs. In a
-paragraph, the last line simply takes its natural length.
 
 
 @node Multiple movements
@@ -2032,8 +2043,8 @@ the top of the file is inserted.
 @}
 @end example
 
-@node Titling
-@subsection Titling
+@node Creating titles
+@subsection Creating titles
 
 Titles are created for each @code{\score} block, and over a
 @code{\book}.
@@ -2069,7 +2080,7 @@ This is a demonstration of the fields available,
 \book {
   \header {
     title = "Title"
-    subtitle = "(and (the) subtitle)"
+    subtitle = "and the subtitle"
     subsubtitle = "Sub sub title"
     poet = "Poet"
     composer = "Composer"
@@ -2131,7 +2142,8 @@ The default page breaking may be overriden by inserting
 @code{\pageBreak} or @code{\noPageBreak} commands. These commands are
 analogous to @code{\break} and @code{\noBreak}. They should be
 inserted with a bar line. These commands force and forbid a page-break
-from happening. 
+from happening.  Of course, the @code{\pageBreak} command also forces
+a line break.
 
 Page breaks are computed by the @code{page-breaking} function in the
 @code{\bookpaper} block. 
@@ -2159,6 +2171,17 @@ To change the paper size, there are two commands,
 @end example
 The second one sets the size of the @code{\paper} block that it is in.
 
+The following paper sizes are supported.
+
+@table @code
+@item a6
+@item a5
+@item a4
+@item a3
+@item legal
+@item letter
+@item tabloid
+@end table 
 
 @node Page layout
 @subsection Page layout
@@ -2173,6 +2196,7 @@ footers to each page.
 
 The default layout responds to the following settings in the
 @code{\bookpaper} block
+
 @cindex \bookpaper
 
 @table @code
@@ -2241,15 +2265,16 @@ The following settings influence the header and footer layout.
   this boolean controls whether a pagenumber is printed. 
 @end table
 
-The page layout itself is done by two functions:
-@code{page-music-height} and @code{page-make-stencil}. The former
-tells the line-breaking algorithm how much space can be spent on a
-page, the latter creates the actual page given the system to put on it. 
+The page layout itself is done by two functions in the
+@code{\bookpaper}, @code{page-music-height} and
+@code{page-make-stencil}. The former tells the line-breaking algorithm
+how much space can be spent on a page, the latter creates the actual
+page given the system to put on it.
 
 
 @seealso
 
-Examples: @inputfileref{input/test/,page-breaks.ly}
+Examples: @inputfileref{input/test,page-breaks.ly}
 
 @refbugs
 
