@@ -1,3 +1,7 @@
+2004-04-05  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* mf/feta-beugel.mf: Better error message (WAS: `foobar').
+
 2004-04-05  Werner Lemberg  <wl@gnu.org>
 
 	* Documentation/user/tutorial.itely: Revised (finished).
