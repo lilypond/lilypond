@@ -250,10 +250,10 @@ output = {
 	BEFORE: '',
 	OUTPUT: r'''{\parindent 0pt
 \catcode`\@=12
-\ifx\preLilyPondExample\preLilyPondExample\fi
+\ifx\preLilyPondExample\undefined\relax\else\preLilyPondExample\fi
 \def\lilypondbook{}
 \input %(base)s.tex
-\ifx\preLilyPondExample\postLilyPondExample\fi
+\ifx\postLilyPondExample\undefined\relax\else\postLilyPondExample\fi
 \catcode`\@=0}''',
 	PRINTFILENAME: '''\\texttt{%(filename)s}
 
