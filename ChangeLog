@@ -23,6 +23,8 @@
 
 	* vim/GNUmakefile: use --words and --vim targets in lilypond-words.py
 
+	* Documentation/topdocs/INSTALL.texi: update vim-mode installing orders.
+
 2004-03-22  Heikki Junes  <hjunes@cc.hut.fi>
 
         * config.make.in: add vimdir.
