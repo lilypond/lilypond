@@ -1,3 +1,4 @@
+\version "1.3.120"
 \paper {
 	textheight = 295.0\mm;
 	linewidth = 180.0\mm;

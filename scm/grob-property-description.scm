@@ -234,6 +234,7 @@ taking grob as argument. This is called after
 before-line-breaking-callback, but before the actual line breaking
 itself.  Return value is ignored")
 (grob-property-description 'stacking-dir dir? "stack contents of grobs in which direction ?")
+(grob-property-description 'staff-position number? "vertical position in staff spaces, counted from the middle line.")
 (grob-property-description 'staff-space number? "Amount of line leading relative to global staffspace")
 (grob-property-description 'staffline-clearance number? "don't get closer than this to stafflines.")
 (grob-property-description 'stem ly-grob? "pointer to Stem object")

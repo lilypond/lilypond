@@ -77,18 +77,23 @@ Beam::before_line_breaking (SCM smob)
   Grob * me =  unsmob_grob (smob);
 
   // Why?
+  /*
+    Why what?  Why the warning (beams with less than 2 stems are
+    degenerate beams, should never happen), or why would this ever
+    happen (don't know). */
   if (visible_stem_count (me) < 2)
     {
       warning (_ ("beam has less than two stems"));
     }
-
-  if (!Directional_element_interface::get (me))
-    Directional_element_interface::set (me, get_default_dir (me));
-
-  consider_auto_knees (me);
-  set_stem_directions (me);
-  set_stem_shorten (me);
-
+  if (visible_stem_count (me) >= 1)
+    {
+      if (!Directional_element_interface::get (me))
+	Directional_element_interface::set (me, get_default_dir (me));
+      
+      consider_auto_knees (me);
+      set_stem_directions (me);
+      set_stem_shorten (me);
+    }
   return SCM_EOL;
 }
 
@@ -105,7 +110,7 @@ Beam::get_default_dir (Grob*me)
 	Pointer_group_interface__extract_elements (me, (Item*)0, "stems");
 
   for (int i=0; i <stems.size (); i++)
-    do { // HUH -- waar slaat dit op?
+    do {
       Grob *s = stems[i];
       Direction sd = Directional_element_interface::get (s);
       int current = sd	? (1 + d * sd)/2
@@ -226,8 +231,6 @@ void
 Beam::set_stem_shorten (Grob*m)
 {
   Spanner*me = dynamic_cast<Spanner*> (m);
-  if (!visible_stem_count (me))
-    return;
 
   Real forced_fraction = forced_stem_count (me) / visible_stem_count (me);
   if (forced_fraction < 0.5)
@@ -298,7 +301,13 @@ Beam::after_line_breaking (SCM smob)
   /* weird: why do we do calc_position_and_height () ? regardless of
      this setting?
 
-  */
+     If the user sets height, we still need to calculate the y-position.
+     If the user sets height-hs, we still need to calculate and
+     quantise y-position.
+
+     We use least squares to calculate y-position and height, so we
+     inherently always calculate both.  */
+  
   /* check for user-override of dy */
   SCM s = me->remove_grob_property ("height-hs");
   if (gh_number_p (s))
@@ -516,6 +525,9 @@ Beam::set_stem_length (Grob*me,Real y, Real dy)
   Link_array<Item> stems=
     Pointer_group_interface__extract_elements (me, (Item*)0, "stems");
 
+  if (stems.size () < 1)
+    return;
+  
   Grob *common = me->common_refpoint (stems[0], Y_AXIS);
   for (int i=1; i < stems.size (); i++)
     common = common->common_refpoint (stems[i], Y_AXIS);
