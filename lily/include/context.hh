@@ -40,40 +40,44 @@ protected:
 public:
   SCM children_contexts () const { return context_list_; }
   SCM default_child_context_name () const;
+
   Translator_group* implementation () const;
-  
   Context * get_parent_context () const;
-  
   Context ();
+
+  /*
+    properties:
+   */
   void execute_pushpop_property (SCM prop, SCM sym, SCM val);
   SCM internal_get_property (SCM name_sym) const;
+  SCM properties_as_alist () const;
+  void internal_set_property (SCM var_sym, SCM value);  
+  Context *where_defined (SCM name_sym) const;
+  void unset_property (SCM var_sym);
 
+  
   Context *remove_context (Context*trans);
   void check_removal ();
-
-  SCM properties_as_alist () const;
-  void unset_property (SCM var_sym);
-  void internal_set_property (SCM var_sym, SCM value);  
-
-  Context *where_defined (SCM name_sym) const;
   String context_name () const;
   Global_context * get_global_context () const;
   
   virtual Score_context * get_score_context () const;  
+  virtual Music_output_def *get_output_def () const;
+  virtual Moment now_mom () const;
+  virtual Context *get_default_interpreter ();
+
   bool is_alias (SCM) const;
   void add_alias (SCM); 
   void add_context (Context *trans);
   bool is_bottom_context () const;
   bool is_removable () const;
   bool try_music (Music *);
-  
-  virtual Music_output_def *get_output_def () const;
-  virtual Moment now_mom () const;
+
   Context *find_create_context (SCM context_name,
 				String id, SCM ops);
   Link_array<Context> path_to_acceptable_context (SCM alias,
 						  Music_output_def*) const;
-  virtual Context *get_default_interpreter ();
+
   String id_string_;
 };
 

@@ -20,9 +20,7 @@
 Translator_group*
 Translator_group::get_daddy_translator () const
 {
-  Translator *t
-    = unsmob_translator (get_parent_context ()->get_parent_context ()->implementation_);
-  return dynamic_cast<Translator_group*> (t);
+  return get_parent_context ()->get_parent_context ()->implementation ();
 }
 
 

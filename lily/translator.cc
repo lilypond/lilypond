@@ -74,9 +74,7 @@ Translator::get_output_def () const
 Translator_group*
 Translator::get_daddy_translator () const
 {
-  Translator *t
-    = unsmob_translator (daddy_context_->implementation_);
-  return dynamic_cast<Translator_group*> (t);
+  return daddy_context_->implementation ();
 }
 
 
