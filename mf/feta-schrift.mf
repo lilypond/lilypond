@@ -666,31 +666,31 @@ fet_beginchar("Segno", "segno", "segno")
 fet_endchar;
 
 fet_beginchar("Coda", "coda", "coda")
-	save thin, thick, wheelwidth, wheelheight;
+	save thin, thick, codawidth, codaheight;
 	thin# = 1.2 stafflinethickness#;
 	thick# = 3.5 stafflinethickness#;
-	wheelwidth# = 2/3 interline#;
-	wheelheight# = 1 interline#;
-	define_pixels(thin, thick, wheelwidth, wheelheight);
+	codawidth# = 2/3 interline#;
+	codaheight# = 1 interline#;
+	define_pixels(thin, thick, codawidth, codaheight);
 
-	set_char_box(wheelwidth#+thick#, wheelwidth#+thick#,
-		wheelheight#+thick#, wheelheight#+thick#);
+	set_char_box(codawidth#+thick#, codawidth#+thick#,
+		codaheight#+thick#, codaheight#+thick#);
 
 	penpos1(thick,0);
 	penpos2(thin,-90);
 	penpos3(thick,180);
-	x1l=-wheelwidth;
-	y2l=wheelheight;
+	x1l=-codawidth;
+	y2l=codaheight;
 	y1=0;
 	x2=0;
 	z3 = - z1;
 	penlabels(1,2,3);
 
-	path halfwheel;
-	halfwheel := z1l{up} .. z2l{right} .. z3l{down} -- 
+	path halfcoda;
+	halfcoda := z1l{up} .. z2l{right} .. z3l{down} -- 
 		z3r{up} .. z2r{left} .. z1r{down} .. cycle;
-	fill halfwheel;
-	fill (halfwheel scaled -1);
+	fill halfcoda;
+	fill (halfcoda scaled -1);
 
 	pickup pencircle scaled thin;
 	draw (0,-h) -- (0,h);

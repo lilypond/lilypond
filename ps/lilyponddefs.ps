@@ -3,13 +3,11 @@
 % hmm
 /setgray { 1 add } bind def
 
-% urg
-1 /stafflinethickness exch def
+/stafflinethickness  mudelapaperstaffline def
+/staffheight mudelapaperstaffheight def
 
 /xoffset 30 def
 /yoffset 700 def
-/staffrulethickness 1 def
-/staffheight 20 def
 
 /placebox
 {
@@ -22,149 +20,27 @@
 	grestore
 } bind def
 
-/setbold % '(' text ')'
-{
-	settext
-} bind def
- 
-/settext % '(' text ')'
-{
-	gsave
-	% urg
-	/Times-Roman findfont 12 scalefont setfont
-	show
-	grestore
-} bind def
-
-/setfinger % '(' text ')'
-{
-	gsave
-	% urg
-	/feta-nummer5 findfont 12 scalefont setfont
-	show
-	grestore
-} bind def
-
-/setitalic % '(' text ')'
-{
-	gsave
-	% urg
-	/Times-Italic findfont 12 scalefont setfont
-	show
-	grestore
-} bind def
-
-/vrule % width depth height
-{
-} bind def
-
-
 %
 % FIXME.  translate to middle of box.
 %
 
 /draw_box % breapth width depth height
 {
+	/h exch def
+	/d exch def
+	/w exch def
+	/b exch def
 	gsave
-	4 -1 roll
-	dup
-	neg 0 translate
-	4 -1 roll
-	add
 
-	setlinewidth
-
-	0 exch moveto
-	neg 0 exch lineto stroke
+	0 setlinewidth
+	b neg d neg rmoveto
+	b w add 0 rlineto
+	0 d h add rlineto
+	b w add neg 0 rlineto
+	closepath % 0 d h add neg rlineto
+	fill
 
 	grestore
-} bind def
-
-/extender % width
-{
-	gsave
-	0 0 moveto
-	stafflinethickness 0.8 mul setlinewidth
-	0 lineto stroke
-	grestore
-} bind def
-
-/widthbar % height width
-{
-	gsave
-	setlinewidth
-	2 div dup neg 0 exch moveto
-	0 exch lineto stroke
-	2 div
-	grestore
-} bind def
-
-/thickbar % height
-{
-	stafflinethickness 2 mul widthbar
-} bind def
-
-/thinbar % height
-{
-	stafflinethickness 1.6 mul widthbar
-} bind def
-
-/maatstreep % height
-{
-	thinbar
-} bind def
-
-/fatdoublebar
-{
-	thickbar
-} bind def
-
-/finishbar
-{
-	thickbar
-} bind def
-
-/generalmeter % num den
-{
-	pop pop
-} bind def
-
-/pianobrace % '(' char ')'
-{
-	gsave
-	/feta-braces20 findfont 12 scalefont setfont%
-	show
-	grestore
-} bind def
-
-/doublebar
-{
-	thinbar
-} bind def
-
-/repeatbar
-{
-	thickbar
-} bind def
-
-/repeatbarstartrepeat
-{
-	thickbar
-} bind def
-
-/startbar
-{
-	thickbar
-} bind def
-
-/startrepeat
-{
-	thickbar
-} bind def
-
-/stoprepeat
-{
-	thickbar
 } bind def
 
 /start_line
@@ -181,7 +57,7 @@
 	grestore
 	yoffset add /yoffset exch def
 	% urg...
-	yoffset staffheight 8 mul sub /yoffset exch def
+	yoffset mudelapaperstaffheight 8 mul sub /yoffset exch def
 } bind def
 
 /unknown { (U) setbold } bind def

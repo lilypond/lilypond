@@ -45,33 +45,33 @@
 \def\makelilytitle{%
   \begin{center}
         \bfseries
-        \ifx\mudelanull\thetitle\else\sethuge{\thetitle}\\ \fi
-        \ifx\mudelanull\thesubtitle\else\setLarge{\thesubtitle}\\ \fi
+        \ifx\mudelanull\thetitle\else{\huge\thetitle}\\ \fi
+        \ifx\mudelanull\thesubtitle\else{\Large\thesubtitle}\\ \fi
   \end{center}
   \bigskip
   % urg
   \edef\saveparskip{\parskip}\parskip-5mm
   \begin{minipage}[t]{0.45\textwidth}
-        \ifx\mudelanull\thepoet\else\settext{\thepoet}\\ \fi
-        \ifx\mudelanull\themetre\else\settext{\themetre}\\ \fi
+        \ifx\mudelanull\thepoet\else{\thepoet}\\ \fi
+        \ifx\mudelanull\themetre\else{\themetre}\\ \fi
   \end{minipage}\hspace*{\fill}
   \begin{minipage}[t]{0.45\textwidth}
       \begin{flushright}
-          \ifx\mudelanull\thecomposer\else\setlarge{\normalfont\scshape\thecomposer}\\ \fi
-          \ifx\mudelanull\theopus\else\settext{\theopus}\\ \fi
-          \ifx\mudelanull\thearranger\else\settext{\thearranger}\\ \fi
+          \ifx\mudelanull\thecomposer\else{\large\normalfont\scshape\thecomposer}\\ \fi
+          \ifx\mudelanull\theopus\else{\theopus}\\ \fi
+          \ifx\mudelanull\thearranger\else{\thearranger}\\ \fi
         \end{flushright}%
   \end{minipage}\par
   \parskip\saveparskip
-  {\center\setlarge{\theinstrument}\par}
-  {\flushleft\setLarge{\normalfont\scshape\thepiece}}
+  {\center{\large\theinstrument}\par}
+  {\flushleft{\large\normalfont\scshape\thepiece}}
   \leavevmode
 }
 \def\makelilypiecetitle
 {
   \bigskip
-  {\flushright\settext{\theopus}\par}
-  {\flushleft\setLarge{\normalfont\scshape\thepiece}}
+  {\flushright{\theopus}\par}
+  {\flushleft{\large\normalfont\scshape\thepiece}}
 }
 \endinput
 

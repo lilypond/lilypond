@@ -270,7 +270,6 @@ class TeXOutput:
         this.write(top)
         this.__mudelaDefs('')
         this.write("""\
-\\cmrtwenty% ugh
 \\makelilytitle
 """) 
 

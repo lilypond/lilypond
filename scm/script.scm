@@ -35,7 +35,7 @@
 	("upprall" . ((feta . ("upprall" . "upprall")) #f 0 1 0))
 	("downprall" . ((feta . ("downprall" . "downprall")) #f 0 1 0))
 	("segno" . ((feta . ("segno" . "segno")) #f 0 1 0))
-	("wheel" . ((feta . ("wheel" . "wheel")) #f 0 1 0)))
+	("coda" . ((feta . ("coda" . "coda")) #f 0 1 0)))
       script-alist)
       )
 

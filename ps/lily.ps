@@ -18,9 +18,9 @@
         closepath fill
 } bind def
 
-/draw_decrescendo % width height cons
+/draw_decrescendo %  width height cons thick
 {
-	stafflinethickness setlinewidth
+	setlinewidth
 	/cresc_cont exch def
 	/cresc_ht exch def
 	/cresc_wd exch def
@@ -33,9 +33,9 @@
 	stroke
 } bind def
 
-/draw_crescendo % width height cons
+/draw_crescendo % width height cons thick
 {
-	stafflinethickness setlinewidth
+	setlinewidth
 	/cresc_cont exch def
 	/cresc_ht exch def
 	/cresc_wd exch def
@@ -99,9 +99,9 @@
 } bind def
 
 % this is for drawing slurs.
-/draw_bezier_sandwich 
+/draw_bezier_sandwich  % thickness 
 {
-	stafflinethickness setlinewidth
+	setlinewidth
 	moveto
 	curveto
 	lineto
