@@ -33,10 +33,7 @@ LY_DEFINE (ly_input_message, "ly:input-message", 2, 0, 0, (SCM sip, SCM msg),
   return SCM_UNSPECIFIED;
 }
 
-/*
-  TODO: rename this function. ly:input-location? vs ly:input-location
- */
-LY_DEFINE (ly_input_location, "ly:input-location", 1, 0, 0, (SCM sip),
+LY_DEFINE (ly_input_file_line_column, "ly:input-file-line-column", 1, 0, 0, (SCM sip),
 	  "Return input location in @var{sip} as (file-name line column).")
 {
   Input *ip = unsmob_input (sip);

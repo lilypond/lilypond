@@ -207,8 +207,28 @@
 	x-y-named-glyphs))
   ))
 
-(define (grob-cause grob)
-  "")
+(define (grob-cause offset grob)
+  (let* ((cause (ly:grob-property grob 'cause))
+	 (music-origin (if (ly:music? cause)
+			   (ly:music-property cause 'origin)))
+	 (location (if (ly:input-location? music-origin)
+		       (ly:input-file-line-column music-origin)
+		       #f
+		       ))
+	 (x-ext (ly:grob-extent grob grob X)) 
+	 (y-ext (ly:grob-extent grob grob Y)) 
+	 )
+
+    (if location
+	(format "~a ~a ~a ~a (lily-edit.sh ~a ~a ~a) mark_file_line\n"
+		(+ (car offset) (car x-ext))
+		(+ (cdr offset) (car y-ext))
+		(+ (car offset) (cdr x-ext))
+		(+ (cdr offset) (cdr y-ext))
+		(car location)
+		(cadr location)
+		(caddr location))
+	"")))
 
 ;; WTF is this in every backend?
 (define (horizontal-line x1 x2 th)
