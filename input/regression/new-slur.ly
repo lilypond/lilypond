@@ -63,9 +63,13 @@
     e4( dis4) 
     g='16( b d fis)
     \clef bass a=8[ e16(f] g[ a b d,)]  s4 | \break
-    e=8( f] g[ a b d,)]  s4 | \break
+    e=8[( f] g[ a b d,)]  s4 |
     
     \clef treble
+    \new Voice {
+	\slurDown
+	c=''4( d, c') s4
+    }
     \new Voice \relative c'' {
 	\slurDown f2( d4 f | g c a f | d c f2 | f1) |
     }

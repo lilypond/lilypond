@@ -619,15 +619,14 @@ Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
 		{
 		  Interval stem_y = extremes_[d].stem_extent_[Y_AXIS];
 		  stem_y.widen (0.25 * staff_space_);
-		  if (dir_ == -d
-		      && stem_y.contains (os[d][Y_AXIS]))
+		  if (stem_y.contains (os[d][Y_AXIS]))
 		    {
-		      os[d][X_AXIS] =  extremes_[d].slur_head_extent_[-d]
+		      os[d][X_AXIS] = extremes_[d].stem_extent_[X_AXIS][-d]
 			- d * 0.3;
 		      attach_to_stem[d] = true;
 		    }
-		  else if (dir_ *extremes_[d].stem_extent_[Y_AXIS][dir_]
-			     < dir_ * os[d][Y_AXIS]
+		  else if (dir_ * extremes_[d].stem_extent_[Y_AXIS][dir_]
+			   < dir_ * os[d][Y_AXIS]
 			   && !extremes_[d].stem_extent_[X_AXIS].is_empty ()
 			   )
 		
