@@ -52,6 +52,18 @@ Stem::set_beaming (Grob *me, int beam_count, Direction d)
   index_set_cell (pair, d, lst);
 }
 
+int
+Stem::get_beaming (Grob *me, Direction d)
+{
+  SCM pair = me->get_property ("beaming");
+  if (!ly_c_pair_p (pair))
+    return 0;
+
+  SCM lst = index_get_cell (pair, d);
+  return scm_ilength (lst);
+}
+
+
 Interval
 Stem::head_positions (Grob *me)
 {

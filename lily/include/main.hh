@@ -35,6 +35,7 @@ extern bool safe_global_b;
 extern bool verbose_global_b;
 extern bool store_locations_global_b;
 extern bool internal_type_checking_global_b;
+extern bool debug_beam_quanting_flag;
 
 
 /* misc */

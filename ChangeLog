@@ -1,4 +1,17 @@
+2004-07-17  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/define-grobs.scm: switch on new-slur by default.
+
+	* lily/scm-option.cc: symbol != string.
+
+	* lily/new-slur.cc (set_end_points): handle broken slurs. Doesn't
+	really work yet.
+	(set_end_points): make X coord of attachment dependent on  Y.
+	(score_encompass): add edges too.
+
 2004-07-16  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/stem.cc (get_beaming): new function.
 
 	* scripts/lilypond-book.py (compose_ly): make fragment mandatory
 	for fragment snippets. This fixes inclusion of toplevel-music
