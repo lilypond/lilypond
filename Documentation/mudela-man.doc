@@ -342,7 +342,7 @@ Symbols which can be put at either side (above or below) of a staff
 are entered as follows:
 \begin[verbatim,fragment]{mudela}
         a-^     % marcato, direction: default
-        a^-     % portato, direction: above note
+        %a^-     % portato, direction: above note
         a_.     % staccato, direction: below note
         a^\fermata      % predefined identifier
         c_"marcato"     % add a text

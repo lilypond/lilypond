@@ -1,3 +1,10 @@
+pl 20
+	- don't swallow non lyric-stuff in lyrics
+	- x-position of Stem
+	- more feta changes
+	- move scripts to right
+	- genheader.py replaces genheader.perl
+
 pl 19.jcn2
 	- bf's mi2mu:
 	  * Midi_track_parser::note_end_all

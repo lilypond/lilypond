@@ -1,0 +1,329 @@
+%
+% scripts
+%
+
+
+fet_begingroup("foobars")
+
+
+def draw_fermata =
+	save alpha, radius, crook_thinness, crook_fatness, dot_diam;
+	
+	% [Wanske] and some  Baerenreiter editions
+	% suggest ca 80 degrees iso half-circle
+	alpha := 10;
+
+	radius# = 1.5 interline#;
+	crook_thinness# = 1.5stafflinethickness#;
+	crook_fatness# = 4 stafflinethickness#;
+
+	radius# + crook_fatness#/2 = h#;
+	radius# + crook_thinness#/2 = w#;
+	set_char_box(w#, w#, 0, h#);
+	
+	define_pixels(radius, crook_thinness, crook_fatness);
+	dot_diam = 4/3 crook_fatness;
+
+
+	penpos1(crook_thinness, 0);
+	penpos2(crook_fatness, -90);
+	z1 = (-radius,0);
+	z2 = (0, radius);
+
+	fill z1l{dir (-alpha-90)}..{dir (90-alpha)}z1r..
+		{right}z2r -- z2l{left} .. cycle;
+
+	addto currentpicture also 
+		currentpicture xscaled -1;
+
+	pickup pencircle scaled dot_diam;
+	x4 =0;
+	bot y4 = - crook_thinness/2;
+	draw z4;
+enddef;
+
+fet_beginchar("fermata up", "ufermata", "ufermata")
+	draw_fermata;	
+	penlabels(1,2,4);
+fet_endchar;
+
+fet_beginchar("fermata down", "dfermata", "dfermata")
+	draw_fermata;
+	currentpicture:=currentpicture yscaled -1 ;
+	set_char_box(w#, w#, h#, 0);
+	
+fet_endchar;
+
+
+%
+% FIXME: rounded endings
+%
+% `\accent' is TeX reserved.
+fet_beginchar("> accent", "accent", "sforzatoaccent")
+	set_char_box(.9 interline#, .9 interline#, .5 interline#, .5 interline#);
+	save thickness, diminish;
+
+	thickness = 2 stafflinethickness;
+
+	% prevent blobs at crossing lines
+	diminish = .75;
+
+	y1 + thickness/2 = h;
+	x1 = -b;
+	x2 = w;
+	y2 = .25 thickness* diminish;
+
+	z4 = (w,0);
+	x3 =0;
+	z3 = whatever [z1, z4];
+
+	penpos2(thickness*(2 - diminish)/2 , 90);
+	penpos1(thickness, 90);
+	penpos3(thickness, 90);
+
+	penstroke z1e .. z3e .. z2e;
+	penstroke (z1e .. z3e .. z2e) yscaled -1;
+
+	penlabels(1,2,3);
+fet_endchar;
+
+fet_beginchar("staccato dot", "staccato", "staccato")
+	save radius;
+	radius# = 1.25 stafflinethickness#;
+	define_pixels(radius);
+	pickup pencircle scaled 2 radius;
+	draw (0,0);
+	set_char_box(radius#, radius#, radius#, radius#);
+fet_endchar;
+
+def draw_staccatissimo =
+	save radius, height;
+	height# = .8 interline#;
+	radius# = 2 stafflinethickness#;
+	define_pixels(radius, height);
+
+	draw_brush((0,0), blot_diameter, (0, height),2 radius);
+	set_char_box(radius#,radius#, blot_diameter#/2, height# + radius#);
+enddef;
+
+fet_beginchar("staccatissimo/martellato up", "ustaccatissimo", 
+		"ustaccatissimo")
+	draw_staccatissimo;
+fet_endchar;
+
+%
+% FIXEM: scale labels too.
+%
+fet_beginchar("staccatissimo/martellato down", "dstaccatissimo", "dstaccatissimo")
+	draw_staccatissimo;
+	y_mirror_char;
+fet_endchar;
+
+fet_beginchar("portato/single tenuto", "tenuto", "tenuto")
+	save thick;
+	thick# = 1.2 stafflinethickness#;
+	define_pixels(thick);
+
+	set_char_box(.9 interline#, .9 interline#, thick#/2,thick#/2);
+	pickup pencircle scaled thick;
+	lft x1 = -b;
+	rt x2 = w;
+	y1 = y2 = 0;
+	draw z1 .. z2;
+fet_endchar;
+
+
+def draw_marcato = 
+	save fatness, thinness;
+	set_char_box(interline#/2, interline#/2, 0, 1.1 interline#);
+
+	fatness = 3 stafflinethickness;
+	thinness = .8 stafflinethickness;
+	x2 - x1  + blot_diameter = fatness;
+	x2 + thinness/2 = w;
+	
+	y1 = y2;
+	y1 = thinness/2;
+	z2 - z3 = whatever * (charwd, -charht);
+	z1 - z4 = whatever * (charwd, -charht);
+	z3 - z4 = whatever * (charwd, charht);
+	y3 + thinness/2 = h;
+	draw_rounded_path(z1 -- z2 -- z3 -- z4 -- cycle, thinness);
+
+	pickup pencircle scaled thinness;
+	z3 - z5 = whatever* (z3 - z4);
+	bot y5 = 0;
+	draw z3 .. z5;
+enddef;
+
+fet_beginchar("marcato up", "umarcato", "umarcato")
+	draw_marcato;
+	labels(1,2,3,4,5);
+fet_endchar;
+
+
+%
+% The down marcato char (not very much used). 
+% Contrary to what some MF/TeX `gurus' believe
+% it is *point*-symmetric with the "up" version; (at least [Chlapik] 
+% agrees with us)
+%
+fet_beginchar("marcato down", "dmarcato", "dmarcato")
+	draw_marcato;
+	xy_mirror_char;
+fet_endchar;
+ 
+fet_beginchar("open (unstopped)", "open", "ouvert")
+	save thin, height, width, thick;
+	height# = 5/4 width#;
+	height# = 7/8 interline#;
+	thin = 1.2 stafflinethickness;
+	thick =  1.4 thin;
+	set_char_box(width#/2, width#/2, 0, height#);
+	
+	penpos1(thick, 0);
+	penpos2(thin, 90);
+	z1r = (w,h/2);
+	z2r = (0, h);
+	penlabels(1,2);
+	penstroke z1e{up} .. {left}z2e;
+	addto currentpicture also currentpicture xscaled -1;
+	addto currentpicture also currentpicture reflectedabout((w,h/2), (0,h/2));
+fet_endchar;
+
+
+fet_beginchar("plus (stopped)", "stopped", "plusstop")
+	save thick, size;
+	thick = 2 stafflinethickness;
+	size# = 1.1 interline#;
+
+	set_char_box(size#/2, size#/2, size#/2, size#/2);
+	pickup pencircle scaled thick;
+
+	rt x1 = w;
+	y1 = 0;
+	z2 = -z1;
+
+	draw z1 .. z2;
+	draw (z1 .. z2) rotated 90;
+fet_endchar;
+
+%
+% FIXME: blotting 
+%
+fet_beginchar("Upbow", "upbow", "upbow")
+	save ht, wd, thick;
+
+	thick = 1.4 stafflinethickness;
+	wd# = 1.3 interline#;
+	ht# = 3/2 wd#; 
+
+	
+	set_char_box(wd#/2, wd#/2, 0, ht#);
+	pickup pencircle scaled thick;
+
+	x1 = 0;
+	bot y1 = 0;
+	rt x2 =  w;
+	top y2 = h;
+
+	labels(1,2);
+	draw z2 -- z1 -- (z2 xscaled -1);
+fet_endchar;
+
+
+fet_beginchar("Downbow", "downbow", "downbow")
+	save stemthick, beamheight;
+	save wd;
+	define_pixels(wd)
+
+	wd# = 7/4 interline#;
+	stemthick = 1.2 stafflinethickness;
+
+	set_char_box(wd#/2, wd#/2, 0, interline#);
+
+	beamheight = 4/10 h;
+
+
+	pickup pencircle scaled blot_diameter;
+	top y2 - bot y1  = beamheight;
+	top y2 = h;
+	rt x1 = w;
+	x1 = x2;
+	y2 = y3;
+	y1 = y4;
+	x3 = 0;
+	x4 = x3;
+	save p;
+	path p;
+	p := z1 -- z2 -- z3 -- z4 --cycle;
+	draw_rounded_path(p, blot_diameter);
+	pickup pencircle scaled stemthick;
+
+	bot y5 =0;
+	rt x5 = rt x6 = w;
+	y6 = h - beamheight;
+	draw z6 -- z5;
+	labels(1, 2,3,4,5,6);
+	addto currentpicture also currentpicture xscaled -1;
+fet_endchar;
+
+%
+% FIXME the middle part (NW -> SE) may have some more (ok; it is
+% negative: less) slope
+%
+fet_beginchar("Turn","turn","turn")
+	save thin, thick, ball_diam, darkness;
+	save wd, ht, thick_nibangle, ball_nib_thick;
+	save turndir;
+	pair turndir;
+
+	wd# = 35/16 interline#;
+	ht# = 18/17 interline#;
+	darkness = 1.3 stafflinethickness;
+
+	set_char_box(wd#/2, wd#/2, ht#/2, ht#/2);
+
+	thick_nibangle = 60;
+	thick = 3 darkness;
+	thin = darkness;
+	ball_nib_thick = 2.7 darkness;
+	ball_diam = ball_nib_thick + (h - ball_nib_thick) / 10;
+
+	
+	x3l = w;
+	y3 = 0;
+	y4l = h;
+	x4 = x2;
+	x2l = w/2;
+	y2l = -d;
+	z1 = (0,0);
+
+	penpos1(1.1 thick, thick_nibangle);
+	penpos2(thick, thick_nibangle);
+	penpos3(thin, 180);
+	penpos4(ball_nib_thick, -90);
+
+	path swoosh, ploop;
+	swoosh :=  z1l{curl 0} .. z2l .. z3l{up} .. {left}z4l 
+	  -- z4r .. z3r{down} .. z2r{left} ;
+	fill swoosh .. (swoosh scaled -1) .. cycle;
+	penlabels(2,3,4);
+
+	x5r = x4;
+	y5r = y4l - ball_diam /2;
+	z6r = z5r;
+
+	penpos5(1.6 ball_diam/2, 10);
+	penpos6(ball_diam/2, 150);
+
+	ploop := z4l{left} .. z5l .. z6l -- cycle;
+	fill ploop;
+	fill ploop scaled -1;
+
+
+	penlabels(5,6,7);
+	
+fet_endchar;
+
+fet_endgroup("foobars");

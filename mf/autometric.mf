@@ -1,9 +1,13 @@
-% autometric.mf
-% part of LilyPond's pretty-but-neat music font
+% 
+% autometric.mf -- administrative MF routines
+% 
+% source file of the Feta (Font-En-Tja) pretty-but-neat music font
+% 
+% (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 % 
 % these macros help create ascii logging output
 % to automate generation of lily tables and tex backend
-% parsed by the mf-to-table script
+% The output should be parsed by the mf-to-table script
 
 
 
@@ -24,12 +28,14 @@ def fet_endfont(expr name) =
 def fet_begingroup(expr name) =
 	message "@{group:"&name&"@}";
 	message "";
-	enddef;
+	begingroup
+enddef;
 
 def fet_endgroup(expr name) =
+	endgroup;
 	message "@{puorg:"&name&"@}";
 	message "";
-	enddef;
+enddef;
 
 def autometric_output_char=
 	message "@{char:"&charnamestr&":"&decimal charcode&":"&decimal charbp&":"&decimal charwd&":"&decimal chardp&":"&decimal charht&":"&idstr&":"&texstr&"@}";

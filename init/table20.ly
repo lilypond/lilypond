@@ -12,13 +12,15 @@ table_twenty =
     % index TeXstring, 	xmin xmax ymin ymax
 
     "scripts" = \table {
-	"fermata" "\ufermata"		0.0\pt 0.0\pt	0.0\pt 6.0\pt
+	    "open" "\ouvert" -1.33\pt 1.33\pt -0.00\pt 3.33\pt 
+        "stopped" "\plusstop" -2.75\pt 2.75\pt -2.75\pt 2.75\pt 
+    "fermata" "\ufermata"		0.0\pt 0.0\pt	0.0\pt 6.0\pt
 	"-fermata" "\dfermata"		0.0\pt 0.0\pt	-6.0\pt 0.0\pt
 	"portato" "\portato"		0.0\pt 4.0\pt	0.0\pt	2.0\pt
 	"-portato" "\iportato"		0.0\pt 4.0\pt	-2.0\pt	0.0\pt
 	"tenuto" "\utenuto"			0.0\pt 4.0\pt	-1.0\pt	1.0\pt
 	"-tenuto" "\dtenuto"		0.0\pt 4.0\pt	-1.0\pt	1.0\pt
-	"sforzato" "\accent"		-0.8\pt 4.0\pt	-1.92\pt 1.92\pt
+	"sforzato" "\sforzatoaccent"		-0.8\pt 4.0\pt	-1.92\pt 1.92\pt
 	"marcato" "\umarcato"		0.0\pt 4.0\pt	0.0\pt	4.0\pt
 	"-marcato" "\dmarcato"		0.0\pt 4.0\pt	-4.0\pt	0.0\pt
 	"staccato" "\staccato"		0.0\pt	0.0\pt 	-1.1\pt 1.1\pt
@@ -92,8 +94,8 @@ table_twenty =
     }
 
     "streepjes" = \table {
-	"toplines"	"\toplines{%}{%}"	-3.0\pt	9.0\pt	0.0\pt	0.0\pt
-	"botlines"	"\botlines{%}{%}"	-3.0\pt	9.0\pt	0.0\pt	0.0\pt
+	"toplines"	"\topledgerlines{%}{%}"	-3.0\pt	9.0\pt	0.0\pt	0.0\pt
+	"botlines"	"\botledgerlines{%}{%}"	-3.0\pt	9.0\pt	0.0\pt	0.0\pt
     }
 
     "bars" = \table {

@@ -5,11 +5,73 @@
 % and not even symmetric.
 % These examples are inspired by [Wanske] [see literature list]
 
-%noteheight#:=interline#;
 
-% even more pronounced (almost overdone), just like the original
-noteheight#:=interline#+1.5stafflinethickness#;
+fet_begingroup("balls");
 
+noteheight#:=interline#+ (1 + overdone_heads) *stafflinethickness#;
+
+define_pixels(noteheight);
+
+
+
+def draw_brevis =
+	save beamheight, head_width;
+	save holeheight, stem_width;
+	save serif_size;
+
+	head_width# = 2 interline#;
+	holeheight = 3 stafflinethickness;
+	stem_width = 1.2 stafflinethickness;
+
+
+	define_pixels(head_width);
+	set_char_box(0, head_width#, noteheight#/2, noteheight#/2);
+	
+	2 beamheight + holeheight = noteheight;
+	serif_size = (holeheight - stafflinethickness)/2;
+
+	penpos1(stem_width, 0);
+	penpos2(stem_width, 0);
+	penpos3(beamheight, 90);
+	penpos4(beamheight, 90);
+	penpos5(stem_width, 180);
+
+	z1l = (0, 0);
+	z2l = (0, -stafflinethickness/2);
+	z3r = z2r + serif_size *(1,-1);
+	y4r = y3r;
+	x4r = head_width/2;
+	z5l = z3l + serif_size * (-1,-1);
+
+	penlabels(1,2,3,4, 5);
+	fill z1r -- z1l -- z5r{down} .. z5l{up} .. z3l{right}
+		-- z4l -- z4r -- z3r{left} .. z2r{up} -- cycle;
+
+	addto currentpicture also currentpicture yscaled -1;
+	addto currentpicture also currentpicture reflectedabout(z4r, z4l);
+enddef;
+
+fet_beginchar("Brevis notehead", "-1", "brevisball")
+	draw_brevis;
+fet_endchar;
+
+
+%
+% Some sources (eg Musix/OpusTeX think that the appendage should be on
+% the right, my only other ref [Willemze], shows an appendage to the left
+%
+fet_beginchar("Longa notehead", "-2", "longaball");
+	draw_brevis;
+	save theta;
+	z7 = z5;
+	z6 - z7 = (-stem_width/2, -interline);
+	theta = angle(z6-z7)+ 90;
+	penpos7(stafflinethickness, theta);
+	penpos6(stem_width, theta);
+	
+	fill z7r .. z6r{z6-z7} .. {z7-z6} z6l -- z7l -- cycle;
+	penlabels(6,7);
+fet_endchar;
 
 % setup user vars
 def setup_notehead_vars =
@@ -54,9 +116,6 @@ fi
 
 		
 	enddef;
-
-
-fet_begingroup("balls");
 
 % whole note
 % Wanske, p.38
@@ -137,38 +196,6 @@ fet_endchar;
 
 
 
-% from MO*gen.mf; (pass the barfbag?)
-def add_mirror (expr pone, ptwo) =
-  addto currentpicture also currentpicture
-        reflectedabout (round(pone), round(ptwo))
-enddef;
 
-def fill_square (expr xwidth, ywidth, zshift) =
-  fill unitsquare xscaled xwidth yscaled ywidth shifted zshift
-enddef;
-
-% ugh
-nhh#:=interline#;
-nhw#:=6/5interline#;
-define_pixels(nhh,nhw);
-
-fet_beginchar("Brevis notehead","-1","breveball"); 
-	set_char_box(0, 2interline#,.5 interline#, .5interline#);
-	fill_square (5/4nhw, .25nhh, (0,.25nhh));
-	add_mirror (origin, right);
-	x1=x2=0; x3=x4=5/4nhw; y1=-y2=y3=-y4=.7nhh;
-	pickup pencircle scaled stafflinethickness;
-	draw z1--z2; draw z3--z4;
- 	push_picture(currentpicture);
-fet_endchar;
-
-fet_beginchar("Longa notehead","-2","longaball");
-	set_char_box(0, 2 interline#,.5interline#, .5interline# );
-	currentpicture := pop_picture;
-	pickup pencircle scaled stafflinethickness;
-	draw (5/4nhw,-.7nhh)--(5/4nhw,-1.7nhh);
-fet_endchar;
-
-% fet_endgroup("noteheads");
 fet_endgroup("balls");
 

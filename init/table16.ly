@@ -11,13 +11,15 @@ table_sixteen=
    % index TeXstring, 	xmin xmax ymin ymax
 
     "scripts" = \table {
+        "stopped" "\plusstop" -2.20\pt 2.20\pt -2.20\pt 2.20\pt 
+        "open" "\ouvert" -1.07\pt 1.07\pt -0.00\pt 2.67\pt 
 	"fermata" "\ufermata"		0.0\pt 0.0\pt	0.0\pt 6.0\pt
 	"-fermata" "\dfermata"		0.0\pt 0.0\pt	-6.0\pt 0.0\pt
 	"portato" "\portato"		0.0\pt 4.0\pt	0.0\pt	2.0\pt
 	"-portato" "\iportato"		0.0\pt 4.0\pt	-2.0\pt	0.0\pt
 	"tenuto" "\utenuto"			0.0\pt 4.0\pt	-1.0\pt	1.0\pt
 	"-tenuto" "\dtenuto"		0.0\pt 4.0\pt	-1.0\pt	1.0\pt
-	"sforzato" "\accent"		-0.8\pt 4.0\pt	-1.92\pt 1.92\pt
+	"sforzato" "\sforzatoaccent"		-0.8\pt 4.0\pt	-1.92\pt 1.92\pt
 	"marcato" "\umarcato"		0.0\pt 4.0\pt	0.0\pt	4.0\pt
 	"-marcato" "\dmarcato"		0.0\pt 4.0\pt	-4.0\pt	0.0\pt
 	"staccato" "\staccato"		0.0\pt	0.0\pt 	-1.1\pt 1.1\pt
@@ -80,17 +82,9 @@ table_sixteen=
 	"half"	"\hslurchar%{%}"
      }
 
-     "accidentals" = \table {
-	"-2"	"\flatflat"	0.0\pt 	8.16\pt	-2.5\pt 7.5\pt
-	"-1"	"\flat"		0.0\pt	4.8\pt	-2.5\pt 7.5\pt
-	"0"	"\natural"	0.0\pt	4.0\pt	-6.\pt 6.\pt
-	"1"	"\sharp" 	0.0\pt	4.4\pt	-6.\pt 6.\pt
-	"2"	"\sharpsharp"	0.0\pt	4.8\pt	-2.5\pt 7.5\pt
-     }
-
      "streepjes" = \table {
-	"toplines"	"\toplines{%}{%}"	-1.0\pt	7.0\pt	0.0\pt	0.0\pt
-	"botlines"	"\botlines{%}{%}"	-1.0\pt	7.0\pt	0.0\pt	0.0\pt
+	"toplines"	"\topledgerlines{%}{%}"	-1.0\pt	7.0\pt	0.0\pt	0.0\pt
+	"botlines"	"\botledgerlines{%}{%}"	-1.0\pt	7.0\pt	0.0\pt	0.0\pt
      }
 
      "bars" = \table {
@@ -163,12 +157,9 @@ table_sixteen=
      }
 
      "beamslopes" = \table {
-	"slope"		"\beamslope{%}{%}"  2.0\pt 64.0\pt 0.0\pt 0.0\pt	
+	"slope"		"\beamslope{%}{%}"  2.0\pt 64.0\pt 0.0\pt 0.0\pt
 	"horizontal"	"\rulesym{%}{%}"	
      }
-     % ugh what's our outdir called?
      \include "font-en-tja16.ly"
-
-
 }
 

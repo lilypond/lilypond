@@ -51,6 +51,8 @@
 \parindent=0pt
 \newdimen\smallspace
 \newdimen\interlinedist
+\newdimen\ledgerlinethickness
+\newdimen\stemthickness
 \newcount\n
 \newdimen\balkheight
 \newdimen\notewidth
@@ -90,6 +92,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % do derivative calcs
 
+% FIXME: should read from TFM/AFM/fetalog
+%
+
+% this has to be synced with the font definition
 \def\musixcalc{
         \interlinedist=\fontdimen5\musicfnt
         \smallspace=.3\interlinedist
@@ -99,6 +105,8 @@
         %  [D.K.Roush & J.S.Gourlay] say this should be 0.072
         % We know better
         \staffrulethickness=0.1\interlinedist
+        \stemthickness=\staffrulethickness
+        \ledgerlinethickness=1.5\staffrulethickness
 }
 
 
@@ -177,7 +185,7 @@
         \loop\ifnum\n<#1\advance\n by1%
                 \kern\interstaffrule
                 \nointerlineskip
-                \vbox to 0pt{\hrule height #3 width#2%
+                \vbox to 0pt{\hrule height .5#3 depth .5#3 width#2%
                         \vss}\nointerlineskip
                 \repeat
         }}
@@ -185,18 +193,19 @@
 %%
 % Ugh. Need to redo this. Wish we had PS.
 %
-\def\toplines#1#2{\dist#1
-        \topalign{\hbox{\kern-.25\dist\lines{#2}{1.5\dist}{2\staffrulethickness}}}}
+\def\topledgerlines#1#2{\dist#1
+        \topalign{\hbox{\kern-.25\dist\lines{#2}{1.5\dist}{\ledgerlinethickness}}}}
 
-\def\botlines#1#2{\dist#1
-        \botalign{\hbox{\kern-.25\dist\lines{#2}{1.5\dist}{2\staffrulethickness}}}}
+\def\botledgerlines#1#2{\dist#1
+        \botalign{\hbox{\kern-.25\dist\lines{#2}{1.5\dist}{\ledgerlinethickness}}}}
 
 %
 % a staffsymbol with #1 lines, width #2
 % bottom at baseline
 \def\linestafsym#1#2{\leftalign{\botalign{\lines{#1}{#2}{\staffrulethickness}}}}
 
-\def\stem#1#2{\vrule height#2 depth-#1}
+\def\stem#1#2{\hbox{\kern -.5\stemthickness
+        \vrule width\stemthickness height#2 depth-#1}}
 
 \def\placebox#1#2#3{%
         \botalign{\hbox{\raise #1\leftalign{\kern #2{}#3}}}%

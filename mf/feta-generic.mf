@@ -1,0 +1,19 @@
+
+input feta-macros;
+
+make_pen_stack;
+make_picture_stack;
+input feta-params;
+
+
+test:=	0;
+if test = 0: 
+	input feta-eindelijk;
+	input feta-toevallig;
+	input feta-puntje;
+	input feta-bolletjes;
+	input feta-schrift;
+	input feta-banier;
+else:
+	input foo;
+fi

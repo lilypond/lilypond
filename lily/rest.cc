@@ -36,6 +36,8 @@ Rest::brew_molecule_p () const
 {
   int staff_size_i_ =8;
   bool streepjes_b = (position_i_<-1) || (position_i_ > staff_size_i_+1);
+  if  (balltype_i_ < 0 || balltype_i_ > 1)
+    streepjes_b = false;
   
   Atom s(paper ()->lookup_l()->rest (balltype_i_, streepjes_b));
   Molecule * m = new Molecule ( Atom (s));

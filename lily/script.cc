@@ -99,9 +99,11 @@ Molecule*
 Script::brew_molecule_p() const
 {
   Real dy = paper()->internote_f ();
+  Real dx = paper()->note_width()/2;
   
   Molecule*out = new Molecule (specs_l_->get_atom (paper(), dir_));
   out->translate (dy * pos_i_, Y_AXIS);
+  out->translate (dx, X_AXIS);	// FIXME! ugh
   return out;
 }
 

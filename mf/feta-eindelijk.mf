@@ -35,8 +35,8 @@ flare# = 2/3interline#;
 
 save block_rest_y, block_rest_x;
 
-block_rest_y# = 1/2 interline#;
-block_rest_x# = 3 block_rest_y#;
+block_rest_y# = 5/8 interline#;
+block_rest_x# = 3/2 interline#;
 
 define_pixels(block_rest_y, block_rest_x);
 
@@ -59,9 +59,9 @@ def block_rest=
 enddef;
 
 fet_beginchar( "whole rest", "0", "wholerest");
-set_char_box(0, block_rest_x#, -block_rest_y#, 2 block_rest_y# );
+set_char_box(0, block_rest_x#, -interline# + block_rest_y#,  interline# );
 	block_rest;
-	currentpicture := currentpicture shifted (0,block_rest_y);
+	currentpicture := currentpicture shifted (0,interline - block_rest_y);
 fet_endchar;
 
 fet_beginchar("half rest", "1", "halfrest");
@@ -74,17 +74,20 @@ fet_endchar;
 % should use ledgerline thickness?
 %
 fet_beginchar( "whole rest (outside staff)", "0o", "outsidewholerest");
-	set_char_box(block_rest_y#, block_rest_x# + block_rest_y#, -block_rest_y#, 2 block_rest_y# );
+	set_char_box(block_rest_y#, block_rest_x# + block_rest_y#, 
+		-interline# + block_rest_y#, interline#);
 	block_rest;
-	currentpicture := currentpicture shifted (0,block_rest_y);
-	pickup pencircle scaled stafflinethickness;
-	draw (-block_rest_y, interline) .. (block_rest_x + block_rest_y, interline);
+	currentpicture := currentpicture shifted (0,interline - block_rest_y);
+	pickup pencircle scaled ledgerlinethickness;
+	draw (-block_rest_y, interline) 
+             .. (block_rest_x + block_rest_y, interline);
 fet_endchar;
 
 fet_beginchar("half rest (outside staff)", "1o", "outsidehalfrest");
-	set_char_box(block_rest_y#, block_rest_x#+ block_rest_y#, 0, block_rest_y#);
+	set_char_box(block_rest_y#, block_rest_x#+ block_rest_y#, 
+		0, block_rest_y#);
 	block_rest;
-	pickup pencircle scaled stafflinethickness;
+	pickup pencircle scaled ledgerlinethickness;
 	draw (-block_rest_y,0) .. (block_rest_x + block_rest_y,0);
 fet_endchar;
 

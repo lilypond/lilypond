@@ -11,7 +11,7 @@ stafflines:=5;
 stafflinethickness#:=0.4pt#;
 code:=-1;
 
-input generic-tja;
+input feta-generic;
 
 fet_endfont("font-en-tja");
 

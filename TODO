@@ -6,9 +6,13 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr
 
-	* adapt Script for new font conventions
+	* accidental placement
 
-	* AFM for font input.
+	* bar-checking lyrics.
+
+	* check IO error on writing (disk full?)
+
+	* AFM for font input?
 
 	* Make general "spanning"-elements and "placer"-elements
 
@@ -35,8 +39,6 @@ grep for TODO and ugh/ugr
 	- cadenza mode? 
 	- MIDI instrument
 	- staff title
-
-	* check out egcs
 
 	* give Items/Spanners access to unbroken originals	
 

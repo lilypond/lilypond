@@ -114,6 +114,7 @@ fet_beginchar( "Natural", "0", "natural")
 % FIXME distribution of the crooks' thickness
 %
 % FIXME probably doesn't look quite right. 
+%
 
 def flat_meta_symbol(expr w, d, h, 
 	 stemwidth, crook_fatness, crook_thinness,
@@ -179,15 +180,18 @@ fet_beginchar("Double sharp", "2", "sharpsharp")
 	z4 = z2 reflectedabout((0,0), (1,1));
 	z5 = z1 reflectedabout((0,0), (1,1));
 
+%	labels(1,2,3,4,5);
 	draw_rounded_path(  
 		z1{dir 45} .. {right}z2 -- z3 -- z4{down} .. {dir 225}z5 .. cycle,
 	1/20 interline);
 
-
-	addto currentpicture also currentpicture rotated 90;
 	addto currentpicture also currentpicture yscaled (-d/h);
+	addto currentpicture also currentpicture xscaled (-1);
 
+	% ugh
 	currentpicture := currentpicture  shifted (w/2,0);
+
+
 	fet_endchar;
 
 
