@@ -508,48 +508,57 @@ class Snippet:
 		pass # todo
 	
 
-
-def simple_find_toplevel_snippets (str, types):
-	"return: (new string, snippets)" 
-	snippets  = []
-	for t in types:
-		regex = re.compile (snippet_res[format][t])
-
-		# ugh, this can be done nicer in python 2.x
-		def notice_snippet (match, snippets = snippets,
-				    t = t, str = str):
-			s = Snippet (t, str, match)
-			snippets.append (s)
-
-			
-			return s.replacement_text (format)
-
-		str = regex.sub (notice_snippet, str)
-	return (str, snippets)
-
 def find_toplevel_snippets (infile, outfile, types):
-	res = ['(?P<regex%s>%s)' % (t,
+	s = infile.read ()
+        res = {}
+        for i in types:
+                res[i] = ly.re.compile (snippet_res[format][i])
 
-				    re.sub (r"\(\?P<[^>]+>", "(", snippet_res[format][t]))
-	       for t in types]
+        snippets = []
+        index = 0
+        found = dict ([(t, None) for t in types] )
 
-	big_re = re.compile (string.join (res, '|'))
-	str = infile.read ()
-	i = big_re.finditer(str) 
+	#
+	# We want to search for multiple regexes,  
+	# without searching the string multiple times for one regex.
+	#
+	# Hence, we use earlier results to limit the string portion
+	# where we search. We're hosed if the first type only occurs
+	# at the end of the string, since it  will then use quadratic
+	# time.
+	#
+	
+        while 1:
+                first = None
+                endex = 1 << 30
+                for type in types:
+                        if not found[type] or found[type].start (0) < index:
+                                found[type] = None
+                                m = res[type].search (s[index:endex])
+                                if m:
+                                        found[type] = Snippet (type, m)
 
-	snips= []
-	last_end = 0
-	for match in i:
-		outfile.write (str[last_end:match.start (0)])
-		last_end = match.end (0)
-		for t in types:
-			m =re.match (snippet_res[format][t], match.group(0))
-			if m:
-				sn = Snippet (t, m)
-				snips.append (sn)
-				outfile.write (sn.replacement_text (format))
-				break
-	return snips		
+                        if found[type] \
+                               and (first == None \
+                                    or found[type].start (0) < found[first].start (0)):
+				
+                                first = type
+                                endex = found[first].start (0)
+				
+                if not first:
+                        break
+		
+                snippets.append (found[first])
+
+		outfile.write (s[index:index + found[first].start (0)])
+		outfile.write (found[first].replacement_text ())
+		
+                index += found[first].end (0)
+
+        return snippets
+
+
+
 
 
 def filter_pipe (input, cmd):
@@ -670,7 +679,6 @@ def do_file (input_filename):
 	ly.progress ('\n')
 
 	ly.progress (_ ("Dissecting..."))
-	#snippets = find_toplevel_snippets (source, snippet_res[format].keys ())
 	snippet_types = (
 		'lilypond_block',
 		'verb',
