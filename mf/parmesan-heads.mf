@@ -272,7 +272,7 @@ def punctum_char (expr verbose_name, internal_name, mudela_name,
 		a_w := 1.09;
 
 		save a, beta, ht, wd;
-		ht# = noteheight# * mag;
+		ht# = noteheight#;  %% * mag;
 		2beta# = ht# * b_h;
 		a# = beta# * a_b;
 		wd# = 2a# / a_w;
@@ -596,7 +596,7 @@ fet_beginchar("Solesmes oriscus", "0solesmes_oriscus",
 	a_w := 1.09;
 
 	save a, beta, ht, wd;
-	ht# = noteheight# * mag;
+	ht# = noteheight#; %%  * mag;
 	2beta# = ht# * b_h;
 	a# = beta# * a_b;
 	wd# = 2a# / a_w;

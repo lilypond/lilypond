@@ -119,7 +119,7 @@ def custos_medicaea(expr verbose_name, internal_name, mudela_name,
 		a_w := 1.09;
 
 		save a, beta, ht, wd;
-		ht# = noteheight# * mag;
+		ht# = noteheight#; %%  * mag;
 		2beta# = ht# * b_h;
 		a# = beta# * a_b;
 		wd# = 0.4a# / a_w;	% width intentionally too small
@@ -192,7 +192,7 @@ def custos_vaticana(expr verbose_name, internal_name, mudela_name,
 		a_w := 1.09;
 
 		save a, beta, ht, wd;
-		ht# = noteheight# * mag;
+		ht# = noteheight# ; %%  * mag;
 		2beta# = ht# * b_h;
 		a# = beta# * a_b;
 		wd# = 0.4a# / a_w;
