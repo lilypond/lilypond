@@ -90,7 +90,7 @@ a1 a2 a4 a16 a32
 @lilypond[fragment]
 \property Score.timing = ##f
 \property Staff.TimeSignature = \turnOff
-\property Staff.noAutoBeaming = ##t
+\property Staff.autoBeaming = ##f
 %\property Staff.Clef = \turnOff
 \transpose c'' { a1 a2 a4 a16 a32 }
 s16_" "
@@ -653,7 +653,7 @@ fine tuning output, polyphonic music, and integrating text and music.
 @lilypond[fragment, relative 1]
 \property Score.timing = ##f
 \property Staff.TimeSignature = \turnOff
-\property Staff.noAutoBeaming = ##t
+\property Staff.autoBeaming = ##f
 \property Staff.Clef = \turnOff
 [a8 b]
 @end lilypond
@@ -664,7 +664,7 @@ fine tuning output, polyphonic music, and integrating text and music.
 @lilypond[fragment, relative 1]
 \property Score.timing = ##f
 \property Staff.TimeSignature = \turnOff
-\property Staff.noAutoBeaming = ##t
+\property Staff.autoBeaming = ##f
 \property Staff.Clef = \turnOff
 d ~ d
 @end lilypond
@@ -675,7 +675,7 @@ d ~ d
 @lilypond[fragment, relative 1]
 \property Score.timing = ##f
 \property Staff.TimeSignature = \turnOff
-\property Staff.noAutoBeaming = ##t
+\property Staff.autoBeaming = ##f
 \property Staff.Clef = \turnOff
 c( d )e
 @end lilypond
@@ -685,7 +685,7 @@ c( d )e
 @lilypond[fragment, relative 1]
 \property Score.timing = ##f
 \property Staff.TimeSignature = \turnOff
-\property Staff.noAutoBeaming = ##t
+\property Staff.autoBeaming = ##f
 \property Staff.Clef = \turnOff
 a a'
 @end lilypond
@@ -696,7 +696,7 @@ a a'
 @lilypond[fragment, relative 1]
 \property Score.timing = ##f
 \property Staff.TimeSignature = \turnOff
-\property Staff.noAutoBeaming = ##t
+\property Staff.autoBeaming = ##f
 \property Staff.Clef = \turnOff
 c c,
 @end lilypond
@@ -707,7 +707,7 @@ c c,
 @lilypond[fragment, relative 1]
 \property Score.timing = ##f
 \property Staff.TimeSignature = \turnOff
-\property Staff.noAutoBeaming = ##t
+\property Staff.autoBeaming = ##f
 \property Staff.Clef = \turnOff
 \context Voice { <a c> }
 @end lilypond
@@ -718,7 +718,7 @@ c c,
 @lilypond[fragment, relative 1]
 \property Score.timing = ##f
 \property Staff.TimeSignature = \turnOff
-\property Staff.noAutoBeaming = ##t
+\property Staff.autoBeaming = ##f
 \property Staff.Clef = \turnOff
 a\< a \!a
 @end lilypond
@@ -729,7 +729,7 @@ a\< a \!a
 @lilypond[fragment, relative 1]
 \property Score.timing = ##f
 \property Staff.TimeSignature = \turnOff
-\property Staff.noAutoBeaming = ##t
+\property Staff.autoBeaming = ##f
 \property Staff.Clef = \turnOff
 a\> a \!a
 @end lilypond
@@ -1235,7 +1235,7 @@ accompaniment =\chords @{
 
           \addlyrics
             \context Staff = mel @{        
-              \property Staff.noAutoBeaming = ##t
+              \property Staff.autoBeaming = ##f
               \property Staff.automaticMelismata = ##t
               \melody 
             @}
@@ -1286,7 +1286,7 @@ accompaniment =\chords {
 
           \addlyrics
             \context Staff = mel {
-              \property Staff.noAutoBeaming = ##t
+              \property Staff.autoBeaming = ##f
               \property Staff.automaticMelismata = ##t
               \melody 
             }
@@ -1542,16 +1542,16 @@ the melody and accompaniment staves different names.
 @separate
 @example 
 
-        \property Staff.noAutoBeaming = ##t
+        \property Staff.autoBeaming = ##f
  
 @end example
 @cindex \property
 @cindex context variables
 @cindex setting context variables
 An interpretation context has variables, called properties, that tune
-its behavior.  One of the variables is @code{noAutoBeaming}.  Setting
-this @code{Staff}'s property to @code{##t}, which is the boolean value
-@var{true}, turns the automatic beaming mechanism off for the current
+its behavior.  One of the variables is @code{autoBeaming}.  Setting
+this @code{Staff}'s property to @code{##f}, which is the boolean value
+@var{false}, turns the automatic beaming mechanism off for the current
 staff.
 @cindex GUILE
 @cindex Scheme

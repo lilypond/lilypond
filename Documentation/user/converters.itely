@@ -139,7 +139,7 @@ There is a rudimentary facility for adding lilypond code to the ABC
 source file.  If you say:
 
 @example
-        %%LY voices \property Voice.noAutoBeaming=##t
+        %%LY voices \property Voice.autoBeaming=##f
 @end example
 
 This will cause the text following the keyword ``voices'' to be inserted 

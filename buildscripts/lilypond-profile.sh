@@ -12,7 +12,6 @@
 if [ "$LILYPONDPREFIX" == "" ] ; then
     datadir=`echo "@datadir@" | sed 's!//!/!g'`
 else
-
 ## to support development from ~/usr/src/lilypon.
     datadir=$LILYPONDPREFIX
 fi
