@@ -38,17 +38,13 @@ int testing_level_global;
  */
 bool internal_type_checking_global_b;
 
-/*
-
-add these as well:
+/* Add these as well:
 
 @item -T,--no-timestamps
 don't timestamp the output
 
 @item -t,--test
-Switch on any experimental features.  Not for general public use.
-
- */
+Switch on any experimental features.  Not for general public use. */
 
 LY_DEFINE(set_lily_option,"set-lily-option", 2, 0, 0,  (SCM var, SCM val),
 	  "Set a global option for the program. Supported options  include
@@ -67,10 +63,8 @@ This function is useful to call from the command line: @code{lilypond -e
 \"(set-lily-option 'midi-debug #t)\"}.
 ")
 {
-  /*
-    Scheme option usage:
-    lilypond -e "(set-lily-option 'help 0)"
-   */
+  /* Scheme option usage:
+    lilypond -e "(set-lily-option 'help 0)" */
   if (var == ly_symbol2scm ("help"))
     {
       printf ( _("lilypond -e EXPR means
