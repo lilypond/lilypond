@@ -40,7 +40,6 @@ this.
 
 #include "request.hh"
 #include "my-lily-parser.hh"
-#include "context-specced-music.hh"
 #include "score.hh"
 #include "music-list.hh"
 #include "output-property-music-iterator.hh"
@@ -55,7 +54,6 @@ this.
 #include "untransposable-music.hh"
 #include "lilypond-input-version.hh"
 #include "grace-music.hh"
-#include "part-combine-music.hh"
 #include "scm-hash.hh"
 #include "auto-change-iterator.hh"
 #include "un-relativable-music.hh"
