@@ -1,6 +1,9 @@
 2005-03-09  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* lily/book.cc:
+	* lily/paper-book.cc (classic_output): Reinstate header_0_ hack.
+
+	* lily/book.cc (process): Oops, add score_.header_.
+
 	* lily/paper-book.cc: Fold hearders, score and texts into scores_.
 
 	* lily/parser.yy: Handle toplevel and book texts as score.

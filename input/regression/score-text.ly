@@ -9,20 +9,25 @@
 \paper {
     linewidth = #110
 }
-\markup {
-    \fill-line { "High up above" }
-}
-<<
-    \relative {
-	\clef bass
-	d,2 d c4 bes a2 \break
-	c2 c d4 f g2
+
+%% using Book and Score to get text in lilypond-book 
+\book {
+    \markup {
+	\fill-line { "High up above" }
     }
-    \addlyrics {
-	My first Li -- ly song,
-	Not much can go wrong!
+    \score {
+	<<
+	    \relative {
+		\clef bass
+		d,2 d c4 bes a2 \break
+		c2 c d4 f g2
+	    }
+	    \addlyrics {
+		My first Li -- ly song,
+		Not much can go wrong!
+	    }
+	>>
     }
->>
     \markup {
 	%%TODO: make \verse markup.
 	\fill-line {
@@ -46,3 +51,4 @@
 	    }
 	}
     }
+}
