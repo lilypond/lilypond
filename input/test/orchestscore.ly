@@ -5,6 +5,11 @@ m = \notes \relative c''{
 c1 | c2 c | c c | c c | \break c c | c c | c c | c c | 
 }
 
+M = \notes \relative c''{
+
+c1 | c2 c | c c | R1*5 
+}
+
 \score{ < 
   \context StaffGroup = wood <
     \context Staff = flauto <
@@ -37,14 +42,14 @@ c1 | c2 c | c c | c c | \break c c | c c | c c | c c |
     \context Staff = cor <
       \property Staff.instrument = "2 Corni in F"
       \property Staff.instr = "Cor."
-      \context Voice = corI { \stemup \m }
-      \context Voice = corII { \stemdown \m }
+      \context Voice = corI { \stemup \M }
+      \context Voice = corII { \stemdown \M }
     >
     \context Staff = trp <
       \property Staff.instrument = "2 Trp. in B\\textflat  "
       \property Staff.instr = "Trp."
-      \context Voice = trpI { \stemup \m }
-      \context Voice = trpII { \stemdown \m }
+      \context Voice = trpI { \stemup \M }
+      \context Voice = trpII { \stemdown \M }
     >
   >
     \context StaffGroup = percussion <\context Staff = timpani <
@@ -90,12 +95,10 @@ c1 | c2 c | c c | c c | \break c c | c c | c c | c c |
     \translator {
 	\OrchestralScoreContext
 	barNumberScriptPadding = 10;
-        minVerticalAlign = 2.2*\staffheight;
-
     }
     \translator { \HaraKiriStaffContext
-	\consists "Instrument_name_engraver";
         marginScriptPadding = 15.0;
+%        StaffMinimumVerticalExtent = #(cons -0.0 0.0)
     }
   }
 }

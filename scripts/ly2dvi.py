@@ -264,8 +264,8 @@ class TeXOutput:
 %%\headsep0pt
 %% Maybe this is too drastic, but let us give it a try.
 \geometry{width=%spt, height=%spt,headheight=2mm,headsep=0pt,footskip=2mm} 
-\input lilyponddefs 
-\input titledefs 
+\input{lilyponddefs}
+\input{titledefs}
 %s
 \makeatletter
 \renewcommand{\@oddhead}{\parbox{\textwidth}%%
@@ -817,7 +817,7 @@ class Properties:
     # Set latex header name
     #
     def setHeader(this,head, requester):
-	this.__set('header',head,requester)
+	this.__set('header','\\input{' + head + '}',requester)
 
     #
     # Set or Clear Dependencies flag to generate makefile dependencies

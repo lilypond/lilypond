@@ -480,6 +480,17 @@ if 1:
 	conversions.append ((1,3,59), conv,
 			    '\key X ; -> \key X major; ') 
 
+if 1:
+	def conv (str):
+#		if re.search ('latexheaders *= *"\\\\input ',str):
+#			sys.stderr.write ('\nHello???')
+		str = re.sub (r'latexheaders *= *"\\\\input ',
+			      'latexheaders = "',
+			      str)
+		return str
+	conversions.append ((1,3,68), conv, 'latexheaders = "\\input global" -> latexheaders = "global"')
+
+
 ############################
 	
 
