@@ -68,10 +68,10 @@ Grace_performer_group::Grace_performer_group()
 }
 
 void
-Grace_performer_group::process ()
+Grace_performer_group::one_time_step ()
 {
   calling_self_b_  = true;
-  //process_music ();
+  // process_music ();
   announces();
   pre_move_processing();
   check_removal();

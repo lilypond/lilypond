@@ -143,6 +143,8 @@ forbidden after top level assignments.
 
 
 
+@unnumberedsubsec Comments
+
 @cindex comment
 
 @indexcode{%}
@@ -151,6 +153,8 @@ forbidden after top level assignments.
 A one line comment is introduced by a `@code{%}' character. 
 Block comments are started by `@code{%@{}' and ended by `@code{%@}}'. 
 They cannot be nested.
+
+@unnumberedsubsec Scheme
 
 @indexcode{#}
 
@@ -173,6 +177,8 @@ the result is discarded. Example:
 
 [refer appendix/ online intro on Scheme] 
 
+@unnumberedsubsec Keywords
+
 @cindex keyword
 
 Keywords start with a backslash, followed by a number of lower case
@@ -191,11 +197,15 @@ script stylesheet skip textscript tempo translator
 transpose type
 @end example
 
+@unnumberedsubsec Integers
+
 @cindex integer
 
 Formed from an optional minus sign followed by digits.  Arithmetic
 operations cannot be done with integers, and integers cannot be mixed
 with reals.
+
+@unnumberedsubsec Reals
 
 @cindex real
  
@@ -216,10 +226,9 @@ centimeters, respectively.  This converts the number to a real that
 is the internal representation of dimensions.
 
 
-
+@unnumberedsubsec
 @cindex string
  
-
 Begins and ends with the `@code{"}' character.  To include a `@code{"}'
 character in a string write `@code{\"}'.  Various other backslash
 sequences have special interpretations as in the C language.  A string
@@ -227,7 +236,6 @@ that contains no spaces can be written without the quotes.  See
 @ref{Lexical modes} for details on unquoted strings; their interpretation varies
 depending on the situation.  Strings can be concatenated with the
 `@code{+}' operator.
-
 
 The tokenizer accepts the following commands. They have no grammatical
 function, hence they can appear anywhere in the input.
@@ -239,6 +247,8 @@ function, hence they can appear anywhere in the input.
 This command is used in init files to signal that the user file must
 be read. This command cannot be used in a user file.
 
+@unnumberedsubsec file inclusion
+
 @example
   \include@keyindex{include} @var{file}
 @end example
@@ -246,6 +256,8 @@ be read. This command cannot be used in a user file.
 Include @var{file}.  The argument @var{file} may be a quoted string (an
 unquoted string will not work here!) or a string identifier.  The full
 filename including the @file{.ly} extension must be given,
+
+@unnumberedsubsec Version information 
 
 @example
   \version@keyindex{version} @var{string} ;

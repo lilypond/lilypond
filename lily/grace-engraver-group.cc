@@ -66,10 +66,10 @@ Grace_engraver_group::Grace_engraver_group()
 }
 
 void
-Grace_engraver_group::process ()
+Grace_engraver_group::one_time_step ()
 {
   calling_self_b_  = true;
-  //process_music ();
+  process_music ();
   announces();
   pre_move_processing();
   check_removal();

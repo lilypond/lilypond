@@ -27,7 +27,7 @@ public:
 protected:
   virtual void finish();
   virtual void prepare (Moment mom);
-  virtual void process();
+  virtual void one_time_step();
   virtual void start();
   virtual void initialize ();
   virtual void announce_element (Audio_element_info);

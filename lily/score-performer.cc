@@ -65,9 +65,10 @@ Score_performer::prepare (Moment m)
 
 
 void 
-Score_performer::process()
+Score_performer::one_time_step ()
 {
-  //process_music();
+  // fixme: put this back.
+  // process_music();
   announces ();
   pre_move_processing();
   check_removal();

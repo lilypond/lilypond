@@ -113,7 +113,7 @@ Score_engraver::finalize()
 }
 
 void
-Score_engraver::process()
+Score_engraver::one_time_step()
 {
   process_music();
   announces();

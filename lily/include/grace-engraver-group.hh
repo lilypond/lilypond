@@ -27,7 +27,7 @@ protected:
   virtual void announce_grob (Grob_info);
   virtual void start ();
   virtual void finish ();
-  virtual void process ();
+  virtual void one_time_step ();
   virtual void each (Method_pointer);
   virtual void finalize () ;
   virtual void typeset_grob (Grob*);
