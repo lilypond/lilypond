@@ -1094,7 +1094,7 @@ The complete file is listed here:
 [TODO: show how to do fixed 4 measures to the line]
 
 In this section we show how to typeset a melody with chord
-accompaniment. This file is included as @file{input/tutorial/flowing.ly}.
+accompaniment. This file is included as @inputfileref{input/tutorial,flowing.ly}.
 
 @example 
 \include "paper16.ly"
@@ -1684,7 +1684,7 @@ latest lily version.
 Our eighth subject is a piece of piano music.  The fragment in the
 input file is a piano reduction of the G major Sinfonia by Giovanni
 Battista Sammartini, composed around 1740.  It's in the source
-package under the name @file{input/tutorial/sammartini.ly}.
+package under the name @inputfileref{input/tutorial,sammartini.ly}.
 
 @lilypondfile[smallverbatim]{sammartini.ly}
 
@@ -2065,7 +2065,7 @@ produce the desired effect:
 @end example
 
 If you ran the previous example, you have unknowingly already used
-this kind of command.  The @file{ly/property-init.ly} contains the
+this kind of command.  The @inputfileref{ly,property-init.ly} contains the
 definition of @code{\stemUp}:
 @example
   stemUp = \property Voice.Stem \set #'direction = #1
@@ -2341,8 +2341,8 @@ for transposing instruments.
 @subsection The full score
 
 
-The second file, @file{input/tutorial/os-score.ly}, reads the
-definitions of the first (@file{input/tutorial/os-music.ly}), and
+The second file, @inputfileref{input/tutorial,os-score.ly}, reads the
+definitions of the first (@inputfileref{input/tutorial,os-music.ly}), and
 defines the @code{\score} block for the full conductor's score.
 
 @example

@@ -73,7 +73,15 @@ if files:
 
 	def name2line (n):
 		# UGR
-		s = "@lilypondfile[printfilename]{%s}" % n
+		s = r"""
+@ifhtml
+@html
+<NAME=%s>
+@end html
+@end ifhtml
+""" % n
+		
+		s += "@lilypondfile[printfilename]{%s}" % n
 		return s
 
 	s = s + string.join (map (lambda x: name2line (x), files), "\n")
