@@ -7,15 +7,12 @@ dashDash= "tenuto"
 dashBar= "staccatissimo"
 dashLarger= "accent"
 dashDot= "staccato"
-
+dashUnderscore = "portato"
 
 thumb = \script "thumb"
 accent = \script "accent"
 marcato = \script "marcato"
 staccatissimo = \script "staccatissimo"
-% Changed 27th October 2001 Heikki Junes <heikki.junes@hut.fi>
-%  * portato = tenuto & staccato
-%  * if you use portato = slur & staccato, then apply "c( d )e-."
 portato = \script "portato"
 fermata = \script "fermata"
 stopped = \script "stopped"

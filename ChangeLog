@@ -1,5 +1,10 @@
 2002-08-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/parser.yy (script_abbreviation): accept -_ script.
+
+	* ly/script-init.ly (dashUnderscore): add NOTE-_ == portato (dash
+	and dot)
+
 	* scripts/lilypond-book.py (re_dict): add spaces after command sequences
 	(LatexPaper.find_latex_dims): run latex in nonstopmode
 

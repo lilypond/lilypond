@@ -1654,6 +1654,9 @@ script_abbreviation:
 	| '.' 		{
 		$$ = scm_makfrom0str ("Dot");
 	}
+	| '_' {
+		$$ = scm_makfrom0str ("Underscore");
+	}
 	;
 
 script_dir:
