@@ -1423,6 +1423,9 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
 {
   Grob *rest = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
+
+  if (gh_number_p (rest->get_grob_property ("staff-position")))
+    return gh_int2scm (0);
   
   assert (a == Y_AXIS);
 

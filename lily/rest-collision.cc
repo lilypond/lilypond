@@ -141,7 +141,6 @@ Rest_collision::do_shift (Grob *me)
 	  for (; i > display_count; i--)
 	    {
 	      Grob* r = unsmob_grob (rests[i-1]->get_grob_property ("rest"));
-#if 1
 	      if (r)
 		{
 		  Grob * d = unsmob_grob (r->get_grob_property ("dot"));
@@ -150,16 +149,6 @@ Rest_collision::do_shift (Grob *me)
 		  r->suicide ();
 		}
 	      rests[i-1]->suicide ();
-#else
-	      if (r)
-		{
-		  
-		  r->set_grob_property ("transparent", gh_bool2scm(1));
-		  r = unsmob_grob (r->get_grob_property ("dot"));
-		  if (r)
-		    r->set_grob_property ("transparent", gh_bool2scm(1));
-		}
-#endif
 	    }
 	}
       else
