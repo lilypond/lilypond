@@ -34,8 +34,10 @@ void
 Line_group_engraver_group::do_removal_processing()
 {
   Engraver_group_engraver::do_removal_processing ();
+  Item *  it = get_staff_info().command_pcol_l ();
 
-  staffline_p_->set_bound(RIGHT,get_staff_info().command_pcol_l ());
+  Pointer_group_interface (it, "bounded-by-me").add_element (staffline_p_);  
+  staffline_p_->set_bound(RIGHT,it);
   Engraver_group_engraver::typeset_element (staffline_p_);
   staffline_p_ = 0;
 }
@@ -44,7 +46,9 @@ void
 Line_group_engraver_group::do_creation_processing()
 {
   create_line_spanner ();
-  staffline_p_->set_bound(LEFT,get_staff_info().command_pcol_l ());
+  Item *  it = get_staff_info().command_pcol_l ();  
+  staffline_p_->set_bound(LEFT,it);
+  Pointer_group_interface (it, "bounded-by-me").add_element (staffline_p_);
   
   Engraver::announce_element (Score_element_info (staffline_p_,0));
 }

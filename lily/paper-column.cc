@@ -95,7 +95,7 @@ Paper_column::column_l () const
 }
 
 Paper_column::Paper_column (Moment w)
-  : Item (SCM_EOL)
+  : Item (SCM_EOL)		// guh.?
 {
   SCM when = (new Moment (w))->smobify_self ();
   scm_unprotect_object (when);
@@ -103,7 +103,7 @@ Paper_column::Paper_column (Moment w)
 
   Axis_group_interface (this).set_interface ();
   Axis_group_interface (this).set_axes (X_AXIS, X_AXIS);
-
+  set_elt_pointer ("bounded-by-me", SCM_EOL);
   line_l_=0;
   rank_i_ = -1;
 }
@@ -135,5 +135,7 @@ Paper_column::musical_b () const
 bool
 Paper_column::used_b ()const
 {
-  return gh_pair_p (get_elt_pointer ("elements")) ||  breakable_b ();
+  return gh_pair_p (get_elt_pointer ("elements")) ||  breakable_b ()
+    || gh_pair_p (get_elt_pointer ("bounded-by-me"))
+    ;
 }
