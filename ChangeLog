@@ -1,5 +1,7 @@
 2003-05-23  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* .cvsignore: Add aclocal.m4.
+
 	* lily/music-constructor.cc: Include <assert.h>.
 
 2003-05-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>

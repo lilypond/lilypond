@@ -8,6 +8,7 @@
  */
 
 #include <map>			// UGH.
+#include <assert.h>
 #include "warn.hh"
 #include "music-constructor.hh"
 typedef Music* (*Music_ctor) ();
