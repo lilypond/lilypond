@@ -5,7 +5,6 @@
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
-
 #include "tstream.hh"
 #include "score.hh"
 #include "sccol.hh"
@@ -17,12 +16,10 @@
 #include "source.hh"
 #include "sourcefile.hh"
 #include "scorewalker.hh"
+#include "midioutput.hh"
 #include "mididef.hh"
-#include "midiitem.hh"
-#include "midistream.hh"
-#include "midicolumn.hh"
-#include "midistaff.hh"
-#include "midiwalker.hh"
+
+extern String default_out_fn;
 
 void
 Score::setup_music()
@@ -33,14 +30,7 @@ Score::setup_music()
 	error("Need to have music in a score.", defined_ch_c_l_);
     }
 
-    pscore_p_ = new PScore(paper_p_);
-    find_col(0, false)->set_breakable(); // ugh
-    find_col(last(), false)->set_breakable();
-    
-	
-
     for (iter_top(staffs_,i); i.ok(); i++) {
-	i->set_output(pscore_p_);
 	i->setup_staffcols();
 	i->OK();
     }
@@ -60,10 +50,28 @@ Score::process()
 {
     setup_music();
 
-    process_music();
+    paper();
+    midi();
+}
 
-    // do this after processing, staffs first have to generate PCols.
+void
+Score::paper()
+{
+    if (!paper_p_)
+	return;
+    
+    pscore_p_ = new PScore(paper_p_);
+
+    find_col(0, false)->set_breakable(); // ugh
+    find_col(last(), false)->set_breakable();
     do_cols();
+    
+    for (iter_top(staffs_,i); i.ok(); i++) 
+	i->set_output(pscore_p_);
+
+    
+    process_music();
+    clean_cols();    // can't move clean_cols() farther up.
     print();
     calc_idealspacing();
 
@@ -71,6 +79,10 @@ Score::process()
     OK();
     *mlog << endl;
     pscore_p_->process();
+
+    // output
+    paper_output();
+    
 }
 
 /**
@@ -83,7 +95,7 @@ Score::clean_cols()
 	i->clean_cols();
 
     for (iter_top(cols_,c); c.ok(); ) {
-	if (!c->pcol_l_->used()) {
+	if (!c->pcol_l_->used_b()) {
 	    delete c.get();
 	} else {
 	    c->preprocess();
@@ -148,12 +160,14 @@ Score::find_col(Moment w, bool mus)
 
 void
 Score::do_cols()
+    
 {
+
     iter_top(cols_,i);
     for (; i.ok(); i++) {
 	pscore_p_->add(i->pcol_l_);
     }
-    clean_cols();    // can't move clean_cols() farther up.
+
 }
 
 Moment
@@ -167,7 +181,14 @@ Score::last() const
 }
 
 void
-Score::set(Mididef* midi_p)
+Score::set(Paperdef *pap_p)
+{
+    delete paper_p_;
+    paper_p_ = pap_p;
+}
+
+void
+Score::set(Midi_def* midi_p)
 {    
     delete midi_p_;
     midi_p_ = midi_p;
@@ -203,15 +224,17 @@ Score::print() const
     }
     if (pscore_p_)
 	pscore_p_->print();
+    if (midi_p_)
+	midi_p_->print();
     
     mtor << "}\n";
 #endif
 }
 
-Score::Score(Paperdef*paper_p)
+Score::Score()
 {
     pscore_p_=0;
-    paper_p_ = paper_p;
+    paper_p_ = 0;
     midi_p_ = 0;
     errorlevel_i_ = 0;
     defined_ch_c_l_ = 0;
@@ -225,24 +248,24 @@ Score::~Score()
 }
 
 void
-Score::output(String s)
+Score::paper_output()
 {
     OK();
     if (paper_p_->outfile=="")
-	paper_p_->outfile = s;
-    
+	paper_p_->outfile = default_out_fn + ".out";
+
     if ( errorlevel_i_ ) { 
 	*mlog << "lilypond: warning: no output to: " << paper_p_->outfile 
 	<< " (errorlevel=" << errorlevel_i_ << ")" << endl;
         return;
     }
 
-    *mlog << "output to " << paper_p_->outfile << "...\n";
+    *mlog << "TeX output to " << paper_p_->outfile << " ...\n";
     
     Tex_stream the_output(paper_p_->outfile);
     
     the_output << "% outputting Score, defined at: " <<
-	source_global_l->
+	source_l_g->
 	sourcefile_l (defined_ch_c_l_)->file_line_no_str(defined_ch_c_l_) << "\n";
     pscore_p_->output(the_output);
 }
@@ -253,23 +276,11 @@ Score::midi()
     if (!midi_p_)
 	return;
 
-    *mlog << "midi output to " << midi_p_->outfile_str_ << "...\n";
-
-    int track_i = 0;
-    for ( PCursor<Staff*> staff_l_pcur( staffs_.top() ); staff_l_pcur.ok(); staff_l_pcur++ ) {
-	Midi_staff* mstaff_l = (Midi_staff*)*staff_l_pcur;
-	if ( !mstaff_l->pscore_l_ ) // we _are_ a midi-staff, ugh
-	    track_i++;
-    }
-
-    Midi_stream midi_stream( midi_p_->outfile_str_, track_i, midi_p_->get_tempo_i( Moment( 1, 4 ) )  );
-
-    track_i = 0;
-    for ( PCursor<Staff*> staff_l_pcur( staffs_.top() ); staff_l_pcur.ok(); staff_l_pcur++ ) {
-	Midi_staff* mstaff_l = (Midi_staff*)*staff_l_pcur;
-	if ( !mstaff_l->pscore_l_ ) // we _are_ a midi-staff, ugh
-	    mstaff_l->midi( &midi_stream, track_i++ );
-    }
+    if (midi_p_->outfile_str_ == "")
+	midi_p_->outfile_str_ = default_out_fn + ".midi";
+    
+    *mlog << "midi output to " << midi_p_->outfile_str_ << " ...\n";    
+    Midi_output(this, midi_p_);
 }
 
 void
