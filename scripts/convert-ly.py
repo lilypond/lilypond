@@ -1192,7 +1192,8 @@ if 1:
 			sys.stderr.write ("GraceContext has been removed")
 			sys.stderr.write ("please use #(add-to-grace-init .. )")
 			raise FatalConversionError()
-			
+
+		str = re.sub ('HaraKiriStaffContext', 'FrenchStaffContext', str)
 		return str
 	
 	conversions.append (((1,7,19), conv,"remove GraceContext"))

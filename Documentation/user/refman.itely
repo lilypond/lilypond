@@ -1,4 +1,4 @@
-@C Note: -*-texinfo-*-
+@c Note: -*-texinfo-*-
 @c
 @c A menu is needed before every deeper *section nesting of @node's; run
 @c     M-x texinfo-all-menus-update
@@ -1521,7 +1521,6 @@ for the problematic notes.
 
 @node Expressive marks
 @section Expressive marks
-
 
 @menu
 * Slurs ::                      
