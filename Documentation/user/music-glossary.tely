@@ -1,4 +1,3 @@
-\version "2.1.22"
 \input texinfo  @c -*-texinfo-*-
 @settitle Music Glossary
 @setfilename music-glosssary.info
