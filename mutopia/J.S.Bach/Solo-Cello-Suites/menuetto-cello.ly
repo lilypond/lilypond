@@ -16,7 +16,7 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.16";
+\version "1.0.21";
 
 \include "menuetto-urtext.ly";
 
@@ -24,9 +24,10 @@ menuetto_i_cello_global = \notes{
 	\time 3/4;
 	\key f;
 	\clef bass;
-	\repeat 2 {
+	\repeat    "semi" 2 {
 		\skip 2.*8;
-	} \repeat 2 {
+	}
+	\repeat "semi" 2 {
 		\skip 2.*1;
 		\slurdotted
 		\skip 2.*14;
@@ -79,9 +80,10 @@ menuetto_ii_cello_global = \notes{
 	\time 3/4;
 	\key D;
 	\clef bass;
-	\repeat 2 {
+	\repeat "semi" 2 {
 		\skip 2.*8;
-	} \repeat 2 {
+	}
+	\repeat  "semi" 2 {
 		\skip 2.*1;
 		\slurdotted
 		\skip 2.*14;
@@ -101,6 +103,7 @@ menuetto_ii_cello_staff = \context Staff <
 	\paper{
 		\include "scs-paper.ly";
 		gourlay_maxmeasures = 7.0;
+		
 		\translator{
 			\VoiceContext
 			beamAutoEnd_8 = "3/4";

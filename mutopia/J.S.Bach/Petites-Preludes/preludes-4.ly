@@ -8,17 +8,17 @@ composer =	"Johann Sebastian Bach (1685-1750)";
 enteredby =	"jcn";
 copyright =	"public domain";
 }
-\version "1.0.20";
+\version "1.0.21";
 
 one = \context Staff \notes\relative c {
 	\context Voice=i
-	\property Voice . textstyle = "italic"
+	\property Voice . textStyle = "italic"
 %	r16\p_"legato" 
 	r16\p
-	\property Voice . textstyle = "finger"
+	\property Voice . textStyle = "finger"
 	d'-1( fis-3 d-1  a'-2 b-3 cis-4 a-3 
 	d-3 cis-2 d-1 e-2  d-1 fis-3 e-2 d-1 |
-	\property Voice . textstyle = "finger"
+	\property Voice . textStyle = "finger"
 	\stemup 
 	)cis4-2 fis-5 ~ fis8 fis-4 e4-3 ~ | 
 	e16\< \stemboth a,16( cis a  d-2 e fis d-1 
@@ -30,13 +30,13 @@ one = \context Staff \notes\relative c {
 	<a4-5( e> <fis-4 d-2> < )g!16-5 d> fis-2 g-3 a-4 
 	\stemboth
 	g-3 b a g |
-	\property Voice . textstyle = "italic"
+	\property Voice . textStyle = "italic"
 %	fis_"dim." e fis-3 g  fis-3 a-5 g fis 
 	fis e fis-3 g  fis-3 a-5 g fis 
-	\property Voice . textstyle = "finger"
+	\property Voice . textStyle = "finger"
 %	e4-"2\\_5" ~ e16 e,( fis g  |
 	e4 ~ e16 e,( fis g  |
-	\property Voice . textstyle = "italic"
+	\property Voice . textStyle = "italic"
 %	a-4_"dim." g-1 a b  a-2 c-4 b a 
 	a-4 g-1 a b  a-2 c-4 b a 
 	g-1 fis-2 g-3 a  g-3 b a g |
@@ -44,13 +44,13 @@ one = \context Staff \notes\relative c {
 	)fis4\p 
 	\skip 4*7; |
 	%10
-	\property Voice . textstyle = "finger"
+	\property Voice . textStyle = "finger"
 %	d'4.\mf cis8-"4\\_5" ~ cis b4-5 a8-"4\\_5" ~ |
 	d'4.\mf cis8 ~ cis b4-5 a8 ~ |
-	\property Voice . textstyle = "italic"
+	\property Voice . textStyle = "italic"
 %	a g4-5 fis8-4 ~ fis16 fis-4-"dim." e-3 d-2 
 	a g4-5 fis8-4 ~ fis16 fis-4 e-3 d-2 
-	\property Voice . textstyle = "finger"
+	\property Voice . textStyle = "finger"
 %	e4-"3\\_5" ~ |
 	e4 ~ |
 	e16 e-5 d cis d4-5 ~ d16 d-5 cis b cis4-5 |
@@ -72,7 +72,7 @@ one = \context Staff \notes\relative c {
 two = \context Staff \notes\relative c{
 	\context Voice=ii
 	\stemup
-	\property Voice . textstyle = "finger"
+	\property Voice . textStyle = "finger"
 	fis4-1( e8-2 a4 a4 gis8-2 | 
 	) a8
 	\translator Staff=upper \stemdown
@@ -165,11 +165,11 @@ four = \context Staff \notes\relative c{
 	\skip 1*9;
 	\context Voice=iv
 	\stemup
-	\property Voice.hshift = 1 
+	\property Voice.horizontalNoteShift = 1 
 	%10
 	a''2 fis |
 	d s |
-%	\property Voice.hshift = 0 
+%	\property Voice.horizontalNoteShift = 0 
 	\skip 1*2; |
 	s4
 	\translator Staff=lower \stemup

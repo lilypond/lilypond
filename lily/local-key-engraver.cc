@@ -58,7 +58,11 @@ Local_key_engraver::process_acknowledged ()
 
 	  if (tied_l_arr_.find_l (support_l) && 
 	      !note_l->forceacc_b_)
-	    continue;
+	    {
+	      if (!forget)
+		local_key_.set (note_l->pitch_);
+	      continue;
+	    }
 	    
 	  if (!note_l->forceacc_b_
 	      && local_key_.different_acc (note_l->pitch_))

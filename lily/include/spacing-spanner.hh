@@ -22,7 +22,10 @@ public:
   int col_count () const;
 protected:
   virtual  Array<Spring> get_springs () const;
-  
+
+  Real stem_dir_correction (Score_column*,Score_column*)  const;
+  Real default_bar_spacing (Score_column*,Score_column*,Moment)  const;
+  Real note_spacing (Score_column*,Score_column*,Moment)  const;  
 };
 
 #endif /* SPACING_SPANNER_HH */

@@ -14,6 +14,7 @@
 #include "parray.hh"
 #include "lily-proto.hh"
 #include "music-output.hh"
+#include "lily-guile.hh"
 
 /** all stuff which goes onto paper. notes, signs, symbols in a score
      #Paper_score# contains the items, the columns.
@@ -27,10 +28,9 @@ class Paper_score : public Music_output
 
   /// other elements
   Link_array<Score_element> elem_p_arr_;
-
-  Link_array<Score_element> to_delete_arr_;
   Link_array<Score_element> break_helpers_arr_;
 
+  SCM protected_scms_;
 public:
   Paper_def *paper_l_;
 
@@ -62,21 +62,13 @@ public:
   /// add a Spanner
   void typeset_unbroken_spanner (Spanner*);
   
-  void schedule_for_delete (Score_element*);
     
   virtual ~Paper_score();
 protected:
-
-  
     /* MAIN ROUTINES */
   virtual void process();
 
 private:
-
-  
-  Link_array<Score_element> remove_line (Line_of_score*);
-  Link_array<Score_element> remove_break_helpers ();
-
   /// before calc_breaking
   void preprocess();
 

@@ -99,16 +99,20 @@ Word_wrap::do_solve () const
 	      break;
 	    }
 
+	  /*
+	    UGR! bug! 
+	   */
 	  if (current.energy_f_ < minimum.energy_f_ || current.energy_f_ < 0)
 	    {
 	      minimum = current;
 	    }
-	  else {		// we're one col too far.
-	    break_idx--;
-	    while (allcols[curcol_idx] != breakpoints[break_idx])
-	      curcol_idx --;
-	    break;		// do the next line.
-	  }
+	  else
+	    {		// we're one col too far.
+	      break_idx--;
+	      while (allcols[curcol_idx] != breakpoints[break_idx])
+		curcol_idx --;
+	      break;		// do the next line.
+	    }
 
 
 	  // add nobreak version of breakable column

@@ -9,8 +9,8 @@ Most of the items are marked in the code as well
 Grep for TODO and ugh/ugr/urg.  
 
 .* BUGS
-. * junk separate mudela versioning. 
-. * petite-ouverture time sig size. 
+. * junk separate mudela versioning.
+. * indent = 0.0 with linewidth=-1.0
 . * PostScript
 .  * header for PS enteredby = "bla <bla@bar.com>"
 .  * ps/lily.ps see comments.
@@ -63,7 +63,6 @@ I understand your point.  It should be changed.
 . * fix MIDI
 . * \shape 1st dim skipped? 
 . * turn slope-damping on/off
-. * tremolo stuff: tremolo over whole note.
 . * We need feta-din*.mf files for more sizes than 10.
 . * fix dynamics decently, ie. use kerning & ligatures.  
 . * dots & rest collisions?
@@ -91,7 +90,7 @@ specify the third.  Should there be?
 
    note + circle = note + 1/4 of its length
 
-5   the circle is like a dot that's not filled in.  for example, on
+   the circle is like a dot that's not filled in.  for example, on
    page three, the c-sharp on the second line should be a quarter with 
    a circle, not a quarter tied to a sixteenth.  is this at all
    possible with lily?
@@ -100,7 +99,6 @@ specify the third.  Should there be?
 . * repeat engraver, gallina.ly
 
 . * Matanya's tips: 
-.  * spacing for prefatory matter
 .  * accidentals closer to note head
 .  * to space the staffs/staffgroups contained in the score.  
 .  * heavier beams?
@@ -111,14 +109,11 @@ specify the third.  Should there be?
 . * Slur
 . * Rhythmic_grouping
 . * Duration
-. * Collision
-. * Rest_collision
-. * clef grav prop's 
+. * clef engraver 
 . * parser
 
 .* TODO before 1.2
 . * Morally pure LilyPond.
-.  * Remove mutopia ramblings.
 .  * Remove non-free software links.
 .  * Remove meta article LilyPond.
 . * break priority setting from SCM.
@@ -191,10 +186,6 @@ compilation.
 . * add new glyphs to font.ly
 . * formatting of input stuff. 
 . * \notes{ a \< b \cr } vs \notes{ a \< b \! }
-. * 'hinterfleisch' before bar (e.g. wtk1-fugue2)?
-. * Summary of minor spelling irregularities:
-.  *  capitalization/use of underscores in property names
-.  * fix SkipBars  -> skipBars
 . * broken scripts:
 	lbheel = \script { "bheel" 0 0 -1  0 0 }
 	rbheel = \script { "bheel" 0 0 1 0 0 }
@@ -308,6 +299,8 @@ touching it.
 
 .* 3RD PARTY BUGS
 . * GNU diff 2.7: diff -rN does not see a new directory with empty file
+. * mf-to-table -> add space before ; in AFM output.  (-> check AFM
+    spec. Is this a bug in afm2tfm?)
 . * check out GCC signatures?
 . * glibc 2.0:
 	  f = fopen ("/dev/null", "r")

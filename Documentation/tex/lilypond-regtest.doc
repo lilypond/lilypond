@@ -85,6 +85,13 @@ numberOfStaffLines.  Ledger lines both on note heads and rests are adjusted.
 
 \mudelafile{number-staff-lines.fly}
 
+\section{Spacing}
+
+In a limited number of cases, LilyPond corrects for optical spacing
+effects.  In this example, space for opposite pointed stems is adjusted
+
+\mudelafile{stem-spacing.sly}
+
 \section{Global stuff}
 
 Markings that are attached to (invisible) barlines are 

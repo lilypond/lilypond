@@ -143,8 +143,12 @@ crescendo_shorten = 4.0 * \interline;
 restcollision_minimum_dist = 3.0;
 restcollision_minimum_beamdist = 1.5;
 
-postBreakPadding = 1.0*\interline;
+% deprecated!
+postBreakPadding = 0.0;
+
+stemSpacingCorrection = 0.5*\interline;
 
 \include "engraver.ly";
+
 
 

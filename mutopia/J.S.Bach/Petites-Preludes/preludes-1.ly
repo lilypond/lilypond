@@ -12,12 +12,12 @@ enteredby =	 "jcn";
 copyright =	 "public domain";
 }
 
-\version "1.0.20";
+\version "1.0.21";
 
 % upper = \context Staff \notes\relative c {
 upper = \context Staff=upper \notes\relative c {
 	\context Voice=i
-	\property Voice . textstyle = "italic"
+	\property Voice . textStyle = "italic"
 % rediculous dim...
 %	r16\p_"legato"\< g''-1( c-3 )e-5 r g,-1( c )e 
 	r16\p\< g''-1( c-3 )e-5 r g,-1( c )e 
@@ -88,7 +88,7 @@ upper = \context Staff=upper \notes\relative c {
 % lower = \context Staff \notes\relative c{
 lower = \context Staff=lower \notes\relative c{
 	\context Voice=i
-	\property Voice . textstyle = "roman"
+	\property Voice . textStyle = "roman"
 	c4-5 e-3 g-\mordent^"(\\textsharp)" g,4 |
 	d'4-\mordent-5 f-3 a-\mordent^"(\\textsharp)" a,4 |
  	e'-5 e'-\mordent-1 a,-4 b-\upprall |

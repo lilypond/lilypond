@@ -1,3 +1,30 @@
+pl 48.hwn1
+	- \property hshift -> \property horizontalNoteShift (mudela 1.0.21)
+	- cleaned up collision.  \property hshift = 2 now supported.
+	- Spacing:
+	  * bf: don't divide strength by distance if distance == 0.0
+	  * cleaned up Spacing_spanner
+	  * simplistic optical illusion spacing for opposite stems.
+	- don't use Protected_scm for Score_element::element_property_alist_
+	- some scsii fixes.
+	- Lookup cleanups; junked Lookup::paper_l_
+	- abc-2-ly: tuplets, guitar chords., chords,
+
+pl 48.mb2
+	- bf: correct accidentals after tied over note.
+
+pl 48.mb1
+	- bf, lookup.cc: Count '{' also directly after a TeX macro
+	- bf: textstyle->textStyle in all examples.
+
+pl 48.jcn1
+	- bd: interstaff slurs at line break
+
+pl 48.uu1
+	- add a WX field to AFM output.
+	- add space before ; in AFM output
+
+*********
 pl 47.jcn1
 	- bf: interstaff slurs (urg: more segfaults in scm_gc_mark ())
 
@@ -267,7 +294,7 @@ pl 37.script2
 	  * G_script_column
 	  * G_script_column_engraver
 
-  pl 37.script1
+pl 37.script1
 	- major Script rehack:
 	  * G_stem_staff_side_item
 	  * G_script

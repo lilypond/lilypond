@@ -17,6 +17,7 @@
 #include "box.hh"
 
 /** handy interface to symbol table
+    TODO: move this into GUILE?
  */
 class Lookup
 {
@@ -24,11 +25,11 @@ public:
   Lookup ();
   Lookup (Lookup const&);
 
-  Molecule simple_bar (String s, Real w) const;
+  Molecule simple_bar (String s, Real w, Paper_def*) const;
   Molecule accidental (int, bool cautionary) const;
   Molecule afm_find (String, bool warn=true) const;
   Molecule notehead  (int, String) const;
-  Molecule bar (String, Real height) const;
+  Molecule bar (String, Real height, Paper_def*) const;
   Molecule beam (Real, Real, Real) const;
   Molecule clef (String) const;
   Molecule dashed_slur (Array<Offset> controls, Real thick, Real dash) const;
@@ -37,20 +38,17 @@ public:
   Molecule fill (Box b) const;
   Molecule filledbox (Box b) const;  
   Molecule flag (int, Direction) const;
-  Molecule hairpin (Real width, bool decresc, bool continued) const;
-  Molecule plet (Real dy, Real dx, Direction dir) const;
+  Molecule hairpin (Real width, Real height, bool decresc, bool continued) const;
+  Molecule tuplet_bracket (Real dy, Real dx, Real thick,Real interline, Direction dir) const;
   Molecule rest (int, bool outside, String) const;
-  Molecule accordion (SCM arg) const;
-  Molecule stem (Real y1_pos, Real y2_pos) const;
+  Molecule accordion (SCM arg, Real interline_f) const;
   Molecule slur (Array<Offset> controls) const;
-  Molecule text (String style, String text) const;
+  Molecule text (String style, String text, Paper_def*) const;
   Molecule staff_brace (Real dy) const;
   Molecule staff_bracket (Real dy) const;
-  Molecule volta (Real w, bool last_b) const;
-  Molecule special_time_signature (String, int,int) const;
-  Molecule time_signature (int n,int d) const;
-
-  Paper_def * paper_l_;
+  Molecule volta (Real w, Real h, Real il, bool last_b) const;
+  Molecule special_time_signature (String, int,int, Paper_def*) const;
+  Molecule time_signature (int n,int d, Paper_def*) const;
 
   String font_name_;
   Adobe_font_metric * afm_l_;

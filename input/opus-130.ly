@@ -11,7 +11,7 @@ copyright =	 "public domain";
 % \version "1.0.16";
 
 tempi = \notes {
-	\property Voice.textstyle = "large"
+	\property Voice.textStyle = "large"
 	s8^"Allegro assai"
 }
 

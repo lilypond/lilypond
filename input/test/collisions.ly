@@ -5,7 +5,7 @@ enteredby =	 "HWN,JCN";
 copyright =	 "public domain";
 Tested =	 "test the Collision resolution ";
 }
-\version "1.0.20";
+\version "1.0.21";
 
 twovoice = \context Staff \notes < 
 	\context Voice=i { \stemdown c4 d e f g2~  g4 a [c8 d e f] c2| }
@@ -20,7 +20,7 @@ twovoicesteminvert = \context Staff \notes <
 
 threevoice = \context Staff \notes <
 	\context Voice=i { \stemup g4 f e f g a g2 }
-	\context Voice=ii { \stemup \property Voice.hshift = 1 e2  e2  e2  e2 }
+	\context Voice=ii { \stemup \property Voice.horizontalNoteShift = 1 e2  e2  e2  e2 }
 	\context Voice=iii { \stemdown c4 d e d c d es }
 >
 

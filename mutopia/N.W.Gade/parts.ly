@@ -11,7 +11,7 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
 % Process with 'ly2dvi -s parts.ly' to get the separate parts.
 
 
-\version "1.0.20";
+\version "1.0.21";
 
 \include "global.ly"
 \include "wood.ly"
@@ -29,11 +29,11 @@ my_paper = \paper {
     markScriptPadding = "6.0";
     barNumberScriptPadding = "11.0";
     textScriptPadding = 5.0;
-    textstyle = "italic";
+    textStyle = "italic";
     textEmptyDimension = 1;
   }
 }
-%{
+
 \score{
   \context Staff <
     \context Voice <
@@ -54,7 +54,7 @@ my_paper = \paper {
     \tempo 4=120;
   }
 }
-%}
+
 \score{
   \context Staff <
     \context Voice <
@@ -75,7 +75,7 @@ my_paper = \paper {
     \tempo 4=120;
   }
 }
-%{
+
 \score{
   \context Voice <
     \globalNoKey
@@ -325,4 +325,3 @@ my_paper = \paper {
     \tempo 4=120;
   }
 }
-%}

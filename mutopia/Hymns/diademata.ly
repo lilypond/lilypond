@@ -6,7 +6,7 @@ date = "1868";
 title = "Diademata";
 metre = "6 6. 8 6. D";
 }
-\version "1.0.20";
+\version "1.0.21";
 
 sop=\notes \transpose c''{
 	ees2  | ees4 ees4 g2 g2 |  c'1.  \bar "||";

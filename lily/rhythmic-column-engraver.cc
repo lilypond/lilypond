@@ -80,10 +80,12 @@ Rhythmic_column_engraver::do_pre_move_processing()
 {
   if (ncol_p_) 
     {
+      Scalar sh = get_property ("horizontalNoteShift", 0);
       // egcs
-      if (get_property ("hshift", 0).operator bool ())
+      if (sh.to_bool () && sh.isnum_b ())
 	{
-	  ncol_p_->set_elt_property (horizontal_shift_scm_sym, SCM_BOOL_T);
+	  ncol_p_->set_elt_property (horizontal_shift_scm_sym,
+				     gh_int2scm (int (sh)));
 	}
 
       typeset_element (ncol_p_);

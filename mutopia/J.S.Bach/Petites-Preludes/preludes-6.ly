@@ -8,7 +8,7 @@ composer =	"Johann Sebastian Bach (1685-1750)";
 enteredby =	"jcn";
 copyright =	"public domain";
 }
-\version "1.0.20";
+\version "1.0.21";
 
 
 one = \context Staff \notes\relative c{
@@ -67,7 +67,7 @@ three = \context Staff \notes\relative c{
 	e8.-\mordent f16  d8.-\prall-4 c16-5 \stemboth )c4.-5 d8-4 |
 	\stemdown
 	e4 ~ e16 f-2( e-3 d-4  cis a b cis-3  d-4 e-3 f-2 d-4 |
-	\property Voice . textstyle = "finger"
+	\property Voice . textStyle = "finger"
 	)bes!2-"5\\_4" a ~ |
 	a a |
 	d, cis'-5 |
@@ -82,10 +82,10 @@ four = \context Staff \notes\relative c{
 	d2-3 cis-4 |
 	\skip 1*3; |
 	%5
-	\translator Staff=upper \stemup \property Voice.hshift = 1 
+	\translator Staff=upper \stemup \property Voice.horizontalNoteShift = 1 
 	a'4 gis-2 ~ gis16 gis-3 fis e 
 	\skip 4*1;
-	\translator Staff=lower \stemdown \property Voice.hshift = 0 
+	\translator Staff=lower \stemdown \property Voice.horizontalNoteShift = 0 
 	\stemup
 	b2-1 a-1 |
 	g a4. gis16 a |

@@ -15,7 +15,7 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.16";
+\version "1.0.21";
 
 \include "allemande-urtext.ly";
 
@@ -23,14 +23,14 @@ allemande_cello_global = \notes{
 	\time 4/4;
 	\key f;
 	\clef bass;
-	\repeat 2 {
+	\repeat "semi" 2 {
 		\partial 16;
 		s16
 		s1*11 |
 		s2 s4 s8
 		\partial 16*15;
 		s16
-	} \repeat 2 {
+	} \repeat "semi" 2 {
 		% urg
 		s32 \partial 16; s32
 		s1*11
@@ -53,6 +53,7 @@ allemande_cello_staff = \context Staff <
 	\paper{
 		\include "scs-paper.ly";
 		gourlay_maxmeasures = 3.0;
+		
 	}
 	\midi{ \tempo 4 = 45; }
 	\header{ piece = "Allemande"; }

@@ -39,10 +39,6 @@ Spacing_spanner::scol (int i)const
   generate springs between columns.
 
 
-  TODO
-  
-  * Spacing should take optical effects into account
-  
   The algorithm is partly taken from :
 
   John S. Gourlay. ``Spacing a Line of Music,'' Technical Report
@@ -71,179 +67,185 @@ Spacing_spanner::do_measure (int col1, int col2) const
 
   Array<Spring> meas_springs;
 
-  /*
-    UGR GUR URG.  duplicate code for spacing generation.
-   */
   for (int i= col1; i < col2; i++)
     {
-      SCM hint = scol (i)->get_elt_property (extra_space_scm_sym);
-      if (hint != SCM_BOOL_F)
+      Item * l = scol(i);
+      Item * r = scol(i+1);
+      Item * lb = l->find_prebroken_piece (RIGHT);
+      Item * rb = r->find_prebroken_piece (LEFT);      
+
+      Item* combinations[4][2]={{l,r}, {lb,r}, {l,rb},{lb,rb}};
+
+      for (int i=0; i < 4; i++)
 	{
-	  hint = SCM_CDR (hint);
+	  Score_column * lc = dynamic_cast<Score_column*> (combinations[i][0]);
+	  Score_column *rc = dynamic_cast<Score_column*> (combinations[i][1]);
+	  if (!lc || !rc)
+	    continue;
 
 	  Spring s;
-	  s.item_l_drul_[LEFT] = scol (i);
-	  s.item_l_drul_[RIGHT] = scol (i+1);
-	  Real unbroken_dist =  gh_scm2double (SCM_CDR(hint));
-
-	  s.distance_f_ = unbroken_dist;
-	  s.strength_f_ = 2.0;
+	  s.item_l_drul_[LEFT] = lc;
+	  s.item_l_drul_[RIGHT] = rc;
 	  
-
-	  meas_springs.push (s);
-
-	  
-	  Item * l = scol(i)->find_prebroken_piece (RIGHT);
-	  Item * r = scol(i+1)->find_prebroken_piece (LEFT);
-	  if (l)
+	  SCM hint = lc->get_elt_property (extra_space_scm_sym);
+	  SCM next_hint = rc->get_elt_property (extra_space_scm_sym);
+	
+	  if (hint != SCM_BOOL_F)
 	    {
-	        Spring s;
-		s.item_l_drul_[LEFT] = l;
-		s.item_l_drul_[RIGHT] = scol (i+1);
-		hint = l->get_elt_property (extra_space_scm_sym);
-
-		if (hint == SCM_BOOL_F)
-		  {
-		    programming_error ("No postbreak breakable spacing hint set.");
-		    s.distance_f_= unbroken_dist;
-		  }
-		else
-		  s.distance_f_ =  gh_scm2double (SCM_CDDR(hint));
-
-		/*
-		  space around barlines should not stretch very much.
-		 */
+	      hint = SCM_CDDR (hint);
+	      
+	      s.distance_f_ = gh_scm2double (hint); 
+	      if (!lc->musical_b ())
 		s.strength_f_ = 2.0;
-		meas_springs.push (s);
 	    }
-
-	  if (r)
+	  else if (!lc->musical_b() && i+1 < col_count())
 	    {
-	      Spring s;
-	      s.item_l_drul_[LEFT] = scol (i);
-	      s.item_l_drul_[RIGHT] = r;
-	      s.distance_f_ =  unbroken_dist;
-	      
-	      /*
-		space around barlines should not stretch very much.
-		 */
+	      s.distance_f_ = default_bar_spacing (lc,rc,shortest);
 	      s.strength_f_ = 2.0;
-	      meas_springs.push (s);
 	    }
-
-	  if (l&&r)
+	  else if (lc->musical_b())
 	    {
-	      Spring s;
-	      s.item_l_drul_[LEFT] = l;
-	      s.item_l_drul_[RIGHT] = r;
+	      s.distance_f_ = note_spacing (lc, rc, shortest);
 	      
-	      hint = l->get_elt_property (extra_space_scm_sym);
-	      if (hint == SCM_BOOL_F)
-		{
-		  programming_error ("No postbreak breakable spacing hint set.");
-		  s.distance_f_= unbroken_dist;
-		}
-	      else
-		s.distance_f_ =  gh_scm2double (SCM_CDDR(hint));
-	      
-	      /*
-		space around barlines should not stretch very much.
-	      */
-	      s.strength_f_ = 2.0;
-	      meas_springs.push (s);
-	    }
-	}
-      else if (!scol (i)->musical_b() && i+1 < col_count())
-	{
-	  Real symbol_distance = scol (i)->extent (X_AXIS)[RIGHT] ;
-	  Real durational_distance = 0;
-	  Moment delta_t =  scol (i+1)->when_mom () - scol (i)->when_mom () ;
-	  /*
-	    ugh should use shortest_playing distance
-	  */
-	  if (delta_t)
-	    {
-  	      Real k=  paper_l()->arithmetic_constant (shortest);
-	      durational_distance =  paper_l()->length_mom_to_dist (delta_t,k);
-	    }
-	  symbol_distance += -scol (i+1)->extent(X_AXIS)[LEFT];
-
-	  Spring s ;
-	  s.item_l_drul_[LEFT] = scol (i);
-	  s.item_l_drul_[RIGHT] = scol (i+1);
-	  s.distance_f_ =  symbol_distance >? durational_distance;
-	  meas_springs.push (s);
-
-	  Item *l = s.item_l_drul_[LEFT]->find_prebroken_piece (RIGHT);
-	  Item *r = s.item_l_drul_[RIGHT]->find_prebroken_piece (LEFT);
-	  Spring sp_orig (s);
-	  
-	  if (l)
-	    {
-	      s = sp_orig;
-	      s.item_l_drul_[LEFT] =l ;
-	      meas_springs.push (s);
-	    }
-
-	  if (l && r)
-	    {
-	      s = sp_orig;
-	      s.item_l_drul_[RIGHT] = r;
-	      s.item_l_drul_[LEFT] = l;
-	      meas_springs.push (s);
 	    }
 	  
+	  if (next_hint != SCM_BOOL_F)
+	    {
+	     next_hint = SCM_CADR(next_hint);
+	     s.distance_f_ += gh_scm2double (next_hint);
+	    }
+	  else
+	    {
+	      Interval ext (rc->extent (X_AXIS));
+	      Real correction =  ext.empty_b() ? 0.0 : - ext [LEFT];
+
+	      /*
+		don't want to create too much extra space for accidentals
+	       */
+	      if (lc->musical_b () && rc->musical_b ())
+		correction /= 2.0;
+
+	      s.distance_f_ += correction;
+	    }
+	  
+	  meas_springs.push (s);	
 	}
     }
 
-  for (int i=col1; i < col2; i++)
-    {
-      if (scol (i)->musical_b())
-	{
-	  Moment shortest_playing_len = scol(i)->shortest_playing_mom_;
-	  if (! shortest_playing_len)
-	    {
-	      warning (_f ("can't find a ruling note at %s", 
-	        scol (i)->when_mom ().str ()));
-	      shortest_playing_len = 1;
-	    }
-	  if (! shortest)
-	    {
-	      warning (_f ("no minimum in measure at %s", 
-		      scol (i)->when_mom ().str ()));
-	      shortest = 1;
-	    }
-	  Moment delta_t = scol (i+1)->when_mom () - scol (i)->when_mom ();
-	  Real k=  paper_l()->arithmetic_constant(shortest);
-	  Real dist = paper_l()->length_mom_to_dist (shortest_playing_len, k);
-	  dist *= (double)(delta_t / shortest_playing_len);
-
-
-	  Spring sp;
-	  sp.distance_f_ =  dist;
-	  sp.item_l_drul_[LEFT] = scol (i);
-	  sp.item_l_drul_[RIGHT] = scol (i+1);
-
-	  meas_springs.push (sp);
-
-	  /*
-	    UGH. TODO: more
-	    advanced spacing here.
-	   */
-	  Spring sp_orig (sp);
-
-	  Item *r =  sp.item_l_drul_[RIGHT]->find_prebroken_piece (LEFT);
-	  
-	  if (r)
-	    {
-	      sp = sp_orig;
-	      sp.item_l_drul_[RIGHT] =r ;
-	      meas_springs.push (sp);
-	    }
-	}
-    }
   return meas_springs;
 }
+
+/**
+   Do something if breakable column has no spacing hints set.
+ */
+Real
+Spacing_spanner::default_bar_spacing (Score_column *lc, Score_column *rc, Moment shortest) const
+{
+  Real symbol_distance = lc->extent (X_AXIS)[RIGHT] ;
+  Real durational_distance = 0;
+  Moment delta_t =  rc->when_mom () - lc->when_mom () ;
+
+	      /*
+		ugh should use shortest_playing distance
+	      */
+  if (delta_t)
+    {
+      Real k=  paper_l()->arithmetic_constant (shortest);
+      durational_distance =  paper_l()->length_mom_to_dist (delta_t,k);
+    }
+
+  return  symbol_distance >? durational_distance;
+}
+
+
+Real
+Spacing_spanner::note_spacing (Score_column *lc, Score_column *rc, Moment shortest) const
+{
+  Moment shortest_playing_len = lc->shortest_playing_mom_;
+  if (! shortest_playing_len)
+    {
+      warning (_f ("can't find a ruling note at %s", 
+		   lc->when_mom ().str ()));
+      shortest_playing_len = 1;
+    }
+  if (! shortest)
+    {
+      warning (_f ("no minimum in measure at %s", 
+		   lc->when_mom ().str ()));
+      shortest = 1;
+    }
+  Moment delta_t = rc->when_mom () - lc->when_mom ();
+  Real k=  paper_l()->arithmetic_constant(shortest);
+  Real dist = paper_l()->length_mom_to_dist (shortest_playing_len, k);
+  dist *= (double)(delta_t / shortest_playing_len);
+
+  dist += stem_dir_correction (lc,rc);
+  return dist;
+}
+
+
+/**
+   Correct for optical illusions. See [Wanske] p. 138. The combination
+   up-stem + down-stem should get extra space, the combination
+   down-stem + up-stem less.
+
+   This should be more advanced, since relative heights of the note
+   heads also influence required correction.
+
+   Also might not work correctly ico. multi voices or staff changing voices
+
+   TODO: lookup correction distances?  More advanced correction?
+   Possibly turn this off?
+
+   This routine reads the DIR_LIST property of both its L and R arguments.
+*/
+Real
+Spacing_spanner::stem_dir_correction (Score_column*l, Score_column*r) const
+{
+  SCM dl = l->get_elt_property (dir_list_scm_sym);
+  SCM dr = r->get_elt_property (dir_list_scm_sym);
+  if (dl == SCM_BOOL_F || dr == SCM_BOOL_F)
+    return 0.0;
+
+  dl = SCM_CDR (dl);
+  dr = SCM_CDR (dr);
+
+  if (scm_ilength (dl) != 1 && scm_ilength (dr) != 1)
+    return 0.;
+
+  dl = SCM_CAR(dl);
+  dr = SCM_CAR(dr);
+
+  assert (gh_number_p (dl) && gh_number_p(dr));
+  int d1 = gh_scm2int (dl);
+  int d2 = gh_scm2int (dr);
+
+  if (d1 == d2)
+    return 0.0;
+
+  bool err = false;
+  Real correction = 0.0;
+  Real ssc = paper_l ()->get_realvar(ly_symbol ("stemSpacingCorrection"));
+
+
+  if (d1 && d2)
+    {
+      if (d1 == 1 && d2 == -1)
+	correction = ssc;
+      else if (d1 == -1 && d2 == 1)
+	correction = -ssc;
+      else
+	err = true;
+    }
+  
+  else
+    err = true;
+
+  if (err)
+    programming_error ("Stem directions not set correctly for optical correction");
+  return correction;
+}
+  
 
 Array<Spring>
 Spacing_spanner::get_springs () const
@@ -253,12 +255,14 @@ Spacing_spanner::get_springs () const
   for (int i=1; i < col_count (); i++)
     {
       if (scol (i)->breakable_b ())
-	{
-	  springs.concat (do_measure (last_break, i));
-	  last_break  = i;
-	}
+        {
+          springs.concat (do_measure (last_break, i));
+          last_break  = i;
+        }
     }
   return springs;
 }
+
+
 
 

@@ -30,6 +30,7 @@ DECLARE_LY_SYMBOL(dashed);
 DECLARE_LY_SYMBOL(extremal);
 DECLARE_LY_SYMBOL(extra_space);
 DECLARE_LY_SYMBOL(dir_forced);
+DECLARE_LY_SYMBOL(dir_list);
 DECLARE_LY_SYMBOL(extender_height);
 DECLARE_LY_SYMBOL(filledbox);
 DECLARE_LY_SYMBOL(fontsize);
@@ -61,6 +62,7 @@ DECLARE_LY_SYMBOL(tuplet_thick);
 DECLARE_LY_SYMBOL(tuplet_visibility);
 DECLARE_LY_SYMBOL(visibility_lambda);
 DECLARE_LY_SYMBOL(volta);
+DECLARE_LY_SYMBOL(void);
 DECLARE_LY_SYMBOL(volta_thick);
 
 

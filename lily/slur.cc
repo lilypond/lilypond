@@ -331,7 +331,14 @@ Slur::get_encompass_offset_arr () const
   
   // postbreak
   if (broken_edge_b (LEFT))
-    first--;
+    {
+      first--;
+      /*
+        interstaff postbreak: slur begins at height of last note
+       */
+      Encompass_info info (encompass_arr_[0], dir_, this);
+      notes[0][Y_AXIS] += info.interstaff_f_;
+    }
   else
     {
       Encompass_info info (encompass_arr_[0], dir_, this);
@@ -343,6 +350,12 @@ Slur::get_encompass_offset_arr () const
       Encompass_info info (encompass_arr_[i], dir_, this);
       notes.push (info.o_ - left);
     }
+
+  /*
+    interstaff prebreak: slur ends at height of last note
+   */
+  if (broken_edge_b (RIGHT))
+    d[Y_AXIS] = notes.top ()[Y_AXIS];
 
   notes.push (d);
   

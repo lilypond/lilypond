@@ -8,7 +8,7 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
 		"Statens Musikbibliotek, Stockholm, Sweden";
 }
 
-\version "1.0.20";
+\version "1.0.21";
 
 \include "global.ly"
 \include "wood.ly"
@@ -133,7 +133,7 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
     \translator { \StaffContext
 	\consists "Staff_margin_engraver";
         marginScriptPadding = "15.0";
-	textstyle = "italic";
+	textStyle = "italic";
 	textScriptPadding = 5.0;
         textEmptyDimension = 1;
     }

@@ -162,10 +162,10 @@ Break_algorithm::solve () const
   Array<Column_x_positions> h= do_solve ();
 
   if (approx_stats_.count_i_)
-    *mlog << '\n' << _f ("approximated: %s", approx_stats_.str ()) << endl;
+    *mlog << '\n' << _f ("approximated %s", approx_stats_.str ()) << endl;
   if (exact_stats_.count_i_)
-    *mlog << _f ("calculated exactly: %s", exact_stats_.str ()) << endl;
-  *mlog << _f ("time: %.2f seconds",  timer.read ()) << endl;
+    *mlog << _f ("calculated %s exactly", exact_stats_.str ()) << endl;
+  *mlog << _f ("elapsed time %.2f seconds",  timer.read ()) << endl;
 
   return h;
 }

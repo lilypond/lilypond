@@ -49,7 +49,6 @@ Paper_def::Paper_def (Paper_def const&s)
   for (Hash_table_iter<int, Lookup*> ai(*s.lookup_p_tab_p_); ai.ok (); ai++)
     {
       Lookup * l = new Lookup (*ai.val ());
-      l->paper_l_ = this;
       set_lookup (ai.key(), l);
     }
 }
@@ -165,7 +164,6 @@ Paper_def::set_lookup (int i, Lookup*l)
     {
       delete lookup_p_tab_p_->elem (i);
     }
-  l ->paper_l_ = this;
   (*lookup_p_tab_p_)[i] = l;
 }
 

@@ -55,7 +55,7 @@
 
 // mmm
 Mudela_version oldest_version ("1.0.20");
-Mudela_version version ("1.0.20");
+Mudela_version version ("1.0.21");
 
 void
 print_mudela_versions (ostream &os)

@@ -311,6 +311,7 @@ are called note and rest respectively.\footnote{These names serve a
   concepts.}  The shape of notes and rests indicates their duration
 (See figure~\ref{noteshapes}) relative to the whole note.
 
+
 \begin{figure}[h]
   \begin{center}
 \begin{mudela}
@@ -321,7 +322,7 @@ are called note and rest respectively.\footnote{These names serve a
        \StaffContext
        \remove "Staff_symbol_engraver";
         \remove "Time_signature_engraver";
-        \remove "Bar_engraver";
+%        \remove "Bar_engraver";
         \remove "Clef_engraver";
  }
 linewidth = -1.;
@@ -336,7 +337,7 @@ linewidth = -1.;
         \StaffContext
         \remove "Staff_symbol_engraver";
         \remove "Time_signature_engraver";
-        \remove "Bar_engraver";
+%        \remove "Bar_engraver";
         \remove "Clef_engraver";
         }
       linewidth = -1.;
@@ -351,6 +352,7 @@ linewidth = -1.;
     \label{fig:noteshapes}
 \end{center}
 \end{figure}
+
 
 Notes are printed in a grid of horizontal lines called \emph{staff} to
 denote their pitch: each line represents the pitch of from the
@@ -612,7 +614,7 @@ cannot determine the meaning of the notes.
   \translator {
   \StaffContext
   \remove "Time_signature_engraver";
-  \remove "Bar_engraver";
+%  \remove "Bar_engraver";
   \remove "Staff_symbol_engraver";
   \remove "Clef_engraver";
   \remove "Key_engraver";

@@ -104,5 +104,7 @@ protected:
   virtual void do_pre_processing();
   virtual Interval do_width() const;
   virtual Molecule* do_brew_molecule_p() const;
+
+  void set_spacing_hints () ;
 };
 #endif

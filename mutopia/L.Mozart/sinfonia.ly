@@ -41,7 +41,7 @@ global = \notes{
 }
 
 tempi = \notes{
-	\property Voice.textstyle = "large"
+	\property Voice.textStyle = "large"
         s8^"Allegro"
 	
 }
@@ -383,4 +383,4 @@ bassocontinuo = \notes \relative c'{
         \midi{ \tempo 4 = 100; }
 }
 
-\version "1.0.20";
+\version "1.0.21";

@@ -8,11 +8,11 @@ composer =	"Johann Sebastian Bach (1685-1750)";
 enteredby =	"jcn";
 copyright =	"public domain";
 }
-\version "1.0.20";
+\version "1.0.21";
 
 
 upper = \context Staff \notes\relative c{
-	\property Voice . textstyle = "italic"
+	\property Voice . textStyle = "italic"
 	\context Voice=i
 %	d'8-1\p a'-5-"legato" f-3 d-1 a'-5 f-3 |
 	d'8-1\p a'-5 f-3 d-1 a'-5 f-3 |
@@ -30,10 +30,10 @@ upper = \context Staff \notes\relative c{
 	< 
 		{
 			\stemup 
-			\property Voice . textstyle = "roman"
+			\property Voice . textStyle = "roman"
 			c4-\mordent^"(\\textsharp)"\p r r |
 			c4-\mordent^"(\\textsharp)" r r
-			\property Voice . textstyle = "italic"
+			\property Voice . textStyle = "italic"
 		}
 		\context Voice=ii { \stemdown a4 r r | a4 r r }
 	> |
@@ -128,9 +128,9 @@ lower = \context Staff \notes\relative c{
 	g!-5 es'-1 c-1 g-5 es'-1 c-1  |
 	fis,4-5 r r 
 	d-4( ) fis d-5 |
-	\property Voice . textstyle = "roman"
+	\property Voice . textStyle = "roman"
 	g4-\mordent^"(\\textsharp)" r r8 f!8 |
-	\property Voice . textstyle = "italic"
+	\property Voice . textStyle = "italic"
 	e4-\prall r r |
 	f4-\mordent r r8 e |
 	d4 r8 f-1 e d |

@@ -52,7 +52,9 @@ Crescendo::get_symbol () const
   
 
   bool continued = broken[Direction (-grow_dir_)];
-  return Molecule (lookup_l ()->hairpin (w_dim, grow_dir_ < 0, continued));
+  Real height = paper_l()->staffheight_f () / 6;
+
+  return Molecule (lookup_l ()->hairpin (w_dim, height, grow_dir_ < 0, continued));
 }
 
 Molecule*

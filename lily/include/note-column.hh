@@ -21,6 +21,9 @@ protected:
   virtual void do_print () const;
   virtual void do_substitute_element_pointer (Score_element*,Score_element*);
 public:
+
+  static int shift_compare (Note_column *const &, Note_column*const&);
+  
   /** The relative position of the "voice" containing this
     chord. Normally this would be the same as the stem direction,
 

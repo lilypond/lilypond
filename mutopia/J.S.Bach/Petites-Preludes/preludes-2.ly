@@ -10,10 +10,10 @@ enteredby =	 "jcn";
 copyright =	 "public domain";
 }
 
-\version "1.0.20";
+\version "1.0.21";
 upper = \context Staff \notes\relative c{
 	\context Voice=i
-	\property Voice . textstyle = "italic"
+	\property Voice . textStyle = "italic"
 	r8\mf c'-1( e-2 g-4  e-2 c-1 bes'-5 g-3 |
 	)a-4\< c,-1( f-2 a-4  f c c'-5 a-3 |
 	)b-4 g-1( b-2 d-4  b-2 g f'-5 \!d-3 |
@@ -88,7 +88,7 @@ lower = \context Staff \notes\relative c{
 	g'-\mordent g, g'-\mordent g, |
 	g'8 g,-5( b-4 d-2  b-4 g-5 f'!-1 d-3 |
 	)e-2 c-4 e-2 g-1  e-3 c-5 c' e,-4 |
-	\property Voice . textstyle = "finger"
+	\property Voice . textStyle = "finger"
 	f1^"3\\_1" ~ |
 	f8 d-3 e-2 c-4 g'4-1 g,^"5\\_2" |
 	<c1 c,1>

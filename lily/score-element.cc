@@ -43,7 +43,7 @@ Score_element::Score_element()
   lookup_l_ =0;
   status_i_ = 0;
   original_l_ = 0;
-  element_property_alist_ = SCM_EOL;
+  element_property_alist_ = scm_protect_object (gh_cons (gh_cons (void_scm_sym, SCM_BOOL_T) , SCM_EOL));
 }
 
 Score_element::Score_element (Score_element const&s)
@@ -51,7 +51,7 @@ Score_element::Score_element (Score_element const&s)
 {
   used_b_ = true;
   original_l_ =(Score_element*) &s;
-  element_property_alist_ = scm_list_copy (s.element_property_alist_);
+  element_property_alist_ = scm_protect_object (scm_list_copy (s.element_property_alist_));
   dependency_arr_ = s.dependency_arr_;
   output_p_ =0;
   status_i_ = s.status_i_;
@@ -94,15 +94,15 @@ SCM
 Score_element::remove_elt_property (SCM key)
 {
   SCM s = get_elt_property (key); 
-  element_property_alist_ =  scm_assq_remove_x (element_property_alist_, key);
+  SCM_CDR(element_property_alist_) =  scm_assq_remove_x (SCM_CDR (element_property_alist_), key);
   return s;
 }
 
 void
 Score_element::set_elt_property (SCM s, SCM v)
 {
-  element_property_alist_ =
-    scm_assoc_set_x (element_property_alist_, s, v);
+  SCM_CDR(element_property_alist_) =
+    scm_assoc_set_x (SCM_CDR (element_property_alist_), s, v);
 }
 
 Interval
@@ -221,8 +221,6 @@ Score_element::output_processing ()
   pscore_l_->outputter_l_->output_molecule (output_p_,
 					    o,
 					    classname(this));
-
-  pscore_l_->schedule_for_delete (this);
 }
 
 /*
@@ -307,9 +305,9 @@ Score_element::add_dependency (Score_element*e)
       e->used_b_ = true;
     }
   else
-    warning("Null dependency added");
-      
+    programming_error ("Null dependency added");
 }
+
 void
 Score_element::substitute_dependency (Score_element* old, Score_element* new_l)
 {

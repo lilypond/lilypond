@@ -404,9 +404,15 @@ Spring_spacer::add_column (Paper_column  *col, bool fixed, Real fixpos)
       if (cols_[idx].pcol_l_ != cr.other_l_)
 	    continue;
       
-      
-      connect (idx, this_rank, cr.distance_f_,
-	       cr.strength_f_ / cr.distance_f_);
+      Real d  = cr.distance_f_;
+      if (fabs (d) < EPS)
+	{
+	  connect (idx, this_rank, 0.0, 10); // large strength. 
+	  programming_error ("requesting zero distance.");
+	}
+      else
+	connect (idx, this_rank, cr.distance_f_,
+		 cr.strength_f_ / cr.distance_f_);
     }
       
   cols_.push (c);

@@ -533,14 +533,14 @@ e' ~ e' <c' e' g'> ~ <c' e' g'>
 It is possible to create beams and slurs that cross staffs by switching the
 context:
 mudela(fragment,verbatim,center)(
-<
+\context PianoStaff <
 \context Staff=one \notes\relative c'{
   \stemup
   [c8 c \translator Staff=two \stemup c c]
   \translator Staff=one
   d4( \translator Staff=two )a4
   }
-\context Staff=two \notes{ \clef bass;}
+\context Staff=two \notes{ \clef bass; s1}
 >
 )
 

@@ -231,13 +231,11 @@ Score_engraver::do_try_music (Music*r)
     {
       if (Break_req* b = dynamic_cast<Break_req *> (r))
 	{
+	  gotcha = true;
 	  if (b->penalty_i_ <= Break_req::DISALLOW)
 	    break_penalty_i_ = b->penalty_i_;
 	  else if (b->penalty_i_ >= Break_req::FORCE)
-	    {
-	      command_column_l_->break_penalty_i_ = b->penalty_i_;
-	      gotcha = true;
-	    }
+	    command_column_l_->break_penalty_i_ = b->penalty_i_;
 	}
     }
    return gotcha;

@@ -10,7 +10,7 @@
 %% 
 %% Noe liknende skjer også i mellom andre og tredje stemme i takt 28
 
-\version "1.0.20";
+\version "1.0.21";
 
 global = \notes{
 	\time 2/4;
@@ -258,9 +258,9 @@ vTwo = \context Voice = voiceTwo \notes\relative c{
 % ???
 % What have i misunderstood? I want the note_head not to collide with
 % i hotehead i vOne
-	\property Voice.hshift = -1
+	\property Voice.horizontalNoteShift = -1
 	d 
-	\property Voice.hshift = 0
+	\property Voice.horizontalNoteShift = 0
 	c4 b8 |
 }
 vThree = \context Voice = voiceThree \notes\relative c{

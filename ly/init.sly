@@ -1,6 +1,6 @@
 % Toplevel initialisation file. 
 	
-\version "1.0.20";
+\version "1.0.21";
 
 
 \include "declarations.ly"
@@ -10,8 +10,8 @@
     \maininput
   }
   \paper {
-    linewidth=-1.0;
-	indent = 0.0;
+	    linewidth=-1.0;
+	% indent = 0.0;
   }  
   \midi{ }
 }

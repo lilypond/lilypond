@@ -9,7 +9,7 @@ LOCALSTEPMAKE_TEMPLATES=mutopia
 
 include $(depth)/make/stepmake.make
 
-EXTRA_DIST_FILES +=  TODO
+EXTRA_DIST_FILES +=  
 
 
 

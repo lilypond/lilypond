@@ -106,9 +106,9 @@
    (("Clef_item"  "Span_bar") . (minimum_space 3.7))
    (("Time_signature" "Span_bar") . (minimum_space 2.0))
    (("Key_item"  "Span_bar") . (minimum_space 2.5))
-   (("Staff_bar" "Time_signature") . (minimum_space 1.0))
+   (("Staff_bar" "Time_signature") . (minimum_space 2.0))
    (("Time_signature" "begin-of-note") . (extra_space 1.0))	; Huh? see twinkle.ly
-   (("Key_item" "begin-of-note") . (extra_space 3.0))
+   (("Key_item" "begin-of-note") . (extra_space 2.5))
    (("Staff_bar" "begin-of-note") . (extra_space 1.0))
    (("Clef_item" "begin-of-note") . (minimum_space 5.0))
    )

@@ -19,7 +19,7 @@ traditional song in various languages.
 Tested Features: lyrics, interleaving lyrics and staffs, repeats
 %}
 
-\version "1.0.20";
+\version "1.0.21";
 
 melody = \notes \relative c'' {
 	\clef violin;
@@ -76,8 +76,8 @@ hegedraagjetekst = \lyrics{
 }
 
 texte = \lyrics{ 
-	\property Lyrics . textstyle" =  "italic" 
-%	\property Lyrics . textstyle" =  "roman" 
+	\property Lyrics . textStyle" =  "italic" 
+%	\property Lyrics . textStyle" =  "roman" 
  	Ah!4 vous dir- ai_- je ma- man2
 	Ce4 qui cau- se mon tour- ment2
 	Pa-4 pa veut que je rai- son- ne
@@ -87,7 +87,7 @@ texte = \lyrics{
 }
 
 texti = \lyrics{
-	\property "Lyrics"."textstyle" =  "roman"
+	\property "Lyrics"."textStyle" =  "roman"
 	Twin-4 kle, twin- kle, lit- tle star,2
 	How4 I won- der what you are.2
 	Up4 a- bove the world so high,2

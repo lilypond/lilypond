@@ -5,7 +5,7 @@ TestedFeatures =	 "This file tests Feta embedded slurs" +
 	 "(Feta definitively is not an abbreviation of Font-En-TjA)";
 }
 
-\version "1.0.20";
+\version "1.0.21";
 
 shortlong = \notes{
 	c4()c( c c  |
@@ -52,7 +52,6 @@ over = \notes\transpose c'{
 }
 
 under = \notes\transpose c'{
-
 	\stemdown 
 	f'( \stemboth d d \stemdown )f'
 	f'( \stemboth c c \stemdown )f'
@@ -77,7 +76,6 @@ under = \notes\transpose c'{
 }
 
 eccentric = \notes\transpose c'{
-
 	\stemup
 	\times 4/7 { f( a' f f f f )f } |
 	\times 4/7 { f( f f f f a' )f } |
