@@ -8,6 +8,7 @@
 % copyright: None
 %
 % declare melody (which will be in *one* staff ) for the lead voice
+\version "0.0.52";
 
 melodie = \melodic {
 	 			% switch Lilypond in note-mode

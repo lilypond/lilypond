@@ -22,6 +22,7 @@ For compilation you need.
 =over 5
 
 =item *
+
 Unix. GNU LilyPond is known to run on Linux, AIX, Digital Unix and
 Solaris
 
@@ -29,21 +30,21 @@ If you have the Cygnus WIN32 port of the GNU utils, it will
 even work in Lose NT/95, but don't promise to support it.
 
 =item *
+
 GNU C++ v2.7 or better, with libg++ installed.  Version 2.7.2
 or better recommended. I almost positive that it will not compile with
 AT&T CC.
 
 =item *
-Bash. Most scripts will continue to work with a stock sh, but they
-might generate (harmless) syntax errors
 
-=item *
 GNU make. 
 
 =item *
+
 Flex (2.5.1 or better). 
 
 =item *
+
 Bison.
 
 =back
@@ -53,9 +54,9 @@ Bison.
 =over 5
 
 =item *
-Perl.  Some (mostly unimportant scripts) use Perl for trivial
-operations. The documentation was created with the perl's Plain Old
-Documentation.
+
+Perl.  Most scripts are written in Perl. The documentation was created
+with the perl's Plain Old Documentation.
 
 =item *
 (GNU) find
@@ -81,10 +82,10 @@ This will install the following files:
 	/usr/lib/texmf/texmf/tex/lilypond/* 
 
 The TeX include directory is detected dynamically, but it can be
-adjusted with B<--enable-texprefix>. The above assumes that you are root and 
-have the gnu
-development tools, and your make is gnu make.  If this is not the
-case, you can adjust your environment variables to your taste:
+adjusted with B<--enable-tex-prefix> and B<--enable-tex-dir>. The
+above assumes that you are root and have the gnu development tools,
+and your make is gnu make.  If this is not the case, you can adjust
+your environment variables to your taste:
 
 	export CPPFLAGS="-I /home/me/my_include -DWEIRD_FOOBAR" 
 	configure
@@ -96,7 +97,12 @@ B<--help>. If you are not root, you will probably have to make it with
 
 	configure --prefix=/home/me_myself_and_I/
 
-Since GNU LilyPond currently is beta, You are advised to also use
+If you want to install GNU LilyPond in F</usr/local>, and your TeX has
+no default hooks for local stuff (mine is broken too), you can do:
+
+	configure --prefix=/usr/local --enable-tex-prefix=/usr/lib/texmf
+
+Since GNU LilyPond currently is beta, you are advised to also use
 
 	--enable-debug
 	--enable-checking
@@ -107,6 +113,8 @@ other options include:
 	--enable-printing
 	--enable-optimise
 	--enable-profiling
+	--enable-tex-prefix
+	--enable-tex-dir
 
 The option B<--enable-optimise> is recommended for Real Life usage.
 
@@ -144,7 +152,9 @@ Please refer to the man page for more information.
 =head1 REDHAT LINUX
 
 RedHat Linux users should be able to get a RPM. A spec file is in
-F<make/lilypond.spec>.
+F<make/lilypond.spec>. You should be able to create an rpm as a normal
+user. Be sure you have a ~/.rpmrc, and edit the RPM-dir in
+F<Variables.make>
 
 
 =head1 WINDOZE
@@ -163,16 +173,16 @@ to make GNU LilyPond under, brr, aargh, well, simply type:
 
 GNU LilyPond (pl 0.0.39) is known to compile on the following platforms:
 
-	* linux 2.0.28, g++ 2.7.2[.1]
+	* linux 2.0.x, g++ 2.7.2[.1]
 	* aix 4.1, g++ 2.7.2
 	* windows-nt 4.0, cygnus gnu-win32 beta17.1 (~=g++ 2.7.2)
 	* linux 2.0.28 X to doze, gcc-go32 (~=g++ 2.7.2) [exec. untested]
 
 =head1 AUTHORS
 
-	Han-Wen Nienhuys <hanwen@stack.nl>
+Han-Wen Nienhuys <hanwen@stack.nl>
 
-	Jan Nieuwenhuizen <jan@digicash.com>
+Jan Nieuwenhuizen <jan@digicash.com>
 
 
 Have fun!

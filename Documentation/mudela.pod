@@ -5,7 +5,7 @@ Mudela -  GNU LilyPond input format 0.1
 =head1 DESCRIPTION
 
 This document describes the the GNU LilyPond input format, which is an
-effective language for definining music.  We call this language
+effective language for defining music.  We call this language
 (rather arrogantly) The Musical Definition Language (S<Mudela 0.1>).
 
 The first aim of Mudela is to define a piece of music, 
@@ -15,14 +15,15 @@ as from a musical performing point of view.
 
 =head1 Overview
 
-The Musical Definition Language (Mudela) S<version 2>,
-has a logical structure, 
-making use of typing and naming (using identifiers),
-that allows for flexible input, and definition reuse.
+The Musical Definition Language (Mudela) S<version 2>, has a logical
+structure, making use of typing and naming (using identifiers), that
+allows for flexible input, and definition reuse.
 
-The below included for explanatory
-purposes only (i.e., for a complete and up-to-date definition, see
-F<lily/parser.y> and F<lily/lexer.l>):
+The below included for explanatory purposes only (i.e., for a complete
+and up-to-date definition, see F<lily/parser.y> and F<lily/lexer.l>):
+
+As a related note, you should take a look at the examples and the init
+file, as this document does not cover every aspect of mudela yet.
 
 =head2 Files
 
@@ -345,6 +346,13 @@ And vice versa
 The duration of a chord equals the union of the durations of each of
 its elements.  The C<\multivoice> is a construct which is explained
 below.
+
+You can also glue two horizontal pieces music together with
+concatenation operator:
+
+	\horOne = \melodic { c c g g }
+	\horTwo = \melodic { a a g2 }
+	\twinkle = \melodic { \horOne ++ \horTwo }
 
 =head2 Transposition
 
