@@ -1,4 +1,4 @@
-#include "side-position-interface.hh"
+#include "self-alignment-interface.hh"
 #include "warn.hh"
 
 /*
@@ -11,6 +11,24 @@ Self_alignment_interface::centered_on_parent (SCM element_smob, SCM axis)
   Grob *me = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
   Grob *him = me->get_parent (a);
+  Interval he = him->extent (him,a);
+  
+  return  gh_double2scm (he.empty_b () ? 0.0 : he.center ());
+}
+
+
+
+/*
+  Position centered on parent.
+ */
+MAKE_SCHEME_CALLBACK (Self_alignment_interface,centered_on_other_axis_parent,2);
+SCM
+Self_alignment_interface::centered_on_other_axis_parent (SCM element_smob,
+							 SCM axis)
+{
+  Grob *me = unsmob_grob (element_smob);
+  Axis a = (Axis) gh_scm2int (axis);
+  Grob *him = me->get_parent (other_axis (a));
   Interval he = him->extent (him,a);
   
   return  gh_double2scm (he.empty_b () ? 0.0 : he.center ());

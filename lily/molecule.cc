@@ -137,12 +137,12 @@ Molecule::add_at_edge (Axis a, Direction d, Molecule const &m, Real padding)
 
 LY_DEFINE(ly_set_molecule_extent_x,"ly:set-molecule-extent!", 3 , 0, 0, 
 	  (SCM mol, SCM axis, SCM np),
-	  "Set the extent (@var{extent} must be a pair of numbers) of @var{mol} in 
-@var{axis} direction (0 or 1 for x- and y-axis respectively).
-
-Note that an extent @code{(A . B)} is an interval and hence @code{A} is
-smaller than @code{B}, and is often negative.
-5")
+	  "Set the extent (@var{extent} must be a pair of numbers) of @var{mol} in \n"
+"@var{axis} direction (0 or 1 for x- and y-axis respectively).\n"
+"\n"
+"Note that an extent @code{(A . B)} is an interval and hence @code{A} is\n"
+"smaller than @code{B}, and is often negative.\n"
+)
 {
   Molecule* m = unsmob_molecule (mol);
   SCM_ASSERT_TYPE (m, mol, SCM_ARG1, __FUNCTION__, "molecule");
@@ -157,9 +157,9 @@ smaller than @code{B}, and is often negative.
 
 LY_DEFINE(ly_get_molecule_extent,
 	  "ly:get-molecule-extent", 2 , 0, 0,  (SCM mol, SCM axis),
-	  "Return a pair of numbers signifying the extent of @var{mol} in
-@var{axis} direction (0 or 1 for x and y axis respectively).
-")
+	  "Return a pair of numbers signifying the extent of @var{mol} in "
+"@var{axis} direction (0 or 1 for x and y axis respectively)."
+)
 {
   Molecule *m = unsmob_molecule (mol);
   SCM_ASSERT_TYPE (m, mol, SCM_ARG1, __FUNCTION__, "molecule");
@@ -173,10 +173,10 @@ LY_DEFINE(ly_molecule_combined_at_edge,
 	  "ly:combine-molecule-at-edge",
 	  5 , 0, 0,  (SCM first, SCM axis, SCM direction,
 		      SCM second, SCM padding),
-	  "Construct a molecule by putting @var{second} next to
-@var{first}. @var{axis} can be 0 (x-axis) or 1 (y-axis), @var{direction} can be
--1 (left or down) or 1 (right or up).  @var{padding} specifies extra
-space to add in between measured in global staff space.")
+	  "Construct a molecule by putting @var{second} next to "
+"@var{first}. @var{axis} can be 0 (x-axis) or 1 (y-axis), @var{direction} can be "
+"-1 (left or down) or 1 (right or up).  @var{padding} specifies extra "
+"space to add in between measured in global staff space.")
 
 {
   Molecule * m1 = unsmob_molecule (first);
@@ -220,38 +220,38 @@ LY_DEFINE(ly_add_molecule ,
 
 LY_DEFINE(ly_make_molecule,
 	  "ly:make-molecule", 3, 0, 0,  (SCM expr, SCM xext, SCM yext),
-	  "
-The objective of any typesetting system is to put ink on paper in the
-right places. For LilyPond, this final stage is left to the @TeX{} and
-the printer subsystem. For lily, the last stage in processing a score is
-outputting a description of what to put where.  This description roughly
-looks like
-@example
-        PUT glyph AT (x,y)
-        PUT glyph AT (x,y)
-        PUT glyph AT (x,y) 
-@end example
-you merely have to look at the tex output of lily to see this.
-Internally these instructions are encoded in Molecules.@footnote{At some
-point LilyPond also contained Atom-objects, but they have been replaced
-by Scheme expressions, making the name outdated.}  A molecule is
-what-to-print-where information that also contains dimension information
-(how large is this glyph?).
-
-Conceptually, Molecules can be constructed from Scheme code, by
-translating a Molecule and by combining two molecules. In BNF
-notation:
-
-@example
-Molecule  :: COMBINE Molecule Molecule
-           | TRANSLATE Offset Molecule
-           | GLYPH-DESCRIPTION
-           ;
-@end example
-
-If you are interested in seeing how this information is stored, you
-can run with the @code{-f scm} option. The scheme expressions are then
-dumped in the output file.")
+	  " \n"
+"The objective of any typesetting system is to put ink on paper in the \n"
+"right places. For LilyPond, this final stage is left to the @TeX{} and \n"
+"the printer subsystem. For lily, the last stage in processing a score is \n"
+"outputting a description of what to put where.  This description roughly \n"
+"looks like \n"
+"@example \n"
+"        PUT glyph AT (x,y) \n"
+"        PUT glyph AT (x,y) \n"
+"        PUT glyph AT (x,y)  \n"
+"@end example \n"
+"you merely have to look at the tex output of lily to see this. \n"
+"Internally these instructions are encoded in Molecules.@footnote{At some \n"
+"point LilyPond also contained Atom-objects, but they have been replaced \n"
+"by Scheme expressions, making the name outdated.}  A molecule is \n"
+"what-to-print-where information that also contains dimension information \n"
+"(how large is this glyph?). \n"
+" \n"
+"Conceptually, Molecules can be constructed from Scheme code, by \n"
+"translating a Molecule and by combining two molecules. In BNF \n"
+"notation: \n"
+" \n"
+"@example \n"
+"Molecule  :: COMBINE Molecule Molecule \n"
+"           | TRANSLATE Offset Molecule \n"
+"           | GLYPH-DESCRIPTION \n"
+"           ; \n"
+"@end example \n"
+" \n"
+"If you are interested in seeing how this information is stored, you \n"
+"can run with the @code{-f scm} option. The scheme expressions are then \n"
+"dumped in the output file.")
 {
   SCM_ASSERT_TYPE (ly_number_pair_p (xext), xext, SCM_ARG2, __FUNCTION__, "number pair");
   SCM_ASSERT_TYPE (ly_number_pair_p (yext), yext, SCM_ARG3, __FUNCTION__, "number pair");  

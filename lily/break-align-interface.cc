@@ -10,6 +10,7 @@
 #include <math.h>
 #include <libc-extension.hh>	// isinf
 
+#include "self-alignment-interface.hh"
 #include "side-position-interface.hh"
 #include "axis-group-interface.hh"
 #include "warn.hh"

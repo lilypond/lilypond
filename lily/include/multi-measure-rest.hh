@@ -17,13 +17,13 @@
 class Multi_measure_rest
 {
 public:
-  
   static bool has_interface (Grob*);
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
   DECLARE_SCHEME_CALLBACK (percent, (SCM));
   static  void add_column (Grob*,Item*);
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM ));
-
+  DECLARE_SCHEME_CALLBACK (centered_molecule, (SCM ));
+  
   static Molecule big_rest (Grob*,Real);
   static Molecule symbol_molecule (Grob*,Real);  
   static Molecule church_rest (Grob*, Font_metric*, int,Real);

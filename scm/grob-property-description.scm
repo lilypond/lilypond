@@ -353,7 +353,6 @@ provided in @code{input/regression/molecule-hacking.ly}.
 (grob-property-description 'non-default boolean? "not set because of existence of a bar?.")
 (grob-property-description 'note-head-style string? "name of the font character to be used as note heads in the ambitus grob.")
 (grob-property-description 'note-heads grob-list? "List of note head grobs")
-(grob-property-description 'number-threshold number? "only put numbers bigger than this threshold over multi measure rest.")
 (grob-property-description 'old-accidentals list? "list of (pitch, accidental) pairs.")
 (grob-property-description 'outer boolean? "whether a text spanner should extend to the outer edge of the spanned notes")
 (grob-property-description 'padding number? "add this much extra space between objects that are next to each other.")

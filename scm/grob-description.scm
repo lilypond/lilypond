@@ -540,14 +540,24 @@
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(staff-position . 0)
 	(expand-limit . 10)
-	(number-threshold . 1)
-	(padding . 1)
 	(thickness . 6.6)
-	(use-breve-rest . #f)
-	(font-family . number)
 	(padding . 1)
 	(meta . ((interfaces . (multi-measure-rest-interface rest-interface font-interface staff-symbol-referencer-interface spanner-interface))))
 	))
+    
+    (MultiMeasureRestNumber
+     . (
+	(molecule-callback . ,Text_item::brew_molecule)
+	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
+			       ,Self_alignment_interface::centered_on_other_axis_parent))
+	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(self-alignment-X . 0)
+	(direction . 1)
+	(padding . 2)
+	(font-family . number)
+	(meta . ((interfaces . (side-position-interface font-interface spanner-interface))))
+	))
+
 
     (NoteCollision
      . (

@@ -1,3 +1,13 @@
+2002-10-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/text-item.cc (lookup_text): don't use virtual fonts for
+	normal texts.
+
+	* lily/multi-measure-rest-engraver.cc: make separate
+	MultiMeasureRestNumber grob. Introduce restNumberThreshold.
+
+	* lily/multi-measure-rest.cc: remove text handling. Remove number-threshold.
+
 2002-10-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/music-types.scm: doc patch by Graham Percival

@@ -21,7 +21,6 @@
 #include "percent-repeat-item.hh"
 #include "lookup.hh"
 
-
 MAKE_SCHEME_CALLBACK (Multi_measure_rest,percent,1);
 SCM
 Multi_measure_rest::percent (SCM smob)
@@ -64,19 +63,12 @@ Multi_measure_rest::percent (SCM smob)
   return r.smobbed_copy ();
 }
 
-
-/*
-   [TODO]                                      17
-   variable-sized multi-measure rest symbol: |====| ??
-*/
 MAKE_SCHEME_CALLBACK (Multi_measure_rest,brew_molecule,1);
 SCM
 Multi_measure_rest::brew_molecule (SCM smob) 
 {
   Grob *me = unsmob_grob (smob);
   Spanner * sp = dynamic_cast<Spanner*> (me);
-
-  SCM alist_chain = Font_interface::font_alist_chain (me);
 
   Interval sp_iv;
   Direction d = LEFT;
@@ -112,23 +104,10 @@ Multi_measure_rest::brew_molecule (SCM smob)
       measures = gh_scm2int (m);
     }
 
-  SCM s = me->get_grob_property ("number-threshold");
-  if (measures > gh_scm2int (s))
-    {
-      Molecule s = Text_item::text2molecule (me,
-					     scm_makfrom0str (to_string (measures).to_str0 ()),
-					     alist_chain);
-
-      s.align_to (X_AXIS, CENTER);
-      s.translate_axis (gh_scm2double (me->get_grob_property ("padding")) + 2,
-			Y_AXIS);
-
-      s.translate_axis (mol.extent (X_AXIS).center (),  X_AXIS);
-      mol.add_molecule (s);
-    }
   mol.translate_axis (x_off, X_AXIS);
   return mol.smobbed_copy ();
 }
+
 
 
 Molecule
@@ -155,16 +134,11 @@ Multi_measure_rest::symbol_molecule (Grob *me, Real space)
 
   SCM alist_chain = Font_interface::font_alist_chain (me);
 
-  SCM style_chain =
-    Font_interface::add_style (me, ly_symbol2scm ("mmrest-symbol"),
-			       alist_chain);
-
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Font_metric *musfont
-    = Font_interface::get_font (me,style_chain);
+    = Font_interface::get_font (me,alist_chain);
 
   SCM sml = me->get_grob_property ("use-breve-rest");
-
   if (measures == 1)
     {
       if (sml == SCM_BOOL_T)
@@ -364,10 +338,8 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
 
 
 
+
 ADD_INTERFACE (Multi_measure_rest,"multi-measure-rest-interface",
-  "A rest that spans a whole number of measures.  For typesetting the
-numbers, fields from font-interface may be used.
+	       "A rest that spans a whole number of measures.\n",
+	       "expand-limit measure-count thickness use-breve-rest");
 
-
-",
-  "expand-limit measure-count number-threshold padding thickness use-breve-rest");

@@ -80,9 +80,8 @@ Dot_column_engraver::acknowledge_grob (Grob_info info)
 
 
 ENTER_DESCRIPTION(Dot_column_engraver,
-/* descr */       " Engraves dots on dotted notes shifted to the right of the note.
-If omitted, then dots appear on top of the notes.
-",
+/* descr */       " Engraves dots on dotted notes shifted to the right of the note.\n"
+"If omitted, then dots appear on top of the notes.",
 /* creats*/       "DotColumn",
 /* accepts */     "",
 /* acks  */      "rhythmic-head-interface dot-column-interface stem-interface",

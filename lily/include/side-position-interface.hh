@@ -42,13 +42,6 @@ public:
 };
 
 
-struct Self_alignment_interface
-{
-  static bool has_interface (Grob*);
-  DECLARE_SCHEME_CALLBACK (aligned_on_self, (SCM element, SCM axis));
-DECLARE_SCHEME_CALLBACK (centered_on_parent, (SCM element, SCM axis));
-};
-
 
 #endif /* SIDE_POSITION_INTERFACE_HH */
 
