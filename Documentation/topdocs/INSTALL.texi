@@ -31,9 +31,12 @@ servers}. Big enhancements go into the latest odd numbered version
 (1.5), whose webpages are on @uref{http://www.lilypond.org/,the lilypond
 site}.
 
+Building LilyPond is an involved process. We advise to use binary
+packages if these are available for your platform.
+
 @subsection Source code
 
-If you want to compile LilyPond from source, download here:
+  If you want to compile LilyPond from source, download here:
 @itemize @bullet
 @item Download development releases from
 @c Hmm, these won't show up in lilypond.org/stats
@@ -49,8 +52,6 @@ If you want to compile LilyPond from source, download here:
 
 For Red Hat Linux and SuSE Linux, @file{.spec} files are included in the
 tarball; see instructions below.
-
-
 
 Of course, if your platform supports LilyPond, such as Debian GNU/Linux,
 FreeBSD, OpenBSD or NetBSD, you're encouraged to use the native build
@@ -89,7 +90,7 @@ to compile them ourselves, they are not updated for every version
 released.
 
 @itemize @bullet
-@item @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/binaries/RedHat/RPMS/, Red Hat i386}
+@item @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/binaries/RedHat-7.x/, Red Hat i386}
 @item @uref{ftp://ftp.lilypond.org/pub/LilyPond/binaries/SuSE, SuSE}
 @item @uref{ftp://ftp.lilypond.org/pub/LilyPond/binaries/linuxppc/,
 LinuxPPC}
@@ -234,12 +235,12 @@ Csh and bourne sh scripts are left in
 LilyPond is a big and slow program.  A fast CPU and plenty of RAM is
 recommended for comfortable use.
 
-@subsection Building website 
+@subsection Building documentation
 
-The documentation comes in the form of a website. You can view this
-website on the internet, but you can also build it locally. This process
-requires a successful compile of lilypond. The website is built 
-by issuing
+You can view the documentation online at
+@uref{http://www.lilypond.org/stable/Documentation/out-www/}, but you
+can also build it locally. This process requires a successful compile of
+lilypond. The documentation is built by issuing
 @example 
 
   make web-doc
@@ -358,6 +359,7 @@ You can also compile them yourself.  A spec file is in
 with the sources.  You can make the rpm by issuing
 @example 
 
+        cp lilypond-x.y.z.tar.gz /usr/src/redhat/SOURCES/
         tar xfz lilypond-x.y.z.tar.gz
 	rpm -bb lilypond-x.y.z/make/out/lilypond.redhat.spec
 	rpm -i /usr/src/redhat/RPMS/i386/lilypond-x.y.z

@@ -51,7 +51,7 @@ The documentation is available online at
 @uref{http://www.lilypond.org/Documentation/out-www/index.html}.
 
 You can also build it locally: follow the instructions under `Building
-website' in the installation instructions.
+documentation in the installation instructions.
 
 
 @section Comments

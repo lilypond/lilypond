@@ -3,7 +3,7 @@
 ;;;  source file of the GNU LilyPond music typesetter
 ;;;  modified from the existing tex.scm
 ;;; 
-;;; (c) 1998--2001 Jan Nieuwenhuizen <janneke@gnu.org>
+;;; (c) 1998--2002 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;; Stephen Peters <portnoy@portnoy.org>
 

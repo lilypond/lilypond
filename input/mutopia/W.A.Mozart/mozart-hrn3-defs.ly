@@ -6,7 +6,7 @@ longgrace = \property Voice.Stem \override #'stroke-style = #'()
 endlonggrace = \property Voice.Stem \revert #'stroke-style
 ritenuto = \textscript #'(italic  "rit.")
 
-\version "1.6.5"
+\version "1.6.4"
 
 #(define italic-bf '((font-shape . italic) (font-series . bold)))
 

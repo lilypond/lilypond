@@ -22,9 +22,11 @@
 @end html
 
 This document describes GNU LilyPond and its input format. The last
-revision of this document was made for LilyPond 1.4.1.  It supposes a
-passing familiarity with how LilyPond input works. New users are
-encouraged to study the tutorial first.
+revision of this document was made for LilyPond 1.6.2.  It assumes
+that you already know a little bit about LilyPond input (how to
+make an input file, how to create sheet music from that input file,
+etc).  New users are encouraged to study the tutorial before reading
+this manual.
 
 
 @menu
@@ -54,9 +56,10 @@ encouraged to study the tutorial first.
 @section Note entry
 @cindex Note entry
 
-Notes constitute the most basic form of music, but they do not form
-valid input on their own. Yet for the sake of brevity and simplicity,
-we'll generally omit @code{\score} blocks and @code{\paper} declarations.
+Notes constitute the most basic elements of LilyPond input, but they do
+not form valid input on their own without a @code{\score} block.  However,
+for the sake of brevity and simplicity we will generally omit
+@code{\score} blocks and @code{\paper} declarations in this manual.
 
 
 @menu
@@ -77,7 +80,7 @@ we'll generally omit @code{\score} blocks and @code{\paper} declarations.
 @subsection Notes
 
 
-A note is printed by specifying its pitch, and then its duration.
+A note is printed by specifying its pitch and then its duration.
 @lilypond[fragment,verbatim]
   cis'4 d'8 e'16 c'16
 @end lilypond
@@ -98,18 +101,24 @@ The verbose syntax for pitch specification is
   \pitch @var{scmpitch}
 @end example
 
-@var{scmpitch} is a pitch scheme object.
+where @var{scmpitch} is a pitch scheme object.
 
 In Note and Chord mode, pitches may be designated by names.  The default
 names are the Dutch note names.  The notes are specified by the letters
-@code{a} through @code{g} (where the octave is formed by notes ranging
-from @code{c} to @code{b}).  The pitch @code{c} is an octave below
-middle C and the letters span the octave above that C.
+@code{a} through @code{g}, while the octave is formed with notes ranging
+from @code{c} to @code{b}.  The pitch @code{c} is an octave below
+middle C and the letters span the octave above that C.  Here's an example
+which should make things more clear:
+
+@lilypond[fragment,verbatim]
+\clef bass
+  a,4 b, c d e f g a b c' d' e' \clef treble f' g' a' b' c''
+@end lilypond
 
 @cindex note names, Dutch
 
 In Dutch, a sharp is formed by adding @code{-is} to the end of a pitch
-name and a flat is formed by adding @code{-es}. Double sharps and double
+name and a flat is formed by adding @code{-es}.  Double sharps and double
 flats are obtained by adding @code{-isis} or @code{-eses}.  @code{aes}
 and @code{ees} are contracted to @code{as} and @code{es} in Dutch, but
 both forms are accepted.
@@ -119,6 +128,8 @@ To use them, simply include the language specific init file.  For
 example: @code{\include "english.ly"}.  The available language files and
 the note names they define are:
 
+@anchor{note name}
+@anchor{note names}
 @example 
                         Note Names               sharp       flat
 nederlands.ly  c   d   e   f   g   a   bes b   -is         -es
@@ -149,16 +160,21 @@ octave; each @code{,} lowers the pitch by an octave.
 @node Chromatic alterations
 @subsection Chromatic alterations
 
-Normally, accidentals are automatically printed, but you may force
-them in the following ways: a reminder accidental
+Normally accidentals are printed automatically, but you may also
+print them manually.  A reminder accidental
 @cindex reminder accidental
 @cindex @code{?}
-can be forced by adding an exclamation mark @code{!} after the pitch.  A
-cautionary accidental,
+can be forced by adding an exclamation mark @code{!}
+after the pitch.  A cautionary accidental
 @cindex cautionary accidental
 @cindex parenthesized accidental
-i.e., an accidental within parentheses can be obtained by adding the
+(an accidental within parentheses) can be obtained by adding the
 question mark `@code{?}' after the pitch.
+
+@lilypond[fragment,verbatim]
+  cis' cis' cis'! cis'?
+@end lilypond
+
 
 The automatic production of accidentals can be tuned in many
 ways. For more information, refer to @ref{Accidentals}.
@@ -168,17 +184,18 @@ ways. For more information, refer to @ref{Accidentals}.
 @subsection Rests
 @cindex Rests
 
-Rests are entered like notes, with an `@code{r}' note name:
+Rests are entered like notes, with a ``note name'' of `@code{r}':
 
 @lilypond[singleline,verbatim]
 r1 r2 r4 r8
 @end lilypond
 
-Whole bar rests, centered in the bar, are specified using @code{R}, see
-@ref{Multi measure rests}. See also @seeinternals{Rest}.
+Whole bar rests, centered in middle of the bar, are specified using
+@code{R} (capital R); see @ref{Multi measure rests}.  See also
+@seeinternals{Rest}.
 
-For polyphonic music, it can be convenient to explicitly specify the rest's
-vertical position. This can be achieved by entering a note, with the @code{\rest}
+For some music, you may wish to explicitly specify the rest's vertical
+position.  This can be achieved by entering a note with the @code{\rest}
 keyword appended. Rest collision testing will leave these rests alone.
 
 @lilypond[singleline,verbatim]
@@ -194,8 +211,8 @@ a'4\rest d'4\rest
 @cindex Invisible rest
 @cindex Space note
 
-An invisible rest, or skip, can be entered like a note with note name
-@code{s}, or with @code{\skip @var{duration}}:
+An invisible rest (also called a `skip') can be entered like a note
+with note name `@code{s}' or with @code{\skip @var{duration}}:
 
 @lilypond[singleline,verbatim]
 a2 s4 a4 \skip 1 a4 
@@ -212,9 +229,9 @@ or `@code{_}':
 >
 @end lilypond
 
-Note that the @code{s} syntax  is only available in Note mode and Chord
-mode. In other situations, you should use the @code{\skip} command, which
-also works outside of those two modes:
+Note that the @code{s} syntax is only available in Note mode and Chord
+mode.  In other situations, you should use the @code{\skip} command,
+which will work outside of those two modes:
 
 @lilypond[singleline,verbatim]
 \score {
@@ -225,7 +242,7 @@ also works outside of those two modes:
 }
 @end lilypond
 
-The skip command is merely an empty musical placeholder. It doesn't
+The skip command is merely an empty musical placeholder.  It doesn't
 produce any output, not even transparent output.
 
 
@@ -240,18 +257,21 @@ produce any output, not even transparent output.
 
 
 In Note, Chord, and Lyrics mode, durations are designated by numbers
-and dots: durations are entered as their reciprocal values.  For notes
+and dots: durations are entered as their reciprocal values.  For example,
+a quarter note is entered using a @code{4} (since it's a 1/4 note), while
+a half note is entered using a @code{2} (since it's a 1/2 note).  For notes
 longer than a whole you must use identifiers.
+@c FIXME: what's an identifier?  I don't think it's been introduced yet.
+@c and if it has, I obviously skipped that part.     - Graham
 
 @example 
- c'\breve  
+c'\breve  
 c'1 c'2 c'4 c'8 c'16 c'32 c'64 c'64 
 r\longa r\breve  
 r1 r2 r4 r8 r16 r32 r64 r64 
 @end example 
 
-
-@lilypond[]
+@lilypond[noindent,noquote]
 \score {
   \notes \relative c'' {
     a\breve  \autoBeamOff
@@ -279,7 +299,7 @@ note lengths:
 @cindex @code{.}
 
 @lilypond[fragment,verbatim,center]
-  a'4. b'4.. c'8.
+  a' b' c''8 b' a'4 a'4. b'4.. c'8.
 @end lilypond
 @cindex @code{r}
 @cindex @code{s}
@@ -288,9 +308,13 @@ You can alter the length of duration by a fraction @var{N/M}
 appending `@code{*}@var{N/M}' (or `@code{*}@var{N}' if @var{M=1}). This
 won't affect the appearance of the notes or rests produced.
 
+@lilypond[fragment,verbatim]
+  a'2*2 b'4*2 a'8*4 a'4*3/2 gis'4*3/2 a'4*3/2 a'4
+@end lilypond
+
 Durations can also be produced through GUILE extension mechanism. 
 @lilypond[verbatim,fragment]
- c\duration #(make-duration 2 1)
+ c'\duration #(make-duration 2 1)
 @end lilypond
 
 
@@ -310,15 +334,15 @@ Dot placement for chords is not perfect.  In some cases, dots overlap:
 @cindex @code{~}
 
 A tie connects two adjacent note heads of the same pitch.  The tie in
-effect extends the length of a note. Ties should not be confused with
-slurs, which indicate articulation, and phrasing slurs, which indicate
-musical phrasing. A tie is entered using the tilde symbol `@code{~}'.
+effect extends the length of a note.  Ties should not be confused with
+slurs, which indicate articulation, or phrasing slurs, which indicate
+musical phrasing.  A tie is entered using the tilde symbol `@code{~}'.
 
 @lilypond[fragment,verbatim,center]
   e' ~ e' <c' e' g'> ~ <c' e' g'>
 @end lilypond
 
-When a tie is applied to a chord, all note heads, whose pitches match, are
+When a tie is applied to a chord, all note heads (whose pitches match) are
 connected.  If you try to tie together chords that have no common pitches,
 no ties will be created.
 
@@ -337,10 +361,10 @@ exactly the same concept.
 @lilypond[fragment, singleline]
 \time 3/4 c'2. c'2 ~ c'4
 @end lilypond
-And if you need to tie notes over bars, it may be easier to use
+If you need to tie notes over bars, it may be easier to use
 @ref{Automatic note splitting}.
 
-See also  @seeinternals{Tie}.
+See also @seeinternals{Tie}.
 
 
 @refbugs
@@ -357,11 +381,11 @@ Switching staves when a tie is active will not work.
 @subsection Automatic note splitting
 @c FIXME: This subsection doesn't belong in @ref{Note entry}.
 
-There is a facility for automatically converting long notes to tied
-notes. This is done by replacing the @code{Note_heads_engraver} by the
+LilyPond can automatically converting long notes to tied notes.  This
+is done by replacing the @code{Note_heads_engraver} by the
 @code{Completion_heads_engraver}. 
 
-@lilypond[verbatim,center]
+@lilypond[verbatim,noindent,noquote]
 \score{
   \notes\relative c'{ \time 2/4
   c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 
@@ -374,7 +398,7 @@ notes. This is done by replacing the @code{Note_heads_engraver} by the
 @end lilypond
 
 This engraver splits all running notes at the bar line, and inserts
-ties. One of its uses is to debug complex scores: if the measures are
+ties.  One of its uses is to debug complex scores: if the measures are
 not entirely filled, then the ties exactly show how much each measure
 is off.
 
@@ -399,10 +423,10 @@ with a fraction.
 @end example
 
 The duration of @var{musicexpr} will be multiplied by the fraction. 
-In print, the fraction's denominator will be printed over the notes,
-optionally with a bracket.  The most common tuplet is the triplet in
-which 3 notes have the length of 2, so the notes are 2/3 of
-their written length:
+In the sheet music, the fraction's denominator will be printed over
+the notes, optionally with a bracket.  The most common tuplet is the
+triplet in which 3 notes have the length of 2, so the notes are 2/3
+of their written length:
 
 @lilypond[fragment,verbatim,center]
   g'4 \times 2/3 {c'4 c' c'} d'4 d'4
@@ -410,7 +434,7 @@ their written length:
 
 The property @code{tupletSpannerDuration} specifies how long each bracket
 should last.  With this, you can make lots of tuplets while typing
-@code{\times} only once, thus  saving typing work.
+@code{\times} only once, saving you lots of typing.
 
 @lilypond[fragment,  relative, singleline, verbatim]
 \property Voice.tupletSpannerDuration = #(make-moment 1 4)
@@ -418,7 +442,7 @@ should last.  With this, you can make lots of tuplets while typing
 @end lilypond
 
 The format of the number is determined by the property
-@code{tupletNumberFormatFunction}. The default prints only the
+@code{tupletNumberFormatFunction}.  The default prints only the
 denominator, but if you set it to the Scheme function
 @code{fraction-tuplet-formatter}, Lilypond will print @var{num}:@var{den}
 instead.
@@ -431,7 +455,7 @@ See also @seeinternals{TupletBracket}.
 
 @refbugs
 
-Nested tuplets are not formatted automatically. In this case, outer
+Nested tuplets are not formatted automatically.  In this case, outer
 tuplet brackets should be moved automatically.
 
 @node Easy Notation note heads 
@@ -442,7 +466,7 @@ tuplet brackets should be moved automatically.
 
 A entirely different type of note head is the "easyplay" note head: a
 note head that includes a note name.  It is used in some publications by
-Hal-Leonard Inc.  music publishers.
+Hal-Leonard Inc. music publishers.
 
 @lilypond[singleline,verbatim,26pt]
 \score {
@@ -452,8 +476,11 @@ Hal-Leonard Inc.  music publishers.
 @end lilypond
 
 Note that @code{EasyNotation} overrides a @internalsref{Score} context.  You
-probably will want to print it with magnification or a large font size to make it more
-readable.
+probably will want to print it with magnification or a large font size to
+make it more readable.  To print with magnification, you must create a dvi
+(with @file{ly2dvi}) and then enlarge it with something like @file{dvips -x
+2000 file.dvi}.  See @file{man dvips} for details.  To print with a larger
+font, see @ref{Font Size}.
 
 
 @cindex Xdvi
@@ -1205,7 +1232,7 @@ same effect as twiddling with @code{stemLeftBeamCount} and
 \property Score.beatLength = #(make-moment 1 8)
 [c32 c c c c c c c c c c c c c c c]
 @end example
-@lilypond[]
+@lilypond[noindent,noquote]
 \score {
     \notes \relative c' {
         [c16 c c c c c c c]
@@ -1871,8 +1898,8 @@ using @code{^} and @code{_}.
       }
     >
     \paper {
-      linewidth = 5.875\in
-      indent    = 0.0
+      linewidth = 5.1\in
+      indent    = 0.0\mm
     }
   }
 @end lilypond
@@ -2468,8 +2495,9 @@ In the above example the music was transformed using the list @code{'drums}.
 Currently the following lists are defined in @file{scm/drums.scm}:
 @table @code
 @item 'drums
-To typeset a typical drum kit on a five line staff.
-@lilypond[]
+To typeset a typical drum kit on a five-line staff.
+
+@lilypond[noindent]
 \include "drumpitch-init.ly"
 nam = \lyrics { cymc cyms cymr hh hhc hho hhho hhp cb hc
     bd sn ss tomh tommh tomml toml tomfh tomfl }
@@ -2484,6 +2512,7 @@ mus = \notes  { cymc cyms cymr hh hhc hho hhho hhp cb hc
         \context Lyrics \nam 
     >
     \paper {
+        linewidth = 100.0\mm
         \translator {
             \StaffContext
             \remove Bar_engraver
@@ -2497,6 +2526,7 @@ mus = \notes  { cymc cyms cymr hh hhc hho hhho hhp cb hc
    }   
 }
 @end lilypond
+
 Notice that the scheme supports six different toms.
 If you are using fewer toms then you simply select the toms that produce
 the desired result - i.e. to get toms on the three middle lines you
@@ -3006,7 +3036,7 @@ e8 fis gis a b cis' dis' e'
 \property TabStaff.minimumFret = #8
 e8 fis gis a b cis' dis' e'
 @end example
-@lilypond
+@lilypond[noindent,noquote]
 frag = \notes {
     \key e \major
     e8 fis gis a b cis' dis' e'
@@ -3319,7 +3349,7 @@ chord name styles:
 
 @c too long?
 @c maybe just junk verbatim option?
-@lilypond[verbatim,singleline]
+@lilypond[verbatim,singleline,noquote]
 scheme = \chords {
   c1 c:5^3 c:4^3 c:5+
   c:m7+ c:m5-.7
@@ -3437,7 +3467,7 @@ adds a box around the bar numbers:
   #(make-molecule-boxer 0.1 0.25 0.25 Text_item::brew_molecule)
 \property Score.BarNumber \override #'font-relative-size = #0
 @end example
-@lilypond
+@lilypond[noindent,noquote]
 \score {
     \context Staff \notes \transpose c''' {
 	\property Score.BarNumber \override #'break-visibility = #end-of-line-invisible
@@ -3954,7 +3984,7 @@ anticipates the pitch of the first note(s) of the following line and
 thus helps the player or singer to manage line breaks during
 performance, thus enhancing readability of a score.
 
-@lilypond[verbatim]
+@lilypond[verbatim,noquote]
 \score {
   \notes { c'1 \break
         \property Staff.Custos \set #'style = #'mensural

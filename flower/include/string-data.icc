@@ -11,6 +11,7 @@
 
 #include <assert.h>
 #include <memory.h>
+#include <string.h>
 
 #include "string-data.hh"
 const int INITIALMAX=8;

@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 1998--20.301  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;; (c) 1998--2002  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 ;;;; distances are given in stafflinethickness (thicknesses) and
@@ -18,7 +18,7 @@
      . (
 	(molecule-callback . ,Accidental_interface::brew_molecule)
 	(font-family . music)
-	(cautionary-style . smaller)
+	(cautionary-style . parentheses)
 	(after-line-breaking-callback . ,Accidental_interface::after_line_breaking)		(meta . ((interfaces . (item-interface accidental-interface font-interface))))
 	))
     (AccidentalPlacement
@@ -703,7 +703,7 @@
 	(Y-extent-callback . ,Rest::extent_callback)		
 	(molecule-callback . ,Rest::brew_molecule)
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback)) 
-	(minimum-beam-collision-distance . 1.5)
+	(minimum-beam-collision-distance . 0.75)
 	(meta . (
 		 (interfaces . (font-interface
 				rhythmic-head-interface
