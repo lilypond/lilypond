@@ -27,7 +27,7 @@ been lowered
 
 }
 
-\version "2.1.23"
+\version "2.1.25"
 manuscriptBreak = { \break }
 
 
@@ -103,7 +103,7 @@ secondVerse = \lyrics {
     }
 
 pianoRH = \notes \relative c''' \repeat volta 2 {
-    \modernAccidentals
+    #(set-accidental-style 'modern)
     g16(_\p fis a g fis g f e d c b a ) | 
     <g e>8( <es fis a> <d f b> <c e c'>) r8 r | 
     r8 c'( e,) f r a |
@@ -124,7 +124,7 @@ pianoRH = \notes \relative c''' \repeat volta 2 {
 }
 
 pianoLH = \notes \relative c'' \repeat volta 2 {
-    \modernAccidentals
+    #(set-accidental-style 'modern)
     g16( fis a g fis g f e d c b a) | 
     \clef bass g4.( c,8) r r
     \clef treble r4 <bes' c>8([ <a c>)] r <f c'> |
@@ -151,7 +151,7 @@ pianoLH = \notes \relative c'' \repeat volta 2 {
 
     << \time 6/8
      \new Staff <<
-	 \context Staff \modernAccidentals
+	 \context Staff #(set-accidental-style 'modern)
 	 \melody >>
 	 \lyricsto "singer" \new Lyrics \firstVerse
 	 \lyricsto "singer" \new Lyrics \secondVerse

@@ -663,7 +663,8 @@
      . (
 	(print-function . ,Text_item::print)
 	(font-family . roman)
-	(meta . ((interfaces . (note-name-interface text-interface font-interface item-interface ))))
+	(meta . ((interfaces . (note-name-interface
+				text-interface font-interface item-interface ))))
 	))
 
     (OctavateEight
@@ -773,8 +774,7 @@
 	(meta . (
 		 (interfaces . (font-interface
 				rhythmic-head-interface
-											rhythmic-grob-interface
-
+				rhythmic-grob-interface
 				staff-symbol-referencer-interface
 				rest-interface item-interface ))
 		))))
