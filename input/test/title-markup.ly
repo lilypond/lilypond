@@ -95,7 +95,7 @@ spaceTest = \markup { "two space chars" }
 	    c2-\sizeTest c2-\spaceTest
 	}
 	\paper {
-	    %% #(paper-set-staff-size (* 11.0 pt)) 
+	    #(paper-set-staff-size (* 11.0 pt)) 
 	}
     }
     
