@@ -1,10 +1,11 @@
+\version "1.3.146"
 
 
 \header {
 
  texidoc = "By splitting the grouping (Axis_group_engraver) and
 creation functionality into separate contexts, you can override
-interesting things. You can also drop the \consistsend feature.";
+interesting things. You can also drop the \consistsend feature."
 
 }
 
@@ -20,19 +21,19 @@ interesting things. You can also drop the \consistsend feature.";
 \paper {
 	\translator {
 		\ScoreContext
-		\accepts StaffContainer;
-		\denies Staff;
+		\accepts StaffContainer
+		\denies Staff
 	}
 	\translator {
-		\type Engraver_group_engraver;
-		\consists "Axis_group_engraver";
-		\accepts "Staff";
-		\name StaffContainer;
+		\type Engraver_group_engraver
+		\consists "Axis_group_engraver"
+		\accepts "Staff"
+		\name StaffContainer
 
 	}
 	\translator {
 		\StaffContext
-		\remove Axis_group_engraver;
+		\remove Axis_group_engraver
 	}
 }
 }

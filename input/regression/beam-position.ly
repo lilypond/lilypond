@@ -1,10 +1,11 @@
+\version "1.3.146"
 \header{
 texidoc="
 Beams should always reach the middle staff line.  The second beam
 counting from the note head side, should never be lower than the
 second staff line.  This does not hold for grace note beams.
 Override with @code{noStemExtend}.
-";
+"
 }
 
 
@@ -16,7 +17,7 @@ Override with @code{noStemExtend}.
 	
   }
   \paper {
-    linewidth=-1.0;
+    linewidth=-1.0
   }  
   \midi { }
 }

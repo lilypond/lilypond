@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 %{  When entering half music (I.e. for students to complete by hand)
     you need the spacing to correspond to the timing - all measures same length, etc.
@@ -13,7 +14,7 @@ mel = \notes \relative c' {c16 d16 e8 a4 g2 e8 d c2. g'1 e4 d c2}
 \score {
 \context PianoStaff \notes <
   \context Staff = v <
-    \clef G;
+    \clef G
     \context Voice=melo {\mel}
     \context Voice=invisible {
 	\property Voice.NoteHead \override #'transparent = ##t
@@ -22,7 +23,7 @@ mel = \notes \relative c' {c16 d16 e8 a4 g2 e8 d c2. g'1 e4 d c2}
         \repeat unfold 4 \quickmeasure
     }
   >
-  \context Staff = empty \notes {\clef F; s1*4}
+  \context Staff = empty \notes {\clef F s1*4}
 >
 \paper {}
 }

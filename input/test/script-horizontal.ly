@@ -1,3 +1,4 @@
+\version "1.3.146"
 %{
 
 Please don't use this Scheme hacking unless you have a good reason.
@@ -17,13 +18,13 @@ Please don't use this Scheme hacking unless you have a good reason.
 	
 	\paper { \translator {
 		\VoiceContext
-		\remove Script_engraver;
-		\remove Text_engraver;
+		\remove Script_engraver
+		\remove Text_engraver
 		}
 		\translator {
 		\ThreadContext
-		\consists Script_engraver;
-		\consists Text_engraver;		
+		\consists Script_engraver
+		\consists Text_engraver		
 		}
 	}
 }

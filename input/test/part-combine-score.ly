@@ -1,14 +1,15 @@
+\version "1.3.146"
 
 \header {
-texidoc="Template for part-combining orchestral scores";
+texidoc="Template for part-combining orchestral scores"
 }
   
-\include "paper16.ly"; 
-% \include "mutopia/Coriolan/coriolan-paper.ly";
+\include "paper16.ly" 
+% \include "mutopia/Coriolan/coriolan-paper.ly"
 
 #(define text-flat '((font-relative-size . -2 ) (music "accidentals--1")))
 
-End = { \skip 1*9; \bar "|."; }
+End = { \skip 1*9 \bar "|." }
 
 flautoI = \notes\relative c'' {
   c4\pp d e f
@@ -97,7 +98,7 @@ violinoIStaff =  \context Staff = oneViolini <
 
 violinoIIStaff =  \context Staff = twoViolini <
   % MIDI hoort geeneens verschil tussen een
-  % eerste en tweede viool ;-)
+  % eerste en tweede viool -)
   \property Staff.midiInstrument = #"violin"
   \property Staff.instrument = #"Violino II"
   \property Staff.instr = #"Vl. II"
@@ -113,11 +114,11 @@ violeGroup =  \notes \context VoiceCombineStaff = oneViole <
   \property VoiceCombineStaff.midiInstrument = #"viola"
   \property VoiceCombineStaff.instrument = #"Viola"
   \property VoiceCombineStaff.instr = #"Vla."
-  %\clef "alto";
+  %\clef "alto"
   % Ugh, clef broken in 1.3.125
   \property VoiceCombineStaff.clefGlyph = #"clefs-C"
   \property VoiceCombineStaff.clefPosition = #0
-  \key f \major;
+  \key f \major
   \End
 
   \context VoiceCombineVoice=oneViole \partcombine VoiceCombineVoice
@@ -152,12 +153,12 @@ bassiGroup =  \context PianoStaff = bassi_group \notes <
 
     \property StaffCombineStaff.instr = #"Vc."
     
-    %\clef "bass";
+    %\clef "bass"
     % Ugh, clef broken in 1.3.125
     \property StaffCombineStaff.clefGlyph = #"clefs-F"
     \property StaffCombineStaff.clefPosition = #2
 
-    \key es \major;
+    \key es \major
     \End
   }
   \context StaffCombineStaff=twoBassi {
@@ -165,12 +166,12 @@ bassiGroup =  \context PianoStaff = bassi_group \notes <
     \property StaffCombineStaff.instrument = #"Contrabasso"
     \property StaffCombineStaff.instr = #"Cb."
     
-    %\clef "bass";
+    %\clef "bass"
     % Ugh, clef broken in 1.3.125
     \property StaffCombineStaff.clefGlyph = #"clefs-F"
     \property StaffCombineStaff.clefPosition = #2
     
-    \key as \major;
+    \key as \major
     \End
   }
 
@@ -200,20 +201,20 @@ archiGroup =  \context StaffGroup = archi_group <
     \archiGroup
   >
   \header {
-    title = "Coriolan";
-    subtitle = "Ouverture"; 
-    opus = "Opus 62";
-    composer = "Ludwig van Beethoven (1770-1827)";
-    enteredby = "JCN";
-    copyright = "public domain";
+    title = "Coriolan"
+    subtitle = "Ouverture" 
+    opus = "Opus 62"
+    composer = "Ludwig van Beethoven (1770-1827)"
+    enteredby = "JCN"
+    copyright = "public domain"
   }
   \paper{
     \paperSixteen
 
-    %textheight = 290.0\mm;
-    %linewidth = 195.0\mm;
-    textheight = 285.0\mm;
-    linewidth = 190.0\mm;
+    %textheight = 290.0\mm
+    %linewidth = 195.0\mm
+    textheight = 285.0\mm
+    linewidth = 190.0\mm
 
     \translator{ \HaraKiriStaffContext }
     %
@@ -221,22 +222,22 @@ archiGroup =  \context StaffGroup = archi_group <
     %
     \translator{
       \ThreadContext
-      \name "VoiceCombineThread";
-      \consists "Rest_engraver";
+      \name "VoiceCombineThread"
+      \consists "Rest_engraver"
     }
     \translator{
       \VoiceContext
-      \name "VoiceCombineVoice";
+      \name "VoiceCombineVoice"
       soloText = #"I."
       soloIIText = #"II."
-      \remove "Rest_engraver";
-      \accepts "VoiceCombineThread";
+      \remove "Rest_engraver"
+      \accepts "VoiceCombineThread"
     }
     \translator{
       \HaraKiriStaffContext
-      \consists "Mark_engraver";
-      \name "VoiceCombineStaff";
-      \accepts "VoiceCombineVoice";
+      \consists "Mark_engraver"
+      \name "VoiceCombineStaff"
+      \accepts "VoiceCombineVoice"
     }
 
     %
@@ -244,18 +245,18 @@ archiGroup =  \context StaffGroup = archi_group <
     %
     \translator{
       \ThreadContext
-      \name "StaffCombineThread";
+      \name "StaffCombineThread"
     }
     \translator{
       \VoiceContext
-      \name "StaffCombineVoice";
-      \accepts "StaffCombineThread";
-      \consists "Thread_devnull_engraver";
+      \name "StaffCombineVoice"
+      \accepts "StaffCombineThread"
+      \consists "Thread_devnull_engraver"
     }
     \translator {
       \HaraKiriStaffContext
-      \name "StaffCombineStaff";
-      \accepts "StaffCombineVoice";
+      \name "StaffCombineStaff"
+      \accepts "StaffCombineVoice"
 
       soloADue = ##t
       soloText = #""
@@ -268,16 +269,16 @@ archiGroup =  \context StaffGroup = archi_group <
     }
     \translator {
       \StaffGroupContext
-      \accepts "VoiceCombineStaff";
-      \accepts "StaffCombineStaff";
+      \accepts "VoiceCombineStaff"
+      \accepts "StaffCombineStaff"
     }
     \translator{ \HaraKiriStaffContext }
 
     \translator {
       %\ScoreContext
       \OrchestralScoreContext
-      \accepts "VoiceCombineStaff";
-      \accepts "StaffCombineStaff";
+      \accepts "VoiceCombineStaff"
+      \accepts "StaffCombineStaff"
       TimeSignature \override #'style = #'C
       skipBars = ##t 
       BarNumber \override #'padding = #3

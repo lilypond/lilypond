@@ -1,3 +1,4 @@
+\version "1.3.146"
 \header{
   texidoc="Lyric phrasing
 
@@ -17,10 +18,10 @@
 @end example
 
   Only lyrics that are followed by '__' while there's a melisma,
-  are left-aligned, in this case the third x.";
+  are left-aligned, in this case the third x."
 }
 
-\paper { linewidth = -1.; }
+\paper { linewidth = -1. }
 \score {
   \addlyrics
     \context Voice = "v" \notes  \relative c'' {

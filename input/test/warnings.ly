@@ -1,10 +1,11 @@
+\version "1.3.146"
 
 \header {
 texidoc="Various warnings
-";
+"
 }
 
-linebreak = \penalty -1000;
+linebreak = \penalty #-1000
 
 \score {
   \notes {

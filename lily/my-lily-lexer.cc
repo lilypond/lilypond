@@ -45,6 +45,7 @@ static Keyword_ent the_key_tab[]={
   {"consists", CONSISTS},
   {"consistsend", CONSISTSEND},
   {"context", CONTEXT},
+  {"default", DEFAULT},
   {"denies", DENIES},
   {"duration", DURATION},
   {"dynamicscript", DYNAMICSCRIPT},

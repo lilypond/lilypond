@@ -1,8 +1,9 @@
+\version "1.3.146"
 
 \score{
 	\context PianoStaff <
-		\context StaffCombineStaff=one \skip 1*2;
-		\context StaffCombineStaff=two \skip 1*2;
+		\context StaffCombineStaff=one \skip 1*2
+		\context StaffCombineStaff=two \skip 1*2
 		\context StaffCombineStaff=one \partcombine StaffCombineStaff
 			\context StaffCombineVoice=one \notes\relative c''
 				{
@@ -17,8 +18,8 @@
 		>
 	\paper {
 
-		textheight = 295.0\mm;
-		linewidth = 180.0\mm;
+		textheight = 295.0\mm
+		linewidth = 180.0\mm
 
 		\translator{ \HaraKiriStaffContext }
 		%
@@ -26,22 +27,22 @@
 		%
 		\translator{
 			\ThreadContext
-			\name "VoiceCombineThread";
-			\consists "Rest_engraver";
+			\name "VoiceCombineThread"
+			\consists "Rest_engraver"
 		}
 		\translator{
 			\VoiceContext
-			\name "VoiceCombineVoice";
+			\name "VoiceCombineVoice"
 			soloText = #"I."
 			soloIIText = #"II."
-			\remove "Rest_engraver";
-			\accepts "VoiceCombineThread";
+			\remove "Rest_engraver"
+			\accepts "VoiceCombineThread"
 		}
 		\translator{
 			\HaraKiriStaffContext
-			\consists "Mark_engraver";
-			\name "VoiceCombineStaff";
-			\accepts "VoiceCombineVoice";
+			\consists "Mark_engraver"
+			\name "VoiceCombineStaff"
+			\accepts "VoiceCombineVoice"
 		}
 
 		%
@@ -49,18 +50,18 @@
 		%
 		\translator{
 			\ThreadContext
-			\name "StaffCombineThread";
+			\name "StaffCombineThread"
 		}
 		\translator{
 			\VoiceContext
-			\name "StaffCombineVoice";
-			\accepts "StaffCombineThread";
-			\consists "Thread_devnull_engraver";
+			\name "StaffCombineVoice"
+			\accepts "StaffCombineThread"
+			\consists "Thread_devnull_engraver"
 		}
 		\translator {
 			\HaraKiriStaffContext
-			\name "StaffCombineStaff";
-			\accepts "StaffCombineVoice";
+			\name "StaffCombineStaff"
+			\accepts "StaffCombineVoice"
 
 			soloADue = ##t
 			soloText = #""
@@ -72,15 +73,15 @@
 		}
 		\translator {
 			\StaffGroupContext
-			\accepts "VoiceCombineStaff";
-			\accepts "StaffCombineStaff";
+			\accepts "VoiceCombineStaff"
+			\accepts "StaffCombineStaff"
 		}
 		\translator{ \HaraKiriStaffContext }
 
 		\translator {
 			\ScoreContext
-			\accepts "VoiceCombineStaff";
-			\accepts "StaffCombineStaff";
+			\accepts "VoiceCombineStaff"
+			\accepts "StaffCombineStaff"
 			skipBars = ##t 
 
 			barScriptPadding = #2.0 % dimension \pt

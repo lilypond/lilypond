@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 \score{
 \notes\relative c''{
@@ -22,6 +23,6 @@ a8(a a a a a a)a
 
 }
 \paper{
-indent=0.0\mm;
+indent=0.0\mm
 }
 }

@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 
 \score {
@@ -6,7 +7,7 @@
 
 \translator{
 	\StaffContext
-	\consists Bar_number_engraver;
+	\consists Bar_number_engraver
 	barNumberVisibilityFunction = #end-of-line-invisible
 }
 }

@@ -1,8 +1,9 @@
 #!@PYTHON@
 # vim: set noexpandtab:
 # TODO:
-# * Figure out clean set of options. Hmm, isn't it pretty ok now?
-# * add support for .lilyrc
+# * junk --outdir for --output 
+# * Figure out clean set of options.
+# * 
 # * EndLilyPondOutput is def'd as vfil. Causes large white gaps.
 # * texinfo: add support for @pagesize
 
@@ -549,7 +550,7 @@ def compose_full_body (body, opts):
 %% Generated automatically by: lilypond-book.py
 %% options are %s  %%ughUGH not original options
 \include "paper%d.ly"
-\paper  { linewidth = %f \pt; } 
+\paper  { linewidth = %f \pt } 
 """ % (optstring, music_size, l) + body
 	return body
 

@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 
 %% Chord gurus, is this ok now??
@@ -18,6 +19,6 @@ monstrous= \chords{
 	\context Staff \monstrous
     >
     \paper{
-	linelength=-1.0\mm;
+	linelength=-1.0\mm
     }
 }

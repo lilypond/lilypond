@@ -1,9 +1,10 @@
+\version "1.3.146"
 
 \header{
 texidoc="
 As a last resort, the placement of grobs can be adjusted manually, by
 setting the @code{extra-offset} of a grob.
-";
+"
 }
 
 \score{
@@ -16,12 +17,12 @@ setting the @code{extra-offset} of a grob.
 		\outputproperty #(make-type-checker 'mark-interface) 
 		#'extra-offset = #'(-1 . 4)
 	}
-	\mark A;
+	\mark A
 	d1
-	\mark;
+	\mark \default
 	e
 }
 \paper{
-	linewidth=-1.0;
+	linewidth=-1.0
 }
 }

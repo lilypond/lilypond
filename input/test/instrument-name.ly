@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 
 \score {
@@ -6,7 +7,7 @@
       \property Staff.instrument = "instr " { c''4 }}
 
 \paper {
-linewidth=-1.0;
-\translator { \StaffContext \consists "Instrument_name_engraver"; }
+linewidth=-1.0
+\translator { \StaffContext \consists "Instrument_name_engraver" }
 }}
 

@@ -1,10 +1,11 @@
+\version "1.3.146"
 
 one =  \notes\relative c{
 	c'' d e f
 }
 
 two =  \notes\relative c{
-	\clef "bass";
+	\clef "bass"
 	c'2 g2
 }
 

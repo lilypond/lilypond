@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 \header{
 texidoc="
@@ -10,11 +11,11 @@ natural).  Slurring a accidentaled note to a natural one across bar
 boundaries should be explicit.
 
 Pitches can be verified by printing them  with the @code{NoteNames} context.
-";
+"
 }
 
 thenotes = \notes \relative cis' {
-  \time 4/4;
+  \time 4/4
   g'2 g ~ |
   g g4 gis |
   gis2 gis ~ |
@@ -24,7 +25,7 @@ thenotes = \notes \relative cis' {
   g2 gis( |
   )g! gis4 gis |
   \break
-  \key a \major;
+  \key a \major
   gis2 gis ~ |
   gis4 gis8 ~ gis g4 gis |
   gis2 g ~ |
@@ -39,7 +40,7 @@ thenotes = \notes \relative cis' {
   % Btw: I don't even know what the rule is for the second note in the
   % next bar, if a reminder accidental was printed.  These are really
   % not very common cases.  Technically, if it is not tied, it
-  % should get an accidental; but it looks a bit silly and redundant.
+  % should get an accidental but it looks a bit silly and redundant.
   % See last g.
   
   )g! gis4 gis ~ | \break

@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 \score
 {
@@ -9,12 +10,12 @@
   >
 
   \paper {
-  	indent=100.0\mm;
-  	linewidth=150.0\mm;
+  	indent=100.0\mm
+  	linewidth=150.0\mm
     \translator
     {
       \StaffContext
-      \consists Instrument_name_engraver;
+      \consists Instrument_name_engraver
 	numberOfStaffLines  = #1
       
     }

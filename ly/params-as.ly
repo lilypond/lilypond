@@ -1,14 +1,15 @@
+\version "1.3.146"
 % params-as.ly
 % generic paper parameters
 
-outputscale = \staffheight / 4.0;
+outputscale = \staffheight / 4.0
 
-linewidth = 60.0 \char;
-textheight = 60.0 \char;
-indent = 8.0\char;
+linewidth = 60.0 \char
+textheight = 60.0 \char
+indent = 8.0\char
 
-staffspace = (\staffheight - 1.0 ) / 4.0;
-stafflinethickness = \staffspace / 2.0;
+staffspace = (\staffheight - 1.0 ) / 4.0
+stafflinethickness = \staffspace / 2.0
 
 \translator { \NoteNamesContext }
 \translator { \ScoreContext }

@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 
 voiceOne =  \notes \relative c'' {
@@ -41,11 +42,11 @@ grandstaff =  \context GrandStaff = one <
 \score{
 	\grandstaff
 	\paper{
-		linewidth=80.0\mm;
+		linewidth=80.0\mm
 
-		\translator { \VoiceContext noAutoBeaming = ##t; }
+		\translator { \VoiceContext noAutoBeaming = ##t }
 		\translator { \HaraKiriStaffContext }
-		\translator { \OrchestralScoreContext skipBars = 1; }
+		\translator { \OrchestralScoreContext skipBars = 1 }
 	}
 }
 

@@ -1,3 +1,4 @@
+\version "1.3.146"
 % ASCII Art output
 %
 % Process as:
@@ -9,7 +10,7 @@
 
 \score {
   \notes\relative c'' {
-    \time 4/4;
+    \time 4/4
     g1 a b c 
     g2 a b c
     g4 a b c

@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 \score{
 \context Staff \notes\relative c''{
@@ -6,16 +7,16 @@
 		\outputproperty #(make-type-checker 'Mark) 
 		#'extra-offset = #'(-1 . 4)
 	}
-	\mark A;
+	\mark A
 	d
-	\mark ;
+	\mark \default
 	e
 }
 \paper{
-	linewidth=-1.0;
+	linewidth=-1.0
 	\translator {
 		\ScoreContext
-		\consists "Mark_engraver";
+		\consists "Mark_engraver"
 	}
 }
 }

@@ -1,13 +1,14 @@
+\version "1.3.146"
 
 \header {
 texidoc="Simple beams.  This broke somewhere < 1.3.110
-";
-  title = "Gammes Chromatiques";
-  composer = "";
-  filename = "gammes_chromatiques.ly";
+"
+  title = "Gammes Chromatiques"
+  composer = ""
+  filename = "gammes_chromatiques.ly"
 }
 
-linebreak = \penalty -1000;
+linebreak = \penalty #-1000
 
 ex = \notes \relative c' {
   \repeat "volta" 2 {

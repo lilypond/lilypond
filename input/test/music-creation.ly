@@ -1,7 +1,8 @@
+\version "1.3.146"
 \header {
 
  texidoc = "You can create music expressions from Scheme.  The
- mechanism for this is rather clumsy to use, so avoid if possible.";
+ mechanism for this is rather clumsy to use, so avoid if possible."
 
  }
  

@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 
 \score{
@@ -13,6 +14,6 @@
 	}
 	\paper{
 
-		linewidth = 60.0\mm;
+		linewidth = 60.0\mm
 	}
 }

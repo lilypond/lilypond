@@ -1,3 +1,4 @@
+\version "1.3.146"
 \header{
 texidoc="
 Lyrics can be set to a melody automatically.  Excess lyrics will be
@@ -9,15 +10,15 @@ precook a chord of staffs/lyrics and label those.  Of course
 @code{\rhythm} ignores any other rhythms in the piece.  Hyphens and
 extenders do not assume anything about lyric lengths, so they continue
 to work.
-";
+"
 
 
-filename = 	 "twinkle-pop.ly";
-xtitle = 	 "Ah, vous dirais-je, maman ";
-description = 	 "twinkle twinkle in pop-song-settings";
-composer = 	 "traditional";
-enteredby = 	 "HWN, chords by Johan Vromans";
-copyright = 	 "public domain";
+filename = 	 "twinkle-pop.ly"
+xtitle = 	 "Ah, vous dirais-je, maman "
+description = 	 "twinkle twinkle in pop-song-settings"
+composer = 	 "traditional"
+enteredby = 	 "HWN, chords by Johan Vromans"
+copyright = 	 "public domain"
 }
 
 

@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 \score{
 	\notes \relative c''{
@@ -19,7 +20,7 @@
 
 	}
 	\paper{
-		indent = 0.0;
-		linewidth = 60.0\mm;
+		indent = 0.0
+		linewidth = 60.0\mm
 	}
 }

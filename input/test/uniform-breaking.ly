@@ -1,9 +1,10 @@
+\version "1.3.146"
 
 %{
 Hmm, ik vraag me af of dit al helemaal koel is.
 
   return abs (this_one.force_f_) + abs (prev.force_f_ - this_one.force_f_)
-      + break_penalties;
+      + break_penalties
 
 Neem als voorbeeld iets dat lijkt op allemande: keuze tussen 2 of drie
 maten per regel.
@@ -105,8 +106,8 @@ Heb niet zomaar beter idee, nog.
 
 	}
 	\paper {
-		indent=0.0\mm;
-		linewidth=90.0\mm;
+		indent=0.0\mm
+		linewidth=90.0\mm
 	}
 }
 

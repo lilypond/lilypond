@@ -1,3 +1,4 @@
+\version "1.3.146"
 \score{
 	\notes\relative c''{
 %		\stemUp
@@ -14,7 +15,7 @@
 		[a b c d]
 	}
 	\paper{
-		linewidth=-1.;
+		linewidth=-1.
 	}
 }
 

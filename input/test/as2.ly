@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 % test for ascii-art output
 
@@ -5,13 +6,13 @@
 
 \score {
 	\notes\relative c'{
-		\time 4/4;
+		\time 4/4
 		c8( e g )b
 		d( d d )d
-		\bar "|.";
+		\bar "|."
 	}
 	\paper {
-		linewidth=65.0\char;
+		linewidth=65.0\char
     		\translator { \StaffContext barSize = #9 }
 		%\translator { \VoiceContext beamHeight = #0 }
 		\translator { \VoiceContext beamHeight = ##f }

@@ -4,44 +4,44 @@
 instrument = "Piano"
 
 \header {
-  title = "Ständchen";
-  subtitle = "(Serenade)";
-  subsubtitle = "Leise flehen meine Lieder";
-  opus = "D. 957 No. 4";
-  date = "August 1828";
-  composer = "Franz Schubert (1797-1828)";
-  poet = "Text by Ludwig Rellstab (1799-1860)";
-  enteredby = "JCN";
-  copyright = "public domain";
-  instrument = \instrument;
+  title = "Ständchen"
+  subtitle = "(Serenade)"
+  subsubtitle = "Leise flehen meine Lieder"
+  opus = "D. 957 No. 4"
+  date = "August 1828"
+  composer = "Franz Schubert (1797-1828)"
+  poet = "Text by Ludwig Rellstab (1799-1860)"
+  enteredby = "JCN"
+  copyright = "public domain"
+  instrument = \instrument
 
   % mutopia headers.
-  mutopiatitle = "Standchen";
-  mutopiasubtitle = "Leise flehen meine Lieder";
-  mutopiacomposer = "Franz Schubert (1797-1828)";
-  mutopiapoet = "Ludwig Rellstab (1799-1860)";
-  mutopiaopus = "D957.4";
-  mutopiainstrument = \instrument;
-  date = "1828/08";
-  style = "Romantic";
-  source = "Schubert-Lieder; Edition Schott No. 608, (Not dated).
-    Jubilaeums-Ausgabe zum 100. Todestage (~1928).";
+  mutopiatitle = "Standchen"
+  mutopiasubtitle = "Leise flehen meine Lieder"
+  mutopiacomposer = "Franz Schubert (1797-1828)"
+  mutopiapoet = "Ludwig Rellstab (1799-1860)"
+  mutopiaopus = "D957.4"
+  mutopiainstrument = \instrument
+  date = "1828/08"
+  style = "Romantic"
+  source = "Schubert-Lieder Edition Schott No. 608, (Not dated).
+    Jubilaeums-Ausgabe zum 100. Todestage (~1928)."
 
-  copyright = "Public Domain";
-  maintainer = "Jan Nieuwenhuizen";
-  maintainer_email = "janneke@gnu.org";
-  lastupdated =	 "2001/Mar/26";
+  copyright = "Public Domain"
+  maintainer = "Jan Nieuwenhuizen"
+  maintainer_email = "janneke@gnu.org"
+  lastupdated =	 "2001/Mar/26"
   mutopiapublicdomain = "\\parbox{\hsize}{\\thefooter\\quad\\small
     \\\\This music is part of the Mutopia project,
     \\texttt{http://www.mutopiaproject.org/}\\\\It has been typeset
     and placed in the public domain by " + \maintainer +
     ".\\\\Unrestricted modification and redistribution is permitted
-    and encouraged---copy this music and share it.}";
- tagline = \mutopiapublicdomain;
- footer = "Mutopia-2001/03/26-xx";
+    and encouraged---copy this music and share it.}"
+ tagline = \mutopiapublicdomain
+ footer = "Mutopia-2001/03/26-xx"
 } 
 
-\version "1.3.141";
+\version "1.3.146"
 
 dynamicUp = \property Voice.DynamicLineSpanner \override #'direction = #1
 dynamicRevert = \property Voice.DynamicLineSpanner \revert #'direction
@@ -101,13 +101,13 @@ vocalThrough =  \notes\relative c{
 
 lyricVerseOne =  \lyrics{
 	Lei- se fleh- en mei- ne Lie- der
-	Durch die Nacht zu dir; 
+	Durch die Nacht zu dir 
 	In den stil- len Hain her- nie- der
 	Lieb- chen, komm zu mir! 
 	
 	Fl\"us- ternd schlan- ke Wip- fel rau- schen
 	In des Mon- des Licht,
-	In des Mon- des Licht;
+	In des Mon- des Licht
 
 	Des Ver- r\"a- ters feind- lich Lau- schen
 	F\"urch- te, Hol- de, nicht,
@@ -261,7 +261,7 @@ bassIntro =  \notes\relative c{
 }
 
 bassVerseOne =  \notes\relative c{
-%	\clef bass;
+%	\clef bass
 	\dynamicUp
 %5
 	<c,2 c'> r4 |
@@ -339,12 +339,12 @@ bassThrough =  \notes\relative c{
 }
 		
 global =  \notes{
-	\time 3/4; 
-	\key es \major;
-	\skip 4 * 12;
+	\time 3/4 
+	\key es \major
+	\skip 4 * 12
 	\break
-	\skip 4 * 234;
-	\bar "|.";
+	\skip 4 * 234
+	\bar "|."
 }
 
 allLyrics = \lyrics {
@@ -358,15 +358,15 @@ lyricStaff = \context Lyrics {
 }
 		
 vocals = \context Voice {
-	\clef treble;
+	\clef treble
  	% certainly no auto-beaming for vocals
  	\property Voice.noAutoBeaming = ##t
 	\property Staff.automaticMelismata= ##t
 
 	\dynamicUp
-	\skip 4 * 12; 
+	\skip 4 * 12 
 	\vocalVerse 
-	\skip 4 * 24; 
+	\skip 4 * 24 
 	\vocalVerse
 	\vocalThrough
 }
@@ -378,7 +378,7 @@ vocalStaff =  \context Staff = vocal<
 >
 
 treble =  {
-	\clef treble;
+	\clef treble
 	\property Voice.autoBeamSettings \override #'(begin * * * *) = #(make-moment 0 1)
 	\trebleIntro 
 	\trebleVerseOne 
@@ -392,7 +392,7 @@ trebleStaff =  \context Staff = treble<
 	\treble
 >
 bass =  {
-	\clef bass;
+	\clef bass
 	\bassIntro 
 	\bassVerseOne 
 	\bassEentje
@@ -434,6 +434,6 @@ grandStaff =  \context PianoStaff <
 		\translator { \HaraKiriStaffContext }
 	}
 	\midi{
-		\tempo 4 = 54;
+		\tempo 4 = 54
 	}
 }

@@ -2,9 +2,9 @@
 % see ly/drumpitch.ly for list of instruments and paper-kits.
 %     scm/midi.scm for list of midi-drumkits.
 
-\include "drumpitch.ly";
+\include "drumpitch.ly"
 
-\version "1.3.142"
+\version "1.3.146"
 
 drh = \notes { cymc4.^"crash" hhc16^"h.h." hh \repeat "unfold" 5 {hhc8 hho hhc8 hh16 hh} hhc4 r4 r2 }
 drl = \notes {\repeat "unfold" 3 {bd4 sn8 bd bd4 <bd ss>} bd8 tommh tommh bd toml toml bd tomfh16 tomfh }
@@ -14,12 +14,12 @@ timb = \notes \repeat "unfold" 2 {timh4 ssh timl8 ssh r timh r4 ssh8 timl r4 cb8
  <
   \context TwoLineStaff=timbst \notes <
     \property Staff.instrument="timbales"
-    \clef "percussion";
+    \clef "percussion"
     \apply #(drums->paper 'timbales) \timb
   >
   \context Staff=drumst \notes <
     \property Staff.instrument="drums"
-    \clef "percussion";
+    \clef "percussion"
     \apply #(drums->paper 'drums) <
       \context Voice=voa {\stemUp \drh }
       \context Voice=vob {\stemDown \drl }
@@ -29,20 +29,20 @@ timb = \notes \repeat "unfold" 2 {timh4 ssh timl8 ssh r timh r4 ssh8 timl r4 cb8
  \paper {
    \translator {
       \StaffContext
-      \consists Instrument_name_engraver;
+      \consists Instrument_name_engraver
       Script \override #'padding = #0.5
    }
    \translator {
       \StaffContext
-      \name TwoLineStaff;
-      \alias Staff;
-      \consists Instrument_name_engraver;
-      StaffSymbol \override #'line-count = #2;
-      BarLine \override #'bar-size = #2;
+      \name TwoLineStaff
+      \alias Staff
+      \consists Instrument_name_engraver
+      StaffSymbol \override #'line-count = #2
+      BarLine \override #'bar-size = #2
    }
    \translator {
       \ScoreContext
-      \accepts TwoLineStaff;
+      \accepts TwoLineStaff
    }
  }
 }
@@ -54,6 +54,6 @@ timb = \notes \repeat "unfold" 2 {timh4 ssh timl8 ssh r timh r4 ssh8 timl r4 cb8
     \drh
     \drl
   >
-  \midi{ \tempo 4=120; }
+  \midi{ \tempo 4=120 }
 }
 

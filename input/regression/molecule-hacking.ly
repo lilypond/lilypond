@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 \header { texidoc=" You can write molecule callbacks in Scheme, thus
 providing custom glyphs for notation elements.  A simple example is
@@ -6,7 +7,7 @@ adding parentheses to existing molecule callbacks.
 The parenthesized beam is less successful due to implementation of the
 Beam. The note head is also rather naive, since the extent of the
 parens are also not seen by accidentals.
-";
+"
 	
 	 }
 
@@ -32,17 +33,17 @@ GROB.  The dimensions of the molecule is not affected.
 	    (popen (ly-find-glyph-by-name fn "accidentals-("))
 	    (subject (callback grob))
 
-	    ;; remember old size
+	    ; remember old size
 	    (subject-dims (ly-get-molecule-extent subject 0))
 	    )
 
-       ;; add parens
+        ; add parens
         (set! subject
 	     (ly-combine-molecule-at-edge 
 	      (ly-combine-molecule-at-edge subject 0 1 pclose 0.2)
 	      0 -1 popen  0.2))
 
-	;; revert old size.
+	; revert old size.
        (ly-set-molecule-extent! subject 0 subject-dims)
        subject
     )
@@ -68,6 +69,6 @@ GROB.  The dimensions of the molecule is not affected.
 		    
 		    }
 
-	\paper { linewidth = -1.; }
+	\paper { linewidth = -1. }
 	}
 

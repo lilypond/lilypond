@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 
 
@@ -21,7 +22,7 @@
     a1^#`((rows (font-relative-size . -1)) ,dotted-eight-note " = 64")
   }
   \paper {
-    linewidth = -1.;
+    linewidth = -1.
     \translator{
       \ScoreContext
       TextScript \override #'font-shape = #'upright

@@ -1,3 +1,4 @@
+\version "1.3.146"
 \score{
 	<
 		\context Staff = o \notes\relative c,,, { 

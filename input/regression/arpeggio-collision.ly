@@ -1,7 +1,8 @@
+\version "1.3.146"
 
 \header  {
 texidoc = "arpeggio stays clear of accidentals and flipped note heads.
-Since Arpeggio engraver is Voice, it does nothing for voice collisions.";
+Since Arpeggio engraver is Voice, it does nothing for voice collisions."
 }
 
 hairyChord = \context Staff \notes\relative c' <
@@ -39,7 +40,7 @@ hairyChord = \context Staff \notes\relative c' <
         \hairyChord
 	}
     \paper {
-        linewidth = -1.;
+        linewidth = -1.
 	\translator{
 	    \StaffContext
 	    connectArpeggios = ##t

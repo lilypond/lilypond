@@ -34,7 +34,7 @@
 	(gis . ,(make-pitch -1 4 1 ))
 	(gisis . ,(make-pitch -1 4 2 ))
 	(asas . ,(make-pitch -1 5 -2 ))
-	(ases . ,(make-pitch -1 5 -2 ))  ; non-standard name for asas
+	(ases . ,(make-pitch -1 5 -2 ))   non-standard name for asas
 	(as . ,(make-pitch -1 5 -1 ))
 	(a . ,(make-pitch -1 5 0 ))
 	(ais . ,(make-pitch -1 5 1 ))
@@ -49,4 +49,4 @@
 
 
 
-\version "1.3.110";
+\version "1.3.146"

@@ -1,5 +1,5 @@
 
-% 	$Id: norsk.ly,v 1.10 2001/01/09 18:54:26 fred Exp $	
+% 	Idx norsk.ly,v 1.1 1998/03/25 11:38:28 arvidg Exp arvidg $	
 
 %{
 
@@ -21,7 +21,7 @@
  duplicated all lines containing at least one "is" or "es", changed
  every other "is" into an "iss" and every other "es" into an "ess",
  added "ass" et al, and made some b->h-related changes.  There may be
- bugs in here; please tell me (or send patches) if you find any.
+ bugs in here please tell me (or send patches) if you find any.
 
                                   Arvid Gr=F8tting <arvidg@ifi.uio.no>
 
@@ -104,4 +104,4 @@
 
 
 
-\version "1.3.110";
+\version "1.3.146"

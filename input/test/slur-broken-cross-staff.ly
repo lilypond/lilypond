@@ -1,8 +1,9 @@
+\version "1.3.146"
 \header{
 texidoc="
 The same goes for slurs. They behave decently when broken across
 linebreak.
-";
+"
 }
 
 	
@@ -42,11 +43,11 @@ linebreak.
 %}
 	}
 	\context Staff=two \notes\relative c'{
-		\clef bass;
+		\clef bass
 		s1 s1 %s1 s1 s1 s1 s1 s1 s1 s1
 	}
 	>
-	\paper { indent = 0.; linewidth = 40.*\staffspace; }
+	\paper { indent = 0. linewidth = 40.*\staffspace }
 }
 
 

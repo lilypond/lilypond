@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 \header{
 texidoc="
@@ -6,7 +7,7 @@ To avoid confusion, chord tremolo beams do not reach the stems, but
 leave a gap.  Chord tremolo beams on half notes are not ambiguous,
 as half notes cannot appear in a regular beam, and should reach the 
 stems.
-";
+"
 }
   
 \score { 
@@ -17,8 +18,8 @@ stems.
   }
   \paper {
     % ugh, wide
-    %linewidth = -1.0;
-    linewidth = 40*\staffspace;
+    %linewidth = -1.0
+    linewidth = 40*\staffspace
   }  
   \midi { }
 }

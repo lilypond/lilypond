@@ -1,26 +1,27 @@
+\version "1.3.146"
 
 
 % Ugh, we need to override some LaTeX titling stuff
 \header {
-  title =	"Ouvertüre\\vrule width0pt height 0pt depth 1ex";
-  subtitle =	"\\normalsize Zu Heinrich Joseph v. Collins Trauerspiel\\vrule width0pt height 0pt depth 1ex";
-  subsubtitle =	"\\Large\\bf Coriolan";
-  opus =  "Op. 62";
-  piece = "\\hspace*{30mm}\\normalfont\\large Allegro con brio";
-  composer = 	 "Ludwig van Beethoven (1770-1827)";
-  enteredby = 	 "JCN";
+  title =	"Ouvertüre\\vrule width0pt height 0pt depth 1ex"
+  subtitle =	"\\normalsize Zu Heinrich Joseph v. Collins Trauerspiel\\vrule width0pt height 0pt depth 1ex"
+  subsubtitle =	"\\Large\\bf Coriolan"
+  opus =  "Op. 62"
+  piece = "\\hspace*{30mm}\\normalfont\\large Allegro con brio"
+  composer = 	 "Ludwig van Beethoven (1770-1827)"
+  enteredby = 	 "JCN"
 }
 #(define raisedflat '((raise . 0.4) (music (named "accidentals--1"))))
 
 flauti = \notes \relative c' {
   \property Staff.instrument	= #"2 Flauti"
   \property Staff.instr		= #"Fl."
-  \time 4/4;
+  \time 4/4
   c1 
   \break c
 %  \break c
 %  \break c
-  \bar"|.";
+  \bar"|."
 }
 
 oboi = \notes \relative c' {
@@ -106,7 +107,7 @@ violoncello = \notes \relative c' {
     \context StaffGroup ="timpani" <
       \context Staff ="timpani" \timpani
      { 
-       \skip 1; 
+       \skip 1 
        % Hmm: this forces a staff-bracket, that's good!
        % However, I can't find where is decided on staff-bracket yes/no
      }
@@ -122,8 +123,8 @@ violoncello = \notes \relative c' {
   >
   \paper {
   	\paperSixteen
-  	indent=100.0\mm;
-  	linewidth=150.0\mm;
+  	indent=100.0\mm
+  	linewidth=150.0\mm
     \translator {
       \HaraKiriStaffContext
     }

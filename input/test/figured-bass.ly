@@ -1,3 +1,4 @@
+\version "1.3.146"
 % Example of figured bass, using text scripts.
 % (An alternative is to use a lyrics line if you want the figures
 % aligned vertically.)
@@ -14,7 +15,7 @@
 
 \score{
   \notes \relative c'{
-    \clef bass;
+    \clef bass
 
       c^"5" d^#natural g,^"7 6" [a8 e] |
       fis4^"7 6" [g8 d] e4^"7 6" [f?8 c] |

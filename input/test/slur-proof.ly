@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 
 x = {
@@ -36,8 +37,8 @@ x = {
     \context Voice=wa { \x d(s4*26)d }
   >
   \paper {
-    indent=0.0\mm;
-    linewidth=-1.0\mm;
+    indent=0.0\mm
+    linewidth=-1.0\mm
     \translator{
       \VoiceContext
       Slur \override #'direction = #1

@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 cr = \spanrequest \start "crescendo"
 decr = \spanrequest  \start "decrescendo"
@@ -5,7 +6,7 @@ rc = \spanrequest   \stop "crescendo"
 rced = \spanrequest \stop "decrescendo"
 
 cresc = \notes {
-  \commandspanrequest \start "crescendo" ;
+  \commandspanrequest \start "crescendo" 
   \property Voice.crescendoText = "cresc."
   \property Voice.crescendoSpanner = "dashed-line"
 }
@@ -13,19 +14,19 @@ cresc = \notes {
 % ah, this is handy: maybe drop resetting of properties in
 % dynamic-engraver ?
 endcresc = \notes {
-  \commandspanrequest \stop "crescendo"; 
+  \commandspanrequest \stop "crescendo" 
   \property Voice.crescendoText = ##f
   \property Voice.crescendoSpanner = ##f
 }
 
 dim = \notes {
-  \commandspanrequest \start "decrescendo" ;
+  \commandspanrequest \start "decrescendo" 
   \property Voice.decrescendoText = "dim."
   \property Voice.decrescendoSpanner = "dashed-line"
 }
 
 enddim = \notes {
-  \commandspanrequest \stop "decrescendo"; 
+  \commandspanrequest \stop "decrescendo" 
   \property Voice.decrescendoText = ##f
   \property Voice.decrescendoSpanner = ##f
 }

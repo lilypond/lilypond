@@ -1,8 +1,9 @@
+\version "1.3.146"
 
 \header{
 texidoc="
 In some cases, you may want to set slur attachments by hand.
-";
+"
 }
 
 
@@ -14,7 +15,7 @@ fragment = \notes {
   d,32( d'4 )d8..
 }
 
-\paper { linewidth = -1.; } 
+\paper { linewidth = -1. } 
 
 \score {
   \notes\relative c \fragment

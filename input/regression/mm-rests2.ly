@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 \header{
 texidoc="
@@ -5,12 +6,12 @@ If @code{Score.skipBars} is set,
 the signs for four, two, and one measure rest are combined to
 produce the graphical representation of rests for up to 10 bars.
 The number of bars will be written above the sign.
-";
+"
 }
 
 thenotes = \notes \relative cis' {
 \property Score. skipBars = ##t
-\time 4/4;
+\time 4/4
 R1 |
 R1*1 |
 R1*2 |

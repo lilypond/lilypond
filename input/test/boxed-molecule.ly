@@ -1,3 +1,4 @@
+\version "1.3.146"
 \header {
 
 texidoc = "overriding the molecule callback can also be used to draw a
@@ -5,7 +6,7 @@ texidoc = "overriding the molecule callback can also be used to draw a
 
  TODO: check whether the corners are really correct.
  
- ";
+ "
 }
 #(define (box-molecule xext yext)
   (ly-make-molecule

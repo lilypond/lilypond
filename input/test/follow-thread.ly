@@ -3,10 +3,10 @@
 texidoc="
 Theads can be traced automagically when they switch staffs by setting
 property @code{followVoice}.
-";
+"
 }
 
-\version "1.3.139"
+\version "1.3.146"
 % followVoice: connect note heads with line when thread switches staff 
 
 fragment = \notes {
@@ -18,11 +18,11 @@ fragment = \notes {
       \translator Staff=two
       b2 a
     }
-    \context Staff=two {\clef bass; \skip 1*2;}
+    \context Staff=two {\clef bass \skip 1*2}
   >
 }
 
-\paper { linewidth = -1.; } 
+\paper { linewidth = -1. } 
 
 \score {
   \notes\relative c \fragment

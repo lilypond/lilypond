@@ -1,8 +1,9 @@
+\version "1.3.146"
 
 \header{
 texidoc="
 Beams over rests.
-";
+"
 }
 
 \score{
@@ -13,6 +14,6 @@ Beams over rests.
     }
 
     \paper{
-        linewidth =-1;
+        linewidth =-1
     }
 }

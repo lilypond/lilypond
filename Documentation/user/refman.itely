@@ -83,8 +83,8 @@ calculated.
 
 During these stages different types of data play the the main role:
 during parsing, @strong{Music} objects are created.  During the
-interpretation, @strong{context} is constructed, and with this context
-af network of @strong{graphical objects} (``grobs'') is created. The
+interpretation, @strong{context}s are constructed, and with these contexts
+a network of @strong{graphical objects} (``grobs'') is created. These
 grobs contain unknown variables, and the network forms a set of
 equations. After solving the equations and filling in these variables,
 the printed output (in the form of @strong{molecules}) is written to an
@@ -93,7 +93,7 @@ output file.
 These threemanship of tasks (parsing, translating, typesetting) and
 data-structures (music, context, graphical objects) permeates the entire
 design of the program.  This manual is ordered in terms of user
-tasks. With each concept will be explained to which of the three parts
+tasks. For each concept, it will be explained to which of the three parts
 it belongs.
 
 
@@ -235,7 +235,7 @@ r1 r2 r4 r8 r16 r32 r64 r64
 @lilypond[]
 \score {
   \notes \relative c'' {
-  \breve  \autoBeamOff
+        a\breve  \autoBeamOff
     a1 a2 a4 a8 a16 a32 a64 a64 
     r\longa r\breve  
     r1 r2 r4 r8 r16 r32 r64 r64 
@@ -243,10 +243,10 @@ r1 r2 r4 r8 r16 r32 r64 r64
   \paper {
     \translator {
       \StaffContext
-        \remove "Clef_engraver";
-        \remove "Staff_symbol_engraver";
-        \remove "Time_signature_engraver";
-        \consists "Pitch_squash_engraver";
+        \remove "Clef_engraver"
+        \remove "Staff_symbol_engraver"
+        \remove "Time_signature_engraver"
+        \consists "Pitch_squash_engraver"
     }
   }
 }
@@ -323,7 +323,8 @@ Hal-Leonard Inc.  music publishers.
 
 Note that @code{EasyNotation} overrides a @code{Score} context.  You
 probably will want to print it with magnification to make it better
-readable.
+readable, see @ref{Output scaling}.
+
 
 @cindex Xdvi
 @cindex ghostscript
@@ -442,7 +443,7 @@ Rests are entered like notes, with note name `@code{r}'. The grob is
 
 
 @example
-  \skip @var{duration} @code{;}
+  \skip @var{duration} 
   s@var{duration}
 @end example
 @cindex @code{\skip}
@@ -475,7 +476,7 @@ printed.  The shorthand is only available in Note and Chord mode.
 
 Changing the key signature is done with the @code{\key} command.
 @example
-  @code{\key} @var{pitch} @var{type} @code{;}
+  @code{\key} @var{pitch} @var{type}
 @end example
 
 @cindex @code{\minor}
@@ -580,7 +581,7 @@ Editio XXX.''
 
 The time signature is changed by the @code{\time} command. Syntax:
 @example
-  \time @var{numerator}@code{/}@var{denominator} @code{;}
+  \time @var{numerator}@code{/}@var{denominator} 
 @end example
 Internally, this is a shortcut for doing
 @example
@@ -644,7 +645,7 @@ achieve the same effect.
 @cindex repeat bars
 
 @example
-  \bar @var{bartype};
+  \bar @var{bartype}
 @end example
 
 This is a shortcut for doing
@@ -670,7 +671,7 @@ automatically: at the start of a measure it is set to
 override default measure bars. 
 
 @code{whichBar} can also be set directly, using @code{\property} or
-@code{\bar ; }.  These settings take precedence over automatic @code{whichBar}
+@code{\bar  }.  These settings take precedence over automatic @code{whichBar}
 settings. 
 
 @code{Bar_engraver} creates @code{BarLine} grobs.
@@ -842,7 +843,7 @@ durations, ie, you'll have to specify manual beams to get:
 @lilypond[fragment,singleline,relative]
   \property Voice.autoBeamSettings
   \override #'(end * * * *) = #(make-moment 3 8)
-  \time 12/8; c'8 c c c16 c c c c c [c c c c] c8 c c4
+  \time 12/8 c'8 c c c16 c c c c c [c c c c] c8 c c4
 @end lilypond
 
 It is not possible to specify beaming parameters that act differently in
@@ -993,7 +994,7 @@ indicate a musical sentence. It is entered using @code{\(} and
 @code{\)}.
 
 @lilypond[fragment,verbatim,center,relative]
-  \time 6/4; c''\((d)e f(e)\)d
+  \time 6/4 c''\((d)e f(e)\)d
 @end lilypond
 
 Typographically, the phrasing slur behaves almost exactly like a normal
@@ -1123,8 +1124,8 @@ name of the corresponding symbol appearing underneath.
       }
     >
     \paper {
-      linewidth = 5.875\in;          
-      indent    = 0.0;
+      linewidth = 5.875\in
+      indent    = 0.0
     }
   }
 @end lilypond
@@ -1481,7 +1482,7 @@ the specified number of repeats.
 @lilypond[fragment,verbatim]
 \context Staff {
   \relative c' {
-    \partial 4;
+    \partial 4
     \repeat volta 3 { e | c2 d2 | e2 f2 | }
     \alternative { { g4 g g } { a | a a a a | b2. } }
   }
@@ -1623,7 +1624,7 @@ are squashed, and the  staff itself  looks has  a single staff line:
 
 @lilypond[fragment,relative ]
   \context RhythmicStaff {
-      \time 4/4; 
+      \time 4/4
       c4 e8 f  g2 | r4 g r2 | g1:32 | r1 |
   }
 @end lilypond
@@ -1670,7 +1671,7 @@ over rests to switch rests in advance.
     \autochange Staff \context Voice = VA < \relative c' {
        g4 a  b c d r4 a g } > }
   \context Staff = "down" {
-       \clef bass; 
+       \clef bass
        s1*2
 } > }
 @end lilypond
@@ -1754,7 +1755,7 @@ to the chords in both staffs, and set
   \context PianoStaff <
     \property PianoStaff.connectArpeggios = ##t
     \context Voice = one  { <c''\arpeggio e g c> }
-    \context Voice = other { \clef bass;  <c,,\arpeggio e g>}
+    \context Voice = other { \clef bass  <c,,\arpeggio e g>}
   >  
 @end lilypond
 
@@ -1789,7 +1790,7 @@ can be printed automatically. This is enabled if the property
       \translator Staff=two
       b2 a
     }
-    \context Staff=two {\clef bass; \skip 1*2;}
+    \context Staff=two {\clef bass \skip 1*2 }
   >  
 @end lilypond
 
@@ -1854,7 +1855,7 @@ interpreted as melismata. Lyric syllables must be interpreted within a
 
 @lilypond[verbatim,singleline]
 \addlyrics \notes \relative c' {
-        \time 7/4;
+        \time 7/4
         \property Staff.automaticMelismata = ##t
         d'2 c4 b2 a2
 	b2 c4 b4 ()  a4 g2 }
@@ -1969,7 +1970,7 @@ identity is @code{duet}, and the identities of the LyricsVoices are
 @lilypond[singleline,verbatim]
 \score {
 \addlyrics
-  \notes \relative c'' \context Voice = duet { \time 3/4;
+  \notes \relative c'' \context Voice = duet { \time 3/4
      g2 e4 a2 f4 g2.  }
   \lyrics \context Lyrics <
   \context LyricsVoice = "duet-1" {
@@ -2265,9 +2266,9 @@ problems in orchestral music.
 @cindex @code{Mark_engraver}
 
 @example
-  \mark @var{unsigned};
-  \mark @var{string};
-  \mark ; 
+  \mark @var{unsigned}
+  \mark @var{string}
+  \mark \default
 @end example
 
 With this command, you can print a rehearsal mark above the system. You
@@ -2277,11 +2278,11 @@ incremented.
 
 @lilypond[fragment,verbatim]
 \relative c'' {
-  c1 \mark "A2";
-  c1 \mark ; 
-  c1 \mark ; 
-  c1 \mark "12";
-  c1 \mark #'(music "scripts-segno") ;
+  c1 \mark "A2"
+  c1 \mark \default
+  c1 \mark \default 
+  c1 \mark "12"
+  c1 \mark #'(music "scripts-segno") 
   c1
 }
 @end lilypond
@@ -2311,7 +2312,7 @@ used, for the next ones @code{instr} is used.
   \property Staff.instrument = "ploink " { c''4 } }
   \paper { 
     \translator { \StaffContext
-    \consists "Instrument_name_engraver"; } } }
+    \consists "Instrument_name_engraver" } } }
 @end lilypond
 
 This requires  that you add the @code{Instrument_name_engraver} to the
@@ -2329,7 +2330,7 @@ complicated instrument names:
     c'' 4 }
   \paper { 
     \translator { \StaffContext
-    \consists "Instrument_name_engraver"; } } }
+    \consists "Instrument_name_engraver" } } }
 @end lilypond
 
 
@@ -2363,11 +2364,11 @@ will print flats.
 
 @lilypond[fragment,verbatim]
 \context Staff {
-  \clef "F";
-  { \key e \major; c d e f }
-  \clef "G";
-  \transpose des'' { \key e \major; c d e f }
-  \transpose cis'' { \key e \major; c d e f }
+  \clef "F"
+  { \key e \major c d e f }
+  \clef "G"
+  \transpose des'' { \key e \major c d e f }
+  \transpose cis'' { \key e \major c d e f }
 }
 @end lilypond
 
@@ -2406,7 +2407,7 @@ Lily will not expand empty measures, and the appropriate number is added
 automatically.
 
 @lilypond[fragment,verbatim]
- \time 3/4; R2.*2 \property Score.skipBars = ##t R2.*17  R2.*4
+ \time 3/4 R2.*2 \property Score.skipBars = ##t R2.*17  R2.*4
 @end lilypond
 
 Currently, there is  no way to condense multiple rests into a single
@@ -2524,7 +2525,7 @@ line.
     \context Staff = SB { c4 d e f \break R1 }
   >
   \paper {
-    linewidth = 6.\cm ; 
+    linewidth = 6.\cm 
     \translator { \HaraKiriStaffContext }
   }
 }
@@ -2550,8 +2551,8 @@ performance, thus enhancing readability of a score.
   \paper {
     \translator {
       \StaffContext
-      \consists Custos_engraver;
-      Custos \override #'style = #'mensural;
+      \consists Custos_engraver
+      Custos \override #'style = #'mensural
     }
   }
 }
@@ -2574,8 +2575,8 @@ are @code{vaticana}, @code{medicaea}, @code{hufnagel} and
 \paper @{
   \translator @{
       \StaffContext
-      \consists Custos_engraver;
-      Custos \override #'style = #'mensural;
+      \consists Custos_engraver
+      Custos \override #'style = #'mensural
   @}
 @}
 @end example
@@ -2879,10 +2880,14 @@ The style sheets and tables for selecting fonts are located in
 
 @refbugs
 
-Relative size is not linked to any real size.  There is no mechanism to
-select magnifications of fonts, meaning that you can not scale fonts
-continuoussly. There is no style sheet provided for other fonts besides
-the @TeX{} family.
+Relative size is not linked to any real size.
+
+There is no mechanism to select magnification of particular fonts,
+meaning that you don't have access to continuously scaled fonts.  You
+can scale the entire output, of course, see @ref{Output scaling}.
+
+There is no style sheet provided for other fonts besides the @TeX{}
+family.
 
 @cindex font selection
 @cindex font magnification
@@ -2994,7 +2999,7 @@ marking:
     a1^#`((rows (font-relative-size . -1)) ,dotted-eight-note " = 64")
   }
   \paper {
-    linewidth = -1.;
+    linewidth = -1.
     \translator{
       \ScoreContext
       TextScript \override #'font-shape = #'upright
@@ -3041,7 +3046,7 @@ unblanknotes = {
 
 \score {
   \notes\relative c'' {
-    \time 6/4;
+    \time 6/4
     a b c b \blanknotes c \unblanknotes d
   }
 }
@@ -3052,13 +3057,13 @@ Some grobs require a special treatment.
 Rhythm exercise: make staff invisible and squash pitches:
 @lilypond[singleline,verbatim]
 \score {
-  \notes { \time 3/4; c4 c c8 c | c4 c c8 c }
+  \notes { \time 3/4 c4 c c8 c | c4 c c8 c }
   \paper {
     \translator {
       \StaffContext
-      \remove Staff_symbol_engraver;
-      \consists Pitch_squash_engraver;
-      \remove Clef_engraver;
+      \remove Staff_symbol_engraver
+      \consists Pitch_squash_engraver
+      \remove Clef_engraver
     }
   }
 }
@@ -3075,7 +3080,7 @@ Some modern music does not show bar lines:
     \translator {
       \StaffContext
       whichBar = #""
-      \remove "Time_signature_engraver";
+      \remove "Time_signature_engraver"
     }
   }
 }
@@ -3116,7 +3121,7 @@ use are in @code{staff-space}s.
     s2
     a'1
   }
-  \paper { linewidth = 70 * \staffspace; }
+  \paper { linewidth = 70*\staffspace }
 }
 @end lilypond
 
@@ -3133,6 +3138,7 @@ use are in @code{staff-space}s.
 * Paper size::                  
 * Line break::                  
 * Page break::                  
+* Output scaling::              
 @end menu
 
 @c .  {Paper block}
@@ -3150,8 +3156,7 @@ music notation.  The syntax is
 where each of the items is one of
 
 @itemize @bullet
-  @item  An assignment.  The assignment must be terminated by a
-       semicolon.  
+  @item  An assignment.
 
   @item  A context definition.  See @ref{Notation Contexts} for
        more information on context definitions.
@@ -3282,12 +3287,6 @@ The file @code{paper16.ly}  will now include a file named @file{a4.ly}, which
 will set the paper variables @code{hsize} and @code{vsize} (used by
 @code{ly2dvi})
 
-
-
-
-
-
-
 @c .  {Line break}
 @node Line break
 @subsection Line break
@@ -3303,7 +3302,7 @@ Occasionally you might want to override the automatic breaks; you can do
 this by specifying @code{\break}. This will force a line break at this
 point. Do remember that line breaks can only occur at places where there
 are barlines.  If you want to have a line break where there is no
-barline, you can force an invisible barline by entering @code{\bar "";}.
+barline, you can force an invisible barline by entering @code{\bar ""}.
 
 Similarly, @code{\noBreak} forbids a  line break at a certain point.
 
@@ -3335,6 +3334,28 @@ Page breaks are normally computed by @TeX{}, so they are not under
 direct control of LilyPond.  However, you can insert a commands into the
 @file{.tex} output to instruct @TeX{} where to break pages. For more
 details, see the example file @file{input/test/between-systems.ly}
+
+
+
+@c .  {Output scaling}
+@node Output scaling
+@subsection Output scaling
+
+[TODO]
+
+@example
+dvips ...
+@end example
+
+@example
+pstops ...
+@end example
+
+
+@refbugs
+There is no mechanism to select magnification of particular fonts,
+meaning that you don't have access to continuously scaled fonts.
+
 
 
 @c . {Output formats}
@@ -3978,7 +3999,7 @@ system.
         c'4 c'4 }
   \paper {
     \translator  { \StaffContext
-        \remove Clef_engraver;
+        \remove Clef_engraver
        } } }
 @end lilypond
 
@@ -4020,12 +4041,12 @@ following extra information:
 This is an example:
 @example
 \translator @code{
-  \type "Engraver_group_engraver";
-  \name "SimpleStaff";
-  \alias "Staff";
-  \consists "Staff_symbol_engraver";
-  \consists "Note_head_engraver";
-  \consistsend "Axis_group_engraver";
+  \type "Engraver_group_engraver"
+  \name "SimpleStaff"
+  \alias "Staff"
+  \consists "Staff_symbol_engraver"
+  \consists "Note_head_engraver"
+  \consistsend "Axis_group_engraver"
 }@
 @end example
 
@@ -4058,11 +4079,11 @@ and only the toplevel context.
 Other modifiers   are
 
 @itemize @bullet
-  @item @code{\alias} @var{alternate-name} @code{;}
+  @item @code{\alias} @var{alternate-name}
     This specifies a different name. In the above example,
 @code{\property Staff.X = Y} will also work on @code{SimpleStaff}s
 
-  @item  @code{\consistsend} @var{engravername} @code{;}  
+  @item  @code{\consistsend} @var{engravername} 
     Analogous to @code{\consists}, but makes sure that
     @var{engravername} is always added to the end of the list of
     engravers.
@@ -4072,7 +4093,7 @@ Other modifiers   are
     removes engravers.  This command is usually not needed for
     end-users.
     
-  @item  @code{\accepts} @var{contextname} @code{;}  
+  @item  @code{\accepts} @var{contextname}
     Add @var{contextname} to the list of  context this context can
     contain.  The first listed context is the context to create by
     default.
@@ -4081,7 +4102,7 @@ Other modifiers   are
 completeness, but is never used in practice.
  
   
-  @item  @code{\name} @var{contextname} @code{;}  
+  @item  @code{\name} @var{contextname} 
     This sets name of the context, e.g. @code{Staff}, @code{Voice}.  If
     the name is not specified, the translator won't do anything.
 @end itemize
@@ -4181,8 +4202,8 @@ metre, arranger, piece and tagline.
 
 The syntax is
 @example
-  \header @{ @var{key1} = @var{val1};
-             @var{key2} = @var{val2}; @dots{} @}
+  \header @{ @var{key1} = @var{val1}
+             @var{key2} = @var{val2} @dots{} @}
 @end example
 
 It is customary to put the @code{\header} at the top of the file.
@@ -4407,11 +4428,6 @@ and to refer to an identifier, you preceed its name with a backslash:
 the input-types listed above.  Identifier assignments can appear at top
 level in the LilyPond file, but also in @code{\paper} blocks.
 
-Semicolons are forbidden after top level assignments, but mandatory in
-other places. The rules about semicolons and assignments are very
-confusing, but when LilyPond input evolves more towards Scheme, we hope
-that this problem will grow smaller.
-
 An identifier can be created with any string for its name, but you will
 only be able to refer to identifiers whose names begin with a letter,
 being entirely alphabetical.  It is impossible to refer to an identifier
@@ -4484,23 +4500,13 @@ some time.
 @itemize @bullet
   @item  The assignment
 
-         @example 
+@example 
 foo = bar 
 @end example 
-
-       can be interpreted as making a string identifier @code{\foo}
+         is interpreted as the string identifier assignment. However,
+it can also  be interpreted as making a string identifier @code{\foo}
        containing @code{"bar"}, or a music identifier @code{\foo}
-       containing the syllable `bar'.
-
-  @item  The assignment
-
-         @example 
-foo = -6 
-@end example 
-
-       can be interpreted as making an integer identifier
-       containing -6, or a Request identifier containing the
-       fingering `6' (with neutral direction).
+       containing the syllable `bar'.  
 
   @item  If you do a nested repeat like
 
@@ -4518,7 +4524,12 @@ foo = -6
        @code{\alternative} belongs.  This is the classic if-then-else
        dilemma.  It may be solved by using braces.
 
-  @item  (an as yet unidentified ambiguity :-)
+  @item The parser is not sophisticated enough to distinguish at the
+right time between
+        @code{c4*2 / 3 } and @code{c4*2 / g} (in chord mode).
+
+[checkme]
+
 @end itemize
 
 
@@ -4686,7 +4697,7 @@ filename including the @file{.ly} extension must be given,
 @subsection Version information 
 @cindex @code{\version}
 @example
-  \version @var{string} ;
+  \version @var{string} 
 @end example
 
 Specify the version of LilyPond that a file was written for.  The

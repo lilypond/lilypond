@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 
 \score {
@@ -10,9 +11,9 @@
 
 
 \paper {
-linewidth=-1.0;
+linewidth=-1.0
 \translator { \StaffContext
-  \consists "Instrument_name_engraver";
+  \consists "Instrument_name_engraver"
   }
-\translator { \GrandStaffContext \consists "Instrument_name_engraver"; }
+\translator { \GrandStaffContext \consists "Instrument_name_engraver" }
 }}

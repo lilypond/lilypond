@@ -142,7 +142,7 @@ HYPHEN		--
 <INITIAL,chords,lyrics,notes>\\version{WHITE}*	{
 	yy_push_state (version);
 }
-<version>\"[^"]*\";?   { /* got the include file name */
+<version>\"[^"]*\"     { /* got the version number */
 	String s (YYText ()+1);
 	s = s.left_str (s.index_last_i ('"'));
 
@@ -202,8 +202,12 @@ HYPHEN		--
 		new_input (ly_scm2string (sid), source_global_l);
 		yy_pop_state ();
 	} else { 
-	    String msg (_f ("wrong or undefined identifier: `%s'", s ));	
+	    String msg (_f ("wrong or undefined identifier: `%s'", s ));
+
 	    LexerError (msg.ch_C ());
+	    SCM err = scm_current_error_port ();
+	    scm_puts ("This value was found in the table: ", err);
+	    scm_display (sid, err);
 	  }
 }
 <incl>\"[^"]*   { // backup rule
@@ -388,7 +392,7 @@ HYPHEN		--
 	int cnv=sscanf (YYText (), "%lf", &r);
 	assert (cnv == 1);
 
-	yylval.real = r;
+	yylval.scm = gh_double2scm (r);
 	return REAL;
 }
 

@@ -1,40 +1,40 @@
 \header {
-  filename =    "petite-ouverture-a-danser.ly";
-  title =       "Petite Ouverture \\`a danser";
-  subtitle =	"4";
-  source =      "";
-  composer =    "Erik Satie (1866-1925)";
-  enteredby =   "jcn";
-  copyright =   "Public Domain";
+  filename =    "petite-ouverture-a-danser.ly"
+  title =       "Petite Ouverture \\`a danser"
+  subtitle =	"4"
+  source =      ""
+  composer =    "Erik Satie (1866-1925)"
+  enteredby =   "jcn"
+  copyright =   "Public Domain"
 }
 
 %{
  Tested Features:
 %}
 
-\version "1.3.117";
+\version "1.3.146"
 
 \include "nederlands.ly"
 
 global =  \notes {
-  \key a \minor;
-  \time 2/4;
+  \key a \minor
+  \time 2/4
   s2*10
-  \bar "||";
+  \bar "||"
   s2*11
-  \bar "||";
-  \time 3/4;
+  \bar "||"
+  \time 3/4
   s2.
-  \bar "||";
-  \time 2/4;
+  \bar "||"
+  \time 2/4
   s2*4
-  \bar "||";
-  \time 3/4;
+  \bar "||"
+  \time 3/4
   s2.*2
-  \bar "||";
-  \time 2/4;
+  \bar "||"
+  \time 2/4
   s2*18
-  \bar "|.";
+  \bar "|."
 }
   
 i =  \context Staff \notes\relative c''{
@@ -135,20 +135,20 @@ lower =  \context Staff \notes \relative c{
     \context GrandStaff < 
       \context Staff = treble < 
         \global 
-        \clef violin;
+        \clef violin
 	\i
 	\ii
       >
       \context Staff = bass <
         \global
-	\clef bass;
+	\clef bass
         \lower
       >
     >
 
   \paper {
-    gourlay_maxmeasures = 5.;
-    textheight = 295.\mm;
+    gourlay_maxmeasures = 5.
+    textheight = 295.\mm
     \translator{ \OrchestralScoreContext }
     \translator{
 	    \VoiceContext
@@ -157,7 +157,7 @@ lower =  \context Staff \notes \relative c{
     }
   }
   \midi {
-    \tempo 4 = 60;
+    \tempo 4 = 60
   }
 }
 

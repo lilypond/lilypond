@@ -1,14 +1,15 @@
+\version "1.3.146"
 
 
 
 
 voiceE =  \notes {
-\clef bass;
+\clef bass
  \property Staff.instrument = "Bass"
  \property Staff.instr = "B"
 % \property Staff.VoltaBracket = \turnOff
 
- \time 4/4;  f,2 (   ) f,8    r8   f8    e8    
+ \time 4/4  f,2 (   ) f,8    r8   f8    e8    
 \repeat  volta 2
 {
  d8.    d16    e8.    f16    f8    c8    c16    c8. 
@@ -22,8 +23,8 @@ voiceE =  \notes {
 }
 voicedefault =  \notes {
  
- \time 4/4; \key f \major ; 
- \tempo 4 = 200;
+ \time 4/4 \key f \major  
+ \tempo 4 = 200
 }
 \score{
         \notes <
@@ -37,11 +38,11 @@ voicedefault =  \notes {
 
     >
         \paper {
-            font_normal = 12.;
+            font_normal = 12.
             \translator {
                  \StaffContext
 		 TimeSignature \override   #'style = #'C
-                 \consists Instrument_name_engraver;
+                 \consists Instrument_name_engraver
             }
         }
 }

@@ -1,3 +1,4 @@
+\version "1.3.146"
 %{
 
 You should preprocess this file with the C preprocessor.  The one with
@@ -16,14 +17,14 @@ cpp -P -traditional -o l-fake.ly  -DFAKE_GRACE les-nereides.ly
 
 
 \header{
-    composer =   "ARTHUR GRAY";
-    title =      "LES N\\'ER\\'EIDES";
-    subtitle =   "THE NEREIDS";
-    enteredby =  "JCN";
-    %piece =      "Allegretto scherzando";
-    copyright =  "public domain";
-    description = "Nastiest piece of competition at http://www.orphee.com/comparison/study.html, see http://www.orphee.com/comparison/gray.pdf";
-    comment =     "LilyPond (1.3.93) can't really do this yet, I guess";
+    composer =   "ARTHUR GRAY"
+    title =      "LES N\\'ER\\'EIDES"
+    subtitle =   "THE NEREIDS"
+    enteredby =  "JCN"
+    %piece =      "Allegretto scherzando"
+    copyright =  "public domain"
+    description = "Nastiest piece of competition at http://www.orphee.com/comparison/study.html, see http://www.orphee.com/comparison/gray.pdf"
+    comment =     "LilyPond (1.3.93) can't really do this yet, I guess"
 }
 
 
@@ -34,26 +35,26 @@ cpp -P -traditional -o l-fake.ly  -DFAKE_GRACE les-nereides.ly
 %% cpp: don't start on first column
  #(define (make-text-checker text)
   (lambda (elt)
-     ;; huh, string-match undefined?
-     ;; (string-match text (ly-get-grob-property elt 'text))
+      huh, string-match undefined?
+      (string-match text (ly-get-grob-property elt 'text))
      (equal? text (ly-get-grob-property elt 'text))
     ))
 
 
 global =  \notes{
-    \partial 2;
-    \key a \major;
-    \skip 2;
-    \skip 1*2;
+    \partial 2
+    \key a \major
+    \skip 2
+    \skip 1*2
 
 #ifndef FAKE_GRACE  /* First run this through cpp.  See head les-nereides.ly */
-    \skip 1;
+    \skip 1
 #else % FAKE_GRACE
-    \skip 2.; \partial 32*24;
-    \skip 32*24;
+    \skip 2. \partial 32*24
+    \skip 32*24
 #endif % FAKE_GRACE
 
-    \bar "||";
+    \bar "||"
 }
 
 treble =  \context Voice=treble \notes\relative c''{
@@ -264,22 +265,22 @@ bass =  \context Voice=bass \notes\relative c{
     \property Voice.Stem \revert #'direction
     \property Voice.Stem \override #'direction = #-1
     <b,,4 b,>
-    \clef treble;
+    \clef treble
     \property Voice.Stem \revert #'direction
     \property Voice.Stem \override #'direction = #0
     <
         %urg: staff-change: ! on dis
         <cis''\arpeggio a fis dis!>
-%	{ s8. \clef bass;}
+%	{ s8. \clef bass}
     >
 
 #ifndef FAKE_GRACE
     %Hmm
-    %\grace { s16 s s s s32 s s s s \clef bass; s }
-    \clef bass;
+    %\grace { s16 s s s s32 s s s s \clef bass s }
+    \clef bass
     \grace { <e,,,32( e,> } <)gis'2 e>
 #else
-    s4 s8 s32 s  s \clef bass;
+    s4 s8 s32 s  s \clef bass
     \property Score.PaperColumn  \override #'space-factor = #0.6
     \property Score.PaperColumn  \override #'to-musical-spacing-factor = #0.1
     \property Voice.NoteHead \override #'font-relative-size = #-1
@@ -319,12 +320,12 @@ bass =  \context Voice=bass \notes\relative c{
 }
 
 bassTwo =  \context Voice=bassTwo \notes\relative c{
-    \skip 2;
-    \skip 1*2;
-    \skip 2;
+    \skip 2
+    \skip 1*2
+    \skip 2
 
 #ifdef FAKE_GRACE
-    \skip 32*16;
+    \skip 32*16
 #endif
 
     \property Voice.Stem \revert #'direction
@@ -415,7 +416,7 @@ lowerDynamics =  \context Dynamics=lower \notes{
 	    \middleDynamics
 	>
         \context Staff=bass <
-	    \clef bass;
+	    \clef bass
 	    \global
 	    \bass
 	    \bassTwo
@@ -427,20 +428,20 @@ lowerDynamics =  \context Dynamics=lower \notes{
     >
     \paper {
 	%%BURP
-	magnification_italic = 1.;
+	magnification_italic = 1.
 	\translator {
 	    \ScoreContext
 	    TimeSignature \override #'style = #'C
 	    SpacingSpanner \override #'maximum-duration-for-spacing = #(make-moment 1 4)
 
-	    \remove Bar_number_engraver;
+	    \remove Bar_number_engraver
         }
 	\translator {
-	    \type "Engraver_group_engraver";
-	    \name Dynamics;
-	    \consists "Output_property_engraver";
+	    \type "Engraver_group_engraver"
+	    \name Dynamics
+	    \consists "Output_property_engraver"
 	    Generic_property_list = #generic-voice-properties
-	    \consists "Property_engraver";
+	    \consists "Property_engraver"
 	    MinimumVerticalExtent = #(cons -3 -3)
 	    VerticalAlignment \override #'threshold = #'(9 . 9) 
 
@@ -450,22 +451,22 @@ lowerDynamics =  \context Dynamics=lower \notes{
 	    startUnaChorda = #"una chorda"
 	    stopUnaChorda = #"tre chorde"
 	    
-	    \consists "Piano_pedal_engraver";
-	    \consists "Script_engraver";
-	    \consists "Dynamic_engraver";
-	    \consists "Text_engraver";
+	    \consists "Piano_pedal_engraver"
+	    \consists "Script_engraver"
+	    \consists "Dynamic_engraver"
+	    \consists "Text_engraver"
 	    %GURGURGU, text is initialised using TextScript
 	    TextScript \override #'style = #"italic"
 	    %%% TextScript \override #'font-relative-size = #2
 
-	    \consists "Skip_req_swallow_translator";
+	    \consists "Skip_req_swallow_translator"
 
-	    \consistsend "Axis_group_engraver";
+	    \consistsend "Axis_group_engraver"
     	}
 
 	\translator {
 	    \PianoStaffContext
-	    \accepts Dynamics;
+	    \accepts Dynamics
 	    VerticalAlignment \override #'threshold = #'(7 . 7)
         }
 	\translator {

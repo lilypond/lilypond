@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 
 % barline spacing  disrupts visual rhythm.
@@ -22,15 +23,15 @@
     >
 
     \paper{
-    	linewidth = -1.0\cm;
+    	linewidth = -1.0\cm
 	\translator{
 	    \ScoreContext
 	    BreakAlignment \override #'space-alist = #nbal
-	    \remove Timing_engraver;
+	    \remove Timing_engraver
 	}
 	\translator{
 	    \StaffContext
-	    \consists Timing_engraver;
+	    \consists Timing_engraver
 	}
     }
 }

@@ -1,9 +1,10 @@
+\version "1.3.146"
 \header{
-filename = 	"twinkle.ly";
-title = 		"Twinkle Twinkle Little Star";
-composer = 	"Traditional";
-enteredby = 	"hwn and jcn";
-copyright = 	"public domain";
+filename = 	"twinkle.ly"
+title = 		"Twinkle Twinkle Little Star"
+composer = 	"Traditional"
+enteredby = 	"hwn and jcn"
+copyright = 	"public domain"
 }
 
 %{
@@ -23,7 +24,7 @@ Tested Features: lyrics, interleaving lyrics and staffs, repeats,
 
 
 melody =  \notes \relative c'' {
-	\clef violin;
+	\clef violin
 	\property Staff.instrument = "alto sax"
 	
 	c4 c | g' g | a a | g g |
@@ -37,7 +38,7 @@ melody =  \notes \relative c'' {
 }
 
 accompany =  \notes \relative c {
-	\clef "bass";
+	\clef "bass"
 	c4 c' | e c | f c | e c | 
 	d b | c a | f g | c,2 | 
 
@@ -104,7 +105,7 @@ textii =  \lyrics{
 
 textiii =  \lyrics{
 	Then the tra -- veler in the dark " "
-	Thanks you for your ti -- ny  " " spark;
+	Thanks you for your ti -- ny  " " spark
 	He could not see which way to go,
 	If you did not twin -- kle  " " so. " "
 	Twin -- kle, twin -- kle, lit -- tle star, " "
@@ -117,7 +118,7 @@ textiii =  \lyrics{
 		\context Lyrics=top s1
 		\context GrandStaff <
 			\context Staff=ii \repeat volta 2 <
-			  \time 2/4;
+			  \time 2/4
 			  \melody >
 			\context Staff=iii \repeat volta 2 <
 			  \accompany >
@@ -141,10 +142,10 @@ textiii =  \lyrics{
 			>
 	>
 	\paper{
-		gourlay_maxmeasures = 14.0;
+		gourlay_maxmeasures = 14.0
 	}
 	\midi{ 
-		\tempo 4 = 120 ;
+		\tempo 4 = 120 
 	}
 }
 

@@ -1,9 +1,10 @@
+\version "1.3.146"
 \header{
 texidoc="
 Beams can be typeset over fixed distance aligned staffs, beam
 beautification doesn't really work, but knees do. Beams should be
 behave well, wherever the switching point is.
-";
+"
 }
 \score{
 	\context PianoStaff <
@@ -20,7 +21,7 @@ behave well, wherever the switching point is.
 		r2
 	}
 	\context Staff=two \notes\relative c'{
-		\clef bass;
+		\clef bass
 		s1
 		s1
 		s1

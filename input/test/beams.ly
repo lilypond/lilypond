@@ -1,10 +1,11 @@
+\version "1.3.146"
 \header{
-filename = 	 "beams.ly";
-composer = 	 "heu";
-enteredby = 	 "jcn";
-copyright = 	 "PD";
+filename = 	 "beams.ly"
+composer = 	 "heu"
+enteredby = 	 "jcn"
+copyright = 	 "PD"
 
-TestedFeatures = 	 "beams and beamflags";
+TestedFeatures = 	 "beams and beamflags"
 }
 
 
@@ -14,7 +15,7 @@ TestedFeatures = 	 "beams and beamflags";
 		\context GrandStaff < 
 		\notes\transpose c' { 
 
-			\time 8/4;
+			\time 8/4
 			\stemUp [c8 c'' a' f']
 			\stemUp [c16 c'' a' f']
 			\stemUp [c32 c'' a' f']
@@ -40,7 +41,7 @@ TestedFeatures = 	 "beams and beamflags";
 	<	
 		\notes { 
 \transpose c' {
-			\time 8/4;
+			\time 8/4
 			\stemDown [a'8 a, c e]
 			\stemDown [a'16 a, c e]
 			\stemDown [a'32 a, c e]

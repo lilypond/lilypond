@@ -1,9 +1,10 @@
+\version "1.3.146"
 \header {
   texidoc = "By inserting the @TeX{} command \embeddedps, you can
 insert postscript directly into the output.
 
 TODO: make molecule-callback to do this. 
-  ";
+  "
 }
 
 \score {
@@ -14,5 +15,5 @@ TODO: make molecule-callback to do this.
     s2
     a'1
   }
-  \paper { linewidth = 70 * \staffspace; }
+  \paper { linewidth = 70 * \staffspace }
 }

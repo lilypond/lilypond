@@ -1,3 +1,4 @@
+\version "1.3.146"
 \header {
 texidoc = "
 
@@ -16,10 +17,10 @@ examples:
 
 These beam direction functions are defined in @file{scm/beam.scm}.  If
 your favourite algorithm isn't one of these, you can hook up your own.
-";
+"
 }
 
-\paper { linewidth = -1.;}
+\paper { linewidth = -1.}
 \score { \notes \relative c { 
   [d''8 a]
   \property Voice.Beam \set #'dir-function = #beam-dir-mean
@@ -28,7 +29,7 @@ your favourite algorithm isn't one of these, you can hook up your own.
   [d a]
 }}
 \score { \notes \relative c {
-  \time 3/8;
+  \time 3/8
   [d''8 a a]
   \property Voice.Beam \set #'dir-function = #beam-dir-mean
   [d a a] 

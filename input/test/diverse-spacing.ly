@@ -1,8 +1,9 @@
+\version "1.3.146"
 
 
 % a few 32nds shouldn't stretch spacing enormously.
 \score {
-\notes { \time 3/4;
+\notes { \time 3/4
 \relative c'{ 
   g'8. c16 es8. d16 c8. bes32 as g8. c,16
   es4 r8 es |
@@ -11,5 +12,5 @@
 }
 
 }
-\paper  { linewidth = -1.0; }
+\paper  { linewidth = -1.0 }
 }

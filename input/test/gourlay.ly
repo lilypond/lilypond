@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 
 %{
@@ -12,7 +13,7 @@ This is taken from [Gourlay]'s paper on breaking lines
 	       \context Voice = VB { \stemDown g4 g g g | \times 2/3 { g2 g2 g2 } | g4. g8 g2 | c1 }
                >
        \paper{
-           linewidth = 9.\cm;
+           linewidth = 9.\cm
        }
 }
 

@@ -1,5 +1,6 @@
+\version "1.3.146"
 \header{
-texidoc = "Piano pedal symbols merge stop and start.  The strings are configurable. ";
+texidoc = "Piano pedal symbols merge stop and start.  The strings are configurable. "
 }
 
 
@@ -17,6 +18,6 @@ c, \sustainUp\sustainDown d e f
 \paper{
 }
 \midi{
-\tempo 4 = 60;
+\tempo 4 = 60
 }
 }

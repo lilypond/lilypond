@@ -1,18 +1,18 @@
 % Toplevel initialisation file. 
 	
 
-\version "1.3.120";
+\version "1.3.146"
 
 
 \include "declarations.ly"
 
-\include "paper16.ly";
+\include "paper16.ly"
 
  \paper { 
   \paperSixteen
-    linewidth = -1.0\cm;
-    castingalgorithm = \Wordwrap;
-   "unusedentry" = "}\\def\\nolilyfooter{"; 
+    linewidth = -1.0\cm
+    castingalgorithm = \Wordwrap
+   "unusedentry" = "}\\def\\nolilyfooter{" 
 }
 
 

@@ -1,8 +1,9 @@
+\version "1.3.146"
 \header{
-enteredby = 	 "jcn";
-copyright = 	 "PD";
+enteredby = 	 "jcn"
+copyright = 	 "PD"
 TestedFeatures = 	 "This file tests Feta embedded slurs" +
-	 "(Feta definitively is not an abbreviation of Font-En-TjA)";
+	 "(Feta definitively is not an abbreviation of Font-En-TjA)"
 }
 
 
@@ -35,9 +36,9 @@ broken =  \notes\transpose c''{
 		\broken
 	}
 	\paper{ 
-	      indent = 0.0\pt;
+	      indent = 0.0\pt
 		%for broken!
-		linewidth= 30.\mm;
+		linewidth= 30.\mm
 
 	}
 }

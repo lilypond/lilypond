@@ -1,13 +1,14 @@
+\version "1.3.146"
 %
 % TODO: what's this?
 %
 
 
 global =  \notes {
-	\key a \minor;
-	\time 6/4;
-%	\skip 1.*34;
-%	\bar ".|";
+	\key a \minor
+	\time 6/4
+%	\skip 1.*34
+%	\bar ".|"
 }
 
 melody =  \notes\relative c''{
@@ -40,14 +41,14 @@ accompany =  \notes \relative c{
 		>
 		\context Staff=down <
 			\global
-			\clef bass;
+			\clef bass
 			\autochange Staff \context Voice \accompany
 		>
 	>
 
 	\paper {
-		indent = 8.\mm;
-		textheight = 295.\mm;
+		indent = 8.\mm
+		textheight = 295.\mm
 
 		\translator{ 
 			\PianoStaffContext
@@ -56,10 +57,10 @@ accompany =  \notes \relative c{
 		\translator{ 
 			\StaffContext
 			% don't auto-generate bars: not a good idea: -> no breakpoints
-			% barAuto = "0";
+			% barAuto = "0"
 			% urg defaultBarType = #""
 			defaultBarType = #"" 
-			\remove "Time_signature_engraver";
+			\remove "Time_signature_engraver"
 
 			Slur \override #'direction = #1
 
@@ -68,7 +69,7 @@ accompany =  \notes \relative c{
 		}
 	}
 	\midi {
-		\tempo 4 = 54;
+		\tempo 4 = 54
 	}
 }
 

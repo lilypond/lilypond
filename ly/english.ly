@@ -53,7 +53,8 @@
 	(eff . ,(make-pitch -1 2 -2 ))
 	(ef . ,(make-pitch -1 2 -1 ))
 	(e . ,(make-pitch -1 2 0 ))
-	(es . ,(make-pitch -1 2 1 ))   ; es = E-flat in Dutch
+
+	(es . ,(make-pitch -1 2 1 ))    
 	(ess . ,(make-pitch -1 2 2 ))
 	(fff . ,(make-pitch -1 3 -2 ))
 	(ff . ,(make-pitch -1 3 -1 ))
@@ -68,7 +69,7 @@
 	(aff . ,(make-pitch -1 5 -2 ))
 	(af . ,(make-pitch -1 5 -1 ))
 	(a . ,(make-pitch -1 5 0 ))
-	(as . ,(make-pitch -1 5 1 ))   ; as = A-flat in Dutch
+	(as . ,(make-pitch -1 5 1 ))
 	(ass . ,(make-pitch -1 5 2 ))
 	(bff . ,(make-pitch -1 6 -2 ))
 	(bf . ,(make-pitch -1 6 -1 ))
@@ -77,5 +78,5 @@
 	(bss . ,(make-pitch -1 6 2 ))
 )
 
-\version "1.3.110";
+\version "1.3.146"
 

@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 
 
@@ -12,10 +13,10 @@
 	    a,
 
 	}
-	\context Staff=two { \clef bass; \skip 1*2; }
+	\context Staff=two { \clef bass \skip 1*2 }
     >
     \paper{
-        linewidth = 70.\mm;
+        linewidth = 70.\mm
 	\translator {
 	    \ScoreContext
 	    followVoice = ##t

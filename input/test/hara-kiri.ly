@@ -1,6 +1,7 @@
+\version "1.3.146"
 
 \header {
-texidoc = "Hara kiri staffs disappear when empty ";
+texidoc = "Hara kiri staffs disappear when empty "
 }
 
 
@@ -40,7 +41,7 @@ toeters =  \context Staff = toeters <
 >
  
 zager =  \context Staff = zager \notes \relative c'' {
-	\clef treble;
+	\clef treble
 	\property Staff.instrument = #"Zager"
 	\property Staff.instr = #"Zag."
 	c4^"zag" d e f 
@@ -55,18 +56,18 @@ zager =  \context Staff = zager \notes \relative c'' {
 }
 
 zoger =  \context Staff = zoger \notes \relative c'' {
-	\clef treble;
+	\clef treble
 	\property Staff.instrument = #"Zoger"
 	\property Staff.instr = #"Zog."
 	c4^"zog" d e f 
-	\skip 1*2;
+	\skip 1*2
 
 	\translator Staff=zager
 	\stemDown 
 	c2 g2
 	
 	a4 b c d 
-	\skip 1*1;
+	\skip 1*1
 }
 
 zagers =  \context GrandStaff <
@@ -84,7 +85,7 @@ zagers =  \context GrandStaff <
 		>
 	>
 	\paper{
-		linewidth = 80.0\mm;
+		linewidth = 80.0\mm
 		\translator { \HaraKiriStaffContext }
 %uh?
 		\translator { \OrchestralScoreContext }

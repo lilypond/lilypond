@@ -1,8 +1,9 @@
+\version "1.3.146"
 
 improOn = \notes {\translator Voice = impro }
 improOff = \notes {\translator SquashVoice = melo }
 
-global = \notes { s1*3 \bar "|."; }
+global = \notes { s1*3 \bar "|." }
 
 \score {
   <
@@ -19,28 +20,28 @@ global = \notes { s1*3 \bar "|."; }
   \paper { 
     \translator {
       \VoiceContext
-      \name SquashVoice;
-      \alias Voice;
-      \consists Pitch_squash_engraver;
-      \consists Local_key_engraver;
-      squashedPosition = 6;
+      \name SquashVoice
+      \alias Voice
+      \consists Pitch_squash_engraver
+      \consists Local_key_engraver
+      squashedPosition = 6
       NoteHead \override #'style = #'slash
       Accidentals \override #'transparent = ##t
     }
     \translator {
       \VoiceContext
-      \alias SquashVoice;
-      \consists Local_key_engraver;
+      \alias SquashVoice
+      \consists Local_key_engraver
     }
     \translator {
       \ScoreContext
-      \accepts SquashVoice;
+      \accepts SquashVoice
     }
     \translator {
       \StaffContext
-      \remove Local_key_engraver;
-      \accepts SquashVoice;
+      \remove Local_key_engraver
+      \accepts SquashVoice
     }
-    linewidth = -1;
+    linewidth = -1
   }
 }

@@ -1,8 +1,9 @@
+\version "1.3.146"
 \header{
-enteredby = 	 "jcn";
-copyright = 	 "public domain";
+enteredby = 	 "jcn"
+copyright = 	 "public domain"
 TestedFeatures = 	 "This file tests Feta embedded slurs" +
-	 "(Feta definitively is not an abbreviation of Font-En-TjA)";
+	 "(Feta definitively is not an abbreviation of Font-En-TjA)"
 }
 
 
@@ -168,7 +169,7 @@ clipping =  \notes\transpose c'{
 
 \score{
 	\context Staff \notes{ 
-%		\property Voice.pletvisibility = 0;
+%		\property Voice.pletvisibility = 0
 		% use blend for fast check
 		\blend
 % {
@@ -187,9 +188,9 @@ clipping =  \notes\transpose c'{
 		%\broken
 	}
 	\paper{ 
-	      indent = 0.0\pt;
+	      indent = 0.0\pt
 		%for broken!
-		% linewidth= 30.\mm;
+		% linewidth= 30.\mm
 	}
 }
 

@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 \header{
 texidoc="
@@ -11,7 +12,7 @@ alternatives is smaller, the first alternative is multiplied to get to
 the number of repeats.
 
 Unfolded behavior:
-";
+"
 }
 
 \score {

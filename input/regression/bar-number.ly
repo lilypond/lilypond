@@ -1,6 +1,7 @@
+\version "1.3.146"
 
 \header {
-texidoc="Bar number settable and padding adjustable.";
+texidoc="Bar number settable and padding adjustable."
 }
 
 \score {
@@ -12,7 +13,7 @@ texidoc="Bar number settable and padding adjustable.";
      c1 c\break
   }
   \paper {
-    linewidth = 40*\staffspace;
+    linewidth = 40*\staffspace
     % \translator { \BarNumberingStaffContext }
   }
 }

@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 \score {
   \context Staff \notes <
@@ -13,13 +14,13 @@
   \paper {
     \translator {
       \StaffContext
-      \remove Multi_measure_rest_engraver;
-      \remove Bar_engraver;
+      \remove Multi_measure_rest_engraver
+      \remove Bar_engraver
     }
     \translator {
       \VoiceContext
-      \consists Multi_measure_rest_engraver;
-      \consists Bar_engraver;
+      \consists Multi_measure_rest_engraver
+      \consists Bar_engraver
     }
   }
 }

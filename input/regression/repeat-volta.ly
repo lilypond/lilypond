@@ -1,9 +1,10 @@
+\version "1.3.146"
 
 \header{
 texidoc="
 Volta (Semi folded) behavior.  Voltas can start on non-barline moments.
 If they don't barlines should still be shown.
-";
+"
 }
 
 %  no alts.

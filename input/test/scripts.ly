@@ -1,3 +1,4 @@
+\version "1.3.146"
 	
 
 
@@ -43,7 +44,7 @@ blah =  	\notes{ \transpose c'' {
 	\stemUp
 	b,---. c---. d---. e---. f---. g---. a---. b---. c'---.
 	\stemBoth
-      \time 4/4;
+      \time 4/4
 	[c8 \< d e \! f][d' \> e' f' \! g'] 
 	[c-> \< d-> e-> \! f->][d'-> \> e'-> f'-> \! g'->] 
 	[c-^ \< d-^ e-^ \! f-^][d'-^ \> e'-^ f'-^ \! g'-^] 

@@ -1,3 +1,4 @@
+\version "1.3.146"
 % ASCII Art output
 %
 % Process as:
@@ -7,11 +8,11 @@
 
 
 \header{
-filename = 	"twinkle.ly";
-title = 		"Twinkle Twinkle Little Star";
-composer = 	"Traditional";
-enteredby = 	"hwn and jcn";
-copyright = 	"public domain";
+filename = 	"twinkle.ly"
+title = 		"Twinkle Twinkle Little Star"
+composer = 	"Traditional"
+enteredby = 	"hwn and jcn"
+copyright = 	"public domain"
 }
 
 
@@ -19,7 +20,7 @@ copyright = 	"public domain";
 \include "paper-as5.ly"
 
 melody =  \notes \relative c'' {
-	\time 2/4;
+	\time 2/4
 	c4 c | g' g | a a | g g |
 %{
 	f f | e e | d d8.( e16 | )c2 |
@@ -33,8 +34,8 @@ melody =  \notes \relative c'' {
 }
 
 accompany =  \notes \relative c {
-	\clef "bass";
-	\time 2/4;
+	\clef "bass"
+	\time 2/4
 	c4 c' | e c | f c | e c | 
 %{
 	d b | c a | f g | c,2 | 
@@ -67,9 +68,9 @@ text =  \lyrics{
 		\context Staff=lower \accompany 
 	>
 	\paper{
-		\translator { \GrandStaffContext \accepts "Lyrics"; }
-		indent=4.0\char;
-		linewidth=78.0\char;
+		\translator { \GrandStaffContext \accepts "Lyrics" }
+		indent=4.0\char
+		linewidth=78.0\char
 	}
 }
 

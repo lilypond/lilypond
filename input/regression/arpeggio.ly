@@ -1,7 +1,8 @@
+\version "1.3.146"
 \header{
 texidoc="
 Arpeggios are supported, both cross-staff and broken single staff.
-";
+"
 }
 
 
@@ -15,7 +16,7 @@ Arpeggios are supported, both cross-staff and broken single staff.
 	     <fis,\arpeggio a c>
 	  }
 	 \context Staff=two \notes\relative c{
-	     \clef bass;
+	     \clef bass
 	    \context Voice < g b d-\arpeggio   >
 	     <g\arpeggio b d>
 	 }

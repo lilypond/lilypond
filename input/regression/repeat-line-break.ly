@@ -1,9 +1,10 @@
+\version "1.3.146"
 
 \header{
 texidoc="
 Across linebreaks, the left edge of a first and second alternative
 bracket should be equal
-";
+"
 }
 
 \score  {

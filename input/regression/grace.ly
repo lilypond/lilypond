@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 \header{
 texidoc="
@@ -13,7 +14,7 @@ main note.  Grace notes can also be positioned after the main note.
 Grace notes without beams should have a slash, if @code{flagStyle} is
 not set.  Main note scripts don't end up on the grace note.
 
-";
+"
 }
 
 \score {\notes \context Voice = VA \relative c'' {
@@ -26,6 +27,6 @@ not set.  Main note scripts don't end up on the grace note.
 %	\grace  c16 [c8 c8]
 	\grace  { \property Grace.graceAlignPosition = \right c16} c4
 }
-\paper {linewidth = -1.;}
+\paper {linewidth = -1.}
 \midi{ }
 }

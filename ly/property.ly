@@ -1,6 +1,6 @@
 % property.ly
 
-\version "1.3.110";
+\version "1.3.146"
 
 stemUp = \property Voice.Stem \override #'direction = #1
 stemDown = \property Voice.Stem \override #'direction = #-1 
@@ -114,10 +114,10 @@ specialkey = {
 
 % End the incipit and print a ``normal line start''.
 endincipit = \notes{
-    \partial 16; s16  % Hack to handle e.g. \bar ".|"; \endincipit
+    \partial 16 s16  % Hack to handle e.g. \bar ".|" \endincipit
     \context Staff \outputproperty #(make-type-checker 'clef-interface) #'full-size-change = ##t
     \context Staff \outputproperty #(make-type-checker 'clef-interface) #'non-default = ##t
-    \bar "";
+    \bar ""
 }
 
 autoBeamOff = \property Voice.noAutoBeaming = ##t

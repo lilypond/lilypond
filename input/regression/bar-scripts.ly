@@ -1,17 +1,18 @@
+\version "1.3.146"
 \header{
 texidoc="
 Markings that are attached to (invisible) barlines are 
 delicate: the are attached to the rest of the score without the score
 knowing it.  Consequently, they fall over  often.
-";
+"
 }
 
 
 
 onestaff =  \context Staff = foo\notes  {
 	\property Staff.instr = instr
-	\property Staff.instrument = instrument \mark "B";
-	 c1 \mark "A"; \break c2  c2 \break
+	\property Staff.instrument = instrument \mark "B"
+	 c1 \mark "A" \break c2  c2 \break
 }
 
 grstaff =  \notes \context GrandStaff <
@@ -19,7 +20,7 @@ grstaff =  \notes \context GrandStaff <
 
 	\property Staff.instr = instr
 	
-	 \mark "B"; \break c1 \mark "A"; c2  }
+	 \mark "B" \break c1 \mark "A" c2  }
 	\context Staff = bufl { c1 c2  }
 >
 
@@ -38,5 +39,5 @@ stscore =  \score { \onestaff \paper {
 
 %\score {\stscore}
 \score {\scscore
-\header { title = "bar scripts"; }
+\header { title = "bar scripts" }
 }
