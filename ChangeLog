@@ -1,3 +1,7 @@
+2002-04-08  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/regression/script-stack-order.ly: new file.
+
 2002-04-08  Han-Wen  <hanwen@cs.uu.nl>
 
 	* VERSION (MY_PATCH_LEVEL): Release 1.5.51.
