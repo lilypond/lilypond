@@ -14,6 +14,7 @@
 #include "paper-def.hh"
 #include "font-interface.hh"
 #include "warn.hh"
+#include "staff-symbol-referencer.hh"
 
 MAKE_SCHEME_CALLBACK (Time_signature,brew_molecule,1);
 /*
@@ -33,21 +34,26 @@ Time_signature::brew_molecule (SCM smob)
       d = gh_scm2int (ly_cdr (frac));
     }
 
-  
+  Molecule m;
   if (gh_symbol_p (st))
     {
       String style (ly_scm2string (scm_symbol_to_string (st)));
       if (style[0]=='1')
 	{
-	  return time_signature (me, n, 0).smobbed_copy ();
+	  m = time_signature (me, n, 0);
 	}
       else
 	{
-	  return special_time_signature (me, style, n, d).smobbed_copy ();
+	  m = special_time_signature (me, style, n, d);
 	}
     }
   else
-    return time_signature (me, n,d).smobbed_copy ();
+    m = time_signature (me, n,d);
+
+  if (Staff_symbol_referencer::line_count (me) % 2 == 0)
+    m.translate_axis (Staff_symbol_referencer::staff_space (me)/2 , Y_AXIS);
+
+  return m.smobbed_copy ();
 }
 
 Molecule

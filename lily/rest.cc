@@ -21,9 +21,18 @@ Rest::after_line_breaking (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   int bt = gh_scm2int (me->get_grob_property ("duration-log"));
-  if (bt == 0 && Staff_symbol_referencer::line_count (me) > 1)
+  int lc = Staff_symbol_referencer::line_count (me);
+  Real ss = Staff_symbol_referencer::staff_space (me);
+  if(lc % 2)
     {
-      me->translate_axis (Staff_symbol_referencer::staff_space (me) , Y_AXIS);
+      if (bt == 0 && lc > 1)
+	{
+	  me->translate_axis (ss , Y_AXIS);
+	}
+    }
+  else
+    {
+      me->translate_axis (ss/2 , Y_AXIS);
     }
 
   Grob * d = unsmob_grob (me->get_grob_property ("dot"));
@@ -93,7 +102,7 @@ Rest::brew_internal_molecule (SCM smob)
     Molecule res = Font_interface::get_default_font (me)->find_by_name (idx);
     if(res.empty_b() && style!="")
       style="";
-    else	      
+    else
       return res.smobbed_copy();
   }
 }
