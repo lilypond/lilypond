@@ -2176,7 +2176,7 @@ is to put the grace notes before a phantom ``space note'', e.g.
 \context Voice {
     < { d1^\trill ( }
      { s2 \grace { c16[ d] } } >
-   )c4
+   c4)
 }
 @end lilypond
 
@@ -2197,13 +2197,13 @@ second bars in this example:
     \slurUp
     \grace {
         a4( }
-    ) a4 a4( a2)
+    a4) a4( a2)
     \slurBoth
 
     \grace {
         \slurUp
         a4( }
-    ) a4 a4( a2)
+    a4) a4( a2)
     \slurBoth
 }
 @end lilypond

@@ -1,8 +1,10 @@
 2003-08-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* Documentation/user/refman.itely: remove superfluous -'s 
+	(Grace notes): ) fixes.
 
-	* lily/music.cc: generic compress() function. Remove others.
+	* lily/music.cc: generic compress(), transpose() functions. Remove
+	others.
 
 	* lily/parser.yy (gen_text_def): remove support for #'(italic )
 	style markups.
