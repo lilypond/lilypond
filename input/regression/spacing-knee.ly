@@ -6,7 +6,7 @@ stems are put at regular distances.
     }
 \score { \notes
 {
-[g''8 g g'' g''] 
+ g''8-[ g g'' g''] 
 
     }
 \paper { raggedright = ##t}

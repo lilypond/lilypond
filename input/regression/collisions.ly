@@ -41,7 +41,7 @@ hairyChord =  \context Staff \notes \relative c''
       cis' \\
       \\
       ais
-    i>
+      >
 
 
 \score{
