@@ -61,8 +61,8 @@ inline bool ly_c_eq_p (SCM x, SCM y) { return SCM_EQ_P (x, y); }
 #define scm_c_string_length(x) SCM_STRING_LENGTH (x)
 #define scm_is_pair(x) (SCM_CONSP (x))
 
-#define SCM_VECTOR_LENGTH(x) scm_c_vector_length(x)
-#define SCM_VECTOR_REF(x,y) scm_c_vector_ref(x,y)
+#define scm_c_vector_length(x) SCM_VECTOR_LENGTH(x)
+#define scm_c_vector_ref(x,y)  SCM_VECTOR_REF(x,y)
 
 inline double ly_scm2double (SCM x) { return scm_num2dbl (x, "ly_scm2double"); }
 #define scm_to_double(x) (ly_scm2double (x))

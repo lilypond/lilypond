@@ -89,7 +89,7 @@ Note_heads_engraver::process_music ()
 	Shaped note heads change on step of the scale.
        */
       SCM shape_vector = get_property ("shapeNoteStyles");
-      if (ly_c_vector_p (shape_vector))
+      if (scm_is_vector (shape_vector))
 	{
 	  SCM scm_tonic = get_property ("tonic");
 	  Pitch tonic (0,0,0); 

@@ -303,7 +303,7 @@ ly_deep_copy (SCM src)
 {
   if (scm_is_pair (src))
     return scm_cons (ly_deep_copy (scm_car (src)), ly_deep_copy (scm_cdr (src)));
-  else if (ly_c_vector_p (src))
+  else if (scm_is_vector (src))
     {
       int len = scm_c_vector_length (src);
       SCM nv = scm_c_make_vector (len, SCM_UNDEFINED);

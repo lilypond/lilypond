@@ -103,9 +103,9 @@ Note_head::brew_ez_stencil (SCM smob)
   SCM idx = scm_int2num (pit->get_notename ());
   SCM names = me->get_property ("note-names");
   SCM charstr = SCM_EOL;
-  if (ly_c_vector_p (names))
+  if (scm_is_vector (names))
     charstr = scm_vector_ref (names, idx);
-  else
+  else 
     {
       char s[2] = "a";
       s[0] = (pit->get_notename () + 2)%7 + 'a';
