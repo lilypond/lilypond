@@ -273,6 +273,7 @@ Modified_font_metric::text_dimension (String text)
 	      char_box = orig_->get_indexed_char (idx);
 	    }
 	  
+	  char_box.scale (magnification_);
 	  if (!char_box[X_AXIS].is_empty ())
 	    w += char_box[X_AXIS][RIGHT]; // length ?
 
@@ -286,6 +287,5 @@ Modified_font_metric::text_dimension (String text)
       b = Box (Interval (0, w), ydims);
     }
   
-  b.scale (magnification_);
   return b;
 }
