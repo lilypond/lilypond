@@ -23,6 +23,7 @@ make_picture_stack;
 input feta-params;
 
 font_x_height  staff_space#;
+font_coding_scheme "feta music";
 
 if test = 0: 
 	input feta-eindelijk;
@@ -35,16 +36,18 @@ if test = 0:
 	input feta-timesig;
 	input feta-pendaal;
 	input feta-accordion;
-
+	input feta-solfa;
+	
 else:
 %	input feta-bolletjes;	
 %	input feta-banier;
 %	input feta-eindelijk;
-	input feta-klef;
+%	input feta-klef;
 %	input feta-toevallig;
 %	input feta-schrift;
 %	input feta-haak;
-	input feta-timesig;
+%	input feta-timesig;
 %	input feta-pendaal;
 %	input feta-accordion;
+	input feta-solfa;
 fi

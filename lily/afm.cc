@@ -154,6 +154,10 @@ Adobe_font_metric::find_by_name (String s) const
 
   if (!cm)
     {
+      /*
+	Why don't we return empty?
+       */
+      
       Molecule m;
       m.set_empty (false);
       return m;

@@ -629,13 +629,12 @@
 	(spacing-procedure .  ,Spacing_spanner::set_springs)
 	(grace-space-factor . 0.8)
 
-	;; TODO: change naming -- unintuitive
-	(arithmetic-basicspace . 2.0)
-	(arithmetic-multiplier . ,(* 0.9 1.32))
+	(shortest-duration-space . 2.0)
+	(spacing-increment . 1.2)
 	(X-extent-callback . #f)
 	(Y-extent-callback . #f)
-	;; assume that notes at least this long are present.
-	(maximum-duration-for-spacing . ,(make-moment 1 8))
+
+
 	(meta . ,(grob-description  spacing-spanner-interface))
 	))
 
@@ -675,6 +674,7 @@
      . (
 	(breakable . #t)
 	(X-extent-callback . #f)
+	(stem-spacing-correction . 0.4)
 	(Y-extent-callback . #f)
 	(meta . ,(grob-description staff-spacing-interface))
 	))

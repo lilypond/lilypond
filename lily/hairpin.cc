@@ -90,7 +90,7 @@ Hairpin::brew_molecule (SCM smob)
 
   if (width < 0)
     {
-      warning (_ ((grow_dir < 0) ? "decrescendo too small"
+      me->warning (_ ((grow_dir < 0) ? "decrescendo too small"
 		  : "crescendo too small"));
       width = 0;
     }

@@ -161,7 +161,7 @@ Porrectus::brew_molecule (SCM smob)
   Item *right_head = get_right_head (me);
   if (!left_head || !right_head)
     {
-      warning (_ ("junking lonely porrectus"));
+      me->warning (_ ("junking lonely porrectus"));
       me->suicide ();
       return SCM_EOL;
     }
@@ -171,7 +171,7 @@ Porrectus::brew_molecule (SCM smob)
   if ((gh_symbol_p (scm_style)) && (scm_style != SCM_EOL))
     style = ly_scm2string (scm_symbol_to_string (scm_style));
   else {
-    warning (_ ("porrectus style undefined; using mensural"));
+    me->warning (_ ("porrectus style undefined; using mensural"));
     style = "mensural";
   }
 
@@ -189,7 +189,7 @@ Porrectus::brew_molecule (SCM smob)
       // determine add_stem and stem_direction automatically from durations
     {
       if (String::compare_i (style, "mensural") != 0)
-	warning (String("auto-property should be used for\r\n") +
+	me->warning (String("auto-property should be used for\r\n") +
 		 String("mensural style porrectus only; trying anyway"));
 
       int left_duration =
@@ -219,7 +219,7 @@ Porrectus::brew_molecule (SCM smob)
 	}
       else
         {
-	  warning (String("auto-property: failed determining porrectus\r\n") +
+	  me->warning (String("auto-property: failed determining porrectus\r\n") +
 		   String("properties due to improper durations; ") +
 		   String("using user-supplied properties"));
 	}
@@ -298,7 +298,7 @@ Porrectus::brew_vaticana_molecule (Item *me,
 {
   if (interval >= 0.0)
     {
-      warning (_ ("ascending vaticana style porrectus"));
+      me->warning (_ ("ascending vaticana style porrectus"));
     }
 
   Real space = Staff_symbol_referencer::staff_space (me);

@@ -71,7 +71,7 @@ Time_signature::special_time_signature (Grob*me, String s, int n, int d)
   String symbolname = "timesig-" + s + to_str (n) + "/" + to_str (d);
   
   Molecule m = feta->find_by_name (symbolname);
-  if (!m.empty_b ()) 
+  if (!m.empty_b ())
     return m;
 
   /*

@@ -12,22 +12,26 @@
 
 #include "lily-proto.hh"
 #include "drul-array.hh"
+#include "smobs.hh"
 
-struct Column_spring {
-  Paper_column *other_l_;
+struct Spring_smob
+{
+  Grob *other_;
   Real distance_f_;
-
-  /*
-    TODO: make 2 strengths: one for stretching, and one for shrinking.
-  */
+  bool expand_only_b_;
   Real strength_f_;
   
-  Column_spring ();
+  DECLARE_SIMPLE_SMOBS(Spring_smob,dummy);
+public:
+  SCM smobbed_copy () const;
+  Spring_smob();
 };
+DECLARE_UNSMOB(Spring_smob, spring);
 
 struct Spring{
   Drul_array<Item*> item_l_drul_;
   Real distance_f_;
+  bool expand_only_b_;
 
   /*
     TODO: make 2 strengths: one for stretching, and one for shrinking.

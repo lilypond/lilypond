@@ -107,6 +107,9 @@ Molecule::set_empty (bool e)
 void
 Molecule::align_to (Axis a, Direction d)
 {
+  if (empty_b())
+    return ;
+
   Interval i (extent (a));
   Real r = (d == CENTER) ? i.center () : i[d];
   translate_axis (-r, a);
@@ -237,6 +240,10 @@ molecule_init ()
 ADD_SCM_INIT_FUNC (molecule,molecule_init);
 
 
+/*
+  Hmm... maybe this is not such a good idea ; stuff can be empty,
+  while expr_ == '()
+ */
 bool
 Molecule::empty_b () const
 {

@@ -1174,11 +1174,11 @@ command_element:
 	| TIME_T fraction  {
 		Music * p1 = set_property_music (ly_symbol2scm ( "timeSignatureFraction"), $2);
 
-  int l = gh_scm2int (ly_car ($2));
-  int o = gh_scm2int (ly_cdr ($2));
-  
-  Moment one_beat = Moment (1)/Moment (o);
-  Moment len = Moment (l) * one_beat;
+		int l = gh_scm2int (ly_car ($2));
+		int o = gh_scm2int (ly_cdr ($2));
+
+		Moment one_beat = Moment (1)/Moment (o);
+		Moment len = Moment (l) * one_beat;
 
 
 		Music *p2 = set_property_music (ly_symbol2scm ("measureLength"), len.smobbed_copy ());

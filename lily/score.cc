@@ -32,6 +32,7 @@ Score::Score ()
   header_p_ = 0;
   music_ = SCM_EOL;
   errorlevel_i_ = 0;
+
   smobify_self ();
 }
 
@@ -47,11 +48,6 @@ Score::Score (Score const &s)
   music_ = SCM_EOL;
   header_p_ = 0;
   smobify_self ();
-
-  /*
-    TODO: this is not very elegant.... 
-   */
-  store_locations_global_b = (gh_eval_str ("point-and-click") !=  SCM_BOOL_F);
 
   Music * m =unsmob_music (s.music_);
   music_ =  m?m->clone ()->self_scm () : SCM_EOL;
@@ -76,6 +72,12 @@ Score::~Score ()
 void
 Score::run_translator (Music_output_def *odef_l)
 {
+  /*
+    TODO: this is not very elegant.... 
+   */
+  store_locations_global_b = (gh_eval_str ("point-and-click") !=  SCM_BOOL_F);
+
+  
   Cpu_timer timer;
 
   

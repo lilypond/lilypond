@@ -21,7 +21,7 @@ class Time_signature_engraver : public Engraver
 
 protected:
   virtual void stop_translation_timestep ();
-  virtual void create_grobs ();
+  virtual void process_music ();
 public:
   TRANSLATOR_DECLARATIONS(Time_signature_engraver);
 };
@@ -34,7 +34,7 @@ Time_signature_engraver::Time_signature_engraver ()
 }
 
 void
-Time_signature_engraver::create_grobs ()
+Time_signature_engraver::process_music ()
 {
   /*
     not rigorously safe, since the value might get GC'd and
