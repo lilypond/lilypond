@@ -274,7 +274,7 @@ if 1:
 	def conv(lines):
 		newlines =[]
 		for x in lines:
-			x =  re.sub ('<\\[ ','[<', x)
+			x =  re.sub ('<\\[','[<', x)
 			x =  re.sub ('\\]>','>]', x)
 			newlines.append (x)
 		return newlines
