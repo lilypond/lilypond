@@ -143,7 +143,7 @@ def draw_flare(expr pos,alpha,beta,line,flare) =
 	z2=z3;
 	penpos3(flare,0+alpha);
 	z3l=z1r+(1/2+0.43)*flare*dir(alpha+beta);
-	z4=z2r-1/6flare*dir(alpha);
+	z4=z2r-line*dir(alpha);
 	penlabels(1,2,3,4);
 	pickup pencircle;
 	save t; t=0.833;
