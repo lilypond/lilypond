@@ -37,13 +37,13 @@
 
 
 void
-Tie::set_head (Grob*me,Direction d, Item * head_l)
+Tie::set_head (Grob*me,Direction d, Item * h)
 {
   assert (!head (me,d));
-  index_set_cell (me->get_grob_property ("heads"), d, head_l->self_scm ());
+  index_set_cell (me->get_grob_property ("heads"), d, h->self_scm ());
   
-  dynamic_cast<Spanner*> (me)->set_bound (d, head_l);
-  me->add_dependency (head_l);
+  dynamic_cast<Spanner*> (me)->set_bound (d, h);
+  me->add_dependency (h);
 }
 
 void

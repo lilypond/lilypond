@@ -58,7 +58,8 @@ Script_column::before_line_breaking (SCM smob)
 
   Direction d = DOWN;
   do {
-    Link_array<Grob> &arr (arrs[d]);
+    Link_array<Grob> &arr
+      (arrs[d]);
     
     arr.sort (staff_side_compare);
 
