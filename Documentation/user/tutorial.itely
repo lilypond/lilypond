@@ -1913,31 +1913,6 @@ As you can see, this example features multiple voices on one staff.  To
 make room for those voices, their notes have to be stemmed in opposite
 directions.
 
-Printed symbols are internally represented by so-called Graphical
-Objects (more colloquially: Grobs).  These statements concern the
-grob called `Stem'. Each grob is described by a bunch of settings. These
-setting determine the fonts, offsets, sub-routines to be called on the
-grob, etc.  The initial values of these settings are set in the Scheme
-file @file{scm/grob-description.scm}.
-
-@separate
-@example
-  stemDown = \property Voice.Stem \override #'direction = #-1
-@end example
-
-Set a property for all Stem grobs in the current Voice:
-@code{direction} is set to @code{-1}, which encodes down.  The setting
-remains in effect until it is reverted.
-
-@separate
-@example
- \property Voice.Stem \revert #'direction  
-@end example
-
-Revert the to the previous setting.  The effect of precisely one
-@code{\stemDown} or @code{\stemUp} is neutralized.
-
-
 LilyPond includes the identifiers @code{\stemUp}, @code{\stemDown} along
 with some other commonly used formatting instructions, but to explain how
 it works, we wrote our own here.  Of course, you should use predefined
@@ -1957,29 +1932,27 @@ precisely one @code{Voice} context, so we give it a unique name
 
 @separate
 @example 
-<c4-\f-\arpeggio g' c>
+<c4-\arpeggio g' c>
 @end example 
 The delimiters @code{<} and @code{>} are shorthands for
 @code{\simultaneous @{} and @code{@}}. The expression enclosed in
 @code{<} and @code{>} is a chord.
 
-@cindex dynamics
-@cindex loudness
-@cindex forte
 @cindex arpeggio
-
-@code{\f} places a forte symbol under the chord. The forte applies to
-the whole chord, but the syntax requires that commands like forte and
-arpeggio are attached to a note, so here we attach them to the first
-note.
 
 @code{\arpeggio} typesets an arpeggio sign (a wavy vertical line) before
 the chord.
 
 @separate
 @example 
-   \stemDown
+   \voiceTwo
 @end example 
+
+We want the viola to have stems down, and have all the other
+characteristics of a second voice. This is enforced using the
+@code{\voiceTwo} command:  it inserts instructions that makes stem,
+ties, slurs, etc. go down.
+
 
 
 @separate
@@ -2010,25 +1983,23 @@ these notes are indeed processed by precisely one context with
 @code{\context}.
 @separate
 @example 
-\stemUp s4  g8. b,16 c8 r <e'8.-\p g> <f16 a> 
-@end example 
-@code{\stemUp} is a reference to the @code{\property \override} command
-defined above. 
+\voiceOne s4  g8. b,16 c8 r <e'8. g> <f16 a> 
+@end example
+
+The oboes should have stems up, so they should have stems up, to keep
+them from interfering with the staff-jumping bass figure.
+
 @separate
 @example 
-\grace <e8 g> < d4 f> <c2 e> 
+\grace <e8( g> < d4 )f> <c2 e> 
 @end example
 @cindex @code{\grace}
 @cindex ornaments
 @cindex grace notes
 @code{\grace} introduces grace notes.  It takes one argument, in this
-case a chord.
+case a chord. A slur is introduced starting from the @code{\grace}
+ending on the following chord.
 
-@ignore
-The slur started on the @code{e} of the chord
-will be attached to the next note.@footnote{LilyPond will squirm
-about unended Slurs.  In this case, you can ignore the warning}.
-@end ignore
 @separate
 @example 
 \times 2/3 
@@ -2041,16 +2012,10 @@ of music is multiplied by the fraction.  Triplets make notes occupy 2/3
 of their notated duration, so in this case the fraction is 2/3.
 @separate
 @example 
-@{ <d8 \< f> <e g> <f a> @} 
+@{ <d8 f> <e g> <f a> @} 
 @end example 
 The piece of music to be `tripletted' is sequential music containing
-three notes.  On the first chord, a crescendo is started with
-@code{\<}. To be precise, the crescendo start is syntactically attached
-to the preceding note, the @code{d}.
-
-@cindex dynamics
-@cindex crescendo
-@cindex @code{\<}
+three chords.
 
 @separate
 @example 
@@ -2062,41 +2027,18 @@ we make a `chord' of sequences to do it.  We start with the upper
 voice, which continues with upward stems:
 @separate
 @example 
- @{ \times 2/3 @{ a8 g c @} \! c2 @} 
+ @{ \times 2/3 @{ a8 g c @} c2 @} 
 @end example
 
-@cindex @code{\!}
-
-The crescendo is ended at the half note by the escaped exclamation
-mark @code{\!}.
 @separate
-@example 
-\context Voice = oboeTwo @{
-\stemDown 
-@end example 
-We can't share stems with the other voice, so we have to create a new
-@code{Voice} context.  We give it the name @code{oboeTwo} to distinguish
-it from the other context.  Stems go down in this voice.
-@separate
-@example 
-\grace
+@example
+\\
 @end example
-@cindex Grace context
-When a grace section is processed, a @code{Grace} context is
-created. This context acts like a miniature score of its own.  It has
-its own time bookkeeping, and you can make notes, beams, slurs
-etc. Here we fiddle with a property and make a beam.  The argument of
-@code{\grace} is sequential music.
-
-@separate
-@example 
-                \property Voice.Stem \override #'direction = #-1
-                [f,16 g] 
-                \property Voice.Stem \revert #'direction
-@end example 
-
-Normally, grace notes are always stem up, but in this case, the upper
-voice interferes, so we set the stems down here.
+The easiest way to enter multiple voices is demonstrated
+here. Separate the components of the voice (single notes or entire
+sequences) with @code{\\} in a simultaneous music expression. The
+@code{\\} separators split first voice, second voice, third voice, and
+so on.
 
 As far as relative mode is concerned, the previous note is the
 @code{c'''2} of the upper voice, so we have to go an octave down for
@@ -2104,7 +2046,7 @@ the @code{f}.
 @separate
 @example 
 
-  f8 e e2
+  f,8 e e2
 @} > 
 @end example 
 This ends the two-part section.
@@ -2140,24 +2082,36 @@ The first specifies what central C should be transposed to.  The second
 is the to-be-transposed music.  As you can see, in this case, the
 transposition has no effect, as central C stays at central C.
 
-The purpose of this no-op is circumventing relative mode.  Relative mode
-can not be used together with transposition, so @code{\relative} will
-leave the contents of @code{\hoomPah} alone.  We can use it without
-having to worry about getting the motive in a wrong octave.
+The purpose of this no-op is to protect it from being interpreted as
+relative notes.  Relative mode can not be used together with
+transposition, so @code{\relative} will leave the contents of
+@code{\hoomPah} alone.  We can use it without having to worry about
+getting the motive in a wrong octave.
+@separate
+@cindex staff switch, manual
+@cindex cross staff voice, manual
+@cindex @code{\translator}
+
+@example
+	\translator Staff = down
+	\stemUp
+	c8
+	\translator Staff = up
+	\stemDown
+	c'8 }
+@end example
+Voices can switch between staves. Here you see two staff switching
+commands. The first one moves to the lower staff, the second one to
+the lower one. If you set stem directions explicitly (using the
+identifiers @code{\stemUp} and @code{\stemDown}. 
+
 @separate
 @example 
 bassvoices = \notes \relative c' @{
 c4 g8. b,16
 \autochange Staff \hoomPah \context Voice
 @end example
-@cindex staff switch, automatic
-@cindex cross staff voice, automatic
-@cindex @code{\autochange}
 
-Voices can switch between staves. The easiest way to get this, is to use
-@code{\autochange}. This command looks at the pitch of each note, and if
-necessary, will cross to the other staff. For this to work, the two
-staves must be called @code{"up"} and @code{"down"}.
 @separate
 @example
         \translator Staff = down
@@ -2211,12 +2165,70 @@ to the page layout of this document.
 @node Fine tuning a piece
 @section  Fine tuning a piece
 
+In this section, we show some ways to fine tune the final output of a
+piece. We do so using a single measure of a moderately complex piano
+piece: a Brahms intermezzo (opus 119, no. 1).
 
+The code for the untuned example shows us some new things.
 
-@lilypondfile{brahms-original.ly}
+@lilypondfile[verbatim]{brahms-original.ly}
+
+Hairpin dynamics can be indicated using @code{\>} to start a
+decrescendo, and @code{\!} to end one. The crescendo is started using
+@code{\<} and also ended using @code{\!}. Absolute dynamics can be
+entered using @code{\p}, @code{\mf}, etc.
+
+Fingering indications are entered quite simply using @code{-@var{N}},
+where @var{N} is a digit. 
 
 @lilypondfile{brahms-tweaked.ly}
 
+Printed symbols are internally represented by so-called Graphical
+Objects (more colloquially: Grobs).  These statements concern the
+grob called `Stem'. Each grob is described by a bunch of settings. These
+setting determine the fonts, offsets, sub-routines to be called on the
+grob, etc.  The initial values of these settings are set in the Scheme
+file @file{scm/grob-description.scm}.
+
+
+@separate
+@example
+  stemDown = \property Voice.Stem \override #'direction = #-1
+@end example
+
+Set a property for all Stem grobs in the current Voice:
+@code{direction} is set to @code{-1}, which encodes down.  The setting
+remains in effect until it is reverted.
+
+@separate
+@example
+ \property Voice.Stem \revert #'direction  
+@end example
+
+Revert the to the previous setting.  The effect of precisely one
+@code{\stemDown} or @code{\stemUp} is neutralized.
+
+
+@cindex dynamics
+@cindex loudness
+@cindex forte
+@code{\f} places a forte symbol under the chord. The forte applies to
+the whole chord, but the syntax requires that commands like forte and
+arpeggio are attached to a note, so here we attach them to the first
+note.
+
+On the first chord, a crescendo is started with
+@code{\<}. To be precise, the crescendo start is syntactically attached
+to the preceding note, the @code{d}.
+
+@cindex dynamics
+@cindex crescendo
+@cindex @code{\<}
+
+@cindex @code{\!}
+
+The crescendo is ended at the half note by the escaped exclamation
+mark @code{\!}.
 
 
 @node An orchestral score
