@@ -7,6 +7,10 @@
 @unnumbered New features in 2.5 since 2.4
 
 @itemize @bullet
+@item
+Metrics of blocks of text can be retrieved from (La)@TeX{} directly,
+using the @code{-f texstr} output backend. This provides exact metrics,
+including kerning and accents, for texts.
 
 @item
 LilyPond now uses FreeType read the Feta font as an OpenType
