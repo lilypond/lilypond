@@ -28,12 +28,12 @@ config.make
 config.status
 configure
 fonts
+lib
 log
 ls-R
 ly2dvi.dir
 out
 out-www
 share
-stepmake
 tfm
 tfm.[0-9]

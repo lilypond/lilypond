@@ -31,17 +31,13 @@ import sys
 ################################################################
 # Users of python modules should include this snippet.
 #
-# If set, LILYPONDPREFIX must take prevalence
-# if datadir is not set, we're doing a build and LILYPONDPREFIX
-datadir = '@local_lilypond_datadir@'
-if not os.path.isdir (datadir):
-	datadir = '@lilypond_datadir@'
-if os.environ.has_key ('LILYPONDPREFIX') :
-	datadir = os.environ['LILYPONDPREFIX']
-	while datadir[-1] == os.sep:
-		datadir= datadir[:-1]
+# This soon to be removed for: import lilypond.lilylib as ly
+libdir = '@local_lilypond_libdir@'
+if not os.path.isdir (libdir):
+       libdir = '@lilypond_libdir@'
+sys.path.insert (0, os.path.join (libdir, 'python'))
 
-sys.path.insert (0, os.path.join (datadir, 'python'))
+
 ################################################################
 
 import midi
@@ -450,9 +446,10 @@ class Note:
 		elif commas < 0:
 			s = s + "," * -commas
 
-		if and dump_dur (explicit_durations_p \
+		## FIXME: compile fix --jcn
+		if (dump_dur and explicit_durations_p) \
 		   or Duration.compare (self.duration,
-					reference_note.duration)):
+					reference_note.duration):
 			s = s + self.duration.dump ()
 
 		reference_note = self
