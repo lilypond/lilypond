@@ -1,7 +1,7 @@
 #ifndef ASSOC_HH
 #define ASSOC_HH
 
-#include "varray.hh"
+#include "array.hh"
 #include <assert.h>
 
 /**
