@@ -1,5 +1,7 @@
-1.4.2.jcn3
+1.4.2.jcn4
 ==========
+
+* Bugfix: ledger lines on easy-notation note heads.
 
 * Windows: bugfix for tex-wrappers, added tex wrapper for dvips.
 LilyPond (read: ly2dvi) should now work right out of the box.

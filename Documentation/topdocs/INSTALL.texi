@@ -55,7 +55,8 @@ Binaries are available, but are not updated for every version released.
 @item @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/binaries/RedHat/RPMS/, Red Hat i386}
 @item @uref{ftp://ftp.lilypond.org/pub/LilyPond/binaries/linuxppc/, LinuxPPC}
 @item @uref{ftp://ftp.debian.org/debian/pool/main/l/lilypond/, Debian GNU/Linux}
-@item @uref{http://home.austin.rr.com/jbr/jeff/lilypond/, Windows Stable}
+@item
+@c  @uref{http://home.austin.rr.com/jbr/jeff/lilypond/, Windows Stable}
 @c @item @uref{ftp://ftp.lilypond.org/pub/lilypond/gnu-windows, Windows
 @c Testing} 
 @uref{http://www.lilypond.org/gnu-windows/, Windows Testing}

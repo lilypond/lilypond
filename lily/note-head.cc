@@ -51,6 +51,29 @@ Note_head::ledger_line (Interval xwid, Grob *me)
 }
 
 
+Molecule
+Note_head::ledger_lines (Grob*me, int count, Direction dir, Interval idw)
+{
+  Real inter_f = Staff_symbol_referencer::staff_space (me)/2;
+  Molecule ledger (ledger_line (idw, me));
+
+  ledger.set_empty (true);
+  Real offs = (Staff_symbol_referencer::on_staffline (me))
+    ? 0.0
+    : -dir * inter_f;
+
+  Molecule legs;
+  for (int i=0; i < count; i++)
+    {
+      Molecule s (ledger);
+      s.translate_axis (-dir * inter_f * i*2 + offs,
+			Y_AXIS);
+      legs.add_molecule (s);
+    }
+
+  return legs;
+}
+
 MAKE_SCHEME_CALLBACK (Note_head,brew_molecule,1);
 
 SCM
@@ -58,8 +81,6 @@ Note_head::brew_molecule (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
-  
-  Real inter_f = Staff_symbol_referencer::staff_space (me)/2;
   int sz = Staff_symbol_referencer::line_count (me)-1;
   int p = (int)  rint (Staff_symbol_referencer::position_f (me));
   int streepjes_i = abs (p) < sz 
@@ -89,23 +110,11 @@ Note_head::brew_molecule (SCM smob)
       Direction dir = (Direction)sign (p);
       Interval hd = out.extent (X_AXIS);
       Real hw = hd.length ()/4;
-      Molecule ledger (ledger_line (Interval (hd[LEFT] - hw,
-					       hd[RIGHT] + hw), me));
-      
-
-      ledger.set_empty (true);
-      Real offs = (Staff_symbol_referencer::on_staffline (me))
-	? 0.0
-	: -dir * inter_f;
-
-      for (int i=0; i < streepjes_i; i++)
-	{
-	  Molecule s (ledger);
-	  s.translate_axis (-dir * inter_f * i*2 + offs,
-			    Y_AXIS);
-	  out.add_molecule (s);
-	}
+      out.add_molecule (ledger_lines (me, streepjes_i, dir,
+				      Interval (hd[LEFT] - hw,
+						hd[RIGHT] + hw)));
     }
+  
   return out.smobbed_copy ();
 }
 
@@ -132,7 +141,23 @@ Note_head::brew_ez_molecule (SCM smob)
 		    SCM_UNDEFINED);
   Box bx (Interval (0, 1.0), Interval (-0.5, 0.5));
   Molecule m (bx, at);
+  int p = (int)  rint (Staff_symbol_referencer::position_f (me));
 
+  int sz = Staff_symbol_referencer::line_count (me)-1;
+  int streepjes_i = abs (p) < sz 
+    ? 0
+    : (abs (p) - sz) /2;
+
+ if (streepjes_i)
+   {
+      Direction dir = (Direction)sign (p);
+      Interval hd = m.extent (X_AXIS);
+      Real hw = hd.length ()/4;
+      m.add_molecule (ledger_lines (me, streepjes_i, dir,
+				      Interval (hd[LEFT] - hw,
+						hd[RIGHT] + hw)));
+    }
+  
   return m.smobbed_copy ();
 }
 
