@@ -9,11 +9,11 @@
 #include "item.hh"
 
 struct Bar: Item {
-    const char * name() const;
     String type;
     
     Bar(String type);
-
+    const char * name() const;
+    void do_print() const;
     Molecule*brew_molecule_p()const;
 };
 #endif // BAR_HH
