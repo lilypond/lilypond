@@ -1950,6 +1950,17 @@ standard definitions are in @file{ly/grace-init.ly}.
 }
 @end lilypond
 
+If you want to end a note with a grace note, then the standard trick
+is to put the grace notes before a phantom ``space note'', e.g.
+@lilypond[fragment,verbatim, relative=2]
+\context Voice {
+    < { d1^\trill ( }
+     { s2 \grace { [c16 d] } } >
+   )c4
+}
+@end lilypond
+
+
 @refbugs
 
 Grace note synchronization can also lead to surprises. Staff notation,
