@@ -2,6 +2,6 @@
 instrument="Cello";
 }
 
-instrument="cello";
+instrument="cello"
 \include "solo-cello-suite-ii.ly"
 

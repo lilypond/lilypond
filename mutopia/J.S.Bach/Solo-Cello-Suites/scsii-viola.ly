@@ -2,6 +2,6 @@
 instrument="Alto";
 }
 
-instrument="viola";
+instrument="viola"
 \include "solo-cello-suite-ii.ly"
 

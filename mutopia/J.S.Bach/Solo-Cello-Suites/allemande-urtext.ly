@@ -9,7 +9,7 @@ But merging melodic and scripts doen't work too well yet (see viola_scripts).
 
 n = { \slurnormal }
 d = { \slurdotted }
-comma = "\\sethuge\\ \\ ,";
+comma = "\\sethuge\\ \\ ,"
 
 allemande_a = \notes \relative c {
 	\voiceone a'16 | 
