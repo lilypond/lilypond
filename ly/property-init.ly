@@ -143,12 +143,12 @@ hideNotes =\sequential {
     \override NoteHead  #'transparent = ##t
     \override Stem  #'transparent = ##t
     \override Beam  #'transparent = ##t
-    \override Staff.Accidental  #'transparent = ##t
+    \override Accidental  #'transparent = ##t
 }
 
 
 unHideNotes = \sequential {
-  \revert Staff.Accidental #'transparent
+  \revert Accidental #'transparent
   \revert Beam #'transparent
   \revert Stem #'transparent
   \revert NoteHead #'transparent

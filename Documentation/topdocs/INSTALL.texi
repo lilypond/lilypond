@@ -93,7 +93,7 @@ Also, @TeX{}'s libkpathsea is used to find the fonts (@file{.mf},
 (1.0.6 is known to work).  You may need to install a tetex-devel (or
 tetex-dev or libkpathsea-dev) package too.
 
-@item @uref{ftp://ftp.gnu.org/gnu/texinfo/,Texinfo} (version 4.6 or newer).
+@item @uref{ftp://ftp.gnu.org/gnu/texinfo/,Texinfo} (version 4.7 or newer).
 
 @item The
 @uref{ftp://ftp.ctan.org/tex-archive/macros/latex/contrib/supported/geometry,geometry

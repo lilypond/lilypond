@@ -399,6 +399,7 @@ static PyMethodDef MidiMethods[] =
   {0, 0}        /* Sentinel */
 };
 
+void
 initmidi ()
 {
   PyObject *m, *d;

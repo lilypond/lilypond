@@ -20,6 +20,7 @@
 #include "note-column.hh"
 #include "directional-element-interface.hh"
 #include "tuplet-bracket.hh"
+#include "rhythmic-head.hh"
 
 struct Ottava_bracket
 {
@@ -30,26 +31,21 @@ struct Ottava_bracket
 
 /*
   TODO: the string for ottava shoudl depend on the available space, ie.
-
   
   Long: 15ma        Short: 15ma    Empty: 15
          8va                8va            8
          8va bassa          8ba            8
 
 */
-
 MAKE_SCHEME_CALLBACK (Ottava_bracket, print, 1);
 SCM
 Ottava_bracket::print (SCM smob)
 {
   Spanner*me  = dynamic_cast<Spanner*> (unsmob_grob (smob));
-  
-  
   Interval span_points;
   
   Grob *common = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
   Output_def * paper = me->get_paper ();
-
   
   Drul_array<bool> broken;
   Direction d = LEFT;
@@ -88,7 +84,16 @@ Ottava_bracket::print (SCM smob)
       if (Note_column::has_interface (b))
 	{
 	  for (SCM s = b->get_property ("note-heads"); ly_c_pair_p (s); s =ly_cdr (s))
-	    ext.unite (unsmob_grob (ly_car (s))->extent (common, X_AXIS));
+	    {
+	      Grob * h = unsmob_grob (ly_car (s));
+	      ext.unite (h->extent (common, X_AXIS));
+	      Grob * dots = Rhythmic_head::get_dots (h);
+
+	      if (dots && d == RIGHT)
+		{
+		  ext.unite (dots->extent (common, X_AXIS));  
+		}
+	    }
 	}
 
       if (ext.is_empty ())

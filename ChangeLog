@@ -1,9 +1,31 @@
+2004-08-24  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/lily.scm (postscript->png): use ~a iso. ~s 
+
+	* ly/property-init.ly (unHideNotes): hide accidentals at staff
+	level. Fixes: hideNotes-accidental.ly
+
 2004-08-23  Pedro Kroger  <kroeger@pedrokroeger.net>
 
 	* scm/page-layout.scm (plain-header): fix bug that print page
 	number in the first page if firstpagenumber was different than 1.
 
 2004-08-23  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/framework-ps.scm (define-fonts): use UPCASE for Bluesky
+	fonts. Fixes triangle markup for chords.
+
+	* lily/slur-quanting.cc (score_extra_encompass): make score depend
+	on distance. This fixes slur-tenuto.ly and slur-tie.ly
+ 
+	* flower/include/interval.hh (T>): add distance() function
+
+	* lily/ottava-bracket.cc (print): add dots to extent. Fixes
+	octaviation-dot.ly 
+
+	* lily/context-scheme.cc: ly_context_grob_definition: new function.
+
+	* VERSION (MY_PATCH_LEVEL): release 2.3.12
 
 	* lily/new-slur.cc (add_column): remove set_interface()
 
@@ -282,6 +304,8 @@
 	s/autobeaming/autoBeaming/.
 
 2004-08-03  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* VERSION: 2.3.11 released.
 
 	* scripts/lilypond-book.py (Lilypond_file_snippet.ly): reinstate
 	renameinput.

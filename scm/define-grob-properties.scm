@@ -287,6 +287,7 @@ slur, the closer it is to this height.")
      (horizontal-shift ,integer? "An integer that identifies ranking
 of note-column for horizontal shifting. This is used by
 @internalsref{note-collision-interface}.")
+     (inside-slur ,boolean? "If set, this object should be inside the slur")
      (inspect-quants ,number-pair? "If debugging is set,
 set beam quant to this position, and print the respective scores.")
      

@@ -25,7 +25,7 @@ MAKE_SCHEME_CALLBACK (Accidental_placement,alignment_callback, 2);
 SCM
 Accidental_placement::alignment_callback (SCM s, SCM )
 {
-  Grob * me =unsmob_grob (s);
+  Grob * me = unsmob_grob (s);
 
   Grob * par = me->get_parent (X_AXIS);
   if (!to_boolean (par->get_property ("positioning-done")))
@@ -45,7 +45,7 @@ Accidental_placement::add_accidental (Grob* me, Grob* a)
   a->add_offset_callback (alignment_callback_proc, X_AXIS);
   SCM cause = a->get_parent (Y_AXIS)->get_property ("cause");
 
-  Music *mcause =unsmob_music (cause); 
+  Music *mcause = unsmob_music (cause); 
   if (!mcause)
     {
       programming_error ("Note head has no music cause!");
@@ -271,7 +271,6 @@ Accidental_placement::position_accidentals (Grob * me)
       apes.push (ape);
     }
 
-
   Grob *common[] = {me, 0};
 
   /*
@@ -428,8 +427,6 @@ Accidental_placement::position_accidentals (Grob * me)
 
   
   left_extent[LEFT] -= robust_scm2double (me->get_property ("left-padding"), 0);
-
-  
   Interval width (left_extent[LEFT], right_extent[RIGHT]);
 
   SCM scm_width = ly_interval2scm (width);

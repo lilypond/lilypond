@@ -204,7 +204,6 @@ vaticana_brew_primitive (Grob *me)
   String glyph_name = ly_scm2string (glyph_name_scm);
 
   Stencil out;
-  int flexa_height = 0;
   Real thickness = robust_scm2double ( me->get_property ("thickness"), 1);
 
   Real line_thickness =

@@ -65,6 +65,7 @@ struct Slur_score_parameters
   Real EXTRA_OBJECT_COLLISION;
   Real ACCIDENTAL_COLLISION;
   Real FREE_HEAD_DISTANCE;
+  Real EXTRA_ENCOMPASS_FREE_DISTANCE;
   Slur_score_parameters ();
 };
 
@@ -185,6 +186,7 @@ init_score_param (Slur_score_parameters *score_param)
   score_param->FREE_HEAD_DISTANCE = 0.3;
   score_param->EXTRA_OBJECT_COLLISION = 50;
   score_param->ACCIDENTAL_COLLISION = 3;
+  score_param->EXTRA_ENCOMPASS_FREE_DISTANCE = 0.5;
 }
 
 Slur_score_parameters::Slur_score_parameters()
@@ -381,12 +383,20 @@ get_bound_info (Spanner* me, Grob **common)
 	    = extremes[d].stem_->extent (common[Y_AXIS], Y_AXIS);
 	  extremes[d].slur_head_
 	    = Stem::extremal_heads (extremes[d].stem_)[dir];
-	  extremes[d].slur_head_extent_
-	    = extremes[d].slur_head_->extent (common[X_AXIS], X_AXIS);
+	  if (!extremes[d].slur_head_
+	      && Note_column::has_rests (extremes[d].bound_))
+	    {
+	      extremes[d].slur_head_ = Note_column::get_rest (extremes[d].bound_);
+	    }
+
+	  if (extremes[d].slur_head_)
+	    extremes[d].slur_head_extent_
+	      = extremes[d].slur_head_->extent (common[X_AXIS], X_AXIS);
+
 	  extremes[d].staff_ = Staff_symbol_referencer
-	    ::get_staff_symbol (extremes[d].slur_head_);
+	    ::get_staff_symbol (extremes[d].stem_);
 	  extremes[d].staff_space_ = Staff_symbol_referencer
-	    ::staff_space (extremes[d].slur_head_);
+	    ::staff_space (extremes[d].stem_);
 	}
       else
 	extremes[d].neighbor_y_ = broken_trend_y (me, common, d);
@@ -594,7 +604,10 @@ get_base_attachments (Spanner *me,
 	    y += 1.5 * staff_space * dir / 10;
 
 	  Grob * fh = Note_column::first_head (extremes[d].note_column_);
-	  x = fh->extent (common[X_AXIS], X_AXIS).linear_combination (CENTER);
+	  x =
+	    (fh ? fh->extent (common[X_AXIS], X_AXIS)
+	     : extremes[d].bound_->extent (common[X_AXIS], X_AXIS))
+	    .linear_combination (CENTER);
 	}
       base_attachment[d] = Offset (x, y);
 
@@ -956,14 +969,16 @@ score_extra_encompass (Grob *me, Grob *common[],
 	    {
 	      y = scores->elem (i).curve_.get_other_coordinate (X_AXIS, x);
 	    }
+
+	  Real collision_demerit = 
+	       (Accidental_interface::has_interface (encompasses[j]))
+	    ? score_param->ACCIDENTAL_COLLISION
+	    : score_param->EXTRA_OBJECT_COLLISION;
 	  
-	  if (yexts[j].contains (y))
-	    {
-	      if (Accidental_interface::has_interface (encompasses[j]))
-		demerit += score_param->ACCIDENTAL_COLLISION;
-	      else
-		demerit += score_param->EXTRA_OBJECT_COLLISION;
-	    }
+	  Real dist = yexts[j].distance (y);
+	  demerit +=
+	    fabs (0 >? (score_param->EXTRA_ENCOMPASS_FREE_DISTANCE - dist)) /
+	    score_param->EXTRA_ENCOMPASS_FREE_DISTANCE  * collision_demerit;
 	}
 #if DEBUG_SLUR_QUANTING
       (*scores)[i].score_card_ += to_string ("X%.2f", demerit);

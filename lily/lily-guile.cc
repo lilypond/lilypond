@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <libintl.h> 		// gettext on macos x
 #include <math.h>   /* isinf */
 #include <string.h> /* strdup, strchr */
 #include <ctype.h>
