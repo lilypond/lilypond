@@ -1,3 +1,27 @@
+pl 42
+	- ly2dvi 0.5 (JAF)
+	- italian.ly (thanks, Paolo)
+	- bf: first \mudelapaper output (BS)
+	- bf: cathedral + bazaar URL (thanks, Barrie)
+	- bf: libc-extension.hh (AO)
+
+pl 41.jcn4
+	- plet brackets (always) in ps (only)
+	- Plet_spanner derives from bow
+	- bf: mf/Makefile: let %.tex %.ly depend on %.mf,
+	  iso non-distributed %.log
+	- mi2mu mudela 0.1.8
+	- bit better plet number placement
+	- handier plet syntax: [2/3 c8 c c ]1/1 and \[2/3 c2 c c \]
+	- Plet_swallow_engraver for lyrics
+	- bit better plet number placement (NOT)
+	- new plet syntax: combined beam and plet open
+	- more standje.ly 
+	- new plet syntax: start: \plet2/3 stop: \telp1/1
+	- Plet_req, Plet_engraver; removed plet stuff from beam
+
+******
+jan 20
 pl 41
 	- warn for score with multiple Music blocks
 	- bf: \plet (MB)
