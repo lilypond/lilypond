@@ -1,3 +1,25 @@
+pl 17
+	- fixed RPM building.
+
+pl 16.hwn1
+ 	- ridiculous slur dims fixed.
+ 	- ly2dvi32.py -> ly2dvi.py, ly2dvi.sh -> ly2dvi-old
+ 	- use re iso. regex for python stuff.
+ 	- bf: mudela-book.py
+ 	- updated install directions.  Made lilypond-login for csh
+ 	- bf: installdirs of MF stuff
+ 	- Dictionary implementation using hash tables (LilyPond is 3% faster)
+ 	- Cache [non]group_l_arr () calls in translator-group.cc (LilyPond is 4% faster)
+
+pl 16.uu1
+	- debian URLs, make/stepmake.make  patch
+	- further debian fixes.
+	
+pl 14.tca1
+	- partitas
+	- prall{mordent,prall} patch.
+
+******
 pl 16
 	- read property ydirection and tieYDirection for tie direction.
 	- bf: slur over rest.
