@@ -25,6 +25,7 @@
 #include "input-file-results.hh"
 #include "ly-module.hh"
 #include "paper-book.hh"
+#include "paper-line.hh"
 #include "input-smob.hh"  // output_expr
 
 
@@ -164,7 +165,8 @@ Paper_outputter::output_header (Paper_def *paper, SCM scopes, int page_count)
 void
 Paper_outputter::output_line (SCM line, Offset *origin, bool is_last)
 {
-  Offset dim = ly_scm2offset (ly_car (line));
+  Paper_line *pl = unsmob_paper_line (line);
+  Offset dim = pl->dim ();
   if (dim[Y_AXIS] > 50 CM)
     {
       programming_error ("Improbable system height.");
@@ -184,19 +186,14 @@ Paper_outputter::output_line (SCM line, Offset *origin, bool is_last)
     }
 
   SCM between = SCM_EOL;
-  for (SCM s = ly_cdr (line); gh_pair_p (s); s = ly_cdr (s))
+  for (SCM s = pl->stencils (); gh_pair_p (s); s = ly_cdr (s))
     {
-      Stencil *stil = unsmob_stencil (ly_cdar (s));
-      SCM head = ly_caar (s);
-      
-      if (head == ly_symbol2scm ("between-system-string"))
-	{
-	  between = stil->get_expr ();
-	  continue;
-	}
-
+      Stencil *stil = unsmob_stencil (ly_car (s));
       if (stil)
-	output_expr (stil->get_expr (), ly_scm2offset (head));
+	output_expr (stil->get_expr (), stil->origin ());
+      /* Only if !PAGE_LAYOUT */
+      else if (ly_caar (s) == ly_symbol2scm ("between-system-string"))
+	between = ly_cdar (s);
     }
 
   if (is_last)
