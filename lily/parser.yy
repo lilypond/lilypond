@@ -242,17 +242,12 @@ or
 %pure_parser
 
 %token ACCEPTS
-%token ADDLYRICS
 %token ADDQUOTE
 %token LYRICSTO
 %token ALIAS
 %token ALTERNATIVE
-%token APPLYCONTEXT
-%token APPLYOUTPUT
-%token AUTOCHANGE
 %token BAR
 %token BOOK
-%token BREATHE
 %token CHANGE
 %token CHORDMODIFIERS
 %token CHORDS
@@ -269,9 +264,6 @@ or
 %token EXTENDER
 %token FIGURES FIGURE_OPEN FIGURE_CLOSE
 %token FIGURE_BRACKET_CLOSE FIGURE_BRACKET_OPEN
-%token GRACE
-%token ACCIACCATURA
-%token APPOGGIATURA
 %token GROBDESCRIPTIONS
 %token HEADER
 %token HYPHEN
@@ -289,7 +281,6 @@ or
 %token ONCE
 %token OVERRIDE SET REVERT
 %token PAPER
-%token PARTCOMBINE
 %token PARTIAL
 %token QUOTE
 %token RELATIVE
@@ -358,6 +349,7 @@ or
 %token <scm> MARKUP_HEAD_SCM0_SCM1_SCM2
 %token <scm> MARKUP_HEAD_SCM0_SCM1_MARKUP2
 
+%token <scm> MUSIC_FUNCTION
 %token <scm> MUSIC_FUNCTION_SCM 
 %token <scm> MUSIC_FUNCTION_MUSIC 
 %token <scm> MUSIC_FUNCTION_SCM_MUSIC 
@@ -371,7 +363,6 @@ or
 %type <book>	book_block book_body
 %type <i>	exclamations questions dots optional_rest
 %type <i>  	bass_mod
-%type <scm> 	grace_head
 %type <scm> 	oct_check
 %type <scm> 	context_mod_list
 %type <scm>  	lyric_element
@@ -911,20 +902,6 @@ Simultaneous_music:
 
 Simple_music:
 	event_chord		{ $$ = $1; }
-	| APPLYOUTPUT embedded_scm {
-		if (!ly_input_procedure_p ($2))
-			THIS->parser_error (_ ("\\applycontext takes function argument"));
-		$$ = MY_MAKE_MUSIC ("ApplyOutputEvent");
-		$$->set_property ("procedure", $2);
-		$$->set_spot (THIS->here_input ());
-	}
-	| APPLYCONTEXT embedded_scm {
-		if (!ly_input_procedure_p ($2))
-			THIS->parser_error (_ ("\\applycontext takes function argument"));
-		$$ = MY_MAKE_MUSIC ("ApplyContext");
-		$$->set_property ("procedure", $2);
-		$$->set_spot (THIS->here_input ());
-	}
 	| MUSIC_IDENTIFIER {
 		$$ = unsmob_music ($1);
 	}
@@ -941,12 +918,6 @@ optional_context_mod:
 		THIS->lexer_->pop_state ();
 		$$ = $4;
 	}
-	;
-
-grace_head:
-	GRACE  { $$ = scm_makfrom0str ("Grace"); }
-	| ACCIACCATURA { $$ = scm_makfrom0str ("Acciaccatura"); }
-	| APPOGGIATURA { $$ = scm_makfrom0str ("Appoggiatura"); }
 	;
 
 context_mod_list:
@@ -968,7 +939,10 @@ Grouped_music_list:
 	;
 
 Generic_prefix_music_scm:
-	MUSIC_FUNCTION_SCM {
+	MUSIC_FUNCTION {
+		$$ = scm_list_2 ($1, make_input (THIS->here_input ()));
+	}
+	| MUSIC_FUNCTION_SCM {
 		THIS->push_spot ();
 	} embedded_scm {
 		$$ = scm_list_3 ($1, make_input (THIS->pop_spot ()), $3);
@@ -1043,76 +1017,6 @@ Generic_prefix_music:
 Prefix_composite_music:
 	Generic_prefix_music {
 		$$ = $1;
-	}
-	|AUTOCHANGE Music	{
-		SCM proc = ly_scheme_function ("make-autochange-music");
-	
-		SCM res = scm_call_1 (proc, $2->self_scm ());
-		scm_gc_unprotect_object ($2->self_scm ());
-		$$ = unsmob_music (res);
-		scm_gc_protect_object (res);
-		$$->set_spot (THIS->here_input ());
-	}
-	| PARTCOMBINE Music Music {
-		SCM proc = ly_scheme_function ("make-part-combine-music");
-
-		SCM res = scm_call_1 (proc, scm_listify ($2->self_scm (),
-			$3->self_scm (), SCM_UNDEFINED));
-		scm_gc_unprotect_object ($3->self_scm ());
-		scm_gc_unprotect_object ($2->self_scm ());
-		$$ = unsmob_music (res);
-		scm_gc_protect_object (res);
-		$$->set_spot (THIS->here_input ());
-	}
-	| grace_head Music {
-#if 1
-	/*
-		The other version is for easier debugging  of
-		Sequential_music_iterator in combination with grace notes.
-	*/
-
-/*
-
-TODO: should distinguish between both grace types in the
-basic music objects too, since the meaning is different.
-
-*/
-
-		String start_str = "start" + ly_scm2string ($1) + "Music";
-		String stop_str = "stop" + ly_scm2string ($1) + "Music";
-		
-		SCM start = THIS->lexer_->lookup_identifier (start_str);
-		SCM stop = THIS->lexer_->lookup_identifier (stop_str);
-
-		Music *startm = unsmob_music (start);
-		Music *stopm = unsmob_music (stop);
-
-		SCM ms = SCM_EOL;
-		if (stopm) {
-			stopm = stopm->clone ();
-			ms = scm_cons (stopm->self_scm (), ms);
-			scm_gc_unprotect_object (stopm->self_scm ());
-		}
-		ms = scm_cons ($2->self_scm (), ms);
-		scm_gc_unprotect_object ($2->self_scm ());
-		if (startm) {
-			startm = startm->clone ();
-			ms = scm_cons (startm->self_scm (), ms);
-			scm_gc_unprotect_object (startm->self_scm ());
-		}
-
-		Music* seq = MY_MAKE_MUSIC ("SequentialMusic");
-		seq->set_property ("elements", ms);
-
-		
-		$$ = MY_MAKE_MUSIC ("GraceMusic");
-		$$->set_property ("element", seq->self_scm ());
-		scm_gc_unprotect_object (seq->self_scm ());
-#else
-		$$ = MY_MAKE_MUSIC ("GraceMusic");
-		$$->set_property ("element", $2->self_scm ());
-		scm_gc_unprotect_object ($2->self_scm ());
-#endif
 	}
 	| CONTEXT simple_string '=' simple_string optional_context_mod Music {
 		$$ = context_spec_music ($2, $4, $6, $5);
@@ -1268,15 +1172,7 @@ new_lyrics:
 	;
 
 re_rhythmed_music:
-	ADDLYRICS Music Music {
-		Music *m = MY_MAKE_MUSIC ("LyricCombineMusic");
-		m->set_property ("elements", scm_listify ($2->self_scm (),
-			$3->self_scm (), SCM_UNDEFINED));
-		scm_gc_unprotect_object ($3->self_scm ());
-		scm_gc_unprotect_object ($2->self_scm ());
-		$$ = m;
-	}
-	| Grouped_music_list new_lyrics {
+	Grouped_music_list new_lyrics {
 
 		/* FIXME: should find out uniqueXXX name from music */
 		SCM name = $1->get_property ("context-id");
@@ -1695,10 +1591,7 @@ command_element:
 	;
 
 command_req:
-	BREATHE {
-		$$ = MY_MAKE_MUSIC ("BreathingSignEvent");
-	}
-	| E_TILDE {
+	E_TILDE {
 		$$ = MY_MAKE_MUSIC ("PesOrFlexaEvent");
 	}
 	| MARK DEFAULT  {
