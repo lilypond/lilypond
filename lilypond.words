@@ -1,5 +1,6 @@
 \accent
 \accepts
+Accidental 
 \accompany
 \addlyrics
 \aeolian
@@ -11,13 +12,16 @@ alto
 \arpeggio
 \autoBeamOff
 \autoBeamOn
+autoBeamSettings 
 \autochange
 \bar
 baritone
+BarLine 
 \BarNumberingContext
 bass
 \bassiGroup
 \bcincipit
+Beam
 \beamintervals
 \blend
 \break
@@ -28,10 +32,13 @@ bass
 \cg
 \ch
 \char
+ChoirStaff
 \ChoirStaffContext
 \chord
 \chordchordmodifiers
 \chordmodifiers
+ChordName
+ChordName
 \ChordNamesContext
 \chords
 \chordstest
@@ -56,6 +63,7 @@ bass
 \different
 \dirs
 \dorian
+Dots
 \dotsBoth
 \dotsDown
 \dotsUp
@@ -66,6 +74,7 @@ bass
 \duration
 \dynamicBoth
 \dynamicDown
+DynamicText
 \dynamicUp
 \EasyNotation
 \eccentric
@@ -87,6 +96,7 @@ F
 \ff
 \fff
 \ffff
+FiguredBass
 \FiguredBassContext
 \figures
 \flageolet
@@ -105,10 +115,13 @@ G
 \glissando
 \gmsus
 \grace
+Grace
 \GraceContext
 \grandstaff
+GrandStaff
 \GrandStaffContext
 \grstaff
+Hairpin
 \hairyChord
 \HaraKiriStaffContext
 \header
@@ -117,6 +130,7 @@ G
 \improOff
 \improOn
 \include
+InnerChoirStaff
 \InnerChoirStaffContext
 \InnerStaffContainerContext
 \InnerStaffContext
@@ -141,6 +155,7 @@ G
 \ltoe
 \lydian
 \lyrics
+Lyrics
 \LyricsContext
 \LyricsVoiceContext
 \major
@@ -178,7 +193,9 @@ mezzosoprano
 \noResetKey
 \normalkey
 \normalsize
+NoteHead
 \notenames
+NoteNames
 \NoteNamesContext
 \notes
 \nt
@@ -208,6 +225,7 @@ mezzosoprano
 percent
 \phrygian
 \Piano
+PianoStaff
 \PianoStaff
 \PianoStaffContext
 \pitch
@@ -242,6 +260,7 @@ percent
 \rfz
 \rheel
 \rhythm
+RhythmicStaff
 \RhythmicStaffContext
 \Rhytmic
 \RhytmicStaff
@@ -251,6 +270,7 @@ percent
 \scales
 \scheme
 \score
+Score
 \ScoreContext
 \scpaper
 \script
@@ -282,6 +302,7 @@ percent
 \simultaneous
 \singlepart
 \skip
+Slur
 \slurBoth
 \slurDotted
 \slurDown
@@ -296,6 +317,7 @@ soprano
 \sostenutoDown
 \sostenutoUp
 \sp
+SpacingSpanner
 \spanrequest
 \specialKey
 \spp
@@ -303,14 +325,17 @@ soprano
 \spppp
 \staccatissimo
 \staccato
+Staff
 \StaffContainerContext
 \StaffContext
 \StaffGroupContext
 \staffheight
 \staffOne
 \staffspace
+StaffSymbol
 \staffTwo
 \start
+Stem
 \stemBoth
 \stemDown
 \steminvert
@@ -324,7 +349,10 @@ soprano
 \sustainBoth
 \sustainDown
 \sustainUp
+System
+SystemStartDelimiter
 \tab
+TabStaff
 \tempo
 tenor
 \tenuto
@@ -332,6 +360,7 @@ tenor
 \textII
 \textIII
 \textscript
+TextScript 
 \thenotes
 \thrd
 \ThreadContext
@@ -347,6 +376,7 @@ tenor
 \timb
 \time
 \times
+TimeSignature 
 \timpaniGroup
 \tiny
 \toeters
@@ -380,6 +410,7 @@ unfold
 \upperOne
 \upperVoice
 \version
+VerticalAlignment
 \viloinII
 \viloinIIStaff
 \violeGroup
@@ -388,6 +419,7 @@ violin
 \violiniGroup
 \violinIStaff
 \visible
+Voice
 \voiceB
 \voiceC
 \VoiceContext
