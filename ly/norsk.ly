@@ -27,7 +27,7 @@
 
 %}
 
-\pitchnames #'(
+\pitchnames #`(
 	(ceses . ,(make-pitch -1 0 -2 ))
 	(cessess . ,(make-pitch -1 0 -2 ))
 	(ces . ,(make-pitch -1 0 -1 ))

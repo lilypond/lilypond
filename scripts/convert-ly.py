@@ -619,6 +619,7 @@ if 1:
 		
 		str = re.sub ('(paper_[a-z]+)', regularize_paper, str)
 		str = re.sub ('sustainup', 'sustainUp', str)
+		str = re.sub ('nobreak', 'noBreak', str)
 		str = re.sub ('sustaindown', 'sustainDown', str)
 		str = re.sub ('sostenutoup', 'sostenutoUp', str)
 		str = re.sub ('sostenutodown', 'sostenutoDown', str)

@@ -108,39 +108,38 @@ this and other documentation.
 * Invoking LilyPond::              Operation.
 * Reporting Bugs::                 Where to report bugs.
 * Reference Manual::               Reference Manual.
-* Internals::                      Internals
+@c Move to Reference Manual?
 * Internals:(lilypond-internals).  Auto generated detailed documentation.
-* Development::                    Some hints on developing for LilyPond.
 * convert-ly::                     Upgrading input files.
+* Internals::                      How it all works.
+* Development::                    On developing code for LilyPond.
 * Index::                          Unified index.
 @end menu
 
 @contents
 
 @macro keyindex {word}
-@cindex \word\
-
+@cindex \\@code{\word\}
 @end macro
 
 @macro indexcode {word}
-@cindex \word\
-
+@cindex @code{\word\}
 @end macro
 
 
 @mbinclude tutorial.itely
 
-@include invoking.itexi
+@mbinclude invoking.itexi
 
-@include bugs.itexi
+@mbinclude bugs.itexi
 
 @mbinclude refman.itely
 
-@include convert-ly.itexi
+@mbinclude convert-ly.itexi
 
-@include development.itexi
+@mbinclude development.itexi
 
-@node Index
+@node Index, , , top
 @unnumbered Index
 
 @printindex cp

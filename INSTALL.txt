@@ -17,10 +17,10 @@ applying the patch_.
 the safest method for upgrading is to use `xdelta', see
 `ftp://ftp.xcf.berkeley.edu/pub/xdelta/'.
 
-   The following command produces `lilypond-1.1.55.tar.gz' from
-`lilypond-1.1.54' identical (up to compression dates) to the .55 on the
-FTP site.
-       xdelta patch lilypond-1.1.54-1.1.55.xd lilypond-1.1.54.tar.gz
+   The following command produces `lilypond-1.3.122.tar.gz' from
+`lilypond-1.3.121' identical (up to compression dates) to the .122 on
+the FTP site.
+       xdelta patch lilypond-1.3.121-1.3.122.xd lilypond-1.3.121.tar.gz
 
 Prerequisites
 =============
@@ -74,7 +74,7 @@ Prerequisites
      or at mirror site ftp://ftp.dante.de (ftp://ftp.dante.de)
 
    * MetaPost, needed for generating PostScript fonts. Please note that
-     tetex-0.4pl8 (included with Redhat 5.x) does not include
+     tetex-0.4pl8 (included with Red Hat 5.x) does not include
      `mfplain.mp', which is needed for producing the scalable font
      files.
 
@@ -122,23 +122,23 @@ Website
 documentation on-line documentation. It is made by entering
 
        make htmldoc
-   This does require a  functioning  LilyPond. The binary doesn't have
-to be installed.
+   This does require a functioning LilyPond.  The binary doesn't have to
+be installed.
 
    If you want to auto-generate Lily's website, you'll need some
 additional conversion tools.
 
    * xpmtoppm (from the netpbm package: the Portable Bitmap Utilities)
-     (For RedHat Linux 	     users: it is included within the package
-     libgr-progs).  	the original is at
+     (For Red Hat Linux 	     users: it is included within the
+     package libgr-progs).  	The original is at
      ftp://ftp.x.org/contrib/utilities/netpbm-1mar1994.p1.tar.gz
      (ftp://ftp.x.org/contrib/utilities/netpbm-1mar1994.p1.tar.gz)
 
-   * pnmtopng (also in libgr-progs for RedHat). The original is at
+   * pnmtopng (also in libgr-progs for Red Hat). The original is at
      ftp://swrinde.nde.swri.edu/pub/png/applications/pnmtopng-2.37.2.tar.gz
      (ftp://swrinde.nde.swri.edu/pub/png/applications/pnmtopng-2.37.2.tar.gz).i
 
-     The version of `pnmtopng' that is distributed with RedHat 5.1 and
+     The version of `pnmtopng' that is distributed with Red Hat 5.1 and
      5.2 contains a bug: pnmtopng is dynamically linked to the wrong
      version of libpng.
 
@@ -272,21 +272,21 @@ Installing
 `.pk' and `.tfm' files of the fonts.  A script has been provided to do
 the work for you, see `bin/clean-fonts.sh'.
 
-Redhat linux
-============
+Red Hat Linux
+=============
 
-   RedHat Linux users can compile an RPM. A spec file is in
-`make/out/lilypond.spec', it is distributed along with the sources.
+   Red Hat Linux users can compile an RPM.  A spec file is in
+`make/out/lilypond.spec'; it is distributed along with the sources.
 
    You can make the rpm by issuing
 
      	rpm -tb lilypond-x.y.z.tar.gz
      	rpm -i /usr/src/redhat/RPMS/i386/lilypond-x.y.z
 
-   Precompiled RedHat-7.0 i386 RPMS are available from
+   Precompiled Red Hat 7.0 i386 RPMS are available from
 `ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/'.
 
-   For compilation on a RedHat system you need these packages, in
+   For compilation on a Red Hat system you need these packages, in
 addition to the those needed for running:
    * glibc-devel
 
@@ -302,42 +302,88 @@ addition to the those needed for running:
 
    * tetex-devel
 
-Debian GNU/linux
+Debian GNU/Linux
 ================
 
-   A Debian package is also available; see
-http://packages.debian.org/lilypond
-(http://packages.debian.org/lilypond) or contact Anthony Fok
-<foka@debian.org> for more information.
+   A Debian package is also available.  You may install it easily by
+using apt-get as root:
+
+     	apt-get install lilypond1.3
+
+   Alternatively, visit
+
+   * http://packages.debian.org/lilypond
+     (http://packages.debian.org/lilypond)
+
+   * http://ftp.debian.org/debian/pool/main/l/lilypond1.3/
+     (http://ftp.debian.org/debian/pool/main/l/lilypond1.3/) for latest
+     package uploaded to Debian unstable;
+
+   * http://people.debian.org/~foka/lilypond/
+     (http://people.debian.org/~foka/lilypond/) for latest
+     semi-unofficial build of LilyPond 1.3.121 for Debian 2.2r2
+     (potato) users.  The official stable Debian 2.2r2 is stuck with
+     the old LilyPond-1.3.24.
+
+   You may contact Anthony Fok <foka@debian.org> for more information.
 
    The build scripts are in the subdirectory `debian/'; you can make
-the .deb by doing
+the .deb by doing, for example:
 
-
-     	tar xzf lilypond-x.y.z.tar.gz
-     	cd lilypond-x.y.z
-     	dpkg-buildpackage
-     	dpkg -i ../lilypond_x.y.z*deb
+     	$ su - root
+     	# dpkg --purge lilypond lilypond1.3
+     	# exit
+     	$ tar xzf lilypond-1.3.122.tar.gz
+     	$ cd lilypond-1.3.122
+     	$ dch -p -v 1.3.122-0.local.1 "Local build."
+     	$ debuild
+     	$ su - root
+     	# dpkg -i ../lilypond1.3_1.3.122*.deb
+     	# exit
+     	$
 
    For compilation on a Debian GNU/Linux system you need these packages,
 in addition to the those needed for running:
-   * libc6-dev
 
-   * libstdc++<your-libstdc++-version-here>-dev
+   * g++, cpp, libc6-dev, libstdc++<your-libstdc++-version-here>-dev
 
    * libguile<your-libguile-version-here>-dev
 
-   * flex
-
-   * bison
+   * make, m4, flex, bison
 
    * gettext
 
-   * texinfo
+   * groff, texinfo, bibtex2html (not in 2.2r2)
 
-   * tetex-dev
+   * tetex-base, tetex-bin, tetex-extra, libkpathsea-dev or tetex-dev
 
-   * debhelper
+   * dpkg-dev, debhelper, fakeroot
+
+   * gs, netpbm, pnmtopng
+
+   Most of these are listed on the Build-Depends line in the
+debian/control file.  To ensure the creation of the lilypond deb is
+trouble-free, we recommend that you first install the following packages
+before starting dpkg-buildpackage by running apt-get as root.
+
+   For Debian 2.2 (or 2.2r2, 2.2r3):
+
+     	apt-get install task-debian-devel task-c++-dev \
+     		python-base libguile6-dev tetex-bin tetex-dev \
+     		tetex-extra flex bison texinfo groff gs \
+     		netpbm pnmtopng m4 gettext
+
+   For Debian in development ("unstable", the future 2.3 or 3.0):
+
+     	apt-get install task-debian-devel task-c++-dev \
+     		python-base libguile9-dev tetex-bin libkpathsea-dev \
+     		tetex-extra flex bison texinfo bibtex2html groff gs \
+     		netpbm pnmtopng m4 gettext
+
+   And, just so that old fonts from previous versions of LilyPond won't
+interfere with your build, you may want to do this before the build too:
+
+     	dpkg --purge lilypond lilypond1.3
 
 Windows NT/95
 =============
@@ -401,7 +447,7 @@ Linux-i386
           	Includable_lexer::new_input (this=0x8209a00, s={strh_ = {
 
      This behaviour has been observed with machines that have old libg++
-     versions (LinuxPPC feb '98, RedHat 4.x).
+     versions (LinuxPPC feb '98, Red Hat 4.x).
 
 Solaris:
 ********
@@ -424,7 +470,7 @@ AIX
              Some versions of the AIX binder (linker) can fail with a
           relocation    overflow severe error when the -bbigtoc option
           is used to link    GCC-produced object files into an
-          executable that overflows the TOC. A    fix for APAR IX75823
+          executable that overflows the TOC.     A fix for APAR IX75823
           (OVERFLOW DURING LINK WHEN USING GCC AND    -BBIGTOC) is
           available from IBM Customer Support and from its
           27service.boulder.ibm.com website as PTF U455193.

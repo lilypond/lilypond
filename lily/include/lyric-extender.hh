@@ -22,17 +22,13 @@
   for on a word's last syllable.  The extender should be aligned
   with the left side of the last note of the melissima, and not
   extend beond, lasting the whole duration of the melissima
-  (as in MUP, urg).
-
 
  */
 
 class Lyric_extender
 {
 public:
-  Spanner*elt_l_;
-  Lyric_extender (Spanner*);
-  void set_textitem (Direction, Grob*);
+  static void set_textitem (Spanner*, Direction, Grob*);
   DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
 };
 

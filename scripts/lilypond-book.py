@@ -62,12 +62,13 @@ no_match = 'a\ba'
 
 default_music_fontsize = 16
 default_text_fontsize = 12
+paperguru = None
 
-
+# this code is ugly. It should be cleaned
 class LatexPaper:
 	def __init__(self):
 		self.m_paperdef =  {
-			# the dimentions are from geometry.sty
+			# the dimensions are from geometry.sty
 			'a0paper': (mm2pt(841), mm2pt(1189)),
 			'a1paper': (mm2pt(595), mm2pt(841)),
 			'a2paper': (mm2pt(420), mm2pt(595)),
@@ -102,9 +103,9 @@ class LatexPaper:
 	def set_geo_option(self, name, value):
 		if name == 'body' or name == 'text':
 			if type(value) == type(""):
-				self._set_dimen('m_geo_textwidth', value)
+				self.m_geo_textwidth =  value
 			else:
-				self._set_dimen('m_geo_textwidth', value[0])
+				self.m_geo_textwidth =  value[0]
 			self.__body = 1
 		elif name == 'portrait':
 			self.m_geo_landscape = 0
@@ -112,10 +113,10 @@ class LatexPaper:
 			if self.m_geo_includemp == None:
 				self.m_geo_includemp = 1
 		elif name == 'marginparwidth' or name == 'marginpar':
-			self._set_dimen('m_geo_x_marginparwidth', value)
+			self.m_geo_x_marginparwidth =  value
 			self.m_geo_includemp = 1
 		elif name == 'marginparsep':
-			self._set_dimen('m_geo_x_marginparsep', value)
+			self.m_geo_x_marginparsep =  value
 			self.m_geo_includemp = 1
 		elif name == 'scale':
 			if type(value) == type(""):
@@ -125,61 +126,60 @@ class LatexPaper:
 		elif name == 'hscale':
 			self.m_geo_width = self.get_paperwidth() * float(value)
 		elif name == 'left' or name == 'lmargin':
-			self._set_dimen('m_geo_lmargin', value)
+			self.m_geo_lmargin =  value
 		elif name == 'right' or name == 'rmargin':
-			self._set_dimen('m_geo_rmargin', value)
+			self.m_geo_rmargin =  value
 		elif name == 'hdivide' or name == 'divide':
 			if value[0] not in ('*', ''):
-				self._set_dimen('m_geo_lmargin', value[0])
+				self.m_geo_lmargin =  value[0]
 			if value[1] not in ('*', ''):
-				self._set_dimen('m_geo_width', value[1])
+				self.m_geo_width =  value[1]
 			if value[2] not in ('*', ''):
-				self._set_dimen('m_geo_rmargin', value[2])
+				self.m_geo_rmargin =  value[2]
 		elif name == 'hmargin':
 			if type(value) == type(""):
-				self._set_dimen('m_geo_lmargin', value)
-				self._set_dimen('m_geo_rmargin', value)
+				self.m_geo_lmargin =  value
+				self.m_geo_rmargin =  value
 			else:
-				self._set_dimen('m_geo_lmargin', value[0])
-				self._set_dimen('m_geo_rmargin', value[1])
+				self.m_geo_lmargin =  value[0]
+				self.m_geo_rmargin =  value[1]
 		elif name == 'margin':#ugh there is a bug about this option in
 					# the geometry documentation
 			if type(value) == type(""):
-				self._set_dimen('m_geo_lmargin', value)
-				self._set_dimen('m_geo_rmargin', value)
+				self.m_geo_lmargin =  value
+				self.m_geo_rmargin =  value
 			else:
-				self._set_dimen('m_geo_lmargin', value[0])
-				self._set_dimen('m_geo_rmargin', value[0])
+				self.m_geo_lmargin =  value[0]
+				self.m_geo_rmargin =  value[0]
 		elif name == 'total':
 			if type(value) == type(""):
-				self._set_dimen('m_geo_width', value)
+				self.m_geo_width =  value
 			else:
-				self._set_dimen('m_geo_width', value[0])
+				self.m_geo_width =  value[0]
 		elif name == 'width' or name == 'totalwidth':
-			self._set_dimen('m_geo_width', value)
+			self.m_geo_width =  value
 		elif name == 'paper' or name == 'papername':
 			self.m_papersize = value
 		elif name[-5:] == 'paper':
 			self.m_papersize = name
 		else:
 			self._set_dimen('m_geo_'+name, value)
-	def _set_dimen(self, name, value):
-		if type(value) == type("") and value[-2:] == 'pt':
-			self.__dict__[name] = float(value[:-2])
-		elif type(value) == type("") and value[-2:] == 'mm':
-			self.__dict__[name] = mm2pt(float(value[:-2]))
-		elif type(value) == type("") and value[-2:] == 'cm':
-			self.__dict__[name] = 10 * mm2pt(float(value[:-2]))
-		elif type(value) == type("") and value[-2:] == 'in':
-			self.__dict__[name] = in2pt(float(value[:-2]))
+	def __setattr__(self, name, value):
+		if type(value) == type("") and \
+		   dimension_conversion_dict.has_key (value[-2:]):
+			f = dimension_conversion_dict[dim]
+			self.__dict__[name] = f(float(value[:-2]))
 		else:
 			self.__dict__[name] = value
-	def display(self):
-		print "LatexPaper:\n-----------"
+			
+	def __str__(self):
+		s =  "LatexPaper:\n-----------"
 		for v in self.__dict__.keys():
 			if v[:2] == 'm_':
-				print v, self.__dict__[v]
-		print "-----------"
+				s = s +  str (v) + ' ' + str (self.__dict__[v])
+		s = s +  "-----------"
+		return s
+	
 	def get_linewidth(self):
 		w = self._calc_linewidth()
 		if self.m_num_cols == 2:
@@ -204,38 +204,37 @@ class LatexPaper:
 				mp = mp + self.m_geo_x_marginparwidth
 			else:
 				mp = mp + self.m_geo_marginparwidth[self.m_fontsize]
-		if self.__body:#ugh test if this is necessary
+
+		#ugh test if this is necessary				
+		if self.__body:
 			mp = 0
-		def tNone(a, b, c):
-			return a == None, b == None, c == None
+
 		if not self.m_use_geometry:
 			return latex_linewidths[self.m_papersize][self.m_fontsize]
 		else:
-			if tNone(self.m_geo_lmargin, self.m_geo_width,
-				self.m_geo_rmargin) == (1, 1, 1):
+			geo_opts = (a == None, b == None, c == None)
+			
+			if geo_opts == (1, 1, 1):
 				if self.m_geo_textwidth:
 					return self.m_geo_textwidth
 				w = self.get_paperwidth() * 0.8
 				return w - mp
-			elif tNone(self.m_geo_lmargin, self.m_geo_width,
-			         self.m_geo_rmargin) == (0, 1, 1):
+			elif geo_opts == (0, 1, 1):
 				 if self.m_geo_textwidth:
 				 	return self.m_geo_textwidth
 				 return self.f1(self.m_geo_lmargin, mp)
-			elif tNone(self.m_geo_lmargin, self.m_geo_width,
-			         self.m_geo_rmargin) == (1, 1, 0):
+			elif geo_opts == (1, 1, 0):
 				 if self.m_geo_textwidth:
 				 	return self.m_geo_textwidth
 				 return self.f1(self.m_geo_rmargin, mp)
-			elif tNone(self.m_geo_lmargin, self.m_geo_width,
-				self.m_geo_rmargin) \
+			elif geo_opts \
 					in ((0, 0, 1), (1, 0, 0), (1, 0, 1)):
 				if self.m_geo_textwidth:
 					return self.m_geo_textwidth
 				return self.m_geo_width - mp
-			elif tNone(self.m_geo_lmargin, self.m_geo_width,
-				self.m_geo_rmargin) in ((0, 1, 0), (0, 0, 0)):
-				w = self.get_paperwidth() - self.m_geo_lmargin - self.m_geo_rmargin - mp
+			elif geo_opts in ((0, 1, 0), (0, 0, 0)):
+				w = self.get_paperwidth() \
+				  - self.m_geo_lmargin - self.m_geo_rmargin - mp
 				if w < 0:
 					w = 0
 				return w
@@ -263,10 +262,22 @@ def mm2pt(x):
 	return x * 2.8452756
 def in2pt(x):
 	return x * 72.26999
-def em2pt(x, fontsize):
+def em2pt(x, fontsize = 10):
 	return {10: 10.00002, 11: 10.8448, 12: 11.74988}[fontsize] * x
-def ex2pt(x, fontsize):
+def ex2pt(x, fontsize = 10):
 	return {10: 4.30554, 11: 4.7146, 12: 5.16667}[fontsize] * x
+
+def pt2pt(x):
+	return x
+
+dimension_conversion_dict ={
+	'mm': mm2pt,
+	'in': in2pt,
+	'em': em2pt,
+	'ex': ex2pt,
+	'pt': pt2pt
+	}
+
 	
 # latex linewidths:
 # indices are no. of columns, papersize,  fontsize
@@ -389,7 +400,9 @@ re_dict = {
 		  'singleline-comment': r"(?m)^.*?(?P<match>(?P<code>^%.*$\n+))",
 		  'numcols': r"(?P<code>\\(?P<num>one|two)column)",
 		  },
-	
+
+
+	# why do we have distinction between @mbinclude and @include? 
 	'texi': {
 		 'include':  '(?m)^[^%\n]*?(?P<match>@mbinclude[ \n\t]+(?P<filename>[^\t \n]*))',
 		 'input': no_match,
@@ -486,7 +499,7 @@ def compose_full_body (body, opts):
 	if 'singleline' in opts:
 		l = -1.0;
 	else:
-		l = paperguru.get_linewidth()
+		l = __main__.paperguru.get_linewidth()
 	
 	if 'relative' in opts:#ugh only when is_fragment
 		body = '\\relative c { %s }' % body
@@ -528,7 +541,8 @@ def parse_options_string(s):
 			s = s[m.end():]
 			d[m.group(1)] = 1
 			continue
-		print "trøbbel:%s:" % s
+		
+		error ("format of option string invalid (was `%')" % s)
 	return d
 
 def scan_latex_preamble(chunks):
@@ -567,16 +581,12 @@ def scan_latex_preamble(chunks):
 
 def scan_texi_preamble (chunks):
 	# this is not bulletproof..., it checks the first 10 chunks
-	idx = 0
-	while 1:
-		if chunks[idx][0] == 'input':
+	for c in chunks[:10]: 
+		if c[0] == 'input':
 			for s in ('afourpaper', 'afourwide', 'letterpaper',
 				  'afourlatex', 'smallbook'):
-				if string.find(chunks[idx][1], "@%s" % s) != -1:
+				if string.find(c[1], "@%s" % s) != -1:
 					paperguru.m_papersize = s
-		idx = idx + 1
-		if idx == 10 or idx == len(chunks):
-			break
 
 def scan_preamble (chunks):
 	if __main__.format == 'texi':
@@ -619,6 +629,9 @@ def completize_preamble (chunks):
 
 read_files = []
 def find_file (name):
+	"""
+	Search the include path for NAME. If found, return the contents of teh file.
+	"""
 	f = None
 	for a in include_path:
 		try:
@@ -629,6 +642,7 @@ def find_file (name):
 		except IOError:
 			pass
 	if f:
+		sys.stderr.write ("Reading `%s'\n" % nm)
 		return f.read ()
 	else:
 		error ("File not found `%s'\n" % name)
@@ -709,26 +723,40 @@ def chop_chunks(chunks, re_name, func, use_match=0):
             newchunks.append(c)
     return newchunks
 
+def determine_format (str):
+	if __main__.format == '':
+		
+		latex =  re.search ('\\\\document', str[:200])
+		texinfo =  re.search ('@node|@setfilename', str[:200])
+
+		f = ''
+		g = None
+		
+		if texinfo and latex == None:
+			f = 'texi'
+		elif latex and texinfo == None: 
+			f = 'latex'
+		else:
+			error("error: can't determine format, please specify")
+		__main__.format = f
+
+	if __main__.paperguru == None:
+		if __main__.format == 'texi':
+			g = TexiPaper()
+		else:
+			g = LatexPaper()
+			
+		__main__.paperguru = g
+
+
 def read_doc_file (filename):
 	"""Read the input file, find verbatim chunks and do \input and \include
 	"""
-	str = ''
 	str = find_file(filename)
-
-	if __main__.format == '':
-		latex =  re.search ('\\\\document', str[:200])
-		texinfo =  re.search ('@node|@setfilename', str[:200])
-		if (texinfo and latex) or not (texinfo or latex):
-			error("error: can't determine format, please specify")
-		if texinfo:
-			__main__.format = 'texi'
-		else:
-			__main__.format = 'latex'
-	if __main__.format == 'texi':
-		__main__.paperguru = TexiPaper()
-	else:
-		__main__.paperguru = LatexPaper()
+	determine_format (str)
+	
 	chunks = [('input', str)]
+	
 	# we have to check for verbatim before doing include,
 	# because we don't want to include files that are mentioned
 	# inside a verbatim environment

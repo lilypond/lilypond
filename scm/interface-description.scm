@@ -686,11 +686,7 @@ position 0."
   (lily-interface
    'stem-tremolo-interface
    ""
-   '(
-    stem 
-    beam-width 
-    beam-thickness 
-    beam-space-function 
+   '( stem beam-width beam-thickness beam-space-function 
     )))
 
 (define separation-item-interface

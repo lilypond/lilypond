@@ -1,3 +1,15 @@
+lilypond1.3 (1.3.121-1) unstable; urgency=low
+
+  * New upstream release.
+  * Added more detailed instruction for building lilypond1.3 on Debian
+    in Documentation/topdocs/INSTALL.texi (hence INSTALL.txt).
+  * Applied Han-wen's one-line patch to lily/system-start-delimiter.cc
+    to remove bracket-width.
+  * It seems that bracket-width needs to be removed from
+    scm/grob-description.scm and scm/interface-description.scm too.
+
+ -- Anthony Fok <foka@debian.org>  Sun,  7 Jan 2001 02:34:46 -0700
+
 lilypond1.3 (1.3.119-1) unstable; urgency=low
 
   * New upstream release.

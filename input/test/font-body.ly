@@ -1,4 +1,4 @@
-\version "1.3.117";
+\version "1.3.122";
 
 FontBody=	\notes\transpose c''{ 
 		\bar "|:";
@@ -37,7 +37,7 @@ c\longa*1/4 c\breve*1/2 c1 c2 c4 c8
 
 		\transpose c'{
 			\time 4/4;
-			\property Voice . textStyle =  "finger"
+			\property Voice . TextScript \override #'font-style =  #'Finger
 			\property Voice . noteHeadStyle = #'diamond
 			c1^"1" d2^"2" e4^"3"
 			\property Voice . noteHeadStyle = #'cross
@@ -49,7 +49,7 @@ c\longa*1/4 c\breve*1/2 c1 c2 c4 c8
 			a^"0"_"9"
 
 			a'^\flageolet
-			\property Voice . textStyle =  "roman"
+			\property Voice . TextScript \override #'font-style =  #'roman
 			\time 1/2; a2 |
 			\time 3/2; < a1.
 			{ s4 \ppp \< s4 \! s4 \fff  s4 \> s4 \! s4\ppp} >
@@ -62,6 +62,6 @@ c\longa*1/4 c\breve*1/2 c1 c2 c4 c8
 			\time 12/8; a1. |
 			\time 12/4;
 			r1. r2. r4. r8. r16. r32. r64. r64. |
-			c2\sustaindown c\sustainup |
+			c2\sustainDown c\sustainUp |
 		}
 }

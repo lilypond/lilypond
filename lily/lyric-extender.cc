@@ -47,14 +47,10 @@ Lyric_extender::brew_molecule (SCM smob)
 }
 
 void
-Lyric_extender::set_textitem (Direction d, Grob*s)
+Lyric_extender::set_textitem (Spanner*sp, Direction d, Grob*s)
 {
-  elt_l_->set_bound (d, s);
-  elt_l_->add_dependency (s);
+  sp->set_bound (d, s);
+  sp->add_dependency (s);
 }
 
-Lyric_extender::Lyric_extender (Spanner*s)
-{
-  elt_l_ = s;
-}
 

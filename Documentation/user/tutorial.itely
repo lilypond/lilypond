@@ -1,7 +1,7 @@
 @c -*-texinfo-*-
 
 @c ugh: because of @include, we need to fill in these nodes?
-@node Tutorial
+@node Tutorial, , , Top
 @chapter Tutorial
 
 @menu
@@ -84,31 +84,13 @@ To view this output, issue the command `@code{xdvi menuet}'.
 
 Now that we are familiar with the procedure of producing output, we
 will analyse the input, line by line.
-@ignore
-Let's try to redo this
 @example
-
 	% lines preceded by a percent are comments which
 	% are ignored by Lilypond.
-
- 
 @end example 
 The percent sign, `@code{%}', introduces a line comment.  If you want to
 make larger comments, you can use block comments. These are delimited
 by `@code{%@{}' and `@code{%@}}'
-@end ignore
-@multitable @columnfractions .60 .39
-@item
-@noindent
-@c @example  urg: no tt font
-@c @exdent % lines preceded by a percent are comments.
-@exdent @code{% lines preceded by a percent are comments.}
-@c @end example
-@tab
-The percent sign, `@code{%}', introduces a line comment.  If you
-want to make larger comments, you can use block comments. These
-are delimited by `@code{%@{}' and `@code{%@}}'
-@end multitable
 @example 
 
         \input "paper16.ly"
