@@ -27,7 +27,7 @@ Timing_engraver::do_try_music (Music*m)
 {
   if (Bar_req  * b= dynamic_cast <Bar_req *> (m))
     {
-      if (bar_req_l_ && bar_req_l_->equal_b (b)) // huh?
+      if (bar_req_l_ && !bar_req_l_->equal_b (b)) // huh?
 	return false;
       
       bar_req_l_ = b;
