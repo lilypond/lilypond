@@ -1,12 +1,42 @@
-1.3.101.jcn2
+1.3.102.jcn1
 ============
+
+* Translated auto-beam properties to alist.
+
+* Rewrite of tfmtoafm in scm.
+
+* Rewrite of emacs LilyPond mode, based upon auctex interface.
+
+* Chord name fixes and additions (Atte Andr'e Jensen)
+
+* ly-get-mus-property, ly-set-mus-property: set properties of Music
+
+* Move Span_req::span_dir_ into Scheme
+
+* removed numberOfStaffLines, staffSpace. Use StaffSymbol \push
+staff-space, line-count
+
+* removed minVerticalAlign, maxVerticalAlign; use VerticalAlignment
+\push #'threshold = #(MIN . MAX)
+
+* \property tremoloFlags can be set anywhere now
+
+* \apply #function music 
+
+* Bugfix: padding of dots.
+
+* Generate documentation for separate engravers as well as for contexts.
+
+* Move some reference manual into the  SCM documentation system.
+
+* Bugfix: fixed hyphen spanners.
+
+1.3.102
+=======
 
 * Fixed bracket, and made some other PostScript code fixes.
 
 * Silly font initialisation fix for paper19 non-feature.
-
-1.3.101.uu1
-===========
 
 * Automatic engraver/property documentation infrastructure. 
 

@@ -1,155 +1,88 @@
+;;;
 ;;; lilypond-mode.el --- Major mode for editing GNU LilyPond music scores
+;;;
+;;; source file of the GNU LilyPond music typesetter
+;;; 
+;;; (c) 1999, 2000 Jan Nieuwenhuizen <janneke@gnu.org>
 
-;; Copyright (C) 1992,1993,1994  Tim Peters
-
-;; Author: 1999: Jan Nieuwenhuizen
-;; Author: 1997: Han-Wen Nienhuys
-;; Author: 1995-1996 Barry A. Warsaw
-;;         1992-1994 Tim Peters
-;; Created:       Feb 1992
-;; Version:       0.0
-;; Last Modified: 12SEP97
-;; Keywords: mudela languages music
-
-;; This software is provided as-is, without express or implied
-;; warranty.  Permission to use, copy, modify, distribute or sell this
-;; software, without fee, for any purpose and by any individual or
-;; organization, is hereby granted, provided that the above copyright
-;; notice and this paragraph appear in all copies.
-
-;; This started out as a cannabalised version of python-mode.el, by hwn
-;; For changes see the LilyPond ChangeLog
-;;
-;; TODO: 
-;; * lily/ly/lilypond?
-;; * syntax
-;;   - should handle block comments too.
-;;   - handle lexer modes (\header, \melodic, \lyric) etc.
-;;   - indentation
-;;   - notenames?
-;;   - fontlock: \melodic \melodic
+;;; Inspired on auctex
 
 
-(defconst lily-version "1.3.19"
-  "`lilypond-mode' version number.")
+(load-file "lilypond-font-lock.el")
 
-(defconst lily-help-address "hanwen@cs.uu.nl"
-  "Address accepting submission of bug reports.")
-
-(defconst lily-font-lock-keywords
-  (let* ((keywords '("spanrequest" "simultaneous" "sequential" "accepts"
-		     "autochange" "alternative" "bar" "breathe"
-		     "cadenza" "chordmodifiers" "chords" "clef" "cm" "consists"
-		     "consistsend" "context"
-		     "duration" "font" "grace" "header" "in" "lyrics"
-		     "key" "keysignature" "mark" "musicalpitch"
-		     "time" "times" "midi" "mm" "name" "notenames"
-		     "notes" "partial" "paper" "penalty" "push" "pop" "property" "pt"
-		     "relative" "remove" "repeat" "repetitions" "addlyrics"
-		     "scm" "scmfile" "score" "script"
-		     "shape" "skip" "textscript" "tempo" "translator" "transpose"
-		     "type" "version" 
-		     ))
-       (kwregex (mapconcat (lambda (x) (concat "\\\\" x))  keywords "\\|")))
-
-    (list 
-      (concat ".\\(" kwregex "\\)[^a-zA-Z]")
-      (concat "^\\(" kwregex "\\)[^a-zA-Z]")
-      '(".\\(\\\\[a-zA-Z][a-zA-Z]*\\)" 1 font-lock-variable-name-face)
-      '("^[\t ]*\\([a-zA-Z][_a-zA-Z]*\\) *=" 1 font-lock-variable-name-face)     
-    ))
-  "Additional expressions to highlight in Mudela mode.")
-
-;; define a mode-specific abbrev table for those who use such things
-(defvar lilypond-mode-abbrev-table nil
-  "Abbrev table in use in `lilypond-mode' buffers.")
-
-(define-abbrev-table 'lilypond-mode-abbrev-table nil)
-
-(defvar lilypond-mode-hook nil
-  "*Hook called by `lilypond-mode'.")
-
-(defvar lily-mode-syntax-table nil
-  "Syntax table used in `lilypond-mode' buffers.")
-
-;;
-(if lily-mode-syntax-table
-    ()
-  (setq lily-mode-syntax-table (make-syntax-table))
-  (mapcar (function
-	   (lambda (x) (modify-syntax-entry
-			(car x) (cdr x) lily-mode-syntax-table)))
-	  '(( ?\( . "()" ) ( ?\) . ")(" )   ; need matching parens for inline lisp
- 	    ( ?\[ . "." ) ( ?\] . "." )
-	    ( ?\{ . "(}" ) ( ?\} . "){" )
-	    ( ?\< . "(>" )( ?\> . ")>") 
-	    ( ?\$ . "." ) ( ?\% . "." ) ( ?\& . "." )
-	    ( ?\* . "." ) ( ?\+ . "." ) ( ?\- . "." )
-	    ( ?\/ . "." )  ( ?\= . "." )
-	    ( ?\| . "." ) (?\\ . "\\" )
-	    ( ?\_ . "." )	
-	    ( ?\' . "w")	
-	    ( ?\" . "\"" )
-	    ( ?\% . "<")
-	    ( ?\n . ">")
-
-; FIXME
-;	    ( ?%  .  ". 124b" )
-;	    ( ?{  .  ". 23" )
-	    ))
-
-  )	
-
-(defconst lily-imenu-generic-re "^\\([a-zA-Z_][a-zA-Z0-9_]*\\) *="
-  "Regexp matching Identifier definitions.")
-
-;; Sadly we need this for a macro in Emacs 19.
-(eval-when-compile
-  ;; Imenu isn't used in XEmacs, so just ignore load errors.
-  (condition-case ()
-      (require 'imenu)
-    (error nil)))
-
-(defvar lily-imenu-generic-expression
-  (list (list nil lily-imenu-generic-re 1))
-  "Expression for imenu")
-
-
-;;; we're using some handy compile commands
+(require 'easymenu)
 (require 'compile)
 
-(defcustom lily-command "lilypond"
-  "* LilyPond executable."
-  :type 'string
-  :group 'lily)
+(defconst LilyPond-version "1.3.103"
+  "`LilyPond-mode' version number.")
 
-(defcustom lily-parameters ""
-  "*."
-  :type 'string
-  :group 'lily)
+(defconst LilyPond-help-address "bug-gnu-music@gnu.org"
+  "Address accepting submission of bug reports.")
 
-(defvar lily-regexp-alist
+(defvar LilyPond-mode-hook nil
+  "*Hook called by `LilyPond-mode'.")
+
+(defvar LilyPond-regexp-alist
   '(("\\([a-zA-Z]?:?[^:( \t\n]+\\)[:( \t]+\\([0-9]+\\)[:) \t]" 1 2))
   "Regexp used to match LilyPond errors.  See `compilation-error-regexp-alist'.")
 
-(defcustom lily-tex-command "tex"
-  "*."
+(defcustom LilyPond-include-path ".:/tmp"
+  "* LilyPond include path."
   :type 'string
-  :group 'lily)
+  :group 'LilyPond)
 
-(defcustom lily-xdvi-command "xdvi"
-  "*."
-  :type 'string
-  :group 'lily)
 
-(defun lily-compile-file (command parameters file)
-  ;; Setting process-setup-function makes exit-message-function work
-  ;; even when async processes aren't supported.
-  (let ((command-args (concat command " " parameters " " file)))
-	(compile-internal command-args "No more errors" "LilyPond")))
+(defun LilyPond-check-files (derived originals extensions)
+  "Check that DERIVED is newer than any of the ORIGINALS.
+Try each original with each member of EXTENSIONS, in all directories
+in LilyPond-include-path."
+  (let ((found nil)
+	(regexp (concat "\\`\\("
+			(mapconcat (function (lambda (dir)
+				      (regexp-quote (expand-file-name dir))))
+				   LilyPond-include-path "\\|")
+			"\\).*\\("
+			(mapconcat 'regexp-quote originals "\\|")
+			"\\)\\.\\("
+			(mapconcat 'regexp-quote extensions "\\|")
+			"\\)\\'"))
+	(buffers (buffer-list)))
+    (while buffers
+      (let* ((buffer (car buffers))
+	     (name (buffer-file-name buffer)))
+	(setq buffers (cdr buffers))
+	(if (and name (string-match regexp name))
+	    (progn
+	      (and (buffer-modified-p buffer)
+		   (or (not LilyPond-save-query)
+		       (y-or-n-p (concat "Save file "
+					 (buffer-file-name buffer)
+					 "? ")))
+		   (save-excursion (set-buffer buffer) (save-buffer)))
+	      (if (file-newer-than-file-p name derived)
+		  (setq found t))))))
+    found))
+
+(defun LilyPond-running ()
+  (let ((process (get-process "lilypond")))
+  (and process
+       (eq (process-status process) 'run))))
+
+(defun LilyPond-kill-job ()
+  "Kill the currently running LilyPond job."
+  (interactive)
+  ;; What bout TeX, Xdvi?
+  (quit-process (get-process "lilypond") t))
+
+;; URG, should only run LilyPond-compile for LilyPond
+;; not for tex,xdvi (ly2dvi?)
+(defun LilyPond-compile-file (command name)
+  ;; We maybe should know what we run here (Lily, ly2dvi, tex)
+  ;; and adjust our error-matching regex ?
+  (compile-internal command "No more errors" name ))
 
 ;; do we still need this, now that we're using compile-internal?
-(defun lily-save-buffer ()
+(defun LilyPond-save-buffer ()
   (if (buffer-modified-p) (save-buffer)))
 
 ;;; return (dir base ext)
@@ -164,155 +97,308 @@
 	(list dir (substring file 0 (- i 1)) (substring file i (length file)))
       (list dir file ""))))
 
-;;;###autoload
-(defun lily-eval-buffer ()
+
+;; Should check whether in command-alist?
+(defvar LilyPond-command-default "LilyPond")
+;;;(make-variable-buffer-local 'LilyPond-command-last)
+
+(defvar LilyPond-command-current 'LilyPond-command-master)
+;;;(make-variable-buffer-local 'LilyPond-command-master)
+
+
+;; If non-nil, LilyPond-command-query will return the value of this
+;; variable instead of quering the user. 
+(defvar LilyPond-command-force nil)
+
+
+;; This is the major configuration variable.
+(defcustom LilyPond-command-alist
+  '(
+    ("LilyPond" . ("lilypond %s" . "TeX"))
+    ("TeX" . ("tex '\\nonstopmode\\input %t'" . "View"))
+    
+    ;; point-n-click (arg: exits upop USR1)
+    ("SmartView" . ("xdvi %d" . "LilyPond"))
+    
+    ;; refreshes when kicked USR1
+    ("View" . ("xdvik %d" . "LilyPond"))
+    )
+
+  "AList of commands to execute on the current document.
+
+The key is the name of the command as it will be presented to the
+user, the value is a cons of the command string handed to the shell
+after being expanded, and the next command to be executed upon
+success.  The expansion is done using the information found in
+LilyPond-expand-list.
+"
+  :group 'LilyPond
+  :type '(repeat (group (string :tag "Name")
+			(string :tag "Command")
+			(choice :tag "How"
+				:value LilyPond-run-command
+				(function-item LilyPond-run-command)
+				(function-item LilyPond-run-LilyPond)
+				(function :tag "Other"))
+			(boolean :tag "Prompt")
+			(sexp :format "End\n"))))
+
+;; drop this?
+(defcustom LilyPond-file-extensions '(".ly" ".sly" ".fly")
+  "*File extensions used by manually generated TeX files."
+  :group 'LilyPond
+  :type '(repeat (string :format "%v")))
+
+
+(defcustom LilyPond-expand-alist 
+  '(
+    ("%s" . ".ly")
+    ("%t" . ".tex")
+    ("%d" . ".dvi")
+    ("%p" . ".ps")
+    )
+    
+  "Alist of expansion strings for LilyPond command names."
+  :group 'LilyPond
+  :type '(repeat (group (string :tag "Key")
+			(sexp :tag "Expander")
+			(repeat :inline t
+				:tag "Arguments"
+				(sexp :format "%v")))))
+
+
+(defcustom LilyPond-command-Show "View"
+  "*The default command to show (view or print) a LilyPond file.
+Must be the car of an entry in LilyPond-command-alist."
+  :group 'LilyPond
+  :type 'string)
+  (make-variable-buffer-local 'LilyPond-command-Show)
+
+(defcustom LilyPond-command-Print "Print"
+  "The name of the Print entry in LilyPond-command-Print."
+  :group 'LilyPond
+  :type 'string)
+
+(defun xLilyPond-compile-sentinel (process msg)
+  (if (and process
+	   (= 0 (process-exit-status process)))
+      (setq LilyPond-command-default
+	      (cddr (assoc LilyPond-command-default LilyPond-command-alist)))))
+
+;; FIXME: shouldn't do this for stray View/xdvi
+(defun LilyPond-compile-sentinel (buffer msg)
+  (if (string-match "^finished" msg)
+      (setq LilyPond-command-default
+	    (cddr (assoc LilyPond-command-default LilyPond-command-alist)))))
+
+;;(make-variable-buffer-local 'compilation-finish-function)
+(setq compilation-finish-function 'LilyPond-compile-sentinel)
+
+(defun LilyPond-command-query (name)
+  "Query the user for what LilyPond command to use."
+  (let* ((default (cond ((if (string-equal name "emacs-lily")
+			     (LilyPond-check-files (concat name ".tex")
+						   (list name)
+						   LilyPond-file-extensions)
+			   ;; FIXME
+			   (LilyPond-save-buffer)
+			   ;;"LilyPond"
+			   LilyPond-command-default))
+			(t LilyPond-command-default)))
+	 
+	 (answer (or LilyPond-command-force
+		     (completing-read
+		      (concat "Command: (default " default ") ")
+		      LilyPond-command-alist nil t))))
+
+    ;; If the answer is "LilyPond" it will not be expanded to "LilyPond"
+    (let ((answer (car-safe (assoc answer LilyPond-command-alist))))
+      (if (and answer
+	       (not (string-equal answer "")))
+	  answer
+	default))))
+
+
+;; FIXME: find ``\score'' in buffers / make settable?
+(defun LilyPond-master-file ()
+  ;; duh
+  (buffer-file-name))
+
+(defun LilyPond-command-master ()
+  "Run command on the current document."
+  (interactive)
+  (LilyPond-command (LilyPond-command-query (LilyPond-master-file))
+		    'LilyPond-master-file))
+
+(defun LilyPond-region-file (begin end)
+  (let (
+	;; (dir "/tmp/")
+	;; urg
+	(dir "./")
+	(base "emacs-lily")
+	;; Hmm
+	(ext (if (string-match "^[\\]score" (buffer-substring begin end))
+		 ".ly"
+	       (if (< 50 (abs (- begin end)))
+		   ".fly"
+		 ".sly"))))
+    (concat dir base ext)))
+
+(defun LilyPond-command-region (begin end)
+  "Run LilyPond on the current region."
+  (interactive "r")
+  (write-region begin end (LilyPond-region-file begin end) nil 'nomsg)
+  (LilyPond-command (LilyPond-command-query
+		     (LilyPond-region-file begin end))
+		    '(lambda () (LilyPond-region-file begin end))))
+
+(defun LilyPond-command-buffer ()
   "Run LilyPond on buffer."
   (interactive)
-  (let ((buffer (buffer-name)))
-    (if (buffer-file-name)
-	(progn
-	  (lily-save-buffer)
-	  (lily-compile-file lily-command lily-parameters (buffer-file-name)))
-      (progn
-	(error "Buffer %s is not associated with a file" buffer)
-	(lily-eval-region (min-point) (max-point))))))
+  (LilyPond-command-region (point-min) (point-max)))
 
-;;;###autoload
-(defun lily-eval-region (start end)
-  "Run LilyPond on region."
-  (interactive "r")
-  (let ((basename "emacs-lily")
-	(suffix (if (string-match "^[\\]score" (buffer-substring start end))
-		    ".ly"
-		  (if (< 50 (abs (- start end)))
-		      ".fly"
-		      ".sly"))))
-    (write-region start end (concat basename suffix) nil 'nomsg)
-    (lily-compile-file lily-command lily-parameters (concat basename suffix))))
+(defun LilyPond-command-expand (string file)
+  (let ((case-fold-search nil))
+    (if (string-match "%" string)
+	(let* ((b (match-beginning 0))
+	       (e (+ b 2))
+	       (l (split-file-name file))
+	       (dir (car l))
+	       (base (cadr l)))
+	  (LilyPond-command-expand
+	   (concat (substring string 0 b)
+		   dir
+		   base
+		   (let ((entry (assoc (substring string b e)
+				       LilyPond-expand-alist)))
+		     (if entry (cdr entry) ""))
+		   (substring string e))
+	   file))
+      string)))
 
-(defun lily-running ()
-  (let ((process (get-process "lilypond")))
-  (and process
-       (eq (process-status process) 'run))))
+(defun LilyPond-command (name file)
+  "Run command NAME on the file you get by calling FILE.
 
-(defun lily-tex-file (basename)
-  (call-process lily-tex-command nil t nil basename))
+FILE is a function return a file name.  It has one optional argument,
+the extension to use on the file.
 
-(defun lily-xdvi-file (basename)
-  (let ((outbuf (get-buffer-create "*lily-xdvi*"))
-	(name "xdvi")
-	(command (concat lily-xdvi-command " " basename)))
-    (if (get-process "xdvi")
-	;; Don't open new xdvi window, but force redisplay
-	;; We could make this an option.
-	(signal-process (process-id (get-process "xdvi")) 'SIGUSR1)
-      (if (fboundp 'start-process)
-	  (let* ((process-environment (cons "EMACS=t" process-environment))
-		 (proc (start-process-shell-command name outbuf command)))
-	    ;;(set-process-sentinel proc 'compilation-sentinel)
-	    ;;(set-process-filter proc 'compilation-filter)
-	    (set-marker (process-mark proc) (point) outbuf))
-	;;(setq compilation-in-progress (cons proc compilation-in-progress)))
-	
-	;; No asynchronous processes available.
-	(message "Executing `%s'..." command)
-	;; Fake modeline display as if `start-process' were run.
-	(setq mode-line-process ":run")
-	(force-mode-line-update)
-	(sit-for 0)			; Force redisplay
-      (call-process shell-file-name nil outbuf nil "-c" command)
-      (message "Executing `%s'...done" command)))))
-      
-
-;;;###autoload
-(defun lily-xdvi-buffer ()
-  "Run LilyPond, TeX and Xdvi on buffer."
-  (interactive)
-
-  (let* ((split (split-file-name buffer-file-name))
-	 (dir (car split))
-	 (base (cadr split)))
-
-    ;; we don't really need this...
-    (let ((tex (concat dir base ".tex"))
-	  (dvi (concat dir base ".dvi")))
-      (if (file-exists-p tex) (delete-file tex))
-      (if (file-exists-p dvi) (delete-file dvi)))
-
-    (lily-eval-buffer)
-    (set-buffer "*lilypond*")
-    
-    ;;(setq default-directory dir)
-    (while (lily-running)
-      (continue-process (get-process "lilypond")))
-    (sit-for 0)			; Force redisplay
-    
-    (if (= 0 (process-exit-status (get-process "lilypond")))
-	(progn
-	  (if (= 0 (lily-tex-file base))
-	      (lily-xdvi-file base))))))
+Use the information in LilyPond-command-alist to determine how to run the
+command."
   
-;;;###autoload
-(defun lily-xdvi-region (start end)
-  "Run LilyPond, TeX and Xdvi on region."
-  (interactive "r")
+  (let ((entry (assoc name LilyPond-command-alist)))
+    (if entry
+	(let ((command (LilyPond-command-expand (cadr entry)
+						(apply file nil))))
+	  (let* (
+		 (buffer-xdvi (get-buffer "*view*"))
+		 (process-xdvi (if buffer-xdvi (get-buffer-process buffer-xdvi) nil)))
+	    (if (and process-xdvi
+		     (string-equal name "View"))
+		;; Don't open new xdvi window, but force redisplay
+		;; We could make this an option.
+		(signal-process (process-id process-xdvi) 'SIGUSR1)
+	      (progn
+		(setq LilyPond-command-default name)
+		(LilyPond-compile-file command name))))))))
+	  
+;; XEmacs stuff
+;; Sadly we need this for a macro in Emacs 19.
+(eval-when-compile
+  ;; Imenu isn't used in XEmacs, so just ignore load errors.
+  (condition-case ()
+      (require 'imenu)
+    (error nil)))
 
-  (let ((dir default-directory)
-	(base "emacs-lily"))
 
-    ;; we don't really need this...
-    (let ((tex (concat dir base ".tex"))
-	  (dvi (concat dir base ".dvi")))
-      (if (file-exists-p tex) (delete-file tex))
-      (if (file-exists-p dvi) (delete-file dvi)))
-    
-    (lily-eval-region start end)
-    (set-buffer "*lilypond*")
-    
-    ;;(setq default-directory dir)
-    (while (lily-running)
-      (continue-process (get-process "lilypond")))
-    (sit-for 0)			; Force redisplay
-    
-    (if (= 0 (process-exit-status (get-process "lilypond")))
-	(progn
-	  (if (= 0 (lily-tex-file base))
-	      (lily-xdvi-file base))))))
+;;; Keymap
 
-;;;###autoload
-(defun lily-kill-job ()
-  "Kill the currently running LilyPond job."
-  (interactive)
-  (quit-process (get-process "lilypond") t))
-
-;; hmm
-;;  (kill-process (get-process "xdvi") t)
-
-(defvar lily-mode-map ()
-  "Keymap used in `lilypond-mode' buffers.")
+(defvar LilyPond-mode-map ()
+  "Keymap used in `LilyPond-mode' buffers.")
 
 ;; Note:  if you make changes to the map, you must do
-;;    M-x set-variable lily-mode-map nil
+;;    M-x set-variable LilyPond-mode-map nil
 ;;    M-x eval-buffer
-;;    M-x lilypond-mode
+;;    M-x LilyPond-mode
 ;; to let the changest take effect
-(if lily-mode-map
-    ()
-  (setq lily-mode-map (make-sparse-keymap))
-  (define-key lily-mode-map [f9] 'lily-eval-buffer)
-  (define-key lily-mode-map [f10] 'lily-xdvi-buffer)
-  (define-key lily-mode-map [S-f9] 'lily-eval-region)
-  (define-key lily-mode-map [S-f10] 'lily-xdvi-region)
-  ) 
 
-(defun lilypond-mode ()
-  "Major mode for editing Mudela files."
+(if LilyPond-mode-map
+    ()
+  (setq LilyPond-mode-map (make-sparse-keymap))
+  (define-key LilyPond-mode-map "\C-c\C-c" 'LilyPond-command-master)
+  (define-key LilyPond-mode-map "\C-c\C-r" 'LilyPond-command-region)
+  (define-key LilyPond-mode-map "\C-c\C-b" 'LilyPond-command-buffer)
+  (define-key LilyPond-mode-map "\C-c\C-k" 'LilyPond-kill-job)
+  )
+
+;;; Menu Support
+
+(defun LilyPond-command-menu-entry (entry)
+  ;; Return LilyPond-command-alist ENTRY as a menu item.
+  (let ((name (car entry)))
+    (cond ((and (string-equal name LilyPond-command-Print)
+		LilyPond-printer-list)
+	   (let ((command LilyPond-print-command)
+		 (lookup 1))
+	     (append (list LilyPond-command-Print)
+		     (mapcar 'LilyPond-command-menu-printer-entry
+			     LilyPond-printer-list))))
+	  (t
+	   (vector name (list 'LilyPond-command-menu name) t)))))
+
+
+(easy-menu-define LilyPond-mode-menu
+    LilyPond-mode-map
+    "Menu used in LilyPond mode."
+  (append '("Command")
+	  '(("Command on"
+	     [ "Master File" LilyPond-command-select-master
+	       :keys "C-c C-c" :style radio
+	       :selected (eq LilyPond-command-current 'LilyPond-command-master) ]
+	     [ "Buffer" LilyPond-command-select-buffer
+	       :keys "C-c C-b" :style radio
+	       :selected (eq LilyPond-command-current 'LilyPond-command-buffer) ]
+	     [ "Region" LilyPond-command-select-region
+	       :keys "C-c C-r" :style radio
+	       :selected (eq LilyPond-command-current 'LilyPond-command-region) ]))
+	  (let ((file 'LilyPond-command-on-current))
+	    (mapcar 'LilyPond-command-menu-entry LilyPond-command-alist))))
+
+
+(defconst LilyPond-imenu-generic-re "^\\([a-zA-Z_][a-zA-Z0-9_]*\\) *="
+  "Regexp matching Identifier definitions.")
+
+(defvar LilyPond-imenu-generic-expression
+  (list (list nil LilyPond-imenu-generic-re 1))
+  "Expression for imenu")
+
+(defun LilyPond-command-select-master ()
+  (interactive)
+  (message "Next command will be on the master file")
+  (setq LilyPond-command-current 'LilyPond-command-master))
+
+(defun LilyPond-command-select-buffer ()
+  (interactive)
+  (message "Next command will be on the buffer")
+  (setq LilyPond-command-current 'LilyPond-command-buffer))
+
+(defun LilyPond-command-select-region ()
+  (interactive)
+  (message "Next command will be on the region")
+  (setq LilyPond-command-current 'LilPond-command-region))
+
+(defun LilyPond-command-menu (name)
+  ;; Execute LilyPond-command-alist NAME from a menu.
+  (let ((LilyPond-command-force name))
+    (funcall LilyPond-command-current)))
+
+(defun LilyPond-mode ()
+  "Major mode for editing LilyPond music files."
   (interactive)
   ;; set up local variables
   (kill-all-local-variables)
 
   (make-local-variable 'font-lock-defaults)
-  (setq font-lock-defaults '(lily-font-lock-keywords))
+  (setq font-lock-defaults '(LilyPond-font-lock-keywords))
 
   (make-local-variable 'paragraph-separate)
   (setq paragraph-separate "^[ \t]*$")
@@ -335,46 +421,27 @@
   (make-local-variable 'block-comment-end)  
   (setq block-comment-end   "%}")
 
-  ;; (make-local-variable 'comment-column)
-  ;; (setq comment-column 40)
-
-  (make-local-variable 'imenu-generic-expression)
-  (setq imenu-generic-expression lily-imenu-generic-expression)
-
   (make-local-variable 'indent-line-function)
   (setq indent-line-function 'indent-relative-maybe)
  
-  ;;
-  (set-syntax-table lily-mode-syntax-table)
-  (setq major-mode 'lilypond-mode)
-  (setq mode-name "Mudela")
-  (setq local-abbrev-table lilypond-mode-abbrev-table)
-  (use-local-map lily-mode-map)
+    (set-syntax-table LilyPond-mode-syntax-table)
+  (setq major-mode 'LilyPond-mode)
+  (setq mode-name "LilyPond")
+  (setq local-abbrev-table LilyPond-mode-abbrev-table)
+  (use-local-map LilyPond-mode-map)
 
-  ;; run the mode hook. lily-mode-hook use is deprecated
-  (run-hooks 'lilypond-mode-hook))
+  (make-local-variable 'imenu-generic-expression)
+  (setq imenu-generic-expression LilyPond-imenu-generic-expression)
+  (imenu-add-to-menubar "Index")
 
+    ;; run the mode hook. LilyPond-mode-hook use is deprecated
+  (run-hooks 'LilyPond-mode-hook))
 
-(defun lily-keep-region-active ()
-  ;; do whatever is necessary to keep the region active in XEmacs.
-  ;; Ignore byte-compiler warnings you might see.  Also note that
-  ;; FSF's Emacs 19 does it differently and doesn't its policy doesn't
-  ;; require us to take explicit action.
-  (and (boundp 'zmacs-region-stays)
-       (setq zmacs-region-stays t)))
-
-
-;;(defun lily-comment-region (beg end &optional arg)
-;;  "Like `comment-region' but uses double hash (`#') comment starter."
-;;  (interactive "r\nP")
-;;  (let ((comment-start lily-block-comment-prefix))
-;;    (comment-region beg end arg)))
-
-(defun lily-version ()
-  "Echo the current version of `lilypond-mode' in the minibuffer."
+(defun LilyPond-version ()
+  "Echo the current version of `LilyPond-mode' in the minibuffer."
   (interactive)
-  (message "Using `lilypond-mode' version %s" lily-version)
-  (lily-keep-region-active))
+  (message "Using `LilyPond-mode' version %s" LilyPond-version))
 
-(provide 'lilypond-mode)
-;;; lilypond-mode.el ends here
+(provide 'LilyPond-mode)
+;;; LilyPond-mode.el ends here
+
