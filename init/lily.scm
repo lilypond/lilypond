@@ -385,6 +385,10 @@
    "\\hbox{%\n")
 
 (define
+  (startbar o h)
+  ((invoke-output o "invoke-dim1") "startbar" h))
+
+(define
   (startrepeat o h)
   ((invoke-output o "invoke-dim1") "startrepeat" h))
 
