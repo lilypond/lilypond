@@ -1969,7 +1969,7 @@ def conv (str):
 		      subst, str)
 	return str
 
-conversions.append (((2,1,26), conv, """property transposing -> tuning"""))
+conversions.append (((2,1,27), conv, """property transposing -> tuning"""))
 ################################
 #	END OF CONVERSIONS	
 ################################

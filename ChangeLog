@@ -23,7 +23,7 @@
 
 	* lily/paper-outputter.cc (output_metadata): Add parameter PAPER.
 
-2004-02-25  Jan Nieuwenhuizen  <jan.nieuwenhuizen@aspiratie.nl>
+2004-02-25  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/stencil-scheme.cc (ly_stencil_get_expr): New function.
 	Stray style cleanups.
