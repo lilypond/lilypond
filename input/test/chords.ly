@@ -1,5 +1,6 @@
 
 \version "1.7.10"
+\score { \notes { c4^"fixme"}}
 
 
 %{
