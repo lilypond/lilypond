@@ -1,7 +1,6 @@
 #include "debug.hh"
 #include "complexstaff.hh"
 #include "complexwalker.hh"
-#include "complexcolumn.hh"
 #include "score.hh"
 #include "pscore.hh"
 #include "staffsym.hh"
@@ -22,10 +21,7 @@ Complex_staff::set_output(PScore* pscore_l )
     pscore_l_ = pscore_l;
     pscore_l_->add(pstaff_l_);
 
-
-   
-    Staff_symbol *span_p = new Staff_symbol(5);
-
+    Staff_symbol *span_p = new Staff_symbol(NO_LINES);
     
     Score_column* col_last
 	=score_l_->find_col(score_l_->last(), false);
@@ -38,16 +34,6 @@ Complex_staff::set_output(PScore* pscore_l )
     pscore_l_->typeset_spanner(span_p, pstaff_l_);
 }
 
-Complex_staff::Complex_staff()
-{
-    pstaff_l_ = 0;
-}
-
-Staff_column*
-Complex_staff::create_col()
-{
-    return new Complex_column(this);
-}
 
 Staff_walker * 
 Complex_staff::get_walker_p()
