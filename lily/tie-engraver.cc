@@ -53,7 +53,6 @@ protected:
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music*);
   virtual void process_music ();
-  virtual void process_acknowledged_grobs ();
   void typeset_tie (Grob*);
 public:
   TRANSLATOR_DECLARATIONS(Tie_engraver);
@@ -117,20 +116,16 @@ Tie_engraver::acknowledge_grob (Grob_info i)
 	      announce_grob(p, last_event_->self_scm());
 	    }
 	}
-    }
-}
 
-void
-Tie_engraver::process_acknowledged_grobs ()
-{
-  if (ties_.size () > 1 && !tie_column_)
-    {
-      tie_column_ = new Spanner (get_property ("TieColumn"));
-      
-      for (int i = ties_.size (); i--;)
-	Tie_column::add_tie (tie_column_,ties_ [i]);
+      if (ties_.size () && ! tie_column_)
+	{
+	  tie_column_ = new Spanner (get_property ("TieColumn"));
+	  announce_grob(tie_column_, SCM_EOL);
+	}
 
-      announce_grob(tie_column_, SCM_EOL);
+      if (tie_column_)
+	for (int i = ties_.size (); i--;)
+	  Tie_column::add_tie (tie_column_,ties_ [i]);
     }
 }
 

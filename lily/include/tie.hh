@@ -20,6 +20,7 @@ public:
   static void set_head (Grob*,Direction, Grob*head);
   static void set_interface (Grob*);
   static bool has_interface (Grob*);
+  static void set_direction (Grob*);
   static Grob * head (Grob*,Direction) ;
   static Real get_position (Grob*) ;
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
