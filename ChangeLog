@@ -1,5 +1,12 @@
 2004-01-21  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* VERSION: release 2.1.14
+	
+	* Documentation/topdocs/INSTALL.texi (Top): fix FTP url. 
+
+	* lily/side-position-interface.cc (general_side_position): add
+	Staff_symbol_referencer::staff_space ().
+
 	* lily/include/context-def.hh: rename from translator-def.hh
 
 2004-01-21  Mats Bengtsson  <mabe@drongo.s3.kth.se>
