@@ -143,6 +143,7 @@ symbol go, measured in half staff spaces from the center of the staff.")
      (connectArpeggios ,boolean? " If set, connect arpeggios across
 piano staff.")
      (createKeyOnClefChange ,boolean? "Print a key signature whenever the clef is changed.")
+     (createSpacing ,boolean? "Create StaffSpacing objects? Should be set for staves.")
      (crescendoText ,markup? "Text to print at start of non-hairpin crescendo, i.e.: @samp{cresc.}")
      (crescendoSpanner ,symbol? "Type of spanner to be used for crescendi.
 One of: @samp{hairpin}, @samp{line}, @samp{dashed-line},

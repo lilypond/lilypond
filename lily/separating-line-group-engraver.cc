@@ -144,7 +144,8 @@ Separating_line_group_engraver::acknowledge_grob (Grob_info i)
 	}
       announce_grob (p_ref_, SCM_EOL);
 
-      if (p_ref_ == break_item_)
+      if (to_boolean (get_property ("createSpacing"))
+	  && p_ref_ == break_item_)
 	{
 	  Item *it  = make_item ("StaffSpacing");
 	  current_spacings_.staff_spacing_ = it;
@@ -225,8 +226,8 @@ Separating_line_group_engraver::stop_translation_timestep ()
 
 ENTER_DESCRIPTION (Separating_line_group_engraver,
 /* descr */       "Generates objects for computing spacing parameters.",
-/* creats*/       "SeparationItem SeparatingGroupSpanner",
+/* creats*/       "SeparationItem SeparatingGroupSpanner StaffSpacing",
 /* accepts */     "",
 /* acks  */      "item-interface",
-/* reads */       "",
+/* reads */       "createSpacing",
 /* write */       "breakableSeparationItem");

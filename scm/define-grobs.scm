@@ -189,15 +189,16 @@
      . (
 	(breakable . #t)
 	(stacking-dir . 1)
-	(break-align-orders . #((instrument-name left-edge ambitus breathing-sign
-						 clef key-signature staff-bar
+	(break-align-orders . #(; end-of-line:
+				(instrument-name left-edge ambitus breathing-sign
+						 clef  staff-bar key-signature
 						 time-signature custos)
 				(instrument-name left-edge ambitus breathing-sign
 						 clef  staff-bar key-signature
 						 staff
 						 time-signature custos)
 				(instrument-name left-edge ambitus breathing-sign
-						 clef  staff-bar key-signature
+						 clef key-signature staff-bar
 						 time-signature custos)
 
 				))
