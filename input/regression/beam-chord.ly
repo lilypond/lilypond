@@ -8,24 +8,19 @@ the beam should be be horizontal.  "
 \score{
 	\notes	\transpose c' c'{
 
-% this property doesn't appear to change the output in 1.7.19.
-\property Voice.Beam \set #'position-callbacks =
- #`(,Beam::least_squares
-			       ,Beam::check_concave
-			       ,Beam::slope_damping
-			       ,Beam::shift_region_to_valid
-	
-			      )
 		 a'8-[ <<a' g''>>]
-		 c-[ <<c e,>>]
 		 a'16-[ <<a' g''>>]
-		 c-[ <<c e,>>]
 		 a'32-[ <<a' g''>>]
-		 c-[ <<c e,>>]
+		 a'8-[ <<f' c''>>]
+		 a'16-[ <<f' c''>>]
+		 a'32-[ <<f' c''>>]
+		 a'16-[ <<f' c''>>]
+		 c8-[ <<c e,>>]
+		 c16-[ <<c e,>>]
+		 c32-[ <<c e,>>]
 	}
 	\paper{
-
-		linewidth = 66.0\mm
+	    raggedright = ##t 
 	}
 }
 %% new-chords-done %%

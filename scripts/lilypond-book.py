@@ -1153,13 +1153,14 @@ def process_lilypond_blocks (chunks):#ugh rename
 	newchunks = []
 	# Count sections/chapters.
 	for c in chunks:
-		cs = []
+		cs = [c]
 		if c[0] == 'lilypond':
 			cs = schedule_lilypond_block (c)
 		elif c[0] == 'numcols':
 			paperguru.m_num_cols = c[2]
 		elif c[0] == 'multicols':
 			paperguru.m_multicols = c[2]
+			
 		newchunks += cs
 		
 	return newchunks
