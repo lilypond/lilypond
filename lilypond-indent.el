@@ -1,8 +1,7 @@
 ;;; lilypond-indent.el --- Auto-indentation for lilypond code
 ;;;
 ;;; Heikki Junes <hjunes@cc.hut.fi>
-;;; * introduce Lilypond-show-paren-function for Emacs and 
-;;;             Lilypond-paren-highlight for XEmacs
+;;; * ond-char paren matching is handled by context dependent syntax tables
 ;;; * match two-char slurs '\( ... \)' and '\[ ... \]' separately.
 ;;; * adopt Emacs' f90-comment-region
 
@@ -14,10 +13,6 @@
 ;;; TODO:
 ;;;    * currently, in bracket matching one may need a non-bracket 
 ;;;      chararacter between the bracket characters, like ( ( ) )
-;;;    * in syntax-highlighting slurs are not always highlighted the right way
-;;;      e.g. opening slurs are found found better in "#( ( ) ( ) )" than
-;;;      opening slurs
-;;;    * Mouse double-clicks should use LilyPond-scan-sexps for slur matching.
 
 (defcustom LilyPond-indent-level 4
   "*Indentation of lilypond statements with respect to containing block.")
