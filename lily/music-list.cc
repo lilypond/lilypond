@@ -82,15 +82,25 @@ Request_chord::to_relative_octave (Pitch last)
   for (SCM s = music_list (); gh_pair_p (s);  s = gh_cdr (s))
     {
       Music * mus = unsmob_music (gh_car (s));
-      if (Melodic_req *m= dynamic_cast <Melodic_req *> (mus))
-	{
-	  Pitch pit = *unsmob_pitch (m->get_mus_property ("pitch"));
-	  
-	  pit.to_relative_octave (last);
-	  m->set_mus_property ("pitch", pit.smobbed_copy ());
-	  	  
-	  return pit;
-	}
+      Melodic_req *m= dynamic_cast <Melodic_req *> (mus);
+ 
+       /*
+ 	kLudge: rests have pitches now as well.
+        */
+       Rest_req *r = dynamic_cast<Rest_req*> (mus);
+       
+       if (r || m)
+  	{
+ 	  Pitch *old_pit = unsmob_pitch (mus->get_mus_property ("pitch"));
+ 	  if (!old_pit)
+ 	    continue;
+  	  
+ 	  Pitch new_pit = *old_pit;
+ 	  new_pit.to_relative_octave (last);
+ 	  mus->set_mus_property ("pitch", new_pit.smobbed_copy ());
+ 
+ 	  return new_pit;
+  	}
     }
   return last;
 }

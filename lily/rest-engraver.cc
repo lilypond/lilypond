@@ -22,10 +22,9 @@ protected:
   virtual bool try_music (Music *);
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
-  virtual void create_grobs ();
+  virtual void process_music ();
 
 public:
-  
   VIRTUAL_COPY_CONS (Translator);
   Rest_engraver ();
 };
@@ -63,13 +62,13 @@ Rest_engraver::stop_translation_timestep ()
 }
 
 void
-Rest_engraver::create_grobs ()
+Rest_engraver::process_music ()
 {
   if (rest_req_l_ && !rest_p_) 
     {
       rest_p_ = new Item (get_property ("Rest"));
       Rhythmic_head::set_interface (rest_p_);
-      Staff_symbol_referencer::set_interface (rest_p_);
+
       
       int durlog  = unsmob_duration (rest_req_l_->get_mus_property ("duration"))-> duration_log ();
       
@@ -88,6 +87,24 @@ Rest_engraver::create_grobs ()
 	  announce_grob (dot_p_,0);
 	}
 
+
+       Pitch *p = unsmob_pitch (rest_req_l_->get_mus_property ("pitch"));
+ 
+       /*
+ 	This is ridiculous -- rests don't have pitch, but we act as if
+ 	our nose is bleeding.
+        */
+       if (p)
+ 	{
+ 	  int pos= p->steps ();
+ 	  SCM c0 = get_property ("centralCPosition");
+ 	  if (gh_number_p (c0))
+ 	    pos += gh_scm2int (c0);
+ 	  
+ 	  rest_p_->set_grob_property ("staff-position", gh_int2scm (pos));
+ 	}
+       
+      
       announce_grob (rest_p_, rest_req_l_);
     }
 }

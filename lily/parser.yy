@@ -231,12 +231,14 @@ yylex (YYSTYPE *s,  void * v_l)
 %token TYPE
 %token UNSET
 %token CONTEXT
+%token REST
 
 /* escaped */
 %token E_CHAR E_EXCLAMATION E_SMALLER E_BIGGER E_OPEN E_CLOSE
+%token E_BACKSLASH
 %token CHORD_BASS CHORD_COLON CHORD_MINUS CHORD_CARET 
 
-%type <i>	exclamations questions dots
+%type <i>	exclamations questions dots optional_rest
 %token <i>	DIGIT
 %token <scm>	NOTENAME_PITCH
 %token <scm>	TONICNAME_PITCH
@@ -1066,6 +1068,16 @@ command_element:
 		$$-> set_spot (THIS->here_input ());
 		$1-> set_spot (THIS->here_input ());
 	}
+	| E_BACKSLASH {
+                $$ = new Music (gh_list (gh_cons (ly_symbol2scm ("name"), ly_symbol2scm ("separator")), SCM_UNDEFINED));
+                $$->set_spot (THIS->here_input ());
+        }
+        | '|'      {
+
+                extern Music * get_barcheck();
+                $$ = get_barcheck ();
+                $$->set_spot (THIS->here_input ());
+        }
 	| '|'      {
                 extern Music * get_barcheck();
                 $$ = get_barcheck ();
@@ -1640,17 +1652,28 @@ tremolo_type:
 	;
 
 
+
+optional_rest:
+	/**/   { $$ = 0; }
+	| REST { $$ = 1; }
+	;
+
 simple_element:
-	pitch exclamations questions optional_notemode_duration {
+	pitch exclamations questions optional_notemode_duration optional_rest {
 
 		Input i = THIS->pop_spot ();
 		if (!THIS->lexer_p_->note_state_b ())
 			THIS->parser_error (_ ("Have to be in Note mode for notes"));
 
-		Note_req *n = new Note_req;
+		Music *n = 0;
+		if ($5)
+			n =  new Rest_req ;
+		else
+			n =  new Note_req;
 		
 		n->set_mus_property ("pitch", $1);
 		n->set_mus_property ("duration", $4);
+
 
 		if ($3 % 2)
 			n->set_mus_property ("cautionary", SCM_BOOL_T);

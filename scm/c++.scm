@@ -88,10 +88,10 @@
 (define (cons-map f x)
   (cons (f (car x)) (f (cdr x))))
 
-;; used where?
-;;(define (reduce operator list)
-;;      (if (null? (cdr list)) (car list)
-;;	  (operator (car list) (reduce operator (cdr list)))))
+
+(define (reduce operator list)
+      (if (null? (cdr list)) (car list)
+	  (operator (car list) (reduce operator (cdr list)))))
 
 
 

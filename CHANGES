@@ -1,3 +1,12 @@
+1.4.11.uu1
+==========
+
+* Backport from 1.5: pitched rest. Syntax a4\rest
+
+* Backport from 1.5: on-the-fly polyphony. See reference manual.
+
+* Backport from 1.5: bugfix with overlapping bars and span-bars.
+
 1.4.10.uu1
 ==========
 

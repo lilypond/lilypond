@@ -92,10 +92,13 @@ Span_bar::brew_molecule (SCM smobbed_me)
 	  Interval l(prev_extent [UP],
 		     ext[DOWN]);
 
-	  Molecule interbar
-	    = Bar::compound_barline (staff_bar, glyph_str, l.length());
-	  interbar.translate_axis (l.center (), Y_AXIS);
-	  span_bar_mol.add_molecule (interbar);
+	  if (!l.empty_b ())
+	    {
+	      Molecule interbar
+		= Bar::compound_barline (staff_bar, glyph_str, l.length());
+	      interbar.translate_axis (l.center (), Y_AXIS);
+	      span_bar_mol.add_molecule (interbar);
+	    }
 	}
       prev_extent = ext;
     }

@@ -229,6 +229,14 @@ catalan.ly     do  re  mi  fa  sol la  sib si  -d/-s       -b
 @cindex @code{,}
 
 
+For polyphonic music, it can be convenient to specify the rest position
+directly. You can do that by entering a note, with the keyword
+@code{\rest} appended, e.g. Rest collisions will leave these rests alone.
+
+@lilypond[singleline,verbatim]
+a'4\rest d'4\rest
+@end lilypond
+
 
 The optional octave specification takes the form of a series of
 single quote (`@code{'}') characters or a series of comma
@@ -831,8 +839,25 @@ a measure it is set to @code{defaultBarType}. The contents of
 @cindex polyphony
 
 Polyphonic parts, i.e. parts with more than one voice on a staff can be
-typeset with LilyPond.   To use this, instantiate a separate Voice
-context for each part, and assign a stem direction to each part. 
+typeset with LilyPond.
+
+The easiest way to enter such fragments, is the Scheme function
+@code{voicify-music}. It will split chords using the separator
+@code{\\}, to make multiple voices.  You can use it for small,
+short-lived voices (make a chord of voices) or for single chords:
+
+@lilypond[verbatim,fragment]
+\context Voice = VA \apply #voicify-music \relative c'' {
+ c4 < { f d e  } \\ { b c2 } > c4 < g' \\ c, \\  f \\ d >
+}
+@end lilypond
+
+The function @code{voicify-music} instantiates @internalsref{Voice}
+contexts, bearing the names @code{"1"}, @code{"2"}, etc.
+
+To explicity typeset polyphonic music, instantiate a separate Voice
+context for each part, and assign a stem direction to each part.
+@c
 @lilypond[fragment,verbatim]
 \context Staff
 < \context Voice = VA { \stemUp b'4 a' g' f' e' }
