@@ -331,9 +331,9 @@ setup_localisation ()
 static void
 add_output_format (String format)
 {
-  if (output_name_global != "")
-    output_name_global += ",";
-  output_name_global += format;
+  if (output_format_global != "")
+    output_format_global += ",";
+  output_format_global += format;
 }
 
 
