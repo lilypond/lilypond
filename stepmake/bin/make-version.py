@@ -24,4 +24,6 @@ for d in defs:
 
 if ('MY_PATCH_LEVEL', '') in defs:
 	sys.stdout.write ('#define NO_MY_PATCHLEVEL')
+
+sys.stdout.write('\n');
 	
