@@ -13,8 +13,8 @@ import __main__
 import glob
 import regex
 
-latex_author_re = regex.compile('\\author{\([^}]+\)}')
-latex_title_re = regex.compile('\\title{\([^}]+\)}')
+latex_author_re = regex.compile(r'\\author{\([^}]+\)}')
+latex_title_re = regex.compile(r'\\title{\([^}]+\)}')
 
 class Latex_head:
     def __init__ (self):
