@@ -47,11 +47,12 @@
    (cons (lambda (slur dir)
 	   ;; urg, code dup
 	   (let* ((note-columns (ly:get-grob-property slur 'note-columns))
-		  (col (if (= dir 1) (car note-columns) (car (reverse note-columns))))
+		  (col (car (if (= dir 1) note-columns (reverse note-columns))))
 		  (stem (ly:get-grob-property col 'stem)))
+	     
 	     (and stem
-		  (not (= (ly:get-grob-property slur 'direction) 
-			  (ly:get-grob-property stem 'direction))))))  'head)
+		  (not (equal? (ly:get-grob-property slur 'direction) 
+			       (ly:get-grob-property stem 'direction))))))  'head)
 
    ;; (cons (lambda (slur dir) (begin (display "before stem") (newline))#f) #f)
 

@@ -14,6 +14,7 @@ TODO:
   
   - Determine auto knees based on positions if it's set by the user.
 
+  - rounded corners.
 
 Notes:
 
