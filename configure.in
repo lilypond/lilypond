@@ -11,12 +11,8 @@ AC_CONFIG_AUX_DIR([stepmake/bin])
 # AC_CONFIG_AUX_DIR(bin)
 
 
-export PACKAGE_NAME=LilyPond
-export MAJOR_VERSION=1
-export MINOR_VERSION=9
-export PATCH_LEVEL=5
-export MY_PATCH_LEVEL=
 
+. VERSION 
 
 STEPMAKE_INIT
 

@@ -1,5 +1,8 @@
 2003-09-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION (MY_PATCH_LEVEL): readd VERSION; version number is now
+	exported through config.make.
+
 	* input/regression/clef-oct.ly: new file.
 
 	* scm/clef.scm (make-clef-set): use regexps, support arbitrary
