@@ -1,9 +1,7 @@
-\header {
-
-    texidoc= "Chord names don't attempt to find inversions and
-bass notes."  }
-
 \version "1.7.18"
+\header { texidoc= "@cindex Chord Names No Inversions
+Chord names don't attempt to find inversions and
+bass notes. " }
 
 scheme = \notes {
   <<c' e' g'>>1
