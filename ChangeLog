@@ -1,5 +1,7 @@
 2004-05-30  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/my-lily-parser.cc (parse_string): delete lexer after use.
+
 	* lily/my-lily-lexer.cc (My_lily_lexer): copy keytable.
 
 	* lily/include/paper-book.hh (class Paper_book): remove height_

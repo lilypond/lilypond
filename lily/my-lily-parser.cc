@@ -143,6 +143,9 @@ My_lily_parser::parse_string (String ly_code)
       parent->error_level_ = lexer_->error_level_; 
       parent->main_input_b_ = lexer_->main_input_b_;
     }
+
+  delete lexer_;
+  lexer_ = 0;
 }
 
 void
@@ -317,6 +320,10 @@ LY_DEFINE (ly_clone_parser, "ly:clone-parser",
 {
   My_lily_parser *parser = unsmob_my_lily_parser (parser_smob);
   My_lily_parser *clone = new My_lily_parser (*parser);
+
+  /*
+    FIXME: should copy scopes too.
+   */
   return scm_gc_unprotect_object (clone->self_scm ());
 }
 
