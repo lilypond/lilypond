@@ -18,6 +18,19 @@ Version 2.1.9
 
 @itemize @bullet
 
+@item
+A more concise syntax for checking octaves was introduced. A note may
+be followed by @code{=}@var{quotes} which indicates what its absolute
+octave should be.  In the following example, 
+
+@example
+  \relative c'' @{ c='' b=' d,='' @}        
+@end example
+
+@noindent
+the @code{d} will generate a warning, because a @code{d''} is
+expected, but a @code{d'} is found.
+
 @item There is a new mechanism for putting lyrics to melodies.
 With this mechanism, @code{LyricVoice}s can be put melodies
 individually, allowing for different melismatic sections in every

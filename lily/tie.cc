@@ -77,13 +77,15 @@ Tie::get_position (Grob*me)
   
   The direction of the Tie is more complicated (See [Ross] p136 and
   further).
+
+  (what about linebreaks? )  
+  
 */
 Direction
 Tie::get_default_dir (Grob*me) 
 {
   Item * sl =  head (me,LEFT) ? Rhythmic_head::get_stem (head (me,LEFT)) :0;
   Item * sr =  head (me,RIGHT) ? Rhythmic_head::get_stem (head (me,RIGHT)) :0;  
-
   if (sl && sr)
     {
       if (get_grob_direction (sl) == UP

@@ -635,8 +635,19 @@ additional @code{\relative} inside the @code{\transpose}.
 @subsection Octave check
 
 
-Octave checks make octave errors easier to correct.
-The syntax is 
+Octave checks make octave errors easier to correct:  a note may be
+followed by @code{=}@var{quotes} which indicates what its absolute
+octave should be.  In the following example,
+@example
+  \relative c'' @{ c='' b=' d,='' @}        
+@end example
+
+@noindent
+the @code{d} will generate a warning, because a @code{d''} is
+expected, but a @code{d'} is found.  In the output, the octave is
+corrected this and the following notes.
+
+There is also a syntax that is separate from the notes.
 @example
   \octave @var{pitch}
 @end example
@@ -8490,14 +8501,22 @@ point.
 For linebreaks at regular intervals  use @code{\break} separated by
 skips and repeated with @code{\repeat}:
 @example
-<<  \repeat unfold 7 @{ s1 * 4 \break  @}
+<<  \repeat unfold 7 @{
+         s1 \noBreak s1 \noBreak
+         s1 \noBreak s1 \break  @}
    @emph{the real music}
 >> 
 @end  example
 
 @noindent
 This makes the following 28 measures (assuming 4/4 time) be broken every
-4 measures.
+4 measures, and only there.
+
+@refcommands
+
+@code{\break}, @code{\noBreak}
+@cindex @code{\break}
+@cindex @code{\noBreak}
 
 @seealso
 

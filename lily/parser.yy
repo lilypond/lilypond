@@ -317,6 +317,7 @@ yylex (YYSTYPE *s,  void * v)
 %type <i>	exclamations questions dots optional_rest
 %type <i>  	 bass_mod
 %type <scm> 	grace_head
+%type <scm> 	oct_check
 %type <scm> 	context_mod_list
 %type <scm>  	lyric_element
 %type <scm> 	bass_number br_bass_figure bass_figure figure_list figure_spec
@@ -1566,7 +1567,14 @@ direction_reqd_event:
 		$$ = a;
 	}
 	;
-	
+
+oct_check:
+	/**/ { $$ = SCM_EOL; }
+	| '='  { $$ = gh_int2scm (0); }
+	| '=' sub_quotes { $$ = gh_int2scm ($2); }
+	| '=' sup_quotes { $$ = gh_int2scm ($2); }
+	;
+
 sup_quotes:
 	'\'' {
 		$$ = 1;
@@ -1917,21 +1925,26 @@ optional_rest:
 	;
 
 simple_element:
-	pitch exclamations questions optional_notemode_duration optional_rest {
+	pitch exclamations questions oct_check optional_notemode_duration optional_rest {
 
 		Input i = THIS->pop_spot ();
 		if (!THIS->lexer_->note_state_b ())
 			THIS->parser_error (_ ("Have to be in Note mode for notes"));
 
 		Music *n = 0;
-		if ($5)
+		if ($6)
 			n =  MY_MAKE_MUSIC("RestEvent");
 		else
 			n =  MY_MAKE_MUSIC("NoteEvent");
 		
 		n->set_mus_property ("pitch", $1);
-		n->set_mus_property ("duration", $4);
+		n->set_mus_property ("duration", $5);
 
+		if (gh_number_p ($4))
+		{
+			int q = gh_scm2int ($4); 
+			n->set_mus_property ("absolute-octave", gh_int2scm (q-1));
+		}
 
 		if ($3 % 2)
 			n->set_mus_property ("cautionary", SCM_BOOL_T);

@@ -234,6 +234,18 @@ stagger_apes (Link_array<Accidental_placement_entry> *apes)
 
 */
 
+/*
+  TODO: there should be more space in the following situation
+
+
+    Natural + downstem
+
+    |_       
+    | |    X
+    |_|   | 
+      |   |
+      
+ */
 SCM
 Accidental_placement::position_accidentals (Grob * me)
 {

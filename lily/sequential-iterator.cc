@@ -378,3 +378,9 @@ Sequential_iterator::try_music_in_children (Music *m) const
 }
 
 IMPLEMENT_CTOR_CALLBACK (Sequential_iterator);
+
+bool
+Sequential_iterator::run_always () const
+{
+  return iter_ ? iter_->run_always () : false; 
+}

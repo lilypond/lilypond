@@ -53,7 +53,7 @@ for the reader.
 
 (define-public (simple-markup paper props . rest)
   "A simple text-string; @code{\\markup @{ foo @}} is equivalent with
-@code{\markup @{ \simple #\"foo\" @}}.
+@code{\\markup @{ \\simple #\"foo\" @}}.
 "
   
   (Text_item::interpret_markup paper props (car rest)))
