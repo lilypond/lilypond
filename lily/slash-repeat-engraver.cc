@@ -70,7 +70,7 @@ Slash_repeat_engraver::try_music (Music * m)
   Repeated_music * rp = dynamic_cast<Repeated_music*> (m);
   if (rp
       && !repeat_
-      && rp->get_mus_property ("iterator-ctor")
+      && rp->get_property ("iterator-ctor")
       == Percent_repeat_iterator::constructor_proc)
     {
       body_length_ = rp->body_get_length ();

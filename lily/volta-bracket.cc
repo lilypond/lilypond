@@ -51,9 +51,9 @@ Volta_bracket_interface::print (SCM smob)
 
   bool no_vertical_start = orig_span && !broken_first_bracket;
   bool no_vertical_end = orig_span && !broken_last_bracket;
-  SCM s = me->get_grob_property ("bars");
+  SCM s = me->get_property ("bars");
   Grob * endbar =   unsmob_grob (ly_car (s));
-  SCM glyph = endbar->get_grob_property("glyph");
+  SCM glyph = endbar->get_property("glyph");
   
   String str;
   if (gh_string_p (glyph))
@@ -89,7 +89,7 @@ Volta_bracket_interface::print (SCM smob)
     }
 
   Real w = dynamic_cast<Spanner*> (me)->spanner_length () - left - half_space;
-  Real h =  robust_scm2double (me->get_grob_property ("height"), 1);
+  Real h =  robust_scm2double (me->get_property ("height"), 1);
 
   Stencil start,end ;
   if (!no_vertical_start)
@@ -104,7 +104,7 @@ Volta_bracket_interface::print (SCM smob)
 
   if (!orig_span || broken_first_bracket)
     {
-      SCM text = me->get_grob_property ("text");
+      SCM text = me->get_property ("text");
       SCM properties = me->get_property_alist_chain (SCM_EOL);
       SCM snum  = Text_item::interpret_markup (paper->self_scm (), properties, text);
       Stencil num = *unsmob_stencil (snum);

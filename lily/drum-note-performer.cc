@@ -36,7 +36,7 @@ Drum_note_performer::create_audio_elements ()
   while (note_evs_.size ())
     {
       Music* n = note_evs_.pop ();
-      SCM sym = n->get_mus_property ("drum-type");
+      SCM sym = n->get_property ("drum-type");
       SCM defn = SCM_EOL;
 
       if (gh_symbol_p (sym)

@@ -42,7 +42,7 @@ Note_name_engraver::process_music ()
     {
       if (i)
 	s += " ";
-      Pitch p = *unsmob_pitch (events_[i]->get_mus_property ("pitch"));
+      Pitch p = *unsmob_pitch (events_[i]->get_property ("pitch"));
 
       if (!to_boolean (get_property ("printOctaveNames")))
 	  p = Pitch (-1, p.get_notename (), p.get_alteration ());
@@ -52,7 +52,7 @@ Note_name_engraver::process_music ()
   if (s.length ())
     {
       Item * t = make_item ("NoteName");
-      t->set_grob_property ("text", scm_makfrom0str (s.to_str0 ()));
+      t->set_property ("text", scm_makfrom0str (s.to_str0 ()));
       announce_grob (t, events_[0]->self_scm());
       texts_.push (t);
     }

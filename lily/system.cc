@@ -43,14 +43,14 @@ System::System (SCM s)
 int
 System::element_count () const
 {
-  return scm_ilength (get_grob_property ("all-elements"));
+  return scm_ilength (get_property ("all-elements"));
 }
 
 int
 System::spanner_count () const
 {
   int k =0;
-  for (SCM s = get_grob_property ("all-elements");
+  for (SCM s = get_property ("all-elements");
        gh_pair_p (s); s = ly_cdr (s))
     {
       if (dynamic_cast<Spanner*> (unsmob_grob (gh_car(s))))
@@ -121,7 +121,7 @@ System::typeset_grob (Grob * elem)
 void
 System::output_lines ()
 {
-  for (SCM s = get_grob_property ("all-elements");
+  for (SCM s = get_property ("all-elements");
        gh_pair_p (s); s = ly_cdr (s))
     {
       Grob * g = unsmob_grob (ly_car (s));
@@ -149,7 +149,7 @@ System::output_lines ()
   for (int i=0; i < broken_intos_.size (); i++)
     {
       Grob *se = broken_intos_[i];
-      SCM all = se->get_grob_property ("all-elements");
+      SCM all = se->get_property ("all-elements");
       for (SCM s = all; gh_pair_p (s); s = ly_cdr (s))
 	{
 	  fixup_refpoint (ly_car (s));
@@ -160,10 +160,10 @@ System::output_lines ()
   /*
     needed for doing items.
    */
-  fixup_refpoints (get_grob_property ("all-elements"));
+  fixup_refpoints (get_property ("all-elements"));
 
   
-  for (SCM s = get_grob_property ("all-elements");
+  for (SCM s = get_property ("all-elements");
        gh_pair_p (s); s = ly_cdr (s))
     {
       unsmob_grob (ly_car (s))->handle_broken_dependencies ();
@@ -171,7 +171,7 @@ System::output_lines ()
   handle_broken_dependencies ();
 
   /*
-    Because the this->get_grob_property (all-elements) contains items
+    Because the this->get_property (all-elements) contains items
     in 3 versions, handle_broken_dependencies () will leave duplicated
     items in all-elements. Strictly speaking this is harmless, but it
     leads to duplicated symbols in the output. uniquify_list() makes
@@ -182,7 +182,7 @@ System::output_lines ()
       /*
 	don't do this: strange side effects.
        */
-      //    SCM al = broken_intos_[i]->get_grob_property ("all-elements");
+      //    SCM al = broken_intos_[i]->get_property ("all-elements");
       //      al  = uniquify_list (al); 
     }
   
@@ -207,11 +207,11 @@ System::output_lines ()
 
       if (i < broken_intos_.size () - 1)
 	{
-	  SCM lastcol =  ly_car (system->get_grob_property ("columns"));
+	  SCM lastcol =  ly_car (system->get_property ("columns"));
 	  Grob*  e = unsmob_grob (lastcol);
 
 	  SCM between = ly_symbol2scm ("between-system-string");
-	  SCM inter = e->internal_get_grob_property (between);
+	  SCM inter = e->internal_get_property (between);
 	  if (gh_string_p (inter))
 	    {
 	      pscore_->outputter_
@@ -244,7 +244,7 @@ set_loose_columns (System* which, Column_x_positions const *posns)
       Item * right = 0;
       do
 	{
-	  SCM between = loose->get_grob_property ("between-cols");
+	  SCM between = loose->get_property ("between-cols");
 	  if (!gh_pair_p (between))
 	    break;
 
@@ -394,12 +394,12 @@ void
 System::add_column (Paper_column*p)
 {
   Grob *me = this;
-  SCM cs = me->get_grob_property ("columns");
+  SCM cs = me->get_property ("columns");
   Grob * prev =  gh_pair_p (cs) ? unsmob_grob (ly_car (cs)) : 0;
 
   p->rank_ = prev ? Paper_column::get_rank (prev) + 1 : 0; 
 
-  me->set_grob_property ("columns",  gh_cons (p->self_scm (), cs));
+  me->set_property ("columns",  gh_cons (p->self_scm (), cs));
 
   Axis_group_interface::add_element (me, p);
 }
@@ -407,29 +407,29 @@ System::add_column (Paper_column*p)
 void
 System::pre_processing ()
 {
-  for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = ly_cdr (s))
+  for (SCM s = get_property ("all-elements"); gh_pair_p (s); s = ly_cdr (s))
     unsmob_grob (ly_car (s))->discretionary_processing ();
 
   if (verbose_global_b)
     progress_indication (_f ("Grob count %d ",  element_count ()));
 
   
-  for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = ly_cdr (s))
+  for (SCM s = get_property ("all-elements"); gh_pair_p (s); s = ly_cdr (s))
     unsmob_grob (ly_car (s))->handle_prebroken_dependencies ();
   
-  fixup_refpoints (get_grob_property ("all-elements"));
+  fixup_refpoints (get_property ("all-elements"));
   
-  for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = ly_cdr (s))
+  for (SCM s = get_property ("all-elements"); gh_pair_p (s); s = ly_cdr (s))
     {
       Grob* sc = unsmob_grob (ly_car (s));
       sc->calculate_dependencies (PRECALCED, PRECALCING, ly_symbol2scm ("before-line-breaking-callback"));
     }
   
   progress_indication ("\n" + _ ("Calculating line breaks...") + " ");
-  for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = ly_cdr (s))
+  for (SCM s = get_property ("all-elements"); gh_pair_p (s); s = ly_cdr (s))
     {
       Grob * e = unsmob_grob (ly_car (s));
-      SCM proc = e->get_grob_property ("spacing-procedure");
+      SCM proc = e->get_property ("spacing-procedure");
       if (gh_procedure_p (proc))
 	gh_call1 (proc, e->self_scm ());
     }
@@ -443,7 +443,7 @@ System::pre_processing ()
 void
 System::post_processing (bool last_line)
 {
-  for (SCM s = get_grob_property ("all-elements");
+  for (SCM s = get_property ("all-elements");
        gh_pair_p (s); s = ly_cdr (s))
     {
       Grob* sc = unsmob_grob (ly_car (s));
@@ -467,7 +467,7 @@ System::post_processing (bool last_line)
   /*
     generate all stencils  to trigger all font loads.
   */
-  SCM all = get_grob_property ("all-elements")  ;
+  SCM all = get_property ("all-elements")  ;
   all = uniquify_list (all);
 
   /*
@@ -511,7 +511,7 @@ System::post_processing (bool last_line)
   }
   
   for (int i = 0; i < 3; i++)
-    for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s);
+    for (SCM s = get_property ("all-elements"); gh_pair_p (s);
 	 s = ly_cdr (s))
       {
 	Grob *sc = unsmob_grob (ly_car (s));
@@ -519,7 +519,7 @@ System::post_processing (bool last_line)
 	if (!m)
 	  continue;
 	
-	SCM s = sc->get_grob_property ("layer");
+	SCM s = sc->get_property ("layer");
 	int layer = gh_number_p (s) ? gh_scm2int (s) : 1;
 	if (layer != i)
 	  continue;
@@ -527,7 +527,7 @@ System::post_processing (bool last_line)
 	Offset o (sc->relative_coordinate (this, X_AXIS),
 		  sc->relative_coordinate (this, Y_AXIS));
 	
-	SCM e = sc->get_grob_property ("extra-offset");
+	SCM e = sc->get_property ("extra-offset");
 	if (gh_pair_p (e))
 	  {
 	    Offset z = ly_scm2offset (e);
@@ -559,7 +559,7 @@ System::broken_col_range (Item const*l, Item const*r) const
 
   l = l->get_column ();
   r = r->get_column ();
-  SCM s = get_grob_property ("columns");
+  SCM s = get_property ("columns");
 
   while (gh_pair_p (s) && ly_car (s) != r->self_scm ())
     s = ly_cdr (s);

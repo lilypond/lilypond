@@ -97,7 +97,7 @@ Dynamic_engraver::try_music (Music * m)
   else if (m->is_mus_type ("decrescendo-event")
 	   || m->is_mus_type ("crescendo-event"))
     {
-      Direction d = to_dir (m->get_mus_property ("span-direction"));
+      Direction d = to_dir (m->get_property ("span-direction"));
 
       accepted_spanreqs_drul_[d] = m;
       if (current_cresc_ev_ && d == START)
@@ -141,11 +141,11 @@ Dynamic_engraver::process_music ()
   if (script_ev_)
     {
       script_ = make_item ("DynamicText");
-      script_->set_grob_property ("text",
-				   script_ev_->get_mus_property ("text"));
+      script_->set_property ("text",
+				   script_ev_->get_property ("text"));
 
       
-      if (Direction d = to_dir (script_ev_->get_mus_property ("direction")))
+      if (Direction d = to_dir (script_ev_->get_property ("direction")))
 	set_grob_direction (line_spanner_, d);
 
       Axis_group_interface::add_element (line_spanner_, script_);
@@ -201,7 +201,7 @@ Dynamic_engraver::process_music ()
 	{
 	  current_cresc_ev_ = accepted_spanreqs_drul_[START];
 
-	  if (Direction d = to_dir (current_cresc_ev_->get_mus_property ("direction")))
+	  if (Direction d = to_dir (current_cresc_ev_->get_property ("direction")))
 	    set_grob_direction (line_spanner_, d);
 
 	  /*
@@ -209,7 +209,7 @@ Dynamic_engraver::process_music ()
 	  */
 
 	  String start_type = 
-	    ly_symbol2string (current_cresc_ev_->get_mus_property ("name"));
+	    ly_symbol2string (current_cresc_ev_->get_property ("name"));
 
 	  /*
 	    ugh. Use push/pop?
@@ -223,7 +223,7 @@ Dynamic_engraver::process_music ()
 	  if (!gh_symbol_p (s) || s == ly_symbol2scm ("hairpin"))
 	    {
 	      cresc_  = make_spanner ("Hairpin");
-	      cresc_->set_grob_property ("grow-direction",
+	      cresc_->set_property ("grow-direction",
 					   gh_int2scm ((start_type == "crescendo")
 						       ? BIGGER : SMALLER));
 	      
@@ -238,7 +238,7 @@ Dynamic_engraver::process_music ()
 	  else
 	    {
 	      cresc_  = make_spanner ("TextSpanner");
-	      cresc_->set_grob_property ("style", s);
+	      cresc_->set_property ("style", s);
 	      daddy_context_->set_property ((start_type
 					    + "Spanner").to_str0 (), SCM_EOL);
 	      s = get_property ((start_type + "Text").to_str0 ());
@@ -247,7 +247,7 @@ Dynamic_engraver::process_music ()
 	      */
 	      if (gh_string_p (s) || gh_pair_p (s))
 		{
-		  cresc_->set_grob_property ("edge-text",
+		  cresc_->set_property ("edge-text",
 					     gh_cons (s, scm_makfrom0str ("")));
 		  daddy_context_->set_property ((start_type + "Text").to_str0 (),
 						SCM_EOL);
@@ -399,7 +399,7 @@ Dynamic_engraver::acknowledge_grob (Grob_info i)
 
       if (script_ && !script_->get_parent (X_AXIS))
 	{
-	  SCM head = scm_last_pair (i.grob_->get_grob_property ("heads"));
+	  SCM head = scm_last_pair (i.grob_->get_property ("heads"));
 	  if (gh_pair_p (head))
 	    script_->set_parent (unsmob_grob (head),  X_AXIS);
 	}
@@ -407,7 +407,7 @@ Dynamic_engraver::acknowledge_grob (Grob_info i)
     }
   else if (Script_interface::has_interface (i.grob_) && script_)
     {
-      SCM p = i.grob_->get_grob_property ("script-priority");
+      SCM p = i.grob_->get_property ("script-priority");
 
       /*
 	UGH.
@@ -415,7 +415,7 @@ Dynamic_engraver::acknowledge_grob (Grob_info i)
 	DynamicText doesn't really have a script-priority field.
        */
       if (gh_number_p (p)
-	  && gh_scm2int (p) < gh_scm2int (script_->get_grob_property ("script-priority")))
+	  && gh_scm2int (p) < gh_scm2int (script_->get_property ("script-priority")))
 	{
 	  Side_position_interface::add_support (line_spanner_, i.grob_);
 

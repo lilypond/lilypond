@@ -61,13 +61,13 @@ Stem_engraver::acknowledge_grob (Grob_info i)
 
       Music * m = i.music_cause ();
       if (m->is_mus_type ("rhythmic-event"))
-	duration_log = unsmob_duration (m->get_mus_property ("duration"))-> duration_log (); 
+	duration_log = unsmob_duration (m->get_property ("duration"))-> duration_log (); 
       
       if (!stem_) 
 	{
 	  stem_ = make_item ("Stem");
 
-	  stem_->set_grob_property ("duration-log", gh_int2scm (duration_log));
+	  stem_->set_property ("duration-log", gh_int2scm (duration_log));
 
 	  if (tremolo_ev_)
 	    {
@@ -80,7 +80,7 @@ Stem_engraver::acknowledge_grob (Grob_info i)
 
 		the first and last (quarter) note bothe get one tremolo flag.
 	       */
-	      int requested_type = gh_scm2int (tremolo_ev_->get_mus_property ("tremolo-type"));
+	      int requested_type = gh_scm2int (tremolo_ev_->get_property ("tremolo-type"));
 	      SCM f = get_property ("tremoloFlags");
 	      if (!requested_type)
 		if (gh_number_p (f))
@@ -108,10 +108,10 @@ Stem_engraver::acknowledge_grob (Grob_info i)
 		    the tremolo-type minus the number of flags of the note
 		    itself.
 		   */
-		  tremolo_->set_grob_property ("flag-count",
+		  tremolo_->set_property ("flag-count",
 					       gh_int2scm (tremolo_flags));
 		  tremolo_->set_parent (stem_, X_AXIS);
-		  stem_->set_grob_property ("tremolo-flag", tremolo_->self_scm ());
+		  stem_->set_property ("tremolo-flag", tremolo_->self_scm ());
 		}
 	    }
 

@@ -27,7 +27,7 @@ Music_wrapper::get_length () const
 Music*
 Music_wrapper::element () const
 {
-  return unsmob_music (get_mus_property ("element"));
+  return unsmob_music (get_property ("element"));
 }
 
 

@@ -26,7 +26,7 @@ Hairpin::print (SCM smob)
   Grob *me= unsmob_grob (smob);
   Spanner *spanner = dynamic_cast<Spanner*> (me);
 
-  SCM s = me->get_grob_property ("grow-direction");
+  SCM s = me->get_property ("grow-direction");
   if (!is_direction (s))
     {
       me->suicide ();
@@ -41,7 +41,7 @@ Hairpin::print (SCM smob)
   /*
     Ugh. property name is not general.
    */
-  Real padding = gh_scm2double (me->get_grob_property ("if-text-padding"));
+  Real padding = gh_scm2double (me->get_property ("if-text-padding"));
  
   Drul_array<bool> broken;
   Drul_array<Item*> bounds ;
@@ -101,7 +101,7 @@ Hairpin::print (SCM smob)
     }
 
   bool continued = broken[Direction (-grow_dir)];
-  Real height = robust_scm2double (me->get_grob_property ("height"), 0.2) *
+  Real height = robust_scm2double (me->get_property ("height"), 0.2) *
     Staff_symbol_referencer::staff_space (me);
 
   Real starth, endh;

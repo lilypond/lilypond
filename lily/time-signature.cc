@@ -30,8 +30,8 @@ SCM
 Time_signature::print (SCM smob) 
 {
   Grob * me = unsmob_grob (smob);
-  SCM st = me->get_grob_property ("style");
-  SCM frac = me->get_grob_property ("fraction");
+  SCM st = me->get_property ("style");
+  SCM frac = me->get_property ("fraction");
   int n = 4;
   int d = 4;
   if (gh_pair_p (frac))
@@ -84,7 +84,7 @@ Time_signature::special_time_signature (Grob *me, SCM scm_style, int n, int d)
     }
 
   String char_name = style + to_string (n) + "/" + to_string (d);
-  me->set_grob_property ("font-family", ly_symbol2scm ("music"));
+  me->set_property ("font-family", ly_symbol2scm ("music"));
   Stencil out = Font_interface::get_default_font (me)
     ->find_by_name ("timesig-" + char_name);
   if (!out.is_empty ())
@@ -101,7 +101,7 @@ Stencil
 Time_signature::numbered_time_signature (Grob*me,int num, int den)
 {
   SCM chain = Font_interface::font_alist_chain (me);
-  me->set_grob_property ("font-family", ly_symbol2scm ("number"));
+  me->set_property ("font-family", ly_symbol2scm ("number"));
 
 SCM sn =
     Text_item::interpret_markup (me->get_paper ()->self_scm(), chain,

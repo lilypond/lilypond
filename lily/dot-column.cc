@@ -32,9 +32,9 @@ Dot_column::force_shift_callback (SCM element_smob, SCM axis)
   assert (a == Y_AXIS);
   me = me->get_parent (X_AXIS);
 
-  if (!to_boolean (me->get_grob_property ("positioning-done")))
+  if (!to_boolean (me->get_property ("positioning-done")))
     {
-      me->set_grob_property ("positioning-done", SCM_BOOL_T);
+      me->set_property ("positioning-done", SCM_BOOL_T);
   
       do_shifts (me);
     }
@@ -49,7 +49,7 @@ Dot_column::side_position (SCM element_smob, SCM axis)
   Axis a = (Axis) gh_scm2int (axis);
   assert (a == X_AXIS);
 
-  Grob * stem = unsmob_grob (me->get_grob_property ("stem"));
+  Grob * stem = unsmob_grob (me->get_property ("stem"));
   if (stem
       && !Stem::get_beam (stem)
       && Stem::duration_log (stem) > 2
@@ -266,7 +266,7 @@ Dot_column::do_shifts (Grob*me)
       Grob * note = dots[i]->get_parent (Y_AXIS);
       if (note)
 	{
-	  Grob *stem = unsmob_grob (note->get_grob_property ("stem"));
+	  Grob *stem = unsmob_grob (note->get_property ("stem"));
 	  if (stem)
 	    dp.extremal_head_ = Stem::first_head (stem) == note;
 	}
@@ -275,7 +275,7 @@ Dot_column::do_shifts (Grob*me)
       dp.pos_= p;
 
       if (dp.extremal_head_)
-	dp.dir_ = to_dir (dp.dot_->get_grob_property  ("direction"));
+	dp.dir_ = to_dir (dp.dot_->get_property  ("direction"));
 
       remove_collision (cfg, p);
       cfg[p] = dp;
@@ -295,7 +295,7 @@ Dot_column::do_shifts (Grob*me)
 void
 Dot_column::add_head (Grob * me, Grob *rh)
 {
-  Grob * d = unsmob_grob (rh->get_grob_property ("dot"));
+  Grob * d = unsmob_grob (rh->get_property ("dot"));
   if (d)
     {
       Side_position_interface::add_support (me,rh);

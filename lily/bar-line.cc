@@ -28,8 +28,8 @@ Bar_line::print (SCM smob)
 {
   Grob * me = unsmob_grob (smob);
 
-  SCM s = me->get_grob_property ("glyph");
-  SCM barsiz_proc = me->get_grob_property ("bar-size-procedure");
+  SCM s = me->get_property ("glyph");
+  SCM barsiz_proc = me->get_property ("bar-size-procedure");
   if (gh_string_p (s) && gh_procedure_p (barsiz_proc))
     {
       String str  =ly_scm2string (s);
@@ -47,10 +47,10 @@ Bar_line::print (SCM smob)
 Stencil
 Bar_line::compound_barline (Grob*me, String str, Real h)
 {
-  Real kern = robust_scm2double (me->get_grob_property ("kern"), 1);
-  Real thinkern = robust_scm2double (me->get_grob_property ("thin-kern"), 1);
-  Real hair = robust_scm2double (me->get_grob_property ("hair-thickness"), 1);
-  Real fatline = robust_scm2double (me->get_grob_property ("thick-thickness"), 1);
+  Real kern = robust_scm2double (me->get_property ("kern"), 1);
+  Real thinkern = robust_scm2double (me->get_property ("thin-kern"), 1);
+  Real hair = robust_scm2double (me->get_property ("hair-thickness"), 1);
+  Real fatline = robust_scm2double (me->get_property ("thick-thickness"), 1);
 
   Real staffline = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
   Real staff_space = Staff_symbol_referencer::staff_space (me);
@@ -154,24 +154,24 @@ Bar_line::before_line_breaking (SCM smob)
   Grob*me=unsmob_grob (smob);
   Item * item = dynamic_cast<Item*> (me);
   
-  SCM g = me->get_grob_property ("glyph");
+  SCM g = me->get_property ("glyph");
   SCM orig = g;
   Direction bsd = item->break_status_dir ();
   if (gh_string_p (g) && bsd)
     {
-      SCM proc = me->get_grob_property ("break-glyph-function");
+      SCM proc = me->get_property ("break-glyph-function");
       g = gh_call2 (proc, g, scm_int2num (bsd));
     }
   
   if (!gh_string_p (g))
     {
-      me->set_grob_property ("print-function", SCM_EOL);
+      me->set_property ("print-function", SCM_EOL);
       me->set_extent (SCM_EOL, X_AXIS);
       // leave y_extent for spanbar? 
     }
 
   if (! gh_equal_p (g, orig))
-    me->set_grob_property ("glyph", g);
+    me->set_property ("glyph", g);
 
   return SCM_UNSPECIFIED;
 }
@@ -185,7 +185,7 @@ Bar_line::get_staff_bar_size (SCM smob)
 {
   Grob*me = unsmob_grob (smob);
   Real ss = Staff_symbol_referencer::staff_space (me);
-  SCM size = me->get_grob_property ("bar-size");
+  SCM size = me->get_property ("bar-size");
   if (gh_number_p (size))
     return gh_double2scm (gh_scm2double (size)*ss);
   else if (Staff_symbol_referencer::get_staff_symbol (me))

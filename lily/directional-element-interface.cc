@@ -13,7 +13,7 @@
 Direction
 get_grob_direction (Grob*me) 
 {
-  SCM d= me->get_grob_property ("direction");
+  SCM d= me->get_property ("direction");
   if (!is_direction (d))
     return CENTER;
       
@@ -24,5 +24,5 @@ void
 set_grob_direction (Grob*me, Direction d) 
 {
   SCM sd = gh_int2scm (d);
-  me->set_grob_property ("direction", sd);
+  me->set_property ("direction", sd);
 }

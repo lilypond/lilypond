@@ -84,7 +84,7 @@ Translator_group::try_music (Music* m)
   if (accept_list == SCM_BOOL_F)
     {
       accept_list = find_accept_translators (get_simple_trans_list (),
-					     m->get_mus_property ("types"));
+					     m->get_property ("types"));
       scm_hashq_set_x (tab, name, accept_list);
     }
 

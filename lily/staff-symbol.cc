@@ -37,7 +37,7 @@ Staff_symbol::print (SCM smob)
 
     --hwn.
    */
-  SCM width_scm = me->get_grob_property ("width");
+  SCM width_scm = me->get_property ("width");
   if (gh_number_p (width_scm))
     {
 
@@ -63,7 +63,7 @@ Staff_symbol::print (SCM smob)
     }
 
   Real t = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
-  t *= robust_scm2double ( me->get_grob_property("thickness"), 1.0);
+  t *= robust_scm2double ( me->get_property("thickness"), 1.0);
   
   int l = Staff_symbol::line_count (me);
   
@@ -90,7 +90,7 @@ Staff_symbol::get_steps (Grob*me)
 int
 Staff_symbol::line_count (Grob*me) 
 {
-  SCM c = me->get_grob_property ("line-count");
+  SCM c = me->get_property ("line-count");
   if (gh_number_p (c))
     return gh_scm2int (c);
   else
@@ -100,7 +100,7 @@ Staff_symbol::line_count (Grob*me)
 Real
 Staff_symbol::staff_space (Grob*me)
 {
-  return robust_scm2double ( me->get_grob_property ("staff-space"), 1.0);
+  return robust_scm2double ( me->get_property ("staff-space"), 1.0);
 }
 
 Real
@@ -108,13 +108,13 @@ Staff_symbol::get_line_thickness (Grob* me)
 {
   Real lt =  me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
 
-  return robust_scm2double (me->get_grob_property ("thickness"), 1.0) * lt;
+  return robust_scm2double (me->get_property ("thickness"), 1.0) * lt;
 }
 
 Real
 Staff_symbol::get_ledger_line_thickness (Grob * me)
 {
-  SCM lt_pair = me->get_grob_property ("ledger-line-thickness");
+  SCM lt_pair = me->get_property ("ledger-line-thickness");
   Offset z = robust_scm2offset (lt_pair, Offset (1.0, 0.1));
   
   return z[X_AXIS] * get_line_thickness(me) + z[Y_AXIS]* staff_space (me);

@@ -77,8 +77,8 @@ Score_engraver::prepare (Moment m)
   make_columns ();
 
   SCM w = m.smobbed_copy ();
-  command_column_->set_grob_property ("when", w);
-  musical_column_->set_grob_property ("when", w);
+  command_column_->set_property ("when", w);
+  musical_column_->set_property ("when", w);
   
   recurse_down_translators (daddy_context_, &Translator::start_translation_timestep, DOWN);
 }
@@ -114,7 +114,7 @@ Score_engraver::initialize ()
   make_columns ();
   system_ = pscore_->system_;
   system_->set_bound (LEFT, command_column_);
-  command_column_->set_grob_property ("breakable", SCM_BOOL_T);
+  command_column_->set_property ("breakable", SCM_BOOL_T);
 
   Engraver_group_engraver::initialize ();
 }
@@ -128,7 +128,7 @@ Score_engraver::finalize ()
   Grob * cc
     = unsmob_grob (get_property ("currentCommandColumn"));
   system_->set_bound (RIGHT, cc);
-  cc->set_grob_property ("breakable", SCM_BOOL_T);
+  cc->set_property ("breakable", SCM_BOOL_T);
   
   typeset_all ();
 }
@@ -198,7 +198,7 @@ Score_engraver::typeset_all ()
 	{
 	  if (!elem->get_parent (X_AXIS))
 	    {
-	      bool br = to_boolean (elem->get_grob_property ("breakable"));
+	      bool br = to_boolean (elem->get_property ("breakable"));
 	      Axis_group_interface::add_element (br ? command_column_ : musical_column_, elem);
 
 	    }
@@ -216,7 +216,7 @@ Score_engraver::stop_translation_timestep ()
   Engraver_group_engraver::stop_translation_timestep ();
   
   typeset_all ();
-  if (to_boolean (command_column_->get_grob_property ("breakable")))
+  if (to_boolean (command_column_->get_property ("breakable")))
     {
       breaks_ ++;
       if (! (breaks_%8))
@@ -268,19 +268,19 @@ Score_engraver::try_music (Music*r)
     {
       gotcha = true;
 
-      SCM pen = command_column_->get_grob_property ("penalty");
+      SCM pen = command_column_->get_property ("penalty");
       Real total_penalty = gh_number_p (pen)
 	? gh_scm2double (pen)
 	: 0.0;
 
-      SCM rpen = r->get_mus_property ("penalty");
+      SCM rpen = r->get_property ("penalty");
       if (gh_number_p (rpen))
 	total_penalty +=  gh_scm2double (rpen);
 	  
       if (total_penalty > 10000.0) //  ugh. arbitrary.
 	forbid_breaks ();
 
-      command_column_->set_grob_property ("penalty",
+      command_column_->set_property ("penalty",
 					  gh_double2scm (total_penalty));
     }
   return gotcha;
@@ -290,7 +290,7 @@ void
 Score_engraver::forbid_breaks ()
 {
   if (command_column_)
-    command_column_->set_grob_property ("breakable", SCM_EOL);
+    command_column_->set_property ("breakable", SCM_EOL);
 }
   
 void

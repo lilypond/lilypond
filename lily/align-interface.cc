@@ -21,7 +21,7 @@ Align_interface::alignment_callback (SCM element_smob, SCM axis)
   Grob * me = unsmob_grob (element_smob);
   Axis ax = (Axis)gh_scm2int (axis);
   Grob * par = me->get_parent (ax);
-  if (par && !to_boolean (par->get_grob_property ("positioning-done")))
+  if (par && !to_boolean (par->get_property ("positioning-done")))
     {
       Align_interface::align_elements_to_extents (par, ax);
     }
@@ -35,7 +35,7 @@ Align_interface::fixed_distance_alignment_callback (SCM element_smob, SCM axis)
   Grob * me = unsmob_grob (element_smob);
   Axis ax = (Axis)gh_scm2int (axis);
   Grob * par = me->get_parent (ax);
-  if (par && !to_boolean (par->get_grob_property ("positioning-done")))
+  if (par && !to_boolean (par->get_property ("positioning-done")))
     {
       Align_interface::align_to_fixed_distance (par, ax);
     }
@@ -48,15 +48,15 @@ Align_interface::fixed_distance_alignment_callback (SCM element_smob, SCM axis)
 void
 Align_interface::align_to_fixed_distance (Grob *me , Axis a)
 {
-  me->set_grob_property ("positioning-done", SCM_BOOL_T);
+  me->set_property ("positioning-done", SCM_BOOL_T);
   
-  SCM d =   me->get_grob_property ("stacking-dir");
+  SCM d =   me->get_property ("stacking-dir");
   
   Direction stacking_dir = gh_number_p (d) ? to_dir (d) : CENTER;
   if (!stacking_dir)
     stacking_dir = DOWN;
 
-  Real dy = robust_scm2double (me->get_grob_property ("forced-distance"),0.0);
+  Real dy = robust_scm2double (me->get_property ("forced-distance"),0.0);
   
   Link_array<Grob> elems
     = Pointer_group_interface__extract_grobs (me, (Grob*) 0, "elements");
@@ -120,15 +120,15 @@ Align_interface::align_to_fixed_distance (Grob *me , Axis a)
 void
 Align_interface::align_elements_to_extents (Grob * me, Axis a)
 {
-  me->set_grob_property ("positioning-done", SCM_BOOL_T);
+  me->set_property ("positioning-done", SCM_BOOL_T);
   
-  SCM d =   me->get_grob_property ("stacking-dir");
+  SCM d =   me->get_property ("stacking-dir");
   
   Direction stacking_dir = gh_number_p (d) ? to_dir (d) : CENTER;
   if (!stacking_dir)
     stacking_dir = DOWN;
   
-  Interval threshold  = robust_scm2interval ( me->get_grob_property ("threshold"), Interval (0, Interval::infinity ()));
+  Interval threshold  = robust_scm2interval ( me->get_property ("threshold"), Interval (0, Interval::infinity ()));
   
   Array<Interval> dims;
 
@@ -162,7 +162,7 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
       prop_syms[Y_AXIS] = ly_symbol2scm ("self-alignment-Y");
     }
   
-  SCM align (me->internal_get_grob_property (prop_syms[a]));
+  SCM align (me->internal_get_property (prop_syms[a]));
   
   Array<Real> translates ;
   Interval total;
@@ -226,7 +226,7 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
 Axis
 Align_interface::axis (Grob*me)
 {
-  return  Axis (gh_scm2int (ly_car (me->get_grob_property ("axes"))));
+  return  Axis (gh_scm2int (ly_car (me->get_property ("axes"))));
 }
 
 void
@@ -253,7 +253,7 @@ find_fixed_alignment_parent  (Grob *g)
 {
   while (g)
     {
-      if (gh_number_p (g->get_grob_property ("forced-distance")))
+      if (gh_number_p (g->get_property ("forced-distance")))
 	return g;
 
       g = g->get_parent (Y_AXIS);

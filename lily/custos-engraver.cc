@@ -89,7 +89,7 @@ Custos_engraver::acknowledge_grob (Grob_info info)
 	    don't look at the staff-position, since we can't be sure
 	    whether Clef_engraver already applied a vertical shift.
 	  */
-	    pitches_.push (*unsmob_pitch (m->get_mus_property ("pitch")));
+	    pitches_.push (*unsmob_pitch (m->get_property ("pitch")));
 	}
     }
 }
@@ -112,7 +112,7 @@ Custos_engraver::process_acknowledged_grobs ()
 	    p += gh_scm2int (c0);
 
 	  
-	  c->set_grob_property ("staff-position",
+	  c->set_property ("staff-position",
 				gh_int2scm (p));
 	  
 	}

@@ -91,18 +91,18 @@ void check_and_fix_all_prefixes (Array<Grob_info> primitives)
 
     /* compute head prefix set by inspecting primitive grob properties */
     int prefix_set =
-      (VIRGA * to_boolean (primitive->get_grob_property ("virga"))) |
-      (STROPHA * to_boolean (primitive->get_grob_property ("stropha"))) |
-      (INCLINATUM * to_boolean (primitive->get_grob_property ("inclinatum"))) |
-      (AUCTUM * to_boolean (primitive->get_grob_property ("auctum"))) |
-      (DESCENDENS * to_boolean (primitive->get_grob_property ("descendens"))) |
-      (ASCENDENS * to_boolean (primitive->get_grob_property ("ascendens"))) |
-      (ORISCUS * to_boolean (primitive->get_grob_property ("oriscus"))) |
-      (QUILISMA * to_boolean (primitive->get_grob_property ("quilisma"))) |
-      (DEMINUTUM * to_boolean (primitive->get_grob_property ("deminutum"))) |
-      (CAVUM * to_boolean (primitive->get_grob_property ("cavum"))) |
-      (LINEA * to_boolean (primitive->get_grob_property ("linea"))) |
-      (PES_OR_FLEXA * to_boolean (primitive->get_grob_property ("pes-or-flexa")));
+      (VIRGA * to_boolean (primitive->get_property ("virga"))) |
+      (STROPHA * to_boolean (primitive->get_property ("stropha"))) |
+      (INCLINATUM * to_boolean (primitive->get_property ("inclinatum"))) |
+      (AUCTUM * to_boolean (primitive->get_property ("auctum"))) |
+      (DESCENDENS * to_boolean (primitive->get_property ("descendens"))) |
+      (ASCENDENS * to_boolean (primitive->get_property ("ascendens"))) |
+      (ORISCUS * to_boolean (primitive->get_property ("oriscus"))) |
+      (QUILISMA * to_boolean (primitive->get_property ("quilisma"))) |
+      (DEMINUTUM * to_boolean (primitive->get_property ("deminutum"))) |
+      (CAVUM * to_boolean (primitive->get_property ("cavum"))) |
+      (LINEA * to_boolean (primitive->get_property ("linea"))) |
+      (PES_OR_FLEXA * to_boolean (primitive->get_property ("pes-or-flexa")));
 
     /* check: ascendens and descendens exclude each other; same with
        auctum and deminutum */
@@ -186,7 +186,7 @@ void check_and_fix_all_prefixes (Array<Grob_info> primitives)
     /* all other combinations should be valid (unless I made a
        mistake) */
 
-    primitive->set_grob_property ("prefix-set", gh_int2scm (prefix_set));
+    primitive->set_property ("prefix-set", gh_int2scm (prefix_set));
   }
 }
 
@@ -204,8 +204,8 @@ provide_context_info (Array<Grob_info> primitives)
     Grob *primitive = primitives[i].grob_;
     Music *music_cause = primitives[i].music_cause ();
     int context_info = 0;
-    int pitch = unsmob_pitch (music_cause->get_mus_property ("pitch"))->steps ();
-    int prefix_set = gh_scm2int (primitive->get_grob_property ("prefix-set"));
+    int pitch = unsmob_pitch (music_cause->get_property ("pitch"))->steps ();
+    int prefix_set = gh_scm2int (primitive->get_property ("prefix-set"));
 
     if (prefix_set & PES_OR_FLEXA)
       if (!i) // ligature may not start with 2nd head of pes or flexa
@@ -234,7 +234,7 @@ provide_context_info (Array<Grob_info> primitives)
       }
 
     if (prev_primitive)
-      prev_primitive->set_grob_property ("context-info",
+      prev_primitive->set_property ("context-info",
 					 gh_int2scm (prev_context_info));
     prev_primitive = primitive;
     prev_prefix_set = prefix_set;
@@ -242,7 +242,7 @@ provide_context_info (Array<Grob_info> primitives)
     prev_pitch = pitch;
   }
   if (prev_primitive)
-    prev_primitive->set_grob_property ("context-info",
+    prev_primitive->set_property ("context-info",
 				       gh_int2scm (prev_context_info));
 }
 

@@ -9,7 +9,7 @@
 Pitch
 Relative_octave_check::to_relative_octave (Pitch p)
 {
-  Pitch * check_p = unsmob_pitch (get_mus_property ("pitch"));
+  Pitch * check_p = unsmob_pitch (get_property ("pitch"));
 
   int delta_oct = 0;
   if (check_p)

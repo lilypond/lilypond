@@ -41,7 +41,7 @@ Sustain_pedal::print (SCM smob)
   Grob * e = unsmob_grob (smob);
   
   Stencil mol;
-  SCM glyph = e->get_grob_property ("text");
+  SCM glyph = e->get_property ("text");
   if (!gh_string_p (glyph))
     return mol.smobbed_copy ();
   

@@ -101,7 +101,7 @@ Multi_measure_rest::print (SCM smob)
   mol.add_stencil (symbol_stencil (me, space));
 
   int measures = 0;
-  SCM m (me->get_grob_property ("measure-count"));
+  SCM m (me->get_property ("measure-count"));
   if (gh_number_p (m))
     {
       measures = gh_scm2int (m);
@@ -117,7 +117,7 @@ Stencil
 Multi_measure_rest::symbol_stencil (Grob *me, Real space)
 {
   int measures = 0;
-  SCM m (me->get_grob_property ("measure-count"));
+  SCM m (me->get_property ("measure-count"));
   if (gh_number_p (m))
     {
       measures = gh_scm2int (m);
@@ -126,7 +126,7 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
     return Stencil();
   
 
-  SCM limit = me->get_grob_property ("expand-limit");
+  SCM limit = me->get_property ("expand-limit");
   if (measures > gh_scm2int (limit))
     {
       Real padding = 0.15;  
@@ -141,7 +141,7 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
   Font_metric *musfont
     = select_font (me->get_paper (), alist_chain);
 
-  SCM sml = me->get_grob_property ("use-breve-rest");
+  SCM sml = me->get_property ("use-breve-rest");
   if (measures == 1)
     {
       if (sml == SCM_BOOL_T)
@@ -180,8 +180,8 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
 Stencil
 Multi_measure_rest::big_rest (Grob *me, Real width)
 {
-  Real thick_thick =robust_scm2double (me->get_grob_property ("thick-thickness"), 1.0);
-  Real hair_thick = robust_scm2double (me->get_grob_property ("hair-thickness"), .1);
+  Real thick_thick =robust_scm2double (me->get_property ("thick-thickness"), 1.0);
+  Real hair_thick = robust_scm2double (me->get_property ("hair-thickness"), .1);
 
 
   Real ss = Staff_symbol_referencer::staff_space (me);
@@ -219,7 +219,7 @@ Multi_measure_rest::church_rest (Grob*me, Font_metric *musfont, int measures,
   int count = 0;
   Real symbols_width = 0.0;
 
-  SCM sml = me->get_grob_property ("use-breve-rest");
+  SCM sml = me->get_property ("use-breve-rest");
 
   while (l)
     {
@@ -337,7 +337,7 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
       rod.distance_ = l->extent (l, X_AXIS)[BIGGER] - r->extent (r, X_AXIS)[SMALLER]
 	+ sym_width  + 2.0;			// 2.0 = magic!
   
-      Real minlen  = robust_scm2double (me->get_grob_property ("minimum-length"), 0.0);
+      Real minlen  = robust_scm2double (me->get_property ("minimum-length"), 0.0);
       rod.distance_ = max(rod.distance_,
 			  minlen);
       rod.add_to_cols ();

@@ -20,7 +20,7 @@ SCM ly_deep_mus_copy (SCM);
 bool
 Music::internal_is_music_type (SCM k)const
 {
-  SCM ifs = get_mus_property ("types");
+  SCM ifs = get_property ("types");
 
   return scm_memq (k, ifs) != SCM_BOOL_F;
 }
@@ -28,7 +28,7 @@ Music::internal_is_music_type (SCM k)const
 String
 Music::name () const
 {
-  SCM nm = get_mus_property ("name");
+  SCM nm = get_property ("name");
   if (gh_symbol_p (nm))
     {
       return ly_symbol2string (nm);
@@ -83,7 +83,7 @@ Music::mark_smob (SCM m)
 Moment
 Music::get_length () const
 {
-  SCM l = get_mus_property ("length");
+  SCM l = get_property ("length");
   if (unsmob_moment (l))
     return *unsmob_moment (l);
   else if (gh_procedure_p (l))
@@ -98,7 +98,7 @@ Music::get_length () const
 Moment
 Music::start_mom () const
 {
-  SCM l = get_mus_property ("start-moment-function");
+  SCM l = get_property ("start-moment-function");
   if (gh_procedure_p (l))
     {
       SCM res = gh_call1 (l, self_scm ());
@@ -130,7 +130,7 @@ Music::print_smob (SCM s, SCM p, scm_print_state*)
   scm_puts ("#<Music ", p);
   Music* m = unsmob_music (s);
 
-  SCM nm = m->get_mus_property ("name");
+  SCM nm = m->get_property ("name");
   if (gh_symbol_p (nm) || gh_string_p (nm))
     {
       scm_display (nm, p);
@@ -153,12 +153,12 @@ Music::print_smob (SCM s, SCM p, scm_print_state*)
 Pitch
 Music::to_relative_octave (Pitch p)
 {
-  SCM elt = get_mus_property ("element");
+  SCM elt = get_property ("element");
 
   if (Music* m = unsmob_music (elt))
     p = m->to_relative_octave (p);
 
-  p = music_list_to_relative (get_mus_property ("elements"),
+  p = music_list_to_relative (get_property ("elements"),
 			      p, false);
   return p;
 }
@@ -166,24 +166,24 @@ Music::to_relative_octave (Pitch p)
 void
 Music::compress (Moment factor)
 {
-  SCM elt = get_mus_property ("element");
+  SCM elt = get_property ("element");
 
   if (Music* m = unsmob_music (elt))
     m->compress (factor);
 
-  compress_music_list (get_mus_property ("elements"), factor);
+  compress_music_list (get_property ("elements"), factor);
 }
 
 
 void
 Music::transpose (Pitch delta)
 {
-  SCM elt = get_mus_property ("element");
+  SCM elt = get_property ("element");
 
   if (Music* m = unsmob_music (elt))
     m->transpose (delta);
 
-  transpose_music_list (get_mus_property ("elements"), delta);
+  transpose_music_list (get_property ("elements"), delta);
 }
 
 
@@ -195,7 +195,7 @@ IMPLEMENT_DEFAULT_EQUAL_P (Music);
 /****************************/
 
 SCM
-Music::internal_get_mus_property (SCM sym) const
+Music::internal_get_property (SCM sym) const
 {
   SCM s = scm_sloppy_assq (sym, mutable_property_alist_);
   if (s != SCM_BOOL_F)
@@ -206,7 +206,7 @@ Music::internal_get_mus_property (SCM sym) const
 }
 
 void
-Music::internal_set_mus_property (SCM s, SCM v)
+Music::internal_set_property (SCM s, SCM v)
 {
   if (internal_type_checking_global_b)
     if (!type_check_assignment (s, v, ly_symbol2scm ("music-type?")))
@@ -220,13 +220,13 @@ Music::internal_set_mus_property (SCM s, SCM v)
 void
 Music::set_spot (Input ip)
 {
-  set_mus_property ("origin", make_input (ip));
+  set_property ("origin", make_input (ip));
 }
 
 Input*
 Music::origin () const
 {
-  Input *ip = unsmob_input (get_mus_property ("origin"));
+  Input *ip = unsmob_input (get_property ("origin"));
   return ip ? ip : & dummy_input_global; 
 }
 
@@ -245,8 +245,8 @@ LY_DEFINE(ly_music_length,
   return sc->get_length().smobbed_copy();
 }
 
-LY_DEFINE(ly_get_mus_property,
-	  "ly:get-mus-property", 2, 0, 0,  (SCM mus, SCM sym),
+LY_DEFINE(ly_get_property,
+	  "ly:music-property", 2, 0, 0,  (SCM mus, SCM sym),
 	  "Get the property @var{sym} of music expression @var{mus}.\n"
 	  "If @var{sym} is undefined, return @code{'()}.\n" )
 {
@@ -254,11 +254,11 @@ LY_DEFINE(ly_get_mus_property,
   SCM_ASSERT_TYPE(sc, mus, SCM_ARG1, __FUNCTION__, "music");
   SCM_ASSERT_TYPE(gh_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");  
 
-  return sc->internal_get_mus_property (sym);
+  return sc->internal_get_property (sym);
 }
 
-LY_DEFINE(ly_set_mus_property,
-	  "ly:set-mus-property!", 3, 0, 0,
+LY_DEFINE(ly_set_property,
+	  "ly:music-set-property!", 3, 0, 0,
 	  (SCM mus, SCM sym, SCM val),
 	  "Set property @var{sym} in music expression @var{mus} to @var{val}.")
 {
@@ -269,7 +269,7 @@ LY_DEFINE(ly_set_mus_property,
   bool ok = type_check_assignment (sym, val, ly_symbol2scm ("music-type?"));
   if (ok)
     {
-      sc->internal_set_mus_property (sym, val);
+      sc->internal_set_property (sym, val);
     }
     
   return SCM_UNSPECIFIED;

@@ -50,7 +50,7 @@ Instrument_name_engraver::stop_translation_timestep ()
 {
   if (text_)
     {
-      text_->set_grob_property ("side-support-elements",
+      text_->set_property ("side-support-elements",
 				get_property ("instrumentSupport"));
       typeset_grob (text_);
       text_ = 0;
@@ -77,8 +77,8 @@ Instrument_name_engraver::create_text ()
   
   text_ = make_item ("InstrumentName");
       
-  if (text_->get_grob_property ("text") != txt)
-    text_->set_grob_property ("text", txt);
+  if (text_->get_property ("text") != txt)
+    text_->set_property ("text", txt);
   announce_grob (text_, SCM_EOL);
   }
 
@@ -171,8 +171,8 @@ Vocal_name_engraver::create_text ()
   
   text_ = make_item ("VocalName");
       
-  if (text_->get_grob_property ("text") != txt)
-    text_->set_grob_property ("text", txt);
+  if (text_->get_property ("text") != txt)
+    text_->set_property ("text", txt);
   announce_grob (text_, SCM_EOL);
 }
 

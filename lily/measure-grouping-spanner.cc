@@ -23,10 +23,10 @@ Measure_grouping::print (SCM grob)
   /*
     TODO: robustify.
    */
-  SCM which = me->get_grob_property ("style");
-  Real height = robust_scm2double (me->get_grob_property ("height"), 1);
+  SCM which = me->get_property ("style");
+  Real height = robust_scm2double (me->get_property ("height"), 1);
 
-  Real t = Staff_symbol_referencer::line_thickness (me) * robust_scm2double (me->get_grob_property ("thickness"), 1);
+  Real t = Staff_symbol_referencer::line_thickness (me) * robust_scm2double (me->get_property ("thickness"), 1);
   Grob *common = me->get_bound(LEFT)->common_refpoint (me->get_bound (RIGHT),
 						       X_AXIS);
 

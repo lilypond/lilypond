@@ -81,7 +81,7 @@ Percent_repeat_engraver::try_music (Music * m)
 {
   Repeated_music * rp = dynamic_cast<Repeated_music*> (m);
   if (rp
-      && rp->get_mus_property ("iterator-ctor")
+      && rp->get_property ("iterator-ctor")
          == Percent_repeat_iterator::constructor_proc
       && !repeat_)
     {

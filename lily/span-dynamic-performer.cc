@@ -177,7 +177,7 @@ Span_dynamic_performer::try_music (Music* r)
   if (r->is_mus_type ("crescendo-event")
       || r->is_mus_type ("decrescendo-event"))
     {
-      Direction d = to_dir (r->get_mus_property ("span-direction"));
+      Direction d = to_dir (r->get_property ("span-direction"));
       span_events_[d] = r;
       return true;
     }

@@ -120,8 +120,8 @@ Tie_performer::create_audio_elements ()
 	  for (int j = now_notes_.size(); j--;)
 	    {
 	      int comp
-		= Pitch::compare (*unsmob_pitch (tied_notes_[i].event_->get_mus_property ("pitch")),
-				  *unsmob_pitch (now_notes_[j].event_->get_mus_property ("pitch")));
+		= Pitch::compare (*unsmob_pitch (tied_notes_[i].event_->get_property ("pitch")),
+				  *unsmob_pitch (now_notes_[j].event_->get_property ("pitch")));
 
 	      if (comp == 0)
 		{
@@ -208,8 +208,8 @@ int
 CNote_melodic_tuple::pitch_compare (CNote_melodic_tuple const&h1,
 				    CNote_melodic_tuple const &h2)
 {
-  SCM p1  = h1.event_->get_mus_property ("pitch");
-  SCM p2  = h2.event_->get_mus_property ("pitch");  
+  SCM p1  = h1.event_->get_property ("pitch");
+  SCM p2  = h2.event_->get_property ("pitch");  
   return Pitch::compare (*unsmob_pitch (p1),
 			       *unsmob_pitch (p2));
 }

@@ -40,7 +40,7 @@ Separation_item::conditional_width (Grob * me, Grob * left)
   Paper_column * pc = item->get_column ();
   
   
-  for (SCM s =  me->get_grob_property ("conditional-elements"); gh_pair_p (s); s = ly_cdr (s))
+  for (SCM s =  me->get_property ("conditional-elements"); gh_pair_p (s); s = ly_cdr (s))
     {
       SCM elt = ly_car (s);
       if (!unsmob_grob (elt))
@@ -54,7 +54,7 @@ Separation_item::conditional_width (Grob * me, Grob * left)
 	  continue;		/*UGH UGH*/ 
 	}
 
-      if (to_boolean (il->get_grob_property ("no-spacing-rods")))
+      if (to_boolean (il->get_property ("no-spacing-rods")))
 	{
 	  continue;
 	}
@@ -65,7 +65,7 @@ Separation_item::conditional_width (Grob * me, Grob * left)
 	}
     }
 
-  SCM pad = me->get_grob_property ("padding");
+  SCM pad = me->get_property ("padding");
 
   w.widen (robust_scm2double (pad, 0.0));
   return w;
@@ -74,7 +74,7 @@ Separation_item::conditional_width (Grob * me, Grob * left)
 Interval
 Separation_item::width (Grob *me)
 {
-  SCM sw = me->get_grob_property ("X-extent");
+  SCM sw = me->get_property ("X-extent");
   if (is_number_pair (sw))
     {
       return ly_scm2interval (sw);
@@ -84,7 +84,7 @@ Separation_item::width (Grob *me)
   Paper_column * pc = item->get_column ();
   Interval w;
   
-  for (SCM s =  me->get_grob_property ("elements"); gh_pair_p (s); s = ly_cdr (s))
+  for (SCM s =  me->get_property ("elements"); gh_pair_p (s); s = ly_cdr (s))
     {
       SCM elt = ly_car (s);
       if (!unsmob_grob (elt))
@@ -98,7 +98,7 @@ Separation_item::width (Grob *me)
 	  continue;		/*UGH UGH*/ 
 	}
 
-      if (to_boolean (il->get_grob_property ("no-spacing-rods")))
+      if (to_boolean (il->get_property ("no-spacing-rods")))
 	{
 	  continue;
 	}
@@ -110,11 +110,11 @@ Separation_item::width (Grob *me)
 	}
     }
 
-  SCM pad = me->get_grob_property ("padding");
+  SCM pad = me->get_property ("padding");
 
   w.widen (robust_scm2double (pad, 0.0));
 
-  me->set_grob_property ("X-extent", ly_interval2scm (w));
+  me->set_property ("X-extent", ly_interval2scm (w));
   
   return w;
 }
@@ -139,12 +139,12 @@ Separation_item::extremal_break_aligned_grob (Grob *separation_item, Direction d
   Grob *col = dynamic_cast<Item*> (separation_item)->get_column ();
   last_ext->set_empty ();
   Grob *last_grob = 0;
-  for (SCM s = separation_item->get_grob_property ("elements");
+  for (SCM s = separation_item->get_property ("elements");
        gh_pair_p (s); s = gh_cdr (s))
     {
       Grob * break_item = unsmob_grob (gh_car (s));
       
-      if (!gh_symbol_p (break_item->get_grob_property ("break-align-symbol")))
+      if (!gh_symbol_p (break_item->get_property ("break-align-symbol")))
 	continue;
 
       Interval ext = break_item->extent (col, X_AXIS);

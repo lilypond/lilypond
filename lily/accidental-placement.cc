@@ -28,9 +28,9 @@ Accidental_placement::alignment_callback(SCM s, SCM )
   Grob * me =unsmob_grob (s);
 
   Grob * par = me->get_parent (X_AXIS);
-  if (!to_boolean (par->get_grob_property ("positioning-done")))
+  if (!to_boolean (par->get_property ("positioning-done")))
     {
-      par->set_grob_property ("positioning-done", SCM_BOOL_T);
+      par->set_property ("positioning-done", SCM_BOOL_T);
       position_accidentals (par);
     }
 
@@ -43,7 +43,7 @@ Accidental_placement::add_accidental (Grob* me, Grob* a)
 {
   a->set_parent (me, X_AXIS);
   a->add_offset_callback (alignment_callback_proc, X_AXIS);
-  SCM cause = a->get_parent (Y_AXIS)->get_grob_property("cause");
+  SCM cause = a->get_parent (Y_AXIS)->get_property("cause");
 
   Music *mcause =unsmob_music (cause); 
   if (!mcause)
@@ -52,11 +52,11 @@ Accidental_placement::add_accidental (Grob* me, Grob* a)
       return; 
     }
 
-  Pitch *p= unsmob_pitch (mcause->get_mus_property ("pitch"));
+  Pitch *p= unsmob_pitch (mcause->get_property ("pitch"));
 
   int n = p->get_notename ();
 
-  SCM accs = me->get_grob_property ("accidental-grobs");
+  SCM accs = me->get_property ("accidental-grobs");
   SCM key = scm_int2num (n);
   SCM entry = scm_assq (key, accs);
   if (entry == SCM_BOOL_F)
@@ -70,7 +70,7 @@ Accidental_placement::add_accidental (Grob* me, Grob* a)
 
   accs = scm_assq_set_x (accs,  key, entry);
 
-  me->set_grob_property ("accidental-grobs", accs);
+  me->set_property ("accidental-grobs", accs);
 }
 
 /*
@@ -81,13 +81,13 @@ Accidental_placement::split_accidentals (Grob * accs,
 					 Link_array<Grob> *break_reminder,
 					 Link_array<Grob> *real_acc)
 {
-  for (SCM acs =accs->get_grob_property ("accidental-grobs"); gh_pair_p (acs);
+  for (SCM acs =accs->get_property ("accidental-grobs"); gh_pair_p (acs);
        acs =gh_cdr (acs))
     for (SCM s = gh_cdar (acs); gh_pair_p (s); s = gh_cdr (s))
       {
 	Grob *a = unsmob_grob (gh_car (s));
 
-	if (unsmob_grob (a->get_grob_property ("tie")))
+	if (unsmob_grob (a->get_property ("tie")))
 	  break_reminder->push (a);
 	else
 	  real_acc->push (a);
@@ -122,7 +122,7 @@ Accidental_placement::get_relevant_accidental_extent (Grob *me,
 
   if (!extent.is_empty ())
     {
-      Real p = robust_scm2double (me->get_grob_property ("left-padding"), 0.2);
+      Real p = robust_scm2double (me->get_property ("left-padding"), 0.2);
       extent[LEFT] -= p;
     }
   
@@ -253,7 +253,7 @@ Accidental_placement::position_accidentals (Grob * me)
   if (!me->live ())
     return SCM_UNSPECIFIED;
   
-  SCM accs = me->get_grob_property ("accidental-grobs");
+  SCM accs = me->get_property ("accidental-grobs");
 
   /*
     TODO: there is a bug in this code. If two accs are on the same
@@ -381,10 +381,10 @@ Accidental_placement::position_accidentals (Grob * me)
   head_ape-> left_skyline_ = head_skyline;
   head_ape->offset_ = 0.0;
 
-  head_ape->offset_ -= robust_scm2double ( me->get_grob_property ("right-padding"), 0);
+  head_ape->offset_ -= robust_scm2double ( me->get_property ("right-padding"), 0);
 
   
-  Real padding = robust_scm2double (me->get_grob_property ("padding"),0.2);
+  Real padding = robust_scm2double (me->get_property ("padding"),0.2);
 
   Array<Skyline_entry> left_skyline = head_ape->left_skyline_;
   /*
@@ -428,7 +428,7 @@ Accidental_placement::position_accidentals (Grob * me)
     right_extent.unite (ape->offset_  + ape->extents_[i][X_AXIS]);
 
   
-  left_extent[LEFT] -= robust_scm2double (me->get_grob_property ("left-padding"), 0);
+  left_extent[LEFT] -= robust_scm2double (me->get_property ("left-padding"), 0);
 
   
   Interval width(left_extent[LEFT], right_extent[RIGHT]);

@@ -71,7 +71,7 @@ Fingering_engraver::process_music ()
 {
   for (int i= reqs_.size(); i--;)
     {
-      SCM dir = reqs_[i]->get_mus_property ("direction");
+      SCM dir = reqs_[i]->get_property ("direction");
       make_script (to_dir (dir), reqs_[i], Y_AXIS, i);
     }
 }
@@ -83,9 +83,9 @@ Fingering_engraver::make_script (Direction d, Music *r,Axis a,  int i)
 
   Axis other = other_axis (a);
 
-  SCM pitch = r->get_mus_property ("pitch");
+  SCM pitch = r->get_property ("pitch");
   if (unsmob_pitch (pitch))
-    fingering->set_grob_property ("pitch", pitch);
+    fingering->set_property ("pitch", pitch);
   
   Side_position_interface::set_axis (fingering, a);
       
@@ -94,26 +94,26 @@ Fingering_engraver::make_script (Direction d, Music *r,Axis a,  int i)
 
   // Hmm
   int priority = 200;
-  SCM s = fingering->get_grob_property ("script-priority");
+  SCM s = fingering->get_property ("script-priority");
   if (gh_number_p (s))
     priority = gh_scm2int (s);
   
   /* See script-engraver.cc */
   priority += i;
 
-  fingering->set_grob_property ("script-priority", gh_int2scm (priority));
+  fingering->set_property ("script-priority", gh_int2scm (priority));
 
 
-  if (!is_direction (fingering->get_grob_property ("direction")))
+  if (!is_direction (fingering->get_property ("direction")))
     {
       if (d)
-	fingering->set_grob_property ("direction", gh_int2scm (d));
+	fingering->set_property ("direction", gh_int2scm (d));
       else
-	fingering->set_grob_property ("direction",  gh_int2scm (RIGHT));
+	fingering->set_property ("direction",  gh_int2scm (RIGHT));
     }
 
-  SCM dig =  r->get_mus_property ("digit");
-  fingering->set_grob_property ("text", scm_number_to_string (dig, gh_int2scm (10)));
+  SCM dig =  r->get_property ("digit");
+  fingering->set_property ("text", scm_number_to_string (dig, gh_int2scm (10)));
 
   announce_grob (fingering, r->self_scm());
   fingerings_.push (fingering);

@@ -52,7 +52,7 @@ Melisma_translator::process_music ()
 {
   if (event_)
     {
-      SCM sd = event_->get_mus_property ("span-direction");
+      SCM sd = event_->get_property ("span-direction");
       Direction d = to_dir (sd);
       if (d == START)
 	daddy_context_->set_property ("melismaBusy", SCM_BOOL_T);

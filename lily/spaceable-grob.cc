@@ -18,7 +18,7 @@
 SCM
 Spaceable_grob::get_minimum_distances (Grob*me)
 {
-  return me->get_grob_property ("minimum-distances");
+  return me->get_property ("minimum-distances");
 }
 
 /*todo: merge code of spring & rod?
@@ -43,7 +43,7 @@ Spaceable_grob::add_rod (Grob *me , Grob * p, Real d)
     }
 
   mins = gh_cons (gh_cons (p->self_scm (), newdist), mins);
-  me->set_grob_property ("minimum-distances", mins);
+  me->set_property ("minimum-distances", mins);
 }
 
 void
@@ -69,7 +69,7 @@ Spaceable_grob::add_spring (Grob*me, Grob * p, Real d, Real strength, bool expan
     }
     
 #ifndef NDEBUG
-  SCM mins = me->get_grob_property ("ideal-distances");
+  SCM mins = me->get_property ("ideal-distances");
   for (SCM s = mins; gh_pair_p (s); s = ly_cdr (s))
     {
       Spring_smob * sp = unsmob_spring(ly_car (s));
@@ -94,9 +94,9 @@ Spaceable_grob::add_spring (Grob*me, Grob * p, Real d, Real strength, bool expan
 void
 Spaceable_grob::remove_interface (Grob*me)
 {
-  me->set_grob_property ("minimum-distances" , SCM_EOL);
-  me->set_grob_property ("spacing-wishes", SCM_EOL);
-  me->set_grob_property ("ideal-distances", SCM_EOL);
+  me->set_property ("minimum-distances" , SCM_EOL);
+  me->set_property ("spacing-wishes", SCM_EOL);
+  me->set_property ("ideal-distances", SCM_EOL);
 }
 
 

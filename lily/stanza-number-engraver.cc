@@ -50,7 +50,7 @@ Stanza_number_engraver::process_music ()
       last_stanza_ = stanza;
       
       text_ = make_item ("StanzaNumber");
-      text_->set_grob_property ("text", stanza);
+      text_->set_property ("text", stanza);
       announce_grob (text_, SCM_EOL);
     }
 }

@@ -82,7 +82,7 @@ Chord_tremolo_engraver::try_music (Music * m)
 {
   Repeated_music * rp = dynamic_cast<Repeated_music*> (m);
   if (rp
-      && rp->get_mus_property ("iterator-ctor") == Chord_tremolo_iterator::constructor_proc
+      && rp->get_property ("iterator-ctor") == Chord_tremolo_iterator::constructor_proc
       && !repeat_) 
     {
       Moment l = rp->get_length ();
@@ -124,7 +124,7 @@ Chord_tremolo_engraver::process_music ()
       if (sequential_body_b_ && !beam_)
 	{
 	  beam_ = make_spanner ("Beam");
-	  beam_->set_grob_property ("chord-tremolo", SCM_BOOL_T);
+	  beam_->set_property ("chord-tremolo", SCM_BOOL_T);
 
 	  SCM smp = get_property ("measurePosition");
 	  Moment mp
@@ -138,7 +138,7 @@ Chord_tremolo_engraver::process_music ()
 	    {
 	      stem_tremolo_ = make_item ("StemTremolo");
 	      announce_grob(stem_tremolo_, repeat_->self_scm());
-	      stem_tremolo_->set_grob_property ("flag-count",
+	      stem_tremolo_->set_property ("flag-count",
 						scm_int2num (flags_));
 	    }
 	}
@@ -179,7 +179,7 @@ Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
 	  
       if (Stem::duration_log (s) != 1)
 	{
-	  beam_->set_grob_property ("gap-count", gh_int2scm (flags_ - total_duration_flags_));
+	  beam_->set_property ("gap-count", gh_int2scm (flags_ - total_duration_flags_));
 	}
 
       if (info.music_cause ()->is_mus_type ("rhythmic-event"))

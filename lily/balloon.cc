@@ -26,7 +26,7 @@ Balloon_interface::print (SCM smob)
 {
   Grob *me= unsmob_grob (smob);
 
-  SCM cb = me->get_grob_property ("balloon-original-callback");
+  SCM cb = me->get_property ("balloon-original-callback");
   SCM scm_mol  =  SCM_EOL;
 
   if (gh_procedure_p (cb))
@@ -37,7 +37,7 @@ Balloon_interface::print (SCM smob)
   if (!unsmob_stencil (scm_mol))
     return scm_mol;
 
-  SCM scm_off = me->get_grob_property ("balloon-text-offset");
+  SCM scm_off = me->get_property ("balloon-text-offset");
 
   if (!is_number_pair (scm_off))
     return scm_mol;
@@ -47,7 +47,7 @@ Balloon_interface::print (SCM smob)
   Box orig_extent = m->extent_box ();
   Box box_extent = orig_extent;
 
-  Real w = robust_scm2double (me->get_grob_property ("balloon-padding"),  .1);
+  Real w = robust_scm2double (me->get_property ("balloon-padding"),  .1);
   box_extent.widen (w, w);
   
   
@@ -58,9 +58,9 @@ Balloon_interface::print (SCM smob)
 
 
 
-  SCM bt = me->get_grob_property ("balloon-text");
+  SCM bt = me->get_property ("balloon-text");
   SCM chain = Font_interface::font_alist_chain (me);
-  chain = gh_cons (me->get_grob_property ("balloon-text-props"), chain);
+  chain = gh_cons (me->get_property ("balloon-text-props"), chain);
 
 
   SCM text = Text_item::interpret_markup (me->get_paper ()->self_scm (), chain, bt);

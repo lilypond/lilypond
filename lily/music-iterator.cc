@@ -76,7 +76,7 @@ Music_iterator::get_static_get_iterator (Music *m)
 {
   Music_iterator * p =0;
 
-  SCM ctor = m->get_mus_property ("iterator-ctor") ;
+  SCM ctor = m->get_property ("iterator-ctor") ;
   SCM iter = SCM_EOL;
   if (gh_procedure_p (ctor))
     {

@@ -66,7 +66,7 @@ Grob::add_to_list_property (SCM sym, SCM thing)
 extern void check_interfaces_for_property (Grob const *me, SCM sym);
 
 void
-Grob::internal_set_grob_property (SCM s, SCM v)
+Grob::internal_set_property (SCM s, SCM v)
 {
   /* Perhaps we simply do the assq_set, but what the heck. */
   if (!live ())
@@ -84,7 +84,7 @@ Grob::internal_set_grob_property (SCM s, SCM v)
 
 
 SCM
-Grob::internal_get_grob_property (SCM sym) const
+Grob::internal_get_property (SCM sym) const
 {
   SCM s = scm_sloppy_assq (sym, mutable_property_alist_);
   if (s != SCM_BOOL_F)

@@ -172,7 +172,7 @@ Completion_heads_engraver::process_music ()
     }
   else
     {
-      orig = unsmob_duration (note_reqs_[0]->get_mus_property ("duration"));
+      orig = unsmob_duration (note_reqs_[0]->get_property ("duration"));
       note_dur = *orig;
     }
   Moment nb = next_barline_moment ();
@@ -212,12 +212,12 @@ Completion_heads_engraver::process_music ()
       if (scratch_note_reqs_.size())
 	{
 	  req = scratch_note_reqs_[i];
-	  SCM pits = note_reqs_[i]->get_mus_property ("pitch");
-	  req->set_mus_property ("pitch",pits);
+	  SCM pits = note_reqs_[i]->get_property ("pitch");
+	  req->set_property ("pitch",pits);
 	}
       
-      req->set_mus_property ("duration", note_dur.smobbed_copy ());
-      note->set_grob_property ("duration-log",
+      req->set_property ("duration", note_dur.smobbed_copy ());
+      note->set_property ("duration-log",
 				 gh_int2scm (note_dur.duration_log ()));
       
       int dots= note_dur.dot_count ();
@@ -229,22 +229,22 @@ Completion_heads_engraver::process_music ()
 	  /*
 	   measly attempt to save an eeny-weenie bit of memory.
 	  */
-	  if (dots != gh_scm2int (d->get_grob_property ("dot-count")))
-	    d->set_grob_property ("dot-count", gh_int2scm (dots));
+	  if (dots != gh_scm2int (d->get_property ("dot-count")))
+	    d->set_property ("dot-count", gh_int2scm (dots));
 
 	  d->set_parent (note, Y_AXIS);
 	  announce_grob (d, SCM_EOL);
 	  dots_.push (d);
 	}
 
-      Pitch *pit =unsmob_pitch (req->get_mus_property ("pitch"));
+      Pitch *pit =unsmob_pitch (req->get_property ("pitch"));
 
       int pos = pit->steps ();
       SCM c0 = get_property ("centralCPosition");
       if (gh_number_p (c0))
 	pos += gh_scm2int (c0);
 
-      note->set_grob_property ("staff-position",   gh_int2scm (pos));
+      note->set_property ("staff-position",   gh_int2scm (pos));
       announce_grob (note,req->self_scm ());
       notes_.push (note);
     }

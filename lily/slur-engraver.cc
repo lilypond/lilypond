@@ -50,7 +50,7 @@ Slur_engraver::try_music (Music *ev)
       /*
 	Let's not start more than one slur per moment.
       */
-      Direction d = to_dir (ev->get_mus_property ("span-direction"));
+      Direction d = to_dir (ev->get_property ("span-direction"));
       if (d == START)
 	{
 	  if (now_mom () > last_start_)
@@ -72,7 +72,7 @@ Slur_engraver::try_music (Music *ev)
 	  */
 	  for (int j = new_slur_evs_.size(); j--;)
 	    {
-	      Direction nd = to_dir (new_slur_evs_[j]->get_mus_property ("span-direction"));
+	      Direction nd = to_dir (new_slur_evs_[j]->get_property ("span-direction"));
 	      
 	      if (nd == STOP)
 		return true;
@@ -130,7 +130,7 @@ Slur_engraver::process_music ()
     {
       Music* slur_ev = new_slur_evs_[i];
       // end slur: move the slur to other array
-      Direction d = to_dir (slur_ev->get_mus_property ("span-direction"));
+      Direction d = to_dir (slur_ev->get_property ("span-direction"));
       if (d== STOP)
 	{
 	  if (slur_stack_.is_empty ())
@@ -153,9 +153,9 @@ Slur_engraver::process_music ()
 	  Slur::set_interface (slur); // cannot remove yet!
 
 
-	  if (Direction updown = to_dir (slur_ev->get_mus_property ("direction")))
+	  if (Direction updown = to_dir (slur_ev->get_property ("direction")))
 	    {
-	      slur->set_grob_property ("direction", gh_int2scm (updown));
+	      slur->set_property ("direction", gh_int2scm (updown));
 	    }
 	  
 	  start_slurs.push (slur);

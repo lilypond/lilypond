@@ -215,7 +215,7 @@ Simple_spacer::add_columns (Link_array<Grob> const &icols)
   Link_array<Grob> cols(icols);
   
   for (int i =  cols.size (); i--;)
-    if (gh_pair_p (cols[i]->get_grob_property ("between-cols")))
+    if (gh_pair_p (cols[i]->get_property ("between-cols")))
       {
 	loose_cols_.push (cols[i]);
 	cols.del (i);
@@ -226,7 +226,7 @@ Simple_spacer::add_columns (Link_array<Grob> const &icols)
     {
       Spring_smob *spring = 0;
 
-      for (SCM s = cols[i]->get_grob_property ("ideal-distances");
+      for (SCM s = cols[i]->get_property ("ideal-distances");
 	   !spring && gh_pair_p (s);
 	   s = ly_cdr (s))
 	{
@@ -368,7 +368,7 @@ Simple_spacer::solve (Column_x_positions *positions, bool ragged)
   int sz =  positions->cols_.size ();
   for (int i = sz; i--; )
     {
-      SCM p = positions->cols_[i]->get_grob_property( "penalty");
+      SCM p = positions->cols_[i]->get_property( "penalty");
       if (gh_number_p (p))
 	{
 	  if (gh_scm2double (p) < -9999)

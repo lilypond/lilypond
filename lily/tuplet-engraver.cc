@@ -44,7 +44,7 @@ Tuplet_engraver::try_music (Music *c)
 {
   if (c->is_mus_type ("time-scaled-music"))
     {
-      Music *el = unsmob_music (c->get_mus_property ("element"));
+      Music *el = unsmob_music (c->get_property ("element"));
       if (el && !el->is_mus_type ("event-chord"))
 	{
 	  time_scaled_musics_.push (c);
@@ -82,7 +82,7 @@ Tuplet_engraver::process_acknowledged_grobs ()
       if (gh_procedure_p (proc))
 	{
 	  SCM t = gh_apply (proc, scm_list_n (time_scaled_musics_[i]->self_scm (), SCM_UNDEFINED));
-	  glep->set_grob_property ("text", t);
+	  glep->set_property ("text", t);
 	}
       
       announce_grob(glep, time_scaled_musics_ [i]->self_scm());

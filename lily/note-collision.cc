@@ -29,9 +29,9 @@ Note_collision_interface::force_shift_callback (SCM element_smob, SCM axis)
   
    me = me->get_parent (a);
 
-   if (! to_boolean (me->get_grob_property ("positioning-done")))
+   if (! to_boolean (me->get_property ("positioning-done")))
     {
-      me->set_grob_property ("positioning-done", SCM_BOOL_T);
+      me->set_property ("positioning-done", SCM_BOOL_T);
       do_shifts (me);
     }
   
@@ -78,14 +78,14 @@ check_meshing_chords (Grob *me,
 
   if (merge_possible
       && Rhythmic_head::dot_count (nu) != Rhythmic_head::dot_count (nd)
-      && !to_boolean (me->get_grob_property ("merge-differently-dotted")))
+      && !to_boolean (me->get_property ("merge-differently-dotted")))
     merge_possible = false;
 
   /* Can only merge different heads if merge-differently-headed is
      set. */
   if (merge_possible
       && upball_type != dnball_type
-      && !to_boolean (me->get_grob_property ("merge-differently-headed")))
+      && !to_boolean (me->get_property ("merge-differently-headed")))
     merge_possible = false;
 
   /* Should never merge quarter and half notes, as this would make
@@ -224,14 +224,14 @@ check_meshing_chords (Grob *me,
 
       if (dot_wipe_head)
 	{
-	  if (Grob *d = unsmob_grob (dot_wipe_head->get_grob_property ("dot")))
+	  if (Grob *d = unsmob_grob (dot_wipe_head->get_property ("dot")))
 	    d->suicide ();
 	}
       
       if (wipe_ball && wipe_ball->live ())
 	{
-	  wipe_ball->set_grob_property ("transparent", SCM_BOOL_T);
-	  wipe_ball->set_grob_property ("stencil", SCM_EOL);
+	  wipe_ball->set_property ("transparent", SCM_BOOL_T);
+	  wipe_ball->set_property ("stencil", SCM_EOL);
 	}
     }
   /* TODO: these numbers are magic; should devise a set of grob props
@@ -257,7 +257,7 @@ check_meshing_chords (Grob *me,
       && Rhythmic_head::dot_count (nd) > Rhythmic_head::dot_count (nu)
       && (full_collide || close_half_collide))
     {
-      Grob *d = unsmob_grob (nd->get_grob_property ("dot"));
+      Grob *d = unsmob_grob (nd->get_property ("dot"));
       Grob *parent = d->get_parent (X_AXIS);
       if (Dot_column::has_interface (parent))
 	Side_position_interface::add_support (parent, nu);
@@ -316,7 +316,7 @@ Note_collision_interface::get_clash_groups (Grob *me)
 {
   Drul_array<Link_array<Grob> > clash_groups;
  
-  SCM s = me->get_grob_property ("elements");
+  SCM s = me->get_property ("elements");
   for (; gh_pair_p (s); s = ly_cdr (s))
     {
       SCM car = ly_car (s);
@@ -360,7 +360,7 @@ Note_collision_interface::automatic_shift (Grob *me,
       for (int i=0; i < clashes.size (); i++)
 	{
 	  SCM sh
-	    = clashes[i]->get_grob_property ("horizontal-shift");
+	    = clashes[i]->get_property ("horizontal-shift");
 
 	  if (gh_number_p (sh))
 	    shift.push (gh_scm2int (sh));
@@ -442,12 +442,12 @@ Note_collision_interface::forced_shift (Grob *me)
 {
   SCM tups = SCM_EOL;
   
-  SCM s = me->get_grob_property ("elements");
+  SCM s = me->get_property ("elements");
   for (; gh_pair_p (s); s = ly_cdr (s))
     {
       Grob * se = unsmob_grob (ly_car (s));
 
-      SCM force =  se->get_grob_property ("force-hshift");
+      SCM force =  se->get_property ("force-hshift");
       if (gh_number_p (force))
 	{
 	  tups = gh_cons (gh_cons (se->self_scm (), force),

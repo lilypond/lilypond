@@ -227,7 +227,7 @@ Lyric_phrasing_engraver::process_acknowledged_grobs ()
 	    {
 	      l->set_parent (h, X_AXIS);
 	      if (alignment)
-		l->set_grob_property ("self-alignment-X", gh_int2scm (alignment));
+		l->set_property ("self-alignment-X", gh_int2scm (alignment));
 	    }
 	}
 

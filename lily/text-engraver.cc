@@ -92,23 +92,23 @@ Text_engraver::process_acknowledged_grobs ()
 
       // Hmm
       int priority = 200;
-      SCM s = text->get_grob_property ("script-priority");
+      SCM s = text->get_property ("script-priority");
       if (gh_number_p (s))
 	priority = gh_scm2int (s);
       
       /* see script-engraver.cc */
       priority += i;
       
-      text->set_grob_property ("script-priority", gh_int2scm (priority));
+      text->set_property ("script-priority", gh_int2scm (priority));
 
-      Direction dir = to_dir (r->get_mus_property ("direction"));
+      Direction dir = to_dir (r->get_property ("direction"));
       if (dir)
 	set_grob_direction (text, dir);
 
 
-      SCM mark = r->get_mus_property ("text");
+      SCM mark = r->get_property ("text");
 
-      text->set_grob_property ("text", mark);
+      text->set_property ("text", mark);
       announce_grob (text, r->self_scm ());
       texts_.push (text);
     }

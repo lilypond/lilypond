@@ -42,7 +42,7 @@ Engraver_group_engraver::acknowledge_grobs ()
     {
       Grob_info info = announce_infos_[j];
       
-      SCM meta = info.grob_->internal_get_grob_property (meta_sym);
+      SCM meta = info.grob_->internal_get_property (meta_sym);
       SCM nm = scm_assoc (name_sym, meta);
       if (gh_pair_p (nm))
 	nm = ly_cdr (nm);

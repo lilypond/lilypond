@@ -32,9 +32,9 @@ Break_align_interface::alignment_callback (SCM element_smob, SCM axis)
 
   assert (a == X_AXIS);
   Grob *par = me->get_parent (a);
-  if (par && !to_boolean (par->get_grob_property ("positioning-done")))
+  if (par && !to_boolean (par->get_property ("positioning-done")))
     {
-      par->set_grob_property ("positioning-done", SCM_BOOL_T);
+      par->set_property ("positioning-done", SCM_BOOL_T);
       Break_align_interface::do_alignment (par);
     }
     
@@ -53,7 +53,7 @@ Break_align_interface::self_align_callback (SCM element_smob, SCM axis)
   Direction bsd = item->break_status_dir ();
   if (bsd == LEFT)
     {
-      me->set_grob_property ("self-alignment-X", scm_int2num (RIGHT));
+      me->set_property ("self-alignment-X", scm_int2num (RIGHT));
     }
 
   /*
@@ -117,17 +117,17 @@ Break_align_interface::do_alignment (Grob *me)
       /*
 	Find the first grob with a space-alist entry.
        */
-      for (SCM s= l->get_grob_property ("elements");
+      for (SCM s= l->get_property ("elements");
 	   gh_pair_p (s) ; s = gh_cdr (s))
 	  {
 	    Grob *elt = unsmob_grob (gh_car (s));
 
 	    if (edge_idx < 0
-		&& elt->get_grob_property ("break-align-symbol")
+		&& elt->get_property ("break-align-symbol")
 		== ly_symbol2scm( "left-edge"))
 	      edge_idx = idx;
 	    
-	    SCM l =elt->get_grob_property ("space-alist");
+	    SCM l =elt->get_property ("space-alist");
 	    if (gh_pair_p(l))
 	      {
 		alist= l;
@@ -142,12 +142,12 @@ Break_align_interface::do_alignment (Grob *me)
 	table, but that gets icky when that grob is suicided for some
 	reason.
       */
-      for (SCM s = r ? r->get_grob_property ("elements") : SCM_EOL;
+      for (SCM s = r ? r->get_property ("elements") : SCM_EOL;
 	   !gh_symbol_p (rsym) && gh_pair_p (s); s = gh_cdr (s))
 	{
 	  Grob * elt =unsmob_grob(gh_car (s));
 
-	  rsym = elt->get_grob_property ("break-align-symbol");
+	  rsym = elt->get_property ("break-align-symbol");
 	}
 	
       if (rsym  == ly_symbol2scm("left-edge"))
@@ -165,8 +165,8 @@ Break_align_interface::do_alignment (Grob *me)
 	    sym_string = ly_symbol2string (rsym);
 
 	  String orig_string ;
-	  if (unsmob_grob (l->get_grob_property ("cause")))
-	    orig_string = unsmob_grob (l->get_grob_property ("cause"))->name ();
+	  if (unsmob_grob (l->get_property ("cause")))
+	    orig_string = unsmob_grob (l->get_property ("cause"))->name ();
 	  
 	  programming_error (_f("No spacing entry from %s to `%s'",
 				orig_string.to_str0 (),

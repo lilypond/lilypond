@@ -21,15 +21,15 @@
 Stencil
 System_start_delimiter::staff_bracket (Grob*me,Real height)  
 {
-  Real arc_height = gh_scm2double (me->get_grob_property ("arch-height")) ;
+  Real arc_height = gh_scm2double (me->get_property ("arch-height")) ;
   
   SCM at = scm_list_n (ly_symbol2scm ("bracket"),
-		    me->get_grob_property ("arch-angle"),
-		    me->get_grob_property ("arch-width"),
+		    me->get_property ("arch-angle"),
+		    me->get_property ("arch-width"),
 		    gh_double2scm (arc_height),
 		    gh_double2scm (height),
-		    me->get_grob_property ("arch-thick"),
-		    me->get_grob_property ("thickness"),
+		    me->get_property ("arch-thick"),
+		    me->get_property ("thickness"),
 		    SCM_UNDEFINED);
 
 /*
@@ -63,7 +63,7 @@ Stencil
 System_start_delimiter::simple_bar (Grob*me,Real h) 
 {
   Real lt =me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness")) ;
-  Real w = lt * robust_scm2double (me->get_grob_property ("thickness"), 1);
+  Real w = lt * robust_scm2double (me->get_property ("thickness"), 1);
   return Lookup::round_filled_box (Box (Interval (0,w), Interval (-h/2, h/2)),
 				   lt);
 }
@@ -74,7 +74,7 @@ SCM
 System_start_delimiter::after_line_breaking (SCM smob)
 {
   Grob * me = unsmob_grob (smob);
-  SCM   gl = me->get_grob_property ("glyph");
+  SCM   gl = me->get_property ("glyph");
   if (gh_equal_p (gl,scm_makfrom0str ("bar-line")))
     {
       int count = 0;
@@ -82,7 +82,7 @@ System_start_delimiter::after_line_breaking (SCM smob)
       /*
 	Get all coordinates, to trigger Hara kiri. 
       */
-      SCM elts = me->get_grob_property ("elements");
+      SCM elts = me->get_property ("elements");
       Grob *common = common_refpoint_of_list (elts, me, Y_AXIS);
       for (SCM s = elts; gh_pair_p (s); s = gh_cdr (s))
 	{
@@ -108,7 +108,7 @@ System_start_delimiter::print (SCM smob)
 {
   Grob * me = unsmob_grob (smob);
 
-  SCM s = me->get_grob_property ("glyph");
+  SCM s = me->get_property ("glyph");
   if (!gh_string_p (s))
     return SCM_EOL;
   SCM gsym = scm_string_to_symbol (s) ;
@@ -119,7 +119,7 @@ System_start_delimiter::print (SCM smob)
   Real l = ext.length () / staff_space;
   
   if (ext.is_empty ()
-      || (robust_scm2double (me->get_grob_property ("collapse-height"), 0.0) >= l))
+      || (robust_scm2double (me->get_property ("collapse-height"), 0.0) >= l))
     {
       me->suicide ();
       return SCM_EOL;

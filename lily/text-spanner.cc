@@ -44,8 +44,8 @@ Text_spanner::print (SCM smob)
   Grob *common = spanner->get_bound (LEFT)->common_refpoint (spanner->get_bound (RIGHT), X_AXIS);
   Paper_def * paper = me->get_paper();
 
-  SCM flare = me->get_grob_property ("bracket-flare");
-  SCM shorten = me->get_grob_property ("shorten-pair");
+  SCM flare = me->get_property ("bracket-flare");
+  SCM shorten = me->get_property ("shorten-pair");
 
   Interval span_points;
   Drul_array<bool> broken;
@@ -64,7 +64,7 @@ Text_spanner::print (SCM smob)
 	}
       else
 	  {
-	    Real encl = robust_scm2double (me->get_grob_property ("enclose-bounds"), 0.0);
+	    Real encl = robust_scm2double (me->get_property ("enclose-bounds"), 0.0);
 	    span_points[d] = b->extent (common, X_AXIS).linear_combination (d * encl);
 
 	    if (is_number_pair (shorten))
@@ -78,7 +78,7 @@ Text_spanner::print (SCM smob)
 
 
   SCM properties = Font_interface::font_alist_chain (me);
-  SCM edge_text = me->get_grob_property ("edge-text");
+  SCM edge_text = me->get_property ("edge-text");
   Drul_array<Stencil> edge;
   if (gh_pair_p (edge_text))
     {
@@ -99,12 +99,12 @@ Text_spanner::print (SCM smob)
       while (flip (&d) != LEFT);
     }
   
-  Drul_array<Real> edge_height = robust_scm2interval (me->get_grob_property ("edge-height"),
+  Drul_array<Real> edge_height = robust_scm2interval (me->get_property ("edge-height"),
 						      Interval (0.0, 0.0));
   Drul_array<Stencil> edge_line;
     {
       Direction d = LEFT;
-      int dir = to_dir (me->get_grob_property ("direction"));
+      int dir = to_dir (me->get_property ("direction"));
       do
 	{
 	  if (broken[d])

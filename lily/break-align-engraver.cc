@@ -99,12 +99,12 @@ Break_align_engraver::acknowledge_grob (Grob_info inf)
       if (item->get_parent (X_AXIS))
 	return;
 
-      SCM bp=item->get_grob_property ("breakable");
+      SCM bp=item->get_property ("breakable");
       bool breakable = (to_boolean (bp));
       if (!breakable)
 	return ;
 
-      SCM align_name = item->get_grob_property ("break-align-symbol");
+      SCM align_name = item->get_property ("break-align-symbol");
       if (!gh_symbol_p (align_name))
 	return ;
 
@@ -115,7 +115,7 @@ Break_align_engraver::acknowledge_grob (Grob_info inf)
 	  announce_grob (align_, SCM_EOL);
 
 	  left_edge_ = make_item ("LeftEdge");
-	  add_to_group (left_edge_->get_grob_property ("break-align-symbol"), left_edge_);
+	  add_to_group (left_edge_->get_property ("break-align-symbol"), left_edge_);
 	  announce_grob(left_edge_, SCM_EOL);
 	}
       
@@ -138,7 +138,7 @@ Break_align_engraver::add_to_group(SCM align_name, Item*item)
     {
       group = make_item ("BreakAlignGroup");
 
-      group->set_grob_property ("break-align-symbol", align_name);
+      group->set_property ("break-align-symbol", align_name);
       group->set_parent (align_, Y_AXIS);
       announce_grob(group, item->self_scm());
 	  

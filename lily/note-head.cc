@@ -121,14 +121,14 @@ Note_head::brew_ledger_lines (Grob *me,
 Stencil
 internal_print (Grob *me, bool with_ledgers)
 {
-  SCM style  = me->get_grob_property ("style");
+  SCM style  = me->get_property ("style");
   if (!gh_symbol_p (style))
     {
       return Stencil ();
     }
 
   SCM log = gh_int2scm (Note_head::get_balltype (me));
-  SCM proc = me->get_grob_property ("glyph-name-procedure");
+  SCM proc = me->get_property ("glyph-name-procedure");
   SCM scm_font_char = scm_call_2 (proc, log, style);
   String font_char = "noteheads-" + ly_scm2string (scm_font_char);
 
@@ -148,7 +148,7 @@ internal_print (Grob *me, bool with_ledgers)
       ledger_size.widen ( ledger_size.length ()/4);
 
       Real left_shorten =0.0;
-      if (Grob * g = unsmob_grob(me->get_grob_property ("accidental-grob")))
+      if (Grob * g = unsmob_grob(me->get_property ("accidental-grob")))
 	{
 	  /*
 	    make a little room for accidentals.
@@ -200,7 +200,7 @@ Note_head::print (SCM smob)
 Interval
 Note_head::head_extent (Grob *me, Axis a)
 {
-  SCM brewer = me->get_grob_property ("print-function");
+  SCM brewer = me->get_property ("print-function");
   if (brewer == Note_head::print_proc)
     {
       Stencil mol = internal_print (me, false);
@@ -242,8 +242,8 @@ Note_head::brew_ez_stencil (SCM smob)
 
   int b = (l >= 2);
 
-  SCM cause = me->get_grob_property ("cause");
-  SCM spitch = unsmob_music (cause)->get_mus_property ("pitch");
+  SCM cause = me->get_property ("cause");
+  SCM spitch = unsmob_music (cause)->get_property ("pitch");
   Pitch* pit =  unsmob_pitch (spitch);
 
   char s[2] = "a";
@@ -276,19 +276,19 @@ Note_head::brew_ez_stencil (SCM smob)
 Real
 Note_head::stem_attachment_coordinate (Grob *me, Axis a)
 {
-  SCM brewer = me->get_grob_property ("print-function");
+  SCM brewer = me->get_property ("print-function");
   Font_metric * fm  = Font_interface::get_default_font (me);
   
   if (brewer == Note_head::print_proc)
     {
-      SCM style  = me->get_grob_property ("style");
+      SCM style  = me->get_property ("style");
       if (!gh_symbol_p (style))
 	{
 	  return 0.0;
 	}
       
       SCM log = gh_int2scm (Note_head::get_balltype (me));
-      SCM proc = me->get_grob_property ("glyph-name-procedure");
+      SCM proc = me->get_property ("glyph-name-procedure");
       SCM scm_font_char = scm_call_2 (proc, log, style);
       String font_char = "noteheads-" + ly_scm2string (scm_font_char);
 
@@ -307,7 +307,7 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
   /*
     Fallback
    */
-  SCM v = me->get_grob_property ("stem-attachment-function");
+  SCM v = me->get_property ("stem-attachment-function");
   if (!gh_procedure_p (v))
     return 0.0;
   
@@ -323,7 +323,7 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
 int
 Note_head::get_balltype (Grob*me) 
 {
-  SCM s = me->get_grob_property ("duration-log");
+  SCM s = me->get_property ("duration-log");
   return gh_number_p (s) ? gh_scm2int (s) <? 2 : 0;
 }
 

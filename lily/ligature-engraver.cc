@@ -80,7 +80,7 @@ Ligature_engraver::try_music (Music *m)
 {
   if (m->is_mus_type ("ligature-event"))
     {
-      Direction d = to_dir (m->get_mus_property ("span-direction"));
+      Direction d = to_dir (m->get_property ("span-direction"));
       reqs_drul_[d] = m;
       return true;
     }
@@ -188,7 +188,7 @@ Ligature_engraver::process_music ()
       prev_start_req_ = reqs_drul_[START];
       ligature_ = create_ligature_spanner ();
       brew_ligature_primitive_proc =
-	ligature_->get_grob_property ("ligature-primitive-callback");
+	ligature_->get_property ("ligature-primitive-callback");
       if (brew_ligature_primitive_proc == SCM_EOL)
 	{
 	  warning ("Ligature_engraver: ligature-primitive-callback undefined");
@@ -271,7 +271,7 @@ Ligature_engraver::acknowledge_grob (Grob_info info)
       if (Note_head::has_interface (info.grob_))
 	{
 	  primitives_.push (info);
-	  info.grob_->set_grob_property ("print-function",
+	  info.grob_->set_property ("print-function",
 					 brew_ligature_primitive_proc);
 	}
       if (Rest::has_interface (info.grob_))

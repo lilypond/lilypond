@@ -1927,6 +1927,17 @@ def conv (str):
 conversions.append (((2,1,25), conv, """Scheme grob function renaming"""))
 
 
+def conv (str):
+	str = re.sub ('ly:set-grob-property!', 'ly:grob-set-property!',str)
+	str = re.sub ('ly:set-mus-property!', 'ly:music-set-property!',str)	
+	str = re.sub ('ly:set-context-property!', 'ly:context-set-property!', str)	
+	str = re.sub ('ly:get-grob-property', 'ly:grob-property',str)
+	str = re.sub ('ly:get-mus-property', 'ly:music-property',str)
+	str = re.sub ('ly:get-context-property', 'ly:context-property',str)
+	
+	return str
+
+conversions.append (((2,1,26), conv, """More Scheme function renaming"""))
 ################################
 #	END OF CONVERSIONS	
 ################################

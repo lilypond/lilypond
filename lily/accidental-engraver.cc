@@ -248,7 +248,7 @@ Accidental_engraver::process_acknowledged_grobs ()
 	  Music * note = accidentals_[i].melodic_;
 	  Context * origin = accidentals_[i].origin_;
 
-	  Pitch * pitch = unsmob_pitch (note->get_mus_property ("pitch"));
+	  Pitch * pitch = unsmob_pitch (note->get_property ("pitch"));
 	  if (!pitch)
 	    continue;
 
@@ -262,7 +262,7 @@ Accidental_engraver::process_acknowledged_grobs ()
 					     pitch, origin,
 					     cautionaries, barnum);
 
-	  bool cautionary = to_boolean (note->get_mus_property ("cautionary"));
+	  bool cautionary = to_boolean (note->get_property ("cautionary"));
 	  
 	  if (num_caut > num)
 	    {
@@ -271,7 +271,7 @@ Accidental_engraver::process_acknowledged_grobs ()
 	      cautionary = true;
 	    }
 
-	  if (num == 0 && to_boolean (note->get_mus_property ("force-accidental")))
+	  if (num == 0 && to_boolean (note->get_property ("force-accidental")))
 	    num = 1;
 	  
 
@@ -312,13 +312,13 @@ Accidental_engraver::process_acknowledged_grobs ()
 
 	      if (cautionary)
 		{
-		  a->set_grob_property ("cautionary", SCM_BOOL_T);
+		  a->set_property ("cautionary", SCM_BOOL_T);
 		}
 	      
 	      
-	      support->set_grob_property ("accidental-grob", a->self_scm ());
+	      support->set_property ("accidental-grob", a->self_scm ());
 
-	      a->set_grob_property ("accidentals", accs);
+	      a->set_property ("accidentals", accs);
 	      accidentals_[i].accidental_ = a;
 
 	      /*
@@ -354,7 +354,7 @@ Accidental_engraver::stop_translation_timestep ()
 	  {
 	    if (Grob * g = accidentals_[i].accidental_)
 	      {
-		g->set_grob_property ("tie", ties_[j]->self_scm ());
+		g->set_property ("tie", ties_[j]->self_scm ());
 		accidentals_[i].tied_   = true;
 	      }
 	    
@@ -370,7 +370,7 @@ Accidental_engraver::stop_translation_timestep ()
       Music * note = accidentals_[i].melodic_;
       Context * origin = accidentals_[i].origin_;
 
-      Pitch * pitch = unsmob_pitch (note->get_mus_property ("pitch"));
+      Pitch * pitch = unsmob_pitch (note->get_property ("pitch"));
       if (!pitch)
 	continue;
       
@@ -439,7 +439,7 @@ Accidental_engraver::acknowledge_grob (Grob_info info)
   if (note
       && note->is_mus_type ("note-event")
       && Rhythmic_head::has_interface (info.grob_)
-      && !gh_equal_p (info.grob_->get_grob_property ("style"), ly_symbol2scm ("harmonic"))
+      && !gh_equal_p (info.grob_->get_property ("style"), ly_symbol2scm ("harmonic"))
       )
     {
       Accidental_entry entry ;

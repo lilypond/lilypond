@@ -32,9 +32,6 @@ enum Grob_status {
 typedef void (Grob::*Grob_method_pointer) (void);
 
 
-#define get_grob_property(x) internal_get_grob_property(ly_symbol2scm(x))
-#define set_grob_property(x,y) internal_set_grob_property(ly_symbol2scm(x),y)
-
 /*
    Basic output object.
 */
@@ -72,8 +69,8 @@ public:
   /*
     properties
    */
-  SCM internal_get_grob_property (SCM) const;
-  void internal_set_grob_property (SCM, SCM val);
+  SCM internal_get_property (SCM) const;
+  void internal_set_property (SCM, SCM val);
   void add_to_list_property (SCM, SCM);
   void warning (String)const;
   void programming_error (String)const;
@@ -118,8 +115,8 @@ public:
   
   DECLARE_SCHEME_CALLBACK (stencil_extent, (SCM smob, SCM axis));
 
-  static SCM ly_set_grob_property (SCM, SCM,SCM);
-  static SCM ly_get_grob_property (SCM, SCM);  
+  static SCM ly_grob_set_property (SCM, SCM,SCM);
+  static SCM ly_grob_property (SCM, SCM);  
 
   bool internal_has_interface (SCM intf);
   static bool has_interface (Grob*me);  

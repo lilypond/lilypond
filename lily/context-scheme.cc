@@ -47,7 +47,7 @@ LY_DEFINE(ly_context_pushpop_property,
 
 
 LY_DEFINE(ly_get_context_property,
-	  "ly:get-context-property", 2, 0, 0,
+	  "ly:context-property", 2, 0, 0,
 	  (SCM context, SCM name),
 	  "retrieve the value of @var{name} from context @var{context}")
 {
@@ -61,7 +61,7 @@ LY_DEFINE(ly_get_context_property,
 }
 
 LY_DEFINE(ly_set_context_property,
-	  "ly:set-context-property!", 3, 0, 0,
+	  "ly:context-set-property!", 3, 0, 0,
 	  (SCM context, SCM name, SCM val),
 	  "set value of property @var{name} in context @var{context} to @var{val}.")
 {

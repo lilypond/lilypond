@@ -26,7 +26,7 @@ Relative_octave_music::to_relative_octave (Pitch p)
 	\relative { A \relative { ...} B }
 
       */
-      return * unsmob_pitch (get_mus_property ("last-pitch"));
+      return * unsmob_pitch (get_property ("last-pitch"));
     }
   else
     return p;

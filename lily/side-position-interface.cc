@@ -26,18 +26,18 @@ Side_position_interface::add_support (Grob*me, Grob*e)
 Direction
 Side_position_interface::get_direction (Grob*me)
 {
-  SCM d = me->get_grob_property ("direction");
+  SCM d = me->get_property ("direction");
   if (is_direction (d) && to_dir (d))
     return to_dir (d);
 
   Direction relative_dir = Direction (1);
-  SCM reldir = me->get_grob_property ("side-relative-direction");	// should use a lambda.
+  SCM reldir = me->get_property ("side-relative-direction");	// should use a lambda.
   if (is_direction (reldir))
     {
       relative_dir = to_dir (reldir);
     }
   
-  SCM other_elt = me->get_grob_property ("direction-source");
+  SCM other_elt = me->get_property ("direction-source");
   Grob * e = unsmob_grob (other_elt);
   if (e)
     {
@@ -67,12 +67,12 @@ SCM
 Side_position_interface::general_side_position (Grob * me, Axis a, bool use_extents)
 {
   Real ss = Staff_symbol_referencer::staff_space (me);
-  SCM support = me->get_grob_property ("side-support-elements");
+  SCM support = me->get_property ("side-support-elements");
   Grob *common = common_refpoint_of_list (support, me->get_parent (a), a);
   Grob * st = Staff_symbol_referencer::get_staff_symbol (me);
   bool include_staff = (st
 			&& a == Y_AXIS
-			&& gh_number_p (me->get_grob_property ("staff-padding")));
+			&& gh_number_p (me->get_property ("staff-padding")));
 
   Interval dim;
   if (include_staff)
@@ -102,10 +102,10 @@ Side_position_interface::general_side_position (Grob * me, Axis a, bool use_exte
   Direction dir = Side_position_interface::get_direction (me);
     
   Real off =  me->get_parent (a)->relative_coordinate (common, a);
-  Real  minimum_space = ss * robust_scm2double (me->get_grob_property ("minimum-space"),  -1);
+  Real  minimum_space = ss * robust_scm2double (me->get_property ("minimum-space"),  -1);
 
   Real total_off = dim.linear_combination (dir) - off;
-  total_off += dir * ss * robust_scm2double (me->get_grob_property ("padding"), 0);
+  total_off += dir * ss * robust_scm2double (me->get_property ("padding"), 0);
 
   if (minimum_space >= 0
       && dir
@@ -214,11 +214,11 @@ Side_position_interface::aligned_side (SCM element_smob, SCM axis)
  */
   Grob * st = Staff_symbol_referencer::get_staff_symbol (me);
   if (st && a == Y_AXIS
-      && gh_number_p (me->get_grob_property ("staff-padding")))
+      && gh_number_p (me->get_property ("staff-padding")))
     {
       Real padding=
       Staff_symbol_referencer::staff_space (me)
-      * gh_scm2double (me->get_grob_property ("staff-padding"));
+      * gh_scm2double (me->get_property ("staff-padding"));
   
       Grob *common = me->common_refpoint (st, Y_AXIS);
       

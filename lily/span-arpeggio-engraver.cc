@@ -81,10 +81,10 @@ Span_arpeggio_engraver::stop_translation_timestep ()
        */
       for (int i=0; i < arpeggios_.size (); i ++)
 	{
-	  for (SCM s = arpeggios_[i]->get_grob_property ("stems");
+	  for (SCM s = arpeggios_[i]->get_property ("stems");
 	       gh_pair_p (s); s = ly_cdr (s))
 	    Group_interface::add_thing (span_arpeggio_, ly_symbol2scm ("stems"), ly_car (s));
-	  for (SCM s = arpeggios_[i]->get_grob_property ("side-support-elements");
+	  for (SCM s = arpeggios_[i]->get_property ("side-support-elements");
 	       gh_pair_p (s); s = ly_cdr (s))
 	    Group_interface::add_thing (span_arpeggio_, ly_symbol2scm ("side-support-elements"), ly_car (s));
 
@@ -92,7 +92,7 @@ Span_arpeggio_engraver::stop_translation_timestep ()
 	    we can't kill the children, since we don't want to the
 	    previous note to bump into the span arpeggio; so we make
 	    it transparent.  */
-	  arpeggios_[i]->set_grob_property ("print-function", SCM_EOL);
+	  arpeggios_[i]->set_property ("print-function", SCM_EOL);
 	}
       
       typeset_grob (span_arpeggio_);

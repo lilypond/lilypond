@@ -28,7 +28,7 @@ Grob_pitch_tuple::Grob_pitch_tuple ()
 Grob_pitch_tuple::Grob_pitch_tuple (Grob *h, Music *m, Moment mom)
 {
   head_ = h;
-  pitch_ = *unsmob_pitch (m->get_mus_property ("pitch"));
+  pitch_ = *unsmob_pitch (m->get_property ("pitch"));
   end_ = mom;
 }
 

@@ -24,7 +24,7 @@ Lyric_combine_music::get_length () const
 Music*
 Lyric_combine_music::get_music () const
 {
-  SCM l = get_mus_property ("elements");
+  SCM l = get_property ("elements");
   if (!gh_pair_p (l))
     return 0;
   return unsmob_music (gh_car (l));
@@ -34,7 +34,7 @@ Lyric_combine_music::get_music () const
 Music*
 Lyric_combine_music::get_lyrics () const
 {
-  SCM l = get_mus_property ("elements");
+  SCM l = get_property ("elements");
   if (!gh_pair_p (l))
     return 0;
   l = gh_cdr (l);

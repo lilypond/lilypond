@@ -60,7 +60,7 @@ Text_item::print (SCM grob)
 {
   Grob * me = unsmob_grob (grob);
   
-  SCM t = me->get_grob_property ("text");
+  SCM t = me->get_property ("text");
   SCM chain = Font_interface::font_alist_chain (me);
   return interpret_markup (me->get_paper ()->self_scm (), chain, t);
 }

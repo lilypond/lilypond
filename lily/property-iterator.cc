@@ -20,10 +20,10 @@ bool check_grob(Music *mus, SCM sym);
 void
 Property_iterator::process (Moment m)
 {
-  SCM sym = get_music ()->get_mus_property ("symbol");
+  SCM sym = get_music ()->get_property ("symbol");
   if (gh_symbol_p (sym))
     {
-      SCM val = get_music ()->get_mus_property ("value");
+      SCM val = get_music ()->get_property ("value");
       bool ok= true;
       if (val != SCM_EOL)
 	ok = type_check_assignment (sym, val, ly_symbol2scm ("translation-type?"));
@@ -36,7 +36,7 @@ Property_iterator::process (Moment m)
 void
 Property_unset_iterator::process (Moment m)
 {
-  SCM sym = get_music ()->get_mus_property ("symbol");
+  SCM sym = get_music ()->get_property ("symbol");
   type_check_assignment (sym, SCM_EOL, ly_symbol2scm ("translation-type?"));  
   get_outlet ()->unset_property (sym);
 
@@ -50,7 +50,7 @@ Property_iterator::once_finalization(SCM translator, SCM music )
   Music * m = unsmob_music (music);
   Context * tg
     = dynamic_cast<Context *> (unsmob_context (translator));
-  SCM sym = m->get_mus_property ("symbol");
+  SCM sym = m->get_property ("symbol");
 
   tg->unset_property (sym);
   return SCM_UNSPECIFIED;
@@ -59,7 +59,7 @@ Property_iterator::once_finalization(SCM translator, SCM music )
 void
 Property_iterator::do_quit ()
 {
-  if (to_boolean (get_music ()->get_mus_property  ("once")))
+  if (to_boolean (get_music ()->get_property  ("once")))
     {
       SCM trans = get_outlet ()->self_scm();
       SCM music = get_music()->self_scm();
@@ -99,14 +99,14 @@ check_grob(Music *mus, SCM sym)
 void
 Push_property_iterator::process (Moment m)
 {
-  SCM sym = get_music ()->get_mus_property ("symbol");
+  SCM sym = get_music ()->get_property ("symbol");
   if (check_grob (get_music (), sym))
     {
-      SCM eprop = get_music ()->get_mus_property ("grob-property");
-      SCM val = get_music ()->get_mus_property ("grob-value");
+      SCM eprop = get_music ()->get_property ("grob-property");
+      SCM val = get_music ()->get_property ("grob-value");
 
-      if (to_boolean (get_music ()->get_mus_property ("pop-first"))
-	  && !to_boolean (get_music ()->get_mus_property ("once"))
+      if (to_boolean (get_music ()->get_property ("pop-first"))
+	  && !to_boolean (get_music ()->get_property ("once"))
 	  )
 	execute_pushpop_property (get_outlet (), sym, eprop, SCM_UNDEFINED);
 
@@ -122,10 +122,10 @@ Push_property_iterator::once_finalization (SCM trans, SCM music)
   Music * mus = unsmob_music (music);
   Context * tg = dynamic_cast<Context *> (unsmob_context (trans));
     
-  SCM sym = mus->get_mus_property ("symbol");
+  SCM sym = mus->get_property ("symbol");
   if (check_grob (mus, sym))
     {
-      SCM eprop = mus->get_mus_property ("grob-property");
+      SCM eprop = mus->get_property ("grob-property");
   
       execute_pushpop_property (tg, sym, eprop, SCM_UNDEFINED);
     }
@@ -135,7 +135,7 @@ Push_property_iterator::once_finalization (SCM trans, SCM music)
 void
 Push_property_iterator::do_quit ()
 {
-  if (to_boolean (get_music ()->get_mus_property  ("once")))
+  if (to_boolean (get_music ()->get_property  ("once")))
     {
       SCM trans = get_outlet ()->self_scm();
       SCM music = get_music ()->self_scm();
@@ -149,11 +149,11 @@ Push_property_iterator::do_quit ()
 void
 Pop_property_iterator::process (Moment m)
 {
-  SCM sym = get_music ()->get_mus_property ("symbol");
+  SCM sym = get_music ()->get_property ("symbol");
   
   if (check_grob (get_music (), sym))
     {
-      SCM eprop = get_music ()->get_mus_property ("grob-property");
+      SCM eprop = get_music ()->get_property ("grob-property");
 execute_pushpop_property (get_outlet (), sym, eprop, SCM_UNDEFINED);
     }
   Simple_music_iterator::process (m);

@@ -14,7 +14,7 @@
 void
 Script_column::add_staff_sided (Grob *me, Item *i)
 {
-  SCM p = i->get_grob_property ("script-priority");
+  SCM p = i->get_property ("script-priority");
   if (!gh_number_p (p))
     return;
 
@@ -31,8 +31,8 @@ LY_DEFINE(grob_script_priority_less,
   Grob * i1 = unsmob_grob (a);
   Grob* i2 = unsmob_grob (b);
 
-  SCM p1 = i1->get_grob_property ("script-priority");
-  SCM p2 = i2->get_grob_property ("script-priority");
+  SCM p1 = i1->get_property ("script-priority");
+  SCM p2 = i2->get_property ("script-priority");
 
   return gh_scm2int (p1) < gh_scm2int (p2) ? SCM_BOOL_T : SCM_BOOL_F;
 }
@@ -47,7 +47,7 @@ Script_column::before_line_breaking (SCM smob)
   Drul_array<SCM> scripts (SCM_EOL, SCM_EOL);
   Link_array<Grob> staff_sided;
   
-  for (SCM s  = me->get_grob_property( "scripts");  gh_pair_p (s); s = gh_cdr( s))
+  for (SCM s  = me->get_property( "scripts");  gh_pair_p (s); s = gh_cdr( s))
     {
       Grob *sc = unsmob_grob (gh_car (s));
 
@@ -63,7 +63,7 @@ Script_column::before_line_breaking (SCM smob)
 	{
 	  programming_error ( "No direction for script?");
 	  d = DOWN;
-	  g->set_grob_property ("direction", gh_int2scm (d));
+	  g->set_property ("direction", gh_int2scm (d));
 	}
       
       scripts[d] = scm_cons (g->self_scm(), scripts[d]);

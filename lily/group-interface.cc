@@ -25,7 +25,7 @@ Group_interface::add_thing (Grob*me, String name, SCM thing)
 int
 Group_interface::count (Grob *me, String name)
 {
-  return scm_ilength (me->get_grob_property (name.to_str0 ()));
+  return scm_ilength (me->get_property (name.to_str0 ()));
 }
 
 

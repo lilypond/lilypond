@@ -162,8 +162,8 @@ Spacing_engraver::stop_translation_timestep ()
   SCM sh = shortest_playing.smobbed_copy ();
   SCM st = starter.smobbed_copy ();
 
-  sc->set_grob_property ("shortest-playing-duration", sh);  
-  sc->set_grob_property ("shortest-starter-duration", st);
+  sc->set_property ("shortest-playing-duration", sh);  
+  sc->set_property ("shortest-starter-duration", st);
 }
 
 void

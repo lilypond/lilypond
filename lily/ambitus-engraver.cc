@@ -115,13 +115,13 @@ Ambitus_engraver::stop_translation_timestep ()
        * assumed to be 0.
        */
       SCM c0 = get_property ("centralCPosition");
-      ambitus_->set_grob_property ("c0-position", c0);
+      ambitus_->set_property ("c0-position", c0);
 
       /*
        * Similar for keySignature.
        */
       SCM key_signature = get_property ("keySignature");
-      ambitus_->set_grob_property ("accidentals", key_signature);
+      ambitus_->set_property ("accidentals", key_signature);
 
       typeset_grob (ambitus_);
       is_typeset = 1;
@@ -139,7 +139,7 @@ Ambitus_engraver::acknowledge_grob (Grob_info info)
 	  Music *nr = info.music_cause ();
 	  if (nr && nr->is_mus_type ("note-event"))
 	    {
-	      Pitch pitch = *unsmob_pitch (nr->get_mus_property ("pitch"));
+	      Pitch pitch = *unsmob_pitch (nr->get_property ("pitch"));
 	      if (Pitch::compare (pitch_min, pitch_max) > 0) // already init'd?
 		{
 		  // not yet init'd; use current pitch to init min/max
@@ -174,9 +174,9 @@ Ambitus_engraver::finalize ()
     {
       if (Pitch::compare (pitch_min, pitch_max) <= 0)
 	{
-	  ambitus_->set_grob_property ("pitch-min",
+	  ambitus_->set_property ("pitch-min",
 					 pitch_min.smobbed_copy ());
-	  ambitus_->set_grob_property ("pitch-max",
+	  ambitus_->set_property ("pitch-max",
 					 pitch_max.smobbed_copy ());
 	}
       else // have not seen any pitch, so forget about the ambitus

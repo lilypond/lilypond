@@ -132,7 +132,7 @@ Ambitus::print (SCM smob)
   Item *me = (Item *)unsmob_grob (smob);
   Stencil stencil = Stencil ();
 
-  SCM scm_note_head_style = me->get_grob_property ("note-head-style");
+  SCM scm_note_head_style = me->get_property ("note-head-style");
   String note_head_style;
   if (gh_symbol_p (scm_note_head_style))
     {
@@ -154,7 +154,7 @@ Ambitus::print (SCM smob)
     FIXME: Use positions. 
    */
   int p_min, p_max;
-  Pitch *pitch_min = unsmob_pitch (me->get_grob_property ("pitch-min"));
+  Pitch *pitch_min = unsmob_pitch (me->get_property ("pitch-min"));
   if (!pitch_min)
     {
       me->programming_error("Ambitus: pitch_min undefined; assuming 0");
@@ -164,7 +164,7 @@ Ambitus::print (SCM smob)
     {
       p_min = pitch_min->steps ();
     }
-  Pitch *pitch_max = unsmob_pitch (me->get_grob_property ("pitch-max"));
+  Pitch *pitch_max = unsmob_pitch (me->get_property ("pitch-max"));
   if (!pitch_max)
     {
       me->programming_error("Ambitus: pitch_max undefined; assuming 0");
@@ -179,7 +179,7 @@ Ambitus::print (SCM smob)
       me->programming_error ("Ambitus: reverse range");
     }
 
-  SCM c0 = me->get_grob_property ("c0-position");
+  SCM c0 = me->get_property ("c0-position");
   if (gh_number_p (c0))
     {
       p_min += gh_scm2int (c0);
@@ -195,7 +195,7 @@ Ambitus::print (SCM smob)
   head_max.translate_axis (0.5*p_max, Y_AXIS);
 
   // join heads
-  if (to_boolean (me->get_grob_property ("join-heads")) &&
+  if (to_boolean (me->get_property ("join-heads")) &&
       ((p_max - p_min) >= 3))
     {
       Real linethickness = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
@@ -226,8 +226,8 @@ Ambitus::print (SCM smob)
   stencil.add_stencil (ledger_lines);
 
   // add accidentals
-  SCM key_signature = me->get_grob_property ("key-signature");
-  SCM scm_accidentals_style = me->get_grob_property ("accidentals-style");
+  SCM key_signature = me->get_property ("key-signature");
+  SCM scm_accidentals_style = me->get_property ("accidentals-style");
   String accidentals_style;
   if (gh_symbol_p (scm_accidentals_style))
     {

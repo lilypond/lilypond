@@ -31,7 +31,7 @@ Grace_music::start_mom () const
 
 Grace_music::Grace_music ()
 {
-  set_mus_property ("iterator-ctor",
+  set_property ("iterator-ctor",
 		    Grace_iterator::constructor_proc);
 }
 

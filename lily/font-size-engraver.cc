@@ -40,8 +40,8 @@ Font_size_engraver::acknowledge_grob (Grob_info gi)
     {
       Real font_size = gh_scm2double (sz);
       
-      font_size +=  robust_scm2double (gi.grob_->get_grob_property ("font-size"), 0);
-      gi.grob_->set_grob_property ("font-size", gh_double2scm (font_size));
+      font_size +=  robust_scm2double (gi.grob_->get_property ("font-size"), 0);
+      gi.grob_->set_property ("font-size", gh_double2scm (font_size));
     }
 }
 

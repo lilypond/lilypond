@@ -165,10 +165,10 @@ Piano_pedal_engraver::try_music (Music *m)
       for (Pedal_info*p = info_list_; p->name_; p ++)
 	{
 	  String nm = p->name_ + String ("Event");
-	  if (gh_equal_p (m->get_mus_property ("name") ,
+	  if (gh_equal_p (m->get_property ("name") ,
 			  gh_symbol2scm (nm.to_str0())))
 	    {
-	      Direction d = to_dir (m->get_mus_property ("span-direction"));
+	      Direction d = to_dir (m->get_property ("span-direction"));
 	      p->event_drul_[d] = m;
 	      return true;
 	    }
@@ -299,7 +299,7 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
       String propname = String (p->name_) + "Pedal";
 
       p->item_ = make_item (propname.to_str0 ());
-      p->item_->set_grob_property ("text", s);
+      p->item_->set_property ("text", s);
       Axis_group_interface::add_element (p->line_spanner_, p->item_);
 	  
       announce_grob (p->item_,
@@ -347,8 +347,8 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
 
       if (!p->event_drul_[START])
 	{
-	  SCM flare = p->bracket_->get_grob_property ("bracket-flare");
-	  p->bracket_->set_grob_property ("bracket-flare", scm_cons (gh_car (flare),
+	  SCM flare = p->bracket_->get_property ("bracket-flare");
+	  p->bracket_->set_property ("bracket-flare", scm_cons (gh_car (flare),
 								     gh_double2scm (0)));
 	}
 
@@ -371,8 +371,8 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
 
       if (!p->finished_bracket_)
 	{
-	  SCM flare = p->bracket_->get_grob_property ("bracket-flare");
-	  p->bracket_->set_grob_property ("bracket-flare", scm_cons (gh_double2scm (0),gh_cdr (flare)));
+	  SCM flare = p->bracket_->get_property ("bracket-flare");
+	  p->bracket_->set_property ("bracket-flare", scm_cons (gh_double2scm (0),gh_cdr (flare)));
 	}
 
 
@@ -392,7 +392,7 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
 	    WTF is pedal-text not the bound of the object? --hwn
 	  */
 	  if (p->item_)
-	    p->bracket_->set_grob_property ("pedal-text", p->item_->self_scm ());
+	    p->bracket_->set_property ("pedal-text", p->item_->self_scm ());
 	}
 
 

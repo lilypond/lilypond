@@ -33,8 +33,8 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
 			   Real base_space, Real increment, Real *space, Real *fixed)
 {
 
-  Drul_array<SCM> props(me->get_grob_property ("left-items"),
-			me->get_grob_property ("right-items"));
+  Drul_array<SCM> props(me->get_property ("left-items"),
+			me->get_property ("right-items"));
   Direction d = LEFT;
   Direction col_dir =  right_col->break_status_dir ();
   Drul_array<Interval> extents;
@@ -70,7 +70,7 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
 
 	  if (d == LEFT)
 	    {
-	      SCM r = it->get_grob_property ("rest");
+	      SCM r = it->get_property ("rest");
 	      Grob * g = unsmob_grob (r);
 	      if (!g)
 		g =  Note_column::first_head (it);
@@ -184,7 +184,7 @@ Note_spacing::right_column (Grob*me)
   if (!me->live())
     return 0;
   
-  SCM right = me->get_grob_property ("right-items");
+  SCM right = me->get_property ("right-items");
   Item *mincol = 0;
   int min_rank = INT_MAX;
   bool prune = false;
@@ -215,7 +215,7 @@ Note_spacing::right_column (Grob*me)
 	    newright = gh_cons (gh_car (s), newright);
 	}
 
-      me->set_grob_property ("right-items", newright);
+      me->set_property ("right-items", newright);
     }
   
   if (!mincol)
@@ -247,8 +247,8 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
   Drul_array<Direction> stem_dirs(CENTER,CENTER);
   Drul_array<Interval> stem_posns;
   Drul_array<Interval> head_posns;  
-  Drul_array<SCM> props(me->get_grob_property ("left-items"),
-			me->get_grob_property ("right-items"));
+  Drul_array<SCM> props(me->get_property ("left-items"),
+			me->get_property ("right-items"));
 
   Drul_array<Grob*> beams_drul(0,0);
   Drul_array<Grob*> stems_drul(0,0);
@@ -375,7 +375,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	    }
 
 	  correction = note_head_width* stem_dirs[LEFT];
-	  correction *= robust_scm2double (me->get_grob_property ("knee-spacing-correction"), 0);
+	  correction *= robust_scm2double (me->get_property ("knee-spacing-correction"), 0);
 	  *fixed += correction;
 	}
       else
@@ -395,7 +395,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	      correction = (correction/7) <? 1.0;
 	      correction *= stem_dirs[LEFT] ;
 	      correction *=
-		robust_scm2double (me->get_grob_property ("stem-spacing-correction"), 0);
+		robust_scm2double (me->get_property ("stem-spacing-correction"), 0);
 	    }
 	  
 	  if (!bar_yextent.is_empty ())
@@ -435,7 +435,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	(head_posns[LEFT][DOWN] > head_posns[RIGHT][UP]) ? RIGHT : LEFT;
 
       Real delta = head_posns[-lowest][DOWN] - head_posns[lowest][UP] ;
-      Real corr = robust_scm2double (me->get_grob_property ("stem-spacing-correction"), 0);
+      Real corr = robust_scm2double (me->get_property ("stem-spacing-correction"), 0);
       corr =  (delta <= 1) ? 0.0 : 0.25;
       
       correction=  -lowest * corr ;

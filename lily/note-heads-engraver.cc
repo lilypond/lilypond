@@ -61,31 +61,31 @@ Note_heads_engraver::process_music ()
 
       Music * req = note_reqs_[i];
       
-      Duration dur = *unsmob_duration (req->get_mus_property ("duration"));
+      Duration dur = *unsmob_duration (req->get_property ("duration"));
 
-      note->set_grob_property ("duration-log", gh_int2scm (dur.duration_log ()));
+      note->set_property ("duration-log", gh_int2scm (dur.duration_log ()));
       if (dur.dot_count ())
 	{
 	  Item * d = make_item ("Dots");
 	  Rhythmic_head::set_dots (note, d);
 	  
 	  if (dur.dot_count ()
-	      != robust_scm2int (d->get_grob_property ("dot-count"), 0))
-	    d->set_grob_property ("dot-count", gh_int2scm (dur.dot_count ()));
+	      != robust_scm2int (d->get_property ("dot-count"), 0))
+	    d->set_property ("dot-count", gh_int2scm (dur.dot_count ()));
 
 	  d->set_parent (note, Y_AXIS);
 	  announce_grob (d, SCM_EOL);
 	  dots_.push (d);
 	}
 
-      Pitch *pit =unsmob_pitch (req->get_mus_property ("pitch"));
+      Pitch *pit =unsmob_pitch (req->get_property ("pitch"));
 
       int pos = pit ? pit->steps () : 0;
       SCM c0 = get_property ("centralCPosition");
       if (gh_number_p (c0))
 	pos += gh_scm2int (c0);
 
-      note->set_grob_property ("staff-position",   gh_int2scm (pos));
+      note->set_property ("staff-position",   gh_int2scm (pos));
       announce_grob (note,req->self_scm());
       notes_.push (note);
     }

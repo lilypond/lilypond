@@ -97,15 +97,15 @@ Tie_engraver::acknowledge_grob (Grob_info i)
       for  (int i = heads_to_tie_.size (); i--;)
 	{
 	  Grob *th =  heads_to_tie_[i];
-	  Music * right_mus = unsmob_music (h->get_grob_property ("cause"));
-	  Music * left_mus = unsmob_music (th->get_grob_property ("cause"));
+	  Music * right_mus = unsmob_music (h->get_property ("cause"));
+	  Music * left_mus = unsmob_music (th->get_property ("cause"));
 
 	  /*
 	    maybe should check positions too.
 	   */
 	  if (right_mus && left_mus
-	      && gh_equal_p (right_mus->get_mus_property ("pitch"),
-			     left_mus->get_mus_property ("pitch")))
+	      && gh_equal_p (right_mus->get_property ("pitch"),
+			     left_mus->get_property ("pitch")))
 	    {
 	      Grob * p = make_spanner ("Tie");
 	      Tie::set_interface (p); // cannot remove yet!
@@ -182,8 +182,8 @@ Tie_engraver::typeset_tie (Grob *her)
       new_head_drul[d] = Tie::head (her, (Direction)-d);
   } while (flip (&d) != LEFT);
 
-  index_set_cell (her->get_grob_property ("head-pair"), LEFT, new_head_drul[LEFT]->self_scm ());
-  index_set_cell (her->get_grob_property ("head-pair"), RIGHT, new_head_drul[RIGHT]->self_scm ());
+  index_set_cell (her->get_property ("head-pair"), LEFT, new_head_drul[LEFT]->self_scm ());
+  index_set_cell (her->get_property ("head-pair"), RIGHT, new_head_drul[RIGHT]->self_scm ());
 
   typeset_grob (her);
 }

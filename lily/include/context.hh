@@ -79,12 +79,6 @@ Context * find_context_below (Context * where,
 
 Context * unsmob_context (SCM);
 
-#define set_property(x,y) internal_set_property(ly_symbol2scm(x),y)
-
-/*
-  C&P! 
- */
-#define get_property(x) internal_get_property(ly_symbol2scm(x))
 DECLARE_UNSMOB(Context,context);
 
 #endif /* CONTEXT_HH */

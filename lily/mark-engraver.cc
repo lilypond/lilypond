@@ -68,7 +68,7 @@ Mark_engraver::stop_translation_timestep ()
 {
   if (text_)
     {
-      text_->set_grob_property ("side-support-elements" , get_property ("stavesFound"));
+      text_->set_property ("side-support-elements" , get_property ("stavesFound"));
       typeset_grob (text_);
       text_ =0;
     }
@@ -114,7 +114,7 @@ Mark_engraver::process_music ()
        */
 
       
-      SCM m = mark_ev_->get_mus_property ("label");
+      SCM m = mark_ev_->get_property ("label");
       SCM proc = get_property ("markFormatter");
       if (!Text_item::markup_p (m) &&
 	  gh_procedure_p (proc))
@@ -138,7 +138,7 @@ Mark_engraver::process_music ()
 	}
 
       if (Text_item::markup_p (m))
-	text_->set_grob_property ("text", m);
+	text_->set_property ("text", m);
       else
 	warning ("Mark label should be markup object.");
     }

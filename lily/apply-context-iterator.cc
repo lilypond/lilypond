@@ -17,7 +17,7 @@ protected:
 void
 Apply_context_iterator::process (Moment m)
 {
-  SCM proc = get_music ()->get_mus_property ("procedure");
+  SCM proc = get_music ()->get_property ("procedure");
 
   scm_call_1 (proc, get_outlet ()->self_scm());
   

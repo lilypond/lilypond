@@ -59,7 +59,7 @@ Bar_number_engraver::process_music ()
 	    {
 	      create_items ();
 	      // guh.
-	      text_->set_grob_property
+	      text_->set_property
 		("text", scm_makfrom0str (to_string (gh_scm2int (bn)).to_str0 ()));
 	    }
 	}
@@ -81,7 +81,7 @@ Bar_number_engraver::acknowledge_grob (Grob_info inf)
   Grob * s = inf.grob_;
   if (text_
       && dynamic_cast<Item*> (s)
-      && s->get_grob_property ("break-align-symbol") == ly_symbol2scm ("left-edge"))
+      && s->get_property ("break-align-symbol") == ly_symbol2scm ("left-edge"))
     {
       /*
 	By default this would land on the Paper_column -- so why
@@ -95,7 +95,7 @@ Bar_number_engraver::stop_translation_timestep ()
 {
   if (text_)
     {
-      text_->set_grob_property ("side-support-elements", get_property ("stavesFound"));
+      text_->set_property ("side-support-elements", get_property ("stavesFound"));
       typeset_grob (text_);
       text_ =0;
     }

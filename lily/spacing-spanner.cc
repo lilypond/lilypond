@@ -72,8 +72,8 @@ public:
 static bool
 loose_column (Grob *l, Grob *c, Grob *r) 
 {
-  SCM rns = c->get_grob_property ("right-neighbors");
-  SCM lns = c->get_grob_property ("left-neighbors");
+  SCM rns = c->get_property ("right-neighbors");
+  SCM lns = c->get_property ("left-neighbors");
 
  /*
     If this column doesn't have a proper neighbor, we should really
@@ -133,12 +133,12 @@ loose_column (Grob *l, Grob *c, Grob *r)
 
     in any case, we don't want to move bar lines.
    */
-  for (SCM e = c->get_grob_property ("elements"); gh_pair_p (e); e = gh_cdr (e))
+  for (SCM e = c->get_property ("elements"); gh_pair_p (e); e = gh_cdr (e))
     {
       Grob * g = unsmob_grob (gh_car (e));
       if (g && Break_align_interface::has_interface (g))
 	{
-	  for (SCM s = g->get_grob_property ("elements"); gh_pair_p (s);
+	  for (SCM s = g->get_property ("elements"); gh_pair_p (s);
 	       s = gh_cdr (s))
 	    {
 	      Grob *h = unsmob_grob (gh_car (s));
@@ -146,7 +146,7 @@ loose_column (Grob *l, Grob *c, Grob *r)
 	      /*
 		ugh. -- fix staff-bar name? 
 	       */
-	      if (h  && h->get_grob_property ("break-align-symbol") == ly_symbol2scm ("staff-bar"))
+	      if (h  && h->get_property ("break-align-symbol") == ly_symbol2scm ("staff-bar"))
 		return false;
 	    }
 	}
@@ -164,7 +164,7 @@ void
 Spacing_spanner::prune_loose_columns (Grob*me,Link_array<Grob> *cols, Rational shortest)
 {
   Link_array<Grob> newcols;
-  Real increment = robust_scm2double (me->get_grob_property ("spacing-increment"), 1.2);
+  Real increment = robust_scm2double (me->get_property ("spacing-increment"), 1.2);
   for (int i=0; i < cols->size ();  i++)
     {
       if (Item::is_breakable (cols->elem(i)) || Paper_column::is_musical (cols->elem (i)))
@@ -176,18 +176,18 @@ Spacing_spanner::prune_loose_columns (Grob*me,Link_array<Grob> *cols, Rational s
       Grob *c = cols->elem(i);
       if (loose_column (cols->elem (i-1), c, cols->elem (i+1)))
 	{
-	  SCM lns = c->get_grob_property ("left-neighbors");
+	  SCM lns = c->get_property ("left-neighbors");
 	  lns = gh_pair_p (lns) ? gh_car (lns) : SCM_BOOL_F;
 
-	  SCM rns = c->get_grob_property ("right-neighbors");
+	  SCM rns = c->get_property ("right-neighbors");
 	  rns = gh_pair_p (rns) ? gh_car (rns) : SCM_BOOL_F;
 
 	  /*
 	    Either object can be non existent, if the score ends
 	    prematurely.
 	   */
-	  rns = gh_car (unsmob_grob (rns)->get_grob_property ("right-items"));
-	  c->set_grob_property ("between-cols", gh_cons (lns,
+	  rns = gh_car (unsmob_grob (rns)->get_property ("right-items"));
+	  c->set_property ("between-cols", gh_cons (lns,
 							 rns));
 
 	  /*
@@ -205,7 +205,7 @@ Spacing_spanner::prune_loose_columns (Grob*me,Link_array<Grob> *cols, Rational s
 	      Item *lc = dynamic_cast<Item*> ((d == LEFT)  ? next_door[LEFT] : c);
 	      Item *rc = dynamic_cast<Item*> (d == LEFT  ? c : next_door[RIGHT]);
 
-	      for (SCM s = lc->get_grob_property ("spacing-wishes");
+	      for (SCM s = lc->get_property ("spacing-wishes");
 		   gh_pair_p (s); s = gh_cdr (s))
 		{
 		  Grob *sp = unsmob_grob (gh_car (s));
@@ -272,7 +272,7 @@ Spacing_spanner::set_explicit_neighbor_columns (Link_array<Grob> cols)
       int min_rank = 100000;	// inf.
 
 
-      SCM wishes=  cols[i]->get_grob_property ("spacing-wishes");
+      SCM wishes=  cols[i]->get_property ("spacing-wishes");
       for (SCM s =wishes; gh_pair_p (s); s = gh_cdr (s))
 	{
 	  Item * wish = dynamic_cast<Item*> (unsmob_grob (gh_car (s)));
@@ -304,7 +304,7 @@ Spacing_spanner::set_explicit_neighbor_columns (Link_array<Grob> cols)
 	    update the right column of the wish.
 	   */
 	  int maxrank = 0;
-	  SCM left_neighs = rc->get_grob_property ("left-neighbors");
+	  SCM left_neighs = rc->get_property ("left-neighbors");
 	  if (gh_pair_p (left_neighs)
 	      && unsmob_grob (gh_car (left_neighs)))
 	    {
@@ -318,13 +318,13 @@ Spacing_spanner::set_explicit_neighbor_columns (Link_array<Grob> cols)
 		left_neighs = SCM_EOL;
 
 	      left_neighs = gh_cons (wish->self_scm (), left_neighs);
-	      rc->set_grob_property ("left-neighbors", right_neighbors);
+	      rc->set_property ("left-neighbors", right_neighbors);
 	    }
 	}
 
       if (gh_pair_p (right_neighbors))
 	{
-	  cols[i]->set_grob_property ("right-neighbors", right_neighbors);
+	  cols[i]->set_property ("right-neighbors", right_neighbors);
 	}
     }
 }
@@ -347,16 +347,16 @@ Spacing_spanner::set_implicit_neighbor_columns (Link_array<Grob> cols)
       /*
 	sloppy with typnig left/right-neighbors should take list, but paper-column found instead.
        */
-      SCM ln = cols[i] ->get_grob_property ("left-neighbors");
+      SCM ln = cols[i] ->get_property ("left-neighbors");
       if (!gh_pair_p (ln) && i ) 
 	{
-	  cols[i]->set_grob_property ("left-neighbors", gh_cons (cols[i-1]->self_scm(), SCM_EOL));
+	  cols[i]->set_property ("left-neighbors", gh_cons (cols[i-1]->self_scm(), SCM_EOL));
 	}
 
-      SCM rn = cols[i] ->get_grob_property ("right-neighbors");
+      SCM rn = cols[i] ->get_property ("right-neighbors");
       if (!gh_pair_p (rn) && i < cols.size () - 1) 
 	{
-	  cols[i]->set_grob_property ("right-neighbors", gh_cons (cols[i + 1]->self_scm(), SCM_EOL));
+	  cols[i]->set_property ("right-neighbors", gh_cons (cols[i + 1]->self_scm(), SCM_EOL));
 	}
     }
 }
@@ -372,7 +372,7 @@ Spacing_spanner::set_springs (SCM smob)
 
   set_explicit_neighbor_columns (all);
 
-  SCM preset_shortest = me->get_grob_property ("common-shortest-duration");
+  SCM preset_shortest = me->get_property ("common-shortest-duration");
   Rational global_shortest;
   if (unsmob_moment (preset_shortest))
     {
@@ -432,7 +432,7 @@ Spacing_spanner::find_shortest (Grob *me, Link_array<Grob> const &cols)
     {
       if (Paper_column::is_musical (cols[i]))
 	{
-	  Moment *when = unsmob_moment (cols[i]->get_grob_property  ("when"));
+	  Moment *when = unsmob_moment (cols[i]->get_property  ("when"));
 
 	  /*
 	    ignore grace notes for shortest notes.
@@ -440,7 +440,7 @@ Spacing_spanner::find_shortest (Grob *me, Link_array<Grob> const &cols)
 	  if (when && when->grace_part_)
 	    continue;
 	  
-	  SCM  st = cols[i]->get_grob_property ("shortest-starter-duration");
+	  SCM  st = cols[i]->get_property ("shortest-starter-duration");
 	  Moment this_shortest = *unsmob_moment (st);
 	  assert (this_shortest.to_bool());
 	  shortest_in_measure = shortest_in_measure <? this_shortest.main_part_;
@@ -487,7 +487,7 @@ Spacing_spanner::find_shortest (Grob *me, Link_array<Grob> const &cols)
       //      printf ("duration %d/%d, count %d\n", durations[i].num (), durations[i].den (), counts[i]);
     }
 
-  SCM  bsd = me->get_grob_property ("base-shortest-duration");
+  SCM  bsd = me->get_property ("base-shortest-duration");
   Rational d = Rational (1,8);
   if (Moment *m = unsmob_moment (bsd))
     d = m->main_part_;
@@ -508,7 +508,7 @@ void
 Spacing_spanner::do_measure (Rational global_shortest, Grob*me, Link_array<Grob> *cols) 
 {
 
-  Real headwid = robust_scm2double (me->get_grob_property ("spacing-increment"), 1);
+  Real headwid = robust_scm2double (me->get_property ("spacing-increment"), 1);
   for (int i= 0; i < cols->size () - 1; i++)
     {
       Item * l = dynamic_cast<Item*> (cols->elem (i));
@@ -564,7 +564,7 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real inc
   Real compound_fixed_note_space = 0.0;
   int wish_count = 0;
   
-  SCM seq  = lc->get_grob_property ("right-neighbors");
+  SCM seq  = lc->get_property ("right-neighbors");
 
   /*
     We adjust the space following a note only if the next note
@@ -690,12 +690,12 @@ Spacing_spanner::standard_breakable_column_spacing (Grob * me, Item*l, Item*r,
 
   if (l->is_breakable (l) && r->is_breakable (r))
     {
-      Moment *dt = unsmob_moment (l->get_grob_property ("measure-length"));
+      Moment *dt = unsmob_moment (l->get_property ("measure-length"));
       Moment mlen (1);
       if (dt)
 	mlen = *dt;
       
-      Real incr = robust_scm2double (me->get_grob_property ("spacing-increment"), 1);
+      Real incr = robust_scm2double (me->get_property ("spacing-increment"), 1);
 
       *space =  *fixed + incr * double (mlen.main_part_ / shortest.main_part_) * 0.8;
     }
@@ -734,7 +734,7 @@ Spacing_spanner::breakable_column_spacing (Grob*me, Item* l, Item *r,Moment shor
 
   if (dt == Moment (0,0))
     {
-      for (SCM s = l->get_grob_property ("spacing-wishes");
+      for (SCM s = l->get_property ("spacing-wishes");
 	   gh_pair_p (s); s = gh_cdr (s))
 	{
 	  Item * spacing_grob = dynamic_cast<Item*> (unsmob_grob (gh_car (s)));
@@ -812,8 +812,8 @@ Spacing_spanner::breakable_column_spacing (Grob*me, Item* l, Item *r,Moment shor
 Real
 Spacing_spanner::get_duration_space (Grob*me, Moment d, Rational shortest, bool * expand_only) 
 {
-  Real k = robust_scm2double (me->get_grob_property ("shortest-duration-space"), 1);
-  Real incr = robust_scm2double (me->get_grob_property ("spacing-increment"), 1);
+  Real k = robust_scm2double (me->get_property ("shortest-duration-space"), 1);
+  Real incr = robust_scm2double (me->get_property ("spacing-increment"), 1);
   
   if (d < shortest)
     {
@@ -858,7 +858,7 @@ Spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
 			       Moment shortest, bool * expand_only) 
 {
   Moment shortest_playing_len = 0;
-  SCM s = lc->get_grob_property ("shortest-playing-duration");
+  SCM s = lc->get_property ("shortest-playing-duration");
 
   if (unsmob_moment (s))
     shortest_playing_len = *unsmob_moment (s);
@@ -881,7 +881,7 @@ Spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
 	several measures.
        */
       
-      Moment *dt = unsmob_moment (rc->get_grob_property ("measure-length"));
+      Moment *dt = unsmob_moment (rc->get_property ("measure-length"));
       if (dt)
 	{
 	  delta_t = delta_t <? *dt;
@@ -916,7 +916,7 @@ Spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
       dist = get_duration_space (me, shortest, shortest.main_part_, expand_only);
 
       Real grace_fact
-	= robust_scm2double (me->get_grob_property ("grace-space-factor"), 1);
+	= robust_scm2double (me->get_property ("grace-space-factor"), 1);
 
       dist *= grace_fact;
     }

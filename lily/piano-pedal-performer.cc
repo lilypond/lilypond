@@ -130,10 +130,10 @@ Piano_pedal_performer::try_music (Music* r)
       for (Pedal_info*p = info_alist_; p->name_; p ++)
 	{
 	  String nm = p->name_ + String ("Event");
-	  if (gh_equal_p (r->get_mus_property ("name") ,
+	  if (gh_equal_p (r->get_property ("name") ,
 			  scm_makfrom0str (nm.to_str0())))
 	    {
-	      Direction d = to_dir (r->get_mus_property ("span-direction"));
+	      Direction d = to_dir (r->get_property ("span-direction"));
 	      p->req_l_drul_[d] = r;
 	      return true;
 	    }

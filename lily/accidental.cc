@@ -38,7 +38,7 @@ SCM
 Accidental_interface::after_line_breaking (SCM smob)
 {
   Grob *me  = unsmob_grob (smob);
-  Grob *tie = unsmob_grob (me->get_grob_property ("tie"));
+  Grob *tie = unsmob_grob (me->get_property ("tie"));
 
   if (tie && !tie->original_)
     {
@@ -57,15 +57,15 @@ Accidental_interface::accurate_boxes (Grob *a,Grob**common)
   Array<Box> boxes;
   
   bool parens = false;
-  if (to_boolean (a->get_grob_property ("cautionary")))
+  if (to_boolean (a->get_property ("cautionary")))
     {
-      SCM cstyle = a->get_grob_property ("cautionary-style");
+      SCM cstyle = a->get_property ("cautionary-style");
       parens = gh_equal_p (cstyle, ly_symbol2scm ("parentheses"));
 
     }
 
-  SCM accs = a->get_grob_property ("accidentals");
-  SCM scm_style = a->get_grob_property ("style");
+  SCM accs = a->get_property ("accidentals");
+  SCM scm_style = a->get_property ("style");
   if (!gh_symbol_p (scm_style)
       && !parens
       && scm_ilength (accs) == 1)
@@ -166,15 +166,15 @@ Accidental_interface::print (SCM smob)
   bool smaller = false;
   bool parens = false;
 
-  bool caut  = to_boolean (me->get_grob_property ("cautionary"));
+  bool caut  = to_boolean (me->get_property ("cautionary"));
   if (caut)
     {
-      SCM cstyle = me->get_grob_property ("cautionary-style");
+      SCM cstyle = me->get_property ("cautionary-style");
       parens = gh_equal_p (cstyle, ly_symbol2scm ("parentheses"));
       smaller = gh_equal_p (cstyle, ly_symbol2scm ("smaller"));
     }
 
-  SCM scm_style = me->get_grob_property ("style");
+  SCM scm_style = me->get_property ("style");
   String style;
   if (gh_symbol_p (scm_style))
     {
@@ -202,7 +202,7 @@ Accidental_interface::print (SCM smob)
     fm = Font_interface::get_default_font (me);
 
   Stencil mol;
-  for (SCM s = me->get_grob_property ("accidentals");
+  for (SCM s = me->get_property ("accidentals");
        gh_pair_p (s); s = gh_cdr (s))
     {
       int alteration = gh_scm2int (gh_car (s));

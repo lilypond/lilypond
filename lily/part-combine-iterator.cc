@@ -153,7 +153,7 @@ Part_combine_iterator::kill_mmrest (Context * tg)
   if (!mmrest)
     {
       mmrest = make_music_by_name (ly_symbol2scm ("MultiMeasureRestEvent"));
-      mmrest->set_mus_property ("duration", SCM_EOL);
+      mmrest->set_property ("duration", SCM_EOL);
     }
 
   tg->try_music (mmrest);
@@ -284,8 +284,8 @@ Part_combine_iterator::apart (bool silent)
 void
 Part_combine_iterator::construct_children ()
 {
-  split_list_ =  get_music ()->get_mus_property ("split-list");
-  SCM lst =  get_music ()->get_mus_property ("elements");
+  split_list_ =  get_music ()->get_property ("split-list");
+  SCM lst =  get_music ()->get_property ("elements");
 
   SCM props = scm_list_n (/*
 			    used to have tweaks here.
