@@ -1,3 +1,11 @@
+2004-10-12  Pedro Kroger  <kroeger@pedrokroeger.net>
+
+	* Documentation/user/introduction.itely: Minor corrections.
+
+	* Documentation/user/notation.itely: Minor corrections.
+
+	* Documentation/user/tutorial.itely: Minor corrections.
+	
 2004-10-11  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/framework-ps.scm (page-header): Fix Layout renaming bug.
