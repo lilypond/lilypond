@@ -1,4 +1,4 @@
-% -*-Fundamental-*-
+% -%-Fundamental-%- -*-Metafont-*-
 % parmesan-heads.mf -- implement ancient note heads
 % 
 % source file of LilyPond's pretty-but-neat music font
@@ -13,6 +13,26 @@ save black_notehead_width;
 numeric black_notehead_width;
 
 fet_begingroup ("noteheads")
+
+%
+% character aligment:
+%
+%   The head is assumed to be vertically centered around (0, 0).
+%   The left-most edge of the head should touch the vertical line
+%   that goes though the point (0, 0).
+%
+% set_char_box() conventions:
+%
+% * breapth: Ignored (as far as I know).  Should be set to 0.
+%
+% * width: Should match the head's width.
+%
+% * depth: Should match the bottom edge of the head.  Affects vertical
+%   collision handling.
+%
+% * height: Should match the top edge of the head.  Affects vertical
+%   collision handling.
+%
 
 noteheight#:=staff_space# + (1 + overdone_heads)*stafflinethickness#;
 define_pixels(noteheight);

@@ -1,4 +1,4 @@
-% -*-Fundamental-*-
+% -%-Fundamental-%- -*-Metafont-*-
 % parmesan-custodes.mf -- implement ancient custodes
 % 
 % source file of LilyPond's pretty-but-neat music font
@@ -10,6 +10,29 @@ save black_notehead_width;
 numeric black_notehead_width;
 
 fet_begingroup ("custodes")
+
+%
+% character aligment:
+%
+%   The custos is assumed to be vertically centered around (0, 0).
+%   The left-most edge of the custos should touch the vertical line
+%   that goes though the point (0, 0).
+%
+% set_char_box() conventions:
+%
+% * breapth: Ignored (as far as I know).  Should be set to 0.
+%
+% * width: Should cover the horizontal range of the custos that is to
+%   be printed in the staff.  If the custos has an appendage that is
+%   supposed to reach beyond the right end of the staff, the width
+%   should be set such that the appendage is outside of the char box.
+%
+% * depth: Should match the bottom edge of the custos.  Affects
+%   vertical collision handling.
+%
+% * height: Should match the top edge of the custos.  Affects vertical
+%   collision handling.
+%
 
 noteheight#:=staff_space#+ (1 + overdone_heads) *stafflinethickness#;
 define_pixels(noteheight);
@@ -70,6 +93,7 @@ def custos_hufnagel(expr verbose_name, internal_name, ly_name,
 		(y3 - y2) = (x3 - x2) * tand(90-dalpha#);
 		draw z1 -- z2 -- z3;
 
+		% The stem is intentionally outside of the char box.
 		if direction > 0:
 			set_char_box(0, wd#, ht#/2, stem_ht#);
 		else:
@@ -300,6 +324,7 @@ def custos_mensural(expr verbose_name, internal_name, ly_name,
 
 		draw z1 -- z2 -- z3 -- z4 -- z5 -- z6;
 
+		% The stem is intentionally outside of the char box.
 		if direction > 0:
 			set_char_box(0, wd#, +direction*0.33ht#, stem_ht#);
 		else:
