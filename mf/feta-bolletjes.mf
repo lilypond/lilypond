@@ -121,8 +121,8 @@ fet_beginchar ("Brevis notehead", "-1", "brevishead");
 	y4 = y2;
 	y3 = y1;
 
-	draw z1 -- z2;
-	draw z3 -- z4;
+	draw_gridline(z1,z2,stemthick);
+	draw_gridline(z3,z4,stemthick);
 fet_endchar;
 
 % whole note
@@ -431,19 +431,7 @@ fet_endchar;
 fet_beginchar("Ledger ending", "ledgerending", "ledgerending")
 set_char_box (5/2 ledgerlinethickness#, 5/2 ledgerlinethickness#,
   		ledgerlinethickness#/2,ledgerlinethickness#/2);
-	pickup pencircle scaled 1.3 blot_diameter;
-
-	rt x2 = w;
-	lft x1 = -b;
-	x3 = x2;
-	bot y1 = -d;
-	y2 = y1;
-
-	top y3 = h;
-	y4 = y3;
-	x4 = x1;
-
-	filldraw z1 --- z2 --- z3 --- z4 --- cycle ;
+	draw_rounded_block((-b,-d),(w,h),1.3 blot_diameter);
 fet_endchar;
 
 

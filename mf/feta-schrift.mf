@@ -12,7 +12,7 @@
 fet_begingroup("scripts")
 
 def draw_fermata =
-  save alpha, radius, crook_thinness, crook_fatness, dot_diam;
+  save alpha, radius, crook_thinness, crook_fatness, dot_radius;
   
 	% [Wanske] and some  Baerenreiter editions
 	% suggest ca 80 degrees iso half-circle
@@ -27,7 +27,7 @@ def draw_fermata =
   set_char_box(w#, w#, crook_thinness#/2, h#);
   
   define_pixels(radius, crook_thinness, crook_fatness);
-  dot_diam = 4/3 crook_fatness;
+  dot_radius = round (4/6 crook_fatness);
 
 
   penpos1(crook_thinness, 0);
@@ -41,10 +41,10 @@ def draw_fermata =
   addto currentpicture also 
   currentpicture xscaled -1;
 
-  pickup pencircle scaled dot_diam;
+  pickup pencircle scaled 2dot_radius;
   x4 =0;
   bot y4 = - crook_thinness/2;
-  draw z4;
+  drawdot z4;
 enddef;
 
 fet_beginchar("fermata up", "ufermata", "ufermata")
@@ -134,9 +134,9 @@ fet_endchar;
 fet_beginchar("staccato dot", "staccato", "staccato")
 	save radius;
 	radius# = 1.4 stafflinethickness#;
-	define_pixels(radius);
+	define_whole_pixels(radius);
 	pickup pencircle scaled 2 radius;
-	draw (0,0);
+	drawdot (0,0);
 	set_char_box(radius#, radius#, radius#, radius#);
 fet_endchar;
 
@@ -144,7 +144,8 @@ def draw_staccatissimo =
 	save radius, height;
 	height# = .8 staff_space#;
 	radius# = 2 stafflinethickness#;
-	define_pixels(radius, height);
+	define_whole_pixels(radius);
+	define_pixels(height);
 
 	draw_brush((0,0), stafflinethickness, (0, height),2 radius);
 	set_char_box(radius#,radius#, blot_diameter#/2, height# + radius#);
@@ -166,14 +167,11 @@ fet_endchar;
 fet_beginchar("portato/single tenuto", "tenuto", "tenuto")
 	save thick;
 	thick# = 1.4 stafflinethickness#;
-	define_pixels(thick);
+	define_whole_pixels(thick);
 
 	set_char_box(.6 staff_space#, .6 staff_space#, thick#/2,thick#/2);
 	pickup pencircle scaled thick;
-	lft x1 = -b;
-	rt x2 = w;
-	y1 = y2 = 0;
-	draw z1 .. z2;
+	draw_rounded_block((-b,-thick/2),(w,thick/2),thick);
 fet_endchar;
 
 
@@ -184,19 +182,14 @@ fet_endchar;
 def draw_portato = 
 	save thick, radius;
 	thick# = 1.4 stafflinethickness#;
-	define_pixels(thick);
 	radius# = 1.4 stafflinethickness#;
-	define_pixels(radius);
+	define_whole_pixels(thick,radius);
 	
 	set_char_box(.6 staff_space#, .6 staff_space#, thick#/2,.5 staff_space#+ radius#);
-	pickup pencircle scaled thick;
-	lft x1 = -b;
-	rt x2 = w;
-	y1 = y2 = 0;
-	draw z1 .. z2;
+	draw_rounded_block((-b,-thick/2),(w,thick/2),thick);
 
 	pickup pencircle scaled 2 radius;
-	draw (0,h);
+	drawdot (0,h);
 enddef;
 
 
@@ -280,14 +273,8 @@ fet_beginchar("plus (stopped)", "stopped", "plusstop")
 	size# = 1.1 staff_space#;
 
 	set_char_box(size#/2, size#/2, size#/2, size#/2);
-	pickup pencircle scaled thick;
-
-	rt x1 = w;
-	y1 = 0;
-	z2 = -z1;
-
-	draw z1 .. z2;
-	draw (z1 .. z2) rotated 90;
+	draw_rounded_block((-b,-thick/2),(w,thick/2),thick);
+	addto currentpicture also currentpicture rotated 90;
 fet_endchar;
 
 %
@@ -316,37 +303,17 @@ fet_endchar;
 
 fet_beginchar("Downbow", "downbow", "downbow")
 	save stemthick, beamheight;
-	save wd;
+	save wd,round;
 	define_pixels(wd)
 
 	wd# = 1.5 staff_space#;
 	stemthick = 1.2 stafflinethickness;
-
 	set_char_box(wd#/2, wd#/2, 0, 4/3 staff_space#);
 
 	beamheight = 4/10 h;
 
-
-	pickup pencircle scaled blot_diameter;
-	top y2 - bot y1  = beamheight;
-	top y2 = h;
-	rt x1 = w;
-	x1 = x2;
-	y2 = y3;
-	y1 = y4;
-	x3 = 0;
-	x4 = x3;
-	save p;
-	path p;
-	filldraw z1 -- z2 -- z3 -- z4 --cycle;
-
-	pickup pencircle scaled stemthick;
-
-	bot y5 =0;
-	rt x5 = rt x6 = w;
-	y6 = h - beamheight;
-	draw z6 -- z5;
-	labels(1, 2,3,4,5,6);
+	draw_rounded_block((-b,h-beamheight),(w,h),blot_diameter);
+	draw_rounded_block((-b,-d),(-b+stemthick,h-stemthick),stemthick);
 	addto currentpicture also currentpicture xscaled -1;
 fet_endchar;
 
@@ -716,9 +683,8 @@ fet_beginchar("Coda", "coda", "coda")
 	fill halfcoda;
 	fill (halfcoda scaled -1);
 
-	pickup pencircle scaled thin;
-	draw (0,-h) -- (0,h);
-	draw (-w,0) -- (w,0);
+	draw_gridline((0,-h),(0,h),thin);
+	draw_gridline((-w,0),(w,0),thin);
 
 fet_endchar;
 

@@ -1,13 +1,13 @@
 fet_begingroup("dots");
 
-save dot_diam;
-2 dot_diam# = staff_space# - stafflinethickness#;
-define_pixels(dot_diam);
+save dot_radius;
+4 dot_radius# = staff_space# - stafflinethickness#;
+define_whole_blacker_pixels(dot_radius);
 
 fet_beginchar("duration dot","dot", "dot")
-	pickup pencircle scaled dot_diam;
-	drawdot (dot_diam/2,0);
-	set_char_box(0, dot_diam#, dot_diam#/2, dot_diam#/2);
+	pickup pencircle scaled dot_radius;
+	drawdot (dot_radius,0);
+	set_char_box(0, 2*dot_radius#, dot_radius#, dot_radius#);
 fet_endchar;
 
 fet_endgroup("dots");

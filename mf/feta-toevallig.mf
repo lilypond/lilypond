@@ -66,19 +66,16 @@ fet_beginchar("Sharp" , "1", "sharp");
 
 	pickup pencircle scaled roundness;
 	filldraw (beam shifted (0,-interbeam/2));
-	filldraw (beam shifted (0,interbeam/2));
 
 	pickup pencircle scaled stemwidth;
 	x3 = x4 = xpart center;
 	bot y3 = -1.5 staff_space + ypart center;
 	top y4 = 1.5 staff_space + ypart center;
 
-	path stem;
-	stem := z3 .. z4;
 	numeric xs;
 	xs := interstem* beamwidth / 2;
-	draw stem shifted (- xs, - xs* beamslope);
-	draw stem shifted (xs , xs *beamslope);
+	draw_gridline (z3-(xs,xs* beamslope),z4-(xs,xs*beamslope),stemwidth);
+	addto currentpicture also currentpicture rotated 180 shifted (w,0);
 	labels(1,2,3,4);
 	fet_endchar;
 
@@ -111,8 +108,8 @@ fet_beginchar( "Natural", "0", "natural")
 	top y3 = 1.5 staff_space;
 	top y4 = beamtop;
 
-	draw (xpart z1, -y4) .. z3;
-	draw (xpart z2, -y3) .. z4;
+	draw_gridline((xpart z1, -y4),z3,stemwidth);
+	draw_gridline((xpart z2, -y3),z4,stemwidth);
 
 	labels(1,2,3,4);
 	fet_endchar;
