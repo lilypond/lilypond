@@ -500,10 +500,12 @@ lily output file in TFILES after that, and return the Latex file constructed.  '
 		orientation = extra['orientation'][0]
 
 	# set sane geometry width (a4-width) for linewidth = -1.
-	if not extra['linewidth'] or extra['linewidth'][0] < 0:
+	maxlw = max (extra['linewidth'] + [-1])
+	if maxlw < 0:
+	        # who the hell is 597 ?
 		linewidth = 597
 	else:
-		linewidth = extra['linewidth'][0]
+		linewidth = maxlw
 	s = s + '\geometry{width=%spt%s,headheight=2mm,headsep=12pt,footskip=2mm,%s}\n' % (linewidth, textheight, orientation)
 
 	if extra['latexoptions']:

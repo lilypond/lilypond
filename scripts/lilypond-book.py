@@ -532,9 +532,24 @@ def compose_full_body (body, opts):
 		l = -1.0;
 	else:
 		l = __main__.paperguru.get_linewidth()
-	
-	if 'relative' in opts:#ugh only when is_fragment
-		body = '\\relative c { %s }' % body
+
+	for o in opts:
+		m= re.search ('relative(.*)', o)
+		v = 0
+		if m:
+			try:
+				v = string.atoi (m.group (1))
+			except ValueError:
+				pass
+
+			v = v + 1
+			pitch = 'c'
+			if v < 0:
+				pitch = pitch + '\,' * v
+			elif v > 0:
+				pitch = pitch + '\'' * v
+
+			body = '\\relative %s { %s }' %(pitch, body)
 	
 	if is_fragment:
 		body = r"""\score { 

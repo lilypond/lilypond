@@ -121,11 +121,17 @@ local-clean:
 # Rules for the automatically generated documentation
 # When cross-compiling, we don't have lilypond, so we fake
 ifneq ($(CROSS),yes)
-dummy:
-$(outdir)/lilypond-internals.nexi $(outdir)/lilypond-internals.texi: dummy
+
+
+# there used to be a dependency on a dummy target, to force a rebuild of lilypond-internals every time.
+# however, this triggers compilation during install, which  is a bad thing (tm).
+
+$(outdir)/lilypond-internals.nexi $(outdir)/lilypond-internals.texi: $(depth)/$(builddir)/lily/$(outconfbase)/lilypond
 	cd $(outdir) && ../$(depth)/$(builddir)/lily/$(outconfbase)/lilypond ../$(src-depth)/ly/generate-documentation
 	-ln $(outdir)/lilypond-internals.texi $(outdir)/lilypond-internals.nexi
 
+
+## unused
 $(outdir)/interfaces.itexi: dummy
 	cd $(outdir) && ../$(depth)/$(builddir)/lily/$(outconfbase)/lilypond ../$(src-depth)/ly/generate-interface-doc
 

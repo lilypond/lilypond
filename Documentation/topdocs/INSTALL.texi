@@ -23,23 +23,25 @@ page}.
 
 @section Downloading
 
+Even numbered versions are `stable'. The webpages for the stable version
+(1.2) reside @uref{http://www.gnu.org/software/lilypond, on the GNU
+servers}. Big enhancements go into the latest odd numbered version
+(1.3), whose webpages are on @uref{http://www.lilypond.org/,the lilypond
+site}.
+
 @subsection  source code
 
 
 If you want to compile LilyPond from source, download here:
 @itemize @bullet
 @item Download development releases from
-@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/, by FTP} and
-@uref{http://ftp.cs.uu.nl/pub/GNU/LilyPond/development/, by HTTP}.
-@item @uref{ftp://sca.uwaterloo.ca/pub/, ftp (Canadian mirror)} 
-@item at @code{lilypond.org} by
-@uref{ftp://ftp.lilypond.org/pub/LilyPond/, FTP} and
-@uref{http://www.lilypond.org/ftp/, HTTP}.
+@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/} by FTP and
+@uref{http://ftp.cs.uu.nl/pub/GNU/LilyPond/development/}, by HTTP.
+@item @uref{ftp://sca.uwaterloo.ca/pub/} by FTP (Canadian mirror)
+@item at @code{lilypond.org} 
+@uref{ftp://ftp.lilypond.org/pub/LilyPond/} by FTP and
+@uref{http://www.lilypond.org/ftp/} by HTTP.
 @end itemize
-
-Installing and compiling requires many additional packages, which are
-listed in the @uref{Documentation/topdocs/out-www/INSTALL.html,
-installation instructions}.
 
 @html
 <a name="download-binaries">
