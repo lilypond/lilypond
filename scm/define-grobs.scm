@@ -684,8 +684,11 @@
 	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent ,Self_alignment_interface::aligned_on_self))
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(print-function . ,Text_item::print)
+
+	;; no Y dimensions, because of lyrics under tenor clef.
+	(Y-extent-callback . #f)
 	(font-shape . italic)
-	(padding . 0.4)
+	(padding . 0.6)
 	(staff-padding . 0.2)
 	(font-size . -4)
 	(meta . ((interfaces . (text-interface self-alignment-interface side-position-interface font-interface item-interface ))))

@@ -265,7 +265,7 @@ Context_def::get_translator_names (SCM user_mod) const
 SCM
 filter_performers (SCM l)
 {
-  for (SCM *tail = &l; gh_pair_p (*tail); tail = SCM_CDRLOC (tail))
+  for (SCM *tail = &l; gh_pair_p (*tail); tail = SCM_CDRLOC (*tail))
     {
       if (dynamic_cast<Performer*> (unsmob_translator (gh_car (*tail))))
 	{
@@ -279,7 +279,7 @@ filter_performers (SCM l)
 SCM
 filter_engravers (SCM l)
 {
-  for (SCM *tail = &l; gh_pair_p (*tail) ; tail = SCM_CDRLOC (tail))
+  for (SCM *tail = &l; gh_pair_p (*tail) ; tail = SCM_CDRLOC (*tail))
     {
       if (dynamic_cast<Engraver*> (unsmob_translator (gh_car (*tail))))
 	{

@@ -103,10 +103,13 @@ Clef_engraver::create_clef ()
 	  int abs_oct = gh_scm2int (oct) ;
 	  int dir = sign (abs_oct);
 	  abs_oct = abs (abs_oct)  + 1;
-	    
+
+	  SCM txt = scm_number_to_string (gh_int2scm (abs_oct),
+					  SCM_MAKINUM (10));
+
 	  g->set_property ("text",
-				scm_number_to_string (gh_int2scm (abs_oct),
-						      SCM_MAKINUM (10)));
+			   scm_list_n (ly_scheme_function ("vcenter-markup"),
+				       txt,  SCM_UNDEFINED));
 	  Side_position_interface::add_support (g,clef_);      
 
 	  g->set_parent (clef_, Y_AXIS);
