@@ -1,9 +1,18 @@
+pl 51
+	- transposition bugfix + doco
+	- LilyPond -> GNU LilyPond
+	- bugfixes for Staff_side and Note_column*
+	- wohltemperirt: 12 more bars
+
+******
+april 11
 pl 50
 	- merge rest / notehead.
 	- Staff_side as a base class for most "staff-side" symbols.
 	- version check
 	- Note_column_register, Note_column
 	- multiple scripts
+
 ********
 april 8
 pl 49.jcn1

@@ -1,12 +1,32 @@
 =head1 NAME
 
-FAQ - LilyPond FAQs
+FAQ - GNU LilyPond FAQs
 
 =head1 DESCRIPTION
 
 Some questions that have been answered before.
 
-=head2 language
+=head2 Language: mudela
+
+Q: Why can't you type C<#c> in stead of C<cis> ?
+
+A: We think that C<#c> looks as if you are entering the symbols to
+print (which you are not; remember, you're entering the musical
+content in Mudela)
+
+We're not sure on leaving out this feature. If you think this is a
+good idea, please let us know.
+
+Be warned we will I<not> allow you to leave out the C<#> if the note
+already has an accidental. We won't allow
+
+	c# c	% no way! 
+
+in stead of:
+
+	cis cis
+	#c #c
+
 
 Q: I can type
 
@@ -73,9 +93,9 @@ simple front end to the complicated internals.
 
 Q: Why do I need g++ >= 2.7?
 
-A: By using g++ LilyPond is portable to all platforms which support
+A: By using g++, GNU LilyPond is portable to all platforms which support
 g++ (there are quite a few). Not having to support other compilers
-saves us a I<lot> of trouble. LilyPond and FlowerLib use:
+saves us a I<lot> of trouble. GNU LilyPond and FlowerLib use:
 
 =over 4
 
@@ -117,10 +137,10 @@ Q: I want a DOS/NT/W95 port.
 
 A.0: Reconsider.  Try Linux.  It's fun!
 
-A.1: Currently (patchlevel 27), LilyPond (and flowerLib) compiles, links
+A.1: Currently (patchlevel 27), GNU LilyPond (and flowerLib) compiles, links
 and runs on windhoos-nt, using the cygnus gnu port (release b17.1). 
 I (JCN) only had to make a minor workaround for missing library calls.  
-Have a look at http://www.cygnus.com/gnu-win32.  To make LilyPond type
+Have a look at http://www.cygnus.com/gnu-win32.  To make GNU LilyPond type
 C<make $OSTYPE>. (I am not promising to maintain this platform, it is just 
 that when having to use doze, i-m sometimes too lazy to reboot.)
 
