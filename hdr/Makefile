@@ -6,3 +6,6 @@ dist:
 
 TAGS: $(hdr) 
 	etags -CT $(hdr) 
+
+clean:
+	rm -f parser.hh

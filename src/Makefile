@@ -6,3 +6,6 @@ dist:
 
 TAGS: $(mycc)
 	etags -CT $(mycc) 
+
+clean:
+	rm -f $(gencc)

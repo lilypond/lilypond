@@ -1,6 +1,10 @@
 -*-text-*-
 
-last update: 96/12/12, 0.0.16
+last update: 96/17/12, 0.0.17
+
+LICENSE
+
+See file COPYING
 
 INTRODUCTION
 
@@ -50,6 +54,7 @@ why G++ >= 2.7? LilyPond & flower lib uses:
 	builtin bool
 	typeof
 	operator <?, operator >?
+	new for-scope
 
 USING
 
@@ -63,30 +68,40 @@ what I type in my xterm:
 
 This is what the output looks like over here:
 
-hw:~/musix/spacer$ lilypond maartje.ly
-LilyPond version 0.0.16 compiled on Dec 11 1996 at 13:54:27
-Parsing ... [symbol.ini][maartje.ly]
-Processing ... Calculating ... Postprocessing ... 
-output to lelie.uit...
+	hw:~/musix/spacer$ lilypond maartje.ly
+	LilyPond 0.0.17/FlowerLib 1.0.14. Compile: Dec 17 1996, 11:33:54 (g++ 2.7.2)
+	Parsing ... [symbol.ini][maartje.ly]
+	Processing ... Calculating ... Postprocessing ... 
+	output to lelie.uit...
 
-hw:~/musix/spacer$ tex test
-This is TeX, Version 3.14159 (C version 6.1)
-(test.tex
-Hyphenation patterns for english, dutch, loaded.
-(lilyponddefs.tex) (lelie.uit) [1] [2] )
-Output written on test.dvi (2 pages, 8072 bytes).
-Transcript written on test.log.
+	hw:~/musix/spacer$ tex test
+	This is TeX, Version 3.14159 (C version 6.1)
+	(test.tex
+	Hyphenation patterns for english, dutch, loaded.
+	(lilyponddefs.tex) (lelie.uit) [1] [2] )
+	Output written on test.dvi (2 pages, 8072 bytes).
+	Transcript written on test.log.
 
-hw:~/musix/spacer$ xdvi test&
-[1] 1468
+	hw:~/musix/spacer$ xdvi test&
+	[1] 1468
 
 Check out kortjakje.ly, it has some comments
+
 
 PROBLEMS
 
 If LilyPond bombs out, then please recompile using -g, and send a gdb
-stacktrace of the crash.
+stacktrace of the crash. It also helps if you can print the values of the objects. So if you trace is
 
+(gdb) backtrace 12
+#0  Interval::operator+= (this=0x11fffec60, r=-1.7976931348623157e+308)
+    at ../flower/interval.hh:50
+#1  0x12005195c in Item::width (this=0x14008a680) at src/item.cc:39
+#2  0x12008fdbc in itemlist_width (its=0x11fffed58) at src/simpleprint.cc:40
+  :
+  :
+
+Than it would help if you send a dump of the Interval and the Item (use: 'print *this' or use LilyPond print() methods)
 
 HOW DOES IT WORK
 
