@@ -28,8 +28,8 @@ Line_of_score::contains_b (Paper_column const* c) const
 Line_of_score*
 Line_of_score::set_breaking (Array<Column_x_positions> const &breaking, int j) const
 {
-  const Link_array<Paper_column> &curline (breaking[j].cols);
-  const Array<Real> &config (breaking[j].config);
+  const Link_array<Paper_column> &curline (breaking[j].cols_);
+  const Array<Real> &config (breaking[j].config_);
   Line_of_score *line_l=0;
 
   line_l = dynamic_cast <Line_of_score*> (clone());

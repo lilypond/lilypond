@@ -33,7 +33,6 @@ Column_info::Column_info (Paper_column *col_l, Real const *fixed_C)
 {
   if (fixed_C)
     fixpos_p_.set_l (fixed_C);
-  ugh_b_ = false;
   pcol_l_ = col_l;
   width_ = pcol_l_->extent(X_AXIS);
   if (width_.empty_b())
@@ -43,7 +42,6 @@ Column_info::Column_info (Paper_column *col_l, Real const *fixed_C)
 
 Column_info::Column_info()
 {
-  ugh_b_ = false;
   pcol_l_ =0;
 }
 

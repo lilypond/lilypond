@@ -24,14 +24,21 @@ threevoice = \context Staff \notes <
 	\context Voice=iii { \stemdown c4 d e d c d es }
 >
 
+chordstest = \context Staff \notes <
+	\context Voice = i \relative c {
+		\stemup e4 dis c f g f a b b
+	}
+	\context Voice = ii \relative c {
+		\stemdown <a4 c> <a4 c> <a4 e'> <a4 c> <e' a> <e a> <e a> <a c> <a d>
+	}
+>
+
 \score{
 	\notes \transpose c'' {  \twovoice  
 	\twovoicesteminvert 
-	\threevoice  
-
+	\threevoice
+	\break \chordstest
 	}
-	
-
 	
 %	\midi { \tempo 4:80 }
 }

@@ -51,11 +51,8 @@ private:
   Spring_spacer (Spring_spacer const&s);
   Cons<Idealspacing> *ideal_p_list_;
   Array<Column_info> cols_;
-  Array<Column_info> loose_col_arr_;
 
   
-  /// mark column #i# as being loose.
-  void loosen_column (int i);
   /// the index of #c# in #cols#
   int col_id (Paper_column const *c) const;
 
@@ -74,7 +71,6 @@ private:
 
 
   void handle_loose_cols();
-  void position_loose_cols (Vector &) const;
   bool try_initial_solution_and_tell (Vector&)const;
   Vector try_initial_solution() const;
 
@@ -82,7 +78,6 @@ private:
 
   Score_column* scol_l (int);
   void connect (int i,int j, Real,Real);
-  Line_of_cols error_pcol_l_arr() const;
   Real calculate_energy_f (Vector) const;
 public:
   static Line_spacer *constructor();

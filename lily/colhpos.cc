@@ -15,7 +15,6 @@
 Column_x_positions::Column_x_positions()
 {
   energy_f_ = infinity_f;
-  ugh_b_ = false;
   satisfies_constraints_b_ = false;
   spacer_l_ =0;
 }
@@ -28,7 +27,7 @@ Column_x_positions::~Column_x_positions()
 void
 Column_x_positions::add_paper_column (Paper_column*c)
 {
-  cols.push (c);
+  cols_.push (c);
 }
 
 void
@@ -36,8 +35,8 @@ Column_x_positions::print() const
 {
 #ifndef NPRINT
   DOUT << "energy : " << energy_f_ << '\n';
-  DOUT << "line of " << config.size() << " cols\n";
-  Vector v (config);
+  DOUT << "line of " << config_.size() << " cols\n";
+  Vector v (config_);
   DOUT << v;
 #endif
 }
@@ -54,8 +53,7 @@ void
 Column_x_positions::set_stupid_solution(Vector v)
 {
   energy_f_ = infinity_f;
-  ugh_b_ = true;
-  config = v;
+  config_ = v;
 }
 
 void

@@ -14,10 +14,9 @@ typedef Link_array<Paper_column>  Line_of_cols;
 
 struct Column_x_positions {
   Line_spacer * spacer_l_;
-  bool ugh_b_;
-  Line_of_cols error_col_l_arr_;
-  Line_of_cols cols;
-  Array<Real> config;
+  Line_of_cols cols_;
+  Array<Real> config_;
+  
   Real energy_f_;
   bool satisfies_constraints_b_;
 

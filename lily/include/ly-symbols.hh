@@ -64,6 +64,7 @@ DECLARE_LY_SYMBOL(rulesym);
 DECLARE_LY_SYMBOL(rulethickness);
 DECLARE_LY_SYMBOL(script_priority);
 DECLARE_LY_SYMBOL(staffheight);
+DECLARE_LY_SYMBOL(stretch_distance);
 DECLARE_LY_SYMBOL(style);
 DECLARE_LY_SYMBOL(text);
 DECLARE_LY_SYMBOL(transparent);

@@ -108,13 +108,16 @@ Break_align_item::do_pre_processing()
 
   Real pre_space = elems[0]->extent (X_AXIS)[LEFT];
   Real spring_len = elems.top ()->extent (X_AXIS)[RIGHT];
+  Real stretch_distance =0.;  
   if (SCM_CAR (symbol_list) == extra_space_scm_sym)
     {
       spring_len += dists.top ();
+      stretch_distance = dists.top ();
     }
   else if (SCM_CAR (symbol_list) == minimum_space_scm_sym)
     {
       spring_len = spring_len >? dists.top ();
+      stretch_distance = spring_len;
     }
 
 
@@ -124,6 +127,10 @@ Break_align_item::do_pre_processing()
   column_l ()->set_elt_property (extra_space_scm_sym,
 				 scm_cons (gh_double2scm (pre_space),
 					   gh_double2scm (spring_len)));
+
+  column_l ()->set_elt_property (stretch_distance_scm_sym,
+				 gh_double2scm (stretch_distance));
+				 
 }
 
 
