@@ -1,25 +1,26 @@
 \header {
-  filename =    "wtk1-fugue2.ly";
-  title =       "Fuga II";
-  subtitle =    "\\`a 3 voci";
-  description = "Das Wohltemperierte Clavier I, Fuga II (c-minor)";
+  title =       "Fuga a 3 voci";
   opus =        "BWV 847-Fuga";
   source =      "Henle's Urtext";
   composer =    "Johann Sebastian Bach (1685-1750)";
   enteredby =   "hwn, wl, jcn";
-  copyright =   "Public Domain";
-}
 
-%{
- Tested Features: 
-   * stem direction 
-   * multivoice, 
-   * forced accidentals
-   * cross-staff beaming
-   * auto beaming
-%}
+  % mutopia headers.
+  mutopiatitle = "Das Wohltemperierte Clavier I, Fuga II (c-minor)";
+  mutopiacomposer = "J.S.Bach";
+  mutopiaopus = "BWV847";
+  style = "baroque";
+  copyright =    "\\\\This music is part of the Mutopia project, http://sca.uwaterloo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by Han-Wen Nienhuys.\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!";
+  maintainer = "hanwen@cs.uu.nl";
+  lastupdated = "1999/Oct/14";
+  
+  }
 
-\version "1.2.0";
+
+% It would be nice to squeeze this onto two pages, but I am not sure
+% if it would work with US paper.
+
+\version "1.2.13";
 
 \include "nederlands.ly"                 % for correct parsing of note names
 
@@ -184,10 +185,7 @@ bassdux = \context Voice=three \notes \relative c' {
     >
 
     \paper {
-	gourlay_maxmeasures = 4.;
-	indent = 8.\mm;
-	textheight = 295.\mm;
-
+        linewidth = 18.0 \cm;
 	\translator{ \OrchestralScoreContext }
     }
     \header{
