@@ -6802,9 +6802,9 @@ c8
 
 @noindent
 The function @code{add-balloon-text} takes the name of a grob, the
-label to print and where to put the label relative to the object. In
-the above example, the text ``heads or tails?'' ends 3 spaces below
-the `balloon.' 
+label to print, and the position where to put the label relative to 
+the object. In the above example, the text ``heads or tails?'' ends 
+3 spaces below the `balloon.' 
 
 @cindex balloon
 @cindex notation, explaining
@@ -6872,7 +6872,7 @@ unblanknotes = { \revert NoteHead #'transparent
 @cindex easy notation
 @cindex Hal Leonard
 
-The `easy play' note head includes a  name inside the head.  It is
+The `easy play' note head includes a note name inside the head.  It is
 used in music for beginners
 
 @lilypond[quote,raggedright,verbatim,fragment,staffsize=26]
