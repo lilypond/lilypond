@@ -216,7 +216,27 @@
 		(font-load-command (car x) (cdr x))) font-name-alist)
   ))
   
+;;;;;;;;;;;;;;;;;;;;
 
+
+; Make a function that checks score element for being of a specific type. 
+(define (make-type-checker name)
+  (lambda (elt)
+    (not (not (memq name (ly-get-elt-property elt 'interfaces))))))
+
+	
+
+
+
+
+
+
+
+
+
+
+
+;;;;;;;;;;;;;;;;;;; TeX output
 (define (tex-scm action-name)
   (define (unknown) 
     "%\n\\unknown%\n")
@@ -752,13 +772,19 @@
 
   (define (lily-def key val)
 	  (if 
-	   (equal? key "mudelapaperlinewidth")
+	   (or (equal? key "mudelapaperlinewidth")
+	       (equal? key "mudelapaperstaffheight"))
 	   (string-append "(define " key " " (arg->string val) ")\n")
 	   ""))
 
   (define (placebox x y s) 
-    (string-append (func "move-to" x y) s))
-
+    (let ((ey (inexact->exact y)))
+	  (string-append "(move-to " (number->string (inexact->exact x)) " "
+			 (if (= 0.5 (- (abs y) (abs ey)))
+			     (number->string y)
+			     (number->string ey))
+			 ")\n" s)))
+		       
   (define (select-font font-name-symbol)
     (let* ((c (assoc font-name-symbol font-name-alist)))
       (if (eq? c #f)
@@ -781,7 +807,6 @@
 
   (define (volta h w thick vert-start vert-end)
 	  ;; urg
-	  (set! h 1)
 	  (string-append
 	   (func "set-line-char" "|")
 	   (func "rmove-to" 0 -4)

@@ -1,5 +1,44 @@
-1.3.25.jcn2
+1.3.26.jcn2
 ===========
+
+* Bugfix: font used in volta-spanner calculation.
+
+* Added simple selection list to webpage, inspired by sawmill.
+ 
+* Devised kludge for ascii 5 character font pitches.
+ 
+* Substitutions: interline, 1997,1998, @stack.nl and small typo fixes.
+
+1.3.26.hwn1
+===========
+
+* Plug memory leaks related to Moment:
+  - Spacing_engraver::do_pre_move_processing ()
+  - make_rational ()/make-rational
+  - Paper_column::Paper_column ()
+
+* Plug memory leak in Paper_outputter::output_{String,Real,int}_def()
+
+* Plug memory leak in Score_engraver::set_columns ()
+
+* Plug memory leak in Scheme_hash_table::set()
+
+* Plug memory leak in Score_element::molecule_extent ()
+
+* Bugfix: don't crash if a slur doesn't span anything.
+
+* Bugfix: don't crash if doing beams without a staff symbol.
+
+* Generic element property setting:
+
+	\outputproperty #predicate #'symbol = #value
+
+Will set the element property symbol to value, for any elements that
+return true for PREDICATE.  This allows you to virtually tweak *ANY*
+property of the output. Example in input/test/generic-output-property.ly
+
+1.3.26
+======
 
 * lilypond as as2ly: --help and --version to stdout.  Regular identify 
   to stderr.  This fixes help2man's manpage generation.
