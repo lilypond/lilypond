@@ -97,7 +97,7 @@ Staff_performer::new_instrument_str ()
 void 
 Staff_performer::play (Audio_element* p)
 {
-  if (p->is_type_b (Audio_item::static_name ())) 
+  if (dynamic_cast<Audio_item *> (p)) 
     {
       audio_staff_p_->add_audio_item ( (Audio_item*)p);
     }

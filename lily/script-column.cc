@@ -107,7 +107,9 @@ Script_column::do_substitute_dependency (Score_element*o,Score_element*n)
 {
   if (dynamic_cast <Item *> (o)) 
     {
-      script_l_arr_.substitute ((Script*)dynamic_cast <Item *> (o),(Script*) (n?dynamic_cast <Item *> (n):0));
-      support_l_arr_.substitute (dynamic_cast <Item *> (o), (n?dynamic_cast <Item *> (n):0));
+      script_l_arr_.substitute (dynamic_cast<Script *> (o),
+				dynamic_cast <Script *> (n));
+      support_l_arr_.substitute (dynamic_cast <Item *> (o),
+				 dynamic_cast <Item *> (n));
     }
 }

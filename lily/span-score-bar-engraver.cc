@@ -48,7 +48,7 @@ void
 Staff_group_bar_engraver::acknowledge_element (Score_element_info i)
 {
   Span_bar_engraver::acknowledge_element (i);
-  if (i.elem_l_->is_type_b (Piano_brace::static_name ()))
+  if (dynamic_cast<Piano_brace *> (i.elem_l_))
     {
       Span_bar* b =  dynamic_cast <Span_bar *> (i.elem_l_);
       Piano_brace * piano_l = (Piano_brace*) b;

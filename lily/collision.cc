@@ -18,6 +18,7 @@ Collision::Collision()
 void
 Collision::add_column (Note_column* ncol_l)
 {
+  // ugh.  Fixme.
   clash_l_arr_.push (ncol_l);
   add_element (ncol_l);
   add_dependency (ncol_l);
@@ -165,6 +166,10 @@ IMPLEMENT_IS_TYPE_B1(Collision, Item);
 void
 Collision::do_substitute_dependency (Score_element*o_l,Score_element*n_l)
 {
-  clash_l_arr_.substitute ((Note_column*)dynamic_cast <Item *> (o_l),
-			   (Note_column*)(n_l?dynamic_cast <Item *> (n_l):0));
+  if (o_l)
+    {
+      clash_l_arr_.substitute (dynamic_cast<Note_column *> (o_l),
+			       dynamic_cast <Note_column *> (n_l));
+
+    }
 }

@@ -17,9 +17,9 @@ Type_swallow_translator::Type_swallow_translator ()
 bool
 Type_swallow_translator::do_try_request (Request*r)
 {
-  if (type_&&r->is_type_b (type_))
-      return true;
-  return false;
+  //  if (type_ && type_->before (typeid( *r))) // 
+  //  return true;
+  return false;			// ugh. FIXME.
 }
 
 IMPLEMENT_IS_TYPE_B1(Type_swallow_translator, Translator);

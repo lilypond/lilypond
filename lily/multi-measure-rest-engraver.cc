@@ -26,20 +26,20 @@ Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
 bool
 Multi_measure_rest_engraver::do_try_request (Request* req_l)
 {
- if (!dynamic_cast<Multi_measure_rest_req *> (req_l))
-    return false;
-
-  if (multi_measure_req_l_)
-    if (!multi_measure_req_l_->equal_b (req_l)
-	|| req_start_mom_ != now_moment ())
-      return false;
+ if (Multi_measure_rest_req *mr = dynamic_cast<Multi_measure_rest_req *> (req_l))
+   {
+     if (multi_measure_req_l_)
+       if (!multi_measure_req_l_->equal_b (req_l)
+	   || req_start_mom_ != now_moment ())
+	 return false;
   
-  multi_measure_req_l_ = dynamic_cast<Multi_measure_rest_req *> (req_l);
-  req_start_mom_ = now_moment ();
-  
-  rest_req_stop_mom_ = req_start_mom_ + multi_measure_req_l_->duration_.length ();
-
-  return true;
+     multi_measure_req_l_ = mr;
+     req_start_mom_ = now_moment ();
+     
+     rest_req_stop_mom_ = req_start_mom_ + multi_measure_req_l_->duration_.length ();
+     return true;
+   }
+ return false;
 }
 
 void

@@ -129,7 +129,7 @@ Score::process()
   for (int i=0; i < def_p_arr_.size (); i++)
     {
       if (no_paper_global_b 
-	  && def_p_arr_[i]->is_type_b (Paper_def::static_name ()))
+	  && dynamic_cast<Paper_def*>(def_p_arr_[i]))
 	continue;
       run_translator (def_p_arr_[i]);
     }

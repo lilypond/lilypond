@@ -36,8 +36,8 @@ Rest_collision_engraver::process_acknowledged ()
 void
 Rest_collision_engraver::acknowledge_element (Score_element_info i)
 {
-  if (i.elem_l_->is_type_b (Note_column::static_name()))
-    note_column_l_arr_.push ((Note_column*)dynamic_cast <Item *> (i.elem_l_));
+  if (dynamic_cast<Note_column *> (i.elem_l_))
+    note_column_l_arr_.push (dynamic_cast<Note_column *> (i.elem_l_));
 }
 
 void

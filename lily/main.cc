@@ -224,13 +224,16 @@ setup_paths ()
 
   if (!prefix_directory.empty_b())
     {
-      global_path.add (prefix_directory + "/share/lilypond/init/");
-      global_path.add (prefix_directory + "/share/lilypond");
+      global_path.add (prefix_directory + "/share/lilypond/ly/");
+      global_path.add (prefix_directory + "/share/lilypond/afm/");
     }
-
-  global_path.add (String (DIR_DATADIR) + "/ly/");
-  global_path.add (String (DIR_DATADIR) + "/afm/");  
+  else
+    {
+      global_path.add (String (DIR_DATADIR) + "/ly/");
+      global_path.add (String (DIR_DATADIR) + "/afm/");  
+    }
 }
+
 
 
 void
@@ -341,6 +344,7 @@ main_prog (int argc, char **argv)
 	default_outname_base_global = outname_str;
       do_one_file (i, default_outname_base_global);
     }
+  exit( exit_status_i_);
 }
 
 int
@@ -355,12 +359,12 @@ main (int argc, char **argv)
 #endif
 }
 
-/*
-  urg: make input file name: 
+/**
+  make input file name from command arg.
 
-  input: file name
+  @input file name
 
-  output: file name with added default extension. "" is stdin.
+  @output file name with added default extension. "" is stdin.
           in reference argument: the extension. ".ly" if none
  */
 String
@@ -375,6 +379,7 @@ distill_inname_str (String name_str, String& ext_r)
 	  split_path (str,a,b,c,ext_r);
 
 	  // add extension if not present.
+	  // UGH. Should parametrise in list of default extensions.
 	  if (ext_r.empty_b ())
 	    {
 	      ext_r = ".fly";

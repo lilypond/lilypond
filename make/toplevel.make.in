@@ -10,7 +10,7 @@ depth = .
 #
 SUBDIRS = scripts buildscripts  flower lib lily mf mi2mu po debian \
 	Documentation init input tex make mutopia test intl stepmake\
-	ps
+	ps 
 #
 
 SCRIPTS = configure aclocal.m4

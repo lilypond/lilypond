@@ -38,9 +38,11 @@ Real
 Text_item::get_position_f () const
 {
   // uhuh, tdef/gdef?
-  if ( (tdef_p_->name () != Text_def::static_name ()) 
-    || ( ( (Text_def*)tdef_p_)->style_str_ != "finger"))
-    return Staff_side::get_position_f ();
+  if (Text_def *tdl = dynamic_cast<Text_def*>(tdef_p_))
+    {
+      if (tdl->style_str_ != "finger") // HUHH?
+	return Staff_side::get_position_f ();
+    }
 
   if (!dir_)
     {

@@ -30,7 +30,7 @@ void
 Priority_horizontal_align_engraver::acknowledge_element (Score_element_info i)
 {
   Engraver* reg = i.origin_grav_l_arr_[0];
-  if (reg->is_type_b (Score_priority_engraver::static_name()))
+  if (dynamic_cast<Score_priority_engraver *> (reg))
     {
       if (!halign_p_) 
 	{

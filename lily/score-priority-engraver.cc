@@ -42,7 +42,7 @@ Score_priority_engraver::acknowledge_element (Score_element_info inf)
 	Don't try to eat up our (probable) parent.
       */
       if (inf.origin_grav_l_arr_.size () <= 1 &&
-	  item_l->is_type_b (Break_align_item::static_name ()))
+	  dynamic_cast<Break_align_item *> (item_l))
 	return; 
 
       

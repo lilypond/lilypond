@@ -36,29 +36,27 @@ Key_engraver::create_key ()
 bool
 Key_engraver::do_try_request (Request * req_l)
 {
-  Command_req* creq_l= dynamic_cast <Command_req *> (req_l);
-  if (!creq_l|| !dynamic_cast <Key_change_req *> (creq_l))
-    return false;
-   
-  if (keyreq_l_)
-    return false;		// TODO
-  keyreq_l_ = dynamic_cast <Key_change_req *> (creq_l);
-  read_req (keyreq_l_);
-  return true;
+  if (Key_change_req *kc = dynamic_cast <Key_change_req *> (req_l))
+    {
+      if (keyreq_l_)
+	warning ("Fixme: key change merge.");
+      keyreq_l_ = kc;
+      read_req (keyreq_l_);
+      return true;
+    }   
+  return  false;
 }
 
 void
 Key_engraver::acknowledge_element (Score_element_info info)
 {
-  Command_req * r_l = dynamic_cast <Command_req *> (info.req_l_) ;
-
-  if (r_l && dynamic_cast <Clef_change_req *> (r_l)) 
+  if (dynamic_cast <Clef_change_req *> (info.req_l_)) 
     {
       int i= get_property ("createKeyOnClefChange").length_i ();
       if (i)
 	create_key ();
     }
-  else if (info.elem_l_->is_type_b (Bar::static_name ())
+  else if (dynamic_cast<Bar *> (info.elem_l_)
 	   && accidental_idx_arr_.size ()) 
     {
       if (!keyreq_l_)

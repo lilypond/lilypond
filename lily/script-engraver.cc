@@ -61,7 +61,7 @@ Script_engraver::do_pre_move_processing()
       if (!script_p->specs_p_->inside_b())
 	script_p->add_support (s_l);
 
-      if (script_p->specs_p_->is_type_b (Text_def::static_name ()))
+      if (dynamic_cast<Text_def *> (script_p->specs_p_)) // UGH
 	{
 	  Text_def * td_l = (Text_def*)script_p->specs_p_;
 	  Scalar style = get_property ("textstyle");

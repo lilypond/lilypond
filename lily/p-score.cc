@@ -25,9 +25,11 @@
 #include "file-results.hh"
 #include "misc.hh"
 
+#if 0				// has w32 advanced?
 // sucking Cygnus egcs - w32
 #include "list.tcc"
 #include "cursor.tcc"
+#endif
 
 Paper_score::Paper_score ()
 {
@@ -319,10 +321,11 @@ Paper_score::broken_col_range (Item const*l_item_l, Item const*r_item_l) const
   Item const*l=l_item_l;
   Item const*r=r_item_l;
 
-  while (! l->is_type_b(Paper_column::static_name ()))
+  // huh? see Item::left_right_compare ()
+  while (! (dynamic_cast<Paper_column const *> (l)))
     l = dynamic_cast<Item*> (l->axis_group_l_a_[X_AXIS]);
 
-  while (! r->is_type_b(Paper_column::static_name ()))
+  while (! (dynamic_cast<Paper_column const *> (r)))
     r = dynamic_cast<Item*>(r->axis_group_l_a_[X_AXIS]);
 
   PCursor<Paper_column*> start (l ? find_col ((Paper_column*)l)+1 : col_p_list_.top ());

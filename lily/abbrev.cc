@@ -129,7 +129,7 @@ void
 Abbreviation::do_substitute_dependent (Score_element*o, Score_element*n)
 {
   if (stem_l_ == o)
-    stem_l_ = n ? dynamic_cast<Stem*> (n) : 0;
+    stem_l_ = dynamic_cast<Stem*> (n);
 }
 
 

@@ -15,16 +15,12 @@
 bool
 Tuplet_engraver::do_try_request (Request *r)
 {
-  Command_req * c = dynamic_cast <Command_req *> (r);
-  if (!(c &&
-      dynamic_cast <Bracket_req *> (c)))
+  if (Bracket_req * b = dynamic_cast <Bracket_req *> (r))
     {
-      return false;
+      bracket_req_arr_.push (b);
+      return true;
     }
-
-  Bracket_req * b = dynamic_cast <Bracket_req *> (c);
-  bracket_req_arr_.push (b);
-  return true;
+  return false;
 }
 
 void
@@ -59,9 +55,9 @@ Tuplet_engraver::do_process_requests ()
 void
 Tuplet_engraver::acknowledge_element (Score_element_info i)
 {
-  if (i.elem_l_->is_type_b (Note_column::static_name ()))
+  if (Note_column *nc = dynamic_cast<Note_column *> (i.elem_l_))
     {
-      Note_column *nc = (Note_column*)dynamic_cast <Item *> (i.elem_l_);
+
       for (int j =0; j  <started_span_p_arr_.size (); j++)
 	// started_span_p_arr_[j]->add_column (nc);
 	;

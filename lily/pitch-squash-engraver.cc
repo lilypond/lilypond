@@ -13,10 +13,9 @@
 void
 Pitch_squash_engraver::acknowledge_element (Score_element_info i)
 {
-  if (i.elem_l_->is_type_b (Note_head::static_name ()))
+  if (Note_head *nh = dynamic_cast<Note_head *> (i.elem_l_))
     {
-      Note_head * nl = (Note_head*)dynamic_cast <Item *> (i.elem_l_);
-      nl->position_i_  =0;
+      nh->position_i_  =0;
     }
 }
 

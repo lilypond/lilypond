@@ -109,7 +109,6 @@ IMPLEMENT_IS_TYPE_B1(Request_chord, Simultaneous_music);
 Request_chord::Request_chord()
   : Simultaneous_music (new Music_list)
 {
-  multi_level_i_ =0;
 }
 
 
@@ -118,10 +117,9 @@ Request_chord::to_relative_octave (Musical_pitch last)
 {
   for (iter (music_p_list_p_->top(),i); i.ok (); i++)
     {
-      Musical_req *m = dynamic_cast<Musical_req*> (i.ptr ());
-      if (m && dynamic_cast <Melodic_req *> (m))
+      if (Melodic_req *m= dynamic_cast <Melodic_req *> (i.ptr ()))
 	{
-	  Musical_pitch &pit = dynamic_cast <Melodic_req *> (m)->pitch_;
+	  Musical_pitch &pit = m->pitch_;
 	  pit.to_relative_octave (last);
 	  return pit;
 	}

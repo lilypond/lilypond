@@ -21,7 +21,7 @@ void
 Time_signature_engraver::do_process_requests()
 {
   Translator * result =
-    daddy_grav_l()->get_simple_translator (Timing_engraver::static_name());
+    daddy_grav_l()->get_simple_translator (Timing_engraver::static_name ());	// ugh
 
   if (!result)
     {
@@ -30,12 +30,12 @@ Time_signature_engraver::do_process_requests()
       return ;
     }
   
-  Timing_engraver * timing_grav_l= (Timing_engraver*) dynamic_cast <Engraver *> (result);
+  Timing_engraver * timing_grav_l= dynamic_cast<Timing_engraver *> (result);
   
   Time_signature_change_req *req = timing_grav_l->time_signature_req_l();
   if (req)
     {
-      Array<Scalar> args;
+      Array<Real> args;
       args.push (req->beats_i_);
       args.push (req->one_beat_i_);
 	

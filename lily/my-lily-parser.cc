@@ -177,6 +177,10 @@ My_lily_parser::get_note_element (Note_req *rq, Duration * duration_p)
   return v;
 }
 
+
+/*
+  UGH.
+ */
 Array<Request*>*
 My_lily_parser::get_parens_request (int t)
 {
@@ -314,13 +318,13 @@ Paper_def*
 My_lily_parser::default_paper_p ()
 {
   Identifier *id = lexer_p_->lookup_identifier ("$defaultpaper");
-  return id ? id->access_Paper_def () : new Paper_def ;
+  return id ? id->access_content_Paper_def (true) : new Paper_def ;
 }
 
 Midi_def*
 My_lily_parser::default_midi_p ()
 {
   Identifier *id = lexer_p_->lookup_identifier ("$defaultmidi");
-  return id ? id->access_Midi_def () : new Midi_def ;
+  return id ? id->access_content_Midi_def (true) : new Midi_def ;
 }
 

@@ -29,7 +29,7 @@ Key_performer::do_print() const
 {
 #ifndef NPRINT
   if (key_req_l_)
-  	key_req_l_->print();
+    key_req_l_->print();
 #endif
 }
 
@@ -37,19 +37,19 @@ void
 Key_performer::do_process_requests()
 {
   if (key_req_l_)
-	play (new Audio_key (key_req_l_));
+    play (new Audio_key (key_req_l_));
   key_req_l_ = 0;
 }
 
 bool
 Key_performer::do_try_request (Request* req_l)
 {
-  if (key_req_l_)
-	return false;
-
-  if (dynamic_cast <Key_change_req *> (req_l))
+  if (Key_change_req *kc = dynamic_cast <Key_change_req *> (req_l))
     {
-      key_req_l_ = dynamic_cast <Key_change_req*> (req_l);
+      if (key_req_l_)
+	warning ("FIXME. Key change merge");
+
+      key_req_l_ = kc;
       return true;
     }
 

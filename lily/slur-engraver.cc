@@ -16,19 +16,20 @@ bool
 Slur_engraver::do_try_request (Request *req_l)
 {
   Musical_req *mus_l = dynamic_cast <Musical_req *> (req_l);
-  if (!mus_l || !dynamic_cast <Slur_req *> (mus_l))
-    return false;
-
-  new_slur_req_l_arr_.push (dynamic_cast <Slur_req *> (mus_l));
-  return true;
+  if (Slur_req *sl = dynamic_cast <Slur_req *> (mus_l))
+    {
+      new_slur_req_l_arr_.push (dynamic_cast <Slur_req *> (mus_l));
+      return true;
+    }
+  return false;
 }
 
 void
 Slur_engraver::acknowledge_element (Score_element_info info)
 {
-  if (info.elem_l_->is_type_b (Note_column::static_name ()))
+  if (dynamic_cast<Note_column *> (info.elem_l_))
     {
-      Note_column *col_l =(Note_column*) dynamic_cast <Item *> (info.elem_l_) ;// ugh
+      Note_column *col_l =dynamic_cast<Note_column *> (info.elem_l_) ;// ugh
       for (int i = 0; i < slur_l_stack_.size(); i++)
 	slur_l_stack_[i]->add_column (col_l);
       for (int i = 0; i < end_slur_l_arr_.size(); i++)

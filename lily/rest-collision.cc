@@ -133,14 +133,11 @@ Rest_collision::do_print() const
 void
 Rest_collision::do_substitute_dependency (Score_element*o,Score_element*n)
 {
-  Item*o_l = dynamic_cast <Item *> (o);
-  
-
-  if (o_l&&o_l->is_type_b (Note_column::static_name ()))
+  if (Note_column *onl = dynamic_cast<Note_column *> (o))
     {
-      Note_column *n_l = n?(Note_column*)dynamic_cast <Item *> (n):0;
-      rest_l_arr_.substitute ((Note_column*)o_l, n_l);
-      ncol_l_arr_.substitute ((Note_column*)o_l, n_l);
+      Note_column *n_l = n?dynamic_cast<Note_column *> (n):0;
+      rest_l_arr_.substitute (onl, n_l);
+      ncol_l_arr_.substitute (onl, n_l);
     }
 }
 

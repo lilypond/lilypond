@@ -30,7 +30,6 @@ public:
 class Music_sequence : public Music
 {
 public:
-  int multi_level_i_;
   Music_list * music_p_list_p_;
 
   Music_sequence (Music_sequence const&);

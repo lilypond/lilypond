@@ -48,7 +48,8 @@ Single_malt_grouping_item::do_substitute_dependency (Score_element*o, Score_elem
 {
   if (dynamic_cast <Item *> (o))
     {
-      item_l_arr_.unordered_substitute (dynamic_cast <Item *> (o),  n ? dynamic_cast <Item *> (n) : 0);
+      item_l_arr_.unordered_substitute (dynamic_cast <Item *> (o),
+					dynamic_cast <Item *> (n));
     }
 }
 

@@ -60,14 +60,14 @@ Rest_engraver::do_process_requests ()
 }
 
 bool
-Rest_engraver::do_try_request (Request *r)
+Rest_engraver::do_try_request (Request *req)
 {
-  Musical_req *m = dynamic_cast <Musical_req *> (r);
-  if (!m || !dynamic_cast <Rest_req *> (m))
-    return false;
-
-  rest_req_l_ = dynamic_cast <Rest_req *> (m);	// ugh
-  return true;
+  if (Rest_req *r = dynamic_cast <Rest_req *> (req))
+    {
+      rest_req_l_ = r;
+      return true;
+    }  
+  return false;
 }
 
 IMPLEMENT_IS_TYPE_B1(Rest_engraver, Engraver);

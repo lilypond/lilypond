@@ -46,8 +46,8 @@ Script_def::do_print() const
 bool
 Script_def::do_equal_b (General_script_def const *g) const 
 {
-  Script_def const * c = (Script_def const*) g;
-  return (symidx_str_ == c->symidx_str_ &&
+  Script_def const * c = dynamic_cast<Script_def const*> (g);
+  return c&& (symidx_str_ == c->symidx_str_ &&
 	  rel_stem_dir_ == c->rel_stem_dir_&&
 	  staff_dir_ == c->staff_dir_&&
 	  invertsym_b_ == c->invertsym_b_);

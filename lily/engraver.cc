@@ -57,6 +57,6 @@ Engraver_group_engraver*
 Engraver::daddy_grav_l () const
 {
   return (daddy_trans_l_ )
-       ? (Engraver_group_engraver*) dynamic_cast <Engraver *> (daddy_trans_l_)
+       ? dynamic_cast<Engraver_group_engraver *> (daddy_trans_l_)
        : 0;
 }

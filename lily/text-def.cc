@@ -65,8 +65,8 @@ Text_def::Text_def()
 bool
 Text_def::do_equal_b (General_script_def const *gdef) const
 {
-  Text_def const *def= (Text_def*)gdef;
-  return align_dir_ == def->align_dir_ && text_str_ == def->text_str_
+  Text_def const *def= dynamic_cast<Text_def const*>(gdef);
+  return def&& align_dir_ == def->align_dir_ && text_str_ == def->text_str_
 	&& style_str_ == def->style_str_;
 }
 

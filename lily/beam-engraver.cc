@@ -25,11 +25,7 @@ Beam_engraver::Beam_engraver()
 bool
 Beam_engraver::do_try_request(Request*r)
 {
-  Musical_req* mus_l = dynamic_cast <Musical_req *> (r);
-  if (!mus_l)
-    return false;
-
-  Beam_req* b = dynamic_cast <Beam_req *> (mus_l);
+  Beam_req* b = dynamic_cast <Beam_req *> (r);
   if (!b)
     return false;
 
@@ -37,7 +33,7 @@ Beam_engraver::do_try_request(Request*r)
     return false;
 
   Direction d = (!beam_p_) ? LEFT : RIGHT;
-  if (span_reqs_drul_[d] && !span_reqs_drul_[d]->equal_b (mus_l))
+  if (span_reqs_drul_[d] && !span_reqs_drul_[d]->equal_b (b))
     return false;
 
   span_reqs_drul_[d] = b;
@@ -97,10 +93,10 @@ Beam_engraver::do_removal_processing()
 void
 Beam_engraver::acknowledge_element (Score_element_info i)
 {
-  if (!beam_p_ || !i.elem_l_->is_type_b (Stem::static_name ()))
+  Stem* s = dynamic_cast<Stem *> (i.elem_l_);
+  if (!beam_p_ || !s)
     return;
 
-  Stem* s = (Stem*)dynamic_cast <Item *> (i.elem_l_);
   if (!dynamic_cast <Rhythmic_req *> (i.req_l_))
     {
       ::warning ( _("Stem must have Rhythmic structure."));

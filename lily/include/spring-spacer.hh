@@ -45,12 +45,11 @@
 
 class Spring_spacer : public Line_spacer {
   friend class Durations_iter;
-  
-    
+
   Pointer_list<Idealspacing *> ideal_p_list_;
   Array<Column_info> cols_;
   Array<Column_info> loose_col_arr_;
-  Array<Spacer_rod> rods_;
+
   
   /// mark column #i# as being loose.
   void loosen_column (int i);

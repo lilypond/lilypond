@@ -20,24 +20,27 @@ Timing_translator::Timing_translator ()
 bool
 Timing_translator::do_try_request(Request*r)
 {
-  Command_req * c = dynamic_cast <Command_req *> (r);
-  if (!(c && dynamic_cast <Timing_req *> (c)))
-    return false;
-  for (int i=0; i < timing_req_l_arr_.size (); i++)
+  if (Timing_req *t =  dynamic_cast <Timing_req *> (r))
     {
-      if (timing_req_l_arr_[i]->equal_b(r))
-	return true;
-      if (timing_req_l_arr_[i]->name() == r->name())
+      for (int i=0; i < timing_req_l_arr_.size (); i++)
 	{
-	  r->warning (_ ("conflicting timing request"));
-	  return false;
+	  if (timing_req_l_arr_[i]->equal_b(t))
+	    return true;
+	  if (timing_req_l_arr_[i]->name() == r->name())
+	    {
+	      r->warning (_ ("conflicting timing request"));
+	      return false;
+	    }
 	}
+    
+      timing_req_l_arr_.push(t);
+      return true;
     }
-
-  timing_req_l_arr_.push(dynamic_cast <Timing_req *> (c));
-  return true;
+  return false;
 }
 
+/*ugh.
+ */
 Time_signature_change_req*
 Timing_translator::time_signature_req_l() const
 {
@@ -55,8 +58,8 @@ Timing_translator::do_process_requests()
   for (int i=0; i < timing_req_l_arr_.size (); i++)
     {
       Timing_req * tr_l = timing_req_l_arr_[i];
-      Time_signature_change_req *m_l = dynamic_cast <Time_signature_change_req *> (tr_l);
-      if (m_l)
+
+      if (Time_signature_change_req *m_l = dynamic_cast <Time_signature_change_req *> (tr_l))
 	{
 	  int b_i= m_l->beats_i_;
 	  int o_i = m_l->one_beat_i_;
@@ -69,9 +72,9 @@ Timing_translator::do_process_requests()
 		Rhythmic_grouping (MInterval (0,Moment (b_i, o_i)), b_i);
 	    }
 	}
-      else if (dynamic_cast <Partial_measure_req *> (tr_l))
+      else if (Partial_measure_req *pm = dynamic_cast <Partial_measure_req *> (tr_l))
 	{
-	  Moment m = dynamic_cast <Partial_measure_req *> (tr_l)->duration_;
+	  Moment m = pm->duration_;
 	  String error = time_.try_set_partial_str (m);
 	  if (error.length_i ())
 	    {
@@ -92,15 +95,15 @@ Timing_translator::do_process_requests()
 	    }
 
 	}
-      else if (dynamic_cast <Cadenza_req *> (tr_l))
+      else if (Cadenza_req *cr = dynamic_cast <Cadenza_req *> (tr_l))
 	{
-	  time_.set_cadenza (dynamic_cast <Cadenza_req *> (tr_l)->on_b_);
+	  time_.set_cadenza (cr->on_b_);
 	}
-      else if (dynamic_cast <Measure_grouping_req *> (tr_l))
+      else if (Measure_grouping_req *mg=dynamic_cast <Measure_grouping_req *> (tr_l))
 	{
 	  default_grouping_ =
-	    parse_grouping (dynamic_cast <Measure_grouping_req *> (tr_l)->beat_i_arr_,
-			    dynamic_cast <Measure_grouping_req *> (tr_l)->elt_length_arr_);
+	    parse_grouping (mg->beat_i_arr_,
+			    mg->elt_length_arr_);
 
 	}
     }
@@ -112,7 +115,7 @@ Timing_translator::do_pre_move_processing()
 {
   timing_req_l_arr_.set_size (0);
   Global_translator *global_l =
-    daddy_trans_l_->ancestor_l (100)->global_l (); // ugh 100.
+    dynamic_cast<Global_translator*> (daddy_trans_l_->ancestor_l (100)); // ugh 100.
 
 
   /* allbars == ! skipbars */

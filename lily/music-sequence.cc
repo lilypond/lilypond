@@ -13,7 +13,6 @@
 Music_sequence::Music_sequence (Music_sequence const&s)
   : Music (s)
 {
-  multi_level_i_ = s.multi_level_i_;
   music_p_list_p_ = new Music_list (*s.music_p_list_p_);
 }
 
@@ -21,7 +20,6 @@ IMPLEMENT_IS_TYPE_B1(Music_sequence, Music);
 
 Music_sequence::Music_sequence(Music_list *mlist_p)
 {
-  multi_level_i_ = 0;
   music_p_list_p_ = mlist_p;
 }
 

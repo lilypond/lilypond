@@ -15,5 +15,5 @@ ADD_THIS_TRANSLATOR(Plet_swallow_engraver);
 bool
 Plet_swallow_engraver::do_try_request (Request* req_l)
 {
-  return  dynamic_cast <Plet_req *> (req_l);
+  return dynamic_cast<Plet_req *> (req_l);
 }

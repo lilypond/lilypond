@@ -23,11 +23,12 @@ Note_head_engraver::do_try_request (Request *req_l)
   if (note_req_l_)
     return false;
   
-  if (!(dynamic_cast <Note_req *> (req_l)))
-    return false;
-  
-  note_req_l_=dynamic_cast <Rhythmic_req *> (req_l);
-  return true;
+  if (Note_req * nr = dynamic_cast <Note_req *> (req_l))
+    {
+      note_req_l_= nr;
+      return true;
+    }
+  return false;
 }
 
 void

@@ -25,10 +25,8 @@ Bar_number_engraver::Bar_number_engraver()
 void
 Bar_number_engraver::acknowledge_element (Score_element_info i)
 {
-
-  Item *it=dynamic_cast <Item *> (i.elem_l_);
-  if (script_p_
-      || !it || !it->is_type_b (Bar::static_name()))
+  Bar *b =dynamic_cast <Bar *> (i.elem_l_);
+  if (script_p_ || !b)
       return;
 
   /* Only put numbers on bars that are at our own level (don't put
@@ -58,7 +56,7 @@ Bar_number_engraver::acknowledge_element (Score_element_info i)
       script_p_->break_priority_i_ = int (pri);
     }
   else
-    script_p_->break_priority_i_ = it->break_priority_i_;
+    script_p_->break_priority_i_ = b->break_priority_i_;
 
   Scalar padding = get_property ("barScriptPadding");
   if (padding.length_i() && padding.isnum_b ())

@@ -9,7 +9,7 @@
 #ifndef ATOM_HH
 #define ATOM_HH
 
-#include "lily-guile.hh"
+#include "protected-scm.hh"
 #include "string.hh"
 #include "box.hh"
 #include "lily-proto.hh"
@@ -17,11 +17,15 @@
 /// a symbol which can be translated, and freely copied
 class Atom {
   Offset off_;
+
+  
 public:
+  Protected_scm lambda_;
+  Score_element * origin_l_;
+
   // urg, only used as a temp buffer
   String str_;
   String font_;
-  SCM lambda_;
   Box dim_;
 
   Offset offset () const;

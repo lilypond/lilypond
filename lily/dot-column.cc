@@ -33,12 +33,13 @@ void
 Dot_column::do_substitute_dependency (Score_element*o,Score_element*n)
 {
   Item *oi =dynamic_cast <Item *> (o);
-  Item *ni = n?dynamic_cast <Item *> (n):0;
   
-  if (oi&&oi->is_type_b (Rhythmic_head::static_name ()))
-    head_l_arr_.substitute ((Rhythmic_head*)oi, (Rhythmic_head*)ni);
-  else if (oi && oi->is_type_b (Dots::static_name ()))
-    dot_l_arr_.substitute ((Dots*) oi, (Dots*) ni);
+  if (oi && dynamic_cast<Rhythmic_head *> (oi))
+    head_l_arr_.substitute (dynamic_cast<Rhythmic_head*> (oi),
+			    dynamic_cast<Rhythmic_head*>(n));
+  else if (oi && dynamic_cast<Dots *> (oi))
+    dot_l_arr_.substitute (dynamic_cast<Dots*> (oi),
+			   dynamic_cast<Dots*> (n));
 }
 
 void

@@ -12,6 +12,7 @@
 #include "request.hh"
 #include "script.hh"
 #include "bar.hh"
+#include <typeinfo>
 
 Bar_column_engraver::Bar_column_engraver()
 {
@@ -55,22 +56,24 @@ Bar_column_engraver::acknowledge_element (Score_element_info info)
   Item * it = dynamic_cast <Item *> (info.elem_l_);
   if (!it)
     return;
-
-  if (it->is_type_b (Script::static_name())
+  Script *s = dynamic_cast<Script*> (it);
+  Bar *b = dynamic_cast<Bar*> (it);
+  if (s
       && it->breakable_b_
       && info.origin_grav_l_arr_.size() == 1
       && it->break_priority_i_ == break_priority_i_)
     {
       create_column ();
-      barcol_p_->add_script ((Script*)it);
+      barcol_p_->add_script (s);
     }
   else if (info.origin_grav_l_arr_.size() == 1
 	   && it->break_priority_i_ == break_priority_i_
-	   && it->breakable_b_ 
-	   && it->is_type_b (Bar::static_name()))
+	   && it->breakable_b_
+	   &&b)
+
     {
       create_column ();
-      barcol_p_->set_bar ( (Bar*)it);
+      barcol_p_->set_bar (b);
     }
 }
 

@@ -176,6 +176,11 @@ Score_element::do_brew_molecule ()
   if (transparent_b_)
     return;
   Molecule *output= brew_molecule_p ();
+  for (PCursor<Atom*> i(output->atoms_); i.ok(); i++)
+    {
+      i->origin_l_ = this;
+    }
+  
   pscore_l_->outputter_l_->output_molecule (output, absolute_offset (), name());
   delete output;
 }
@@ -291,17 +296,16 @@ Score_element::handle_broken_dependencies()
       Score_element * elt = dependency (i);
       if (elt->line_l() != line)
 	{
-	  if (dynamic_cast <Spanner *> (elt)) 
+	  if (Spanner *sp = dynamic_cast<Spanner *> (elt)) 
 	    {
-	      Spanner * sp = dynamic_cast <Spanner *> (elt);
 	      Spanner * broken = sp->find_broken_piece (line);
 	      substitute_dependency (sp, broken);
 
 	      add_dependency (broken);
 	    }
-	  else if (dynamic_cast <Item *> (elt))
+	  else if (Item *original = dynamic_cast <Item *> (elt))
 	    {
-	      Item * my_item = dynamic_cast <Item *> (elt)->find_prebroken_piece (line);
+	      Item * my_item = original->find_prebroken_piece (line);
 		
 	      substitute_dependency (elt, my_item);
 	      if (my_item)

@@ -136,19 +136,19 @@ Music_iterator*
 Music_iterator::static_get_iterator_p (Music const *m, Translator_group *report_l)
 {
   Music_iterator * p =0;
-  if (m->is_type_b (Request_chord::static_name()))
+  if (dynamic_cast<Request_chord  const *> (m))
     p = new Request_chord_iterator;
-  else if (m->is_type_b (Simultaneous_music::static_name())) 
+  else if (dynamic_cast<Simultaneous_music  const *> (m)) 
     p =  new Simultaneous_music_iterator;
-  else if (m->is_type_b (Sequential_music::static_name())) 
+  else if (dynamic_cast<Sequential_music  const *> (m)) 
     p =  new Sequential_music_iterator;
-  else if (m->is_type_b (Translation_property::static_name ()))
+  else if (dynamic_cast<Translation_property  const *> (m))
     p = new Property_iterator;
-  else if (m->is_type_b (Change_translator::static_name ()))
+  else if (dynamic_cast<Change_translator  const *> (m))
     p = new Change_iterator;
-  else if (m->is_type_b (Compressed_music::static_name ()))
+  else if (dynamic_cast<Compressed_music  const *> (m))
     p = new Compressed_music_iterator;
-  else if (m->is_type_b (Music_wrapper::static_name ()))
+  else if (dynamic_cast<Music_wrapper  const *> (m))
     p = new Music_wrapper_iterator;
 
   p->music_l_ = m;

@@ -24,7 +24,7 @@ Simultaneous_music_iterator::construct_children()
       if (mi->ok()) 
 	{
 	  if  (simultaneous_music_l ()->translator_type_str_.empty_b ())
-	    set_translator (mi->report_to_l()->ancestor_l (simultaneous_music_l ()->multi_level_i_));
+	    set_translator (mi->report_to_l()->ancestor_l (0));
 	  children_p_list_.bottom().add (mi);
 	}
       else 

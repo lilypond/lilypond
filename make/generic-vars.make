@@ -21,7 +21,7 @@ include-flower = $(depth)/flower/include
 
 
 
-LILYPOND_INCLUDES = $(include-lib) $(depth)/lib/$(outdir) $(include-flower) $(depth)/flower/$(outdir) 
+LILYPOND_INCLUDES = -Istinho $(include-lib) $(depth)/lib/$(outdir) $(include-flower) $(depth)/flower/$(outdir) 
 
 
 # should use to create .spec ?

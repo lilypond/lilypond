@@ -40,4 +40,7 @@ SCM ly_quote ();
 SCM lambda_scm (String str, Array<Real> args_arr);
 SCM lambda_scm (String str, Array<Scalar> args_arr);
 
+
+
+
 #endif // LILY_GUILE_HH

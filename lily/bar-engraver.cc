@@ -23,16 +23,18 @@ Bar_engraver::Bar_engraver()
 bool
 Bar_engraver::do_try_request (Request*r_l)
 {
-  Command_req* c_l = dynamic_cast <Command_req *> (r_l);
-  if (!c_l|| !dynamic_cast <Bar_req *> (c_l)) 
-    return false;
-  Bar_req  * b= dynamic_cast <Bar_req *> (c_l);
-  if (bar_req_l_ && bar_req_l_->equal_b (b))
-    return false;
-  
-  bar_req_l_ = b;
+  if (Bar_req  * b= dynamic_cast <Bar_req *> (r_l))
+    {
+      if (bar_req_l_ && bar_req_l_->equal_b (b)) // huh?
+	return false;
+      
+      bar_req_l_ = b;
 
-  return true;
+      return true;
+    }
+  
+  return false;
+
 }
 
 void

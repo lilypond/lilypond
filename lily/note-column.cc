@@ -102,30 +102,30 @@ Note_column::do_substitute_dependency (Score_element*o, Score_element*n)
 {
   if (stem_l_ == o) 
     {
-      stem_l_ = n ? (Stem*)dynamic_cast <Item *> (n):0;
+      stem_l_ = n ? dynamic_cast<Stem *> (n):0;
     }
-  if (o->is_type_b (Note_head::static_name ()))
+  if (dynamic_cast<Note_head *> (o))
     {
-      head_l_arr_.substitute ((Note_head*)dynamic_cast <Item *> (o), 
-			      (n)? (Note_head*)dynamic_cast <Item *> (n) : 0);
+      head_l_arr_.substitute (dynamic_cast<Note_head *> (o), 
+			      (n)? dynamic_cast<Note_head *> (n) : 0);
     }
   Script_column::do_substitute_dependency (o,n);
-  if (o->is_type_b (Rest::static_name ())) 
+  if (dynamic_cast<Rest *> (o)) 
     {
-      rest_l_arr_.substitute ((Rest*)dynamic_cast <Item *> (o), 
-			      (n)? (Rest*)dynamic_cast <Item *> (n) : 0);
+      rest_l_arr_.substitute (dynamic_cast<Rest *> (o), 
+			      (n)? dynamic_cast<Rest *> (n) : 0);
     }
 }
 
 void
 Note_column::add_head (Rhythmic_head *h)
 {
-  if (h->is_type_b (Rest::static_name ()))
+  if (dynamic_cast<Rest *> (h))
     {
       rest_l_arr_.push ((Rest*)h);
       add_support (h);  
     }
-  if (h->is_type_b (Note_head::static_name ()))
+  if (dynamic_cast<Note_head *> (h))
     {
       head_l_arr_.push ((Note_head*) h);
       add_support (h);

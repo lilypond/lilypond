@@ -115,11 +115,11 @@ void
 Stem::add_head (Rhythmic_head *n)
 {
   n->add_dependency (this);	// ?
-  if (n->is_type_b (Note_head::static_name ()))
+  if (dynamic_cast<Note_head *> (n))
     {
       head_l_arr_.push ((Note_head*)n);
     }
-  else if (n->is_type_b (Rest::static_name ()))
+  else if (dynamic_cast<Rest *> (n))
     {
       rest_l_arr_.push ((Rest*)n);
     }
