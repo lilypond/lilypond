@@ -27,7 +27,7 @@ INFO = Builder (action = a, suffix = '.info', src_suffix = '.texi')
 env.Append (BUILDERS = {'INFO': INFO})
 
 a = '$MAKEINFO $__verbose $MAKEINFO_INCLUDES  --html --no-split --no-headers \
---css-include=#/Documentation/texinfo.css --output=$TARGET $SOURCE'
+--css-include=$srcdir/Documentation/texinfo.css --output=$TARGET $SOURCE'
 HTML = Builder (action = a, suffix = '.html', src_suffix = '.texi')
 env.Append (BUILDERS = {'HTML': HTML})
 
@@ -172,7 +172,7 @@ env['src_glob'] = src_glob
 
 def base_glob (env, s):
 	return map (lambda x: os.path.splitext (x)[0], src_glob (env, s))
-env['base_glob'] = src_glob
+env['glob'] = base_glob
 
 atvars = [
 'BASH',

@@ -5,7 +5,9 @@
 2004-07-13  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* SConstruct: Configure only pristine build tree or on user
-	request.  Cleanups.
+	request.  Cleanups.  Add Documentation/topdocs to subdirs.
+	Use checksums instead of timestamps.
+	(CheckYYCurrentBuffer): Return result.
 
 	* Documentation/topdocs/SConscript: New file.
 
