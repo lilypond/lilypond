@@ -44,8 +44,8 @@
 
 
 // mmm
-Mudela_version oldest_version ("1.0.1");
-Mudela_version version ("1.0.2");
+Mudela_version oldest_version ("1.0.3");
+Mudela_version version ("1.0.3");
 
 
 // needed for bison.simple's malloc() and free()
@@ -74,6 +74,8 @@ Paper_def* current_paper = 0;
 #define THIS ((My_lily_parser *) my_lily_parser_l)
 
 #define yyerror THIS->parser_error
+#define ARRAY_SIZE(a,s)   if (a.size () != s) THIS->parser_error (_f("expecting %d arguments", s))
+
 
 %}
 
@@ -163,11 +165,11 @@ yylex (YYSTYPE *s,  void * v_l)
 %token MARK
 %token MUSIC
 %token MUSICAL_PITCH
-%token MELODIC
+%token NOTES
 %token MIDI
 %token TIME_T
 %token MM_T
-%token MULTI
+
 %token NOTENAMES
 %token OCTAVE
 %token OUTPUT
@@ -181,7 +183,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token SHAPE
 %token SKIP
 %token SPANDYNAMIC
-%token STAFF
+
 %token START_T
 %token SYMBOLTABLES
 %token TABLE
@@ -236,7 +238,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <duration> steno_duration notemode_duration
 %type <duration> entered_notemode_duration explicit_duration
 %type <interval>	dinterval
-%type <intvec>	intastint_list
+%type <intvec>	intastint_list int_list
 %type <lookup>	symtables symtables_body
 
 %type <pitch>   explicit_musical_pitch steno_musical_pitch musical_pitch absolute_musical_pitch
@@ -614,6 +616,9 @@ midi_block:
 midi_body: /* empty */ 		{
 		$$ = THIS->default_midi_p ();
 	}
+	| MIDI_IDENTIFIER	{
+		$$ = $1-> access_Midi_def ();		
+	}
 	| midi_body STRING '=' translator_spec	{
 		$$-> assign_translator (*$2, $4);
 		delete $2;
@@ -678,7 +683,7 @@ Music:
 	| Sequential_music		{ $$ = $1; }
 	| transposed_music	{ $$ = $1; }
 	| MUSIC_IDENTIFIER { $$ = $1->access_Music (); }
-	| MELODIC
+	| NOTES
 		{ THIS->lexer_p_->push_note_state (); }
 	Music
 		{ $$ = $3;
@@ -917,13 +922,17 @@ steno_musical_pitch:
 	;
 
 explicit_musical_pitch:
-	MUSICAL_PITCH '{' int int int '}'	{/* ugh */
+	MUSICAL_PITCH '{' int_list '}'	{/* ugh */
+		Array<int> &a = *$3;
+		ARRAY_SIZE(a,3);
 		$$ = new Musical_pitch;
-		$$->octave_i_ = $3;
-		$$->notename_i_ = $4;
-		$$->accidental_i_ = $5;
+		$$->octave_i_ = a[0];
+		$$->notename_i_ = a[1];
+		$$->accidental_i_ = a[2];
+		delete &a;
 	}
 	;
+
 musical_pitch:
 	steno_musical_pitch
 	| explicit_musical_pitch
@@ -943,10 +952,15 @@ steno_notepitch:
 
 
 explicit_duration:
-	DURATION '{' int unsigned '}'	{
+	DURATION '{' int_list '}'	{
 		$$ = new Duration;
-		$$-> durlog_i_ = $3;
-		$$-> dots_i_ = $4;
+		Array<int> &a = *$3;
+		ARRAY_SIZE(a,2);
+			
+		$$-> durlog_i_ = a[0];
+		$$-> dots_i_ = a[1];
+
+		delete &a;		
 	}
 	;
 
@@ -1275,6 +1289,16 @@ pitch_list:			{
 	| pitch_list musical_pitch	{
 		$$->push (*$2);
 		delete $2;
+	}
+	;
+
+
+int_list:
+	/**/			{
+		$$ = new Array<int>
+	}
+	| int_list int 		{
+		$$->push ($2);		
 	}
 	;
 
