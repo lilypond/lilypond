@@ -1,9 +1,14 @@
 2004-10-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* VERSION (PACKAGE_NAME): release 2.3.20
+	
+	* input/regression/quote-transposition.ly: update example
+
 	* scm/define-music-properties.scm (all-music-properties): change
 	meaning of instrumentTransposition.  It is now the pitch played
 	that sounds as middle C. This means that instrumentTransposition
 	can be \transposed. 
+	Fixes: transpose-quote.ly
 
 	* lily/parser.yy (command_element): reverse setting of
 	instrumentTransposition
@@ -12,6 +17,7 @@
 
 	* lily/recording-group-engraver.cc (stop_translation_timestep):
 	remove macrameing of accumulator and set_car/cdr.
+	Fixes: transposition-quote.ly
 
 	* lily/music.cc (transpose): fold Event::transpose() in.
 
@@ -71,7 +77,7 @@
 	\bookpaper.
 
 	* lily/slur.cc (outside_slur_callback): epsilon-delta management
-	for slur edges.
+	for slur edges. Fixes: progerror-no-bezier-intersection.ly
  
 	* scm/framework-tex.scm (dump-page): put stencil height in dumped
 	page.

@@ -5099,16 +5099,52 @@ The key of a transposing instrument can also be specified.  This
 applies to many wind instruments, for example, clarinets (B-flat, A and
 E-flat), horn (F) and trumpet (B-flat, C, D and E-flat).
 
-
 The transposition is entered after the keyword @code{\transposition}
 
 @example
   \transposition bes   %%  B-flat clarinet
 @end example
 
+@noindent
 This command sets the property @code{instrumentTransposition}.  The value of
 this property is used for MIDI output and quotations.  It does not
 affect how notes are printed in the current staff.
+
+The pitch to use for @code{\transposition} should correspond to the
+transposition of the notes. For example, when entering a score in
+concert pitch, typically all voices are entered in C, so 
+they should be entered as
+
+@example
+  clarinet = @{
+    \transposition c'
+    ...
+  @}
+  saxophone  = @{
+    \transposition c'
+    ..
+  @}
+@end example
+
+@noindent
+in this case, @code{\transposition} does not have to be used, since
+@code{c'} is the default. 
+
+@code{\transposition} should be used when the music is entered from a
+(transposed) orchestral part.  For example, in classical horn parts,
+the tuning of the instrument is often changed during a piece. When copying
+the notes from the  part, use @code{\transposition}, e.g.
+
+@example
+  \transposition d'
+  c'4^"in D"
+  ...
+  \transposition g'
+  c'4^"in G"
+  ...
+@end example
+ 
+
 
 @cindex transposition, MIDI
 @cindex transposition, instrument
