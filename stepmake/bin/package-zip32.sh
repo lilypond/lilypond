@@ -50,6 +50,9 @@ if ! make ; then
     exit 1
 fi
 
+# failure allowed
+make -C Documentation info
+
 if ! make install ; then
     echo "make install failed"
     exit 1

@@ -102,7 +102,7 @@ Music_list::do_relative_octave (Musical_pitch last, bool ret_first)
 
 
 Music_list::Music_list (Music_list const &s)
-  : Pointer_list<Music*> (s)
+  : Pointer_list<Music*> ()
 {
   for (PCursor<Music*> i(s.top()); i.ok (); i++)
     add_music (i->clone());
@@ -146,5 +146,6 @@ Request_chord::to_relative_octave (Musical_pitch last)
 
 
 Music_list::Music_list ()
+  : Pointer_list<Music*> ()
 {
 }

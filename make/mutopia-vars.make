@@ -17,6 +17,7 @@ all_examples=$(flexamples) $(examples)
 
 ps_examples=$(addprefix $(outdir)/, $(addsuffix .ps.gz, $(all_examples)))
 gif_examples=$(addprefix $(outdir)/, $(addsuffix .gif, $(all_examples)))
+png_examples=$(addprefix $(outdir)/, $(addsuffix .png, $(all_examples)))
 
 html_subdirs=$(addprefix --subdirs ,$(SUBDIRS))
 

@@ -44,6 +44,7 @@ export PATH=/usr/doos/bin:$PATH
 ./configure --host=i386-pc-linux --target=i386-pc-cygwin32 --prefix=/usr --enable-debugging --enable-printing --enable-checking
 
 make
+make -C Documentation info || true
 rm -rf $builddir
 make prefix="$builddir/usr" DOTEXE=.exe install
 make prefix="$builddir/usr" installextradoc

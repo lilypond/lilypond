@@ -1,32 +1,44 @@
-COMMENT(
-URG
-don't try to make html from this
-)
+COMMENT( URG don't try to make html from this)
+
 whentexinfo(
-nodetext(Your Rights.)
+
+nodetext(Your Rights.)  COMMENT(set different text)
 chapter(Copying)
 LilyPond is Free Software.  See file(COPYING) for details.
 
 
 COMMENT(prepare for texinfoing manpages)
 redef(manpage)(5)()
-redef(manpagename)(2)(nodeprefix()nodetext(ARG2)chapter(ARG1)nodeprefix(ARG1))
+redef(manpagename)(2)(nodetext(ARG2)chapter(ARG1))
 redef(manpageauthor)(0)(sect(Authors))
 redef(manpagesection)(1)(sect(ARG1))
+
+COMMENT(prepare for texinfoing articles)
+redef(article)(3)(chapter(ARG1))
+redef(latexlayoutcmds)(1)()
+redef(htmlbodyopt)(2)()
 
 COMMENT(redef(includefile)(1)(INCLUDEFILE(man/ARG1)))
 includefile(programs.yo)
 
-COMMENT(prepare for texinfoing articles)
-redef(article)(3)(nodeprefix()chapter(ARG1)nodeprefix(ARG1))
-redef(article)(3)(nodeprefix()chapter(ARG1)nodeprefix(Tutorial))
+redef(article)(3)(nodeprefix()chapter(ARG1)nodeprefix(Tutorial ))
+COMMENT(yodl2texinfo should be able to cope now, although ugly...)
+redef(article)(3)(chapter(ARG1))
 
 redef(includefile)(1)(INCLUDEFILE(tex/ARG1))
 includefile(tutorial.yo)
 
-COMMENT(prepare for texinfoing articles)
-redef(article)(3)(nodeprefix()chapter(ARG1)nodeprefix(ARG1))
-redef(article)(3)(nodeprefix()chapter(ARG1)nodeprefix(Mutopia))
+redef(article)(3)(nodeprefix()chapter(ARG1)nodeprefix(Refman ))
+COMMENT(yodl2texinfo should be able to cope now, although ugly...)
+redef(article)(3)(chapter(ARG1))
+
+redef(includefile)(1)(INCLUDEFILE(tex/ARG1))
+includefile(refman.yo)
+
+redef(article)(3)(nodeprefix()chapter(ARG1)nodeprefix(Mutopia ))
+COMMENT(yodl2texinfo should be able to cope now, although ugly...)
+redef(article)(3)(chapter(ARG1))
+
 redef(includefile)(1)(INCLUDEFILE(ARG1))
 includefile(mutopia.yo)
 
