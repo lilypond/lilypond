@@ -264,9 +264,9 @@ bc=\type Staff = bc <
 %%%% Compare to the definition in init/engraver.ly.
 
 %  \remove "Beam_engraver";
+%  \remove "Auto_beam_engraver";
  
  }
-    
   }
   \midi{ 
         \tempo 4=80;
