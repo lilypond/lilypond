@@ -1,3 +1,22 @@
+2004-12-22  Werner Lemberg  <wl@gnu.org>
+
+	Prepare glyph shapes for mf2pt1 conversion.
+
+	* mf/feta-toevallig.mf ("Double Sharp"): Minor path fix.
+
+	* mf/feta-bolletjes.mf (penposx): New auxiliary macro.
+	(define_triangle_shape): Use it replace `draw' with `fill' and
+	`unfill'.  Update all callers.
+	(draw_slash): Replace `filldraw' with `fill'.  Update all callers.
+	(draw_cross): Ditto.
+	("X-Circled notehead"): Replace `draw' with `fill' and `unfill'.
+	Use penrazor for better conversion with mf2pt1.
+	(generic_draw_solfa_note_shape, draw_solfa_note_shape,
+	draw_solfa_quarter_note_shape, triangle): Removed.  Unused.
+	(draw_do_head, draw_re_head, draw_mi_head, draw_fa_head,
+	draw_la_head, draw_ti_head): Replace `filldraw' with
+	`fill'.  Update all callers.
+
 2004-12-24  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/paper-book.cc (output): revert: only allow a single output

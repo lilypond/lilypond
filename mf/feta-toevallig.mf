@@ -421,7 +421,7 @@ fet_beginchar ("Double Sharp", "4")
 	       & reverse pat xscaled (-1);
 	pat := pat
 	       & reverse pat yscaled (-d / h)
-	       -- cycle;
+	       & cycle;
 	fill pat;
 
 	% ugh
