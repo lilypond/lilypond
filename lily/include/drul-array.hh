@@ -12,6 +12,8 @@
 
 #include "direction.hh"
 
+#include <assert.h>
+
 /**
   Left/right or Up/down arrays. Drul is nicer sounding than udlr
  */

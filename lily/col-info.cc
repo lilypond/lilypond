@@ -15,7 +15,7 @@ Colinfo::print() const
 {
 #ifndef NPRINT
   DOUT << "column { ";
-  if (fixed())
+  if (fixed_b())
     DOUT << "fixed at " << fixed_position()<<", ";
   assert (pcol_l_);
   DOUT << width_.str();
@@ -41,3 +41,20 @@ Colinfo::Colinfo()
   pcol_l_ =0;
 }
 
+bool
+Colinfo::fixed_b () const
+{
+ return fixpos_p_.get_C();
+}
+
+Real
+Colinfo::fixed_position () const
+{
+  return *fixpos_p_;
+}
+
+int
+Colinfo::rank_i () const
+{
+  return pcol_l_->rank_i ();
+}
