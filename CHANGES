@@ -1,3 +1,68 @@
+1.3.136.hwn2
+============
+
+* Documentation updates
+
+* Check whether  property definitions are duplicate.
+
+* Percent style repeats. 
+
+* Named music creation: (ly-make-music "Note_req")
+
+* Added noteheadtypes: "slash","triangle","xcircle" ; completed
+noteheadtype "cross" ; added (ugly) tab-clef ; changed percussion
+clef, fixed "repeat dots on even number of stafflines"-bug. (Rune
+Zedeler)
+
+* Use complete version number for /var/lib/texmf/ paths.
+
+1.3.136.jcn3
+============
+
+* Finished () beautification.
+
+* Bugfix: in grob-description.scm, change Script::after_line_breaking into
+before_line_breaking.
+
+* Bugfix and small addition to convert-ly.
+
+* Bugfix: ly2dvi: create --outdir before copying there.
+
+* Bugfix: mutopia letter target.
+
+* Some bugfixes and checks for killed spanners, reducing warnings in
+Coriolan from 1143 to 283.  Part combiner still gives rise to many
+foreseeable warnings.
+
+* Bugfix: install gettext.py into @datadir@/python and use that path
+from ly2dvi.  Debian or RedHat installs could/should move gettext.py
+into /usr/share/lib/python/1.x/site-packages or so.
+
+* Bugfix: move the making of \makelilypondpiecetitle to actually
+included part of lilyponddefs.tex.
+
+* Bugfix: ly2dvi, tex.scm: set empty tex definitions to \relax.  This
+fixes ly2dvi'ing of scsii.
+
+* Bugfix: completed renaming of `cautionary' to `reminder' for broken
+tie accidental feature.  (`Cautionary' is reserved for parenthised
+accidentals.).  This fixes all tie and accidentals bugs.
+
+* Bugfix: added dynamic-interface to DynamicText grob.  This fixes
+loose dynamics.
+
+* Bugfix: enable Voice_devnull_engraver.  This fixes loose scripts and
+double dynamics.
+
+* Bugfix: don't dump core on some programming errors (2x).
+
+* Grand Coriolan revision after copyright free reprint of a 1862-1865
+original edition.  This revision also revealed fair amount of bugs.
+Previous versions arguably might have worn some small stains of
+editorial decisions dated 1936.  Arguably, because most of these small
+changes can be found in other editions, some of which even are
+commonplace modernisations.
+
 1.3.136
 =======
 
