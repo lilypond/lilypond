@@ -9,13 +9,15 @@
 
 @unnumbered LilyPond -- The @uref{http://www.fsf.org/gnu/gnu-history.html,GNU Project} Music Typesetter
 
-@center
+@c something breaks on 3.12 f
+
+@c @center
 @quotation
 @mudela[fragment]
 	\relative c'' { \key es; r8 [c16 b] [c8 g] [as c16 b] [c8 d] | g,4 }
 @end mudela 
 @end quotation
-@end center
+@c @end center
 
 @c include BLURB?
 
@@ -66,6 +68,7 @@ has the development pages.
 @item @uref{http://home.austin.rr.com/jbr/jeff/lilypond/} Jeff's Windows NT Distribution site
 @end itemize
 
+@ignore
 @unnumberedsec NEWS
     
 
@@ -75,6 +78,7 @@ This is what the latest version brings:
 top_of_NEWS
  
 @end example 
+@end ignore
 
 @unnumberedsec Download
 
@@ -99,12 +103,12 @@ Sorry for poor look they have: we want to be hacking at LilyPond, and
 not at the webpages.  If you want to volunteer for making shazzy
 webpages, then please mail us!
 
-Note: These pages are created from the latest @strong{development snapshots}
-of LilyPond, specifically, this page was made from LilyPond
-(fixme-version).tar.gz
+Note: These pages are created from the latest @strong{development
+snapshots} of LilyPond, or even from an unreleased development version.
+The version of this webpage is printed at the bottom.
 
-Note: the pages may have been created from an unreleased development
-version.  Please have patience, all changes will appear in the
-official version.
+
+
+
 
 @bye
