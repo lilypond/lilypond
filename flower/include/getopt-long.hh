@@ -5,16 +5,16 @@
 #include "string.hh"
 
 /**
-  a struct this for initialising the commandline options.
- */
+   a struct this for initialising the commandline options.
+*/
 struct Long_option_init {
   char const * take_arg_str0_;
   char const * longname_str0_;
 
   /*
-    > 255: don't take short version.
-   */
-  int        shortname_char_;
+    = 0: don't take short version.
+  */
+  char shortname_char_;
 
   char const * help_str0_;
   
