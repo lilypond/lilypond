@@ -2,10 +2,6 @@
 @setfilename AUTHORS.info
 @settitle AUTHORS - who did what on GNU LilyPond-
 
-@html
-<!--- @@WEB-TITLE@@=Authors --->
-@end html
-
 @node Top
 @top
 @menu
