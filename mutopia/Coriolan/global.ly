@@ -21,6 +21,7 @@ staffCombinePianoStaffProperties = {
 	\property PianoStaff.aDueText = #"\\`a2"
 	\property PianoStaff.splitInterval = #'(1 . 0)
 	\property PianoStaff.changeMoment = #`(,(make-moment 1 1) . ,(make-moment 1 1))
+	\property PianoStaff.noDirection = ##t
 }
 
 #(set! point-and-click #t)

@@ -13,13 +13,18 @@
 	\translator {
 		\ThreadContext
 		\consists "Rest_engraver";
+		
+		% Set value for engraver at thread level,
+		% to override the default that is set in ScoreContext
+		% for added engraver at Voice level
+		devNullThread = #'()
 	}
 	\translator {
 		\VoiceContext
 		\remove "Rest_engraver";
 
 		% The staff combine (bassi part) needs a
-		% thread_devnull_engraver here.
+		% thread_devnull_engraver here.  Why?
 		% Instead of maintaining two separate hierarchies,
 		% we switch add it, but switch it off immediately.
 		% --> move to Score level to be able to override
@@ -31,6 +36,7 @@
 	\translator {
 		\HaraKiriStaffContext
 		\consists "Mark_engraver";
+		MultiMeasureRest \override #'minimum-width = #6
 	}
 	\translator  {
 		\OrchestralScoreContext
@@ -38,6 +44,8 @@
 
 		soloText = #"I."
 		soloIIText = #"II."
+		% By default, turn off the Thread_devnull_engraver
+		% at Voice level
 		devNullThread = #'never
 		
 		TimeSignature \override #'style = #'C

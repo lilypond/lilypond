@@ -13,6 +13,11 @@
 	\translator {
 		\ThreadContext
 		\consists "Rest_engraver";
+		
+		% Set value for engraver at thread level,
+		% to override the default that is set in ScoreContext
+		% for added engraver at Voice level
+		devNullThread = #'()
 	}
 	\translator {
 		\VoiceContext
@@ -41,6 +46,8 @@
 
 		soloText = #"I."
 		soloIIText = #"II."
+		% By default, turn off the Thread_devnull_engraver
+		% at Voice level
 		devNullThread = #'never
 		
 		TimeSignature \override #'style = #'C

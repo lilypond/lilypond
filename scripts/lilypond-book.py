@@ -212,8 +212,10 @@ class LatexPaper:
 		if not self.m_use_geometry:
 			return latex_linewidths[self.m_papersize][self.m_fontsize]
 		else:
-			geo_opts = (a == None, b == None, c == None)
-			
+			geo_opts = (self.m_geo_lmargin == None,
+				    self.m_geo_width == None,
+				    self.m_geo_rmargin == None)
+
 			if geo_opts == (1, 1, 1):
 				if self.m_geo_textwidth:
 					return self.m_geo_textwidth

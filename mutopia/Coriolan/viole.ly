@@ -6,6 +6,7 @@
 
 %{
 violeGroup =  \context PianoStaff = viole_group \notes <
+        \property PianoStaff.aDueText = #""
 	\context Staff=oneViole {
 		\property Staff.midiInstrument = #"viola"
 		\property Staff.instrument = #"Viola"
@@ -36,6 +37,7 @@ violeGroup =  \context PianoStaff = viole_group \notes <
 %}
 
 violeGroup =  \notes \context Staff = viole <
+        \property Staff.aDueText = #""
 	\context Staff=viole {
 		\property Staff.midiInstrument = #"viola"
 		\property Staff.instrument = #"Viola"

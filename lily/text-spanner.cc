@@ -81,7 +81,7 @@ Text_spanner::brew_molecule (SCM smob)
 
 
   SCM properties = Font_interface::font_alist_chain (me);
-  
+
   SCM edge_text = me->get_grob_property ("edge-text");
   Drul_array<Molecule> edge;
   if (gh_pair_p (edge_text))
@@ -89,10 +89,14 @@ Text_spanner::brew_molecule (SCM smob)
       Direction d = LEFT;
       do
 	{
-	  SCM text = index_cell (edge_text, d);
-	  edge[d] = Text_item::text2molecule (me, text, properties);
-	  if (!edge[d].empty_b ())
-	    edge[d].align_to (Y_AXIS, CENTER);
+	  /*  Don't repeat edge text for broken end */
+	  if (!broken[d])
+	    {
+	      SCM text = index_cell (edge_text, d);
+	      edge[d] = Text_item::text2molecule (me, text, properties);
+	      if (!edge[d].empty_b ())
+		edge[d].align_to (Y_AXIS, CENTER);
+	    }
 	}
       while (flip (&d) != LEFT);
     }

@@ -35,6 +35,11 @@ mutopia-letter=$(mutopia-examples:%=out-letter/%.ps.gz)
 mutopia:
 	$(MAKE) examples="$(mutopia-examples)" PAPERSIZE=letter local-WWW $(mutopia-letter)
 
+localclean: local-letter-clean
+
+local-letter-clean:
+	rm -f $(outdir)-letter/*
+
 #
 # <NAME> and -book targets only available through ly.make template makefile;
 # too scary to install in LilyPonds make yet.

@@ -1,54 +1,30 @@
-% dynamics should not collide with staff
-% dynamics (of two voices) should not collide with eachother
-% strange stem through beam bug in bar 8 on viola staff
-% 1-staff-high brace should collapse
+% move to regtest once it works?
 
 \header {
-texidoc="Template for part-combining orchestral scores";
+texidoc="
+On their own staff, staffcombined voices should be stemboth (not up/down);
+while voicecombined threads should get their direction set (up/down)";
 }
 
 
 End = { \skip 1*8; }
 
 violaI = \notes\relative c'' {
-  c1 \break c c c c\break
-	g4\p\< r r r8 g(|
-	)c,4 r r r8 c|
-	[\!f8\sf(\>as f as][f g d)\!g]|
-		r [es'\p(c)es] r [d(bes)d]|
-
-
+  c c e4. e8
 }
 violaII = \notes\relative c'' {
-  c1 c c c c
-	g4\p\< r r r8 g(|
-	)c,4 r r r8 c|
-	[\!f8\sf(\>as f as][f g d)\!g]|
-	r [c\p(g)c] r [bes(g)bes]|
+  c4 b a a
 }
 
 
-violoncello = \notes\relative c {
-  c4\< c c c 
-  \!c1\pp c c c
-	\property Voice.crescendoText = #"cresc."
-	\property Voice.crescendoSpanner = #'dashed-line
-  [g8\p\<(bes' g bes][d bes g)d~]|
-  [d8(a' fis a][d a fis)d]|
-  [\!f!8\sf\>(as f as][f g d)g]|
-  %75
-  \!c,4\p r d r|
+violoncello = \notes\relative c' {
+   c8 c c c    c8 c c c\break
+   a1
 }
 
 contrabasso = \notes\relative c {
-  d8\< d d d  d d d d 
-  \!c1\ff c c c
-	\property Voice.crescendoText = #"cresc."
-	\property Voice.crescendoSpanner = #'dashed-line
-  g4\p\< r r r8 g(|
-  )c4 r r r8 c(|
-  \!)b1\sf|
-  c4\p r d r|
+   a4 a8 a   a8 a a a\break
+   a1
 }
 
 violeStaff =  \notes \context Staff = viole <
@@ -78,13 +54,14 @@ staffCombinePianoStaffProperties = {
 	\property PianoStaff.aDueText = #"\\`a2"
 	\property PianoStaff.splitInterval = #'(1 . 0)
 	\property PianoStaff.changeMoment = #`(,(make-moment 1 1) . ,(make-moment 1 1))
+	\property PianoStaff.noDirection = ##t
 }
 
 
 \score {
   <
   \context StaffGroup <
-  \violeStaff
+   \violeStaff
 
   \context PianoStaff = bassi_group \notes <
     \staffCombinePianoStaffProperties
