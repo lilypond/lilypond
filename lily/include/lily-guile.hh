@@ -10,9 +10,12 @@
 #define LILY_GUILE_HH
 
 #include "config.hh"
+#include  "string.hh"
 
 #include <guile/gh.h>
 #include <libguile.h>
+
+SCM ly_symbol (String name);
 
 SCM ly_append (SCM a, SCM b);
 SCM ly_eval (SCM a);

@@ -16,6 +16,7 @@
 
 % transplant a TeX dimension into the PS output.
 \def\PSsetTeXdimen#1{\expandafter\special{! /#1 (\the\csname #1\endcsname) deftexdimen}}
+
 {%
    \def\par{ }%         %Ugh.  Don't try this at home, kids!
    % neat file-include trick by Piet van Oostrum <piet@cs.uu.nl>
@@ -39,7 +40,7 @@
    % stuff too early
    %
    \filedef\includelilyps{lily.ps}%
-   \expandafter\special{! \includelilyps}
+   \expandafter\special{! \includelilyps }
 }
 
 

@@ -230,12 +230,10 @@ extern char const* lily_version_number_sz ();
 void
 output_def (Paper_outputter* p, String key, String val)
 {
-  SCM args_scm =
-    gh_cons (gh_str02scm (key.ch_l ()), gh_cons (gh_str02scm (val.ch_l ()), SCM_EOL));
-  SCM scm =
-    gh_append2 (ly_lambda_o (),
-    ly_list1 (gh_append2 (ly_func_o ("lily-def"), args_scm)));
-  p->output_scheme (scm);
+  SCM args_scm = gh_list (ly_symbol ("lily-def"),
+	     gh_str02scm (key.ch_l ()),
+	     gh_str02scm (val.ch_l ()), SCM_UNDEFINED);
+  p->output_scheme (args_scm);
 }
 
 void
@@ -285,16 +283,9 @@ Paper_def::paper_outputter_p (Paper_stream* os_p, Header* header_l, String origi
 
   output_settings (p);
 
-  SCM scm =
-    gh_append2 (ly_lambda_o (),
-    ly_list1 (gh_append2 (ly_func_o ("experimental-on"), SCM_EOL)));
-
+  SCM scm = gh_list (ly_symbol ("experimental-on"), SCM_UNDEFINED);
   p->output_scheme (scm);
-
-  scm =
-    gh_append2 (ly_lambda_o (),
-    ly_list1 (gh_append2 (ly_func_o ("header-end"), SCM_EOL)));
-
+  scm = gh_list (ly_symbol ("header-end"), SCM_UNDEFINED);
   p->output_scheme (scm);
 
   return p;

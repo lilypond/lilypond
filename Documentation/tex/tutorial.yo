@@ -8,27 +8,24 @@ Yodl-1.30.18 to convert this to tex or html.
 
 TODO
 
-need to rethink paper size stuff?
-
 pipethrough(date) sucks.
 
 paragraphs have too much space.
 
-instead <-> instead
 )
 
 COMMENT(
-	Mainly written by Han-Wen Nienhuys, 
+        Mainly written by Han-Wen Nienhuys, 
 
-	with help of (among others)
+        with help of (among others)
 
-	* Jan Nieuwenhuizen
+        * Jan Nieuwenhuizen
 
-	* Lambert Meertens,
+        * Lambert Meertens,
 
-	* Adrian Mariano
+        * Adrian Mariano
 
-	* Mats Bengtsson
+        * Mats Bengtsson
 
 )
 
@@ -74,9 +71,10 @@ music.  LilyPond is a program that can print music from a
 specification that you, the user, supply.  Using LilyPond may be a bit
 quaint in the beginning, because you have to give that specification
 using a em(language).  This document is a gentle introduction to that
-language, which is called Mudela.
+language, which is called Mudela, an abbreviation for Music Definition
+Language.
 
-We will demonstrate the working of Mudela by presenting a examples of
+We will demonstrate the working of Mudela by presenting  examples of
 input alongside with the resulting output.  We will comment on these
 examples using English terms for notation, so if you are not familiar
 with these terms, you should consult the glossary that is distributed
@@ -87,37 +85,36 @@ sect(The first tune)
 label(sec:firsttune)
 
 To demonstrate what LilyPond input looks like, we start off with a
-full fledged (yet simple) example. It is somewhat convoluted version
+full fledged, yet simple, example. It is somewhat convoluted version
 of one of the menuets in bind(J.)bind(S.)Bach's em(Clavierbuchlein).
 
 mudela(verbatim)(
 % lines preceded by a percent are comments.
 \include "paper16.ly"
 \score {
-    \notes			% let's start music
-    \relative c'' {		% octave quotes are relative now
-	\key G;
-	\time 3/4;		% set the time signature.
+    \notes			
+    \relative c'' {		
+        \key g;
+        \time 3/4;		
 
-	d4 [g,8 a b c] d4 g, g |
-	e'4 [c8 d e fis] g4 g, g |
-	c4 [d8( )c b a( ] )b4 [c8 b a g] |
-	a4 [b8 a g fis] g2.  |
+        d4 [g,8 a b c] d4 g, g |
+        e'4 [c8 d e fis] g4 g, g |
+        c4 [d8( )c b a( ] )b4 [c8 b a g] |
+        a4 [b8 a g fis] g2.  |
 
-	\bar ":|";		% a repeat sign
+        \bar ":|";		
 
-
-	b'4 [g8 a b g]
-	a4 [d,8 e fis d] |
-	g4 [e8 fis g d] cis4 [b8 cis] a4 |
-	[a8-. b-. cis-. d-. e-. fis-. ] % try some super and subscripts.
-	g4 fis e |
-	fis a,  r8 cis8
-	d2.-\fermata
-	\bar "|.";
+        b'4 [g8 a b g]
+        a4 [d,8 e fis d] |
+        g4 [e8 fis g d] cis4 [b8 cis] a4 |
+        [a8-. b-. cis-. d-. e-. fis-. ] 
+        g4 fis e |
+        fis a,  r8 cis8
+        d2.-\fermata
+        \bar "|.";
     }
     \paper {
-       linewidth = 10.0 \cm; % standard settings are too wide for a book
+       linewidth = 14.0 \cm; % standard settings are too wide for a book
    }
 })
 
@@ -126,26 +123,17 @@ you would try to enter and save this text with a text editor, compile
 it with LilyPond and view the output.  Details of this procedure may
 vary from system to system.  On a Unix system, you should enter the
 input in a file ending in file(.ly), such as file(menuet.ly).  To
-create the output, one would issue
-verb(
-	ly2dvi menuet
-)
-file(ly2dvi) is a little program that does the job of calling the LilyPond
-and  
-TeX() and adjusting page margins.
+create the output, one would issue code(ly2dvi menuet).
+
+file(ly2dvi) is a little program that does the job of calling the
+LilyPond and TeX() and adjusting page margins.
 
 If all goes well, this will create the output file file(menuet.dvi).
-To view this output, isssue the command
-verb(
-	xdvi menuet
-)
+To view this output, issue the command code(xdvi menuet).  Now that we
+are familiar with the procedure to view the output, we will analyse
+the input itself, line by line.
 
-[running on W32?]
-
-Now for some explanation of the input itself, we will dissect the
-input line by line
-
-verb(% lines preceded by a percent are comments.)COMMENT
+verb(% lines preceded by a percent are comments.)COMMENT(
 
 )The percent sign (code(%)) introduces a line comment.  If you want
 make larger comments, you can use block comments. These are delimited
@@ -167,19 +155,20 @@ verb(\score {
 music.  The music is combined with the output directions by putting
 them into a code(\score) block.
 verb(
-   \notes			% get ready for notes
+   \notes		
 ) COMMENT( 
 
 )This makes LilyPond ready for accepting notes.
 verb(
-    \relative c''		% octave quotes are relative now
-)
-As we will see, pitches are combinations of octave, note name and
-chromatic alteration.  In this scheme, the octave is indicated by using raised
-quotes (') and lowered" quotes (commas: code(,)).  The central C is denoted
-by code(c').  The C one octave higher is code(c'').  One and two
-octaves below central C is denoted by code(c) and code(c,)
-respectively.
+    \relative c''
+)COMMENT(
+
+) As we will see, pitches are combinations of octave, note name and
+chromatic alteration.  In this scheme, the octave is indicated by
+using raised quotes (`code (')') and ``lowered'' quotes (commas:
+`code(,)').  The central C is denoted by code(c').  The C one octave
+higher is code(c'').  One and two octaves below central C is denoted
+by code(c) and code(c,) respectively.
 
 If you have to indicate the pitches in a long piece that is written in
 either a high or very low octave, you would have to type very many
@@ -189,10 +178,11 @@ octave that they are the closest to the preceding note.  If you add a
 high-quote an extra octave is added.  The lowered quote will substract
 an octave.  Because the first note obviously has no predecessor, you
 have to give the (absolute) pitch of the note to start with.
+COMMENT(
 
-verb(
+)verb(
        {			  % sequential music follows
-) COMMENT(
+)COMMENT(
 
 ) The brace indicates that what follows is sequential music, i.e.,
 notes that are to be played and printed after each other.  This is in
@@ -202,14 +192,14 @@ coming after code(\score).
 
 
 verb(
-	\time 3/4;		% set the time signature.
+        \time 3/4;		% set the time signature.
 ) COMMENT(
 
 ) This command changes the time signature of the current piece: this
 prints a 3/4 sign.  The 3/4 value is also used to generate bar lines
 in the right spots.
 verb(
-	\key G;
+        \key g;
 ) COMMENT(
 
 ) This command changes the current key to G-major.  Although
@@ -217,42 +207,51 @@ this command comes after the code(\time) command, in the
 output, the key comes before the time signature: LilyPond knows about
 music typesetting conventions.
 verb(
-	d4
+        d4
 ) COMMENT(
 
 ) This is a code(d) note.  The relative music was started with a
-code(c''), the real pitch of this note is code(d'').  The 4 is
-designates the duration of the note (it is a quarter note).
-verb(
-	[g,8
-)
-The open bracket starts a beam.  This bracket is connected to the
-following note, which is an eighth pitch code(g') (remember relative mode)
-verb(
-	a b
-)
-These are notes with pitch code(a') and code(b').  Because their
+code(c''), the real pitch of this note is code(d'').  The 4 
+designates the duration of the note (it is a quarter note). COMMENT(
+
+)verb(
+        [g,8
+)COMMENT(
+
+)The open bracket starts a beam.  This bracket is connected to the
+following note, which is an eighth with pitch code(g') (remember
+relative mode for pitches!)
+COMMENT(
+
+)verb(
+        a b
+)COMMENT(
+
+)These are notes with pitch code(a') and code(b').  Because their
 duration is the same as the code(g), there is no need to enter the
 duration (It is not illegal to enter it anyway.  Then you would have
 to enter code(a8 b8))
-verb(
-	  c]
+COMMENT(
+
+)verb(
+          c]
 ) COMMENT(
 
-) This ends the beam started four notes earlier, at the code(g).  In the output,
-you will notice a measure bar following this note.  You do not have to
-enter anything to make LilyPond create a bar.  Instead Lily deduce
-where bars have to be by comparing durations of notes with the current
-time signature.
-verb(
-	  d4 g, g |
+) This ends the beam started four notes earlier, at the code(g).  In
+the output, you will notice a measure bar following this note.  You do
+not have to enter anything to make LilyPond create a bar.  Instead
+Lily will deduce where bars have to be by comparing durations of notes with
+the current time signature.  COMMENT(
+
+)verb(
+          d4 g, g |
 ) COMMENT(
 
 ) Three more notes:  The code(|) is a "barcheck".  When processing the
 music, LilyPond will check  that barchecks are found at the start of
 a bar precisely.  This makes it easy to spot where notes are forgotten. 
 verb(
-	e'4 [c8 d e fis]
+        e'4 [c8 d e fis]
 ) COMMENT(
 
 ) So far, no notes were chromatically altered.  Here is the first one
@@ -261,7 +260,7 @@ that is: code(fis). Mudela by default uses Dutch note names, and
 sharp sign in the output. The program keeps track of key signatures,
 and will only print accidentals if they are needed.
 verb(
-	c4 [d8( )c b a( ] )b4 [c8 b a g] |
+        c4 [d8( )c b a( ] )b4 [c8 b a g] |
 ) COMMENT(
 
 ) The next line shows something new: a slur is a symbol that is
@@ -273,14 +272,15 @@ notes, and the brackets (beam markers) around the notes. As you can
 see, the brackets and parentheses do not have to nest.
 
 verb(
-	a4 [b8 a g fis] g2.  |
+        a4 [b8 a g fis] g2.  |
 ) COMMENT(
 
 ) A duration that is to be augmented with a duration dot, is notated
-with a number followed by periods, as many as you want augmentation
-dots.
-verb(
-	\bar ":|";		% a repeat sign
+with a duration number followed by periods, as many as you want
+augmentation dots.COMMENT(
+
+)verb(
+        \bar ":|";		% a repeat sign
 ) COMMENT(
 
 )
@@ -297,26 +297,28 @@ verb(
 This line shows that Lily will print an accidental if that is needed:
 the first C sharp will be printed with an accidental, the second without.
 verb(
-	[a8-. b-. cis-. d-. e-. fis-. ] % try some super and subscripts.
+        [a8-. b-. cis-. d-. e-. fis-. ] % try some super and subscripts.
 ) COMMENT(
 
 )
 There is more to music than just pitches and rhythms.  An important
 aspect is articulation.  You can enter articulation signs either in an
-abbreviated form, e.g., by using code(-.) for staccato as shown above.
+abbreviated form, by a dash and the the character for the
+articulation to use,  e.g. code(-.) for staccato as shown above.
+COMMENT(
 
-verb(
-	fis a,  r8 cis8
+)verb(
+        fis a,  r8 cis8
 ) COMMENT(
 
 )
 Rests are denoted by the special notename code(r).  You can also make
 an invisible rest by using the special notename code(s).
 verb(
-	d2.-\fermata
+        d2.-\fermata
 ) COMMENT(
 
-) Finally, all articulations has a verbose form, like code(\fermata).
+) Finally, all articulations have a verbose form, like code(\fermata).
 The ``command'' COMMENT(Hi Adrian :-) code(\fermata) is not part of
 the core of the language (most of the other discussed elements are),
 but it is an abbreviation of a more complicated description of a
@@ -324,14 +326,14 @@ fermata.  code(\fermata) refers to that abbreviation and is therefore
 called an em(identifier).
 
 verb(
-	}
+        }
 ) COMMENT(
 
 )
 This ends the sequential music.
 
 verb(\paper {
-	    linewidth = 10.0\cm;
+            linewidth = 10.0\cm;
 })
 This specifies a conversion from music to notation output.  Most of
 the details of this conversions (font sizes, dimensions, etc.) have
@@ -340,7 +342,7 @@ to be smaller.  We do this by setting the line width to 10 centimeter
 (approximately 4 inches).
 
 verb(
-	}
+        }
 )
 Finally, the last brace ends the code(\score) block.
 
@@ -350,10 +352,8 @@ There are a couple of things to note here.  The input format tries to
 capture the meaning of em(music), and not notation.  Therefore the
 format contains musical concepts like pitches and durations, instead
 of symbols and positions.  Second, the format tries to be
-em(context-free): a note will remain to sound the  same regardless of
-the current time signature, the key nop(etc.)COMMENT(footnote The
-code(\relative) mode is a concession to this, but a )
-
+em(context-free): a note will sound the same regardless of the current
+time signature, the key nop(etc.)
 
 The purpose of LilyPond informally is explained by the term `music
 typesetter'. As you may have figured out by now, this is not a really
@@ -373,15 +373,15 @@ made between processing speed and the beauty of the output: you get
 prettier output by using LilyPond.
 
 
-As you can see, the most interesting parts of the input is music
+As you can see, the most interesting part of the input is music
 itself, in this case the sequence of notes.  We will therefore focus
 on entering music for now.  Consequently, when we mean
 verb(\score {
-	\notes { XXXX } 
+        \notes { XXXX } 
  	\paper {  }
 })COMMENT(
 
-) we will leave out the the repetitive details and just print
+) we will leave out the the repetitive details for now and just print
 code(XXXX).
 
 
@@ -415,16 +415,16 @@ mudela()(
        \notes {
          c'\longa c'\breve  
          c'1 c'2 c'4 c'8 c'16 c'32 c'64 c'64 c'2. c'8. c'16
-	 }
-	 \paper {
-		linewidth = -1.0;
-		\translator { \type "Score_engraver";
-			    \name "Score";
-			    \consists "Note_heads_engraver";
-			    \consists "Stem_engraver";
-			    \consists "Rhythmic_column_engraver";
-	 }}}
-	 
+         }
+         \paper {
+        	linewidth = -1.0;
+        	\translator { \type "Score_engraver";
+        		    \name "Score";
+        		    \consists "Note_heads_engraver";
+        		    \consists "Stem_engraver";
+        		    \consists "Rhythmic_column_engraver";
+         }}}
+         
 )
 
 subsect(Basic pitches)
@@ -461,8 +461,10 @@ for C sharp or C flat.  For this reason, mudela uses a different,
 non-English convention for entering altered pitches: a note is made
 sharp by adding the suffix `--is' to its name, and flat by adding the
 suffix `--es'.  For a double sharp another `--is' suffix is added, for
-flats another `--es' suffix. The names for the alterations of C are
-given in bind(Table)ref(notename-tab).
+flats another `--es' nop(suffix.)  footnote(Variations on this
+convention are used in a number of germanic languages, notably Dutch,
+German, Swedish, and Norwegian.) The names for the alterations of C
+are given in bind(Table)ref(notename-tab).
 
 latexcommand(\begin{table}[h])
   center(
@@ -480,16 +482,13 @@ latexcommand(\begin{table}[h])
   label(notename-tab)
 latexcommand(\end{table})
 
-Variations on this convention are used in a number of germanic
-languages, notably Dutch, German, Swedish, and Norwegian.
-
 Throughout this document we will continue to use these names.footnote(
   Mudela defaults to Dutch notenames.  To make (Dutch) pronunciation
   easier, the a-flat and e-flat are contracted to code(as) and
   code(es).  Similarly, the a double flat and e double flat are
   contracted to code(ases) and code(eses).  For consistency, the dutch
   names also include code(aes), code(aeses), code(ees) and
-  code(eeses)) consistency
+  code(eeses)) 
 
 If you are not comfortable with these names, you can make your own.
 Note names for different languages are included with the example
@@ -534,11 +533,18 @@ mudela(verbatim, fragment)(
   }
 )
 
+There is one thing to note, in sequences of chords, the (relative)
+pitch of a is taken with reference to the first note of the previous
+chord.
+
 You can nest simultaneous and sequential music in any way you want,
-e.g.,
-mudela(verbatim,fragment)(
-	< { g''4 g''4 }
-	  { c'8 <c' e'> c' <c' e'> } >
+e.g., COMMENT(
+
+)mudela(verbatim,fragment,center)(
+        < { g''4 g''4 }
+          { c'8 <c' e'> c' <c' e'> } >
+)COMMENT(
+
 )
 As you can see, LilyPond has some difficulty typesetting this
 elegantly.  To adequately solve this, you have to persuade LilyPond to
@@ -568,26 +574,26 @@ following example:
 
 mudela()(
 \score{ <
-	\property Score.textstyle = typewriter
-	\type Staff \notes {
-		c''4-.
-		c''4--
-		c''4-+
-		c''4-|
-		c''4->
-		c''4-^
-		}
-	\type Lyrics\lyrics {
-	      "."4 "-" "+" "|" ">" "\^{ }" }
-	>
-	\paper { linewidth = 12.\cm; }
+        \property Score.textstyle = typewriter
+        \type Staff \notes {
+        	c''4-.
+        	c''4--
+        	c''4-+
+        	c''4-|
+        	c''4->
+        	c''4-^
+        	}
+        \type Lyrics\lyrics {
+              "."4 "-" "+" "|" ">" "\^{ }" }
+        >
+        \paper { linewidth = 12.\cm; }
 })
 
 Text and digits for fingering can be entered in the same manner: add a
 dash and the text or digit to be printed:
 mudela(fragment,verbatim)(
   c''4-1 g''4-5 c''-"Sul tasto" )
-Currently, the meaning of the
+COMMENT(Currently, the meaning of the
 syntax `note-dash-digit/articulation/text' is just ``add a superscript to this
 note.''  This is not in line with our goal to em(define) music with
 Mudela.  We hope that this will be fixed in a future version of the
@@ -596,7 +602,7 @@ subscripts can be forced into up or down position respectively by entering an
 a caret (code(^)) or an underscore, code(_) instead of the dash:
 mudela(fragment,verbatim,center)(
   c'4-^ c'4^^ c'''4-^ c'''4_^
-)
+))
 
 Dynamic markings are another way to add a nuance to a note.  They are
 entered by adding the name for the dynamic sign after the note.  You
@@ -615,14 +621,9 @@ Music typesetting does not use fixed symbols only.  A lot of symbols
 are variable: they run from one note to another. In LilyPond
 terminology, such a symbol is called a em(spanner).  To print a
 spanner, you have to attach a marker to the note that begins it and to
-the one that ends it.
+the one that ends it.  These are the spanners that are entered like
+this:
 
-It is your job to make sure that each spanner that you start, also ends.
-If it doesn't, then Bad Things are likely to happen. If you end
-spanners that are not started,  LilyPond will
-warn you about illegal ending markers.
-
-LilyPond has a few spanners
 description(
 dit(The slur)
  The slur has the opening parenthesis as 
@@ -646,7 +647,7 @@ bracket, then ending marker is the closing bracket.  The brackets have
 to be em(around) the beamed notes.  footnote(Strictly speaking, a
 beam is not a musical concept: beaming doesn't change the meaning of
 music, it only clarifies the rhythmic structure.  One might argue that
-beams should not be present in a "music" language.  Unfortunately,
+beams should not be present in a ``music'' language.  Unfortunately,
 LilyPond is not smart enough to insert beams into music on its own.
 
 LilyPond does have code that guesses what the pattern should look
@@ -690,6 +691,11 @@ that run parallel to the whole note, you can have dynamic markings
 within a note. 
 
 )
+
+It is your job to make sure that each spanner that you start, also
+ends.  If it doesn't, then Bad Things are likely to happen. If you end
+spanners that are not started, LilyPond will warn you about illegal
+ending markers.
 
 sect(Commands)
 label(sec:commands)
@@ -1026,7 +1032,7 @@ sound the same if it were written as a single chord on a single staff,
 i.e., COMMENT(
 
 )mudela(fragment)(
-	<g4 e'4>
+        <g4 e'4>
 )COMMENT(
 
 ) The Mudela construct for multiple staffs reflects the similarity
@@ -1087,8 +1093,8 @@ command.  The bass clef is made with a clef command:  COMMENT(
 
 ) mudela(verbatim,fragment)(
   \type GrandStaff <
-	\type Staff = treblestaff e'4
-	\type Staff = bassstaff { \clef "bass"; g4 }
+        \type Staff = treblestaff e'4
+        \type Staff = bassstaff { \clef "bass"; g4 }
   >)COMMENT(
 
 )
@@ -1414,7 +1420,7 @@ This explains the following definition, which is a simplified Staff context:
 verb(
 \translator
 {
-	\type "Line_group_engraver_group";
+        \type "Line_group_engraver_group";
         \name Staff ;
 
         \consists "Bar_engraver";
@@ -1424,7 +1430,7 @@ verb(
         \consists "Time_signature_engraver";
         \consists "Staff_symbol_engraver";
 
-	defaultClef = treble;
+        defaultClef = treble;
           
         \accepts "Voice";
 }) COMMENT(

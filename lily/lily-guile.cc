@@ -21,11 +21,6 @@ ly_list1 (SCM a)
   return gh_list (a, SCM_UNDEFINED);
 }
 
-SCM
-ly_quote ()
-{
-  return gh_eval_str ("'quote");
-}
 
 /*
   scm_m_quote doesn't use any env, but needs one for a good signature in GUILE.
@@ -61,6 +56,18 @@ ly_func_o (char const* name)
   return gh_eval_str (buf);
 }
 
+/*
+  See: libguile/symbols.c
+
+  SCM
+  scm_string_to_symbol(s)
+  
+*/
+SCM
+ly_symbol (String name)
+{
+  return gh_car (scm_intern (name.ch_C(), name.length_i()));
+}
 
 SCM
 lambda_scm (String str, Array<int> args_arr)
@@ -73,10 +80,8 @@ lambda_scm (String str, Array<int> args_arr)
   SCM args_scm = SCM_EOL;
   for (int i = args_arr.size () - 1; i >= 0; i--)
     args_scm = gh_cons (gh_int2scm (args_arr[i]), args_scm);
-  SCM scm =
-    gh_append2 (ly_lambda_o (), 
-		ly_list1 (gh_append2 (ly_func_o (str.ch_l ()), args_scm)));
-  return scm;
+  args_scm = gh_cons (ly_symbol (str.ch_l ()), args_scm);
+  return args_scm;
 }
 
 // scm_top_level_env(SCM_CDR(scm_top_level_lookup_closure_var)))
@@ -91,10 +96,8 @@ lambda_scm (String str, Array<Scalar> args_arr)
   SCM args_scm = SCM_EOL;
   for (int i = args_arr.size (); i--; )
     args_scm = gh_cons (gh_str02scm (args_arr[i].ch_l ()), args_scm);
-  SCM scm =
-    gh_append2 (ly_lambda_o (), 
-    ly_list1 (gh_append2 (ly_func_o (str.ch_l ()), args_scm)));
-  return scm;
+  args_scm = gh_cons (ly_symbol (str.ch_l ()), args_scm);
+  return args_scm;
 }
 
 SCM
@@ -109,10 +112,8 @@ lambda_scm (String str, Array<Real> args_arr)
   for (int i = args_arr.size (); i--; )
     args_scm = gh_cons (gh_double2scm (args_arr[i]), args_scm);
   
-  SCM scm =
-    gh_append2 (ly_lambda_o (), 
-    ly_list1 (gh_append2 (ly_func_o (str.ch_l ()), args_scm)));
-  return scm;
+  args_scm = gh_cons (ly_symbol (str.ch_l ()), args_scm);
+  return args_scm;
 }
 
 /**

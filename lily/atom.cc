@@ -69,13 +69,6 @@ Atom::extent () const
 Atom::Atom ()
   : dim_ (Interval (0,0),Interval (0,0))
 {
-  /*
-    urg
-    We should probably make Atom an abstract base class to
-    derive Ps_atom and Tex_atom from.
-    But Atom is used as a simple type *everywhere*,
-    and we don't have virtual contructors.
-   */
   str_ = "unknown\n";
   origin_l_ = 0;
 }

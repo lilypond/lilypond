@@ -6,9 +6,7 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr/urg
 
-
 BUGS:
-
 	* gallina barlines.
 
 	* latex bla.tex broken (titles / \lilyfooter stuff?)
@@ -34,9 +32,9 @@ BUGS:
 	* space after bars?
 
 	* [/3 c8 c16 c c c]/1
-  
+
 	* fix singleStaffBracket
-  
+
   	* repeat bars: need distance after ":|" and before "|:"
 
 	* The time signature warnings still remain, will be fixed later.
@@ -67,6 +65,9 @@ BUGS:
 	portato= \script { "portato" 0 -1 0 1 0 }
 
 STUFF
+	* uniformise recent feta contributions.
+
+	* check out legal/(c) matters for scores.
 
 	* move option processing out of gh_enter
 

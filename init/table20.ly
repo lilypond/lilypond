@@ -49,7 +49,7 @@ table_twenty =
 
     "bars" = \table {
 	"empty"	"emptybar"	0
-	""	""	0		0.0\pt	0.0\pt	0.0\pt	16.0\pt
+	""	"emptybar"	0		0.0\pt	0.0\pt	0.0\pt	16.0\pt
 	"|"	"maatstreep"	1	0.0\pt	0.64\pt 	0.0\pt	20.0\pt
 	"||"	"doublebar"	1		0.0\pt	5.0\pt	0.0\pt	20.0\pt
 	"|."	"finishbar"	1		-5.0\pt	0.0\pt	0.0\pt	20.0\pt
@@ -58,11 +58,6 @@ table_twenty =
 	":|"	"repeatbar"	0		-10.0\pt	0.0\pt	0.0\pt	20.0\pt
 	"|:"	"startrepeat"	0		0.0\pt	10.0\pt	0.0\pt	20.0\pt
 	":|:"	"repeatbarstartrepeat"	0	0.0\pt 20.0\pt	0.0\pt	20.0\pt
-    }
-
-    "meters" = \table {
-	"C"	"fourfourmeter"	0		0.0\pt	10.0\pt	-5.0\pt	5.0\pt
-	"C2"	"allabreve"	0		0.0\pt	10.0\pt	-5.0\pt	5.0\pt
     }
 
     % dims ignored for this table

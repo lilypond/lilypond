@@ -99,7 +99,11 @@ Lookup::afm_find (String s, bool warn) const
   a.dim_[Y_AXIS] *= 1 / 1000.0;
   Array<Real> arr;
   arr.push (m.code ());
-  a.lambda_ =  (lambda_scm ("char", arr));
+
+  
+  a.lambda_ = gh_list (ly_symbol ("char"),
+		       gh_int2scm (m.code ()),
+		       SCM_UNDEFINED);
   a.str_ = "afm_find: " + s;
   a.font_ = font_;
   return a;
@@ -120,8 +124,13 @@ Lookup::bar (String str, Real h) const
   Array<Real> arr;
   arr.push (h);
   Atom a = (*symtables_p_) ("bars")->lookup (str);
-  a.lambda_ =  (lambda_scm (a.str_, arr));
-  a.str_ = "bar";
+  
+  
+  a.lambda_ = gh_list (ly_symbol (a.str_.ch_C()),
+		       gh_double2scm (h),
+		       SCM_UNDEFINED);
+
+
   a.dim_.y () = Interval (-h/2, h/2);
   a.font_ = font_;
   return a;
@@ -156,7 +165,8 @@ Lookup::clef (String st) const
 SCM
 offset2scm (Offset o)
 {
-  return gh_list (gh_double2scm (o[X_AXIS]), gh_double2scm(o[Y_AXIS]), SCM_UNDEFINED);
+  return gh_list (gh_double2scm (o[X_AXIS]), gh_double2scm(o[Y_AXIS]),
+		  SCM_UNDEFINED);
 }
 
 Atom
@@ -181,11 +191,11 @@ Lookup::dashed_slur (Array<Offset> controls, Real thick, Real dash) const
 
   // (lambda (o) (dashed-slur o thick dash '(stuff))
   a.lambda_ = 
-    gh_append2 (ly_lambda_o (),
-    gh_list (gh_append2 (ly_func_o ("dashed-slur"),
-    gh_cons (gh_double2scm (thick), 
-    gh_cons (gh_double2scm (dash),
-    gh_list (ly_quote_scm (gh_list (sc[1], sc[2], sc[3], sc[0], SCM_UNDEFINED)), SCM_UNDEFINED)))), SCM_UNDEFINED));
+    gh_list (ly_symbol ("dashed-slur"),
+	     gh_double2scm (thick), 
+	     gh_double2scm (dash),
+	     gh_list (sc[1], sc[2], sc[3], sc[0], SCM_UNDEFINED),
+	     SCM_UNDEFINED);
 
   a.str_ = "dashed_slur";
   return a;
@@ -251,12 +261,11 @@ Lookup::rest (int j, bool o) const
 Atom
 Lookup::rule_symbol (Real height, Real width) const
 {
-  Atom a = (*symtables_p_) ("param")->lookup ("rule");
-  Array<Real> arr;
-  arr.push (height);
-  arr.push (width);
-  a.lambda_ = (lambda_scm (a.str_, arr));
-  a.str_ = "rule_symbol";
+  Atom a;
+  a.lambda_ = gh_list (ly_symbol ("rulesym"),
+		       gh_double2scm (height),
+		       gh_double2scm (width),
+		       SCM_UNDEFINED);
   a.dim_.x () = Interval (0, width);
   a.dim_.y () = Interval (0, height);
   return a;
@@ -305,13 +314,14 @@ Lookup::stem (Real y1, Real y2) const
   Array<Real> arr;
 
   Real stem_width = paper_l_->get_var ("stemthickness");
-  arr.push (-stem_width /2);
-  arr.push (stem_width);
-  arr.push (y2);
-  arr.push (-y1);
 
-  a.lambda_ = (lambda_scm ("stem", arr));
-  a.str_ = "stem";
+  gh_list (ly_symbol ("stem"),
+	   gh_double2scm(-stem_width /2),
+	   gh_double2scm(stem_width),
+	   gh_double2scm(y2),
+	   gh_double2scm(-y1),
+	   SCM_UNDEFINED);
+
   a.font_ = font_;
   return a;
 }
@@ -455,7 +465,7 @@ Lookup::hairpin (Real width, bool decresc, bool continued) const
   arr.push (height);
   arr.push (continued ? height/2 : 0);
   String hairpin = String (decresc ? "de" : "") + "crescendo\n";
-  a.lambda_ = (lambda_scm (hairpin, arr));
+  a.lambda_ = lambda_scm (hairpin, arr);
   a.str_ = "hairpin";
   a.dim_.x () = Interval (0, width);
   a.dim_.y () = Interval (-2*height, 2*height);
@@ -476,11 +486,21 @@ Lookup::plet (Real dy , Real dx, Direction dir) const
   return a;
 }
 
+SCM
+array_to_list (SCM *a , int l)
+{
+  SCM list = SCM_EOL;
+  for (int i= l; i--;  )
+    {
+      list =  gh_cons (a[i], list);
+    }
+  return list;
+}
+
 Atom
 Lookup::slur (Array<Offset> controls) const
 {
   assert (controls.size () == 8);
-
   Real dx = controls[3].x () - controls[0].x ();
   Real dy = controls[3].y () - controls[0].y ();
   Atom a;
@@ -492,25 +512,9 @@ Lookup::slur (Array<Offset> controls) const
     scontrols[i] = offset2scm (controls[indices[i]]);
 
 
-  a.lambda_ =
-    gh_append2 (ly_lambda_o (),
-		gh_list (gh_append2 (ly_func_o ("slur"),
-				     gh_list (ly_quote_scm (gh_list (scontrols[0],
-								     scontrols[1],
-								     scontrols[2],
-								     scontrols[3],
-								     scontrols[4],
-								     scontrols[5],
-								     scontrols[6],
-								     scontrols[7],
-								     SCM_UNDEFINED)),
-					      SCM_UNDEFINED)
-				     ),
-			 SCM_UNDEFINED)
-		);
-
-
-  a.str_ = "slur";
+  a.lambda_ =gh_list (ly_symbol ("slur"),
+		      array_to_list (scontrols, 8),
+		      SCM_UNDEFINED);
 
   a.dim_[X_AXIS] = Interval (0, dx);
   a.dim_[Y_AXIS] = Interval (0 <? dy,  0 >? dy);
