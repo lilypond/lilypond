@@ -4,12 +4,12 @@
 	CueVoiceContext = \translator {
             \VoiceContext
             \name CueVoice;
-            basicNoteHeadProperties \push #'font-size = #-1
-            basicStemProperties \push #'font-size = #-1
-            basicBeamProperties \push #'font-size = #-1
-            basicTextScriptProperties \push #'font-size = #-1
-            basicSlurProperties \push #'font-size = #-1
-            basicLocalKeyProperties \push #'font-size = #-1
+            basicNoteHeadProperties \push #'font-relative-size = #-1
+            basicStemProperties \push #'font-relative-size = #-1
+            basicBeamProperties \push #'font-relative-size = #-1
+            basicTextScriptProperties \push #'font-relative-size = #-1
+            basicSlurProperties \push #'font-relative-size = #-1
+            basicLocalKeyProperties \push #'font-relative-size = #-1
 	};
 	\translator{ \CueVoiceContext }
 	StaffContext = \translator{\StaffContext

@@ -135,14 +135,6 @@ violoncello = \notes \relative c' {
     \translator {
       \HaraKiriStaffContext
     }
-    \translator {
-      \ScoreContext
-      %instrumentScriptPadding = #55  %% urg, this is in pt
-      %instrScriptPadding = #35
-      marginScriptHorizontalAlignment = #1
-      %marginScriptPadding = #15
-      %marginScriptHorizontalAlignment = #0
-    }
   }
   \midi {
   	\tempo 1 = 60;

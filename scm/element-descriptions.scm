@@ -42,7 +42,7 @@
                 (style-to-font-name . ,style-to-font-name)
                 (markup-to-properties . ,markup-to-properties)
                 (font-family . roman)
-		(font-size . "-1")
+		(font-relative-size . -1)
 		(meta . ,(element-description "BarNumber"
 			text-interface  break-aligned-interface))
 	))
@@ -94,8 +94,9 @@
 		(properties-to-font-name . ,properties-to-font-name)
 		(style-to-font-name . ,style-to-font-name)
 		(markup-to-properties . ,markup-to-properties)
-		(font-size . "0") ;; Hmm, 0 should be the default, maybe??
-		(font-family . "roman")
+		(font-relative-size . 0)
+		(font-family . roman)
+		(font-shape . upright)
 		(meta . ,(element-description "ChordNames" chord-name-interface))
 	))
 
@@ -153,19 +154,20 @@
 	
 	(LeftEdge . (
 		(break-align-symbol . Left_edge_item)
+		(X-offset-callbacks . (,Break_align_interface::alignment_callback))
 		(breakable . #t)
-		(meta . ,(element-description "LeftEdge" break-aligned-interface))
+m		(meta . ,(element-description "LeftEdge" break-aligned-interface))
 	))
 	
 	(Fingering . (
 		(molecule-callback . ,Text_item::brew_molecule)
+		(X-offset-callbacks . (,Side_position::centered_on_parent ,Side_position::aligned_on_self))
 		(padding . 	3.0)
 		(self-alignment-X . 0)
-		(font-style . dynamic)
+		(font-style . finger)
                 (properties-to-font-name . ,properties-to-font-name)
                 (style-to-font-name . ,style-to-font-name)
                 (markup-to-properties . ,markup-to-properties)
-		
 		(meta . ,(element-description "Fingering" finger-interface text-script-interface text-interface side-position-interface))
 	))
 
@@ -204,7 +206,7 @@
  		(properties-to-font-name . ,properties-to-font-name)
  		(style-to-font-name . ,style-to-font-name)
  		(markup-to-properties . ,markup-to-properties)
- 		(font-family . "roman")
+ 		(font-family . roman)
 		(meta . ,(element-description "InstrumentName"  text-interface break-aligned-interface))
 	))
 	
@@ -248,7 +250,7 @@
 		(properties-to-font-name . ,properties-to-font-name)
 		(style-to-font-name . ,style-to-font-name)
 		(markup-to-properties . ,markup-to-properties)
-		(font-family . "roman")
+		(font-family . roman)
                 
 		(meta . ,(element-description "LyricText" lyric-syllable-interface text-interface))
 	))
@@ -299,8 +301,8 @@
                 (properties-to-font-name . ,properties-to-font-name)
                 (style-to-font-name . ,style-to-font-name)
                 (markup-to-properties . ,markup-to-properties)
-		(font-family . "roman")
-		(font-size . "0")
+		(font-family . roman)
+		(font-relative-size . 0)
 		(meta . ,(element-description  "NoteName"
 			note-name-interface
 			general-element-interface))
@@ -313,7 +315,7 @@
 		(X-offset-callbacks . (,Side_position::centered_on_parent ,Side_position::aligned_on_self))
 		(Y-offset-callbacks . (,Side_position::aligned_side))
 		(molecule-callback . ,Text_item::brew_molecule)
-                (font-shape . "italic")
+                (font-shape . italic)
                 (properties-to-font-name . ,properties-to-font-name)
                 (style-to-font-name . ,style-to-font-name)
                 (markup-to-properties . ,markup-to-properties)
@@ -396,7 +398,7 @@
 		(properties-to-font-name . ,properties-to-font-name)
                 (style-to-font-name . ,style-to-font-name)
                 (markup-to-properties . ,markup-to-properties)
-		(font-family . "roman")
+		(font-family . roman)
 (meta . ,(element-description "StanzaNumber" break-aligned-interface text-interface))
 	))
 
@@ -413,7 +415,7 @@
 		 (,Side_position::aligned_side
 		  ,Side_position::centered_on_parent))
 		(no-spacing-rods . #t)
-                (font-shape . "italic")
+                (font-shape . italic)
                 (properties-to-font-name . ,properties-to-font-name)
                 (style-to-font-name . ,style-to-font-name)
                 (markup-to-properties . ,markup-to-properties)
@@ -492,12 +494,12 @@
                (properties-to-font-name . ,properties-to-font-name)
                (style-to-font-name . ,style-to-font-name)
                (markup-to-properties . ,markup-to-properties)
-               (font-family . "roman")
+               (font-family . roman)
 		(meta . ,(element-description "TextScript" text-script-interface text-interface side-position-interface ))
 	))
 	(TextSpanner . (
 		(molecule-callback . ,Text_spanner::brew_molecule)
-                (font-shape . "italic")
+                (font-shape . italic)
                 (properties-to-font-name . ,properties-to-font-name)
                 (style-to-font-name . ,style-to-font-name)
                 (markup-to-properties . ,markup-to-properties)
@@ -543,14 +545,14 @@
                 (properties-to-font-name . ,properties-to-font-name)
                 (style-to-font-name . ,style-to-font-name)
                 (markup-to-properties . ,markup-to-properties)
-                (font-shape . "italic")
-		(meta .  ,(element-description "TupletBracket"
+                (font-shape . italic)
+		(meta .  ,(element-description "TupletBracket" text-interface
 			   tuplet-bracket-interface))
 	))
 
 	(UnaChordaPdeal . (
 		(molecule-callback . ,Text_item::brew_molecule)
-                (font-shape . "italic")
+                (font-shape . italic)
                 (properties-to-font-name . ,properties-to-font-name)
                 (style-to-font-name . ,style-to-font-name)
                 (markup-to-properties . ,markup-to-properties)

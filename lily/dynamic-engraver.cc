@@ -36,7 +36,7 @@ class Dynamic_engraver : public Engraver
   Spanner * finished_cresc_p_;
   Spanner * cresc_p_;
 
-  Dynamic_script_req* script_req_l_;
+  Text_script_req* script_req_l_;
   
   Span_req * current_cresc_req_;
   Drul_array<Span_req*> accepted_spanreqs_drul_;
@@ -90,9 +90,10 @@ Dynamic_engraver::do_post_move_processing ()
 bool
 Dynamic_engraver::do_try_music (Music * m)
 {
-  if (Dynamic_script_req* d = dynamic_cast <Dynamic_script_req*> (m))
+  if (dynamic_cast <Text_script_req*> (m)
+      && m->get_mus_property ("text-type") == ly_symbol2scm ("dynamic"))
     {
-      script_req_l_ = d;
+      script_req_l_ = dynamic_cast<Text_script_req*> (m);
       return true;
     }
   else if (Span_req* s =  dynamic_cast <Span_req*> (m))
@@ -132,8 +133,9 @@ Dynamic_engraver::do_process_music ()
 	  Axis_group_interface::set_interface (line_spanner_);
 	  Axis_group_interface::set_axes (line_spanner_, Y_AXIS, Y_AXIS);
 
-	  Request * rq = accepted_spanreqs_drul_[START];
-	  if (script_req_l_) rq =  script_req_l_ ;
+	  Music * rq = accepted_spanreqs_drul_[START];
+	  if (script_req_l_)
+	    rq =  script_req_l_ ;
 	  announce_element (line_spanner_, rq);
 			 
 

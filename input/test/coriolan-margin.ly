@@ -124,13 +124,6 @@ violoncello = \notes \relative c' {
     \translator {
       \OrchestralScoreContext
       timeSignatureStyle = #"C"
-      % 16 pt
-      instrumentScriptPadding = #55  %% urg, this is in pt
-      instrScriptPadding = #35
-      % 20pt
-      %instrumentScriptPadding = #60  %% urg, this is in pt
-      %instrScriptPadding = #40
-      marginScriptHorizontalAlignment = #1
     }
   }
 }

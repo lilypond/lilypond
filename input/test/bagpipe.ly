@@ -12,13 +12,13 @@
   \translator {
   	\GraceContext
 
-	NoteHead \push #'font-size = #-2
-	NoteHead \push #'font-size = #-2	
+	NoteHead \push #'font-relative-size = #-2
+	NoteHead \push #'font-relative-size = #-2	
         Stem \push #'flag-style = ##f
     % The following determines the length of stems without beams
     % default is between 2.8 and 4.0 depending on the number of flags
          Stem \push #'length = #6	
-        Stem \push #'font-size = #-2
+        Stem \push #'font-relative-size = #-2
 	GraceAlignItem \push #'horizontal-space = #1
 	Stem \push #'flag-style = #""
  

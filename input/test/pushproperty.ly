@@ -77,7 +77,7 @@ You can use identifiers, eg.
 
 \paper {
 \translator { \VoiceContext
-	NoteHead \push #'font-size =  #-2
+	NoteHead \push #'font-relative-size =  #-2
 }
 }
 }

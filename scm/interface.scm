@@ -52,7 +52,7 @@
     (property-description 'Y-offset-callbacks list? "see <code> X-offset-callbacks</code>")
     (property-description 'X-extent-callback procedure? "procedure taking an element and axis argument, returning a number-pair. The return value is the extent of the element.")
     (property-description 'Y-extent-callback procedure? "see <code> X-extent-callback </code>")
-    (property-description 'font-size integer? "")
+    (property-description 'font-relative-size integer? "")
     (property-description 'extra-offset number-pair? "pair of reals (a cons) forcing an extra offset   before outputting")
     (property-description 'interfaces  list? "list of symbols indicating the interfaces supported by this object. Is initialized from the <code>meta</code> field.")
     (property-description 'dependencies list? "list of score-element pointers that indicate who to compute first for certain global passes")
@@ -189,7 +189,12 @@ one end of the stem")
     (property-description 'side-relative-direction dir? "if set: get the direction from a different object, and multiply by this.")
     (property-description 'minimum-space number? "minimum distance that the victim should move (after padding)")
     (property-description 'padding number? "add this much extra space between victim and support")
-    (property-description 'self-alignment-X number? "real number: -1 = left aligned, 0 = center, 1 right-aligned in X direction. Set to an element pointer, if you want that element to be the center. ")
+    (property-description 'self-alignment-X number? "real number: -1 =
+left aligned, 0 = center, 1 right-aligned in X direction. <p> Set to
+an element pointer, if you want that element to be the center.  In
+this case, the center element should have this object as a reference
+point.
+")
     (property-description 'self-alignment-Y number? "like self-alignment-X but for Y axis")
     
     )
@@ -286,13 +291,12 @@ This procedure is called (using dependency resolution) after line breaking. Retu
    " Order elements top to bottom/left to right/right to left etc."
    (list
     (property-description 'stacking-dir  dir? "stack contents of elements in which direction ?")
-    (property-description 'align-dir  dir? "Which side to align? -1: left side, 0: centered around center-element if not nil, or around center of width), 1: right side")
+    (property-description 'align-dir  dir? "Which side to align? -1: left side, 0: around center of width, 1: right side")
     (property-description 'threshold  number-pair? "(cons MIN MAX), where MIN and MAX are dimensions in staffspace")
     (property-description 'alignment-done  boolean? "boolean to administrate whether we've done the alignment already (to ensure that the process is done only once)")
     (property-description 'center-element ly-element? "element which will be at the
 center of the group after aligning (when using
-Align_interface::center_on_element). The center element should have
-this object as a reference point.")
+Align_interface::center_on_element). ")
     (property-description 'elements  list? "to be aligned elements ")
     (property-description 'axes  list? "list of axis numbers. Should contain only one number.")
     )))    
@@ -425,13 +429,13 @@ The following abbreviations are currently defined:
 <dt> any font-style<dd> finger volta timesig mmrest mark script large Large dynamic
 </dl>
 " )
-    (property-description 'font-style string? "font definition for a special purpose, one of: finger volta timesig mark script large Large dynamic")
-    (property-description 'font-series string? "partial font definition: medium, bold")
-    (property-description 'font-shape string?  "partial font definition: upright or italic")
-    (property-description 'font-family string? "partial font definition: music roman braces dynamic math ...")
-    (property-description 'font-name string? "partial font definition: base name of font file FIXME: should override other partials")
-    (property-description 'font-point string? "partial font definition: exact font size in points FIXME: should override font-size")
-    (property-description 'font-size string? "partial font definition: the relative size, 0 is style-sheet's normal size, -1 is smaller, +1 is bigger")
+    (property-description 'font-style symbol? "font definition for a special purpose, one of: finger volta timesig mark script large Large dynamic")
+    (property-description 'font-series symbol? "partial font definition: medium, bold")
+    (property-description 'font-shape symbol?  "partial font definition: upright or italic")
+    (property-description 'font-family symbol? "partial font definition: music roman braces dynamic math ...")
+    (property-description 'font-name symbol? "partial font definition: base name of font file FIXME: should override other partials")
+    (property-description 'font-point-size number? "partial font definition: exact font size in points FIXME: should override font-relative-size")
+    (property-description 'font-relative-size number? "partial font definition: the relative size, 0 is style-sheet's normal size, -1 is smaller, +1 is bigger")
     (property-description 'align number? "the alignment of the text, 0 is horizontal, 1 is vertical")
     (property-description 'lookup symbol? "lookup method: 'value for plain text, 'name for character-name")
     (property-description 'raise number? "height for text to be raised (a negative value lowers the text")

@@ -125,7 +125,7 @@ Break_align_engraver::acknowledge_element (Score_element_info inf)
 	  */
 	  edge->set_extent_callback (Score_element::point_dimension_callback_proc, X_AXIS);
 	  
-	  align_l_->set_elt_property ("group-center-element", edge->self_scm ());
+	  align_l_->set_elt_property ("self-alignment-X", edge->self_scm ());
 
 	  announce_element (edge, 0);
 	  column_alist_ = scm_assoc_set_x (column_alist_, edge_sym, edge->self_scm ());

@@ -36,9 +36,10 @@ protected:
 bool
 Text_engraver::do_try_music (Music *m)
 {
-  if (Text_script_req *r = dynamic_cast<Text_script_req*> (m))
+  if (dynamic_cast<Text_script_req*> (m)
+      && m->get_mus_property ("text-type") != ly_symbol2scm ("dynamic"))
     {
-      reqs_.push (r);
+      reqs_.push (dynamic_cast<Text_script_req*> (m));
       return true;
     }
   return false;
@@ -85,15 +86,11 @@ Text_engraver::do_process_music ()
       // URG: Text vs TextScript
       String basic = "TextScript";
 
-#if 0
-      // maybe use some sort of TYPE for script/dynamic/finger?
-      
-				// separate engraver?
-      if (r->style_str_== "finger")
+      if (r->get_mus_property ("text-type") == ly_symbol2scm ("finger"))
 	{
 	  basic = "Fingering";
 	}
-#endif
+
       Item *text = new Item (get_property (basic.ch_C ()));
 
       /*

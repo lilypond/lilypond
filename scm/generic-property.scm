@@ -155,7 +155,7 @@
 
 (define generic-All-properties
   (cons 'all
-	(list (list 'fontSize number? 'font-size))))
+	(list (list 'fontSize number? 'font-relative-size))))
 
 
 (define generic-notehead-properties

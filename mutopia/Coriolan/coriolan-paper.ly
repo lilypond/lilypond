@@ -76,10 +76,6 @@
 
 		%% urg: in pt?
 		barNumberScriptPadding = #15
-		%% URG: this changes dynamics too
-		%%textStyle = #"italic"
-		timeSignatureStyle = #"C"
-		marginScriptHorizontalAlignment = #1
 		maximumRestCount = #1
 	}
 }

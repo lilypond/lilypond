@@ -15,9 +15,13 @@ the GNU Project.
 
 LilyPond uses a versioning scheme similar to the Linux kernel.  In a
 version "x.y.z", an even second number 'y' denotes a stable version.
-For development versions 'y' is odd.  For using straightforward score
-production, please use the latest stable version.  Development versions
-may not produce good or nice scores.
+For development versions 'y' is odd.  Sh, in theory, version 1.2 is stable,
+which means that there are no glaring errors in it. In practice 1.2.x is also
+unmaintained.
+
+1.3.x is in healthy development: lots of problems turn up, but they're
+fixed quickly. Therefore we recommend you try 1.2.x, if you have any
+problem with it, upgrade to the latest 1.3.x release.
 
 @section Requirements
 
@@ -50,8 +54,7 @@ on how to make the HTML documentation.
   make -C Documentation/user/ dvi 
 @end example 
 
-You need a working LilyPond binary to create the DVI sources  .
- 
+You need a working LilyPond binary to create the DVI and HTML sources.
 
 @item  use ASCII. Do
 using @example 
@@ -71,8 +74,20 @@ criticism, comments, bugreports, patches, etc., but please,
  
 @end example 
 
-and @emph{not} to us personally.  See @file{Documentation/mail.texi} for
-more info.
+and @emph{not} to us personally. We have the following mailing lists:
+
+@itemize @bullet
+@item @uref{http://mail.gnu.org/mailman/listinfo/info-gnu-music,info-gnu-music@@gnu.org}
+is a low-volume list for information on the GNU Music project.
+    This list is moderated; ask 
+    @email{drl@@gnu.org, David R. Linn} or
+    @email{hanwen@@cs.uu.nl, Han-Wen} to send announcements for this list.
+@item @uref{http://mail.gnu.org/mailman/listinfo/help-gnu-music,help-gnu-music@@gnu.org}
+    For help with using LilyPond.
+@item @uref{http://mail.gnu.org/mailman/listinfo/bug-gnu-music,bug-gnu-music@@gnu.org}
+If you have bugreports, you should send them to this list.
+@end itemize
+
 
 @section Windows 32
 

@@ -169,9 +169,6 @@
 			%% URG: this changes dynamics too
 			%%textStyle = #"italic"
 			timeSignatureStyle = #"C"
-			instrumentScriptPadding = #60  %% urg, this is in pt
-			instrScriptPadding = #40 %% urg, this is in pt
-			marginScriptHorizontalAlignment = #1
 			maximumRestCount = #1
 		}
 	}

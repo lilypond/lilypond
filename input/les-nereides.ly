@@ -120,19 +120,19 @@ treble = \context Voice=treble \notes\relative c''{
 
     \property Score.PaperColumn  \push #'space-factor = #0.6
     \property Score.PaperColumn  \push #'to-musical-spacing-factor = #0.04
-    \property Voice.NoteHead \push #'font-size = #-1
-    \property Voice.Stem \push #'font-size = #-1
+    \property Voice.NoteHead \push #'font-relative-size = #-1
+    \property Voice.Stem \push #'font-relative-size = #-1
     \property Voice.Stem \push #'length = #6
     \property Voice.Stem \push #'beamed-lengths =
         #(map (lambda (x) (* 1.25 x)) '(0.0 2.5 2.0 1.5))
     \property Voice.Stem \push #'beamed-minimum-lengths =
         #(map (lambda (x) (* 1.25 x)) '(0.0 1.5 1.25 1.0))
 
-    \property Voice.Beam \push #'font-size = #-1
-    \property Voice.TextScript \push #'font-size = #-1
-    \property Voice.Fingering \push #'font-size = #-1
-    \property Voice.Slur \push #'font-size = #-1
-    \property Staff.Accidentals \push #'font-size = #-1
+    \property Voice.Beam \push #'font-relative-size = #-1
+    \property Voice.TextScript \push #'font-relative-size = #-1
+    \property Voice.Fingering \push #'font-relative-size = #-1
+    \property Voice.Slur \push #'font-relative-size = #-1
+    \property Staff.Accidentals \push #'font-relative-size = #-1
     \property Voice.Beam \push #'space-function = #grace-beam-space-function
 
     )cis16
@@ -144,16 +144,16 @@ treble = \context Voice=treble \notes\relative c''{
     \property Staff."c0-position" = #-6
     [cis32 a^1 fis^4 dis] [cis a )fis-2] s % s s
 
-    \property Voice.NoteHead \pop #'font-size
-    \property Voice.Stem \pop #'font-size
+    \property Voice.NoteHead \pop #'font-relative-size
+    \property Voice.Stem \pop #'font-relative-size
     \property Voice.Stem \pop #'length
     \property Voice.Stem \pop #'beamed-lengths
     \property Voice.Stem \pop #'beamed-minimum-lengths
-    \property Voice.Beam \pop #'font-size
-    \property Voice.TextScript \pop #'font-size
-    \property Voice.Fingering \pop #'font-size
-    \property Voice.Slur \pop #'font-size
-    \property Staff.Accidentals \pop #'font-size
+    \property Voice.Beam \pop #'font-relative-size
+    \property Voice.TextScript \pop #'font-relative-size
+    \property Voice.Fingering \pop #'font-relative-size
+    \property Voice.Slur \pop #'font-relative-size
+    \property Staff.Accidentals \pop #'font-relative-size
     \property Voice.Beam \pop #'space-function
     \property Score.PaperColumn  \pop #'space-factor
     \property Score.PaperColumn \pop #'to-musical-spacing-factor
@@ -266,17 +266,17 @@ bass = \context Voice=bass \notes\relative c{
     s4 s8 s32 s  s \clef bass;
     \property Score.PaperColumn  \push #'space-factor = #0.6
     \property Score.PaperColumn  \push #'to-musical-spacing-factor = #0.1
-    \property Voice.NoteHead \push #'font-size = #-1
-    \property Voice.Stem \push #'font-size = #-1
+    \property Voice.NoteHead \push #'font-relative-size = #-1
+    \property Voice.Stem \push #'font-relative-size = #-1
     \property Voice.Stem \push #'length = #6
-    \property Voice.Slur \push #'font-size = #-1
+    \property Voice.Slur \push #'font-relative-size = #-1
     \property Voice.Slur \push #'attachment-offset = #'((-0.5 . 0) . (0.5 . 0))
     <e,,,32( e,>
 
-    \property Voice.NoteHead \pop #'font-size
-    \property Voice.Stem \pop #'font-size
+    \property Voice.NoteHead \pop #'font-relative-size
+    \property Voice.Stem \pop #'font-relative-size
     \property Voice.Stem \pop #'length
-    \property Voice.Slur \pop #'font-size
+    \property Voice.Slur \pop #'font-relative-size
     \property Score.PaperColumn  \pop #'space-factor
     \property Score.PaperColumn \pop #'to-musical-spacing-factor
      <)gis'2 e>
@@ -440,7 +440,7 @@ lowerDynamics = \context Dynamics=lower \notes{
 	    \consists "Text_engraver";
 	    %GURGURGU, text is initialised using TextScript
 	    TextScript \push #'style = #"italic"
-	    %%% TextScript \push #'font-size = #2
+	    %%% TextScript \push #'font-relative-size = #2
 
 	    \consists "Skip_req_swallow_translator";
 

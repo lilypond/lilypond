@@ -58,22 +58,21 @@ Text_item::string2molecule (Score_element *me, SCM text, SCM properties)
   if (paper == SCM_EOL)
     paper = scm_string_to_symbol (me->paper_l ()->get_scmvar ("style_sheet"));
 
-  SCM font_name;
+  // should move fallback to scm
+  SCM font_name = ly_str02scm ("cmr10");
   if (gh_pair_p (style))
     {
       SCM f = get_elt_property (me, "style-to-font-name");
-      font_name = gh_call2 (f, paper, gh_cdr (style));
+      if (gh_procedure_p (f))
+	font_name = gh_call2 (f, paper, gh_cdr (style));
     }
   else
     {
       SCM f = get_elt_property (me, "properties-to-font-name");
-      font_name = gh_call2 (f, paper, properties);
+      if (gh_procedure_p (f))
+	font_name = gh_call2 (f, paper, properties);
     }
    
-  // should move fallback to scm
-  if (!gh_string_p (font_name))
-    font_name = ly_str02scm ("cmr10");
-    
   SCM lookup = scm_assoc (ly_symbol2scm ("lookup"), properties);
 
   Molecule mol;

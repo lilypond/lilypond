@@ -117,7 +117,7 @@ if 1:					# need new a namespace
 			sys.stderr.write ('\nNot smart enough to convert \\octave')
 			raise FatalConversionError()
 		
-		return lines
+		return str
 
 	conversions.append (
 		((0,1,19), conv, 'deprecated \\octave; can\'t convert automatically'))
@@ -148,7 +148,7 @@ if 1:
 
 if 1:
 	def conv (str):
-		return lines
+		return str
 
 	conversions.append (
 		((1,0,0), conv, '0.1.21 -> 1.0.0 '))
@@ -168,9 +168,9 @@ if 1:
 
 if 1:
 	def conv(str):
-		if re.search ('\\\\header', lines):
+		if re.search ('\\\\header', str):
 			sys.stderr.write ('\nNot smart enough to convert to new \\header format')
-		return lines
+		return str
 	
 	conversions.append ((1,0,2), conv, '\\header { key = concat + with + operator }')
 
@@ -233,7 +233,7 @@ if 1:
 
 if 1:
 	def conv(str):
-		return lines
+		return str
 	conversions.append ((1,0,12), conv, 'Chord syntax stuff')
 
 
@@ -541,6 +541,10 @@ if 1:
 if 1:
 	def conv (str):
 		str = re.sub ('ChordNames*', 'ChordNames', str)
+		if re.search ('\\\\textscript "[^"]* *"[^"]*"', str):
+			sys.stderr.write ('\nNot smart enough to convert to new \\textscript markup text')
+
+		str = re.sub ('\\textscript +\("[^"]*"\)', '\\textscript #\1', str)
 
 		return str
 	
