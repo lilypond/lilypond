@@ -1238,7 +1238,7 @@ linking to the menu.
 			
 			ly.system ('%s --preview --postscript --verbose %s ' % (ly2dvi_binary, base) ) 
 
-			ly.make_page_images (base)
+			ly.make_ps_images (base)
 			ly.system ('gzip -9 - < %s.ps > %s.ps.gz' %  (base, base))
 			
 		def size_str (fn):
@@ -1380,7 +1380,7 @@ def compile_all_files (chunks):
 		ly.system ("dvips -E -o %s.eps %s" % (file, file))
 	map (to_eps, eps)
 
-	map (lambda x: ly.make_ps_images (x + '.eps'), png)
+	map (ly.make_ps_images, map (lambda x: x + '.eps', png))
 	os.chdir (d)
 
 

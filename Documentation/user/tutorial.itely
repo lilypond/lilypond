@@ -769,8 +769,16 @@ of music is multiplied by the fraction.  Triplets make notes occupy
   \times 2/3 { c r c }
 @end lilypond 
 
+Grace notes are also made by prefixing a note, or a set of notes with
+a keyword. In this case, the keyword is @code{\grace}. 
+@lilypond[relative 1, verbatim,fragment]
+  \grace b16-( c4-)
+  \grace { d16-( e } d4-)
+@end lilypond
 
-TODO: grace notes
+@noindent
+More information on the use of grace notes is in @ref{Grace notes}.
+
 
 Comments are pieces of the input that are ignored.  There are two
 types of comments. A line comments are introduced by @code{%}: after
@@ -850,7 +858,7 @@ line}. It is entered as two  underscores, i.e.,
 @example
   \lyrics @{ I want to break free __ @}
 @end example 
-@lilypond[singleline]
+@lilypond[]
 \score  {
  \notes {
   \addlyrics
@@ -858,14 +866,16 @@ line}. It is entered as two  underscores, i.e.,
    \partial 8
      c8
      \times 2/3 { f g g } \times 2/3 { g4-( a2-) }
+
+     %% ugh, this is to deal with bugs in the extender implementation
+     \blankNotes
+     c8
    }
    \context Lyrics  \lyrics { I want to break free __ }
  }
- \paper{ }
+ \paper{ linewidth = 9.0 \cm }
 }
 @end lilypond
-
-TODO: fix extender lines here.
 
 Similarly, hyphens between words can be entered as two dashes,
 resulting in a centered hyphen between two syllables.
@@ -1057,8 +1067,18 @@ voices with @code{\\}:
     { r4 g4 f2 f4 } >
 @end lilypond
 The notation @code{< .. >} is a shorthand for @code{\simultaneous @{
-.. @}}.  More features of polyphonic typesetting are in the notation
-manual, @ref{Polyphony}.
+.. @}}.
+
+For polyphonic typesetting spacer rests can also be convenient: these
+are rests that do not print.  It is useful for filling up voices that
+temporarily do not play:
+@lilypond[verbatim,relative]
+  < { a4 g2 f4-~ f4 } \\
+    { s4 g4 f2 f4 } >
+@end lilypond
+
+More features of polyphonic typesetting are in the notation manual
+in @ref{Polyphony}.
 
 @node Piano staffs
 @section Piano staffs
@@ -1067,6 +1087,34 @@ manual, @ref{Polyphony}.
 @cindex cross staff voice, manual
 @cindex @code{\translator}
 
+Piano music is always typeset in two staffs connected by a brace.
+Printing such a staff is done similar to the polyphonic example in
+@ref{More basics}:
+@example
+ < \context Staff = up @{ @dots{} @}
+   \context Staff = down @{ @dots{} @}
+ >
+@end example
+but now this entire expression must be interpreted as a
+@code{PianoStaff}:
+@example
+ \context PianoStaff < \context Staff @dots{} >
+@end example
+
+Here is a complete-fledged example:
+@lilypond[relative 0,fragment]
+\context PianoStaff
+ < \context Staff = up {
+     c4 c g g  }
+   \context Staff = down {
+     \clef bass c, c' e c }
+ >
+@end lilypond
+
+More information on formatting piano music is in @ref{Piano music}. 
+
+@node Setting variables
+@section Setting variables
 
 
 
@@ -1089,51 +1137,6 @@ number is also used by the @code{convert-ly} program (See
 version automatically.
 
 
-@separate
-@example 
-s1 s2. r4 
-@end example 
-@code{s} is a spacer rest.  It does not print anything, but it does have
-the duration of a rest. It is useful for filling up voices that
-temporarily do not play. In this case, the viola does not come until one
-and a half measure later. 
-
-@separate
-@example 
-\grace <<e g>>-( <<d f>>4-) <<c e>>2 
-@end example
-@cindex @code{\grace}
-@cindex ornaments
-@cindex grace notes
-@code{\grace} introduces grace notes.  It takes one argument, in this
-case a chord. A slur is introduced starting from the @code{\grace}
-ending on the following chord.
-
-@separate
-@example 
-\times 2/3 
-@end example
-@cindex tuplet
-@cindex triplets
-
-@separate
-@example 
-@{ <<d f>>8 <<e g>> <<f a>> @} 
-@end example 
-The piece of music to be `tripletted' is sequential music containing
-three chords.
-
-
-The bass has a little hoom-pah melody to demonstrate parts switching
-between staves.  Since it is repetitive, we use repeats:
-@separate
-@example 
-hoomPah  =  \repeat unfold 8
-@end example
-@cindex unfolded @code{\repeat}
-The unfolded repeat prints the notes in its argument as if they were
-written out in full eight times.
-@separate
 
 @node Fine tuning a piece
 @section  Fine tuning a piece

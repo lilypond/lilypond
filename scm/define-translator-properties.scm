@@ -105,7 +105,7 @@ set, \\addlyrics will assume that beams, slurs and ties signal
 melismata, and align lyrics accordingly.
 ")
 
-(translator-property-description 'barAlways boolean? " If set to true a bar line is drawn after each note.
+(translator-property-description 'barAlways boolean? "If set to true a bar line is drawn after each note.
 ")
 (translator-property-description 'barCheckSynchronize boolean? "If
 true then reset measurePosition when finding a barcheck. Turn off when

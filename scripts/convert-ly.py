@@ -1210,6 +1210,22 @@ if 1:
 	
 	conversions.append (((1,7,22), conv,"remove GraceContext"))
 
+if 1:
+	def conv(str):
+		str = re.sub (
+			"barNonAuto *= *##t",
+			"automaticBars = ##f",
+			str)
+		str = re.sub (
+			"barNonAuto *= *##f",
+			"automaticBars = ##t",
+			str)
+		return str
+	
+	conversions.append (((1,7,23), conv,"barNonAuto -> automaticBars"))
+	
+
+
 ################################
 #	END OF CONVERSIONS	
 ################################

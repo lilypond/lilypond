@@ -79,9 +79,6 @@ Instrument_name_engraver::create_text ()
       if (text_->get_grob_property ("text") != txt)
 	text_->set_grob_property ("text", txt);
 
-      if (new_markup_p (txt))
-	text_->set_grob_property ("molecule-callback", new_markup_brewer());
-      
       if (delim_)
         text_->set_parent (delim_, Y_AXIS);
       

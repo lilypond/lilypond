@@ -1503,7 +1503,7 @@ voices in the same staff share accidentals, but staves do not.
       immediately, and if @var{lazyness} is @code{#t} then the accidental
       lasts forever.
 
-[TODO: should use  +infinity for this case?]
+@c [TODO: should use  +infinity for this case?]
 
 @end table
 
@@ -3068,7 +3068,7 @@ next one. Such a line is called an extender line, and it is entered as
 
 @refbugs
 
-The definition of lyrics mode is too complex.
+The definition of lyrics mode is too complex. 
 
 @node The Lyrics context
 @subsection  The Lyrics context
@@ -3137,7 +3137,8 @@ An example of a  SATB score setup is in the file
 @refbugs
 
 @code{\addlyrics} is not automatic enough: melismata are not detected
-automatically, and melismata are not stopped when they hit a rest.
+automatically, and melismata are not stopped when they hit a rest.  A
+melisma on the last note in a melody is not printed.
 
 
 @node More stanzas

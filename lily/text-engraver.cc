@@ -116,9 +116,6 @@ Text_engraver::process_acknowledged_grobs ()
 
       SCM mark = r->get_mus_property ("text");
 
-      if (new_markup_p (mark))
-	text->set_grob_property ("molecule-callback", new_markup_brewer());
-      
       text->set_grob_property ("text", mark);
       announce_grob (text, r->self_scm ());
       texts_.push (text);

@@ -97,11 +97,11 @@ two = \context Staff \notes\relative c
 %	\translator Staff=lower \stemUp
 	\context Staff <
 		 {
-		        \translator Staff = lower
+	        \translator Staff = lower
 		  a8 g fis16 e fis d
 		}\\
 		 {
-		        \translator Staff = upper
+	        \translator Staff = upper
 		  d8 a~ a4
 		}
 	>
