@@ -1,3 +1,31 @@
+pl 63.uu1
+	- mutopia updates  courtesy Peter Chubb
+	- Don't make Time_scaled_music for c4*2/3 entry, only do the
+time compression.  Should cure spurious Tuplet_brace/spanner warnings.
+
+pl 63.hwn1
+	- bf: Spacing for key/timesig at end of staff.
+	- negative font magnification
+	- slurs on grace notes.
+	- paper var stem_default_neutral_direction
+	- bf: dot-columns.
+	
+pl 63.jcn2
+	- bf: midi2ly/duration-iter/convert: handle durations >= 1
+	- set reasonable default for text/dynamic paddings
+
+pl 63.jcn1
+	- junked some of (my) old metapost stuff
+
+pl 63.lu1
+	- some faq entries
+	- chord input and proceccing fixes
+	- bf: nederlands.ly
+
+**********
+pl 62.jcn4
+	- fixes coriolan
+
 pl 62.hwn1
 	- ps-to-pfa.py: use std modules re, find 
 	- minor input fixes
