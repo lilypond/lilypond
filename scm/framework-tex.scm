@@ -275,10 +275,16 @@
 
 (define-public (convert-to-ps book name)
   (let* ((paper (ly:paper-book-paper book))
+	 (preview? (string-contains name ".preview"))
 	 (papersizename (ly:output-def-lookup paper 'papersizename))
 	 (landscape? (eq? #t (ly:output-def-lookup paper 'landscape)))
-	 (cmd (string-append "dvips -t " papersizename
-			     (if landscape? " -t landscape " " ") 
+	 (cmd (string-append "dvips "
+			     
+			     (if preview?
+				 " -E "
+				 (string-append " -t " papersizename))
+
+			     (if landscape? " -t landscape " " ")
 			     "  -u+ec-mftrace.map -u+lilypond.map -Ppdf "
 			     (basename name ".tex"))))
     
