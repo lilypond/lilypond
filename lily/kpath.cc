@@ -13,6 +13,7 @@
 
 #define popen REALLYUGLYKLUDGE
 #define pclose ANOTHERREALLYUGLYKLUDGE
+#define getopt YAKLUDGE
 
 #if HAVE_KPATHSEA_KPATHSEA_H
 extern "C" {
