@@ -208,7 +208,7 @@ A chord is formed by a enclosing a set of pitches in @code{<} and
 articulations, just like simple notes.
 
 
-@node  Rests
+@node Rests
 @subsection Rests
 @cindex Rests
 
@@ -512,7 +512,7 @@ instead.
 Nested tuplets are not formatted automatically.  In this case, outer
 tuplet brackets should be moved manually.
 
-@node Easy Notation note heads 
+@node Easy Notation note heads
 @subsection Easy Notation note heads
 
 @cindex easy notation
@@ -722,7 +722,7 @@ been checked for errors:
 c d b bes a g c2 } 
 @end lilypond
 
-@node Automatic note splitting 
+@node Automatic note splitting
 @subsection Automatic note splitting
 
 Long notes can be converted automatically to tied notes.  This is done
@@ -1415,7 +1415,7 @@ Some beams should be horizontal. These are so-called concave beams.
 @end ignore
 
 
-@node Setting automatic beam behavior 
+@node Setting automatic beam behavior
 @subsection Setting automatic beam behavior 
 
 @cindex @code{autoBeamSettings}
@@ -1791,7 +1791,7 @@ for the problematic notes.
 * Dynamics::                    
 @end menu
 
-@node Slurs 
+@node Slurs
 @subsection Slurs
 @cindex Slurs
 
@@ -2338,7 +2338,7 @@ Overriding settings cannot be done in separate styles for appoggiatura
 and acciaccatura.
 
 
-@node Glissando 
+@node Glissando
 @subsection Glissando
 @cindex Glissando 
 
@@ -3268,7 +3268,7 @@ arpeggiate the chord. To draw these brackets, set the
 It is not possible to mix connected arpeggios and unconnected
 arpeggios in one @internalsref{PianoStaff} at the same time.
 
-@node  Staff switch lines
+@node Staff switch lines
 @subsection Staff switch lines
 
 
@@ -4262,7 +4262,7 @@ you must put @code{\transpose} outside of @code{\relative}, since
 
 
 
-@node  Multi measure rests
+@node Multi measure rests
 @subsection Multi measure rests
 @cindex multi measure rests
 @cindex Rests, multi measure
@@ -4567,7 +4567,7 @@ output:
 @end example
 
 
-@node Ancient notation 
+@node Ancient notation
 @section Ancient notation
 
 @cindex Vaticana, Editio
@@ -7412,7 +7412,7 @@ layout property name:
 
 
 
-@node Tuning objects 
+@node Tuning objects
 @subsection Tuning objects 
 
 @cindex object description
