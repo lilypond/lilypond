@@ -10,35 +10,20 @@ table_sixteen=
    \texid 	"\input lilyponddefs \musixsixteendefs"
    % index TeXstring, 	xmin xmax ymin ymax
 
-    "scripts" = \table {
-        "stopped" "\plusstop" -2.20\pt 2.20\pt -2.20\pt 2.20\pt 
-        "open" "\ouvert" -1.07\pt 1.07\pt -0.00\pt 2.67\pt 
-	"fermata" "\ufermata"		0.0\pt 0.0\pt	0.0\pt 6.0\pt
-	"-fermata" "\dfermata"		0.0\pt 0.0\pt	-6.0\pt 0.0\pt
-	"portato" "\portato"		0.0\pt 4.0\pt	0.0\pt	2.0\pt
-	"-portato" "\iportato"		0.0\pt 4.0\pt	-2.0\pt	0.0\pt
-	"tenuto" "\utenuto"			0.0\pt 4.0\pt	-1.0\pt	1.0\pt
-	"-tenuto" "\dtenuto"		0.0\pt 4.0\pt	-1.0\pt	1.0\pt
-	"sforzato" "\sforzatoaccent"		-0.8\pt 4.0\pt	-1.92\pt 1.92\pt
-	"marcato" "\umarcato"		0.0\pt 4.0\pt	0.0\pt	4.0\pt
-	"-marcato" "\dmarcato"		0.0\pt 4.0\pt	-4.0\pt	0.0\pt
-	"staccato" "\staccato"		0.0\pt	0.0\pt 	-1.1\pt 1.1\pt
-	"staccatissimo" "\ustaccatissimo"	0.0\pt	0.0\pt	0.0\pt	1.0\pt
-	"-staccatissimo" "\dstaccatissimo"	0.0\pt	0.0\pt 	0.0\pt	1.0\pt
-	"upbow" "\upbow"			-1.0\pt	6.0\pt	0.0\pt	5.0\pt
-	"downbow" "\downbow"		0.0\pt	5.0\pt	0.0\pt 7.5\pt
+
+	%{ 
 	"back" "\backorfront"		0.0\pt	6.0\pt	0.0\pt	3.0\pt
 	"-front" "\backorfront"		0.0\pt	6.0\pt	0.0\pt	3.0\pt
 	"heel" "\heel"			0.0\pt	6.0\pt	-1.0\pt	5.0\pt
-	"toe" "\toe"			0.0\pt	6.0\pt	-1.0\pt	5.0\pt
+	"toe" "\\toe"			0.0\pt	6.0\pt	-1.0\pt	5.0\pt
 	"bheel" "\bheel"			0.0\pt	6.0\pt	-1.0\pt	5.0\pt
 	"btoe" "\btoe"			0.0\pt	6.0\pt	-1.0\pt	5.0\pt
 	"fheel" "\fheel"			0.0\pt	6.0\pt	-1.0\pt	5.0\pt
 	"ftoe" "\ftoe"			0.0\pt	6.0\pt	-1.0\pt	5.0\pt
 	"-back" "\backorfront"		0.0\pt	6.0\pt	0.0\pt	3.0\pt
 	"front" "\backorfront"		0.0\pt	6.0\pt	0.0\pt	3.0\pt
-	"turn"  "\turn"			-2.0\pt	7.0\pt	0.0\pt	4.0\pt
-	}
+	"turn"  "\\turn"			-2.0\pt	7.0\pt	0.0\pt	4.0\pt
+	%}
 
      "style" = \table {
 		"roman"	"\settext{%}"	0.0\pt	7.50\pt	0.0\pt	8.0\pt
@@ -83,8 +68,8 @@ table_sixteen=
      }
 
      "streepjes" = \table {
-	"toplines"	"\topledgerlines{%}{%}"	-1.0\pt	7.0\pt	0.0\pt	0.0\pt
-	"botlines"	"\botledgerlines{%}{%}"	-1.0\pt	7.0\pt	0.0\pt	0.0\pt
+	"toplines"	"\\topledgerlines{%}{%}"	-1.0\pt	7.0\pt	0.0\pt	0.0\pt
+	"botlines"	"\\botledgerlines{%}{%}"	-1.0\pt	7.0\pt	0.0\pt	0.0\pt
      }
 
      "bars" = \table {
@@ -100,26 +85,6 @@ table_sixteen=
 
      }
 
-     "rests" = \table {
-	"-2o"	"\longarest"		0.0\pt  6.0\pt  0.0\pt  4.0\pt
-	"-2"	"\longarest"		0.0\pt	6.0\pt	0.0\pt	4.0\pt
-	"-1o"	"\breverest"		0.0\pt  6.0\pt  0.0\pt  4.0\pt
-	"-1"	"\breverest"		0.0\pt	6.0\pt	0.0\pt	4.0\pt
-	"0o"	"\outsidewholerest"	0.0\pt  6.0\pt  0.0\pt  2.0\pt
-	"0"	"\wholerest"		0.0\pt	6.0\pt	0.0\pt	2.0\pt
-	"1"	"\halfrest"		0.0\pt	6.0\pt	-2.0\pt	0.0\pt
-	"1o"	"\outsidehalfrest"		0.0\pt	6.0\pt	-2.0\pt	0.0\pt
-	"2o"	"\quartrest"		-5.0\pt	2.0\pt	-5.0\pt	5.0\pt
-	"3o"	"\eighthrest"		0.0\pt	5.0\pt	0.0\pt	8.0\pt
-	"4o"	"\sixteenthrest"		0.0\pt	6.0\pt	0.0\pt	12.0\pt
-	"2"	"\quartrest"		-5.0\pt	2.0\pt	-5.0\pt	5.0\pt
-	"3"	"\eighthrest"		0.0\pt	5.0\pt	0.0\pt	8.0\pt
-	"4"	"\sixteenthrest"		0.0\pt	6.0\pt	0.0\pt	12.0\pt
-	"5"	"\thirtysecondrest"	0.0\pt	6.0\pt	0.0\pt	16.0\pt
-	"6"	"\sixtyfourthrest"	0.0\pt	6.0\pt	0.0\pt	16.0\pt
-	"7"	"\hundredtwentyeighthrest"	0.0\pt	6.0\pt	0.0\pt	16.0\pt
-     }
-
      "meters" = \table {
 	"C"	"\fourfourmeter"		0.0\pt	10.0\pt	-5.0\pt	5.0\pt
 	"C2"	"\allabreve"		0.0\pt	10.0\pt	-5.0\pt	5.0\pt
@@ -128,7 +93,7 @@ table_sixteen=
      % dims ignored for this table
      "param" = \table {
 	"brace"	"\pianobrace{%}"	0.0\pt	0.0\pt	0.0\pt	0.0\pt
-	"meter"	"\generalmeter{%}{%}"	0.0\pt	10.0\pt	-5.0\pt	5.0\pt
+	"meter"	"\generalmeter{%}{%}"	0.0\pt	10.0\pt	-8.0\pt	8.0\pt
 	"linestaf"	"\linestafsym{%}{%}"
 	"stem"	"\stem{%}{%}"
 	"fill"	"\hbox{}"
@@ -137,16 +102,11 @@ table_sixteen=
 	"decrescendosym"	"\decrescendosym{%}"	0.0\pt	0.0\pt	-3.0\pt	3.0\pt
      }
 
-     "dots" = \table {
-	"1"	"\lsingledot"		0.0\pt	2.0\pt	-1.0\pt	1.0\pt
-	"2"	"\ldoubledot"		0.0\pt	5.0\pt	-1.0\pt	1.0\pt
-	"3"	"\ltripledot"		0.0\pt	8.0\pt	-1.0\pt	1.0\pt
-     }
 
      "flags" = \table {
 	"u3"	"\eighthflag"		0.0\pt	4.0\pt	0.0\pt	0.0\pt
 	"u4"	"\sixteenthflag"		0.0\pt	4.0\pt	0.0\pt	0.0\pt
-	"u5"	"\thirtysecondflag"	0.0\pt	4.0\pt	0.0\pt	0.0\pt
+	"u5"	"\\thirtysecondflag"	0.0\pt	4.0\pt	0.0\pt	0.0\pt
 	"u6"	"\sixtyfourthflag"	0.0\pt	4.0\pt	0.0\pt	0.0\pt
 	"u7"	"\hundredtwentyeighthflag"	0.0\pt	4.0\pt	0.0\pt	0.0\pt
 	"d3"	"\deighthflag"		0.0\pt	4.0\pt	0.0\pt	0.0\pt
