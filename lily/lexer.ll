@@ -89,7 +89,6 @@ HORIZONTALWHITE		[ \t]
 BLACK		[^ \n\t\f\r]
 RESTNAME	[rs]
 NOTECOMMAND	\\{A}+
-ANDREWLYRICS		([^ \n\t\f\\{}<>0-9";.|]|\\[^a-zA-Z\]\[<>])[^0-9 \t\n\f]
 LYRICS		({AA}|{TEX})[^0-9 \t\n\f]*
 ESCAPED		[nt\\'"]
 PLET		\\\[
@@ -159,10 +158,10 @@ TELP		\\\]
 	Identifier * id = lookup_identifier (s);
 	if (id) 
 	  {
-	    String* s_p = id->access_String ();
-	    DOUT << "#include `" << *s_p << "\'\n";
-	    new_input (*s_p, source_global_l);
-	    delete s_p;
+	    String* s_l = id->access_content_String (false);
+	    DOUT << "#include `" << *s_l << "\'\n";
+	    new_input (*s_l, source_global_l);
+
 	    yy_pop_state ();
 	  }
 	else
