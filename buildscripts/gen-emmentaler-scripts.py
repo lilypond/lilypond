@@ -29,7 +29,7 @@ New();
 
 # Separate Feta versioning?
 #         *  using 20 as Weight works for gnome-font-select widget: gfs
-SetFontNames("%(name)s", "%(name)s", "%(name)s %(design_size)d", "%(design_size)d", "GNU GPL", "@TOPLEVEL_VERSION@");
+SetFontNames("%(name)s-%(design_size)d", "%(name)s", "%(name)s %(design_size)d", "%(design_size)d", "GNU GPL", "@TOPLEVEL_VERSION@");
 
 MergeFonts("feta%(design_size)d.pfa");
 MergeFonts("parmesan%(design_size)d.pfa");

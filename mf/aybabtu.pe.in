@@ -1,10 +1,62 @@
 #!@FONTFORGE@
-
 # all your brace are belong to us
 
-New();
+Open("feta-braces-b.pfa");
+SelectAll();
+Scale(200, 0, 0);
+Generate("feta-braces-b.scale.pfa");
 
-SetFontNames("aybabtu", "LilyPondBraces", "LilyPond Braces", "Regular", "GNU GPL", "@TOPLEVEL_VERSION@");
+Open("feta-braces-c.pfa");
+SelectAll();
+Scale(300, 0, 0);
+Generate("feta-braces-c.scale.pfa");
+
+Open("feta-braces-d.pfa");
+SelectAll();
+Scale(400, 0, 0);
+Generate("feta-braces-d.scale.pfa");
+
+Open("feta-braces-e.pfa");
+SelectAll();
+Scale(500, 0, 0);
+Generate("feta-braces-e.scale.pfa");
+
+Open("feta-braces-f.pfa");
+SelectAll();
+Scale(600, 0, 0);
+Generate("feta-braces-f.scale.pfa");
+
+Open("feta-braces-g.pfa");
+SelectAll();
+Scale(700, 0, 0);
+Generate("feta-braces-g.scale.pfa");
+
+Open("feta-braces-h.pfa");
+SelectAll();
+Scale(800, 0, 0);
+Generate("feta-braces-h.scale.pfa");
+
+Open("feta-braces-i.pfa");
+SelectAll();
+Scale(900, 0, 0);
+Generate("feta-braces-i.scale.pfa");
+
+
+New()
+
+MergeFonts("feta-braces-a.pfa");
+MergeFonts("feta-braces-b.scale.pfa");
+MergeFonts("feta-braces-c.scale.pfa");
+MergeFonts("feta-braces-d.scale.pfa");
+MergeFonts("feta-braces-e.scale.pfa");
+MergeFonts("feta-braces-f.scale.pfa");
+MergeFonts("feta-braces-g.scale.pfa");
+MergeFonts("feta-braces-h.scale.pfa");
+MergeFonts("feta-braces-i.scale.pfa");
+
+
+
+SetFontNames("aybabtu", "aybabtu", "aybabtu", "Regular", "GNU GPL", "@TOPLEVEL_VERSION@");
 
 MergeFonts("feta-braces-a.pfa");
 MergeFonts("feta-braces-b.pfa");

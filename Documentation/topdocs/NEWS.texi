@@ -9,6 +9,9 @@
 @itemize @bullet
 
 @item
+Locations of errors in the input are now calculated more precisely.
+
+@item
 LilyPond now uses Pango and FontConfig for selecting and rendering
 internationalized text in non-@TeX{} backends. A font may be selected
 by using a FontConfig name,

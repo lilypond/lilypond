@@ -79,13 +79,11 @@ y := 10pt#;
 
 for i := 0 step 1 until font_count:
 
-  %% We can't store more than 64 (65?) height dimensions in a TFM
-  %% file, so we make small files.
   save number;
 
   number := braces_per_font * i;
 
-  for j := 0 step 1 until 63:
+  for j := 0 step 1 until (braces_per_font -1):
     % message "l: "&decimal l;
     % note: define_pixels (x) multiplies x by hppp,
     % must never get bigger than infinity
