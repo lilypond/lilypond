@@ -975,7 +975,7 @@
 	(thickness . 1.6)
 	(edge-width . (0.0 . 0.0))
 	(edge-height . (0.7 . 0.7))
-	(shorten-pair . (0.0 . 0.0))
+	(shorten-pair . (-0.2 . -0.2))
 	(before-line-breaking-callback . ,Tuplet_bracket::before_line_breaking)
 	(after-line-breaking-callback . ,Tuplet_bracket::after_line_breaking)
 	(molecule-callback . ,Tuplet_bracket::brew_molecule)

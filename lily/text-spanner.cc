@@ -229,11 +229,11 @@ Text_spanner::setup_pedal_bracket(Spanner *me)
       width[d]  =  0;
       height[d] =  0;
       shorten[d] = 0;
-      if ( gh_pair_p (ew) )
+      if ( ly_number_pair_p (ew) )
 	width[d] +=  gh_scm2double (index_cell (ew, d)) * d;
-      if ( !broken[d] && (gh_pair_p (eh) ) )
+      if ( !broken[d] && (ly_number_pair_p (eh) ) )
 	height[d] += gh_scm2double (index_cell (eh, d));
-      if ( gh_pair_p (sp) )
+      if ( ly_number_pair_p (sp) )
 	shorten[d] +=  gh_scm2double (index_cell (sp, d));
     }
   while (flip (&d) != LEFT);
