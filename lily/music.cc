@@ -283,7 +283,7 @@ LY_DEFINE (ly_extended_make_music, "ly:make-bare-music",
 }
 
 /* todo: property args */
-LY_DEFINE (ly_mutable_music_properties, "ly:mutable-music-properties",
+LY_DEFINE (ly_music_mutable_properties, "ly:music-mutable-properties",
 	  1, 0, 0, (SCM mus),
 	  "Return an alist containing the mutable properties of @var{mus}.\n"
 	  "The immutable properties are not available, since "
@@ -342,12 +342,27 @@ LY_DEFINE (ly_music_transpose, "ly:music-transpose",
   return sc->self_scm ();
 }
 
+/*
+  TODO: should take moment factor?
+ */
+LY_DEFINE (ly_music_compress, "ly:music-compress",
+	  3, 0, 0, (SCM m, SCM factor),
+	  "Compress music object @var{m} by moment @var{factor}."
+	   )
+{
+  Music * sc = unsmob_music (m);
+
+  SCM_ASSERT_TYPE (sc, m, SCM_ARG1, __FUNCTION__, "music");
+  SCM_ASSERT_TYPE (unsmob_moment (factor), factor, SCM_ARG2, __FUNCTION__, "moment");
+  
+  sc->compress (*unsmob_moment (factor));
+  return sc->self_scm ();
+}
 
 Music*
 make_music_by_name (SCM sym)
 {
   SCM make_music_proc = ly_scheme_function ("make-music");
-	
   SCM rv = scm_call_1 (make_music_proc, sym);
 
   /* UGH. */

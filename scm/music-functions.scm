@@ -132,20 +132,31 @@
   "
 This function replaces all repeats  with unfold repeats. It was 
 written by Rune Zedeler. "
+  
   (let ((es (ly:music-property music 'elements))
 	(e  (ly:music-property music 'element))
 	(n  (ly:music-name music)))
     (if (equal? n "Repeated_music")
-	(begin
+	(let*
+	    ((seq-arg? (memq 'sequential-music
+						   (ly:music-property e 'types))))
+	  
 	  (if (equal? (ly:music-property music 'iterator-ctor)
 		      Chord_tremolo_iterator::constructor)
-	      (shift-duration-log music (ly:intlog2 (ly:music-property music 'repeat-count)) 0))
+	      (begin
+		(shift-duration-log music (+ (if seq-arg? 1 0)
+					     (ly:intlog2 (ly:music-property music 'repeat-count))) 0)
+		(if seq-arg?
+		    (ly:music-compress e (ly:make-moment (length (ly:music-property e 'elements)) 1)))
+		))
+	  
 	  (set! (ly:music-property music 'length)
 		Repeated_music::unfolded_music_length)
 	  (set! (ly:music-property music 'start-moment-function)
 		Repeated_music::first_start)
 	  (set! (ly:music-property music 'iterator-ctor)
 		Unfolded_repeat_iterator::constructor)))
+    
     (if (pair? es)
 	(set! (ly:music-property music 'elements)
 	      (map unfold-repeats es)))
