@@ -24,10 +24,6 @@ Spacing_spanner::Spacing_spanner ()
 }
 
 /*
-  cut 'n paste from spring-spacer.cc
-
-  generate springs between columns.
-
 
   The algorithm is partly taken from :
 
@@ -36,6 +32,8 @@ Spacing_spanner::Spacing_spanner ()
   Science, The Ohio State University, 1987.
 
   TOO HAIRY.
+
+  TODO: write comments 
   
  */
 Array<Spring>
