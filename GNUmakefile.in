@@ -56,8 +56,8 @@ web-ext = gz html midi pdf png txt ly
 
 footify=$(PYTHON) $(step-bindir)/add-html-footer.py  --name $(PACKAGE_NAME) --version $(TOPLEVEL_VERSION)
 
-local-web-post: 
-	$(footify) `$(FIND) . -name '*.html' -print`
+local-WWW-post: 
+	$(footify) `$(FIND) $(builddir) -name '*.html' -print`
 	cd $(builddir) && rm -f `find . -name \*.html~ -print`
 	cd $(builddir) && find Documentation input \
 		$(web-ext:%=-path '*/out-www/*.%' -or) -false \

@@ -7,12 +7,16 @@
 @String{CMJ = {Computer Music Journal}}
 
 @TechReport{roush88,
-  note  = {Rules on formatting music formulated for use in computers. Mainly distilled from [Ross] HWN},
   year = {1988},
   title = {Music Formatting Guidelines},
   author = {D. Roush},
   number = {OSU-CISRC-3/88-TR10}, 
   institution = {Department of Computer and Information Science, The Ohio State University},
+
+  note = {Rules on formatting music formulated for use in
+  computers. Mainly distilled from [Ross] HWN},
+
+
 }
 
 
@@ -86,6 +90,7 @@ exhibit intelligent behaviour. HWN}
   note = {A description through examples of a music entry language.
 Apparently it has no formal semantics.  There is also no
 implementation of notation convertor. HWN}
+
 }
 
 
@@ -112,6 +117,7 @@ they seriously program a RISC chip in ... assembler ?!) HWN}
 
 note = {An introduction into HyTime and its score description variant
 SMDL.  With a short  example that is quite  lengthy in SMDL}
+
 }
 
 @Article{wiggins93,
@@ -139,8 +145,8 @@ representation is rather vague. HWN}
   volume =	 17,
   number =	 3,
   url = {http://citeseer.nj.nec.com/52890.html},
-  note = {The title says it all.  This article does not make any
-statements, it points to some problems and solutions with music
+
+  note = {This article  points to some problems and solutions with music
 representation. HWN},
 
 }
@@ -151,7 +157,6 @@ representation. HWN},
   journal = 	 CMJ,
   year = 	 {?},
 
-note = {A no-science-here review of Encore. HWN}
 
 }
 
@@ -165,9 +170,9 @@ note = {A no-science-here review of Encore. HWN}
   volume =	 18,
   number =	 1,
 
-  note = {Some music notation systems are analysed for ease of use, MIDI
-  handling.  No rocket science here.  The article ends with a plea for a
-  standard notation format. HWN},
+  note = {Some music notation systems are analysed for ease of use,
+  MIDI handling.  The article ends with a plea for a standard notation
+  format. HWN},
 
 }
 
@@ -178,7 +183,10 @@ note = {A no-science-here review of Encore. HWN}
   totalentry = {Journal of Music Theory},
   volume={17},
   pages ={292-309},
-  note = {Gourlay\cite{gourlay86} writes: A discussion of Smith's music-printing system}
+
+  note = {Gourlay\cite{gourlay86} writes: A discussion of Smith's
+music-printing system SCORE}
+
 }
 
 
@@ -208,6 +216,7 @@ note = {A no-science-here review of Encore. HWN}
   month = {march},
   year = {1977},
   pages = {63-80},
+
   note = {Gourlay \cite{gourlay86} writes: "A discussion of the
   problems of representing the conventions of musical notation in
   computer algorithms."}
@@ -229,7 +238,8 @@ note = {A no-science-here review of Encore. HWN}
   title = 	 {Beyond MIDI},
   publisher = 	 {MIT Press},
   year = 	 1997,
-  note = {Description of various music interchange formats.}
+
+  note = {A description of various music interchange formats.}
 }
 
 
@@ -272,11 +282,15 @@ pages = {451--454},
   address={Banff},
   month={Sept},
   pages = {118-119},
-  note = {This describes an algorithm which uses springs between adjacent columns. This algorithm is a "subclass" of the LilyPond algorithm. HWN},
-}
+
+  note = {This describes an algorithm which uses springs between
+adjacent columns. }, }
 
 @Article {blostein91,
-  note = {This paper provides a shallow overview of the algorithm used in LIME for spacing individual lines. HWN},
+
+  note = {This paper provides a overview of the algorithm used in LIME
+  for spacing individual lines. HWN},
+
   year =  {1991},
   title = {Justification of Printed Music},
   author = {Dorothea Blostein and Lippold Haken},
@@ -298,8 +312,10 @@ pages = {451--454},
   number = 	 {3},
   month = 	 {march},
   pages = 	 {289--306},
-  note = {A description of various conversions, 
-decisions and issues relating to this interactive editor HWN},
+
+  note = {A description of various conversions, decisions and issues
+relating to this interactive editor HWN},
+
 }
 
 @InProceedings{bouzaiene98:_une,
@@ -335,7 +351,7 @@ year = 1997,
 % MusiCopy
 %
 @TechReport {gourlay87-spacing,
-annote = {Algorithm for generating spacing in one line of (polyphonic) music, tailored for use with MusiCopy. LilyPond uses a variant of it (as of pl 76) HWN},
+annote = {Algorithm for generating spacing in one line of (polyphonic) music, tailored for use with MusiCopy. LilyPond uses a variant of it.},
   year =  {1987},
   title = {Spacing a Line of Music,},
   author = {John S. Gourlay},
@@ -345,7 +361,7 @@ annote = {Algorithm for generating spacing in one line of (polyphonic) music, ta
 
 
 @TechReport {parish87,
-  annote = {A brief overview of {MusiCopy} HWN},
+  annote = {A brief overview of {MusiCopy}},
   year =  {1987},
   title = {{MusiCopy}: An automated Music Formatting System},
   author = {Allen Parish and Wael A. Hegazy and John S. Gourlay and Dean K. Roush and F. Javier Sola},
@@ -355,9 +371,10 @@ annote = {Algorithm for generating spacing in one line of (polyphonic) music, ta
  
 
 @TechReport {gourlay87-formatting,
-note = {This paper discusses the development of algorithms for the
+  note = {This paper discusses the development of algorithms for the
 formatting of musical scores (from abstract). It also appeared at
 PROTEXT III, Ireland 1986},
+
   year =  {1987},
   title = {Computer Formatting of Music},
   author = {John S. Gourlay and A. Parrish
@@ -371,6 +388,7 @@ The Ohio State University},
 @TechReport {hegazy87,
   year =  {1987},
   title = {On the Implementation of the {MusiCopy} Language Processor,},
+
   author = {Wael A. Hegazy},
   number = {OSU-CISRC-10/87-TR34},
   institution={Department of Computer and Information Science, The Ohio State University},
@@ -380,7 +398,7 @@ The Ohio State University},
 
 MDL is short for Music Description Language\cite{gourlay86}. It
 accepts music descriptions that are organised into measures filled
-with voices, those filled notes. The measures can be arranged
+with voices, which are filled with notes. The measures can be arranged
 simultaneously or sequentially.  To address the 2-dimensionality,
 almost all constructs in MDL must be labeled.
 
@@ -392,22 +410,21 @@ MusiCopy attaches graphic information to the objects constructed in
 the input: the elements of the input are partially complete graphic
 objects.
 
-Since the design goals of both LilyPond and MusiCopy were roughly the
-same, both systems have superficial similarities: the details of the
-input format, the notation of "musical state".  However, LilyPond
-stresses extensibility, modularity and separation between content and
-presentation much more, and this shows: LilyPond is more flexible.  To
-be fair: development of MusiCopy was abandoned in 1987, so it is not
-surprising that LilyPond is more mature.
 },
 
 }
 
 
 
+
 @TechReport {hegazy87-breaking-tr,
-annote = {This generalizes \TeX's breaking algorithm to music. It also appeared in Document Manipulation and Typography, J.C. van Vliet (ed) 1988. HWN},
+
+annote = {This generalizes \TeX's breaking algorithm to music. It also
+appeared in Document Manipulation and Typography, J.C. van Vliet (ed)
+1988},
+
   year =  {1987},
+
   title = {Optimal line breaking in music},
   author = {Wael A. Hegazy and John S. Gourlay},
   number = {OSU-CISRC-8/87-TR33},
@@ -430,7 +447,8 @@ ISBN={0-521-36294-6},
 
 
 @TechReport {roush87,
-  note = {User manual of MusiCopy. Includes an impressive example piece.  HWN},
+  note = {User manual of MusiCopy. },
+
   year =  {1987},
   title = {Using {MusiCopy}},
   author = {Dean K. Roush},
@@ -440,7 +458,11 @@ ISBN={0-521-36294-6},
 
 
 @TechReport {parrish87-simultaneities,
-  note = {Placement of balls, stems, dots which occur at the same moment ("Simultaneity") HWN},
+
+note = {This note discusses
+  placement of balls, stems, dots which occur at the same moment
+  ("Simultaneity")},
+
   year =  {1987},
   title = {Computer Formatting of Musical Simultaneities,},
   author = {A. Parrish and John S. Gourlay},
@@ -450,7 +472,7 @@ ISBN={0-521-36294-6},
 
 
 @TechReport {sola87,
-  note = {Overview of a procedure for generating slurs HWN},
+  note = {Overview of a procedure for generating slurs},
   year =  {1987},
   title = {Computer Design of Musical Slurs, Ties and Phrase Marks,},
   author = {F. Sola},
@@ -460,7 +482,10 @@ ISBN={0-521-36294-6},
 
 
 @TechReport {sola87-beams,
-  institution={Department of Computer and Information Science, The Ohio State University},
+
+institution={Department of Computer and Information Science, The Ohio
+State University},
+
   note = {Calculating beam slopes HWN},
   year =  {1987},
   title = {Design of Musical Beams,},
@@ -470,7 +495,8 @@ ISBN={0-521-36294-6},
 
 
 @Article {gourlay86,
-  note = {This paper describes the {MusiCopy} musicsetting system and an input language to go with it. HWN},
+  note = {This paper describes the {MusiCopy} musicsetting system and an input language to go with it.},
+
   year =  {1986},
   title = {A language for music printing},
   author = {John. S. Gourlay},
@@ -483,7 +509,11 @@ ISBN={0-521-36294-6},
 
 
 @Article {rader96,
-  note = {Describes a system called MusicEase, and explains that it uses "constraints" (which go unexplained) to automatically position various elements. HWN},
+
+  note = {Describes a system called MusicEase, and explains that it
+  uses "constraints" (which go unexplained) to automatically position
+  various elements. },
+
   year =  {1996},
   title = {Creating Printed Music Automatically},
   author = {Gary M. Rader},
@@ -506,7 +536,11 @@ ISBN={0-521-36294-6},
 }
 
 @MastersThesis{roelofs91,
-  note = {This dutch thesis describes a simplistic (monophonic) typesetting system, and focuses on the breaking algorithm, which is taken from Hegazy & Gourlay HWN},
+
+note = {This dutch thesis describes a monophonic typesetting system,
+  and focuses on the breaking algorithm, which is taken from Hegazy &
+  Gourlay },
+
   year =  {1991},
   title = {Een Geautomatiseerd Systeem voor het Afdrukken van Muziek},
   author = {Ren\'e Roelofs},
@@ -528,7 +562,9 @@ ISBN={0-521-36294-6},
 
 
 @Article {foxley87,
-  note = {A paper on a TROFF preprocessor to typeset music. The output shown is not very sophisticated, and contains some typographical atrocities HWN},
+
+note = {A paper on a simple TROFF preprocessor to typeset music. },
+
   year =  {1987},
   title = {Music --- A language for typesetting music scores},
   author = {Eric Foxley},
@@ -555,7 +591,10 @@ ISBN={0-521-36294-6},
 
 @Article {colorado-web,
   author ={Alyssa Lamb},
-  note = {Webpages about engraving (designed with finale users in mind) (sic) HWN},
+
+  note = {Webpages about engraving (designed with finale
+users in mind) (sic) HWN},
+
   institution = {The University of Colorado},
   title ={The University of Colorado Music Engraving page.},
   HTML={http://www.cc.colorado.edu/Dept/MU/Musicpress/},
@@ -566,11 +605,9 @@ ISBN={0-521-36294-6},
 
 
 @Article {Langston90,
+
   note = {This paper deals with some command-line
-  tools for music editing and playback. It doesn't mention notation
-  issues, but does come with the grand idea (not) of using music to
-  monitor complex systems. Imagine your nuclear plant supervisor to
-  use AC/DC for checking the reactor HWN},
+  tools for music editing and playback. },
 
   year =  {1990},
   title = {Unix music tools at Bellcore},
@@ -590,7 +627,9 @@ ISBN={0-521-36294-6},
 }
 
 @Article {niff-web,
-  note = {Specs for NIFF, a reasonably comprehensive but binary (yuk) format for notation HWN},
+
+  note = {Specs for NIFF, a reasonably comprehensive but binary
+  format for notation HWN},
 
   year =  {1995},
   title = {NIFF6a Notation Interchange File Format},
@@ -608,7 +647,7 @@ ISBN={0-521-36294-6},
 
 SGML instance for describing music.  Very comprehensive in music
 definition, but no support for notation / performance whatsoever (They
-basically say: "You can embed a NIFF or MIDI file") HWN}
+basically say: "You can embed a NIFF or MIDI file")}
 
 },
 }
@@ -632,8 +671,9 @@ basically say: "You can embed a NIFF or MIDI file") HWN}
   volume= 9,
   month = {January},
   year= { 1984},
-  note={A discussion of an interactive and graphical computer system for
-music composition}
+
+  note={A discussion of an interactive and graphical computer system
+for music composition}
 
 }
 
@@ -647,10 +687,8 @@ note = {This is about engraver-quality typesetting with computers.  It
 accepts the axiom that notation is too difficult to generate
 automatically.  The result is that a notation program should be a
 WYSIWYG editor that allows one to tweak everything.
+}
 
-The implementation therefore is quite "weak".  The introductory
-chapters on engraving and notation are well structured and clear,
-though.}
 }
 
 
@@ -704,21 +742,16 @@ rules.  Same remarks as for \cite{grover89-twovoices} applies} }
   year = 	 2000,
   url= {http://gigue.peabody.jhu.edu/~mdboom/format.pdf},
 
-  annote ={Author compares GUIDO and lilypond. LilyPond wins on practical issues as usability and availability of tools, GUIDO wins on implementation simplicity.
-
---HWN.}
-}
+  note ={GUIDO and lilypond compared. LilyPond wins on practical
+issues as usability and availability of tools, GUIDO wins on
+implementation simplicity.}  }
 
 @InBook{powell02:_music,
   author =	 {Steven Powell},
   title = 	 {Music engraving today},
   publisher = 	 {Brichtmark},
   year = 	 2002,
-  annote =	 {
 
-A "How Steven uses Finale" manual.
-
---HWN.
-}
+  note =	 {A "How Steven uses Finale" manual.}
 }
 
