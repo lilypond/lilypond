@@ -87,7 +87,7 @@ Book::process (String outname, Output_def *default_def)
 	{
 	  Score_lines sc;
 	  sc.lines_ = systems;
-	  sc.header_ = header_;
+	  sc.header_ = scores_[i]->header_;
 	  paper_book->score_lines_.push (sc);
 	}
     }
@@ -98,7 +98,7 @@ Book::process (String outname, Output_def *default_def)
 LY_DEFINE(ly_make_book, "ly:make-book",
 	  2, 0, 1, (SCM bookpaper, SCM header, SCM scores),
 	  "Make a \\book of @var{bookpaper} and @var{header} (which may be #f as well)  "
-	  "containing @code{\scores}.")
+	  "containing @code{\\scores}.")
 {
   Output_def * odef = unsmob_output_def (bookpaper);
   SCM_ASSERT_TYPE (odef, bookpaper,

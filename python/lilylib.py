@@ -129,7 +129,6 @@ def exit (i):
 	if __main__.verbose_p:
 		raise _ ('Exiting (%d)...') % i
 	else:
-		print 'ex thoto' , i 
 		sys.exit (i)
 		
 def getopt_args (opts):
