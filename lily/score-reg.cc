@@ -30,7 +30,6 @@ Score_register::set_score(Score *s)
     score_l_ = s;
     scoreline_l_ = s->pscore_p_->super_elem_l_->line_of_score_l_;
     last_mom_ = score_l_->music_p_->time_int().max();
-    extra_mom_pq_.insert(last_mom_);
 }
 
 Score_register::Score_register()

@@ -5,6 +5,7 @@
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
+
 #include "break-align-item.hh"
 
 void
