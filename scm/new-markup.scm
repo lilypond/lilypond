@@ -189,7 +189,7 @@ A=1 is right, values in between vary alignment accordingly."
 
 (define-public (musicglyph-markup grob props . rest)
   (ly:find-glyph-by-name
-   (ly:get-font grob (cons '((font-family . music)) props))
+   (ly:get-font grob (cons '((font-name . ()) (font-family . music)) props))
    (car rest))
   )
 
