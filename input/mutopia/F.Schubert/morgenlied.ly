@@ -52,7 +52,10 @@ melody = \notes   \relative c'' \repeat volta 2 \context Voice = singer {
     s1*0^\markup { \bold \large\bigger\bigger { \hspace #-3.0 Lieblich, etwas geschwind } }
   R2.
   r4 r8 c4 g8 |
-  e4 c8 << { f8. g16 } \\ { f8.[ g16] } >> a8 |
+  e4 c8
+    <<
+	\new Voice { \stemUp f8. g16 }
+	{ \stemDown f8.[ g16] } >> a8 |
   fis4  g8 c16[ b a g] f[ e] |
   d4 f8 a16[ g fis g] f[ d] |
   g4. r8 gis gis |
@@ -71,10 +74,19 @@ melody = \notes   \relative c'' \repeat volta 2 \context Voice = singer {
 }
 
 
+ignoreMelisma =	\property LyricsVoice . ignoreMelismata = ##t
+ignoreMelismaOff = \property LyricsVoice . ignoreMelismata \unset
+
+
 firstVerse = \lyrics {
     \property LyricsVoice . stanza = "1."
     
-    Sü -- ßes Licht! Aus gol -- de -- nen  Pfor -- ten brichst du __ \manuscriptBreak | 
+    Sü -- ßes Licht! Aus
+    \ignoreMelisma
+    gol --
+    \ignoreMelismaOff
+
+    de -- nen  Pfor -- ten brichst du __ \manuscriptBreak | 
     sie -- gend durch __ die Nacht. Schö -- ner Tag, du __ bist er -- wacht. __ Mit ge -- |
     \manuscriptBreak
     heim -- nis -- vol -- len Wor -- ten, in me -- lo -- di -- schen Ak -- kor -- den, grüß __ ich __ \manuscriptBreak |
@@ -83,8 +95,8 @@ firstVerse = \lyrics {
 
 secondVerse = \lyrics {
     \property LyricsVoice . stanza = "2."
-
-    Ach, der Lie -- be sanf "" -- tes We -- hen schwellt mir |
+    Ach, der Lie -- be sanf
+    -- tes We -- hen schwellt mir |
     das be -- weg -- te __ Herz, sanft, wie ein ge -- lieb -- ter Schmerz. __ Dürft ich | 
     nur auf gold -- nen Hö -- hen mich im Mor -- gen -- duft er -- ge -- hen! Sehn -- sucht |
     zieht mich him -- mel -- wärts, Sehn -- sucht zieht mich him -- mel -- wärts.
@@ -138,13 +150,12 @@ pianoLH = \notes \relative c'' \repeat volta 2 {
 \score {
 
     << \time 6/8
-	\addlyrics
      \new Staff {
 	 \context Staff \modernAccidentals
 	 \melody }
      \new Lyrics <<
-	 \context  LyricsVoice = "singer-1" \firstVerse
-	 \context LyricsVoice = "singer-2" \secondVerse
+	 \newaddlyrics "singer" \new LyricsVoice \firstVerse
+	 \newaddlyrics "singer" \new LyricsVoice \secondVerse
 	 >>
      \new PianoStaff << 
 	 \property PianoStaff.instrument = \markup {

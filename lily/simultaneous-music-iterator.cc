@@ -157,16 +157,32 @@ Simultaneous_music_iterator::pending_moment () const
       if (!it-> run_always ())
 	next = next <? it->pending_moment ();
     }
+  
   return next;
 }
 
 bool
 Simultaneous_music_iterator::ok () const
 {
+  bool run_always_ok = false; 
   for (SCM s = children_list_; gh_pair_p (s); s = gh_cdr(s))
     {
       Music_iterator * it = unsmob_iterator (gh_car (s));
       if (!it->run_always ())
+	return true;
+      else
+	run_always_ok =  run_always_ok || it->ok ();
+    }
+  return run_always_ok;
+}
+
+bool
+Simultaneous_music_iterator::run_always () const
+{
+  for (SCM s = children_list_; gh_pair_p (s); s = gh_cdr(s))
+    {
+      Music_iterator * it = unsmob_iterator (gh_car (s));
+      if (it->run_always ())
 	return true;
     }
   return false;

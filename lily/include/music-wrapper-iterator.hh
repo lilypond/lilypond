@@ -33,7 +33,7 @@ public:
   virtual bool ok () const;
   virtual SCM get_pending_events (Moment)const;
   virtual void skip (Moment);
-
+  virtual bool run_always () const;
 protected:
   virtual void process (Moment);
   virtual Music_iterator *try_music_in_children (Music *) const;

@@ -83,3 +83,9 @@ Music_wrapper_iterator::try_music_in_children (Music *m) const
 }
 
 IMPLEMENT_CTOR_CALLBACK (Music_wrapper_iterator);
+
+bool
+Music_wrapper_iterator::run_always () const
+{
+  return child_iter_->run_always ();
+}

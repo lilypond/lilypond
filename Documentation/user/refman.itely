@@ -1220,6 +1220,9 @@ to be instantiated. They bear the names @code{"1"}, @code{"2"}, etc. In
 each of these contexts, vertical direction of slurs, stems, etc. is set
 appropriately.
 
+@cindex @code{\voiceOne}
+@cindex @code{\voiceFour}
+
 This can also be done by instantiating @internalsref{Voice} contexts
 by hand, and using @code{\voiceOne}, up to @code{\voiceFour} to assign
 a stem directions and horizontal shift for each part:
@@ -1231,6 +1234,11 @@ a stem directions and horizontal shift for each part:
   \new Voice { \voiceThree b4 ais ~ ais4 gis4 } 
   \new Voice { \voiceTwo fis4~  fis4 f ~ f  } >>
 @end lilypond
+
+@noindent
+The command @code{\oneVoice} will revert back to the normal setting.
+@cindex @code{\oneVoice}
+
 
 Normally, note heads with a different number of dots are not merged, but
 when  the object property @code{merge-differently-dotted} is set in
@@ -1277,6 +1285,7 @@ LilyPond also vertically shifts rests that are opposite of a stem:
 @code{\voiceThree}, 
 @cindex @code{\voiceFour}
 @code{\voiceFour}.
+
 
 The following commands specify in what chords of the current voice
 should be shifted: the outer voice has @code{\shiftOff}, and the inner
@@ -4174,6 +4183,11 @@ To print a  rehearsal mark, use the @code{\mark} command:
 The mark is incremented automatically if you use @code{\mark
 \default}. The value to use is stored in the property
 @code{rehearsalMark} is used and automatically incremented.
+
+@cindex coda on bar line
+@cindex segno on bar line
+@cindex fermata on bar line
+@cindex bar lines, symbols on
 
 The @code{\mark} command can also be used to put signs like coda,
 segno and fermatas on a barline. Use @code{\markup} to
