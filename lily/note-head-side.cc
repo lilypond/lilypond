@@ -24,9 +24,8 @@ Note_head_side::do_pre_processing ()
   Interval x_int;
   for (int i=0; i < support_l_arr_.size(); i++) 
     {
-      Dimension_cache *common = 
-	common_group (support_l_arr_[i], X_AXIS);
-
+      Graphical_element *common = 
+	common_refpoint (support_l_arr_[i], X_AXIS);
       Real x = support_l_arr_[i]->relative_coordinate (common, X_AXIS)
 	- relative_coordinate (common, X_AXIS);
 

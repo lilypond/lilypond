@@ -27,5 +27,3 @@ O_FILES+=$(addprefix $(outdir)/, $(CC_FILES:.cc=.o) $(LL_FILES:.ll=.o) $(YY_FILE
 
 TAGS_FILES += $(TCC_FILES) $(HH_FILES) $(INL_FILES) $(CC_FILES)
 
-# hmm
-configheader=$(outdir)/config.hh

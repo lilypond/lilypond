@@ -60,15 +60,12 @@ Script_column_engraver::acknowledge_element( Score_element_info inf)
   if (!thing)
     return;
   
-  Dimension_cache * parcache = thing->dim_cache_[Y_AXIS]->parent_l_;
-  if (!parcache || !thing)
-    return ;
-  
-  Graphical_element *parent = parcache->element_l ();
+  Graphical_element *parent = thing->parent_l(Y_AXIS);
+
 
   if (Staff_side_item * ss = dynamic_cast<Staff_side_item*>(parent))
     {
-      if (!ss->breakable_b ())
+      if (!ss->breakable_b () && ss->axis_ == Y_AXIS)
 	{
 	  script_l_arr_.push (thing);
 	}

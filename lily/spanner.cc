@@ -101,7 +101,7 @@ Spanner::set_bounds(Direction d, Item*i)
 
   if (d== LEFT)
     {
-      dim_cache_[X_AXIS]->parent_l_ = i->dim_cache_[X_AXIS];
+      set_parent ( i, X_AXIS);
     }
   
   if  (spanned_drul_[Direction(-d)] == spanned_drul_[d]
@@ -134,8 +134,8 @@ Spanner::Spanner (Spanner const &s)
 Interval
 Spanner::do_width() const
 {  
-  Real l = spanned_drul_[LEFT]->absolute_coordinate (X_AXIS);
-  Real r = spanned_drul_[RIGHT]->absolute_coordinate (X_AXIS);
+  Real l = spanned_drul_[LEFT]->relative_coordinate (0, X_AXIS);
+  Real r = spanned_drul_[RIGHT]->relative_coordinate (0, X_AXIS);
 
   if (r< l)
     warning ("Spanner with negative length");
@@ -209,7 +209,7 @@ void
 Spanner::handle_broken_dependents ()
 {
   Spanner *unbrok = dynamic_cast<Spanner*> (original_l_);
-  if (!unbrok || dim_cache_[Y_AXIS]->parent_l_)
+  if (!unbrok || parent_l(Y_AXIS))
     return;
   
   Spanner *refpoint = dynamic_cast<Spanner*> (unbrok->parent_l (Y_AXIS));
@@ -218,7 +218,7 @@ Spanner::handle_broken_dependents ()
     {
       Spanner * broken_refpoint = refpoint->find_broken_piece (line_l ());
       if (broken_refpoint)
-	dim_cache_[Y_AXIS]->parent_l_ = broken_refpoint->dim_cache_[Y_AXIS];
+	set_parent ( broken_refpoint,Y_AXIS);
       else
 	programming_error ("Spanner y -refpoint lost.");
     }

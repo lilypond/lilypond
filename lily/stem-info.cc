@@ -131,8 +131,8 @@ Stem_info::Stem_info (Stem*s, int mult)
   // interstaff beam
   Beam* beam_l = stem_l_->beam_l_;
   
-  Dimension_cache *common = stem_l_->common_group (beam_l, Y_AXIS);
-  Align_element * align = dynamic_cast<Align_element*> (common->element_l ());
+  Graphical_element *common = stem_l_->common_refpoint (beam_l, Y_AXIS);
+  Align_element * align = dynamic_cast<Align_element*> (common);
   if (align && align->axis() == Y_AXIS)
     {
       if (align->threshold_interval_[MIN] != 
@@ -141,19 +141,19 @@ Stem_info::Stem_info (Stem*s, int mult)
 
       interstaff_f_ = align->threshold_interval_[MIN] / internote_f;
 
-      Dimension_cache * beam_refpoint = beam_l->dim_cache_[Y_AXIS];
-      Dimension_cache * stem_refpoint = stem_l_->dim_cache_[Y_AXIS];
+      Graphical_element * beam_refpoint = beam_l;
+      Graphical_element * stem_refpoint = stem_l_;
 
-      while (beam_refpoint->parent_l_ != common)
-	beam_refpoint = beam_refpoint->parent_l_;
-      while (stem_refpoint->parent_l_ != common)
-	stem_refpoint = stem_refpoint->parent_l_;
+      while (beam_refpoint->parent_l (Y_AXIS) != common)
+	beam_refpoint = beam_refpoint->parent_l (Y_AXIS);
+      while (stem_refpoint->parent_l (Y_AXIS) != common)
+	stem_refpoint = stem_refpoint->parent_l (Y_AXIS);
 
 
       int beam_prio =
-	align->get_priority (dynamic_cast<Score_element*> (beam_refpoint->element_l ()));
+	align->get_priority (dynamic_cast<Score_element*> (beam_refpoint));
       int stem_prio =
-	align->get_priority (dynamic_cast<Score_element*> (stem_refpoint->element_l ()));
+	align->get_priority (dynamic_cast<Score_element*> (stem_refpoint));
 
       /*
 	our staff is lower -> interstaff_f_ *= -1

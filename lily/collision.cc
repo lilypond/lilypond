@@ -144,7 +144,7 @@ Collision::automatic_shift ()
       bool merge  =
 	downpos == uppos
 	&& nu_l->balltype_i_ == nd_l->balltype_i_
-	&& nu_l->dots_i_ == nd_l->dots_i_;
+	&& nu_l->dots_i () == nd_l->dots_i ();
 
       /*
 	notes are close, but can not be merged.  Shift

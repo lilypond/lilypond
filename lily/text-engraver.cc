@@ -57,6 +57,9 @@ Text_engraver::acknowledge_element (Score_element_info i)
       for (int i=0; i < positionings_.size (); i++)
 	{
 	  positionings_[i]->add_support (n);
+	  if (positionings_[i]->axis_ == X_AXIS
+	      && !positionings_[i]->parent_l (Y_AXIS))
+	    positionings_[i]->set_parent (n, Y_AXIS);
 	}
     }
   if (Stem *n = dynamic_cast<Stem*> (i.elem_l_))
@@ -78,6 +81,15 @@ Text_engraver::do_process_requests ()
       Text_item *text = new Text_item;
       Staff_side_item *ss = new Staff_side_item;
 
+
+
+      Scalar axisprop = get_property ("scriptHorizontal",0);
+      if (axisprop.to_bool ())
+	{
+	  ss->axis_ = X_AXIS;
+	  text->set_parent (ss, Y_AXIS);
+			       
+	}
       ss->set_victim (text);
       ss->set_elt_property (script_priority_scm_sym,
 			    gh_int2scm (200));
@@ -104,9 +116,9 @@ Text_engraver::do_process_requests ()
       Scalar empty = get_property ("textEmptyDimension", 0);
       if (empty.to_bool ())
 	{
-	  text->dim_cache_[X_AXIS]->set_empty (true);
+	  text->set_empty (true, X_AXIS);
 	}
-      
+
       announce_element (Score_element_info (text, r));
       announce_element (Score_element_info (ss, r));
 

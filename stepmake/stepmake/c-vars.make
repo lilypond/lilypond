@@ -22,5 +22,3 @@ C_OUTPUT_OPTION =  -o $@ $<
 
 CFLAGS = $(ICFLAGS) $(DEFINES) $(addprefix -I,$(INCLUDES)) $(USER_CFLAGS) $(EXTRA_CFLAGS) $(MODULE_CFLAGS)
 
-# hmm
-configheader=$(outdir)/config.h

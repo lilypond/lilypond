@@ -58,10 +58,7 @@ Multi_measure_rest::do_brew_molecule_p () const
   Molecule *mol_p  = new Molecule;
   Real x_off = 0.0;
 
-
-  //  Dimension_cache * col_ref = spanned_drul_[LEFT]->column_l ()->dim_cache_[X_AXIS];
-
-  Real rx  = spanned_drul_[LEFT]->absolute_coordinate (X_AXIS);
+  Real rx  = spanned_drul_[LEFT]->relative_coordinate (0, X_AXIS);
   /*
     we gotta stay clear of sp_iv, so move a bit to the right if
     needed.

@@ -92,10 +92,9 @@ Align_element::do_side_processing ()
   Link_array<Score_element> elems;
   for (int i=0; i < elem_l_arr_.size(); i++) 
     {
-      Interval y = elem_l_arr_[i]->extent(axis ());
+      Interval y = elem_l_arr_[i]->extent(axis ()) + elem_l_arr_[i]->relative_coordinate (this, axis ());
       if (!y.empty_b())
 	{
-
 	  Score_element *e =dynamic_cast<Score_element*>(elem_l_arr_[i]);
 
 	  // todo: fucks up if item both in Halign & Valign. 
@@ -229,10 +228,11 @@ Align_element::get_elt_by_priority (int p) const
 }
 
 int
-Align_element::get_priority (Score_element* e) const
+Align_element::get_priority (Score_element const * e) const
 {
-  if ( priority_i_hash_.elem_b (e))
-    return priority_i_hash_[e];
+  Score_element * nonconst = (Score_element*) e;
+  if ( priority_i_hash_.elem_b (nonconst))
+    return priority_i_hash_[nonconst];
   else
-    return elem_l_arr_.find_i (e);
+    return elem_l_arr_.find_i (nonconst);
 }

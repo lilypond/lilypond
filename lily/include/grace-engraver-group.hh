@@ -1,5 +1,5 @@
 /*   
-  grace-engraver-group.hh -- declare 
+  grace-engraver-group.hh -- declare Grace_engraver_group
   
   source file of the GNU LilyPond music typesetter
   

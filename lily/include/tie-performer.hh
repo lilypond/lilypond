@@ -1,5 +1,5 @@
 /*   
-  tie-performer.hh -- declare 
+  tie-performer.hh -- declare Tie_performer
   
   source file of the GNU LilyPond music typesetter
   

@@ -49,9 +49,14 @@ void
 Beam::add_stem (Stem*s)
 {
 #if 0
+  /*
+    should figure out why this didn't work.
+
+    --hwn.
+   */
   if (!stems_.size ())
     {
-      dim_cache_[Y_AXIS]->parent_l_ = s->dim_cache_[Y_AXIS];
+      set_parent (s, Y_AXIS);
     }
 #endif
   stems_.push (s);
@@ -100,7 +105,7 @@ Beam::do_brew_molecule_p () const
       mol_p->add_molecule (sb);
     }
   mol_p->translate_axis (x0 
-    - spanned_drul_[LEFT]->absolute_coordinate (X_AXIS), X_AXIS);
+    - spanned_drul_[LEFT]->relative_coordinate (0, X_AXIS), X_AXIS);
 
   return mol_p;
 }

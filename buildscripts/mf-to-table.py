@@ -115,7 +115,7 @@ class Log_reader:
 	label = tags[0]
 	name = tags[1]
 	afm = self.afmfile
-	print tags
+
 	if tags[0] == 'font':
 	    self.texfile.write("% name\n")
 
@@ -138,7 +138,7 @@ class Log_reader:
 	    xdim = tags[3:5]
 	    ydim = tags[5:7]
 	    
-	    self.texfile.write("\\fetdef\\%s{%s}\n" % (texstr, code))
+	    self.texfile.write("\\def\\feta%s{\\char%s}\n" % (texstr, code))
 	    afm.def_symbol (code, id, texstr, xdim, ydim)
 	else:
 	    raise 'unknown label: ' + label

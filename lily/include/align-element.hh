@@ -53,7 +53,7 @@ public:
   bool contains_b (Score_element const*) const;
 
   Score_element *get_elt_by_priority (int) const;
-  int get_priority (Score_element*) const;
+  int get_priority (Score_element const*) const;
 protected:
   void sort_elements ();
   virtual void do_print() const;

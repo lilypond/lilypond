@@ -34,11 +34,6 @@ Graphical_element::init ()
   dim_cache_[X_AXIS]->elt_l_ = dim_cache_[Y_AXIS]->elt_l_ = this;  
 }
 
-Real
-Graphical_element::absolute_coordinate (Axis a) const
-{
-  return dim_cache_[a]->absolute_coordinate ();
-}
 
 void
 Graphical_element::translate_axis (Real y, Axis a)
@@ -47,15 +42,15 @@ Graphical_element::translate_axis (Real y, Axis a)
 }  
 
 Real
-Graphical_element::relative_coordinate (Dimension_cache*e, Axis a) const
+Graphical_element::relative_coordinate (Graphical_element const*e, Axis a) const
 {
-  return dim_cache_[a]->relative_coordinate (e);
+  return dim_cache_[a]->relative_coordinate (e ? e->dim_cache_[a] : 0);
 }
 
-Dimension_cache * 
-Graphical_element::common_group (Graphical_element const* s, Axis a) const
+Graphical_element * 
+Graphical_element::common_refpoint (Graphical_element const* s, Axis a) const
 {
-  return dim_cache_[a]->common_group (s->dim_cache_[a]);
+  return  (dim_cache_[a]->common_refpoint (s->dim_cache_[a])) ->element_l ();
 }
 
 void
@@ -67,10 +62,26 @@ Graphical_element::translate (Offset offset)
 
 
 void
-Graphical_element::set_empty (bool b)
+Graphical_element::set_empty (bool b, Axis a1, Axis a2)
 {
-  dim_cache_[X_AXIS]->set_empty (b);
-  dim_cache_[Y_AXIS]->set_empty (b);
+  if (a1 != NO_AXES)
+    dim_cache_[a1]->set_empty (b);
+  if (a2 != NO_AXES)
+    dim_cache_[a2]->set_empty (b);
+}
+
+/**
+   Return true if empty in either direction.
+ */
+bool
+Graphical_element::empty_b (Axis a1, Axis a2)
+{
+  bool b = false;
+  if (a1 != NO_AXES)
+    b = b || dim_cache_[a1]->empty_b ();
+  if (a2 != NO_AXES)
+    b = b || dim_cache_[a2]->empty_b ();
+  return b;
 }
 
 Interval
@@ -114,16 +125,16 @@ Graphical_element::~Graphical_element ()
   delete dim_cache_[Y_AXIS];  
 }
 
-Dimension_cache *
-Graphical_element::common_group (Link_array<Graphical_element> gs, Axis a) const
+Graphical_element *
+Graphical_element::common_refpoint (Link_array<Graphical_element> gs, Axis a) const
 {
   Dimension_cache * common = dim_cache_[a];
   for (int i=0; i < gs.size (); i++)
     {
-      common = common->common_group (gs[i]->dim_cache_[a]);
+      common = common->common_refpoint (gs[i]->dim_cache_[a]);
     }
 
-  return common;
+  return common->element_l ();
 }
 
 char const *
@@ -141,3 +152,9 @@ Graphical_element::print () const
   DOUT << "}\n";
 #endif
 }  
+
+void
+Graphical_element::set_parent (Graphical_element *g, Axis a)
+{
+  dim_cache_[a]->parent_l_ = g ? g->dim_cache_[a]: 0;
+}

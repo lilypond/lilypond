@@ -1,3 +1,23 @@
+pl 3.hwn1
+	- mudela-book tweaks for surviving texinfo
+	- include feta  command seqs. in .tex 
+	- guile 1.3.2 fixes.
+	- include  config.h directly.
+	- bf: mudela-book.  Now linear in size of document.
+	- scriptHorizontal property; more or less works.
+	- changes in Graphical_element, Graphical_axis_group
+offset removed from public interface, now use relative_coordinate ().
+extent () is given relative to this.
+	- removed Rhythmic_head::dots_i_
+ 	- bf: Rhythmic_head::do_substitute_element_pointer ()
+	- Direct access to dim_cache_ replaced by methods in
+Graphical_element.
+3.mk1
+	- left endings of various spanners adjusted
+
+**********
+
+
 pl 2.mk1
 	- bf, tie.cc: handle postbreak left align correctly
 pl 2.lec1

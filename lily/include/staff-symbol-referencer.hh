@@ -29,6 +29,8 @@ public:
   Staff_symbol * staff_symbol_l () const;
   int lines_i () const;
   virtual void do_substitute_element_pointer (Score_element*,Score_element*);
+
+  virtual int position_i () const;
 };
 
 #endif /* STAFF_SYM_REFERENCER_HH */

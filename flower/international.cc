@@ -8,7 +8,7 @@
  */
 
 #include <stdarg.h>
-#include "config.hh"
+#include "config.h"
 #include "string-convert.hh"
 #include "international.hh"
 

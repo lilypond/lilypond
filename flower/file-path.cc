@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 
-#include "config.hh"
+#include "config.h"
 #include "file-path.hh"
 #include "flower-debug.hh"
 

@@ -19,6 +19,7 @@ public:
   VIRTUAL_COPY_CONS(Translator);
   bool do_try_music (Music *);
 };
+
 ADD_THIS_TRANSLATOR(Melisma_engraver);
 
 bool

@@ -63,8 +63,7 @@ Script::do_pre_processing ()
   /*
     center my self on the note head.
    */
-  Graphical_element * e
-    = staff_side_l_->dim_cache_[X_AXIS]->parent_l_->element_l();
+  Graphical_element * e = staff_side_l_->parent_l(X_AXIS);
   translate_axis (e->extent (X_AXIS).center (), X_AXIS);
 }
 
@@ -86,7 +85,7 @@ Script::set_staff_side (Staff_side_item*g)
 {
   staff_side_l_ = g;
   add_dependency (g);
-  dim_cache_[Y_AXIS]->parent_l_ = g->dim_cache_[Y_AXIS];
+  set_parent (g, Y_AXIS);
 }
 
 Molecule*

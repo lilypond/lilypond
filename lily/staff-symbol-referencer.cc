@@ -6,9 +6,12 @@
   (c) 1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
  */
 
+#include <math.h>
+
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol.hh"
 #include "paper-def.hh"
+#include "dimension-cache.hh"
 
 Staff_symbol_referencer::Staff_symbol_referencer ()
 {
@@ -47,4 +50,17 @@ Real
 Staff_symbol_referencer::staff_line_leading_f () const
 {
   return (staff_sym_l_) ? staff_sym_l_->staff_line_leading_f_ : paper_l ()->get_realvar (interline_scm_sym);
+}
+
+
+int
+Staff_symbol_referencer::position_i () const
+{
+  if (!staff_sym_l_ )
+    return 0;
+
+  Graphical_element * c = common_refpoint (staff_sym_l_, Y_AXIS);
+  Real y = relative_coordinate (c, Y_AXIS) - staff_sym_l_->relative_coordinate (c, Y_AXIS);
+
+  return int (2.0 * y / staff_line_leading_f ());
 }

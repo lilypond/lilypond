@@ -9,15 +9,13 @@ Most of the items are marked in the code as well
 Grep -i for TODO, FIXME and ugh/ugr/urg.  
 
 .* TODO
-. * don't take Dimension_cache::offset in Dimension_cache::extent
+. * use Rhythmic_head::position_i () for all Staff_referenced 
 . * Break_req handling is silly (break_forbid () + \break fucks up.)
-. * redo all --help  messages.
+. * script engraver
+
 . * HaraKiriStaffContext removes bar lines and doesn't remove
     staff margin text on removed staff lines.
 . * Mondrup:
-
-- I would like to avoid that ties across line breaks run _through_ the
-clef on the new line
 
 - I would like the possibility of forcing clef- and key- changes to be
 printed _after_ the new bar line
@@ -43,19 +41,9 @@ the mensural music notation.
 bar line fully drawn across the staves and after that keep to the
 ChoirStaff bar line types in the rest of the scores
 
-- I would like to be able to define invisible melismatic slurs in order
-to avoid printing slurs conflicting with an original ms of printing. Of
-course I can achieve that by just inserting empty syllables in the
-lyrics. But this facility implemented in the MusiXTeX preprocessor M-tx
-is nice so ...
-
-- if I explicitly beam notes in a staff with auto beaming disabled I
+. * autoBeamMelisma: if I explicitly beam notes in a staff with auto beaming disabled I
 would like to have these beams also to be melismatic.
 
-- do I need to get warnings on 'No one to print a repeat brace' when I
-issue a '\repeat fold 2 \alternative' statement with an empty leading
-text item in a \lyrics context in order to achieve multiple lyrics lines
-in a _section_ of a score ?
 . * make all Feta (including dynamics) available to the user in
     textual scripts. Examples: "D.S. al \coda", "\mf espress.".
  
@@ -84,7 +72,6 @@ abc2ly, midi2ly?
 . * Key_engraver, Local_key_item
 . * Think of comprehensive solution for "if (grace_b == self_grace_b_)"
 . * String[String.length] doesn't trap.
-. * y dimension units: staffspace vs. Point
 . * Beam
 . * Stem
 . * Rhythmic_column and interaction stem/rhythmic_column/note_head/dots.
@@ -129,9 +116,6 @@ vertically between the two staves):
 .* STUFF
 . * We need feta-din*.mf files for more sizes than 10.
 . *
-- It's clumsy to have to set Staff.instr = " " to get instrument name
-  on only the first line.
-
 - The syntax for chords looks clumsy with two different meanings of 
   '-' and different syntax for separating modifiers from the tonic
   and from other modifiers. Why not use for example ':' between

@@ -67,5 +67,7 @@ o    Jeffrey B. Reed <daboys@austin.rr.com>, Windows-NT sup-
 
 o    Shay Rojanski Some mudela source.
 
+o    Laura Conrad (lconrad@world.std.com) fixes to abc2ly
+
 Your name could be here! If you want to fix something, do
 it, and send us a patch!

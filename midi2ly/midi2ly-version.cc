@@ -4,7 +4,7 @@
 // copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #include <stdio.h>
-#include "config.hh"
+#include "config.h"
 #include "version.hh"
 
 #define VERSION_SZ  MAJOR_VERSION "." MINOR_VERSION "."  PATCH_LEVEL "." MY_PATCH_LEVEL

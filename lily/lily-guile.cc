@@ -35,14 +35,12 @@ ly_ch_C_eval_scm (char const*c)
 
 /*
   scm_m_quote doesn't use any env, but needs one for a good signature in GUILE.
-
-  Why there is no gh_quote () in GUILE  beats me.
 */
 
 SCM
 ly_quote_scm (SCM s)
 {
-  return scm_cons2 (scm_i_quote, s, SCM_EOL);
+  return scm_m_quote (scm_cons2 (SCM_EOL, s, SCM_EOL) ,SCM_EOL); // apparently env arg is ignored.
 }
 
 /*

@@ -1,5 +1,5 @@
 /*   
-  tie-performer.cc --  implement 
+  tie-performer.cc --  implement Tie_performer
   
   source file of the GNU LilyPond music typesetter
   

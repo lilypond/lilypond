@@ -16,6 +16,8 @@
 #include "paper-column.hh"
 #include "paper-def.hh"
 #include "dimension-cache.hh"
+
+
 Bar_script_engraver::Bar_script_engraver ()
 {
   axis_ = Y_AXIS;
@@ -46,15 +48,13 @@ void
 Bar_script_engraver::do_acknowledge_element (Item *i)
 {
   Axis other_axis = Axis((axis_ + 1)%2);
-  if (staff_side_p_ && !staff_side_p_->dim_cache_[other_axis]->parent_l_) 
+  if (staff_side_p_ && !staff_side_p_->parent_l(other_axis)) 
     {
-      staff_side_p_->dim_cache_[other_axis]->parent_l_
-	= i->dim_cache_[other_axis];
-      staff_side_p_->dim_cache_[axis_]->parent_l_
-	=  i->dim_cache_[axis_];	  
+      staff_side_p_->set_parent (i,other_axis);
+      staff_side_p_->set_parent (i,axis_);
 
-      if (!text_p_->dim_cache_[other_axis]->parent_l_)
-	text_p_->dim_cache_[other_axis]->parent_l_ = i->dim_cache_[other_axis];
+      if (!text_p_->parent_l(other_axis))
+	text_p_->set_parent (i,other_axis);
       staff_side_p_->add_support (i);
 
       /*

@@ -19,7 +19,7 @@
 void
 Clef_item::do_pre_processing()
 {
-  dim_cache_[Y_AXIS]->translate (y_position_i_ * staff_line_leading_f () / 2.0);
+  translate_axis (y_position_i_ * staff_line_leading_f () / 2.0, Y_AXIS);
   SCM style_sym =get_elt_property (style_scm_sym);
   String style;
   if (style_sym != SCM_BOOL_F)
@@ -30,7 +30,7 @@ Clef_item::do_pre_processing()
   if (style == "transparent")
     {
       set_elt_property (transparent_scm_sym, SCM_BOOL_T);
-      dim_cache_[X_AXIS]->set_empty (true);
+      set_empty (true, X_AXIS);
     }
 }
 
@@ -61,8 +61,9 @@ Clef_item::do_add_processing ()
       
 	  g->text_str_ = "8";
 	  g->style_str_ = "italic";
-	  g->dim_cache_[Y_AXIS]->parent_l_ = dim_cache_[Y_AXIS];
-	  g->dim_cache_[X_AXIS]->parent_l_ = dim_cache_[X_AXIS];
+	  g->set_parent (this, Y_AXIS);
+	  g->set_parent (this, X_AXIS);	  
+
 	  add_dependency (g);	// just to be sure.
 
 	  Real r = do_height ()[d] - g->extent (Y_AXIS)[-d];

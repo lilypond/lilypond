@@ -152,7 +152,7 @@ AC_DEFUN(AC_STEPMAKE_GXX, [
     # ugh autoconf
     # urg, egcs: how to check for egcs >= 1.1?
     changequote(<<, >>)dnl
-    if $CXX --version | grep '2\.8' > /dev/null ||
+    if $CXX --version | egrep '2\.8|2\.9' > /dev/null ||
 	$CXX --version | grep 'egcs' > /dev/null
     changequote([, ])dnl
     then
@@ -175,14 +175,7 @@ AC_DEFUN(AC_STEPMAKE_GUILE, [
       AC_DEFINE(HAVE_LIBGUILE)], , $GUILE_LDFLAGS dnl
     )
     if test "$ac_cv_lib_guile_gh_scm2doubles" != yes ; then
-      GUILE_LDFLAGS="`echo $GUILE_LDFLAGS | sed -e 's/-lreadline//g'`"
-      AC_CHECK_LIB(guile, gh_doubles2scm,
-        [LIBS="`echo $GUILE_LDFLAGS | sed -e 's/-L[[/-_a-zA-Z0-9]]\+ //g'` $LIBS"
-      	AC_DEFINE(HAVE_LIBGUILE)], , $GUILE_LDFLAGS dnl
-      )
-      if test "$ac_cv_lib_guile_gh_doubles2scm" != yes ; then
-      	AC_STEPMAKE_WARN(You should install guile 1.3 or newer)
-      fi
+	AC_STEPMAKE_WARN(You should install guile 1.3 or newer)
     fi
 ])
 
@@ -1091,37 +1084,3 @@ main ()
   AC_SUBST(GTK___CFLAGS)
   AC_SUBST(GTK___LIBS)
 ])
-
-dnl   GUILE_FLAGS --- set flags for compiling and linking with Guile
-dnl
-dnl   This macro runs the `guile-config' script, installed with Guile,
-dnl   to find out where Guile's header files and libraries are
-dnl   installed.  It sets two variables, marked for substitution, as
-dnl   by AC_SUBST.
-dnl   
-dnl     GUILE_CFLAGS --- flags to pass to a C or C++ compiler to build
-dnl             code that uses Guile header files.  This is almost
-dnl             always just a -I flag.
-dnl   
-dnl     GUILE_LDFLAGS --- flags to pass to the linker to link a
-dnl             program against Guile.  This includes `-lguile' for
-dnl             the Guile library itself, any libraries that Guile
-dnl             itself requires (like -lqthreads), and so on.  It may
-dnl             also include a -L flag to tell the compiler where to
-dnl             find the libraries.
-
-AC_DEFUN([GUILE_FLAGS],[
-## The GUILE_FLAGS macro.
-  ## First, let's just see if we can find Guile at all.
-  AC_MSG_CHECKING(for Guile)
-  guile-config link > /dev/null || {
-    echo "configure: cannot find guile-config; is Guile installed?" 1>&2
-    exit 1
-  }
-  GUILE_CFLAGS="`guile-config compile`"
-  GUILE_LDFLAGS="`guile-config link`"
-  AC_SUBST(GUILE_CFLAGS)
-  AC_SUBST(GUILE_LDFLAGS)
-  AC_MSG_RESULT(yes)
-])
-

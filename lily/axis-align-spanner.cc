@@ -1,5 +1,5 @@
 /*   
-  axis-align-spanner.cc --  implement 
+  axis-align-spanner.cc --  implement Axis_align_spanner
   
   source file of the GNU LilyPond music typesetter
   

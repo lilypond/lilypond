@@ -34,7 +34,7 @@ Span_bar*
 Piano_bar_engraver::get_span_bar_p () const
 {
   Span_bar *s= new Span_bar;
-  s->dim_cache_[X_AXIS]->set_empty (true);
+  s->set_empty (true, X_AXIS);
   s->type_str_ = "brace";
   return s;
 }
@@ -43,7 +43,7 @@ Span_bar*
 Staff_group_bar_engraver::get_span_bar_p () const
 {
   Span_bar *s= new Span_bar;
-  s->dim_cache_[X_AXIS]->set_empty (true);
+  s->set_empty (true, X_AXIS);
   s->type_str_ = "bracket";
   return s;
 }

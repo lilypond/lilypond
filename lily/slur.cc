@@ -159,7 +159,7 @@ Slur::do_post_processing ()
 	  else
 	    {
 	      dx_f_drul_[d] = stem_l->hpos_f ()
-		- spanned_drul_[d]->absolute_coordinate (X_AXIS);
+		- spanned_drul_[d]->relative_coordinate (0, X_AXIS);
 	      /*
 		side attached to beamed stem
 	       */
@@ -355,7 +355,7 @@ Slur::do_post_processing ()
 	  */
 	  Stem* stem_l = note_column_drul[d]->stem_l_;
 	  snapx_f_drul[d] = stem_l->hpos_f ()
-	    - spanned_drul_[d]->absolute_coordinate (X_AXIS);
+	    - spanned_drul_[d]->relative_coordinate (0, X_AXIS);
 	  snapy_f_drul[d] = stem_l->extent (Y_AXIS)[dir_];
 	  snapy_f_drul[d] += info_drul[d].interstaff_f_;
 	  snapy_f_drul[d] += dir_ * 2 * y_gap_f;
@@ -428,7 +428,7 @@ Slur::get_encompass_offset_arr () const
     }
   bool interstaff_b = interstaff_i && (interstaff_i < encompass_arr_.size ());
   
-  Offset origin (absolute_coordinate (X_AXIS), 0);
+  Offset origin (relative_coordinate (0, X_AXIS), 0);
 
   int first = 1;
   int last = encompass_arr_.size () - 2;

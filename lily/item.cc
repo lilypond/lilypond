@@ -38,7 +38,7 @@ Item::do_print() const
 Real 
 Item::hpos_f() const
 {
-  return absolute_coordinate (X_AXIS);
+  return relative_coordinate (0, X_AXIS);
 }
 
 Line_of_score *
@@ -91,7 +91,7 @@ Item::try_visibility_lambda ()
       int empty = gh_scm2bool (gh_cdr (result));
 
       if (empty)
-	set_empty (true);
+	set_empty (true, X_AXIS, Y_AXIS);
       if (trans)
 	set_elt_property (transparent_scm_sym, SCM_BOOL_T);
     }
@@ -189,8 +189,7 @@ Item::handle_prebroken_dependents ()
 	  Item * broken_self = find_prebroken_piece (d);
 	  Item * broken_parent = parent->find_prebroken_piece (d);
 
-	  broken_self->dim_cache_[X_AXIS]->parent_l_ =
-	    broken_parent->dim_cache_[X_AXIS];
+	  broken_self->set_parent (broken_parent, X_AXIS);
 
 	  /*
 	    ugh. Should do this is after breaking?
@@ -206,8 +205,7 @@ Item::handle_prebroken_dependents ()
 		programming_error ("Vertical refpoint lost!");
 	      else if (yparenti)
 		{
-		  broken_self->dim_cache_[Y_AXIS]->parent_l_ =
-		    broken_yparent->dim_cache_[Y_AXIS];
+		  broken_self->set_parent (broken_yparent, Y_AXIS);
 		}
 	    }
 	}

@@ -53,7 +53,7 @@ public:
 protected:
     virtual void do_print () const;
   VIRTUAL_COPY_CONS(Music);
-  bool do_equal_b (Request *) const;
+  bool do_equal_b (Request const *) const;
 };
 
 class Partial_measure_req  : public Timing_req  {
@@ -64,7 +64,7 @@ public:
 protected:
   VIRTUAL_COPY_CONS(Music);
   virtual void do_print () const;
-  bool do_equal_b (Request*) const;
+  bool do_equal_b (Request const *) const;
 };
 
 /**
@@ -78,7 +78,7 @@ public:
   Time_signature_change_req();
 protected:
   virtual void do_print () const;
-  bool do_equal_b (Request*) const;
+  bool do_equal_b (Request const *) const;
   VIRTUAL_COPY_CONS(Music);
 };
 
@@ -91,14 +91,14 @@ public:
 protected:
   virtual void do_print () const;
   
-  bool do_equal_b (Request*) const;
+  bool do_equal_b (Request const *) const;
   VIRTUAL_COPY_CONS(Music);
 };
 
 /// check if we're at start of a  measure.
 class Barcheck_req  : public Timing_req  {
 public:
-  bool do_equal_b (Request *) const;
+  bool do_equal_b (Request const *) const;
   VIRTUAL_COPY_CONS(Music);
 };
 
@@ -111,7 +111,7 @@ public:
   Bar_req (String);
 protected:
   virtual void do_print () const;
-  bool do_equal_b (Request*) const;
+  bool do_equal_b (Request const *) const;
 
   VIRTUAL_COPY_CONS(Music);
 };

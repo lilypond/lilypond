@@ -19,9 +19,9 @@ Cadenza_req::do_print () const
 }
 
 bool
-Cadenza_req::do_equal_b (Request*r) const
+Cadenza_req::do_equal_b (Request const *r) const
 {
-  Cadenza_req*cad =  dynamic_cast <Cadenza_req *> (r);
+  Cadenza_req*cad =  dynamic_cast <Cadenza_req const *> (r);
   return cad && cad->on_b_ == on_b_;
 }
 
@@ -33,9 +33,9 @@ Cadenza_req::Cadenza_req (bool b)
 
 
 bool
-Bar_req::do_equal_b (Request*r) const
+Bar_req::do_equal_b (Request const *r) const
 {
-  Bar_req * b = dynamic_cast <Bar_req *> (r);
+  Bar_req * b = dynamic_cast <Bar_req const *> (r);
   return b && type_str_ == b->type_str_;
 }
 
@@ -58,17 +58,17 @@ Partial_measure_req::Partial_measure_req (Moment m)
 }
 
 bool
-Partial_measure_req::do_equal_b (Request* r) const
+Partial_measure_req::do_equal_b (Request const* r) const
 {
-  Partial_measure_req *p = dynamic_cast <Partial_measure_req *> (r);
+  Partial_measure_req *p = dynamic_cast <Partial_measure_req  const*> (r);
 
   return p&& p->length_mom_ == length_mom_;
 }
 
 bool
-Barcheck_req::do_equal_b (Request*r) const
+Barcheck_req::do_equal_b (Request const *r) const
 {
-  Barcheck_req *b = dynamic_cast<Barcheck_req*> (r);
+  Barcheck_req *b = dynamic_cast<Barcheck_req const*> (r);
   return b;
 }
 
@@ -100,10 +100,10 @@ Time_signature_change_req::do_print () const
 }
 
 bool
-Time_signature_change_req::do_equal_b (Request * r) const
+Time_signature_change_req::do_equal_b (Request const *r) const
 {
   Time_signature_change_req * m
-    = dynamic_cast <Time_signature_change_req *> (r);
+    = dynamic_cast <Time_signature_change_req  const*> (r);
 
   return m && m->beats_i_ == beats_i_
     && one_beat_i_ == m->one_beat_i_;
@@ -130,9 +130,9 @@ Tempo_req::do_print () const
 
 
 bool
-Tempo_req::do_equal_b (Request *r) const
+Tempo_req::do_equal_b (Request const *r) const
 {
-  Tempo_req *t = dynamic_cast <Tempo_req *> (r);
+  Tempo_req *t = dynamic_cast <Tempo_req const*> (r);
 
   return t&& t->dur_.length_mom ()== dur_.length_mom () && metronome_i_ == t->metronome_i_;
 }

@@ -5,7 +5,7 @@
 
 #include <assert.h>
 #include <locale.h>
-#include "config.hh"
+#include "config.h"
 #include "string-convert.hh"
 #include "getopt-long.hh"
 #include "file-path.hh"

@@ -303,11 +303,23 @@ Precompiled i386 RedHat RPMS are available from ftp://fresh-
 meat.net/pub/rpms/lilypond/ and http://linux.umbc.edu/soft-
 ware/lilypond/rpms/.
 
+For compilation on a RedHat system you need these packages,
+in addition to the thoes needed for running:
+
+o    glibc-devel
+
+o    libstdc++-devel
+
+o    guile-devel
+
+o    flex
+
+o    bison
+
 10: DEBIAN GNU/LINUX
 
 A Debian package is also available; contact Anthony Fok
 foka@debian.org.  The build scripts are in the subdirectory
-
 debian/.
 
 11: WINDOWS NT/95

@@ -91,7 +91,7 @@ Grace_position_engraver::do_pre_move_processing ()
       if (ae)
 	ae->remove_element (align_l_);
       else if (elt)
-	align_l_->dim_cache_[X_AXIS]->parent_l_ = 0;
+	align_l_->set_parent (0, X_AXIS);
       last_musical_col_l_->add_element (align_l_);
     }
 

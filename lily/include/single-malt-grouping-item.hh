@@ -1,5 +1,5 @@
 /*   
-  single-malt-grouping-item.hh -- declare 
+  single-malt-grouping-item.hh -- declare Single_malt_grouping_item
   
   source file of the GNU LilyPond music typesetter
   

@@ -17,7 +17,7 @@ tributing a change normally goes like this:
 o    make your fix/add your code
 
 o    Add changes to NEWS, and add yourself to Documenta-
-     tion/AUTHORS.yo
+     tion/topdocs/AUTHORS.yo
 
 o    generate a patch,
 

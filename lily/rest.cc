@@ -46,7 +46,7 @@ Rest::do_brew_molecule_p () const
   bool ledger_b =false;
 
   if (balltype_i_ == 0 || balltype_i_ == 1)
-    ledger_b = abs(position_i_  - (2* balltype_i_ - 1)) > lines_i (); 
+    ledger_b = abs(position_i ()  - (2* balltype_i_ - 1)) > lines_i (); 
       
 
   
@@ -59,7 +59,7 @@ Rest::do_brew_molecule_p () const
   
   Molecule s(lookup_l ()->rest (balltype_i_, ledger_b, style));
   Molecule * m = new Molecule ( Molecule (s));
-  m->translate_axis (position_i_ *  staff_line_leading_f ()/2.0, Y_AXIS);
+
   return m;
 }
 

@@ -34,9 +34,15 @@ protected:
   virtual Interval do_width () const;
 
 
-Interval extra_extent (Axis a ) const;
-  
+  Interval extra_extent (Axis a) const;
+
+ 
 public:
+  /**
+    Override Graphical_axis_group::extent: make sure that
+    Graphical_element::extent() is used as the public entry point.  */
+  Interval extent (Axis a) const;
+
   /**
      add an element that only influences size, but does not have  X/Y parent
      relationship with THIS.
