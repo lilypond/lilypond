@@ -49,9 +49,14 @@ Hyphen_spanner::brew_molecule (SCM smob)
   Real th = gh_scm2double (sp->get_elt_property ("thickness")) * lt ;
   Real h = gh_scm2double (sp->get_elt_property ("height")) * ss;
   Real l = gh_scm2double (sp->get_elt_property ("minimum-length")) * ss;  
+  // The hyphen can exist in the word space of the left lyric ...
+  SCM space =  sp->get_bound (LEFT)->get_elt_property ("word-space");
+  if (gh_number_p (space))
+    {
+      bounds[LEFT] -=  gh_scm2double (space)*ss;
+    }
   Real w  = bounds.length ();
-  /* First try: just make the hyphen take 1/3 of the available space  
-   for length, use a geometric mean of the available space and some minimum
+  /* for length, use a geometric mean of the available space and some minimum
   */
   if(l < w)
     l = sqrt(l*w);

@@ -106,23 +106,24 @@ text = \lyrics {
   Oh __ \repeat "fold" 2 { }
   \alternative {
     { 
-      say, can you | see, by the dawn's ear- ly light 
-      What so proud- ly we hailed, 
-      At the twi- light's last gleam- ing. 
+      say, can you | see, by the dawn's ear -- ly light 
+      What so proud -- ly we hailed, 
+      At the twi -- light's last gleam -- ing. 
       % Ah, it seems that this context stops to exist just before
       % the :| barline is set, and doesn't see its width?
       % Ugly fix:
       Whose broad \bar "|.";
     }
+    \context LyricVoice = "one-2" 
     { 
-      stripes and bright stars, through the per- il- ous fight,
-      O'er the ram- parts we watched, were so gal- lant- ly
+      stripes and bright stars, through the per -- il -- ous fight,
+      O'er the ram -- parts we watched, were so gal -- lant -- ly
       " " " " " "  " "% UGH UGH UGH 
-      stream- ing
+      stream -- ing
 
-      And the rock- ets' red glare, the bombs burst- ing in air, 
+      And the rock -- ets' red glare, the bombs burst -- ing in air, 
       gave proof through the night that our flag was still there, 
-      Oh say, does that star- span- gled ban- ner yet wave, __ 
+      Oh say, does that star -- span -- gled ban -- ner yet wave, __ 
       O'er the land __ of the free and the home of the brave.
     }
   }
@@ -147,7 +148,7 @@ text = \lyrics {
 				\$staff1_voice_2
 			}
 		>
-		\context LyricVoice \text
+		\context LyricVoice = "one-1" \text
 		\context Staff=lower <
 			\global
 			\clef bass;
@@ -170,10 +171,11 @@ text = \lyrics {
 			\GrandStaffContext
 			\accepts "Lyrics";
 		}
-		\translator {
-			\LyricsContext
-			\consists "Span_bar_engraver";
-		}
+% We have a Span_bar_engraver in GrandStaff; we only get grief if we add it here too.
+%		\translator {
+%			\LyricsContext
+%			\consists "Span_bar_engraver";
+%		}
 		\translator {
 			\LyricsVoiceContext
 			\consists "Bar_engraver";

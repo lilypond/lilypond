@@ -24,7 +24,18 @@ Lyric_extender::brew_molecule (SCM smob)
   
   Real leftext = sp->get_bound (LEFT)->extent (X_AXIS).length ();
   Real ss = sp->paper_l ()->get_var ("staffspace");
-  Real w = sp->spanner_length () - leftext - ss/2;
+  Real righttrim = 0.5; // default to half a staffspace gap on the right
+  SCM righttrim_scm = sp->get_elt_property("right-trim-amount");
+  if (gh_number_p (righttrim_scm)) {
+    righttrim = gh_scm2double (righttrim_scm);
+  }
+  // The extender can exist in the word space of the left lyric ...
+  SCM space =  sp->get_bound (LEFT)->get_elt_property ("word-space");
+  if (gh_number_p (space))
+    {
+      leftext -=  gh_scm2double (space)*ss;
+    }
+  Real w = sp->spanner_length () - leftext - righttrim*ss;
   
   Real h = sp->paper_l ()->get_var ("extender_height");
   Molecule  mol (sp->lookup_l ()->filledbox ( Box (Interval (0,w), Interval (0,h))));

@@ -71,6 +71,7 @@ private:
   void record_notehead(const String &context_id, Score_element * notehead);
   void record_lyric(const String &context_id, Score_element * lyric);
   void record_melisma(const String &context_id);
+  void record_extender(const String &context_id, Score_element * extender);
   Voice_alist_entry * lookup_context_id(const String &context_id);
 
 public:
@@ -91,6 +92,7 @@ class Voice_alist_entry
   bool first_in_phrase_b_;
   Score_element * notehead_l_;
   Link_array<Score_element> lyric_list_;
+//   Link_array<Score_element> extender_list_;
   Score_element * longest_lyric_l_;
   Score_element * shortest_lyric_l_;
   int alignment_i_;
@@ -100,6 +102,9 @@ public:
   void set_first_in_phrase(bool f);
   void set_notehead(Score_element * notehead);
   void add_lyric(Score_element * lyric);
+  void add_extender(Score_element * extender);
+//   void terminate_extenders();
+//   void clear_extenders();
   void set_melisma();
   bool get_melisma() { return melisma_b_; }
   int lyric_count() { return lyric_list_.size(); }
