@@ -1,4 +1,12 @@
+2002-08-04  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/main.cc (sane_putenv): Oops.  Should supply a private copy
+	to putenv. (this was actually caught by valgrind, but I didn't
+	think the error was mine... )
+
 2002-08-03  Han-Wen  <hanwen@cs.uu.nl>
+
+	* tex/lilyponddefs.tex: add filllastpage support.
 
 	* GNUmakefile.in: barf if config.h is older than configure. 
 

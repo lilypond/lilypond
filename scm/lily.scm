@@ -11,6 +11,8 @@
 
 ;;(write standalone (current-error-port))
 
+; (set-debug-cell-accesses! #t)
+
 ;;; General settings
 
 

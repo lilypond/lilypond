@@ -15,6 +15,10 @@
 SCM
 internal_ly_parse_scm (Parse_start * ps)
 {
+  /*
+    This is actually pretty wasteful: we stuff the rest of the entire
+    file down GUILE, while we usually need only a bit of it.
+   */
   SCM str = ly_str02scm (ps->str);
   SCM port = scm_mkstrport (SCM_INUM0, str, SCM_OPN | SCM_RDNG,
                             "ly_eval_scm_0str");

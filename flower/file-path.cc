@@ -177,7 +177,7 @@ File_path::find (String nm) const
 	Check if directory. TODO: encapsulate for autoconf
        */
       struct stat sbuf;
-      if (stat (path.to_str0 (), &sbuf) == ENOENT)
+      if (stat (path.to_str0 (), &sbuf) != 0)
 	continue;
       
       if (! (sbuf.st_mode & __S_IFREG))
@@ -185,7 +185,7 @@ File_path::find (String nm) const
 #endif
 #if !STAT_MACROS_BROKEN
       struct stat sbuf;
-      if (stat (path.to_str0 (), &sbuf) == ENOENT)
+      if (stat (path.to_str0 (), &sbuf) != 0)
 	continue;
       
       if (S_ISDIR (sbuf.st_mode))

@@ -74,9 +74,10 @@
 \fi
 
 \def\EndLilyPondOutput{%
- \vskip 0pt plus \lilypondpaperinterscorelinefill00 fill\csname bye\endcsname
-}
-\def\postheader{}
+\ifundefined{lilypondpaperfilllastpage}%
+  \vskip 0pt plus \lilypondpaperinterscorelinefill00 fill
+\fi
+\csname bye\endcsname}
 
 % need to do some stuff to turn pagenumbering off
 % they seriously mess up  your fragments.
