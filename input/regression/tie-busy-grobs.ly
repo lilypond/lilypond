@@ -2,7 +2,10 @@
 \header {
 
 texidoc = "Tie engraver uses @code{busyGrobs} to keep track of
-note heads. Test if this queue works by throwing many  mixed tuplets at it." 
+note heads. Test if this queue works by throwing many  mixed tuplets at it.
+
+This test may show collisions between tie and beam. 
+" 
 
 }
 

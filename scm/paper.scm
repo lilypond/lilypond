@@ -51,6 +51,8 @@
 
 
 (define (set-paper-dimensions m w h)
+  "M is a module (ie. paper->scope_ )"
+  
   (let*
       ( (mm (eval 'mm m)) )
 

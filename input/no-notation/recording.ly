@@ -7,7 +7,6 @@ how to skip the rendering and outputting step of the process, using
 @code{ly:run-translator}."
 
 }
-\include "english.ly"
 
 theMusic = \context Staff \notes { c4 d8-. }
 
