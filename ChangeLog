@@ -1,6 +1,7 @@
 2003-08-29  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scripts/lilypond.py: rename ly2dvi.py to lilypond.py
+	set PDF as default, and always make PDF.
 
 	* lily/GNUmakefile (SUBDIRS): rename binary to lilypond-bin
 

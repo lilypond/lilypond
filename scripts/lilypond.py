@@ -140,8 +140,8 @@ option_definitions = [
 	 _ ("set the resolution of the preview to RES")),
 	('', 'P', 'postscript', _ ("generate PostScript output")),
 	('', '', 'png', _("generate PNG page images")),
-	('', '', 'psgz', _("generate PS.GZ")), 
-	('', 'p', 'pdf', _ ("generate PDF output")),
+	('', '', 'psgz', _("generate PS.GZ")),
+	# separate options for PDF  / PS / DVI ?  
 	('', '', 'pdftex', _ ("use pdflatex to generate a PDF output")),
 	# FIXME: preview, picture; to indicate creation of a PNG?
 	('', '', 'preview', _ ("make a picture of the first system")),
@@ -208,7 +208,7 @@ paper_p = 1
 output_name = ''
 
 # Output formats that ly2dvi should create
-targets = ['DVI', 'LATEX', 'MIDI', 'TEX']
+targets = ['DVI', 'LATEX', 'MIDI', 'TEX', 'PDF', 'PS']
 
 track_dependencies_p = 0
 dependency_files = []
@@ -698,9 +698,9 @@ for opt in options:
 		include_path.append (a)
 	elif o == '--postscript' or o == '-P':
 		targets.append ('PS')
-	elif o == '--pdf' or o == '-p':
-		targets.append ('PS')
-		targets.append ('PDF')
+	elif o == '--no-ps':
+		targets.remove ('PS')
+		targets.remove ('PDF')
 	elif o == '--keep' or o == '-k':
 		keep_temp_dir_p = 1
 	elif o == '--debug':
