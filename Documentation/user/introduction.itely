@@ -702,7 +702,7 @@ available in
 a big HTML page,
 @end ifnothtml
 @ifhtml
-@uref{../lilypond.html, a big HTML page}
+@uref{source/Documentation/user/out-www/lilypond.html, one big page},
 @end ifhtml
 which can be searched easily using the search facility of a web
 browser.
@@ -716,7 +716,7 @@ If you are not familiar with music notation or music terminology
 to consult the glossary as well.  The glossary explains musical terms,
 and includes translations to various languages.  It is a
 @ifhtml
-@uref{../music-glossary.html,separate document}.
+@uref{source/Documentation/user/out-www/music-glossary.html,separate document}.
 @end ifhtml
 @ifnothtml
 separate document, available in HTML and PDF.
@@ -736,7 +736,7 @@ documentation package for your platform:
 @item
 Program reference
 @ifhtml
-(available @uref{../lilypond-internals/lilypond-internals.html,here})
+(available @uref{source/Documentation/user/out-www/lilypond-internals.html,here})
 @end ifhtml
 
 The program reference is a set of heavily cross linked HTML pages,
@@ -754,9 +754,11 @@ the generated documentation.  In the HTML document, these subsections
 have clickable links.
 
 @item
-  Templates
+@ifnothtml
+Templates.
+@end ifnothtml
 @ifhtml
-(available @uref{../../../../input/template/out-www/collated-files.html,here})
+@uref{source/input/template/out-www/collated-files.html,Templates}.
 @end ifhtml
 
 After you have gone through the tutorial, you should be able to write
@@ -767,9 +769,13 @@ start; simply copy the template and add notes in the appropriate
 places.
 
 @item
-  Various input examples
+@ifnothtml
+Various input examples.
+@end ifnothtml
 @ifhtml
-(available @uref{../../../../input/test/out-www/collated-files.html,here})
+@c Works, but link name is not so nice; so write-out macro
+@c @inputfileref{input/test,Various input examples}.
+@uref{source/input/test/out-www/collated-files.html,Various input examples}.
 @end ifhtml
 @cindex snippets
 
@@ -778,9 +784,13 @@ available as a big HTML document, with pictures and explanatory texts
 included.
 
 @item
-  The regression tests
+@ifnothtml
+The regression tests.
+@end ifnothtml
 @ifhtml
-(available @uref{../../../../input/regression/out-www/collated-files.html,here})
+@c Works, but link name is not so nice; so write-out macro
+@c @inputfileref{input/regression,The regression tests}.
+@uref{source/input/regression/out-www/collated-files.html,The regression tests}.
 @end ifhtml
 
 This collection of files tests each notation and engraving feature of

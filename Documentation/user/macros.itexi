@@ -12,7 +12,7 @@
 @ifhtml
 @c ugh: @ref assumes that external refs are split documents too
 @html
-<a style="text-decoration: none; color: inherit;" href="../music-glossary.html#\NAME\">\NAME\</a>@c
+<a style="text-decoration: none; color: inherit;" href="source/Documentation/usr/out-www/music-glossary.html#\NAME\">\NAME\</a>@c
 @end html
 @end ifhtml
 @ifnothtml
