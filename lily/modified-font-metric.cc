@@ -333,3 +333,9 @@ LY_DEFINE (ly_font_encoding, "ly:font-encoding",
   return ly_symbol2scm (fm->original_font ()->coding_scheme ().to_str0 ());
 }
 
+SCM
+Modified_font_metric::sub_fonts () const
+{
+  return orig_->sub_fonts();
+}
+  

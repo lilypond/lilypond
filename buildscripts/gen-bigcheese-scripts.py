@@ -3,6 +3,7 @@ import sys
 import getopt
 import re 
 import os
+import string
 
 (options, files) = \
   getopt.getopt (sys.argv[1:],
@@ -59,6 +60,7 @@ endloop
 MergeFonts("feta-alphabet%(design_size)d.pfa");
 MergeKern("feta-alphabet%(design_size)d.tfm");
 
+LoadTableFromFile("LILF", "%(name)s%(design_size)d.subfonts")
 LoadTableFromFile("LILC", "feta%(design_size)d.otf-table")
 LoadTableFromFile("LILY", "feta%(design_size)d.otf-gtable")
 
@@ -67,6 +69,19 @@ Generate("%(name)s%(design_size)d.cff");''' % vars()
 
 	path = os.path.join (outdir, name + '%d' % design_size +  '.pe')
 	open (path, 'w').write (script)
+
+
+	subfonts = ['feta%(design_size)d',
+		    'parmesan%(design_size)d',
+		    'feta-alphabet%(design_size)d']
+
+	ns = []
+	for s in subfonts:
+		ns.append (s % vars())
+		
+	subfonts_str = string.join (ns)
+	
+	open (os.path.join (outdir, '%(name)s%(design_size)d.subfonts' % vars()), 'w').write (subfonts_str)
 
 	path = os.path.join (outdir, name + '%d' % design_size +  '.dep')
 

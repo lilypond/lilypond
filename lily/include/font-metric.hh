@@ -33,6 +33,7 @@ public:
   virtual Stencil get_indexed_char_stencil (int k) const;
   virtual Stencil get_ascii_char_stencil (int k) const;
   virtual String coding_scheme () const;
+  virtual SCM sub_fonts () const;
   
   DECLARE_SMOBS (Font_metric,);
 

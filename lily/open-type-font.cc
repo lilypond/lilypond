@@ -55,12 +55,12 @@ load_scheme_table (char const *tag_str, FT_Face face)
       String contents ((Byte const*)buffer, length);
       contents = "(quote (" +  contents + "))";
 
-      SCM alist = scm_c_eval_string (contents.to_str0 ());
-      tab = alist_to_hashq (alist);
+      SCM expr = scm_c_eval_string (contents.to_str0 ());
       free (buffer);
     }
-  return tab;
+  return expr;
 }
+
 
 Index_to_charcode_map
 make_index_to_charcode_map (FT_Face face)
@@ -98,18 +98,6 @@ make_glyph_name_to_charcode_map (FT_Face face)
 }
 #endif
 
-Open_type_font::Open_type_font (FT_Face face)
-{
-  face_ = face;
-  lily_character_table_ = SCM_EOL;
-  lily_global_table_ = SCM_EOL;
-
-  lily_character_table_ = load_scheme_table ("LILC", face_);
-  lily_global_table_ = load_scheme_table ("LILY", face_);
-  index_to_charcode_map_ = make_index_to_charcode_map (face_);
-  //glyph_name_to_charcode_map_ = make_glyph_name_to_charcode_map (face_);
-}
-
 Open_type_font::~Open_type_font()
 {
   FT_Done_Face (face_);
@@ -136,15 +124,19 @@ Open_type_font::make_otf (String str)
   return otf->self_scm ();
 }
 
-Open_type_font::Open_type_font(FT_Face face)
+
+Open_type_font::Open_type_font (FT_Face face)
 {
   face_ = face;
   lily_character_table_ = SCM_EOL;
   lily_global_table_ = SCM_EOL;
+
+  lily_character_table_ = alist_to_hashq (load_scheme_table ("LILC", face_));
+  lily_global_table_ = alist_to_hashq (load_scheme_table ("LILY", face_));
+  lily_subfonts_ = load_scheme_table ("LILF", face_);
+  index_to_charcode_map_ = make_index_to_charcode_map (face_);
   
-  lily_character_table_ = load_scheme_table ("LILC", face_);
-  lily_global_table_ = load_scheme_table ("LILY", face_);
-  index_to_charcode_map_ = make_index_to_charcode_map (face_);  
+  //glyph_name_to_charcode_map_ = make_glyph_name_to_charcode_map (face_);
 }
 
 void
@@ -152,6 +144,7 @@ Open_type_font::derived_mark () const
 {
   scm_gc_mark (lily_character_table_);
   scm_gc_mark (lily_global_table_);
+  scm_gc_mark (lily_subfonts_);
 }
 
 Offset
@@ -220,3 +213,21 @@ Open_type_font::design_size () const
 			     ly_symbol2scm ("staffsize"), SCM_BOOL_F);
   return scm_to_double (entry);
 }
+
+
+SCM
+Open_type_font::sub_fonts () const
+{
+  return lily_subfonts_;
+}
+
+LY_DEFINE (ly_font_magnification, "ly:font-sub-fonts", 1, 0, 0,
+	  (SCM font),
+	   "Given the font metric @var{font}, return the "
+	   "magnification, relative to the current outputscale.")
+{
+  Font_metric *fm = unsmob_metrics (font);
+  SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
+  return scm_cdr (fm->description_);
+}
+

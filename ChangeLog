@@ -1,5 +1,13 @@
 2004-12-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* buildscripts/gen-bigcheese-scripts.py (i): load .subfonts table. 
+
+	* lily/open-type-font.cc (LY_DEFINE): new function
+	ly:font-sub-fonts
+
+	* lily/include/font-metric.hh (struct Font_metric): new method
+	sub_fonts()
+
 	* lily/vaticana-ligature-engraver.cc (transform_heads): replace
 	. with - in add.stem.
 	

@@ -39,6 +39,7 @@ protected:
     
   Modified_font_metric (Font_metric *fm, Real magnification,
 			String font_encoding, String input_encoding);
+  virtual SCM sub_fonts () const;
   virtual Real design_size () const;
   virtual void derived_mark () const; 
   virtual Box get_indexed_char (int) const;
