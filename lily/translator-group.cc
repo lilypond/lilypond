@@ -115,7 +115,7 @@ Translator_group::find_create_translator_l (String n, String id)
     return existing;
 
   Link_array<Translator_def> path
-    = unsmob_translator_def (definition_)->path_to_acceptable_translator (gh_str02scm (n.ch_C()), output_def_l ());
+    = unsmob_translator_def (definition_)->path_to_acceptable_translator (ly_str02scm ((char*)n.ch_C()), output_def_l ());
 
   if (path.size ())
     {
