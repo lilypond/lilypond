@@ -570,7 +570,7 @@ New_slur::get_base_attachments (Spanner*me,
 	      && Staff_symbol_referencer::on_staffline (head, (int) rint (pos))
 	      && Staff_symbol_referencer::line_count (head) -1 >= rint (pos)
 	      )
-	    y += staff_space * dir / 10 ;	  
+	    y += 1.5 * staff_space * dir / 10 ;	// TODO: calc from slur thick & line thick, parameter.
       
 	  Grob * fh = Note_column::first_head (extremes[d].note_column_);
 	  x = fh->extent (common[X_AXIS],  X_AXIS).linear_combination (CENTER);
@@ -591,7 +591,7 @@ New_slur::generate_curves (Grob*me,   Array<Slur_score> *scores)
 
   Real staff_space = Staff_symbol_referencer::staff_space ((Grob*)me);
 
-  Real r_0 = robust_scm2double (me->get_property ("ratio"), 1);
+  Real r_0 = robust_scm2double (me->get_property ("ratio"), 0.33);
   Real h_inf = staff_space * ly_scm2double (me->get_property ("height-limit"));
   for (int i = scores->size(); i-- ;)
     {
@@ -625,7 +625,8 @@ New_slur::enumerate_attachments (Grob * me,  Grob *common[],
 	{
 	  Slur_score s;
 	  Direction d = LEFT;
-
+	  
+	  Drul_array<bool> attach_to_stem (false, false);
 	  
 	  do {  
 	    os[d][X_AXIS] = base_attachment[d][X_AXIS];
@@ -638,6 +639,7 @@ New_slur::enumerate_attachments (Grob * me,  Grob *common[],
 		  {
 		    os[d][X_AXIS] =  extremes[d].slur_head_extent_[-d]
 		      - d * 0.3;
+		    attach_to_stem[d] = true;
 		  }
 		else if (dir *extremes[d].stem_extent_[Y_AXIS][dir] < dir * os[d][Y_AXIS])
 		  {
@@ -646,16 +648,37 @@ New_slur::enumerate_attachments (Grob * me,  Grob *common[],
 	      }
 	  } while (flip (&d) != LEFT);
 
-	  Offset dz = os[RIGHT] - os[LEFT];
+	  
+
+
+	  Offset dz;	  
+	  dz = os[RIGHT] - os[LEFT];
 	  if (dz[X_AXIS] < minimum_length
 	      || fabs (dz[Y_AXIS] / dz[X_AXIS])  > score_param->MAX_SLOPE
 	      )
 	    {
 	      do {
 		if (extremes[d].slur_head_)
-		  os[d][X_AXIS] = extremes[d].slur_head_extent_.center ();
+		  {
+		    os[d][X_AXIS] = extremes[d].slur_head_extent_.center ();
+		    attach_to_stem[d] = false;
+		  }
 	      } while (flip (&d) != LEFT);
 	    }
+
+	  dz = os[RIGHT] - os[LEFT];
+	  do {
+	    if (extremes[d].slur_head_
+		&& !attach_to_stem[d])
+	      {
+		/*
+		  horizontally move tilted slurs a little. Move more
+		  for bigger tilts.
+		 */
+		os[d][X_AXIS] -=
+		  dir * extremes[d].slur_head_extent_.length () * sin (dz.arg  ()) / 3;	// TODO: parameter
+	      }
+	  } while (flip (&d) != LEFT);
 	  
 	  s.attachment_ = os;
 	  scores.push (s);

@@ -97,7 +97,7 @@ public:
     return *this;
   }
   
-  Real  arg () const;
+  Real arg () const;
   Real length () const;
 
   //wtf, How is Offset a Complex? is this used?
