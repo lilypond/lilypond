@@ -15,9 +15,5 @@
 #include "scope.hh"
 
 
-/** Store bibliographical information.  The information in the \header
-   block is read into this struct.  Lily does not process this
-   information.  */
-typedef Scope Header;
 
 #endif // HEADER_HH

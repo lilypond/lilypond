@@ -157,9 +157,9 @@ void
 Clef_engraver::do_creation_processing()
 {
   create_default_b_ = true;	// should read property.
-  Scalar def = get_property ("createInitdefaultClef", 0);
-  if (def.to_bool ()) // egcs: Scalar to bool is ambiguous
-    set_type (def);
+  SCM def = get_property ("createInitdefaultClef", 0);
+  if (gh_string_p (def))
+    set_type (ly_scm2string (def));
   
   if (clef_type_str_.length_i ())
     { 
@@ -191,10 +191,9 @@ Clef_engraver::create_clef()
     {
       Clef_item *c= new Clef_item;
       c->set_elt_property (break_priority_scm_sym, gh_int2scm (-2)); // ugh
-      String clefstyle = get_property ("clefStyle", 0);
-      if (clefstyle.length_i ())
-	c->set_elt_property (style_scm_sym,
-			     ly_ch_C_to_scm (clefstyle.ch_C()));
+      SCM clefstyle = get_property ("clefStyle", 0);
+      if (gh_string_p(clefstyle))
+	c->set_elt_property (style_scm_sym, clefstyle);
       
       announce_element (Score_element_info (c, clef_req_l_));
       clef_p_ = c;
@@ -218,8 +217,11 @@ Clef_engraver::do_process_requests()
     }
   else if (create_default_b_)
     {
-      String type = get_property ("defaultClef", 0);
-      set_type (type.length_i () ? type : "treble");
+      SCM type = get_property ("defaultClef", 0);
+      if (gh_string_p (type))
+	set_type (ly_scm2string (type));
+      else
+	set_type ( "treble");
       create_clef ();
       create_default_b_ =0;
     }

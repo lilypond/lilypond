@@ -53,7 +53,8 @@ Prerequisites
    * Python 1.5, Check out `ftp://ftp.python.org' or
      `ftp://ftp.cwi.nl/pub/python'.
 
-   * GUILE 1.3,  check out http://www.gnu.org/software/guile/guile.html
+   * GUILE 1.3.4,  check out
+     http://www.gnu.org/software/guile/guile.html
      (http://www.gnu.org/software/guile/guile.html).
 
    * GNU make.  Check out ftp://ftp.gnu.org/make/
@@ -93,7 +94,7 @@ following software
      strongly     recommended.  Xdvi will show all embedded PostScript
      too if you have     Ghostscript installed.
 
-   * GUILE 1.3, check out http://www.gnu.org/software/guile/
+   * GUILE 1.3.4, check out http://www.gnu.org/software/guile/
      (http://www.gnu.org/programs/guile.html)
 
    For running LilyPond successfully you have to help TeX and MetaFont
@@ -333,12 +334,6 @@ demonstrated in `input/bugs/'.
 
    Known bugs that are not LilyPond's fault are documented here.
 
-All platforms
-*************
-
-   * Guile 1.3.2 is buggy in several respects. Do not use it for
-     LilyPond.
-
 LinuxPPC Bugs:
 **************
 
@@ -360,10 +355,6 @@ Linux-i386
 
      Note that this only happens on some computers with the said
      platform.
-
-   * GUILE A binary RPM of Guile 1.3 has been distributed from the
-     LilyPond ftp site.  This binary was made in RedHat 5.x, and it
-     will fail if this RPM is used with RedHat 6.x.
 
    * libg++ 2.7
 

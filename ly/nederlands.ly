@@ -1,13 +1,5 @@
 %{
  common dutch names for notes. "es" means flat, "is" means sharp
-
-
-
-
- Please note that, while these names are used to enter *notes*, they
- actually are *melodic*s, i.e. they represent a pitch solely. Notes
- have a rhythmic part too. This is the reason that we don't write 'note { .. }'
-
 %}
 
 \notenames {
@@ -56,6 +48,7 @@
 	% upper case: 1 octave lower.
 	%
 
+	%% deprecated.
 
 	Ceses 	= \musicalpitch { -2 0 -2 }
 	Ces 	= \musicalpitch { -2 0 -1 }

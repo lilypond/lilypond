@@ -94,14 +94,12 @@ Timing_translator::do_process_requests()
 
   Translator_group * tr=0;
 
-  Scalar barn = get_property ("currentBarNumber", &tr);
-  if (!barn.empty_b () && barn.isnum_b ())
+  SCM barn = get_property ("currentBarNumber", &tr);
+  if (SCM_NUMBERP(barn))
     {
-      time_.bars_i_ = int(barn);
-      tr->set_property ("currentBarNumber", "");
+      time_.bars_i_ = gh_scm2int (barn);
+      tr->set_property ("currentBarNumber", SCM_UNDEFINED);
     }
-  
-
 }
 
 
@@ -119,7 +117,8 @@ Timing_translator::do_pre_move_processing()
   while (!global_l);
 
   /* allbars == ! skipbars */
-  bool allbars = ! get_property ("skipBars", 0).to_bool ();
+  SCM sb = get_property ("skipBars", 0);
+  bool allbars = !(gh_boolean_p (sb)&&gh_scm2bool (sb));
 
   // urg: multi bar rests: should always process whole of first bar?
   if (!time_.cadenza_b_ && allbars)

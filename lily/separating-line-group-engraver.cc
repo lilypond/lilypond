@@ -31,8 +31,8 @@ Separating_line_group_engraver::do_creation_processing ()
 void
 Separating_line_group_engraver::do_removal_processing ()
 {
-  Scalar sz (get_property ("postBreakPadding", 0));
-  if (!sz.empty_b () && sz.isnum_b ())
+  SCM sz (get_property ("postBreakPadding", 0));
+  if (SCM_NUMBERP(sz))
     {
       sep_span_p_->padding_f_ = Real(sz);
     }

@@ -114,5 +114,5 @@ Duration_iterator::forward_dur ()
 bool
 Duration_iterator::ok ()
 {
-  return cursor_dur_.length_mom () <= Moment (4);
+  return cursor_dur_.length_mom () <= Rational (4);
 }

@@ -14,6 +14,7 @@
 #include "music-list.hh"
 #include "musical-request.hh"
 #include "command-request.hh"
+#include "lily-guile.hh"
 #include "parser.hh"
 #include "scope.hh"
 #include "file-results.hh"

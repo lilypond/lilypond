@@ -13,18 +13,21 @@
 #include "string.hh"
 #include "real.hh"
 
+#error
 /// Perl -like scalar type.
-struct Scalar : public String 
+struct Scalar 
 {
-  Scalar (Real r) { *this = to_str (r); }
-  Scalar (int i) { *this = to_str (i); }
-  Scalar (long l) { *this = to_str (l); }
-  Scalar (char c) { *this = to_str (c); }
-  Scalar (char const *c) : String (c) {}    
-  Scalar (String s) : String (s) {}
+  Protected_scm scm_;
+public:
+  Scalar (Real r);
+  Scalar (int i);
+  Scalar (long l);
+  Scalar (char c);
+  Scalar (char const *c);
+  Scalar (String s);
   Scalar (Rational);
   operator Rational();
-  Scalar() {}
+  Scalar();
   bool isnum_b() const;
   bool isdir_b() const;
   bool isint_b() const;

@@ -11,7 +11,7 @@
 #include "debug.hh"
 #include "translator-group.hh"
 
-#include "rational.hh"
+#include "moment.hh"
 
 char const*
 Translator::name() const
@@ -163,7 +163,7 @@ Translator::output_def_l () const
   return output_def_l_;
 }
 
-Scalar
+SCM
 Translator::get_property (String id, Translator_group **where_l) const
 {
   return daddy_trans_l_->get_property (id, where_l);

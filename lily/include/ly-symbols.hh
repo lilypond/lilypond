@@ -60,6 +60,7 @@ DECLARE_LY_SYMBOL(notewidth);
 DECLARE_LY_SYMBOL(non_default);
 DECLARE_LY_SYMBOL(non_rhythmic);
 DECLARE_LY_SYMBOL(no_staff_support);
+DECLARE_LY_SYMBOL(no_stem_extend);
 DECLARE_LY_SYMBOL(octave_dir);
 DECLARE_LY_SYMBOL(origin);
 DECLARE_LY_SYMBOL(output);

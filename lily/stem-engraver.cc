@@ -28,10 +28,10 @@ Stem_engraver::Stem_engraver()
 void
 Stem_engraver::do_creation_processing ()
 {
-  Scalar prop = get_property ("abbrev", 0);
-  if (prop.isnum_b ()) 
+  SCM prop = get_property ("abbrev", 0);
+  if (SCM_NUMBERP(prop)) 
     {
-      default_abbrev_i_  = prop;
+      default_abbrev_i_  = gh_scm2int (prop);
     }
 }
 
@@ -96,38 +96,43 @@ Stem_engraver::do_pre_move_processing()
 
   if (stem_p_)
     {
-      Scalar prop = get_property ("verticalDirection", 0);
-      Direction dir = prop.isnum_b () ? (Direction)int(prop) : CENTER;
-      if (dir)
+      SCM prop = get_property ("verticalDirection", 0);
+      if (SCM_NUMBERP(prop))
 	{
-	  stem_p_->dir_ = dir;
+	  stem_p_->dir_ = to_dir (prop);
 	  stem_p_->set_elt_property (dir_forced_scm_sym, SCM_BOOL_T);
 	}
 
       Translator_group* which;
       prop = get_property ("stemLeftBeamCount", &which);
-      if (prop.isnum_b ())
+      if (SCM_NUMBERP(prop))
 	{
-	  stem_p_->beams_i_drul_[LEFT] = prop;
-	  ((Translator_group*)which)->set_property ("stemLeftBeamCount", "");
+	  stem_p_->beams_i_drul_[LEFT] = gh_scm2int (prop);
+	  ((Translator_group*)which)->set_property ("stemLeftBeamCount", SCM_UNDEFINED);
 	}
       prop = get_property ("stemRightBeamCount", &which);
-      if (prop.isnum_b ())
+      if (SCM_NUMBERP(prop))
 	{
-	  stem_p_->beams_i_drul_[RIGHT] = prop;
-	  ((Translator_group*)which)->set_property ("stemRightBeamCount", "");
+	  stem_p_->beams_i_drul_[RIGHT] = gh_scm2int (prop);
+	  ((Translator_group*)which)->set_property ("stemRightBeamCount", SCM_UNDEFINED);
 	}
 
       prop = get_property ("stemLength", 0);
-      if (prop.isnum_b ())
+      if (SCM_NUMBERP(prop))
 	{
-	  stem_p_->set_elt_property (length_scm_sym, gh_double2scm (prop.to_f ()));
+	  stem_p_->set_elt_property (length_scm_sym, prop);
 	}
 
       prop = get_property ("stemStyle", 0);
-      if (prop.to_bool ())
+      if (gh_string_p (prop))
 	{
-	  stem_p_->set_elt_property (style_scm_sym, ly_ch_C_to_scm (prop.ch_C()));
+	  stem_p_->set_elt_property (style_scm_sym, prop);
+	}
+      
+      prop = get_property ("noStemExtend", 0);
+      if (gh_boolean_p (prop) && gh_scm2bool (prop))
+	{
+	  stem_p_->set_elt_property (no_stem_extend_scm_sym, prop);
 	}
       
       typeset_element(stem_p_);

@@ -16,7 +16,7 @@
 #define DECLARE_TYPE_NAME(Class)
 
 class Notename_table_identifier;
-class Translator_identifier;
+class Translator_group_identifier;
 class Music_identifier;
 class Articulation_req_identifier;
 class Symtables_identifier;
@@ -51,7 +51,7 @@ struct Identifier : public Input {
   
   void error (String) const;
   String str () const;
-  IDACCESSOR(Translator)
+  IDACCESSOR(Translator_group)
   IDACCESSOR(Notename_table)
   IDACCESSOR(Music)
   IDACCESSOR(Symtables)
@@ -84,7 +84,7 @@ struct Class ## _identifier : Identifier {\
 }\
 
 
-DECLARE_ID_CLASS(Translator);
+DECLARE_ID_CLASS(Translator_group);
 DECLARE_ID_CLASS(Duration);
 DECLARE_ID_CLASS(Notename_table);
 DECLARE_ID_CLASS(Real);

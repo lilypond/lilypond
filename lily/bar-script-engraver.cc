@@ -31,8 +31,8 @@ Bar_script_engraver::Bar_script_engraver ()
 void
 Bar_script_engraver::do_creation_processing ()
 {
-  Scalar prop = get_property (type_ + "HangOnClef", 0);
-  if (prop.to_bool ())
+  SCM prop = get_property (type_ + "HangOnClef", 0);
+  if (gh_boolean_p (prop) && gh_scm2bool (prop))
     {
       hang_on_clef_b_ = true;
     }
@@ -141,10 +141,10 @@ Bar_script_engraver::create_items (Request *rq)
   text_p_ = new Text_item;
   text_p_->set_elt_property (breakable_scm_sym, SCM_BOOL_T); // ugh
 
-  Scalar prop = get_property (type_ + "Direction", 0);
-  if (prop.isnum_b ())
+  SCM prop = get_property (type_ + "Direction", 0);
+  if (isdir_b (prop))
     {
-      staff_side_p_->dir_ = (Direction) (int) prop;
+      staff_side_p_->dir_ = to_dir (prop);
     }
   else 
     {
@@ -153,10 +153,10 @@ Bar_script_engraver::create_items (Request *rq)
 
   staff_side_p_->set_victim(text_p_);
   
-  Scalar padding = get_property (type_ + "ScriptPadding", 0);
-  if (padding.length_i() && padding.isnum_b ())
+  SCM padding = get_property (type_ + "ScriptPadding", 0);
+  if (SCM_NUMBERP(padding))
     {
-      staff_side_p_->set_elt_property (padding_scm_sym, gh_double2scm(Real(padding)));
+      staff_side_p_->set_elt_property (padding_scm_sym, padding);
     }
   else
     {

@@ -16,6 +16,8 @@
 #include "translator.hh"
 #include "cons.hh"
 #include "parray.hh"
+#include "scm-hash.hh"
+
 
 // egcs
 typedef void (Translator::*Method_pointer)(void);
@@ -28,7 +30,7 @@ class Translator_group : public virtual Translator {
   Array<String> consists_str_arr_;
   Array<String> consists_end_str_arr_;
   Array<String> accepts_str_arr_;
-  Dictionary<Scalar> properties_dict_;
+  Scheme_hash_table properties_dict_;
 
   int iterator_count_;
   friend class Interpretation_context_handle;
@@ -36,8 +38,8 @@ class Translator_group : public virtual Translator {
   Cons_list<Translator> trans_p_list_;
 
 public:
-  Scalar get_property (String type_str, Translator_group  **where_found_l) const;
-  void set_property (String var_name, Scalar value);
+  SCM get_property (String type_str, Translator_group  **where_found_l) const;
+  void set_property (String var_name, SCM value);
 
   String id_str_;
 
@@ -73,10 +75,11 @@ public:
   Link_array<Translator_group> path_to_acceptable_translator (String alias) const;
 
   Translator_group*get_default_interpreter();
+  virtual ~Translator_group ();
+  
 protected:
   bool try_music_on_nongroup_children (Music *m);
   
-  virtual ~Translator_group ();
   virtual void do_print () const;
   virtual void do_process_requests ();
   virtual void do_add_processing ();

@@ -1,10 +1,10 @@
 depth = ..
 
 NAME = documentation
-SUBDIRS= user metadoc bibliography pictures topdocs ntweb misc
+SUBDIRS= user programmer bibliography pictures topdocs ntweb misc
 STEPMAKE_TEMPLATES=documentation  texinfo
 
-README_TOP_FILES=NEWS DEDICATION CHANGES
+README_TOP_FILES=NEWS DEDICATION CHANGES TODO
 EXTRA_DIST_FILES = 
 
 include $(depth)/make/stepmake.make 

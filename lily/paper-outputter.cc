@@ -161,7 +161,7 @@ Paper_outputter::output_comment (String str)
 {
   if (String (output_global_ch) == "scm")
     {
-      *outstream_l_ << "; " << str << '\n';
+      *outstream_l_ << "; " << str << "\n";
     }
   else
     {

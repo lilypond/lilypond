@@ -11,7 +11,7 @@
 #define GLOBAL_TRANSLATOR_HH
 
 #include "translator-group.hh"
-#include "rational.hh"
+#include "moment.hh"
 #include "pqueue.hh"
 
 

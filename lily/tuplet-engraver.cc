@@ -35,13 +35,13 @@ void
 Tuplet_engraver::do_process_requests ()
 {
   int dir = 0;
-  Scalar prop = get_property ("tupletDirection", 0);
-  if (prop.isnum_b())
-    dir = (int)prop;
+  SCM prop = get_property ("tupletDirection", 0);
+  if (isdir_b (prop))
+    dir = to_dir (prop);
   int visibility = 3;
   prop = get_property ("tupletVisibility", 0);
-  if (prop.isnum_b())
-    visibility = (int)prop;
+  if (SCM_NUMBERP(prop))
+    visibility = gh_scm2int (prop);	// bool ?
 
   for (int i= started_span_p_arr_.size ();
        i < time_scaled_music_arr_.size (); i++)
@@ -61,7 +61,9 @@ void
 Tuplet_engraver::acknowledge_element (Score_element_info i)
 {
   bool grace= (i.elem_l_->get_elt_property (grace_scm_sym) != SCM_BOOL_F);
-  if (grace != get_property ("weAreGraceContext",0).to_bool ())
+  SCM wg = get_property ("weAreGraceContext",0);
+  bool wgb = gh_boolean_p (wg) && gh_scm2bool (wg);
+  if (grace != wgb)
     return;
   
   if (Note_column *nc = dynamic_cast<Note_column *> (i.elem_l_))

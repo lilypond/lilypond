@@ -44,14 +44,15 @@ Scope::Scope (Scope const&s)
     }
 }
 
-unsigned int scm_hash (Protected_scm s)
+unsigned int ly_pscm_hash (Protected_scm s)
 {
-  return scm_ihashv (s, ~1u);
+  return ly_scm_hash (s);
 }
+
 
 Scope::Scope ()
 {
-  hash_func_ = scm_hash;
+  hash_func_ = ly_pscm_hash;
 }
 
 bool

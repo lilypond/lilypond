@@ -10,14 +10,6 @@
 #include "lily-guile.hh"
 #include "main.hh"
 
-#ifdef LYPROT
-#define PROTECT   ly_protect_scm
-#define UNPROTECT ly_unprotect_scm
-#else
-#define PROTECT   scm_protect_object 
-#define UNPROTECT scm_unprotect_object
-#endif
-
 Protected_scm::Protected_scm ()
 {
   object_ = 0;
@@ -25,12 +17,12 @@ Protected_scm::Protected_scm ()
 
 Protected_scm::Protected_scm (SCM s)
 {
-  object_ = s  ? PROTECT (s): 0;
+  object_ = s  ? scm_protect_object (s): 0;
 }
 
 Protected_scm::Protected_scm (Protected_scm const &s)
 {
-  object_ = s.object_ ? PROTECT (s.object_) : 0;
+  object_ = s.object_ ? scm_protect_object (s.object_) : 0;
 }
 
 Protected_scm & 
@@ -39,9 +31,9 @@ Protected_scm::operator =(SCM s)
   if (object_ == s)
     return *this;
   if (object_)
-    UNPROTECT(object_);
+    scm_unprotect_object(object_);
 
-  object_ =  s ? PROTECT (s): 0;
+  object_ =  s ? scm_protect_object (s): 0;
   return *this;
 }
 
@@ -56,8 +48,7 @@ Protected_scm::~Protected_scm ()
 {
   if  (object_)
     {
-      UNPROTECT (object_);
-      object_ =0L;		// be nice to conservative GC
+      scm_unprotect_object (object_);
     }
 }
 

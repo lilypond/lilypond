@@ -11,7 +11,7 @@
 #include "virtual-methods.hh"
 #include "graphical-element.hh"
 #include "lily-guile.hh"
-
+#include "smobs.hh"
 
 typedef void (Score_element::*Score_element_method_pointer) (void);
 
@@ -148,13 +148,8 @@ protected:
 
   static Interval dim_cache_callback (Dimension_cache*);
 public:
-  SCM smobify_self ();
-  static SCM mark_smob (SCM);
-  static scm_sizet free_smob (SCM s);
-  static int print_smob (SCM s, SCM p, scm_print_state*);
-  static long smob_tag;
-  static void init_smobs();
-  SCM self_scm_;
+
+  DECLARE_SMOBS;
 };
 
 

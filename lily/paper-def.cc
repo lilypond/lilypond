@@ -209,7 +209,7 @@ Paper_def::reset_default_count()
 }
 
 Paper_outputter*
-Paper_def::paper_outputter_p (Paper_stream* os_p, Header* header_l, String origin_str) const
+Paper_def::paper_outputter_p (Paper_stream* os_p, Scope* header_l, String origin_str) const
 {
   Paper_outputter* p = new Paper_outputter (os_p);
 

@@ -45,10 +45,10 @@ Documentation
 
    * use `.dvi',  for the tutorial and reference manual. Do
 
-            make -C Documentation/tex/ dvi
+            make -C Documentation/user/ dvi
 
    * use ASCII. Do using
-          	make -C Documentation/
+          	make -C doc
 
 
 Comments

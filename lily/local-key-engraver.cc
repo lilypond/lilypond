@@ -58,7 +58,8 @@ Local_key_engraver::process_acknowledged ()
 {
   if (!key_item_p_ && mel_l_arr_.size()) 
     {
-      bool forget = get_property ("forgetAccidentals",0).to_bool();
+      SCM f = get_property ("forgetAccidentals",0);
+      bool forget = gh_boolean_p (f) && gh_scm2bool(f);
       for (int i=0; i  < mel_l_arr_.size(); i++) 
 	{
 	  Item * support_l = support_l_arr_[i];
@@ -126,7 +127,9 @@ Local_key_engraver::do_pre_move_processing()
 void
 Local_key_engraver::acknowledge_element (Score_element_info info)
 {
-  bool selfgr = get_property ("weAreGraceContext", 0).to_bool ();
+  SCM wg= get_property ("weAreGraceContext", 0);
+  
+  bool selfgr = gh_boolean_p (wg) &&gh_scm2bool (wg);
   bool he_gr = info.elem_l_->get_elt_property (grace_scm_sym) != SCM_BOOL_F;
 
   Grace_align_item * gai = dynamic_cast<Grace_align_item*> (info.elem_l_);  
@@ -159,7 +162,8 @@ Local_key_engraver::do_process_requests()
   Time_description const * time_C_ = get_staff_info().time_C_;
   if (time_C_ && !time_C_->whole_in_measure_)
     {
-      bool no_res = get_property ("noResetKey",0).to_bool ();
+      SCM n =  get_property ("noResetKey",0);
+      bool no_res = gh_boolean_p (n) && gh_scm2bool (n);
       if (!no_res && key_grav_l_)
 	local_key_= key_grav_l_->key_;
     }

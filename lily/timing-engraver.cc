@@ -53,12 +53,15 @@ Timing_engraver::which_bar ()
       if (!now_mom ())
 	return "|";
 
-      Scalar nonauto = get_property ("barNonAuto", 0);
-      if (!nonauto.to_bool ())
+      SCM nonauto = get_property ("barNonAuto", 0);
+      if (!gh_boolean_p (nonauto) && gh_scm2bool (nonauto))
 	{
-	  Scalar always = get_property ("barAlways", 0);
-	  if (!time_.whole_in_measure_ || always.to_bool ())
-	    return get_property ("defaultBarType" ,0);
+	  SCM always = get_property ("barAlways", 0);
+	  if (!time_.whole_in_measure_ || gh_boolean_p (always) && gh_scm2bool (always))
+	    {
+	      SCM def=get_property ("defaultBarType" ,0);
+	      return (gh_string_p (def))? ly_scm2string (def) : "";
+	    }
 	}
       return "";
     }

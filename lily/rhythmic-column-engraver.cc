@@ -58,8 +58,8 @@ Rhythmic_column_engraver::process_acknowledged ()
 	  stem_l_ = 0;
 	}
 
-
-      bool wegrace = get_property ("weAreGraceContext",0).to_bool ();
+      SCM wg = get_property ("weAreGraceContext",0);
+      bool wegrace = gh_boolean_p (wg) && gh_scm2bool (wg);
 
       if (!wegrace)
 	for (int i=0; i < grace_slur_endings_.size(); i++)
@@ -71,7 +71,9 @@ Rhythmic_column_engraver::process_acknowledged ()
 void
 Rhythmic_column_engraver::acknowledge_element (Score_element_info i)
 {
-  if ((get_property ("weAreGraceContext",0).to_bool () !=
+  SCM wg = get_property ("weAreGraceContext",0);
+  bool wegrace = gh_boolean_p (wg) && gh_scm2bool (wg);
+  if ((wegrace !=
       (i.elem_l_->get_elt_property (grace_scm_sym) != SCM_BOOL_F))
     && !dynamic_cast<Slur*> (i.elem_l_))
     return ;
@@ -105,18 +107,16 @@ Rhythmic_column_engraver::do_pre_move_processing()
 {
   if (ncol_p_) 
     {
-      Scalar sh = get_property ("horizontalNoteShift", 0);
-      if (sh.isnum_b ())
+      SCM sh = get_property ("horizontalNoteShift", 0);
+      if (SCM_NUMBERP(sh))
 	{
-	  ncol_p_->set_elt_property (horizontal_shift_scm_sym,
-				     gh_int2scm (int (sh)));
+	  ncol_p_->set_elt_property (horizontal_shift_scm_sym, sh);
 	}
 
       sh = get_property ("forceHorizontalShift" ,0);
-      if (sh.isnum_b ())
+      if (SCM_NUMBERP(sh))
 	{
-	  ncol_p_->set_elt_property (force_hshift_scm_sym,
-				     gh_double2scm (double (sh)));
+	  ncol_p_->set_elt_property (force_hshift_scm_sym, sh);
 	}
 
       typeset_element (ncol_p_);

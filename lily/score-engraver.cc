@@ -262,7 +262,10 @@ Score_engraver::do_try_music (Music*r)
 void
 Score_engraver::forbid_breaks ()
 {
-  SCM junk = command_column_l_->remove_elt_property (breakable_scm_sym);
+  /*
+    result is junked.
+   */
+  command_column_l_->remove_elt_property (breakable_scm_sym);
 }
 
 ADD_THIS_TRANSLATOR(Score_engraver);

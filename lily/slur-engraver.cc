@@ -34,7 +34,7 @@ Slur_engraver::set_melisma (bool m)
   if (!where)
     where = daddy_trans_l_;
     
-  daddy_trans_l_->set_property ("slurMelismaBusy", m ? "1" :"0");
+  daddy_trans_l_->set_property ("slurMelismaBusy", m ? SCM_BOOL_T :SCM_BOOL_F);
 }
 
 void
@@ -58,7 +58,9 @@ Slur_engraver::do_removal_processing ()
       typeset_element (slur_l_stack_[i]);
     }
   slur_l_stack_.clear ();
-  if (!get_property ("weAreGraceContext",0).to_bool ())
+  SCM wg = get_property ("weAreGraceContext",0);
+  bool wgb = gh_boolean_p (wg) && gh_scm2bool (wgb);
+  if (!wgb)
     for (int i=0; i < requests_arr_.size(); i++)
       {
 	requests_arr_[i]->warning (_ ("unterminated slur"));
@@ -89,9 +91,9 @@ Slur_engraver::do_process_requests()
 	  // push a new slur onto stack.
 	  //(use temp. array to wait for all slur STOPs)
 	  Slur * s_p =new Slur;
-	  Scalar prop = get_property ("slurDash", 0);
-	  if (prop.isnum_b ()) 
-	    s_p->set_elt_property (dashed_scm_sym, gh_int2scm(prop));
+	  SCM prop = get_property ("slurDash", 0);
+	  if (SCM_NUMBERP(prop)) 
+	    s_p->set_elt_property (dashed_scm_sym, prop);
 
 	  
 	  requests_arr_.push (slur_req_l);
@@ -106,14 +108,14 @@ Slur_engraver::do_process_requests()
 void
 Slur_engraver::do_pre_move_processing()
 {
-  Scalar dir (get_property ("slurVerticalDirection", 0));
-  Scalar dir2 (get_property ("verticalDirection", 0));
+  SCM dir (get_property ("slurVerticalDirection", 0));
+  SCM dir2 (get_property ("verticalDirection", 0));
 
   Direction slurdir = CENTER;
-  if (dir.length_i () && dir.isnum_b ())
-    slurdir = (Direction) sign (int(dir));
-  else if (dir2.length_i () && dir2.isnum_b ())
-    slurdir = (Direction) sign (int (dir2));
+  if (SCM_NUMBERP(dir))
+    slurdir = to_dir (dir);
+  else if (gh_number_p (dir2))
+    slurdir = to_dir (dir2);
   
   for (int i = 0; i < end_slur_l_arr_.size(); i++)
     {
@@ -127,7 +129,8 @@ void
 Slur_engraver::do_post_move_processing()
 {
   new_slur_req_l_arr_.clear();
-  if (get_property ("automaticMelismata",0).to_bool ())
+  SCM m = get_property ("automaticMelismata",0);
+  if (gh_boolean_p (m) && gh_scm2bool (m))
     {
       set_melisma (slur_l_stack_.size ());
     }

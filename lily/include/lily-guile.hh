@@ -24,6 +24,7 @@ SCM ly_set_scm (String name , SCM val);
 SCM ly_append (SCM a, SCM b);
 SCM ly_eval (SCM a);
 SCM ly_func_o (char const* name);
+SCM ly_parse_scm (char const* s, int* n);
 SCM ly_quote_scm (SCM s);
 void ly_display_scm (SCM s);
 String ly_scm2string (SCM s);
@@ -31,21 +32,32 @@ SCM array_to_list (SCM *a , int l);
 
 
 #include "array.hh"
-#include "scalar.hh"
-
 
 void read_lily_scm_file (String);
 void init_lily_guile ();
 
 #include "ly-symbols.hh"
 
-/*
-  Do It Yourself GC protection.
- */
-SCM ly_protect_scm (SCM s);
-SCM ly_unprotect_scm (SCM s);
 void init_ly_protection ();
+unsigned int ly_scm_hash (SCM s);
 
 SCM index_cell (SCM cellp, Direction d);
+
+
+/*
+  snarfing.
+ */
+void add_scm_init_func (void (*)());
+
+#define ADD_SCM_INIT_FUNC(name, func)\
+class name ## _scm_initter {			\
+public:\
+  name ## _scm_initter ()			\
+  {						\
+    add_scm_init_func (func);		\
+  }						\
+} _ ## name ## _scm_initter;			\
+/* end define */
+
 
 #endif // LILY_GUILE_HH

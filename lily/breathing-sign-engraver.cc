@@ -21,7 +21,6 @@ TODO:
 #include "note-head.hh"
 #include "local-key-item.hh"
 
-#include <iostream.h>
 
 Breathing_sign_engraver::Breathing_sign_engraver()
 {
@@ -46,9 +45,9 @@ Breathing_sign_engraver::do_process_requests()
   if(breathing_sign_req_l_) {
     breathing_sign_p_ = new Breathing_sign;
 
-    Scalar prop = get_property ("verticalDirection", 0);
-    if(prop.isnum_b())
-      breathing_sign_p_->set_vertical_position((Direction)int(prop));
+    SCM prop = get_property ("verticalDirection", 0);
+    if(isdir_b(prop))
+      breathing_sign_p_->set_vertical_position(to_dir (prop));
 
     announce_element (Score_element_info (breathing_sign_p_, breathing_sign_req_l_));
   }

@@ -90,16 +90,7 @@ public:
   void operator += (String s);
 
   bool empty_b  () const;
-#if 0
-  /** is the string empty?
 
-    Ugh-ugh-thank-you-cygnus.  W32 barfs on this
-   */
-  operator bool  () const;
-  {
-    return length_i  (); 
-  }
-#endif
   void append (String);
   void prepend (String);
 

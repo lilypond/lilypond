@@ -1,7 +1,3 @@
-%%In the file ly/auto-beam-settings.ly, all necessary i-iii settings should
-%%be listed, here's a new version with more comments, (hw, please include).
-%%duh
-
 % auto-beam-settings.ly
 % setup for auto-beam engraver
 %
@@ -21,47 +17,49 @@
 %   end beams each 1/2 note
 %   end beams with 16th notes each 1/4 note
 %   end beams with 32th notes each 1/8 note
-time3_2beamAutoEnd = "1/2";
-time3_2beamAutoEnd_16 = "1/4";
-time3_2beamAutoEnd_32 = "1/8";
 
-time3_4beamAutoBegin_8 = "1/4";
-time3_4beamAutoEnd = "3/4";
-time3_4beamAutoBegin_16 = "1/16";
-time3_4beamAutoEnd_16 = "1/4";
-%time3_4beamAutoBegin_32 = "1/8";
-time3_4beamAutoEnd_32 = "1/8";
+time3_2beamAutoEnd = #(make-moment 1 2)
+%time3_2beamAutoEnd_16 = #(make-moment 1 4)
+time3_2beamAutoEnd_16 = #(make-moment 1 4)
+time3_2beamAutoEnd_32 = #(begin (make-moment 1 8))
 
-time3_8beamAutoBegin = "1/8";
-time3_8beamAutoEnd = "3/8";
+time3_4beamAutoBegin_8 = #(begin (make-moment 1 4))
+time3_4beamAutoEnd = #(begin (make-moment 3 4))
+time3_4beamAutoBegin_16 = #(begin (make-moment 1 16))
+time3_4beamAutoEnd_16 = #(begin (make-moment 1 4))
+%time3_4beamAutoBegin_32 = #(begin (make-moment 1 8))
+time3_4beamAutoEnd_32 = #(begin (make-moment 1 8))
+
+time3_8beamAutoBegin = #(begin (make-moment 1 8))
+time3_8beamAutoEnd = #(begin (make-moment 3 8))
 
 % in common time:
 %   end beams each 1/2 note
 %   end beams with 32th notes each 1/8 note
 %   end beams with 1/8 triplets each 1/4 note
 
-time4_4beamAutoEnd = "1/2";
-time4_4beamAutoEnd_12 = "1/4";
-time4_4beamAutoEnd_16 = "1/4";
-time4_4beamAutoEnd_32 = "1/8";
+time4_4beamAutoEnd = #(begin (make-moment 1 2))
+time4_4beamAutoEnd_12 = #(begin (make-moment 1 4))
+time4_4beamAutoEnd_16 = #(begin (make-moment 1 4))
+time4_4beamAutoEnd_32 = #(begin (make-moment 1 8))
 
-time4_8beamAutoEnd = "1/4";
-time4_8beamAutoEnd_16 = "1/4";
-time4_8beamAutoEnd_32 = "1/8";
+time4_8beamAutoEnd = #(begin (make-moment 1 4))
+time4_8beamAutoEnd_16 = #(begin (make-moment 1 4))
+time4_8beamAutoEnd_32 = #(begin (make-moment 1 8))
 
-time4_16beamAutoEnd = "1/8";
+time4_16beamAutoEnd = #(begin (make-moment 1 8))
 
-time6_8beamAutoEnd = "3/8";
-time6_8beamAutoEnd_16 = "3/8";
-time6_8beamAutoEnd_32 = "1/8";
+time6_8beamAutoEnd = #(begin (make-moment 3 8))
+time6_8beamAutoEnd_16 = #(begin (make-moment 3 8))
+time6_8beamAutoEnd_32 = #(begin (make-moment 1 8))
 
-time9_8beamAutoEnd = "3/8";
-time9_8beamAutoEnd_16 = "3/8";
-time9_8beamAutoEnd_32 = "1/8";
+time9_8beamAutoEnd = #(begin (make-moment 3 8))
+time9_8beamAutoEnd_16 = #(begin (make-moment 3 8))
+time9_8beamAutoEnd_32 = #(begin (make-moment 1 8))
 
-time12_8beamAutoEnd = "3/8";
-time12_8beamAutoEnd_16 = "3/8";
-time12_8beamAutoEnd_32 = "1/8";
+time12_8beamAutoEnd = #(begin (make-moment 3 8))
+time12_8beamAutoEnd_16 = #(begin (make-moment 3 8))
+time12_8beamAutoEnd_32 = #(begin (make-moment 1 8))
 
 
 
@@ -70,10 +68,10 @@ time12_8beamAutoEnd_32 = "1/8";
 Users may override in most cases, simply by issuing
 
     % from here on consider ending beam every 1/4 note
-    \property Voice.beamAutoEnd = "1/4"
+    \property Voice.beamAutoEnd = #(make-moment 1 4)
 
     % no autobeaming
-    \property Voice.beamAuto = "0"  
+    \property Voice.beamAuto = ##f  
 
 or, more globally, by doing:
 
@@ -81,7 +79,7 @@ or, more globally, by doing:
         \translator{
             \VoiceContext
             % consider ending beam at every 1/2 note
-            beamAutoEnd = "1/2";
+            beamAutoEnd = #(make-moment 1 2)
         }
     }
 

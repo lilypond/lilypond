@@ -15,10 +15,10 @@ Plet::Plet ()
   iso_i_ = 1;
 }
 
-Moment
+Rational
 Plet::mom () const
 {
-  return  Moment (iso_i_, type_i_);
+  return  Rational (iso_i_, type_i_);
 }
 
 bool

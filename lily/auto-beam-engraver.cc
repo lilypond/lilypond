@@ -103,49 +103,53 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
   /*
     second guess: property generic time exception
   */
-  Scalar begin = get_property (time_str + "beamAutoBegin", 0);
-  if (begin.length_i ())
-    begin_mom = begin.to_rat ();
+  SCM begin = get_property (time_str + "beamAutoBegin", 0);
+  if (SMOB_IS_TYPE_B(Moment, begin))
+    begin_mom = * SMOB_TO_TYPE(Moment, begin);
 
-  Scalar end = get_property (time_str + "beamAutoEnd", 0);
-  if (end.length_i ())
-    end_mom = end.to_rat ();
+  SCM end = get_property (time_str + "beamAutoEnd", 0);
+  if (SMOB_IS_TYPE_B (Moment, end))
+    end_mom = * SMOB_TO_TYPE(Moment,end);
 
   /*
     third guess: property time exception, specific for duration type
   */
   if (type_str.length_i ())
     {
-      Scalar end_mult = get_property (time_str + "beamAutoEnd" + type_str, 0);
-      if (end_mult.length_i ())
-	end_mom = end_mult.to_rat ();
-      Scalar begin_mult = get_property (time_str + "beamAutoBegin" + type_str, 0);
-      if (begin_mult.length_i ())
-	begin_mom = begin_mult.to_rat ();
+      SCM end_mult = get_property (time_str + "beamAutoEnd" + type_str, 0);
+      if (SMOB_IS_TYPE_B (Moment, end_mult))
+	end_mom = * SMOB_TO_TYPE (Moment,end_mult);
+
+      SCM begin_mult = get_property (time_str + "beamAutoBegin" + type_str, 0);
+      if (SMOB_IS_TYPE_B (Moment, begin_mult))
+	begin_mom = * SMOB_TO_TYPE (Moment,begin_mult);
     }
 
   /*
     fourth guess [user override]: property plain generic
   */
   begin = get_property ("beamAutoBegin", 0);
-  if (begin.length_i ())
-    begin_mom = begin.to_rat ();
+  if (SMOB_IS_TYPE_B(Moment, begin))
+    begin_mom = * SMOB_TO_TYPE(Moment, begin);
+
+
   
   end = get_property ("beamAutoEnd", 0);
-  if (end.length_i ())
-    end_mom = end.to_rat ();
+  if (SMOB_IS_TYPE_B (Moment, end))
+    end_mom = * SMOB_TO_TYPE (Moment,end);
 
   /*
     fifth guess [user override]: property plain, specific for duration type
   */
   if (type_str.length_i ())
     {
-      Scalar end_mult = get_property (String ("beamAutoEnd") + type_str, 0);
-      if (end_mult.length_i ())
-	end_mom = end_mult.to_rat ();
-      Scalar begin_mult = get_property (String ("beamAutoBegin") + type_str, 0);
-      if (begin_mult.length_i ())
-	begin_mom = begin_mult.to_rat ();
+      SCM end_mult = get_property (String ("beamAutoEnd") + type_str, 0);
+      if (SMOB_IS_TYPE_B (Moment, end_mult))
+	end_mom = * SMOB_TO_TYPE (Moment,end_mult);
+
+      SCM begin_mult = get_property (String ("beamAutoBegin") + type_str, 0);
+      if (SMOB_IS_TYPE_B (Moment, begin_mult))
+	begin_mom = * SMOB_TO_TYPE (Moment,begin_mult);
     }
 
   Rational r;
@@ -160,8 +164,8 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
   /*
     Allow already started autobeam to end
    */
-  Scalar on = get_property ("noAutoBeaming", 0);
-  if (on.to_bool ())
+  SCM on = get_property ("noAutoBeaming", 0);
+  if (gh_boolean_p (on) && gh_scm2bool (on))
     return;
 
   if (begin_mom)
@@ -200,20 +204,20 @@ Auto_beam_engraver::create_beam_p ()
     }
   
   /* urg, copied from Beam_engraver */
-  Scalar prop = get_property ("beamslopedamping", 0);
-  if (prop.isnum_b ()) 
-    beam_p->set_elt_property (damping_scm_sym, gh_int2scm(prop));
+  SCM prop = get_property ("beamslopedamping", 0);
+  if (SCM_NUMBERP(prop)) 
+    beam_p->set_elt_property (damping_scm_sym, prop);
 
   prop = get_property ("autoKneeGap", 0);
-  if (prop.isnum_b ()) 
-    beam_p->set_elt_property (auto_knee_gap_scm_sym, gh_int2scm(prop));
+  if (SCM_NUMBERP(prop)) 
+    beam_p->set_elt_property (auto_knee_gap_scm_sym, prop);
 
   prop = get_property ("autoInterstaffKneeGap", 0);
-  if (prop.isnum_b ()) 
-    beam_p->set_elt_property (auto_interstaff_knee_gap_scm_sym, gh_int2scm( prop));
+  if (SCM_NUMBERP(prop)) 
+    beam_p->set_elt_property (auto_interstaff_knee_gap_scm_sym, prop);
       
   prop = get_property ("beamquantisation", 0);
-  if (prop.isnum_b ()) 
+  if (SCM_NUMBERP(prop)) 
     beam_p->quantisation_ = (Beam::Quantisation)(int)prop;
  
   announce_element (Score_element_info (beam_p, 0));
@@ -281,7 +285,7 @@ Auto_beam_engraver::do_removal_processing ()
 {
   /* finished beams may be typeset */
   typeset_beam ();
-  /* but unfinished may need another announce/acknoledge pass */
+  /* but unfinished may need another announce/acknowledge pass */
   if (stem_l_arr_p_)
     junk_beam ();
 }
@@ -289,9 +293,9 @@ Auto_beam_engraver::do_removal_processing ()
 bool
 Auto_beam_engraver::same_grace_state_b (Score_element* e)
 {
-  bool gr = (e->get_elt_property (grace_scm_sym) != SCM_BOOL_F) ;
-
-  return gr == get_property ("weAreGraceContext",0).to_bool ();
+  bool gr = e->get_elt_property (grace_scm_sym) != SCM_BOOL_F;
+  SCM wg =get_property ("weAreGraceContext",0);
+  return (gh_boolean_p (wg) && gh_scm2bool (wg)) == gr;
 }
 
 void

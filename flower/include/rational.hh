@@ -10,15 +10,11 @@
 #ifndef RATIONAL_HH
 #define RATIONAL_HH
 
-#if PARANOIA
-#ifndef Rational
-#define Rational MyRational
-#endif
-#endif
 
 #include "compare.hh"
 #include "arithmetic-operator.hh"
 #include "fproto.hh"
+#include "string.hh"
 
 /**
    Rational numbers.  Included is support for + and - infinity.

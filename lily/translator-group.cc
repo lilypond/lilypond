@@ -10,7 +10,7 @@
 #include "translator-group.hh"
 #include "translator.hh"
 #include "debug.hh"
-#include "rational.hh"
+#include "moment.hh"
 #include "dictionary-iter.hh"
 
 #include "killing-cons.tcc"
@@ -373,10 +373,8 @@ Translator_group::do_print() const
 #ifndef NPRINT
   if (!flower_dstream)
     return ;
-  for (Dictionary_iter<Scalar> i (properties_dict_); i.ok (); i++)
-    {
-      DEBUG_OUT << i.key () << "=" << i.val () << '\n';
-    }
+
+  gh_display (properties_dict_.self_scm_);
   if (status == ORPHAN)
     {
       DEBUG_OUT << "consists of: ";
@@ -449,29 +447,29 @@ Translator_group::do_add_processing ()
     }
 }
 
-Scalar
+SCM
 Translator_group::get_property (String id,
 				Translator_group **where_l) const
 {
-  if (properties_dict_.elem_b (id))
+  SCM  sym = ly_symbol (id);
+  if (properties_dict_.elem_b (sym))
     {
       if (where_l)
 	*where_l = (Translator_group*) this; // ugh
-      return properties_dict_[id];
+      return properties_dict_[sym];
     }
 
-#if 1
   if (daddy_trans_l_)
     return daddy_trans_l_->get_property (id, where_l);
-#endif
   
   if (where_l)
     *where_l = 0;
-  return "";
+
+  return SCM_UNDEFINED;
 }
 
 void
-Translator_group::set_property (String id, Scalar val)
+Translator_group::set_property (String id, SCM val)
 {
-  properties_dict_[id] = val;
+  properties_dict_[ly_symbol (id)] = val;
 }

@@ -21,6 +21,9 @@ Change_iterator::error (String reason)
 
   String warn1 = _f ("Can't change `%s' to `%s'", to_type, to_id) 
     + ": " + reason;
+  /*
+    GUHG!
+   */
   String warn2= "Change_iterator::do_process_and_next (): " 
     + report_to_l ()->type_str_ + " = `"
     + report_to_l ()->id_str_ + "': ";

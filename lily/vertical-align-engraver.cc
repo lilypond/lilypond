@@ -32,22 +32,22 @@ Vertical_align_engraver::do_creation_processing()
 void
 Vertical_align_engraver::do_removal_processing()
 {
-  Scalar dist (get_property ("maxVerticalAlign", 0));
-  if (dist.length_i () && dist.isnum_b ())
+  SCM dist (get_property ("maxVerticalAlign", 0));
+  if (SCM_NUMBERP(dist))
     {
-      valign_p_->threshold_interval_[BIGGER]  = Real (dist);
+      valign_p_->threshold_interval_[BIGGER]  = gh_scm2double (dist);
     }
 
   dist = get_property ("minVerticalAlign", 0);
-  if (dist.length_i () && dist.isnum_b ())
+  if (SCM_NUMBERP(dist))
     {
-      valign_p_->threshold_interval_[SMALLER]  = Real (dist);
+      valign_p_->threshold_interval_[SMALLER]  = gh_scm2double (dist);
     }
 
   dist = get_property ("alignmentReference",0);
-  if (dist.length_i () && dist.isnum_b ())
+  if (isdir_b (dist))
     {
-      valign_p_->align_dir_ = (Direction)(int)dist;
+      valign_p_->align_dir_ = to_dir (dist);
     }
   valign_p_->set_bounds(RIGHT,get_staff_info().command_pcol_l ());
   typeset_element (valign_p_);

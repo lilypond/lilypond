@@ -42,13 +42,13 @@ Music_output_def::Music_output_def (Music_output_def const &s)
   
   for (Scope_iter i (*translator_p_dict_p_);  i.ok (); i++)
     {
-      Translator * t = i.val ()->access_content_Translator (false);
+      Translator * t = i.val ()->access_content_Translator_group (false);
       t-> output_def_l_ = this;
     }
 }
 
 void
-Music_output_def::assign_translator (Translator*tp)
+Music_output_def::assign_translator (Translator_group*tp)
 {
   String s =tp->type_str_;
   if (s.empty_b ())
@@ -58,7 +58,7 @@ Music_output_def::assign_translator (Translator*tp)
   if (translator_p_dict_p_->elem_b (s))
     delete translator_p_dict_p_->elem (s);
   
-  translator_p_dict_p_->elem (s) = new Translator_identifier (tp, 0);
+  translator_p_dict_p_->elem (s) = new Translator_group_identifier (tp, 0);
   tp ->output_def_l_ = this;
 }
 
@@ -66,7 +66,7 @@ Translator*
 Music_output_def::find_translator_l (String name) const
 {
   if (translator_p_dict_p_->elem_b (name))
-    return translator_p_dict_p_->elem (name)->access_content_Translator (false);
+    return translator_p_dict_p_->elem (name)->access_content_Translator_group (false);
 
   if (global_translator_dict_p->elem_b (name))
     return global_translator_dict_p->elem(name);

@@ -1,4 +1,4 @@
--*-outline-layout:(2 (-1 -1 0 :) 0);outline-stylish-prefixes:nil -*-
+i-*-outline-layout:(2 (-1 -1 0 :) 0);outline-stylish-prefixes:nil -*-
 
 * GNU LilyPond TODO
 Features you cannot find in the documentation as working, should be
@@ -9,11 +9,20 @@ Most of the items are marked in the code as well
 Grep -i for TODO, FIXME and ugh/ugr/urg.  
 
 .* TODO
+. * make this file understandable for 3rd parties.
 . * use Rhythmic_head::position_i () for all Staff_referenced 
-. * .po -> .pot.
+. * note head on stem err msg in dutch.
 . *  why need to run -C mf twice?
+. * fix interstaff stuff
 . * junk BLURB files.
 . * setting indent to 0 with \shape fails
+. * here's no difference at all in output. When either is jacked up to 7.0,
+everything works and matches up; when either is set just a bit above the
+default 5.0 (5.4 is what I was hoping to use), stems miss note heads. So
+it's some sort of a numerical (truncation/roundoff) problem.
+John
+. * metre -> meter
+. * Fixed size staff heights;
 . * ly2dvi : don't repeat opus if same.
 . * breaks before mmrests are favored.
 . * hara kiri _8 clef.
@@ -21,10 +30,6 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 . * mudela-book doco
 . * rerun profile
 . * fix or replace feta-accordion.mf
-. * fix configure with CFLAGS or LDFLAGS, try:
-   CFLAGS=-g LDFLAGS='-Wl,--warn-common' ./configure
-configure will use them while testing the compiler, but they don't
-appear in config.make
 . * script engraver
 . * Chords:
 .  * Bass/inversion pitch when not part of Chord
@@ -86,14 +91,14 @@ melismatic.
 What's old about absolute to relative conversion?  Could maybe use for
 abc2ly, midi2ly?
 
+. * Junk shared cruft (duration, moment) in lib/
+
+
 .* Cleanups needed
 . * \$ and $ identifier syntax in examples.
 . * Junk ghost positioning objects eg, Script leans on  Staffside
     leans on Staff.
 . * bracket ps code.
-. * mudela-book
-.  * center option (??)
-.  * make mudela-book understand usepackage{geometry}
 . * Key_engraver, Local_key_item
 . * Think of comprehensive solution for "if (grace_b == self_grace_b_)"
 . * String[String.length] doesn't trap.
@@ -166,7 +171,6 @@ one of the spacing bugs mentioned in the TODO.
   be stacked vertically, avoiding collisions with the notes
   in all voices.
 
-. * break priority setting from SCM.
 . * Matanya's tips: 
 .  * don't  shorten stems/staffs closer to each other.
 .  * accidentals closer to note head
@@ -183,7 +187,6 @@ one of the spacing bugs mentioned in the TODO.
    page three, the c-sharp on the second line should be a quarter with 
    a circle, not a quarter tied to a sixteenth.  is this at all
    possible with lily?
-. * scm-ify \property values.
 . * make dependencies () a virtual function.
 . * deprecate hangOnClef.
 . * Abstraction for engravers:

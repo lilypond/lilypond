@@ -14,7 +14,7 @@
  */
 
 #include "slur.hh"
-#include "scalar.hh"
+
 #include "lookup.hh"
 #include "paper-def.hh"
 #include "note-column.hh"
@@ -243,11 +243,11 @@ Slur::do_post_processing ()
     }
   while (flip (&d) != LEFT);
 
-  bool cross_count =  cross_staff_count ();
+  int cross_count =  cross_staff_count ();
   bool interstaff_b = (0 < cross_count) && (cross_count < encompass_arr_.size ());
 
   Drul_array<Offset> info_drul;
-  Interval interstaff_interval;
+  Drul_array<Real> interstaff_interval;
 
   do
     {
@@ -257,7 +257,7 @@ Slur::do_post_processing ()
     }
   while (flip (&d) != LEFT);
   
-  Real interstaff_f = interstaff_interval.length ();
+  Real interstaff_f = interstaff_interval[RIGHT] - interstaff_interval[LEFT];
 
   if (fix_broken_b)
     {

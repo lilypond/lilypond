@@ -7,7 +7,7 @@
 */
 #include "local-key-item.hh"
 #include "molecule.hh"
-#include "scalar.hh"
+
 #include "lookup.hh"
 #include "paper-def.hh"
 #include "musical-request.hh"

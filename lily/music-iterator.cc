@@ -114,7 +114,7 @@ Music_iterator::ok() const
 }
 
 Music_iterator*
-Music_iterator::static_get_iterator_p (Music const *m, bool playing)
+Music_iterator::static_get_iterator_p (Music const *m)
 {
   Music_iterator * p =0;
 
@@ -142,15 +142,14 @@ Music_iterator::static_get_iterator_p (Music const *m, bool playing)
     p = new Music_wrapper_iterator;
   else if (Repeated_music const * n = dynamic_cast<Repeated_music const *> (m))
     {
-      if (n->fold_b_ && !playing)
+      if (n->fold_b_)
 	p = new Folded_repeat_iterator;
       else
 	p = new Unfolded_repeat_iterator;
     }
   else
     assert (0);
-  
-  p->playback_b_ = playing;
+
 
   p->music_l_ = m;
   return p;
@@ -177,7 +176,7 @@ Music_iterator::init_translator (Music const *m, Translator_group  *report_l)
 Music_iterator*
 Music_iterator::get_iterator_p (Music const*m) const
 {
-  Music_iterator*p = static_get_iterator_p (m, playback_b_);
+  Music_iterator*p = static_get_iterator_p (m);
   p->init_translator (m, report_to_l());
   
   p->construct_children();
@@ -186,7 +185,6 @@ Music_iterator::get_iterator_p (Music const*m) const
 
 Music_iterator::Music_iterator()
 {
-  playback_b_ = false;
   first_b_ = true;
 }
 

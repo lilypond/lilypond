@@ -1,5 +1,6 @@
 
-\scmfile "script.scm";
+
+#(eval-string (ly-gulp-file "script.scm"))
 
 "dash-hat" = "marcato"
 "dash-plus" = "stopped"

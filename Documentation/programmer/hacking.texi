@@ -29,21 +29,43 @@
 @end menu
 
 
-@chapter Help Needed!
+@chapter Getting involved
 
-[Call for help]
+Please help us make LilyPond a better program. You can help LilyPond in
+several ways. Not all tasks requiring programming or understanding the
+full source code.  You can write to the mailing list
+(@email{gnu-music-discuss@@gnu.org} for more information)
 
-[List tasks:
+@unnumberedsubsec Users
 
-* Mutopia
+Mutopia needs your help. The mutopia project is a collection of public
+domain sheet music. You can help the project by entering music and
+submitting. Point your browser to the
+@uref{http://sca.uwaterloo.ca/Mutopia, Mutopia webpage}
 
-* Doco LilyPond
+@unnumberedsubsec Font designers
 
-* Straightforward extensions
+Our set of glyphs (the Feta font) is far from complete.  If you know  a
+little MetaFont you can contribute a glyph
 
-* GUI editors.
+@unnumberedsubsec Writers
 
-]
+The documentation of LilyPond and related utilities needs a lot of work.
+
+@unnumberedsubsec Translators
+
+LilyPond is completely ready for internationalized messages, but there
+are only three translations so far.
+
+@unnumberedsubsec Hackers
+
+
+There are lots of possibilities of improving the program itself. There are
+both small projects and big ones. Most of them are listed in the TODO
+file.  A interesting and very big project is writing a GUI frontend to
+LilyPond.
+
+
 
 @chapter LilyPond internals
 

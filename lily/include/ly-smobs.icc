@@ -1,0 +1,75 @@
+/*   
+  ly-smobs.icc -- implement smob glue. 
+  
+  source file of the GNU LilyPond music typesetter
+  
+  (c) 1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  
+ */
+
+#ifndef LY_SMOBS_ICC
+#define LY_SMOBS_ICC
+
+#define IMPLEMENT_SMOBS(CL)\
+long CL::smob_tag_;\
+static scm_smobfuns CL ## _funs = {					\
+  CL::mark_smob, CL::free_smob,						\
+  CL::print_smob, 0,							\
+};									\
+void									\
+CL::init_smobs ()							\
+{									\
+  smob_tag_ = scm_newsmob (&CL ## _funs);					\
+}									\
+									\
+									 \
+void									 \
+CL::unsmobify_self ()							 \
+{									 \
+  SCM s = self_scm_;							 \
+  scm_unprotect_object (s);						 \
+  									 \
+  SCM_CAR(self_scm_) = SCM_EOL;	 \
+  SCM_CDR(self_scm_) = SCM_EOL;						 \
+  self_scm_ = SCM_EOL;							 \
+}									 \
+\
+SCM									\
+CL::smobify_self ()							\
+{									\
+  if (self_scm_ != SCM_EOL)						\
+    return self_scm_;							\
+									\
+  /*									\
+    This is local. We don't assign to self_scm_ directly, to assure	\
+    that S isn't GC-ed from under us.					\
+   */									\
+  SCM s;								\
+									\
+  SCM_NEWCELL(s);							\
+  self_scm_ = s;							\
+									\
+  SCM_SETCAR(s,smob_tag_);						\
+  void * me_p = this; 							\
+  SCM_SETCDR(s,me_p);							\
+  scm_protect_object (s);						\
+									\
+  do_smobify_self();							\
+  return s;					\
+}						\
+scm_sizet					\
+CL::free_smob (SCM ses)				\
+{						\
+  CL * s = (CL*) SCM_CDR(ses);			\
+  /* someone else did the deed already; this might be an automatic var.*/ \
+  if (s->self_scm_ != ses)\
+     return 0; \
+  SCM_CAR(ses) = SCM_EOL;\
+  					\
+  return sizeof(CL);				\
+}						\
+ADD_SCM_INIT_FUNC(CL, CL::init_smobs)\
+
+
+#endif /* LY_SMOBS_ICC */
+

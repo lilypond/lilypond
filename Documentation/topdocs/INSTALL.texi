@@ -61,7 +61,7 @@ NT/95/98 as well.  See Section Windows NT/95,es.
 Check out
 @uref{ftp://ftp.python.org} or @uref{ftp://ftp.cwi.nl/pub/python}.
 
-@item  GUILE 1.3,  check out @uref{http://www.gnu.org/software/guile/guile.html,http://www.gnu.org/software/guile/guile.html}.
+@item  GUILE 1.3.4,  check out @uref{http://www.gnu.org/software/guile/guile.html,http://www.gnu.org/software/guile/guile.html}.
 
 @item GNU make. 
 Check out @uref{ftp://ftp.gnu.org/make/,ftp://ftp.gnu.org/make/}.
@@ -96,7 +96,7 @@ following software
 @item A PostScript printer and/or viewer (such as Ghostscript) is strongly
     recommended.  Xdvi will show all embedded PostScript too if you have
     Ghostscript installed.
-@item  GUILE 1.3, check out @uref{http://www.gnu.org/programs/guile.html,http://www.gnu.org/software/guile/}
+@item  GUILE 1.3.4, check out @uref{http://www.gnu.org/programs/guile.html,http://www.gnu.org/software/guile/}
 @end itemize
 
 For running LilyPond successfully you have to help TeX and MetaFont
@@ -361,10 +361,6 @@ demonstrated in @file{input/bugs/}.
 
 Known bugs that are not LilyPond's fault are documented here.
 
-@unnumbered All platforms
-@itemize
-@item Guile 1.3.2 is buggy in several respects. Do not use it for LilyPond.
-@end itemize
 
 @unnumbered LinuxPPC Bugs:
 
@@ -389,12 +385,6 @@ incompatibility).  Precise cause, precise platform description or
 solution are not known.
 
 Note that this only happens on some computers with the said platform.
-
-@item GUILE
-A binary RPM of Guile 1.3 has been distributed from the LilyPond ftp
-site.  This binary was made in RedHat 5.x, and it will fail if this
-RPM is used with RedHat 6.x.
-
 
 @item libg++ 2.7
 

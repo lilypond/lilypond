@@ -8,7 +8,6 @@
 #define KEY_HH
 
 #include "array.hh"
-#include "scalar.hh"
 #include "lily-proto.hh"
 
 /// administration of current key in one octave.

@@ -4,6 +4,8 @@ http://www.Arkkra.com/doc/star.html
 http://www.Arkkra.com/doc/star.ps
 %}
 
+
+
 \header{
 	title="The Star Spangled Banner";
 	subtitle="The United States National Anthem";
@@ -101,7 +103,7 @@ textxx = \lyrics {
     { 
       stripes and bright stars, through the per- il- ous fight,
       O'er the ram- parts we watched, were so gal- lant- ly
-	_ _ _ _ % UGH UGH UGH 
+	" " " " " "  " "% _ _ _ _ % UGH UGH UGH 
 	stream- ing
   And the rock- ets' red glare, the bombs
   burst- ing in air, gave proof through the night that
@@ -120,25 +122,25 @@ automaticLyrics = \notes \context GrandStaff <
 		\context Staff=staffA <
 			\beginmatter
 			\clef treble;
-			\property Staff.automaticMelismata = "1"
-			\notes \transpose c'' {\voiceone \$staff1_voice_1 \bar "|.";} 
-			\notes \transpose c'' {\voicetwo \$staff1_voice_2 } 
+			\property Staff.automaticMelismata = ##t
+			\context Voice = one \transpose c'' {\stemup \$staff1_voice_1 \bar "|.";} 
+			\context Voice = two \transpose c'' {\stemdown \$staff1_voice_2 } 
 		>
 		\context LyricVoice \textxx
 		\context Staff=staffB <
 			\beginmatter
 			\clef bass;
-		\property Staff.noVoltaBraces = "1"
-			{\voiceone \$staff2_voice_1 \bar "|."; } 
-			{\voicetwo \$staff2_voice_2 } 
+		\property Staff.noVoltaBraces = ##t
+			\context Voice = three {\stemup \$staff2_voice_1 \bar "|."; } 
+			\context Voice = four {\stemdown \$staff2_voice_2 } 
 		>
 	>
 
 handLyrics = \notes \context GrandStaff < 
 		\context Staff=staffA <
 			\beginmatter
-			\notes \transpose c'' {\voiceone \$staff1_voice_1 \bar "|.";} 
-			\notes \transpose c'' {\voicetwo \$staff1_voice_2 } 
+			 \transpose c'' {\voiceone \$staff1_voice_1 \bar "|.";} 
+			 \transpose c'' {\voicetwo \$staff1_voice_2 } 
 		>
 		\nonRepeatText
 		\context Staff=staffB <

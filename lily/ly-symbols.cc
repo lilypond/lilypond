@@ -29,3 +29,4 @@ init_symbols ()
 }
 
 
+ADD_SCM_INIT_FUNC(lysyms, init_symbols);

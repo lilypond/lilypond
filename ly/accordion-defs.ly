@@ -6,7 +6,7 @@
 % 16' = S
 %
 
-\scmfile "accordion-script.scm";
+#(eval-string (ly-gulp-file "accordion-script.scm"))
 
 accDiscant = \script "accDiscant"
 accDiscantF = \script "accDiscantF"

@@ -14,7 +14,7 @@
 #include "my-lily-lexer.hh"
 #include "debug.hh"
 #include "request.hh"
-#include "translator.hh"
+#include "translator-group.hh"
 #include "notename-table.hh"
 
 
@@ -79,7 +79,7 @@ Class ## _identifier::do_print () const { \
 
 
 
-DEFAULT_PRINT(Translator);
+DEFAULT_PRINT(Translator_group);
 DEFAULT_PRINT(Music);
 DEFAULT_PRINT(Request);
 DEFAULT_PRINT(Score);
@@ -95,7 +95,7 @@ Class ## _identifier::do_str () const { \
 
 
 DUMMY_STR(Notename_table);
-DUMMY_STR(Translator);
+DUMMY_STR(Translator_group);
 DUMMY_STR(Music);
 DUMMY_STR(Request);
 DUMMY_STR(Score);
@@ -144,7 +144,7 @@ Class ## _identifier::access_content_ ## Class (bool copy_b) const {\
 Class*\
 Class ## _identifier::access_content_ ## Class (bool copy_b) const{\
   ((Class ## _identifier*)this)->accessed_b_ = true;\
-  return copy_b ? (Class*)data_p_->clone() : data_p_;\
+  return copy_b ? dynamic_cast<Class*> (data_p_->clone()) : data_p_;\
 }
 
 #define IMPLEMENT_ID_CLASS(Class)	\
@@ -162,7 +162,7 @@ Class ## _identifier::Class ## _identifier (Class ## _identifier const &s) \
 
 
 IMPLEMENT_ID_CLASS(Duration);
-IMPLEMENT_ID_CLASS(Translator);
+IMPLEMENT_ID_CLASS(Translator_group);
 IMPLEMENT_ID_CLASS(int);
 IMPLEMENT_ID_CLASS(Real);
 IMPLEMENT_ID_CLASS(String);
@@ -174,7 +174,7 @@ IMPLEMENT_ID_CLASS(Paper_def);
 IMPLEMENT_ID_CLASS(Notename_table);
 VIRTUAL_ACCESSOR(Music);
 VIRTUAL_ACCESSOR(Request);
-VIRTUAL_ACCESSOR(Translator);
+VIRTUAL_ACCESSOR(Translator_group);
 DEFAULT_ACCESSOR(Notename_table);
 DEFAULT_ACCESSOR(Duration);
 DEFAULT_ACCESSOR(int);

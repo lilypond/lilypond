@@ -4,7 +4,8 @@
 
   source file of the LilyPond music typesetter
 
-  (c) 1996,1997 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1996--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+           Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 
@@ -24,11 +25,13 @@
 #include <stdio.h>
 #include <ctype.h>
 
+#include "lily-guile.hh"
 #include "string.hh"
 #include "string-convert.hh"
 #include "my-lily-lexer.hh"
 #include "array.hh"
 #include "interval.hh"
+#include "lily-guile.hh"
 #include "parser.hh"
 #include "debug.hh"
 #include "main.hh"
@@ -206,8 +209,7 @@ HYPHEN		--
 }
 <chords,notes>{RESTNAME} 	{
 	const char *s = YYText ();
-	yylval.string = new String (s);	
-	DEBUG_OUT << "rest:"<< yylval.string;
+	yylval.scm = ly_ch_C_to_scm (s);
 	return RESTNAME;
 }
 <chords,notes>R		{
@@ -230,6 +232,27 @@ HYPHEN		--
 <INITIAL,chords,lyrics,notes>\${BLACK}*		{ // backup rule
 	cerr << _ ("white expected") << endl;
 	exit (1);
+}
+<INITIAL,chords,lyrics,notes>#	{ //embedded scm
+	//char const* s = YYText () + 1;
+	char const* s = here_ch_C ();
+	int n = 0;
+	if (main_input_b_ && safe_global_b) {
+		error (_ ("Can't evaluate Scheme in safe mode"));
+		return SCM_EOL;
+	}
+	yylval.scm = ly_parse_scm (s, &n);
+	DEBUG_OUT << "Scheme: ";
+	if (flower_dstream)
+		ly_display_scm (yylval.scm);
+	
+	for (int i=0; i < n; i++)
+	{
+		yyinput ();
+	}
+	char_count_stack_.top () += n;
+
+	return SCM_T;
 }
 <notes>{
 	{ALPHAWORD}	{
@@ -267,6 +290,11 @@ HYPHEN		--
 	\"	{
 		DEBUG_OUT << "quoted string: `" << *yylval.string << "'\n";
 		yy_pop_state ();
+
+		/* yylval is union. Must remember STRING before setting SCM*/
+		String *sp = yylval.string;
+		yylval.scm = ly_ch_C_to_scm  (sp->ch_C ());
+		delete sp;
 		return STRING;
 	}
 	.	{
@@ -305,7 +333,8 @@ HYPHEN		--
 		if (c == '{' &&  c == '}') // brace open is for not confusing dumb tools.
 			here_input ().warning (
 				"Brace found at end of lyric. Did you forget a space?");
-		yylval.string = new String (s);
+		yylval.scm = ly_ch_C_to_scm (YYText());
+
 		DEBUG_OUT << "lyric : `" << s << "'\n";
 		return STRING;
 	}
@@ -457,8 +486,8 @@ My_lily_lexer::scan_escaped_word (String str)
 	String msg (_f ("unknown escaped string: `\\%s'", str));	
 	LexerError (msg.ch_C ());
 	DEBUG_OUT << "(string)";
-	String *sp = new String (str);
-	yylval.string=sp;
+	yylval.scm = ly_ch_C_to_scm(str.ch_C());
+
 	return STRING;
 }
 
@@ -482,7 +511,7 @@ My_lily_lexer::scan_bare_word (String str)
 		}
 	}
 
-	yylval.string=new String (str);
+	yylval.scm = ly_ch_C_to_scm (str.ch_C());
 	return STRING;
 }
 

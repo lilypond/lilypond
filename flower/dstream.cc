@@ -9,7 +9,7 @@
 #include <fstream.h>
 #include "dictionary-iter.hh"
 #include "dstream.hh"
-#include "scalar.hh"
+
 #include "text-db.hh"
 #include "string-convert.hh"
 #include "rational.hh"
@@ -86,7 +86,7 @@ Dstream::operator<<(void const *v_l)
 }
 
 Dstream &
-Dstream::operator <<(Scalar s)
+Dstream::operator <<(String s)
 {
   output (s);
   return *this;
@@ -99,6 +99,32 @@ Dstream::operator <<(const char * s)
   return *this;
 }
 
+Dstream &
+Dstream::operator <<(char c)
+{
+  output (to_str (c));
+  return *this;
+}
+
+Dstream&
+Dstream::operator << (Real r)
+{
+  output (to_str  (r));
+  return *this;
+}
+Dstream &
+Dstream::operator <<(Rational c)
+{
+  output (c.str ());
+  return *this;
+}
+Dstream &
+Dstream::operator <<(int i)
+{
+  output (to_str(i));
+  return *this;
+}
+  
 void
 Dstream::output (String s)
 {
@@ -158,7 +184,7 @@ Dstream::Dstream (ostream *r, char const * cfg_nm)
 	r.message (_ ("not enough fields in Dstream init"));
 	continue;
       }
-    (*silent_dict_p_)[r[0]] = (bool)(int)(Scalar (r[1]));
+    (*silent_dict_p_)[r[0]] = r[1] == "1";
   }
 
   if ((*silent_dict_p_).elem_b ("Dstream_default_silence"))

@@ -35,7 +35,6 @@ Stem_info::Stem_info (Stem*s, int mult)
   SCM bd = stem_l_->remove_elt_property (beam_dir_scm_sym);
   
   beam_dir_ = gh_scm2int (SCM_CDR(bd));
-  interstaff_f_ = 0;
 
   Paper_def* paper_l = stem_l_->paper_l ();
   Real internote_f = stem_l_->staff_line_leading_f ()/2;
@@ -53,6 +52,8 @@ Stem_info::Stem_info (Stem*s, int mult)
   idealy_f_ *= beam_dir_;
 
   bool grace_b = stem_l_->get_elt_property (grace_scm_sym) != SCM_BOOL_F;
+  bool no_extend_b = stem_l_->get_elt_property (no_stem_extend_scm_sym) 
+    != SCM_BOOL_F;
 
   int stem_max = (int)rint(paper_l->get_var ("stem_max"));
   String type_str = grace_b ? "grace_" : "";
@@ -85,7 +86,7 @@ Stem_info::Stem_info (Stem*s, int mult)
 	than middle staffline, just as normal stems.
 	
       */
-      if (!grace_b)
+      if (!grace_b && !no_extend_b)
 	{
 	  //highest beam of (UP) beam must never be lower than middle staffline
 	  miny_f_ = miny_f_ >? 0;
@@ -116,9 +117,9 @@ Stem_info::Stem_info (Stem*s, int mult)
   // interstaff beam
   Beam* beam_l = stem_l_->beam_l_;
   
-  Real is = calc_interstaff_dist (stem_l_, beam_l);
-  idealy_f_ += is* beam_dir_;
-  miny_f_ += is * beam_dir_;
-  maxy_f_ += is * beam_dir_;
+  interstaff_f_ = calc_interstaff_dist (stem_l_, beam_l) / internote_f;
+  idealy_f_ += interstaff_f_* beam_dir_;
+  miny_f_   += interstaff_f_ * beam_dir_;
+  maxy_f_   += interstaff_f_ * beam_dir_;
 }
 
