@@ -165,6 +165,13 @@ extract_alteration (SCM alteration_def)
   return 0;
 }
 
+bool
+is_tied (SCM alteration_def)
+{
+  return (alteration_def == SCM_BOOL_T)
+    || (ly_c_pair_p (alteration_def) && ly_car (alteration_def) == SCM_BOOL_T);
+}
+
 static int
 number_accidentals_from_sig (bool *different, SCM sig, Pitch *pitch,
 			     int bar_number, SCM laziness, bool ignore_octave)
@@ -204,17 +211,23 @@ number_accidentals_from_sig (bool *different, SCM sig, Pitch *pitch,
       previous_alteration = from_key_signature;
     }
   
-  /* UGH. prev_acc can be #t in case of ties. What is this for?  */
-
-  int prev = extract_alteration (previous_alteration);
-  int alter = pitch->get_alteration ();
   int num = 1;
-  if (alter == prev)
-    num = 0;
-  else if ((abs (alter) < abs (prev) || prev*alter < 0) && alter != 0)
-    num = 2;
-
-  *different = (alter != prev);
+  if (is_tied (previous_alteration))
+    {
+      num = 1;
+      *different = true;
+    }
+  else
+    {
+      int prev =  extract_alteration (previous_alteration);
+      int alter = pitch->get_alteration ();
+      
+      if (alter == prev)
+	num = 0;
+      else if ((abs (alter) < abs (prev) || prev*alter < 0) && alter != 0)
+	num = 2;
+      *different = (alter != prev);
+    }
   return num;
 }
 
