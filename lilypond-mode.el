@@ -143,12 +143,6 @@ in LilyPond-include-path."
   :group 'LilyPond
   :type 'string)
 
-(defcustom LilyPond-midi-command "timidity"
-  "Command used to play MIDI files."
-
-  :group 'LilyPond
-  :type 'string)
-
 (defcustom LilyPond-gv-command "gv -watch"
   "Command used to display PS files."
 
@@ -318,46 +312,47 @@ Must be the car of an entry in `LilyPond-command-alist'."
 )
 
 (defun LilyPond-command-midi ()
-  "View the ps output of current document."
+  "Play midi corresponding to the current document."
   (interactive)
   (LilyPond-command (LilyPond-command-menu "Midi") 'LilyPond-master-file)
 )
 
-(defun LilyPond-command-formatdvi ()
-  "Format the dvi output of the current document."
-  (interactive)
-  (LilyPond-command (LilyPond-command-menu "2Dvi") 'LilyPond-master-file)
-)
+(defun count-rexp (start end rexp)
+  "Print number of found regular expressions in the region."
+  (interactive "r")
+  (save-excursion
+    (save-restriction
+      (narrow-to-region start end)
+      (goto-char (point-min))
+      (count-matches rexp))))
 
-(defun LilyPond-command-formatps ()
-  "Format the ps output of the current document."
+(defun count-midi-words ()
+  "Print number of scores before the curser."
   (interactive)
-  (LilyPond-command (LilyPond-command-menu "2PS") 'LilyPond-master-file)
-)
-
-(defun LilyPond-command-smartview ()
-  "View the dvi output of current document."
+  (count-rexp (point-min) (point-max) "\\\\midi"))
+ 
+(defun count-midi-words-backwards ()
+  "Print number of scores before the curser."
   (interactive)
-  (LilyPond-command (LilyPond-command-menu "SmartView") 'LilyPond-master-file)
-)
-
-(defun LilyPond-command-view ()
-  "View the dvi output of current document."
+  (count-rexp (point-min) (point) "\\\\midi"))
+ 
+(defun LilyPond-command-next-midi ()
+  "Play next midi score of the current document."
   (interactive)
-  (LilyPond-command (LilyPond-command-menu "View") 'LilyPond-master-file)
-)
-
-(defun LilyPond-command-viewps ()
-  "View the ps output of current document."
-  (interactive)
-  (LilyPond-command (LilyPond-command-menu "ViewPS") 'LilyPond-master-file)
-)
-
-(defun LilyPond-command-midi ()
-  "View the ps output of current document."
-  (interactive)
-  (LilyPond-command (LilyPond-command-menu "Midi") 'LilyPond-master-file)
-)
+  (LilyPond-compile-file 
+   (let ((allscores (count-midi-words))
+	 (scores (count-midi-words-backwards))
+	 (fname (LilyPond-master-file)))
+     (let ((count (string-to-number (substring scores 0 (+ (length scores) -12)))))
+       (concat  LilyPond-midi-command " "
+		(substring fname 0 (+ (length fname) -3)) ; suppose ".ly"
+		(if (not (string= "1 occurrences" allscores)) ; only one score
+		    (if (not (eq count 0))                    ; first score
+			(if (string= scores allscores)        ; last score
+			    (concat "-" (number-to-string (+ count -1)))
+			  (concat "-" (number-to-string count)))))
+		".midi")))
+   "Midi"))
 
 ;; FIXME, this is broken
 (defun LilyPond-region-file (begin end)
@@ -473,15 +468,15 @@ command."
   (define-key LilyPond-mode-map "\C-c\C-s" 'LilyPond-command-smartview)
   (define-key LilyPond-mode-map "\C-c\C-v" 'LilyPond-command-view)
   (define-key LilyPond-mode-map "\C-c\C-p" 'LilyPond-command-viewps)
-  (define-key LilyPond-mode-map "\C-c\C-m" 'LilyPond-command-midi)
-  (define-key LilyPond-mode-map "\C-cn" 'lilypond-notes)
-  (define-key LilyPond-mode-map "\C-cs" 'lilypond-score)
+  (define-key LilyPond-mode-map "\C-c\C-m" 'LilyPond-command-next-midi)
+  (define-key LilyPond-mode-map "\C-cn" 'LilyPond-insert-tag-notes)
+  (define-key LilyPond-mode-map "\C-cs" 'LilyPond-insert-tag-score)
   )
 
 ;;; Menu Support
 
-(define-skeleton lilypond-notes
-  "Lilypond notes tag."
+(define-skeleton LilyPond-insert-tag-notes
+  "LilyPond notes tag."
   nil
 ;  (if (bolp) nil ?\n)
   "\\notes"
@@ -489,8 +484,8 @@ command."
       (concat " \\relative " (skeleton-read "Relative: " "" str)))
   " { " _ " }")
 
-(define-skeleton lilypond-score
-  "Lilypond score tag."
+(define-skeleton LilyPond-insert-tag-score
+  "LilyPond score tag."
   nil
   (if (bolp) nil ?\n)
   "\\score {\n"
@@ -537,9 +532,9 @@ command."
 	       :keys "C-c C-r" :style radio
 	       :selected (eq LilyPond-command-current 'LilyPond-command-region) ]))
 	  '(("Insert"
-	     [ "\\notes..."  lilypond-notes
+	     [ "\\notes..."  LilyPond-insert-tag-notes
 	       :keys "C-c n" ]
-	     [ "\\score..."  lilypond-score
+	     [ "\\score..."  LilyPond-insert-tag-score
 	       :keys "C-c s" ]
 	     ))
 ;	  (let ((file 'LilyPond-command-on-current))
@@ -554,7 +549,7 @@ command."
 	  '([ "SmartView" (LilyPond-command (LilyPond-command-menu "SmartView") 'LilyPond-master-file) :keys "C-c C-s"])
 	  '([ "View" (LilyPond-command (LilyPond-command-menu "View") 'LilyPond-master-file) :keys "C-c C-v"])
 	  '([ "ViewPS" (LilyPond-command (LilyPond-command-menu "ViewPS") 'LilyPond-master-file) :keys "C-c C-p"])
-	  '([ "Midi" (LilyPond-command (LilyPond-command-menu "Midi") 'LilyPond-master-file) :keys "C-c C-m"])
+	  '([ "Midi" (LilyPond-command-next-midi) :keys "C-c C-m"])
 	  ))
 
 (defconst LilyPond-imenu-generic-re "^\\([a-zA-Z_][a-zA-Z0-9_]*\\) *="
