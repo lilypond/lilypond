@@ -15,8 +15,8 @@ Linestaff::Linestaff(int l, PScore *s)
 void
 Linestaff::brew_molecule(Real width)
 {
-    Atom a  = pscore_->paper_->lookup_->linestaff(nolines,width);
-    stafsym = new Molecule(a);    
+    Atom a  = pscore_l_->paper_l_->lookup_p_->linestaff(nolines,width);
+    stafsym_p_ = new Molecule(a);
 }
 
 

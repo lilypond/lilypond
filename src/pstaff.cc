@@ -1,19 +1,20 @@
 #include "pstaff.hh"
 #include "molecule.hh"
+
 PStaff::~PStaff()
 {
-    delete stafsym;
+    delete stafsym_p_;
 }
 
 PStaff::PStaff(PScore*ps)
 {
-    pscore_=ps;
-    stafsym = 0;
+    pscore_l_=ps;
+    stafsym_p_ = 0;
 }
 
 void
 PStaff::add(Item *i )
 {
     its.bottom().add(i);
-    i->pstaff_ = this;
+    i->pstaff_l_ = this;
 }
