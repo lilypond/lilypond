@@ -789,16 +789,42 @@ Score_element::ly_get_elt_property (SCM elt, SCM sym)
 }
 
 
+void
+Score_element::discretionary_processing()
+{
+}
+
+
+SCM
+spanner_get_bound (SCM slur, SCM dir)
+{
+  return dynamic_cast<Spanner*> (unsmob_element (slur))->get_bound (to_dir (dir))->self_scm_;
+}
+
+SCM
+score_element_get_pointer (SCM se, SCM name)
+{
+  SCM s = scm_assq (name, unsmob_element (se)->pointer_alist_);
+  return (s == SCM_BOOL_F) ? SCM_UNDEFINED : gh_cdr (s); 
+}
+
+SCM
+score_element_get_property (SCM se, SCM name)
+{
+  SCM s = scm_assq (name, unsmob_element (se)->property_alist_);
+  return (s == SCM_BOOL_F) ? SCM_UNDEFINED : gh_cdr (s); 
+}
+
+
 static void
 init_functions ()
 {
   scm_make_gsubr ("ly-get-elt-property", 2, 0, 0, (SCM(*)(...))Score_element::ly_get_elt_property);
   scm_make_gsubr ("ly-set-elt-property", 3, 0, 0, (SCM(*)(...))Score_element::ly_set_elt_property);
+  scm_make_gsubr ("ly-get-elt-pointer", 2 , 0, 0,  
+		  (SCM(*)(...)) score_element_get_pointer);
+  scm_make_gsubr ("ly-get-spanner-bound", 2 , 0, 0,  
+		  (SCM(*)(...)) spanner_get_bound);
 }
-
 ADD_SCM_INIT_FUNC(scoreelt, init_functions);
 
-void
-Score_element::discretionary_processing()
-{
-}
