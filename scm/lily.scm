@@ -43,7 +43,6 @@
    (string-append (number->string (cadr c)) " ")))
 
 
-
 (define
   (font i)
   (string-append
@@ -56,7 +55,11 @@
 (define (scm-scm action-name)
   1)
 
+(define security-paranoia #f)
+
+
 ;;;;;;;;
+;;; UGH.  THESE SUCK!
 
 (define (empty) 
   "")
@@ -78,9 +81,11 @@
 (define repeatbarstartrepeat empty1)
 (define fatdoublebar empty1)
 (define setfinger empty1)
+(define doublebar empty1)
 
-
+;;; and these suck as well.
 (define (settext s) (text "text" s))
+(define (settypewriter s) (text "typewriter" s))
 (define (setnumber s) (text "number" s))
 (define (setbold s) (text "bold" s))
 (define (setitalic s) (text "italic" s))
@@ -150,9 +155,18 @@
     (string-append
      "\n\\" s "{" (number->dim d) "}"))
 
+
+  ;;
+  ;; need to do something to make this really safe.
+  ;;
+  (if security-paranoia
+      (define (output-tex-string s)
+	(regexp-substitute/global #f "\\\\" s 'pre "$\\backslash$" 'post))
+      (define (output-tex-string s)    s))
+
   (define (lily-def key val)
     (string-append
-     "\\def\\" key "{" val "}\n"))
+     "\\def\\" (output-tex-string key) "{" (output-tex-string val) "}\n"))
 
   (define (number->dim x)
     (string-append 
@@ -168,7 +182,7 @@
     (define minht mudelapaperstaffheight)
     (define maxht (* 6 minht))
     (string-append
-     "{\\bracefont " (char  (/  (- (max y (- maxht step)) minht)   step)) "}"))
+     "{\\bracefont " (char  (/  (- (min y (- maxht step)) minht)   step)) "}"))
   
   (define (rulesym h w) 
     (string-append 
@@ -197,8 +211,7 @@
     "}\\interscoreline")
 
   (define (text f s)
-    (string-append "\\set" f "{" s "}"))
-
+    (string-append "\\set" f "{" (output-tex-string s) "}"))
   
   (define (tuplet dx dy dir)
     (embedded-ps ((ps-scm 'tuplet) dx dy dir)))
