@@ -1,4 +1,4 @@
-include Make.variables 
+include Variables.make 
 
 $(exe): $(obs)
 	$(CXX) -o $@ $^ $(LOADLIBES)
@@ -32,23 +32,23 @@ $(OBJECTDIR)/%.o: $(CCDIR)/%.cc
 	rm -f depend
 
 realdepend: $(cc)
-	$(CXX) $(CXXFLAGS) -MM $^ |  perl -ne 's/^(.+)\.o/'$(OBJECTDIR)'\/\1.o/; print;' > depend
+	$(CXX) $(CXXFLAGS) -MM $^ |  perl -ne 's#hdr/proto.hh##; s/^(.+)\.o/'$(OBJECTDIR)'\/\1.o/; print;' > depend
 
 include depend
 
 $(CCDIR)/parser.cc: parser.y
 	$(BISON) -d $<
 	mv $(CCDIR)/parser.tab.h $(HEADERDIR)/parser.hh
-	mv $(CCDIR)/parser.tab.c $(CCDIR)/parser.cc
+	mv $(CCDIR)/parser.tab.c $@
 
 parser.hh: parser.cc
 
 version.o: $(obs) version.hh
 
-version.hh: Makefile make_version
-	make_version $(MAJVER) $(MINVER) $(PATCHLEVEL)  > $(HEADERDIR)/$@
+hdr/version.hh: Variables.make make_version
+	make_version $(MAJVER) $(MINVER) $(PATCHLEVEL)  > $@
 
-src/lexer.cc: lexer.l
+$(CCDIR)/lexer.cc: lexer.l
 	$(FLEX) -+ -t $< > $@
 
 dist:
