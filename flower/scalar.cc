@@ -54,7 +54,7 @@ Scalar::isnum_b () const
   if (length_i ())
     {
       long l =0;
-      conv = sscanf (strh_.ch_C (), "%lf", &l);
+      conv = sscanf (strh_.ch_C (), "%ld", &l);
     }
   return length_i () && conv;
 }
