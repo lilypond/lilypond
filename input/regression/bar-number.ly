@@ -1,19 +1,25 @@
-\version "1.3.146"
+\version "1.5.54"
 
 \header {
-texidoc="Bar number settable and padding adjustable."
+
+texidoc="Bar number settable and padding adjustable.  Bar numbers
+start counting after the anacrusis."
+
 }
 
 \score {
   \notes \relative c'' {
-     c1 c\break
-     c1 c\break
-     \property Score.currentBarNumber = #25
-     \property Score.BarNumber \override #'padding = #3
-     c1 c\break
+      \partial 4 c4 
+      c1 c c
+      \property Score.currentBarNumber = #25
+      \property Score.BarNumber \override #'padding = #3
+      c1 c
   }
   \paper {
-    linewidth = 40*\staffspace
-    % \translator { \BarNumberingStaffContext }
+    linewidth = -1. \mm
+    \translator {
+	\ScoreContext
+	BarNumber \override #'visibility-lambda = #all-visible
+    }
   }
 }

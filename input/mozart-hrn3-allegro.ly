@@ -1,5 +1,5 @@
 \version "1.3.146"
-\include  "mozart-hrn3-defs.ly"
+%\include  "mozart-hrn3-defs.ly"
 
 allegro =
 	\notes
@@ -7,7 +7,7 @@ allegro =
 {
 	\time 4/4
 	\key c \major
-	\property Score . measurePosition = #(make-moment 3 4)
+	\partial 4
 	r4 
 	|
 	R1*4
@@ -18,25 +18,26 @@ allegro =
 	g'4 g, r2
 	R1*18
 	r2 r4 g'4^"Solo" |
+	\mark "A"
 	e'4. () c8 [f (d c )b ]
-	[b()c] g4 r8 [g-. c-. e-.]
-	g2.  [g16-.( f e )f]
-	dis4 () e4-- r8 [c8-. c-. c-.]
+	[b()c] g4 r8 [g c e]
+	g2.  [g16( f e )f]
+	dis4 () e4 r8 [c8-. c-. c-.]
 	c4.( [d16 e]  f4 ) e
 	a,( d g,) c
 	d-. d-. \grace e16( [)d8. c16 d8. e16]
 	c4 r r2
 	R1*3
-	c,2 ~ [c8 e( g )c]
-	[c () b ] b4-. r2
+	c,2 ~ [c8 e g c]
+	[c  b ] b4 r2
 	[c,8 () e g c] [e()g e c]
-	[c()b] b4-- r2
+	[c()b] b4 r2
 	c4.( g8 e'4.) c8
-	[g'()d ] d4-- r4 d
+	[g'()d ] d4 r4 d
 	[d8 () c] c4.( [d16 e] [d8 )c]
 	[c8(-\trill )b] b4 r2 |
 	d2( ~  [d8 e16 d] [c8 )b] |
-	[b()a-.] a4-> r8 [a-. a-. a-.]
+	[b()a] a4 r8 [a a a]
 	a4( cis e )g
 	\grace { \longgrace g16( \endlonggrace }
 	[ )fis8( e16 )d] d4-. r2 | 
@@ -44,17 +45,18 @@ allegro =
 	R1*3
 	r2 r4 [d8(_#`(,italic-bf "con espressione") )b ]
 	[a( )g d'( )b] [a( )g e'( )c ]
-	[b8( )a] a4 r4 [a8-. a-.]
+	[b8( )a] a4 r4 [a8 a]
 	[a( \< b c \!cis\> ]  d4 \! )c
-	[ais8() b] r8 b [b()c] r c
+	[ais8() b] r8 \cresc b [b()c] r c
 	[cis ()d] r4 r2
-	g,1 ~ g2 ~ [g8 a16 b] [c()d e c]
+	\endcresc g,1\f ~ g2 ~ [g8 a16 b] [c()d e c]
+	%% 64
 	f4-. d-. b-. g-.
 	R1
 
 	c,2\p e4 g c \cresc e g4. e8 |
-	d4. [e16 fis] [g () fis e d] [c() b a g]
-	\endcresc
+	\endcresc d4.-\f [e16 fis] [g () fis e d] [c() b a g]
+
 	< a1(-\trill
 	  { s2 \grace{ [g16 a] } } >
 	\mark "C"
@@ -62,12 +64,12 @@ allegro =
 	R1*15
 	\mark "D"
 	bes2-\mf d4 f
-	g,2~ [g8 g'( es )c]|
-	bes4( )a4. [c8 d es]
+	g,2~ [g8 g' es c]|
+	bes4( )a4. [c8( d )es]
 	cis4()d r8 [bes (c )d]
 	es2 () d4 r
-	es2\p () d4 r
-	[c8(\mf g' es )c] bes4()c-.
+	es2 () d4 r
+	[c8( g' es )c] bes4()c
 	c4.( cis8 )d4 r
 	R1*2
 	es1~es1|
@@ -87,7 +89,7 @@ allegro =
 	r8 [g, b d_\ritenuto ] f4 r
 	\mark  "E"
 	R1*8
-	r2 r8 [g,-. g-. g-.]
+	r2 r8 [g, g g]
 	e'4.() c8 [f( d c )b]
 	[b()c] g4 r8 [g c e] |
 	g2.  [g16( f e )f]
@@ -100,7 +102,7 @@ allegro =
 	c4 r r2
 	\mark "F"
 	R1*3
-	c,2~[c8( e g )c]
+	c,2~[c8 e g c]
 	[c8()b] b4 r2
 	[c,8 e g c ] [e ()g e c]
 	[c()b] b4 r2
@@ -117,12 +119,13 @@ allegro =
 	R1
 	c1 ~
 	c |
-	[c8-. c-.] r c-. [cis()d] r d-. |
+	[c8-. c-.] r c-. [cis()d] r\cresc d-. |
 	[dis()e] r e-. [e()f] r f-. |
-	g4-.-\f e-. c-. bes-. |
+	g4-.-\f\endcresc  e-. c-. bes-. |
 	g-.\ff e-. c-. r |
-	a'2 ~ [a8_#`(,italic-bf "sempre " (dynamic "f")) b16 c] [d( e d )e]%TODO
+	a'2 ~ [a8_""_#`(,italic-bf "sempre " (dynamic "f")) b16 c] [d( e d )e]
 
+	
 	f4. () d8 [f8 ()d f d]
 	[c (e] )g2 \grace  { \longgrace f16(  \endlonggrace }  [)e8( d16 )c]
 
@@ -132,8 +135,10 @@ allegro =
 	) c4 r r2
 	R1 |
 	\mark "H"
-	\times 2/3 { [ c8 ()b a ] }	\times 2/3 { [ g a b] } \times 2/3 { [ c d e] } \times 2/3 { [ f()e d] } |
-	\times 2/3 { [ c () b a ] } \times 2/3 { [ g a b] } \times 2/3 { [ c d e] } \times 2/3 { [ f()e d] }|
+	\times 2/3 { [ c8 b a ] } \times 2/3 { [ g a b] }
+	  \times 2/3 { [ c d e] } \times 2/3 { [ f e d] } |
+	\times 2/3 { [ c b a ] } \times 2/3 { [ g a b] }
+	  \times 2/3 { [ c d e] } \times 2/3 { [ f e d] }|
 	c4 \times 2/3 {  r8 [g'()e]} c4 \times 2/3 {  r8 [e () c]} |
 	g4 \times 2/3 {  r8 [c8() g] } \times 2/3 { [ e ()g e-. ] } \times 2/3 { [c () e c-.] }|
 	g4 r8 g'\f [a b c d]|

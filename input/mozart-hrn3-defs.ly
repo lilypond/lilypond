@@ -94,4 +94,7 @@ startGraceContext = {
     }
     indent = 10. \mm
     linewidth = 189. \mm
+
+    % The piece should fit on 4 pages. 
+    textheight = 275.\mm
 }

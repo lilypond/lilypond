@@ -3,7 +3,7 @@
   subtitle = "f\\\"ur Horn und Orchester"
   composer =	 "Wolfgang Amadeus Mozart (1756-1792)"
   enteredby =	 "HWN"
-  opus = "K.V. 447"
+  opus = "KV 447"
 
   copyright = "public domain"
   instrument = "Horn in F"
@@ -29,7 +29,7 @@ virtuoso that taught in Geneva.
 
 %}
 
-
+\include "mozart-hrn3-defs.ly"
 \include "mozart-hrn3-allegro.ly"
 \include "mozart-hrn3-romanze.ly"
 \include "mozart-hrn3-rondo.ly"

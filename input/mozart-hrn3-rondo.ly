@@ -1,5 +1,7 @@
 \version "1.3.146"
 
+% \include "mozart-hrn3-defs.ly"
+
 rondotheme = \notes \relative c' {
 	[c'8 c c] [c c c]
 	c4( cis8 )d r g,
@@ -78,12 +80,12 @@ rondo = \notes 	\relative c'
 	g4 r8 r4 r8
 	R2. |
 	%
-	r8 [g g] [g( )b b]
+	r8 [g-\f g] [g( )b b-.]
 	[b()d d-.] [d()g g-.]
 	g2.~
-	[g8 a g] [f e d]
+	[g8 \> a g] [f e d]
 	< \rondotheme
-	  { s8-\p } >
+	  { \! s8-\p } >
 	  
 	R2.*12
 	r4 r8 r4 c8
@@ -98,6 +100,12 @@ rondo = \notes 	\relative c'
 	f ~ [f8. \rightsixteenth e16(  \bothsixteenth d )c]
 	bes4 g8 e4 g8
 	c,4. ~ c8 r r
+	R2.*3| 
+	r4 r8 r4 c'8
+	b4()c8 b4()c8
+	bes4. ~ bes4 g8
+	a4 () c8 f4 () b,8
+	d4. () c8 r r
 	R2.*3| 
 	r4 r8 r4 c'8
 	b4()c8 b4()c8
@@ -124,8 +132,13 @@ rondo = \notes 	\relative c'
 	f2.\f ~ |
 	f4 r8 r4 r8
 	r8 [g,\> g] [g g g]
-	[fis  g gis] % Edition breitkopf says a-flat (silly!)
+	
+	% Edition breitkopf says a-flat (silly!)
+	[fis  g gis] 
 		 [a bes \! b]
+
+	%% EB does the slur in the Rondo differently from the 1st adn 2nd time.
+	%% why. Should check with MS.
 	< \rondotheme
 	  { s8-\p } >
 	R2.*7
@@ -143,15 +156,14 @@ rondo = \notes 	\relative c'
 	\cresc g'2.  bes,2.
 	a4. [b16 c d e f g]
 	a4. f4 d8
-	[c8\f g' e] [c g e]
-	[\stemUp c \stemDown e' c] \stemBoth [g e c]
+	[\endcresc c8\f g' e] [c g e]
+	[ c e' c]  [g e c]
 	g4 r8 [g''8 e c]
 
 	
 	< d2.(-\trill
 	  { s2 	\grace {  [c16 d] } } >
 	
-	\endcresc
 	
 	)c4 r8 r4 r8
 	R2.*5
@@ -163,7 +175,10 @@ rondo = \notes 	\relative c'
 	R2.*5
 	[c8\f c, c] [c c c]
 	c4 r8 c4 r8
-	c4 r8 r4 \bar "|."		% B&H do another r8.
+
+        %This is technically incorrect, since we started with an 8th
+	% upstep, but both eulenburg and EB do this as well.
+	c4 r8 r4 r8 \bar "|."		
 }
 
 

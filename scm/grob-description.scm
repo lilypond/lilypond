@@ -629,13 +629,13 @@
     (Script
      . (
 	;; don't set direction here: it breaks staccato.
-	(molecule-callback . ,Script::brew_molecule)
+	(molecule-callback . ,Script_interface::brew_molecule)
 
 	;; This value is sensitive: if too large, staccato dots will move a
 	;; space a away.
 	(padding . 0.25) 
 	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent))
-	(before-line-breaking-callback . ,Script::before_line_breaking)
+	(before-line-breaking-callback . ,Script_interface::before_line_breaking)
 	(font-family . music)
 	(meta . ((interfaces . (script-interface side-position-interface font-interface))))
 	))

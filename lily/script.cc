@@ -1,5 +1,5 @@
 /*   
-  script.cc --  implement Script
+  script.cc --  implement Script_interface
   
   source file of the GNU LilyPond music typesetter
   
@@ -17,7 +17,7 @@
 #include "lookup.hh"
 
 Molecule
-Script::get_molecule (Grob * me, Direction d)
+Script_interface::get_molecule (Grob * me, Direction d)
 {
   SCM s = me->get_grob_property ("script-molecule");
   assert (gh_pair_p (s));
@@ -38,9 +38,9 @@ Script::get_molecule (Grob * me, Direction d)
   return Molecule ();
 }
 
-MAKE_SCHEME_CALLBACK (Script,before_line_breaking,1);
+MAKE_SCHEME_CALLBACK (Script_interface,before_line_breaking,1);
 SCM
-Script::before_line_breaking (SCM smob)
+Script_interface::before_line_breaking (SCM smob)
 {
   Grob * me = unsmob_grob (smob);
 
@@ -61,10 +61,10 @@ Script::before_line_breaking (SCM smob)
 }
 
 
-MAKE_SCHEME_CALLBACK (Script,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Script_interface,brew_molecule,1);
 
 SCM
-Script::brew_molecule (SCM smob)
+Script_interface::brew_molecule (SCM smob)
 {
   Grob *me= unsmob_grob (smob);
 
@@ -94,7 +94,7 @@ ADD_INTERFACE (Text_script,"text-script-interface",
   "Any text script",
   "script-priority");
 
-ADD_INTERFACE (Skript, "script-interface",
+ADD_INTERFACE (Script_interface, "script-interface",
   "",
   "script-priority script-molecule staff-support");
 
