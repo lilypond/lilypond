@@ -101,7 +101,7 @@ Text_spanner::brew_molecule (SCM smob)
     }
   
   Drul_array<Real> edge_height = robust_scm2interval (me->get_grob_property ("edge-height"),
-						      Interval (1.0, 1.0));
+						      Interval (0.0, 0.0));
   Drul_array<Molecule> edge_line;
     {
       Direction d = LEFT;

@@ -29,10 +29,8 @@ protected:
   virtual Spanner* get_spanner () const;
   virtual void add_element (Grob*) ;
 public:  
-TRANSLATOR_DECLARATIONS(Axis_group_engraver );
+  TRANSLATOR_DECLARATIONS(Axis_group_engraver);
 };
-
-
 
 Axis_group_engraver::Axis_group_engraver ()
 {
@@ -121,7 +119,7 @@ Axis_group_engraver::process_acknowledged_grobs ()
       Grob *par = elts_[i]->get_parent (Y_AXIS);
 
       if (!par || !Axis_group_interface::has_interface (par))
-	if (elts_[i]->empty_b (Y_AXIS))
+	if (elts_[i]->is_empty (Y_AXIS))
 	  {
 	    /*
 	      We have to do _something_, otherwise staff objects will

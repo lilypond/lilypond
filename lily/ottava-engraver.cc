@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2000--2003 Han-Wen Nienhuys
-  Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "protected-scm.hh"

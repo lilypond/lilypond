@@ -39,23 +39,23 @@ Moment::print_smob (SCM s, SCM port, scm_print_state *)
   scm_puts ("#<Mom ", port);
   String str = r->to_string ();
   scm_puts ((char *)str.to_str0 (), port);
-  scm_puts (" >", port);
+  scm_puts (">", port);
   
   return 1;
 }
 
 /*
   TODO: add optional factor argument.
- */
+*/
 LY_DEFINE (make_moment,"ly:make-moment", 2,0,0, (SCM n, SCM d),
 	   "create the rational number with main timing @var{n}/@var{d}. \n"
-"\n"
-"\n"
-"Moment is a point in musical time. It is consists of a pair of\n"
-"rationals (@var{m},@var{g}), where @var{m} is the timing for the  main\n"
-"notes, and @var{g} the timing for  grace notes. In absence of grace\n"
-"notes, @var{g} is zero.\n"
-)
+	   "\n"
+	   "\n"
+	   "Moment is a point in musical time. It is consists of a pair of\n"
+	   "rationals (@var{m},@var{g}), where @var{m} is the timing for the  main\n"
+	   "notes, and @var{g} the timing for  grace notes. In absence of grace\n"
+	   "notes, @var{g} is zero.\n"
+	   )
 {
   SCM_ASSERT_TYPE(SCM_INUMP (n), n, SCM_ARG1, __FUNCTION__, "integer");
   SCM_ASSERT_TYPE(SCM_INUMP (d), d, SCM_ARG2, __FUNCTION__, "integer");
@@ -65,7 +65,7 @@ LY_DEFINE (make_moment,"ly:make-moment", 2,0,0, (SCM n, SCM d),
 
 LY_DEFINE (add_moment,"ly:add-moment", 2,0,0, (SCM a, SCM b),
 	   "Add two moments."
-)
+	   )
 {
   Moment * ma = unsmob_moment (a);
   Moment * mb = unsmob_moment (b);
@@ -78,7 +78,7 @@ LY_DEFINE (add_moment,"ly:add-moment", 2,0,0, (SCM a, SCM b),
 
 LY_DEFINE (mul_moment,"ly:mul-moment", 2,0,0, (SCM a, SCM b),
 	   "Multiply two moments."
-)
+	   )
 {
   Moment * ma = unsmob_moment (a);
   Moment * mb = unsmob_moment (b);
@@ -92,7 +92,7 @@ LY_DEFINE (mul_moment,"ly:mul-moment", 2,0,0, (SCM a, SCM b),
 
 LY_DEFINE (div_moment,"ly:div-moment", 2,0,0, (SCM a, SCM b),
 	   "Divide two moments."
-)
+	   )
 {
   Moment * ma = unsmob_moment (a);
   Moment * mb = unsmob_moment (b);
@@ -169,7 +169,7 @@ Moment::operator -= (Moment const &src)
 
 /*
   only take the main part of SRC for multiplication.
- */
+*/
 void
 Moment::operator *= (Moment const &src)
 {
@@ -179,7 +179,7 @@ Moment::operator *= (Moment const &src)
 
 /*
   only take the main part of SRC for multiplication.
- */
+*/
 void
 Moment::operator /= (Moment const &src)
 {

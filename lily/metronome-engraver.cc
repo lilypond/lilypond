@@ -23,24 +23,24 @@ class Metronome_mark_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS(Metronome_mark_engraver);
 protected:
-  Item* text_;
-  Grob *   bar_line_;
+  Item *text_;
+  Grob *bar_line_;
   
 protected:
   virtual void stop_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
   void create_items (Music*);
-  virtual bool try_music (Music *req);
+  virtual bool try_music (Music *ev);
   virtual void process_music ();
   
 private:
-  Music * mark_req_;
+  Music *mark_ev_;
 };
 
 Metronome_mark_engraver::Metronome_mark_engraver ()
 {
   text_ =0;
-  mark_req_ = 0;
+  mark_ev_ = 0;
 }
 
 void
@@ -68,7 +68,7 @@ Metronome_mark_engraver::stop_translation_timestep ()
       typeset_grob (text_);
       text_ =0;
     }
-  mark_req_ = 0;
+  mark_ev_ = 0;
 }
 
 
@@ -88,19 +88,19 @@ Metronome_mark_engraver::create_items (Music *rq)
 bool
 Metronome_mark_engraver::try_music (Music* r)
 {
-  mark_req_ = r;
+  mark_ev_ = r;
   return true;
 }
 
 void
 Metronome_mark_engraver::process_music ()
 {
-  if (mark_req_)
+  if (mark_ev_)
     {
-      create_items (mark_req_);
+      create_items (mark_ev_);
 
       SCM proc = get_property ("metronomeMarkFormatter");
-      SCM result= scm_call_2 (proc, mark_req_->self_scm (),
+      SCM result= scm_call_2 (proc, mark_ev_->self_scm (),
 			      daddy_trans_->self_scm()); 
       
       text_->set_grob_property ("text", result);

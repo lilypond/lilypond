@@ -135,7 +135,7 @@ public:
 
   void init ();
 public:
-  bool empty_b (Axis a) const;
+  bool is_empty (Axis a) const;
 
   Interval extent (Grob * refpoint, Axis) const;
  

@@ -238,7 +238,6 @@ set_loose_columns (System* which, Column_x_positions const *posns)
       
       if (col->system_)
 	continue;
-
       
       Item * left = 0;
       Item * right = 0;
@@ -258,13 +257,17 @@ set_loose_columns (System* which, Column_x_positions const *posns)
 	  if (!left && l)
 	    {
 	      left = l->get_column ();
+	      if (!left->get_system ())
+		left = left->find_prebroken_piece (RIGHT);
 	    }
 
 	  divide_over ++;
-
 	  loose = right = r->get_column ();
 	}
       while (1);
+
+      if (!right->get_system ())
+	right = right->find_prebroken_piece (LEFT);
       
       /*
 	We divide the remaining space of the column over the left and
@@ -274,7 +277,7 @@ set_loose_columns (System* which, Column_x_positions const *posns)
       Grob * common = right->common_refpoint (left, X_AXIS);
       
       Real rx =	right->extent(common, X_AXIS)[LEFT];
-      Real lx =  left->extent(common, X_AXIS)[RIGHT];
+      Real lx = left->extent(common, X_AXIS)[RIGHT];
       Real total_dx = rx - lx;
       Interval cval =col->extent (col, X_AXIS);
 
@@ -302,6 +305,7 @@ set_loose_columns (System* which, Column_x_positions const *posns)
 	dx *= 0.5;
 
       col->system_ = which;
+      col->translate_axis (- col->relative_coordinate (common, X_AXIS), X_AXIS);
       col->translate_axis (lx + dx - cval[LEFT], X_AXIS); 
     }
 }
