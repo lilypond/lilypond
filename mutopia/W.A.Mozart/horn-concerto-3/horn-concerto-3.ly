@@ -47,7 +47,7 @@ aftergrace = \property Grace.graceAlignPosition = \right
 \paper{
  \translator { \StaffContext \consists Mark_engraver;  }
  \translator { \ScoreContext
-    	skipBars = 1;
+    	skipBars = ##t
   }
   linewidth = 180. \mm;
 }
