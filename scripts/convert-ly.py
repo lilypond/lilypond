@@ -1204,7 +1204,7 @@ if 1:
 	def conv(str):
 		str = re.sub (
 			r"(set|override|revert) *#'type",
-			r"\1 #'style"
+			r"\1 #'style",
 			str)
 		return str
 	
