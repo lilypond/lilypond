@@ -39,7 +39,7 @@ problems:
 
 @itemize @bullet
 @item Include @code{\version} numbers in every file.  Note that all
-templates contain a @code{\version "2.3.16"} string.  We
+templates contain a @code{\version "2.3.22"} string.  We
 highly recommend that you always include the @code{\version}, no matter
 how small your file is.  Speaking from personal experience, it's
 quite frustrating to try to remember which version of LilyPond you were
@@ -76,7 +76,7 @@ add notes, and you're finished!
 
 @lilypond[verbatim,raggedright]
 
-\version "2.3.16"
+\version "2.3.22"
 melody = \relative c' {
    \clef treble
    \key c \major
@@ -103,7 +103,7 @@ line.
 
 @lilypond[verbatim,raggedright]
 
-\version "2.3.16"
+\version "2.3.22"
 melody = \relative c' {
    \clef treble
    \key c \major
@@ -136,7 +136,7 @@ Want to prepare a lead sheet with a melody and chords?  Look no further!
 
 @lilypond[verbatim,raggedright]
 
-\version "2.3.16"
+\version "2.3.22"
 melody =  \relative c' {
    \clef treble
    \key c \major
@@ -171,7 +171,7 @@ This template allows you to prepare a song with melody, words, and chords.
 
 @lilypond[verbatim,raggedright]
 
-\version "2.3.16"
+\version "2.3.22"
 melody =  \relative c' {
    \clef treble
    \key c \major
@@ -214,7 +214,7 @@ Here is a simple piano staff.
 
 @lilypond[verbatim,raggedright]
 
-\version "2.3.16"
+\version "2.3.22"
 upper = \relative c'' {
    \clef treble
    \key c \major
@@ -250,7 +250,7 @@ piano accompaniment underneath.
 
 @lilypond[verbatim,raggedright]
 
-\version "2.3.16"
+\version "2.3.22"
 melody =  \relative c'' {
    \clef treble
    \key c \major
@@ -310,7 +310,7 @@ tweaking yourself.
 
 @lilypond[verbatim,raggedright]
 
-\version "2.3.16"
+\version "2.3.22"
 upper = \relative c'' {
   \clef treble
   \key c \major
@@ -403,7 +403,7 @@ section for time and key signatures.
 
 @lilypond[verbatim,raggedright]
 
-\version "2.3.16"
+\version "2.3.22"
 global = {
    \time 4/4
    \key c \major
@@ -456,7 +456,7 @@ always the same for all parts.
 
 @lilypond[verbatim,raggedright]
 
-\version "2.3.16"
+\version "2.3.22"
 global = {
    \key c \major
    \time 4/4
@@ -538,7 +538,7 @@ staves rather than on the staves.
 
 @lilypond[verbatim,raggedright]
 
-\version "2.3.16"
+\version "2.3.22"
 
 global = {
     % incipit
@@ -771,7 +771,7 @@ is within a @code{\transpose} section.
 
 @lilypond[verbatim,raggedright]
 
-\version "2.3.16"
+\version "2.3.22"
 \header {
         title = "Song"
         subtitle = "(tune)"
@@ -1038,7 +1038,7 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 
 @lilypond[verbatim,raggedright]
 
-\version "2.3.16"
+\version "2.3.22"
 \header {
    dedication = "dedication"
    title = "Title"

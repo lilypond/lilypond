@@ -1,6 +1,6 @@
 % property-init.ly
 
-\version "2.3.17"
+\version "2.3.22"
 
 stemUp = \override Stem  #'direction = #1
 stemDown = \override Stem  #'direction = #-1 
