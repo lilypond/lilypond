@@ -14,7 +14,8 @@ URL: http://www.lilypond.org/
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 
 
-Buildrequires: t1utils bison flex mftrace texinfo
+Buildrequires: t1utils bison flex mftrace
+Buildrequires: texinfo >= 4.6
 Requires: tetex  tetex-latex libstdc++ python 
 Requires: guile >= 1.6.4-7
 

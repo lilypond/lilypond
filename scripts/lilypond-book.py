@@ -1072,20 +1072,31 @@ def schedule_lilypond_block (chunk):
 		needed_filetypes.append ('eps')
 
 	pathbase = os.path.join (g_outdir, basename)
-	def f (base, ext1, ext2):
-		a = os.path.isfile (base + ext2)
-		if (os.path.isfile (base + ext1) and
-		    os.path.isfile (base + ext2) and
-				os.stat (base+ext1)[stat.ST_MTIME] >
-				os.stat (base+ext2)[stat.ST_MTIME]) or \
-				not os.path.isfile (base + ext2):
+	def must_rebuild (base, ext1, ext2):
+		
+		f2 = base + ext2
+		f1 = base + ext1
+		fp2 = base + '-page1' + ext2
+
+		isfile2 = os.path.isfile (f2)
+		
+		if not isfile2 and os.path.isfile (fp2):
+			f2  = fp2
+			isfile2 = os.path.isfile (fp2)
+			
+		if (os.path.isfile (f2) and isfile2 and
+		    os.stat (f1)[stat.ST_MTIME] >
+		    os.stat (f2)[stat.ST_MTIME]) or \
+		    not isfile2:
+		
 			return 1
+		
 	todo = []
-	if 'tex' in needed_filetypes and f (pathbase, '.ly', '.tex'):
+	if 'tex' in needed_filetypes and must_rebuild (pathbase, '.ly', '.tex'):
 		todo.append ('tex')
-	if 'eps' in needed_filetypes and f (pathbase, '.tex', '.eps'):
+	if 'eps' in needed_filetypes and must_rebuild (pathbase, '.tex', '.eps'):
 		todo.append ('eps')
-	if 'png' in needed_filetypes and f (pathbase, '.eps', '.png'):
+	if 'png' in needed_filetypes and must_rebuild (pathbase, '.eps', '.png'):
 		todo.append ('png')
 
 	return ('lilypond', body, opts, todo, basename)

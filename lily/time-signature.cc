@@ -96,11 +96,10 @@ Time_signature::numbered_time_signature (Grob*me,int num, int den)
   me->set_grob_property ("font-family", ly_symbol2scm ("number"));
 
   Molecule n =
-    Text_item::text2molecule (me, scm_makfrom0str (to_string (num).to_str0 ()),
-			      chain);
+    Text_item::interpret_new_markup (me->self_scm(), chain,scm_makfrom0str (to_string (num).to_str0 ()));
+			      
   Molecule d =
-    Text_item::text2molecule (me, scm_makfrom0str (to_string (den).to_str0 ()),
-			      chain);
+    Text_item::interpret_new_markup (me->self_scm(), chain,scm_makfrom0str (to_string (den).to_str0 ()));
   n.align_to (X_AXIS, CENTER);
   d.align_to (X_AXIS, CENTER);
   Molecule m;

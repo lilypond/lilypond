@@ -158,7 +158,7 @@ Tuplet_bracket::brew_molecule (SCM smob)
   if (gh_string_p (number) && number_visibility)
     {
       SCM properties = Font_interface::font_alist_chain (me);
-      Molecule num = Text_item::text2molecule (me, number, properties);
+      Molecule num = Text_item::interpret_new_markup (smob, properties, number);
       num.align_to (X_AXIS, CENTER);
       num.translate_axis (w/2, X_AXIS);
       num.align_to (Y_AXIS, CENTER);

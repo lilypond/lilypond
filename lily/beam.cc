@@ -481,8 +481,8 @@ Beam::brew_molecule (SCM grob)
 
       SCM properties = Font_interface::font_alist_chain (me);
 
-      
-      Molecule tm = Text_item::text2molecule (me, scm_makfrom0str (str.to_str0 ()), properties);
+      Molecule tm = Text_item::interpret_new_markup
+	(me->self_scm(),  properties, scm_makfrom0str (str.to_str0 ()));
       the_beam.add_at_edge (Y_AXIS, UP, tm, 5.0, 0);
     }
 #endif

@@ -24,7 +24,7 @@ public:
   static Molecule string2molecule (Grob *me, SCM text, SCM properties);
   static Molecule markup_text2molecule (Grob *me, SCM markup_text, SCM properties);
   static bool has_interface (Grob*);
-  
+  static Molecule interpret_new_markup (SCM grob, SCM achain, SCM markup);
 private:
   static Molecule lookup_character (Grob *me, Font_metric*, SCM char_name);
   static Molecule lookup_text (Grob *me, Font_metric*, SCM text);

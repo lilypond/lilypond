@@ -294,7 +294,7 @@ yylex (YYSTYPE *s,  void * v)
 %token <scm>	DURATION_IDENTIFIER
 %token <scm>    FRACTION
 %token <id>	IDENTIFIER
-%token <scm>	CHORDNAMES CHORDNAMES_IDENTIFIER
+%token <scm>	CHORDNAMES
 
 %token <scm> CHORD_MODIFIER
 

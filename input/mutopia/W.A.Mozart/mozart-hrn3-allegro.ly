@@ -14,7 +14,7 @@ allegro =
 	c'2^"Tutti" g
 	c, r
 	R1*1
-	r8 [g' g g]  g-[ g e c]
+	r8 g' g g  g g e c
 	g'4 g, r2
 	R1*18
 	r2 r4^"Solo" g'4 |

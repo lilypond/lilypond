@@ -28,6 +28,11 @@
  * stafflinethickness) rather than hardwired to (staff_space / 6).
  */
 
+/*
+  WTF: what does Breathing_sign have to do with text?!
+
+  --hwn
+ */
 MAKE_SCHEME_CALLBACK (Breathing_sign,brew_molecule,1);
 SCM 
 Breathing_sign::brew_molecule (SCM smob)
@@ -37,8 +42,7 @@ Breathing_sign::brew_molecule (SCM smob)
   if (text == SCM_EOL)
     return divisio_minima (smob);
   SCM properties = Font_interface::font_alist_chain (me);
-  Molecule out;
-  out = Text_item::text2molecule (me, text, properties);
+  Molecule out = Text_item::interpret_new_markup (smob, properties, text);
   SCM space_scm = me->get_grob_property ("word-space");
   if (gh_number_p (space_scm))
     {

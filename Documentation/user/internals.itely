@@ -508,10 +508,12 @@ The following list are all lilypond specific types, that
 can exist during parsing:
 @table @code
 @item Duration
-@item Identifier
 @item Input
 @item Moment
 @item Music
+@item Event
+In C++ terms, an @code{Event} is a subtype of @code{Music}. However,
+both have different functions in the syntax.
 @item Music_output_def
 @item Pitch
 @item Score
@@ -533,8 +535,8 @@ including dimensions.
 
 @item Spring_smob
 
-@item Translator: An object that produces audio objects or Grobs.  This is
-not yet user-accessible.
+@item Translator: An object that produces audio objects or Grobs.
+It may be accessed with @code{\applyoutput}.
 
 @item Font_metric: An object representing a font.
 @end table

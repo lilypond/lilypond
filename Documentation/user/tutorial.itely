@@ -19,8 +19,8 @@
 * Printing lyrics::             
 * A lead sheet::                
 * Listening to output::         
-* Titling::                     
-* Single staff polyphony::      
+* Titling ::                    
+* Single staff polyphony  ::    
 * Piano staffs::                
 * Setting variables::           
 * Fine tuning layout::          
@@ -178,9 +178,8 @@ s16_" "
 Clefs are fully explained in @ref{Clef}.
 
 
-When you enter these commands in a file, you must to enclose them in
-@code{\notes @{@dots{}@}}.  This lets LilyPond know that music (as
-opposed to @rglos{lyrics}) follows:
+These commands must be enclosed in @code{\notes @{@dots{}@}}.  This
+indicates that music (as opposed to @rglos{lyrics}) follows:
 
 @example
 \notes @{
@@ -632,6 +631,16 @@ a8-[ ais-] d-[ es r d-]
 @end quotation
 @separate
 
+@menu
+* Combining music into compound expressions::  
+* Adding articulation marks to notes ::  
+* More basic rhythms::          
+* Commenting input files::      
+@end menu
+
+@node Combining music into compound expressions
+@subsection Combining music into compound expressions
+
 To print more than one staff, each piece of music that makes up a staff
 is marked by adding @code{\context Staff} before it.  These
 @code{Staff}'s are then grouped inside @code{\simultaneous @{} and @code{@}}, as is
@@ -681,11 +690,50 @@ We can now typeset a melody with two staves:
 @end lilypond
 @end quotation
 
-The time signature is specified in one melody staff only
-(the top staff), but is printed on both, since common practice
-dictates that all staves have the same time signature. 
+The example shows how small chunks of music, for example the notes
+@code{c2}, @code{e4}, etc. of the second staff, are combined to form a
+larger chunk by enclosing it in braces. Again, a larger chunk is
+formed by prefix @code{\context Staff} to it, and that chunk is
+combined with @code{< >}. This mechanism is similar with mathematical
+formulas: in a formula, a so-called expression is formed by combining
+simpler expressions into larger expressions. For example, 
 
-@separate
+@quotation
+  1
+
+  1 + 2
+  
+  (1 + 2) * 3
+  
+  ((1 + 2) * 3) / (4 * 5)
+@end quotation     
+is a sequence of expressions, where each expression is contained in
+the next one.  The simplest expressions are numbers and operators
+(like +, * and /). Parentheses are used to group expressions.  In
+LilyPond input, a similar mechanism is used. Here, the simplest
+expressions are notes and rests.  By enclosing expressions in @code{<
+>} and @code{@{ @}}, more complex music is formed. The @code{\context}
+also forms new expressions; it is prepended to a music expression.
+
+When spreading expressions over multiple lines, it is customary to use
+an indent that indicates the nesting level. Formatting music like this
+eases reading, and helps you  insert the right amount of closing
+braces at the end of an expression. For example
+@example
+\score @{
+  \notes <
+    @{
+      @dots{}
+    @}
+    @{
+      @dots{}
+    @}
+  >
+@}
+@end example
+
+@node Adding articulation marks to notes 
+@subsection Adding articulation marks to notes
 
 Common accents can be added to a note using @code{-.}, @code{--}, @code{->}:
 @quotation
@@ -700,9 +748,6 @@ and the digit to be printed.
 @lilypond[verbatim,relative 1]
   c-3 e-5 b-2 a-1
 @end lilypond
-
-
-  
 
 
 Dynamic signs are made by adding the markings to the note:
@@ -753,6 +798,9 @@ r4 <<c e g>>8-\>-( <<c e g>> <<c e g>>  <<c f a>>8-\!-)
 @separate
 
 
+@node More basic rhythms
+@subsection More basic rhythms
+
 A pickup (or upstep) is entered with the keyword @code{\partial}. It
 is followed by a duration: @code{\partial 4} is a quarter note upstep
 and @code{\partial 8} an eighth note.
@@ -781,6 +829,9 @@ a keyword. In this case, the keyword is @code{\grace}.
 @noindent
 More information on the use of grace notes is in @ref{Grace notes}.
 
+
+@node Commenting input files
+@subsection Commenting input files
 
 Comments are pieces of the input that are ignored.  There are two
 types of comments. A line comments are introduced by @code{%}: after
@@ -1072,7 +1123,7 @@ voices with @code{\\}:
   < @{ a4 g2 f4-~ f4 @} \\
     @{ r4 g4 f2 f4 @} >
 @end example
-@lilypond[relative=2]
+@lilypond[relative 1]
 \context Staff   < { a4 g2 f4-~ f4 } \\
     { r4 g4 f2 f4 } >
 @end lilypond
@@ -1084,7 +1135,7 @@ temporarily do not play:
   < @{ a4 g2 f4-~ f4 @} \\
     @{ s4 g4 f2 f4 @} >
 @end example
-@lilypond[relative=2]
+@lilypond[relative 1]
 \context Staff  < { a4 g2 f4-~ f4 } \\
     { s4 g4 f2 f4 } >
 @end lilypond
@@ -1263,7 +1314,7 @@ little to the left, and 1.8 staff space downwards.
 
 @cindex setting object properties
 
-@lilypond[relative 2,verbatim]
+@lilypond[relative 1,verbatim]
 \stemUp
 f-5
 \once \property Voice.Fingering
@@ -1308,35 +1359,165 @@ discusses in depth how to figure out these statements for yourself, in
 @node Organizing larger pieces
 @section Organizing larger pieces
 
-TODO: discuss identifiers, include files, \version.
+When all of the elements discussed earlier are combined to produce
+larger files, the @code{\score} blocks get a lot bigger, because the
+music expressions are longer, and, in the case of polyphonic and/or
+orchestral pieces, more deeply nested.
 
+By using variables, also known as identifiers, it is possible to break
+up complex music expressions.
+An identifier is assigned as follows
+@example
+  namedMusic = \notes @{ @dots{}
+@end example
+
+The contents of the music expression @code{namedMusic}, can be used
+later by preceding the name with a backslash, i.e. @code{\namedMusic}.
+For example
+
+@lilypond[singleline,verbatim]
+seufzer  = \notes {
+  dis'8 e'8
+}
+\score { \notes {
+  \seufzer \seufzer
+} }
+@end lilypond
+
+The name of an identifier should only have alphabetic characters only,
+and no numbers, underscores or dashes. The assignment should be
+outside of the @code{\score} block.
+
+It is possible to use variables for many other types of objects in the
+input.  For example,
+@example
+  width = 1.5\cm
+  name = "Wendy"
+  aFivePaper = \paper @{ paperheight = 22.7 \cm @}
+@end example
+Depending on its contents, the identifier can be used in different
+places. The following example uses the above variables:
+@example
+  \score @{
+    \notes @{ c4^\name @}
+    \paper @{
+      \aFivePaper
+      linewidth = \width
+    @}
+  @}
+@end example
+
+More information on the possible uses of identifiers is in the
+technical manual, in @ref{Scheme datatypes}.
 
 
 @node An orchestral part
 @section An orchestral part
 
-TODO:
+In orchestral music, all notes are printed twice: both in a part for
+the musicians, and in a full score for the which is printed both in
+parts as in full score. Identifiers can be used to avoid double work:
+the music is entered once, and stored in an variables. The contents of
+that variable is then used to generate both the part and the score.
 
-\markup, mmrest, transposing, cue notes
+It is convenient to define the notes in a special file, for example,
+suppose that the following is in @file{horn-music.ly}:
+@example
+hornNotes = \notes \relative c @{
+  \time 2/4
+  r4 f8 a cis4 f e d
+@}
+@end example
 
+Then, an individual part is made by putting the following in a file
+@example
+\include "horn-music.ly"
+\header @{
+  instrument = "Horn in F"
+@}
+\score @{
+  \notes \transpose c' f \hornNotes
+@}
+@end example
+The @code{\include} command substitutes the contents of the file at
+this position in the file, so that @code{hornNotes} is defined
+afterwards.  Since the horn is tuned in F, the @code{\transpose}
+command is used. The code @code{\transpose c' f} indicates that the
+argument, being @code{\hornNotes} should be transposed by a fifth
+downwards: the @code{c'} becomes a @code{f}. The transposition can be
+seen in the following output:
 
+@lilypond[singleline]
+\score {
+  \notes \transpose c' f  \notes \relative c' {
+  \time 2/4
+  r4 f8 a cis4 f e d
+}
+}
+@end lilypond
 
-@separate
-@example 
-\version "1.5.72"
-@end example 
-Lilypond and its language are still under development, and
-occasionally details of the syntax are changed.  The @code{version}
-fragment indicates which LilyPond version the input file was written
-for.  When you compile this file, the version number will be
-checked. When the file is too old, a warning is issued.  The version
-number is also used by the @code{convert-ly} program (See
-@ref{Invoking convert-ly}), which updates the file to the latest
-version automatically.
+In ensemble pieces, one of the voices often does not play for many
+measures. This is denoted by a special rest, the multi-measure
+rest. It is entered with a capital R, and followed by a duration (1
+for a whole note, 2 for a half note, etc.) By multiplying the
+duration, longer rests can be constructed. For example, the next rest
+takes 3 measures in 2/4 time.
+@example
+  R2*3
+@end example
+
+When printing the part, the following @code{skipBars} property must be
+set to false, to prevent the rest from being expanded in three one bar
+rests.
+@example
+  \property Score.skipBars = ##t
+@end example
+
+The result would look like
+
+@lilypond[singleline]
+\score {\notes { \transpose c' f \relative c' { \time 2/4
+\property Score.skipBars = ##t 
+        R2*3
+    r4 f8 a cis4 f e d } }}
+@end lilypond
+
+The score is made by combining all of the music in  a @code{\score}
+block, assuming that the other voice is in @code{hornNotes}, in the
+file @file{horn-music.ly}:
+@example
+\include "fagot-music.ly"
+\include "horn-music.ly"
+
+\score @{
+  \simultaneous @{
+    \context Staff = hornStaff \hornNotes
+    \context Staff = fagStaff \fagottoNotes
+  @} @}
+@end example
+
+This would lead to the following output:
+
+@lilypond[singleline]
+\score {
+  \notes \relative c \simultaneous {
+    \context Staff = hornStaff { \time 2/4
+        R2*3
+    r4 f8 a cis4 f e d }
+    \context Staff = fagStaff { \clef bass
+      r4 d,8 f | gis4 c |  b bes |
+      a8 e f4 |  g d | gis f }
+  } }
+@end lilypond 
+
+More in depth information is in the notation manual, in
+@ref{Orchestral music}. 
+
 
 @node Integrating text and music
 @section Integrating text and music
 
+TODO: shorten. 
 
 @cindex La@TeX{}, music in
 @cindex HTML, music in

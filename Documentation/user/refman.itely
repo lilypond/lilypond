@@ -31,7 +31,7 @@
 * Vocal music::                 
 * Tablatures::                  
 * Chord names::                 
-* Writing parts::               
+* Orchestral music::            
 * Ancient notation ::           
 * Contemporary notation::       
 * Tuning output::               
@@ -549,7 +549,7 @@ shown on screen. See @ref{Point and click} for more information.
 * Relative octaves::            
 * Bar check::                   
 * Skipping corrected music::    
-* Automatic note splitting::    
+* Automatic note splitting ::   
 @end menu
 
 
@@ -761,7 +761,7 @@ exactly on the barline.
 
 @node Key signature
 @subsection Key signature
-@cindex Key
+@cindex Key signature
 
 @cindex @code{\key}
 
@@ -1636,7 +1636,7 @@ for the problematic notes.
 @section Expressive marks
 
 @menu
-* Slurs::                      
+* Slurs ::                      
 * Phrasing slurs::              
 * Breath marks::                
 * Metronome marks::             
@@ -3812,8 +3812,10 @@ may result in strange chord names when chords are entered with the
 
 
 
-@node Writing parts
-@section Writing parts
+@node Orchestral music
+@section Orchestral music
+
+@cindex  Writing parts
 
 Orchestral music involves some special notation, both in the full
 score and the individual parts. This section explains how to tackle
@@ -3822,6 +3824,7 @@ some common problems in orchestral music.
 
 
 @menu
+* Multiple staff contexts::     
 * Rehearsal marks::             
 * Bar numbers::                 
 * Instrument names::            
@@ -3831,6 +3834,28 @@ some common problems in orchestral music.
 * Frenched scores::             
 * Sound output for transposing instruments::  
 @end menu
+
+@node Multiple staff contexts
+@subsection Multiple staff contexts
+
+Polyphonic scores consist of many staffs. These staffs can be
+constructed in three different ways:
+@itemize @bullet
+@item The group is started with a brace at the left. This is done with the
+@internalsref{GrandStaff} context.
+@item The group is started with a bracket. This is done with the
+@internalsref{StaffGroup} context
+@item The group is  started with a vertical line. This is the default
+for the score.
+@end itemize
+
+@cindex Staff, multiple
+@cindex bracket, vertical
+@cindex brace, vertical
+@cindex grand staff
+@cindex staff group
+
+
 
 
 @node Rehearsal marks
@@ -6655,7 +6680,7 @@ affecting a whole set of objects.  Second, you can select one specific
 object, and set a object property in that object.
 
 @menu
-* Tuning objects::             
+* Tuning objects ::             
 * Constructing a tweak::        
 * Applyoutput::                 
 * Outputproperty::              
