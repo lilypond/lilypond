@@ -70,7 +70,7 @@ String::String( char c,  int n )
   @see
   String_convert::int_str
  */
-String::String(int i, const char * format )
+String::String(int i, char const * format )
 {
     *this = String_convert::int_str(i,format);
 }
@@ -240,7 +240,7 @@ String::index_any_i( String set ) const
     if ( !n )
 	return -1;
 
-    const void * me_l = (const void*) strh_.ch_c_l();
+    void const * me_l = (void const *) strh_.ch_c_l();
     for (int i=0; i  < set.length_i(); i++) {
 	char * found=(char*) memchr(me_l, set[i], n  );
 	if (found) {

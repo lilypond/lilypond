@@ -53,8 +53,8 @@ public:
     T operator ->() const { return  ptr(); }
     operator T() { return ptr(); }
     T operator *() { return ptr(); }
-    void add(const T& p ) { Cursor<void*>::add((void*) p); }
-    void insert(const T& p ) { Cursor<void*>::insert((void*) p);}    
+    void add(T const & p ) { Cursor<void*>::add((void*) p); }
+    void insert(T const & p ) { Cursor<void*>::insert((void*) p);}    
     static int compare(PCursor<T> a,PCursor<T>b) {
 	return Cursor<void*>::compare(a,b);
     }

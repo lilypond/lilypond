@@ -47,7 +47,7 @@ class PointerList : public List<void *>
 template<class T>
 class IPointerList : public PointerList<T> {
 public:
-    IPointerList(const IPointerList&) { set_empty(); }
+    IPointerList(IPointerList const &) { set_empty(); }
     IPointerList() { }
     ~IPointerList();
 };
