@@ -46,10 +46,9 @@
     (ly:parser-print-book parser book)))
 
 (define-public (print-score-as-book parser score)
-  (let*
-      ((head  (ly:parser-lookup parser '$globalheader))
-       (book (ly:make-book (ly:parser-lookup parser $defaultpaper)
-			   head score)))
+  (let* ((head (ly:parser-lookup parser '$globalheader))
+	 (book (ly:make-book (ly:parser-lookup parser $defaultpaper)
+			     head score)))
     (ly:parser-print-book parser book)))
 
 (define-public (print-score parser score)
@@ -59,10 +58,8 @@
     (ly:parser-print-score parser book)))
 		
 (define-public (collect-scores-for-book  parser score)
-  (let*
-      ((oldval (ly:parser-lookup parser 'toplevel-scores)))
-    (ly:parser-define parser 'toplevel-scores (cons score oldval))
-    ))
+  (let* ((oldval (ly:parser-lookup parser 'toplevel-scores)))
+    (ly:parser-define parser 'toplevel-scores (cons score oldval))))
 
 (define-public (collect-music-for-book parser music)
   (collect-scores-for-book parser (ly:music-scorify music parser)))
@@ -111,16 +108,14 @@ found."
   (if (null?  list)
       '()
       (cons (cons  (caar list) (func (cdar list)))
-	    (map-alist-vals func (cdr list)))
-      ))
+	    (map-alist-vals func (cdr list)))))
 
 (define (map-alist-keys func list)
   "map FUNC over the keys of an alist LIST, leaving the vals. "
   (if (null?  list)
       '()
       (cons (cons (func (caar list)) (cdar list))
-	    (map-alist-keys func (cdr list)))
-      ))
+	    (map-alist-keys func (cdr list)))))
  
 ;;;;;;;;;;;;;;;;
 ;; vector
@@ -128,46 +123,31 @@ found."
   (do
       ((i 0 (1+ i)))
       ((>= i (vector-length vec)) vec)
-    
-    (vector-set! vec i
-		 (proc (vector-ref vec i)))))
+    (vector-set! vec i (proc (vector-ref vec i)))))
 
 ;;;;;;;;;;;;;;;;
 ;; hash
 
-(if (not (defined? 'hash-table?))	; guile 1.6 compat
+(if (not (defined? 'hash-table?)) ;; guile 1.6 compat
     (begin
       (define hash-table? vector?)
 
       (define-public (hash-table->alist t)
 	"Convert table t to list"
-	(apply append
-	       (vector->list t)
-	       )))
+	(apply append (vector->list t))))
 
     ;; native hashtabs.
     (begin
       (define-public (hash-table->alist t)
-
 	(hash-fold (lambda (k v acc) (acons  k v  acc))
-		   '() t)
-	)
-      ))
+		   '() t))))
 
 ;; todo: code dup with C++. 
-(define-public (alist->hash-table l)
+(define-public (alist->hash-table lst)
   "Convert alist to table"
-  (let
-      ((m (make-hash-table (length l))))
-
-    (map (lambda (k-v)
-	   (hashq-set! m (car k-v) (cdr k-v)))
-	 l)
-
+  (let ((m (make-hash-table (length lst))))
+    (map (lambda (k-v) (hashq-set! m (car k-v) (cdr k-v))) lst)
     m))
-       
-
-
 
 ;;;;;;;;;;;;;;;;
 ; list
@@ -178,105 +158,91 @@ found."
       '()
       (if (pair? (car lst))
 	  (append (flatten-list (car lst)) (flatten-list  (cdr lst)))
-	  (cons (car lst) (flatten-list (cdr lst))))
-  ))
+	  (cons (car lst) (flatten-list (cdr lst))))))
 
 (define (list-minus a b)
   "Return list of elements in A that are not in B."
   (lset-difference eq? a b))
 
-
 ;; TODO: use the srfi-1 partition function.
-(define-public (uniq-list l)
+(define-public (uniq-list lst)
   
-  "Uniq LIST, assuming that it is sorted"
-  (define (helper acc l) 
-    (if (null? l)
+  "Uniq LST, assuming that it is sorted"
+  (define (helper acc lst) 
+    (if (null? lst)
 	acc
-	(if (null? (cdr l))
-	    (cons (car l) acc)
-	    (if (equal? (car l) (cadr l))
-		(helper acc (cdr l))
-		(helper (cons (car l) acc)  (cdr l)))
-	    )))
-  (reverse! (helper '() l) '()))
+	(if (null? (cdr lst))
+	    (cons (car lst) acc)
+	    (if (equal? (car lst) (cadr lst))
+		(helper acc (cdr lst))
+		(helper (cons (car lst) acc)  (cdr lst))))))
+  (reverse! (helper '() lst) '()))
 
+(define (split-at-predicate predicate lst)
+ "Split LST = (a_1 a_2 ... a_k b_1 ... b_k)
+  into L1 = (a_1 ... a_k ) and L2 =(b_1 .. b_k) 
+  Such that (PREDICATE a_i a_{i+1}) and not (PREDICATE a_k b_1).
+  L1 is copied, L2 not.
 
-(define (split-at-predicate predicate l)
- "Split L = (a_1 a_2 ... a_k b_1 ... b_k)
-into L1 = (a_1 ... a_k ) and L2 =(b_1 .. b_k) 
-Such that (PREDICATE a_i a_{i+1}) and not (PREDICATE a_k b_1).
-L1 is copied, L2 not.
+  (split-at-predicate (lambda (x y) (= (- y x) 2)) '(1 3 5 9 11) (cons '() '()))"
+ ;; " Emacs is broken
 
-(split-at-predicate (lambda (x y) (= (- y x) 2))  '(1 3 5 9 11) (cons '() '()))"
-;; "
+ (define (inner-split predicate lst acc)
+   (cond
+    ((null? lst) acc)
+    ((null? (cdr lst))
+     (set-car! acc (cons (car lst) (car acc)))
+     acc)
+    ((predicate (car lst) (cadr lst))
+     (set-car! acc (cons (car lst) (car acc)))
+     (inner-split predicate (cdr lst) acc))
+    (else
+     (set-car! acc (cons (car lst) (car acc)))
+     (set-cdr! acc (cdr lst))
+     acc))
+   (let* ((c (cons '() '())))
+     (inner-split predicate lst  c)
+     (set-car! c (reverse! (car c)))
+     c)))
 
-;; KUT EMACS MODE.
-
-  (define (inner-split predicate l acc)
-  (cond
-   ((null? l) acc)
-   ((null? (cdr l))
-    (set-car! acc (cons (car l) (car acc)))
-    acc)
-   ((predicate (car l) (cadr l))
-    (set-car! acc (cons (car l) (car acc)))
-    (inner-split predicate (cdr l) acc))
-   (else
-    (set-car! acc (cons (car l) (car acc)))
-    (set-cdr! acc (cdr l))
-    acc)
-
-  ))
- (let*
-    ((c (cons '() '()))
-     )
-  (inner-split predicate l  c)
-  (set-car! c (reverse! (car c))) 
-  c)
-)
-
-
-(define-public (split-list l sep?)
-"
-(display (split-list '(a b c / d e f / g) (lambda (x) (equal? x '/))) )
-=>
-((a b c) (d e f) (g))
-
-"
-;; " KUT EMACS.
-
-(define (split-one sep?  l acc)
-  "Split off the first parts before separator and return both parts."
-  (if (null? l)
-      (cons acc '())
-      (if (sep? (car l))
-	  (cons acc (cdr l))
-	  (split-one sep? (cdr l) (cons (car l) acc))
-	  )
-      ))
-
-(if (null? l)
-    '()
-    (let* ((c (split-one sep? l '())))
-      (cons (reverse! (car c) '()) (split-list (cdr c) sep?))
-      )))
-
+(define-public (split-list lst sep?)
+  "(display (split-list '(a b c / d e f / g) (lambda (x) (equal? x '/))) )
+   =>
+   ((a b c) (d e f) (g))
+  "
+  ;; " Emacs is broken
+  (define (split-one sep?  lst acc)
+    "Split off the first parts before separator and return both parts."
+    (if (null? lst)
+	(cons acc '())
+	(if (sep? (car lst))
+	    (cons acc (cdr lst))
+	    (split-one sep? (cdr lst) (cons (car lst) acc)))))
+  
+  (if (null? lst)
+      '()
+      (let* ((c (split-one sep? lst '())))
+	(cons (reverse! (car c) '()) (split-list (cdr c) sep?)))))
 
 (define-public (offset-add a b)
   (cons (+ (car a) (car b))
 	(+ (cdr a) (cdr b)))) 
 
+(define-public (ly:list->offsets accum coords)
+  (if (null? coords)
+      accum
+      (cons (cons (car coords) (cadr coords))
+	    (ly:list->offsets accum (cddr coords)))))
+
 (define-public (interval-length x)
   "Length of the number-pair X, when an interval"
-  (max 0 (- (cdr x) (car x)))
-  )
+  (max 0 (- (cdr x) (car x))))
+
 (define-public interval-start car)
 (define-public interval-end cdr)
 
 (define (other-axis a)
   (remainder (+ a 1) 2))
-  
 
 (define-public (interval-widen iv amount)
    (cons (- (car iv) amount)
@@ -286,18 +252,15 @@ L1 is copied, L2 not.
    (cons (min (car i1) (car i2))
 	 (max (cdr i1) (cdr i2))))
 
-
 (define-public (write-me message x)
   "Return X.  Display MESSAGE and write X.  Handy for debugging,
 possibly turned off."
   (display message) (write x) (newline) x)
 ;;  x)
 
-
 (define-public (stderr string . rest)
   (apply format (cons (current-error-port) (cons string rest)))
   (force-output (current-error-port)))
-
 
 (define (index-cell cell dir)
   (if (equal? dir 1)
@@ -308,14 +271,12 @@ possibly turned off."
   "map F to contents of X"
   (cons (f (car x)) (f (cdr x))))
 
-
 (define-public (list-insert-separator lst between)
   "Create new list, inserting BETWEEN between elements of LIST"
   (define (conc x y )
     (if (eq? y #f)
 	(list x)
-	(cons x  (cons between y))
-	))
+	(cons x  (cons between y))))
   (fold-right conc #f lst))
 
 ;;;;;;;;;;;;;;;;
@@ -325,12 +286,11 @@ possibly turned off."
       0
       (if (< x 0) -1 1)))
 
-(define-public (symbol<? l r)
-  (string<? (symbol->string l) (symbol->string r)))
+(define-public (symbol<? lst r)
+  (string<? (symbol->string lst) (symbol->string r)))
 
-(define-public (!= l r)
-  (not (= l r)))
-
+(define-public (!= lst r)
+  (not (= lst r)))
 
 (define-public scale-to-unit
   (cond
@@ -347,4 +307,3 @@ possibly turned off."
 	  ;;(stderr "font-name: ~S\n" (ly:font-name font))
 	  ;;(stderr "font-file-name: ~S\n" (ly:font-file-name font))
 	  (ly:font-file-name font)))))
-

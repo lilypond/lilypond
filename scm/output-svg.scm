@@ -7,9 +7,10 @@
 ;;;; http://www.w3.org/TR/SVG11
 
 ;;;; TODO:
-;;;;  * missing stencils: line, dashed-line ...
-;;;;  * rounded corners on stencils: rect, bezier (inkscape bug?)
+;;;;  * check: blot+scaling
 ;;;;  * inkscape page/pageSet support
+;;;;  * inkscape SVG-font support
+;;;;    - use fontconfig/fc-cache for now, see output-gnome.scm
 
 (debug-enable 'backtrace)
 (define-module (scm output-svg))
@@ -18,26 +19,12 @@
 (use-modules
  (guile)
  (ice-9 regex)
- (lily))
+ (lily)
+ (srfi srfi-13))
 
 ;; GLobals
 ;; FIXME: 2?
 (define output-scale (* 2 scale-to-unit))
-
-(define indent-level 0)
-(define (indent s . add) s)
-
-;;(define (indentation indent str)
-;;   (regexp-substitute/global #f "\(\n\)[ \t]*" str 'pre 1 indent 'post))
-
-(define (indent s . add)
-  (let ((before indent-level)
-	(after (apply + (cons indent-level add)))
-	(after? (and (not (null? add)) (> (car add) 0))))
-    (set! indent-level after)
-    (if after?
-      (string-append (make-string before #\ ) s)
-      (string-append (make-string after #\ ) s))))
 
 (define (debugf string . rest)
   (if #f
@@ -63,13 +50,13 @@
 	      attributes-alist)))
 
 (define-public (eo entity . attributes-alist)
-  (indent (format #f "<~S~a>\n" entity (attributes attributes-alist)) 2))
+  (format #f "<~S~a>\n" entity (attributes attributes-alist)))
 
 (define-public (eoc entity . attributes-alist)
-  (indent (format #f "<~S~a/>\n" entity (attributes attributes-alist))))
+  (format #f "<~S~a/>\n" entity (attributes attributes-alist)))
 
 (define-public (ec entity)
-  (indent (format #f "</~S>\n" entity) -2))
+  (format #f "</~S>\n" entity))
 
 (define-public (entity entity string . attributes-alist)
   (if (equal? string "")
@@ -77,34 +64,18 @@
       (string-append
        (apply eo (cons entity attributes-alist)) string (ec entity))))
 
-(define (control->list c)
-  (list (car c) (cdr c)))
-
-(define (control->string c)
-  (string-append
-   (number->string (car c)) ","
-   ;; lose the -1
-   (number->string (* -1 (cdr c))) " "))
-
-(define (control-flip-y c)
-  (cons (car c) (* -1 (cdr c))))
-
-(define (ly:numbers->string lst)
-  (string-append
-   (number->string (car lst))
-   (if (null? (cdr lst))
-       ""
-       (string-append "," (ly:numbers->string (cdr lst))))))
+(define (offset->point o)
+  (format #f " ~S,~S" (car o) (cdr o)))
 
 (define (svg-bezier lst close)
   (let* ((c0 (car (list-tail lst 3)))
 	 (c123 (list-head lst 3)))
     (string-append
      (if (not close) "M " "L ")
-     (control->string c0)
-     "C " (apply string-append (map control->string c123))
+     (offset->point c0)
+     "C " (apply string-append (map offset->point c123))
      (if (not close) "" (string-append
-			 "L " (control->string close))))))
+			 "L " (offset->point close))))))
 
 (define (sqr x)
   (* x x))
@@ -170,33 +141,44 @@
       (ly:all-stencil-expressions)
       (ly:all-output-backend-commands)))
 
-(define (beam width slope thick blot)
+(define (beam width slope thick blot-diameter)
   (let* ((x width)
 	 (y (* slope width))
 	 (z (sqrt (+ (sqr x) (sqr y)))))
     (entity 'rect ""
-	    `(style . ,(format "stroke-linejoin:round;stroke-linecap:round;stroke-width:~f;" blot))
-	    `(x . "0")
-	    `(y . ,(number->string (* output-scale (- 0 (/ thick 2)))))
-	    `(width . ,(number->string (* output-scale width)))
-	    `(height . ,(number->string (* output-scale thick)))
-	    `(ry . ,(number->string (* output-scale (/ blot 2))))
-	    `(transform .
-			,(format #f "matrix (~f, ~f, 0, 1, 0, 0) scale (~f, ~f)"
-				 (/ x z)
-				 (* -1 (/ y z))
-				 1 1)))))
+	    ;; The stroke will stick out.  To use stroke,
+	    ;; the stroke-width must be subtracted from all other dimensions.
+	    ;;'(stroke-linejoin . "round")
+	    ;;'(stroke-linecap . "round")
+	    ;;`(stroke-width . ,blot-diameter)
+	    ;;'(stroke . "red")
+	    ;;'(fill . "orange")
+
+	    `(x . 0)
+	    `(y . ,(- (/ thick 2)))
+	    `(width . ,(+ width (* slope blot-diameter)))
+	    `(height . ,thick)
+	    `(rx . ,(/ blot-diameter 2))
+	    `(transform . ,(string-append
+			    (format #f "matrix (~f, ~f, 0, 1, 0, 0)"
+				    (/ x z) (* -1 (/ y z)))
+			    (format #f " scale (~f, ~f)"
+				    output-scale output-scale))))))
 
 (define (bezier-sandwich lst thick)
   (let* ((first (list-tail lst 4))
 	 (first-c0 (car (list-tail first 3)))
 	 (second (list-head lst 4)))
     (entity 'path ""
-	    `(style . ,(format "stroke-linejoin:round;stroke-linecap:round;stroke-width:~f;" thick))
-	    `(transform . ,(format #f "scale (~f, ~f)"
-				   output-scale output-scale))
+	    '(stroke-linejoin . "round")
+	    '(stroke-linecap . "round")
+	    `(stroke-width . ,thick)
+	    '(stroke . "black")
+	    '(fill . "black")
 	    `(d . ,(string-append (svg-bezier first #f)
-				  (svg-bezier second first-c0))))))
+				  (svg-bezier second first-c0)))
+	  `(transform
+	    . ,(format #f "scale (~f, -~f)" output-scale output-scale)))))
 
 (define (char font i)
   (dispatch
@@ -204,6 +186,27 @@
 
 (define-public (comment s)
   (string-append "<!-- " s " !-->\n"))
+
+(define (dashed-line thick on off dx dy)
+  (draw-line thick 0 0 dx dy))
+
+(define (draw-line thick x1 y1 x2 y2)
+  (entity 'line ""
+	  '(stroke-linejoin . "round")
+	  '(stroke-linecap . "round")
+	  `(stroke-width . ,thick)
+	  '(stroke . "black")
+	  ;;'(fill . "black")
+	  `(x1 . ,x1)
+	  `(y1 . ,y1)
+	  `(x2 . ,x2)
+	  `(y2 . ,y2)
+	  `(transform
+	    . ,(format #f "scale (~f, -~f)" output-scale output-scale))))
+
+;; WTF is this in every backend?
+(define (horizontal-line x1 x2 th)
+  (filledbox (- x1) (- x2 x1) (* .5 th) (* .5 th)))
 
 (define (filledbox breapth width depth height)
   (round-filled-box breapth width depth height 0))
@@ -221,20 +224,38 @@
 	  expr
 	  `(transform . ,(format #f "translate (~f, ~f)"
 				 (* output-scale x)
-				 (- 0 (* output-scale y))))))
+				 (- (* output-scale y))))))
+
+(define (polygon coords blot-diameter)
+  (entity 'polygon "" 
+	  '(stroke-linejoin . "round")
+	  '(stroke-linecap . "round")
+	  `(stroke-width . ,blot-diameter)
+	  '(stroke . "black")
+	  ;;'(fill . "black")
+	  `(points . ,(string-join
+		       (map offset->point (ly:list->offsets '() coords))))
+	  `(transform
+	    . ,(format #f "scale (~f, -~f)" output-scale output-scale))))
 
 (define (round-filled-box breapth width depth height blot-diameter)
   (entity 'rect ""
-	  `(style . ,(format "stroke-linejoin:round;stroke-linecap:round;stroke-width:~f;" blot-diameter))
-	  `(x . ,(number->string (* output-scale (- 0 breapth))))
-	  `(y . ,(number->string (* output-scale (- 0 height))))
-	  `(width . ,(number->string (* output-scale (+ breapth width))))
-	  `(height . ,(number->string (* output-scale (+ depth height))))
-	  `(ry . ,(number->string (/ blot-diameter 2)))))
+	  ;; The stroke will stick out.  To use stroke,
+	  ;; the stroke-width must be subtracted from all other dimensions.
+	  ;;'(stroke-linejoin . "round")
+	  ;;'(stroke-linecap . "round")
+	  ;;`(stroke-width . ,blot)
+	  ;;'(stroke . "red")
+	  ;;'(fill . "orange")
+
+	  `(x . ,(- breapth))
+	  `(y . ,(- height))
+	  `(width . ,(+ breapth width))
+	  `(height . ,(+ depth height))
+	  `(ry . ,(/ blot-diameter 2))
+	  ;;`(transform . ,(scale))))
+	  `(transform
+	    . ,(format #f "scale (~f, ~f)" output-scale output-scale))))
 
 (define (text font string)
   (dispatch `(fontify ,font ,(entity 'tspan (string->entities string)))))
-
-;; WTF is this in every backend?
-(define (horizontal-line x1 x2 th)
-  (filledbox (- x1) (- x2 x1) (* .5 th) (* .5 th)))

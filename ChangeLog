@@ -1,3 +1,8 @@
+2004-12-19  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/output-svg.scm (polygon, draw-line, dashed-line): New
+	function.
+
 2004-12-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/output-texstr.scm (placebox): add routine
