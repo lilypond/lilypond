@@ -16,6 +16,8 @@
 #include "script-def.hh"
 #include "symtable.hh"
 #include "lookup.hh"
+#include "ps-lookup.hh"
+#include "tex-lookup.hh"
 #include "misc.hh"
 #include "my-lily-lexer.hh"
 #include "paper-def.hh"
@@ -95,8 +97,6 @@ Paper_def* current_paper = 0;
     Score *score;
     Header *header;
     Interval *interval;
-    Lookup*lookup;
-
     Musical_req* musreq;
     Music_output_def * outputdef;
     Musical_pitch * pitch;
@@ -112,7 +112,7 @@ Paper_def* current_paper = 0;
     String *string;
     Atom * symbol;
     Symtable * symtable;
-    Symtables * symtables;
+    Symtables* symtables;
     Text_def * textdef;
     Tempo_req *tempo;
     char c;
@@ -234,7 +234,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <duration> entered_notemode_duration explicit_duration
 %type <interval>	dinterval
 %type <intvec>	intastint_list int_list
-%type <lookup>	symtables symtables_body
+%type <symtables>	symtables symtables_body
 
 %type <pitch>   explicit_musical_pitch steno_musical_pitch musical_pitch absolute_musical_pitch
 %type <notereq>	steno_notepitch
@@ -395,8 +395,7 @@ identifier_init:
 
 	}
 	| symtables {
-		$$ = new Lookup_identifier ($1, IDENTIFIER);
-
+		$$ = new Symtables_identifier ($1, IDENTIFIER);
 	}
 	| post_request {
 		$$ = new Request_identifier ($1, POST_REQUEST_IDENTIFIER);
@@ -562,7 +561,9 @@ paper_def_body:
 		$$ = p;
 	}
 	| paper_def_body int '=' symtables		{ // ugh, what a syntax
-		$$->set_lookup ($2, $4);
+		Lookup * l = ps_output_global_b ? new Ps_lookup (*$4)
+		  : new Tex_lookup (*$4);
+		$$->set_lookup ($2, l);
 	}
 	| paper_def_body STRING '=' simple_identifier_init ';' {
 	      THIS->lexer_p_->set_identifier (*$2, $4);
@@ -1367,10 +1368,10 @@ symtables:
 
 symtables_body:
 	 		{
-		$$ = new Lookup;
+		$$ = new Symtables;
 	}
 	| IDENTIFIER		{
-		$$ = $1->access_Lookup (true);
+		$$ = $1->access_Symtables (true);
 	}
 	| symtables_body FONT STRING 		{
 		$$->font_ = *$3;
@@ -1439,4 +1440,5 @@ My_lily_parser::do_yyparse ()
 {
 	yyparse ((void*)this);
 }
+
 

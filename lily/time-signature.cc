@@ -19,7 +19,7 @@ Time_signature::Time_signature ()
 }
 
 Molecule*
-Time_signature::brew_molecule_p() const
+Time_signature::brew_molecule_p () const
 {
   Atom s;
   if (time_sig_type_str_.length_i ())
@@ -28,7 +28,7 @@ Time_signature::brew_molecule_p() const
     }
   else
     s = lookup_l ()->time_signature (args_);
-  s.translate_axis (-s.extent()[Y_AXIS].center (), Y_AXIS);
+  s.translate_axis (-s.extent ()[Y_AXIS].center (), Y_AXIS);
   return new Molecule (Atom (s));
 }
 

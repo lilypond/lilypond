@@ -1,4 +1,13 @@
+pl 12.jcn2
+	- Lookup abstract base class
+	- Lookup/Symtable(s): separation of input/output
 
+pl 12.jcn1
+	- applied to 12.hwn2 patch
+	- redo of 11.jcn2's lookup/identifier
+
+pl 11.jcn2
+	- preparations for braindead PostScript output
 
 pl 12.hwn1
 	- \remove "Engraver_type";

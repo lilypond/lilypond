@@ -19,9 +19,12 @@
    information.  */
 struct Header : Dictionary<String>
 {
-  String lily_id_str_;
-  String TeX_string() const;
   Header ();
+
+  String tex_string () const;
+  String ps_string () const;
+
+  String lily_id_str_;
 };
 
 #endif // HEADER_HH

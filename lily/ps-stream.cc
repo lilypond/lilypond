@@ -1,30 +1,30 @@
 /*
-  tex-stream.cc -- implement Tex_stream
+  tex-stream.cc -- implement Ps_stream
 
   source file of the GNU LilyPond music typesetter
 
   (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-
+  Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include <fstream.h>
 #include <time.h>
 
-#include "tex.hh"
 #include "main.hh"
-#include "tex-stream.hh"
+#include "ps-stream.hh"
 #include "debug.hh"
 
-Tex_stream::Tex_stream (String filename)
+Ps_stream::Ps_stream (String filename)
   : Paper_stream (filename)
 {
   header ();
 }
 
 void
-Tex_stream::header ()
+Ps_stream::header ()
 {
-  // urg, merge with Ps
+  *os << _ ("%%!PS Adobe\n");
+  // urg, merge with Tex
   *os << _ ("% Creator: ");
   if (no_timestamps_global_b)
     *os << "GNU LilyPond\n";
@@ -41,13 +41,13 @@ Tex_stream::header ()
     }
 }
 
-Tex_stream::~Tex_stream ()
+Ps_stream::~Ps_stream ()
 {
 }
 
 // print string. don't forget indent.
 Paper_stream&
-Tex_stream::operator << (Scalar s)
+Ps_stream::operator << (Scalar s)
 {
   return Paper_stream::operator << (s);
 }

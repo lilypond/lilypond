@@ -22,14 +22,18 @@ struct  Symtable : public Dictionary<Atom> {
 };
 
 
-struct Symtables : private Dictionary<Symtable*> {
-    
-    Symtable* operator()(String s);
-    ~Symtables();
-    Symtables();
-    Symtables (Symtables const&);
-    void add (String, Symtable*);
-    void print() const;
+struct Symtables : private Dictionary<Symtable*>
+{
+  Symtables();
+  Symtables (Symtables const&);
+  ~Symtables();
+
+  Symtable* operator()(String s);
+  void add (String, Symtable*);
+  void print() const;
+
+  String font_;
+  String font_path_;  
 };
 
 

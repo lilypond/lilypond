@@ -1,5 +1,5 @@
 /*
-  tex-outputter.hh -- declare Tex_outputter
+  ps-outputter.hh -- declare Ps_outputter
 
   source file of the GNU LilyPond music typesetter
 
@@ -7,16 +7,16 @@
 */
 
 
-#ifndef TEX_OUTPUTTER_HH
-#define TEX_OUTPUTTER_HH
+#ifndef PS_OUTPUTTER_HH
+#define PS_OUTPUTTER_HH
 
 #include "paper-outputter.hh"
 
-class Tex_outputter : public Paper_outputter
+class Ps_outputter : public Paper_outputter
 {
 public:
-  Tex_outputter (Paper_stream *);
-  virtual ~Tex_outputter ();
+  Ps_outputter (Paper_stream *);
+  virtual ~Ps_outputter ();
 
   void switch_to_font (String);
   virtual void output_molecule (Molecule const*, Offset, char const*);
@@ -24,4 +24,4 @@ public:
   virtual void stop_line ();
 };
 
-#endif // TEX_OUTPUTTER_HH
+#endif // PS_OUTPUTTER_HH
