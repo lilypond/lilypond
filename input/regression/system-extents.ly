@@ -16,7 +16,9 @@
 
 \new Voice
 {
-    \unset Staff.minimumVerticalExtent 
+    \unset Staff.minimumVerticalExtent
+    \override Score.RehearsalMark #'font-size = #20
+    
     \slurDown c4 ( g4  c''4)
 }
 

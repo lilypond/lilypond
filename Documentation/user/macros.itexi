@@ -65,13 +65,14 @@
 
  @c ***** HTML *****
 
- @macro internalsref{NAME}
- @c makeinfo-4.7 encodes html names
- @c @uref{../lilypond-internals/\NAME\.html,\NAME\}@c
- @inforef{\NAME\,,lilypond-internals}@c
- @c should we do this? 
- @cindex @code{\NAME\}
- @end macro
+@macro internalsref{NAME}@c
+@c makeinfo-4.7 encodes html names
+@uref{../lilypond-internals/\NAME\.html,\NAME\}@c
+@c @inforef{} adds ``See'' to the sentence.
+@c @inforef{\NAME\,,lilypond-internals}@c
+@c should we do this? 
+@cindex @code{\NAME\}
+@end macro
 
  @macro hyphenatedinternalsref{NAME,NODENAME}
  @c @uref{../lilypond-internals/\NODENAME\.html,\NAME\}@c
