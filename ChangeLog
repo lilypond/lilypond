@@ -1,3 +1,9 @@
+2002-07-02  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* stepmake/aclocal.m4 (STEPMAKE_GET_VERSION): Workaround for
+	broken Debian gcc version string: 'gcc (GCC) 3.1.1 20020606
+	(Debian prerelease)'
+
 2002-07-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/bar-check-iterator.cc (process): change
