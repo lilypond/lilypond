@@ -185,12 +185,11 @@ Piano_pedal_engraver::process_music ()
 	  if (!p->line_spanner_)
 	    {
 	      String name  = String (p->name_) + "PedalLineSpanner";
-	      p->line_spanner_ = make_spanner (name.to_str0 ());
-
 	      Music * rq = (p->event_drul_[START]  ?  p->event_drul_[START]  :  p->event_drul_[STOP]);
+	      p->line_spanner_ = make_spanner (name.to_str0 (), rq->self_scm ());
+
 
 	      
-	      announce_grob (p->line_spanner_, rq->self_scm ());
 	    }
       
 	  /* Choose the appropriate grobs to add to the line spanner
@@ -295,16 +294,13 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
     {
       String propname = String (p->name_) + "Pedal";
 
-      p->item_ = make_item (propname.to_str0 ());
-      p->item_->set_property ("text", s);
-      Axis_group_interface::add_element (p->line_spanner_, p->item_);
-	  
-      announce_grob (p->item_,
-		     (p->event_drul_[START]
-		      ? p->event_drul_[START]
-		      : p->event_drul_[STOP])->self_scm ());
+      p->item_ = make_item (propname.to_str0 (), (p->event_drul_[START]
+						  ? p->event_drul_[START]
+						  : p->event_drul_[STOP])->self_scm ());
     }
-
+  p->item_->set_property ("text", s);
+  Axis_group_interface::add_element (p->line_spanner_, p->item_);
+  
   if (!mixed)
     {
       p->event_drul_[START] = 0;
@@ -354,7 +350,7 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
       p->start_ev_ = p->event_drul_[START];
       p->current_bracket_ev_ = p->event_drul_[START];
 
-      p->bracket_  = make_spanner ("PianoPedalBracket");
+      p->bracket_  = make_spanner ("PianoPedalBracket", p->event_drul_[START]->self_scm ());
 
       /*
 	Set properties so that the stencil-creating function will
@@ -403,7 +399,6 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
 	
       */
       Axis_group_interface::add_element (p->line_spanner_, p->bracket_);	      
-      announce_grob (p->bracket_, p->event_drul_[START]->self_scm ());
 
       if (!p->event_drul_[STOP])
 	{

@@ -59,8 +59,7 @@ Extender_engraver::process_music ()
 {
   if (ev_)
     {
-      extender_ = make_spanner ("LyricExtender");
-      announce_grob (extender_, ev_->self_scm ());
+      extender_ = make_spanner ("LyricExtender", ev_->self_scm ());
     }
 }
 

@@ -165,9 +165,9 @@ Volta_engraver::process_music ()
     {
       started_mom_ = now_mom () ;
 
-      volta_span_ = make_spanner ("VoltaBracket");
+      volta_span_ = make_spanner ("VoltaBracket", SCM_EOL);
 
-      announce_grob (volta_span_, SCM_EOL);
+      
       volta_span_->set_property ("text", start_string_);
     }
 }

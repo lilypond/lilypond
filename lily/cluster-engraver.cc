@@ -96,17 +96,15 @@ Cluster_spanner_engraver::process_music ()
 	  pmin = pmin <? p;
 	}
       
-      beacon_ = make_item ("ClusterSpannerBeacon");
+      beacon_ = make_item ("ClusterSpannerBeacon", cluster_notes_[0]->self_scm ());
       beacon_->set_property ("positions",
 				  scm_cons (scm_int2num (pmin),
 					    scm_int2num (pmax)));
-      announce_grob (beacon_, cluster_notes_[0]->self_scm ());
     }
 
   if (beacon_ && !spanner_)
     {    
-      spanner_ = make_spanner ("ClusterSpanner");
-      announce_grob (spanner_, cluster_notes_[0]->self_scm ());
+      spanner_ = make_spanner ("ClusterSpanner", cluster_notes_[0]->self_scm () );
     }
   
   if (beacon_ && spanner_)

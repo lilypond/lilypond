@@ -124,9 +124,9 @@ Custos_engraver::process_acknowledged_grobs ()
 Item* 
 Custos_engraver::create_custos ()
 {
-  Item* custos = make_item ("Custos");
+  Item* custos = make_item ("Custos", SCM_EOL);
   
-  announce_grob (custos, SCM_EOL);
+  
   custodes_.push (custos);
   
   return custos;

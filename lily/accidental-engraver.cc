@@ -287,18 +287,18 @@ Accidental_engraver::process_acknowledged_grobs ()
 		level, so that we get the property settings for
 		Accidental from the respective Voice.
 	       */
-	      Grob * a = make_item_from_properties (origin,
-						    ly_symbol2scm ("Accidental"));
+	      Grob * a = make_item_from_properties (origin->implementation (),
+						    ly_symbol2scm ("Accidental"),
+						    note->self_scm ()
+						    );
 	      a->set_parent (support, Y_AXIS);
 
 	      if (!accidental_placement_)
 		{
-		  accidental_placement_ = make_item ("AccidentalPlacement");
-		  announce_grob (accidental_placement_, a->self_scm ());
+		  accidental_placement_ = make_item ("AccidentalPlacement", a->self_scm ());
 		}
 	      
 	      Accidental_placement::add_accidental (accidental_placement_, a);
-	      announce_grob (a, SCM_EOL);
 
 	      
 	      SCM accs = scm_cons (scm_int2num (pitch->get_alteration ()), SCM_EOL);

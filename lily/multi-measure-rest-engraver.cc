@@ -80,16 +80,16 @@ Multi_measure_rest_engraver::process_music ()
   if (rest_ev_ && !mmrest_
       && stop_moment_ > now_mom ())
     {
-      mmrest_ = make_spanner ("MultiMeasureRest");
+      mmrest_ = make_spanner ("MultiMeasureRest", rest_ev_->self_scm ());
 
       if (text_events_.size ())
 	{
 	  for (int i = 0; i < text_events_.size (); i++)
 	    {
-	      Spanner *sp
-		= make_spanner ("MultiMeasureRestText");
 
 	      Music* e = text_events_[i];
+	      Spanner *sp
+		= make_spanner ("MultiMeasureRestText", e->self_scm () );
 	      SCM t = e->get_property ("text");
 	      SCM dir = e->get_property ("direction");
 	      sp->set_property ("text",t);
@@ -97,7 +97,6 @@ Multi_measure_rest_engraver::process_music ()
 		sp->set_property ("direction",dir);
 	      
 	      numbers_.push (sp);
-	      announce_grob (sp, e->self_scm ());
 	    }
 
 	  /*
@@ -120,9 +119,8 @@ Multi_measure_rest_engraver::process_music ()
       else
 	{
 	  Spanner *sp
-	    = make_spanner ("MultiMeasureRestNumber");
+	    = make_spanner ("MultiMeasureRestNumber", rest_ev_->self_scm () );
 	  numbers_.push (sp);
-	  announce_grob (sp, rest_ev_->self_scm ());
 	}
 
       for (int i =0 ; i < numbers_.size (); i++)
@@ -131,7 +129,6 @@ Multi_measure_rest_engraver::process_music ()
 	  numbers_[i]->set_parent (mmrest_, Y_AXIS);
 	}
       
-      announce_grob (mmrest_, rest_ev_->self_scm ());
       start_measure_
 	= ly_scm2int (get_property ("currentBarNumber"));
     }

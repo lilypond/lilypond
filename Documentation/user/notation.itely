@@ -1436,6 +1436,8 @@ behavior can be changed by setting @code{allowBeamBreak}.
 Automatically kneed cross-staff beams cannot be used together with
 hidden staves.
 
+Beams do not avoid collisions with symbols around the notes, such as
+texts and accidentals.
 
 
 

@@ -149,7 +149,7 @@ Slur_engraver::process_music ()
 	{
 	  // push a new slur onto stack.
 	  // (use temp. array to wait for all slur STOPs)
-	  Grob* slur = make_spanner ("Slur");
+	  Grob* slur = make_spanner ("Slur", slur_ev->self_scm ());
 	  Slur::set_interface (slur); // cannot remove yet!
 
 
@@ -160,7 +160,6 @@ Slur_engraver::process_music ()
 	  
 	  start_slurs.push (slur);
 	  events_.push (slur_ev);
-	  announce_grob (slur, slur_ev->self_scm ());
 	}
     }
 

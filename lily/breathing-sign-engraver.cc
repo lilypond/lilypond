@@ -54,9 +54,7 @@ Breathing_sign_engraver::process_acknowledged_grobs ()
 {
   if (breathing_sign_req_ && ! breathing_sign_)
     {
-      breathing_sign_ = make_item ("BreathingSign");
-
-      announce_grob (breathing_sign_, breathing_sign_req_->self_scm ());
+      breathing_sign_ = make_item ("BreathingSign", breathing_sign_req_->self_scm ());
       breathing_sign_req_ = 0;
     }
 }

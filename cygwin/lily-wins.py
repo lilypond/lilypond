@@ -1,16 +1,21 @@
 #!@PYTHON@
 # lily-wins.py -- LilyPond command for .ly on Windows
 
+import getopt
 import os
 import re
 import sys
+import time
+
+do_debug = 0
 
 def usage ():
 	print 'Usage [-h,--help] lily-wins LY-FILE'
 
 # print debugging stuff for now
 def debug (s):
-	print s
+	if do_debug:
+		print s
 
 def read_pipe (command):
 	debug ('command:' + command)
@@ -33,16 +38,36 @@ def escape_shell (x):
  	return re.sub ("(\s|[`'\"\\\\])", r'\\\1',x)
 #	return re.sub (r'''([^\\])([`'"\\\s])''', r'\1\\\2', x)
         # help emacs'" broken python mode
+
+def usage ():
+	print '''lily-wins [options] file
+
+Options supported:
+
+  -h, --help      this help screen
+  -d, --debug     print debugging information
+  
+'''
 	
 debug (`sys.argv`)
 
-if len (sys.argv) != 2 \
-   or sys.argv[1] == '-h' or sys.argv[1] == '--help':
+########
+# main
+(opts, files)=getopt.getopt (sys.argv[1:],'dh', ['help', 'debug'])
+
+for (o,a) in opts:
+	if o == '-d' or o == '--debug':
+		do_debug = 1
+	elif o == '-h' or o  == '--help':
+		usage ()
+		sys.exit (0)
+
+if files == []:
 	usage ()
-	sys.exit (0)
+	sys.exit (1)
 	
-native_file = sys.argv[1]
-	
+native_file = files[0]
+print 'Processing %s ...' % native_file
 file = read_pipe ('/usr/bin/cygpath -au %s' % escape_shell (native_file))
 if not file:
 	file = native_file
@@ -54,7 +79,7 @@ if not dir:
 	dir = '.'
 base = os.path.basename (file)
 stem = strip_extension (base, '.ly')
-print `vars ()`
+debug ( `vars ()`)
 
 native_base = '%(dir)s/%(stem)s' % vars ()
 native_base = read_pipe ('/usr/bin/cygpath -aw %s' % escape_shell (native_base))
@@ -78,14 +103,28 @@ if not pdfview:
 	pdfview = 'xpdf'
 
 os.chdir (dir)
-if os.path.exists ('/usr/bin/ly2dvi'):
-	system ('/usr/bin/ly2dvi -p %s > %s.log 2>&1' % (escape_shell (base),
-							 escape_shell (stem)))
-else:
-	system ('/usr/bin/lilypond %s > %s.log 2>&1' % (escape_shell (base),
-							escape_shell (stem)))
-if not os.path.exists ('%(stem)s.pdf' % vars ()):
-	# message box?
-	sys.stderr.write ('pdf output not found\n')
+pdffile = '%(stem)s.pdf' % vars ()
+if os.path.exists (pdffile):
+	os.unlink (pdffile)
 
-system ('%s %s.pdf' % (escape_shell (pdfview), escape_shell (native_base)))
+
+script = '/usr/bin/lilypond'
+
+if os.path.exists ('/usr/bin/ly2dvi'):
+	script = '/usr/bin/ly2dvi'
+
+stat = system ('%s -p %s > %s.log 2>&1' % (script, escape_shell (base),
+				    escape_shell (stem)))
+
+if not os.path.exists (pdffile):
+	# message box?
+	sys.stderr.write ('PDF output not found. Error log: \n')
+
+	map (sys.stderr.write, open (stem + '.log').readlines ()[-20:])
+	sys.stderr.write ('A full log is in the file %s.log\n' % stem)
+	sys.stderr.write ('\n\nPress enter to close window\n')
+	sys.stdin.readline ()
+else:
+	
+	# run even if failed, to make sure that error 
+	system ('%s %s.pdf' % (escape_shell (pdfview), escape_shell (native_base)))

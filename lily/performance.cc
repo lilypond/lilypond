@@ -150,10 +150,6 @@ Performance::add_element (Audio_element *p)
     {
       audio_staffs_.push (s);
     }
-  else if (Audio_column *c = dynamic_cast<Audio_column*> (p))
-    {
-      c->performance_ = this;
-    }
   audio_elem_p_list_ = new Killing_cons<Audio_element> (p, audio_elem_p_list_);
 }
 

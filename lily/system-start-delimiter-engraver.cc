@@ -73,10 +73,10 @@ System_start_delimiter_engraver::process_music ()
   if (!delim_)
     {
       SCM delim_name =get_property ("systemStartDelimiter");
-      delim_ = make_spanner_from_properties (context (), delim_name);
+      delim_ = make_spanner_from_properties (this, delim_name, SCM_EOL);
 
       delim_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
-      announce_grob (delim_, SCM_EOL);
+      
     }
 }
 void

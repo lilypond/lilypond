@@ -46,11 +46,11 @@ Staff_symbol_engraver::process_music ()
 {
   if (!span_)
     {
-      span_ = make_spanner ("StaffSymbol");
+      span_ = make_spanner ("StaffSymbol", SCM_EOL);
   
       span_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
 
-      announce_grob (span_, SCM_EOL);
+      
     }
 }
 

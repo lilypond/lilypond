@@ -63,8 +63,8 @@ Dot_column_engraver::acknowledge_grob (Grob_info info)
     {
       if (!dotcol_)
 	{
-	  dotcol_ = make_item ("DotColumn");
-	  announce_grob (dotcol_, SCM_EOL);
+	  dotcol_ = make_item ("DotColumn", SCM_EOL);
+	  
 	}
 
       Dot_column::add_head (dotcol_, info.grob_);

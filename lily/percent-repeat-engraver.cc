@@ -133,16 +133,13 @@ Percent_repeat_engraver::process_music ()
 	{
 	  finished_perc_ = perc_;
 	  typeset_perc ();
-	  perc_ = make_spanner ("PercentRepeat");
+	  perc_ = make_spanner ("PercentRepeat", repeat_->self_scm ());
 	  SCM col =get_property ("currentCommandColumn");
 	  perc_->set_bound (LEFT, unsmob_grob (col));
-	  announce_grob (perc_, repeat_->self_scm ());
 	}
       else if (repeat_sign_type_ == DOUBLE_MEASURE)
 	{
-	  double_percent_ = make_item ("DoublePercentRepeat");
-	  announce_grob (double_percent_, repeat_->self_scm ());
-
+	  double_percent_ = make_item ("DoublePercentRepeat", repeat_->self_scm ());
       /*
 	forbid breaks on a % line. Should forbid all breaks, really.
        */

@@ -79,9 +79,8 @@ Metronome_mark_engraver::create_items (Music *rq)
   if (text_)
     return;
 
-  text_ = make_item ("MetronomeMark");
+  text_ = make_item ("MetronomeMark", rq->self_scm () );
 
-  announce_grob (text_, rq->self_scm ());
 }
 
 

@@ -1,3 +1,23 @@
+2004-05-04  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* cygwin/lily-wins.py: update for the lily-wins.py script.
+
+2004-05-03  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/score-engraver.cc (typeset_all): switch off unbound spanner
+	code. This will obviate typeset_grob () in the future.  The effect
+	of this is that improperly written spanner handling will result in
+	invalid spanner bounds.
+	(announce_grob): add to elems_ from here
+	(typeset_grob): comment out.  
+
+	* lily/include/engraver.hh (make_spanner): new calling interface
+	for make_{item,spanner}. This obviates most calls to
+	announce_grob().
+		
+	* scm/music-functions.scm (set-accidental-style): use GrandStaff
+	iso. PianoStaff for piano styles.
+
 2004-05-03  Heikki Junes <hjunes@cc.hut.fi>
 
 	* Documentation/user/music-glossary.tely: add segno after d.s.

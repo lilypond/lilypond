@@ -81,7 +81,7 @@ Fingering_engraver::process_music ()
 void
 Fingering_engraver::make_script (Direction d, Music *r, int i)
 {
-  Item *fingering = make_item ("Fingering");
+  Item *fingering = make_item ("Fingering", r->self_scm ());
   Axis a = Y_AXIS;
   Axis other = other_axis (a);
 
@@ -125,7 +125,6 @@ Fingering_engraver::make_script (Direction d, Music *r, int i)
   SCM dig =  r->get_property ("digit");
   fingering->set_property ("text", scm_number_to_string (dig, scm_int2num (10)));
 
-  announce_grob (fingering, r->self_scm ());
   fingerings_.push (fingering);
 }
 

@@ -132,7 +132,7 @@ Phrasing_slur_engraver::process_acknowledged_grobs ()
 	{
 	  // push a new phrasing_slur onto stack.
 	  // (use temp. array to wait for all phrasing_slur STOPs)
-	  Grob* phrasing_slur = make_spanner ("PhrasingSlur");
+	  Grob* phrasing_slur = make_spanner ("PhrasingSlur", phrasing_slur_ev->self_scm ());
 	  Slur::set_interface (phrasing_slur); // can't remove.
 
 
@@ -143,7 +143,6 @@ Phrasing_slur_engraver::process_acknowledged_grobs ()
 
 	  start_phrasing_slurs.push (phrasing_slur);
 	  eventses_.push (phrasing_slur_ev);
-	  announce_grob (phrasing_slur, phrasing_slur_ev->self_scm ());
 	}
     }
   for (int i=0; i < start_phrasing_slurs.size (); i++)

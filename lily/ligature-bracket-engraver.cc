@@ -39,7 +39,7 @@ Ligature_bracket_engraver::Ligature_bracket_engraver ()
 Spanner *
 Ligature_bracket_engraver::create_ligature_spanner ()
 {
-  return make_spanner ("LigatureBracket");
+  return make_spanner ("LigatureBracket", SCM_EOL);
 }
 
 void

@@ -111,7 +111,7 @@ New_fingering_engraver::add_script (Grob * head,
 {
   Finger_tuple ft ;
 
-  Grob * g=  make_item ("Script");
+  Grob * g=  make_item ("Script", event->self_scm () );
   make_script_from_event (g, &ft.description_, context (),
 			  event->get_property ("articulation-type"), 0);
   if (g)
@@ -119,7 +119,6 @@ New_fingering_engraver::add_script (Grob * head,
       ft.script_ =g ;
       
       articulations_.push (ft);
-      announce_grob (g, event->self_scm ());
  
       ft.script_->set_parent (head, X_AXIS);
     }
@@ -133,8 +132,7 @@ New_fingering_engraver::add_fingering (Grob * head,
 {
   Finger_tuple ft;
 
-  ft.script_ = make_item ("Fingering");
-  announce_grob (ft.script_, event->self_scm ());
+  ft.script_ = make_item ("Fingering", event->self_scm () );
   
   Side_position_interface::add_support (ft.script_, head);
 

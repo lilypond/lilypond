@@ -51,10 +51,10 @@ Span_bar_engraver::acknowledge_grob (Grob_info i)
 
       if (bars_.size () >= 2 && !spanbar_) 
 	{
-	  spanbar_ = make_item ("SpanBar");
+	  spanbar_ = make_item ("SpanBar", SCM_EOL);
 
 	  spanbar_->set_parent (bars_[0], X_AXIS);
-	  announce_grob (spanbar_, SCM_EOL);
+	  
 	}
     }
 }

@@ -151,15 +151,13 @@ Score_engraver::announce_grob (Grob_info info)
 {
   announce_infos_.push (info);
   pscore_->system_->typeset_grob (info.grob_);
+    elems_.push (info.grob_);
 }
 
 void
 Score_engraver::typeset_grob (Grob *elem)
 {
-  if (!elem)
-    programming_error ("Score_engraver: empty elt\n");
-  else
-    elems_.push (elem);
+  //  elems_.push (elem);
 }
 
 void
@@ -168,7 +166,8 @@ Score_engraver::typeset_all ()
   for (int i =0; i < elems_.size (); i++) 
     {
       Grob * elem = elems_[i];
-      
+
+#if 0
       if (Spanner *s = dynamic_cast <Spanner *> (elem))
 	{
 	  /*
@@ -194,9 +193,14 @@ Score_engraver::typeset_all ()
 	  if (dynamic_cast<Item*> (s->get_parent (Y_AXIS)))
 	    programming_error ("Spanner Y-parent is an item.");
 	}
-      else 
+#endif
+      
+	if (dynamic_cast<Item*> (elem)) 
 	{
-	  if (!elem->get_parent (X_AXIS))
+	  if (!elem->get_parent (X_AXIS)
+	      && elem != command_column_
+	      && elem != musical_column_
+	      )
 	    {
 	      bool br = to_boolean (elem->get_property ("breakable"));
 	      Axis_group_interface::add_element (br ? command_column_ : musical_column_, elem);

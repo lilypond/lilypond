@@ -64,7 +64,7 @@ Key_engraver::create_key (bool def)
 {
   if (!item_) 
     {
-      item_ = make_item ("KeySignature");
+      item_ = make_item ("KeySignature", key_ev_ ? key_ev_->self_scm () : SCM_EOL);
 
       item_->set_property ("c0-position",
 			   get_property ("middleCPosition"));
@@ -73,7 +73,6 @@ Key_engraver::create_key (bool def)
 	item_->set_property ("old-accidentals", get_property ("lastKeySignature"));
       item_->set_property ("new-accidentals", get_property ("keySignature"));
 
-      announce_grob (item_, key_ev_ ? key_ev_->self_scm () : SCM_EOL);
     }
 
   if (!def)

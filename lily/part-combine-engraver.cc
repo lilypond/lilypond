@@ -61,9 +61,8 @@ Part_combine_engraver::process_music ()
 
       if (Text_item::markup_p (text))
 	{
-	  text_ =  make_item ("CombineTextScript");
+	  text_ =  make_item ("CombineTextScript", event_->self_scm () );
 	  text_->set_property ("text", text);
-	  announce_grob (text_, event_->self_scm ());
 	}
     }
 }

@@ -108,10 +108,8 @@ Bar_number_engraver::create_items ()
   if (text_)
     return;
 
-  text_ = make_item ("BarNumber");
+  text_ = make_item ("BarNumber", SCM_EOL);
   Side_position_interface::set_axis (text_,Y_AXIS);
-
-  announce_grob (text_, SCM_EOL);
 }
 
 ENTER_DESCRIPTION (Bar_number_engraver,

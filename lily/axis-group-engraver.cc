@@ -48,15 +48,13 @@ Axis_group_engraver::process_music ()
       Grob *  it = unsmob_grob (get_property ("currentCommandColumn"));
 
       staffline_->set_bound (LEFT,it);
-
-      announce_grob (staffline_, SCM_EOL);
     }
 } 
 
 Spanner*
 Axis_group_engraver::get_spanner () 
 {
-  return make_spanner ("VerticalAxisGroup");
+  return make_spanner ("VerticalAxisGroup", SCM_EOL);
 }
 
 /*
@@ -163,7 +161,7 @@ Hara_kiri_engraver::add_element (Grob*e)
 Spanner*
 Hara_kiri_engraver::get_spanner () 
 {
-  Spanner * sp = make_spanner ("RemoveEmptyVerticalGroup");
+  Spanner * sp = make_spanner ("RemoveEmptyVerticalGroup", SCM_EOL);
   
   return sp;
 }

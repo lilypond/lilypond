@@ -169,9 +169,8 @@ Ambitus_engraver::acknowledge_grob (Grob_info info)
 void
 Ambitus_engraver::create_ambitus ()
 {
-  ambitus_ = make_item ("Ambitus");
+  ambitus_ = make_item ("Ambitus",SCM_EOL);
   is_typeset = false;		
-  announce_grob (ambitus_, SCM_EOL);
 }
 
 void

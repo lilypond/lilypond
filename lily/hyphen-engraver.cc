@@ -120,8 +120,8 @@ Hyphen_engraver::process_music ()
 {
   if (ev_)
     {
-      hyphen_ = make_spanner ("LyricHyphen");
-      announce_grob (hyphen_, ev_->self_scm ());
+      hyphen_ = make_spanner ("LyricHyphen", ev_->self_scm ()
+);
     }
 }
 

@@ -36,8 +36,8 @@ Collision_engraver::process_acknowledged_grobs ()
     return ;
   if (!col_) 
     {
-      col_ = make_item ("NoteCollision");
-      announce_grob (col_, SCM_EOL);
+      col_ = make_item ("NoteCollision", SCM_EOL);
+      
     }
   
   for (int i=0; i< note_columns_.size (); i++)

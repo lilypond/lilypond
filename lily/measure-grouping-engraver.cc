@@ -87,9 +87,9 @@ Measure_grouping_engraver::process_music ()
 		  continue;
 		}
 	      
-	      grouping_ = make_spanner ("MeasureGrouping");
+	      grouping_ = make_spanner ("MeasureGrouping", SCM_EOL);
 	      grouping_->set_bound (LEFT, unsmob_grob (get_property ("currentMusicalColumn")));
-	      announce_grob (grouping_, SCM_EOL);
+	      
 
 
 	      stop_grouping_mom_ = now.main_part_ + Rational (grouplen - 1) * bl ;

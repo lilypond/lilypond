@@ -83,14 +83,13 @@ Rhythmic_column_engraver::process_acknowledged_grobs ()
     {
       if (!note_column_)
 	{
-	  note_column_ = make_item ("NoteColumn");
-	  announce_grob (note_column_, rheads_[0]->self_scm ());
+	  note_column_ = make_item ("NoteColumn",rheads_[0]->self_scm ());
 
-	  spacing_ = make_item ("NoteSpacing");
+	  spacing_ = make_item ("NoteSpacing", SCM_EOL);
 	  spacing_->set_property ("left-items", scm_cons (note_column_->self_scm (), SCM_EOL));
 
 
-	  announce_grob (spacing_, SCM_EOL);
+	  
 
 	  if (last_spacing_)
 	    {

@@ -109,9 +109,9 @@ Chord_name_engraver::process_music ()
    */
   SCM chord_as_scm = scm_cons (pitches, scm_cons (bass, inversion));
   
-  chord_name_ = make_item ("ChordName");
+  chord_name_ = make_item ("ChordName",notes_[0]->self_scm ());
   chord_name_->set_property ("text", markup);
-  announce_grob (chord_name_, notes_[0]->self_scm ());
+
   SCM s = get_property ("chordChanges");
   if (to_boolean (s) && ly_c_pair_p (last_chord_) 
       && ly_c_equal_p (chord_as_scm, last_chord_))

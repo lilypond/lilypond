@@ -64,8 +64,8 @@ Script_column_engraver::process_acknowledged_grobs ()
 {
   if (!scol_ && scripts_.size () > 1)
     {
-      scol_ = make_item ("ScriptColumn");
-      announce_grob (scol_, SCM_EOL);
+      scol_ = make_item ("ScriptColumn", SCM_EOL);
+      
     }
 
   if (scol_)

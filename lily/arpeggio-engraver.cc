@@ -81,8 +81,7 @@ Arpeggio_engraver::process_music ()
 {
   if (arpeggio_req_)
     {
-      arpeggio_ = make_item ("Arpeggio");
-      announce_grob (arpeggio_, arpeggio_req_->self_scm ());
+      arpeggio_ = make_item ("Arpeggio",arpeggio_req_->self_scm ());
     }
 }
 

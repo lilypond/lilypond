@@ -86,8 +86,8 @@ Clef_engraver::create_clef ()
 {
   if (!clef_)
     {
-      Item *c= make_item ("Clef");
-      announce_grob (c, SCM_EOL);
+      Item *c = make_item ("Clef", SCM_EOL);
+      
 
       clef_ = c;
       SCM cpos = get_property ("clefPosition");
@@ -98,7 +98,7 @@ Clef_engraver::create_clef ()
       SCM oct =  get_property ("clefOctavation");
       if (ly_c_number_p (oct) && ly_scm2int (oct))
 	{
-	  Item * g = make_item ("OctavateEight");
+	  Item * g = make_item ("OctavateEight", SCM_EOL);
 
 	  int abs_oct = ly_scm2int (oct) ;
 	  int dir = sign (abs_oct);
@@ -116,7 +116,7 @@ Clef_engraver::create_clef ()
 	  g->set_parent (clef_, X_AXIS);
 	  g->set_property ("direction", scm_int2num (dir));
 	  octavate_ = g;
-	  announce_grob (octavate_, SCM_EOL);
+	  
 	}
     }
 }
