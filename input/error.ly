@@ -1,7 +1,7 @@
 include "this-is-hopefully-a-nonexisting-file"
 
 mwa = \music {
-	
+	\meter{3/4}
 	[ a8 a8 a8 a8 a8 ]	% 
 	[ a8 ]	% 
 %       segfault
@@ -13,33 +13,27 @@ mwa = \music {
 	a b c
 	|||		% 
 	abc		% ok; print error, no \output
-	\bla 		% no warning-> this STRING, reduced to lyric_elt.
+	\bla 		%  STRING, reduced to lyric_elt.
 	a [ b 		% warning, still \output
-        { a( b }	% warning, still \output
+        < a( b >	% warning, still \output
 	a b ,c
 	a b c-*
 	a b c&
-	{ a-. b-. }
+	< a-. b-. >
 	
 }
 
-bla = \music {
-	@ 
+bla = \lyrics {
 	These Gates will open just like windows. % ok; warning
-	@
 }
 
 
 include "this-is-hopefully-a-nonexisting-file"
-
-score {
+\score {
 	\staff { 
 		lyric \music { bla }
 	}
 	\staff { 
 		\melodic \music { mwa }
-	}
-	\co\mmands {
-		\meter {3/4}
 	}
 }
