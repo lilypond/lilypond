@@ -173,6 +173,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token RELATIVE
 %token REMOVE
 %token REPEAT
+%token REPETITIONS
 %token SCM_T
 %token SCMFILE
 %token SCORE
@@ -1375,6 +1376,16 @@ simple_element:
 		Simultaneous_music*velt_p = new Request_chord;
 		velt_p->set_spot (THIS->here_input ());
 		velt_p->add_music (m);
+		$$ = velt_p;
+	}
+	| REPETITIONS notemode_duration  	{
+		Repetitions_req* r = new Repetitions_req;
+		r->duration_ = *$2;
+		delete $2;
+
+		Simultaneous_music*velt_p = new Request_chord;
+		velt_p->set_spot (THIS->here_input ());
+		velt_p->add_music (r);
 		$$ = velt_p;
 	}
 	| STRING notemode_duration 			{

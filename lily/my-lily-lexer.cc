@@ -60,6 +60,7 @@ static Keyword_ent the_key_tab[]={
   {"relative", RELATIVE},
   {"remove", REMOVE},
   {"repeat", REPEAT},
+  {"repetitions", REPETITIONS},
   {"scm", SCM_T},
   {"scmfile", SCMFILE},
   {"score", SCORE},

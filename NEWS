@@ -1,4 +1,14 @@
-pl 52.gp1
+--- ../lilypond-1.1.52.mb1/NEWS	Thu Jul  1 00:53:02 1999
+++ b/NEWS	Sat Jul  3 23:11:12 1999
+@@ -1,3 +1,8 @@
+pl 52.mb2
+	- Added \repetitions: prints symbol for repeated bars.
+	  Same syntax as multi-measure rests!
+	- Added \segno and \wheel script symbols
+
+ pl 52.mb1
+ 	- clean-fonts using kpsepath
+ 	- bf: volta brackets broken over several lines get open end.pl 52.gp1
 	- bf: make doc++ corrected to only include *.h and *.hh files.
 ************
 pl 51.uu2
