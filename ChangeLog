@@ -1,5 +1,10 @@
 2005-03-10  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/stencil-scheme.cc: Use "libc-extention.hh" (WAS:
+	<libc-extention.hh>).
+
+	* lily/accidental.cc (accurate_boxes): Compile fix: 1.51 was broken.
+
 	* flower
 	* lily
 	* kpath-guile: Nitpick run: buildscripts/fixcc.py.
@@ -21,6 +26,8 @@
 	make thinnib a little heavier.
 
 2005-03-10  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/parser.yy (book_body): Oops, allow \markup in \book too.
 
 	* buildscripts/fixcc.py: New file.
 
