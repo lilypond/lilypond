@@ -6,25 +6,25 @@
 \def\dynnf{\dynfont\char1}
 \def\dynnf{\dynfont\char1}
 \def\dynp{\dynfont\char2}
-\def\dynm{\dynfont\char3}
-\def\dynr{\dynfont\char4}
-\def\dyns{\dynfont\char5}
-\def\dynz{\dynfont\char6}
+\def\dynm{\raise.1ex\hbox{\dynfont\char3}}
+\def\dynr{\raise.1ex\hbox{\dynfont\char4}}
+\def\dyns{\raise.1ex\hbox{\dynfont\char5}}
+\def\dynz{\raise.1ex\hbox{\dynfont\char6}}
 
-\def\kdynf{\dynnf}
-\def\kdynp{\dynp\kern-.1ex}
+\def\kdynf{\dynnf\kern-.25ex}
+\def\kdynp{\dynp\kern-.15ex}
 
 \def\dynf{{\dynaf}}
 \def\dynpp{{\kdynp\dynp}}
 \def\dynppp{{\kdynp\kdynp\dynp}}
 \def\dynmp{{\dynm\kern -.2ex\dynp}}
-\def\dynmf{{\dynfont\raise.08ex\hbox{\dynm}\kern-.3ex\dynnf}}
+\def\dynmf{{\dynfont\raise.08ex\hbox{\dynm}\kern-.4ex\dynnf}}
 \def\dynff{{\kdynf\dynnf}}
 \def\dynfff{{\kdynf\kdynf\dynnf}}
 
-\def\dynfp{{\kdynf\dynp}}
-\def\dynsf{{\dyns\kern-.3ex\dynnf}}
-\def\dynsfz{{\dynsf\dynz}}
+\def\dynfp{{\kdynf\kern.1ex\dynp}}
+\def\dynsf{{\dyns\kern-.5ex\dynnf}}
+\def\dynsfz{{\dynsf\kern-.15ex\dynz}}
 \def\dynfz{{\dynf\dynz}}
-\def\dynrf{{\dynr\dynf}}
+\def\dynrf{{\dynr\kern-.4ex\dynf}}
 

@@ -32,7 +32,8 @@ filldraw z4r--z5l--z5r--z4l--cycle;  % stem
 filldraw stroke z5e{z89-z88}...z6e...{left}z7e;  % lower arc
 pickup crisp.nib; pos20(bar,90); pos21(bar,90);
 top y20r=top y21r=x_height;
-lft x20=lft x4r-.5stem-u; rt x21=rt x4l+.5stem+1.5u;
+%lft x20=lft x4r-.5stem-u; rt x21=rt x4l+.5stem+1.5u;
+lft x20=lft x4r-.5stem-xbar; rt x21=rt x4l+.5stem+1.5xbar;
 filldraw stroke z20e--z21e;  %  crossbar
 math_fit(desc_depth#*slant+u#,x_height#*slant);
 penlabels(0,1,2,3,4,5,6,7,8,9,20,21,88,89); endchar;
