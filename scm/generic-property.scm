@@ -2,7 +2,7 @@
 (define generic-beam-properties
   (cons "Beam"
 	(list
-	 (list 'beamslopedamping number? 'damping)
+	 (list 'beamSlopeDamping number? 'damping)
 	 (list 'autoKneeGap number? 'auto-knee-gap)
 	 (list 'autoInterstaffKneeGap number? 'auto-interstaff-knee-gap)
 	 (list 'beamQuantisation symbol? 'slope-quantisation)
@@ -105,7 +105,7 @@
 (define generic-timesig-properties
   (cons "Time_signature"
 	(list
-	 (list 'timeSignatureStyle string? 'sigstyle))))
+	 (list 'timeSignatureStyle string? 'style))))
 
 (define generic-voice-properties
   (list
