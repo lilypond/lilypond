@@ -40,15 +40,21 @@ String_convert::bin2hex_str (String bin_str)
 int
 String_convert::bin2_i (String bin_str)
 {
-  assert (bin_str.length_i() <= 4);
+  return bin2_u (bin_str);
+}
 
-  int result_i = 0;
+unsigned
+String_convert::bin2_u (String bin_str)
+{
+  assert (bin_str.length_i() <= (int)sizeof(unsigned));
+
+  unsigned result_u = 0;
   for ( int i = 0; i < bin_str.length_i(); i++) 
     {
-	result_i <<= 8;
-	result_i += (Byte)bin_str[ i ];
+	result_u <<= 8;
+	result_u += (Byte)bin_str[ i ];
     }
-  return result_i;
+  return result_u;
 }
 
 // breendet imp from String

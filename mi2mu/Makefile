@@ -75,7 +75,8 @@ DEPFILES = $(wildcard $(depdir)/*.dep)
 -include /dev/null $(DEPFILES)
 #
 localclean:
-	rm -f $(outdir)/{midi-parser,midi-lexer}.*
+# obsoliet
+#	rm -f $(outdir)/{midi-parser,midi-lexer}.*
 
 localinstall: installexe
 

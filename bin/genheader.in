@@ -6,7 +6,7 @@ my $fn;
 sub
     do_init
 {
-    $MAILADRESS=$ENV{MAILADRESS};
+    $MAILADDRESS=$ENV{MAILADDRESS};
      @pw=(getpwuid($<));
      $username=$pw[6];
 
@@ -34,7 +34,7 @@ sub
 
   source file of $PROJECT
 
-  (c) 1997 $username <$MAILADRESS>
+  (c) 1997 $username <$MAILADDRESS>
 */\n";
     print $headstr;
 }

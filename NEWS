@@ -1,3 +1,9 @@
+pl 9.jcn2
+	- redo of mi2mu frontend (midi-parser)
+	- bf: String_convert::bin2_i; added bin2_u
+	- bf's: Binary_source_file
+	- bf: constr. Tempo/Timing_req
+
 pl 9	
 	- declare rhythic_request
 	- preliminary support for real \mudelaheaders

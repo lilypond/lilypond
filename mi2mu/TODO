@@ -6,16 +6,6 @@ grep for TODO and ugh/ugr
 
 IMPORTANT
 
-	* fix parser: either 
-	   - parse into midi-items (merge with lily/midi-*) and pass
-	     these nealy up, same for track and score.  look at all
-	     tracks a time (vertically through score), creating columns 
-	     and mudela items in time-order (no searching for columns).
-	  or
-	   - junk lex/yacc altogether, parse on byte level, straight
-	     from memore, vertically through score.  there might be no
-	     need for midi-items, here.
-
 	* get rid of (last few?) midi-specifics in mudela-*
 
 	* find / remove trend (tempo) of mudela columns
@@ -64,15 +54,7 @@ PROJECTS
 
 BUGS
 
-	* mi2mu nonexist.midi ?
-
 	* output of 0 duration c'0
-
-	* no output on certain midis
-
-	* silly progress indicator upon mudela output
-
-	* check for illegal track names, e.g. "Piano________ = \melodic"
 
 	* array memleaks(?): use Link_array / create Pointer_array? 
 

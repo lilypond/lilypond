@@ -12,12 +12,13 @@
 class Sources 
 {
 public:
+    Sources();
+
     Source_file * get_file_l( String &filename );
     Source_file* sourcefile_l( char const* ch_C );
     void set_path(File_path*p_C);
-    Sources();
     void set_binary(bool);
-    ~Sources();
+
 private:
     const File_path * path_C_;
     void add( Source_file* sourcefile_p );

@@ -5,12 +5,14 @@
 //
 // (c) 1997 Jan Nieuwenhuizen <jan@digicash.com>
 
+#include <assert.h>
 #include <time.h>
 #include <fstream.h>
 #include "mi2mu-global.hh"
-#include "my-midi-parser.hh"
 #include "mudela-item.hh"
 #include "mudela-stream.hh"
+
+extern String filename_str_g;
 
 static int const INDENT_i = 8;
 
@@ -73,7 +75,9 @@ Mudela_stream::header()
   time_t t (time (0));
   *os_p_ << ctime (&t);
   *os_p_ << "% from input file: ";
-  *os_p_ << midi_parser_l_g->filename_str_;
+  //  *os_p_ << midi_parser_l_g->filename_str_;
+  // ugh
+  *os_p_ << filename_str_g;
   *os_p_ << "\n\n";    
   // ugh
   *os_p_ << "\\version \"0.1.1\";\n";

@@ -20,7 +20,8 @@ public:
     void add_item (Mudela_item* mudela_item_p);
     void add_staff (Mudela_staff* mudela_staff_p);
 
-    Mudela_column* mudela_column_l (Moment mom);
+    Mudela_column* find_column_l (Moment mom);
+    Mudela_column* get_column_l (Moment mom);
 
     void output (String filename_str);
     void process();
@@ -36,10 +37,9 @@ private:
     void quantify_durations();
     void settle_columns();
 
-    Pointer_list<Mudela_column*> mudela_column_p_list_;
     Pointer_list<Mudela_staff*> mudela_staff_p_list_;
-//    Link_array<Mudela_column*> column_l_array_;
-    // huh?
+   // wants Pointer_array!
+//    Pointer_list<Mudela_column*> mudela_column_p_list_;
     Link_array<Mudela_column> column_l_array_;
 
 // ugh, ugh, ugh

@@ -4,6 +4,7 @@
 //
 // copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 
+#include <assert.h>
 #include "string-convert.hh"
 #include "lgetopt.hh"
 #include "path.hh"
@@ -11,12 +12,17 @@
 #include "source.hh"
 
 #include "mi2mu-global.hh"
-#include "my-midi-parser.hh"
+#include "midi-score-parser.hh"
 #include "mudela-score.hh"
 #include "version.hh"
 
+// ugh
+String filename_str_g;
+
+// ugh
+Mudela_score* mudela_score_l_g = 0;
+
 Sources source;
-Sources* source_l_g = &source;
 
 static File_path path;
 
@@ -102,8 +108,8 @@ main (int argc_i, char* argv_sz_a[])
   Getopt_long getopt_long (argc_i, argv_sz_a, long_option_init_a);
 
   String output_str;
-  while  (Long_option_init const* long_option_init_p = getopt_long())
-	switch  (long_option_init_p->shortname) 
+  while (Long_option_init const* long_option_init_p = getopt_long())
+	switch (long_option_init_p->shortname) 
 	  {
 	case 'b':
 	    Duration_convert::no_quantify_b_s = true;
@@ -136,7 +142,7 @@ main (int argc_i, char* argv_sz_a[])
 	case 's': 
 	  {
 		int i = String_convert::dec2_i (getopt_long.optional_argument_ch_C_);
-		if  (!i) 
+		if (!i) 
 		  {
 		    identify();
 		    usage();
@@ -166,32 +172,31 @@ main (int argc_i, char* argv_sz_a[])
   identify();
 
   path.add ("");
-  source_l_g->set_path (&path);
+  source.set_binary (true);
+  source.set_path (&path);
 
   char const* arg_sz = 0;
-  while  ( (arg_sz = getopt_long.get_next_arg())) 
+  while ( (arg_sz = getopt_long.get_next_arg ())) 
     {
-	My_midi_parser midi_parser (arg_sz, & source);
-	midi_parser_l_g = &midi_parser;
+	filename_str_g = arg_sz;
+	Midi_score_parser midi_parser;
+	Mudela_score* score_p = midi_parser.parse (arg_sz, &source);
 
-	int error_i = midi_parser.parse();
-	if  (error_i)
-	    return error_i;
+	if (!score_p)
+	  return 1;
 
-	if  (!output_str.length_i()) 
+	mudela_score_l_g = score_p;
+	score_p->process();
+
+	if (!output_str.length_i ()) 
 	  {
 	    String d, dir, base, ext;
-
 	    split_path (arg_sz, d, dir, base, ext);
-	    
 	    output_str = base + ext + ".ly";
 	  }
 
-	assert (midi_parser.mudela_score_p_);
-	midi_parser.mudela_score_p_->process();
-	midi_parser.mudela_score_p_->output (output_str);
-
-	midi_parser_l_g = 0;
+	score_p->output (output_str);
+	delete score_p;
     }
   return 0;
 }
