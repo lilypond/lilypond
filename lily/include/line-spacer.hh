@@ -29,15 +29,16 @@ public:
     Paper_def *paper_l()const;
     Line_spacer();
     
-    virtual Array<PCol*> error_pcol_l_arr() const=0;
-
     /** solve the spacing problem
-      
-      @return the column positions, and the energy (last element)
-
       */
-    virtual Array<Real> solve() const=0;
+    virtual void solve(Col_hpositions *) const=0;
 
+    /**
+      Approximate the spacing problem:
+      return a lower bound on the energy
+     */
+    virtual void lower_bound_solution(Col_hpositions *) const=0;
+    
     /** add a col to the problem. columns have to be added left to
       right. The column contains info on it's minimum width.  */
     virtual void add_column(PCol  *, bool fixed=false, Real fixpos=0.0)=0;
@@ -56,6 +57,7 @@ public:
       generate a solution which can't fail
      */
     virtual Vector default_solution() const=0;
+
     
     virtual void OK() const{}
     virtual void print() const{}
