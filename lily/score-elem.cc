@@ -27,7 +27,7 @@ Score_elem::Score_elem()
 }
 
 Score_elem::Score_elem (Score_elem const&s)
-  : Graphical_element (s)
+  :  Directed_graph_node (s), Graphical_element (s)
 {
   /* called from derived ctor, so most info points to the same deps
      as (Directed_graph_node&)s. Nobody points to us, so don't copy
