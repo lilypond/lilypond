@@ -88,7 +88,7 @@ def read_lilypond_header (fn):
 			return dict
 
 	while s:
-		m = re.search (r"""\s*(\S+)\s*=\s*([^;]+)\s*;""", s)
+		m = re.search (r'''\s*(\S+)\s*=\s*"([^"]+)"''', s)
 		if m == None:
 			s = ''
 		else:
@@ -137,9 +137,8 @@ def gen_list(inputs, filename):
 		(base, ext2) = os.path.splitext (base)		
 		ext = ext2 + ext
 		
-		print '%s, ' % ex
 		header = read_lilypond_header(ex)
-		
+		print header
 		def read_dict(s, default, h =header):
 				try:
 					ret = h[s]

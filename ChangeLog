@@ -1,9 +1,27 @@
+2003-08-08  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/topdocs/INSTALL.texi (Top): change GUILE
+	requirements.
+
+	* buildscripts/mutopia-index.py (read_lilypond_header): update
+	mutopia-index.py to 1.4 syntax [sic]
+
 2003-08-07  Heikki Junes <hjunes@cc.hut.fi>
 
 	* make/lilypond.mandrake.spec.in: remove menu, sync with redhat-spec.
 
 2003-08-07  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/index.html.in: url for regression pdf
+
+	* Documentation/user/cheatsheet.itely (Cheat sheet): single staff.
+
+	* Documentation/user/tutorial.itely (Piano staves): s/staffs/staves/g
+
+	* make/lilypond.redhat.spec.in (Buildrequires): texinfo >= 4.6 reqd.
+
+	* VERSION: 1.8.0 released
+	
 	* GNUmakefile.in (local-WWW-post): footify build fix.
 
 	* configure.in: require GUILE 1.6.4

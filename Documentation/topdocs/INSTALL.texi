@@ -84,7 +84,7 @@ Check out
 
 @item @uref{http://www.python.org,Python} (version 2.1 or newer).
 
-@item @uref{http://www.gnu.org/software/guile/guile.html,GUILE} (version 1.6.4 or newer).
+@item @uref{http://www.gnu.org/software/guile/guile.html,GUILE} (version 1.6.0 or newer).
 
 @item @uref{ftp://ftp.gnu.org/gnu/make/,GNU Make} (version 3.78 or newer),  
 
@@ -146,7 +146,7 @@ following software:
 @itemize @bullet
 @item @TeX{}.
 @item Xdvi and Ghostscript.
-@item @uref{http://www.gnu.org/software/guile/guile.html,GUILE} 1.6.4, or newer.
+@item @uref{http://www.gnu.org/software/guile/guile.html,GUILE} 1.6.0, or newer.
 @end itemize
 
 For running LilyPond successfully

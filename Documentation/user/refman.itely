@@ -1058,7 +1058,7 @@ c4
 @end lilypond
 
 In scores with many staves, a @code{\bar} command in one staff is
-automatically applied to all staffs. The resulting bar lines are
+automatically applied to all staves. The resulting bar lines are
 connected between different staves of a @internalsref{StaffGroup}:
 @c
 @lilypond[fragment, verbatim]
@@ -1097,7 +1097,7 @@ You are encouraged to use @code{\repeat} for repetitions.  See
 
 
 The bar line objects that are created at @internalsref{Staff} level
-are called @internalsref{BarLine}, the bar lines that span staffs are
+are called @internalsref{BarLine}, the bar lines that span staves are
 @internalsref{SpanBar}s.
 
 @cindex bar lines at start of system
@@ -2207,7 +2207,7 @@ Grace notes cannot be used in the smallest size (@file{paper11.ly}).
 
 A score that starts with an @code{\grace} section needs an explicit
 @code{\context Voice} declaration, otherwise the main note and grace
-note end up on different staffs.
+note end up on different staves.
 
 Grace note synchronization can also lead to surprises. Staff notation,
 such as key signatures, barlines, etc. are also synchronized. Take
@@ -3311,7 +3311,7 @@ melody and the lyrics with the @code{\addlyrics} expression:
 
 Normally, this will put the lyrics below the staff. For different or
 more complex orderings, the best way is to setup the hierarchy of
-staffs and lyrics first, e.g.
+staves and lyrics first, e.g.
 @example
 \context ChoirStaff \notes <
   \context Lyrics = LA @{ s1 @}
@@ -3925,14 +3925,14 @@ some common problems in orchestral music.
 * Transpose::                   
 * Multi measure rests::         
 * Automatic part combining::    
-* Hiding staffs::               
+* Hiding staves::               
 * Sound output for transposing instruments::  
 @end menu
 
 @node Multiple staff contexts
 @subsection Multiple staff contexts
 
-Polyphonic scores consist of many staffs. These staffs can be
+Polyphonic scores consist of many staves. These staves can be
 constructed in three different ways:
 @itemize @bullet
 @item The group is started with a brace at the left. This is done with the
@@ -4042,7 +4042,7 @@ used to position the number correctly.
 @subsection Instrument names
 
 In an orchestral score, instrument names are printed left side of the
-staffs.
+staves.
 
 This can be achieved by setting @internalsref{Staff}.@code{instrument}
 and @internalsref{Staff}.@code{instr}. This will print a string before
@@ -4306,11 +4306,11 @@ The part combiner is slated to be rewritten [TODO: explain why].
 @cindex @code{Voice_engraver}
 @cindex @code{A2_engraver}
 
-@node Hiding staffs
-@subsection Hiding staffs
+@node Hiding staves
+@subsection Hiding staves
 
 @cindex Frenched scores
-@cindex Hiding staffs
+@cindex Hiding staves
 
 In orchestral scores, staff lines that only have rests are usually
 removed.  This saves some space. This style is called `French Score'.
@@ -4319,8 +4319,8 @@ For @internalsref{Lyrics}, @internalsref{LyricsVoice},
 switched on by default.  When these line of these contexts turn out
 empty after the line-breaking process, they are removed.
 
-For normal staffs, a specialized @internalsref{Staff} context is
-available, which does the same: staffs containing nothing (or only
+For normal staves, a specialized @internalsref{Staff} context is
+available, which does the same: staves containing nothing (or only
 multi measure rests) are removed. The context definition is stored in
 @code{\RemoveEmptyStaffContext} variable. Observe how the second staff
 in this example disappears in the second line:
