@@ -852,7 +852,13 @@
 	(neutral-direction . -1)
 	
 	;; [Wanske]: standard length (but no shorter than minimum).
-	(beamed-lengths . (3.5))
+	;; (beamed-lengths . (3.5))
+	
+	;; FIXME.  3.5 yields too long beams (according to Ross and
+	;; looking at Baerenreiter examples) for a number of common
+	;; boundary cases.  Subtracting half a beam thickness fixes
+	;; this, but the bug may well be somewhere else.
+	(beamed-lengths . (3.26))
 
 	;; [Wanske] lists three sets of minimum lengths.  One
 	;; set for the nomal case, and one set for beams with `der

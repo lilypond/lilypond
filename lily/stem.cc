@@ -276,14 +276,13 @@ Stem::get_default_dir (Grob*me)
 Real
 Stem::get_default_stem_end_position (Grob*me) 
 {
+  /* Tab notation feature: make stem end extend out of staff. */
   SCM up_to_staff = me->get_grob_property ("up-to-staff");
-  if (to_boolean(up_to_staff))
+  if (to_boolean (up_to_staff))
     {
       int line_count = Staff_symbol_referencer::line_count (me);
-    
       Direction dir = get_direction (me);
-    
-      return dir*  (line_count + 3.5);
+      return dir * (line_count + 3.5);
     }
   
   bool grace_b = to_boolean (me->get_grob_property ("grace"));
@@ -761,24 +760,6 @@ Stem::get_beam (Grob*me)
 Stem_info
 Stem::get_stem_info (Grob *me)
 {
-  /* DOCME!!! So, what's this all about? */
-  SCM up_to_staff = me->get_grob_property ("up-to-staff");
-  if (gh_scm2bool(up_to_staff))
-    {
-      /* Up-to-staff : the stem end out of the staff. */
-
-      /* FIXME: duplicate code. */
-      int line_count = Staff_symbol_referencer::line_count (me);
-      Stem_info si ;
-      Direction dir = get_direction (me);
-
-      si.ideal_y_ = dir*  (line_count + 1.5);
-      si.dir_ = dir;
-      si.shortest_y_ = si.ideal_y_; 
-      return si;
-    }
-
-
   /* Return cached info if available */
   SCM scm_info = me->get_grob_property ("stem-info");
   if (!gh_pair_p (scm_info))
@@ -797,6 +778,22 @@ Stem::get_stem_info (Grob *me)
 void
 Stem::calc_stem_info (Grob *me)
 {
+  /* Tab notation feature: make stem end extend out of staff. */
+  SCM up_to_staff = me->get_grob_property ("up-to-staff");
+  if (to_boolean (up_to_staff))
+    {
+      int line_count = Staff_symbol_referencer::line_count (me);
+      Direction dir = get_direction (me);
+      Real ideal_y = dir * (line_count + 1.5);
+      Real shortest_y = ideal_y;
+      
+      me->set_grob_property ("stem-info",
+			     scm_list_n (gh_double2scm (ideal_y),
+					 gh_double2scm (shortest_y),
+					 SCM_UNDEFINED));
+      return;
+    }
+
   Direction my_dir = Directional_element_interface::get (me);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Grob *beam = get_beam (me);

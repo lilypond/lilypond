@@ -32,9 +32,9 @@ const int IDEAL_SLOPE_FACTOR = 10;
 
 
 static Real
-shrink_extra_weight (Real x)
+shrink_extra_weight (Real x, Real fac)
 {
-  return fabs (x) * ((x < 0) ? 1.5 : 1.0);
+  return fabs (x) * ((x < 0) ? fac : 1.0);
 }
 
 
@@ -257,10 +257,10 @@ Beam::score_stem_lengths (Link_array<Grob>stems,
 			  bool knee, 
 			  Real yl, Real yr)
 {
-  Real pen = STEM_LENGTH_LIMIT_PENALTY;
-
+  Real limit_pen = STEM_LENGTH_LIMIT_PENALTY;
   Drul_array<Real> score (0, 0);
   Drul_array<int> count (0, 0);
+  
   for (int i=0; i < stems.size (); i++)
     {
       Grob* s = stems[i];
@@ -271,20 +271,23 @@ Beam::score_stem_lengths (Link_array<Grob>stems,
       Real dx = xr-xl;
       Real beam_y = yr *(x - xl)/dx + yl * ( xr - x)/dx;
       Real current_y = beam_y + base_stem_ys[i];
+      Real length_pen = STEM_LENGTH_LIMIT_PENALTY;
       
       Stem_info info = stem_infos[i];
       Direction d = info.dir_;
 
-      score[d] += pen * (0 >? (d * (info.shortest_y_ - current_y)));
-
-      Real ideal_score = shrink_extra_weight (d * (current_y - info.ideal_y_));
+      score[d] += limit_pen * (0 >? (d * (info.shortest_y_ - current_y)));
       
+      Real ideal_diff = d * (current_y - info.ideal_y_);
+      Real ideal_score = shrink_extra_weight (ideal_diff, 1.5);
+
       /* We introduce a power, to make the scoring strictly
          convex. Otherwise a symmetric knee beam (up/down/up/down)
          does not have an optimum in the middle. */
       if (knee)
 	ideal_score = pow (ideal_score, 1.1);
-      score[d] += STEM_LENGTH_DEMERIT_FACTOR * ideal_score;
+      
+      score[d] += length_pen * ideal_score;
 
       count[d] ++;
     }
@@ -315,14 +318,14 @@ Beam::score_slopes_dy (Real yl, Real yr,
 
    Real slope_penalty = IDEAL_SLOPE_FACTOR;
 
-   /*
-     Xstaff beams tend to use extreme slopes to get short stems. We
-     put in a penalty here.
-   */
+   /* Xstaff beams tend to use extreme slopes to get short stems. We
+      put in a penalty here. */
    if (xstaff)
      slope_penalty *= 10;
 
-   dem += shrink_extra_weight (fabs (dy_damp) - fabs (dy))* slope_penalty;
+   /* Huh, why would a too steep beam be better than a too flat one ? */
+   dem += shrink_extra_weight (fabs (dy_damp) - fabs (dy), 1.5)
+     * slope_penalty;
    return dem;
 }
 

@@ -819,23 +819,17 @@ Beam::least_squares (SCM smob)
       Interval chord (Stem::chord_start_y (first_visible_stem (me)),
 		      Stem::chord_start_y (last_visible_stem (me)));
 
+      /* Make simple beam on middle line have small tilt.
 
-      /*
-	TODO -- use scoring for this.
-
-	complicated, because we take stem-info.ideal for determining
-	beam slopes.
-       */
-      /* Make simple beam on middle line have small tilt */
-      if (!ideal[LEFT] && chord.delta () && count == 2)
+         Ideally, this should be handled by a scoring rule, but that's
+	 complicated because we take stem-info.ideal for determining
+	 beam slopes. */
+      if ((abs (ideal[LEFT]) < 0.5 || abs (ideal[RIGHT]) < 0.5)
+	  && chord.delta () && count == 2)
 	{
-
-	  /*
-	    FIXME. -> UP
-	  */
+	  /* FIXME. -> UP */
 	  Direction d = (Direction) (sign (chord.delta ()) * UP);
 	  pos[d] = gh_scm2double (me->get_grob_property ("thickness")) / 2;
-	  //	  	    * dir;
 	  pos[-d] = - pos[d];
 	}
       else
