@@ -1,3 +1,9 @@
+2002-08-01 Rune Zedeler <rune@zedeler.dk>
+
+	* mf/feta-eindelijk.mf: Changed layout of 16th and shorter rests
+	to match the 8th rest. slanted 8th rest a bit more.
+	WARNING: 8th rest and classical quarter rest exchanged.
+	
 2002-07-31 Rune Zedeler <rune@zedeler.dk>
 
 	* input/SondagMorgen/*.ly: Added. TODO: Lots of cleanups but now
