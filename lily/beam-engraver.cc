@@ -22,12 +22,14 @@
 class Beam_engraver : public Engraver
 {
 protected:  
-  Drul_array<Music*> reqs_drul_;
+  Drul_array<Music*> evs_drul_;
   
   Spanner *finished_beam_;
   Spanner *beam_;
-  Music * prev_start_req_;
+  Music * prev_start_ev_;
 
+  Music * now_stop_ev_;
+  
   Beaming_info_list * beam_info_;
   Beaming_info_list * finished_beam_info_;  
 
@@ -44,10 +46,7 @@ protected:
   void set_melisma (bool);
 
   Moment last_stem_added_at_;
-  
-
-
-  virtual void stop_translation_timestep ();
+    virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
   virtual void finalize ();
 
@@ -88,9 +87,9 @@ Beam_engraver::Beam_engraver ()
   finished_beam_ =0;
   finished_beam_info_=0;
   beam_info_ =0;
-  reqs_drul_[LEFT] = reqs_drul_[RIGHT] =0;
-  prev_start_req_ =0;
-  
+  now_stop_ev_ = 0;
+  evs_drul_[LEFT] = evs_drul_[RIGHT] =0;
+  prev_start_ev_ =0;
 }
 
 bool
@@ -98,8 +97,8 @@ Beam_engraver::try_music (Music *m)
 {
   if (m->is_mus_type ("abort-event"))
     {
-      reqs_drul_[START] = 0;
-      reqs_drul_[STOP] = 0;
+      evs_drul_[START] = 0;
+      evs_drul_[STOP] = 0;
       if (beam_)
 	beam_->suicide ();
       beam_ = 0;
@@ -124,7 +123,22 @@ Beam_engraver::try_music (Music *m)
 	    }
 	}
 
-      reqs_drul_[d ] = m;
+      evs_drul_[d ] = m;
+      return true;
+    }
+  else if (m->is_mus_type ("new-beam-event"))
+    {
+      Direction d = to_dir (m->get_mus_property ("span-direction"));
+      if (d == START && !valid_start_moment ())
+	return false;
+      if (d == STOP && !valid_end_moment ())
+	return false;
+
+      if (d == START)
+	evs_drul_[d] = m;
+      else if (d==STOP)
+	now_stop_ev_ = m;
+
       return true;
     }
   return false;
@@ -139,9 +153,9 @@ Beam_engraver::set_melisma (bool m)
 void
 Beam_engraver::process_music ()
 {
-  if (reqs_drul_[STOP])
+  if (evs_drul_[STOP])
     {
-      prev_start_req_ =0;
+      prev_start_ev_ =0;
       finished_beam_ = beam_;
       finished_beam_info_ = beam_info_;
 
@@ -149,20 +163,19 @@ Beam_engraver::process_music ()
       beam_ = 0;
     }
 
-
   if (beam_)
     {
       top_engraver ()->forbid_breaks ();
     }
-  if (reqs_drul_[START])
+  if (evs_drul_[START])
     {
       if (beam_)
 	{
-	  reqs_drul_[START]->origin ()->warning (_ ("already have a beam"));
+	  evs_drul_[START]->origin ()->warning (_ ("already have a beam"));
 	  return;
 	}
 
-      prev_start_req_ = reqs_drul_[START];
+      prev_start_ev_ = evs_drul_[START];
       beam_ = new Spanner (get_property ("Beam"));
       SCM smp = get_property ("measurePosition");
       Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
@@ -174,7 +187,7 @@ Beam_engraver::process_music ()
       
       /* urg, must copy to Auto_beam_engraver too */
  
-      announce_grob(beam_, reqs_drul_[START]->self_scm());
+      announce_grob(beam_, evs_drul_[START]->self_scm());
     }
 
 }
@@ -197,8 +210,8 @@ Beam_engraver::typeset_beam ()
 void
 Beam_engraver::start_translation_timestep ()
 {
-  reqs_drul_ [START] =0;
-  reqs_drul_[STOP] = 0;
+  evs_drul_ [START] =0;
+  evs_drul_[STOP] = 0;
   
   if (beam_)
     {
@@ -217,6 +230,15 @@ void
 Beam_engraver::stop_translation_timestep ()
 {
   typeset_beam ();
+  if (now_stop_ev_ )
+    {
+      finished_beam_ = beam_;
+      finished_beam_info_ = beam_info_;
+
+      beam_ = 0;
+      beam_info_ = 0;
+      typeset_beam();
+    }
 }
 
 void
@@ -225,7 +247,7 @@ Beam_engraver::finalize ()
   typeset_beam ();
   if (beam_)
     {
-      prev_start_req_->origin ()->warning (_ ("unterminated beam"));
+      prev_start_ev_->origin ()->warning (_ ("unterminated beam"));
 
       /*
 	we don't typeset it, (we used to, but it was commented
@@ -273,7 +295,7 @@ Beam_engraver::acknowledge_grob (Grob_info info)
 	  if (durlog <= 2)
 	    {
 	      m->origin ()->warning (_ ("stem doesn't fit in beam"));
-	      prev_start_req_->origin ()->warning (_ ("beam was started here"));
+	      prev_start_ev_->origin ()->warning (_ ("beam was started here"));
 	      /*
 		don't return, since
 
@@ -296,10 +318,10 @@ Beam_engraver::acknowledge_grob (Grob_info info)
 
 
 ENTER_DESCRIPTION(Beam_engraver,
-/* descr */       "Handles Beam events by engraving Beams.    If omitted, then notes will be
-printed with flags instead of beams.",
+/* descr */       "Handles Beam events by engraving Beams.    If omitted, then notes will be "
+"printed with flags instead of beams.",
 /* creats*/       "Beam",
-/* accepts */     "beam-event abort-event",
+/* accepts */     "beam-event new-beam-event abort-event",
 /* acks  */      "stem-interface rest-interface",
 /* reads */       "beamMelismaBusy beatLength subdivideBeams",
 /* write */       "");
@@ -337,12 +359,12 @@ Grace_beam_engraver::valid_end_moment ()
 
 
 ENTER_DESCRIPTION(Grace_beam_engraver,
-/* descr */       "Handles Beam events by engraving Beams.  If omitted, then notes will
-be printed with flags instead of beams. Only engraves beams when we
-are at grace points in time.
-",
+/* descr */       "Handles Beam events by engraving Beams.  If omitted, then notes will "
+"be printed with flags instead of beams. Only engraves beams when we "
+" are at grace points in time. "
+,
 /* creats*/       "Beam",
-/* accepts */     "beam-event abort-event",
+/* accepts */     "beam-event abort-event new-beam-event",
 /* acks  */      "stem-interface rest-interface",
 /* reads */       "beamMelismaBusy beatLength subdivideBeams",
 /* write */       "");

@@ -66,6 +66,14 @@ is an articulation (such as @code{-.}, @code{->}, @code{\\tenuto},
 	(internal-class-name . "Event")
 	(types . (general-music event beam-event span-event))
 	))
+    (NewBeamEvent
+     . (
+   (description .  "Starts or stops a beam.  Syntax for manual control:
+\[c8 c c\] c8")
+
+	(internal-class-name . "Event")
+	(types . (general-music event new-beam-event span-event))
+	))
     (BreakEvent
      . (
    (description .  "Creates a line break.  Syntax: \\break.")
