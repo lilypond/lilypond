@@ -5,8 +5,6 @@
 @afourpaper
 @end iftex
 
-
-
 @ignore
 Distributions will want to install lilypond.info doing:
 
@@ -93,17 +91,18 @@ Copyright @copyright{} 1999--2003 by the authors
 @vskip 20pt
 
   
-@lilypond[singleline]
-\score { \context LyricsVoice \notes {
-    \property Score.RehearsalMark \set #'self-alignment-X = #LEFT
-
-\mark #(ly:export    (string-append "(For LilyPond version "
-(lilypond-version) ")"))
-s2
- }
- \paper { indent = 0.0\pt
- raggedright   = ##t 
- }
+@lilypond[raggedright]
+\score {
+    \context LyricsVoice \notes {
+        \property Score.RehearsalMark \set #'self-alignment-X = #LEFT
+        \mark #(ly:export (string-append
+             "(For LilyPond version " (lilypond-version) ")"))
+        s2
+     }
+     \paper {
+         indent = 0.0\pt
+         raggedright = ##t
+     }
 }
 @end lilypond
   
@@ -140,7 +139,7 @@ A further source of information is the website, which can be found at
 @uref{http://www.lilypond.org/}.  The website contains on-line copies of
 this and other documentation.
 
-@mbinclude dedication.itely
+@include dedication.itely
 
 @menu
 * Preface::                        Preface.
@@ -160,19 +159,19 @@ this and other documentation.
 @end menu
 @end ifnottex
 
-
 @contents
 
-@mbinclude macros.itexi
-@mbinclude preface.itely
-@mbinclude introduction.itely 
-@mbinclude tutorial.itely
-@mbinclude refman.itely
-@mbinclude literature.itely
-@mbinclude internals.itely
-@mbinclude invoking.itexi
-@mbinclude lilypond-book.itely
-@mbinclude converters.itely
+
+@include macros.itexi
+@include preface.itely
+@include introduction.itely 
+@include tutorial.itely
+@include refman.itely
+@include literature.itely
+@include internals.itely
+@include invoking.itexi
+@include lilypond-book.itely
+@include converters.itely
 
 
 @c FIXME: Index has two alphabetically sorted lists @code vs plain?
@@ -181,8 +180,8 @@ this and other documentation.
 
 @printindex cp
 
-@mbinclude appendices.itely
-@mbinclude cheatsheet.itely
-@mbinclude fdl.itexi
+@include appendices.itely
+@include cheatsheet.itely
+@include fdl.itexi
 
 @bye

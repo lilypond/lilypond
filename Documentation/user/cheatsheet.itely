@@ -13,7 +13,7 @@
 @item @code{1 2 8 16}
 @tab durations 
 @tab
-@lilypond[relative 1, notime]
+@lilypond[relative=1,notime]
 \property Staff.autoBeaming = ##f
 \property Staff.Clef = \turnOff
 c1 c2 c8 c16
@@ -22,7 +22,7 @@ c1 c2 c8 c16
 @item @code{c4. c4..}
 @tab augmentation dots
 @tab
-@lilypond[relative 1, notime]
+@lilypond[relative=1,notime]
 \property Staff.Clef = \turnOff
 c4. c4..  
 @end lilypond
@@ -30,14 +30,14 @@ c4. c4..
 @item @code{c d e f g a b }
 @tab scale 
 @tab
-@lilypond[relative 1, notime]
+@lilypond[relative=1,notime]
 c d e f g a b
 @end lilypond
 
 @item @code{fis bes}
 @tab alteration 
 @tab
-@lilypond[relative 0, notime]
+@lilypond[relative,notime]
 fis bes
 @end lilypond
 
@@ -66,7 +66,7 @@ s16_" "
 @item @code{r4 r8}
 @tab rest 
 @tab
-@lilypond[relative 1, notime]
+@lilypond[relative=1,notime]
 \property Staff.Clef = \turnOff
 r4 r8
 @end lilypond
@@ -74,7 +74,7 @@ r4 r8
 @item @code{d ~ d}
 @tab tie
 @tab
-@lilypond[relative 1, notime]
+@lilypond[relative=1,notime]
 \property Score.timing = ##f
 \property Staff.autoBeaming = ##f
 d ~ d
@@ -92,7 +92,7 @@ s4
 @item @var{note}@code{'}
 @tab raise octave
 @tab
-@lilypond[relative 1, notime]
+@lilypond[relative=1,notime]
 \property Score.timing = ##f
 \property Staff.autoBeaming = ##f
 a a'
@@ -101,7 +101,7 @@ a a'
 @item @var{note}@code{,}
 @tab lower octave
 @tab
-@lilypond[relative 1, notime]
+@lilypond[relative=1,notime]
 \property Score.timing = ##f
 \property Staff.autoBeaming = ##f
 c c,
@@ -111,7 +111,7 @@ c c,
 @item @code{c( d e)}
 @tab slur
 @tab
-@lilypond[fragment, relative 1]
+@lilypond[fragment,relative=1]
 \property Score.timing = ##f
 \property Staff.TimeSignature = \turnOff
 \property Staff.autoBeaming = ##f
@@ -122,7 +122,7 @@ c( d e)
 @item @code{c\( c( d) e\)}
 @tab phrasing slur
 @tab
-@lilypond[fragment, relative 1]
+@lilypond[fragment,relative=1]
 \property Score.timing = ##f
 \property Staff.TimeSignature = \turnOff
 \property Staff.autoBeaming = ##f
@@ -133,7 +133,7 @@ c\(  c( d) e\)
 @item @code{a8[ b]}
 @tab beam
 @tab
-@lilypond[fragment, relative 1]
+@lilypond[fragment,relative=1]
 \property Score.timing = ##f
 \property Staff.TimeSignature = \turnOff
 \property Staff.autoBeaming = ##f
@@ -153,7 +153,7 @@ a8-[ b-]
 @item @code{c-> c-.}
 @tab articulations
 @tab
-@lilypond[fragment, relative 1]
+@lilypond[fragment,relative=1]
 \property Staff.TimeSignature = \turnOff
 c-> c-.
 @end lilypond
@@ -162,7 +162,7 @@ c-> c-.
 @item @code{c\mf c\sfz}
 @tab dynamics
 @tab
-@lilypond[fragment, relative 1]
+@lilypond[fragment,relative=1]
 \property Staff.TimeSignature = \turnOff
 c\mf c\sfz
 @end lilypond
@@ -171,7 +171,7 @@ c\mf c\sfz
 @item @code{a\< b\!}
 @tab crescendo
 @tab
-@lilypond[fragment, relative 1]
+@lilypond[fragment,relative=1]
 \property Score.timing = ##f
 \property Staff.TimeSignature = \turnOff
 \property Staff.autoBeaming = ##f
@@ -181,7 +181,7 @@ a\< a \!a
 @item @code{a\> b\!}
 @tab decrescendo
 @tab
-@lilypond[fragment, relative 1]
+@lilypond[fragment,relative=1]
 \property Score.timing = ##f
 \property Staff.TimeSignature = \turnOff
 \property Staff.autoBeaming = ##f
@@ -192,7 +192,7 @@ a\> a a\!
 @item @code{< >}
 @tab chord
 @tab
-@lilypond[fragment, relative 1]
+@lilypond[fragment,relative=1]
 <c e> 
 @end lilypond
 
@@ -200,7 +200,7 @@ a\> a a\!
 @item @code{\partial 8}
 @tab upstep
 @tab
-@lilypond[fragment,relative 1]
+@lilypond[fragment,relative=1]
   \partial 8
   f8 c2 d e
 @end lilypond 
@@ -209,7 +209,7 @@ a\> a a\!
 @item @code{\times 2/3 @{f g a@}}
 @tab triplets
 @tab
-@lilypond[relative 1,fragment]
+@lilypond[relative=1,fragment]
   \times 2/3 { f8 g a }
 @end lilypond
 
@@ -217,7 +217,7 @@ a\> a a\!
 @item @code{\grace}
 @tab grace notes
 @tab
-@lilypond[relative 1,fragment]
+@lilypond[relative=1,fragment]
 \context Voice {  \grace b16 c4 }
 @end lilypond
 
@@ -232,7 +232,7 @@ a\> a a\!
 @item @code{twin -- kle}
 @tab lyric hyphen 
 @tab
-@lilypond[fragment,relative 1]
+@lilypond[fragment,relative=1]
  \notes { g'4 g }
   \lyricsto "" \new LyricsVoice \lyrics {  twin -- kle }
 @end lilypond 
@@ -240,21 +240,21 @@ a\> a a\!
 @item @code{\chords @{ c:dim f:maj7 @}}
 @tab chords 
 @tab
-@lilypond[fragment,relative 1]
+@lilypond[fragment,relative=1]
   \chords { c:dim f:maj7 }
 @end lilypond 
 
 @item @code{\context ChordNames}
 @tab printing chord names 
 @tab
-@lilypond[fragment,relative 1]
+@lilypond[fragment,relative=1]
   \context ChordNames \chords { c:dim f:maj7 }
 @end lilypond 
 
 @item @code{<<@{e f@} \\@{c d@}>>}
 @tab polyphony
 @tab
-@lilypond[fragment,relative 2]
+@lilypond[fragment,relative=2]
 \context Staff <<{e f} \\ {c d}>>
 @end lilypond
 
