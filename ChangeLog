@@ -1,5 +1,13 @@
-2005-03-23  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-03-23  Graham Percival  <gperlist@shaw.ca>
 
+	* Documentation/user/basic-notation.itely: fixed info about
+	ending a (de)cresc.
+
+	* Documentation/user/lilypond-book.itely: fixed
+	lilypond-book filter example and warned about not doing
+	--filter and --process at the same time.
+
+2005-03-23  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* lily/parser.yy (bass_number),
 	Documentation/user/instrument-notation.itely (Figured bass): 
