@@ -1,6 +1,9 @@
 \input texinfo @c -*-texinfo-*-
 @setfilename lilypond.info
 @settitle GNU LilyPond
+@iftex
+@afourpaper
+@end iftex
 
 
 

@@ -333,7 +333,7 @@ print warranty and copyright.
 
 @refbugs
 
-Currently, only plain notes (pitches, durations), voices, and staves are
+Only plain notes (pitches, durations), voices, and staves are
 converted.
 
 
