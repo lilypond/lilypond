@@ -255,7 +255,7 @@ Voice-state objects
 (define-public (notice-the-events-for-pc context lst)
   (set! noticed (acons (ly:context-id context) lst noticed)))
 
-(define-public (make-new-part-combine-music music-list)
+(define-public (make-part-combine-music music-list)
   (let*
      ((m (make-music-by-name 'PartCombineMusic))
       (m1 (context-spec-music (car music-list) 'Voice "one"))
@@ -271,8 +271,8 @@ Voice-state objects
     (ly:run-translator m2 part-combine-listener)
     (ly:run-translator m1 part-combine-listener)
     (ly:set-mus-property! m 'split-list
-			 (determine-split-list (reverse (cdr (assoc "one" noticed)))
-					       (reverse (cdr (assoc "two" noticed)))))
+			 (determine-split-list (reverse! (cdr (assoc "one" noticed)) '())
+					       (reverse! (cdr (assoc "two" noticed)) '())))
     (set! noticed '())
     
     m))
@@ -561,9 +561,57 @@ Only set if not set previously.
    (analyse-solo12 0)
 ;   (if pc-debug (display result))
 
-   (set! result    (map
-		    (lambda (x) (cons (when x) (configuration x)))
-		    (vector->list result)))
+   (set! result (map
+		 (lambda (x) (cons (when x) (configuration x)))
+		 (vector->list result)))
 
    (if pc-debug (display result))
    result))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; autochange - fairly related to part combining.
+
+(define-public (make-autochange-music music)
+
+  (define (generate-split-list event-list)
+    (if (null? event-list)
+	'()
+	(let*
+	    ((evs (map car (cdar event-list)))
+	     (now (caar event-list))
+	     (notes (filter (lambda (x)
+			      (equal? (ly:get-mus-property  x 'name) 'NoteEvent))
+			      evs))
+	     (pitch (if (pair? notes)
+			(ly:get-mus-property (car notes) 'pitch)
+			#f))
+	     )
+
+
+	;; tail recursive.
+	(if (and pitch (not (= (ly:pitch-steps pitch) 0)))
+	    (cons (cons now (sign (ly:pitch-steps pitch)))
+		  (generate-split-list (cdr event-list)))
+	    (generate-split-list (cdr event-list)))
+    	)))
+
+  (set! noticed '())
+  
+  (let*
+      ((m (make-music-by-name 'AutoChangeMusic))
+       (context (ly:run-translator music part-combine-listener))
+       (evs (last-pair noticed))
+       )
+
+    (ly:set-mus-property! m 'element music)
+    (ly:set-mus-property!
+     m 'split-list
+     (generate-split-list (if (pair? evs) (reverse! (cdar evs) '()) '()))
+     )
+    
+    (set! noticed '())
+    m
+  ))
+
+

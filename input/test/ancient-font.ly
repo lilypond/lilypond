@@ -29,18 +29,18 @@ upperStaff =  \context GregorianStaff = upperStaff <<
 	\property Staff.BarLine \override #'bar-size = #3.0 \bar "|"
 %	\break % 1 (8*1)
 
-	\property Voice.NoteHead \override #'style = #'vaticana_virga
+	\property Voice.NoteHead \override #'style = #'vaticana_quilisma
 	b! des'! ges! fes!
 	\breathe
 	\clef "vaticana_fa1"
-	\property Voice.NoteHead \override #'style = #'vaticana_quilisma
+	\property Voice.NoteHead \override #'style = #'vaticana_plica
 	es d
-	\property Voice.NoteHead \override #'style = #'vaticana_rvirga
+	\property Voice.NoteHead \override #'style = #'vaticana_reverse_plica
 	c d
 	\property Staff.BarLine \override #'bar-size = #3.0 \bar "|"
 %	\break %2 (8*1)
 
-	\property Voice.NoteHead \override #'style = #'vaticana_rvirga
+	\property Voice.NoteHead \override #'style = #'vaticana_punctum_cavum
 	es f
 	\property Voice.NoteHead \override #'style = #'vaticana_lpes
 	g as
@@ -48,7 +48,7 @@ upperStaff =  \context GregorianStaff = upperStaff <<
 	bes as
 	\property Voice.NoteHead \override #'style = #'vaticana_vupes
 	g f
-	\property Voice.NoteHead \override #'style = #'vaticana_plica
+	\property Voice.NoteHead \override #'style = #'vaticana_linea_punctum
 	\property Staff.BarLine \override #'bar-size = #2.0 \bar "|"
 %	\break % 3 (8*1)
 

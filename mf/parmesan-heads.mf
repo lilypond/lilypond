@@ -33,6 +33,7 @@ fet_begingroup ("noteheads")
 % * height: Should match the top edge of the head.  Affects vertical
 %   collision handling.
 %
+% TODO: should depth/height include appendages/stems?
 
 overdone_heads = 0;
 noteheight# := staff_space# + (1 + overdone_heads)*stafflinethickness#;
@@ -128,15 +129,15 @@ enddef;
 %
 % (ze is wel breed)
 % 
-fet_beginchar("Maxima notehead", "-3neo_mensural", "mensuralmaximahead");
+fet_beginchar("Maxima notehead", "-3neo_mensural", "neomensuralmaximahead");
 	draw_neo_longa (2.6 staff_space#)
 fet_endchar;
 
-fet_beginchar("Longa notehead", "-2neo_mensural", "mensurallongahead");
+fet_beginchar("Longa notehead", "-2neo_mensural", "neomensurallongahead");
 	draw_neo_longa (2 staff_space#)
 fet_endchar;
 
-fet_beginchar("Brevis notehead", "-1neo_mensural", "mensuralbrevishead")
+fet_beginchar("Brevis notehead", "-1neo_mensural", "neomensuralbrevishead")
 	draw_neo_brevis(2 staff_space#);
 fet_endchar;
 

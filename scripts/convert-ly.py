@@ -1744,12 +1744,28 @@ conversions.append (((2,1,16), conv, """\\musicglyph #"accidentals-NUM" -> \\sha
 
 
 def conv (str):
+
+	if re.search (r'\\partcombine', str):
+		sys.stderr.write ('Warning: \\partcombine has been changed. '
+				  +'Check conversion manually!')
+	
 	str = re.sub (r'\\context\s+Voice\s*=\s*one\s*\\partcombine\s+Voice\s*\\context\s+Thread\s*=\s*one(.*)\s*'
 		      + r'\\context\s+Thread\s*=\s*two',
 		      '\\\\newpartcombine\n\\1\n', str)
+	
+	
 	return str
 
-conversions.append (((2,1,17), conv, """\\partcombine -> \\newpartcombine"""))
+conversions.append (((2,1,17), conv, """\\partcombine syntax change to \\newpartcombine"""))
+
+def conv (str):
+	str = re.sub (r'\\newpartcombine', r'\\partcombine', str)
+	str = re.sub (r'\\autochange\s+Staff', r'\\autochange ', str)
+	return str
+
+conversions.append (((2,1,18), conv, """\\newpartcombine -> \\partcombine,
+\\autochange Staff -> \\autochange
+"""))
 
 ################################
 #	END OF CONVERSIONS	

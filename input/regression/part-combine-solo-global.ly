@@ -5,10 +5,11 @@
 
 }
 
+\version "2.1.18"
 
 \score {
     \new Staff
-    \newpartcombine \notes \relative c'' {
+    \partcombine \notes \relative c'' {
 	bes2(
 	 a4)
 	}

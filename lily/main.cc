@@ -373,7 +373,8 @@ main_prog (void *, int, char **)
     {
       printf ("Failed files: ");
       for (int i = 0; i < failed_files.size (); i++)
-	printf ("%s", failed_files[i].to_str0 ());
+	printf ("%s ", failed_files[i].to_str0 ());
+      printf ("\n");
     }
   exit (exit_status_global);
 }
