@@ -24,8 +24,12 @@
 
 
 class Matrix {
+    friend Matrix operator *(Matrix const &m1, Matrix const &m2);
+
+protected:
     Matrix_storage *dat;
-    
+    void set(Matrix_storage*);
+    Matrix(Matrix_storage*);
 public:
     void OK() const { dat->OK(); }
     int cols() const { return dat->cols(); }
@@ -37,7 +41,16 @@ public:
     */
     int dim() const;
      
-    // Matrix() { dat = 0; } 
+    /**
+      the band size of the matrix.
+      @ret
+
+      0 <= band_i() <= dim
+      */
+    int band_i() const;
+    bool band_b()const;
+    void set_full()const;
+    void try_set_band()const;
     ~Matrix() { delete dat; }
 
     /// set entries to r 
@@ -76,7 +89,7 @@ public:
       square n matrix, initialised to null
     */
     Matrix(int n);
-
+   
     /**
       n x m matrix, init to 0
     */
@@ -138,6 +151,11 @@ Matrix operator /(Matrix const &m1,Real a);
 inline Matrix operator -(Matrix m1,const Matrix m2)
 {
     m1 -= m2;
+    return m1;
+}
+inline Matrix operator +(Matrix m1,const Matrix m2)
+{
+    m1 += m2;
     return m1;
 }
 #endif
