@@ -1,32 +1,49 @@
-[DRAFT]
 
-	Born  .. 1997,
+	We are proud to announce the birth of "GNU LilyPond 0.1", a.k.a.
 
 		Lily
 
-	GNU LilyPond 0.1, daughter to 
+	born .. 1997
 
-	Jan 'Janneke' Nieuwenhuizen and Han-Wen 'Wendy' Nienhuys
+	daughter to Jan 'Janneke' Nieuwenhuizen and Han-Wen 'Wendy'
+	Nienhuys
 
-Lily is a health baby weighing 330 kilobyte
+Lily is a healthy, bouncing baby weighing 340 kilobytes
 
-Visiting hours: 24hrs a day at ftp://, pictures & droppings at http://
+Visiting hours: 24hrs a day at
 
-Congratulations to janneke & wendy, hanwen@stack.nl, jan@digicash.com
+	ftp://pcnov095.win.tue.nl, 
 
-**************************
+you can see some diapers and pictures at
 
-	I would like to dedicate this program to all friends that
-music got me. Those deserving special mention (In no particular order)
+	http://www.stack.nl/~hanwen/lilypond/index.html
+
+You can send your congratulations to Janneke (jan@digicash.com) and
+Wendy (hanwen@stack.nl)
+
+			      --- * ---
+
+    We would like to dedicate this program to all the friends that we
+			 met through music. 
+
+
+	Those deserving special mention (in no particular order):
 Esther, Marijke, Heike, Inge, Judith, Hannah, Auke, Ilse, Evelyn,
-Maartje, Suzanne, Ilse (gee, again?), and last (but certainly not
-least) Janneke!
+Maartje, Suzanne, Ilse (gee, again?), most members of the Eindhovens
+Jongeren Ensemble and last (but certainly not least) Janneke!
 
 	HW
 
-[misschien wat monieks invoegen?]
+	That's a nice thought, Wendy.  I've got a few too, to spread
+the credits a bit (Again, no particular order) Michelle, Illushka, 
+Ruth, Eva, Fro/ydis, Monique, Noor, Sascha, Monique, Ilse, Monique, 
+Eva, Roos, Judith, and, of course, Wendy!
 
-**************************
+	JCN
+ 
+			       --- * ---
+
+[ And now the serious part ]
 
 	Announcing
 			
@@ -103,7 +120,7 @@ dynamics (both absolute and hairpin style) clef changes, meter
 changes, cadenza-mode, key changes, repeat bars
 
 [Kudos to the FSF, all linux hackers, and --of course-- especially
-GrandMaster Linus T, for the OS and The Announce :-]
+GrandMaster Linus T, for the OS-kernel and The Announce :-]
 
 	Han-Wen Nienhuys <hanwen@stack.nl>
 	Jan Nieuwenhuizen <jan@digicash.com>
