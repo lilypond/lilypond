@@ -2777,59 +2777,20 @@ The @code{printfilename} option adds the file name to the output.
 @node  End of tutorial
 @section End of tutorial
          
-That's all folks.  From here, you can either try fiddling with input
-files, or you can read the reference manual.  You can find more example
-files in @file{input} and @file{input/test}.  You can also look at some
-real music.  The website @uref{http://www.mutopiaproject.org} has many
-examples of real music typeset by LilyPond.
+This is the end of the tutorial. If you came up till here, and
+have understood everything, then you're now an accomplished lilypond
+hacker. From here, you can  try fiddling with input
+files, coming back to the reference  manual for information.
+Also don't forget to check out the 
+@ifhtml
+@uref{,templates},  @uref{,example} and
+@uref{,feature test} snippets. 
+@end ifhtml
+@ifnothtml
+templates, example and feature test snippets.
+@end ifnothtml
+If you want to see real action lilypond, then head over to
+@uref{http://www.mutopiaproject.org}, which has many examples of
+classical music typeset by LilyPond.
 
-
-
-@ignore
-
-[TODO
-
-this should be on mutopia website.
-
-]
-
-
-@c waar deze info?  is uiteindelijk wel handig, schat ik.
-[TODO: cut blabla]
-
-If you have a big music project, or just a lot of LilyPond input files,
-all generated output from LilyPond, @TeX{} and metafont will clutter
-your working directory.  LilyPond comes with a one-size-fits-all
-pre-cooked makefile that helps you manage producing output.  It will
-produce all output in the directory @file{out} , generate and track
-dependencies. Also, it helps in preparing your submission to @ref{Mutopia
-project}.
-
-@file{make/ly.make}
-@example
-mkdir my-project
-cd my-project
-cp /usr/share/lilypond/make/ly.make GNUmakefile
-cp /usr/share/doc/lilypond/examples/input/tutorial/minuet.ly .
-make minuet
-[..]
-Generated out/minuet.ps for target minuet.
-@end example
-
-Type @samp{make help} to see possible targets.
-
-[TODO]
-@file{/usr/share/lilypond/doc/lilypond/examples/input/mutopia-header.ly}
-
-
-
-
-
-[TODO: rewrite completely.]
-
-@menu
-* Songs with additional verses::  
-@end menu
-
-@end ignore
 
