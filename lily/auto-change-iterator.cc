@@ -78,10 +78,10 @@ Auto_change_iterator::do_process_and_next (Moment m)
     {
       Musical_pitch p = spanish_inquisition.pitch_arr_[0];
       Direction s = Direction (sign(p.steps ()));
-      if (s && s != where_dir_)
+      if (s != where_dir_)
 	{
 	  where_dir_ = s;
-	  String to_id =  (s > 0) ?  "up" : "down";
+	  String to_id =  (s >= 0) ?  "up" : "down";
 	  Auto_change_music const * auto_mus = dynamic_cast<Auto_change_music const* > (music_l_);
 
 	  change_to (it, auto_mus->what_str_, to_id);	  

@@ -270,6 +270,7 @@ Stem::do_pre_processing ()
 
    TODO: more advanced: supply height of noteheads as well, for more advanced spacing possibilities
  */
+
 void
 Stem::set_spacing_hints () 
 {

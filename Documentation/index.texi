@@ -41,7 +41,7 @@
 @unnumberedsubsec Links
 
 @itemize @bullet
-@item @uref{links.html,@strong{download} LilyPond and other interesting links}
+@item @uref{links.html, interesting links}
 @end itemize
 
 @unnumberedsubsec Logo:

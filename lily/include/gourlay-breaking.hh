@@ -10,19 +10,20 @@
 #ifndef GOURLAY_BREAKING_HH
 #define GOURLAY_BREAKING_HH
 
-#include "break.hh"
+#include "break-algorithm.hh"
 
 /**
   A dynamic programming solution to breaking scores into lines
  */
 struct Gourlay_breaking : public Break_algorithm
 {
-    Real energy_bound_f_ ;
+  Real energy_bound_f_ ;
     
     /// maximum number of measures in a line
-    int max_measures_i_;
-    void do_set_pscore();
-    Array<Column_x_positions> do_solve() const;
-    Gourlay_breaking();
+  int max_measures_i_;
+  void do_set_pscore();
+  Array<Column_x_positions> do_solve() const;
+  Gourlay_breaking();
+  Real combine_demerits (Column_x_positions const&,Column_x_positions const&) const;
 };
 #endif // GOURLAY_BREAKING_HH

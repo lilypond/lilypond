@@ -964,7 +964,7 @@ clef:
     \clef "G_8";       c'4^"\kern -2mm G\\_8" 
   }  
   \paper {
-    linewidth = 4.5 \in;
+    linewidth = -1.0;
   }
 }
 @end mudela

@@ -1,9 +1,9 @@
 Name: lilypond
-Version: 1.2.13
+Version: 1.2.14
 Release: 1
 Copyright: GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.2.13.tar.gz
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.2.14.tar.gz
 Summary: A program for printing sheet music.
 URL: http://www.cs.uu.nl/~hanwen/lilypond
 Packager: Han-Wen Nienhuys <hanwen@cs.uu.nl>
@@ -17,6 +17,21 @@ LilyPond is a music typesetter.  It produces beautiful sheet music
 using a high level description file as input.  LilyPond is part of 
 the GNU Project.
 
+%package documentation
+Summary: Prebuilt website containing all LilyPond documentation.
+Group: Applications/Publishing
+
+%description documentation
+
+LilyPond is a music typesetter.  It produces beautiful sheet music
+using a high level description file as input.  LilyPond is part of 
+the GNU Project.
+
+The documentation package is rather big, due to the many pictures and
+different documentation formats.  It is really a rip-off from the
+LilyPond website.  If you have direct internet access, you may always
+read the documentation documentation there: http://www.lilypond.org.
+
 %prep
 %setup
 %build
@@ -24,17 +39,17 @@ the GNU Project.
 make all
 ln -s /usr/share/texmf/fonts/tfm/public/cm/ tfm
 
+# urg
+# %build documentation
+# line 42: second %build
+# ok, now make sure that lilypond package will succeed,
+# even if documentation fails to build
 make -C Documentation  || true
 make htmldoc || true
-
 
 %install
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/tmp/lilypond-rpm-doc
-mkdir htmldocs
-tar -C htmldocs -xzf out/htmldoc.tar.gz
-mkdir -p out/examples/
-tar -cf - input/  | tar -C out/examples/ -xf-
 
 strip lily/out/lilypond midi2ly/out/midi2ly
 make prefix="$RPM_BUILD_ROOT/usr" install
@@ -43,6 +58,15 @@ make prefix="$RPM_BUILD_ROOT/usr" install
 mkdir -p $RPM_BUILD_ROOT/etc/profile.d
 cp buildscripts/out/lilypond-profile $RPM_BUILD_ROOT/etc/profile.d/lilypond.sh
 cp buildscripts/out/lilypond-login $RPM_BUILD_ROOT/etc/profile.d/lilypond.csh
+
+# urg
+#%install documentation
+#line 63: second %install
+# again, make sure that main package installs even if doco fails
+mkdir -p htmldocs
+tar -C htmldocs -xzf out/htmldoc.tar.gz
+mkdir -p out/examples/
+tar -cf - input/  | tar -C out/examples/ -xf-
 
 %post
 
@@ -57,17 +81,8 @@ fi
 
 
 %files
-%doc htmldocs/
-%doc out/examples/
-%doc mutopia/
-
-
 # hairy to hook it in (possibly non-existing) emacs
 %doc mudela-mode.el
-
-# this gets too messy...
-# %doc input/*.ly
-# verbatim include of input: list the directory without issuing a %dir 
 
 /usr/bin/abc2ly
 /usr/bin/convert-mudela
@@ -84,3 +99,10 @@ fi
 /usr/share/locale/*/LC_MESSAGES/lilypond.mo
 /etc/profile.d/lilypond.*
 
+%files documentation
+# this gets too messy...
+# %doc input/*.ly
+# verbatim include of input: list the directory without issuing a %dir 
+%doc htmldocs/
+%doc out/examples/
+%doc mutopia/

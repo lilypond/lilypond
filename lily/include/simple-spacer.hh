@@ -11,7 +11,7 @@
 #define SIMPLE_SPACER_HH
 
 #include "parray.hh"
-#include "line-spacer.hh"
+#include "lily-proto.hh"
 
 
 struct Spring_description
@@ -59,17 +59,20 @@ struct Spring_description
 
 
    Perhaps this is not a bad thing, because the 1st looks better anyway.  */
-struct Simple_spacer: public Line_spacer
+struct Simple_spacer
 {
   Array<Spring_description> springs_;
+
   Real force_f_;
+  Real indent_f_;
+  Real line_len_f_;
+  Real default_space_f_;
+  Real compression_energy_factor_f_;
 
   Simple_spacer ();
   
-  virtual void solve (Column_x_positions *) const;
-  virtual void lower_bound_solution (Column_x_positions *) const;
-  virtual void add_columns (Link_array<Paper_column>);
-    
+  void solve (Column_x_positions *) const;
+  void add_columns (Link_array<Paper_column>);
   void my_solve_linelen ();
   void my_solve_natural_len ();
   Real active_springs_stiffness () const;

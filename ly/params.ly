@@ -267,6 +267,14 @@ If columns do not have spacing information set, set it to this much
 %}
 loose_column_distance = 2.0 * \interline;
 
+%{
+Relative cost of compressing (vs. stretching).  Increasing this
+will cause scores to be set looser
+.
+%}
+
+compression_energy_factor = 0.6;
+
 % if stem is on middle line, choose this direction.
 stem_default_neutral_direction = 1.0;
 

@@ -1,3 +1,0 @@
-% Nice, but some printers can't seem to handle...
-% linewidth= 193.\mm;
-linewidth= 180.\mm;

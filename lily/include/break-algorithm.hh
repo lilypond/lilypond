@@ -1,5 +1,5 @@
 /*
-  break.hh -- declare  Break_algorithm
+  break-algorithm.hh -- declare  Break_algorithm
 
   source file of the GNU LilyPond music typesetter
 
@@ -43,14 +43,14 @@ protected:
   bool feasible (Line_of_cols) const;
     
 
-  Line_spacer* generate_spacing_problem (Line_of_cols, Interval) const;
+  Simple_spacer* generate_spacing_problem (Line_of_cols, Interval) const;
 
   virtual Array<Column_x_positions> do_solve() const=0;
   virtual void do_set_pscore();
 
 public:
   
-  Line_spacer* (*get_line_spacer)();
+  Simple_spacer* (*get_line_spacer)();
     
   Break_algorithm();
   void set_pscore (Paper_score*);

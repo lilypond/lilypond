@@ -62,7 +62,7 @@ Repeated_music::to_relative_octave (Musical_pitch p)
     p = repeat_body_p_->to_relative_octave (p);
 
   if (alternatives_p_)
-    p = alternatives_p_->do_relative_octave (p, true);
+    p = alternatives_p_->do_relative_octave (p, false);
   return p;
 }
 

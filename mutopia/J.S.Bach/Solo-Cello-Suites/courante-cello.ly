@@ -1,19 +1,3 @@
-\header{
-filename =	 "courante-cello.ly";
-title =	 "Solo Cello Suites";
-subtitle = "Suite II";
-% piece = "Courante";
-% opus =	 "BWV 1008";
-opus =	 "";
-composer =	 "Johann Sebastian Bach (1685-1750)";
-enteredby =	 "JCN";
-copyright =	 "public domain";
-}
-
-%{
- Tested Features:breaking algorithm, chords, multivoice, accents, 
- dotted slurs
-%}
 
 \version "1.2.0";
 
@@ -46,11 +30,10 @@ courante_cello_staff = \context Staff <
 
 \score{
 	\$courante_cello_staff
-	\paper{
-		\include "scs-paper.ly";
-		gourlay_maxmeasures = 4.0;
-	}
+	\paper {}
 	\midi{ \tempo 4 = 55; }
-	\header{ piece = "Courante"; }
+	\header{ piece = "Courante";
+		  opus = "";
+		  }
 }
 

@@ -139,4 +139,8 @@ endincipit = \notes{
 }
 
 autoBeamOff = \property Voice.noAutoBeaming = "1"
-autoBeamOn = \property Voice.noAutoBeaming = ""  
+autoBeamOn = \property Voice.noAutoBeaming = ""
+
+
+emptyText = \property Voice.textEmptyDimension = "1"
+fatText = \property Voice.textEmptyDimension = ""

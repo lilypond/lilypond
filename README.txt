@@ -22,8 +22,8 @@ Requirements
    For the compilation and running of LilyPond you need some additional
 packages.  Please refer to the installation instructions.
 
-   NOTE: If you downloaded a binary (.rpm or a W95/NT .zip file), then
-you don't have to compile LilyPond.
+   NOTE: If you downloaded a binary (.rpm or a W95/NT .zip file), you
+don't have to compile LilyPond.
 
 Installation
 ============
@@ -66,7 +66,7 @@ Windows 32
 ==========
 
    If you have received this file as part of a DOS/Window32 distribution
-(`LilyPond-*.zip'), then it is advisable to also download the source
+(`LilyPond-*.zip'), it is advisable to also download the source
 package, since it might contain more documentation
 `ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/'
 
@@ -93,7 +93,7 @@ problems.
 CDROM distributions
 ===================
 
-   if you have received LilyPond on a cdrom, chances are that
-development has moved a some patchlevels up.  Please check the latest
+   If you have received LilyPond on a cdrom, chances are that
+development has moved some patchlevels up.  Please check the latest
 version of LilyPond before reporting bugs.
 

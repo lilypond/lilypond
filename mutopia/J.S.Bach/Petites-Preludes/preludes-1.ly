@@ -123,10 +123,8 @@ global = \notes{
 		>
 	>
 	\paper{
-		\include "preludes-paper.ly";
 		% no slur damping
 		slur_slope_damping = 10.0;
-		gourlay_maxmeasures = 4.0;
 	}
 	\midi{ \tempo 4 = 80; }
 	\header {

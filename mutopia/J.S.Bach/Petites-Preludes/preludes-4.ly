@@ -205,8 +205,6 @@ global = \notes{
 		>
 	>
 	\paper{
-		\include "preludes-paper.ly";
-		gourlay_maxmeasures = 2.0;
 	}
 	\midi{ \tempo 4 = 70; }
 	\header{

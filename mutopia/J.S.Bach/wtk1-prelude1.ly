@@ -1,14 +1,21 @@
 \header{
-filename =	 "prelude1.ly";
 title =	 "Preludium";
-description =	 "Das Wohltemperierte Clavier I, Prelude I (c-major)";
 opus =	 "BWV 846";
 composer =	 "Johann Sebastian Bach (1685-1750)";
 enteredby =	 "Shay Rojansky";
-copyright =	 "Public Domain";
+
+
+  % mutopia headers.
+  mutopiatitle = "Das Wohltemperierte Clavier I, Prelude 1 (c-major)";
+  mutopiacomposer = "J.S.Bach";
+  mutopiaopus = "BWV846";
+  style = "baroque";
+  copyright =    "\\\\This music is part of the Mutopia project, http://sca.uwaterloo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by Han-Wen Nienhuys.\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!";
+  maintainer = "hanwen@cs.uu.nl";
+  lastupdated = "1999/Oct/14";
 }
 
-\version "1.2.0";
+\version "1.2.13";
 
 % should do programmable input.
 soprane =
@@ -160,11 +167,8 @@ bass =
     	\soprane
         \bass
     >
-    \paper{
-	gourlay_maxmeasures =5.;	
-    }
     \midi {
-        \tempo 4 = 84;
+        \tempo 4 = 80;
     }
 }
 

@@ -7,9 +7,9 @@
 */
 
 #include "column-x-positions.hh"
+#include "simple-spacer.hh"	// ugh
 #include "real.hh"
 #include "debug.hh"
-#include "line-spacer.hh"
 
 Column_x_positions::Column_x_positions()
 {
@@ -38,32 +38,10 @@ Column_x_positions::print() const
 #endif
 }
 
-void
-Column_x_positions::OK() const
-{
-#ifndef NDEBUG
-  assert (config_.size() == cols_.size ());
-#endif
-}
 
 
-void
-Column_x_positions::stupid_solution()
-{
-  //  set_stupid_solution (spacer_l_->default_solution());
-}
-
-void
-Column_x_positions::solve_line() 
-{
-  spacer_l_->solve (this);
-}
 
 
-void
-Column_x_positions::approximate_solve_line() 
-{
-  spacer_l_->lower_bound_solution (this);
-}
+
 
 
