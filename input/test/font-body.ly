@@ -1,4 +1,4 @@
-\version "1.0.20";
+\version "1.0.21";
 
 FontBody=	\notes\transpose c''{ 
 		\bar "|:";
@@ -30,7 +30,7 @@ FontBody=	\notes\transpose c''{
 
 		\transpose c'{
 			\time 4/4;
-			\property Voice . textstyle =  "finger"
+			\property Voice . textStyle =  "finger"
 			\property Voice . noteHeadStyle = "diamond"
 			c1^"1" d2^"2" e4^"3"
 			\property Voice . noteHeadStyle = "cross"
@@ -43,7 +43,7 @@ FontBody=	\notes\transpose c''{
 			a^"0"_"9"
 
 			a'^\flageolet
-			\property Voice . textstyle =  "roman"
+			\property Voice . textStyle =  "roman"
 			\time 1/2; a2 |
 			\time 3/2; < a1.
 			{ s4 \ppp \< s4 \! s4 \fff  s4 \> s4 \! s4\ppp} >

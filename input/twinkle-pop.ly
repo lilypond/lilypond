@@ -11,7 +11,7 @@ copyright =	 "public domain";
 Tested Features		lyrics and chords
 %}
 
-\version "1.0.20";
+\version "1.0.21";
 
 melodie = \notes\relative c'' {
         \clef "violin";
@@ -38,7 +38,7 @@ acc = \chords {
 }
 
 text = \lyrics{ 
-        \property Lyrics . textstyle =  "italic"
+        \property Lyrics . textStyle =  "italic"
 
         Ah!4 vous dir- ai_- je ma man2
         Ce4 qui cau- se mon tour- ment2

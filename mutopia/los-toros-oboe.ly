@@ -8,7 +8,7 @@ enteredby =	 "jcn";
 copyright =	 "public domain";
 latexheaders=    "headers";
 } 
-\version "1.0.20";
+\version "1.0.21";
 
 
 
@@ -17,16 +17,16 @@ latexheaders=    "headers";
 hoboonestart = \notes
   \relative c'{
 % ugh: cant copy: allegro/primo tempo
-	\property Voice . textstyle =  "large"
+	\property Voice . textStyle =  "large"
 	[es''16-.^"Allegro" es-. es-. es-.] [es8-. d-.] |
-	\property Voice . textstyle =  "italic"
+	\property Voice . textStyle =  "italic"
 }
 
 hobooneintro = \notes  \relative c'{
 
-%	\property Voice . textstyle =  "roman"
+%	\property Voice . textStyle =  "roman"
 %	[es''16-.-"Allegro" es-. es-. es-.] [es8-. d-.] |
-%	\property Voice . textstyle =  "italic"
+%	\property Voice . textStyle =  "italic"
 	[f''8.-> es16(] [)d8 c-.] |
 	[bes16( c d es] [)d8 c-.] |
 	[bes-. as->~] [as16( g f g] |
@@ -94,18 +94,18 @@ hoboonemid = \notes	\relative c'{
 	[d16-. d-. d-. d-.] [d8.-. es16->] |
 	[d16 d d d] [d8 es16-.] r16-\fermata^"court"^"tr\\`es" |
 	% Un peu plus lent.
-	\property Voice . textstyle =  "bold"
+	\property Voice . textStyle =  "bold"
 
 % ugh
-%	d4(\<^"Un peu plus lent" \property Voice . textstyle =  "italic _"tr\\`es \\'el\\'egant"
+%	d4(\<^"Un peu plus lent" \property Voice . textStyle =  "italic _"tr\\`es \\'el\\'egant"
 %	d4(\^"Un peu plus lent et \\'el\\'egant"<
-	\property Voice . textstyle =  "italic" 
+	\property Voice . textStyle =  "italic" 
 	d4(\<
 	[e8 \!fis8] |
 %	[)b-. a-.] [g16( fis e )d] |
-	\property Voice . textstyle =  "bold"
+	\property Voice . textStyle =  "bold"
 	[)b-.^"Un peu plus lent et \\'el\\'egant" a-.] [g,,16( fis' e )d] |
-	\property Voice . textstyle =  "italic" 
+	\property Voice . textStyle =  "italic" 
 	[d( c b\< c] [)\!fis'8-. e-.] |
 	d,,4-> ~ [d16 e( fis g] |
 	[a b\< d fis] [)\!a8-. g-.] |
@@ -141,9 +141,9 @@ hoboonemid = \notes	\relative c'{
 hoboonesecondstart = \notes   \relative c'{
 
 % ugh: cant copy: allegro/primo tempo
-	\property Voice . textstyle =  "large"
+	\property Voice . textStyle =  "large"
 	[es''16-.\ff^"Tempo 1$^o$" es-. es-. es-.] [es8-. d-.] |
-	\property Voice . textstyle =  "italic"
+	\property Voice . textStyle =  "italic"
 	
 }
 	
@@ -182,7 +182,7 @@ hoboonelast = \notes   \relative c'{
 	[bes'16-.\ff bes-. bes-. bes-.] [bes8-. ces16->] r16^"court"-\fermata |
 	% ugh: eight measures rest (ugh: r1 -> four beats...)
 	% eiht measures rest..
-	\property Voice . textstyle =  "bold"
+	\property Voice . textStyle =  "bold"
 %	r2^"Un peu plus lent et \\'el\\'egant"
 	R2*8
 %	r4 r8\p bes |
@@ -190,7 +190,7 @@ hoboonelast = \notes   \relative c'{
 	r8\p bes,, |
 %	g2->^"Un peu plus lent et \\'el\\'egant" ~ |
 	g2-> ~ |
-	\property Voice . textstyle =  "italic"
+	\property Voice . textStyle =  "italic"
 	g8 r r c |
 	c2-> ~ |
 	c8 r r bes'\f |
@@ -220,9 +220,9 @@ hoboonelast = \notes   \relative c'{
 	g8-. r f4-> ~ |
 	[f8 es-. ces8.-. as16-.] |
 	% `a deux
-	\property Voice . textstyle =  "large"
+	\property Voice . textStyle =  "large"
 	[ces8.->^"Plus vite" bes16-.(] [a bes es d] |
-	\property Voice . textstyle =  "italic"
+	\property Voice . textStyle =  "italic"
 	[)c!8.-> bes16] [a( bes es )d] |
 	[c->( bes es )d] [c->( bes es )d] |
 	% same measure
@@ -231,9 +231,9 @@ hoboonelast = \notes   \relative c'{
 	[g )f d( es] [f g as a] |
 	[c )bes bes,( c] [d es f g] |
 	[as g f g] [as bes c d] |
-	\property Voice . textstyle =  "large"
+	\property Voice . textStyle =  "large"
 	[)es-.^"Tempo 1$^o$" g,-. g-. g-.] [g8-. g-.] |
-	\property Voice . textstyle =  "italic"
+	\property Voice . textStyle =  "italic"
 	bes4.-> g8-. |
 	gis2->( |
 	)as! |
@@ -248,9 +248,9 @@ hoboonelast = \notes   \relative c'{
 	g4.-> g8-. |
 	es4.-> es8-. |
 	bes4.-> bes8-. |
-	\property Voice . textstyle =  "large"
+	\property Voice . textStyle =  "large"
 	g'4.->^"Presto" g8-. |
-	\property Voice . textstyle =  "italic"
+	\property Voice . textStyle =  "italic"
 	es4.-> es8-. |
 	[bes-. bes-. es-. g-.] |
 	[bes-. bes,-. es-. g-.] |

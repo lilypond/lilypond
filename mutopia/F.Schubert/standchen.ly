@@ -16,7 +16,7 @@ multiple \paper{}s in one \score
 Note: Original key F.
 %}
 
-\version "1.0.20";
+\version "1.0.21";
 
 $vocal_verse1 = \notes\relative c''{
 	% ugh: treble/bass
@@ -260,7 +260,7 @@ $treble_through = \notes \relative c'{
 	< { a4.-> )f8 } { a4. f8 } > |
 	<e2 e'> r4 |
 	<es!2 es'! > r4 |
-	\property Voice . textstyle =  "italic"
+	\property Voice . textStyle =  "italic"
 	<d2_"decresc." d'> r4 |
 	%75
 	<b2 b'> r4 |
@@ -271,7 +271,7 @@ $treble_through = \notes \relative c'{
 	<e4. g> [<e8-. g-.(> <e-. g-.> <e-. )g-.>] |
 	<f4. g> [<b,8-. g'-.(> <d-. g-.> <f-. )g-.>] |
 	%80
-	\property Voice . textstyle =  "italic"
+	\property Voice . textStyle =  "italic"
 	<e2._"dim." g> |
 	<g,2. e' g> |
 	<g2.-\fermata e' g> |

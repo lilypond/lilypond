@@ -308,7 +308,7 @@ if 1:
 		return newlines
 	
 	conversions.append ((1,0,18), conv,
-			    '\\repeat NUM Music Alternative -> \repeat FOLDSTR Music Alternative')
+			    '\\repeat NUM Music Alternative -> \\repeat FOLDSTR Music Alternative')
 
 if 1:
 	def conv(lines):
@@ -336,6 +336,18 @@ if 1:
 
 	conversions.append ((1,0,20), conv,
 			    '{,tie,slur}ydirection -> {v,tieV,slurV}erticalDirection')
+
+
+if 1:
+	def conv(lines):
+		newlines =[]
+		for x in lines:
+			x =  re.sub ('hshift','horizontalNoteShift', x)
+			newlines.append (x)
+		return newlines
+
+	conversions.append ((1,0,21), conv,
+			    'hshift -> horizontalNoteShift')
 
 
 

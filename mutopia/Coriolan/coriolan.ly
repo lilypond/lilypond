@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.20";
+\version "1.0.21";
 
 \include "global.ly"
 
@@ -66,7 +66,7 @@ strijkers = \context StaffGroup = strijkers_group <
 
 \score{
 	<
-		\property Score . textstyle =  "italic"
+		\property Score . textStyle =  "italic"
 
 		\$legno
 		\$koper

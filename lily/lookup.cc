@@ -31,14 +31,12 @@
 
 Lookup::Lookup ()
 {
-  paper_l_ = 0;
   afm_l_ = 0;  
 }
 
 Lookup::Lookup (Lookup const& s)
 {
   font_name_ = s.font_name_;
-  paper_l_ = 0;
   afm_l_ = 0;  
 }
 
@@ -137,14 +135,14 @@ Lookup::notehead (int j, String type) const
 }
 
 Molecule
-Lookup::simple_bar (String type, Real h) const
+Lookup::simple_bar (String type, Real h, Paper_def* paper_l) const
 {
   SCM thick = ly_symbol ("barthick_" + type);
   Real w = 0.0;
   
-  if (paper_l_->scope_p_->elem_b (thick))
+  if (paper_l->scope_p_->elem_b (thick))
     {
-      w = paper_l_->get_realvar (thick);
+      w = paper_l->get_realvar (thick);
     }
   else
     {
@@ -156,18 +154,19 @@ Lookup::simple_bar (String type, Real h) const
 
   
 Molecule
-Lookup::bar (String str, Real h) const
+Lookup::bar (String str, Real h, Paper_def *paper_l) const
 {
   if (str == "[")
     return staff_bracket (h);
   else if (str == "{")
     return staff_brace (h);
   
-  Real kern = paper_l_->get_var ("bar_kern");
-  Real thinkern = paper_l_->get_var ("bar_thinkern");  
-  Molecule thin = simple_bar ("thin", h);
-  Molecule thick = simple_bar ("thick", h);
-  Molecule colon = afm_find ("dots-repeatcolon");  
+  Real kern = paper_l->get_var ("bar_kern");
+  Real thinkern = paper_l->get_var ("bar_thinkern");
+  
+  Molecule thin = simple_bar ("thin", h, paper_l);
+  Molecule thick = simple_bar ("thick", h, paper_l);
+  Molecule colon = afm_find ("dots-repeatcolon", paper_l);  
 
   Molecule m;
   
@@ -177,7 +176,7 @@ Lookup::bar (String str, Real h) const
     }
   if (str == "scorepostbreak")
     {
-      return simple_bar ("score", h);
+      return simple_bar ("score", h, paper_l);
     }
   else if (str == "|")
     {
@@ -325,7 +324,7 @@ Lookup::rest (int j, bool o, String style) const
 
 
 Molecule
-Lookup::special_time_signature (String s, int n, int d) const
+Lookup::special_time_signature (String s, int n, int d, Paper_def*pap) const
 {
   // First guess: s contains only the signature style
   String symbolname = "timesig-" + s + to_str (n) + "/" + to_str (d);
@@ -340,7 +339,7 @@ Lookup::special_time_signature (String s, int n, int d) const
     return m;
 
   // Resort to default layout with numbers
-  return time_signature (n,d);
+  return time_signature (n,d,pap);
 }
 
 Molecule
@@ -360,20 +359,6 @@ Lookup::filledbox (Box b ) const
   return m;
 }
 
-Molecule
-Lookup::stem (Real y1, Real y2) const
-{
-  if (y1 > y2)
-    {
-      Real t = y1;
-      y1 = y2;
-      y2 = t;
-    }
-  Real stem_width = paper_l_->get_var ("stemthickness");
-  return filledbox (Box (Interval (-stem_width/2,stem_width/2),
-			 Interval (y1, y2)));
-}
-
 
 
 /**
@@ -387,22 +372,22 @@ static Real mag_steps[] = {1, 1, 1.200, 1.440, 1.7280,  2.074, 2.488};
 
 */
 Molecule
-Lookup::text (String style, String text) const
+Lookup::text (String style, String text, Paper_def *paper_l) const
 {
   Molecule m;
   if (style.empty_b ())
     style = "roman";
   
   int font_mag = 1;
-  Real font_h = paper_l_->get_var ("font_normal");
-  if (paper_l_->scope_p_->elem_b ("font_" + style))
+  Real font_h = paper_l->get_var ("font_normal");
+  if (paper_l->scope_p_->elem_b ("font_" + style))
     {
-      font_h = paper_l_->get_var ("font_" + style);
+      font_h = paper_l->get_var ("font_" + style);
     }
    
-  if (paper_l_->scope_p_->elem_b ("magnification_" + style))
+  if (paper_l->scope_p_->elem_b ("magnification_" + style))
     {
-      font_mag = (int)paper_l_->get_var ("magnification_" + style);
+      font_mag = (int)paper_l->get_var ("magnification_" + style);
     }
 
   /*
@@ -425,9 +410,12 @@ Lookup::text (String style, String text) const
   for (int i = 0; i < text.length_i (); i++) 
     {
       
-      if (text[i]=='\\')
-	for (i++; (i < text.length_i ()) && isalpha(text[i]); i++)
-	  ;
+      if (text[i]=='\\') 
+	{
+	  for (i++; (i < text.length_i ()) && isalpha(text[i]); i++)
+	    ;
+	  i--; // Compensate for the increment in the outer loop!
+	}
       else
 	{
 	  if (text[i] == '{')
@@ -480,11 +468,11 @@ Lookup::text (String style, String text) const
   
 
 Molecule
-Lookup::time_signature (int num, int den) const
+Lookup::time_signature (int num, int den, Paper_def *paper_l) const
 {
   String sty = "number";
-  Molecule n (text (sty, to_str (num)));
-  Molecule d (text (sty, to_str (den)));
+  Molecule n (text (sty, to_str (num), paper_l));
+  Molecule d (text (sty, to_str (den), paper_l));
   n.align_to (X_AXIS, CENTER);
   d.align_to (X_AXIS, CENTER);
   Molecule m;
@@ -518,10 +506,9 @@ Lookup::staff_brace (Real y) const
 }
 
 Molecule
-Lookup::hairpin (Real width, bool decresc, bool continued) const
+Lookup::hairpin (Real width, Real height, bool decresc, bool continued) const
 {
   Molecule m;   
-  Real height = paper_l_->staffheight_f () / 6;
 
   String hairpin = String (decresc ? "de" : "") + "crescendo";
   Atom at  (gh_list (ly_symbol (hairpin),
@@ -537,22 +524,15 @@ Lookup::hairpin (Real width, bool decresc, bool continued) const
 }
 
 Molecule
-Lookup::plet (Real dy , Real dx, Direction dir) const
+Lookup::tuplet_bracket (Real dy , Real dx, Real thick, Real interline_f, Direction dir) const
 {
   Molecule m;
-  SCM thick = tuplet_thick_scm_sym;
-  Real t = 0.1 PT;
-  if (paper_l_->scope_p_->elem_b (thick))
-    {
-      t = paper_l_->get_realvar (thick);
-    }
 
-  Real interline_f = paper_l_->get_realvar (interline_scm_sym);
   Atom at  (gh_list(tuplet_scm_sym,
 		    gh_double2scm (interline_f), 
 		    gh_double2scm (dx),
 		    gh_double2scm (dy),
-		    gh_double2scm (t),
+		    gh_double2scm (thick),
 		    gh_int2scm (dir),
 		    SCM_UNDEFINED));
   m.add_atom (&at);
@@ -602,22 +582,15 @@ Lookup::staff_bracket (Real y) const
 }
 
 Molecule
-Lookup::volta (Real w, bool last_b) const
+Lookup::volta (Real w, Real thick, Real interline_f, bool last_b) const
 {
   Molecule m; 
-  SCM thick = volta_thick_scm_sym;
-  Real t = 0.1 PT;
-  if (paper_l_->scope_p_->elem_b (thick))
-    {
-      t = paper_l_->get_realvar (thick);
-    }
+
   Atom at  (gh_list (volta_scm_sym,
 		     gh_double2scm (w),
-		     gh_double2scm (t),
+		     gh_double2scm (thick),
 		     gh_int2scm (last_b),
 		     SCM_UNDEFINED));
-
-  Real interline_f = paper_l_->get_realvar (interline_scm_sym);
 
   m.dim_[Y_AXIS] = Interval (-interline_f, interline_f);
   m.dim_[X_AXIS] = Interval (0, w);
@@ -627,12 +600,12 @@ Lookup::volta (Real w, bool last_b) const
 }
 
 Molecule
-Lookup::accordion (SCM s) const
+Lookup::accordion (SCM s, Real interline_f) const
 {
   Molecule m;
   String sym = ly_scm2string(SCM_CAR(s));
   String reg = ly_scm2string(SCM_CAR(SCM_CDR(s)));
-  Real interline_f = paper_l_->get_realvar(interline_scm_sym);
+
   if (sym == "Discant")
     {
       Molecule r = afm_find("scripts-accDiscant");

@@ -17,7 +17,7 @@ global=\notes {
 
 marks=\notes {
 \time 3/4;
-\property Voice.textstyle = "Large"
+\property Voice.textStyle = "Large"
 \skip 2.*31;
 s2 s8 s^"\\Allegromoltovivace"
 \time 2/4;
