@@ -53,7 +53,7 @@ c1 | c2 c | c c | R1*5
       \context Voice = corII { \stemDown \M }
     >
     \context Staff = trp <
-      \property Staff.instrument = "2 Trp. in B\\textflat  "
+      \property Staff.instrument = #`(columns "2 Trp. in B " (music "accidentals--1"))
       \property Staff.instr = "Trp."
       \context Voice = trpI { \stemUp \M }
       \context Voice = trpII { \stemDown \M }

@@ -68,6 +68,7 @@ which substitutes some @AT_VARIABLES@ as well.
 	<b>Mailing Lists</b>
       </td></tr>
       <tr><td><font size=-1>
+	<a href="@TOP@Documentation/out-www/index.html#mailing-lists">About the lists</a><br>
 	<a href="http://mail.gnu.org/mailman/listinfo/gnu-music-discuss/">Discussion</a><br>
         <a href="http://mail.gnu.org/mailman/listinfo/help-gnu-music">Help</a><br>
         <a href="http://mail.gnu.org/mailman/listinfo/bug-gnu-music/">Bugs</a><br>

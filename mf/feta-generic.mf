@@ -37,14 +37,14 @@ if test = 0:
 	input feta-accordion;
 	input feta-custodes;	
 else:
-%	input feta-bolletjes;	
-%	input feta-banier;
+	input feta-bolletjes;	
+	input feta-banier;
 %	input feta-eindelijk;
 %	input feta-klef;
 %	input feta-toevallig;
 %	input feta-schrift;
 %	input feta-haak;
-	input feta-timesig;
+	%input feta-timesig;
 %	input feta-pendaal;
 %	input feta-accordion;
 fi

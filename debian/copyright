@@ -1,14 +1,16 @@
 This package was Debianized by Anthony Fok <foka@debian.org> on
 Wed,  6 Aug 1997 04:30:28 -0600
 
-The development branch, lilypond1.3, is packaged separately
+The development branch, lilypond1.3, was packaged separately
 on Tue,  9 Nov 1999 22:30:32 -0700
+but was merged back into the lilypond package
+as of Mon, 16 Apr 2001 21:58:42 -0600
 
 It was downloaded from
-      ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/v1.3/
+      ftp://ftp.lilypond.org/pub/LilyPond/v1.3/
 
 It is also available at: 
-      ftp://ftp.lilypond.org/pub/LilyPond/v1.3/
+      ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/v1.3/
 
 For more information about GNU LilyPond, please visit:
       http://www.cs.uu.nl/~hanwen/lilypond/

@@ -3,7 +3,7 @@
 # postinst script for the Debian GNU/Linux lilypond package
 #   by Anthony Fok <foka@debian.org>
 #   Initial release:  Sun, 26 Oct 1997 03:23:00 -0700
-#     Last modified:  Sun, 26 Mar 2000 02:18:41 -0700
+#     Last modified:  Thu, 26 Apr 2001 03:20:10 -0600
 
 set -e
 
@@ -18,11 +18,12 @@ TEXMFMAIN=`/usr/bin/kpsewhich -expand-var '$TEXMFMAIN'`
 echo " Running /usr/bin/mktexlsr $TEXMFMAIN..."
 /usr/bin/mktexlsr $TEXMFMAIN
 
-install-info --description='LilyPond, the GNU Project music typesetter' \
+install-info --quiet \
 	--section "Music" "Music" \
-	--quiet /usr/share/info/lilypond.info.gz
+	--description='LilyPond, the GNU Project music typesetter' \
+	/usr/share/info/lilypond.info.gz
 
 #DEBHELPER#
 echo
 echo " $pkg_name configuration completed."
-echo " Please read /usr/share/doc/lilypond1.3/README.Debian to get started."
+echo " Please read /usr/share/doc/lilypond/README.Debian to get started."

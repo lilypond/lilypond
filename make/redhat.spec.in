@@ -96,8 +96,8 @@ fi
 
 %files
 
-%{_datadir}/emacs/site-lisp/*
-%{_datadir}/emacs/site-lisp/site-start.d/*
+%{_datadir}/emacs/site-lisp/lilypond-*
+%{_datadir}/emacs/site-lisp/site-start.d/lilypond-*
 
 %{_prefix}/bin/abc2ly
 %{_prefix}/bin/as2text

@@ -131,8 +131,11 @@ and documenting bugfixes.
 
 @lilypondfile[printfilename]{tie-accidental.ly}
 
-
 @lilypondfile[printfilename]{tup.ly}
+
+@lilypondfile[printfilename]{tuplet-beam.ly}
+
+@lilypondfile[printfilename]{tuplet-staffline-collision.ly}
 
 
 

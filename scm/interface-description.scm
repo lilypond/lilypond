@@ -245,13 +245,11 @@ object."
  'tuplet-bracket-interface
  "A bracket with a number in the middle, used for tuplets." 
  '(
-   beams 
    columns 
    number-gap 
    delta-y 
    tuplet-bracket-visibility 
    tuplet-number-visibility 
-   parallel-beam 
    thick 
    ))
 

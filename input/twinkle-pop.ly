@@ -64,7 +64,7 @@ text =  \lyrics{
            \lyrics \context Lyrics \text
         >
 	\header{
-		piece = "clarinet in B\\textflat"
+		piece = "clarinet in B$\flat$"
 	}
         \paper {  }
 }

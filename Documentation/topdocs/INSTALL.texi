@@ -310,16 +310,17 @@ automatically loaded, so you need not modify your @code{~/.emacs} file.
 @subsection Red Hat Linux
 
 Red Hat 7.0 i386 RPMS are available from
-@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/}.
+@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/binaries/}.
 
 You can also compile them yourself.  A spec file is in
 @file{make/out/redhat.spec}. This file is distributed along with the
 sources.  You can make the rpm by issuing
 @example 
 
-	rpm -tb lilypond-x.y.z.tar.gz
+        tar xfz lilypond-x.y.z.tar.gz
+	rpm -bb lilypond-x.y.z/make/out/redhat.spec
 	rpm -i /usr/src/redhat/RPMS/i386/lilypond-x.y.z
- 
+
 @end example 
 
 For running on a Red Hat system you need these packages: guile, tetex,
@@ -330,11 +331,30 @@ to the those needed for running: glibc-devel, gcc-c++, libstdc++-devel,
 guile-devel, flex, bison, texinfo, tetex-devel, groff,
 libgr-progs.
 
+
+@b{Warning}
+
+There appears to be a problem with the Xdvi shipped with RedHat
+7.1. Symptoms: Xdvi responds very sluggishly or hangs while viewing
+lilypond output. The cause for this problem is unknown; you are advised
+to recompile Xdvi from source.
+
+@subsection LinuxPPC
+
+
+Some LinuxPPC RPMS should available from
+@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/binaries/}.
+
+A LinuxPPC RPM can be made using the @file{redhat.spec} file.
+
 @subsection SuSE
 
-You can also compile them yourself.  A spec file is in
-@file{make/out/suse.spec}. This file is distributed along with the
-sources.
+Some SUSE RPMS should available from
+@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/binaries/}.
+
+You can also compile a RPM for SUSE yourself.  A spec file is in
+@file{make/out/suse.spec}, see the instructions for building the RedHat
+RPM.
 
 You must have the following packages: guile tcsh tetex te_latex te_kpath
 te_mpost libpng python gpp libgpp gettext autoconf netpbm libnetpb
@@ -342,13 +362,17 @@ gs_serv gs_lib gs_fonts guile
 
 @subsection Slackware
 
+No precompiled packages for Slackware are available.
+
 Problems have been reported with Slackware 7.0; apparently, it ships
 with a faulty compiler. Do not compile LilyPond with -O2 on this
 platform.
 
 @subsection Mandrake
 
-[TODO]
+Some binaries are available at rpmfind.net. Refer to 
+@uref{ftp://ftp.rpmfind.net/linux/Mandrake-devel/cooker/contrib/RPMS/}.
+
 
 @subsection Debian GNU/Linux
 

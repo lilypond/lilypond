@@ -6,6 +6,9 @@
 % 2001/03/25 Rune Zedeler <rune@zedeler.dk>
 
 
+%% TODO: don't pollute global namespace in this way . 
+
+
 #(define drum-pitch-names `(
 	(acousticbassdrum bda	,(make-pitch -3 6 0 ))
 	(bassdrum	  bd	,(make-pitch -2 0 0 ))
@@ -44,6 +47,7 @@
 	(mutehiconga	  cghm	,(make-pitch 0 1 0))
 	(openhiconga	  cgho	,(make-pitch 0 1 1))
 	(hiconga	  cgh	,(make-pitch 0 2 -1))
+ (openloconga      cglo  ,(make-pitch 0 1 2))
 	(loconga	  cgl	,(make-pitch 0 2 0))
 	(hitimbale	  timh	,(make-pitch 0 3 0))
 	(lotimbale	  timl	,(make-pitch 0 3 1))
@@ -120,10 +124,12 @@
 #(define congas `(
 	(losidestick	  cross		,#f	  ,(make-pitch -1 6 0))
 	(loconga	  default	,#f	  ,(make-pitch -1 6 0))
+	(openloconga      default       ,"open"   ,(make-pitch -1 6 0))
 	(hisidestick	  cross		,#f	  ,(make-pitch 0 1 0))
 	(hiconga	  default	,#f	  ,(make-pitch 0 1 0))
-	(openhiconga	  default	open"	  ,(make-pitch 0 1 0))
-	(mutehiconga	  default	stopped"  ,(make-pitch 0 1 0))
+	(openhiconga      default       "open"    ,(make-pitch 0 1 0))
+        (mutehiconga      default       "stopped" ,(make-pitch 0 1 0))
+  
  ))
 
 #(define bongos `(

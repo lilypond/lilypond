@@ -9,7 +9,7 @@ local-dist: configure
 local-distclean: 
 	rm -f config.h config.hh config.make Makefile GNUmakefile \
 		config.cache config.status config.log index.html \
-		afm tfm cmtfm share/locale/*/LC_MESSAGES/lilypond.mo
+		stepmake/stepmake/stepmake stepmake/stepmake/bin
 
 local-maintainerclean:
 	rm -f configure

@@ -22,8 +22,8 @@ oboi = \notes \relative c' {
 
 clarinetti = \notes \relative c' {
   \property Staff.midiInstrument = #"clarinet"
-  \property Staff.instrument	= #"2 Clarinetti\n(B\\textflat)"
-  \property Staff.instr		= #"Cl.\n(B\\textflat)"
+  \property Staff.instrument	= #`(lines "2 Clarinetti" (columns "(B" (music "accidentals--1") ")"))
+  \property Staff.instr		= #`(lines "Cl."(columns "(B" (music "accidentals--1") ")"))
 
   R1*2 c1 R1*8
 }
@@ -33,28 +33,30 @@ fagotti = \notes \relative c' {
   \property Staff.instrument	= #"2 Fagotti"
   \property Staff.instr		= #"Fg."
 
+  \clef bass
   R1*3 c1 R1*7
 }
 
 corni = \notes \relative c' {
   \property Staff.midiInstrument = #"french horn"
-  \property Staff.instrument	= #"2 Corni\n(E\\textflat)"
-  \property Staff.instr		= #"Cor.\n(E\\textflat)"
+  \property Staff.instrument	= #`(lines "2 Corni" (columns "(E" (music "accidentals--1") ")"))
+  \property Staff.instr		= #`(lines "Cor." (columns "(E" (music "accidentals--1") ")"))
 
   R1*4 c1 R1*6
 }
 
 trombe = \notes \relative c' {
   \property Staff.midiInstrument = #"trumpet"
-  \property Staff.instrument	= #"2 Trombe\n(C)"
-  \property Staff.instr		= #"Tbe.\n(C)"
+  \property Staff.instrument	= #'(lines "2 Trombe" "(C)")
+  \property Staff.instr		= #'(lines "Tbe." "(C)")
 
+  \clef bass
   R1*5 c1 R1*5
 }
 
 timpani = \notes \relative c' {
   \property Staff.midiInstrument = #"timpani"
-  \property Staff.instrument	= #"Timpani\n(C-G)"
+  \property Staff.instrument	= #'(lines "Timpani" "(C-G)")
   \property Staff.instr		= #"Timp."
 
   R1*6 c1 R1*4
@@ -62,16 +64,16 @@ timpani = \notes \relative c' {
 
 violinoI = \notes \relative c' {
   \property Staff.midiInstrument = #"violin"
-  \property Staff.instrument	= #"Violino I"
-  \property Staff.instr		= #"Vl. I"
+  \property Staff.instrument	= #"Violino I "
+  \property Staff.instr		= #"Vl. I "
 
   R1*7 c1 R1*3
 }
 
 violinoII = \notes \relative c' {
   \property Staff.midiInstrument = #"violin"
-  \property Staff.instrument	= #"Violino II"
-  \property Staff.instr		= #"Vl. II"
+  \property Staff.instrument	= #"Violino II "
+  \property Staff.instr		= #"Vl. II "
  
   R1*8 c1 R1*2
 }
@@ -81,15 +83,17 @@ viola = \notes \relative c' {
   \property Staff.instrument	= #"Viola"
   \property Staff.instr		= #"Vla."
 
+  \clef alto
   R1*9 c1 R1*1
 }
 
 violoncello = \notes \relative c' {
   \property Staff.midiInstrument = #"cello"
   %\property Staff.midiInstrument = #"contrabass"
-  \property Staff.instrument	= #"Violoncello\ne\nContrabasso"
-  \property Staff.instr		= #"Vc.\nCb."
+  \property Staff.instrument	= #'(lines "Violoncello" "e" "Contrabasso")
+  \property Staff.instr		= #'(lines "Vc." "Cb.")
   
+  \clef bass
   R1*10 c1
 }
 

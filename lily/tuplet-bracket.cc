@@ -6,6 +6,7 @@
   (c)  1997--2001 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
+#include <math.h>
 
 #include "beam.hh"
 #include "box.hh"
@@ -22,6 +23,7 @@
 #include "group-interface.hh"
 #include "directional-element-interface.hh"
 #include "spanner.hh"
+#include "staff-symbol-referencer.hh"
 
 /*
   TODO:
@@ -45,9 +47,26 @@ Tuplet_bracket::brew_molecule (SCM smob)
 {
   Grob *me= unsmob_grob (smob);
   Molecule  mol;
+  Link_array<Grob> column_arr=
+    Pointer_group_interface__extract_elements (me, (Grob*)0, "columns");
+
+
+  if (!column_arr.size ())
+    return mol.smobbed_copy ();
+
+
+  Grob *b1 = Note_column::stem_l (column_arr[0]); 
+  Grob *b2 = Note_column::stem_l (column_arr.top());    
+
+  b1 = b1 ? Stem::beam_l (b1) : 0;
+  b2 = b2 ? Stem::beam_l (b2) : 0;
+
+  
+  Spanner*sp = dynamic_cast<Spanner*> (me);  
 
   // Default behaviour: number always, bracket when no beam!
-  bool par_beam = to_boolean (me->get_grob_property ("parallel-beam"));
+  bool par_beam = b1 && (b1 == b2) && !sp->broken_b() ;
+  
   bool bracket_visibility = !par_beam;
   bool number_visibility = true;
 
@@ -67,52 +86,46 @@ Tuplet_bracket::brew_molecule (SCM smob)
   else if (bracket == ly_symbol2scm ("if-no-beam"))
     number_visibility = !par_beam;
   
-  if (gh_pair_p (me->get_grob_property ("columns")))
+	
+  Real ncw = column_arr.top ()->extent (column_arr.top (), X_AXIS).length ();
+  Real w = sp->spanner_length () + ncw;
+
+  Direction dir = Directional_element_interface::get (me);
+  Real dy = gh_scm2double (me->get_grob_property ("delta-y"));
+  SCM number = me->get_grob_property ("text");
+  if (gh_string_p (number) && number_visibility)
     {
-      Link_array<Grob> column_arr=
-	Pointer_group_interface__extract_elements (me, (Grob*)0, "columns");
+      SCM properties = Font_interface::font_alist_chain (me);
+      Molecule num = Text_item::text2molecule (me, number, properties);
+      num.align_to (X_AXIS, CENTER);
+      num.translate_axis (w/2, X_AXIS);
+      num.align_to (Y_AXIS, CENTER);
 	
-      Real ncw = column_arr.top ()->extent (column_arr.top (), X_AXIS).length ();
-      Real w = dynamic_cast<Spanner*> (me)->spanner_length () + ncw;
+      num.translate_axis (dy/2, Y_AXIS);
 
-      Real staff_space = 1.0;
-      Direction dir = Directional_element_interface::get (me);
-      Real dy = gh_scm2double (me->get_grob_property ("delta-y"));
-      SCM number = me->get_grob_property ("text");
-      if (gh_string_p (number) && number_visibility)
-	{
-	  SCM properties = Font_interface::font_alist_chain (me);
-	  Molecule num = Text_item::text2molecule (me, number, properties);
-	  num.align_to (X_AXIS, CENTER);
-	  num.translate_axis (w/2, X_AXIS);
-	  num.align_to (Y_AXIS, CENTER);
-	  num.translate_axis (dir * staff_space, Y_AXIS);
-	
-	  num.translate_axis (dy/2, Y_AXIS);
-
-	  mol.add_molecule (num);
-	}
-      
-      if (bracket_visibility)      
-	{
-	  Real  lt =  me->paper_l ()->get_var ("stafflinethickness");
-	  
-	  SCM thick = me->get_grob_property ("thick");
-	  SCM gap = me->get_grob_property ("number-gap");
-	  
-	  SCM at =gh_list (ly_symbol2scm ("tuplet"),
-			  gh_double2scm (1.0),
-			  gap,
-			  gh_double2scm (w),
-			  gh_double2scm (dy),
-			  gh_double2scm (gh_scm2double (thick)* lt),
-			  gh_int2scm (dir),
-			  SCM_UNDEFINED);
-
-	  Box b;
-	  mol.add_molecule (Molecule (b, at));
-	}
+      mol.add_molecule (num);
     }
+      
+  if (bracket_visibility)      
+    {
+      Real  lt =  me->paper_l ()->get_var ("stafflinethickness");
+	  
+      SCM thick = me->get_grob_property ("thick");
+      SCM gap = me->get_grob_property ("number-gap");
+	  
+      SCM at =gh_list (ly_symbol2scm ("tuplet"),
+		       gh_double2scm (1.0),
+		       gap,
+		       gh_double2scm (w),
+		       gh_double2scm (dy),
+		       gh_double2scm (gh_scm2double (thick)* lt),
+		       gh_int2scm (dir),
+		       SCM_UNDEFINED);
+
+      Box b;
+      mol.add_molecule (Molecule (b, at));
+    }
+
   return mol.smobbed_copy ();
 }
 
@@ -175,6 +188,29 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
       if (notey * d > (*offset + tuplety) * d)
 	*offset = notey - tuplety; 
     }
+
+  // padding
+  *offset +=  1.0 *d;
+
+  
+  /*
+    horizontal brackets should not collide with staff lines.
+
+    
+   */
+  if (*dy == 0)
+    {
+      // quantize, then do collision check.
+      Real ss= Staff_symbol_referencer::staff_space (me);
+      *offset *= 2 / ss;
+      
+      *offset = rint (*offset);
+      if (Staff_symbol_referencer::on_staffline (me, (int) rint (*offset)))
+	*offset += d;
+
+      *offset *= 0.5 * ss;
+    }
+  
 }
 
 /*
@@ -201,8 +237,6 @@ Tuplet_bracket::after_line_breaking (SCM smob)
   Grob * me = unsmob_grob (smob);
   Link_array<Note_column> column_arr=
     Pointer_group_interface__extract_elements (me, (Note_column*)0, "columns");
-  Spanner *sp = dynamic_cast<Spanner*> (me);
-
 
   if (!column_arr.size ())
     {
@@ -224,17 +258,6 @@ Tuplet_bracket::after_line_breaking (SCM smob)
   me->set_grob_property ("delta-y", gh_double2scm (dy));
 
   me->translate_axis (offset, Y_AXIS);
-  
-  if (scm_ilength (me->get_grob_property ("beams")) == 1)
-    {
-      SCM bs = me->get_grob_property ("beams");
-      Grob *b = unsmob_grob (gh_car (bs));
-      Spanner * beam_l = dynamic_cast<Spanner *> (b);
-      if (!sp->broken_b () 
-	  && sp->get_bound (LEFT)->column_l () == beam_l->get_bound (LEFT)->column_l ()
-	  && sp->get_bound (RIGHT)->column_l () == beam_l->get_bound (RIGHT)->column_l ())
-	me->set_grob_property ("parallel-beam", SCM_BOOL_T);
-    }
   return SCM_UNSPECIFIED;
 }
 
@@ -263,13 +286,6 @@ Tuplet_bracket::get_default_dir (Grob*me)
     }
   
   return d;
-}
-
-void
-Tuplet_bracket::add_beam (Grob*me, Grob *b)
-{
-  me->add_dependency (b);
-  Pointer_group_interface::add_element (me, "beams",b);
 }
 
 void

@@ -334,7 +334,8 @@
 	))
 	(NoteCollision . (
 		(axes 0 1)
-		(note-width . 1.65)
+		;; Ugh, should not be hard-coded. 
+		(note-width . 1.321)
 		(meta . ,(grob-description "NoteCollision"
 		   note-collision-interface axis-group-interface
 		))

@@ -153,16 +153,29 @@ Frequently Asked Questions} first.
 
 
 @itemize @bullet
+@item @uref{http://mail.gnu.org/mailman/listinfo/gnu-music-discuss,gnu-music-discuss@@gnu.org}
+This list is for discussions concerning LilyPond.
+
+Searchable archives are available from
+@uref{http://www.mail-archive.com/gnu-music-discuss@@gnu.org}.
+
 @item @uref{http://mail.gnu.org/mailman/listinfo/info-gnu-music,info-gnu-music@@gnu.org}
 is a low-volume list for information on the GNU Music project.
     This list is moderated; ask 
     @email{drl@@gnu.org, David R. Linn} or
     @email{hanwen@@cs.uu.nl, Han-Wen} to send announcements for this list.
+
+Searchable archives are available from
+@uref{http://www.mail-archive.com/info-gnu-music@@gnu.org}.
+
 @item @uref{http://mail.gnu.org/mailman/listinfo/help-gnu-music,help-gnu-music@@gnu.org}
     For help with using LilyPond.
+
+Searchable archives are available from
+@uref{http://www.mail-archive.com/help-gnu-music@@gnu.org}.
+
 @item @uref{http://mail.gnu.org/mailman/listinfo/bug-gnu-music,bug-gnu-music@@gnu.org}
 If you have bugreports, you should send them to this list.  
-
 
 
         Please include in your bugreport the version of LilyPond that
@@ -171,8 +184,9 @@ input to reproduce the problem. Do not send output files over the list,
 they tend to be very big and don't help with describing the problem.
 
 
-@item @uref{http://mail.gnu.org/mailman/listinfo/gnu-music-discuss,gnu-music-discuss@@gnu.org}
-    For discussions concerning LilyPond.
+Searchable archives are available from
+@uref{http://www.mail-archive.com/bug-gnu-music@@gnu.org}.
+
 @end itemize
 
 These pages were entirely created from a @strong{development snapshot}

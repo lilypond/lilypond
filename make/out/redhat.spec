@@ -1,11 +1,11 @@
 %define info yes
 
 Name: lilypond
-Version: 1.3.152
+Version: 1.3.153
 Release: 1
 License: GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.3.152.tar.gz
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.3.153.tar.gz
 Summary: Create and print music notation 
 URL: http://www.cs.uu.nl/~hanwen/lilypond
 BuildRoot: /tmp/lilypond-install
@@ -96,8 +96,8 @@ fi
 
 %files
 
-%{_datadir}/emacs/site-lisp/*
-%{_datadir}/emacs/site-lisp/site-start.d/*
+%{_datadir}/emacs/site-lisp/lilypond-*
+%{_datadir}/emacs/site-lisp/site-start.d/lilypond-*
 
 %{_prefix}/bin/abc2ly
 %{_prefix}/bin/as2text
