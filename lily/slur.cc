@@ -129,7 +129,6 @@ Slur::after_line_breaking (SCM smob)
 void
 Slur::check_slope (Grob *me)
 {
-
   /*
     Avoid too steep slurs.
    */
@@ -294,37 +293,44 @@ Slur::get_attachment (Grob *me, Direction dir,
       s = set_extremities (me);
     }
   
-  SCM a = dir == LEFT ? ly_car (s) : ly_cdr (s);
+  SCM a = (dir == LEFT) ? ly_car (s) : ly_cdr (s);
   Spanner*sp = dynamic_cast<Spanner*> (me);
   String str = ly_symbol2string (a);
+  
   Real staff_space = Staff_symbol_referencer::staff_space ((Grob*)me);
   Real hs = staff_space / 2.0;
   Offset o;
   
-  int slurdir = gh_scm2int (me->get_grob_property ("direction"));
+  Direction slurdir = to_dir (me->get_grob_property ("direction"));
   
   Grob *stem = 0;
   if (Note_column::has_interface (sp->get_bound (dir)))
     {
       Grob * n =sp->get_bound (dir);
-      if ((stem = Note_column::get_stem (n)))
+      stem = Note_column::get_stem (n);
+      if (stem)
 	{
 	  Real x_extent;
-	  if (Grob *head = Note_column::first_head (n))
+	  Grob *head = Note_column::first_head (n);
+	  if (head)
 	    x_extent = head->extent (head, X_AXIS).length ();
 	  else
 	    x_extent = n->extent (n, X_AXIS).length ();
 
-	  if (str == "head")
+	  if (!head)
+	    {
+	      o = Offset (0, n->extent (n, Y_AXIS)[slurdir]);
+	    }
+	  else if (str == "head")
 	    {
 	      o = Offset (0, Stem::head_positions (stem)
-			  [Directional_element_interface::get (me)] * hs);
+			  [slurdir] * hs);
 	      /*
 		Default position is centered in X, on outer side of head Y
 	       */
 	      o += Offset (0.5 * x_extent,
 			   0.5 * staff_space
-			   * Directional_element_interface::get (me));
+			   * slurdir);
 	    }
 	  else if (str == "alongside-stem")
 	    {
@@ -334,7 +340,7 @@ Slur::get_attachment (Grob *me, Direction dir,
 	       */
 	      o += Offset (x_extent * (1 + Stem::get_direction (stem)),
 			   0.5 * staff_space
-			   * Directional_element_interface::get (me));
+			   * slurdir);
 	    }
 	  else if (str == "stem")
 	    {
@@ -378,7 +384,7 @@ Slur::get_attachment (Grob *me, Direction dir,
     {
       Offset off = ly_scm2offset (ly_cdr (l)) * staff_space;
       off[X_AXIS] *= dir;
-      off[Y_AXIS] *= Directional_element_interface::get (me);
+      off[Y_AXIS] *= slurdir;
       o += off;
     }
 
@@ -396,7 +402,7 @@ Slur::get_attachment (Grob *me, Direction dir,
 					  ("attachment-offset"),
 					  dir)) * staff_space;
 
-  off[Y_AXIS] *= Directional_element_interface::get (me);
+  off[Y_AXIS] *= slurdir;
   o += off;
   return o;
 }

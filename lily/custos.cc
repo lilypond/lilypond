@@ -48,8 +48,8 @@ Custos::brew_molecule (SCM smob)
    * staffline or not, or shall we use individual font characters
    * for both cases?
    */
-  bool adjust =
-    to_boolean (me->get_grob_property ("adjust-if-on-staffline"));
+  bool adjust
+    = to_boolean (me->get_grob_property ("adjust-if-on-staffline"));
 
   int neutral_pos;
   SCM ntr_pos = me->get_grob_property ("neutral-position");

@@ -133,8 +133,8 @@
 
 
 (define-public (number-pair->string c)
-  (string-append (number->string (car c)) " "
-		 (number->string (cdr c)) " "))
+  (string-append (ly:number->string (car c)) " "
+		 (ly:number->string (cdr c)) " "))
 
 (define (font i)
   (string-append
