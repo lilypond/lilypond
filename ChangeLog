@@ -1,3 +1,9 @@
+2002-06-01  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/beam.cc (quanting): Increase REGION_SIZE to 4 by default.
+	While we'd rather not want to pay the performance penalty, we
+	certainly don't want silly bugs.  This should be looked into.
+
 2002-05-31  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* stepmake/aclocal.m4: Fix for ash as /bin/sh.
