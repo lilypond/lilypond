@@ -41,8 +41,6 @@ public:
   void set_variable  (SCM, SCM sym);
   
   DECLARE_SMOBS (Music_output_def,);
-
-  
 };
 
 DECLARE_UNSMOB(Music_output_def,music_output_def);

@@ -393,6 +393,9 @@ Accidental_engraver::process_acknowledged_grobs ()
 void
 Accidental_engraver::finalize ()
 {
+  /*
+    Must reset, since Accidental_engraver is GCd.
+   */
   last_keysig_ = SCM_EOL;
 }
 

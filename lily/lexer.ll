@@ -180,7 +180,7 @@ HYPHEN		--
 
 	yy_pop_state();
 	this->here_input().source_file_->name_ = s;
-	progress_indication (_f("\nRenamed input to `%s'", s.to_str0()));
+	progress_indication (_f("\nRenamed input to `%s'\n", s.to_str0()));
 	scm_module_define (gh_car (scopes_),
 		     ly_symbol2scm ("input-file-name"),
 		     scm_makfrom0str (s.to_str0()));

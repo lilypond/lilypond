@@ -34,6 +34,9 @@
 
 bool store_locations_global_b;
 
+/*
+  TODO: should merge with My_lily_parser. 
+ */
 
 /*
   no ! suffix since it doesn't modify 1st argument.

@@ -26,7 +26,7 @@ protected:
   virtual void stop_translation_timestep ();
   virtual void process_music ();
   virtual bool try_music (Music *);
-
+  virtual void finalize ();
 private:
   void add_note (Music *);
   
@@ -35,6 +35,12 @@ private:
   
   Protected_scm last_chord_;
 };
+
+void
+Chord_name_engraver::finalize ()
+{
+  last_chord_ = SCM_EOL; 
+}
 
 Chord_name_engraver::Chord_name_engraver ()
 {

@@ -785,3 +785,14 @@ alist_to_hashq (SCM alist)
     }
   return tab; 
 }
+
+#if 1
+/*
+  Debugging mem leaks:
+ */
+LY_DEFINE(ly_protects, "ly:protects", 0, 0, 0, (),
+	  "Return hash of protected objects.")
+{
+  return scm_protects;
+}
+#endif

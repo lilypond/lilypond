@@ -677,6 +677,7 @@ music_output_def_body:
 		
 	}
 	| music_output_def_head '{' MUSIC_OUTPUT_DEF_IDENTIFIER 	{
+		scm_gc_unprotect_object ($1->self_scm ());
 		Music_output_def * o =  unsmob_music_output_def ($3);
 		$$ = o;
 		THIS->lexer_->remove_scope ();
