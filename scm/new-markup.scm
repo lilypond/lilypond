@@ -45,6 +45,13 @@ for the reader.
 
 " ; " 
 
+
+;;;;;;;;;;;;;;;;;
+;; TODO:
+;; each markup function should have a doc string with
+;; syntax, description and example. 
+;;
+
 (define-public (simple-markup grob props . rest)
   (Text_item::text_to_molecule grob props (car rest))
   )
@@ -383,6 +390,23 @@ for the reader.
     (box-molecule m th pad)
   ))
 
+
+(define-public (strut-markup grob props . rest)
+  "Syntax: \strut
+
+ A box of the same height as the space.
+"
+
+  (let*
+      ((m (Text_item::text_to_molecule grob props " ")))
+
+    (ly:molecule-set-extent! m 0 '(1000 . -1000))
+    m))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 (define (markup-signature-to-keyword sig)
   " (A B C) -> a0-b1-c2 "
   
@@ -545,8 +569,8 @@ for the reader.
    (cons fontsize-markup (list number? markup?))
 
    (cons box-markup  (list markup?))
-   )
-  )
+   (cons strut-markup '())
+   ))
 
 
 (define markup-module (current-module))
@@ -612,13 +636,12 @@ against SIGNATURE, reporting MAKE-NAME as the user-invoked function.
 "
 
   (let*
-      (
-       (arglen (length args))
+      ((arglen (length args))
        (siglen (length signature))
        (error-msg
 	(if (and (> siglen 0) (> arglen 0))
-	    (markup-argument-list-error signature args 1)))
-       )
+	    (markup-argument-list-error signature args 1)
+	    #f)))
 
 
     (if (or (not (= arglen siglen)) (< siglen 0) (< arglen 0))

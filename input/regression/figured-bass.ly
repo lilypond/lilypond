@@ -18,6 +18,7 @@ You can also type letters by entering quoted strings, as demonstrated in the las
 	<3 [5] 7 [9 11]>
 	<3+ 5- 7!>
 	<3 _! 5 _- 7>
+	<3 _ 5 _ 7>
 \property FiguredBass.BassFigure \set #'font-family = #'roman
 	<"V7" ["bla" 6] 7>
    }
