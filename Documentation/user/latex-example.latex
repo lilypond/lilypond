@@ -2,8 +2,8 @@
 
 
 
-%\def\preLilypondExample{}}
-%\def\postLilypondExample{}
+%\def\preLilyPondExample{}}
+%\def\postLilyPondExample{}
 
 
 \begin{document}
@@ -22,7 +22,7 @@ c d e
 
 % generate standard lilypond titles
 \input titledefs.tex
-\def\preLilypondExample{\def\mustmakelilypondtitle{}}
+\def\preLilyPondExample{\def\mustmakelilypondtitle{}}
 
 \begin{lilypond}
 \header {

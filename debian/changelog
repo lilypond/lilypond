@@ -168,8 +168,8 @@ lilypond (1.4.5-1) unstable; urgency=low
 lilypond (1.4.3-1) unstable; urgency=high
 
   * New upstream release.
-  * Urgency high because Lilypond-1.2.17 is too buggy and yet it has
-    been stuck in testing forever.  Lilypond-1.4.x fixes multiple
+  * Urgency high because LilyPond-1.2.17 is too buggy and yet it has
+    been stuck in testing forever.  LilyPond-1.4.x fixes multiple
     serious bugs.  :-)
   * Ah, silly me, lilypond was conflicting against itself!  I forgot
     to remove this relics during the switch from lilypond1.3 to lilypond.

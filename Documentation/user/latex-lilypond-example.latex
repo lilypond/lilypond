@@ -7,8 +7,8 @@
 
 \documentclass[a4paper, 12pt]{article}
 
-%\def\preLilypondExample{}
-%\def\postLilypondExample{}
+%\def\preLilyPondExample{}
+%\def\postLilyPondExample{}
 %\usepackage{graphics}
 %\usepackage{landscape}
 
@@ -17,9 +17,9 @@
 %\twocolumn
 
 
-\section{Lilypond-book + LaTeX}
+\section{LilyPond-book + LaTeX}
 
-This is an examplefile for mixing Lilypond and Latex. It is also
+This is an examplefile for mixing LilyPond and Latex. It is also
 used to test lilypond-book. View the source to see how it is done.
 
 A simple scale:
@@ -30,7 +30,7 @@ A simple scale:
 }
 \end{lilypond}
 
-Lilypond-book search for the \verb|\score| command when it decides
+LilyPond-book search for the \verb|\score| command when it decides
 if the code is only a fragment. Thus, in the following code, you have
 to use \verb|fragment| option, because the comment confuses lilypond-book.
 

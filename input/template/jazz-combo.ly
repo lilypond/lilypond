@@ -5,7 +5,7 @@
         composer = "Me"
         meter = "moderato"
         piece = "Swing"
-	tagline = "Lilypond example file by Amelie Zapf, Berlin 07/07/2003"
+	tagline = "LilyPond example file by Amelie Zapf, Berlin 07/07/2003"
 	texidoc = "Jazz tune for combo (horns, piano, drums, bass, guitar)."
 }
 

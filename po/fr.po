@@ -770,7 +770,7 @@ msgstr "pas de telle configuration: « %s »"
 #: ly2dvi.py:274
 #, python-format
 msgid "LilyPond crashed (signal %d)."
-msgstr "Lilypond a planté (signal %d)."
+msgstr "LilyPond a planté (signal %d)."
 
 #: ly2dvi.py:275
 msgid "Please submit a bug report to bug-lilypond@gnu.org"
@@ -800,7 +800,7 @@ msgstr "Analyse de %s..."
 #: ly2dvi.py:354
 #, python-format
 msgid "no LilyPond output found for `%s'"
-msgstr "aucune sortie de Lilypond n'a été trouvée pour « %s »"
+msgstr "aucune sortie de LilyPond n'a été trouvée pour « %s »"
 
 #. The final \n seems important here. It ensures that the footers and taglines end up on the right page.
 #. TODO: should set textheight (enlarge) depending on papersize.

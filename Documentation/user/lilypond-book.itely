@@ -175,11 +175,11 @@ imported by adding the following to the top of the La@TeX{} file:
 
 @example
 \input titledefs.tex
-\def\preLilypondExample@{\def\mustmakelilypondtitle@{@}@}
+\def\preLilyPondExample@{\def\mustmakelilypondtitle@{@}@}
 @end example
 
-The music will be surrounded by @code{\preLilypondExample} and
-@code{\postLilypondExample}, which are defined to be empty by default.
+The music will be surrounded by @code{\preLilyPondExample} and
+@code{\postLilyPondExample}, which are defined to be empty by default.
 
 @node Integrating HTML and music
 @section Integrating HTML and music
@@ -377,7 +377,7 @@ To add titling from the @code{\header} section of the files, add the
 following to the top of the La@TeX{} file:
 @example
 \input titledefs.tex
-\def\preLilypondExample@{\def\mustmakelilypondtitle@{@}@}
+\def\preLilyPondExample@{\def\mustmakelilypondtitle@{@}@}
 @end example
 
 @command{lilypond-book} accepts the following command line options:
