@@ -9,6 +9,7 @@
 #include "debug.hh"
 #include "qlp.hh"
 
+
 void
 Mixed_qp::add_equality_cons (Vector , double)
 {
@@ -57,9 +58,9 @@ void
 Ineq_constrained_qp::assert_solution (Vector sol) const
 {
   Array<int> binding;
-  for (int i=0; i < cons.size(); i++) 
+  for (int i=0; i < cons_.size(); i++) 
     {
-      Real R=cons[i] * sol- consrhs[i];
+      Real R=cons_[i] * sol- consrhs_[i];
       assert (R> -EPS);
       if (R < EPS)
 	binding.push (i);
@@ -72,12 +73,12 @@ void
 Ineq_constrained_qp::print() const
 {
 #ifndef NPRINT
-  DOUT << "Quad " << quad;
-  DOUT << "lin " << lin <<"\n"
-       << "const " << const_term<<"\n";
-  for (int i=0; i < cons.size(); i++) 
+  DOUT << "Quad " << quad_;
+  DOUT << "lin " << lin_ <<"\n"
+       << "const " << const_term_<<"\n";
+  for (int i=0; i < cons_.size(); i++) 
     {
-      DOUT << "constraint["<<i<<"]: " << cons[i] << " >= " << consrhs[i];
+      DOUT << "constraint["<<i<<"]: " << cons_[i] << " >= " << consrhs_[i];
       DOUT << "\n";
     }
 #endif
