@@ -93,8 +93,8 @@ Duration_convert::mom2_dur( Moment mom )
 	
 
 	Duration dur = mom2standardised_dur( mom );
-//	if ( dur.mom() == mom )
-	if ( dur.length() == mom )
+//	if ( !dur.mom() || ( dur.mom() == mom ) )
+	if ( !dur.length() || ( dur.length() == mom ) )
 		return dur;
 	assert( midi_as_plet_b_s );
 
@@ -121,7 +121,10 @@ Duration_convert::mom2standardised_dur( Moment mom )
 	for ( int i = 0; i < dur_array_s.size() - 1; i++ ) {
   		Moment lower_mom = dur2_mom( dur_array_s[ i ] );
 		if ( mom <= lower_mom ) {
-			if ( i || ( mom / lower_mom > Moment( 3, 4 ) ) )
+			// all arbitrary, but 1/4 will get rid of the noise...
+//			if ( i || ( mom / lower_mom > Moment( 3, 4 ) ) )
+//kinda ok		if ( i || ( mom / lower_mom > Moment( 2, 4 ) ) )
+			if ( i || ( mom / lower_mom > Moment( 2, 6 ) ) )
 				return dur_array_s[ i ];
 			else
 				return Duration( 0 );
@@ -192,10 +195,6 @@ Duration_convert::ticks2standardised_dur( int ticks_i )
 {
 	Moment mom( ticks_i, Duration::division_1_i_s );
 	Duration dur = mom2standardised_dur( mom );
-
-//	if ( dur.mom() != mom )
-	if ( dur.length() != mom )
-		warning( String( "duration not exact: " ) + String( (Real)mom ) );
 	return dur;
 }
 

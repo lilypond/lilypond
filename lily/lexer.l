@@ -8,6 +8,19 @@
 */
 
 
+/*
+  backup rules
+
+  after making a change to the lexer rules, run 
+      flex -b <this lexer file>
+  and make sure that 
+      lex.backup
+  contains no backup states, but only the reminder
+      Compressed tables always back up.
+  (don-t forget to rm lex.yy.cc :-)
+ */
+
+
 #include <stdio.h>
 
 #include "string.hh"
@@ -76,7 +89,11 @@ LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
   }
   %[^{\n].*\n	{
   }
+  %[^{\n]	{ // backup rule
+  }
   %\n	{
+  }
+  %[^{\n].*	{
   }
   {WHITE}+ 	{
 	
@@ -105,6 +122,10 @@ LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
 	new_input(s,source_l_g);
 	yy_pop_state();
 }
+<incl>\"[^"]*   { // backup rule
+	cerr << "missing end quote" << endl;
+	exit( 1 );
+}
 <notes>{RESTNAME} 	{
 	const char *s = YYText();
 	yylval.string = new String (s);	
@@ -120,6 +141,14 @@ LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
 	String s=YYText() + 1;
 	s=s.left_str(s.length_i() - 1);
 	return scan_bare_word(s);
+}
+<INITIAL,lyrics,notes>\\\${BLACK}*		{ // backup rule
+	cerr << "white expected" << endl;
+	exit( 1 );
+}
+<INITIAL,lyrics,notes>\${BLACK}*		{ // backup rule
+	cerr << "white expected" << endl;
+	exit( 1 );
 }
 <notes>{
 	{ALPHAWORD}/\'	{
@@ -236,6 +265,11 @@ LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
 	mtor  << "REAL" << r<<'\n';
 	yylval.real = r;
 	return REAL;
+}
+
+{INT}\. { // backup rule
+	cerr << "int. encountered" << endl;
+	exit( 1 );
 }
 
 [{}]	{

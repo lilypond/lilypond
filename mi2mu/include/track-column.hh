@@ -15,7 +15,12 @@ public:
 	Moment mom();
 
 //private:
-	IPointer_list<Midi_event*> midi_event_p_list_;
+#ifdef MEVENT_LIST
+#error using list
+	Pointer_list<Midi_event*> midi_event_p_list_;
+#else
+	Array<Midi_event*> midi_event_p_array_;
+#endif
 	Moment mom_;
 };
 

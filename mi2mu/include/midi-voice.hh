@@ -15,14 +15,18 @@ public:
 	Moment begin_mom();
 	Moment end_mom();
 
-	String mudela_str( Moment to_mom, Moment to_mom, bool multiple_bo );
-    // ARE you sure?              ^^             ^^  
+	String mudela_str( Moment from_mom, Moment to_mom, bool multiple_bo );
 
 private:
-    int events_i_;
-       Moment end_mom_;
-       Moment begin_mom_;
-	IPointer_list<Midi_event*> midi_event_p_list_;
+	int events_i_;
+	Moment end_mom_;
+	Moment begin_mom_;
+#ifdef MEVENT_LIST
+#error using list
+	Pointer_list<Midi_event*> midi_event_p_list_;
+#else
+	Array<Midi_event*> midi_event_p_array_;
+#endif
 };
 
 #endif // MIDI_VOICE_HH
