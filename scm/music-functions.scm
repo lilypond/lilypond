@@ -104,7 +104,7 @@ written by Rune Zedeler. "
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 
 
 (define  (pitchify-scripts music)
   "Copy the pitch fields of the Note_requests into  Text_script_requests, to aid
@@ -138,13 +138,13 @@ Fingering_engraver."
 
     music))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; property setting music objs.
+
 (define-public (make-grob-property-set grob gprop val)
-  "Make a M-exp that sets GPROP to VAL in GROBS. Does a pop first, i.e.
-this is not an override 
-"
+
+  "Make a M-exp that sets GPROP to VAL in GROBS. Does a pop first,
+i.e.  this is not an override"
   
    (let* ((m (make-music-by-name  'OverrideProperty)))
      (ly:set-mus-property! m 'symbol grob)
@@ -166,7 +166,8 @@ this is not an override
      m
    
    ))
-   
+
+
 (define-public (make-voice-props-set n)
   (make-sequential-music
    (append
@@ -183,6 +184,7 @@ this is not an override
    )
   ))
 
+
 (define-public (make-voice-props-revert)
   (make-sequential-music
    (list
@@ -193,6 +195,7 @@ this is not an override
       (make-grob-property-revert 'NoteColumn 'horizontal-shift)
    ))
   )
+
 
 (define-public (context-spec-music m context . rest)
   "Add \context CONTEXT = foo to M. "
@@ -485,7 +488,6 @@ Rest can contain a list of beat groupings
        ))
      music
      )
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; switch it on here, so parsing and init isn't checked (too slow!)

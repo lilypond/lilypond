@@ -1,3 +1,7 @@
+2003-02-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/music-types.scm (music-descriptions): add doc strings
+
 2003-02-25  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/lexer.ll: 
