@@ -68,27 +68,38 @@ Cursor<T>::operator -( int i ) const
     
     return r;
 }
-
+/*
+  warning:  can't use Cursor::operator == (Cursor),
+  since it uses Cursor::operator-(Cursor)
+ */
 template<class T>
 int
-Cursor<T>::operator-(Cursor<T> c) const
+Cursor<T>::operator-(Cursor<T> rhs) const
 {
-    assert(c.list == list);
+    assert(rhs.list == list);
     int dif = 0;
-    Cursor<T> upward(c);
-    while (upward.ok() && upward.pointer_ != pointer_) {
-	upward++;
+
+    // search from *this on further up (positive difference)
+    Cursor<T> c(*this);
+    while (c.ok() && c.pointer_ != rhs.pointer_) {
+	c--;
 	dif++;
     }
     
-    if (upward.ok())
-	return dif;
+    if (c.ok())
+	goto gotcha;		// so, sue me.
+
+    // search in direction of bottom. (negative diff)
     dif =0;
-    while (c.ok()&& c.pointer_ != pointer_) {
+    c=*this;    
+    while (c.ok() && c.pointer_ !=rhs.pointer_) {
 	dif --;
-	c--;
+	c++;
     }
     assert(c.ok());
+
+gotcha:
+    assert((*this - dif).pointer_ == c.pointer_);
     return dif;
 }
 
