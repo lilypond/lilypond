@@ -125,7 +125,7 @@ SCM
 ly_warning (SCM str)
 {
   assert (gh_string_p (str));
-  warning ("scheme: " + ly_scm2string (str));
+  warning ("lily-guile: " + ly_scm2string (str));
   return SCM_BOOL_T;
 }
 

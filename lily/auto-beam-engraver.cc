@@ -22,7 +22,6 @@ ADD_THIS_TRANSLATOR (Auto_beam_engraver);
 Auto_beam_engraver::Auto_beam_engraver ()
 {
   stem_l_arr_p_ = 0;
-  //shortest_mom_ = 1;
   shortest_mom_ = Moment (1, 8);
   finished_beam_p_ = 0;
   finished_grouping_p_ = 0;
@@ -156,7 +155,6 @@ Auto_beam_engraver::consider_end_and_begin ()
 void
 Auto_beam_engraver::begin_beam ()
 {
-  //  DOUT << String ("starting autobeam at: ") + now_mom ().str () + "\n";
   assert (!stem_l_arr_p_);
   stem_l_arr_p_ = new Array<Stem*>;
   assert (!grouping_p_);
@@ -198,7 +196,6 @@ Auto_beam_engraver::end_beam ()
       delete stem_l_arr_p_;
       stem_l_arr_p_ = 0;
       grouping_p_ = 0;
-      //shortest_mom_ = 1;
       shortest_mom_ = Moment (1, 8);
     }
 }
@@ -310,8 +307,6 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
 	    }
 	  grouping_p_->add_child (start, rhythmic_req->length_mom ());
 
-	  //stem_l->flag_i_ = rhythmic_req->duration_.durlog_i_;
-	  
 	  stem_l_arr_p_->push (stem_l);
 	  Moment now = now_mom ();
 	  last_add_mom_ = now;
@@ -331,7 +326,6 @@ Auto_beam_engraver::junk_beam ()
   stem_l_arr_p_ = 0;
   delete grouping_p_;
   grouping_p_ = 0;
-  //shortest_mom_ = 1;
   shortest_mom_ = Moment (1, 8);
 }
 

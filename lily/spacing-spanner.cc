@@ -35,6 +35,20 @@ Spacing_spanner::scol (int i)const
 
 /*
   cut 'n paste from spring-spacer.cc
+
+  generate springs between columns.
+
+
+  TODO
+  
+  * Spacing should take optical effects into account
+  
+  The algorithm is partly taken from :
+
+  John S. Gourlay. ``Spacing a Line of Music,'' Technical Report
+  OSU-CISRC-10/87-TR35, Department of Computer and Information
+  Science, The Ohio State University, 1987.
+  
  */
 Array<Spring>
 Spacing_spanner::do_measure (int col1, int col2) const
@@ -57,9 +71,89 @@ Spacing_spanner::do_measure (int col1, int col2) const
 
   Array<Spring> meas_springs;
 
+  /*
+    UGR GUR URG.  duplicate code for spacing generation.
+   */
   for (int i= col1; i < col2; i++)
     {
-      if (!scol (i)->musical_b() && i+1 < col_count())
+      SCM hint = scol (i)->get_elt_property (extra_space_scm_sym);
+      if (hint != SCM_BOOL_F)
+	{
+	  hint = SCM_CDR (hint);
+
+	  Spring s;
+	  s.item_l_drul_[LEFT] = scol (i);
+	  s.item_l_drul_[RIGHT] = scol (i+1);
+	  Real unbroken_dist =  gh_scm2double (SCM_CDR(hint));
+
+	  s.distance_f_ = unbroken_dist;
+	  s.strength_f_ = 2.0;
+	  
+
+	  meas_springs.push (s);
+
+	  
+	  Item * l = scol(i)->find_prebroken_piece (RIGHT);
+	  Item * r = scol(i+1)->find_prebroken_piece (LEFT);
+	  if (l)
+	    {
+	        Spring s;
+		s.item_l_drul_[LEFT] = l;
+		s.item_l_drul_[RIGHT] = scol (i+1);
+		hint = l->get_elt_property (extra_space_scm_sym);
+
+		if (hint == SCM_BOOL_F)
+		  {
+		    programming_error ("No postbreak breakable spacing hint set.");
+		    s.distance_f_= unbroken_dist;
+		  }
+		else
+		  s.distance_f_ =  gh_scm2double (SCM_CDDR(hint));
+
+		/*
+		  space around barlines should not stretch very much.
+		 */
+		s.strength_f_ = 2.0;
+		meas_springs.push (s);
+	    }
+
+	  if (r)
+	    {
+	      Spring s;
+	      s.item_l_drul_[LEFT] = scol (i);
+	      s.item_l_drul_[RIGHT] = r;
+	      s.distance_f_ =  unbroken_dist;
+	      
+	      /*
+		space around barlines should not stretch very much.
+		 */
+	      s.strength_f_ = 2.0;
+	      meas_springs.push (s);
+	    }
+
+	  if (l&&r)
+	    {
+	      Spring s;
+	      s.item_l_drul_[LEFT] = l;
+	      s.item_l_drul_[RIGHT] = r;
+	      
+	      hint = l->get_elt_property (extra_space_scm_sym);
+	      if (hint == SCM_BOOL_F)
+		{
+		  programming_error ("No postbreak breakable spacing hint set.");
+		  s.distance_f_= unbroken_dist;
+		}
+	      else
+		s.distance_f_ =  gh_scm2double (SCM_CDDR(hint));
+	      
+	      /*
+		space around barlines should not stretch very much.
+	      */
+	      s.strength_f_ = 2.0;
+	      meas_springs.push (s);
+	    }
+	}
+      else if (!scol (i)->musical_b() && i+1 < col_count())
 	{
 	  Real symbol_distance = scol (i)->extent (X_AXIS)[RIGHT] ;
 	  Real durational_distance = 0;

@@ -13,15 +13,14 @@
     
     */
 struct Union_find {    
-    void connect (int i, int j);
-    int find (int i);
-    bool equiv (int i, int j) { return find (i) == find (j); }
-    Union_find (int sz);
+  void connect (int i, int j);
+  int find (int i);
+  bool equiv (int i, int j) { return find (i) == find (j); }
+  Union_find (int sz);
 
-private:
   /**
      This array provides the representing point for each node in the graph.
-   */
+  */
   Array<int> classes_;
 };
 #endif

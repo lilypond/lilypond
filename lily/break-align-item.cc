@@ -11,6 +11,16 @@
 #include "dimensions.hh"
 #include "p-score.hh"
 #include "paper-def.hh"
+#include "p-col.hh"
+
+
+/*
+  Handle spacing for prefatory matter. 
+
+
+
+  TODO: rewrite this.  It is kludgy
+*/
 
 void
 Break_align_item::do_pre_processing()
@@ -18,7 +28,7 @@ Break_align_item::do_pre_processing()
   align_dir_ = break_status_dir();
   flip (&align_dir_);
   sort_elements ();
-
+  Real interline= paper_l ()->get_realvar (interline_scm_sym);	
   
   Link_array<Score_element> elems;
   for (int i=0; i < elem_l_arr_.size(); i++) 
@@ -29,50 +39,96 @@ Break_align_item::do_pre_processing()
     }
   
 
-  if (elems.size ())
+  
+  if (!elems.size ())
+    return;
+
+  SCM symbol_list = SCM_EOL;
+  Array<Real> dists;
+  SCM current_origin = gh_str02scm ("");
+  for (int i=0; i <= elems.size (); i++)
     {
-      Score_element *current_elt =elems[0];
-      SCM current_origin = current_elt->get_elt_property (origin_scm_sym);
-
-      if (current_origin != SCM_BOOL_F)
-	current_origin = SCM_CDR (current_origin);
+      Score_element *next_elt  = i < elems.size ()
+	? elems[i]
+	: 0 ;
       
-      for (int i=1; i < elems.size (); i++)
+      SCM next_origin;
+
+      if (next_elt)
 	{
-	  Score_element *next_elt  = elems[i];
-	  SCM next_origin = next_elt->get_elt_property (origin_scm_sym);
-	  if (next_origin != SCM_BOOL_F)
-	    {
-	      next_origin = SCM_CDR(next_origin);
-	      SCM extra_space = scm_eval (scm_listify (ly_symbol ("break-align-spacer"),
-							    current_origin,
-							    next_origin,
-							    SCM_UNDEFINED));
-
-	      
-	      Real spc = gh_scm2double (extra_space);
-	      spc *= paper_l ()->get_realvar (interline_scm_sym);	
-	      
-	      current_elt->set_elt_property (extra_space_scm_sym,
-					     scm_cons (gh_double2scm (0.0),
-						       gh_double2scm (spc)));
-	      
-	    }
-	  current_elt = next_elt;
-	  current_origin = next_origin;	  
+	  next_origin = next_elt->get_elt_property (origin_scm_sym);
+	  next_origin =
+	    (next_origin == SCM_BOOL_F)
+	    ? gh_str02scm ("")
+	    : SCM_CDR (next_origin);
 	}
+      else
+	next_origin = gh_str02scm ("begin-of-note");
+      
+      SCM extra_space
+	= scm_eval (scm_listify (ly_symbol ("break-align-spacer"),
+				 current_origin, next_origin, SCM_UNDEFINED)); 
+      SCM symbol = SCM_CAR (extra_space);
+      Real spc = gh_scm2double (SCM_CADR(extra_space));
+      spc *= interline;
 
+      dists.push(spc);
+      symbol_list = gh_cons (symbol, symbol_list);
+      current_origin = next_origin;
     }
-  Axis_align_item::do_pre_processing();
-}
 
+
+  // skip the first sym.
+  symbol_list  = SCM_CDR (scm_reverse (symbol_list));
+  for (int i=0; i <elems.size()-1; i++)
+    {
+      elems[i]->set_elt_property (SCM_CAR (symbol_list),
+				  scm_cons (gh_double2scm (0),
+					    gh_double2scm (dists[i+1])));
+
+      symbol_list = SCM_CDR (symbol_list);
+    }
+
+
+  // urg
+  SCM first_pair = elems[0]->get_elt_property (minimum_space_scm_sym);
+  if (first_pair == SCM_BOOL_F)
+    first_pair = gh_cons (gh_double2scm (0.0), gh_double2scm (0.0));
+  else
+    first_pair = SCM_CDR (first_pair);
+  
+  scm_set_car_x (first_pair, gh_double2scm (-dists[0]));
+  elems[0]->set_elt_property (minimum_space_scm_sym, first_pair);
+			       
+
+  
+  Axis_align_item::do_pre_processing();
+
+  Real pre_space = elems[0]->extent (X_AXIS)[LEFT];
+  Real spring_len = elems.top ()->extent (X_AXIS)[RIGHT];
+  if (SCM_CAR (symbol_list) == extra_space_scm_sym)
+    {
+      spring_len += dists.top ();
+    }
+  else if (SCM_CAR (symbol_list) == minimum_space_scm_sym)
+    {
+      spring_len = spring_len >? dists.top ();
+    }
+
+
+  /*
+    Hint the spacing engine how much space to put in.
+  */
+  column_l ()->set_elt_property (extra_space_scm_sym,
+				 scm_cons (gh_double2scm (pre_space),
+					   gh_double2scm (spring_len)));
+}
 
 
 
 Break_align_item::Break_align_item ()
 {
   stacking_dir_ = RIGHT;
-  threshold_interval_[SMALLER] = 1.5 PT;
   set_axis (X_AXIS);
 }
 
@@ -111,12 +167,5 @@ Break_align_item::add_breakable_item (Item *it)
 	center_l_ = hg;
     }
   
-  /*
-  hg->set_elt_property (ly_symbol("origin"),
-			scm_cons (gh_str02scm (it->name()),
-				  hg->get_elt_property (ly_symbol ("origin"))));
-  */
   hg->add_element (it);
-
-
 }

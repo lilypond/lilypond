@@ -11,11 +11,11 @@
 #include "proto.hh"
 
 struct Absolute_dynamic_req;
-struct Abbreviation;
+struct Stem_tremolo;
 struct Abbreviation_beam; 
 struct Abbreviation_beam_req;
 struct Abbreviation_beam_engraver;
-struct Abbreviation_req;
+struct Tremolo_req;
 struct Adobe_font_metric;
 struct Adobe_font_char_metric;
 struct All_font_metrics;

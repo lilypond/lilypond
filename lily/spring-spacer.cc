@@ -393,26 +393,22 @@ Spring_spacer::add_column (Paper_column  *col, bool fixed, Real fixpos)
       r_rod.other_idx_ = this_rank;
       cols_[left_idx].rods_[RIGHT].push (r_rod);
     }
-#if 1 
-  if (experimental_features_global_b)
+
+  for (int i=0; i < col->spring_arr_drul_[LEFT].size (); i++)
     {
-      for (int i=0; i < col->spring_arr_drul_[LEFT].size (); i++)
-	{
-	  Column_spring &cr = col->spring_arr_drul_[LEFT][i];
-	  int idx = cr.other_l_->rank_i () - cols_[0].pcol_l_->rank_i ();
-	  if (idx < 0)
+      Column_spring &cr = col->spring_arr_drul_[LEFT][i];
+      int idx = cr.other_l_->rank_i () - cols_[0].pcol_l_->rank_i ();
+      if (idx < 0)
+	continue;
+      
+      if (cols_[idx].pcol_l_ != cr.other_l_)
 	    continue;
-
-	  if (cols_[idx].pcol_l_ != cr.other_l_)
-	    continue;
-
-
-	  connect (idx, this_rank, cr.distance_f_,
-		   cr.strength_f_ / cr.distance_f_);
-	}
+      
+      
+      connect (idx, this_rank, cr.distance_f_,
+	       cr.strength_f_ / cr.distance_f_);
     }
-#endif  
-  
+      
   cols_.push (c);
 }
 
@@ -429,6 +425,7 @@ Spring_spacer::error_pcol_l_arr() const
     }
   return retval;
 }
+
 /*
   Ugh. Should junk this.
  */
@@ -500,8 +497,6 @@ Spring_spacer::connect (int i, int j, Real d, Real h)
 void
 Spring_spacer::prepare()
 {
-  if (!experimental_features_global_b)
-    calc_idealspacing();
   handle_loose_cols();
   print();
 }
@@ -514,231 +509,3 @@ Spring_spacer::constructor()
 
 
 
-/**
-  get the shortest_playing running note at a time. */
-void
-Spring_spacer::get_ruling_durations(Array<Moment> &context_shortest_arr)
-{
-  for (int i=0; i < cols_.size(); i++)
-    {
-      scol_l (i)->preprocess();
-      scol_l (i)->print ();
-    }
-  int start_context_i=0;
-  Moment context_shortest;
-  context_shortest.set_infinite (1);
-  context_shortest_arr.set_size(cols_.size());
-
-  for (int i=0; i < cols_.size(); i++)
-    {
-      Score_column * sc = scol_l(i);
-
-      if (sc->breakable_b () || sc->break_status_dir ())
-	{
-	  for (int ji=i; ji >= start_context_i; ji--)
-	    context_shortest_arr[ji] = context_shortest;
-	  start_context_i = i;
-	  context_shortest.set_infinite (1);
-	}
-      else if (sc->musical_b ())
-	context_shortest = context_shortest <? sc->shortest_starter_mom_;
-    }
-
-#ifndef NPRINT
-  DOUT << "context shortest :[ ";
-  for (int i=0; i < context_shortest_arr.size(); i++)
-    {
-      DOUT << context_shortest_arr[i] << ", ";
-    }
-  DOUT << "]\n";
-#endif
-}
-
-/*
-  TODO: take out the refs to width
-
- */
-/**
-  generate springs between columns.
-
-  TODO: This needs rethinking....... 
-
-  * Spacing should take optical effects into account
-
-  * Should be decentralised
-  
-  The algorithm is taken from :
-
-  John S. Gourlay. ``Spacing a Line of Music,'' Technical Report
-  OSU-CISRC-10/87-TR35, Department of Computer and Information
-  Science, The Ohio State University, 1987.
-
-  */
-void
-Spring_spacer::calc_idealspacing()
-{
-  Array<Moment> context_shortest_arr;
-  get_ruling_durations(context_shortest_arr);
-
-  Real interline_f = paper_l ()->get_realvar (interline_scm_sym);
-
-  Array<Real> ideal_arr;
-  Array<Real> hooke_arr;
-  for (int i=0; i < cols_.size() - 1; i++){
-    ideal_arr.push (-1.0);
-    hooke_arr.push (1.0);
-  }
-
-  /* 
-     First do all non-musical columns
-  */
-  for (int i=0; i < cols_.size(); i++)
-    {
-      if (!scol_l (i)->musical_b() && i+1 < cols_.size())
-	{
-	  Real symbol_distance =cols_[i].width_[RIGHT] + 2 PT;
-	  Real durational_distance = 0;
-	  Moment delta_t =  scol_l (i+1)->when_mom () - scol_l (i)->when_mom () ;
-
-	  /*
-	    ugh should use shortest_playing distance
-	  */
-	  if (delta_t)
-	    {
-	      Real k=  paper_l()->arithmetic_constant (context_shortest_arr[i]);
-	      durational_distance =  paper_l()->length_mom_to_dist (delta_t,k);
-	    }
-	  symbol_distance += -cols_[i+1].width_[LEFT];
- 
-
-	  ideal_arr[i] = symbol_distance >? durational_distance;
-	  hooke_arr[i] = 1; //2.0;
-	}
-    }
-
-  /* 
-     Then musicals
-  */
-  for (int i=0; i < cols_.size(); i++)
-    {
-      if (scol_l (i)->musical_b())
-	{
-	  Moment shortest_playing_len = scol_l(i)->shortest_playing_mom_;
-	  Moment context_shortest = context_shortest_arr[i];
-	  if (! shortest_playing_len)
-	    {
-	      warning (_f ("can't find a ruling note at %s", 
-	        scol_l (i)->when_mom ().str ()));
-	      shortest_playing_len = 1;
-	    }
-	  if (! context_shortest)
-	    {
-	      warning (_f ("no minimum in measure at %s", 
-		      scol_l (i)->when_mom ().str ()));
-	      context_shortest = 1;
-	    }
-	  Moment delta_t = scol_l (i+1)->when_mom () - scol_l (i)->when_mom ();
-	  Real k=  paper_l()->arithmetic_constant(context_shortest);
-	  Real dist = paper_l()->length_mom_to_dist (shortest_playing_len, k);
-	  dist *= (double)(delta_t / shortest_playing_len);
-
-	  /*
-	    According to [Ross] and [Wanske], and from what i've seen:
-	     
-	    * whitespace at the begin of the bar should be fixed at 
-	    (about) one interline.
-
-	    [Ross]:
-	    when spacing gets real tight, a smaller fixed value may be 
-	    used, so that there are two discrete amounts of whitespace 
-	    possible at the begin of a bar; but this is not implemented 
-	    right now.
-	     
-	    * whitespace at the end of the bar is the normal amount of 
-	    "hinterfleish" that would have been used, had there been
-	    yet another note in the bar.  
-
-	    [Ross]:
-	    some editors argue that the bar line should not take any 
-	    space, not to hinder the flow of music spaced around a bar 
-	    line.  
-
-	    [Ross] and [Wanske] do not suggest this, however.  Further, 
-	    it introduces some spacing problems and I think that it is ugly 
-	    too.
-	    
-	    [jcn]
-	  */
-
-	  /* 
-	     first musical column of bar
-	  */
-	  if (i && !scol_l (i - 1)->musical_b ())
-	    {
-	      // one interline minimum at start of bar
-
-	      // cols_[i].width_[RIGHT] += interline_f;
-	      cols_[i].width_[RIGHT] = cols_[i].width_[RIGHT] >? interline_f;
-
-	      // should adjust dist too?
-	      ideal_arr[i-1] = ideal_arr[i-1] >? (2 * interline_f);
-	    }
-
-	  /* 
-	     last musical column of bar
-	  */
-	  if (i + 1 < cols_.size () && !scol_l(i+1)->musical_b ())
-	    {
-	      // two interline minimum ok for last column?
-	      dist = dist >? 2 * interline_f;
-
-	      // set minimum rod 
-	      /*
-		urg: simply *adding* an interline leaves big gaps at
-		end of measure in star-spangled-banner (after lyrics
-		at eom).
-
-	           cols_[i].width_[RIGHT] += interline_f; // before
-
-		having a minimum of one interline solves this problem
-		in most (but not all??) cases.
-
-		for music without lyrics (esp. when set very tightly),
-		adding an interline looks good: probably because this
-		hides a bug that allows the last note's "hinterfleish"
-		to be removed (e.g., see wtk1-fugue2: that's ugly now).
-		-- jcn
-	       */
-
-	      cols_[i].width_[RIGHT] = cols_[i].width_[RIGHT] >? 2 * interline_f;
-	    }
-
-	  // ugh, do we need this?
-	  if (i < cols_.size () - 1 && !scol_l (i + 1)->musical_b ())
-	    {
-	      Real minimum = -cols_[i + 1].width_[LEFT] + cols_[i].width_[RIGHT]
-		+ interline_f / 2;
-	      dist = dist >? minimum;
-	    }
-	  ideal_arr[i] = dist;
-	}
-    }
-
-  /*
-    shorter distances should stretch less.
-
-    (and how bout
-
-      hooke[i] = 2 * max_ideal_space - ideal[i]
-
-    ?)
-  */
-  for (int i=0; i < ideal_arr.size(); i++)
-    hooke_arr[i] = 1/ideal_arr[i];
-
-  for (int i=0; i < ideal_arr.size(); i++)
-    {
-      assert (ideal_arr[i] >=0 && hooke_arr[i] >=0);
-      connect (i, i+1, ideal_arr[i], hooke_arr[i]);
-    }
-}

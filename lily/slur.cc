@@ -316,28 +316,34 @@ Slur::get_encompass_offset_arr () const
   int first = 1;
   int last = encompass_arr_.size () - 1;
 
-  // prebreak
-  if (broken_edge_b (RIGHT))
-    last++;
-
-  // postbreak
-  if (broken_edge_b (LEFT))
-    first--;
 
   Array<Offset> notes;
   notes.push (Offset (0,0));
 
-  Real dy =0.0;
-  for (int i = 0; i < last; i++)
+  // prebreak
+  if (broken_edge_b (RIGHT))
+    last++;
+  else
     {
-      Encompass_info info (encompass_arr_[i], dir_, this);
-      if (i >= first)
-	notes.push (info.o_ - left);
-      else
-	dy = info.interstaff_f_;
+      Encompass_info info (encompass_arr_.top (), dir_, this);
+      d[Y_AXIS] += info.interstaff_f_;
+    }
+  
+  // postbreak
+  if (broken_edge_b (LEFT))
+    first--;
+  else
+    {
+      Encompass_info info (encompass_arr_[0], dir_, this);
+      notes[0][Y_AXIS] += info.interstaff_f_;
     }
 
-  notes[0][Y_AXIS] += dy;
+  for (int i = first; i < last; i++)
+    {
+      Encompass_info info (encompass_arr_[i], dir_, this);
+      notes.push (info.o_ - left);
+    }
+
   notes.push (d);
   
   return notes;

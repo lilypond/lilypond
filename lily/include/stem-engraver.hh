@@ -19,9 +19,9 @@ class Stem_engraver : public Engraver
 {
   int default_abbrev_i_;
   Stem *stem_p_;
-  Abbreviation *abbrev_p_;
+  Stem_tremolo *abbrev_p_;
   Rhythmic_req *rhythmic_req_l_;
-  Abbreviation_req* abbrev_req_l_;
+  Tremolo_req* abbrev_req_l_;
 protected:
   virtual void do_creation_processing ();
   virtual void acknowledge_element (Score_element_info);

@@ -12,7 +12,7 @@
 #include "musical-request.hh"
 #include "duration-convert.hh"
 #include "misc.hh"
-#include "abbrev.hh"
+#include "stem-tremolo.hh"
 #include "staff-info.hh"
 #include "translator-group.hh"
 
@@ -61,7 +61,7 @@ Stem_engraver::acknowledge_element(Score_element_info i)
 
 	      if (t)
 		{
-		  abbrev_p_ = new Abbreviation;
+		  abbrev_p_ = new Stem_tremolo;
 		  announce_element (Score_element_info (abbrev_p_, abbrev_req_l_));
 		  abbrev_p_->abbrev_flags_i_ =intlog2 (t) - (duration_log>? 2);
 		}
@@ -75,7 +75,7 @@ Stem_engraver::acknowledge_element(Score_element_info i)
 	{
 	  r->warning (_f("Adding note head to incompatible stem (type = %d)", 1 <<  stem_p_->flag_i_));
 	}
-      
+
       stem_p_->add_head (h);
     }
 }
@@ -123,7 +123,7 @@ Stem_engraver::do_pre_move_processing()
 bool
 Stem_engraver::do_try_music (Music* r)
 {
-  if (Abbreviation_req* a = dynamic_cast <Abbreviation_req *> (r))
+  if (Tremolo_req* a = dynamic_cast <Tremolo_req *> (r))
     {
       abbrev_req_l_ = a;
       return true;

@@ -20,13 +20,13 @@ Span_req::do_print () const
 #endif
 }
 
-Abbreviation_req::Abbreviation_req ()
+Tremolo_req::Tremolo_req ()
 {
   type_i_ = 0;
 }
 
 void
-Abbreviation_req::do_print () const
+Tremolo_req::do_print () const
 {
 #ifndef NPRINT
   DOUT << "type " << type_i_ << '\n';

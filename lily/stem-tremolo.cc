@@ -1,5 +1,5 @@
 /*   
-  abbrev.cc --  implement Abbreviation
+  abbrev.cc --  implement Stem_tremolo
   
   source file of the GNU LilyPond music typesetter
   
@@ -7,7 +7,7 @@
   
  */
 
-#include "abbrev.hh"
+#include "stem-tremolo.hh"
 #include "debug.hh"
 #include "beam.hh"
 #include "paper-def.hh"
@@ -15,24 +15,35 @@
 #include "stem.hh"
 #include "offset.hh"
 
-Abbreviation::Abbreviation ()
+Stem_tremolo::Stem_tremolo ()
 {
   stem_l_ = 0;
   abbrev_flags_i_ = 1;
 }
 
 void
-Abbreviation::do_print () const
+Stem_tremolo::do_print () const
 {
   DOUT << "abbrev_flags_i_ " << abbrev_flags_i_;
 }
 
-Molecule*
-Abbreviation::do_brew_molecule_p () const
+Interval
+Stem_tremolo::do_width () const
 {
-  Beam * b = stem_l_->beam_l_;
+  Real space = stem_l_->staff_line_leading_f ();
+  return Interval (-space, space);
+}
+
+void
+Stem_tremolo::do_pre_processing ()
+{
+}
+
+Molecule*
+Stem_tremolo::do_brew_molecule_p () const
+{
   int mult =0;
-  if (b)
+  if (Beam * b = stem_l_->beam_l_)
     {
       Stem_info i = b->get_stem_info (stem_l_);
       mult = i.mult_i_;
@@ -50,7 +61,7 @@ Abbreviation::do_brew_molecule_p () const
 
   if (stem_l_ && stem_l_->beam_l_) {
     slope_f = stem_l_->beam_l_->slope_f_;
-    // ugh, rather calc from Abbreviation_req
+    // ugh, rather calc from Stem_tremolo_req
     beams_i = stem_l_->beams_i_drul_[RIGHT] >? stem_l_->beams_i_drul_[LEFT];
   } 
   Real sl = slope_f * internote_f;
@@ -81,12 +92,22 @@ Abbreviation::do_brew_molecule_p () const
 	    Beams should intersect one beamthickness below staff end
 	   */
 	  Real dy = - beams->extent ()[Y_AXIS].length () / 2 * stem_l_->dir_;
+
+	  /*
+	    uhg.  Should use relative coords and placement
+	  */
+	  Real whole_note_correction = (stem_l_ && stem_l_->invisible_b( ))
+	    ? -stem_l_->get_dir () * stem_l_->note_delta_f ()/2
+	    : 0.0;
+
+	  /*
+	    UGH. Internote fudging.
+	   */
 	  dy /= internote_f;
 	  dy += stem_l_->stem_end_f ();
 	  dy *= internote_f;
-// urg: can't: stem should be stetched first
-//	  dy -= paper_l ()->beam_thickness_f () * stem_l_->dir_;
-	  beams->translate (Offset(stem_l_->hpos_f () - hpos_f (), dy));
+	  beams->translate (Offset(stem_l_->hpos_f () - hpos_f ()+
+				   whole_note_correction, dy));
 	}
 
       /*
@@ -99,7 +120,7 @@ Abbreviation::do_brew_molecule_p () const
 }
 
 void
-Abbreviation::do_substitute_element_pointer (Score_element*o, Score_element*n)
+Stem_tremolo::do_substitute_element_pointer (Score_element*o, Score_element*n)
 {
   if (stem_l_ == o)
     stem_l_ = dynamic_cast<Stem*> (n);
@@ -107,7 +128,7 @@ Abbreviation::do_substitute_element_pointer (Score_element*o, Score_element*n)
 
 
 void
-Abbreviation::set_stem (Stem *s)
+Stem_tremolo::set_stem (Stem *s)
 {
   stem_l_ = s;
   add_dependency (s);
