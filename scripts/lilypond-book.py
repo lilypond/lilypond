@@ -891,7 +891,12 @@ class Lilypond_snippet (Snippet):
 			ok = ok and (os.path.exists (base + '.png')
 				     or glob.glob (base + '-page*.png'))
 		return not ok
-
+	def texstr_is_outdated (self):
+		base = self.basename ()
+		ok = self.ly_is_outdated ()
+		ok = ok and (os.path.exists (base + '.texstr'))
+		return not ok
+	
 	def filter_text (self):
 		code = self.substring ('code')
 		s = run_filter (code)
@@ -1124,20 +1129,33 @@ def is_derived_class (cl, baseclass):
 			return 1
 	return 0
 
-def process_snippets (cmd, ly_snippets, png_snippets):
+def process_snippets (cmd, ly_snippets, texstr_snippets, png_snippets):
 	ly_names = filter (lambda x: x,
 			   map (Lilypond_snippet.basename, ly_snippets))
+	texstr_names = filter (lambda x: x,
+			   map (Lilypond_snippet.basename, texstr_snippets))
 	png_names = filter (lambda x: x,
 			    map (Lilypond_snippet.basename, png_snippets))
 
 	status = 0
-	if ly_names:
-		status = ly.system (string.join ([cmd] + ly_names),
+	def my_system (cmd):
+		status = ly.system (cmd, 
 				    ignore_error = 1, progress_p = 1)
 
-	if status:
-		ly.error ('Process %s exited unsuccessfully.' % cmd)
-		raise Compile_error
+		if status:
+			ly.error ('Process %s exited unsuccessfully.' % cmd)
+			raise Compile_error
+
+	if texstr_names:
+		my_system (string.join ([cmd + ' -f texstr ' ] + texstr_names))
+		for l in texstr_names:
+			my_system ('latex %s.texstr' % l)
+					
+
+	if ly_names:
+		my_system (string.join ([cmd] + ly_names))
+		
+
 
 	if format == HTML or format == TEXINFO:
 		for i in png_names:
@@ -1213,6 +1231,11 @@ def do_process_cmd (chunks):
 					      Lilypond_snippet)
 			    and x.ly_is_outdated (),
 	          chunks)
+	texstr_outdated = \
+	  filter (lambda x: is_derived_class (x.__class__,
+					      Lilypond_snippet)
+			    and x.texstr_is_outdated (),
+	          chunks)
 	png_outdated = \
 	  filter (lambda x: is_derived_class (x.__class__,
 					      Lilypond_snippet)
@@ -1225,7 +1248,7 @@ def do_process_cmd (chunks):
 
 	if ly_outdated:
 		ly.progress (_ ("Processing...\n"))
-		process_snippets (process_cmd, ly_outdated, png_outdated)
+		process_snippets (process_cmd, ly_outdated, texstr_outdated, png_outdated)
 	else:
 		ly.progress (_ ("All snippets are up to date..."))
 	ly.progress ('\n')
@@ -1414,7 +1437,7 @@ def main ():
 	files = do_options ()
 	global process_cmd
 	if process_cmd == '':
-		process_cmd = lilypond_binary + ' -f tex'
+		process_cmd = lilypond_binary
 
 	if process_cmd:
 		process_cmd += string.join ([(' -I %s' % p)

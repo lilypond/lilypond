@@ -13,10 +13,8 @@
 
 static SCM text_dimension_hash_tab;
 
-
 Box
-lookup_tex_text_dimension (Font_metric *font,
-			   SCM text)
+lookup_tex_text_dimension (Font_metric *font, SCM text)
 {
   Box b;
 
@@ -44,8 +42,6 @@ lookup_tex_text_dimension (Font_metric *font,
   
   return b; 
 }
-
-
 
 LY_DEFINE(ly_load_text_dimensions, "ly:load-text-dimensions",
 	  1, 0, 0,
