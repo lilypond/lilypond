@@ -972,12 +972,23 @@ the staff. They are created by invoking the function
   a b }
 @end lilypond
 
-Internally the @code{set-octavation} function sets the properties
+The @code{set-octavation} function also takes -1 (for 8va bassa) and 2
+(for 15ma) as arguments.  Internally the function sets the properties
 @code{ottavation} (eg. to @code{"8va"}) and
-@code{centralCPosition}. The function also takes arguments -1 (for 8va
-bassa) and 2 (for 15ma).
+@code{centralCPosition}. For overriding the text of the bracket, set
+@code{ottavation} after invoking @code{set-octavation}, i.e.,
 
-@internalsref{OttavaSpanner}.
+@example
+  #(set-octavation 1)
+  \property Staff.ottavation = #"8"
+@end example
+
+@seealso
+
+Internals: @internalsref{OttavaSpanner}.
+
+Examples: @inputfileref{input/regression,ottava.ly},
+@inputfileref{input/regression,ottava-broken.ly}.
 
 @refbugs
 

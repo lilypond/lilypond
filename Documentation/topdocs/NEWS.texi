@@ -7,14 +7,26 @@
 
 @chapter New features in 2.1 since 2.0
 
+@ignore
 Unreleased:
 
 @itemize
 @end itemize
 
-Version 2.1.7
+Version 2.1.9
+@end ignore
 
 @itemize @bullet
+
+@item There is a new mechanism for putting lyrics to melodies.
+With this mechanism, @code{LyricVoice}s can be put melodies
+individually, allowing for different melismatic sections in every
+@code{LyricVoice}. See @file{input/regression/lyric-combine-new.ly}.
+
+@item Formatting of ottava brackets has been improved.
+
+@item Bar lines may now be dotted.
+
 
 @item The documentation now has links to a wiki, where everyone can
 add personal comments to the manual.
