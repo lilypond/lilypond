@@ -2,9 +2,9 @@
 
 @tex
 \input feta20.tex
-\font\fetasixteen=feta16
-\def\fetafont{\fetasixteen}
-\def\fetachar#1{\hbox{\fetasixteen#1}}
+\global\font\fetasixteen=feta16
+\gdef\fetafont{\fetasixteen}
+\gdef\fetachar#1{\hbox{\fetasixteen#1}}
 @end tex
 
 @c Reference GLOSsary
