@@ -25,7 +25,7 @@
 	  (newline (current-error-port))
 	  
 	  ;; hmmm.  what's the best failure option? 
-	  (throw 'ly-file-failed))))
+	  (throw 'ly-file-failed)))))
 
 (define-public (sanitize-command-option str)
   (string-append

@@ -100,14 +100,14 @@ Hyphen_spanner::set_spacing_rods (SCM smob)
   Direction d = LEFT;
   do
     {
-      r.item_l_drul_[d] = sp->get_bound (d);
-      if (r.item_l_drul_[d])
-	r.distance_ += r.item_l_drul_[d]->extent (r.item_l_drul_[d], X_AXIS)[-d];
+      r.item_drul_[d] = sp->get_bound (d);
+      if (r.item_drul_[d])
+	r.distance_ += r.item_drul_[d]->extent (r.item_drul_[d], X_AXIS)[-d];
     }
   while (flip (&d) != LEFT);
 
-  if (r.item_l_drul_[LEFT]
-      && r.item_l_drul_[RIGHT])
+  if (r.item_drul_[LEFT]
+      && r.item_drul_[RIGHT])
     r.add_to_cols ();
   
   return SCM_UNSPECIFIED;

@@ -42,8 +42,8 @@ Separating_group_spanner::find_rods (Item * r, SCM next, Real padding)
 	    {
 	      Rod rod;
 
-	      rod.item_l_drul_[LEFT] = lb;
-	      rod.item_l_drul_[RIGHT] = r;
+	      rod.item_drul_[LEFT] = lb;
+	      rod.item_drul_[RIGHT] = r;
 
 	      rod.distance_ = li[RIGHT] - ri[LEFT] + padding;
 	      rod.add_to_cols ();
@@ -56,8 +56,8 @@ Separating_group_spanner::find_rods (Item * r, SCM next, Real padding)
 	{
 	  Rod rod;
 
-	  rod.item_l_drul_[LEFT] = l;
-	  rod.item_l_drul_[RIGHT]= r;
+	  rod.item_drul_[LEFT] = l;
+	  rod.item_drul_[RIGHT]= r;
 
 	  rod.distance_ = li[RIGHT] - ri[LEFT] + padding;
 	

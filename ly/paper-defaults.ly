@@ -72,7 +72,7 @@
 	   (else 'latin1)))
 	;; add to taste here.
 	
-	(baseline-skip . 2)
+	(baseline-skip . 3)
 	(word-space . 0.6)))
 
     #(define page-breaking ly:optimal-page-breaks)

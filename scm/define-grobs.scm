@@ -569,6 +569,7 @@
 	(print-function . ,Ledger_line_spanner::print)
 	(X-extent-callback . #f)
 	(Y-extent-callback . #f)
+	(spacing-procedure . ,Ledger_line_spanner::set_spacing_rods)
 	(print-function . ,Ledger_line_spanner::print)
 	(layer . 0)
 	(meta . ((interfaces . (spanner-interface ledger-line-interface))))

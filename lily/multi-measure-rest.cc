@@ -328,8 +328,8 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
 	continue;
 
       Rod rod;
-      rod.item_l_drul_[LEFT] = li;
-      rod.item_l_drul_[RIGHT] = ri;
+      rod.item_drul_[LEFT] = li;
+      rod.item_drul_[RIGHT] = ri;
 
       rod.distance_ = li->extent (li, X_AXIS)[BIGGER]
 	- ri->extent (ri, X_AXIS)[SMALLER]

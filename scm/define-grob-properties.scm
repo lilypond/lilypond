@@ -287,6 +287,7 @@ second for staff space. Both contributions are added.")
 left to a group of accidentals.")
      (length ,ly:dimension? "User override for the stem length of
 unbeamed stems.")
+     (length-fraction ,number? "Length of ledger line as fraction of note head size.")
      (lengths ,list? "Default stem lengths. The list gives a length
 for each flag-count.")
      (line-count ,integer? "The number of staff lines.")
@@ -305,6 +306,7 @@ polyphonic guitar notation. The value of this setting is used by
 collisions, even if they have a different number of dots. This normal
 notation for some types of polyphonic music. ")
 
+     (minimum-length-fraction ,number? "Minimum length of ledger line as fraction of note head size.")
      (minimum-distance ,ly:dimension? "Minimum distance between rest
 and notes or beam.")
      (minimum-X-extent ,number-pair? "Minimum size of an object in X
