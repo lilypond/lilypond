@@ -1,6 +1,6 @@
 MAJVER=1
 MINVER=0
-PATCHLEVEL=7
+PATCHLEVEL=8
 
 PACKAGENAME=flower
 VERSION=$(MAJVER).$(MINVER).$(PATCHLEVEL)
@@ -26,7 +26,7 @@ clean:
 	rm -f $(obs) $(staticlib)
 realclean: clean
 	rm -f depend
-DFILES=$(hh) $(cc) $(inl) $(templatecc) Makefile Sources.make TODO
+DFILES=$(hh) $(cc) $(inl) $(templatecc) Makefile Sources.make TODO README
 DDIR=$(DNAME)
 
 dist:

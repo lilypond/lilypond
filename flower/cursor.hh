@@ -107,7 +107,7 @@ private:
 template<class T>
 inline  int cursor_compare(Cursor<T> a,Cursor<T>b)
 {
-    return b-a;
+    return a-b;
 }
 
 template_instantiate_compare(Cursor<T>, cursor_compare, template<class T>);

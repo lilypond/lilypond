@@ -13,6 +13,7 @@ Score::set(Paperdef*p)
     delete paper_;
     paper_ = p;
 }
+
 void
 Score::output(String s)
 {
@@ -29,7 +30,7 @@ Score::output(String s)
 void
 Score::process()
 {
-    *mlog << "Processing ...";
+    *mlog << "Processing ... ";
     set(commands_->parse(last()));
     commands_->print();
     
@@ -53,8 +54,12 @@ Score::process()
     clean_cols();
     OK();
     //    print();
+
+    pscore_->preprocess();
     *mlog << "Calculating ... ";
     pscore_->calc_breaking();
+    pscore_->postprocess();
+
     // TODO: calculate vertical structs
     // TODO: calculate mixed structs.
     *mlog << "\n";

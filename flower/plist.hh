@@ -51,7 +51,7 @@ template<class T>
 void PL_copy(IPointerList<T*> &dst,IPointerList<T*> const&src);
 
 
-#define PL_instantiate(a) L_instantiate(a *); template class PointerList<a*>
+#define PL_instantiate(a)  template class PointerList<a*>
 #define IPL_instantiate(a) PL_instantiate(a); template class IPointerList<a*>
 
 #include "plist.inl"

@@ -3,6 +3,7 @@
 #include "string.hh"
 #include "identifier.hh"
 #include "keyword.hh"
+#include "associter.hh"
 #include "parser.hh"
 
 static Keyword_ent  the_key_tab[]={
@@ -23,6 +24,7 @@ static Keyword_ent  the_key_tab[]={
     "skip", SKIP,
     "commands", COMMANDS,
     "staff", STAFF,
+    "geometric", GEOMETRIC,
     0,0
 } ;
 
@@ -49,4 +51,14 @@ void
 add_identifier(Identifier*i)
 {    
     the_id_tab[i->name] = i;
+}
+
+void
+delete_identifiers()
+{
+    
+    for (Assoc_iter<String,Identifier*> ai(the_id_tab); ai.ok(); ai++) {
+	mtor << "deleting: " << ai.key()<<'\n';
+	delete ai.val();
+    }
 }

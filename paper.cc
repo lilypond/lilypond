@@ -1,16 +1,33 @@
+#include <math.h>
+
 #include "paper.hh"
 #include "debug.hh"
 #include "lookupsyms.hh"
 #include "dimen.hh"
 #include "textdb.hh"
 
+double log2(double x) {
+    return log(x)  /log(2.0);
+}
+
+
+// golden ratio
+const Real PHI = (1+sqrt(5))/2;
+
+// see  Roelofs, p. 57
+Real
+Paperdef::duration_to_dist(Real d)
+{
+    return whole_width * pow(geometric_, log2(d));
+}
+
 Paperdef::Paperdef()
 {
-    linewidth = convert_dimen(15,"cm");		// in cm for now
-    whole_width= convert_dimen(2,"cm");
     lookup_ = new Lookup();
     parse();
-    
+    linewidth = convert_dimen(15,"cm");		// in cm for now
+    whole_width= 6*note_width();
+    geometric_ = PHI;
 }
 
 void 

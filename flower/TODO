@@ -4,6 +4,8 @@
 
 	* efficient copy cons for List
 
+	* extend Interval
+
 	* change String::pos
 
 		s[s.pos('%')] == '%'
@@ -12,9 +14,10 @@
 
 	* use template handle in handle.hh for strings.
 
-	* Restricted cursor/list: make sublist from a list, and use rcursor as if list is as big as the sublist.
+	* Restricted cursor/list: make sublist from a list, and use rcursor
+as if list is as big as the sublist.
 
-	* move towards gnu?
+	* move towards gnu or STL?
 
 		parsestream.h
 		vector.h

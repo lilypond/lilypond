@@ -1,5 +1,5 @@
 # -*- Makefile-*-
-# sourcefiles to be shipped. Also for depedencies
+# sourcefiles to be shipped. Also for dependencies
 
 hdr=    qlp.hh linespace.hh qlpsolve.hh\
 	pcol.hh proto.hh pstaff.hh  line.hh\
@@ -10,7 +10,8 @@ hdr=    qlp.hh linespace.hh qlpsolve.hh\
 	misc.hh score.hh notename.hh lexer.hh symtable.hh\
 	symbol.hh main.hh dimen.hh paper.hh lookupsyms.hh\
 	sccol.hh stcol.hh scommands.hh melodicstaff.hh\
-	identifier.hh simplestaff.hh spanner.hh stem.hh
+	identifier.hh simplestaff.hh spanner.hh stem.hh\
+	notehead.hh
 
 mycc=   qlp.cc qlpsolve.cc \
 	break.cc linespace.cc molecule.cc line.cc\
@@ -24,6 +25,6 @@ mycc=   qlp.cc qlpsolve.cc \
 	dimen.cc paper.cc lookupsyms.cc scommands.cc\
 	sccol.cc stcol.cc getcommands.cc simplestaff.cc\
 	melodicstaff.cc simpleprint.cc stem.cc\
-	spanner.cc\
+	spanner.cc notehead.cc\
 	template1.cc template2.cc template3.cc\
 	version.cc

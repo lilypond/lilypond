@@ -70,18 +70,26 @@
 \vskip 40pt\par\vbox{\hbox to 0pt{\vrule width30pt height1pt\hss}}\par\vskip 40pt
 }
 \def\interscoreline{\beauty}
+
+
+\def\lines#1#2{%
+ \vbox{\kern-\interstaffrule
+	\n=0\nointerlineskip%
+	\loop\ifnum\n<#1\advance\n by1%
+		\kern\interstaffrule
+		\hrule height \staffrulethickness width#2
+		\repeat
+	}}
+
+\def\toplines#1{ % why space needed here?
+	\vbox to 0pt{\hbox{\kern-6pt\lines{#1}{12pt}}\vss}}
+\def\botlines#1{ % idem ditto
+	\vbox to 0pt{\vss\hbox{\kern-6pt\lines{#1}{12pt}}}}
+
 %
 % a staffsymbol with #1 lines, width #2
 % bottom at baseline
-\def\linestafsym#1#2{\vbox to 0pt{\hbox to 0pt%
-  {\vbox to 0pt{\vss%
-	\kern-\interstaffrule
-	\n=0\nointerlineskip%
-	\loop\ifnum\n<#1\advance\n by1%
-		\kern\interstaffrule \hrule height \staffrulethickness	width#2
-		\repeat
-	}%
-\hss}}}
+\def\linestafsym#1#2{\hbox to 0pt{\vbox to 0pt{\vss\lines{#1}{#2}}\hss}}
 
 \def\vcenter#1{\vbox to 0pt{\vss #1\vss}}
 \def\topalign#1{\vbox to 0pt{#1\vss}}

@@ -2,7 +2,7 @@
    process command line, GNU style.
 
 
-   this is (Copyleft) 1996, Han-Wen Nienhuys, <hanwen@stack.urc.tue.nl>
+   this is (Copyleft) 1996, Han-Wen Nienhuys, <hanwen@stack.nl>
  */
 #include <stdio.h>
 #include <iostream.h>

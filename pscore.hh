@@ -33,6 +33,9 @@ struct PScore {
     /****************************************************************/
 
     svec<Item*> select_items(PStaff*, PCol*);
+
+    /// before calc_breaking
+    void preprocess();
     
     void calc_breaking();
     /**
@@ -43,6 +46,9 @@ struct PScore {
       lines contain the broken lines.
      */
 
+    /// after calc_breaking
+    void postprocess();
+    
     /// search all pcols which are breakable.
     svec<const PCol *> find_breaks() const;
 

@@ -4,7 +4,7 @@ ritme = rhythmstaff {
 }
 melody=
 melodicstaff {
-  voice { $ c2.. r8 r4 r8 r16 r32 r32 d8 e8 f8 g8 ''fis1 a8 b8 'c8 c8 `c8 ``c8 c4 c4  c4 c4 $ }
+  voice { $ ''c2.. r8 r4 r8 r16 r32 r32 d8 e8 f8 g8 ''fis1 a8 b8 'c8 c8 ''c8 ```c8 c4 c4  c4 c4 $ }
 }
 score {
 	paper {

@@ -1,0 +1,10 @@
+This library contains some general purpose routines which aren't
+standardised yet. It was written by:
+
+	Han-Wen Nienhuys <hanwen@stack.nl>
+
+and
+
+	Jan Nieuwenhuizen <jan@digicash.com>
+
+It is licensed under the GNU GPL.

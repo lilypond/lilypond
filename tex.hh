@@ -4,6 +4,7 @@
 #include "string.hh"
 #include "boxes.hh"
 
+/// parameter substitution in TeXstrings
 String
 substitute_args(String source, svec<String> args);
 /**

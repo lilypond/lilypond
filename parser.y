@@ -37,7 +37,7 @@
 
 %token VOICE STAFF SCORE TITLE RHYTHMSTAFF BAR NOTENAME OUTPUT
 %token CM IN PT MM PAPER WIDTH METER UNITSPACE SKIP COMMANDS
-%token MELODICSTAFF
+%token MELODICSTAFF GEOMETRIC START
 
 %type <consstr> unit
 %token <id>  IDENTIFIER
@@ -76,6 +76,10 @@ declaration:
 		$$ = new Staff_id(*$1, $3);
 		delete $1; // this sux
 	}
+	| NEWIDENTIFIER '=' voice_block {
+		$$ = new Voice_id(*$1, $3);
+		delete $1;
+	}
 	;
 
 
@@ -108,6 +112,7 @@ paper_body:
 		delete $3;
 	}
 	| paper_body UNITSPACE dim	{ $$->whole_width = $3; }
+	| paper_body GEOMETRIC REAL	{ $$->geometric_ = $3; }
 	;
 
 dim:
@@ -160,9 +165,13 @@ voice_block:
 
 
 voice_body:
-	REAL voice_elts_dollar { $$ = $2; $$->start = $1; }
+	IDENTIFIER		{ $$ = new Voice(*$1->voice()); }
 	| voice_elts_dollar	{ $$ = $1; }
+	| voice_body START REAL { $$->start = $3; }
 	;
+
+
+	
 
 voice_elts_dollar:
 	'$' voice_elts '$'  { $$ = $2; }
@@ -219,5 +228,6 @@ parse_file(String s)
 #endif
    new_input(s);
    yyparse();
+   delete_identifiers();
    *mlog << "\n";
 }

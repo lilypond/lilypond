@@ -32,7 +32,8 @@ Tex_stream::~Tex_stream()
 // print string. don't forget indent.
 Tex_stream &
 Tex_stream::operator<<(String s)
-{       
+{
+    
     for (const char *cp = s; *cp; cp++) {
 	if (outputting_comment) {
 	    *os << *cp;
@@ -56,7 +57,7 @@ Tex_stream::operator<<(String s)
 		nest_level--;		
 		*os << *cp;
 		assert (nest_level >= 0);
-		/* FALL THROUGH */
+		/* FALTHROUGH */
 		
 	    case '\n':
 		*os << "%\n";

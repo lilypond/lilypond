@@ -13,8 +13,8 @@ struct Spanner {
     const PCol *left, *right;
     Parametric_symbol *strets;
     PStaff * pstaff_;
-    ///      clone a piece of  this spanner.
-    Spanner *broken_at(const PCol *c1, const PCol *c2) const; 
+    /// clone a piece of  this spanner.
+    virtual Spanner *broken_at(const PCol *c1, const PCol *c2) const; 
     /**
  
     PRE
@@ -23,6 +23,7 @@ struct Spanner {
     /****************/
     String TeXstring () const ;
     Spanner();
+    virtual void process();
 };
 /** Spanner should know about the items which it should consider:
     e.g. slurs should be steep enough to "enclose" all those items. This

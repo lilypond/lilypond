@@ -4,8 +4,6 @@
 #include "glob.hh"
 #include "boxes.hh"
 #include "string.hh"
-#include "tex.hh"
-
     
 /// a horizontally fixed size element of the score
 struct Item {
@@ -17,7 +15,17 @@ struct Item {
     */
 
     /****************/
+    
+    /// do calculations after determining horizontal spacing
+    virtual void postprocess();
 
+    /// do calculations before determining horizontal spacing
+    virtual void preprocess();
+    /**
+      This is executed directly after the item is added to the
+      PScore
+      */
+    
     virtual Interval width() const;    
     virtual Interval height() const;
     String TeXstring () const ;
@@ -25,7 +33,12 @@ struct Item {
     void print()const;
     virtual ~Item();
 };
-/** An item must be part of a Column
+/** Item is the datastructure for printables whose width is known
+  before the spacing is calculated
+
+  NB. This doesn't mean an Item has to initialize the output field before
+  spacing calculation. 
+  
 */
 
 

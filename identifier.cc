@@ -12,10 +12,15 @@ Identifier::Identifier(String n)
 
 
 Identifier::~Identifier()
-{
+{    
 }
 
 Staff_id::~Staff_id()
 {
     delete staff();
+}
+
+Voice_id::~Voice_id()
+{
+    delete voice();
 }

@@ -1,0 +1,98 @@
+Date: Tue, 5 Nov 1996 00:01:32 +0100
+From: Werner Icking <Werner.Icking@gmd.de>
+To: hanwen@stack.urc.tue.nl
+Cc: dsimons@logicon.com
+Subject: Re: font sizes.
+
+> Date: Mon, 4 Nov 1996 22:37:54 +0100 (MET)
+> From: Han-Wen Nienhuys <hanwen@stack.urc.tue.nl>
+> >
+> >There were different schemes when music was typeset by hand. If I remember
+> >right Harder uses another scheme that Gomberg. Both scheme may be used
+> 
+> Who are Harder and Gomberg? Do you have references?
+
+Both are mentioned in the master thesis by Steinbach & Schofer who
+invented M(u)TeX, the grandmother of all M...TeXs. The Musiclibrary
+in Bonn has the harder (printed in 1948?) and there are not many books
+I liked more to own. 
+
+The master thesis should be available at the CTAN archives under MuTeX
+or MTEX maybe subdirectory DIPL (for Diplom). I have the TEX-source 
+and I may pack it to ftp.gmd.de if you are interested and can't find it
+on CTAN.
+================================================================
+
+[breaking lines]
+>
+>Incidentally, I use a different approach in PMX, starting with the 
+>total number of systems for the piece instead of assuming a starting 
+>physical value for \elemskip.  That's equivalent to setting the 
+>physical length of the whole piece if laid out in one long line.  
+>Knowing the total amount of scalable and fixed space I compute a 
+>starting physical value for \elemskip.  I use that to get how many 
+>bars go in the first line.  Then I force a line break there, remove 
+>those bars and their scalable and fixed space from the accounting, and 
+>start over with the second line, etc.
+
+
+Since you are getting into technical details, I will show mine too: I
+think my way  is the most elegant algorithm i've seen so far.  Some
+terminology: I call a vertical group of symbols (notes) which start at
+the same time a "column".  Each line of a score has notes in it,
+grouped in columns. The difference in starting time between those
+columns makes it possible to determine ideal distances between those
+columns.
+
+Example:
+
+        time ----->
+
+        col1    col2    col3    col4
+
+
+voice1  1               1
+
+voice2  2       2       2       2
+
+
+(1 is a whole note, 2 a half note.)
+
+time_difference (col1 , col2) = 0.5 wholes,
+time_difference (col1 , col3) = 1 wholes,
+time_difference (col2 , col3) = 0.5 wholes,
+etc.
+
+these differences are translated into ideal distances (these translations
+have been the subject of discussion in this thread).
+
+        distance (col1,col2) = 10 pt
+        distance (col1,col3) = 14.1 pt
+        distance (col2,col3) = 10 pt
+        etc.
+
+as you can see, these distance are conflicting. So instead of
+satisfying all those ideals simultaneously, a compromise is sought.
+
+This is Columbus' egg: LilyPond attaches "springs" to each
+column-pair.  each spring has an equilibrium-position which is equal to
+the above mentioned distance, so
+
+        spring (col1, col2) and spring(col2,col3) try to push column 1
+and 3 away (to a distance of 20pt) from each other, whereas the spring
+between col 1 and col 3 tries to pull those two together (to a
+distance of 14.1 pt). The net result of this pushing and pulling is an
+equilibrium situation (the pushing cancels the pulling), which can be
+calculated as the solution of Quadratic program: it is the solution
+with minimum potential energy, for you physicists out there.
+
+This algorithm for doing one line, gives a "badness" parameter for
+each line (the potential energy). Now one can use TeX's algorithm for
+making paragraphs (using this new version of "badness"): one should
+try to minimise the overall badness of a paragraph. LilyPond also uses the
+concept of pre- and post-breaks.
+
+(actually, it is a bit more complicated: each column also has a
+minimum distance to other columns, to prevent symbols from running
+into symbols of other columns.)
+

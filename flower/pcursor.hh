@@ -17,7 +17,9 @@ struct PCursor : public Cursor<void *> {
     PCursor<T> operator -( int no) const {
 	return PCursor<T> (Cursor<void*>::operator-(no));
     }
-
+    int operator -(PCursor<T> op) const {
+	return Cursor<void*>::operator-(op);
+    }
     /// make cursor with #no# items further
     PCursor<T> operator +( int no) const {
 	return PCursor<T> (Cursor<void*>::operator+(no));
@@ -45,7 +47,7 @@ don't create PointerList<void*>'s
 template<class T>
 inline  int pcursor_compare(PCursor<T> a,PCursor<T>b)
 {
-    return cursor_compare(Cursor<void*>(b),Cursor<void*> (a));
+    return cursor_compare(Cursor<void*>(a),Cursor<void*> (b));
 }
 
 #include "compare.hh"

@@ -50,6 +50,7 @@ PScore::typeset_item(Item *i, PCol *c, PStaff *s, int breakstat)
     its.bottom().add(i);
     s->add(i);
     c->add(i);
+    i->preprocess();
 }
 
 void
@@ -154,3 +155,20 @@ PScore::print() const
 #endif 
 }
 
+void
+PScore::preprocess()
+{
+#if 0
+    for (PCursor<Item*> ic(its); ic.ok(); ic++){
+	ic->preprocess();
+    }
+#endif 
+}
+
+void
+PScore::postprocess()
+{
+    for (PCursor<Item*> ic(its); ic.ok(); ic++){
+	ic->postprocess();
+    }
+}
