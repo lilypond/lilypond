@@ -8,6 +8,7 @@
 
 #include <math.h>
 #include "config.h"
+#include "warn.hh"
 
 #include "libc-extension.hh"
 #include "bezier.hh"
@@ -65,6 +66,12 @@ Bezier::get_other_coordinate (Axis a,  Real x) const
 {
   Axis other = Axis ((a +1)%NO_AXES);
   Array<Real> ts = solve_point (a, x);
+
+  if (ts.size () == 0)
+    {
+      programming_error ("No solution found for Bezier intersection.");
+      return 0.0;
+    }
   
   Offset c = curve_point (ts[0]);
   assert (fabs (c[a] - x) < 1e-8);

@@ -48,7 +48,9 @@ Music_sequence::append_music (Music *m)
 {
   set_mus_property ("list",
 		    gh_append2( music_list(), gh_cons (m->self_scm (), SCM_EOL)));
+  scm_unprotect_object (m->self_scm ());
 }
+
 Music_sequence::Music_sequence(SCM h)
 {
   set_mus_property ("list", h);
