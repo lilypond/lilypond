@@ -21,6 +21,7 @@ struct Rhythmic_staff : public Simple_staff
 /// this does the typesetting
 struct Rhythmic_column : public Simple_column {
     virtual void typeset_req(Request *rq);
+    virtual void typeset_stem(Stem_req *rq);
     virtual void typeset_command(Command *, int brs);
   
 

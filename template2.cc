@@ -5,6 +5,7 @@
 #include "staff.hh"
 #include "sccol.hh"
 #include "stcol.hh"
+#include "spanner.hh"
 
 #include "list.cc"
 #include "plist.cc"
