@@ -6,6 +6,44 @@
 ;;; (c) 2000--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;; Jan Nieuwenhuizen <janneke@gnu.org>
 
+(use-modules (oop goops))
+
+(define-class <texi-node> ()
+  (children #:init-value '() #:accessor node-children #:init-keyword #:children)
+  (text #:init-value "" #:accessor node-text #:init-keyword #:text)
+  (name #:init-value "" #:accessor node-name #:init-keyword #:name)
+  (description #:init-value "" #:accessor node-desc #:init-keyword #:desc)
+  )
+
+(define (menu-entry x)
+  (cons
+   (node-name x)
+   (node-desc x))
+  )
+
+(define (dump-node node port level)
+  (display
+   (string-append
+    "\n@html"
+    "\n<hr>"
+    "\n@end html\n@node "
+    (node-name node)
+    "\n\n"
+    (texi-section-command level) " "
+    (node-name node)
+    "\n\n"
+    (node-text node)
+    "\n\n"
+    (if (pair? (node-children node))
+	(texi-menu
+	 (map (lambda (x) (menu-entry x) )
+	      (node-children node)))
+	 ""))
+   port)
+  (map (lambda (x) (dump-node x port (+ 1 level)))
+        (node-children node))
+  )
+
 (define (processing name)
   (display (string-append "\nProcessing " name " ... ") (current-error-port)))
 
@@ -14,14 +52,6 @@
 
 (define (texify x)
   x)
-;;  (let*
-;;     ((x1 (regexp-substitute/global #f "\([^@]\){" x 'pre "\1@{" 'post))
-;;      ((x2 (regexp-substitute/global #f "\([^@]\){" x 'pre "\1@{" 'post))
-;;      ((x3 (regexp-substitute/global #f "\([^@]\)@" x 'pre "\1@@" 'post))
-;;       )
-;;    x2))
-
-
 
 (define (scm->texi x)
   (string-append "@code{" (texify (scm->string x)) "}")
@@ -39,15 +69,9 @@
        (call-with-output-string (lambda (port) (display val port)))
        )))
 
-(define (node name)
-  (string-append
-   "\n@html"
-   "\n<hr>"
-   "\n@end html"
-   "\n@node " name))
 
-(define texi-section-alist
-  '(
+(define (texi-section-command level)
+  (cdr (assoc level '(
     ;; Hmm, texinfo doesn't have ``part''
     (0 . "@top")
     (1 . "@unnumbered")
@@ -55,20 +79,7 @@
     (3 . "@unnumberedsubsec")
     (4 . "@unnumberedsubsubsec")
     (5 . "@unnumberedsubsubsec")
-    ))
-    
-(define (texi-section level name ref)
-  "texi sectioning command (lower LEVEL means more significant).
-Add a ref if REF is set
-"
-     
-  (string-append
-   "\n" (cdr (assoc level texi-section-alist)) " "
-   (if ref
-       (ref-ify name)
-       name)
-   "\n"))
-
+    ))))
 
 (define (one-item->texi label-desc-pair)
   "Document one (LABEL . DESC); return empty string if LABEL is empty string. 
@@ -80,7 +91,8 @@ Add a ref if REF is set
 
 
 (define (description-list->texi items-alist)
-  "Document ITEMS-ALIST in a table. entries contain (item-label . string-to-use)
+  "Document ITEMS-ALIST in a table. entries contain (item-label
+. string-to-use)
 "
   (string-append
    "\n@table @samp\n"
@@ -88,6 +100,7 @@ Add a ref if REF is set
    "\n@end table\n"))
 
 (define (texi-menu items-alist)
+  "Generate what is between @menu and @end menu."
   (let
       (
        (maxwid (apply max (map (lambda (x) (string-length (car x)))
@@ -118,17 +131,9 @@ Add a ref if REF is set
   "\n@end ignore\n")))
 
   
-(define (texi-node-menu name items-alist)
-  (string-append
-   (node name)
-   (texi-section 1 name #f)
-   (texi-menu items-alist)))
 
 
-
-(define (texi-file-head name file-name top items-alist)
-
-  
+(define (texi-file-head name file-name top)
   (string-append
    "\\input texinfo @c -*-texinfo-*-"
    "\n@setfilename " file-name ".info"
@@ -138,21 +143,6 @@ Add a ref if REF is set
    ;; prepend GNU for dir, must be unique
    "\n* GNU " name ": (" file-name ").          " name "."
    "\n@end direntry"
-   ;; ugh, prev and next should be settable, of course
-   (node "Top") ",(lilypond)Index,(lilypond)Full Grob interface list," top
-   "\n@top"
-   (texi-section 1 name #f)
-   (texi-menu items-alist)
-   "\n@contents"
-   ))
-
-(define (itexi-file-head name file-name top items-alist)
-  (string-append
-   "@c -*-texinfo-*-"
-   (node name) ",,," top
-   (texi-section 1 name #f)
-   (texi-menu items-alist)
-   "\n@contents"
    ))
 
 
@@ -171,6 +161,7 @@ Add a ref if REF is set
   name)
 
 (define (ref-ify x)
+  "Add ref to X"
   (string-append "@ref{" x "}"))
 
 (define (human-listify l)
@@ -185,3 +176,60 @@ Add a ref if REF is set
 
 (define (writing-wip x)
   (display (string-append "\nWriting " x " ... ") (current-error-port)))
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; property  stuff.
+
+(define (property->texi where sym)
+  "Document SYM for WHERE (which can be translation, backend, music)"
+  (let* (
+	 (name (symbol->string sym))
+	 (type?-name (string->symbol
+		      (string-append (symbol->string where) "-type?")))
+	 (doc-name (string->symbol		    
+		    (string-append (symbol->string where) "-doc")))
+	 (type (object-property sym type?-name))
+	 (typename (type-name type))
+	 (desc (object-property sym doc-name)))
+
+    (if (eq? desc #f)
+	(error "No description for property ~S" sym)
+	)
+    (cons
+     (string-append "@code{" name "} "
+		    "(" typename ")")
+     desc)
+     
+    ))
+
+(define (document-property-value sym alist)
+  "Extract value for SYM from ALIST, return as texi string"
+  (let* ((handle (assoc sym alist)))
+    (if (eq? handle #f)
+	"(unset)"
+	(scm->texi (cdr handle)))))
+
+
+(define (backend-property->texi sym)
+  (property->texi 'backend sym))
+
+(define (document-property sym where alist)
+  "Document SYM. If GROB-DESCRIPTION is not #f, it's an alist
+containing default values."
+  (let*
+      ((without (property->texi where sym))
+       (rv
+
+    (cons (car without)
+	  (if (eq? alist #f)
+	      (cdr without)
+	      (string-append
+	       (cdr without)
+	       "\nDefault value: "
+	       (document-property-value sym alist)))))
+
+       )
+;    (display rv)
+    rv  ))

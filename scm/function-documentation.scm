@@ -23,7 +23,7 @@
     '() (ly-get-all-function-documentation))
    )
 
-(define (document-all-scheme-functions)
+(define (all-scheme-functions-doc)
   (let*
       (
 
@@ -35,8 +35,14 @@
        (sfdocs (sort fdocs string<?))
        )
 
-    (apply string-append sfdocs)
-	 
+
+    (make <texi-node>
+      #:name "Scheme functions"
+      #:desc "Primitive functions exported by LilyPond"
+      #:text
+      (apply string-append sfdocs)
+	) 
   ))
 
 
+; (dump-node (all-scheme-functions-doc)  (current-output-port) 0 )
