@@ -10,7 +10,8 @@
 
 @item
 LilyPond now uses FreeType read the Feta font as an OpenType
-font. This is cleaner design and more robust.
+font. This is cleaner design and more robust.  A recent version of
+FontForge (11122004 or newer) and Freetype is required.
 
 @item
 A new script, @code{\espressivo} has been added, for a combination of
