@@ -398,7 +398,7 @@ verb(
 		\melodic { c4 c g g }
 		\paper {}	
 		\midi {
-			\output "myfile.mid";
+			output = "myfile.midi";
 			\tempo 4=70;
 		}
 	}
