@@ -1,6 +1,7 @@
 2003-01-25  Heikki Junes  <hjunes@cc.hut.fi>
 
-	* lilypond-font-lock.el: lyrics-mode update for multiple stanza.	
+	* lilypond-font-lock.el: lyrics-mode update for multiple stanza.
+	
 	* lilypond.words: add one.
 
 2003-01-23  Heikki Junes  <hjunes@cc.hut.fi>
@@ -8,6 +9,11 @@
 	* lilypond-font-lock.el: Fontify post-notated slurs [-^_][()].
 	Fontify bass note in chords, e.g., e in c1/e.
 	
+2003-01-19  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/user/music-glossary.tely: Dutch updates and
+	additions (Arent Storm).
+
 2003-01-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/regression/ambitus.ly:  move file.	
