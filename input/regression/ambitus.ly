@@ -6,6 +6,7 @@ signature. @code{AmbitusNoteHead} grobs also have ledger lines.
 
 "
 }
+\version "2.3.8"
 
 \paper {
     raggedright = ##t
