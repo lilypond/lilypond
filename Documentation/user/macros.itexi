@@ -48,7 +48,7 @@
 @iftex
 @macro texisharp {word}
 @tex
-$\\sharp$
+$\\sharp$%
 @end tex
 @end macro
 @end iftex

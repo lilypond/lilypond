@@ -35,19 +35,12 @@ LilyPond to produce printed output; you should then be able to create
 your first sheets of music. The tutorial continues with more and more
 complex examples.
 
-Some of the examples discussed are included as separate files in the
-distribution, in the subdirectory @file{input/tutorial/} of the source
-package.
-
 @node First steps
 @section First steps
 
-In this section, we show how to make small, very simple pieces of
-music in LilyPond.  If you have not seen LilyPond input files before,
-this section is for you.
-
-You get a simple note by typing its note name, from @code{a} through
-@code{g}. So if you enter
+We tsart off with showing how very simple music is entered in
+LilyPond:  you get a simple note by typing its note name, from
+@code{a} through @code{g}. So if you enter
 @quotation
 @example
 c d e f g a b
@@ -1094,7 +1087,7 @@ The complete file is listed here:
 @section A melody with chords
 
 In this section we show how to typeset a melody with chord
-accompaniment. This file is included as @file{flowing.ly}.
+accompaniment. This file is included as @file{input/tutorial/flowing.ly}.
 
 @example 
 \include "paper16.ly"
@@ -1669,7 +1662,7 @@ lily version.
 Our fourth subject is a piece of piano music.  The fragment in the
 input file is a piano reduction of the G major Sinfonia by Giovanni
 Battista Sammartini.  It was composed around 1740.  It's in the source
-package under the name @file{sammartini.ly}.
+package under the name @file{input/tutorial/sammartini.ly}.
 
 @lilypondfile[verbatim]{sammartini.ly}
 
@@ -1931,8 +1924,8 @@ to the page layout of this document.
 
 In this section, we show some ways to fine tune the final output of a
 piece. We do so using a single measure of a moderately complex piano
-piece: a Brahms intermezzo (opus 119, no. 1).
-@cindex Brahms, Johannes
+piece: a Brahms intermezzo (opus 119, no. 1). Both fragments (the
+tuned and the untuned are in the @file{input/tutorial/}).
 
 The code for the untuned example shows us some new things.
 
@@ -2294,8 +2287,8 @@ for transposing instruments.
 @subsection The full score
 
 
-The second file, @file{os-score.ly} reads the definitions of the first
-(@file{os-music.ly}), and defines the @code{\score} block for the full
+The second file, @file{input/tutorial/os-score.ly} reads the definitions of the first
+(@file{input/tutorial/os-music.ly}), and defines the @code{\score} block for the full
 conductor's score.
 
 

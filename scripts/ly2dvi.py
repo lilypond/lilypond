@@ -481,7 +481,7 @@ def run_lilypond (files, outbase, dep_prefix):
 	exit_status = status >> 8
 
 	# 2 == user interrupt.
-	if signal <> 2:
+	if signal and  signal <> 2:
 		error("\n\nLilyPond crashed (signal %d). Please submit a bugreport to bug-lilypond@gnu.org\n" % signal)
 
 	if status:
