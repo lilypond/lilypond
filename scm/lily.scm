@@ -101,22 +101,14 @@
 
 ;;;;;;;;;;;;;;;;
 ; alist
-(define (uniqued-alist  alist acc)
-  (if (null? alist) acc
-      (if (assoc (caar alist) acc)
-	  (uniqued-alist (cdr alist) acc)
-	  (uniqued-alist (cdr alist) (cons (car alist) acc)))))
-
-
 (define-public (assoc-get key alist . default)
   "Return value if KEY in ALIST, else DEFAULT (or #f if not specified)."
   (let ((entry (assoc key alist)))
     (if (pair? entry)
 	(cdr entry)
-	(if (pair? default) (car default) #f)
-	)))
+	(if (pair? default) (car default) #f))))
 
-(define-public (uniqued-alist  alist acc)
+(define-public (uniqued-alist alist acc)
   (if (null? alist) acc
       (if (assoc (caar alist) acc)
 	  (uniqued-alist (cdr alist) acc)
@@ -434,12 +426,12 @@ L1 is copied, L2 not.
        "clef.scm"
        "slur.scm"
        "font.scm"
+       "encoding.scm"
        
        "define-markup-commands.scm"
        "define-grob-properties.scm"
        "define-grobs.scm"
        "define-grob-interfaces.scm"
-
        "page-layout.scm"
        "paper.scm"
        ))

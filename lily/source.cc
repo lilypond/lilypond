@@ -19,7 +19,7 @@
 Sources::Sources ()
 {
   sourcefile_list_ = 0;
-  path_C_= 0;
+  path_= 0;
   is_binary_ = false;
 }
 
@@ -32,7 +32,7 @@ Sources::set_binary (bool bo)
 void
 Sources::set_path (File_path *f)
 {
-  path_C_ = f;
+  path_ = f;
 }
 
 /**
@@ -46,9 +46,9 @@ Sources::set_path (File_path *f)
 Source_file*
 Sources::get_file (String &file_string) //UGH
 {
-  if ((file_string != "-") && path_C_)
+  if ((file_string != "-") && path_)
     {
-      String file_string_o = path_C_->find (file_string); 
+      String file_string_o = path_->find (file_string); 
       if ((file_string_o == "") && (file_string != ""))
 	return 0;
       file_string = file_string_o;

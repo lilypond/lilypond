@@ -103,7 +103,6 @@ Page::Page (Paper_def *paper, int number)
 
   header_ = scm_call_2 (make_header, paper_->self_scm (),
 			scm_int2num (number_));
-  // FIXME: why does this (generates Stencil) not trigger font load?
   if (get_header ())
     get_header ()->align_to (Y_AXIS, UP);
     

@@ -16,6 +16,7 @@ source file of the GNU LilyPond music typesetter
 class Virtual_font_metric : public Font_metric
 {
   SCM font_list_;
+
 public:
   SCM get_font_list () const;
   Virtual_font_metric (SCM namelist);
@@ -28,6 +29,8 @@ public:
   virtual Offset get_indexed_wxwy (int) const;
   virtual int name_to_index (String)const;
   virtual Stencil find_by_name (String) const;
+  virtual String coding_scheme () const;
+
 protected:
   virtual void derived_mark () const;
 };

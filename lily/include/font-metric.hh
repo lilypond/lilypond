@@ -20,7 +20,7 @@ struct Font_metric
 {
 public:
   SCM description_;
-  String path_;
+  String filename_;
   
   virtual int count () const;
   virtual Offset get_indexed_wxwy (int) const;
@@ -31,16 +31,23 @@ public:
   virtual Real design_size () const;
   virtual Stencil find_by_name (String) const;
   virtual Stencil get_indexed_char_stencil (int k) const;
-  virtual Stencil get_ascii_char_stencil (int k) const;  
+  virtual Stencil get_ascii_char_stencil (int k) const;
+  virtual String coding_scheme () const;
+  //static int get_encoded_index (Font_metric *m, String input_coding, int code);
   
   DECLARE_SMOBS (Font_metric,);
+
 private:
-  Font_metric (Font_metric const&); // no copy.
+  /* No copying, no implicit copy constructor.  */
+  Font_metric (Font_metric const&);
+
 protected:
   virtual void derived_mark () const;
 
   Font_metric ();
 };
+
+int get_encoded_index (Font_metric *m, String input_coding, int code);
 
 struct Simple_font_metric : public Font_metric
 {

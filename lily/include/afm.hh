@@ -19,38 +19,39 @@
 #include "font-metric.hh"
 #include "parse-afm.hh"
 
-struct Adobe_font_metric : Simple_font_metric
+class Adobe_font_metric : public Simple_font_metric
 {
-  AFM_Font_info * font_inf_;
+public:
+  AFM_Font_info *font_info_;
+  unsigned int checksum_;
+  Real design_size_;
+
+  ~Adobe_font_metric ();
 
   virtual int name_to_index (String) const;
   virtual int count () const;
   virtual Box get_ascii_char (int) const;
   virtual Box get_indexed_char (int) const;
   virtual Offset get_indexed_wxwy (int) const;
+  virtual String coding_scheme () const;
   
   AFM_CharMetricInfo const *find_char_metric (String name) const;
   AFM_CharMetricInfo const *find_ascii_metric (int) const;  
 
   String to_string () const;
-  ~Adobe_font_metric ();
   static SCM make_afm (AFM_Font_info*, unsigned, Real);
   virtual Real design_size () const;
 
-  unsigned int checksum_;
-  Real design_size_;
 protected:
   Array<int> ascii_to_metric_idx_;
   std::map<String,int> name_to_metric_dict_;
 
-  virtual Stencil find_by_name (String) const;
-
   Adobe_font_metric (AFM_Font_info*);
+  virtual Stencil find_by_name (String) const;
 };
 
-SCM read_afm_file (String fn);
-Box afm_bbox_to_box (AFM_BBox bb);
+SCM read_afm_file (String);
+Box afm_bbox_to_box (AFM_BBox);
   
-
 #endif /* AFM_HH */
 
