@@ -19,6 +19,7 @@
 #include "item.hh"
 #include "p-col.hh"
 #include "request-column.hh"
+#include "grouping.hh"
 
 void
 Staff_column::OK() const
@@ -182,3 +183,52 @@ Staff_column::musical_column_l()
 {
     return req_col_l_->musical_column_l_;
 }
+
+void
+Staff_column::update_time(Time_description &time_, 
+		    Rhythmic_grouping *default_grouping)
+{
+    // first all meter changes
+    for (int i=0; i < timing_req_l_arr_.size(); i++) {
+	Timing_req * tr_l = timing_req_l_arr_[i];
+	if (tr_l->meterchange()) {
+	    int b_i=tr_l->meterchange()->beats_i_;
+	    int o_i = tr_l->meterchange()->one_beat_i_;
+	    if (! time_.allow_meter_change_b() )
+		tr_l->warning("Meter change not allowed here");
+	    else{
+		time_.set_meter(b_i, o_i);
+		if (default_grouping)
+		    *default_grouping = 
+		    Rhythmic_grouping(MInterval(0,Moment(b_i, o_i)), b_i);
+	    }
+	}
+    }
+    
+    // then do the rest
+    for (int i=0; i < timing_req_l_arr_.size(); i++) {
+	Timing_req * tr_l = timing_req_l_arr_[i];
+	if (tr_l->partial()) {
+	    Moment m = tr_l->partial()->duration_;
+	    String error = time_.try_set_partial_str(m);
+	    if (error != "") {
+		tr_l->warning(error);
+	    } else 
+		time_.setpartial(m);
+	} else if (tr_l->barcheck() && time_.whole_in_measure_) {
+	    tr_l ->warning( "Barcheck failed");
+
+	    time_.whole_in_measure_ = 0; // resync
+	    time_.error_b_ = true;
+	} else if (tr_l->cadenza()) {
+	    time_.set_cadenza(tr_l->cadenza()->on_b_);
+	} else if (tr_l->measuregrouping()) {
+	    if (default_grouping)
+		*default_grouping = parse_grouping(
+		    tr_l->measuregrouping()->beat_i_arr_,
+		    tr_l->measuregrouping()->elt_length_arr_);
+	}
+    }
+    time_.OK();
+}   
+
