@@ -7,7 +7,7 @@
 */
 
 
-#include "horizontal-group-item.hh"
+#include "axis-group-item.hh"
 #include "score-priority-engraver.hh"
 #include "item.hh"
 #include "dictionary-iter.hh"
@@ -47,7 +47,7 @@ Score_priority_engraver::add_horizontal_group (Item* it, int priority)
   if (priority == 0)
     halign_p_->center_l_ = it;
 
-  halign_p_->add_item (it, priority);
+  halign_p_->add_element_priority (it, priority);
 
   column_p_arr_.push (it);
 }
@@ -70,33 +70,31 @@ Score_priority_engraver::acknowledge_element (Score_element_info inf)
       if (!breakable)
 	return ;
       
-      int priority = SCM_CDR (pr);
-      /*
-	Don't try to eat up our (probable) parent.
-      */
-      if (inf.origin_grav_l_arr_.size () <= 1 &&
-	  dynamic_cast<Break_align_item *> (item_l))
-	return; 
-
+      int priority = gh_scm2int (SCM_CDR (pr));
       
       Score_element * column_l = 0;
       if (halign_p_)
 	column_l = halign_p_->get_elt_by_priority (priority);
-      Horizontal_group_item * hg;
+      Axis_group_item * hg=0;
       if (column_l)
 	{
-	  hg = dynamic_cast<Horizontal_group_item*> (column_l);
+	  hg = dynamic_cast<Axis_group_item*> (column_l);
 	}
       else
 	{
-	  hg = new Horizontal_group_item;
+	  hg = new Axis_group_item;
+	  hg->set_axes (X_AXIS,X_AXIS);
+	  hg->set_elt_property (ly_symbol("origin"),
+				SCM_EOL);
 	  announce_element (Score_element_info (hg,0));
 	  add_horizontal_group (hg, priority);
-	  hg->set_elt_property (breakable_scm_sym, SCM_BOOL_T);
 	}
       
-
+      hg->set_elt_property (ly_symbol("origin"),
+			    scm_cons (gh_str02scm (item_l->name()),
+				      hg->get_elt_property (ly_symbol ("origin"))));
       hg->add_element (item_l);
+      
     }
 }
 
