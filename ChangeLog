@@ -1,5 +1,8 @@
 2004-06-19  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scripts/lilypond.py (ic_p.make_include_option): set error_p for
+	single file error.
+
 	* lily/bar-line.cc (compound_barline): add support for unbroken ||:
 
 2004-06-17  Carl Sorensen (carl_sorensen@byu.edu)
