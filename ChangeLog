@@ -9,6 +9,11 @@
 	as LilyPond-blink-matching-open and use it for closing parens.
 	Let LilyPond-blink-matching-open know whether a bracket was inserted.
 
+	* lilypond-indent.el: renamed LilyPond-beginning-of-containing-sexp to
+	LilyPond-scan-containing-sexp and LilyPond-blink-matching-open to
+	LilyPond-blink-matching-paren in order to match both open and close
+	brackets.
+	
 2003-06-05  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-indent.el (LilyPond-show-paren-function): introduce for

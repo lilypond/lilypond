@@ -309,7 +309,7 @@ Argument LIM limit."
 	nil))
 
 
-(defun LilyPond-beginning-of-containing-sexp (&optional bracket-type slur-paren-p)
+(defun LilyPond-scan-containing-sexp (&optional bracket-type slur-paren-p dir)
   "Move point to the beginning of the deepest parenthesis pair enclosing point. 
 
 If the optional argument bracket-type, a character representing a
@@ -323,37 +323,48 @@ slur-paren-p defaults to nil.
 "
 ;;; An user does not call this function directly, or by a key sequence.
   ;;  (interactive)
-  (let ( (level 1) 
+  (let ( (level (if (/= dir 1) 1 -1))
 	 (regexp-alist LilyPond-parens-regexp-alist) 
-	 (oldpos (point) ) )
+	 (oldpos (point))
+	 (assoc-bracket-type (if (/= dir 1) bracket-type (LilyPond-matching-paren bracket-type))))
     (if (LilyPond-inside-scheme-p)
 	(setq paren-regexp "(\\|)")
       (if slur-paren-p
 	  ;; expressional slurs  '\( ... \)' are not taken into account
 	  (setq regexp-alist (cons '( ?\) . ("\\([^\\]\\([\\][\\]\\)*\\|^\\)(" . "\\([^\\]\\([\\][\\]\\)*\\|^\\))")) regexp-alist)))
-      (if (member bracket-type (mapcar 'car regexp-alist))
-	  (progn (setq paren-regexp (cdr (assoc bracket-type regexp-alist)))
+      (if (member assoc-bracket-type (mapcar 'car regexp-alist))
+	  (progn (setq paren-regexp (cdr (assoc assoc-bracket-type regexp-alist)))
 		 (setq paren-regexp (concat (car paren-regexp) "\\|" (cdr paren-regexp))))
 	(setq paren-regexp (concat (mapconcat 'car (mapcar 'cdr regexp-alist) "\\|") "\\|"
 				   (mapconcat 'cdr (mapcar 'cdr regexp-alist) "\\|")))))
-    (while (and (> level 0) 
-		(re-search-backward paren-regexp nil t)
+    (while (and (if (/= dir 1) 
+		    (> level 0) 
+		  (< level 0))
+		(if (/= dir 1)
+		    (re-search-backward paren-regexp nil t)
+		  (re-search-forward paren-regexp nil t))
 		(setq match (char-before (match-end 0))))
+;;;      (message "%d" level) (sit-for 0 300)
       (if (not (save-excursion (goto-char (match-end 0)) 
 			       (LilyPond-inside-string-or-comment-p)))
 	  (if (memq match '(?} ?> ?] ?\)))
 	      (progn (setq level (1+ level))
+;;;		     (message "%d %c" level match) (sit-for 0 300)
 		     (if (and (= match ?>) 
 			      (looking-at ".\\s-+>\\|\\({\\|}\\|<\\|>\\|(\\|)\\|[][]\\)>"))
 			 (forward-char 1)))
 	    (progn (setq level (1- level))
+;;;		   (message "%d %c" level match) (sit-for 0 300)
 		   (if (and (= match ?<)
 			    (looking-at ".\\s-+<\\|\\({\\|}\\|<\\|>\\|(\\|)\\|[][]\\)<"))
 		       (forward-char 1))))))
     ;; jump to the matching slur
-    (if (sequencep bracket-type)
-	(if (looking-at "..[][)(]") (forward-char 1)))
-    (if (looking-at ".[][><)(]") (forward-char 1))
+    (if (/= dir 1)
+	(progn
+	  (if (sequencep bracket-type)
+	      (if (looking-at "..[][)(]") (forward-char 1)))
+	  (if (looking-at ".[][><)(]") (forward-char 1)))
+      (backward-char 1))
     (if (= level 0) 
 	(point)
       (progn (goto-char oldpos)
@@ -391,39 +402,40 @@ slur-paren-p defaults to nil.
 ;;; Largely taken from the 'blink-matching-open' in lisp/simple.el in
 ;;; the Emacs distribution.
 
-(defun LilyPond-blink-matching-open ()
+(defun LilyPond-blink-matching-paren (&optional dir)
   "Move cursor momentarily to the beginning of the sexp before
 point. In lilypond files this is used for closing ), ], } and >, whereas the
 builtin 'blink-matching-open' is not used. In syntax table, see
 `lilypond-font-lock.el', all brackets are punctuation characters."
 ;;; An user does not call this function directly, or by a key sequence.
   ;;  (interactive)
-  (let ( (oldpos (point))
+  (let ( (dir (if (eq dir 1) 1 -1))
+	 (oldpos (point))
 	 (level 0) 
 	 (mismatch) )
     ;; Test if a ligature \] or expressional slur \) was encountered
-    (if (not (equal this-command 'LilyPond-electric-close-paren))
+    (if (not (or (equal this-command 'LilyPond-electric-close-paren)
+		 (eq dir 1)))
 	(goto-char (setq oldpos (- oldpos 1))))
     (setq bracket-type (char-after (point)))
     (setq char-before-bracket-type nil)
-    (if (memq bracket-type '(?] ?\)))
+    (if (memq bracket-type '(?] ?\) ?[ ?\())
       (progn 
 	(setq np -1)
 	(while (eq (char-before (- (point) (setq np (+ np 1)))) ?\\)
 	  (setq char-before-bracket-type (if char-before-bracket-type nil ?\\)))
         (if (eq char-before-bracket-type ?\\)
 	    (setq bracket-type (string char-before-bracket-type bracket-type)))))
-    (save-restriction
-      (if blink-matching-paren-distance
-	  (narrow-to-region (max (point-min)
-				 (- (point) blink-matching-paren-distance))
-			    oldpos)))
-    (if (memq bracket-type '(?> ?}))
+    (when blink-matching-paren-distance
+      (narrow-to-region
+       (max (point-min) (- (point) blink-matching-paren-distance))
+       (min (point-max) (+ (point) blink-matching-paren-distance))))
+    (if (memq bracket-type '(?> ?} ?< ?{))
 	;; < { need to be mutually balanced and nested, so search backwards for both of these bracket types 
-	(LilyPond-beginning-of-containing-sexp nil nil)  
+	(LilyPond-scan-containing-sexp nil nil dir)  
       ;; whereas ( ) slurs within music don't, so only need to search for ( )
       ;; use same mechanism for [ ] slurs
-      (LilyPond-beginning-of-containing-sexp bracket-type t))
+      (LilyPond-scan-containing-sexp bracket-type t dir))
     (setq blinkpos (point))
     (setq mismatch
 	  (or (null (LilyPond-matching-paren (char-after blinkpos)))
@@ -472,7 +484,9 @@ builtin 'blink-matching-open' is not used. In syntax table, see
     (if (not (equal this-command 'LilyPond-electric-close-paren))
 	(goto-char (setq oldpos (+ oldpos 1)))
       (goto-char oldpos))
-    blinkpos))
+    (if (/= dir 1)
+	blinkpos
+      (+ blinkpos 1))))
 
 
 (defun LilyPond-electric-close-paren ()
@@ -486,14 +500,14 @@ builtin 'blink-matching-open' is not used. In syntax table, see
 			      (concat (mapconcat 'cdr (mapcar 'cdr LilyPond-parens-regexp-alist) "\\|") "\\|)") nil t)
 			     (eq oldpos (1- (match-end 0)))))
 	(progn (backward-char 1)
-	       (LilyPond-blink-matching-open)
+	       (LilyPond-blink-matching-paren)
 	       (forward-char 1)))))
 
 ;; Find the place to show, if there is one,
 ;; and show it until input arrives.
 (defun LilyPond-show-paren-function ()
   (if show-paren-mode
-      (let (pos (dir 0) mismatch face (oldpos (point)))
+      (let (pos (dir nil) mismatch face (oldpos (point)))
 	(cond ((memq (preceding-char) '(?\) ?\] ?} ?>))
 	       (setq dir -1))
 	      ((memq (following-char) '(?\( ?\[ ?{ ?<))
@@ -502,9 +516,8 @@ builtin 'blink-matching-open' is not used. In syntax table, see
 	;; Find the other end of the sexp.
 	;;
 	;; try first only one direction
-	(when (and (= dir -1)
+	(when (and dir;(= dir -1)
 		   (not (LilyPond-inside-string-or-comment-p)))
-;	(when dir
 	  (save-excursion
 	    (save-restriction
 	      ;; Determine the range within which to look for a match.
@@ -519,7 +532,7 @@ builtin 'blink-matching-open' is not used. In syntax table, see
 	      ;;; BRACKETS ARE NOT IN THE SYNTAX TABLE.
               ;;; HENCE BY REPLACING THE FOLLOWING IT WILL WORK.
 	      (condition-case ()
-		  (setq pos (LilyPond-blink-matching-open))
+		  (setq pos (LilyPond-blink-matching-paren dir))
 		(error (setq pos t mismatch t)))
 	      ;; If found a "matching" paren, see if it is the right
 	      ;; kind of paren to match the one we started at.
