@@ -1,3 +1,9 @@
+2004-08-18  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* ly/property-init.ly (hideNotes): remove \setMmRestFermata
+
+	* scripts/convert-ly.py (conv): add rule for \setMmRestFermata
+
 2004-08-18  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
 	* scm/framework-tex.scm (output-preview-framework) 
