@@ -124,6 +124,7 @@ fi
 %{_prefix}/bin/ly2dvi
 %{_prefix}/bin/midi2ly
 %{_prefix}/bin/lilypond-book
+%{_prefix}/bin/mup2ly
 %{_prefix}/bin/musedata2ly
 %{_prefix}/bin/pmx2ly
 %else
@@ -144,6 +145,7 @@ fi
 %{_prefix}/man/man1/midi2ly.1.gz
 %{_prefix}/man/man1/lilypond-book.1.gz
 %{_prefix}/man/man1/musedata2ly.1.gz
+%{_prefix}/man/man1/mup2ly.1.gz
 %{_prefix}/man/man1/pmx2ly.1.gz
 
 %{_prefix}/share/lilypond/

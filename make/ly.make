@@ -57,12 +57,12 @@ examples=
 #
 mutopia-examples=$(name) $(parts)
 
-#
+# moved to ly-rules.make
 # Timothy's booklet
 #
-$(outdir)/%-book.ps: $(outdir)/%.ps
-	psbook $< $<.tmp
-	pstops '2:0L(11.45in,0.25in)+1L(11.45in,5.6in)' $<.tmp $@
+#$(outdir)/%-book.ps: $(outdir)/%.ps
+#	psbook $< $<.tmp
+#	pstops  '2:0L@.7(21cm,0)+1L@.7(21cm,14.85cm)' $<.tmp $@
 
 #
 # Catch-all target: type `make foo' to make out/foo.ps,

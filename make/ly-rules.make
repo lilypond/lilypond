@@ -33,3 +33,11 @@ $(outdir)/%.info: $(outdir)/%.nexi
 # nfo: info from non-lily texi
 #$(outdir)/%.nfo: $(outdir)/%.nexi
 #	$(MAKEINFO) --output=$(outdir)/$(*F).info $<
+
+
+#
+# Timothy's booklet
+#
+$(outdir)/%-book.ps: $(outdir)/%.ps
+	psbook $< $<.tmp
+	pstops  '2:0L@.7(21cm,0)+1L@.7(21cm,14.85cm)' $<.tmp $@

@@ -79,7 +79,8 @@ this and other documentation.
 * Conversion tools::               Converting to lilypond source format.
 * lilypond-book::                  Interleaving text with music.
 * Internals::                      How it all works.
-* Literature::                     additional reading
+* Literature::                     Additional reading
+* Full Grob interface list::       Generated list of all Grob properties.
 * Index of internals:(lilypond-internals).  Auto generated detailed documentation.
 * Index::                          Unified index.
 * Function Index::                 Function index.
@@ -102,8 +103,9 @@ this and other documentation.
 @mbinclude ly2dvi.itexi
 @mbinclude convert-ly.itexi
 @mbinclude lilypond-book.itely
-@mbinclude convertors.itely
+@mbinclude converters.itely
 @mbinclude literature.itely
+@mbinclude interfaces.itexi
 
 @c FIXME: Index has two alphabetically sorted lists @code vs plain?
 @node Index

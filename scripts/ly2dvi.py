@@ -1,5 +1,13 @@
 #!@PYTHON@
-# run lily, setup LaTeX input.
+# Run lilypond, latex, dvips.
+#
+# This is the third incarnation of ly2dvi.
+#
+# Earlier incarnations of ly2dvi were written by
+# Jeffrey B. Reed<daboys@austin.rr.com> (Python version)
+# Jan Arne Fagertun <Jan.A.Fagertun@@energy.sintef.no> (Bourne shell script)
+#
+
 
 # Note: gettext work best if we use ' for docstrings and "
 # for gettextable strings
@@ -7,8 +15,20 @@
 '''
 TODO:
 
-  * check --dependencies
+  * figure out which set of command line options should make ly2dvi:
 
+      na: create tex only?  
+      na: create latex only? 
+      na: create tex and latex
+      default: create dvi only
+      na: create tex, latex and dvi
+      -P: create dvi and ps
+      na: * create ps only
+
+     etc.
+
+     for foo.ly, rename ly2dvi.dir to out-ly2dvi, foo.ly2dvi, foo.dir ?
+     
   * move versatile taglines, 
   
      \header {
@@ -73,16 +93,22 @@ extra_fields = extra_init.keys ()
 
 fields = layout_fields + extra_fields
 program_name = 'ly2dvi'
-help_summary = _("Generate .dvi with LaTeX for LilyPond")
+help_summary = _ ("Generate .dvi with LaTeX for LilyPond")
 
 include_path = ['.']
-no_lily = 0
-outdir = '.'
+lily_p = 1
+paper_p = 1
+
+output = 0
+targets = {
+	'DVI' : 0,
+	'LATEX' : 0,
+	'MIDI' : 0,
+	'TEX' : 0,
+	}
+
 track_dependencies_p = 0
 dependency_files = []
-
-# generate ps ?
-postscript_p = 0
 
 # be verbose?
 verbose_p = 0
@@ -221,8 +247,6 @@ def help ():
 	sys.stdout.write ('\n\n')
 	sys.stdout.write (_ ("Report bugs to %s") % 'bug-gnu-music@gnu.org')
 	sys.stdout.write ('\n')
-	sys.exit (0)
-
 
 def setup_temp ():
 	global temp_dir
@@ -238,11 +262,12 @@ def setup_temp ():
 def system (cmd, ignore_error = 0):
 	if verbose_p:
 		progress (_ ("Invoking `%s\'") % cmd)
-	st = os.system (cmd)
+	st = os.system (cmd) >> 8
 	if st:
-		msg =  ( _ ("error: ") + _ ("command exited with value %d") % st)
+		name = re.match ('[ \t]*([^ \t]*)', cmd).group (1)
+		msg = name + ': ' + _ ("command exited with value %d") % st
 		if ignore_error:
-			sys.stderr.write (msg + ' ' + _ ("(ignored)") + ' ')
+			warning (msg + ' ' + _ ("(ignored)") + ' ')
 		else:
 			error (msg)
 
@@ -278,36 +303,51 @@ def strip_extension (f, ext):
 # END Library
 
 option_definitions = [
+	('', 'd', 'dependencies', _ ("write Makefile dependencies for every input file")),
 	('', 'h', 'help', _ ("this help")),
-	('KEY=VAL', 's', 'set', _ ("change global setting KEY to VAL")),
-	('DIR', 'I', 'include', _ ("add DIR to LilyPond\'s search path")),
-	('', 'P', 'postscript', _ ("generate PostScript output")),
-	('', 'k', 'keep', _ ("keep all output, and name the directory ly2dvi.dir")),
+	(_ ("DIR"), 'I', 'include', _ ("add DIR to LilyPond's search path")),
+	('', 'k', 'keep', _ ("keep all output, and name the directory %s.dir") % program_name),
 	('', '', 'no-lily', _ ("don't run LilyPond")),
+	('', 'm', 'no-paper', _ ("produce MIDI output only")),
+	(_ ("FILE"), 'o', 'output', _ ("write ouput to FILE")),
+	# why capital P?
+	('', 'P', 'postscript', _ ("generate PostScript output")),
+	(_ ("KEY=VAL"), 's', 'set', _ ("change global setting KEY to VAL")),
 	('', 'V', 'verbose', _ ("verbose")),
 	('', 'v', 'version', _ ("print version number")),
 	('', 'w', 'warranty', _ ("show warranty and copyright")),
-	('DIR', '', 'outdir', _ ("dump all final output into DIR")),
-	('', 'd', 'dependencies', _ ("write Makefile dependencies for every input file")),
 	]
 
-def run_lilypond (files):
-	opts = ''
+def run_lilypond (files, outbase, dep_prefix):
+	opts = '--output=%s.tex' % outbase
 	opts = opts + ' ' + string.join (map (lambda x : '-I ' + x, include_path))
-	opts = opts + ' ' + string.join (map (lambda x : '-H ' + x, fields))
-
+	if paper_p:
+		opts = opts + ' ' + string.join (map (lambda x : '-H ' + x, fields))
+	else:
+		opts = opts + ' --no-paper'
+		
 	if track_dependencies_p:
-		opts = opts + " --dependencies "
+		opts = opts + " --dependencies"
+		if dep_prefix:
+			opts = opts + ' --dep-prefix=%s' % dep_prefix
 
 	fs = string.join (files)
+
+	if not verbose_p:
+		progress ( _("Running %s...") % 'LilyPond')
+		# cmd = cmd + ' 1> /dev/null 2> /dev/null'
+	else:
+		opts = opts + ' --verbose'
 	
-	system ('lilypond  %s %s ' % (opts, fs))
+	system ('lilypond %s %s ' % (opts, fs))
 
 def analyse_lilypond_output (filename, extra):
+	
+	# urg
 	'''Grep FILENAME for interesting stuff, and
 	put relevant info into EXTRA.'''
 	filename = filename+'.tex'
-	progress (_ ("Analyzing `%s'") % filename)
+	progress (_ ("Analyzing %s...") % filename)
 	s = open (filename).read ()
 
 	# search only the first 10k
@@ -335,6 +375,7 @@ def find_tex_files_for_base (base, extra):
 
 def find_tex_files (files, extra):
 	tfiles = []
+	
 	for f in files:
 		x = 0
 		while 1:
@@ -457,27 +498,22 @@ def global_latex_definition (tfiles, extra):
 
 	return s
 
-def do_files (fs, extra):
-
-	'''process the list of filenames in FS, using standard settings in EXTRA.
-	'''
-	if not no_lily:
-		run_lilypond (fs)
-
-	wfs = find_tex_files (fs, extra)
+def run_latex (files, outbase, extra):
+	wfs = find_tex_files ([outbase] + files[1:], extra)
 	s = global_latex_definition (wfs, extra)
 
-	latex_file ='ly2dvi.out'
-	f = open (latex_file + '.tex', 'w')
+	f = open (outbase + '.latex', 'w')
 	f.write (s)
 	f.close ()
 
-	# todo: nonstopmode
-	system ('latex \\\\nonstopmode \\\\input %s' % latex_file)
-	return latex_file + '.dvi'
+	cmd = 'latex \\\\nonstopmode \\\\input %s' % outbase + '.latex'
+	if not verbose_p:
+		progress ( _("Running %s...") % 'LaTeX')
+		cmd = cmd + ' 1> /dev/null 2> /dev/null'
 
-def generate_postscript (dvi_name, extra):
-	'''Run dvips on DVI_NAME, optionally doing -t landscape'''
+	system (cmd)
+
+def run_dvips (outbase, extra):
 
 	opts = ''
 	if extra['papersize']:
@@ -486,12 +522,13 @@ def generate_postscript (dvi_name, extra):
 	if extra['orientation'] and extra['orientation'][0] == 'landscape':
 		opts = opts + ' -t landscape'
 
-	ps_name = re.sub (r'\.dvi', r'.ps', dvi_name)
-	system ('dvips %s -o %s %s' % (opts, ps_name, dvi_name))
-
-	return ps_name
+	cmd = 'dvips %s -o %s %s' % (opts, outbase + '.ps', outbase + '.dvi')
+	
+	if not verbose_p:
+		progress ( _("Running %s...") % 'dvips')
+		cmd = cmd + ' 2> /dev/null'
 		
-
+	system (cmd)
 
 def generate_dependency_file (depfile, outname):
 	df = open (depfile, 'w')
@@ -525,16 +562,21 @@ for opt in options:
 		pass
 	elif o == '--help' or o == '-h':
 		help ()
+		sys.exit (0)
 	elif o == '--include' or o == '-I':
 		include_path.append (a)
 	elif o == '--postscript' or o == '-P':
-		postscript_p = 1
+		targets['PS'] = 0
 	elif o == '--keep' or o == '-k':
 		keep_temp_dir_p = 1
 	elif o == '--no-lily':
-		no_lily = 1
-	elif o == '--outdir':
-		outdir = a
+		lily_p = 0
+	elif o == '--no-paper' or o == '-m':
+		targets = {}
+		targets['MIDI'] = 0
+		paper_p = 0
+	elif o == '--output' or o == '-o':
+		output = a
 	elif o == '--set' or o == '-s':
 		ss = string.split (a, '=')
 		set_setting (extra_init, ss[0], ss[1])
@@ -546,7 +588,10 @@ for opt in options:
 		identify ()
 		sys.exit (0)
 	elif o == '--warranty' or o == '-w':
-		warranty ()
+		try:
+			system ('lilypond -w')
+		except:
+			warranty ()
 		sys.exit (0)
 
 # On most platforms, this is equivalent to
@@ -555,73 +600,102 @@ def compat_abspath (path):
 	return os.path.normpath (os.path.join (os.getcwd (), path))
 
 include_path = map (compat_abspath, include_path)
-files = map (compat_abspath, files) 
-outdir = compat_abspath (outdir)
 
+original_output = output
+
+if files and files[0] != '-':
+
+	files = map (lambda x: strip_extension (x, '.ly'), files)
+
+	if not output:
+		output = os.path.basename (files[0])
+
+	for i in ('.dvi', '.latex', '.ly', '.ps', '.tex'):
+		output = strip_extension (output, i)
+
+	files = map (compat_abspath, files) 
+
+	if os.path.dirname (output) != '.':
+		dep_prefix = os.path.dirname (output)
+	else:
+		dep_prefix = 0
+
+	reldir = os.path.dirname (output)
+	(outdir, outbase) = os.path.split (compat_abspath (output))
 	
-files = map (lambda x: strip_extension (x, '.ly'), files)
-
-if files:
-	setup_temp ()
 	setup_environment ()
+	setup_temp ()
 	
 	extra = extra_init
 	
-	dvi_name = do_files (files, extra)
+	if lily_p:
+		try:
+			run_lilypond (files, outbase, dep_prefix)
+		except:
+			# TODO: friendly message about LilyPond setup/failing?
+			#
+			# TODO: lilypond should fail with different
+			# error codes for:
+			#   - guile setup/startup failure
+			#   - font setup failure
+			#   - init.ly setup failure
+			#   - parse error in .ly
+			#   - unexpected: assert/core dump
+			targets = {}
 
-	if postscript_p:
-		ps_name = generate_postscript (dvi_name, extra)
+	if targets.has_key ('DVI') or targets.has_key ('PS'):
+		try:
+			run_latex (files, outbase, extra)
+			# unless: add --tex, or --latex?
+			del targets['TEX']
+			del targets['LATEX']
+		except:
+			# TODO: friendly message about TeX/LaTeX setup,
+			# trying to run tex/latex by hand
+			if targets.has_key ('DVI'):
+				del targets['DVI']
+			if targets.has_key ('PS'):
+				del targets['PS']
 
+	# TODO: does dvips ever fail?
+	if targets.has_key ('PS'):
+		run_dvips (outbase, extra)
 
-
-	base = os.path.basename (files[0])
-	dest = base
-	type = 'foobar'
-	srcname = 'foobar'
-	
-	if postscript_p:
-		srcname = ps_name
-		dest = dest + '.ps'
-		type = 'PS'
-	else:
-		srcname = dvi_name
-		dest= dest + '.dvi'
-		type = 'DVI'
-
-	dest = os.path.join (outdir, dest)
-	midi = base + '.midi'
-	midi = os.path.join (outdir, midi)
-	
-	if outdir != '.':
+	if outdir != '.' and (track_dependencies_p or targets.keys ()):
 		system ('mkdir -p %s' % outdir)
-		
-	#if re.match ('.*[.]dvi', string.join (os.listdir ('.'))):
-	if os.path.isfile (srcname):
-		# huh, and what bout all other (-1, -2) scores?
-		system ('cp \"%s\" \"%s\"' % (srcname, dest))
-	else:
-		dest = 0
-	if re.match ('.*[.]midi', string.join (os.listdir ('.'))):
-		system ('cp *.midi %s' % outdir)
-	else:
-		midi = 0
 
-	depfile = os.path.join (outdir, base + '.dep')
-
+	# add DEP to targets?
 	if track_dependencies_p:
-		generate_dependency_file (depfile, dest)
+		depfile = os.path.join (outdir, outbase + '.dep')
+		generate_dependency_file (depfile, depfile)
+		if os.path.isfile (depfile):
+			progress (_ ("dependencies output to %s...") % depfile)
+
+	for i in targets.keys ():
+		ext = string.lower (i)
+		if re.match ('.*[.]%s' % ext, string.join (os.listdir ('.'))):
+			system ('cp *.%s %s' % (ext, outdir))
+		outname = outbase + '.' + string.lower (i)
+		abs = os.path.join (outdir, outname)
+		if reldir != '.':
+			outname = os.path.join (reldir, outname)
+		if os.path.isfile (abs):
+			progress (_ ("%s output to %s...") % (i, outname))
+		elif verbose_p:
+			warning (_ ("can't find file: `%s'") % outname)
 
 	os.chdir (original_dir)
 	cleanup_temp ()
-
-	# most insteresting info last
-	# don't say silly things
-	if os.path.isfile (depfile):
-		progress (_ ("dependencies output to %s...") % depfile)
-	if dest and os.path.isfile (dest):
-		progress (_ ("%s output to %s...") % (type, dest))
-	if midi and os.path.isfile (midi):
-		progress (_ ("%s output to %s...") % ('MIDI', midi))
+	
+else:
+	# FIXME
+	help ()
+	sys.stderr.write ('\n')
+	try:
+		error (_ ("no FILEs specified, can't invoke as filter"))
+	except:
+		pass
+	sys.exit (2)
 
 
 

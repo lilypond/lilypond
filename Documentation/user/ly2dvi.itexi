@@ -15,33 +15,40 @@ one or more DVI files.
 @subsection Invoking ly2dvi
 
 @example
-        ly2dvi [options] inputfile[.ly] [....]
+ly2dvi [OPTION]... [FILE]...
 @end example
 
 @unnumberedsec Options
 
 @table @code
-@item -s,--set=@var{KEY}=@var{VAL}
-    Add @var{key}= @var{val} to the settings, overriding those specified
-in the files. Possible keys: language, latexheaders, latexpackages,
-papersizename, pagenumber, linewidth, orientation, textheight. 
-
 @item -k,--keep
     Keep the temporary directory including LilyPond and ly2dvi output
 files. The temporary directory is created in the current directory as @code{ly2dvi.dir}.
-@item -P,--postscript
-    Generate  PostScript in stead of DVI.
-@item --no-lily
-    Do not run LilyPond; useful for debugging ly2dvi.
+@item -d,--dependencies
+    Write makefile dependencies for every input file.
 @item -h,--help
     Print help.
-@item -I,--include
-    Add to the lilypond include path.
-@item -d,--dependencies
-    Make a dependency file for the output.
-@item --outdir=@var{dir}
-    Generate output (including MIDI files) in @var{dir}
-
+@item -I,--include=@var{DIR}
+    Add @var{DIR} to LilyPond's include path.
+@item -m,--no-paper
+    Produce MIDI output only.
+@item --no-lily
+    Do not run LilyPond; useful for debugging ly2dvi.
+@item -o,--output=@var{FILE}
+    Generate output to @var{FILE}.  The extension of @var{FILE} is ignored.
+@item -P,--postscript
+    Also generate PostScript output.
+@item -s,--set=@var{KEY}=@var{VAL}
+    Add @var{key}= @var{val} to the settings, overriding those specified
+in the files. Possible keys: language, latexheaders, latexpackages,
+papersize, pagenumber, linewidth, orientation, textheight.
+@item -v,--version
+Show version information 
+@item -V,--verbose
+Be verbose
+@item -w,--warranty
+Show the warranty with which GNU LilyPond comes. (It comes with 
+@strong{NO WARRANTY}!)
 @end table
 
 @subsection Titling layout
@@ -102,14 +109,22 @@ read from the @code{\paper} block, if set.
 @item linewidth
    Is read from the @code{\paper} block.  
 
-@item papersizename
-   Specify name of papersize. Is read from the @code{\paper} block.
+@item papersize
+   Specify the papersize. Is read from the @code{\paper} block.
+@end table
+
+@subsection Environment variables
+
+@table @code
+@item LANG
+selects the language for the warning messages of Ly2dvi and LilyPond.
 @end table
 
 @subsection  Bugs
 
-Assumes that settings for LilyPond are correct. Assumes that @code{cp}
-and @code{rm} are in the path.
+Assumes that @code{cp} and @code{rm} are in the path.
+
+Cannot generate @TeX{} or @code{PostScript} only.
 
 If find something that you consider a bug, please send a bugreport (See
 @ref{Bug reports}) to @email{bug-gnu-music@@gnu.org}.

@@ -143,9 +143,13 @@ System_start_delimiter::staff_brace (Grob*me,Real y)
 {
 
   /*
-    FIXME: should look at afm/tfm file for dimensions.
+    FIXME:
+    * should look at afm/tfm file for dimensions.
+     (This breaks ascii-art output: it hasn't got 255 symbols)
     
-    (This breaks ascii-art output: it hasn't got 255 symbols)
+    * more glyphs (or maybe just better sized (fixed # of staff-spaces)),
+      the size mismatches with the staffs are very ugly
+         
    */
 
   // ugrhn
