@@ -54,7 +54,7 @@ private:
   static void set_stem_directions (Grob*, Direction );
   static void consider_auto_knees (Grob*, Direction d);
   static void set_stem_shorten (Grob*);
-  static Real calc_stem_y (Grob*, Grob* s, Interval pos);
+  static Real calc_stem_y (Grob*, Grob* s, Interval pos, bool correct);
   static void set_stem_lengths (Grob*);
   static int forced_stem_count (Grob*);
 };

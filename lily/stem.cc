@@ -774,9 +774,11 @@ Stem::calc_stem_info (Grob*me)
   Real thick = gh_scm2double (beam->get_grob_property ("thickness"));
   
   Real ideal_y = chord_start_y (me);
+  
+  /* from here on, calculate as if dir == UP */
   ideal_y *= mydir;
+  
   SCM grace_prop = me->get_grob_property ("grace");
-
   
   bool grace_b = to_boolean (grace_prop);
   
@@ -798,9 +800,14 @@ Stem::calc_stem_info (Grob*me)
 
   Real stem_length =  a[multiplicity <? (a.size () - 1)] * staff_space;
 
-  if (multiplicity)
-    ideal_y += thick + (multiplicity - 1) * interbeam_f;
+  Direction first_dir = Directional_element_interface::get
+    (Beam::first_visible_stem (beam));
 
+  // FIXME, hairy.  see beam::calc_stem_y, for knees it's not trival
+  // to calculate where secondary, ternary beams will go.
+  if (multiplicity && first_dir == mydir)
+    ideal_y += thick + (multiplicity - 1) * interbeam_f;
+  
   Real shortest_y = ideal_y; 
 
   ideal_y += stem_length;

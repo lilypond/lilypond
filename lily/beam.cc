@@ -25,7 +25,8 @@
   */
 
 
-
+/* snapnie now also works */
+#define SNAPNIE
 
 #include <math.h> // tanh.
 
@@ -452,10 +453,10 @@ Beam::quanting (SCM smob)
       dirs_found[stem_infos.top ().dir_] = true;
 
 #ifdef SNAPNIE
-      Real b = calc_stem_y (me, s, Interval (1,0));
+      Real b = calc_stem_y (me, s, Interval (1,0), false);
       lbase_lengths.push (b);
 
-      Real a = calc_stem_y (me, s, Interval (0,1));
+      Real a = calc_stem_y (me, s, Interval (0,1), false);
       rbase_lengths.push (a);
 #endif      
     }
@@ -992,12 +993,19 @@ Beam::slope_damping (SCM smob)
 /*
   Calculate the Y position of the stem-end, given the Y-left, Y-right
   in POS, and for stem S.
+
+  If CORRECT, correct for multiplicity of beam in case of knees.
  */
 Real
-Beam::calc_stem_y (Grob *me, Grob* s, Interval pos)
+Beam::calc_stem_y (Grob *me, Grob* s, Interval pos, bool correct)
 {
   int beam_multiplicity = get_multiplicity (me);
   int stem_multiplicity = (Stem::duration_log (s) - 2) >? 0;
+  
+  int first_multiplicity = (Stem::duration_log (first_visible_stem (me))
+			    - 2) >? 0;
+  int last_multiplicity = (Stem::duration_log (last_visible_stem (me))
+			   - 2) >? 0;
 
   Real thick = gh_scm2double (me->get_grob_property ("thickness"));
   Real interbeam = get_interbeam (me);
@@ -1008,14 +1016,14 @@ Beam::calc_stem_y (Grob *me, Grob* s, Interval pos)
   Real dx = last_visible_stem (me)->relative_coordinate (0, X_AXIS) - x0;
   Real dy = pos.delta ();
   Real stem_y = (dy && dx
-		 ? r / dx //(s->relative_coordinate (0, X_AXIS) - x0) / dx
+		 ? r / dx
 		 * dy
 		 : 0) + pos[LEFT];
 
   Direction first_dir = Directional_element_interface::get (first_visible_stem (me));
   Direction my_dir = Directional_element_interface::get (s);
 
-  if (my_dir != first_dir)
+  if (correct && my_dir != first_dir)
     {
       /*
 	WTF is happening here ?
@@ -1039,6 +1047,8 @@ Beam::calc_stem_y (Grob *me, Grob* s, Interval pos)
 	--hwn.
 	
        */
+      
+      // FIXME, hairy stuff
       stem_y += my_dir * (thick / 2 + (beam_multiplicity - 1) * interbeam);
 
       // huh, why not for first visible?
@@ -1057,7 +1067,6 @@ Beam::calc_stem_y (Grob *me, Grob* s, Interval pos)
       else
 	programming_error ("No last visible stem");
     }
-
   return stem_y;
 }
 
@@ -1097,7 +1106,7 @@ Beam::set_stem_lengths (Grob *me)
       if (Stem::invisible_b (s))
 	continue;
 
-      Real stem_y = calc_stem_y (me, s, pos);
+      Real stem_y = calc_stem_y (me, s, pos, true);
 
 #if 0
       // doesn't play well with dvips
