@@ -32,14 +32,6 @@ endif
 
 the-script-dir=$(wildcard $(script-dir))
 
-ifneq ($(the-script-dir),)
-
-### some versions apparently choke on $(message)
-### $(message running from source tree stepmake)
-
-
-
-### Some versions of What? --hwn 
 
 ABC2LY = $(script-dir)/abc2ly.py
 CONVERT_LY = $(script-dir)/convert-ly.py
@@ -49,22 +41,5 @@ LILYPOND_BOOK_INCLUDES = -I $(pwd) -I $(outdir) -I$(input-dir) -I $(input-dir)/t
 
 #texi-html for www only:
 LILYPOND_BOOK_FORMAT=$(if $(subst out-www,,$(notdir $(outdir))),texi,texi-html)
-LY2DVI = $(script-dir)/ly2dvi.py
+LY2DVI = $(script-dir)/lilypond.py
 LYS_TO_TELY = $(buildscript-dir)/lys-to-tely.py
-
-else
-
-### some versions apparently choke on $(message)
-### $(message running from installed stepmake)
-
-ABC2LY = $(shell $(SHELL) -c 'type -p abc2ly')
-CONVERT_LY = $(shell $(SHELL) -c 'type -p convert-ly')
-LILYPOND = $(shell $(SHELL) -c 'type -p lilypond')
-LILYPOND_BOOK = $(shell $(SHELL) -c 'type -p lilypond-book')
-LILYPOND_BOOK_INCLUDES = -I. -I.. -I$(outdir)
-LILYPOND_BOOK_FORMAT = texi
-LY2DVI = $(shell $(SHELL) -c 'type -p ly2dvi')
-LYS_TO_TELY = $(shell $(SHELL) -c 'type -p lys-to-tely')
-
-endif
-

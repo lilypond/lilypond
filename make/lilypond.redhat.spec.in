@@ -126,7 +126,7 @@ scrollkeeper-update
 %{_bindir}/convert-ly
 %{_bindir}/etf2ly
 %{_bindir}/lilypond
-%{_bindir}/ly2dvi
+%{_bindir}/lilypond-bin
 %{_bindir}/midi2ly
 %{_bindir}/lilypond-book
 %{_bindir}/mup2ly
@@ -149,8 +149,8 @@ scrollkeeper-update
 %{_mandir}/man1/as2text.1.gz
 %{_mandir}/man1/convert-ly.1.gz
 %{_mandir}/man1/etf2ly.1.gz
+%{_mandir}/man1/lilypond-bin.1.gz
 %{_mandir}/man1/lilypond.1.gz
-%{_mandir}/man1/ly2dvi.1.gz
 %{_mandir}/man1/midi2ly.1.gz
 %{_mandir}/man1/lilypond-book.1.gz
 %{_mandir}/man1/musedata2ly.1.gz

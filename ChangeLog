@@ -1,5 +1,9 @@
 2003-08-30  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* make/lilypond-vars.make: remove stepmake compat glue.
+
+	* make/generic-vars.make: remove cruft.
+
 	* lily/main.cc (main): don't identify binary.
 
 2003-08-29  Han-Wen Nienhuys  <hanwen@cs.uu.nl>

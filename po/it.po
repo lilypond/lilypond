@@ -39,7 +39,7 @@ msgstr ""
 msgid "lilylib module"
 msgstr ""
 
-#: lilylib.py:63 lilypond-book.py:131 ly2dvi.py:128 midi2ly.py:100
+#: lilylib.py:63 lilypond-book.py:131 lilypond.py:128 midi2ly.py:100
 #: mup2ly.py:75 main.cc:111
 msgid "print this help"
 msgstr ""
@@ -110,7 +110,7 @@ msgstr "Genero le voci..."
 msgid "`%s' failed (%d)"
 msgstr ""
 
-#: lilylib.py:242 lilylib.py:289 lilypond-book.py:231 ly2dvi.py:512
+#: lilylib.py:242 lilylib.py:289 lilypond-book.py:231 lilypond.py:512
 msgid "The error log is as follows:"
 msgstr ""
 
@@ -464,7 +464,7 @@ msgstr ""
 msgid "deprecated, use --force-music-fontsize"
 msgstr ""
 
-#: lilypond-book.py:132 ly2dvi.py:130 main.cc:113 main.cc:118
+#: lilypond-book.py:132 lilypond.py:130 main.cc:113 main.cc:118
 msgid "DIR"
 msgstr ""
 
@@ -497,7 +497,7 @@ msgstr ""
 msgid "strip all lilypond blocks from output"
 msgstr ""
 
-#: lilypond-book.py:138 lilypond-book.py:139 ly2dvi.py:135 ly2dvi.py:136
+#: lilypond-book.py:138 lilypond-book.py:139 lilypond.py:135 lilypond.py:136
 #: midi2ly.py:102 main.cc:114 main.cc:117
 msgid "FILE"
 msgstr ""
@@ -511,15 +511,15 @@ msgstr "  -D, --debug            abilita l'output di debugging\n"
 msgid "where to place generated files"
 msgstr ""
 
-#: lilypond-book.py:140 ly2dvi.py:137
+#: lilypond-book.py:140 lilypond.py:137
 msgid "RES"
 msgstr ""
 
-#: lilypond-book.py:141 ly2dvi.py:138
+#: lilypond-book.py:141 lilypond.py:138
 msgid "set the resolution of the preview to RES"
 msgstr ""
 
-#: lilypond-book.py:142 ly2dvi.py:148 midi2ly.py:105 mup2ly.py:78 main.cc:126
+#: lilypond-book.py:142 lilypond.py:148 midi2ly.py:105 mup2ly.py:78 main.cc:126
 msgid "be verbose"
 msgstr ""
 
@@ -527,7 +527,7 @@ msgstr ""
 msgid "print version information"
 msgstr ""
 
-#: lilypond-book.py:144 ly2dvi.py:150 midi2ly.py:107 mup2ly.py:80 main.cc:127
+#: lilypond-book.py:144 lilypond.py:150 midi2ly.py:107 mup2ly.py:80 main.cc:127
 #, fuzzy
 msgid "show warranty and copyright"
 msgstr "  -w, --warranty         mostra la garanzia e il copyright\n"
@@ -624,14 +624,14 @@ msgstr ""
 #. #docme: why global?
 #. Do It.
 #. should chmod -w
-#: lilypond-book.py:1557 ly2dvi.py:673 midi2ly.py:1018
+#: lilypond-book.py:1557 lilypond.py:673 midi2ly.py:1018
 #, python-format
 msgid "getopt says: `%s'"
 msgstr ""
 
 #. HACK
 #. status = os.system ('lilypond -w')
-#: lilypond-book.py:1630 ly2dvi.py:777
+#: lilypond-book.py:1630 lilypond.py:777
 msgid "no files specified on command line"
 msgstr ""
 
@@ -641,7 +641,7 @@ msgstr ""
 #. --hwn 20/aug/99
 #. !@PYTHON@
 #.
-#. ly2dvi.py -- Run LilyPond, add titles to bare score, generate printable
+#. lilypond.py -- Run LilyPond, add titles to bare score, generate printable
 #. document
 #. Invokes: lilypond, latex (or pdflatex), dvips, ps2pdf, gs
 #.
@@ -674,89 +674,89 @@ msgstr ""
 #. # ly2dvi: silly name?
 #. # do -P or -p by default?
 #. #help_summary = _ ("Run LilyPond using LaTeX for titling")
-#: ly2dvi.py:121
+#: lilypond.py:121
 msgid "Run LilyPond, add titles, generate printable document."
 msgstr ""
 
-#: ly2dvi.py:127 main.cc:115
+#: lilypond.py:127 main.cc:115
 #, fuzzy
 msgid "write Makefile dependencies for every input file"
 msgstr ""
 "  -d, --dependencies     scrive le dependenze del Makefile per ogni file di "
 "input\n"
 
-#: ly2dvi.py:129
+#: lilypond.py:129
 msgid "print even more output"
 msgstr ""
 
-#: ly2dvi.py:130
+#: lilypond.py:130
 #, fuzzy
 msgid "add DIR to LilyPond's search path"
 msgstr "  -I, --include=DIR      aggiunge DIR ai path di ricerca\n"
 
-#: ly2dvi.py:132
+#: lilypond.py:132
 #, python-format
 msgid "keep all output, output to directory %s.dir"
 msgstr ""
 
-#: ly2dvi.py:133
+#: lilypond.py:133
 msgid "don't run LilyPond"
 msgstr ""
 
-#: ly2dvi.py:134 main.cc:116
+#: lilypond.py:134 main.cc:116
 #, fuzzy
 msgid "produce MIDI output only"
 msgstr "  -M, --no-paper         produce solo output midi\n"
 
-#: ly2dvi.py:135 midi2ly.py:102
+#: lilypond.py:135 midi2ly.py:102
 msgid "write output to FILE"
 msgstr ""
 
-#: ly2dvi.py:136
+#: lilypond.py:136
 msgid "find pfa fonts used in FILE"
 msgstr ""
 
-#: ly2dvi.py:139
+#: lilypond.py:139
 #, fuzzy
 msgid "generate PostScript output"
 msgstr "vincoli degenerati"
 
-#: ly2dvi.py:140
+#: lilypond.py:140
 msgid "generate PNG page images"
 msgstr ""
 
-#: ly2dvi.py:141
+#: lilypond.py:141
 #, fuzzy
 msgid "generate PS.GZ"
 msgstr "vincoli degenerati"
 
-#: ly2dvi.py:142
+#: lilypond.py:142
 #, fuzzy
 msgid "generate PDF output"
 msgstr "vincoli degenerati"
 
-#: ly2dvi.py:143
+#: lilypond.py:143
 msgid "use pdflatex to generate a PDF output"
 msgstr ""
 
 #. FIXME: preview, picture; to indicate creation of a PNG?
-#: ly2dvi.py:145
+#: lilypond.py:145
 msgid "make a picture of the first system"
 msgstr ""
 
-#: ly2dvi.py:146
+#: lilypond.py:146
 msgid "make HTML file with links to all output"
 msgstr ""
 
-#: ly2dvi.py:147
+#: lilypond.py:147
 msgid "KEY=VAL"
 msgstr ""
 
-#: ly2dvi.py:147
+#: lilypond.py:147
 msgid "change global setting KEY to VAL"
 msgstr ""
 
-#: ly2dvi.py:149 midi2ly.py:106 mup2ly.py:79 main.cc:125
+#: lilypond.py:149 midi2ly.py:106 mup2ly.py:79 main.cc:125
 msgid "print version number"
 msgstr ""
 
@@ -772,51 +772,51 @@ msgstr ""
 #. what a name.
 #. ly.warning (_ ("invalid value: %s") % `val`)
 #. ly.warning (_ ("invalid value: %s") % `val`)
-#: ly2dvi.py:232
+#: lilypond.py:232
 #, fuzzy, python-format
 msgid "no such setting: `%s'"
 msgstr "% strumento:"
 
 #. 2 == user interrupt.
-#: ly2dvi.py:274
+#: lilypond.py:274
 #, python-format
 msgid "LilyPond crashed (signal %d)."
 msgstr ""
 
-#: ly2dvi.py:275
+#: lilypond.py:275
 msgid "Please submit a bug report to bug-lilypond@gnu.org"
 msgstr ""
 
-#: ly2dvi.py:281
+#: lilypond.py:281
 #, python-format
 msgid "LilyPond failed on input file %s (exit status %d)"
 msgstr ""
 
-#: ly2dvi.py:284
+#: lilypond.py:284
 #, python-format
 msgid "LilyPond failed on an input file (exit status %d)"
 msgstr ""
 
-#: ly2dvi.py:285
+#: lilypond.py:285
 #, fuzzy
 msgid "Continuing..."
 msgstr "Genero le voci..."
 
 #. urg
-#: ly2dvi.py:296
+#: lilypond.py:296
 #, fuzzy, python-format
 msgid "Analyzing %s..."
 msgstr "Genero le voci..."
 
 #. search only the first 10k
-#: ly2dvi.py:354
+#: lilypond.py:354
 #, fuzzy, python-format
 msgid "no LilyPond output found for `%s'"
 msgstr "Output di Lily in %s..."
 
 #. The final \n seems important here. It ensures that the footers and taglines end up on the right page.
 #. TODO: should set textheight (enlarge) depending on papersize.
-#: ly2dvi.py:397
+#: lilypond.py:397
 #, fuzzy, python-format
 msgid "invalid value: `%s'"
 msgstr "carattere illegale: `%c'"
@@ -825,13 +825,13 @@ msgstr "carattere illegale: `%c'"
 #. who the hell is 597 ?
 #. Ugh.  (La)TeX writes progress and error messages on stdout
 #. Redirect to stderr
-#: ly2dvi.py:511
+#: lilypond.py:511
 msgid "LaTeX failed on the output file."
 msgstr ""
 
 #. make a preview by rendering only the 1st line
 #. of each score
-#: ly2dvi.py:568
+#: lilypond.py:568
 msgid ""
 "Trying create PDF, but no PFA fonts found.\n"
 "Using bitmap fonts instead. This will look bad."
@@ -841,13 +841,13 @@ msgstr ""
 #. Added as functionality to ly2dvi, because ly2dvi may well need to do this
 #. in future too.
 #. no ps header?
-#: ly2dvi.py:615
+#: lilypond.py:615
 #, fuzzy, python-format
 msgid "not a PostScript file: `%s'"
 msgstr "non posso aprire il file: `%s'"
 
 #. todo
-#: ly2dvi.py:660
+#: lilypond.py:660
 #, fuzzy, python-format
 msgid "Writing HTML menu `%s'"
 msgstr "Genero le voci..."
@@ -858,18 +858,18 @@ msgstr "Genero le voci..."
 #. As a neat trick, add directory part of first input file
 #. to include path.  That way you can do without the clumsy -I in:
 #. ly2dvi -I foe/bar/baz foo/bar/baz/baz.ly
-#: ly2dvi.py:769
+#: lilypond.py:769
 msgid "pseudo filter"
 msgstr ""
 
-#: ly2dvi.py:772
+#: lilypond.py:772
 msgid "pseudo filter only for single input file"
 msgstr ""
 
 #. Ugh, maybe make a setup () function
 #. hmmm. Wish I'd 've written comments when I wrote this.
 #. now it looks complicated.
-#: ly2dvi.py:806
+#: lilypond.py:806
 #, python-format
 msgid "filename should not contain spaces: `%s'"
 msgstr ""
@@ -885,7 +885,7 @@ msgstr ""
 #. ## --hwn
 #. TODO: friendly message about LilyPond setup/failing?
 #.
-#: ly2dvi.py:845
+#: lilypond.py:845
 msgid "Running LilyPond failed. Rerun with --verbose for a trace."
 msgstr ""
 
@@ -894,36 +894,36 @@ msgstr ""
 #. unless: add --tex, or --latex?
 #. TODO: friendly message about TeX/LaTeX setup,
 #. trying to run tex/latex by hand
-#: ly2dvi.py:886
+#: lilypond.py:886
 msgid "Failed to make PS file. Rerun with --verbose for a trace."
 msgstr ""
 
 #. unless: add --tex, or --latex?
 #. TODO: friendly message about TeX/LaTeX setup,
 #. trying to run tex/latex by hand
-#: ly2dvi.py:916
+#: lilypond.py:916
 msgid "Running LaTeX falied. Rerun with --verbose for a trace."
 msgstr ""
 
 #. add DEP to targets?
-#: ly2dvi.py:926 input-file-results.cc:68
+#: lilypond.py:926 input-file-results.cc:68
 #, fuzzy, c-format, python-format
 msgid "dependencies output to `%s'..."
 msgstr "L'output stampato è inviato a %s..."
 
-#: ly2dvi.py:937
+#: lilypond.py:937
 #, fuzzy, python-format
 msgid "%s output to <stdout>..."
 msgstr "L'output MIDI è inviato a %s..."
 
-#: ly2dvi.py:942 ly2dvi.py:968 includable-lexer.cc:57
+#: lilypond.py:942 lilypond.py:968 includable-lexer.cc:57
 #: input-file-results.cc:191 input-file-results.cc:197 lily-guile.cc:86
 #, c-format, python-format
 msgid "can't find file: `%s'"
 msgstr "non trovo il file: `%s'"
 
 #. Hmm, if this were a function, we could call it the except: clauses
-#: ly2dvi.py:965
+#: lilypond.py:965
 #, fuzzy, python-format
 msgid "%s output to %s..."
 msgstr "L'output MIDI è inviato a %s..."

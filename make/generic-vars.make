@@ -36,24 +36,6 @@ EXTRA_DOC_FILES = \
 
 INSTALLED_EXTRA_DOC_FILES = $(addprefix $(prefix:/%=%)/doc/lilypond/, $(EXTRA_DOC_FILES))
 
-# installed by 'make install'
-INSTALL_DIST_FILES = \
-  bin/convert-ly\
-  bin/lilypond-book\
-  bin/ly2dvi\
-  bin/$(program_prefix)lilypond$(program_suffix)\
-  bin/$(program_prefix)mi2mu$(program-suffix)\
-  info/lilypond.info\
-  man/man1/mi2mu.1\
-  man/man1/lilypond.1\
-  man/man1/lilypond-book.1\
-  man/man1/ly2dvi.1\
-  man/man1/convert-ly.1\
-  lib/texmf/texmf/tex/lilypond\
-  lib/texmf/texmf/fonts/source/public/lilypond\
-  share/lilypond/\
-  share/locale/*/LC_MESSAGES/lilypond.mo\
-
 
 INSTALLED_DIST_FILES = $(addprefix $(prefix:/%=%)/, $(INSTALL_DIST_FILES))
 
