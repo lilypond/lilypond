@@ -2995,11 +2995,27 @@ require arcane command incantations. See
 
 Voices can switch automatically between the top and the bottom
 staff. The syntax for this is
+
+@quotation
 @example
-  \autochange \context Voice @{ @dots{}@var{music}@dots{} @}
+\autochange \context Voice @{ @dots{}@var{music}@dots{} @}
 @end example
+@end quotation
+
+@noindent
 The two staves of the piano staff must be named @code{up} and
 @code{down}.
+
+A @code{\relative} section that is outside of @code{\autochange} has
+no effect on the pitches of @var{music}, so, if necessary, put
+@code{\relative} inside @code{\autochange} like
+
+@quotation
+@example
+\autochange \relative @dots{} \new Voice @dots{}
+@end example
+@end quotation
+
 
 The autochanger switches on basis of pitch (middle C is the turning
 point), and it looks ahead skipping over rests to switch in
@@ -3034,6 +3050,14 @@ Program reference: @internalsref{AutoChangeMusic}.
 The staff switches often do not end up in optimal places. For high
 quality output, staff switches should be specified manually.
 
+
+@code{\autochange} cannot be inside @code{\times}. 
+
+Internally, the @code{\partcombine} interprets both arguments as
+@code{Voice}s named @code{one} and @code{two}, and then decides when
+the parts can be combined. Consequently, if the arguments switch to
+differently named @internalsref{Voice} contexts, the events in those
+will be ignored.
 
 
 @node Manual staff switches
@@ -4235,8 +4259,8 @@ the name to avoid a collision.
 @cindex transposition of pitches
 @cindex @code{\transpose}
 
-A music expression can be transposed with @code{\transpose}.  The syntax
-is
+A music expression can be transposed with @code{\transpose}.  The
+syntax is
 @example
 \transpose @var{from} @var{to} @var{musicexpr}
 @end example
@@ -4418,23 +4442,34 @@ places where the two parts differ, they are typeset as separate
 voices, and stem directions are set automatically.  Also, solo and
 @emph{a due} parts are identified and can be marked.
 
-
 The syntax for part combining is
 
 @example
   \partcombine @var{musicexpr1} @var{musicexpr2}
 @end example
 
-The music expressions will be interpreted as @internalsref{Voice} contexts.
+The music expressions will be interpreted as @internalsref{Voice}
+contexts. If using relative octaves, @code{\relative} should be
+specified for both music expressions, i.e.
+
+@example
+\partcombine \relative @dots{}  @var{musicexpr1}
+  \relative @dots{} @var{musicexpr2}
+@end example
+
+@noindent
+A @code{\relative} section that is outside of @code{\partcombine} has
+no effect on the pitches of @var{musicexpr1} and @var{musicexpr2}.
+
 
 The following example demonstrates the basic functionality of the part
 combiner: putting parts on one staff, and setting stem directions and
 polyphony
 
-@lilypond[quote,verbatim,raggedright,fragment,relative=2]
+@lilypond[quote,verbatim,raggedright,fragment]
 \new Staff \partcombine
-  { g g a( b) c c r r }
-  { g g r4 r e e g g }
+  \relative g' { g g a( b) c c r r }
+  \relative g' { g g r4 r e e g g }
 @end lilypond
 
 The first @code{g} appears only once, although it was
@@ -4451,8 +4486,8 @@ may set the property @code{soloADue} to false
 \new Staff <<
   \set Staff.soloADue = ##f
   \partcombine
-  { g a( b) r }
-  { g r4 r f }
+    \relative g' { g a( b) r }
+    \relative g' { g r4 r f }
 >>
 @end lilypond
 
@@ -4469,7 +4504,9 @@ In @code{soloADue} mode, when the two voices play the same notes on and
 off, the part combiner may typeset @code{a2} more than once in a
 measure.
 
-@code{\partcombine} can not be inside @code{\times}. 
+@code{\partcombine} cannot be inside @code{\times}. 
+
+@code{\partcombine} cannot be inside @code{\relative}. 
 
 Internally, the @code{\partcombine} interprets both arguments as
 @code{Voice}s named @code{one} and @code{two}, and then decides when
