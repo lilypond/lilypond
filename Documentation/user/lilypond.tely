@@ -293,9 +293,6 @@ of this and other documentation.
 @include advanced-notation.itely
 @include global.itely
 
-@include notation.itely
-@include sound-output.itexi
-
 @include changing-defaults.itely
 @include programming-interface.itely
 @include lilypond-book.itely
