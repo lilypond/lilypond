@@ -8,6 +8,8 @@
 
 	* input/test/ various : mark files for deletion or moving to regression.
 
+	* input/test/note-chords.ly: renamed to chord-names-no-inversions.ly.
+
 2003-06-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/music-functions.scm (make-ottava-set): 
