@@ -383,6 +383,8 @@ ly_paper_to_latexpaper =  {
 	'a4' : 'a4paper',
 	'a5' : 'a5paper',
 	'a6' : 'a6paper',
+	'legal' : 'legalpaper', 
+	'tabloid' : 'papersize={11in,17in}', 
 }
 
 #TODO: should set textheight (enlarge) depending on papersize. 
@@ -393,13 +395,6 @@ def global_latex_preamble (extra):
 
 	options = ''
 
-
-	if extra['papersize']:
-		try:
-			options = ly_paper_to_latexpaper[extra['papersize'][0]]
-		except KeyError:
-			ly.warning (_ ("invalid value: `%s'") % `extra['papersize'][0]`)
-			pass
 
 	if extra['latexoptions']:
 		options = options + ',' + extra['latexoptions'][-1]
@@ -419,6 +414,15 @@ def global_latex_preamble (extra):
 
  	unit = extra['unit'][-1]
 
+
+	papersize = ''
+	if extra['papersize']:
+		try:
+			papersize = ly_paper_to_latexpaper[extra['papersize'][0]] + ','
+		except KeyError:
+			ly.warning (_ ("invalid value: `%s'") % `extra['papersize'][0]`)
+			pass
+
 	textheight = ''
 	if extra['textheight']:
 		textheight = ',textheight=%f%s' % (extra['textheight'][0], unit)
@@ -434,7 +438,7 @@ def global_latex_preamble (extra):
 		linewidth = '597pt'
 	else:
 		linewidth = '%d%s' % (maxlw, unit)
-	s = s + '\geometry{width=%s%s,headheight=2mm,footskip=2mm,%s}\n' % (linewidth, textheight, orientation)
+	s = s + '\geometry{%swidth=%s%s,headheight=2mm,footskip=2mm,%s}\n' % (papersize, linewidth, textheight, orientation)
 
 
 	if 'twoside' in  extra['latexoptions'] :
