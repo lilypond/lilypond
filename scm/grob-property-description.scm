@@ -462,3 +462,9 @@ columns.
 (grob-property-description 'chord-tremolo boolean? "if set, this beam is a tremolo. TODO: use interface for this!")
 (grob-property-description 'chord pair? "?")
 (grob-property-description 'begin-of-line-visible boolean? "?")
+
+(grob-property-description 'quant-score number? "Beam quanting score")
+
+(grob-property-description 'least-squares-dy number? 
+ "ideal beam slope, without damping.")
+(grob-property-description 'stem-info pair? "caching of stem parameters")
