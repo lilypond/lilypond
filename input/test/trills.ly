@@ -14,7 +14,7 @@ startHorizScript = {
   \property Voice.Script \override #'padding = #0.3
   \property Voice.Script \override #'extra-offset = #'(-.6 . 0)
   % Avoid collision with the dots of dotted notes
-  \property Voice.Dots \override #'extra-extent-X = #'(-0.7 . 0)
+  \property Voice.Dots \override #'extra-X-extent = #'(-0.7 . 0)
 }
 endHorizScript = {
   \property Voice.scriptHorizontal \unset
