@@ -14,10 +14,8 @@
 
 class Pitch_squash_engraver : public Engraver {
 public:
-  
   VIRTUAL_COPY_CONS (Translator);
   virtual void acknowledge_element (Score_element_info);
-  
 };
 
 #endif /* PITCH_SQUASH_GRAV_HH */
