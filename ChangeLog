@@ -1,3 +1,7 @@
+2004-10-20  Jürgen Reuter  <reuter@ipd.uka.de>
+
+	* Documentation/user/notation.itely: fixed 2 typos
+
 2004-10-20  Werner Lemberg  <wl@gnu.org>
 
 	* scm/framework-tex.scm (header-end): Don't set \outputscale.
