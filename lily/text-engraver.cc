@@ -21,7 +21,7 @@
  */
 class Text_engraver : public Engraver
 {
-  Link_array<Music> reqs_;
+  Link_array<Music> evs_;
   Link_array<Item> texts_;
 public:
   TRANSLATOR_DECLARATIONS (Text_engraver);
@@ -37,7 +37,7 @@ Text_engraver::try_music (Music *m)
 {
   if (m->is_mus_type ("text-script-event"))
     {
-      reqs_.push (m);
+      evs_.push (m);
       return true;
     }
   return false;
@@ -79,9 +79,9 @@ Text_engraver::process_acknowledged_grobs ()
 {
   if (texts_.size ())
     return;
-  for (int i=0; i < reqs_.size (); i++)
+  for (int i=0; i < evs_.size (); i++)
     {
-      Music * r = reqs_[i];
+      Music * r = evs_[i];
       
       // URG: Text vs TextScript
       Item *text = make_item ("TextScript");
@@ -123,7 +123,7 @@ Text_engraver::stop_translation_timestep ()
       typeset_grob (ti);
     }
   texts_.clear ();
-  reqs_.clear ();
+  evs_.clear ();
 }
 
 

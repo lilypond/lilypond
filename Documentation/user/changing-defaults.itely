@@ -267,7 +267,8 @@ Translation @arrow{} Context.
 * Changing context properties on the fly ::  
 * Modifying context plug-ins::  
 * Layout tunings within contexts::  
-* Defining context defaults ::  
+* Changing context default settings::  
+* Defining new  contexts::      
 * Which properties to change::  
 @end menu
 
@@ -669,7 +670,7 @@ The adjustments of the previous chapters can also be entered separate
 from the music, in the @code{\paper} block,
 
 @example
-  \paper {
+  \paper @{
      @dots{}
      \context @{
         \StaffContext
@@ -713,6 +714,11 @@ will also work.
 
 
 
+@refbugs
+
+It is not possible to collect changes in a variable, and apply them to
+one @code{\context} definition by referencing that variable.
+
 
 @node Defining new  contexts
 @subsection Defining new  contexts
@@ -732,7 +738,7 @@ to indicate improvisation in Jazz pieces,
     \name ImproVoice
     \type "Engraver_group_engraver"
     \consists "Note_heads_engraver"
-    \consists "Text_script_engraver"
+    \consists "Text_engraver"
     \consists Pitch_squash_engraver
     squashedPosition = #0
     \override NoteHead #'style = #'slash
@@ -741,12 +747,12 @@ to indicate improvisation in Jazz pieces,
   }
   \context { \StaffContext
     \accepts "ImproVoice"
-  }
+  }}
   \score { \notes \relative c'' {
-    a4 d8 bes8 \new ImproVoice { c4^"ad lib" 4 
+    a4 d8 bes8 \new ImproVoice { c4^"ad lib" 
      c4 c^"undress"  c c_"while playing :)"  } 
     a1 
-  }
+  }}
 @end lilypond
 
 
@@ -754,11 +760,11 @@ These settings are again done within a @code{\context} block inside a
 @code{\paper} block,
 
 @example
-  \paper  {
-    \context {
+  \paper @{
+    \context @{
       @dots{}
-    }
-  }
+    @}
+  @}
 @end example
 
 In the following discussion, the example input shown should go on the
@@ -783,7 +789,7 @@ The context will print notes, and instructive texts
 
 @verbatim
   \consists Note_heads_engraver
-  \consists Text_script_engraver
+  \consists Text_engraver
 @end verbatim
 
 but only on the center line,
@@ -830,8 +836,8 @@ Put together, we get
   }
 @end verbatim
 
-Contexts form hierarchies. We want to hang the @consists{ImproVoice}
-under @consists{Staff}, just like normal @code{Voice}s. Therefore, we
+Contexts form hierarchies. We want to hang the @context{ImproVoice}
+under @context{Staff}, just like normal @code{Voice}s. Therefore, we
 modify the @code{Staff} definition with the @code{\accepts}
 command,@footnote{The opposite of @code{\accepts} is @code{\denies},
 which is sometimes when reusing existing context definitions. }
@@ -845,8 +851,6 @@ which is sometimes when reusing existing context definitions. }
   }
 @end verbatim 
 
-
-@example
 
 
     
@@ -1670,8 +1674,6 @@ This manual: @ref{Selecting font sizes}.
 @menu
 * Line breaking::               
 * Page layout::                 
-* Defining contexts::           
-* Defining new contexts::       
 @end menu
 
 @node Line breaking
@@ -1805,112 +1807,6 @@ Internals: @internalsref{NonMusicalPaperColumn}.
 
 LilyPond has no concept of page layout, which makes it difficult to
 reliably choose page breaks in longer pieces.
-
-
-
-
-@node Defining contexts
-@subsection Defining contexts
-
-@cindex context definition
-@cindex translator definition
-
-The most common way to create a new context definition is by extending
-an existing one.  An existing context from the paper block is copied
-by referencing a context identifier:
-
-@example
-\paper @{
-  \context @{
-    @var{context-identifier}
-  @}
-@}
-@end example
-
-@noindent
-Every predefined context has a standard identifier. For example, the
-@code{Staff} context can be referred to as @code{\StaffContext}.
-
-The context can then be modified by setting or changing properties,
-e.g.
-@example
-\context @{
-  \StaffContext
-  Stem \set #'thickness = #2.0
-  defaultBarType = #"||"
-@}
-@end example
-These assignments happen before interpretation starts, so a property
-command will override any predefined settings.
-
-@cindex engraver
-
-@refbugs
-
-It is not possible to collect multiple property assignments in a
-variable, and apply to one @code{\context} definition by
-referencing that variable.
-
-
-
-@node Defining new contexts
-@subsection Defining new contexts
-
-
-It is also possible to define new contexts from scratch.  To do this,
-you must define give the new context a name.  In the following
-example, a very simple Staff context is created: one that will put
-note heads on a staff symbol.
-
-@example
-\context @{
-  \type "Engraver_group_engraver"
-  \name "SimpleStaff"
-  \alias "Staff"
-  \consists "Staff_symbol_engraver"
-  \consists "Note_head_engraver"
-  \consistsend "Axis_group_engraver"
-@}
-@end example
-
-@noindent
-The argument of @code{\type} is the name for a special engraver that
-handles cooperation between simple engravers such as
-@code{Note_head_engraver} and @code{Staff_symbol_engraver}.  This
-should always be  @code{Engraver_group_engraver} (unless you are
-defining a Score context from scratch, in which case
-@code{Score_engraver}   must be used).
-
-The complete list of context  modifiers is the following:
-@itemize @bullet
-@item @code{\alias} @var{alternate-name}:
-This specifies a different name.  In the above example,
-@code{\set Staff.X = Y} will also work on @code{SimpleStaff}s.
-
-@item @code{\consistsend} @var{engravername}:
-Analogous to @code{\consists}, but makes sure that
-@var{engravername} is always added to the end of the list of
-engravers.
-
-Engravers that group context objects into axis groups or alignments
-need to be at the end of the list. @code{\consistsend} insures that
-engravers stay at the end even if a user adds or removes engravers.
-
-@item @code{\accepts} @var{contextname}:
-This context can contains @var{contextname} contexts.  The first
-@code{\accepts} is created as a default context when events (e.g. notes
-or rests) are encountered.
-
-@item @code{\denies}:
-The opposite of @code{\accepts}.
-
-@item @code{\name} @var{contextname}:
-This sets the type name of the context, e.g. @code{Staff},
-@code{Voice}.  If the name is not specified, the translator will not
-do anything.
-@end itemize
-
-@c EOF
 
 
 

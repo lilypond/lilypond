@@ -47,7 +47,7 @@
 	extraVerticalExtent = ##f
 	verticalExtent = ##f 
 	localKeySignature = #'()
-	
+	createSpacing = ##t
 	% explicitly set instrument, so we don't get 
 	% weird effects when doing instrument names for
 	% piano staves
