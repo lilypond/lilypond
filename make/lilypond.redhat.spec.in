@@ -97,6 +97,9 @@ rm `find /var/lib/texmf -name 'feta*pk' -or -name 'feta*tfm' -or -name 'parmesan
 echo 'Please logout first before using LilyPond.'
 
 %preun
+if [ -f /usr/share/lilypond/%{version}/ls-R ]; then
+  rm -f /usr/share/lilypond/%{version}/ls-R
+fi
 
 
 %if %{info}
@@ -107,9 +110,6 @@ echo 'Please logout first before using LilyPond.'
 # chkfontpath --remove=%{_datadir}/share/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
 
 %postun
-if [ -f /usr/share/lilypond/%{version}/ls-R ]; then
-  rm -f /usr/share/lilypond/%{version}/ls-R
-fi
 
 %post documentation
 scrollkeeper-update

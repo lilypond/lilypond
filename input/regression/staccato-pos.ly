@@ -9,7 +9,9 @@ not be on staff lines.
 }
 \score { 
   \context Voice \notes\relative c' {
-	e'4-. f-. d-. c-. b-. 
+	e'4-. f-. d-. c-. b-.
+	\stemDown
+	e,-. d-. c-. b-. a-. g-.    
   }
   \paper {
     raggedright = ##t

@@ -8,6 +8,7 @@
  */
 #include <math.h>		// ceil.
 
+#include "note-head.hh"
 #include "side-position-interface.hh"
 #include "warn.hh"
 #include "warn.hh"
@@ -170,12 +171,19 @@ Side_position_interface::quantised_position (SCM element_smob, SCM)
       Real rad = Staff_symbol_referencer::staff_radius (me) *2 ;
       int ip = int (rp);
 
-      if (abs (ip) <= rad && Staff_symbol_referencer::on_staffline (me,ip))
+      Grob *head = me->get_parent (X_AXIS);
+	
+      if (Staff_symbol_referencer::on_staffline (me,ip)
+	  && ((abs (ip) <= rad)
+	      || (Note_head::has_interface (head)
+		  && sign (Staff_symbol_referencer::get_position (head))
+		  == -d)
+	      ))
 	{
 	  ip += d;
 	  rp += d;
 	}
-
+      
       return gh_double2scm ((rp - p) * Staff_symbol_referencer::staff_space (me) / 2.0);
     }
   return gh_double2scm (0.0);

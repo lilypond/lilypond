@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c)  2004  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;; (c)  2004	Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 ;; todo: figure out how to make module,
 ;; without breaking nested ly scopes
@@ -14,12 +14,10 @@
   (split-index #:accessor split-index)
   (vector-index)
   (state-vector)
-
-
   ;;;
-  ; spanner-state is an alist
-  ; of (SYMBOL . RESULT-INDEX), which indicates where
-  ; said spanner was started.
+  ;; spanner-state is an alist
+  ;; of (SYMBOL . RESULT-INDEX), which indicates where
+  ;; said spanner was started.
   (spanner-state #:init-value '() #:accessor span-state) )
   
 (define-method (write (x <Voice-state> ) file)
@@ -32,28 +30,25 @@
 
 (define-method (note-events (vs <Voice-state>))
   (define (f? x)
-    (equal? (ly:music-property  x 'name) 'NoteEvent))
+    (equal? (ly:music-property	x 'name) 'NoteEvent))
   (filter f? (events vs)))
 
 (define-method (previous-voice-state (vs <Voice-state>))
-  (let* ((i (slot-ref vs 'vector-index))
-	 (v (slot-ref vs 'state-vector)) )
+  (let ((i (slot-ref vs 'vector-index))
+	(v (slot-ref vs 'state-vector)) )
     (if (< 0 i)
 	(vector-ref v (1- i))
-	#f)
-  ))
-
+	#f)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-class <Split-state> ()
   (configuration #:init-value '() #:accessor configuration)
   (when-moment #:accessor when #:init-keyword #:when)
-
-  ; voice-states are states starting with the Split-state or later
-  ;
+  ;; voice-states are states starting with the Split-state or later
+  ;;
   (is #:init-keyword #:voice-states #:accessor voice-states)
-  (synced  #:init-keyword #:synced #:init-value  #f #:getter synced?) )
+  (synced  #:init-keyword #:synced #:init-value	 #f #:getter synced?))
 			     
 
 (define-method (write (x <Split-state> ) f)
@@ -68,75 +63,52 @@
 
 
 (define (previous-span-state vs)
-	 (let*
-	     ((p (previous-voice-state vs)))
-
-	   (if p (span-state p)
-	       '())
-	 ))
+  (let ((p (previous-voice-state vs)))
+    (if p (span-state p) '())))
 
 (define (make-voice-states evl)
-  (let
-      ((vec
-	(list->vector
-	 (map
-	  (lambda (v)
-	    (make <Voice-state>
-	      #:when (caar v)
-	      #:tuning (cdar v)
-	      #:events (map car (cdr v))
-	      ))
-	  evl))))
-    
+  (let ((vec (list->vector (map (lambda (v)
+				  (make <Voice-state>
+				    #:when (caar v)
+				    #:tuning (cdar v)
+				    #:events (map car (cdr v))))
+				evl))))
     (do ( (i 0 (1+ i)) )
 	( (= i (vector-length vec)) vec)
       (slot-set! (vector-ref vec i) 'vector-index i)
-      (slot-set! (vector-ref vec i) 'state-vector vec)
-    )))
-
+      (slot-set! (vector-ref vec i) 'state-vector vec))))
 
 (define (make-split-state vs1 vs2)
   "Merge lists VS1 and VS2, containing Voice-state objects into vector
 of Split-state objects, crosslinking the Split-state vector and
 Voice-state objects
-"
-  
+"  
   (define (helper ss-idx ss-list idx1 idx2)
-    (let*
-	((s1 (if (< idx1 (vector-length vs1)) (vector-ref vs1 idx1) #f))
-	 (s2 (if (< idx2 (vector-length vs2)) (vector-ref vs2 idx2) #f))
-	 (min (cond ((and s1 s2) (moment-min (when s1) (when s2)))
-		    (s1 (when s1))
-		    (s2 (when s2))
-		    (else #f)
-		    ))
-
-	 (inc1 (if (and s1 (equal? min (when s1))) 1 0))
-	 (inc2 (if (and s2 (equal? min (when s2))) 1 0))
-	 (ss-object
-	  (if min
-	      (make <Split-state>
-		#:when min
-		#:voice-states (cons s1 s2)
-		#:synced (= inc1 inc2)
-		) #f)) )
+    (let* ((s1 (if (< idx1 (vector-length vs1)) (vector-ref vs1 idx1) #f))
+	   (s2 (if (< idx2 (vector-length vs2)) (vector-ref vs2 idx2) #f))
+	   (min (cond ((and s1 s2) (moment-min (when s1) (when s2)))
+		      (s1 (when s1))
+		      (s2 (when s2))
+		      (else #f)))
+	   (inc1 (if (and s1 (equal? min (when s1))) 1 0))
+	   (inc2 (if (and s2 (equal? min (when s2))) 1 0))
+	   (ss-object (if min
+			  (make <Split-state>
+			    #:when min
+			    #:voice-states (cons s1 s2)
+			    #:synced (= inc1 inc2))
+			  #f)))
       (if s1
 	  (set! (split-index s1) ss-idx))
       (if s2
 	  (set! (split-index s2) ss-idx))
-      
       (if min
 	  (helper (1+ ss-idx)
 		  (cons ss-object ss-list)
 		  (+ idx1 inc1)
 		  (+ idx2 inc2))
-	  ss-list )
-      ))
-
-    (list->vector
-     (reverse!
-      (helper 0 '() 0  0) '())) )
-      
+	  ss-list)))
+  (list->vector (reverse! (helper 0 '() 0  0) '())))
 
 
 (define (analyse-spanner-states voice-state-vec)
@@ -147,82 +119,57 @@ Voice-state objects
     (define (analyse-tie-start active ev)
       (if (equal? (ly:music-property ev 'name) 'TieEvent)
 	  (acons 'tie index active)
-	  active
-	  ))
+	  active))
     
     (define (analyse-tie-end active ev)
       (if (equal? (ly:music-property ev 'name) 'NoteEvent)
 	  (assoc-remove! active 'tie)
-	  active) )
+	  active))
 
     (define (analyse-absdyn-end active ev)
       (if (equal? (ly:music-property ev 'name) 'AbsoluteDynamicEvent)
-	  (assoc-remove!
-	   (assoc-remove! active 'cresc)
-	   'decr)
-	  active) )
+	  (assoc-remove! (assoc-remove! active 'cresc) 'decr)
+	  active))
     
     (define (active<? a b)
-      (cond
-       ((symbol<? (car a) (car b)) #t)
-       ((symbol<? (car b) (car b)) #f)
-       (else
-	(< (cdr a) (cdr b)))
-       ))
+      (cond ((symbol<? (car a) (car b)) #t)
+	    ((symbol<? (car b) (car b)) #f)
+	    (else (< (cdr a) (cdr b)))))
     
     (define (analyse-span-event active ev)
-      (let*
-	  ((name (ly:music-property ev 'name))
-	   (key (cond
-		 ((equal? name 'SlurEvent) 'slur)
-		 ((equal? name 'PhrasingSlurEvent) 'tie)
-		 ((equal? name 'BeamEvent) 'beam)
-		 ((equal? name 'CrescendoEvent) 'cresc)
-		 ((equal? name 'DecrescendoEvent) 'decr)
-		 (else #f)) )
-	   (sp (ly:music-property ev 'span-direction)) )
-
+      (let* ((name (ly:music-property ev 'name))
+	     (key (cond ((equal? name 'SlurEvent) 'slur)
+			((equal? name 'PhrasingSlurEvent) 'tie)
+			((equal? name 'BeamEvent) 'beam)
+			((equal? name 'CrescendoEvent) 'cresc)
+			((equal? name 'DecrescendoEvent) 'decr)
+			(else #f)))
+	     (sp (ly:music-property ev 'span-direction)))
 	(if (and (symbol? key) (ly:dir? sp))
 	    (if (= sp STOP)
 		(assoc-remove! active key)
 		(acons key
 		       (split-index (vector-ref voice-state-vec index))
 		       active))
-	    active)
-	))
+	    active)))
 
     (define (analyse-events active evs)
       "Run all analyzers on ACTIVE and EVS"
-
       (define (run-analyzer analyzer active evs)
 	(if (pair? evs)
 	    (run-analyzer analyzer (analyzer active (car evs)) (cdr evs))
-	    active
-	    ))
+	    active))
       (define (run-analyzers analyzers active evs)
 	(if (pair? analyzers)
-	    (run-analyzers
-	     (cdr analyzers)
-	     (run-analyzer (car analyzers) active evs)
-	     evs)
-	    active
-	))
-
-      
-
-      (sort
-
-       ;; todo: use fold or somesuch.
-       (run-analyzers
-	(list
-	 analyse-absdyn-end
-	 analyse-span-event
-	      
-	 ;; note: tie-start/span comes after tie-end/absdyn.
-	 analyse-tie-end analyse-tie-start)
-
-	 active evs)
-       
+	    (run-analyzers (cdr analyzers)
+			   (run-analyzer (car analyzers) active evs)
+			   evs)
+	    active))
+      (sort ;; todo: use fold or somesuch.
+       (run-analyzers (list analyse-absdyn-end analyse-span-event
+			    ;; note: tie-start/span comes after tie-end/absdyn.
+			    analyse-tie-end analyse-tie-start)
+		      active evs)
        active<?))
 
     ;; must copy, since we use assoc-remove!
@@ -231,11 +178,9 @@ Voice-state objects
 	  (set! active (analyse-events active (events (vector-ref voice-state-vec index))))
 	  (set! (span-state (vector-ref voice-state-vec index))
 		(list-copy active))
-
-	  (helper (1+ index) active))) )
-
-
-  (helper 0 '()) )
+	  (helper (1+ index) active))))
+  
+  (helper 0 '()))
 
 
 	
@@ -248,393 +193,287 @@ Voice-state objects
   (set! noticed (acons (ly:context-id context) lst noticed)))
 
 (define-public (make-part-combine-music music-list)
-  (let*
-     ((m (make-music-by-name 'PartCombineMusic))
-      (m1 (context-spec-music (car music-list) 'Voice "one"))
-      (m2 (context-spec-music (cadr music-list) 'Voice "two"))
-       )
-    
-    (ly:music-set-property! m 'elements (list m1 m2))
+  (let ((m (make-music-by-name 'PartCombineMusic))
+	(m1 (context-spec-music (car music-list) 'Voice "one"))
+	(m2 (context-spec-music (cadr music-list) 'Voice "two")))
+    (set! (ly:music-property m 'elements) (list m1 m2))
     (ly:run-translator m2 part-combine-listener)
     (ly:run-translator m1 part-combine-listener)
-    (ly:music-set-property! m 'split-list
-			 (determine-split-list (reverse! (cdr (assoc "one" noticed)) '())
-					       (reverse! (cdr (assoc "two" noticed)) '())))
+    (set! (ly:music-property m 'split-list)
+	  (determine-split-list (reverse! (cdr (assoc "one" noticed)) '())
+				(reverse! (cdr (assoc "two" noticed)) '())))
     (set! noticed '())
-    
     m))
-
-
-    
-    
-
-
 
 (define-public (determine-split-list evl1 evl2)
   "EVL1 and EVL2 should be ascending"
-
-
-  
-  (let*
-      ((pc-debug #f)
-       (chord-threshold 8)
-       (voice-state-vec1 (make-voice-states evl1))
-       (voice-state-vec2 (make-voice-states evl2))
-       (result (make-split-state voice-state-vec1 voice-state-vec2)) )
-
-
-  (define (analyse-time-step ri)
-    (define (put x . index)
-      "Put the result to X, starting from INDEX backwards.
+  (let* ((pc-debug #f)
+	 (chord-threshold 8)
+	 (voice-state-vec1 (make-voice-states evl1))
+	 (voice-state-vec2 (make-voice-states evl2))
+	 (result (make-split-state voice-state-vec1 voice-state-vec2)))
+    
+    (define (analyse-time-step ri)
+      (define (put x . index)
+	"Put the result to X, starting from INDEX backwards.
 
 Only set if not set previously.
 "
+	(let ((i (if (pair? index) (car index) ri)))
+	  (if (and (<= 0 i)
+		   (not (symbol? (configuration (vector-ref result i)))))
+	      (begin
+		(set! (configuration (vector-ref result i)) x)
+		(put x (1- i))))))
       
-      (let
-	  ((i (if (pair? index) (car index) ri)))
+      (define (copy-state-from state-vec vs)
+	(define (copy-one-state key-idx)
+	  (let* ((idx (cdr key-idx))
+		 (prev-ss (vector-ref result idx))
+		 (prev (configuration prev-ss)))
+	    (if (symbol? prev)
+		(put prev))))
+	(map copy-one-state (span-state vs)))
 
-	(if (and (<= 0 i)
-		 (not (symbol? (configuration (vector-ref result i)))))
-	    (begin
-	      (set! (configuration (vector-ref result i)) x)
-	      (put x (1- i))
-	    ))
-	))
-
-    
-    (define (copy-state-from state-vec vs)
-      (define (copy-one-state key-idx)
-	(let*
-	    ((idx (cdr key-idx))
-	     (prev-ss (vector-ref result idx))
-	     (prev (configuration prev-ss)) )
-	  (if (symbol? prev)
-	      (put prev))))
+      (define (analyse-notes now-state) 
+	(let* ((vs1 (car (voice-states now-state)))
+	       (vs2 (cdr (voice-states now-state)))
+	       (notes1 (note-events vs1))
+	       (durs1	 (sort (map (lambda (x) (ly:music-property x 'duration))
+				    notes1)
+			       ly:duration<?))
+	       (pitches1 (sort (map (lambda (x) (ly:music-property x 'pitch))
+				    notes1)
+			       ly:pitch<?))
+	       (notes2	 (note-events vs2))
+	       (durs2	 (sort (map (lambda (x) (ly:music-property x 'duration))
+				    notes2)
+			       ly:duration<?))
+	       (pitches2 (sort (map (lambda (x) (ly:music-property x 'pitch))
+				    notes2)
+			       ly:pitch<?)))
+	  (cond ((> (length notes1) 1) (put 'apart))
+		((> (length notes2) 1) (put 'apart))
+		((not (= (length notes1) (length notes2)))
+		 (put 'apart))
+		((and (= (length durs1) 1)
+		      (= (length durs2) 1)
+		      (not (equal? (car durs1) (car durs2))))
+		 (put 'apart))
+		(else
+		 (if (and (= (length pitches1) (length pitches2)))
+		     (if (and (pair? pitches1)
+			      (pair? pitches2)
+			      (< chord-threshold (ly:pitch-steps
+						  (ly:pitch-diff (car pitches1) (car pitches2)))))
+			 (put 'apart)
+			 ;; copy previous split state from spanner state
+			 (begin
+			   (if (previous-voice-state vs1)
+			       (copy-state-from voice-state-vec1
+						(previous-voice-state vs1)))
+			   (if (previous-voice-state vs2)
+			       (copy-state-from voice-state-vec2
+						(previous-voice-state vs2)))
+			   (if (and (null? (span-state vs1)) (null? (span-state vs2)))
+			       (put 'chords)))))))))
       
-      (map copy-one-state (span-state vs)) )
-
-    (define (analyse-notes now-state) 
-      (let*
-	  (
-	   (vs1 (car (voice-states now-state)))
-	   (vs2 (cdr (voice-states now-state)))
-	   
-	   (notes1 (note-events vs1))
-	   (durs1 (sort (map (lambda (x) (ly:music-property x 'duration)) notes1) ly:duration<?))
-	   (pitches1 (sort
-		      (map (lambda (x) (ly:music-property x 'pitch)) notes1) ly:pitch<?))
-	   (notes2 (note-events vs2))
-	   (durs2     (sort (map (lambda (x) (ly:music-property x 'duration)) notes2) ly:duration<?))
-	   (pitches2 (sort
-		      (map (lambda (x) (ly:music-property x 'pitch)) notes2) ly:pitch<?)) )
-	
-	(cond
-	 ((> (length notes1) 1) (put 'apart))
-	 ((> (length notes2) 1) (put 'apart))
-	 ((not (= (length notes1) (length notes2)))
-	  (put 'apart))
-	 ((and
-	   (= (length durs1) 1)
-	   (= (length durs2) 1)
-	   (not (equal? (car durs1) (car durs2))))
-
-	  (put 'apart))
-	 (else
-	  (if (and (= (length pitches1) (length pitches2)))
-	      (if (and (pair? pitches1)
-		       (pair? pitches2)
-		       (< chord-threshold (ly:pitch-steps
-					   (ly:pitch-diff (car pitches1) (car pitches2)))))
-		  (put 'apart)
-
-		  ;; copy previous split state from spanner state
-		  (begin
-		    (if (previous-voice-state vs1)
-			(copy-state-from voice-state-vec1
-					 (previous-voice-state vs1)))
-		    (if (previous-voice-state vs2)
-			(copy-state-from voice-state-vec2
-					 (previous-voice-state vs2)))
-		    (if (and (null? (span-state vs1)) (null? (span-state vs2)))
-			(put 'chords))
-		    
-		    ))))
-	 )))
-	 
-
-
-    (if (< ri (vector-length result))
-	(let*
-	    ((now-state (vector-ref result ri))
-	     (vs1 (car (voice-states now-state)))
-	     (vs2 (cdr (voice-states now-state))))
-	  
-	  (cond
-	   ((not vs1) (put 'apart))
-	   ((not vs2) (put 'apart))
-	   (else
-	    (let*
-		(
-		 (active1 (previous-span-state vs1))
-		 (active2 (previous-span-state vs2))
-
-		 (new-active1 (span-state vs1))
-		 (new-active2 (span-state vs2)) )
-	      (if
-	       pc-debug
-	       (display (list (when now-state) ri
-				    active1 "->" new-active1
-				    active2 "->" new-active2
-				    "\n")))
-
-	      
-	      
-	      (if (and (synced? now-state)
-		       (equal? active1 active2)
-		       (equal? new-active1 new-active2))
-
-		  (analyse-notes now-state)
-
-		  ;; active states different:
-		  (put 'apart)
-		  ))
-
-					; go to the next one, if it exists.
-	    (analyse-time-step (1+ ri))
-	    )))))
+      (if (< ri (vector-length result))
+	  (let* ((now-state (vector-ref result ri))
+		 (vs1 (car (voice-states now-state)))
+		 (vs2 (cdr (voice-states now-state))))
+	    (cond ((not vs1) (put 'apart))
+		  ((not vs2) (put 'apart))
+		  (else
+		   (let ((active1 (previous-span-state vs1))
+			 (active2 (previous-span-state vs2))
+			 (new-active1 (span-state vs1))
+			 (new-active2 (span-state vs2)))
+		     (if pc-debug
+			 (display (list (when now-state) ri
+					active1 "->" new-active1
+					active2 "->" new-active2
+					"\n")))
+		     (if (and (synced? now-state)
+			      (equal? active1 active2)
+			      (equal? new-active1 new-active2))
+		    (analyse-notes now-state)
+		    ;; active states different:
+		    (put 'apart)))
+		   ;; go to the next one, if it exists.
+		   (analyse-time-step (1+ ri)))))))
     
-  (define (analyse-a2 ri)
-    (if (< ri (vector-length result))
-	(let*
-	    ((now-state (vector-ref result ri))
-	     (vs1 (car (voice-states now-state)))
-	     (vs2 (cdr (voice-states now-state))) )
-	  
-	  (if (and (equal? (configuration now-state) 'chords)
-		   vs1 vs2)
-
-	      (let*
-		  ((notes1 (note-events vs1)) 
-		   (notes2 (note-events vs2)) )
-		(cond
-		 ((and
-		   (= 1 (length notes1))
-		   (= 1 (length notes2))
-		   (equal? (ly:music-property (car notes1) 'pitch)
-			   (ly:music-property (car notes2) 'pitch)))
-
-		  (set! (configuration now-state) 'unisono))
-		 ((and
-		   (= 0 (length notes1))
-		   (= 0 (length notes2)))
-		  (set! (configuration now-state) 'unisilence)))
-
-		))
-	  (analyse-a2 (1+ ri))
-
-	  )))
-	
-   (define (analyse-solo12 ri)
+    (define (analyse-a2 ri)
+      (if (< ri (vector-length result))
+	  (let* ((now-state (vector-ref result ri))
+		 (vs1 (car (voice-states now-state)))
+		 (vs2 (cdr (voice-states now-state))))
+	    (if (and (equal? (configuration now-state) 'chords)
+		     vs1 vs2)
+		(let ((notes1 (note-events vs1)) 
+		      (notes2 (note-events vs2)))
+		  (cond ((and (= 1 (length notes1))
+			      (= 1 (length notes2))
+			      (equal? (ly:music-property (car notes1) 'pitch)
+				      (ly:music-property (car notes2) 'pitch)))
+			 (set! (configuration now-state) 'unisono))
+			((and (= 0 (length notes1))
+			      (= 0 (length notes2)))
+			 (set! (configuration now-state) 'unisilence)))))
+	    (analyse-a2 (1+ ri)))))
     
-     (define (previous-config vs)
-       (let*  ((pvs (previous-voice-state vs))
+    (define (analyse-solo12 ri)
+      
+      (define (previous-config vs)
+	(let* ((pvs (previous-voice-state vs))
 	       (spi (if pvs (split-index pvs) #f))
-	       (prev-split (if spi (vector-ref result spi) #f)) )
-	 
-	 (if prev-split
-	     (configuration prev-split)
-	     'apart)
-		    
-       ))
-     (define (put-range x a b)
-;       (display (list "put range "  x a b "\n"))
-       (do
-	   ((i a (1+ i)))
-	   ((> i b) b)
-	 (set! (configuration (vector-ref result i)) x)
-	 ))
-     
-     (define (put x)
-;       (display (list "putting "  x "\n"))
-
-       (set! (configuration (vector-ref result ri)) x))
-
-     (define (current-voice-state now-state voice-num)
-       (define vs ((if (= 1 voice-num) car cdr)
-		   (voice-states now-state) ) )
-       (if (or (not vs) (equal? (when now-state) (when vs)))
-	   vs
-	   (previous-voice-state vs)
-       ))
-     
-     (define (try-solo type start-idx current-idx)
-       "Find a maximum stretch that can be marked as solo. Only set
+	       (prev-split (if spi (vector-ref result spi) #f)))
+	  (if prev-split
+	      (configuration prev-split)
+	      'apart)))
+      
+      (define (put-range x a b)
+	;; (display (list "put range "	x a b "\n"))
+	(do ((i a (1+ i)))
+	    ((> i b) b)
+	  (set! (configuration (vector-ref result i)) x)))
+      
+      (define (put x)
+	;; (display (list "putting "  x "\n"))
+	(set! (configuration (vector-ref result ri)) x))
+      
+      (define (current-voice-state now-state voice-num)
+	(define vs ((if (= 1 voice-num) car cdr)
+		    (voice-states now-state)))
+	(if (or (not vs) (equal? (when now-state) (when vs)))
+	    vs
+	    (previous-voice-state vs)))
+      
+      (define (try-solo type start-idx current-idx)
+	"Find a maximum stretch that can be marked as solo. Only set
 the mark when there are no spanners active."
-       (if (< current-idx (vector-length result))
-	   (let*
-	       ((now-state (vector-ref result current-idx))
-		(solo-state (current-voice-state now-state (if (equal? type 'solo1) 1 2)))
-		
-		(silent-state (current-voice-state now-state (if (equal? type 'solo1) 2 1)))
-		(silent-notes (if silent-state (note-events silent-state) '()))
-		(solo-notes (if solo-state (note-events solo-state) '()))
-		
-		(soln (length solo-notes))
-		(siln (length silent-notes)))
-
-;	     (display (list "trying " type " at "  (when now-state) solo-state silent-state  "\n"))
-	     (cond
-	      ((not (equal? (configuration now-state) 'apart))
-	       current-idx)
-	      ((> siln 0) start-idx)
-
-	      ((and
-		;
-		; This includes rests. This isn't a problem: long rests
-		; will be shared with the silent voice, and be marked
-		; as unisilence. Therefore, long rests won't 
-		;  accidentally be part of a solo.
-		;
-		(null? (span-state solo-state)))
-	       (put-range type start-idx current-idx)
-	       (try-solo type (1+ current-idx) (1+  current-idx)))
-	      (else
-	       (try-solo type start-idx (1+ current-idx)))
-	       
-	      ))
-	   start-idx)) ; try-solo
-
-     
-     (define (analyse-moment ri)
-       "Analyse 'apart starting at RI. Return next index. "
-        (let*
-	   ((now-state (vector-ref result ri))
-	    (vs1 (current-voice-state now-state 1))
-	    (vs2 (current-voice-state now-state 2))
-;	    (vs1 (car (voice-states now-state)))
-;	    (vs2 (cdr (voice-states now-state)))
-	    (notes1 (if vs1 (note-events vs1) '()))
-	    (notes2 (if vs2 (note-events vs2) '()))
-	    (n1 (length notes1))
-	    (n2 (length notes2)) )
-
-;	  (display (list "analyzing step " ri "  moment " (when now-state) vs1 vs2  "\n"))
-
-	  
+	(if (< current-idx (vector-length result))
+	    (let* ((now-state (vector-ref result current-idx))
+		   (solo-state (current-voice-state now-state (if (equal? type 'solo1) 1 2)))
+		   (silent-state (current-voice-state now-state (if (equal? type 'solo1) 2 1)))
+		   (silent-notes (if silent-state (note-events silent-state) '()))
+		   (solo-notes (if solo-state (note-events solo-state) '()))
+		   (soln (length solo-notes))
+		   (siln (length silent-notes)))
+	      ;; (display (list "trying " type " at "  (when now-state) solo-state silent-state	 "\n"))
+	      (cond ((not (equal? (configuration now-state) 'apart))
+		     current-idx)
+		    ((> siln 0) start-idx)
+		    ((and (null? (span-state solo-state)))
+		     ;;
+		     ;; This includes rests. This isn't a problem: long rests
+		     ;; will be shared with the silent voice, and be marked
+		     ;; as unisilence. Therefore, long rests won't 
+		     ;;	 accidentally be part of a solo.
+		     ;;
+		     (put-range type start-idx current-idx)
+		     (try-solo type (1+ current-idx) (1+  current-idx)))
+		    (else
+		     (try-solo type start-idx (1+ current-idx)))))
+	    start-idx)) ; try-solo
+      
+      (define (analyse-moment ri)
+	"Analyse 'apart starting at RI. Return next index. "
+	(let* ((now-state (vector-ref result ri))
+	       (vs1 (current-voice-state now-state 1))
+	       (vs2 (current-voice-state now-state 2))
+	       ;; (vs1 (car (voice-states now-state)))
+	       ;; (vs2 (cdr (voice-states now-state)))
+	       (notes1 (if vs1 (note-events vs1) '()))
+	       (notes2 (if vs2 (note-events vs2) '()))
+	       (n1 (length notes1))
+	       (n2 (length notes2)))
+	  ;; (display (list "analyzing step " ri "  moment " (when now-state) vs1 vs2  "\n"))
 	  (max				; we should always increase.
-	   (cond
-	    ((and (= n1 0) (= n2 0))
-	     (put 'apart-silence)
-	     (1+ ri) )
+	   (cond ((and (= n1 0) (= n2 0))
+		  (put 'apart-silence)
+		  (1+ ri))
+		 ((and (= n2 0)
+		       (equal? (when vs1) (when now-state))
+		       (null? (previous-span-state vs1)))
+		  (try-solo 'solo1 ri ri))
+		 ((and (= n1 0)
+		       (equal? (when vs2) (when now-state))
+		       (null? (previous-span-state vs2)))
+		  (try-solo 'solo2 ri ri))
+		 (else (1+ ri)))
+	   (1+ ri)))) ; analyse-moment
+      
+      (if (< ri (vector-length result))
+	  (if (equal? (configuration (vector-ref result ri)) 'apart)
+	      (analyse-solo12 (analyse-moment ri))
+	      (analyse-solo12 (1+ ri))))) ; analyse-solo12
 
-	    ((and (= n2 0)
-		  (equal? (when vs1) (when now-state))
-		  (null? (previous-span-state vs1)))
-	     (try-solo 'solo1 ri ri))
-	    ((and (= n1 0)
-		  (equal? (when vs2) (when now-state))
-		  (null? (previous-span-state vs2)))
-	     (try-solo 'solo2 ri ri))
-	    (else (1+ ri) ))
-	   (1+ ri))
-	  ))  ; analyse-moment
-	  
-     (if (< ri (vector-length result))
-	 (if (equal? (configuration (vector-ref result ri)) 'apart)
-	     (analyse-solo12 (analyse-moment ri))
-	     (analyse-solo12 (1+ ri)))) ) ; analyse-solo12
-     
-   
-   (analyse-spanner-states voice-state-vec1)
-   (analyse-spanner-states voice-state-vec2)
-
-   (if #f
-       (begin
-	(display voice-state-vec1)
-	(display "***\n")
-	(display voice-state-vec2)
-	(display "***\n")
-	(display result)
-	(display "***\n")
-	))
-     
-   (analyse-time-step 0)
-;   (display result)
-   (analyse-a2 0)
-;   (display result)
-   (analyse-solo12 0)
-;   (display result)
-
-   (set! result (map
-		 (lambda (x) (cons (when x) (configuration x)))
-		 (vector->list result)))
-
-;   (if pc-debug (display result))
-   result))
-
+    (analyse-spanner-states voice-state-vec1)
+    (analyse-spanner-states voice-state-vec2)
+    (if #f
+	(begin
+	  (display voice-state-vec1)
+	  (display "***\n")
+	  (display voice-state-vec2)
+	  (display "***\n")
+	  (display result)
+	  (display "***\n")))
+    (analyse-time-step 0)
+    ;; (display result)
+    (analyse-a2 0)
+    ;; (display result)
+    (analyse-solo12 0)
+    ;; (display result)
+    (set! result (map
+		  (lambda (x) (cons (when x) (configuration x)))
+		  (vector->list result)))
+    ;; (if pc-debug (display result))
+    result))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; autochange - fairly related to part combining.
 
 (define-public (make-autochange-music music)
-
   (define (generate-split-list event-list acc)
     (if (null? event-list)
 	acc
-	(let*
-	    ((now-tun (caar event-list))
-	     (evs (map car (cdar event-list)))
-	     (now (car now-tun))
-	     (notes (filter (lambda (x)
-			      (equal? (ly:music-property  x 'name) 'NoteEvent))
+	(let* ((now-tun (caar event-list))
+	       (evs (map car (cdar event-list)))
+	       (now (car now-tun))
+	       (notes (filter (lambda (x)
+				(equal? (ly:music-property  x 'name) 'NoteEvent))
 			      evs))
-	     (pitch (if (pair? notes)
-			(ly:music-property (car notes) 'pitch)
-			#f)) )
-
-	;; tail recursive.
-	(if (and pitch (not (= (ly:pitch-steps pitch) 0)))
-	    (generate-split-list
-	     (cdr event-list)
-	     (cons (cons now (sign (ly:pitch-steps pitch))) acc))
-	    (generate-split-list (cdr event-list) acc)
-	    ))
-	))
-
+	       (pitch (if (pair? notes)
+			  (ly:music-property (car notes) 'pitch)
+			  #f)))
+	  ;; tail recursive.
+	  (if (and pitch (not (= (ly:pitch-steps pitch) 0)))
+	      (generate-split-list (cdr event-list)
+				   (cons (cons now (sign (ly:pitch-steps pitch))) acc))
+	      (generate-split-list (cdr event-list) acc)))))
   (set! noticed '())
-  
-  (let*
-      ((m (make-music-by-name 'AutoChangeMusic))
-       (context (ly:run-translator music part-combine-listener))
-       (evs (last-pair noticed))
-       (split
-	(reverse!
-	 (generate-split-list (if (pair? evs)
-				  (reverse! (cdar evs) '()) '())
-			      '())
-	 '())
-       ))
-
-    (ly:music-set-property! m 'element music)
-    (ly:music-set-property! m 'split-list split)
-    
+  (let* ((m (make-music-by-name 'AutoChangeMusic))
+	 (context (ly:run-translator music part-combine-listener))
+	 (evs (last-pair noticed))
+	 (split (reverse! (generate-split-list (if (pair? evs)
+						   (reverse! (cdar evs) '()) '())
+					       '())
+			  '())))
+    (set! (ly:music-property m 'element) music)
+    (set! (ly:music-property m 'split-list) split)
     (set! noticed '())
-    m
-  ))
+    m))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (add-quotable name mus)
   (set! noticed '())
-  (let*
-      ((tab (eval 'musicQuotes (current-module) ))
-       (context (ly:run-translator (context-spec-music mus 'Voice)
-				   part-combine-listener))
-       (evs (last-pair noticed))
-       )
-
+  (let* ((tab (eval 'musicQuotes (current-module) ))
+	 (context (ly:run-translator (context-spec-music mus 'Voice)
+				     part-combine-listener))
+	 (evs (last-pair noticed)))
     (if (pair? evs)
 	(hash-set! tab name
-		   (list->vector (reverse! (car evs) '()))))
-  ))
+		   (list->vector (reverse! (car evs) '()))))))
