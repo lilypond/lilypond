@@ -25,7 +25,7 @@
   (if (ly:get-option 'safe)
       (regexp-substitute/global
        #f "\\\\"
-       (regexp-substitute/global #f "([{}])" "bla{}" 'pre  "\\" 1 'post )
+       (regexp-substitute/global #f "([{}])" s 'pre  "\\" 1 'post )
        'pre "$\\backslash$" 'post)
       s))
 
@@ -139,7 +139,7 @@
       "lilypondpaper" 'linewidth
       (ly:number->string (* scale (ly:output-def-lookup paper 'linewidth))))
      "\\def\\lilyponddocumentclassoptions{"
-     texpaper
+     (sanitize-tex-string texpaper)
      (if landscape? ",landscape" "")
      "}%\n"
      (tex-string-def
@@ -275,6 +275,8 @@
 ;; ugh  -   double check this. We are leaking
 ;; untrusted (user-settable) info to a command-line 
 ;;
+
+
 (define-public (convert-to-ps book name)
   (let* ((paper (ly:paper-book-paper book))
 	 (preview? (string-contains name ".preview"))
@@ -284,10 +286,10 @@
 	 (cmd (string-append "dvips "
 			     (if preview?
 				 " -E "
-				 (if (member papersizename
-					     (map car paper-alist))
-				     (string-append "-t " papersizename)
-				     ""))
+				 (string-append
+				  " -t "
+				  (sanitize-command-option papersizename)))
+				 
 			     (if landscape?
 				 " -t landscape "
 				 " ")

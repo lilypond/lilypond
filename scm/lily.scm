@@ -581,19 +581,25 @@ possibly turned off."
 		  (_ "Error invoking `~a'. Return value ~a") silenced status)
 	  (newline (current-error-port))))))
 
-;;
-;; ugh  -   double check this. We are leaking
-;; untrusted (user-settable) info to a command-line
-;;
-;; (regexp-substitute/global #f "[^[:alnum:]]" papersizename 'pre 'post))
+(define-public (sanitize-command-option str)
+  (string-append
+   "\""
+   (regexp-substitute/global #f "[^-0-9,.a-zA-Z'\"\\]" str 'pre 'post)
+  "\""))
+
 (define-public (postscript->pdf papersizename name)
-  (let* ((set-papersize (if (member papersizename (map car paper-alist))
-			    (string-append "-sPAPERSIZE=" papersizename " ")
-			    ""))
-	 (cmd (string-append "ps2pdf " set-papersize name))
-	 (pdf-name (string-append (basename name ".ps") ".pdf")))
+  (let* ((cmd (string-append "ps2pdf "
+
+			     (string-append
+			      " -sPAPERSIZE="
+			      (sanitize-command-option papersizename)
+			      " "
+			     name)))
+	 (pdf-name (string-append (basename name ".ps") ".pdf" )))
+
     (if (access? pdf-name W_OK)
 	(delete-file pdf-name))
+
     (format (current-error-port) (_ "Converting to `~a'...") pdf-name)
     (ly:system cmd)))
 
