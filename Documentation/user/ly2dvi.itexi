@@ -78,8 +78,11 @@ generate titling:
 @item head
     A text to print in the header of all pages. It is not called
 @code{header}, because @code{\header} is a reserved word in LilyPond.
+@item copyright
+    A text to print in the footer of the first page. Default is to 
+    print the standard footer also on the first page.
 @item footer
-    A text to print in the footer of all pages
+    A text to print in the footer of all but the last page.
 @item tagline
     Line to print at the bottom of last page. The default text is ``Lily
 was here, @var{version-number}''.
