@@ -793,7 +793,7 @@ Then the output at the start of this subsection can be entered as
 @section The \override command
 
 In the previous section, we have already touched on a command that
-changes layout details, the @code{\override} command.  In this section,
+changes layout details: the @code{\override} command.  In this section,
 we will look in more detail at how to use the command in practice.
 First, we will give a few versatile commands that are sufficient
 for many situations.  The next section will discuss the general use of
@@ -814,6 +814,7 @@ for many situations.  The next section will discuss the general use of
 @node Common tweaks
 @subsection Common tweaks
 
+@c  Should we point at ly/property-init.ly ?  -gp
 Some overrides are so common that predefined commands are provided as
 short-cuts, for example, @code{\slurUp} and @code{\stemDown}.  These
 commands are described in
@@ -933,7 +934,6 @@ means that we have to determine these bits of information:
 @cindex graphical object descriptions 
 @cindex tweaking
 @cindex @code{\override}
-@cindex @code{\set}
 @cindex internal documentation
 
 We demonstrate how to glean this information from the notation manual
