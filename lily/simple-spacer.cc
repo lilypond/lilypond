@@ -62,7 +62,6 @@ Simple_spacer::Simple_spacer ()
     Give an extra penalty for compression. Needed to avoid compressing
     tightly spaced lines.
   */
-  compression_penalty_b_ = false;
   active_count_ = 0;
   force_ = 0.;
   indent_ =0.0;
