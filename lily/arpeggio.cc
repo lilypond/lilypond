@@ -56,10 +56,12 @@ Arpeggio::brew_molecule (SCM smob)
 
   if (heads.empty_b ())
     {
-      programming_error ("Huh? Dumb blonde encountered?");
       /*
-	Nee Valerie, jij bent _niet_ dom. 
+	Dumb blonde error
+
+	:-)
        */
+      programming_error ("Huh, no heads for arpeggio found.");
       return SCM_EOL;
     }
 

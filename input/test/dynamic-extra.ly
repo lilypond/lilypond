@@ -9,7 +9,7 @@ piuf =	\markup {  \italic "pi\\`u" \dynamic "f" }
 
 \score{
     \notes\relative c''{
-	c\piuf
+	c-\piuf
 	c
 	c2\< c2\!
 	

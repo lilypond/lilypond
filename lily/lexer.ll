@@ -179,7 +179,11 @@ HYPHEN		--
 	s = s.left_string (s.index_last ('\"'));
 
 	yy_pop_state();
-	this->here_input().source_file_->name_ = s; 
+	this->here_input().source_file_->name_ = s;
+	scm_module_define (gh_car (scopes_),
+		     ly_symbol2scm ("input-file-name"),
+		     scm_makfrom0str (s.to_str0()));
+
 }
 
 <version>. 	{

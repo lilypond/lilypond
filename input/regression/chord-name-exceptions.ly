@@ -24,7 +24,7 @@ adds the new exceptions to the default ones, which are defined in
 
 % 7sus4 denoted with ^7 wahh
 chExceptionMusic = \notes {
-  <<c f g bes>>1\markup { \super "7" "wahh" }}
+  <<c f g bes>>1-\markup { \super "7" "wahh" }}
 
 % add to existing exceptions.
 chExceptions = #(append

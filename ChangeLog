@@ -1,6 +1,10 @@
 2003-08-26  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/my-lily-lexer.cc (start_main_input): define input-file-name
+	as Scheme variable.
+
 	* scripts/convert-ly.py (conv): dashes rule.
+	Apply rule.
 
 	* Documentation/user/lilypond-book.itely: syntax fixes. 
 

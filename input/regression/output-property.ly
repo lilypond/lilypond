@@ -20,7 +20,7 @@ possible to use @code{\override} would shift both texts.
   \notes\relative c''' {
     a^"two"^"m.d."
     \context Voice
-      \outputproperty #(make-text-checker (make-simple@\markup "m.d."))
+      \outputproperty #(make-text-checker (make-simple-markup "m.d."))
         #'extra-offset = #'(-4.0 . -3.5)
     a^"two"^"m.d."    
     a^"two"^"m.d."    

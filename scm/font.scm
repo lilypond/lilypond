@@ -6,10 +6,6 @@
 ;;; (c)  2000--2003 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;
 
-(define style-to-font-alist
-  `(
-))
-
 (define (font-field name font-descr)
       (list-ref
        font-descr
@@ -316,32 +312,6 @@ and warn if the selected font is not unique.
 	    (cdr entry)
 	    (list (cons markup #t))))))
 
-
-; fixme, how's this supposed to work?
-; and why don't we import font-setting from elt?
-(define (style-to-font-name sheet style)
-  (let* ((entry (assoc style style-to-font-alist))
-	 (qualifiers (if entry (cdr entry) '()))
-	 (font (find-first-font qualifiers sheet))
-	 (err (current-error-port))
-	 )
-
-    (if (equal? font "")
-	(begin
-	  (display "\ncouldn't find any font satisfying " err)
-	  (write qualifiers err)
-	  "cmr10"
-	  )
-	font)	; return the topmost.
-    ))
-
-(if #f (begin
-	 (define (test-module)
-	   (display (filter pair? '(1 2 (1 2) (1 .2)))
-		    (display (filter-field 'font-name 'cmbx paper20-style-sheet-alist))
-		    
-		    (display (style-to-font-name 'paper20 'large)))
-	   )))
 
 ;;; ascii-script font init
 (define as-font-sheet-alist

@@ -16,4 +16,6 @@
 
 #(if (and (ly:get-option 'old-relative)
       (not (ly:get-option 'old-relative-used)))
-  (ly:warn "Old relative compatibility was not used."))
+  (ly:warn (string-append
+	    "\n"
+	    input-file-name ": old relative compatibility was not used.")))
