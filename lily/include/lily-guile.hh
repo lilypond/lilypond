@@ -48,6 +48,8 @@
 #define scm_list_n scm_listify
 #define SCM_STRING_CHARS SCM_CHARS
 #define SCM_STRING_LENGTH SCM_LENGTH
+#define SCM_SYMBOL_CHARS SCM_CHARS
+#define SCM_SYMBOL_LENGTH SCM_LENGTH
 #endif
 
 
@@ -73,8 +75,11 @@ SCM ly_last (SCM list);
 SCM ly_str02scm (char const*c);
 SCM ly_write2scm (SCM s);
 SCM ly_deep_copy (SCM);
-
+#define CACHE_SYMBOLS
 #ifdef CACHE_SYMBOLS
+
+// #warning: CACHE_SYMBOLS
+
 /*
   Using this trick we cache the value of gh_symbol2scm ("fooo") where
   "fooo" is a constant string. This is done at the cost of one static
@@ -85,9 +90,12 @@ SCM ly_deep_copy (SCM);
 
 */
 #define ly_symbol2scm(x) ({ static SCM cached;  \
- (__builtin_constant_p (x)) \
-  ? ((cached) ? cached : scm_permanent_object (cached = gh_symbol2scm((char*)x))) \
-  : gh_symbol2scm(x); })
+ SCM value = cached;  /* We store this one locally, since G++ -O2 fucks up else */   \
+ if (__builtin_constant_p (x))\
+   value = cached =  scm_permanent_object (gh_symbol2scm((char*)x));\
+ else\
+  value = gh_symbol2scm ((char*)x); \
+  value; })
 #else
 inline SCM ly_symbol2scm(char const* x) { return gh_symbol2scm((char*)x); }
 #endif 
