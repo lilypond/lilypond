@@ -26,7 +26,7 @@ protected:
   virtual ~Staff_symbol_engraver ();
   virtual void acknowledge_grob (Grob_info);
   virtual void finalize ();
-  virtual void initialize ();
+  virtual void process_music ();
 };
 
 
@@ -41,13 +41,16 @@ Staff_symbol_engraver::Staff_symbol_engraver ()
 }
 
 void
-Staff_symbol_engraver::initialize ()
+Staff_symbol_engraver::process_music ()
 {
-  span_ = new Spanner (get_property ("StaffSymbol"));
+  if (!span_)
+    {
+      span_ = new Spanner (get_property ("StaffSymbol"));
   
-  span_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
+      span_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
 
-  announce_grob(span_, SCM_EOL);
+      announce_grob(span_, SCM_EOL);
+    }
 }
 
 void

@@ -12,7 +12,6 @@
 #include "paper-def.hh"
 #include "font-interface.hh"
 #include "paper-def.hh"
-#include "main.hh"
 #include "dimensions.hh"
 #include "item.hh"
 #include "pitch.hh"

@@ -144,6 +144,7 @@ Input_file_results::Input_file_results (String init, String in_file, String out_
   if (parser.error_level_)
     {
       exit_status_global  = 1;
+      failed_files.push (in_file);
     }
 
   

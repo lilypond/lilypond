@@ -285,13 +285,18 @@ fet_beginchar("Quart trianglehead", "2triangle", "trianglehead")
 fet_endchar;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%
+% slash heads are for indicating improvisation. They are  
+% twice as high as normal heads.
+%
 def draw_slash(expr hwid_hash) =
+	save exact_height;
+	save ne_dir;
+	pair ne_dir;
+	exact_height =  staff_space# + stafflinethickness#/2;
 
-
-	set_char_box (0, staff_space# / slash_slope + hwid_hash,
-			staff_space#/2 + stafflinethickness#/2,
-			staff_space#/2 + stafflinethickness#/2);
+	set_char_box (0, 2 exact_height / slash_slope + hwid_hash,
+			exact_height, exact_height);
 
 	charwx := charwd;
 	charwy := charht;
@@ -302,13 +307,14 @@ def draw_slash(expr hwid_hash) =
 	bot y1 = - d;
 	top y2 = h;
 	lft x1 = 0;
-	lft x2 = staff_space / slash_slope;
+	lft x2 = 2 h / slash_slope;
 	
 	rt x3 = w;
 	y3 = y2;
 	y4 = y1;
 	x3- x2 = x4 - x1;
 
+	ne_dir := unitvector( z3  - z4);
 	filldraw z1 --- z2 --- z3 --- z4 --- cycle;
 
 	if hwid_hash > 2 slash_thick#:
@@ -319,11 +325,11 @@ def draw_slash(expr hwid_hash) =
 		y5 = y8;
 		y3 - y7 = th;
 		y5 - y1 = th;
-		z6 - z5 = whatever * (1,  slash_slope);
-		z8 - z7 = whatever * (1,  slash_slope);
+		z6 - z5 = whatever * ne_dir;
+		z8 - z7 = whatever * ne_dir;
 
-		z5  = z1 + whatever * (1,  slash_slope) + (th, 0);
-		z8  = z4 + whatever * (1,  slash_slope) + (-th, 0);
+		z5  = z1 + whatever * ne_dir + th * (ne_dir rotated -90);
+		z8  = z4 + whatever * ne_dir + th * (ne_dir rotated 90);
 
 		unfill
 			z5 -- z6 -- z7 -- z8 -- cycle;
@@ -332,19 +338,18 @@ def draw_slash(expr hwid_hash) =
 enddef;
 
 fet_beginchar("Whole slashhead","0slash","wholeslashhead")
-	draw_slash(2 slash_thick# + 0.5 staff_space#);
+	draw_slash(4 slash_thick# + 0.5 staff_space#);
 fet_endchar;
 
 fet_beginchar("Half slashhead","1slash","halfslashhead")
-	draw_slash(2 slash_thick# + 0.15 staff_space#);
+	draw_slash(3.0 slash_thick# + 0.15 staff_space#);
 fet_endchar;
 
 fet_beginchar("Quart slashhead","2slash","quartslashhead")
-	draw_slash(slash_thick#);
+	draw_slash(1.5 slash_thick#);
 fet_endchar;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 % thick is the distance between the NE/SW parallel lines in the cross
 % (distance between centres of lines)
 % in stafflinethickness def

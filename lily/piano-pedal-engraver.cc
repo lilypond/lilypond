@@ -98,7 +98,6 @@ Piano_pedal_engraver::Piano_pedal_engraver ()
 void
 Piano_pedal_engraver::initialize ()
 {
-
   previous_.clear ();
 
   char * names [] = { "Sostenuto", "Sustain", "UnaCorda", 0  };

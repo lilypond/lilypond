@@ -34,6 +34,8 @@
 #include "global-ctor.hh"
 #include "kpath.hh"
 
+Array<String> failed_files;
+
 static int sane_putenv (char const* key, char const* value, bool overwrite = false);
 
 /*
@@ -371,6 +373,13 @@ main_prog (void *, int, char **)
     } while ((arg  = oparser_p_static->get_next_arg ()));
   delete oparser_p_static;
   oparser_p_static = 0;
+
+  if (exit_status_global)
+    {
+      printf ("Failed files: ");
+      for (int i = 0; i < failed_files.size (); i++)
+	printf ("%s", failed_files[i].to_str0 ());
+    }
   exit (exit_status_global);
 }
 

@@ -38,11 +38,12 @@ public:
   SCM default_child_context_name ();
   SCM get_context_name () const;
   SCM get_accepted ()  const;
-  SCM get_translator_names () const;
+  SCM get_property_ops ()  const { return property_ops_; }
+  SCM get_translator_names (SCM) const;
   void set_acceptor (SCM accepts, bool add);
 
   Link_array<Translator_def> path_to_acceptable_translator (SCM type_string, Music_output_def* odef) const;
-  Translator_group * instantiate (Music_output_def*);
+  Translator_group * instantiate (Music_output_def*, SCM extra_ops);
 
   SCM to_alist () const;
   bool is_alias (SCM) const;

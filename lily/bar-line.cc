@@ -10,7 +10,6 @@
 
 #include "lookup.hh"
 #include "paper-column.hh"
-#include "main.hh"
 #include "grob.hh"
 #include "bar-line.hh"
 #include "string.hh"

@@ -21,7 +21,7 @@ public:
   TRANSLATOR_DECLARATIONS(Vertical_align_engraver);
 protected:
   virtual void acknowledge_grob (Grob_info);
-  virtual void initialize ();
+  virtual void process_music ();
   virtual void finalize ();
 };
 
@@ -31,11 +31,14 @@ Vertical_align_engraver::Vertical_align_engraver ()
 }
 
 void
-Vertical_align_engraver::initialize ()
+Vertical_align_engraver::process_music ()
 {
-  valign_ =new Spanner (get_property ("VerticalAlignment"));
-  valign_->set_bound (LEFT,unsmob_grob (get_property ("currentCommandColumn")));
-  announce_grob(valign_ , SCM_EOL);
+  if (!valign_)
+    {
+      valign_ =new Spanner (get_property ("VerticalAlignment"));
+      valign_->set_bound (LEFT,unsmob_grob (get_property ("currentCommandColumn")));
+      announce_grob(valign_ , SCM_EOL);
+    }
 }
 
 void

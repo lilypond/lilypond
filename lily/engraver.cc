@@ -10,7 +10,6 @@
 #include "engraver.hh"
 #include "engraver-group-engraver.hh"
 #include "grob.hh"
-#include "main.hh"
 #include "score-engraver.hh"
 #include "warn.hh"
 
@@ -31,7 +30,6 @@ Engraver::announce_grob (Grob* e, SCM cause)
     TODO: junk grob-info, and make a cause grob-property to store
     `causes' generically.
   */
-  
   if (unsmob_music (cause) || unsmob_grob (cause))
     e->set_grob_property ("cause", cause);
 

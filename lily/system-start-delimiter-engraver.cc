@@ -23,7 +23,7 @@ public:
 protected:
   Spanner * delim_;
   virtual void acknowledge_grob (Grob_info);
-  virtual void initialize ();
+  virtual void process_music ();
   virtual void finalize ();
 };
 
@@ -68,15 +68,17 @@ System_start_delimiter_engraver::System_start_delimiter_engraver ()
 }
 
 void
-System_start_delimiter_engraver::initialize ()
+System_start_delimiter_engraver::process_music ()
 {
-  SCM delim_name =get_property ("systemStartDelimiter");
-  delim_ = new Spanner (internal_get_property (delim_name));
+  if (!delim_)
+    {
+      SCM delim_name =get_property ("systemStartDelimiter");
+      delim_ = new Spanner (internal_get_property (delim_name));
 
-  delim_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
-  announce_grob (delim_, SCM_EOL);
+      delim_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
+      announce_grob (delim_, SCM_EOL);
+    }
 }
-
 void
 System_start_delimiter_engraver::finalize ()
 {

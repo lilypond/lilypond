@@ -52,7 +52,7 @@ public:
   VIRTUAL_COPY_CONS (Translator);
   Translator_group (Translator_group const &);
   Translator_group ();
-  void add_fresh_group_translator (Translator *trans, SCM ops);
+  void add_fresh_group_translator (Translator *trans);
   void add_used_group_translator (Translator *trans);
   
   /// Score_register = 0, Staff_registers = 1, etc)

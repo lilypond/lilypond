@@ -72,7 +72,6 @@ Translator_def::Translator_def (Translator_def const & s)
   smobify_self();
   description_ = s.description_;
 
-
   accept_mods_ = s.accept_mods_;
   property_ops_ = s.property_ops_;
   translator_mods_ = s.translator_mods_;
@@ -136,31 +135,7 @@ Translator_def::add_context_mod (SCM mod)
     }
 }
 
-SCM
-Translator_def::get_translator_names () const
-{
-  SCM l1 = SCM_EOL;
-  SCM l2 = SCM_EOL;
 
-  SCM mods = scm_reverse (translator_mods_);
-  for (SCM s = mods; gh_pair_p (s); s = gh_cdr (s))
-    {
-      SCM tag = gh_caar (s);
-      SCM arg = gh_cadar (s);
-
-      if (ly_symbol2scm ("consists") == tag)
-	l1 = gh_cons (arg, l1);
-      else if (ly_symbol2scm ("consists-end") == tag)
-	l2 = gh_cons (arg, l2);
-      else if (ly_symbol2scm ("remove") == tag)
-	{
-	  l1 = scm_delete_x (arg, l1);
-	  l2 = scm_delete_x (arg, l2);
-	}
-    }
-
-  return scm_append_x (scm_list_2 (l1, l2));
-}
 
 SCM
 Translator_def::get_context_name () const
@@ -263,12 +238,44 @@ names_to_translators (SCM namelist, Translator_group*tg)
 	  scm_gc_unprotect_object (str);
 	}
     }
-  return l; 
+  return l;
+}
+
+
+SCM
+Translator_def::get_translator_names (SCM user_mod) const
+{
+  SCM l1 = SCM_EOL;
+  SCM l2 = SCM_EOL;
+
+  SCM mods = scm_reverse_x (scm_list_copy (translator_mods_),
+			    user_mod);
+  
+  for (SCM s = mods; gh_pair_p (s); s = gh_cdr (s))
+    {
+      SCM tag = gh_caar (s);
+      SCM arg = gh_cadar (s);
+
+      if (gh_string_p (arg))
+	arg = scm_string_to_symbol (arg);
+      
+      if (ly_symbol2scm ("consists") == tag)
+	l1 = gh_cons (arg, l1);
+      else if (ly_symbol2scm ("consists-end") == tag)
+	l2 = gh_cons (arg, l2);
+      else if (ly_symbol2scm ("remove") == tag)
+	{
+	  l1 = scm_delete_x (arg, l1);
+	  l2 = scm_delete_x (arg, l2);
+	}
+    }
+
+  return scm_append_x (scm_list_2 (l1, l2));
 }
 
 
 Translator_group *
-Translator_def::instantiate (Music_output_def* md)
+Translator_def::instantiate (Music_output_def* md, SCM ops)
 {
   Translator * g = get_translator (translator_group_type_);
   g = g->clone (); 
@@ -277,18 +284,11 @@ Translator_def::instantiate (Music_output_def* md)
   tg->output_def_ = md;
   tg->definition_ = self_scm ();
 
-  SCM trans_names = get_translator_names (); 
+  SCM trans_names = get_translator_names (ops); 
   tg->simple_trans_list_ = names_to_translators (trans_names, tg);
-  
+
   return tg;
 }
-
-void
-Translator_def::apply_default_property_operations (Translator_group*tg)
-{
-  apply_property_operations (tg, property_ops_);
-}
-
 
 SCM
 Translator_def::clone_scm () const
@@ -317,13 +317,19 @@ Translator_def::default_child_context_name ()
   SCM d = get_accepted ();
   return gh_pair_p (d) ? ly_car (scm_last_pair (d)) : SCM_EOL;
 }
+void
+Translator_def::apply_default_property_operations (Translator_group *tg)
+{
+  apply_property_operations (tg , property_ops_);
+}
 
 SCM
 Translator_def::to_alist () const
 {
   SCM l = SCM_EOL;
 
-  l = gh_cons (gh_cons (ly_symbol2scm ("consists"),  get_translator_names ()), l);
+  l = gh_cons (gh_cons (ly_symbol2scm ("consists"),
+			get_translator_names (SCM_EOL)), l);
   l = gh_cons (gh_cons (ly_symbol2scm ("description"),  description_), l);
   l = gh_cons (gh_cons (ly_symbol2scm ("aliases"),  context_aliases_), l);
   l = gh_cons (gh_cons (ly_symbol2scm ("accepts"),  get_accepted ()), l);

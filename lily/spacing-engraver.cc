@@ -51,7 +51,7 @@ protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void start_translation_timestep ();
   virtual void stop_translation_timestep ();
-  virtual void initialize ();
+  virtual void process_music ();
   virtual void finalize ();
 };
 
@@ -74,13 +74,15 @@ Spacing_engraver::Spacing_engraver ()
 }
 
 void
-Spacing_engraver::initialize ()
+Spacing_engraver::process_music ()
 {
-  spacing_  =new Spanner (get_property ("SpacingSpanner"));
-  spacing_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));  
-  announce_grob(spacing_, SCM_EOL);
+  if (!spacing_)
+    {
+      spacing_  =new Spanner (get_property ("SpacingSpanner"));
+      spacing_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));  
+      announce_grob(spacing_, SCM_EOL);
+    }
 }
-
 void
 Spacing_engraver::finalize ()
 {

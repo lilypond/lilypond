@@ -21,7 +21,7 @@ class Axis_group_engraver : public Engraver
 protected:
   Spanner *staffline_;
   Link_array<Grob> elts_;
-  virtual void initialize ();
+  virtual void process_music ();
   virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
   virtual void process_acknowledged_grobs ();
@@ -39,9 +39,11 @@ Axis_group_engraver::Axis_group_engraver ()
 }
 
 void
-Axis_group_engraver::initialize ()
+Axis_group_engraver::process_music ()
 {
-  staffline_ = get_spanner ();
+if (!staffline_)
+  {
+    staffline_ = get_spanner ();
 
   Grob *  it = unsmob_grob (get_property ("currentCommandColumn"));
 
@@ -49,6 +51,7 @@ Axis_group_engraver::initialize ()
 
   announce_grob(staffline_, SCM_EOL);
 }
+} 
 
 Spanner*
 Axis_group_engraver::get_spanner () const
