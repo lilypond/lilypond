@@ -67,7 +67,6 @@ In the case of alignment grobs, this should contain only one number.")
 (grob-property-description 'baseline-skip number? "Baseline skip to use for multiple lines of text.")
 (grob-property-description 'bass list? " musical-pitch, optional.")
 (grob-property-description 'beam ly-grob? "pointer to the beam, if applicable.")
-(grob-property-description 'beam-space-function procedure? "function returning space given multiplicity.")
 (grob-property-description 'beam-thickness number? "thickness, measured in staffspace.")
 (grob-property-description 'beam-width number? "width of the tremolo sign.")
 (grob-property-description 'beamAuto boolean? "enable autobeaming?.")
@@ -199,8 +198,6 @@ FIXME: in Tie this is a pair of grob pointers, pointing to the two heads of the 
 
 .")
 (grob-property-description 'height number? "in staffspace.")
-(grob-property-description 'height-quants procedure? "function of type (beam staff-line-thickness) -> list of quants.  Default value: default-beam-dy-quants.
-.")
 (grob-property-description 'horizontal-shift integer? "integer that identifies ranking of note-column for horizontal shifting. This is used by @ref{note-collision-interface}.")
 (grob-property-description 'horizontal-space number? "amount of space to add after a note (in staff-space).")
 (grob-property-description 'ideal-distances list? "(OBJ . (DIST . STRENGTH)) pairs.")
@@ -310,8 +307,6 @@ spacing tuples: format = (SYMBOL . (TYPE . DISTANCE)), where TYPE can be
 minimum-space or extra-space.")
 
 (grob-property-description 'space-factor number? "Scale horizontal spacing up by this amount.")
-
-(grob-property-description 'space-function procedure? "function of type multiplicity -> real (in staffspace).")
 (grob-property-description 'spacing-procedure procedure? "procedure
 taking grob as argument. This is called after
 before-line-breaking-callback, but before the actual line breaking
@@ -415,9 +410,6 @@ print only if there is no beam associated with this tuplet bracket.")
 (grob-property-description 'tuplet-number-visibility boolean-or-symbol? "
 Like @code{tuplet-bracket-visibility}, but for the number.")
 (grob-property-description 'type symbol? "one of: line, dashed-line or dotted-line.")
-(grob-property-description 'vertical-position-quant-function procedure? "
-function of type (beam multiplicity dy staff-line-thickness) -> real.  Default value: default-beam-y-quants, also available: beam-traditional-y-quants.
-.")
 (grob-property-description 'visibility-lambda procedure? "a function that takes the break direction and returns a  cons of booleans containing (TRANSPARENT . EMPTY).")
 (grob-property-description 'when moment? "when does this column happen?.")
 (grob-property-description 'word-space number? "elongate left by this much (FIXME: cumbersome semantics).")

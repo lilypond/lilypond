@@ -80,9 +80,7 @@
    outer-stem-length-limit 
    positions
    slope-limit 
-   space-function 
    thickness 
-   vertical-position-quant-function 
    )
  )
 
@@ -712,7 +710,7 @@ position 0."
   (lily-interface
    'stem-tremolo-interface
    ""
-   '( stem beam-width beam-thickness beam-space-function 
+   '( stem beam-width beam-thickness
     ))
 
 

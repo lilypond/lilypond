@@ -19,11 +19,11 @@
  */
 struct Stem_info 
 {
-  Real idealy_f_;
+  Real ideal_y;
 
   // fixme: we're an Interval!
-  Real miny_f_;
-  Real maxy_f_;
+  Real min_y;
+  Real max_y;
 };
 
 #endif // STEM_INFO_HH

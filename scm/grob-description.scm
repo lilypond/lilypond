@@ -5,10 +5,10 @@
 ;;;; (c) 1998--20.301  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
-					; distances are given in stafflinethickness (thicknesses) and
-					; staffspace (distances)
+;;;; distances are given in stafflinethickness (thicknesses) and
+;;;; staffspace (distances)
 
-;;; WARNING: the meta field should be the last one.
+;;;; WARNING: the meta field should be the last one.
 
 ;; TODO: junk the meta field in favor of something more compact?
 (define all-grob-descriptions
@@ -103,29 +103,26 @@
 	(position-callbacks . (,Beam::least_squares
 			       ,Beam::check_concave
 			       ,Beam::slope_damping
-			       ,Beam::new_quanting
+			       ,Beam::quanting
 			       ))
 	
 	(thickness . 0.48) ; in staff-space
 	(before-line-breaking-callback . ,Beam::before_line_breaking)
 	(after-line-breaking-callback . (,Beam::after_line_breaking
 					 ,Beam::end_after_line_breaking))
-	(neutral-direction . -1)
-	(dir-function . ,beam-dir-majority)
-	(left-position-quant-function . ,default-left-beam-pos-quants)
-	(right-position-quant-function . ,default-right-beam-pos-quants)
-	(beamed-stem-shorten . (1.0 0.5))
-	(outer-stem-length-limit . 0.2)
-	(slope-limit . 0.2)
-	(flag-width-function . ,default-beam-flag-width-function)
-	(space-function . ,default-beam-space-function)
-	(damping . 1)
-	(auto-knee-gap . 7)
-	(font-name . "cmr10")
 	(quant-score-functions . (,Beam::score_forbidden_quants
 				  ,Beam::score_slopes_dy
 				  ,Beam::score_stem_lengths
 				  ))
+	(neutral-direction . -1)
+	(dir-function . ,beam-dir-majority)
+	(beamed-stem-shorten . (1.0 0.5))
+	(outer-stem-length-limit . 0.2)
+	(slope-limit . 0.2)
+	(flag-width-function . ,default-beam-flag-width-function)
+	(damping . 1)
+	(auto-knee-gap . 7)
+	(font-name . "cmr10")
 	(meta . ,(grob-description beam-interface))
 	))
 
@@ -773,8 +770,7 @@
 	(X-extent-callback . #f)
 
 	(beam-width . 2.0) ; staff-space
-	(beam-thickness . 0.42) ; staff-space
-	(beam-space-function . ,default-beam-space-function)
+	(beam-thickness . 0.48) ; staff-space
 	(meta . ,(grob-description stem-tremolo-interface ))
 	))
 
