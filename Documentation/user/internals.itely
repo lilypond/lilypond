@@ -124,6 +124,7 @@ section.
 @c FIXME: Note entry vs Music entry at top level menu is confusing.
 @c . {Music entry}
 @menu
+* Output formats::              
 * Interpretation context::      
 * Syntactic details::           
 * Lexical details::             

@@ -1,3 +1,11 @@
+2002-07-25  Han-Wen  <hanwen@cs.uu.nl>
+
+	* server.el.patch: new file.
+
+	* Documentation/user/refman.itely (Point and click):  updates.
+	(Graphical interfaces): add node
+	(Vertical spacing): add node
+
 2002-07-24  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily, lily/include: Rename line to system.  Junk _l suffix.
