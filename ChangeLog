@@ -1,5 +1,10 @@
 2002-12-01  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/music-functions.scm (shift-one-duration-log): refactor.
+	Use music-map.
+
+	* input/regression/chord-tremolo.ly (texidoc): add dot test.
+
 	* NEWS: update.
 
 	* lily/font-interface.cc (get-font): take alist chain i.s.o. alist

@@ -22,6 +22,9 @@ stems.
 	\break
 	\repeat "tremolo" 4 { f'8 e }
 	\repeat "tremolo" 2 { f e }
+	c4 c4
+
+	\repeat "tremolo" 3 { f8 e }
 	c4
 	c4 c4 c4 c4
 	c4 c4 c4 c4
