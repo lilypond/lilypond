@@ -1,18 +1,18 @@
-
 	We are proud to announce the birth of "GNU LilyPond 0.1", a.k.a.
 
-		Lily
+		Lily 0.1
 
-	born .. 1997
+	born August 1, 1997
 
 	daughter to Jan 'Janneke' Nieuwenhuizen and Han-Wen 'Wendy'
 	Nienhuys
 
-Lily is a healthy, bouncing baby weighing 345 kilobytes
+Lily is a healthy, bouncing baby weighing 335 kilobytes
 
 Visiting hours: 24hrs a day at
 
-	ftp://pcnov095.win.tue.nl, 
+	ftp://pcnov095.win.tue.nl/pub/lilypond/lilypond-0.1.tar.gz
+	ftp://prep.gnu.ai.mit.edu/pub/gnu/lilypond-0.1.tar.gz
 
 you can see some babyfood, diapers and pictures at
 
@@ -21,32 +21,6 @@ you can see some babyfood, diapers and pictures at
 You can send your congratulations to Janneke (jan@digicash.com) and
 Wendy (hanwen@stack.nl)
 
-			      --- * ---
-
-    We would like to dedicate this program to all the friends that we
-			 met through music. 
-
-
-	Those deserving special mention (in no particular order):
-Esther, Marijke, Heike, Inge, Judith, Hannah, Auke, Ilse, Evelyn,
-Maartje, Suzanne, Ilse (gee, again?) and last (but certainly not least)
-Janneke!
-
-	HWN
-
-	That's a nice thought, Wendy.  I've got a few too, to spread
-the credits a bit (Again, no particular order) Michelle, Illushka, 
-Ruth, Eva, Fro/ydis, Monique, Noor, Sascha, Monique, Ilse, Monique, 
-Eva, Roos, Judith, and, of course, Wendy!
-
-	JCN
- 
-
-Of course, our other friends in the `Eindhovens Jongeren Ensemble'
-(http://www.stack.nl/~hanwen/eje.html) cannot go unmentioned too.
-
-
-			       --- * ---
 
 [ And now the serious part ]
 
@@ -75,22 +49,30 @@ detailed info and examples can be found on the webpage at:
 
 	http://www.stack.nl/~hanwen/lilypond/index.html
 
-(it is somewhat lousy, but I have more important things to do).
+It isn't flashy, but then I wasn't born to be a webartist.
 
 
 [DETAILED DESCRIPTION]
 
-WHAT IS GNU LilyPond
+WHAT IS GNU LilyPond?
 
-Technically it is a preprocessor which generates TeX
-(or LaTeX) output which contains information to typeset a musical
-score. Practically it is a typesetter, which only uses TeX as an
-output medium. (this is handy because there exist music fonts for TeX)
+GNU LilyPond which converts music definition files into visual or
+audio output: it can typeset formatted sheet music to a TeX file and
+and (mechanical) performances to MIDI files.
 
-As a bonus, you can also output a MIDI file of what you typed.
+WHY?
 
-The input is a script file which is read. The script file is a "music
-definition", ie, you type the melody as if it is read out loud 
+We want to create tools which can produce production quality scores
+and parts of public music. We haven't quite reached that goal:
+
+* The quality of the output isn't good enough yet due to
+some (still) insophisticated algorithms
+
+* A number of features haven't been implemented (although they can be
+quite simple)
+
+We Want You!  You can become a user, but we'd really appreciate to
+have some Hackers to help advance our project more quickly.
 
 WHAT IS NEEDED?
 
@@ -105,8 +87,12 @@ for compilation you need
 for running you need
 
 	TeX
+	MusiXTeX fonts 
 
-FEATURES
+The MusiXTeX fonts are part of the MusiXTeX package version T.73,
+available at http://www.gmd.de/Misc/Music/ 
+
+WHAT CAN LILYPOND DO?
 
 ASCII script input (mudela), with identifiers (for music reuse),
 customizable notenames
@@ -115,17 +101,16 @@ MIDI output lets you check if you have entered the correct notes.
 MIDI to Mudela conversion through the mi2mu program.
 
 Multiple staffs in one score. Each staff can have a different meters.
-Multiple voices within one staff; beams optionally shared between
-voices.  Multiple scores within one input file. Each score is output
-to a different file.
+Multiple voices within one staff (up to four handled graciously);
+beams optionally shared between voices.  Multiple scores within one
+input file. Each score is output to a different file.
 
 Beams, slurs, chords, super/subscripts (accents and text), 
 general n-plet (triplet, quadruplets, etc.), lyrics, transposition
-dynamics (both absolute and hairpin style) clef changes, meter
+dynamics (both absolute and hairpin style), clef changes, meter
 changes, cadenza-mode, key changes, repeat bars
 
-[Kudos to the FSF, all Linux hackers, and --of course-- especially
-GrandMaster Linus T, for The Kernel and The Announce :-]
+Integration with LaTeX through scripts.
 
-	Han-Wen Nienhuys <hanwen@stack.nl>
-	Jan Nieuwenhuizen <jan@digicash.com>
+
+
