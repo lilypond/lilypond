@@ -52,5 +52,9 @@ struct Stem_req;
 struct Terminate_voice_req;
 struct Text_req;
 struct Timing_req;
+struct Note_column_register;
+struct Note_column;
+struct Staff_side;
+struct Staff_symbol;
 
 #endif // LILY_PROTO_HH

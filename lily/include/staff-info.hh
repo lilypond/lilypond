@@ -14,7 +14,7 @@
 struct Staff_info {
     int *c0_position_i_l_;
     Staff_walker *walk_l_;
-    
+    Staff_symbol*staff_sym_l_;
     
     /// when is now?
     Time_description const *time_C_;

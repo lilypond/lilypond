@@ -1,22 +1,22 @@
 
 	Announcing
-	
-		LILYPOND
+			
+	GNU LilyPond
 
 	The Music Typesetter
 
 Do you pine for the nice days of Linux 0.95, when men were men and
 wrote their own applications? Are you without a nice project and just
 dying to cut your teeth into a bleeding edge application you can
-modify for your needs. Do you find it frustrating that everything
+modify for your needs?  Do you find it frustrating that everything
 works in LaTeX?  No more all-nighters to get a nifty program working?
 Then this post might be just for you!
 
 I have been working very hard on a music typesetting system (called
-LilyPond) the past half year, and I finally think it is ready to be
+GNU LilyPond) the past half year, and I finally think it is ready to be
 used and hacked at by a larger public than me and my co-developer.
 
-Sources for this project are on
+Sources for this project are on:
 
 	ftp://pcnov095.win.tue.nl/pub/lilypond/
 
@@ -29,7 +29,7 @@ detailed info and examples can be found on the webpage at:
 
 [DETAILED DESCRIPTION]
 
-WHAT IS LILYPOND
+WHAT IS GNU LilyPond
 
 Technically it is a preprocessor which generates TeX
 (or LaTeX) output which contains information to typeset a musical

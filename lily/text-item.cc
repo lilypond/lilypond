@@ -14,10 +14,11 @@
 #include "molecule.hh"
 #include "lookup.hh"
 
-Text_item::Text_item(Text_def *tdef_l, int staffsize_i)
+Text_item::Text_item(Text_def *tdef_l)
+    : Staff_side(this)
 {
     dir_i_ =-1;
-    init(tdef_l, staffsize_i);  
+    init(tdef_l);  
 }
 
 Text_def*
@@ -32,15 +33,15 @@ Text_item::~Text_item()
 }
 
 void
-Text_item::init(Text_def *tdef_l, int staffsize_i)
+Text_item::init(Text_def *tdef_l)
 {
-    staffsize_i_ = staffsize_i;
     tdef_p_ = new Text_def (*tdef_l);
 }
 
-Text_item::Text_item(Text_req* treq_l, int staffsize_i)
+Text_item::Text_item(Text_req* treq_l)
+    : Staff_side(this)
 {
-    init(treq_l->tdef_p_, staffsize_i);
+    init(treq_l->tdef_p_);
     dir_i_ = treq_l->dir_i_;
     if (!dir_i_)
 	dir_i_ = -1;
@@ -49,7 +50,7 @@ Text_item::Text_item(Text_req* treq_l, int staffsize_i)
 void
 Text_item::set_default_index()
 {
-    pos_i_  = (dir_i_ > 0) ? staffsize_i_ + 4: -4;
+    pos_i_  = get_position_i();
 }
 
 void

@@ -57,7 +57,8 @@ Register_group_register::post_move_processing()
 void
 Register_group_register::acknowledge_element(Staff_elem_info info)
 {
-    if (!contains_b(info.origin_reg_l_arr_[0]))
+    Request_register* origin = info.origin_reg_l_arr_[0];
+    if (!contains_b(origin) && !origin->contains_b(this))
 	return;
     
     for (iter_top(reg_list_, i); i.ok(); i++) 

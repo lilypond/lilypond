@@ -19,7 +19,7 @@ Stem::Stem(int c) //, Moment len)
     maxnote = -1000;
     bot = top = 0;
     flag = 4;
-    dir =0;
+    dir_i_ =0;
     staff_center=c;
     stemlen=0;
     print_flag=true;
@@ -41,12 +41,12 @@ Stem::set_stemend(Real se)
 {
 
     // todo: margins
-    if (!  ((dir > 0 && se >= maxnote) || (se <= minnote && dir <0))  )	
+    if (!  ((dir_i_ > 0 && se >= maxnote) || (se <= minnote && dir_i_ <0))  )	
  	warning("Weird stem size; check for narrow beams");
     
-    top = (dir < 0) ? maxnote           : se;
-    bot = (dir < 0) ? se  : minnote;
-    flag = dir*abs(flag);
+    top = (dir_i_ < 0) ? maxnote           : se;
+    bot = (dir_i_ < 0) ? se  : minnote;
+    flag = dir_i_*abs(flag);
 }
 
 void
@@ -69,8 +69,8 @@ Stem::add(Notehead *n)
 int
 Stem::get_default_dir()
 {
-    if (dir)
-	return dir;
+    if (dir_i_)
+	return dir_i_;
     Real mean = (minnote+maxnote)/2;
     return (mean > staff_center) ? -1: 1;
 }
@@ -78,23 +78,23 @@ Stem::get_default_dir()
 void
 Stem::set_default_dir()
 {
-    dir = get_default_dir();
+    dir_i_ = get_default_dir();
 }
 
 void
 Stem::set_default_stemlen()
 {
-    if (!dir)
+    if (!dir_i_)
 	set_default_dir();
 
     int stafftop = 2*staff_center;
     stemlen = STEMLEN  + (maxnote - minnote);
     
     // uhh... how about non 5-line staffs?
-    if (maxnote < -2 && dir == 1){
+    if (maxnote < -2 && dir_i_ == 1){
 	int t = staff_center - staff_center/2; 
 	stemlen = t - minnote +2;
-    } else if (minnote > stafftop + 2 && dir == -1) {
+    } else if (minnote > stafftop + 2 && dir_i_ == -1) {
 	int t = staff_center + staff_center/2;
 	stemlen = maxnote -t +2;
     }
@@ -115,8 +115,8 @@ Stem::set_default_extents()
     if (!stemlen)
 	set_default_stemlen();
 
-    set_stemend((dir< 0) ? maxnote-stemlen: minnote +stemlen);
-    if (dir > 0){	
+    set_stemend((dir_i_< 0) ? maxnote-stemlen: minnote +stemlen);
+    if (dir_i_ > 0){	
 	stem_xoffset = paper()->note_width()-paper()->rule_thickness();
     } else
 	stem_xoffset = 0;
@@ -155,7 +155,7 @@ Stem::do_pre_processing()
 
 
 Interval
-Stem::width()const
+Stem::do_width()const
 {
     if (!print_flag || abs(flag) <= 4)
 	return Interval(0,0);	// TODO!

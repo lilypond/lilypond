@@ -30,7 +30,7 @@ struct Stem_info {
 Stem_info::Stem_info(Stem const *s)
 {
     x = s->hindex();
-    int dir = s->dir;
+    int dir = s->dir_i_;
     idealy  = max(dir*s->top, dir*s->bot);
     miny = max(dir*s->minnote, dir*s-> maxnote);
     assert(miny <= idealy);
@@ -74,7 +74,7 @@ Beam::set_default_dir()
     }
     dir_i_ =  (dirs[0] > dirs[1]) ? -1 : 1;
     for (iter_top(stems,i); i.ok(); i++) {
-	i->dir = dir_i_;
+	i->dir_i_ = dir_i_;
     }
 }
 
@@ -190,7 +190,7 @@ Beam::do_pre_processing()
 
 
 Interval
-Beam::width() const
+Beam::do_width() const
 {
     Beam * me = (Beam*) this;	// ugh
     return Interval( (*me->stems.top()) ->hindex(),

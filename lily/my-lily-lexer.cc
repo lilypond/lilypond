@@ -63,6 +63,7 @@ static Keyword_ent the_key_tab[]={
     {"transpose", TRANSPOSE},
     {"unitspace", UNITSPACE},
     {"width", WIDTH},
+    {"version", VERSION},
     {"grouping", GROUPING},
     {0,0}
 };

@@ -50,7 +50,7 @@ Clef_register::read_req(Clef_change_req*c_l)
 void
 Clef_register::acknowledge_element(Staff_elem_info info)
 {
-    if (info.elem_p_->name() == Bar::static_name()) {
+    if (info.elem_l_->name() == Bar::static_name()) {
 	if (!clef_p_){
 	    create_clef();
 	    clef_p_->change = false;

@@ -5,7 +5,7 @@
 INSTALL = @INSTALL@
 USER_CXXFLAGS = @CXXFLAGS@ @CPPFLAGS@
 
-#CXX = @CXX@
+CXX = @CXX@
 libdir = @libdir@
 prefix = @prefix@
 TEXPREFIX = @TEXPREFIX@

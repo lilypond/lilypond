@@ -44,7 +44,7 @@ Key_register::acknowledge_element(Staff_elem_info info)
 	change_key_b_ = true;
     }
     
-    if (info.elem_p_->name() == Bar::static_name()) 
+    if (info.elem_l_->name() == Bar::static_name()) 
 	default_key_b_ = true;
 
 }

@@ -1,6 +1,6 @@
 =head1 NAME
 
-LilyPond - a music typesetter
+lilypond - the GNU music typesetter
 
 =head1 SYNOPSIS
 
@@ -8,7 +8,7 @@ LilyPond - a music typesetter
 
 =head1 DESCRIPTION
 
-Technically LilyPond is a preprocessor which generates TeX
+Technically GNU LilyPond is a preprocessor which generates TeX
 (or LaTeX) output which contains information to typeset a musical
 score. Practically it is a typesetter, which only uses TeX as an
 output medium. (this is handy because there exist music fonts for TeX)
@@ -17,7 +17,7 @@ As a bonus, you can also output a MIDI file of what you typed.
 
 It translates script files (mudela files or F<*.ly>'s) into TeX input.
 Typesetting music is a complex task, whereas the message that printed
-music conveys is usually a simple one. LilyPond is a try at providing
+music conveys is usually a simple one. GNU LilyPond is a try at providing
 a simple interface for setting music.
 
 
@@ -36,13 +36,13 @@ do midi output only
 
 =item B<-d,--debug>,
 
-Turn debugging info. LilyPond will read the file F<.dstreamrc>, which
+Turn debugging info. GNU LilyPond will read the file F<.dstreamrc>, which
 tells for what functions and classes may produce copious debugging
 output.
 
 =item B<-w,--warranty>,
 
-Show the warranty with which LilyPond comes. (It comes with B<NO WARRANTY>!)
+Show the warranty with which GNU LilyPond comes. (It comes with B<NO WARRANTY>!)
 
 =item B<-o,--output=>F<FILE>,
 
@@ -110,7 +110,7 @@ clef changes, meter changes, cadenza-mode, key changes, repeat bars
 
 =head1 DESIGN CONSIDERATIONS
 
-LilyPond was written with some considerations in mind:
+GNU LilyPond was written with some considerations in mind:
 
 =over 5
 
@@ -118,7 +118,7 @@ LilyPond was written with some considerations in mind:
 
 Describing a well-defined language for defining music. We call
 this language (rather arrogantly) The Musical Definition Language
-(mudela for short). LilyPond reads a mudela sourcefile and outputs a
+(mudela for short). GNU LilyPond reads a mudela sourcefile and outputs a
 TeX file.  
 
 =item *
@@ -131,8 +131,8 @@ pitch.
 
 =item *
 
-LilyPond uses MusiXTeX fonts and TeX for its output. This is not a key
-issue: in a future version, LilyPond might bypass TeX, but at the moment
+GNU LilyPond uses MusiXTeX fonts and TeX for its output. This is not a key
+issue: in a future version, GNU LilyPond might bypass TeX, but at the moment
 TeX is very convenient for producing output.
 
 =item  *
@@ -143,23 +143,23 @@ setting is not possible without a knowledgeable printer,"  untrue.
 
 =item *
 
-LilyPond does not display notes directly, nor will it be rehacked to be
-used interactively. LilyPond writes output to a file.  It will not be
+GNU LilyPond does not display notes directly, nor will it be rehacked to be
+used interactively. GNU LilyPond writes output to a file.  It will not be
 extended to play music, or to recognize music.
 
 =item *
 
-LilyPond is intended to run on Unix platforms, but it should
+GNU LilyPond is intended to run on Unix platforms, but it should
 be portable to any platform which can run TeX and the GNU tools
 
 =item *
 
-LilyPond is free. Commercial windows packages for setting music are
+GNU LilyPond is free. Commercial windows packages for setting music are
 abundant. Free musicprinting software is scarce.
 
 =item *
 
-LilyPond is written in GNU C++. It will not be downgraded/ported to fit
+GNU LilyPond is written in GNU C++. It will not be downgraded/ported to fit
 broken systems.
 
 =back
@@ -167,10 +167,10 @@ broken systems.
 =head1
 DISCLAIMER & COPYING POLICY
 
-LilyPond is copyright 1996,97 by its authors. LilyPond is
+GNU LilyPond is copyright 1996,97 by its authors. GNU LilyPond is
 distributed under the terms of the GNU General Public
-License. LilyPond is provided without any warranty what so ever.
-LilyPond may be freely distributed.  For further information consult
+License. GNU LilyPond is provided without any warranty what so ever.
+GNU LilyPond may be freely distributed.  For further information consult
 the GNU General Public License, which is in the file F<COPYING>
 
 =head1 AUTHORS
@@ -179,13 +179,16 @@ the GNU General Public License, which is in the file F<COPYING>
 
 =item *
 
-Han-Wen Nienhuys <hanwen@stack.nl>, Main author
+Han-Wen Nienhuys <hanwen@stack.nl>, http://www.stack.nl/~hanwen
+
+Main author
 
 =item *
 
-Jan Nieuwenhuizen <jan@digicash.com>, Context errors, Lyrics,
-mi2mu, MIDI stuff, make structure, bits of FlowerLib, general
-comments, Mudela design.
+Jan Nieuwenhuizen <jan@digicash.com>,  http://www.digicash.com/~jan.
+
+Context errors, Lyrics, mi2mu, MIDI stuff, make structure, bits of
+FlowerLib, general comments, Mudela design.
 
 =item *
 
@@ -199,7 +202,7 @@ coding C++
 
 =head1 EXAMPLES
 
-At this time, LilyPond output looks nice, but is not of production
+At this time, GNU LilyPond output looks nice, but is not of production
 quality. If you're not discouraged; this is what I type in my xterm:
 
 	lilypond someinput.ly
@@ -208,7 +211,7 @@ quality. If you're not discouraged; this is what I type in my xterm:
 
 This is what the output looks like over here:
 
-	LilyPond 0.0.40 #0/FlowerLib 1.1.7 #2. Compile: Mar 11 1997, 22:58:47 (g++ 2.7.2)
+	GNU LilyPond 0.0.40 #0/FlowerLib 1.1.7 #2. Compile: Mar 11 1997, 22:58:47 (g++ 2.7.2)
 	Parsing ... [./init//symbol.ini[./init//dynamic.ini][./init//dutch.ini]
 	[./init//script.ini][./init//table_sixteen.ini]][./input/wohltemperirt.ly]
 	Setting up music ...Processing music ............
@@ -234,7 +237,7 @@ Check out the input files, some of them have comments
 
 =head1 PROBLEMS
 
-If LilyPond bombs out, then please recompile using with debugging info
+If GNU LilyPond bombs out, then please recompile using with debugging info
 turned on, and send a copy of the input which causes the error and a
 gdb stacktrace of the crash. It also helps if you can print the values
 of the objects. So if your trace is
@@ -248,12 +251,12 @@ of the objects. So if your trace is
 	  :
 
 Than it would help if you send a dump of the Interval and the Item
-(use: C<print *this> or use LilyPond C<print()> methods).
+(use: C<print *this> or use GNU LilyPond C<print()> methods).
 
-This is a beta version of LilyPond. Please send your helpful comments
+This is a beta version of GNU LilyPond. Please send your helpful comments
 and patches to me (see AUTHORS section)
 
-LilyPond is updated very frequently, the latest version is always available at:
+GNU LilyPond is updated very frequently, the latest version is always available at:
 ftp://pcnov095.win.tue.nl/pub/lilypond.
 
 
@@ -282,14 +285,14 @@ http://www.stack.nl/~hanwen/lilypond/index.html
 
 =head1  REMARKS
 
-LilyPond has no connection with the music package RoseGarden, other
+GNU LilyPond has no connection with the music package Rosegarden, other
 than the names being similar :-)
 
 =head1 HISTORY
 
 (for a  detailed changelog, see F<NEWS>)
 
-LilyPond's roots lie in MPP, a preprocessor to the rather arcane
+GNU LilyPond's roots lie in MPP, a preprocessor to the rather arcane
 MusiXTeX macro package for TeX. A friend of mine, Jan Nieuwenhuizen
 wrote the first 44 versions (0.01 to 0.44), then his program caught my
 attention, and I was slowly sucked in to the interesting problem of

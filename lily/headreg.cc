@@ -3,9 +3,9 @@
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
-#include "rest.hh"
+
 #include "notehead.hh"
-#include "headreg.hh"
+#include "head-reg.hh"
 #include "paper-def.hh"
 #include "complex-walker.hh"
 #include "musical-request.hh"
@@ -40,20 +40,21 @@ Notehead_register::process_requests()
     if (!note_req_l_)
 	return;
     
+    Notehead*n_p = new Notehead(8);	// ugh
+    note_p_ = n_p;
+    n_p->set_rhythmic(note_req_l_->rhythmic());
 
     if (note_req_l_->note()) {
-	Notehead*n_p = new Notehead(8);	// ugh
-	note_p_ = n_p;
-	n_p->set_rhythmic(note_req_l_->rhythmic());
 	n_p->position = note_req_l_->note()->height() +
 	    *get_staff_info().c0_position_i_l_;
-    } else {
-	note_p_ = new Rest ( note_req_l_->rhythmic()->duration_);
+    } else if (note_req_l_->rest()) {
+	n_p->rest_b_ = true;
 	if (note_req_l_->rhythmic()->duration_.type_i_ <= 2)
 	    note_p_->translate(
 		Offset(0,
 		       6 * paper()->internote()));
     }
+    
     Staff_elem_info itinf(note_p_,note_req_l_);
     announce_element(itinf);
 }
@@ -62,8 +63,9 @@ void
 Notehead_register::pre_move_processing()
 {
     if (note_p_) {
-	if (dir_i_ && note_p_->name() == Rest::static_name())
-	    note_p_->translate(Offset(0, 4*dir_i_ * paper()->internote()));
+	if (dir_i_ && note_p_->rest_b_ && note_p_->balltype <= 2) {
+	    note_p_->position +=4*dir_i_ ;
+	}
 	typeset_element(note_p_);
 	note_p_ = 0;
     }

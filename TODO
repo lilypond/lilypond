@@ -24,11 +24,13 @@ BUGS
 
 	* help-lines
 
+	* help-lines for rests
+
 	* [c8. c32 c32]
 
 	* cis ( | ) cis
 
-	* lilypond - -> 
+	* lilypond - -> crash
 
 SEVERELY LACKING:
 
@@ -43,6 +45,8 @@ FURTHER FOR ORCHESTRAL SCORE:
 	* abbreviations c4=16
 
 INPUTLANGUAGE
+
+	* relative mode for pitch entering
 
 	* configure pitch_byte
 
@@ -69,7 +73,9 @@ SMALLISH PROJECTS
 
 	* rpm package buildroot
 
-	* indentable stream for TeX stream, lily stream, Dstream.
+	* indentable stream as baseclass for TeX stream, lily stream, Dstream.
+
+	* caching Item/spanner dimensions.
 
 	* key transposition
 	
@@ -105,7 +111,9 @@ SMALLISH PROJECTS
 	* Decent TeX titledefs (\tempo, \metron, etc. )
 
 	* command priority into enum
-	
+
+	* don't broadcast Staff_sym
+
 	* C meter iso 4/4
 
 	* textspanner: center position
@@ -138,6 +146,10 @@ DOC
 	* a test suite
 
 FUTURE
+
+	* Reg_configure_request
+
+	* slurs per voicegroup.
 
 	* slur parts as a script
 	
@@ -179,9 +191,9 @@ IDEAS
 
 	* move MIDI io to a ANSI C libmidi library.
 
-	* itemcolumns: Use dummy items.
-
 	* use an embedded language: scheme, lisp, S-lang, Perl, GUILE, ?
+		- Items/Spanners
+		- Registers
 
 	* y -dims in internote?
 
@@ -200,7 +212,7 @@ IDEAS
 	we get different keychanges in different staffs.
 
 	* Integrating (objectiveC) MusicKit with LilyPond
-	
+		
 	* MusixTeX output possible?
 
 	* PostScript output (esp. Beams, Slurs, etc)
@@ -208,3 +220,7 @@ IDEAS
 	* caching breakpoints
 
 	* use exceptions iso assert?
+
+	* #c <-> cis
+
+	* breath marks 

@@ -9,10 +9,10 @@
 #include "musical-request.hh"
 #include "complex-walker.hh"
 #include "stem.hh"
+#include "staff-sym.hh"
 
 Script_register::Script_register()
 {
-    script_p_ = 0;
     post_move_processing();
 }
 
@@ -21,13 +21,12 @@ Script_register::try_request(Request *r_l)
 {
     if (!r_l->script())
 	return false ;
-
-    if (script_req_l_
-	&& Script_req::compare(*script_req_l_, *r_l->script()))
+    for (int i=0; i < script_req_l_arr_.size(); i++)
+	if ( !Script_req::compare(*script_req_l_arr_[i], *r_l->script())) {
+	    return true;
+	}
 	
-	return false;
-
-    script_req_l_ = r_l->script();
+    script_req_l_arr_.push( r_l->script());
     
     return true;
 }
@@ -35,44 +34,58 @@ Script_register::try_request(Request *r_l)
 void
 Script_register::process_requests()
 {
-    if (script_req_l_) {
-	script_p_ = new Script(script_req_l_, 10);
-	announce_element(
-	    Staff_elem_info(script_p_, script_req_l_));
+    for (int i=0; i < script_req_l_arr_.size(); i++){
+	Script_req* l=script_req_l_arr_[i];
+	Script *p =new Script( l);
+	script_p_arr_.push(p);
+	announce_element(Staff_elem_info(p, l));
     }
+}
+
+bool
+Script_register::acceptable_elem_b(Staff_elem*s_l)
+{
+    char const *nC = s_l->name();
+    return (nC == Stem::static_name());
 }
 
 void
 Script_register::acknowledge_element(Staff_elem_info info)
 {
-    if (!script_p_)
+    Staff_elem *elem_l = info.elem_l_;
+    if (!acceptable_elem_b(elem_l))
 	return;
-    if (info.elem_p_->name() == Stem::static_name())
-	script_p_->set_stem((Stem*)info.elem_p_);
-    else if (info.req_l_->rhythmic())
-	script_p_->set_support(info.elem_p_->item());
+    
+    for (int i=0; i < script_p_arr_.size(); i++) {
+	Script*script_l = script_p_arr_[i];
+	if (elem_l->name() == Stem::static_name())
+	    script_l->set_stem((Stem*)elem_l);
+    }
 }
 
 void
 Script_register::pre_move_processing()
 {
-    if (script_p_){
-	script_p_->dir = dir_i_;
-	typeset_element(script_p_);
-	script_p_ = 0;
+    Staff_symbol* s_l = get_staff_info().staff_sym_l_;
+    for (int i=0; i < script_p_arr_.size(); i++) {
+	
+	Script*script_p = script_p_arr_[i];
+	script_p->set_staffsym( s_l);
+	typeset_element(script_p);
     }
+    script_p_arr_.set_size(0);
 }
 void
 Script_register::post_move_processing()
 {
-    script_req_l_ = 0;
+    script_req_l_arr_.set_size(0);
 }
 
 void
-Script_register::set_feature(Features i)
+Script_register::set_feature(Features )
 {
-    if (i.direction_i_|| i.initialiser_b_)
-	dir_i_ = i.direction_i_;
+//    if (i.direction_i_|| i.initialiser_b_)
+    //dir_i_ = i.direction_i_;
 }
 IMPLEMENT_STATIC_NAME(Script_register);
 ADD_THIS_REGISTER(Script_register);

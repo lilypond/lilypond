@@ -25,7 +25,7 @@ struct Beam:  public Directional_spanner {
     /* *************** */
 NAME_MEMBERS(Beam);
     
-    virtual Interval width()const;    
+    virtual Interval do_width()const;    
     Offset center() const;
     Spanner *do_break_at(PCol *,  PCol *) const;
     Beam();

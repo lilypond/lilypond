@@ -21,10 +21,10 @@
 
 Sources* source_l_g = 0;
 bool only_midi = false;
+bool version_ignore_b_ = false;
 
+void destill_inname( String &name_str_r);
 
-void
-destill_inname( String &name_str_r);
 Long_option_init theopts[] = {
     {1, "output", 'o'},
     {0, "warranty", 'w'},
@@ -33,6 +33,7 @@ Long_option_init theopts[] = {
     {1, "init", 'i'},
     {1, "include", 'I'},
     {0, "midi", 'M'},
+    {0, "ignore-version", 'V'},
     {0,0,0}
 };
 
@@ -44,13 +45,14 @@ usage()
 	"Typeset and or produce midi output from mudela-file or stdin\n"
 	"\n"
 	"Options:\n"
-	"  -d, --debug         enable debugging output\n"
-        "  -I, --include=DIR   add DIR to search path\n"
-	"  -i, --init=FILE     use FILE as init file\n"
-	"  -h, --help          this help\n"
-	"  -w, --warranty      show warranty and copyright\n"
-	"  -o, --output=FILE   set FILE as default output\n"
-	"  -M, --midi          produce midi output only\n"
+	"  -d, --debug            enable debugging output\n"
+        "  -I, --include=DIR      add DIR to search path\n"
+	"  -i, --init=FILE        use FILE as init file\n"
+	"  -h, --help             this help\n"
+	"  -w, --warranty         show warranty and copyright\n"
+	"  -o, --output=FILE      set FILE as default output\n"
+	"  -M, --midi             produce midi output only\n"
+	"  -V, --ignore-version   ignore mudela version\n"
 	"\n"
 	"LilyPond was compiled with the following settings:\n"
 #ifdef NDEBUG
@@ -105,6 +107,7 @@ do_one_file(String init_str, String file_str)
     source_l_g->set_path(path_l);
     {
 	My_lily_parser parser(source_l_g);
+	parser.set_version_check(version_ignore_b_);
 	parser.parse_file(init_str, file_str);
     }
     do_scores();
@@ -146,6 +149,9 @@ main (int argc, char **argv)
 	case 'h':
 	    usage();
 	    exit(0);
+	    break;
+	case 'V':
+	    version_ignore_b_ = false;
 	    break;
 	case 'd':
 	    set_debug(true);

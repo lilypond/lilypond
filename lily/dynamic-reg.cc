@@ -13,6 +13,7 @@
 #include "lookup.hh"
 #include "paper-def.hh"
 #include "score-column.hh"
+#include "staff-sym.hh"
 
 Dynamic_register::Dynamic_register()
 {
@@ -55,7 +56,7 @@ Dynamic_register::process_requests()
 
 	    assert (!dynamic_p_) ; // TODO
 		
-	    dynamic_p_ = new Text_item(td_p, 10 ); // TODO!
+	    dynamic_p_ = new Text_item(td_p);
 	    announce_element(Staff_elem_info(dynamic_p_, dreq_l));
 	} else if (dreq_l->span_dynamic()) {
 
@@ -71,7 +72,7 @@ Dynamic_register::process_requests()
 	    } else if (span_l->spantype == Span_req::START) {
 		cresc_req_l_ = span_l;
 		assert(!new_cresc_p);
-		new_cresc_p  = new Crescendo(10);
+		new_cresc_p  = new Crescendo;
 		new_cresc_p->grow_dir_i_ = span_l->dynamic_dir_i_;
 		announce_element(Staff_elem_info(new_cresc_p, span_l));
 	    }
@@ -90,7 +91,9 @@ Dynamic_register::process_requests()
 void
 Dynamic_register::pre_move_processing()
 {
+    Staff_symbol* s_l = get_staff_info().staff_sym_l_;
     if (dynamic_p_) {
+	dynamic_p_->set_staffsym(s_l);
 	typeset_element(dynamic_p_);
 	dynamic_p_ = 0;
     }
@@ -99,7 +102,7 @@ Dynamic_register::pre_move_processing()
 	    to_end_cresc_p_->right_dyn_b_=true;
 	
 	to_end_cresc_p_->right_col_l_ = get_staff_info().musical_l()->pcol_l_;
- 
+	to_end_cresc_p_->set_staffsym(s_l);
 	typeset_element(to_end_cresc_p_);
 	to_end_cresc_p_ = 0;
     }

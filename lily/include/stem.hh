@@ -51,7 +51,7 @@ struct Stem : Item {
        -1 stem points down, +1: stem points up
        */
 
-    int dir;
+    int dir_i_;
     Real stem_xoffset;
     
     Array<Notehead*> heads;
@@ -74,7 +74,7 @@ struct Stem : Item {
     void set_noteheads();
     void do_pre_processing();
 
-    Interval width() const;
+    virtual Interval do_width() const;
 
     Molecule* brew_molecule_p() const;
 };

@@ -18,11 +18,13 @@ Staff_info
 Staff_registers::get_staff_info() return inf;
 {
     inf = Request_register::get_staff_info();
+    inf.staff_sym_l_=staff_sym_l_;
     inf.c0_position_i_l_ = &c0_position_i_;
 }
 
 Staff_registers::Staff_registers(Input_register const*ireg_C)
 {
+    staff_sym_l_ =0;
     c0_position_i_ = 0;
     base_position_i_ =0;
     add( ireg_C->get_nongroup_p_arr());
@@ -116,3 +118,10 @@ Staff_registers::acceptable_request_b(Request*r)const
 	(r->command() && r->command()->groupchange());
 }
 
+void
+Staff_registers::acknowledge_element(Staff_elem_info i)
+{
+    Register_group_register::acknowledge_element(i);
+    if ( i.elem_l_->name() == Staff_symbol::static_name())
+	staff_sym_l_ = (Staff_symbol*)i.elem_l_;
+}

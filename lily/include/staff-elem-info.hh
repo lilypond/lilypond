@@ -15,7 +15,7 @@
 
 /// data container.
 struct Staff_elem_info {
-    Staff_elem * elem_p_;
+    Staff_elem * elem_l_;
     Request*req_l_;
     Voice const * voice_l_;
     Array<Request_register*> origin_reg_l_arr_;

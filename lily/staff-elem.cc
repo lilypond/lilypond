@@ -1,3 +1,13 @@
+/*
+  staff-elem.cc -- implement Staff_elem
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
+#include "paper-def.hh"
+#include "lookup.hh"
 #include "p-score.hh"
 #include "symbol.hh"
 #include "p-staff.hh"
@@ -23,6 +33,7 @@ Staff_elem::Staff_elem(Staff_elem const&s)
     pstaff_l_ = s.pstaff_l_;
     offset_ = Offset(0,0);
 }
+
 /**
   TODO:
   If deleted, then remove dependant_l_arr_ depency!
@@ -37,35 +48,44 @@ Staff_elem::translate(Offset O)
 {
     offset_ += O;
 }
-Interval
-Staff_elem::width() const
-{
-    Interval r;
 
+Interval
+Staff_elem::do_width() const return r;
+{
+    
     if (!output){
-	Molecule*m	= brew_molecule_p();
+	Molecule*m = brew_molecule_p();
 	r = m->extent().x;
 	delete m;
     } else
 	r = output->extent().x;
-  
+}
+Interval
+Staff_elem::width() const
+{
+    Interval r=do_width();
+
     if (!r.empty_b()) // float exception on DEC Alpha
 	r+=offset_.x;
 
     return r;
 }
 Interval
-Staff_elem::height() const
+Staff_elem::do_height() const return r
 {
-    Interval r;
-
     if (!output){
 	Molecule*m	= brew_molecule_p();
 	r = m->extent().y;
 	delete m;
     } else
 	r = output->extent().y;
-    
+}
+
+Interval
+Staff_elem::height() const
+{
+    Interval r=do_height();
+
     if (!r.empty_b())
 	r+=offset_.y;
 
@@ -199,3 +219,10 @@ Staff_elem::add_dependency(Staff_elem * p)
     p->dependant_l_arr_.push(p);
 }
 IMPLEMENT_STATIC_NAME(Staff_elem);
+
+Molecule*
+Staff_elem::brew_molecule_p()const
+{
+    Atom a(paper()->lookup_l()->fill(Box(Interval(0,0), Interval(0,0))));
+    return new Molecule (a);
+}

@@ -1,14 +1,35 @@
-pl 48.hwn1
+pl 50
+	- merge rest / notehead.
+	- Staff_side as a base class for most "staff-side" symbols.
+	- version check
+	- Note_column_register, Note_column
+	- multiple scripts
+********
+april 8
+pl 49.jcn1
+Bugfix
+	- configure[.in], make/Configure_variables.make.in c++ (=doze fix)
+	- "configure; make" ok for doze, win32 target may be removed now
+	- win32/gcc 2.7.2 compile fixes -- why does this all compile 
+	    (without warnings, why can-t i even trigger warnings) under 
+	    linux/gcc-2.7.2.1?  it's quite a tedious job fixing this 
+	    shit _on doze_ all the time.
+	    * fixed #includes global-regs.cc, staff-info.cc, staff.cc
+	    * key.hh:Key() -> Octave_key()
+	    * added missing lily/include/input.hh: Input( Input const& )
+	
+pl 49
 	- lsm template
 	- clef in cadenza mode.
 	- notename clear
 	- \command bla; for \meter, \clef, \octave etc.
-
+*******
 pl 48
 	- notenames init
 	- Duration order -> grouping
 	- broken key s
 	- default octave
+
 ******
 april 3
 pl 47

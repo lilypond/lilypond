@@ -20,7 +20,12 @@ class Staff_registers : public Register_group_register {
     Input_register const *ireg_C_;
     int base_position_i_;
     Array<Voice_group_registers*> group_l_arr_;
- 
+    Staff_symbol * staff_sym_l_;
+protected:
+    virtual bool try_request(Request * r);
+    virtual Staff_info get_staff_info();
+    virtual bool acceptable_request_b(Request*) const ;
+    virtual void acknowledge_element(Staff_elem_info);
 public:
     
     /* *************** */
@@ -30,10 +35,7 @@ public:
 		      Voice_group_registers * old_group);
     Voice_group_registers * get_group(String id);
     void terminate_register(Request_register * reg);
-    virtual bool try_request(Request * r);
-    virtual Staff_info get_staff_info();
     Staff_registers(Input_register const*);
-    virtual bool acceptable_request_b(Request*) const ;
 };
 
 #endif // STAFF_REGS_HH

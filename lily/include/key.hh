@@ -16,7 +16,7 @@ class Octave_key {
 public:
     Array<int> accidental_i_arr_;
  
-    Key();
+    Octave_key();
     void set(int i, int acc);
     int acc(int i)const { return accidental_i_arr_[i]; }
 };

@@ -226,7 +226,7 @@ include           {
 <*>{WHITE}+ 	{
 	
 }
-<notes>.	{
+<INITIAL,notes>.	{
 	return yylval.c = YYText()[0];
 }
 <INITIAL,lyrics,notes>\\. {

@@ -1,6 +1,8 @@
 	* fix/junk ambiguous String constructor overloads, e.g.:
 	  String( int ) and String( char )
 
+	* version numbering for shared lib.
+
 	* LGPL?
 
 	* disable this auto conv: const pointer -> bool -> string
@@ -13,7 +15,7 @@
 
 	* extend Interval
 
-	* use template handle in handle.hh for strings.
+	* use template handle in handle.hh for strings?
 
 	* move towards gnu or STL?
 

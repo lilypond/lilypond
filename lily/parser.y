@@ -1,6 +1,7 @@
 %{ // -*-Fundamental-*-
 #include <iostream.h>
 
+#define MUDELA_VERSION "0.0.50"
 
 #include "script-def.hh"
 #include "symtable.hh"
@@ -138,6 +139,7 @@ yylex(YYSTYPE *s,  void * v_l)
 %token TITLE
 %token UNITSPACE
 %token WIDTH
+%token VERSION
 
 /* escaped */
 %token E_EXCLAMATION E_SMALLER E_BIGGER E_CHAR
@@ -211,7 +213,21 @@ mudela:	/* empty */
 	}
 	| mudela add_declaration { }
 	| mudela error
+	| mudela check_version { } 
 	| mudela add_notenames { }
+	;
+
+check_version:
+	VERSION STRING ';'		{
+		if (*$2 != MUDELA_VERSION) {
+			if (THIS->ignore_version_b_) {
+				THIS->here_input().error("Incorrect mudela version");
+			} else {
+				THIS->fatal_error_i_ = 1;
+				THIS->parser_error("Incorrect mudela version");
+			}
+		}
+	}
 	;
 
 add_notenames:
@@ -788,8 +804,8 @@ script_definition:
 	;
 
 script_body:
-	STRING int int int 		{
-		$$ = new Script_def(*$1,$2, $3,$4);
+	STRING int int int int 		{
+		$$ = new Script_def(*$1,$2, $3,$4,$5);
 		delete $1;
 	}	
 	;

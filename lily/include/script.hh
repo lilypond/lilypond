@@ -7,33 +7,41 @@
 #ifndef SCRIPT_HH
 #define SCRIPT_HH
 
+#include "staff-side.hh"
 #include "script-def.hh"
 #include "item.hh"
   
-struct Script : Item {
-    int dir;
-    int symdir;
-    int pos;
-    int staffsize;
+/**
+  Accents that are put over a note-group.
+ */
+class Script : public Item, public Staff_side {
+     /**
+      Vertical dir of symbol. -1 means invert the symbol.
+     */
+    int symdir_i_;
+    
+    int pos_i_;
+    
     Script_def *specs_l_;
     Stem *stem_l_;
-    Array<Item *> support;
 
     /* *************** */
-    NAME_MEMBERS(Script);
+protected:
     Molecule *brew_molecule_p()const;
     virtual void do_post_processing();
     virtual void do_pre_processing();
-    Script(Script_req*, int staffsize);
-    void set_support(Item*);
-    void set_stem(Stem*);
-    Interval support_height()const;
-    virtual Interval width() const;
+    virtual Interval do_width() const;
 private:
     void set_symdir();
     void set_default_dir();
     void set_default_index();
     Symbol symbol()const;
+public:
+    static int compare(Script  *const&, Script *const&) ;
+    Script(Script_req*);
+    void set_stem(Stem*);
+    NAME_MEMBERS(Script);
+
 };
 
 

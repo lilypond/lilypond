@@ -32,9 +32,8 @@ Text_register::try_request(Request*req_l)
 void
 Text_register::process_requests()
 {
-    
     if (text_req_l_) {
-	text_p_ = new Text_item(text_req_l_, 10); // UGH
+	text_p_ = new Text_item(text_req_l_); // UGH
 	announce_element(Staff_elem_info(text_p_, text_req_l_));
     }
 }
@@ -43,7 +42,10 @@ Text_register::pre_move_processing()
 {
     if (text_p_) {
 	text_p_->dir_i_ = dir_i_;
+	Staff_symbol* s_l = get_staff_info().staff_sym_l_;
+	text_p_->set_staffsym(s_l);
 	typeset_element(text_p_);
+	    
 	text_p_ = 0;
     }
 }

@@ -10,20 +10,24 @@
 #ifndef STAFFSYM_HH
 #define STAFFSYM_HH
 #include "spanner.hh"
+
 /**
   This spanner draws the lines of a pstaff.
   The bottom line is position 0.
   */
 class Staff_symbol : public Spanner
 {
-public:
     /// this many lines.
     int no_lines_i_;
+public:
 
+    void set_extent(PCol* p1, PCol* p2);
     NAME_MEMBERS(Staff_symbol);
     Staff_symbol(int lines);
+    Real inter_note_f()const;
+    int steps_i()const;
+protected:
     virtual Molecule* brew_molecule_p() const;
-    void set_extent(PCol* p1, PCol* p2);
     virtual void do_print()const;
     virtual Spanner *do_break_at( PCol *c1,  PCol *c2) const;
 };

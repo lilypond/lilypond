@@ -56,7 +56,12 @@ public:
     virtual ~Staff_elem();
     Staff_elem();
     NAME_MEMBERS(Staff_elem);    
-    void translate(Offset);
+
+    /**
+      translate the symbol. The symbol does not have to be created yet. 
+      Overridable, since this staff-elem might act as a pseudo-list.
+     */
+    virtual void translate(Offset);
     void add_processing();
     void pre_processing();
     void post_processing();
@@ -64,15 +69,19 @@ public:
     
     virtual Spanner* spanner()  { return 0; }
     virtual Item * item() { return 0; }
+    /**
+      add a dependency. It may be the 0 pointer, in which case, it is ignored.
+     */
     void add_dependency(Staff_elem* );    
     void substitute_dependency(Staff_elem* old, Staff_elem * newdep);
     
 protected:
-    
+    virtual  Interval do_height()const;
+    virtual Interval do_width()const;
     /// do printing of derived info.
-    virtual void do_print() const=0;
+    virtual void do_print() const {}
     /// generate the molecule    
-    virtual Molecule* brew_molecule_p()const=0;
+    virtual Molecule* brew_molecule_p()const;
     ///executed directly after the item is added to the PScore
     virtual void do_add_processing();
     /// do calculations before determining horizontal spacing

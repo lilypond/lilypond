@@ -107,18 +107,19 @@ Stem_beam_register::acknowledge_element(Staff_elem_info info)
     if (!stem_p_)
 	return;
 
-    if (info.elem_p_->name() == Notehead::static_name() &&
-	stem_req_l_->duration() == info.req_l_->rhythmic()->duration())
-	
-	stem_p_->add((Notehead*)info.elem_p_);
+    if (info.elem_l_->name() == Notehead::static_name() &&
+	stem_req_l_->duration() == info.req_l_->rhythmic()->duration()){
+	Notehead * n_l= (Notehead*)info.elem_l_;
+	if (!n_l->rest_b_)
+	    stem_p_->add((Notehead*)info.elem_l_);
+    }
 }
-
 void
 Stem_beam_register::pre_move_processing()
 {
     if (stem_p_) {
 	if (default_dir_i_)
-	    stem_p_->dir = default_dir_i_;
+	    stem_p_->dir_i_ = default_dir_i_;
 	
 	typeset_element(stem_p_);
 	stem_p_ = 0;
