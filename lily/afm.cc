@@ -22,7 +22,13 @@ Adobe_font_metric::Adobe_font_metric (AFM_Font_info * fi)
     {
       AFM_CharMetricInfo * c = fi->cmi + i;
 
-      ascii_to_metric_idx_[c->code] = i;
+      /*
+	Some TeX afm files contain code = -1. We don't know why, let's
+	ignore it.
+	
+       */
+      if (c->code >= 0)
+	ascii_to_metric_idx_[c->code] = i;
       name_to_metric_dict_[c->name] = i;
     }
 }

@@ -40,7 +40,6 @@
 @unnumberedsubsubsec Installation
 
 @itemize @bullet
-@item @uref{../../index.html,index} What is Lilypond?
 @item @uref{../topdocs/out-www/README.html, README} General information.
 @item @uref{../topdocs/out-www/INSTALL.html, INSTALL}
   How install on Unix.
@@ -52,6 +51,7 @@ How to install on Windows.
 @unnumberedsubsubsec Support
 
 @itemize @bullet
+@item @uref{../../index.html,index} What is Lilypond?
 @item @uref{../topdocs/out-www/FAQ.html,mini-FAQ} Mini FAQ -- very
 frequently asked questions, with answers.
 @item @uref{http://www.lilypond.org/wiki?LilyPondFaqs,FAQs} Frequently
@@ -87,17 +87,21 @@ the mailing lists.
 
 @item
 @uref{../user/out-www/lilypond/Reference-Manual.html,Reference-Manual}
-The Reference Manual.
-@item @uref{../user/out-www/lilypond-internals/lilypond-internals.html,lilypond-internals}
-Full documentation of internals, generated from the sources.  If you
-want to fine-tune output, you need the information in this document.
-@item @uref{../user/out-www/lilypond/lilypond.html,lilypond}
-  The complete user manual, (in
-  @uref{../user/out-www/lilypond.ps.gz,PostScript}).
+The reference manual.
+
+@item @uref{../user/out-www/lilypond/lilypond.html,lilypond} The complete
+user manual, (in @uref{../user/out-www/lilypond.ps.gz,PostScript}). This
+manual contains among others the tutorial, the reference manual.
+
 @c glossary maybe for new users?
 @item @uref{../user/out-www/glossary.html,glossary} A glossary of musical
 terms, including translations.  (in
-@uref{../user/out-www/glossary.ps.gz,Postscript})
+@uref{../user/out-www/glossary.ps.gz,Postscript})  Read this if you're not
+familiar with English terms for notation.
+
+@item @uref{../user/out-www/lilypond-internals/lilypond-internals.html,lilypond-internals}
+Full documentation of internals, generated from the sources.  If you
+want to fine-tune output, you need the information in this document.
 @end itemize
 
 

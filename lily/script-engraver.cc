@@ -4,7 +4,6 @@
   (c)  1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #include "script.hh"
 #include "side-position-interface.hh"
 #include "musical-request.hh"
@@ -12,7 +11,8 @@
 #include "rhythmic-head.hh"
 #include "engraver.hh"
 
-class Script_engraver : public Engraver {
+class Script_engraver : public Engraver
+{
   Link_array<Grob> script_p_arr_;
   Link_array<Articulation_req> script_req_l_arr_;
 
@@ -27,7 +27,6 @@ protected:
   virtual void process_music ();
   virtual void acknowledge_grob (Grob_info);
 };
-
 
 void
 Script_engraver::initialize ()
@@ -71,8 +70,7 @@ Script_engraver::process_music ()
       // todo -> use result of articulation-to-scriptdef directly as basic prop list.
       Grob *p =new Item (get_property ("Script"));
       art = gh_cdr (art);
-      p->set_grob_property ("molecule",
-			   gh_car (art));
+      p->set_grob_property ("molecule", gh_car (art));
 
       art = gh_cdr (art);
       bool follow_staff = gh_scm2bool (gh_car (art));
@@ -87,12 +85,10 @@ Script_engraver::process_music ()
       art = gh_cdr (art);
       SCM priority = gh_car (art);
 
-
       if (isdir_b (force_dir) && to_dir (force_dir))
 	p->set_grob_property ("direction", force_dir);
       else if (to_dir (relative_stem_dir))
 	p->set_grob_property ("side-relative-direction", relative_stem_dir);
-      
 
 
       /*

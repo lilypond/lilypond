@@ -195,7 +195,10 @@ Collision::automatic_shift (Grob *me)
 	  {
 	    for (int i=0; i < clash_groups[d].size (); i++)
 	      {
-		offsets[d][i] -= d * 0.5;
+		if(Rhythmic_head::dot_count (nu_l) > Rhythmic_head::dot_count (nd_l))
+		  offsets[d][i] += d * 0.5;
+		else 
+		  offsets[d][i] -= d * 0.5;
 	      }
 	  }
 	  while ((flip (&d))!= UP);

@@ -90,7 +90,7 @@ def write_afm_char_metric(file, charmetric):
 
 	f = 1000;
 	tup = (charmetric['code'],
-		charmetric['width'] + charmetric['breapth'],
+	       (charmetric['width'] + charmetric['breapth'])*f,
 		charmetric['name'],
 		-charmetric['breapth'] *f,
 		-charmetric['depth']*f,

@@ -16,7 +16,6 @@ Tremolo_req::Tremolo_req ()
 {
 }
 
-
 void
 Melodic_req::transpose (Pitch delta)
 {
@@ -78,9 +77,6 @@ Note_req::Note_req ()
 }
 
 
-
-
-
 bool
 Span_req::do_equal_b (Request const*r) const
 {
@@ -106,16 +102,9 @@ Articulation_req::do_equal_b (Request const* r) const
 {
   Articulation_req const* a = dynamic_cast<Articulation_req const*> (r);
   
-  return a; //  &&  articulation_str_ == a->articulation_str_;
+  return a && gh_equal_p (get_mus_property ("articulation-type"),
+			  r->get_mus_property ("articulation-type"));
 }
-
-
-
-
-
-
-
-
 
 
 

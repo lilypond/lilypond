@@ -296,6 +296,7 @@ A reminder accidental
 can be forced by adding an exclamation mark @code{!} after the pitch.  A
 cautionary accidental,
 @cindex cautionary accidental
+@cindex parenthesized accidental
 i.e., an accidental within parentheses can be obtained by adding the
 question mark `@code{?}' after the pitch.
 

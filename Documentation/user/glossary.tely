@@ -149,7 +149,7 @@ the duration of the long a. is proportionate to that of the main note.
 @
 
 @lilypond[13pt,eps]
-\notes\relative c'' {
+\context Voice\notes\relative c'' {
 \key d \major
 \time 4/4
 
@@ -687,8 +687,8 @@ also to some extent in newer jazz music.
 
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t 
-\property Lyrics.LyricText \set #'font-style = #'large
-\property Voice.TextScript \set #'font-style = #'large
+\property Score.LyricText \set #'font-style = #'large
+\property Score.TextScript \set #'font-style = #'large
 \addlyrics
 \notes\relative c' { 
   d1
@@ -702,8 +702,8 @@ also to some extent in newer jazz music.
 
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t 
-\property Lyrics.LyricText \set #'font-style = #'large
-\property Voice.TextScript \set #'font-style = #'large
+\property Score.LyricText \set #'font-style = #'large
+\property Score.TextScript \set #'font-style = #'large
 \addlyrics
 \notes\relative c' { 
   \property Voice.TextScript \set #'padding = #-10
@@ -716,8 +716,8 @@ also to some extent in newer jazz music.
 
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t 
-\property Lyrics.LyricText \set #'font-style = #'large
-\property Voice.TextScript \set #'font-style = #'large
+\property Score.LyricText \set #'font-style = #'large
+\property Score.TextScript \set #'font-style = #'large
 \addlyrics
 \notes\relative c' { 
   f1 g a 
@@ -730,8 +730,8 @@ also to some extent in newer jazz music.
 
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t 
-\property Lyrics.LyricText \set #'font-style = #'large
-\property Voice.TextScript \set #'font-style = #'large
+\property Score.LyricText \set #'font-style = #'large
+\property Score.TextScript \set #'font-style = #'large
 \addlyrics
 \notes\relative c'' { 
   g1 a 
@@ -744,8 +744,8 @@ also to some extent in newer jazz music.
 
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t 
-\property Lyrics.LyricText \set #'font-style = #'large
-\property Voice.TextScript \set #'font-style = #'large
+\property Score.LyricText \set #'font-style = #'large
+\property Score.TextScript \set #'font-style = #'large
 \addlyrics
 \notes\relative c'' { 
   a1
@@ -763,8 +763,8 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t 
-\property Lyrics.LyricText \set #'font-style = #'large
-\property Voice.TextScript \set #'font-style = #'large
+\property Score.LyricText \set #'font-style = #'large
+\property Score.TextScript \set #'font-style = #'large
 \addlyrics
 \notes\relative c' { 
   c1 d
@@ -777,8 +777,8 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t 
-\property Lyrics.LyricText \set #'font-style = #'large
-\property Voice.TextScript \set #'font-style = #'large
+\property Score.LyricText \set #'font-style = #'large
+\property Score.TextScript \set #'font-style = #'large
 \addlyrics
 \notes\relative c'' { 
   a1
@@ -791,8 +791,8 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t 
-\property Lyrics.LyricText \set #'font-style = #'large
-\property Voice.TextScript \set #'font-style = #'large
+\property Score.LyricText \set #'font-style = #'large
+\property Score.TextScript \set #'font-style = #'large
 \addlyrics
 \notes\relative c'' { 
   a1
@@ -809,8 +809,8 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t 
-\property Lyrics.LyricText \set #'font-style = #'large
-\property Voice.TextScript \set #'font-style = #'large
+\property Score.LyricText \set #'font-style = #'large
+\property Score.TextScript \set #'font-style = #'large
 \addlyrics
 \notes\relative c'' { 
   a1
@@ -997,7 +997,7 @@ but equal pitch.
 
 @lilypond[13pt,eps]
 \property Score.barNonAuto = ##t
-\property Voice.TextScript \set #'font-style = #'large
+\property Score.TextScript \set #'font-style = #'large
 \notes\relative c'' {
   gis1_"g sharp" s as1_"a flat" s s
   < des_"dim fifth" g,! > s s < cis_"augm fourth" g! > s s
@@ -1038,7 +1038,7 @@ octave lower (for example on double bass @w{@ar{}@strong{strings}}).
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t 
 \property Staff.Clef \override #'full-size-change = ##t
-\property Lyrics.LyricText \set #'font-style = #'large
+\property Score.LyricText \set #'font-style = #'large
 \addlyrics
 \notes\relative c { 
 %  \clef "F3"
@@ -1101,7 +1101,7 @@ less than a quarter note. The number of flags determines the
 
 @lilypond[13pt,eps]
 \property Score.barNonAuto = ##t
-\property Voice.TextScript \set #'font-style = #'large
+\property Score.TextScript \set #'font-style = #'large
 \notes\relative c'' { 
   g8_"1/8" s8 
   g16_"1/16" s8 
@@ -1147,8 +1147,8 @@ of the base chords.
 
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t 
-\property Lyrics.LyricText \set #'font-style = #'large
-\property Voice.TextScript \set #'font-style = #'large
+\property Score.LyricText \set #'font-style = #'large
+\property Score.TextScript \set #'font-style = #'large
 \addlyrics
 \notes\relative c'' {
   < g1 e c > < a f d > < b g e > 
@@ -1174,7 +1174,7 @@ that).
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t 
 \property Staff.Clef \set #'full-size-change = ##t
-\property Lyrics.LyricText \set #'font-style = #'large
+\property Score.LyricText \set #'font-style = #'large
 \addlyrics
 \notes\relative c'' { 
   \clef french 
@@ -1248,7 +1248,7 @@ section. @ar{}@w{}@strong{functional harmony}
     \time 4/4
     \clef treble 
     \partial 4 < c4 g e > | < c a f > < b g d > < c2 g e > }
-  \property Lyrics.LyricText \set #'font-style = #'large
+  \property Score.LyricText \set #'font-style = #'large
   \addlyrics
   \context Staff = SB \relative c { 
     \clef bass 
@@ -1270,7 +1270,7 @@ Consonances:
 
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t
-\property Voice.TextScript \set #'font-style = #'large
+\property Score.TextScript \set #'font-style = #'large
 \notes\relative c'' {
   <g1_"unisone" g> s
   <g1_"third" b> s
@@ -1288,7 +1288,7 @@ Dissonances:
 
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t
-\property Voice.TextScript \set #'font-style = #'large
+\property Score.TextScript \set #'font-style = #'large
 \notes\relative c'' {
   <g1_"second" a> s
   <g1_"seventh" f'> s 
@@ -1667,7 +1667,7 @@ subject.
 
 @lilypond[13pt,eps] 
 \property Score.TimeSignature \override #'style = #'C2/2
-\property Voice.TextScript \set #'font-style = #'large
+\property Score.TextScript \set #'font-style = #'large
 \notes\relative c'' { 
   \time 4/4
   \key g \major 
@@ -1749,7 +1749,7 @@ but sometimes (mostly in pre baroque music) the double length note value
 @
 
 @lilypond[13pt,eps]
-\property Voice.TextScript \set #'font-style = #'large
+\property Score.TextScript \set #'font-style = #'large
 \property Score.barNonAuto = ##t
 \notes\relative c'' { 
   \property Voice.NoteHead \override #'style = #'mensural
@@ -1760,7 +1760,7 @@ but sometimes (mostly in pre baroque music) the double length note value
 @end lilypond
 
 @lilypond[13pt,eps]
-\property Voice.TextScript \set #'font-style = #'large
+\property Score.TextScript \set #'font-style = #'large
 \property Score.barNonAuto = ##t
 \notes\relative c'' { 
   r\longa_"longa" r\breve_"breve" 
@@ -1774,7 +1774,7 @@ half. Another dot adds yet a fourth of the duration.
 @
 
 @lilypond[13pt,eps]
-\property Voice.TextScript \set #'font-style = #'large
+\property Score.TextScript \set #'font-style = #'large
 \notes\relative c'' { 
   \time 4/4
   g4._"pointed" g8 g2 | g4 () g8 g g2 \bar "||" 
@@ -1789,7 +1789,7 @@ frequently used.
 @
 
 @lilypond[13pt,eps]
-\property Voice.TextScript \set #'font-style = #'large
+\property Score.TextScript \set #'font-style = #'large
 \notes\relative c'' { 
   \time 4/4
   \times 2/3 {g8_"triplets" g g} g4 g8 g g4 \bar "||" 
@@ -1826,7 +1826,7 @@ the upper note is played first.
 @lilypond[13pt,eps]
 <
   \context Staff = sa {
-        \property Voice.TextScript \set #'font-style = #'large
+        \property Score.TextScript \set #'font-style = #'large
     \notes\relative c'' { 
       c2._"pre-1850"  b4\trill | c1 \bar "||"
       c2._"post-1850" b4\trill | c1 \bar "||"
@@ -1847,7 +1847,7 @@ Other frequently used ornaments are the @emph{turn}, the @emph{mordent} and the
 @lilypond[13pt,eps]
 <
   \context Staff = sa {
-        \property Voice.TextScript \set #'font-style = #'large
+        \property Score.TextScript \set #'font-style = #'large
     \notes\relative c'' { 
       a4_"turn" b\turn c2 \bar "||"
       g4_"mordent" a b\mordent a \bar "||"
@@ -1991,7 +1991,7 @@ the same @w{@ar{}@strong{signature}}.
 
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t 
-\property Voice.TextScript \set #'font-style = #'large
+\property Score.TextScript \set #'font-style = #'large
 \notes\relative c' { 
   \key es \major
   es1_"e flat major" f g as bes c d es 
@@ -2250,7 +2250,7 @@ note. @w{@ar{}@strong{beam}}
 @lilypond[13pt,eps]
 \property Score.noAutoBeaming = ##t
 \property Score.barNonAuto = ##t
-\property Voice.TextScript \set #'font-style = #'large
+\property Score.TextScript \set #'font-style = #'large
 \notes\relative c'' { 
   g2_"1/2" g' s16
   g,4_"1/4" g' s16
@@ -2323,7 +2323,7 @@ the underlaying (normal) pulse and the actual (abnormal) rhythm.
 @
 
 @lilypond[13pt,eps]
-\property Voice.TextScript \set #'font-style = #'large
+\property Score.TextScript \set #'font-style = #'large
 \time 4/4
 \notes\relative c' {
   \partial 4
@@ -2514,7 +2514,7 @@ a @w{@ar{}@strong{chord}}, usually in the distance of a third
 
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t 
-\property Voice.TextScript \set #'font-style = #'large
+\property Score.TextScript \set #'font-style = #'large
 \notes\relative c' {
   % e2:32_"a" f:32 [ e8:16 f:16 g:16 a:16 ] s4 [:32 e1_"b" g]
   % e2:32_"a" f:32 [ e8:16 f:16 g:16 a:16 ] s4 \repeat "tremolo" 16 { e32_"b" g }

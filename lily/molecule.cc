@@ -7,7 +7,7 @@
 */
 
 #include <math.h>
-#include <libc-extension.hh>
+#include <libc-extension.hh>	// isinf
 
 #include "font-metric.hh" 
 #include "dimensions.hh"
