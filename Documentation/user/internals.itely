@@ -750,15 +750,15 @@ The syntax for @code{\apply}
 This means that the scheme function @var{func} is called with
 @var{music} as its argument.  The return value of @var{func} is the
 result of the entire expresssion.  @var{func} may read and write music
-properties using the functions @code{ly:get-music-property} and
-@code{ly:set-music-property!}.
+properties using the functions @code{ly:get-mus-property} and
+@code{ly:set-mus-property!}.
 
 An example is a function that reverses the order of elements in
 its argument:
 @lilypond[verbatim,singleline]
   #(define (rev-music-1 m)
-     (ly:set-music-property! 'elements (reverse
-       (ly:get-music-property mus 'elements)))
+     (ly:set-mus-property! 'elements (reverse
+       (ly:get-mus-property mus 'elements)))
      m)
   \apply #rev-music-1 { c4 d4 }
 @end lilypond
