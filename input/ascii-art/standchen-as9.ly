@@ -1,4 +1,5 @@
 
+% asci-art output, TODO: include how-to-use-this 
 
 \include "paper-as9.ly"
 
@@ -28,7 +29,7 @@
 		\translator { 
 			\VoiceContext 
 			beamHeight = ##f 
-			autoBeamSettings \override (begin * * * *) = #(make-moment 0 1)
+			autoBeamSettings \override #(begin * * * *) = #(make-moment 0 1)
 			textNonEmpty = ##f
 		}
 	}

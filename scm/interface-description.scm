@@ -217,7 +217,7 @@ object."
  'note-head-interface
  "Note head"
  '(
-   style attachment-angle note-character
+   style attachment-slope note-character
 	 ))
 
 
@@ -761,7 +761,7 @@ direction = Forced direction for all ties"
 (lily-interface
  'percent-repeat-interface
  "Repeats that look like percent signs"
- '(angle thickness))
+ '(slope thickness))
 
 (lily-interface
  'volta-bracket-interface

@@ -1,7 +1,7 @@
 %{
-Converted from star.mup with the aid of the old mup2ly.py
-http://www.arkkra.com/doc/star.html
-http://www.arkkra.com/doc/star.ps
+Converted from star.mup with the aid of mup2ly.py
+http://www.Arkkra.com/doc/star.html
+http://www.Arkkra.com/doc/star.ps
 %}
 
 

@@ -1,5 +1,3 @@
-
-
 \header{
 title= "The Feta Font";
 subtitle = "proofsheet"; 
@@ -11,13 +9,8 @@ description = "This file tests the Feta music font, 11pt";
 
 
 \include "paper13.ly"
-\include "font-body.ly"
-\score{
-	\FontBody
-	\paper{
-	    \paperThirteen
-	    linewidth = 17.5 \cm;
-	    gourlay_maxmeasures =5.;
-	}
+\paper{
+linewidth = 17.5 \cm;
 }
+\include "font-body.ly"
 

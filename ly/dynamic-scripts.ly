@@ -2,7 +2,7 @@
 %
 % declare the standard dynamic identifiers.
 %
-
+ppppp = \dynamicscript #"ppppp"
 pppp = \dynamicscript #"pppp"
 ppp = \dynamicscript #"ppp"
 pp = \dynamicscript #"pp"

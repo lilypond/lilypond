@@ -34,7 +34,7 @@ instrument=	"Violoncello";
 		\clef "bass";
 		\key c \major;
 		<e1\sff cis'^\downbow> | <cis\sff a'^\downbow> | 
-		<d,\ffff\decr g> ~ <d2 g> ~ <d8\p\rced g> |
+		<d,\ffff\decr g> | ~ <d2 g> ~ <d8\p\rced g> 
 	}
 	\header{ 
 	piece="example 2";

@@ -43,7 +43,7 @@ This procedure is called (using dependency resolution) after line breaking. Retu
 (grob-property-description 'arithmetic-multiplier number? "see @ref{spacing-spanner-interface}.")
 (grob-property-description 'attachment pair? "cons of symbols, '(LEFT-TYPE . RIGHT-TYPE), where both types may be alongside-stem, stem, head or loose-end.")
 
-(grob-property-description 'attachment-angle number? "Where does the stem
+(grob-property-description 'attachment-slope number? "Where does the stem
 attach to the notehead?")
 (grob-property-description 'attachment-offset pair? "cons of offsets,
 '(LEFT-offset . RIGHT-offset).  This offset is added to the
@@ -241,7 +241,9 @@ reference point.
 (grob-property-description 'shortest-starter-duration moment? "duration of the shortest notes that starts exactly in this column.")
 (grob-property-description 'side-relative-direction dir? "if set: get the direction from a different object, and multiply by this.")
 (grob-property-description 'side-support list? "the support, a list of grobs.")
+(grob-property-description 'slope number? "some kind of slope")
 (grob-property-description 'slope-limit number? "set slope to zero if slope is running away steeper than this.")
+(grob-property-description 'space-alist list? "Alist of break align spacing tuples. See basic-property.scm")
 (grob-property-description 'space-function procedure? "function of type multiplicity -> real (in staffspace).")
 (grob-property-description 'spacing-procedure procedure? "procedure
 taking grob as argument. This is called after

@@ -41,7 +41,4 @@ beamintervals =  \notes{
 		\transpose a \beamintervals
 		\transpose b \beamintervals
 	}
-	\paper{
-		gourlay_maxmeasures = 2.;
-	}
 }

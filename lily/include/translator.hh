@@ -38,8 +38,9 @@ public:
   Translator_group * daddy_trans_l_ ;
  
 
+  void pre_move_processing ();
   void announces ();
-
+  void post_move_processing ();
   void removal_processing ();
   /**
     ask daddy for a feature

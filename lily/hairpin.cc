@@ -37,35 +37,54 @@ Hairpin::brew_molecule (SCM smob)
 
   /* Ugh, must be same as Text_spanner::brew_molecule.  */  
   Real padding = gh_scm2double (me->get_grob_property ("if-text-padding"));
-  Real broken_left =  spanner->get_broken_left_end_align ();
-  Real width = spanner->spanner_length ();
-  width -= broken_left;
-
+ 
   Drul_array<bool> broken;
-  Drul_array<Real> extra_off;
+  Drul_array<Item*> bounds ;
   Direction d = LEFT;
   do
     {
-      Item *b = spanner->get_bound (d);
-      broken[d] = b->break_status_dir () != CENTER;
+      bounds[d] =spanner->get_bound (d);
+      broken[d] = bounds[d]->break_status_dir () != CENTER;
+    }
+  while (flip (&d) != LEFT);
 
-      if (!broken [d])
+  Grob *common = bounds[LEFT]->common_refpoint (bounds[RIGHT], X_AXIS);
+  Drul_array<Real> x_points ;
+  
+  do
+    {
+      Item *b = bounds[d];
+      x_points[d]  = b->relative_coordinate (common, X_AXIS);
+      if (broken [d])
 	{
-
-	  Interval e =b->extent (b, X_AXIS);
-	  Real r = 0.0;
-	  if (!e.empty_b ())
-	    r = e[-d] + padding;
-	  width += d * r;
-	  extra_off[d] = r;
+	  if (d == LEFT)
+	    x_points[d] = b->extent (common,X_AXIS)[RIGHT] ;
+	}
+      else
+	{
+	  if (dynamic_cast<Paper_column*> (b))
+	    {
+	      /*
+		If we're hung on a paper column, that means we're not
+		adjacent to a text-dynamic, and we may move closer. We
+		make the padding a little smaller, here.
+	      */
+	      Interval e =b->extent (common, X_AXIS);
+	      x_points[d] = e.center () - d  * padding /3; // ugh.
+	    }
+	  else
+	    {
+	      Interval e =b->extent (common, X_AXIS);
+	      if (!e.empty_b ())
+		x_points[d] = e[-d] - d*padding;
+	    }
 	}
     }
   while (flip (&d) != LEFT);
 
-  // FIXME: ecs tells us
-  width += gh_scm2double (me->get_grob_property ("width-correct"));
-  /* /Ugh */
-  
+
+  Real width = x_points[RIGHT] - x_points[LEFT];
+
   if (width < 0)
     {
       warning (_ ((grow_dir < 0) ? "decrescendo too small"
@@ -101,10 +120,17 @@ Hairpin::brew_molecule (SCM smob)
 			 gh_double2scm (endh),
 			 SCM_UNDEFINED);
 
+  /*
+    We make the hairpin too large in Y direction, so it stays at
+    proper distance from the staff.
+  */
   Interval yext = 2* height  * Interval (-1,1);
   Box b (Interval (0, width), yext);
   Molecule mol (b, hairpin);
-  mol.translate_axis (broken_left + extra_off[LEFT], X_AXIS);
+  
+  mol.translate_axis (x_points[LEFT]
+		      - bounds[LEFT]->relative_coordinate (common, X_AXIS),
+		      X_AXIS);
 
   return mol.smobbed_copy ();
 }

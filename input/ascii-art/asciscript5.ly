@@ -1,4 +1,6 @@
 
+% ascii art
+
 \include "paper-as5.ly"
 
 \score {

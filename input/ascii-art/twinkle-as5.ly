@@ -1,3 +1,5 @@
+% ascii art output
+ 
 \header{
 filename = 	"twinkle.ly";
 title = 		"Twinkle Twinkle Little Star";

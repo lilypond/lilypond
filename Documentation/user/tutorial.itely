@@ -13,6 +13,7 @@
 * An orchestral score::         
 * Part extraction::             
 * end of tutorial::             The end
+* Pre-cooked makefile::         
 @end menu
 
 @node Introduction
@@ -1830,12 +1831,9 @@ Music (TM), have a look at the @ref{Mutopia project}.
 
 [TODO figure out what to do with this: ]
 
-@menu
-* Pre-cooked makefile::         
-@end menu
 
 @node Pre-cooked makefile
-@subsection Pre-cooked makefile
+@section Pre-cooked makefile
 
 @c waar deze info?  is uiteindelijk wel handig, schat ik.
 [TODO: cut blabla]

@@ -95,12 +95,18 @@ Instrument_name_engraver::acknowledge_grob (Grob_info i)
   if (dynamic_cast<Spanner*> (i.elem_l_)
       && i.elem_l_->has_interface (ly_symbol2scm ("dynamic-interface")))
     return;
-  
+
+  /*
+    Hang the instrument names on the staffs, but not on the alignment
+    groups enclosing that staff. The alignment has no real location,
+    but is only a vehicle for the placement routine it contains, and
+    therefore the location of its refpoint won't be very useful.
+    
+  */
   if (dynamic_cast<Spanner*> (i.elem_l_)
       && ((Axis_group_interface::has_interface (i.elem_l_)
-	 && Axis_group_interface::axis_b (i.elem_l_, Y_AXIS))
-	 || (Align_interface::has_interface (i.elem_l_)
-	     && Align_interface::axis (i.elem_l_) == Y_AXIS)))
+	   && Axis_group_interface::axis_b (i.elem_l_, Y_AXIS)))
+      && !Align_interface::has_interface (i.elem_l_))
     {
       SCM nl = gh_cons (i.elem_l_->self_scm (),
 			get_property ("instrumentSupport"));

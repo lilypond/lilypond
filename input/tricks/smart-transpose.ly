@@ -6,22 +6,14 @@ texidoc="
 @quotation
         Your task, if you accept it is to implement a \smarttranspose
         command> that would translate such oddities into more natural
-        notations. Double accidentals should be removed, as well as #E
-        (-> F), bC (-> B), bF (-> E), #B (-> C).
+        notations. Double accidentals should be removed, as well as E-sharp
+        (-> F), bC (-> B), bF (-> E), B-sharp (-> C).
 @end quotation
 
 You mean like this. (Sorry 'bout the nuked indentation.)
 @end example
 ";
 }
-
-% Btw, I've leant an el-neato trick for formatting code in email messages,
-% using inderect buffers.
-%
-% M-x make-indirect-buffer RET RET foo RET C-x b foo RET
-% Select region and then narrow: C-x n n
-% Set mode, eg: M-x sch TAB RET
-%
 
 #(define  (unhair-pitch p)
   (let* ((o (pitch-octave p))

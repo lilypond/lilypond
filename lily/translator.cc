@@ -82,6 +82,11 @@ Translator::now_mom () const
 
 
 
+void
+Translator::post_move_processing ()
+{
+  start_translation_timestep ();
+}
 
 void
 Translator::removal_processing ()
@@ -95,6 +100,14 @@ Translator::announces ()
 {
   do_announces ();
 }
+
+
+void
+Translator::pre_move_processing ()
+{
+  stop_translation_timestep ();
+}
+
 
 
 Music_output_def *

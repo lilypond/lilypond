@@ -175,8 +175,7 @@ Dynamic_engraver::process_music ()
 				   script_req_l_->get_mus_property ("text"));
       
       Side_position_interface::set_direction (script_p_, LEFT);
-      Side_position_interface::set_axis (script_p_, X_AXIS);
-      
+
       if (Direction d = script_req_l_->get_direction ())
 	Directional_element_interface::set (line_spanner_, d);
 

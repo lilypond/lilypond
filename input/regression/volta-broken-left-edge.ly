@@ -1,7 +1,8 @@
 
 \header {
-texidoc ="Broken volta spanners behave correctly at left edge in all cases."
-};
+texidoc ="Broken volta spanners behave correctly at left edge in all cases.";
+
+}
 
 %{
 

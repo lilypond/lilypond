@@ -3297,10 +3297,7 @@ relocated, so this can also be used to shorten measures.
 
 A bar check is entered using the bar symbol, @code{|}
 
-@node Speeding up debugging 
-@subsection Speeding up debugging
 
-[TODO: describe skipTypesetting here]
 
 @c .  {Point and click}
 @node Point and click

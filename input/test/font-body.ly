@@ -1,4 +1,6 @@
 
+% body for the font test. Does not work standalone
+
 
 FontBody=	\notes\transpose c''{ 
 		\bar "|:";
@@ -64,4 +66,7 @@ c\longa*1/4 c\breve*1/2 c1 c2 c4 c8
 			r1. r2. r4. r8. r16. r32. r64. r64. |
 			c2\sustainDown c\sustainUp |
 		}
+}
+\score {
+	\FontBody
 }
