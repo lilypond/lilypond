@@ -11,28 +11,44 @@
 #include "vray.hh"
 
 
-
+/// data structure which represents rhythmic units 
 struct Rhythmic_grouping {    
-    svec<Real> divisions;
+    
     svec<Rhythmic_grouping*> children;
-
+    Interval *interval_;
+    
     /****************/
 
-    svec<Real> interior();
-    Rhythmic_grouping partial_grouping(Interval t);
+    svec<Interval> intervals();
+    Interval interval()const;
     Real length() const;
-    Interval time() const;
-    Rhythmic_grouping(Interval);
-    Rhythmic_grouping();
-    Rhythmic_grouping(svec<Real>);
-    Rhythmic_grouping(Rhythmic_grouping const&);
-    
-    void split(Rhythmic_grouping r);
-    void split(svec<Real>);
     void intersect(Interval);
+    
+    void operator=(Rhythmic_grouping const&);
+    Rhythmic_grouping(Rhythmic_grouping const&);
+    Rhythmic_grouping(Interval, int n=1);
+    Rhythmic_grouping();
+    Rhythmic_grouping(svec<Rhythmic_grouping*>);
+    ~Rhythmic_grouping();
+
+    void add_child(Real start, Real len);
+
+    void split(Rhythmic_grouping r);
+    void split(svec<Interval>);
     void split(int n);
+
     void print() const;
     void OK() const;
-    ~Rhythmic_grouping();
+
+    svec<int> generate_beams(svec<int>, int&);
+
+private:
+    void junk();
+    void copy(Rhythmic_grouping const&);
 };
+/**
+  this is a tree. It groupes notes according to rules
+  
+ */
+
 #endif
