@@ -735,8 +735,9 @@ def compose_full_body (body, opts):
 }
 ''' % (optstring, music_size, linewidth, indent, notime) + body
 
-	if orig_name:
-		body = '\\renameinput \"%s\"\n%s' % (orig_name, body)
+	# \renameinput not available in 1.8.x
+	#if orig_name:
+	#	body = '\\renameinput \"%s\"\n%s' % (orig_name, body)
 	
 
 	# ughUGH not original options
