@@ -1,5 +1,8 @@
 2003-09-20  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* stepmake/stepmake/help2man-rules.make: 
+	* cygwin/mknetrel: Bugfix for manpages.
+
 	* GNUmakefile.in (SUBDIRS): Use plain srcdir stepmake instead of
 	$(builddir).  Stepmake is a normal subdirectory now, that is not
 	configured.  Another srcdir build fix.
@@ -21,8 +24,6 @@
 
 	* stepmake/stepmake/help2man-rules.make: Allow manpages to fail
 	when cross building.
-
-	* stepmake/stepmake/help2man-rules.make: 
 
 	* configure.in: srcdir build fix.
 
