@@ -216,7 +216,7 @@ LilyPond-expand-list.
     ("%t" . ".tex")
     ("%d" . ".dvi")
     ("%p" . ".ps")
-    ("%l" . ".latex")
+    ("%l" . ".tex")
     ("%x" . ".tely")
     ("%m" . ".midi")
     )

@@ -261,6 +261,11 @@ HYPHEN		--
 		return SCM_T;
 	}
 	SCM sval = ly_parse_scm (s, &n, here_input());
+	if (sval == SCM_UNDEFINED)
+		{
+		sval = SCM_UNSPECIFIED;
+		errorlevel_ = 1;
+		}
 
 	for (int i=0; i < n; i++)
 	{

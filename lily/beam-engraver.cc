@@ -235,6 +235,7 @@ Beam_engraver::stop_translation_timestep ()
       finished_beam_ = beam_;
       finished_beam_info_ = beam_info_;
 
+      now_stop_ev_ = 0;
       beam_ = 0;
       beam_info_ = 0;
       typeset_beam();

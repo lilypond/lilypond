@@ -335,6 +335,7 @@ Beam::brew_molecule (SCM grob)
   SCM gap = me->get_grob_property ("gap");
   Molecule the_beam;
   Real lt = me->get_paper ()->get_var ("linethickness");
+  
   for (int i = 0; i< stems.size(); i++)
     {
       Grob * st =stems[i];
@@ -343,6 +344,11 @@ Beam::brew_molecule (SCM grob)
       Real xposn = st->relative_coordinate (xcommon, X_AXIS);
       Real stem_width = gh_scm2double (st->get_grob_property ("thickness")) *lt;
 
+      /*
+	We do the space left of ST, with lfliebertjes pointing to the
+	right from the left stem, and rfliebertjes pointing left from
+	right stem.
+       */
       if (i > 0)
 	{
 	  SCM left = gh_cdr (last_beaming);
@@ -408,18 +414,14 @@ Beam::brew_molecule (SCM grob)
 
 	  if (lfliebertjes.size() || rfliebertjes.size())
 	    {
-
 	      Real nw_f;
-	      if (!Stem::first_head (st))
-		nw_f = 0;
-	      else
-		{
-		  int t = Stem::duration_log (st); 
 
-		  SCM proc = me->get_grob_property ("flag-width-function");
-		  SCM result = gh_call1 (proc, scm_int2num (t));
-		  nw_f = gh_scm2double (result);
-		}
+	      int t = Stem::duration_log (st); 
+
+	      SCM proc = me->get_grob_property ("flag-width-function");
+	      SCM result = gh_call1 (proc, scm_int2num (t));
+	      nw_f = gh_scm2double (result);
+		
 	      
 	      /* Half beam should be one note-width,
 		 but let's make sure two half-beams never touch */
@@ -1273,13 +1275,18 @@ Beam::set_beaming (Grob *me, Beaming_info_list *beaming)
 	      ||(d == RIGHT && i == stems.size () -1))
 	    continue;
 
-
-	  SCM beaming_prop = stems[i]->get_grob_property ("beaming");
+	  Grob *st =  stems[i];
+	  SCM beaming_prop = st->get_grob_property ("beaming");
 	  if (beaming_prop == SCM_EOL ||
 	      index_get_cell (beaming_prop, d) == SCM_EOL)
 	    {
 	      int b = beaming->infos_.elem (i).beams_i_drul_[d];
-	      Stem::set_beaming (stems[i], b, d);
+	      if (i>0
+		  && i < stems.size() -1
+		  && Stem::invisible_b (st))
+		b = b <? beaming->infos_.elem(i).beams_i_drul_[-d];
+	      
+	      Stem::set_beaming (st, b, d);
 	    }
 	}
       while (flip (&d) != LEFT);
