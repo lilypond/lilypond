@@ -7,6 +7,7 @@
 
 */
 
+#if 0
 #include "warn.hh"
 #include "open-type-font.hh"
 
@@ -66,3 +67,4 @@ Open_type_font::get_design_size () const
 {
   return 20.0;
 }
+#endif

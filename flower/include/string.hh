@@ -71,8 +71,8 @@ public:
 
   /// String s = "abc";
   String (char const* source); 
-  String (Byte const* byte, int length_i); 
-    
+  String (Byte const* byte, int length_i);
+
   ///  return "new"-ed copy of contents
   Byte* get_copy_byte () const;
   char* get_copy_str0 () const;
@@ -105,13 +105,8 @@ public:
   /// return n rightmost chars
   String right_string (int n) const;
 
-  /// return uppercase of *this
-  String upper_string () const;
-  /// return lowercase of *this
-  String lower_string () const;
-
   /// return the "esrever" of *this
-  String reversed_string () const;
+  void reverse ();
 
   /// return a piece starting at index (first char = index_i 0), length n
   String cut_string (int index_i, int n) const;
@@ -153,7 +148,7 @@ public:
   /// convert to a double
   double to_double () const;
 
-  String substituted (char text, String sub) const; 
+  void substitute_char (char text, String sub);
 };
 
 /*

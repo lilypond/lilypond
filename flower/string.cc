@@ -234,7 +234,7 @@ String::index (char c) const
   find a substring.
 
   @return
-1  index of leftmost occurrence of #searchfor#
+  index of leftmost occurrence of #searchfor#
  */
 int
 String::index (String searchfor) const
@@ -246,8 +246,8 @@ String::index (String searchfor) const
   
   if (p)
     return p - me;
-  else
-    return -1;
+
+  return -1;
 }
 
 /** find chars of a set.
@@ -317,9 +317,7 @@ String::nomid_string (int index_i, int n) const
   if (n <= 0)
     return *this;
   
-  return
-    left_string (index_i)   +
-    right_string (length () - index_i - n) ;
+  return left_string (index_i) + right_string (length () - index_i - n);
 }
 
 String
@@ -340,41 +338,23 @@ String::cut_string (int index_i, int n) const
   return String (to_bytes () + index_i, n);
 }
 
-String
-String::upper_string () const
-{
-  String str = *this;
-  str.to_upper ();
-  return str;
-}
+
 void
 String::to_upper ()
 {
-  char *s = (char*)strh_.get_bytes ();
-  strnupr (s ,length ());
+  strnupr (get_str0 (), length ());
 }
 
 void
 String::to_lower ()
 {
-  char* s = strh_.get_str0 ();
-  strnlwr (s,length ());    
+  strnlwr (get_str0 (), length ());    
 }
 
-
-String 
-String::lower_string () const
+void 
+String::reverse ()
 {
-  String str = *this;
-  str.to_lower ();
-  return str;
-}
-String 
-String::reversed_string () const
-{
-  String str = *this;
-  strrev (str.get_bytes (), str.length ());
-  return str;    
+  strrev (get_bytes (), length ());
 }
 
 int
@@ -397,7 +377,6 @@ operator << (ostream& os, String d)
   return os;
 }
 
-
 void
 String::print_on (ostream& os) const
 {
@@ -409,21 +388,9 @@ String::print_on (ostream& os) const
 }
 #endif
 
-
-String
-String::substituted (char chr, String sub) const
+void
+String::substitute_char (char chr, String sub)
 {
-  Byte const* t = this->to_bytes ();
-  
-  String accumulator;
-  int n = length();
-  for (int i = 0; i < n; i++)
-    {
-      if (t[i] == chr)
-	accumulator += sub;
-      else
-	accumulator += String_convert::char_string (t[i], 1); 
-    }
-
-  return accumulator;
+  for (int i = index (chr); i > -1; i = index (chr))
+    *this = left_string (i) + sub + right_string (length () - i - 1);
 }
