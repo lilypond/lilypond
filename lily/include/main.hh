@@ -27,7 +27,6 @@ extern String init_name_global;
 
 /* options */
 extern Array<String> dump_header_fieldnames_global;
-extern bool skip_layout_global;
 extern String output_backend_global;
 extern String output_name_global;
 extern bool be_safe_global;
