@@ -1,5 +1,13 @@
 2004-11-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/quote-iterator.cc (Module): remove old quote-iterator
+
+	* scm/define-music-types.scm (music-descriptions): move
+	NewQuoteMusic over QuoteMusic
+
+	* Documentation/user/notation.itely (Formatting cue notes): use
+	\cueDuring.
+
 	* lily/new-quote-iterator.cc (quote_ok): new function.
 
 	* input/regression/quote-cue-during.ly: new file.

@@ -5601,21 +5601,22 @@ This command must be entered at toplevel, i.e.  outside any music
 blocks.
 
 After calling @code{\addquote}, the quotation may then be done with
-@code{\quote},
+@code{\quoteDuring} or @code{\cueDuring},
 
 @example
-\quote @var{name} @var{duration}
+\quoteDuring #@var{name} @var{music}
 @end example
 
-During a part, a piece of music can be quoted with the @code{\quote}
+During a part, a piece of music can be quoted with the @code{\quoteDuring}
 command.
 
 @example
-\quote clarinet 2.
+\quoteDuring #"clarinet" @{ s2. @}
 @end example
 
-This would cite three quarter notes (@code{2.} is a dotted half note)
-of the previously added @code{clarinet} voice.
+This would cite three quarter notes (the duration of @code{s2.})  of
+the previously added @code{clarinet} voice.
+
 
 More precisely, it takes the current time-step of the part being
 printed, and extracts the notes at the corresponding point of the
@@ -5633,14 +5634,14 @@ instruments, if they are specified using the @code{\transposition} command.
 }
 
 {
-  e'8 f'8 \quote clarinet 2
+  e'8 f'8 \quoteDuring #"clarinet" { s2 }
 }
 @end lilypond
 
 The type of events that are present in cue notes can be trimmed with
 the @code{quotedEventTypes} property.  The default value is
 @code{(note-event rest-event)}, which means that only notes of and
-rests of the cued voice end up in the @code{\quote}.
+rests of the cued voice end up in the @code{\quoteDuring}.
 Setting
 
 @example
@@ -5672,14 +5673,25 @@ Program reference: @internalsref{QuoteMusic}.
 @node Formatting cue notes
 @subsection Formatting cue notes
 
+The previous section deals with inserting notes from another voice.
+There is a more advanced music function called @code{\cueDuring},
+which makes formatting cue notes easier.
 
-The previous section deals with inserting notes from another
-voice.  When making a part, these notes need to be specially formatted.
-Here is an example of formatted cue notes
+The syntax is
 
-@c TODO: This should be done with \quote stuff, not manually.
+@example
+  \cueDuring #@var{name} #@var{updown} @var{music}
+@end example
 
-@lilypond[raggedright,verbatim]
+This will insert notes from the part @var{name} into a
+@internalsref{Voice} called @code{cue}. This happens simultaneously
+with @var{music}, which usually is a rest.  When the cue notes start,
+the staff in effect becomes polyphonic for a moment. The argument
+@var{updown} determines whether the cue notes should be notated as a
+first or second voice.
+
+
+@lilypond[verbatim,raggedright]
 smaller = {
   \set fontSize = #-2
   \override Stem #'length = #5.5
@@ -5688,48 +5700,59 @@ smaller = {
     #(lambda (beam mult) (* 0.8 (Beam::space_function beam mult)))
 }
 
-{
-  \set Staff.instrument = #"Horn in F"
+\addquote clarinet \relative {
+  R1*20
+  r2 r8 c f f
+} 
+
+\new Staff \relative  <<
+
+  % setup a context for  cue  notes.
+  \context Voice = cue { \smaller \skip 1*21 }
+  
   \set Score.skipBars = ##t
-  R1*21
-  << {
-    \once \override Staff.MultiMeasureRest #'staff-position = #-6
-    R1
-  }
+  
   \new Voice {
-    s2
-    \clef tenor
-    \smaller
-    r8^"Bsn." c'8 f'8[ f'8]
-    \clef treble
+    R1*20
+    \cueDuring #"clarinet" #1 {
+      R1
+    }
+    g4 g2. 
   }
-  >>
-  c'8^"Horn" cis'
-  eis'4 fis'4
-}
-@end lilypond
+>>
+@end lilypond 
 
 
-There are a couple of points to take care of:
+Here are a couple of hints for successful cue notes
 
 @itemize @bullet
 @item
-The multi rest of the original part should be moved up or down during
-the cue.
-@item
 Cue notes have smaller font sizes.
 @item
-When cued notes have a clef change relative to the original part, the
-clef should be restored after the cue section.  This minimizes
-confusion for the reader,
+ the cued part is marked with the instrument playing the cue.
 @item
-When the original part starts, this should be marked with the name of
-the instrument, in this case ``Horn.''  Of course, the cue part is
-marked with the instrument playing the cue.
+ when the original part takes over again, this should be marked with
+ the name of the original instrument.
+
+ @c really?  Are you sure about that last point?  I'll check after 3.0 -gp
+
+@c Yes, this is good practice. Otherwise, the start of the original
+@c part can only be seen from the font size. This is not good enough
+@c for sight-reading. It is possilbe to use other
+@c markers (eg. a big close-bracket over the staff) to indicate the cue notes are
+@c finished.
+@c -hwn
+
+
+ any other changes introduced by the cued part should also be
+undone. For example, if the cued instrument plays in a different clef,
+the original clef should be stated once again.
+
 @end itemize
 
-@c really?  Are you sure about that last point?  I'll check after 3.0 -gp
 
+
+ 
 
 @node Ancient notation
 @section Ancient notation
