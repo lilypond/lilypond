@@ -19,7 +19,8 @@ staff_engraver = \requesttranslator {
 			  Engraver  "Voice_group_engravers"
 			  \alias "Voice_group";
 			  \consists "Dynamic_engraver";
-			  \consists "Stem_beam_engraver";
+			  \consists "Stem_engraver";
+			\consists "Beam_engraver";
 			  \consists "Script_engraver";
 			  \consists "Note_column_engraver";
 			  \consists "Slur_engraver";
@@ -72,6 +73,7 @@ orchestral_score_translator = \requesttranslator {
 	Engraver Score_engraver
 	\alias "Score";
 
+	\consists "Timing_engraver";
 	\consists "Bar_column_engraver";
 	\consists "Bar_number_grav";
 
@@ -87,6 +89,11 @@ orchestral_score_translator = \requesttranslator {
 	\contains \requesttranslator { \staff_group_engraver }
 	\contains \requesttranslator { \lyric_engraver }
 	\contains \requesttranslator { \piano_staff_engraver }
+}
+
+stupid_engraver = \requesttranslator {
+	Engraver Score_engraver
+	\consists "Staff_sym_engraver";
 }
 
 

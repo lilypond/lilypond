@@ -1,15 +1,13 @@
-%{MudelaHeader
 
- filename:rhythm.ly
- title:
- description: 
- composers:
- entered-by:HWN
- copyright:public domain
-
- Tested Features: multiple meters, beaming
+\header{
+ filename	rhythm.ly
+ entered-by	HWN
+ copyright	public domain
+ Tested Features	 multiple meters, beaming
 	unsynced bars
-EndMudelaHeader
+}
+%{
+has to be revised for 0.1.12
 %}
 
 
