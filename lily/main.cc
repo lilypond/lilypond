@@ -382,6 +382,8 @@ parse_argv (int argc, char **argv)
 	    make_ps = true;
 	  else if (String (opt->longname_str0_) == "dvi")
 	    make_dvi = true;
+	  else if (String (opt->longname_str0_) == "tex")
+	    make_tex = true;
 	  else if (String (opt->longname_str0_) == "preview")
 	    make_preview = true;
 	  break;
