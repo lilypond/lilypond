@@ -426,7 +426,8 @@ output_dict= {
 %s
 \end{lilypond}
 """,
-		'output-verbatim': "\\begin{verbatim}%s\\end{verbatim}",
+		'output-verbatim': r'''\begin{verbatim}%s\end{verbatim}%%
+''',
 		'output-default-post': "\\def\postLilypondExample{}\n",
 		'output-default-pre': "\\def\preLilypondExample{}\n",
 		'usepackage-graphics': '\\usepackage{graphics}\n',

@@ -1,3 +1,8 @@
+2002-04-25  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scripts/lilypond-book.py: %Newline, rather than glue macros
+	after \end{verbatim}.
+
 2002-04-24  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/user/lilypond-book.itely: 
