@@ -90,13 +90,13 @@ preconfig () {
     if ! iscygwin; then
 	cd $build || exit 1
 	GUILE=1.6.5
-	cat > guile-config <<EOF
-[ "\$1" == "--version" ] && echo "guile-config - Guile version $GUILE"
+	cat > i686-cygwin-guile-config <<EOF
+[ "\$1" == "--version" ] && echo "i686-cygwin-guile-config - Guile version $GUILE"
 [ "\$1" == "compile" ] && echo "-I$cygwin_root/usr/include"
 [ "\$1" == "link" ] && echo "-L$cygwin_root/usr/lib -lguile"
 exit 0
 EOF
-	chmod 755 guile-config
+	chmod 755 i686-cygwin-guile-config
 	PATH=$(pwd):$PATH
     fi
 }

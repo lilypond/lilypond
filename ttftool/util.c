@@ -9,6 +9,8 @@
 #include "types.h"
 #include "proto.h"
 
+#include "libc-extension.hh"
+
 void *
 mymalloc (size_t size)
 {

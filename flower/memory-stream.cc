@@ -39,12 +39,13 @@ Memory_out_stream::cleaner (void *cookie)
 Memory_out_stream::Memory_out_stream ()
 {
   size_ = 0;
-  buffer_ = 0; 
+  buffer_ = 0;
   buffer_blocks_ = 0;
   file_ = fopencookie ((void*) this, "w", functions_);
 }
 
-Memory_out_stream::~Memory_out_stream()
+#undef fclose
+Memory_out_stream::~Memory_out_stream ()
 {
   if (file_)
     fclose (file_);
@@ -52,7 +53,7 @@ Memory_out_stream::~Memory_out_stream()
   free (buffer_);
 }
 
-FILE*
+FILE *
 Memory_out_stream::get_file () const
 {
   return file_;
@@ -70,14 +71,13 @@ Memory_out_stream::get_string () const
   return buffer_;
 }
 
-
 ssize_t
 Memory_out_stream::writer (void *cookie,
 			   const char *buffer,
 			   size_t size)
 {
-  Memory_out_stream * stream = (Memory_out_stream*) cookie;
-  
+  Memory_out_stream *stream = (Memory_out_stream*) cookie;
+
   ssize_t newsize = stream->size_ + size;
 
   bool change = false;
@@ -89,14 +89,14 @@ Memory_out_stream::writer (void *cookie,
     }
 
   if (change)
-    stream->buffer_ = (char*) realloc (stream->buffer_, stream->buffer_blocks_ * block_size_);
+    stream->buffer_ = (char*) realloc (stream->buffer_,
+				       stream->buffer_blocks_ * block_size_);
 
   memcpy (stream->buffer_ + stream->size_, buffer, size);
   stream->size_ = newsize;
 
   return size;
 }
-
 
 ssize_t
 Memory_out_stream::reader (void *cookie,
@@ -106,15 +106,16 @@ Memory_out_stream::reader (void *cookie,
   (void) cookie;
   (void) buffer;
   (void) size;
-  
+
   assert (false);
+  return 0;
 }
 
-
 int
-Memory_out_stream::seeker (void*, off64_t *, int whence)
+Memory_out_stream::seeker (void *, off64_t *, int whence)
 {
+  (void) whence;
+
   assert (false);
-  (void)whence;
   return 0;
 }

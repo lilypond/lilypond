@@ -8,6 +8,8 @@
 #include "types.h"
 #include "proto.h"
 
+#include "libc-extension.hh"
+
 static void endianness_test (void);
 static void usage (char *);
 

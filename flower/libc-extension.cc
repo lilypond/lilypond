@@ -5,15 +5,15 @@
   source file of the flowerlib
 
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-         Jan Nieuwenhuizen <janneke@gnu.org>
+  Jan Nieuwenhuizen <janneke@gnu.org>
 */
-
-#include "libc-extension.hh"
 
 #include <cmath>
 #include <cstdio>
 #include <cstring>
 #include <cctype>
+
+#include "libc-extension.hh"
 
 char* 
 strnlwr (char* start ,int n)
@@ -39,7 +39,7 @@ strnupr (char* start, int n)
 
 /*
   There are some strange problems with round() on early glibcs.
- */
+*/
 double
 my_round (double x)
 {
@@ -59,32 +59,32 @@ isinf (double x)
 #if !HAVE_MEMMEM
 
 /** locate a substring. #memmem# finds the first occurrence of
-  #needle# in #haystack#.  This is not ANSI-C.
+    #needle# in #haystack#.  This is not ANSI-C.
 
-  The prototype is not in accordance with the Linux Programmer's
-  Manual v1.15, but it is with /usr/include/string.h   */
+    The prototype is not in accordance with the Linux Programmer's
+    Manual v1.15, but it is with /usr/include/string.h   */
 
-Byte *
-_memmem (Byte const *haystack, int haystack_len,
-	Byte const *needle,int needle_len)
+unsigned char *
+_memmem (unsigned char const *haystack, int haystack_len,
+	 unsigned char const *needle,int needle_len)
 {
-  Byte const * end_haystack = haystack + haystack_len - needle_len + 1;
-  Byte const * end_needle = needle + needle_len ;
+  unsigned char const * end_haystack = haystack + haystack_len - needle_len + 1;
+  unsigned char const * end_needle = needle + needle_len ;
 
   /* Ahhh ... Some minimal lowlevel stuff. This *is* nice; Varation
      is the spice of life */
   while (haystack < end_haystack) 
     {
-      Byte const *subneedle = needle;
-      Byte const *subhaystack = haystack;
+      unsigned char const *subneedle = needle;
+      unsigned char const *subhaystack = haystack;
       while (subneedle < end_needle) 
         if (*subneedle++ != *subhaystack++)
 	  goto next;
 	
       /* Completed the needle.  Gotcha.  */
-      return (Byte *) haystack;
-      next:
-	haystack++;
+      return (unsigned char *) haystack;
+    next:
+      haystack++;
     }
   return 0;
 }
@@ -93,21 +93,21 @@ void *
 memmem (void const *haystack, int haystack_len,
 	void const *needle,int needle_len)
 {
-  Byte const* haystack_byte_c = (Byte const*)haystack;
-  Byte const* needle_byte_c = (Byte const*)needle;
+  unsigned char const* haystack_byte_c = (unsigned char const*)haystack;
+  unsigned char const* needle_byte_c = (unsigned char const*)needle;
   return _memmem (haystack_byte_c, haystack_len, needle_byte_c, needle_len);
 }
 
 #endif
 
-Byte *
-memrchr (Byte const * p, int n, char c)
+unsigned char *
+memrchr (unsigned char const *p, int n, char c)
 {
-  const    Byte * q = p+n;
+  const unsigned char *q = p + n;
   while (q > p) 
     {
       if (*--q == c)
-	return (Byte*)q;
+	return (unsigned char*)q;
     }
   return 0;
 }
@@ -122,18 +122,15 @@ my_swap (T &t1, T &t2, T &tmp)
   t2 = tmp;
 }
 
-Byte*
-strrev (Byte* byte, int length_i)
+unsigned char *
+strrev (unsigned char *byte, int length)
 {
-  Byte tmp_byte;
-  
-  Byte* left = byte;
-  Byte* right = byte + length_i;
+  unsigned char tmp_byte;
+  unsigned char *left = byte;
+  unsigned char *right = byte + length;
 
   while (right > left) 
-    {
-      my_swap (*right-- , *left++ , tmp_byte);
-    }
+    my_swap (*right--, *left++ , tmp_byte);
   return byte;
 }
 
@@ -157,3 +154,90 @@ vsnprintf (char *str, size_t, char const *format, va_list args)
   return i;
 }
 #endif
+
+#include <assert.h>
+
+extern "C" {
+  
+#if ! HAVE_FOPENCOOKIE
+#if HAVE_FUNOPEN
+  
+  FILE *
+  fopencookie (void *cookie, char const *mode, cookie_io_functions_t *fun)
+  {
+    return funopen (cookie, fun->read, fun->write, fun->seek, fun->close);
+  }
+
+#else /* ! HAVE_FUNOPEN */
+
+#include <cstdio>
+#include "memory-stream.hh"
+
+  static bool
+  is_memory_stream (void *foo)
+  {
+    Memory_out_stream* cookie = (Memory_out_stream*) foo;
+    return dynamic_cast<Memory_out_stream*> (cookie);
+  }
+
+  FILE *
+  fopencookie (void *cookie, char const *modes, cookie_io_functions_t io_funcs)
+  {
+    (void) cookie;
+    (void) modes;
+    (void) io_funcs;
+    if (is_memory_stream (cookie))
+      return (FILE*) cookie;
+    assert (false);
+    return 0;
+  }
+
+#undef fclose
+  int 
+  handle_cookie_io_fclose (FILE *file)
+  {
+    if (is_memory_stream (file))
+      return Memory_out_stream::cleaner (file);
+    return fclose (file);
+  }
+
+#undef fprintf
+  int 
+  handle_cookie_io_fprintf (FILE *file, char const *format, ...)
+  {
+    va_list ap;
+    va_start (ap, format);
+    if (is_memory_stream (file))
+      {
+	static char buf[1024];
+	int i = vsnprintf (buf, sizeof (buf), format, ap);
+	if (i == -1)
+	  assert (false);
+	return Memory_out_stream::writer (file, buf, i);
+      }
+    int i = vfprintf (file, format, ap);
+    va_end (ap);
+    return i;
+  }
+
+#ifdef std_putc
+#define putc std_putc
+#else
+#undef putc
+#endif
+  int 
+  handle_cookie_io_putc (int c, FILE *file)
+  {
+    if (is_memory_stream (file))
+      {
+	char buf[1];
+	buf[0] = (char) c;
+	return Memory_out_stream::writer (file, buf, 1);
+      }
+    return putc (c, file);
+  }
+  
+#endif /* ! HAVE_FUNOPEN */
+#endif /* ! HAVE_FOPENCOOKIE */
+
+} /* extern C */
