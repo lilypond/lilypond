@@ -1690,13 +1690,6 @@ See also @inputfileref{input/regression,string-number.ly}.
 Program reference: @internalsref{StringNumber},
 @internalsref{StringNumberEvent}
 
-@refbugs
-
-Fingering shares the positioning code with the fingering
-(@ref{Fingering instructions}) and articulation on chords.  This means
-that it is not possible to have string numbers on the right and
-fingering instructions on the left of the same chord.
-
 
 @node Tablatures basic
 @subsection Tablatures basic

@@ -122,7 +122,7 @@
        (props (ly:grob-alist-chain grob defs))
        (circle (Text_interface::interpret_markup layout props 
 						 (make-circle-markup
-						  1.0 0.1)))
+						  0.8 0.1)))
        (text-stencil
 	(Text_interface::interpret_markup layout props text)))
 

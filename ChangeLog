@@ -1,3 +1,11 @@
+2005-03-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/define-context-properties.scm
+	(all-user-translation-properties): add stringNumberOrientations.
+
+	* lily/new-fingering-engraver.cc (position_scripts): make generic,
+	so fingering and string-numbers are separately controlled.
+
 2005-03-28  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* stepmake/aclocal.m4: Fix shared size test: add missing comma, do

@@ -41,6 +41,8 @@ class New_fingering_engraver : public Engraver
 {
   Array<Finger_tuple> fingerings_;
   Array<Finger_tuple> articulations_;
+  Array<Finger_tuple> string_numbers_;
+  
   Link_array<Grob> heads_;
   Grob *stem_;
 
@@ -52,7 +54,7 @@ protected:
   void add_fingering (Grob *, Music *, Music *);
   void add_script (Grob *, Music *, Music *);
   void add_string (Grob *, Music *, Music *);
-  void position_scripts ();
+  void position_scripts (SCM orientations, Array<Finger_tuple> *);
 };
 
 void
@@ -186,12 +188,16 @@ New_fingering_engraver::add_string (Grob *head,
   ft.note_event_ = hevent;
   ft.head_ = head;
 
-  fingerings_.push (ft);
+  string_numbers_.push (ft);
 }
 
 void
-New_fingering_engraver::position_scripts ()
+New_fingering_engraver::position_scripts (SCM orientations,
+					  Array<Finger_tuple> *scripts)
 {
+  for (int i = 0; i < scripts->size (); i++)
+    if (stem_ && to_boolean (scripts->elem (i).script_->get_property ("add-stem-support")))
+      Side_position_interface::add_support (scripts->elem (i).script_, stem_);
 
   /*
     This is not extremely elegant, but we have to do a little
@@ -202,28 +208,27 @@ New_fingering_engraver::position_scripts ()
     to the note head, and write a more flexible function for
     positioning the fingerings, setting both X and Y coordinates.
   */
-  for (int i = 0; i < fingerings_.size (); i++)
+  for (int i = 0; i < scripts->size (); i++)
     {
-      fingerings_[i].position_ = scm_to_int (fingerings_[i].head_->get_property ("staff-position"));
+      (*scripts)[i].position_ = scm_to_int ((*scripts)[i].head_->get_property ("staff-position"));
     }
 
-  for (int i = fingerings_.size (); i--;)
+  for (int i = scripts->size (); i--;)
     for (int j = heads_.size (); j--;)
-      Side_position_interface::add_support (fingerings_[i].script_, heads_[j]);
+      Side_position_interface::add_support ((*scripts)[i].script_, heads_[j]);
 
   Array<Finger_tuple> up, down, horiz;
-  for (int i = fingerings_.size (); i--;)
+  for (int i = scripts->size (); i--;)
     {
-      SCM d = fingerings_[i].finger_event_->get_property ("direction");
+      SCM d = (*scripts)[i].finger_event_->get_property ("direction");
       if (to_dir (d))
 	{
-	  ((to_dir (d) == UP) ? up : down).push (fingerings_[i]);
-	  fingerings_.del (i);
+	  ((to_dir (d) == UP) ? up : down).push ((*scripts)[i]);
+	  scripts->del (i);
 	}
     }
 
-  fingerings_.sort (&Finger_tuple::compare);
-  SCM orientations = get_property ("fingeringOrientations");
+  scripts->sort (&Finger_tuple::compare);
 
   bool up_p = scm_c_memq (ly_symbol2scm ("up"), orientations) != SCM_BOOL_F;
   bool down_p = scm_c_memq (ly_symbol2scm ("down"), orientations) != SCM_BOOL_F;
@@ -232,34 +237,34 @@ New_fingering_engraver::position_scripts ()
   Direction hordir = (right_p) ? RIGHT : LEFT;
   if (left_p || right_p)
     {
-      if (up_p && !up.size () && fingerings_.size ())
-	up.push (fingerings_.pop ());
+      if (up_p && !up.size () && scripts->size ())
+	up.push (scripts->pop ());
 
-      if (down_p && !down.size () && fingerings_.size ())
+      if (down_p && !down.size () && scripts->size ())
 	{
-	  down.push (fingerings_[0]);
-	  fingerings_.del (0);
+	  down.push ((*scripts)[0]);
+	  scripts->del (0);
 	}
 
-      horiz.concat (fingerings_);
+      horiz.concat (*scripts);
     }
   else if (up_p && down_p)
     {
-      int center = fingerings_.size () / 2;
-      down.concat (fingerings_.slice (0, center));
-      up.concat (fingerings_.slice (center, fingerings_.size ()));
+      int center = scripts->size () / 2;
+      down.concat (scripts->slice (0, center));
+      up.concat (scripts->slice (center, scripts->size ()));
     }
   else if (up_p)
     {
-      up.concat (fingerings_);
-      fingerings_.clear ();
+      up.concat (*scripts);
+      scripts->clear ();
     }
   else
     {
       if (!down_p)
 	warning (_ ("Fingerings are also not down?! Putting them down anyway."));
-      down.concat (fingerings_);
-      fingerings_.clear ();
+      down.concat (*scripts);
+      scripts->clear ();
     }
 
   for (int i = 0; i < horiz.size (); i++)
@@ -310,11 +315,16 @@ New_fingering_engraver::stop_translation_timestep ()
 {
   if (fingerings_.size ())
     {
-      for (int i = 0; i < fingerings_.size (); i++)
-	if (stem_ && to_boolean (fingerings_[i].script_->get_property ("add-stem-support")))
-	  Side_position_interface::add_support (fingerings_[i].script_, stem_);
-      position_scripts ();
+      position_scripts (get_property ("fingeringOrientations"),
+			&fingerings_);
       fingerings_.clear ();
+    }
+
+  if (string_numbers_.size ())
+    {
+      position_scripts (get_property ("stringNumberOrientations"),
+			&string_numbers_);
+      string_numbers_.clear ();
     }
 
   for (int i = articulations_.size (); i--;)
