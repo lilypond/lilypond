@@ -9,6 +9,12 @@
 #
 
 
+# 
+# TODO: should allow to set a central pk cache directory from the command line.
+# TODO: should allow to switch off pk cache.
+#
+
+
 # Note: gettext work best if we use ' for docstrings and "
 # for gettextable strings
 
@@ -76,7 +82,9 @@ layout_fields = ['title', 'subtitle', 'subsubtitle', 'footer', 'head',
 	  'meter', 'poet']
 
 
-# init to empty; values here take precedence over values in the file 
+# init to empty; values here take precedence over values in the file
+
+## TODO: change name.
 extra_init = {
 	'language' : [],
 	'latexheaders' : [],
@@ -98,6 +106,9 @@ help_summary = _ ("Generate .dvi with LaTeX for LilyPond")
 include_path = ['.']
 lily_p = 1
 paper_p = 1
+cache_pks_p = 1
+
+PK_PATTERN='feta.*\.[0-9]+pk'
 
 output_name = ''
 targets = {
@@ -261,6 +272,9 @@ def help ():
 	map (sys.stdout.write, ls)
 	
 def setup_temp ():
+	"""
+	Create a temporary directory, and return its name. 
+	"""
 	global temp_dir
 	if not keep_temp_dir_p:
 		temp_dir = tempfile.mktemp (program_name)
@@ -268,7 +282,8 @@ def setup_temp ():
 		os.mkdir (temp_dir, 0777)
 	except OSError:
 		pass
-	os.chdir (temp_dir)
+	
+	return temp_dir
 
 
 def system (cmd, ignore_error = 0):
@@ -719,10 +734,18 @@ if files and files[0] != '-':
 		dep_prefix = 0
 
 	reldir = os.path.dirname (output_name)
-	(outdir, outbase) = os.path.split (abspath (output_name))
 	
+	(outdir, outbase) = os.path.split (abspath (output_name))
+	if outdir != '.' and (track_dependencies_p or targets.keys ()):
+		mkdir_p (outdir, 0777)
+
 	setup_environment ()
-	setup_temp ()
+	tmpdir = setup_temp ()
+	if cache_pks_p :
+		os.chdir (outdir)
+		cp_to_dir (PK_PATTERN, tmpdir)
+
+	os.chdir (tmpdir)
 	
 	extra = extra_init
 	
@@ -759,9 +782,6 @@ if files and files[0] != '-':
 	if targets.has_key ('PS'):
 		run_dvips (outbase, extra)
 
-	if outdir != '.' and (track_dependencies_p or targets.keys ()):
-		mkdir_p (outdir, 0777)
-
 	# add DEP to targets?
 	if track_dependencies_p:
 		depfile = os.path.join (outdir, outbase + '.dep')
@@ -780,14 +800,17 @@ if files and files[0] != '-':
 			progress (_ ("%s output to `%s'...") % (i, outname))
 		elif verbose_p:
 			warning (_ ("can't find file: `%s'") % outname)
-
+			
+		if cache_pks_p:
+			cp_to_dir (PK_PATTERN, outdir)
+		
 	os.chdir (original_dir)
 	cleanup_temp ()
 	
 else:
 	# FIXME
 	help ()
-	errorport.write ("ly2dvi: error: " + _ ("no files specified on command line.\n"))
+	errorport.write ("ly2dvi: " + _ ("error: ") + _ ("no files specified on command line.") + '\n')
 	sys.exit (2)
 
 
