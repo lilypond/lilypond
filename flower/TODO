@@ -1,5 +1,8 @@
 	* write a String_hash template
 
+
+	* Array::slice() upper too
+
 	* write a Pointer_hash template
 
 	* fix/junk ambiguous String constructor overloads, e.g.:
