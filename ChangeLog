@@ -1,3 +1,7 @@
+2005-04-02  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* buildscripts/install-info-html.sh (index_file): Fix link.
+
 2005-04-01  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* input/test/dynamic-extra.ly (piuf): Use utf-8 iso TeX accent.
