@@ -1,6 +1,8 @@
 2003-08-26  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
-	* Documentation/user/music-glossary.tely (Top): uncomment
+	* lily/tie-performer.cc (create_audio_elements): bugfix
+
+	* Documentation/user/music-glossary.tely (Top): comment out
 	font-style statements.
 
 	* input/test/force-hshift.ly: revise example.
