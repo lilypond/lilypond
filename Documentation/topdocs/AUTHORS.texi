@@ -33,6 +33,8 @@ list is alphabetically ordered.
     American chord names, gnu-windows testing
 @item @email{bjoern.jacke@@gmx.de, Bjoern Jacke}
     German glossary stuff.
+@item @email{chris-lilypond@@fluffhouse.org.uk, Chris Jackson}
+    Directed arpeggios and chord brackets.
 @item @email{nj104@@cus.cam.ac.uk, Neil Jerram}. 
     parts of Documentation/Vocab*
 @item Donald Ervin Knuth,  @uref{http://www-cs-staff.stanford.edu/~knuth/}

@@ -1879,6 +1879,31 @@ to the chords in both staves, and set
 This command creates @code{Voice.Arpeggio} grobs.  Cross staff arpeggios
 are @code{PianoStaff.Arpeggio}.
 
+To add an arrow head to explicitly specify the direction of the
+arpeggio, you should set the arpeggio grob property
+@code{arpeggio-type}.
+
+@lilypond[fragment,relative,verbatim]
+  \context Voice {
+     \property Voice.Arpeggio \override #'arpeggio-type = #'up
+     <c\arpeggio e g c>
+     \property Voice.Arpeggio \override #'arpeggio-type = #'down
+     <c\arpeggio e g c>
+  }
+@end lilypond
+
+A square bracket on the left indicates that the player should not
+arpeggiate the chord.
+
+@lilypond[fragment,relative,verbatim]
+  \context PianoStaff <
+    \property PianoStaff.connectArpeggios = ##t
+    \property PianoStaff.Arpeggio \override #'arpeggio-type = #'bracket
+    \context Voice = one  { <c'\arpeggio e g c> }
+    \context Voice = other { \clef bass  <c,,\arpeggio e g>}
+  >  
+@end lilypond
+
 @refbugs
 
 It is not possible to mix connected arpeggios and unconnected arpeggios

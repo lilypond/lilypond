@@ -1,3 +1,10 @@
+1.5.7
+=====
+
+* Arpeggios can now have arrows on the top or bottom to determine
+  their direction, and a chord can be bracketed to indicate no
+  arpeggio. (Chris Jackson)
+
 1.5.6.jcn2
 =========
  
