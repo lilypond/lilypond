@@ -747,22 +747,25 @@
 ;
 ; How should a  bar line behave at a break? 
 ;
-(define (break-barline glyph dir)
-   (let ((result (assoc glyph 
-			'((":|:" . (":|" . "|:"))
-			  ("|" . ("|" . ""))
-			  ("|s" . (nil . "|"))
-			  ("|:" . ("|" . "|:"))
-			  ("|." . ("|." . nil))
-			  (":|" . (":|" . nil))
-			  ("||" . ("||" . nil))
-			  (".|." . (".|." . nil))
-			  ("scorebar" . (nil . "scorepostbreak"))
-			  ("brace" . (nil . "brace"))
-			  ("bracket" . (nil . "bracket"))  
-			  )
-			)))
 
+; move this to paper.scm?
+; to override, see input/test/no-span.ly
+(define bar-break-glyph-alist
+  '((":|:" . (":|" . "|:"))
+    ("|" . ("|" . ""))
+    ("|s" . (nil . "|"))
+    ("|:" . ("|" . "|:"))
+    ("|." . ("|." . nil))
+    (":|" . (":|" . nil))
+    ("||" . ("||" . nil))
+    (".|." . (".|." . nil))
+    ("scorebar" . (nil . "scorepostbreak"))
+    ("brace" . (nil . "brace"))
+    ("bracket" . (nil . "bracket"))  
+    ))
+
+(define (break-barline glyph dir)
+   (let ((result (assoc glyph bar-break-glyph-alist)))
      (if (equal? result #f)
 	 (ly-warn (string-append "Unknown bar glyph: `" glyph "'"))
 	 (index-cell (cdr result) dir))

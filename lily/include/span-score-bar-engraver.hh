@@ -37,6 +37,7 @@ public:
   VIRTUAL_COPY_CONS (Translator);
   
   virtual Span_bar * get_span_bar_p () const;
+  virtual void acknowledge_element (Score_element_info);
 };
 
 /**

@@ -1,3 +1,11 @@
+1.3.18.jcn3
+===========
+
+* Moved decision for stacking staff spanners {[ from item-creation phase
+to post_processing (only then we know dimensions/visibility of items)
+
+* Separted bar-break-glyph-alist, see input/test/no-span.ly
+
 1.3.18.jcn2
 ===========
 

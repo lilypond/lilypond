@@ -40,6 +40,19 @@ Piano_bar_engraver::get_span_bar_p () const
   return s;
 }
 
+void
+Piano_bar_engraver::acknowledge_element (Score_element_info i)
+{
+  Base_span_bar_engraver::acknowledge_element (i);
+
+  if (Span_bar * b = dynamic_cast<Span_bar *> (i.elem_l_))
+    {
+      SCM g = b->get_elt_property ("default-glyph");
+      if (gh_string_p (g) && (ly_scm2string (g) == "bracket"))
+	spanbar_p_->set_elt_property ("other", b->self_scm_);
+    }
+}
+
 Span_bar*
 Staff_group_bar_engraver::get_span_bar_p () const
 {
@@ -53,12 +66,15 @@ void
 Staff_group_bar_engraver::acknowledge_element (Score_element_info i)
 {
   Base_span_bar_engraver::acknowledge_element (i);
+
+  if (!spanbar_p_)
+    return;
+
   if (Span_bar * b = dynamic_cast<Span_bar *> (i.elem_l_))
     {
-      SCM gl = b->get_elt_property ("glyph");
-      if (gh_string_p (gl) && ly_scm2string (gl)  == "brace")
-	b->translate_axis ( -paper_l ()->get_var ("interline"),
-			    X_AXIS); // ugh
+      SCM g = b->get_elt_property ("default-glyph");
+      if (gh_string_p (g) && (ly_scm2string (g) == "brace"))
+	spanbar_p_->set_elt_property ("other", b->self_scm_);
     }
 }
 

@@ -54,6 +54,31 @@ Span_bar::do_post_processing ()
   Interval i(get_spanned_interval ());
 
   translate_axis (i.center (), Y_AXIS);
+
+  /*
+    {[ stacking shift
+    ugh
+  */
+  SCM me = get_elt_property ("glyph");
+  if (gh_string_p (me) && ly_scm2string (me) == "bracket")
+    {
+      SCM e = get_elt_property ("other");
+      if (e != SCM_UNDEFINED)
+	{
+	  assert (SMOB_IS_TYPE_B (Score_element, e));
+	  Score_element* se = SMOB_TO_TYPE (Score_element, e);
+	  SCM her = se->get_elt_property ("glyph");
+#if 0
+	  // urg x-extent broken?
+	  if (gh_string_p (her) && ly_scm2string (her) == "brace")
+	    se->translate_axis (-extent (X_AXIS).length (), X_AXIS);
+#else
+	  if (gh_string_p (her) && ly_scm2string (her) == "brace"
+	      && !to_boolean (get_elt_property ("transparent")))
+	    se->translate_axis (-paper_l ()->get_var ("interline"), X_AXIS);
+#endif 
+	}
+    }
 }
 
 void

@@ -69,24 +69,10 @@ Base_span_bar_engraver::acknowledge_element (Score_element_info i)
 	  
 	  announce_element (Score_element_info (spanbar_p_,0));
 
-#if 0
-	  
-	  // urg, elt-properties are not set until pre_processing (property-engraver)
 	  if (!gh_string_p (spanbar_p_->get_elt_property ("glyph"))
 	      && !gh_string_p (spanbar_p_->get_elt_property ("default-glyph")))
 	    spanbar_p_-> set_elt_property ("default-glyph",
-					   bar_l_arr_[0]->get_elt_property ("glyph"));
-#else
-
-	  if (!gh_string_p (spanbar_p_->get_elt_property ("glyph"))
-	      && gh_string_p (spanbar_p_->get_elt_property ("default-glyph")))
-	    spanbar_p_-> set_elt_property ("glyph", spanbar_p_->get_elt_property ("default-glyph"));
-	    
-	  if (!gh_string_p (spanbar_p_->get_elt_property ("glyph")))
-	    spanbar_p_-> set_elt_property ("glyph",
-					   bar_l_arr_[0]->get_elt_property ("glyph"));
-
-#endif
+					   bar_l_arr_[0]->get_elt_property ("default-glyph"));
 	}
     }
 }
