@@ -20,6 +20,14 @@
 #include "accidental-placement.hh"
 #include "paper-def.hh"
 
+
+/*
+
+TODO: detect hshifts due to collisions, and account for them in
+spacing?
+
+*/ 
+
 void
 Note_spacing::get_spacing (Grob *me, Item* right_col,
 			   Real base_space, Real increment, Real *space, Real *fixed)

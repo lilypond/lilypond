@@ -250,7 +250,7 @@ with note name `@code{s}' or with @code{\skip @var{duration}}:
 a2 s4 a4 \skip 1 a4 
 @end lilypond
 
-The @code{s} syntax is only available in Note mode and Chord mode.  In
+The @code{s} syntax is only available in note mode and chord mode.  In
 other situations, you should use the @code{\skip} command:
 
 @lilypond[raggedright,verbatim]
@@ -265,9 +265,19 @@ other situations, you should use the @code{\skip} command:
 The skip command is merely an empty musical placeholder.  It does not
 produce any output, not even transparent output.
 
+The @code{s} skip command does create @internalsref{Staff} and
+@internalsref{Voice} when necessary, similar to note and rest
+commands. For example, the following results in an empty staff.
+
+@lilypond[raggedright,verbatim]
+\score { \notes { s4 } } 
+@end lilypond
+
+The same fragment using @code{\skip} results in an empty page.
+
 @seealso
 
-Internals: @internalsref{SkipEvent}.
+Internals: @internalsref{SkipEvent}, @internalsref{SkipMusic}.
 
 
 

@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.20"
 
 \header {
 
@@ -21,7 +21,7 @@ what you would expect.
 %% 
 %% s4 would create a staff.
 %%
-quarterSkip = #(make-nonevent-skip (ly:make-duration 2 0))
+quarterSkip = #(make-skip-music (ly:make-duration 2 0))
 
 \score  {
  \notes \relative c'' <<

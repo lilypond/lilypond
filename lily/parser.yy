@@ -385,9 +385,8 @@ yylex (YYSTYPE *s,  void * v)
 %type <scm> Music_list
 %type <scm> property_operation context_mod translator_mod optional_context_mod
 %type <outputdef>  music_output_def_body music_output_def_head
-%type <music> shorthand_command_req
 %type <music>	post_event tagged_post_event
-%type <music> command_req verbose_command_req
+%type <music> command_req 
 %type <music> string_number_event
 %type <scm>	string bare_number number_expression number_term number_factor 
 %type <score>	score_block score_body
@@ -1317,6 +1316,12 @@ command_element:
 		$$-> set_spot (THIS->here_input ());
 		$1-> set_spot (THIS->here_input ());
 	}
+	| SKIP duration_length {
+		Music * skip = MY_MAKE_MUSIC("SkipMusic");
+		skip->set_mus_property ("duration", $2);
+
+		$$ = skip;
+	}
 	| OCTAVE { THIS->push_spot (); }
  	  pitch {
 		Music *l = MY_MAKE_MUSIC("RelativeOctaveCheck");
@@ -1406,30 +1411,15 @@ command_element:
 	;
 
 command_req:
-	shorthand_command_req  	{ $$ = $1; }
-	| verbose_command_req 	{ $$ = $1; }
-	;
-
-shorthand_command_req:
 	BREATHE {
 		$$ = MY_MAKE_MUSIC("BreathingSignEvent");
 	}
 	| E_TILDE {
 		$$ = MY_MAKE_MUSIC("PesOrFlexaEvent");
 	}
-	;
-
-verbose_command_req:
-	MARK DEFAULT  {
+	| MARK DEFAULT  {
 		Music * m = MY_MAKE_MUSIC("MarkEvent");
 		$$ = m;
-	}
-	
-	| SKIP duration_length {
-		Music * skip = MY_MAKE_MUSIC("SkipEvent");
-		skip->set_mus_property ("duration", $2);
-
-		$$ = skip;
 	}
 	| tempo_event {
 		$$ = $1;

@@ -1815,6 +1815,15 @@ def conv (str):
 conversions.append (((2,1,19), conv, """Drum notation changes, Removing \chordmodifiers, \notenames.
 Harmonic notes. Thread context removed. Lyrics context removed."""))
 
+def conv (str):
+	str = re.sub (r'nonevent-skip', 'skip-music', str)
+	return str
+
+conversions.append (((2,1,20), conv, """nonevent-skip -> skip-music""" ))
+
+
+
+
 ################################
 #	END OF CONVERSIONS	
 ################################

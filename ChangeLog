@@ -1,5 +1,14 @@
 2004-02-07  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/music-functions.scm (voicify-music): add \context Staff for
+	<< \\ >> polyphony.
+
+	* lily/parser.yy (verbose_command_req): \skip now creates
+	SkipMusic, and does not lead to spurious staves.
+
+	* scm/define-music-types.scm (music-descriptions): rename
+	NonEventSkip to SkipMusic
+
 	* input/no-notation/midi-lyric-barcheck.ly: new file.
 
 	* input/regression/collision-dots-invert.ly: new file.
