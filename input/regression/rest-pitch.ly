@@ -6,7 +6,7 @@ collision will leave it alone."
 
 }
 
-\score { \notes\relative c'' \apply #voicify-music
+\score { \notes\relative c'' 
 {
    a4\rest b4\rest c4\rest
 

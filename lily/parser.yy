@@ -569,14 +569,15 @@ score_body:
 		$$->set_spot (THIS->here_input ());
 		SCM m = $1->self_scm ();
 		scm_gc_unprotect_object (m);
-		$$->music_ = m;
 
 		/*
 			guh.
 		*/
-		SCM check_func = scm_c_eval_string ("check-start-chords");
-		gh_call1 (check_func, m);
-		
+		SCM check_funcs = scm_c_eval_string ("toplevel-music-functions");
+		for (; gh_pair_p (check_funcs); check_funcs = gh_cdr (check_funcs))
+			m = gh_call1 (gh_car (check_funcs), m);
+		$$->music_ = m;
+
 	}
 	| SCORE_IDENTIFIER {
 		$$ = new Score (*unsmob_score ($1));

@@ -99,44 +99,38 @@ fugaIIRight =  \notes   \relative c''   {
 
   %15
   \context Staff <
-    \context Voice = VA { \stemUp [b8 fis8] b4 }
-    \context Voice = VB {  \stemDown fis2 }
+     { [b8 fis8] b4 }\\
+     { fis2 }
   >
 
   \context Staff \notes\relative c''<
-       \context Voice=one {
-       \shiftOff
-       \stemUp
+   {
 	  e4 -5
-       }
-       \context Voice=two {
-	  \shiftOn
-	  \stemUp
+       }\\
+       \\
+ {
 	  cis-4
-       }
-       \context Voice=three {
-	  \shiftOnn
-	  \stemUp
+       }\\ \\
+       
+        {
 	  ais-3 
-       }
-       \context Voice=four {
-	  \shiftOnnn
-	  \stemUp
+       }\\ \\ 
+       {
 	  fis-2
        }
   >
 
     %16
     \context Staff <
-      \context Voice = one {  dis2 dis4 |
+ {  dis2 dis4 |
       cis2 cis4 |
-      b4. [cis8 dis e] }
-    \context Voice = three {  \stemUp \shiftOn [b8 fis] b2 ~ |
+      b4. [cis8 dis e] } \\
+ {   fis2. ~ |
+      fis ~ |
+      fis4 e2 } \\
+ {   [b8 fis] b2 ~ |
       [b8 a!16 gis] a2 ~ |
       a4 gis2 }
-    \context Voice = two {  \stemDown fis2. ~ |
-      fis ~ |
-      fis4 e2 }
   > |
   %19
 }
@@ -149,14 +143,14 @@ fugaIILeft =  \notes {
 
   %15
   \context Staff < 
-    \context Voice = one { \stemDown
+     { 
     \gracetest
     \relative b, < )b2 dis fis a b cis dis> \stemUp ais4 |
-      b2 b4 }
-    \context Voice = two { \stemDown s2 e4 |
-      fis2 fis4 }
+      b2 b4 } \\
+      {  s2 e4 | fis2 fis4 }
   >
-  \stemBoth cis2 [e16( fis a \clef "treble" b] |
+  \stemBoth
+  cis2 [e16( fis a \clef "treble" b] |
   d'4 ) b8 b8 b4 |
   %19
 }

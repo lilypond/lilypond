@@ -12,9 +12,9 @@ USER_CXXFLAGS = @CXXFLAGS@ @CPPFLAGS@ @GUILE_CFLAGS@
 USER_LDFLAGS = @LDFLAGS@ @GUILE_LDFLAGS@
 EXTRA_LIBES = @EXTRA_LIBES@ @LIBS@
 
-PACKAGE = @PACKAGE@
-package = @package@
-PACKAGE_NAME = @PACKAGE_NAME@
+PACKAGE = LILYPOND # @PACKAGE@
+package = lilypond # @package@
+PACKAGE_NAME =  LilyPond #@PACKAGE_NAME@
 
 prefix = @prefix@
 exec_prefix = @exec_prefix@

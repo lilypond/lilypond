@@ -390,6 +390,11 @@ set_break_subsititution (SCM criterion)
   break_criterion = criterion;
 }
 
+
+/*
+  TODO: check wether we can do this in-place; now we generate a lot of
+  garbage.
+ */
 SCM
 do_break_substitution (SCM src)
 {

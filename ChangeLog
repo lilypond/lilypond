@@ -1,5 +1,12 @@
 2002-06-22  Han-Wen  <hanwen@cs.uu.nl>
 
+	* lily/note-collision.cc (check_meshing_chords): don't crash if no
+	stems.
+
+	* scm/music-functions.scm (toplevel-music-functions): new
+	definition. Functions to apply automatically. Removes the need for
+	explicitly doing \apply #voicify-music
+
 	* lily/grob.cc (do_break_substitution): rename function, use
 	global var for criterion argument. Reduces stack usage a little.
 

@@ -81,6 +81,14 @@ check_meshing_chords (Grob*me,
   bool full_collide = false;  
 
   /*
+    Let's not crash. 
+   */
+  if (!Note_column::stem_l (cu)
+      || !Note_column::stem_l (cd))
+    return ;
+  
+  
+  /*
     TODO:
 
     filter out the 'o's in this configuration, since they're no part
@@ -329,7 +337,7 @@ Note_collision_interface::automatic_shift (Grob *me,
 	{
 	  if (shift[i-1] == shift[i])
 	    {
-	      me->warning (_ ("Too many clashing notecolumns.  Ignoring them."));
+	      clashes[0]->warning (_ ("Too many clashing notecolumns.  Ignoring them."));
 	      return tups;
 	    }
 	}
