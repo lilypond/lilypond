@@ -7,6 +7,19 @@
 
 #include <assert.h>
 #include "string.hh"
+#include "string-convert.hh"
+
+/**
+   a safe length for stringconversion buffers
+
+   worst case would be %f printing HUGE (or 1/HUGE), which is approx
+   2e318, this number would have approx 318 zero's in its string.
+
+   Should enlarge buff dynamically.
+   @see
+   man 3 snprintf
+   */
+static const int STRING_BUFFER_LEN=1024;
 
 String
 String_convert::bin2hex_str( String bin_str )
@@ -47,6 +60,15 @@ String_convert::dec2_i( String dec_str )
     return (int)l;
 }
 
+String
+String_convert::longlong_str(long long ll, char const* fmt)
+{
+    char buffer[STRING_BUFFER_LEN];
+    snprintf(buffer, STRING_BUFFER_LEN,
+	     (fmt ? fmt : "%Ld"), ll );     // assume radix 10
+    return String(buffer);
+
+}
 // breendet imp from String
 double
 String_convert::dec2_f( String dec_str )
@@ -101,7 +123,8 @@ String_convert::hex2nibble_i( Byte byte )
         return byte - 'a' + 10;
     return -1;
 }
-    
+
+// stupido.  Should use int_str()
 String 
 String_convert::i2dec_str( int i, int length_i, char ch )
 {
@@ -116,6 +139,8 @@ String_convert::i2dec_str( int i, int length_i, char ch )
     return String( fill_ch, length_i - dec_str.length_i() ) + dec_str;
 }
 
+
+// stupido.  Should use int_str()
 String 
 String_convert::i2hex_str( int i, int length_i, char ch )
 {
@@ -138,4 +163,72 @@ String_convert::nibble2hex_byte( Byte byte )
 	return ( byte & 0x0f ) + '0';
     else
 	return ( byte & 0x0f ) - 10 + 'a';
+}
+/**
+  Convert an integer to a string
+
+  @param
+  #fmt# is a printf style format, default assumes "%d" as format. 
+  */
+String
+String_convert::int_str(int i, char const* fmt)
+{
+    char buffer[STRING_BUFFER_LEN];
+    snprintf(buffer, STRING_BUFFER_LEN,
+	     (fmt ? fmt : "%d"), i );     // assume radix 10
+    return String(buffer);
+}
+
+/**
+  Convert a double to a string.
+
+  @param #fmt# is a printf style format, default assumes "%lf" as format
+ */
+String
+String_convert::double_str(double f, char const* fmt)
+{
+    char buf[STRING_BUFFER_LEN]; 
+
+    snprintf(buf, STRING_BUFFER_LEN, fmt ? fmt : "%f", f);
+    return buf;
+}
+
+/**
+  Make a string from a single character.
+
+  @param
+    #n# is a repetition count, default value is 1
+ */
+String
+String_convert::char_str(char c, int n)
+{
+    n = n >= 0 ? n : 0;
+    char* ch_p = new char[ n ];
+    memset( ch_p, c, n );
+    String s((Byte*)ch_p, n);
+    delete ch_p;
+    return s;
+}
+
+String
+String_convert::rational_str(Rational r)
+{
+    char * n = Itoa(r.numerator()); // LEAK????
+    
+    String s = n;
+    if (r.denominator() != 1) {
+	char * d = Itoa(r.denominator());
+	s +=  String( '/' ) + String(d);
+	//delete d;
+    }
+/*    delete n;
+    */
+    return s;
+}
+
+String
+String_convert::pointer_str(const void *l)
+{
+    long long int ill = (long long int )l;
+    return String_convert::longlong_str(ill,  "0x%0Lx");
 }
