@@ -1,3 +1,7 @@
+2002-07-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scripts/lilypond-book.py: fixes by Tom Cato Amundsen.
+
 2002-07-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/beam-quanting.cc (score_forbidden_quants): split beam
