@@ -1,4 +1,4 @@
-#!@SHELL@
+#!@BASH@
 
 name=install-info-html
 version=1.0

@@ -12,8 +12,11 @@
 
 	* cygwin/lily-wins.py: Check whether to run ly2dvi or lilypond.
 
+	* stepmake/stepmake/topdocs-targets.make (copy-to-top): Do not
+	try to copy *png, index.html (Bertalan Fodor).
+
 	* cygwin/mknetrel (preinstall): Set webdir (Bertalan Fodor).
- 
+
 2003-09-30  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/note-collision.cc (check_meshing_chords): Do not remove
