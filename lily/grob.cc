@@ -673,6 +673,12 @@ ly_scm2grobs (SCM lst)
   return arr;
 }
 
+Object_key const *
+Grob::get_key () const
+{
+  return key_;
+}
+
 /** Return SCM list of Grob array A */
 SCM
 ly_grobs2scm (Link_array<Grob> a)
