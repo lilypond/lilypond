@@ -41,7 +41,8 @@ lilyversion= ''
 def set_vars():
     __main__.lilyversion =  version_tuple_to_str(lilydirs.version_tuple())
     os.environ["TEXINPUTS"] = os.environ["TEXINPUTS"] + ":%s/input/:" % depth;
-    os.environ["LILYINCLUDE"] = "%s/input/" % depth;
+    os.environ["LILYINCLUDE"] = "%s/input/:%s/mutopia/:%s/mutopia/J.S.Bach" \
+				% ((depth, ) *3);
     os.environ["LILYTOP"] = depth;
     __main__.mailaddress= os.environ['MAILADDRESS']
     pw = pwd.getpwuid (os.getuid());
@@ -52,7 +53,7 @@ backstr = '\n<hr>Please take me <a href=%s>back to the index</a>\n\
 of LilyPond -- The GNU Project Music typesetter\n\
 <hr><font size=-1>\n\
 This page was built using <code>%s</code> from lilypond-%s by <p>\n\
-<address><br>%s <a href=mailto:%s&>>&lt<!bla>%s</a>&gt</address>\n\
+<address><br>%s <a href=mailto:%s>&lt<!bla>%s</a>&gt</address>\n\
 <p></font>' 
 
     
@@ -80,15 +81,8 @@ def my_system(cmds):
 base="lilypond/";
 
 examples=["twinkle-pop", 
-	  "wtk1-fugue2",
-	  "standchen-16", 
-	  "standchen-20", 
-	  "standje",
-	  "wtk1-prelude1",
 	  "toccata-fuga-E", 
-	  "scsii-menuetto",
 	  "cadenza", 
-	  "gallina",
 	  "twinkle", 
 	  "collisions",
 	  "font16",
@@ -97,44 +91,29 @@ examples=["twinkle-pop",
 	  "rhythm", 
 	  "multi"]
 
+mutopia_examples = [ "wtk1-fugue2",
+		     "standchen-16", 
+		     "standchen-20", 
+		     "standje",
+		     "wtk1-prelude1",
+		     "gallina",	  
+		     "scsii-menuetto"]
+
+
 def gen_html():
     print 'generating HTML'
     my_system (["make -kC .. html"]);
     
 
-def gen_examples():
+def gen_examples(inputs):
     print 'generating examples:\n'
-    list = map(lambda x: 'out/%s.ps.gz out/%s.gif out/%s.ly.txt' % (x,x,x), examples)
+    list = map(lambda x: 'out/%s.ps.gz out/%s.gif out/%s.ly.txt' % (x,x,x), inputs)
     my_system (['make -C .. ' + join(' ', list)])
 
-texstuff = ["mudela-man", "mudela-course"]
 
-def gen_manuals():
-    print 'generating TeX doco manuals'
-    list = open('tex_manuals.html', 'w')
-    list.write( "<HTML><TITLE>PostScript Manuals</TITLE>\n" 
-     "<BODY><h1>LilyPond manuals (in PostScript)</h1>"
-     "<ul>\n")
-    todo='' 
-    for stuff in texstuff:
-	todo = todo + ' out/' + stuff + '.ps.gz'
-	list.write("<li><a href=%s.ps.gz>%s.ps.gz</a>" % (stuff, stuff))
-    list.write('</ul></BODY></HTML>')
-    list.close ()
-
-    my_system (['make -C .. ' + todo])
-
-def file_exist_b(name):
-    try: 
-	f = open(name)
-    except IOError:
-	return 0
-    f.close ()
-    return 1
-
-def gen_list():
-    print "generating HTML list\n";
-    list = open('example_output.html', 'w')
+def gen_list(inputs, filename):
+    print "generating HTML list %s\n" % filename;
+    list = open(filename, 'w')
     list.write ('<html><TITLE>Rendered Examples</TITLE>\n'
      '<body>These example files are taken from the LilyPond distribution.\n'
      'LilyPond currently only outputs TeX and MIDI. The pictures and\n'
@@ -142,7 +121,7 @@ def gen_list():
      'graphics tools.  The papersize used for these examples is A4.  The GIF\n'
      'files have been scaled to eliminate aliasing.\n');
 
-    for ex in examples:
+    for ex in inputs:
 	header  = read_mudela_header(ex + '.ly.txt')
 	def read_dict(s, default, h =header):
 		try:
@@ -177,6 +156,30 @@ def gen_list():
     list.write( "</BODY></HTML>");
     list.close()
 
+texstuff = ["mudela-man", "mudela-course"]
+
+def gen_manuals():
+    print 'generating TeX doco manuals'
+    list = open('tex_manuals.html', 'w')
+    list.write( "<HTML><TITLE>PostScript Manuals</TITLE>\n" 
+     "<BODY><h1>LilyPond manuals (in PostScript)</h1>"
+     "<ul>\n")
+    todo='' 
+    for stuff in texstuff:
+	todo = todo + ' out/' + stuff + '.ps.gz'
+	list.write("<li><a href=%s.ps.gz>%s.ps.gz</a>" % (stuff, stuff))
+    list.write('</ul></BODY></HTML>')
+    list.close ()
+
+    my_system (['make -C .. ' + todo])
+
+def file_exist_b(name):
+    try: 
+	f = open(name)
+    except IOError:
+	return 0
+    f.close ()
+    return 1
 def copy_files():
     print "copying files\n"
     
@@ -257,8 +260,11 @@ def main():
     set_vars();
     gen_html();
     copy_files();
-    gen_examples();
-    gen_list();
+    gen_examples(examples);
+    gen_list(examples, 'examples_output.html');
+
+    gen_examples(mutopia_examples);
+    gen_list(mutopia_examples, 'mutopiaexamples_output.html');
     gen_manuals();
     #set_images();
     edit_html();

@@ -50,6 +50,6 @@ $(outdir)/%.cc: %.l
 	echo 0 > $@
 
 
-$(depth)/%.text: check-doc-deps
+$(depth)/%.txt: check-doc-deps
 	rm -f $@
 	ln `find ${depth}/Documentation -name $@|head -1` .

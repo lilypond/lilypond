@@ -7,6 +7,7 @@
 */
 
 #include "word-wrap.hh"
+#include "paper-def.hh"
 #include "p-score.hh"
 #include "debug.hh"
 #include "p-col.hh"
@@ -31,12 +32,14 @@ Word_wrap::do_solve() const
   assert (breakpoints.size()>=2);
 
   int break_idx_i=0;
+  int line_no_i = 0;
   while (break_idx_i < breakpoints.size() -1)
     {
       Col_hpositions minimum;
       Col_hpositions current;
 
       // do  another line
+      line_no_i ++;
       Paper_column *post = breakpoints[break_idx_i]->postbreak_l();
       current.add (post);
       curcol++;		// skip the breakable.
@@ -53,7 +56,8 @@ Word_wrap::do_solve() const
 	    }
 	  current.add (breakpoints[break_idx_i]->prebreak_l());
 
-	  current.spacer_l_ = generate_spacing_problem (current.cols);
+	  current.spacer_l_ = generate_spacing_problem (current.cols, 
+	    pscore_l_->paper_l_->line_dimensions_int (line_no_i));
 
 	  // try to solve
 	  if (!feasible (current.cols))

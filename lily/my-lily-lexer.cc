@@ -52,6 +52,7 @@ static Keyword_ent the_key_tab[]={
   {"pt", PT_T},
   {"score", SCORE},
   {"script", SCRIPT},
+  {"shape", SHAPE},
   {"skip", SKIP},
   {"staff", STAFF},
   {"table", TABLE},

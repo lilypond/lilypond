@@ -103,17 +103,18 @@ def
                 /dir exch def
                 /plet_dy exch def
                 /plet_dx exch def
-		staffheight 2 div /plet_gap exch def
+		staffheight 2 div /plet_gapx exch def
+		plet_dy plet_dx div plet_gapx mul /plet_gapy exch def
 		staffheight 4 div dir mul /plet_h exch def
 %
-		plet_dy plet_dx lily_distance /plet_w exch def
-		plet_dy plet_dx atan rotate
 		0 0 moveto
                 0 plet_h lineto 
-		plet_w plet_gap sub 2 div plet_h lineto
-		plet_w plet_gap add 2 div plet_h moveto
-		plet_w plet_h lineto
-		plet_w 0 lineto
+		plet_dx plet_gapx sub 2 div 
+			plet_dy plet_gapy sub 2 div plet_h add lineto
+		plet_dx plet_gapx add 2 div 
+			plet_dy plet_gapy add 2 div plet_h add moveto
+		plet_dx plet_dy plet_h add lineto
+		plet_dx plet_dy lineto
 		stroke
         }
         bind def

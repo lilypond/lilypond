@@ -2,23 +2,23 @@
 #include <stream.h>
 
 void
-error(String s)
+error (String s)
 {
-    cerr <<  _("error: ") << s << "\n";
+    cerr <<  _ ("error: ") << s << "\n";
 
-    exit(1);
+    exit (1);
 }
 
 
 void
-warning(String m)
+warning (String m)
 {
-    cerr << _("warning: ") <<m <<endl;
+    cerr << _ ("warning: ") <<m <<endl;
 
 }
 
 void
-message(String m)
+message (String m)
 {
     cerr << m<<endl;
 }

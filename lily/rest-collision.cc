@@ -59,7 +59,7 @@ Rest_collision::do_post_processing()
   // ugh, Stem::stem_start vs Stem::stem_end
   int pos = (int)(stem_l->stem_end_f() - midpos) - dir_i * stem_length_i;
 #else // nogo: stem_start not set for rests?
-  int pos = (stem_l->stem_start_f() - midpos) + dir_i * 2;
+  int pos = (stem_l->stem_begin_f() - midpos) + dir_i * 2;
 #endif
   rest_l_arr_[0]->translate_rests (pos);	
 }

@@ -56,6 +56,7 @@
 
 
 %union {
+    Array<Interval>* intarr;
     Array<Melodic_req*> *melreqvec;/* should clean up naming */
     Array<String> * strvec;
     Array<int> *intvec;
@@ -147,6 +148,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token PT_T
 %token SCORE
 %token SCRIPT
+%token SHAPE
 %token SKIP
 %token SPANDYNAMIC
 %token STAFF
@@ -223,6 +225,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <request>	post_request command_req verbose_command_req
 %type <request>	script_req  dynamic_req
 %type <score>	score_block score_body
+%type <intarr>	shape_array
 %type <script>	script_definition script_body mudela_script gen_script_def
 %type <textdef> text_def
 %type <string>	script_abbreviation
@@ -491,10 +494,22 @@ paper_body:
 		$$-> assign_translator (*$2, $4);
 		delete $2;
 	}
+	| paper_body SHAPE '=' shape_array ';' {
+		$$->shape_int_a_ = *$4;
+		delete $4;
+	}
 	| paper_body error {
 
 	}
 	;
+
+shape_array:
+	/* empty */ {
+		$$ = new Array<Interval>;
+	}
+	| shape_array dim dim {
+		$$->push(Interval($2, $2 + $3));
+	};
 
 /*
 	MIDI
@@ -830,16 +845,22 @@ close_plet_parens:
 		$$ = MAEBTELP;
 		THIS->plet_.type_i_ = $4;
 		THIS->plet_.iso_i_ = $2;
+		THIS->default_duration_.plet_.type_i_ = $4;
+		THIS->default_duration_.plet_.iso_i_ = $2;
 	}
 	| TELP {
 		$$ = TELP;
 		THIS->plet_.type_i_ = 1;
 		THIS->plet_.iso_i_ = 1;
+		THIS->default_duration_.plet_.iso_i_ = 1;
+		THIS->default_duration_.plet_.type_i_ = 1;
 	}
 	| TELP INT '/' INT {
 		$$ = TELP;
 		THIS->plet_.type_i_ = $4;
 		THIS->plet_.iso_i_ = $2;
+		THIS->default_duration_.plet_.type_i_ = $4;
+		THIS->default_duration_.plet_.iso_i_ = $2;
 	}
 	;
 
@@ -880,11 +901,15 @@ open_plet_parens:
 		$$ = BEAMPLET;
 		THIS->plet_.type_i_ = $4;
 		THIS->plet_.iso_i_ = $2;
+		THIS->default_duration_.plet_.type_i_ = $4;
+		THIS->default_duration_.plet_.iso_i_ = $2;
 	}
 	| PLET INT '/' INT {
 		$$ = PLET;
 		THIS->plet_.type_i_ = $4;
 		THIS->plet_.iso_i_ = $2;
+		THIS->default_duration_.plet_.type_i_ = $4;
+		THIS->default_duration_.plet_.iso_i_ = $2;
 	}
 	;
 
@@ -1048,8 +1073,6 @@ entered_notemode_duration:
 notemode_duration:
 	entered_notemode_duration {
 		$$ = $1;
-		$$->plet_.type_i_ *= THIS->plet_.type_i_;
-		$$->plet_.iso_i_ *= THIS->plet_.iso_i_;
 	}
 	;
 
@@ -1060,6 +1083,7 @@ explicit_steno_duration:
 			THIS->parser_error ("Not a duration");
 		else {
 			$$->durlog_i_ = Duration_convert::i2_type ($1);
+			$$->set_plet (THIS->default_duration_);
 		     }
 	}
 	| DURATION_IDENTIFIER	{
@@ -1069,10 +1093,10 @@ explicit_steno_duration:
 		$$->dots_i_ ++;
 	}
 	| explicit_steno_duration '*' int  {
-		$$->plet_.iso_i_ *= $3;
+		$$->plet_.iso_i_ = $3;
 	}
 	| explicit_steno_duration '/' int {
-		$$->plet_.type_i_ *= $3;
+		$$->plet_.type_i_ = $3;
 	}
 	;
 

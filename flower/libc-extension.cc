@@ -43,8 +43,8 @@ strnupr (char* start_l, int n)
   Manual v1.15, but it is with /usr/include/string.h   */
 
 Byte *
-memmem (Byte const *needle,int needle_len,
-	Byte const *haystack, int haystack_len)
+memmem (Byte const *haystack, int haystack_len,
+	Byte const *needle,int needle_len)
 {
   Byte const * end_haystack = haystack + haystack_len - needle_len + 1;
   Byte const * end_needle = needle + needle_len ;
@@ -56,16 +56,13 @@ memmem (Byte const *needle,int needle_len,
       Byte const *subneedle_l = needle;
       Byte const *subhaystack_l = haystack;
       while (subneedle_l < end_needle) 
-	{
-	  if (*subneedle_l++ != *subhaystack_l++)
-	    {
-	      haystack ++;
-	      continue;
-	    }
-	}
+        if (*subneedle_l++ != *subhaystack_l++)
+	  goto next;
 	
       // completed the needle. Gotcha.
       return (Byte *) haystack;
+      next:
+	haystack++;
     }
   return 0;
 }

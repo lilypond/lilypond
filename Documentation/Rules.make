@@ -1,7 +1,7 @@
 # special rules for the documentation section.
 # There are too many to add to the general rules
 
-.SUFFIXES: .pod .text .1  .html
+.SUFFIXES: .pod .txt .1  .html
 
 
 $(outdir)/%.gif: %.xpm
@@ -18,10 +18,10 @@ $(outdir)/%.dvi: $(outdir)/%.mudtex
 $(outdir)/%.mudtex: %.doc
 	$(binout)/mudela-book --outdir=$(outdir)/ --outname=$(notdir $@) $<
 
-$(outdir)/%.text: $(outdir)/%.1
-	groff -man -Tascii $< > $@
+$(outdir)/%.txt: $(outdir)/%.1
+	troff -man -Tascii $< | grotty -b -u -o > $@
 
-$(depth)/%.text: $(outdir)/%.text
+$(depth)/%.txt: $(outdir)/%.txt
 	cp $< $@
 
 do_pod2html=$(pod2html) $<

@@ -10,9 +10,7 @@ This file lists authors of GNU LilyPond, and what they wrote.
 
 =over 4
 
-=item *
-
-Han-Wen Nienhuys <hanwen@stack.nl>, http://www.stack.nl/~hanwen
+=item * Han-Wen Nienhuys <hanwen@stack.nl>, http://www.stack.nl/~hanwen
 
 Main author.
 
@@ -26,11 +24,10 @@ Main author
 
 =over 4
 
-=item *
+=item * Mats Bengtsson <matsb@s3.kth.se>,
 
-Mats Bengtsson <matsb@s3.kth.se>, parts of clef-reg.cc, clef-item.cc
-swedish notenames, testing, general comments, duration
-logs/longa/brevis etc
+parts of clef-reg.cc, clef-item.cc swedish notenames, testing, general
+comments, duration logs/longa/brevis etc
 
 =item * Jan Arne Fagertun <Jan.A.Fagertun@energy.sintef.no>,
 

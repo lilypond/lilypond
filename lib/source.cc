@@ -17,20 +17,20 @@
 #include "source.hh"
 #include "path.hh"
 
-Sources::Sources()
+Sources::Sources ()
 {
   path_C_= 0;
   binary_b_ = false;
 }
 
 void
-Sources::set_binary(bool bo)
+Sources::set_binary (bool bo)
 {
   binary_b_ = bo;
 }
 
 void
-Sources::set_path(File_path *f_C)
+Sources::set_path (File_path *f_C)
 {
   path_C_ = f_C;
 }
@@ -44,25 +44,25 @@ Sources::set_path(File_path *f_C)
   @return 0 if no file found
   */
 Source_file*
-Sources::get_file_l(String &file_str) //UGH
+Sources::get_file_l (String &file_str) //UGH
 {
   if (path_C_)
     {
-      String file_str_o = path_C_->find(file_str); 
+      String file_str_o = path_C_->find (file_str); 
       if ((file_str_o == "") && (file_str != ""))
 	return 0;
       file_str = file_str_o;
     }
   Source_file * f_p= (!binary_b_) ?
-    new Source_file(file_str) : new Binary_source_file(file_str);
-  add(f_p);
+    new Source_file (file_str) : new Binary_source_file (file_str);
+  add (f_p);
   return f_p;
 }
 
 void
-Sources::add(Source_file* sourcefile_p)
+Sources::add (Source_file* sourcefile_p)
 {
-  sourcefile_p_list_.bottom().add(sourcefile_p);
+  sourcefile_p_list_.bottom ().add (sourcefile_p);
 }
 
 /**
@@ -71,11 +71,11 @@ Sources::add(Source_file* sourcefile_p)
   @return 0 if not found.
   */
 Source_file*
-Sources::sourcefile_l(char const* ch_C)
+Sources::sourcefile_l (char const* ch_C)
 {
-  PCursor<Source_file*> sourcefile_l_pcur(sourcefile_p_list_.top());
-  for (; sourcefile_l_pcur.ok(); sourcefile_l_pcur++)
-    if (sourcefile_l_pcur->in_b(ch_C))	
+  PCursor<Source_file*> sourcefile_l_pcur (sourcefile_p_list_.top ());
+  for (; sourcefile_l_pcur.ok (); sourcefile_l_pcur++)
+    if (sourcefile_l_pcur->in_b (ch_C))	
       return *sourcefile_l_pcur;
   return 0;
 }

@@ -25,6 +25,10 @@ LilyPond sources.
 
 An enormous collection of music related URLs
 
+=item http://www.ram.org/ramblings/philosophy/fmp.html
+
+Musings on free music, plus hints how to record your own (free) music.
+
 =back
 
 =head2 Ftp 
@@ -88,9 +92,11 @@ mailing list have been setup:
 
 A moderated list for information on the GNU Music project, to
 subscribe: send mail with subject "subscribe" to
-info-gnu-music-request@gnu.org.  As this list is moderated, normal
-people should ask to drl@gnu.org or hanwen@stack.nl to forward
-announces instead of sending it to info-gnu-music@gnu.org
+info-gnu-music-request@gnu.org.  
+
+As this list is moderated, normal people should ask to drl@gnu.org or
+hanwen@stack.nl to forward announces instead of sending it to
+info-gnu-music@gnu.org
 
 =item help-gnu-music@gnu.org
 

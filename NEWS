@@ -1,3 +1,26 @@
+pl 43
+	- bf: broken Plet_spanners
+	- more GNITting
+	- avoid some more global ctors, for NeXTstep
+	- some NeXTStep patches from tiggr
+	- don't do overstrike/bold chars in textfiles
+
+pl 42.jcn2
+	- bit hesitating start of mutopia
+	- bf: don't try to typeset unterminated plet
+	- separately sticky plet durations: "c4 c4*2/3 c8 c4*1/1", ok Mats?
+	- denneboom.ly (half-baked version)
+	- indent and shape, see ^ 
+
+pl 42.jcn1
+	- bf: memmem revisited
+	- bf: ps: draw_plet vertical endings
+	- renamed stem_start to stem_begin
+	- bf: plet bracket placing on differently orientated stems
+	- more standje.ly and fixes
+******
+jan 28
+
 pl 42
 	- ly2dvi 0.5 (JAF)
 	- italian.ly (thanks, Paolo)

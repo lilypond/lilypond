@@ -34,7 +34,7 @@
 		   "accepts" "bar" "cadenza" "clear" "clef" "cm" "consists" "contains"
 		   "duration" "absdynamic" "in" "translator" "type" "lyric" "key"
 		   "melodic" "melodic_request" "meter" "midi" "mm" "multi" "header"
-		   "notenames" "octave" "output" "partial" "paper" "plet" "property" "pt"
+		   "notenames" "octave" "output" "partial" "paper" "plet" "property" "pt" "shape"
 		   "include"
 		   "score" "script" "skip" "staff" "table" "spandynamic" "symboltables"
 		   "tempo" "texid" "textstyle" "transpose" "version" "grouping"

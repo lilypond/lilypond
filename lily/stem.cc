@@ -73,7 +73,7 @@ Stem::stem_length_f () const
 }
 
 Real
-Stem::stem_start_f () const
+Stem::stem_begin_f () const
 {
   return yextent_drul_[Direction(-dir_)];
 }
@@ -140,6 +140,11 @@ Stem::get_default_dir ()
     : UP;
 }
 
+Direction
+Stem::get_dir ()
+{
+  return dir_;
+}
 
 void
 Stem::set_default_dir ()

@@ -4,6 +4,7 @@
 
 paper_thirteen = \paper {
 	linewidth = 15.0 \cm;
+	indent = 8.0\mm;
 	rulethickness = 0.25\pt;
 	barsize = 13.0 \pt;
 	interline = 3.25\pt;

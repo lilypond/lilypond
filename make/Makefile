@@ -40,7 +40,7 @@ include ./$(depth)/make/Rules.make
 
 spec: $(outdir)/lilypond.spec
 
-rpmdocs=$(addprefix Documentation/out/, $(notdir $(shell ls $(depth)/Documentation/$(outdir)/*.text)))\
+rpmdocs=$(addprefix Documentation/out/, $(notdir $(shell ls $(depth)/Documentation/$(outdir)/*.txt)))\
 	BUGS TODO NEWS DEDICATION ANNOUNCE README
 rpmmudocs=$(addprefix Documentation/, $(notdir $(shell ls $(depth)/Documentation/*.doc)))
 rpmdvis=$(rpmmudocs:.doc=.dvi)

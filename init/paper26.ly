@@ -4,6 +4,7 @@
 
 paper_twentysix = \paper {
 	linewidth = 15.0 \cm;
+	indent = 12.0\mm
 	rulethickness = 0.5\pt;
 	barsize = 26.0 \pt;
 	interline = 6.5\pt;

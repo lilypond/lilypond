@@ -99,7 +99,7 @@ def multiple_find(pats, dirnames):
 	l = l + my_find(pats,  d)
     return l
 
-pats = ['*.lsm', 'configure', '*.text', 'lilypond.spec']
+pats = ['*.lsm', 'configure', '*.txt', 'lilypond.spec']
 def remove_automatic(dirnames):
     files = []
     files = files + multiple_find(pats, dirnames)

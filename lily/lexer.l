@@ -28,6 +28,7 @@
 #include "string-convert.hh"
 #include "my-lily-lexer.hh"
 #include "varray.hh"
+#include "interval.hh"
 #include "parser.hh"
 #include "debug.hh"
 #include "parseconstruct.hh"

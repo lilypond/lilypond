@@ -16,6 +16,6 @@ include ./$(depth)/make/Include.make
 # 
 LYFILES = $(wildcard *.ly)
 TEXFILES = $(wildcard *.tex)
-DISTFILES = Makefile $(LYFILES) $(TEXFILES) $(wildcard *.m4)
+DISTFILES = Makefile TODO $(LYFILES) $(TEXFILES) $(wildcard *.m4)
 #
 

@@ -103,23 +103,23 @@ Translator::creation_processing ()
 }
 
 void
-Translator::post_move_processing()
+Translator::post_move_processing ()
 {
   if (status >= MOVE_INITED)
     return;
 
-  creation_processing();
-  do_post_move_processing();
+  creation_processing ();
+  do_post_move_processing ();
   status = MOVE_INITED;
 }
 
 void
-Translator::removal_processing()
+Translator::removal_processing ()
 {
   if (status == ORPHAN)
     return;
-  creation_processing();
-  do_removal_processing();
+  creation_processing ();
+  do_removal_processing ();
   // elegancy ...
   // status = ORPHAN;
 }
@@ -129,27 +129,27 @@ bool
 Translator::try_request (Request * r)
 {
   if (status < MOVE_INITED)
-    post_move_processing();
+    post_move_processing ();
 
   return do_try_request (r);
 }
 
 void
-Translator::process_requests()
+Translator::process_requests ()
 {
   if (status < PROCESSED_REQS)
-    post_move_processing();
+    post_move_processing ();
   else if (status >= PROCESSED_REQS)
     return; 
   
   status = PROCESSED_REQS;
-  do_process_requests();
+  do_process_requests ();
 }
 
 void
-Translator::pre_move_processing()
+Translator::pre_move_processing ()
 {
-  do_pre_move_processing();
+  do_pre_move_processing ();
   status = CREATION_INITED;
 }
 

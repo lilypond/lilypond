@@ -30,6 +30,13 @@ Plet_spanner::Plet_spanner ()
   tdef_p_->style_str_ = "italic";
 }
 
+Plet_spanner::Plet_spanner (Plet_spanner const& c)
+  : Bow (c)
+{
+  tdef_p_ = new Text_def (*c.tdef_p_);
+  stem_l_drul_ = c.stem_l_drul_;
+}
+
 Plet_spanner::~Plet_spanner ()
 {
   delete tdef_p_;
@@ -43,24 +50,18 @@ Plet_spanner::brew_molecule_p () const
   
   Real dy_f = dy_f_drul_[RIGHT] - dy_f_drul_[LEFT];
   
-  // ugh
-  Real nwc_f = (dir_ > 0 ? paper ()->note_width () : 0) * 0.8;
-  
   w += (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
   
   Atom a = paper ()->lookup_l ()->plet (dy_f, w, dir_);
 
-  a.translate (Offset ( (dx_f_drul_[LEFT] + nwc_f), dy_f_drul_[LEFT]));
+  a.translate (Offset (dx_f_drul_[LEFT], dy_f_drul_[LEFT]));
   mol_p->add (a);
 
   Real interline_f = paper ()->interline_f ();
-  Real numy_f = (dir_ > 0 ? 0 : -interline_f / 2);
-  Real numx_f = interline_f / 1.5;
+  Real numy_f = (dir_ > 0 ? 0 : -interline_f) + dir_ * interline_f / 2;
   Atom num (tdef_p_->get_atom (paper (), CENTER));
-  num.translate (Offset (width ().length ()/ 2 + nwc_f - numx_f 
-			 + dx_f_drul_[LEFT], 
-			 dy_f_drul_[LEFT] + dy_f / width ().length () / 2 
-			 + dir_ * interline_f / 2 + numy_f));
+  num.translate (Offset (width ().length ()/ 2 + dx_f_drul_[LEFT], 
+    dy_f_drul_[LEFT] + dy_f / 2 + numy_f));
   mol_p->add (num);
 
   return mol_p;
@@ -85,15 +86,22 @@ void
 Plet_spanner::do_post_processing ()
 {
   Real interline_f = paper ()->interline_f ();
+  Real nh_f = interline_f / 2;
   assert (stem_l_drul_[LEFT] || stem_l_drul_[RIGHT]);
+
+  // ugh
+  Real nw_f = paper ()->note_width () * 0.8;
 
   Direction d = LEFT;
   do
     {
-      dy_f_drul_[d] = .5 * interline_f * (stem_l_drul_[d] 
-					  ? stem_l_drul_[d]->stem_end_f ()
-					  : stem_l_drul_[(Direction)-d]->stem_end_f ());
+      Stem* s = stem_l_drul_[d] ? stem_l_drul_[d] : stem_l_drul_[(Direction)-d];
+      dy_f_drul_[d] = dir_ == s->get_dir () ? s->stem_end_f ()
+      	: s->stem_begin_f () + dir_ * nh_f / 2;
+      dy_f_drul_[d] *= .5 * interline_f;
       dy_f_drul_[d] += dir_ * interline_f;
+      if (d == RIGHT)
+        dx_f_drul_[d] = nw_f;
     }
   while ( (d *= -1) != LEFT);
 }
