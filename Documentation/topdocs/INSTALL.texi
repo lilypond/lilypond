@@ -358,6 +358,7 @@ You can also compile them yourself.  A spec file is in
 with the sources.  You can make the rpm by issuing
 @example 
 
+        cp lilypond-x.y.z.tar.gz /usr/src/redhat/SOURCES/
         tar xfz lilypond-x.y.z.tar.gz
 	rpm -bb lilypond-x.y.z/make/out/lilypond.redhat.spec
 	rpm -i /usr/src/redhat/RPMS/i386/lilypond-x.y.z
