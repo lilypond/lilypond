@@ -2,7 +2,7 @@
 # title	   top level makefile for LilyPond  
 # file	   Makefile.am.wild
 
-SUBDIRS = bin flower flowertest lib lily mf mi2mu debian\
+SUBDIRS = bin flower flowertest lib lily mf mi2mu test debian\
  	Documentation init input tex make mutopia
 
 SCHRIFTEN = configure configure.in install-sh aclocal.m4

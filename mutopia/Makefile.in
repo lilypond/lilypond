@@ -100,7 +100,7 @@ YACC = @YACC@
 ZIP = @ZIP@
 absolute_builddir = @absolute_builddir@
 
-SUBDIRS = J.S.Bach
+SUBDIRS = J.S.Bach Coriolan
 
 LYFILES = gallina.ly los-toros-oboe.ly standchen-16.ly standchen-20.ly standchen.ly standje.ly
 TEXFILES = gallina.tex los-toros-oboe-20.tex standchen-16.tex standchen-20.tex

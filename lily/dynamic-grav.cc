@@ -44,7 +44,13 @@ Dynamic_engraver::do_try_request (Request * r)
   if (cresc_p_ && d->span_dynamic ()
       && d->span_dynamic ()->spantype == Span_req::START)
     return false;
-  
+  if (d->absdynamic ())
+    {
+      for (int i=0; i < dynamic_req_l_arr_.size (); i++)
+	if (d->equal_b (dynamic_req_l_arr_[i]))
+	  return true;
+    }
+
   dynamic_req_l_arr_.push (m->dynamic());
   return true;
 }
@@ -161,9 +167,12 @@ Dynamic_engraver::acknowledge_element (Score_elem_info i)
 {
   if (i.elem_l_->is_type_b (Note_column::static_name ()))
     {
-      if (dynamic_p_) dynamic_p_->add_support (i.elem_l_);
+      if (dynamic_p_)
+	dynamic_p_->add_support (i.elem_l_);
+
       if (to_end_cresc_p_)
 	to_end_cresc_p_->add_support (i.elem_l_);
+
       if (cresc_p_)
 	cresc_p_->add_support (i.elem_l_);
     }

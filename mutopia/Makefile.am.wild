@@ -1,6 +1,6 @@
 # mutopia/Makefile.am.wild
 
-SUBDIRS = J.S.Bach
+SUBDIRS = J.S.Bach Coriolan
 
 LYFILES = $(wildcard *.ly)
 TEXFILES = $(wildcard *.tex)

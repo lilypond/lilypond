@@ -111,7 +111,7 @@ SUBDIRS = include
 
 lib_LTLIBRARIES = liblily.la
 
-liblily_la_SOURCES = binary-source-file.cc duration-convert.cc duration.cc includable-lexer.cc input.cc mapped-file-storage.cc moment.cc plet.cc simple-file-storage.cc source-file.cc source.cc template.cc warn.cc windhoos-suck-suck-suck-thank-you-cygnus.cc
+liblily_la_SOURCES = binary-source-file.cc duration-convert.cc duration.cc input.cc mapped-file-storage.cc moment.cc plet.cc simple-file-storage.cc source-file.cc source.cc template.cc warn.cc windhoos-suck-suck-suck-thank-you-cygnus.cc
 
 INCLUDES = -I$(top_srcdir)/lib/include -I$(top_srcdir)/flower/include
 
@@ -127,9 +127,9 @@ LIBS = @LIBS@
 liblily_la_LDFLAGS = 
 liblily_la_LIBADD = 
 liblily_la_OBJECTS =  binary-source-file.lo duration-convert.lo \
-duration.lo includable-lexer.lo input.lo mapped-file-storage.lo \
-moment.lo plet.lo simple-file-storage.lo source-file.lo source.lo \
-template.lo warn.lo windhoos-suck-suck-suck-thank-you-cygnus.lo
+duration.lo input.lo mapped-file-storage.lo moment.lo plet.lo \
+simple-file-storage.lo source-file.lo source.lo template.lo warn.lo \
+windhoos-suck-suck-suck-thank-you-cygnus.lo
 CXXCOMPILE = $(CXX) $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CXXFLAGS)
 LTCXXCOMPILE = $(LIBTOOL) --mode=compile $(CXX) $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CXXFLAGS)
 CXXLINK = $(LIBTOOL) --mode=link $(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@
@@ -308,6 +308,124 @@ distdir: $(DISTFILES)
 	  (cd $$subdir && $(MAKE) top_distdir=../$(top_distdir) distdir=../$(distdir)/$$subdir distdir) \
 	    || exit 1; \
 	done
+binary-source-file.lo binary-source-file.o: binary-source-file.cc \
+	include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/plist.hh \
+	../flower/include/list.hh ../flower/include/list.icc \
+	../flower/include/cursor.hh ../flower/include/link.hh \
+	../flower/include/link.icc ../flower/include/compare.hh \
+	../flower/include/pcursor.hh ../flower/include/cursor.icc \
+	../flower/include/iterate.hh ../flower/include/plist.icc \
+	../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh include/source-file.hh \
+	include/binary-source-file.hh \
+	../flower/include/string-convert.hh
+duration-convert.lo duration-convert.o: duration-convert.cc \
+	include/duration-convert.hh include/duration.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	include/moment.hh ../flower/include/rational.hh \
+	../flower/include/compare.hh \
+	../flower/include/arithmetic-operator.hh include/plet.hh \
+	../flower/include/string.hh ../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/varray.hh \
+	include/warn.hh
+duration.lo duration.o: duration.cc include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/plist.hh ../flower/include/list.hh \
+	../flower/include/list.icc ../flower/include/cursor.hh \
+	../flower/include/link.hh ../flower/include/link.icc \
+	../flower/include/compare.hh ../flower/include/pcursor.hh \
+	../flower/include/cursor.icc ../flower/include/iterate.hh \
+	../flower/include/plist.icc ../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh include/source-file.hh \
+	include/source.hh include/moment.hh \
+	../flower/include/rational.hh include/duration.hh \
+	include/plet.hh include/duration-convert.hh \
+	../flower/include/varray.hh
+input.lo input.o: input.cc include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh include/input.hh \
+	../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/compare.hh \
+	include/source.hh ../flower/include/plist.hh \
+	../flower/include/list.hh ../flower/include/list.icc \
+	../flower/include/cursor.hh ../flower/include/link.hh \
+	../flower/include/link.icc ../flower/include/pcursor.hh \
+	../flower/include/cursor.icc ../flower/include/iterate.hh \
+	../flower/include/plist.icc include/source-file.hh
+mapped-file-storage.lo mapped-file-storage.o: mapped-file-storage.cc
+moment.lo moment.o: moment.cc ../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/compare.hh \
+	include/moment.hh ../flower/include/rational.hh
+plet.lo plet.o: plet.cc include/plet.hh include/moment.hh \
+	../flower/include/rational.hh ../flower/include/compare.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh
+simple-file-storage.lo simple-file-storage.o: simple-file-storage.cc \
+	include/simple-file-storage.hh include/file-storage.hh \
+	include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/varray.hh \
+	../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/compare.hh \
+	include/warn.hh
+source-file.lo source-file.o: source-file.cc ../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/compare.hh \
+	include/proto.hh ../flower/include/plist.hh \
+	../flower/include/list.hh ../flower/include/list.icc \
+	../flower/include/cursor.hh ../flower/include/link.hh \
+	../flower/include/link.icc ../flower/include/pcursor.hh \
+	../flower/include/cursor.icc ../flower/include/iterate.hh \
+	../flower/include/plist.icc include/warn.hh \
+	include/windhoos-suck-suck-suck-thank-you-cygnus.hh \
+	include/source-file.hh include/simple-file-storage.hh \
+	include/file-storage.hh
+source.lo source.o: source.cc include/binary-source-file.hh \
+	include/source-file.hh include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/compare.hh \
+	../flower/include/plist.hh ../flower/include/list.hh \
+	../flower/include/list.icc ../flower/include/cursor.hh \
+	../flower/include/link.hh ../flower/include/link.icc \
+	../flower/include/pcursor.hh ../flower/include/cursor.icc \
+	../flower/include/iterate.hh ../flower/include/plist.icc \
+	include/source.hh ../flower/include/path.hh \
+	../flower/include/varray.hh
+template.lo template.o: template.cc include/source-file.hh \
+	include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/compare.hh \
+	../flower/include/plist.tcc ../flower/include/plist.hh \
+	../flower/include/list.hh ../flower/include/list.icc \
+	../flower/include/cursor.hh ../flower/include/link.hh \
+	../flower/include/link.icc ../flower/include/pcursor.hh \
+	../flower/include/cursor.icc ../flower/include/iterate.hh \
+	../flower/include/plist.icc ../flower/include/pcursor.tcc \
+	../flower/include/cursor.tcc ../flower/include/list.tcc
+warn.lo warn.o: warn.cc include/warn.hh ../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/compare.hh
+windhoos-suck-suck-suck-thank-you-cygnus.lo windhoos-suck-suck-suck-thank-you-cygnus.o: \
+	windhoos-suck-suck-suck-thank-you-cygnus.cc
 
 info: info-recursive
 dvi: dvi-recursive

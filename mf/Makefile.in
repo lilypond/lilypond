@@ -212,6 +212,8 @@ distclean-generic clean-generic maintainer-clean-generic clean \
 mostlyclean distclean maintainer-clean
 
 
+export top_srcdir
+
 all-local: $(LYTABLES) $(TEXTABLES)
 
 dist-hook: $(LYTABLES) $(TEXTABLES)

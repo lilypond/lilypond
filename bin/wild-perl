@@ -45,5 +45,5 @@ while (<>) {
 
 print "\$(srcdir)/Makefile.am: \$(srcdir)/Makefile.am.wild\n" .
 #    "\t\$(PERL) $my_topsrcdir/bin/wild-perl --top-srcdir=\"\$(real_topsrcdir)\" < \$< > \$@";
-    "\t\$(PERL) $my_topsrcdir/bin/wild-perl < \$< > \$@";
+    "\t\$(PERL) $my_topsrcdir/bin/wild-perl < \$< > \$@\n";
 

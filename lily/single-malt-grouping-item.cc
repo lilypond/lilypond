@@ -36,7 +36,7 @@ Single_malt_grouping_item::my_width () const
       assert (pc == il->column_l ());
       w.unite  (il->width () + il->relative_coordinate (pc, X_AXIS));
     }
-  
+
   return w;
  // add this->offset_ ? this-> relative_coordinate ()? 
 }

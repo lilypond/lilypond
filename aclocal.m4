@@ -1,4 +1,14 @@
-dnl aclocal.m4 generated automatically by aclocal 1.2
+dnl aclocal.m4 generated automatically by aclocal 1.2f
+
+dnl Copyright (C) 1994, 1995, 1996, 1997, 1998 Free Software Foundation, Inc.
+dnl This Makefile.in is free software; the Free Software Foundation
+dnl gives unlimited permission to copy and/or distribute it,
+dnl with or without modifications, as long as this notice is preserved.
+
+dnl This program is distributed in the hope that it will be useful,
+dnl but WITHOUT ANY WARRANTY, to the extent permitted by law; without
+dnl even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+dnl PARTICULAR PURPOSE.
 
 
 AC_DEFUN(AC_JUNK_ARGS, [
@@ -109,8 +119,8 @@ fi
 ifelse([$3],,
 AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
 AC_DEFINE_UNQUOTED(VERSION, "$VERSION"))
-AM_SANITY_CHECK
-AC_ARG_PROGRAM
+AC_REQUIRE([AM_SANITY_CHECK])
+AC_REQUIRE([AC_ARG_PROGRAM])
 dnl FIXME This is truly gross.
 missing_dir=`cd $ac_aux_dir && pwd`
 AM_MISSING_PROG(ACLOCAL, aclocal, $missing_dir)
@@ -118,7 +128,7 @@ AM_MISSING_PROG(AUTOCONF, autoconf, $missing_dir)
 AM_MISSING_PROG(AUTOMAKE, automake, $missing_dir)
 AM_MISSING_PROG(AUTOHEADER, autoheader, $missing_dir)
 AM_MISSING_PROG(MAKEINFO, makeinfo, $missing_dir)
-AC_PROG_MAKE_SET])
+AC_REQUIRE([AC_PROG_MAKE_SET])])
 
 
 # serial 1
@@ -145,10 +155,21 @@ echo timestamp > conftestfile
 # directory).
 if (
    set X `ls -Lt $srcdir/configure conftestfile 2> /dev/null`
-   if test "$@" = "X"; then
+   if test "[$]*" = "X"; then
       # -L didn't work.
       set X `ls -t $srcdir/configure conftestfile`
    fi
+   if test "[$]*" != "X $srcdir/configure conftestfile" \
+      && test "[$]*" != "X conftestfile $srcdir/configure"; then
+
+      # If neither matched, then we have a broken ls.  This can happen
+      # if, for instance, CONFIG_SHELL is bash and it inherits a
+      # broken ls alias from the environment.  This has actually
+      # happened.  Such a system could not be considered "sane".
+      AC_MSG_ERROR([ls -t appears to fail.  Make sure there is not a broken
+alias in your environment])
+   fi
+
    test "[$]2" = conftestfile
    )
 then

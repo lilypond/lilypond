@@ -56,9 +56,12 @@ Midi_chunk::str () const
 {
   String str = header_str_;
   String dat = data_str ();
+#if 1 
+  String length_str = String_convert::i2hex_str (dat.length_i () 
+#else
   // huh, huh??
-//  String length_str = String_convert::i2hex_str (dat.length_i () 
   String length_str = String_convert::i2hex_str (data_str_.length_i () 
+#endif
     + footer_str_.length_i (), 8, '0');
   length_str = String_convert::hex2bin_str (length_str);
   str += length_str;

@@ -30,11 +30,22 @@ Tex_stream::Tex_stream (String filename)
 void
 Tex_stream::header()
 {
-  *os << _("% Creator: ") << get_version_str() << "\n";
-  *os << _("% Automatically generated, at ");
-  time_t t (time (0));
-  *os << ctime (&t) << "%\n";
+  *os << _("% Creator: ");
+  if (no_timestamps_global_b)
+    *os << "GNU LilyPond\n";
+  else
+    *os << get_version_str() << "\n";
+  *os << _("% Automatically generated");
+  if (no_timestamps_global_b)
+    *os << ".\n";
+  else
+    {
+      *os << _(", at ");
+      time_t t (time (0));
+      *os << ctime (&t) << "%\n";
+    }
 }
+
 Tex_stream::~Tex_stream()
 {
   *os << flush;

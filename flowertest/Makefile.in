@@ -106,13 +106,13 @@ bin_PROGRAMS = test
 
 TESTS = $(top_srcdir)/flowertest/check.sh
 
-test_SOURCES = 
+test_SOURCES = main.cc mat-test.cc pqtest.cc rattest.cc stringtest.cc
 
 test_LDADD = $(top_builddir)/flower/libflower.la @LEXLIB@
 
 EXTRA_DIST = result Makefile.am.wild GNUmakefile check.sh
 
-noinst_HEADERS = 
+noinst_HEADERS = flower-test.hh
 
 INCLUDES = -I$(top_srcdir)/flower/include
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
@@ -123,9 +123,12 @@ PROGRAMS =  $(bin_PROGRAMS)
 
 DEFS = @DEFS@ -I. -I$(srcdir) -I../flower
 LIBS = @LIBS@
-test_OBJECTS = 
+test_OBJECTS =  main.o mat-test.o pqtest.o rattest.o stringtest.o
 test_DEPENDENCIES =  $(top_builddir)/flower/libflower.la
 test_LDFLAGS = 
+CXXCOMPILE = $(CXX) $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CXXFLAGS)
+LTCXXCOMPILE = $(LIBTOOL) --mode=compile $(CXX) $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CXXFLAGS)
+CXXLINK = $(LIBTOOL) --mode=link $(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@
 HEADERS =  $(noinst_HEADERS)
 
 DIST_COMMON =  Makefile.am Makefile.in
@@ -140,7 +143,7 @@ OBJECTS = $(test_OBJECTS)
 default: all
 
 .SUFFIXES:
-.SUFFIXES: .S .c .lo .o .s
+.SUFFIXES: .S .c .cc .lo .o .s
 $(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
 	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps flowertest/Makefile
 
@@ -214,7 +217,11 @@ maintainer-clean-libtool:
 
 test: $(test_OBJECTS) $(test_DEPENDENCIES)
 	@rm -f test
-	$(LINK) $(test_LDFLAGS) $(test_OBJECTS) $(test_LDADD) $(LIBS)
+	$(CXXLINK) $(test_LDFLAGS) $(test_OBJECTS) $(test_LDADD) $(LIBS)
+.cc.o:
+	$(CXXCOMPILE) -c $<
+.cc.lo:
+	$(LTCXXCOMPILE) -c $<
 
 tags: TAGS
 
@@ -252,6 +259,32 @@ distdir: $(DISTFILES)
 	  || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
 	  || cp -p $$d/$$file $(distdir)/$$file; \
 	done
+main.o: main.cc flower-test.hh ../flower/include/varray.hh
+mat-test.o: mat-test.cc ../flower/include/matrix.hh \
+	../flower/include/matrix-storage.hh ../flower/include/varray.hh \
+	../flower/include/real.hh ../flower/include/virtual-methods.hh \
+	../flower/include/vector.hh ../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/fproto.hh ../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/compare.hh \
+	flower-test.hh ../flower/include/choleski.hh
+pqtest.o: pqtest.cc flower-test.hh ../flower/include/pqueue.hh \
+	../flower/include/varray.hh
+rattest.o: rattest.cc ../flower/include/rational.hh \
+	../flower/include/compare.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	flower-test.hh ../flower/include/string.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh
+stringtest.o: stringtest.cc ../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/compare.hh \
+	../flower/include/varray.hh ../flower/include/string-convert.hh \
+	flower-test.hh
+
 check-TESTS: $(TESTS)
 	@failed=0; all=0; \
 	srcdir=$(srcdir); export srcdir; \

@@ -11,6 +11,10 @@
 %   mudela-book --outdir=out/ --outname=introduction.mudtex introduction.doc
 %   latex '\nonstopmode \input out/introduction.mudtex'
 
+% Hoi Tim, hier staan wat 'enge' commando's (die dingen met een '\'
+% zoals \documentclass en \def\mudela...).
+% Daar moet je je niets van aantrekken, ga gewoon naar Introduction
+% en begin te tiepen.
 
 \documentclass{article}
 \usepackage{a4wide}

@@ -49,6 +49,6 @@ ifneq ($(libflower_la_SOURCES),$(CURRENT_libflower_la_SOURCES))
 	@echo \"$(CURRENT_libflower_la_SOURCES)\"
 	@echo  libflower_la_SOURCES changed: rerunning make-wild.
 	@-rm -f Makefile.am
-        $(PERL) $(top_srcdir)/bin/wild-perl < Makefile.am.wild > Makefile.am
+	$(PERL) $(top_srcdir)/bin/wild-perl < Makefile.am.wild > Makefile.am
 endif
 

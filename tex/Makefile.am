@@ -1,10 +1,10 @@
 # Generated automatically by wild-perl 0.1
 # tex/Makefile.am.wild
 
-TEXFILES = dyndefs.tex eglerdefs.tex feta11.tex feta13.tex feta16.tex feta19.tex feta20.tex feta23.tex feta26.tex fetdefs.tex lily-mf-defs.tex lily-ps-defs.tex lilyponddefs.tex ltest.tex taupindefs.tex titledefs.tex
+TEXFILES = dyndefs.tex eglerdefs.tex fetdefs.tex lily-mf-defs.tex lily-ps-defs.tex lilyponddefs.tex ltest.tex taupindefs.tex titledefs.tex
 EXTRA_DIST = Makefile.am.wild $(TEXFILES)
 
-CLEANFILES = feta11.tex feta13.tex feta16.tex feta19.tex feta20.tex feta23.tex feta26.tex
+CLEANFILES = 
 
 install-data-local:
 	$(INSTALL) -d $(TEXDIR)/lilypond

@@ -10,6 +10,12 @@
 #include "axis-group-element.hh"
 #include "debug.hh"
 
+bool
+Graphical_element::empty_b () const
+{
+  return empty_b_; 
+}
+
 Graphical_element::Graphical_element ()
 {
   init ();

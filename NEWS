@@ -1,3 +1,24 @@
+pl 54
+	- bf dynamic_grav
+	- bf accidentals with key change
+	- bfs with command-items in non-breakable columns.
+	- typos (thanks LM)
+
+pl 53.jcn1
+	- two new BUGs
+	- preludes-* with trills
+	- nicer trills
+	- fixed ugly slur extend bug
+	- first try at symphonic work: (start of) Coriolan
+	- fixes: los-toros
+	- test/ with some stupid tests
+	- bf, again midi-output
+	- --no-timestamps options for lily/mi2mu (to enable make check targets)
+	- removed doubles in lilypython
+	- smarter prev_version for make-patch
+
+***********
+
 pl 53
 	- bf: c4 \< c4 \< 
 	- bfs of spacing stuff

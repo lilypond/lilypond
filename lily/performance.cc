@@ -1,5 +1,5 @@
 /*
-  audio-score.cc -- implement Performance
+  performance.cc -- implement Performance
 
   source file of the GNU LilyPond music typesetter
 
@@ -49,18 +49,26 @@ Performance::output_header_track (Midi_stream& midi_stream_r)
 {
   Midi_track midi_track;
 
-  time_t t = time (0);
-
   // perhaps multiple text events?
-  String str = String (_("Creator: ")) + get_version_str() + "\n";
+  String str = String (_("Creator: "));
+  if (no_timestamps_global_b)
+    str += "GNU LilyPond\n";
+  else
+      str += get_version_str() + "\n";
 
   Midi_text creator (Midi_text::TEXT, str);
   midi_track.add (Moment (0), &creator);
 
-  str = _("Automatically generated at ");
-  str += ctime (&t);
-  str = str.left_str (str.length_i() - 1);
-  str += "\n";
+  str = _("Automatically generated");
+  if (no_timestamps_global_b)
+    str += ".\n";
+  else
+    {
+      str += _(", at ");
+      time_t t (time (0));
+      str += ctime (&t);
+      str = str.left_str (str.length_i() - 1);
+    }
   Midi_text generate (Midi_text::TEXT, str);
   midi_track.add (Moment (0), &generate);
 

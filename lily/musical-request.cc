@@ -438,6 +438,14 @@ Absolute_dynamic_req::do_print() const
 #endif
 }
 
+
+bool
+Absolute_dynamic_req::do_equal_b (Request *r) const
+{
+  Absolute_dynamic_req *a = r->musical ()->dynamic ()->absdynamic ();
+  return loudness_ == a->loudness_;
+}
+
 String
 Dynamic_req::loudness_static_str (Loudness l)
 {

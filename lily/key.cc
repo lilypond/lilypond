@@ -10,15 +10,32 @@
 */
 
 #include "key.hh"
+#include "debug.hh"
 
 const int OCTAVES=14;		// ugh..
 const int ZEROOCTAVE=7;
 
+
+void
+Octave_key::print () const
+{
+  for (int i= 0; i < 7 ; i++)
+    DOUT << "note " << i << " acc: " << accidental_i_arr_[i] << "\n";
+}
+
+
+
 Octave_key::Octave_key()
 {
   accidental_i_arr_.set_size (7);
+  clear ();
+}
+
+void
+Octave_key::clear ()
+{
   for (int i= 0; i < 7 ; i++)
-	accidental_i_arr_[i] = 0;
+    accidental_i_arr_[i] = 0;
 }
 
 Key::Key()
@@ -51,5 +68,21 @@ void
 Key::set (int n, int a)
 {
   for (int i= 0; i < OCTAVES ; i++)
-	octaves[i].set (n,a);
+    octaves[i].set (n,a);
+}
+void
+Key::clear ()
+{
+  for (int i= 0; i < OCTAVES ; i++)
+    octaves[i].clear ();
+}
+void
+Key::print () const
+{
+  for (int i= 0; i < OCTAVES ; i++)
+    {
+      DOUT << "octave " << i - ZEROOCTAVE << " Octave_key { ";
+      octaves[i].print ();
+      DOUT << "}\n";
+    }
 }

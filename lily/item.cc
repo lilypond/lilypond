@@ -77,6 +77,9 @@ Item::do_breakable_col_processing()
   if (!breakable_b_)
     return;
 
+  if (!column_l ()->breakable_b_)
+    return;
+
   copy_breakable_items();
   handle_prebroken_dependencies();
 
@@ -85,7 +88,6 @@ Item::do_breakable_col_processing()
     */
   add_dependency (broken_to_drul_[LEFT]);
   add_dependency (broken_to_drul_[RIGHT]);    
-
 }
 
 Item*

@@ -1,12 +1,11 @@
 //
-// midistream.cc
+// midi-stream.cc
 //
 // source file of the GNU LilyPond music typesetter
 //
 // (c) 1997 Jan Nieuwenhuizen <jan@digicash.com>
 
 #include <fstream.h>
-#include <time.h>
 #include "string.hh"
 #include "string-convert.hh"
 #include "main.hh"

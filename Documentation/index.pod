@@ -61,7 +61,7 @@ top_of_NEWS
 =item *
 <a href=ANNOUNCE-0.1.txt
 >
-The announce of 0.1
+The announcement of 0.1
 </a
 >
 
@@ -258,7 +258,7 @@ B<download> LilyPond and other interesting links
 =item *
 <a href=sconstat/stats.html
 >
-Stats on this page.
+Stats on this page. [temporarily out of order]
 </a
 >
 

@@ -22,6 +22,7 @@ texout = $(top_builddir)/tex
 LYTABLES = $(addprefix $(lyout)/, $(FET_FILES:.mf=.ly))
 TEXTABLES = $(addprefix $(texout)/, $(FET_FILES:.mf=.tex))
 
+export top_srcdir
 
 all-local: $(LYTABLES) $(TEXTABLES)
 

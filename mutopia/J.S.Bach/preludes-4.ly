@@ -45,7 +45,7 @@ one = \melodic{
 	\stemboth
 	[''fis16-1\p ''a-2 'd-5\< 'c-4] [''b-1 'd-2 'g-5 'fis-4]
 	['d-1 'b-5 'a 'g] ['fis-2 'e-1 'd-4 \!'c!-3] |
-	[''b-2 'd-1 'g 'a] ['fis32 'g 'fis16] ['e16-4 'd-3]
+	[''b-2 'd-1 'g 'a] ['fis8-\prall 'e16-4 'd-3]
 	['d8. 'e16~] ['e 'd8 'cis16] |
 	\stemup
 	r16 ['d-1\< 'fis 'd] ['g 'a 'b 'g-1] [c-3 'b c d] [c e d-4 \!c] |

@@ -143,33 +143,34 @@ Slur::height_f () const
   Real nh_f = interline_f / 2;
   Real h = 0;
   Real dx = width ().length ();
-  Real dy = dy_f_drul_[RIGHT] - dy_f_drul_[LEFT];
+//  Real dy = (dy_f_drul_[RIGHT] - dy_f_drul_[LEFT]) * nh_f;
+  Real dy = (dy_f_drul_[RIGHT] - dy_f_drul_[LEFT]);
   Stem* stem = encompass_arr_[0]->stem_l_;
   Real lx = stem->hpos_f ();
-  Real centre = (width ().min () + width ().max ()) / 2;
+  Real centre = (width ().min () + width ().max ()) / 2 + lx;
   Real ly = stem->dir_ == dir_ ? stem->stem_end_f () : stem->stem_begin_f () 
-    + dir_ * nh_f / 2;
+    + dir_ * 0.5;
+  ly *= nh_f;
   for (int i = 0; i < encompass_arr_.size (); i++) 
     {
-      Stem* stem = encompass_arr_[i]->stem_l_;
-      Real sx = abs (centre - stem->hpos_f ());
-      Real sy = stem->dir_ == dir_ ? stem->stem_end_f () 
-        : stem->stem_begin_f () + dir_ * nh_f / 2;
-      sy = dir_ * (sy - (ly + ((stem->hpos_f () - lx) / dx) * dy));
+      Stem* s = encompass_arr_[i]->stem_l_;
+      Real sx = abs (centre - s->hpos_f ());
+      Real stemy = s->dir_ == dir_ ? s->stem_end_f () : s->stem_begin_f () + dir_ * 0.5;
+      stemy *= nh_f;
+      Real sy = dir_ * (stemy - (ly + ((s->hpos_f () - lx) / dx) * dy));
       /*
         uhm, correct for guess bezier curve (more if further from centre)
         forget the cos alpha...
        */
-      if (sy > 0)
-	h = h >? sy * (1 + 2 * sx / dx);
+      if (sy > 0.5 * nh_f)
+	h = h >? (sy * (1 + 2 * sx / dx))*(1 + abs (dy)/32);
     }
-  Real ratio = 1.0/3; // duh
-  /* 
-    correct h for slur ratio
-   */
-  Real staffheight = paper ()->get_var ("barsize");
-  if (h)
-    h *= ((h * interline_f) / dx ) / ratio;
+    if ( h < nh_f )
+      return 0;
+  h *= h/(dx*dx*dx);
+//  h *= 32;
+//  h *= h;
+  h *= 40000;
   return h;
 }
 

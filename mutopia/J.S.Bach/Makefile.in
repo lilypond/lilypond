@@ -106,6 +106,9 @@ M4FILES = preludes-3.ly.m4 wtk1-prelude2.ly.m4
 EXTRA_DIST = Makefile.am.wild $(LYFILES) $(TEXFILES) $(M4FILES)
 
 OUTFILES = $(M4FILES:%.m4=%)
+
+# ugh
+M4 = m4
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../../flower/config.hh
 CONFIG_CLEAN_FILES = 
@@ -196,6 +199,9 @@ mostlyclean distclean maintainer-clean
 
 
 default: all $(OUTFILES)
+
+%.ly: $(srcdir)/%.ly.m4
+	$(M4) $< > $@
 
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
 	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@

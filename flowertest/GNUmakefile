@@ -1,4 +1,4 @@
-# flower/test/GNUmakefile
+# flowertest/GNUmakefile
 #
 # This file helps maintainers to keep their Makefile.am automatically
 # up to date using GNU make features.

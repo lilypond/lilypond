@@ -21,6 +21,7 @@ String get_version_number_str();
 void call_constructors ();
 extern Sources* source_global_l;
 extern bool no_paper_global_b;
+extern bool no_timestamps_global_b;
 extern int exit_status_i_;
 extern bool experimental_features_global_b;
 extern bool postscript_global_b;

@@ -29,6 +29,8 @@ class Graphical_element
   
 public:
   void set_empty (bool);
+  bool empty_b () const;
+  
   DECLARE_MY_RUNTIME_TYPEINFO;
   /**
     This is  needed, because #output# may still be

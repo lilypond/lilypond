@@ -14,26 +14,29 @@
 class Octave_key {
 
 public:
-    Array<int> accidental_i_arr_;
- 
-    Octave_key();
-    void set (int i, int acc);
-    int acc (int i) const { return accidental_i_arr_[i]; }
+  Array<int> accidental_i_arr_;
+  void clear ();
+  Octave_key();
+  void set (int i, int acc);
+  int acc (int i) const { return accidental_i_arr_[i]; }
+  void print () const;
 };
 
 /// administration of accidentals
 class Key
 {
-    /** for each octave a key. Has to be private since octave 0 isn't member 0.
-     */
-    Array<Octave_key> octaves;
+  /** for each octave a key. Has to be private since octave 0 isn't member 0.
+   */
+  Array<Octave_key> octaves;
 public:
-    bool multi_octave_b_;
-    
-    Octave_key&oct (int);
-    void set (int name, int acc);
-    void set (int oct, int name, int acc);
-    Key();
+  bool multi_octave_b_;
+  
+  void clear ();
+  Octave_key&oct (int);
+  void set (int name, int acc);
+  void set (int oct, int name, int acc);
+  Key();
+  void print () const;  
 };
 
 #endif // KEY_HH

@@ -8,6 +8,8 @@ grep for TODO and ugh/ugr
 
 0.2:
 
+	* add full coriolan to website.
+
 	* collisions for local_key.
 
 	* robustify Beam in case of no stems
@@ -19,8 +21,6 @@ grep for TODO and ugh/ugr
 	* use kpsepath to find all TeX dirs
 	- configure.in 
 	- clean-fonts.sh
-
-	* fix MIDI
 
 	* mudela-convert.
 
@@ -66,10 +66,6 @@ grep for TODO and ugh/ugr
 
 	* stem len adjustable
 
-	* mindist for spanners
-
-	
-
 STUFF
 
 
@@ -99,7 +95,6 @@ STUFF
 	- staff title
 
 	* page handling:
-	- papersizes
 	- PS output
 	- optimal pagebreaking.
 
@@ -108,8 +103,6 @@ STUFF
 	* AFM for font input?
 
 3RD PARTY BUGS:
-
-	* gdb on RedHat 5
 
 	* xdvi: PS in magnifying glass.
 
@@ -206,8 +199,6 @@ languages:
 	  make ofi2 TeX, MusiXTex, Display PostScript, PostScript,
 	  Ascii... interpreters. (difficult)
 
-	- poor man's ascii output possible?
-	- MusiXTeX output possible? (would have to be done before break calc.)
 	- NIFF ?
 	- Common Music Notation
 	- PostScript output (esp. Beams, Slurs, etc)
@@ -222,7 +213,6 @@ languages:
 	* TeX spanners , use texbeam.cc as an example (smallish)
 	- Glissando
 	- trill
-	- bracket
 
 	* Rewrite Stem, Beam and Rhythmic_grouping (hairy)
 	- [c8. c32 c32]
@@ -262,17 +252,10 @@ languages:
 	* breaking:
 	- caching breakpoints
 	- saving them
-	- allowing users to set them.
 	- penalties
 	- specify number of lines
 
 	* Rhythmic staff.
-
-	* Baroque superstaff
-
-SEVERELY LACKING:
-
-	* SPEED!
 
 	* multibar rests
 

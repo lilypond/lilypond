@@ -100,10 +100,10 @@ YACC = @YACC@
 ZIP = @ZIP@
 absolute_builddir = @absolute_builddir@
 
-TEXFILES = dyndefs.tex eglerdefs.tex feta11.tex feta13.tex feta16.tex feta19.tex feta20.tex feta23.tex feta26.tex fetdefs.tex lily-mf-defs.tex lily-ps-defs.tex lilyponddefs.tex ltest.tex taupindefs.tex titledefs.tex
+TEXFILES = dyndefs.tex eglerdefs.tex fetdefs.tex lily-mf-defs.tex lily-ps-defs.tex lilyponddefs.tex ltest.tex taupindefs.tex titledefs.tex
 EXTRA_DIST = Makefile.am.wild $(TEXFILES)
 
-CLEANFILES = feta11.tex feta13.tex feta16.tex feta19.tex feta20.tex feta23.tex feta26.tex
+CLEANFILES = 
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../flower/config.hh
 CONFIG_CLEAN_FILES = 

@@ -23,6 +23,8 @@ String filename_str_g;
 // ugh
 Mudela_score* mudela_score_l_g = 0;
 
+bool no_timestamps_b_g = false;
+
 Sources source;
 
 static File_path path;
@@ -46,6 +48,7 @@ usage()
   "  -o, --output=FILE      set FILE as default output\n"
   "  -p, --no-plets         assume no plets\n"
   "  -q, --quiet            be quiet\n"
+  "  -T, --no-timestamps    don't timestamp the output\n"
   "  -s, --smallest=N       assume no shorter (reciprocal) durations than N\n"
   "  -v, --verbose          be verbose\n"
   "  -w, --warranty         show warranty and copyright\n"
@@ -100,6 +103,7 @@ main (int argc_i, char* argv_sz_a[])
 	{0, "no-plets", 'p'},
 	{0, "quiet", 'q'},
 	{1, "smallest", 's'},
+	{0, "no-timestamps", 'T'},
 	{0, "verbose", 'v'},
 	{0, "warranty", 'w'},
 	{0, "no-double-dots", 'x'},
@@ -147,6 +151,9 @@ main (int argc_i, char* argv_sz_a[])
 	    break;
 	case 'q':
 	    level_ver = QUIET_ver;
+	    break;
+	case 'T':
+	    no_timestamps_b_g = true;
 	    break;
 	case 's':
 	  {

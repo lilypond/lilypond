@@ -27,9 +27,6 @@ public:
   Direction dir_;
   Interval sym_int_;
     
-  /// follow the support inside the staff?
-  bool inside_staff_b_;
-
   Real y_;
 
 

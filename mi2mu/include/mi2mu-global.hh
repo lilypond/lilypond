@@ -27,6 +27,7 @@ void warning (String message_str); //, char const* context_ch_C);
 void error (String message_str); //, char const* context_ch_C);
 
 String mi2mu_version_str();
+extern bool no_timestamps_b_g;;
 
 #endif // MI2MU_GLOBAL_HH
 
