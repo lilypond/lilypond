@@ -13,6 +13,7 @@
 
 Collision::Collision()
 {
+    empty_b_ = transparent_b_ =true;
 }
 
 void
