@@ -40,7 +40,6 @@
 	     round-filled-box
 	     text
 	     white-text
-	     tuplet
 	     polygon
 	     draw-line
 	     no-origin

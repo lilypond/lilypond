@@ -42,7 +42,6 @@
 	     round-filled-box
 	     text
 	     white-text
-	     tuplet
 	     polygon
 	     draw-line
 	     no-origin
@@ -172,9 +171,6 @@
 (define (white-text scale s)
    (embedded-ps (list 'white-text scale s)))
    
-(define (tuplet ht gapx dx dy thick dir)
-  (embedded-ps (list 'tuplet  ht gapx dx dy thick dir)))
-
 (define (polygon points blotdiameter)
   (embedded-ps (list 'polygon `(quote ,points) blotdiameter)))
 

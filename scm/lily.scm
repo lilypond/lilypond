@@ -134,7 +134,6 @@ predicates. Print a message at LOCATION if any predicate failed."
     repeat-slash
     round-filled-box
     text
-    tuplet
     white-dot
     white-text
     zigzag-line
