@@ -1,5 +1,16 @@
 2004-10-16  Werner Lemberg  <wl@gnu.org>
 
+	* scripts/lilypond-book.ly (snippet_res): Define group `match'
+	everywhere.
+	Accept more spaces between commands and its arguments and options.
+	Fix some regexps.
+	(output): Remove some newlines in string values and suppress spaces
+	in output.
+	(output_texinfo): Output `output_print_filename' only if not empty.
+	(Lilypond_snippet)[find_toplevel_snippets]: Use group `match'.
+
+2004-10-16  Werner Lemberg  <wl@gnu.org>
+
 	* scm/framework-tex.scm (font-load-command, define-fonts): Protect
 	some TeX line ends with `%' to avoid additional horizontal space in
 	output.
