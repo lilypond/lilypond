@@ -4,7 +4,7 @@ The appearance of slurs may be changed from solid to dotted or dashed.
 "
 } 
 \score{
-	\notes{
+	\notes\relative c'{
 		c( d e  c) |
 		\slurDotted
 		c( d e  c) |
@@ -16,10 +16,6 @@ The appearance of slurs may be changed from solid to dotted or dashed.
 		c( d e  c) |
 	}
 	\paper{ raggedright=##t }
-%	      indent = 0.0\pt
-		%for broken!
-		% linewidth= 30.\mm
-%	}
 }
 
 

@@ -22,6 +22,7 @@ protected:
   Moment last_moment_;
   
   virtual void start_translation_timestep ();
+  virtual void initialize ();
   virtual void stop_translation_timestep ();
 
 public:
@@ -35,6 +36,22 @@ Timing_engraver::Timing_engraver ()
 }
 
 
+void
+Timing_engraver::initialize ()
+{
+  Timing_translator::initialize ();
+  
+  SCM which = get_property ("whichBar");
+  Moment now = now_mom ();
+  
+  /* Set the first bar of the score? */
+  if (!gh_string_p (which))
+    which = (now.main_part_ || now.main_part_ == last_moment_.main_part_)
+      ? SCM_EOL : scm_makfrom0str ("|");
+
+  daddy_context_->set_property ("whichBar", which);
+}
+
 
 void
 Timing_engraver::start_translation_timestep ()
@@ -47,9 +64,7 @@ Timing_engraver::start_translation_timestep ()
 
   /* Set the first bar of the score? */
   if (!gh_string_p (which))
-    which
-      = (now.main_part_ || now.main_part_ == last_moment_.main_part_)
-      ? SCM_EOL : scm_makfrom0str ("|");
+    which = SCM_EOL;
 
   Moment mp = measure_position ();
   bool start_of_measure = (last_moment_.main_part_ != now.main_part_
