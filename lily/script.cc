@@ -42,7 +42,6 @@ Script::set_stem (Stem*st_l)
 Script::Script()
 {
   specs_l_ = 0;
-  inside_staff_b_ = false;
   stem_l_ = 0;
   dir_ =  CENTER;
 }
