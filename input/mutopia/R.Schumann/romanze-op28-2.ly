@@ -3,8 +3,8 @@
 
 \include "deutsch.ly"
 
-\include "paper16.ly"
-\version "2.1.7"
+#(set-staff-size 16)
+\version "2.1.11"
 
 \header {
   title = "Romanzen"

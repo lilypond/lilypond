@@ -726,7 +726,8 @@ def compose_full_body (body, opts):
 	body = r'''
 %% Generated automatically by: lilypond-book.py
 %% options are %s
-\include "paper%d.ly"
+#(set-staff-size %d)
+
 \paper  {
   %s
   %s

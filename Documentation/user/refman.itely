@@ -8450,8 +8450,9 @@ There is no convenient mechanism to manually override spacing.
 @cindex @code{paper} file
 
 The Feta font provides musical symbols at eight seven different
-sizes. Each font is tuned for a different staff size, which are listed
-in the following table:
+sizes. Each font is tuned for a different staff size: at smaller sizes
+the font gets heavier, to match the relatively heavier staff lines.
+The recommended font sizes are listed in the following table:
 
 @multitable @columnfractions  .3 .3 .4  
 
@@ -8503,32 +8504,19 @@ in the following table:
 
 @end multitable
 
-These standard sizes can be used by including the file @file{paperSZ.ly}, where
-@code{SZ} is one of 11, 13, 16, 20, 23 and 26.  If you include any
-of these files, the variables @code{paperEleven},
-@code{paperThirteen}, @code{paperSixteen},  @code{paperEightteen}, 
-@code{paperTwenty}, @code{paperTwentythree}, and @code{paperTwentysix}
-are defined respectively.  The default @code{\paper} block is also
-set. These files should be imported at toplevel, i.e.
+These fonts are available in any sizes. The context property
+@code{fontSize} and the layout property @code{staff-space} (in
+@internalsref{StaffSymbol}) can be used to tune size for individual
+staffs. The size of individual staffs are relative to the global size,
+which can be set   in the following manner:
+
 @example
-        \include "paper26.ly"
-        \score @{  ... @}
+  #(set-staff-size 14)
 @end example
 
-Sizes can also be
+This sets the global default size to 14pt staff height, and scales all
+fonts accordingly.
 
-
-The default font size settings for each staff heights are generated
-from the 20pt style sheet. For more details, see the file
-@file{scm/font.scm}.
-
-
-  of starting from 11 point
-(.  These fonts are 11 point, 13 point, 16 point, 20 point, 23 point,
-and 26 point.  The point size of a font is the height of the
-corresponding staff (excluding line thicknesses).
-
-Definitions for these sizes are the files
 
 
 @node Line breaking
@@ -8637,20 +8625,12 @@ The predefined command @code{\newpage} also does this.
 @cindex page size
 @cindex @code{papersize}
 
-To change the paper size, you must first set the @code{papersize} paper 
-variable variable as in the example below.  Set it to
-the strings @code{a4}, @code{letter}, or @code{legal}.  After this
-specification, you must set the font as described above.  If you want
-the default font, then use the 20 point font.
-
+To change the paper size, use the following Scheme code:
 @example
-        \paper@{ papersize = "a4" @}
-        \include "paper16.ly"
+        \paper@{
+           #(set-paper-size "a4")
+        @}
 @end example
-
-The file @code{paper16.ly}  will now include a file named @file{a4.ly}, which
-will set the paper variables @code{hsize} and @code{vsize} (used by
-@code{lilypond-book} and @code{lilypond}).
 
 
 @refcommands

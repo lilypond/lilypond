@@ -1,4 +1,3 @@
-#(ly:set-option 'old-relative)
 \header {
   title =       "Fuga a 3 voci"
   opus =        "BWV 847-Fuga"
@@ -34,7 +33,6 @@
  the few forced linebreaks were an earlier attempt to get the spacing
  to match up.
 
-%\include "paper19.ly" 
 %}
 
 

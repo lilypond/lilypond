@@ -1,12 +1,12 @@
 #(ly:set-option 'old-relative)
-\version "2.1.7"
+\version "2.1.11"
 \header {
 texidoc = "@cindex Midi Volume Equaliser
 The full orchestra plays a notes, where groups stop one after
 another. Use this to tune equalizer settings. "
 }
 
-\include "paper16-init.ly"
+#(set-staff-size 16)
 
 %{
 
