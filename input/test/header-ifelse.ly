@@ -5,8 +5,9 @@
   (define pieceTagLine (string-append "Jeremie " (lilypond-version) " was here")))
 
 \header{
-tagline = \pieceTagLine
-texidoc = "
+
+    tagline = \pieceTagLine
+    texidoc = "
 
 High level functionality (eg. conditional defines),
 can be accomplished with GUILE.
