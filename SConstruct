@@ -696,7 +696,9 @@ env.Alias ('release', patch)
 web_base = os.path.join (outdir, 'web')
 web_ball = os.path.join (web_base, '.tar.gz')
 env['footify'] = 'MAILADDRESS=bug-lilypond@gnu.org $PYTHON stepmake/bin/add-html-footer.py --name=lilypond --version=$TOPLEVEL_VERSION'
-env['web_ext'] = ['.html', '.ly', '.midi', '.pdf', '.png', '.ps.gz', '.txt',]
+web_ext = ['.html', '.ly', '.midi', '.pdf', '.png', '.ps.gz', '.txt',]
+web_path = '-path "*/$out/*"' + string.join (web_ext, ' -or -path "*/$out/*"')
+env['web_path'] = web_path
 
 # compatible make heritits
 # fixme: generate in $outdir is cwd/builddir
@@ -705,15 +707,14 @@ env.Command (web_ball, 'doc',
 	      'cd $absbuild && $footify $$(find . -name "*.html" -print)',
 	      # uhg?
 	      'cd $absbuild && rm -f $$(find . -name "*.html~" -print)',
-	      'cd $absbuild && find Documentation input \
-	      -path foo $web_path -false \
+	      'cd $absbuild && find Documentation input $web_path \
 	      > $out/weblist',
 	      '''echo '<META HTTP-EQUIV="refresh" content="0;URL=Documentation/out-www/index.html">' > $absbuild/index.html''',
 	      '''echo '<html><body>Redirecting to the documentation index...</body></html>' >> $absbuild/index.html''',
 	      # UGHR?  all .html cruft in cwd goes into the web ball?
 	      'cd $absbuild && ls *.html >> $out/weblist',
 	      'cat $out/weblist | (cd $absbuild; \
-	      GZIP=-9v tar -czf $web_ball  -T -)',])
+	      GZIP=-9v tar -czf ${TARGET.file}  -T -)',])
 env.Alias ('web', web_ball)
 
 #### tags
