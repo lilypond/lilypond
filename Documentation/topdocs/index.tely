@@ -188,8 +188,7 @@ substitute @code{unsubscribe} where you would put @code{subscribe}.
 
 These pages were entirely created from a @strong{development snapshots}
 of the LilyPond package.  The version of this webpage is printed at the
-bottom. If you want to volunteer for making more beautiful webpages,
-then please mail us!
+bottom.
 
 @html
 <p align=center>
