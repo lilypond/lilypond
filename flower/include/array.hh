@@ -183,8 +183,6 @@ public:
     {
       return (*this)[size_-j-1];
     }
-
-
   
   T& boundary (int dir, int idx)
     {

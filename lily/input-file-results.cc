@@ -50,6 +50,8 @@ argument is a symbol.  Possible options are @code{none} (no source specials),
 
   extern SCM lily_module; 
   scm_module_define (lily_module, ly_symbol2scm ("point-and-click"), val);
+
+  store_locations_global_b =gh_procedure_p (val);
   return SCM_UNSPECIFIED;
 }
 

@@ -75,13 +75,7 @@ Score::~Score ()
 void
 Score::run_translator (Music_output_def *odef)
 {
-  /*
-    We want to know if we want to store locations, since they take a
-    lot of overhead.
-  */
-  store_locations_global_b = (gh_eval_str ("point-and-click") !=  SCM_BOOL_F);
-  
-  Cpu_timer timer;
+   Cpu_timer timer;
   Global_translator * trans = odef->get_global_translator ();
   if (!trans)
     {

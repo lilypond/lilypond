@@ -1376,6 +1376,8 @@ string_event:
 event_that_take_dir:
 	gen_text_def
 	| verbose_event
+	| close_event
+	| open_event
 	| script_abbreviation {
 		SCM s = THIS->lexer_->lookup_identifier ("dash" + ly_scm2string ($1));
 		Music *a = MY_MAKE_MUSIC("ArticulationEvent");
@@ -2061,10 +2063,7 @@ number_term:
 	;
 
 number_factor:
-	'(' number_expression ')'	{
-		$$ = $2;
-	}
-	| '-'  number_factor { /* %prec UNARY_MINUS */
+	'-'  number_factor { /* %prec UNARY_MINUS */
 		$$ = scm_difference ($2, SCM_UNDEFINED);
 	}
 	| bare_number

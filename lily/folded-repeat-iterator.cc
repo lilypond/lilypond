@@ -127,9 +127,9 @@ Folded_repeat_iterator::enter_alternative ()
   Repeated_music *  mus = dynamic_cast<Repeated_music *> (get_music ());  
   if (mus->alternatives ())
     {
-  /*
-    ugh.
-   */ 
+      /*
+	ugh.
+      */ 
       Simultaneous_music_iterator * s = new Simultaneous_music_iterator;
       s->separate_contexts_b_ = true;
       s->init_translator (mus, report_to ());
