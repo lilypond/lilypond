@@ -2,7 +2,7 @@
 
 My_flex_lexer		1
 yyFlexLexer		1
-PCol			1
+PCol			0
 Score_column		0
 Ineq_constrained_qp 	1
 Spacing_problem 	0
@@ -12,17 +12,17 @@ PScore			1
 Idealspacing		1
 
 # yydebug
-Parser			1
+Parser			0
 
 # FlexLexer debug
-Lexer			1
+Lexer			0
 
 parse_duration		1
 parse_pitchmod		1
 Col_configuration	1
-Request			1
+Request			0
 Note_req		0
-Rhythmic_req		1
+Rhythmic_req		0
 Rest_req		1
 delete_identifiers	1
 Command			1
@@ -33,6 +33,6 @@ Score			1
 Voice			0
 Voice_element		0
 Input_cursor		1
-Commands_at		1
+Commands_at		0
 Input_command		0
-Time_description	1
+Time_description	0

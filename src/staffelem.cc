@@ -37,24 +37,35 @@ Interval
 Staff_elem::width() const
 {
     Molecule*m= brew_molecule();
-    Interval r = m->extent().x;
+    Interval r;
 
-    if (!r.empty())		// float exception on DEC Alpha
-	 r+=offset_.x;
+    if (!output){
+	Molecule*m	= brew_molecule();
+	r = m->extent().x;
+	delete m;
+    } else
+	r = output->extent().x;
+  
+    if (!r.empty()) // float exception on DEC Alpha
+	r+=offset_.x;
 
-    delete m;
     return r;
 }
 Interval
 Staff_elem::height() const
 {
-    Molecule*m= brew_molecule();
-    Interval r = m->extent().y;
+    Interval r;
 
- 
+    if (!output){
+	Molecule*m	= brew_molecule();
+	r = m->extent().y;
+	delete m;
+    } else
+	r = output->extent().y;
+    
     if (!r.empty())
 	r+=offset_.y;
-     delete m;
+
   
     return r;
 }

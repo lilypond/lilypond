@@ -185,7 +185,7 @@ Simple_walker::process_requests()
 
 	if (sl->spantype == Span_req::START) {
 	    if  (find_slur(sl->elt_l_->voice_ )>=0)
-		error_t("Too many slurs in voice", col()->when());
+		error_t("Too many slurs in voice", *col()->tdescription_);
 	    pending_slur_reqs.add(sl);
 	    pending_slurs.add(new Slur);
 	}
@@ -206,7 +206,7 @@ Simple_walker::process_requests()
     if (beam_) {
 	if (!stem_)
 	    WARN <<"beamed note should have a stem (t = " 
-		  <<String(c->when())<<"\n";
+		  <<String(c->when())<<")\n";
 	else
 	    beam_->add(stem_);
 
@@ -219,6 +219,7 @@ Simple_walker::process_requests()
     }
 
     if (c->beam_&& c->beam_->spantype == Span_req::STOP) {
+	default_grouping.extend(current_grouping->interval());
 	beam_->set_grouping(default_grouping, *current_grouping);
 	pscore_->typeset_spanner(beam_, s->theline);
 
@@ -251,7 +252,7 @@ Simple_walker::process_requests()
 	if (sl->spantype == Span_req::STOP) {
 	    int idx = find_slur(sl->elt_l_->voice_);
 	    if (idx < 0)
-		error_t("can't find slur to end; ", c->when());
+		error_t("can't find slur to end; ", *c->tdescription_);
 	    
 	    pscore_->typeset_spanner(pending_slurs[idx],
 				     s->theline);

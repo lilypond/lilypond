@@ -71,7 +71,7 @@ score {
 		unitspace 2.5cm	% a whole note takes 2.5 cm ideally.
 	}
 	commands {
-		meter 2 4 	% a 2/4 meter.
+		meter 2* 4 	% a 2/4 meter.
 		skip 33:0	% skip 32 measures, and generate the bars
 %		meter 6 8 	% another meter
 	}

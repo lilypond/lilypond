@@ -1,7 +1,7 @@
 /*
   staffelem.hh -- part of LilyPond
 
-  (c) 1996 Han-Wen Nienhuys
+  (c) 1996,97 Han-Wen Nienhuys
 */
 
 #ifndef STAFFELEM_HH
@@ -63,6 +63,11 @@ private:
       NULL.
       */
 };
+/** Both Spanner and Item are Staff_elem's. Most Staff_elem's depend
+  on other Staff_elem's, eg, Beam needs to know and set direction of
+  Stem. So the Beam has to be calculated *before* Stem. This is
+  accomplished with the dependencies field of struct Staff_elem.
 
+  */
 #endif // STAFFELEM_HH
 

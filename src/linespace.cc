@@ -46,7 +46,11 @@ Spacing_problem::OK() const
     for (int i = 0; i < cols.size(); i++) {
 	bool c=false;
 	for (int j =0; j<fixed.size(); j++)
-	    c |=  connected.equiv(j,i);
+	    c |=  connected.equiv(fixed[j],i);
+	if (!c)
+	    WARN << "You have unconnected columns. \n"
+		"Check if bars and music fit each other\n"
+		"(crashing :-)\n";
 	assert(c);
     }
 #endif    
@@ -56,12 +60,12 @@ bool
 Spacing_problem::check_constraints(Vector v) const 
 {
     int dim=v.dim();
-    // mtor << "checking solution " << v << '\n';
     for (int i=0; i < dim; i++) {
 
-	if (cols[i].fixed()&& abs(cols[i].fixed_position() - v(i)) > COLFUDGE) {
+	if (cols[i].fixed()&&
+	    abs(cols[i].fixed_position() - v(i)) > COLFUDGE) 
 	    return false;
-	}
+	
 	if (!i) 
 	    continue;
 	
@@ -73,18 +77,8 @@ Spacing_problem::check_constraints(Vector v) const
 	bool b = (dif > - COLFUDGE);
 	
 
-#if 1
 	if (!b)
 	    return false;
-
-#else
-	mtor << "dif= "<<dif<<" fudge= " << COLFUDGE<< " dif >fudge= "<<
-	    b << "\n";
-	
-	/* fucks up for unknown reasons */
-	if (dif  < -COLFUDGE)
-	    return false;
-#endif
 
     }
     return true;

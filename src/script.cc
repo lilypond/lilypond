@@ -40,16 +40,17 @@ Script::set_default_dir()
 void
 Script::set_default_pos()
 {
-    Real inter= paper()->internote();
+    Real inter_f= paper()->internote();
     Interval dy = symbol().dim.y;
     
     int d = specs_l_->staffdir;
+    Real y  ;
     if (!d) {
 	Interval v= support->height();
-	pos = rint((v[dir]  -dy[-dir])/inter) + dir* 2;
+	y = v[dir]  -dy[-dir] + 2*dir*inter_f;
     } else {
 	Real y  = (d > 0) ? staffsize + 2: -2; // ug
-	y *=inter;
+	y *=inter_f;
 	Interval v= support->height();
 
 	if (d > 0) {
@@ -57,18 +58,18 @@ Script::set_default_pos()
 	} else if (d < 0) {
 	    y = y <? v.min();
 	}
-
-	if (stem_l_) {
-	    Interval v= stem_l_->height();
-
-	    if (d > 0) {
-		y = y >? v.max();
-	    }else if (d < 0) {
-		y = y <? v.min();
-	    }
-	}
-	pos = int(rint(Real(y)/inter));
     }
+    if (stem_l_) {
+	Interval v= stem_l_->height();
+
+	if (d > 0 || (!d && dir > 0)) {
+	    y = y >? v.max();
+	}else if (d < 0 || (!d && dir < 0)) {
+	    y = y <? v.min();
+	}
+    }
+    
+    pos = int(rint(Real(y)/inter_f));
 }
 
 Interval
@@ -80,8 +81,8 @@ Script::width() const
 Symbol
 Script::symbol()const
 {
-    String preidx = (symdir < 0) ?"-" :"";
-    return paper()->lookup_p_->script(preidx+specs_l_->symidx);
+    String preidx_str = (symdir < 0) ?"-" :"";
+    return paper()->lookup_p_->script(preidx_str + specs_l_->symidx);
 }
 
 void

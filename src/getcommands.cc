@@ -49,10 +49,7 @@ split_bar_command(Command &pre_com, Command &no_break_com, Command &post_com,
     if(s=="default")
 	s = "|";
     
-    if (s == "|" || s == ":|" || s == "||") {
-	c.args.add(s);
-	pre_com= no_break_com= c;	
-    } else if (s == ":|:") {
+    if (s == ":|:") {
 	no_break_com=post_com=pre_com = c;
 	
 	pre_com.args.add( ":|");
@@ -61,5 +58,8 @@ split_bar_command(Command &pre_com, Command &no_break_com, Command &post_com,
     }else if (s=="|:") {
 	c.args.add(s);
 	no_break_com=post_com=c;
+    } else {
+	c.args.add(s);
+	pre_com= no_break_com= c;	
     } 
 }

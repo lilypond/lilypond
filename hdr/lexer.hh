@@ -36,6 +36,7 @@ struct My_flex_lexer : yyFlexLexer {
     int lookup_keyword(String);
     void lookup_notename(int &large, int &small, String s);
     void LexerError(const char *);
+    String spot() const;
     Identifier*lookup_identifier(String s);
     My_flex_lexer();
     void add_identifier(Identifier*i);

@@ -12,7 +12,7 @@ Staff_column::OK() const
 	assert(tdescription_->when == when());
 	assert(*tdescription_ == staff_commands_p_->tdescription_);
     }
-    #endif
+#endif
 }
 
 bool

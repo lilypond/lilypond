@@ -13,8 +13,10 @@ Score::process()
     *mlog << "\nProcessing music ... ";
     
     assert (paper_p_);
-    
-    /// distribute commands to disciples
+    if (last() == Moment(0)) {
+	error("Need to have music in a score.");
+    }
+    // distribute commands to disciples
     pscore_p_ = new PScore(paper_p_);
     for (iter_top(staffs_,i); i.ok(); i++) {
 	i->truncate_cols(last());
@@ -25,6 +27,7 @@ Score::process()
     // do this after processing, staffs first have to generate PCols.
     find_col(last(), false)->set_breakable();
     do_cols();
+    print();
     calc_idealspacing();
 
     // debugging
@@ -42,7 +45,7 @@ Score::clean_cols()
     
     for (iter_top(cols_,c); c.ok(); ) {
 	if (!c->pcol_l_->used()) {
-	    c.del();
+	    delete c.get();
 	} else {
 	    c->preprocess();
 	    c++;
@@ -53,7 +56,6 @@ Score::clean_cols()
   this sux.  We should have Score_column create the appropriate PCol.
   Unfortunately, PCols don't know about their position.    
   */
-// todo
 PCursor<Score_column*>
 Score::create_cols(Moment w)
 {
@@ -174,7 +176,9 @@ Score::output(String s)
 	paper_p_->outfile = s;
     
     *mlog << "output to " << paper_p_->outfile << "...\n";
-    Tex_stream the_output(paper_p_->outfile);    
+    
+    Tex_stream the_output(paper_p_->outfile);
+    the_output << "% outputting Score, defined at: " << define_spot_str_ << "\n";
     pscore_p_->output(the_output);
 }
 
@@ -187,3 +191,16 @@ Score::add(Staff*s)
     staffs_.bottom().add(s);
 }
 
+void
+Score::add_marks(Array<String> s_arr, Array<Moment> m_arr)
+{
+    for (int i=0; i < s_arr.size(); i++) {
+	String mark_str (s_arr[i]);
+	if (markers_assoc_.elt_query(mark_str) &&
+	    m_arr[i] != markers_assoc_[mark_str])
+	    
+	    error("Conflicting marker: `" + s_arr[i]+ "\'");
+	else
+	    markers_assoc_[s_arr[i]] = m_arr[i];
+    }
+}

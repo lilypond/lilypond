@@ -3,10 +3,14 @@
 #include "varray.hh"
 #include "proto.hh"
 #include "plist.hh"
+#include "string.hh"
 
 
 /// the total music def of one movement
 struct Input_score {
+    /// defined where?    
+    String define_spot_str_;
+    
     /// paper_, staffs_ and commands_ form the problem definition.
     Paperdef *paper_;
     IPointerList<Input_staff*> staffs_;

@@ -1,10 +1,10 @@
-% pavane pour une Infante d\'efunte
-% 
-% Maurice Ravel
+% Pavane pour une Infante d\'efunte
+% by Maurice Ravel
 %
 % (Ravel has been dead for over 50 years. This does not have copyright)
 %
-
+% (there is an accompanying LaTeX file, pavane.tex)
+%
 horn =
 staff {melodic
 	music{ 	$
@@ -99,20 +99,21 @@ score {
 		output "pavane.out"
 		unitspace 1.5 cm
 		geometric 1.4
+		width 12cm
 	}
 	commands  {
-		meter 4 4
+		meter 4 *4
 		skip 18:0
-		meter 2 4
+		meter 2 *4
 		skip 1:0
-		meter 4 4 
+		meter 4 *4 
 		skip 20:0
 		bar "|:"
 		skip 9:0
-		meter 2 4
+		meter 2* 4
 		skip 1:0
 		bar ":|"
-		meter 4 4
+		meter 4* 4
 		skip 13:0
 		bar "||"
 	}

@@ -66,9 +66,10 @@ Lookup::beam(Real &slope, Real width)
     int sidx = slope_index(slope);
     if (!slope)
 	return rule_symbol(convert_dimen(2,"pt"), width);
-    if (width < convert_dimen(2,"pt"))
-	error("Beam too narrow. " );
-    
+    if (width < convert_dimen(2,"pt")) {
+	WARN<<"Beam too narrow.\n";
+	width = convert_dimen(2,"pt");
+    }
     Real elemwidth = convert_dimen(64,"pt");
     int widx = 5;
 

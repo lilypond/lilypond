@@ -100,11 +100,15 @@ Rhythmic_grouping::intersect(MInterval t)
 
 }
 
+/* I really should be documenting what is happening here, but I find
+  that difficult, since I don't really understand what's going on here.
+
+  */
 void
 Rhythmic_grouping::split(Array<MInterval> splitpoints)
 {
     //check on splitpoints..
-    int j = 0, i=0, starti = 0, startj = 0;
+    int j = 0, i = 0, starti = 0, startj = 0;
     
     Array<Rhythmic_grouping*> ch;
     while (1) {
@@ -162,8 +166,7 @@ Rhythmic_grouping::Rhythmic_grouping(Array<Rhythmic_grouping*> r)
 
 Rhythmic_grouping::~Rhythmic_grouping()
 {
-    junk();
-    
+    junk();    
 }
 
 void
@@ -289,3 +292,28 @@ Rhythmic_grouping::generate_beams(Array<int> flags, int &flagidx)
     return beams;
 }
 
+void
+Rhythmic_grouping::translate(Moment m)
+{
+    if (interval_)
+	*interval_ += m;
+    else
+	for (int i=0; i < children.size(); i++)
+	    children[i]->translate(m);
+}
+
+void
+Rhythmic_grouping::extend(MInterval m)
+{    
+    assert(m.left >= interval().left);
+    while (m.right  >interval().right ) {
+	Array<Rhythmic_grouping*> a(children);
+	for (int i=0; i < a.size(); i++) {
+	    a[i] =new Rhythmic_grouping(*children[i]);
+	    a[i]->translate(children.last()->interval().right);	    
+	}
+	children.concat(a);
+    }
+    assert(m.right <= interval().right);
+    OK();
+}

@@ -1,8 +1,8 @@
 #include "getcommand.hh"
 #include "debug.hh"
+#include "score.hh"
 #include "inputmusic.hh"
 #include "inputstaff.hh"
-#include "inputcommands.hh"
 #include "inputcommand.hh"
 #include "staffcommands.hh"
 #include "melodicstaff.hh"
@@ -30,7 +30,7 @@ Input_staff::add(Input_music*m)
 }
 
 Staff*
-Input_staff::parse(PointerList<Input_command*> score_wide, Score*score_l)
+Input_staff::parse(Score*score_l)
 {
     Staff *p=0;
     
@@ -39,29 +39,30 @@ Input_staff::parse(PointerList<Input_command*> score_wide, Score*score_l)
     else if (type == "rhythmic")
 	p = new Rhythmic_staff;
     p->score_l_ = score_l;
+    p->define_spot_str_ = define_spot_str_;
+    
     for (iter_top(music_,i); i.ok(); i++) {
 	Voice_list vl = i->convert();
 	p->add(vl);
     }
-
-    Input_commands commands;
-    for (iter_top(score_wide,i); i.ok(); i++) 
-	commands.add(**i);
-    for (iter_top(commands_,i); i.ok(); i++) 
-	commands.add(**i);
-
-    commands.parse(p);
-
+    
+    {
+	Array<String> mark_arr;
+	Array<Moment> moment_arr;
+	p->get_marks(mark_arr, moment_arr);
+	score_l->add_marks(mark_arr, moment_arr);
+    }
+    
     return p;
 }
 
-Input_staff::Input_staff(Input_staff&s)
+Input_staff::Input_staff(Input_staff const&s)
 {
     for (iter_top(s.commands_,i); i.ok(); i++)
 	commands_.bottom().add(new Input_command(**i));
     for (iter_top(s.music_,i); i.ok(); i++)
 	add(i->clone());
-
+    define_spot_str_ = s.define_spot_str_;
     type = s.type;
 }
 

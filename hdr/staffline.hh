@@ -1,7 +1,7 @@
 /*
   staffline.hh --     horizontal structures for broken scores.
 
-  (c) 1996 Han-Wen Nienhuys
+  (c) 1996,97 Han-Wen Nienhuys
 */
 
 #ifndef STAFFLINE_HH

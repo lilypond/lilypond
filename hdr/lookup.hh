@@ -1,5 +1,5 @@
 /*
-  lilypond, (c) 1996 Han-Wen Nienhuys
+  lilypond, (c) 1996,97 Han-Wen Nienhuys
 */
 #ifndef LOOKUPSYMS_HH
 #define LOOKUPSYMS_HH

@@ -1,7 +1,7 @@
 /*
   inputcommands.hh -- part of LilyPond
 
-  (c) 1996 Han-Wen Nienhuys
+  (c) 1996,97 Han-Wen Nienhuys
 */
 
 #ifndef INPUTCOMMANDS_HH
@@ -19,7 +19,7 @@ struct Commands_at : public IPointerList<Input_command*> {
     /****************/
 
     Moment when();
-    void     parse(Staff_commands_at*);
+    void parse(Staff_commands_at*);
     void print() const;
     Moment barleft();
     void add(Input_command*);
@@ -45,7 +45,7 @@ struct Input_commands : public IPointerList<Commands_at*> {
     /****************/
 
     void find_moment(Moment);
-    void add(Input_command c);
+    void add(Input_command c,Assoc<String,Moment> &marks_assoc_r);
     void do_skip(int bars, Moment wholes);
         
     Input_commands();

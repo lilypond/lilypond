@@ -7,6 +7,7 @@ void set_debug(bool);
 void do_scores();
 void add_score(Input_score * s);
 void set_default_output(String s);
+String find_file(String);
 const char *get_version();
 
 #endif

@@ -16,7 +16,7 @@ Simple_column::Simple_column(Score_column*s, Simple_staff *rs)
 {
     stem_requester_len = 0;
     stem_ = 0;    
-    staff_ = rs;
+    staff_l_ = rs;
     beam_ = 0;
     text_=0;
 }
@@ -47,7 +47,6 @@ Simple_column::process_requests()
 		    error("Barcheck failed, " + tdescription_->str());
 		}
 	    }
-				   
 	    if (rq->rhythmic()){
 		notes.add(rq->rhythmic());
 	    }

@@ -45,6 +45,24 @@ get_partial_command(Moment u)
 }
 
 Input_command*
+get_goto_command(String s)
+{
+    Input_command*c = new Input_command;
+    c->args.add("GOTO");
+    c->args.add(s);
+    return c;
+}
+
+Input_command*
+get_cadenza_toggle(int i)
+{
+    
+    Input_command*c = new Input_command;
+    c->args.add("CADENZA");
+    c->args.add(i);
+    return c;
+}
+Input_command*
 get_grouping_command(Array<int>a ) 
 {
     Input_command*c = new Input_command;
@@ -90,9 +108,7 @@ Input_command *
 get_newmeasure_command()
 {
     Input_command*c = new Input_command;
-
     c->args.add( "NEWMEASURE");
-
     return c;
 }
 
@@ -112,6 +128,7 @@ get_skip_command(int n, Moment m)
 void
 Input_command::print()const
 {
+#ifndef NPRINT
     mtor << "{ ";
     if (args.size()) {
 	mtor<< " args: ";
@@ -119,6 +136,7 @@ Input_command::print()const
 	    mtor << "`"<<args[i] <<"',";
     }
     mtor << "}\n";
+#endif    
 }
 
 Input_command*

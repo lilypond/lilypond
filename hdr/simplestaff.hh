@@ -1,7 +1,7 @@
 /*
   simplestaff.hh -- part of LilyPond
 
-  (c) 1996 Han-Wen Nienhuys
+  (c) 1996,97 Han-Wen Nienhuys
 */
 
 #ifndef SIMPLESTAFF_HH
@@ -32,7 +32,7 @@ struct Simple_column : Staff_column {
     Stem_req *stem_;
     Moment stem_requester_len;
     Beam_req *beam_;
-    Simple_staff* staff_;
+    Simple_staff* staff_l_;
     Text_req *text_;
     
     /****************/

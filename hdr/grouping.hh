@@ -1,7 +1,7 @@
 /*
   grouping.hh -- part of LilyPond
 
-  (c) 1996 Han-Wen Nienhuys
+  (c) 1996,97 Han-Wen Nienhuys
 */
 
 #ifndef GROUPING_HH
@@ -44,6 +44,9 @@ struct Rhythmic_grouping {
 
     Array<int> generate_beams(Array<int>, int&);
 
+    /// multiply self to span #i#
+    void extend(MInterval i);
+    void translate(Moment);
 private:
     void init();
     void junk();

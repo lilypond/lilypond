@@ -1,13 +1,30 @@
+
+pl 23:
+	- TODO file inc'd
+	- cadenza mode.
+	- default extension, search path.
+	- error.pod,faq.pod
+	- Markers
+	- configure script
+	- scrapped VPATH
+	- inputfile name in output.
+Internal changes:
+	- Split Input_* parsing steps to enable marking	
+Bugfixes:
+	- unconnected columns
+
+
 pl 22:
 	- doco from mpp
 	- repeat signs
 	- | checks for bar in a voice (Barcheck_req)
 Internal changes:
 	- naming (Hungarian notation, svec vs. Array)
-	- huge memleak fixed; unearthed lots of bugs
-	- bug noteheadswap
 	- cleanup PScore, Score
 	- removed Staff_commands, plugging commands into Staff_column directly
+Bugfixes:
+	- bug noteheadswap
+	- huge memleak fixed; unearthed lots of bugs
 
 pl 21:
 	- scripts

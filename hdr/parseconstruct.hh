@@ -1,13 +1,15 @@
 /*
   parseconstruct.hh -- part of LilyPond
 
-  (c) 1996 Han-Wen Nienhuys
+  (c) 1996,97 Han-Wen Nienhuys
 */
 
 #ifndef PARSECONSTRUCT_HH
 #define PARSECONSTRUCT_HH
 
 #include "proto.hh"
+
+Voice_element*get_mark_element(String);
 void set_default_duration(int *);
 void get_default_duration(int *);
 void set_default_octave(String);

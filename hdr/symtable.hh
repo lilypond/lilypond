@@ -1,5 +1,5 @@
 /*
-  lilypond, (c) 1996 Han-Wen Nienhuys
+  lilypond, (c) 1996,97 Han-Wen Nienhuys
 */
 #ifndef SYMTABLE_HH
 #define SYMTABLE_HH

@@ -1,0 +1,117 @@
+BUGS
+	* first clef
+
+	* position of key acc's
+
+SEVERELY LACKING:
+
+	* grace notes
+
+INPUTLANGUAGE
+
+	* figured bass?
+
+	* transposition
+
+	* voicegroups.
+
+	* rest name configurable
+
+SMALLISH PROJECTS
+
+	* Lookup::tex_glissando, Lookup::tex_bracket,
+	Lookup::tex_cresc, Lookup::tex_decresc (use texbeam.cc as an
+	example.)
+
+	* Decent TeX titledefs (\tempo, \metron, etc. )
+
+	* command priority into enum
+	
+	* C meter iso 4/4
+
+	* textspanner: dir of beam.
+
+	* script-spacing
+
+	* Brackets
+
+	* space rest.
+
+	* use (char *) iso. String for communication between lexer and parser.
+
+	* As vs. as  notename.
+
+	* configure idealspacing: arithmetic spacing
+
+	* fix symbols in parser.o: `Warning: size of symbol'
+
+	* Viola clef (->jan?!)
+
+DOC
+
+	* beam generation.
+
+	* all errors
+
+FUTURE
+
+	* Text_pstaff/Lyric_staff
+
+	* put requests on barcommands 
+
+	* glissando
+
+	* guitar chord
+
+	* better beamslope calculation
+
+	* implement better breaking algorithm
+
+	* check out linux -> go32 crosscompiler: dos port
+
+	* Implement all requests
+
+	* QLP for beams?
+
+	* stacked slurs.
+
+	* revise calcideal
+
+	* eentje/tweetje
+
+IDEAS
+
+	* itemcolumns
+
+	* check out PMX
+
+	* dependencies: -> implement children more elegantly. Handle
+	spanner with broken deps.
+
+	* use an embedded language: scheme, lisp, S-lang, Perl, ?
+
+	* Broadcasts in Walker of Request and Item.
+
+	* y -dims in internote?
+
+	* hack up mf sources for decent spacing info (and then maybe
+	read TFM directly)
+
+	* merge Atom and Symbol?
+
+	* merge Command/Input_command.
+	
+	* merge common code of Item, Atom/Molecule
+
+	* Spacing_request for manually adjusting spacing
+
+	* Staff_group.
+
+	* SHIT: meters/bars should be aligned, which is difficult if
+	we get different keychanges in different staffs.
+
+	* Integrating (objectiveC) MusicKit with LilyPond
+	
+	* MusixTeX output possible?
+
+	* PostScript output (esp. Beams, Slurs, etc)

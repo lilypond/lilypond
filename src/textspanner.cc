@@ -2,6 +2,7 @@
 #include "boxes.hh"
 #include "textspanner.hh"
 #include "textdef.hh"
+#include "debug.hh"
 
 Text_spanner::Text_spanner(Directional_spanner*d)
 {
@@ -33,10 +34,15 @@ Text_spanner::brew_molecule() const
     output->add( tsym );
     return output;
 }
+
 void
 Text_spanner::print() const	// todo
 {
+#ifndef NDEBUG
+    mtor << "Text_spanner\n";
+#endif
 }
+
 void
 Text_spanner::do_pre_processing()
 {
