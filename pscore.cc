@@ -7,13 +7,14 @@
 void
 PScore::clean_cols()
 {
-    for (PCursor<PCol *> c(cols); c.ok(); c++)
+    for (PCursor<PCol *> c(cols); c.ok(); )
 	if (!c->used) {
-	    c.remove();
-	    //mtor << "removing pcol\n";
-	}
+	    c.del();
+	    mtor << "removing pcol\n";
+	} else
+	    c++;
 }
-	
+
 
 void
 PScore::add(PStaff *s)
@@ -95,5 +96,7 @@ PScore::output(Tex_stream &ts)
     for (PCursor<Line_of_score*> lic(lines); lic.ok(); lic++) {
 	ts << "% line of score no. " << l++ <<"\n";
 	ts << lic->TeXstring();
+	if ((lic+1).ok())
+	    ts << "\\interscoreline\n";
     }	
 }
