@@ -1,38 +1,17 @@
 # -*-python-*-
 
-import glob
-import os
-
 Import ('env')
-here = os.getcwd ()
-reldir = str (Dir ('.').srcnode ())
-os.chdir (reldir)
-sources = glob.glob ('*.cc') + ['parser.yy', 'lexer.ll']
-includes = glob.glob ('include/*.hh')
-os.chdir (here)
-outdir = os.path.join (env['build'], reldir, env['out'])
-
-name = 'lyparser'
+sources = env['src_glob'] (env, '*.cc') + ['parser.yy', 'lexer.ll']
+includes = env['src_glob'] (env, 'include/*.hh')
+outdir = Dir ('.').path
 
 e = env.Copy ()
-
-#let's do this after the split
-#sources = filter (lambda x: x != 'pangofc-afm-decoder.cc', sources)
-#pango = env.Copy ()
-#if pango['gui']:
-#	pango.ParseConfig ('pkg-config --cflags --libs gtk+-2.0')
-#	pango.ParseConfig ('pkg-config --cflags --libs pango')
-#pango.Object ('foo-' + 'pangofc-afm-decoder.o', 'pangofc-afm-decoder.cc')
-#
-#e.Object ('pangofc-afm-decoder.o', 'foo-pangofc-afm-deocder.o')
-
 e.Append (YACCFLAGS = '-d')
 e.Append (CPPPATH = [outdir, '#/lily/include', '#/flower/include'])
 e.Depends ('lexer.cc', 'parser.cc')
 e.Depends ('my-lily-lexer.o', 'parser.cc')
 e.Depends ('my-lily-parser.o', 'parser.cc')
 
-# some stuff here from lily-as-lib
 e.Append (LIBS = ['flower'])
 e.ParseConfig ('guile-config link')
 name = 'lilypond-bin'

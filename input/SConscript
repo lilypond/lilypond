@@ -1,26 +1,12 @@
 # -*-python-*-
 
-import glob
 import os
 
 Import ('env')
-here = os.getcwd ()
-reldir = str (Dir ('.').srcnode ())
-os.chdir (reldir)
-sources = glob.glob ('*.ly')
-abc_sources = glob.glob ('*.abc')
-os.chdir (here)
-outdir = os.path.join (env['build'], reldir, env['out'])
+sources = env['src_glob'] (env, '*.ly')
+abc_sources = env['src_glob'] (env, '*.abc')
+abc = map (lambda x: os.path.splitext (x)[0], abc_sources)
+lys = map (env.Abc2ly, abc)
 
-stems = map (lambda x: os.path.splitext (x)[0], sources)
-abc_stems = map (lambda x: os.path.splitext (x)[0], abc_sources)
-lys = map (env.Abc2ly, abc_stems)
-examples = map (env.LilyPond, stems + abc_stems)
+examples = map (env.LilyPond, sources + abc)
 env.Alias ('doc', examples)
-
-LILYPOND_BIN = env['LILYPOND_BIN']
-
-mfbuild = os.path.join (env['absbuild'], 'mf', env['out'])
-#e.Depends ('doc', 'fonts')
-env.Depends ('doc', mfbuild)
-env.Depends ('doc', LILYPOND_BIN)
