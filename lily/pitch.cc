@@ -64,22 +64,20 @@ Pitch::steps () const
  */
 static Byte pitch_byte_a[  ] = { 0, 2, 4, 5, 7, 9, 11 };
 
-int
-sign_safe_div (int n, int d)
-{
-  if (n < 0)
-     return - (-n / d) - 1;
-  return n / d;
-}
 
 /* Calculate pitch height in 12th octave steps.  Don't assume
    normalised pitch as this function is used to normalise the pitch.  */
 int
 Pitch::semitone_pitch () const
 {
-  return (octave_i_ + sign_safe_div (notename_i_, 7)) * 12
-    + pitch_byte_a[notename_i_ % 7]
-    + alteration_i_;
+  int o = octave_i_;
+  int n = notename_i_;
+  while (n < 0)
+    {
+      n += 7;
+      o -= 1;
+    }
+  return (o + n / 7) * 12 + pitch_byte_a[n % 7] + alteration_i_;
 }
 
 void

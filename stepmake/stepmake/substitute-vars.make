@@ -18,6 +18,9 @@ sed-atfiles = -e '\#' $(foreach i, $(AT_FILES), \
 sed-atvariables = -e '\#' $(foreach i, $(ATVARIABLES), -e 's!@$i@!$($i)!g')
 
 # these are obsolete
+
+# then remove them --hwn
+
 # use ATVARIABLES
 sed-date=sed 's!@DATE@!${date}!g'
 sed-PACKAGE = sed 's!@PACKAGE@!${PACKAGE}!g'

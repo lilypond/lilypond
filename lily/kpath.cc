@@ -50,5 +50,20 @@ ly_init_kpath (char *av0)
    */
   kpse_set_program_name(av0, NULL);
   kpse_maketex_option("tfm", TRUE);
+
+  /*
+    UGH: should not use DIR_DATADIR, but /var,  
+   */
+
+  /*
+    ugh: apparently the program_args is non-functional.
+   */
+  kpse_format_info[kpse_tfm_format].program ="mktextfm --destdir " DIR_DATADIR "/tfm";
+
+  kpse_format_info[kpse_tfm_format].client_path =
+    (DIR_DATADIR "/tfm" );
+  
 #endif
 }
+
+

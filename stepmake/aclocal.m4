@@ -137,8 +137,16 @@ AC_DEFUN(AC_STEPMAKE_DATADIR, [
 	    presome=${ac_default_prefix}
     fi
     DIR_DATADIR=`echo ${DIR_DATADIR} | sed "s!\\\${prefix}!$presome!"`
+
     AC_SUBST(datadir)
     AC_SUBST(DIR_DATADIR)
+    
+    dnl yeah, so fuck me gently with a cactus: this doesnt belong here
+    dnl Please take the person responsible for inventing shell-scripts out
+    dnl and shoot him. On behalf of the sane world, thank you.
+    dnl DIR_SHAREDSTATEDIR="foobar"
+    dnl AC_SUBST(DIR_SHAREDSTATEDIR)
+    
     AC_DEFINE_UNQUOTED(DIR_DATADIR, "${DIR_DATADIR}")
 ])
 
