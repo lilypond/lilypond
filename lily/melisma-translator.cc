@@ -65,11 +65,12 @@ Melisma_translator::process_music ()
 void
 Melisma_translator::start_translation_timestep ()
 {
-  event_ =0;
+  event_ = 0;
 }
   
 Melisma_translator::Melisma_translator()
 {
+  event_ = 0;
 }
 
 ENTER_DESCRIPTION(Melisma_translator,

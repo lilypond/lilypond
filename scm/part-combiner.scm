@@ -465,7 +465,7 @@ Only set if not set previously.
      (define (current-voice-state now-state voice-num)
        (define vs ((if (= 1 voice-num) car cdr)
 		   (voice-states now-state) ) )
-       (if (equal? (when now-state) (when vs))
+       (if (or (not vs) (equal? (when now-state) (when vs)))
 	   vs
 	   (previous-voice-state vs)
        ))
