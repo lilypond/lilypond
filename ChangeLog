@@ -13,6 +13,9 @@
 	* ly/gregorian-init.ly: commit some experimental code for hi-level
 	ligature input language lying around here for several months.
 
+	* lily/mensural-ligature-engraver.cc: bugfix: another victim of
+	the "x-y-z"->"x.y.s-z" symetrical notehead glyph renaming.
+
 2005-02-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/framework-pdf.scm (scm): new file
