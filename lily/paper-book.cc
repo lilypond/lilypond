@@ -24,7 +24,7 @@ Paper_book::Paper_book ()
   pages_ = SCM_BOOL_F;
   scores_ = SCM_EOL;
   systems_ = SCM_BOOL_F;
-  
+
   paper_ = 0;
   smobify_self ();
 }
@@ -35,12 +35,12 @@ Paper_book::~Paper_book ()
 
 IMPLEMENT_DEFAULT_EQUAL_P (Paper_book);
 IMPLEMENT_SMOBS (Paper_book)
-IMPLEMENT_TYPE_P (Paper_book, "ly:paper-book?")
+  IMPLEMENT_TYPE_P (Paper_book, "ly:paper-book?")
 
-SCM
+  SCM
 Paper_book::mark_smob (SCM smob)
 {
-  Paper_book *b = (Paper_book*) SCM_CELL_WORD_1 (smob);
+  Paper_book *b = (Paper_book *) SCM_CELL_WORD_1 (smob);
   if (b->paper_)
     scm_gc_mark (b->paper_->self_scm ());
   scm_gc_mark (b->header_);
@@ -53,8 +53,8 @@ Paper_book::mark_smob (SCM smob)
 int
 Paper_book::print_smob (SCM smob, SCM port, scm_print_state*)
 {
-  Paper_book *b = (Paper_book*) SCM_CELL_WORD_1 (smob);
-     
+  Paper_book *b = (Paper_book *) SCM_CELL_WORD_1 (smob);
+
   scm_puts ("#<", port);
   scm_puts (classname (b), port);
   scm_puts (" ", port);
@@ -66,7 +66,7 @@ SCM
 dump_fields ()
 {
   SCM fields = SCM_EOL;
-  for (int i = dump_header_fieldnames_global.size (); i--; )
+  for (int i = dump_header_fieldnames_global.size (); i--;)
     fields
       = scm_cons (ly_symbol2scm (dump_header_fieldnames_global[i].to_str0 ()),
 		  fields);
@@ -87,11 +87,11 @@ Paper_book::output (String outname)
 
   /* Generate all stencils to trigger font loads.  */
   pages ();
-  
+
   SCM scopes = SCM_EOL;
   if (ly_c_module_p (header_))
     scopes = scm_cons (header_, scopes);
-  
+
   String mod_nm = "scm framework-" + output_backend_global;
 
   SCM mod = scm_c_resolve_module (mod_nm.to_str0 ());
@@ -106,7 +106,7 @@ Paper_book::output (String outname)
 				     dump_fields (),
 				     SCM_UNDEFINED));
     }
-      
+
   if (make_preview)
     {
       SCM func = scm_c_module_lookup (mod, "output-preview-framework");
@@ -135,10 +135,9 @@ Paper_book::classic_output (String outname)
 
   String format = output_backend_global;
   String mod_nm = "scm framework-" + format;
-      
+
   SCM mod = scm_c_resolve_module (mod_nm.to_str0 ());
   SCM func = scm_c_module_lookup (mod, "output-classic-framework");
- 
 
   func = scm_variable_ref (func);
   scm_apply_0 (func, scm_list_n (scm_makfrom0str (outname.to_str0 ()),
@@ -149,7 +148,6 @@ Paper_book::classic_output (String outname)
 
   progress_indication ("\n");
 }
-
 
 /* TODO: resurrect more complex user-tweaks for titling?  */
 Stencil
@@ -162,19 +160,18 @@ Paper_book::book_title ()
   if (ly_c_module_p (header_))
     scopes = scm_cons (header_, scopes);
 
- 
   SCM tit = SCM_EOL;
   if (ly_c_procedure_p (title_func))
     tit = scm_call_2 (title_func,
-		     paper_->self_scm (),
-		     scopes);
+		      paper_->self_scm (),
+		      scopes);
 
   if (unsmob_stencil (tit))
     title = *unsmob_stencil (tit);
 
   if (!title.is_empty ())
     title.align_to (Y_AXIS, UP);
-  
+
   return title;
 }
 
@@ -195,34 +192,34 @@ Paper_book::score_title (SCM header)
   SCM tit = SCM_EOL;
   if (ly_c_procedure_p (title_func))
     tit = scm_call_2 (title_func,
-		     paper_->self_scm (),
-		     scopes);
+		      paper_->self_scm (),
+		      scopes);
 
   if (unsmob_stencil (tit))
     title = *unsmob_stencil (tit);
 
   if (!title.is_empty ())
     title.align_to (Y_AXIS, UP);
-  
+
   return title;
 }
 
 void
-set_system_penalty (Paper_system * ps, SCM header)
+set_system_penalty (Paper_system *ps, SCM header)
 {
   if (ly_c_module_p (header))
     {
       SCM force = ly_module_lookup (header, ly_symbol2scm ("breakbefore"));
-      if (SCM_VARIABLEP(force)
-	  && scm_is_bool (SCM_VARIABLE_REF(force)))
+      if (SCM_VARIABLEP (force)
+	  && scm_is_bool (SCM_VARIABLE_REF (force)))
 	{
-	  ps->break_before_penalty_ = to_boolean (SCM_VARIABLE_REF(force))
+	  ps->break_before_penalty_ = to_boolean (SCM_VARIABLE_REF (force))
 	    ? -10000
 	    : 10000;
 	}
     }
 }
-	    
+
 SCM
 Paper_book::systems ()
 {
@@ -236,7 +233,7 @@ Paper_book::systems ()
     {
       Paper_system *ps = new Paper_system (title, true);
       set_system_penalty (ps, header_);
-      
+
       systems_ = scm_cons (ps->self_scm (), systems_);
       scm_gc_unprotect_object (ps->self_scm ());
     }
@@ -267,7 +264,7 @@ Paper_book::systems ()
 	      set_system_penalty (ps, header);
 	    }
 	  header = SCM_EOL;
-      
+
 	  SCM system_list = scm_vector_to_list (scm_car (s));
 	  system_list = scm_reverse (system_list);
 	  systems_ = scm_append (scm_list_2 (system_list, systems_));
@@ -287,9 +284,9 @@ Paper_book::systems ()
       else
 	assert (0);
     }
-  
+
   systems_ = scm_reverse (systems_);
-  
+
   int i = 0;
   Paper_system *last = 0;
   for (SCM s = systems_; s != SCM_EOL; s = scm_cdr (s))
@@ -303,7 +300,7 @@ Paper_book::systems ()
 	ps->break_before_penalty_ = 10000;
       last = ps;
     }
-  
+
   return systems_;
 }
 

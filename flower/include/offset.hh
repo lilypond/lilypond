@@ -14,20 +14,17 @@ Offset complex_multiply (Offset, Offset);
 Offset complex_divide (Offset, Offset);
 Offset complex_exp (Offset);
 
-
 /*
-
-This is a mixture a 2D vector. Sometimes it can
-also be convenient to think of 2D vectors as complex numbers
-(ie. x + i y). The naming of some methods reflects that.
-
+  This is a mixture a 2D vector. Sometimes it can
+  also be convenient to think of 2D vectors as complex numbers
+  (ie. x + i y). The naming of some methods reflects that.
 */
-class Offset 
+class Offset
 {
 public:
   Real coordinate_a_[NO_AXES];
-    
-  Real &operator[] (Axis i) 
+
+  Real &operator[] (Axis i)
   {
     return coordinate_a_[i];
   }
@@ -36,32 +33,32 @@ public:
   {
     return coordinate_a_[i];
   }
-    
-  Offset& operator+= (Offset o) 
+
+  Offset &operator+= (Offset o)
   {
     (*this)[X_AXIS] += o[X_AXIS];
     (*this)[Y_AXIS] += o[Y_AXIS];
     return *this;
   }
 
-  Offset operator - () const 
+  Offset operator- () const
   {
     Offset o = *this;
-    
-    o[X_AXIS]  = - o[X_AXIS];
-    o[Y_AXIS]  = - o[Y_AXIS];
+
+    o[X_AXIS] = -o[X_AXIS];
+    o[Y_AXIS] = -o[Y_AXIS];
     return o;
   }
 
-  Offset& operator-= (Offset o) 
+  Offset &operator-= (Offset o)
   {
     (*this)[X_AXIS] -= o[X_AXIS];
     (*this)[Y_AXIS] -= o[Y_AXIS];
 
     return *this;
   }
-  
-  Offset &scale (Offset o) 
+
+  Offset &scale (Offset o)
   {
     (*this)[X_AXIS] *= o[X_AXIS];
     (*this)[Y_AXIS] *= o[Y_AXIS];
@@ -69,37 +66,37 @@ public:
     return *this;
   }
 
-  Offset &operator *= (Real a) 
+  Offset &operator*= (Real a)
   {
     (*this)[X_AXIS] *= a;
     (*this)[Y_AXIS] *= a;
 
     return *this;
   }
-      
-  Offset (Real ix , Real iy) 
+
+  Offset (Real ix, Real iy)
   {
     coordinate_a_[X_AXIS] =ix;
-    coordinate_a_[Y_AXIS] =iy;    
+    coordinate_a_[Y_AXIS] =iy;
   }
 
-  Offset () 
+  Offset ()
   {
     coordinate_a_[X_AXIS] = coordinate_a_[Y_AXIS]= 0.0;
   }
 
   String to_string () const;
 
-  Offset& mirror (Axis a)
+  Offset &mirror (Axis a)
   {
-    coordinate_a_[a] = - coordinate_a_[a];
+    coordinate_a_[a] = -coordinate_a_[a];
     return *this;
   }
-  
+
   Real arg () const;
   Real length () const;
 
-  Offset operator *= (Offset z2) 
+  Offset operator*= (Offset z2)
   {
     *this = complex_multiply (*this, z2);
     return *this;
@@ -134,12 +131,10 @@ mirror (Offset o, Axis a)
 
 inline
 Real
-dot_product  (Offset o1, Offset o2)
+dot_product (Offset o1, Offset o2)
 {
   return o1[X_AXIS] * o2[X_AXIS] + o1[Y_AXIS] * o2[Y_AXIS];
 }
 
-
 #endif /* OFFSET_HH */
-
 

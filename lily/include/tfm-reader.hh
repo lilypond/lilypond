@@ -1,14 +1,13 @@
-/*   
+/*
   tfm-reader.hh -- declare Tex_font_metric_reader
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1999--2005 Jan Nieuwenhuizen <janneke@gnu.org>
 
 
   revamped code from GNU Fontutils-0.6
-
- */
+*/
 
 #ifndef TFM_READER_HH
 #define TFM_READER_HH
@@ -28,12 +27,12 @@ private:
   Tex_font_char_metric read_char_metric (Char_code code);
   Tex_font_char_metric read_char ();
   void read_lig_kern_program (Array<Tfm_ligature>* ligatures,
-			      Array <Tfm_kern>* kerns);
+			      Array<Tfm_kern>* kerns);
 
   Binary_source_file input_;
 
 public:
-  Tex_font_metric_reader ( String name);
+  Tex_font_metric_reader (String name);
 
   Tfm_info info_;
   Tfm_header header_;

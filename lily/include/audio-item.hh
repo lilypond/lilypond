@@ -2,7 +2,7 @@
   audio-item.hh -- declare Audio_items
 
   (c) 1996--2005 Jan Nieuwenhuizen <janneke@gnu.org>
- */
+*/
 
 #ifndef AUDIO_ITEM_HH
 #define AUDIO_ITEM_HH
@@ -12,19 +12,19 @@
 #include "pitch.hh"
 
 /**
-   
-  Any piece of audio information.  We need virtual constructors, let's
-  try decentralised factory for specific audio implemenations.
- */
+
+Any piece of audio information.  We need virtual constructors, let's
+try decentralised factory for specific audio implemenations.
+*/
 class Audio_item : public Audio_element
 {
 public:
   Audio_item ();
-  Audio_column* audio_column_;
-  
+  Audio_column *audio_column_;
+
 private:
-  Audio_item (Audio_item const&);
-  Audio_item& operator = ( Audio_item const&);
+  Audio_item (Audio_item const &);
+  Audio_item &operator= (Audio_item const &);
 };
 
 class Audio_dynamic : public Audio_item
@@ -51,18 +51,18 @@ public:
 
   String str_;
 };
-                                      
+
 class Audio_note : public Audio_item
 {
-public:  
+public:
   Audio_note (Pitch p, Moment m, int transposing_i = 0);
 
-  void tie_to (Audio_note*);
+  void tie_to (Audio_note *);
 
   Pitch pitch_;
   Moment length_mom_;
   int transposing_;
-  Audio_note* tied_;
+  Audio_note *tied_;
 };
 
 class Audio_piano_pedal : public Audio_item
@@ -75,11 +75,12 @@ public:
 class Audio_text : public Audio_item
 {
 public:
-  enum Type { 
-    TEXT = 1, COPYRIGHT, TRACK_NAME, INSTRUMENT_NAME, LYRIC, 
-    MARKER, CUE_POINT
-  };
-  
+  enum Type
+    {
+      TEXT = 1, COPYRIGHT, TRACK_NAME, INSTRUMENT_NAME, LYRIC,
+      MARKER, CUE_POINT
+    };
+
   Audio_text (Audio_text::Type type, String text_string);
 
   Type type_;

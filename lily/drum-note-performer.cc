@@ -4,7 +4,7 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 1996--2005 Jan Nieuwenhuizen <janneke@gnu.org>
- */
+*/
 
 #include "performer.hh"
 #include "audio-item.hh"
@@ -12,12 +12,13 @@
 #include "global-context.hh"
 #include "warn.hh"
 
-class Drum_note_performer : public Performer {
+class Drum_note_performer : public Performer
+{
 public:
   TRANSLATOR_DECLARATIONS (Drum_note_performer);
-  
+
 protected:
-  virtual bool try_music (Music *ev) ;
+  virtual bool try_music (Music *ev);
   virtual void stop_translation_timestep ();
   virtual void create_audio_elements ();
 
@@ -26,31 +27,31 @@ private:
   Link_array<Audio_note> notes_;
 };
 
-void 
+void
 Drum_note_performer::create_audio_elements ()
 {
   SCM tab = 0;
   if (!tab) tab = get_property ("drumPitchTable");
-  
+
   while (note_evs_.size ())
     {
-      Music* n = note_evs_.pop ();
+      Music *n = note_evs_.pop ();
       SCM sym = n->get_property ("drum-type");
       SCM defn = SCM_EOL;
 
       if (scm_is_symbol (sym)
-	  &&  (scm_hash_table_p (tab) == SCM_BOOL_T))
+	  && (scm_hash_table_p (tab) == SCM_BOOL_T))
 	defn = scm_hashq_ref (tab, sym, SCM_EOL);
-      
-      if (Pitch * pit = unsmob_pitch (defn))
+
+      if (Pitch *pit = unsmob_pitch (defn))
 	{
-	  Audio_note* p = new Audio_note (*pit,  n->get_length (), 0);
+	  Audio_note *p = new Audio_note (*pit, n->get_length (), 0);
 	  Audio_element_info info (p, n);
 	  announce_element (info);
 	  notes_.push (p);
 	}
     }
-  
+
   note_evs_.clear ();
 }
 
@@ -67,9 +68,9 @@ Drum_note_performer::stop_translation_timestep ()
   notes_.clear ();
   note_evs_.clear ();
 }
- 
+
 bool
-Drum_note_performer::try_music (Music* ev)
+Drum_note_performer::try_music (Music *ev)
 {
   if (ev->is_mus_type ("note-event"))
     {
@@ -78,13 +79,13 @@ Drum_note_performer::try_music (Music* ev)
     }
   else if (ev->is_mus_type ("busy-playing-event"))
     return note_evs_.size ();
-  
+
   return false;
 }
 
 ADD_TRANSLATOR (Drum_note_performer,
-		  "Play drum notes.", "",
-		  "note-event busy-playing-event", "", "", "");
+		"Play drum notes.", "",
+		"note-event busy-playing-event", "", "", "");
 
 Drum_note_performer::Drum_note_performer ()
 {

@@ -16,9 +16,9 @@
 #include "text-item.hh"
 
 /**
-  put stuff over or next to  bars.  Examples: bar numbers, marginal notes,
-  rehearsal marks.
- */
+   put stuff over or next to  bars.  Examples: bar numbers, marginal notes,
+   rehearsal marks.
+*/
 class Mark_engraver : public Engraver
 {
 public:
@@ -28,16 +28,13 @@ protected:
 protected:
   virtual void stop_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
-  void create_items (Music*);
+  void create_items (Music *);
   virtual bool try_music (Music *ev);
   virtual void process_music ();
-  
+
 private:
-  Music * mark_ev_;
+  Music *mark_ev_;
 };
-
-
-
 
 
 Mark_engraver::Mark_engraver ()
@@ -49,30 +46,29 @@ Mark_engraver::Mark_engraver ()
 void
 Mark_engraver::acknowledge_grob (Grob_info inf)
 {
-  Grob * s = inf.grob_;
+  Grob *s = inf.grob_;
   if (text_ && Bar_line::has_interface (s))
     {
       /*
-      TODO: make this configurable. RehearsalMark cannot be
-      break-aligned, since the width of the object should not be taken
-      into alignment considerations.
+	TODO: make this configurable. RehearsalMark cannot be
+	break-aligned, since the width of the object should not be taken
+	into alignment considerations.
       */
       text_->set_parent (s, X_AXIS);
     }
 }
 
-void 
+void
 Mark_engraver::stop_translation_timestep ()
 {
   if (text_)
     {
       SCM lst = get_property ("stavesFound");
-      text_->set_property ("side-support-elements" , lst);
+      text_->set_property ("side-support-elements", lst);
       text_ = 0;
     }
   mark_ev_ = 0;
 }
-
 
 void
 Mark_engraver::create_items (Music *ev)
@@ -83,14 +79,12 @@ Mark_engraver::create_items (Music *ev)
   text_ = make_item ("RehearsalMark", ev->self_scm ());
 }
 
-
 bool
-Mark_engraver::try_music (Music* r)
+Mark_engraver::try_music (Music *r)
 {
   mark_ev_ = r;
   return true;
 }
-
 
 /*
   TODO: make the increment function in Scheme.
@@ -104,24 +98,23 @@ Mark_engraver::process_music ()
 
       /*
 	automatic marks.
-       */
+      */
 
-      
       SCM m = mark_ev_->get_property ("label");
       SCM proc = get_property ("markFormatter");
-      if (!Text_interface::markup_p (m) &&
-	  ly_c_procedure_p (proc))
+      if (!Text_interface::markup_p (m)
+	  && ly_c_procedure_p (proc))
 	{
-	  if (!scm_is_number (m)) 
-	    m =  get_property ("rehearsalMark");
+	  if (!scm_is_number (m))
+	    m = get_property ("rehearsalMark");
 
 	  if (scm_integer_p (m) == SCM_BOOL_T
 	      && scm_exact_p (m) == SCM_BOOL_T)
 	    {
 	      int mark_count = scm_to_int (m);
-	      mark_count ++;
+	      mark_count++;
 	      context ()->set_property ("rehearsalMark",
-					    scm_int2num (mark_count));
+					scm_int2num (mark_count));
 	    }
 
 	  if (scm_is_number (m))
@@ -138,15 +131,14 @@ Mark_engraver::process_music ()
 }
 
 ADD_TRANSLATOR (Mark_engraver,
-/* descr */       "This engraver will create RehearsalMark objects. "
-		   "It puts them on top of all staves (which is taken from "
-		   "the property @code{stavesFound}). If moving this engraver "
-		   "to a different context, "
-		   "@ref{Staff_collecting_engraver} must move along, otherwise all marks"
-		   "end up on the same Y-location"
-		   ,
-/* creats*/       "RehearsalMark",
-/* accepts */     "mark-event",
-/* acks  */       "bar-line-interface",
-/* reads */       "rehearsalMark markFormatter stavesFound",
-/* write */       "");
+		/* descr */ "This engraver will create RehearsalMark objects. "
+		"It puts them on top of all staves (which is taken from "
+		"the property @code{stavesFound}). If moving this engraver "
+		"to a different context, "
+		"@ref{Staff_collecting_engraver} must move along, otherwise all marks"
+		"end up on the same Y-location",
+		/* creats*/ "RehearsalMark",
+		/* accepts */ "mark-event",
+		/* acks  */ "bar-line-interface",
+		/* reads */ "rehearsalMark markFormatter stavesFound",
+		/* write */ "");

@@ -59,10 +59,10 @@ protected:
   virtual void derived_mark () const;
 public:
   SCM last_keysig_;	// ugh.
-  
+
   /* Urgh. Since the accidentals depend on lots of variables, we have
-    to store all information before we can really create the
-    accidentals.  */
+     to store all information before we can really create the
+     accidentals.  */
   Link_array<Grob> left_objects_;
   Link_array<Grob> right_objects_;
 
@@ -72,7 +72,6 @@ public:
   Link_array<Spanner> ties_;
 };
 
-
 /*
   TODO:
 
@@ -80,7 +79,7 @@ public:
   aren't. eg. localKeySignature is changed at runtime, which means
   that references in grobs should always store ly_deep_copy ()s of
   those.
- */
+*/
 
 static void
 set_property_on_children (Context *trans, char const *sym, SCM val)
@@ -124,17 +123,16 @@ Accidental_engraver::update_local_key_signature ()
 void
 Accidental_engraver::initialize ()
 {
-  update_local_key_signature (); 
+  update_local_key_signature ();
 }
-
 
 /** Calculate the number of accidentals on basis of the current local key
     sig (passed as argument)
-    
+
     * First check step+octave (taking into account barnumbers if necessary).
-   
+
     * Then check the global signature (only step).
-  
+
     Return number of accidentals (0, 1 or 2).  */
 
 static bool
@@ -143,7 +141,7 @@ recent_enough (int bar_number, SCM alteration_def, SCM laziness)
   if (scm_is_number (alteration_def)
       || laziness == SCM_BOOL_T)
     return true;
-  
+
   return (bar_number <= scm_to_int (scm_cdr (alteration_def)) + scm_to_int (laziness));
 }
 
@@ -177,19 +175,17 @@ number_accidentals_from_sig (bool *different, SCM sig, Pitch *pitch,
 
   SCM previous_alteration = SCM_BOOL_F;
 
-
   SCM from_same_octave = ly_assoc_get (scm_cons (scm_int2num (o),
-						     scm_int2num (n)), sig, SCM_BOOL_F);
+						 scm_int2num (n)), sig, SCM_BOOL_F);
   SCM from_key_signature = ly_assoc_get (scm_int2num (n), sig, SCM_BOOL_F);
   SCM from_other_octaves = SCM_BOOL_F;
-  for (SCM s = sig ; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = sig; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM entry = scm_car (s);
       if (scm_is_pair (scm_car (entry))
 	  && scm_cdar (entry) == scm_int2num (n))
-	from_other_octaves = scm_cdr (entry); 
+	from_other_octaves = scm_cdr (entry);
     }
-  
 
   if (from_same_octave != SCM_BOOL_F
       && recent_enough (bar_number, from_same_octave, laziness))
@@ -206,7 +202,7 @@ number_accidentals_from_sig (bool *different, SCM sig, Pitch *pitch,
     {
       previous_alteration = from_key_signature;
     }
-  
+
   int num = 1;
   if (is_tied (previous_alteration))
     {
@@ -215,9 +211,9 @@ number_accidentals_from_sig (bool *different, SCM sig, Pitch *pitch,
     }
   else
     {
-      int prev =  extract_alteration (previous_alteration);
+      int prev = extract_alteration (previous_alteration);
       int alter = pitch->get_alteration ();
-      
+
       if (alter == prev)
 	num = 0;
       else if ((abs (alter) < abs (prev) || prev*alter < 0) && alter != 0)
@@ -236,9 +232,9 @@ number_accidentals (bool *different,
 
   *different = false;
   if (scm_is_pair (accidentals) && !scm_is_symbol (scm_car (accidentals)))
-    warning (_f ("Accidental typesetting list must begin with context-name: %s", 
+    warning (_f ("Accidental typesetting list must begin with context-name: %s",
 		 ly_scm2string (scm_car (accidentals)).to_str0 ()));
-  
+
   for (; scm_is_pair (accidentals) && origin;
        accidentals = scm_cdr (accidentals))
     {
@@ -249,11 +245,11 @@ number_accidentals (bool *different,
 	  SCM type = scm_car (rule);
 	  SCM laziness = scm_cdr (rule);
 	  SCM localsig = origin->get_property ("localKeySignature");
-	  
-	  bool same_octave_b = 
-	    scm_is_eq (ly_symbol2scm ("same-octave"), type);
-	  bool any_octave_b = 
-	    scm_is_eq (ly_symbol2scm ("any-octave"), type);
+
+	  bool same_octave_b
+	    = scm_is_eq (ly_symbol2scm ("same-octave"), type);
+	  bool any_octave_b
+	    = scm_is_eq (ly_symbol2scm ("any-octave"), type);
 
 	  if (same_octave_b || any_octave_b)
 	    {
@@ -261,13 +257,12 @@ number_accidentals (bool *different,
 	      int n = number_accidentals_from_sig
 		(&d, localsig, pitch, bar_number, laziness, any_octave_b);
 	      *different = *different || d;
-	      number = max (number, n);     
+	      number = max (number, n);
 	    }
 	  else
-	    warning (_f ("ignoring unknown accidental: %s", 
+	    warning (_f ("ignoring unknown accidental: %s",
 			 ly_symbol2string (type).to_str0 ()));
 	}
-      
 
       /*
 	if symbol then it is a context name. Scan parent contexts to find it.
@@ -277,11 +272,11 @@ number_accidentals (bool *different,
 	  Context *dad = origin;
 	  while (dad && !dad->is_alias (rule))
 	    dad = dad->get_parent_context ();
-      
+
 	  if (dad)
 	    origin = dad;
 	}
-      else warning (_f ("Accidental rule must be pair or context-name; Found %s", 
+      else warning (_f ("Accidental rule must be pair or context-name; Found %s",
 			ly_scm2string (rule).to_str0 ()));
     }
 
@@ -295,11 +290,11 @@ Accidental_engraver::get_bar_number ()
   SCM smp = get_property ("measurePosition");
 
   int bn = robust_scm2int (barnum, 0);
-  
-  Moment mp = robust_scm2moment (smp,  Moment (0));
+
+  Moment mp = robust_scm2moment (smp, Moment (0));
   if (mp.main_part_ < Rational (0))
     bn--;
-  
+
   return bn;
 }
 
@@ -308,16 +303,16 @@ Accidental_engraver::process_acknowledged_grobs ()
 {
   if (accidentals_.size () && !accidentals_.top ().done_)
     {
-      SCM accidentals =  get_property ("autoAccidentals");
-      SCM cautionaries =  get_property ("autoCautionaries");
+      SCM accidentals = get_property ("autoAccidentals");
+      SCM cautionaries = get_property ("autoCautionaries");
       int barnum = get_bar_number ();
-      
+
       bool extra_natural_b = get_property ("extraNatural") == SCM_BOOL_T;
-      for (int i = 0; i < accidentals_.size (); i++) 
+      for (int i = 0; i < accidentals_.size (); i++)
 	{
-	  if (accidentals_[i].done_ )
+	  if (accidentals_[i].done_)
 	    continue;
-	  accidentals_[i].done_  = true;
+	  accidentals_[i].done_ = true;
 	  Grob *support = accidentals_[i].head_;
 	  Music *note = accidentals_[i].melodic_;
 	  Context *origin = accidentals_[i].origin_;
@@ -328,7 +323,7 @@ Accidental_engraver::process_acknowledged_grobs ()
 
 	  bool different = false;
 	  bool different_caut = false;
-	  
+
 	  int num = number_accidentals (&different,
 					pitch, origin,
 					accidentals, barnum);
@@ -337,7 +332,7 @@ Accidental_engraver::process_acknowledged_grobs ()
 					     cautionaries, barnum);
 
 	  bool cautionary = to_boolean (note->get_property ("cautionary"));
-	  
+
 	  if (num_caut > num)
 	    {
 	      num = num_caut;
@@ -347,26 +342,24 @@ Accidental_engraver::process_acknowledged_grobs ()
 
 	  if (num == 0 && to_boolean (note->get_property ("force-accidental")))
 	    num = 1;
-	  
 
 	  /*
 	    Can not look for ties: it's not guaranteed that they reach
 	    us before the notes
-	   */
-	
+	  */
+
 	  if (num)
 	    {
 	      /*
 		We construct the accidentals at the originating Voice
 		level, so that we get the property settings for
 		Accidental from the respective Voice.
-	       */
+	      */
 	      Grob *a
 		= make_item_from_properties (accidentals_[i].origin_trans_,
 					     ly_symbol2scm ("Accidental"),
 					     note->self_scm (),
-					     "Accidental"
-					     );
+					     "Accidental");
 	      a->set_parent (support, Y_AXIS);
 
 	      if (!accidental_placement_)
@@ -382,7 +375,7 @@ Accidental_engraver::process_acknowledged_grobs ()
 
 	      if (cautionary)
 		a->set_property ("cautionary", SCM_BOOL_T);
-	      
+
 	      support->set_property ("accidental-grob", a->self_scm ());
 
 	      a->set_property ("accidentals", accs);
@@ -392,9 +385,9 @@ Accidental_engraver::process_acknowledged_grobs ()
 		We add the accidentals to the support of the arpeggio,
 		so it is put left of the accidentals.
 	      */
-	      for (int i = 0;  i < left_objects_.size ();  i++)
+	      for (int i = 0; i < left_objects_.size (); i++)
 		Side_position_interface::add_support (left_objects_[i], a);
-	      for (int i = 0;  i < right_objects_.size ();  i++)
+	      for (int i = 0; i < right_objects_.size (); i++)
 		Side_position_interface::add_support (a, right_objects_[i]);
 	    }
 	}
@@ -413,7 +406,7 @@ Accidental_engraver::stop_translation_timestep ()
   for (int j = ties_.size (); j--;)
     {
       Grob *r = Tie::head (ties_[j], RIGHT);
-      for (int i = accidentals_.size ();  i--;)
+      for (int i = accidentals_.size (); i--;)
 	if (accidentals_[i].head_ == r)
 	  {
 	    if (Grob *g = accidentals_[i].accidental_)
@@ -426,12 +419,12 @@ Accidental_engraver::stop_translation_timestep ()
 	  }
     }
 
-  for (int i = accidentals_.size (); i--;) 
+  for (int i = accidentals_.size (); i--;)
     {
       int barnum = get_bar_number ();
 
       Music *note = accidentals_[i].melodic_;
-      Context * origin = accidentals_[i].origin_;
+      Context *origin = accidentals_[i].origin_;
 
       Pitch *pitch = unsmob_pitch (note->get_property ("pitch"));
       if (!pitch)
@@ -446,7 +439,7 @@ Accidental_engraver::stop_translation_timestep ()
 	     && origin->where_defined (ly_symbol2scm ("localKeySignature")))
 	{
 	  /*
-	    huh? we set props all the way to the top? 
+	    huh? we set props all the way to the top?
 	  */
 	  SCM localsig = origin->get_property ("localKeySignature");
 	  bool change = false;
@@ -495,14 +488,14 @@ Accidental_engraver::acknowledge_grob (Grob_info info)
       && note->is_mus_type ("note-event")
       && Rhythmic_head::has_interface (info.grob_))
     {
-      if (to_boolean ( get_property ("harmonicAccidentals"))
+      if (to_boolean (get_property ("harmonicAccidentals"))
 	  || !ly_c_equal_p (info.grob_->get_property ("style"),
-			  ly_symbol2scm ("harmonic")))
+			    ly_symbol2scm ("harmonic")))
 	{
-	  
-	  Accidental_entry entry ;
+
+	  Accidental_entry entry;
 	  entry.head_ = info.grob_;
-	  entry.origin_trans_ = dynamic_cast<Engraver*> (info.origin_trans_);
+	  entry.origin_trans_ = dynamic_cast<Engraver *> (info.origin_trans_);
 	  entry.origin_ = info.origin_trans_->context ();
 	  entry.melodic_ = note;
 
@@ -510,12 +503,12 @@ Accidental_engraver::acknowledge_grob (Grob_info info)
 	}
     }
   else if (Tie::has_interface (info.grob_))
-    ties_.push (dynamic_cast<Spanner*> (info.grob_));
+    ties_.push (dynamic_cast<Spanner *> (info.grob_));
   else if (Arpeggio::has_interface (info.grob_))
-    left_objects_.push (info.grob_); 
+    left_objects_.push (info.grob_);
   else if (info.grob_
 	   ->internal_has_interface (ly_symbol2scm ("finger-interface")))
-    left_objects_.push (info.grob_); 
+    left_objects_.push (info.grob_);
 }
 
 void
@@ -529,26 +522,20 @@ Accidental_engraver::process_music ()
 }
 
 ADD_TRANSLATOR (Accidental_engraver,
-		   "Make accidentals.  "
-		   "Catch note heads, ties and notices key-change events.  "
-		   "This engraver usually lives at Staff level, but "
-		   "reads the settings for Accidental at @code{Voice} level, " 
-		   "so you can @code{\\override} them at @code{Voice}. "
-		   ,
-		   "Accidental"
-		   ,
-		   ""
-		   ,
-		   "arpeggio-interface "
-		   "finger-interface "
-		   "rhythmic-head-interface "
-		   "tie-interface "
-		   ,
-		   "autoAccidentals "
-		   "autoCautionaries "
-		   "extraNatural "
-		   "harmonicAccidentals "
-		   "localKeySignature"
-		   ,
-		   "localKeySignature"
-		   );
+		"Make accidentals.  "
+		"Catch note heads, ties and notices key-change events.  "
+		"This engraver usually lives at Staff level, but "
+		"reads the settings for Accidental at @code{Voice} level, "
+		"so you can @code{\\override} them at @code{Voice}. ",
+		"Accidental",
+		"",
+		"arpeggio-interface "
+		"finger-interface "
+		"rhythmic-head-interface "
+		"tie-interface ",
+		"autoAccidentals "
+		"autoCautionaries "
+		"extraNatural "
+		"harmonicAccidentals "
+		"localKeySignature",
+		"localKeySignature");

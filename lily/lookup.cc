@@ -37,8 +37,6 @@ Lookup::dot (Offset p, Real radius)
   return Stencil (box, at);
 }
 
-
-
 /*
  * Horizontal Slope:
  *
@@ -56,85 +54,80 @@ Lookup::dot (Offset p, Real radius)
  *       <----->
  *        width
  */
-Stencil 
-Lookup::beam (Real slope, Real width, Real thick, Real blot) 
+Stencil
+Lookup::beam (Real slope, Real width, Real thick, Real blot)
 {
-  Real height = slope * width; 
-  Real min_y = (0 <? height) - thick/2;
-  Real max_y = (0 >? height) + thick/2;
+  Real height = slope * width;
+  Real min_y = (0 <? height) - thick / 2;
+  Real max_y = (0 >? height) + thick / 2;
 
   Box b (Interval (0, width),
 	 Interval (min_y, max_y));
-  
+
   SCM at = scm_list_n (ly_symbol2scm ("beam"),
-		    scm_make_real (width),
-		    scm_make_real (slope),
-		    scm_make_real (thick),
-		    scm_make_real (blot),
-		    SCM_UNDEFINED);
+		       scm_make_real (width),
+		       scm_make_real (slope),
+		       scm_make_real (thick),
+		       scm_make_real (blot),
+		       SCM_UNDEFINED);
   return Stencil (b, at);
 }
 
-  
 Stencil
 Lookup::dashed_slur (Bezier b, Real thick, Real dash_period, Real dash_fraction)
 {
   SCM l = SCM_EOL;
-  
-  Real on = dash_fraction * dash_period; 
-  Real off = dash_period - on; 
- 
-  for (int i = 4; i -- ;)
+
+  Real on = dash_fraction * dash_period;
+  Real off = dash_period - on;
+
+  for (int i = 4; i--;)
     {
       l = scm_cons (ly_offset2scm (b.control_[i]), l);
     }
 
   SCM at = (scm_list_n (ly_symbol2scm ("dashed-slur"),
-			scm_make_real (thick), 
+			scm_make_real (thick),
 			scm_make_real (on),
 			scm_make_real (off),
 			ly_quote_scm (l),
 			SCM_UNDEFINED));
 
   Box box (Interval (0, 0), Interval (0, 0));
-  return   Stencil (box, at);
+  return Stencil (box, at);
 }
-
-
 
 Stencil
 Lookup::horizontal_line (Interval w, Real th)
 {
   SCM at = scm_list_n (ly_symbol2scm ("horizontal-line"),
-		       scm_make_real (w[LEFT]), 
+		       scm_make_real (w[LEFT]),
 		       scm_make_real (w[RIGHT]),
 		       scm_make_real (th),
 		       SCM_UNDEFINED);
 
-
-  Box box ;
+  Box box;
   box[X_AXIS] = w;
-  box[Y_AXIS] = Interval (-th/2, th/2);
+  box[Y_AXIS] = Interval (-th / 2, th / 2);
 
   return Stencil (box, at);
 }
 
-
 Stencil
-Lookup::blank (Box b) 
+Lookup::blank (Box b)
 {
   return Stencil (b, scm_makfrom0str (""));
 }
 
 Stencil
-Lookup::filled_box (Box b) 
+Lookup::filled_box (Box b)
 {
-  SCM  at  = (scm_list_n (ly_symbol2scm ("filledbox"),
-		     scm_make_real (-b[X_AXIS][LEFT]),
-		     scm_make_real (b[X_AXIS][RIGHT]), 		       
-		     scm_make_real (-b[Y_AXIS][DOWN]),
-		     scm_make_real (b[Y_AXIS][UP]), 		       
-		     SCM_UNDEFINED));
+  SCM at = (scm_list_n (ly_symbol2scm ("filledbox"),
+			scm_make_real (-b[X_AXIS][LEFT]),
+			scm_make_real (b[X_AXIS][RIGHT]),
+			scm_make_real (-b[Y_AXIS][DOWN]),
+			scm_make_real (b[Y_AXIS][UP]),
+			SCM_UNDEFINED));
 
   return Stencil (b, at);
 }
@@ -188,8 +181,6 @@ Lookup::round_filled_box (Box b, Real blotdiameter)
 
   return Stencil (b, at);
 }
-
-	  
 
 /*
  * Create Stencil that represents a filled polygon with round edges.
@@ -324,10 +315,9 @@ Lookup::round_filled_polygon (Array<Offset> points, Real blotdiameter)
   return polygon;
 }
 
-
 /*
   TODO: deprecate?
- */
+*/
 Stencil
 Lookup::frame (Box b, Real thick, Real blot)
 {
@@ -335,14 +325,14 @@ Lookup::frame (Box b, Real thick, Real blot)
   Direction d = LEFT;
   for (Axis a = X_AXIS; a < NO_AXES; a = Axis (a + 1))
     {
-      Axis o = Axis ((a+1)%NO_AXES);
+      Axis o = Axis ((a + 1)%NO_AXES);
       do
 	{
 	  Box edges;
 	  edges[a] = b[a][d] + 0.5 * thick * Interval (-1, 1);
-	  edges[o][DOWN] = b[o][DOWN] - thick/2;
-	  edges[o][UP] = b[o][UP] + thick/2;	  
-	  
+	  edges[o][DOWN] = b[o][DOWN] - thick / 2;
+	  edges[o][UP] = b[o][UP] + thick / 2;
+
 	  m.add_stencil (round_filled_box (edges, blot));
 	}
       while (flip (&d) != LEFT);
@@ -351,45 +341,44 @@ Lookup::frame (Box b, Real thick, Real blot)
 }
 
 /*
-  Make a smooth curve along the points 
- */
+  Make a smooth curve along the points
+*/
 Stencil
-Lookup::slur (Bezier curve, Real curvethick, Real linethick) 
+Lookup::slur (Bezier curve, Real curvethick, Real linethick)
 {
   Real alpha = (curve.control_[3] - curve.control_[0]).arg ();
   Bezier back = curve;
-  Offset perp = curvethick * complex_exp (Offset (0, alpha + M_PI/2)) * 0.5;
+  Offset perp = curvethick * complex_exp (Offset (0, alpha + M_PI / 2)) * 0.5;
   back.reverse ();
   back.control_[1] += perp;
   back.control_[2] += perp;
 
   curve.control_[1] -= perp;
   curve.control_[2] -= perp;
-  
+
   SCM scontrols[8];
 
   for (int i =4; i--;)
     scontrols[ i ] = ly_offset2scm (back.control_[i]);
-  for (int i =4 ; i--;)
-    scontrols[i+4] = ly_offset2scm (curve.control_[i]);
+  for (int i =4; i--;)
+    scontrols[i + 4] = ly_offset2scm (curve.control_[i]);
 
   /*
-    Need the weird order b.o. the way PS want its arguments  
-   */
+    Need the weird order b.o. the way PS want its arguments
+  */
   int indices[]= {5, 6, 7, 4, 1, 2, 3, 0};
   SCM list = SCM_EOL;
   for (int i = 8; i--;)
     {
       list = scm_cons (scontrols[indices[i]], list);
     }
-  
-  
+
   SCM at = (scm_list_n (ly_symbol2scm ("bezier-sandwich"),
-		     ly_quote_scm (list),
-		     scm_make_real (linethick),
-		     SCM_UNDEFINED));
+			ly_quote_scm (list),
+			scm_make_real (linethick),
+			SCM_UNDEFINED));
   Box b (curve.extent (X_AXIS),
-	curve.extent (Y_AXIS));
+	 curve.extent (Y_AXIS));
 
   b[X_AXIS].unite (back.extent (X_AXIS));
   b[Y_AXIS].unite (back.extent (Y_AXIS));
@@ -424,8 +413,8 @@ Stencil
 Lookup::bezier_sandwich (Bezier top_curve, Bezier bottom_curve)
 {
   /*
-    Need the weird order b.o. the way PS want its arguments  
-   */
+    Need the weird order b.o. the way PS want its arguments
+  */
   SCM list = SCM_EOL;
   list = scm_cons (ly_offset2scm (bottom_curve.control_[3]), list);
   list = scm_cons (ly_offset2scm (bottom_curve.control_[0]), list);
@@ -452,9 +441,9 @@ Lookup::bezier_sandwich (Bezier top_curve, Bezier bottom_curve)
 
 /*
   TODO: junk me.
- */
+*/
 Stencil
-Lookup::accordion (SCM s, Real staff_space, Font_metric *fm) 
+Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
 {
   Stencil m;
   String sym = ly_scm2string (scm_car (s));
@@ -469,28 +458,28 @@ Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
 	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 2.5 PT, Y_AXIS);
 	  m.add_stencil (d);
-	  reg = reg.right_string (reg.length ()-1);
+	  reg = reg.right_string (reg.length () - 1);
 	}
       int eflag = 0x00;
       if (reg.left_string (3) == "EEE")
 	{
 	  eflag = 0x07;
-	  reg = reg.right_string (reg.length ()-3);
+	  reg = reg.right_string (reg.length () - 3);
 	}
       else if (reg.left_string (2) == "EE")
 	{
 	  eflag = 0x05;
-	  reg = reg.right_string (reg.length ()-2);
+	  reg = reg.right_string (reg.length () - 2);
 	}
       else if (reg.left_string (2) == "Eh")
 	{
 	  eflag = 0x04;
-	  reg = reg.right_string (reg.length ()-2);
+	  reg = reg.right_string (reg.length () - 2);
 	}
       else if (reg.left_string (1) == "E")
 	{
 	  eflag = 0x02;
-	  reg = reg.right_string (reg.length ()-1);
+	  reg = reg.right_string (reg.length () - 1);
 	}
       if (eflag & 0x02)
 	{
@@ -520,14 +509,14 @@ Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
 	  m.add_stencil (d);
 	  d.translate_axis (-0.8 * staff_space PT, X_AXIS);
 	  m.add_stencil (d);
-	  reg = reg.right_string (reg.length ()-2);
+	  reg = reg.right_string (reg.length () - 2);
 	}
       if (reg.left_string (1) == "S")
 	{
 	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (0.5 * staff_space PT, Y_AXIS);
 	  m.add_stencil (d);
-	  reg = reg.right_string (reg.length ()-1);
+	  reg = reg.right_string (reg.length () - 1);
 	}
     }
   else if (sym == "Freebase")
@@ -539,7 +528,7 @@ Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
 	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 1.5 PT, Y_AXIS);
 	  m.add_stencil (d);
-	  reg = reg.right_string (reg.length ()-1);
+	  reg = reg.right_string (reg.length () - 1);
 	}
       if (reg == "E")
 	{
@@ -557,7 +546,7 @@ Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
 	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 2.5 PT, Y_AXIS);
 	  m.add_stencil (d);
-	  reg = reg.right_string (reg.length ()-1);
+	  reg = reg.right_string (reg.length () - 1);
 	}
       /* include 4' reed just for completeness. You don't want to use this. */
       if (reg.left_string (1) == "F")
@@ -565,7 +554,7 @@ Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
 	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 1.5 PT, Y_AXIS);
 	  m.add_stencil (d);
-	  reg = reg.right_string (reg.length ()-1);
+	  reg = reg.right_string (reg.length () - 1);
 	}
       if (reg.left_string (2) == "EE")
 	{
@@ -575,14 +564,14 @@ Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
 	  m.add_stencil (d);
 	  d.translate_axis (-0.8 * staff_space PT, X_AXIS);
 	  m.add_stencil (d);
-	  reg = reg.right_string (reg.length ()-2);
+	  reg = reg.right_string (reg.length () - 2);
 	}
       if (reg.left_string (1) == "E")
 	{
 	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 0.5 PT, Y_AXIS);
 	  m.add_stencil (d);
-	  reg = reg.right_string (reg.length ()-1);
+	  reg = reg.right_string (reg.length () - 1);
 	}
     }
   else if (sym == "Stdbase")
@@ -594,14 +583,14 @@ Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
 	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 3.5 PT, Y_AXIS);
 	  m.add_stencil (d);
-	  reg = reg.right_string (reg.length ()-1);
+	  reg = reg.right_string (reg.length () - 1);
 	}
       if (reg.left_string (1) == "F")
 	{
 	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 2.5 PT, Y_AXIS);
 	  m.add_stencil (d);
-	  reg = reg.right_string (reg.length ()-1);
+	  reg = reg.right_string (reg.length () - 1);
 	}
       if (reg.left_string (1) == "M")
 	{
@@ -609,21 +598,21 @@ Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
 	  d.translate_axis (staff_space * 2 PT, Y_AXIS);
 	  d.translate_axis (staff_space PT, X_AXIS);
 	  m.add_stencil (d);
-	  reg = reg.right_string (reg.length ()-1);
+	  reg = reg.right_string (reg.length () - 1);
 	}
       if (reg.left_string (1) == "E")
 	{
 	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 1.5 PT, Y_AXIS);
 	  m.add_stencil (d);
-	  reg = reg.right_string (reg.length ()-1);
+	  reg = reg.right_string (reg.length () - 1);
 	}
       if (reg.left_string (1) == "S")
 	{
 	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 0.5 PT, Y_AXIS);
 	  m.add_stencil (d);
-	  reg = reg.right_string (reg.length ()-1);
+	  reg = reg.right_string (reg.length () - 1);
 	}
     }
   /* ugh maybe try to use regular font for S.B. and B.B and only use one font
@@ -648,7 +637,7 @@ Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
       Stencil r = fm->find_by_name ("accordion.accOldEES");
       m.add_stencil (r);
     }
-  return m;  
+  return m;
 }
 
 Stencil
@@ -660,25 +649,24 @@ Lookup::repeat_slash (Real w, Real s, Real t)
   SCM slashnodot = scm_list_n (ly_symbol2scm ("repeat-slash"),
 			       wid, sl, thick, SCM_UNDEFINED);
 
-  Box b (Interval (0, w + sqrt (sqr (t/s) + sqr (t))),
+  Box b (Interval (0, w + sqrt (sqr (t / s) + sqr (t))),
 	 Interval (0, w * s));
 
   return Stencil (b, slashnodot); //  http://slashnodot.org
 }
 
-
 Stencil
 Lookup::bracket (Axis a, Interval iv, Real thick, Real protude, Real blot)
 {
   Box b;
-  Axis other = Axis ((a+1)%2);
+  Axis other = Axis ((a + 1)%2);
   b[a] = iv;
   b[other] = Interval (-1, 1) * thick * 0.5;
-  
+
   Stencil m = round_filled_box (b, blot);
 
   b[a] = Interval (iv[UP] - thick, iv[UP]);
-  Interval oi = Interval (-thick/2, thick/2 + fabs (protude));
+  Interval oi = Interval (-thick / 2, thick / 2 + fabs (protude));
   oi *= sign (protude);
   b[other] = oi;
   m.add_stencil (round_filled_box (b, blot));
@@ -691,18 +679,17 @@ Lookup::bracket (Axis a, Interval iv, Real thick, Real protude, Real blot)
 Stencil
 Lookup::triangle (Interval iv, Real thick, Real protude)
 {
-  Box b ;
-  b[X_AXIS] = Interval (0, iv.length());
-  b[Y_AXIS] = Interval (0 <? protude , 0 >? protude);
+  Box b;
+  b[X_AXIS] = Interval (0, iv.length ());
+  b[Y_AXIS] = Interval (0 <? protude, 0 >? protude);
 
-
-  Offset z1(iv[LEFT], 0);
-  Offset z2(iv[RIGHT], 0);
-  Offset z3((z1 + z2)[X_AXIS]/2, protude);
+  Offset z1 (iv[LEFT], 0);
+  Offset z2 (iv[RIGHT], 0);
+  Offset z3 ((z1 + z2)[X_AXIS] / 2, protude);
 
   /*
     TODO: move Triangle to Line_interface ?
-   */
+  */
   Stencil tri = Line_interface::make_line (thick, z1, z2);
   tri.add_stencil (Line_interface::make_line (thick, z2, z3));
   tri.add_stencil (Line_interface::make_line (thick, z3, z1));

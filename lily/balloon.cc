@@ -19,12 +19,12 @@ class Balloon_interface
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  static bool has_interface (Grob*);
+  static bool has_interface (Grob *);
 };
 
 MAKE_SCHEME_CALLBACK (Balloon_interface, print, 1);
 SCM
-Balloon_interface::print (SCM smob) 
+Balloon_interface::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
@@ -54,16 +54,16 @@ Balloon_interface::print (SCM smob)
   Stencil fr = Lookup::frame (box_extent, 0.1, 0.05);
 
   fr.add_stencil (*s);
-  
+
   SCM bt = me->get_property ("balloon-text");
   SCM chain = Font_interface::text_font_alist_chain (me);
   chain = scm_cons (me->get_property ("balloon-text-props"), chain);
 
   SCM text = Text_interface::interpret_markup (me->get_layout ()->self_scm (),
-					  chain, bt);
+					       chain, bt);
 
   Stencil *text_stil = unsmob_stencil (text);
- 
+
   Offset z1;
   for (int i = X_AXIS; i < NO_AXES; i++)
     {
@@ -73,12 +73,12 @@ Balloon_interface::print (SCM smob)
     }
 
   Offset z2 = z1 + off;
- 
+
   fr.add_stencil (Line_interface::line (me, z1, z2));
 
   text_stil->translate (z2);
   fr.add_stencil (*text_stil);
- 
+
   fr = Stencil (orig_extent, fr.expr ());
   return fr.smobbed_copy ();
 }

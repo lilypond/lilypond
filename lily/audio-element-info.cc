@@ -11,13 +11,12 @@
 #include "translator-group.hh"
 #include "context.hh"
 
-Audio_element_info::Audio_element_info (Audio_element*s, Music *r)
+Audio_element_info::Audio_element_info (Audio_element *s, Music *r)
 {
   elem_ = s;
   origin_trans_ = 0;
   event_ = r;
 }
-
 
 Audio_element_info::Audio_element_info ()
 {
@@ -26,16 +25,17 @@ Audio_element_info::Audio_element_info ()
   origin_trans_ = 0;
 }
 
-
 Link_array<Context>
-Audio_element_info::origin_contexts (Translator* end) const
+Audio_element_info::origin_contexts (Translator *end) const
 {
-  Context * t = origin_trans_->context ();
+  Context *t = origin_trans_->context ();
   Link_array<Context> r;
-  do {
-    r.push (t);
-    t = t->get_parent_context ();
-  } while (t && t != end->context ());
-  
+  do
+    {
+      r.push (t);
+      t = t->get_parent_context ();
+    }
+  while (t && t != end->context ());
+
   return r;
 }

@@ -19,10 +19,10 @@ lookup_tex_text_dimension (Font_metric *font, SCM text)
   Box b;
 
   SCM limit = ly_lily_module_constant ("TEX_STRING_HASHLIMIT");
-  String key_str = ly_scm2string (font->font_file_name());
+  String key_str = ly_scm2string (font->font_file_name ());
   int hash_code = scm_to_int (scm_hash (text, limit));
-  key_str = to_string (hash_code)  + key_str;
-  
+  key_str = to_string (hash_code) + key_str;
+
   SCM val = SCM_BOOL_F;
   if (text_dimension_hash_tab)
     {
@@ -37,21 +37,21 @@ lookup_tex_text_dimension (Font_metric *font, SCM text)
       val = scm_cdr (val);
       b[Y_AXIS][UP] = scm_to_double (scm_car (val)) * point_constant;
       val = scm_cdr (val);
-      b[Y_AXIS][DOWN] = scm_to_double (scm_car (val)) * point_constant; 
+      b[Y_AXIS][DOWN] = scm_to_double (scm_car (val)) * point_constant;
     }
-  
-  return b; 
+
+  return b;
 }
 
-LY_DEFINE(ly_load_text_dimensions, "ly:load-text-dimensions",
-	  1, 0, 0,
-	  (SCM dimension_alist),
-	  "Load dimensions from TeX in a (KEY . (W H D)) format alist")
+LY_DEFINE (ly_load_text_dimensions, "ly:load-text-dimensions",
+	   1, 0, 0,
+	   (SCM dimension_alist),
+	   "Load dimensions from TeX in a (KEY . (W H D)) format alist")
 {
   if (!text_dimension_hash_tab)
     {
-      text_dimension_hash_tab =
-	scm_gc_protect_object (scm_c_make_hash_table (113));
+      text_dimension_hash_tab
+	= scm_gc_protect_object (scm_c_make_hash_table (113));
     }
 
   for (SCM s = dimension_alist;
@@ -60,7 +60,7 @@ LY_DEFINE(ly_load_text_dimensions, "ly:load-text-dimensions",
     {
       SCM key = scm_caar (s);
       SCM val = scm_cdar (s);
-      
+
       if (scm_hash_ref (text_dimension_hash_tab, key, SCM_BOOL_F)
 	  == SCM_BOOL_F)
 	{
@@ -74,11 +74,11 @@ LY_DEFINE(ly_load_text_dimensions, "ly:load-text-dimensions",
 void
 try_load_text_metrics (String basename)
 {
-  String path =  global_path.find (basename +  ".textmetrics");
+  String path = global_path.find (basename + ".textmetrics");
   if (path != "")
     {
       String contents (gulp_file_to_string (path, true));
-      contents = "(quote (" +  contents + "))";
+      contents = "(quote (" + contents + "))";
 
       SCM lst = scm_c_eval_string (contents.to_str0 ());
       ly_load_text_dimensions (lst);

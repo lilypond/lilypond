@@ -19,12 +19,12 @@ bool busy_parsing ();
 void kill_lexer ();
 void set_lexer ();
 
-class Lily_lexer : public Includable_lexer 
+class Lily_lexer : public Includable_lexer
 {
-  DECLARE_SMOBS(Lily_lexer, );
+  DECLARE_SMOBS (Lily_lexer,);
 public:
   SCM scopes_;
-  
+
 private:
   int lookup_keyword (String);
   int scan_bare_word (String);
@@ -40,8 +40,8 @@ public:
   void *lexval;
   Input *lexloc;
   bool is_main_input_;
-  
-  Sources *sources_; 
+
+  Sources *sources_;
 
   /* Scheme hash tables with (oct name acc)  values, and symbol keys.  */
   SCM chordmodifier_tab_;
@@ -50,19 +50,19 @@ public:
   int error_level_;
   Input last_input_;
 
-  Lily_lexer (Sources*);
-  Lily_lexer (Lily_lexer const&);
+  Lily_lexer (Sources *);
+  Lily_lexer (Lily_lexer const &);
   int yylex ();
 
   void add_lexed_char (int);
 
   void prepare_for_next_token ();
-  int try_special_identifiers (SCM* , SCM);
+  int try_special_identifiers (SCM *, SCM);
   Input here_input () const;
-  
+
   void add_scope (SCM);
   SCM remove_scope ();
-  
+
   void start_main_input ();
 
   SCM lookup_identifier (String s);

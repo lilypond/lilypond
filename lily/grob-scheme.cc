@@ -4,7 +4,7 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 1998--2005 Jan Nieuwenhuizen <janneke@gnu.org>
-                 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "warn.hh"
@@ -29,11 +29,10 @@ LY_DEFINE (ly_grob_set_property_x, "ly:grob-set-property!",
 
 LY_DEFINE (ly_grob_property, "ly:grob-property",
 	   2, 0, 0, (SCM grob, SCM sym),
-	  "Return the value of a value in grob @var{g} of property @var{sym}. "
+	   "Return the value of a value in grob @var{g} of property @var{sym}. "
 	   "It will return @code{' ()} (end-of-list) "
 	   "if  @var{sym} is undefined in @var{g}."
-	   "\n\n"
-	   )
+	   "\n\n")
 {
   Grob *sc = unsmob_grob (grob);
   SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
@@ -47,7 +46,7 @@ LY_DEFINE (ly_spanner_get_bound, "ly:spanner-get-bound",
 	   "Get one of the bounds of @var{spanner}. @var{dir} is @code{-1} "
 	   "for left, and @code{1} for right.")
 {
-  Spanner * sl = dynamic_cast<Spanner*> (unsmob_grob (slur));
+  Spanner *sl = dynamic_cast<Spanner *> (unsmob_grob (slur));
   SCM_ASSERT_TYPE (sl, slur, SCM_ARG1, __FUNCTION__, "spanner grob");
   SCM_ASSERT_TYPE (is_direction (dir), slur, SCM_ARG2, __FUNCTION__, "dir");
   return sl->get_bound (to_dir (dir))->self_scm ();
@@ -59,7 +58,7 @@ LY_DEFINE (ly_grob_layout, "ly:grob-layout",
 	   1, 0, 0, (SCM g),
 	   "Get @code{\\layout} definition from grob @var{g}.")
 {
-  Grob * sc = unsmob_grob (g);
+  Grob *sc = unsmob_grob (g);
   SCM_ASSERT_TYPE (sc, g, SCM_ARG1, __FUNCTION__, "grob");
 
   return sc->get_layout ()->self_scm ();
@@ -92,7 +91,7 @@ LY_DEFINE (ly_get_extent, "ly:grob-extent",
   SCM_ASSERT_TYPE (ref, refp, SCM_ARG2, __FUNCTION__, "grob");
   SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
 
-  return ly_interval2scm ( sc->extent (ref, Axis (scm_to_int (axis))));
+  return ly_interval2scm (sc->extent (ref, Axis (scm_to_int (axis))));
 }
 
 LY_DEFINE (ly_grob_parent, "ly:grob-parent",
@@ -158,7 +157,7 @@ LY_DEFINE (ly_spanner_broken_into, "ly:spanner-broken-into",
 	   1, 0, 0, (SCM spanner),
 	   "Return broken-into list for @var{spanner}.")
 {
-  Spanner *me = dynamic_cast<Spanner*> (unsmob_grob (spanner));
+  Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (spanner));
   SCM_ASSERT_TYPE (me, spanner, SCM_ARG1, __FUNCTION__, "spanner");
 
   SCM s = SCM_EOL;
@@ -196,7 +195,7 @@ LY_DEFINE (ly_spanner_p, "ly:spanner?",
 	   "Is  @var{g} a spanner object?")
 {
   Grob *me = unsmob_grob (g);
-  bool b = dynamic_cast<Spanner*> (me);
+  bool b = dynamic_cast<Spanner *> (me);
 
   return ly_bool2scm (b);
 }
@@ -206,7 +205,7 @@ LY_DEFINE (ly_item_p, "ly:item?",
 	   "Is @var{g} an @code{Item} object?")
 {
   Grob *me = unsmob_grob (g);
-  bool b = dynamic_cast<Item*> (me);
+  bool b = dynamic_cast<Item *> (me);
   return ly_bool2scm (b);
 }
 
@@ -215,17 +214,15 @@ LY_DEFINE (ly_item_break_dir, "ly:item-break-dir",
 	   "The break status dir of item @var{it}. @code{-1} is end of "
 	   "line, @code{0} unbroken, and @code{1} begin of line.")
 {
-  Item *me = dynamic_cast<Item*> (unsmob_grob (it));
+  Item *me = dynamic_cast<Item *> (unsmob_grob (it));
   SCM_ASSERT_TYPE (me, it, SCM_ARG1, __FUNCTION__, "Item");
   return scm_int2num (me->break_status_dir ());
 }
 
-
-LY_DEFINE(ly_grob_key, "ly:grob-key",
-	  1, 0, 0,
-	  (SCM grob),
-	  "Return the object-key for @var{grob}."
-	  )
+LY_DEFINE (ly_grob_key, "ly:grob-key",
+	   1, 0, 0,
+	   (SCM grob),
+	   "Return the object-key for @var{grob}.")
 {
   Grob *me = unsmob_grob (grob);
   SCM_ASSERT_TYPE (me, grob, SCM_ARG1, __FUNCTION__, "Grob");

@@ -11,15 +11,14 @@
 #include "span-bar.hh"
 #include "engraver.hh"
 
-/** 
+/**
 
-  Make bars that span multiple "staves". Catch bars, and span a
-  Span_bar over them if we find more than 2 bars.  Vertical alignment
-  of staves changes the appearance of spanbars.  It is up to the
-  aligner (Vertical_align_engraver, in this case, to add extra
-  dependencies to the spanbars.
-
-  */
+Make bars that span multiple "staves". Catch bars, and span a
+Span_bar over them if we find more than 2 bars.  Vertical alignment
+of staves changes the appearance of spanbars.  It is up to the
+aligner (Vertical_align_engraver, in this case, to add extra
+dependencies to the spanbars.
+*/
 class Span_bar_engraver : public Engraver
 {
   Item *spanbar_;
@@ -43,15 +42,15 @@ Span_bar_engraver::acknowledge_grob (Grob_info i)
   int depth = i.origin_contexts (this).size ();
   if (depth && Bar_line::has_interface (i.grob_))
     {
-      Item * it = dynamic_cast<Item*> (i.grob_);
+      Item *it = dynamic_cast<Item *> (i.grob_);
       bars_.push (it);
 
-      if (bars_.size () >= 2 && !spanbar_) 
+      if (bars_.size () >= 2 && !spanbar_)
 	{
 	  spanbar_ = make_item ("SpanBar", SCM_EOL);
 
 	  spanbar_->set_parent (bars_[0], X_AXIS);
-	  
+
 	}
     }
 }
@@ -59,28 +58,26 @@ Span_bar_engraver::acknowledge_grob (Grob_info i)
 void
 Span_bar_engraver::stop_translation_timestep ()
 {
-  if (spanbar_) 
+  if (spanbar_)
     {
-      for (int i = 0; i < bars_.size () ; i++)
+      for (int i = 0; i < bars_.size (); i++)
 	Span_bar::add_bar (spanbar_, bars_[i]);
 
       SCM vissym = ly_symbol2scm ("break-visibility");
-      SCM vis = bars_[0]->internal_get_property (vissym);	  
+      SCM vis = bars_[0]->internal_get_property (vissym);
       if (ly_c_equal_p (spanbar_->internal_get_property (vissym), vis))
 	spanbar_->internal_set_property (vissym, vis);
 
-      
       spanbar_ = 0;
     }
   bars_.set_size (0);
 }
 
-
 ADD_TRANSLATOR (Span_bar_engraver,
-/* descr */       "This engraver makes cross-staff barlines: It catches all normal "
-"bar lines, and draws a single span-bar across them.",
-/* creats*/       "SpanBar",
-/* accepts */     "",
-/* acks  */      "bar-line-interface",
-/* reads */       "",
-/* write */       "");
+		/* descr */ "This engraver makes cross-staff barlines: It catches all normal "
+		"bar lines, and draws a single span-bar across them.",
+		/* creats*/ "SpanBar",
+		/* accepts */ "",
+		/* acks  */ "bar-line-interface",
+		/* reads */ "",
+		/* write */ "");

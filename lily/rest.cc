@@ -1,5 +1,5 @@
 /*
- rest.cc -- implement Rest
+  rest.cc -- implement Rest
 
   source file of the GNU LilyPond music typesetter
 
@@ -29,15 +29,15 @@ Rest::after_line_breaking (SCM smob)
     {
       if (bt == 0 && lc > 1)
 	{
-	  me->translate_axis (ss , Y_AXIS);
+	  me->translate_axis (ss, Y_AXIS);
 	}
     }
   else
     {
-      me->translate_axis (ss/2 , Y_AXIS);
+      me->translate_axis (ss / 2, Y_AXIS);
     }
 
-  Grob * d = unsmob_grob (me->get_property ("dot"));
+  Grob *d = unsmob_grob (me->get_property ("dot"));
   if (d && bt > 4) // UGH.
     {
       d->set_property ("staff-position",
@@ -53,7 +53,7 @@ Rest::after_line_breaking (SCM smob)
 
 /*
   make this function easily usable in C++
- */
+*/
 String
 Rest::glyph_name (Grob *me, int balltype, String style, bool try_ledgers)
 {
@@ -67,7 +67,7 @@ Rest::glyph_name (Grob *me, int balltype, String style, bool try_ledgers)
 	Figure out when the rest is far enough outside the staff. This
 	could bemore generic, but hey, we understand this even after
 	dinner.
-       */
+      */
       ledgered_b |= (balltype == 0) && (pos >= +rad + 2 || pos < -rad);
       ledgered_b |= (balltype == 1) && (pos <= -rad - 2 || pos > +rad);
     }
@@ -115,21 +115,20 @@ Rest::glyph_name (Grob *me, int balltype, String style, bool try_ledgers)
 	  + actual_style);
 }
 
-
 MAKE_SCHEME_CALLBACK (Rest, print, 1);
 
 SCM
 Rest::brew_internal_stencil (SCM smob, bool ledgered)
 {
-  Grob* me = unsmob_grob (smob);
+  Grob *me = unsmob_grob (smob);
 
   SCM balltype_scm = me->get_property ("duration-log");
   if (!scm_is_number (balltype_scm))
     return Stencil ().smobbed_copy ();
 
   int balltype = scm_to_int (balltype_scm);
-  
-  String style; 
+
+  String style;
   SCM style_scm = me->get_property ("style");
   if (scm_is_symbol (style_scm))
     style = ly_scm2string (scm_symbol_to_string (style_scm));
@@ -143,8 +142,8 @@ Rest::brew_internal_stencil (SCM smob, bool ledgered)
   return out.smobbed_copy ();
 }
 
-SCM 
-Rest::print (SCM smob) 
+SCM
+Rest::print (SCM smob)
 {
   return brew_internal_stencil (smob, true);
 }
@@ -165,7 +164,7 @@ Rest::extent_callback (SCM smob, SCM ax)
 
     consequence: we get too small extents and potential collisions
     with ledgered rests.
-   */
+  */
   SCM m = brew_internal_stencil (smob, a != X_AXIS);
   return ly_interval2scm (unsmob_stencil (m)->extent (a));
 }
@@ -174,12 +173,12 @@ MAKE_SCHEME_CALLBACK (Rest, polyphonic_offset_callback, 2);
 SCM
 Rest::polyphonic_offset_callback (SCM smob, SCM)
 {
-  Grob* me = unsmob_grob (smob);
+  Grob *me = unsmob_grob (smob);
   if (scm_is_number (me->get_property ("staff-position")))
     return scm_make_real (0);
 
   Direction d = get_grob_direction (me);
-  Real off = 2 * d ;
+  Real off = 2 * d;
   if (off)
     off *= Staff_symbol_referencer::staff_space (me);
 
@@ -187,6 +186,6 @@ Rest::polyphonic_offset_callback (SCM smob, SCM)
 }
 
 ADD_INTERFACE (Rest, "rest-interface",
-  "A rest symbol.",
-  "style direction minimum-distance");
+	       "A rest symbol.",
+	       "style direction minimum-distance");
 

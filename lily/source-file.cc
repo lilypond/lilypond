@@ -16,7 +16,7 @@
 #include <sstream>
 #else
 #include <strstream>
-#define istringstream(x) istrstream(x, length ()) 
+#define istringstream(x) istrstream (x, length ())
 #endif
 
 #include "warn.hh"
@@ -36,7 +36,7 @@ Source_file::load_stdin ()
   contents_str0_ = chs.remove_array ();
 }
 
-char*
+char *
 gulp_file (String filename, int *filesize)
 {
   /* "b" must ensure to open literally, avoiding text (CR/LF)
@@ -68,7 +68,7 @@ Source_file::Source_file (String filename, String data)
 {
   name_ = filename;
   istream_ = 0;
-  contents_str0_ = data.get_copy_str0();
+  contents_str0_ = data.get_copy_str0 ();
   length_ = data.length ();
   pos_str0_ = to_str0 ();
   init_port ();
@@ -88,7 +88,7 @@ Source_file::Source_file (String filename_string)
     load_stdin ();
   else
     contents_str0_ = gulp_file (filename_string, &length_);
-  
+
   pos_str0_ = to_str0 ();
 
   init_port ();
@@ -153,17 +153,17 @@ Source_file::~Source_file ()
 }
 
 Slice
-Source_file::line_slice (char const* pos_str0) const
+Source_file::line_slice (char const *pos_str0) const
 {
   if (!contains (pos_str0))
     return Slice (0, 0);
 
-  char const* data_str0 = to_str0 ();
-  char const * eof_C_ = data_str0 + length ();
+  char const *data_str0 = to_str0 ();
+  char const *eof_C_ = data_str0 + length ();
 
   if (pos_str0 == eof_C_)
-    pos_str0 --;
-  char const* begin_str0 = pos_str0;
+    pos_str0--;
+  char const *begin_str0 = pos_str0;
   while (begin_str0 > data_str0)
     if (*--begin_str0 == '\n')
       {
@@ -189,22 +189,22 @@ Source_file::line_string (char const* pos_str0) const
     return "";
 
   Slice line = line_slice (pos_str0);
-  char const* data_str0 = to_str0 ();
-  return String ((Byte const*)data_str0 + line[LEFT], line.length ());
+  char const *data_str0 = to_str0 ();
+  return String ((Byte const *)data_str0 + line[LEFT], line.length ());
 }
 
 int
-Source_file::get_char (char const* pos_str0) const
+Source_file::get_char (char const *pos_str0) const
 {
   if (!contains (pos_str0))
     return 0;
 
-  char const* data_str0 = to_str0 ();
+  char const *data_str0 = to_str0 ();
   return pos_str0 - (line_slice (pos_str0)[SMALLER] + data_str0);
 }
 
 int
-Source_file::get_column (char const* pos_str0) const
+Source_file::get_column (char const *pos_str0) const
 {
   if (!contains (pos_str0))
     return 0;
@@ -293,10 +293,10 @@ Source_file::set_pos (char const * pos_str0)
     error (error_string (pos_str0) + "invalid pos");
 }
 
-char const*
+char const *
 Source_file::seek_str0 (int n)
 {
-  char const* new_str0 = to_str0 () + n;
+  char const *new_str0 = to_str0 () + n;
   if (n < 0)
     new_str0 += length ();
   if (contains (new_str0))
@@ -307,15 +307,15 @@ Source_file::seek_str0 (int n)
   return pos_str0_;
 }
 
-char const*
+char const *
 Source_file::forward_str0 (int n)
 {
-  char const* old_pos = pos_str0_;
-  char const* new_str0 = pos_str0_ + n;
+  char const *old_pos = pos_str0_;
+  char const *new_str0 = pos_str0_ + n;
   if (contains (new_str0))
     pos_str0_ = new_str0;
   else
-    error (error_string (new_str0)  + "forward past eof");
+    error (error_string (new_str0) + "forward past eof");
 
   return old_pos;
 }
@@ -323,6 +323,6 @@ Source_file::forward_str0 (int n)
 String
 Source_file::get_string (int n)
 {
-  String str = String ((Byte const*)forward_str0 (n), n);
+  String str = String ((Byte const *)forward_str0 (n), n);
   return str;
 }

@@ -18,17 +18,17 @@ class Cluster_spanner_engraver : public Engraver
 protected:
   TRANSLATOR_DECLARATIONS (Cluster_spanner_engraver);
   virtual bool try_music (Music *);
-  virtual void process_music ();  
+  virtual void process_music ();
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
   virtual void finalize ();
 private:
   Link_array<Music> cluster_notes_;
-  Item* beacon_;
+  Item *beacon_;
 
   void typeset_grobs ();
   Spanner *spanner_;
-  Spanner *finished_spanner_ ;
+  Spanner *finished_spanner_;
 };
 
 Cluster_spanner_engraver::Cluster_spanner_engraver ()
@@ -64,7 +64,7 @@ Cluster_spanner_engraver::try_music (Music *m)
     }
   else if (m->is_mus_type ("busy-playing-event"))
     return cluster_notes_.size ();
-  
+
   return false;
 }
 
@@ -75,38 +75,37 @@ Cluster_spanner_engraver::process_music ()
     {
       SCM c0scm = get_property ("middleCPosition");
 
-      int c0 =  scm_is_number (c0scm) ? scm_to_int (c0scm) : 0;
+      int c0 = scm_is_number (c0scm) ? scm_to_int (c0scm) : 0;
       int pmax = INT_MIN;
       int pmin = INT_MAX;
-      
+
       for (int i = 0; i <cluster_notes_.size (); i++)
 	{
 	  Pitch *pit = unsmob_pitch (cluster_notes_[i]->get_property ("pitch"));
 
-	  int p =( pit ? pit->steps () : 0) + c0;
+	  int p = (pit ? pit->steps () : 0) + c0;
 
 	  pmax = pmax >? p;
 	  pmin = pmin <? p;
 	}
-      
+
       beacon_ = make_item ("ClusterSpannerBeacon", cluster_notes_[0]->self_scm ());
       beacon_->set_property ("positions",
-				  scm_cons (scm_int2num (pmin),
-					    scm_int2num (pmax)));
+			     scm_cons (scm_int2num (pmin),
+				       scm_int2num (pmax)));
     }
 
   if (beacon_ && !spanner_)
-    {    
-      spanner_ = make_spanner ("ClusterSpanner", cluster_notes_[0]->self_scm () );
+    {
+      spanner_ = make_spanner ("ClusterSpanner", cluster_notes_[0]->self_scm ());
     }
-  
+
   if (beacon_ && spanner_)
     {
       add_bound_item (spanner_, beacon_);
       Pointer_group_interface::add_grob (spanner_, ly_symbol2scm ("columns"), beacon_);
     }
 }
-
 
 void
 Cluster_spanner_engraver::stop_translation_timestep ()
@@ -126,10 +125,10 @@ Cluster_spanner_engraver::acknowledge_grob (Grob_info info)
 }
 
 ADD_TRANSLATOR (Cluster_spanner_engraver,
-/* descr */	"Engraves a cluster using Spanner notation ",
-/* creats*/	"ClusterSpanner ClusterSpannerBeacon",
-/* accepts */	"cluster-note-event busy-playing-event",
-/* acks  */	"note-column-interface",
-/* reads */	"",
-/* write */	"");
+		/* descr */	"Engraves a cluster using Spanner notation ",
+		/* creats*/	"ClusterSpanner ClusterSpannerBeacon",
+		/* accepts */	"cluster-note-event busy-playing-event",
+		/* acks  */	"note-column-interface",
+		/* reads */	"",
+		/* write */	"");
 

@@ -15,7 +15,6 @@
 
 #define is_mus_type(x) internal_is_music_type (ly_symbol2scm (x))
 
-
 class Music
 {
 public:
@@ -23,18 +22,18 @@ public:
   Music (Music const &m);
   VIRTUAL_COPY_CONSTRUCTOR (Music, Music);
 
-  Input *origin () const; 
+  Input *origin () const;
   void set_spot (Input);
 
   SCM internal_get_property (SCM) const;
-  void internal_set_property (SCM , SCM val);
+  void internal_set_property (SCM, SCM val);
   SCM get_property_alist (bool mutble) const;
   bool internal_is_music_type (SCM) const;
   int duration_log () const;
-  
-  DECLARE_SCHEME_CALLBACK(relative_callback, (SCM, SCM));
+
+  DECLARE_SCHEME_CALLBACK (relative_callback, (SCM, SCM));
   Pitch to_relative_octave (Pitch);
-  Pitch generic_to_relative_octave (Pitch);  
+  Pitch generic_to_relative_octave (Pitch);
   String name () const;
   Moment get_length () const;
   Moment start_mom () const;
@@ -42,12 +41,12 @@ public:
 
   /// Transpose, with the interval central C to #p#
   void transpose (Pitch p);
-  
+
   /// Scale the music in time by #factor#.
   void compress (Moment factor);
-  
+
 protected:
-  DECLARE_SMOBS (Music, );
+  DECLARE_SMOBS (Music,);
   SCM immutable_property_alist_;
   SCM mutable_property_alist_;
 protected:
@@ -56,8 +55,8 @@ protected:
   friend SCM ly_extended_make_music (SCM, SCM);
 };
 
-DECLARE_TYPE_P(Music);
-DECLARE_UNSMOB(Music, music);
+DECLARE_TYPE_P (Music);
+DECLARE_UNSMOB (Music, music);
 
 Music *make_music_by_name (SCM sym);
 SCM ly_music_deep_copy (SCM);

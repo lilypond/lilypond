@@ -1,4 +1,4 @@
-/*   
+/*
   translator-def.cc -- implement Context_def
 
   source file of the GNU LilyPond music typesetter
@@ -33,17 +33,17 @@ Context_def::Context_def ()
   context_name_ = ly_symbol2scm ("");
 }
 
-Context_def::Context_def (Context_def const & s)
+Context_def::Context_def (Context_def const &s)
   : Input (s)
 {
   context_aliases_ = SCM_EOL;
   translator_group_type_ = SCM_EOL;
-  accept_mods_ = SCM_EOL;   
+  accept_mods_ = SCM_EOL;
   translator_mods_ = SCM_EOL;
   property_ops_ = SCM_EOL;
   context_name_ = SCM_EOL;
   description_ = SCM_EOL;
-  
+
   smobify_self ();
   description_ = s.description_;
 
@@ -66,7 +66,7 @@ IMPLEMENT_DEFAULT_EQUAL_P (Context_def);
 int
 Context_def::print_smob (SCM smob, SCM port, scm_print_state*)
 {
-  Context_def* me = (Context_def*) SCM_CELL_WORD_1 (smob);
+  Context_def *me = (Context_def *) SCM_CELL_WORD_1 (smob);
 
   scm_puts ("#<Context_def ", port);
   scm_display (me->context_name_, port);
@@ -77,13 +77,13 @@ Context_def::print_smob (SCM smob, SCM port, scm_print_state*)
 SCM
 Context_def::mark_smob (SCM smob)
 {
-  Context_def* me = (Context_def*) SCM_CELL_WORD_1 (smob);
+  Context_def *me = (Context_def *) SCM_CELL_WORD_1 (smob);
 
   scm_gc_mark (me->description_);
   scm_gc_mark (me->context_aliases_);
   scm_gc_mark (me->accept_mods_);
   scm_gc_mark (me->translator_mods_);
-  scm_gc_mark (me->property_ops_);  
+  scm_gc_mark (me->property_ops_);
   scm_gc_mark (me->translator_group_type_);
 
   return me->context_name_;
@@ -102,7 +102,7 @@ Context_def::add_context_mod (SCM mod)
   SCM sym = scm_cadr (mod);
   if (scm_is_string (sym))
     sym = scm_string_to_symbol (sym);
-  
+
   if (ly_symbol2scm ("consists") == tag
       || ly_symbol2scm ("consists-end") == tag
       || ly_symbol2scm ("remove") == tag)
@@ -115,7 +115,7 @@ Context_def::add_context_mod (SCM mod)
     }
   else if (ly_symbol2scm ("accepts") == tag
 	   || ly_symbol2scm ("denies") == tag)
-    accept_mods_ = scm_cons (scm_list_2 (tag, sym), accept_mods_); 
+    accept_mods_ = scm_cons (scm_list_2 (tag, sym), accept_mods_);
   else if (ly_symbol2scm ("poppush") == tag
 	   || ly_symbol2scm ("pop") == tag
 	   || ly_symbol2scm ("push") == tag
@@ -124,9 +124,9 @@ Context_def::add_context_mod (SCM mod)
     property_ops_ = scm_cons (mod, property_ops_);
   else if (ly_symbol2scm ("alias") == tag)
     context_aliases_ = scm_cons (sym, context_aliases_);
-  else if (ly_symbol2scm ("translator-type")  == tag)
+  else if (ly_symbol2scm ("translator-type") == tag)
     translator_group_type_ = sym;
-  else if (ly_symbol2scm ("context-name")  == tag)
+  else if (ly_symbol2scm ("context-name") == tag)
     context_name_ = sym;
   else
     programming_error ("Unknown context mod tag.");
@@ -159,7 +159,7 @@ Link_array<Context_def>
 Context_def::path_to_acceptable_context (SCM type_sym, Output_def *odef) const
 {
   assert (scm_is_symbol (type_sym));
-  
+
   SCM accepted = get_accepted (SCM_EOL);
 
   Link_array<Context_def> accepteds;
@@ -183,7 +183,7 @@ Context_def::path_to_acceptable_context (SCM type_sym, Output_def *odef) const
   int best_depth = INT_MAX;
   for (int i = 0; i < accepteds.size (); i++)
     {
-      Context_def * g = accepteds[i];
+      Context_def *g = accepteds[i];
 
       Link_array<Context_def> result
 	= g->path_to_acceptable_context (type_sym, odef);
@@ -207,7 +207,7 @@ Context_def::get_translator_names (SCM user_mod) const
   SCM l1 = SCM_EOL;
 
   SCM mods = scm_reverse_x (scm_list_copy (translator_mods_), user_mod);
-  
+
   for (SCM s = mods; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM tag = scm_caar (s);
@@ -215,7 +215,7 @@ Context_def::get_translator_names (SCM user_mod) const
 
       if (scm_is_string (arg))
 	arg = scm_string_to_symbol (arg);
-      
+
       if (ly_symbol2scm ("consists") == tag)
 	l1 = scm_cons (arg, l1);
       else if (ly_symbol2scm ("remove") == tag)
@@ -232,11 +232,11 @@ filter_performers (SCM ell)
 {
   for (SCM *tail = &ell; scm_is_pair (*tail); tail = SCM_CDRLOC (*tail))
     {
-      if (dynamic_cast<Performer*> (unsmob_translator (scm_car (*tail))))
+      if (dynamic_cast<Performer *> (unsmob_translator (scm_car (*tail))))
 	{
 	  *tail = scm_cdr (*tail);
 	  if (!scm_is_pair (*tail))
-	    break ;
+	    break;
 	}
     }
   return ell;
@@ -245,24 +245,23 @@ filter_performers (SCM ell)
 SCM
 filter_engravers (SCM ell)
 {
-  SCM *tail = &ell;  
-  for (; scm_is_pair (*tail) ; tail = SCM_CDRLOC (*tail))
+  SCM *tail = &ell;
+  for (; scm_is_pair (*tail); tail = SCM_CDRLOC (*tail))
     {
-      if (dynamic_cast<Engraver*> (unsmob_translator (scm_car (*tail))))
+      if (dynamic_cast<Engraver *> (unsmob_translator (scm_car (*tail))))
 	{
 	  *tail = scm_cdr (*tail);
 	  if (!scm_is_pair (*tail))
-	    break ;
+	    break;
 	}
     }
   return ell;
 }
 
-
 Context *
 Context_def::instantiate (SCM ops, Object_key const *key)
 {
-  Context *tg =  0;
+  Context *tg = 0;
 
   if (context_name_ == ly_symbol2scm ("Score"))
     tg = new Score_context (key);
@@ -271,15 +270,15 @@ Context_def::instantiate (SCM ops, Object_key const *key)
 
   tg->definition_ = self_scm ();
 
-  SCM trans_names = get_translator_names (ops); 
+  SCM trans_names = get_translator_names (ops);
 
-  Translator_group *g = dynamic_cast<Translator_group*>
+  Translator_group *g = dynamic_cast<Translator_group *>
     (get_translator (translator_group_type_));
-  g = dynamic_cast<Translator_group*> (g->clone ());
+  g = dynamic_cast<Translator_group *> (g->clone ());
 
   SCM trans_list = SCM_EOL;
-  
-  for (SCM s = trans_names; scm_is_pair (s) ; s = scm_cdr (s))
+
+  for (SCM s = trans_names; scm_is_pair (s); s = scm_cdr (s))
     {
       Translator *t = get_translator (scm_car (s));
       if (!t)
@@ -306,20 +305,20 @@ Context_def::instantiate (SCM ops, Object_key const *key)
 	  scm_gc_unprotect_object (str);
 	}
     }
-  
-  g->simple_trans_list_ =  trans_list;
+
+  g->simple_trans_list_ = trans_list;
 
   tg->implementation_ = g->self_scm ();
-  if (dynamic_cast<Engraver*> (g))
+  if (dynamic_cast<Engraver *> (g))
     g->simple_trans_list_ = filter_performers (g->simple_trans_list_);
-  else if (dynamic_cast<Performer*> (g))
+  else if (dynamic_cast<Performer *> (g))
     g->simple_trans_list_ = filter_engravers (g->simple_trans_list_);
-	
+
   g->daddy_context_ = tg;
-  tg->aliases_ = context_aliases_ ;
-  
+  tg->aliases_ = context_aliases_;
+
   scm_gc_unprotect_object (g->self_scm ());
-  
+
   tg->accepts_list_ = get_accepted (ops);
 
   return tg;
@@ -367,7 +366,7 @@ Context_def::to_alist () const
 
   if (scm_is_symbol (translator_group_type_))
     ell = scm_cons (scm_cons (ly_symbol2scm ("group-type"),
-			      translator_group_type_), ell);    
-  return ell;  
+			      translator_group_type_), ell);
+  return ell;
 }
 

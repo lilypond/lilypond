@@ -4,7 +4,7 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 1996--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-    Jan Nieuwenhuizen <janneke@gnu.org>
+  Jan Nieuwenhuizen <janneke@gnu.org>
 
   TODO: This is way too hairy
 
@@ -62,13 +62,12 @@ Stem::get_beaming (Grob *me, Direction d)
   return scm_ilength (lst);
 }
 
-
 Interval
 Stem::head_positions (Grob *me)
 {
   if (head_count (me))
     {
-      Drul_array<Grob*> e (extremal_heads (me));
+      Drul_array<Grob *> e (extremal_heads (me));
       return Interval (Staff_symbol_referencer::get_position (e[DOWN]),
 		       Staff_symbol_referencer::get_position (e[UP]));
     }
@@ -162,16 +161,15 @@ Stem::last_head (Grob *me)
   Direction d = get_direction (me);
   if (d)
     return extremal_heads (me)[d];
-  return 0;  
+  return 0;
 }
 
 /*
   START is part where stem reaches `last' head.
 
-  This function returns a drul with (bottom-head, top-head). 
-
+  This function returns a drul with (bottom-head, top-head).
 */
-Drul_array<Grob*>
+Drul_array<Grob *>
 Stem::extremal_heads (Grob *me)
 {
   const int inf = 1000000;
@@ -194,7 +192,9 @@ Stem::extremal_heads (Grob *me)
 	      exthead[d] = n;
 	      extpos[d] = p;
 	    }
-	} while (flip (&d) != DOWN);
+	}
+      while (flip (&d) != DOWN);
+
     }
   return exthead;
 }
@@ -209,7 +209,7 @@ integer_compare (int const &a, int const &b)
 Array<int>
 Stem::note_head_positions (Grob *me)
 {
-  Array<int> ps ;
+  Array<int> ps;
   for (SCM s = me->get_property ("note-heads"); scm_is_pair (s);
        s = scm_cdr (s))
     {
@@ -240,7 +240,7 @@ Stem::is_invisible (Grob *me)
 {
   Real stemlet_length = robust_scm2double (me->get_property ("stemlet-length"),
 					   0.0);
-  
+
   return !((head_count (me)
 	    || stemlet_length > 0.0)
 	   && scm_to_int (me->get_property ("duration-log")) >= 1);
@@ -254,8 +254,8 @@ Stem::get_default_dir (Grob *me)
   if (hp.is_empty ())
     return CENTER;
 
-  int udistance = (int) (UP * hp[UP] - staff_center);
-  int ddistance = (int) (DOWN * hp[DOWN] - staff_center);
+  int udistance = (int) (UP *hp[UP] - staff_center);
+  int ddistance = (int) (DOWN *hp[DOWN] - staff_center);
 
   if (sign (ddistance - udistance))
     return Direction (sign (ddistance - udistance));
@@ -315,11 +315,11 @@ Stem::get_default_stem_end_position (Grob *me)
     {
       /* Crude hack: add extra space if tremolo flag is there.
 
-	We can't do this for the beam, since we get into a loop
-	(Stem_tremolo::raw_stencil () looks at the beam.) --hwn  */
+      We can't do this for the beam, since we get into a loop
+      (Stem_tremolo::raw_stencil () looks at the beam.) --hwn  */
 
       Real minlen = 1.0
-	+ 2 * Stem_tremolo::raw_stencil (t_flag).extent (Y_AXIS).length  ()
+	+ 2 * Stem_tremolo::raw_stencil (t_flag).extent (Y_AXIS).length ()
 	/ ss;
 
       if (durlog >= 3)
@@ -349,9 +349,9 @@ Stem::get_default_stem_end_position (Grob *me)
   if (!get_beam (me) && dir == UP
       && durlog > 2)
     {
-      Grob * closest_to_flag = extremal_heads (me)[dir];
-      Grob * dots = closest_to_flag
-	? Rhythmic_head::get_dots (closest_to_flag ) : 0;
+      Grob *closest_to_flag = extremal_heads (me)[dir];
+      Grob *dots = closest_to_flag
+	? Rhythmic_head::get_dots (closest_to_flag) : 0;
 
       if (dots)
 	{
@@ -392,8 +392,8 @@ Stem::position_noteheads (Grob *me)
   if (!head_count (me))
     return;
 
-  Link_array<Grob> heads =
-    extract_grob_array (me, ly_symbol2scm ("note-heads"));
+  Link_array<Grob> heads
+    = extract_grob_array (me, ly_symbol2scm ("note-heads"));
 
   heads.sort (compare_position);
   Direction dir = get_direction (me);
@@ -411,16 +411,16 @@ Stem::position_noteheads (Grob *me)
 
   bool parity = true;
   Real lastpos = Real (Staff_symbol_referencer::get_position (heads[0]));
-  for (int i = 1; i < heads.size (); i ++)
+  for (int i = 1; i < heads.size (); i++)
     {
       Real p = Staff_symbol_referencer::get_position (heads[i]);
       Real dy = fabs (lastpos- p);
 
       /*
-       dy should always be 0.5, 0.0, 1.0, but provide safety margin
-       for rounding errors.
+	dy should always be 0.5, 0.0, 1.0, but provide safety margin
+	for rounding errors.
       */
-      if (dy < 1.1)		
+      if (dy < 1.1)
 	{
 	  if (parity)
 	    {
@@ -444,18 +444,18 @@ Stem::position_noteheads (Grob *me)
 		heads[i]->translate_axis (-thick * (2 - reverse_overlap) * d,
 					  X_AXIS);
 
-	     /* TODO:
-		
+	      /* TODO:
+
 	      For some cases we should kern some more: when the
 	      distance between the next or prev note is too large, we'd
 	      get large white gaps, eg.
-	
-               |
+
+	      |
               X|
-	       |X  <- kern this.
-	       |
+	      |X  <- kern this.
+	      |
 	      X
-	
+
 	      */
 	    }
 	  parity = !parity;
@@ -476,13 +476,13 @@ Stem::before_line_breaking (SCM smob)
   /*
     Do the calculations for visible stems, but also for invisible stems
     with note heads (i.e. half notes.)
-   */
+  */
   if (head_count (me))
     {
       stem_end_position (me);	// ugh. Trigger direction calc.
       position_noteheads (me);
     }
-  
+
   return SCM_UNSPECIFIED;
 }
 
@@ -490,7 +490,7 @@ Stem::before_line_breaking (SCM smob)
   ugh.
   When in a beam with tuplet brackets, brew_mol is called early,
   caching a wrong value.
- */
+*/
 MAKE_SCHEME_CALLBACK (Stem, height, 2);
 SCM
 Stem::height (SCM smob, SCM ax)
@@ -520,12 +520,11 @@ Stem::height (SCM smob, SCM ax)
 	  programming_error ("No stem direction");
 	  d = UP;
 	}
-      iv[d] += d * Beam::get_thickness (b) * 0.5 ;
+      iv[d] += d * Beam::get_thickness (b) * 0.5;
     }
 
   return ly_interval2scm (iv);
 }
-
 
 Stencil
 Stem::flag (Grob *me)
@@ -538,7 +537,7 @@ Stem::flag (Grob *me)
   SCM flag_style_scm = me->get_property ("flag-style");
   if (scm_is_symbol (flag_style_scm))
     flag_style = ly_symbol2string (flag_style_scm);
-  
+
   if (flag_style == "no-flag")
     return Stencil ();
 
@@ -556,9 +555,9 @@ Stem::flag (Grob *me)
     {
       if (adjust)
 	{
-	  int p = (int)(rint (stem_end_position (me)));
-	  staffline_offs =
-	    Staff_symbol_referencer::on_staffline (me, p) ? "0" : "1";
+	  int p = (int) (rint (stem_end_position (me)));
+	  staffline_offs
+	    = Staff_symbol_referencer::on_staffline (me, p) ? "0" : "1";
 	}
       else
 	{
@@ -605,21 +604,21 @@ Stem::width_callback (SCM e, SCM ax)
   Grob *me = unsmob_grob (e);
 
   Interval r;
-  
+
   if (is_invisible (me))
     {
       r.set_empty ();
-    }    
+    }
   else if (unsmob_grob (me->get_property ("beam")) || abs (duration_log (me)) <= 2)
     {
       r = Interval (-1, 1);
-      r *= thickness (me)/2; 
+      r *= thickness (me) / 2;
     }
   else
     {
       r = flag (me).extent (X_AXIS)
-	+ thickness (me)/2;
-    }  
+	+ thickness (me) / 2;
+    }
   return ly_interval2scm (r);
 }
 
@@ -641,11 +640,11 @@ Stem::print (SCM smob)
   Real stemlet_length = robust_scm2double (me->get_property ("stemlet-length"),
 					   0.0);
   bool stemlet = stemlet_length > 0.0;
-  
+
   /* TODO: make the stem start a direction ?
      This is required to avoid stems passing in tablature chords.  */
-  Grob *lh =
-    to_boolean (me->get_property ("avoid-note-head"))
+  Grob *lh
+    = to_boolean (me->get_property ("avoid-note-head"))
     ? last_head (me)
     : first_head (me);
   Grob *beam = get_beam (me);
@@ -655,14 +654,13 @@ Stem::print (SCM smob)
 
   if (!lh && stemlet && !beam)
     return SCM_EOL;
-    
+
   if (is_invisible (me))
     return SCM_EOL;
 
   Real y2 = stem_end_position (me);
   Real y1 = y2;
   Real half_space = Staff_symbol_referencer::staff_space (me) * 0.5;
-
 
   if (lh)
     y2 = Staff_symbol_referencer::get_position (lh);
@@ -684,21 +682,20 @@ Stem::print (SCM smob)
     {
       /*
 	must not take ledgers into account.
-       */
+      */
       Interval head_height = hed->extent (hed, Y_AXIS);
       Real y_attach = Note_head::stem_attachment_coordinate (hed, Y_AXIS);
 
       y_attach = head_height.linear_combination (y_attach);
-      stem_y[Direction (-d)] += d * y_attach/half_space;
+      stem_y[Direction (-d)] += d * y_attach / half_space;
     }
-
 
   // URG
   Real stem_width = thickness (me);
-  Real blot =
-	me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter"));
+  Real blot
+    = me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter"));
 
-  Box b = Box (Interval (-stem_width/2, stem_width/2),
+  Box b = Box (Interval (-stem_width / 2, stem_width / 2),
 	       Interval (stem_y[DOWN]*half_space, stem_y[UP]*half_space));
 
   Stencil ss = Lookup::round_filled_box (b, blot);
@@ -707,8 +704,8 @@ Stem::print (SCM smob)
   if (!get_beam (me) && abs (duration_log (me)) > 2)
     {
       Stencil fl = flag (me);
-      fl.translate_axis (stem_y[d]*half_space - d * blot/2, Y_AXIS);
-      fl.translate_axis (stem_width/2, X_AXIS);
+      fl.translate_axis (stem_y[d]*half_space - d * blot / 2, Y_AXIS);
+      fl.translate_axis (stem_width / 2, X_AXIS);
       mol.add_stencil (fl);
     }
 
@@ -717,33 +714,33 @@ Stem::print (SCM smob)
 
 /*
   move the stem to right of the notehead if it is up.
- */
+*/
 MAKE_SCHEME_CALLBACK (Stem, offset_callback, 2);
 SCM
 Stem::offset_callback (SCM element_smob, SCM)
 {
   Grob *me = unsmob_grob (element_smob);
   Real r = 0.0;
-  
+
   if (Grob *f = first_head (me))
     {
       Interval head_wid = f->extent (f, X_AXIS);
       Real attach = 0.0;
-	
+
       if (is_invisible (me))
 	attach = 0.0;
       else
 	attach = Note_head::stem_attachment_coordinate (f, X_AXIS);
-	
+
       Direction d = get_direction (me);
       Real real_attach = head_wid.linear_combination (d * attach);
       r = real_attach;
-	
+
       /* If not centered: correct for stem thickness.  */
       if (attach)
 	{
 	  Real rule_thick = thickness (me);
-	  r += - d * rule_thick * 0.5;
+	  r += -d * rule_thick * 0.5;
 	}
     }
   else
@@ -751,7 +748,7 @@ Stem::offset_callback (SCM element_smob, SCM)
       SCM rests = me->get_property ("rests");
       if (scm_is_pair (rests))
 	{
-	  Grob * rest = unsmob_grob (scm_car (rests));
+	  Grob *rest = unsmob_grob (scm_car (rests));
 	  r = rest->extent (rest, X_AXIS).center ();
 	}
     }
@@ -762,7 +759,7 @@ Spanner *
 Stem::get_beam (Grob *me)
 {
   SCM b = me->get_property ("beam");
-  return dynamic_cast<Spanner*> (unsmob_grob (b));
+  return dynamic_cast<Spanner *> (unsmob_grob (b));
 }
 
 Stem_info
@@ -783,7 +780,6 @@ Stem::get_stem_info (Grob *me)
   return si;
 }
 
-
 /* TODO: add extra space for tremolos!  */
 void
 Stem::calc_stem_info (Grob *me)
@@ -793,7 +789,7 @@ Stem::calc_stem_info (Grob *me)
   if (!my_dir)
     {
       programming_error ("No stem dir set?");
-      my_dir  = UP;
+      my_dir = UP;
     }
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
@@ -802,24 +798,21 @@ Stem::calc_stem_info (Grob *me)
   Real beam_thickness = Beam::get_thickness (beam);
   int beam_count = Beam::get_direction_beam_count (beam, my_dir);
 
-
   /* Simple standard stem length */
   SCM lengths = me->get_property ("beamed-lengths");
-  Real ideal_length =
-    scm_to_double (robust_list_ref (beam_count - 1, lengths))
-		
+  Real ideal_length
+    = scm_to_double (robust_list_ref (beam_count - 1, lengths))
+
     * staff_space
     /* stem only extends to center of beam
-    */
-    - 0.5 * beam_thickness
-    ;
+     */
+    - 0.5 * beam_thickness;
 
   /* Condition: sane minimum free stem length (chord to beams) */
   lengths = me->get_property ("beamed-minimum-free-lengths");
-  Real ideal_minimum_free =
-    scm_to_double (robust_list_ref (beam_count - 1, lengths))
+  Real ideal_minimum_free
+    = scm_to_double (robust_list_ref (beam_count - 1, lengths))
     * staff_space;
-
 
   /* UGH
      It seems that also for ideal minimum length, we must use
@@ -839,48 +832,46 @@ Stem::calc_stem_info (Grob *me)
   ideal_length = ideal_length >? ideal_minimum_length;
 
   /* Convert to Y position, calculate for dir == UP */
-  Real note_start =
-    /* staff positions */
+  Real note_start
+    =     /* staff positions */
     head_positions (me)[my_dir] * 0.5
     * my_dir * staff_space;
   Real ideal_y = note_start + ideal_length;
-
 
   /* Conditions for Y position */
 
   /* Lowest beam of (UP) beam must never be lower than second staffline
 
-     Reference?
+  Reference?
 
-     Although this (additional) rule is probably correct,
-     I expect that highest beam (UP) should also never be lower
-     than middle staffline, just as normal stems.
+  Although this (additional) rule is probably correct,
+  I expect that highest beam (UP) should also never be lower
+  than middle staffline, just as normal stems.
 
-     Reference?
+  Reference?
 
-     Obviously not for grace beams.
+  Obviously not for grace beams.
 
-     Also, not for knees.  Seems to be a good thing. */
+  Also, not for knees.  Seems to be a good thing. */
   bool no_extend_b = to_boolean (me->get_property ("no-stem-extend"));
   bool is_knee = to_boolean (beam->get_property ("knee"));
   if (!no_extend_b && !is_knee)
     {
       /* Highest beam of (UP) beam must never be lower than middle
 	 staffline */
-      ideal_y =	ideal_y >? 0;
+      ideal_y = ideal_y >? 0;
       /* Lowest beam of (UP) beam must never be lower than second staffline */
-      ideal_y =	ideal_y >? (-staff_space
+      ideal_y = ideal_y >? (-staff_space
 			    - beam_thickness + height_of_my_beams);
     }
 
-
   ideal_y -= robust_scm2double (beam->get_property ("shorten"), 0);
 
-  Real minimum_free =
-    scm_to_double (robust_list_ref
-		   (beam_count - 1,
-		    me->get_property
-		    ("beamed-extreme-minimum-free-lengths")))
+  Real minimum_free
+    = scm_to_double (robust_list_ref
+		     (beam_count - 1,
+		      me->get_property
+		      ("beamed-extreme-minimum-free-lengths")))
     * staff_space;
 
   Real minimum_length = minimum_free
@@ -906,7 +897,6 @@ Stem::beam_multiplicity (Grob *stem)
   le.unite (ri);
   return le;
 }
-
 
 /* FIXME:  Too many properties  */
 ADD_INTERFACE (Stem, "stem-interface",

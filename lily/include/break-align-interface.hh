@@ -6,7 +6,6 @@
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #ifndef BREAK_ALIGN_INTERFACE_HH
 #define BREAK_ALIGN_INTERFACE_HH
 
@@ -15,18 +14,17 @@
 class Break_align_interface
 {
 public:
-  static void do_alignment (Grob*);
+  static void do_alignment (Grob *);
   static Link_array<Grob> ordered_elements (Grob *me);
-  static bool has_interface (Grob*);
-  static void add_element (Grob*me, Grob*add);
+  static bool has_interface (Grob *);
+  static void add_element (Grob *me, Grob *add);
   DECLARE_SCHEME_CALLBACK (alignment_callback, (SCM element, SCM axis));
   DECLARE_SCHEME_CALLBACK (self_align_callback, (SCM element, SCM axis));
-  
+
 };
 struct Break_aligned_interface
 {
-  static bool has_interface (Grob*);
+  static bool has_interface (Grob *);
 };
-
 
 #endif // BREAK_ALIGN_INTERFACE_HH

@@ -15,8 +15,8 @@
 class Rest_engraver : public Engraver
 {
   Music *rest_req_;
-  Item * dot_;
-  Grob* rest_;
+  Item *dot_;
+  Grob *rest_;
 protected:
   virtual bool try_music (Music *);
   virtual void stop_translation_timestep ();
@@ -27,10 +27,9 @@ public:
   TRANSLATOR_DECLARATIONS (Rest_engraver);
 };
 
-
 /*
   Should merge with Note_head_engraver
- */
+*/
 Rest_engraver::Rest_engraver ()
 {
   rest_req_ = 0;
@@ -54,17 +53,17 @@ Rest_engraver::stop_translation_timestep ()
 void
 Rest_engraver::process_music ()
 {
-  if (rest_req_ && !rest_) 
+  if (rest_req_ && !rest_)
     {
       rest_ = make_item ("Rest", rest_req_->self_scm ());
 
-      int durlog  = unsmob_duration (rest_req_->get_property ("duration"))-> duration_log ();
-      
+      int durlog = unsmob_duration (rest_req_->get_property ("duration"))-> duration_log ();
+
       rest_->set_property ("duration-log",
-				  scm_int2num (durlog));
+			   scm_int2num (durlog));
 
       int dots = unsmob_duration (rest_req_->get_property ("duration"))->dot_count ();
-      
+
       if (dots)
 	{
 	  dot_ = make_item ("Dots", SCM_EOL);
@@ -72,7 +71,7 @@ Rest_engraver::process_music ()
 	  Rhythmic_head::set_dots (rest_, dot_);
 	  dot_->set_parent (rest_, Y_AXIS);
 	  dot_->set_property ("dot-count", scm_int2num (dots));
-	  
+
 	}
 
       Pitch *p = unsmob_pitch (rest_req_->get_property ("pitch"));
@@ -80,17 +79,17 @@ Rest_engraver::process_music ()
       /*
 	This is ridiculous -- rests don't have pitch, but we act as if
 	our nose is bleeding.
-       */
+      */
       if (p)
 	{
 	  int pos = p->steps ();
 	  SCM c0 = get_property ("middleCPosition");
 	  if (scm_is_number (c0))
 	    pos += scm_to_int (c0);
-	  
+
 	  rest_->set_property ("staff-position", scm_int2num (pos));
 	}
-      
+
     }
 }
 
@@ -106,9 +105,9 @@ Rest_engraver::try_music (Music *m)
 }
 
 ADD_TRANSLATOR (Rest_engraver,
-/* descr */       "",
-/* creats*/       "Rest Dots",
-/* accepts */     "rest-event",
-/* acks  */      "",
-/* reads */       "middleCPosition",
-/* write */       "");
+		/* descr */ "",
+		/* creats*/ "Rest Dots",
+		/* accepts */ "rest-event",
+		/* acks  */ "",
+		/* reads */ "middleCPosition",
+		/* write */ "");

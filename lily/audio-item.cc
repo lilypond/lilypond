@@ -30,17 +30,16 @@ Audio_note::Audio_note (Pitch p, Moment m, int transposing_i)
 }
 
 void
-Audio_note::tie_to (Audio_note* t)
+Audio_note::tie_to (Audio_note *t)
 {
   tied_ = t;
-  Audio_note* first = t;
+  Audio_note *first = t;
   while (first->tied_)
     first = first->tied_;
   first->length_mom_ += length_mom_;
   length_mom_ = 0;
 }
 
-		    
 Audio_key::Audio_key (int acc, bool major)
 {
   accidentals_ = acc;

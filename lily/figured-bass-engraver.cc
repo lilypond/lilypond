@@ -1,11 +1,10 @@
-/*   
-figured-bass-engraver.cc -- implement Figured_bass_engraver
+/*
+  figured-bass-engraver.cc -- implement Figured_bass_engraver
 
-source file of the GNU LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
-(c) 2002--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-
- */
+  (c) 2002--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+*/
 
 #include "engraver.hh"
 #include "text-item.hh"
@@ -17,15 +16,14 @@ class Figured_bass_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Figured_bass_engraver);
 protected:
   Link_array<Music> figures_;
-  Music * rest_req_;
+  Music *rest_req_;
 
-  Grob * figure_;
-  
-  virtual bool try_music (Music*);
+  Grob *figure_;
+
+  virtual bool try_music (Music *);
   virtual void stop_translation_timestep ();
   virtual void process_music ();
 };
-
 
 Figured_bass_engraver::Figured_bass_engraver ()
 {
@@ -43,7 +41,7 @@ Figured_bass_engraver::stop_translation_timestep ()
 }
 
 bool
-Figured_bass_engraver::try_music (Music*m)
+Figured_bass_engraver::try_music (Music *m)
 {
   if (m->is_mus_type ("bass-figure-event"))
     {
@@ -64,15 +62,15 @@ Figured_bass_engraver::process_music ()
   if (rest_req_)
     {
       figure_ = make_item ("BassFigure", rest_req_->self_scm ());
-      figure_->set_property ("text" , scm_makfrom0str ("-"));
+      figure_->set_property ("text", scm_makfrom0str ("-"));
     }
   else if (figures_.size ())
     {
       SCM proc = get_property ("bassFigureFormatFunction");
-      if (ly_c_procedure_p (proc)) 
+      if (ly_c_procedure_p (proc))
 	{
 	  SCM l = SCM_EOL;
-	  SCM * t = &l;
+	  SCM *t = &l;
 	  for (int i = 0; i < figures_.size (); i++)
 	    {
 	      *t = scm_cons (figures_[i]->self_scm (), SCM_EOL);
@@ -85,11 +83,10 @@ Figured_bass_engraver::process_music ()
     }
 }
 
-  
 ADD_TRANSLATOR (Figured_bass_engraver,
-/* descr */       "Make figured bass numbers.",
-/* creats*/       "BassFigure",
-/* accepts */     "rest-event bass-figure-event",
-/* acks  */      "",
-/* reads */       "bassFigureFormatFunction",
-/* write */       "");
+		/* descr */ "Make figured bass numbers.",
+		/* creats*/ "BassFigure",
+		/* accepts */ "rest-event bass-figure-event",
+		/* acks  */ "",
+		/* reads */ "bassFigureFormatFunction",
+		/* write */ "");

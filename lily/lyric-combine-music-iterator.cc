@@ -1,11 +1,10 @@
-/*   
+/*
   lyric-combine-music-iterator.cc -- implement Lyric_combine_music_iterator
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1999--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #include "context.hh"
 #include "event.hh"
@@ -17,32 +16,30 @@ class Lyric_combine_music_iterator : public Music_iterator
 {
 public:
   Lyric_combine_music_iterator ();
-  Lyric_combine_music_iterator (Lyric_combine_music_iterator const&src);
+  Lyric_combine_music_iterator (Lyric_combine_music_iterator const &src);
   DECLARE_SCHEME_CALLBACK (constructor, ());
 protected:
   virtual void construct_children ();
   virtual Moment pending_moment () const;
-  virtual void do_quit (); 
+  virtual void do_quit ();
   virtual void process (Moment);
   virtual Music_iterator *try_music_in_children (Music *) const;
 
   virtual bool ok () const;
   virtual void derived_mark () const;
-  virtual void derived_substitute (Context *, Context *) ;
+  virtual void derived_substitute (Context *, Context *);
 private:
-  bool get_busy_status ()const ;
-  bool melisma_busy (); 
-  Music* get_combine_lyrics () const;
-  Music* get_combine_music () const;
+  bool get_busy_status ()const;
+  bool melisma_busy ();
+  Music *get_combine_lyrics () const;
+  Music *get_combine_music () const;
 
-  
-  Music_iterator * music_iter_;
-  Music_iterator * lyric_iter_;
+  Music_iterator *music_iter_;
+  Music_iterator *lyric_iter_;
 };
 
-
 bool
-melisma_busy (Context* tr)
+melisma_busy (Context *tr)
 {
   SCM melisma_properties = tr->get_property ("melismaBusyProperties");
   bool busy = false;
@@ -54,11 +51,9 @@ melisma_busy (Context* tr)
   return busy;
 }
 
-
-
 /*
   Ugh, why static?
- */
+*/
 Music *busy_req;
 Music *melisma_playing_req;
 
@@ -99,7 +94,7 @@ Lyric_combine_music_iterator::derived_mark ()const
 }
 
 void
-Lyric_combine_music_iterator::derived_substitute (Context *f, Context * t)
+Lyric_combine_music_iterator::derived_substitute (Context *f, Context *t)
 {
   if (music_iter_)
     music_iter_->substitute_outlet (f, t);
@@ -107,7 +102,7 @@ Lyric_combine_music_iterator::derived_substitute (Context *f, Context * t)
     lyric_iter_->substitute_outlet (f, t);
 }
 
-Music*
+Music *
 Lyric_combine_music_iterator::get_combine_music () const
 {
   SCM l = get_music ()->get_property ("elements");
@@ -116,7 +111,7 @@ Lyric_combine_music_iterator::get_combine_music () const
   return unsmob_music (scm_car (l));
 }
 
-Music*
+Music *
 Lyric_combine_music_iterator::get_combine_lyrics () const
 {
   SCM l = get_music ()->get_property ("elements");
@@ -127,7 +122,6 @@ Lyric_combine_music_iterator::get_combine_lyrics () const
     return 0;
   return unsmob_music (scm_car (l));
 }
-
 
 void
 Lyric_combine_music_iterator::construct_children ()
@@ -145,17 +139,16 @@ Lyric_combine_music_iterator::get_busy_status () const
     instant.  */
   if (try_music (busy_req))
     return true;
-  
-  Context * tr = music_iter_->get_outlet ();
+
+  Context *tr = music_iter_->get_outlet ();
 
   SCM grobs = tr->get_property ("busyGrobs");
   Moment now = tr->now_mom ();
   for (; scm_is_pair (grobs); grobs = scm_cdr (grobs))
     {
       SCM grob = scm_cdar (grobs);
-      Moment end  =*unsmob_moment (scm_caar (grobs));
+      Moment end =*unsmob_moment (scm_caar (grobs));
 
-      
       /*
 	This is slightly ugh: we are now confunding the frontend
 	(iterators) and the backend (note heads) */
@@ -167,7 +160,6 @@ Lyric_combine_music_iterator::get_busy_status () const
   return false;
 }
 
-
 bool
 Lyric_combine_music_iterator::melisma_busy ()
 {
@@ -175,7 +167,7 @@ Lyric_combine_music_iterator::melisma_busy ()
     We can not read the property, since music_iter_->get_outlet () might
     not be the context that sets the melisma properties, but rather a
     parent context.
-   */
+  */
   return music_iter_->try_music (melisma_playing_req);
 }
 
@@ -185,7 +177,7 @@ Lyric_combine_music_iterator::process (Moment m)
   Moment my_next = music_iter_->pending_moment ();
   if (my_next > m)
     return;
-  
+
   music_iter_->process (m);
 
   if (get_busy_status () && !melisma_busy () && lyric_iter_->ok ())
@@ -204,15 +196,14 @@ Lyric_combine_music_iterator::do_quit ()
     lyric_iter_->quit ();
 }
 
-Music_iterator*
+Music_iterator *
 Lyric_combine_music_iterator::try_music_in_children (Music *m) const
 {
-  Music_iterator * i =  music_iter_->try_music (m);
+  Music_iterator *i = music_iter_->try_music (m);
   if (i)
     return i;
   else
     return lyric_iter_->try_music (m);
 }
-
 
 IMPLEMENT_CTOR_CALLBACK (Lyric_combine_music_iterator);

@@ -1,10 +1,10 @@
-/*   
+/*
   measure-grouping-engraver.cc -- implement Measure_grouping_engraver
 
   source file of the GNU LilyPond music typesetter
 
   (c) 2002--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
- */
+*/
 
 #include "warn.hh"
 #include "side-position-interface.hh"
@@ -17,7 +17,7 @@ public:
   TRANSLATOR_DECLARATIONS (Measure_grouping_engraver);
 
 protected:
-  Spanner * grouping_;
+  Spanner *grouping_;
   Rational stop_grouping_mom_;
 
   virtual void process_music ();
@@ -36,7 +36,6 @@ Measure_grouping_engraver::finalize ()
     }
 }
 
-
 void
 Measure_grouping_engraver::acknowledge_grob (Grob_info gi)
 {
@@ -54,27 +53,26 @@ Measure_grouping_engraver::process_music ()
     {
       grouping_->set_bound (RIGHT,
 			    unsmob_grob (get_property ("currentMusicalColumn")));
-      
+
       grouping_ = 0;
     }
-  
+
   if (now.grace_part_)
-    return; 
-  
+    return;
+
   SCM grouping = get_property ("beatGrouping");
   if (scm_is_pair (grouping))
     {
       Moment *measpos = unsmob_moment (get_property ("measurePosition"));
       Rational mp = measpos->main_part_;
-      
-      Moment * beatlen = unsmob_moment (get_property ("beatLength"));
+
+      Moment *beatlen = unsmob_moment (get_property ("beatLength"));
       Rational bl = beatlen->main_part_;
-	
+
       Rational where (0);
       for (SCM s = grouping; scm_is_pair (s);
 	   where += Rational ((int) scm_to_int (scm_car (s))) * bl,
-	   s = scm_cdr (s)
-	   )
+	     s = scm_cdr (s))
 	{
 	  int grouplen = scm_to_int (scm_car (s));
 	  if (where == mp)
@@ -84,21 +82,19 @@ Measure_grouping_engraver::process_music ()
 		  programming_error ("Huh, last grouping not finished yet.");
 		  continue;
 		}
-	      
+
 	      grouping_ = make_spanner ("MeasureGrouping", SCM_EOL);
 	      grouping_->set_bound (LEFT, unsmob_grob (get_property ("currentMusicalColumn")));
-	      
 
-
-	      stop_grouping_mom_ = now.main_part_ + Rational (grouplen - 1) * bl ;
+	      stop_grouping_mom_ = now.main_part_ + Rational (grouplen - 1) * bl;
 	      get_global_context ()->add_moment_to_process (Moment (stop_grouping_mom_));
 
 	      if (grouplen == 3)
 		grouping_->set_property ("style", ly_symbol2scm ("triangle"));
 	      else
 		grouping_->set_property ("style", ly_symbol2scm ("bracket"));
-	      
-	      break ; 
+
+	      break;
 	    }
 	}
     }
@@ -109,9 +105,9 @@ Measure_grouping_engraver::Measure_grouping_engraver ()
 }
 
 ADD_TRANSLATOR (Measure_grouping_engraver,
-/* descr */       "Creates MeasureGrouping to indicate beat subdivision.",
-/* creats*/       "MeasureGrouping",
-/* accepts */     "",
-/* acks  */      "note-column-interface",
-/* reads */       "beatGrouping beatLength measurePosition currentMusicalColumn",
-/* write */       "");
+		/* descr */ "Creates MeasureGrouping to indicate beat subdivision.",
+		/* creats*/ "MeasureGrouping",
+		/* accepts */ "",
+		/* acks  */ "note-column-interface",
+		/* reads */ "beatGrouping beatLength measurePosition currentMusicalColumn",
+		/* write */ "");

@@ -1,11 +1,10 @@
-/*   
+/*
   global-ctor.cc -- implement global constructors
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1999--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #include "global-ctor.hh"
 

@@ -15,14 +15,13 @@
    TODO:
 
    2+3+2/8 time_signatures
-  
- */
+*/
 struct Time_signature
 {
-  static bool has_interface (Grob*);
-  static Stencil special_time_signature (Grob*, SCM, int, int) ;
-  static Stencil numbered_time_signature (Grob*, int, int);
-  DECLARE_SCHEME_CALLBACK (print, (SCM ));
+  static bool has_interface (Grob *);
+  static Stencil special_time_signature (Grob *, SCM, int, int);
+  static Stencil numbered_time_signature (Grob *, int, int);
+  DECLARE_SCHEME_CALLBACK (print, (SCM));
 };
 #endif // METER_HH
 

@@ -1,15 +1,13 @@
-/*   
+/*
   cons.hh -- declare LISP like datatypes
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1999--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #ifndef CONS_HH
 #define CONS_HH
-
 
 #include <cassert>
 
@@ -17,22 +15,22 @@ template<class T>
 class Cons
 {
 public:
-  T * car_;
-  Cons * next_;
+  T *car_;
+  Cons *next_;
   Cons ()
-    {
-      car_=0;
-      next_ =0;
-    }
-  Cons (T*t, Cons<T>*c)
-    {
-      car_ = t;
-      next_ = c;
-    }
- virtual ~Cons ()
-    {
-      delete next_;
-    }
+  {
+    car_ = 0;
+    next_ =0;
+  }
+  Cons (T *t, Cons<T>*c)
+  {
+    car_ = t;
+    next_ = c;
+  }
+  virtual ~Cons ()
+  {
+    delete next_;
+  }
 };
 
 template<class T>
@@ -40,12 +38,11 @@ class Killing_cons : public Cons<T>
 {
 public:
   Killing_cons (T *t, Cons<T> *p)
-    : Cons<T> ( t,p)
-    {
-    }
+    : Cons<T> (t, p)
+  {
+  }
   virtual ~Killing_cons ();
 };
-
 
 /// remove the link pointed to by *p.
 template<class T>
@@ -59,17 +56,14 @@ Cons<T> *remove_cons (Cons<T> **pp)
 
 template<class T> int cons_list_size (Cons<T> *l)
 {
-  int i=0;
+  int i = 0;
   while (l)
     {
       l = l->next_;
-	i++;
+      i++;
     }
   return i;
 }
-
-
-
 
 
 template<class T>
@@ -84,12 +78,12 @@ Cons<T> * last_cons (Cons<T> * head)
 
 /**
 
-   Invariants:
+Invariants:
 
- (*tail_) is either the head_ pointer, or a next_ pointer from the list.
-   
-   **tail_ == NULL
- */
+(*tail_) is either the head_ pointer, or a next_ pointer from the list.
+
+**tail_ == NULL
+*/
 
 template<class T>
 class Cons_list
@@ -98,72 +92,71 @@ public:
   Cons<T> * head_;
   Cons<T> ** nil_pointer_address_;
   Cons_list ()
-    {
-      init ();
-    }
+  {
+    init ();
+  }
   void init ()
-    {
-      head_ =0;
-      nil_pointer_address_ = &head_;
-    }
+  {
+    head_ =0;
+    nil_pointer_address_ = &head_;
+  }
   void append (T *c)
-    {
-      append (new Cons<T> (c,0));
-    }
+  {
+    append (new Cons<T> (c, 0));
+  }
   void append (Cons<T> *c)
-    {
-      assert (!c->next_);
-      *nil_pointer_address_ = c;
-      while (*nil_pointer_address_)
-	nil_pointer_address_ = & (*nil_pointer_address_)->next_;
-    }
+  {
+    assert (!c->next_);
+    *nil_pointer_address_ = c;
+    while (*nil_pointer_address_)
+      nil_pointer_address_ = &(*nil_pointer_address_)->next_;
+  }
   /**
      PRE: *pp should either be the head_ pointer, or the next_ pointer
      from a list cell.
   */
   Cons<T> *remove_cons (Cons<T> **pp)
-    {
-      if (& (*pp)->next_ == nil_pointer_address_)
-	nil_pointer_address_ = pp;
+  {
+    if (& (*pp)->next_ == nil_pointer_address_)
+      nil_pointer_address_ = pp;
 
-      return ::remove_cons (pp);
-    }
+    return ::remove_cons (pp);
+  }
 
   /// junk everything after the  first I elements.
   void truncate (int i)
-    {
-      Cons<T> **p  = &head_;
-      for (; *p && i;  p = & ((*p)->next_))
-	{
-	  i--;
-	}
+  {
+    Cons<T> **p = &head_;
+    for (; *p && i; p = &((*p)->next_))
+      {
+	i--;
+      }
 
-      if (*p)
-	{
-	  delete *p;
-	  *p = 0;
-	}
-      nil_pointer_address_ = p;
-    }
+    if (*p)
+      {
+	delete *p;
+	*p = 0;
+      }
+    nil_pointer_address_ = p;
+  }
 
   void junk ()
-    {
-      delete head_;
-      head_ =0;
-    }
+  {
+    delete head_;
+    head_ =0;
+  }
   ~Cons_list ()
-    {
-      junk ();
-    }
+  {
+    junk ();
+  }
   int size ()
-    {
-      return cons_list_size (head_);
-    }
+  {
+    return cons_list_size (head_);
+  }
 };
 
-
 template<class T>
-void  copy_killing_cons_list (Cons_list<T>&, Cons<T> *src);
+void copy_killing_cons_list (Cons_list<T>&, Cons<T> *src);
 template<class T>
 void
 clone_killing_cons_list (Cons_list<T>&, Cons<T> *src);

@@ -1,11 +1,10 @@
-/*   
+/*
   simple-music-iterator.cc -- implement Simple_music_iterator
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2000--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #include "simple-music-iterator.hh"
 
@@ -30,7 +29,6 @@ Simple_music_iterator::ok ()const
 
   Engravers can detect and event the end-moments to be processed as
   well.
-
 */
 Moment
 Simple_music_iterator::pending_moment ()const
@@ -41,13 +39,12 @@ Simple_music_iterator::pending_moment ()const
     return music_get_length ();
 }
 
-
 void
 Simple_music_iterator::process (Moment m)
 {
   /*
-  don't do try_music (), since it would make the function useless for
-  base classes
+    don't do try_music (), since it would make the function useless for
+    base classes
   */
 
   last_processed_mom_ = m;

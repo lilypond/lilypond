@@ -22,8 +22,8 @@ public:
   Paper_score ();
 
   int find_col_idx (Paper_column const *) const;
-  Link_array<Item> broken_col_range (Item const*, Item const*) const;
-  void typeset_line (System*);
+  Link_array<Item> broken_col_range (Item const *, Item const *) const;
+  void typeset_line (System *);
   void output ();
 
 protected:

@@ -1,11 +1,10 @@
-/*   
-     folded-repeat-iterator.cc -- implement Folded_repeat_iterator
-  
+/*
+  folded-repeat-iterator.cc -- implement Folded_repeat_iterator
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1999--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #include "folded-repeat-iterator.hh"
 
@@ -46,7 +45,7 @@ Folded_repeat_iterator::pending_moment () const
 void
 Folded_repeat_iterator::construct_children ()
 {
-  Music  *mus = get_music ();
+  Music *mus = get_music ();
   main_iter_ = unsmob_iterator (get_iterator (Repeated_music::body (mus)));
   if (!main_iter_->ok ())
     {
@@ -58,13 +57,13 @@ Folded_repeat_iterator::construct_children ()
 void
 Folded_repeat_iterator::process (Moment m)
 {
-  if (!m.to_bool () )
+  if (!m.to_bool ())
     {
       bool success = try_music (get_music ());
       if (!success)
 	get_music ()->origin ()->warning (_ ("no one to print a repeat brace"));
     }
-  
+
   if (main_iter_)
     {
       main_iter_->process (m);
@@ -76,7 +75,7 @@ Folded_repeat_iterator::process (Moment m)
     {
       enter_alternative ();
     }
-  
+
   if (alternative_iter_)
     {
       alternative_iter_->process (m - main_length_mom_);
@@ -95,22 +94,22 @@ Folded_repeat_iterator::leave_body ()
 
   main_iter_->quit ();
   main_iter_ = 0;
-  main_length_mom_ +=  Repeated_music::body (mus)->get_length ();
+  main_length_mom_ += Repeated_music::body (mus)->get_length ();
 }
 
 void
 Folded_repeat_iterator::enter_alternative ()
 {
-  Music *mus = get_music (); 
+  Music *mus = get_music ();
   if (scm_is_pair (Repeated_music::alternatives (mus)))
     {
       /*
 	ugh.
-      */ 
-      Simultaneous_music_iterator * s = new Simultaneous_music_iterator;
+      */
+      Simultaneous_music_iterator *s = new Simultaneous_music_iterator;
       s->create_separate_contexts_ = true;
       s->init_translator (mus, get_outlet ());
-      
+
       alternative_iter_ = s;
       alternative_iter_->construct_children ();
 
@@ -118,9 +117,8 @@ Folded_repeat_iterator::enter_alternative ()
     }
 }
 
-
-Music_iterator*
-Folded_repeat_iterator::try_music_in_children (Music * m) const
+Music_iterator *
+Folded_repeat_iterator::try_music_in_children (Music *m) const
 {
   if (main_iter_)
     {
@@ -140,7 +138,7 @@ Folded_repeat_iterator::derived_mark () const
 }
 
 void
-Folded_repeat_iterator::derived_substitute (Context *f, Context *t) 
+Folded_repeat_iterator::derived_substitute (Context *f, Context *t)
 {
   if (main_iter_)
     main_iter_->substitute_outlet (f, t);

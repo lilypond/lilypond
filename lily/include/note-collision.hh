@@ -6,7 +6,6 @@
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #ifndef COLLISION_HH
 #define COLLISION_HH
 
@@ -15,26 +14,25 @@
 #include "parray.hh"
 
 /**
-  Resolve conflicts between various Note_columns (chords).
-  
-  TODO 
+   Resolve conflicts between various Note_columns (chords).
 
-  * multistaff support (see Chlapik: equal noteheads should be on the
-  same hpos.)  
+   TODO
 
-  * Make interface of this, similar to align-interface.
-  
-*/
+   * multistaff support (see Chlapik: equal noteheads should be on the
+   same hpos.)
+
+   * Make interface of this, similar to align-interface.
+   */
 class Note_collision_interface
 {
 public:
-  static SCM automatic_shift (Grob*, Drul_array< Link_array <Grob>  >);
-  static SCM forced_shift (Grob*);
-  
-  static Drul_array< Link_array <Grob>  > get_clash_groups (Grob *me);
+  static SCM automatic_shift (Grob *, Drul_array< Link_array<Grob> >);
+  static SCM forced_shift (Grob *);
+
+  static Drul_array< Link_array<Grob> > get_clash_groups (Grob *me);
   DECLARE_SCHEME_CALLBACK (force_shift_callback, (SCM element, SCM axis));
-  static void do_shifts (Grob*);
-  static void add_column (Grob*me, Grob*ncol);
-  static bool has_interface(Grob*);
+  static void do_shifts (Grob *);
+  static void add_column (Grob *me, Grob *ncol);
+  static bool has_interface (Grob *);
 };
 #endif // COLLISION_HH

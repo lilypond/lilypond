@@ -50,30 +50,30 @@ Break_algorithm::find_breaks () const
   return retval;
 }
 
-Simple_spacer_wrapper*
+Simple_spacer_wrapper *
 Break_algorithm::generate_spacing_problem (Link_array<Grob> const &curline,
 					   Interval line) const
 {
-  Simple_spacer_wrapper * spw =  new Simple_spacer_wrapper;
-  Simple_spacer * sp =  spw->spacer_;
-  
+  Simple_spacer_wrapper *spw = new Simple_spacer_wrapper;
+  Simple_spacer *sp = spw->spacer_;
+
   /*
     this is hardcoded, but this shouldn't happen anyway.
-    used to be get_dimension (ly_symbol2scm ("loose_column_distance"));        
-   */
+    used to be get_dimension (ly_symbol2scm ("loose_column_distance"));
+  */
   sp->default_space_ = 1.0;
   sp->indent_ = line[LEFT];
 
   /*
     sort out how interfacing this should work;
-   */
+  */
   if (line.is_empty ())
     {
-     sp->line_len_ = -1;
+      sp->line_len_ = -1;
     }
   else
     sp->line_len_ = line.length ();
-  
+
   spw->add_columns (curline);
   return spw;
 }
@@ -85,7 +85,7 @@ Break_algorithm::Break_algorithm ()
 }
 
 void
-Break_algorithm::set_pscore (Paper_score*s)
+Break_algorithm::set_pscore (Paper_score *s)
 {
   pscore_ = s;
   linewidth_ = s->layout_->get_dimension (ly_symbol2scm ("linewidth"));
@@ -95,7 +95,7 @@ Array<Column_x_positions>
 Break_algorithm::solve () const
 {
   Array<Column_x_positions> h= do_solve ();
-  
+
   return h;
 }
 

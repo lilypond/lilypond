@@ -14,22 +14,22 @@
 
 #include "libc-extension.hh"
 
-char* 
-strnlwr (char* start ,int n)
+char *
+strnlwr (char *start, int n)
 {
-  char * p = start + n;
-  while (--p >= start) 
+  char *p = start + n;
+  while (--p >= start)
     {
       *p = tolower (*p);    /* a macro on some compilers */
     }
   return start;
 }
 
-char* 
-strnupr (char* start, int n)
+char *
+strnupr (char *start, int n)
 {
-  char * p = start + n;
-  while (--p >= start) 
+  char *p = start + n;
+  while (--p >= start)
     {
       *p = toupper (*p);    /* a macro on some compilers */
     }
@@ -42,7 +42,7 @@ strnupr (char* start, int n)
 double
 my_round (double x)
 {
-  return floor (x -0.5)+ 1.0 ;
+  return floor (x -0.5)+ 1.0;
 }
 
 #ifndef isinf
@@ -50,7 +50,7 @@ my_round (double x)
 int
 isinf (double x)
 {
-  return x && ( x == x/ 2) ;
+  return x && (x == x/ 2);
 }
 #endif
 #endif
@@ -65,21 +65,21 @@ isinf (double x)
 
 unsigned char *
 _memmem (unsigned char const *haystack, int haystack_len,
-	 unsigned char const *needle,int needle_len)
+	 unsigned char const *needle, int needle_len)
 {
-  unsigned char const * end_haystack = haystack + haystack_len - needle_len + 1;
-  unsigned char const * end_needle = needle + needle_len ;
+  unsigned char const *end_haystack = haystack + haystack_len - needle_len + 1;
+  unsigned char const *end_needle = needle + needle_len;
 
   /* Ahhh ... Some minimal lowlevel stuff. This *is* nice; Varation
      is the spice of life */
-  while (haystack < end_haystack) 
+  while (haystack < end_haystack)
     {
       unsigned char const *subneedle = needle;
       unsigned char const *subhaystack = haystack;
-      while (subneedle < end_needle) 
-        if (*subneedle++ != *subhaystack++)
+      while (subneedle < end_needle)
+	if (*subneedle++ != *subhaystack++)
 	  goto next;
-	
+
       /* Completed the needle.  Gotcha.  */
       return (unsigned char *) haystack;
     next:
@@ -90,10 +90,10 @@ _memmem (unsigned char const *haystack, int haystack_len,
 
 void *
 memmem (void const *haystack, int haystack_len,
-	void const *needle,int needle_len)
+	void const *needle, int needle_len)
 {
-  unsigned char const* haystack_byte_c = (unsigned char const*)haystack;
-  unsigned char const* needle_byte_c = (unsigned char const*)needle;
+  unsigned char const *haystack_byte_c = (unsigned char const *)haystack;
+  unsigned char const *needle_byte_c = (unsigned char const *)needle;
   return _memmem (haystack_byte_c, haystack_len, needle_byte_c, needle_len);
 }
 
@@ -103,14 +103,13 @@ unsigned char *
 memrchr (unsigned char const *p, int n, char c)
 {
   const unsigned char *q = p + n;
-  while (q > p) 
+  while (q > p)
     {
       if (*--q == c)
-	return (unsigned char*)q;
+	return (unsigned char *)q;
     }
   return 0;
 }
-
 
 template<class T>
 inline void
@@ -128,13 +127,13 @@ strrev (unsigned char *byte, int length)
   unsigned char *left = byte;
   unsigned char *right = byte + length;
 
-  while (right > left) 
-    my_swap (*right--, *left++ , tmp_byte);
+  while (right > left)
+    my_swap (*right--, *left++, tmp_byte);
   return byte;
 }
 
 #if ! HAVE_SNPRINTF
-int 
+int
 snprintf (char *str, size_t, char const *format, ...)
 {
   va_list ap;
@@ -146,7 +145,7 @@ snprintf (char *str, size_t, char const *format, ...)
 #endif
 
 #if ! HAVE_VSNPRINTF
-int 
+int
 vsnprintf (char *str, size_t, char const *format, va_list args)
 {
   int i = vsprintf (str, format, args);
@@ -157,15 +156,15 @@ vsnprintf (char *str, size_t, char const *format, va_list args)
 #include <assert.h>
 
 extern "C" {
-  
+
 #if ! HAVE_FOPENCOOKIE
 #if HAVE_FUNOPEN
-  
+
   FILE *
   fopencookie (void *cookie, char const *mode, cookie_io_functions_t fun)
   {
     (void) mode;
-#if 0    
+#if 0
     return funopen (cookie, fun.read, fun.write, fun.seek, fun.close);
 #else
     return funopen (cookie,
@@ -173,8 +172,8 @@ extern "C" {
 		    (int (*) (void *, char const *, int)) fun.write,
 		    (fpos_t (*) (void *, fpos_t, int)) fun.seek,
 		    (int (*) (void *)) fun.close);
-    
-#endif    
+
+#endif
   }
 
 #else /* ! HAVE_FUNOPEN */
@@ -185,8 +184,8 @@ extern "C" {
   static bool
   is_memory_stream (void *foo)
   {
-    Memory_out_stream* cookie = (Memory_out_stream*) foo;
-    return dynamic_cast<Memory_out_stream*> (cookie);
+    Memory_out_stream *cookie = (Memory_out_stream *) foo;
+    return dynamic_cast<Memory_out_stream *> (cookie);
   }
 
   FILE *
@@ -196,12 +195,12 @@ extern "C" {
     (void) modes;
     (void) io_funcs;
     if (is_memory_stream (cookie))
-      return (FILE*) cookie;
+      return (FILE *) cookie;
     assert (false);
     return 0;
   }
 
-  int 
+  int
   handle_cookie_io_fclose (FILE *file)
   {
     if (is_memory_stream (file))
@@ -209,7 +208,7 @@ extern "C" {
     return fclose (file);
   }
 
-  int 
+  int
   handle_cookie_io_fprintf (FILE *file, char const *format, ...)
   {
     va_list ap;
@@ -227,7 +226,7 @@ extern "C" {
     return i;
   }
 
-  int 
+  int
   handle_cookie_io_putc (int c, FILE *file)
   {
     if (is_memory_stream (file))
@@ -238,7 +237,7 @@ extern "C" {
       }
     return putc (c, file);
   }
-  
+
 #endif /* ! HAVE_FUNOPEN */
 #endif /* ! HAVE_FOPENCOOKIE */
 

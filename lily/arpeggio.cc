@@ -1,10 +1,10 @@
-/*   
+/*
   arpeggio.cc -- implement Arpeggio
 
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2000--2005 Jan Nieuwenhuizen <janneke@gnu.org>
- */
+*/
 
 #include "arpeggio.hh"
 
@@ -16,24 +16,23 @@
 #include "font-interface.hh"
 #include "lookup.hh"
 
-
 MAKE_SCHEME_CALLBACK (Arpeggio, print, 1);
-SCM 
-Arpeggio::print (SCM smob) 
+SCM
+Arpeggio::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  
-  Grob * common = me;
+
+  Grob *common = me;
   for (SCM s = me->get_property ("stems"); scm_is_pair (s); s = scm_cdr (s))
     {
-      Grob * stem =  unsmob_grob (scm_car (s));
-      common =  common->common_refpoint (Staff_symbol_referencer::get_staff_symbol (stem),
-				 Y_AXIS);
+      Grob *stem = unsmob_grob (scm_car (s));
+      common = common->common_refpoint (Staff_symbol_referencer::get_staff_symbol (stem),
+					Y_AXIS);
     }
 
   /*
     TODO:
-    
+
     Using stems here is not very convenient; should store noteheads
     instead, and also put them into the support. Now we will mess up
     in vicinity of a collision.
@@ -41,14 +40,14 @@ Arpeggio::print (SCM smob)
   */
   Interval heads;
   Real my_y = me->relative_coordinate (common, Y_AXIS);
-      
+
   for (SCM s = me->get_property ("stems"); scm_is_pair (s); s = scm_cdr (s))
     {
-      Grob * stem = unsmob_grob (scm_car (s));
-      Grob * ss = Staff_symbol_referencer::get_staff_symbol (stem);
+      Grob *stem = unsmob_grob (scm_car (s));
+      Grob *ss = Staff_symbol_referencer::get_staff_symbol (stem);
       Interval iv = Stem::head_positions (stem);
-      iv *= Staff_symbol::staff_space (ss)/2.0;
-      
+      iv *= Staff_symbol::staff_space (ss) / 2.0;
+
       heads.unite (iv + ss->relative_coordinate (common, Y_AXIS)
 		   - my_y);
     }
@@ -59,7 +58,7 @@ Arpeggio::print (SCM smob)
 	Dumb blonde error
 
 	:-)
-       */
+      */
       programming_error ("Huh, no heads for arpeggio found.");
       return SCM_EOL;
     }
@@ -70,68 +69,67 @@ Arpeggio::print (SCM smob)
     {
       dir = to_dir (ad);
     }
-  
+
   Stencil mol;
   Font_metric *fm = Font_interface::get_default_font (me);
   Stencil squiggle = fm->find_by_name ("scripts.arpeggio");
 
-  Stencil arrow ;  
+  Stencil arrow;
   if (dir)
     {
       arrow = fm->find_by_name ("scripts.arpeggio.arrow." + to_string (dir));
       heads[dir] -= dir * arrow.extent (Y_AXIS).length ();
     }
-  
-  for (Real  y = heads[LEFT] ; y < heads[RIGHT];
+
+  for (Real y = heads[LEFT]; y < heads[RIGHT];
        y+= squiggle. extent (Y_AXIS).length ())
-      mol.add_at_edge (Y_AXIS, UP, squiggle, 0.0, 0);
+    mol.add_at_edge (Y_AXIS, UP, squiggle, 0.0, 0);
 
   mol.translate_axis (heads[LEFT], Y_AXIS);
   if (dir)
     mol.add_at_edge (Y_AXIS, dir, arrow, 0, 0);
-  
-  return mol.smobbed_copy () ;
+
+  return mol.smobbed_copy ();
 }
 
-/* Draws a vertical bracket to the left of a chord 
+/* Draws a vertical bracket to the left of a chord
    Chris Jackson <chris@fluffhouse.org.uk> */
 
 MAKE_SCHEME_CALLBACK (Arpeggio, brew_chord_bracket, 1);
-SCM 
-Arpeggio::brew_chord_bracket (SCM smob) 
+SCM
+Arpeggio::brew_chord_bracket (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  
-  Grob * common = me;
+
+  Grob *common = me;
   for (SCM s = me->get_property ("stems"); scm_is_pair (s); s = scm_cdr (s))
     {
-      Grob * stem =  unsmob_grob (scm_car (s));
-      common =  common->common_refpoint (Staff_symbol_referencer::get_staff_symbol (stem),
-				 Y_AXIS);
+      Grob *stem = unsmob_grob (scm_car (s));
+      common = common->common_refpoint (Staff_symbol_referencer::get_staff_symbol (stem),
+					Y_AXIS);
     }
 
   Interval heads;
   Real my_y = me->relative_coordinate (common, Y_AXIS);
-      
+
   for (SCM s = me->get_property ("stems"); scm_is_pair (s); s = scm_cdr (s))
     {
-      Grob * stem = unsmob_grob (scm_car (s));
-      Grob * ss = Staff_symbol_referencer::get_staff_symbol (stem);
+      Grob *stem = unsmob_grob (scm_car (s));
+      Grob *ss = Staff_symbol_referencer::get_staff_symbol (stem);
       Interval iv = Stem::head_positions (stem);
-      iv *= Staff_symbol::staff_space (ss)/2.0;      
-      heads.unite (iv  +  ss->relative_coordinate (common, Y_AXIS)  -  my_y);
+      iv *= Staff_symbol::staff_space (ss) / 2.0;
+      heads.unite (iv + ss->relative_coordinate (common, Y_AXIS) - my_y);
     }
 
-  Real lt =  me->get_layout ()->get_dimension (ly_symbol2scm ("linethickness"));
+  Real lt = me->get_layout ()->get_dimension (ly_symbol2scm ("linethickness"));
   Real sp = 1.5 * Staff_symbol_referencer::staff_space (me);
   Real dy = heads.length () + sp;
   Real x = 0.7;
 
   Stencil mol (Lookup::bracket (Y_AXIS, Interval (0, dy), lt, x, lt));
-  mol.translate_axis (heads[LEFT] - sp/2.0, Y_AXIS);
+  mol.translate_axis (heads[LEFT] - sp / 2.0, Y_AXIS);
   return mol.smobbed_copy ();
 }
-
 
 /*
   We have to do a callback, because print () triggers a
@@ -141,7 +139,7 @@ MAKE_SCHEME_CALLBACK (Arpeggio, width_callback, 2);
 SCM
 Arpeggio::width_callback (SCM smob, SCM axis)
 {
-  Grob * me = unsmob_grob (smob);
+  Grob *me = unsmob_grob (smob);
   Axis a = (Axis)scm_to_int (axis);
   assert (a == X_AXIS);
   Stencil arpeggio = Font_interface::get_default_font (me)->find_by_name ("scripts.arpeggio");
@@ -149,8 +147,7 @@ Arpeggio::width_callback (SCM smob, SCM axis)
   return ly_interval2scm (arpeggio.extent (X_AXIS));
 }
 
-
 ADD_INTERFACE (Arpeggio, "arpeggio-interface",
-  "Functions and settings for drawing an arpeggio symbol (a wavy line left to noteheads.",
-  "stems arpeggio-direction");
+	       "Functions and settings for drawing an arpeggio symbol (a wavy line left to noteheads.",
+	       "stems arpeggio-direction");
 

@@ -22,10 +22,10 @@
 MAKE_SCHEME_CALLBACK (Hairpin, print, 1);
 
 SCM
-Hairpin::print (SCM smob) 
+Hairpin::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  Spanner *spanner = dynamic_cast<Spanner*> (me);
+  Spanner *spanner = dynamic_cast<Spanner *> (me);
 
   SCM s = me->get_property ("grow-direction");
   if (!is_direction (s))
@@ -33,12 +33,12 @@ Hairpin::print (SCM smob)
       me->suicide ();
       return SCM_EOL;
     }
-  
+
   Direction grow_dir = to_dir (s);
   Real padding = robust_scm2double (me->get_property ("bound-padding"), 0.5);
 
   Drul_array<bool> broken;
-  Drul_array<Item*> bounds ;
+  Drul_array<Item *> bounds;
   Direction d = LEFT;
   do
     {
@@ -48,8 +48,8 @@ Hairpin::print (SCM smob)
   while (flip (&d) != LEFT);
 
   Grob *common = bounds[LEFT]->common_refpoint (bounds[RIGHT], X_AXIS);
-  Drul_array<Real> x_points ;
-  
+  Drul_array<Real> x_points;
+
   do
     {
       Item *b = bounds[d];
@@ -57,7 +57,7 @@ Hairpin::print (SCM smob)
       if (broken [d])
 	{
 	  if (d == LEFT)
-	    x_points[d] = b->extent (common, X_AXIS)[RIGHT] ;
+	    x_points[d] = b->extent (common, X_AXIS)[RIGHT];
 	}
       else
 	{
@@ -70,7 +70,7 @@ Hairpin::print (SCM smob)
 	  else
 	    {
 	      bool neighbor_found = false;
-	      for (SCM  adj = me->get_property ("adjacent-hairpins");
+	      for (SCM adj = me->get_property ("adjacent-hairpins");
 		   scm_is_pair (adj); adj = scm_cdr (adj))
 		{
 		  /*
@@ -78,27 +78,26 @@ Hairpin::print (SCM smob)
 		    notes in other voices. Need to look at note-columns
 		    in the current staff/voice.
 		  */
-		  
+
 		  Spanner *pin = unsmob_spanner (scm_car (adj));
 		  if (pin
-		      && (pin->get_bound (LEFT)->get_column() == b->get_column ()
-			  || pin->get_bound (RIGHT)->get_column() == b->get_column() ))
-		    neighbor_found = true; 
+		      && (pin->get_bound (LEFT)->get_column () == b->get_column ()
+			  || pin->get_bound (RIGHT)->get_column () == b->get_column ()))
+		    neighbor_found = true;
 		}
-	      
+
 	      /*
 		If we're hung on a paper column, that means we're not
 		adjacent to a text-dynamic, and we may move closer. We
 		make the padding a little smaller, here.
 	      */
 	      Interval e = robust_relative_extent (b, common, X_AXIS);
-	      x_points[d] =
-		neighbor_found ? e.center() - d * padding / 3 : e[d];
+	      x_points[d]
+		= neighbor_found ? e.center () - d * padding / 3 : e[d];
 	    }
 	}
     }
   while (flip (&d) != LEFT);
-
 
   Real width = x_points[RIGHT] - x_points[LEFT];
   if (width < 0)
@@ -116,11 +115,11 @@ Hairpin::print (SCM smob)
   if (grow_dir < 0)
     {
       starth = height;
-      endh = continued ? height/2 : 0.0;
+      endh = continued ? height / 2 : 0.0;
     }
   else
     {
-      starth = continued ? height/2 : 0.0;
+      starth = continued ? height / 2 : 0.0;
       endh = height;
     }
 
@@ -129,7 +128,7 @@ Hairpin::print (SCM smob)
   */
 
   Stencil mol;
-  mol  = Line_interface::line (me, Offset (0, starth), Offset (width, endh));
+  mol = Line_interface::line (me, Offset (0, starth), Offset (width, endh));
   mol.add_stencil (Line_interface::line (me,
 					 Offset (0, -starth),
 					 Offset (width, -endh)));
@@ -140,9 +139,7 @@ Hairpin::print (SCM smob)
   return mol.smobbed_copy ();
 }
 
-
-
 ADD_INTERFACE (Hairpin, "hairpin-interface",
-  "A hairpin (de)crescendo.",
-  "grow-direction height bound-padding adjacent-hairpins");
+	       "A hairpin (de)crescendo.",
+	       "grow-direction height bound-padding adjacent-hairpins");
 

@@ -1,12 +1,12 @@
-/*   
+/*
   tfm.cc -- implement Tex_font_metric
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1999--2005 Jan Nieuwenhuizen <janneke@gnu.org>
 
   some code shamelessly copied from GNU fontutils-0.6/tfm/tfm_input.c
- */
+*/
 
 #include "file-name.hh"
 #include "tfm.hh"
@@ -40,11 +40,11 @@ Tex_font_char_metric::dimensions () const
       b.set_empty ();
       return b;
     }
-  
+
   Real d = -depth_;
   Real point_constant = 1 PT;
-  
-  return Box (Interval (0, width_* point_constant ),
+
+  return Box (Interval (0, width_* point_constant),
 	      Interval ((d <? height_) * point_constant,
 			(d >? height_) * point_constant));
 }
@@ -65,10 +65,10 @@ Tex_font_metric::find_ascii (int ascii, bool warn) const
 {
   if (ascii >= 0 && ascii < ascii_to_metric_idx_.size ()
       && ascii_to_metric_idx_[ascii] >= 0)
-    return & char_metrics_[ascii_to_metric_idx_ [ascii]];
+    return &char_metrics_[ascii_to_metric_idx_ [ascii]];
   else if (warn)
     warning (_f ("can't find ascii character: %d", ascii));
-  return &dummy_static_char_metric;  
+  return &dummy_static_char_metric;
 }
 
 /* UGH: glyphs need not be consecutive in TFM. */

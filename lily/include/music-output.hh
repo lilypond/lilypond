@@ -6,7 +6,6 @@
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #ifndef MUSIC_OUTPUT_HH
 #define MUSIC_OUTPUT_HH
 
@@ -14,7 +13,7 @@
 #include "lily-proto.hh"
 #include "protected-scm.hh"
 
-class Music_output 
+class Music_output
 {
 public:
   virtual SCM process (String) {return SCM_EOL;}

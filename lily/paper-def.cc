@@ -1,4 +1,4 @@
-/* 
+/*
   paper-def.cc -- implement Paper_def
 
   source file of the GNU LilyPond music typesetter
@@ -11,7 +11,6 @@
 #include "modified-font-metric.hh"
 #include "pango-font.hh"
 #include "all-font-metrics.hh"
-
 
 Real
 output_scale (Output_def *od)
@@ -49,31 +48,31 @@ find_scaled_font (Output_def *mod, Font_metric *f, Real m)
 {
   if (mod->parent_)
     return find_scaled_font (mod->parent_, f, m);
-  
+
   Real lookup_mag = m / output_scale (mod);
-  
+
   SCM font_table = get_font_table (mod);
   SCM sizes = scm_hashq_ref (font_table, f->self_scm (), SCM_EOL);
   SCM handle = scm_assoc (scm_make_real (lookup_mag), sizes);
   if (scm_is_pair (handle))
     return unsmob_metrics (scm_cdr (handle));
-  
+
   SCM val = Modified_font_metric::make_scaled_font_metric (f, lookup_mag);
-  
+
   sizes = scm_acons (scm_make_real (lookup_mag), val, sizes);
   scm_gc_unprotect_object (val);
   scm_hashq_set_x (font_table, f->self_scm (), sizes);
   return unsmob_metrics (val);
 }
 
-Font_metric*
-find_pango_font (Output_def *layout,  SCM descr, Real factor)
+Font_metric *
+find_pango_font (Output_def *layout, SCM descr, Real factor)
 {
   if (layout->parent_)
     return find_pango_font (layout->parent_, descr, factor);
-  
+
   SCM table = get_pango_font_table (layout);
-  SCM sizes =  scm_hash_ref (table, descr, SCM_EOL);
+  SCM sizes = scm_hash_ref (table, descr, SCM_EOL);
   SCM size_key = scm_from_double (factor);
   SCM handle = scm_assoc (size_key, sizes);
   if (scm_is_pair (handle))
@@ -87,7 +86,7 @@ find_pango_font (Output_def *layout,  SCM descr, Real factor)
 						       factor,
 						       output_scale (layout));
 
-  sizes = scm_acons (size_key,  fm->self_scm(), sizes);
+  sizes = scm_acons (size_key, fm->self_scm (), sizes);
   scm_hash_set_x (table, descr, sizes);
 
   return fm;
@@ -96,7 +95,7 @@ find_pango_font (Output_def *layout,  SCM descr, Real factor)
 /* TODO: this is a nasty interface. During formatting,
    the Output_def should be scaled to the output_scale_
    specified in the toplevel Output_def.  */
-Output_def * 
+Output_def *
 scale_output_def (Output_def *o, Real amount)
 {
   SCM proc = ly_lily_module_constant ("scale-layout");

@@ -13,7 +13,7 @@ class Swallow_performer : public Performer
 public:
   TRANSLATOR_DECLARATIONS (Swallow_performer);
 protected:
-  virtual bool try_music (Music*);
+  virtual bool try_music (Music *);
 };
 
 bool
@@ -23,16 +23,16 @@ Swallow_performer::try_music (Music *m)
       || m->is_mus_type ("melisma-playing-event"))
     return false;
   else
-    return true; 
+    return true;
 }
 
 Swallow_performer::Swallow_performer ()
 {}
 
 ADD_TRANSLATOR (Swallow_performer,
-/* descr */       "",
-/* creats*/       "",
-/* accepts */     "general-music",
-/* acks  */      "",
-/* reads */       "",
-/* write */       "");
+		/* descr */ "",
+		/* creats*/ "",
+		/* accepts */ "general-music",
+		/* acks  */ "",
+		/* reads */ "",
+		/* write */ "");

@@ -1,6 +1,6 @@
 /*
   interval.hh -- part of flowerlib
-  
+
   (c) 1996--2005 Han-Wen Nienhuys
 */
 
@@ -23,16 +23,16 @@ struct Interval_t : public Drul_array<T>
   static String T_to_string (T arg);
   T center () const;
   void translate (T t)
-    {
-      elem_ref (LEFT) += t;
-      elem_ref (RIGHT) += t;
-    }
+  {
+    elem_ref (LEFT) += t;
+    elem_ref (RIGHT) += t;
+  }
   void widen (T t)
   {
     elem_ref (LEFT) -= t;
-    elem_ref (RIGHT) += t;    
+    elem_ref (RIGHT) += t;
   }
-  
+
   T distance (T t) const
   {
     if (t > elem (RIGHT))
@@ -43,15 +43,15 @@ struct Interval_t : public Drul_array<T>
       return T (0);
   }
   /**
-    PRE
-    *this and h are comparable
-    */
+     PRE
+     *this and h are comparable
+     */
   void unite (Interval_t<T> h);
   void intersect (Interval_t<T> h);
   void add_point (T p)
   {
-    elem_ref(LEFT) = elem (LEFT) <? p;
-    elem_ref(RIGHT) = elem (RIGHT) >? p;
+    elem_ref (LEFT) = elem (LEFT) <? p;
+    elem_ref (RIGHT) = elem (RIGHT) >? p;
   }
   T length () const;
   T delta () const;
@@ -60,36 +60,39 @@ struct Interval_t : public Drul_array<T>
 
   /*
     TODO: strip hungarian suffix.
-   */
+  */
   bool is_empty () const
   {
     return elem (LEFT) > elem (RIGHT);
   }
-  bool superset (Interval_t<T> const&) const;
+  bool superset (Interval_t<T> const &) const;
   Interval_t ()
   {
     set_empty ();
   }
-  Interval_t (T m, T M) : Drul_array<T> (m,M)
-    {
-    }
-  Interval_t<T> &operator -= (T r) {
+  Interval_t (T m, T M) : Drul_array<T> (m, M)
+  {
+  }
+  Interval_t<T> &operator-= (T r)
+  {
     *this += -r;
     return *this;
   }
 
-  Interval_t<T> &operator += (T r) {
+  Interval_t<T> &operator+= (T r)
+  {
     elem_ref (LEFT) += r;
     elem_ref (RIGHT) +=r;
     return *this;
   }
-  Interval_t<T> &operator *= (T r) {
+  Interval_t<T> &operator*= (T r)
+  {
     if (!is_empty ())
       {
 	elem_ref (LEFT) *= r;
 	elem_ref (RIGHT) *= r;
 	if (r < T (0))
-	  swap();
+	  swap ();
 
       }
     return *this;
@@ -119,42 +122,39 @@ struct Interval_t : public Drul_array<T>
   }
 };
 
-
 /**
-  inclusion ordering. Crash if not  comparable.
-  */
+   inclusion ordering. Crash if not  comparable.
+*/
 template<class T>
-int Interval__compare (const Interval_t<T>&,Interval_t<T> const&);
+int Interval__compare (const Interval_t<T>&, Interval_t<T> const &);
 
 /**
    Inclusion ordering.  return -2 if not comparable
- */
+*/
 template<class T>
 int
-_Interval__compare (const Interval_t<T>&a,Interval_t<T> const&b);
-
+_Interval__compare (const Interval_t<T>&a, Interval_t<T> const &b);
 
 /*
   INLINE
- */
+*/
 
 #include "compare.hh"
 
 TEMPLATE_INSTANTIATE_COMPARE (Interval_t<T>&, Interval__compare, template<class T>);
 
-
 template<class T>
 inline Interval_t<T>
-intersection (Interval_t<T> a, Interval_t<T> const&b)
+intersection (Interval_t<T> a, Interval_t<T> const &b)
 {
   a.intersect (b);
   return a;
-    
+
 }
 
 template<class T>
 inline
-Interval_t<T> operator + (T a,Interval_t<T> i)
+Interval_t<T> operator+ (T a, Interval_t<T> i)
 {
   i += a;
   return i;
@@ -162,7 +162,7 @@ Interval_t<T> operator + (T a,Interval_t<T> i)
 
 template<class T>
 inline
-Interval_t<T> operator - (Interval_t<T> i, T a)
+Interval_t<T> operator- (Interval_t<T> i, T a)
 {
   i += -a;
   return i;
@@ -170,7 +170,7 @@ Interval_t<T> operator - (Interval_t<T> i, T a)
 
 template<class T>
 inline
-Interval_t<T> operator - (T a,Interval_t<T> i)
+Interval_t<T> operator- (T a, Interval_t<T> i)
 {
   i.negate ();
   i += a;
@@ -179,13 +179,14 @@ Interval_t<T> operator - (T a,Interval_t<T> i)
 
 template<class T>
 inline
-Interval_t<T> operator + (Interval_t<T> i,T a){
-  return a+i;
+Interval_t<T> operator+ (Interval_t<T> i, T a)
+{
+  return a + i;
 }
 
 template<class T>
 inline
-Interval_t<T> operator * (T a,Interval_t<T> i)
+Interval_t<T> operator* (T a, Interval_t<T> i)
 {
   i *= a;
   return i;
@@ -193,10 +194,10 @@ Interval_t<T> operator * (T a,Interval_t<T> i)
 
 template<class T>
 inline
-Interval_t<T> operator * (Interval_t<T> i,T a){
+Interval_t<T> operator* (Interval_t<T> i, T a)
+{
   return a*i;
 }
-
 
 template<class T>
 inline T

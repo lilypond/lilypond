@@ -1,8 +1,8 @@
 /*
   all-font-metrics.cc -- implement All_font_metrics
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1999--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
@@ -25,19 +25,19 @@ All_font_metrics::All_font_metrics (String path)
   otf_dict_ = new Scheme_hash_table;
 
 #if HAVE_PANGO_FT2
-  PangoFontMap*pfm = pango_ft2_font_map_new ();
+  PangoFontMap *pfm = pango_ft2_font_map_new ();
 
-  pango_ft2_fontmap_ =
-    G_TYPE_CHECK_INSTANCE_CAST(pfm,
-			       PANGO_TYPE_FT2_FONT_MAP,
-			       PangoFT2FontMap);
+  pango_ft2_fontmap_
+    = G_TYPE_CHECK_INSTANCE_CAST (pfm,
+				  PANGO_TYPE_FT2_FONT_MAP,
+				  PangoFT2FontMap);
   pango_dpi_ = 1200;
   pango_ft2_font_map_set_resolution (pango_ft2_fontmap_,
 				     pango_dpi_, pango_dpi_);
 
   pango_dict_ = new Scheme_hash_table;
 #endif
-  
+
   search_path_.parse_path (path);
 }
 
@@ -53,21 +53,21 @@ All_font_metrics::~All_font_metrics ()
 #endif
 }
 
-All_font_metrics::All_font_metrics (All_font_metrics const&)
+All_font_metrics::All_font_metrics (All_font_metrics const &)
 {
 }
 
 #if HAVE_PANGO_FT2
 
 Pango_font *
-All_font_metrics::find_pango_font (PangoFontDescription*description,
+All_font_metrics::find_pango_font (PangoFontDescription *description,
 				   Real magnification,
 				   Real output_scale)
 {
   pango_font_description_set_size (description,
 				   gint (magnification *
 					 pango_font_description_get_size (description)));
-  
+
   gchar *fn = pango_font_description_to_filename (description);
   SCM key = ly_symbol2scm (fn);
 
@@ -90,8 +90,8 @@ All_font_metrics::find_pango_font (PangoFontDescription*description,
       pf->description_ = scm_cons (SCM_BOOL_F,
 				   scm_make_real (1.0));
     }
-  g_free (fn); 
-  return dynamic_cast<Pango_font*> (unsmob_metrics (val));
+  g_free (fn);
+  return dynamic_cast<Pango_font *> (unsmob_metrics (val));
 }
 
 #endif
@@ -99,15 +99,15 @@ All_font_metrics::find_pango_font (PangoFontDescription*description,
 String
 kpathsea_find_file (String name, String ext)
 {
-  name += "." +  ext;
+  name += "." + ext;
   String path = global_path.find (name);
-  if (path.length() > 0)
+  if (path.length () > 0)
     return path;
 
   SCM kpath = ly_lily_module_constant ("ly:kpathsea-find-file");
   if (ly_c_procedure_p (kpath))
     {
-      SCM kp_result = scm_call_1 (kpath, scm_makfrom0str (name.to_str0()));
+      SCM kp_result = scm_call_1 (kpath, scm_makfrom0str (name.to_str0 ()));
       if (scm_is_string (kp_result))
 	return ly_scm2string (kp_result);
     }
@@ -121,7 +121,7 @@ kpathsea_find_file (String name, String ext)
   should include design size when generating an AFM metric.
 
   ugr: copied from find_tfm.
- */
+*/
 Adobe_font_metric *
 All_font_metrics::find_afm (String name)
 {
@@ -133,7 +133,7 @@ All_font_metrics::find_afm (String name)
       String file_name;
 
       if (file_name.is_empty ())
-	file_name = search_path_.find (name  + ".afm");
+	file_name = search_path_.find (name + ".afm");
 
       if (file_name.is_empty ())
 	{
@@ -144,13 +144,13 @@ All_font_metrics::find_afm (String name)
 
       if (file_name.is_empty ())
 	return 0;
-      
+
       if (be_verbose_global)
 	progress_indication ("[" + file_name);
       val = read_afm_file (file_name);
       unsmob_metrics (val)->file_name_ = file_name;
-      
-      unsmob_metrics (val)->description_ = scm_cons (name_string, 
+
+      unsmob_metrics (val)->description_ = scm_cons (name_string,
 						     scm_make_real (1.0));
 
       if (be_verbose_global)
@@ -160,14 +160,14 @@ All_font_metrics::find_afm (String name)
       scm_gc_unprotect_object (val);
 
       Adobe_font_metric *afm
-	= dynamic_cast<Adobe_font_metric*> (unsmob_metrics (val));
+	= dynamic_cast<Adobe_font_metric *> (unsmob_metrics (val));
 
       /* Only check checksums if there is one.  We take the risk that
 	 some file has valid checksum 0 */
       if (afm->checksum_)
 	{
-	  Tex_font_metric * tfm = find_tfm (name);
-	  
+	  Tex_font_metric *tfm = find_tfm (name);
+
 	  /* FIXME: better warning message
 	     (maybe check upon startup for feta16.afm, feta16.tfm?) */
 	  if (tfm && tfm->info ().checksum != afm->checksum_)
@@ -185,18 +185,18 @@ All_font_metrics::find_afm (String name)
 	      s += "\n";
 	      s += _ ("Rerun with -V to show font paths.");
 	      s += "\n";
-	      s += _("A script for removing font-files is delivered with the source-code:");
+	      s += _ ("A script for removing font-files is delivered with the source-code:");
 	      s += "\n";
 	      s += "buildscripts/clean-fonts.sh";
 	      error (s);
 	    }
 	}
     }
-  
-  return dynamic_cast<Adobe_font_metric*> (unsmob_metrics (val));
+
+  return dynamic_cast<Adobe_font_metric *> (unsmob_metrics (val));
 }
 
-Open_type_font*
+Open_type_font *
 All_font_metrics::find_otf (String name)
 {
   SCM sname = ly_symbol2scm (name.to_str0 ());
@@ -205,15 +205,15 @@ All_font_metrics::find_otf (String name)
   if (!otf_dict_->try_retrieve (sname, &val))
     {
       String file_name;
-      
+
       if (file_name.is_empty ())
-	file_name = search_path_.find (name  + ".otf");
+	file_name = search_path_.find (name + ".otf");
       if (file_name.is_empty ())
 	return 0;
 
       if (be_verbose_global)
 	progress_indication ("[" + file_name);
-      
+
       val = Open_type_font::make_otf (file_name);
 
       if (be_verbose_global)
@@ -226,10 +226,10 @@ All_font_metrics::find_otf (String name)
       scm_gc_unprotect_object (val);
     }
 
-  return dynamic_cast<Open_type_font*> (unsmob_metrics (val));
+  return dynamic_cast<Open_type_font *> (unsmob_metrics (val));
 }
 
-Tex_font_metric*
+Tex_font_metric *
 All_font_metrics::find_tfm (String name)
 {
   SCM sname = ly_symbol2scm (name.to_str0 ());
@@ -238,7 +238,7 @@ All_font_metrics::find_tfm (String name)
   if (!tfm_dict_->try_retrieve (sname, &val))
     {
       String file_name;
-      
+
       if (file_name.is_empty ())
 	{
 	  /* FIXME: should add "cork-" prefix to lm* fonts.  How to do
@@ -249,13 +249,13 @@ All_font_metrics::find_tfm (String name)
 	}
 
       if (file_name.is_empty ())
-	file_name = search_path_.find (name  + ".tfm");
+	file_name = search_path_.find (name + ".tfm");
       if (file_name.is_empty ())
 	return 0;
 
       if (be_verbose_global)
 	progress_indication ("[" + file_name);
-      
+
       val = Tex_font_metric::make_tfm (file_name);
 
       if (be_verbose_global)
@@ -268,18 +268,18 @@ All_font_metrics::find_tfm (String name)
       scm_gc_unprotect_object (val);
     }
 
-  return dynamic_cast<Tex_font_metric*> (unsmob_metrics (val));
+  return dynamic_cast<Tex_font_metric *> (unsmob_metrics (val));
 }
 
-Font_metric*
+Font_metric *
 All_font_metrics::find_font (String name)
 {
   Font_metric *f = find_otf (name);
-   
-  if (!f &&
-      (name.left_string (4) == "feta"
-       || name.left_string (8) == "parmesan"
-       || name.left_string (2) == "lm"))
+
+  if (!f
+      && (name.left_string (4) == "feta"
+	  || name.left_string (8) == "parmesan"
+	  || name.left_string (2) == "lm"))
     {
       f = find_afm (name);
       if (!f)
@@ -297,7 +297,7 @@ All_font_metrics::find_font (String name)
       warning (_f ("can't find font: `%s'", name.to_str0 ()));
       warning (_ ("Loading default font"));
     }
-  
+
   String def_name = default_font_str0_;
 
   /* We're in emergency recovery mode here anyway, so don't try to do
@@ -319,7 +319,6 @@ All_font_metrics::find_font (String name)
 }
 
 All_font_metrics *all_fonts_global;
-
 
 LY_DEFINE (ly_font_load, "ly:font-load", 1, 0, 0,
 	   (SCM name),

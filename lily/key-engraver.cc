@@ -4,7 +4,7 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  */
+*/
 
 #include "item.hh"
 #include "bar-line.hh"
@@ -16,15 +16,15 @@
 
 /*
   TODO: The representation  of key sigs is all fucked.
- */
+*/
 
 /**
-  Make the key signature.
- */
+   Make the key signature.
+*/
 class Key_engraver : public Engraver
 {
   void create_key (bool);
-  void read_ev (Music const * r);
+  void read_ev (Music const *r);
 
   Music *key_ev_;
   Item *item_;
@@ -42,12 +42,10 @@ protected:
   virtual void acknowledge_grob (Grob_info);
 };
 
-
 void
 Key_engraver::finalize ()
 {
 }
-
 
 Key_engraver::Key_engraver ()
 {
@@ -56,11 +54,10 @@ Key_engraver::Key_engraver ()
   cancellation_ = 0;
 }
 
-
 void
 Key_engraver::create_key (bool def)
 {
-  if (!item_) 
+  if (!item_)
     {
       item_ = make_item ("KeySignature", key_ev_ ? key_ev_->self_scm () : SCM_EOL);
 
@@ -75,23 +72,22 @@ Key_engraver::create_key (bool def)
 	  cancellation_ = make_item ("KeyCancellation", key_ev_ ? key_ev_->self_scm () : SCM_EOL);
 	  cancellation_->set_property ("old-accidentals", last);
 	  cancellation_->set_property ("c0-position",
-			   get_property ("middleCPosition"));
-      
+				       get_property ("middleCPosition"));
+
 	}
       item_->set_property ("new-accidentals", key);
     }
 
   if (!def)
     {
-      SCM vis = get_property ("explicitKeySignatureVisibility"); 
+      SCM vis = get_property ("explicitKeySignatureVisibility");
       if (ly_c_procedure_p (vis))
 	item_->set_property ("break-visibility", vis);
     }
-}      
-
+}
 
 bool
-Key_engraver::try_music (Music * ev)
+Key_engraver::try_music (Music *ev)
 {
   if (ev->is_mus_type ("key-change-event"))
     {
@@ -102,17 +98,16 @@ Key_engraver::try_music (Music * ev)
 	  read_ev (key_ev_);
 	}
       return true;
-    }   
-  return  false;
+    }
+  return false;
 }
-
 
 void
 Key_engraver::acknowledge_grob (Grob_info info)
 {
   if (Clef::has_interface (info.grob_))
     {
-      SCM c =  get_property ("createKeyOnClefChange");
+      SCM c = get_property ("createKeyOnClefChange");
       if (to_boolean (c))
 	{
 	  create_key (false);
@@ -125,27 +120,24 @@ Key_engraver::acknowledge_grob (Grob_info info)
     }
 }
 
-
 void
 Key_engraver::process_music ()
 {
-  if (key_ev_ ||
-      get_property ("lastKeySignature") != get_property ("keySignature"))
+  if (key_ev_
+      || get_property ("lastKeySignature") != get_property ("keySignature"))
     create_key (false);
 }
-
 
 void
 Key_engraver::stop_translation_timestep ()
 {
   item_ = 0;
   context ()->set_property ("lastKeySignature", get_property ("keySignature"));
-  cancellation_ = 0; 
+  cancellation_ = 0;
 }
 
-
 void
-Key_engraver::read_ev (Music const * r)
+Key_engraver::read_ev (Music const *r)
 {
   SCM p = r->get_property ("pitch-alist");
   if (!scm_is_pair (p))
@@ -162,23 +154,21 @@ Key_engraver::read_ev (Music const * r)
 	  n = scm_delete_x (scm_car (s), n);
 	}
     }
-  
-  for (SCM s = n ; scm_is_pair (s); s = scm_cdr (s))
+
+  for (SCM s = n; scm_is_pair (s); s = scm_cdr (s))
     if (scm_to_int (scm_cdar (s)))
       accs = scm_cons (scm_car (s), accs);
 
   context ()->set_property ("keySignature", accs);
-  context ()->set_property ("tonic" ,
+  context ()->set_property ("tonic",
 			    r->get_property ("tonic"));
 }
-
 
 void
 Key_engraver::start_translation_timestep ()
 {
   key_ev_ = 0;
 }
-
 
 void
 Key_engraver::initialize ()
@@ -191,11 +181,10 @@ Key_engraver::initialize ()
 
 }
 
-
 ADD_TRANSLATOR (Key_engraver,
-/* descr */       "",
-/* creats*/       "KeySignature",
-/* accepts */     "key-change-event",
-/* acks  */      "bar-line-interface clef-interface",
-/* reads */       "keySignature printKeyCancellation lastKeySignature explicitKeySignatureVisibility createKeyOnClefChange keyAccidentalOrder keySignature",
-/* write */       "lastKeySignature tonic keySignature");
+		/* descr */ "",
+		/* creats*/ "KeySignature",
+		/* accepts */ "key-change-event",
+		/* acks  */ "bar-line-interface clef-interface",
+		/* reads */ "keySignature printKeyCancellation lastKeySignature explicitKeySignatureVisibility createKeyOnClefChange keyAccidentalOrder keySignature",
+		/* write */ "lastKeySignature tonic keySignature");

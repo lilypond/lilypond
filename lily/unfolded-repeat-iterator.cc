@@ -1,10 +1,10 @@
-/*   
-unfolded-repeat-iterator.cc -- implement Unfolded_repeat_iterator, Volta_repeat_iterator
+/*
+  unfolded-repeat-iterator.cc -- implement Unfolded_repeat_iterator, Volta_repeat_iterator
 
-source file of the GNU LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
 
-(c) 2002--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 2002--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "music.hh"
@@ -19,13 +19,12 @@ protected:
   virtual SCM get_music_list () const;
 };
 
-
 SCM
 Unfolded_repeat_iterator::get_music_list () const
 {
   SCM l = SCM_EOL;
   SCM *tail = &l;
-  
+
   SCM body = get_music ()->get_property ("element");
   SCM alts = get_music ()->get_property ("elements");
   int alt_count = scm_ilength (alts);
@@ -34,7 +33,7 @@ Unfolded_repeat_iterator::get_music_list () const
   for (int i = 0; i < rep_count; i++)
     {
       if (unsmob_music (body))
-	*tail = scm_cons (body, SCM_EOL) ;
+	*tail = scm_cons (body, SCM_EOL);
 
       tail = SCM_CDRLOC (*tail);
 
@@ -43,12 +42,12 @@ Unfolded_repeat_iterator::get_music_list () const
 	  *tail = scm_cons (scm_car (alts), SCM_EOL);
 	  tail = SCM_CDRLOC (*tail);
 	  if (i >= rep_count - alt_count)
-	    
+
 	    alts = scm_cdr (alts);
-	}      
+	}
     }
 
-  return l; 
+  return l;
 }
 
 class Volta_repeat_iterator : public Sequential_iterator
@@ -70,7 +69,6 @@ protected:
   int done_count_;
 };
 
-
 Volta_repeat_iterator::Volta_repeat_iterator ()
 {
   done_count_ = alt_count_ = rep_count_ = 0;
@@ -81,14 +79,14 @@ SCM
 Volta_repeat_iterator::get_music_list ()const
 {
   return scm_cons (get_music ()->get_property ("element"),
-		  get_music ()->get_property ("elements"));
+		   get_music ()->get_property ("elements"));
 }
 
 void
 Volta_repeat_iterator::construct_children ()
 {
   Sequential_iterator::construct_children ();
-  
+
   SCM alts = get_music ()->get_property ("elements");
 
   alt_count_ = scm_ilength (alts);
@@ -96,17 +94,16 @@ Volta_repeat_iterator::construct_children ()
   done_count_ = 0;
 }
 
-
 /*
   TODO: add source information for debugging
- */
+*/
 void
 Volta_repeat_iterator::add_repeat_command (SCM what)
 {
   SCM reps = ly_symbol2scm ("repeatCommands");
   SCM current_reps = get_outlet ()->internal_get_property (reps);
 
-  Context * where = get_outlet ()->where_defined (reps);
+  Context *where = get_outlet ()->where_defined (reps);
   if (where
       && current_reps == SCM_EOL || scm_is_pair (current_reps))
     {
@@ -115,16 +112,15 @@ Volta_repeat_iterator::add_repeat_command (SCM what)
     }
 }
 
-
 void
 Volta_repeat_iterator::next_element (bool side_effect)
 {
-  done_count_ ++;
+  done_count_++;
 
   Sequential_iterator::next_element (side_effect);
 
   if (side_effect)
-    {    
+    {
       if (alt_count_)
 	{
 	  String repstr = to_string (rep_count_ - alt_count_ + done_count_) + ".";
@@ -136,8 +132,6 @@ Volta_repeat_iterator::next_element (bool side_effect)
 		add_repeat_command (ly_symbol2scm ("end-repeat"));
 	    }
 
-	  
-      
 	  if (done_count_ == 1 && alt_count_ < rep_count_)
 	    {
 	      repstr = "1.--" + to_string (rep_count_ - alt_count_ + done_count_) + ".";
@@ -154,7 +148,6 @@ Volta_repeat_iterator::next_element (bool side_effect)
     }
 }
 
-
 void
 Volta_repeat_iterator::process (Moment m)
 {
@@ -165,7 +158,6 @@ Volta_repeat_iterator::process (Moment m)
     }
   Sequential_iterator::process (m);
 }
-
 
 IMPLEMENT_CTOR_CALLBACK (Volta_repeat_iterator);
 IMPLEMENT_CTOR_CALLBACK (Unfolded_repeat_iterator);

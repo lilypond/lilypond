@@ -14,21 +14,21 @@
 String
 version_string ()
 {
-  String str = MAJOR_VERSION "." MINOR_VERSION "."  PATCH_LEVEL;
+  String str = MAJOR_VERSION "." MINOR_VERSION "." PATCH_LEVEL;
   String mpl ("." MY_PATCH_LEVEL);
   if (mpl != ".")
     str += mpl;
   return str;
 }
 
-String 
+String
 gnu_lilypond_string ()
 {
   String str = "GNU LilyPond";
   return str;
 }
 
-String 
+String
 gnu_lilypond_version_string ()
 {
   String str = gnu_lilypond_string () + " " + version_string ();

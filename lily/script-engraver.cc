@@ -38,7 +38,7 @@ class Script_engraver : public Engraver
   Spanner *slur_;
 
 protected:
-  virtual bool try_music (Music*);
+  virtual bool try_music (Music *);
   virtual void stop_translation_timestep ();
   virtual void process_music ();
   virtual void acknowledge_grob (Grob_info);
@@ -87,9 +87,8 @@ copy_property (Grob *g, SCM sym, SCM alist)
 /* Add the properties, one by one for each Script.  A little memory
    could be saved by tacking the props onto the Script grob (i.e. make
    ScriptStaccato , ScriptMarcato, etc. ).
-
 */
-void make_script_from_event (Grob *p, bool * follow, Context *tg,
+void make_script_from_event (Grob *p, bool *follow, Context *tg,
 			     SCM art_type, int index)
 {
   SCM alist = tg->get_property ("scriptDefinitions");
@@ -110,15 +109,15 @@ void make_script_from_event (Grob *p, bool * follow, Context *tg,
 			      art);
 
   *follow = scm_is_pair (follow_scm) && to_boolean (scm_cdr (follow_scm));
-  bool priority_found = false ; 
-    
-  for (SCM s = art ; scm_is_pair (s); s = scm_cdr (s))
+  bool priority_found = false;
+
+  for (SCM s = art; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM sym = scm_caar (s);
       SCM type = scm_object_property (sym, ly_symbol2scm ("backend-type?"));
       if (!ly_c_procedure_p (type))
 	continue;
-      
+
       SCM val = scm_cdar (s);
 
       if (sym == ly_symbol2scm ("script-priority"))
@@ -127,9 +126,8 @@ void make_script_from_event (Grob *p, bool * follow, Context *tg,
 	  /* Make sure they're in order of user input by adding index i.
 	     Don't use the direction in this priority. Smaller means closer
 	     to the head.  */
-	  int prio  = scm_to_int (val) +  index;
-	  
-	 
+	  int prio = scm_to_int (val) + index;
+
 	  val = scm_int2num (prio);
 	}
       if (p->internal_get_property (sym) == SCM_EOL)
@@ -141,7 +139,7 @@ void make_script_from_event (Grob *p, bool * follow, Context *tg,
       p->set_property ("script-priority",
 		       scm_int2num (index));
     }
-  
+
   Side_position_interface::set_axis (p, Y_AXIS);
 
 }
@@ -192,7 +190,7 @@ Script_engraver::acknowledge_grob (Grob_info info)
       for (int i = 0; i < script_count; i++)
 	{
 	  Grob *e = scripts_[i].script_;
-	
+
 	  if (Side_position_interface::get_axis (e) == X_AXIS
 	      && !e->get_parent (Y_AXIS))
 	    {
@@ -205,11 +203,11 @@ Script_engraver::acknowledge_grob (Grob_info info)
   else if (Note_column::has_interface (info.grob_))
     {
       /* Make note column the parent of the script.  That is not
-	correct, but due to seconds in a chord, noteheads may be
-	swapped around horizontally.
+	 correct, but due to seconds in a chord, noteheads may be
+	 swapped around horizontally.
 
-	As the note head to put it on is not known now, postpone this
-	decision to Script_interface::before_line_breaking ().  */
+	 As the note head to put it on is not known now, postpone this
+	 decision to Script_interface::before_line_breaking ().  */
       for (int i = 0; i < script_count; i++)
 	{
 	  Grob *e = scripts_[i].script_;
@@ -220,7 +218,7 @@ Script_engraver::acknowledge_grob (Grob_info info)
 	}
     }
   else if (Slur::has_interface (info.grob_))
-    slur_ = dynamic_cast<Spanner*> (info.grob_);
+    slur_ = dynamic_cast<Spanner *> (info.grob_);
 }
 
 void
@@ -235,15 +233,15 @@ Script_engraver::stop_translation_timestep ()
 				 ::quantised_position_proc, Y_AXIS);
 	sc->set_property ("staff-padding", SCM_EOL);
       }
-  
+
   scripts_.clear ();
 }
 
 ADD_TRANSLATOR (Script_engraver,
-/* descr */       "Handles note scripted articulations.",
-/* creats*/       "Script",
-/* accepts */     "script-event articulation-event",
-/* acks  */       "stem-interface rhythmic-head-interface " 
-		  "slur-interface note-column-interface",
-/* reads */       "scriptDefinitions",
-/* write */       "");
+		/* descr */ "Handles note scripted articulations.",
+		/* creats*/ "Script",
+		/* accepts */ "script-event articulation-event",
+		/* acks  */ "stem-interface rhythmic-head-interface "
+		"slur-interface note-column-interface",
+		/* reads */ "scriptDefinitions",
+		/* write */ "");

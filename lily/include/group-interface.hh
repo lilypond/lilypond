@@ -1,11 +1,10 @@
-/*   
+/*
   group-interface.hh -- declare Group_interface
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1999--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #ifndef GROUP_INTERFACE_HH
 #define GROUP_INTERFACE_HH
@@ -23,19 +22,18 @@
 struct Group_interface
 {
 public:
-  static int count (Grob*, SCM);
-  static void add_thing (Grob*, SCM, SCM);
+  static int count (Grob *, SCM);
+  static void add_thing (Grob *, SCM, SCM);
 };
 
-struct Pointer_group_interface : public Group_interface {
+struct Pointer_group_interface : public Group_interface
+{
 public:
-  static void add_grob (Grob*, SCM nm, Grob*e);
+  static void add_grob (Grob *, SCM nm, Grob *e);
 };
 
 Link_array<Grob> extract_grob_array (Grob const *elt, SCM symbol);
 Link_array<Item> extract_item_array (Grob const *elt, SCM symbol);
-
-
 
 
 #endif /* GROUP_INTERFACE_HH */

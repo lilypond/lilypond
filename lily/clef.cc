@@ -14,7 +14,7 @@
 #include "font-interface.hh"
 
 /*
- FIXME: should use symbol for #'style.
+  FIXME: should use symbol for #'style.
 */
 MAKE_SCHEME_CALLBACK (Clef, before_line_breaking, 1);
 SCM
@@ -34,7 +34,7 @@ Clef::before_line_breaking (SCM smob)
 	  && !to_boolean (s->get_property ("full-size-change")))
 	{
 	  str += "_change";
-	  s->set_property ("glyph-name", scm_makfrom0str (str.to_str0 ()));	
+	  s->set_property ("glyph-name", scm_makfrom0str (str.to_str0 ()));
 	}
     }
 
@@ -42,7 +42,7 @@ Clef::before_line_breaking (SCM smob)
 }
 
 MAKE_SCHEME_CALLBACK (Clef, print, 1)
-SCM
+  SCM
 Clef::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
@@ -59,6 +59,6 @@ Clef::print (SCM smob)
 }
 
 ADD_INTERFACE (Clef, "clef-interface",
-  "A clef sign",
-  "non-default full-size-change glyph-name");
+	       "A clef sign",
+	       "non-default full-size-change glyph-name");
 

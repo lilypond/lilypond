@@ -1,14 +1,13 @@
-/*   
+/*
   tfm.hh -- declare Tex_font_metric
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1999--2005 Jan Nieuwenhuizen <janneke@gnu.org>
 
 
   revamped code from GNU Fontutils-0.6
-
- */
+*/
 
 /*
   TODO: aren't there standard libs?  Ideally it is better to just link
@@ -138,9 +137,8 @@ struct Tex_font_char_metric
 
   Tex_font_char_metric ();
 
-  Box dimensions () const; 
+  Box dimensions () const;
 };
-
 
 class Tex_font_metric : public Simple_font_metric
 {
@@ -155,7 +153,7 @@ public:
   virtual String font_name () const;
 
   Tfm_info const &info () const;
-  
+
 protected:
   Tfm_info info_;
   Tfm_header header_;
@@ -167,7 +165,6 @@ private:
   Tex_font_char_metric const *find_ascii (int ascii, bool warn = true) const;
   Tex_font_metric ();
 };
-
 
 #endif /* TFM_HH */
 

@@ -1,8 +1,8 @@
 /*
-   process command line, GNU style.
+  process command line, GNU style.
 
-   this is Copyleft (c) 1996--2005 Han-Wen Nienhuys, <hanwen@cs.uu.nl>
- */
+  this is Copyleft (c) 1996--2005 Han-Wen Nienhuys, <hanwen@cs.uu.nl>
+*/
 
 #include "getopt-long.hh"
 
@@ -16,10 +16,10 @@
 #include "string-convert.hh"
 
 #if !HAVE_GETTEXT
-inline char*
-gettext (char const* s)
+inline char *
+gettext (char const *s)
 {
-  return (char*)s;
+  return (char *)s;
 }
 #else
 #include <libintl.h>
@@ -39,7 +39,7 @@ Getopt_long::get_argument_index ()
 const Long_option_init *
 Getopt_long::parselong ()
 {
-  char const *optnm = arg_value_char_a_a_[array_index_] + 2 ;
+  char const *optnm = arg_value_char_a_a_[array_index_] + 2;
   assert (*optnm);
 
   char const *endopt = strchr (optnm, '=');
@@ -94,7 +94,7 @@ Long_option_init::to_string () const
 {
   String str;
   if (shortname_char_)
-    str +=  "-" + shortname_char_;
+    str += "-" + shortname_char_;
   if (shortname_char_ && longname_str0_)
     str += ", ";
   if (longname_str0_)
@@ -122,7 +122,7 @@ Long_option_init::str_for_help () const
 	s = s + "=";
       else
 	s = s + " ";
-      
+
       s = s + gettext (take_arg_str0_);
     }
   return s;
@@ -142,41 +142,41 @@ Getopt_long::report (Errorcod c)
     {
     case E_ARGEXPECT:
       str += _f ("option `%s' requires an argument",
-	found_option_->to_string ());
+		 found_option_->to_string ());
       break;
-    case  E_NOARGEXPECT:
+    case E_NOARGEXPECT:
       str += _f ("option `%s' doesn't allow an argument",
-	found_option_->to_string ());
+		 found_option_->to_string ());
       break;
     case E_UNKNOWNOPTION:
       str += _f ("unrecognized option: `%s'",
-      String (argument_index_ 
-	      ? String ("-" + String_convert::form_string ("%c", 
-	        arg_value_char_a_a_[array_index_][argument_index_]))
-	      : String (arg_value_char_a_a_[array_index_])));
+		 String (argument_index_
+			 ? String ("-" + String_convert::form_string ("%c",
+								      arg_value_char_a_a_[array_index_][argument_index_]))
+			 : String (arg_value_char_a_a_[array_index_])));
       break;
     case E_ILLEGALARG:
       str += _f ("invalid argument `%s' to option `%s'",
-        optional_argument_str0_, found_option_->to_string ());
+		 optional_argument_str0_, found_option_->to_string ());
       break;
     default:
       assert (false);
     }
-  fprintf(error_out_, "%s\n", str.to_str0 ());
+  fprintf (error_out_, "%s\n", str.to_str0 ());
   exit (2);
 }
 
 const Long_option_init *
 Getopt_long::parseshort ()
 {
-  char c=arg_value_char_a_a_[array_index_][argument_index_];
-  found_option_=0;
+  char c = arg_value_char_a_a_[array_index_][argument_index_];
+  found_option_ = 0;
   assert (c);
 
-  for (int i=0; i < table_len_; i++)
+  for (int i = 0; i < table_len_; i++)
     if (option_a_[i].shortname_char_ == c)
       {
-	found_option_  = option_a_+i;
+	found_option_ = option_a_ + i;
 	break;
       }
 
@@ -194,13 +194,13 @@ Getopt_long::parseshort ()
     }
   optional_argument_str0_ = arg_value_char_a_a_[array_index_] + argument_index_;
 
-  array_index_ ++;
+  array_index_++;
   argument_index_ = 0;
 
   if (!optional_argument_str0_[0])
     {
       optional_argument_str0_ = arg_value_char_a_a_[array_index_];
-      array_index_ ++;
+      array_index_++;
     }
   if (!optional_argument_str0_)
     {
@@ -211,7 +211,7 @@ Getopt_long::parseshort ()
 }
 
 const Long_option_init *
-Getopt_long::operator () ()
+Getopt_long::operator() ()
 {
   if (!ok ())
     return 0;
@@ -223,7 +223,7 @@ Getopt_long::operator () ()
   if (argument_index_)
     return parseshort ();
 
-  const char * argument = arg_value_char_a_a_[array_index_];
+  const char *argument = arg_value_char_a_a_[array_index_];
 
   if (argument[0] != '-')
     return 0;
@@ -248,9 +248,7 @@ Getopt_long::operator () ()
     }
 }
 
-
-
-Getopt_long::Getopt_long (int c, char  **v, Long_option_init *lo)
+Getopt_long::Getopt_long (int c, char **v, Long_option_init *lo)
 {
   option_a_ = lo;
   error_out_ = stderr;
@@ -261,15 +259,15 @@ Getopt_long::Getopt_long (int c, char  **v, Long_option_init *lo)
 
   //    reached end of option table?
   table_len_ =0;
-  for (int i = 0;  option_a_[i].longname_str0_ ||option_a_[i].shortname_char_; i++)
-    table_len_ ++;
+  for (int i = 0; option_a_[i].longname_str0_ ||option_a_[i].shortname_char_; i++)
+    table_len_++;
 
 }
 
 bool
 Getopt_long::ok () const
 {
-  return  array_index_ < argument_count_;
+  return array_index_ < argument_count_;
 }
 
 void
@@ -289,46 +287,44 @@ Getopt_long::current_arg ()
 {
   if (array_index_ >= argument_count_)
     return 0;
-  char const * a = arg_value_char_a_a_[array_index_];
+  char const *a = arg_value_char_a_a_[array_index_];
   return a + argument_index_;
 }
 
 char const *
 Getopt_long::get_next_arg ()
 {
-  char const * a = current_arg ();
+  char const *a = current_arg ();
   if (a)
     {
-      array_index_ ++;
+      array_index_++;
       argument_index_= 0;
     }
   return a;
 }
 
-
 const int EXTRA_SPACES = 5;
 
 String
-Long_option_init::table_string (Long_option_init *l) 
+Long_option_init::table_string (Long_option_init *l)
 {
   String argstr = "ARG";
   String tabstr = "";
 
   int wid = 0;
-  for (int i=0; l[i].shortname_char_ || l[i].longname_str0_; i++)
+  for (int i = 0; l[i].shortname_char_ || l[i].longname_str0_; i++)
     {
       wid = wid >? l[i].str_for_help ().length ();
     }
 
-  for (int i=0; l[i].shortname_char_ || l[i].longname_str0_; i++)
+  for (int i = 0; l[i].shortname_char_ || l[i].longname_str0_; i++)
     {
-      String s  =  "  " + l[i].str_for_help ();
+      String s = "  " + l[i].str_for_help ();
       s += String_convert::char_string (' ', wid - s.length () + EXTRA_SPACES);
 
       tabstr += s + gettext (l[i].help_str0_) + "\n";
     }
 
-    
   return tabstr;
 }
 
@@ -348,6 +344,6 @@ Long_option_init::compare (Long_option_init const &a, Long_option_init const &b)
       char s[2] = {a.shortname_char_, 0};
       return strcmp (s, b.longname_str0_);
     }
-  
+
   return strcmp (a.longname_str0_, b.longname_str0_);
 }

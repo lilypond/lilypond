@@ -1,12 +1,11 @@
 
-/*   
+/*
   afm.hh -- declare Adobe_font_metric
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1998--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #ifndef AFM_HH
 #define AFM_HH
@@ -32,22 +31,22 @@ public:
   virtual Box get_ascii_char (int) const;
   virtual Box get_indexed_char (int) const;
   virtual Offset get_indexed_wxwy (int) const;
-  static SCM make_afm (AFM_Font_info*, unsigned, Real);
+  static SCM make_afm (AFM_Font_info *, unsigned, Real);
   virtual Real design_size () const;
-  virtual String font_name () const; 
+  virtual String font_name () const;
 
 protected:
   AFM_CharMetricInfo const *find_char_metric (String name) const;
-  AFM_CharMetricInfo const *find_ascii_metric (int) const;  
+  AFM_CharMetricInfo const *find_ascii_metric (int) const;
 
   Array<int> ascii_to_metric_idx_;
-  std::map<String, int> name_to_metric_dict_;
+  std::map < String, int> name_to_metric_dict_;
 
-  Adobe_font_metric (AFM_Font_info*);
+  Adobe_font_metric (AFM_Font_info *);
 };
 
 SCM read_afm_file (String);
 Box afm_bbox_to_box (AFM_BBox);
-  
+
 #endif /* AFM_HH */
 

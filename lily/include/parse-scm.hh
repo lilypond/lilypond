@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2004--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-
 */
 
 #ifndef PARSE_SCM_HH
@@ -17,7 +16,7 @@ extern bool parse_protect_global;
 
 struct Parse_start
 {
-  char const* str;
+  char const *str;
   int nchars;
   Input start_location_;
   bool safe_;

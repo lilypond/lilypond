@@ -1,11 +1,10 @@
-/*   
+/*
   g-script-column.hh -- declare Script_column
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1999--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #ifndef Script_COLUMN_HH
 #define Script_COLUMN_HH
@@ -16,13 +15,11 @@
 class Script_column
 {
 public:
-  static void add_staff_sided (Grob*, Item*);
-  DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM ));
-    static bool has_interface (Grob*);
+  static void add_staff_sided (Grob *, Item *);
+  DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
+  static bool has_interface (Grob *);
 
 };
 
-
 #endif /* Script_COLUMN_HH */
-
 

@@ -4,7 +4,7 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 1998--2005 Jan Nieuwenhuizen <janneke@gnu.org>
-                 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "context.hh"
@@ -12,7 +12,7 @@
 
 LY_DEFINE (ly_context_id, "ly:context-id",
 	   1, 0, 0, (SCM context),
-	  "Return the id string of @var{context}, "
+	   "Return the id string of @var{context}, "
 	   "i.e. for @code{\\context Voice = one .. } "
 	   "return the string @code{one}.")
 {
@@ -30,7 +30,7 @@ LY_DEFINE (ly_context_name, "ly:context-name",
 {
   Context *tr = unsmob_context (context);
   SCM_ASSERT_TYPE (tr, context, SCM_ARG1, __FUNCTION__, "Context");
-  return ly_symbol2scm (tr->context_name ().to_str0 ()); 
+  return ly_symbol2scm (tr->context_name ().to_str0 ());
 }
 
 LY_DEFINE (ly_context_grob_definition, "ly:context-grob-definition",
@@ -42,10 +42,8 @@ LY_DEFINE (ly_context_grob_definition, "ly:context-grob-definition",
   SCM_ASSERT_TYPE (tr, context, SCM_ARG1, __FUNCTION__, "Context");
   SCM_ASSERT_TYPE (scm_is_symbol (name), name, SCM_ARG2, __FUNCTION__, "symbol");
 
-    
   return updated_grob_properties (tr, name);
 }
-
 
 LY_DEFINE (ly_context_pushpop_property, "ly:context-pushpop-property",
 	   3, 1, 0, (SCM context, SCM grob, SCM eltprop, SCM val),
@@ -66,10 +64,10 @@ LY_DEFINE (ly_context_pushpop_property, "ly:context-pushpop-property",
 
 LY_DEFINE (ly_context_property, "ly:context-property",
 	   2, 0, 0, (SCM c, SCM name),
-	  "Return the value of @var{name} from context @var{c}")
+	   "Return the value of @var{name} from context @var{c}")
 {
   Context *t = unsmob_context (c);
-  Context * tr = (t);
+  Context *tr = (t);
   SCM_ASSERT_TYPE (tr, c, SCM_ARG1, __FUNCTION__, "Translator group");
   SCM_ASSERT_TYPE (scm_is_symbol (name), name, SCM_ARG2, __FUNCTION__, "symbol");
 
@@ -125,7 +123,7 @@ LY_DEFINE (ly_context_parent, "ly:context-parent",
   Context *tr = unsmob_context (context);
   SCM_ASSERT_TYPE (tr, context, SCM_ARG1, __FUNCTION__, "Context");
 
-  tr = tr->get_parent_context () ;
+  tr = tr->get_parent_context ();
   if (tr)
     return tr->self_scm ();
   else
@@ -141,15 +139,14 @@ LY_DEFINE (ly_context_find, "ly:context-find",
   Context *tr = unsmob_context (context);
   SCM_ASSERT_TYPE (tr, context, SCM_ARG1, __FUNCTION__, "context");
   SCM_ASSERT_TYPE (scm_is_symbol (name), name, SCM_ARG2, __FUNCTION__, "symbol");
-  
+
   while (tr)
     {
       if (tr->is_alias (name))
 	return tr->self_scm ();
-      tr =  tr->get_parent_context () ;
+      tr = tr->get_parent_context ();
     }
-  
+
   return SCM_BOOL_F;
 }
-
 

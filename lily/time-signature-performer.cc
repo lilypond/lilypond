@@ -23,9 +23,8 @@ protected:
   SCM prev_fraction_;
 private:
 
-  Audio_time_signature* audio_;
+  Audio_time_signature *audio_;
 };
-
 
 Time_signature_performer::Time_signature_performer ()
 {
@@ -37,7 +36,6 @@ Time_signature_performer::~Time_signature_performer ()
 {
 }
 
-
 void
 Time_signature_performer::create_audio_elements ()
 {
@@ -47,7 +45,7 @@ Time_signature_performer::create_audio_elements ()
       prev_fraction_ = fr;
       int b = scm_to_int (scm_car (fr));
       int o = scm_to_int (scm_cdr (fr));
-      
+
       audio_ = new Audio_time_signature (b, o);
       Audio_element_info info (audio_, 0);
       announce_element (info);

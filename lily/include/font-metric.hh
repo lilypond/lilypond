@@ -1,11 +1,9 @@
 /*
-
   font-metric.hh -- declare Font_metric
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1999--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
 */
 
 #ifndef FONT_METRIC_HH
@@ -37,12 +35,12 @@ public:
   virtual Stencil get_indexed_char_stencil (int k) const;
   virtual Stencil get_ascii_char_stencil (int k) const;
   virtual SCM sub_fonts () const;
-  virtual SCM font_file_name () const; 
-  DECLARE_SMOBS (Font_metric, );
+  virtual SCM font_file_name () const;
+  DECLARE_SMOBS (Font_metric,);
 
 private:
   /* No copying, no implicit copy constructor.  */
-  Font_metric (Font_metric const&);
+  Font_metric (Font_metric const &);
 
 protected:
   virtual void derived_mark () const;

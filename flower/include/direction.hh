@@ -6,37 +6,36 @@
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #ifndef DIRECTION_HH
 #define DIRECTION_HH
 
 #include "axes.hh"
 
-enum Direction 
-{
-  UP=1,
-  DOWN=-1,
-  LEFT=-1,
-  RIGHT=1,
-  MIN=-1,
-  MAX=1,
-  CENTER=0,
-  SMALLER=-1,
-  BIGGER=1,
-  START = -1,
-  STOP = 1,
+enum Direction
+  {
+    UP = 1,
+    DOWN=-1,
+    LEFT=-1,
+    RIGHT = 1,
+    MIN=-1,
+    MAX = 1,
+    CENTER = 0,
+    SMALLER=-1,
+    BIGGER = 1,
+    START = -1,
+    STOP = 1,
 
-  /*
-    This is necessary to safely write loops,
-    since
-    
+    /*
+      This is necessary to safely write loops,
+      since
+
       dir <= RIGHT
 
-    is otherwise transformed into true unconditionally.
-   */
-  DIRECTION_LIMIT = 2,
-  DIRECTION_NEG_LIMIT = -2,
-};
+      is otherwise transformed into true unconditionally.
+    */
+    DIRECTION_LIMIT = 2,
+    DIRECTION_NEG_LIMIT = -2,
+  };
 
 inline Direction
 other_dir (Direction const d)
@@ -45,17 +44,18 @@ other_dir (Direction const d)
 }
 
 inline Direction
-operator - (Direction const d)
+operator- (Direction const d)
 {
   return other_dir (d);
 }
 
 // huh?
 inline Direction
-flip (Direction *i) {
+flip (Direction *i)
+{
   if (*i == (Direction)1)
-    *i = (Direction)-1;
-  else if (*i == (Direction)-1)
+    *i = (Direction) - 1;
+  else if (*i == (Direction) - 1)
     *i = (Direction)1;
   return *i;
 }
@@ -63,7 +63,7 @@ flip (Direction *i) {
 /**
    if d > 0: the max operator
    if d < 0: the min operator
- */
+*/
 template<class T> T minmax (Direction d, T, T);
 
 // String direction_string (Direction, Axis);

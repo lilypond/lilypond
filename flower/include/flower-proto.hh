@@ -8,14 +8,13 @@
 #ifndef FPROTO_HH
 #define FPROTO_HH
 
-
-char const * flower_version_str0 ();
+char const *flower_version_str0 ();
 
 template<class T> struct Link_array;
 template<class T> struct Array;
-template<class T,class K> struct Assoc;
-template<class K, class V> struct Hash_table;
-template<class K, class V> struct Hash_table_iter;
+template < class T, class K> struct Assoc;
+template < class K, class V> struct Hash_table;
+template < class K, class V> struct Hash_table_iter;
 template<class T> struct Link_list;
 template<class T> struct Interval_t;
 template<class T> struct PQueue;
@@ -57,8 +56,6 @@ struct Sources;
 struct File_storage;
 struct Mapped_file_storage;
 struct Simple_file_storage;
-
-
 
 #endif // FPROTO_HH
 

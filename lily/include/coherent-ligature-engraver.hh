@@ -1,11 +1,10 @@
-/*   
+/*
   coherent-ligature-engraver.hh -- declare Coherent_ligature_engraver
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2003--2005 Juergen Reuter <reuter@ipd.uka.de>
-  
- */
+*/
 #ifndef COHERENT_LIGATURE_ENGRAVER_HH
 #define COHERENT_LIGATURE_ENGRAVER_HH
 
@@ -14,7 +13,7 @@
 class Coherent_ligature_engraver : public Ligature_engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS(Coherent_ligature_engraver);
+  TRANSLATOR_DECLARATIONS (Coherent_ligature_engraver);
 
 protected:
   virtual void build_ligature (Spanner *ligature,

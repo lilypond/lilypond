@@ -44,11 +44,11 @@ IMPLEMENT_DEFAULT_EQUAL_P (Book);
 SCM
 Book::mark_smob (SCM s)
 {
-  Book *book = (Book*) SCM_CELL_WORD_1 (s);
+  Book *book = (Book *) SCM_CELL_WORD_1 (s);
 
 #if 0
   if (book->key_)
-    scm_gc_mark (book->key_->self_scm());
+    scm_gc_mark (book->key_->self_scm ());
 #endif
 
   if (book->paper_)
@@ -83,15 +83,15 @@ Book::process (String outname, Output_def *default_def)
 
   Paper_book *paper_book = new Paper_book ();
   Real scale = scm_to_double (paper_->c_variable ("outputscale"));
-  Output_def * scaled_bookdef = scale_output_def (paper_, scale);
+  Output_def *scaled_bookdef = scale_output_def (paper_, scale);
 
-  Object_key * key = new Lilypond_general_key (0, user_key_, 0);
-  SCM  scm_key = key->self_scm();
+  Object_key *key = new Lilypond_general_key (0, user_key_, 0);
+  SCM scm_key = key->self_scm ();
   scm_gc_unprotect_object (scm_key);
-  
+
   paper_book->paper_ = scaled_bookdef;
-  scm_gc_unprotect_object (scaled_bookdef->self_scm());
-  
+  scm_gc_unprotect_object (scaled_bookdef->self_scm ());
+
   paper_book->header_ = header_;
 
   /* Render in order of parsing.  */
@@ -101,7 +101,7 @@ Book::process (String outname, Output_def *default_def)
 	{
 	  SCM systems = score
 	    ->book_rendering (outname, paper_book->paper_, default_def, key);
-      
+
 	  /* If the score is empty, generate no output.  Should we do
 	     titling? */
 	  if (scm_is_vector (systems))

@@ -4,7 +4,7 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2000--2005 Juergen Reuter <reuter@ipd.uka.de>,
-                  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "engraver.hh"
@@ -30,9 +30,8 @@ public:
   virtual void stop_translation_timestep ();
   virtual void finalize ();
 
-
 private:
-  Item * create_custos ();
+  Item *create_custos ();
   bool custos_permitted;
   Link_array<Grob> custodes_;
   Array<Pitch> pitches_;
@@ -43,13 +42,12 @@ Custos_engraver::Custos_engraver ()
   custos_permitted = false;
 }
 
-
 void
 Custos_engraver::stop_translation_timestep ()
 {
   /*
     delay typeset until we're at the next moment, so we can silence custodes at the end of the piece.
-   */
+  */
   pitches_.clear ();
 
   custos_permitted = false;
@@ -61,14 +59,13 @@ Custos_engraver::start_translation_timestep ()
   custodes_.clear ();
 }
 
-
 void
 Custos_engraver::acknowledge_grob (Grob_info info)
 {
-  Item *item = dynamic_cast <Item *> (info.grob_);
+  Item *item = dynamic_cast<Item *> (info.grob_);
   if (item)
     {
-      Music * m = info.music_cause ();
+      Music *m = info.music_cause ();
       if (Bar_line::has_interface (info.grob_))
 	custos_permitted = true;
       else if (Note_head::has_interface (info.grob_)
@@ -84,7 +81,7 @@ Custos_engraver::acknowledge_grob (Grob_info info)
 	    don't look at the staff-position, since we can't be sure
 	    whether Clef_engraver already applied a vertical shift.
 	  */
-	    pitches_.push (*unsmob_pitch (m->get_property ("pitch")));
+	  pitches_.push (*unsmob_pitch (m->get_property ("pitch")));
 	}
     }
 }
@@ -94,7 +91,7 @@ Custos_engraver::process_acknowledged_grobs ()
 {
   if (scm_is_string (get_property ("whichBar")))
     custos_permitted = true;
-  
+
   if (custos_permitted)
     {
       for (int i = pitches_.size (); i--;)
@@ -106,24 +103,22 @@ Custos_engraver::process_acknowledged_grobs ()
 	  if (scm_is_number (c0))
 	    p += scm_to_int (c0);
 
-	  
 	  c->set_property ("staff-position",
-				scm_int2num (p));
-	  
+			   scm_int2num (p));
+
 	}
 
       pitches_.clear ();
     }
 }
 
-Item* 
+Item *
 Custos_engraver::create_custos ()
 {
-  Item* custos = make_item ("Custos", SCM_EOL);
-  
-  
+  Item *custos = make_item ("Custos", SCM_EOL);
+
   custodes_.push (custos);
-  
+
   return custos;
 }
 
@@ -137,12 +132,10 @@ Custos_engraver::finalize ()
   custodes_.clear ();
 }
 
-
-
 ADD_TRANSLATOR (Custos_engraver,
-/* descr */       "",
-/* creats*/       "Custos",
-/* accepts */     "",
-/* acks  */      "bar-line-interface note-head-interface",
-/* reads */       "",
-/* write */       "");
+		/* descr */ "",
+		/* creats*/ "Custos",
+		/* accepts */ "",
+		/* acks  */ "bar-line-interface note-head-interface",
+		/* reads */ "",
+		/* write */ "");

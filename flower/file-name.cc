@@ -1,10 +1,10 @@
 /*
   file-name.cc - implement File_name
-   
+
   source file of the Flower Library
-  
+
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-                 Jan Nieuwenhuizen <janneke@gnu.org>
+  Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "file-name.hh"
@@ -14,7 +14,7 @@
 
 #include "config.hh"
 
-#if HAVE_SYS_STAT_H 
+#if HAVE_SYS_STAT_H
 #include <sys/stat.h>
 #endif
 
@@ -63,7 +63,7 @@ File_name::to_string () const
   return s;
 }
 
-char const*
+char const *
 File_name::to_str0 () const
 {
   return to_string ().to_str0 ();

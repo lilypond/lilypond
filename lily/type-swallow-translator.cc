@@ -12,62 +12,58 @@
 class Skip_event_swallow_translator : public virtual Translator
 {
 protected:
-  virtual bool try_music (Music*) { return true; }
+  virtual bool try_music (Music *) { return true; }
 
-public:  
+public:
   TRANSLATOR_DECLARATIONS (Skip_event_swallow_translator);
 };
-
 
 class Rest_swallow_translator : public virtual Translator
 {
 protected:
-  virtual bool try_music (Music*) { return true; }
+  virtual bool try_music (Music *) { return true; }
 
-public:  
+public:
   TRANSLATOR_DECLARATIONS (Rest_swallow_translator);
 };
-
 
 Skip_event_swallow_translator::Skip_event_swallow_translator (){}
 
 ADD_TRANSLATOR (Skip_event_swallow_translator,
-		  "Swallow \\skip.",
-		  "",
-		  "skip-event",
-		  "",
-		  "",
-		  "");
-
+		"Swallow \\skip.",
+		"",
+		"skip-event",
+		"",
+		"",
+		"");
 
 Rest_swallow_translator::Rest_swallow_translator (){}
 
 ADD_TRANSLATOR (Rest_swallow_translator,
-		  "Swallow rest",
-		  "",
-		  "rest-event",
-		  "",
-		  "",
-	
+		"Swallow rest",
+		"",
+		"rest-event",
+		"",
+		"",
 
-	  "");
+		"");
 
 class Note_swallow_translator : public virtual Translator
 {
 protected:
-  virtual bool try_music (Music*) { return true; }
+  virtual bool try_music (Music *) { return true; }
 
-public:  
+public:
   TRANSLATOR_DECLARATIONS (Note_swallow_translator);
 };
 
 Note_swallow_translator::Note_swallow_translator (){}
 
 ADD_TRANSLATOR (Note_swallow_translator,
-		  "Swallow notes",
-		  "",
-		  "note-event",
-		  "",
-		  "",
-		  "");
-		  
+		"Swallow notes",
+		"",
+		"note-event",
+		"",
+		"",
+		"");
+

@@ -4,9 +4,8 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2002--2005 Juergen Reuter <reuter@ipd.uka.de>
-  
+
   Han-Wen Nienhuys <hanwen@xs4all.nl
-  
 */
 
 #include "engraver.hh"
@@ -20,7 +19,7 @@
 class Ambitus_engraver : public Engraver
 {
 public:
-TRANSLATOR_DECLARATIONS (Ambitus_engraver);
+  TRANSLATOR_DECLARATIONS (Ambitus_engraver);
   virtual void process_music ();
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
@@ -64,10 +63,9 @@ Ambitus_engraver::create_ambitus ()
   while (flip (&d) != DOWN);
   ambitus_->set_parent (heads_[DOWN], X_AXIS);
   Axis_group_interface::add_element (group_, ambitus_);
-  
-  is_typeset_ = false;		
-}
 
+  is_typeset_ = false;
+}
 
 Ambitus_engraver::Ambitus_engraver ()
 {
@@ -108,7 +106,6 @@ Ambitus_engraver::stop_translation_timestep ()
       start_c0_ = robust_scm2int (get_property ("middleCPosition"), 0);
       start_key_sig_ = get_property ("keySignature");
 
-
       is_typeset_ = true;
     }
 }
@@ -116,7 +113,7 @@ Ambitus_engraver::stop_translation_timestep ()
 void
 Ambitus_engraver::acknowledge_grob (Grob_info info)
 {
-  Item *item = dynamic_cast <Item *>(info.grob_);
+  Item *item = dynamic_cast<Item *> (info.grob_);
   if (item)
     {
       if (Note_head::has_interface (info.grob_))
@@ -141,8 +138,8 @@ Ambitus_engraver::finalize ()
 	{
 	  Pitch p = pitch_interval_[d];
 	  heads_[d]->set_property ("staff-position",
-				   scm_from_int (start_c0_ +
-						 p.steps ()));
+				   scm_from_int (start_c0_
+						 + p.steps ()));
 
 	  SCM handle = scm_assoc (scm_cons (scm_from_int (p.get_octave ()),
 					    scm_from_int (p.get_notename ())),
@@ -151,11 +148,11 @@ Ambitus_engraver::finalize ()
 	  if (handle == SCM_BOOL_F)
 	    handle = scm_assoc (scm_from_int (p.get_notename ()),
 				start_key_sig_);
-	  
+
 	  int sig_alter = (handle != SCM_BOOL_F) ? scm_to_int (scm_cdr (handle)) : 0;
 	  if (sig_alter == p.get_alteration ())
 	    {
-	      accidentals_[d]->suicide();
+	      accidentals_[d]->suicide ();
 	      heads_[d]->set_property ("accidental-grob", SCM_EOL);
 	    }
 	  else
@@ -174,18 +171,18 @@ Ambitus_engraver::finalize ()
       Direction d = DOWN;
       do
 	{
-	  accidentals_[d]->suicide();
-	  heads_[d]->suicide();
-   	}
+	  accidentals_[d]->suicide ();
+	  heads_[d]->suicide ();
+ 	}
       while (flip (&d) != DOWN);
-      ambitus_->suicide();
+      ambitus_->suicide ();
     }
 }
 
 ADD_TRANSLATOR (Ambitus_engraver,
-/* descr */       "",
-/* creats*/       "Ambitus AmbitusLine AmbitusNoteHead AmbitusAccidental",
-/* accepts */ "",
-/* acks  */     "note-head-interface",
-/* reads */       "",
-/* write */       "");
+		/* descr */ "",
+		/* creats*/ "Ambitus AmbitusLine AmbitusNoteHead AmbitusAccidental",
+		/* accepts */ "",
+		/* acks  */ "note-head-interface",
+		/* reads */ "",
+		/* write */ "");

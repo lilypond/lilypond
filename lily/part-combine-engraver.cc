@@ -2,11 +2,10 @@
   part-combine-engraver.cc -- implement PC-engraver
 
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2000--2005 Jan Nieuwenhuizen <janneke@gnu.org>
 
   Han-Wen Nienhuys <hanwen@xs4all.nl>
-  
 */
 
 #include "engraver.hh"
@@ -31,7 +30,7 @@ private:
 };
 
 bool
-Part_combine_engraver::try_music (Music*m)
+Part_combine_engraver::try_music (Music *m)
 {
   event_ = m;
   return true;
@@ -40,7 +39,7 @@ Part_combine_engraver::try_music (Music*m)
 Part_combine_engraver::Part_combine_engraver ()
 {
   text_ = 0;
-  event_  = 0;
+  event_ = 0;
 }
 
 void
@@ -60,7 +59,7 @@ Part_combine_engraver::process_music ()
 
       if (Text_interface::markup_p (text))
 	{
-	  text_ =  make_item ("CombineTextScript", event_->self_scm () );
+	  text_ = make_item ("CombineTextScript", event_->self_scm ());
 	  text_->set_property ("text", text);
 	}
     }
@@ -73,7 +72,7 @@ Part_combine_engraver::acknowledge_grob (Grob_info i)
     {
       if (Note_head::has_interface (i.grob_))
 	{
-	  Grob*t = text_;
+	  Grob *t = text_;
 	  Side_position_interface::add_support (t, i.grob_);
 	  if (Side_position_interface::get_axis (t) == X_AXIS
 	      && !t->get_parent (Y_AXIS))
@@ -86,19 +85,19 @@ Part_combine_engraver::acknowledge_grob (Grob_info i)
     }
 }
 
-void 
+void
 Part_combine_engraver::stop_translation_timestep ()
 {
-      text_ = 0;
+  text_ = 0;
   event_ = 0;
 }
 
 ADD_TRANSLATOR (Part_combine_engraver,
-/* descr */       "Part combine engraver for orchestral scores:		"
-		  "Print markings a2, Solo, Solo II, and unisono ",
-/* creats*/       "CombineTextScript",
-/* accepts */     "part-combine-event",
-/* acks  */       "multi-measure-rest-interface "
-"slur-interface stem-interface note-head-interface",
-/* reads */       "printPartCombineTexts",
-/* write */       "");
+		/* descr */ "Part combine engraver for orchestral scores:		"
+		"Print markings a2, Solo, Solo II, and unisono ",
+		/* creats*/ "CombineTextScript",
+		/* accepts */ "part-combine-event",
+		/* acks  */ "multi-measure-rest-interface "
+		"slur-interface stem-interface note-head-interface",
+		/* reads */ "printPartCombineTexts",
+		/* write */ "");

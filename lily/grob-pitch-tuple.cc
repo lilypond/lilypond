@@ -1,11 +1,10 @@
-/*   
-grob-pitch-tuple.cc -- implement Grob_pitch_tuple
+/*
+  grob-pitch-tuple.cc -- implement Grob_pitch_tuple
 
-source file of the GNU LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
-(c) 2001--2005  Han-Wen Nienhuys <hanwen@cs.uu.nl>
-
- */
+  (c) 2001--2005  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+*/
 
 #include "grob-pitch-tuple.hh"
 
@@ -15,8 +14,6 @@ int compare (Grob_pitch_tuple const &a, Grob_pitch_tuple const &b)
 {
   return Grob_pitch_tuple::time_compare (a, b);
 }
-
-
 
 
 Grob_pitch_tuple::Grob_pitch_tuple ()
@@ -33,18 +30,18 @@ Grob_pitch_tuple::Grob_pitch_tuple (Grob *h, Music *m, Moment mom)
 }
 
 /*
-  signed compare, should use pitch<? 
- */
+  signed compare, should use pitch<?
+*/
 int
 Grob_pitch_tuple::pitch_compare (Grob_pitch_tuple const &h1,
-				    Grob_pitch_tuple const &h2)
+				 Grob_pitch_tuple const &h2)
 {
   return Pitch::compare (h1.pitch_, h2.pitch_);
 }
 
 int
-Grob_pitch_tuple::time_compare (Grob_pitch_tuple const&h1,
-				   Grob_pitch_tuple const &h2)
+Grob_pitch_tuple::time_compare (Grob_pitch_tuple const &h1,
+				Grob_pitch_tuple const &h2)
 {
-  return Moment::compare (h1.end_,  h2.end_);
+  return Moment::compare (h1.end_, h2.end_);
 }

@@ -18,13 +18,13 @@ public:
   ~Key_performer ();
 
 protected:
-  virtual bool try_music (Music* ev);
+  virtual bool try_music (Music *ev);
   virtual void create_audio_elements ();
   virtual void stop_translation_timestep ();
 
 private:
-  Event* key_ev_;
-  Audio_key* audio_;
+  Event *key_ev_;
+  Audio_key *audio_;
 };
 
 Key_performer::Key_performer ()
@@ -40,19 +40,19 @@ Key_performer::~Key_performer ()
 void
 Key_performer::create_audio_elements ()
 {
-  if (key_ev_) 
+  if (key_ev_)
     {
       SCM pitchlist = key_ev_->get_property ("pitch-alist");
       SCM proc = ly_lily_module_constant ("alterations-in-key");
-      
+
       SCM acc = scm_call_1 (proc, pitchlist);
-      
-      Pitch key_do (0, 
+
+      Pitch key_do (0,
 		    scm_to_int (scm_caar (pitchlist)),
 		    scm_to_int (scm_cdar (pitchlist)));
 
       Pitch c_do (0, 0, 0);
-		  
+
       SCM c_pitchlist
 	= ly_transpose_key_alist (pitchlist,
 				  pitch_interval (key_do, c_do).smobbed_copy ());
@@ -80,9 +80,9 @@ Key_performer::stop_translation_timestep ()
 }
 
 bool
-Key_performer::try_music (Music* ev)
+Key_performer::try_music (Music *ev)
 {
-  if (Event *kc = dynamic_cast <Event *> (ev))
+  if (Event *kc = dynamic_cast<Event *> (ev))
     {
       if (key_ev_)
 	warning (_ ("FIXME: key change merge"));
@@ -95,6 +95,6 @@ Key_performer::try_music (Music* ev)
 }
 
 ADD_TRANSLATOR (Key_performer,
-		  "", "",
-		  "key-change-event",
-		  "", "", "");
+		"", "",
+		"key-change-event",
+		"", "", "");

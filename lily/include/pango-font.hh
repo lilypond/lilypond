@@ -22,13 +22,13 @@
 class Pango_font : public Font_metric
 {
   PangoContext *context_;
-  PangoFontDescription *pango_description_; 
+  PangoFontDescription *pango_description_;
   PangoAttrList *attribute_list_;
   Real scale_;
   SCM physical_font_tab_;
 
 public:
-  SCM physical_font_tab () const; 
+  SCM physical_font_tab () const;
   Pango_font (PangoFT2FontMap *,
 	      Direction leftright,
 	      PangoFontDescription *,
@@ -38,7 +38,7 @@ public:
   SCM font_file_name () const;
   void register_font_file (String, String);
   Stencil text_stencil (String) const;
-  Stencil pango_item_string_stencil (PangoItem*, String, Real) const;
+  Stencil pango_item_string_stencil (PangoItem *, String, Real) const;
 
   virtual void derived_mark () const;
 };

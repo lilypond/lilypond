@@ -1,8 +1,8 @@
 /*
   new-lyric-combine-iterator.cc -- implement New_lyric_combine_music_iterator
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2004--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
@@ -15,12 +15,12 @@ class New_lyric_combine_music_iterator : public Music_iterator
 {
 public:
   New_lyric_combine_music_iterator ();
-  New_lyric_combine_music_iterator (New_lyric_combine_music_iterator const&src);
+  New_lyric_combine_music_iterator (New_lyric_combine_music_iterator const &src);
   DECLARE_SCHEME_CALLBACK (constructor, ());
 protected:
   virtual void construct_children ();
   virtual Moment pending_moment () const;
-  virtual void do_quit (); 
+  virtual void do_quit ();
   virtual void process (Moment);
   virtual Music_iterator *try_music_in_children (Music *) const;
   virtual bool run_always ()const;
@@ -28,7 +28,7 @@ protected:
   virtual void derived_mark () const;
   virtual void derived_substitute (Context *, Context *);
 private:
-  bool start_new_syllable () ;
+  bool start_new_syllable ();
   void find_voice ();
 
   bool music_found_;
@@ -36,13 +36,13 @@ private:
   Context *lyrics_context_;
   Context *music_context_;
   SCM lyricsto_voice_name_;
-  
-  Music_iterator * lyric_iter_;
+
+  Music_iterator *lyric_iter_;
 };
 
 /*
   Ugh, why static?
- */
+*/
 static Music *busy_ev;
 static Music *start_ev;
 static Music *melisma_playing_ev;
@@ -57,7 +57,7 @@ New_lyric_combine_music_iterator::New_lyric_combine_music_iterator ()
 
   /*
     Ugh. out of place here.
-   */
+  */
   if (!busy_ev)
     {
       busy_ev
@@ -73,20 +73,20 @@ bool
 New_lyric_combine_music_iterator::start_new_syllable ()
 {
   bool b = music_context_->try_music (busy_ev);
-  
+
   if (!b)
     return false;
 
   if (!lyrics_context_)
     return false;
-  
+
   if (!to_boolean (lyrics_context_->get_property ("ignoreMelismata")))
     {
       bool m = music_context_->try_music (melisma_playing_ev);
       if (m)
 	return false;
     }
-  
+
   return true;
 }
 
@@ -96,7 +96,7 @@ New_lyric_combine_music_iterator::pending_moment () const
   Moment m;
 
   m.set_infinite (1);
-    
+
   return m;
 }
 
@@ -131,9 +131,8 @@ New_lyric_combine_music_iterator::derived_substitute (Context *f, Context *t)
   if (lyrics_context_ && lyrics_context_ == f)
     lyrics_context_ = t;
   if (music_context_ && music_context_ == f)
-    music_context_ = t; 
+    music_context_ = t;
 }
-
 
 void
 New_lyric_combine_music_iterator::construct_children ()
@@ -143,9 +142,8 @@ New_lyric_combine_music_iterator::construct_children ()
 
   lyricsto_voice_name_ = get_music ()->get_property ("associated-context");
 
-  
   find_voice ();
-  
+
   if (lyric_iter_)
     lyrics_context_ = find_context_below (lyric_iter_->get_outlet (),
 					  ly_symbol2scm ("Lyrics"), "");
@@ -154,7 +152,7 @@ New_lyric_combine_music_iterator::construct_children ()
     We do not create a Lyrics context, because the user might
     create one with a different name, and then we will not find that
     one.
-   */
+  */
 }
 
 void
@@ -167,16 +165,16 @@ New_lyric_combine_music_iterator::find_voice ()
     voice_name = running;
 
   if (scm_is_string (voice_name)
-      && (!music_context_ || ly_scm2string (voice_name) != music_context_->id_string ()))    
+      && (!music_context_ || ly_scm2string (voice_name) != music_context_->id_string ()))
     {
       /*
 	(spaghettini).
-	
+
 	Need to set associatedVoiceContext again
-       */
+      */
       if (music_context_)
 	made_association_ = false;
-      
+
       Context *t = get_outlet ();
       while (t && t->get_parent_context ())
 	t = t->get_parent_context ();
@@ -184,7 +182,6 @@ New_lyric_combine_music_iterator::find_voice ()
       String name = ly_scm2string (voice_name);
       Context *voice = find_context_below (t, ly_symbol2scm ("Voice"), name);
 
-      
       if (voice)
 	music_context_ = voice;
     }
@@ -193,7 +190,7 @@ New_lyric_combine_music_iterator::find_voice ()
     {
       if (!made_association_)
 	{
-	  made_association_ = true; 
+	  made_association_ = true;
 	  lyrics_context_->set_property ("associatedVoiceContext",
 					 music_context_->self_scm ());
 	}
@@ -201,31 +198,31 @@ New_lyric_combine_music_iterator::find_voice ()
 }
 
 void
-New_lyric_combine_music_iterator::process (Moment )
+New_lyric_combine_music_iterator::process (Moment)
 {
   find_voice ();
   if (!music_context_)
-    return ;
-  
+    return;
+
   if (!music_context_->get_parent_context ())
     {
       /*
 	The melody has died.
 	We die too.
-       */
+      */
       if (lyrics_context_)
 	lyrics_context_->unset_property (ly_symbol2scm ("associatedVoiceContext"));
       lyric_iter_ = 0;
       music_context_ = 0;
     }
-  
+
   if (music_context_
       && start_new_syllable () && lyric_iter_->ok ())
     {
       Moment m = lyric_iter_->pending_moment ();
       lyric_iter_->process (m);
 
-      music_found_ = true; 
+      music_found_ = true;
     }
 }
 
@@ -248,13 +245,10 @@ New_lyric_combine_music_iterator::do_quit ()
     lyric_iter_->quit ();
 }
 
-
-
-Music_iterator*
+Music_iterator *
 New_lyric_combine_music_iterator::try_music_in_children (Music *m) const
 {
   return lyric_iter_->try_music (m);
 }
-
 
 IMPLEMENT_CTOR_CALLBACK (New_lyric_combine_music_iterator);

@@ -11,23 +11,23 @@
 
 /*
   TODO:
-  
-    handle multiple events
 
-    perform absolute (text) dynamics
- */
+  handle multiple events
+
+  perform absolute (text) dynamics
+*/
 class Dynamic_performer : public Performer
 {
 public:
   TRANSLATOR_DECLARATIONS (Dynamic_performer);
 protected:
-  virtual bool try_music (Music* req);
+  virtual bool try_music (Music *req);
   virtual void stop_translation_timestep ();
   virtual void create_audio_elements ();
 
 private:
-  Music* script_req_;
-  Audio_dynamic* audio_;
+  Music *script_req_;
+  Audio_dynamic *audio_;
 };
 
 Dynamic_performer::Dynamic_performer ()
@@ -43,18 +43,18 @@ Dynamic_performer::create_audio_elements ()
     {
       SCM proc = get_property ("dynamicAbsoluteVolumeFunction");
 
-      SCM svolume  = SCM_EOL;
+      SCM svolume = SCM_EOL;
       if (ly_c_procedure_p (proc))
 	{
 	  // urg
 	  svolume = scm_call_1 (proc, script_req_->get_property ("text"));
 	}
 
-      Real volume = robust_scm2double (svolume, 0.5); 
+      Real volume = robust_scm2double (svolume, 0.5);
 
       /*
 	properties override default equaliser setting
-       */
+      */
       SCM min = get_property ("midiMinimumVolume");
       SCM max = get_property ("midiMaximumVolume");
       if (scm_is_number (min) || scm_is_number (max))
@@ -72,14 +72,13 @@ Dynamic_performer::create_audio_elements ()
 	    urg, code duplication:: staff_performer
 	  */
 	  SCM s = get_property ("midiInstrument");
-	  
+
 	  if (!scm_is_string (s))
 	    s = get_property ("instrument");
-	  
+
 	  if (!scm_is_string (s))
 	    s = scm_makfrom0str ("piano");
-	  
-	  
+
 	  SCM eq = get_property ("instrumentEqualizer");
 	  if (ly_c_procedure_p (eq))
 	    {
@@ -92,7 +91,7 @@ Dynamic_performer::create_audio_elements ()
 	      volume = iv[MIN] + iv.length () * volume;
 	    }
 	}
-      
+
       audio_ = new Audio_dynamic (volume);
       Audio_element_info info (audio_, script_req_);
       announce_element (info);
@@ -111,7 +110,7 @@ Dynamic_performer::stop_translation_timestep ()
 }
 
 bool
-Dynamic_performer::try_music (Music* r)
+Dynamic_performer::try_music (Music *r)
 {
   if (!script_req_)
     {
@@ -125,9 +124,9 @@ Dynamic_performer::try_music (Music* r)
 }
 
 ADD_TRANSLATOR (Dynamic_performer,
-		  /*descr*/		  "",
-		  /* creats*/ "",
-		  /* accepts */     "absolute-dynamic-event",
-		  /* acks */ "",
-		  /*reads */"dynamicAbsoluteVolumeFunction midiMaximumVolume midiMinimumVolume midiInstrument instrumentEqualizer",
-		  /*writes*/"");
+		/*descr*/		 "",
+		/* creats*/ "",
+		/* accepts */ "absolute-dynamic-event",
+		/* acks */ "",
+		/*reads */"dynamicAbsoluteVolumeFunction midiMaximumVolume midiMinimumVolume midiInstrument instrumentEqualizer",
+		/*writes*/"");

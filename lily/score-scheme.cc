@@ -4,9 +4,7 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
-
 
 #include "score.hh"
 #include "music.hh"
@@ -32,19 +30,18 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
 	   "Run @var{score} through @var{layout}, an output definition, "
 	   "scaled to correct outputscale already, "
 	   "return a list of layout-lines. "
-	   "\nTake optional Object_key argument."
-	   )
+	   "\nTake optional Object_key argument.")
 {
-  Score * sc = unsmob_score (score);
+  Score *sc = unsmob_score (score);
   Output_def *od = unsmob_output_def (layout);
 
   if (sc->error_found_)
     return SCM_EOL;
-  
+
   SCM_ASSERT_TYPE (sc, score, SCM_ARG1, __FUNCTION__, "Score");
   SCM_ASSERT_TYPE (od, layout, SCM_ARG2, __FUNCTION__, "Output_def");
 
-  Output_def * score_def  = 0;
+  Output_def *score_def = 0;
 
   /* UGR, FIXME, these are default \layout blocks once again.  They
      suck. */
@@ -54,7 +51,7 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
 
   if (!score_def)
     return scm_c_make_vector (0, SCM_EOL);
-      
+
   score_def = score_def->clone ();
   SCM prot = score_def->self_scm ();
   scm_gc_unprotect_object (prot);
@@ -62,11 +59,11 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
   /* TODO: SCORE_DEF should be scaled according to OD->parent_ or OD
      itself. */
   score_def->parent_ = od;
-  
+
   SCM context = ly_run_translator (sc->get_music (), score_def->self_scm (),
 				   key);
   SCM lines = ly_format_output (context, scm_makfrom0str ("<embedded>"));
-  
+
   scm_remember_upto_here_1 (prot);
   return lines;
 }

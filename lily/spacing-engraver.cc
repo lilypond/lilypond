@@ -1,11 +1,10 @@
-/*   
+/*
   spacing-engraver.cc -- implement Spacing_engraver
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1999--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #include "paper-column.hh"
 #include "engraver.hh"
@@ -19,16 +18,16 @@ struct Rhythmic_tuple
 {
   Grob_info info_;
   Moment end_;
-  
+
   Rhythmic_tuple ()
-    {
-    }
+  {
+  }
   Rhythmic_tuple (Grob_info i, Moment m)
-    {
-      info_ = i;
-      end_ = m;
-    }
-  static int time_compare (Rhythmic_tuple const &, Rhythmic_tuple const &);  
+  {
+    info_ = i;
+    end_ = m;
+  }
+  static int time_compare (Rhythmic_tuple const &, Rhythmic_tuple const &);
 };
 
 /**
@@ -43,8 +42,8 @@ class Spacing_engraver : public Engraver
   Array<Rhythmic_tuple> now_durations_;
   Array<Rhythmic_tuple> stopped_durations_;
   Moment now_;
-  Spanner * spacing_;
-  
+  Spanner *spacing_;
+
   TRANSLATOR_DECLARATIONS (Spacing_engraver);
 protected:
   virtual void acknowledge_grob (Grob_info);
@@ -78,8 +77,8 @@ Spacing_engraver::process_music ()
   if (!spacing_)
     {
       spacing_ = make_spanner ("SpacingSpanner", SCM_EOL);
-      spacing_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));  
-      
+      spacing_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
+
     }
 }
 
@@ -88,8 +87,8 @@ Spacing_engraver::finalize ()
 {
   if (spacing_)
     {
-      Grob * p = unsmob_grob (get_property ("currentCommandColumn"));
-  
+      Grob *p = unsmob_grob (get_property ("currentCommandColumn"));
+
       spacing_->set_bound (RIGHT, p);
       spacing_ = 0;
     }
@@ -100,16 +99,16 @@ Spacing_engraver::acknowledge_grob (Grob_info i)
 {
   if (Note_spacing::has_interface (i.grob_) || Staff_spacing::has_interface (i.grob_))
     {
-      Pointer_group_interface::add_grob (spacing_, ly_symbol2scm  ("wishes"), i.grob_);
+      Pointer_group_interface::add_grob (spacing_, ly_symbol2scm ("wishes"), i.grob_);
     }
-  
+
   if (i.grob_->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface"))
       || i.grob_->internal_has_interface (ly_symbol2scm ("multi-measure-event")))
     return;
 
   /*
-    only pay attention to durations that are not grace notes. 
-   */
+    only pay attention to durations that are not grace notes.
+  */
   if (!now_.grace_part_)
     {
       Music *r = i.music_cause ();
@@ -129,7 +128,7 @@ Spacing_engraver::stop_translation_timestep ()
   shortest_playing.set_infinite (1);
   for (int i = 0; i < playing_durations_.size (); i++)
     {
-      Music * mus = playing_durations_[i].info_.music_cause ();
+      Music *mus = playing_durations_[i].info_.music_cause ();
       if (mus)
 	{
 	  Moment m = mus->get_length ();
@@ -150,17 +149,17 @@ Spacing_engraver::stop_translation_timestep ()
 	}
     }
   now_durations_.clear ();
-  
+
   shortest_playing = shortest_playing <? starter;
-  
-  Paper_column * sc
-    = dynamic_cast<Paper_column*> (unsmob_grob (get_property ("currentMusicalColumn")));
+
+  Paper_column *sc
+    = dynamic_cast<Paper_column *> (unsmob_grob (get_property ("currentMusicalColumn")));
 
   assert (starter.to_bool ());
   SCM sh = shortest_playing.smobbed_copy ();
   SCM st = starter.smobbed_copy ();
 
-  sc->set_property ("shortest-playing-duration", sh);  
+  sc->set_property ("shortest-playing-duration", sh);
   sc->set_property ("shortest-starter-duration", st);
 }
 
@@ -176,12 +175,10 @@ Spacing_engraver::start_translation_timestep ()
 }
 
 
-
-
 ADD_TRANSLATOR (Spacing_engraver,
-/* descr */       "make a SpacingSpanner and do bookkeeping of shortest starting and playing notes  ",
-/* creats*/       "SpacingSpanner",
-/* accepts */     "",
-/* acks  */      "grob-interface",
-/* reads */       "",
-/* write */       "");
+		/* descr */ "make a SpacingSpanner and do bookkeeping of shortest starting and playing notes  ",
+		/* creats*/ "SpacingSpanner",
+		/* accepts */ "",
+		/* acks  */ "grob-interface",
+		/* reads */ "",
+		/* write */ "");

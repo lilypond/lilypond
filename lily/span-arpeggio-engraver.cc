@@ -14,15 +14,15 @@
 #include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh"
 
-/** 
-  Make arpeggios that span multiple staves.  Catch arpeggios, and span a
-  Span_arpeggio over them if we find more than two arpeggios.
-  */
+/**
+   Make arpeggios that span multiple staves.  Catch arpeggios, and span a
+   Span_arpeggio over them if we find more than two arpeggios.
+*/
 class Span_arpeggio_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Span_arpeggio_engraver);
-  
+
 protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void process_acknowledged_grobs ();
@@ -32,7 +32,6 @@ private:
   Item *span_arpeggio_;
   Link_array<Grob> arpeggios_;
 };
-
 
 Span_arpeggio_engraver::Span_arpeggio_engraver ()
 {
@@ -63,20 +62,20 @@ Span_arpeggio_engraver::process_acknowledged_grobs ()
       && to_boolean (get_property ("connectArpeggios")))
     {
       span_arpeggio_ = make_item ("Arpeggio", SCM_EOL);
-            
+
     }
 }
 
 void
 Span_arpeggio_engraver::stop_translation_timestep ()
 {
-  if (span_arpeggio_) 
+  if (span_arpeggio_)
     {
       /*
 	we do this very late, to make sure we also catch `extra'
 	side-pos support like accidentals.
-       */
-      for (int i = 0; i < arpeggios_.size (); i ++)
+      */
+      for (int i = 0; i < arpeggios_.size (); i++)
 	{
 	  for (SCM s = arpeggios_[i]->get_property ("stems");
 	       scm_is_pair (s); s = scm_cdr (s))
@@ -91,18 +90,16 @@ Span_arpeggio_engraver::stop_translation_timestep ()
 	    it transparent.  */
 	  arpeggios_[i]->set_property ("print-function", SCM_EOL);
 	}
-      
+
       span_arpeggio_ = 0;
     }
   arpeggios_.clear ();
 }
 
-
-
 ADD_TRANSLATOR (Span_arpeggio_engraver,
-/* descr */       "",
-/* creats*/       "Arpeggio",
-/* accepts */     "",
-/* acks  */      "arpeggio-interface",
-/* reads */       "connectArpeggios",
-/* write */       "");
+		/* descr */ "",
+		/* creats*/ "Arpeggio",
+		/* accepts */ "",
+		/* acks  */ "arpeggio-interface",
+		/* reads */ "connectArpeggios",
+		/* write */ "");

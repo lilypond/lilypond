@@ -24,17 +24,17 @@ Box::unite (Box b)
 }
 
 /**
-  Initialize to empty.
- */
+   Initialize to empty.
+*/
 Box::Box ()
-{        
+{
 }
 
 void
 Box::set_empty ()
 {
   interval_a_[X_AXIS].set_empty ();
-  interval_a_[Y_AXIS].set_empty (); 
+  interval_a_[Y_AXIS].set_empty ();
 }
 
 Box::Box (Interval ix, Interval iy)
@@ -66,14 +66,14 @@ void
 Box::add_point (Offset o)
 {
   interval_a_[X_AXIS].add_point (o[X_AXIS]);
-  interval_a_[Y_AXIS].add_point (o[Y_AXIS]);  
+  interval_a_[Y_AXIS].add_point (o[Y_AXIS]);
 }
 
 Offset
 Box::center () const
 {
   return Offset (interval_a_[X_AXIS].center (),
-		 interval_a_[Y_AXIS].center ()); 
+		 interval_a_[Y_AXIS].center ());
 }
 
 void

@@ -1,11 +1,10 @@
-/*   
+/*
   slash-repeat-engraver.cc -- implement Slash_repeat_engraver
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2000--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #include "repeated-music.hh"
 #include "global-context.hh"
@@ -18,15 +17,14 @@
 #include "score-engraver.hh"
 
 /**
-  This acknowledges repeated music with "percent" style.  It typesets
-  a % sign.  
+   This acknowledges repeated music with "percent" style.  It typesets
+   a % sign.
 
-  TODO:
+   TODO:
 
-  - BEAT case: Create items for single beat repeats, i.e. c4 / / /
+   - BEAT case: Create items for single beat repeats, i.e. c4 / / /
 
-  - DOUBLE_MEASURE case: attach a % to an appropriate barline.
-  
+   - DOUBLE_MEASURE case: attach a % to an appropriate barline.
 */
 class Slash_repeat_engraver : public Engraver
 {
@@ -44,10 +42,10 @@ protected:
   Moment next_moment_;
   Moment body_length_;
 
-  Item * beat_slash_;
-  Item * double_percent_;
+  Item *beat_slash_;
+  Item *double_percent_;
 protected:
-  virtual bool try_music (Music*);
+  virtual bool try_music (Music *);
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
   virtual void process_music ();
@@ -60,7 +58,7 @@ Slash_repeat_engraver::Slash_repeat_engraver ()
 }
 
 bool
-Slash_repeat_engraver::try_music (Music * m)
+Slash_repeat_engraver::try_music (Music *m)
 {
   if (m->is_mus_type ("repeated-music")
       && !repeat_
@@ -69,7 +67,7 @@ Slash_repeat_engraver::try_music (Music * m)
     {
       body_length_ = Repeated_music::body_get_length (m);
       int count = Repeated_music::repeat_count (m);
-      
+
       Moment now = now_mom ();
       start_mom_ = now;
       stop_mom_ = start_mom_ + Moment (count) * body_length_;
@@ -77,17 +75,17 @@ Slash_repeat_engraver::try_music (Music * m)
 
       Moment meas_length
 	= robust_scm2moment (get_property ("measureLength"), Moment (0));
-      if (body_length_ < meas_length )
+      if (body_length_ < meas_length)
 	{
 	  repeat_ = m;
 	}
       else
 	return false;
-      
+
       Global_context *global = get_global_context ();
-      for (int i = 0; i < count; i++)  
+      for (int i = 0; i < count; i++)
 	global->add_moment_to_process (next_moment_ + Moment (i) * body_length_);
-  
+
       return true;
     }
 
@@ -106,7 +104,6 @@ Slash_repeat_engraver::process_music ()
     }
 }
 
-
 void
 Slash_repeat_engraver::start_translation_timestep ()
 {
@@ -123,12 +120,10 @@ Slash_repeat_engraver::stop_translation_timestep ()
 }
 
 
-
-
 ADD_TRANSLATOR (Slash_repeat_engraver,
-/* descr */       "Make beat repeats.",
-/* creats*/       "RepeatSlash",
-/* accepts */     "repeated-music",
-/* acks  */      "",
-/* reads */       "measureLength",
-/* write */       "");
+		/* descr */ "Make beat repeats.",
+		/* creats*/ "RepeatSlash",
+		/* accepts */ "repeated-music",
+		/* acks  */ "",
+		/* reads */ "measureLength",
+		/* write */ "");

@@ -1,11 +1,10 @@
-/*   
+/*
   all-fonts.hh -- declare All_font_metrics
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1998--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #ifndef ALL_FONTS_HH
 #define ALL_FONTS_HH
@@ -21,7 +20,7 @@
 
 /**
    Interface to all .afm files living in the filesystem.
- */
+*/
 class All_font_metrics
 {
   Scheme_hash_table *afm_dict_;
@@ -34,22 +33,22 @@ class All_font_metrics
   Scheme_hash_table *pango_dict_;
   int pango_dpi_;
 #endif
-  
-  All_font_metrics (All_font_metrics const&);
+
+  All_font_metrics (All_font_metrics const &);
 public:
   All_font_metrics (String search_path);
   ~All_font_metrics ();
-  
+
 #ifdef HAVE_PANGO_FT2
-  Pango_font *find_pango_font (PangoFontDescription*description,
+  Pango_font *find_pango_font (PangoFontDescription *description,
 			       Real magnification,
 			       Real scale);
 #endif
-  
+
   Adobe_font_metric *find_afm (String name);
   Tex_font_metric *find_tfm (String);
-  Font_metric *find_font (String name);  
-  Open_type_font *find_otf (String name);  
+  Font_metric *find_font (String name);
+  Open_type_font *find_otf (String name);
   SCM font_descriptions () const;
 };
 

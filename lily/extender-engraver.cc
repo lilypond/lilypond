@@ -2,10 +2,10 @@
   extender-engraver.cc -- implement Extender_engraver
 
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1999--2005 Glen Prideaux <glenprideaux@iname.com>,
-                  Han-Wen Nienhuys <hanwen@cs.uu.nl>,
-                  Jan Nieuwenhuizen <janneke@gnu.org>
+  Han-Wen Nienhuys <hanwen@cs.uu.nl>,
+  Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "context.hh"
@@ -30,11 +30,10 @@ public:
 protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void finalize ();
-  virtual bool try_music (Music*);
+  virtual bool try_music (Music *);
   virtual void stop_translation_timestep ();
   virtual void process_music ();
 };
-
 
 Extender_engraver::Extender_engraver ()
 {
@@ -64,7 +63,7 @@ Extender_engraver::process_music ()
 void
 Extender_engraver::acknowledge_grob (Grob_info i)
 {
-  Item *item = dynamic_cast<Item*> (i.grob_);
+  Item *item = dynamic_cast<Item *> (i.grob_);
 
   if (item
       && item->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
@@ -96,14 +95,14 @@ Extender_engraver::stop_translation_timestep ()
 	      Pointer_group_interface::add_grob (extender_,
 						 ly_symbol2scm ("heads"), h);
 	    }
-	  
+
 	  if (pending_extender_)
 	    {
 	      Pointer_group_interface::add_grob (pending_extender_,
 						 ly_symbol2scm ("heads"), h);
 	    }
 	}
-      
+
       if (extender_)
 	{
 	  pending_extender_ = extender_;
@@ -122,7 +121,7 @@ completize_extender (Spanner *sp)
       SCM heads = sp->get_property ("heads");
       if (scm_is_pair (heads))
 	{
-	  Item *it = dynamic_cast<Item*> (unsmob_grob (scm_car (heads)));
+	  Item *it = dynamic_cast<Item *> (unsmob_grob (scm_car (heads)));
 	  if (it)
 	    sp->set_bound (RIGHT, it);
 	}
@@ -151,11 +150,10 @@ Extender_engraver::finalize ()
     }
 }
 
-
 ADD_TRANSLATOR (Extender_engraver,
-/* descr */       "Create lyric extenders",
-/* creats*/       "LyricExtender",
-/* accepts */     "extender-event",
-/* acks  */       "lyric-syllable-interface",
-/* reads */       "",
-/* write */       "");
+		/* descr */ "Create lyric extenders",
+		/* creats*/ "LyricExtender",
+		/* accepts */ "extender-event",
+		/* acks  */ "lyric-syllable-interface",
+		/* reads */ "",
+		/* write */ "");

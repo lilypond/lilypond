@@ -1,6 +1,6 @@
 /*
   keyword.cc -- keywords and identifiers
- */
+*/
 
 #include "keyword.hh"
 
@@ -8,7 +8,7 @@
 #include <cstdlib>
 
 /* for qsort */
-int tabcmp (Keyword_ent  const &p1, Keyword_ent const &p2)
+int tabcmp (Keyword_ent const &p1, Keyword_ent const &p2)
 {
   return strcmp (p1.name_, p2.name_);
 }
@@ -26,8 +26,8 @@ Keyword_table::Keyword_table (Keyword_ent *tab)
 int
 Keyword_table::lookup (char const *s) const
 {
-  Keyword_ent e ;
-  e.name_ =  s;
+  Keyword_ent e;
+  e.name_ = s;
   int idx = binary_search (table_, e, tabcmp);
   if (idx >= 0)
     return table_[idx].tokcode_;

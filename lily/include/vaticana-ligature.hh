@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
- (c) 2003--2005 Juergen Reuter <reuter@ipd.uka.de>
+  (c) 2003--2005 Juergen Reuter <reuter@ipd.uka.de>
 */
 
 #ifndef VATICANA_LIGATURE_HH
@@ -13,8 +13,8 @@
 
 struct Vaticana_ligature
 {
-  DECLARE_SCHEME_CALLBACK (brew_ligature_primitive, (SCM ));
-  DECLARE_SCHEME_CALLBACK (print, (SCM ));
+  DECLARE_SCHEME_CALLBACK (brew_ligature_primitive, (SCM));
+  DECLARE_SCHEME_CALLBACK (print, (SCM));
   static bool has_interface (Grob *);
 };
 
@@ -24,6 +24,6 @@ struct Vaticana_ligature
  *
  * The below definition extends those in gregorian-ligature.hh.
  */
-#define STACKED_HEAD    0x0100 // this head is stacked on the previous one
+#define STACKED_HEAD 0x0100 // this head is stacked on the previous one
 
 #endif // VATICANA_LIGATURE_HH

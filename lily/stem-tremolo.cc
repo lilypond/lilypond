@@ -1,11 +1,10 @@
-/*   
+/*
   stem-tremolo.cc -- implement Stem_tremolo
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #include "stem-tremolo.hh"
 
@@ -28,7 +27,7 @@ SCM
 Stem_tremolo::dim_callback (SCM e, SCM)
 {
   Grob *se = unsmob_grob (e);
-  
+
   Real space = Staff_symbol_referencer::staff_space (se);
   return ly_interval2scm (Interval (-space, space));
 }
@@ -54,7 +53,7 @@ Stencil
 Stem_tremolo::raw_stencil (Grob *me)
 {
   Grob *stem = unsmob_grob (me->get_property ("stem"));
-  Spanner*beam = Stem::get_beam (stem);
+  Spanner *beam = Stem::get_beam (stem);
   Real dydx;
   if (beam)
     {
@@ -62,10 +61,10 @@ Stem_tremolo::raw_stencil (Grob *me)
       SCM s = beam->get_property ("positions");
       if (is_number_pair (s))
 	dy = -scm_to_double (scm_car (s)) +scm_to_double (scm_cdr (s));
-      
+
       Real dx = Beam::last_visible_stem (beam)->relative_coordinate (0, X_AXIS)
 	- Beam::first_visible_stem (beam)->relative_coordinate (0, X_AXIS);
-      dydx = dx ? dy/dx : 0;
+      dydx = dx ? dy / dx : 0;
     }
   else
     // urg
@@ -78,10 +77,10 @@ Stem_tremolo::raw_stencil (Grob *me)
 
   width *= ss;
   thick *= ss;
-  
+
   Stencil a (Lookup::beam (dydx, width, thick, blot));
   a.translate (Offset (-width * 0.5, width * 0.5 * dydx));
-  
+
   int tremolo_flags = 0;
   SCM s = me->get_property ("flag-count");
   if (scm_is_number (s))
@@ -98,7 +97,7 @@ Stem_tremolo::raw_stencil (Grob *me)
   /* Who the fuck is 0.81 ? --hwn.   */
   Real beam_translation = beam ? Beam::get_beam_translation (beam) : 0.81;
 
-  Stencil mol; 
+  Stencil mol;
   for (int i = 0; i < tremolo_flags; i++)
     {
       Stencil b (a);
@@ -110,7 +109,7 @@ Stem_tremolo::raw_stencil (Grob *me)
 
 MAKE_SCHEME_CALLBACK (Stem_tremolo, print, 1);
 SCM
-Stem_tremolo::print (SCM grob) 
+Stem_tremolo::print (SCM grob)
 {
   Grob *me = unsmob_grob (grob);
   Grob *stem = unsmob_grob (me->get_property ("stem"));
@@ -119,7 +118,7 @@ Stem_tremolo::print (SCM grob)
       programming_error ("No stem for stem-tremolo");
       return SCM_EOL;
     }
-  
+
   Spanner *beam = Stem::get_beam (stem);
   Direction stemdir = Stem::get_direction (stem);
   if (stemdir == 0)
@@ -138,7 +137,7 @@ Stem_tremolo::print (SCM grob)
   int beam_count = beam ? (Stem::beam_multiplicity (stem).length () + 1) : 0;
 
   Real beamthickness = 0.0;
-  SCM sbt = (beam) ? beam->get_property ("thickness") : SCM_EOL ;
+  SCM sbt = (beam) ? beam->get_property ("thickness") : SCM_EOL;
   if (scm_is_number (sbt))
     beamthickness = scm_to_double (sbt) * ss;
 
@@ -171,8 +170,6 @@ Stem_tremolo::print (SCM grob)
   return mol.smobbed_copy ();
 }
 
-
-
 ADD_INTERFACE (Stem_tremolo, "stem-tremolo-interface",
-  "A beam slashing a stem to indicate a tremolo.",
-  "stem beam-width beam-thickness flag-count");
+	       "A beam slashing a stem to indicate a tremolo.",
+	       "stem beam-width beam-thickness flag-count");

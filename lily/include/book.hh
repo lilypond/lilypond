@@ -27,7 +27,7 @@ public:
 
   Book ();
   void add_score (SCM);
-  Paper_book* process (String, Output_def*);
+  Paper_book *process (String, Output_def *);
   void set_keys ();
 };
 

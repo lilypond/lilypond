@@ -14,14 +14,13 @@
 
 /*
   generate bars. Either user ("|:"), or default (new measure)
-
-  */
+*/
 class Bar_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Bar_engraver);
   void request_bar (String type_string);
-    
+
 protected:
   virtual void finalize ();
   virtual void stop_translation_timestep ();
@@ -31,7 +30,7 @@ private:
   void typeset_bar ();
   void create_bar ();
 
-  Item * bar_;
+  Item *bar_;
 };
 
 Bar_engraver::Bar_engraver ()
@@ -47,7 +46,7 @@ Bar_engraver::create_bar ()
       bar_ = make_item ("BarLine", SCM_EOL);
       SCM gl = get_property ("whichBar");
       if (scm_equal_p (gl, bar_->get_property ("glyph")) != SCM_BOOL_T)
-	  bar_->set_property ("glyph", gl);
+	bar_->set_property ("glyph", gl);
     }
 }
 
@@ -58,7 +57,7 @@ Bar_engraver::finalize ()
 }
 
 /*
-  Bar_engraver should come *after* any engravers that  
+  Bar_engraver should come *after* any engravers that
   modify whichBar
 
   This is a little hairy : whichBar may be set by
@@ -66,7 +65,6 @@ Bar_engraver::finalize ()
   context. This means that grobs could should be created after
   process_music. We do stuff process_acknowledged_grobs (), just to be
   on the safe side.
-     
 */
 
 void
@@ -83,9 +81,9 @@ Bar_engraver::typeset_bar ()
 }
 
 /*
-  lines may only be broken if there is a barline in all staves 
+  lines may only be broken if there is a barline in all staves
 */
-void 
+void
 Bar_engraver::stop_translation_timestep ()
 {
   if (!bar_)
@@ -95,12 +93,11 @@ Bar_engraver::stop_translation_timestep ()
     typeset_bar ();
 }
 
-
 ADD_TRANSLATOR (Bar_engraver,
-/* descr */       "Create barlines. This engraver is controlled through the "
-"@code{whichBar} property. If it has no bar line to create, it will forbid a linebreak at this point",
-/* creats*/       "BarLine",
-/* accepts */     "",
-/* acks  */      "",
-/* reads */       "whichBar",
-/* write */       "");
+		/* descr */ "Create barlines. This engraver is controlled through the "
+		"@code{whichBar} property. If it has no bar line to create, it will forbid a linebreak at this point",
+		/* creats*/ "BarLine",
+		/* accepts */ "",
+		/* acks  */ "",
+		/* reads */ "whichBar",
+		/* write */ "");

@@ -2,8 +2,8 @@
   performer.hh -- declare Performer
 
   (c) 1996--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-                 Jan Nieuwenhuizen <janneke@gnu.org>
- */
+  Jan Nieuwenhuizen <janneke@gnu.org>
+*/
 
 #ifndef PERFORMER_HH
 #define PERFORMER_HH
@@ -19,17 +19,16 @@ class Performer : public virtual Translator
 {
 public:
   VIRTUAL_COPY_CONSTRUCTOR (Translator, Performer);
-  friend class Performer_group_performer;  
-  Performer_group_performer* get_daddy_performer () const;
+  friend class Performer_group_performer;
+  Performer_group_performer *get_daddy_performer () const;
 
 protected:
   virtual void announce_element (Audio_element_info);
   virtual void acknowledge_audio_element (Audio_element_info);
   virtual void create_audio_elements ();
   virtual int get_tempo () const;
-  virtual void play_element (Audio_element * elem );
+  virtual void play_element (Audio_element *elem);
 };
-
 
 #endif /* PERFORMER_HH */
 

@@ -1,10 +1,10 @@
-/*   
+/*
   arpeggio-engraver.cc -- implement Arpeggio_engraver
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2000--2005 Jan Nieuwenhuizen <janneke@gnu.org>
- */
+*/
 
 #include "engraver.hh"
 #include "group-interface.hh"
@@ -18,14 +18,14 @@ class Arpeggio_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Arpeggio_engraver);
-  
+
 protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void process_music ();
   virtual void stop_translation_timestep ();
   virtual bool try_music (Music *);
 private:
-  Item *arpeggio_; 
+  Item *arpeggio_;
   Music *arpeggio_req_;
 };
 
@@ -52,14 +52,14 @@ Arpeggio_engraver::acknowledge_grob (Grob_info info)
     {
       if (Stem::has_interface (info.grob_))
 	{
-	  if (!arpeggio_->get_parent  (Y_AXIS))
+	  if (!arpeggio_->get_parent (Y_AXIS))
 	    arpeggio_->set_parent (info.grob_, Y_AXIS);
-      
+
 	  Pointer_group_interface::add_grob (arpeggio_,
 					     ly_symbol2scm ("stems"),
 					     info.grob_);
 	}
-      
+
       /*
 	We can't catch local key items (accidentals) from Voice context,
 	see Local_key_engraver
@@ -68,7 +68,7 @@ Arpeggio_engraver::acknowledge_grob (Grob_info info)
 	{
 	  Side_position_interface::add_support (arpeggio_, info.grob_);
 	}
-      else if (Note_column::has_interface (info.grob_ ))
+      else if (Note_column::has_interface (info.grob_))
 	{
 	  info.grob_->set_property ("arpeggio", arpeggio_->self_scm ());
 	}
@@ -92,9 +92,9 @@ Arpeggio_engraver::stop_translation_timestep ()
 }
 
 ADD_TRANSLATOR (Arpeggio_engraver,
-/* descr */       "Generate an Arpeggio from a Arpeggio_req",
-/* creats*/       "Arpeggio",
-/* accepts */     "arpeggio-event",
-/* acks  */       "stem-interface rhythmic-head-interface note-column-interface",
-/* reads */       "",
-/* write */       "");
+		/* descr */ "Generate an Arpeggio from a Arpeggio_req",
+		/* creats*/ "Arpeggio",
+		/* accepts */ "arpeggio-event",
+		/* acks  */ "stem-interface rhythmic-head-interface note-column-interface",
+		/* reads */ "",
+		/* write */ "");

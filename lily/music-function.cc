@@ -1,10 +1,9 @@
-/* 
+/*
   music-function.cc -- implement music_function
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2004--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-  
 */
 
 #include "music-function.hh"
@@ -27,10 +26,9 @@ print_music_function (SCM b, SCM port, scm_print_state *)
   return 1;
 }
 
-
 LY_DEFINE (ly_make_music_function, "ly:make-music-function", 2, 0, 0,
 	   (SCM signature, SCM func),
-	  "Make a function to process music, to be used for the "
+	   "Make a function to process music, to be used for the "
 	   "parser. @code{func} is the function, and @code{signature} describes "
 	   "Its arguments. @code{signature} is a list containing either "
 	   "@code{ly:music?} predicates or other type predicates.")
@@ -40,10 +38,10 @@ LY_DEFINE (ly_make_music_function, "ly:make-music-function", 2, 0, 0,
     {
       if (str != "")
 	str += "-";
-      
+
       if (scm_car (s) == Music_type_p_proc)
 	str += "music";
-      else if (scm_car (s) == ly_lily_module_constant("markup?"))
+      else if (scm_car (s) == ly_lily_module_constant ("markup?"))
 	str += "markup";
       else if (ly_c_procedure_p (scm_car (s)))
 	str += "scm";
@@ -51,10 +49,10 @@ LY_DEFINE (ly_make_music_function, "ly:make-music-function", 2, 0, 0,
   if (str == "") str = "noarg";
   scm_set_object_property_x (func, ly_symbol2scm ("music-function-signature"),
 			     signature);
-  
+
   scm_set_object_property_x (func, ly_symbol2scm ("music-function-signature-keyword"),
 			     ly_symbol2scm (str.to_str0 ()));
-    
+
   SCM_RETURN_NEWSMOB (music_function_tag, func);
 }
 
@@ -64,13 +62,12 @@ is_music_function (SCM music_function)
   return (SCM_NIMP (music_function) && SCM_CELL_TYPE (music_function) == music_function_tag);
 }
 
-
 SCM
 get_music_function_transform (SCM music_function)
 {
   if (!is_music_function (music_function))
     return SCM_UNDEFINED;
-  
+
   return SCM_CELL_OBJECT_1 (music_function);
 }
 
@@ -82,4 +79,4 @@ init_music_function (void)
   scm_set_smob_print (music_function_tag, print_music_function);
 }
 
-ADD_SCM_INIT_FUNC (music_function_tag, init_music_function); 
+ADD_SCM_INIT_FUNC (music_function_tag, init_music_function);

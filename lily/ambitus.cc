@@ -21,22 +21,22 @@ MAKE_SCHEME_CALLBACK (Ambitus, print, 1);
 SCM
 Ambitus::print (SCM smob)
 {
-  Item *me = (Item*) unsmob_grob (smob);
+  Item *me = (Item *) unsmob_grob (smob);
   Stencil stencil;
 
   // join heads
   Link_array<Grob> heads (extract_grob_array (me, ly_symbol2scm ("note-heads")));
   if (to_boolean (me->get_property ("join-heads"))
-      && heads.size() > 1)
+      && heads.size () > 1)
     {
       Grob *common
 	= common_refpoint_of_array (heads.slice (0, 2), me, Y_AXIS);
 
       Grob *minh = heads[0];
       Grob *maxh = heads[1];
-      
-      if (minh->relative_coordinate (common, Y_AXIS) >
-	  maxh->relative_coordinate (common, Y_AXIS))
+
+      if (minh->relative_coordinate (common, Y_AXIS)
+	  > maxh->relative_coordinate (common, Y_AXIS))
 	{
 	  Grob *t = maxh;
 	  maxh = minh;
@@ -46,11 +46,11 @@ Ambitus::print (SCM smob)
       Real pad = 0.35;
       Real pmax = maxh->extent (common, Y_AXIS)[DOWN] - pad;
       Real pmin = minh->extent (common, Y_AXIS)[UP] + pad;
-      
+
       if (pmin < pmax)
 	{
 	  Real linethickness = me->get_layout ()->get_dimension (ly_symbol2scm ("linethickness"))
-	    * robust_scm2double (me->get_property ("thickness"), 1.0); 
+	    * robust_scm2double (me->get_property ("thickness"), 1.0);
 	  Real blotdiameter = me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter"));
 	  Interval x_extent = 0.5 * linethickness *Interval (-1, 1);
 	  Interval y_extent = Interval (pmin, pmax);
@@ -58,7 +58,7 @@ Ambitus::print (SCM smob)
 
 	  Stencil line = Lookup::round_filled_box (line_box, blotdiameter);
 	  line.translate_axis (- me-> relative_coordinate (common, Y_AXIS),
-				   Y_AXIS);
+			       Y_AXIS);
 	  return line.smobbed_copy ();
 	}
     }
@@ -67,5 +67,5 @@ Ambitus::print (SCM smob)
 }
 
 ADD_INTERFACE (Ambitus, "ambitus-interface",
-  "The line between note heads for a pitch range.",
-  "thickness note-heads join-heads");
+	       "The line between note heads for a pitch range.",
+	       "thickness note-heads join-heads");

@@ -13,38 +13,36 @@
 #include "grob.hh"
 
 /**
-  Do time bookkeeping
- */
+   Do time bookkeeping
+*/
 class Timing_engraver : public Timing_translator, public Engraver
 {
 protected:
   /* Needed to know whether we're advancing in grace notes, or not. */
   Moment last_moment_;
-  
+
   virtual void start_translation_timestep ();
   virtual void initialize ();
-  virtual void process_music();
+  virtual void process_music ();
   virtual void stop_translation_timestep ();
 
 public:
   TRANSLATOR_DECLARATIONS (Timing_engraver);
 };
 
-
 Timing_engraver::Timing_engraver ()
 {
   last_moment_.main_part_ = Rational (-1);
 }
 
-
 void
 Timing_engraver::initialize ()
 {
   Timing_translator::initialize ();
-  
+
   SCM which = get_property ("whichBar");
   Moment now = now_mom ();
-  
+
   /* Set the first bar of the score? */
   if (!scm_is_string (which))
     which = (now.main_part_ || now.main_part_ == last_moment_.main_part_)
@@ -54,25 +52,24 @@ Timing_engraver::initialize ()
 }
 
 void
-Timing_engraver::process_music()
+Timing_engraver::process_music ()
 {
   Timing_translator::process_music ();
 
-  bool start_of_measure = (last_moment_.main_part_ != now_mom().main_part_
+  bool start_of_measure = (last_moment_.main_part_ != now_mom ().main_part_
 			   && !measure_position ().main_part_);
 
   /*
     We can't do this in start_translation_timestep(), since time sig
     changes won't have happened by then.
-   */
+  */
   if (start_of_measure)
     {
       Moment mlen = Moment (measure_length ());
       unsmob_grob (get_property ("currentCommandColumn"))
-	->set_property ("measure-length", mlen.smobbed_copy ()); 
+	->set_property ("measure-length", mlen.smobbed_copy ());
     }
 }
-  
 
 void
 Timing_engraver::start_translation_timestep ()
@@ -95,7 +92,7 @@ Timing_engraver::start_translation_timestep ()
     {
       SCM always = get_property ("barAlways");
 
-      if ( start_of_measure || (to_boolean (always)))
+      if (start_of_measure || (to_boolean (always)))
 	{
 	  /* should this work, or be junked?  See input/bugs/no-bars.ly */
 	  which = get_property ("defaultBarType");
@@ -113,17 +110,14 @@ Timing_engraver::stop_translation_timestep ()
   last_moment_ = now_mom ();
 }
 
-
 ADD_TRANSLATOR (Timing_engraver,
-/* descr */       " Responsible for synchronizing timing information from staves.  "
-"Normally in @code{Score}.  In order to create polyrhythmic music, "
-"this engraver should be removed from @code{Score} and placed in "
-"@code{Staff}. "
-"\n\nThis engraver adds the alias @code{Timing} to its containing context."
-
-		   ,
-/* creats*/       "",
-/* accepts */     "",
-/* acks  */      "",
-/* reads */       "automaticBars whichBar barAlways defaultBarType skipBars timing measureLength measurePosition currentBarNumber",
-/* write */       "");
+		/* descr */ " Responsible for synchronizing timing information from staves.  "
+		"Normally in @code{Score}.  In order to create polyrhythmic music, "
+		"this engraver should be removed from @code{Score} and placed in "
+		"@code{Staff}. "
+		"\n\nThis engraver adds the alias @code{Timing} to its containing context.",
+		/* creats*/ "",
+		/* accepts */ "",
+		/* acks  */ "",
+		/* reads */ "automaticBars whichBar barAlways defaultBarType skipBars timing measureLength measurePosition currentBarNumber",
+		/* write */ "");

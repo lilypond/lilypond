@@ -25,26 +25,23 @@
 #include "paper-system.hh"
 #include "tweak-registration.hh"
 
-
 System::System (System const &src, int count)
   : Spanner (src, count)
 {
   rank_ = 0;
 }
 
-System::System (SCM s, Object_key const*key)
+System::System (SCM s, Object_key const *key)
   : Spanner (s, key)
 {
   rank_ = 0;
 }
 
-
-Grob * 
+Grob *
 System::clone (int count) const
 {
   return new System (*this, count);
 }
-
 
 int
 System::element_count () const
@@ -57,13 +54,13 @@ System::spanner_count () const
 {
   int k = 0;
   for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
-    if (dynamic_cast<Spanner*> (unsmob_grob (scm_car (s))))
+    if (dynamic_cast<Spanner *> (unsmob_grob (scm_car (s))))
       k++;
   return k;
 }
 
 void
-System::typeset_grob (Grob * elem)
+System::typeset_grob (Grob *elem)
 {
   if (elem->pscore_)
     programming_error ("Adding element twice.");
@@ -94,9 +91,9 @@ System::get_lines ()
       if (g->internal_has_interface (ly_symbol2scm ("only-prebreak-interface")))
 	{
 	  /*
-	    Kill no longer needed grobs. 
-	   */
-	  Item * it = dynamic_cast<Item*> (g);
+	    Kill no longer needed grobs.
+	  */
+	  Item *it = dynamic_cast<Item *> (g);
 	  if (it && Item::is_breakable (it))
 	    {
 	      it->find_prebroken_piece (LEFT)->suicide ();
@@ -120,10 +117,10 @@ System::get_lines ()
 	fixup_refpoint (scm_car (s));
       count += scm_ilength (all);
     }
-  
+
   /*
     needed for doing items.
-   */
+  */
   fixup_refpoints (get_property ("all-elements"));
 
   for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
@@ -131,7 +128,7 @@ System::get_lines ()
   handle_broken_dependencies ();
 
 #if 0  /* don't do this: strange side effects.  */
-  
+
   /* Because the this->get_property (all-elements) contains items in 3
      versions, handle_broken_dependencies () will leave duplicated
      items in all-elements.  Strictly speaking this is harmless, but
@@ -140,22 +137,22 @@ System::get_lines ()
   for (int i = 0; i < line_count; i++)
     {
       SCM all = broken_intos_[i]->get_property ("all-elements");
-      all = ly_list_qsort_uniq_x(all); 
+      all = ly_list_qsort_uniq_x (all);
     }
 #endif
-  
+
   if (be_verbose_global)
-    progress_indication (_f ("Element count %d.",  count + element_count ()));
+    progress_indication (_f ("Element count %d.", count + element_count ()));
 
   int line_count = broken_intos_.size ();
   SCM lines = scm_c_make_vector (line_count, SCM_EOL);
-  
+
   for (int i = 0; i < line_count; i++)
     {
       if (be_verbose_global)
 	progress_indication ("[");
 
-      System *system = dynamic_cast<System*> (broken_intos_[i]);
+      System *system = dynamic_cast<System *> (broken_intos_[i]);
       system->post_processing ();
       scm_vector_set_x (lines, scm_int2num (i), system->get_line ());
 
@@ -166,22 +163,22 @@ System::get_lines ()
 }
 
 void
-System::break_into_pieces (Array<Column_x_positions> const &breaking) 
+System::break_into_pieces (Array<Column_x_positions> const &breaking)
 {
   for (int i = 0; i < breaking.size (); i++)
     {
-      System *system = dynamic_cast <System*> (clone (i));
+      System *system = dynamic_cast<System *> (clone (i));
       system->rank_ = i;
 
       Link_array<Grob> c (breaking[i].cols_);
       pscore_->typeset_line (system);
-      
+
       system->set_bound (LEFT, c[0]);
       system->set_bound (RIGHT, c.top ());
       for (int j = 0; j < c.size (); j++)
 	{
 	  c[j]->translate_axis (breaking[i].config_[j], X_AXIS);
-	  dynamic_cast<Paper_column*> (c[j])->system_ = system;
+	  dynamic_cast<Paper_column *> (c[j])->system_ = system;
 	}
       set_loose_columns (system, &breaking[i]);
       broken_intos_.push (system);
@@ -189,13 +186,13 @@ System::break_into_pieces (Array<Column_x_positions> const &breaking)
 }
 
 void
-System::add_column (Paper_column*p)
+System::add_column (Paper_column *p)
 {
   Grob *me = this;
   SCM cs = me->get_property ("columns");
-  Grob *prev =  scm_is_pair (cs) ? unsmob_grob (scm_car (cs)) : 0;
+  Grob *prev = scm_is_pair (cs) ? unsmob_grob (scm_car (cs)) : 0;
 
-  p->rank_ = prev ? Paper_column::get_rank (prev) + 1 : 0; 
+  p->rank_ = prev ? Paper_column::get_rank (prev) + 1 : 0;
 
   me->set_property ("columns", scm_cons (p->self_scm (), cs));
 
@@ -212,7 +209,7 @@ apply_tweaks (Grob *g, bool broken)
 	{
 	  SCM proc = scm_caar (s);
 	  SCM rest = scm_cdar (s);
-	  scm_apply_1 (proc, g->self_scm(), rest);
+	  scm_apply_1 (proc, g->self_scm (), rest);
 	}
     }
 }
@@ -225,13 +222,12 @@ System::pre_processing ()
 
   if (be_verbose_global)
     progress_indication (_f ("Grob count %d", element_count ()));
-  
+
   for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
     unsmob_grob (scm_car (s))->handle_prebroken_dependencies ();
-  
+
   fixup_refpoints (get_property ("all-elements"));
 
-  
   for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
     apply_tweaks (unsmob_grob (scm_car (s)), false);
 
@@ -240,7 +236,7 @@ System::pre_processing ()
       Grob *sc = unsmob_grob (scm_car (s));
       sc->calculate_dependencies (PRECALCED, PRECALCING, ly_symbol2scm ("before-line-breaking-callback"));
     }
-  
+
   progress_indication ("\n");
   progress_indication (_ ("Calculating line breaks..."));
   progress_indication (" ");
@@ -259,11 +255,11 @@ System::post_processing ()
   for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
     {
       Grob *g = unsmob_grob (scm_car (s));
-      
+
       apply_tweaks (g, true);
 
       g->calculate_dependencies (POSTCALCED, POSTCALCING,
-          ly_symbol2scm ("after-line-breaking-callback"));
+				 ly_symbol2scm ("after-line-breaking-callback"));
     }
 
   Interval iv (extent (this, Y_AXIS));
@@ -271,7 +267,7 @@ System::post_processing ()
     programming_error ("System with zero extent.");
   else
     translate_axis (-iv[MAX], Y_AXIS);
-  
+
   /* Generate all stencils to trigger font loads.
      This might seem inefficient, but Stencils are cached per grob
      anyway. */
@@ -288,7 +284,7 @@ System::post_processing ()
 
 SCM
 System::get_line ()
-{  
+{
   static int const LAYER_COUNT = 3;
 
   SCM exprs = SCM_EOL;
@@ -296,7 +292,7 @@ System::get_line ()
 
   /* Output stencils in three layers: 0, 1, 2.  Default layer: 1. */
   SCM all = get_property ("all-elements");
-  
+
   for (int i = 0; i < LAYER_COUNT; i++)
     for (SCM s = all; scm_is_pair (s); s = scm_cdr (s))
       {
@@ -322,7 +318,7 @@ System::get_line ()
 	st.translate (o + extra);
 
 	*tail = scm_cons (st.expr (), SCM_EOL);
-	tail = SCM_CDRLOC(*tail);
+	tail = SCM_CDRLOC (*tail);
       }
 
   if (Stencil *me = get_stencil ())
@@ -335,25 +331,24 @@ System::get_line ()
 				 exprs));
 
   Interval staff_refpoints;
-  staff_refpoints.set_empty();
+  staff_refpoints.set_empty ();
   for (SCM s = get_property ("spaceable-staves");
        scm_is_pair (s); s = scm_cdr (s))
-      {
-	Grob *g = unsmob_grob (scm_car (s));
-	staff_refpoints.add_point (g->relative_coordinate (this, Y_AXIS));
-      }
-  
- 
+    {
+      Grob *g = unsmob_grob (scm_car (s));
+      staff_refpoints.add_point (g->relative_coordinate (this, Y_AXIS));
+    }
+
   Paper_system *pl = new Paper_system (sys_stencil, false);
   pl->staff_refpoints_ = staff_refpoints;
-  Item * break_point = this->get_bound(LEFT);
-  pl->break_before_penalty_ =
-    robust_scm2double (break_point->get_property ("page-penalty"), 0.0);
-  
+  Item *break_point = this->get_bound (LEFT);
+  pl->break_before_penalty_
+    = robust_scm2double (break_point->get_property ("page-penalty"), 0.0);
+
   return scm_gc_unprotect_object (pl->self_scm ());
 }
 
-Link_array<Item> 
+Link_array<Item>
 System::broken_col_range (Item const *left, Item const *right) const
 {
   Link_array<Item> ret;
@@ -370,7 +365,7 @@ System::broken_col_range (Item const *left, Item const *right) const
 
   while (scm_is_pair (s) && scm_car (s) != left->self_scm ())
     {
-      Paper_column*c = dynamic_cast<Paper_column*> (unsmob_grob (scm_car (s)));
+      Paper_column *c = dynamic_cast<Paper_column *> (unsmob_grob (scm_car (s)));
       if (Item::is_breakable (c) && !c->system_)
 	ret.push (c);
 

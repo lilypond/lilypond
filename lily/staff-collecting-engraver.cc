@@ -1,11 +1,10 @@
-/*   
-staff-collecting-engraver.cc -- implement Staff_collecting_engraver
+/*
+  staff-collecting-engraver.cc -- implement Staff_collecting_engraver
 
-source file of the GNU LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
-(c) 2001--2005  Han-Wen Nienhuys <hanwen@cs.uu.nl>
-
- */
+  (c) 2001--2005  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+*/
 
 #include "staff-symbol.hh"
 #include "engraver.hh"
@@ -21,7 +20,7 @@ public:
 
 Staff_collecting_engraver::Staff_collecting_engraver ()
 {
-  
+
 }
 
 void
@@ -36,12 +35,11 @@ Staff_collecting_engraver::acknowledge_grob (Grob_info gi)
     }
 }
 
-
 ADD_TRANSLATOR (Staff_collecting_engraver,
-/* descr */       "Maintain the stavesFound variable",
+		/* descr */ "Maintain the stavesFound variable",
 
-/* creats*/       "",
-/* accepts */     "",
-/* acks  */      "staff-symbol-interface",
-/* reads */       "stavesFound",
-/* write */       "stavesFound");
+		/* creats*/ "",
+		/* accepts */ "",
+		/* acks  */ "staff-symbol-interface",
+		/* reads */ "stavesFound",
+		/* write */ "stavesFound");

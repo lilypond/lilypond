@@ -14,7 +14,7 @@
 class Ottava_spanner_engraver : public Engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS (Ottava_spanner_engraver);  
+  TRANSLATOR_DECLARATIONS (Ottava_spanner_engraver);
 protected:
   virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
@@ -24,16 +24,16 @@ protected:
 private:
   Spanner *span_;
   Spanner *finished_;
-  
+
   SCM last_ottavation_;
-  
+
   void typeset_all ();
 };
 
 void
 Ottava_spanner_engraver::derived_mark () const
 {
-  scm_gc_mark (last_ottavation_ );
+  scm_gc_mark (last_ottavation_);
 }
 
 Ottava_spanner_engraver::Ottava_spanner_engraver ()
@@ -53,9 +53,8 @@ Ottava_spanner_engraver::process_music ()
       span_ = 0;
       if (scm_is_string (ott))
 	{
-	  span_  = make_spanner ("OttavaBracket", SCM_EOL);
+	  span_ = make_spanner ("OttavaBracket", SCM_EOL);
 	  span_->set_property ("text", ott);
-	  
 
 	  SCM c0 (get_property ("middleCPosition"));
 	  SCM oc0 (get_property ("originalCentralCPosition"));
@@ -69,7 +68,7 @@ Ottava_spanner_engraver::process_music ()
 void
 Ottava_spanner_engraver::acknowledge_grob (Grob_info info)
 {
-  Item *it = dynamic_cast<Item*> (info.grob_);
+  Item *it = dynamic_cast<Item *> (info.grob_);
   if (span_ && it && Note_column::has_interface (info.grob_))
     {
       Side_position_interface::add_support (span_, it);
@@ -82,7 +81,7 @@ Ottava_spanner_engraver::acknowledge_grob (Grob_info info)
 
 void
 Ottava_spanner_engraver::typeset_all ()
-{  
+{
   if (finished_)
     {
       Direction d = LEFT;
@@ -90,12 +89,12 @@ Ottava_spanner_engraver::typeset_all ()
 	{
 	  if (!finished_->get_bound (RIGHT))
 	    {
-	      Grob* e = unsmob_grob (get_property ("currentMusicalColumn"));
+	      Grob *e = unsmob_grob (get_property ("currentMusicalColumn"));
 	      finished_->set_bound (d, e);
 	    }
 	}
       while (flip (&d) != LEFT);
-      
+
       finished_ = 0;
     }
 }
@@ -105,7 +104,7 @@ Ottava_spanner_engraver::stop_translation_timestep ()
 {
   if (span_ && !span_->get_bound (LEFT))
     {
-      Grob* e = unsmob_grob (get_property ("currentMusicalColumn"));
+      Grob *e = unsmob_grob (get_property ("currentMusicalColumn"));
       span_->set_bound (LEFT, e);
     }
 
@@ -123,9 +122,9 @@ Ottava_spanner_engraver::finalize ()
 }
 
 ADD_TRANSLATOR (Ottava_spanner_engraver,
-/* descr */       "Create a text spanner when the ottavation property changes..",
-/* creats*/       "OttavaBracket",
-/* accepts */     "",
-/* acks  */      "note-column-interface",
-/* reads */       "ottavation",
-/* write */       "");
+		/* descr */ "Create a text spanner when the ottavation property changes..",
+		/* creats*/ "OttavaBracket",
+		/* accepts */ "",
+		/* acks  */ "note-column-interface",
+		/* reads */ "ottavation",
+		/* write */ "");

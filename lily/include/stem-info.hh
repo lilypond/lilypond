@@ -6,7 +6,6 @@
   (c) 1997--2005 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-
 #ifndef STEM_INFO_HH
 #define STEM_INFO_HH
 
@@ -15,14 +14,14 @@
 /*
   Parameters for a stem, (multiply with stemdirection, to get real values
   for a downstem.)
- */
-struct Stem_info 
+*/
+struct Stem_info
 {
   Direction dir_;
   Real ideal_y_;
   Real shortest_y_;
-  Stem_info();
-void  scale (Real);
+  Stem_info ();
+  void scale (Real);
 };
 
 #endif // STEM_INFO_HH

@@ -16,5 +16,5 @@ IMPLEMENT_CTOR_CALLBACK (Sequential_music_iterator);
 SCM
 Sequential_music_iterator::get_music_list ()const
 {
-  return get_music()->get_property ("elements");
+  return get_music ()->get_property ("elements");
 }

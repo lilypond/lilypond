@@ -6,24 +6,22 @@
   (c) 1996--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #ifndef INTERVAL_TCC
 #define INTERVAL_TCC
 
-#include <cassert> 
+#include <cassert>
 #include <cmath>
 
 #include "interval.hh"
 #include "string.hh"
 
-
 template<class T>
 int
-_Interval__compare (const Interval_t<T>&a,Interval_t<T> const&b)
+_Interval__compare (const Interval_t<T>&a, Interval_t<T> const &b)
 {
   if (a.elem (LEFT) == b.elem (LEFT) && a.elem (RIGHT) == b.elem (RIGHT))
     return 0;
-  
+
   if (a.elem (LEFT) <= b.elem (LEFT) && a.elem (RIGHT) >= b.elem (RIGHT))
     return 1;
 
@@ -34,8 +32,8 @@ _Interval__compare (const Interval_t<T>&a,Interval_t<T> const&b)
 }
 
 template<class T>
-bool 
-Interval_t<T>::superset (Interval_t<T> const& a) const
+bool
+Interval_t<T>::superset (Interval_t<T> const &a) const
 {
   int c_i = _Interval__compare (*this, a);
   if (c_i == -2)
@@ -45,9 +43,9 @@ Interval_t<T>::superset (Interval_t<T> const& a) const
 
 template<class T>
 int
-Interval__compare (Interval_t<T> const& a,Interval_t<T> const& b)
+Interval__compare (Interval_t<T> const &a, Interval_t<T> const &b)
 {
-  int i = _Interval__compare (a,b);
+  int i = _Interval__compare (a, b);
   if (i < -1)
     assert (false);
   return i;
@@ -71,17 +69,17 @@ Interval_t<T>::set_full ()
 
 template<class T>
 T
-Interval_t<T>::length () const 
+Interval_t<T>::length () const
 {
-  if (elem (RIGHT) <= elem (LEFT)) 
+  if (elem (RIGHT) <= elem (LEFT))
     return 0;
-  else 
+  else
     return elem (RIGHT) - elem (LEFT);
 }
 
 template<class T>
 T
-Interval_t<T>::delta () const 
+Interval_t<T>::delta () const
 {
   return elem (RIGHT) - elem (LEFT);
 }
@@ -125,9 +123,9 @@ Interval_t<T>::to_string () const
   if (is_empty ())
     return "[empty]";
   String s ("[");
- 
-  return (s + T_to_string (elem (LEFT)) + String ("," )
-	  + T_to_string (elem (RIGHT) ) + String ("]" ));
+
+  return (s + T_to_string (elem (LEFT)) + String (",")
+	  + T_to_string (elem (RIGHT)) + String ("]"));
 }
 
 template<class T>
@@ -137,7 +135,7 @@ Interval_t<T>::contains (T r)
   return r >= elem (LEFT) && r <= elem (RIGHT);
 }
 
-#define INTERVAL__INSTANTIATE(T) struct Interval_t<T>;\
-template int Interval__compare (const Interval_t<T>&,Interval_t<T> const&)
+#define INTERVAL__INSTANTIATE(T) struct Interval_t<T>;			\
+  template int Interval__compare (const Interval_t<T>&, Interval_t<T> const &)
 
 #endif // INTERVAL_TCC

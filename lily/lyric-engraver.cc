@@ -18,7 +18,7 @@
 /**
    Generate texts for lyric syllables.  We only do one lyric at a time.
    Multiple copies of this engraver should be used to do multiple voices.
- */
+*/
 class Lyric_engraver : public Engraver
 {
 protected:
@@ -43,7 +43,7 @@ Lyric_engraver::Lyric_engraver ()
 }
 
 bool
-Lyric_engraver::try_music (Music*r)
+Lyric_engraver::try_music (Music *r)
 {
   if (!event_)
     {
@@ -63,12 +63,11 @@ Lyric_engraver::process_music ()
     }
 }
 
-
-Context*
+Context *
 get_voice_to_lyrics (Context *lyrics)
 {
   SCM avc = lyrics->get_property ("associatedVoiceContext");
-  if  (Context *c = unsmob_context (avc))
+  if (Context *c = unsmob_context (avc))
     return c;
 
   SCM voice_name = lyrics->get_property ("associatedVoice");
@@ -111,13 +110,13 @@ get_current_note_head (Context *voice)
   for (SCM s = voice->get_property ("busyGrobs");
        scm_is_pair (s); s = scm_cdr (s))
     {
-      Item *g = dynamic_cast<Item*> (unsmob_grob (scm_cdar (s)));
-	
+      Item *g = dynamic_cast<Item *> (unsmob_grob (scm_cdar (s)));
+
       if (g && !g->get_column ()
 	  && Note_head::has_interface (g))
 	return g;
     }
-	
+
   return 0;
 }
 
@@ -145,11 +144,10 @@ Lyric_engraver::stop_translation_timestep ()
   event_ = 0;
 }
 
-
 ADD_TRANSLATOR (Lyric_engraver,
-/* descr */       "",
-/* creats*/       "LyricText",
-/* accepts */     "lyric-event",
-/* acks  */      "",
-/* reads */       "",
-/* write */       "");
+		/* descr */ "",
+		/* creats*/ "LyricText",
+		/* accepts */ "lyric-event",
+		/* acks  */ "",
+		/* reads */ "",
+		/* write */ "");

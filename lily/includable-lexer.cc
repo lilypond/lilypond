@@ -22,14 +22,14 @@
 #endif
 
 #ifndef YY_START
-#define YY_START\
- ((yy_start - 1) / 2)
+#define YY_START				\
+  ((yy_start - 1) / 2)
 #define YYSTATE YY_START
 #endif
 
 /* Flex >= 2.5.29 has include stack; but we don't use that yet.  */
 #if !HAVE_FLEXLEXER_YY_CURRENT_BUFFER
-#define yy_current_buffer \
+#define yy_current_buffer						\
   (yy_buffer_stack != 0 ? yy_buffer_stack[yy_buffer_stack_top] : 0)
 #endif
 
@@ -50,7 +50,7 @@ Includable_lexer::new_input (String name, Sources *sources)
       LexerError (_ ("include files are not allowed in safe mode").to_str0 ());
       return;
     }
-  
+
   Source_file *file = sources->get_file (name);
   if (!file)
     {
@@ -70,13 +70,13 @@ Includable_lexer::new_input (String name, Sources *sources)
 
   if (be_verbose_global)
     progress_indication (String ("[") + name);
-	
+
   include_stack_.push (file);
 
   /* Ugh. We'd want to create a buffer from the bytes directly.
 
-    Whoops.  The size argument to yy_create_buffer is not the
-    filelength but a BUFFERSIZE.  Maybe this is why reading stdin fucks up.  */
+  Whoops.  The size argument to yy_create_buffer is not the
+  filelength but a BUFFERSIZE.  Maybe this is why reading stdin fucks up.  */
   yy_switch_to_buffer (yy_create_buffer (file->get_istream (), YY_BUF_SIZE));
 }
 
@@ -99,8 +99,8 @@ Includable_lexer::new_input (String name, String data, Sources *sources)
 }
 
 /** pop the inputstack.  conceptually this is a destructor, but it
-  does not destruct the Source_file that Includable_lexer::new_input
-  creates.  */
+    does not destruct the Source_file that Includable_lexer::new_input
+    creates.  */
 bool
 Includable_lexer::close_input ()
 {
@@ -109,21 +109,21 @@ Includable_lexer::close_input ()
   if (be_verbose_global)
     progress_indication ("]");
   yy_delete_buffer (yy_current_buffer);
-#if HAVE_FLEXLEXER_YY_CURRENT_BUFFER  
+#if HAVE_FLEXLEXER_YY_CURRENT_BUFFER
   yy_current_buffer = 0;
-#endif  
+#endif
   if (state_stack_.is_empty ())
     {
-#if HAVE_FLEXLEXER_YY_CURRENT_BUFFER  
+#if HAVE_FLEXLEXER_YY_CURRENT_BUFFER
       yy_current_buffer = 0;
-#endif  
+#endif
       return false;
     }
   yy_switch_to_buffer (state_stack_.pop ());
   return true;
 }
 
-char const*
+char const *
 Includable_lexer::here_str0 () const
 {
   if (include_stack_.is_empty ())
@@ -139,7 +139,7 @@ Includable_lexer::~Includable_lexer ()
     }
 }
 
-Source_file*
+Source_file *
 Includable_lexer::get_source_file () const
 {
   if (include_stack_.is_empty ())

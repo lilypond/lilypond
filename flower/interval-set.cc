@@ -1,10 +1,9 @@
-/* 
-   interval-set.hh -- implement Interval_set 
-  
-   source file of the GNU LilyPond music typesetter
-  
-   (c) 2004 Han-Wen Nienhuys <hanwen@xs4all.nl>
-  
+/*
+  interval-set.hh -- implement Interval_set
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 2004 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "interval-set.hh"
@@ -34,7 +33,7 @@ Interval_set::set_full ()
 void
 Interval_set::remove_interval (Interval rm)
 {
-  for (int i = 0; i < allowed_regions_.size (); )
+  for (int i = 0; i < allowed_regions_.size ();)
     {
       Interval s = rm;
 

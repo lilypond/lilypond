@@ -19,20 +19,20 @@ struct Polynomial
   int degree ()const;
 
   /// coefficients 
-  Array<Real>     coefs_;
+  Array<Real> coefs_;
 
   // leading coef
   Real &lc ();
 
   // leading coef
   Real lc () const;
-  void print () const ;	
-  Real eval (Real) const ;
-  void print_sols (Array<Real>) const ;
-  void check_sols (Array<Real>) const ;
+  void print () const;
+  Real eval (Real) const;
+  void print_sols (Array<Real>) const;
+  void check_sols (Array<Real>) const;
   void check_sol (Real x) const;
-  static Polynomial multiply (const Polynomial & p1, const Polynomial & p2);
-  static Polynomial power (int exponent, const Polynomial & src);
+  static Polynomial multiply (const Polynomial &p1, const Polynomial &p2);
+  static Polynomial power (int exponent, const Polynomial &src);
 
   /// chop low coefficients
   void clean ();
@@ -40,15 +40,15 @@ struct Polynomial
   /// eliminate #x#  close to  zero
   void real_clean ();
   void scalarmultiply (Real fact);
-  void operator *= (Real f) { scalarmultiply (f); }
-  void operator /= (Real f) { scalarmultiply (1/f); }
-  void operator += (Polynomial const &p2);
-  void operator *= (Polynomial const &p2);
-  void operator -= (Polynomial const &p2);
+  void operator*= (Real f) { scalarmultiply (f); }
+  void operator/= (Real f) { scalarmultiply (1 / f); }
+  void operator+= (Polynomial const &p2);
+  void operator*= (Polynomial const &p2);
+  void operator-= (Polynomial const &p2);
   Polynomial (Real a, Real b =0.0);
   Polynomial (){}
-  void set_negate (const Polynomial & src);
-    
+  void set_negate (const Polynomial &src);
+
   /// take the derivative
   void differentiate ();
   int set_mod (const Polynomial &u, const Polynomial &v);
@@ -62,19 +62,18 @@ struct Polynomial
   Array<Real> solve () const;
 };
 
-
-IMPLEMENT_ARITHMETIC_OPERATOR (Polynomial, - );
-IMPLEMENT_ARITHMETIC_OPERATOR (Polynomial, + );
-IMPLEMENT_ARITHMETIC_OPERATOR (Polynomial, * );
+IMPLEMENT_ARITHMETIC_OPERATOR (Polynomial, -);
+IMPLEMENT_ARITHMETIC_OPERATOR (Polynomial, +);
+IMPLEMENT_ARITHMETIC_OPERATOR (Polynomial, *);
 
 inline Polynomial
-operator * (Polynomial p, Real a)
+operator* (Polynomial p, Real a)
 {
   p *=a;
   return p;
 }
 inline Polynomial
-operator * (Real a,Polynomial p)
+operator* (Real a, Polynomial p)
 {
   p *=a;
   return p;

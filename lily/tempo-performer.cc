@@ -6,7 +6,6 @@
   (c) 1997--2005 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-
 #include "audio-item.hh"
 #include "performer.hh"
 
@@ -18,13 +17,13 @@ public:
 
 protected:
 
-  virtual bool try_music (Music* req);
+  virtual bool try_music (Music *req);
   virtual void stop_translation_timestep ();
   virtual void create_audio_elements ();
 
 private:
-  Music* tempo_req_;
-  Audio_tempo* audio_;
+  Music *tempo_req_;
+  Audio_tempo *audio_;
 };
 
 Tempo_performer::Tempo_performer ()
@@ -37,7 +36,6 @@ Tempo_performer::~Tempo_performer ()
 {
 }
 
-
 void
 Tempo_performer::create_audio_elements ()
 {
@@ -46,9 +44,9 @@ Tempo_performer::create_audio_elements ()
 
       SCM met = tempo_req_->get_property ("metronome-count");
       Duration *d = unsmob_duration (tempo_req_->get_property ("tempo-unit"));
-      
-      Rational r =  (d->get_length () / Moment (Rational (1, 4)) * Moment (scm_to_int (met))).main_part_;
-      
+
+      Rational r = (d->get_length () / Moment (Rational (1, 4)) * Moment (scm_to_int (met))).main_part_;
+
       audio_ = new Audio_tempo (int (r));
 
       Audio_element_info info (audio_, tempo_req_);
@@ -68,7 +66,7 @@ Tempo_performer::stop_translation_timestep ()
 }
 
 bool
-Tempo_performer::try_music (Music* req)
+Tempo_performer::try_music (Music *req)
 {
   if (tempo_req_)
     return false;
@@ -78,8 +76,6 @@ Tempo_performer::try_music (Music* req)
 }
 
 
-
-
 ADD_TRANSLATOR (Tempo_performer, "", "",
-		   "metronome-change-event",
-		   "", "", "" );
+		"metronome-change-event",
+		"", "", "");

@@ -4,8 +4,7 @@
   source file of the LilyPond music typesetter
 
   (c) 1997--2005 Jan Nieuwenhuizen <janneke@gnu.org>
-                 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-
+  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "duration.hh"
@@ -66,8 +65,8 @@ Duration::to_string () const
 {
   String s;
 
-  if (durlog_ < 0  )
-    s = "log = "  + ::to_string (durlog_);
+  if (durlog_ < 0)
+    s = "log = " + ::to_string (durlog_);
   else
     s = ::to_string (1 << durlog_);
 
@@ -76,7 +75,6 @@ Duration::to_string () const
     s += "*" + factor_.to_string ();
   return s;
 }
-
 
 IMPLEMENT_TYPE_P (Duration, "ly:duration?");
 
@@ -90,7 +88,7 @@ IMPLEMENT_SIMPLE_SMOBS (Duration);
 int
 Duration::print_smob (SCM s, SCM port, scm_print_state *)
 {
-  Duration  *r = (Duration *) SCM_CELL_WORD_1 (s);
+  Duration *r = (Duration *) SCM_CELL_WORD_1 (s);
 
   scm_puts ("#<Duration ", port);
   scm_display (scm_makfrom0str (r->to_string ().to_str0 ()), port);
@@ -100,10 +98,10 @@ Duration::print_smob (SCM s, SCM port, scm_print_state *)
 }
 
 SCM
-Duration::equal_p (SCM a , SCM b)
+Duration::equal_p (SCM a, SCM b)
 {
-  Duration  *p = (Duration *) SCM_CELL_WORD_1 (a);
-  Duration  *q = (Duration *) SCM_CELL_WORD_1 (b);
+  Duration *p = (Duration *) SCM_CELL_WORD_1 (a);
+  Duration *q = (Duration *) SCM_CELL_WORD_1 (b);
 
   bool eq = p->dots_ == q->dots_
     && p->durlog_ == q->durlog_
@@ -111,7 +109,6 @@ Duration::equal_p (SCM a , SCM b)
 
   return eq ? SCM_BOOL_T : SCM_BOOL_F;
 }
-
 
 int
 Duration::duration_log () const

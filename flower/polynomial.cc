@@ -1,18 +1,18 @@
 /*
-   poly.cc -- routines for manipulation of polynomials in one var
+  poly.cc -- routines for manipulation of polynomials in one var
 
   (c) 1993--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
- */
+*/
 
 #include "polynomial.hh"
 
 #include <cmath>
 
 /*
-   Een beter milieu begint bij uzelf. Hergebruik!
+  Een beter milieu begint bij uzelf. Hergebruik!
 
 
-   This was ripped from Rayce, a raytracer I once wrote. 
+  This was ripped from Rayce, a raytracer I once wrote.
 */
 
 Real
@@ -21,15 +21,14 @@ Polynomial::eval (Real x)const
   Real p = 0.0;
 
   // horner's scheme
-  for (int i = coefs_.size (); i--; )
+  for (int i = coefs_.size (); i--;)
     p = x * p + coefs_[i];
-  
+
   return p;
 }
 
-
 Polynomial
-Polynomial::multiply (const Polynomial & p1, const Polynomial & p2)
+Polynomial::multiply (const Polynomial &p1, const Polynomial &p2)
 {
   Polynomial dest;
 
@@ -41,7 +40,7 @@ Polynomial::multiply (const Polynomial & p1, const Polynomial & p2)
 	if (i - j <= p2.degree () && j <= p1.degree ())
 	  dest.coefs_.top () += p1.coefs_[j] * p2.coefs_[i - j];
     }
-    
+
   return dest;
 }
 
@@ -50,33 +49,35 @@ Polynomial::differentiate ()
 {
   for (int i = 1; i<= degree (); i++)
     {
-      coefs_[i-1] = coefs_[i] * i;
+      coefs_[i - 1] = coefs_[i] * i;
     }
   coefs_.pop ();
 }
 
 Polynomial
-Polynomial::power (int exponent, const Polynomial & src)
+Polynomial::power (int exponent, const Polynomial &src)
 {
   int e = exponent;
   Polynomial dest (1), base (src);
-    
+
   /*
     classic int power. invariant: src^exponent = dest * src ^ e
     greetings go out to Lex Bijlsma & Jaap vd Woude */
   while (e > 0)
     {
       if (e % 2)
-        {
+	{
 	  dest = multiply (dest, base);
 	  e--;
-        } else
-	  {
-            base = multiply (base, base);
-            e /= 2;
-	  }
+	}
+      else
+
+	{
+	  base = multiply (base, base);
+	  e /= 2;
+	}
     }
-  return  dest;
+  return dest;
 }
 
 static Real const FUDGE = 1e-8;
@@ -84,38 +85,34 @@ static Real const FUDGE = 1e-8;
 void
 Polynomial::clean ()
 {
-/*
-  We only do relative comparisons. Absolute comparisons break down in
-  degenerate cases.  */
-  while (degree () > 0 &&
- (fabs (coefs_.top ()) < FUDGE * fabs (coefs_.top (1))
-	  || !coefs_.top ()))
+  /*
+    We only do relative comparisons. Absolute comparisons break down in
+    degenerate cases.  */
+  while (degree () > 0
+	 && (fabs (coefs_.top ()) < FUDGE *fabs (coefs_.top (1))
+	     || !coefs_.top ()))
     coefs_.pop ();
 }
 
-
-
 void
-Polynomial::operator += (Polynomial const &p)
+Polynomial::operator+= (Polynomial const &p)
 {
-  while (degree () < p.degree())
+  while (degree () < p.degree ())
     coefs_.push (0.0);
 
-  for (int i = 0; i <= p.degree(); i++)
+  for (int i = 0; i <= p.degree (); i++)
     coefs_[i] += p.coefs_[i];
 }
 
-
 void
-Polynomial::operator -= (Polynomial const &p)
+Polynomial::operator-= (Polynomial const &p)
 {
-  while (degree () < p.degree())
+  while (degree () < p.degree ())
     coefs_.push (0.0);
 
-  for (int i = 0; i <= p.degree(); i++)
+  for (int i = 0; i <= p.degree (); i++)
     coefs_[i] -= p.coefs_[i];
 }
-
 
 void
 Polynomial::scalarmultiply (Real fact)
@@ -124,33 +121,35 @@ Polynomial::scalarmultiply (Real fact)
     coefs_[i] *= fact;
 }
 
-
-
 void
-Polynomial::set_negate (const Polynomial & src)
+Polynomial::set_negate (const Polynomial &src)
 {
   for (int i = 0; i <= src.degree (); i++)
     coefs_[i] = -src.coefs_[i];
 }
 
 /// mod of #u/v#
-int 
+int
 Polynomial::set_mod (const Polynomial &u, const Polynomial &v)
 {
- (*this) = u;
-    
-  if (v.lc () < 0.0) {
-    for (int k = u.degree () - v.degree () - 1; k >= 0; k -= 2)
-      coefs_[k] = -coefs_[k];
+  (*this) = u;
 
-    for (int k = u.degree () - v.degree (); k >= 0; k--)
-      for (int j = v.degree () + k - 1; j >= k; j--)
-	coefs_[j] = -coefs_[j] - coefs_[v.degree () + k] * v.coefs_[j - k];
-  } else {
-    for (int k = u.degree () - v.degree (); k >= 0; k--)
-      for (int j = v.degree () + k - 1; j >= k; j--)
-	coefs_[j] -= coefs_[v.degree () + k] * v.coefs_[j - k];
-  }
+  if (v.lc () < 0.0)
+    {
+      for (int k = u.degree () - v.degree () - 1; k >= 0; k -= 2)
+	coefs_[k] = -coefs_[k];
+
+      for (int k = u.degree () - v.degree (); k >= 0; k--)
+	for (int j = v.degree () + k - 1; j >= k; j--)
+	  coefs_[j] = -coefs_[j] - coefs_[v.degree () + k] * v.coefs_[j - k];
+    }
+  else
+
+    {
+      for (int k = u.degree () - v.degree (); k >= 0; k--)
+	for (int j = v.degree () + k - 1; j >= k; j--)
+	  coefs_[j] -= coefs_[v.degree () + k] * v.coefs_[j - k];
+    }
 
   int k = v.degree () - 1;
   while (k >= 0 && coefs_[k] == 0.0)
@@ -161,24 +160,23 @@ Polynomial::set_mod (const Polynomial &u, const Polynomial &v)
 }
 
 void
-Polynomial::check_sol (Real x) const 
+Polynomial::check_sol (Real x) const
 {
-  Real f=eval (x);
+  Real f = eval (x);
   Polynomial p (*this);
   p.differentiate ();
   Real d = p.eval (x);
-  
-  if ( abs (f) > abs (d) * FUDGE)
-    ;
+
+  if (abs (f) > abs (d) * FUDGE);
   /*
     warning ("x=%f is not a root of polynomial\n"
     "f (x)=%f, f' (x)=%f \n", x, f, d);	*/
 }
-	
+
 void
 Polynomial::check_sols (Array<Real> roots) const
 {
-  for (int i=0; i< roots.size (); i++)
+  for (int i = 0; i< roots.size (); i++)
     check_sol (roots[i]);
 }
 
@@ -193,9 +191,9 @@ Polynomial::Polynomial (Real a, Real b)
 inline Real cubic_root (Real x)
 {
   if (x > 0.0)
-    return pow (x, 1.0/3.0) ;
+    return pow (x, 1.0 / 3.0);
   else if (x < 0.0)
-    return -pow (-x, 1.0/3.0);
+    return -pow (-x, 1.0 / 3.0);
   else
     return 0.0;
 }
@@ -210,7 +208,7 @@ Array<Real>
 Polynomial::solve_cubic ()const
 {
   Array<Real> sol;
-  
+
   /* normal form: x^3 + Ax^2 + Bx + C = 0 */
   Real A = coefs_[2] / coefs_[3];
   Real B = coefs_[1] / coefs_[3];
@@ -220,39 +218,40 @@ Polynomial::solve_cubic ()const
    * substitute x = y - A/3 to eliminate quadric term: x^3 +px + q = 0
    */
 
-  Real sq_A = A * A;
+  Real sq_A = A *A;
   Real p = 1.0 / 3 * (-1.0 / 3 * sq_A + B);
-  Real q = 1.0 / 2 * (2.0 / 27 * A * sq_A - 1.0 / 3 * A * B + C);
+  Real q = 1.0 / 2 * (2.0 / 27 * A *sq_A - 1.0 / 3 * A *B + C);
 
   /* use Cardano's formula */
 
   Real cb = p * p * p;
   Real D = q * q + cb;
 
-  if (iszero (D)) {
-    if (iszero (q)) {	/* one triple solution */
-      sol.push (0);
-      sol.push (0);
-      sol.push (0);      
-    } else {		/* one single and one double solution */
-      Real u = cubic_root (-q);
+  if (iszero (D))
+    {
+      if (iszero (q)) {	/* one triple solution */
+	sol.push (0);
+	sol.push (0);
+	sol.push (0);
+      } else {		/* one single and one double solution */
+	Real u = cubic_root (-q);
 
-      sol.push (2 * u);
-      sol.push (-u);
-    }
-  } else if (D < 0) {		/* Casus irreducibilis: three real solutions */
+	sol.push (2 * u);
+	sol.push (-u);
+      }
+    } else if (D < 0) {		/* Casus irreducibilis: three real solutions */
     Real phi = 1.0 / 3 * acos (-q / sqrt (-cb));
     Real t = 2 * sqrt (-p);
 
     sol.push (t * cos (phi));
     sol.push (-t * cos (phi + M_PI / 3));
-    sol.push ( -t * cos (phi - M_PI / 3));
+    sol.push (-t * cos (phi - M_PI / 3));
   } else {			/* one real solution */
     Real sqrt_D = sqrt (D);
     Real u = cubic_root (sqrt_D - q);
     Real v = -cubic_root (sqrt_D + q);
 
-    sol.push ( u + v);
+    sol.push (u + v);
   }
 
   /* resubstitute */
@@ -263,10 +262,10 @@ Polynomial::solve_cubic ()const
       sol[i] -= sub;
 
 #ifdef PARANOID
-      assert (fabs (eval (sol[i]) ) < 1e-8);
+      assert (fabs (eval (sol[i])) < 1e-8);
 #endif
     }
-  
+
   return sol;
 }
 
@@ -276,8 +275,8 @@ Polynomial::lc () const
   return coefs_.top ();
 }
 
-Real&
-Polynomial::lc () 
+Real &
+Polynomial::lc ()
 {
   return coefs_.top ();
 }
@@ -288,8 +287,8 @@ Polynomial::degree ()const
   return coefs_.size () -1;
 }
 /*
-   all roots of quadratic eqn.
- */
+  all roots of quadratic eqn.
+*/
 Array<Real>
 Polynomial::solve_quadric ()const
 {
@@ -300,13 +299,14 @@ Polynomial::solve_quadric ()const
 
   Real D = p * p - q;
 
-  if (D>0) {
-    D = sqrt (D);
+  if (D > 0)
+    {
+      D = sqrt (D);
 
-    sol.push ( D - p);
-    sol.push ( -D - p);
-  }
-  return sol; 
+      sol.push (D - p);
+      sol.push (-D - p);
+    }
+  return sol;
 }
 
 /* solve linear equation */
@@ -315,17 +315,16 @@ Polynomial::solve_linear ()const
 {
   Array<Real> s;
   if (coefs_[1])
-    s.push ( -coefs_[0] / coefs_[1]);
+    s.push (-coefs_[0] / coefs_[1]);
   return s;
 }
-
 
 Array<Real>
 Polynomial::solve () const
 {
-  Polynomial * me = (Polynomial*) this;
+  Polynomial *me = (Polynomial *) this;
   me->clean ();
-  
+
   switch (degree ())
     {
     case 1:
@@ -340,9 +339,8 @@ Polynomial::solve () const
 }
 
 void
-Polynomial:: operator *= (Polynomial const &p2)
+Polynomial:: operator*= (Polynomial const &p2)
 {
-  *this = multiply (*this,p2);
-}  
-
+  *this = multiply (*this, p2);
+}
 

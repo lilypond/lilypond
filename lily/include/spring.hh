@@ -1,11 +1,10 @@
-/*   
+/*
   spring.hh -- declare Spring, Column_spring
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1999--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #ifndef SPRING_HH
 #define SPRING_HH
@@ -19,16 +18,16 @@ struct Spring_smob
   Real distance_;
   bool expand_only_b_;
   Real strength_;
-  
-  DECLARE_SIMPLE_SMOBS(Spring_smob, dummy);
+
+  DECLARE_SIMPLE_SMOBS (Spring_smob, dummy);
 public:
-  Spring_smob();
+  Spring_smob ();
 };
-DECLARE_UNSMOB(Spring_smob, spring);
+DECLARE_UNSMOB (Spring_smob, spring);
 
 struct Spring
 {
-  Drul_array<Item*> item_drul_;
+  Drul_array<Item *> item_drul_;
   Real distance_;
   bool expand_only_b_;
 
@@ -40,7 +39,6 @@ struct Spring
   void set_to_cols ();
   Spring ();
 };
-
 
 #endif /* SPRING_HH */
 

@@ -1,11 +1,10 @@
-/*   
+/*
   input-smob.hh -- declare input smob
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2000--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #ifndef INPUT_SMOB_HH
 #define INPUT_SMOB_HH
@@ -14,7 +13,7 @@
 #include "smobs.hh"
 
 SCM make_input (Input spot);
-Input *unsmob_input(SCM);
+Input *unsmob_input (SCM);
 
 extern Input dummy_input_global;
 

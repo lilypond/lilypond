@@ -36,7 +36,7 @@ Translator::do_announces ()
 void
 Translator::process_music ()
 {
-  
+
 }
 
 Translator::Translator ()
@@ -55,7 +55,6 @@ Translator::try_music (Music *)
 {
   return false;
 }
-			    
 
 Moment
 Translator::now_mom () const
@@ -69,13 +68,11 @@ Translator::get_output_def () const
   return daddy_context_->get_output_def ();
 }
 
-
-Translator_group*
+Translator_group *
 Translator::get_daddy_translator () const
 {
   return daddy_context_->implementation ();
 }
-
 
 SCM
 Translator::internal_get_property (SCM sym) const
@@ -95,8 +92,7 @@ Translator::stop_translation_timestep ()
 
   - It is called before any user information enters the translators.
   (i.e. any \property or event is not processed yet.)
-
-  */
+*/
 void
 Translator::start_translation_timestep ()
 {
@@ -112,16 +108,13 @@ Translator::finalize ()
 {
 }
 
-
 /*
-
   SMOBS
-
 */
 SCM
 Translator::mark_smob (SCM sm)
 {
-  Translator * me = (Translator*) SCM_CELL_WORD_1 (sm);
+  Translator *me = (Translator *) SCM_CELL_WORD_1 (sm);
   me->derived_mark ();
   return SCM_EOL;
 }
@@ -132,27 +125,23 @@ Translator::translator_description () const
   return SCM_EOL;
 }
 
-
 Global_context *
 Translator::get_global_context () const
 {
   return daddy_context_ ->get_global_context ();
 }
 
-
 Score_context *
 Translator::get_score_context () const
 {
   return daddy_context_->get_score_context ();
-}  
-
+}
 
 SCM
 Translator::static_translator_description ()const
 {
   return SCM_EOL;
 }
-
 
 IMPLEMENT_SMOBS (Translator);
 IMPLEMENT_DEFAULT_EQUAL_P (Translator);
@@ -167,5 +156,5 @@ Translator::must_be_last () const
 void
 Translator::derived_mark () const
 {
-  
+
 }

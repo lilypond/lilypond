@@ -12,13 +12,13 @@
 #include "array.hh"
 #include "string.hh"
 
-/**    
-  search in directories for a file.
+/**
+   search in directories for a file.
 
    Abstraction of PATH variable. An interface for searching input files.
    Search a number of dirs for a file.
 
-   TODO: add a unix style PATH interface 
+   TODO: add a unix style PATH interface
 */
 
 class File_path : private Array<String>

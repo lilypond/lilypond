@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #include "string.hh"
@@ -20,7 +19,7 @@ LY_DEFINE (ly_input, "ly:input-location?", 1, 0, 0,
 }
 
 LY_DEFINE (ly_input_message, "ly:input-message", 2, 0, 0, (SCM sip, SCM msg),
-	  "Print @var{msg} as a GNU compliant error message, pointing to the"
+	   "Print @var{msg} as a GNU compliant error message, pointing to the"
 	   "location in @var{sip}.\n")
 {
   Input *ip = unsmob_input (sip);
@@ -34,7 +33,7 @@ LY_DEFINE (ly_input_message, "ly:input-message", 2, 0, 0, (SCM sip, SCM msg),
 }
 
 LY_DEFINE (ly_input_file_line_column, "ly:input-file-line-column", 1, 0, 0, (SCM sip),
-	  "Return input location in @var{sip} as (file-name line column).")
+	   "Return input location in @var{sip} as (file-name line column).")
 {
   Input *ip = unsmob_input (sip);
   SCM_ASSERT_TYPE (ip, sip, SCM_ARG1, __FUNCTION__, "input location");
@@ -44,7 +43,7 @@ LY_DEFINE (ly_input_file_line_column, "ly:input-file-line-column", 1, 0, 0, (SCM
 }
 
 LY_DEFINE (ly_input_both_locations, "ly:input-both-locations", 1, 0, 0, (SCM sip),
-	  "Return input location in @var{sip} as (file-name first-line first-column last-line last-column).")
+	   "Return input location in @var{sip} as (file-name first-line first-column last-line last-column).")
 {
   Input *ip = unsmob_input (sip);
   SCM_ASSERT_TYPE (ip, sip, SCM_ARG1, __FUNCTION__, "input location");

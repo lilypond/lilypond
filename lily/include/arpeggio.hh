@@ -1,6 +1,6 @@
 /*
   arpegio.hh -- declare Arpeggio
-  
+
   source file of the GNU LilyPond music typesetter
 
   (c) 2000--2005 Jan Nieuwenhuizen <janneke@gnu.org>
@@ -18,7 +18,7 @@ public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (brew_chord_bracket, (SCM));
   DECLARE_SCHEME_CALLBACK (width_callback, (SCM, SCM));
-  static bool has_interface (Grob*);
+  static bool has_interface (Grob *);
 };
 
 #endif /* ARPEGGIO_HH */

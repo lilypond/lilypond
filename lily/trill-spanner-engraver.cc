@@ -10,9 +10,8 @@
   C&P from text-spanner.cc
 
   - todo: ending should be detected automatically? a new note
-    automatically is the end of the trill?
-  
- */
+  automatically is the end of the trill?
+*/
 
 #include "note-column.hh"
 #include "side-position-interface.hh"
@@ -21,7 +20,7 @@
 class Trill_spanner_engraver : public Engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS (Trill_spanner_engraver);  
+  TRANSLATOR_DECLARATIONS (Trill_spanner_engraver);
 protected:
   virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
@@ -33,10 +32,9 @@ private:
   Spanner *span_;
   Spanner *finished_;
   Music *current_req_;
-  Drul_array<Music*> req_drul_;
+  Drul_array<Music *> req_drul_;
   void typeset_all ();
 };
-
 
 Trill_spanner_engraver::Trill_spanner_engraver ()
 {
@@ -86,7 +84,7 @@ Trill_spanner_engraver::process_music ()
       else
 	{
 	  current_req_ = req_drul_[START];
-	  span_  = make_spanner ("TrillSpanner", req_drul_[START]->self_scm ());
+	  span_ = make_spanner ("TrillSpanner", req_drul_[START]->self_scm ());
 	  Side_position_interface::set_axis (span_, Y_AXIS);
 	  req_drul_[START] = 0;
 	}
@@ -96,25 +94,25 @@ Trill_spanner_engraver::process_music ()
 void
 Trill_spanner_engraver::acknowledge_grob (Grob_info info)
 {
-  Spanner * spans[2] ={span_, finished_};
-  for (int i = 0;  i < 2 ; i++)
+  Spanner *spans[2] ={span_, finished_};
+  for (int i = 0; i < 2; i++)
     {
       if (spans[i] && Note_column::has_interface (info.grob_))
 	{
 	  Side_position_interface::add_support (spans[i], info.grob_);
-	  add_bound_item (spans[i], dynamic_cast<Item*> (info.grob_));
+	  add_bound_item (spans[i], dynamic_cast<Item *> (info.grob_));
 	}
     }
 }
 
 void
 Trill_spanner_engraver::typeset_all ()
-{  
+{
   if (finished_)
     {
       if (!finished_->get_bound (RIGHT))
 	{
-	  Grob* e = unsmob_grob (get_property ("currentMusicalColumn"));
+	  Grob *e = unsmob_grob (get_property ("currentMusicalColumn"));
 	  finished_->set_bound (RIGHT, e);
 	}
       finished_ = 0;
@@ -126,7 +124,7 @@ Trill_spanner_engraver::stop_translation_timestep ()
 {
   if (span_ && !span_->get_bound (LEFT))
     {
-      Grob* e = unsmob_grob (get_property ("currentMusicalColumn"));
+      Grob *e = unsmob_grob (get_property ("currentMusicalColumn"));
       span_->set_bound (LEFT, e);
     }
 
@@ -148,9 +146,9 @@ Trill_spanner_engraver::finalize ()
 }
 
 ADD_TRANSLATOR (Trill_spanner_engraver,
-/* descr */       "Create trill spanner from a Music.",
-/* creats*/       "TrillSpanner",
-/* accepts */     "trill-span-event",
-/* acks  */      "note-column-interface",
-/* reads */       "",
-/* write */       "");
+		/* descr */ "Create trill spanner from a Music.",
+		/* creats*/ "TrillSpanner",
+		/* accepts */ "trill-span-event",
+		/* acks  */ "note-column-interface",
+		/* reads */ "",
+		/* write */ "");

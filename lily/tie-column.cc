@@ -1,11 +1,10 @@
-/*   
+/*
   tie-column.cc -- implement Tie_column
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2000--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #include "tie-column.hh"
 #include "paper-column.hh"
@@ -20,65 +19,62 @@
 */
 /*
   TODO: this doesn't follow standard pattern. Regularize.
- */
+*/
 void
-Tie_column::add_tie (Grob*me, Grob *tie)
+Tie_column::add_tie (Grob *me, Grob *tie)
 {
   if (tie->get_parent (Y_AXIS)
       && Tie_column::has_interface (tie->get_parent (Y_AXIS)))
-    return ;
+    return;
 
-   
   if (!Pointer_group_interface::count (me, ly_symbol2scm ("ties")))
     {
-      dynamic_cast<Spanner*> (me)->set_bound (LEFT, Tie::head (tie, LEFT));
-      dynamic_cast<Spanner*> (me)->set_bound (RIGHT, Tie::head (tie, RIGHT));
+      dynamic_cast<Spanner *> (me)->set_bound (LEFT, Tie::head (tie, LEFT));
+      dynamic_cast<Spanner *> (me)->set_bound (RIGHT, Tie::head (tie, RIGHT));
     }
-  
-   
+
   tie->set_parent (me, Y_AXIS);
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("ties"), tie);
   tie->add_dependency (me);
 }
 
 void
-Tie_column::set_directions (Grob*me)
+Tie_column::set_directions (Grob *me)
 {
   werner_directions (me);
 }
 
 int
-tie_compare (Grob* const & s1,
-	     Grob* const & s2)
+tie_compare (Grob *const &s1,
+	     Grob *const &s2)
 {
   return sign (Tie::get_position (s1) - Tie::get_position (s2));
 }
 
 /*
-Werner:
+  Werner:
 
- . The algorithm to choose the direction of the ties doesn't work
-   properly.  I suggest the following for applying ties sequentially
-   from top to bottom:
+  . The algorithm to choose the direction of the ties doesn't work
+  properly.  I suggest the following for applying ties sequentially
+  from top to bottom:
 
-     + The topmost tie is always `up'.
+  + The topmost tie is always `up'.
 
-     + If there is a vertical gap to the last note above larger than
-       or equal to a fifth (or sixth?), the tie is `up', otherwise it
-       is `down'.
+  + If there is a vertical gap to the last note above larger than
+  or equal to a fifth (or sixth?), the tie is `up', otherwise it
+  is `down'.
 
-     + The bottommost tie is always `down'.
-
+  + The bottommost tie is always `down'.
 */
 void
 Tie_column::werner_directions (Grob *me)
 {
-  Link_array<Grob> ties =
-    extract_grob_array (me, ly_symbol2scm ("ties"));
+  Link_array<Grob> ties
+    = extract_grob_array (me, ly_symbol2scm ("ties"));
 
   if (!ties.size ())
-    return ;
-  
+    return;
+
   ties.sort (tie_compare);
 
   Direction d = get_grob_direction (me);
@@ -86,20 +82,20 @@ Tie_column::werner_directions (Grob *me)
     {
       for (int i = ties.size (); i--;)
 	{
-	  Grob *  t = ties[i];
+	  Grob *t = ties[i];
 	  if (!get_grob_direction (t))
 	    set_grob_direction (t, d);
 	}
-      return ;
+      return;
     }
-  
+
   if (ties.size () == 1)
     {
-      Grob *  t = ties[0];
+      Grob *t = ties[0];
       if (t->is_live ()
 	  && !get_grob_direction (t))
 	set_grob_direction (t, Tie::get_default_dir (t));
-      return ;
+      return;
     }
 
   Real last_down_pos = 10000;
@@ -108,19 +104,19 @@ Tie_column::werner_directions (Grob *me)
 
   /*
     Go downward.
-   */
+  */
   Grob *last_tie = 0;
   for (int i = ties.size (); i--;)
     {
       Grob *t = ties[i];
-      
+
       Direction d = get_grob_direction (t);
-      Real p  = Tie::get_position (t);
+      Real p = Tie::get_position (t);
       if (!d)
 	{
 	  if (last_tie
 	      && Tie::get_column_rank (t, LEFT)
-	         < Tie::get_column_rank (last_tie, LEFT))
+	      < Tie::get_column_rank (last_tie, LEFT))
 	    {
 	      d = DOWN;
 	    }
@@ -142,9 +138,8 @@ Tie_column::werner_directions (Grob *me)
       last_tie = t;
     }
 
-  return ;
+  return;
 }
-
 
 MAKE_SCHEME_CALLBACK (Tie_column, after_line_breaking, 1);
 SCM
@@ -156,19 +151,19 @@ Tie_column::after_line_breaking (SCM smob)
 
 /*
   Extend the spanner over its Tie constituents.
- */
+*/
 MAKE_SCHEME_CALLBACK (Tie_column, before_line_breaking, 1);
 SCM
 Tie_column::before_line_breaking (SCM smob)
 {
-  Spanner *me = dynamic_cast<Spanner*> (unsmob_grob (smob));
+  Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (smob));
   for (SCM s = me->get_property ("ties"); scm_is_pair (s); s = scm_cdr (s))
     {
-      Spanner *tie = dynamic_cast<Spanner*> (unsmob_grob (scm_car (s)));
+      Spanner *tie = dynamic_cast<Spanner *> (unsmob_grob (scm_car (s)));
       Direction dir = LEFT;
       do
 	{
-	  if (dir * Paper_column::get_rank (tie->get_bound (dir)->get_column ()) 
+	  if (dir * Paper_column::get_rank (tie->get_bound (dir)->get_column ())
 	      > dir * Paper_column::get_rank (me->get_bound (dir)->get_column ()))
 	    {
 	      me->set_bound (dir, Tie::head (tie, dir));
@@ -180,6 +175,6 @@ Tie_column::before_line_breaking (SCM smob)
 }
 
 ADD_INTERFACE (Tie_column, "tie-column-interface",
-  "Object that sets directions of multiple ties in a tied chord",
-  "direction");
+	       "Object that sets directions of multiple ties in a tied chord",
+	       "direction");
 

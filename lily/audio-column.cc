@@ -4,7 +4,7 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 1997--2005 Jan Nieuwenhuizen <janneke@gnu.org>
- */
+*/
 
 #include "audio-column.hh"
 
@@ -17,10 +17,10 @@ Audio_column::Audio_column (Moment at_mom)
 }
 
 void
-Audio_column::add_audio_item (Audio_item* l)
+Audio_column::add_audio_item (Audio_item *l)
 {
   audio_items_.push (l);
-  l->audio_column_ = this; 
+  l->audio_column_ = this;
 }
 
 Moment
@@ -28,5 +28,4 @@ Audio_column::at_mom () const
 {
   return at_mom_;
 }
-
 

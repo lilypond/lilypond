@@ -16,12 +16,11 @@
 #include "main.hh"
 #include "music.hh"
 
-Translator_group*
+Translator_group *
 Translator_group::get_daddy_translator () const
 {
   return context ()->get_parent_context ()->implementation ();
 }
-
 
 void
 translator_each (SCM list, Translator_method method)
@@ -30,7 +29,6 @@ translator_each (SCM list, Translator_method method)
     (unsmob_translator (scm_car (p))->*method) ();
 }
 
-
 void
 Translator_group::initialize ()
 {
@@ -38,9 +36,8 @@ Translator_group::initialize ()
   context ()->set_property ("acceptHashTable", tab);
 }
 
-
 bool
-translator_accepts_any_of (Translator*tr, SCM ifaces)
+translator_accepts_any_of (Translator *tr, SCM ifaces)
 {
   SCM ack_ifs = scm_assoc (ly_symbol2scm ("events-accepted"),
 			   tr->translator_description ());
@@ -55,11 +52,11 @@ SCM
 find_accept_translators (SCM gravlist, SCM ifaces)
 {
   SCM l = SCM_EOL;
-  for (SCM s = gravlist; scm_is_pair (s);  s = scm_cdr (s))
+  for (SCM s = gravlist; scm_is_pair (s); s = scm_cdr (s))
     {
-      Translator* tr = unsmob_translator (scm_car (s));
+      Translator *tr = unsmob_translator (scm_car (s));
       if (translator_accepts_any_of (tr, ifaces))
-	l = scm_cons (tr->self_scm (), l); 
+	l = scm_cons (tr->self_scm (), l);
     }
   l = scm_reverse_x (l, SCM_EOL);
 
@@ -67,7 +64,7 @@ find_accept_translators (SCM gravlist, SCM ifaces)
 }
 
 bool
-Translator_group::try_music (Music* m)
+Translator_group::try_music (Music *m)
 {
   SCM tab = get_property ("acceptHashTable");
   SCM name = scm_sloppy_assq (ly_symbol2scm ("name"),
@@ -87,13 +84,12 @@ Translator_group::try_music (Music* m)
 
   for (SCM p = accept_list; scm_is_pair (p); p = scm_cdr (p))
     {
-      Translator * t = unsmob_translator (scm_car (p));
+      Translator *t = unsmob_translator (scm_car (p));
       if (t && t->try_music (m))
 	return true;
     }
   return false;
 }
-
 
 SCM
 Translator_group::get_simple_trans_list ()
@@ -101,16 +97,15 @@ Translator_group::get_simple_trans_list ()
   return simple_trans_list_;
 }
 
-
 void
-recurse_over_translators (Context * c, Translator_method ptr, Direction dir)
+recurse_over_translators (Context *c, Translator_method ptr, Direction dir)
 {
-  Translator_group * tg
-    = dynamic_cast<Translator_group*> (c->implementation ());
+  Translator_group *tg
+    = dynamic_cast<Translator_group *> (c->implementation ());
 
   /*
-    Top down: 
-   */
+    Top down:
+  */
   if (dir == DOWN)
     {
       translator_each (tg->get_simple_trans_list (),
@@ -134,7 +129,7 @@ recurse_over_translators (Context * c, Translator_method ptr, Direction dir)
     }
 }
 
-Translator_group::Translator_group()
+Translator_group::Translator_group ()
 {
   simple_trans_list_ = SCM_EOL;
 }
@@ -142,5 +137,5 @@ Translator_group::Translator_group()
 void
 Translator_group::derived_mark () const
 {
-  scm_gc_mark (simple_trans_list_); 
+  scm_gc_mark (simple_trans_list_);
 }

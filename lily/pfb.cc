@@ -28,17 +28,17 @@ pfb2pfa (Byte const *pfb, int length)
 
       Byte type = *p++;
       if (type == 3)
-	break ;
+	break;
 
-      unsigned seglen =
-	p[0] | (p[1] << 8)
+      unsigned seglen
+	= p[0] | (p[1] << 8)
 	| (p[2] << 16) | (p[3] << 24);
 
       p += 4;
       if (type == 1)
 	{
-	  out = (char*)realloc (out, olen + seglen + 1);
-	  char *outp = out + olen ;
+	  out = (char *)realloc (out, olen + seglen + 1);
+	  char *outp = out + olen;
 	  memcpy (outp, p, seglen);
 	  olen += seglen;
 	  p += seglen;
@@ -47,16 +47,16 @@ pfb2pfa (Byte const *pfb, int length)
 	{
 	  unsigned outlength = (seglen * 2) + (seglen / 32) + 2;
 
-	  out = (char*)realloc (out, olen + outlength + 1);
+	  out = (char *)realloc (out, olen + outlength + 1);
 
 	  char *outp = out + olen;
 	  for (int i = seglen; i--;)
 	    {
 	      sprintf (outp, "%02x", *p++);
 	      outp += 2;
-	      if (!(i % 32))
+	      if (! (i % 32))
 		{
-		  *outp ++ = '\n';
+		  *outp++ = '\n';
 		}
 	    }
 
@@ -71,8 +71,7 @@ pfb2pfa (Byte const *pfb, int length)
 
 LY_DEFINE (ly_pfb_to_pfa, "ly:pfb->pfa",
 	   1, 0, 0, (SCM pfb_file_name),
-	   "Convert the contents of a PFB file to PFA."
-	   )
+	   "Convert the contents of a PFB file to PFA.")
 {
   SCM_ASSERT_TYPE (scm_is_string (pfb_file_name), pfb_file_name,
 		   SCM_ARG1, __FUNCTION__, "string");
@@ -80,7 +79,7 @@ LY_DEFINE (ly_pfb_to_pfa, "ly:pfb->pfa",
   String file_name = ly_scm2string (pfb_file_name);
   int len;
   char *str = gulp_file (file_name, &len);
-  char *pfa = pfb2pfa ((Byte*)str, len);
+  char *pfa = pfb2pfa ((Byte *)str, len);
 
   SCM pfa_scm = scm_makfrom0str (pfa);
   free (pfa);
@@ -91,12 +90,11 @@ LY_DEFINE (ly_pfb_to_pfa, "ly:pfb->pfa",
 LY_DEFINE (ly_ttf_to_pfa, "ly:ttf->pfa",
 	   1, 0, 0, (SCM ttf_file_name),
 	   "Convert the contents of a TTF file to Type42 PFA, returning it as "
-	   " a string."
-	   )
+	   " a string.")
 {
   SCM_ASSERT_TYPE (scm_is_string (ttf_file_name), ttf_file_name,
 		   SCM_ARG1, __FUNCTION__, "string");
-  
+
   String file_name = ly_scm2string (ttf_file_name);
 
   Memory_out_stream stream;

@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2004--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #ifndef LILYPOND_KEY_HH
@@ -29,8 +28,8 @@ public:
   static Object_key *from_scheme (SCM);
 protected:
   virtual int get_type () const;
-  virtual void derived_mark () const; 
-  virtual int do_compare (Object_key const* a) const;
+  virtual void derived_mark () const;
+  virtual int do_compare (Object_key const *a) const;
   virtual SCM as_scheme () const;
 };
 
@@ -43,17 +42,17 @@ class Lilypond_context_key : public Object_key
   int disambiguation_count_;
 
 public:
-  Lilypond_context_key (Object_key const * parent,
+  Lilypond_context_key (Object_key const *parent,
 			Moment start,
 			String type,
 			String id,
-  			int count);
+ 			int count);
 
   static Object_key *from_scheme (SCM);
 protected:
   virtual int get_type () const;
-  virtual int do_compare (Object_key const* a) const;
-  virtual void derived_mark () const; 
+  virtual int do_compare (Object_key const *a) const;
+  virtual void derived_mark () const;
   virtual SCM as_scheme () const;
 };
 
@@ -69,8 +68,8 @@ public:
   static Object_key *from_scheme (SCM);
 protected:
   virtual int get_type () const;
-  virtual int do_compare (Object_key const* a) const;
-  virtual void derived_mark () const; 
+  virtual int do_compare (Object_key const *a) const;
+  virtual void derived_mark () const;
   virtual SCM as_scheme () const;
 };
 

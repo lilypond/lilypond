@@ -4,9 +4,8 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 1998--2005 Jan Nieuwenhuizen <janneke@gnu.org>
-                 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-
 
 #include <cstdio>
 #include <cstdlib>
@@ -52,13 +51,13 @@ ly_last (SCM list)
 SCM
 ly_write2scm (SCM s)
 {
-  SCM port = scm_mkstrport (SCM_INUM0, 
+  SCM port = scm_mkstrport (SCM_INUM0,
 			    scm_make_string (SCM_INUM0, SCM_UNDEFINED),
 			    SCM_OPN | SCM_WRTNG,
 			    "ly_write2string");
   //  SCM write = scm_eval_3 (ly_symbol2scm ("write"), s, SCM_EOL);
   SCM write = scm_primitive_eval (ly_symbol2scm ("write"));
-  
+
   // scm_apply (write, port, SCM_EOL);
   scm_call_2 (write, s, port);
   return scm_strport_to_string (port);
@@ -75,7 +74,7 @@ ly_symbol2string (SCM s)
 {
   /*
     Ugh. this is not very efficient.
-   */
+  */
   SCM str = scm_symbol_to_string (s);
   return ly_scm2string (str);
 }
@@ -102,32 +101,30 @@ gulp_file_to_string (String fn, bool must_exist)
 
   int n;
   char *str = gulp_file (s, &n);
-  String result ((Byte*) str, n);
+  String result ((Byte *) str, n);
   delete[] str;
-  
+
   if (be_verbose_global)
     progress_indication ("]");
 
   return result;
 }
 
-
-
 extern "C" {
   // maybe gdb 5.0 becomes quicker if it doesn't do fancy C++ typing?
-void
-ly_display_scm (SCM s)
-{
-  scm_display (s, scm_current_output_port ());
-  scm_newline (scm_current_output_port ());
-}
+  void
+  ly_display_scm (SCM s)
+  {
+    scm_display (s, scm_current_output_port ());
+    scm_newline (scm_current_output_port ());
+  }
 };
 
 String
 ly_scm2string (SCM str)
 {
   assert (scm_is_string (str));
-  return String ((Byte*)scm_i_string_chars (str),
+  return String ((Byte *)scm_i_string_chars (str),
 		 (int) scm_i_string_length (str));
 }
 
@@ -191,13 +188,13 @@ extern "C" {
   void initialize_kpathsea ();
 }
 #endif
-    
+
 void
 ly_init_ly_module (void *)
 {
-  for (int i = scm_init_funcs_->size () ; i--;)
+  for (int i = scm_init_funcs_->size (); i--;)
     (scm_init_funcs_->elem (i)) ();
- 
+
   if (be_verbose_global)
     progress_indication ("\n");
 
@@ -207,7 +204,7 @@ ly_init_ly_module (void *)
       initialize_kpathsea ();
     }
 #endif
-  
+
   scm_primitive_load_path (scm_makfrom0str ("lily.scm"));
 }
 
@@ -232,7 +229,7 @@ is_direction (SCM s)
   if (scm_is_number (s))
     {
       int i = scm_to_int (s);
-      return i>= -1 && i <= 1; 
+      return i>= -1 && i <= 1;
     }
   return false;
 }
@@ -286,7 +283,7 @@ appendable_list ()
 {
   SCM s = scm_cons (SCM_EOL, SCM_EOL);
   scm_set_car_x (s, s);
-  
+
   return s;
 }
 
@@ -294,8 +291,8 @@ void
 appendable_list_append (SCM l, SCM elt)
 {
   SCM newcons = scm_cons (elt, SCM_EOL);
-  
-  scm_set_cdr_x (scm_car (l), newcons);      
+
+  scm_set_cdr_x (scm_car (l), newcons);
   scm_set_car_x (l, newcons);
 }
 
@@ -321,10 +318,10 @@ ly_deep_copy (SCM src)
     {
       int len = scm_c_vector_length (src);
       SCM nv = scm_c_make_vector (len, SCM_UNDEFINED);
-      for (int i = 0 ;i < len ; i++)
+      for (int i = 0;i < len; i++)
 	{
 	  SCM si = scm_int2num (i);
-	  scm_vector_set_x (nv, si, ly_deep_copy (scm_vector_ref (src, si))); 
+	  scm_vector_set_x (nv, si, ly_deep_copy (scm_vector_ref (src, si)));
 	}
     }
   return src;
@@ -365,19 +362,16 @@ ly_chain_assoc (SCM key, SCM achain)
    Returns first match found, i.e.
 
    alist = ((1 . 10)
-                   ((1 . 2) . 11)
-                   ((2 . 1) . 12)
-                   ((3 . 0) . 13)
-                   ((4 . 1) . 14) )
+   ((1 . 2) . 11)
+   ((2 . 1) . 12)
+   ((3 . 0) . 13)
+   ((4 . 1) . 14) )
 
-I would like (ly_assoc_cdr 1) to return 12 - because it's the first
-element with the cdr of the key = 1.  In other words (alloc_cdr key)
-corresponds to call
+   I would like (ly_assoc_cdr 1) to return 12 - because it's the first
+   element with the cdr of the key = 1.  In other words (alloc_cdr key)
+   corresponds to call
 
-(alloc (anything . key))
-
-
-
+   (alloc (anything . key))
 */
 SCM
 ly_assoc_cdr (SCM key, SCM alist)
@@ -402,11 +396,11 @@ parse_symbol_list (char const *lst)
   char *orig = s;
   SCM create_list = SCM_EOL;
 
-  char * e = s + strlen (s) - 1;
+  char *e = s + strlen (s) - 1;
   while (e >= s && isspace (*e))
     *e-- = 0;
 
-  for (char * p = s; *p; p++)
+  for (char *p = s; *p; p++)
     if (*p == '\n')
       *p = ' ';
   
@@ -453,11 +447,11 @@ print_scm_val (SCM val)
     realval = realval.left_string (100)
       + "\n :\n :\n"
       + realval.right_string (100);
-  return realval;	 
+  return realval;
 }
 
 bool
-type_check_assignment (SCM sym, SCM val,  SCM type_symbol) 
+type_check_assignment (SCM sym, SCM val, SCM type_symbol)
 {
   bool ok = true;
 
@@ -466,7 +460,7 @@ type_check_assignment (SCM sym, SCM val,  SCM type_symbol)
 
 
     TODO: should remove #f from allowed vals?
-   */
+  */
   if (val == SCM_EOL || val == SCM_BOOL_F)
     return ok;
 
@@ -480,26 +474,26 @@ type_check_assignment (SCM sym, SCM val,  SCM type_symbol)
     TODO: deprecate the use of \override and \revert for
     autoBeamSettings?
 
-    or use a symbol autoBeamSettingS?  
-   */
-  return true; 
+    or use a symbol autoBeamSettingS?
+  */
+  return true;
 #endif
-  
+
   SCM type = scm_object_property (sym, type_symbol);
 
   if (type != SCM_EOL && !ly_c_procedure_p (type))
-      {
-	warning (_f ("Can't find property type-check for `%s' (%s).",
-		     ly_symbol2string (sym).to_str0 (),
-		     ly_symbol2string (type_symbol).to_str0 ())
-		 + "  " + _ ("Perhaps you made a typing error?"));
+    {
+      warning (_f ("Can't find property type-check for `%s' (%s).",
+		   ly_symbol2string (sym).to_str0 (),
+		   ly_symbol2string (type_symbol).to_str0 ())
+	       + "  " + _ ("Perhaps you made a typing error?"));
 
-	/* Be strict when being anal :) */
-	if (do_internal_type_checking_global)
-	  abort ();
-	
-	warning (_ ("Doing assignment anyway."));
-      }
+      /* Be strict when being anal :) */
+      if (do_internal_type_checking_global)
+	abort ();
+
+      warning (_ ("Doing assignment anyway."));
+    }
   else
     {
       if (val != SCM_EOL
@@ -511,24 +505,21 @@ type_check_assignment (SCM sym, SCM val,  SCM type_symbol)
 	  SCM typefunc = ly_lily_module_constant ("type-name");
 	  SCM type_name = scm_call_1 (typefunc, type);
 
-	 
 	  scm_puts (_f ("Type check for `%s' failed; value `%s' must be of type `%s'",
 			ly_symbol2string (sym).to_str0 (),
 			print_scm_val (val),
 			ly_scm2string (type_name).to_str0 ()).to_str0 (),
 		    errport);
-	  scm_puts ("\n", errport);		      
+	  scm_puts ("\n", errport);
 	}
     }
   return ok;
 }
 
-
 /* some SCM abbrevs
 
-   zijn deze nou handig?
-   zijn ze er al in scheme, maar heten ze anders? */
-
+zijn deze nou handig?
+zijn ze er al in scheme, maar heten ze anders? */
 
 /* Remove doubles from (sorted) list */
 SCM
@@ -544,12 +535,11 @@ ly_unique (SCM list)
   return scm_reverse_x (unique, SCM_EOL);
 }
 
-
 static int
 scm_default_compare (void const *a, void const *b)
 {
-  SCM pa = *(SCM*) a;
-  SCM pb = *(SCM*) b;
+  SCM pa = *(SCM *) a;
+  SCM pb = *(SCM *) b;
   if (pa == pb)
     return 0;
   return pa < pb ? -1 : 1;
@@ -579,9 +569,8 @@ ly_list_qsort_uniq_x (SCM lst)
   *tail = SCM_EOL;
   delete[] arr;
 
-  return lst; 
+  return lst;
 }
-
 
 /* tail add */
 SCM
@@ -605,22 +594,21 @@ ly_split_list (SCM s, SCM list)
 	break;
       before = scm_cons (i, before);
     }
-  return scm_cons ( scm_reverse_x (before, SCM_EOL),  after);
-  
-}
+  return scm_cons (scm_reverse_x (before, SCM_EOL), after);
 
+}
 
 void
 taint (SCM *)
 {
   /*
     nop.
-   */
+  */
 }
 
 /*
   display stuff without using stack
- */
+*/
 SCM
 display_list (SCM s)
 {
@@ -630,7 +618,7 @@ display_list (SCM s)
   for (; scm_is_pair (s); s = scm_cdr (s))
     {
       scm_display (scm_car (s), p);
-      scm_puts (" ", p);      
+      scm_puts (" ", p);
     }
   scm_puts (")", p);
   return SCM_UNSPECIFIED;
@@ -643,13 +631,13 @@ int_list_to_slice (SCM l)
   s.set_empty ();
   for (; scm_is_pair (l); l = scm_cdr (l))
     if (scm_is_number (scm_car (l)))
-      s.add_point (scm_to_int (scm_car (l))); 
+      s.add_point (scm_to_int (scm_car (l)));
   return s;
 }
 
 /* Return I-th element, or last elt L. If I < 0, then we take the first
    element.
-   
+
    PRE: length (L) > 0  */
 SCM
 robust_list_ref (int i, SCM l)
@@ -708,16 +696,15 @@ alist_to_hashq (SCM alist)
   int i = scm_ilength (alist);
   if (i < 0)
     return scm_c_make_hash_table (0);
-	  
+
   SCM tab = scm_c_make_hash_table (i);
   for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM pt = scm_cdar (s);
       scm_hashq_set_x (tab, scm_caar (s), pt);
     }
-  return tab; 
+  return tab;
 }
-
 
 bool
 alist_equal_p (SCM a, SCM b)
@@ -730,14 +717,12 @@ alist_equal_p (SCM a, SCM b)
       SCM l = scm_assoc (key, b);
 
       if (l == SCM_BOOL_F
-	  || !ly_c_equal_p ( scm_cdr (l), val))
+	  || !ly_c_equal_p (scm_cdr (l), val))
 
 	return false;
     }
   return true;
 }
-
-
 
 SCM
 ly_alist_vals (SCM alist)
@@ -756,6 +741,4 @@ ly_hash2alist (SCM tab)
   SCM func = ly_lily_module_constant ("hash-table->alist");
   return scm_call_1 (func, tab);
 }
-
-
 

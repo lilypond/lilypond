@@ -1,10 +1,9 @@
-/* 
+/*
   grace-engraver.cc -- implement Grace_engraver
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2004--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-  
 */
 
 #include "engraver.hh"
@@ -16,15 +15,14 @@ class Grace_engraver : public Engraver
 protected:
   virtual void start_translation_timestep ();
   virtual void derived_mark ();
-  
+
   TRANSLATOR_DECLARATIONS (Grace_engraver);
   Moment last_moment_;
   SCM grace_settings_;
 public:
 };
 
-
-Grace_engraver::Grace_engraver()
+Grace_engraver::Grace_engraver ()
 {
   grace_settings_ = SCM_EOL;
 }
@@ -68,23 +66,23 @@ Grace_engraver::start_translation_timestep ()
 	  SCM val = scm_cadr (scm_cddr (entry));
 
 	  Context *c = context ();
-	  while (c  
+	  while (c
 		 && c->context_name_symbol () != context_name)
 	    {
-	      c = c->get_parent_context ();	      
+	      c = c->get_parent_context ();
 	    }
 
-	  if (c) 
+	  if (c)
 	    {
 	      execute_pushpop_property (c,
 					grob, sym, val);
 	      grace_settings_
-		= scm_cons (scm_cons (c->self_scm(), entry),  grace_settings_);
+		= scm_cons (scm_cons (c->self_scm (), entry), grace_settings_);
 	    }
 	  else
 	    {
 	      programming_error ("Cannot find context");
-	      scm_display (context_name, scm_current_error_port());
+	      scm_display (context_name, scm_current_error_port ());
 	    }
 	}
     }
@@ -92,11 +90,10 @@ Grace_engraver::start_translation_timestep ()
   last_moment_ = now;
 }
 
-
 ADD_TRANSLATOR (Grace_engraver,
-		   /* descr */       "Set font size and other properties for grace notes.",
-		   /* creats*/       "",
-		   /* accepts */     "",
-		   /* acks  */      "",
-		   /* reads */       "graceSettings",
-		   /* write */       "");
+		/* descr */ "Set font size and other properties for grace notes.",
+		/* creats*/ "",
+		/* accepts */ "",
+		/* acks  */ "",
+		/* reads */ "graceSettings",
+		/* write */ "");

@@ -6,7 +6,6 @@
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #ifndef AUDIO_ELEMENT_HH
 #define AUDIO_ELEMENT_HH
 
@@ -17,7 +16,7 @@ class Audio_element
 public:
   Audio_element ();
   virtual ~Audio_element ();
-  virtual const char* name () const;
+  virtual const char *name () const;
 protected:
 };
 

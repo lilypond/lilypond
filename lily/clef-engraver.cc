@@ -17,7 +17,7 @@
 #include "direction.hh"
 #include "side-position-interface.hh"
 
-class Clef_engraver : public  Engraver
+class Clef_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Clef_engraver);
@@ -29,8 +29,8 @@ protected:
   virtual void process_music ();
   virtual void acknowledge_grob (Grob_info);
 private:
-  Item * clef_;
-  Item * octavate_;
+  Item *clef_;
+  Item *octavate_;
 
   SCM prev_glyph_;
   SCM prev_cpos_;
@@ -48,7 +48,7 @@ Clef_engraver::Clef_engraver ()
 
   /*
     will trigger a clef at the start since #f != ' ()
-   */
+  */
   prev_cpos_ = prev_glyph_ = SCM_BOOL_F;
 }
 
@@ -59,25 +59,25 @@ Clef_engraver::set_glyph ()
   SCM glyph = get_property ("clefGlyph");
 
   SCM basic = ly_symbol2scm ("Clef");
-  
+
   execute_pushpop_property (context (), basic, glyph_sym, SCM_UNDEFINED);
   execute_pushpop_property (context (), basic, glyph_sym, glyph);
 }
 
-/** 
-  Generate a clef at the start of a measure. (when you see a Bar,
-  ie. a breakpoint) 
-  */
+/**
+   Generate a clef at the start of a measure. (when you see a Bar,
+   ie. a breakpoint)
+*/
 void
 Clef_engraver::acknowledge_grob (Grob_info info)
 {
-  Item * item = dynamic_cast <Item *> (info.grob_);
+  Item *item = dynamic_cast<Item *> (info.grob_);
   if (item)
     {
       if (Bar_line::has_interface (info.grob_)
 	  && scm_is_string (get_property ("clefGlyph")))
 	create_clef ();
-    } 
+    }
 }
 
 void
@@ -86,7 +86,6 @@ Clef_engraver::create_clef ()
   if (!clef_)
     {
       Item *c = make_item ("Clef", SCM_EOL);
-      
 
       clef_ = c;
       SCM cpos = get_property ("clefPosition");
@@ -94,28 +93,28 @@ Clef_engraver::create_clef ()
       if (scm_is_number (cpos))
 	clef_->set_property ("staff-position", cpos);
 
-      SCM oct =  get_property ("clefOctavation");
+      SCM oct = get_property ("clefOctavation");
       if (scm_is_number (oct) && scm_to_int (oct))
 	{
-	  Item * g = make_item ("OctavateEight", SCM_EOL);
+	  Item *g = make_item ("OctavateEight", SCM_EOL);
 
-	  int abs_oct = scm_to_int (oct) ;
+	  int abs_oct = scm_to_int (oct);
 	  int dir = sign (abs_oct);
-	  abs_oct = abs (abs_oct)  + 1;
+	  abs_oct = abs (abs_oct) + 1;
 
 	  SCM txt = scm_number_to_string (scm_int2num (abs_oct),
 					  scm_from_int (10));
 
 	  g->set_property ("text",
 			   scm_list_n (ly_lily_module_constant ("vcenter-markup"),
-				       txt,  SCM_UNDEFINED));
-	  Side_position_interface::add_support (g, clef_);      
+				       txt, SCM_UNDEFINED));
+	  Side_position_interface::add_support (g, clef_);
 
 	  g->set_parent (clef_, Y_AXIS);
 	  g->set_parent (clef_, X_AXIS);
 	  g->set_property ("direction", scm_int2num (dir));
 	  octavate_ = g;
-	  
+
 	}
     }
 }
@@ -132,7 +131,7 @@ Clef_engraver::inspect_clef_properties ()
   SCM clefpos = get_property ("clefPosition");
   SCM octavation = get_property ("clefOctavation");
   SCM force_clef = get_property ("forceClef");
-  
+
   if (clefpos == SCM_EOL
       || scm_equal_p (glyph, prev_glyph_) == SCM_BOOL_F
       || scm_equal_p (clefpos, prev_cpos_) == SCM_BOOL_F
@@ -151,18 +150,17 @@ Clef_engraver::inspect_clef_properties ()
 
   if (to_boolean (force_clef))
     {
-      Context * w = context ()->where_defined (ly_symbol2scm ("forceClef"));
+      Context *w = context ()->where_defined (ly_symbol2scm ("forceClef"));
       w->set_property ("forceClef", SCM_EOL);
     }
 }
-
 
 void
 Clef_engraver::stop_translation_timestep ()
 {
   if (clef_)
     {
-      SCM vis = 0; 
+      SCM vis = 0;
       if (to_boolean (clef_->get_property ("non-default")))
 	{
 	  vis = get_property ("explicitClefVisibility");
@@ -177,19 +175,17 @@ Clef_engraver::stop_translation_timestep ()
 
 	    }
 	}
-      
+
       clef_ = 0;
 
       octavate_ = 0;
     }
 }
 
-
-
 ADD_TRANSLATOR (Clef_engraver,
-/* descr */       "Determine and set reference point for pitches",
-/* creats*/       "Clef OctavateEight",
-/* accepts */     "",
-/* acks  */      "bar-line-interface",
-/* reads */       "clefPosition clefGlyph middleCPosition clefOctavation explicitClefVisibility forceClef",
-/* write */       "");
+		/* descr */ "Determine and set reference point for pitches",
+		/* creats*/ "Clef OctavateEight",
+		/* accepts */ "",
+		/* acks  */ "bar-line-interface",
+		/* reads */ "clefPosition clefGlyph middleCPosition clefOctavation explicitClefVisibility forceClef",
+		/* write */ "");

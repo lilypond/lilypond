@@ -1,11 +1,10 @@
-/*   
+/*
   moment.hh -- declare Moment
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1999--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #ifndef MOMENT_HH
 #define MOMENT_HH
@@ -19,7 +18,7 @@
 */
 class Moment
 {
-  DECLARE_SIMPLE_SMOBS (Moment, );
+  DECLARE_SIMPLE_SMOBS (Moment,);
 public:
   Moment ();
   Moment (int m);
@@ -27,13 +26,13 @@ public:
   Moment (Rational, Rational);
   Moment (Rational m);
 
-  Moment operator - () const;
-  
-  void operator += (Moment const &m);
-  void operator -= (Moment const &m);  
+  Moment operator- () const;
 
-  void operator *= (Moment const &m);
-  void operator /= (Moment const &m);  
+  void operator+= (Moment const &m);
+  void operator-= (Moment const &m);
+
+  void operator*= (Moment const &m);
+  void operator/= (Moment const &m);
 
   Rational main_part_;
   Rational grace_part_;
@@ -45,25 +44,24 @@ public:
   int num () const;
   /*
     Deliver a copy of THIS as a smobified SCM
-   */
+  */
   String to_string () const;
-  static int compare (Moment const&, Moment const&);
+  static int compare (Moment const &, Moment const &);
   SCM as_scheme () const;
 };
-IMPLEMENT_ARITHMETIC_OPERATOR (Moment, + );
-IMPLEMENT_ARITHMETIC_OPERATOR (Moment, - );
-IMPLEMENT_ARITHMETIC_OPERATOR (Moment, / );
-IMPLEMENT_ARITHMETIC_OPERATOR (Moment, * );
+IMPLEMENT_ARITHMETIC_OPERATOR (Moment, +);
+IMPLEMENT_ARITHMETIC_OPERATOR (Moment, -);
+IMPLEMENT_ARITHMETIC_OPERATOR (Moment, /);
+IMPLEMENT_ARITHMETIC_OPERATOR (Moment, *);
 
-
-DECLARE_UNSMOB(Moment, moment);
-int compare (Moment const&, Moment const&);
-INSTANTIATE_COMPARE (Moment const&, Moment::compare);
+DECLARE_UNSMOB (Moment, moment);
+int compare (Moment const &, Moment const &);
+INSTANTIATE_COMPARE (Moment const &, Moment::compare);
 
 Moment robust_scm2moment (SCM, Moment);
 
 #ifdef STREAM_SUPPORT
-std::ostream & operator << (std::ostream &, Moment const &);
+std::ostream & operator<< (std::ostream &, Moment const &);
 #endif
 
 bool moment_less (SCM a, SCM b);

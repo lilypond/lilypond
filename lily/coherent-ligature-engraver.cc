@@ -1,10 +1,10 @@
 /*
   coherent-ligature-engraver.cc -- implement Coherent_ligature_engraver
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2003--2005 Juergen Reuter <reuter@ipd.uka.de>
- */
+*/
 
 #include "coherent-ligature-engraver.hh"
 
@@ -78,29 +78,29 @@
  * add it to the spacing spanner code.
  */
 #if 0 // experimental code to collapse spacing after ligature
-      SCM incr_scm = lc->get_property ("forced-spacing");
-      if (incr_scm != SCM_EOL) /* (Paper_column::is_musical (l)) */
-	{
-	  me->warning (_f ("gotcha: ptr=%ul", lc));//debug
-	  ly_display_scm (lc->self_scm ());
-	  Real distance;
-	  if (incr_scm != SCM_EOL)
-	    {
-	      distance = scm_to_double (incr_scm);
-	    }
-	  else
-	    {
-	      me->warning ("distance undefined, assuming 0.1");
-	      distance = 0.1;
-	    }
-	  me->warning (_f ("distance=%f", distance));//debug
-	  Real strength = 1.0;
-	  Spaceable_grob::add_spring (lc, rc, distance, strength);
-	  if (Item *rb = r->find_prebroken_piece (LEFT))
-	    Spaceable_grob::add_spring (lc, rb, distance, strength);
+SCM incr_scm = lc->get_property ("forced-spacing");
+if (incr_scm != SCM_EOL) /* (Paper_column::is_musical (l)) */
+  {
+    me->warning (_f ("gotcha: ptr=%ul", lc));//debug
+    ly_display_scm (lc->self_scm ());
+    Real distance;
+    if (incr_scm != SCM_EOL)
+      {
+	distance = scm_to_double (incr_scm);
+      }
+    else
+      {
+	me->warning ("distance undefined, assuming 0.1");
+	distance = 0.1;
+      }
+    me->warning (_f ("distance=%f", distance));//debug
+    Real strength = 1.0;
+    Spaceable_grob::add_spring (lc, rc, distance, strength);
+    if (Item *rb = r->find_prebroken_piece (LEFT))
+      Spaceable_grob::add_spring (lc, rb, distance, strength);
 
-	  continue;
-	}
+    continue;
+  }
 #endif
 
 Coherent_ligature_engraver::Coherent_ligature_engraver ()
@@ -113,7 +113,7 @@ Coherent_ligature_engraver::Coherent_ligature_engraver ()
 void
 Coherent_ligature_engraver::get_set_column (Item *item, Paper_column *column)
 {
-  Item *parent = dynamic_cast<Item*> (item->get_parent (X_AXIS));
+  Item *parent = dynamic_cast<Item *> (item->get_parent (X_AXIS));
   if (!parent)
     {
       programming_error ("failed tweaking paper column in ligature");
@@ -131,8 +131,8 @@ Coherent_ligature_engraver::get_set_column (Item *item, Paper_column *column)
 	   tail = scm_cdr (tail))
 	{
 	  Item *sibling = unsmob_item (scm_car (tail));
-	  if ((sibling) &&
-	      (Staff_symbol_referencer::get_staff_symbol (sibling) == sl))
+	  if ((sibling)
+	      && (Staff_symbol_referencer::get_staff_symbol (sibling) == sl))
 	    {
 #if 0 // experimental code to collapse spacing after ligature
 	      Grob *sibling_parent = sibling->get_parent (X_AXIS);
@@ -140,7 +140,7 @@ Coherent_ligature_engraver::get_set_column (Item *item, Paper_column *column)
 					   "setting `spacing-increment="
 					   "0.01': ptr=%ul", parent));
 	      sibling_parent->set_property ("forced-spacing",
-					      scm_make_real (0.01));
+					    scm_make_real (0.01));
 #endif
 	      sibling->set_parent (column, X_AXIS);
 	    }
@@ -175,20 +175,21 @@ compute_delta_pitches (Array<Grob_info> primitives)
   int prev_pitch = 0;
   int delta_pitch = 0;
   Item *prev_primitive = 0, *primitive = 0;
-  for (int i = 0; i < primitives.size (); i++) {
-    primitive = dynamic_cast<Item*> (primitives[i].grob_);
-    Music *music_cause = primitives[i].music_cause ();
-    int pitch =
-      unsmob_pitch (music_cause->get_property ("pitch"))->steps ();
-    if (prev_primitive)
-      {
-	delta_pitch = pitch - prev_pitch;
-	prev_primitive->set_property ("delta-pitch",
-					   scm_int2num (delta_pitch));
-      }
-    prev_pitch = pitch;
-    prev_primitive = primitive;
-  }
+  for (int i = 0; i < primitives.size (); i++)
+    {
+      primitive = dynamic_cast<Item *> (primitives[i].grob_);
+      Music *music_cause = primitives[i].music_cause ();
+      int pitch
+	= unsmob_pitch (music_cause->get_property ("pitch"))->steps ();
+      if (prev_primitive)
+	{
+	  delta_pitch = pitch - prev_pitch;
+	  prev_primitive->set_property ("delta-pitch",
+					scm_int2num (delta_pitch));
+	}
+      prev_pitch = pitch;
+      prev_primitive = primitive;
+    }
   primitive->set_property ("delta-pitch", scm_int2num (0));
 }
 
@@ -214,9 +215,9 @@ Coherent_ligature_engraver::typeset_ligature (Spanner *ligature,
 }
 
 ADD_TRANSLATOR (Coherent_ligature_engraver,
-/* descr */       "This is an abstract class.  Subclasses such as Gregorian_ligature_engraver handle ligatures by glueing special ligature heads together.",
-/* creats*/       "",
-/* accepts */     "ligature-event",
-/* acks  */      "note-head-interface rest-interface",
-/* reads */       "",
-/* write */       "");
+		/* descr */ "This is an abstract class.  Subclasses such as Gregorian_ligature_engraver handle ligatures by glueing special ligature heads together.",
+		/* creats*/ "",
+		/* accepts */ "ligature-event",
+		/* acks  */ "note-head-interface rest-interface",
+		/* reads */ "",
+		/* write */ "");

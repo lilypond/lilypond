@@ -18,7 +18,6 @@ Simultaneous_music_iterator::Simultaneous_music_iterator ()
   children_list_ = SCM_EOL;
 }
 
-
 void
 Simultaneous_music_iterator::derived_mark () const
 {
@@ -40,19 +39,19 @@ Simultaneous_music_iterator::construct_children ()
   SCM i = get_music ()->get_property ("elements");
 
   children_list_ = SCM_EOL;
-  SCM * tail = &children_list_;
+  SCM *tail = &children_list_;
   for (; scm_is_pair (i); i = scm_cdr (i), j++)
     {
       Music *mus = unsmob_music (scm_car (i));
 
       SCM scm_iter = get_static_get_iterator (mus);
-      Music_iterator * mi = unsmob_iterator (scm_iter);
+      Music_iterator *mi = unsmob_iterator (scm_iter);
 
       /* if create_separate_contexts_ is set, create a new context with the
 	 number number as name */
 
       SCM name = ly_symbol2scm (get_outlet ()->context_name ().to_str0 ());
-      Context * t = (j && create_separate_contexts_)
+      Context *t = (j && create_separate_contexts_)
 	? get_outlet ()->find_create_context (name, to_string (j), SCM_EOL)
 	: get_outlet ();
 
@@ -62,7 +61,7 @@ Simultaneous_music_iterator::construct_children ()
       mi->init_translator (mus, t);
       mi->construct_children ();
 
-      if (mi->ok ()) 
+      if (mi->ok ())
 	{
 	  *tail = scm_cons (scm_iter, *tail);
 	  tail = SCM_CDRLOC (*tail);
@@ -75,12 +74,12 @@ Simultaneous_music_iterator::construct_children ()
 void
 Simultaneous_music_iterator::process (Moment until)
 {
-  SCM *proc = &children_list_; 
+  SCM *proc = &children_list_;
   while (scm_is_pair (*proc))
     {
-      Music_iterator * i = unsmob_iterator (scm_car (*proc));
+      Music_iterator *i = unsmob_iterator (scm_car (*proc));
       if (i->run_always ()
-	  || i->pending_moment () == until) 
+	  || i->pending_moment () == until)
 	{
 	  i->process (until);
 	}
@@ -101,27 +100,27 @@ Simultaneous_music_iterator::pending_moment () const
 {
   Moment next;
   next.set_infinite (1);
-  
+
   for (SCM s = children_list_; scm_is_pair (s); s = scm_cdr (s))
     {
-      Music_iterator * it = unsmob_iterator (scm_car (s));
+      Music_iterator *it = unsmob_iterator (scm_car (s));
       next = next <? it->pending_moment ();
     }
-  
+
   return next;
 }
 
 bool
 Simultaneous_music_iterator::ok () const
 {
-  bool run_always_ok = false; 
+  bool run_always_ok = false;
   for (SCM s = children_list_; scm_is_pair (s); s = scm_cdr (s))
     {
-      Music_iterator * it = unsmob_iterator (scm_car (s));
+      Music_iterator *it = unsmob_iterator (scm_car (s));
       if (!it->run_always ())
 	return true;
       else
-	run_always_ok =  run_always_ok || it->ok ();
+	run_always_ok = run_always_ok || it->ok ();
     }
   return run_always_ok;
 }
@@ -131,17 +130,17 @@ Simultaneous_music_iterator::run_always () const
 {
   for (SCM s = children_list_; scm_is_pair (s); s = scm_cdr (s))
     {
-      Music_iterator * it = unsmob_iterator (scm_car (s));
+      Music_iterator *it = unsmob_iterator (scm_car (s));
       if (it->run_always ())
 	return true;
     }
   return false;
 }
 
-Music_iterator*
+Music_iterator *
 Simultaneous_music_iterator::try_music_in_children (Music *m) const
 {
-  Music_iterator * b = 0;
+  Music_iterator *b = 0;
   for (SCM s = children_list_; !b && scm_is_pair (s); s = scm_cdr (s))
     b = unsmob_iterator (scm_car (s))->try_music (m);
   return b;

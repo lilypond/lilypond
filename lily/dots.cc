@@ -16,19 +16,18 @@
 #include "directional-element-interface.hh"
 
 MAKE_SCHEME_CALLBACK (Dots, print, 1);
-SCM  
+SCM
 Dots::print (SCM d)
 {
   Grob *sc = unsmob_grob (d);
   Stencil mol;
-  
+
   SCM c = sc->get_property ("dot-count");
 
   if (scm_is_number (c))
     {
       Stencil d = Font_interface::get_default_font (sc)->find_by_name (String ("dots.dot"));
       Real dw = d.extent (X_AXIS).length ();
-      
 
       /*
 	we need to add a real blank box, to assure that
@@ -36,10 +35,10 @@ Dots::print (SCM d)
 
       /*
 	TODO: this should  be handled by side-position padding.
-       */
+      */
       mol = Lookup::blank (Box (Interval (0, 0),
 				Interval (0, 0)));
-  
+
       for (int i = scm_to_int (c); i--;)
 	{
 	  d.translate_axis (2*dw, X_AXIS);
@@ -50,12 +49,9 @@ Dots::print (SCM d)
 }
 
 
-
-
 ADD_INTERFACE (Dots, "dots-interface",
 	       "The dots to go with a notehead or rest."
 	       "@code{direction} sets the preferred direction to move in case of staff "
 	       "line collisions.",
 	       "direction dot-count");
-
 

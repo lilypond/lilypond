@@ -11,7 +11,7 @@
 #include "binary-source-file.hh"
 #include "string-convert.hh"
 
-Binary_source_file::Binary_source_file (String& file_name_string)
+Binary_source_file::Binary_source_file (String &file_name_string)
   : Source_file (file_name_string)
 {
 }
@@ -21,20 +21,20 @@ Binary_source_file::~Binary_source_file ()
 }
 
 String
-Binary_source_file::error_string (char const* pos_str0) const
+Binary_source_file::error_string (char const *pos_str0) const
 {
   assert (this);
   if (!contains (pos_str0))
     return "";
 
-  char const* begin_str0 = pos_str0 - 8 >? to_str0 ();
-  char const* end_str0 = pos_str0 + 7 <? to_str0 () + length ();
+  char const *begin_str0 = pos_str0 - 8 >? to_str0 ();
+  char const *end_str0 = pos_str0 + 7 <? to_str0 () + length ();
 
-  String pre_string ((Byte const*)begin_str0, pos_str0 - begin_str0);
+  String pre_string ((Byte const *)begin_str0, pos_str0 - begin_str0);
   pre_string = String_convert::bin2hex (pre_string);
   for (int i = 2; i < pre_string.length (); i += 3)
     pre_string = pre_string.left_string (i) + " " + pre_string.cut_string (i, INT_MAX);
-  String post_string ((Byte const*)pos_str0, end_str0 - pos_str0);
+  String post_string ((Byte const *)pos_str0, end_str0 - pos_str0);
   post_string = String_convert::bin2hex (post_string);
   for (int i = 2; i < post_string.length (); i += 3)
     post_string = post_string.left_string (i) + " " + post_string.cut_string (i, INT_MAX);
@@ -75,13 +75,13 @@ Binary_source_file::get_U16 ()
 
 /*
   naming is wrong. This is a UNIX-endian-32 (as opposed to xinu or ixun)
- */
+*/
 
 U32
 Binary_source_file::get_U32 ()
 {
   U32 b;
-  
+
   b = get_U8 () << 24;
   b |= get_U8 () << 16;
   b |= get_U8 () << 8;
@@ -89,5 +89,4 @@ Binary_source_file::get_U32 ()
 
   return b;
 }
-
 

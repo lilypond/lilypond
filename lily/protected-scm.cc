@@ -1,11 +1,10 @@
-/*   
+/*
   protected-scm.cc -- implement Protected_scm
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1998--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #include "protected-scm.hh"
 
@@ -31,12 +30,12 @@ Protected_scm::~Protected_scm ()
     scm_gc_unprotect_object (object_);
 }
 
-Protected_scm & 
-Protected_scm::operator = (SCM s)
+Protected_scm &
+Protected_scm::operator= (SCM s)
 {
   if (object_ == s)
     return *this;
-  
+
   if (SCM_NIMP (object_))
     scm_gc_unprotect_object (object_);
 
@@ -44,10 +43,10 @@ Protected_scm::operator = (SCM s)
   return *this;
 }
 
-Protected_scm&
-Protected_scm::operator = (Protected_scm const &s)
+Protected_scm &
+Protected_scm::operator= (Protected_scm const &s)
 {
-  return operator = (s.object_);
+  return operator= (s.object_);
 }
 
 Protected_scm::operator SCM () const
@@ -55,7 +54,7 @@ Protected_scm::operator SCM () const
   return object_;
 }
 
-SCM 
+SCM
 Protected_scm::to_SCM () const
 {
   return object_;

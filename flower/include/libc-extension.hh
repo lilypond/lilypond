@@ -18,7 +18,7 @@ char *strnlwr (char *start, int n);
 char *strnupr (char *start, int n);
 
 #if ! HAVE_MEMMEM		/* GNU extension. */
-void *memmem (void const* haystack, int haystack_len,
+void *memmem (void const *haystack, int haystack_len,
 	      void const *needle, int needle_len);
 #endif /* HAVE_MEMMEM */
 
@@ -55,14 +55,15 @@ extern "C" {
 
 #if 1 //! HAVE_FUNOPEN
 
-#define cookie_io_functions_t le_cookie_io_functions_t 
+#define cookie_io_functions_t le_cookie_io_functions_t
   typedef struct
   {
     ssize_t (*read) (void *, char *, size_t);
     ssize_t (*write) (void *, char const *, size_t);
     int (*seek) (void *, off64_t *, int);
     int (*close) (void *);
-  } cookie_io_functions_t;
+  }
+    cookie_io_functions_t;
 
 #else
 
@@ -72,7 +73,8 @@ extern "C" {
     int (*write) (void *, char const *, int);
     fpos_t (*seek) (void *, fpos_t, int);
     int (*close) (void *);
-  } cookie_io_functions_t;
+  }
+    cookie_io_functions_t;
 
 #endif /* ! HAVE_FUNOPEN */
 #endif /* ! HAVE_LIBIO_H */
@@ -86,9 +88,9 @@ extern "C" {
   int handle_cookie_io_fprintf (FILE *file, char const *format, ...);
   int handle_cookie_io_putc (int c, FILE *file);
 
-/* FIXME: ttftool uses fclose fopencookie fprintf and putc only.  if
-          ALIAS_FILE_TO_FILECOOKIE, blondly redefine those functions
-          to wrappers that check for and handle Memory_out_stream.  */
+  /* FIXME: ttftool uses fclose fopencookie fprintf and putc only.  if
+     ALIAS_FILE_TO_FILECOOKIE, blondly redefine those functions
+     to wrappers that check for and handle Memory_out_stream.  */
 #ifdef ALIAS_FILE_TO_FILECOOKIE
 
 #define fclose handle_cookie_io_fclose

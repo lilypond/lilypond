@@ -23,10 +23,8 @@
 
 /*
   TODO: thickness should be a grob property (unit: linethickness)
- rather than hardwired to (staff_space / 6).
- */
-
-  
+  rather than hardwired to (staff_space / 6).
+*/
 
 /*
   UGH : this is full of C&P code. Consolidate!  --hwn
@@ -35,9 +33,9 @@
 /*
   Gregorian chant divisio minima.  (Actually, this was the original
   breathing sign by Michael. -- jr)
- */
+*/
 MAKE_SCHEME_CALLBACK (Breathing_sign, divisio_minima, 1);
-SCM 
+SCM
 Breathing_sign::divisio_minima (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
@@ -68,9 +66,9 @@ Breathing_sign::divisio_minima (SCM smob)
 
 /*
   Gregorian chant divisio maior.
- */
+*/
 MAKE_SCHEME_CALLBACK (Breathing_sign, divisio_maior, 1);
-SCM 
+SCM
 Breathing_sign::divisio_maior (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
@@ -108,9 +106,9 @@ Breathing_sign::divisio_maior (SCM smob)
 
 /*
   Gregorian chant divisio maxima.
- */
+*/
 MAKE_SCHEME_CALLBACK (Breathing_sign, divisio_maxima, 1);
-SCM 
+SCM
 Breathing_sign::divisio_maxima (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
@@ -138,9 +136,9 @@ Breathing_sign::divisio_maxima (SCM smob)
 
 /*
   Gregorian chant finalis.
- */
+*/
 MAKE_SCHEME_CALLBACK (Breathing_sign, finalis, 1);
-SCM 
+SCM
 Breathing_sign::finalis (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
@@ -175,7 +173,7 @@ SCM
 Breathing_sign::offset_callback (SCM element_smob, SCM)
 {
   Grob *me = unsmob_grob (element_smob);
-  
+
   Direction d = get_grob_direction (me);
   if (!d)
     {
@@ -183,11 +181,11 @@ Breathing_sign::offset_callback (SCM element_smob, SCM)
       set_grob_direction (me, d);
     }
 
-  Real inter_f = Staff_symbol_referencer::staff_space (me)/2;
-  int sz = Staff_symbol_referencer::line_count (me)-1;
+  Real inter_f = Staff_symbol_referencer::staff_space (me) / 2;
+  int sz = Staff_symbol_referencer::line_count (me) - 1;
   return scm_make_real (inter_f * sz * d);
 }
 
 ADD_INTERFACE (Breathing_sign, "breathing-sign-interface",
-	      "A breathing sign.",
-	      "direction");
+	       "A breathing sign.",
+	       "direction");

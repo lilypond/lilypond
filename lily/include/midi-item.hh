@@ -2,7 +2,7 @@
   midi-item.hh -- declare Midi items
 
   (c) 1997--2005 Jan Nieuwenhuizen <janneke@gnu.org>
- */
+*/
 
 #ifndef MIDI_ITEM_HH
 #define MIDI_ITEM_HH
@@ -11,10 +11,10 @@
 #include "audio-item.hh"
 
 /**
-  Any piece of midi information.
+   Any piece of midi information.
 
-  Maybe use base classes for RIFF files?
- */
+   Maybe use base classes for RIFF files?
+*/
 class Midi_item
 {
 public:
@@ -22,7 +22,7 @@ public:
   virtual ~Midi_item ();
 
   /// factory
-  static Midi_item* get_midi (Audio_item* a);
+  static Midi_item *get_midi (Audio_item *a);
 
   static String i2varint_string (int i);
 
@@ -32,21 +32,21 @@ public:
 };
 
 /**
-  timed MIDI event
- */
+   timed MIDI event
+*/
 class Midi_event
 {
 public:
-  Midi_event (Moment delta_mom, Midi_item* midi);
+  Midi_event (Moment delta_mom, Midi_item *midi);
 
   Moment delta_mom_;
-  Midi_item* midi_;
+  Midi_item *midi_;
   String to_string () const;
 };
 
 /**
-  variable sized MIDI data
- */
+   variable sized MIDI data
+*/
 class Midi_chunk : public Midi_item
 {
 public:
@@ -76,116 +76,116 @@ public:
 };
 
 /**
-  Change instrument event
- */
+   Change instrument event
+*/
 class Midi_instrument : public Midi_item
 {
 public:
-  Midi_instrument (Audio_instrument*);
+  Midi_instrument (Audio_instrument *);
 
   virtual String to_string () const;
 
-  Audio_instrument* audio_;
+  Audio_instrument *audio_;
 };
-                                      
 
 class Midi_key : public Midi_item
 {
 public:
-  Midi_key (Audio_key*);
-	
+  Midi_key (Audio_key *);
+
   virtual String to_string () const;
 
-  Audio_key* audio_;
+  Audio_key *audio_;
 };
 
 class Midi_time_signature : public Midi_item
 {
 public:
-  Midi_time_signature (Audio_time_signature*);
-  
+  Midi_time_signature (Audio_time_signature *);
+
   virtual String to_string () const;
 
-  Audio_time_signature* audio_;
+  Audio_time_signature *audio_;
   int clocks_per_1_;
 };
 
 /**
-  Turn a note on.
- */
+   Turn a note on.
+*/
 class Midi_note : public Midi_item
 {
 public:
-  Midi_note (Audio_note*);
+  Midi_note (Audio_note *);
 
   Moment get_length () const;
   int get_pitch () const;
   int get_fine_tuning () const;
   virtual String to_string () const;
 
-  Audio_note* audio_;
+  Audio_note *audio_;
 
   static int const c0_pitch_i_ = 60;
   Byte dynamic_byte_;
 };
 
 /**
-  Turn a note off 
- */
+   Turn a note off
+*/
 class Midi_note_off : public Midi_note
 {
 public:
-  Midi_note_off (Midi_note*); 
+  Midi_note_off (Midi_note *);
 
   virtual String to_string () const;
 
-  Midi_note* on_;
+  Midi_note *on_;
   Byte aftertouch_byte_;
 };
 
 class Midi_text : public Midi_item
 {
 public:
-  enum Type { 
-    TEXT = 1, COPYRIGHT, TRACK_NAME, INSTRUMENT_NAME, LYRIC, 
-    MARKER, CUE_POINT
-  };
+  enum Type
+    {
+      TEXT = 1, COPYRIGHT, TRACK_NAME, INSTRUMENT_NAME, LYRIC,
+      MARKER, CUE_POINT
+    };
 
-  Midi_text (Audio_text*);
-    
+  Midi_text (Audio_text *);
+
   virtual String to_string () const;
 
-  Audio_text* audio_;
+  Audio_text *audio_;
 };
 
 class Midi_dynamic : public Midi_item
 {
 public:
-  Midi_dynamic (Audio_dynamic*);
-  
+  Midi_dynamic (Audio_dynamic *);
+
   virtual String to_string () const;
 
-  Audio_dynamic* audio_;
+  Audio_dynamic *audio_;
 };
 
 class Midi_piano_pedal : public Midi_item
 {
 public:
-  Midi_piano_pedal (Audio_piano_pedal*);
-  
+  Midi_piano_pedal (Audio_piano_pedal *);
+
   virtual String to_string () const;
 
-  Audio_piano_pedal* audio_;
+  Audio_piano_pedal *audio_;
 };
 
 class Midi_tempo : public Midi_item
 {
 public:
-  Midi_tempo (Audio_tempo*);
-  
+  Midi_tempo (Audio_tempo *);
+
   virtual String to_string () const;
 
-  Audio_tempo* audio_;
+  Audio_tempo *audio_;
 };
 
 class Midi_track : public Midi_chunk
@@ -195,12 +195,12 @@ public:
 
   /*
     Compensate for starting grace notes.
-   */
+  */
   Cons_list<Midi_event> event_p_list_;
-  
+
   Midi_track ();
 
-  void add (Moment delta_time_mom, Midi_item* midi);
+  void add (Moment delta_time_mom, Midi_item *midi);
   virtual String data_string () const;
 };
 

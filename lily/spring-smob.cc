@@ -1,11 +1,10 @@
-/*   
+/*
   spring.cc -- implement Spring
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1999--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #include "spring.hh"
 #include "warn.hh"
@@ -18,7 +17,6 @@ Spring_smob::Spring_smob ()
   expand_only_b_ = false;
   other_ = 0;
 }
-
 
 IMPLEMENT_SIMPLE_SMOBS (Spring_smob);
 
@@ -33,7 +31,7 @@ Spring_smob::print_smob (SCM, SCM p, scm_print_state *)
 }
 
 SCM
-Spring_smob::equal_p (SCM a , SCM b)
+Spring_smob::equal_p (SCM a, SCM b)
 {
   return a == b? SCM_BOOL_T : SCM_BOOL_F;
 }

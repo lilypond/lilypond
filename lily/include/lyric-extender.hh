@@ -11,7 +11,6 @@
 #include "spanner.hh"
 
 /*
-
   Extenders must be entered manually for now.
 
   Although it would be possible for Lily to determine where to
@@ -22,14 +21,13 @@
   for on a word's last syllable.  The extender should be aligned
   with the left side of the last note of the melissima, and not
   extend beond, lasting the whole duration of the melissima
-
- */
+*/
 
 class Lyric_extender
 {
 public:
-  static bool has_interface (Grob*);
-  DECLARE_SCHEME_CALLBACK (print, (SCM ));
+  static bool has_interface (Grob *);
+  DECLARE_SCHEME_CALLBACK (print, (SCM));
 };
 
 #endif // EXTENDER_SPANNER_HH

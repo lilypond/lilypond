@@ -15,13 +15,12 @@ void debug_init ();
 void set_debug (bool);
 void do_scores ();
 void clear_scores ();
-void add_score (Score* s);
+void add_score (Score *s);
 void set_default_output (String s);
 String find_file (String);
 void call_constructors ();
 Array<String> get_inclusion_names ();
 void set_inclusion_names (Array<String>);
-
 
 extern String init_name_global;
 
@@ -37,8 +36,8 @@ extern bool is_TeX_format_global;
 extern String prefix_directory;
 
 /*
-  todo: collect in Output_option struct? 
- */
+  todo: collect in Output_option struct?
+*/
 extern String output_format_global;
 
 extern bool make_preview;
@@ -51,7 +50,7 @@ extern File_path global_path;
 
 /*
   Debugging options
- */
+*/
 
 #ifndef NDEBUG
 #define DEBUG_SLUR_SCORING 1

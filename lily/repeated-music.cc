@@ -1,11 +1,10 @@
-/*   
+/*
   repeated-music.cc -- implement Repeated_music
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1999--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #include "repeated-music.hh"
 #include "music-sequence.hh"
@@ -25,22 +24,22 @@ Repeated_music::alternatives (Music *me)
   return me->get_property ("elements");
 }
 
-MAKE_SCHEME_CALLBACK(Repeated_music, relative_callback, 2);
+MAKE_SCHEME_CALLBACK (Repeated_music, relative_callback, 2);
 SCM
 Repeated_music::relative_callback (SCM music, SCM pitch)
 {
   Pitch p = *unsmob_pitch (pitch);
-  Music *me = unsmob_music (music); 
+  Music *me = unsmob_music (music);
   if (lily_1_8_relative)
     {
       Music *body = unsmob_music (me->get_property ("element"));
       if (body)
 	p = body->to_relative_octave (p);
 
-      Pitch last = p ;
+      Pitch last = p;
       SCM alternatives = me->get_property ("elements");
 
-      for (SCM s = alternatives; scm_is_pair (s);  s = scm_cdr (s))
+      for (SCM s = alternatives; scm_is_pair (s); s = scm_cdr (s))
 	{
 	  lily_1_8_compatibility_used = true;
 	  unsmob_music (scm_car (s))->to_relative_octave (p);
@@ -54,15 +53,14 @@ Repeated_music::relative_callback (SCM music, SCM pitch)
     }
 }
 
-
 Moment
-Repeated_music::alternatives_get_length (Music *me, bool fold) 
+Repeated_music::alternatives_get_length (Music *me, bool fold)
 {
   SCM alternative_list = alternatives (me);
   int len = scm_ilength (alternative_list);
   if (len <= 0)
     return 0;
-  
+
   if (fold)
     return Music_sequence::maximum_length (alternative_list);
 
@@ -74,7 +72,7 @@ Repeated_music::alternatives_get_length (Music *me, bool fold)
   while (scm_is_pair (p) && done < count)
     {
       m = m + unsmob_music (scm_car (p))->get_length ();
-      done ++;
+      done++;
       if (count - done < len)
 	p = scm_cdr (p);
     }
@@ -91,10 +89,9 @@ Repeated_music::alternatives_volta_get_length (Music *me)
   return Music_sequence::cumulative_length (alternatives (me));
 }
 
-
 /*
-  Length of the body in THIS. Disregards REPEAT-COUNT. 
- */
+  Length of the body in THIS. Disregards REPEAT-COUNT.
+*/
 Moment
 Repeated_music::body_get_length (Music *me)
 {
@@ -105,7 +102,6 @@ Repeated_music::body_get_length (Music *me)
     }
   return m;
 }
-
 
 MAKE_SCHEME_CALLBACK (Repeated_music, unfolded_music_length, 1);
 
@@ -124,12 +120,12 @@ Repeated_music::folded_music_length (SCM m)
 {
   Music *me = unsmob_music (m);
 
-  Moment l =  body_get_length (me) + alternatives_get_length (me, true);
+  Moment l = body_get_length (me) + alternatives_get_length (me, true);
   return l.smobbed_copy ();
 }
 
 int
-Repeated_music::repeat_count (Music *me) 
+Repeated_music::repeat_count (Music *me)
 {
   return scm_to_int (me->get_property ("repeat-count"));
 }
@@ -162,10 +158,10 @@ MAKE_SCHEME_CALLBACK (Repeated_music, first_start, 1);
 SCM
 Repeated_music::first_start (SCM m)
 {
-  Music * me = unsmob_music (m);
-  Music * body = unsmob_music (me->get_property ("element"));
+  Music *me = unsmob_music (m);
+  Music *body = unsmob_music (me->get_property ("element"));
 
-  Moment rv =  (body) ? body->start_mom () :
+  Moment rv = (body) ? body->start_mom () :
     Music_sequence::first_start (me->get_property ("elements"));
 
   return rv.smobbed_copy ();

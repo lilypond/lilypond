@@ -5,12 +5,11 @@
 
   written for the GNU LilyPond music typesetter
 
-TODO:
+  TODO:
 
   . Cancel any beams running through the breathing sign
- ([e8 \breathe f e f] should become [e8] \breathe [f e f])
+  ([e8 \breathe f e f] should become [e8] \breathe [f e f])
   . Spacing is not yet completely pretty
-
 */
 
 #include "staff-symbol-referencer.hh"
@@ -18,19 +17,19 @@ TODO:
 #include "engraver-group-engraver.hh"
 #include "item.hh"
 
-
-class Breathing_sign_engraver : public Engraver {
+class Breathing_sign_engraver : public Engraver
+{
 public:
   TRANSLATOR_DECLARATIONS (Breathing_sign_engraver);
-  
+
 protected:
   virtual bool try_music (Music *req);
   virtual void process_acknowledged_grobs ();
   virtual void stop_translation_timestep ();
 
 private:
-  Music * breathing_sign_req_;
-  Grob * breathing_sign_;
+  Music *breathing_sign_req_;
+  Grob *breathing_sign_;
 };
 
 Breathing_sign_engraver::Breathing_sign_engraver ()
@@ -40,7 +39,7 @@ Breathing_sign_engraver::Breathing_sign_engraver ()
 }
 
 bool
-Breathing_sign_engraver::try_music (Music*r)
+Breathing_sign_engraver::try_music (Music *r)
 {
   breathing_sign_req_ = r;
   return true;
@@ -56,18 +55,17 @@ Breathing_sign_engraver::process_acknowledged_grobs ()
     }
 }
 
-void 
+void
 Breathing_sign_engraver::stop_translation_timestep ()
 {
   breathing_sign_ = 0;
   breathing_sign_req_ = 0;
 }
 
-
 ADD_TRANSLATOR (Breathing_sign_engraver,
-/* descr */       "",
-/* creats*/       "BreathingSign",
-/* accepts */     "breathing-event",
-/* acks  */      "",
-/* reads */       "",
-/* write */       "");
+		/* descr */ "",
+		/* creats*/ "BreathingSign",
+		/* accepts */ "breathing-event",
+		/* acks  */ "",
+		/* reads */ "",
+		/* write */ "");

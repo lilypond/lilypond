@@ -6,7 +6,6 @@
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #ifndef RATIONAL_HH
 #define RATIONAL_HH
 
@@ -14,8 +13,9 @@
 
 /**
    Rational numbers.  Included is support for + and - infinity.
- */
-class Rational {
+*/
+class Rational
+{
   /**
      Sign of rational.
      -2, .. 2
@@ -23,7 +23,7 @@ class Rational {
      -2,2 is - and + infinity.
      -1,1 is negative and positive.
      0 if *this is zero.
-   */
+  */
   int sign_;
   unsigned int num_, den_;
   void normalise ();
@@ -35,8 +35,8 @@ public:
   void invert ();
   int numerator () const { return sign_ * num_; }
   int denominator () const { return den_; }
-  int num () const { return numerator(); }
-  int den () const { return denominator(); }
+  int num () const { return numerator (); }
+  int den () const { return denominator (); }
 
   Rational trunc_rat () const;
   Rational div_rat (Rational) const;
@@ -45,42 +45,43 @@ public:
   //   operator bool () const;
   int to_int () const;
   operator double () const;
-  Rational operator - () const;
+  Rational operator- () const;
   /**
-     Initialize to 0. 
-   */
+     Initialize to 0.
+  */
   Rational ();
   Rational (int);
   Rational (int, int);
   Rational (double);
-  Rational (Rational const&r) {   copy (r);}
-  Rational &operator = (Rational const &r) {
+  Rational (Rational const &r) { copy (r);}
+  Rational &operator= (Rational const &r)
+  {
     copy (r); return *this;
   }
 
-  Rational &operator *= (Rational);
-  Rational &operator /= (Rational);  
-  Rational &operator += (Rational);
-  Rational &operator -= (Rational);
-  Rational &operator %= (Rational);
-  static int compare (Rational const&, Rational const&);
+  Rational &operator*= (Rational);
+  Rational &operator/= (Rational);
+  Rational &operator+= (Rational);
+  Rational &operator-= (Rational);
+  Rational &operator%= (Rational);
+  static int compare (Rational const &, Rational const &);
   int sign () const;
   String to_string () const;
 };
 
-IMPLEMENT_ARITHMETIC_OPERATOR (Rational, / );
-IMPLEMENT_ARITHMETIC_OPERATOR (Rational, + );
-IMPLEMENT_ARITHMETIC_OPERATOR (Rational, * );
-IMPLEMENT_ARITHMETIC_OPERATOR (Rational, - );
-IMPLEMENT_ARITHMETIC_OPERATOR (Rational, % );
+IMPLEMENT_ARITHMETIC_OPERATOR (Rational, /);
+IMPLEMENT_ARITHMETIC_OPERATOR (Rational, +);
+IMPLEMENT_ARITHMETIC_OPERATOR (Rational, *);
+IMPLEMENT_ARITHMETIC_OPERATOR (Rational, -);
+IMPLEMENT_ARITHMETIC_OPERATOR (Rational, %);
 
-INSTANTIATE_COMPARE (Rational const&, Rational::compare);
+INSTANTIATE_COMPARE (Rational const &, Rational::compare);
 
-int compare (Rational const&,Rational const&);
+int compare (Rational const &, Rational const &);
 int sign (Rational r);
 
 inline void
-Rational::copy (Rational const&r)
+Rational::copy (Rational const &r)
 {
   sign_ = r.sign_;
   num_ = r.num_;
@@ -89,7 +90,7 @@ Rational::copy (Rational const&r)
 
 #if 0
 ostream &
-operator << (ostream &,  Rational);
+operator<< (ostream &, Rational);
 #endif
 
 const Rational infinity_rat = INT_MAX;

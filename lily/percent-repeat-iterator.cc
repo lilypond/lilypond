@@ -1,11 +1,10 @@
-/*   
+/*
   percent-repeat-iterator.cc -- implement Percent_repeat_iterator
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2001--2005  Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #include "percent-repeat-iterator.hh"
 
@@ -13,7 +12,6 @@
 #include "input.hh"
 
 IMPLEMENT_CTOR_CALLBACK (Percent_repeat_iterator);
-
 
 Percent_repeat_iterator::Percent_repeat_iterator ()
 {
@@ -41,7 +39,6 @@ Percent_repeat_iterator::construct_children ()
   child_iter_ = unsmob_iterator (get_iterator (Repeated_music::body (mus)));
 }
 
-
 void
 Percent_repeat_iterator::process (Moment m)
 {
@@ -51,15 +48,15 @@ Percent_repeat_iterator::process (Moment m)
       if (yeah)
 	set_context (yeah->get_outlet ());
       else
-	get_music ()->origin ()->warning ( _ ("no one to print a percent"));
+	get_music ()->origin ()->warning (_ ("no one to print a percent"));
     }
-  
+
   if (child_iter_->ok ())
     child_iter_->process (m);
 
-  if (finish_mom_ <= m )
+  if (finish_mom_ <= m)
     {
-      child_iter_->quit (); 
+      child_iter_->quit ();
       child_iter_ = 0;
     }
 }
@@ -70,10 +67,10 @@ Percent_repeat_iterator::pending_moment ()const
   if (child_iter_->ok ())
     return child_iter_->pending_moment ();
   else
-    return finish_mom_ ;
+    return finish_mom_;
 }
 
-Music_iterator*
+Music_iterator *
 Percent_repeat_iterator::try_music_in_children (Music *m) const
 {
   return child_iter_->try_music (m);
@@ -87,7 +84,7 @@ Percent_repeat_iterator::derived_mark ()const
 }
 
 void
-Percent_repeat_iterator::derived_substitute (Context *f, Context *t )
+Percent_repeat_iterator::derived_substitute (Context *f, Context *t)
 {
   if (child_iter_)
     child_iter_->substitute_outlet (f, t);

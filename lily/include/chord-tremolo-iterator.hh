@@ -1,11 +1,10 @@
-/*   
+/*
   chord-tremolo-iterator.hh -- declare Chord_tremolo_iterator
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2000--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #ifndef CHORD_TREMOLO_ITERATOR_HH
 #define CHORD_TREMOLO_ITERATOR_HH
@@ -15,24 +14,23 @@
 class Chord_tremolo_iterator : public Music_iterator
 {
 public:
-  DECLARE_SCHEME_CALLBACK(constructor, ());
+  DECLARE_SCHEME_CALLBACK (constructor, ());
   Chord_tremolo_iterator ();
-  Chord_tremolo_iterator (Chord_tremolo_iterator const & );
+  Chord_tremolo_iterator (Chord_tremolo_iterator const &);
 protected:
-  virtual void derived_substitute (Context *f, Context *t) ;
+  virtual void derived_substitute (Context *f, Context *t);
 
   virtual void derived_mark () const;
   virtual Moment pending_moment () const;
-  virtual void do_quit(); 
-  virtual void construct_children () ;
+  virtual void do_quit ();
+  virtual void construct_children ();
   virtual bool ok () const;
-  virtual void process (Moment) ;
+  virtual void process (Moment);
   virtual Music_iterator *try_music_in_children (Music *) const;
 private:
   Moment factor_;
-  Music_iterator * child_iter_;
+  Music_iterator *child_iter_;
 };
-
 
 #endif /* CHORD_TREMOLO_ITERATOR_HH */
 

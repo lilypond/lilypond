@@ -1,4 +1,3 @@
-
 /*
   crescendo-text-spanner.cc -- implement Text_spanner
 
@@ -6,7 +5,7 @@
 
   (c) 2000--2005 Jan Nieuwenhuizen <janneke@gnu.org>
 
-  Revised over good by Han-Wen. 
+  Revised over good by Han-Wen.
 */
 
 #include "text-item.hh"
@@ -20,14 +19,12 @@
 #include "paper-column.hh"
 
 
-
 class Dynamic_text_spanner
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  static bool has_interface (Grob*);
+  static bool has_interface (Grob *);
 };
-
 
 
 /*
@@ -38,28 +35,26 @@ public:
   * does not require bracket functionality.
 
   * should make room for spanning points (mf/f/mp texts).
- 
+
   * In the future, we should  support
 
-   cresc - - - - poco - - - a - - - - poco - - - 
+  cresc - - - - poco - - - a - - - - poco - - -
 
   as well
 
 
   The cut & paste is rather inelegant, but text-spanner was a failed
   and buggy attempt at being generic.
-  
-  
 */
 MAKE_SCHEME_CALLBACK (Dynamic_text_spanner, print, 1);
 SCM
-Dynamic_text_spanner::print (SCM smob) 
+Dynamic_text_spanner::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  Spanner *spanner = dynamic_cast<Spanner*> (me);
+  Spanner *spanner = dynamic_cast<Spanner *> (me);
 
   Grob *common = spanner->get_bound (LEFT)->common_refpoint (spanner->get_bound (RIGHT), X_AXIS);
-  Output_def * layout = me->get_layout ();
+  Output_def *layout = me->get_layout ();
 
   Interval span_points;
   Drul_array<bool> broken;
@@ -86,14 +81,13 @@ Dynamic_text_spanner::print (SCM smob)
 	      encl = -d;
 	    }
 
-	  Interval ext  = b->extent (common, X_AXIS);
-	  span_points[d] = -d  * pad
+	  Interval ext = b->extent (common, X_AXIS);
+	  span_points[d] = -d * pad
 	    + robust_relative_extent (b, common, X_AXIS)
 	    .linear_combination (encl);
 	}
     }
   while (flip (&d) != LEFT);
-
 
   Stencil m;
   SCM properties = Font_interface::text_font_alist_chain (me);
@@ -106,12 +100,12 @@ Dynamic_text_spanner::print (SCM smob)
 	{
 	  if (broken[d])
 	    continue;
-	  
+
 	  SCM text = index_get_cell (edge_text, d);
 
-	  if (Text_interface::markup_p (text)) 
+	  if (Text_interface::markup_p (text))
 	    edge[d] = *unsmob_stencil (Text_interface::interpret_markup (layout->self_scm (), properties, text));
-	  
+
 	  if (!edge[d].is_empty ())
 	    edge[d].align_to (Y_AXIS, CENTER);
 	}
@@ -121,22 +115,21 @@ Dynamic_text_spanner::print (SCM smob)
   do
     {
       Interval ext = edge[d].extent (X_AXIS);
-      Real pad = robust_scm2double (me->get_property ("bound-padding"), 0.0);      
+      Real pad = robust_scm2double (me->get_property ("bound-padding"), 0.0);
       if (!ext.is_empty ())
 	{
 	  edge[d].translate_axis (span_points[d], X_AXIS);
 	  m.add_stencil (edge[d]);
-	  span_points[d] += -d *  (ext[-d] + pad);
+	  span_points[d] += -d * (ext[-d] + pad);
 	}
     }
   while (flip (&d) != LEFT);
 
-  
   if (!span_points.is_empty ())
     {
       Stencil l = Line_spanner::line_stencil (me,
-					     Offset (span_points[LEFT], 0),
-					     Offset (span_points[RIGHT], 0));
+					      Offset (span_points[LEFT], 0),
+					      Offset (span_points[RIGHT], 0));
       m.add_stencil (l);
     }
   m.translate_axis (- me->relative_coordinate (common, X_AXIS), X_AXIS);

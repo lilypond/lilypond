@@ -17,9 +17,9 @@
 #include "context.hh"
 #include "warn.hh"
 
-class Chord_name_engraver : public Engraver 
+class Chord_name_engraver : public Engraver
 {
-  TRANSLATOR_DECLARATIONS ( Chord_name_engraver);
+  TRANSLATOR_DECLARATIONS (Chord_name_engraver);
 protected:
   virtual void stop_translation_timestep ();
   virtual void process_music ();
@@ -28,14 +28,12 @@ protected:
   virtual void derived_mark () const;
 private:
   void add_note (Music *);
-  
-  Item* chord_name_;
+
+  Item *chord_name_;
   Link_array<Music> notes_;
-  
+
   SCM last_chord_;
 };
-
-
 
 void
 Chord_name_engraver::finalize ()
@@ -43,7 +41,7 @@ Chord_name_engraver::finalize ()
 }
 
 void
-Chord_name_engraver::derived_mark() const
+Chord_name_engraver::derived_mark () const
 {
   scm_gc_mark (last_chord_);
 }
@@ -55,7 +53,7 @@ Chord_name_engraver::Chord_name_engraver ()
 }
 
 void
-Chord_name_engraver::add_note (Music * n)
+Chord_name_engraver::add_note (Music *n)
 {
   notes_.push (n);
 }
@@ -63,21 +61,21 @@ Chord_name_engraver::add_note (Music * n)
 void
 Chord_name_engraver::process_music ()
 {
-  if (!notes_.size () )
+  if (!notes_.size ())
     return;
-  
+
   SCM bass = SCM_EOL;
   SCM inversion = SCM_EOL;
   SCM pitches = SCM_EOL;
 
-  Music* inversion_event = 0;
-  for (int i = 0 ; i < notes_.size (); i++)
+  Music *inversion_event = 0;
+  for (int i = 0; i < notes_.size (); i++)
     {
       Music *n = notes_[i];
       SCM p = n->get_property ("pitch");
       if (!unsmob_pitch (p))
 	continue;
-      
+
       if (n->get_property ("inversion") == SCM_BOOL_T)
 	{
 	  inversion_event = n;
@@ -95,9 +93,9 @@ Chord_name_engraver::process_music ()
       if (scm_is_number (oct))
 	{
 	  Pitch *p = unsmob_pitch (inversion_event->get_property ("pitch"));
-	  int octavation =  scm_to_int (oct);
+	  int octavation = scm_to_int (oct);
 	  Pitch orig = p->transposed (Pitch (-octavation, 0, 0));
-	  
+
 	  pitches = scm_cons (orig.smobbed_copy (), pitches);
 	}
       else
@@ -111,15 +109,15 @@ Chord_name_engraver::process_music ()
 			   context ()->self_scm ());
 
   /*
-    Ugh. 
-   */
+    Ugh.
+  */
   SCM chord_as_scm = scm_cons (pitches, scm_cons (bass, inversion));
-  
+
   chord_name_ = make_item ("ChordName", notes_[0]->self_scm ());
   chord_name_->set_property ("text", markup);
 
   SCM s = get_property ("chordChanges");
-  if (to_boolean (s) && scm_is_pair (last_chord_) 
+  if (to_boolean (s) && scm_is_pair (last_chord_)
       && ly_c_equal_p (chord_as_scm, last_chord_))
     chord_name_->set_property ("begin-of-line-visible", SCM_BOOL_T);
 
@@ -127,11 +125,11 @@ Chord_name_engraver::process_music ()
 }
 
 bool
-Chord_name_engraver::try_music (Music* m)
+Chord_name_engraver::try_music (Music *m)
 {
   /*
-    hmm. Should check? 
-   */
+    hmm. Should check?
+  */
   if (m->is_mus_type ("note-event"))
     {
       add_note (m);
@@ -152,11 +150,11 @@ Chord_name_engraver::stop_translation_timestep ()
   which properties are read depend on the chord naming function active.
 */
 ADD_TRANSLATOR (Chord_name_engraver,
-/* descr */       "Catch note-events "
-"and generate the appropriate chordname.",
-/* creats*/       "ChordName",
-/* accepts */     "note-event",
-/* acks  */      "",
-/* reads */       "chordChanges chordNameExceptions chordNameFunction "
-"chordNoteNamer chordRootNamer chordNameExceptions majorSevenSymbol",
-/* write */       "");
+		/* descr */ "Catch note-events "
+		"and generate the appropriate chordname.",
+		/* creats*/ "ChordName",
+		/* accepts */ "note-event",
+		/* acks  */ "",
+		/* reads */ "chordChanges chordNameExceptions chordNameFunction "
+		"chordNoteNamer chordRootNamer chordNameExceptions majorSevenSymbol",
+		/* write */ "");

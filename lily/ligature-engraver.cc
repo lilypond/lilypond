@@ -1,11 +1,10 @@
-/*   
+/*
   ligature-engraver.cc -- implement Ligature_engraver
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2002--2005 Juergen Reuter <reuter@ipd.uka.de>
-  
- */
+*/
 
 #include "ligature-engraver.hh"
 
@@ -188,8 +187,8 @@ Ligature_engraver::process_music ()
 
       prev_start_req_ = reqs_drul_[START];
       ligature_ = create_ligature_spanner ();
-      brew_ligature_primitive_proc =
-	ligature_->get_property ("ligature-primitive-callback");
+      brew_ligature_primitive_proc
+	= ligature_->get_property ("ligature-primitive-callback");
       if (brew_ligature_primitive_proc == SCM_EOL)
 	{
 	  warning ("Ligature_engraver: ligature-primitive-callback undefined");
@@ -274,7 +273,7 @@ Ligature_engraver::acknowledge_grob (Grob_info info)
 	{
 	  primitives_.push (info);
 	  info.grob_->set_property ("print-function",
-					 brew_ligature_primitive_proc);
+				    brew_ligature_primitive_proc);
 	}
       if (Rest::has_interface (info.grob_))
 	{
@@ -287,9 +286,9 @@ Ligature_engraver::acknowledge_grob (Grob_info info)
 }
 
 ADD_TRANSLATOR (Ligature_engraver,
-/* descr */       "Abstract class; a concrete subclass handles Ligature_events by engraving Ligatures in a concrete style.",
-/* creats */      "",
-/* accepts */     "ligature-event",
-/* acks  */      "note-head-interface rest-interface",
-/* reads */       "",
-/* write */       "");
+		/* descr */ "Abstract class; a concrete subclass handles Ligature_events by engraving Ligatures in a concrete style.",
+		/* creats */ "",
+		/* accepts */ "ligature-event",
+		/* acks  */ "note-head-interface rest-interface",
+		/* reads */ "",
+		/* write */ "");

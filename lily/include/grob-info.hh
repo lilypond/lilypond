@@ -6,7 +6,6 @@
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #ifndef STAFFELEMINFO_HH
 #define STAFFELEMINFO_HH
 
@@ -16,16 +15,17 @@
 
 /*
   Data container for broadcasts.
-  */
-struct Grob_info {
-  Translator * origin_trans_;
+*/
+struct Grob_info
+{
+  Translator *origin_trans_;
   friend class Engraver;
 
-  Grob * grob_;
+  Grob *grob_;
 
 public:
-  Music * music_cause ();
-  Link_array<Context> origin_contexts (Translator*) const;
+  Music *music_cause ();
+  Link_array<Context> origin_contexts (Translator *) const;
   Grob_info ();
 };
 

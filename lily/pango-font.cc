@@ -4,9 +4,7 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2004--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
-
 
 #define PANGO_ENABLE_BACKEND // ugh, why necessary?
 
@@ -20,7 +18,6 @@
 
 #if HAVE_PANGO_FT2
 #include "stencil.hh"
-
 
 Pango_font::Pango_font (PangoFT2FontMap *fontmap,
 			Direction dir,
@@ -36,15 +33,14 @@ Pango_font::Pango_font (PangoFT2FontMap *fontmap,
 
   pango_description_ = pango_font_description_copy (description);
   //  context_ = pango_ft2_font_map_create_context (fontmap);
-  attribute_list_= pango_attr_list_new();
-
+  attribute_list_= pango_attr_list_new ();
 
   /*
     urgh. I don't understand this. Why isn't this 1/(scale *
     resolution * output_scale)
 
     --hwn
-   */
+  */
   scale_ = INCH_TO_BP / (Real (PANGO_SCALE) * Real (PANGO_RESOLUTION) * output_scale);
 
   /*
@@ -91,9 +87,9 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
   PangoRectangle ink_rect;
   pango_glyph_string_extents (pgs, pa->font, &ink_rect, &logical_rect);
 
-  PangoFcFont *fcfont = G_TYPE_CHECK_INSTANCE_CAST(pa->font,
-						   PANGO_TYPE_FC_FONT,
-						   PangoFcFont);
+  PangoFcFont *fcfont = G_TYPE_CHECK_INSTANCE_CAST (pa->font,
+						    PANGO_TYPE_FC_FONT,
+						    PangoFcFont);
 
   FT_Face ftface = pango_fc_font_lock_face (fcfont);
   Box b (Interval (PANGO_LBEARING (ink_rect),
@@ -123,7 +119,7 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
 
   PangoFontDescription *descr = pango_font_describe (pa->font);
   Real size = pango_font_description_get_size (descr)
-    /  (Real (PANGO_SCALE));
+    / (Real (PANGO_SCALE));
 
   FcPattern *fcpat = fcfont->font_pattern;
   char *filename = 0;
@@ -152,8 +148,8 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
       name = name.left_string (idx);
 
       int slash_idx = name.index_last ('/');	// UGh. What's happens on windows?
-      if (slash_idx >=  0)
-	name = name.right_string (name.length() - slash_idx - 1);
+      if (slash_idx >= 0)
+	name = name.right_string (name.length () - slash_idx - 1);
 
       String initial = name.cut_string (0, 1);
       initial.to_upper ();
@@ -179,7 +175,7 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
   else
     {
       warning (_ ("FreeType face has no PostScript font name."));
-      return Stencil();
+      return Stencil ();
     }
 }
 
@@ -202,7 +198,7 @@ Pango_font::text_stencil (String str) const
   Real x = 0.0;
   while (ptr)
     {
-      PangoItem *item = (PangoItem*) ptr->data;
+      PangoItem *item = (PangoItem *) ptr->data;
 
       Stencil item_stencil = pango_item_string_stencil (item, str, x);
 
@@ -216,13 +212,13 @@ Pango_font::text_stencil (String str) const
   /*
     UGH. Should have flags per output format signifying supported
     options.
-   */
+  */
   if (output_backend_global != "ps"
       && output_backend_global != "eps")
     {
       /*
 	For Pango based backends, we take a shortcut.
-       */
+      */
       char *descr_string = pango_font_description_to_string (pango_description_);
       SCM exp
 	= scm_list_3 (ly_symbol2scm ("utf8-string"),
@@ -248,65 +244,58 @@ Pango_font::text_stencil (String str) const
   return dest;
 }
 
-
 SCM
 Pango_font::font_file_name () const
 {
   return SCM_BOOL_F;
 }
 
-
 #endif
-
-
 
 #if 0
 void test_pango ()
 {
   int dpi = 1200;
 
-  char * font_family = "Emmentaler";
-  PangoContext * pango_context =
-    pango_ft2_get_context (dpi, dpi);
+  char *font_family = "Emmentaler";
+  PangoContext *pango_context
+    = pango_ft2_get_context (dpi, dpi);
   PangoFontDescription *font_description;
   font_description = pango_font_description_new ();
   pango_font_description_set_family (font_description, g_strdup (font_family));
   pango_font_description_set_style (font_description, (PangoStyle) 20);
   pango_context_set_font_description (pango_context, font_description);
 
-
-  PangoAttrList *attr_list = pango_attr_list_new();
+  PangoAttrList *attr_list = pango_attr_list_new ();
   char *str = "sfz";
   GList *items = pango_itemize (pango_context, str, 0, strlen (str),
 				attr_list, NULL);
 
-
   GList *ptr = items;
   while (ptr)
     {
-      PangoItem *item = (PangoItem*)ptr->data;
-      printf( "off %d len %d num %d\n", item->offset, item->length, item->num_chars);
+      PangoItem *item = (PangoItem *)ptr->data;
+      printf ("off %d len %d num %d\n", item->offset, item->length, item->num_chars);
 
       PangoAnalysis paobj = item->analysis;
-      PangoAnalysis * pa = &paobj;
+      PangoAnalysis *pa = &paobj;
 
       PangoFontDescription *descr = pango_font_describe (pa->font);
       //      assert (font_description == descr);
       printf ("font descr string '%s' fname '%s'",
 	      pango_font_description_to_string (descr),
-	      pango_font_description_to_filename (descr)
-	      );
+	      pango_font_description_to_filename (descr));
 
       printf ("type name %s\n", g_type_name (G_TYPE_FROM_INSTANCE (pa->font)));
-      PangoFcFont * fcfont = G_TYPE_CHECK_INSTANCE_CAST (pa->font,
-							 PANGO_TYPE_FC_FONT,
-							 PangoFcFont);
+      PangoFcFont *fcfont = G_TYPE_CHECK_INSTANCE_CAST (pa->font,
+							PANGO_TYPE_FC_FONT,
+							PangoFcFont);
 
       FcPattern *fcpat = fcfont->font_pattern;
       FcPatternPrint (fcpat);
       char *retval ="bla";
 
-      FcPatternGetString(fcpat, FC_FILE, 0, (FcChar8 **) &retval);
+      FcPatternGetString (fcpat, FC_FILE, 0, (FcChar8 **) &retval);
       printf ("retval %s\n", retval);
 
       FT_Face ftface = pango_fc_font_lock_face (fcfont);
@@ -327,7 +316,7 @@ void test_pango ()
 	  PangoGlyphGeometry ggeo = pgi->geometry;
 
 	  printf ("c %d w %d x %d y %d\n", pg, ggeo.width, ggeo.x_offset,
-		  ggeo.y_offset );
+		  ggeo.y_offset);
 
 	  char str[1024];
 	  FT_Get_Glyph_Name (ftface, pg, str, 1024);

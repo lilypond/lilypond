@@ -27,7 +27,7 @@ ly_make_anonymous_module (bool safe)
   SCM mod = SCM_EOL;
   if (!safe)
     {
-      String s = "*anonymous-ly-" + to_string (module_count++) +  "*";
+      String s = "*anonymous-ly-" + to_string (module_count++) + "*";
       mod = scm_c_define_module (s.to_str0 (), ly_init_anonymous_module, 0);
       ly_use_module (mod, global_lily_module);
     }
@@ -47,7 +47,7 @@ ly_use_module (SCM mod, SCM used)
 		  mod,
 		  scm_list_2 (ly_symbol2scm ("module-public-interface"),
 			      used));
-  
+
   return scm_eval (expr, global_lily_module);
 }
 
@@ -64,19 +64,19 @@ module_define_closure_func (void *closure, SCM key, SCM val, SCM result)
 }
 
 /* Ugh signature of scm_internal_hash_fold () is inaccurate.  */
-typedef SCM (*Hash_cl_func)();
+typedef SCM (*Hash_cl_func) ();
 
 /*
   If a variable in changed in SRC, we DEST doesn't see the
   definitions.
- */
+*/
 LY_DEFINE (ly_module_copy, "ly:module-copy",
 	   2, 0, 0, (SCM dest, SCM src),
 	   "Copy all bindings from module SRC into DEST.")
 {
   SCM_VALIDATE_MODULE (1, src);
   scm_internal_hash_fold ((Hash_cl_func) &module_define_closure_func,
-			  (void*) dest,
+			  (void *) dest,
 			  SCM_EOL, SCM_MODULE_OBARRAY (src));
   return SCM_UNSPECIFIED;
 }
@@ -93,23 +93,23 @@ SCM
 ly_module_symbols (SCM mod)
 {
   SCM_VALIDATE_MODULE (1, mod);
-  
+
   SCM obarr = SCM_MODULE_OBARRAY (mod);
   return scm_internal_hash_fold ((Hash_cl_func) &accumulate_symbol,
-				 NULL, SCM_EOL, obarr); 
+				 NULL, SCM_EOL, obarr);
 }
 
 static SCM
 entry_to_alist (void *closure, SCM key, SCM val, SCM result)
 {
   (void) closure;
-  if (scm_variable_bound_p  (val) == SCM_BOOL_T)
+  if (scm_variable_bound_p (val) == SCM_BOOL_T)
     {
       return scm_cons (scm_cons (key, scm_variable_ref (val)), result);
     }
   else
     {
-      programming_error ("Unbound variable in module."); 
+      programming_error ("Unbound variable in module.");
       return result;
     }
 }
@@ -121,7 +121,7 @@ LY_DEFINE (ly_module2alist, "ly:module->alist",
   SCM_VALIDATE_MODULE (1, mod);
   SCM obarr = SCM_MODULE_OBARRAY (mod);
 
-  return scm_internal_hash_fold ((Hash_cl_func) &entry_to_alist, NULL, SCM_EOL, obarr); 
+  return scm_internal_hash_fold ((Hash_cl_func) &entry_to_alist, NULL, SCM_EOL, obarr);
 }
 
 /* Lookup SYM, but don't give error when it is not defined.  */
@@ -149,7 +149,7 @@ LY_DEFINE (ly_modules_lookup, "ly:modules-lookup",
       SCM mod = scm_car (s);
       SCM v = ly_module_lookup (mod, sym);
       if (SCM_VARIABLEP (v) && SCM_VARIABLE_REF (v) != SCM_UNDEFINED)
-	return scm_variable_ref(v);
+	return scm_variable_ref (v);
     }
 
   if (def != SCM_UNDEFINED)
@@ -163,7 +163,7 @@ ly_export (SCM module, SCM namelist)
   static SCM export_function;
   if (!export_function)
     export_function = scm_permanent_object (scm_c_lookup ("module-export!"));
-  
+
   scm_call_2 (SCM_VARIABLE_REF (export_function), module, namelist);
 }
 

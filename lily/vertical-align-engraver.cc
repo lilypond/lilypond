@@ -15,8 +15,8 @@
 
 class Vertical_align_engraver : public Engraver
 {
-  Spanner * valign_;
-  bool qualifies (Grob_info) const;  
+  Spanner *valign_;
+  bool qualifies (Grob_info) const;
 public:
   TRANSLATOR_DECLARATIONS (Vertical_align_engraver);
 protected:
@@ -53,7 +53,7 @@ Vertical_align_engraver::finalize ()
 bool
 Vertical_align_engraver::qualifies (Grob_info i) const
 {
-  int sz = i.origin_contexts ((Translator*)this).size ()  ;
+  int sz = i.origin_contexts ((Translator *)this).size ();
 
   return sz > 0 && Axis_group_interface::has_interface (i.grob_)
     && !i.grob_->get_parent (Y_AXIS) && Axis_group_interface::has_axis (i.grob_, Y_AXIS);
@@ -68,11 +68,10 @@ Vertical_align_engraver::acknowledge_grob (Grob_info i)
     }
 }
 
-
 ADD_TRANSLATOR (Vertical_align_engraver,
-/* descr */       "Catch Vertical axis groups and stack them.",
-/* creats*/       "VerticalAlignment",
-/* accepts */     "",
-/* acks  */      "axis-group-interface",
-/* reads */       "",
-/* write */       "");
+		/* descr */ "Catch Vertical axis groups and stack them.",
+		/* creats*/ "VerticalAlignment",
+		/* accepts */ "",
+		/* acks  */ "axis-group-interface",
+		/* reads */ "",
+		/* write */ "");

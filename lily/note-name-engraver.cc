@@ -1,11 +1,10 @@
-/*   
+/*
   note-name-engraver.cc -- implement Note_name_engraver
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1999--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #include "engraver.hh"
 #include "item.hh"
@@ -17,7 +16,7 @@ public:
 
   Link_array<Music> events_;
   Link_array<Item> texts_;
-  virtual bool  try_music (Music*m);
+  virtual bool try_music (Music *m);
   virtual void process_music ();
   virtual void stop_translation_timestep ();
 };
@@ -36,7 +35,7 @@ Note_name_engraver::try_music (Music *m)
 void
 Note_name_engraver::process_music ()
 {
-  String s ;
+  String s;
   for (int i = 0; i < events_.size (); i++)
     {
       if (i)
@@ -44,13 +43,13 @@ Note_name_engraver::process_music ()
       Pitch p = *unsmob_pitch (events_[i]->get_property ("pitch"));
 
       if (!to_boolean (get_property ("printOctaveNames")))
-	  p = Pitch (-1, p.get_notename (), p.get_alteration ());
-	  
+	p = Pitch (-1, p.get_notename (), p.get_alteration ());
+
       s += p.to_string ();
     }
   if (s.length ())
     {
-      Item * t = make_item ("NoteName", events_[0]->self_scm () );
+      Item *t = make_item ("NoteName", events_[0]->self_scm ());
       t->set_property ("text", scm_makfrom0str (s.to_str0 ()));
       texts_.push (t);
     }
@@ -59,19 +58,18 @@ Note_name_engraver::process_music ()
 void
 Note_name_engraver::stop_translation_timestep ()
 {
-  texts_.clear () ;
+  texts_.clear ();
   events_.clear ();
 }
-
 
 Note_name_engraver::Note_name_engraver ()
 {
 }
 
 ADD_TRANSLATOR (Note_name_engraver,
-/* descr */       "",
-/* creats*/       "NoteName",
-/* accepts */     "note-event",
-/* acks  */      "",
-/* reads */       "printOctaveNames",
-/* write */       "");
+		/* descr */ "",
+		/* creats*/ "NoteName",
+		/* accepts */ "note-event",
+		/* acks  */ "",
+		/* reads */ "printOctaveNames",
+		/* write */ "");

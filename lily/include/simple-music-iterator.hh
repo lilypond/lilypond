@@ -1,10 +1,10 @@
-/*   
+/*
   simple-music-iterator.hh -- declare Simple_music_iterator
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2000--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
- */
+*/
 
 #ifndef SIMPLE_MUSIC_ITERATOR_HH
 #define SIMPLE_MUSIC_ITERATOR_HH
@@ -14,15 +14,14 @@
 /*
   Iterator for atomic music objects: events are generated at the
   beginning and at the end of the music.
-  
- */
+*/
 class Simple_music_iterator : public Music_iterator
 {
 protected:
 
   Moment last_processed_mom_;
 public:
-  DECLARE_SCHEME_CALLBACK(constructor, ()); 
+  DECLARE_SCHEME_CALLBACK (constructor, ());
   Simple_music_iterator ();
   virtual void process (Moment);
   virtual bool ok ()const;

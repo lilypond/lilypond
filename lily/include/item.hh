@@ -8,35 +8,32 @@
 #ifndef ITEM_HH
 #define ITEM_HH
 
-
 #include "box.hh"
 #include "grob.hh"
 
-
 /**
-  A horizontally fixed size element of the score.
+   A horizontally fixed size element of the score.
 
-  Item is the datastructure for printables whose width is known
-  before the spacing is calculated
-
+   Item is the datastructure for printables whose width is known
+   before the spacing is calculated
 */
 class Item : public Grob
 {
-  Drul_array<Item*> broken_to_drul_;
+  Drul_array<Item *> broken_to_drul_;
 
 public:
-  Item (SCM, Object_key const*);
+  Item (SCM, Object_key const *);
   Item (Item const &, int count);
-  
+
   virtual Grob *clone (int count) const;
 
   static bool is_breakable (Grob *);
   bool is_broken () const;
-  
+
   Direction break_status_dir () const;
-  
+
   Item *find_prebroken_piece (Direction) const;
-  Grob *find_broken_piece (System *) const;    
+  Grob *find_broken_piece (System *) const;
   virtual System *get_system () const;
   virtual Paper_column *get_column () const;
   virtual void handle_prebroken_dependencies ();
@@ -46,7 +43,5 @@ protected:
   void copy_breakable_items ();
   virtual SCM do_derived_mark () const;
 };
-
-
 
 #endif

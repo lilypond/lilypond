@@ -1,11 +1,10 @@
-/*   
+/*
   simple-spacer.hh -- declare Simple_spacer
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1999--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #ifndef SIMPLE_SPACER_HH
 #define SIMPLE_SPACER_HH
@@ -38,8 +37,7 @@ public:
   int active_count_;
 
   Simple_spacer ();
-  
-  
+
   void my_solve_linelen ();
   void my_solve_natural_len ();
   Real active_springs_stiffness () const;
@@ -52,9 +50,8 @@ public:
   void set_active_states ();
   bool is_active () const;
 
-  DECLARE_SIMPLE_SMOBS(Simple_spacer, );
+  DECLARE_SIMPLE_SMOBS (Simple_spacer,);
 };
-
 
 struct Simple_spacer_wrapper
 {
@@ -65,9 +62,9 @@ struct Simple_spacer_wrapper
   Simple_spacer_wrapper ();
   void add_columns (Link_array<Grob> const &);
   void solve (Column_x_positions *, bool);
-  ~Simple_spacer_wrapper();
+  ~Simple_spacer_wrapper ();
 private:
-  Simple_spacer_wrapper(Simple_spacer_wrapper const&);
+  Simple_spacer_wrapper (Simple_spacer_wrapper const &);
 };
 
 #endif /* SIMPLE_SPACER_HH */

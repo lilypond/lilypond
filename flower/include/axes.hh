@@ -6,17 +6,17 @@
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #ifndef AXES_HH
 #define AXES_HH
 
 #include <cassert>
 
-enum Axis {
+enum Axis
+  {
     X_AXIS =0,
     Y_AXIS =1,
-    NO_AXES=2,
-};
+    NO_AXES = 2,
+  };
 
 static inline
 Axis
@@ -31,7 +31,7 @@ static inline
 Axis
 other_axis (Axis a)
 {
-  return a ==  Y_AXIS ? X_AXIS : Y_AXIS;
+  return a == Y_AXIS ? X_AXIS : Y_AXIS;
 }
 
 #endif // AXES_HH

@@ -11,12 +11,11 @@
 
 #include "stencil.hh"
 
-
 class Chord_name
 {
 public:
-  DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM ));
-  static bool has_interface (Grob*);
+  DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
+  static bool has_interface (Grob *);
 };
 
 #endif // CHORD_NAME_HH

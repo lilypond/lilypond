@@ -1,10 +1,9 @@
-/* 
+/*
   music-head.hh -- declare music_function
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2004--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-  
 */
 
 #ifndef MUSIC_FUNCTION_HH

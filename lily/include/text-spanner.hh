@@ -6,7 +6,6 @@
   (c) 2000--2005 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-
 #ifndef TEXT_SPANNER_HH
 #define TEXT_SPANNER_HH
 
@@ -18,7 +17,7 @@ class Text_spanner
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  static bool has_interface (Grob*);
+  static bool has_interface (Grob *);
 };
 
 #endif /* TEXT_SPANNER_HH */

@@ -1,11 +1,10 @@
-/*   
+/*
   tie-performer.cc -- implement Tie_performer
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1998--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #include "context.hh"
 #include "audio-item.hh"
@@ -20,12 +19,12 @@ class Tie_performer : public Performer
   Array<Audio_element_info> heads_to_tie_;
 
   bool ties_created_;
-  
+
 protected:
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
   virtual void acknowledge_audio_element (Audio_element_info);
-  virtual bool try_music (Music*);
+  virtual bool try_music (Music *);
   virtual void process_music ();
 public:
   TRANSLATOR_DECLARATIONS (Tie_performer);
@@ -34,7 +33,7 @@ public:
 Tie_performer::Tie_performer ()
 {
   event_ = 0;
-  last_event_  = 0;
+  last_event_ = 0;
   ties_created_ = false;
 }
 
@@ -45,7 +44,7 @@ Tie_performer::try_music (Music *mus)
     {
       event_ = mus;
     }
-  
+
   return true;
 }
 
@@ -59,22 +58,22 @@ Tie_performer::process_music ()
 void
 Tie_performer::acknowledge_audio_element (Audio_element_info inf)
 {
-  if (Audio_note * an = dynamic_cast<Audio_note *> (inf.elem_))
+  if (Audio_note *an = dynamic_cast<Audio_note *> (inf.elem_))
     {
       now_heads_.push (inf);
-      for  (int i = heads_to_tie_.size (); i--;)
+      for (int i = heads_to_tie_.size (); i--;)
 	{
-	  Music * right_mus = inf.event_;
-	  
-	  Audio_note *th =  dynamic_cast<Audio_note*> (heads_to_tie_[i].elem_);
-	  Music * left_mus = heads_to_tie_[i].event_;
+	  Music *right_mus = inf.event_;
+
+	  Audio_note *th = dynamic_cast<Audio_note *> (heads_to_tie_[i].elem_);
+	  Music *left_mus = heads_to_tie_[i].event_;
 
 	  if (right_mus && left_mus
 	      && ly_c_equal_p (right_mus->get_property ("pitch"),
 			       left_mus->get_property ("pitch")))
 	    {
 	      an->tie_to (th);
-	      ties_created_ = true;  
+	      ties_created_ = true;
 	    }
 	}
     }
@@ -85,7 +84,7 @@ Tie_performer::start_translation_timestep ()
 {
   context ()->set_property ("tieMelismaBusy",
 			    ly_bool2scm (heads_to_tie_.size ()));
-      
+
 }
 
 void
@@ -97,7 +96,7 @@ Tie_performer::stop_translation_timestep ()
       last_event_ = 0;
       ties_created_ = false;
     }
-  
+
   if (event_)
     {
       heads_to_tie_ = now_heads_;
@@ -108,9 +107,9 @@ Tie_performer::stop_translation_timestep ()
 }
 
 ADD_TRANSLATOR (Tie_performer,
-/* descr */       "Generate ties between noteheads of equal pitch.",
-/* creats*/       "",
-/* accepts */     "tie-event",
-/* acks  */       "",
-/* reads */       "tieMelismaBusy",
-/* write */       "");
+		/* descr */ "Generate ties between noteheads of equal pitch.",
+		/* creats*/ "",
+		/* accepts */ "tie-event",
+		/* acks  */ "",
+		/* reads */ "tieMelismaBusy",
+		/* write */ "");

@@ -4,7 +4,7 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 1996--2005 Jan Nieuwenhuizen <janneke@gnu.org>
- */
+*/
 
 #include "performer.hh"
 #include "audio-item.hh"
@@ -12,12 +12,13 @@
 #include "global-context.hh"
 #include "warn.hh"
 
-class Beam_performer : public Performer {
+class Beam_performer : public Performer
+{
 public:
   TRANSLATOR_DECLARATIONS (Beam_performer);
-  
+
 protected:
-  virtual bool try_music (Music *ev) ;
+  virtual bool try_music (Music *ev);
   virtual void start_translation_timestep ();
   virtual void process_music ();
   void set_melisma (bool);
@@ -34,7 +35,7 @@ Beam_performer::Beam_performer ()
   now_stop_ev_ = 0;
 }
 
-void 
+void
 Beam_performer::process_music ()
 {
   if (now_stop_ev_)
@@ -50,13 +51,12 @@ Beam_performer::process_music ()
     }
 }
 
-
 void
 Beam_performer::set_melisma (bool ml)
 {
   SCM b = get_property ("autoBeaming");
   if (!to_boolean (b))
-context ()->set_property ("beamMelismaBusy", ml ? SCM_BOOL_T :SCM_BOOL_F);
+    context ()->set_property ("beamMelismaBusy", ml ? SCM_BOOL_T :SCM_BOOL_F);
 }
 
 void
@@ -65,7 +65,7 @@ Beam_performer::start_translation_timestep ()
   start_ev_ = 0;
   now_stop_ev_ = 0;
 }
- 
+
 bool
 Beam_performer::try_music (Music *m)
 {
@@ -87,5 +87,5 @@ Beam_performer::try_music (Music *m)
 }
 
 ADD_TRANSLATOR (Beam_performer, "", "",
-		  "beam-event", "", "", "");
+		"beam-event", "", "", "");
 

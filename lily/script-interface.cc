@@ -1,11 +1,10 @@
-/*   
+/*
   script-interface.cc -- implement Script_interface
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1999--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #include "directional-element-interface.hh"
 #include "warn.hh"
@@ -85,18 +84,17 @@ Script_interface::print (SCM smob)
 
 struct Text_script
 {
-  static bool has_interface (Grob*);
+  static bool has_interface (Grob *);
 };
 
 ADD_INTERFACE (Text_script, "text-script-interface",
-  "An object that is put above or below a note",
-  "add-stem-support slur script-priority inside-slur");
-
+	       "An object that is put above or below a note",
+	       "add-stem-support slur script-priority inside-slur");
 
 /*
   Hmm. Where should we put add-stem-support ?
- */
+*/
 ADD_INTERFACE (Script_interface, "script-interface",
-  "An object that is put above or below a note",
-  "add-stem-support slur-padding slur script-priority script-stencil inside-slur");
+	       "An object that is put above or below a note",
+	       "add-stem-support slur-padding slur script-priority script-stencil inside-slur");
 

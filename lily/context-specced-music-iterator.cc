@@ -1,11 +1,10 @@
-/*   
+/*
   context-specced-music-iterator.cc -- implement
-    Context_specced_music_iterator
+  Context_specced_music_iterator
 
   source file of the GNU LilyPond music typesetter
 
   (c) 2002--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-
 */
 
 #include "music-wrapper-iterator.hh"
@@ -28,8 +27,8 @@ Context_specced_music_iterator::construct_children ()
   if (scm_is_string (ci))
     c_id = ly_scm2string (ci);
   SCM ops = get_music ()->get_property ("property-operations");
-  
-  Context * a = 0;
+
+  Context *a = 0;
 
   if (c_id == "$uniqueContextId")
     a = get_outlet ()->create_unique_context (ct, ops);
@@ -37,10 +36,10 @@ Context_specced_music_iterator::construct_children ()
     a = get_outlet ()->find_create_context (ct, c_id, ops);
 
   if (a
-       && to_boolean (get_music ()->get_property ("descend-only"))
+      && to_boolean (get_music ()->get_property ("descend-only"))
       && !is_child_context (get_outlet (), a))
     a = 0;
-  
+
   if (a)
     set_context (a);
 
