@@ -30,4 +30,17 @@ in hints what might be wrong.  This problem has only been identified
 with libc-5.3 and libc-5.4 platforms, so you might try upgrading to
 6.0, ie. GNU libc-2.
 
+[Linux Intel]
 
+A problem resembling the previous: usage of libg++.2.8.x with the
+wrong version of libc results in a coredump from the scanner while
+reading the init files.  Stacktrace:
+
+	ios::eof (this=0x0)
+	
+	yyFlexLexer::LexerInput (this=0x8294848, buf=0x82955f0 "", max_size=8192)
+	yyFlexLexer::yy_get_next_buffer (this=0x8294848)
+	My_lily_lexer::yylex (this=0x8294848) 
+
+Fix: follow the install instructions of libg++: match the right
+library versions.
