@@ -27,6 +27,7 @@ class Vaticana_ligature_engraver : public Gregorian_ligature_engraver
 private:
   Real finish_primitive (Item *first_primitive,
 			 Item *primitive,
+			 int prefix_set,
 			 int context_info,
 			 String glyph_name,
 			 int pitch_delta,
@@ -56,6 +57,7 @@ Vaticana_ligature_engraver::create_ligature_spanner ()
 Real
 Vaticana_ligature_engraver::finish_primitive (Item *first_primitive,
 					      Item *primitive,
+					      int prefix_set,
 					      int context_info,
 					      String glyph_name,
 					      int pitch_delta,
@@ -77,19 +79,32 @@ Vaticana_ligature_engraver::finish_primitive (Item *first_primitive,
       if (context_info & FLEXA_LEFT)
 	is_stacked = false;
 
-      // auctum head is never stacked upon preceding note
-      if (context_info & AUCTUM)
+      // ... or another pes
+      if (context_info & PES_LOWER)
 	is_stacked = false;
 
-      // semivocalis head of epiphonus or cephalicus is stacked upon
-      // preceding head
-      if (!String::compare (glyph_name, "vaticana_plica"))
-	is_stacked = true; // semivocalis head of epiphonus
-      if (!String::compare (glyph_name, "vaticana_reverse_plica"))
-	if (context_info & PES_LOWER)
-	  {} // initio debilis => not stacked
-	else
-	  is_stacked = true; // semivocalis head of cephalicus
+      // ... or the previous note is a semivocalis or inclinatum
+      /* TODO:
+        if (prev_prefix_set & DEMINUTUM)
+	   is_stacked = false;
+      */
+
+      // auctum head is never stacked upon preceding note
+      if (prefix_set & AUCTUM)
+	is_stacked = false;
+
+      // virga is never stacked upon preceding note
+      if (prefix_set & VIRGA)
+	is_stacked = false;
+
+      // oriscus is never stacked upon preceding note
+      if (prefix_set & ORISCUS)
+	is_stacked = false;
+
+      if ((prefix_set & DEMINUTUM) &&
+	  !(prefix_set & INCLINATUM) &&
+	  (context_info & FLEXA_RIGHT))
+	is_stacked = true; // semivocalis head of deminutus form
 
       if (is_stacked)
 	{
@@ -219,6 +234,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 
   Item *first_primitive = 0;
   Item *prev_primitive = 0;
+  int prev_prefix_set = 0;
   int prev_context_info = 0;
   int prev_pitch = 0;
   int prev_pitch_delta = 0;
@@ -258,14 +274,34 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
       else
 	glyph_name = "vaticana_inclinatum";
     else if (prefix_set & DEMINUTUM)
-      if (pitch > prev_pitch)
+      if (primitive == first_primitive)
 	{
-	  prev_glyph_name = "vaticana_epiphonus";
+	  // initio debilis
+	  glyph_name = "vaticana_reverse_plica";
+	}
+      else if (pitch > prev_pitch)
+	{
+	  // epiphonus
+	  if (!(prev_context_info & FLEXA_RIGHT))
+	    {
+	      prev_glyph_name = "vaticana_epiphonus";
+	    }
 	  glyph_name = "vaticana_plica";
 	}
-      else
+      else // (pitch <= prev_pitch)
 	{
-	  prev_glyph_name = "vaticana_cephalicus";
+	  // cephalicus
+	  if (!(prev_context_info & FLEXA_RIGHT))
+	    {
+	      if (prev_primitive == first_primitive)
+		{
+		  prev_glyph_name = "vaticana_cephalicus";
+		}
+	      else
+		{
+		  prev_glyph_name = "vaticana_inner_cephalicus";
+		}
+	    }
 	  glyph_name = "vaticana_reverse_plica";
 	}
     else if (prefix_set & (CAVUM | LINEA))
@@ -340,11 +376,12 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
      * Finish head of previous iteration for backend.
      */
     prev_distance =
-      finish_primitive (first_primitive, prev_primitive,
+      finish_primitive (first_primitive, prev_primitive, prev_prefix_set,
 			prev_context_info, prev_glyph_name, prev_pitch_delta,
 			flexa_width, join_thickness, prev_distance);
 
     prev_primitive = primitive;
+    prev_prefix_set = prefix_set;
     prev_context_info = context_info;
     prev_pitch_delta = pitch - prev_pitch;
     prev_pitch = pitch;
@@ -355,7 +392,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
    * Finish head of last iteration for backend.
    */
   prev_distance =
-    finish_primitive (first_primitive, prev_primitive,
+    finish_primitive (first_primitive, prev_primitive, prev_prefix_set,
 		      prev_context_info, prev_glyph_name, prev_pitch_delta,
 		      flexa_width, join_thickness, prev_distance);
 
