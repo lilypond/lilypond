@@ -24,12 +24,25 @@ AC_DEFUN(STEPMAKE_GET_VERSION, [
     ##     gcc (GCC) 3.1.1 20020606 (Debian prerelease)
     ##
     ## -V: Workaround for python
-    ##
-    ## Assume, and hunt for, dotted version multiplet.
 
     changequote(<<, >>)dnl
-    ("$1" --version || "$1" -V) 2>&1 | grep '[0-9]\.[0-9]' | head -n 1 | \
-	sed -e 's/.*[^-.0-9]\([0-9][0-9]*\.[0-9][.0-9]*\).*/\1/'
+    ##set -x
+    ## Assume and hunt for dotted version multiplet.
+    ## use eval trickery, because we cannot use multi-level $() instead of ``
+    ## for compatibility reasons.
+    ## FIXME: what systems still do not have $() in /bin/sh?
+    eval _ver=\"\`("$1" --version || "$1" -V) 2>&1 | grep '[0-9]\.[0-9]' \
+        | head -n 1 \
+	| sed -e 's/.*[^-.0-9]\([0-9][0-9]*\.[0-9][.0-9]*\).*/\1/' \
+	    -e 's/^[^.0-9]*//' -e 's/[^.0-9]*$//'\`\"
+    if test -z "$_ver"; then
+        ## If empty, try date [fontforge]
+        eval _ver=\"\`("$1" --version || "$1" -V) 2>&1 | grep '[0-9]\{6,8\}' \
+	    | head -n 1 \
+	    | sed -e 's/^[^.0-9]*//' -e 's/[^.0-9]*$//'\`\"
+    fi
+    echo "$_ver"
+    ##set +x
     changequote([, ])dnl
 ])
 
@@ -84,13 +97,18 @@ AC_DEFUN(STEPMAKE_CHECK_SEARCH_RESULT, [
 
 
 # Check version of program ($1)
-# If version is smaller than requested ($3),
-# add entry to missing-list ($2, one of 'OPTIONAL', 'REQUIRED').
+# If version ($4: optional argument, supply if version cannot be
+# parsed using --version or -V ) is smaller than requested ($3), add
+# entry to missing-list ($2, one of 'OPTIONAL', 'REQUIRED').
 AC_DEFUN(STEPMAKE_CHECK_VERSION, [
     r="`eval echo '$'"$1"`"
     AC_MSG_CHECKING([$r version])
     exe=`STEPMAKE_GET_EXECUTABLE($r)`
-    ver=`STEPMAKE_GET_VERSION($exe)`
+    if test -n "$4"; then
+        ver="$4"
+    else
+        ver=`STEPMAKE_GET_VERSION($exe)`
+    fi
     num=`STEPMAKE_NUMERIC_VERSION($ver)`
     req=`STEPMAKE_NUMERIC_VERSION($3)`
     AC_MSG_RESULT([$ver])

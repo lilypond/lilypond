@@ -1,3 +1,12 @@
+2004-12-11  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* configure.in: Require makeinfo 4.7 (needed for @ifdocbook).
+
+	* stepmake/aclocal.m4 (STEPMAKE_GET_VERSION): Grok fontforge-like
+	date versions.  Fixes configure.
+	(STEPMAKE_CHECK_VERSION): Support optional actual program version
+	argument.
+
 2004-12-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* buildscripts/mf-to-table.py (write_ps_encoding): write real
