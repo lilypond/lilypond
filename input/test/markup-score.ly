@@ -1,5 +1,8 @@
 \header {
     %% WIP
+
+    %% this would be more useful as a footnote, but we don't have
+    %% (sensible) header/footer+footnotes yet (2.3.1).
     texidoc = "Use \\score block as markup command."
 }
 
@@ -23,6 +26,10 @@
     Y CENTER)))
 
 inBed = \paper {
+    %% can't do this, this paper('s fonts) must be notified to the
+    %% main/current book, and e output in the header.
+    %% #(paper-set-staff-size (* 11.0 pt))
+    
     raggedright = ##t
     linewidth = 40\mm
     indent = 0 \mm

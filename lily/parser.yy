@@ -2451,7 +2451,10 @@ markup:
 		$$ = $1;
 	}
 	| score_block {
-		// WIP -- arbitrary, shoul also allow \book or Composite_music.
+		/* WIP this is a bit arbitrary,
+		   we should also allow \book or Composite_music.
+		   However, you'd typically want to change paper
+		   settings, and need a \score block anyway.  */
  		Score *score = $1;
  		Book *book = new Book;
 		book->scores_.push (score);
