@@ -1,5 +1,8 @@
 2002-10-21  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* mf/GNUmakefile (FONT_FILES): Add feta-nummer.
+	(FET_FILES): = FONT_FILES.
+
 	* Merge from stable:
 
 	    cvs update -jlilypond_1_6_5 -jlilypond_1_6_6
