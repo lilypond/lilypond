@@ -1,15 +1,15 @@
-/*   
-ly-module.cc --  implement guile module stuff.
+/*
+  ly-module.cc --  implement guile module stuff.
+  
+  source file of the GNU LilyPond music typesetter
+  
+  (c) 2002--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
-source file of the GNU LilyPond music typesetter
-
-(c) 2002--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-
- */
+*/
 
 #include "string.hh"
 #include "lily-guile.hh"
-#include "ly-modules.hh"
+#include "ly-module.hh"
 #include "protected-scm.hh"
 
 #define FUNC_NAME __FUNCTION__
@@ -42,11 +42,9 @@ ly_clear_anonymous_modules ()
   for (; gh_pair_p (s) ; s = gh_cdr (s))
     {
       SCM tab= scm_c_make_hash_table (2);
-      /*
-	UGH.
-      */
-      
-      SCM_STRUCT_DATA (gh_car (s))[scm_module_index_obarray] = (long unsigned int) tab;
+      /* UGH. */
+      SCM_STRUCT_DATA (gh_car (s))[scm_module_index_obarray]
+	= (long unsigned int) tab;
     }
 }
 
@@ -60,9 +58,7 @@ define_one_var (void * closure, SCM key, SCM val, SCM result)
   return SCM_EOL;
 }
 
-/*
-  Ugh signature of scm_internal_hash_fold () is inaccurate.
- */
+/* Ugh signature of scm_internal_hash_fold () is inaccurate.  */
 typedef SCM (*Hash_cl_func)();
 
 void
@@ -86,7 +82,8 @@ ly_module_symbols (SCM mod)
   SCM_VALIDATE_MODULE (1, mod);
   
   SCM obarr= SCM_MODULE_OBARRAY (mod);
-  return scm_internal_hash_fold ((Hash_cl_func) &accumulate_symbol, NULL, SCM_EOL, obarr); 
+  return scm_internal_hash_fold ((Hash_cl_func) &accumulate_symbol,
+				 NULL, SCM_EOL, obarr); 
 }
 
 SCM
@@ -106,9 +103,7 @@ ly_module_to_alist (SCM mod)
   return scm_internal_hash_fold ((Hash_cl_func) &entry_to_alist, NULL, SCM_EOL, obarr); 
 }
 
-/*
-  Lookup SYM, but don't give error when it is not defined.
- */
+/* Lookup SYM, but don't give error when it is not defined.  */
 SCM
 ly_module_lookup (SCM module, SCM sym)
 {
@@ -119,18 +114,28 @@ ly_module_lookup (SCM module, SCM sym)
 #undef FUNC_NAME
 }
 
+SCM
+ly_modules_lookup (SCM modules, SCM sym)
+{
+  for (SCM s = gh_car (modules); SCM_MODULEP (s); s = ly_cdr (s))
+    {
+      SCM v = scm_sym2var (sym, scm_module_lookup_closure (s), SCM_UNDEFINED);
+      if (v != SCM_UNDEFINED)
+	return v;
+    }
+  return SCM_UNDEFINED;
+}
+
+
 SCM export_function;
 
 void
 ly_export (SCM module, SCM namelist)
 {
   if (!export_function)
-    {
-      export_function = scm_permanent_object (scm_c_lookup ("module-export!"));
-    }
+    export_function = scm_permanent_object (scm_c_lookup ("module-export!"));
   
-  scm_call_2 (SCM_VARIABLE_REF (export_function),
-	      module, namelist);
+  scm_call_2 (SCM_VARIABLE_REF (export_function), module, namelist);
 }
 
 void

@@ -22,7 +22,7 @@
 #include "main.hh"
 #include "input.hh"
 #include "moment.hh"
-#include "ly-modules.hh"
+#include "ly-module.hh"
 
 
 static Keyword_ent the_key_tab[]={

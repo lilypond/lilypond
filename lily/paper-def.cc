@@ -20,7 +20,7 @@
 #include "scm-hash.hh"
 #include "input-file-results.hh" // urg? header_global
 #include "paper-outputter.hh"
-#include "ly-modules.hh"
+#include "ly-module.hh"
 
 /*
   This is an almost empty thing. The only substantial thing this class

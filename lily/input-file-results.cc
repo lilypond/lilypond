@@ -30,7 +30,9 @@
 #include "source.hh"
 #include "lily-version.hh"
 #include "scm-hash.hh"
-#include "ly-modules.hh"
+#include "ly-module.hh"
+
+#include "paper-book.hh"
 
 bool store_locations_global_b;
 
@@ -210,17 +212,7 @@ do_one_file (char const *file)
   
   String in_file = inpath.to_string ();
   String out_file = outpath.to_string ();
-  
-#if 0
-  /* Code to debug memory leaks.  Cannot call from within .ly
-     since then we get the protects from the parser state too. */
-  static SCM proc ;
-  if (!proc)
-	proc = scm_c_eval_string ("dump-gc-protects");
-  scm_gc ();
-  scm_call_0 (proc);
-#endif
-      
+
   if (init.length () && global_path.find (init).is_empty ())
     {
       warning (_f ("can't find file: `%s'", init));
@@ -238,5 +230,12 @@ do_one_file (char const *file)
   if (!proc)
     proc = scm_c_eval_string ("dump-gc-protects");
 
+#ifdef PAGE_LAYOUT
+  Paper_book book;
+  paper_book = &book;
+#endif
   Input_file_results inp_file (init, in_file, out_file);
+#ifdef PAGE_LAYOUT
+  book.output ();
+#endif
 }

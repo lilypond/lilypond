@@ -21,8 +21,9 @@
 #include "cpu-timer.hh"
 #include "main.hh"
 #include "paper-def.hh"
-#include "ly-modules.hh"
+#include "ly-module.hh"
 
+#include "paper-book.hh"
 
 
 /*
@@ -88,7 +89,7 @@ Score::Score (Score const &s)
   music_ =  m?m->clone ()->self_scm () : SCM_EOL;
   scm_gc_unprotect_object (music_);
   
-  for (int i=0; i < s.defs_.size (); i++)
+  for (int i = 0; i < s.defs_.size (); i++)
     defs_.push (s.defs_[i]->clone ());
 
   header_ = ly_make_anonymous_module ();
@@ -96,17 +97,15 @@ Score::Score (Score const &s)
     ly_copy_module_variables (header_, s.header_);
 }
 
-
-
 LY_DEFINE (ly_run_translator, "ly:run-translator", 
-	  2, 0, 0,
-	  (SCM mus, SCM output_def),
-	  "Process @var{mus} according to @var{output_def}. A interpretation "
-"context is set up, and @var{mus} is interpreted with it. The  "
-"context is returned in its final state." )
+	  2, 0, 0, (SCM mus, SCM output_def),
+	   "Process @var{mus} according to @var{output_def}. "
+	   "An interpretation context is set up, "
+	   "and @var{mus} is interpreted with it.  "
+	   "The context is returned in its final state.")
 {
   Music_output_def *odef = unsmob_music_output_def (output_def);
-  Music * music = unsmob_music (mus);
+  Music *music = unsmob_music (mus);
 
   SCM_ASSERT_TYPE (music, mus, SCM_ARG1, __FUNCTION__, "Music");
   SCM_ASSERT_TYPE (odef, output_def, SCM_ARG2, __FUNCTION__, "Output definition");
@@ -123,7 +122,7 @@ LY_DEFINE (ly_run_translator, "ly:run-translator",
   progress_indication (_ ("Interpreting music..."));
   
   trans->final_mom_ = music->get_length ();
-  SCM protected_iter =  Music_iterator::get_static_get_iterator (music);
+  SCM protected_iter = Music_iterator::get_static_get_iterator (music);
   Music_iterator * iter = unsmob_iterator (protected_iter);
   iter->init_translator (music, trans);
 
@@ -149,31 +148,27 @@ LY_DEFINE (ly_run_translator, "ly:run-translator",
 
 
 LY_DEFINE (ly_render_output, "ly:render-output",
-	  3,0,0,
-	  (SCM context, SCM header, SCM out_filename),
-	  "Given a Score context in its final state, calculate the output, "
-	  "and  dump the result to @var{out-filename}, using "
-	  "@var{header} for the bibliographic information.")
+	   3, 0, 0, (SCM context, SCM header, SCM out_filename),
+	   "Given a Score context in its final state, calculate the output, "
+	   "and  dump the result to @var{out-filename}, using "
+	   "@var{header} for the bibliographic information.")
 {
   Global_context * gt = dynamic_cast<Global_context *> (unsmob_context (context));
   
-  SCM_ASSERT_TYPE (gt, context, SCM_ARG1, __FUNCTION__,
-		  "Global context");
-  SCM_ASSERT_TYPE (ly_module_p (header), header, SCM_ARG2, __FUNCTION__,
-		  "module");
-  SCM_ASSERT_TYPE (gh_string_p (out_filename), out_filename, SCM_ARG3, __FUNCTION__,
-		  "output filename");
+  SCM_ASSERT_TYPE (gt, context, SCM_ARG1, __FUNCTION__, "Global context");
+  SCM_ASSERT_TYPE (ly_module_p (header), header, SCM_ARG2, __FUNCTION__, "module");
+  SCM_ASSERT_TYPE (gh_string_p (out_filename), out_filename, SCM_ARG3, __FUNCTION__, "output filename");
 
-  Music_output * output = gt->get_output ();
-
+  Music_output *output = gt->get_output ();
   output->header_ = header;
-  
   progress_indication ("\n");
   output->process (ly_scm2string (out_filename));
-  
-  delete output ;
 
-  return SCM_UNDEFINED ;
+#ifndef PAGE_LAYOUT
+  delete output;
+#endif
+
+  return SCM_UNDEFINED;
 }
 
 void
@@ -184,4 +179,3 @@ default_rendering (SCM mus, SCM outdef, SCM head, SCM outname)
   if (unsmob_context (context))
     ly_render_output (context,  head, outname);
 }
-

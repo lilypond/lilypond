@@ -41,6 +41,9 @@ public:
   void output_metadata (SCM, Paper_def*);
   void output_music_output_def (Music_output_def* odef);
   void output_scheme (SCM scm);
+  void output_expr (SCM expr, Offset o);
+  void output_header (Paper_def*);
+  void output_line (SCM, bool);
 };
 
-#endif // PAPER_OUTPUTTER_HH
+#endif /* PAPER_OUTPUTTER_HH */

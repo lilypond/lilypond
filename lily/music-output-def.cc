@@ -15,7 +15,7 @@
 #include "main.hh"
 #include "file-path.hh"
 #include "lily-guile.hh"
-#include "ly-modules.hh"
+#include "ly-module.hh"
 
 #include "ly-smobs.icc"
 

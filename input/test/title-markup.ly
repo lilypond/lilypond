@@ -1,11 +1,10 @@
 \version "2.1.29"
 %{
-   \markup in titles is WIP, only available in direct PostScript output
-   process and view this file doing:
+   \markup in titles is WIP.
 
-     lilypond-bin -fps title-markup.ly
-     export GS_LIB=$(pwd)/mf/out:/usr/share/texmf/fonts/type1/bluesky/cm
-     gs title-markup.ps
+   only available when compiled with PAGE_LAYOUT is #define'd
+   see include/paper-book.hh
+
 %}
 
 sizeTest = \markup {
@@ -63,7 +62,7 @@ spaceTest = \markup { "two space chars" }
 	 >
     }
 %}
-    makeTitle = \markup {
+    bookTitle = \markup {
 	\column <
 	    %\fill-line #linewidth < \huge \bigger \bold \title >
             \override #'(baseline-skip . 4) \column <
@@ -100,7 +99,18 @@ spaceTest = \markup { "two space chars" }
 
 \score {
     \context Staff \notes \relative c' {
-	c2-\sizeTest c2-\spaceTest \break
-	c2 c2
+	c2-\sizeTest c2-\spaceTest
+	% \break c2 c2
+    }
+}
+
+\header {
+    scoreTitle = \markup { "Tweetje" }
+}
+
+\score {
+    \context Staff \notes \relative c' {
+	c2-\sizeTest c2-\spaceTest
+	% \break c2 c2
     }
 }

@@ -74,12 +74,13 @@ TODO:
 #include "input.hh"
 #include "lilypond-input-version.hh"
 #include "scm-hash.hh"
-#include "ly-modules.hh"
+#include "ly-module.hh"
 #include "music-sequence.hh"
 #include "input-smob.hh"
 #include "event.hh"
 #include "text-item.hh"
 #include "music-list.hh"
+#include "paper-book.hh"
 
 #define MY_MAKE_MUSIC(x)  make_music_by_name (ly_symbol2scm (x))
 
@@ -455,7 +456,9 @@ toplevel_expression:
 						
 		   scm_gc_unprotect_object (id->self_scm ());
 		}
+#ifndef PAGE_LAYOUT
 		scm_gc_unprotect_object (sc->self_scm ());
+#endif
 	}
 	| output_def {
 		SCM id = SCM_EOL;

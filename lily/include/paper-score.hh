@@ -27,9 +27,14 @@ class Paper_score : public Music_output
 public:
   Paper_def *paper_;
 
+  /* Vector with lines of stencils.  */
+  Protected_scm lines_;
+  Stencil *book_title_;
+  Stencil *score_title_;
+
   Paper_outputter *outputter_;  
   System *system_;
-  
+
   Paper_score ();
 
   /**
@@ -39,7 +44,8 @@ public:
 
   Link_array<Item> broken_col_range (Item const*,Item const*) const;
   void typeset_line (System*);
-    
+  void output ();
+
 protected:
     /* MAIN ROUTINES */
   virtual void process (String);

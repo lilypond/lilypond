@@ -388,13 +388,22 @@ L1 is copied, L2 not.
    ))
 
 (define-public (find-dumper format )
-  (let*
-      ((d (assoc format output-alist)))
+  (let* ((d (assoc format output-alist)))
     
     (if (pair? d)
 	(caddr d)
-	(scm-error "Could not find dumper for format ~s" format))
-    ))
+	(scm-error "Could not find dumper for format ~s" format))))
+
+
+(define-public (make-title paper markup)
+  (if (markup? markup)
+      (let ((BASELINE-SKIP 2)
+	     (props (list (append `((linewidth . ,(ly:paper-get-number
+						  paper 'linewidth))
+				    (font-family . roman))
+				  (ly:paper-lookup paper 'font-defaults)))))
+	(stack-lines DOWN 0 BASELINE-SKIP
+		     (list (interpret-markup paper props markup))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; other files.

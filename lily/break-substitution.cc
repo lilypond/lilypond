@@ -90,18 +90,16 @@ do_break_substitution (SCM src)
  again:
  
   if (unsmob_grob (src))
-    {
-      return substitute_grob (unsmob_grob (src));
-    }
+    return substitute_grob (unsmob_grob (src));
   else if (gh_vector_p (src))
     {
-      int  l = SCM_VECTOR_LENGTH (src);
-      SCM nv = scm_c_make_vector (l, SCM_UNDEFINED);
-
-      for (int i  =0 ; i< l ; i++)
+      int len = SCM_VECTOR_LENGTH (src);
+      SCM nv = scm_c_make_vector (len, SCM_UNDEFINED);
+      for (int i = 0; i < len; i++)
 	{
 	  SCM si = scm_int2num (i);
-	  scm_vector_set_x (nv, si, do_break_substitution (scm_vector_ref (src, si))); 
+	  scm_vector_set_x (nv, si,
+			    do_break_substitution (scm_vector_ref (src, si))); 
 	}
     }
   else if (ly_pair_p (src)) 
