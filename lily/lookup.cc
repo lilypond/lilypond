@@ -1,7 +1,7 @@
 /*
   lookup.cc -- implement simple Lookup methods.
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 
@@ -18,6 +18,7 @@
 #include "dimen.hh"
 #include "tex.hh"
 #include "scalar.hh"
+
 
 Lookup::Lookup()
 {
@@ -66,7 +67,7 @@ Lookup::text(String style, String text, int dir) const
 
 
 Real
-Lookup::internote() const
+Lookup::internote_f() const
 {
     return ball(4).dim.y.length()/2;
 }
@@ -129,8 +130,10 @@ Lookup::clef(String s) const
 Symbol
 Lookup::dots(int j) const
 {
-    if (j>3)
-	error("max 3 dots");	// todo
+    if (j>3) {
+	j = 3;
+	warning("max 3 dots");	// todo
+    }
     return (*symtables_)("dots")->lookup(j);
 }
 
@@ -185,7 +188,7 @@ Lookup::linestaff(int lines, Real wid) const
 {
     Symbol s;
     s.dim.x = Interval(0,wid);
-    Real dy = (lines >0) ? (lines-1)*internote()*2 : 0;
+    Real dy = (lines >0) ? (lines-1)*internote_f()*2 : 0;
     s.dim.y = Interval(0,dy);
 
     Array<String> a;
