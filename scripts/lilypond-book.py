@@ -511,12 +511,12 @@ class Lilypond_snippet (Snippet):
 
 	def is_outdated (self):
 		base = self.basename ()
-		## FIXME: adding PNG to is_outdated test fixes
-		##        interrupted (web) builds.
-		##        should only do this if PNG is actually target
-		if os.path.exists (base + '.ly') \
-		   and os.path.exists (base + '.tex') \
-		   and os.path.exists (base + '.png') \
+
+		require = ['.ly', '.tex']
+		if format == HTML:
+			require.append ('.png')
+		require = [os.path.exists (base + x) for x in require]
+		if reduce (lambda a,b: a and b, require) \
 		   and (use_hash_p \
 			or self.ly () == open (base + '.ly').read ()):
 			# TODO: something smart with target formats

@@ -234,10 +234,13 @@ def setup_temp ():
 	return __main__.temp_dir
 
 def command_name (cmd):
-	return re.match ('^[^a-z0-9_-]*([a-z0-9_-]*)', cmd).group (1)
+
+	# deal with "((latex ) >& 1 ) .." too 
+	cmd = re.match ("([\(\)]*)([^ ]*)", cmd).group(2)
+	return os.path.split (cmd)[1]
 
 def error_log (name):
-	name = re.sub('[^a-z]','x',name)
+	name = re.sub('[^a-z]','x', name)
 	return tempfile.mktemp ('%s.errorlog' % name)
 
 def read_pipe (cmd, mode = 'r'):
@@ -326,7 +329,7 @@ Exit status of CMD '''
 			error (msg)
 			if not progress_p and error_log_file:
 				error (_ ("The error log is as follows:"))
-				sys.stderr.write (error_log_file).read ()
+				sys.stderr.write (open (error_log_file).read ())
 			if error_log_file:
 				os.unlink (error_log_file)
 			exit (status)

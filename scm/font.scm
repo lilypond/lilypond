@@ -118,23 +118,21 @@
 	((qual (font-qualifier node))
 	 (def (font-default node))
 	 (val (chain-assoc-get qual alist-chain def))
-	 (desired-font (lookup-font
-			(hashq-ref (font-children node)
-				   val) alist-chain))
-
-	 (default (hashq-ref (font-children node) def))
-	 (font (if desired-font
-		   desired-font
-		   (g-lookup-font (hashq-ref (font-children node)
-					   def) alist-chain)))
+	 (desired-child (hashq-ref (font-children node) val))
 	 )
-      font))
+
+    (if desired-child
+	(g-lookup-font desired-child alist-chain)
+	(g-lookup-font (hashq-ref (font-children node) def) alist-chain)
+	)))
 
 (define-method (g-lookup-font (node <Font-tree-leaf>) alist-chain)
   node)
 
+;; two step call  is handy for debugging.
 (define (lookup-font node alist-chain)
   (g-lookup-font node alist-chain))
+
 
 
 (define-public (make-font-tree factor)
