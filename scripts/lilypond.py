@@ -401,7 +401,7 @@ def global_latex_preamble (extra):
 
 	# FIXME, must (only) from lilypond-bin
 	s += r'''
-\usepackage[latin1]{inputenc}
+\usepackage{inputenc}
 \pagestyle{empty}
 %%PREVIEW%%'''
 	

@@ -1,6 +1,6 @@
 #(ly:set-option 'old-relative)
 \version "2.2.0"
-
+\encoding "latin1"
 \header {
     composer = "ARTHUR GRAY"
     title = "LES NÉRÉIDES"
