@@ -1,5 +1,8 @@
 2004-07-18  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/mutopia/W.A.Mozart/mozart-hrn-3.ly:
+	remove texttagline.
+	
 	* lily/new-slur.cc: cleanup, split in functions.
 
 	* lily/parser.yy (chord_body_element): allow octave-check = inside
