@@ -1,11 +1,11 @@
 /*
   beam.cc -- implement Beam
-
+  
   source file of the GNU LilyPond music typesetter
-
-   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-    Jan Nieuwenhuizen <janneke@gnu.org>
-
+  
+  (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  Jan Nieuwenhuizen <janneke@gnu.org>
+  
 */
 
 /*
@@ -47,9 +47,8 @@
 static Real
 shrink_extra_weight (Real x)
 {
-  return fabs(x) * ((x < 0) ? 1.5 : 1.0);
+  return fabs (x) * ((x < 0) ? 1.5 : 1.0);
 }
-
 
 void
 Beam::add_stem (Grob *me, Grob *s)
@@ -62,6 +61,22 @@ Beam::add_stem (Grob *me, Grob *s)
   s->set_grob_property ("beam", me->self_scm ());
 
   add_bound_item (dynamic_cast<Spanner*> (me), dynamic_cast<Item*> (s));
+}
+
+Real
+Beam::get_interbeam (Grob *me)
+{
+  Real slt = me->paper_l ()->get_var ("stafflinethickness");
+  Real ss = Staff_symbol_referencer::staff_space (me);
+  Real thickness = gh_scm2double (me->get_grob_property ("thickness"))
+    * ss;
+
+  int multiplicity = get_multiplicity (me);
+  Real interbeam = multiplicity < 4
+    ? (2*ss + slt - thickness) / 2.0
+    : (3*ss + slt - thickness) / 3.0;
+  
+  return interbeam;
 }
 
 int
@@ -293,7 +308,7 @@ Beam::set_stem_shorten (Grob *m)
     grob-properties y, dy.
     
     User may set grob-properties: y-position-hs and height-hs
-    (to be fixed) that override the calculated y and dy.
+ (to be fixed) that override the calculated y and dy.
     
     Because y and dy cannot be calculated and quanted separately, we
     always calculate both, then check for user override. */
@@ -324,20 +339,26 @@ struct Quant_score
   Real demerits;
 };
 
-
-MAKE_SCHEME_CALLBACK (Beam, new_quanting, 1);
+/*
+  TODO:
+   - Make all demerits customisable
+   - One sensible check per demerit
+   - Add demerits for quants per se, as to forbid a specific quant
+     entirely
+ */
+MAKE_SCHEME_CALLBACK (Beam, quanting, 1);
 SCM
-Beam::new_quanting (SCM smob)
+Beam::quanting (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
   SCM s = me->get_grob_property ("positions");
-  Real yl = gh_scm2double (gh_car(s));
-  Real yr = gh_scm2double (gh_cdr(s));
+  Real yl = gh_scm2double (gh_car (s));
+  Real yr = gh_scm2double (gh_cdr (s));
 
   Real ss = Staff_symbol_referencer::staff_space (me);
   Real thickness = gh_scm2double (me->get_grob_property ("thickness")) / ss;
-  Real slt = me->paper_l()->get_var ("stafflinethickness") / ss;
+  Real slt = me->paper_l ()->get_var ("stafflinethickness") / ss;
   
   Real straddle = 0.0;
   Real sit = (thickness - slt) / 2;
@@ -345,7 +366,7 @@ Beam::new_quanting (SCM smob)
   Real hang = 1.0 - (thickness - slt) / 2;
   Real quants [] = {straddle, sit, inter, hang };
   
-  int num_quants = int(sizeof(quants)/sizeof (Real));
+  int num_quants = int (sizeof (quants)/sizeof (Real));
   Array<Real> quantsl;
   Array<Real> quantsr;
 
@@ -360,8 +381,8 @@ Beam::new_quanting (SCM smob)
 
   Array<Quant_score> qscores;
   
-  for(int l =0; l < quantsl.size(); l++)  
-    for(int r =0; r < quantsr.size(); r++)
+  for (int l =0; l < quantsl.size (); l++)  
+    for (int r =0; r < quantsr.size (); r++)
       {
 	Quant_score qs;
 	qs.yl = quantsl[l];
@@ -372,18 +393,18 @@ Beam::new_quanting (SCM smob)
       }
 
 
-  SCM score_funcs = me->get_grob_property("quant-score-functions");
+  SCM score_funcs = me->get_grob_property ("quant-score-functions");
   for (SCM s = score_funcs; gh_pair_p (s); s = gh_cdr (s))
     {
       SCM f = gh_car (s);
-      for (int i = qscores.size(); i--;)
+      for (int i = qscores.size (); i--;)
 	{
 	  // best scores < 30;
 	  // if (qscores[i].demerits < 1000)
 	  if (qscores[i].demerits < 100)
 	    {
 	      SCM score = gh_call3 (f,
-				    me->self_scm(),
+				    me->self_scm (),
 				    gh_double2scm (qscores[i].yl),
 				    gh_double2scm (qscores[i].yr));
 	      
@@ -394,7 +415,7 @@ Beam::new_quanting (SCM smob)
   
   Real best = 1e6;
   int best_idx = -1;
-  for (int i = qscores.size(); i--;)
+  for (int i = qscores.size (); i--;)
     {
       if (qscores[i].demerits < best)
 	{
@@ -424,16 +445,16 @@ MAKE_SCHEME_CALLBACK (Beam, score_slopes_dy, 3);
 SCM
 Beam::score_slopes_dy (SCM smob, SCM syl, SCM syr)
 {
-  Grob*me = unsmob_grob(smob);
+  Grob*me = unsmob_grob (smob);
   Real yl = gh_scm2double (syl);
   Real yr = gh_scm2double (syr);
   Real dy = yr - yl;
 
-  SCM sdy = me->get_grob_property("least-squares-dy");
+  SCM sdy = me->get_grob_property ("least-squares-dy");
   SCM posns = me->get_grob_property ("positions");
 
   Real dy_mus = gh_number_p (sdy) ? gh_scm2double (sdy) : 0.0;
-  Real dy_damp = - gh_scm2double (gh_car(posns)) + gh_scm2double (gh_cdr (posns));
+  Real dy_damp = - gh_scm2double (gh_car (posns)) + gh_scm2double (gh_cdr (posns));
 
   Real dem = 0.0;
   if (sign (dy_damp) != sign (dy))
@@ -441,18 +462,18 @@ Beam::score_slopes_dy (SCM smob, SCM syl, SCM syr)
       dem += 800;
     }
   
-   dem += 400* (0 >? (fabs(dy) - fabs(dy_mus)));
+   dem += 400* (0 >? (fabs (dy) - fabs (dy_mus)));
   
 
-   dem += shrink_extra_weight (fabs (dy_damp) - fabs(dy))* 10;
-   return gh_double2scm  (dem);
+   dem += shrink_extra_weight (fabs (dy_damp) - fabs (dy))* 10;
+   return gh_double2scm (dem);
 }
 
 MAKE_SCHEME_CALLBACK (Beam, score_stem_lengths, 3);
 SCM
 Beam::score_stem_lengths (SCM smob, SCM syl, SCM syr)
 {
-  Grob*me = unsmob_grob(smob);
+  Grob*me = unsmob_grob (smob);
   Real yl = gh_scm2double (syl);
   Real yr = gh_scm2double (syr);
 
@@ -467,17 +488,17 @@ Beam::score_stem_lengths (SCM smob, SCM syl, SCM syr)
       if (Stem::invisible_b (s))
 	continue;
 
-      Real current_y = calc_stem_y_f (me, s, Interval(yl,yr));
+      Real current_y = calc_stem_y (me, s, Interval (yl, yr));
       Stem_info info = Stem::calc_stem_info (s);
       Direction d = Directional_element_interface::get (s);
       
-      demerit_score += 500 * ( 0 >? (info.miny_f_ - d*current_y));
-      demerit_score += 500 * ( 0 >? (d * current_y  - info.maxy_f_));
+      demerit_score += 500 * ( 0 >? (info.min_y - d * current_y));
+      demerit_score += 500 * ( 0 >? (d * current_y  - info.max_y));
 
-      demerit_score += 5 * shrink_extra_weight (d * current_y  - info.idealy_f_);
+      demerit_score += 5 * shrink_extra_weight (d * current_y  - info.ideal_y);
     }
 
-  demerit_score *= 2.0  /stems.size(); 
+  demerit_score *= 2.0  /stems.size (); 
 
   return gh_double2scm (demerit_score);
 }
@@ -485,7 +506,7 @@ Beam::score_stem_lengths (SCM smob, SCM syl, SCM syr)
 static Real
 my_modf (Real x)
 {
-  return x - floor(x);
+  return x - floor (x);
 }
 
 
@@ -494,15 +515,15 @@ MAKE_SCHEME_CALLBACK (Beam, score_forbidden_quants, 3);
 SCM
 Beam::score_forbidden_quants (SCM smob, SCM syl, SCM syr)
 {
-  Grob*me = unsmob_grob(smob);
+  Grob*me = unsmob_grob (smob);
   Real yl = gh_scm2double (syl);
   Real yr = gh_scm2double (syr);
   Real dy = yr - yl;
   Real rad = Staff_symbol_referencer::staff_radius (me);
   Real dem = 0.0;
-  if (fabs (yl) < rad && fabs( my_modf(yl) - 0.5) < 1e-3)
+  if (fabs (yl) < rad && fabs ( my_modf (yl) - 0.5) < 1e-3)
     dem += 1000;
-  if (fabs (yr) < rad && fabs( my_modf(yr) - 0.5) < 1e-3)
+  if (fabs (yr) < rad && fabs ( my_modf (yr) - 0.5) < 1e-3)
     dem += 1000;
 
 
@@ -510,32 +531,30 @@ Beam::score_forbidden_quants (SCM smob, SCM syl, SCM syr)
   // todo: use multiplicity of outer stems.
   if (multiplicity >= 2)
     {
-      Real slt = me->paper_l()->get_var("stafflinethickness");
-      Real ss = Staff_symbol_referencer::staff_space(me);
+      Real slt = me->paper_l ()->get_var ("stafflinethickness");
+      Real ss = Staff_symbol_referencer::staff_space (me);
       Real thickness = gh_scm2double (me->get_grob_property ("thickness"))
 	* ss;
-
-      Real beam_space= (2*ss + slt  - 3 *thickness) / 2.0;
-      if (multiplicity >= 4)
-	{
-	  beam_space = (3*ss + slt - 4 * thickness) /3.0;
-	}
-
+      
+      Real interbeam = multiplicity < 4
+	? (2*ss + slt - thickness) / 2.0
+	: (3*ss + slt - thickness) / 3.0;
+  
       Real straddle = 0.0;
       Real sit = (thickness - slt) / 2;
       Real inter = 0.5;
       Real hang = 1.0 - (thickness - slt) / 2;
       
       Direction dir = Directional_element_interface::get (me);
-      if (fabs (yl - dir * (beam_space + thickness)) < rad
+      if (fabs (yl - dir * interbeam) < rad
 	  && fabs (my_modf (yl) - inter) < 1e-3)
 	dem += 15;
-      if (fabs (yr - dir * (beam_space + thickness)) < rad
+      if (fabs (yr - dir * interbeam) < rad
 	  && fabs (my_modf (yr) - inter) < 1e-3)
 	dem += 15;
 
       // hmm, without Interval/Drul_array, you get ~ 4x same code...
-      if (fabs (yl - dir * (beam_space + thickness)) < rad + inter)
+      if (fabs (yl - dir * interbeam) < rad + inter)
 	{
 	  if (dir == UP && dy <= 1e-3
 	      && fabs (my_modf (yl) - sit) < 1e-3)
@@ -546,7 +565,7 @@ Beam::score_forbidden_quants (SCM smob, SCM syl, SCM syr)
 	    dem += 15;
 	}
 
-      if (fabs (yr - dir * (beam_space + thickness)) < rad + inter)
+      if (fabs (yr - dir * interbeam) < rad + inter)
 	{
 	  if (dir == UP && dy >= 1e-3
 	      && fabs (my_modf (yr) - sit) < 1e-3)
@@ -556,10 +575,10 @@ Beam::score_forbidden_quants (SCM smob, SCM syl, SCM syr)
 	      && fabs (my_modf (yr) - hang) < 1e-3)
 	    dem += 15;
 	}
-
+      
       if (multiplicity >= 3)
 	{
-	  if (fabs (yl - 2 * dir * (beam_space + thickness)) < rad + inter)
+	  if (fabs (yl - 2 * dir * interbeam) < rad + inter)
 	    {
 	      if (dir == UP && dy <= 1e-3
 		  && fabs (my_modf (yl) - straddle) < 1e-3)
@@ -570,7 +589,7 @@ Beam::score_forbidden_quants (SCM smob, SCM syl, SCM syr)
 		dem += 15;
 	}
 	  
-	  if (fabs (yr - 2 * dir * (beam_space + thickness)) < rad + inter)
+	  if (fabs (yr - 2 * dir * interbeam) < rad + inter)
 	    {
 	      if (dir == UP && dy >= 1e-3
 		  && fabs (my_modf (yr) - straddle) < 1e-3)
@@ -605,8 +624,8 @@ Beam::least_squares (SCM smob)
   
   Direction dir = Directional_element_interface::get (me);
 
-  Interval ideal (Stem::calc_stem_info (first_visible_stem (me)).idealy_f_,
-		  Stem::calc_stem_info (last_visible_stem (me)).idealy_f_);
+  Interval ideal (Stem::calc_stem_info (first_visible_stem (me)).ideal_y,
+		  Stem::calc_stem_info (last_visible_stem (me)).ideal_y);
   
   if (!ideal.delta ())
     {
@@ -624,7 +643,7 @@ Beam::least_squares (SCM smob)
       /* Make simple beam on middle line have small tilt */
       if (!ideal[LEFT] && chord.delta () && count == 2)
 	{
-	  Direction d = (Direction)(sign (chord.delta ()) * dir);
+	  Direction d = (Direction) (sign (chord.delta ()) * dir);
 	  pos[d] = gh_scm2double (me->get_grob_property ("thickness")) / 2
 	    * dir;
 	  pos[-d] = - pos[d];
@@ -651,7 +670,7 @@ Beam::least_squares (SCM smob)
 	  if (Stem::invisible_b (s))
 	    continue;
 	  ideals.push (Offset (s->relative_coordinate (0, X_AXIS) - x0,
-			       Stem::calc_stem_info (s).idealy_f_));
+			       Stem::calc_stem_info (s).ideal_y));
 	}
       Real y; 
       Real dydx;
@@ -764,148 +783,6 @@ Beam::slope_damping (SCM smob)
     return SCM_UNSPECIFIED;
 }
 
-/* Prevent interference from stafflines. */
-Interval
-Beam::quantise_interval (Grob *me, Interval pos, Direction quant_dir)
-{
-  int multiplicity = get_multiplicity (me);
-
-  Real staff_space = Staff_symbol_referencer::staff_space (me);
-  Real thick = me->paper_l ()->get_var ("stafflinethickness");
-  Direction dir = Directional_element_interface::get (me);
-  Real dy = pos.delta ();
-
-  Drul_array<Interval> bounds;
-  Direction d = LEFT;
-  do
-    {
-      SCM proc = d == LEFT
-	? me->get_grob_property ("left-position-quant-function")
-	: me->get_grob_property ("right-position-quant-function");
-      
-      SCM quants = scm_apply (proc,
-			      me->self_scm (),
-			      scm_list_n (gh_int2scm (multiplicity),
-					  gh_double2scm (dir),
-					  gh_double2scm (dy),
-					  gh_double2scm (thick / staff_space),
-					  /* HUH? */
-					  SCM_EOL,
-					  SCM_UNDEFINED));
-      
-      Array<Real> a;
-      for (SCM i = quants; gh_pair_p (i); i = ly_cdr (i))
-	a.push (gh_scm2double (ly_car (i)));
-      
-      if (a.size () <= 1)
-	return pos;
-      
-      bounds[d] = quantise_iv (a, pos[d]*dir/staff_space) * staff_space;
-    }
-  while (flip (&d) != LEFT);
-  
-  Real ady = abs (dy);
-
-  // quant direction hints disabled for now
-  int q = 0;//(int)quant_dir;
-
-  /* TODO: make smart choice, find best left/right quants pair.
-
-     Slope should never be steeper than least_squares (before damping)
-     (save that value?)
-     Slope should never be reduced to zero.
-   */
-  SCM s = me->get_grob_property ("least-squares-dy");
-  Real lsdy = gh_number_p (s) ? gh_scm2double (s) : 0;
-    
-  //  Interval qpos (0, 1000 * sign (dy));
-  Interval qpos;
-  Real epsilon = staff_space / 10;
-  Direction ldir = LEFT;
-  do
-    {
-      Direction rdir = LEFT;
-      do
-	{
-	  Interval i (bounds[LEFT][ldir]*dir, bounds[RIGHT][rdir]*dir);
-	  if ((!lsdy
-	       || (abs (i.delta ()) <= abs (lsdy) + epsilon
-		   && sign (i.delta ()) == sign (lsdy)))
-	      && (abs (abs (i.delta ()) - ady)
-		  <= abs (abs (qpos.delta ()) - ady))
-	      && sign (i.delta ()) == sign (pos.delta ())
-	      && (!q
-		  || (i[LEFT]*q >= pos[LEFT]*q && i[RIGHT]*q
-		      >= pos[RIGHT]*q)))
-	    qpos = i;
-	}
-      while (flip (&rdir) != LEFT);
-    }
-  while (flip (&ldir) != LEFT);
-  
-  return qpos;
-}
-
-
-/* Quantise vertical position (left and right) of beam.
-   Generalisation of [Ross]. */
-MAKE_SCHEME_CALLBACK (Beam, quantise_position, 1);
-SCM
-Beam::quantise_position (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-
-  Interval pos = ly_scm2interval (me->get_grob_property ("positions"));
-  Real y_shift = check_stem_length_f (me, pos);
-  pos += y_shift;
-  Real staff_space = Staff_symbol_referencer::staff_space (me);
-
-  Direction dir = Directional_element_interface::get (me);
-  for (int i = 0; i < 10; i++)
-    {
-      Interval qpos = quantise_interval (me, pos, CENTER);
-      // how to check for uninitised interval,  (inf, -inf)?
-      if (qpos[LEFT] < 1000)
-	{
-	  y_shift = check_stem_length_f (me, qpos);
-	  if (y_shift * dir < staff_space / 2)
-	    {
-	      pos = qpos;
-	      break;
-	    }
-	}
-      pos += ((i + 1) * ((i % 2) * -2 + 1)) *  dir * staff_space / 4;
-    }
-      
-  
-  me->set_grob_property ("positions", ly_interval2scm (pos));
-  set_stem_lengths (me);
-
-#if 0  
-  pos = ly_scm2interval (me->get_grob_property ("positions"));
-  
-  y_shift = check_stem_length_f (me, pos);
-
-  Real half_space = Staff_symbol_referencer::staff_space (me) / 2;
-  /* HMMM */
-  if (y_shift > half_space / 4)
-    {
-      pos += y_shift;
-      int quant_dir = 0;
-      /* for significantly lengthened or shortened stems,
-	 request quanting the other way.
-	 HMMM */
-      if (abs (y_shift) > half_space / 2)
-	quant_dir = sign (y_shift) * Directional_element_interface::get (me);
-      pos = quantise_interval (me, pos, (Direction)quant_dir);
-    }
-  
-  me->set_grob_property ("positions", ly_interval2scm (pos));
-#endif
-  
-  return SCM_UNSPECIFIED;
-}
-
 MAKE_SCHEME_CALLBACK (Beam, end_after_line_breaking, 1);
 SCM
 Beam::end_after_line_breaking (SCM smob)
@@ -921,16 +798,13 @@ Beam::end_after_line_breaking (SCM smob)
   in POS, and for stem S.
  */
 Real
-Beam::calc_stem_y_f (Grob *me, Item* s, Interval pos)
+Beam::calc_stem_y (Grob *me, Item* s, Interval pos)
 {
   int beam_multiplicity = get_multiplicity (me);
   int stem_multiplicity = (Stem::flag_i (s) - 2) >? 0;
 
-  SCM space_proc = me->get_grob_property ("space-function");
-  SCM space = gh_call1 (space_proc, gh_int2scm (beam_multiplicity));
-
   Real thick = gh_scm2double (me->get_grob_property ("thickness"));
-  Real interbeam_f = gh_scm2double (space);
+  Real interbeam = get_interbeam (me);
 
   // ugh -> use commonx
   Real x0 = first_visible_stem (me)->relative_coordinate (0, X_AXIS);
@@ -948,89 +822,16 @@ Beam::calc_stem_y_f (Grob *me, Item* s, Interval pos)
   /* knee */
   if (dir!= sdir)
     {
-      stem_y -= dir * (thick / 2 + (beam_multiplicity - 1) * interbeam_f);
+      stem_y -= dir * (thick / 2 + (beam_multiplicity - 1) * interbeam);
       
       // huh, why not for first visible?
       if (Staff_symbol_referencer::staff_symbol_l (s)
 	  != Staff_symbol_referencer::staff_symbol_l (last_visible_stem (me)))
 	stem_y += Directional_element_interface::get (me)
-	  * (beam_multiplicity - stem_multiplicity) * interbeam_f;
+	  * (beam_multiplicity - stem_multiplicity) * interbeam;
     }
 
   return stem_y;
-}
-
-/* Make very sure that we don't have stems that are too short.
-   Try our best not to have stems that are too long (think: knees).
-   
-   Optionally (testing): try to lengthen more, to reach more ideal
-   stem lengths */
-Real
-Beam::check_stem_length_f (Grob *me, Interval pos)
-{
-  Real shorten = 0;
-  Real lengthen = 0;
-  Direction dir = Directional_element_interface::get (me);
-
-  Link_array<Item> stems=
-    Pointer_group_interface__extract_grobs (me, (Item*)0, "stems");
-
-  bool knee = false;
-  int ideal_lengthen_count = 0;
-  Real ideal_lengthen = 0;
-  int ideal_shorten_count = 0;
-  Real ideal_shorten = 0;
-  
-  for (int i=0; i < stems.size (); i++)
-    {
-      Item* s = stems[i];
-      if (Stem::invisible_b (s))
-	continue;
-
-      knee |= dir != Directional_element_interface::get (s);
-
-      Real stem_y = calc_stem_y_f (me, s, pos);
-      
-      stem_y *= dir;
-      Stem_info info = Stem::calc_stem_info (s);
-
-      shorten = shorten <? info.maxy_f_ - stem_y;
-      lengthen = lengthen >? info.miny_f_ - stem_y;
-
-      if (info.idealy_f_ - stem_y > 0)
-	{
-#if 0	  
-	  ideal_lengthen += info.idealy_f_ - stem_y;
-	  ideal_lengthen_count++;
-#else
-	  ideal_lengthen = ideal_lengthen >? info.idealy_f_ - stem_y;
-	  ideal_lengthen_count = 1;
-#endif	  
-	}
-      else if (info.idealy_f_ - stem_y < 0)
-	{
-#if 0	  
-	  ideal_shorten += info.idealy_f_ - stem_y;
-	  ideal_shorten_count++;
-#else
-	  ideal_shorten = ideal_shorten <? info.idealy_f_ - stem_y;
-	  ideal_shorten_count = 1;
-#endif	  
-	}
-    }
-  
-  if (lengthen && shorten)
-    me->warning (_ ("weird beam vertical offset"));
-
-  if (ideal_lengthen_count)
-    lengthen = (ideal_lengthen / ideal_lengthen_count) >? lengthen;
-  if (knee && ideal_shorten_count)
-    shorten = (ideal_shorten / ideal_shorten_count) <? shorten;
-
-  if (lengthen && shorten)
-    return dir * (lengthen + shorten);
-    
-  return dir * (shorten ? shorten : lengthen);
 }
 
 /*
@@ -1062,7 +863,7 @@ Beam::set_stem_lengths (Grob *me)
       if (Stem::invisible_b (s))
 	continue;
 
-      Real stem_y = calc_stem_y_f (me, s, pos);
+      Real stem_y = calc_stem_y (me, s, pos);
 
       // doesn't play well with dvips
       if (ps_testing)
@@ -1113,22 +914,15 @@ Beam::stem_beams (Grob *me, Item *here, Item *next, Item *prev, Real dydx)
 {
   // ugh -> use commonx
   if ((next
-       && !(next->relative_coordinate (0, X_AXIS)
+       && ! (next->relative_coordinate (0, X_AXIS)
 	    > here->relative_coordinate (0, X_AXIS)))
       || (prev
-	  && !(prev->relative_coordinate (0, X_AXIS)
+	  && ! (prev->relative_coordinate (0, X_AXIS)
 	       < here->relative_coordinate (0, X_AXIS))))
     programming_error ("Beams are not left-to-right");
 
-  int multiplicity = get_multiplicity (me);
-
-  SCM space_proc = me->get_grob_property ("space-function");
-  SCM space = gh_call1 (space_proc, gh_int2scm (multiplicity));
-
   Real thick = gh_scm2double (me->get_grob_property ("thickness"));
-  Real interbeam_f = gh_scm2double (space);
-    
-  Real bdy = interbeam_f;
+  Real bdy = get_interbeam (me);
   
   Molecule leftbeams;
   Molecule rightbeams;
@@ -1311,7 +1105,7 @@ Beam::brew_molecule (SCM smob)
       String str;
       if (1)
 	{
-	  str += to_str (gh_scm2int  (me->get_grob_property ("best-idx")));
+	  str += to_str (gh_scm2int (me->get_grob_property ("best-idx")));
 	  str += ":";
 	}
       str += to_str (gh_scm2double (me->get_grob_property ("quant-score")),
@@ -1319,7 +1113,7 @@ Beam::brew_molecule (SCM smob)
 
       SCM properties = Font_interface::font_alist_chain (me);
   
-      Molecule tm = Text_item::text2molecule (me, gh_str02scm (str.ch_C()), properties);
+      Molecule tm = Text_item::text2molecule (me, gh_str02scm (str.ch_C ()), properties);
       mol.add_at_edge (Y_AXIS, UP, tm, 5.0);
     }
   
@@ -1440,7 +1234,7 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
   Direction d = Stem::get_direction (stem);
   Real beamy = (stem->relative_coordinate (0, X_AXIS) - x0) * dydx + pos[LEFT];
 
-  Real staff_space =   Staff_symbol_referencer::staff_space (rest);
+  Real staff_space = Staff_symbol_referencer::staff_space (rest);
 
   
   Real rest_dim = rest->extent (rest, Y_AXIS)[d]*2.0 / staff_space; // refp??

@@ -80,9 +80,7 @@
    outer-stem-length-limit 
    positions
    slope-limit 
-   space-function 
    thickness 
-   vertical-position-quant-function 
    )
  )
 
@@ -587,6 +585,11 @@ contains-grace extra-space stretch-distance ))
    'piano-pedal-interface
    ""
    '(pedal-type
+     edge-width
+     edge-height
+     shorten-pair
+     left-widen
+     right-widen
     ))
 
 
@@ -712,7 +715,7 @@ position 0."
   (lily-interface
    'stem-tremolo-interface
    ""
-   '( stem beam-width beam-thickness beam-space-function 
+   '( stem beam-width beam-thickness
     ))
 
 
@@ -747,6 +750,7 @@ since these usually are in a different X_group
     edge-height 
     edge-width
     edge-text 
+    shorten-pair
     type 
 ))
 

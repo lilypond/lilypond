@@ -666,9 +666,9 @@ Stem::calc_stem_info (Grob*me)
     {
       Stem_info si ;
 
-      si.idealy_f_ = gh_scm2double (gh_car (scm_info)); 
-      si.maxy_f_ = gh_scm2double (gh_cadr (scm_info)); 
-      si.miny_f_ = gh_scm2double (gh_caddr (scm_info));
+      si.ideal_y = gh_scm2double (gh_car (scm_info)); 
+      si.max_y = gh_scm2double (gh_cadr (scm_info)); 
+      si.min_y = gh_scm2double (gh_caddr (scm_info));
 
       return si;
     }
@@ -685,19 +685,16 @@ Stem::calc_stem_info (Grob*me)
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real half_space = staff_space / 2;
+  
   int multiplicity = Beam::get_multiplicity (beam);
-
-
-  SCM space_proc = beam->get_grob_property ("space-function");
-  SCM space = gh_call1 (space_proc, gh_int2scm (multiplicity));
-  Real interbeam_f = gh_scm2double (space) * staff_space;
+  Real interbeam_f = Beam::get_interbeam (beam);
 
   Real thick = gh_scm2double (beam->get_grob_property ("thickness"));
   Stem_info info; 
-  info.idealy_f_ = chord_start_f (me);
+  info.ideal_y = chord_start_f (me);
 
   // for simplicity, we calculate as if dir == UP
-  info.idealy_f_ *= beam_dir;
+  info.ideal_y *= beam_dir;
   SCM grace_prop = me->get_grob_property ("grace");
 
   bool grace_b = to_boolean (grace_prop);
@@ -725,13 +722,13 @@ Stem::calc_stem_info (Grob*me)
     {
       if (multiplicity)
 	{
-	  info.idealy_f_ += thick + (multiplicity - 1) * interbeam_f;
+	  info.ideal_y += thick + (multiplicity - 1) * interbeam_f;
 	}
-      info.miny_f_ = info.idealy_f_;
-      info.maxy_f_ = 1000;  // INT_MAX;
+      info.min_y = info.ideal_y;
+      info.max_y = 1000;  // INT_MAX;
 
-      info.idealy_f_ += stem_length;
-      info.miny_f_ += minimum_length;
+      info.ideal_y += stem_length;
+      info.min_y += minimum_length;
 
       /*
 	lowest beam of (UP) beam must never be lower than second staffline
@@ -750,8 +747,8 @@ Stem::calc_stem_info (Grob*me)
 	     staffline
 	     lowest beam of (UP) beam must never be lower than second staffline
 	   */
-	  info.miny_f_ =
-	    info.miny_f_ >? 0
+	  info.min_y =
+	    info.min_y >? 0
 	    >? (- 2 * half_space - thick
 		+ (multiplicity > 0) * thick
 		+ interbeam_f * (multiplicity - 1));
@@ -760,33 +757,33 @@ Stem::calc_stem_info (Grob*me)
   else
     /* knee */
     {
-      info.idealy_f_ -= thick;
-      info.maxy_f_ = info.idealy_f_;
-      info.miny_f_ = - 1000 ; // INT_MAX;
+      info.ideal_y -= thick;
+      info.max_y = info.ideal_y;
+      info.min_y = - 1000 ; // INT_MAX;
 
-      info.idealy_f_ -= stem_length;
-      info.maxy_f_ -= minimum_length;
+      info.ideal_y -= stem_length;
+      info.max_y -= minimum_length;
     }
   
-  info.idealy_f_ = (info.maxy_f_ <? info.idealy_f_) >? info.miny_f_;
+  info.ideal_y = (info.max_y <? info.ideal_y) >? info.min_y;
 
   s = beam->get_grob_property ("shorten");
   if (gh_number_p (s))
-    info.idealy_f_ -= gh_scm2double (s);
+    info.ideal_y -= gh_scm2double (s);
 
- Grob *common = me->common_refpoint (beam, Y_AXIS);
+  Grob *common = me->common_refpoint (beam, Y_AXIS);
   Real interstaff_f = beam_dir *
- (me->relative_coordinate (common, Y_AXIS)
+    (me->relative_coordinate (common, Y_AXIS)
      - beam->relative_coordinate (common, Y_AXIS));
-
-  info.idealy_f_ += interstaff_f;
-  info.miny_f_ += interstaff_f;
-  info.maxy_f_ += interstaff_f ;
+  
+  info.ideal_y += interstaff_f;
+  info.min_y += interstaff_f;
+  info.max_y += interstaff_f ;
 
   me->set_grob_property ("stem-info",
-			 scm_list_n (gh_double2scm (info.idealy_f_),
-				     gh_double2scm (info.maxy_f_ ),
-				     gh_double2scm (info.miny_f_),
+			 scm_list_n (gh_double2scm (info.ideal_y),
+				     gh_double2scm (info.max_y),
+				     gh_double2scm (info.min_y),
 				     SCM_UNDEFINED));
   
   return info;

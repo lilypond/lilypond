@@ -104,17 +104,13 @@ Stem_tremolo::brew_molecule (SCM smob)
     // huh?
     tremolo_flags = 1;
 
-  int mult = beam ? Beam::get_multiplicity (beam) : 0;
-  SCM space_proc = me->get_grob_property ("beam-space-function");
-  SCM space = gh_call1 (space_proc, gh_int2scm (mult));
-  Real interbeam_f = gh_scm2double (space) * ss;
-
+  Real interbeam = beam ? Beam::get_interbeam (beam) : 0.81;
 
   Molecule mol; 
   for (int i = 0; i < tremolo_flags; i++)
     {
       Molecule b (a);
-      b.translate_axis (interbeam_f * i, Y_AXIS);
+      b.translate_axis (interbeam * i, Y_AXIS);
       mol.add_molecule (b);
     }
   if (tremolo_flags)
@@ -122,10 +118,13 @@ Stem_tremolo::brew_molecule (SCM smob)
   if (beam)
     {
       // ugh, rather calc from Stem_tremolo_req
-      int beams_i = Stem::beam_count (stem, RIGHT) >? Stem::beam_count (stem, LEFT);
-      mol.translate (Offset (stem->relative_coordinate (0, X_AXIS) - me->relative_coordinate (0, X_AXIS),
-			    Stem::stem_end_position (stem) * ss / 2 - 
-			    Directional_element_interface::get (beam) * beams_i * interbeam_f));
+      int beams_i = Stem::beam_count (stem, RIGHT)
+	>? Stem::beam_count (stem, LEFT);
+      mol.translate (Offset (stem->relative_coordinate (0, X_AXIS)
+			     - me->relative_coordinate (0, X_AXIS),
+			     Stem::stem_end_position (stem) * ss / 2 - 
+			     Directional_element_interface::get (beam)
+			     * beams_i * interbeam));
     }
   else
     {  
@@ -148,7 +147,8 @@ Stem_tremolo::brew_molecule (SCM smob)
       else
 	whole_note_correction = 0;
 	 
-      mol.translate (Offset (stem->relative_coordinate (0, X_AXIS) - me->relative_coordinate (0, X_AXIS) +
+      mol.translate (Offset (stem->relative_coordinate (0, X_AXIS)
+			     - me->relative_coordinate (0, X_AXIS) +
 			     whole_note_correction, dy));
     }
   
