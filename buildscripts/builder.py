@@ -50,7 +50,8 @@ env.Append (ENV = {'TEXMF' : '{' + LILYPONDPREFIX + ',' \
 		   + os.popen ('kpsexpand \$TEXMF').read ()[:-1] + '}' })
 
 ## + ' --output=$$(basename $TARGET) --format=%(LILYPOND_BOOK_FORMAT)s\
-a = (r'''rm -f $$(grep -LF '\lilypondend' $$(dirname $TARGET))/lily-*.tex 2>/dev/null;''' \
+##a = (r'''echo "NOT RM $$(grep -LF '\lilypondend' $$(dirname $TARGET)/lily-*.tex)"; ''' \
+a = (r'''rm -f $$(grep -LF '\lilypondend' $$(dirname $TARGET)/lily-*.tex 2>/dev/null); ''' \
      + 'LILYPONDPREFIX=%(LILYPONDPREFIX)s '\
      + PYTHON + ' ' + LILYPOND_BOOK + verbose_opt (env, ' --verbose')\
      + ' --include=$$(dirname $TARGET) %(LILYPOND_BOOK_INCLUDES)s'\
@@ -67,14 +68,18 @@ a = '(cd $$(dirname $TARGET) &&\
 texi2dvi = Builder (action = a, suffix = '.dvi', src_suffix = '.texi')
 env.Append (BUILDERS = {'Texi2dvi': texi2dvi})
 
-env.Append (DVIPSFLAGS = '-Ppdf -ta4 +u lilypond.map')
+env.Append (DVIPSFLAGS = '-Ppdf -u+lilypond.map -u+ec-mftrace.map')
 
 DVIPS_PAPERSIZE = 'a4'
 DVIPSFLAGS = env['DVIPSFLAGS']
-a = ('dvips %(DVIPSFLAGS)s' \
-     + ' -o $TARGET.pdfps'\
+a = ('set -x; dvips %(DVIPSFLAGS)s' \
+     + ' -o ${TARGET}.pdfps'\
      + ' -t %(DVIPS_PAPERSIZE)s $SOURCE &&'\
-     + ' ps2pdf -sPAPERSIZE=%(DVIPS_PAPERSIZE)s $TARGET.pdfps $TARGET') \
+     + ' ps2pdf -sPAPERSIZE=%(DVIPS_PAPERSIZE)s ${TARGET}.pdfps $TARGET') \
      % vars ()
 dvi2pdf = Builder (action = a, suffix = '.pdf', src_suffix = '.dvi')
 env.Append (BUILDERS = {'Dvi2pdf': dvi2pdf})
+
+a = 'convert $SOURCE $TARGET'
+png2eps = Builder (action = a, suffix = '.eps', src_suffix = '.png')
+env.Append (BUILDERS = {'Png2eps': png2eps})
