@@ -12,6 +12,12 @@
 #include "array.hh"
 #include "musical-pitch.hh"
 #include "lily-proto.hh"
+
+
+
+/*
+  Slightly on the hairy side? In any case COMMENTME.
+ */
 class Chord
 {
 public:

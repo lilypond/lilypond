@@ -29,7 +29,7 @@
 #include "cross-staff.hh"
 #include "group-interface.hh"
 #include "staff-symbol-referencer.hh"
-#include "lily-guile.icc"
+
 
 
 class Slur_bezier_bow : public Bezier_bow
@@ -668,7 +668,12 @@ Slur::set_control_points ()
     }
 
   Bezier b = bb.get_bezier ();
-  SCM controls = array_to_scm (b.control_);
+
+
+  SCM controls = SCM_EOL;
+  for (int i= 4; i--;)
+    controls = gh_cons ( ly_offset2scm (b.control_[i]), controls);
+
   set_elt_property ("control-points", controls);
 }
   
@@ -677,9 +682,12 @@ Bezier
 Slur::get_curve () const
 {
   Bezier b;
-  Array<Offset> controls (4);
-  scm_to_array (get_elt_property ("control-points"), &controls);
-  b.control_ = controls;
+  int i = 0;
+  for (SCM s= get_elt_property ("control-points"); s != SCM_EOL; s = gh_cdr (s))
+    {
+      b.control_[i] = ly_scm2offset (gh_car (s));
+      i++;
+    }
   
   Array<Offset> enc (get_encompass_offset_arr ());
   Direction dir = directional_element (this).get ();

@@ -23,6 +23,7 @@
 struct Musical_pitch : public Input
 {
   Musical_pitch (int notename=0, int accidental=0, int octave=0);
+  Musical_pitch (SCM);
 
   /// 0 is c, 6 is b
   int notename_i_;
@@ -42,10 +43,8 @@ struct Musical_pitch : public Input
   void down_to (int);
   String str () const;
   void print () const;
+  SCM to_scm () const;
 };
-
-SCM to_scm (Musical_pitch p);
-Musical_pitch scm_to (SCM s, Musical_pitch* p);
 
 #include "compare.hh"
 INSTANTIATE_COMPARE(Musical_pitch, Musical_pitch::compare);

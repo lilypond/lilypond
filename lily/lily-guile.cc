@@ -29,12 +29,14 @@ ly_str02scm (char const*c)
   return gh_str02scm ((char*)c);
 }
 
+
+#if 0
+/*
+  this all really sucks, LilyPond should not communicate with GUILE using strings.
+ */
 SCM
-ly_eval_str (String s)
-{
-  // this all really sucks, guile should take char const* arguments!
-  return gh_eval_str ((char*)s.ch_C ());
-}
+ly_eval_str (String s);
+#endif
 
   
 /*
@@ -134,7 +136,7 @@ read_lily_scm_file (String fn)
 
   Simple_file_storage f(s);
   
-  ly_eval_str ((char *) f.ch_C());
+  gh_eval_str ((char *) f.ch_C());
   progress_indication ("]");
 }
 
@@ -262,32 +264,7 @@ to_dir (SCM s)
 }
 
 
-SCM
-to_scm (int i)
-{
-  return gh_int2scm (i);
-}
 
-/*
-  UGR. junkme.
- */
-int
-scm_to (SCM s, int* )
-{
-  return gh_number_p (s) ? gh_scm2int (s) : 0;
-}
-
-SCM
-to_scm (Real r)
-{
-  return gh_double2scm (r);
-}
-
-Real
-scm_to (SCM s, Real* )
-{
-  return gh_number_p (s) ? gh_scm2double (s) : 0;
-}
 
 bool
 to_boolean (SCM s)
@@ -319,13 +296,13 @@ appendable_list_append (SCM l, SCM elt)
 
 
 SCM
-to_scm (Offset o)
+ly_offset2scm (Offset o)
 {
   return gh_cons (gh_double2scm (o[X_AXIS]), gh_double2scm(o[Y_AXIS]));
 }
 
 Offset
-scm_to (SCM s, Offset*)
+ly_scm2offset (SCM s)
 {
   return Offset (gh_scm2double (gh_car (s)),
 		 gh_scm2double (gh_cdr (s)));

@@ -22,8 +22,6 @@
 class Bezier
 {
 public:
-  Bezier ();
-
   void assert_sanity () const;
   void flip (Axis);
   void reverse ();
@@ -38,7 +36,14 @@ public:
   Offset curve_point (Real t) const;
 
   static const int CONTROL_COUNT = 4;
-  Array<Offset> control_;
+
+  /*
+    Bezier curves always have 4 control points. Making this into an
+    Array<> gives unnecessary overhead, and makes debugging a royal
+    pain.  */
+
+  
+  Offset control_[4];
 };
 
 void flip (Array<Offset>* arr_p, Axis a);

@@ -105,10 +105,10 @@ Molecule
 Lookup::dashed_slur (Bezier b, Real thick, Real dash)
 {
   SCM l = SCM_EOL;
-  // this is silly, we have array_to_scm
+
   for (int i= 4; i -- ;)
     {
-      l = gh_cons (to_scm (b.control_[i]), l);
+      l = gh_cons (ly_offset2scm (b.control_[i]), l);
     }
 
   SCM at = (gh_list (ly_symbol2scm ("dashed-slur"),
@@ -246,7 +246,10 @@ Lookup::text (String style, String text, Paper_def *paper_l)
   /*
     UGH.
   */
-  SCM l = ly_eval_str (("(style-to-cmr \"" + style + "\")").ch_C());
+  SCM l = scm_eval (gh_list (ly_symbol2scm ("style-to-cmr"),
+			     ly_str02scm (style.ch_C()),
+			     SCM_UNDEFINED));
+  
   if (l != SCM_BOOL_F)
     {
       style = ly_scm2string (gh_cdr(l)) +to_str  ((int)font_h);
@@ -327,11 +330,11 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick)
   back.control_[2] += curvethick * complex_exp (Offset (0, alpha + M_PI/2));  
 
   SCM scontrols[8];
-  // this is silly, we have array_to_scm
+
   for (int i=4; i--;)
-    scontrols[ i ] = to_scm (back.control_[i]);
+    scontrols[ i ] = ly_offset2scm(back.control_[i]);
   for (int i=4 ; i--;)
-    scontrols[i+4] = to_scm (curve.control_[i]);
+    scontrols[i+4] = ly_offset2scm (curve.control_[i]);
 
   /*
     Need the weird order b.o. the way PS want its arguments  

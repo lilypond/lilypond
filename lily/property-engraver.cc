@@ -50,28 +50,48 @@ Property_engraver::acknowledge_element (Score_element_info i)
     }
 }
 
+
 void
 Property_engraver::apply_properties (SCM p, Score_element *e)
 {  
   for (; gh_pair_p (p); p = gh_cdr (p))
     {
+      /*
+	Try each property in order; earlier descriptions take
+	precedence over later ones, and we don't touch elt-properties if
+	they're already set.
+      */
+      
       SCM entry = gh_car (p);
       SCM prop_sym = gh_car (entry);
       SCM type_p   = gh_cadr (entry);
-      SCM elt_prop_name = gh_caddr (entry);
+      SCM elt_prop_sym = gh_caddr (entry);
 
-      SCM preset = scm_assq(prop_sym, e->element_property_alist_);
+      SCM preset = scm_assq(elt_prop_sym, e->element_property_alist_);
       if (preset != SCM_BOOL_F)
 	continue;
   
       SCM val = get_property (prop_sym);
+
+     
       if (val == SCM_UNDEFINED)
-	;
+	;			// Not defined in context.
       else if (gh_apply (type_p, scm_listify (val, SCM_UNDEFINED))
-	       == SCM_BOOL_T)
-	e->set_elt_property (ly_symbol2string (elt_prop_name), val);
+	       == SCM_BOOL_T)	// defined and  right type: do it
+	e->set_elt_property (ly_symbol2string (elt_prop_sym), val);
       else
-	{
+ /*
+	    we don't print a warning if VAL == #f, because we would
+	    get lots of warnings when we restore stuff to default, eg.
+
+	    slurDash = #1 [...] slurDash = ##f
+
+	    should not cause "type error: slurDash expects number not
+	    boolean"
+
+	  */
+	if (val != SCM_BOOL_F)
+	{			// not the right type: error message.
 	  SCM errport = scm_current_error_port ();
 	  warning (_("Wrong type for property"));
 	  scm_display (prop_sym, errport);
@@ -82,7 +102,6 @@ Property_engraver::apply_properties (SCM p, Score_element *e)
 	  scm_puts (" type: ", errport);
 	  scm_display (ly_type (val), errport);
 	  scm_puts ("\n", errport);
-	    
 	}
     }
 }

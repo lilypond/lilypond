@@ -77,7 +77,7 @@ beampostraditional =
 
 
 slurnormal = 
-	\property Voice.slurDash = ""
+	\property Voice.slurDash = ##f
 
 
 slurdotted =				

@@ -11,18 +11,6 @@
 #include "dictionary.hh"
 #include "musical-pitch.hh"
 
-String
-Notename_table::get_name (Musical_pitch m) const
-{
-  for (Dictionary_iter<Musical_pitch> ai (*pitch_dict_); ai.ok (); ai++)
-    {
-      if (ai.val () == m)
-	return ai.key ();
-    }
-  return "r";			// rest. 
-}
-
-
 void
 Notename_table::add_note_name (String s,
 			       Musical_pitch const *p)

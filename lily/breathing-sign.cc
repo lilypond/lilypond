@@ -5,7 +5,7 @@
 
   written for the GNU LilyPond music typesetter
 
-TODO: --> see breathing-sign-engraver.cc
+  TODO: --> see breathing-sign-engraver.cc
 
 */
 #include "staff-symbol-referencer.hh"
