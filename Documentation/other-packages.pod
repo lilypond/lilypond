@@ -17,7 +17,8 @@ An alpha version notation editor for X. Source available on request.
 
 A Notation editor/Sequencer for X (win95 port underway). Outputs musictex.
 
-=item Common Notation, http://www-ccrma.stanford.edu/ccrma/Software/cmn/cmn.html
+=item Common Notation,
+http://www-ccrma.stanford.edu/CCRMA/Software/cmn/cmn.html
 
 A versatile lisp package. Part of the Common Music system. Input is in
 Lisp. It needs Adobe fonts
@@ -112,6 +113,10 @@ A shareware windows package
 =item Musicator
 
 =head2 Unknown
+
+=item MusiCopy, ? 
+
+Ohio State university.
 
 =item Berlioz, http://www.bsi.fr/~montel/
 
