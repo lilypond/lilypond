@@ -3,7 +3,7 @@
 texidoc = "An alternate method to make bass figures is to use
 markup texts."
 }
-\version "1.9.4"
+\version "1.9.8"
 
 nat = \markup { \musicglyph #"accidentals-0" }
 sh = \markup { \smaller \raise #0.6 \musicglyph #"accidentals-1" }

@@ -1,5 +1,5 @@
 
-\version "1.9.5" \header {
+\version "1.9.8" \header {
 
     texidoc = "Octavation signs may be added to clefs.  These
 octavation signs may be placed below or above (meaning an octave

@@ -2,7 +2,7 @@
 texidoc = "New markup syntax."
 }
 
-\version "1.9.4"
+\version "1.9.8"
 
 
 \score {

@@ -6,7 +6,7 @@ putting the Tie engraver at Thread level, and redirecting untied notes
 to a different thread."
 
 }
-\version "1.9.4"
+\version "1.9.8"
     \paper { raggedright= ##t }
 
 \score {

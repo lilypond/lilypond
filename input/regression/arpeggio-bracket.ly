@@ -1,6 +1,6 @@
 
 
-\version "1.9.7"
+\version "1.9.8"
 \header{
 texidoc="
 A square bracket on the left indicates that the player should not

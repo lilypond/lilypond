@@ -1,4 +1,4 @@
-\version "1.9.4"
+\version "1.9.8"
 \header {
 texidoc ="
   Template that puts dynamics on a separate line, so it is neatly

@@ -1,4 +1,4 @@
-\version "1.9.4"
+\version "1.9.8"
 \header {
     title	= "Puer natus est nobis (excerptum)"
     subtitle	= "Antiphona ad introitum VII"

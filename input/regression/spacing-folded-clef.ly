@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.4"
+\version "1.9.8"
 \header {
 texidoc = "A clef can be folded below notes in a different staff, if
 this doesn't disrupt the flow of the notes."

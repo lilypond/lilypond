@@ -1,4 +1,4 @@
-\version "1.9.4"
+\version "1.9.8"
 \header {texidoc = "@cindex Slur, dotted
 You can print different kinds of slurs (dotted, dashed, etc). "
 } 

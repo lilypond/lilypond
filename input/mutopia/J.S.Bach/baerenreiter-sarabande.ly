@@ -1,4 +1,4 @@
-\version "1.9.4"
+\version "1.9.8"
 
 % #(ly:set-point-and-click 'line-column)
 

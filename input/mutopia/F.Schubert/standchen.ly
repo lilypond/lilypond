@@ -42,7 +42,7 @@ instrument = "Piano"
  footer = "Mutopia-2001/04/27-xx"
 } 
 
-\version "1.9.4"
+\version "1.9.8"
 
 dynamicUp = \property Voice.DynamicLineSpanner \override #'direction = #1
 dynamicRevert = \property Voice.DynamicLineSpanner \revert #'direction

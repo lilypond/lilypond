@@ -1,5 +1,5 @@
 
-\version "1.9.4"
+\version "1.9.8"
 \header { texidoc = "Tests placement of accidentals in every clef. " }
 
 \score { \notes

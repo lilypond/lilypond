@@ -1,5 +1,5 @@
 
-\version "1.9.4"
+\version "1.9.8"
 \header {
 
 texidoc = "With the new chord syntax it's possible to associate

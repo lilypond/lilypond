@@ -1,4 +1,4 @@
-\version "1.9.4"
+\version "1.9.8"
 \header {
 texidoc = "Stanza numbers may differ for the first and following systems."
 }

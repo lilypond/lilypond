@@ -1,5 +1,5 @@
 
-\version "1.9.4"
+\version "1.9.8"
 \header {
 
 texidoc = "The @code{\\tag} command marks music expressions with a

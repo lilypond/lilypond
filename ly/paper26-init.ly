@@ -1,6 +1,6 @@
 % paper26-init.ly
 
-\version "1.9.7"
+\version "1.9.8"
 
 paperTwentysix = \paper {
 	staffheight = 26.0\pt

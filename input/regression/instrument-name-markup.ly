@@ -7,7 +7,7 @@ including alterations. "
 }
 
 
-\version "1.9.4"
+\version "1.9.8"
 
 
 textFlat = \markup {\smaller \musicglyph #"accidentals--1"}

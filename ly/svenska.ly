@@ -40,4 +40,4 @@
 	(hiss . ,(ly:make-pitch -1 6 SHARP))
 	(hississ . ,(ly:make-pitch -1 6 DOUBLE-SHARP))
 )
-\version "1.9.7"
+\version "1.9.8"

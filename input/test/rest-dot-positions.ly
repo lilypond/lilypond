@@ -1,5 +1,5 @@
 
-\version "1.9.4"
+\version "1.9.8"
 % candidate for regression.  -gp
 \header { texidoc = "@cindex Rest Dot Positions
 This file tests dotted rests. " }

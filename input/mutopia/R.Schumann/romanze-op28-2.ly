@@ -6,7 +6,7 @@
 %% 19 is broken --hwn.
 %\include "paper19.ly"
 \include "paper16.ly"
-\version "1.9.4"
+\version "1.9.8"
 
 \header {
   title = "Romanzen"

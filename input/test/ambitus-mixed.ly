@@ -13,7 +13,7 @@ derived context can then be used in parallel in the same score. (this is not dem
 "
 }
 
-\version "1.9.6"
+\version "1.9.8"
 
 #(define (kill-ambitus grob grob-context apply-context)
   (if (memq 'ambitus-interface (ly:get-grob-property grob 'interfaces))

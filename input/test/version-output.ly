@@ -1,4 +1,4 @@
-\version "1.9.4"
+\version "1.9.8"
 
 \header {
     texidoc  = "By putting the output of @code{lilypond-version}

@@ -1,4 +1,4 @@
-\version "1.9.4"
+\version "1.9.8"
 \header {
 
     texidoc = "@cindex Clef End of Line

@@ -1,5 +1,5 @@
 
-\version "1.9.4"
+\version "1.9.8"
 \header{
 texidoc="
 Beams can be typeset over fixed distance aligned staves, beam

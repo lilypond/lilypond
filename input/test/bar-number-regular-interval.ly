@@ -5,7 +5,7 @@ Bar numbers can also be printed at regular intervals.
 
 " }
 
-\version "1.9.4"
+\version "1.9.8"
 
 \score {
     \context Staff \notes \transpose  c c' {
