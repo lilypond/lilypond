@@ -6,7 +6,7 @@ staffsize#:=20pt#;
 input autometric;
 fet_beginfont("feta", 20);
 
-test := 1;
+test := 0;
 
 input feta-generic;
 

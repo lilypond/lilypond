@@ -1,3 +1,6 @@
+pl 31.jcn2
+	- first version of (non-ugh) c-klef
+
 pl 31
 	- bf: replaced Score_column assert by a warning (thanks Scott)
 	- bf: mi2mu version output (thanks Scott)

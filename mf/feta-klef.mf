@@ -15,14 +15,15 @@ def draw_staff(expr first, last)=
 	endfor
 	enddef;
 
+% [Wanske] says the bulbs should be positioned about 1/4 right of the
+% "arrow"
 def draw_c_clef (expr reduction) = 
 	save hair, norm, reduced_il;
 	reduced_il#=interline#*reduction;
 	norm#:=2/3reduced_il#;
 	hair#:=1/6norm#;
 	define_pixels (hair,norm,reduced_il);
-	set_char_box (0, 11/4interline#, 2 reduced_il#, 2 reduced_il#);
-	% huh, what's y-zero?
+	set_char_box (0, 5/2reduced_il#, 2 reduced_il#, 2 reduced_il#);
 	draw_block ((0,-d), (1/2reduced_il,h));
 	draw_block ((1/2reduced_il+stafflinethickness,-d), 
 	  (1/2reduced_il+2stafflinethickness,h));
@@ -30,42 +31,52 @@ def draw_c_clef (expr reduction) =
 	save xoff;
 	xoff=1/2reduced_il+2hair;
 	penpos1(hair,-90);
-	z1l=(xoff+norm+hair/2,h);
+	z1l=(xoff+norm+hair,h);
 	penpos2(norm-hair,180);
 	z2l=(w,h/2);
 	penpos3(hair,90);
 	z3=(((w-xoff)/2)+xoff,2hair);
-	penpos4(hair,90);
-	z4=(xoff+hair+1/2norm+hair,y3);
 
-	penpos6(hair,-90);
-	z6r=(xoff+norm+hair,-d);
+	penpos4(hair,0);
+	z4=(xoff+1/2norm+1/2hair,reduced_il-hair);
+	
+	penpos5(4hair,0);
+	z5=(xoff+5/4hair,0);
+
+	penpos6(norm-hair,90);
+	z6=(xoff+3/4norm,0);
+
+	penpos7(hair,-90);
+	z7r=(x1,-d);
 
 	save t; t=0.833;
 	save p; path p;
-	p = z4r{right}..z3r{right}..tension t..z2r{up}
+%	p = z5l..z4l{up}..z4r{down}..z3r{right}..tension t..z2r{up}
+%		..z1r{left}..z1l{right}..z2l{down}
+%		..z3l{left}..z5r{down};
+	p = z5l..z4l{up}..z4r{down}..z3r{right}..tension t..z2r{up}
 		..z1r{left}..z1l{right}..z2l{down}
-		..z3l{left}..z4l{left};
+		..z3l{left}..z6r..z5r{down};
 	pickup pencircle scaled 1pt#;
-	% boehoe, howto?
-%	draw p..(p yscaled -1)..cycle;
-	fill p..cycle;
-	fill (p yscaled -1)..cycle;
-	penlabels (1,2,3,4);
+	filldraw p..(reverse p yscaled -1)..cycle;
+	penlabels (1,2,3,4,5,6);
 
-	% ugh, should be bulb, not flare
-	draw_flare(z1l,180,90,hair,norm);
-	draw_flare(z6r,180,-90,hair,norm+hair);
+	% ugh, should be bulb, not flare?
+	draw_flare(z1l,180,90,hair,norm-1/4hair);
+	draw_flare(z7r,180,-90,hair,norm-1/4hair);
 	enddef;
 
-fet_beginchar ("C clef", "ugh_alto", "ugh_altoclef")
+fet_beginchar ("C clef", "alto", "altoclef")
 	if test = 1:
-		draw_staff (-1,3);
+		draw_staff (-2,2);
 	fi;
 	draw_c_clef (1.0);
 fet_endchar;
 
-fet_beginchar ("C clef", "ugh_alto_change", "ugh_caltoclef")
+fet_beginchar ("C clef", "alto_change", "caltoclef")
+	if test = 1:
+		draw_staff (-2,2);
+	fi;
 	draw_c_clef (.8);
 fet_endchar;
 
