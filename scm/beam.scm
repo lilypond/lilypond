@@ -81,10 +81,17 @@
     
     (if (or (not (almost-equal want-l (car posns)))
 	    (not (almost-equal want-r (cdr posns))))
-	(ly:warn
-	 (format "Error in beam quanting found. Want (~S,~S) found (~S)."
-		 want-l want-r posns
-		 )))))
+	(begin
+	  (ly:warn
+	   (format "Error in beam quanting found. Want (~S,~S) found (~S)."
+		   want-l want-r posns
+		   ))
+	  (set! (ly:grob-property beam 'quant-score)
+		(format "(~S,~S)" want-l want-r)))
+	(set! (ly:grob-property beam 'quant-score) "")
+
+	
+	  )))
 		 
 (define-public (check-quant-callbacks l r)
   (list Beam::least_squares
