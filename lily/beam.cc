@@ -11,8 +11,6 @@
 /*
   [TODO]
 
-  * different left/right quanting: slope, multiplicity
-  
   * Fix TODO
   
   * Junk stem_info.
@@ -46,8 +44,8 @@
 
 
 
-Real
-shrink_extra_weight(Real x)
+static Real
+shrink_extra_weight (Real x)
 {
   return fabs(x) * ((x < 0) ? 1.5 : 1.0);
 }
@@ -337,18 +335,22 @@ Beam::new_quanting (SCM smob)
   Real yl = gh_scm2double (gh_car(s));
   Real yr = gh_scm2double (gh_cdr(s));
 
-  Real thick = gh_scm2double (me->get_grob_property ("thickness"));
-  //    Staff_symbol_referencer::staff_space (me);
-  Real sthick = me->paper_l()->get_var ("stafflinethickness");
-    //  * Staff_symbol_referencer::staff_space (me);
-
-  Real quants [] = {0.0, thick/2 - sthick / 2, 0.5, 1.0 - thick/2 + sthick/2};
+  Real ss = Staff_symbol_referencer::staff_space (me);
+  Real thickness = gh_scm2double (me->get_grob_property ("thickness")) / ss;
+  Real slt = me->paper_l()->get_var ("stafflinethickness") / ss;
+  
+  Real straddle = 0.0;
+  Real sit = (thickness - slt) / 2;
+  Real inter = 0.5;
+  Real hang = 1.0 - (thickness - slt) / 2;
+  Real quants [] = {straddle, sit, inter, hang };
+  
   int num_quants = int(sizeof(quants)/sizeof (Real));
   Array<Real> quantsl;
   Array<Real> quantsr;
 
   const int REGION_SIZE = 3;
-  
+  // -> result indexes between 70 and 575
   for (int i  = -REGION_SIZE ; i < REGION_SIZE; i++)
     for (int j = 0; j < num_quants; j++)
       {
@@ -376,7 +378,9 @@ Beam::new_quanting (SCM smob)
       SCM f = gh_car (s);
       for (int i = qscores.size(); i--;)
 	{
-	  if (qscores[i].demerits < 1000)
+	  // best scores < 30;
+	  // if (qscores[i].demerits < 1000)
+	  if (qscores[i].demerits < 100)
 	    {
 	      SCM score = gh_call3 (f,
 				    me->self_scm(),
@@ -404,7 +408,9 @@ Beam::new_quanting (SCM smob)
 			 gh_cons (gh_double2scm (qscores[best_idx].yl),
 				  gh_double2scm (qscores[best_idx].yr))
 			 );
-  me->set_grob_property ("quant-score",gh_double2scm (qscores[best_idx].demerits));
+  me->set_grob_property ("quant-score",
+			 gh_double2scm (qscores[best_idx].demerits));
+  me->set_grob_property ("best-idx", gh_int2scm (best_idx));
 
   return SCM_UNSPECIFIED;
 }
@@ -470,8 +476,9 @@ Beam::score_stem_lengths (SCM smob, SCM syl, SCM syr)
 
   return gh_double2scm (demerit_score);
 }
-Real
-my_modf(Real x)
+
+static Real
+my_modf (Real x)
 {
   return x - floor(x);
 }
@@ -485,11 +492,12 @@ Beam::score_forbidden_quants (SCM smob, SCM syl, SCM syr)
   Grob*me = unsmob_grob(smob);
   Real yl = gh_scm2double (syl);
   Real yr = gh_scm2double (syr);
+  Real dy = yr - yl;
   Real rad = Staff_symbol_referencer::staff_radius (me);
   Real dem = 0.0;
-  if (fabs (yl) <  2*rad && fabs( my_modf(yl) - 0.5) < 1e-3)
+  if (fabs (yl) < rad && fabs( my_modf(yl) - 0.5) < 1e-3)
     dem += 1000;
-  if (fabs (yr) <  2*rad && fabs( my_modf(yr) - 0.5) < 1e-3)
+  if (fabs (yr) < rad && fabs( my_modf(yr) - 0.5) < 1e-3)
     dem += 1000;
 
 
@@ -499,7 +507,8 @@ Beam::score_forbidden_quants (SCM smob, SCM syl, SCM syr)
     {
       Real slt = me->paper_l()->get_var("stafflinethickness");
       Real ss = Staff_symbol_referencer::staff_space(me);
-      Real thickness = gh_scm2double (me->get_grob_property ("thickness")) * ss;
+      Real thickness = gh_scm2double (me->get_grob_property ("thickness"))
+	* ss;
 
       Real beam_space= (2*ss + slt  - 3 *thickness) / 2.0;
       if (multiplicity >= 4)
@@ -507,13 +516,66 @@ Beam::score_forbidden_quants (SCM smob, SCM syl, SCM syr)
 	  beam_space = (3*ss + slt - 4 * thickness) /3.0;
 	}
 
-      Direction d = Directional_element_interface::get (me);
-      yl += d * (beam_space + thickness);
-      yr += d * (beam_space + thickness);
-      if (fabs (yl) <  rad && fabs( my_modf(yl) - 0.5) < 0.1)
+      Real straddle = 0.0;
+      Real sit = (thickness - slt) / 2;
+      Real inter = 0.5;
+      Real hang = 1.0 - (thickness - slt) / 2;
+      
+      Direction dir = Directional_element_interface::get (me);
+      if (fabs (yl - dir * (beam_space + thickness)) < rad
+	  && fabs (my_modf (yl) - inter) < 1e-3)
 	dem += 15;
-      if (fabs (yr) <  rad && fabs( my_modf(yr) - 0.5) < 0.1)
+      if (fabs (yr - dir * (beam_space + thickness)) < rad
+	  && fabs (my_modf (yr) - inter) < 1e-3)
 	dem += 15;
+
+      // hmm, without Interval/Drul_array, you get ~ 4x same code...
+      if (fabs (yl - dir * (beam_space + thickness)) < rad + inter)
+	{
+	  if (dir == UP && dy <= 1e-3
+	      && fabs (my_modf (yl) - sit) < 1e-3)
+	    dem += 15;
+	  
+	  if (dir == DOWN && dy >= 1e-3
+	      && fabs (my_modf (yl) - hang) < 1e-3)
+	    dem += 15;
+	}
+
+      if (fabs (yr - dir * (beam_space + thickness)) < rad + inter)
+	{
+	  if (dir == UP && dy >= 1e-3
+	      && fabs (my_modf (yr) - sit) < 1e-3)
+	    dem += 15;
+	  
+	  if (dir == DOWN && dy <= 1e-3
+	      && fabs (my_modf (yr) - hang) < 1e-3)
+	    dem += 15;
+	}
+
+      if (multiplicity >= 3)
+	{
+	  if (fabs (yl - 2 * dir * (beam_space + thickness)) < rad + inter)
+	    {
+	      if (dir == UP && dy <= 1e-3
+		  && fabs (my_modf (yl) - straddle) < 1e-3)
+		dem += 15;
+	      
+	      if (dir == DOWN && dy >= 1e-3
+		  && fabs (my_modf (yl) - straddle) < 1e-3)
+		dem += 15;
+	}
+	  
+	  if (fabs (yr - 2 * dir * (beam_space + thickness)) < rad + inter)
+	    {
+	      if (dir == UP && dy >= 1e-3
+		  && fabs (my_modf (yr) - straddle) < 1e-3)
+		dem += 15;
+	      
+	      if (dir == DOWN && dy <= 1e-3
+		  && fabs (my_modf (yr) - straddle) < 1e-3)
+		dem += 15;
+	    }
+	}
     }
   
   return gh_double2scm ( dem);
@@ -1241,9 +1303,14 @@ Beam::brew_molecule (SCM smob)
 	should be switchable for those who want to twiddle with the
 	parameters.
       */
-      SCM dem = me->get_grob_property ("quant-score");
-      Real s = gh_scm2double (dem);
-      String str = to_str (s);
+      String str;
+      if (1)
+	{
+	  str += to_str (gh_scm2int  (me->get_grob_property ("best-idx")));
+	  str += ":";
+	}
+      str += to_str (gh_scm2double (me->get_grob_property ("quant-score")),
+		     "%.2f");
 
       SCM properties = Font_interface::font_alist_chain (me);
   
