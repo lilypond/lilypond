@@ -103,7 +103,7 @@ Script_column::add_support (Item*i_l)
 }
 
 void
-Script_column::do_substitute_dependency (Score_element*o,Score_element*n)
+Script_column::do_substitute_element_pointer (Score_element*o,Score_element*n)
 {
   if (dynamic_cast <Item *> (o)) 
     {

@@ -27,6 +27,6 @@ public:
 
 protected:
   virtual void do_pre_processing ();
-  virtual void do_substitute_dependency (Score_element *o, Score_element*n);
+  virtual void do_substitute_element_pointer (Score_element *o, Score_element*n);
 };
 #endif // DOT_COLUMN_HH

@@ -68,7 +68,7 @@ Rest_collision::do_pre_processing()
   else 
     {
       // int dir_i = - ncol_l_arr_[0]->dir_;
-      int dir_i = rest_l_arr_[0]->dir_;
+      Direction dir = rest_l_arr_[0]->dir_;
 	
       // minimum move
       int minpos = 4;
@@ -86,11 +86,11 @@ Rest_collision::do_pre_processing()
 	  for (int j = 0; j < ncol_l_arr_[i]->head_l_arr_.size(); j++)
 	    {
 	      int stem = (int)((ncol_l_arr_[i]->stem_l_->extent
-			       (Y_AXIS)[dir_i]) / internote_f);
-	      minpos = minpos >? (dir_i * stem + sep_i);
+			       (Y_AXIS)[dir]) / internote_f);
+	      minpos = minpos >? (dir * stem + sep_i);
 	    }
 	}
-      rest_l_arr_[0]->translate_rests (dir_i * minpos);	
+      rest_l_arr_[0]->translate_rests (dir * minpos);	
     }
 }
 
@@ -104,7 +104,7 @@ Rest_collision::do_print() const
 }
 
 void
-Rest_collision::do_substitute_dependency (Score_element*o,Score_element*n)
+Rest_collision::do_substitute_element_pointer (Score_element*o,Score_element*n)
 {
   if (Note_column *onl = dynamic_cast<Note_column *> (o))
     {

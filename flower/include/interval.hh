@@ -10,7 +10,7 @@
 #include <assert.h> 
 #include "fproto.hh"
 #include "real.hh"
-
+#include "drul-array.hh"
 
 /** a T interval.  this represents the closed interval [left,right].
   No invariants. T must be a totally ordered ring (with division, anyway ..)
@@ -18,48 +18,30 @@
   
   */
 template<class T>
-struct Interval_t {
-  T left, right;
+struct Interval_t : public Drul_array<T> {
 
   /* ************** */
     
   static T infinity() ;
   static String T_to_str (T arg);
     
-  // ugh, egcs 1.02 ices on this
-//  T center() { return (left + right) / T(2);}
-  // and can't handle this either
-  // anyone want to make a bug report?
-  // better make one soon, egcs in rh5.1 barfs on this!
-  T center() {
-    T two (2);
-//    return (left + right) / two;
-    T result ((left + right) / two);
-    return result;
-  }
-  void translate (T t) {
-    left += t;
-    right += t;
-  }
-  T& idx (int j) {
-    if (j==-1)
-      return left;
-    else if (j==1)
-      return right;
-    else
-      assert (false);
-    return left;		
-  }
-  T& operator[](int j) {
-    return idx (j);
-  }
-  T operator[](int j) const {
-    return ((Interval_t<T> *)this)->idx (j);
-  }
-  T &max() { return right;}
-  T max() const { return right;}
-  T min() const{ return left; }
-  T &min(){ return left; }
+  /*
+    ugh, egcs 1.02 ices on this
+  */
+  T center() { return (elem (LEFT) + elem (RIGHT)) / T(2);}
+  void translate (T t)
+    {
+      elem (LEFT) += t;
+      elem (RIGHT) += t;
+    }
+  
+  /*
+    junk us
+   */
+  T &max() { return elem (RIGHT);}
+  T max() const { return elem (RIGHT);}
+  T min() const{ return elem (LEFT); }
+  T &min(){ return elem (LEFT); }
   /**
     PRE
     *this and h are comparable
@@ -69,32 +51,30 @@ struct Interval_t {
 
   T length() const;
   void set_empty() ;
-  bool empty_b() const { return left > right; }
+  bool empty_b() const { return elem (LEFT) > elem (RIGHT); }
   bool contains_b (Interval_t<T> const&) const;
   Interval_t() {
     set_empty();
   }
-  Interval_t (T m, T M) {
-    left =m;
-    right = M;
-  }
+  Interval_t (T m, T M) : Drul_array<T> (m,M)
+    {}
   Interval_t<T> &operator -= (T r) {
     *this += -r;
     return *this;
   }
 
   Interval_t<T> &operator += (T r) {
-    left += r;
-    right +=r;
+    elem (LEFT) += r;
+    elem (RIGHT) +=r;
     return *this;
   }
   Interval_t<T> &operator *=(T r) {
-    left *= r;
-    right *= r;
+    elem (LEFT) *= r;
+    elem (RIGHT) *= r;
     if (r < T(0)) {
-      T t = left;
-      left = right;
-      right = t;
+      T t = elem (LEFT);
+      elem (LEFT) = elem (RIGHT);
+      elem (RIGHT) = t;
     }
     return *this;
   }
@@ -102,10 +82,10 @@ struct Interval_t {
   void print () const;
   bool elem_b (T r);
   void negate () {
-    T r = -left;
-    T l = -right;
-    left = l;
-    right =r;
+    T r = -elem (LEFT);
+    T l = -elem (RIGHT);
+    elem (LEFT) = l;
+    elem (RIGHT) =r;
   }
 };
 
@@ -181,7 +161,7 @@ Interval_t<T> operator *(Interval_t<T> i,T a){
 
 // again? see fproto.hh
 typedef Interval_t<Real> Interval;
-typedef Interval_t<int> Slice;
+typedef Interval_t<int> Slice;	// weird name
 
 
 #endif // INTERVAL_HH

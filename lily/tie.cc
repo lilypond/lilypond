@@ -142,7 +142,7 @@ Tie::do_post_processing()
 }
 
 void
-Tie::do_substitute_dependency (Score_element*o, Score_element*n)
+Tie::do_substitute_element_pointer (Score_element*o, Score_element*n)
 {
   Note_head *new_l =n?dynamic_cast<Note_head *> (n):0;
   if (dynamic_cast <Item *> (o) == head_l_drul_[LEFT])

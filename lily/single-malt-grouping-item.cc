@@ -13,6 +13,7 @@
 
 Single_malt_grouping_item ::Single_malt_grouping_item()
 {
+  break_helper_only_b_ = true;
   transparent_b_ = true;
   set_empty (true);
 }
@@ -49,7 +50,7 @@ Single_malt_grouping_item::my_width () const
 
 
 void
-Single_malt_grouping_item::do_substitute_dependency (Score_element*o, Score_element*n)
+Single_malt_grouping_item::do_substitute_element_pointer (Score_element*o, Score_element*n)
 {
   if (dynamic_cast <Item *> (o))
     {

@@ -10,9 +10,10 @@
 #include "translator-group.hh"
 #include "translator.hh"
 #include "debug.hh"
-#include "pcursor.hh"
 #include "rational.hh"
 #include "dictionary-iter.hh"
+
+#include "killing-cons.tcc"
 
 Translator_group::Translator_group (Translator_group const&s)
   : Translator(s)
@@ -21,12 +22,12 @@ Translator_group::Translator_group (Translator_group const&s)
   accepts_str_arr_ = s.accepts_str_arr_;
   iterator_count_ =0;
   properties_dict_ = s.properties_dict_;
-  
 }
 
 Translator_group::~Translator_group ()
 {
   assert (removable_b());
+  trans_p_list_.junk ();
 }
 
 
@@ -55,7 +56,8 @@ Translator_group::check_removal()
 void
 Translator_group::add_translator (Translator *trans_p)
 {
-  trans_p_list_.bottom().add (trans_p);
+  trans_p_list_.append (new Killing_cons<Translator> (trans_p,0));
+  
   trans_p->daddy_trans_l_ = this;
   trans_p->output_def_l_ = output_def_l_;
   trans_p->add_processing ();
@@ -89,9 +91,9 @@ Translator_group::set_element (String s, bool add)
 bool
 Translator_group::removable_b() const
 {
-  for (PCursor<Translator*> i (trans_p_list_.top ()); i.ok (); i++)
+  for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
     {
-      if (dynamic_cast <Translator_group *> (i.ptr ()))
+      if (dynamic_cast <Translator_group *> (p->car_))
 	return false;
     }
 
@@ -222,10 +224,10 @@ Link_array<Translator_group>
 Translator_group::group_l_arr () const
 {
   Link_array<Translator_group> groups;
-  for (PCursor<Translator*> i (trans_p_list_.top ()); i.ok (); i++)
+  for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
     {
-      if (dynamic_cast <Translator_group *> (i.ptr ()))
-	groups.push (dynamic_cast <Translator_group *> (i.ptr ()));
+      if (dynamic_cast <Translator_group *> (p->car_))
+	groups.push (dynamic_cast <Translator_group *> (p->car_));
     }
   return groups;
 }
@@ -234,13 +236,16 @@ Link_array<Translator>
 Translator_group::nongroup_l_arr () const
 {
   Link_array<Translator> groups;
-  for (PCursor<Translator*> i (trans_p_list_.top ()); i.ok (); i++)
+  for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
     {
-      if (!dynamic_cast <Translator_group *> (i.ptr ()))
-	groups.push (i.ptr ());
+      if (!dynamic_cast <Translator_group *> (p->car_))
+	groups.push (p->car_);
     }
   return groups;
 }
+/**
+   End translator: call "destructor", remove from hierarchy, and delete
+ */
 
 void
 Translator_group::terminate_translator (Translator*r_l)
@@ -252,20 +257,26 @@ Translator_group::terminate_translator (Translator*r_l)
   delete trans_p;
 }
 
+
+/**
+   Remove a translator from the hierarchy.
+ */
 Translator *
 Translator_group::remove_translator_p (Translator*trans_l)
 {
   assert (trans_l);
   
-  PCursor<Translator*> trans_cur (trans_p_list_.find (trans_l));
-  Translator * t =  trans_cur.remove_p();
-  /*
-    For elegant design, we would do this too.  Alas, it does not work yet..
+  for (Cons<Translator> **pp = &trans_p_list_.head_; *pp; pp = &(*pp)->next_)
+    if ((*pp)->car_ == trans_l)
+      {
+	Cons<Translator> *r = trans_p_list_.remove_cons (pp);
+	r->car_ =0;
+	trans_l->daddy_trans_l_ =0;
+	delete r;
+	return trans_l;
+      }
 
-    t-> removal_processing ();
-  */
-  t-> daddy_trans_l_ = 0;
-  return t;
+  return 0;
 }
 
 
@@ -317,15 +328,16 @@ Translator_group::get_default_interpreter()
 void
 Translator_group::each (Method_pointer method)
 {
-  for (PCursor<Translator*> i (trans_p_list_.top ()); i.ok (); i++)
-    (i.ptr()->*method) ();
+  for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
+    (p->car_->*method) ();
 }
+
 
 void
 Translator_group::each (Const_method_pointer method) const
 {
-  for (PCursor<Translator*> i (trans_p_list_.top ()); i.ok (); i++)
-    (i.ptr()->*method) ();
+  for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
+    (p->car_->*method) ();
 }
 
 void
@@ -407,7 +419,7 @@ Translator_group::get_property (String id,
   if (properties_dict_.elem_b (id))
     {
       if (where_l)
-	*where_l = this;
+	*where_l = (Translator_group*) this; // ugh
       return properties_dict_[id];
     }
   

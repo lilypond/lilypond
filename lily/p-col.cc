@@ -42,10 +42,6 @@ void
 Paper_column::set_rank (int i)
 {
   rank_i_ = i;
-  if (prebreak_l())
-    prebreak_l()->rank_i_ = i;
-  if (postbreak_l())
-    postbreak_l()->rank_i_ = i;
 }
 
 void

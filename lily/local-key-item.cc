@@ -114,7 +114,7 @@ Local_key_item::do_brew_molecule_p() const
 
 
 void
-Local_key_item::do_substitute_dependency (Score_element*o,Score_element*n)
+Local_key_item::do_substitute_element_pointer (Score_element*o,Score_element*n)
 {
   Item* o_l = dynamic_cast <Item *> (o);
   Item* n_l = n?dynamic_cast <Item *> (n):0;

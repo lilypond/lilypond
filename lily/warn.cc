@@ -7,7 +7,6 @@
 */
 
 #include "proto.hh"
-#include "plist.hh"
 #include "debug.hh"
 #include "my-lily-lexer.hh"
 #include "moment.hh"

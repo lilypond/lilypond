@@ -100,7 +100,7 @@ Extender_spanner::do_post_processing ()
 }
 
 void
-Extender_spanner::do_substitute_dependency (Score_element* o, Score_element* n)
+Extender_spanner::do_substitute_element_pointer (Score_element* o, Score_element* n)
 {
   Item* new_l = n ? dynamic_cast<Item *> (n) : 0;
   if (dynamic_cast <Item *> (o) == item_l_drul_[LEFT])

@@ -80,7 +80,7 @@ Tuplet_spanner::do_post_processing ()
   if (column_arr_.size())
     translate_axis (column_arr_[0]->extent (Y_AXIS)[dir_], Y_AXIS);
 
-  if (!broken_into_l_arr_.size () && beam_l_
+  if (!broken_b () && beam_l_
       && spanned_drul_[LEFT]->column_l () == beam_l_->spanned_drul_[LEFT]->column_l ()
       && spanned_drul_[RIGHT]->column_l () == beam_l_->spanned_drul_[RIGHT]->column_l ())
     bracket_visibility_b_ = false;
@@ -90,14 +90,13 @@ Tuplet_spanner::do_post_processing ()
 }
 
 void
-Tuplet_spanner::do_substitute_dependency (Score_element* o, Score_element* n)
+Tuplet_spanner::do_substitute_element_pointer (Score_element* o, Score_element* n)
 {
   if (Note_column *onc = dynamic_cast <Note_column *> (o))
     column_arr_.substitute (onc, dynamic_cast<Note_column*> (n));
-  else if (Beam *b = dynamic_cast<Beam *> (o))
+  else if (o == beam_l_)
     {
-      if (b == beam_l_) 
-	beam_l_ = dynamic_cast<Beam*> (n);
+      beam_l_ = dynamic_cast<Beam*> (n);
     }
 }
 
@@ -118,6 +117,7 @@ Tuplet_spanner::set_default_dir ()
 void
 Tuplet_spanner::set_beam (Beam *b)
 {
+  assert(!beam_l_);
   beam_l_ = b;
   add_dependency (b);
 }

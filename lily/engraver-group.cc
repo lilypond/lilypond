@@ -7,7 +7,6 @@
 */
 
 #include "proto.hh"
-#include "plist.hh"
 #include "engraver-group.hh"
 #include "engraver.hh"
 #include "debug.hh"

@@ -1,484 +1,3128 @@
-
-
-
-
-
-
-
-
-
-      INSTALL - compiling and installing GNU LilyPond
-
-                         HWN & JCN
-
-
-Contents
-
-     1: ABSTRACT
-2: PREREQUISITES
-3: RUNNING
-4: RECOMMENDED
-5: WEBSITE
-6: CONFIGURING and COMPILING
-7: CONFIGURING FOR MULTIPLE PLATFORMS
-8: INSTALLING
-9: REDHAT LINUX
-10: DEBIAN GNU/LINUX
-11: WINDOWS NT/95
-12: AUTHORS
-
-
-1: ABSTRACT
-
-
-This  document  explains  what you need to install LilyPond,
-and what you should do.  If you are  going  to  compile  and
-install  LilyPond  often,  e.g.  when doing development, you
-might want to check out the buildscripts/set-lily.sh script.
-It sets some environment variables and symlinks, which comes
-in handly when you have to compile LilyPond more often.
-
-
-2: PREREQUISITES
-
-
-For compilation you need:
-
-
-o    A GNU system: GNU LilyPond is known to run on these GNU
-     systems:  Linux  (PPC,  intel), FreeBSD, AIX, NeXTStep,
-     IRIX, Digital Unix and Solaris.
-
-
-o    Lots of disk space: LilyPond takes between 50  and  100
-     mb to compile if you use debugging information.  If you
-     are short on disk-space run configure  with  --disable-
-     debugging.
-
-     Although we recommend to use Unix, LilyPond is known to
-     run on Windows NT/95/98 as well.  See Section 11.
-
-
-o    GNU C++ version 2.8 or newer (egcs-1.1 or newer is also
-     fine).
-
-o    Python  1.5  (Strictly  speaking,  you  shouldn't  need
-     Python for compiling and installing, but you'll need it
-     to regenerate the font tables, e.g.).
-
-o    GUILE  1.3  (no,  GUILE  1.2  won't  work),  check  out
-     http://www.gnu.org/software/guile/guile.html.
-
-
-3: RUNNING
-
-
-GNU LilyPond does use a lot of resources. For operation  you
-need the following:
-
-
-o    TeX
-
-o    A   PostScript   printer   and/or   viewer   (such   as
-     Ghostscript) is strongly recommended.  Xdvi  will  show
-     all  embedded  PostScript  too  if you have Ghostscript
-
-
-     installed.
-
-o    GUILE  1.3  (no,  GUILE  1.2  won't  work),  check  out
-     http://www.gnu.org/programs/guile.html
-
-For  running  LilyPond successfully you have to help TeX and
-MetaFont find various files.  The recommended way  of  doing
-so  is  adjusting  the environment variables in the start-up
-scripts of your shell.  An example is  given  here  for  the
-Bourne shell:
-
-
-
-
-     export MFINPUTS="/usr/local/share/lilypond/mf:"
-     export TEXINPUTS="/usr/local/share/lilypond/tex:"
-
-
-
-
-The  empty path component represents  and MetaFont's default
-search paths.  Scripts with the proper paths for the  bourne
-and   C-shell   respectively   are   generated   in   build-
-scripts/out/lilypond-profile and  buildscripts/out/lilypond-
-login during compilation.
-
-
-4: RECOMMENDED
-
-
-Although  not  strictly  necessary, these are recommended to
-have.
-
-
-o    GNU make.  Check out ftp://ftp.gnu.org or any mirror of
-     this site.
-
-o    Flex    (version    2.5.4   or   newer).    Check   out
-     ftp://ftp.gnu.org or any mirror of this site.
-
-o    Bison   (version   1.25   or   newer).     Check    out
-     ftp://ftp.gnu.org or any mirror of this site.
-
-o    GUILE  1.3  (no,  GUILE  1.2  won't  work),   check out
-     http://www.gnu.org/programs/guile.html
-
-
-o    Python   (version   1.5   or   newer).     Check    out
-     ftp://ftp.python.org or ftp://ftp.cwi.nl/pub/python.
-
-
-o    Yodl.   All  documentation  will  be in Yodl. (1.30.17)
-     ftp://ftp.lilypond.org/pub/yodl
-     http://www.cs.uu.nl/~hanwen/yodl
-
-
-o    Texinfo. (version 3.12 or newer)
-
-
-o    GNU  find  Check out ftp://ftp.gnu.org or any mirror of
-     this site.
-
-
-o    The geometry package for LaTeX is needed to use ly2dvi.
-     Available           at          ftp://ftp.ctan.org/tex-
-     archive/macros/latex/contrib/supported/geometry  or  at
-     mirror site ftp://ftp.dante.de
-
-
-o    A fast computer: a full page of music typically takes 1
-     minute on my 486/133, using the --enable-checking  com-
-     pile.
-
-
-5: WEBSITE
-
-
-If  you  want  to  auto-generate Lily's website, you'll need
-some additional conversion tools.
-
-
-o    xpmtoppm (from the Portable Bitmap Utilities) (For Red-
-     Hat  Linux  users:  it  is  included within the package
-     libgr-progs).
-
-o    Bib2html http://pertsserver.cs.uiuc.edu/~hull/bib2html.
-     Which, in turn depends on man2html for proper installa-
-     tion.   man2html  can  be   had   from   http://askdon-
-     ald.ask.uni-karlsruhe.de/hppd/hpux/Network-
-     ing/WWW/Man2html-1.05.
-
-     TeTeX users should not forget to rerun texhash.
-
-Building the website requires pnmtopng.  The version of pnm-
-topng  that  is  distributed  with RedHat 5.1 contains a bug
-(pnmtopng is dynamically linked  to  the  wrong  version  of
-libpng).   Recompile  it from source, and make sure that the
-pnmtopng binary is linked statically to the libpng  that  is
-included in libgr.
-
-
-      tar xzf libgr-2.0.13.tar.gz
-           make
-           cd png
-           rm libpng.so*
-           make pnmtopng
-
-
-
-
-
-You can then install the new pnmtopng into /usr/local/bin/
-
-
-6: CONFIGURING and COMPILING
-
-
-to install GNU LilyPond, simply type:
-
-
-
-
-
-          gunzip -c lilypond-x.y.z | tar xf -
-          cd lilypond-x.y.z
-          configure      # fill in your standard prefix with --prefix
-          make
-          make install
-
-
-
-
-
-This will install a number of files, something close to:
-
-
-
-
-
-          /usr/local/man/man1/mi2mu.1
-          /usr/local/man/man1/convert-mudela.1
-          /usr/local/man/man1/mudela-book.1
-          /usr/local/man/man1/lilypond.1
-          /usr/local/bin/lilypond
-          /usr/local/bin/mi2mu
-          /usr/local/share/lilypond/*
-          /usr/local/share/locale/{it,nl}/LC_MESSAGES/lilypond.mo
-
-
-
-
-
-The  above assumes that you are root and have the GNU devel-
-opment tools, and your make is GNU make.  If this is not the
-case,  you  can  adjust  your  environment variables to your
-
-
-taste:
-
-
-
-
-
-
-          export CPPFLAGS="-I /home/me/my_include -DWEIRD_FOOBAR"
-          configure
-
-
-
-
-
-CPPFLAGS are the preprocessor flags.
-
-The configure script is Cygnus configure, and it will accept
---help.  If you are not root, you will probably have to make
-it with a different --prefix option.  Our favourite location
-is
-
-
-
-
-
-
-          configure --prefix=$HOME/usr
-
-
-
-
-
-In  this  case, you will have to set up MFINPUTS, and TEXIN-
-PUTS accordingly.
-
-Since GNU LilyPond currently is beta,  you  are  advised  to
-also use
-
-
-
-
-
-
-          --enable-debugging
-          --enable-checking
-
-
-
-
-
-Options to configure include:
-
-
---enable-printing
-     Enable debugging print routines (lilypond -D option)
-
---enable-optimise
-     Set  maximum  optimisation: compile with -O2.  This can
-     be unreliable on  some  compiler/platform  combinations
-     (eg, DEC Alpha and PPC)
-
---enable-profiling
-     Compile with support for profiling.
-
---enable-config
-     Output  to  a different configuration file.  Needed for
-     multi-platform builds
-
-All options are documented in the configure help The  option
---enable-optimise is recommended for Real Life usage.
-
-If you do
-
-
-
-
-
-
-          make all
-
-
-
-
-
-everything  will be compiled, but nothing will be installed.
-The resulting binaries can be found  in  the  subdirectories
-out/ (which contain all files generated during compilation).
-
-
-7: CONFIGURING FOR MULTIPLE PLATFORMS
-
-
-If you want to compile LilyPond with different configuration
-settings,  then,  you  can  use  the --enable-config option.
-Example: suppose I want to build with and   without  profil-
-ing.  Then I'd use the following for the normal build,
-
-
-
-
-
-
-           configure --prefix=~ --disable-optimise --enable-checking
-           make
-           make install
-
-
-and for the profiling version, I specify a different config-
-uration.
-
-
-
-
-
-
-           configure --prefix=~ --enable-profiling --enable-config=optprof --enable-optimise --disable-checking
-           make config=optprof
-           make config=optprof install
-
-
-
-
-
-
-8: INSTALLING
-
-
-If you have done a successful make, then a simple
-
-
-
-
-
-
-          make install
-
-
-
-
-
-should do the trick.
-
-If you are doing an upgrade, please remember to remove obso-
-lete  .pk  and  .tfm  files of the fonts.  A script has been
-provided to do the work for you, see bin/clean-fonts.sh.
-
-
-CAVEATS
-
-
-
-o    The -O2 option to gcc triggers a gcc bug on  DEC  Alpha
-     in  dstream.cc.  You should turn off this flag for this
-     file.
-
-
-EXAMPLE
-
-
-This is what I type in my xterm:
-
-
-          lilypond someinput.ly
-          tex someinput.tex
-          xdvi someinput&
-
-
-
-
-
-This is what the output looks like over here:
-
-
-
-
-
-
-          GNU LilyPond 0.0.78 #4/FlowerLib 1.1.24 #0
-          Parsing ... [/home/hw/share/lilypond/init//
-               <..etc..>
-               init//performer.ly]]][input/kortjakje.ly]
-          Creating elements ...[8][16][24][25]
-          Preprocessing elements...
-          Calculating column positions ... [14][25]
-          Postprocessing elements...
-          TeX output to someinput.tex ...
-          Creating MIDI elements ...MIDI output to someinput.midi ...
-
-
-          hw:~/musix/spacer$ xdvi someinput&
-          [1] 855
-
-
-
-
-
-Check out the input files, some of them have comments Please
-refer to the man page for more information.
-
-
-9: REDHAT LINUX
-
-
-RedHat  Linux  users  can  compile an RPM. A spec file is in
-make/out/lilypond.spec, it is  distributed  along  with  the
-sources.
-
-You can make the rpm by issuing
-
-
-          rpm -tb lilypond-x.y.z.tar.gz
-          rpm -i /usr/src/redhat/RPMS/i386/lilypond-x.y.z
-
-
-
-
-
-
-10: DEBIAN GNU/LINUX
-
-
-A  Debian  package  is  also  available; contact Anthony Fok
-foka@debian.org <foka@debian.org>.  The build scripts are in
-the subdirectory debian/.
-
-
-11: WINDOWS NT/95
-
-
-Separate instructions on building for W32 are avaible in the
-file README-W32.yo.
-
-
-12: AUTHORS
-
-
-Han-Wen Nienhuys <hanwen@cs.uu.nl>
-
-Jan Nieuwenhuizen <janneke@gnu.org>
-
-Have fun!
+x T ascii
+x res 240 24 40
+x init
+p1
+x font 3 B
+f3
+s10
+V400
+H144
+tINSTALL
+wh24
+t-
+wh24
+tcompiling
+wh24
+tand
+wh24
+tinstalling
+wh24
+tGNU
+wh24
+tLilyPond
+n40 0
+x font 2 I
+f2
+V480
+H600
+tHWN
+wh24
+t&
+wh24
+tJCN
+n40 0
+f3
+V600
+H0
+tContents
+n40 0
+x font 1 R
+f1
+V680
+H120
+t1:
+wh24
+tABSTRACT
+n40 0
+V720
+H0
+t2:
+wh24
+tPREREQUISITES
+n40 0
+V760
+H0
+t3:
+wh24
+tRUNNING
+n40 0
+V800
+H0
+t4:
+wh24
+tRECOMMENDED
+n40 0
+V840
+H0
+t5:
+wh24
+tWEBSITE
+n40 0
+V880
+H0
+t6:
+wh24
+tCONFIGURING
+wh24
+tand
+wh24
+tCOMPILING
+n40 0
+V920
+H0
+t7:
+wh24
+tCONFIGURING
+wh24
+tFOR
+wh24
+tMULTIPLE
+wh24
+tPLATFORMS
+n40 0
+V960
+H0
+t8:
+wh24
+tINSTALLING
+n40 0
+V1000
+H0
+t9:
+wh24
+tREDHAT
+wh24
+tLINUX
+n40 0
+V1040
+H0
+t10:
+wh24
+tDEBIAN
+wh24
+tGNU/LINUX
+n40 0
+V1080
+H0
+t11:
+wh24
+tWINDOWS
+wh24
+tNT/95
+n40 0
+V1120
+H0
+t12:
+wh24
+tAUTHORS
+n40 0
+V2560
+H1440
+n40 0
+V2640
+p2
+x font 1 R
+f1
+s10
+V160
+H696
+t-2-
+h672
+n40 0
+x font 3 B
+f3
+V280
+H0
+t1:
+wh24
+tABSTRACT
+n40 0
+f1
+V400
+H0
+tThis
+wh48
+tdocument
+wh48
+texplains
+wh48
+twhat
+wh24
+tyou
+wh24
+tneed
+wh24
+tto
+wh24
+tinstall
+wh24
+tLilyPond,
+n40 0
+V440
+H0
+tand
+wh24
+twhat
+wh24
+tyou
+wh24
+tshould
+wh24
+tdo.
+wh48
+tIf
+wh24
+tyou
+wh24
+tare
+wh48
+tgoing
+wh48
+tto
+wh48
+tcompile
+wh48
+tand
+n40 0
+V480
+H0
+tinstall
+wh48
+tLilyPond
+wh48
+toften,
+wh48
+te.g.
+wh48
+twhen
+wh24
+tdoing
+wh24
+tdevelopment,
+wh24
+tyou
+n40 0
+V520
+H0
+tmight
+wh24
+twant
+wh24
+tto
+wh24
+tcheck
+wh24
+tout
+wh24
+tthe
+wf3
+h24
+tbuildscripts/set-lily.sh
+wf1
+h24
+tscript.
+n40 0
+V560
+H0
+tIt
+wh24
+tsets
+wh24
+tsome
+wh24
+tenvironment
+wh24
+tvariables
+wh24
+tand
+wh24
+tsymlinks,
+wh24
+twhich
+wh24
+tcomes
+n40 0
+V600
+H0
+tin
+wh24
+thandly
+wh24
+twhen
+wh24
+tyou
+wh24
+thave
+wh24
+tto
+wh24
+tcompile
+wh24
+tLilyPond
+wh24
+tmore
+wh24
+toften.
+n40 0
+f3
+V720
+H0
+t2:
+wh24
+tPREREQUISITES
+n40 0
+f1
+V840
+H0
+tFor
+wh24
+tcompilation
+wh24
+tyou
+wh24
+tneed:
+n40 0
+V960
+H0
+to
+h96
+tA
+wh24
+tGNU
+wh24
+tsystem:
+wh24
+tGNU
+wh24
+tLilyPond
+wh24
+tis
+wh24
+tknown
+wh24
+tto
+wh24
+trun
+wh24
+ton
+wh24
+tthese
+wh24
+tGNU
+n40 0
+V1000
+H120
+tsystems:
+wh48
+tLinux
+wh48
+t(PPC,
+wh48
+tintel),
+wh24
+tFreeBSD,
+wh24
+tAIX,
+wh24
+tNeXTStep,
+n40 0
+V1040
+H120
+tIRIX,
+wh24
+tDigital
+wh24
+tUnix
+wh24
+tand
+wh24
+tSolaris.
+n40 0
+V1160
+H0
+to
+h96
+tLots
+wh24
+tof
+wh24
+tdisk
+wh24
+tspace:
+wh24
+tLilyPond
+wh24
+ttakes
+wh24
+tbetween
+wh24
+t50
+wh48
+tand
+wh48
+t100
+n40 0
+V1200
+H120
+tmb
+wh24
+tto
+wh24
+tcompile
+wh24
+tif
+wh24
+tyou
+wh24
+tuse
+wh24
+tdebugging
+wh24
+tinformation.
+wh48
+tIf
+wh24
+tyou
+n40 0
+V1240
+H120
+tare
+wh24
+tshort
+wh24
+ton
+wh24
+tdisk-space
+wh24
+trun
+wh24
+tconfigure
+wh48
+twith
+wh48
+t--disable-
+n40 0
+V1280
+H120
+tdebugging.
+n40 0
+V1360
+H120
+tAlthough
+wh24
+twe
+wh24
+trecommend
+wh24
+tto
+wh24
+tuse
+wh24
+tUnix,
+wh24
+tLilyPond
+wh24
+tis
+wh24
+tknown
+wh24
+tto
+n40 0
+V1400
+H120
+trun
+wh24
+ton
+wh24
+tWindows
+wh24
+tNT/95/98
+wh24
+tas
+wh24
+twell.
+wh48
+tSee
+wh24
+tSection
+wh24
+t11.
+n40 0
+V1520
+H0
+to
+h96
+tGNU
+wh24
+tC++
+wh24
+tversion
+wh24
+t2.8
+wh24
+tor
+wh24
+tnewer
+wh24
+t(egcs-1.1
+wh24
+tor
+wh24
+tnewer
+wh24
+tis
+wh24
+talso
+n40 0
+V1560
+H120
+tfine).
+n40 0
+V1640
+H0
+to
+h96
+tPython
+wh48
+t1.5
+wh48
+t(Strictly
+wh48
+tspeaking,
+wh48
+tyou
+wh48
+tshouldn
+Caa
+h24
+tt
+wh48
+tneed
+n40 0
+V1680
+H120
+tPython
+wh24
+tfor
+wh24
+tcompiling
+wh24
+tand
+wh24
+tinstalling,
+wh24
+tbut
+wh24
+tyou
+Caa
+h24
+tll
+wh24
+tneed
+wh24
+tit
+n40 0
+V1720
+H120
+tto
+wh24
+tregenerate
+wh24
+tthe
+wh24
+tfont
+wh24
+ttables,
+wh24
+te.g.).
+n40 0
+V1800
+H0
+to
+h96
+tGUILE
+wh48
+t1.3
+wh48
+t(no,
+wh48
+tGUILE
+wh48
+t1.2
+wh48
+twon
+Caa
+h24
+tt
+wh48
+twork),
+wh48
+tcheck
+wh48
+tout
+n40 0
+V1840
+H120
+thttp://www.gnu.org/software/guile/guile.html.
+n40 0
+f3
+V1960
+H0
+t3:
+wh24
+tRUNNING
+n40 0
+f1
+V2080
+H0
+tGNU
+wh24
+tLilyPond
+wh24
+tdoes
+wh24
+tuse
+wh24
+ta
+wh24
+tlot
+wh24
+tof
+wh24
+tresources.
+wh24
+tFor
+wh24
+toperation
+wh48
+tyou
+n40 0
+V2120
+H0
+tneed
+wh24
+tthe
+wh24
+tfollowing:
+n40 0
+V2240
+H0
+to
+h96
+tTeX
+n40 0
+V2320
+H0
+to
+h96
+tA
+wh72
+tPostScript
+wh72
+tprinter
+wh72
+tand/or
+wh72
+tviewer
+wh72
+t(such
+wh72
+tas
+n40 0
+V2360
+H120
+tGhostscript)
+wh24
+tis
+wh24
+tstrongly
+wh24
+trecommended.
+wh48
+tXdvi
+wh48
+twill
+wh48
+tshow
+n40 0
+V2400
+H120
+tall
+wh48
+tembedded
+wh48
+tPostScript
+wh48
+ttoo
+wh48
+tif
+wh24
+tyou
+wh24
+thave
+wh24
+tGhostscript
+n40 0
+V2560
+H1440
+n40 0
+V2640
+p3
+x font 1 R
+f1
+s10
+V160
+H696
+t-3-
+h672
+n40 0
+V280
+H120
+tinstalled.
+n40 0
+V360
+H0
+to
+h96
+tGUILE
+wh48
+t1.3
+wh48
+t(no,
+wh48
+tGUILE
+wh48
+t1.2
+wh48
+twon
+Caa
+h24
+tt
+wh48
+twork),
+wh48
+tcheck
+wh48
+tout
+n40 0
+V400
+H120
+thttp://www.gnu.org/programs/guile.html
+n40 0
+V480
+H0
+tFor
+wh48
+trunning
+wh48
+tLilyPond
+wh24
+tsuccessfully
+wh24
+tyou
+wh24
+thave
+wh24
+tto
+wh24
+thelp
+wh24
+tTeX
+wh24
+tand
+n40 0
+V520
+H0
+tMetaFont
+wh24
+tfind
+wh24
+tvarious
+wh24
+tfiles.
+wh48
+tThe
+wh24
+trecommended
+wh24
+tway
+wh48
+tof
+wh48
+tdoing
+n40 0
+V560
+H0
+tso
+wh48
+tis
+wh48
+tadjusting
+wh48
+tthe
+wh24
+tenvironment
+wh24
+tvariables
+wh24
+tin
+wh24
+tthe
+wh24
+tstart-up
+n40 0
+V600
+H0
+tscripts
+wh24
+tof
+wh24
+tyour
+wh24
+tshell.
+wh48
+tAn
+wh24
+texample
+wh24
+tis
+wh48
+tgiven
+wh48
+there
+wh48
+tfor
+wh48
+tthe
+n40 0
+V640
+H0
+tBourne
+wh24
+tshell:
+n40 0
+V840
+H120
+texport
+wh24
+tMFINPUTS="/usr/local/share/lilypond/mf:"
+n40 0
+V880
+H120
+texport
+wh24
+tTEXINPUTS="/usr/local/share/lilypond/tex:"
+n40 0
+V1080
+H0
+tThe
+wh48
+tempty
+wh24
+tpath
+wh24
+tcomponent
+wh24
+trepresents
+wh48
+tand
+wh24
+tMetaFont
+Caa
+h24
+ts
+wh24
+tdefault
+n40 0
+V1120
+H0
+tsearch
+wh24
+tpaths.
+wh48
+tScripts
+wh24
+twith
+wh24
+tthe
+wh24
+tproper
+wh24
+tpaths
+wh24
+tfor
+wh24
+tthe
+wh48
+tbourne
+n40 0
+V1160
+H0
+tand
+wh72
+tC-shell
+wh72
+trespectively
+wh72
+tare
+wh72
+tgenerated
+wh72
+tin
+wx font 3 B
+f3
+h72
+tbuild
+Chy
+h24
+n40 0
+V1200
+H0
+tscripts/out/lilypond-profile
+wf1
+h24
+tand
+wf3
+h48
+tbuildscripts/out/lilypond-
+n40 0
+V1240
+H0
+tlogin
+wf1
+h24
+tduring
+wh24
+tcompilation.
+n40 0
+f3
+V1360
+H0
+t4:
+wh24
+tRECOMMENDED
+n40 0
+f1
+V1480
+H0
+tAlthough
+wh48
+tnot
+wh48
+tstrictly
+wh48
+tnecessary,
+wh24
+tthese
+wh24
+tare
+wh24
+trecommended
+wh24
+tto
+n40 0
+V1520
+H0
+thave.
+n40 0
+V1640
+H0
+to
+h96
+tGNU
+wh24
+tmake.
+wh48
+tCheck
+wh24
+tout
+wh24
+tftp://ftp.gnu.org
+wh24
+tor
+wh24
+tany
+wh24
+tmirror
+wh24
+tof
+n40 0
+V1680
+H120
+tthis
+wh24
+tsite.
+n40 0
+V1760
+H0
+to
+h96
+tFlex
+wh96
+t(version
+wh96
+t2.5.4
+wh72
+tor
+wh72
+tnewer).
+wh96
+tCheck
+wh72
+tout
+n40 0
+V1800
+H120
+tftp://ftp.gnu.org
+wh24
+tor
+wh24
+tany
+wh24
+tmirror
+wh24
+tof
+wh24
+tthis
+wh24
+tsite.
+n40 0
+V1880
+H0
+to
+h96
+tBison
+wh72
+t(version
+wh72
+t1.25
+wh72
+tor
+wh72
+tnewer).
+wh120
+tCheck
+wh96
+tout
+n40 0
+V1920
+H120
+tftp://ftp.gnu.org
+wh24
+tor
+wh24
+tany
+wh24
+tmirror
+wh24
+tof
+wh24
+tthis
+wh24
+tsite.
+n40 0
+V2000
+H0
+to
+h96
+tGUILE
+wh48
+t1.3
+wh48
+t(no,
+wh48
+tGUILE
+wh48
+t1.2
+wh48
+twon
+Caa
+h24
+tt
+wh48
+twork),
+wh72
+tcheck
+wh24
+tout
+n40 0
+V2040
+H120
+thttp://www.gnu.org/programs/guile.html
+n40 0
+V2160
+H0
+to
+h96
+tPython
+wh72
+t(version
+wh72
+t1.5
+wh72
+tor
+wh72
+tnewer).
+wh120
+tCheck
+wh96
+tout
+n40 0
+V2200
+H120
+tftp://ftp.python.org
+wh24
+tor
+wh24
+tftp://ftp.cwi.nl/pub/python.
+n40 0
+V2320
+H0
+to
+h96
+tYodl.
+wh72
+tAll
+wh48
+tdocumentation
+wh48
+twill
+wh48
+tbe
+wh24
+tin
+wh24
+tYodl.
+wh24
+t(1.30.17)
+n40 0
+V2360
+H120
+tftp://ftp.lilypond.org/pub/yodl
+n40 0
+V2400
+H120
+thttp://www.cs.uu.nl/~hanwen/yodl
+n40 0
+V2560
+H1440
+n40 0
+V2640
+p4
+x font 1 R
+f1
+s10
+V160
+H696
+t-4-
+h672
+n40 0
+V280
+H0
+to
+h96
+tTexinfo.
+wh24
+t(version
+wh24
+t3.12
+wh24
+tor
+wh24
+tnewer)
+n40 0
+V400
+H0
+to
+h96
+tGNU
+wh48
+tfind
+wh48
+tCheck
+wh24
+tout
+wh24
+tftp://ftp.gnu.org
+wh24
+tor
+wh24
+tany
+wh24
+tmirror
+wh24
+tof
+n40 0
+V440
+H120
+tthis
+wh24
+tsite.
+n40 0
+V560
+H0
+to
+h96
+tThe
+wh24
+tgeometry
+wh24
+tpackage
+wh24
+tfor
+wh24
+tLaTeX
+wh24
+tis
+wh24
+tneeded
+wh24
+tto
+wh24
+tuse
+wh24
+tly2dvi.
+n40 0
+V600
+H120
+tAvailable
+wh264
+tat
+wh240
+tftp://ftp.ctan.org/tex-
+n40 0
+V640
+H120
+tarchive/macros/latex/contrib/supported/geometry
+wh48
+tor
+wh48
+tat
+n40 0
+V680
+H120
+tmirror
+wh24
+tsite
+wh24
+tftp://ftp.dante.de
+n40 0
+V800
+H0
+to
+h96
+tA
+wh24
+tfast
+wh24
+tcomputer:
+wh24
+ta
+wh24
+tfull
+wh24
+tpage
+wh24
+tof
+wh24
+tmusic
+wh24
+ttypically
+wh24
+ttakes
+wh24
+t1
+n40 0
+V840
+H120
+tminute
+wh24
+ton
+wh24
+tmy
+wh24
+t486/133,
+wh24
+tusing
+wh24
+tthe
+wx font 3 B
+f3
+h24
+t--enable-checking
+wf1
+h48
+tcom
+Chy
+h24
+n40 0
+V880
+H120
+tpile.
+n40 0
+f3
+V1000
+H0
+t5:
+wh24
+tWEBSITE
+n40 0
+f1
+V1120
+H0
+tIf
+wh48
+tyou
+wh48
+twant
+wh48
+tto
+wh48
+tauto-generate
+wh24
+tLily
+Caa
+h24
+ts
+wh24
+twebsite,
+wh24
+tyou
+Caa
+h24
+tll
+wh24
+tneed
+n40 0
+V1160
+H0
+tsome
+wh24
+tadditional
+wh24
+tconversion
+wh24
+ttools.
+n40 0
+V1280
+H0
+to
+h96
+txpmtoppm
+wh24
+t(from
+wh24
+tthe
+wh24
+tPortable
+wh24
+tBitmap
+wh24
+tUtilities)
+wh24
+t(For
+wh24
+tRed
+Chy
+h24
+n40 0
+V1320
+H120
+tHat
+wh48
+tLinux
+wh48
+tusers:
+wh48
+tit
+wh48
+tis
+wh48
+tincluded
+wh24
+twithin
+wh24
+tthe
+wh24
+tpackage
+n40 0
+V1360
+H120
+tlibgr-progs).
+n40 0
+V1440
+H0
+to
+h96
+tBib2html
+wh24
+thttp://pertsserver.cs.uiuc.edu/~hull/bib2html.
+n40 0
+V1480
+H120
+tWhich,
+wh24
+tin
+wh24
+tturn
+wh24
+tdepends
+wh24
+ton
+wh24
+tman2html
+wh24
+tfor
+wh24
+tproper
+wh24
+tinstalla
+Chy
+h24
+n40 0
+V1520
+H120
+ttion.
+wh72
+tman2html
+wh48
+tcan
+wh48
+tbe
+wh72
+thad
+wh72
+tfrom
+wh72
+thttp://askdon
+Chy
+h24
+n40 0
+V1560
+H120
+tald.ask.uni-karlsruhe.de/hppd/hpux/Network
+Chy
+h24
+n40 0
+V1600
+H120
+ting/WWW/Man2html-1.05.
+n40 0
+V1680
+H120
+tTeTeX
+wh24
+tusers
+wh24
+tshould
+wh24
+tnot
+wh24
+tforget
+wh24
+tto
+wh24
+trerun
+wh24
+ttexhash.
+n40 0
+V1760
+H0
+tBuilding
+wh24
+tthe
+wh24
+twebsite
+wh24
+trequires
+wh24
+tpnmtopng.
+wh48
+tThe
+wh24
+tversion
+wh24
+tof
+wf3
+h24
+tpnm
+Chy
+h24
+n40 0
+V1800
+H0
+ttopng
+wf1
+h48
+tthat
+wh48
+tis
+wh48
+tdistributed
+wh48
+twith
+wh24
+tRedHat
+wh24
+t5.1
+wh24
+tcontains
+wh24
+ta
+wh24
+tbug
+n40 0
+V1840
+H0
+t(pnmtopng
+wh24
+tis
+wh24
+tdynamically
+wh24
+tlinked
+wh48
+tto
+wh48
+tthe
+wh48
+twrong
+wh48
+tversion
+wh48
+tof
+n40 0
+V1880
+H0
+tlibpng).
+wh72
+tRecompile
+wh48
+tit
+wh24
+tfrom
+wh24
+tsource,
+wh24
+tand
+wh24
+tmake
+wh24
+tsure
+wh24
+tthat
+wh24
+tthe
+n40 0
+V1920
+H0
+tpnmtopng
+wh24
+tbinary
+wh24
+tis
+wh24
+tlinked
+wh24
+tstatically
+wh24
+tto
+wh24
+tthe
+wh24
+tlibpng
+wh48
+tthat
+wh48
+tis
+n40 0
+V1960
+H0
+tincluded
+wh24
+tin
+wh24
+tlibgr.
+n40 0
+V2560
+H1440
+n40 0
+V2640
+p5
+x font 1 R
+f1
+s10
+V160
+H696
+t-5-
+h672
+n40 0
+V280
+H144
+ttar
+wh24
+txzf
+wh24
+tlibgr-2.0.13.tar.gz
+n40 0
+V320
+H264
+tmake
+n40 0
+V360
+H264
+tcd
+wh24
+tpng
+n40 0
+V400
+H264
+trm
+wh24
+tlibpng.so*
+n40 0
+V440
+H264
+tmake
+wh24
+tpnmtopng
+n40 0
+V680
+H0
+tYou
+wh24
+tcan
+wh24
+tthen
+wh24
+tinstall
+wh24
+tthe
+wh24
+tnew
+wh24
+tpnmtopng
+wh24
+tinto
+wh24
+t/usr/local/bin/
+n40 0
+x font 3 B
+f3
+V800
+H0
+t6:
+wh24
+tCONFIGURING
+wh24
+tand
+wh24
+tCOMPILING
+n40 0
+f1
+V920
+H0
+tto
+wh24
+tinstall
+wh24
+tGNU
+wh24
+tLilyPond,
+wh24
+tsimply
+wh24
+ttype:
+n40 0
+V1160
+H240
+tgunzip
+wh24
+t-c
+wh24
+tlilypond-x.y.z
+wh24
+t|
+wh24
+ttar
+wh24
+txf
+wh24
+t-
+n40 0
+V1200
+H240
+tcd
+wh24
+tlilypond-x.y.z
+n40 0
+V1240
+H240
+tconfigure
+h144
+t#
+wh24
+tfill
+wh24
+tin
+wh24
+tyour
+wh24
+tstandard
+wh24
+tprefix
+wh24
+twith
+wh24
+t--prefix
+n40 0
+V1280
+H240
+tmake
+n40 0
+V1320
+H240
+tmake
+wh24
+tinstall
+n40 0
+V1560
+H0
+tThis
+wh24
+twill
+wh24
+tinstall
+wh24
+ta
+wh24
+tnumber
+wh24
+tof
+wh24
+tfiles,
+wh24
+tsomething
+wh24
+tclose
+wh24
+tto:
+n40 0
+V1800
+H240
+t/usr/local/man/man1/mi2mu.1
+n40 0
+V1840
+H240
+t/usr/local/man/man1/convert-mudela.1
+n40 0
+V1880
+H240
+t/usr/local/man/man1/mudela-book.1
+n40 0
+V1920
+H240
+t/usr/local/man/man1/lilypond.1
+n40 0
+V1960
+H240
+t/usr/local/bin/lilypond
+n40 0
+V2000
+H240
+t/usr/local/bin/mi2mu
+n40 0
+V2040
+H240
+t/usr/local/share/lilypond/*
+n40 0
+V2080
+H240
+t/usr/local/share/locale/{it,nl}/LC_MESSAGES/lilypond.mo
+n40 0
+V2320
+H0
+tThe
+wh48
+tabove
+wh24
+tassumes
+wh24
+tthat
+wh24
+tyou
+wh24
+tare
+wh24
+troot
+wh24
+tand
+wh24
+thave
+wh24
+tthe
+wh24
+tGNU
+wh24
+tdevel
+Chy
+h24
+n40 0
+V2360
+H0
+topment
+wh24
+ttools,
+wh24
+tand
+wh24
+tyour
+wh24
+tmake
+wh24
+tis
+wh24
+tGNU
+wh24
+tmake.
+wh48
+tIf
+wh24
+tthis
+wh24
+tis
+wh24
+tnot
+wh24
+tthe
+n40 0
+V2400
+H0
+tcase,
+wh48
+tyou
+wh48
+tcan
+wh48
+tadjust
+wh48
+tyour
+wh48
+tenvironment
+wh24
+tvariables
+wh24
+tto
+wh24
+tyour
+n40 0
+V2560
+H1440
+n40 0
+V2640
+p6
+x font 1 R
+f1
+s10
+V160
+H696
+t-6-
+h672
+n40 0
+V280
+H0
+ttaste:
+n40 0
+V560
+H240
+texport
+wh24
+tCPPFLAGS="-I
+wh24
+t/home/me/my_include
+wh24
+t-DWEIRD_FOOBAR"
+n40 0
+V600
+H240
+tconfigure
+n40 0
+V840
+H0
+tCPPFLAGS
+wh24
+tare
+wh24
+tthe
+wh24
+tpreprocessor
+wh24
+tflags.
+n40 0
+V920
+H0
+tThe
+wh24
+tconfigure
+wh24
+tscript
+wh24
+tis
+wh24
+tCygnus
+wh24
+tconfigure,
+wh24
+tand
+wh24
+tit
+wh24
+twill
+wh24
+taccept
+n40 0
+x font 3 B
+f3
+V960
+H0
+t--help
+f1
+t.
+wh48
+tIf
+wh24
+tyou
+wh24
+tare
+wh24
+tnot
+wh24
+troot,
+wh24
+tyou
+wh24
+twill
+wh24
+tprobably
+wh24
+thave
+wh24
+tto
+wh24
+tmake
+n40 0
+V1000
+H0
+tit
+wh24
+twith
+wh24
+ta
+wh24
+tdifferent
+wf3
+h24
+t--prefix
+wf1
+h24
+toption.
+wh48
+tOur
+wh24
+tfavourite
+wh24
+tlocation
+n40 0
+V1040
+H0
+tis
+n40 0
+V1320
+H240
+tconfigure
+wh24
+t--prefix=$HOME/usr
+n40 0
+V1560
+H0
+tIn
+wh48
+tthis
+wh48
+tcase,
+wh24
+tyou
+wh24
+twill
+wh24
+thave
+wh24
+tto
+wh24
+tset
+wh24
+tup
+wh24
+tMFINPUTS,
+wh24
+tand
+wh24
+tTEXIN
+Chy
+h24
+n40 0
+V1600
+H0
+tPUTS
+wh24
+taccordingly.
+n40 0
+V1680
+H0
+tSince
+wh24
+tGNU
+wh24
+tLilyPond
+wh24
+tcurrently
+wh24
+tis
+wh24
+tbeta,
+wh48
+tyou
+wh48
+tare
+wh48
+tadvised
+wh48
+tto
+n40 0
+V1720
+H0
+talso
+wh24
+tuse
+n40 0
+V2000
+H240
+t--enable-debugging
+n40 0
+V2040
+H240
+t--enable-checking
+n40 0
+V2280
+H0
+tOptions
+wh24
+tto
+wh24
+tconfigure
+wh24
+tinclude:
+n40 0
+V2560
+H1440
+n40 0
+V2640
+p7
+x font 1 R
+f1
+s10
+V160
+H696
+t-7-
+h672
+n40 0
+x font 3 B
+f3
+V280
+H0
+t--enable-printing
+n40 0
+f1
+V320
+H120
+tEnable
+wh24
+tdebugging
+wh24
+tprint
+wh24
+troutines
+wh24
+t(lilypond
+wf3
+h24
+t-D
+wf1
+h24
+toption)
+n40 0
+f3
+V400
+H0
+t--enable-optimise
+n40 0
+f1
+V440
+H120
+tSet
+wh48
+tmaximum
+wh48
+toptimisation:
+wh24
+tcompile
+wh24
+twith
+wf3
+h24
+t-O2
+f1
+t.
+wh48
+tThis
+wh24
+tcan
+n40 0
+V480
+H120
+tbe
+wh24
+tunreliable
+wh24
+ton
+wh48
+tsome
+wh48
+tcompiler/platform
+wh48
+tcombinations
+n40 0
+V520
+H120
+t(eg,
+wh24
+tDEC
+wh24
+tAlpha
+wh24
+tand
+wh24
+tPPC)
+n40 0
+f3
+V600
+H0
+t--enable-profiling
+n40 0
+f1
+V640
+H120
+tCompile
+wh24
+twith
+wh24
+tsupport
+wh24
+tfor
+wh24
+tprofiling.
+n40 0
+f3
+V720
+H0
+t--enable-config
+n40 0
+f1
+V760
+H120
+tOutput
+wh48
+tto
+wh48
+ta
+wh24
+tdifferent
+wh24
+tconfiguration
+wh24
+tfile.
+wh48
+tNeeded
+wh24
+tfor
+n40 0
+V800
+H120
+tmulti-platform
+wh24
+tbuilds
+n40 0
+V880
+H0
+tAll
+wh24
+toptions
+wh24
+tare
+wh24
+tdocumented
+wh24
+tin
+wh24
+tthe
+wf3
+h24
+tconfigure
+wf1
+h24
+thelp
+wh24
+tThe
+wh48
+toption
+n40 0
+f3
+V920
+H0
+t--enable-optimise
+wf1
+h24
+tis
+wh24
+trecommended
+wh24
+tfor
+wh24
+tReal
+wh24
+tLife
+wh24
+tusage.
+n40 0
+V1000
+H0
+tIf
+wh24
+tyou
+wh24
+tdo
+n40 0
+V1280
+H240
+tmake
+wh24
+tall
+n40 0
+V1520
+H0
+teverything
+wh48
+twill
+wh24
+tbe
+wh24
+tcompiled,
+wh24
+tbut
+wh24
+tnothing
+wh24
+twill
+wh24
+tbe
+wh24
+tinstalled.
+n40 0
+V1560
+H0
+tThe
+wh24
+tresulting
+wh24
+tbinaries
+wh24
+tcan
+wh24
+tbe
+wh24
+tfound
+wh48
+tin
+wh48
+tthe
+wh48
+tsubdirectories
+n40 0
+f3
+V1600
+H0
+tout/
+wf1
+h24
+t(which
+wh24
+tcontain
+wh24
+tall
+wh24
+tfiles
+wh24
+tgenerated
+wh24
+tduring
+wh24
+tcompilation).
+n40 0
+f3
+V1720
+H0
+t7:
+wh24
+tCONFIGURING
+wh24
+tFOR
+wh24
+tMULTIPLE
+wh24
+tPLATFORMS
+n40 0
+f1
+V1840
+H0
+tIf
+wh24
+tyou
+wh24
+twant
+wh24
+tto
+wh24
+tcompile
+wh24
+tLilyPond
+wh24
+twith
+wh24
+tdifferent
+wh24
+tconfiguration
+n40 0
+V1880
+H0
+tsettings,
+wh48
+tthen,
+wh48
+tyou
+wh48
+tcan
+wh48
+tuse
+wh48
+tthe
+wf3
+h24
+t--enable-config
+wf1
+h24
+toption.
+n40 0
+V1920
+H0
+tExample:
+wh24
+tsuppose
+wh24
+tI
+wh24
+twant
+wh24
+tto
+wh24
+tbuild
+wh24
+twith
+wh24
+tand
+wh72
+twithout
+wh48
+tprofil
+Chy
+h24
+n40 0
+V1960
+H0
+ting.
+wh48
+tThen
+wh24
+tI
+Caa
+h24
+td
+wh24
+tuse
+wh24
+tthe
+wh24
+tfollowing
+wh24
+tfor
+wh24
+tthe
+wh24
+tnormal
+wh24
+tbuild,
+n40 0
+V2240
+H264
+tconfigure
+wh24
+t--prefix=~
+wh24
+t--disable-optimise
+wh24
+t--enable-checking
+n40 0
+V2280
+H264
+tmake
+n40 0
+V2320
+H264
+tmake
+wh24
+tinstall
+n40 0
+V2560
+H1440
+n40 0
+V2640
+p8
+x font 1 R
+f1
+s10
+V160
+H696
+t-8-
+h672
+n40 0
+V280
+H0
+tand
+wh24
+tfor
+wh24
+tthe
+wh24
+tprofiling
+wh24
+tversion,
+wh24
+tI
+wh24
+tspecify
+wh24
+ta
+wh24
+tdifferent
+wh24
+tconfig
+Chy
+h24
+n40 0
+V320
+H0
+turation.
+n40 0
+V600
+H264
+tconfigure
+wh24
+t--prefix=~
+wh24
+t--enable-profiling
+wh24
+t--enable-config=optprof
+wh24
+t--enable-optimise
+wh24
+t--disable-checking
+n40 0
+V640
+H264
+tmake
+wh24
+tconfig=optprof
+n40 0
+V680
+H264
+tmake
+wh24
+tconfig=optprof
+wh24
+tinstall
+n40 0
+x font 3 B
+f3
+V960
+H0
+t8:
+wh24
+tINSTALLING
+n40 0
+f1
+V1080
+H0
+tIf
+wh24
+tyou
+wh24
+thave
+wh24
+tdone
+wh24
+ta
+wh24
+tsuccessful
+wh24
+tmake,
+wh24
+tthen
+wh24
+ta
+wh24
+tsimple
+n40 0
+V1360
+H240
+tmake
+wh24
+tinstall
+n40 0
+V1600
+H0
+tshould
+wh24
+tdo
+wh24
+tthe
+wh24
+ttrick.
+n40 0
+V1680
+H0
+tIf
+wh24
+tyou
+wh24
+tare
+wh24
+tdoing
+wh24
+tan
+wh24
+tupgrade,
+wh24
+tplease
+wh24
+tremember
+wh24
+tto
+wh24
+tremove
+wh24
+tobso
+Chy
+h24
+n40 0
+V1720
+H0
+tlete
+wf3
+h48
+t.pk
+wf1
+h48
+tand
+wf3
+h48
+t.tfm
+wf1
+h48
+tfiles
+wh24
+tof
+wh24
+tthe
+wh24
+tfonts.
+wh48
+tA
+wh24
+tscript
+wh24
+thas
+wh24
+tbeen
+n40 0
+V1760
+H0
+tprovided
+wh24
+tto
+wh24
+tdo
+wh24
+tthe
+wh24
+twork
+wh24
+tfor
+wh24
+tyou,
+wh24
+tsee
+wf3
+h24
+tbin/clean-fonts.sh
+f1
+t.
+n40 0
+f3
+V1880
+H0
+tCAVEATS
+n40 0
+f1
+V2040
+H0
+to
+h96
+tThe
+wh24
+t-O2
+wh24
+toption
+wh24
+tto
+wh24
+tgcc
+wh24
+ttriggers
+wh24
+ta
+wh24
+tgcc
+wh24
+tbug
+wh24
+ton
+wh48
+tDEC
+wh48
+tAlpha
+n40 0
+V2080
+H120
+tin
+wh48
+tdstream.cc.
+wh48
+tYou
+wh24
+tshould
+wh24
+tturn
+wh24
+toff
+wh24
+tthis
+wh24
+tflag
+wh24
+tfor
+wh24
+tthis
+n40 0
+V2120
+H120
+tfile.
+n40 0
+f3
+V2240
+H0
+tEXAMPLE
+n40 0
+f1
+V2360
+H0
+tThis
+wh24
+tis
+wh24
+twhat
+wh24
+tI
+wh24
+ttype
+wh24
+tin
+wh24
+tmy
+wh24
+txterm:
+n40 0
+V2560
+H1440
+n40 0
+V2640
+p9
+x font 1 R
+f1
+s10
+V160
+H696
+t-9-
+h672
+n40 0
+V280
+H240
+tlilypond
+wh24
+tsomeinput.ly
+n40 0
+V320
+H240
+ttex
+wh24
+tsomeinput.tex
+n40 0
+V360
+H240
+txdvi
+wh24
+tsomeinput&
+n40 0
+V600
+H0
+tThis
+wh24
+tis
+wh24
+twhat
+wh24
+tthe
+wh24
+toutput
+wh24
+tlooks
+wh24
+tlike
+wh24
+tover
+wh24
+there:
+n40 0
+V880
+H240
+tGNU
+wh24
+tLilyPond
+wh24
+t0.0.78
+wh24
+t#4/FlowerLib
+wh24
+t1.1.24
+wh24
+t#0
+n40 0
+V920
+H240
+tParsing
+wh24
+t...
+wh24
+t[/home/hw/share/lilypond/init//
+n40 0
+V960
+H360
+t<..etc..>
+n40 0
+V1000
+H360
+tinit//performer.ly]]][input/kortjakje.ly]
+n40 0
+V1040
+H240
+tCreating
+wh24
+telements
+wh24
+t...[8][16][24][25]
+n40 0
+V1080
+H240
+tPreprocessing
+wh24
+telements...
+n40 0
+V1120
+H240
+tCalculating
+wh24
+tcolumn
+wh24
+tpositions
+wh24
+t...
+wh24
+t[14][25]
+n40 0
+V1160
+H240
+tPostprocessing
+wh24
+telements...
+n40 0
+V1200
+H240
+tTeX
+wh24
+toutput
+wh24
+tto
+wh24
+tsomeinput.tex
+wh24
+t...
+n40 0
+V1240
+H240
+tCreating
+wh24
+tMIDI
+wh24
+telements
+wh24
+t...MIDI
+wh24
+toutput
+wh24
+tto
+wh24
+tsomeinput.midi
+wh24
+t...
+n40 0
+V1360
+H240
+thw:~/musix/spacer$
+wh24
+txdvi
+wh24
+tsomeinput&
+n40 0
+V1400
+H240
+t[1]
+wh24
+t855
+n40 0
+V1640
+H0
+tCheck
+wh24
+tout
+wh24
+tthe
+wh24
+tinput
+wh24
+tfiles,
+wh24
+tsome
+wh24
+tof
+wh24
+tthem
+wh24
+thave
+wh24
+tcomments
+wh24
+tPlease
+n40 0
+V1680
+H0
+trefer
+wh24
+tto
+wh24
+tthe
+wh24
+tman
+wh24
+tpage
+wh24
+tfor
+wh24
+tmore
+wh24
+tinformation.
+n40 0
+x font 3 B
+f3
+V1800
+H0
+t9:
+wh24
+tREDHAT
+wh24
+tLINUX
+n40 0
+f1
+V1920
+H0
+tRedHat
+wh48
+tLinux
+wh48
+tusers
+wh48
+tcan
+wh48
+tcompile
+wh24
+tan
+wh24
+tRPM.
+wh24
+tA
+wh24
+tspec
+wh24
+tfile
+wh24
+tis
+wh24
+tin
+n40 0
+f3
+V1960
+H0
+tmake/out/lilypond.spec
+f1
+t,
+wh24
+tit
+wh24
+tis
+wh48
+tdistributed
+wh48
+talong
+wh48
+twith
+wh48
+tthe
+n40 0
+V2000
+H0
+tsources.
+n40 0
+V2080
+H0
+tYou
+wh24
+tcan
+wh24
+tmake
+wh24
+tthe
+wh24
+trpm
+wh24
+tby
+wh24
+tissuing
+n40 0
+V2560
+H1440
+n40 0
+V2640
+p10
+x font 1 R
+f1
+s10
+V160
+H672
+t-10-
+h672
+n40 0
+V280
+H240
+trpm
+wh24
+t-tb
+wh24
+tlilypond-x.y.z.tar.gz
+n40 0
+V320
+H240
+trpm
+wh24
+t-i
+wh24
+t/usr/src/redhat/RPMS/i386/lilypond-x.y.z
+n40 0
+x font 3 B
+f3
+V600
+H0
+t10:
+wh24
+tDEBIAN
+wh24
+tGNU/LINUX
+n40 0
+f1
+V720
+H0
+tA
+wh48
+tDebian
+wh48
+tpackage
+wh48
+tis
+wh48
+talso
+wh48
+tavailable;
+wh24
+tcontact
+wh24
+tAnthony
+wh24
+tFok
+n40 0
+V760
+H0
+tfoka@debian.org
+wh24
+t<foka@debian.org>.
+wh48
+tThe
+wh24
+tbuild
+wh24
+tscripts
+wh24
+tare
+wh24
+tin
+n40 0
+V800
+H0
+tthe
+wh24
+tsubdirectory
+wf3
+h24
+tdebian/
+f1
+t.
+n40 0
+f3
+V920
+H0
+t11:
+wh24
+tWINDOWS
+wh24
+tNT/95
+n40 0
+f1
+V1040
+H0
+tSeparate
+wh24
+tinstructions
+wh24
+ton
+wh24
+tbuilding
+wh24
+tfor
+wh24
+tW32
+wh24
+tare
+wh24
+tavaible
+wh24
+tin
+wh24
+tthe
+n40 0
+V1080
+H0
+tfile
+wh24
+tREADME-W32.yo.
+n40 0
+f3
+V1200
+H0
+t12:
+wh24
+tAUTHORS
+n40 0
+f1
+V1320
+H0
+tHan-Wen
+wh24
+tNienhuys
+wh24
+t<hanwen@cs.uu.nl>
+n40 0
+V1400
+H0
+tJan
+wh24
+tNieuwenhuizen
+wh24
+t<janneke@gnu.org>
+n40 0
+V1480
+H0
+tHave
+wh24
+tfun!
+n40 0
+V2560
+H1440
+n40 0
+x trailer
+V2640
+x stop

@@ -14,6 +14,9 @@
 #include "p-score.hh"
 #include "paper-def.hh"
 
+#include "killing-cons.tcc"
+
+/// How often to print operator pacification marks?
 const int HAPPY_DOTS_I = 3;
 
 /**
@@ -36,14 +39,15 @@ struct Break_node {
 };
 
 /**
-  This algorithms is adapted from 
+  This algorithms is adapted from the OSU Tech report on breaking lines.
+  
  */
 
 Array<Column_x_positions>
 Gourlay_breaking::do_solve () const
 {
   Array<Break_node> optimal_paths;
-  Line_of_cols all = all_cols ();
+  Line_of_cols all = pscore_l_->col_l_arr_ ;
   Array<int> breaks = find_break_indices ();
   
   optimal_paths.set_size (breaks.size ());
@@ -61,7 +65,7 @@ Gourlay_breaking::do_solve () const
     {
       Array<int> candidates;
       Array<Column_x_positions> candidate_lines;
-      Pointer_list<Line_spacer*> spacer_p_list;
+      Cons_list<Line_spacer> spacer_p_list;
 	
       /*
 	start with a short line, add measures. At some point 
@@ -90,7 +94,7 @@ Gourlay_breaking::do_solve () const
 	    
 	  approx.spacer_l_ = generate_spacing_problem (line, 
 	    pscore_l_->paper_l_->line_dimensions_int (optimal_paths[start_idx].line_i_));
-	  spacer_p_list.bottom ().add (approx.spacer_l_);
+	  spacer_p_list.append (new Killing_cons<Line_spacer> (approx.spacer_l_,0));
 
 	  ( (Break_algorithm*)this)->approx_stats_.add (approx.cols);
 	  approx.approximate_solve_line ();
@@ -149,6 +153,8 @@ Gourlay_breaking::do_solve () const
 
       if (! (break_idx % HAPPY_DOTS_I))
 	*mlog << "[" << break_idx << "]" << flush;
+
+      spacer_p_list.junk ();
     }
 
   if  (break_idx % HAPPY_DOTS_I) 

@@ -78,7 +78,7 @@ Text_spanner::height() const
 }
 
 void
-Text_spanner::do_substitute_dependency (Score_element* o, Score_element*n)
+Text_spanner::do_substitute_element_pointer (Score_element* o, Score_element*n)
 {
   if (support_span_l_ == o) 
 	support_span_l_ = (Directional_spanner*) (n?dynamic_cast <Spanner *> (n):0);

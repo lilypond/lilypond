@@ -73,7 +73,7 @@ Slur::do_pre_processing ()
 }
 
 void
-Slur::do_substitute_dependency (Score_element*o, Score_element*n)
+Slur::do_substitute_element_pointer (Score_element*o, Score_element*n)
 {
   int i;
   while ((i = encompass_arr_.find_i (dynamic_cast<Note_column *> (o))) >=0) 

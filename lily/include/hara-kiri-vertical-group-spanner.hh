@@ -26,7 +26,7 @@ public:
 protected:
   VIRTUAL_COPY_CONS(Score_element);
 
-  virtual void do_substitute_dependency (Score_element*, Score_element*);
+  virtual void do_substitute_element_pointer (Score_element*, Score_element*);
   virtual void do_print ()const;
 
   Link_array<Item> interesting_items_;

@@ -30,7 +30,7 @@ Dot_column::add_head (Rhythmic_head *r)
 }
 
 void
-Dot_column::do_substitute_dependency (Score_element*o,Score_element*n)
+Dot_column::do_substitute_element_pointer (Score_element*o,Score_element*n)
 {
   Item *oi =dynamic_cast <Item *> (o);
   

@@ -28,8 +28,7 @@ protected:
   virtual void do_add_processing ();
   virtual void do_post_processing ();
   virtual void do_print () const;
-  virtual void do_substitute_dependency (Score_element*,Score_element*);
-  Array<Rod> get_rods () const;
+  virtual void do_substitute_element_pointer (Score_element*,Score_element*);
 };
 
 #endif /* MULTI_MEASURE_REST_HH */

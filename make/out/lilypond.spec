@@ -1,9 +1,9 @@
 Name: lilypond
-Version: 1.1.31
+Version: 1.1.32
 Release: 1
 Copyright: GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.1.31.tar.gz
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.1.32.tar.gz
 Summary: A program for printing sheet music.
 URL: http://www.cs.uu.nl/~hanwen/lilypond
 Packager: Han-Wen Nienhuys <hanwen@cs.uu.nl>
@@ -40,13 +40,25 @@ tar -C htmldocs -xzf out/htmldoc.tar.gz
 
 strip lily/out/lilypond mi2mu/out/mi2mu
 make prefix="$RPM_BUILD_ROOT/usr" install
+gzip -9fn $RPM_BUILD_ROOT/usr/info/* || true
 
 mkdir -p $RPM_BUILD_ROOT/etc/profile.d
 cp buildscripts/out/lilypond-profile $RPM_BUILD_ROOT/etc/profile.d/lilypond.sh
 cp buildscripts/out/lilypond-login $RPM_BUILD_ROOT/etc/profile.d/lilypond.csh
 
-%files
+%post
 
+touch /tmp/.lilypond-install
+rm `find /var/lib/texmf -name 'feta*pk -print' -or -name 'feta*tfm -print'` /tmp/.lilypond-install
+/sbin/install-info /usr/info/lilypond.info.gz /usr/info/dir || true
+
+%preun
+if [ $1 = 0 ]; then
+   /sbin/install-info --delete /usr/info/lilypond.info.gz /usr/info/dir || true
+fi
+
+
+%files
 %doc htmldocs/
 
 # hairy to hook it in (possibly non-existing) emacs
@@ -61,6 +73,7 @@ cp buildscripts/out/lilypond-login $RPM_BUILD_ROOT/etc/profile.d/lilypond.csh
 /usr/bin/ly2dvi
 /usr/bin/lilypond
 /usr/bin/mi2mu
+/usr/info/*
 /usr/man/man1/mi2mu.1
 /usr/man/man1/lilypond.1
 /usr/man/man1/mudela-book.1
@@ -70,7 +83,3 @@ cp buildscripts/out/lilypond-login $RPM_BUILD_ROOT/etc/profile.d/lilypond.csh
 /usr/share/locale/*/LC_MESSAGES/lilypond.mo
 /etc/profile.d/lilypond.*
 
-%post
-
-touch /tmp/.lilypond-install
-rm `find /var/lib/texmf -name 'feta*pk -print' -or -name 'feta*tfm -print'` /tmp/.lilypond-install

@@ -14,7 +14,7 @@
 #include "spring-spacer.hh"
 
 
-/** el stupido.
+/** El stupido.  Add a measure until we're past the optimum.
 
 
    A Dynamic Programming type of algorithm
@@ -26,39 +26,42 @@ Word_wrap::do_solve() const
 {
   problem_OK();
 
-  PCursor<Paper_column*> curcol (pscore_l_->col_p_list_.top());
+  Line_of_cols &allcols (pscore_l_->col_l_arr_);
+  int curcol_idx = 0;
+  
   Array<Column_x_positions> breaking;
   Line_of_cols breakpoints (find_breaks());
   assert (breakpoints.size()>=2);
 
-  int break_idx_i=0;
-  int line_no_i = 0;
-  while (break_idx_i < breakpoints.size() -1)
+  int break_idx=0;
+  int line_no = 0;
+  while (break_idx < breakpoints.size() -1)
     {
       Column_x_positions minimum;
       Column_x_positions current;
 
+
       // do  another line
-      line_no_i ++;
-      Paper_column *post = breakpoints[break_idx_i]->postbreak_l();
-      int start_break_idx = break_idx_i;
+      line_no ++;
+      Paper_column *post = breakpoints[break_idx]->postbreak_l();
+      int start_break_idx = break_idx;
       current.add_paper_column (post);
-      curcol++;		// skip the breakable.
-      break_idx_i++;
+      curcol_idx++;		// skip the breakable.
+      break_idx++;
 
-      while (break_idx_i < breakpoints.size())
+      while (break_idx < breakpoints.size())
 	{
-
 	  // add another measure.
-	  while (breakpoints[break_idx_i] != curcol.ptr())
+	  while (breakpoints[break_idx] != allcols[curcol_idx])
 	    {
-	      current.add_paper_column (curcol);
-	      curcol++;
+	      current.add_paper_column (allcols[curcol_idx]);
+	      curcol_idx++;
 	    }
-	  current.add_paper_column (breakpoints[break_idx_i]->prebreak_l());
+	  
+	  current.add_paper_column (breakpoints[break_idx]->prebreak_l());
 
 	  current.spacer_l_ = generate_spacing_problem (current.cols, 
-	    pscore_l_->paper_l_->line_dimensions_int (line_no_i));
+	    pscore_l_->paper_l_->line_dimensions_int (line_no));
 
 	  // try to solve
 	  if (!feasible (current.cols))
@@ -66,7 +69,7 @@ Word_wrap::do_solve() const
 	      if (!minimum.cols.size())
 		{
 		  warning (_ ("ugh, this measure is too long") 
-		    + ", " + _f ("breakpoint: %d", break_idx_i) 
+		    + ", " + _f ("breakpoint: %d", break_idx) 
 		    + "(" + _ ("generating stupido solution") + ")");
 		  current.stupid_solution();
 		  current.energy_f_ = - 1; // make sure we break out.
@@ -83,7 +86,7 @@ Word_wrap::do_solve() const
 	  delete current.spacer_l_;
 	  current.spacer_l_ =0;
 
-	  if (!current.satisfies_constraints_b_ && start_break_idx == break_idx_i - 1)
+	  if (!current.satisfies_constraints_b_ && start_break_idx == break_idx - 1)
 	    {
 	      warning ( _ ("I don't fit; put me on Montignac"));
 	      minimum = current;
@@ -95,20 +98,20 @@ Word_wrap::do_solve() const
 	      minimum = current;
 	    }
 	  else {		// we're one col too far.
-	    break_idx_i--;
-	    while (curcol.ptr() != breakpoints[break_idx_i])
-	      curcol --;
+	    break_idx--;
+	    while (allcols[curcol_idx] != breakpoints[break_idx])
+	      curcol_idx --;
 	    break;		// do the next line.
 	  }
 
 
 	  // add nobreak version of breakable column
-	  current.cols.top()=breakpoints[break_idx_i];
-	  curcol ++;
-	  break_idx_i++;
+	  current.cols.top()=breakpoints[break_idx];
+	  curcol_idx ++;
+	  break_idx++;
 	}
 
-      *mlog << "[" << break_idx_i << "]" << flush;
+      *mlog << "[" << break_idx << "]" << flush;
       breaking.push (minimum);
     }
   return breaking;

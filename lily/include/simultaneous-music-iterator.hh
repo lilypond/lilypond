@@ -10,6 +10,7 @@
 #ifndef SIMULTANEOUS_MUSIC_ITERATOR_HH
 #define SIMULTANEOUS_MUSIC_ITERATOR_HH
 
+#include "cons.hh"
 #include "music-list-iterator.hh"
 
 class Simultaneous_music_iterator : public Music_list_iterator
@@ -27,7 +28,7 @@ protected:
   virtual void do_process_and_next (Moment);
 
 private:
-  Pointer_list<Music_iterator*> children_p_list_;
+  Cons_list<Music_iterator> children_p_list_;
 };
 
 #endif // SIMULTANEOUS_MUSIC_ITERATOR_HH

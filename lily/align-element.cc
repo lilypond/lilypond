@@ -50,7 +50,7 @@ Align_element::add_element_priority (Score_element *el, int p)
 }
 
 void
-Align_element::do_substitute_dependency (Score_element*o,
+Align_element::do_substitute_element_pointer (Score_element*o,
 					 Score_element*n)
 {
   int i;

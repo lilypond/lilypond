@@ -21,16 +21,33 @@ template<class T>
 struct Drul_array
 {
   T array_[2];
+  T &elem (Direction d)
+    {
+      assert (d==1 || d== -1);
+      return array_[(d+1)/2];
+
+    }
   T &operator[] (Direction d)
   {
+    return elem (d);
+  }
+  T elem (Direction d) const
+    {
     assert (d==1 || d== -1);
     return array_[(d+1)/2];
-  }
+    }
+  
   T operator[]  (Direction d) const
   {
-    assert (d==1 || d== -1);
-    return array_[(d+1)/2];
+    return elem (d);
   }
+  Drul_array ()
+    {}
+  Drul_array (T t1, T t2)
+    {
+      array_[0] = t1;
+      array_[1] = t2;
+    }
 };
 
 #endif // DRUL_ARRAY_HH

@@ -50,7 +50,7 @@ public:
   
 protected:
   virtual void do_print() const;
-  virtual void do_substitute_dependency (Score_element*,Score_element*);
+  virtual void do_substitute_element_pointer (Score_element*,Score_element*);
   virtual void do_post_processing() ;
   virtual void do_pre_processing ();
   virtual void do_side_processing ();

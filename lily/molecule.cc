@@ -48,12 +48,14 @@ Molecule::translate_axis (Real x,Axis a)
 void
 Molecule::add_molecule (Molecule const &m)
 {
-  Cons_list<Atom> al (copy_killing_cons_list (m.atom_list_));
+  Cons_list<Atom> al;
+  copy_killing_cons_list (al, m.atom_list_);
 
   if (al.head_)
     {
       *al.tail_ = atom_list_;
       atom_list_ = al.head_;
+      al.head_ =0;
     }
   dim_.unite (m.dim_);
 }

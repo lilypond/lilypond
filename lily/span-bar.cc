@@ -22,7 +22,7 @@ Span_bar::add_bar (Bar*b)
 }
 
 void
-Span_bar::do_substitute_dependency (Score_element*o, Score_element*n)
+Span_bar::do_substitute_element_pointer (Score_element*o, Score_element*n)
 {
   spanning_l_arr_.unordered_substitute (o, n);
 }

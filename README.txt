@@ -1,137 +1,1198 @@
-
-
-
-
-
-
-
-
-
-          This is the toplevel README to LilyPond
-
-
-LilyPond  is the GNU Project music typesetter.  This program
-can print beautiful sheet  music  from  a  music  definition
-file.   It  can  also play mechanical performances to a MIDI
-file.  Features  include  multiple  staffs,  meters,  clefs,
-keys,  lyrics,  versatile  input  language, cadenzas, beams,
-slurs,  triplets,  named  chords,  transposing,   formatting
-scores, part extraction.  It includes a nice font of musical
-symbols.
-
-
-1: VERSIONING
-
-
-LilyPond uses a versioning scheme similar to the Linux  ker-
-nel.   In  a  version  "x.y.z",  an  even  second number 'y'
-denotes a stable version.  For development versions  'y'  is
-odd.  For using straightforward score production, please use
-the latest stable version.   Development  versions  may  not
-produce good or nice scores.
-
-If you have downloaded a
-
-*.pre*
-
-version,  then  this is version is *not* meant for producing
-nice output (but to keep your patchsets  up  to  date).   It
-might  not even compile.  The same goes for a version with a
-4th version number, eg
-
-1.2.3.mypatch2
-
-It will be safer if you download 1.2.3 or wait for 1.2.4.
-
-
-2: REQUIREMENTS
-
-
-For the compilation and running of LilyPond  you  need  some
-additional  packages.   Please  refer  to  the  installation
-instructions.
-
-NOTE: If you downloaded a binary  (.rpm  or  a  W95/NT  .zip
-file), then you don't have to compile LilyPond.
-
-
-3: INSTALLATION
-
-
-For  your  convenience,  a  formatted  copy  of  the INSTALL
-instructions are in the toplevel directory, as INSTALL.txt
-
-The process is fairly straightforward, but chances are  that
-you  have  to specify directories for  to configure: this is
-done with the options --enable-tex-dir and --enable-mf-dir
-
-
-4: DOCUMENTATION
-
-
-The real documentation is the directory Documentation/
-
-To generate the pretty-printed docs, you have to run config-
-ure first, and then do this:
-
-make doc
-
-You  can  also  simply read the .yo sources.  They are ASCII
-text.  The complete documentation is accessible in formatted
-form  at the website http://www.cs.uu.nl/people/hanwen/lily-
-pond/index.html
-
-
-5: COMMENTS
-
-
-LilyPond is a long way from finished and  polished.   We  do
-appreciate criticism, comments, bugreports, patches, etc.
-
-Please send your e-mail to one of the MAILING LISTS
-
-and  not  to  us personally.  See Documentation/links.yo for
-more info.
-
-
-6: WINDOWS 32
-
-
-If you have received this file as  part  of  a  DOS/Window32
-distribution  (lilypond-*.zip), then it is advisable to also
-download the source package, since  it  might  contain  more
-documentation ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/
-
-If you decide to build LilyPond from source, please read the
-INSTALL.txt document first,  especially  the  Windows  NT/95
-section.
-
-
-7: CAVEATS
-
-
-*  Please read the file BUGS for some ugly bugs.  This espe-
-cially applies Linux-Intel unix users.
-
-* If you have installed  a  previous  version,  be  sure  to
-remove old font files, eg
-
-
-
-
-     rm `find /var/lib/texmf/fonts -name 'feta*'`
-
-
-
-
-a  script  to  do  this  for  you  is in buildscripts/clean-
-fonts.sh
-
-
-8: CDROM DISTRIBUTIONS
-
-
-If you have received LilyPond on a cdrom, chances  are  that
-development  has  moved a some patchlevels up.  If possible,
-please check the latest version of LilyPond before reporting
-bugs.
+x T ascii
+x res 240 24 40
+x init
+p1
+x font 3 B
+f3
+s10
+V400
+H240
+tThis
+wh24
+tis
+wh24
+tthe
+wh24
+ttoplevel
+wh24
+tREADME
+wh24
+tto
+wh24
+tLilyPond
+n40 0
+x font 1 R
+f1
+V520
+H0
+tLilyPond
+wh48
+tis
+wh24
+tthe
+wh24
+tGNU
+wh24
+tProject
+wh24
+tmusic
+wh24
+ttypesetter.
+wh48
+tThis
+wh24
+tprogram
+n40 0
+V560
+H0
+tcan
+wh24
+tprint
+wh24
+tbeautiful
+wh24
+tsheet
+wh48
+tmusic
+wh48
+tfrom
+wh48
+ta
+wh48
+tmusic
+wh48
+tdefinition
+n40 0
+V600
+H0
+tfile.
+wh72
+tIt
+wh48
+tcan
+wh48
+talso
+wh24
+tplay
+wh24
+tmechanical
+wh24
+tperformances
+wh24
+tto
+wh24
+ta
+wh24
+tMIDI
+n40 0
+V640
+H0
+tfile.
+wh48
+tFeatures
+wh48
+tinclude
+wh48
+tmultiple
+wh48
+tstaffs,
+wh48
+tmeters,
+wh48
+tclefs,
+n40 0
+V680
+H0
+tkeys,
+wh48
+tlyrics,
+wh48
+tversatile
+wh48
+tinput
+wh48
+tlanguage,
+wh24
+tcadenzas,
+wh24
+tbeams,
+n40 0
+V720
+H0
+tslurs,
+wh48
+ttriplets,
+wh48
+tnamed
+wh48
+tchords,
+wh48
+ttransposing,
+wh72
+tformatting
+n40 0
+V760
+H0
+tscores,
+wh24
+tpart
+wh24
+textraction.
+wh48
+tIt
+wh24
+tincludes
+wh24
+ta
+wh24
+tnice
+wh24
+tfont
+wh24
+tof
+wh24
+tmusical
+n40 0
+V800
+H0
+tsymbols.
+n40 0
+f3
+V920
+H0
+t1:
+wh24
+tVERSIONING
+n40 0
+f1
+V1040
+H0
+tLilyPond
+wh24
+tuses
+wh24
+ta
+wh24
+tversioning
+wh24
+tscheme
+wh24
+tsimilar
+wh24
+tto
+wh24
+tthe
+wh24
+tLinux
+wh48
+tker
+Chy
+h24
+n40 0
+V1080
+H0
+tnel.
+wh72
+tIn
+wh48
+ta
+wh48
+tversion
+wh48
+t"x.y.z",
+wh48
+tan
+wh48
+teven
+wh48
+tsecond
+wh24
+tnumber
+wh24
+Caa
+h24
+ty
+Caa
+h24
+n40 0
+V1120
+H0
+tdenotes
+wh24
+ta
+wh24
+tstable
+wh24
+tversion.
+wh48
+tFor
+wh24
+tdevelopment
+wh24
+tversions
+wh48
+Caa
+h24
+ty
+Caa
+wh72
+tis
+n40 0
+V1160
+H0
+todd.
+wh48
+tFor
+wh24
+tusing
+wh24
+tstraightforward
+wh24
+tscore
+wh24
+tproduction,
+wh24
+tplease
+wh24
+tuse
+n40 0
+V1200
+H0
+tthe
+wh24
+tlatest
+wh24
+tstable
+wh24
+tversion.
+wh72
+tDevelopment
+wh48
+tversions
+wh48
+tmay
+wh48
+tnot
+n40 0
+V1240
+H0
+tproduce
+wh24
+tgood
+wh24
+tor
+wh24
+tnice
+wh24
+tscores.
+n40 0
+V1320
+H0
+tIf
+wh24
+tyou
+wh24
+thave
+wh24
+tdownloaded
+wh24
+ta
+n40 0
+V1400
+H0
+t*.pre*
+n40 0
+V1480
+H0
+tversion,
+wh48
+tthen
+wh48
+tthis
+wh24
+tis
+wh24
+tversion
+wh24
+tis
+wh24
+t*not*
+wh24
+tmeant
+wh24
+tfor
+wh24
+tproducing
+n40 0
+V1520
+H0
+tnice
+wh24
+toutput
+wh24
+t(but
+wh24
+tto
+wh24
+tkeep
+wh24
+tyour
+wh24
+tpatchsets
+wh48
+tup
+wh48
+tto
+wh48
+tdate).
+wh72
+tIt
+n40 0
+V1560
+H0
+tmight
+wh48
+tnot
+wh24
+teven
+wh24
+tcompile.
+wh48
+tThe
+wh24
+tsame
+wh24
+tgoes
+wh24
+tfor
+wh24
+ta
+wh24
+tversion
+wh24
+twith
+wh24
+ta
+n40 0
+V1600
+H0
+t4th
+wh24
+tversion
+wh24
+tnumber,
+wh24
+teg
+n40 0
+V1680
+H0
+t1.2.3.mypatch2
+n40 0
+V1760
+H0
+tIt
+wh24
+twill
+wh24
+tbe
+wh24
+tsafer
+wh24
+tif
+wh24
+tyou
+wh24
+tdownload
+wh24
+t1.2.3
+wh24
+tor
+wh24
+twait
+wh24
+tfor
+wh24
+t1.2.4.
+n40 0
+f3
+V1880
+H0
+t2:
+wh24
+tREQUIREMENTS
+n40 0
+f1
+V2000
+H0
+tFor
+wh24
+tthe
+wh24
+tcompilation
+wh24
+tand
+wh24
+trunning
+wh24
+tof
+wh24
+tLilyPond
+wh48
+tyou
+wh48
+tneed
+wh48
+tsome
+n40 0
+V2040
+H0
+tadditional
+wh48
+tpackages.
+wh72
+tPlease
+wh48
+trefer
+wh48
+tto
+wh48
+tthe
+wh48
+tinstallation
+n40 0
+V2080
+H0
+tinstructions.
+n40 0
+V2160
+H0
+tNOTE:
+wh24
+tIf
+wh24
+tyou
+wh24
+tdownloaded
+wh24
+ta
+wh24
+tbinary
+wh48
+t(.rpm
+wh48
+tor
+wh48
+ta
+wh48
+tW95/NT
+wh48
+t.zip
+n40 0
+V2200
+H0
+tfile),
+wh24
+tthen
+wh24
+tyou
+wh24
+tdon
+Caa
+h24
+tt
+wh24
+thave
+wh24
+tto
+wh24
+tcompile
+wh24
+tLilyPond.
+n40 0
+V2560
+H1440
+n40 0
+V2640
+p2
+x font 1 R
+f1
+s10
+V160
+H696
+t-2-
+h672
+n40 0
+x font 3 B
+f3
+V280
+H0
+t3:
+wh24
+tINSTALLATION
+n40 0
+f1
+V400
+H0
+tFor
+wh48
+tyour
+wh48
+tconvenience,
+wh48
+ta
+wh48
+tformatted
+wh48
+tcopy
+wh48
+tof
+wh48
+tthe
+wh24
+tINSTALL
+n40 0
+V440
+H0
+tinstructions
+wh24
+tare
+wh24
+tin
+wh24
+tthe
+wh24
+ttoplevel
+wh24
+tdirectory,
+wh24
+tas
+wh24
+tINSTALL.txt
+n40 0
+V520
+H0
+tThe
+wh24
+tprocess
+wh24
+tis
+wh24
+tfairly
+wh24
+tstraightforward,
+wh24
+tbut
+wh24
+tchances
+wh24
+tare
+wh48
+tthat
+n40 0
+V560
+H0
+tyou
+wh48
+thave
+wh48
+tto
+wh24
+tspecify
+wh24
+tdirectories
+wh24
+tfor
+wh48
+tto
+wh24
+tconfigure:
+wh24
+tthis
+wh24
+tis
+n40 0
+V600
+H0
+tdone
+wh24
+twith
+wh24
+tthe
+wh24
+toptions
+wh24
+t--enable-tex-dir
+wh24
+tand
+wh24
+t--enable-mf-dir
+n40 0
+f3
+V720
+H0
+t4:
+wh24
+tDOCUMENTATION
+n40 0
+f1
+V840
+H0
+tThe
+wh24
+treal
+wh24
+tdocumentation
+wh24
+tis
+wh24
+tthe
+wh24
+tdirectory
+wh24
+tDocumentation/
+n40 0
+V920
+H0
+tTo
+wh24
+tgenerate
+wh24
+tthe
+wh24
+tpretty-printed
+wh24
+tdocs,
+wh24
+tyou
+wh24
+thave
+wh24
+tto
+wh24
+trun
+wh24
+tconfig
+Chy
+h24
+n40 0
+V960
+H0
+ture
+wh24
+tfirst,
+wh24
+tand
+wh24
+tthen
+wh24
+tdo
+wh24
+tthis:
+n40 0
+V1040
+H0
+tmake
+wh24
+tdoc
+n40 0
+V1120
+H0
+tYou
+wh48
+tcan
+wh48
+talso
+wh48
+tsimply
+wh24
+tread
+wh24
+tthe
+wh24
+t.yo
+wh24
+tsources.
+wh48
+tThey
+wh24
+tare
+wh24
+tASCII
+n40 0
+V1160
+H0
+ttext.
+wh48
+tThe
+wh24
+tcomplete
+wh24
+tdocumentation
+wh24
+tis
+wh24
+taccessible
+wh24
+tin
+wh24
+tformatted
+n40 0
+V1200
+H0
+tform
+wh48
+tat
+wh24
+tthe
+wh24
+twebsite
+wh24
+thttp://www.cs.uu.nl/people/hanwen/lily
+Chy
+h24
+n40 0
+V1240
+H0
+tpond/index.html
+n40 0
+f3
+V1360
+H0
+t5:
+wh24
+tCOMMENTS
+n40 0
+f1
+V1480
+H0
+tLilyPond
+wh24
+tis
+wh24
+ta
+wh24
+tlong
+wh24
+tway
+wh24
+tfrom
+wh24
+tfinished
+wh24
+tand
+wh48
+tpolished.
+wh72
+tWe
+wh48
+tdo
+n40 0
+V1520
+H0
+tappreciate
+wh24
+tcriticism,
+wh24
+tcomments,
+wh24
+tbugreports,
+wh24
+tpatches,
+wh24
+tetc.
+n40 0
+V1600
+H0
+tPlease
+wh24
+tsend
+wh24
+tyour
+wh24
+te-mail
+wh24
+tto
+wh24
+tone
+wh24
+tof
+wh24
+tthe
+wh24
+tMAILING
+wh24
+tLISTS
+n40 0
+V1680
+H0
+tand
+wh48
+tnot
+wh48
+tto
+wh48
+tus
+wh24
+tpersonally.
+wh48
+tSee
+wf3
+h24
+tDocumentation/links.yo
+wf1
+h24
+tfor
+n40 0
+V1720
+H0
+tmore
+wh24
+tinfo.
+n40 0
+f3
+V1840
+H0
+t6:
+wh24
+tWINDOWS
+wh24
+t32
+n40 0
+f1
+V1960
+H0
+tIf
+wh24
+tyou
+wh24
+thave
+wh24
+treceived
+wh24
+tthis
+wh24
+tfile
+wh24
+tas
+wh48
+tpart
+wh48
+tof
+wh48
+ta
+wh48
+tDOS/Window32
+n40 0
+V2000
+H0
+tdistribution
+wh48
+t(lilypond-*.zip),
+wh24
+tthen
+wh24
+tit
+wh24
+tis
+wh24
+tadvisable
+wh24
+tto
+wh24
+talso
+n40 0
+V2040
+H0
+tdownload
+wh24
+tthe
+wh24
+tsource
+wh24
+tpackage,
+wh24
+tsince
+wh48
+tit
+wh48
+tmight
+wh48
+tcontain
+wh48
+tmore
+n40 0
+V2080
+H0
+tdocumentation
+wh24
+tftp://ftp.cs.uu.nl/pub/GNU/LilyPond/
+n40 0
+V2160
+H0
+tIf
+wh24
+tyou
+wh24
+tdecide
+wh24
+tto
+wh24
+tbuild
+wh24
+tLilyPond
+wh24
+tfrom
+wh24
+tsource,
+wh24
+tplease
+wh24
+tread
+wh24
+tthe
+n40 0
+V2200
+H0
+tINSTALL.txt
+wh24
+tdocument
+wh24
+tfirst,
+wh48
+tespecially
+wh48
+tthe
+wh48
+tWindows
+wh48
+tNT/95
+n40 0
+V2240
+H0
+tsection.
+n40 0
+V2560
+H1440
+n40 0
+V2640
+p3
+x font 1 R
+f1
+s10
+V160
+H696
+t-3-
+h672
+n40 0
+x font 3 B
+f3
+V280
+H0
+t7:
+wh24
+tCAVEATS
+n40 0
+f1
+V400
+H0
+t*
+wh48
+tPlease
+wh24
+tread
+wh24
+tthe
+wh24
+tfile
+wh24
+tBUGS
+wh24
+tfor
+wh24
+tsome
+wh24
+tugly
+wh24
+tbugs.
+wh48
+tThis
+wh24
+tespe
+Chy
+h24
+n40 0
+V440
+H0
+tcially
+wh24
+tapplies
+wh24
+tLinux-Intel
+wh24
+tunix
+wh24
+tusers.
+n40 0
+V520
+H0
+t*
+wh24
+tIf
+wh24
+tyou
+wh24
+thave
+wh24
+tinstalled
+wh48
+ta
+wh48
+tprevious
+wh48
+tversion,
+wh48
+tbe
+wh48
+tsure
+wh48
+tto
+n40 0
+V560
+H0
+tremove
+wh24
+told
+wh24
+tfont
+wh24
+tfiles,
+wh24
+teg
+n40 0
+V760
+H120
+trm
+wh24
+t`find
+wh24
+t/var/lib/texmf/fonts
+wh24
+t-name
+wh24
+Caa
+h24
+tfeta*
+Caa
+h24
+t`
+n40 0
+V960
+H0
+ta
+wh48
+tscript
+wh48
+tto
+wh48
+tdo
+wh48
+tthis
+wh48
+tfor
+wh48
+tyou
+wh48
+tis
+wh24
+tin
+wf3
+h24
+tbuildscripts/clean-
+n40 0
+V1000
+H0
+tfonts.sh
+n40 0
+V1120
+H0
+t8:
+wh24
+tCDROM
+wh24
+tDISTRIBUTIONS
+n40 0
+f1
+V1240
+H0
+tIf
+wh24
+tyou
+wh24
+thave
+wh24
+treceived
+wh24
+tLilyPond
+wh24
+ton
+wh24
+ta
+wh24
+tcdrom,
+wh24
+tchances
+wh48
+tare
+wh48
+tthat
+n40 0
+V1280
+H0
+tdevelopment
+wh48
+thas
+wh48
+tmoved
+wh24
+ta
+wh24
+tsome
+wh24
+tpatchlevels
+wh24
+tup.
+wh48
+tIf
+wh24
+tpossible,
+n40 0
+V1320
+H0
+tplease
+wh24
+tcheck
+wh24
+tthe
+wh24
+tlatest
+wh24
+tversion
+wh24
+tof
+wh24
+tLilyPond
+wh24
+tbefore
+wh24
+treporting
+n40 0
+V1360
+H0
+tbugs.
+n40 0
+V2560
+H1440
+n40 0
+x trailer
+V2640
+x stop

@@ -12,8 +12,6 @@
 #include "spanner.hh"
 #include "paper-def.hh"
 #include "line-of-score.hh"
-#include "pcursor.hh"
-#include "plist.hh"
 #include "p-col.hh"
 #include "p-score.hh"
 #include "p-col.hh"
@@ -25,15 +23,6 @@
 #include "file-results.hh"
 #include "misc.hh"
 
-#if 1			// has w32 advanced?
-			// nope (cygwin-b20)
-
-// sucking Cygnus egcs - w32
-#include "list.tcc"
-#include "cursor.tcc"
-
-#endif
-
 Paper_score::Paper_score ()
 {
   outputter_l_ =0;
@@ -43,51 +32,42 @@ Paper_score::Paper_score ()
   line_l_ = line_p;
 }
 
+Paper_score::Paper_score (Paper_score const &s)
+  : Music_output (s)
+{
+  assert (false);
+}
+
 Paper_score::~Paper_score ()
 {
+  for (int i=0; i < span_p_arr_.size (); i++)
+    delete span_p_arr_[i];
+  for (int i=0; i < elem_p_arr_.size (); i++)
+    delete elem_p_arr_[i];
 }
 
 void
 Paper_score::typeset_element (Score_element * elem_p)
 {
-  elem_p_list_.bottom ().add (elem_p);
+  elem_p_arr_.push (elem_p);
   elem_p->pscore_l_ = this;
   elem_p->add_processing ();
-}
-
-void
-Paper_score::typeset_broken_spanner (Spanner*span_p)
-{
-  typeset_element (span_p);
 }
 
 
 void
 Paper_score::typeset_unbroken_spanner (Spanner*span_p)
 {
-  span_p_list_.bottom ().add (span_p);
+  span_p_arr_.push (span_p);
   span_p->pscore_l_=this;
-
-  // do not init start/stop fields. These are for broken spans only.
   span_p->add_processing ();
-}
-
-
-void
-Paper_score::clean_cols ()
-{
-  int rank_i = 0;
-  for (iter_top (col_p_list_,c); c.ok ();)
-    {
-      c->set_rank (rank_i++);
-      c++;
-    }
 }
 
 void
 Paper_score::add_column (Paper_column *p)
 {
-  col_p_list_.bottom ().add (p);
+  p->set_rank (col_l_arr_.size ());
+  col_l_arr_.push (p);
   typeset_element(p);
 }
 
@@ -101,33 +81,29 @@ Paper_score::print () const
     return ;
   DOUT << "Paper_score { ";
   DOUT << "\n elements: ";
-  for (iter_top (elem_p_list_,cc); cc.ok (); cc++)
-    cc->print ();
-  DOUT << "\n unbroken spanners: ";
-  for (iter (span_p_list_.top (), i); i.ok  (); i++)
-    i->print ();
-
+  for (int i=0; i < span_p_arr_.size (); i++)
+    span_p_arr_[i]->print ();
+  for (int i=0; i < elem_p_arr_.size (); i++)
+    elem_p_arr_[i]->print();
+  
   DOUT << "}\n";
 #endif
 }
 
-PCursor<Paper_column *>
-Paper_score::find_col (Paper_column const *c) const
+int
+Paper_score::find_col_idx (Paper_column const *c) const
 {
   Paper_column const *what = c;
 
-  return col_p_list_.find ((Paper_column*)what);
+  return col_l_arr_.find_i ((Paper_column*)what);
 }
-
-
-
 
 Array<Column_x_positions>
 Paper_score::calc_breaking ()
 {
   Break_algorithm *algorithm_p=0;
   Array<Column_x_positions> sol;
-  bool try_wrap = ! paper_l_->get_var ("castingalgorithm");
+  bool try_wrap = !paper_l_->get_var ("castingalgorithm");
 
   if (!try_wrap)
     {
@@ -153,13 +129,72 @@ Paper_score::calc_breaking ()
 
 
 
+void delete_array_contents (Link_array<Score_element> const&to_remove, Dictionary<int> &type_stats)
+{
+  for (int i=0; i < to_remove.size (); i++)
+    {
+      Score_element * e = to_remove[i];
+      String nm = e->name();
+      if (type_stats.elem_b (nm))
+	   type_stats[nm] ++;
+	 else
+	   type_stats[nm] = 1;
+
+	 if (dynamic_cast<Item*> (e))
+	   type_stats["Item"] ++;
+	 else if (dynamic_cast<Spanner*>(e))
+	   type_stats["Spanner"] ++;
+	 type_stats["Total"] ++;
+	 
+	 e->unlink ();
+	 assert (!e->linked_b ());
+	 delete e;
+       }
+
+}
+Link_array<Score_element>
+Paper_score::remove_break_helpers ()
+{
+  Link_array<Score_element> to_remove;
+  Link_array<Score_element> keep;
+  for (int i=0; i < elem_p_arr_.size (); i++)
+    {
+      Score_element*e = elem_p_arr_[i];
+      if (e->break_helper_only_b_)
+	to_remove.push (e);
+      else
+	keep.push (e);
+    }
+
+  elem_p_arr_ = keep;
+  Link_array<Spanner> keeps;
+  for (int i=0; i<span_p_arr_.size  ();i++)
+    {
+      Spanner *s = span_p_arr_[i];
+      Score_element *e = s;
+      if (e->break_helper_only_b_)
+	to_remove.push (e);
+      else
+	keeps.push (s);
+    }
+
+
+  span_p_arr_ =keeps;
+
+  return to_remove;
+}
+
 void
 Paper_score::process ()
 {
-  clean_cols ();
+  Dictionary<int> type_stats;
+  type_stats["Item"] =0;
+  type_stats["Spanner"] =0;
+  type_stats["Total"]=0;
+    
   print ();
   *mlog << _ ("Preprocessing elements...") << " " << flush;
-      line_l_->breakable_col_processing ();
+  line_l_->breakable_col_processing ();
       line_l_->pre_processing ();
   
       *mlog << '\n' << _ ("Calculating column positions...") << " " << flush;
@@ -167,6 +202,8 @@ Paper_score::process ()
 
   Array<Column_x_positions> breaking = calc_breaking ();
 
+  delete_array_contents (remove_break_helpers(), type_stats);
+  
   Paper_stream* paper_stream_p = paper_l_->paper_stream_p ();
   outputter_l_ = paper_l_->paper_outputter_p (paper_stream_p, header_l_, origin_str_);
 
@@ -176,10 +213,11 @@ Paper_score::process ()
       Line_of_score *line_l = line_l_->set_breaking (breaking, i);
       lines.push (line_l);
       if (line_l != line_l_)
-	typeset_broken_spanner (line_l);
-      
+	typeset_element (line_l);
     }
 
+  if (experimental_features_global_b)
+    *mlog << elem_p_arr_.size ()  + span_p_arr_.size () << " elements. ";
   *mlog << "\nLine ... ";
   for (int i=0; i < lines.size (); i++)
     {
@@ -190,8 +228,14 @@ Paper_score::process ()
       line_l->post_processing ();
 	*mlog << i << flush;
       line_l->output_all ();
-	*mlog << ']' << flush;
-      remove_line (line_l);
+
+      if (experimental_features_global_b)
+	*mlog << '(' << elem_p_arr_.size () + span_p_arr_.size () << ')';
+      
+      *mlog << ']' << flush;
+      Link_array<Score_element> to_remove (remove_line (line_l));
+ 
+      delete_array_contents (to_remove,  type_stats);
     }
   
   // huh?
@@ -199,108 +243,74 @@ Paper_score::process ()
   delete paper_stream_p;
   outputter_l_ = 0;
 
+
+  /*
+    todo: sort output
+   */
+  if (experimental_features_global_b)
+    {
+      for (Dictionary_iter<int> i(type_stats); i.ok(); i++)
+	{
+	  *mlog << i.key () << ": " << i.val () << " objects\n";
+	}
+    }
   *mlog << '\n' << flush;
+      
 }
 
-void
+
+Link_array<Score_element>
 Paper_score::remove_line (Line_of_score *l)
 {
   Link_array<Score_element> to_remove;
-  for (PCursor<Score_element*> i(elem_p_list_.top ()); i.ok (); )
+  Link_array<Score_element> keep;
+  for (int i=0; i < elem_p_arr_.size (); i++)
     {
-      if (i->line_l () == l)
-	to_remove.push (i.remove_p ());
-      else
-	i++;
-    }
-
-  for (PCursor<Spanner*> i (span_p_list_.top ()); i.ok (); )
-    {
-      Score_element *e = i.ptr ();
+      Score_element*e = elem_p_arr_[i];
       if (e->line_l () == l)
-	to_remove.push (i.remove_p ());
+	to_remove.push (e);
       else
-	i++;
+	keep.push (e);
     }
 
-  //  l->unlink_all ();
-  for (int i=0; i < to_remove.size (); i++)
+  elem_p_arr_ = keep;
+  Link_array<Spanner> keeps;
+  for (int i=0; i<span_p_arr_.size  ();i++)
     {
-      to_remove[i]->unlink ();
-      assert (!to_remove[i]->linked_b ());
-      delete to_remove [i];
-    }
-}
-
-/** Get all breakable columns between l and r, (not counting l and r).  */
-Link_array<Paper_column>
-Paper_score::breakable_col_range (Paper_column*l, Paper_column*r) const
-{
-  Link_array<Paper_column> ret;
-
-  PCursor<Paper_column*> start (l ? find_col (l)+1 : col_p_list_.top ());
-  PCursor<Paper_column*> stop (r ? find_col (r) : col_p_list_.bottom ());
-
-  /*
-    ugh! windows-suck-suck-suck.
-    */
-  while (PCursor<Paper_column*>::compare (start,stop) < 0)
-    {
-      if (start->breakable_b_)
-	ret.push (start);
-      start++;
+      Spanner *s = span_p_arr_[i];
+      Score_element *e = s;
+      if (e->line_l () == l)
+	to_remove.push (e);
+      else
+	keeps.push (s);
     }
 
-  return ret;
-}
 
-
-Link_array<Paper_column>
-Paper_score::col_range (Paper_column*l, Paper_column*r) const
-{
-  Link_array<Paper_column> ret;
-
-  PCursor<Paper_column*> start (l ? find_col (l)+1 : col_p_list_.top ());
-  PCursor<Paper_column*> stop (r ? find_col (r) : col_p_list_.bottom ());
-  ret.push (l);
-
-  /*
-    ugh! windows-suck-suck-suck.
-    */
-  while (PCursor<Paper_column*>::compare (start,stop) < 0)
-    ret.push (start++);
-  ret.push (r);
-  return ret;
+  span_p_arr_ =keeps;
+  return to_remove;
 }
 
 Link_array<Item>
-Paper_score::broken_col_range (Item const*l_item_l, Item const*r_item_l) const
+Paper_score::broken_col_range (Item const*l, Item const*r) const
 {
   Link_array<Item> ret;
-  Item const*l=l_item_l;
-  Item const*r=r_item_l;
 
-  // huh? see Item::left_right_compare ()
-  /*
-  while (! (dynamic_cast<Paper_column const *> (l)))
-    l = dynamic_cast<Item*> (l->axis_group_l_a_[X_AXIS]);
-
-  while (! (dynamic_cast<Paper_column const *> (r)))
-    r = dynamic_cast<Item*>(r->axis_group_l_a_[X_AXIS]);
-  */
   l = l->column_l ();
   r = r->column_l ();
   
-  PCursor<Paper_column*> start (l ? find_col ((Paper_column*)l)+1 : col_p_list_.top ());
-  PCursor<Paper_column*> stop (r ? find_col ((Paper_column*)r) : col_p_list_.bottom ());
+  int  start = l
+    ? find_col_idx (dynamic_cast<Paper_column*> ((Item*)l))+1
+    : 0;
 
-  /*
-    ugh! windows-suck-suck-suck.
-    */
-  while (PCursor<Paper_column*>::compare (start,stop) < 0)
+  int stop = r
+    ? find_col_idx (dynamic_cast<Paper_column*>((Item*)r))
+    : col_l_arr_.size ();
+
+  while (start < stop)
     {
-      if (start->breakable_b_ && !start->line_l_)
-	ret.push (start);
+      Paper_column *c = col_l_arr_[start];
+      if (c->breakable_b_ && !c->line_l_)
+	ret.push (c);
       start++;
     }
 

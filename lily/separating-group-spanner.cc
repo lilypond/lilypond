@@ -57,7 +57,7 @@ Separating_group_spanner::add_spacing_unit (Single_malt_grouping_item*i)
 }
 
 void
-Separating_group_spanner::do_substitute_dependency (Score_element*o, Score_element*n)
+Separating_group_spanner::do_substitute_element_pointer (Score_element*o, Score_element*n)
 {
   if (dynamic_cast<Single_malt_grouping_item *> (o))
     {
@@ -66,3 +66,7 @@ Separating_group_spanner::do_substitute_dependency (Score_element*o, Score_eleme
     }
 }
 
+Separating_group_spanner::Separating_group_spanner()
+{
+  break_helper_only_b_ = true;
+}

@@ -121,7 +121,7 @@ Abbreviation::do_brew_molecule_p () const
 }
 
 void
-Abbreviation::do_substitute_dependent (Score_element*o, Score_element*n)
+Abbreviation::do_substitute_element_pointer (Score_element*o, Score_element*n)
 {
   if (stem_l_ == o)
     stem_l_ = dynamic_cast<Stem*> (n);

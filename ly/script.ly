@@ -63,3 +63,10 @@ prallprall =\script { "prallprall" 0 0 1 0 0 }
 prallmordent =\script { "prallmordent" 0 0 1 0 0 }
 upprall =\script { "upprall" 0 0 1 0 0 }
 downprall =\script { "downprall" 0 0 1 0 0 }
+
+"dash-hat" = "marcato"
+"dash-plus" = "stopped"
+"dash-dash" = "tenuto"
+"dash-bar" = "staccatissimo"
+"dash-larger" = "accent"
+"dash-dot" = "staccato"

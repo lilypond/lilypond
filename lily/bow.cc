@@ -44,8 +44,6 @@ Bow::do_brew_molecule_p () const
     {
       static int i = 1;
       cout << "******" << i++ << "******" << endl;
-      // gcc 2.7.2: ices
-//      cout << "c0.y: " << c[0].y << endl;
       cout << "c0.y: " << c[0].y () << endl;
       cout << "c3.y: " << c[3].y () << endl;
       cout << "dy: " << dy << endl;
@@ -75,8 +73,7 @@ Bow::center () const
 
 
 /*
-   
-   ugh .  Control points are too crude measures.
+   Ugh.  Control points are too crude measures.
  */
 Interval
 Bow::do_height () const
@@ -92,15 +89,6 @@ Bow::do_height () const
   return iv;
 }
 
-#if 0
-Interval
-Bow::do_width () const    
-{
-  Interval i = Spanner::do_width ();
-  Real dx = i.length();
-  return Interval (0, dx);
-}
-#endif
 
 Array<Offset>
 Bow::get_controls () const

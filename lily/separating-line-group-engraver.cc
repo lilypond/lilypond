@@ -23,7 +23,7 @@ void
 Separating_line_group_engraver::do_creation_processing ()
 {
   sep_span_p_ = new Separating_group_spanner;
-  announce_element ( Score_element_info (sep_span_p_, 0));
+  announce_element (Score_element_info (sep_span_p_, 0));
   sep_span_p_->set_bounds (LEFT, get_staff_info ().command_pcol_l ());
 }
 

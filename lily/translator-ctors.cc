@@ -7,7 +7,6 @@
 */
 
 #include "proto.hh"
-#include "plist.hh"
 #include "translator.hh"
 #include "dictionary.hh"
 #include "debug.hh"

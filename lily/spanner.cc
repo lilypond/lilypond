@@ -21,19 +21,19 @@ Spanner::do_print() const
 #ifndef NPRINT
   DOUT << "Between " << classname (spanned_drul_[LEFT])
        << " and " << classname (spanned_drul_[RIGHT]) << '\n';
-  if (broken_into_l_arr_.size())
+  /*  if (broken_into_l_arr_.size())
     {
       DOUT << "with broken pieces:\n";
       for (int i=0; i < broken_into_l_arr_.size (); i++)
 	broken_into_l_arr_[i]->print ();
-    }  
+	}*/  
 #endif
 }
 
 void
 Spanner::break_into_pieces ()
 {
-  if (broken_into_l_arr_.size())
+  if (broken_b ())
     return; 
 	 
   Item * left = spanned_drul_[LEFT];
@@ -45,32 +45,36 @@ Spanner::break_into_pieces ()
       return;
     }
   
-  Link_array<Item> break_cols = pscore_l_->broken_col_range (left,right);
+  Link_array<Item> break_points = pscore_l_->broken_col_range (left,right);
   Link_array<Spanner> broken_into_l_arr;
 
-  break_cols.insert (left,0);
-  break_cols.push (right);
+  break_points.insert (left,0);
+  break_points.push (right);
 
-  for (int i=1; i < break_cols.size(); i++) 
+
+  for (int i=1; i < break_points.size(); i++) 
     {
-      Spanner* span_p = dynamic_cast<Spanner*> (clone());
-      Item *left = break_cols[i-1];
-      Item *right = break_cols[i];
-      if (!right->line_l())
-	right = right->find_prebroken_piece(LEFT);
-      if (!left->line_l())
-	left = left->find_prebroken_piece(RIGHT);
+      Breaking_information info;
+      info.bounds_[LEFT] = break_points[i-1];
+      info.bounds_[RIGHT] = break_points[i];
+      Direction d = LEFT;
+      do
+	{
+	  Item *&pc_l = info.bounds_[d] ;
+	  if (!pc_l->line_l())
+	    pc_l =  pc_l->find_prebroken_piece(- d);
 
-      assert (left&&right && left->line_l() == right->line_l());
-
-      span_p->set_bounds(LEFT,left);
-      span_p->set_bounds(RIGHT,right);
-	
-      pscore_l_->typeset_broken_spanner (span_p);
-      broken_into_l_arr.push (span_p);
+	  assert (pc_l);
+	  if (!info.line_l_)
+	    info.line_l_ = pc_l-> line_l ();
+	  else
+	    assert( info.line_l_ = pc_l->line_l ());
+	  
+	}
+      while ((flip(&d))!= LEFT);
+      info.broken_spanner_l_ = 0;
+      broken_info_.push (info);
     }
-   
-  broken_into_l_arr_ = broken_into_l_arr;
 }
 
 void
@@ -105,17 +109,9 @@ void
 Spanner::do_break_processing()
 {
   if (!line_l())
-    {
-      break_into_pieces ();
-      for (int i=0; i < broken_into_l_arr_.size(); i++)
-	{
-	  broken_into_l_arr_[i]->handle_broken_dependencies();
-	}
-    }
+    break_into_pieces ();
   else 
-    {
-      handle_broken_dependencies();
-    }
+    handle_broken_dependencies();
 }
 
 Spanner::Spanner ()
@@ -129,7 +125,7 @@ Spanner::Spanner (Spanner const &s)
   :Score_element (s)
 {
   spanned_drul_[LEFT] = spanned_drul_[RIGHT] =0;
-  unbroken_original_l_ = &s;
+  unbroken_original_l_ = 0;
 }
 
 void
@@ -145,9 +141,7 @@ Spanner::output_processing ()
 
 Interval
 Spanner::do_width() const
-{
-  
-  
+{  
   Real l = spanned_drul_[LEFT]->absolute_coordinate (X_AXIS);
   Real r = spanned_drul_[RIGHT]->absolute_coordinate (X_AXIS);
 
@@ -171,17 +165,42 @@ Spanner::line_l() const
 Spanner*
 Spanner::find_broken_piece (Line_of_score*l) const
 {
-  for (int i=0; i < broken_into_l_arr_.size(); i++)
-    if (broken_into_l_arr_[i]->line_l() == l)
-      return broken_into_l_arr_[i];
+  for (int i=0; i < broken_info_.size (); i++)
+    {
+      Spanner *me =(Spanner*) this;
+      Breaking_information &info  = me->broken_info_[i];
+      if (info.line_l_ == l)
+	{
+	  if (!info.broken_spanner_l_)
+	    {
+	      Spanner *span_p = dynamic_cast<Spanner*>(clone ());
+	      span_p -> unbroken_original_l_ =(Spanner*)this;
+	      span_p->set_bounds(LEFT,info.bounds_[LEFT]);
+	      span_p->set_bounds(RIGHT,info.bounds_[RIGHT]);
+	      pscore_l_->typeset_element (span_p);
+
+	      
+	      info.broken_spanner_l_ = span_p;
+	      /*	      if (Axis_group_spanner *ags
+		  = dynamic_cast<Axis_group_spanner*> (span_p))
+		{
+		do something
+		}
+	      */
+	      span_p->handle_broken_dependencies();
+
+	    }
+	  return info.broken_spanner_l_;
+	}
+    }
+
   return 0;				   
-	  
 }
 
 bool
 Spanner::broken_b() const
 {
-  return broken_into_l_arr_.size();
+  return broken_info_.size();
 }
 
 void
@@ -192,8 +211,12 @@ Spanner::do_unlink()
 
   if (unbroken_original_l_)
     {
-      unbroken_original_l_->broken_into_l_arr_.substitute (this, 0);
-      unbroken_original_l_ =0;
+      for (int i=0; i < unbroken_original_l_->broken_info_.size (); i++)
+	{
+	  if (unbroken_original_l_->broken_info_[i].broken_spanner_l_ == this)
+	    unbroken_original_l_->broken_info_[i].broken_spanner_l_ = 0;
+	}
+      
     }
 }
 

@@ -9,6 +9,7 @@
 
 #include "direction.hh"
 
+#if 0 
 String direction_str (Direction d, Axis a)
 {
   String s("center");
@@ -22,3 +23,4 @@ String direction_str (Direction d, Axis a)
     }
   return s;
 }
+#endif

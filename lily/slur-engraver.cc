@@ -5,7 +5,6 @@
 */
 
 #include "proto.hh"
-#include "plist.hh"
 #include "musical-request.hh"
 #include "slur-engraver.hh"
 #include "slur.hh"

@@ -22,7 +22,7 @@
 */
 class Collision : public Horizontal_vertical_group_item {
 protected:
-    virtual void do_substitute_dependency (Score_element*,Score_element*);
+    virtual void do_substitute_element_pointer (Score_element*,Score_element*);
     virtual void do_pre_processing();
 public:
     Link_array<Note_column> clash_l_arr_;

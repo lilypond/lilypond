@@ -9,8 +9,6 @@
 #include "item.hh"
 /**
   A vertical bar.
-  
-  TODO: connections with pre and postbreak
  */
 class Bar:public Item {
 public:

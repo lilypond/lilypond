@@ -26,6 +26,7 @@
 Score_element::Score_element()
 {
   output_p_ =0;
+  break_helper_only_b_ = false;
   transparent_b_ = false;
   size_i_ = 0;
   pscore_l_=0;
@@ -41,6 +42,7 @@ Score_element::Score_element (Score_element const&s)
    */
   copy_edges_out (s);
   output_p_ =0;
+  break_helper_only_b_ = s.break_helper_only_b_;
   transparent_b_ = s.transparent_b_;
   status_i_ = s.status_i_;
   pscore_l_ = s.pscore_l_;
@@ -54,6 +56,7 @@ Score_element::~Score_element()
 {
   delete output_p_; 
   assert (status_i_ >=0);
+  status_i_  = -1;
 }
 
 Score_element*
@@ -131,7 +134,6 @@ Score_element::print() const
 Paper_def*
 Score_element::paper()  const
 {
-  assert (pscore_l_);
   return pscore_l_->paper_l_;
 }
 
@@ -145,6 +147,7 @@ Score_element::lookup_l () const
 void
 Score_element::add_processing()
 {
+  assert (status_i_ >=0);
   if (status_i_)
     return;
   status_i_ ++;
@@ -156,6 +159,8 @@ void
 Score_element::calculate_dependencies (int final, int busy,
 				    Score_element_method_pointer funcptr)
 {
+  assert (status_i_ >=0);
+
   if (status_i_ >= final)
     return;
 
@@ -228,11 +233,7 @@ Score_element::do_add_processing()
 }
 
 void
-Score_element::do_substitute_dependency (Score_element*,Score_element*)
-{
-}
-void
-Score_element::do_substitute_dependent (Score_element*,Score_element*)
+Score_element::do_substitute_element_pointer (Score_element*,Score_element*)
 {
 }
 
@@ -283,8 +284,8 @@ Score_element::add_dependency (Score_element*e)
 void
 Score_element::substitute_dependency (Score_element* old, Score_element* new_l)
 {
-  do_substitute_dependency (old,new_l);
-  old->do_substitute_dependent (this, 0);
+  do_substitute_element_pointer (old,new_l);
+  old->do_substitute_element_pointer (this, 0);
 }
 
 void
@@ -391,7 +392,7 @@ Score_element::unlink()
   do_unlink();
   while (dependency_size()) 
     {
-      do_substitute_dependency (dependency (0),0);
+      do_substitute_element_pointer (dependency (0),0);
       remove_edge_out_idx (0);
     }
   while  (dependent_size()) 

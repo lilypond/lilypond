@@ -153,6 +153,7 @@ void
 Auto_beam_engraver::begin_beam ()
 {
   DOUT << String ("starting autobeam at: ") + now_mom ().str () + "\n";
+  assert (!beam_p_);
   beam_p_ = new Beam;
   grouping_p_ = new Rhythmic_grouping;
 

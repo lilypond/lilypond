@@ -19,7 +19,7 @@ class Note_column : public Script_column {
 protected:
   virtual void do_pre_processing();
   virtual void do_print () const;
-  virtual void do_substitute_dependency (Score_element*,Score_element*);
+  virtual void do_substitute_element_pointer (Score_element*,Score_element*);
 public:
   /** The relative position of the "voice" containing this
     chord. Normally this would be the same as the stem direction,

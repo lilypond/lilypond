@@ -129,7 +129,7 @@ Staff_side::do_post_processing()
 }
 
 void
-Staff_side::do_substitute_dependency (Score_element*o, Score_element*n)
+Staff_side::do_substitute_element_pointer (Score_element*o, Score_element*n)
 {
   support_l_arr_.unordered_substitute (o,n);
 }

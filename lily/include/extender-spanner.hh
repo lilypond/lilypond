@@ -41,7 +41,7 @@ protected:
   virtual Molecule* do_brew_molecule_p () const;
   void do_add_processing ();
   Interval do_height () const;
-  void do_substitute_dependency (Score_element* o, Score_element* n);
+  void do_substitute_element_pointer (Score_element* o, Score_element* n);
   void do_post_processing ();
  
   VIRTUAL_COPY_CONS (Score_element);

@@ -18,7 +18,7 @@
 #include "interpretation-context-handle.hh"
 
 /** Walk through music and deliver music to translation units, synced
-  in time.  This classa provides both the implementation of the shared
+  in time.  This class provides both the implementation of the shared
   code, and the public interface.
 
   Derived classes should only have a public constructor.
