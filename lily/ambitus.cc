@@ -172,7 +172,7 @@ Ambitus::brew_molecule (SCM smob)
       me->programming_error ("Ambitus: reverse range");
     }
 
-  SCM c0 = me->get_grob_property ("centralCPosition");
+  SCM c0 = me->get_grob_property ("c0-position");
   if (gh_number_p (c0))
     {
       p_min += gh_scm2int (c0);
@@ -219,7 +219,7 @@ Ambitus::brew_molecule (SCM smob)
   molecule.add_molecule (ledger_lines);
 
   // add accidentals
-  SCM key_signature = me->get_grob_property ("keySignature");
+  SCM key_signature = me->get_grob_property ("key-signature");
   SCM scm_accidentals_style = me->get_grob_property ("accidentals-style");
   String accidentals_style;
   if (gh_symbol_p (scm_accidentals_style))
@@ -248,4 +248,4 @@ Ambitus::brew_molecule (SCM smob)
 
 ADD_INTERFACE (Ambitus, "ambitus-interface",
   "An ambitus represents the pitch range of a voice.",
-  "note-head-style join-heads");
+  "c0-position note-head-style join-heads");

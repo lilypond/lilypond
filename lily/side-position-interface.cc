@@ -207,10 +207,6 @@ Side_position_interface::aligned_side (SCM element_smob, SCM axis)
 	  d = DOWN;
 	}
       o += - iv[-d];
-
-      SCM pad = me->get_grob_property ("padding");
-      if (gh_number_p (pad))
-	o += d *gh_scm2double (pad) ; 
     }
   return gh_double2scm (o);
 }

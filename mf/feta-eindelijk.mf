@@ -517,7 +517,7 @@ fet_beginchar("Neo-mensural half rest", "1neo_mensural", "neomensminimahalfrest"
 	neomens_half_block_rest;
 fet_endchar;
 
-neomensrestsize# = .8staff_space#;
+neomensrestsize# = 0.8 staff_space#;
 
 fet_beginchar("Neo-mensural 4th rest","2neo_mensural","neomenssemiminimarest")
 	set_char_box(0,neomensrestsize#,0,neomensrestsize#);
