@@ -6,6 +6,8 @@
 	* Documentation/user/lilypond.tely: declare the topmost node only
 	once; removes empty line in @contents.
 
+	* Documentation/user/music-glossary.tely: really add Finnish author.
+
 2004-02-15  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/grob.cc: edit doc string.
