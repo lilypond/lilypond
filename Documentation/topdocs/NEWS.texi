@@ -8,6 +8,15 @@
 
 @itemize @bullet
 
+@item Music can be used as a markup
+When inserting a @code{score} block as part of a @code{\markup},
+it produces a rendered markup of the music.
+
+@example
+@c TODO, see input/test/markup-score.ly
+@end example
+
+
 @item LilyPond expressions can be embedded into Scheme, thanks to the
 @code{#@{ ... #@}} syntax. Within such a block, Scheme forms, for
 instance variable names, can be introduced thanks to a @code{$}

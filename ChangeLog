@@ -1,5 +1,7 @@
 2004-04-29  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* Documentation/topdocs/NEWS.texi: Mention use of \score as markup.
+
 	* lily/page.cc (Page): Do not use ly_scheme_function for
 	volatile/configurable variables (FIXME: better name).
 
