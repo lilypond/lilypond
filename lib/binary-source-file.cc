@@ -27,7 +27,7 @@ Binary_source_file::~Binary_source_file()
 }
 
 String
-Binary_source_file::error_str( char const* pos_ch_c_l )
+Binary_source_file::error_str( char const* pos_ch_c_l ) const
 {
     assert( this );
     if ( !in_b( pos_ch_c_l ) )
@@ -53,7 +53,7 @@ Binary_source_file::error_str( char const* pos_ch_c_l )
 }
 
 int
-Binary_source_file::line_i( char const* pos_ch_c_l )
+Binary_source_file::line_i( char const* pos_ch_c_l ) const
 {
     if ( !in_b( pos_ch_c_l ) )
     	return 0;

@@ -21,7 +21,8 @@ public:
     static String bin2dec_str (String bin_str);
     static String bin2hex_str (String bin_str);
     static String dec2bin_str (String str);
-    static int bin2_i (String str);
+    static int bin2_i (String bin_str);
+    static unsigned bin2_u (String bin_str);
     static String char_str (char c, int n);
     static int dec2_i (String dec_str);
     static double dec2_f (String dec_str);

@@ -17,6 +17,18 @@
 #include "source.hh"
 #include "path.hh"
 
+Sources::Sources()
+{
+    path_C_= 0;
+    binary_b_ = false;
+}
+
+void
+Sources::set_binary(bool bo)
+{
+	binary_b_ = bo;
+}
+
 void
 Sources::set_path(File_path *f_C)
 {
@@ -47,12 +59,6 @@ Sources::get_file_l(String &file_str ) //UGH
     return f_p;
 }
 
-Sources::Sources()
-{
-    path_C_= 0;
-    binary_b_ = false;
-}
-
 void
 Sources::add( Source_file* sourcefile_p )
 {
@@ -74,5 +80,3 @@ Sources::sourcefile_l( char const* ch_C )
     return 0;
 }
 
-Sources::~Sources()
-{}

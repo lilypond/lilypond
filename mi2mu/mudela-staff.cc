@@ -3,6 +3,7 @@
 //
 // copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 
+#include <assert.h>
 #include <ctype.h>
 #include "moment.hh"
 #include "duration-convert.hh"
@@ -14,9 +15,9 @@
 #include "mudela-staff.hh"
 #include "mudela-stream.hh"
 #include "mudela-voice.hh"
-#include "my-midi-parser.hh"
 #include "mudela-score.hh"
 
+extern Mudela_score* mudela_score_l_g;
 
 Mudela_staff::Mudela_staff (int number_i, String copyright_str, String track_name_str, String instrument_str)
 {
@@ -60,7 +61,7 @@ Mudela_staff::eat_voice (Link_list<Mudela_item*>& items)
 	{
 	  Moment dur = i->at_mom() - mom;
 	  // ugh, need score
-	  Mudela_column* start = midi_parser_l_g->mudela_score_p_->mudela_column_l (mom);
+	  Mudela_column* start = mudela_score_l_g->find_column_l (mom);
 	  voice_p->add_item (new Mudela_skip (start, dur));
 	  mom = i->at_mom();
 	}

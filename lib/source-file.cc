@@ -57,12 +57,14 @@ Source_file::name_str()const
 {
     return name_str_;
 }
+
 Source_file::~Source_file()
 {
     delete istream_p_;
     istream_p_ = 0;
     delete storage_p_;
 }
+
 String
 Source_file::error_str( char const* pos_ch_C )const
 {

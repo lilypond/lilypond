@@ -53,7 +53,6 @@ class Timing_req  : public Command_req  {
 public:
     REQUESTMETHODS(Timing_req, timing);
     virtual Tempo_req * tempo(){return 0; }
-    Tempo_req();
 };
 
 
