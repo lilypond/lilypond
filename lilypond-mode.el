@@ -624,44 +624,63 @@ command."
 	     (message "Remember to add all other details as well.") (sit-for 5 0 1)))
     )))
 
-(defun LilyPond-insert-string (text pre post)
+(defun LilyPond-insert-string (pre)
+  "Insert text to the buffer."
+  (interactive)
+  (insert pre)
+  (length pre))
+
+(defun LilyPond-insert-between (text pre post)
   "Insert text to the buffer if non-empty string is given."
   (interactive)
   (let ((str (read-string text)))
     (if (string-equal str "")
-	nil
-      (progn (insert pre str post)
-	     t))))
- 
-(define-skeleton LilyPond-insert-tag-notes
-  "LilyPond notes tag."
-  nil
-;  (if (bolp) nil ?\n)
-  (progn
-    (insert "\\notes ")
-    (if (not (LilyPond-insert-string "Relative: " "\\relative " " "))
-	(LilyPond-insert-string "Transpose: " "\\transpose " " "))
-    ())
-  "{ " _ " }")
+	0
+      (progn (setq pre_str_post (concat pre str post))
+	     (insert pre_str_post)
+	     (length pre_str_post)))))
 
-(define-skeleton LilyPond-insert-tag-score
+(defun LilyPond-insert-tag-notes ()
+  "LilyPond notes tag."
+  (interactive)
+  (setq begin (if (and transient-mark-mode mark-active) 
+		  (mark-marker) (point-marker)))
+  (setq end (point-marker))
+  (goto-char begin)
+  (setq l1 (LilyPond-insert-string "\\notes "))
+  (setq l2 (LilyPond-insert-between "Relative (e.g. c'): " "\\relative " " "))
+  (if (eq l2 0)
+      (setq l2 (LilyPond-insert-between "Transpose (e.g. c c'): " "\\transpose " " ")))
+  (setq l3 (LilyPond-insert-string "{ "))
+  (goto-char (+ end l1 l2 l3))
+  (LilyPond-insert-string " }")
+  (goto-char (+ end l1 l2 l3)))
+
+(defun LilyPond-insert-tag-score ()
   "LilyPond score tag."
-  nil
-  (if (bolp) nil ?\n)
-  "\\score {\n"
-  "   " _ "\n"
-  "   \\paper {  }\n"
-  (if (y-or-n-p "Insert \"\\header\" field? ")
-      (concat "   \\header {\n      " 
-	      (skeleton-read "Piece: " "piece = " str) "\n"
-	      (if (y-or-n-p "Insert \"opus\" field? ")
-		  (concat "      " (skeleton-read "Opus: " "opus = " str) "\n"))
-	      "   }\n"))
-  (if (y-or-n-p "Insert \"\\midi\" field? ")
-      (concat "   \\midi { " 
-	      (skeleton-read "Midi: " "\\tempo 4 = " str)  
-	      " }\n"))
-  "}\n")
+  (interactive)
+  (setq begin (if (and transient-mark-mode mark-active) 
+		  (mark-marker) (point-marker)))
+  (setq end (point-marker))
+  (goto-char begin)
+  (setq l1 (LilyPond-insert-string "\\score {\n    ")) ; keep track of lengths
+  (goto-char (+ end l1))
+  (LilyPond-insert-string "\n    \\paper { }\n")
+  (setq l2 (if (y-or-n-p "Insert \"\\header\" field? ")
+	       (+ (LilyPond-insert-string "    \\header {")
+		  (LilyPond-insert-between "Title: " "\n      title = \"" "\"")
+		  (LilyPond-insert-between "Subtitle: " "\n      subtitle = \"" "\"")
+		  (LilyPond-insert-between "Piece: " "\n      piece = \"" "\"")
+		  (LilyPond-insert-between "Opus: "  "\n      opus = \"" "\"")
+		  (LilyPond-insert-string "\n    }\n"))
+	     0))
+  (setq l3 (if (y-or-n-p "Insert \"\\midi\" field? ")
+	       (+ (LilyPond-insert-string "    \\midi {")
+		  (LilyPond-insert-between "Tempo: " " \\tempo (e.g. 4 = 60)" "")
+		  (LilyPond-insert-string " }\n"))
+	     0))
+  (setq l4 (LilyPond-insert-string "}\n"))
+  (goto-char (+ end l1)))
 
 (defun LilyPond-command-menu-entry (entry)
   ;; Return LilyPond-command-alist ENTRY as a menu item.
