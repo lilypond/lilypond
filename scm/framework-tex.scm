@@ -275,6 +275,7 @@
 	 (preview? (string-contains name ".preview"))
 	 (papersizename (ly:output-def-lookup paper 'papersizename))
 	 (landscape? (eq? #t (ly:output-def-lookup paper 'landscape)))
+	 (base (basename name ".tex"))
 	 (cmd (string-append "dvips "
 			     (if preview?
 				 " -E "
@@ -283,7 +284,7 @@
 				 " -t landscape "
 				 " ")
 			     "  -u+ec-mftrace.map -u+lilypond.map -Ppdf "
-			     (basename name ".tex")
+			     base
 
 			     (if (ly:get-option 'verbose)
 				 " "
@@ -296,7 +297,7 @@
 
 	  (display (format #f (_ "Invoking ~S") cmd) (current-error-port))
 	  (newline (current-error-port)))
-	(display "Converting to PS" (current-error-port))
+	(display (format #f "Converting to `~a.ps'...\n" base) (current-error-port))
 	)
     (system cmd)))
 
@@ -307,6 +308,7 @@
 	    #f " *%.*\n?"
 	    (ly:kpathsea-expand-variable "$extra_mem_top")
 	    'pre "" 'post)))
+	 (base (basename name ".tex"))
 	 (cmd (string-append
 	       "latex \\\\nonstopmode \\\\input " name
 	       (if (ly:get-option 'verbose)
@@ -320,7 +322,7 @@
 	  (newline (current-error-port))
 	  (display (format #f (_ "Invoking ~S") cmd) (current-error-port))
 	  (newline (current-error-port)))
-	(display "Converting to PDF" (current-error-port)))
+	(format (current-error-port) "Converting to `~a.dvi'...\n" base))
 
     ;; fixme: set in environment?
     (if (ly:get-option 'safe)
