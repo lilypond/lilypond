@@ -258,7 +258,7 @@
 ;  (draw-line th x1  0 x2 0))
 
 (define (filledbox breapth width depth height)
-  (roundfilledbox breapth width depth height line-thickness))
+  (round-filled-box breapth width depth height line-thickness))
 
 (define font-cruft
   "fill:black;stroke:none;text-anchor:start;writing-mode:lr;font-weight:normal;")
@@ -333,7 +333,7 @@
 			(number->string (- 0 (* output-scale y)))
 			")"))))
 
-(define (roundfilledbox breapth width depth height blot-diameter)
+(define (round-filled-box breapth width depth height blot-diameter)
   (tagify "rect" ""
 	  ;;'(style . "fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;")
 	    `(style . ,(format "fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-opacity:1;stroke-width:~f;stroke-linejoin:miter;stroke-linecap:butt;" line-thickness))

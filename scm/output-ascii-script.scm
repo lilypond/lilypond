@@ -117,7 +117,7 @@
 		(if (<= dy 1) "-" "="))
 	  (func "h-line" dx))))))
 
-(define (roundfilledbox breapth width depth height blot)
+(define (round-filled-box breapth width depth height blot)
   (filledbox breapth width depth height))
 
 (define (draw-line thick x1 y1 x2 y2)

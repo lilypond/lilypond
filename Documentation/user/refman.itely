@@ -2153,27 +2153,55 @@ longer be computed.
 @cindex ornaments
 @cindex grace notes
 
-Grace notes are ornaments that are written out, like accaciatura and
-appogiatura notes.
+Grace notes are ornaments that are written out.  The most common ones
+are accacciatura, which should be played as very short.  It is denoted
+by a slurred small note with a slashed stem.  The appoggiatura is a
+grace note that takes a fixed fraction of the main note, is and
+denoted as a slurred note in small print without a slash.
+They are entered with the commands @code{\accacciatura} and
+@code{\appoggiatura}, as demonstrated in the following example:
+
+
+@cindex appoggiatura
+@cindex accacciatura
+
 @lilypond[relative=2,verbatim,fragment]
-c4 \grace c16 c4 \grace {
-c16[ d16] } c4
+b4 \accacciatura d8 c4 \appoggiatura e8 d4
+\accacciatura { g16 f } e4
 @end lilypond
 
-From the point of view of typesetting, their characteristic is that
-grace notes take up take up no logical time in a measure.  Internally,
-timing for grace notes is done using a second time. Every point in
-musical time consists of two rational numbers: one denotes the logical
-time, one denotes the grace timing. The above example is shown here
-with timing tuples:
+Both are special forms of the @code{\grace} command. By prefixing this
+keyword to a music expression, a new one is formed, which will be
+printed in a smaller font and takes up no logical time in a measure.
+@lilypond[relative=2,verbatim,fragment]
+  c4 \grace c16 c4 \grace {
+  c16[ d16] } c2 c4
+@end lilypond
+Unlike @code{\accacciatura} and @code{\appoggiatura}, the
+@code{\grace} command does not start a slur.
 
-@lilypond[]
-\score { \notes \relative c''{ 
-  c4^"(0,0)"  \grace c16_" "_"(1/4,-1/16)"  c4^"(1/4,0)"  \grace {
-  c16_"(2/4,-1/8)"[  d16^"(2/4,-1/16)" ] } c4_" "_"(2/4,0)"
+Internally, timing for grace notes is done using a second, `grace'
+time. Every point in time consists of two rational numbers: one
+denotes the logical time, one denotes the grace timing. The above
+example is shown here with timing tuples:
+
+@lilypond[singleline]
+<
+  \relative c''{ 
+  c4  \grace c16  c4  \grace {
+  c16[  d16] } c4
   }
-\paper {  linewidth = 12.\cm }
-}
+  \new Lyrics \lyrics {
+      \markup { (0,0)  } 4
+      \grace { \markup {
+	  ( \fraction 1 4 ,  \fraction -1 16 ) } 16 }
+      \markup { (\fraction 1 4 , 0 ) } 4
+      \grace {
+	  \markup { (\fraction 2 4 , \fraction "-1" 8 ) } 16
+	  \markup { (\fraction 2 4 , \fraction "-1" 16 ) } 16
+	  } 
+      \markup { ( \fraction 2 4 , 0 ) }
+  } >
 @end lilypond
 
 
@@ -2186,28 +2214,6 @@ every eighth grace note:
   \new Staff { c'4 \grace { g8[ b] } c4 } >
 @end lilypond
 
-
-Unbeamed eighth notes and shorter by default have a slash through the
-stem. These notes are called accaciaturas, and should generally be
-played as short as possible. An appogiatura takes a fixed fraction of
-the main note, is and denoted without a slash. 
-
-Such slashless notes are obtained by setting the object property
-@code{stroke-style} of the @internalsref{Stem} object:
-@cindex slash
-@cindex grace slash
-
-@lilypond[fragment,verbatim]
-\relative c'' \context Voice {
-  \grace c8 c4 \grace { c16[ c16] } c4
-  \grace { 
-    \property Voice.Stem \override #'stroke-style = #'() 
-    c16 
-    \property Voice.Stem \revert #'stroke-style
-  } c4
-}
-@end lilypond
-The @code{\override} is carefully matched with a @code{\revert}:
 
 
 If you want to end a note with a grace note, then the standard trick
@@ -2224,29 +2230,42 @@ is to put the grace notes before a phantom ``space note'', e.g.
 By adjusting the duration of the skip note (here it is a half-note),
 the space between the main-note and the grace is adjusted.
 
-A @code{\grace} section has some default values, and LilyPond will
-use those default values unless you specify otherwise inside the
-@code{\grace} section.  For example, if you specify \slurUp
-@emph{before} your @code{\grace} section, a slur which starts inside
-the @code{\grace} will not be forced up, even if the slur ends outside
-of the @code{\grace}.  Note the difference between the first and
-second bars in this example:
 
-@lilypond[fragment,verbatim]
-\relative c'' \context Voice {
-    \slurUp
-    \grace {
-        a4( }
-    a4) a4( a2)
-    \slurBoth
-
-    \grace {
-        \slurUp
-        a4( }
-    a4) a4( a2)
-    \slurBoth
+A @code{\grace} section will introduce special typesetting settings,
+for example, to produce smaller type, and set directions. Hence, when
+introducing layout tweaks, they should be inside the grace section,
+for example,
+@lilypond[fragment,verbatim,relative 2]
+\new Voice {
+    \accacciatura {
+      \property Voice.Stem \override #'direction = #-1
+      f16->
+      \property Voice.Stem \revert #'direction
+    }
+    g4
 }
 @end lilypond
+The overrides should also be reverted inside the grace section.
+
+If the layout of grace sections must be changed throughout the music,
+then this can be accomplished through the function
+@code{add-grace-property}. The following example
+undefines the Stem direction  grace section, so stems do not always
+point up.
+
+@example
+  \new Staff @{
+     #(add-grace-property "Voice" Stem direction '())
+     @dots{}
+  @}
+@end example
+
+@noindent
+Another option is to change the variables @code{startGraceMusic},
+@code{stopGraceMusic}, @code{startAccacciaturaMusic},
+@code{stopAccacciaturaMusic}, @code{startAppoggiaturaMusic},
+@code{stopAppoggiaturaMstuic}.  More information is in the file
+@file{ly/grace-init.ly}
 
 
 @seealso
@@ -2274,9 +2293,8 @@ Grace sections should only be used within sequential music
 expressions.  Nesting or juxtaposing grace sections is not supported,
 and might produce crashes or other errors.
 
-Overriding settings for grace music globally cannot be done in a
-modular way. A kludge (@code{add-to-grace-init}) is defined in
-@file{ly/grace-init.ly}.
+Overriding settings cannot be done in separate styles for appoggiatura
+and accacciatura.
 
 
 @node Glissando 
@@ -2294,7 +2312,7 @@ A glissando line can be requested by attaching a @code{\glissando} to
 a note:
 
 @lilypond[fragment,relative,verbatim]
-  c'-\glissando c'
+  c'\glissando c'
 @end lilypond
 
 @seealso
@@ -2332,14 +2350,14 @@ Additional texts (such as @emph{gliss.}) is not supported.
 
 
 Absolute dynamic marks are specified using an variable after a
-note: @code{c4-\ff}.  The available dynamic marks are @code{\ppp},
+note: @code{c4\ff}.  The available dynamic marks are @code{\ppp},
 @code{\pp}, @code{\p}, @code{\mp}, @code{\mf}, @code{\f}, @code{\ff},
 @code{\fff}, @code{\fff}, @code{\fp}, @code{\sf}, @code{\sff},
 @code{\sp}, @code{\spp}, @code{\sfz}, and @code{\rfz}:
 
 @lilypond[verbatim,singleline,fragment,relative]
-  c'-\ppp c-\pp c -\p c-\mp c-\mf c-\f c-\ff c-\fff
-  c2-\sf c-\rfz
+  c'\ppp c\pp c \p c\mp c\mf c\f c\ff c\fff
+  c2\sf c\rfz
 @end lilypond
 
 @cindex @code{\cr}
@@ -2358,8 +2376,8 @@ with @code{\!}.  Because these marks are bound to notes, if you must
 use spacer notes if multiple marks during one note are needed:
 
 @lilypond[fragment,verbatim,center,quote]
-  c''-\< c''-\!   d''-\decr e''-\rced 
-  < f''1 { s4 s4-\< s4-\! \>  s4-\! } >
+  c''\< c''\!   d''\decr e''\rced 
+  < f''1 { s4 s4\< s4\! \>  s4\! } >
 @end lilypond
 This may give rise to very short hairpins. Use @code{minimum-length}
 in @internalsref{Voice}.@internalsref{Hairpin} to lengthen them, for
@@ -2384,7 +2402,7 @@ You can also supply your own texts:
   \context Voice {
     \property Voice.crescendoText = \markup { \italic "cresc. poco" }
     \property Voice.crescendoSpanner = #'dashed-line
-    a'2-\mf-\< a a a-\!
+    a'2\mf\< a a a\!
   }
 @end lilypond
 
@@ -3090,7 +3108,7 @@ Piano pedal instruction can be expressed by attaching
 note or chord:
 
 @lilypond[fragment,verbatim]
-  c'4-\sustainDown c'4-\sustainUp
+  c'4\sustainDown c'4\sustainUp
 @end lilypond
 
 What is printed can be modified by setting @code{pedal@var{X}Strings},
@@ -3103,9 +3121,9 @@ Pedals can also be indicated by a sequence of brackets, by setting the
 
 @lilypond[fragment,verbatim]
  \property Staff.pedalSustainStyle = #'bracket
- c''4-\sustainDown d''4 e''4
- a'4-\sustainUp-\sustainDown
- f'4 g'4 a'4-\sustainUp
+ c''4\sustainDown d''4 e''4
+ a'4\sustainUp\sustainDown
+ f'4 g'4 a'4\sustainUp
 @end lilypond
 
 A third style of pedal notation is a mixture of text and brackets,
@@ -3113,9 +3131,9 @@ obtained by setting @code{pedal-type} to @code{mixed}:
 
 @lilypond[fragment,verbatim]
  \property Staff.pedalSustainStyle = #'mixed
-c''4-\sustainDown d''4 e''4
-c'4-\sustainUp-\sustainDown
- f'4 g'4 a'4-\sustainUp
+c''4\sustainDown d''4 e''4
+c'4\sustainUp\sustainDown
+ f'4 g'4 a'4\sustainUp
 @end lilypond
 
 The default `*Ped' style for sustain and damper pedals corresponds to
@@ -3123,7 +3141,7 @@ The default `*Ped' style for sustain and damper pedals corresponds to
 for a sostenuto pedal:
 
 @lilypond[fragment,verbatim]
-c''4-\sostenutoDown d''4 e''4 c'4 f'4 g'4 a'4-\sostenutoUp
+c''4\sostenutoDown d''4 e''4 c'4 f'4 g'4 a'4\sostenutoUp
 @end lilypond
 
 For fine-tuning of the appearance of a pedal bracket, the properties
@@ -3135,8 +3153,8 @@ may be extended to the end of the note head:
 @lilypond[fragment,verbatim]
 \property Staff.PianoPedalBracket \override
    #'shorten-pair = #'(0 . -1.0)
-c''4-\sostenutoDown d''4 e''4 c'4
-f'4 g'4 a'4-\sostenutoUp
+c''4\sostenutoDown d''4 e''4 c'4
+f'4 g'4 a'4\sostenutoUp
 @end lilypond
 
 @node Arpeggio
@@ -3151,7 +3169,7 @@ You can specify an arpeggio sign on a chord by attaching an
 
 
 @lilypond[fragment,relative,verbatim]
-  <<c e g c>>-\arpeggio
+  <<c e g c>>\arpeggio
 @end lilypond
 
 When an arpeggio crosses staves, you attach an arpeggio to the chords
@@ -3161,8 +3179,8 @@ in both staves, and set
 @lilypond[fragment,relative,verbatim]
   \context PianoStaff <
     \property PianoStaff.connectArpeggios = ##t
-    \new Staff  { <<c' e g c>>-\arpeggio }
-    \new Staff { \clef bass  <<c,, e g>>-\arpeggio }
+    \new Staff  { <<c' e g c>>\arpeggio }
+    \new Staff { \clef bass  <<c,, e g>>\arpeggio }
   >
 @end lilypond
 
@@ -3173,9 +3191,9 @@ arrowhead to the wiggly line.  This can be typeset by setting
 @lilypond[fragment,relative,verbatim]
   \context Voice {
      \property Voice.Arpeggio \set #'arpeggio-direction = #1
-     <<c e g c>>-\arpeggio
+     <<c e g c>>\arpeggio
      \property Voice.Arpeggio \set #'arpeggio-direction = #-1
-     <<c e g c>>-\arpeggio
+     <<c e g c>>\arpeggio
   }
 @end lilypond
 
@@ -3188,7 +3206,7 @@ arpeggiate the chord. To draw these brackets, set the
 @lilypond[fragment,relative,verbatim]
     \property PianoStaff.Arpeggio \override
         #'molecule-callback = \arpeggioBracket
-       <<c' e g c>>-\arpeggio
+       <<c' e g c>>\arpeggio
 @end lilypond
 
 @refcommands

@@ -232,10 +232,15 @@ L1 is copied, L2 not.
   (remainder (+ a 1) 2))
   
 
-(define-public (widen-interval iv amount)
+(define-public (interval-widen iv amount)
    (cons (- (car iv) amount)
-         (+ (cdr iv) amount))
-)
+         (+ (cdr iv) amount)))
+
+
+(define-public (interval-union i1 i2)
+   (cons (min (car i1) (car i2))
+	 (max (cdr i1) (cdr i2))))
+
 
 (define-public (write-me message x)
   "Return X.  Display MESSAGE and write X.  Handy for debugging, possibly turned off."

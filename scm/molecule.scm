@@ -22,8 +22,7 @@
 				       (stack-lines dir padding baseline (cdr mols))
 				       padding baseline
 				       )
-	  )
-  ))
+	  )))
 
 (define-public (fontify-text font-metric text)
   "Set TEXT with font FONT-METRIC, returning a molecule."
@@ -35,11 +34,9 @@
 (define-public (bracketify-molecule mol axis thick protusion padding)
   "Add brackets around MOL, producing a new molecule."
 
-  (let* (
-	 (ext (ly:molecule-get-extent mol axis))
+  (let* ((ext (ly:molecule-get-extent mol axis))
 	 (lb (ly:bracket axis ext thick (- protusion)))
-	 (rb (ly:bracket axis ext thick protusion))
-	 )
+	 (rb (ly:bracket axis ext thick protusion)))
     (set! mol (ly:molecule-combine-at-edge mol (other-axis  axis) 1 lb padding))
     (set! mol (ly:molecule-combine-at-edge mol (other-axis  axis) -1 rb padding))
     mol
@@ -73,9 +70,9 @@ encloses the contents.
 (define-public (box-molecule mol thick padding)
   "Add a box around MOL, producing a new molecule."
   (let* (
-	 (x-ext (widen-interval (ly:molecule-get-extent mol 0) padding))
-	 (y-ext (widen-interval (ly:molecule-get-extent mol 1) padding))
-	 (x-rule (make-filled-box-molecule (widen-interval x-ext thick)
+	 (x-ext (interval-widen (ly:molecule-get-extent mol 0) padding))
+	 (y-ext (interval-widen (ly:molecule-get-extent mol 1) padding))
+	 (x-rule (make-filled-box-molecule (interval-widen x-ext thick)
 			       (cons 0 thick)))
 	 (y-rule (make-filled-box-molecule (cons 0 thick) y-ext)))
     

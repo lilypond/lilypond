@@ -203,7 +203,7 @@ Ambitus::brew_molecule (SCM smob)
       Interval x_extent = 0.5 * Interval (-linethickness, +linethickness);
       Interval y_extent = 0.5 * Interval (p_min + 1.35, p_max - 1.35);
       Box line_box (x_extent, y_extent);
-      Molecule line = Lookup::roundfilledbox (line_box, blotdiameter);
+      Molecule line = Lookup::round_filled_box (line_box, blotdiameter);
       line.translate_axis (0.5 * head_min.extent (X_AXIS).length (), X_AXIS);
       molecule.add_molecule (line);
     }

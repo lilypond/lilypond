@@ -266,7 +266,7 @@
    (numbers->string (list wid slope thick))
    " draw_repeat_slash"))
 
-(define (roundfilledbox x y width height blotdiam)
+(define (round-filled-box x y width height blotdiam)
    (string-append
     " "
     (numbers->string

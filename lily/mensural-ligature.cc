@@ -230,7 +230,7 @@ internal_brew_primitive (Grob *me, bool ledger_take_space)
 	Interval (0, -join_left * 0.5 * staff_space);
       Box stem_box (x_extent, y_extent);
 
-      Molecule stem = Lookup::roundfilledbox (stem_box, blotdiameter);
+      Molecule stem = Lookup::round_filled_box (stem_box, blotdiameter);
       out.add_molecule (stem);
     }
 

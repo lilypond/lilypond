@@ -84,7 +84,7 @@ Breathing_sign::divisio_minima (SCM smob)
   Interval xdim (0, thickness);
   Interval ydim (-0.5 * staff_space, +0.5 * staff_space);
   Box b (xdim, ydim);
-  Molecule out = Lookup::roundfilledbox (b, blotdiameter);
+  Molecule out = Lookup::round_filled_box (b, blotdiameter);
   return out.smobbed_copy ();
 }
 
@@ -125,7 +125,7 @@ Breathing_sign::divisio_maior (SCM smob)
   Interval xdim (0, thickness);
   Interval ydim (-0.5 * height, +0.5 * height);
   Box b (xdim, ydim);
-  Molecule out = Lookup::roundfilledbox (b, blotdiameter);
+  Molecule out = Lookup::round_filled_box (b, blotdiameter);
   return out.smobbed_copy ();
 }
 
@@ -156,7 +156,7 @@ Breathing_sign::divisio_maxima (SCM smob)
   Interval xdim (0, thickness);
   Interval ydim (-0.5 * staff_size, +0.5 * staff_size);
   Box b (xdim, ydim);
-  Molecule out = Lookup::roundfilledbox (b, blotdiameter);
+  Molecule out = Lookup::round_filled_box (b, blotdiameter);
   return out.smobbed_copy ();
 }
 
@@ -187,7 +187,7 @@ Breathing_sign::finalis (SCM smob)
   Interval xdim (0, thickness);
   Interval ydim (-0.5 * staff_size, +0.5 * staff_size);
   Box b (xdim, ydim);
-  Molecule line1 = Lookup::roundfilledbox (b, blotdiameter);
+  Molecule line1 = Lookup::round_filled_box (b, blotdiameter);
   Molecule line2 (line1);
   line2.translate_axis (0.5 * staff_space, X_AXIS);
   line1.add_molecule (line2);

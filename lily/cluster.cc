@@ -73,7 +73,7 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
 	  box.add_point (bottom_points[i] - hvpadding);
 	  box.add_point (Offset(top_points[i + 1][X_AXIS],
 				top_points[i][Y_AXIS]) + hvpadding);
-	  out.add_molecule (Lookup::roundfilledbox (box, blotdiameter));
+	  out.add_molecule (Lookup::round_filled_box (box, blotdiameter));
 	}
     }
   else if (String::compare (shape, "rightsided-stairs") == 0)
@@ -84,7 +84,7 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
 	  box.add_point (Offset(bottom_points[i][X_AXIS],
 				bottom_points[i + 1][Y_AXIS]) - hvpadding);
 	  box.add_point (top_points[i + 1] + hvpadding);
-	  out.add_molecule (Lookup::roundfilledbox (box, blotdiameter));
+	  out.add_molecule (Lookup::round_filled_box (box, blotdiameter));
 	}
     }
   else if (String::compare (shape, "centered-stairs") == 0)
@@ -99,7 +99,7 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
 			 hvpadding);
 	  box.add_point (Offset (right_xmid, top_points[i][Y_AXIS]) +
 			 hvpadding);
-	  out.add_molecule (Lookup::roundfilledbox (box, blotdiameter));
+	  out.add_molecule (Lookup::round_filled_box (box, blotdiameter));
 	  left_xmid = right_xmid;
 	}
       Real right_xmid = bottom_points[size - 1][X_AXIS];
@@ -108,7 +108,7 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
 		     hvpadding);
       box.add_point (Offset (right_xmid, top_points[size - 1][Y_AXIS]) +
 		     hvpadding);
-      out.add_molecule (Lookup::roundfilledbox (box, blotdiameter));
+      out.add_molecule (Lookup::round_filled_box (box, blotdiameter));
     }
   else if (String::compare (shape, "ramp") == 0)
     {

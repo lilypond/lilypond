@@ -249,8 +249,8 @@
 		     (ly:number->string depth) "}{"
 		     (ly:number->string height) "}")))
 
-(define (roundfilledbox x y width height blotdiam)
-  (embedded-ps (list 'roundfilledbox  x y width height blotdiam)))
+(define (round-filled-box x y width height blotdiam)
+  (embedded-ps (list 'round-filled-box  x y width height blotdiam)))
 
 (define (text s)
   (string-append "\\hbox{" (output-tex-string s) "}"))

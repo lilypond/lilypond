@@ -30,7 +30,7 @@ struct Lookup
   static Molecule dashed_slur (Bezier, Real thick, Real dash);
   static Molecule blank (Box b);
   static Molecule filledbox (Box b);
-  static Molecule roundfilledbox (Box b, Real blotdiameter);
+  static Molecule round_filled_box (Box b, Real blotdiameter);
   static Molecule repeat_slash (Real w, Real slope, Real th);
   static Molecule line (Real th, Offset from, Offset to);
   static Molecule horizontal_line (Interval w, Real th);

@@ -86,7 +86,7 @@ Note_head::brew_ledger_lines (Grob *me,
       Box ledger_line (x_extent, y_extent);
 
       Molecule proto_ledger_line =
-	Lookup::roundfilledbox (ledger_line, blotdiameter);
+	Lookup::round_filled_box (ledger_line, blotdiameter);
       
       if (!take_space)
         proto_ledger_line.set_empty (true);

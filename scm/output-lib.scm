@@ -77,9 +77,9 @@
   (let*
    (
     (mol    (callback grob))
-    (x-ext (widen-interval (ly:molecule-get-extent mol 0) x-padding))
-    (y-ext (widen-interval (ly:molecule-get-extent mol 1) y-padding))
-    (x-rule (make-filled-box-molecule (widen-interval x-ext line-thick)
+    (x-ext (interval-widen (ly:molecule-get-extent mol 0) x-padding))
+    (y-ext (interval-widen (ly:molecule-get-extent mol 1) y-padding))
+    (x-rule (make-filled-box-molecule (interval-widen x-ext line-thick)
                               (cons 0 line-thick)))
     (y-rule (make-filled-box-molecule (cons 0 line-thick) y-ext))
     )
