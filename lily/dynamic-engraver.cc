@@ -107,6 +107,9 @@ Dynamic_engraver::do_try_music (Music * m)
 	  if (line_spanner_)
 	    line_spanner_->suicide ();
 	  line_spanner_ = 0;
+	  if (cresc_p_)
+	    cresc_p_->suicide ();
+	  cresc_p_ = 0;
 	}
       else if ((s->span_type_str_ == "crescendo"
 	   || s->span_type_str_ == "decrescendo"))

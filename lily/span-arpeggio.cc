@@ -33,17 +33,21 @@ Span_arpeggio::brew_molecule (SCM smob)
   Score_element *me = unsmob_element (smob);
   
   Interval iv;
-  Score_element *common = me;
+  //Score_element *common = me;
+  Score_element *common = 0;
   for (SCM s = me->get_elt_property ("arpeggios"); gh_pair_p (s); s = gh_cdr (s))
     {
       Score_element *arpeggio = unsmob_element (gh_car (s));
-      common = arpeggio->common_refpoint (common, Y_AXIS);
+      if (common)
+	common = arpeggio->common_refpoint (common, Y_AXIS);
+      else
+	common = arpeggio;
     }
-  // Hmm, nothing in common?
-  if (0) //common)
+  if (0)  //common)
     for (SCM s = me->get_elt_property ("arpeggios"); gh_pair_p (s); s = gh_cdr (s))
       {
 	Score_element *arpeggio = unsmob_element (gh_car (s));
+	// this dumps core: someone has no y-parent
 	Real c = common->relative_coordinate (arpeggio, Y_AXIS);
 	//iv.unite (Arpeggio::head_positions (stem));
 	iv.unite (Interval (c, c));

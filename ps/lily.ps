@@ -122,8 +122,12 @@
 	1 setlinecap 
 	1 setlinejoin 
 	setdash 
+	dup
 	setlinewidth 
-	0 0 moveto
+	2 div
+	dup
+	0 moveto
+	neg add
 	0 lineto
 	stroke 
 } bind def 

@@ -102,6 +102,7 @@ VoiceContext = \translator {
 	\consists "Output_property_engraver";	
 
 	\consists "Dynamic_engraver";   % must come before text_engraver.
+	\consists "Text_spanner_engraver";
 	\consists "Property_engraver";
 	
 	\consists "Breathing_sign_engraver";
@@ -827,10 +828,17 @@ ScoreContext = \translator {
 		(molecule-callback . ,Text_item::brew_molecule)
 		(no-spacing-rods . #t)
 		(interfaces . (text-script-interface text-item-interface side-position-interface))
-		(padding . 	3.0)
+		(padding . 0.5)
 		(name . "TextScript") 
 	)
-
+	TextSpanner = #`(
+		(interfaces . (text-spanner-interface))
+		(molecule-callback . ,Text_spanner::brew_molecule)
+		(type . "line")
+		(direction . 1)
+		(text-style . "italic")
+		(name . "TextSpanner")		
+	)
 	Tie = #`(
 		(interfaces . (tie-interface))
 		(molecule-callback . ,Tie::brew_molecule)
@@ -933,7 +941,6 @@ ScoreContext = \translator {
 
 		(name . "SustainPedal")		
 	)	
-
 	UnaChordaPdeal = #`(
 		(molecule-callback . ,Text_item::brew_molecule)
 		(style . "italic")
