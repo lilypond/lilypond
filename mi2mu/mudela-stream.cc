@@ -3,7 +3,7 @@
 //
 // source file of the LilyPond music typesetter
 //
-// (c) 1997 Jan Nieuwenhuizen <jan@digicash.com>
+// (c)  1997--1998, 1998 Jan Nieuwenhuizen <jan@digicash.com>
 
 #include <assert.h>
 #include <time.h>
@@ -91,7 +91,7 @@ Mudela_stream::header()
   *os_p_ << filename_str_g;
   *os_p_ << "\n\n";
   // ugh
-  *os_p_ << "\\version \"0.1.9\";\n";
+  *os_p_ << "\\version \"0.1.10\";\n";
 }
 
 void

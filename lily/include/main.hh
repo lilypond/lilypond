@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 #ifndef MAIN_HH
 #define MAIN_HH
@@ -24,6 +24,11 @@ extern bool no_paper_global_b;
 extern bool no_timestamps_global_b;
 extern int exit_status_i_;
 extern bool experimental_features_global_b;
+extern bool dependency_global_b;
+extern bool version_ignore_global_b;
+
+extern Array<String> get_inclusion_names ();
+extern void set_inclusion_names (Array<String>);
 
 extern String default_outname_base_global;
 extern String default_outname_suffix_global;

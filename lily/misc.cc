@@ -3,14 +3,17 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998, 1998 Han-Wen Nienhuys <hanwen@stack.nl>
+    Jan Nieuwenhuizen <jan@digicash.com>
 */
 
 #include <math.h>
 
-#include "item.hh"
 #include "misc.hh"
-#include "moment.hh"
+
+#ifndef STANDALONE
+#include "item.hh"
+#endif
 
 int
 intlog2(int d) {
@@ -29,7 +32,7 @@ log_2(double x) {
   return log (x)  /log (2.0);
 }
 
-#if 1
+#ifndef STANDALONE
 Interval
 itemlist_width (const Array<Item*> &its)
 {
@@ -45,3 +48,74 @@ itemlist_width (const Array<Item*> &its)
 }
 
 #endif
+
+
+/*
+  TODO
+    group in some Array_*
+    make more generic / templatise
+ */
+int
+get_lower_bound (Array<Real> const& positions, Real x)
+{
+  if (x < positions[0])
+    return 0;
+  for (int i = 1; i < positions.size (); i++)
+    if (x < positions[i])
+      return i - 1;
+  return positions.size () - 1;
+}
+
+Slice
+get_bounds_slice (Array<Real> const& positions, Real x)
+{
+  int l = get_lower_bound (positions, x);
+  int u = positions.size () - 1 <? l + 1;
+  if (x < positions[l])
+    u = l;
+  return Slice (l, u);
+}
+
+Interval
+get_bounds_iv (Array<Real> const& positions, Real x)
+{
+  Slice slice = get_bounds_slice (positions, x);
+  return Interval (positions[slice.min ()], positions[slice.max ()]);
+}
+
+// silly name
+Interval
+quantise_iv (Array<Real> const& positions, Real period, Real x)
+{
+  /*
+    ugh
+    assume that 
+      * positions are sorted, 
+      * positions are nonnegative
+      * period starts at zero
+   */
+
+  int n = (int)(x / period);
+  Real frac = (x / period - n) * period;
+  if (frac < 0)
+    {
+      frac += period;
+      n--;
+    }
+
+  Slice slice = get_bounds_slice (positions, frac);
+  Interval iv(positions[slice.min ()], positions[slice.max ()]);
+
+  if (slice.min () == slice.max ())
+    {
+      if (slice.min () == 0)
+	iv.min () = - period + positions.top ();
+      else
+	iv.max () = period + positions[0];
+    }
+
+  iv += period * n;
+
+  return iv;
+}
+

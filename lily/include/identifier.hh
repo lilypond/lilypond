@@ -13,7 +13,7 @@
 #include "virtual-methods.hh"
 
 #define IDACCESSOR( Input_staff, staff)\
-    virtual Input_staff * staff () { error (#Input_staff); return 0; }
+virtual Input_staff * staff () { error (#Input_staff); return 0; }
 
 /**
    A declarable data structure in mudela. 
@@ -21,17 +21,17 @@
 
    */
 struct Identifier : public Input {
-    bool init_b_;
-    bool accessed_b_;
-    int token_code_i_;
+  bool init_b_;
+  bool accessed_b_;
+  int token_code_i_;
     
-    Identifier (int code) ;
-    virtual ~Identifier() ;
+  Identifier (int code) ;
+  virtual ~Identifier() ;
 
-    void print() const;
-    DECLARE_MY_RUNTIME_TYPEINFO;
-    void error (String);
-    IDACCESSOR(Translator, translator)
+  void print() const;
+  DECLARE_MY_RUNTIME_TYPEINFO;
+  void error (String);
+  IDACCESSOR(Translator, translator)
     IDACCESSOR(Music, music)
     IDACCESSOR(General_script_def, script)
     IDACCESSOR(Symtables, symtables)
@@ -44,20 +44,20 @@ struct Identifier : public Input {
     IDACCESSOR(int, intid)
     IDACCESSOR(Duration, duration)
 
-protected:
-    virtual void do_print() const=0;
+    protected:
+  virtual void do_print() const=0;
 private:
-    Identifier (Identifier const&);
+  Identifier (Identifier const&);
 };
 
 #define DECLARE_ID_CLASS(Idclass, Class, accessor)	\
 struct Idclass : Identifier {\
-	Class *data_p_;		     \
-        DECLARE_MY_RUNTIME_TYPEINFO; 			    \
-	Idclass (Class*st, int code);\
-	virtual Class* accessor ();\
-	~Idclass();\
-	virtual void do_print() const; \
+			     Class *data_p_;		     \
+			     DECLARE_MY_RUNTIME_TYPEINFO; 			    \
+			     Idclass (Class*st, int code);\
+			     virtual Class* accessor ();\
+			     ~Idclass();\
+			     virtual void do_print() const; \
 }\
 
 

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 #include "paper-def.hh"
@@ -61,9 +61,11 @@ Tie::do_add_processing()
 void
 Tie::do_post_processing()
 {
-  Real nw_f = paper ()->note_width ();
-  Real interline_f = paper ()->interline_f ();
   assert (head_l_drul_[LEFT] || head_l_drul_[RIGHT]);
+
+  Real notewidth = paper ()->note_width ();
+  Real interline_f = paper ()->interline_f ();
+  Real const TIE_MIN = 2.0 * interline_f;
 
   /* 
    [OSU]: slur and tie placement
@@ -91,24 +93,43 @@ Tie::do_post_processing()
 
   do
     {
+      // tie attached to outer notehead
       if (head_l_drul_[d] && head_l_drul_[d]->extremal_i_)
 	{
-	  /* normal tie between noteheads, with gap of space */
 	  if (d == LEFT)
-	    dx_f_drul_[d] +=  nw_f;
+	    dx_f_drul_[d] += notewidth;
 	  dx_f_drul_[d] += -d * gap_f;
 	  /* attach to outer 3/4 end of head */
 	  dy_f_drul_[d] += dir_ * 0.25 * interline_f;
 	}
+      // tie attached to inner notehead
       else if (head_l_drul_[d])
 	{
-	  dx_f_drul_[d] += d*0.5 * nw_f;
+	  dx_f_drul_[d] += d*0.5 * notewidth;
 	}
+      // uhm? loose end of tie // tie attached to stem
       else
 	{
-	  dy_f_drul_[d] = dy_f_drul_[(Direction) -d];
 	  dx_f_drul_[d] = -d * (spanned_drul_[d]->width ().length () 
-			        -0.5 * nw_f);
+			        -0.5 * notewidth);
+	}
+    }
+  while (flip(&d) != LEFT);
+
+  // now that both are set, do dependent
+  do
+    {
+      // tie attached to outer notehead
+      if (!head_l_drul_[d])
+	{
+	  if (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT] < TIE_MIN)
+	    {
+	      dx_f_drul_[d] -= d * TIE_MIN 
+		- (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
+	      dx_f_drul_[d] = dx_f_drul_[(Direction)-d] + d * TIE_MIN;
+	    }
+
+	  dy_f_drul_[d] = dy_f_drul_[(Direction) -d];
 	}
     }
   while (flip(&d) != LEFT);

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 #include <stdlib.h>
@@ -15,18 +15,20 @@
 #include "misc.hh"
 #include "string.hh"
 #include "main.hh"
-#include "path.hh"
+#include "file-path.hh"
 #include "config.hh"
-#include "source.hh"
+#include "file-results.hh"
 #include "debug.hh"
-#include "my-lily-parser.hh"
 
-static bool version_ignore_b = false;
-Sources* source_global_l = 0;
+
+bool version_ignore_global_b = false;
 bool no_paper_global_b = false;
 bool no_timestamps_global_b = false;
+String default_outname_base_global =  "lelie";
+int default_count_global;
 
 bool experimental_features_global_b = false;
+bool dependency_global_b = false;
 
 int exit_status_i_;
 
@@ -37,11 +39,11 @@ Long_option_init theopts[] = {
   {0, "warranty", 'w'},
   {0, "help", 'h'},
   {0, "test", 't'},
-  {0, "debug", 'd'},
+  {0, "debug", 'D'},
   {1, "init", 'i'},
   {1, "include", 'I'},
   {0, "no-paper", 'M'},
-
+  {0, "dependencies", 'd'},
   {0, "no-timestamps", 'T'},
   {0, "ignore-version", 'V'},
   {0,0,0}
@@ -55,7 +57,8 @@ usage ()
     "Typeset and or produce midi output from mudela-file or stdin\n"
     "\n"
     "Options:\n"
-    "  -d, --debug            enable debugging output\n"
+    "  -D, --debug            enable debugging output\n"
+    "  -d, --dependencies     write dependency files for every output\n"
     "  -I, --include=DIR      add DIR to search path\n"
     "  -i, --init=FILE        use FILE as init file\n"
     "  -h, --help             this help\n"
@@ -112,49 +115,8 @@ notice ()
 }
 
 
-static File_path path;
+ File_path path;
 
-void
-do_one_file (String init_str, String file_str)
-{
-  if (init_str.length_i () && path.find (init_str).empty_b ())
-    {
-      error (_("Can not find `") + init_str +"\'");
-      return ;
-    }
-  if (file_str.length_i () && path.find (file_str).empty_b ())
-    {
-      error (_("Can not find `") + file_str + "'");
-      return ;
-    }
-
-  Sources sources;
-  source_global_l = &sources;
-  source_global_l->set_path (&path);
-  {
-    My_lily_parser parser (source_global_l);
-    parser.set_version_check (version_ignore_b);
-    parser.parse_file (init_str, file_str);
-    
-    if (file_str.length_i () && file_str[0] != '-')
-      {
-	String a,b,c,d;
-	split_path (file_str, a, b, c, d);
-	default_outname_base_global = c;
-      }
-    else
-      default_outname_base_global = "lelie";
-  
-    if (parser.error_level_i_)
-      {
-	exit_status_i_  = 1;
-      }
-    else
-      do_scores ();
-    clear_scores ();
-  }
-  source_global_l = 0;
-}
 
 void
 identify ()
@@ -209,9 +171,12 @@ main (int argc, char **argv)
 	  exit (0);
 	  break;
 	case 'V':
-	  version_ignore_b = true;
+	  version_ignore_global_b = true;
 	  break;
 	case 'd':
+	  dependency_global_b = true;
+	  break; 
+	case 'D':
 	  set_debug (true);
 	  break;
 	case 'M':

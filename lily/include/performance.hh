@@ -1,7 +1,7 @@
 /*
   performance.hh -- declare Performance
 
-  (c) 1997 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
  */
 
 #ifndef PERFORMANCE_HH

@@ -3,7 +3,7 @@
 
   source file of the LilyPond music typesetter
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 #include "includable-lexer.hh"
 #include "source-file.hh"
@@ -30,7 +30,7 @@ Includable_lexer::new_input (String s, Sources  * global_sources)
       LexerError (msg.ch_C ());
       return;
     }
-
+  filename_str_arr_.push (sl->name_str ());
 
   char_count_stack_.push (0);
   if (yy_current_buffer)
@@ -46,6 +46,7 @@ Includable_lexer::new_input (String s, Sources  * global_sources)
 
     */
   yy_switch_to_buffer (yy_create_buffer (sl->istream_l (), YY_BUF_SIZE));
+
 }
 
 /** pop the inputstack.  conceptually this is a destructor, but it

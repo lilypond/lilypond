@@ -4,7 +4,7 @@
 
   source file of Flower lib
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 #ifndef STRINGHANDLE_INL

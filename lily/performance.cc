@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
 */
 
 #include <time.h>
@@ -18,6 +18,7 @@
 #include "audio-staff.hh"
 #include "performance.hh"
 #include "score.hh"
+#include "file-results.hh"
 
 Performance::Performance ()
 {
@@ -137,6 +138,7 @@ Performance::process()
   
   Midi_stream midi_stream (out);
   *mlog << _("MIDI output to ") << out<< " ..." << endl;
+  target_str_global_array.push (out);
 
   output (midi_stream);
   *mlog << endl;

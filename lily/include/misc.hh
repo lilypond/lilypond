@@ -1,13 +1,10 @@
 #ifndef MISC_HH
 #define MISC_HH
 
-#include "lily-proto.hh"
 #include "real.hh"
-#include "moment.hh"
-#include "scalar.hh"
-#include "grouping.hh"
+#include "varray.hh"
+#include "interval.hh"
 
-Moment wholes (int dur, int dots);
 double log_2(double x) ;
 int intlog2(int d);
 #if ! defined(_ABS_)
@@ -23,6 +20,15 @@ sign (int i) {
     else return 0;
 }
 
+#ifndef STANDALONE
+#include "lily-proto.hh"
 Interval itemlist_width (const Array<Item*> &its);
+#endif
+
+int get_lower_bound (Array<Real> const& positions, Real x);
+Slice get_bounds_slice (Array<Real> const& positions, Real x);
+Interval get_bounds_iv (Array<Real> const& positions, Real x);
+Interval quantise_iv (Array<Real> const& positions, Real period, Real x);
 
 #endif
+

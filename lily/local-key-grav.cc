@@ -1,7 +1,7 @@
 /*
   local-key-reg.cc -- implement Local_key_engraver
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 #include "musical-request.hh"

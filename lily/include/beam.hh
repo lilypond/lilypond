@@ -16,13 +16,11 @@
   beam and that point in the correct direction */
 class Beam:  public Directional_spanner {
 public:
-  /** The beams (especially at small slopes) should be prevented to
-    conflict with the stafflines.  This necessitates some quantisation
-    of start and end posititons of the beam.
+  /** 
+    The beams should be prevented to conflict with the stafflines, 
+    especially at small slopes.
     */
-  enum Pos { NONE, SIT = 1, STRADDLE = 2, HANG = 4, INTER = 8 };
-  // ugh, silly C++ (Pos::NONE vs Quantise::NONE)  
-  enum Quantise { NUNE, NORMAL, TRADITIONAL };
+  enum Quantisation { NONE, NORMAL, TRADITIONAL, TEST };
 
   Link_array<Stem> stems_;
   /// the slope of the beam in posns / point (dimension)   
@@ -33,7 +31,7 @@ public:
   /// should beam slope be damped? 0: no, 1: yes, 100000: horizontal beams
   int damping_i_;
   /// should beam pos / slope be quantised? 0: no, 1: yes, 2: traditional
-  Quantise quantisation_;
+  Quantisation quantisation_;
   /// maximum number of beams (for opening-up of beam-spacing)
   int multiple_i_;
 
@@ -56,10 +54,10 @@ protected:
 
   virtual void do_print() const;
 
-  virtual void quantise_left_y (Beam::Pos pos, bool extend_b);
+  virtual void quantise_left_y (bool extend_b);
   virtual Molecule stem_beams (Stem *here, Stem *next, Stem *prev) const;
   virtual void solve_slope ();
-  virtual void quantise_yspan ();
+  virtual void quantise_dy ();
   virtual Molecule*brew_molecule_p () const;
 };
 

@@ -1,7 +1,7 @@
 /*
   audio-column.hh -- declare Audio_column
 
-  (c) 1997 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
  */
 
 #ifndef AUDIO_COLUMN_HH

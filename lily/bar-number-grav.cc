@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 
@@ -12,6 +12,7 @@
 #include "text-def.hh"
 #include "command-request.hh"
 #include "bar.hh"
+#include "stem.hh"
 #include "time-description.hh"
 
 Bar_number_engraver::Bar_number_engraver()
@@ -20,6 +21,7 @@ Bar_number_engraver::Bar_number_engraver()
 }
 
 static Command_script_req dummy;
+static Stem support;
 
 void
 Bar_number_engraver::acknowledge_element (Score_elem_info i)
@@ -38,9 +40,15 @@ Bar_number_engraver::acknowledge_element (Score_elem_info i)
 
       script_p_->specs_l_ = td_p;
       script_p_->breakable_b_ = true;
+
+      // ugh, howto move this up?
       script_p_->dir_ = UP;
-//      script_p_->y_ += 2;
-      script_p_->y_ = 8;
+////      script_p_->y_ += 2;
+      script_p_->y_ = 10;
+
+      support.dir_ = UP;
+      support.set_stemend (10);
+      script_p_->set_stem (&support);
 
       announce_element (Score_elem_info (script_p_, &dummy));
     }

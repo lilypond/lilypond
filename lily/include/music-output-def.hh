@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 
@@ -23,6 +23,9 @@ class Music_output_def
 {
 public:
   Dictionary<Translator*> translator_p_dict_;
+  Array<String> filename_str_arr_;
+
+
   
   Music_output_def (Music_output_def const&);
   Music_output_def ();

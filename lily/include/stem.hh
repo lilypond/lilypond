@@ -66,6 +66,9 @@ public:
   int beams_left_i_;
   int beams_right_i_;
 
+  /// maximum number of beams
+  int mult_i_;
+
   Direction dir_;
     
   /* *************** */

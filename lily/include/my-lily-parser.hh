@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 
@@ -70,7 +70,6 @@ public:
     
   void set_debug();
   void set_yydebug (bool);
-  void print_declarations();
   bool ignore_version_b_;
 public:
   void do_init_file();
