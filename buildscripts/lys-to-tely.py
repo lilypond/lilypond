@@ -62,11 +62,12 @@ if files:
 	s = '''\input texinfo
 @setfilename %s.info
 @settitle %s
-@finalout @c we do not want black boxes.
 
 @iftex
 @afourpaper
 @end iftex
+
+@finalout @c we do not want black boxes.
   
 @c fool ls-latex
 @ignore
@@ -87,7 +88,7 @@ if files:
 @end ifhtml
 """ % n
 		
-		s += "\n\n@lilypondfile[printfilename]{%s}" % n
+		s += "\n\n@lilypondfile[printfilename,texidoc]{%s}" % n
 		return s
 	files.sort ()
 	s = s + string.join (map (lambda x: name2line (x), files), "\n")

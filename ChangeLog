@@ -1,5 +1,11 @@
 2004-02-07  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scripts/lilypond-book.py (Substring.__init__): new class.
+	(Snippet.output_texinfo): add texidoc option.
+	(Include_snippet.replacement_text): new class.
+	(Lilypond_snippet.__init__): new class
+	(Lilypond_snippet.get_hash): bugfix: use full body for hashing.
+
 	* Documentation/user/refman.itely (Sound): 
 	note about number of channels.
 

@@ -234,6 +234,9 @@ border="0" src="%(base)s.png" alt="[picture of music]">''',
 	},
 	
 	TEXINFO :	{
+	PRINTFILENAME: '''@file{%(filename)s}
+
+	''',
 	BEFORE: '',
 	AFTER: '',
 	VERBATIM: r'''@example
@@ -256,6 +259,12 @@ FRAGMENT_LY = r'''\score{
         %(code)s    }
 }'''
 FULL_LY = '%(code)s'
+
+texi_linewidths = { 'afourpaper': '160 \\mm',
+		    'afourwide': '6.5\\in',
+		    'afourlatex': '150 \\mm',
+		    'smallbook': '5 \\in' ,
+		    'letterpaper': '6\\in'}
 
 def classic_lilypond_book_compatibility (o):
 	if o == 'singleline':
@@ -280,7 +289,7 @@ def compose_ly (code, options):
 	
 	options += default_ly_options.keys ()
 	vars ().update (default_ly_options)
-	
+
 	m = re.search (r'''\\score''', code)
 	if not m and (not options \
 		      or not 'nofragment' in options \
@@ -319,7 +328,7 @@ def compose_ly (code, options):
 		elif key in ly_options[PAPER].keys ():
 			paper_options.append (ly_options[PAPER][key])
 		elif key not in ('fragment', 'nofragment', 'printfilename',
-				 'relative', 'verbatim'):
+				 'relative', 'verbatim', 'texidoc'):
 			ly.warning (_("ignoring unknown ly option: %s") % i)
 
 	relative_quotes = (",,,", ",,", ",", "", "'", "''", "'''")[relative-3]
@@ -365,18 +374,28 @@ def split_options (option_string):
 	return re.split (format_res[format]['option-sep'], option_string)
 
 
-class Snippet:
-	def __init__ (self, type, match):
+class Chunk:
+	def replacement_text (self):
+		return ''
+
+
+class Substring (Chunk):
+	def __init__ (self, source, start, end):
+		self.source = source
+		self.start = start
+		self.end = end
+	def replacement_text (self):
+		return self.source [self.start:self.end]
+	def outdated_p (self):
+		return 0
+	
+class Snippet (Chunk):
+	def __init__ (self, type, match, format):
 		self.type = type
 		self.match = match
 		self.hash = 0
 		self.options = []
-		try:
-			os = match.group ('options')
-			if os:
-				self.options = split_options (os)
-		except IndexError:
-			pass
+		self.format = format
 
 	def start (self, s):
 		return self.match.start (s)
@@ -386,15 +405,31 @@ class Snippet:
 
 	def substring (self, s):
 		return self.match.group (s)
+	def filter_code (self):
+		pass # todo
+
+class Include_snippet (Snippet):
+	def replacement_text (self):
+		s = self.match.group (0)
+		f = self.substring ('filename')
+		nf = os.path.splitext (f)[0] + format2ext[format]
+		
+		return re.sub (f, nf, s)
+
+class Lilypond_snippet (Snippet):
+	def __init__ (self, type, match, format):
+		Snippet.__init__ (self, type, match, format)
+		os = match.group ('options')
+		if os:
+			self.options = split_options (os)
+			
 
 	def ly (self):
-		s = ''
 		if self.type == 'lilypond_block' or self.type == 'lilypond':
-			s = self.substring ('code')
-		elif self.type == 'lilypond_file':
+			return self.substring ('code')
+		else:
 			name = self.substring ('filename')
-			s = open (find_file (name)).read ()
-		return s
+			return open (find_file (name)).read ()
 		
 	def full_ly (self):
 		s = self.ly ()
@@ -404,7 +439,7 @@ class Snippet:
 	
 	def get_hash (self):
 		if not self.hash:
-			self.hash = abs (hash (self.ly ()))
+			self.hash = abs (hash (self.full_ly ()))
 		return self.hash
 
 	def basename (self):
@@ -418,21 +453,21 @@ class Snippet:
 			outf = open (self.basename () + '.ly', 'w')
 			outf.write (self.full_ly ())
 
-	def replacement_text (self, format):
-		if self.type in ['lilypond_file',
-				 'lilypond_block',
-				 'lilypond']:
-			
-			func = Snippet.__dict__ ['output_' + format]
-			return func (self)
-		elif self.type == 'include':
-			s = self.match.group (0)
-			f = self.substring ('filename')
-			nf = os.path.splitext (f)[0] + format2ext[format]
-			
-			return re.sub (f, nf, s)
-		else:
-			return self.match.group (0)
+	def outdated_p (self):
+		base = self.basename ()
+		if os.path.exists (base + '.ly') \
+		   and os.path.exists (base + '.tex') \
+		   and (use_hash_p \
+			or self.ly () == open (base + '.ly').read ()):
+			# TODO: something smart with target formats
+			# (ps, png) and m/ctimes
+			return None
+		
+		return self
+	
+	def replacement_text (self):
+		func = Lilypond_snippet.__dict__ ['output_' + self.format]
+		return func (self)
 	
 	def output_html (self):
 		base = self.basename ()
@@ -440,25 +475,27 @@ class Snippet:
 		if VERBATIM in self.options and format == HTML:
 			verb = verbatim_html (self.substring ('code'))
 			str  += write (output[HTML][VERBATIM] % vars ())
-		return (str + output[HTML][BEFORE] 
+		str += (output[HTML][BEFORE] 
 			+ (output[HTML][OUTPUT] % vars ())
 			+ output[HTML][AFTER])
+
+		return str
 			
 	def output_latex (self):
 
 		str = self.output_print_filename (LATEX)
 			
 		base = self.basename ()
-		str +=  (output[LATEX][BEFORE]
-			 + (output[LATEX][OUTPUT] % vars ())
-			 + output[LATEX][AFTER])
-
-		
 		if  VERBATIM in self.options\
 		   and format == LATEX:
 			verb = self.substring ('code')
 			str += (output[LATEX][VERBATIM] % vars ())
 
+		str +=  (output[LATEX][BEFORE]
+			 + (output[LATEX][OUTPUT] % vars ())
+			 + output[LATEX][AFTER])
+
+		
 		return str
 
 	def output_print_filename (self,format):
@@ -474,13 +511,26 @@ class Snippet:
 		str = ''
 
 		##  Ugh, this breaks texidoc.
+		str = self.output_print_filename (TEXINFO)
+
+		base = self.basename ()
+
+		str = ""
+		if 'texidoc' in self.options :
+			texidoc = base + '.texidoc'
+			if os.path.exists (texidoc):
+				str += '@include %s\n' % texidoc
 		
 		str += '\n@tex\n'
-		str += self.output_latex ()
+		str +=  (output[LATEX][BEFORE]
+			 + (output[LATEX][OUTPUT] % vars ())
+			 + output[LATEX][AFTER])
 		str += ('\n@end tex\n')
 		
 		str += ('\n@html\n')
-		str += self.output_html ()
+		str += (output[HTML][BEFORE] 
+			+ (output[HTML][OUTPUT] % vars ())
+			+ output[HTML][AFTER])
 		str += ('\n@end html\n')
 
 		
@@ -490,25 +540,16 @@ class Snippet:
 		
 		return str
 			
-	def outdated_p (self):
-		if self.type != 'lilypond_block' and self.type != 'lilypond'\
-		       and self.type != 'lilypond_file':
-			return None
-		base = self.basename ()
-		if os.path.exists (base + '.ly') \
-		   and os.path.exists (base + '.tex') \
-		   and (use_hash_p \
-			or self.ly () == open (base + '.ly').read ()):
-			# TODO: something smart with target formats
-			# (ps, png) and m/ctimes
-			return None
-		return self
 
-	def filter_code (self):
-		pass # todo
+snippet_type_to_class = {
+	'lilypond_file' : Lilypond_snippet,
+	'lilypond_block' : Lilypond_snippet,
+	'lilypond' : Lilypond_snippet,
+	'include' : Include_snippet
+	}
 	
 
-def find_toplevel_snippets (infile, outfile, types):
+def find_toplevel_snippets (infile, types):
 	s = infile.read ()
         res = {}
         for i in types:
@@ -536,25 +577,28 @@ def find_toplevel_snippets (infile, outfile, types):
                                 found[type] = None
                                 m = res[type].search (s[index:endex])
                                 if m:
-                                        found[type] = Snippet (type, m)
-
+					cl = Snippet
+					if snippet_type_to_class.has_key (type):
+						cl = snippet_type_to_class[type]
+						
+                                        found[type] = cl (type, m, format)
                         if found[type] \
                                and (first == None \
                                     or found[type].start (0) < found[first].start (0)):
 				
                                 first = type
                                 endex = found[first].start (0)
-				
+
                 if not first:
-                        break
+			snippets.append (Substring (s, index, len (s)))
+			break
 		
-                snippets.append (found[first])
+		snip = found[first]
+		snippets.append (Substring (s, index, index + snip.start (0)))
+		snippets.append (snip)
+                index += snip.end (0)
 
-		outfile.write (s[index:index + found[first].start (0)])
-		outfile.write (found[first].replacement_text (format))
 		
-                index += found[first].end (0)
-
         return snippets
 
 
@@ -592,7 +636,7 @@ def run_filter (s):
 	return filter_pipe (s, filter_cmd)
 
 def process_snippets (cmd, snippets):
-	names = filter (lambda x:x, map (Snippet.basename, snippets))
+	names = filter (lambda x:x, [y.basename () for y in  snippets])
 	if names:
 		ly.system (string.join ([cmd] + names))
 
@@ -705,23 +749,29 @@ def do_file (input_filename):
 		os.chdir (output_name)
 
 		
-	snippets = find_toplevel_snippets (ih, output_file, snippet_types)
+	chunks = find_toplevel_snippets (ih, snippet_types)
 	ly.progress ('\n')
-
 
 	global default_ly_options
 	textwidth = 0
-	if format == LATEX and LINEWIDTH not in default_ly_options.keys ():
-		textwidth = get_latex_textwidth (source)
-		default_ly_options[LINEWIDTH] = '''%.0f\pt''' % textwidth
+	if LINEWIDTH not in default_ly_options.keys ():
+		if format == LATEX:
+			textwidth = get_latex_textwidth (source)
+			default_ly_options[LINEWIDTH] = '''%.0f\\pt''' % textwidth
+		elif format == TEXINFO:
+			for (k,v) in texi_linewidths.items ():
+				s = chunks[0].replacement_text()
+				if re.search (k, s):
+					default_ly_options[LINEWIDTH] = v
+					break
 
 	if filter_cmd:
 		pass # todo
 	elif process_cmd:
-		outdated = filter (lambda x:x,
-				   map (Snippet.outdated_p, snippets))
+		outdated = filter (lambda x: x.__class__ == Lilypond_snippet and x.outdated_p (),
+				   chunks)
 		ly.progress (_ ("Writing snippets..."))
-		map (Snippet.write_ly, snippets)
+		map (Lilypond_snippet.write_ly, outdated)
 		ly.progress ('\n')
 		
 		if outdated:
@@ -741,7 +791,13 @@ def do_file (input_filename):
 		ly.progress ('\n')
 		do_file (name)
 
-	map (process_include, filter (lambda x: x.type == 'include', snippets))
+	                
+		
+	output_file.writelines ([s.replacement_text () for s in chunks])
+
+	## UGH. how do you do dynamic_cast/typecheck in Python?
+	map (process_include, filter (lambda x: x.__class__ == Snippet
+				      and x.type == 'include', chunks))
 
 def do_options ():
 	global format, output_name
