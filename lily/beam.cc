@@ -1382,10 +1382,6 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
       || !Beam::visible_stem_count (beam))
     return gh_double2scm (0.0);
 
-  // make callback for rest from this.
-  // todo: make sure this calced already.
-
-  //  Interval pos = ly_scm2interval (beam->get_grob_property ("positions"));
   Interval pos (0, 0);
   SCM s = beam->get_grob_property ("positions");
   if (gh_pair_p (s) && gh_number_p (ly_car (s)))
@@ -1398,28 +1394,47 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
   Real dydx = dy && dx ? dy/dx : 0;
   
   Direction d = Stem::get_direction (stem);
-  Real beamy = (stem->relative_coordinate (0, X_AXIS) - x0) * dydx + pos[LEFT];
+  Real stem_y = (pos[LEFT]
+		 + (stem->relative_coordinate (0, X_AXIS) - x0) * dydx)
+    * d;
+  
+  Real beam_translation = get_beam_translation (beam);
+  Real beam_thickness = gh_scm2double (beam->get_grob_property ("thickness"));
+  int beam_count = get_direction_beam_count (beam, d);
+  Real height_of_my_beams = beam_thickness
+    + (beam_count - 1) * beam_translation;
+  Real beam_y = stem_y - height_of_my_beams + beam_thickness / 2.0;
 
   Real staff_space = Staff_symbol_referencer::staff_space (rest);
 
-  
-  Real rest_dim = rest->extent (rest, Y_AXIS)[d]*2.0 / staff_space; // refp??
+  /* Better calculate relative-distance directly, rather than using
+     rest_dim? */
+  Grob *common_x = rest->common_refpoint (beam, Y_AXIS);
+  Real rest_dim = rest->extent (common_x, Y_AXIS)[d] / staff_space * d;
 
-  Real minimum_dist
-    = gh_scm2double (rest->get_grob_property ("minimum-beam-collision-distance"));
-  Real dist =
-    minimum_dist +  -d  * (beamy - rest_dim) >? 0;
+  Real minimum_distance = gh_scm2double
+    (rest->get_grob_property ("minimum-beam-collision-distance"));
 
+  Real distance = beam_y - rest_dim;
+  Real shift = 0;
+  if (distance < 0)
+    shift = minimum_distance - distance;
+  else if (minimum_distance > distance)
+    shift = minimum_distance - distance;
+      
   int stafflines = Staff_symbol_referencer::line_count (rest);
 
-  // move discretely by half spaces.
-  int discrete_dist = int (ceil (dist));
+  /* Always move discretely by half spaces */
+  Real discrete_shift = ceil (shift * 2.0) / 2.0;
 
-  // move by whole spaces inside the staff.
-  if (discrete_dist < stafflines+1)
-    discrete_dist = int (ceil (discrete_dist / 2.0)* 2.0);
+  /* Inside staff, move by whole spaces*/
+  if ((rest->extent (common_x, Y_AXIS)[d] + discrete_shift) * d
+      < stafflines / 2.0
+      ||(rest->extent (common_x, Y_AXIS)[-d] + discrete_shift) * -d
+      < stafflines / 2.0)
+    discrete_shift = ceil (discrete_shift);
 
-  return gh_double2scm (-d *  discrete_dist);
+  return gh_double2scm (-d * discrete_shift);
 }
 
 bool
