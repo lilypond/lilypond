@@ -110,6 +110,24 @@ is the  first to satisfy CRIT
       )
   ))
 
+
+(define-public (reduce-list list between)
+  "Create new list, inserting BETWEEN between elements of LIST"
+  (if (null? list)
+      '()
+      (if (null? (cdr list))
+	  list
+	  (cons (car list)
+		(cons between (reduce-list (cdr list) between)))
+  
+  )))
+
+(define-public (string-join str-list sep)
+  "append the list of strings in STR-LIST, joining them with SEP"
+  (apply string-append (reduce-list str-list sep))
+  )
+
+
 (define (sign x)
   (if (= x 0)
       0

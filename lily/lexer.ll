@@ -454,13 +454,13 @@ HYPHEN		--
 				return MARKUP_HEAD_MARKUP0_MARKUP1;
 			else if (tag == ly_symbol2scm ("markup-list0"))
 				return MARKUP_HEAD_LIST0;
-			else if (tag == ly_symbol2scm ("scm0"))
+			else if (tag == ly_symbol2scm ("scheme0"))
 				return MARKUP_HEAD_SCM0;
-			else if (tag == ly_symbol2scm ("scm0-scm1"))
+			else if (tag == ly_symbol2scm ("scheme0-scheme1"))
 				return MARKUP_HEAD_SCM0_SCM1;
-			else if (tag == ly_symbol2scm ("scm0-markup1"))
+			else if (tag == ly_symbol2scm ("scheme0-markup1"))
 				return MARKUP_HEAD_SCM0_MARKUP1;
-			else if (tag == ly_symbol2scm ("scm0-scm1-markup2"))
+			else if (tag == ly_symbol2scm ("scheme0-scheme1-markup2"))
 				return MARKUP_HEAD_SCM0_SCM1_MARKUP2;
 			else {
 				ly_display_scm (s);

@@ -9,7 +9,8 @@ texidoc = "New markup syntax."
   \notes
    {
     \property Voice.TextScript \set #'molecule-callback = #brew-new-markup-molecule
-    f'-\markup { foo
+    f'-\markup {
+		foo
 		\raise #0.2 \bold bar
 		\override #'(baseline-skip . 4) \column << baz bazr bla >>
 		\hspace #2.0
