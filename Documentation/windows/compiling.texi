@@ -21,8 +21,8 @@ included in LilyPond's source distribution.
 
 These binaries are cross compiled for Windows on a GNU/Linux box.  You
 may want to check out the
-@uref{http://www.lilypond.org/gnu-windows/cross-1.1.8.tar.gz,cross
-compilation scripts}.
+@uref{http://www.lilypond.org/gnu-windows/cross.tar.gz,cross compilation
+scripts}.
 
 
 @section Windows installation specifics
@@ -35,8 +35,27 @@ in the source package directory @file{Documentation/windows}.
 @item @var{guile-1.4-gnu-windows.patch}
 You may (Cygwin gets better every day) need this patch to compile GUILE.
 @item @var{cygwin-installer.patch}
-Apply this patch to the @file{cinstall} directory of Cygwin, to get the
-LilyPond installer.
+Apply this patch to the @file{cinstall} directory of
+@file{winsup-src/cinstall}, to get the LilyPond installer.
+
+Compiling @file{setup.exe} has been complicated a bit with the
+introduction of the non-feature bzip2.  Here's how I did it:
+@quotation
+@example
+    tar xjf cygwin-src-20010531.tar.bz2 
+    tar xjf winsup-src-20010531.tar.bz2 
+    tar xzf mingw-20010424-1.tar.gz
+    cd winsup/cinstall
+    patch < ../../cygwin-installer.patch
+    cp /home/cygwin/cygwin-1.3.2/usr/lib/mingw/crt2.o .
+    cd ../bzip
+    MINGW32=yes CFLAGS='-mno-cygwin' ./configure
+    make
+    cd -
+    make w32api_lib=/home/cygwin/cygwin-1.3.2/usr/lib/w32api \
+        CXX='g++ -L/home/cygwin/cygwin-1.3.2/usr/lib/mingw'
+@end example
+@end quotation
 @item @var{--prefix=/usr/lilypond-x.y.x}
 The standard binary installation installs LilyPond into its own prefix.
 We think it's silly, but do this is on special request of Windows users.

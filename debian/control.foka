@@ -1,5 +1,6 @@
 Source: lilypond
-Build-Depends: debhelper (>= 3.0.5), python-base (>= 1.5.2-4), libguile-dev (>= 1:1.4-9), tetex-bin, libkpathsea-dev, tetex-extra, flex, bison, texinfo (>= 4.0-1), bibtex2html, groff, gs | gs-aladdin, netpbm (>= 2:9.10-1), m4, gettext (>= 0.10.36-1)
+Build-Depends: debhelper (>= 3.0.5), python-base (>= 1.5.2-4), libguile-dev (>= 1:1.4-9), tetex-bin, libkpathsea-dev, tetex-extra, flex, bison, texinfo (>= 4.0-1), groff, m4, gettext (>= 0.10.36-1)
+Build-Depends-Indep: bibtex2html, gs | gs-aladdin, netpbm (>= 2:9.10-1)
 Section: tex
 Priority: optional
 Maintainer: Anthony Fok <foka@debian.org>
@@ -27,7 +28,7 @@ Description: A program for printing sheet music.
 Package: lilypond-doc
 Section: doc
 Architecture: all
-Recommends: lilypond (= ${Source-Version})
+Suggests: lilypond (>= 1.4.1-1)
 Suggests: postscript-viewer, www-browser
 Description: LilyPond Documentation in HTML and PS formats
  This package contains the HTML and PostScript documentation for the

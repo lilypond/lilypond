@@ -20,7 +20,7 @@ SCRIPTS = configure aclocal.m4
 README_FILES =  DEDICATION COPYING NEWS CHANGES ROADMAP
 README_TXT_FILES = AUTHORS.txt README.txt INSTALL.txt FAQ.txt
 IN_FILES := $(wildcard *.in)
-EXTRA_DIST_FILES = lilypond-font-lock.el lilypond-mode.el lilypond-init.el vimrc VERSION $(README_FILES)  $(SCRIPTS) $(IN_FILES)  emacsclient.patch
+EXTRA_DIST_FILES = lilypond-font-lock.el lilypond-mode.el lilypond-init.el vimrc VERSION $(README_FILES)  $(SCRIPTS) $(IN_FILES)  emacsclient.patch mktexnam.patch
 NON_ESSENTIAL_DIST_FILES = $(README_TXT_FILES)
 INSTALLATION_DIR=$(datadir)
 INSTALLATION_FILES=$(configuration) VERSION
@@ -85,7 +85,7 @@ top-web:
 		-not -name '*.vr' -not -name '*.yp' -not -name '*.ky' \
 		-not -name '*.pg' -not -name '*.tmp' -not -name '*.toc' \
 		-not -name '*.fns' -not -name '*.cps' -not -name '*.nexi' \
-		-not -name '*.texi' -not -name '*.texidoc' \
+		-not -name '*.texi' -not -name '*.texidoc' -not -name '*.tp' \
 		-not -name '*.log' -not -name 'out-www' -not -name '*.dep' \
 	    > $(outdir)/weblist
 	ls *.png *.html >> $(outdir)/weblist

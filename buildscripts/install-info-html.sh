@@ -1,4 +1,4 @@
-#!@BASH@
+#!@SHELL@
 
 name=install-info-html
 version=1.0
@@ -15,7 +15,7 @@ debug_echo=:
 #
 # print usage
 #
-function help ()
+help ()
 {
 	cat << EOF
 $name $version
@@ -33,7 +33,7 @@ EOF
 }
  
 
-function cleanup ()
+cleanup ()
 {
 	$debug_echo "cleaning ($?)..."
 }

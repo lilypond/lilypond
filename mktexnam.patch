@@ -1,0 +1,10 @@
+--- mktexnam.orig	Sun Mar  4 19:29:45 2001
++++ mktexnam	Tue May  8 20:28:57 2001
+@@ -158,6 +158,7 @@
+       MT_PKDESTDIR=$DEST
+       MT_TFMDESTDIR=$DEST
+       MT_MFDESTDIR=$DEST
++      MT_DESTROOT=foobar
+       MT_NAMEPART=;;
+    *) # Relative destdir => append to the default.
+       MT_NAMEPART=$DEST;;

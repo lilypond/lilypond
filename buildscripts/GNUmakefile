@@ -1,12 +1,12 @@
-# bin/Makefile
-
 depth = ..
-STEPMAKE_TEMPLATES=script install install-out po
 
-include $(depth)/make/stepmake.make 
+#STEPMAKE_TEMPLATES=script install install-out po
+STEPMAKE_TEMPLATES=script install po
 
 INSTALLATION_FILES=$(outdir)/gettext.py
 INSTALLATION_DIR=$(datadir)/python
+
+include $(depth)/make/stepmake.make 
 
 # Should we install these? This should be handled by sysadmin or
 # packager but if she forgets...
@@ -15,9 +15,4 @@ INSTALLATION_DIR=$(datadir)/python
 #INSTALLATION_OUT_FILES1=$(outdir)/lilypond-login $(outdir)/lilypond-profile
 
 all: $(outdir)/gettext.py
-
-
-
-
-
 
