@@ -51,11 +51,12 @@ Staff_column::add_reqs(Array<Request*> req_l_arr)
 		!c_l->measuregrouping())
 		setup_one_request(j);	
 	} else {
-	    if (j->rhythmic()) {
-		req_col_l_->musical_column_l_->add_duration(j->rhythmic()->duration());
-	    }
 	    if (j->musical()) {
+		
 		Musical_req*m = j->musical();
+		if (m->rhythmic()) {
+		    req_col_l_->musical_column_l_->add_duration(m->rhythmic()->duration());
+		}
 		if(m->skip())
 		    continue;
 	    }

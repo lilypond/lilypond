@@ -10,7 +10,6 @@
 #include "parray.hh"
 #include "lily-proto.hh"
 #include "offset.hh"
-#include "molecule.hh"
 #include "virtual-methods.hh"
 #include "directed-graph.hh"
 
@@ -66,7 +65,7 @@ public:
 
     virtual ~Score_elem();
     Score_elem();
-    NAME_MEMBERS(Score_elem);    
+    NAME_MEMBERS();    
     virtual bool is_type_b(const char *);
     
     Interval width() const;
