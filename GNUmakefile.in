@@ -126,6 +126,10 @@ default: $(config_h) builddir-setup
 
 builddir-setup: $(builddir)/share/lilypond-force
 
+PO_FILES = $(wildcard $(srcdir)/po/*.po)
+HELP_CATALOGS = $(PO_FILES:$(srcdir)/po/%.po=%)
+CATALOGS = $(HELP_CATALOGS:lilypond=) 
+
 $(builddir)/share/lilypond-force:
 # Preparing LilyPond tree for builddir exec
 	cd $(builddir) && rm -rf share
@@ -149,6 +153,10 @@ $(builddir)/share/lilypond-force:
 		ln -s ../../../mf/$(outconfbase) afm && \
 		ln -s ../../../mf/$(outconfbase) tfm && \
 		ln -s ../../../mf/$(outconfbase) type1
+	$(foreach i,$(CATALOGS), \
+		mkdir -p $(builddir)/share/locale/$i/LC_MESSAGES && \
+		cd $(builddir)/share/locale/$i/LC_MESSAGES && \
+		ln -fs ../../../../po/$(outconfbase)/$i.mo lilypond.mo &&) true
 	touch $@
 
 local-clean: builddir-setup-clean

@@ -752,23 +752,27 @@ emacsclient --no-wait +%l %f
 If you use xemacs instead of emacs, you use @code{(gnuserve-start)} in
 your @file{.emacs}, and set @code{XEDITOR} to @code{gnuclient -q +%l %f}
 
-For using Vim, set @code{XEDITOR} to @code{gvim --remote +%l %f}, or use this
-argument with xdvi's @code{-editor} option.
+For using Vim, set @code{XEDITOR} to @code{gvim --remote +%l %f}, or
+use this argument with xdvi's @code{-editor} option.
+
 @cindex NEdit
 For using NEdit, set @code{XEDITOR} to @code{nc -noask +%l %f}, or
 use this argument with xdvi's @code{-editor} option.
 
 If can also make your editor jump to the exact location of the note
-you clicked. This is only supported on Emacs. Users of version 20 must
-apply the patch @file{emacsclient.patch}. Users of version 21 must
-apply @file{server.el.patch} (version 21.2 and earlier).  At the top
-of the @code{ly} file, replace the @code{set!} line with the following
-line,
+you clicked. This is only supported on Emacs and VIM. Users of Emacs version
+20 must apply the patch @file{emacsclient.patch}. Users of version 21
+must apply @file{server.el.patch} (version 21.2 and earlier).  At the
+top of the @code{ly} file, replace the @code{set-point-and-click} line
+with the following line,
 @example
 #(ly:set-point-and-click 'line-column)
 @end example
 @cindex line-colomn-location
-and set @code{XEDITOR} to @code{emacsclient --no-wait +%l:%c %f}.
+and set @code{XEDITOR} to @code{emacsclient --no-wait +%l:%c %f}.  Vim
+users can set @var{XEDITOR} to @code{gvim --remote +:%l:norm%c| %f}.
+
+
 
 @refbugs
 
