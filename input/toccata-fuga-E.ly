@@ -5,7 +5,7 @@ opus =	 "BWV 566"
 	 "toccata		3 bar excerpt"
 	 "2nd fuga	transposed subject --- 4 bar excerpt";
 
-composers =	 "Johann Sebastian Bach (1685-1750)";
+composer =	 "Johann Sebastian Bach (1685-1750)";
 enteredby =	 "JCN";
 copyright =	 "public domain";
 

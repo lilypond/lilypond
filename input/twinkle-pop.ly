@@ -2,7 +2,7 @@
 filename =	 "twinkle.ly";
 title =	 "Ah, vous dirais-je, maman ";
 description =	 "twinkle twinkle in pop-song-settings";
-composers =	 "traditional";
+composer =	 "traditional";
 
 enteredby =	 "HWN, chords by Johan Vromans";
 copyright =	 "public domain";
