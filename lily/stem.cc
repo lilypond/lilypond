@@ -920,7 +920,22 @@ Stem::calc_stem_info (Grob*me)
   return si;
 }
 
+
+// move to stem?
+Slice
+Stem::beam_multiplicity (Grob *stem)
+{
+  SCM beaming= stem->get_grob_property ("beaming");
+  Slice l = int_list_to_slice (gh_car (beaming));
+  Slice r = int_list_to_slice (gh_cdr (beaming));
+  l.unite (r);
+
+  return l;
+}
+
+
 ADD_INTERFACE (Stem,"stem-interface",
   "A stem",
   "up-to-staff avoid-note-head adjust-if-on-staffline thickness stem-info beamed-lengths beamed-minimum-lengths lengths beam stem-shorten duration-log beaming neutral-direction stem-end-position support-head note-heads direction length style no-stem-extend flag-style dir-forced");
+
 

@@ -797,3 +797,18 @@ display_list (SCM s)
   scm_puts (")", p);
   return SCM_UNSPECIFIED;
 }
+
+Slice
+int_list_to_slice (SCM l)
+{
+  Slice s;
+  s.set_empty ();
+  for (; gh_pair_p (l); l = gh_cdr (l))
+    {
+      if (gh_number_p (gh_car (l)))
+	s.add_point (gh_scm2int (gh_car (l))); 
+    }
+
+  return s;
+}
+

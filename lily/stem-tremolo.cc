@@ -120,14 +120,13 @@ Stem_tremolo::brew_molecule (SCM smob)
   Interval mol_ext = mol.extent (Y_AXIS);
 
   // ugh, rather calc from Stem_tremolo_req
+  int beams_i = (beam) ? (Stem::beam_multiplicity (stem).length ()+ 1): 0;
 
   /*
     TODO.
    */
-  
-  assert(false);
 
-  int beams_i = 0;  
+
   Real beamthickness = 0.0;
   SCM sbt = (beam) ? beam->get_grob_property ("thickness") : SCM_EOL ;
   if (gh_number_p (sbt))
