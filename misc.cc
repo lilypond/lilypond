@@ -18,10 +18,9 @@ double log2(double x) {
 
 
 // golden ratio
- 
-const Real PHI = (1+sqrt(5))/2;
+ const Real PHI = (1+sqrt(5))/2;
 const double ENGRAVERS_SPACE = PHI;
-const double WHOLE_SPACE = 5.0; // should be settable from input
+
 
 
   
