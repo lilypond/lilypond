@@ -139,7 +139,7 @@
       '("\\([][}{]\\)" 0 font-lock-warning-face t)
       ;; these regexps allow angle-brackets to be highlighted when and only when they delimit simultaneous music
       ;; fontify open < but leave crescendos \< alone
-      '("[^\\]\\(<\\)" 1 font-lock-warning-face t)
+      '("\\([^\\]\\|^\\)\\(<\\)" 2 font-lock-warning-face t)
       ;; fontify the close-brackets in <a b c--> (tenuto) and <a b c-^> (marcato)
       '("[_^-]\\s-*[-^]\\s-*\\(>\\)" 1 font-lock-warning-face t) 
       ;; but leave a b c-> (accent) alone, accounting for whitespace
