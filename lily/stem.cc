@@ -994,8 +994,11 @@ Stem::beam_multiplicity (Grob *stem)
 }
 
 
+/*
+  these are too many props.
+ */
 ADD_INTERFACE (Stem,"stem-interface",
   "A stem",
-  "french-beaming up-to-staff avoid-note-head adjust-if-on-staffline thickness stem-info beamed-lengths beamed-minimum-free-lengths beamed-extreme-minimum-free-lengths lengths beam stem-shorten duration-log beaming neutral-direction stem-end-position support-head note-heads direction length flag-style no-stem-extend stroke-style");
+  "tremolo-flag french-beaming up-to-staff avoid-note-head adjust-if-on-staffline thickness stem-info beamed-lengths beamed-minimum-free-lengths beamed-extreme-minimum-free-lengths lengths beam stem-shorten duration-log beaming neutral-direction stem-end-position support-head note-heads direction length flag-style no-stem-extend stroke-style");
 
 

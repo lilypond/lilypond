@@ -148,7 +148,7 @@ this and other documentation.
 * Tutorial::                       A tutorial introduction.
 * Notation manual::                All notation supported, and how to
                                    produce it.
-* Literature::                     Books about notation and engraving.
+* Literature list::                Books about notation and engraving.
 * Technical manual::               How it all works.
 * Invoking LilyPond::              Operation.
 * Converting from other formats::  Converting to lilypond source format.

@@ -1511,7 +1511,20 @@ def conv (str):
 conversions.append (((1,9,5), conv, 'HaraKiriVerticalGroup -> RemoveEmptyVerticalGroup'))
 
 def conv (str):
-	if re.search ("ly:get-font", str):
+	if re.search ("ly:get-font", str) :
+		sys.stderr.write (r"(ly:get-font foo ..)  has been replaced by" + \
+				  " (ly:paper-get-font (ly:grob-get-paper foo) .. ).\n" +\
+				  "please update manually.")
+		
+		raise FatalConversionError()
+	
+	if re.search ("\\pitch *#", str) :
+		sys.stderr.write (r"\\pitch has been deprecated. " +\
+				  " Use Scheme code to construct arbitrary note events.")
+		
+		raise FatalConversionError()
+	
+	if re.search ("ly:get-font", str) :
 		sys.stderr.write (r"(ly:get-font foo ..)  has been replaced by" + \
 				  " (ly:paper-get-font (ly:grob-get-paper foo) .. ).\n" +\
 				  "please update manually.")
@@ -1521,6 +1534,8 @@ def conv (str):
 		
 
 conversions.append (((1,9,6), conv, 'ly:get-font deprecated.'))
+
+
 
 ################################
 #	END OF CONVERSIONS	

@@ -1067,7 +1067,7 @@ def schedule_lilypond_block (chunk):
 				taken_file_names[basename] = 0
 			else:
 				taken_file_names[basename] = taken_file_names[basename] + 1
-				basename = basename + "-%i" % taken_file_names[basename]
+				basename = basename + "-t%i" % taken_file_names[basename]
 	update_file (file_body, os.path.join (g_outdir, basename) + '.ly')
 	needed_filetypes = ['tex']
 

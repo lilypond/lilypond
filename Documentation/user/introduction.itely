@@ -5,63 +5,217 @@
 @chapter Introduction
 
 There are a lot of programs that let you print sheet music with a
-computer. Unfortunately, most of them do not do good job.  Most
-computer printouts have a bland, mechanical look, and are unpleasant
-to play from.  If you agree with us on that, then you will like
-LilyPond: we have tried to capture the original look of hand-engraved
-music in a program: we have tuned our algorithms, font-designs, and
-program settings to make the output match that of the old editions
-that we love to see and love to play from.
+computer, but most of them do not do good job.  Most computer
+printouts have a bland, mechanical look, and are unpleasant to play
+from.  If you agree with us on that, then you will like LilyPond: we
+have tried to capture the original look of hand-engraved music.  We
+have tuned our algorithms, font-designs, and program settings to make
+the program produce prints that match the quality of the old editions
+we love to see and love to play from.
 
 
 @menu
-* Music notation and  engraving::  
-* Notation and engraving in LilyPond::  
+* Notation in LilyPond ::       
+* Engraving in LilyPond::       
 * Typography and program architecture::  
 * Music representation::        
 * Example applications::        
 * About this manual::           
 @end menu
 
-@node Music notation and  engraving
-@section Music notation and engraving
 
+@node Notation in LilyPond 
+@section Notation in LilyPond
 
 
 @cindex engraving
 @cindex typography
 
-@c eerste zin beetje deur in huis
-Making sheet music may seem trivial, ``you print 5 lines, and then put
-in the notes at different heights'', but as you learn more of it, the
-opposite turns out to be true. One has to master two difficult
-tasks. First, one has to master music notation: the science of knowing
-which symbols to use for what. Second, one has to master music
-engraving: the art of placing symbols such that the result looks
-pleasing.
+
+Printing sheet music consists of two non-trivial tasks. First, one has
+to master music notation: the science of knowing which symbols to use
+for what. Second, one has to master music engraving: the art of
+placing symbols such that the result looks pleasing.
+
+Common music notation is a system of recording music that has evolved
+over the past 1000 years. The form that is now in common use, dates
+from the early renaissance. Although, the basic form (note heads on a
+5-line staff) has not changed, the details still change to express the
+innovations of contemporary notation.  Hence, it encompasses some 500
+years of music. Its applications range from monophonic melodies to
+monstruous counterpoint for large orchestras.
+
+How can we get a grip on such a many-headed beast, and force it into
+the confines of a computer program?  Our solution is to make a strict
+distinction between notation, @emph{what} symbols to use, and
+engraving, @emph{where} to put them.  Anything related to the second
+question is considered ``engraving'' (i.e. typography).
+
+For tackling the first problem, notation, we have broken up the
+problem into digestible (and programmable) chunks: every type of
+symbol is handled by a separate program module, a so-called plug-in.
+Each plug-in are completely modular and independent, so each can be
+developed and improved separately.  When put together, the plug-ins
+can solve the music notation program in cooperation.  People that put
+graphics to musical ideas are called copyists or engravers, so by
+analogy, each plug-in is also @code{engraver}.
+
+In the following example, we see how we start out with a note head
+engraver.
+
+@lilypond[notexidoc]
+\include "engraver-example.ly"
+
+\score { \topVoice
+\paper {
+       \translator { \VoiceContext
+       \remove "Stem_engraver"
+       \remove "Phrasing_slur_engraver"
+       \remove "Slur_engraver"
+       \remove "Script_engraver"
+       \remove "Beam_engraver"
+       \remove "Auto_beam_engraver"
+       
+       }
+       \translator { \StaffContext
+       \remove "Accidental_engraver"
+       \remove "Key_engraver"
+       \remove "Clef_engraver"
+       \remove "Bar_engraver"
+       \remove "Time_signature_engraver"
+       \remove "Staff_symbol_engraver"
+       \consists "Pitch_squash_engraver"
+        }
+       
+} 
+}
+@end lilypond
+
+Then a @code{Staff_symbol_engraver} adds the staff:
+
+@lilypond[notexidoc]
+\include "engraver-example.ly"
+
+\score { \topVoice
+\paper {
+       \translator { \VoiceContext
+       \remove "Stem_engraver"
+       \remove "Phrasing_slur_engraver"
+       \remove "Slur_engraver"
+       \remove "Script_engraver"
+       \remove "Beam_engraver"
+       \remove "Auto_beam_engraver"
+       
+       }
+       \translator { \StaffContext
+       \remove "Accidental_engraver"
+       \remove "Key_engraver"
+       \remove "Clef_engraver"
+       \remove "Bar_engraver"
+       \consists "Pitch_squash_engraver"
+       \remove "Time_signature_engraver"
+        }
+       
+} 
+}
+@end lilypond
+
+ The @code{Clef_engraver} defines a reference point for the staff:
+
+@lilypond[notexidoc]
+\include "engraver-example.ly"
+
+\score { \topVoice
+\paper {
+       \translator { \VoiceContext
+       \remove "Stem_engraver"
+       \remove "Phrasing_slur_engraver"
+       \remove "Slur_engraver"
+       \remove "Script_engraver"
+       \remove "Beam_engraver"
+       \remove "Auto_beam_engraver"
+       }
+       \translator { \StaffContext
+       \remove "Accidental_engraver"
+       \remove "Key_engraver"
+       \remove "Bar_engraver"
+       \remove "Time_signature_engraver"
+        }
+       
+} 
+}
+@end lilypond
+
+And the @code{Stem_engraver} adds stems:
+
+@lilypond[notexidoc]
+\include "engraver-example.ly"
+
+\score { \topVoice
+\paper {
+       \translator { \VoiceContext
+       \remove "Phrasing_slur_engraver"
+       \remove "Slur_engraver"
+       \remove "Script_engraver"
+       \remove "Beam_engraver"
+       \remove "Auto_beam_engraver"
+       }
+       \translator { \StaffContext
+       \remove "Accidental_engraver"
+       \remove "Key_engraver"
+       \remove "Bar_engraver"
+       \remove "Time_signature_engraver"
+        }
+} 
+}
+@end lilypond
+
+The @code{Stem_engraver} is notified of any note head coming along.
+Every time one (or more, for a chord) note heads is seen, a stem
+object is created, and attached to the note head.
+
+By adding engravers for beams, slurs, accents, accidentals, bar lines,
+time signature, and key signature, we get a complete piece of
+notation.
+
+@lilypond[notexidoc]
+\include "engraver-example.ly"
+
+\score { \topVoice }
+@end lilypond
 
 
 
-@lilypondfile[notexidoc]{puer-fragment.ly}
+This system works well for monophonic music, but what about
+polyphony? In polyphonic notation, many voices can share a staff.
 
-@center A fragment of neume notation
+@lilypond[notexidoc]
+\include "engraver-example.ly"
+\score { \context Staff << \topVoice \\ \botVoice >> }
+@end lilypond
+
+In this situation, the accidentals and staff are shared, but the
+stems, slurs, beams, etc. are private to each voice. Hence, engravers
+should be grouped. The engravers for note head, stems, slurs, etc. go
+into a group called ``Voice context,'' while the engravers for key,
+accidental, bar, etc. go into a group called ``Staff context.'' In the
+case of polyphony, a single Staff context contains more than one Voice
+context.  In polyphonic notation, many voices can share a staff:
+Similarly, more Staff contexts can be put into a single Score context.
+
+@lilypond[notexidoc]
+\include "engraver-example.ly"
+\score {
+<< \new Staff << \topVoice \\ \botVoice >>
+\new Staff << \pah \\ \hoom >>
+  >>
+}
+@end lilypond
 
 
-Common music notation has its roots in the medieval time. In this
-time, monks started to write down hints that indicated how their
-sacred music was sung. These hints, neumes, gradually became simpler,
-and at some point became the note heads.  Lines were added to the
-neumes, to indicate a reference pitch, which later became the staff.
-Over many centuries, improvements and extensions were added, while
-other concepts disappeared. For example, the neume notation did not
-have an explicit notion of rhythm, but it did have @emph{custodes},
-symbols at the end of the line to indicate the starting pitch of the
-next line.  Mensural notation, a notation where each note head takes a
-fixed amount of time, came into being together with the rise of
-counterpoint in the early renaissance.  The graphic language of
-notation is still under development; the innovations of contemporary
-music require still newer and more complex notations.
 
+@node  Engraving in LilyPond
+@section Engraving in LilyPond
 
 
 The term music engraving derives from the traditional process of music
@@ -83,6 +237,7 @@ engraver.  Even today, with the use of high-speed computers and
 advanced software, music requires lots of manual fine tuning before it
 is acceptable for publication.
 
+
 Sheet music is performance material: everything is done to aid the
 musician in letting him perform better.  Music often is far away from
 its reader---it might be on a music stand. To make it clearly
@@ -94,21 +249,6 @@ spaced very tightly. Yet, by a careful distribution of white space,
 the feeling of balance is retained, and a clutter of symbols is
 avoided.
 
-
-@node Notation and engraving in LilyPond
-@section Notation and engraving in LilyPond
-
-Common music notation encompasses such a wide scope of music, and
-therefore inherently is complex: there are many rules, and for every
-rule there are exceptional situations where they do not apply.  The
-result is that LilyPond cannot support each and every form of notation
-in existence. Rather, we focus on a specific style and idiom: we take
-inspiration from late-romantic music printed at the beginning of the
-20th century. Most of the contemporary music after that, and most of
-the music going back to 17th century can be written in this
-idiom. That is not a fundamental limit, though. There is support for
-some modern notation like clusters, and older notation, such as white
-mensural and gregorian notation, is being worked on.
 
 We have used these observations in designing LilyPond.  The images
 below show the flat symbol. On the left, a scan from a Henle edition,
@@ -231,14 +371,14 @@ than the existing solution, at which point it replaces the old one.
 Until that time, users must have a way to deal with imperfections:
 these 25%, 10% or 5% of the cases that are not handled
 automatically. In these cases, a user must be able to override
-formatting decisions. A way to accomplish this, is to store decisions
-in generic variables, and let the user manipulate these variables.
-For example, consider the following fragment of notation:
+formatting decisions. To accomplish this we store decisions in generic
+variables, and let the user manipulate thosed.  For example, consider
+the following fragment of notation:
 
 @lilypond
 \score { \notes \relative c'' {
 \stemUp
-    a4^\f f'8
+    a4_\f f,8
   	}
 \paper { raggedright = ##t }
      }
@@ -254,7 +394,7 @@ high note and the `f', as shown in this example:
 \score { \notes \relative c'' {
 \stemUp
     \once\property Voice. DynamicLineSpanner  \override #'padding = #4.0 
-    a4^\f f'8
+    a4_\f f,8
   	}
 \paper { raggedright = ##t }
      }
@@ -291,7 +431,7 @@ following command, the entire piece is now formatted with thicker stems:
     \property Score.Stem \override #'thickness = #2.0 
     \once\property Voice. DynamicLineSpanner  \override #'padding = #4.0 
 \stemUp
-    a4^\f f8
+    a4_\f f,8
   	}
 \paper { raggedright = ##t }
      }
@@ -359,10 +499,11 @@ definition exactly the musical meaning of the score.
 There are also more practical concerns.  Our users have to key in the
 music into the file directly, so the input format should have a
 friendly syntax: a quarter note C is entered as @code{c4}, the code
-@code{r8.}  signifies a dotted eighth rest. Notes and rests form the
-simplest musical expressions in the input syntax.  More complex
-constructs are produced by combining them into compound
-structures. This is done in much the same way that complex
+@code{r8.}  signifies a dotted eighth rest.
+
+Notes and rests form the simplest musical expressions in the input
+syntax.  More complex constructs are produced by combining them into
+compound structures. This is done in much the same way that complex
 mathematical formulas are built from simple expressions such as
 numbers and operators.
 
@@ -371,8 +512,8 @@ language can be specified succinctly with a so-called context-free
 grammar.  The grammar formally specificies what types of input form
 valid `sentences'.  Reading such languages, and splitting them into
 grammatical structures is a problem with standard solutions.
-Moreover, they make the format easier to understand: a concise
-formal definition permits a simple informal description.
+Moreover, rigid definitions make the format easier to understand: a
+concise formal definition permits a simple informal description.
 
 The user-interface of LilyPond is its syntax.  That part is what users
 see most.  As a results, some users think that music representation is
@@ -435,7 +576,7 @@ The manual is divided into the following chapters:
 @ifhtml The 
 @end ifhtml
 @emph{@ref{Tutorial}}
-gives a  gentle introduction into typesetting music.
+gives a  gentle introduction to typesetting music.
 First time users should start here. 
 @item
 @ifhtml
@@ -443,13 +584,14 @@ The
 @end ifhtml
 @emph{@ref{Notation manual}}
 discusses topics grouped by notation construct. Once you master the
-basics, this is the place to lookup details.
+basics, this is the place to look up details.
 @item
 @ifhtml
 The
 @end ifhtml
-@emph{@ref{Literature}}
-chapter lists useful reference books on notation and engraving. 
+@emph{@ref{Literature list}}
+ contains a set of useful reference books, for those who wish to know
+ more  on notation and engraving. 
 @item
 @ifhtml
  The
@@ -464,6 +606,26 @@ The chapter
 @end ifhtml
 @emph{@ref{Invoking LilyPond}}  explains how to run LilyPond and its helper
 programs.
+
+@item
+@ifhtml
+The 
+@end ifhtml
+@emph{@ref{lilypond-book manual}}
+explains  the details behind creating documents with in-line music
+examples (like this manual).
+
+
+@item
+@ifhtml
+The chapter 
+@end ifhtml
+@emph{@ref{Converting from other formats}}
+explains how to run the conversion programs. These programs
+are supplied with the LilyPond package, and convert a variety of music
+formats to the @code{.ly}  format. In addition, this section explains
+how to upgrade input files from previous versions of LilyPond.
+
 @end itemize
 
 Once you are an experienced user, you can use the manual as reference:
@@ -483,7 +645,7 @@ browser.
 @cindex using the manual
 
 
-If you are not familiar with music notation, or music terminology
+If you are not familiar with music notation or music terminology
 (especially if you are a non-native English speaker), then it is
 advisable to consult the glossary as well. The glossary explains
 musical terms, and includes translations to various languages. It is a
@@ -531,12 +693,12 @@ have clickable links.
 (available @uref{../../../input/template/out-www/collated-files.html,here})
 @end ifhtml
 
-After you have gone through the tutorial, in theory you should be able
-to write input files. In practice, writing files from scratch turns
-out to be intimidating.  To give you a headstart, we have collected a
-number of often-used formats in example files.  These files can be
-used as a start, by copying the template, and adding notes in the
-appropriate places.
+After you have gone through the tutorial, you should be able to write
+input files. In practice, writing files from scratch turns out to be
+intimidating.  To give you a headstart, we have collected a number of
+often-used formats in example files.  These files can be used as a
+start: simply copy the template, and add notes in the appropriate
+places.
 
 @item
   Various input examples
@@ -550,7 +712,7 @@ big HTML document, with pictures and explanatory texts included.
 
 
 @item
-  The regression test
+  The regression tests
 @ifhtml
 (available @uref{../../../input/regression/out-www/collated-files.html,here})
 @end ifhtml

@@ -1,4 +1,3 @@
-
 \version "1.9.4"
 
 \header{
@@ -19,7 +18,7 @@ into tied notes.
   \notes\relative c'{
   \time 2/4
 
-  c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 
+  c2. c8 d4 e f g a b c2.. b8 a g16 f4 e d c8. c2 
   }
   \paper{
     \translator{

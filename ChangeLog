@@ -1,3 +1,19 @@
+2003-09-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/*.itely: fixes everywhere
+
+	* lily/completion-note-heads-engraver.cc: rewrite engraver:
+	produce ties from the engraver itself, do not broadcast TieEvent.
+
+	* lily/my-lily-lexer.cc: remove pitch & duration.
+
+	* lily/parser.yy (TODO): remove \pitch and \duration
+
+	* input/test/explicit.ly: remove file.
+
+	* Documentation/user/refman.itely (Pitches): remove \pitch 
+	\duration command.
+
 2003-09-16  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* buildscripts/lilypond.words.py: add all slur types to Emacs
