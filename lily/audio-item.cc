@@ -68,21 +68,3 @@ Audio_text::Audio_text (Audio_text::Type type, String text_string)
   type_ = type;
 }
 
-Audio_tie::Audio_tie ()
-{
-  note_drul_[RIGHT] = 0;
-  note_drul_[LEFT] = 0;
-}
-
-void
-Audio_tie::set_note (Direction d, Audio_note* note)
-{
-  assert (!note_drul_[d]);
-  note_drul_[d] = note;
-  //set_bound (d, head);
-
-  //  add_dependency (head);
-}
-
-
-

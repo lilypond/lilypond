@@ -45,7 +45,10 @@ Key_performer::create_audio_elements ()
   if (key_req_) 
     {
       SCM pitchlist = key_req_->get_property ("pitch-alist");
-      SCM proc = scm_primitive_eval (ly_symbol2scm ("accidentals-in-key")); 
+      static SCM proc;
+      if (!proc)
+	proc = scm_primitive_eval (ly_symbol2scm ("alterations-in-key"));
+      
       SCM acc = gh_call1 (proc, pitchlist);
       
       Pitch key_do (0, 

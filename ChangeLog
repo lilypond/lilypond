@@ -1,3 +1,21 @@
+2004-03-04  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/output-ps.scm (output-scopes): use ly:paper-lookup for font
+	props.
+
+	* input/test/tie-sparse.ly: remove.
+
+	* lily/tie-performer.cc (try_music): copy & paste from
+	Tie_engraver.
+
+	* lily/music-output-def.cc (LY_DEFINE): bugfix. Don't do
+	variable_ref twice.
+
+	* lily/key-performer.cc (create_audio_elements): use
+	alterations-in-key.
+
+	* scm/midi.scm (accidentals-in-key): divide alterations by 2.
+
 2004-03-04  Heikki Junes <hjunes@cc.hut.fi>
 
 	* input/test/smart-transpose.ly: fix cases fes->e and similar.

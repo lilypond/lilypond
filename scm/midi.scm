@@ -283,6 +283,6 @@ returns the program of the instrument
 ;; urg: we should set this at start of track
 (define-public dynamic-default-volume 0.71)
 
-(define-public (accidentals-in-key pitch-list)
+(define-public (alterations-in-key pitch-list)
   "Count number of sharps minus number of flats"
-  (apply + (map cdr pitch-list)))
+  (/ (apply + (map cdr pitch-list))) 2)

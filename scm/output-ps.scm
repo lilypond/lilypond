@@ -50,16 +50,9 @@
 ;;/output-scale lilypondpaperoutputscale lily-output-units mul def
 ;;
 ;; output-scale = 1.75729901757299 * 2.83464 = 4.9813100871731003736
+
 (define OUTPUT-SCALE 4.98)
 (define TOP-MARGIN 0)
-(define PROPS `(((font-family . roman)
-		 (word-space . 1)
-		 (baseline-skip . ,BASELINE-SKIP)
-		 (font-series . medium)
-		 (font-style . roman)
-		 (font-shape . upright)
-		 (font-size . 0))))
-
 
 ;;; helper functions, not part of output interface
 (define (escape-parentheses s)
@@ -361,10 +354,15 @@
 (define (output-scopes paper scopes fields basename)
 
   ;; FIXME: customise/generate these
-  (let* ((linewidth (ly:paper-get-number paper 'linewidth))
-	 (props (cons (acons 'linewidth linewidth '()) PROPS))
-	 (prefix "lilypond")
-	 (stencils '()))
+  (let*
+      ((props
+	(list
+	 (append
+	  `((linewidth . ,(ly:paper-get-number paper 'linewidth))
+	    (font-family . roman))
+	  (ly:paper-lookup paper 'font-defaults))))
+       (prefix "lilypond")
+       (stencils '()))
 
     (define (scope-entry->string key var)
       (let ((val (variable-ref var)))

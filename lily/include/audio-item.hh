@@ -103,14 +103,6 @@ public:
   int per_minute_4_;
 };
 
-class Audio_tie : public Audio_item
-{
-public:
-  Audio_tie ();
-  void set_note (Direction, Audio_note*);
-  Drul_array<Audio_note*> note_drul_;
-};
-
 class Audio_time_signature : public Audio_item
 {
 public:

@@ -31,22 +31,18 @@
     \consists "Span_dynamic_performer"
     \consists "Tie_performer"
     \consists "Piano_pedal_performer"
+    \consists "Note_performer"
+    \consists "Beam_performer"
+    \consists "Slur_performer"
+    \consists "Melisma_translator"
 }
+
 
 \translator {
     \VoiceContext
     \remove "Note_performer"
     \consists "Drum_note_performer" 
     \name DrumVoice
-}
-
-\translator {
-    \type "Performer_group_performer"
-    \name Voice
-    \consists "Note_performer"
-    \consists "Beam_performer"
-    \consists "Slur_performer"
-    \consists "Melisma_translator"
 }
 
 \translator {

@@ -431,9 +431,6 @@ In this manual: @ref{Automatic note splitting}.
 
 Internals: @internalsref{TieEvent}, @internalsref{Tie}.
 
-Examples: if you want less ties created for a chord, see
-@inputfileref{input/test,tie-sparse.ly}.
-
 For tying only a subset of the note heads of a pair of chords, see
 @inputfileref{input/regression,tie-chord-partial.ly}.
 

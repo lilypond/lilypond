@@ -29,14 +29,6 @@
    basis of position and duration-log of the heads (not of the events).
 
    TODO: support sparseTies.
-
-   TODO: melismata will fuck up now:
-
-   < { c8 ~ c8 }
-     { c16 c c c  } >
-
-   melisma is after the 2nd 8th note, but will now be signaled as
-   lasting till the 3rd 16th.
 */
 class Tie_engraver : public Engraver
 {
