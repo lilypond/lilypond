@@ -127,11 +127,23 @@ Melodic_req::transpose(Melodic_req const & delta)
 
 IMPLEMENT_STATIC_NAME(Melodic_req);
 
+int
+Melodic_req::compare(Melodic_req const&m1, Melodic_req const&m2)
+{
+    if (m1.octave_i_ != m2.octave_i_)
+	return m1.octave_i_ -m2.octave_i_;
+    else if (m1.notename_i_ != m2.notename_i_)
+	return m1.notename_i_ - m2.notename_i_;
+    else  if (m1.accidental_i_ != m2.accidental_i_)
+	return m1.accidental_i_ - m2.accidental_i_;
+    return 0;
+}
+
 void
 Melodic_req::do_print() const
 {
 #ifndef NPRINT
-	mtor << "notename: " << notename_i_ << " acc: " <<accidental_i_<<" oct: "<< octave_i_;
+    mtor << "notename: " << notename_i_ << " acc: " <<accidental_i_<<" oct: "<< octave_i_;
 #endif
 }
 

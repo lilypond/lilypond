@@ -114,6 +114,7 @@ struct Melodic_req :virtual Musical_req
     /// return pitch from central c (in halfnotes)
     int pitch()const; 
     Melodic_req();
+    static int compare(Melodic_req const&, Melodic_req const&);
    
     REQUESTMETHODS(Melodic_req,melodic);
 };
