@@ -30,7 +30,7 @@ copy_killing_cons_list (Cons_list<T> &dest, Cons<T> *src)
 
 template<class T>
 void
-clone_killing_cons_list (Cons_list<T> & dest, Cons<T> *src)
+clone_killing_cons_list (Cons_list<T> &dest, Cons<T> *src)
 {
   for (; src; src = src->next_)
     {

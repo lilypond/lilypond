@@ -12,9 +12,9 @@ char const *flower_version_str0 ();
 
 template<class T> struct Link_array;
 template<class T> struct Array;
-template < class T, class K> struct Assoc;
-template < class K, class V> struct Hash_table;
-template < class K, class V> struct Hash_table_iter;
+template<class T, class K> struct Assoc;
+template<class K, class V> struct Hash_table;
+template<class K, class V> struct Hash_table_iter;
 template<class T> struct Link_list;
 template<class T> struct Interval_t;
 template<class T> struct PQueue;

@@ -44,7 +44,7 @@ other_dir (Direction const d)
 }
 
 inline Direction
-operator- (Direction const d)
+operator - (Direction const d)
 {
   return other_dir (d);
 }

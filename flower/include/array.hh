@@ -74,12 +74,12 @@ public:
   Array (T *tp, int n)
   {
     array_ = new T[n];
-    max_ =size_ = n;
+    max_ = size_ = n;
     arrcpy (array_, tp, n);
   }
 
   Array ()
-  { array_ = 0; max_ =0; size_ =0; }
+  { array_ = 0; max_ = 0; size_ = 0; }
 
   // ugh, get around gcc 2.8.1 ice; see bezier.cc
   Array (int i)
@@ -112,7 +112,7 @@ public:
   {
     return array_;
   }
-  void operator= (Array const &src)
+  void operator = (Array const &src)
   {
     set_size (src.size_);
     arrcpy (array_, src.array_, size_);
@@ -132,19 +132,19 @@ public:
   T *remove_array ();
 
   /// access element
-  T &operator[] (int i)
+  T &operator [] (int i)
   {
     return elem_ref (i);
   }
   /// access element
-  T const &operator[] (int i) const
+  T const &operator [] (int i) const
   {
     return elem_ref (i);
   }
   /// access element
   T &elem_ref (int i) const
   {
-    assert (i >=0 && i < size_);
+    assert (i >= 0 && i < size_);
     return ((T *)array_)[i];
   }
   /// access element
@@ -157,7 +157,7 @@ public:
   void push (T x)
   {
     if (size_ == max_)
-      remax (2*max_ + 1);
+      remax (2 * max_ + 1);
 
     // T::operator= (T &) is called here. Safe to use with automatic
     // vars
@@ -201,7 +201,7 @@ public:
   void swap (int i, int j)
   {
     T t ((*this)[i]);
-    (*this)[i]= (*this)[j];
+    (*this)[i] = (*this)[j];
     (*this)[j] = t;
   }
   bool is_empty () const
@@ -224,7 +224,7 @@ public:
   }
   void del (int i)
   {
-    assert (i >=0&& i < size_);
+    assert (i >= 0&& i < size_);
     arrcpy (array_ + i, array_ + i + 1, size_ - i - 1);
     size_--;
   }

@@ -27,7 +27,7 @@ void
 Spaceable_grob::add_rod (Grob *me, Grob *p, Real d)
 {
   //  printf ("rod %lf\n", d);
-  if (isinf(d) || d < 0)
+  if (isinf (d) || d < 0)
     {
       programming_error ("Weird rod");
     }

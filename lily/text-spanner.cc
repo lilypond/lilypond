@@ -135,9 +135,10 @@ Text_spanner::print (SCM smob)
 	}
     }
   while (flip (&d) != LEFT);
+
   do
     {
-      if (d* span_points[d] > d * edge[-d].extent (X_AXIS)[d])
+      if (d * span_points[d] > d * edge[-d].extent (X_AXIS)[d])
 	{
 	  edge_line[d].translate_axis (span_points[d], X_AXIS);
 	  m.add_stencil (edge_line[d]);

@@ -14,7 +14,7 @@
 #include "lily-proto.hh"
 #include "object-key.hh"
 
-typedef std::map < Object_key const *, SCM, Object_key_less> Tweak_map;
+typedef std::map<Object_key const *, SCM, Object_key_less> Tweak_map;
 
 class Tweak_registry
 {

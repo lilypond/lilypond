@@ -52,7 +52,6 @@ Melisma_translator::process_music ()
       else
 	context ()->unset_property (ly_symbol2scm ("melismaBusy"));
     }
-
 }
 
 void

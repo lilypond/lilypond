@@ -22,7 +22,7 @@ bool
 Context::is_removable () const
 {
   return context_list_ == SCM_EOL && ! iterator_count_
-    && !dynamic_cast < Score_context const *> (this);
+    && !dynamic_cast<Score_context const *> (this);
 }
 
 void
@@ -459,7 +459,6 @@ Context::get_output_def () const
 
 Context::~Context ()
 {
-
 }
 
 Moment

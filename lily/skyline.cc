@@ -68,7 +68,7 @@ insert_extent_into_skyline (Array<Skyline_entry> *line, Box b, Axis line_axis,
 
       if (!w.is_empty ()
 	  && w.length () > EPS
-	  && d* (my_height - stick_out) < 0)
+	  && d * (my_height - stick_out) < 0)
 	{
 	  Interval e1 (line->elem (i).width_[LEFT], extent[LEFT]);
 	  Interval e3 (extent[RIGHT], line->elem (i).width_[RIGHT]);
@@ -81,12 +81,11 @@ insert_extent_into_skyline (Array<Skyline_entry> *line, Box b, Axis line_axis,
 	  if (!e1.is_empty () && e1.length () > EPS)
 	    line->insert (Skyline_entry (e1, my_height), i);
 	}
-
     }
 }
 
 void
-merge_skyline (Array<Skyline_entry> * a1,
+merge_skyline (Array<Skyline_entry> *a1,
 	       Array<Skyline_entry> const &a2,
 	       Direction dir)
 {
@@ -180,7 +179,6 @@ Skyline_entry::Skyline_entry (Interval i, Real r)
 {
   width_ = i;
   height_ = r;
-
 }
 
 void

@@ -66,7 +66,7 @@ Slur_engraver::try_music (Music *m)
 void
 Slur_engraver::set_melisma (bool m)
 {
-  context ()->set_property ("slurMelismaBusy", m ? SCM_BOOL_T :SCM_BOOL_F);
+  context ()->set_property ("slurMelismaBusy", m ? SCM_BOOL_T : SCM_BOOL_F);
 }
 
 void
@@ -93,7 +93,7 @@ Slur_engraver::acknowledge_grob (Grob_info info)
 	}
       else if (inside == SCM_BOOL_F)
 	{
-	  Grob *slur = slurs_.size ()?slurs_[0] : 0;
+	  Grob *slur = slurs_.size () ? slurs_[0] : 0;
 	  slur = (end_slurs_.size () && !slur)
 	    ? end_slurs_[0] : slur;
 

@@ -88,7 +88,7 @@ Gourlay_breaking::do_solve () const
   bool ragged_last = to_boolean (pscore_->layout_->c_variable ("raggedlast"));
 
   Real worst_force = 0.0;
-  for (int break_idx = 1; break_idx< breaks.size (); break_idx++)
+  for (int break_idx = 1; break_idx < breaks.size (); break_idx++)
     {
       /*
 	start with a short line, add measures. At some point
@@ -186,7 +186,7 @@ Gourlay_breaking::do_solve () const
   Array<Column_x_positions> lines;
 
   /* skip 0-th element, since it is a "dummy" elt*/
-  for (int i = optimal_paths.size () - 1; i> 0;)
+  for (int i = optimal_paths.size () - 1; i > 0;)
     {
       final_breaks.push (i);
       int prev = optimal_paths[i].prev_break_;

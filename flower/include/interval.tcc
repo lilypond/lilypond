@@ -17,7 +17,7 @@
 
 template<class T>
 int
-_Interval__compare (const Interval_t<T>&a, Interval_t<T> const &b)
+_Interval__compare (const Interval_t<T> &a, Interval_t<T> const &b)
 {
   if (a.elem (LEFT) == b.elem (LEFT) && a.elem (RIGHT) == b.elem (RIGHT))
     return 0;
@@ -136,6 +136,6 @@ Interval_t<T>::contains (T r)
 }
 
 #define INTERVAL__INSTANTIATE(T) struct Interval_t<T>;			\
-  template int Interval__compare (const Interval_t<T>&, Interval_t<T> const &)
+  template int Interval__compare (const Interval_t<T> &, Interval_t<T> const &)
 
 #endif // INTERVAL_TCC

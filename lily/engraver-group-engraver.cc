@@ -109,7 +109,7 @@ Engraver_group_engraver::do_announces ()
 	    group->do_announces ();
 	}
 
-      do
+      while (1)
 	{
 	  engraver_each (get_simple_trans_list (),
 			 &Engraver::process_acknowledged_grobs);
@@ -120,11 +120,8 @@ Engraver_group_engraver::do_announces ()
 	  acknowledge_grobs ();
 	  announce_infos_.clear ();
 	}
-      while (1);
-
     }
   while (pending_grob_count () > 0);
-
 }
 
 void

@@ -73,19 +73,19 @@ struct Interval_t : public Drul_array<T>
   Interval_t (T m, T M) : Drul_array<T> (m, M)
   {
   }
-  Interval_t<T> &operator-= (T r)
+  Interval_t<T> &operator -= (T r)
   {
     *this += -r;
     return *this;
   }
 
-  Interval_t<T> &operator+= (T r)
+  Interval_t<T> &operator += (T r)
   {
     elem_ref (LEFT) += r;
-    elem_ref (RIGHT) +=r;
+    elem_ref (RIGHT) += r;
     return *this;
   }
-  Interval_t<T> &operator*= (T r)
+  Interval_t<T> &operator *= (T r)
   {
     if (!is_empty ())
       {
@@ -93,7 +93,6 @@ struct Interval_t : public Drul_array<T>
 	elem_ref (RIGHT) *= r;
 	if (r < T (0))
 	  swap ();
-
       }
     return *this;
   }
@@ -111,7 +110,7 @@ struct Interval_t : public Drul_array<T>
     T r = -elem (LEFT);
     T l = -elem (RIGHT);
     elem_ref (LEFT) = l;
-    elem_ref (RIGHT) =r;
+    elem_ref (RIGHT) = r;
   }
 
   void swap ()
@@ -126,14 +125,14 @@ struct Interval_t : public Drul_array<T>
    inclusion ordering. Crash if not  comparable.
 */
 template<class T>
-int Interval__compare (const Interval_t<T>&, Interval_t<T> const &);
+int Interval__compare (const Interval_t<T> &, Interval_t<T> const &);
 
 /**
    Inclusion ordering.  return -2 if not comparable
 */
 template<class T>
 int
-_Interval__compare (const Interval_t<T>&a, Interval_t<T> const &b);
+_Interval__compare (const Interval_t<T> &a, Interval_t<T> const &b);
 
 /*
   INLINE
@@ -141,7 +140,7 @@ _Interval__compare (const Interval_t<T>&a, Interval_t<T> const &b);
 
 #include "compare.hh"
 
-TEMPLATE_INSTANTIATE_COMPARE (Interval_t<T>&, Interval__compare, template<class T>);
+TEMPLATE_INSTANTIATE_COMPARE (Interval_t<T> &, Interval__compare, template<class T>);
 
 template<class T>
 inline Interval_t<T>
@@ -149,12 +148,11 @@ intersection (Interval_t<T> a, Interval_t<T> const &b)
 {
   a.intersect (b);
   return a;
-
 }
 
 template<class T>
 inline
-Interval_t<T> operator+ (T a, Interval_t<T> i)
+Interval_t<T> operator + (T a, Interval_t<T> i)
 {
   i += a;
   return i;
@@ -162,7 +160,7 @@ Interval_t<T> operator+ (T a, Interval_t<T> i)
 
 template<class T>
 inline
-Interval_t<T> operator- (Interval_t<T> i, T a)
+Interval_t<T> operator - (Interval_t<T> i, T a)
 {
   i += -a;
   return i;
@@ -170,7 +168,7 @@ Interval_t<T> operator- (Interval_t<T> i, T a)
 
 template<class T>
 inline
-Interval_t<T> operator- (T a, Interval_t<T> i)
+Interval_t<T> operator - (T a, Interval_t<T> i)
 {
   i.negate ();
   i += a;
@@ -179,14 +177,14 @@ Interval_t<T> operator- (T a, Interval_t<T> i)
 
 template<class T>
 inline
-Interval_t<T> operator+ (Interval_t<T> i, T a)
+Interval_t<T> operator + (Interval_t<T> i, T a)
 {
   return a + i;
 }
 
 template<class T>
 inline
-Interval_t<T> operator* (T a, Interval_t<T> i)
+Interval_t<T> operator * (T a, Interval_t<T> i)
 {
   i *= a;
   return i;
@@ -194,9 +192,9 @@ Interval_t<T> operator* (T a, Interval_t<T> i)
 
 template<class T>
 inline
-Interval_t<T> operator* (Interval_t<T> i, T a)
+Interval_t<T> operator * (Interval_t<T> i, T a)
 {
-  return a*i;
+  return a * i;
 }
 
 template<class T>

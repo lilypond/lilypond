@@ -35,7 +35,6 @@ struct Finger_tuple
   {
     return c1.position_- c2.position_;
   }
-
 };
 
 class New_fingering_engraver : public Engraver
@@ -174,7 +173,7 @@ New_fingering_engraver::position_scripts ()
   */
   for (int i = 0; i < fingerings_.size (); i++)
     {
-      fingerings_[i].position_ = scm_to_int (fingerings_[i].head_ -> get_property ("staff-position"));
+      fingerings_[i].position_ = scm_to_int (fingerings_[i].head_->get_property ("staff-position"));
     }
 
   for (int i = fingerings_.size (); i--;)
@@ -222,7 +221,7 @@ New_fingering_engraver::position_scripts ()
   else if (up_p)
     {
       up.concat (fingerings_);
-      fingerings_ .clear ();
+      fingerings_.clear ();
     }
   else
     {
@@ -258,7 +257,6 @@ New_fingering_engraver::position_scripts ()
       f->add_offset_callback (Self_alignment_interface::aligned_on_self_proc, X_AXIS);
 
       f->set_property ("direction", scm_int2num (UP));
-
     }
 
   for (int i = 0; i < down.size (); i++)

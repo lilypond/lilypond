@@ -137,7 +137,7 @@ Open_type_font::get_indexed_char (int signed_idx) const
 {
   if (SCM_HASHTABLE_P (lily_character_table_))
     {
-      const int len =256;
+      const int len = 256;
       char name[len];
       int code = FT_Get_Glyph_Name (face_, signed_idx, name, len);
       if (code)

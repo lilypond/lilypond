@@ -41,17 +41,17 @@ public:
   Byte *get_bytes ();
   char *get_str0 ();
   bool is_binary_bo () const;
-  void operator= (String_handle const &src);
-  void operator+= (char const *s);
-  Byte operator[] (int j) const;
+  void operator = (String_handle const &src);
+  void operator += (char const *s);
+  Byte operator [] (int j) const;
 
   /** Access elements. WARNING: NOT SAFE
       don't use this for loops. Use to_bytes ()
   */
-  Byte &operator[] (int j);
+  Byte &operator [] (int j);
   void append (Byte const *byte, int length_i);
   void set (Byte const *byte, int length_i);
-  void operator= (char const *p);
+  void operator = (char const *p);
   void trunc (int j);
   int length () const;
 };

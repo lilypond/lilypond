@@ -65,7 +65,7 @@ Hairpin::print (SCM smob)
 	    {
 	      Interval e = b->extent (common, X_AXIS);
 	      if (!e.is_empty ())
-		x_points[d] = e[-d] - d*padding;
+		x_points[d] = e[-d] - d * padding;
 	    }
 	  else
 	    {

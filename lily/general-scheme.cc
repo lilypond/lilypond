@@ -97,7 +97,7 @@ LY_DEFINE (ly_dir_p, "ly:dir?",
   if (scm_is_number (s))
     {
       int i = scm_to_int (s);
-      return (i>= -1 && i <= 1) ? SCM_BOOL_T : SCM_BOOL_F;
+      return (i >= -1 && i <= 1) ? SCM_BOOL_T : SCM_BOOL_F;
     }
   return SCM_BOOL_F;
 }

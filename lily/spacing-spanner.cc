@@ -230,7 +230,6 @@ Spacing_spanner::prune_loose_columns (Grob *me, Link_array<Grob> *cols, Rational
 
 		      dists[d] = dists[d] >? fixed_space;
 		    }
-
 		}
 	    }
 	  while (flip (&d) != LEFT);
@@ -338,13 +337,13 @@ Spacing_spanner::set_implicit_neighbor_columns (Link_array<Grob> cols)
       /*
 	sloppy with typnig left/right-neighbors should take list, but paper-column found instead.
       */
-      SCM ln = cols[i] ->get_property ("left-neighbors");
+      SCM ln = cols[i]->get_property ("left-neighbors");
       if (!scm_is_pair (ln) && i)
 	{
 	  cols[i]->set_property ("left-neighbors", scm_cons (cols[i - 1]->self_scm (), SCM_EOL));
 	}
 
-      SCM rn = cols[i] ->get_property ("right-neighbors");
+      SCM rn = cols[i]->get_property ("right-neighbors");
       if (!scm_is_pair (rn) && i < cols.size () - 1)
 	{
 	  cols[i]->set_property ("right-neighbors", scm_cons (cols[i + 1]->self_scm (), SCM_EOL));
@@ -579,7 +578,6 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item *lc, Item *rc, Real incr
 	  compound_note_space = compound_note_space + space;
 	  compound_fixed_note_space = compound_fixed_note_space + fixed;
 	  wish_count++;
-
 	}
     }
 
@@ -730,7 +728,7 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r, Moment sh
 	    pointer munging.
 
 	  */
-	  assert (spacing_grob-> get_column () == l);
+	  assert (spacing_grob->get_column () == l);
 
 	  Staff_spacing::get_spacing_params (spacing_grob,
 					     &space, &fixed_space);
@@ -823,7 +821,7 @@ Spacing_spanner::get_duration_space (Grob *me, Moment d, Rational shortest, bool
       */
       Real log = log_2 (shortest);
       k -= log;
-      Rational compdur = d.main_part_ + d.grace_part_ /Rational (3);
+      Rational compdur = d.main_part_ + d.grace_part_ / Rational (3);
       *expand_only = false;
 
       return (log_2 (compdur) + k) * incr;
@@ -861,13 +859,13 @@ Spacing_spanner::note_spacing (Grob *me, Grob *lc, Grob *rc,
       Moment *dt = unsmob_moment (rc->get_property ("measure-length"));
       if (dt)
 	{
-	  delta_t = delta_t <? *dt;
+	  delta_t = delta_t <? * dt;
 
 	  /*
 	    The following is an extra safety measure, such that
 	    the length of a mmrest event doesn't cause havoc.
 	  */
-	  shortest_playing_len = shortest_playing_len <? *dt;
+	  shortest_playing_len = shortest_playing_len <? * dt;
 	}
     }
   Real dist = 0.0;

@@ -49,7 +49,6 @@ Engraver::announce_grob (Grob *e, SCM cause)
     g->announce_grob (i);
 }
 
-
 Engraver::Engraver ()
 {
 }

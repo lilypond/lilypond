@@ -11,7 +11,6 @@
 
 #include "simple-music-iterator.hh"
 
-
 /**
    Iterate a property.
 */
@@ -25,7 +24,6 @@ protected:
   virtual void do_quit ();
   virtual void process (Moment);
 };
-
 
 /**
    Iterate a property.

@@ -176,7 +176,6 @@ Score_engraver::typeset_all ()
 	    {
 	      bool br = to_boolean (elem->get_property ("breakable"));
 	      Axis_group_interface::add_element (br ? command_column_ : musical_column_, elem);
-
 	    }
 	}
       if (!elem->get_parent (Y_AXIS))
@@ -229,7 +228,7 @@ Music_output *
 Score_engraver::get_output ()
 {
   Music_output *o = pscore_;
-  ///FIXME WTF? pscore_ = 0;
+  ///FIXME WTF ? pscore_ = 0;
   return o;
 }
 
@@ -303,7 +302,6 @@ Score_engraver::acknowledge_grob (Grob_info gi)
 					     gi.grob_);
 	}
     }
-
 }
 
 ADD_TRANSLATOR (Score_engraver,

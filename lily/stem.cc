@@ -120,7 +120,7 @@ Stem::set_stemend (Grob *me, Real se)
   // todo: margins
   Direction d = get_direction (me);
 
-  if (d && d * head_positions (me)[get_direction (me)] >= se*d)
+  if (d && d * head_positions (me)[get_direction (me)] >= se * d)
     me->warning (_ ("Weird stem size; check for narrow beams"));
 
   me->set_property ("stem-end-position", scm_make_real (se));
@@ -194,7 +194,6 @@ Stem::extremal_heads (Grob *me)
 	    }
 	}
       while (flip (&d) != DOWN);
-
     }
   return exthead;
 }
@@ -298,8 +297,8 @@ Stem::get_default_stem_end_position (Grob *me)
   if (dir && dir * hp[dir] >= 0)
     {
       SCM sshorten = me->get_property ("stem-shorten");
-      SCM scm_shorten = scm_is_pair (sshorten) ?
-	robust_list_ref ((duration_log (me) - 2) >? 0, sshorten): SCM_EOL;
+      SCM scm_shorten = scm_is_pair (sshorten)
+	? robust_list_ref ((duration_log (me) - 2) >? 0, sshorten) : SCM_EOL;
       Real shorten = 2* robust_scm2double (scm_shorten, 0);
 
       /* On boundary: shorten only half */
@@ -696,7 +695,7 @@ Stem::print (SCM smob)
     = me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter"));
 
   Box b = Box (Interval (-stem_width / 2, stem_width / 2),
-	       Interval (stem_y[DOWN]*half_space, stem_y[UP]*half_space));
+	       Interval (stem_y[DOWN] * half_space, stem_y[UP] * half_space));
 
   Stencil ss = Lookup::round_filled_box (b, blot);
   mol.add_stencil (ss);
@@ -704,7 +703,7 @@ Stem::print (SCM smob)
   if (!get_beam (me) && abs (duration_log (me)) > 2)
     {
       Stencil fl = flag (me);
-      fl.translate_axis (stem_y[d]*half_space - d * blot / 2, Y_AXIS);
+      fl.translate_axis (stem_y[d] * half_space - d * blot / 2, Y_AXIS);
       fl.translate_axis (stem_width / 2, X_AXIS);
       mol.add_stencil (fl);
     }

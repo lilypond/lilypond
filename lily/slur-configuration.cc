@@ -81,7 +81,7 @@ fit_factor (Offset dz_unit, Offset dz_perp,
     {
       Offset z = (avoid[i] - x0);
       Offset p (dot_product (z, dz_unit),
-		d* dot_product (z, dz_perp));
+		d * dot_product (z, dz_perp));
       if (!curve_xext.contains (p[X_AXIS]))
 	continue;
 
@@ -108,7 +108,7 @@ Slur_configuration::generate_curve (Slur_score_state const &state,
 	continue;
 
       Encompass_info inf (state.get_encompass_info (encompasses[i]));
-      Real y = state.dir_ * ((state.dir_ * inf.head_) >? (state.dir_ *inf.stem_));
+      Real y = state.dir_ * ((state.dir_ * inf.head_) >? (state.dir_ * inf.stem_));
 
       avoid.push (Offset (inf.x_, y + state.dir_ * state.parameters_.free_head_distance_));
     }
@@ -201,7 +201,6 @@ Slur_configuration::Slur_configuration ()
   index_ = -1;
 };
 
-
 void
 Slur_configuration::score_encompass (Slur_score_state const &state)
 {
@@ -255,7 +254,7 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
 
 	      Real closest
 		= state.dir_ * (state.dir_ * state.encompass_infos_[j].get_point (state.dir_)
-				>? state.dir_ *line_y);
+				>? state.dir_ * line_y);
 	      Real d = fabs (closest - y);
 
 	      convex_head_distances.push (d);
@@ -361,7 +360,7 @@ Slur_configuration::score_extra_encompass (Slur_score_state const &state)
 	  Item *as_item = dynamic_cast<Item *> (state.extra_encompass_infos_[j].grob_);
 	  if ((as_item
 	       && as_item->get_column ()
-	       == state.extremes_[d] .bound_->get_column ())
+	       == state.extremes_[d].bound_->get_column ())
 	      || state.extra_encompass_infos_[j].extents_[X_AXIS].contains (attachment[d][X_AXIS]))
 	    {
 	      y = attachment[d][Y_AXIS];

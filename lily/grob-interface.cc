@@ -32,7 +32,6 @@ check_interfaces_for_property (Grob const *me, SCM sym)
 	otherwise we get in a nasty recursion loop.
       */
       return;
-
     }
   SCM ifs = me->get_property ("interfaces");
 

@@ -12,7 +12,7 @@
 #include "lily-proto.hh"
 #include "moment.hh"
 
-struct Midi_note_event : PQueue_ent < Moment, Midi_note *>
+struct Midi_note_event : PQueue_ent<Moment, Midi_note *>
 {
   bool ignore_b_;
   Midi_note_event ();
@@ -30,7 +30,7 @@ public:
   ~Midi_walker ();
 
   void process ();
-  void operator++ (int);
+  void operator ++ (int);
   bool ok () const;
 
 private:
@@ -41,7 +41,7 @@ private:
   Midi_track *track_;
   Audio_staff *staff_;
   int index_;
-  Link_array<Audio_item> * items_;
+  Link_array<Audio_item> *items_;
   PQueue<Midi_note_event> stop_note_queue;
   Moment last_mom_;
 };

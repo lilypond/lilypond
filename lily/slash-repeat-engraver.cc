@@ -119,7 +119,6 @@ Slash_repeat_engraver::stop_translation_timestep ()
   beat_slash_ = 0;
 }
 
-
 ADD_TRANSLATOR (Slash_repeat_engraver,
 		/* descr */ "Make beat repeats.",
 		/* creats*/ "RepeatSlash",

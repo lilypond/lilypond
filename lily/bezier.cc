@@ -28,17 +28,17 @@ binomial_coefficient (Real over, int under)
 }
 
 void
-scale (Array<Offset>* array, Real x, Real y)
+scale (Array<Offset> *array, Real x, Real y)
 {
   for (int i = 0; i < array->size (); i++)
     {
-      (*array)[i][X_AXIS] = x* (*array)[i][X_AXIS];
-      (*array)[i][Y_AXIS] = y* (*array)[i][Y_AXIS];
+      (*array)[i][X_AXIS] = x * (*array)[i][X_AXIS];
+      (*array)[i][Y_AXIS] = y * (*array)[i][Y_AXIS];
     }
 }
 
 void
-rotate (Array<Offset>* array, Real phi)
+rotate (Array<Offset> *array, Real phi)
 {
   Offset rot (complex_exp (Offset (0, phi)));
   for (int i = 0; i < array->size (); i++)
@@ -46,7 +46,7 @@ rotate (Array<Offset>* array, Real phi)
 }
 
 void
-translate (Array<Offset>* array, Offset o)
+translate (Array<Offset> *array, Offset o)
 {
   for (int i = 0; i < array->size (); i++)
     (*array)[i] += o;
@@ -85,7 +85,7 @@ Offset
 Bezier::curve_point (Real t) const
 {
   Real tj = 1;
-  Real one_min_tj = (1 - t)* (1 - t)* (1 - t);
+  Real one_min_tj = (1 - t) * (1 - t) * (1 - t);
 
   Offset o;
   for (int j = 0; j < 4; j++)
@@ -99,8 +99,8 @@ Bezier::curve_point (Real t) const
     }
 
 #ifdef PARANOID
-  assert (fabs (o[X_AXIS] - polynomial (X_AXIS).eval (t))< 1e-8);
-  assert (fabs (o[Y_AXIS] - polynomial (Y_AXIS).eval (t))< 1e-8);
+  assert (fabs (o[X_AXIS] - polynomial (X_AXIS).eval (t)) < 1e-8);
+  assert (fabs (o[Y_AXIS] - polynomial (Y_AXIS).eval (t)) < 1e-8);
 #endif
 
   return o;
@@ -128,7 +128,7 @@ Array<Real>
 filter_solutions (Array<Real> sol)
 {
   for (int i = sol.size (); i--;)
-    if (sol[i] < 0 || sol[i] >1)
+    if (sol[i] < 0 || sol[i] > 1)
       sol.del (i);
   return sol;
 }
@@ -170,7 +170,7 @@ Bezier::extent (Axis a) const
 {
   int o = (a + 1)%NO_AXES;
   Offset d;
-  d[Axis (o)] =1.0;
+  d[Axis (o)] = 1.0;
   Interval iv;
   Array<Real> sols (solve_derivative (d));
   sols.push (1.0);

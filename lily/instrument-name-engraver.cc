@@ -73,7 +73,6 @@ Instrument_name_engraver::create_text ()
 
   if (text_->get_property ("text") != txt)
     text_->set_property ("text", txt);
-
 }
 
 void
@@ -168,7 +167,6 @@ Vocal_name_engraver::create_text ()
 
   if (text_->get_property ("text") != txt)
     text_->set_property ("text", txt);
-
 }
 
 ADD_TRANSLATOR (Vocal_name_engraver,

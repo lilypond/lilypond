@@ -40,10 +40,10 @@
     prefix ONE_OPERATOR (type, function, <)				\
     prefix ONE_OPERATOR (type, function, <=)				\
     GPP_MINMAX (type, prefix)						\
-    prefix inline type max (type t1, type t2) { return (t1 > t2)? t1 : t2; } \
-  prefix inline type min (type t1, type t2) { return (t1 < t2)? t1 : t2; } \
+    prefix inline type max (type t1, type t2) { return (t1 > t2) ? t1 : t2; } \
+  prefix inline type min (type t1, type t2) { return (t1 < t2) ? t1 : t2; } \
 									\
-  prefix bool operator< (type t1, type t2) /* stupid fix to allow ; */
+  prefix bool operator < (type t1, type t2) /* stupid fix to allow ; */
 
 #define INSTANTIATE_COMPARE(type, func) TEMPLATE_INSTANTIATE_COMPARE (type, func,)
 

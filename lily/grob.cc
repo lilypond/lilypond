@@ -123,7 +123,7 @@ Grob::Grob (Grob const &s, int copy_index)
   : dim_cache_ (s.dim_cache_)
 {
   key_ = new Copied_key (s.key_, copy_index);
-  original_ = (Grob *) &s;
+  original_ = (Grob *) & s;
   self_scm_ = SCM_EOL;
 
   immutable_property_alist_ = s.immutable_property_alist_;
@@ -241,7 +241,7 @@ Grob::get_uncached_stencil () const
 	{
 	  SCM expr = scm_list_3 (ly_symbol2scm ("grob-cause"), self_scm (),
 				 m->expr ());
-	  stil = Stencil (m->extent_box (), expr). smobbed_copy ();
+	  stil = Stencil (m->extent_box (), expr).smobbed_copy ();
 	}
 
       /* color support... see interpret_stencil_expression() for more... */
@@ -439,11 +439,12 @@ Grob::extent (Grob *refp, Axis a) const
 {
   Real x = relative_coordinate (refp, a);
 
-  Dimension_cache *d = (Dimension_cache *) &dim_cache_[a];
+  Dimension_cache *d = (Dimension_cache *) & dim_cache_[a];
   Interval ext;
 
   SCM dimpair = d->dimension_;
-  if (scm_is_pair (dimpair));
+  if (scm_is_pair (dimpair))
+    ;
   else if (ly_c_procedure_p (d->dimension_callback_)
 	   && d->dimension_ == SCM_EOL)
     d->dimension_ = scm_call_2 (d->dimension_callback_, self_scm (), scm_int2num (a));
@@ -599,7 +600,7 @@ Grob::fixup_refpoint (SCM smob)
 	  if (parenti && i)
 	    {
 	      Direction my_dir = i->break_status_dir ();
-	      if (my_dir!= parenti->break_status_dir ())
+	      if (my_dir != parenti->break_status_dir ())
 		{
 		  Item *newparent = parenti->find_prebroken_piece (my_dir);
 		  me->set_parent (newparent, ax);

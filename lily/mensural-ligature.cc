@@ -38,8 +38,8 @@ brew_flexa (Grob *me,
 
   // Compensate optical illusion regarding vertical position of left
   // and right endings due to slope.
-  Real ypos_correction = -0.1*staff_space * sign (slope);
-  Real slope_correction = 0.2*staff_space * sign (slope);
+  Real ypos_correction = -0.1 * staff_space * sign (slope);
+  Real slope_correction = 0.2 * staff_space * sign (slope);
   Real corrected_slope = slope + slope_correction / width;
 
   if (solid) // this will come handy for colorated flexae
@@ -62,12 +62,12 @@ brew_flexa (Grob *me,
 
       Stencil bottom_edge
 	= Lookup::beam (corrected_slope, width, thickness, 0.0);
-      bottom_edge.translate_axis (-0.5*height, Y_AXIS);
+      bottom_edge.translate_axis (-0.5 * height, Y_AXIS);
       stencil.add_stencil (bottom_edge);
 
       Stencil top_edge
 	= Lookup::beam (corrected_slope, width, thickness, 0.0);
-      top_edge.translate_axis (+0.5*height, Y_AXIS);
+      top_edge.translate_axis (+0.5 * height, Y_AXIS);
       stencil.add_stencil (top_edge);
     }
   stencil.translate_axis (ypos_correction, Y_AXIS);
@@ -189,7 +189,7 @@ internal_brew_primitive (Grob *me)
   if (primitive & MLP_FLEXA)
     {
       pos += delta_pitch;
-      add_ledger_lines (me, &out, pos, 0.5*delta_pitch, ledger_take_space);
+      add_ledger_lines (me, &out, pos, 0.5 * delta_pitch, ledger_take_space);
     }
 #endif
 

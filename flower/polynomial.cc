@@ -32,7 +32,7 @@ Polynomial::multiply (const Polynomial &p1, const Polynomial &p2)
 {
   Polynomial dest;
 
-  int deg= p1.degree () + p2.degree ();
+  int deg = p1.degree () + p2.degree ();
   for (int i = 0; i <= deg; i++)
     {
       dest.coefs_.push (0);
@@ -47,7 +47,7 @@ Polynomial::multiply (const Polynomial &p1, const Polynomial &p2)
 void
 Polynomial::differentiate ()
 {
-  for (int i = 1; i<= degree (); i++)
+  for (int i = 1; i <= degree (); i++)
     {
       coefs_[i - 1] = coefs_[i] * i;
     }
@@ -95,7 +95,7 @@ Polynomial::clean ()
 }
 
 void
-Polynomial::operator+= (Polynomial const &p)
+Polynomial::operator += (Polynomial const &p)
 {
   while (degree () < p.degree ())
     coefs_.push (0.0);
@@ -105,7 +105,7 @@ Polynomial::operator+= (Polynomial const &p)
 }
 
 void
-Polynomial::operator-= (Polynomial const &p)
+Polynomial::operator -= (Polynomial const &p)
 {
   while (degree () < p.degree ())
     coefs_.push (0.0);
@@ -167,7 +167,8 @@ Polynomial::check_sol (Real x) const
   p.differentiate ();
   Real d = p.eval (x);
 
-  if (abs (f) > abs (d) * FUDGE);
+  if (abs (f) > abs (d) * FUDGE)
+    ;
   /*
     warning ("x=%f is not a root of polynomial\n"
     "f (x)=%f, f' (x)=%f \n", x, f, d);	*/
@@ -176,7 +177,7 @@ Polynomial::check_sol (Real x) const
 void
 Polynomial::check_sols (Array<Real> roots) const
 {
-  for (int i = 0; i< roots.size (); i++)
+  for (int i = 0; i < roots.size (); i++)
     check_sol (roots[i]);
 }
 
@@ -233,20 +234,23 @@ Polynomial::solve_cubic ()const
 	sol.push (0);
 	sol.push (0);
 	sol.push (0);
-      } else {		/* one single and one double solution */
+      }
+      else {		/* one single and one double solution */
 	Real u = cubic_root (-q);
 
 	sol.push (2 * u);
 	sol.push (-u);
       }
-    } else if (D < 0) {		/* Casus irreducibilis: three real solutions */
+    }
+  else if (D < 0) {		/* Casus irreducibilis: three real solutions */
     Real phi = 1.0 / 3 * acos (-q / sqrt (-cb));
     Real t = 2 * sqrt (-p);
 
     sol.push (t * cos (phi));
     sol.push (-t * cos (phi + M_PI / 3));
     sol.push (-t * cos (phi - M_PI / 3));
-  } else {			/* one real solution */
+  }
+  else {			/* one real solution */
     Real sqrt_D = sqrt (D);
     Real u = cubic_root (sqrt_D - q);
     Real v = -cubic_root (sqrt_D + q);
@@ -339,7 +343,7 @@ Polynomial::solve () const
 }
 
 void
-Polynomial:: operator*= (Polynomial const &p2)
+Polynomial::operator *= (Polynomial const &p2)
 {
   *this = multiply (*this, p2);
 }

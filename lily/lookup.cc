@@ -358,15 +358,15 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick)
 
   SCM scontrols[8];
 
-  for (int i =4; i--;)
+  for (int i = 4; i--;)
     scontrols[ i ] = ly_offset2scm (back.control_[i]);
-  for (int i =4; i--;)
+  for (int i = 4; i--;)
     scontrols[i + 4] = ly_offset2scm (curve.control_[i]);
 
   /*
     Need the weird order b.o. the way PS want its arguments
   */
-  int indices[]= {5, 6, 7, 4, 1, 2, 3, 0};
+  int indices[] = {5, 6, 7, 4, 1, 2, 3, 0};
   SCM list = SCM_EOL;
   for (int i = 8; i--;)
     {

@@ -26,8 +26,8 @@ private:
   void read_char_metrics ();
   Tex_font_char_metric read_char_metric (Char_code code);
   Tex_font_char_metric read_char ();
-  void read_lig_kern_program (Array<Tfm_ligature>* ligatures,
-			      Array<Tfm_kern>* kerns);
+  void read_lig_kern_program (Array<Tfm_ligature> *ligatures,
+			      Array<Tfm_kern> *kerns);
 
   Binary_source_file input_;
 

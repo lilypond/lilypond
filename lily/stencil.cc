@@ -10,7 +10,7 @@
 
 #include <math.h>
 
-#include <libc-extension.hh>	// isinf
+#include < libc - extension.hh>	// isinf
 
 #include "input-smob.hh"
 #include "font-metric.hh"
@@ -282,7 +282,7 @@ find_expression_fonts (SCM expr)
   fl.fonts_ = SCM_EOL;
 
   interpret_stencil_expression (expr, &find_font_function,
-				(void *) &fl, Offset (0, 0));
+				(void *) & fl, Offset (0, 0));
 
   return fl.fonts_;
 }

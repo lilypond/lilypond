@@ -48,8 +48,8 @@ Ledger_line_spanner::brew_ledger_lines (Grob *staff,
     {
       Real blotdiameter = ledgerlinethickness;
       Interval y_extent
-	= Interval (-0.5* (ledgerlinethickness),
-		    +0.5* (ledgerlinethickness));
+	= Interval (-0.5 * (ledgerlinethickness),
+		    +0.5 * (ledgerlinethickness));
       Stencil proto_ledger_line
 	= Lookup::round_filled_box (Box (x_extent, y_extent), blotdiameter);
 
@@ -76,7 +76,6 @@ Ledger_line_spanner::brew_ledger_lines (Grob *staff,
   return stencil;
 }
 
-
 static void
 set_rods (Drul_array<Interval> const &current_extents,
 	  Drul_array<Interval> const &previous_extents,
@@ -95,7 +94,7 @@ set_rods (Drul_array<Interval> const &current_extents,
 
 	  Rod rod;
 	  rod.distance_ = total_head_length
-	    * (3/2 * min_length_fraction)
+	    * (3 / 2 * min_length_fraction)
 	    /*
 	      we go from right to left.
 	    */
@@ -106,11 +105,9 @@ set_rods (Drul_array<Interval> const &current_extents,
 	  rod.item_drul_[RIGHT] = previous_column;
 	  rod.add_to_cols ();
 	}
-
     }
   while (flip (&d) != DOWN);
 }
-
 
 MAKE_SCHEME_CALLBACK (Ledger_line_spanner, set_spacing_rods, 1);
 SCM
@@ -125,10 +122,8 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
 
   SCM heads = me->get_property ("note-heads");
 
-
   Real min_length_fraction
     = robust_scm2double (me->get_property ("minimum-length-fraction"), 0.15);
-
 
   Drul_array<Interval> current_extents;
   Drul_array<Interval> previous_extents;
@@ -143,27 +138,26 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
   for (SCM hp = heads; scm_is_pair (hp); hp = scm_cdr (hp))
     {
       Item *h = dynamic_cast<Item *> (unsmob_grob (scm_car (hp)));
-      
+
       int pos = Staff_symbol_referencer::get_rounded_position (h);
       if (abs (pos) <= interspaces)
 	continue;
-      
+
       Item *column = h->get_column ();
       if (current_column != column)
 	{
 	  set_rods (current_extents, previous_extents,
 		    current_column, previous_column,
 		    min_length_fraction);
-	  
+
 	  previous_column = current_column;
 	  current_column = column;
 	  previous_extents = current_extents;
-	  
-	  current_extents[DOWN].set_empty();
-	  current_extents[UP].set_empty();
+
+	  current_extents[DOWN].set_empty ();
+	  current_extents[UP].set_empty ();
 	}
-      
-      
+
       Interval head_extent = h->extent (column, X_AXIS);
       Direction vdir = Direction (sign (pos));
       if (!vdir)
@@ -177,8 +171,6 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
 	      current_column, previous_column,
 	      min_length_fraction);
 
-  
-  
   return SCM_UNSPECIFIED;
 }
 
@@ -201,7 +193,6 @@ typedef std::map < int, Drul_array<Ledger_request> > Ledger_requests;
 /*
   TODO: ledger share a lot of info. Lots of room to optimize away
   common use of objects/variables.
-
 */
 MAKE_SCHEME_CALLBACK (Ledger_line_spanner, print, 1);
 SCM
@@ -255,7 +246,7 @@ Ledger_line_spanner::print (SCM smob)
 	  reqs[rank][vdir].ledger_extent_.unite (ledger_extent);
 	  reqs[rank][vdir].head_extent_.unite (head_extent);
 	  reqs[rank][vdir].position_
-	    = vdir * ((vdir* reqs[rank][vdir].position_) >? (vdir *pos));
+	    = vdir * ((vdir * reqs[rank][vdir].position_) >? (vdir * pos));
 	}
     }
 
@@ -283,14 +274,14 @@ Ledger_line_spanner::print (SCM smob)
 	      Direction which = LEFT;
 	      do
 		{
-		  Ledger_request &lr = ((which == LEFT) ? *last : *i).second[d];
+		  Ledger_request &lr = ((which == LEFT) ? * last : *i).second[d];
 
 		  // due tilt of quarter note-heads
 		  bool both
 		    = (abs (last->second[d].position_) > interspaces + 1
 		       && abs (i->second[d].position_) > interspaces + 1);
 
-		  Real limit = (center + (both? which * gap / 2 : 0));
+		  Real limit = (center + (both ? which * gap / 2 : 0));
 		  lr.ledger_extent_.elem_ref (-which)
 		    = which * (which * lr.ledger_extent_[-which] >? which * limit);
 		}
@@ -313,7 +304,7 @@ Ledger_line_spanner::print (SCM smob)
 	{
 	  Interval head_size = h->extent (common[X_AXIS], X_AXIS);
 	  Interval ledger_size = head_size;
-	  ledger_size.widen (ledger_size.length ()* length_fraction);
+	  ledger_size.widen (ledger_size.length () * length_fraction);
 
 	  Interval max_size = reqs[Paper_column::get_rank (h->get_column ())][Direction (sign (pos))].ledger_extent_;
 
@@ -333,7 +324,6 @@ Ledger_line_spanner::print (SCM smob)
 		TODO: shorten 2 ledger lines for the case natural +
 		downstem.
 	      */
-
 	    }
 
 	  ledgers.add_stencil (brew_ledger_lines (staff, pos, interspaces,

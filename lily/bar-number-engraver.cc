@@ -54,7 +54,6 @@ Bar_number_engraver::process_music ()
 	    }
 	}
     }
-
 }
 
 Bar_number_engraver::Bar_number_engraver ()

@@ -42,9 +42,9 @@ Note_collision_interface::force_shift_callback (SCM element_smob, SCM axis)
 
 void
 check_meshing_chords (Grob *me,
-		      Drul_array< Array<Real> > *offsets,
-		      Drul_array< Array<Slice> > const &extents,
-		      Drul_array < Link_array<Grob> > const &clash_groups)
+		      Drul_array<Array<Real> > *offsets,
+		      Drul_array<Array<Slice> > const &extents,
+		      Drul_array<Link_array<Grob> > const &clash_groups)
 
 {
   if (!extents[UP].size () || ! extents[DOWN].size ())
@@ -147,11 +147,11 @@ check_meshing_chords (Grob *me,
 	  else
 	    distant_half_collide = true;
 	}
-      else if (ups[i]== dps[j])
+      else if (ups[i] == dps[j])
 	full_collide = true;
-      else if (ups[i] >dps[0] && ups[i] < dps.top ())
+      else if (ups[i] > dps[0] && ups[i] < dps.top ())
 	merge_possible = false;
-      else if (dps[j] >ups[0] && dps[j] < ups.top ())
+      else if (dps[j] > ups[0] && dps[j] < ups.top ())
 	merge_possible = false;
 
       if (ups[i] < dps[j])
@@ -284,13 +284,13 @@ check_meshing_chords (Grob *me,
       for (int i = 0; i < clash_groups[d].size (); i++)
 	(*offsets)[d][i] += d * shift_amount;
     }
-  while ((flip (&d))!= UP);
+  while ((flip (&d)) != UP);
 }
 
 void
 Note_collision_interface::do_shifts (Grob *me)
 {
-  Drul_array< Link_array<Grob> > cg = get_clash_groups (me);
+  Drul_array<Link_array<Grob> > cg = get_clash_groups (me);
 
   SCM autos (automatic_shift (me, cg));
   SCM hand (forced_shift (me));
@@ -320,12 +320,11 @@ Note_collision_interface::do_shifts (Grob *me)
       amounts.push (amount);
       if (amount < left_most)
 	left_most = amount;
-
     }
   for (; scm_is_pair (autos); autos = scm_cdr (autos))
     {
       Grob *s = unsmob_grob (scm_caar (autos));
-      Real amount = scm_to_double (scm_cdar (autos)) *wid;
+      Real amount = scm_to_double (scm_cdar (autos)) * wid;
 
       if (!done.find (s))
 	{
@@ -342,10 +341,10 @@ Note_collision_interface::do_shifts (Grob *me)
     }
 }
 
-Drul_array< Link_array<Grob>
+Drul_array < Link_array<Grob>
 > Note_collision_interface::get_clash_groups (Grob *me)
 {
-  Drul_array < Link_array<Grob> > clash_groups;
+  Drul_array<Link_array<Grob> > clash_groups;
 
   SCM s = me->get_property ("elements");
   for (; scm_is_pair (s); s = scm_cdr (s))
@@ -360,10 +359,10 @@ Drul_array< Link_array<Grob>
   Direction d = UP;
   do
     {
-      Link_array<Grob> & clashes (clash_groups[d]);
+      Link_array<Grob> &clashes (clash_groups[d]);
       clashes.sort (Note_column::shift_compare);
     }
-  while ((flip (&d))!= UP);
+  while ((flip (&d)) != UP);
 
   return clash_groups;
 }
@@ -375,7 +374,7 @@ Drul_array< Link_array<Grob>
 */
 SCM
 Note_collision_interface::automatic_shift (Grob *me,
-					   Drul_array< Link_array<Grob>
+					   Drul_array < Link_array<Grob>
 					   > clash_groups)
 {
   Drul_array < Array<int> > shifts;
@@ -384,8 +383,8 @@ Note_collision_interface::automatic_shift (Grob *me,
   Direction d = UP;
   do
     {
-      Array<int> & shift (shifts[d]);
-      Link_array<Grob> & clashes (clash_groups[d]);
+      Array<int> &shift (shifts[d]);
+      Link_array<Grob> &clashes (clash_groups[d]);
 
       for (int i = 0; i < clashes.size (); i++)
 	{
@@ -398,7 +397,7 @@ Note_collision_interface::automatic_shift (Grob *me,
 	    shift.push (0);
 	}
 
-      for (int i =1; i < shift.size (); i++)
+      for (int i = 1; i < shift.size (); i++)
 	{
 	  if (shift[i - 1] == shift[i])
 	    {
@@ -407,10 +406,10 @@ Note_collision_interface::automatic_shift (Grob *me,
 	    }
 	}
     }
-  while ((flip (&d))!= UP);
+  while ((flip (&d)) != UP);
 
-  Drul_array< Array<Slice> > extents;
-  Drul_array< Array<Real> > offsets;
+  Drul_array<Array<Slice> > extents;
+  Drul_array<Array<Real> > offsets;
   d = UP;
   do
     {
@@ -423,7 +422,7 @@ Note_collision_interface::automatic_shift (Grob *me,
 	  offsets[d].push (d * 0.5 * i);
 	}
     }
-  while ((flip (&d))!= UP);
+  while ((flip (&d)) != UP);
 
   /*
     do horizontal shifts of each direction
@@ -436,17 +435,17 @@ Note_collision_interface::automatic_shift (Grob *me,
 
   do
     {
-      for (int i =1; i < clash_groups[d].size (); i++)
+      for (int i = 1; i < clash_groups[d].size (); i++)
 	{
 	  Slice prev = extents[d][i - 1];
 	  prev.intersect (extents[d][i]);
-	  if (prev.length ()> 0
+	  if (prev.length () > 0
 	      || (extents[-d].size () && d * (extents[d][i][-d] - extents[-d][0][d]) < 0))
 	    for (int j = i; j < clash_groups[d].size (); j++)
 	      offsets[d][j] += d * 0.5;
 	}
     }
-  while ((flip (&d))!= UP);
+  while ((flip (&d)) != UP);
 
   /*
     Check if chords are meshing
@@ -462,6 +461,7 @@ Note_collision_interface::automatic_shift (Grob *me,
 			 tups);
     }
   while (flip (&d) != UP);
+
   return tups;
 }
 

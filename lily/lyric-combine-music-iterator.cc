@@ -147,7 +147,7 @@ Lyric_combine_music_iterator::get_busy_status () const
   for (; scm_is_pair (grobs); grobs = scm_cdr (grobs))
     {
       SCM grob = scm_cdar (grobs);
-      Moment end =*unsmob_moment (scm_caar (grobs));
+      Moment end = *unsmob_moment (scm_caar (grobs));
 
       /*
 	This is slightly ugh: we are now confunding the frontend

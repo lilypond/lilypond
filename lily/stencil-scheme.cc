@@ -13,7 +13,6 @@
 #include "lookup.hh"
 #include "stencil.hh"
 
-
 /*
   TODO: naming add/combine.
 */
@@ -58,7 +57,6 @@ LY_DEFINE (ly_translate_stencil_axis, "ly:stencil-translate-axis",
   Stencil *q = unsmob_stencil (new_s);
   q->translate_axis (real_amount, Axis (scm_to_int (axis)));
   return new_s;
-
 }
 
 LY_DEFINE (ly_translate_stencil, "ly:stencil-translate",
@@ -294,7 +292,7 @@ LY_DEFINE (ly_interpret_stencil_expression, "ly:interpret-stencil-expression",
   a.arg1 = arg1;
   Offset o = ly_scm2offset (offset);
 
-  interpret_stencil_expression (expr, stencil_interpret_in_scm, (void *) &a, o);
+  interpret_stencil_expression (expr, stencil_interpret_in_scm, (void *) & a, o);
 
   return SCM_UNSPECIFIED;
 }

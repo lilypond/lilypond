@@ -37,7 +37,6 @@ protected:
   SCM start_string_;
 
   bool staff_eligible ();
-
 };
 
 Volta_engraver::Volta_engraver ()
@@ -232,7 +231,6 @@ Volta_engraver::stop_translation_timestep ()
       Item *ci = dynamic_cast<Item *> (cc);
       volta_span_->set_bound (LEFT, ci);
     }
-
 }
 
 /*

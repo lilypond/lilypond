@@ -114,7 +114,6 @@ Clef_engraver::create_clef ()
 	  g->set_parent (clef_, X_AXIS);
 	  g->set_property ("direction", scm_int2num (dir));
 	  octavate_ = g;
-
 	}
     }
 }
@@ -172,7 +171,6 @@ Clef_engraver::stop_translation_timestep ()
 	  if (octavate_)
 	    {
 	      octavate_->set_property ("break-visibility", vis);
-
 	    }
 	}
 

@@ -28,9 +28,7 @@ protected:
   virtual void stop_translation_timestep ();
   virtual void process_music ();
 private:
-
 };
-
 
 Hyphen_engraver::Hyphen_engraver ()
 {
@@ -137,7 +135,6 @@ Hyphen_engraver::stop_translation_timestep ()
 
   ev_ = 0;
 }
-
 
 ADD_TRANSLATOR (Hyphen_engraver,
 		/* descr */ "Create lyric hyphens",

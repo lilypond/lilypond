@@ -41,5 +41,3 @@ Dimension_cache::init ()
   parent_ = 0;
 }
 
-
-

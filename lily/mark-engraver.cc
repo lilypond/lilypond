@@ -36,7 +36,6 @@ private:
   Music *mark_ev_;
 };
 
-
 Mark_engraver::Mark_engraver ()
 {
   text_ = 0;

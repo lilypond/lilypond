@@ -40,7 +40,7 @@ arrcpy (T *dest, T const *src, int count)
 template<class T> INLINE void
 Array<T>::insert (T k, int j)
 {
-  assert (j >=0 && j<= size_);
+  assert (j >= 0 && j <= size_);
   set_size (size_ + 1);
   for (int i = size_ - 1; i > j; i--)
     array_[i] = array_[i - 1];
@@ -59,7 +59,7 @@ Array<T>::sort (int (*compare) (T const &, T const &), int lower, int upper)
     return;
   swap (lower, (lower + upper) / 2);
   int last = lower;
-  for (int i= lower +1; i <= upper; i++)
+  for (int i = lower +1; i <= upper; i++)
     if (compare (array_[i], array_[lower]) < 0)
       swap (++last, i);
   swap (lower, last);
@@ -71,7 +71,7 @@ template<class T> INLINE void
 Array<T>::reverse ()
 {
   int h = size_ / 2;
-  for (int i =0, j = size_ - 1; i < h; i++, j--)
+  for (int i = 0, j = size_ - 1; i < h; i++, j--)
     swap (i, j);
 }
 
@@ -79,7 +79,7 @@ template<class T> INLINE
 void
 Array<T>::OK () const
 {
-  assert (max_ >= size_ && size_ >=0);
+  assert (max_ >= size_ && size_ >= 0);
   if (max_) assert (array_);
 }
 
@@ -90,7 +90,7 @@ Array<T>::remove_array ()
   T *p = array_;
   size_ = 0;
   max_ = 0;
-  array_ =0;
+  array_ = 0;
   return p;
 }
 
@@ -98,9 +98,9 @@ template<class T> INLINE
 Array<T>
 Array<T>::slice (int lower, int upper) const
 {
-  assert (lower >= 0 && lower <=upper&& upper <= size_);
+  assert (lower >= 0 && lower <= upper && upper <= size_);
   Array<T> r;
-  int s =upper - lower;
+  int s = upper - lower;
   r.set_size (s);
   arrcpy (r.array_, array_ + lower, s);
   return r;

@@ -37,7 +37,7 @@
   the default spacing do its work.
 */
 
-class Rhythmic_column_engraver :public Engraver
+class Rhythmic_column_engraver : public Engraver
 {
   Link_array<Grob> rheads_;
   Grob *stem_;
@@ -77,14 +77,12 @@ Rhythmic_column_engraver::process_acknowledged_grobs ()
 	  spacing_ = make_item ("NoteSpacing", SCM_EOL);
 	  spacing_->set_property ("left-items", scm_cons (note_column_->self_scm (), SCM_EOL));
 
-
 	  if (last_spacing_)
 	    {
 	      Pointer_group_interface::add_grob (last_spacing_,
 						 ly_symbol2scm ("right-items"),
 						 note_column_);
 	    }
-
 	}
 
       for (int i = 0; i < rheads_.size (); i++)
@@ -109,7 +107,6 @@ Rhythmic_column_engraver::process_acknowledged_grobs ()
 	  Note_column::set_stem (note_column_, stem_);
 	  stem_ = 0;
 	}
-
     }
 }
 

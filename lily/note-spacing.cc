@@ -43,8 +43,7 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
 
 	  if (d == RIGHT && it->break_status_dir () != col_dir)
 	    {
-	      it = it -> find_prebroken_piece (col_dir);
-
+	      it = it->find_prebroken_piece (col_dir);
 	    }
 	  /*
 	    some kind of mismatch, eg. a note column, that is behind a
@@ -110,10 +109,10 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
     FIXED also includes the left part of the right object.
   */
   *fixed
-    = (left_head_wid.is_empty () ? increment :
-       /*
-	 Size of the head:
-       */
+    = (left_head_wid.is_empty () ? increment
+       :        /*
+		  Size of the head:
+		*/
        (left_head_wid[RIGHT]+
 
 	/*
@@ -339,7 +338,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
       stem_posns[RIGHT] = bar_yextent;
     }
 
-  if (correct_stem_dirs && stem_dirs[LEFT] *stem_dirs[RIGHT] == -1)
+  if (correct_stem_dirs && stem_dirs[LEFT] * stem_dirs[RIGHT] == -1)
     {
       if (beams_drul[LEFT] && beams_drul[LEFT] == beams_drul[RIGHT])
 	{
@@ -367,7 +366,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 		}
 	    }
 
-	  correction = note_head_width* stem_dirs[LEFT];
+	  correction = note_head_width * stem_dirs[LEFT];
 	  correction *= robust_scm2double (me->get_property ("knee-spacing-correction"), 0);
 	  *fixed += correction;
 	}
@@ -396,7 +395,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 	    }
 	}
     }
-  else if (correct_stem_dirs && stem_dirs[LEFT] *stem_dirs[RIGHT] == UP)
+  else if (correct_stem_dirs && stem_dirs[LEFT] * stem_dirs[RIGHT] == UP)
     {
       /*
 	Correct for the following situation:
@@ -437,9 +436,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
   /* there used to be a correction for bar_xextent () here, but
      it's unclear what that was good for ?
   */
-
 }
-
 
 ADD_INTERFACE (Note_spacing, "note-spacing-interface",
 	       "This object calculates spacing wishes for individual voices.",

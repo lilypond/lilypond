@@ -35,7 +35,6 @@ Break_align_engraver::add_column (SCM smob)
 {
   Grob *e = unsmob_grob (smob);
   Break_align_interface::add_element (align_, e);
-
 }
 
 void
@@ -121,7 +120,6 @@ Break_align_engraver::add_to_group (SCM align_name, Item *item)
       group->set_parent (align_, Y_AXIS);
 
       column_alist_ = scm_assoc_set_x (column_alist_, align_name, group->self_scm ());
-
     }
   Axis_group_interface::add_element (group, item);
 }

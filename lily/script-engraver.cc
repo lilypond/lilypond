@@ -141,7 +141,6 @@ void make_script_from_event (Grob *p, bool *follow, Context *tg,
     }
 
   Side_position_interface::set_axis (p, Y_AXIS);
-
 }
 
 void

@@ -150,7 +150,6 @@ Drum_notes_engraver::acknowledge_grob (Grob_info inf)
 	    }
 	}
     }
-
 }
 
 void

@@ -79,7 +79,7 @@ Cluster_spanner_engraver::process_music ()
       int pmax = INT_MIN;
       int pmin = INT_MAX;
 
-      for (int i = 0; i <cluster_notes_.size (); i++)
+      for (int i = 0; i < cluster_notes_.size (); i++)
 	{
 	  Pitch *pit = unsmob_pitch (cluster_notes_[i]->get_property ("pitch"));
 

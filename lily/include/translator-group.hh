@@ -12,7 +12,7 @@
 #include "translator.hh"
 #include "parray.hh"
 
-typedef void (Translator::*Translator_method) (void);
+typedef void (Translator:: *Translator_method) (void);
 
 class Translator_group : public virtual Translator
 {

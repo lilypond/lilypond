@@ -50,7 +50,6 @@ Span_bar_engraver::acknowledge_grob (Grob_info i)
 	  spanbar_ = make_item ("SpanBar", SCM_EOL);
 
 	  spanbar_->set_parent (bars_[0], X_AXIS);
-
 	}
     }
 }

@@ -95,7 +95,7 @@ Piano_pedal_engraver::initialize ()
 {
   char *names [] = { "Sostenuto", "Sustain", "UnaCorda", 0 };
 
-  info_list_ = new Pedal_info[sizeof (names)/ sizeof (const char *)];
+  info_list_ = new Pedal_info[sizeof (names) / sizeof (const char *)];
   Pedal_info *p = info_list_;
 
   char **np = names;
@@ -178,7 +178,6 @@ Piano_pedal_engraver::process_music ()
 	      String name = String (p->name_) + "PedalLineSpanner";
 	      Music *rq = (p->event_drul_[START] ? p->event_drul_[START] : p->event_drul_[STOP]);
 	      p->line_spanner_ = make_spanner (name.to_str0 (), rq->self_scm ());
-
 	    }
 
 	  /* Choose the appropriate grobs to add to the line spanner
@@ -429,7 +428,7 @@ Piano_pedal_engraver::finalize ()
 	    {
 	      p->line_spanner_->set_bound (RIGHT, c);
 	    }
-	  p->bracket_ ->set_bound (RIGHT, c);
+	  p->bracket_->set_bound (RIGHT, c);
 
 	  p->finished_bracket_ = p->bracket_;
 	  p->bracket_ = 0;

@@ -23,7 +23,6 @@ struct Axis_group_interface
   static bool has_axis (Grob *, Axis);
   static Link_array<Grob> get_children (Grob *);
   static bool has_interface (Grob *);
-
 };
 
 #endif /* AXIS_GROUP_INTERFACE_HH */

@@ -20,7 +20,6 @@ private:
 
 Font_size_engraver::Font_size_engraver ()
 {
-
 }
 
 void

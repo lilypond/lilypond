@@ -47,7 +47,7 @@ Duration::get_length () const
 {
   Rational mom (1 << abs (durlog_));
 
-  if (durlog_> 0)
+  if (durlog_ > 0)
     mom = Rational (1) / mom;
 
   Rational delta = mom;

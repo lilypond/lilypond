@@ -29,7 +29,7 @@ Lilypond_grob_key::derived_mark () const
 int
 Lilypond_grob_key::do_compare (Object_key const *key) const
 {
-  Lilypond_grob_key const *other = dynamic_cast < Lilypond_grob_key const *> (key);
+  Lilypond_grob_key const *other = dynamic_cast<Lilypond_grob_key const *> (key);
   int c;
 
   c = context_->compare (other->context_);
@@ -101,7 +101,7 @@ int
 Lilypond_context_key::do_compare (Object_key const *key) const
 {
   Lilypond_context_key const *other
-    = dynamic_cast < Lilypond_context_key const *> (key);
+    = dynamic_cast<Lilypond_context_key const *> (key);
 
   int c;
   if (parent_context_ && other->parent_context_)
@@ -188,7 +188,7 @@ int
 Lilypond_general_key::do_compare (Object_key const *key)const
 {
   Lilypond_general_key const *other
-    = dynamic_cast < Lilypond_general_key const *> (key);
+    = dynamic_cast<Lilypond_general_key const *> (key);
 
   if (parent_ && other->parent_)
     parent_->compare (other->parent_);

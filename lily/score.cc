@@ -200,7 +200,6 @@ Score::book_rendering (String outname,
   return systems;
 }
 
-
 void
 Score::set_music (SCM music, SCM parser)
 {
@@ -220,14 +219,12 @@ Score::set_music (SCM music, SCM parser)
       m->origin ()->error (_ ("Error found in this music expression. Ignoring it"));
 
       this->error_found_ = this->error_found_ || to_boolean (m->get_property ("error-found"));
-
     }
 
   if (this->error_found_)
     this->music_ = SCM_EOL;
   else
     this->music_ = music;
-
 }
 
 SCM

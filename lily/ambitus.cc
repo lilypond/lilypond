@@ -52,12 +52,12 @@ Ambitus::print (SCM smob)
 	  Real linethickness = me->get_layout ()->get_dimension (ly_symbol2scm ("linethickness"))
 	    * robust_scm2double (me->get_property ("thickness"), 1.0);
 	  Real blotdiameter = me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter"));
-	  Interval x_extent = 0.5 * linethickness *Interval (-1, 1);
+	  Interval x_extent = 0.5 * linethickness * Interval (-1, 1);
 	  Interval y_extent = Interval (pmin, pmax);
 	  Box line_box (x_extent, y_extent);
 
 	  Stencil line = Lookup::round_filled_box (line_box, blotdiameter);
-	  line.translate_axis (- me-> relative_coordinate (common, Y_AXIS),
+	  line.translate_axis (- me->relative_coordinate (common, Y_AXIS),
 			       Y_AXIS);
 	  return line.smobbed_copy ();
 	}

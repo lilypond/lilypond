@@ -26,13 +26,13 @@ public:
   Moment (Rational, Rational);
   Moment (Rational m);
 
-  Moment operator- () const;
+  Moment operator - () const;
 
-  void operator+= (Moment const &m);
-  void operator-= (Moment const &m);
+  void operator += (Moment const &m);
+  void operator -= (Moment const &m);
 
-  void operator*= (Moment const &m);
-  void operator/= (Moment const &m);
+  void operator *= (Moment const &m);
+  void operator /= (Moment const &m);
 
   Rational main_part_;
   Rational grace_part_;
@@ -61,7 +61,7 @@ INSTANTIATE_COMPARE (Moment const &, Moment::compare);
 Moment robust_scm2moment (SCM, Moment);
 
 #ifdef STREAM_SUPPORT
-std::ostream & operator<< (std::ostream &, Moment const &);
+std::ostream &operator << (std::ostream &, Moment const &);
 #endif
 
 bool moment_less (SCM a, SCM b);

@@ -35,6 +35,5 @@ public:
 Link_array<Grob> extract_grob_array (Grob const *elt, SCM symbol);
 Link_array<Item> extract_item_array (Grob const *elt, SCM symbol);
 
-
 #endif /* GROUP_INTERFACE_HH */
 

@@ -22,7 +22,7 @@ public:
 
   void set_context (Context *);
   bool try_music (Music *);
-  void operator= (Interpretation_context_handle const &);
+  void operator = (Interpretation_context_handle const &);
   Interpretation_context_handle (Interpretation_context_handle const &);
   Context *get_outlet () const;
 

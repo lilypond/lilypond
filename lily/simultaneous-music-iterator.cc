@@ -28,7 +28,7 @@ void
 Simultaneous_music_iterator::derived_substitute (Context *f, Context *t)
 {
   for (SCM s = children_list_; scm_is_pair (s); s = scm_cdr (s))
-    unsmob_iterator (scm_car (s))-> substitute_outlet (f, t);
+    unsmob_iterator (scm_car (s))->substitute_outlet (f, t);
 }
 
 void

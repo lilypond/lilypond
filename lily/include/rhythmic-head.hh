@@ -22,7 +22,6 @@ public:
   static int dot_count (Grob *);
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
   static bool has_interface (Grob *);
-
 };
 
 #endif // RHYTHMIC_HEAD_HH

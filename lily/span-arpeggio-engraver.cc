@@ -62,7 +62,6 @@ Span_arpeggio_engraver::process_acknowledged_grobs ()
       && to_boolean (get_property ("connectArpeggios")))
     {
       span_arpeggio_ = make_item ("Arpeggio", SCM_EOL);
-
     }
 }
 

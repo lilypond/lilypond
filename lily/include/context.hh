@@ -28,8 +28,8 @@ private:
   int iterator_count_;
   bool init_;
 
-  std::map < String, int> grob_counts_;
-  std::map < String, int> context_counts_;
+  std::map<String, int> grob_counts_;
+  std::map<String, int> context_counts_;
 
 protected:
   Object_key const *key_;
@@ -91,7 +91,6 @@ public:
 				  SCM ops);
   Link_array<Context> path_to_acceptable_context (SCM alias,
 						  Output_def *) const;
-
 };
 
 /*

@@ -240,5 +240,4 @@ extern "C" {
 
 #endif /* ! HAVE_FUNOPEN */
 #endif /* ! HAVE_FOPENCOOKIE */
-
 } /* extern C */

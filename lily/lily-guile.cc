@@ -229,7 +229,7 @@ is_direction (SCM s)
   if (scm_is_number (s))
     {
       int i = scm_to_int (s);
-      return i>= -1 && i <= 1;
+      return i >= -1 && i <= 1;
     }
   return false;
 }
@@ -595,7 +595,6 @@ ly_split_list (SCM s, SCM list)
       before = scm_cons (i, before);
     }
   return scm_cons (scm_reverse_x (before, SCM_EOL), after);
-
 }
 
 void
@@ -659,8 +658,8 @@ Interval
 robust_scm2interval (SCM k, Drul_array<Real> v)
 {
   Interval i;
-  i[LEFT]= v[LEFT];
-  i[RIGHT]= v[RIGHT];
+  i[LEFT] = v[LEFT];
+  i[RIGHT] = v[RIGHT];
   if (is_number_pair (k))
     i = ly_scm2interval (k);
   return i;

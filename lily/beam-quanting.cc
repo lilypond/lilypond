@@ -457,11 +457,11 @@ Beam::score_forbidden_quants (Real yl, Real yr,
 
 		dem += extra_demerit
 		  * (fixed_demerit
-		     + (1 - fixed_demerit) * (dist / gap.length ())* 2);
+		     + (1 - fixed_demerit) * (dist / gap.length ()) * 2);
 	      }
 	}
     }
-  while ((flip (&d))!= LEFT);
+  while ((flip (&d)) != LEFT);
 
   if ((beam_counts[LEFT] >? beam_counts[RIGHT]) >= 2)
     {

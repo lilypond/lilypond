@@ -47,7 +47,7 @@ Pitch::compare (Pitch const &m1, Pitch const &m2)
 int
 Pitch::steps () const
 {
-  return notename_ + octave_*7;
+  return notename_ + octave_ * 7;
 }
 
 /* Should be settable from input?  */

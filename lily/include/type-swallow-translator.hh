@@ -28,7 +28,7 @@ public:
   {									\
     TRANSLATOR_DECLARATIONS (TYPE ## _swallow_translator);		\
   };									\
-  TYPE ## _swallow_translator :: TYPE ## _swallow_translator ()		\
+  TYPE ## _swallow_translator ::TYPE ## _swallow_translator ()		\
   {									\
     swallow_string_ = #TYPE;						\
   }									\

@@ -256,7 +256,6 @@ find_fixed_alignment_parent (Grob *g)
   return 0;
 }
 
-
 ADD_INTERFACE (Align_interface, "align-interface",
 	       "Order grobs from top to bottom, left to right, right to left or bottom"
 	       "to top.",

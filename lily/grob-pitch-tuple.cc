@@ -15,7 +15,6 @@ int compare (Grob_pitch_tuple const &a, Grob_pitch_tuple const &b)
   return Grob_pitch_tuple::time_compare (a, b);
 }
 
-
 Grob_pitch_tuple::Grob_pitch_tuple ()
 {
   head_ = 0;

@@ -143,7 +143,7 @@ String_data::append (Byte const *byte, int length_i)
 
 INLINE
 void
-String_data::operator+= (char const *str0)
+String_data::operator += (char const *str0)
 {
   append ((Byte const *)str0, strlen (str0));
 }
@@ -191,18 +191,17 @@ String_data::is_binary_bo () const
 }
 
 INLINE Byte &
-String_data::operator[] (int j)
+String_data::operator [] (int j)
 {
   assert (j >= 0 && j <= length_);
   return data_byte_[j];
 }
 
 INLINE Byte
-String_data::operator[] (int j) const
+String_data::operator [] (int j) const
 {
   assert (j >= 0 && j <= length_);
   return data_byte_[j];
 }
-
 
 #endif // __STRING_UTIL_CC //

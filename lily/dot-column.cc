@@ -81,7 +81,7 @@ struct Dot_position
   }
 };
 
-typedef std::map < int, Dot_position> Dot_configuration;
+typedef std::map<int, Dot_position> Dot_configuration;
 
 /*
   Value CFG according.
@@ -300,7 +300,6 @@ Dot_column::add_head (Grob *me, Grob *rh)
       Axis_group_interface::add_element (me, d);
     }
 }
-
 
 ADD_INTERFACE (Dot_column, "dot-column-interface",
 	       "Groups dot objects so they form a column, and position dots so they do not "

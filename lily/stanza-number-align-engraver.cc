@@ -28,7 +28,6 @@ protected:
 
 Stanza_number_align_engraver::Stanza_number_align_engraver ()
 {
-
 }
 
 void

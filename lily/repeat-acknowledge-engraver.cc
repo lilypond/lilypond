@@ -30,7 +30,6 @@ protected:
   virtual void start_translation_timestep ();
   virtual void process_music ();
   virtual void initialize ();
-
 };
 
 void

@@ -94,4 +94,3 @@ ADD_INTERFACE (Text_interface, "text-interface",
 	       "A scheme markup text, see @usermanref{Text-markup}.",
 	       "text baseline-skip word-space");
 
-

@@ -31,7 +31,7 @@ private:
   virtual void acknowledge_grobs ();
 };
 
-typedef void (Engraver::*Engraver_method) (void);
+typedef void (Engraver:: *Engraver_method) (void);
 
 void engraver_each (SCM list, Engraver_method method);
 

@@ -170,7 +170,6 @@ LY_DEFINE (ly_music_duration_length, "ly:music-duration-length", 1, 0, 0,
   else
     programming_error ("Music has no duration");
   return l.smobbed_copy ();
-
 }
 
 LY_DEFINE (ly_music_duration_compress, "ly:music-duration-compress", 2, 0, 0,

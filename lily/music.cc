@@ -215,7 +215,7 @@ Music::compress (Moment factor)
   compress_music_list (get_property ("elements"), factor);
   Duration *d = unsmob_duration (get_property ("duration"));
   if (d)
-    set_property ("duration", d ->compressed (factor.main_part_).smobbed_copy ());
+    set_property ("duration", d->compressed (factor.main_part_).smobbed_copy ());
 }
 
 void
@@ -257,7 +257,6 @@ Music::transpose (Pitch delta)
     {
       set_property ("pitch-alist", ly_transpose_key_alist (pa, delta.smobbed_copy ()));
     }
-
 }
 
 IMPLEMENT_TYPE_P (Music, "ly:music?");
@@ -295,7 +294,7 @@ Input *
 Music::origin () const
 {
   Input *ip = unsmob_input (get_property ("origin"));
-  return ip ? ip : & dummy_input_global;
+  return ip ? ip : &dummy_input_global;
 }
 
 int

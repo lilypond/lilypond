@@ -58,12 +58,12 @@ public:
   }
 
   /// access element
-  T *&operator[] (int i)
+  T *&operator [] (int i)
   {
     return (T *&) Array<void *>::elem_ref (i);
   }
   /// access element
-  T *const operator[] (int i) const
+  T *const operator [] (int i) const
   {
     return (T *const) Array<void *>::elem (i);
   }
@@ -91,23 +91,22 @@ public:
   void substitute (T *old, T *new_p)
   {
     int i;
-    while ((i = find_index (old)) >=0)
+    while ((i = find_index (old)) >= 0)
       if (new_p)
-	elem_ref (i) =new_p;
+	elem_ref (i) = new_p;
       else
 	del (i);
   }
   void unordered_substitute (T *old, T *new_p)
   {
     int i;
-    while ((i = find_index (old)) >=0)
+    while ((i = find_index (old)) >= 0)
       if (new_p)
-	elem_ref (i) =new_p;
+	elem_ref (i) = new_p;
       else
 	{
 	  unordered_del (i);
 	}
-
   }
   void default_sort ()
   {
@@ -185,7 +184,7 @@ public:
   }
 };
 
-template < class T, class V>
+template<class T, class V>
 Link_array<T>
 typecasts (Link_array<V> const &a, T * /* dummy */)
 {
@@ -207,7 +206,7 @@ Link_array<T>::sort (int (*compare) (T *const &, T *const &), int lower, int upp
     return;
   swap (lower, (lower + upper) / 2);
   int last = lower;
-  for (int i= lower +1; i <= upper; i++)
+  for (int i = lower +1; i <= upper; i++)
     if (compare (elem (i), elem (lower)) < 0)
       swap (++last, i);
   swap (lower, last);
@@ -253,6 +252,7 @@ binsearch (Array<T> const &arr, T t, int (*compare) (T const &, T const &))
 	lo = cmp;
     }
   while (hi - lo > 1);
+
   if (!compare (t, arr[lo]))
     return lo;
   else
@@ -267,7 +267,7 @@ binsearch_links (Link_array<T> const &arr, T *t,
 {
   int cmp;
   int result;
-  if (hi< 0)
+  if (hi < 0)
     hi = arr.size ();
 
   if (hi == 0)
@@ -286,6 +286,7 @@ binsearch_links (Link_array<T> const &arr, T *t,
 	lo = cmp;
     }
   while (hi - lo > 1);
+
   if (!compare (t, arr[lo]))
     return lo;
   else

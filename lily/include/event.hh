@@ -24,5 +24,4 @@ public:
   DECLARE_SCHEME_CALLBACK (length_callback, (SCM));
 };
 
-
 #endif

@@ -21,14 +21,13 @@
   }									\
   static void _ ## type ## _adder ()					\
   {									\
-    add_music_ctor (#type, & _ ## type ## _ctor);			\
+    add_music_ctor (#type, &_ ## type ## _ctor);			\
   }									\
   ADD_SCM_INIT_FUNC (_ ## type ## _adder_prefix, _ ## type ## _adder);
 
 typedef Music *(*Music_ctor) (SCM);
 void add_music_ctor (String, Music_ctor);
 Music *make_music (String, SCM);
-
 
 #endif /* MUSIC_CONSTRUCTOR_HH */
 

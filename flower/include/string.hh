@@ -79,11 +79,11 @@ public:
   char *get_str0 ();
   Byte *get_bytes ();
 
-  String &operator= (String const &source);
+  String &operator = (String const &source);
 
   /// concatenate s
-  void operator+= (char const *s) { strh_ += s; }
-  void operator+= (String s);
+  void operator += (char const *s) { strh_ += s; }
+  void operator += (String s);
 
   bool is_empty () const;
 
@@ -93,8 +93,8 @@ public:
   /**
      Return a char.  UNSAFE because it may change strlen () result
   */
-  char &operator[] (int n);
-  char operator[] (int n) const;
+  char &operator [] (int n);
+  char operator [] (int n) const;
 
   /// return n leftmost chars
   String left_string (int n) const;
@@ -132,7 +132,7 @@ public:
 
 #ifdef STREAM_SUPPORT
   /// provide Stream output
-  void print_on (ostream& os) const;
+  void print_on (ostream &os) const;
 #endif
 
   /// the length of the string
@@ -187,26 +187,26 @@ INSTANTIATE_COMPARE (String const &, String::compare);
 #endif
 
 // because char const* also has an operator ==, this is for safety:
-inline bool operator== (String s1, char const *s2)
+inline bool operator == (String s1, char const *s2)
 {
   return s1 == String (s2);
 }
-inline bool operator== (char const *s1, String s2)
+inline bool operator == (char const *s1, String s2)
 {
   return String (s1) == s2;
 }
-inline bool operator!= (String s1, char const *s2)
+inline bool operator != (String s1, char const *s2)
 {
   return s1 != String (s2);
 }
-inline bool operator!= (char const *s1, String s2)
+inline bool operator != (char const *s1, String s2)
 {
-  return String (s2) !=s1;
+  return String (s2) != s1;
 }
 
 IMPLEMENT_ARITHMETIC_OPERATOR (String, +);
 #ifdef STREAM_SUPPORT
-ostream &operator<< (ostream& os, String d);
+ostream &operator << (ostream &os, String d);
 #endif
 
 #endif

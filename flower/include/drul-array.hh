@@ -21,19 +21,19 @@ struct Drul_array
   T array_[2];
   T &elem_ref (Direction d)
   {
-    assert (d == 1 || d== -1);
+    assert (d == 1 || d == -1);
     return array_[ (d + 1) / 2];
   }
   T elem (Direction d) const
   {
-    assert (d == 1 || d== -1);
+    assert (d == 1 || d == -1);
     return array_[ (d + 1) / 2];
   }
-  T &operator[] (Direction d)
+  T &operator [] (Direction d)
   {
     return elem_ref (d);
   }
-  T operator[] (Direction d) const
+  T operator [] (Direction d) const
   {
     return elem (d);
   }
@@ -49,7 +49,7 @@ struct Drul_array
 
 template<class T>
 void
-scale_drul (Drul_array<T> * dr, T x)
+scale_drul (Drul_array<T> *dr, T x)
 {
   dr->elem_ref (LEFT) *= x;
   dr->elem_ref (RIGHT) *= x;

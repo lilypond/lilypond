@@ -20,9 +20,9 @@ public:
   Cons ()
   {
     car_ = 0;
-    next_ =0;
+    next_ = 0;
   }
-  Cons (T *t, Cons<T>*c)
+  Cons (T *t, Cons<T> *c)
   {
     car_ = t;
     next_ = c;
@@ -65,9 +65,8 @@ template<class T> int cons_list_size (Cons<T> *l)
   return i;
 }
 
-
 template<class T>
-Cons<T> * last_cons (Cons<T> * head)
+Cons<T> *last_cons (Cons<T> *head)
 {
   while (head && head->next_)
     {
@@ -89,7 +88,7 @@ template<class T>
 class Cons_list
 {
 public:
-  Cons<T> * head_;
+  Cons<T> *head_;
   Cons<T> ** nil_pointer_address_;
   Cons_list ()
   {
@@ -97,7 +96,7 @@ public:
   }
   void init ()
   {
-    head_ =0;
+    head_ = 0;
     nil_pointer_address_ = &head_;
   }
   void append (T *c)
@@ -143,7 +142,7 @@ public:
   void junk ()
   {
     delete head_;
-    head_ =0;
+    head_ = 0;
   }
   ~Cons_list ()
   {
@@ -156,10 +155,10 @@ public:
 };
 
 template<class T>
-void copy_killing_cons_list (Cons_list<T>&, Cons<T> *src);
+void copy_killing_cons_list (Cons_list<T> &, Cons<T> *src);
 template<class T>
 void
-clone_killing_cons_list (Cons_list<T>&, Cons<T> *src);
+clone_killing_cons_list (Cons_list<T> &, Cons<T> *src);
 
 #endif /* CONS_HH */
 

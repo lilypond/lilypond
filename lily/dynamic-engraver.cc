@@ -65,7 +65,6 @@ protected:
   virtual void process_music ();
 };
 
-
 Dynamic_engraver::Dynamic_engraver ()
 {
   script_ = 0;
@@ -112,7 +111,7 @@ Dynamic_engraver::process_music ()
       if (!line_spanner_)
 	{
 	  Music *rq = accepted_spanreqs_drul_[START];
-	  line_spanner_ = make_spanner ("DynamicLineSpanner", rq ? rq->self_scm (): SCM_EOL);
+	  line_spanner_ = make_spanner ("DynamicLineSpanner", rq ? rq->self_scm () : SCM_EOL);
 
 	  if (script_ev_)
 	    rq = script_ev_;
@@ -144,8 +143,8 @@ Dynamic_engraver::process_music ()
       Axis_group_interface::add_element (line_spanner_, script_);
     }
 
-  Music *stop_ev = accepted_spanreqs_drul_ [STOP] ?
-    accepted_spanreqs_drul_[STOP] : script_ev_;
+  Music *stop_ev = accepted_spanreqs_drul_ [STOP]
+    ? accepted_spanreqs_drul_[STOP] : script_ev_;
 
   if (accepted_spanreqs_drul_[STOP] || script_ev_)
     {
@@ -172,7 +171,6 @@ Dynamic_engraver::process_music ()
 	  accepted_spanreqs_drul_[STOP]->origin ()->warning (_ ("can't find start of (de)crescendo"));
 	  stop_ev = 0;
 	}
-
     }
 
   if (accepted_spanreqs_drul_[START])
@@ -225,7 +223,6 @@ Dynamic_engraver::process_music ()
 	      cresc_->set_property ("grow-direction",
 				    scm_int2num ((start_type == "crescendo")
 						 ? BIGGER : SMALLER));
-
 	    }
 
 	  /*
@@ -392,7 +389,6 @@ Dynamic_engraver::acknowledge_grob (Grob_info info)
 	  cresc_->set_bound (LEFT, info.grob_);
 	  add_bound_item (line_spanner_, cresc_->get_bound (LEFT));
 	}
-
     }
   else if (Script_interface::has_interface (info.grob_) && script_)
     {

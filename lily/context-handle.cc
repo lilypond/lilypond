@@ -64,7 +64,7 @@ Interpretation_context_handle::try_music (Music *m)
 }
 
 void
-Interpretation_context_handle::operator= (Interpretation_context_handle const &s)
+Interpretation_context_handle::operator = (Interpretation_context_handle const &s)
 {
   set_context (s.outlet_);
 }

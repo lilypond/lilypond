@@ -100,7 +100,6 @@ Completion_heads_engraver::try_music (Music *m)
     }
 
   return false;
-
 }
 
 /*
@@ -260,7 +259,6 @@ Completion_heads_engraver::process_music ()
 	  Tie::set_head (p, RIGHT, notes_[i]);
 
 	  ties_.push (p);
-
 	}
     }
 

@@ -172,7 +172,7 @@ void
 Simple_spacer::set_active_states ()
 {
   /* float comparison is safe, since force is only copied.  */
-  for (int i = 0; i <springs_.size (); i++)
+  for (int i = 0; i < springs_.size (); i++)
     if (springs_[i].is_active_
 	&& springs_[i].block_force_ >= force_)
       {
@@ -335,7 +335,6 @@ Simple_spacer_wrapper::solve (Column_x_positions *positions, bool ragged)
 	  if (scm_to_double (p) > 9999)
 	    break_satisfy = break_satisfy && ! (i == 0 || i == sz -1);
 	}
-
     }
 
   positions->satisfies_constraints_

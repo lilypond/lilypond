@@ -21,7 +21,7 @@ Rational::operator double () const
 
 #ifdef STREAM_SUPPORT
 ostream &
-operator<< (ostream &o, Rational r)
+operator << (ostream &o, Rational r)
 {
   o << r.string ();
   return o;
@@ -52,7 +52,7 @@ Rational::Rational (int n)
 {
   sign_ = ::sign (n);
   num_ = abs (n);
-  den_= 1;
+  den_ = 1;
 }
 
 static inline
@@ -74,7 +74,7 @@ Rational::set_infinite (int s)
 }
 
 Rational
-Rational::operator- () const
+Rational::operator - () const
 {
   Rational r (*this);
   r.negate ();
@@ -153,23 +153,24 @@ compare (Rational const &r, Rational const &s)
 }
 
 Rational &
-Rational::operator%= (Rational r)
+Rational::operator %= (Rational r)
 {
   *this = r.mod_rat (r);
   return *this;
 }
 
 Rational &
-Rational::operator+= (Rational r)
+Rational::operator += (Rational r)
 {
-  if (is_infinity ());
+  if (is_infinity ())
+    ;
   else if (r.is_infinity ())
     {
       *this = r;
     }
   else
     {
-      int n = sign_ * num_ *r.den_ + r.sign_ * den_ * r.num_;
+      int n = sign_ * num_ * r.den_ + r.sign_ * den_ * r.num_;
       int d = den_ * r.den_;
       sign_ = ::sign (n) * ::sign (d);
       num_ = abs (n);
@@ -215,7 +216,7 @@ Rational::Rational (double x)
     {
       num_ = 0;
       den_ = 1;
-      sign_ =0;
+      sign_ = 0;
       normalise ();
     }
 }
@@ -229,7 +230,7 @@ Rational::invert ()
 }
 
 Rational &
-Rational::operator*= (Rational r)
+Rational::operator *= (Rational r)
 {
   sign_ *= ::sign (r.sign_);
   if (r.is_infinity ())
@@ -247,7 +248,7 @@ Rational::operator*= (Rational r)
 }
 
 Rational &
-Rational::operator/= (Rational r)
+Rational::operator /= (Rational r)
 {
   r.invert ();
   return (*this *= r);
@@ -260,7 +261,7 @@ Rational::negate ()
 }
 
 Rational &
-Rational::operator-= (Rational r)
+Rational::operator -= (Rational r)
 {
   r.negate ();
   return (*this += r);

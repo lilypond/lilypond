@@ -147,7 +147,6 @@ Tie_engraver::start_translation_timestep ()
 {
   context ()->set_property ("tieMelismaBusy",
 			    ly_bool2scm (heads_to_tie_.size ()));
-
 }
 
 void
@@ -160,7 +159,7 @@ Tie_engraver::stop_translation_timestep ()
 	  heads_to_tie_.clear ();
 	}
 
-      for (int i = 0; i< ties_.size (); i++)
+      for (int i = 0; i < ties_.size (); i++)
 	{
 	  typeset_tie (ties_[i]);
 	}
@@ -207,7 +206,6 @@ Tie_engraver::typeset_tie (Grob *her)
 
   index_set_cell (her->get_property ("head-pair"), LEFT, new_head_drul[LEFT]->self_scm ());
   index_set_cell (her->get_property ("head-pair"), RIGHT, new_head_drul[RIGHT]->self_scm ());
-
 }
 
 ADD_TRANSLATOR (Tie_engraver,

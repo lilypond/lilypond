@@ -78,7 +78,6 @@ Spacing_engraver::process_music ()
     {
       spacing_ = make_spanner ("SpacingSpanner", SCM_EOL);
       spacing_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
-
     }
 }
 
@@ -145,7 +144,6 @@ Spacing_engraver::stop_translation_timestep ()
 	{
 	  starter = starter <? m;
 	  playing_durations_.insert (now_durations_[i]);
-
 	}
     }
   now_durations_.clear ();
@@ -173,7 +171,6 @@ Spacing_engraver::start_translation_timestep ()
   while (playing_durations_.size () && playing_durations_.front ().end_ == now_)
     stopped_durations_.push (playing_durations_.get ());
 }
-
 
 ADD_TRANSLATOR (Spacing_engraver,
 		/* descr */ "make a SpacingSpanner and do bookkeeping of shortest starting and playing notes  ",

@@ -20,7 +20,6 @@ public:
 
 Staff_collecting_engraver::Staff_collecting_engraver ()
 {
-
 }
 
 void

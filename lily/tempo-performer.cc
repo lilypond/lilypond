@@ -75,7 +75,6 @@ Tempo_performer::try_music (Music *req)
   return true;
 }
 
-
 ADD_TRANSLATOR (Tempo_performer, "", "",
 		"metronome-change-event",
 		"", "", "");

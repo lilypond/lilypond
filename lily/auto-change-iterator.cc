@@ -31,7 +31,6 @@ private:
 
   Interpretation_context_handle up_;
   Interpretation_context_handle down_;
-
 };
 
 void
@@ -80,7 +79,6 @@ Auto_change_iterator::change_to (Music_iterator *it, SCM to_type_sym,
 	*/
       }
   else;
-
 }
 
 void
@@ -138,7 +136,6 @@ Auto_change_iterator::construct_children ()
 					    "", SCM_EOL);
   set_context (voice);
   Music_wrapper_iterator::construct_children ();
-
 }
 
 void
@@ -146,6 +143,5 @@ Auto_change_iterator::do_quit ()
 {
   up_.set_context (0);
   down_.set_context (0);
-
 }
 IMPLEMENT_CTOR_CALLBACK (Auto_change_iterator);
