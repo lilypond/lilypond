@@ -21,7 +21,7 @@ ALL_PO_SOURCES = $(ALL_C_SOURCES) $(ALL_CC_SOURCES) $(PYTHON_SCRIPTS_IN) $(wildc
 localpo:
 ifneq ($(strip $(ALL_PO_SOURCES)),)
 	@echo $(ALL_PO_SOURCES)
-	xgettext --c++ --default-domain=$(package) --join \
+	xgettext --default-domain=$(package) --join \
 	 --output-dir=$(po-dir)/$(outdir) --add-comments \
 	 --keyword=_ --keyword=_f --keyword=_i $(ALL_PO_SOURCES)
 endif

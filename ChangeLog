@@ -1,5 +1,7 @@
 2002-11-03  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* ChangeLog: Add 1.6.6 release marker.  See below.
+
 	* stepmake/stepmake/po-targets.make: Remove --c++ option.
 
 	* scripts/midi2ly.py: Fix global syntax warnings.
@@ -46,6 +48,12 @@
 
 	* stepmake/aclocal.m4: Changed 6 instances of $( ) to ` `, for
 	Solaris7, as we don't use nested $( ) constructs.
+
+2002-10-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* VERSION: Release 1.6.6.
+	
+2002-10-21  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/topdocs/INSTALL.texi: Add note about using ksh for
 	as workaround for /bin/sh problems on Solaris7.
