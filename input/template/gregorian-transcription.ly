@@ -1,4 +1,3 @@
-#(ly:set-option 'old-relative)
 \version "1.9.4"
 
 
