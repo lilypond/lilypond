@@ -18,7 +18,22 @@ midi.parse (s)
 
 */
 
-#include <python2.0/Python.h>
+#include "config.h"
+
+/* urg */
+#if HAVE_PYTHON2_PYTHON_H
+#include <python2/Python.h>
+#elif HAVE_PYTHON1_5_PYTHON_H
+#include <python1.5/Python.h>
+#elif HAVE_PYTHON_PYTHON_H
+#define assert(x)
+#include <python/Python.h>
+#elif HAVE_PYTHON_H
+#define assert(x)
+#include <Python.h>
+#else
+#error Need Python.h
+#endif
 
 #if 0
 int x = 0;
@@ -94,22 +109,33 @@ message_t metaEvents[] = {
   0,0
 };
 
+void
+add_constants (PyObject *dict)
+{
+  message_t * p[] = {metaEvents, channelModeMessages, channelVoiceMessages ,0};
+  int i,j;
+  for ( j =0; p[j]; j++)
+    for ( i = 0; p[j][i].description; i++)
+      PyDict_SetItemString (dict, p[j][i].description, Py_BuildValue ("i", p[j][i].msg));
+}
+
 unsigned long int
-get_number (char * str, char * end_str, int length)
+get_number (unsigned char ** str, unsigned char * end_str, int length)
 {
   /* # MIDI uses big-endian for everything */
   long sum = 0;
   int i = 0;
   
   for (; i < length; i++)
-    sum = (sum << 8) + (unsigned char) str[i];
+    sum = (sum << 8) + (unsigned char) (*str)[i];
 
+  *str += length;
   debug_print ("%d:\n", sum);
   return sum;
 }
 
 unsigned long int
-get_variable_length_number (char **str, char * end_str)
+get_variable_length_number (unsigned char **str, unsigned char * end_str)
 {
   long sum = 0;
   int i = 0;
@@ -125,103 +151,76 @@ get_variable_length_number (char **str, char * end_str)
   return sum;
 }
 
-static PyObject *
-read_unimplemented_event (char **track, char *end, unsigned long time,
-			  unsigned char x, unsigned char z)
+PyObject *
+read_one_byte (unsigned char **track, unsigned char *end, 
+	       unsigned char x)
 {
-  debug_print ("%x:%s", z, "unimplemented MIDI event\n");
-  *track += 2;
-  return Py_BuildValue ("(iii)", z, *((*track) -2), *((*track) -1));
+  PyObject *pyev = Py_BuildValue ("(i)", x);
+  debug_print ("%x:%s", x, "event\n");
+
+  return pyev;
 }
 
 PyObject *
-read_one_byte (char **track, char *end, unsigned long time,
-	       unsigned char x, unsigned char z)
+read_two_bytes (unsigned char **track, unsigned char *end, 
+		unsigned char x)
 {
-  debug_print ("%x:%s", z, "event\n");
+  PyObject *pyev = Py_BuildValue ("(ii)", x, (*track)[0]);
   *track += 1;
-  return Py_BuildValue ("(ii)", z, *((*track) -1));
+  debug_print ("%x:%s", x, "event\n");
+  return pyev;
 }
 
 PyObject *
-read_two_bytes (char **track, char *end, unsigned long time,
-		unsigned char x, unsigned char z)
+read_three_bytes (unsigned char **track, unsigned char *end, 
+		  unsigned char x)
 {
-  debug_print ("%x:%s", z, "event\n");
+  PyObject *pyev = Py_BuildValue ("(iii)", x, (*track)[0],
+				  (*track)[1]);
+
   *track += 2;
-  return Py_BuildValue ("(iii)", z, *((*track) -2), *((*track) -1));
+  debug_print ("%x:%s", x, "event\n");
+  return pyev;
 }
 
 PyObject *
-read_three_bytes (char **track, char *end, unsigned long time,
-		  unsigned char x, unsigned char z)
-{
-  debug_print ("%x:%s", z, "event\n");
-  *track += 3;
-  return Py_BuildValue ("(iiii)", z, *((*track) -3), *((*track) -2), *((*track) -1));
-}
-
-PyObject *
-read_string (char **track, char *end, unsigned long time,
-	     unsigned char x, unsigned char z)
+read_string (unsigned char **track, unsigned char *end) 
 {
   unsigned long length = get_variable_length_number (track, end);
-  if (length < *track - end)
-    debug_print ("%s", "zero length string\n");
+  if (length > end - *track)
+    length = end - *track;
+
   *track += length;
-  debug_print ("%x:%s", length, "string\n");
-  return Py_BuildValue ("(is)", z, *((*track) -length));
+  return Py_BuildValue ("s", ((*track) -length));
 }
 
 typedef PyObject* (*Read_midi_event)
-     (char **track, char *end, unsigned long time,
-      unsigned char x, unsigned char z);
-
-Read_midi_event read_ff_byte [16] =
-{
-  read_three_bytes,  //  0
-  read_one_byte,     // 10
-  read_one_byte,  // 20
-  read_one_byte,  // 30
-  read_one_byte,  // 40
-  read_one_byte,  // 50
-  read_one_byte,  // 60
-  read_two_bytes, // 70
-  read_two_bytes, // 80
-  read_two_bytes, // 90
-  read_two_bytes, // a0
-  read_two_bytes, // b0
-  read_one_byte,  // c0
-  read_two_bytes, // d0
-  read_two_bytes, // e0
-  read_two_bytes, // e0
-};
+     (unsigned char **track, unsigned char *end, 
+      unsigned char x);
 
 
 static PyObject *
-read_f0_byte (char **track, char *end, unsigned long time,
-	      unsigned char x, unsigned char z)
+read_f0_byte (unsigned char **track, unsigned char *end, 
+	      unsigned char x)
 	      
 {
-  debug_print ("%x:%s", z, "event\n");
-  if (z == 0xff)
+  debug_print ("%x:%s", x, "event\n");
+  if (x == 0xff)
     {
-      unsigned char zz = *(*track)++;
-      debug_print ("%x:%s", zz, "f0-event\n");
-      if (zz == 0x01 && **track <= 0x07)
-	return read_string (track, end, time, x, zz);
-      else if (zz == 0x2f && **track == 0x00)
+      unsigned char z = (*track)[0 ];
+      *track += 1;
+      debug_print ("%x:%s", z, "f0-event\n");
+      
+      if (z == 0x2f && (*track)[0] == 0x00) /* end of track */
 	{
-	  (*track)++;
-	  debug_print ("%s", "done\n");
+	  *track += 1;
 	  return 0;
 	}
       else
-	return read_unimplemented_event (track, end, time, x, zz);
-      exit (0);
+	return Py_BuildValue ("(iiO)", x, z, read_string (track, end));
     }
-  else
-    return read_string (track, end, time, x, z);
+
+  return Py_BuildValue ("(iO)", x, read_string (track, end));
 }
 
 Read_midi_event read_midi_event [16] =
@@ -232,36 +231,42 @@ Read_midi_event read_midi_event [16] =
   read_one_byte,  // 30
   read_one_byte,  // 40
   read_one_byte,  // 50
-  read_one_byte,  // 60
-  read_two_bytes, // 70
-  read_two_bytes, // 80
-  read_two_bytes, // 90
-  read_two_bytes, // a0
-  read_two_bytes, // b0
-  read_one_byte,  // c0
-  read_two_bytes, // d0
-  read_two_bytes, // e0
+  read_one_byte,  // 60 data entry.
+  read_two_bytes, // 70 all notes off
+  read_three_bytes, // 80 note off
+  read_three_bytes, // 90 note on
+  read_three_bytes, // a0 poly aftertouch
+  read_three_bytes, // b0 control
+  read_two_bytes,  // c0 prog change
+  read_two_bytes, // d0 ch aftertouch
+  read_three_bytes, // e0 pitchwheel range 
   read_f0_byte,   // f0
 };
-	     
+
+
 static PyObject *
-read_event (char **track, char *end, unsigned long time,
+read_event (unsigned char **track, unsigned char *end, PyObject *time,
 	    unsigned char *running_status)
 {
   int rsb_skip = ((**track & 0x80)) ? 1 :0;
 
   unsigned char x = (rsb_skip) ? (*track)[0]: *running_status;
-  // unsigned char y = x & 0xf0;
-  unsigned char z = (*track)[1 + rsb_skip];
-  
-  debug_print ("%x:%s", z, "event\n");
-  *track += 2 + rsb_skip;
 
-  return (*read_midi_event[z >> 4]) (track, end, time, x, z);
+  PyObject * bare_event = 0;
+  debug_print ("%x:%s", x, "event\n");
+  *running_status = x;
+  *track += rsb_skip;
+  
+  //  printf ("%x %x %d next %x\n", x, (*track)[0], rsb_skip, (*track)[1]);
+  bare_event = (*read_midi_event[x >> 4]) (track, end, x);
+  if (bare_event)
+    return Py_BuildValue ("(OO)", time, bare_event);
+  else
+    return NULL;
 }
 
 static PyObject *
-midi_parse_track (char **track, char *track_end)
+midi_parse_track (unsigned char **track, unsigned char *track_end)
 {
   unsigned int time = 0;
   unsigned char running_status;
@@ -271,15 +276,18 @@ midi_parse_track (char **track, char *track_end)
   debug_print ("%s", "\n");
   
   track_size = track_end - *track;
+#if 0
   /* need this for direct midi.parse_track (s) on midi file */
   if (strcmp (*track, "MTrk"))
     *track = memmem (*track, track_size - 1, "MTrk", 4);
+#endif
+
   debug_print ("%s", "\n");
   assert (!strcmp (*track, "MTrk"));
   *track += 4;
 
-  track_len = get_number (*track, *track + 4, 4);
-  *track += 4;
+  track_len = get_number (track, *track + 4, 4);
+
 
   debug_print ("track_len: %u\n", track_len);
   debug_print ("track_size: %u\n", track_size);
@@ -292,14 +300,24 @@ midi_parse_track (char **track, char *track_end)
 
   track_end = *track + track_len;
 
-  while (*track < track_end)
-    {
-      long dt = get_variable_length_number(track, track_end);
-      time += dt;
-      PyList_Append (pytrack, read_event (track, track_end, time,
-					  &running_status));
-    }
+  {  
+    PyObject *pytime = PyInt_FromLong (0L);
+    while (*track < track_end)
+      {
+	long dt = get_variable_length_number(track, track_end);
+	PyObject *pyev = 0;
 
+	time += dt;
+	if (dt)
+	  pytime = PyInt_FromLong (time);
+
+	pyev = read_event (track, track_end, pytime,
+			   &running_status);
+	if (pyev)
+	  PyList_Append (pytrack, pyev);
+      }
+  }
+  
   *track = track_end;
   return pytrack;
 }
@@ -308,7 +326,7 @@ midi_parse_track (char **track, char *track_end)
 static PyObject *
 pymidi_parse_track (PyObject *self, PyObject *args)
 {
-  char *track, *track_end;
+  unsigned char *track, *track_end;
   unsigned long track_size, track_len;
 
   PyObject * sobj = PyTuple_GetItem (args, 0);
@@ -326,7 +344,7 @@ pymidi_parse_track (PyObject *self, PyObject *args)
 }
 
 static PyObject *
-midi_parse (char **midi, char *midi_end)
+midi_parse (unsigned char **midi,unsigned  char *midi_end)
 {
   PyObject *pymidi = 0;
   unsigned long header_len;
@@ -337,23 +355,20 @@ midi_parse (char **midi, char *midi_end)
   debug_print ("%s", "\n");
 
   /* Header */
-  header_len = get_number (*midi, *midi + 4, 4);
-  *midi += 4;
+  header_len = get_number (midi, *midi + 4, 4);
+
   
   if (header_len < 6)
     return midi_error ("header too short");
     
-  format = get_number (*midi, *midi + 2, 2);
-  *midi += 2;
-  
-  tracks = get_number (*midi, *midi + 2, 2);
-  *midi += 2;
+  format = get_number (midi, *midi + 2, 2);
+  tracks = get_number (midi, *midi + 2, 2);
 
   if (tracks > 32)
     return midi_error ("too many tracks");
   
-  division = get_number (*midi, *midi + 2, 2) * 4;
-  *midi += 2;
+  division = get_number (midi, *midi + 2, 2) * 4;
+
 
   if (division < 0)
     /* return midi_error ("can't handle non-metrical time"); */
@@ -361,19 +376,20 @@ midi_parse (char **midi, char *midi_end)
   *midi += header_len - 6;
 
   pymidi = PyList_New (0);
-  PyList_Append (pymidi, Py_BuildValue ("(iii)", format, tracks, division));
 
   /* Tracks */
   for (i = 0; i < tracks; i++)
     PyList_Append (pymidi, midi_parse_track (midi, midi_end));
 
+  pymidi = Py_BuildValue ("(OO)", Py_BuildValue ("(ii)", format, division),
+			  pymidi);
   return pymidi;
 }
 
 static PyObject *
 pymidi_parse (PyObject *self, PyObject *args)
 {
-  char *midi, *midi_end;
+  unsigned char *midi, *midi_end;
   unsigned long midi_size, midi_len;
   
   PyObject *sobj = PyTuple_GetItem (args, 0);
@@ -408,6 +424,7 @@ initmidi ()
   
   Midi_error = PyString_FromString ("midi.error");
   PyDict_SetItemString (d, "error", Midi_error);
+  add_constants (d);
   Midi_warning = PyString_FromString ("midi.warning");
   PyDict_SetItemString (d, "warning", Midi_warning);
 }
