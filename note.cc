@@ -27,8 +27,8 @@ parse_duration(const char *a, int &j, int &intdur, int &dots)
     intdur = (durstr.len()) ?
 	durstr.value():default_duration;
 
-    if (debug_flags & DEBUGTOKEN) 
-	mtor << "dur " << intdur << "dots " << dots<<eol;
+
+    mtor << "dur " << intdur << "dots " << dots<<eol;
 }
 
 
@@ -37,7 +37,7 @@ parse_pitch( const char *a, int &j, int &oct, bool & overide_acc,
 	     int & large, int & small)
 {
     // octave
- oct =0;
+    oct =0;
     
     while (1) 
 	{	
@@ -50,7 +50,8 @@ parse_pitch( const char *a, int &j, int &oct, bool & overide_acc,
 	j++;
 	
 	}
-    if (debug_flags & DEBUGTOKEN) mtor << "oct " << oct;
+
+	mtor << "oct " << oct;
 	
     // accidental
     overide_acc = false;
@@ -61,8 +62,8 @@ parse_pitch( const char *a, int &j, int &oct, bool & overide_acc,
 	j++;
 	}
 
-    if (debug_flags & DEBUGTOKEN)
-	mtor << "ov " << overide_acc;
+    
+    mtor << "ov " << overide_acc;
     
     // notename.
     String nm;
@@ -77,9 +78,8 @@ parse_pitch( const char *a, int &j, int &oct, bool & overide_acc,
 	}
         
 
-    lookup_notename(large,small,nm);
-    if (debug_flags & DEBUGTOKEN)
-	mtor << "int "<< large <<" "<<small<<" ";    
+    lookup_notename(large,small,nm);    
+    mtor << "int "<< large <<" "<<small<<" ";    
 }
 
 
