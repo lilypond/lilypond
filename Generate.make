@@ -1,9 +1,12 @@
+# Generate.make ?
+# -> Rules.make: containing all compile/flex/bison/... rules (jcn)
 
 parsheadorig=$(CCDIR)/parser.tab.h
 parsheadnew=$(HEADERDIR)/parser.hh
 
 #
 # take some trouble to avoid overwriting the old y.tab.h
+# why? (jcn)
 $(CCDIR)/parser.cc: $(CCDIR)/parser.y
 	$(BISON) -d $<
 	(if diff  $(parsheadorig) $(parsheadnew)>/dev/null; then \
@@ -18,9 +21,11 @@ $(parsheadnew): $(CCDIR)/parser.cc
 $(HEADERDIR)/version.hh: Variables.make make_version
 	make_version $(MAJVER) $(MINVER) $(PATCHLEVEL) "$(CXX) $(CXXVER)" > $@
 
-$(CCDIR)/lexer.cc: $(CCDIR)/lexer.l
+$(CCDIR)/%.cc: $(CCDIR)/%.y
+	$(BISON) -d $<
+	mv $(CCDIR)/$(shell basename $@ .cc ).tab.h $(HEADERDIR)/$(shell basename $@ .cc).hh
+	mv $(CCDIR)/$(shell basename $@ .cc ).tab.c $@
+
+$(CCDIR)/%.cc: $(CCDIR)/%.l
 	$(FLEX)  -t $< > $@
-
-
-
 

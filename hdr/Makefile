@@ -1,6 +1,6 @@
 default:
 	$(MAKE) -C ..
-DISTFILES=Makefile $(hdr)
+DISTFILES=Makefile $(allhdr)
 dist:
 	ln $(DISTFILES) $(DDIR)/$(SUBDIR)
 
@@ -10,3 +10,4 @@ TAGS: $(hdr)
 
 clean:
 	rm -f parser.hh
+	rm -f midi-parser.hh
