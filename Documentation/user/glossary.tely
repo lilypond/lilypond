@@ -47,7 +47,8 @@ The stress of one tone over others.
 
 @item accidental
 I: alterazione, accidente, F: alt@'eration accidentelle, D: Vorzeichen,
-Versetzungszeichen, NL: voorteken, DK: l@o{}st fortegn, S: f@"ortecken, N:
+Versetzungszeichen, NL: voorteken, DK: l@o{}st fortegn, S: tillf@"alligt 
+f@"ortecken, N:
 
 @c F: alt@'eration accidentelle,  D: Vorzeichen, Versetzungszeichen,
 @c Akzidenz, NL: toevallig teken, I: accidento.  
@@ -848,7 +849,7 @@ S:@w{ }diminuendo, N:@w{ }diminuendo.
 
 @item disjunct movement
 I: moto disgiunto, F: mouvement disjoint, D: , NL: , DK: springende
-bev@ae{}gelse, S: hoppande r@"orelse, N:
+bev@ae{}gelse, S: spr@aa{}ngvis r@"orelse, N:
 
 Melody moving in steps greater than those of the
 scale. Opposite of @ar{}@strong{conjunct movement}.
@@ -892,7 +893,7 @@ The fifth @w{@ar{}@strong{scale degree}} @w{@ar{}@strong{functional harmony}}
 
 @item dorian mode
 I: modo dorico, F: mode dorien, D: Dorischer Kirchenton, NL: dorische
-toonladder, dorischer Kirchenton, DK: dorisk skala, S: dorisk skala, N:
+toonladder, dorischer Kirchenton, DK: dorisk skala, S: dorisk tonart, N:
 
 @w{@ar{}@strong{diatonic scale}}
 
@@ -1242,7 +1243,7 @@ halvnode, S: halvnot, N: .
 
 @item half rest
 I: pausa di minima, F: demi-pause, UK: minim rest, D: halbe Pause, NL: halve
-rust, DK: halvnodespause, S: halvnotspaus, N: .
+rust, DK: halvnodespause, S: halvpaus, N: .
 
 @w{@ar{}@strong{note value}}
 
@@ -1425,7 +1426,8 @@ keys, one on c, one on c-sharp etc. @w{@ar{}@strong{key signature}}
 
 @item key signature
 I: armatura di chiave, F: armure, armature [de la cl@'e], D: Vorzeichen,
-Tonart, NL: @w{ }toon@-soort (voortekens), DK: faste fortegn, S: largo, N: .
+Tonart, NL: @w{ }toon@-soort (voortekens), DK: faste fortegn, 
+S: tonartssignatur, N: .
 
 The sharps or flats appearing at the beginning of each staff indicating the
 key of the music. @w{@ar{}@strong{accidental}}
@@ -1448,7 +1450,7 @@ upwards) to the tonic scale degree.
 @item ledger line; leger line
 
 I: tagli addizionali, F: ligne suppl@'ementaire, D: Hilfslinie, NL:
-hulplijntje, DK: hj@ae{}lpelinie, S: hj@"alpstreck, N: .
+hulplijntje, DK: hj@ae{}lpelinie, S: hj@"alplinje, N: .
 
 A ledger line is an extension of the staff.
 
@@ -2065,7 +2067,7 @@ I: scala, F: gamme, D: Tonleiter, NL: toonladder, DK: Skala, S: skala, N: .
 
 @item scale degree
 I: grado della scala, F: degr@'e [de la gamme], D: Tonleiterstufe, NL: trap
-[van de toonladder], DK: skalatrin, S: skalatrin (?), N: .
+[van de toonladder], DK: skalatrin, S: skalsteg (?), N: .
 
 Names and symbols used in harmonic analysis to denote tones of the scale as
 roots of chords. The most important are degrees I = tonic (T), IV =
@@ -2621,7 +2623,7 @@ DK: helnode, S: helnot, N: .
 
 @item whole rest
 I: pausa di semibreve, F: pause, UK: semibreve rest, D: Ganze Pause, NL: hele
-rust, DK: helnodespause, S: helnotspaus, N: .
+rust, DK: helnodespause, S: helpaus, N: .
 
 @w{@ar{}@strong{note value}}
 

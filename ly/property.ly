@@ -114,7 +114,7 @@ specialkey = {
 endincipit = \notes{
     \partial 16; s16  % Hack to handle e.g. \bar ".|"; \endincipit
     \property Staff.clefStyle = #"fullSizeChanges" 
-    \nobreak \bar "";
+    \bar "";
 }
 
 autoBeamOff = \property Voice.noAutoBeaming = ##t

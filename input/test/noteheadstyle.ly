@@ -1,13 +1,17 @@
 \score { \notes \relative c{
-c''4 c2 c8  c16 c16 c1 
+c''4 c2 c8  c16 c16 c1 c\breve 
 \property Voice.noteHeadStyle = "diamond"
-c4 c2 c8  c16 c16  c1
+c4 c2 c8  c16 c16  c1 c\breve
 \property Voice.noteHeadStyle = "transparent"
-c4 c2 c8  c16 c16  c1
+c4 c2 c8  c16 c16  c1 c\breve
 \property Voice.noteHeadStyle = "cross"
-c4 c2 c8  c16 c16  c1
+c4 c2 c8  c16 c16  c1 c\breve
 \property Voice.noteHeadStyle = "mensural"
-c4 c2 c8  c16 c16  c1
+c4 c2 c8  c16 c16  c1 c\breve c\longa
+\property Voice.noteHeadStyle = "harmonic"
+c4 c2 c8  c16 c16  c1 c\breve
+\property Voice.noteHeadStyle = "baroque"
+c4 c2 c8  c16 c16  c1 c\breve c\longa
 
    \context Voice <
     \context Thread = TA
