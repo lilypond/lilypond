@@ -230,87 +230,102 @@ Auto_beam_engraver::do_pre_move_processing ()
 void
 Auto_beam_engraver::do_removal_processing ()
 {
+  if (stem_l_arr_p_)
+    end_beam ();
   typeset_beam ();
-  if (stem_l_arr_p_ && stem_l_arr_p_->size ())
-    {
-      junk_beam ();
-    }
+}
+
+bool
+Auto_beam_engraver::same_grace_state_b (Score_element* e)
+{
+  bool gr = (e->get_elt_property (grace_scm_sym) != SCM_BOOL_F) ;
+
+  return gr == get_property ("weAreGraceContext",0).to_bool ();
 }
 
 void
 Auto_beam_engraver::acknowledge_element (Score_element_info info)
 {
-  if (Beam *b = dynamic_cast<Beam *> (info.elem_l_))
-    {
-      if (stem_l_arr_p_)
-	{
-	  junk_beam ();
-	}
-    }
-  if (Bar *b = dynamic_cast<Bar *> (info.elem_l_))
-    {
-      if (stem_l_arr_p_)
-	{
-	  junk_beam ();
-	}
-    }
-
   if (stem_l_arr_p_)
     {
-      Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (info.req_l_);
-      if (!rhythmic_req)
-	return;
-
-      if (dynamic_cast<Rest *> (info.elem_l_))
+      if (Beam *b = dynamic_cast<Beam *> (info.elem_l_))
 	{
-	  end_beam ();
-	  return;
+	  if (same_grace_state_b (b))
+	    junk_beam ();
 	}
-
-      Stem* stem_l = dynamic_cast<Stem *> (info.elem_l_);
-      if (!stem_l)
-	return;
-
-      if (stem_l->beam_l_)
+      else if (Bar *b = dynamic_cast<Bar *> (info.elem_l_))
 	{
-	  junk_beam ();
-	  return;
+	  if (same_grace_state_b (b))
+	    junk_beam ();
 	}
-	
-
-      /*
-	now that we have last_add_mom_, perhaps we can (should) do away
-	with these individual junk_beams
-       */
-      if (rhythmic_req->duration_.durlog_i_ <= 2)
+      else if (Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (info.req_l_))
 	{
-	  end_beam ();
-	  return;
-	}
-
-      Moment start = get_staff_info().time_C_->whole_in_measure_;
-      if (!grouping_p_->child_fit_b (start))
-	{
-	  end_beam ();
-	}
-      else
-	{
-	  /*
-	    if shortest duration would change
-	    reconsider ending/starting beam first.
-	   */
-	  Moment mom = rhythmic_req->duration_.length_mom ();
-	  if (mom < shortest_mom_)
+	  if (Rest* rest_l = dynamic_cast<Rest *> (info.elem_l_))
 	    {
-	      shortest_mom_ = mom;
-	      consider_end_and_begin ();
+	      if (same_grace_state_b (rest_l))
+		end_beam ();
 	    }
-	  grouping_p_->add_child (start, rhythmic_req->length_mom ());
-
-	  stem_l_arr_p_->push (stem_l);
-	  Moment now = now_mom ();
-	  last_add_mom_ = now;
-	  extend_mom_ = extend_mom_ >? now + rhythmic_req->length_mom ();
+	  else if (Stem* stem_l = dynamic_cast<Stem *> (info.elem_l_))
+	    {
+	      /*
+		if we're a nice grace beam, but the new note is regular,
+		gracefully end beam, and consider starting a regular one.
+	       */
+	      /*
+		When does that happen !? --hwn
+	       */
+#if 0
+	      if (stem_l_arr_p_ && stem_l_arr_p_->size ()
+		  && grace_b (stem_l_arr_p_->top ())
+		  && !grace_b (stem_l))
+		{
+		    end_beam ();
+		    consider_end_and_begin ();
+		    if (!stem_l_arr_p_)
+		      return;
+		}
+#endif
+	      if (same_grace_state_b (stem_l))
+		{
+		  if (stem_l->beam_l_)
+		    junk_beam ();
+		  /*
+		    now that we have last_add_mom_, perhaps we can (should) do away
+		    with these individual junk_beams
+		  */
+		  else if (rhythmic_req->duration_.durlog_i_ <= 2)
+		    end_beam ();
+		  else 
+		    {
+		      Moment start = get_staff_info().time_C_->whole_in_measure_;
+		      if (!grouping_p_->child_fit_b (start))
+			end_beam ();
+		      else
+			{
+			  /*
+			    if shortest duration would change
+			    reconsider ending/starting beam first.
+			  */
+			  Moment mom = rhythmic_req->duration_.length_mom ();
+			  if (mom < shortest_mom_)
+			    {
+			      if (stem_l_arr_p_->size ())
+				{
+				  shortest_mom_ = mom;
+				  consider_end_and_begin ();
+				}
+			      shortest_mom_ = mom;
+			    }
+			  grouping_p_->add_child (start, rhythmic_req->length_mom ());
+			  
+			  stem_l_arr_p_->push (stem_l);
+			  Moment now = now_mom ();
+			  last_add_mom_ = now;
+			  extend_mom_ = extend_mom_ >? now + rhythmic_req->length_mom ();
+			}
+		    }
+		}
+	    }
 	}
     }
 }
@@ -319,8 +334,6 @@ void
 Auto_beam_engraver::junk_beam () 
 {
   assert (stem_l_arr_p_);
-  /*  for (int i = 0; i < stem_l_arr_p_->size (); i++)
-      (*stem_l_arr_p_)[i]->flag_i_ = 0;*/
   
   delete stem_l_arr_p_;
   stem_l_arr_p_ = 0;
