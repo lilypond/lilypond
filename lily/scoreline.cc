@@ -15,23 +15,6 @@
 #include "p-score.hh"
 
 
-/* To do:
-
-   take out hard coded TeX stuff.
-   */
-String
-Line_of_score::TeX_output_str () const
-{
-  String s ("\\hbox{%<- line of score\n");
-  if (error_mark_b_)
-    s+= "\\scorelineerrormark";
-  
-  s+= Score_elem::TeX_output_str();
-  s += "}";
-  return s;
-}
-
-
 Line_of_score::Line_of_score()
 {
   error_mark_b_ = 0;
@@ -131,10 +114,26 @@ Line_of_score::do_width() const
   return Spanner::do_width();
 }
 
+Link_array<Score_elem>
+Line_of_score::get_extra_dependencies () const
+{
+  Link_array<Score_elem> r;
+  for (int i=0; i < cols.size (); i++)
+    r.push (cols[i]);
+  return r;
+}
+
 void
-Line_of_score::do_breakable_col_processing() 
+Line_of_score::do_unlink () 
 {
   for (int i=0; i < cols.size (); i++)
-    cols[i]->breakable_col_processing();
-  Spanner::do_breakable_col_processing();
+    cols[i]->line_l_ =0;
+  cols.set_size (0);
+}
+
+
+void
+Line_of_score::do_junk_links () 
+{
+  cols.set_size (0);
 }
