@@ -1,6 +1,5 @@
 /*
-    do calculations for breaking problem
-    
+    do calculations for breaking problem    
     */
 #include "break.hh"
 #include "paper.hh"
@@ -13,19 +12,19 @@
 /*
   return all breakable columns
  */
-Array<PCol *>
+Line_of_cols
 Break_algorithm::find_breaks() const
 {
-    Array<PCol *> retval;
+    Line_of_cols retval;
     for (iter_top(pscore_.cols,c); c.ok(); c++)
 	if (c->breakable())
 	    retval.push(c);
-
+    assert(retval.last() == pscore_.cols.bottom().ptr());
     return retval;
 }
 
 // construct an appropriate Spacing_problem and solve it. 
-Array<Real>
+Col_hpositions
 Break_algorithm::solve_line(Line_of_cols curline) const
 {
    Spacing_problem sp;
@@ -40,7 +39,13 @@ Break_algorithm::solve_line(Line_of_cols curline) const
        sp.add_ideal(i);
    }
    Array<Real> the_sol=sp.solve();
-   return the_sol;
+   Col_hpositions col_hpos;
+   col_hpos.cols = curline;
+   col_hpos.energy = the_sol.last();
+   the_sol.pop();
+   col_hpos.config = the_sol;
+   col_hpos.OK();
+   return col_hpos;
 }
 
 Break_algorithm::Break_algorithm(PScore&s)
@@ -69,42 +74,5 @@ Break_algorithm::problem_OK() const
     
     assert(start->breakable());    
     assert(end->breakable());
-#endif
-}
-
-/****************/
-
-Col_configuration::Col_configuration()
-{
-    energy = INFTY;
-}
-
-void
-Col_configuration::add( PCol*c)
-{
-    cols.push(c);
-}
-
-void
-Col_configuration::setsol(Array<Real> sol)
-{
-    config = sol;
-    energy = config.last();
-    config.pop();
-}
-
-void
-Col_configuration::print() const
-{
-#ifndef NPRINT
-    mtor << "energy : " << energy << '\n';
-    mtor << "line of " << config.size() << " cols\n";
-#endif
-}
-void
-Col_configuration::OK()const
-{
-#ifndef NDEBUG
-    assert(config.size() == cols.size());
 #endif
 }
