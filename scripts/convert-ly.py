@@ -1909,6 +1909,18 @@ def conv (str):
 	if re.search ("ly:get-paper-variable", str):
 		sys.stderr.write ('use (ly:paper-lookup (ly:grob-paper ))')
 		raise FatalConversionError()
+
+	str = re.sub (r'\\defaultAccidentals', "#(set-accidental-style 'default)", str)
+	str = re.sub (r'\\voiceAccidentals', "#(set-accidental-style 'voice)", str)
+	str = re.sub (r'\\modernAccidentals', "#(set-accidental-style 'modern)", str)
+	str = re.sub (r'\\modernCautionaries', "#(set-accidental-style 'modern-cautionary)", str)
+	str = re.sub (r'\\modernVoiceAccidental', "#(set-accidental-style 'modern-voice)", str)
+	str = re.sub (r'\\modernVoiceCautionaries', "#(set-accidental-style 'modern-voice-cautionary)", str)
+	str = re.sub (r'\\pianoAccidentals', "#(set-accidental-style 'piano)' , str)", str)
+	str = re.sub (r'\\pianoCautionaries', "#(set-accidental-style 'piano-cautionary)", str)
+	str = re.sub (r'\\forgetAccidentals', "#(set-accidental-style 'forget)", str)
+	str = re.sub (r'\\noResetKey', "#(set-accidental-style 'no-reset)", str)
+	
 	return str
 
 conversions.append (((2,1,25), conv, """Scheme grob function renaming"""))

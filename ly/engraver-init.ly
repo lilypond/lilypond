@@ -350,7 +350,6 @@ printing of a single line of lyrics.  "
     \consists "Rest_swallow_translator" 
     \consists "Skip_event_swallow_translator"
     \consists "Tie_engraver"
-    \consists "Note_swallow_translator"
     \consists "Note_name_engraver"
     \consists "Separating_line_group_engraver"
 }

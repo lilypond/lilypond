@@ -1530,67 +1530,34 @@ inserted automatically before the running notes.
 @node Using the predefined accidental variables
 @subsection Using the predefined accidental variables
 
-The constructs for describing the accidental typesetting rules are
-quite hairy, so non-experts should stick to the variables
-defined in @file{ly/property-init.ly}.
-@cindex @file{property-init.ly}
 
-The variables set properties in the ``@code{Current}'' context (see
-@ref{Context properties}). This means that the variables should
-normally be added right after the creation of the context in which the
-accidental typesetting described by the variable is to take
-effect. For example, if you want to use piano-accidentals in a piano
-staff, then issue @code{\pianoAccidentals} first thing after the
-creation of the piano staff:
+Common rules for typesetting macros have been canned in a
+function. This function is called as follows:
+
+@cindex @code{set-accidental-style}
 @example
-\score @{
-    \notes \relative c'' <<
-        \new Staff @{ cis4 d e2 @}
-        \context GrandStaff <<
-            \pianoAccidentals
-            \new Staff @{ cis4 d e2 @}
-            \new Staff @{ es2 c @}
-        >>
-        \new Staff @{ es2 c @}
-    >>
-@}
+  #(set-accidental-style 'modern 'Voice)
 @end example
-@lilypond[raggedright]
-\score {
-    \notes \relative c'' <<
-        \new Staff { cis4 d e2 }
-        \context GrandStaff <<
-            \pianoAccidentals
-            \new Staff { cis4 d e2 }
-            \new Staff { es2 c }
-        >>
-        \new Staff { es2 c }
-    >>
-    \paper {
-        \translator {
-            \StaffContext
-            minimumVerticalExtent = #'(-4.0 . 4.0)
-        }
-    }
-}
-@end lilypond
 
-The variables are:
+The function takes two arguments: a symbol that denotes the style (in
+the example, @code{modern}), and another symbol that denotes the
+context name (in this example, @code{Staff}). If no context name is
+supplied, @code{Staff} is the default.
+
+The following styles are supported:
 @table @code
-@item \defaultAccidentals
-      @cindex @code{\defaultAccidentals}
+@item default
       This is the default typesetting behaviour. It should correspond
       to 18th century common practice: Accidentals are
       remembered to the end of the measure in which they occur and
       only on their own octave.
 
-@item \voiceAccidentals
-      @cindex @code{\voiceAccidentals}
+@item voice
 @c
-      The normal behaviour is to
-remember the accidentals on Staff-level.  This variable, however,
-typesets accidentals individually for each voice.  Apart from that the
-rule is similar to @code{\defaultAccidentals}.
+      The normal behaviour is to remember the accidentals on
+Staff-level.  This variable, however, typesets accidentals
+individually for each voice.  Apart from that, the rule is similar to
+@code{code}.
 
       This leads to some weird and often unwanted results
       because accidentals from one voice do not get cancelled in other
@@ -1603,78 +1570,79 @@ rule is similar to @code{\defaultAccidentals}.
          { c, e }
      >> >>
 @end lilypond
-      Hence you should only use @code{\voiceAccidentals} if the voices
+      Hence you should only use @code{voice} if the voices
 are to be read solely by individual musicians. If the staff is to be
 used by one musician (e.g. a conductor) then you use
-@code{\modernVoiceAccidentals} or @code{\modernVoiceCautionaries}
+@code{modern} or @code{modern-cautionary}
 instead.
 
-@item \modernAccidentals
-      @cindex @code{\modernAccidentals}
+@item modern
+@cindex @code{modern} style accidentals
       This rule  corresponds to the common practice in the 20th
       century.
-      The rule is  more complex than @code{\defaultAccidentals}.
-      You get all the same accidentals, but temporary
-      accidentals also get cancelled in other octaves. Furthermore,
-      in the same octave, they also get cancelled in the following measure:
+      This rule prints the same accidentals as @code{default},  but temporary
+      accidentals also are cancelled in other octaves. Furthermore,
+      in the same octave, they also get cancelled in the following
+      measure:
+
 @lilypond[raggedright,fragment,verbatim]
       \modernAccidentals
       cis' c'' cis'2 | c'' c'
 @end lilypond
 
-@item \modernCautionaries
-      @cindex @code{\modernCautionaries}
-     This rule is similar to @code{\modernAccidentals}, but the
+@item @code{modern-cautionary}
+      @cindex @code{modern-cautionary}
+     This rule is similar to @code{modern}, but the
      ``extra'' accidentals (the ones not typeset by
-     @code{\defaultAccidentals}) are typeset as cautionary accidentals.
+     @code{default}) are typeset as cautionary accidentals.
      They are printed in reduced size or with parentheses:
 @lilypond[raggedright,fragment,verbatim]
-      \modernCautionaries
+      modern-cautionary
       cis' c'' cis'2 | c'' c'
 @end lilypond
 
-      @cindex @code{\modernVoiceAccidentals}
-@item \modernVoiceAccidentals
+      @cindex @code{modern-voice}
+@item modern-voice
 is used for multivoice accidentals to be read both by musicians
 playing one voice and musicians playing all voices.  Accidentals are
 typeset for each voice, but they @emph{are} cancelled across voices in
 the same @internalsref{Staff}.
 
-      @cindex @code{\modernVoiceCautionaries}
-@item \modernVoiceCautionaries
-is the same as @code{\modernVoiceAccidentals}, but with the extra
-accidentals (the ones not typeset by @code{\voiceAccidentals}) typeset
+      @cindex @code{modern-voice-cautionary}
+@item modern-voice-cautionary
+is the same as @code{modern-voice}, but with the extra
+accidentals (the ones not typeset by @code{voice}) typeset
 as cautionaries.  Even though all accidentals typeset by
-@code{\defaultAccidentals} @emph{are} typeset by this variable then
+@code{default} @emph{are} typeset by this variable then
 some of them are typeset as cautionaries.
 
-@item \pianoAccidentals
-      @cindex @code{\pianoAccidentals}
+@item piano
+      @cindex @code{piano} accidentals
       20th century practice for piano notation. Very similar to
-      @code{\modernAccidentals} but accidentals also get cancelled
+      @code{modern} but accidentals also get cancelled
       across the staves in the same @internalsref{GrandStaff} or
       @internalsref{PianoStaff}.
 
-@item \pianoCautionaries
+@item piano-cautionary
       @cindex @code{\pianoCautionaries}
       As @code{\pianoAccidentals} but with the extra accidentals
       typeset as cautionaries.
 
-@item \noResetKey
-      @cindex @code{\noResetKey}
-      Same as @code{\defaultAccidentals} but with accidentals lasting
+@item no-reset
+      @cindex @code{no-reset} accidental style
+      Same as @code{default} but with accidentals lasting
       ``forever'' and not only until the next measure:
 @lilypond[raggedright,fragment,verbatim,relative]
       \noResetKey
       c1 cis cis c
 @end lilypond
 
-@item \forgetAccidentals
-      @cindex @code{\forgetAccidentals}
-      This is sort of the opposite of @code{\noResetKey}: Accidentals
+@item forget
+      This is sort of the opposite of @code{no-reset}: Accidentals
       are not remembered at all---and hence all accidentals are
       typeset relative to the key signature, regardless of what was
       before in the music:
+      
 @lilypond[raggedright,fragment,verbatim,relative]
       \forgetAccidentals
       \key d\major c4 c cis cis d d dis dis
@@ -1718,29 +1686,6 @@ voices in the same staff share accidentals, but staves do not.
                               lasts forever.
 @end table
 
-
-@refcommands
-
-@cindex @code{\defaultAccidentals}
-@code{\defaultAccidentals}, 
-@cindex @code{\voiceAccidentals}
-@code{\voiceAccidentals}, 
-@cindex @code{\modernAccidentals}
-@code{\modernAccidentals}, 
-@cindex @code{\modernCautionaries}
-@code{\modernCautionaries}, 
-@cindex @code{\modernVoiceAccidentals}
-@code{\modernVoiceAccidentals}, 
-@cindex @code{\modernVoiceCautionaries}
-@code{\modernVoiceCautionaries}, 
-@cindex @code{\pianoAccidentals}
-@code{\pianoAccidentals}, 
-@cindex @code{\pianoCautionaries}
-@code{\pianoCautionaries}, 
-@cindex @code{\noResetKey}
-@code{\noResetKey}, 
-@cindex @code{\forgetAccidentals}
-@code{\forgetAccidentals}.
 
 @seealso
 
