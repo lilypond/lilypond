@@ -9,8 +9,12 @@
 
 (use-modules 
  (gnome gtk)
- (gnome gtk gdk-event)
- (gnome gw canvas))
+ (gnome gtk gdk-event))
+ 
+;; the name of the module will change to canvas rsn
+(if (resolve-module '(gnome gw canvas))
+    (use-modules (gnome gw canvas))
+    (use-modules (gnome gw libgnomecanvas)))
 
 (define-public (output-framework-gnome outputter book scopes fields basename)
   (let* ((bookpaper (ly:paper-book-book-paper book))
