@@ -330,7 +330,7 @@ specified for a bottom context, so the two statements
 are equivalent.
 
 
-@cindex @\once
+@cindex \once
 Settings that should only apply to a single time-step can be entered
 with @code{\once}, for example in
 
