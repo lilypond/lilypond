@@ -44,6 +44,7 @@
 cat > ~/.fonts.conf << EOF
 <fontconfig>
 <dir>~/cvs/savannah/lilypond/mf/out</dir>
+<dir>/usr/share/texmf/fonts/type1/public/ec-fonts-mftraced</dir>
 </fontconfig>
 EOF
 "
@@ -79,6 +80,7 @@ lilypond -fgnome input/simple-song.ly
 
 (use-modules
  (guile)
+ (ice-9 regex)
  (srfi srfi-13)
  (lily)
  (gnome gtk))
@@ -223,8 +225,7 @@ lilypond -fgnome input/simple-song.ly
     bezier))
 
 (define (char font i)
-  ;;(text font (utf8 i)))
-  (text font (list->string (list (integer->char i))))); (utf8 i)))
+  (text font (utf8 i)))
 
 (define (placebox x y expr)
   (debugf "item: ~S\n" expr)
@@ -245,25 +246,16 @@ lilypond -fgnome input/simple-song.ly
   ;; FIXME: blot?
   (draw-rectangle (- breapth) depth width (- height) "black" blot-diameter))
 
-(define pango-font-name-alist
-  '(("GNU-LilyPond-feta-20" . "lilypond-feta, regular 32")
-    ("GNU-LilyPond-feta-nummer-5.5" . "lilypond-feta-nummer, regular 32")
-    ("GNU-LilyPond-feta-din-14" . "lilypond-feta-din, 25")
-    ("GNU-LilyPond-feta-14.14" . "lilypond-feta, regular 25")
-    ("GNU-LilyPond-feta-12.6" .  "lilypond-feta, regular 22")
-    ("GNU-LilyPond-feta-braces-f-90" . "LilyPond-feta-braces-f, 32")
-    ))
-
 (define (pango-font-name font)
-  (let ((pango-font (assoc-get (ly:font-name font) pango-font-name-alist #f)))
-    (if pango-font
-	pango-font
+  (let ((name (ly:font-name font)))
+    (if name
+	(regexp-substitute/global #f "^GNU-(.*)-[.0-9]*$" name 'pre 1 'post)
 	(begin
 	  (stderr "font-name: ~S\n" (ly:font-name font))
 	  ;; TODO s/filename/file-name/
 	  (stderr "font-filename: ~S\n" (ly:font-filename font))
 	  (stderr "pango-font-size: ~S\n" (pango-font-size font))
-	"ecrm12"))))
+	  "ecrm12"))))
 
 (define (pango-font-size font)
   (let* ((designsize (ly:font-design-size font))
