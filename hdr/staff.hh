@@ -16,7 +16,7 @@ struct Staff {
     PScore *pscore_l_;
     String define_spot_str_;
 
-    /****************************************************************/
+    /* *************************************************************** */
 
     void add(PointerList<Voice*> &s);
     void do_commands(PointerList<Input_command*> score_wide,
@@ -34,10 +34,10 @@ struct Staff {
     Paperdef*paper()const;
     
     /// interpret all requests and add items to #destination#.
-    void process();
     /**
     This routines calls virtual functions from Staff, to delegate the
     interpretation of requests to a derived class of Staff */
+    void process();
 
     
     void setup_staffcols();
@@ -51,13 +51,13 @@ struct Staff {
     /// remove unused cols
     void clean_cols() ;
     
-    Staff_column * get_col(Moment,bool);
+    Staff_column *get_col(Moment,bool); // ugh
 
     Staff();
 
-    /****************************************************************
+    /* 
       VIRTUALS
-    ****************************************************************/
+      */
 
     virtual void set_output(PScore * destination)=0;
     virtual void walk()=0;    
