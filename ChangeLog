@@ -1,5 +1,8 @@
 2002-04-01  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* input/mozart-hrn-3.ly: Tweak Slur.beautiful, so that we don't
+	get too curved slurs.
+
 	* scm/slur.scm (default-slur-extremity-offset-alist) 
 	(default-phrasing-slur-extremity-offset-alist): Move slur
 	attachments further away from note-head, vertically.  Also, leave
