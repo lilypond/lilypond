@@ -495,7 +495,6 @@ def bounding_box_dimensions(fname):
 	else:
 		return (0,0)
 
-
 def error (str):
 	sys.stderr.write (str + "\n  Exiting ... \n\n")
 	raise 'Exiting.'
@@ -980,7 +979,12 @@ def compile_all_files (chunks):
 	for g in png:
 		cmd = r"""gs -sDEVICE=pgm  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=- -r90 -dNOPAUSE %s -c quit | pnmcrop | pnmtopng > %s"""
 		cmd = cmd % (g + '.eps', g + '.png')
-		system (cmd)
+		try:
+			status = system (cmd)
+		except:
+			os.unlink (g + '.png')
+			error ("Removing output file")
+		
 	os.chdir (d)
 
 

@@ -1,15 +1,41 @@
 %!PS-Adobe-1.0: lilyponddefs
+%
+% Functions for direct PostScript output
 
 % hmm
 % /setgray { 1 add } bind def
 
-/stafflinethickness  lilypondpaperstafflinethickness def
-/staffheight lilypondpaperstaffheight def
+/staff-line-thickness lilypondpaperstafflinethickness def
+/staff-height lilypondpaperstaffheight def
+/line-width lilypondpaperlinewidth def
 
-/xoffset 30 def
-/yoffset 700 def
+% FIXME: why isn't this set (by default) by lily?
+% /text-height lilypondpapertextheight def
 
-/placebox
+/output-scale lilypondpaperoutputscale def
+/paper-size { lilypondpaperpapersize } bind def
+
+% FIXME
+% urg, read from paper block
+% fixed base line skip value, for single line staffs
+/base-line-skip lilypondpaperlineheight def
+
+
+/init-paper {
+	gsave
+ 	.1 setlinewidth
+ 	clippath pathbbox newpath
+ 	/vsize exch def
+ 	/hsize exch def  pop pop pop
+
+	%FIXME:
+	%vsize text-height sub 2 div /top-margin exch def
+	144 2 div /top-margin exch def
+	hsize line-width sub 2 div /left-margin exch def
+	grestore
+} bind def
+
+/place-box
 {
 	/object exch def
 	gsave
@@ -24,7 +50,7 @@
 % FIXME.  translate to middle of box.
 %
 
-/draw_box % breapth width depth height
+/draw-box % breapth width depth height
 {
 	/h exch def
 	/d exch def
@@ -43,26 +69,163 @@
 	grestore
 } bind def
 
-/start_line
+/start-line
 { 
+	line-y top-margin sub base-line-skip lt {
+		showpage
+		/line-y vsize top-margin sub def
+	} if
 	gsave
-	xoffset yoffset translate
+	line-x line-y translate
 } bind def
 
-/stop_line
+/stop-line
 { 
-	/object exch def
-	0 0 moveto pathbbox exch pop sub exch pop
-	object
+	/the-line exch def
+	0 0 moveto the-line clippath pathbbox
+	stroke
 	grestore
-	yoffset add /yoffset exch def
-	% urg...
-	yoffset lilypondpaperstaffheight 8 mul sub /yoffset exch def
+ 	exch 4 -1 roll
+	sub
+	3 1 roll
+	exch sub
+	%pstack
+	%
+	% ugh: now we should have `width height' on stack,
+	% but it's probably just the width and height of last element
+	% (the last staff)
+	% How do we get all heights of all staffs in a line?
+	%
+	% output-scale div neg line-y add /line-y exch def
+	%
+	% discarding height...
+	pop
+	%
+	% discard width
+	pop
+	% use fixed base-line-skip for now
+	line-y base-line-skip output-scale mul sub /line-y exch def
+} bind def
+
+% FIXME: font definitions should come from LilyPond
+%        built-in ps fonts are ugly
+/huge-bold-font {
+	/Times-Bold findfont 20.7 scalefont setfont
+} bind def
+
+/Large-bold-font {
+	/Times-Bold findfont 17.3 scalefont setfont
+} bind def
+
+/large-bold-font {
+	/Times-Bold findfont 14.4 scalefont setfont
+} bind def
+
+/large-font {
+	/Times-Roman findfont 14.4 scalefont setfont
+} bind def
+
+/large-smallcaps-font {
+	% urg
+	/Helvetica findfont 14.4 scalefont setfont
+} bind def
+
+/normal-font {
+	/Times-Roman findfont 12 scalefont setfont
+} bind def
+
+/footnote-font {
+	/Times-Roman findfont 10 scalefont setfont
+} bind def
+
+/get-text-dimensions % path .. width height
+{
+	dup true charpath pathbbox
+	newpath
+	line-x line-y moveto
+ 	exch 4 -1 roll
+	sub
+	3 1 roll
+	exch sub
+} bind def
+
+/set-centered
+{
+	line-x line-y moveto
+	get-text-dimensions
+	neg line-y add /line-y exch def
+	neg line-width add 2 div 0 rmoveto
+	show
+} bind def
+
+/set-left
+{
+	line-x line-y moveto
+	get-text-dimensions
+	neg line-y add /line-y exch def
+	pop
+	show
+} bind def
+
+/set-right
+{
+	line-x line-y moveto
+	get-text-dimensions
+	neg line-y add /line-y exch def
+	neg line-width add 0 rmoveto
+	show
+} bind def
+
+/make-lilypond-title
+{
+	currentdict /lilypondtitle known {
+		huge-bold-font lilypondtitle set-centered
+		line-y 5 sub /line-y exch def
+	} if
+	currentdict /lilypondsubtitle known {
+		Large-bold-font lilypondsubtitle set-centered
+		line-y 5 sub /line-y exch def
+	} if
+	currentdict /lilypondsubsubtitle known {
+		large-bold-font lilypondsubsubtitle set-centered
+	} if
+	currentdict /lilypondcomposer known {
+		large-smallcaps-font lilypondcomposer set-right
+	} if
+	currentdict /lilypondopus known {
+		normal-font lilypondopus set-right
+	} if
+	currentdict /lilypondarranger known {
+		normal-font lilypondarranger set-right
+	} if
+	currentdict /lilypondinstrument known {
+		large-font lilypondinstrument set-centered
+	} if
+	currentdict /lilypondpiece known {
+		large-smallcaps-font lilypondpiece set-left
+	} if
+} bind def
+
+/end-lilypond-output
+{
+	/line-y top-margin def
+	footnote-font lilypondtagline set-left
+	showpage
 } bind def
 
 /turnOnExperimentalFeatures { } bind def
 
-stafflinethickness setlinewidth
+
+staff-line-thickness setlinewidth
+
+paper-size
+
+staff-height init-paper
+
+/line-x left-margin def
+/line-y vsize top-margin sub def
+
+make-lilypond-title
 
 % see if we're there...
 % 10 setlinewidth 0 0 moveto 400 800 lineto stroke

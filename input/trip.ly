@@ -92,7 +92,7 @@ praeludiumLeft =  \notes \relative c {
 fugaIIRight =  \notes   \relative c''   {
   \key e \major              % E-major
   \clef violin
-  \time3/4
+  \time 3/4
 
   %15
   \context Staff <

@@ -1,8 +1,7 @@
-Only in .: LilyPond.ico
 diff -urN ../cinstall/Makefile.in ./Makefile.in
 --- ../cinstall/Makefile.in	Thu Feb  8 05:55:22 2001
-+++ ./Makefile.in	Tue Apr 10 19:20:14 2001
-@@ -130,11 +130,16 @@
++++ ./Makefile.in	Thu Apr 12 11:41:37 2001
+@@ -130,11 +130,15 @@
  	@chmod a-x $@
  
  clean:
@@ -12,10 +11,10 @@ diff -urN ../cinstall/Makefile.in ./Makefile.in
 +	$(MAKE) -C zlib $@
  
  realclean: clean
- 	rm -f  Makefile config.cache
-+	rm -f *.d
-+	rm -f inilex.c iniparse.c iniparse.h version.c config.log config.status *.d 
-+
+-	rm -f  Makefile config.cache
++	rm -f Makefile *.d
++	rm -f config.cache config.log config.status 
++	rm -f inilex.c iniparse.c iniparse.h version.c
 +
 +distclean: realclean
  
@@ -23,7 +22,7 @@ diff -urN ../cinstall/Makefile.in ./Makefile.in
  	$(SHELL) $(updir1)/mkinstalldirs $(bindir) $(etcdir)
 diff -urN ../cinstall/desktop.cc ./desktop.cc
 --- ../cinstall/desktop.cc	Sat Nov 11 05:55:16 2000
-+++ ./desktop.cc	Tue Apr 10 19:15:01 2001
++++ ./desktop.cc	Thu Apr 12 11:39:52 2001
 @@ -79,9 +79,7 @@
    "done",
    "",
@@ -110,7 +109,7 @@ diff -urN ../cinstall/desktop.cc ./desktop.cc
  
 diff -urN ../cinstall/ini.cc ./ini.cc
 --- ../cinstall/ini.cc	Thu Oct  5 05:55:27 2000
-+++ ./ini.cc	Sun Apr  8 21:52:03 2001
++++ ./ini.cc	Thu Apr 12 11:39:52 2001
 @@ -174,7 +174,7 @@
  	{
  	  *nl = 0;
@@ -122,7 +121,7 @@ diff -urN ../cinstall/ini.cc ./ini.cc
        
 diff -urN ../cinstall/msg.cc ./msg.cc
 --- ../cinstall/msg.cc	Sat Aug 26 05:55:14 2000
-+++ ./msg.cc	Sun Apr  8 21:51:56 2001
++++ ./msg.cc	Thu Apr 12 11:39:52 2001
 @@ -44,7 +44,7 @@
  
    vsprintf (buf, fmt, args);
@@ -134,7 +133,7 @@ diff -urN ../cinstall/msg.cc ./msg.cc
  void
 diff -urN ../cinstall/res.rc ./res.rc
 --- ../cinstall/res.rc	Wed Mar  7 18:13:31 2001
-+++ ./res.rc	Sun Apr  8 19:48:40 2001
++++ ./res.rc	Fri Apr 13 16:06:40 2001
 @@ -30,10 +30,10 @@
  
  IDD_SOURCE DIALOG DISCARDABLE  0, 0, 215, 95
@@ -325,18 +324,19 @@ diff -urN ../cinstall/res.rc ./res.rc
  CYGWIN.ICON             FILE    DISCARDABLE     "cygwin.ico"
  
  /////////////////////////////////////////////////////////////////////////////
-@@ -354,7 +355,7 @@
+@@ -354,7 +355,8 @@
  BEGIN
      IDS_ROOT_SLASH          "Warning: we recommend you do NOT use the root of your hard drive as the cygwin root.  Proceed anyway?"
      IDS_ROOT_SPACE          "You should not choose a root path that include spaces in directory names.  Proceed anyway?"
 -    IDS_MIRROR_LST          "http://sources.redhat.com/cygwin/mirrors.lst"
-+    IDS_MIRROR_LST          "http://appel.lilypond.org/lilypond/gnu-windows/mirrors.lst"
++    // IDS_MIRROR_LST          "http://appel.lilypond.org/lilypond/gnu-windows/mirrors.lst"
++    IDS_MIRROR_LST          "http://www.lilypond.org/gnu-windows/mirrors.lst"
      IDS_DIALOG_FAILED       "Unable to create Dialog Box"
      IDS_CYGWIN_FUNC_MISSING "Error: unable to find function `%s' in %s"
      IDS_DOWNLOAD_SHORT      "Download error: %s too short (%d, wanted %d)"
 diff -urN ../cinstall/resource.h ./resource.h
 --- ../cinstall/resource.h	Thu Mar  1 05:55:20 2001
-+++ ./resource.h	Sun Apr  8 16:38:11 2001
++++ ./resource.h	Thu Apr 12 11:39:52 2001
 @@ -47,11 +47,12 @@
  #define IDB_SPIN                        118
  #define IDB_RTARROW                     119
@@ -351,4 +351,17 @@ diff -urN ../cinstall/resource.h ./resource.h
  #define IDC_SOURCE_DOWNLOAD             1000
  #define IDC_SOURCE_NETINST              1001
  #define IDC_SOURCE_CWD                  1002
-Common subdirectories: ../cinstall/zlib and ./zlib
+diff -urN ../cinstall/zlib/Makefile.in ./zlib/Makefile.in
+--- ../cinstall/zlib/Makefile.in	Tue Aug  8 05:55:18 2000
++++ ./zlib/Makefile.in	Thu Apr 12 11:42:10 2001
+@@ -299,6 +299,10 @@
+ 
+ clean: clean-am
+ 
++realclean: clean
++	rm -f Makefile *.d
++	rm -f config.cache config.log config.status 
++
+ distclean-am:  distclean-noinstLIBRARIES distclean-compile \
+ 		distclean-tags distclean-generic clean-am
+ 

@@ -13,10 +13,6 @@
 #include "axis-group-interface.hh"
 #include "paper-def.hh"
 
-/*
-  This callback is set in the children of the align element. It does
-  not compute anything, but a side effect of a->do_side_processing ()
-  is that the elements are placed correctly.  */
 MAKE_SCHEME_CALLBACK (Align_interface,alignment_callback,2);
 SCM
 Align_interface::alignment_callback (SCM element_smob, SCM axis)

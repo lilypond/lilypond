@@ -43,8 +43,8 @@
       >
       \context Staff = corni <
         \property Staff.midiInstrument = #"french horn"
-	\property Staff.instrument = #`(lines "Corno" (rows "(E" ,text-flat ")"))
-	\property Staff.instr = #`(lines "Cor."  (rows "(E" ,text-flat ")"))
+	\property Staff.instrument = #`(lines "Corno" (columns "(E" ,text-flat ")"))
+	\property Staff.instr = #`(lines "Cor."  (columns "(E" ,text-flat ")"))
 	\property Staff.transposing = #3
 	\notes \key bes \major
 	\context Voice=one \corno

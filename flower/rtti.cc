@@ -4,7 +4,7 @@
 
 
 const char *
-demangle_classname (type_info const &t)
+demangle_classname (std::type_info const &t)
 {
   char const *s = t.name ();
   while (isdigit (*s))

@@ -81,6 +81,14 @@
 	    (cons (car list)  rest)
 	    rest))))
 
+(define (filter-out-list pred? list)
+  "return that part of LIST for which PRED is true."
+  (if (null? list) '()
+      (let* ((rest  (filter-list pred? (cdr list))))
+	(if (not (pred?  (car list)))
+	    (cons (car list)  rest)
+	    rest))))
+
 (define (uniqued-alist  alist acc)
   (if (null? alist) acc
       (if (assoc (caar alist) acc)

@@ -411,7 +411,8 @@ main (int argc, char **argv)
          export GUILE_MAX_SEGMENT_SIZE=576000
 
      may considerably decrease memory footprint (~*0.85), with a small
-     execution time penalty (~*1.10).  */
+     execution time penalty (~*1.10).  However, if this 15% gain in memory
+     usage prevents swapping, the execution time falls drastically. */
   
   sane_putenv ("GUILE_INIT_SEGMENT_SIZE_1", "4194304");
   sane_putenv ("GUILE_MAX_SEGMENT_SIZE", "8388608");
@@ -431,7 +432,7 @@ main (int argc, char **argv)
 	  {
 	    String s = oparser_p_static->optional_argument_ch_C_;
 	    Path p = split_path (s);
-	    if (p.ext.empty_b ())
+	    if (s != "-" && p.ext.empty_b ())
 	      p.ext = format_to_ext (output_format_global);
 	    output_name_global = p.str ();
 	  }

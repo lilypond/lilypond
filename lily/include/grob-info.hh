@@ -20,7 +20,7 @@
   */
 struct Grob_info {
   Translator * origin_trans_l_;
-  friend Engraver;
+  friend class Engraver;
 public:
   Link_array<Translator> origin_trans_l_arr (Translator*) const; 
   Grob * elem_l_;

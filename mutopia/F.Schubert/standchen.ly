@@ -406,6 +406,7 @@ bassStaff =  \context Staff = bass<
 >
 
 grandStaff =  \context PianoStaff <
+
 	\trebleStaff
 	\bassStaff
 >
@@ -431,12 +432,13 @@ grandStaff =  \context PianoStaff <
 		\grandStaff
 	>
 	\paper { 
-		\translator {
+%{		\translator {
 			\HaraKiriStaffContext
 			%VerticalExtent = #'(0 . 0)
 			%MinimumVerticalExtent = #'(0 . 0)
 			%StaffMinimumVerticalExtent = #'(0 . 0)
 		}
+		%}
 		\translator {
 			\LyricsContext
 			VerticalExtent = #'(1.2 . 1.2)

@@ -2367,7 +2367,7 @@ names:
 
 \score { \notes {
   \property Staff.instrument = #`((kern . 0.5) (lines
-    "2 Clarinetti" (rows "     (B" ,text-flat ")")))
+    "2 Clarinetti" (columns "     (B" ,text-flat ")")))
     c'' 4 }
 }
 @end lilypond
@@ -3009,7 +3009,8 @@ text: string | (head? text+)
 head: markup | (markup+)
 markup-item: property | abbrev
 property: (@var{key} . @var{value})
-abbrev: @code{rows lines roman music bold italic named super sub text}
+abbrev: @code{columns lines roman music bold italic named super sub
+overstrike text}
         @code{finger volta timesig mmrest mark script large Large dynamic}
 @end example
 
@@ -3020,8 +3021,8 @@ the generated documentation for @code{text-interface}
 
 The following abbreviations are currently defined:
 @table @code
-@item rows
-horizontal mode: set all text on one line (default)
+@item columns
+ horizontal mode: set all text on one line (default)
 @item lines
  vertical mode: set every text on a new line
 @item roman
@@ -3042,6 +3043,8 @@ and uses named lookup
  superscript
 @item sub
  subscript
+@item overstrike
+ the next text or character overstrikes this one
 @item finger
  select fingering number fontstyle
 @item volta
@@ -3069,16 +3072,16 @@ One practical application of complicated markup is to fake a metronome
 marking:
 
 @lilypond[verbatim]
-#(define note '(rows
+#(define note '(columns
   (music "noteheads-2" ((kern . -0.1) "flags-stem"))))
-#(define eight-note `(rows ,note ((kern . -0.1)
+#(define eight-note `(columns ,note ((kern . -0.1)
   (music ((raise . 3.5) "flags-u3")))))
 #(define dotted-eight-note
-  `(rows ,eight-note (music "dots-dot")))
+  `(columns ,eight-note (music "dots-dot")))
 
 \score {
   \notes\relative c'' {
-    a1^#`((rows (font-relative-size . -1)) ,dotted-eight-note " = 64")
+    a1^#`((columns (font-relative-size . -1)) ,dotted-eight-note " = 64")
   }
   \paper {
     linewidth = -1.
@@ -3432,6 +3435,10 @@ LilyPond produce @TeX{} first.  The .tex output must be processed by
 is used to generate PostScript.  Alternatively, @file{ly2dvi} can be
 used to generate the .dvi for you.
 
+@refbugs
+
+Titling is not generated.
+
 
 @node PostScript output
 @subsection PostScript output
@@ -3465,7 +3472,16 @@ created through direct postscript output, you should prepend the
 necessary .pfa files to LilyPond's .ps output, or upload them to the
 printer before printing.
 
-Titling is not generated.
+The line height calculation is broken, you must set @var{lineheight} in
+the paperblock if you have more than one staff in your score, e.g.
+
+@example
+  ...
+  \paper @{
+    % Set line height to 40 staff spaces
+    lineheight = 40    
+  @}
+@end example
 
 @node Scheme output
 @subsection Scheme output

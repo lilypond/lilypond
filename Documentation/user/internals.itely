@@ -10,32 +10,17 @@
 @node Internals
 @chapter Internals
 
-@menu
-* Conversion stages::           Lilypond is a multi-pass program.
-* Moment::                      
-* Grobs::                       Graphical object  
-* Duration::                    
-* Pitch data type::             
-* Engraver::                    
-* Music_iterator::              
-* Music::                       
-* Molecules::                   Molecules are stand-alone descriptions of output
-* Font metrics::                Font metrics
-* Miscellaneous Scheme functions::  
-@end menu
-
-@node Conversion stages
-@section Conversion stages
 
 When translating the input to notation, there are number of distinct
 phases.  We list them here:
 
-@table @code
+@table @b
 
 @item Parsing:
 
-The .ly file is read, and converted to a list of @code{Scores}, which
-each contain @code{Music} and paper/midi-definitions.
+The LY file is read, and converted to a list of @code{Scores}, which
+each contain @code{Music} and paper/midi-definitions. Here @code{Music},
+@code{Pitch} and @code{Duration}  objects are created.
 
 @item Interpreting music
 @cindex interpreting music
@@ -45,7 +30,13 @@ All music events are "read" in the same order as they would be played
 events are delivered to
 interpretation contexts,
 @cindex engraver
-which use them to build grobs (or MIDI objects, for MIDI output).
+which use them to build @code{Grob}s (or MIDI objects, for MIDI output).
+
+In this stage @code{Music_iterators} do a traversal of the @code{Music}
+structure. The music events thus encountered are reported to
+@code{Translator}s, a set objects that collectively form interpretation
+contexts.
+
 
 @item Prebreaking
 
@@ -76,9 +67,43 @@ spanner grob will only reference other grobs in the same line.
 @item Outputting:
 
 All vertical dimensions and spanning objects are computed, and all grobs
-are output, line by line.
+are output, line by line. The output is encoded in the form of
+@code{Molecule}s
 
 @end table
+
+The data types that are mentioned here are all discussed in this
+section.
+
+@menu
+* Input location::              
+* Moment::                      
+* Duration::                    
+* Pitch data type::             
+* Music::                       
+* Music_iterator::              
+* Translator::                  
+* Grobs::                       Graphical object  
+* Molecules::                   Molecules are stand-alone descriptions of output
+* Font metrics::                Font metrics
+* Miscellaneous Scheme functions::  
+@end menu
+
+@node Input location
+@section input location
+
+The parser generates
+
+Input location objects point to a lcoation in the input file. This
+location is used to generate error messages and to enable the point and
+click output.
+
+@defun ly-input-location?
+Type predicate
+@end defun
+
+
+
 
 @node Moment
 @section Moment
@@ -92,6 +117,116 @@ so we created our own rational data type.
 @defun make-moment num den
 create the rational number @var{num}/@var{den}. 
 @end defun
+
+@node Duration
+@section Duration
+
+A duration is a musical duration, i.e. a length of time described by a
+power of two (whole, half, quarter, etc.) and a number of augmentation
+dots. 
+
+@defun make-duration length dotcount
+
+@var{length} is the negative logarithm (base 2) of the duration:
+1 is a half note, 2 is a quarter note, 3 is an eighth
+note, etc.  The number of dots after the note is given by
+@var{dotcount}.
+@end defun
+
+
+@defun duration? d
+type predicate for Duration
+@end defun
+
+@node Pitch data type
+@section Pitch data type
+
+
+
+@defun make-pitch octave note shift
+
+@var{octave} is specified by an integer, zero for the octave containing
+middle C.  @var{note} is a number from 0 to 6, with 0 corresponding to C
+and 6 corresponding to B.  The shift is zero for a natural, negative for
+flats, or positive for sharps.
+@end defun
+
+@defun pitch-octave p 
+extract the octave from pitch @var{p}.
+@end defun
+
+@defun pitch-notename p
+extract the note name from pitch  @var{p}.
+@end defun
+
+@defun pitch-alteration p
+extract the alteration from pitch  @var{p}.
+@end defun
+
+@defun pitch-semitones p
+calculate the number of semitones of @var{p} from central C.
+@end defun
+
+@defun Pitch::transpose t p
+Transpose @var{p} by the amount @var{t}, where @var{t} is the pitch that
+central C is transposed to. 
+@end defun
+
+
+@node Music
+@section Music
+
+Music is the data type that music expressions are stored in. The data
+type does not yet offer many manipulations.
+
+@defun ly-get-mus-property m sym
+Get the property @var{sym} of music expression @var{m}.
+@end defun
+
+@defun ly-set-mus-property m sym val
+Set property @var{sym} in music expression @var{m} to @var{val}.
+@end defun
+
+@defun ly-make-music name
+Make a music object/expression of type @var{name}. Warning: this
+interface will likely change in the near future.
+@end defun
+
+@defun music? obj
+A type predicate,  return true if @var{obj} is a music object.
+@end defun
+
+@defun ly-music-name music
+Print the name of @var{music}.
+@end defun
+
+
+@node Music_iterator
+@section Music_iterator
+
+Music_iterator is an object type that traverses the Music structure and
+reports the events it finds to interpretation contexts. It is not yet
+user-serviceable.
+
+@defun c++-function?
+type predicate for c++-function.   Music_iterator are created from
+schemified C++ constructors. Such a constructor is a @code{c++-function}.
+@end defun
+
+@node Translator
+@section Translator
+
+Translators are the building blocks of contexts. They are not yet user
+accessible.
+
+@defun ly-get-trans-property tr sym
+retrieve the value of @var{sym} from context @var{tr}
+@end defun
+
+@defun ly-set-trans-property tr sym val
+set value of property @var{sym} in context @var{tr} to @var{val}.
+@end defun
+
 
 @node Grobs
 @section Grobs
@@ -109,11 +244,8 @@ The most simple interaction with Grobs are when you use
 @end example
 
 This piece of lily input causes all stem objects to be stem-up
-henceforth.  In effect, you are telling lilypond to extend the defintion
-of the "Stem" grob with the setting @code{direction := 1}.  Of course
-there are many more ways of customizing Lily output, and since most of
-them involve Grobs in some form, this section explains some details of
-how grobs work.
+henceforth.  In effect, you are telling lilypond to extend the definition
+of the `Stem' grob with the setting @code{direction := 1}.
 
 @menu
 * What is a grob?::             
@@ -131,28 +263,27 @@ how grobs work.
 
 In music notation, lots of symbols are related in some way.  You can
 think of music notation as a graph where nodes are formed by the
-symbols, and the arcs by their relations. A grob is node in that
-graph. A grob stores references to other grobs, the directed edges in
-the graph.
+symbols, and the arcs by their relations. A grob is node in that graph.
+The directed edges in the graph are formed by references to other grobs
+(i.e. pointers).
 
-The objective of this big graph of grobs, is to specify the notation
-problem. The solution of this problem is a description of the printout
-that is in closed form, i.e. but a list of values.  These values are
-Molecules. (see @ref{Molecules})
+This big graph of grobs specifies the notation problem. The solution of
+this problem is a description of the printout in closed form, i.e. a
+list of values.  These values are Molecules. (see @ref{Molecules})
 
 All grobs have an X and Y-position on the page.  These X and Y positions
 are stored in a relative format, so they can easily be combined by
 stacking them, hanging one grob to the side of another, and coupling
 them into a grouping-grob.
 
-Each grob has a reference point, or parent: the position of a grob is
-stored relative to that reference point. For example the X-reference
+Each grob has a reference point (a.k.a.  parent): the position of a grob
+is stored relative to that reference point. For example the X-reference
 point of a staccato dot usually is the note head that it applies
-to. Whenever the note head is moved, the staccato dot moves along
+to. When the note head is moved, the staccato dot moves along
 automatically.
 
 If you keep following offset reference points, you will always end up at
-the root-object. This root object is called @code{Line_of_score}, and it
+the root object. This root object is called @code{Line_of_score}, and it
 represents a system (ie. a line of music).
 
 All grobs carry a set of grob-properties.  In the Stem example above,
@@ -162,24 +293,14 @@ that draws the symbol (@code{Stem::brew_molecule}) uses the value of
 appearance of a grob is determined solely by the values of its
 properties.
 
-Often, a grob also is associated with a symbol. However, some
-grobs do not print any symbols, but take care of grouping objects. For
-example, there is a separate grob that stacks staffs vertically, so they
-are not printed in overstrike. The @code{NoteCollision} is another
-example of an abstract grob.  It only moves around chords, but doesn't
-print anything.
+A grob is often associated with a symbol, but some grobs do not print
+any symbols. They take care of grouping objects. For example, there is a
+separate grob that stacks staffs vertically. The @code{NoteCollision}
+also is an abstract grob: it only moves around chords, but doesn't print
+anything.
 
-A complete list of grob types is found in 
-@ref{(lilypond-internals)LilyPond backend}
+A complete list of grob types is found in the generated documentation.
 
-Grobs are created in the "Interpreting music" phase, by objects in
-LilyPond called engravers.  In this phase of the translation, a load of
-grobs are created, and they are linked into a giant network of objects.
-This network of grobs forms the "specification" of the print
-problem. This problem is then solved: configurations, directions,
-dimensions, line breaks, etc.  are calculated. Finally,   the printing
-description in the form of Molecules (@ref{Molecules})  is extracted from
-the network. These are then dumped into the output file
 
 @node Callbacks
 @subsection Callbacks
@@ -206,7 +327,8 @@ automatically execute all callbacks for that object. In this case, it
 will find @code{my-callback}, and execute that. The result is that the
 stem is translated by two staff spaces in its direction.
 
-(note: Y-offset-callbacks is also a property) 
+(note: @code{Y-offset-callbacks} is also a property)
+
 
 
 Offset callbacks can be stacked, ie.
@@ -217,12 +339,12 @@ Offset callbacks can be stacked, ie.
 
 @end example
 
-The callbacks will be executed in the order callback3 callback2
-callback1. This is used for quantized positioning: the staccato dot is
+The callbacks will be executed in the order @code{callback3 callback2
+callback1}. This is used for quantized positioning: the staccato dot is
 above or below a note head, and it must not be on a staff-line.  To
-achieve this, for the staccato there are two callbacks: one callback
-that positions the grob above or below the note head, and one callback
-that rounds the Y-position of the grob to the nearest open space.
+achieve this, the staccato dot has two callbacks: one that positions the
+grob above or below the note head, and one that rounds the Y-position of
+the grob to the nearest open space.
 
 Similarly, the size of a grob are determined through callbacks, settable
 with grob properties @code{X-extent-callback} and
@@ -236,7 +358,9 @@ extent in that coordinate.
 @subsection Setting grob properties
 
 Grob properties are stored as GUILE association lists, with symbols as
-keys.   From C++, element properties can be accessed using the functions
+keys.  In GUILE you can access these using functions described @ref{Grob
+Scheme functions}.  From C++, grob properties can be accessed using
+these functions:
 
 @example
   SCM  get_grob_property (SCM) const;
@@ -248,34 +372,24 @@ keys.   From C++, element properties can be accessed using the functions
   SCM  remove_grob_property (const char* nm);
 @end example
 
-In GUILE, LilyPond provides
-
-@example
-        ly-get-grob-property GROB SYMBOL
-        ly-set-grob-property GROB SYMBOL VALUE
-@end example
-
-All lookup functions identify undefined properties with 
-end-of-list (ie. @code{'()} in Scheme or @code{SCM_EOL} in C)
+All lookup functions identify undefined properties with end-of-list
+(ie. @code{'()} in Scheme or @code{SCM_EOL} in C)
 
 Properties are stored in two ways:
 @itemize @bullet
-@item mutable properties:
-element properties that change from object to object. The storage of
-these are private to a grob. Typically this is used to store lists of
-pointers to other grobs
+@item mutable properties.
+grob properties that change from object to object. The storage of
+these are private to a grob. For example pointers to other grobs are
+always stored in the mutable properties.
 
-@item immutable properties:
-element properties that are shared across different grobs of the same
+@item immutable properties.
+Grob properties that are shared across different grobs of the same
 type. The storage is shared, and hence it is read-only. Typically, this
-is used to store function callbacks, and values for shared element
-properties are read from @file{scm/element-description.scm}.
+is used to store function callbacks, and default settings. They are
+initially read from from @file{scm/grob-description.scm}.
 @end itemize
 
-There are two ways to manually set grob properties.
-
-You can change immutable grob properties. This is done with the
-\override syntax:
+You can change immutable grob properties with the \override syntax:
 
 @example
         \property Voice.Stem \override #'direction = #1
@@ -283,7 +397,7 @@ You can change immutable grob properties. This is done with the
 
 This will push the entry @code{'(direction . 1)} on the immutable
 property list for stems, in effect overriding the setting from
-@file{scm/element-description.scm}. This can be undone by 
+@file{scm/grob-description.scm}. This can be undone by 
 
 @example
         \property Voice.stem \revert #'direction
@@ -298,14 +412,15 @@ shorthand,
 
 this does a @code{\revert} followed by a @code{\override}
 
-The second way is \outputproperty. This construct looks like
+You can change mutable properties with \outputproperty. This construct
+looks like
 
 @example
         \context ContextName \outputproperty @var{pred} #@var{sym} = #@var{val}
 @end example
 
-In this case, in every grob that satisfies @var{pred}, the property
-assignment @var{sym} = @var{val} is done.  For example
+In this case, in every grob that satisfies @var{pred}, the grob property
+ @var{sym} is set to @var{val} is done.  For example
 
 @example
         \outputproperty
@@ -314,7 +429,7 @@ assignment @var{sym} = @var{val} is done.  For example
                 #'extra-offset = #'(-1.0 . 0.0)
 @end example
 
-This shifts all elements that have a @code{text} property one staff
+This shifts all grobs that have a @code{text} property one staff
 space to the left. This mechanism is rather clumsy to use, but it allows
 you tweak any setting of any grob.
 
@@ -366,7 +481,7 @@ Other grobs have a shape that depends on the horizontal spacing. For
 example, slur, beam, tie, etc. These grobs form a subtype called
 @code{Spanner}. All spanners have two span-points (these must be
 @code{Item}s), one on the left and one on the right. The left bound is
-also the X-reference point.
+also the X-reference point of the spanner.
 
 Some items need special treatment for line breaking. For example, a
 clef is normally only printed at the start of a line (ie. after a line
@@ -377,14 +492,16 @@ before the line break (at the end of a system), one version that is
 printed after the line break.
 
 Whether these versions are visible and take up space, is determined by
-the outcome of the visibility-lambda. This is a function taking a
-direction (-1, 0 or 1) and returns a cons of booleans, signifying wether
-this grob should be transparent and have no extent.
-
+the outcome of the @code{visibility-lambda}. This grob property is a
+function taking a direction (-1, 0 or 1) as argument. It returns a cons
+of booleans, signifying whether this grob should be transparent and have
+no extent.
 
 @node Grob Scheme functions
 @unnumberedsubsec Grob Scheme functions
 
+Grob properties can be manipulated from Scheme. In practice, most
+manipulations are coded in C++ because of tradition.
 
 @defun ly-get-grob-property g sym
   Get the value of a value in grob @var{g} of property @var{sym}. It
@@ -404,97 +521,8 @@ left, and @code{1} for right.
 Typecheck: is @var{g} a grob?
 @end defun
 
-@node Duration
-@section Duration
-
-@defun make-duration length dotcount
-
-@var{length} is the negative logarithm (base 2) of the duration:
-1 is a half note, 2 is a quarter note, 3 is an eighth
-note, etc.  The number of dots after the note is given by
-@var{dotcount}.
-@end defun
 
 
-@defun duration? d
-type predicate for Duration
-@end defun
-
-@node Pitch data type
-@section Pitch data type
-
-
-
-@defun make-pitch octave note shift
-
-@var{octave} is specified by an integer, zero for the octave
-containing middle C.  @var{note} is a number from 0 to 7, with 0
-corresponding to C and 7 corresponding to B.  The shift is zero for a
-natural, negative to add flats, or positive to add sharps.
-@end defun
-
-@defun pitch-octave p 
-extract the octave from pitch @var{p}.
-@end defun
-
-@defun pitch-notename
-extract the note name from pitch  @var{p}.
-@end defun
-
-@defun pitch-alteration
-extract the alteration from pitch  @var{p}.
-@end defun
-
-@defun pitch-semitones
-calculate the number of semitones of @var{p} from central C.
-@end defun
-
-@defun Pitch::transpose t p
-Transpose @var{p} by the amount @var{t}, where @var{t} is the pitch that
-central C is transposed to. 
-@end defun
-
-@node Engraver
-@section Engraver
-
-Engravers are building blocks of contexts. They are not yet user accessible.
-
-@defun ly-get-trans-property tr sym
-retrieve the value of @var{sym} from context @var{tr}
-@end defun
-
-@defun ly-set-trans-property tr sym val
-set value of property @var{sym} in context @var{tr} to @var{val}.
-@end defun
-
-@node Music_iterator
-@section Music_iterator
-
-This data-type is a direct hook into some C++ constructor functions. It
-is not yet user-serviceable.
-
-@defun c++-function?
-type predicate for c++-function.
-@end defun
-
-@node Music
-@section Music
-
-Music is the data type that music expressions are stored in. The data
-type does not yet offer many manipulations.
-
-@defun ly-get-mus-property m sym
-Get the property @var{sym} of music expression @var{m}.
-@end defun
-
-@defun ly-set-mus-property m sym val
-Set property @var{sym} in music expression @var{m} to @var{val}.
-@end defun
-
-@defun ly-make-music name
-Make a music object/expression of type @var{name}. Warning: this
-interface will likely change in the near future.
-@end defun
 
 @node Molecules
 @section Molecules
@@ -504,8 +532,8 @@ interface will likely change in the near future.
 @cindex Output description
 
 The objective of any typesetting system is to put ink on paper in the
-right places. For LilyPond, this final stage is left to the TeX and the
-printer subsystem. For lily, the last stage in processing a score is
+right places. For LilyPond, this final stage is left to the @TeX{} and
+the printer subsystem. For lily, the last stage in processing a score is
 outputting a description of what to put where.  This description roughly
 looks like
 
@@ -516,18 +544,18 @@ looks like
 @end example
 
 you merely have to look at the tex output of lily to see this.
-Internally these instructions are encoded in Molecules:@footnote{At some
+Internally these instructions are encoded in Molecules.@footnote{At some
 point LilyPond also contained Atom-objects, but they have been replaced
-by Scheme expressions, making the name outdated.}.  A molecule is an
-object that combines dimension information (how large is this glyph ?)
-with what-to-print-where.
+by Scheme expressions, making the name outdated.}  A molecule is
+what-to-print-where information that also contains dimension information
+(how large is this glyph?).
 
 Conceptually, Molecules can be constructed from Scheme code, by
 translating a Molecule and by combining two molecules. In BNF
 notation:
 
 @example
- Molecule = COMBINE Molecule Molecule
+Molecule  :: COMBINE Molecule Molecule
            | TRANSLATE Offset Molecule
            | GLYPH-DESCRIPTION
            ;
@@ -535,7 +563,7 @@ notation:
 
 If you are interested in seeing how this information is stored, you
 can run with the @code{-f scm} option. The scheme expressions are then
-dumped onto the output file.
+dumped in the output file.
 
 All visible, i.e. non-transparant, grobs have a callback to create a
 Molecule. The name of the property is @code{molecule-callback}, and its
@@ -553,7 +581,7 @@ type predicate.
 Construct a molecule by putting @var{mol2} next to
 @var{mol1}. @var{axis} can be 0 (x-axis) or 1 (y-axis), @var{dir} can be
 -1 (left or down) or 1 (right or up).  @var{padding} specifies extra
-space to add in between.  The unit is global staff space.  is the
+space to add in between measured in global staff space.
 @end defun
 
 @defun ly-get-molecule-extent! mol axis
@@ -563,7 +591,11 @@ Return a pair of numbers signifying the extent of @var{mol} in
 
 @defun ly-set-molecule-extent! mol axis extent
 Set the extent (@var{extent} must be a pair of numbers) of @var{mol} in 
-@var{axis} direction (0 or 1 for x and y axis respectively).
+@var{axis} direction (0 or 1 for x- and y-axis respectively).
+
+Note that an extent @code{(A . B)} is an interval and hence @code{A} is
+smaller than @code{B}, and is often negative.
+
 @end defun
 
 @node Font metrics
@@ -573,10 +605,10 @@ The font object represents the metric information of a font. Every font
 that is loaded into LilyPond can be accessed via Scheme. 
 
 LilyPond only needs to know the dimension of glyph to be able to process
-them. This information is stored in font metric files. LilyPond can
-read two types of font-metrics: @TeX{} Font Metric files (tfm files) and
-Adobe Font Metric files (@file{.afm} files).  LilyPond will always try
-to load afm files first since @file{.afm} files are more versatile.
+them. This information is stored in font metric files. LilyPond can read
+two types of font-metrics: @TeX{} Font Metric files (TFM files) and
+Adobe Font Metric files (AFM files).  LilyPond will always try to load
+AFM files first they files are more versatile.
 
 @defun ly-get-default-font gr
 This returns the default font for grob @var{gr}.
@@ -584,7 +616,7 @@ This returns the default font for grob @var{gr}.
 
 @defun ly-find-glyph-by-name font name
 This function retrieves a Molecule for the glyph named @var{name} in
-@var{font}.  The font must be available as a afm file.
+@var{font}.  The font must be available as an AFM file.
 @cindex afm file
 
 @end defun
@@ -592,9 +624,6 @@ This function retrieves a Molecule for the glyph named @var{name} in
 @node Miscellaneous Scheme functions
 @section Miscellaneous Scheme functions
 
-@defun ly-input-location?
-type predicate
-@end defun
  
 @defun ly-warn msg
 Scheme callable function to issue the warning @code{msg}.
@@ -606,8 +635,8 @@ Return the current lilypond version as a list, e.g.
 @end defun
 
 @defun ly-gulp-file name
-read file named @var{name}, and return its contents in a string. This
-uses the lilypond search path.
+Read the file named @var{name}, and return its contents in a string. The
+file is looked up using the lilypond search path.
 
 @end defun
 
@@ -616,13 +645,18 @@ type predicate. A direction is a -1, 0 or 1.
 @end defun
 
 @defun ly-number->string num
- converts @var{num} without generating many decimals. It leaves a space
-at the end.
+ converts @var{num} to a string without generating many decimals. It
+leaves a space at the end.
 @end defun
 
 @defun set-lily-option sym val
- Set a global option for the program.
+ Set a global option for the program. Supported options  include
+@table @code
+@item midi-debug
+If set to true, generate human  readable MIDI
+@end table
 
-[todo: document interesting sym/val pairs ]
+This function is useful to call from the command line: @code{lilypond -e
+"(set-lily-option 'midi-debug #t)"}
 
 @end defun 

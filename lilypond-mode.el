@@ -249,6 +249,7 @@ Must be the car of an entry in `LilyPond-command-alist'."
   (LilyPond-command (LilyPond-command-query (LilyPond-master-file))
 		    'LilyPond-master-file))
 
+;; FIXME, this is broken
 (defun LilyPond-region-file (begin end)
   (let (
 	;; (dir "/tmp/")
@@ -298,7 +299,12 @@ Must be the car of an entry in `LilyPond-command-alist'."
 (defun LilyPond-shell-process (name buffer command)
   (let ((old (current-buffer)))
     (switch-to-buffer-other-window buffer)
-    (goto-char (point-max))
+    ;; Hmm, if we goto the end of the buffer, we don't see
+    ;; the messages scroll by.  I don't know how to fix this,
+    ;; so let's emty the buffer, then
+    ;;(goto-char (point-max))
+    (erase-buffer)
+    (goto-char (point-min))
     (start-process-shell-command name buffer command)
     (switch-to-buffer-other-window old)))
   

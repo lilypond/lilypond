@@ -1,6 +1,6 @@
 %!PS-Adobe-1.0: lily.ps 
 %
-%
+% Functions for direct and embedded PostScript
 
 % round cappings 
 1 setlinecap
@@ -99,8 +99,10 @@
 	show
 } bind def
 
-% simple, but does it work everywhere?
-% explain ? --hwn
+% Simple, but does it work everywhere?
+% The filled circles are drawn by setting the linewidth
+% to 2*radius and drawing a point.  Is that (defined to be)
+% a nice filled circle?
 /draw_ez_ball % ch letter_col ball_col font
 {
 	% font

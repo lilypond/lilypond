@@ -32,8 +32,8 @@ oboi = \notes \relative c' {
 
 clarinetti = \notes \relative c' {
 %   \property Staff.instrument = #`("Clarinetti in B" ,text-flat)
-  \property Staff.instrument	= #`(lines "2 Clarinetti" (rows "(B" ,raisedflat ")"))
-  \property Staff.instr		= #`(lines "Cl." (rows "(B" ,raisedflat ")"))
+  \property Staff.instrument	= #`(lines "2 Clarinetti" (columns "(B" ,raisedflat ")"))
+  \property Staff.instr		= #`(lines "Cl." (columns "(B" ,raisedflat ")"))
 
   c1 c
 }
@@ -45,8 +45,8 @@ fagotti = \notes \relative c' {
 }
 
 corni = \notes \relative c' {
-  \property Staff.instrument	= #`(lines "2 Corni" (rows "(E" ,raisedflat ")"))
-  \property Staff.instr		= #`(lines "Cor." (rows "(E" ,raisedflat ")"))
+  \property Staff.instrument	= #`(lines "2 Corni" (columns "(E" ,raisedflat ")"))
+  \property Staff.instr		= #`(lines "Cor." (columns "(E" ,raisedflat ")"))
 
   c1 c
 }

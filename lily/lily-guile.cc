@@ -228,7 +228,17 @@ ly_isdir_p (SCM s)
   return SCM_BOOL_F;
 }
 
+bool
+ly_number_pair_p (SCM p)
+{
+  return gh_pair_p (p) && gh_number_p (gh_car (p)) && gh_number_p (gh_cdr (p));
+}
 
+bool
+ly_axis_p (SCM a)
+{
+  return gh_number_p (a) && (gh_scm2int (a) == 0 || gh_scm2int (a) == 1); 
+}
 
 typedef void (*Void_fptr) ();
 Array<Void_fptr> *scm_init_funcs_;

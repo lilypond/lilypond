@@ -142,7 +142,7 @@ emacs-on-cygwin setup.
 
    * GUILE errors, simple guile test
 
-   * TEX errors, simple tex test
+   * (La)TEX errors, simple tex test
 
    ]
 

@@ -1,11 +1,11 @@
 %define info yes
 
 Name: lilypond
-Version: 1.3.148.uu1
+Version: 1.3.149
 Release: 1
 License: GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.3.148.uu1.tar.gz
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.3.149.tar.gz
 # music notation software for.. ?
 Summary: A program for printing sheet music.
 URL: http://www.cs.uu.nl/~hanwen/lilypond

@@ -10,11 +10,11 @@
 #ifndef RATIONAL_HH
 #define RATIONAL_HH
 
-
 #include "compare.hh"
 #include "arithmetic-operator.hh"
 #include "flower-proto.hh"
-class String;
+#include "string.hh"
+
 
 /**
    Rational numbers.  Included is support for + and - infinity.
@@ -87,7 +87,6 @@ Rational::copy (Rational const&r)
   den_ = r.den_;
 }
 
-class ostream;
 ostream &
 operator << (ostream &,  Rational);
 

@@ -10,9 +10,6 @@
 #include "string.hh"
 #include "interval.hh"
 
-class istream;
-
-
 /**
   class for reading and mapping a file. 
 

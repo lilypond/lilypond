@@ -102,13 +102,13 @@
     " draw_repeat_slash"))
   
   (define (end-output)
-    "\nshowpage\n")
+    "\nend-lilypond-output\n")
   
   (define (experimental-on) "")
   
   (define (filledbox breapth width depth height) 
     (string-append (numbers->string (list breapth width depth height))
-		   " draw_box" ))
+		   " draw-box" ))
 
   ;; obsolete?
   (define (font-def i s)
@@ -152,7 +152,7 @@
 
   (define (placebox x y s) 
     (string-append 
-     (ly-number->string x) " " (ly-number->string y) " {" s "} placebox\n"))
+     (ly-number->string x) " " (ly-number->string y) " {" s "} place-box\n"))
 
   (define (bezier-sandwich l thick)
     (string-append 
@@ -161,16 +161,16 @@
      " draw_bezier_sandwich"))
 
   (define (start-line height)
-	  "\nstart_line {
+	  "\nstart-line {
 lilypondpaperoutputscale lilypondpaperoutputscale scale
 ")
   
   (define (stem breapth width depth height) 
     (string-append (numbers->string (list breapth width depth height))
-		   " draw_box" ))
+		   " draw-box" ))
 
   (define (stop-line)
-      "}\nstop_line\n")
+      "}\nstop-line\n")
 
   (define (text s)
     (string-append "(" s ") show  "))

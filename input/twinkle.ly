@@ -141,11 +141,7 @@ textiii =  \lyrics{
 				%}
 			>
 	>
-	\paper{
-		gourlay_maxmeasures = 14.0
-	}
-	\midi{ 
-		\tempo 4 = 120 
-	}
+	\paper{ }
+	\midi{ \tempo 4 = 120 }
 }
 

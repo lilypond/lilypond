@@ -21,7 +21,7 @@ char* strnupr (char* start_l, int n);
 #if !HAVE_MEMMEM		// GNU extension.
 void *memmem (void const * haystack, int haystack_len,
 	     void const *needle, int needle_len);
-#endif HAVE_MEMMEM
+#endif /* HAVE_MEMMEM */
 
 #if !HAVE_SNPRINTF		// GNU extension.
 int snprintf (char *str, size_t n, char const *format, ...);

@@ -19,7 +19,7 @@
 
 unsigned int string_hash (String);
 
-template<class V>
+template <class V>
 struct Dict_initialiser
 {
   char *key_;
@@ -30,8 +30,9 @@ struct Dict_initialiser
 /*
   interface to STL function.
  */
-template<class V>
-class Dictionary : public map<String, V>
+#include "cons.hh"
+template <class V>
+class Dictionary : public std::map<String, V> //map<String, V>
 {
 public:
   Dictionary ()
@@ -46,7 +47,7 @@ public:
     }
   bool elem_b (String s)
   {
-    map<String,V>::const_iterator ki (find (s));
+    std::map<String,V>::const_iterator ki (find (s));
     return ki != end ();
   }
   

@@ -33,9 +33,13 @@ private:
   void break_line ();
 };
 
-class ostream;
-#include <streambuf.h>
+#include <iostream.h> /* gcc 3.0 */
+#if __GNUC__ > 2
+ostream *open_file_stream (String filename,
+			   std::ios_base::openmode mode=std::ios::out);
+#else
 ostream *open_file_stream (String filename, int mode=ios::out);
+#endif
 void close_file_stream (ostream *os);
 
 

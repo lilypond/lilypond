@@ -10,12 +10,10 @@
 #ifndef STRING_HH
 #define STRING_HH
 
-
+#include <iostream.h> /* gcc 3.0 */
 #include "arithmetic-operator.hh"
 #include "flower-proto.hh"
 #include "string-handle.hh"
-
-class ostream;
 
 /** 
  

@@ -3,19 +3,16 @@
 @node ly2dvi
 @chapter ly2dvi
 
-@file{ly2dvi} is a Python script which creates input file for La@TeX{},
-based on information from the output files from LilyPond.
-The script handles multiple files. If a LilyPond file name is
-specified LilyPond is run to make an output (@TeX{}) file.
+@file{ly2dvi} is a Python script that creates a nicely title output file
+from an input file for La@TeX{}. It can create a DVI or PS file. It
+works by running LilyPond on the input files, creating a La@TeX{}
+wrapper around the output, and running La@TeX{} (and optionally
+@code{dvips}).
 
-One or more La@TeX{} files are created, based on information found
-in the output (@TeX{}) files, and latex is finally run to create
-one or more DVI files.
-
-@subsection Invoking ly2dvi
+@unnumberedsubsec Invoking ly2dvi
 
 @example
-ly2dvi [OPTION]... [FILE]...
+ly2dvi @var{[OPTIONS]} ... @var{[FILE]}...
 @end example
 
 @unnumberedsec Options
@@ -39,9 +36,11 @@ files. The temporary directory is created in the current directory as @code{ly2d
 @item -P,--postscript
     Also generate PostScript output.
 @item -s,--set=@var{KEY}=@var{VAL}
-    Add @var{key}= @var{val} to the settings, overriding those specified
-in the files. Possible keys: language, latexheaders, latexpackages, latexoptions,
-papersize, pagenumber, linewidth, orientation, textheight.
+    Add @var{KEY}= @var{VAL} to the settings, overriding those specified
+in the files. Possible keys: @code{language}, @code{latexheaders},
+@code{latexpackages}, @code{latexoptions}, @code{papersize},
+@code{pagenumber}, @code{linewidth}, @code{orientation},
+@code{textheight}.
 @item -v,--version
 Show version information 
 @item -V,--verbose
@@ -51,9 +50,9 @@ Show the warranty with which GNU LilyPond comes. (It comes with
 @strong{NO WARRANTY}!)
 @end table
 
-@subsection Titling layout
+@unnumberedsubsec Titling layout
 
-Ly2dvi extracts the following header fields from the .ly files to
+Ly2dvi extracts the following header fields from the LY files to
 generate titling:
 
 @table @code
@@ -62,29 +61,41 @@ generate titling:
 @item subtitle
     Subtitle, centered below the title.
 @item poet
-    Name of the poet, leftflushed below the below subtitle.
+    Name of the poet, left flushed below the below subtitle.
 @item composer
-    Name of the composer, rightflushed below the subtitle.
+    Name of the composer, right flushed below the subtitle.
 @item metre
-    Meter string, leftflushed below the below poet.
+    Meter string, left flushed below the below poet.
 @item opus
-    Name of the opus, rightflushed below the below composer.
+    Name of the opus, right flushed below the below composer.
 @item arranger
-    Name of the arranger, rightflushed below the opus.
+    Name of the arranger, right flushed below the opus.
 @item instrument
     Name of the instrument, centered below the arranger
 @item piece
-    Name of the piece, leftflushed below the instrument
+    Name of the piece, left flushed below the instrument
+@item head
+    A text to print in the header of all pages. It is not called
+@code{header}, because @code{\header} is a reserved word in LilyPond.
+@item footer
+    A text to print in the footer of all pages
 @item tagline
-    Line to print at the bottom of last page.  Default: ``Lily was here,
-@var{version-number}''.
+    Line to print at the bottom of last page. The default text is ``Lily
+was here, @var{version-number}''.
 @end table
 
 
-@subsection Additional parameters
+@cindex header
+@cindex footer
+@cindex page layout
+@cindex titles
+
+
+
+@unnumberedsubsec Additional parameters
 
 Ly2dvi responds to several parameters specified in the LilyPond
-file. They can be overridden by supplying the @code{--set} command line
+file. They can be overridden by supplying a @code{--set} command line
 option.
 
 @table @code
@@ -113,29 +124,27 @@ so you can add multiple packages using multiple @code{-s=latexpackages} options.
 read from the @code{\paper} block, if set.
         
 @item linewidth
-   Is read from the @code{\paper} block.  
+        The music line width. It is normally read from the @code{\paper}
+block.
 
 @item papersize
-   Specify the papersize. Is read from the @code{\paper} block.
+   The paper size (as a name, e.g. @code{a4}). It is normally read from
+the @code{\paper} block.
 @end table
 
-@subsection Environment variables
+@unnumberedsubsec Environment variables
 
 @table @code
 @item LANG
 selects the language for the warning messages of Ly2dvi and LilyPond.
 @end table
 
-@subsection  Bugs
+@unnumberedsubsec  Bugs
 
-Assumes that @code{cp} and @code{rm} are in the path.
+Cannot generate @TeX{} or @code{PostScript} only.  Send bugreports to to
+@email{bug-gnu-music@@gnu.org}.
 
-Cannot generate @TeX{} or @code{PostScript} only.
-
-If find something that you consider a bug, please send a bugreport (See
-@ref{Bug reports}) to @email{bug-gnu-music@@gnu.org}.
-
-@subsection  Authors
+@unnumberedsubsec  Authors
 
 @email{hanwen@@cs.uu.nl,Han-Wen Nienhuys}.
 

@@ -1,7 +1,15 @@
 \version "1.3.146"
 % JUNKME.
 
+%% deprecated
 papersizename = \papersize 
+
+% ly2dvi now uses `papersize' internally (and on cmd line)
+papersize = \papersize
+
+% FIXME
+% direct PostScript line height for single line staffs
+lineheight = 14
 
 paperfile = \papersize + ".ly"
 

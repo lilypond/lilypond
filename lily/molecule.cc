@@ -132,26 +132,12 @@ Molecule::add_at_edge (Axis a, Direction d, Molecule const &m, Real padding)
   add_molecule (toadd);
 }
 
-
-
-
-bool
-number_pair_p (SCM p)
-{
-  return gh_pair_p (p) && gh_number_p (gh_car (p)) && gh_number_p (gh_cdr (p));
-}
-
-bool
-axis_p (SCM a)
-{
-  return gh_number_p (a) && (gh_scm2int (a) == 0 || gh_scm2int (a) == 1); 
-}
-
+/* ly_?  Thought we had the ly_ prefix for wrapping/adding to gh_ */
 SCM
 Molecule::ly_set_molecule_extent_x (SCM mol, SCM axis, SCM np)
 {
   Molecule* m = unsmob_molecule (mol);
-  if (m && axis_p (axis) && number_pair_p (np))
+  if (m && ly_axis_p (axis) && ly_number_pair_p (np))
     {
       Interval iv = ly_scm2interval (np);
       m->dim_[Axis (gh_scm2int (axis))] = ly_scm2interval (np);
@@ -166,7 +152,7 @@ Molecule::ly_get_molecule_extent (SCM mol, SCM axis)
 {
   Molecule *m = unsmob_molecule (mol);
  
-  if (!m || !axis_p (axis))
+  if (!m || !ly_axis_p (axis))
     {
       warning ("ly-get-molecule-extent: invalid arguments");
       return ly_interval2scm (Interval (0,0));
@@ -185,7 +171,7 @@ Molecule::ly_molecule_combined_at_edge (SCM first, SCM axis, SCM direction,
   Molecule * m2 = unsmob_molecule (second);
   Molecule result;
   
-  if (!m1 || !m2 || !isdir_b (direction) || !axis_p (axis) || !gh_number_p (padding))
+  if (!m1 || !m2 || !isdir_b (direction) || !ly_axis_p (axis) || !gh_number_p (padding))
     {
       warning ("ly-combine-molecule-at-edge: invalid arguments");
       Molecule r;

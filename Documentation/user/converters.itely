@@ -26,8 +26,8 @@ to import files from a program that has no converter for its native
 format.
 
 It is possible to record a MIDI file using a digital keyboard, and then
-convert it to @file{.ly}. However, human players can not rhythmically
-exact enough to make a MIDI to .ly conversion trivial.  midi2ly tries to
+convert it to @file{.ly}. However, human players are not rhythmically
+exact enough to make a MIDI to LY conversion trivial.  midi2ly tries to
 compensate for these timing errors, but is not very good at this. It is
 therefore not recommended to use midi2ly for human-generated midi
 files. Correcting the quantization mistakes of the human player takes a

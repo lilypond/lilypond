@@ -225,7 +225,10 @@ static char *linetoken (FILE *stream)
 
 static enum parseKey recognize (  register char *ident)
 {
-    int lower = 0, upper = (int) NOPE, midpoint, cmpvalue;
+    int lower = 0,
+      upper = (int) NOPE,
+      midpoint = 0,
+      cmpvalue = 0;
     BOOL found = FALSE;
 
     while ((upper >= lower) && !found)
