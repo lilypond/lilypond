@@ -2287,8 +2287,9 @@ conversions.append (((2, 5, 2),
 
 def conv (str):
 	str = re.sub ('ly:find-glyph-by-name', 'ly:font-get-glyph', str)
-	str = re.sub ('"accidentals-', '"accidentals.', str)
-	str = re.sub ('"scripts-', '"scripts.', str)
+	str = re.sub ('"(scripts|clefs|accidentals)-', r'"\1.', str)
+	str = re.sub ("'hufnagel-do-fa", "'hufnagel.do.fa", str) 
+	str = re.sub ("'(vaticana|hufnagel|medicaea|petrucci|neomensural|mensural)-", r"'\1.", str) 
 	return str
 
 conversions.append (((2, 5, 2),

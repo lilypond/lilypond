@@ -136,6 +136,7 @@ predicates. Print a message at LOCATION if any predicate failed."
     text
     white-dot
     white-text
+    embedded-ps
     zigzag-line))
 
 ;; TODO:

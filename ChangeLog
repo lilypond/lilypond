@@ -1,5 +1,9 @@
 2004-12-29  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scripts/convert-ly.py (conv): add ancient rules.
+
+	* scm/clef.scm (c0-pitch-alist): replace - with .
+
 	* scripts/lilypond-book.py (process_snippets): add texstr support.
 
 	* scm/framework-texstr.scm (header): change extension to .textmetrics
