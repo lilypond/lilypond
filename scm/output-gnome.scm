@@ -148,7 +148,7 @@ lilypond -fgnome input/simple-song.ly
   (force-output (current-error-port)))
 
 (define (debugf string . rest)
-  (if #f
+  (if #t
       (apply stderr (cons string rest))))
 
 (define (utf8 i)
@@ -286,6 +286,7 @@ lilypond -fgnome input/simple-song.ly
 
 (define (placebox x y expr)
   (debugf "item: ~S\n" expr)
+  (debugf "x,y: ~S,~S\n" x y)
   (let ((item expr))
     ;;(if item
     ;; FIXME ugly hack to skip #unspecified ...
@@ -323,6 +324,8 @@ lilypond -fgnome input/simple-song.ly
 	    (list->offsets accum (cddr coords)))))
 
 (define (named-glyph font name)
+  (debugf "glyph:~S\n" name)
+  (debugf "index:~S\n" (ly:font-get-glyph-index font name))
   (text font (integer->char (ly:font-get-glyph-index font name))))
 
 (define (polygon coords blotdiameter)
