@@ -1,3 +1,8 @@
+2004-03-16  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* Documentation/user/changing-defaults.itely (Scheme tutorial):
+	new node.
+
 2004-03-16  Heikki Junes <hjunes@cc.hut.fi>
 
 	* Documentation/topdocs/INSTALL.texi: finish install orders for vim.
@@ -16,6 +21,8 @@
 	* lily/include/paper-line.cc: New file.
 
 2004-03-15  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* VERSION (MY_PATCH_LEVEL): release 2.1.31.
 
 	* GNUmakefile.in: remove stray make out=www
 
