@@ -354,7 +354,7 @@ def draw_gclef (expr exact_center, reduction)=
 	x11 - x13r  = 1.25 reduced_ss + 0.5 thinnib;
 
 	x12r = xpart (.52 [z13r , z11] + .75 reduced_ss * downstroke_dir) ;
-	
+
 	z10=  center + whatever * dir (downstroke_angle + .5);
 	y10 = ypart center + 3.35  reduced_ss;
 	y10l  - y10r = 1.2 thickness;
@@ -413,6 +413,7 @@ def draw_gclef (expr exact_center, reduction)=
 	
 
 	save bot_angle;
+
 	bot_angle = downstroke_angle- 87;
 
 	penpos12(thinnib, bot_angle + 90);
@@ -453,9 +454,9 @@ def draw_gclef (expr exact_center, reduction)=
 		z11r{dir(start_angle)}
 		.. z12r{dir(bot_angle)}
 
-		..new_bulb (z13r, 0.45 reduced_ss, 0.38 reduced_ss, 2.5 stafflinethickness,  1, -1) {down}
+		..new_bulb (z13r, 0.45 reduced_ss, 0.38 reduced_ss, 3 stafflinethickness,  1, -1) {down}
 
-		% z13r{up} -- z13l{down}
+		.. tension 0.98
 		.. z12l{-dir (bot_angle)}
 
 		.. z11l{-dir(start_angle)}
