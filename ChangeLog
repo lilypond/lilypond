@@ -1,3 +1,8 @@
+2002-06-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/parser.yy (open_request_parens): add input locations to
+	open and close parens. 
+
 2002-06-17  Chris Jackson <chris@fluffhouse.org.uk>
 
 	* lily/tuplet-bracket.cc:

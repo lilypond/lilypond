@@ -1535,21 +1535,25 @@ close_request_parens:
 		Span_req* s= new Span_req;
 		$$ = s;
 		s->set_mus_property ("span-type", ly_str02scm ( "slur"));
+		s->set_spot (THIS->here_input());
 	}
 	| E_OPEN	{
 		Span_req* s= new Span_req;
 		$$ = s;
 		s->set_mus_property ("span-type", ly_str02scm ( "phrasing-slur"));
+		s->set_spot (THIS->here_input());
 	}
 	| E_SMALLER {
 		Span_req*s =new Span_req;
 		$$ = s;
 		s->set_mus_property ("span-type", ly_str02scm ( "crescendo"));
+		s->set_spot (THIS->here_input());
 	}
 	| E_BIGGER {
 		Span_req*s =new Span_req;
 		$$ = s;
 		s->set_mus_property ("span-type", ly_str02scm ("decrescendo"));
+		s->set_spot (THIS->here_input());
 	}
 	;
 
@@ -1565,6 +1569,7 @@ open_request_parens:
 	E_EXCLAMATION 	{
 		Span_req *s =  new Span_req;
 		s->set_mus_property ("span-type", ly_str02scm ( "crescendo"));
+		s->set_spot (THIS->here_input());
 
 		$$ = s;
 	}
@@ -1572,11 +1577,14 @@ open_request_parens:
 		Span_req* s= new Span_req;
 		$$ = s;
 		s->set_mus_property ("span-type", ly_str02scm ( "slur"));
+		s->set_spot (THIS->here_input());
+
 	}
 	| E_CLOSE	{
 		Span_req* s= new Span_req;
 		$$ = s;
 		s->set_mus_property ("span-type", ly_str02scm ( "phrasing-slur"));
+		s->set_spot (THIS->here_input());
 	}
 	;
 
