@@ -82,6 +82,126 @@ against SIGNATURE, reporting MAKE-NAME as the user-invoked function.
                    error-msg #f)
         (cons markup-function args))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; markup constructors
+;;; lilypond-like syntax for markup construction in scheme.
+
+(use-modules (ice-9 optargs)
+             (ice-9 receive))
+
+(defmacro*-public markup (#:rest body)
+  "The `markup' macro provides a lilypond-like syntax for building markups.
+
+ - #:COMMAND is used instead of \\COMMAND
+ - #:lines ( ... ) is used instead of { ... }
+ - #:center ( ... ) is used instead of \\center < ... >
+ - etc.
+
+Example:
+  \\markup { foo
+            \\raise #0.2 \\hbracket \\bold bar
+            \\override #'(baseline-skip . 4)
+            \\bracket \\column < baz bazr bla >
+  }
+         <==>
+  (markup \"foo\"
+          #:raise 0.2 #:hbracket #:bold \"bar\"
+          #:override '(baseline-skip . 4) 
+          #:bracket #:column (\"baz\" \"bazr\" \"bla\"))
+Use `markup*' in a \\notes block."
+  
+  (car (compile-all-markup-expressions `(#:line ,body))))
+
+(defmacro*-public markup* (#:rest body)
+  "Same as `markup', for use in a \\notes block."
+  `(ly:export (markup ,@body)))
+  
+  
+(define (compile-all-markup-expressions expr)
+  "Return a list of canonical markups expressions, eg:
+  (#:COMMAND1 arg11 arg12 #:COMMAND2 arg21 arg22 arg23)
+  ===>
+  ((make-COMMAND1-markup arg11 arg12)
+   (make-COMMAND2-markup arg21 arg22 arg23) ...)"
+  (do ((rest expr rest)
+       (markps '() markps))
+      ((null? rest) (reverse markps))
+    (receive (m r) (compile-markup-expression rest)
+             (set! markps (cons m markps))
+             (set! rest r))))
+
+(define (keyword->make-markup key)
+  "Transform a keyword, eg. #:COMMAND, in a make-COMMAND-markup symbol."
+  (string->symbol (string-append "make-" (symbol->string (keyword->symbol key)) "-markup")))
+
+(define (compile-markup-expression expr)
+  "Return two values: the first complete canonical markup expression found in `expr',
+eg (make-COMMAND-markup arg1 arg2 ...), and the rest expression."
+  (cond ((and (pair? expr)
+              (keyword? (car expr)))
+         ;; expr === (#:COMMAND arg1 ...)
+         (let* ((command (symbol->string (keyword->symbol (car expr))))
+                (sig (markup-command-signature (car (lookup-markup-command command))))
+                (sig-len (length sig)))
+           (do ((i 0 (1+ i))
+                (args '() args)
+                (rest (cdr expr) rest))
+               ((>= i sig-len)
+                (values (cons (keyword->make-markup (car expr)) (reverse args)) rest))
+             (cond ((eqv? (list-ref sig i) markup-list?)
+                    ;; (car rest) is a markup list
+                    (set! args (cons `(list ,@(compile-all-markup-expressions (car rest))) args))
+                    (set! rest (cdr rest)))
+                   (else
+                    ;; pick up one arg in `rest'
+                    (receive (a r) (compile-markup-arg rest)
+                             (set! args (cons a args))
+                             (set! rest r)))))))
+        ((and (pair? expr)
+              (pair? (car expr))
+              (keyword? (caar expr)))
+         ;; expr === ((#:COMMAND arg1 ...) ...)
+         (receive (m r) (compile-markup-expression (car expr))
+                  (values m (cdr expr))))
+        (else
+         ;; expr === (symbol ...) or ("string" ...) or ((funcall ...) ...)
+         (values (car expr)
+                 (cdr expr)))))
+
+(define (compile-all-markup-args expr)
+  "Transform `expr' into markup arguments"
+  (do ((rest expr rest)
+       (args '() args))
+      ((null? rest) (reverse args))
+    (receive (a r) (compile-markup-arg rest)
+             (set! args (cons a args))
+             (set! rest r))))
+
+(define (compile-markup-arg expr)
+  "Return two values: the desired markup argument, and the rest arguments"
+  (cond ((null? expr)
+         ;; no more args
+         (values '() '()))
+        ((keyword? (car expr))
+         ;; expr === (#:COMMAND ...)
+         ;; ==> build and return the whole markup expression
+         (compile-markup-expression expr))
+        ((and (pair? (car expr))
+              (keyword? (caar expr)))
+         ;; expr === ((#:COMMAND ...) ...)
+         ;; ==> build and return the whole markup expression(s)
+         ;; found in (car expr)
+         (receive (markup-expr rest-expr) (compile-markup-expression (car expr))
+                  (if (null? rest-expr)
+                      (values markup-expr (cdr expr))
+                      (values `(list ,markup-expr ,@(compile-all-markup-args rest-expr))
+                              (cdr expr)))))
+        ((and (pair? (car expr))
+              (pair? (caar expr)))
+         ;; expr === (((foo ...) ...) ...)
+         (values (cons 'list (compile-all-markup-args (car expr))) (cdr expr)))
+        (else (values (car expr) (cdr expr)))))
+
 ;;;;;;;;;;;;;;;
 ;;; Utilities for storing and accessing markup commands signature
 ;;; and keyword.

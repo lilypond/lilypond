@@ -3536,15 +3536,16 @@ A complete example of a SATB score setup is in the file
 
 @seealso
 
-Internals: @internalsref{LyricCombineMusic}, @internalsref{Lyrics},
-@internalsref{Melisma_engraver}.
+Internals: Music expressions: @internalsref{LyricCombineMusic},
+Contexts: @internalsref{LyricsVoice}, @internalsref{Melisma_engraver}.
 
 Examples: @inputfileref{input/template,satb.ly},
 @inputfileref{input/regression,lyric-combine-new.ly}.
  
 @refbugs
 
-Melismata are not detected automatically, and must be inserted by hand.
+Melismata are not detected automatically, and extender lines must be
+inserted by hand.
 
 
 @node More stanzas
@@ -3607,12 +3608,17 @@ prevent @code{LyricsVoice.stanza} being interpreted as a single
 string.
 
 Names of the singers should be added using @code{LyricsVoice
-. instrument} and @code{LyricsVoice . instr}, analogous to instrument
+. vocalName} and @code{LyricsVoice . vocNam}, analogous to instrument
 annotations for staves.
  
 To make empty spaces in lyrics, use @code{\skip}.
 
 
+@seealso
+
+Internals: Layout objects @internalsref{LyricText}
+@internalsref{VocalName}.  Music expressions:
+@internalsref{LyricEvent}.
 
 @refbugs
 
@@ -3632,6 +3638,8 @@ making or a music identifier @code{\foo} containing the syllable
 @example
   foo = \lyrics bar4
 @end example
+
+
 
 
 @node Ambitus

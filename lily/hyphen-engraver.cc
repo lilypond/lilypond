@@ -2,32 +2,22 @@
   hyphen-engraver.cc -- implement Hyphen_engraver
 
   source file of the GNU LilyPond music typesetter
-
-  (c)  1999--2003 Glen Prideaux <glenprideaux@iname.com>
+  
+  (c)  1999--2003 Glen Prideaux <glenprideaux@iname.com>,
+                  Han-Wen Nienhuys <hanwen@cs.uu.nl>,
+                  Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "flower-proto.hh"
-#include "event.hh"
+#include "warn.hh"
 #include "hyphen-spanner.hh"
-#include "paper-column.hh"
 #include "item.hh"
 #include "engraver.hh"
 
-/**
-  Generate an centred hyphen.  Should make a Hyphen_spanner that
-  typesets a nice centred hyphen of varying length depending on the
-  gap between syllables.
-
-  We remember the last Item that come across. When we get a
-  event, we create the spanner, and attach the left point to the
-  last lyrics, and the right point to any lyrics we receive by
-  then.  */
 class Hyphen_engraver : public Engraver
 {
-  Grob *last_lyric_;
-  Grob *current_lyric_;
-  Music* req_;
+  Music* ev_;
   Spanner* hyphen_;
+  Spanner * finished_hyphen_;  
 public:
   TRANSLATOR_DECLARATIONS(Hyphen_engraver);
 
@@ -36,33 +26,33 @@ protected:
   virtual void finalize ();
   virtual bool try_music (Music*);
   virtual void stop_translation_timestep ();
-  virtual void process_acknowledged_grobs ();
+  virtual void process_music ();
 private:
 
 };
 
 
 
+
 Hyphen_engraver::Hyphen_engraver ()
 {
-  current_lyric_ = 0;
-  last_lyric_ = 0;
   hyphen_ = 0;
-  req_ = 0;
+  finished_hyphen_ = 0;
+  ev_ = 0;
 }
 
 void
 Hyphen_engraver::acknowledge_grob (Grob_info i)
 {
-  // -> text-item
-  if (i.grob_->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
+  Item * item =  dynamic_cast<Item*> (i.grob_);
+  // -> text_item
+  if (item && item->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
     {
-      current_lyric_ = i.grob_;
-      if (hyphen_
-	  && !hyphen_->get_bound (RIGHT))
-	  {
-	    hyphen_->set_bound (RIGHT, i.grob_);
-	  }
+      if (hyphen_)
+	hyphen_->set_bound (LEFT, item);
+
+      if (finished_hyphen_)
+	finished_hyphen_->set_bound (RIGHT, item);
     }
 }
 
@@ -70,38 +60,61 @@ Hyphen_engraver::acknowledge_grob (Grob_info i)
 bool
 Hyphen_engraver::try_music (Music* r)
 {
-  if (req_)
-	return false;
+  if (ev_)
+    return false;
 
-      req_ = r;
-      return true;
+  ev_ = r;
+  return true;
 }
+
+void
+completize_hyphen (Spanner* sp)
+{
+  if (!sp->get_bound (RIGHT))
+    {
+      SCM heads = sp->get_grob_property ("heads");
+      if (gh_pair_p (heads))
+	{
+	  Item* it = dynamic_cast<Item*> (unsmob_grob (gh_car (heads)));
+	  if (it)
+	    sp->set_bound (RIGHT, it);
+	}
+    }
+}
+
+  
 
 void
 Hyphen_engraver::finalize ()
 {
   if (hyphen_)
     {
-      req_->origin ()->warning (_ ("unterminated hyphen"));
-      hyphen_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
+      completize_hyphen (hyphen_);
+
+      if (!hyphen_->get_bound (RIGHT))
+	hyphen_->warning (_ ("unterminated hyphen"));
+      typeset_grob (hyphen_);
+      hyphen_ = 0;
+    }
+
+  if (finished_hyphen_)
+    {
+      completize_hyphen (finished_hyphen_);
+
+      if (!finished_hyphen_->get_bound (RIGHT))
+	  finished_hyphen_->warning (_("unterminated hyphen"));
+      typeset_grob (finished_hyphen_);
+      finished_hyphen_ =0;
     }
 }
 
 void
-Hyphen_engraver::process_acknowledged_grobs ()
+Hyphen_engraver::process_music ()
 {
-  if (req_ &&! hyphen_)
+  if (ev_)
     {
-      if (!last_lyric_)
-	{
-	  req_->origin ()->warning (_ ("Nothing to connect hyphen to on the left.  Ignoring hyphen event."));
-	  return;
-	}
-      
       hyphen_ = make_spanner ("LyricHyphen");
-
-      hyphen_->set_bound (LEFT, last_lyric_);
-      announce_grob(hyphen_, req_->self_scm());
+      announce_grob (hyphen_, ev_->self_scm());
     }
 }
 
@@ -109,19 +122,27 @@ Hyphen_engraver::process_acknowledged_grobs ()
 void
 Hyphen_engraver::stop_translation_timestep ()
 {
-  if (hyphen_)
+  if (finished_hyphen_ && finished_hyphen_->get_bound (RIGHT))
     {
-      typeset_grob (hyphen_);
-      hyphen_ = 0;
+      typeset_grob (finished_hyphen_);
+      finished_hyphen_ = 0;
     }
 
-  if (current_lyric_)
+  if (finished_hyphen_ && hyphen_)
     {
-      last_lyric_ = current_lyric_;
-      current_lyric_ =0;
+      programming_error ("Haven't finished hyphen yet.");
+      typeset_grob (finished_hyphen_);
+      finished_hyphen_ =0;
     }
-  req_ = 0;
+  
+  if (hyphen_)
+    finished_hyphen_ = hyphen_;
+  hyphen_ = 0;
+
+  ev_ = 0;
 }
+
+
 
 
 ENTER_DESCRIPTION(Hyphen_engraver,

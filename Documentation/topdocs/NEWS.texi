@@ -17,6 +17,9 @@ Version 2.1.13
 @end ignore
 
 @itemize @bullet
+@item Voice names, for vocal lines, have been added. They are similar
+to instrument names.   They can be set by defining @code{vocalName}
+and @code{vocNam}.
 
 @item Safe mode has been reinstated for lilypond.
 When lilypond is invoked with @code{--safe-mode}, @TeX{} and
