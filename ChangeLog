@@ -2,6 +2,8 @@
 
 	* input/test/[h-k]*.ly: added texidoc index.
 
+	* input/test/knee-mult.ly: removed file (duplicate of beam-isknee.ly)
+
 2003-06-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/music-functions.scm (make-ottava-set): 
