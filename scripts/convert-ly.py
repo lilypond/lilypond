@@ -2135,6 +2135,17 @@ conversions.append (((2, 3, 9), conv,
 		     '''neo_mensural -> neomensural, if-text-padding -> bound-padding'''))
 
 
+
+def conv (str):
+	str = re.sub (r'\\addlyrics', '\\oldaddlyrics', str)
+	str = re.sub (r'\\newlyrics', '\\addlyrics', str)
+	return str
+
+conversions.append (((2, 3, 10), conv,
+		     '''\\addlyrics -> \\oldaddlyrics, \\newlyrics -> \\addlyrics'''))
+
+
+
 def conv_mode_experiment (str):
 	str = re.sub (r'\\chords\b', r'\\chordmode', str)
 	str = re.sub (r'\\lyrics\b', r'\\lyricmode', str)

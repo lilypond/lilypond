@@ -189,7 +189,7 @@ make_lyric_combine_music (SCM name, Music *music)
 deleting them.  Let's hope that a stack overflow doesnt trigger a move
 of the parse stack onto the heap. */
 
-%left NEWLYRICS
+%left ADDLYRICS
 
 %union {
 	Book *book;
@@ -294,7 +294,7 @@ or
 %token SCM_T
 %token SCORE
 %token SEQUENTIAL
-%token NEWLYRICS
+%token ADDLYRICS
 %token SIMULTANEOUS
 %token SKIP
 %token SPANREQUEST
@@ -1180,7 +1180,7 @@ relative_music:
 	;
 
 new_lyrics:
-	NEWLYRICS { THIS->lexer_->push_lyric_state (); }
+	ADDLYRICS { THIS->lexer_->push_lyric_state (); }
 	/*cont */
 	Grouped_music_list {
 	/* Can also use Music at the expensive of two S/Rs similar to
@@ -1194,7 +1194,7 @@ new_lyrics:
 		$$ = scm_cons ($3->self_scm (), SCM_EOL);
 #endif
 	}
-	| new_lyrics NEWLYRICS { THIS->lexer_->push_lyric_state (); }
+	| new_lyrics ADDLYRICS { THIS->lexer_->push_lyric_state (); }
 	Grouped_music_list {
 		THIS->lexer_->pop_state ();
 		$$ = scm_cons ($4->self_scm (), $1);
