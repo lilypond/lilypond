@@ -11,7 +11,6 @@
 #define BOW_HH
 
 #include "directional-spanner.hh"
-#include "curve.hh"
 
 /**
   Base class for anything that looks like a slur.
@@ -33,7 +32,7 @@ protected:
   Array<Offset> get_controls () const;
   virtual Array<Offset> get_encompass_offset_arr () const;
   static Interval dim_callback (Dimension_cache const*);
-  Drul_array<Interval> curve_extent_drul () const;
+  Interval curve_extent (Axis) const;
 
   Drul_array<Real> dy_f_drul_;
   Drul_array<Real> dx_f_drul_;
