@@ -2115,6 +2115,16 @@ def conv (str):
 conversions.append (((2, 3, 4), conv,
 		     '''remove \\notes'''))
 
+
+
+def conv (str):
+	str = re.sub (r'\\consistsend', '\\consists', str)
+	return str
+
+conversions.append (((2, 3, 8), conv,
+		     '''remove \\consistsend'''))
+
+
 ################################
 #	END OF CONVERSIONS	
 ################################

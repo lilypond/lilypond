@@ -1,4 +1,4 @@
-\version "2.3.2"
+\version "2.3.8"
 
 \context {
     \name Global
@@ -38,7 +38,7 @@
 	\consists "Piano_pedal_engraver"
 	\consists "Instrument_name_engraver"
 	\consists "String_number_engraver"
-	\consistsend "Axis_group_engraver"
+	\consists "Axis_group_engraver"
 
 	minimumVerticalExtent = #'(-6 . 6)
 	extraVerticalExtent = ##f
@@ -140,7 +140,7 @@
     \consists "Staff_symbol_engraver"
     \consists "Ledger_line_engraver" 
     \consists "Instrument_name_engraver"
-    \consistsend "Axis_group_engraver"
+    \consists "Axis_group_engraver"
     \accepts "Voice"
     \description  "
     A context like @code{Staff} but for printing rhythms.  Pitches are
@@ -313,7 +313,7 @@ connected vertically.  "
 
 \context{
     \type "Engraver_group_engraver"
-    \consistsend "Hara_kiri_engraver"
+    \consists "Hara_kiri_engraver"
     minimumVerticalExtent = #'(-1.2 . 2.4)
     extraVerticalExtent = ##f
     verticalExtent = ##f
@@ -336,7 +336,7 @@ printing of a single line of lyrics.  "
 \context {
     \type "Engraver_group_engraver"
     \name NoteNames
-    \consistsend "Axis_group_engraver"
+    \consists "Axis_group_engraver"
 
     minimumVerticalExtent = ##f
     extraVerticalExtent = ##f
@@ -362,7 +362,7 @@ printing of a single line of lyrics.  "
     \consists "Separating_line_group_engraver"
     \consists "Chord_name_engraver"
     \consists "Skip_event_swallow_translator"
-    \consistsend "Hara_kiri_engraver"
+    \consists "Hara_kiri_engraver"
     
     voltaOnThisStaff = ##f
     minimumVerticalExtent = #'(0 . 2.5)
@@ -375,7 +375,7 @@ printing of a single line of lyrics.  "
 RemoveEmptyStaffContext= \context {
     \Staff
     \remove "Axis_group_engraver"
-    \consistsend "Hara_kiri_engraver"
+    \consists "Hara_kiri_engraver"
     \override Beam #'auto-knee-gap = #'()
 }
 
@@ -576,7 +576,7 @@ EasyNotation = \context {	% TODO: why \context override?
 	\consists "Skip_event_swallow_translator"
 	\consists "Separating_line_group_engraver"
 	
-	\consistsend "Hara_kiri_engraver"
+	\consists "Hara_kiri_engraver"
 }
 
 \context {

@@ -205,7 +205,6 @@ SCM
 Context_def::get_translator_names (SCM user_mod) const
 {
   SCM l1 = SCM_EOL;
-  SCM l2 = SCM_EOL;
 
   SCM mods = scm_reverse_x (scm_list_copy (translator_mods_), user_mod);
   
@@ -219,15 +218,13 @@ Context_def::get_translator_names (SCM user_mod) const
       
       if (ly_symbol2scm ("consists") == tag)
 	l1 = scm_cons (arg, l1);
-      else if (ly_symbol2scm ("consists-end") == tag)
-	l2 = scm_cons (arg, l2);
       else if (ly_symbol2scm ("remove") == tag)
 	{
 	  l1 = scm_delete_x (arg, l1);
-	  l2 = scm_delete_x (arg, l2);
 	}
     }
-  return scm_append_x (scm_list_2 (l1, l2));
+
+  return l1;
 }
 
 SCM
@@ -278,9 +275,9 @@ Context_def::instantiate (SCM ops)
 
   Translator *g = get_translator (translator_group_type_);
   g = g->clone ();
-  
-  g->simple_trans_list_ = SCM_EOL;
 
+  SCM trans_list = SCM_EOL;
+  
   for (SCM s = trans_names; ly_c_pair_p (s) ; s = ly_cdr (s))
     {
       Translator *t = get_translator (ly_car (s));
@@ -290,12 +287,26 @@ Context_def::instantiate (SCM ops)
 	{
 	  Translator *tr = t->clone ();
 	  SCM str = tr->self_scm ();
-	  g->simple_trans_list_ = scm_cons (str, g->simple_trans_list_);
+
+	  if (tr->must_be_last ())
+	    {
+	      SCM cons = scm_cons (str, SCM_EOL);
+	      trans_list = ly_c_pair_p (trans_list)
+		? scm_set_cdr_x (scm_last_pair (trans_list), cons)
+		: cons;
+	    }
+	  else
+	    {
+	      trans_list = scm_cons (str, trans_list);
+	    }
+
 	  tr->daddy_context_ = tg;
 	  scm_gc_unprotect_object (str);
 	}
     }
   
+  g->simple_trans_list_ =  trans_list;
+
   tg->implementation_ = g->self_scm ();
   if (dynamic_cast<Engraver*> (g))
     g->simple_trans_list_ = filter_performers (g->simple_trans_list_);

@@ -36,7 +36,6 @@ static Keyword_ent the_key_tab[] = {
   {"chords", CHORDS},
   {"clef", CLEF},
   {"consists", CONSISTS},
-  {"consistsend", CONSISTSEND},
   {"context", CONTEXT},
   {"default", DEFAULT},
   {"denies", DENIES},

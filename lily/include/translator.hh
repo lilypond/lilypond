@@ -35,8 +35,13 @@ public:							\
 class Translator
 {
   void init ();
-  
+
+protected:
+  bool must_be_last_;
+
 public:
+  bool must_be_last () const;
+  
   Context * context () const { return daddy_context_; }
   
   Translator (Translator const &);
@@ -56,6 +61,7 @@ public:
   
   Score_context * get_score_context () const;
   Global_context * get_global_context () const;
+
   
   TRANSLATOR_DECLARATIONS(Translator);
   DECLARE_SMOBS (Translator, dummy);
