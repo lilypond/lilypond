@@ -32,7 +32,7 @@
 
 #include <iostream>
 using namespace std;
-#include "music-head.hh"
+#include "music-function.hh"
 #include "source-file.hh"
 #include "parse-scm.hh"
 #include "lily-guile.hh"
@@ -699,10 +699,11 @@ My_lily_lexer::scan_escaped_word (String str)
 		return l;
 	}
 	SCM sid = lookup_identifier (str);
-	if (is_music_head (sid))
+	if (is_music_function (sid))
 	{
-		yylval.scm = get_music_head_transform (sid); 
-		return music_head_type (yylval.scm);
+		yylval.scm = get_music_function_transform (sid);
+		
+		return music_function_type (yylval.scm);
 	}
 
 	if (sid != SCM_UNDEFINED)
@@ -889,31 +890,35 @@ lookup_markup_command (String s)
 
 
 int
-music_head_type (SCM func)
+music_function_type (SCM func)
 {
 	SCM type= scm_object_property (func, ly_symbol2scm ("music-head-signature-keyword"));
 	if (type == ly_symbol2scm ("scm"))
 	{
-		return MUSIC_HEAD_SCM;
+		return MUSIC_FUNCTION_SCM;
 	}
 	else if (type == ly_symbol2scm ("music"))
 	{
-		return MUSIC_HEAD_MUSIC;
+		return MUSIC_FUNCTION_MUSIC;
 	}
 	else if (type == ly_symbol2scm ("scm-music"))
 	{
-		return MUSIC_HEAD_SCM_MUSIC;
+		return MUSIC_FUNCTION_SCM_MUSIC;
+	}
+	else if (type == ly_symbol2scm ("music-music"))
+	{
+		return MUSIC_FUNCTION_MUSIC_MUSIC;
 	}
 	else if (type == ly_symbol2scm ("scm-music-music"))
 	{
-		return MUSIC_HEAD_SCM_MUSIC_MUSIC;
+		return MUSIC_FUNCTION_SCM_MUSIC_MUSIC;
 	}
 	else if (type == ly_symbol2scm ("scm-scm-music"))
 	{
-		return MUSIC_HEAD_SCM_SCM_MUSIC;
+		return MUSIC_FUNCTION_SCM_SCM_MUSIC;
 	}
 	else
 		assert (false);
 
-	return MUSIC_HEAD_SCM_MUSIC_MUSIC;
+	return MUSIC_FUNCTION_SCM_MUSIC_MUSIC;
 }

@@ -359,19 +359,19 @@ or
 %token <scm> MARKUP_HEAD_SCM0_SCM1_SCM2
 %token <scm> MARKUP_HEAD_SCM0_SCM1_MARKUP2
 
-%token <scm> MUSIC_HEAD_SCM 
-%token <scm> MUSIC_HEAD_MUSIC 
-%token <scm> MUSIC_HEAD_SCM_MUSIC 
-%token <scm> MUSIC_HEAD_MUSIC_MUSIC 
-%token <scm> MUSIC_HEAD_SCM_SCM_MUSIC 
-%token <scm> MUSIC_HEAD_SCM_MUSIC_MUSIC 
+%token <scm> MUSIC_FUNCTION_SCM 
+%token <scm> MUSIC_FUNCTION_MUSIC 
+%token <scm> MUSIC_FUNCTION_SCM_MUSIC 
+%token <scm> MUSIC_FUNCTION_MUSIC_MUSIC 
+%token <scm> MUSIC_FUNCTION_SCM_SCM_MUSIC 
+%token <scm> MUSIC_FUNCTION_SCM_MUSIC_MUSIC 
 
 %token <scm> MARKUP_IDENTIFIER MARKUP_HEAD_LIST0
 %type <scm> markup markup_line markup_list  markup_list_body full_markup
 
 %type <book>	book_block book_body
 %type <i>	exclamations questions dots optional_rest
-%type <i>  	 bass_mod
+%type <i>  	bass_mod
 %type <scm> 	grace_head
 %type <scm> 	oct_check
 %type <scm> 	context_mod_list
@@ -385,6 +385,7 @@ or
 %type <music>	toplevel_music
 %type <music>	simple_element event_chord command_element
 %type <music>	Composite_music Simple_music Prefix_composite_music Generic_prefix_music
+%type <scm>  	Generic_prefix_music_scm 
 %type <music>	Grouped_music_list
 %type <music>	Repeated_music
 %type <scm>     Alternative_music
@@ -953,21 +954,77 @@ Grouped_music_list:
 	| Sequential_music		{ $$ = $1; }
 	;
 
-Generic_prefix_music:
-	MUSIC_HEAD_SCM { THIS->push_spot (); } embedded_scm {
-		SCM m = scm_call_2 ($1, make_input (THIS->pop_spot ()),
-			$3);
-		if (unsmob_music (m))
-		{	$$ = unsmob_music (m);
-			scm_gc_protect_object (m);
-		}
-		else
-		{
-			THIS->parser_error ("MUSIC_HEAD should return Music");
-			$$ = MY_MAKE_MUSIC("Music");
-		}
+Generic_prefix_music_scm:
+	MUSIC_FUNCTION_SCM {
+		THIS->push_spot ();
+	} embedded_scm {
+		$$ = scm_list_3 ($1, make_input (THIS->pop_spot ()), $3);
+	}
+	| MUSIC_FUNCTION_MUSIC {
+		THIS->push_spot (); 
+	} Music {
+		$$ = scm_list_3 ($1, make_input (THIS->pop_spot ()), $3->self_scm ());
+		scm_gc_unprotect_object ($3->self_scm ());
+	}
+	| MUSIC_FUNCTION_SCM_MUSIC {
+		THIS->push_spot (); 
+	}  embedded_scm Music {
+		$$ = scm_list_4 ($1, make_input (THIS->pop_spot ()), $3, $4->self_scm ());
+		scm_gc_unprotect_object ($4->self_scm ());
+	}
+	| MUSIC_FUNCTION_MUSIC_MUSIC {
+		THIS->push_spot (); 
+	}  Music  Music {
+		$$ = scm_list_4 ($1, make_input (THIS->pop_spot ()), $3->self_scm (), $4->self_scm ());
+		scm_gc_unprotect_object ($3->self_scm ());
+		scm_gc_unprotect_object ($4->self_scm ());
+	}
+	| MUSIC_FUNCTION_SCM_MUSIC_MUSIC {
+		THIS->push_spot (); 
+	} embedded_scm Music Music {
+		$$ = scm_list_5 ($1, make_input (THIS->pop_spot ()),
+			$3, $4->self_scm (), $5->self_scm ());
+		scm_gc_unprotect_object ($5->self_scm ());
+		scm_gc_unprotect_object ($4->self_scm ());
 	}
 	;
+
+Generic_prefix_music:
+	Generic_prefix_music_scm {
+		SCM func = ly_car ($1);
+		Input *loc = unsmob_input (ly_cadr ($1));
+		SCM args = ly_cddr ($1);
+		SCM sig = scm_object_property (func, ly_symbol2scm ("music-head-signature"));
+		int k = 0;
+		bool ok  = true; 
+		for (SCM s = sig, t = args;
+			ok && ly_c_pair_p (s) && ly_c_pair_p (t);
+			s = ly_cdr (s), t = ly_cdr (t)) {
+			k++;
+			if (scm_call_1 (ly_car (s), ly_car (t)) != SCM_BOOL_T)
+			{
+				loc->error (_f ("Argument %d failed typecheck", k));
+				THIS->error_level_ = 1;
+				ok = false;
+			}
+		}
+		SCM m = SCM_EOL;
+		if (ok)
+			m = scm_apply_0 (func, ly_cdr  ($1));
+		if (unsmob_music (m))
+			{
+			$$ = unsmob_music (m);
+			scm_gc_protect_object (m);
+			}
+		else
+			{
+			loc->error (_ ("Music head function should return Music object.")); 
+			$$ = MY_MAKE_MUSIC ("Music");
+			}
+
+	}
+	;
+
 
 Prefix_composite_music:
 	Generic_prefix_music {
