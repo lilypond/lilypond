@@ -60,4 +60,6 @@ public:
 
 DECLARE_UNSMOB (Font_metric, metrics);
 
+Box lookup_tex_text_dimension (Font_metric *font, SCM text);
+
 #endif /* FONT_METRIC_HH */

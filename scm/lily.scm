@@ -73,6 +73,8 @@
 	(format (current-error-port) "[~A]" fn))
     (primitive-load fn)))
 
+(define-public TEX_STRING_HASHLIMIT 10000000)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define (type-check-list location signature arguments)
