@@ -4,6 +4,9 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2002--2004 Juergen Reuter <reuter@ipd.uka.de>
+  
+  Han-Wen Nienhuys <hanwen@xs4all.nl
+  
 */
 
 #include "engraver.hh"
@@ -14,56 +17,9 @@
 #include "pitch.hh"
 #include "pitch-interval.hh"
 #include "protected-scm.hh"
+#include "side-position-interface.hh"
 
 
-
-/*
- * This class implements an engraver for ambitus grobs.
- *
- * TODO: There are quite some conceptional issues left open:
- *
- * - Many publishers put ambitus _before_ the first occurrence of a
- * clef.  Hence, formally the pitches are undefined in this case.  Of
- * course, one could always silently assume that ambitus pitches refer
- * to the first occurrence of a clef.  Or should we, by default, put
- * the ambitus always after the first clef, if any?
- *
- * - Enharmonically equal pitches: Assume piece contains once a "gis",
- * another time an "aes" as highest pitch.  Which one should be
- * selected for the ambitus grob?  The "aes", because it is
- * musically/notationally "higher" than "gis"?  Or "gis", because (if
- * using pure temperament) it has a slightly higher frequency?  Or
- * that pitch that come closer to the key signature?  But there may be
- * key signature changes in the piece...
- *
- * - Multiple voices in single staff: Assume a vocal piece of music,
- * where the soprano voice and the alto voice are put into the same
- * staff (this is generally a bad idea, but unfortunately common
- * practice).  Then, there probably should be two ambitus grobs, one
- * for each voice.  But how can you see which ambitus grob refers to
- * which voice?  Most probably you can guess it from the fact that the
- * ambitus of the alto voice typically lies in a lower range than that
- * of the soprano voice, but this is just a heuristic rather than a
- * generally valid rule.  In the case of only two voices, using stems
- * in the ambitus grob might help, but probably looks quite ugly.
- *
- * - If a piece consists of several loosely coupled sections, should
- * there be multiple ambitus grobs allowed, one for each section?
- * Then there probably should be some "\ambitus" event added to
- * mudela, stating where an ambitus grob should be placed.  This
- * ambitus grob should then represent the ambitus in the range of time
- * between this "\ambitus" event and the next one (or the end of the
- * piece, if there is no more such event).  To be compliant with the
- * current implementation, we might implicitly assume an "\ambitus"
- * event at the beginning of the piece, but then the question where
- * to put this first ambitus grob (before/after the clef?) becomes
- * even more urgent.
- *
- * - Incipits of transcribed music may need special treatment for
- * ambitus, since, for readability, the ambitus most probably should
- * not refer to the ancient clefs of the incipit, but rather to the
- * clefs used in the transcribed parts.
- */
 class Ambitus_engraver : public Engraver
 {
 public:
@@ -133,8 +89,10 @@ Ambitus_engraver::stop_translation_timestep ()
 	  heads_[d] = make_item ("AmbitusNoteHead", SCM_EOL);
 	  accidentals_[d] = make_item ("AmbitusAccidental", SCM_EOL);
 	  heads_[d]->set_property ("accidental-grob", accidentals_[d]->self_scm ());
+	  Side_position_interface::add_support (accidentals_[d], heads_[d]);
 	}
       while (flip (&d) != DOWN);
+      ambitus_->set_parent (heads_[DOWN], X_AXIS);
       is_typeset_ = true;
     }
 }
@@ -166,7 +124,7 @@ Ambitus_engraver::finalize ()
       do
 	{
 	  Pitch p = pitch_interval_[d];
-	  heads_[d]->set_property ("position",
+	  heads_[d]->set_property ("staff-position",
 				   scm_from_int (start_c0_ +
 						 p.steps ()));
 

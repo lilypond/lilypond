@@ -38,10 +38,8 @@
        (breakable . #t)
        (break-align-symbol . ambitus)
        (print-function . ,Ambitus::print)
-       (font-family . music)
-       (note-head-style . "noteheads-2")
-       (break-visibility . ,begin-of-line-visible)
        (join-heads . #t)
+       (break-visibility . ,begin-of-line-visible)
        (space-alist . (
 		       (clef . (extra-space . 0.0))
 		       (key-signature . (extra-space . 0.0))
@@ -51,12 +49,23 @@
 		       ))
        (meta . ((interfaces . (ambitus-interface staff-symbol-referencer-interface break-aligned-interface item-interface  font-interface))))
        ))
+    (AmbitusAccidental
+     . (
+	(print-function . ,Accidental_interface::print)
+	(font-family . music)
+	(X-offset-callbacks . (,Side_position_interface::aligned_side))
+	(direction . -1) 
+	(cautionary-style . parentheses)
+	(after-line-breaking-callback . ,Accidental_interface::after_line_breaking)		(meta . ((interfaces . (item-interface accidental-interface font-interface))))
+	))
     (AmbitusNoteHead
      . (
+	(duration-log . 2)
 	(style . default)
 	(breakable . #t)
 	(print-function . ,Note_head::print)
 	(break-align-symbol . ambitus)
+        (break-visibility . ,begin-of-line-visible)
 	(glyph-name-procedure . ,find-notehead-symbol)
 	(X-extent-callback . ,Note_head::extent)
 	(Y-extent-callback . ,Note_head::extent)
