@@ -149,7 +149,7 @@ do_one_file (String init_string, String file_string)
   source_global->set_path (&global_path);
   {
     My_lily_parser parser (source_global);
-    parser.set_version_check (false);
+
     progress_indication (_f ("Now processing: `%s'", file_string.to_str0 ()));
     progress_indication ("\n");
     parser.parse_file (init_string, file_string);
