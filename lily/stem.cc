@@ -19,7 +19,7 @@
 #include "directional-element-interface.hh"
 #include "note-head.hh"
 #include "stem.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "paper-def.hh"
 #include "rhythmic-head.hh"
 #include "font-interface.hh"

@@ -6,7 +6,7 @@
   (c) 2000--2002  Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "debug.hh"
+#include "warn.hh"
 #include "paper-def.hh"
 #include "slur-bezier-bow.hh"
 #include "main.hh"

@@ -7,7 +7,7 @@
 */
 
 #include "translator-group.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "request-chord-iterator.hh"
 #include "music-list.hh"
 #include "request.hh"

@@ -24,7 +24,7 @@
 #include "staff-symbol-referencer.hh"
 #include "custos.hh"
 #include "molecule.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "note-head.hh"
 #include "item.hh"
 #include "font-interface.hh"

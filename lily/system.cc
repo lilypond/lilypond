@@ -8,7 +8,7 @@
 
 #include "input-smob.hh"
 #include "axis-group-interface.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "system.hh"
 #include "main.hh"
 #include "paper-column.hh"

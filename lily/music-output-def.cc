@@ -9,7 +9,7 @@
 #include "scm-hash.hh"
 
 #include "dictionary.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "music-output-def.hh"
 #include "global-translator.hh"
 #include "translator-def.hh"

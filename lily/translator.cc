@@ -8,7 +8,7 @@
 
 
 #include "translator.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "translator-group.hh"
 #include "translator-def.hh"
 

@@ -8,7 +8,7 @@
  */
 #include "rod.hh"
 #include "paper-column.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "dimensions.hh"
 #include "spaceable-grob.hh"
 

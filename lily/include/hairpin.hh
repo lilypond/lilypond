@@ -11,6 +11,7 @@
 #define HAIRPIN_HH
 
 #include "lily-guile.hh"
+#include "lily-proto.hh"
 /**
   The hairpin symbol. 
  */

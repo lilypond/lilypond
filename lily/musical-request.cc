@@ -8,7 +8,7 @@
 
 #include "musical-request.hh"
 #include "misc.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "music-list.hh"
 
 

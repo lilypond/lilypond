@@ -6,7 +6,7 @@
   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "debug.hh"
+#include "warn.hh"
 #include "rest-collision.hh"
 #include "engraver.hh"
 #include "note-collision.hh"

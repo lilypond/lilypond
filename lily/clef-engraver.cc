@@ -14,7 +14,7 @@
 
 #include "bar-line.hh"
 #include "staff-symbol-referencer.hh"
-#include "debug.hh"
+
 #include "engraver.hh"
 #include "direction.hh"
 #include "side-position-interface.hh"

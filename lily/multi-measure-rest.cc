@@ -8,7 +8,7 @@
  */
 
 #include "multi-measure-rest.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "paper-def.hh"
 #include "paper-column.hh" // urg
 #include "font-interface.hh"

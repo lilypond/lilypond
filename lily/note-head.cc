@@ -11,7 +11,7 @@
 #include "misc.hh"
 #include "dots.hh"
 #include "note-head.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "font-interface.hh"
 #include "molecule.hh"
 #include "musical-request.hh"

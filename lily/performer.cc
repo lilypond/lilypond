@@ -9,7 +9,7 @@
 
 
 #include "performer-group-performer.hh"
-#include "debug.hh"
+#include "warn.hh"
 
 void 
 Performer::play_element (Audio_element* p) 

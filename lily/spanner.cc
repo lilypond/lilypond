@@ -9,7 +9,7 @@
 #include <libc-extension.hh>
 
 
-#include "debug.hh"
+#include "warn.hh"
 #include "spanner.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"

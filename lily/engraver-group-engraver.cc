@@ -9,7 +9,7 @@
 #include "flower-proto.hh"
 #include "engraver-group-engraver.hh"
 #include "engraver.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "paper-score.hh"
 #include "grob.hh"
 

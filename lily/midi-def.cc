@@ -10,7 +10,7 @@
 #include "misc.hh"
 #include "midi-def.hh"
 #include "performance.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "scm-hash.hh"
 
 Midi_def::Midi_def ()

@@ -10,7 +10,7 @@
 #include "axis-group-interface.hh"
 #include "note-column.hh"
 #include "stem.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "paper-def.hh"
 #include "group-interface.hh"
 #include "staff-symbol-referencer.hh"

@@ -8,7 +8,7 @@
 
 
 #include "paper-score.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "item.hh"
 #include "paper-column.hh"
 #include "spanner.hh"

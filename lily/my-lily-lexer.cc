@@ -18,7 +18,7 @@
 #include "parser.hh"
 #include "keyword.hh"
 #include "my-lily-lexer.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "source-file.hh"
 #include "main.hh"
 #include "input.hh"

@@ -6,7 +6,7 @@
 
 #include "musical-request.hh"
 #include "slur.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "note-column.hh"
 #include "translator-group.hh"
 #include "engraver.hh"

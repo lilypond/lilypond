@@ -13,7 +13,7 @@
 #include "performance.hh"
 #include "midi-stream.hh"
 #include "string-convert.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "translator-def.hh"
 
 

@@ -36,7 +36,7 @@ this.
 #include "midi-def.hh"
 #include "main.hh"
 #include "file-path.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "dimensions.hh"
 #include "command-request.hh"
 #include "musical-request.hh"

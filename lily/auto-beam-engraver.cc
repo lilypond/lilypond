@@ -11,7 +11,7 @@
 #include "musical-request.hh"
 #include "beam.hh"
 #include "stem.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "engraver-group-engraver.hh"
 #include "bar-line.hh"
 #include "rest.hh"

@@ -7,7 +7,7 @@
  */
 
 #include "translator-group.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "audio-column.hh"
 #include "audio-item.hh"
 #include "audio-staff.hh"

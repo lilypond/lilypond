@@ -17,7 +17,7 @@
 #include "molecule.hh"
 #include "paper-def.hh"
 #include "font-interface.hh"
-#include "debug.hh"
+
 #include "all-font-metrics.hh"
 #include "item.hh"
 #include "staff-symbol-referencer.hh"

@@ -9,7 +9,7 @@
 #include <math.h>		// ceil.
 
 #include "side-position-interface.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "warn.hh"
 #include "dimensions.hh"
 #include "staff-symbol-referencer.hh"

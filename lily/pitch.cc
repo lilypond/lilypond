@@ -7,7 +7,7 @@
   
  */
 #include "pitch.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "main.hh"
 #include "ly-smobs.icc"
 

@@ -1,5 +1,7 @@
 2002-07-11  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/include/debug.hh: deprecate.
+
 	* lily/spacing-spanner.cc (set_springs): add support for
 	common-shortest-duration field.
 

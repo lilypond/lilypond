@@ -8,7 +8,7 @@
  */
 
 #include "relative-music.hh"
-#include "debug.hh"
+#include "warn.hh"
 
 Pitch
 Relative_octave_music::to_relative_octave (Pitch)

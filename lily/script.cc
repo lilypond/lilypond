@@ -7,7 +7,7 @@
   
  */
 
-#include "debug.hh"
+#include "warn.hh"
 #include "script.hh"
 #include "font-interface.hh"
 #include "side-position-interface.hh"

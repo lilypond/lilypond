@@ -14,7 +14,7 @@
 #include "interval.hh"
 #include "string.hh"
 #include "molecule.hh"
-#include "debug.hh"
+#include "warn.hh"
 
 
 #include "ly-smobs.icc"

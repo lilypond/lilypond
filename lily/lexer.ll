@@ -37,7 +37,7 @@
 #include "interval.hh"
 #include "lily-guile.hh"
 #include "parser.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "main.hh"
 #include "musical-request.hh"
 #include "version.hh"

@@ -10,7 +10,7 @@
 #include "input-smob.hh"
 #include "music.hh"
 #include "music-list.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "pitch.hh"
 #include "ly-smobs.icc"
 

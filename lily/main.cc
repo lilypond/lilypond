@@ -29,7 +29,7 @@
 #include "main.hh"
 #include "file-path.hh"
 #include "file-results.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "lily-guile.hh"
 #include "paper-def.hh"
 #include "midi-def.hh"

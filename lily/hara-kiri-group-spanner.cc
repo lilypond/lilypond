@@ -10,7 +10,7 @@
 #include "axis-group-interface.hh"
 #include "spanner.hh"
 #include "hara-kiri-group-spanner.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "item.hh"
 
 

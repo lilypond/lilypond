@@ -7,7 +7,7 @@
 */
 
 #include "rhythmic-head.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "rest.hh"
 #include "stem.hh"
 #include "staff-symbol-referencer.hh"

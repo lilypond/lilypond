@@ -7,7 +7,7 @@
   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "debug.hh"
+#include "warn.hh"
 #include "timing-translator.hh"
 #include "command-request.hh"
 #include "translator-group.hh"

@@ -7,7 +7,7 @@
 */
 
 #include "command-request.hh"
-#include "debug.hh"
+
 #include "musical-request.hh"
 
 Tempo_req::Tempo_req ()

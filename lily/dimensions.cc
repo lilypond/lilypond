@@ -1,7 +1,7 @@
 // dimensions.cc
 
 #include "dimensions.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "string.hh"
 
 String

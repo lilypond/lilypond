@@ -7,7 +7,7 @@
 */
 
 #include "translator-group.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "simultaneous-music-iterator.hh"
 #include "music-list.hh"
 #include "killing-cons.tcc"

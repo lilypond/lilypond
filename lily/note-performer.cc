@@ -11,7 +11,7 @@
 #include "audio-item.hh"
 #include "audio-column.hh"
 #include "global-translator.hh"
-#include "debug.hh"
+#include "warn.hh"
 
 /**
 Convert reqs to audio notes.

@@ -7,7 +7,7 @@
 */
 #include <stdio.h>
 
-#include "debug.hh"
+#include "warn.hh"
 #include "music.hh"
 #include "request.hh"
 #include "music-list.hh"

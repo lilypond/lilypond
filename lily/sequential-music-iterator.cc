@@ -7,7 +7,7 @@
 */
 
 #include "translator-group.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "sequential-music-iterator.hh"
 #include "music-list.hh"
 
