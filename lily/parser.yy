@@ -202,7 +202,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token CONTEXT
 
 /* escaped */
-%token E_CHAR E_EXCLAMATION E_SMALLER E_BIGGER 
+%token E_CHAR E_EXCLAMATION E_SMALLER E_BIGGER E_OPEN E_CLOSE
 %token CHORD_BASS CHORD_COLON CHORD_MINUS CHORD_CARET 
 
 %type <i>	exclamations questions dots
@@ -1395,6 +1395,11 @@ close_request_parens:
 		$$ = s;
 		s->set_mus_property ("span-type", ly_str02scm( "slur"));
 	}
+	| E_OPEN	{
+		Span_req* s= new Span_req;
+		$$ = s;
+		s->set_mus_property ("span-type", ly_str02scm( "phrasing-slur"));
+	}
 	| E_SMALLER {
 		Span_req*s =new Span_req;
 		$$ = s;
@@ -1426,6 +1431,11 @@ open_request_parens:
 		Span_req* s= new Span_req;
 		$$ = s;
 		s->set_mus_property ("span-type", ly_str02scm( "slur"));
+	}
+	| E_CLOSE	{
+		Span_req* s= new Span_req;
+		$$ = s;
+		s->set_mus_property ("span-type", ly_str02scm( "phrasing-slur"));
 	}
 	;
 

@@ -1,3 +1,4 @@
+
 @c Note:
 @c
 @c A menu is needed before every deeper *section nesting of @nodes
@@ -879,12 +880,12 @@ FIXME
 * Span requests::               
 @end menu
 
-Slurs connects chords and try to avoid crossing stems.  A slur is
-started with @code{(} and stopped with @code{)}.  The
-starting @code{(} appears to the right of the first note in
-the slur.  The terminal @code{)} appears to the left of the
-first note in the slur.  This makes it possible to put a note in
-slurs from both sides:
+A slur connects chords and is used to indicate legato.  Slurs avoid
+crossing stems.  A slur is started with @code{(} and stopped with
+@code{)}.  The starting @code{(} appears to the right of the first note
+in the slur.  The terminal @code{)} appears to the left of the last note
+in the slur.  This makes it possible to put a note in slurs from both
+sides:
 
 @lilypond[fragment,verbatim,center]
   f'()g'()a' [a'8 b'(] a'4 g'2 )f'4
@@ -983,6 +984,24 @@ increasing the @code{beautiful} value:
 
 @cindex Adusting slurs
 
+
+
+@c .   {Phrasing slur}
+@node Phrasing slur
+@subsection Phrasing slur
+@cindex phrasing slur
+@cindex phrasing mark
+
+A phrasing slur (or phrasing mark) connects chords and is used to
+indicate a musical sentence.  Phrasing slurs avoid crossing stems.  A
+phrasing slur is started with @code{\(} and stopped with @code{\)}.  The
+starting @code{\(} appears to the right of the first note in the
+phrasing slur.  The terminal @code{\)} appears to the left of the last
+note in the phrasing slur.
+
+@lilypond[fragment,verbatim,center,relative]
+  \time 6/4; c''\((d)e f(e)\)d
+@end lilypond
 
 
 @c .   {Tie}

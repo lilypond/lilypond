@@ -109,6 +109,8 @@ and documenting bugfixes.
 
 @lilypondfile[printfilename]{ophee-slurs.ly}
 
+@lilypondfile[printfilename]{phrasing-slur.ly}
+
 @lilypondfile[printfilename]{tie.ly}
 
 @lilypondfile[printfilename]{tie-chord.ly}

@@ -71,7 +71,7 @@
   "
    '(
      staff-position
-    height 
+    height
     flag-width-function 
     damping 
     default-neutral-direction 
@@ -83,6 +83,7 @@
     damping 
     outer-stem-length-limit 
     slope-limit 
+    auto-knee-gap
     )
    ))
 

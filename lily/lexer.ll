@@ -426,6 +426,10 @@ HYPHEN		--
 	return E_SMALLER;
     case '!':
 	return E_EXCLAMATION;
+    case '(':
+	return E_OPEN;
+    case ')':
+	return E_CLOSE;
     default:
 	return E_CHAR;
     }
