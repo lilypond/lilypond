@@ -493,7 +493,8 @@ themusic =
 	\paper{
 		\paper_twenty
 		% 20pt music uses whole pagewidth
-		linewidth= 195.\mm;
+		% ja Vette Pech.  Koop maar aan A4 printer
+		linewidth= 185.\mm;
 
 		gourlay_maxmeasures = 9.;
 		\output "standchen-20.out";

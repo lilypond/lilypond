@@ -1,11 +1,9 @@
 \documentclass{article}         %UGH
 \usepackage{a4}
-\oddsidemargin0mm
+\advance\oddsidemargin-15mm
 \evensidemargin\oddsidemargin
-\hsize210mm\vsize297mm % so what does a4 do, anyway?
-\textwidth160mm
-\topmargin0mm%\advance\topmargin10mm
-\textheight\vsize\advance\textheight-50mm
+\advance\textwidth30mm
+
 %\pagestyle{empty}
 \begin{document}
 \input lilyponddefs
@@ -16,7 +14,7 @@
 \composer{Franz Schubert (1797-1828)}
 \instrument{M\"a\ss ig} % heu
 %#%\tempo{M\"a\ss ig}
-\maketit
+\makelilytitle
 \input{standchen-16.out}
 %\input lelie.tex
 \end{document}
