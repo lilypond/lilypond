@@ -56,6 +56,11 @@ INSTALL.text: check-doc-deps
 	rm -f INSTALL.text
 	ln `find -name INSTALL.text|head -1` .
 
+localdistclean:
+	rm -rf Makefile $(lily-version) $(flower-version) $(mi2mu-version) .b $(build) *~ $(allout) $(allgen) config.cache config.status
+
+
+
 localclean:
 	rm -f $(allexe) core config.cache config.log config.status 
 	rm -f $(outdir)/*.{class,html,gif}

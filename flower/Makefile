@@ -55,3 +55,6 @@ localdist: configure
 
 -include /dev/null $(DEPFILES)
 #
+
+localdistclean:
+	rm -f config.cache config.status
