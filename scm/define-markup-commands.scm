@@ -15,6 +15,20 @@
   "Stencil as markup"
   stil)
 
+
+(def-markup-command (score paper props score) (ly:score?)
+  (let*
+      ((systems (ly:score-embedded-format score paper))
+       (1st (vector-ref systems 0))
+       (stencil (ly:paper-line-stencil 1st)) )
+
+    (ly:stencil-align-to! stencil Y CENTER)
+    (display (ly:stencil-extent stencil X))
+    (display (ly:stencil-extent stencil Y))
+;    (set! stencil (ly:stencil-translate-axis stencil -20 X))
+;    (set! stencil (ly:stencil-translate-axis stencil 20 Y))
+    stencil))
+
 (def-markup-command (simple paper props str) (string?)
   "A simple text string; @code{\\markup @{ foo @}} is equivalent with
 @code{\\markup @{ \\simple #\"foo\" @}}."
@@ -56,7 +70,7 @@
 	(line-stencils (if (= word-count 1)
 			   (map (lambda (x) (interpret-markup paper props x))
 				(list (make-simple-markup "")
-				      (car markups)
+				      (make-stencil-markup (car stencils))
 				      (make-simple-markup "")))
 				stencils)))
     (stack-stencil-line fill-space line-stencils)))
@@ -76,9 +90,11 @@ determines the space between each markup in @var{args}."
 
 (def-markup-command (combine paper props m1 m2) (markup? markup?)
   "Print two markups on top of each other."
-  (ly:stencil-add
-   (interpret-markup paper props m1)
-   (interpret-markup paper props m2)))
+  (let*
+      ((s1   (interpret-markup paper props m1))
+       (s2   (interpret-markup paper props m2)))
+	     
+    (ly:stencil-add s1 s2)))
 
 (def-markup-command (finger paper props arg) (markup?)
   "Set the argument as small numbers."

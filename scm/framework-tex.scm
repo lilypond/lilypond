@@ -1,5 +1,3 @@
-
-
 (define-module (scm framework-tex))
 
 (use-modules (ice-9 regex)
@@ -119,20 +117,6 @@
 	"}\\vss\n}\n\\vfill\\lilypondpagebreak\n")))
 
 
-(define (dump-line putter line last?)
-  (ly:outputter-dump-string
-   putter
-   (string-append "\\leavevmode\n\\lybox{0}{0}{0}{"
-		  (ly:number->string (ly:paper-line-extent line Y))
-		  "}{"))
-
-   (ly:outputter-dump-stencil putter (ly:paper-line-stencil line))
-   (ly:outputter-dump-string
-    putter
-    (if last?  
-	"}%\n"
-	"}\\interscoreline\n"
-	)) )
 
 (define-public (output-framework-tex outputter book scopes fields basename)
   (let*
@@ -159,6 +143,21 @@
    pages)
   (ly:outputter-dump-string outputter "\\lilypondend\n")
   ))
+
+(define (dump-line putter line last?)
+  (ly:outputter-dump-string
+   putter
+   (string-append "\\leavevmode\n\\lybox{0}{0}{0}{"
+		  (ly:number->string (ly:paper-line-extent line Y))
+		  "}{"))
+
+   (ly:outputter-dump-stencil putter (ly:paper-line-stencil line))
+   (ly:outputter-dump-string
+    putter
+    (if last?  
+	"}%\n"
+	"}\\interscoreline\n"
+	)) )
 
 (define-public (output-classic-framework-tex outputter book scopes fields basename)
   (let*

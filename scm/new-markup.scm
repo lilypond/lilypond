@@ -415,6 +415,7 @@ Also set markup-signature and markup-keyword object properties."
 
 
 (define-public (stack-stencil-line space stencils)
+  "DOCME"
   (if (and (pair? stencils)
 	   (ly:stencil? (car stencils)))
       

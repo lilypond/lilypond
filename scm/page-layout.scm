@@ -253,8 +253,8 @@
 	      (make-column-markup
 	       (list
 	       (markup #:fill-line
-		       (#:large #:bigger #:bigger #:bold (get 'subtitle))
-		       #:fill-line (#:bigger #:bigger #:bold (get 'subsubtitle)))
+		       (#:large #:bigger #:bigger #:bold (get 'subtitle)))
+	       (markup #:fill-line (#:bigger #:bigger #:bold (get 'subsubtitle)))
 	       (markup #:override '(baseline-skip . 5)
 		       #:column ("")))
 
