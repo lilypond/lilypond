@@ -195,11 +195,11 @@
        %% As a safety guard, don't produce auxiliary files.
        \nofiles
 
-       %% FIXME: workaround non-existant TeX.def.
-       \ifx\lilypondpaperinputencoding=TeX
-         \usepackage[\lilypondpaperinputencoding]{inputenc}
-       \else
+       %% FIXME: workaround non-existent TeX.def.
+       \def\TeXdef{TeX}\ifx\TeXdef\lilypondpaperinputencoding
          \usepackage[latin1]{inputenc}
+       \else
+         \usepackage[\lilypondpaperinputencoding]{inputenc}
        \fi
        \pagestyle{empty}
 
