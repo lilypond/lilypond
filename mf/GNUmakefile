@@ -56,7 +56,7 @@ MFTRACE_FLAGS=$(if $(ENCODING_FILE),--encoding $(ENCODING_FILE),) --no-afm
 # 2. are not included with teTeX
 #
 
-$(outdir)/%.cff.ps $(outdir)/%.cff $(outdir)/%.otf $(outdir)/%.svg: $(outdir)/%.pe
+$(outdir)/%.cff.ps $(outdir)/PFA%.pfa $(outdir)/%.cff $(outdir)/%.otf $(outdir)/%.svg: $(outdir)/%.pe
 	(cd $(outdir) && $(FONTFORGE) -script $(notdir $<))
 	$(PYTHON) $(buildscript-dir)/ps-embed-cff.py $(basename $<).cff `cat $(basename $<).fontname` $(basename $<).cff.ps
 

@@ -144,7 +144,7 @@
   (define (extract-names font)
     (if (ly:pango-font? font)
 	(map car (ly:pango-font-physical-fonts font))
-	(list (ly:font-name font))))
+	(list (munge-lily-font-name (ly:font-name font)))))
   
   (let* ((fonts (ly:paper-fonts paper))
 	 (names (apply append (map extract-names fonts)))
