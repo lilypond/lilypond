@@ -21,29 +21,33 @@
 
     */
 
-struct Score_column {
+class Score_column {
+    friend class Score;
+    friend class Score_walker;
 
+    bool musical_b_;
+    Moment when_;
+    void set_breakable();
+public:
     /// indirection to column
     PCol * pcol_l_;
 
     /// length of notes/rests in this column
     Array<Moment> durations;
     
-
-    bool musical_;
-    
     /* *************** */
+
     Moment when() {  return when_; }
     Score_column(Moment when);       
     static int compare(Score_column & c1, Score_column &c2);
     void add_duration(Moment );
     void preprocess();
-    void set_breakable();
+    bool breakable_b();
+    bool musical_b() { return musical_b_; }
     bool used();
     void print() const;
 
-private:
-    Moment when_;
+
 };
 
 instantiate_compare(Score_column&, Score_column::compare);
