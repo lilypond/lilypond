@@ -186,8 +186,6 @@ ydirection and hshift preset
  
 	* deps for ly2dvi
 
-	* clean up abbrev/plet/beam/abbrevbeam/duration mess in parser.
-
  	* minimum length second part broken tie
  
 	* en-,discouraged linebreaking: 

@@ -1,9 +1,9 @@
 Name: stepmake
-Version: 0.1.61
+Version: 0.1.62
 Release: 1
 Copyright: GPL
 Group: Development
-Source0: pcnov095.win.tue.nl:/pub/lilypond/development/stepmake-0.1.61.tar.gz
+Source0: pcnov095.win.tue.nl:/pub/lilypond/development/stepmake-0.1.62.tar.gz
 Summary: generic make package
 Packager: janneke@gnu.org (Jan Nieuwenhuizen)
 Buildroot: /tmp/stepmake-install

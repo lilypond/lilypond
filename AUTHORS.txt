@@ -18,7 +18,7 @@ wrote.  This list is alphabetically ordered.
 
 
 o    Tom Cato Amundsen <tomcato@xoommail.com>,  cembalo-par-
-     tita in mudela.
+     tita in mudela, accordion symbols, some mudela-book.py
 
 o    Mats            Bengtsson            <matsb@s3.kth.se>,
      http://www.s3.kth.se/~matsb/  clef  stuff,  key  stuff,
