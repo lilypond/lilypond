@@ -310,7 +310,7 @@ def lily_key (k):
 		key = key + 'es'
 		k = k[1:]
 	if not k:
-		return(key)
+		return '%s \\major' % key
 
 	type = k[0:3]
 	if key_lookup.has_key(type):
