@@ -134,23 +134,20 @@ internals document,  @internalsref{\NAME\}
 
 @macro refbugs
 @noindent
-@strong{Bugs}
+@heading Bugs
 
-@noindent
 @end macro
 
 @macro seealso
 @noindent
-@strong{See also}
+@heading See also
 
-@noindent
 @end macro
 
 @macro refcommands
 @noindent
-@strong{Predefined commands}
+@heading Predefined commands
 
-@noindent
 @end macro
 
 
@@ -167,7 +164,6 @@ internals document,  @internalsref{\NAME\}
 
 @macro syntax
 @noindent
-@strong{Syntax}
+@heading Syntax
 
-@noindent
 @end macro

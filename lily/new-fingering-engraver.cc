@@ -134,7 +134,6 @@ New_fingering_engraver::add_fingering (Grob * head,
     the thumb lives in a different font. Maybe it should be moved?
     
    */
-
   if (d > 5)
     {
       /*
@@ -171,7 +170,11 @@ New_fingering_engraver::position_scripts ()
     }
 
   SCM fhd = get_property ("fingerHorizontalDirection");
-  
+
+  for (int i = fingerings_.size(); i--;)
+    for (int j = heads_.size() ; j--;)
+      Side_position_interface::add_support (fingerings_[i].script_, heads_[j]);
+    
   Array<Finger_tuple> up, down, horiz;
   for (int i = fingerings_.size(); i--;)
     {

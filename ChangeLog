@@ -1,3 +1,17 @@
+2003-07-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/refman.itely: corrections.
+
+2003-07-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/new-fingering-engraver.cc (position_scripts): add heads to
+	support of the fingerings.
+
+	* po/fr.po: French translation update.
+
+	* lily/parser.yy (Composite_music): add extra \ for "\apply" in
+	strings.
+
 2003-07-22  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/user/introduction.itely: Small fixes.
