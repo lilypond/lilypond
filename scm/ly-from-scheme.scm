@@ -46,7 +46,8 @@ character."
       (cond (;; $variable
              (and (symbol? form)
                   (string=? (substring (symbol->string form) 0 1) "$")
-                  (not (string=? (substring (symbol->string form) 1 2) "$")))
+                  (not (and (<= 2 (string-length (symbol->string form)))
+			    (string=? (substring (symbol->string form) 1 2) "$"))))
              (create-binding! (string->symbol (substring (symbol->string form) 1))))
             (;; atom
              (not (pair? form)) form)
