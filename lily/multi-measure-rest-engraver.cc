@@ -158,6 +158,17 @@ Multi_measure_rest_engraver::start_translation_timestep ()
       int cur = gh_scm2int (get_property ("currentBarNumber"));
       lastrest_->set_grob_property ("measure-count",
 				     gh_int2scm (cur - start_measure_));
+      SCM sml = get_property ("measureLength");
+      Rational ml = (unsmob_moment (sml)) ? unsmob_moment (sml)->main_part_ : Rational (1);
+      if (ml < Rational (2))
+	{
+	  lastrest_->set_grob_property ("use-breve-rest", SCM_BOOL_F);
+	}
+      else
+	{
+	  lastrest_->set_grob_property ("use-breve-rest", SCM_BOOL_T);
+	}
+
       mmrest_ = 0;
     }
 }
@@ -174,10 +185,12 @@ Multi_measure_rest_engraver::finalize ()
 
 ENTER_DESCRIPTION(Multi_measure_rest_engraver,
 /* descr */       "Engraves multi-measure rests that are produced with @code{R}.  Reads
-measurePosition and currentBarNumber to determine what number to print over the MultiMeasureRest
+measurePosition and currentBarNumber to determine what number to print over the MultiMeasureRest.
+Reads measureLength to determine if it should use a whole rest or a breve rest to represent 1 measure
+
 ",
 /* creats*/       "MultiMeasureRest",
 /* accepts */     "multi-measure-rest-event",
 /* acks  */      "",
-/* reads */       "currentBarNumber currentCommandColumn measurePosition",
+/* reads */       "currentBarNumber currentCommandColumn measurePosition measureLength",
 /* write */       "");

@@ -599,3 +599,4 @@ functions set spanner positions.")
 
 (grob-property-description 'avoid-note-head boolean? "if set, the stem of a chord does not pass through all note head, but start at the last note head. Used by tablature.")
 (grob-property-description 'up-to-staff boolean? "if set, stems' lengths are set so as stems end out of the staff. Used by tablature.")
+(grob-property-description 'use-breve-rest boolean? "boolean that tells multi-measure-rest to use a breve rest to represent the duration of 1 measure instead of w whole rest.  It defaults to false.  It is set to true when the duration of a measure is a breve or longer.")
