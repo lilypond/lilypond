@@ -7,39 +7,35 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr/urg
 
+
+BUGS:
+
+	* fix \n after proccing
+
+ Summary of minor spelling irregularities:
+>   capitalization/use of underscores in property names
+>   \lyric vs \notes  \lyric vs \type Lyrics  (\lyric should have an -s)
+
+	* fix Score.skipBars
+
+	* repeat bars: need distance after ":|" and before "|:"
+
+	* \shape 1st dim skipped? 
+
+	* fix marks/barnumbers/marginal notes
+
+****
+
+
 	* uniformise property names.
 
-	ydirection <-> yDirection
-
-	* 
-   \score{
-      \notes { \property Staff.defaultclef = bass    a b c d }
-      \paper{
-
-
-   Staff = \translator {
-	   \type "Line_group_engraver_group";
-	   \consists "Bar_engraver";
-	   \consists "Clef_engraver";
-	   \consists "Key_engraver";
-	   \consists "Local_key_engraver";
-	   \consists "Time_signature_engraver";
-	   \consists "Staff_sym_engraver";
-	   \consists "Collision_engraver";
-	   \consists "Rest_collision_engraver";
-	   \consists "Separating_line_group_engraver";
-	   \accepts "Voice";
-	}
-   }
-}
+	* ydirection <-> yDirection
 
 	* typo checks on property names?
 
 	* egcs-1.1 support
 
 	* make engraver hacking robust.
-
-	* fix LOCALE settings, and \def\foo{2,000pt} output
 
 	* use streambufs and iostream
 	to provide IO handling for TeX stream, mudela stream, data-file.
@@ -50,8 +46,6 @@ grep for TODO and ugh/ugr/urg
 
 	* zip target for binary windows dist (JBR)
 
-	* repeat bars: need distance after ":|" and before "|:"
-
 	* text continuationss
 
 	* revise documentation
@@ -59,10 +53,6 @@ grep for TODO and ugh/ugr/urg
 	* abbrev -> tremolo
 
 	* junking \skip req in lyrics
-
-	* \shape 1st dim skipped? 
-
-	* Choire -> Choir
 
 	* Language:
 	- general plet mechanism.
@@ -86,13 +76,13 @@ grep for TODO and ugh/ugr/urg
 
 	* install TeX stuff into tex/generic directory.
 
+	* /etc/profile.d support for RPM.
+
 	* percussion note heads
 
 	* mi2mu empty staffs.
 
 	* include MIDI list 
-
-	* make separate translation property list.
 
 	* make GNU style webpages.
 
