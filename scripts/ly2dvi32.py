@@ -15,6 +15,7 @@ Output: DVI file
 
 name = 'ly2dvi'
 version = '0.0.4'
+errorlog = ''
 
 import sys
 import os
@@ -504,10 +505,11 @@ class Properties:
         """
 
         path =''
-        cmd =('kpsewhich tex %s 2>&1' % var)
+        cmd =('kpsewhich tex %s %s' % (var,errorlog))
         pipe = os.popen (cmd, 'r')
         path = pipe.readline ()[:-1] # chop off \n
-        if pipe.close():
+	return_status =  pipe.close()
+	if return_status and not path:
             path = os.path.join(this.get('root'), 'texmf', 'tex',
                                 'lilypond', var)
 	fd = open(path, 'r')

@@ -1,0 +1,23 @@
+
+
+\property Staff.timeSignatureStyle = "C"
+\time 12/8;
+
+[c8 c c][c8 c c][c8 c c][c8 c c]
+
+\time 2/2;
+\property Staff.timeSignatureStyle = "old3_2"
+c2 c2
+
+\time 2/2;
+\property Staff.timeSignatureStyle = "oldC"
+c2 c2
+
+\time 2/2;
+\property Staff.timeSignatureStyle = "old6_4"
+c2 c2
+
+\time 2/2;
+\property Staff.timeSignatureStyle = "old9_4"
+c2 c2
+
