@@ -70,7 +70,6 @@ Generate("%(name)s%(design_size)d.cff");''' % vars()
 	path = os.path.join (outdir, name + '%d' % design_size +  '.pe')
 	open (path, 'w').write (script)
 
-
 	subfonts = ['feta%(design_size)d',
 		    'parmesan%(design_size)d',
 		    'feta-alphabet%(design_size)d']
