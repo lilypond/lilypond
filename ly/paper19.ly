@@ -1,6 +1,9 @@
 % paper20-init.ly
 
 
+#(error "Sorry, but support for paper19 has been (temporarily) suspended.
+  (sorry)")
+
 \version "1.5.68"
 
 paperNineteen = \paper {

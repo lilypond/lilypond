@@ -13,6 +13,8 @@
 
 2003-01-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* ly/paper19.ly: Add warning about paper19 not working.
+
 	* lily/source-file.cc (get_line): backport off by two fix from
 	development release.
 
