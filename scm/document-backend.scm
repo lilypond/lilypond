@@ -184,8 +184,8 @@ node."
        (texi (description-list->texi descs))
        )
     (make <texi-node>
-      #:name "backend properties"
-      #:desc "all the properties in use as grob properties"
+      #:name "All backend properties"
+      #:desc "All grob properties in a big list"
       #:text texi)
   ))
 

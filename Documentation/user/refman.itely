@@ -6914,8 +6914,8 @@ work, and may cause crashes or other anomalous behavior.
 @seealso
 
 @internalsref{OverrideProperty}, @internalsref{RevertProperty},
-@internalsref{PropertySet}, @internalsref{backend properties}, and
-@internalsref{All layout objects}.
+@internalsref{PropertySet}, @internalsref{All-backend-properties}, and
+@internalsref{All-layout-objects}.
 
 
 @refbugs
@@ -7066,8 +7066,8 @@ Of course, the tweak may also done in a larger context than
 @internalsref{Score}.
 
 The internals document also contains alphabetical lists of
-@internalsref{All contexts}, @internalsref{All layout objects} and
-@internalsref{All music types}, so you can also find which objects to
+@internalsref{Contexts}, @internalsref{All-layout-objects} and
+@internalsref{Music-expressions}, so you can also find which objects to
 tweak by browsing the internals document.
 
 
@@ -7444,7 +7444,7 @@ mode.
 
 @seealso
 
-@internalsref{Markup functions}, and @file{scm/new-markup.scm}.
+@internalsref{Markup-functions}, and @file{scm/new-markup.scm}.
 
 @refbugs
 
