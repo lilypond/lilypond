@@ -1065,6 +1065,7 @@ of the 20th century
 	    \StaffContext
 	    \consists Custos_engraver
 	}
+raggedright = ##t
     }
 }
 @end lilypond

@@ -38,19 +38,32 @@ knowing which symbols to use when what. Second, one has to master
 music engraving: the art of placing symbols such that they look
 elegant.
 
-Music notation was first started in the medieval centuries. In this
+Common music notation has its roots in the medieval centuries. In this
 time, monks started to write down hints that indicated how their
 sacred music was sung. These hints (neumes), gradually evolved, and at
 some point became the note heads.  Lines were added to the neumes, to
 indicate a reference pitch, which later became the staff.  Over many
-centuries, improvements and extensions were added. For example, the
-first notation did not have an explicit notion of rhythm, and
-polyphonic music only came into existence in the XXX. The graphic
-language of notation is still under development; the innovations of
-contemporary music require still newer and more complex notations. A
-system of notation encompasses such a wide scope of music inherently
-is complex: there are many rules, and for every rule there are
-exceptional situations where they do not apply.
+centuries, improvements and extensions were added, while other
+concepts disappeared. For example, the neumes notation did not have an
+explicit notion of rhythm, but it did have @emph{custodes}, symbols at
+the end of the line to indicate the starting pitch of the next line.
+Mensural notation, a notation where each note head takes a fixed
+amount of time, came into being together with the rise of counterpoint
+in the early renaissance.  The graphic language of notation is still
+under development; the innovations of contemporary music require still
+newer and more complex notations. A system of notation encompasses
+such a wide scope of music inherently is complex: there are many
+rules, and for every rule there are exceptional situations where they
+do not apply.
+
+The result is that LilyPond cannot support each and every form of
+notation in existence. Rather, we focus on a specific style and idiom:
+we take inspiration from late-romantic music printed at the beginning
+of the 20th century. Most of the contemporary music after that, and
+most of the music going back to 17th century can be written in this
+system. That is not a fundamental limit, though. There is support for
+some modern notation like clusters, and older notation, such as white
+mensural and gregorian notation, is being worked on.
 
 The term music engraving derives from the traditional process of
 music printing.  Only a few decades ago, sheet music was made by
@@ -86,7 +99,7 @@ below shows the flat symbol. On the left, a scan from a Henle edition,
 which was made by a computer, and in the center is the flat from a
 B@"{a}renreiter edition of the same music. The symbols have noticeable
 differences: the left image is much lighter, the staff lines are
-thinner, and the glyph has straight layout with sharp corners. By
+thinner, and the glyph has a straight layout with sharp corners. By
 contrast, the B@"{a}renreiter has a bold and almost voluptuous rounded
 look.  Our flat symbol is designed after, among others, this one.  It
 is tuned it to harmonize with the thickness of our staff lines, which
@@ -98,11 +111,7 @@ are also much thicker than Henle's lines.
 @image{henle-flat-bw,4cm}
 @end iftex
 @html
-<p>
-<a href=henle-flat-bw.png>
 <img src=henle-flat-bw.png>
-</a>
-
 @end html
 
 @tab
@@ -110,8 +119,7 @@ are also much thicker than Henle's lines.
 @image{baer-flat-bw,4cm}
 @end iftex
 @html
-<a href=baer-flat-bw.png>
-<img  src=baer-flat-bw.png></a>
+<img  src=baer-flat-bw.png>
 @end html
 
 @tab
@@ -119,9 +127,7 @@ are also much thicker than Henle's lines.
 @image{lily-flat-bw,4cm}
 @end iftex
 @html
-<a href="lily-flat-bw.png">
 <img src=lily-flat-bw.png>
-</a>
 @end html
 
 @item
