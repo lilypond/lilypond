@@ -30,7 +30,7 @@ $(outdir)/%.texi: $(outdir)/%.tely
 # nexi: no-lily texi
 # for plain info doco: don't run lily
 $(outdir)/%.nexi: %.tely
-	chmod a+w $@
+	-chmod a+w $@
 	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --dependencies --outdir=$(outdir) --format=texi --no-lily $(LILYPOND_BOOK_FLAGS) $<
 	mv $(@D)/$(*F).texi $@
 	chmod -w $@

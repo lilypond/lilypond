@@ -26,7 +26,7 @@ Group: Applications/Publishing
 
 %description documentation
 
-The documentation of LilyPond, both in HTML and PostScript.
+The documentation and example files of LilyPond.
 
 %prep
 %setup

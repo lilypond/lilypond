@@ -1,3 +1,10 @@
+2002-08-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/completion-note-heads-engraver.cc (class
+	Completion_heads_engraver): don't be confused by polyphonic rhythms.
+
+	* input/regression/completion-heads-polyphony.ly: new file.
+
 2002-08-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* GNUmakefile.in (web-ext): distribute .ly with web tarball too.
