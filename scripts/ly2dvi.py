@@ -374,7 +374,9 @@ extra_init = {
 	'language' : [],
 	'latexheaders' : [],
 	'latexpackages' :  ['geometry'],
-	'latexoptions' : [],
+
+	# for geometry v3.
+	'latexoptions' : ['compat2'],
 	'papersize' : [],
 	'pagenumber' : [1],
 	'textheight' : [], 
