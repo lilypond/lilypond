@@ -1,5 +1,8 @@
 2004-12-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* mf/GNUmakefile ($(outdir)/%.otf-table): include parmesan20.lisp
+	in first run as well.
+
 	* scm/paper.scm (layout-set-staff-size): use text-font-size in
 	dimension less points (ie. 12 = 12 point)
 
