@@ -35,7 +35,7 @@ Notehead::brew_molecole()
 
     Paperdef *p = paper();
 
-    Real dy = p->interline()/2;
+    Real dy = p->internote();
     Symbol s = p->lookup_->ball(balltype);
     
     output = new Molecule(Atom(s));

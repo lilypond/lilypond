@@ -59,6 +59,12 @@ Paperdef::interline() const
 {
     return lookup_->ball(4).dim.y.length();
 }
+
+Real
+Paperdef::internote() const
+{
+    return lookup_->internote();
+}
 Real
 Paperdef::note_width()const
 {
