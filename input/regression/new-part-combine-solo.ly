@@ -18,7 +18,8 @@ vone = \notes \relative a' { g4 r8 g8 g8 r8 g8 r8 g2 ~ g2 ~ g4 }
 vtwo = \notes \relative g' { e4.   e8 r2          e4 r4 r2  e4 } 
 
 \score {
-    << \property Score.skipBars = ##t 
+    
+    << \property Score.skipBars = ##t
    \newpartcombine \vone \vtwo
        >>
 }
