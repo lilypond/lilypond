@@ -30,12 +30,6 @@ Bow::center () const
   return Offset (w/2,dy );
 }
 
-Real
-Bow::height_f () const
-{
-  return 0;
-}
-
 Molecule*
 Bow::brew_molecule_p () const
 {
@@ -57,5 +51,11 @@ Bow::brew_molecule_p () const
 		       dy_f_drul_[LEFT]));
   output->add (a);
   return output;
+}
+
+Real
+Bow::height_f () const
+{
+  return 0;
 }
 

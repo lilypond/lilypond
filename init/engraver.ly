@@ -3,39 +3,37 @@
 %
 
 Staff = \translator {
-	  \type "Engraver_group_engraver";
+	\type "Engraver_group_engraver";
 	defaultclef = violin;
 
-	  \consists "Bar_engraver";
-	  \consists "Clef_engraver";
-	  \consists "Key_engraver";
-	  \consists "Meter_engraver";
-	  \consists "Local_key_engraver";
-	  \consists "Staff_sym_engraver";
-	  \consists "Collision_engraver";
-	  \consists "Rest_collision_engraver";
-
+	\consists "Bar_engraver";
+	\consists "Clef_engraver";
+	\consists "Key_engraver";
+	\consists "Meter_engraver";
+	\consists "Local_key_engraver";
+	\consists "Staff_sym_engraver";
+	\consists "Collision_engraver";
+	\consists "Rest_collision_engraver";
 %{
-	  Uncomment to get bar numbers on single staff systems:
-	  
-	  The Bar_number_engraver puts a number over a staff created
-	  at the same level of hierarchy.  This why you have to add it
-	  here separately if you want to have numbers on single staff
-	  systems: The Bar_number_engraver in Score_engraver will only
-	  put numbers on bars that are Score ("system") wide.  Such
-	  bars are only created when the toplevel system has multiple
-	  children-staffs.
+	Uncomment to get bar numbers on single staff systems:
+	
+	The Bar_number_engraver puts a number over a staff created
+	at the same level of hierarchy.  This why you have to add it
+	here separately if you want to have numbers on single staff
+	systems: The Bar_number_engraver in Score_engraver will only
+	put numbers on bars that are Score ("system") wide.  Such
+	bars are only created when the toplevel system has multiple
+	children-staffs.
 
 %}
- %{
-
+%{
 	\consists "Bar_column_engraver";
 	\consists "Bar_number_engraver";
 %}
-	  	\consists "Separating_line_group_engraver";
-	  \consists "Line_group_engraver";
+	\consists "Separating_line_group_engraver";
+	\consists "Line_group_engraver";
 	  
-	  \accepts "Voice";
+	\accepts "Voice";
 }
 
 Rhythmic_staff = \translator
@@ -117,7 +115,7 @@ Score = \translator {
 	\type Score_engraver;
 
 	\consists "Timing_engraver";
-	% uncomment to bar numbers on a whoole system.
+	% uncomment to bar numbers on a whole system.
 %{
 	\consists "Bar_column_engraver";
 	\consists "Bar_number_engraver";
