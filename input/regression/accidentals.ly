@@ -1,4 +1,4 @@
-\version "1.5.24.rz2"
+\version "1.5.43.rz1"
 
 \header{
 texidoc="
@@ -45,14 +45,14 @@ mel = \notes { \key d \major \time 4/4
   \context Staff \transpose c''' {
    \mel
    \property Score.oneMeasureLazy = ##t
-   \property Score.autoAccidentals = #'((measure-same-octave . 0))
-   < s1^"$\\backslash$property Score.autoAccidentals = \\#'((measure-same-octave . 0))" \mel >
-   \property Score.autoAccidentals = #'((measure-same-octave . 1))
-   < s1^"$\\backslash$property Score.autoAccidentals = \\#'((measure-same-octave . 1))" \mel >
-   \property Score.autoAccidentals = #'((measure-any-octave . 0))
-   < s1^"$\\backslash$property Score.autoAccidentals = \\#'((measure-any-octave . 0))" \mel >
-   \property Score.autoAccidentals = #'((measure-any-octave . 1))
-   < s1^"$\\backslash$property Score.autoAccidentals = \\#'((measure-any-octave . 1))" \mel >
+   \property Score.autoAccidentals = #'(Staff (same-octave . 0))
+   < s1^"$\\backslash$property Score.autoAccidentals = \\#'((same-octave . 0))" \mel >
+   \property Score.autoAccidentals = #'(Staff (same-octave . 1))
+   < s1^"$\\backslash$property Score.autoAccidentals = \\#'((same-octave . 1))" \mel >
+   \property Score.autoAccidentals = #'(Staff (any-octave . 0))
+   < s1^"$\\backslash$property Score.autoAccidentals = \\#'((any-octave . 0))" \mel >
+   \property Score.autoAccidentals = #'(Staff (any-octave . 1))
+   < s1^"$\\backslash$property Score.autoAccidentals = \\#'((any-octave . 1))" \mel >
    \modernAccidentals
    < s1^"$\\backslash$modernAccidentals" \mel >
    \modernCautionaries

@@ -38,7 +38,7 @@ Beaming_info_list::best_splitpoint_index (Moment &beat_length,bool subdivide) co
       beat_pos = infos_[i].start_mom_ / beat_length;
       int den = beat_pos.den ();
       if (infos_[i].beams_i_drul_[LEFT] == infos_[i-1].beams_i_drul_[RIGHT] && !subdivide)
-	den *= 4;
+	den *= 2;
       if (den < minden)
 	{
 	  minidx = i;
