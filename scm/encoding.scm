@@ -81,7 +81,7 @@ vector of symbols."
 	 ;; teTeX
 	 ("TeX typewriter text" . "09fbbfac.enc") ;; cmtt10
 	 ("TeX math symbols" . "10037936.enc") ;; cmbsy
-	 ("ASCII caps and digits" . "1b6d048e") ;; cminch
+	 ("ASCII caps and digits" . "1b6d048e.enc") ;; cminch
 	 ("TeX math italic" . "aae443f0.enc")  ;; cmmi10
 	 ("TeX extended ASCII" . "d9b29452.enc")
 	 ("TeX text" . "f7b6d320.enc")
