@@ -583,7 +583,7 @@ identifier_init:
 	| DIGIT {
 		$$ = scm_int2num ($1);
 	}
-	;	;
+	;
 
 context_def_spec_block:
 	CONTEXT '{' context_def_spec_body '}'

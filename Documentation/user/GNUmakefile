@@ -96,8 +96,9 @@ $(outdir)/lilypond/lilypond.html: $(outdir)/lilypond.texi
 	$(MAKEINFO) -I$(outdir) --output=$(outdir)/lilypond --css-include=$(builddir)/Documentation/texinfo.css --html $<
 	$(MAKEINFO) -I$(outdir) --output=$@ --css-include=$(builddir)/Documentation/texinfo.css --html --no-split --no-headers $<
 	perl -i~ -pe 's!../lilypond-internals!lilypond-internals/!g' $(outdir)/lilypond.html
-	rm -f $(outdir)/lilypond/*.png $(outdir)/lilypond/*.ly 
-	-ln -f $(outdir)/*.png $(outdir)/*.ly $(outdir)/lilypond/
+	rm -f $(outdir)/lilypond/*.png $(outdir)/lilypond/*.ly
+# symbolic links to save space 
+	-ln -sf $(outdir)/*.png $(outdir)/*.ly $(outdir)/lilypond/
 
 $(outdir)/lilypond-internals/lilypond-internals.html: $(outdir)/lilypond-internals.texi
 	mkdir -p $(dir $@)
