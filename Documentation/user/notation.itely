@@ -3276,6 +3276,11 @@ specify words that cannot be written with the above rules:
 @example
   \lyrics @{ He said: "\"Let" my peo ple "go\"" @}
 @end example
+However, at least for english texts, you should use 
+@example
+  \lyrics @{ He said: ``Let my peo ple go'' @}
+@end example
+to get the correct shape of the starting and ending quote.
 
 @cindex hyphens
 
