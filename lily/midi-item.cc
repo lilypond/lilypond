@@ -118,177 +118,6 @@ Midi_header::Midi_header (int format_i, int tracks_i, int clocks_per_4_i)
   set ("MThd", str, "");
 }
 
-
-/* why doesn't this start at 0 ?
-
-   TODO: -> IN GUILE!
- */
-char const* const instrument_name_sz_a_[ ] = {
-  /* default is usually piano */
-  /* 0 "piano", */
-
-  /* (1-8 piano) */
-  /* 1 */ "acoustic grand",
-	  /* 2 */ "bright acoustic",
-	  /* 3 */ "electric grand",
-	  /* 4 */ "honky-tonk",
-	  /* 5 */ "electric piano 1",
-	  /* 6 */ "electric piano 2",
-	  /* 7 */ "harpsichord",
-	  /* 8 */ "clav",
-
-	  /* (9-16 chrom percussion) */
-	  /* 9 */ "celesta",
-	  /* 10 */ "glockenspiel",
-	  /* 11 */ "music box",
-	  /* 12 */ "vibraphone",
-	  /* 13 */ "marimba",
-	  /* 14 */ "xylophone",
-	  /* 15 */ "tubular bells",
-	  /* 16 */ "dulcimer",
-
-	  /* (17-24 organ) */
-	  /* 17 */ "drawbar organ",
-	  /* 18 */ "percussive organ",
-	  /* 19 */ "rock organ",
-	  /* 20 */ "church organ",
-	  /* 21 */ "reed organ",
-	  /* 22 */ "accordion",
-	  /* 23 */ "harmonica",
-	  /* 24 */ "concertina",
-
-	  /* (25-32 guitar) */
-	  /* 25 */ "acoustic guitar (nylon)",
-	  /* 26 */ "acoustic guitar (steel)",
-	  /* 27 */ "electric guitar (jazz)",
-	  /* 28 */ "electric guitar (clean)",
-	  /* 29 */ "electric guitar (muted)",
-	  /* 30 */ "overdriven guitar",
-	  /* 31 */ "distorted guitar",
-	  /* 32 */ "guitar harmonics",
-
-	  /* (33-40 bass) */
-	  /* 33 */ "acoustic bass",
-	  /* 34 */ "electric bass (finger)",
-	  /* 35 */ "electric bass (pick)",
-	  /* 36 */ "fretless bass",
-	  /* 37 */ "slap bass 1",
-	  /* 38 */ "slap bass 2",
-	  /* 39 */ "synth bass 1",
-	  /* 40 */ "synth bass 2",
-
-	  /* (41-48 strings) */
-	  /* 41 */ "violin",
-	  /* 42 */ "viola",
-	  /* 43 */ "cello",
-	  /* 44 */ "contrabass",
-	  /* 45 */ "tremolo strings",
-	  /* 46 */ "pizzicato strings",
-	  /* 47 */ "orchestral strings",
-	  /* 48 */ "timpani",
-
-	  /* (49-56 ensemble) */
-	  /* 49 */ "string ensemble 1",
-	  /* 50 */ "string ensemble 2",
-	  /* 51 */ "synthstrings 1",
-	  /* 52 */ "synthstrings 2",
-	  /* 53 */ "choir aahs",
-	  /* 54 */ "voice oohs",
-	  /* 55 */ "synth voice",
-	  /* 56 */ "orchestra hit",
-
-	  /* (57-64 brass) */
-	  /* 57 */ "trumpet",
-	  /* 58 */ "trombone",
-	  /* 59 */ "tuba",
-	  /* 60 */ "muted trumpet",
-	  /* 61 */ "french horn",
-	  /* 62 */ "brass section",
-	  /* 63 */ "synthbrass 1",
-	  /* 64 */ "synthbrass 2",
-
-	  /* (65-72 reed) */
-	  /* 65 */ "soprano sax",
-	  /* 66 */ "alto sax",
-	  /* 67 */ "tenor sax",
-	  /* 68 */ "baritone sax",
-	  /* 69 */ "oboe",
-	  /* 70 */ "english horn",
-	  /* 71 */ "bassoon",
-	  /* 72 */ "clarinet",
-
-	  /* (73-80 pipe) */
-	  /* 73 */ "piccolo",
-	  /* 74 */ "flute",
-	  /* 75 */ "recorder",
-	  /* 76 */ "pan flute",
-	  /* 77 */ "blown bottle",
-	  /* 78 */ "skakuhachi",
-	  /* 79 */ "whistle",
-	  /* 80 */ "ocarina",
-
-	  /* (81-88 synth lead) */
-	  /* 81 */ "lead 1 (square)",
-	  /* 82 */ "lead 2 (sawtooth)",
-	  /* 83 */ "lead 3 (calliope)",
-	  /* 84 */ "lead 4 (chiff)",
-	  /* 85 */ "lead 5 (charang)",
-	  /* 86 */ "lead 6 (voice)",
-	  /* 87 */ "lead 7 (fifths)",
-	  /* 88 */ "lead 8 (bass+lead)",
-
-	  /* (89-96 synth pad) */
-	  /* 89 */ "pad 1 (new age)",
-	  /* 90 */ "pad 2 (warm)",
-	  /* 91 */ "pad 3 (polysynth)",
-	  /* 92 */ "pad 4 (choir)",
-	  /* 93 */ "pad 5 (bowed)",
-	  /* 94 */ "pad 6 (metallic)",
-	  /* 95 */ "pad 7 (halo)",
-	  /* 96 */ "pad 8 (sweep)",
-
-	  /* (97-104 synth effects) */
-	  /* 97 */ "fx 1 (rain)",
-	  /* 98 */ "fx 2 (soundtrack)",
-	  /* 99 */ "fx 3 (crystal)",
-	  /* 100 */ "fx 4 (atmosphere)",
-	  /* 101 */ "fx 5 (brightness)",
-	  /* 102 */ "fx 6 (goblins)",
-	  /* 103 */ "fx 7 (echoes)",
-	  /* 104 */ "fx 8 (sci-fi)",
-
-	  /* (105-112 ethnic) */
-	  /* 105 */ "sitar",
-	  /* 106 */ "banjo",
-	  /* 107 */ "shamisen",
-	  /* 108 */ "koto",
-	  /* 109 */ "kalimba",
-	  /* 110 */ "bagpipe",
-	  /* 111 */ "fiddle",
-	  /* 112 */ "shanai",
-
-	  /* (113-120 percussive) */
-	  /* 113 */ "tinkle bell",
-	  /* 114 */ "agogo",
-	  /* 115 */ "steel drums",
-	  /* 116 */ "woodblock",
-	  /* 117 */ "taiko drum",
-	  /* 118 */ "melodic tom",
-	  /* 119 */ "synth drum",
-	  /* 120 */ "reverse cymbal",
-
-	  /* (121-128 sound effects) */
-	  /* 121 */ "guitar fret noise",
-	  /* 122 */ "breath noise",
-	  /* 123 */ "seashore",
-	  /* 124 */ "bird tweet",
-	  /* 125 */ "telephone ring",
-	  /* 126 */ "helicopter",
-	  /* 127 */ "applause",
-	  /* 128 */ "gunshot",
-	  0
-}; 
-
 Midi_instrument::Midi_instrument (Audio_instrument* a)
 {
   audio_l_ = a;
@@ -296,23 +125,19 @@ Midi_instrument::Midi_instrument (Audio_instrument* a)
 }
 
 String
-Midi_instrument::str () const
+Midi_instrument::str() const
 {
   Byte program_byte = 0;
   bool found = false;
-  for (int i = 0; !found && instrument_name_sz_a_[i]; i++)
-    if (audio_l_->str_ == String (instrument_name_sz_a_[ i ])) 
-      {
-	program_byte = (Byte)i;
-	found = true;
-      }
-
-  if (!found)
-    {
+  SCM proc = scm_eval2 (ly_symbol2scm ("midi-program"), SCM_EOL); 
+  SCM program = gh_call1 (proc, ly_symbol2scm (audio_l_->str_.ch_C()));
+  found = (program != SCM_BOOL_F);
+  if (found)
+    program_byte = gh_scm2int(program);
+  else
       warning (_f ("no such instrument: `%s'", audio_l_->str_.ch_C ()));
-    }
-  
-  String str = to_str ((char) (0xc0 + channel_i_));
+
+  String str = to_str ((char) (0xc0 + channel_i_)); //YIKES! FIXME: Should be track. -rz
   str += to_str ((char)program_byte);
   return str;
 }
@@ -587,7 +412,6 @@ String
 Midi_track::data_str () const
 {
   String str = Midi_chunk::data_str ();
-  
   if (midi_debug_global_b)
     str += "\n";
   for (Cons<Midi_event> *i=event_p_list_.head_; i; i = i->next_) 

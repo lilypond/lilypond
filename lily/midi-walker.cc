@@ -132,7 +132,8 @@ Midi_walker::process ()
  */
   if (Midi_item* midi_p = Midi_item::midi_p (audio_p))
     {
-      midi_p->channel_i_ = track_l_->number_i_;
+      midi_p->channel_i_ = track_l_->channel_i_;
+      //midi_p->channel_i_ = track_l_->number_i_;
       if (Midi_note* note_p = dynamic_cast<Midi_note*> (midi_p))
 	{
 	  if (note_p->length_mom ())

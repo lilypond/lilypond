@@ -49,7 +49,7 @@ Performance::output (Midi_stream& midi_stream)
   output_header_track (midi_stream);
   progress_indication ("\n");
   progress_indication (_ ("Track ... "));
-  int channel = 1;
+  int channel = 0;
   for (int i =0; i < audio_staff_l_arr_.size (); i++)
     {
       Audio_staff *s = audio_staff_l_arr_[i];
@@ -62,7 +62,9 @@ Performance::output (Midi_stream& midi_stream)
 	channel 10, the percussion channel by default.
        */
       if (channel == 9)
-	channel++;
+	 channel++;
+      if (s->channel_i_ < 0)
+	 s->channel_i_ = channel;
       s->output (midi_stream, channel++);
       if (verbose_global_b)
 	progress_indication ("]");
@@ -73,6 +75,8 @@ void
 Performance::output_header_track (Midi_stream& midi_stream)
 {
   Midi_track midi_track;
+
+  midi_track.channel_i_ = 9;
 
   // perhaps multiple text events?
   String id_str;

@@ -14,11 +14,13 @@ outputscale = \staffheight / 4.0;
 \translator { \NoteNamesContext }
 \translator { \ScoreContext }
 \translator { \ChoirStaffContext}
+\translator { \InnerChoirStaffContext}
 \translator { \GraceContext}
 \translator { \RhythmicStaffContext}
 \translator { \StaffContext }
 \translator { \VoiceContext}
 \translator { \StaffGroupContext }
+\translator { \InnerStaffGroupContext }
 \translator { \ChordNamesContext }
 \translator { \GrandStaffContext}
 \translator { \LyricsContext }
