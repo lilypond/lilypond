@@ -1,5 +1,10 @@
 2002-07-05  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lexer-gcc-3.1.sh: Fixes and more comments.
+
+	* Documentation/topdocs/INSTALL.texi: Add comment about gcc-3.0.4
+	problems.
+
 	* lily/include/stream.hh:
 	* lily/include/moment.hh:
 	* lily/include/midi-stream.hh:
