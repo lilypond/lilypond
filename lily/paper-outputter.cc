@@ -194,8 +194,6 @@ Paper_outputter::output_line (SCM line, Offset *origin, bool is_last)
       /* Only if !PAGE_LAYOUT */
       else if (ly_caar (s) == ly_symbol2scm ("between-system-string"))
 	between = ly_cdar (s);
-      else
-	time (0);
     }
 
   if (is_last)
