@@ -2088,6 +2088,9 @@ bare_number:
 	| REAL NUMBER_IDENTIFIER	{
 		$$ = gh_double2scm (gh_scm2double ($1) * gh_scm2double ($2));
 	}
+	| UNSIGNED NUMBER_IDENTIFIER	{
+		$$ = gh_double2scm ($1 * gh_scm2double ($2));
+	}
 	;
 
 

@@ -1,5 +1,8 @@
 2002-10-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/parser.yy (bare_number): allow 4 \cm (without
+	decimal dot). (should backport to 1.6?)
+
 	* ly/declarations-init.ly: use Scheme for dimension defs.
 
 	* lily/parser.yy (TODO): remove hard coded dimensions, add
@@ -8,8 +11,9 @@
 	* lily/rest-collision.cc (force_shift_callback): rewrite using
 	-done property.
 
-	* scm/grob-property-description.scm (rest-collision-done): add property.
-
+	* scm/grob-property-description.scm (rest-collision-done): add
+	property.
+	
 	* lilypond.vim: add file (<hjunes@cc.hut.fi>)
 
 2002-10-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>

@@ -4925,10 +4925,10 @@ This makes the following 28 measures (assuming 4/4 time) be broken every
 @cindex @code{indent}
 @cindex @code{linewidth}
 
-The most basic settings influencing the spacing are @code{linewidth}
-and @code{indent}, both set in the @code{\paper} block.  They control
-the indentation of the first line of music, and the lengths of the
-lines.  If @code{linewidth} set to a negative value, a single
+The most basic settings influencing the spacing are @code{indent} and
+@code{linewidth}. They are set in the @code{\paper} block. They
+control the indentation of the first line of music, and the lengths of
+the lines.  If @code{linewidth} set to a negative value, a single
 unjustified line is produced.  A similar effect for scores that are
 longer than one line, can be produced by setting @code{raggedright} to
 true in the @code{\paper} block.
