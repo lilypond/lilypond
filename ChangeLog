@@ -1,3 +1,13 @@
+2002-08-31  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/break-align-interface.cc (do_alignment): translate last
+	break-align-group if it is invisible/empty.
+
+	* scm/grob-description.scm (all-grob-descriptions): LeftEdge is
+	not a BreakAlignGroup. Do not use
+	Break_align_interface::alignment_callback
+
+
 2002-08-30  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scripts/lilypond-book.py (LatexPaper.find_latex_dims): give more

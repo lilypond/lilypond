@@ -321,7 +321,6 @@
     (LeftEdge
      . (
 	(break-align-symbol . left-edge)
-	(X-offset-callbacks . (,Break_align_interface::alignment_callback))
 	(X-extent-callback . ,Grob::point_dimension_callback)
 	(breakable . #t)
 	(space-alist . (
