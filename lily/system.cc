@@ -176,7 +176,11 @@ System::output_lines ()
   for (int i=0; i < broken_intos_.size (); i++)
     {
       SCM al = broken_intos_[i]->get_grob_property ("all-elements");
-      al  = uniquify_list (al); 
+
+      /*
+	don't do this: strange side effects.
+       */
+      //      al  = uniquify_list (al); 
     }
   
 
@@ -191,7 +195,8 @@ System::output_lines ()
 
       if (verbose_global_b)
 	progress_indication ("[");
-      system->post_processing (i+1 == broken_intos_.size ());
+      bool last = i+1 == broken_intos_.size ();
+      system->post_processing (last);
 
       if (verbose_global_b)
 	{

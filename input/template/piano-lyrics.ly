@@ -18,9 +18,10 @@ text = \lyrics {
 
 \score {
   \context GrandStaff <<
-    \addlyrics
-      \context Staff = upper \upper
-      \context Lyrics \text
+    \context Staff = upper {
+	\context Voice = singer \upper
+    }
+    \newaddlyrics "singer" \new LyricsVoice \text
     \context Staff = lower <<
       \clef bass
       \lower

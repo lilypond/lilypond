@@ -101,7 +101,6 @@ Staff_symbol_referencer::callback (SCM element_smob, SCM)
 {
   Grob *me = unsmob_grob (element_smob);
 
-  
   SCM pos = me->get_grob_property ("staff-position");
   Real off =0.0;
   if (gh_number_p (pos))
