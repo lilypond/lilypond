@@ -86,12 +86,18 @@ def parse_logfile (fn):
 			font_family = (tags[3])
 			# To omit 'GNU' (foundry) from font name proper:
 			# name = tags[2:]
+			#urg
+			if 0: #testing
+				tags.append ('Regular')
 			name = tags[1:]
 			global_info['FontName'] = string.join (name,'-')
 			global_info['FullName'] = string.join (name,' ')
 			global_info['FamilyName'] = string.join (name[1:-1],
 								 '-')
-			global_info['Weight'] = tags[4]
+			if 1:
+				global_info['Weight'] = tags[4]
+			else: #testing
+				global_info['Weight'] = tags[-1]
 			global_info['FontBBox'] = '0 0 1000 1000'
 			global_info['Ascender'] = '0'
 			global_info['Descender'] = '0'
