@@ -681,11 +681,10 @@ programs.
 
 @item
 @ifhtml
-The
+The chapter
 @end ifhtml
-@emph{@ref{Integrating text and music}}
-explains the details behind creating documents with in-line music
-examples (like this manual).
+@emph{@ref{LilyPond-book}} explains the details behind creating
+documents with in-line music examples (like this manual).
 
 @item
 @ifhtml

@@ -14,18 +14,28 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 @dircategory GNU music project
 @direntry
-@c  prepend GNU for dir, must be unique
-@c  do not list the `lilypond' node at toplevel, so that `info lilypond'
-@c  goes to Top.
+@ignore
+
+  * Prepend GNU for dir, must be unique.
+  
+  * Do not list the `lilypond' node at toplevel, so that `info lilypond'
+    goes to Top.
+
+  * List all commands in direntry.
+  
 @c  * lilypond: (lilypond/lilypond)Running LilyPond.      Invoking the
-@c  LilyPond  program.
-* GNU LilyPond: (lilypond/lilypond).           The GNU music typesetter.
-* convert-ly: (lilypond/lilypond)Invoking convert-ly.  Older LilyPond versions.
-* midi2ly: (lilypond/lilypond)Invoking midi2ly.        Importing MIDI.
-* etf2ly: (lilypond/lilypond)Invoking etf2ly.          Importing Finale.
+@c    LilyPond  program.
+  
+@end ignore
+
+* LilyPond: (lilypond/lilypond).           The GNU music typesetter.
 * abc2ly: (lilypond/lilypond)Invoking abc2ly.          Importing ABC.          
-* musedata2ly: (lilypond/lilypond)Invoking musedata2ly.        Importing MuseData.
+* convert-ly: (lilypond/lilypond)Invoking convert-ly.  Older LilyPond versions.
+* etf2ly: (lilypond/lilypond)Invoking etf2ly.          Importing Finale.
+* lilypond-book: (lilypond/lilypond)LilyPond-book.     Itegrating text and music.
+* midi2ly: (lilypond/lilypond)Invoking midi2ly.        Importing MIDI.
 * mup2ly: (lilypond/lilypond)Invoking mup2ly.          Importing Mup. 
+* musedata2ly: (lilypond/lilypond)Invoking musedata2ly.        Importing MuseData.
 @end direntry
 
 
@@ -251,7 +261,7 @@ of this and other documentation.
 * Interfaces for programmers::
 * Running LilyPond::               Operation.
 * Converting from other formats::  Converting to lilypond source format.
-* Integrating text and music::     Integrating text and music with lilypond-book.
+* LilyPond-book::                  Integrating text and music.
 * Literature list::
 * Scheme tutorial::
 * Notation manual details::
