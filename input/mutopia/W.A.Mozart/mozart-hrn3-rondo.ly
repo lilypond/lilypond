@@ -165,7 +165,7 @@ rondo = \notes 	\relative c'
 	\cresc g'2.  bes,2.
 	a4.  b16[ c d e f g]
 	a4. f4 d8
-	[\endcresc c8\f g' e]  c[ g e]
+	\endcresc c8[\f g' e]  c[ g e]
 	 c[ e' c]   g[ e c]
 	g4 r8  g''8[ e c]
 
