@@ -29,7 +29,7 @@ Clef_item::read(String t)
 void
 Clef_item::read(Clef k)
 {
-    read(k.clef_type);
+    read(k.clef_type_str_);
 }
 
 Molecule*
@@ -40,7 +40,7 @@ Clef_item::brew_molecule_p()const
 	t += "_change";
     Symbol s = paper()->lookup_p_->clef(t);
     Molecule*output = new Molecule(Atom(s));
-    output->translate(Offset(0, paper()->interline()/2 * y_off));
+    output->translate(Offset(0, paper()->internote() * y_off));
     return output;
 }
 

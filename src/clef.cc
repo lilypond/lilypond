@@ -1,23 +1,32 @@
+/*
+  clef.cc -- implement  Clef
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>,
+  Mats Bengtsson <matsb@s3.kth.se>
+*/
+
 #include "clef.hh"
+#include "debug.hh"
 
 Clef::Clef()
 {
-    clef_type= "violin";
-    c0_pos = -2;
+    set_type("violin");
 }
 
-void
-Clef::read(Array<Scalar>args)
+void 
+Clef::set_type(String type_str)
 {
-    clef_type = args[0];
-    if (clef_type == "violin") {
-	c0_pos=-2;
-    } else if (clef_type == "alto") {
-	c0_pos = 4;
-    } else if (clef_type == "tenor") {
-	c0_pos = 6;
-    } else if (clef_type == "bass") {
-	c0_pos = 10;
+    clef_type_str_  = type_str;
+    if (clef_type_str_ == "violin") {
+	c0_position_i_= -2;
+    } else if (clef_type_str_ == "alto") {
+	c0_position_i_= 4;
+    } else if (clef_type_str_ == "tenor") {
+	c0_position_i_= 6;
+    } else if (clef_type_str_ == "bass") {
+	c0_position_i_= 10;
     } else
-	assert(false);
+	error("unknown clef type `"+clef_type_str_+"\'");
 }
