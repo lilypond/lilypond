@@ -1,3 +1,47 @@
+1.3.131.jcn2
+============
+
+* Fixes for ascii-script output.  Stylesheet needs some work, just as
+PostScript output.
+
+* Bugfix: convert-ly --to accepts argument.
+
+* Prepared Petites Preludes for (first?) submission to mutopia.
+
+* Bugfix: out-letter/%.ps generation for mutopia.
+
+* Bugfix: don't use $(message ) in makefiles; some versions of make
+choke on this.
+
+* Bugfix: ly2dvi.py: don't add magic `//' to TEXINPUTS,MFINPUTS; this
+chokes kpsewhich 3.3.1 (bug report filed).
+
+* Bugfix: file-path.cc: don't interpret relative path as system root.
+
+* Bugfix: --srcdir install.
+
+1.3.131.hwn1
+============
+
+* Documentation: piano pedals, breath marks, tutorial fixes,
+convertors, autochange, \override/\set/\revert, multi-stanza lyrics,
+\outputproperty
+
+* Bugfix: another fix for collapsing dynamics with partcombine.
+
+* Bugfix: add functionality of
+Side_position_interface::self_align_callback() into
+Align_interface::align_elements_to_extents(). Otherwise, combining
+both (such as in a break alignment) leads to weird behavior: the
+spacing information is written halfway during a callback sequence,
+leading to weird results.
+
+This fixes input/test/orchestscore.ly
+
+* Bugfix: x-offset of stem was off by 0.5 stem thickness.
+
+* Add grob-property attachment-angle: angle for stem to attach to note head. 
+
 1.3.130.hwn2
 ============
 

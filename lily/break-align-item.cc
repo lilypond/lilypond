@@ -64,6 +64,11 @@ Break_align_interface::self_align_callback (SCM element_smob, SCM axis)
       me->set_grob_property ("self-alignment-X", gh_int2scm (RIGHT));
     }
 
+  /*
+    Force break alignment itself to be done first, in the case
+   */
+  
+  
   return Side_position::aligned_on_self (element_smob, axis);  
 }
 
@@ -169,7 +174,7 @@ Break_align_interface::do_alignment (Grob *me)
   /*
     Force callbacks for alignment to be called   
   */
-  Align_interface::align_to_extents (me, X_AXIS);
+  Align_interface::align_elements_to_extents (me, X_AXIS);
 
   Real pre_space = elems[0]->relative_coordinate (column, X_AXIS);
 
@@ -199,10 +204,33 @@ Break_align_interface::do_alignment (Grob *me)
       stretch_distance = spring_len;
     }
 
+  
   /*
     Hint the spacing engine how much space to put in.
 
     The pairs are in the format of an interval (ie. CAR <  CDR).
+  */
+  /*
+    UGH UGH UGH
+
+    This is a side effect, and there is no guarantee that this info is
+    computed at a "sane" moment.
+
+    (just spent some time tracking a bug that was caused by this info
+    being written halfway:
+
+    self_alignment_callback (*)
+    -> child->relative_coordinate (self)
+    -> break_alignment
+    -> child->relative_coordinate (column)
+
+    the last call incorporates the value that should've been computed
+    in (*), but--of course-- is not yet.
+
+    The result is that an offsets of align_elements_to_extents () are
+    not compensated for, and spring_len is completely off.
+
+    
   */
   column->set_grob_property ("extra-space",
 			    scm_cons (gh_double2scm (pre_space),

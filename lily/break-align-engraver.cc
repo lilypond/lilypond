@@ -110,12 +110,7 @@ Break_align_engraver::acknowledge_grob (Grob_info inf)
 	  SCM edge_sym = ly_symbol2scm ("Left_edge_item");
 	  Item * edge = new Item (get_property ("LeftEdge"));
 
-	  /*
-	    We must have left-edge in the middle.  Instrument-names
-	    are left to left-edge, so they don't enter the staff.
-	  */
-	  align_l_->set_grob_property ("self-alignment-X", edge->self_scm ());
-	  
+	 
 
 	  /*
 	    If the element is empty, it will be ignored in the break
@@ -125,8 +120,12 @@ Break_align_engraver::acknowledge_grob (Grob_info inf)
 	  */
 	  edge->set_extent_callback (Grob::point_dimension_callback_proc, X_AXIS);
 	  
+	  /*
+	    We must have left-edge in the middle.  Instrument-names
+	    are left to left-edge, so they don't enter the staff.
+	  */
 	  align_l_->set_grob_property ("self-alignment-X", edge->self_scm ());
-
+	  
 	  announce_grob (edge, 0);
 	  column_alist_ = scm_assoc_set_x (column_alist_, edge_sym, edge->self_scm ());
 	}
