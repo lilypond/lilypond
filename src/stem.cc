@@ -60,7 +60,7 @@ Stem::add(Notehead *n)
     if ( p> maxnote)
 	maxnote = p;
     heads.push(n);
-    n->dependencies.push(this);
+    n->add_depedency(this);
 }
 
 
@@ -72,11 +72,13 @@ Stem::get_default_dir()
     Real mean = (minnote+maxnote)/2;
     return (mean > staff_center) ? -1: 1;
 }
+
 void
 Stem::set_default_dir()
 {
     dir = get_default_dir();
 }
+
 void
 Stem::set_default_stemlen()
 {
