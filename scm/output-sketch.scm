@@ -217,16 +217,8 @@
 
 
 ;; what the heck is this interface ?
-(define (dashed-slur thick dash lst)
-  (string-append 
-   (string-join (map ly:number-pair->string lst) " ")
-   " "
-   (ly:number->string thick) 
-   " [ "
-   (ly:number->string dash)
-   " "
-   (ly:number->string (* 10 thick))	;UGH.  10 ?
-   " ] 0 draw_dashed_slur"))
+(define (dashed-slur thick on off l)
+  "")
 
 (define (dashed-line thick on off dx dy)
   (string-append 

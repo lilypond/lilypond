@@ -1,4 +1,6 @@
 2005-02-11  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+	
+	* Slur-dash patch by Bertalan.
 
 	* ly/engraver-init.ly (EasyNotation): glyph name dash -> period.
 

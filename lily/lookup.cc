@@ -75,21 +75,26 @@ Lookup::beam (Real slope, Real width, Real thick, Real blot)
   return Stencil (b, at);
 }
 
+  
 Stencil
-Lookup::dashed_slur (Bezier b, Real thick, Real dash)
+Lookup::dashed_slur (Bezier b, Real thick, Real dash_period, Real dash_fraction)
 {
   SCM l = SCM_EOL;
-
+  
+  Real on = dash_fraction * dash_period; 
+  Real off = dash_period - on; 
+ 
   for (int i = 4; i -- ;)
     {
       l = scm_cons (ly_offset2scm (b.control_[i]), l);
     }
 
   SCM at = (scm_list_n (ly_symbol2scm ("dashed-slur"),
-			       scm_make_real (thick), 
-			       scm_make_real (dash),
-			       ly_quote_scm (l),
-			       SCM_UNDEFINED));
+			scm_make_real (thick), 
+			scm_make_real (on),
+			scm_make_real (off),
+			ly_quote_scm (l),
+			SCM_UNDEFINED));
 
   Box box (Interval (0, 0), Interval (0, 0));
   return   Stencil (box, at);
