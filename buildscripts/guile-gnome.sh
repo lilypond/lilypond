@@ -176,12 +176,13 @@ if ! pkg-config --atleast-version=$GGVERSION guile-gnome-glib; then
 	    sh autogen.sh --noconfigure
 	fi
 	cd ..
+	srcdir="../src"
     else
  	$WGET http://download.gna.org/guile-gnome/releases/guile-gnome-platform-$GGVERSION.tar.gz
 	tar xzf $download/guile-gnome-platform-$GGVERSION.tar.gz
 	ln -s guile-gnome-platform-$GGVERSION guile-gnome
 	cd guile-gnome
-	ln -s . src
+	srcdir="../"
     fi
     
     rm -rf $OPT/guile-gnome
@@ -197,10 +198,10 @@ if ! pkg-config --atleast-version=$GGVERSION guile-gnome-glib; then
 #
     if [ -z "$GCC34" ]; then
     # Use libtool-1.5.6, gcc-3.{2,3} without -O2,
-	CFLAGS='-O -g' ../src/configure --prefix=$OPT/guile-gnome --enable-maintainer-mode
+	CFLAGS='-O -g' $srcdir/configure --prefix=$OPT/guile-gnome --enable-maintainer-mode
     else
     # or use gcc-3.4 with libtool-1.6.0
-	CC=$GCC34 ../src/configure --prefix=$OPT/guile-gnome --enable-maintainer-mode
+	CC=$GCC34 $srcdir/configure --prefix=$OPT/guile-gnome --enable-maintainer-mode
     fi
     make all install G_WRAP_MODULE_DIR=$OPT/g-wrap/share/guile/site
 fi

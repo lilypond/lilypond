@@ -1,3 +1,10 @@
+2004-11-22  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/define-markup-commands.scm (fill-line): Typo.
+
+	* buildscripts/guile-gnome.sh (GGVERSION): Build update for 2.7.96
+	and newer.
+
 2004-11-22  Erik Sandberg  <ersa9195@student.uu.se>
 
         * ly/dynamic-scripts-init.ly: Fixed typo.
