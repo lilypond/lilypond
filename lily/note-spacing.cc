@@ -248,6 +248,19 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	    }
 	  stem_dirs[d] = sd;
 
+	  /*
+	    Correction doesn't seem appropriate  when there is a large flag
+	    hanging from the note.
+	   */
+	  if (d == LEFT
+	      && Stem::flag_i (stem) && !Stem::beam_l (stem))
+	    {
+	      correct = false;
+	      goto exit_func;
+	    }
+	  
+
+	  
 	  Interval hp  = Stem::head_positions (stem);
 	  Real chord_start = hp[sd];	  
 	  Real stem_end = Stem::stem_end_position (stem);

@@ -6,6 +6,9 @@
 
 2002-03-28  Han-Wen  <hanwen@cs.uu.nl>
 
+	* lily/note-spacing.cc (stem_dir_correction): don't correct when
+	there is a flag on the stem.
+
 	* lily/multi-measure-rest.cc (brew_molecule): variable width molecule.
 
 	* scm/grob-property-description.scm (measure-length):
