@@ -184,19 +184,19 @@ etc.
 \score{
   \melodic 
     { \octave c'; c4 c4 
-      < \multi 1;  { c2 c2 } { c'2 c'2 } > 
-      < \multi 2;  { \stem -1; c2 c2 } { \stem 1; c'2 c'2 } > 
-      < \multi 3;
+       \multi 1 <  { c2 c2 } { c'2 c'2 } > 
+       \multi 2 <  { \stemdown c2 c2 } { \stemup c'2 c'2 } > 
+       \multi 3 <
         { \clef "bass"; c2 c2 }
         { \meter 2/4;\bar "||";
           \key fis cis gis; c'2 c'2 } > 
          c2 c1 
       c1 c1
-      < \multi 1; < \multi 3; 
-        { \meter 2/4; \clef "violin"; c2 c2 }
+       \multi 1< \multi 3 <
+      { \meter 2/4; \clef "violin"; c2 c2 }
         { \meter 2/4; \clef "bass"; c2 c2 }
       >
-      < \multi 3; 
+      \multi 3 <
         { \meter 2/4; \clef "violin"; c2 c2 }
         { \meter 2/4; \clef "bass"; c2 c2 }
       >
@@ -215,50 +215,52 @@ handled graciously (well, somewhat). If the noteheads of different
 voices collide, they are moved horizontally. Rests are moved
 vertically.
 
-\begin[verbatim]{mudela}
+[FIXME]
+\def\bla{
+\begin[verbatim]{mudelaXX}
 two_voice = \melodic 
-        < \multi 2; 
-          {     \octave c'; \stem -1;
+         \multi 2 <
+          {     \octave c'; \stemdown
                 c4 d e f g2~  g4 a [c8 d e f] c2| }
-          { \stem 1;
+          { \stemup
                 g4 f e g ~ g2 g2  c4 g4 g2 } 
 
         >
 
 two_voice_steminvert = \melodic 
-        < \multi 2;  
-          {     \octave c'; \stem 1;
+        \multi 2 <  
+          {     \octave c'; \stemup
 % the f and g on 4th beat are exceptionally ugh.
                 c4 d e f g2 g4 a | }
-          { \stem -1;
+          { \stemdown
                 g4 f e g  g2 g2 } 
 
         >
 
 three_voice = \melodic 
-        < \multi 2;
-        { \stem 1; 
+        \multi 2 <
+        { \stemup 
                 g4 f e f g a g2 }
-        { \hshift 1; \stem 1; 
+        { \property Voice.hshift = 1 \stemup 
                 e2  e2  e2  e2 }
-        { \stem -1;
+        { \stemdown
                 c4 d e d c d es }
         >
 
 
 restsII = \melodic {
         \octave c'; 
-                        < \multi2;  
-                                { \stem 1;  g'8 f' e' d' c' b a g f e d c }
-                                { \stem -1; r  r  r  r  r  r r r r r r r }
+                        \multi2 <
+                                { \stemup  g'8 f' e' d' c' b a g f e d c }
+                                { \stemdown r  r  r  r  r  r r r r r r r }
                         >
                         r8 r4
-                        < \multi2;  r8 r8 >
-                        < \multi2;  r8 r8 r8 >
-                        < \multi2;  r8 r8 r8 r8 >
-                        < \multi2;  r r >
-                        < \multi2;  r r r >
-                        \stem 1;
+                        \multi 2 <  r8 r8 >
+                        \multi 2 <  r8 r8 r8 >
+                        \multi 2 <  r8 r8 r8 r8 >
+                        \multi 2 <  r r >
+                        \multi 2 <  r r r >
+                        \stemup
                         [c''8 r8 c''8 c''8]
                         [c8 r8 c8 c8]
 }
@@ -268,6 +270,5 @@ restsII = \melodic {
                         \$three_voice  \restsII }
 }
 
-\end{mudela}
-
+}
 \end{document}
