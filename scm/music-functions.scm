@@ -261,10 +261,7 @@ this is not an override
   
 (define (check-start-chords music)
   "Check music expression for a Simultaneous_music containing notes
-(ie. Request_chords), without context specification.
-
-Called  from parser.
-"
+(ie. Request_chords), without context specification. Called  from parser."
      (let*
        ((es (ly-get-mus-property music 'elements))
 	(e (ly-get-mus-property music 'element))

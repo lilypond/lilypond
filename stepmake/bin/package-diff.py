@@ -306,8 +306,11 @@ if conf and not outdir:
 	outdir = 'out-' + conf
 
 if not patch_name:
-	to_diff + '.diff'
-patch_name = compat_abspath (os.path.join (outdir, to_diff + '.diff'))
+	patch_name = os.path.join (outdir, '%s-%s-%s.diff' % (package.name,
+							      version_tuple_to_str (flags.from_version),
+							      version_tuple_to_str (flags.to_version)))
+
+	patch_name = compat_abspath (patch_name)
 
 from_diff = '/tmp/package-diff/' + from_diff
 to_diff =  '/tmp/package-diff/' + to_diff
