@@ -9,12 +9,15 @@
 
 #include <errno.h>
 #include <sys/types.h>
+#include <stdio.h>
+
+
 #if HAVE_SYS_STAT_H 
 #include <sys/stat.h>
 #endif
 #include <unistd.h>
 
-#include <fstream.h>
+
 #include "main.hh"
 #include "score.hh"
 #include "string.hh"
@@ -42,23 +45,22 @@ void write_dependency_file (String fn, Array<String> targets,
 
   progress_indication (_f ("dependencies output to `%s'...", fn.ch_C ()));
   progress_indication ("\n");
-  ofstream f (fn.ch_C ());
+  FILE * f = fopen  (fn.ch_C (), "w");
   if (!f)
     warning (_f ("can't open file: `%s'", fn));
 
-  f << "# Generated automatically by: " << gnu_lilypond_version_str ()  << '\n';
+  fprintf (f, "# Generated automatically by: %s\n", gnu_lilypond_version_str ().ch_C());
+  
   String out;
   for (int i=0; i < targets.size (); i ++)
      out += dependency_prefix_global + targets[i] + " ";
   out +=  ": ";
-#if 0
-  struct stat stat_buf;
-#endif
+
   for (int i=0; i < deps.size (); i ++)
     {
       if (out.length_i () > WRAPWIDTH)
 	{
-	  f << out << "\\\n";
+	  fprintf (f, "%s\\\n", out.ch_C());
 	  out = "  ";
 	}
       String dep = deps[i];
@@ -74,7 +76,7 @@ void write_dependency_file (String fn, Array<String> targets,
 	}
       out  += " " +  dep;
     }
-  f << out << endl; 
+  fprintf (f, "%s\n",  out.ch_C());
 }
 
 void

@@ -1,3 +1,9 @@
+2002-05-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/*.cc: remove as many iostream use as possible. 
+
+	* flower/ : remove text-db, text-stream, data-file.
+	
 2002-05-15  Han-Wen  <hanwen@cs.uu.nl>
 
 	* scripts/lilypond-book.py: add --no-music option: strip all blocks.
@@ -8,6 +14,11 @@
 	first system. Small cleanups.
 
 2002-05-13  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scripts/lilypond-book.py (make_pixmap): output png directly.
+
+	* mf/GNUmakefile (INSTALLATION_OUT_FILES4): create and install
+	fonts.dir file.
 
 	* lily/parser.yy (My_lily_parser): uncomment code. (Causes
 	problems  with recent bison releases).

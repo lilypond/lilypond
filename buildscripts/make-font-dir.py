@@ -1,4 +1,8 @@
- 
+#!@PYTHON
+
+
+## make a fonts.scale file.
+
 import re
 import sys
 import string

@@ -7,6 +7,7 @@
 #ifndef MIDI_STREAM_HH
 #define MIDI_STREAM_HH
 
+#include <iostream.h>
 #include "string.hh"
 
 /// Midi outputfile

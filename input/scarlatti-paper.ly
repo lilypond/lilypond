@@ -1,4 +1,4 @@
-\version "1.3.146"
+\version "1.5.49"
 
 \paper{
 	indent=0.
@@ -13,7 +13,7 @@
 	}
 	\translator {
 	  \ScoreContext
-	  SpacingSpanner \override #'arithmetic-multiplier = #1.4
+	  SpacingSpanner \override #'spacing-increment = #1.4
 	}
 	\translator{
 		\VoiceContext

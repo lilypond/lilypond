@@ -11,7 +11,7 @@ USER_LDFLAGS = @LDFLAGS@ @GUILE_LDFLAGS@
 CC = @CC@
 CROSS = @cross_compiling@
 CXX = @CXX@
-GCC = @GCC@
+
 LD = @LD@
 PACKAGE = @PACKAGE@
 package = @package@

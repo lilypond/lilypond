@@ -56,14 +56,14 @@ IMPLEMENT_ARITHMETIC_OPERATOR (Moment, - );
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, / );
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, * );
 
-ostream & operator << ( ostream &,Moment const &);
 
 DECLARE_UNSMOB(Moment,moment);
 int compare (Moment const&,Moment const&);
 INSTANTIATE_COMPARE (Moment const&, Moment::compare);
 
-#if 0
-IMPLEMENT_ARITHMETIC_OPERATOR (Moment, % );
+
+#ifdef STREAM_SUPPORT
+ostream & operator << ( ostream &,Moment const &);
 #endif
 
 #endif /* MOMENT_HH */

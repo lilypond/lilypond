@@ -146,7 +146,7 @@ Also, @TeX{}'s libkpathsea is used to find the fonts (@file{.mf}, @file{.afm}, @
 Make sure you have tetex 1.0 or newer (1.0.6 is known to work).  You may
 need to install a tetex-devel or tetex-dev package too.
 
-@item Texinfo (version 4.0 or newer).
+@item Texinfo (version 4.2 or newer).
 The documentation of lily is written in texinfo.  Check out
 @uref{ftp://ftp.gnu.org/gnu/texinfo/,the texinfo FTP directory}.
 
@@ -159,7 +159,7 @@ with the @TeX{} distribution.
 @item kpathsea, a library for searching (@TeX{}) files.  @code{kpathsea} is
 usually included with your installation of @TeX{}.  You may need to install
 a tetex-devel or tetex-dev package too. If kpathsea is not installed in
-a directory where the compiler normaly looks, read the hints for
+a directory where the compiler normally looks, read the hints for
 Slackware below.
 
 In the very unlikely case that kpathsea is not available for your
@@ -171,11 +171,6 @@ configure something like:
 @example
 ./configure --without-kpathsea --enable-tfm-path=/usr/share/texmf/fonts/tfm/public/cm/:/usr/share/texmf/fonts/tfm/ams/symbols
 @end example
-
-
-@item pktrace 1.0 or newer, [OPTIONAL], needed for generating PostScript Type1
-fonts. Get it from  @uref{http://www.cs.uu.nl/~hanwen/pktrace/}.  You
-will need to install some additional packages to get pktrace to work.
 
 @end itemize
 
@@ -216,22 +211,10 @@ by issuing
 Building the website requires some additional tools: 
 
 @itemize @bullet
-@item xpmtoppm (from the netpbm package: the Portable Bitmap Utilities).
-	The original is at
-@uref{ftp://ftp.x.org/contrib/utilities/netpbm-1mar1994.p1.tar.gz,the
-netpbm FTP site}
-
-@item pnmtopng. The original is
-at
-@uref{ftp://swrinde.nde.swri.edu/pub/png/applications/pnmtopng-2.37.2.tar.gz,in
-the pnmtopng FTP site}.
-
-@item texinfo (a development release)
-The documentation will build with texinfo-4.0, but if you want split
-html pages, you're best off using the lates pretest version from
-@uref{ftp://texinfo.org/texinfo/pretests/texinfo-4.0b.tar.gz,
-texinfo-4.0b} or
-@uref{ftp://alpha.gnu.org/gnu/texinfo-4.0b.tar.gz,texinfo-4.0b}
+@item The netpbm utilities, see @uref{http://netpbm.sourceforge.net/}
+@item pktrace 1.0 or newer, needed for generating PostScript Type1
+fonts. Get it from @uref{http://www.cs.uu.nl/~hanwen/pktrace/}.  You
+will need to install some additional packages to get pktrace to work.
 @end itemize
 
 @section Building  LilyPond
@@ -325,7 +308,7 @@ file.
 
 @subsection Red Hat Linux
 
-Red Hat 7.0 i386 RPMS are available from
+Red Hat 7.x i386 RPMS are available from
 @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/binaries/}.
 
 You can also compile them yourself.  A spec file is in
@@ -342,9 +325,10 @@ with the sources.  You can make the rpm by issuing
 For running on a Red Hat system you need these packages: guile, tetex,
 tetex-latex, tetex-dvips, libstdc++, python, ghostscript.
 
-For compilation on a Red Hat system you need these packages, in addition
-to the those needed for running: glibc-devel, gcc-c++, libstdc++-devel,
-guile-devel, flex, bison, texinfo, groff, pktrace.
+For compilation on a Red Hat system you need these packages, in
+addition to the those needed for running: glibc-devel, gcc-c++,
+libstdc++-devel, guile-devel, flex, bison, texinfo, groff, pktrace,
+netpbm-progs, autotrace, t1utils.
 
 
 

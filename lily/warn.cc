@@ -6,19 +6,13 @@
   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "debug.hh"
-#include "my-lily-lexer.hh"
-#include "moment.hh"
-#include "source-file.hh"
-#include "source.hh"
-#include "main.hh"
-#include "input.hh"
-
-ostream &warnout (cerr);
+#include <stdio.h>
+#include "string.hh"
 
 void
 progress_indication (String s)
 {
-  cerr << s << flush;
+ fputs (s.ch_C(), stderr);
+ fflush (stderr);
 }
 

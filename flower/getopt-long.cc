@@ -134,7 +134,7 @@ void
 Getopt_long::report (Errorcod c)
 {
   error_ = c;
-  if (!error_ostream_l_)
+  if (!error_out_)
     return;
 
   String str = arg_value_ch_a_a_[0];
@@ -163,7 +163,7 @@ Getopt_long::report (Errorcod c)
     default:
       assert (false);
     }
-  *error_ostream_l_ << str << endl;
+  fprintf(error_out_, "%s\n", str.ch_C());
   exit (2);
 }
 
@@ -254,7 +254,7 @@ Getopt_long::operator () ()
 Getopt_long::Getopt_long (int c, char  **v, Long_option_init *lo)
 {
   option_a_ = lo;
-  error_ostream_l_ = &cerr;
+  error_out_ = stderr;
   arg_value_ch_a_a_ = v;
   argument_count_i_ = c;
   array_index_i_ = 1;

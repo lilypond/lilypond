@@ -1,7 +1,7 @@
 #ifndef GETOPT_LONG_HH
 #define GETOPT_LONG_HH
 
-#include <ostream.h> /* gcc 3.0 */
+
 #include "string.hh"
 
 /**
@@ -66,7 +66,7 @@ public:
   /// the arg. count
   int argument_count_i_;
 
-  ostream *error_ostream_l_;
+  FILE *error_out_;
 
 public:
   /// get ready for processing next error.
@@ -90,7 +90,7 @@ public:
     if #os# is null, then do not report nor abort, just set #error#
     */
        
-  void seterror (ostream *os);
+  void seterror (FILE *os);
 
   /// construct: pass arguments and option info.
   Getopt_long (int c,  char **v, Long_option_init *lo);

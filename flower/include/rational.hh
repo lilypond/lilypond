@@ -92,8 +92,10 @@ Rational::copy (Rational const&r)
   den_ = r.den_;
 }
 
+#if 0
 ostream &
 operator << (ostream &,  Rational);
+#endif
 
 const Rational infinity_rat = INT_MAX;
 
