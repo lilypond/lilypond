@@ -22,6 +22,22 @@
 	
 2002-04-01  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* input/mozart-hrn-3.ly: Mimic Breitkopf fonts and padding.
+
+	* scm/grob-property-description.scm (number-threshold): Add
+	description.
+
+	* lily/multi-measure-rest.cc (brew_molecule): Only put number over
+	rest if #measures > number-threshold.  Use padding (well, fake
+	using it, anyway).
+
+	* scm/font.scm (make-style-sheet): New styles: mark-number,
+	mark-letter.
+	(paper20-style-sheet-alist): Add bigger bold fonts.
+
+	* lily/mark-engraver.cc (process_music): Use style mark-number or
+	mark-letter.
+
 	* .cvsignore: Ignore all kinds of lilypond input and output.
 
 	* lily/beam.cc (ADD_INTERFACE): Add concaveness-gap.

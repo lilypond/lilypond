@@ -117,15 +117,16 @@ Multi_measure_rest::brew_molecule (SCM smob)
       measures = gh_scm2int (m);
     }
 
-  if (measures > 1)
+  SCM s = me->get_grob_property ("number-threshold");
+  if (measures > gh_scm2int (s))
     {
       Molecule s = Text_item::text2molecule (me,
 					     ly_str02scm (to_str (measures).ch_C ()),
 					     alist_chain);
 
-      
       s.align_to (X_AXIS, CENTER);
-      s.translate_axis (3.0, Y_AXIS);
+      s.translate_axis (gh_scm2double (me->get_grob_property ("padding")) + 2,
+			Y_AXIS);
 
       s.translate_axis (mol.extent (X_AXIS).center (),  X_AXIS);
       mol.add_molecule (s);
@@ -338,4 +339,4 @@ numbers, fields from font-interface may be used.
 
 
 ",
-  "thickness measure-count expand-limit");
+  "expand-limit measure-count number-threshold padding thickness");

@@ -174,12 +174,12 @@ Mark_engraver::process_music ()
 	  text_p_->set_grob_property ("text",
 				      ly_str02scm (t.ch_C ()));
 
-	  String style = "mark";
+	  String style = "mark-number";
 	  for (int i=0; i < t.length_i (); i++)
 	    {
 	      if (!isdigit (t[i])) 
 		{
-		  style = "large";
+		  style = "mark-letter";
 		  break;
 		}
 	    }
