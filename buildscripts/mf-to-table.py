@@ -83,9 +83,14 @@ def parse_logfile (fn):
 			charmetrics.append (m)
 		elif tags[0] == 'font':
 			global font_family
-			font_family = (tags[1])
-			global_info['FontName'] = string.join (tags[1:],'')
-			global_info['FullName'] = string.join (tags[1:],'')
+			font_family = (tags[3])
+			# To omit 'GNU' (foundry) from font name proper:
+			# name = tags[2:]
+			name = tags[1:]
+			global_info['FontName'] = string.join (name,'-')
+			global_info['FullName'] = string.join (name,' ')
+			global_info['FamilyName'] = string.join (name[1:-1],
+			global_info['Weight'] = tags[4]
 			global_info['FontBBox'] = '0 0 1000 1000'
 			global_info['Ascender'] = '0'
 			global_info['Descender'] = '0'

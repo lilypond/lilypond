@@ -151,8 +151,13 @@
 	 
 
 ;; alist containing fontname -> fontcommand assoc (both strings)
-(define font-alist '(("feta13" . ("feta13" . "13"))
-		     ("feta20" . ("LilyPond-Feta-20" . "20"))))
+;; old scheme
+;;(define font-alist '(("feta13" . ("feta13" . "13"))
+;;		     ("feta20" . ("feta20" . "20"))))
+(define font-alist '(("feta13" . ("LilyPond-Feta-13" . "13"))
+;;		     ("feta20" . ("LilyPond-Feta-20" . "20")
+		     ("feta20" . ("GNU-LilyPond-feta-20" . "20")
+		      )))
 
 ;;(define font "")
 (define font (cdar font-alist))
