@@ -168,7 +168,7 @@ in LilyPond-include-path."
 ;; This is the major configuration variable.
 (defcustom LilyPond-command-alist
   `(
-    ("LilyPond" . ("lilypond %s" . "TeX"))
+    ("LilyPond" . ("lilypond %s" . "LaTeX"))
     ("TeX" . ("tex '\\nonstopmode\\input %t'" . "View"))
 
     ("2Dvi" . ("ly2dvi %s" . "View"))

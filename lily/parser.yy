@@ -1431,6 +1431,11 @@ event_that_take_dir:
 		m->set_mus_property ("span-direction" , gh_int2scm (STOP));
 		$$ = m;
 	}
+	| '~' {
+		Music * m = MY_MAKE_MUSIC ("NewTieEvent");
+		m->set_spot (THIS->here_input());
+		$$ = m;
+	}
 	| script_abbreviation {
 		SCM s = THIS->lexer_->lookup_identifier ("dash" + ly_scm2string ($1));
 		Music *a = MY_MAKE_MUSIC("ArticulationEvent");

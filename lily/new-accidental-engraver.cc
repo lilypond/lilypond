@@ -550,9 +550,9 @@ New_accidental_engraver::process_music ()
 
 
 ENTER_DESCRIPTION (New_accidental_engraver,
-"Make accidentals.  Catches note heads, ties and notices key-change
-events.  Due to interaction with ties (which don't come together
-with note heads), this needs to be in a context higher than Tie_engraver.",
+"Make accidentals.  Catches note heads, ties and notices key-change "
+"events.  Due to interaction with ties (which don't come together "
+"with note heads), this needs to be in a context higher than Tie_engraver.",
 		   
 	       "Accidental",
 /* accepts */     "",

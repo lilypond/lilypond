@@ -17,7 +17,7 @@
 class Tie
 {
 public:
-  static void set_head (Grob*,Direction, Item*head);
+  static void set_head (Grob*,Direction, Grob*head);
   static void set_interface (Grob*);
   static bool has_interface (Grob*);
   static Grob * head (Grob*,Direction) ;
