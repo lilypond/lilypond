@@ -293,7 +293,6 @@ def classic_lilypond_book_compatibility (o):
 	return None
 
 def compose_ly (code, options):
-	
 	options += default_ly_options.keys ()
 	vars ().update (default_ly_options)
 
@@ -301,14 +300,17 @@ def compose_ly (code, options):
 	if not m and (not options \
 		      or not 'nofragment' in options \
 		      or 'fragment' in options):
-		options.append ('raggedright')
+		if 'raggedright' not in options:
+			options.append ('raggedright')
 		body = FRAGMENT_LY
 	else:
 		body = FULL_LY
 
 	# defaults
 	relative = 0
-	staffsize = '16'
+	staffsize = 16
+	
+	override = {}
 	option_string = string.join (options, ',')
 	notes_options = []
 	paper_options = []
@@ -323,10 +325,10 @@ def compose_ly (code, options):
 		
 		if string.find (i, '=') > 0:
 			key, value = string.split (i, '=')
-			# hmm
-			vars ()[key] = value
+			override[key] = value
 		else:
 			key = i
+			override[i] = None
 
 		if key in ly_options[NOTES].keys ():
 			notes_options.append (ly_options[NOTES][key])
@@ -338,13 +340,16 @@ def compose_ly (code, options):
 				 'relative', 'verbatim', 'texidoc'):
 			ly.warning (_("ignoring unknown ly option: %s") % i)
 
-	relative_quotes = (",,,", ",,", ",", "", "'", "''", "'''")[relative-3]
-	program_name = __main__.program_name
-	notes_string = string.join (notes_options, '\n    ') % vars ()
-	paper_string = string.join (paper_options, '\n    ') % vars ()
-	preamble_string = string.join (preamble_options, '\n    ') % vars ()
-	return (PREAMBLE_LY + body) % vars ()
+	#URGS
+	if 'relative' in override.keys () and override['relative']:
+		relative = string.atoi (override['relative'])
 
+	relative_quotes = (",,,", ",,", ",", "", "'", "''", "'''")[relative+4]
+	program_name = __main__.program_name
+	paper_string = string.join (paper_options, '\n    ') % override
+	preamble_string = string.join (preamble_options, '\n    ') % override
+	notes_string = string.join (notes_options, '\n    ') % vars ()
+	return (PREAMBLE_LY + body) % vars ()
 
 # BARF
 # use lilypond-bin for latex (.lytex) books,
@@ -559,7 +564,10 @@ def find_toplevel_snippets (s, types):
 
         snippets = []
         index = 0
-        found = dict (map (lambda x: (x, None), types))
+        ##  found = dict (map (lambda x: (x, None), types))
+	## urg python2.1
+        found = {}
+	map (lambda x, f=found: f.setdefault (x, None), types)
 
 	# We want to search for multiple regexes, without searching
 	# the string multiple times for one regex.
