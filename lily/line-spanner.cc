@@ -14,6 +14,8 @@
 #include "paper-column.hh"
 #include "staff-symbol-referencer.hh"
 
+#include <math.h>
+
 SCM
 Line_spanner::line_atom (Grob* me, Real dx, Real dy)
 {
@@ -148,10 +150,13 @@ Line_spanner::brew_molecule (SCM smob)
     }
   
   Real gap = gh_scm2double (me->get_grob_property ("gap"));
-  
+  Real dist; /*distance between points */
+
+  Offset ofxy (gap, 0); /*offset from start point to start of line*/
   Offset dxy ;
   Offset my_off;
   Offset his_off;
+
   
   if (bound[LEFT]->break_status_dir () || bound[RIGHT]->break_status_dir ())
     /* across line break */
@@ -178,11 +183,15 @@ Line_spanner::brew_molecule (SCM smob)
     }
   else
     {
-      dxy[X_AXIS] = bound[RIGHT]->extent (common[X_AXIS], X_AXIS)[LEFT]
-	- bound[LEFT]->extent (common[X_AXIS], X_AXIS)[RIGHT];
+      Real off = gap + ((bound[LEFT]->extent (bound[LEFT], X_AXIS).length ()*3)/4); // distance from center to start of line
+      dxy[X_AXIS] = bound[RIGHT]->extent (common[X_AXIS], X_AXIS).center ()
+	- bound[LEFT]->extent (common[X_AXIS], X_AXIS).center ();
       dxy[Y_AXIS] = bound[RIGHT]->extent (common[Y_AXIS], Y_AXIS).center ()
 	- bound[LEFT]->extent (common[Y_AXIS], Y_AXIS).center ();
-      dxy[X_AXIS] -= 2 * gap;
+
+      dist = sqrt(dxy[X_AXIS]*dxy[X_AXIS]+dxy[Y_AXIS]*dxy[Y_AXIS]);
+      ofxy = dxy*(off/dist);
+      dxy -= 2*ofxy;
 
       my_off = Offset (me->relative_coordinate (common[X_AXIS], X_AXIS),
 		       me->relative_coordinate (common[Y_AXIS], Y_AXIS)); 
@@ -202,10 +211,10 @@ Line_spanner::brew_molecule (SCM smob)
   Box b (Interval (0, dxy[X_AXIS]), Interval (0, dxy[Y_AXIS]));
   
   line = Molecule (b, list);
-  line.translate_axis (bound[LEFT]->extent (bound[LEFT], X_AXIS).length (), X_AXIS); 
+  line.translate_axis (bound[LEFT]->extent (bound[LEFT], X_AXIS).length ()/2, X_AXIS); 
 
-  Offset g (gap, 0);
-  line.translate (g - my_off + his_off);
+  //Offset g (gap, 0);
+  line.translate (ofxy - my_off + his_off);
       
   return line.smobbed_copy ();
 }
