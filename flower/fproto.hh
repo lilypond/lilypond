@@ -17,10 +17,13 @@ template<class T> struct Cursor;
 template<class T> struct PCursor;
 template<class T> struct Link;
 template<class T> struct Handle ;
+template<class T>struct Interval_t ;
+#include "real.hh"
 
+typedef Interval_t<Real> Interval;
 
 struct Choleski_decomposition ;
-struct Interval ;
+
 struct long_option_init ;
 struct Getopt_long ;
 struct Matrix ;
