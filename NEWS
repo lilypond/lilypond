@@ -1,4 +1,47 @@
-pl 68
+june 30
+pl 70pre
+	- bf: text Script
+	- bf: Script::dir_i_ checks.
+	- bf: script stacking
+	- bf: Text_spanner::do_subst.
+	- bf: Text_spanner::Text_spanner(Text_spanner&)
+	- bf: script priority read from script.ini
+	- bf: Script_def::do_equal_b
+	- bf: script dims.
+	- mudela: ; obligatory for \paper {}.
+	- some cosmetic changes involving RTTI macros
+
+*******
+june 29
+pl 69pre
+	- bf: whole rest position, whole/half rest dots.
+	- bf: scripts
+	- reg termination
+	- centered bars
+	- bf: init of Tie::dir_i_ 
+	- bf: Staff_side depends on staff_sym_
+	- bf: Script::do_substitute_dependency() now implemented
+	- more print info (also in output)
+	- bf: Vertical_align_element
+	- stemless beams now allowed (with warning)
+	- bf: Rest_column::stem_l_ init
+	- merge rests.ly with collisions.ly
+
+pl 67.jcn3
+	- rests under beam [c8 r c]
+
+pl 67.jcn2
+	- first attempt at rest collisions
+	- rests.ly
+
+pl 67.jcn1
+	- beam stem length: beams.ly
+	- bf: mingw configure
+	- re: conflily
+
+******
+june 26
+pl 68pre
 	- doco: other-packages.pod, lots of lilyliterature.pod
 	- last duration mode now is default.
 	- some OpusTeX stuff.
@@ -7,7 +50,7 @@ pl 68
 	  * separation of Y and X-elt-groups
 	  * Registers: info up: broadcasts, info down: get_xxx_info()
 	  * Registers: try_request works from bottom to top of tree.
-	  * Score_elem invisible_b_ flag
+	  * Score_elem empty_b_ and transparent_b_ flag
 	  * Junk Staff_column, and find the requests while walking the
 	  Voices.
 	  * Score_register
@@ -23,8 +66,11 @@ pl 68
 	
 	- bf: make_patch explanation
 	- bf: make install TeX stuff
-	- new Beam/Stem code (WL)
 	- mudela: . mandatory for REALs
+
+
+pl 67
+	- damped beamslope after wanske
 
 ******
 june 3
@@ -150,6 +196,7 @@ pl 61.jcn2
 	- mi2mu IP*list to Array (implications?!) conversion
 	- mi2mu parsing speedup: backup rules for midi-lexer.l
 	- bf: zero denominator
+
 **********
 may 14 
 pl 62
