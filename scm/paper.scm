@@ -25,7 +25,7 @@
     (module-define! m 'interscoreline (* 4 mm))
   ))
 
-(define-public (set-staff-size sz)
+(define-public (set-global-staff-size sz)
   "Set the default staff size, where SZ is thought to be in PT."
   (let*
       ((old-mod (current-module))

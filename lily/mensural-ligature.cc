@@ -117,7 +117,7 @@ add_ledger_lines (Grob *me, Molecule *out, int pos, Real offs,
 				     hd[RIGHT] + right_ledger_protusion);
       Molecule ledger_lines =
 	Note_head::brew_ledger_lines (me, pos, interspaces,
-				      l_extents,
+				      l_extents,0,
 				      ledger_take_space);
       ledger_lines.translate_axis (offs, Y_AXIS);
       out->add_molecule (ledger_lines);

@@ -28,7 +28,7 @@
 
 	;; this is quite small, but it is very ugly to have
 	;; accs closer to the previous note than to the next one.
-	(right-padding . 0.15)
+	(right-padding . 0.2)
 	(meta . ((interfaces . (item-interface accidental-placement-interface))))
 	))
 

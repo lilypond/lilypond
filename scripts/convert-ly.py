@@ -1694,6 +1694,13 @@ def conv (str):
 conversions.append (((2,1,12), conv, """OttavaSpanner -> OttavaBracket"""))
 
 
+def conv (str):
+	str =re.sub (r"\(set-staff-size ", r"(set-global-staff-size", str)
+	return str
+
+conversions.append (((2,1,13), conv, """set-staff-size -> set-global-staff-size"""))
+
+
 ################################
 #	END OF CONVERSIONS	
 ################################

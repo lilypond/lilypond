@@ -23,7 +23,7 @@ public:
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
   static Interval head_extent (Grob*, Axis);
   static Molecule brew_ledger_lines (Grob *me, int pos, int interspaces,
-				     Interval x_extent, bool);
+				     Interval x_extent, Real, bool);
   DECLARE_SCHEME_CALLBACK (brew_ez_molecule, (SCM));
   DECLARE_SCHEME_CALLBACK (extent, (SCM,SCM));
   static bool has_interface (Grob*);
