@@ -1,3 +1,7 @@
+2003-05-14  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lily/lilypond-mode.el: XEmacs: use only one-line messages.
+
 2003-05-13  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* lily/coherent-ligature-engraver.cc: fixed typo
