@@ -127,7 +127,9 @@
 
 			     "%%BeginPageSetup\n"
 			     (if landscape?
-				 "page-width output-scale mul 0 translate 90 rotate\n"
+				 "page-width output-scale
+ lily-output-units mul
+ mul 0 translate 90 rotate\n"
 				 "")
 			     "%%EndPageSetup\n"
 

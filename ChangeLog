@@ -1,5 +1,8 @@
 2005-03-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/define-markup-commands.scm (fontsize): new markup
+	command. Also set baseline-skip
+
 	* lily/main.cc (do_chroot_jail): paranoia security for webserver
 	use. Patch by Sebastiano Vigna <vigna@dsi.unimi.it>.
 

@@ -7,15 +7,13 @@ slashSeparator = \markup {
   \raise #0.7 \beam #2.0 #0.5 #0.48
 }
 
-%% FIXME: Would using http://lilypond.org/pdflink#music%20notation
-%%        help Google to find us even better?  Is it bad not to point
-%%        to our main page, for this reason?  How bad is using /web
-%%        iso /?
 tagline = \markup {
   \with-url
-  #"http://lilypond.org/pdflink/"
+
+  % todo: lilypond.org/music-engraving
+  #"http://lilypond.org/web/"
   \line {
-    "Engraving by LilyPond"
+    "Music engraving by LilyPond"
     #(ly:export (lilypond-version))
     "-"
     "www.lilypond.org"
