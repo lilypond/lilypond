@@ -23,7 +23,14 @@ Midi_note_event::Midi_note_event ()
 int
 compare (Midi_note_event const& left, Midi_note_event const& right)
 {
-  return sign (left.key - right.key);
+  Moment m =   (left.key - right.key);
+
+  if (m<0)
+    return -1;
+  else if (m > 0)
+    return 1;
+  else
+    return 0;
 }
 
 Midi_walker::Midi_walker (Audio_staff* audio_staff_l, Midi_track* track_l)
@@ -144,7 +151,7 @@ Midi_walker::process ()
       //midi_p->channel_i_ = track_l_->number_i_;
       if (Midi_note* note_p = dynamic_cast<Midi_note*> (midi_p))
 	{
-	  if (note_p->length_mom ())
+	  if (note_p->length_mom ().to_bool ())
 	    do_start_note (note_p);
 	}
       else

@@ -303,7 +303,7 @@ Unfolded_repeat_iterator::add_repeat_command (SCM what)
 void
 Unfolded_repeat_iterator::process (Moment m) 
 {
-  if (!m)
+  if (!m.to_bool ())
     {
       if (volta_b_)
 	add_repeat_command (ly_symbol2scm ("start-repeat"));

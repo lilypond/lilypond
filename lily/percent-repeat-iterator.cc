@@ -44,7 +44,7 @@ Percent_repeat_iterator::construct_children ()
 void
 Percent_repeat_iterator::process (Moment m)
 {
-  if (!m)
+  if (!m.to_bool ())
     {
       Music_iterator *yeah = try_music (music_l ());
       if (yeah)

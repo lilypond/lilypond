@@ -49,7 +49,7 @@ Bar_number_engraver::create_grobs ()
   Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
   
   if (gh_number_p (bn) &&
-      !mp && now_mom () > Moment (0))
+      !mp.to_bool () && now_mom () > Moment (0))
     {
       create_items ();
 

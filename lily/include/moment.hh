@@ -39,8 +39,8 @@ public:
   Rational grace_part_;
 
   void set_infinite (int k);
-  
-  operator bool ();
+
+  bool to_bool () const;
   int den () const;
   int num () const;
   /*

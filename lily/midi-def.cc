@@ -24,7 +24,7 @@ Midi_def::get_tempo_i (Moment one_beat_mom)
 {
   Moment w = *unsmob_moment (scope_p_->scm_elem ("whole-in-seconds"));
   Moment wholes_per_min = Moment (60) /w;
-  int beats_per_min = wholes_per_min / one_beat_mom;
+  int beats_per_min =  int ((wholes_per_min / one_beat_mom).main_part_);
   return int (beats_per_min);
 }
 

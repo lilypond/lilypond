@@ -500,8 +500,11 @@
 		 ))
 	      
 	(SpacingSpanner . (
-		(spacing-procedure . ,Spacing_spanner::set_springs)
+		(spacing-procedure . ,New_spacing_spanner::set_springs)
 		(stem-spacing-correction . 0.5)
+
+
+		;; TODO: change naming -- unintuitive
 		(arithmetic-basicspace . 2.0)
 		(arithmetic-multiplier . ,(* 0.9 1.32))
 		;; assume that notes at least this long are present.

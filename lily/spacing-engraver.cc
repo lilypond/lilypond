@@ -111,7 +111,7 @@ Spacing_engraver::stop_translation_timestep ()
   for (int i=0; i < playing_durations_.size (); i++)
     {
       Moment m = (playing_durations_[i].info_.req_l_)->length_mom ();
-      if (m)
+      if (m.to_bool ())
 	{
 	  shortest_playing = shortest_playing <? m;
 	}
@@ -123,7 +123,7 @@ Spacing_engraver::stop_translation_timestep ()
   for (int i=0; i < now_durations_.size (); i++)
     {
       Moment m = now_durations_[i].info_.req_l_->length_mom ();
-      if (m)
+      if (m.to_bool ())
 	starter = starter <? m;
 
       playing_durations_.insert (now_durations_[i]);

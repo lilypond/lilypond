@@ -71,7 +71,7 @@ Folded_repeat_iterator::construct_children ()
 void
 Folded_repeat_iterator::process (Moment m)
 {
-  if (!m)
+  if (!m.to_bool () )
     {
       bool success = try_music (music_l ());
       if (!success)

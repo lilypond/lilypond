@@ -124,7 +124,7 @@ Tuplet_engraver::start_translation_timestep ()
 	      started_span_p_arr_[i] =0;
 	    }
 	  
-	  if (tsd)
+	  if (tsd.to_bool ())
 	    span_stop_moments_[i] += tsd.main_part_;
 	}
 

@@ -1,5 +1,7 @@
-1.5.4.jcn3
+1.5.4.jcn4
 ==========
+
+* New_spacing_spanner: revised spacing generation.
 
 * Spelling fixes, notably staffs->staves, except for ChangeLogs.
 

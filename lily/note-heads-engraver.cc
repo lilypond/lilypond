@@ -21,6 +21,7 @@
 class Note_heads_engraver : public Engraver
 {
   Link_array<Item> note_p_arr_;
+  
   Link_array<Item> dot_p_arr_;
   Link_array<Note_req> note_req_l_arr_;
   Moment note_end_mom_;

@@ -189,7 +189,9 @@ Simple_spacer::add_columns (Link_array<Grob> cols)
 	}
       else
 	{
-	  programming_error ("No spring between adjacent columns");
+	  programming_error (_f("No spring between column %d and next one",
+				Paper_column::rank_i (cols[i])
+				));
 	  desc.hooke_f_ = 1.0;
 	  desc.ideal_f_ = default_space_f_;
 	}

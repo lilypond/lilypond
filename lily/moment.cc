@@ -171,8 +171,8 @@ Moment::den () const { return main_part_.den (); }
 int
 Moment::num () const { return main_part_.num (); }
 
-
-Moment::operator bool ()
+bool
+Moment::to_bool () const
 {
   return main_part_ || grace_part_;
 }

@@ -117,7 +117,7 @@ Auto_beam_engraver::test_moment (Direction dir, Moment test_mom)
     function = gh_list (ly_symbol2scm ("end"), SCM_UNDEFINED);
 
   Moment one_beat = *unsmob_moment (get_property ("beatLength"));
-  int num = *unsmob_moment (get_property ("measureLength")) / one_beat;
+  int num = int ((*unsmob_moment (get_property ("measureLength")) / one_beat).main_part_);
   int den = one_beat.den ();
   SCM time = gh_list (gh_int2scm (num), gh_int2scm (den), SCM_UNDEFINED);
 
@@ -163,7 +163,7 @@ Auto_beam_engraver::test_moment (Direction dir, Moment test_mom)
     moment = * unsmob_moment (gh_cdr (m));
   
   Rational r;
-  if (moment)
+  if (moment.to_bool ())
     {
       /* Ugh? measurePosition can be negative, when \partial
 	 We may have to fix this elsewhere (timing translator)

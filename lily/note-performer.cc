@@ -85,7 +85,8 @@ Note_performer::stop_translation_timestep ()
   for (int i=0; i < note_p_arr_.size (); i++)
     {
       Audio_note* n = note_p_arr_[i];
-      if (Moment m= n->delayed_until_mom_)
+      Moment m= n->delayed_until_mom_;
+      if (m.to_bool ())
 	{
 	  global_l->add_moment_to_process (m);
 	  delayed_p_arr_.push (n);
