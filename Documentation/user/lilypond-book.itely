@@ -199,11 +199,11 @@ You specify the LilyPond code like this:
 produces
 
 @quotation
-@verbatim
+@example
 <lilypond relative1 verbatim>
   \key c \minor r8 c16 b c8 g as c16 b c8 d | g,4
 </lilypond> 
-@end verbatim
+@end example
 @lilypond[relative1]
   \key c \minor r8 c16 b c8 g as c16 b c8 d | g,4
 @end lilypond

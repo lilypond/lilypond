@@ -90,6 +90,10 @@ list.
 
 @item @uref{http://mail.gnu.org/mailman/listinfo/bug-lilypond,bug-lilypond@@gnu.org}
 If you have bugreports, you should send them to this list.
+
+@item @uref{http://mail.gnu.org/mailman/listinfo/lilypond-cvs,lilypond-cvs@@gnu.org}
+  Commit messages for CVS development. This is a high-volume moderated
+  list.
 @end itemize
 
 
