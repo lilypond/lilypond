@@ -116,6 +116,10 @@ void make_script_from_event (Grob *p, bool * follow, Context *tg,
   for (SCM s = art ; ly_c_pair_p (s); s = ly_cdr (s))
     {
       SCM sym = ly_caar (s);
+      SCM type = scm_object_property (sym, ly_symbol2scm ("backend-type?"));
+      if (!ly_c_procedure_p (type))
+	continue;
+      
       SCM val = ly_cdar (s);
 
       if (sym == ly_symbol2scm ("script-priority"))

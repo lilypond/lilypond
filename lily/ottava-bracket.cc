@@ -95,16 +95,20 @@ Ottava_bracket::print (SCM smob)
 		}
 	    }
 	}
-
+      
       if (ext.is_empty ())
 	{
-	  Real x = b->relative_coordinate (common, X_AXIS);
-	  ext = Interval (x,x);
+	  ext = robust_relative_extent (b, common, X_AXIS);
 	}
-      span_points[d] =  (broken [d]) ? b->extent (common, X_AXIS)[-d] : ext[d];
 
       if (broken[d])
-	shorten [d] = 0.0; 
+	{
+	  span_points[d] = b->extent (common, X_AXIS)[RIGHT];
+	  shorten[d] = 0.;
+	}
+	    
+      else
+	span_points[d] = ext[d];
     }
   while (flip (&d) != LEFT);
 

@@ -287,7 +287,9 @@ slur, the closer it is to this height.")
      (horizontal-shift ,integer? "An integer that identifies ranking
 of note-column for horizontal shifting. This is used by
 @internalsref{note-collision-interface}.")
-     (inside-slur ,boolean? "If set, this object should be inside the slur")
+     (inside-slur ,boolean? "If set, this script should be inside the
+slur. If set to false, the script places itself around the slur. If
+unset, script and slur ignore each other ")
      (inspect-quants ,number-pair? "If debugging is set,
 set beam quant to this position, and print the respective scores.")
      
@@ -633,7 +635,7 @@ empirical.")
      (interfaces ,list? "list of symbols indicating the interfaces supported by this object. Is initialized from the @code{meta} field.")
      (shorten ,ly:dimension? "The amount of space that a
 stem. Internally used to distribute beam shortening over stems. ")
-
+     (slur  ,ly:grob? "A pointer to a slur object")
      (use-breve-rest ,boolean? "Use breve rests for measures longer
 than a whole rest.")
      
