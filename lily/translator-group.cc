@@ -207,24 +207,6 @@ Translator_group::remove_translator_p (Translator*trans_l)
   return trans_l;
 }
 
-#if 0
-/*
-  should not use, instead: use properties to communicate between engravers.
- */
-Translator*
-Translator_group::get_simple_translator (String type) const
-{
-  for (SCM p = simple_trans_list_;  gh_pair_p (p); p =gh_cdr (p))
-    {
-      if (classname (unsmob_translator (gh_car (p))) == type)
-	return unsmob_translator (gh_car (p));
-    }
-  if (daddy_trans_l_)
-    return daddy_trans_l_->get_simple_translator (type);
-  return 0;
-}
-#endif 
-
 bool
 Translator_group::is_bottom_translator_b () const
 {
@@ -349,8 +331,8 @@ Translator_group::execute_single_pushpop_property (SCM prop, SCM eltprop, SCM va
 	      
 	      SCM meta = scm_assoc (ly_symbol2scm ("meta"), prev);
 	      SCM props = scm_assoc (ly_symbol2scm ("properties"), gh_cdr (meta));
-	      SCM propdesc = scm_assoc (eltprop, gh_cdr (props));
-	      if (!gh_pair_p (propdesc))
+	      SCM type_p = scm_assoc (eltprop, gh_cdr (props));
+	      if (!gh_pair_p (type_p))
 		{
 		  scm_puts (_("Couldn't find property description for #'").ch_C(),errport);
 		  scm_display (eltprop, errport);
@@ -362,19 +344,17 @@ Translator_group::execute_single_pushpop_property (SCM prop, SCM eltprop, SCM va
 		}
 	      else
 		{
-		  
-		  SCM predicate = gh_cadr (propdesc);
-		  if (gh_call1 (predicate, val) == SCM_BOOL_F)
+		  type_p = gh_cdr (type_p);
+		  if (gh_call1 (type_p, val) == SCM_BOOL_F)
 		    {
 		      ok = false;
 		      scm_puts (_("Failed typecheck for #'").ch_C (),errport);
 		      scm_display (eltprop,errport);
 		      scm_puts ( _(", value ").ch_C (), errport);
-		      scm_display (val, errport);
+		      scm_write (val, errport);
 		      scm_puts (_(" must be of type ").ch_C (), errport);
 		      SCM typefunc = scm_eval2 (ly_symbol2scm ("type-name"), SCM_EOL);
-	    
-		      scm_display (gh_call1 (typefunc, predicate), errport);
+		      scm_display (gh_call1 (typefunc, type_p), errport);
 		      scm_puts ("\n", errport);		      
 		    }
 		}

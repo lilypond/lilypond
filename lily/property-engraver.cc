@@ -127,13 +127,9 @@ Property_engraver::apply_properties (SCM p, Score_element *e, Translator_group*o
 	  name = scm_assoc (ly_symbol2scm ("name"), name);
 	  scm_display (gh_cdr(name), errport);
 	  scm_puts(" \\push #'",errport);
-	  scm_display (elt_prop_sym,errport);
+	  scm_write (elt_prop_sym,errport);
 	  scm_puts ( " = #",errport);
-	  if (gh_string_p (val))
-	    scm_puts ("\"", errport);
-	  scm_display (val, scm_current_error_port ());
-	  if (gh_string_p (val))
-	    scm_puts ("\"", errport);
+	  scm_write (val, scm_current_error_port ());
 	  scm_puts ("\n", errport);
 	}
       else
@@ -159,7 +155,7 @@ Property_engraver::apply_properties (SCM p, Score_element *e, Translator_group*o
 	    
 	    scm_display (gh_call1 (typefunc, type_p), errport);
 	    scm_puts (", value found: ", errport);
-	    scm_display (val, errport);
+	    scm_write (val, errport);
 	    scm_puts (" type: ", errport);
 	    scm_display (ly_type (val), errport);
 	    scm_puts ("\n", errport);
