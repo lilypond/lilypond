@@ -1,11 +1,16 @@
 include Variables.make 
 
+.SUFFIXES:
+.SUFFIXES: .cc .o .hh .y .l
+
 $(exe): $(obs)
 	$(CXX) -o $@ $^ $(LOADLIBES)
 
 clean:
 #	$(MAKE) -C objects clean
 	rm -f $(exe) objects/*.o $(DOCDIR)/* core  
+	$(MAKE) -C $(CCDIR) clean
+	$(MAKE) -C $(HEADERDIR) clean
 
 distclean: clean
 	rm -f  depend version.hh $(gencc) .GENERATE *~
