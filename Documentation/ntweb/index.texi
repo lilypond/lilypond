@@ -2,11 +2,26 @@
 @setfilename index.info
 @settitle LilyPond Windows NT 4-0/95 Distribution
 
-@chapter LilyPond Windows NT 4.0/95 Distribution
+@node Top, Introduction, (dir), (dir)
+@comment  node-name,  next,  previous,  up
+@top LilyPond Windows NT 4.0/95 Distribution
+
+@menu
+* Introduction::                
+* News::                        
+* Bugs::                        
+* Required Packages::           
+* Download::                    
+* Installation::                
+* Running LilyPond::            
+* LilyPond Resources::          
+@end menu
 
 This page documents the NT port of LilyPond.  It reflects  the latest
 version of lilypond that was ported.
 
+@node Introduction, News, Top, Top
+@comment  node-name,  next,  previous,  up
 @section Introduction
 
 This page is dedicated to the distribution of precompiled and
@@ -19,20 +34,20 @@ Homepage}.  A full set of
 in various formats is also available.
 
 
-    LilyPond is a music typesetter.  It produces beautiful sheet music
+LilyPond is a music typesetter.  It produces beautiful sheet music
 using a high level description file as input.  LilyPond is part of 
 the GNU Project.
 
+@node News, Bugs, Introduction, Top
+@comment  node-name,  next,  previous,  up
 @section News
 
 @table @samp
  @item BUG FIXES
   @itemize @bullet
    @item
-        After a long absence and many enhancements and bug
-        fixes by the LilyPond team, that are too numerous to list, the
-        Windows NT 4.0/95 precompiled preformatted release 1.3.39 is
-        available.
+        The Windows NT 4.0/95 precompiled preformatted release 1.3.42 is
+        available.  
   @end itemize
 @end table
 
@@ -99,6 +114,8 @@ found to be operational.  If you have any troubles and or comments
 please do not hesitate to drop me a line 
 @uref{mailto:daboys@@austin.rr.com,Jeffrey B. Reed}.
 
+@node Bugs, Required Packages, News, Top
+@comment  node-name,  next,  previous,  up
 @section Bugs
 
 @itemize @bullet
@@ -110,6 +127,8 @@ please do not hesitate to drop me a line
        foo.tex". 
 @end itemize
 
+@node Required Packages, Download, Bugs, Top
+@comment  node-name,  next,  previous,  up
 @section Required Packages
 
 LilyPond uses the @code{TeX} package as its rendering engine. @code{TeX}
@@ -137,6 +156,8 @@ LilyPond.
 	Version 5.10 is known to work.
 @end itemize
 
+@node Download, Installation, Required Packages, Top
+@comment  node-name,  next,  previous,  up
 @section Download
 
 @itemize @bullet
@@ -145,15 +166,17 @@ LilyPond.
     @item Windows NT 4.0
         @uref{lilypond-TOPLEVEL_VERSION-nt.exe,lilypond-TOPLEVEL_VERSION-nt}
     @item Windows 95 (Latest Stable Release)
-        @uref{lilypond-1.2.0-95.exe,lilypond-1.2.0-95}
+        @uref{lilypond-1.2.0.jbr1-95.exe,lilypond-1.2.0-95}
     @item Windows NT 4.0 (Latest Stable Release)
-        @uref{lilypond-1.2.0-nt.exe,lilypond-1.2.0-nt}
+        @uref{lilypond-1.2.0-nt.jbr1.exe,lilypond-1.2.0-nt}
 @end itemize
 
+@node Installation, Running LilyPond, Download, Top
+@comment  node-name,  next,  previous,  up
 @section Installation
 
 @itemize @bullet
- the distribution.
+  @item Download the distribution. See @ref{Download}.
   @item run downloaded executable.  
   @item  The first installation of LilyPond also requires these
         additional steps:
@@ -185,18 +208,24 @@ LilyPond.
  instructions below
 @end itemize
 
+@node Running LilyPond, LilyPond Resources, Installation, Top
+@comment  node-name,  next,  previous,  up
 @section Running LilyPond
 
 @itemize @bullet
   @item Take a look at @uref{angels.ly,angels.ly}
   @item Save angels.ly to your local disk
   @item Select the @strong{lilyshell} shortcut from the @emph{Lilypond} group  
-  @item  From a LilyPond Command Prompt run:  
-  @strong{ly2dvi angels.ly}  
-  @strong{dvips angels.dvi}  
-  @strong{start angels.ps}  
+  @item  From a LilyPond Command Prompt run:  @*
+  @example
+   % @strong{ly2dvi angels.ly} 
+   % @strong{dvips angels.dvi}
+   % @strong{start angels.ps}
+  @end example
 @end itemize
 
+@node LilyPond Resources,  , Running LilyPond, Top
+@comment  node-name,  next,  previous,  up
 @section LilyPond Resources
 
 @itemize @bullet
@@ -209,7 +238,8 @@ LilyPond.
   @item Please feel free to mail us at @uref{mailto:gnu-music-discuss@@gnu.org,gnu-music-discuss}
 @end itemize
 
-
-
+@html
+<!- banner_id ->
+@end html
 
 @bye

@@ -10,16 +10,17 @@ copyright =	 "public domain";
 
 global = \notes {
 	\time 2/2;
-	\keysignature  bes;
+	\key f \major;
 	\tempo 2=60;
+	\clef treble;
 }
-\version "1.3.4";
-% \include "score-paper.ly"
 
-flute1 = \notes \relative c'' {
-	\clef violin;
+\version "1.3.41";
+% \include "paper16.ly"
+
+flute1 = \notes \relative c'' \context Voice = flute {
 	\property Staff.instrument = "flute"
-	
+
 	a'4 a a c   | 
 	c4. bes8 a2 |
 	a4 g a c    |
@@ -49,9 +50,8 @@ flute1 = \notes \relative c'' {
 	f1            \bar "|."; 
 }
 
-flute2 = \notes \relative c'' {
-	\clef violin;
-	\property Staff.instrument = "oboe"
+flute2 = \notes \relative c'' \context Voice = flute {
+	\property Staff.instrument = "flute"
 	
 	f4 f e e  | 
 	g4 e f2   |
@@ -79,28 +79,28 @@ flute2 = \notes \relative c'' {
 
 	c4 e f f  |
 	f2( )e2   | 
-	c1 \bar "|.";
+	c1        |
 }
 
-$flute1_staff = \context Staff = flute1_group <
+flute1_staff = \context Staff = flute1_group <
 	\global
 	\flute1
 >
 
-$flute2_staff = \context Staff = flute2_group <
+flute2_staff = \context Staff = flute2_group <
 	\global
 	\flute2
 >
 
-$flutes = \context StaffGroup <
-	\$flute1_staff
-	\$flute2_staff
+flutes = \context StaffGroup <
+	\flute1_staff
+	\flute2_staff
 >
 	
 
 \score{
         <
-       	   \$flutes
+       	   \flutes
 	>
 	\paper{}
 	\midi{ 
