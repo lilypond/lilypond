@@ -3,6 +3,8 @@
 	* Documentation/user/notation.itely (Setting simple songs):
 	Correct several errors in the equivalent formulation of
 	\addlyrics. 
+	(The Lyrics context): Corrected link to the SATB example.
+
 
 2004-12-26  Jan Nieuwenhuizen  <janneke@gnu.org>
 

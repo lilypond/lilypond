@@ -3742,7 +3742,7 @@ is the same as
 
 @example
 \context Voice = blah @{ music @}
-\lyricsto "blah" \new lyrics  \lyricmode @{ LYRICS @}
+\lyricsto "blah" \new lyrics @{ LYRICS @}
 @end example
 
 
@@ -3986,7 +3986,7 @@ Here is an example demonstrating manual lyric durations,
 @cindex choral score
 
 A complete example of a SATB score setup is in section
-@ref{Small ensembles}.
+@ref{Vocal ensembles}.
 
 
 @refcommands
