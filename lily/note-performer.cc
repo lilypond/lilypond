@@ -24,27 +24,26 @@ Note_performer::do_print () const
 {
 #ifndef NPRINT
   if (note_req_l_) 
-      note_req_l_->print ();
+    note_req_l_->print ();
 #endif
 }
 
 void 
 Note_performer::do_process_requests () 
 {
-  // this is _really_ braindead, but it generates some output
-  if (!note_req_l_ || !dynamic_cast <Melodic_req *> (note_req_l_)  || !dynamic_cast <Rhythmic_req *> (note_req_l_))
-    return;
-
-  int transposing_i = 0;
-  //urg
-  Scalar prop = get_property ("transposing");
-  if (!prop.empty_b () && prop.isnum_b ()) 
-    transposing_i = prop;
+  if (note_req_l_)
+    {
+      int transposing_i = 0;
+      //urg
+      Scalar prop = get_property ("transposing");
+      if (!prop.empty_b () && prop.isnum_b ()) 
+	transposing_i = prop;
 
 
-  play (new Audio_note (note_req_l_, transposing_i));
+      play (new Audio_note (note_req_l_, transposing_i));
 
-  note_req_l_ = 0;
+      note_req_l_ = 0;
+    }
 }
 
 bool 
