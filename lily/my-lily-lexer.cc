@@ -38,7 +38,7 @@ static Keyword_ent the_key_tab[]={
     {"id", ID},
     {"in", IN_T},
     {"init_end", INIT_END},
-    {"requestengraver", REQUESTENGRAVER},
+    {"requesttranslator", REQUESTENGRAVER},
     {"lyric", LYRIC},
     {"key", KEY},
     {"melodic" , MELODIC},
