@@ -98,6 +98,10 @@ Beam::get_beam_count (Grob *me)
   return m;
 }
 
+
+/*
+  Space return space between beams.
+ */
 MAKE_SCHEME_CALLBACK (Beam, space_function, 2);
 SCM
 Beam::space_function (SCM smob, SCM beam_count)
@@ -778,6 +782,10 @@ Beam::after_line_breaking (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
+
+/*
+  Compute  a first approximation to the beam slope.
+ */
 MAKE_SCHEME_CALLBACK (Beam, least_squares, 1);
 SCM
 Beam::least_squares (SCM smob)
@@ -1068,9 +1076,13 @@ Beam::check_concave (SCM smob)
       concave *= dir;
       concaveness2 = concave / (stems.size () - 2);
       
-      /* ugh: this is the a kludge to get
-	 input/regression/beam-concave.ly to behave as
-	 baerenreiter. */
+      /*
+
+      ugh: this is the a kludge to get
+      input/regression/beam-concave.ly to behave as
+      baerenreiter.
+
+      */
 
       /*
 	huh? we're dividing twice (which is not scalable) meaning that

@@ -373,8 +373,8 @@ Beam::score_forbidden_quants (Real yl, Real yr,
       /*
 	Can't we simply compute the distance between the nearest
 	staffline and the secondary beam? That would get rid of the
-	silly case analysis here (which is probably not when we have
-	different beam-thicknesses.)
+	silly case analysis here (which is probably not valid when we
+	have different beam-thicknesses.)
 
 	--hwn
        */
