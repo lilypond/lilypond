@@ -511,7 +511,7 @@ My_lily_lexer::scan_bare_word (String str)
 		    yylval.pitch->set_spot (Input (source_file_l (), 
 		      here_ch_C ()));
                     return (YYSTATE == notes) ? NOTENAME_PITCH : TONICNAME_PITCH;
-		} else if ((pitch = scm_hashq_ref (pitchname_tab_, sym, SCM_BOOL_F))!= SCM_BOOL_F)
+		} else if ((pitch = scm_hashq_ref (chordmodifier_tab_, sym, SCM_BOOL_F))!= SCM_BOOL_F)
 		{
 		    yylval.pitch = new Musical_pitch (pitch);
 		    yylval.pitch->set_spot (Input (source_file_l (), 

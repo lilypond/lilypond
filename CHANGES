@@ -1,3 +1,8 @@
+2000-03-24    <janneke@gnu.org>
+
+* lily/lexer.ll (My_lily_lexer): Bugfix: lookup chordmodifiers in the
+	chord-modifier table (not in the pitch list).
+
 1.3.38.hwn2
 ===========
 
