@@ -1,3 +1,8 @@
+2003-07-24  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* stepmake/stepmake/generic-targets.make (WWW-post): Oops, depend
+	on local-WWW-post.
+
 2003-07-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* make/lilypond.redhat.spec.in: add dvips to reqs.
