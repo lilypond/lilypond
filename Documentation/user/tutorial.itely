@@ -46,9 +46,9 @@ program.  This is also possible with LilyPond. If you click on a
 picture in the HTML version of this manual, you will see the exact
 LilyPond input that was used to generate that image.
 @ifhtml
-For example, consider the following input
+For example, consider the following input:
 @c TODO: intertext fixme
-@lilypond[relative 1,singleline,verbatim,intertext="with the following output"]
+@lilypond[relative 1,singleline,verbatim,intertext="with the following output:"]
   c'^\markup { \bold \huge { Click on this image! } }
 @end lilypond
 
@@ -320,8 +320,8 @@ that the DVI file cannot be processed with @code{dvilj}. Use
 @cindex dvips
 @cindex dvilj
 @cindex DVI driver
-}  One the following commands should put the PDF on your
-screen.
+}  One of the following commands should put the PDF on your
+screen:
 @c eeek
 @quotation
 @example
@@ -411,7 +411,7 @@ g'
 
 @cindex tie
 A tie is created by adding a tilde ``@code{~}'' to the first note
-being tied.
+being tied:
 @quotation
 @lilypond[fragment,verbatim,relative 2]
 g4-~ g a2-~ a4
@@ -419,7 +419,7 @@ g4-~ g a2-~ a4
 @end quotation
 @separate
 
-This example shows the key signature, accidentals and ties in action.
+This example shows the key signature, accidentals and ties in action:
 
 @quotation
 @example
@@ -465,7 +465,7 @@ Accidentals (sharps and flats) do not have to be marked explicitly:
 you just enter the pitch of the note, and an accidental is printed
 only when necessary. The flip side of this mechanism, is that you have
 to mark notes as sharp or flat, even when they do not get accidentals.
-For example, in this example,
+For example, in this example:
 @lilypond[fragment]
 \clef bass
 \property Staff.TimeSignature = #'()
@@ -511,7 +511,7 @@ c'4 c'' c''' \clef bass c c,
 @end quotation
 @separate
 
-An example of the use of quotes is in the following Mozart fragment.
+An example of the use of quotes is in the following Mozart fragment:
 @lilypond[singleline,fragment,verbatim]
   \key a \major
   \time 6/8
@@ -527,7 +527,7 @@ most convenient way to copy existing music.  To use relative mode, add
 from which relative starts, in this case @code{c''}.  If you do not
 use octavation quotes (i.e. do not add ' or , after a note), relative
 mode chooses the note that is closest to the previous one.
-For example, @code{c f} goes up while @code{c g} goes down.
+For example, @code{c f} goes up while @code{c g} goes down:
 
 @quotation
 @example
@@ -736,7 +736,7 @@ We can now typeset a melody with two staves:
 @end lilypond
 @end quotation
 
-The example shows how small chunks of music, for example the notes
+The example shows how small chunks of music, for example, the notes
 @code{c2}, @code{e4}, etc. of the second staff, are combined to form a
 larger chunk by enclosing it in braces. Again, a larger chunk is
 formed by prefix @code{\context Staff} to it, and that chunk is
@@ -778,7 +778,7 @@ arbitrarily deep, e.g.
 When spreading expressions over multiple lines, it is customary to use
 an indent that indicates the nesting level. Formatting music like this
 eases reading, and helps you  insert the right amount of closing
-braces at the end of an expression. For example
+braces at the end of an expression. For example,
 @example
 \score @{
   \notes <
@@ -813,7 +813,7 @@ c-. c-- c-> c-^ c-+ c-_
 
 @cindex fingering
 Similarly, fingering indications can be added to a note using a dash
-(`@code{-}') and the digit to be printed.
+(`@code{-}') and the digit to be printed:
 @c
 @lilypond[verbatim,relative 1]
   c-3 e-5 b-2 a-1
@@ -834,7 +834,7 @@ c-\ff c-\mf
 
 Crescendi and decrescendi are started with the commands @code{\<} and
 @code{\>}. The command @code{\!} finishes a crescendo on the note it
-is attached to.
+is attached to:
 @quotation
 @lilypond[verbatim,relative 1]
 c2-\<  c2-\!-\ff  c2-\>  c2-\!
@@ -872,7 +872,7 @@ phrasing), you can also make a phrasing slur with @code{\(} and
 
 More information on fingering, articulation, slurs, phrasing slurs,
 and dynamics can be found in @ref{Fingering instructions},
-@ref{Articulations}, @ref{Slurs}, @ref{Phrasing slurs} @ref{Dynamics}
+@ref{Articulations}, @ref{Slurs}, @ref{Phrasing slurs}, and @ref{Dynamics},
 respectively.
 
 @node Combining notes into chords
@@ -924,7 +924,7 @@ r4 <<c e g>>8-\>-( <<c e g>> <<c e g>>  <<c f a>>8-\!-)
 @cindex partial measure
 A pickup (or upstep) is entered with the keyword @code{\partial}. It
 is followed by a duration: @code{\partial 4} is a quarter note upstep
-and @code{\partial 8} an eighth note.
+and @code{\partial 8} an eighth note:
 @lilypond[relative 1,verbatim,fragment]
   \partial 8
   f8 c2 d e
@@ -935,7 +935,7 @@ and @code{\partial 8} an eighth note.
 Tuplets are made with the @code{\times} keyword.  It takes two
 arguments: a fraction and a piece of music.  The duration of the piece
 of music is multiplied by the fraction.  Triplets make notes occupy
-2/3 of their notated duration, so  a triplet has  2/3 as its fraction.
+2/3 of their notated duration, so  a triplet has  2/3 as its fraction:
 @c
 @lilypond[relative 0,verbatim,fragment]
   \times 2/3 { f8 g a }
@@ -945,7 +945,7 @@ of music is multiplied by the fraction.  Triplets make notes occupy
 @cindex grace notes
 @cindex accacciatura
 Grace notes are also made by prefixing a note, or a set of notes with
-a keyword. In this case, the keyword is @code{\grace}. 
+a keyword. In this case, the keyword is @code{\grace}:
 @lilypond[relative 1, verbatim,fragment]
   c4 \grace b16-( c4-)
   \grace { d16-( e } d4-)
@@ -968,7 +968,7 @@ types of comments. A line comments is introduced by @code{%}: after
 that, the rest of that line is ignored.  Block comments span larger
 sections of input.  Anything that is enclosed in @code{%@{} and
 @code{%@}} is ignored too. The following fragment shows possible uses
-for comments.
+for comments:
 
 @example
   % notes for twinkle twinkle follow:
@@ -994,7 +994,7 @@ for comments.
 @cindex Lyrics
 @cindex Songs
 Lyrics are entered by separating each syllable with a space, and
-surrounding them with @code{\lyrics @{ @dots{} @}}, for example
+surrounding them with @code{\lyrics @{ @dots{} @}}, for example,
 @example
   \lyrics @{ I want to break free @}
 @end example
@@ -1005,7 +1005,7 @@ them as lyrics, they must be marked with @code{ \context Lyrics}:
 @example
   \context Lyrics  \lyrics @{ I want to break free @}
 @end example
-The melody for this song is as follows
+The melody for this song is as follows:
 
 @lilypond[fragment,relative=1]
    \partial 8
@@ -1042,7 +1042,7 @@ The final result is
 @c synonyms?
 This melody ends on a @rglos{melisma}, a single syllable (``free'')
 sung to more than one note. This is indicated with a @emph{extender
-line}. It is entered as two  underscores, i.e.,
+line}. It is entered as two underscores, i.e.
 @example
   \lyrics @{ I want to break free __ @}
 @end example 
@@ -1066,7 +1066,7 @@ line}. It is entered as two  underscores, i.e.,
 @end lilypond
 
 Similarly, hyphens between words can be entered as two dashes,
-resulting in a centered hyphen between two syllables.
+resulting in a centered hyphen between two syllables:
 @example
   Twin -- kle twin -- kle
 @end example
@@ -1100,7 +1100,7 @@ ChordNames}).
 
 Chord names are entered by starting chords mode (with @code{\chords}).
 In chords mode, you can enter chords with a letter (indicating the
-root of the chord), and a durations following that.
+root of the chord), and a durations following that:
 @c
 @lilypond[verbatim]
   \chords { c2 f4. g8 } 
@@ -1111,7 +1111,7 @@ The result of @code{\chords} is a list of chords, and is  equivalent
 to entering chords with @code{<<@dots{}>>}.
 
 Other chords can be created by adding modifiers, after a colon.  The
-following example shows a few common modifiers
+following example shows a few common modifiers:
 @c
 @lilypond[verbatim]
   \chords { c2 f4:m g4:maj7 gis1:dim7 }
@@ -1216,13 +1216,13 @@ When the file is processed by @code{ly2dvi}, the title and composer
 specified are printed above the music. The `tagline' is a short line
 printed at bottom of the last page, which normally says ``Lily was
 here, version @dots{}''. In the example above, it is replaced by the
-line ``small is beautiful.'' 
+line ``small is beautiful''.
 
 Normally, the @code{\header} is put at the top of the file. However,
 for a document that contains multiple pieces (e.g. a etude book, or
 part with multiple movements), then the header can be put into the
-@code{\score} block as follows In this case, the name of each piece
-will be printed before each movement.
+@code{\score} block as follows; in this case, the name of each piece
+will be printed before each movement:
 
 
 @cindex Lily was here
@@ -1284,7 +1284,7 @@ temporarily do not play:
     { s4 g4 f2 f4 } >
 @end lilypond
 
-Again, these expressions can be nested arbitrarily.
+Again, these expressions can be nested arbitrarily:
 
 @lilypond[fragment]
 <
@@ -1364,9 +1364,9 @@ of Scheme.  The argument to @code{\property}, @code{##f}, is an
 expression in that language.  The first hash-mark signals that a piece
 of Scheme code follows. The second hash character is part of the
 boolean value true (@code{#t}).  Values of other types may be
-entered as follows
+entered as follows:
 @itemize @bullet
-@item a string, enclosed in double quotes, for example
+@item a string, enclosed in double quotes, for example,
 @example
   \property Staff.instrument = #"French Horn"
 @end example
@@ -1377,19 +1377,19 @@ respectively, e.g.
   \property Score.skipBars = ##t
 @end example
 
-@item a number
+@item a number, such as
 @example
   \property Score.currentBarNumber = #20
 @end example
 
-@item a symbol, which is introduced by a quote character,
+@item a symbol, which is introduced by a quote character, as in 
 @example
   \property Staff.crescendoSpanner = #'dashed-line
 @end example
 
-@item a pair, which is also introduced by a quote character.
-The following statements set properties to the pairs (-7.5, 6)  and
-(3, 4) respectively.
+@item a pair, which is also introduced by a quote character, like in
+the following statements, which set properties to the pairs (-7.5, 6) 
+and (3, 4) respectively:
 
 @example
   \property Staff.minimumVerticalExtent  = #'(-7.5 . 6)
@@ -1420,7 +1420,7 @@ is formatted, layout objects are created for each symbol.  For
 example, every clef and every note head is represented by a layout
 object.  These layout objects also carry variables, which we call
 @emph{layout properties}. By changing these variables from their
-values, we can alter the look of a formatted score.
+values, we can alter the look of a formatted score:
 
 @lilypond[verbatim,relative 0]
   c4
@@ -1436,7 +1436,7 @@ stems.
 
 In most cases of manual overrides, only a single object must be
 changed. This can be achieved by prefixing @code{\once} to the
-@code{\property} statement, i.e.,
+@code{\property} statement, i.e.
 
 @example
  \once \property Voice.Stem \set #'thickness = #3.0
@@ -1475,7 +1475,7 @@ low-level feature: the formatting engine is completely oblivious to
 these offsets.
 
 In the following example example, the second fingering is moved a
-little to the left, and 1.8 staff space downwards.
+little to the left, and 1.8 staff space downwards:
 
 @cindex setting object properties
 
@@ -1499,7 +1499,7 @@ collisions, and slurs, ties and beams can be attached to it.
 The following example demonstrates how to connect different voices
 using ties. Normally ties only happen between notes of the same
 voice. By introducing a tie in a different voice, and blanking a stem
-in that voice, the tie appears to cross voices.
+in that voice, the tie appears to cross voices:
 
 @lilypond[fragment,relative 1,verbatim]
 \context Staff < {
@@ -1515,7 +1515,7 @@ The @code{padding} property for objects with
 @code{side-position-interface} can be set to increase distance between
 symbols that are printed above or below notes. We only give an
 example; a more elaborate explanation is in @ref{Constructing a
-tweak}.
+tweak}:
 
 @lilypond[relative 1]
   c2-\fermata
@@ -1539,7 +1539,7 @@ orchestral pieces, more deeply nested.
 
 By using variables, also known as identifiers, it is possible to break
 up complex music expressions.
-An identifier is assigned as follows
+An identifier is assigned as follows:
 @example
   namedMusic = \notes @{ @dots{}
 @end example
@@ -1604,7 +1604,7 @@ hornNotes = \notes \relative c @{
 @}
 @end example
 
-Then, an individual part is made by putting the following in a file
+Then, an individual part is made by putting the following in a file:
 @example
 \include "horn-music.ly"
 \header @{
@@ -1636,19 +1636,19 @@ measures. This is denoted by a special rest, the multi-measure
 rest. It is entered with a capital R, and followed by a duration (1
 for a whole note, 2 for a half note, etc.) By multiplying the
 duration, longer rests can be constructed. For example, the next rest
-takes 3 measures in 2/4 time.
+takes 3 measures in 2/4 time:
 @example
   R2*3
 @end example
 
 When printing the part, the following @code{skipBars} property must be
 set to false, to prevent the rest from being expanded in three one bar
-rests.
+rests:
 @example
   \property Score.skipBars = ##t
 @end example
 Prepending the rest and the property setting above, leads to the
-following result.
+following result:
 
 @lilypond[singleline]
 \score {\notes { \transpose c' f \relative c' { \time 2/4
@@ -1671,7 +1671,7 @@ file @file{bassoon-music.ly}:
   @} @}
 @end example
 
-This would lead to the simple score depicted below.
+This would lead to the simple score depicted below:
 
 @lilypond[singleline]
 \score {
@@ -1697,7 +1697,7 @@ notation manual, in @ref{Orchestral music}.
 @cindex Texinfo, music in
 
 Sometimes you might want to use music examples in a text that you are
-writing (for example a musicological treatise, a songbook, or (like us)
+writing (for example, a musicological treatise, a songbook, or (like us)
 the LilyPond manual).  You can make such texts by hand, simply by
 importing a PostScript figure into your word processor.  However,
 there is an automated procedure to reduce the amount of work.
@@ -1706,8 +1706,8 @@ If you use HTML, La@TeX{}, or Texinfo, you can mix text and LilyPond
 code.  A script called @code{lilypond-book} will extract the music
 fragments, run LilyPond on them, and put back the resulting notation.
 This program is fully described in @ref{lilypond-book manual}.  Here
-we show a small example.  Since the example also contains explanatory
-text, we will not comment it further.
+we show a small example;  since the example contains also explanatory
+text, we will not comment it further:
 
 @example
 \documentclass[a4paper]@{article@}
@@ -1747,7 +1747,7 @@ convenient to put it in a separate file:
 \end@{document@}
 @end example
 
-Under Unix, you can view the results as follows.
+Under Unix, you can view the results as follows:
 @example
 $ cd input/tutorial
 $ mkdir -p out/

@@ -298,7 +298,7 @@ function made available as a Scheme function), and it is also stored
 in a variable.  For example, the placement of the forte symbol in the
 example above is calculated by the function
 @code{Side_position_interface::aligned_side}.  If we want to replace
-this function by a more advanced one, we could issue:
+this function by a more advanced one, we could issue
 @example
     \property Voice.DynamicLineSpanner \override #'Y-offset-callbacks
        = #`(,gee-whiz-gadget)
