@@ -73,8 +73,7 @@ ly_quote_scm (SCM s)
 String
 ly_symbol2string (SCM s)
 {
-  assert (gh_symbol_p (s));
-  return String ((Byte*)SCM_STRING_CHARS (s), (int) SCM_STRING_LENGTH (s));
+  return ly_scm2string (scm_symbol_to_string (s));
 }
 
 String
