@@ -39,6 +39,7 @@ const Real PT_TO_MM = (1.0 / MM_TO_PT);
 #endif
 
 String print_dimen (Real);
+const Real point_constant = 1 PT;
 
 #endif /* DIMENSIONS_HH */
 

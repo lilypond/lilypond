@@ -16,13 +16,12 @@
 	     (srfi srfi-13)
 	     (lily))
 
-
 (define (header filename)
   (format  "% header
 \\input{lilypond-tex-metrics}
 \\documentclass{article}
 \\lilyglobalscale{1.0}
-\\lilymetricsfile{~a.lpm}
+\\lilymetricsfile{~a.textmetrics}
 \\begin{document}
 " filename))
 
@@ -42,8 +41,6 @@
        (ly:outputter-dump-stencil outputter page))
      pages)
     (ly:outputter-dump-string outputter (footer))))
-
-
 
 (define-public (convert-to-ps . args) #t)
 (define-public (convert-to-pdf . args) #t)
