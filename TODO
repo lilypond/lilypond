@@ -9,10 +9,10 @@ grep for TODO and ugh/ugr/urg
 
 
 BUGS:
-	
+
+	* document new TeX/mf layout
 
 	* egcs-1.1 -O2 -finline-functions  causes crash
-
 
 	* formatting of input stuff. 
 
@@ -28,12 +28,6 @@ BUGS:
 
 	* [/3 c8 c16 c c c]/1
   
-	* I see that  \prallprall and \prallmordent are identical. I think this is a 
-	mistake, that \prallprall should not have the vertical line.
-	This can be fixed by removing  the line
-	draw_mordent(twidth-0.5toverlap);
-	from the definition of \prallprall in mf/feta-slag.mf (see below)
-
 	* fix singleStaffBracket
   
   	* repeat bars: need distance after ":|" and before "|:"
@@ -64,8 +58,6 @@ BUGS:
 	and also
 	
 	portato= \script { "portato" 0 -1 0 1 0 }
-
-	* MIDI spelling.
 
 	* Align_element::padding  ?
 
@@ -108,8 +100,6 @@ BUGS:
 
 	* install TeX stuff into tex/generic directory.
 
-	* /etc/profile.d support for RPM.
-
 	* percussion note heads
 
 	* mi2mu empty staffs.
@@ -117,12 +107,6 @@ BUGS:
 	* include MIDI list 
 
 	* make GNU style webpages.
-
-	* There seems to be an install error in lilypond-1.0.0.  Most of the
-	files in the "init" directory don't get installed in the
-	/usr/local/share/lilypond directory.  The files installed are of
-	the form feta*.ly.  In particular init.ly doesn't get installed.
-	I installed the files by hand and then the system seems to work.
 
 	* midi_instrument -> midiInstrument
 
@@ -237,8 +221,6 @@ ydirection and hshift preset
 	  - abbreviation-beam -> (measured/unmeasured) tremolo
 	  - partial -> anacrouse
 
-	* libtoolize flowerlib
-
 	* shared lib
 
 	* robustify Beam (in case of no stems, 32nd notes)
@@ -250,12 +232,7 @@ ydirection and hshift preset
 	* check for groff / troff/ nroff et
 
 	* more intelligent file searching
-	- use kpsepath
-	- make LilyPond fully relocatable
-
-	* use kpsepath to find all TeX dirs
-	- configure.in 
-	- clean-fonts.sh
+	- make LilyPond RPM fully relocatable
 
 	* nicen examples:
 	- break-up heavily-nested score blocks
@@ -286,15 +263,6 @@ ydirection and hshift preset
 
         * clefs (AG): The "8" should appear closer to the actual clef,
           touching it.
-
-	* scoping for properties?
-
-	{	c4
-		\multi 2  < { \stemup .. } { \stemdown .. } >
-		c2 
-	}
-
-	this modifies \stem for the c2
 
 	* put errorlevel in Input class
 
@@ -341,12 +309,6 @@ ydirection and hshift preset
 
 	* redhat (v?) graphical install bomb-out?
 
-	* egcs-1.03 ice: stem.cc:327; should localize bug (mine's still 10K)
-
-	* gcc 2.8.1: see ice and RESIZE_ICE
-
-	* xdvi: PS in magnifying glass.
-
 	* GNU diff 2.7: diff -rN does not see a new directory with empty file
 
 	* GNU patch 2.1: <must find simple example> if patch chokes on a
@@ -362,8 +324,6 @@ ydirection and hshift preset
 3RD PARTY PROJECTS:
 
 	* GNU indent: handle C++
-
-	* GNU make: move hardcoded builtin rules to runtime ?
 
 	* GNU patch 
 	  - 'double-fix' mode: ignore identical fix, rather than suggest 
@@ -498,7 +458,6 @@ PROJECTS
 	- Move all Score_elems, into libmutype.a
 	- SGML
 
- 
 	* Documentation
 	- Doc (C) stuff of sheet music
 	- a better format?  SGML?  TeX?  Info?

@@ -8,7 +8,7 @@
  */
 
 #include "scope.hh"
-#include "assoc-iter.hh"
+#include "dictionary-iter.hh"
 #include "debug.hh"
 #include "identifier.hh"
 
@@ -16,7 +16,7 @@ void
 Scope::print () const
 {
   bool init_b = false;		// ugh
-  for (Assoc_iter<String,Identifier*> ai (*this);  ai.ok(); ai++)
+  for (Dictionary_iter<Identifier*> ai (*this);  ai.ok(); ai++)
     {
       if (ai.val()->init_b_ == init_b)
 	{
@@ -28,7 +28,7 @@ Scope::print () const
 
 Scope::~Scope ()
 {
-  for (Assoc_iter<String,Identifier*>	 ai (*this); ai.ok(); ai++)
+  for (Dictionary_iter<Identifier*>	 ai (*this); ai.ok(); ai++)
     {
       DOUT << "deleting: " << ai.key() << '\n';
       delete ai.val ();
@@ -38,7 +38,7 @@ Scope::~Scope ()
 Scope::Scope (Scope const&s)
   : Dictionary<Identifier*> (s)
 {
-  for (Assoc_iter<String,Identifier*> ai (s); ai.ok(); ai++)
+  for (Dictionary_iter<Identifier*> ai (s); ai.ok(); ai++)
     {
       (*this)[ai.key ()] = ai.val ()->clone ();
     }

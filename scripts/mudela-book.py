@@ -9,10 +9,9 @@
 
 import os
 import string
-import regex
+import re
 import getopt
 import sys
-import regsub
 
 outdir = 'out/'
 program_version = '0.3'
@@ -70,7 +69,7 @@ class Mudela_output:
 		self.file.write ('default_paper = \\paper { \\paper_%s\n linewidth = -15.\\cm; }\n' % s)
 		
 		if self.fragment:
-			self.file.write ('\\score { \\melodic { ')
+			self.file.write ('\\score { \\notes { ')
 
 	def write (self,s):
 		self.file.write (s)
@@ -133,16 +132,16 @@ class Tex_output:
 
 
 
-begin_mudela_re = regex.compile ('^ *\\\\begin{mudela}')
-begin_mudela_opts_re = regex.compile ('^ *\\\\begin{mudela}\[\(.*\)\]')
-end_mudela_re = regex.compile ('^ *\\\\end{mudela}')
-section_re = regex.compile ('\\\\section')
-chapter_re = regex.compile ('\\\\chapter')
-input_re = regex.compile ('^\\\\input[ \t\n]+\\(.*\\)$')
+begin_mudela_re = re.compile ('^ *\\\\begin{mudela}')
+begin_mudela_opts_re = re.compile ('^ *\\\\begin{mudela}\[(.*)\]')
+end_mudela_re = re.compile ('^ *\\\\end{mudela}')
+section_re = re.compile ('\\\\section')
+chapter_re = re.compile ('\\\\chapter')
+input_re = re.compile ('^\\\\input[ \t\n]+(.*)$')
 
 class Tex_input:
 	def __init__ (self,name):
-		if regex.search ('\\.[^/\\\\]+',name) == -1:
+		if not re.search ('\\.[^/\\\\]+',name):
 			name = name + '.tex'
 		print 'opening %s' % name
 		self.filename = name
@@ -152,8 +151,9 @@ class Tex_input:
 		lines = self.infile.readlines ()
 		(retlines, retdeps) = ([],[self.filename])
 		for line in lines:
-			if input_re.search (line) <> -1:
-				t = Tex_input (input_re.group (1))
+			m = input_re.search (line)
+			if m:
+				t = Tex_input (m.group (1))
 				ls =t.get_lines ()
 				retlines = retlines + ls[0]
 				retdeps = retdeps + ls[1]
@@ -175,9 +175,9 @@ class Main_tex_input(Tex_input):
 		self.mudela = None
 		self.deps = []
 	def set_sections (self, l):
-		if section_re.search (l) <> -1:
+		if section_re.search (l):
 			self.section = self.section + 1
-		if chapter_re.search (l) <> -1:
+		if chapter_re.search (l):
 			self.section = 0
 			self.chapter = self.chapter + 1
 
@@ -191,9 +191,10 @@ class Main_tex_input(Tex_input):
 	def do_it(self):
 		(lines, self.deps) = self.get_lines ()
 		for line in lines:
-			if begin_mudela_re.search (line) <> -1:
-				if begin_mudela_opts_re.search (line) <> -1:
-					opts = begin_mudela_opts_re.group (1)
+			if begin_mudela_re.search (line):
+				m =begin_mudela_opts_re.search (line) 
+				if m:
+					opts = m.group (1)
 				else:
 					opts = ''
 				optlist = string.split (opts, ',')
@@ -214,7 +215,7 @@ class Main_tex_input(Tex_input):
 
 
 				continue
-			elif end_mudela_re.search (line) <> -1:
+			elif end_mudela_re.search (line):
 				self.mudela.close ()
 				self.mudtex.close_mudela ()
 				self.mudela = None

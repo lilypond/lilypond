@@ -23,9 +23,9 @@ $(outdir)/%.fly.txt: %.fly
 .PRECIOUS: $(outdir)/%.dvi
 
 $(outdir)/%.dvi: %.ly
-	$(PYTHON) $(depth)/scripts/ly2dvi32.py -o $(outdir)  $< 
+	$(PYTHON) $(depth)/scripts/ly2dvi.py -o $(outdir)  $< 
 	-mv $(basename $<).midi $(outdir)
 
 $(outdir)/%.dvi: %.fly
-	$(PYTHON) $(depth)/scripts/ly2dvi32.py -o $(outdir)  $< 
+	$(PYTHON) $(depth)/scripts/ly2dvi.py -o $(outdir)  $< 
 	-mv $(basename $<).midi $(outdir)

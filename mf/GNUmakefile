@@ -31,9 +31,9 @@ $(outdir)/%.afm $(outdir)/%.ly $(outdir)/%.tex $(outdir)/%.dep: $(outdir)/%.log
 
 TEXINSTALL=$(MAKE) INSTALLATION_OUT_DIR=$(datadir)/tex/ depth=.. INSTALLATION_OUT_FILES="$(TEXTABLES)" -f $(stepdir)/install-outfiles.sub.make $@
 
-AFMINSTALL=$(MAKE) depth=.. INSTALLATION_OUT_DIR=$(datadir)/ INSTALLATION_OUT_FILES="$(AFM_FILES)" -f $(stepdir)/install-outfiles.sub.make $@
+AFMINSTALL=$(MAKE) depth=.. INSTALLATION_OUT_DIR=$(datadir)/afm/ INSTALLATION_OUT_FILES="$(AFM_FILES)" -f $(stepdir)/install-outfiles.sub.make $@
 
-LYINSTALL=$(MAKE) depth=.. INSTALLATION_OUT_DIR=$(datadir) INSTALLATION_OUT_FILES="$(LYTABLES)" -f $(stepdir)/install-outfiles.sub.make $@
+LYINSTALL=$(MAKE) depth=.. INSTALLATION_OUT_DIR=$(datadir)/ly/ INSTALLATION_OUT_FILES="$(LYTABLES)" -f $(stepdir)/install-outfiles.sub.make $@
 
 localinstall: $(ALL_GEN_FILES)
 	$(TEXINSTALL)

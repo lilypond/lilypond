@@ -50,13 +50,6 @@ Slur_engraver::do_removal_processing ()
     }
 }
 
-/*
-  abracadabra
-  */
-Slur_engraver::Slur_engraver()
-{
-  dir_ =CENTER;
-}
 void
 Slur_engraver::do_process_requests()
 {
@@ -98,17 +91,16 @@ Slur_engraver::do_pre_move_processing()
 {
   Scalar dir (get_property ("slurydirection"));
   Scalar dir2 (get_property ("ydirection"));
-  if (dir.length_i ())
-    {
-      dir_ = (Direction) sign (int(dir));
-    }
-  else if (dir2.length_i ())
-    dir_ = (Direction) sign (int (dir2));
+
+  Direction slurdir = CENTER;
+  if (dir.length_i () && dir.isnum_b ())
+    slurdir = (Direction) sign (int(dir));
+  else if (dir2.length_i () && dir2.isnum_b ())
+    slurdir = (Direction) sign (int (dir2));
   
   for (int i = 0; i < end_slur_l_arr_.size(); i++)
     {
-      if (dir_)
-	end_slur_l_arr_[i]->dir_ = dir_;
+      end_slur_l_arr_[i]->dir_ = slurdir;
       typeset_element (end_slur_l_arr_[i]);
     }
   end_slur_l_arr_.clear();

@@ -4,7 +4,7 @@
 # set environment for LilyPond.  To be installed in /etc/profile.d/
 GS_LIB="@datadir@/afm"
 GS_FONTPATH="@datadir@/ps"
-LILYINCLUDE="@datadir@/ly"
+LILYINCLUDE="@datadir@/ly:@datadir@/afm"
 
 # include an empty path component for the system wide includes.
 MFINPUTS="@datadir@/mf:"${MFINPUTS:=":"}

@@ -29,7 +29,7 @@ Key_engraver::create_key ()
       kit_p_ = new Key_item;
       kit_p_->break_priority_i_ = -1; // ugh
       announce_element (Score_element_info (kit_p_,keyreq_l_));
-      kit_p_->read (*this);
+      kit_p_->set (key_.multi_octave_b_, accidental_idx_arr_, old_accidental_idx_arr_);
     }
 }
 

@@ -31,9 +31,6 @@ nsubsect(Introduction)
 This is not a Fanmail/Hype page. These pages were entirely created from
 the LilyPond package-sources. 
 
-A document on LilyPond's music description language Mudela is 
-url(in the making)(DOEXPAND(docdir)/tex/DOEXPAND(outdir)/tutorial.html).
-
 Note: These pages are created from the latest bf(development snapshots)
 of LilyPond, specifically, this page was made from LilyPond
 @TOPLEVEL_VERSION@.tar.gz
@@ -42,7 +39,6 @@ nsect(Sites)
 
 description(
 dit(lurl(http://www.cs.uu.nl/people/hanwen/lilypond/))Han-Wen's site.
-dit(lurl(http://www.xs4all.nl/~jantien/lilypond/))Jan's site.
 dit(lurl(http://www.realtime.net/~daboys/lilypond/))Jeff's Windows NT Distribution site.
 )
 

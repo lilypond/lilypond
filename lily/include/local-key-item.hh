@@ -24,10 +24,9 @@
 class Local_key_item : public Item {
 public:
     DECLARE_MY_RUNTIME_TYPEINFO;
-    Array<Musical_pitch> accs;
+    Array<Musical_pitch> accidental_pitch_arr_;
     Link_array<Item> support_items_;
     int c0_position_i_;
-    
     Local_key_item ();
     void add_support (Item*);
     void add (Musical_pitch);

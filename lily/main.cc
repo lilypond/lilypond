@@ -194,11 +194,10 @@ guile_init ()
 #endif
 }
 
-int
-main_prog (int argc, char **argv)
+
+void
+setup_paths ()
 {
-  guile_init ();
-  
   // facilitate binary distributions
   char const *env_lily = getenv ("LILYPONDPREFIX");
   String prefix_directory;
@@ -221,10 +220,6 @@ main_prog (int argc, char **argv)
   textdomain (name.ch_C ());
 #endif
 
-  identify ();
-  call_constructors ();
-  debug_init ();		// should be first
-
   global_path.add ("");
   // must override (come before) "/usr/local/share/lilypond"!
   char const *env_sz = getenv ("LILYINCLUDE");
@@ -239,11 +234,24 @@ main_prog (int argc, char **argv)
 
   global_path.add (String (DIR_DATADIR) + "/ly/");
   global_path.add (String (DIR_DATADIR) + "/afm/");  
+}
+
+
+
+int
+main_prog (int argc, char **argv)
+{
+  guile_init ();
+  identify ();
+  call_constructors ();
+  debug_init ();		// should be first
+
+  setup_paths ();
+
+  String init_str;
+  String outname_str;
 
   Getopt_long oparser (argc, argv,theopts);
-  String init_str;
-
-  String outname_str;
   while (Long_option_init const * opt = oparser ())
     {
       switch (opt->shortname)

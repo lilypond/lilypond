@@ -9,13 +9,13 @@
 #include "notename-table.hh"
 #include "pointer.tcc"
 #include "musical-request.hh"
-#include "assoc-iter.hh"
+#include "dictionary-iter.hh"
 
 String
 Notename_table::get_name (Musical_pitch m) const
 {
 
-  for (Assoc_iter<String, Musical_pitch> ai (*this); ai.ok (); ai++)
+  for (Dictionary_iter<Musical_pitch> ai (*this); ai.ok (); ai++)
     {
       if (ai.val () == m)
 	return ai.key ();

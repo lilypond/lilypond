@@ -1442,7 +1442,7 @@ symtable:
 symtable_body:
 				{ $$ = new Symtable; }
 	| symtable_body	STRING	symboldef {
-		$$->add (*$2, *$3);
+		$$->elem (*$2) = *$3;
 		delete $2;
 		delete $3;
 	}
