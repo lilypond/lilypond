@@ -329,8 +329,6 @@ parse_argv (int argc, char **argv)
 	  {
 	    String s = option_parser->optional_argument_str0_;
 	    File_name file_name (s);
-	    if (s != "-" && file_name.ext_.is_empty ())
-	      file_name.ext_ = output_format_global;
 	    output_name_global = file_name.to_string ();
 	  }
 	  break;

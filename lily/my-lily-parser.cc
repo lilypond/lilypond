@@ -239,8 +239,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
      write output to cwd; do not use root and directory parts of input
      file name.  */
   File_name out_file_name (file_name);
-  if (file_name != "-")
-    out_file_name.ext_ = output_format_global;
+  out_file_name.ext_ = "";
   out_file_name.root_ = "";
   out_file_name.dir_ = "";
 

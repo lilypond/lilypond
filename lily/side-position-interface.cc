@@ -255,12 +255,9 @@ Side_position_interface::get_axis (Grob*me)
   if (me->has_offset_callback (Side_position_interface::aligned_side_proc, X_AXIS)
       || me->has_offset_callback (Side_position_interface::aligned_side_proc , X_AXIS))
     return X_AXIS;
-
   
   return Y_AXIS;
 }
-
-
 
 
 ADD_INTERFACE (Side_position_interface,"side-position-interface",

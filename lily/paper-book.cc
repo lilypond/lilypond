@@ -82,6 +82,31 @@ Paper_book::print_smob (SCM smob, SCM port, scm_print_state*)
   return 1;
 }
 
+Array<String>
+split_string (String s, char c)
+{
+  Array<String> rv; 
+  while (s.length ())
+    {
+      int i = s.index (c);
+      
+      if (i == 0)
+	{
+	  s = s.nomid_string (0, 1);
+	  continue;
+	}
+      
+      if (i < 0)
+	i = s.length () ;
+
+      rv.push (s.cut_string (0, i));
+      s = s.nomid_string (0, i);
+    }
+
+  return rv;
+}
+  
+
 
 /*
   TODO: there is too much code dup, and the interface is not
@@ -97,27 +122,32 @@ Paper_book::output (String outname)
   /* Generate all stencils to trigger font loads.  */
   SCM pages = this->pages ();
 
-  Paper_outputter *out = get_paper_outputter (outname);
-  int page_count = scm_ilength (pages);
+  Array<String> output_formats = split_string (output_format_global, ',');
 
-  SCM scopes = SCM_EOL;
-  if (ly_c_module_p (header_))
-    scopes = scm_cons (header_, scopes);
-  
-  out->output_header (bookpaper_, scopes, page_count, false);
-
-  for (SCM s = pages; s != SCM_EOL; s = ly_cdr (s))
+  for (int i = 0; i < output_formats.size (); i++)
     {
-      Page *p = unsmob_page (ly_car (s));
-      progress_indication ("[" + to_string (p->number_));
-      out->output_page (p, ly_cdr (s) == SCM_EOL);
-      progress_indication ("]");
+      String format = output_formats[i];
+      Paper_outputter *out = get_paper_outputter (outname + "." + output_formats[i], format);
+      int page_count = scm_ilength (pages);
+
+      SCM scopes = SCM_EOL;
+      if (ly_c_module_p (header_))
+	scopes = scm_cons (header_, scopes);
+  
+      out->output_header (bookpaper_, scopes, page_count, false);
+
+      for (SCM s = pages; s != SCM_EOL; s = ly_cdr (s))
+	{
+	  Page *p = unsmob_page (ly_car (s));
+	  progress_indication ("[" + to_string (p->number_));
+	  out->output_page (p, ly_cdr (s) == SCM_EOL);
+	  progress_indication ("]");
+	}
+
+      out->output_scheme (scm_list_1 (ly_symbol2scm ("end-output")));
+      progress_indication ("\n");
     }
-
-  out->output_scheme (scm_list_1 (ly_symbol2scm ("end-output")));
-  progress_indication ("\n");
 }
-
 
 Stencil
 Paper_book::title (int i)
@@ -157,7 +187,8 @@ Paper_book::title (int i)
 void
 Paper_book::classic_output (String outname)
 {
-  Paper_outputter *out = get_paper_outputter (outname);
+  String format = "tex";
+  Paper_outputter *out = get_paper_outputter (outname + "." + format, format);
 
   Output_def * p = bookpaper_;
   while (p && p->parent_)
@@ -187,7 +218,7 @@ Paper_book::classic_output (String outname)
 
 	 FIXME: vague... why is TeX is different from other ouput
 	        backends, why not fix the TeX backend? -- jcn */
-      if (output_format_global == "tex")
+      if (format == "tex")
 	o = Offset (0, 0);
 
       out->output_line (scm_vector_ref (top_lines, scm_int2num (i)),
@@ -296,6 +327,7 @@ Paper_book::pages ()
   SCM pages = SCM_EOL;
   int page_count = SCM_VECTOR_LENGTH ((SCM) breaks);
   int line = 1;
+
   for (int i = 0; i < page_count; i++)
     {
       if (i)

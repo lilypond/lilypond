@@ -9,18 +9,9 @@
 % To let gs load fonts from builddir, do:
 % export GS_LIB=$(pwd)/mf/out:/usr/share/texmf/fonts/type1/bluesky/cm
 
-/staff-line-thickness lilypondpaperlinethickness def
-/staff-height lilypondpaperstaffheight def
-/line-width lilypondpaperlinewidth def
-
-/lily-output-units 2.83464  def  %% milimeter
-% /lily-output-units 0.996264  def  %% true points.
-
-/output-scale lilypondpaperoutputscale lily-output-units mul def
 
 /set-ps-scale-to-lily-scale { output-scale output-scale scale } bind def
 
-/paper-size { lilypondpaperpapersize } bind def
 
 /init-paper {
 	gsave

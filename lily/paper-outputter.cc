@@ -33,13 +33,13 @@
 // JUNKME
 extern SCM stencil2line (Stencil* stil, bool is_title = false);
 
-Paper_outputter::Paper_outputter (String filename)
+Paper_outputter::Paper_outputter (String filename, String format)
 {
   filename_ = filename;
   file_ = scm_open_file (scm_makfrom0str (filename.to_str0 ()),
 			 scm_makfrom0str ("w"));
 
-  String module_name = "scm output-" + output_format_global;
+  String module_name = "scm output-" + format;
   output_module_ = scm_c_resolve_module (module_name.to_str0 ());
 }
 
@@ -168,10 +168,10 @@ Paper_outputter::output_stencil (Stencil stil)
 }
 
 Paper_outputter*
-get_paper_outputter (String outname) 
+get_paper_outputter (String outname, String f) 
 {
   progress_indication (_f ("paper output to `%s'...",
 			   outname == "-" ? String ("<stdout>") : outname));
-  return new Paper_outputter (outname);
+  return new Paper_outputter (outname, f);
 
 }

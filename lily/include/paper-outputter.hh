@@ -36,7 +36,7 @@ class Paper_outputter
   void output_music_output_def (Output_def* odef);
 
 public:
-  Paper_outputter (String nm);
+  Paper_outputter (String nm, String format);
   ~Paper_outputter ();
 
   void dump_scheme (SCM);
@@ -47,6 +47,6 @@ public:
   void output_page (Page*, bool);
 };
 
-Paper_outputter* get_paper_outputter (String);
+Paper_outputter* get_paper_outputter (String,String);
 
 #endif /* PAPER_OUTPUTTER_HH */

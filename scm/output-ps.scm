@@ -169,8 +169,9 @@
      "m" (string-encode-integer (inexact->exact (round (* 1000 magnify))))
      (if (not coding-command) "" (string-append "e" coding-command)))))
 
-(define (define-fonts paper font-list)
-  
+(define (define-fonts bookpaper)
+
+  (define font-list (ly:bookpaper-fonts bookpaper))
   (define (define-font command fontname scaling)
     (string-append
      "/" command " { /" fontname " findfont "
@@ -192,7 +193,7 @@
      (else (string-append basename ".pfa"))
      ))
 
-  (define (font-load-command paper font)
+  (define (font-load-command font)
     (let* ((specced-font-name (ly:font-name font))
 	   (fontname (if specced-font-name
 			 specced-font-name
@@ -206,7 +207,7 @@
 	   (plain (font-command font #f))
 	   (designsize (ly:font-design-size font))
 	   (magnification (* (ly:font-magnification font)))
-	   (ops (ly:output-def-lookup paper 'outputscale))
+	   (ops (ly:output-def-lookup bookpaper 'outputscale))
 	   (scaling (* ops magnification designsize)))
 
       (string-append
@@ -234,7 +235,7 @@
     (string-append
      (apply string-append (map font-load-encoding encodings))
      (apply string-append
-	    (map (lambda (x) (font-load-command paper x)) font-list)))))
+	    (map (lambda (x) (font-load-command x)) font-list)))))
 
 (define (define-origin file line col) "")
 
@@ -281,12 +282,11 @@
    ;; FIXME: duplicated in every backend
    (ps-string-def
     "lilypond" 'tagline
-    (string-append "Engraved by LilyPond (version " (lilypond-version) ")"))))
+    (string-append "Engraved by LilyPond (version " (lilypond-version) ")"))
+   ))
 
 (define (header-end)
-  (string-append
-   (ly:gulp-file "lilyponddefs.ps")
-   (ly:gulp-file "music-drawing-routines.ps")))
+  "")
 
 ;; WTF is this in every backend?
 (define (horizontal-line x1 x2 th)
@@ -326,21 +326,34 @@
   (let ((prefix "lilypond"))
 
     ;; FIXME: duplicates output-paper's scope-entry->string, mostly
-    (define (scope-entry->string key var)
-      (if (variable-bound? var)
-	  (let ((val (variable-ref var)))
-	    (if (and (memq key fields) (string? val))
-		(header-to-file basename key val))
-	    (cond
-	     ((string? val) (ps-string-def prefix key val))
-	     ((number? val) (ps-number-def prefix key val))
-	     (else "")))
-	  ""))
-    
-    (define (output-scope scope)
-      (apply string-append (module-map scope-entry->string scope)))
+    (define (value->string  val)
+      (cond
+       ((string? val) (string-append "(" val ")"))
+       ((symbol? val) (symbol->string val))
+       ((number? val) (number->string val))
+       (else "")))
+      
+    (define (output-entry ps-key ly-key)
+      (string-append
+       "/" ps-key " " (value->string (ly:output-def-lookup paper ly-key)) " def \n"))
 
-    (string-append (apply string-append (map output-scope scopes)))))
+    
+    (string-append
+     "/lily-output-units 2.83464  def  %% milimeter \n"
+     "% /lily-output-units 0.996264  def  %% true points.\n"
+     (output-entry "staff-line-thickness" 'linethickness)
+     (output-entry "line-width" 'linewidth)
+     (output-entry "paper-size" 'papersize)
+     (output-entry "staff-height" 'staffheight)	;junkme.
+     "/output-scale "
+     (number->string (ly:output-def-lookup paper 'outputscale))
+     " lily-output-units mul def \n"
+     
+     (ly:gulp-file "music-drawing-routines.ps")
+     (ly:gulp-file "lilyponddefs.ps")
+
+    )))
+  
 
 (define (placebox x y s) 
   (string-append 

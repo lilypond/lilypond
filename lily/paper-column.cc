@@ -67,7 +67,7 @@ Paper_column::get_column () const
 Paper_column::Paper_column (SCM l)
   : Item (l)		// guh.?
 {
-  system_=0;
+  system_ = 0;
   rank_ = -1;
 }
 
