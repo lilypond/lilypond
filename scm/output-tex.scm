@@ -1,4 +1,3 @@
-
 ;;; tex.scm -- implement Scheme output routines for TeX
 ;;;
 ;;;  source file of the GNU LilyPond music typesetter
@@ -67,20 +66,24 @@
 
     (if (eq? c #f)
 	(begin
-	  (display "FAILED\n")
-	  (display (object-type (car name-mag-pair)))
-	  (display (object-type (caaar font-name-alist)))
-
 	  (ly:warn (string-append
 		    "Programming error: No such font known "
 		    (car name-mag-pair) " "
-		    (ly:number->string (cdr name-mag-pair))
-		    ))
-	  "") ; issue no command
-	(string-append "\\" (cddr c)))
-    
-    
-    ))
+		    (ly:number->string (cdr name-mag-pair))))
+	  
+	  (display "FAILED\n" (current-error-port))
+	  (if #f ;(pair? name-mag-pair))
+	      (display (object-type (car name-mag-pair)) (current-error-port))
+	      (write name-mag-pair (current-error-port)))
+	  (if #f ;  (pair? font-name-alist)
+	      (display
+	       (object-type (caaar font-name-alist)) (current-error-port))
+	      (write font-name-alist (current-error-port)))
+
+	  ;; (format #f "\n%FAILED: (select-font ~S)\n" name-mag-pair))
+	  "")
+	
+	(string-append "\\" (cddr c)))))
 
 (define (blank)
   "")

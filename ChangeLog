@@ -1,5 +1,7 @@
 2004-02-09  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scripts/lilypond-book.py (compose_ly): Add kludge for relative.
+
 	* Documentation/user/refman.itely: Run texinfo-all-menus-update
 	(fixes make web).
 
