@@ -1,3 +1,14 @@
+1.3.61.jcn2
+===========
+
+* Included dutch po-update based on submitted 1.3.57 nl.po
+
+* Added "Development" link to website, now that "Home" is a relative link.
+
+* Bugfix: use deep copies for resetting keys.
+
+* Assorted typing erors in procedure names in ly/engraver.ly
+
 1.3.62
 ======
 
