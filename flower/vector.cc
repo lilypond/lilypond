@@ -1,5 +1,4 @@
 #include "vector.hh"
-#include "string.hh"
 
 Vector::Vector(const Vector&n)
           :dat(n.dat)
@@ -9,7 +8,9 @@ Vector::Vector(const Vector&n)
 Vector
 Vector::operator-() const
 {
-    Vector v(*this); v*=-1; return v;
+    Vector v(*this);
+    v*=-1;
+    return v;
 }
 
 void

@@ -141,6 +141,11 @@ public:
 	sort(compare, lower, last-1);
 	sort(compare, last+1, lower);
     }
+    void concat(svec<T> const &src) {
+	int s = size;
+	set_size(size + src.size);
+	arrcpy(thearray+s,src.thearray, src.size);	
+    }
 };
 /**
 
