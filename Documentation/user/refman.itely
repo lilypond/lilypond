@@ -2890,6 +2890,74 @@ The associated object is @internalsref{VoiceFollower}.
 For a discussion of how to put lyrics into a score, see section
 @code{Printing lyrics} in the tutorial.
 
+
+This will create an extender, which is a line
+that extends over the entire duration of the lyric.  This line will
+run all the way to the start of the next lyric, so you may want to
+shorten it by using a blank lyric (using @code{_}).
+
+@cindex lyric mode
+@cindex @code{\lyrics}
+
+ To get them printed, you must do two
+things: indicate that lyrics   are entered with @code{\lyrics}, and
+indicate that this type of music must be interpreted as texts (and not
+notes). This is done with @code{\context Lyrics}. 
+
+You can enter lyrics in a special input mode of LilyPond. This mode is
+called Lyrics mode, and it is introduced by the keyword
+@code{\lyrics}.  In this mode you can enter lyrics, with punctuation
+and accents without any hassle.  Syllables are entered like notes, but
+with pitches replaced by text.  For example,
+@example
+  Twin- kle twin- kle
+@end example
+
+
+
+
+You can use ordinary hyphens at the end of a syllable, i.e.
+@example
+        soft- ware
+@end example
+but then the hyphen will be attached to the end of the first syllable.
+ 
+If you want them centered between syllables you can use the special
+`@code{-}@code{-}' lyric as a separate word between syllables.  The
+hyphen will have variable length depending on the space between
+the syllables and it will be centered between the syllables.
+
+
+
+
+Normally the notes that you enter are transformed into note heads.
+Note heads alone make no sense. They need surrounding information: a
+key signature, a clef, staff lines, etc.  They need @emph{context}.
+In LilyPond, these symbols are created by objects called
+`interpretation contexts'.  Interpretation contexts exist for
+generating notation (`notation context') and for generating sound
+(`performance context').  These objects only exist while LilyPond is
+executing.  For lyrics, the command
+@example
+  \context Lyrics
+@end example
+must be used to interpret a set of syllables as lyrics.
+
+
+
+@cindex context
+@cindex interpretation context
+@cindex notation context
+
+
+
+The melody and the lyrics can be combined with the @code{\addlyrics}:
+@example
+\addlyrics
+  \notes \relative c' @dots{}
+  \context Lyrics \lyrics @dots{} 
+@end example
+
 [TODO: Move lyrics section from tutorial to here?]
 
 See also the sections on @ref{Slurs} and @ref{Breath marks}.
@@ -4989,8 +5057,11 @@ with the commands @code{\larger} and @code{\smaller}.
 The following font change commands are defined:
 @table @code
 @item \dynamic
-This changes to the font used for dynamic signs. Note that this font
-does not contain all characters of the alphabet.
+This changes to the font used for dynamic signs.  This font does not
+contain all characters of the alphabet, so when producing ``piu f'',
+the ``piu'' should be done in a different font.
+
+
 @item \number
 This changes to the font used for time signatures. It only contains
 numbers and a few punctuation marks.
@@ -5049,8 +5120,8 @@ This produces a invisible object taking horizontal space.
 @example 
 \markup @{ A \hspace #2.0 B @} 
 @end example
-will put extra space between A and B. Note that lilypond 
-inserts space before and after @code{\hspace}. 
+will put extra space between A and B, on top of the space that is
+normally inserted before elements on a line.
 
 @item \fontsize #@var{size}
 @cindex \fontsize
@@ -5438,8 +5509,9 @@ If the variable @code{lastpagefill} is defined,
 @c fixme: this should only be done if lastpagefill == #t 
 systems are evenly distributed vertically on the last page.  This
 might produce ugly results in case there are not enough systems on the
-last page.  Note that @command{lilypond-book} ignores
-@code{lastpagefill}.  See @ref{lilypond-book manual} for more information.
+last page.  The @command{lilypond-book} command ignores
+@code{lastpagefill}.  See @ref{lilypond-book manual} for more
+information.
 
 @cindex @code{lastpagefill}
 

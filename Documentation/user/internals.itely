@@ -7,8 +7,8 @@
 @c before saving changes
 
 
-@node Advanced Topics
-@chapter Advanced Topics
+@node Advanced topics
+@chapter Advanced topics
 
 
 When LilyPond is run, it reads an input file.  During parsing, Music

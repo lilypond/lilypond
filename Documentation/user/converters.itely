@@ -26,8 +26,8 @@ sequencers and XML converters. Refer to the
 @section Invoking convert-ly
 
 Convert-ly sequentially applies different conversions to upgrade a
-Lilypond input file.  It uses @code{\version} statements in the file to
-detect the old version number.  For example, to upgrade all lilypond
+LilyPond input file.  It uses @code{\version} statements in the file to
+detect the old version number.  For example, to upgrade all LilyPond
 files in the current directory and its subdirectories, use
 @example
         convert-ly -e --to=1.3.150 `find . -name '*.ly' -print`
@@ -193,7 +193,7 @@ set output filename to @var{file}.
 print version information.
 @end table
 
-There is a rudimentary facility for adding lilypond code to the ABC
+There is a rudimentary facility for adding LilyPond code to the ABC
 source file.  If you say:
 
 @example
@@ -201,7 +201,7 @@ source file.  If you say:
 @end example
 
 This will cause the text following the keyword ``voices'' to be inserted 
-into the current voice of the lilypond output file.
+into the current voice of the LilyPond output file.
 
 Similarly:
 
