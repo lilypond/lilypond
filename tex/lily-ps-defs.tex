@@ -156,9 +156,19 @@ def
                 fill
         grestore
         stroke
- } bind def}}
-
-
+ } bind def
+ /draw_control_slur
+ {
+        staffrulethickness setlinewidth
+        0 0 moveto
+        rcurveto        
+        rcurveto
+        gsave
+	fill
+        grestore
+        stroke
+ } bind def
+}}
 
 
 \def\turnOnExperimentalFeatures{%
