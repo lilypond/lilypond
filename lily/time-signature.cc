@@ -100,10 +100,11 @@ Time_signature::special_time_signature (Grob *me, SCM scm_style, int n, int d)
 Stencil
 Time_signature::numbered_time_signature (Grob*me,int num, int den)
 {
-  SCM number_def = scm_list_1 (gh_cons (ly_symbol2scm ("font-encoding"),
-					ly_symbol2scm ("number")));
-					
-  SCM chain = me->get_property_alist_chain (number_def);
+  SCM chain = me->get_property_alist_chain (Font_interface::text_font_alist_chain (me));
+  chain = scm_cons (scm_list_1 (gh_cons (ly_symbol2scm ("font-encoding"),
+					 ly_symbol2scm ("number"))),
+		    chain);
+				
   SCM sn = Text_item::interpret_markup (me->get_paper ()->self_scm (), chain,
 				 scm_makfrom0str (to_string (num).to_str0 ()));
   SCM sd = Text_item::interpret_markup (me->get_paper ()->self_scm (), chain,

@@ -1,79 +1,8 @@
 @comment @c -*-texinfo-*-
 
-
 @node Preface
 @unnumbered Preface
 
-@menu
-* Preface to version 2.2::      
-* Preface to version 2.0::      
-* Preface to version 1.8::      
-* Preface to version 1.6::      
-@end menu
-
-
-@node Preface to version 2.2
-@unnumberedsec Preface to version 2.2
-
-During the 2.1 development cycle, the cleanup of the existing features
-has continued unabated. Major areas of change are orchestral
-notation, lyrics formatting and font size handling.
-
-Han-Wen and Jan
-
-Utrecht/Eindhoven, The Netherlands, March 2004. 
-
-
-@node Preface to version 2.0
-@unnumberedsec Preface to version 2.0
-
-
-Due to personal circumstances, Han-Wen was able to do a lot more on
-LilyPond during the past months. A testament to that is the quick
-release of version 2.0, less than two months after 1.8. We have taken
-the opportunity to make a few radical changes to the syntax: note
-attributes, like articulation, dynamics and fingerings are now
-post-fix exclusively. This makes entering scores easier: you never
-have to think about the order of the attributes.  With version 2.0, we
-have a new and improved platform for working on notation and
-typography features for coming versions,
- 
-Due to other personal circumstances, Jan was not able to do more than
-packaging for Cygwin.  The good news is that we now have a nearly
-fool-proof installation for Windows.  He will be back for serious
-hacking in 2.1.
-
-
-Han-Wen and Jan
-
-Utrecht/Eindhoven, The Netherlands, September 2003.
-
-@node Preface to version 1.8
-@unnumberedsec Preface to version 1.8
-
-If you are familiar with LilyPond version 1.6, then version 1.8 will
-no offer no big surprises. The only conspicuous change is in the way
-that formatted text is entered. There is now a new syntax that is more
-friendly, more versatile and extensible. We hope you like it.  In
-general, development on version 1.8 has been focused on improving the
-design of various internal mechanisms.  This includes chord name
-formatting and entry code, music expression storage, and integration
-between LilyPond and Scheme.  These changes may not be evident
-directly, but they make the program more robust and more flexible,
-which translates into fewer bugs and more adjustment options.
-
-Special thanks for version 1.8 go out to Juergen Reuter for lots of
-work on the ancient notation engine, and to Amy Zapf for pushing us to
-rewrite the chord name support.
-
-@c TODO [wie meer?]  
-
-Han-Wen and Jan, 
-
-Utrecht/Eindhoven, The Netherlands, April/May 2003.
-
-@node Preface to version 1.6
-@unnumberedsec Preface to version 1.6
 
 It must have been during a rehearsal of the EJE (Eindhoven Youth
 Orchestra), somewhere in 1995 that Jan, one of the cranked violists
@@ -103,21 +32,13 @@ bugs. Nevertheless, it has become a part of our life, and we keep
 doing it. Probably the most important motivation is that our program
 actually does something useful for people. When we browse around the
 net we find many people that use LilyPond, and produce impressive
-pieces of sheet music.  Seeing that still feels unreal, but in a very
+pieces of sheet music.  Seeing that feels unreal, but in a very
 pleasant way.
 
 Our users not only give us good vibes by using our program, many of
-them also help us by giving suggestions and sending bug reports. So
-first and foremost, we would like to thank all users that sent us
-bug reports, gave suggestions or contributed in any other way to
-LilyPond.
-
-We would also like to thank the following people: Mats Bengtsson for
-the uncountable number of questions he answered on the mailing list,
-and Rune Zedeler for his energy in finding and fixing bugs.  Nicola
-Bernardini for inviting us to his workshop on music publishing, which
-was truly a masterclass, and Heinz Stolba and James Ingram for
-teaching us there. 
+them also help us by giving suggestions and sending bug reports, so we
+would like to thank all users that sent us bug reports, gave
+suggestions or contributed in any other way to LilyPond.
 
 Playing and printing music is more than nice analogy. Programming
 together is a lot of fun, and helping people is deeply satisfying, but
@@ -128,4 +49,14 @@ Han-Wen and Jan
 
 Utrecht/Eindhoven, The Netherlands, July 2002.
 
+
+@unnumberedsec Notes to version 2.2
+
+During the 2.1 development cycle, the cleanup of the existing features
+has continued unabated. Major areas of improvement are orchestral
+notation, lyrics formatting and font size handling.
+
+Han-Wen and Jan
+
+Utrecht/Eindhoven, The Netherlands, March 2004. 
 

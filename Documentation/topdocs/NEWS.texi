@@ -9,6 +9,9 @@
 
 @itemize @bullet
 
+@item Setting @code{raggedlast = ##t} in the @code{\paper} block
+causes the last line to be set flush-left instead of justified. 
+
 @item The @code{Timing_engraver} now sets the @code{Timing} alias on
 its containing context automatically.
 
