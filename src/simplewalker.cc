@@ -21,22 +21,21 @@
 #include "localkeyitem.hh"
 
 Rhythmic_grouping
-parse_grouping(svec<Scalar> a)
+parse_grouping(svec<Scalar> a, Moment one_beat)
 {
-    Real one_beat =a[0];
-    a.del(0);
+    
     svec<int> r;
     for (int i= 0 ; i < a.sz(); i++)
 	r.add(a[i]);
-    Real here =0.0;
+    Moment here =0.0;
 
     svec<Rhythmic_grouping*> children;
     for (int i=0; i < r.sz(); i++) {
 	
-	Real last = here;
+	Moment last = here;
 	here += one_beat * r[i];
 	children.add(
-	    new Rhythmic_grouping(Interval(last, here), r[i] )
+	    new Rhythmic_grouping(MInterval(last, here), r[i] )
 	    );
     }
     return Rhythmic_grouping(children);
@@ -48,7 +47,7 @@ Simple_walker::do_INTERPRET_command(Command*com)
     svec<Scalar> args(com->args);
     args.del(0);
     if (com->args[0] == "GROUPING") {	
-	default_grouping = parse_grouping(args);
+	default_grouping = parse_grouping(args, col()->tdescription_->one_beat);
     }else if (com->args[0] == "BAR") {
 	local_key_.reset(key_);
 
@@ -136,7 +135,7 @@ Simple_walker::do_note(Rhythmic_req*rq)
 	stem_->add(n);
 	if (current_grouping) {
 	    current_grouping->add_child(
-		c->moment_->whole_in_measure, rq->duration());
+		c->tdescription_->whole_in_measure, rq->duration());
 	}
 	noteheads.add(n);
 	int sidx =find_slur(v);
@@ -170,7 +169,7 @@ Simple_walker::process_requests()
 
 	if (sl->spantype == Span_req::START) {
 	    if  (find_slur(sl->elt->voice_ )>=0)
-		error("Too many slurs in voice");
+		error_t("Too many slurs in voice", col()->when());
 	    pending_slur_reqs.add(sl);
 	    pending_slurs.add(new Slur);
 	}

@@ -24,7 +24,7 @@ struct Scalar : public String {
     operator Real();
     operator int();
     ///
-    bool to_bool() const;
+    operator bool() const;
     /** perl -like string to bool conversion
      */
 

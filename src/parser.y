@@ -437,7 +437,7 @@ pitch_list:			{
 int:
 	REAL			{
 		$$ = int($1);
-		if (ABS($1-Real(int($$))) > 1e-8)
+		if ( distance($1,Real(int($$)) ) > 1e-8)
 			error("expecting integer number");
 	}
 	| INT

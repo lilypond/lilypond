@@ -7,7 +7,7 @@
 #ifndef LEASTSQUARE_HH
 #define LEASTSQUARE_HH
 #include "vray.hh"
-#include "boxes.hh"
+#include "offset.hh"
 
 struct Least_squares {
     svec<Offset> input;

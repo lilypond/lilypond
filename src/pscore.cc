@@ -59,7 +59,7 @@ PScore::typeset_item(Item *i, PCol *c, PStaff *s, int breakstat)
 	    svec<Item*> col_its (select_items(s, c));
 	    for (int j =0; j < col_its.sz(); j++)
 		col_its[j]->translate(Offset(-iv.length(),0));
-	    i->translate (Offset(-iv.max, 0));
+	    i->translate (Offset(-iv.right, 0));
 	}
     }
     

@@ -1,7 +1,7 @@
 include Variables.make 
 
 .SUFFIXES:
-.SUFFIXES: .cc .o .hh .y .l
+.SUFFIXES: .cc .o .hh .y .l .pod .txt .1
 
 $(exe): $(obs)
 	$(CXX) -o $@ $^ $(LOADLIBES)
@@ -18,7 +18,10 @@ distclean: clean
 all: kompijl doc
 
 # doc++ documentation of classes
-doc: $(progdocs)
+doc:
+	$(MAKE) -C Documentation doc
+
+docpp: $(progdocs)
 	-mkdir $(DOCDIR)
 	doc++ -p -I -d $(DOCDIR) $^
 

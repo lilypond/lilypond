@@ -23,6 +23,7 @@
 	\font\hslurdfont=xslhd20
 	\font\hslurhfont=xslhz20
 	\font\musicfnt=musix20
+	\font\italicfont=cmti10
 	\balkhoog=20pt
 	\notewidth=6pt
 	\staffrulethickness=0.4pt
@@ -31,6 +32,7 @@
 }
 \def\musixsixteendefs{
 	\font\textfont=cmr8
+	\font\italicfont=cmti8
 	\font\slurufont=xslu16
 	\font\slurdfont=xsld16
 	\font\slurhfont=xslz20 % sigh
@@ -112,7 +114,7 @@
 	\vskip 10pt
 }
 \def\ugly{\nointerlineskip\par
-\vskip 40pt\par\vbox{\hbox to 0pt{\vrule width30pt height1pt\hss}}\par\vskip 40pt
+\vskip 40pt\par\vbox{\leftalign{\vrule width30pt height1pt}}\par\vskip 40pt
 }
 \def\interscoreline{\beauty}
 
@@ -134,7 +136,7 @@
 %
 % a staffsymbol with #1 lines, width #2
 % bottom at baseline
-\def\linestafsym#1#2{\hbox to 0pt{\vbox to 0pt{\vss\lines{#1}{#2}}\hss}}
+\def\linestafsym#1#2{\leftalign{\vbox to 0pt{\vss\lines{#1}{#2}}}}
 
 \def\vcenter#1{\vbox to 0pt{\vss #1\vss}}
 \def\topalign#1{\vbox to 0pt{#1\vss}}
@@ -157,9 +159,15 @@
 \def\stem#1#2{\vrule height#2 depth-#1}
 
 \def\placebox#1#2#3{%
-	\vbox to 0pt{\vss\hbox{\raise #1\hbox to 0pt{\kern #2{}#3\hss}}}%
+	\vbox to 0pt{\vss\hbox{\raise #1\leftalign{\kern #2{}#3}}}%
 }
 
 
 \def\beamslope#1#2{{\count0=#2\advance\count0 by#1\musicfnt\char\count0}}
 \def\rulesym#1#2{\vrule height #1 width #2}
+
+\def\settext#1{\textfont #1}
+\def\setitalic#1{\italicfont #1}
+
+\def\centeralign#1{\hbox to 0pt{\hss#1\hss}}
+\def\leftalign#1{\hbox to 0pt{#1\hss}}

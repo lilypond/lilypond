@@ -10,21 +10,21 @@ Commands_at::print() const
 {
 #ifndef NPRINT
     mtor << "Commands_at {";
-    moment_.print();
+    tdescription_.print();
     for (PCursor<Input_command *> cc(*this); cc.ok(); cc++) 
 	cc->print();
     mtor << "}\n";
 #endif
 }
-Real
+Moment
 Commands_at::when()
 {
-    return moment_.when;
+    return tdescription_.when;
 }
-Commands_at::Commands_at(Real dt, Commands_at* prev)
-    : moment_(dt, (prev)? &prev->moment_ : 0)
+Commands_at::Commands_at(Moment dt, Commands_at* prev)
+    : tdescription_(dt, (prev)? &prev->tdescription_ : 0)
 {
-    if (prev&& !moment_.whole_in_measure) {
+    if (prev&& !tdescription_.whole_in_measure) {
 	bottom().add(get_bar_command());
     }
 }
@@ -38,15 +38,14 @@ Commands_at::add(Input_command *i)
     if (i->args[0] == "METER") { 
 	int l = i->args[1];
 	int o = i->args[2];
-	moment_.set_meter(l,o);
-	bottom().add(get_grouping_command( moment_.one_beat,
-					   get_default_grouping(l)));
+	tdescription_.set_meter(l,o);
+	bottom().add(get_grouping_command( get_default_grouping(l)));
 
     }
 }
 
 Commands_at::Commands_at(Commands_at const&src) :
-    moment_(src.moment_)
+    tdescription_(src.tdescription_)
 {
     IPointerList<Input_command*> &me(*this);
     const IPointerList<Input_command*> &that(src);
@@ -55,21 +54,21 @@ Commands_at::Commands_at(Commands_at const&src) :
 }
 
 void
-Commands_at::setpartial(Real p)
+Commands_at::setpartial(Moment p)
 {
-    moment_.setpartial(p);
+    tdescription_.setpartial(p);
 }
 
-Real
+Moment
 Commands_at::barleft()
 {
-    return  moment_.barleft();
+    return  tdescription_.barleft();
 }
 
 void
 Commands_at::parse(Staff_commands_at*s)
 {
-    s->moment_ = moment_;
+    s->tdescription_ = tdescription_;
     for (PCursor<Input_command *> cc(*this); cc.ok(); cc++) {
 	if (cc->args.sz() &&  cc->args[0] !="") {
 	    Command c = **cc;
@@ -81,13 +80,13 @@ Commands_at::parse(Staff_commands_at*s)
 /****************/
 
 void
-Input_cursor::find_moment(Real w)
+Input_cursor::find_moment(Moment w)
 {
-    Real last = when();
+    Moment last = when();
     while  (1) {
 	if (! ok() ) {
 	    *this = list().bottom();
-	    Real dt = (w - when()) <? ptr()->barleft();
+	    Moment dt = (w - when()) <? ptr()->barleft();
 
 	    Commands_at * c = new Commands_at(dt, *this);
 	    assert(c->when() <= w);
@@ -103,7 +102,7 @@ Input_cursor::find_moment(Real w)
     }
 
     prev();
-    Real dt = (w - when());
+    Moment dt = (w - when());
     Commands_at * c = new Commands_at(dt, *this);
     add(c);
     next();
@@ -130,10 +129,10 @@ Input_commands::Input_commands()
 }
 
 void
-Input_commands::do_skip(int bars, Real wholes)
+Input_commands::do_skip(int bars, Moment wholes)
 {
     while (bars > 0) {
-	Real b = ptr->barleft();
+	Moment b = ptr->barleft();
 	ptr.find_moment(ptr->when() + b);
 	bars --;       	
     }
@@ -150,7 +149,7 @@ Input_commands::add(Input_command c)
 	ptr->setpartial(c.args[1]);
     } else if (c.args[0] == "GROUPING") {
 	Input_command *ic = new Input_command(c);
-	ic->args.insert(ptr->moment_.one_beat, 1);
+	ic->args.insert(ptr->tdescription_.one_beat, 1);
 	ptr->add(ic);
     } else if (c.args[0] == "METER") {
 	int beats_per_meas = c.args[1];
@@ -159,7 +158,7 @@ Input_commands::add(Input_command c)
 	ptr->add(ch);		
     } else if (c.args[0] == "SKIP") {
 	int bars = c.args[1] ;
-	Real wholes= c.args[2];
+	Moment wholes= c.args[2];
 	do_skip(bars, wholes);
     } else if (c.args[0] == "RESET") {
 	ptr= top();
@@ -180,7 +179,7 @@ Input_commands::parse() const
 
 	Staff_commands_at* s= nc->find(i->when());
 	if (!s){
-	    s = new Staff_commands_at(i->moment_);
+	    s = new Staff_commands_at(i->tdescription_);
 	    nc->add(s);
 	}
 	if (!i->when()) {   /* all pieces should start with a breakable. */
@@ -208,7 +207,7 @@ Input_commands::print() const
 }
 /****************/
 
-Real
+Moment
 Input_cursor::when()const
 {
     return (*this)->when(); 

@@ -1,7 +1,7 @@
-#include "stcol.hh"
-#include "sccol.hh"
 #include "voice.hh"
-#include "moment.hh"
+#include "timedescription.hh"
+#include "sccol.hh"
+#include "stcol.hh"
 
 bool
 Staff_column::mus() const
@@ -9,7 +9,7 @@ Staff_column::mus() const
     return score_column->musical;
 }
 
-Real
+Moment
 Staff_column::when() const
 {
     return score_column->when;
@@ -18,7 +18,7 @@ Staff_column::when() const
 void
 Staff_column::add(Voice_element*ve)
 {
-    Real d= ve->duration;
+    Moment d= ve->duration;
     if (d){
 	score_column->add_duration(d);
     }
@@ -30,10 +30,10 @@ Staff_column::Staff_column(Score_column*s)
 {
     score_column = s;
     s_commands = 0;
-    moment_ = 0;
+    tdescription_ = 0;
 }
 
 Staff_column::~Staff_column()
 {
-    delete moment_;
+    delete tdescription_;
 }

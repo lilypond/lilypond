@@ -15,7 +15,7 @@ Staff::add(PointerList<Voice*> &l)
 }
 
 void
-Staff::process_commands(Real l)
+Staff::process_commands(Moment l)
 {
     if (staff_commands_)
 	staff_commands_->clean(l);
@@ -40,7 +40,7 @@ Staff::clean_cols()
 }
 
 Staff_column *
-Staff::get_col(Real w, bool mus)
+Staff::get_col(Moment w, bool mus)
 {
     Score_column* sc = score_->find_col(w,mus);
     assert(sc->when == w);
@@ -89,7 +89,7 @@ void
 Staff::setup_staffcols()
 {    
     for (PCursor<Voice*> i(voices); i.ok(); i++) {
-	Real now = i->start;
+	Moment now = i->start;
 	for (PCursor<Voice_element *> ve(i->elts); ve.ok(); ve++) {
 
 	    Staff_column *sc=get_col(now,true);
@@ -99,22 +99,22 @@ Staff::setup_staffcols()
     }
 
     for (PCursor<Staff_commands_at*> cc(*staff_commands_); cc.ok(); cc++) {
-	Staff_column *sc=get_col(cc->moment_.when,false);
+	Staff_column *sc=get_col(cc->tdescription_.when,false);
 	sc->s_commands = cc;
-	sc->moment_ = new Moment(cc->moment_);
+	sc->tdescription_ = new Time_description(cc->tdescription_);
     }
 
     PCursor<Staff_commands_at*> cc(*staff_commands_);
     for (PCursor<Staff_column*> i(cols); i.ok(); i++) {
 	while  ((cc+1).ok() && (cc+1)->when() < i->when())
 	    cc++;
-	
-	if(!i->moment_) {
-	    if (cc->moment_.when == i->when())
-		i->moment_ = new Moment(cc->moment_);
+
+	if(!i->tdescription_) {
+	    if (cc->tdescription_.when == i->when())
+		i->tdescription_ = new Time_description(cc->tdescription_);
 	    else
-		i->moment_ = new Moment(
-		    i->when() - cc->when() ,&cc->moment_);
+		i->tdescription_ = new Time_description(
+		    i->when() - cc->when() ,&cc->tdescription_);
 	}
     }
 }
@@ -138,12 +138,12 @@ Staff::OK() const
 }
 
 
-Real
+Moment
 Staff::last() const
 {
-    Real l = 0.0;
+    Moment l = 0.0;
     for (PCursor<Voice*> i(voices); i.ok(); i++) {
-	l = MAX(l, i->last());
+	l = l >? i->last();
     }
     return l;
 }

@@ -3,7 +3,7 @@
 #include "vray.hh"
 #include "proto.hh"
 #include "plist.hh"
-
+#include "moment.hh"
 
 /// the total music def of one movement
 struct Score {
@@ -25,12 +25,12 @@ struct Score {
 
 
     void OK() const;
-    PCursor<Score_column *> find_col(Real,bool);
+    PCursor<Score_column *> find_col(Moment,bool);
     void process();
     void output(String fn);
-    PCursor<Score_column*> create_cols(Real);
+    PCursor<Score_column*> create_cols(Moment);
     void print() const;
-    Real last() const;
+    Moment last() const;
     
 private:
     void do_pcols();    

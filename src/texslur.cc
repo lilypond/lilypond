@@ -1,5 +1,5 @@
 #include <math.h>
-
+#include "misc.hh"
 #include "lookup.hh"
 #include "molecule.hh"
 #include "dimen.hh"
@@ -39,7 +39,7 @@ Lookup::half_slur_middlepart(Real &dx, int dir)
 
     Symbol s;
     
-    s.dim.y = Interval(MIN(0,0), MAX(0,0));
+    s.dim.y = Interval(min(0,0), max(0,0));
     s.dim.x = Interval(0,dx);
 
     String f =  String("\\hslurchar");
@@ -81,7 +81,7 @@ Lookup::half_slur(int dy, Real &dx, int dir, int xpart)
 	
     Symbol s;
     s.dim.x = Interval(0,dx);
-    s.dim.y = Interval(MIN(0,dy), MAX(0,dy));
+    s.dim.y = Interval(min(0,dy), max(0,dy));
 
 
     String f = String("\\hslurchar");
@@ -111,7 +111,7 @@ Symbol
 Lookup::slur (int dy , Real &dx, int dir)
 {				// ugh. assuming pt here.
     assert(dx >=0);
-    int y_sign = sgn(dy);
+    int y_sign = sign(dy);
 
     bool large = dy > 16;
 
@@ -142,7 +142,7 @@ Lookup::slur (int dy , Real &dx, int dir)
     
     Symbol s;
     s.dim.x = Interval(0,dx);
-    s.dim.y = Interval(MIN(0,dy), MAX(0,dy));
+    s.dim.y = Interval(min(0,dy), max(0,dy));
 
     String f = String("\\slurchar") + direction_char(y_sign);
 
@@ -173,7 +173,7 @@ Symbol
 Lookup::big_slur(int dy , Real &dx, int dir)
 {
     assert(dx >= convert_dimen(24,"pt"));
-    Real slur_extra =ABS(dy)  /2.0 + 2; 
+    Real slur_extra =abs(dy)  /2.0 + 2; 
     int l_dy = int(Real (dy)/2 + slur_extra*dir);
     int r_dy =  dy - l_dy;
     

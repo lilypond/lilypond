@@ -8,6 +8,7 @@
 #define STCOL_HH
 #include "proto.hh"
 #include "vray.hh"
+#include "moment.hh"
 
 /// store simultaneous requests
 struct Staff_column {
@@ -20,13 +21,13 @@ struct Staff_column {
     /// idem
     Staff_commands_at *s_commands;
 
-    Moment *moment_;
+    Time_description *tdescription_;
     
     /****************/
     
     Staff_column(Score_column*s); 
     bool mus() const;
-    Real when() const;
+    Moment when() const;
     void add(Voice_element*ve);
 
     /****************************************************************

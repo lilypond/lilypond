@@ -68,7 +68,7 @@ Active_constraints::add(int k)
     Vector Ha = H*a;
     Real aHa = a*Ha;
     Vector addrow(Ha.dim());
-    if (ABS(aHa) > EPS) {
+    if (abs(aHa) > EPS) {
 	/*
 	  a != 0, so if Ha = O(EPS), then
 	  Ha * aH / aHa = O(EPS^2/EPS)
@@ -203,7 +203,7 @@ Ineq_constrained_qp::solve(Vector start) const
 		}
 	    }
 	    Real unbounded_alfa = 1.0;
-	    Real optimal_step = MIN(minalf, unbounded_alfa);
+	    Real optimal_step = min(minalf, unbounded_alfa);
 
 	    Vector deltax=direction * optimal_step;
 	    x += deltax;	    

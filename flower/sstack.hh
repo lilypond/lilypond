@@ -12,7 +12,7 @@
 /// A simple stack based on Array.
 template<class T>
 struct sstack : Array<T> { 
-    T top() { return last(); }
+    T top()const { return last(); }
     T pop() {
 	assert(!empty());
 	T l = last();

@@ -24,7 +24,8 @@ class PointerList : public List<void *>
     void concatenate(PointerList<T> const &s) { List<void*>::concatenate(s); }
     PointerList() {}
 };
-/** This class does no deletion of the pointers, but it knows how to
+/**
+  This class does no deletion of the pointers, but it knows how to
   copy itself (shallow copy). We could have derived it from List<T>,
   but this design saves a lot of code dup; for all PointerLists in the
   program only one parent List<void*> is instantiated.  */
@@ -47,6 +48,7 @@ struct IPointerList : public PointerList<T> {
   You have to copy this yourself, or use the macro PointerList__copy
   
   */
+
 #define IPointerList__copy(T, to, from, op)   \
   for (PCursor<T> _pc_(from); _pc_.ok(); _pc_++)\
       to.bottom().add(_pc_->op)\
@@ -57,8 +59,10 @@ template<class T>
 void PL_copy(IPointerList<T*> &dst,IPointerList<T*> const&src);
 
 
-#define PL_instantiate(a)  template class PointerList<a*>
-#define IPL_instantiate(a) PL_instantiate(a); template class IPointerList<a*>
+#define PL_instantiate(a)  template class PointerList<a*>; \
+	template class PCursor<a*>;
+#define IPL_instantiate(a) PL_instantiate(a); \
+	template class IPointerList<a*>
 
 #include "plist.inl"
 

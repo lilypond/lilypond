@@ -43,7 +43,7 @@ PCol::print() const
     } else if (daddy) {
 	mtor<<'\n' << ((this == daddy->prebreak) ? "prebreak" : "postbreak");
     }
-    mtor << "extent: " << width().min << ", " << width().max << "\n";
+    mtor << "extent: " << width().str() << "\n";
     mtor << "}\n";
 #endif 
 }

@@ -1,3 +1,5 @@
+#include "misc.hh"
+
 #include "notehead.hh"
 #include "dimen.hh" 
 #include "debug.hh"
@@ -60,7 +62,7 @@ Notehead::brew_molecole()
     output->translate(Offset(x_dir * p->note_width(),0));
     bool streepjes = (position<-1)||(position > staff_size+1);
     if (streepjes) {
-	int dir = sgn(position);
+	int dir = sign(position);
 	int s =(position<-1) ? -((-position)/2): (position-staff_size)/2;
 	Symbol str = p->lookup_->streepjes(s);
 	Molecule sm;

@@ -8,17 +8,17 @@
 #include "command.hh"
 #include "vray.hh"
 #include "plist.hh"
-#include "moment.hh"
+#include "timedescription.hh"
 
 
 struct Staff_commands_at : public IPointerList<Command*> {
-    Moment moment_;
+    Time_description tdescription_;
     
     /****************/
     
     bool is_breakable();
-    Real when();
-    Staff_commands_at(Moment);
+    Moment when();
+    Staff_commands_at(Time_description);
     void set_breakable();
     void add_command_to_break(Command pre, Command mid,Command post);
     void print() const;
@@ -31,12 +31,12 @@ struct Staff_commands_at : public IPointerList<Command*> {
 /// the list of commands in Score
 struct Staff_commands : public IPointerList<Staff_commands_at*>
 {
-    Staff_commands_at*find(Real);
+    Staff_commands_at*find(Moment);
     void add(Staff_commands_at*);
-    void clean(Real last);
+    void clean(Moment last);
     void OK() const;
     void print() const;
-    Real last() const;
+    Moment last() const;
 };
 /** the list of commands in Score. Put in a separate class, since it
   otherwise clutters the methods of Score.

@@ -1,3 +1,4 @@
+#include "interval.hh"
 #include "identparent.hh"
 #include "associter.hh"
 #include "lexer.hh"

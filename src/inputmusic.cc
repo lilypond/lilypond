@@ -8,13 +8,13 @@ Simple_music::add(Voice_element*v)
     voice_.add(v);
 }
 
-Real
+Moment
 Simple_music::length()
 {
     return voice_.last();
 }
 void
-Simple_music::translate_time(Real t)
+Simple_music::translate_time(Moment t)
 {
     voice_.start += t;
 }
@@ -93,10 +93,10 @@ Music_voice::add_elt(Voice_element*v)
     s->add(v);    	    
 }
 
-Real
+Moment
 Music_voice::length()
 {
-    Real l = 0.0;
+    Moment l = 0.0;
     
     for (PCursor<Input_music*> i(elts); i.ok(); i++)
 	l += i->length();
@@ -108,10 +108,10 @@ Voice_list
 Music_voice::convert()
 {
     Voice_list l;
-    Real here = 0.0;
+    Moment here = 0.0;
     
     for (PCursor<Input_music*> i(elts); i.ok(); i++) {
-	Real len = i->length();	
+	Moment len = i->length();	
 	Voice_list k(i->convert());
 	k.translate_time(here);	
 	l.concatenate(k);
@@ -122,7 +122,7 @@ Music_voice::convert()
 }
 
 void
-Music_voice::translate_time(Real t)
+Music_voice::translate_time(Moment t)
 {
     elts.bottom()->translate_time(t);
 }
@@ -148,16 +148,16 @@ Music_general_chord::print() const
 }
 
 void
-Music_general_chord::translate_time(Real t)
+Music_general_chord::translate_time(Moment t)
 {
     for (PCursor<Input_music*> i(elts); i.ok(); i++) 
 	i->translate_time(t);    
 }
 
-Real
+Moment
 Music_general_chord::length()
 {
-    Real l =0.0;
+    Moment l =0.0;
     
     for (PCursor<Input_music*> i(elts); i.ok(); i++) 
 	l = l >? i->length();
@@ -179,7 +179,7 @@ Music_general_chord::convert()
 /****************/
 
 void
-Voice_list::translate_time(Real x)
+Voice_list::translate_time(Moment x)
 {
     for (PCursor<Voice*> i(*this); i.ok(); i++)
 	i->start += x;    

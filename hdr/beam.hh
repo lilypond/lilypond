@@ -7,23 +7,23 @@
 #ifndef BEAM_HH
 #define BEAM_HH
 #include "proto.hh"
-#include "spanner.hh"
+#include "directionalspanner.hh"
 #include "plist.hh"
 
 /// a beam connects multiple stems 
-struct Beam: public Spanner {
+struct Beam:  public Directional_spanner {
     PointerList<Stem*> stems;
     Real slope;
     Real left_pos;
-    /// -1 below heads, +1 above heads.
-    int dir;   
+    /// dir: -1 below heads, +1 above heads.
+
 
     Rhythmic_grouping *group;
 
     /****************/
     
     virtual Interval width()const;    
-
+    Offset center() const;
     Spanner *broken_at(PCol *,  PCol *) const;
     Beam();
     void add(Stem*);

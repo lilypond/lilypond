@@ -4,6 +4,7 @@
 
 #include "glob.hh"
 #include "string.hh"
+#include "moment.hh"
 
 /// a voice element wants something printed
 struct Request {
@@ -21,7 +22,7 @@ struct Request {
     virtual Beam_req *beam() { return 0 ; }
     virtual Slur_req *slur() { return 0 ; }
     virtual  Rhythmic_req*rhythmic() { return 0;}
-    virtual Real duration() const { return 0.0; }
+    virtual Moment duration() const { return 0.0; }
     virtual Request* clone() const =0;
 };
 
@@ -63,7 +64,7 @@ struct Rhythmic_req : Request {
     
     /****************/
 
-    Real duration() const;
+    Moment duration() const;
     Rhythmic_req();
     Rhythmic_req*rhythmic() { return this;}
     void print ()const;
@@ -207,7 +208,7 @@ try to put an appropriate number over the bracket
 
 /// helper in the hierarchy
 struct Dynamic {
-    Real subtime;
+    Moment subtime;
 };
 /** Each dynamic is bound to one note ( a crescendo spanning multiple
     notes is thought to be made of two "dynamics": a start and a stop).

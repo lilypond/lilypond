@@ -30,7 +30,6 @@ struct Dynamic;
 struct Idealspacing;
 struct Identifier;
 struct Input_commands;
-struct Interval;
 struct Item;
 struct Key;
 struct Keyitem;
@@ -95,5 +94,6 @@ struct Keyword_table;
 struct Rhythmic_grouping;
 struct Staff_commands_at ;
 struct Commands_at ;
-struct Moment;
+struct Time_description;
+
 #endif // PROTO_HH

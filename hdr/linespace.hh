@@ -14,8 +14,8 @@ struct Colinfo {
     Real fixpos;
     Colinfo();
     void print() const;
-    Real minright() const { return pcol_->width().max; }
-    Real minleft() const { return -pcol_->width().min; }
+    Real minright() const { return pcol_->width().right; }
+    Real minleft() const { return -pcol_->width().left; }
 };
 
 

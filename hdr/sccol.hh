@@ -6,8 +6,9 @@
 
 #ifndef SCCOL_HH
 #define SCCOL_HH
-#include "pcol.hh"
+#include "proto.hh"
 #include "vray.hh"
+#include "moment.hh"
 
 
 struct Score_column {
@@ -16,24 +17,20 @@ struct Score_column {
     PCol * pcol_;
 
     /// length of notes/rests in this column
-    svec<Real> durations;
+    svec<Moment> durations;
     
-    Real when;
+    Moment when;
 
     /// 
     bool musical;
     
     /****************/
     
-    Score_column(Real when);       
-    static int compare(Score_column & c1, Score_column &c2) {
-	return sgn(c1.when - c2.when);
-    }
-    void add_duration(Real );
+    Score_column(Moment when);       
+    static int compare(Score_column & c1, Score_column &c2);
+    void add_duration(Moment );
     void preprocess();
-    void set_breakable() {
-	 pcol_->set_breakable();
-    }
+    void set_breakable();
     bool used();
     void print() const;
 };

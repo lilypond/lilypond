@@ -7,34 +7,36 @@
 #ifndef GROUPING_HH
 #define GROUPING_HH
 
+#include "moment.hh"
 #include "interval.hh"
 #include "vray.hh"
 
+typedef Interval_t<Moment> MInterval;
 
 /// data structure which represents rhythmic units 
 struct Rhythmic_grouping {    
     
     svec<Rhythmic_grouping*> children;
-    Interval *interval_;
+    MInterval *interval_;
     
     /****************/
 
-    svec<Interval> intervals();
-    Interval interval()const;
-    Real length() const;
-    void intersect(Interval);
+    svec<MInterval> intervals();
+    MInterval interval()const;
+    Moment length() const;
+    void intersect(MInterval);
     
     void operator=(Rhythmic_grouping const&);
     Rhythmic_grouping(Rhythmic_grouping const&);
-    Rhythmic_grouping(Interval, int n=1);
+    Rhythmic_grouping(MInterval, int n=1);
     Rhythmic_grouping();
     Rhythmic_grouping(svec<Rhythmic_grouping*>);
     ~Rhythmic_grouping();
 
-    void add_child(Real start, Real len);
+    void add_child(Moment start, Moment len);
 
     void split(Rhythmic_grouping r);
-    void split(svec<Interval>);
+    void split(svec<MInterval>);
     void split(int n);
 
     void print() const;

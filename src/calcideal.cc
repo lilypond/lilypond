@@ -45,12 +45,12 @@ Score::calc_idealspacing()
 	if (i->musical) {
 	    assert(j.ok());
 	    for (int n=0; n < i->durations.sz(); n++) {
-		Real d = i->durations[n];
+		Moment d = i->durations[n];
 		Real dist = paper_->duration_to_dist(d);
 		while (j->when < d + i->when)
 		    j++;
 		
-		assert( distance(j->when, d+i->when) < 1e-8);
+		assert( j->when== d+i->when);
 
 		connect(i->pcol_, j->pcol_, dist);
 		if (!j->musical && (j+1).ok() 
@@ -65,7 +65,7 @@ Score::calc_idealspacing()
 	      the last col is breakable, and therefore in use
 	      */
 	    
-	    Real d = j->when - i->when;
+	    Moment d = j->when - i->when;
 	    Real dist = (d) ? paper_->duration_to_dist(d) :
 		convert_dimen(2,"pt"); // todo
 	    

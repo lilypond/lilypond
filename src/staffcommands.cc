@@ -2,10 +2,10 @@
 #include "debug.hh"
 #include "parseconstruct.hh"
 
-Real
+Moment
 Staff_commands_at::when()
 {
-    return moment_.when;
+    return tdescription_.when;
 }
 void
 Staff_commands_at::print() const
@@ -13,7 +13,7 @@ Staff_commands_at::print() const
 #ifndef NPRINT
     PCursor<Command*> i (*this);
     mtor << "Commands at: " ;
-    moment_.print();
+    tdescription_.print();
     
     for (; i.ok(); i++)
 	i->print();
@@ -28,8 +28,8 @@ Staff_commands_at::OK()const
 	    assert(i->priority >= (i+1)->priority);
 }
 
-Staff_commands_at::Staff_commands_at(Moment m)
-    :moment_(m)
+Staff_commands_at::Staff_commands_at(Time_description m)
+    :tdescription_(m)
 {
     
 }
@@ -105,7 +105,11 @@ Staff_commands_at::add_command_to_break(Command pre, Command mid,Command post)
     
     insert_between(post, f, l);
 }
-  
+
+
+/*
+  should move this stuff into inputlanguage.
+  */
 void
 Staff_commands_at::add(Command c)
 {
@@ -207,7 +211,7 @@ Staff_commands::OK() const
 {
 #ifndef NDEBUG
     for (PCursor<Staff_commands_at*> i(*this); i.ok() && (i+1).ok(); i++) {
-	assert(i->moment_.when <= (i+1)->moment_.when);
+	assert(i->tdescription_.when <= (i+1)->tdescription_.when);
 	i->OK();
     }
 #endif
@@ -224,13 +228,13 @@ Staff_commands::print() const
 }
 
 Staff_commands_at*
-Staff_commands::find(Real w)
+Staff_commands::find(Moment w)
 {
     PCursor<Staff_commands_at*> i(bottom());
     for (; i.ok() ; i--) {
-	if (i->moment_.when == w)
+	if (i->tdescription_.when == w)
 	    return i;
-	if (i->moment_.when < w)
+	if (i->tdescription_.when < w)
 	    break;
     }
     return 0;
@@ -241,7 +245,7 @@ Staff_commands::add(Staff_commands_at*p)
 {
     PCursor<Staff_commands_at*> i(bottom());
     for (; i.ok() ; i--) {
-	if (i->moment_.when < p->moment_.when)
+	if (i->tdescription_.when < p->tdescription_.when)
 	    break;
     }
     if (!i.ok()) 
@@ -253,16 +257,16 @@ Staff_commands::add(Staff_commands_at*p)
 }
 
 void
-Staff_commands::clean(Real l)
+Staff_commands::clean(Moment l)
 {
     PCursor<Staff_commands_at*> i(bottom());
-    for (; i->moment_.when > l; i=bottom()) {
+    for (; i->tdescription_.when > l; i=bottom()) {
 	remove(i);
     }
     
     Staff_commands_at*p = find(l);
     if (!p) {
-	p = new Staff_commands_at(Moment(l - i->when(), &i->moment_));
+	p = new Staff_commands_at(Time_description(l - i->when(), &i->tdescription_));
 	add(p);
     }
     if (!p->is_breakable()) {

@@ -14,7 +14,7 @@ Full_storage::operator=(Full_storage const &fs)
 void
 Full_storage::OK() const
 {
-    #ifndef NDEBUG
+#ifndef NDEBUG
     //    static Real dummy;		
     assert(maxh >= h && maxw >= w);
     assert(h >= 0 && w >= 0);
@@ -29,7 +29,7 @@ Full_storage::OK() const
 	}
 	#endif
     }
-    #endif
+#endif
 }
 void
 Full_storage::resize_cols(int newh)

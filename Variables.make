@@ -5,14 +5,14 @@
 #PROFILEFLAG=-pg
 OPTIFLAG=-DNDEBUG -DNPRINT -O2
 DEBUGFLAG=-g
+
 # turn off -pipe if linker doesn't support it
 EXTRACXXFLAGS=-pipe -Wall -W   -Wmissing-prototypes 
-#	-Woverloaded-virtual
 
 #
 # -lefence = ElectricFence.
 #
-# ElectricFence is memory debugger which uses the 
+# ElectricFence is a memory debugger which uses the 
 # VM hardware to trap malloc/free errors.
 #
 #EXTRALIB+=-lefence
@@ -37,7 +37,7 @@ endif
 # version info
 MAJVER=0
 MINVER=0
-PATCHLEVEL=19
+PATCHLEVEL=20
 VERSION=$(MAJVER).$(MINVER).$(PATCHLEVEL)
 CXXVER=`$(CXX) --version`
 
@@ -49,7 +49,7 @@ TOPDIR  := $(shell if [ "$$PWD" != "" ]; then echo $$PWD; else pwd; fi)
 OBJECTDIR=objects
 HEADERDIR=hdr
 CCDIR=src
-
+INITDIR=init
 vpath %.cc $(CCDIR)
 vpath %.hh $(HEADERDIR)
 vpath %.y $(CCDIR)
@@ -77,7 +77,7 @@ DNAME=$(PACKAGENAME)-$(VERSION)
 othersrc=lexer.l parser.y
 SCRIPTS=make_version make_patch genheader
 IFILES=dimen.tex symbol.ini kortjakje.ly pavane.ly  maartje.ly\
-	lilyponddefs.tex test.tex .dstreamrc
+	lilyponddefs.tex test.tex .dstreamrc cadenza.ly
 OFILES=Makefile Variables.make Sources.make COPYING README NEWS
 DFILES=$(OFILES) $(IFILES) $(SCRIPTS)
 
@@ -91,4 +91,4 @@ BISON=bison
 exe=$(PACKAGENAME)
 OUTPUT_OPTION=$< -o $@
 DDIR=$(TOPDIR)/$(DNAME)
-SUBDIRS=Documentation $(OBJECTDIR) $(CCDIR) $(HEADERDIR)
+SUBDIRS=Documentation $(OBJECTDIR) $(CCDIR) $(HEADERDIR) $(INITDIR)

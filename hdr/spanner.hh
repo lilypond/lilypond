@@ -6,7 +6,9 @@
 
 #ifndef SPANNER_HH
 #define SPANNER_HH
+
 #include "proto.hh"
+#include "interval.hh"
 
 /// a symbol which is attached between two columns.
 struct Spanner {
@@ -18,14 +20,19 @@ struct Spanner {
 
     String TeXstring () const ;
     Spanner();
-    Paperdef*paper() const;
+    Paperdef *paper() const;
     virtual ~Spanner();
     virtual Interval height()const=0;
     /**
       PRE:
       processed
       */
-    virtual Interval width()const;
+  /// do calcs
+    virtual void calculate();
+    /**
+      It is safe to call calculate multiple times on one object
+      */
+   virtual Interval width()const;
     virtual void process();
     virtual void preprocess();
 

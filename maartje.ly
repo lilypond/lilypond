@@ -1,9 +1,9 @@
 ritme = staff {rhythmic
 	music {$
 	c8
-	[a8 a8. a8 a16 a16 a16] c4.
+	[a8() a8. a8 a16 a16 a16] c4.
 		
-	%[c8( )'a8 c8 c8]
+	%[c8( )'a8() c8 c8]% BUG!
 	c2 c2
 	
 	[fis16 'dis16( fis16 'dis16 ][fis16) 'dis16 fis16 'dis16]
@@ -61,11 +61,9 @@ score {
 	paper {
 		geometric 1.4
 		unitspace 3.0 cm
-%		symboltables { table_sixteen}
 	}
 	staff { ritme }
 	staff { melody }
-%	staff { melody }
 	commands {
 		meter 4 4
 		partial 8

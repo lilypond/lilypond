@@ -1,20 +1,20 @@
-#include "moment.hh"
+#include "timedescription.hh"
 #include "debug.hh"
 
 void
-Moment::print() const
+Time_description::print() const
 {    
-    mtor << " at "<<when<<'\n'; 
-    mtor << "meeter " << whole_per_measure << "/" << 1/one_beat 
-	 << "\nposition "<< bars << ":" << whole_in_measure <<'\n';
+    mtor << "Time_description { at "<<when<<'\n'; 
+    mtor << "meter " << whole_per_measure << ":" << 1/one_beat 
+	 << "\nposition "<< bars << ":" << whole_in_measure <<"\n}\n";
 }
 void
-Moment::OK() const
+Time_description::OK() const
 {
     assert(whole_in_measure < whole_per_measure && 0 <= whole_in_measure);
     assert(one_beat);
 }
-Moment::Moment(Real dt, Moment const *prev)
+Time_description::Time_description(Moment dt, Time_description const *prev)
 {
     if (prev) {
 	assert(dt >0);
@@ -35,15 +35,15 @@ Moment::Moment(Real dt, Moment const *prev)
 }
 
 void
-Moment::set_meter(int l, int o)
+Time_description::set_meter(int l, int o)
 {
     assert(o);
-    one_beat = 1/Real(o);
-    whole_per_measure = Real(l) * one_beat;
+    one_beat = 1/Moment(o);
+    whole_per_measure = Moment(l) * one_beat;
 }
 
 void
-Moment::setpartial(Real p)
+Time_description::setpartial(Moment p)
 {
     if (when)
 	error_t ("Partial measure only allowed at beginning.", when);
@@ -51,8 +51,8 @@ Moment::setpartial(Real p)
 	error_t ("Partial measure has incorrect size", when);
     whole_in_measure = whole_per_measure - p;
 }
-Real
-Moment::barleft()
+Moment
+Time_description::barleft()
 {
 return    whole_per_measure-whole_in_measure;
 }

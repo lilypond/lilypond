@@ -1,0 +1,260 @@
+=head1 NAME
+
+LilyGuts - doco to the internals of LilyPond
+
+=head1 DESCRIPTION
+
+This page documents some aspects of the internals of LilyPond
+
+=head1 OVERVIEW
+
+LilyPond is a "5-pass" system:
+
+=over 5
+
+=item 1. Parsing:
+
+No difficult algorithms. Associated datastructures have prefix Input
+(eg Input_score, Input_command)
+
+=item 2. Processing:
+
+Requests are processed and granted. In this step data-structures for
+3. are created and filled with data: PScore, PCol, PStaff
+
+=item 3. Calculation:
+
+This step uses structures which have names starting with 'P'.
+linebreaks and horizontal positions of PCols are determined. Line_of_*
+generated.
+
+=item 4. Postprocesing:
+
+Some items and all spanners need computation after the PCol positions
+are determined.
+
+=item 5. Output
+
+Very simple, just walk all Line_of_* and follow the links over there
+
+=back
+
+=head1 COMMANDS
+
+This table decribes the proper order for the different commands:
+
+
+=head2 interpret
+
+	which		priority
+	========================
+	
+	key		200
+	clef		190
+	meter		180		
+	bar		170
+
+=head2 typeset
+
+	which		priority
+	========================
+
+	bar		100
+	clef		90
+	currentclef	80
+	key	 	70
+	currentkey	60
+	meter		40
+
+
+
+=head1 BREAKING
+
+[Source files: command.hh, scommands.cc]
+
+BREAKING, PREBREAK POSTBREAK, etc.
+
+So what's the deal with PREBREAK and POSTBREAK and all this
+stuff?
+
+Let's take text as an example. In German some compound
+words change their spelling if they are broken: "backen" becomes
+"bak-ken".  TeX has a mechanism to deal with this, you would define
+the spelling of "backen" in TeX in this way
+
+	\discretionary{bak-}{ken}{backen}
+
+These 3 arguments are called "prebreak", "postbreak" and "nobreak"
+text.
+
+The same problem exists when typesetting music. If a line of music is
+broken, the next line usually gets a clef. So in TeX terms, the clef
+is a postbreak. The same thing happens with meter signs: Normally the
+meter follows the bar. If a line is broken at that bar, the bar along
+with the meter stays on the "last" line, but the next line also gets a
+meter sign after the clef. Using the previous notation,
+
+	\discretionary{bar meter}{clef meter}{ bar meter }
+
+In Lilypond, we have the same concepts (and the same
+terminology). Each (nonrhythmic) symbol is typeset using a Command
+(code: TYPESET). At a breakpoint, TYPESET commands can be grouped
+using separators (in lower case):
+
+	BREAK_PRE, typeset(bar), typeset(meter),
+	BREAK_MID, typeset(bar), typeset(meter),
+	BREAK_POST, typeset(clef), typeset(meter), BREAK_END 
+
+The BREAK command sequence is terminated with BREAK_END, so other
+commands (like INTERPRET) may follow this sequence.
+
+=head1 SPACING
+
+I think my way is the most elegant algorithm i've seen so far.  Some
+terminology: I call a vertical group of symbols (notes) which start at
+the same time a "column".  Each line of a score has notes in it,
+grouped in columns. The difference in starting time between those
+columns makes it possible to determine ideal distances between those
+columns.
+
+Example:
+
+		time ----->
+
+		col1    col2    col3    col4
+
+
+	voice1  1               1
+
+	voice2  2       2       2       2
+
+
+	(1 is a whole note, 2 a half note.)
+
+	time_difference (col1 , col2) = 0.5 wholes,
+	time_difference (col1 , col3) = 1 wholes,
+	time_difference (col2 , col3) = 0.5 wholes,
+	etc.
+
+these differences are translated into ideal distances (these translations
+have been the subject of discussion in this thread).
+
+        distance (col1,col2) = 10 pt
+        distance (col1,col3) = 14.1 pt
+        distance (col2,col3) = 10 pt
+        etc.
+
+as you can see, these distance are conflicting. So instead of
+satisfying all those ideals simultaneously, a compromise is sought.
+
+This is Columbus' egg: LilyPond attaches "springs" to each
+column-pair.  each spring has an equilibrium-position which is equal to
+the above mentioned distance, so
+
+        spring (col1, col2) and spring(col2,col3) try to push column 1
+and 3 away (to a distance of 20pt) from each other, whereas the spring
+between col 1 and col 3 tries to pull those two together (to a
+distance of 14.1 pt). The net result of this pushing and pulling is an
+equilibrium situation (the pushing cancels the pulling), which can be
+calculated as the solution of Quadratic program: it is the solution
+with minimum potential energy, for you physicists out there.
+
+This algorithm for doing one line, gives a "badness" parameter for
+each line (the potential energy). Now one can use TeX's algorithm for
+making paragraphs (using this new version of "badness"): one should
+try to minimise the overall badness of a paragraph. LilyPond also uses the
+concept of pre- and post-breaks.
+
+(actually, it is a bit more complicated: each column also has a
+minimum distance to other columns, to prevent symbols from running
+into symbols of other columns.)
+
+=head1 POINTERS
+
+This describes the ownership of certain classes in LilyPond. +
+signifies a "list of". (This is not complete)
+
+	Score:
+		Paperdef
+		Staff+
+		Score_commands
+		Score_columns+
+		PScore
+
+	Staff:
+		Voice
+		Staff_column+
+		Command+
+
+
+	Voice:
+		Voice_element
+
+	Voice_element:
+		Request+
+
+
+	PScore:
+		PStaff+
+		PCol+
+		Idealspacing+
+		Item+
+		Spanner+
+		Spanner+ (broken)
+
+=head1 SEE ALSO
+
+=head2 References
+
+Herbert Chlapik, 
+
+W.A. Hegazy and J. S. Gourlay. Optimal line breaking in music. In
+``Document Manipulation and Typography'', J.C. van Vliet (ed) 1988.
+
+Ross, Ted. ``Teach yourself the art of music engraving and processing'' 
+(3rd edition). Hansen House, Miami Beach, FL.
+ 
+	Hansen House
+	1820 West Ave.
+	Miami, FL  33139
+	(305) 532-5461
+ 
+[This is about *engraving* i.e. professional music typesetting, and includes 
+some good spacing tables]
+ 
+Read, Gardner. ``Modern Rhythmic Notation.'' Indiana University Press, 1978.
+
+Read, Gardner. ``Music Notation'' (2nd edition). Taplinger Publishing,
+New York.
+ 
+[This is as close to the ``standard'' reference work for music notation issues
+as one is likely to get.]
+
+
+=head2  Further reading
+
+(of varying usefulness):
+
+Donato, Anthony. Preparing Music Manuscript. Englewood Cliffs:
+Prentice-Hall, 1963.
+
+Donemus. "Uitgeven van muziek". Donemus Amsterdam, 1900
+ 
+Heussenstamm, George. The Norton Manual of Music Notation. New York:
+Norton, 1987.
+ 
+Karkoshka, Erdhard. Notation in New Music. Trans. Ruth Koenig. New York:
+Praeger    Publishers, 1972.  Out of print.
+
+Roelofs, Ren\'e. ``Een Geautomatiseerd Systeem voor het Afdrukken van
+Muziek'' afstudeerscriptie Bestuurlijke informatica, no 45327, Erasmus
+universiteit Rotterdam, 1991.  (``An automated system for printing
+music'' Master's Thesis Management and Computer Science.)
+
+C. Roemer,  The Art of Music Copying. Roerick music co., Sherman Oaks (CA), 1973.
+
+Rosecrans, Glen. Music Notation Primer. New York: Passantino, 1979.
+ 
+Stone, Kurt. Music Notation in the Twentieth Century. New York: Norton, 1980.
+
+
