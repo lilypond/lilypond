@@ -150,7 +150,7 @@ Tuplet_bracket::brew_molecule (SCM smob)
   Real x1 = rgr->extent (commonx,X_AXIS)[RIGHT];
 
   Real w = x1 -x0;
-
+  
   Real ly = gh_scm2double (me->get_grob_property ("left-position"));
   Real ry = gh_scm2double (me->get_grob_property ("right-position"));  
   SCM number = me->get_grob_property ("text");
@@ -169,16 +169,29 @@ Tuplet_bracket::brew_molecule (SCM smob)
 
       mol.add_molecule (num);
     }
-      
+
+
+  /*
+    No bracket when it would be smaller than the number.
+
+    TODO: should use GAP in calculation too.
+   */
+  if (bracket_visibility && number_visibility
+      && mol.extent (X_AXIS).length () > w)
+    {
+      bracket_visibility = false;
+    }
+  
   if (bracket_visibility)      
     {
       Real  lt =  pap->get_realvar (ly_symbol2scm ("linethickness"));
-  
+
       SCM thick = me->get_grob_property ("thickness");
       if (gh_number_p (thick))
 	lt *= gh_scm2double (thick);
-      
+
       SCM gap = me->get_grob_property ("gap");
+      
       SCM fl = me->get_grob_property ("bracket-flare");
       SCM eh = me->get_grob_property ("edge-height");
       SCM sp = me->get_grob_property ("shorten-pair");

@@ -8,6 +8,15 @@
 @chapter New features in 1.9 since 1.8
 
 @itemize
+@item
+Clefs may now be transposed arbitrarily, for example
+
+@example
+  \clef "G_8"
+  \clef "G_15"
+  \clef "G_9"
+@end example
+
 
 @item
 The syntax for chords and simultaneous music have changed.
@@ -17,7 +26,7 @@ Chords are entered as
    <@var{pitches}>
 @end example
 
-while simultaneous music is entered
+while simultaneous music is entered as
 
 @example
    <<@var{..music list..}>>

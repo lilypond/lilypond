@@ -118,9 +118,13 @@ Tuplet_engraver::start_translation_timestep ()
     {
       if (now.main_part_ >= span_stop_moments_[i])
 	{
-	  if (started_spanners_[i])
+	  if (Spanner *sp = started_spanners_[i])
 	    {
-	      typeset_grob (started_spanners_[i]);
+	      if (!sp->get_bound (RIGHT))
+		sp->set_bound (RIGHT, sp->get_bound (LEFT));
+	      
+	      typeset_grob (sp);
+
 	      started_spanners_[i] =0;
 	    }
 	  
