@@ -678,7 +678,7 @@ AC_DEFUN(STEPMAKE_KPATHSEA, [
 	if test "$kpathsea_b" = "no"; then
 	    warn='kpathsea (libkpathsea-dev or kpathsea-devel package)
    Else, please specify the location of your kpathsea using
-   --with-kpathea-include and --with-kpathsea-lib options.  You should
+   --with-kpathsea-include and --with-kpathsea-lib options.  You should
    install kpathsea; see INSTALL.txt.  Rerun ./configure
    --without-kpathsea only if kpathsea is not available for your
    platform.'
