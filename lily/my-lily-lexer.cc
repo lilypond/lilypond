@@ -150,9 +150,9 @@ My_lily_lexer::lookup_keyword (String s)
 }
 
 SCM
-My_lily_lexer::lookup_identifier (String s)
+My_lily_lexer::lookup_identifier (String name)
 {
-  SCM sym = ly_symbol2scm (s.to_str0());
+  SCM sym = ly_symbol2scm (name.to_str0 ());
   for (SCM s = scopes_; ly_c_pair_p (s); s = ly_cdr (s))
     {
       SCM var = ly_module_lookup (ly_car (s), sym);

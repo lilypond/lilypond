@@ -34,9 +34,6 @@
       (debug-enable 'backtrace)
       (read-enable 'positions)))
 
-;; FIXME: huh?
-(define-public toplevel-music-handler ly:parser-add-book-and-score)
-
 (define-public (line-column-location line col file)
   "Print an input location, including column number ."
   (string-append (number->string line) ":"
@@ -94,6 +91,8 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; lily specific variables.
+(define-public default-toplevel-music-handler ly:parser-add-book-and-score)
+
 (define-public default-script-alist '())
 
 (define-public safe-mode? #f)
