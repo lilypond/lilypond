@@ -5,7 +5,7 @@
 <<
     \relative {
 	\clef bass
-	d2 d c4 bes a2 \break
+	d,2 d c4 bes a2 \break
 	c2 c d4 f g2
     }
     \newlyrics {
