@@ -37,7 +37,7 @@ VERSION_DEPENDENCY =#
 
 # list of distribution files:
 #
-DISTFILES = Makefile $(ALL_SOURCES)
+EXTRA_DISTFILES = config.hh.in
 #
 
 # list of custom libraries:
