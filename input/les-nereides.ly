@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.8"
+\version "2.1.1"
 
 \header {
     composer =   "ARTHUR GRAY"
@@ -353,7 +353,7 @@ lowerDynamics = \notes{
 	    \consists "Dynamic_engraver"
 	    \consists "Text_engraver"
 
-	    TextScript \override #'font-relative-size = #1
+	    TextScript \override #'font-size = #2
 	    TextScript \override #'font-shape = #'italic
 
 	    \consists "Skip_event_swallow_translator"

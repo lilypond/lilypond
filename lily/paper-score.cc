@@ -113,12 +113,6 @@ Paper_score::process (String outname)
       outputter_->write_header_fields_to_file (header_);
     }
 
-#if 0
-  // todo: transport origin_string_ in header.
-  outputter_->output_comment (_ ("Outputting Score, defined at: "));
-  outputter_->output_comment (origin_string_);
-#endif
-  
   outputter_->output_scope (paper_->scope_, "lilypondpaper");
 
   SCM scm = scm_list_n (ly_symbol2scm ("header-end"), SCM_UNDEFINED);

@@ -28,7 +28,10 @@
 
 
 /*
-  Ugh, this is messy.
+  TODO: this entire class should be implemented at Scheme level.
+
+
+  
  */
 Paper_outputter::Paper_outputter (String name)
 {

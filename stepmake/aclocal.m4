@@ -11,13 +11,13 @@ AC_DEFUN(STEPMAKE_GET_EXECUTABLE, [
     ## command -v doesn't work in zsh
     ## command -v "$1" 2>&1
     ## this test should work in ash, bash, pdksh (ksh), zsh
-    type -p "$1" 2>/dev/null | tail -1 | awk '{print $NF}'
+    type -p "$1" 2>/dev/null | tail -n 1 | awk '{print $NF}'
 ])
 
 
 # Get version string from executable ($1)
 AC_DEFUN(STEPMAKE_GET_VERSION, [
-    ## "$1" --version 2>&1 | grep -v '^$' | head -1 | awk '{print $NF}'
+    ## "$1" --version 2>&1 | grep -v '^$' | head -n 1 | awk '{print $NF}'
     ##
     ## ARG.
     ## Workaround for broken Debian gcc version string:
@@ -28,7 +28,7 @@ AC_DEFUN(STEPMAKE_GET_VERSION, [
     ## Assume, and hunt for, dotted version multiplet.
 
     changequote(<<, >>)dnl
-    ("$1" --version || "$1" -V) 2>&1 | grep '[0-9]\.[0-9]' | head -1 | \
+    ("$1" --version || "$1" -V) 2>&1 | grep '[0-9]\.[0-9]' | head -n 1 | \
 	sed -e 's/.*[^-.0-9]\([0-9][0-9]*\.[0-9][.0-9]*\).*/\1/'
     changequote([, ])dnl
 ])

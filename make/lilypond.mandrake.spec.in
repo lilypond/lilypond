@@ -70,8 +70,7 @@ unset out
 
 ./configure --disable-checking --prefix=%{_prefix} --libdir=%{_libdir} --enable-optimising
 
-%make MAKE_PFA_FILES=1 all
-make -C mf/ pfa
+%make  all
 
 # make info
 make -C Documentation
@@ -92,7 +91,7 @@ rm -rf $RPM_DOC_ROOT
 mkdir -p $RPM_DOC_ROOT
 
 strip lily/out/lilypond 
-%makeinstall MAKE_PFA_FILES=1
+%makeinstall 
 local_lilypond_libdir=$RPM_BUILD_ROOT/%{_libdir}/%{name}/%{version}
 
 %if %{info}
