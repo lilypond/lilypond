@@ -1,3 +1,27 @@
+1.3.59.hwn1
+===========
+
+* Removed String_identifier, and use the type system of GUILE instead.
+
+* Fixed \key PITCH MODALITY syntax. The modality argument is now
+mandatory, a rule in convert-mudela has been added.
+
+* Cleaned up  buildscripts/ directory: removed obsolete scripts.
+
+* Use Scheme_hash_table for identifier Scopes.  Scheme_hash_table is
+based on STL and should be faster than hash_table.
+
+
+1.3.59.jcn1
+===========
+
+* Fixed scm_un/protect_object for guile-1.3.4 and 1.3.5 snapshots,
+  in the process reduced number of protect/unprotect calls.  With
+  guile-1.3.5 snapshot, memory usage has decreased by 1/5th, now
+  just 10% above the 1.2 level.  Also, Lily's a bit faster.
+
+* Fixed make diff bug in stepmake to be able to make this diff :-)
+
 1.3.58.hwn1
 ===========
 
