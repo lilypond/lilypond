@@ -32,7 +32,6 @@ protected:
   /// The spanners. Array order is synced with time_scaled_musics_
   Link_array<Spanner> started_spanners_;
 
-  virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music*r);
   virtual void start_translation_timestep ();
@@ -93,7 +92,7 @@ Tuplet_engraver::acknowledge_grob (Grob_info i)
 {
   if (Note_column::has_interface (i.grob_))
     {
-      for (int j =0; j  <started_spanners_.size (); j++)
+      for (int j =0; j < started_spanners_.size (); j++)
 	if (started_spanners_[j]) 
 	  Tuplet_bracket::add_column (started_spanners_[j], dynamic_cast<Item*> (i.grob_));
     }
@@ -135,14 +134,9 @@ Tuplet_engraver::start_translation_timestep ()
     }
 }
 
-void
-Tuplet_engraver::finalize ()
+Tuplet_engraver::Tuplet_engraver ()
 {
 }
-
-
-
-Tuplet_engraver::Tuplet_engraver (){}
 
 ENTER_DESCRIPTION (Tuplet_engraver,
 /* descr */       "Catch Time_scaled_music and generate appropriate bracket  ",

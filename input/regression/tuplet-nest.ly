@@ -1,7 +1,12 @@
 
 \version "2.3.1"
+
+
 \header {
-  texidoc="By a manual hack for nested tuplets, an outer tuplet can be moved up."
+
+    texidoc=" Nested tuplets can be printed, using a manual hack to
+  move the outer bracket up."
+
 }
 
 #(define (make-text-checker-once text)
@@ -14,13 +19,14 @@
 #(define text-checker-once #t)
 
 \score {
-  \notes\relative c'' {
+    \relative c'' {
 
     \set tupletNumberFormatFunction = #fraction-tuplet-formatter
 
-    \applyoutput #(outputproperty-compatibility (make-text-checker-once "2:3")
-		   'extra-offset '(0 . 1.5))
-    \times 2/3 {
+    \applyoutput #(lambda (gr org cur)
+		   (if (equal? (ly:grob-property gr 'text) "6:4")
+		    (set! (ly:grob-property gr 'extra-offset) '(0 . 1.5))))
+    \times 4/6 {
       \times 2/3 {
         a a a
       }

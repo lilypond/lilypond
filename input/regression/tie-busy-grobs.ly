@@ -10,13 +10,17 @@ one may have collisions between ties and beams.
 
 \score
 {
-\notes \context Staff \relative c'' 
- <<
- {  \times 2/3 { c'8~  c8~ c8~ c8~ c8~ c8 } }
- \\
-  { \voiceTwo \times 2/5 { a,4 ~a4 ~a4~ a4~ a4 }}
- \\
-  { \voiceThree  { b,8 ~ b8 ~ b8 ~  b8 }}
- >>
+    \context Staff \relative c'' 
+    <<
+	{  \times 2/3 { c'8~  c8~ c8~ c8~ c8~ c8 } }
+	\\
+	{ \voiceTwo \times 2/5 { a,4 ~a4 ~a4~ a4~ a4 }}
+	\\
+	{ \voiceThree  { b,8 ~ b8 ~ b8 ~  b8 }}
+    >>
+
+    \paper {
+	raggedright = ##t
+    }
 }
 
