@@ -57,3 +57,5 @@ Axis_group_element::Axis_group_element()
   transparent_b_ = true;
 }
 
+
+IMPLEMENT_IS_TYPE_B1(Axis_group_element, Score_elem);

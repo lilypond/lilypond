@@ -127,7 +127,7 @@ Slur::do_post_processing ()
 	}
       dy_f_drul_[d] += dir_ * interline_f;
     }
-  while ((d *= -1) != LEFT);
+  while (flip(&d) != LEFT);
 }
 
 Real

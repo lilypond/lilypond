@@ -8,4 +8,4 @@ noinst_HEADERS = binary-source-file.hh duration-convert.hh duration.hh file-stor
 EXTRA_DIST = Makefile.am.wild
 
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
-	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
+	$(PERL) $(top_srcdir)/bin/wild-perl --top-srcdir="$(real_topdir)" < $< > $@

@@ -8,6 +8,9 @@
 #	Han-Wen Nienhuys <hanwen@stack.nl>
 #
 
+# the wild-perl script needs this.
+real_topdir = $(top_srcdir)/..
+
 # bin_PROGRAMS = test
 
 # TEST = test

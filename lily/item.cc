@@ -10,14 +10,14 @@
 #include "debug.hh"
 #include "item.hh"
 #include "p-col.hh"
-#include "elem-group.hh"
+// #include "elem-group.hh"
 #include "spanner.hh"
 
 Item::Item()
 {
   break_priority_i_ = 0;
   breakable_b_ = false;
-  break_status_i_ = 0;
+  break_status_i_ = CENTER;
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT]=0;
 }
 
@@ -67,7 +67,7 @@ Item::copy_breakable_items()
       item_p->handle_prebroken_dependencies();
       new_copies[i] =item_p;
     }
-  while ((i *= -1) != LEFT);
+  while (flip(&i) != LEFT);
   broken_to_drul_= new_copies;
 }
 
@@ -102,12 +102,12 @@ Item::find_prebroken_piece (Line_of_score*l) const
 }
 
 Item*
-Item::find_prebroken_piece (int breakstatus) const
+Item::find_prebroken_piece (Direction breakstatus) const
 {
   if (!breakstatus)
     return (Item *) this;	// ugh
   else
-    return (Item*) broken_to_drul_[(Direction)breakstatus];
+    return (Item*) broken_to_drul_[breakstatus];
 }
 
 void
@@ -157,4 +157,10 @@ Item::do_unlink()
     s =0;
   }
   attached_span_l_arr_.set_size (0);
+}
+
+Paper_column *
+Item::column_l () const
+{
+  return axis_group_l_a_[X_AXIS]->item ()->column_l ();
 }

@@ -104,7 +104,7 @@ absolute_builddir = @absolute_builddir@
 SLANG_SCHRIFTEN = flower.py lilypython.py
 PAREL_SCHRIFTEN = 
 IN_SCHRIFTEN = flower.py lilypython.py
-EXTRA_DIST = Makefile.am.wild $(PAREL_SCHRIFTEN) $(IN_SCHRIFTEN) $(SLANG_SCHRIFTEN) wild-perl
+EXTRA_DIST = Makefile.am.wild $(PAREL_SCHRIFTEN) $(IN_SCHRIFTEN) $(SLANG_SCHRIFTEN) wild-perl autowild
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../lib/config.hh
 CONFIG_CLEAN_FILES =  add-URLs clean-diaper clean-embeds clean-fonts \
@@ -230,7 +230,7 @@ maintainer-clean-generic:
 	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
 mostlyclean:  mostlyclean-generic
 
-clean:  clean-generic mostlyclean
+clean:  clean-generic mostlyclean clean-local
 
 distclean:  distclean-generic clean
 	-rm -f config.status
@@ -246,8 +246,10 @@ distclean-generic clean-generic maintainer-clean-generic clean \
 mostlyclean distclean maintainer-clean
 
 
+clean-local:
+	-rm -f flower.pyc
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
-	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
+	$(PERL) $(top_srcdir)/bin/wild-perl --top-srcdir="$(real_topdir)" < $< > $@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

@@ -165,9 +165,9 @@ public:
 class Span_req  : public virtual Musical_req  {
 public:
   /// should the spanner start or stop, or is it unwanted?
-  enum {
+  enum Spantype {
     NOSPAN, START, STOP
-  } spantype ;
+  } spantype;
   bool do_equal_b (Request*) const;
   REQUESTMETHODS(Span_req,span);
 

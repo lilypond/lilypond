@@ -18,6 +18,7 @@ import string
 import sys
 import os
 import getopt
+import time
 
 class My_options:
     def __init__(self):
@@ -59,8 +60,8 @@ def head_str(filename):
 	what=" implement "
 
 
-    headstr = '\n%s -- %s\n\nsource file of %s\n\n(c) 1997 %s <%s>\n' \
-	      %(filename, what, project_str(), name(), mail())
+    headstr = '\n%s -- %s\n\nsource file of %s\n\n(c) %d %s <%s>\n' \
+	      %(filename, what, project_str(), time.localtime (time.time ())[0], name(), mail())
     return headstr
 
 

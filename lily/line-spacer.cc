@@ -1,5 +1,5 @@
 /*
-  line-spacer.cc -- implement 
+  line-spacer.cc -- implement Line_spacer
 
   source file of the GNU LilyPond music typesetter
 

@@ -69,6 +69,7 @@ class Spring_spacer : public Line_spacer {
 
   void handle_loose_cols();
   void position_loose_cols (Vector &) const;
+  bool try_initial_solution_and_tell (Vector&)const;
   Vector try_initial_solution() const;
   void calc_idealspacing();
   void set_fixed_cols (Mixed_qp&) const;

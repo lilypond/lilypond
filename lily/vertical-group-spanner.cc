@@ -11,3 +11,4 @@
 #include "p-col.hh"
 
 IMPLEMENT_IS_TYPE_B2(Vertical_group_spanner, Axis_group_spanner, Vertical_group_element);
+

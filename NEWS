@@ -1,4 +1,13 @@
-**********
+pl 52
+	- split up elem-group stuff.
+	- per line widths
+	- miscellaneous fixes by WL.
+
+pl 51.jcn1
+	- bf's: dutch->nederlands
+	- Cygnus b19 compile/link fixes
+
+************
 march 27
 pl 51
 	- changed dutch -> nederlands, german -> deutsch etc.
@@ -16,15 +25,13 @@ pl 50.jcn4
 	- bf: DIR_DATADIR
 	- bf: trills
 
-
-		
 ************
 pl 50
 	- deprecate autowild
 	- --srcdir fixes
 	- ly2dvi 0.8
 
-pl 49jcn2
+pl 49.jcn2
 	- static (default) and/or shared libs flower and lily
 	- patch from AO 'libtool 1.1.1'
 	- mf: trill-symbols: feta-slag.mf

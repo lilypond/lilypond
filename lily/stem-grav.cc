@@ -77,7 +77,7 @@ Stem_engraver::do_pre_move_processing()
   if (stem_p_)
     {
       Scalar prop = get_property ("ydirection");
-      dir_ = prop.isnum_b () ? int(prop) : CENTER;
+      dir_ = prop.isnum_b () ? (Direction)int(prop) : CENTER;
       if (dir_)
 	stem_p_->dir_ = dir_;
 

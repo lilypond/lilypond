@@ -1,6 +1,6 @@
 % Toplevel initialisation file. 
 Gourlay = 1.0
-\include "dutch.ly" 
+\include "nederlands.ly" 
 
 \include "paper16.ly"
 

@@ -35,9 +35,9 @@ uninstall-hook:
 
 html: $(HTMLFILES)
 
-clean-hook:
-	rm $(TEXTFILES) $(MAN1GROFF)
+clean-local:
+	-rm $(TEXTFILES) $(MAN1GROFF)
 
 include $(top_srcdir)/Documentation/Rules.make
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
-	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
+	$(PERL) $(top_srcdir)/bin/wild-perl --top-srcdir="$(real_topdir)" < $< > $@

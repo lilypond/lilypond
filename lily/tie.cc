@@ -53,7 +53,7 @@ Tie::do_add_processing()
   do {
     if (!head_l_drul_[d])
       new_head_drul[d] = head_l_drul_[(Direction)-d];
-  } while ((d *= -1) != LEFT);
+  } while (flip(&d) != LEFT);
   head_l_drul_ = new_head_drul;
 }
 
@@ -86,7 +86,7 @@ Tie::do_post_processing()
 		       ? head_l_drul_[d]->position_i_
 		       : head_l_drul_[(Direction)-d]->position_i_);
     }
-  while ((d *= -1) != LEFT);
+  while (flip(&d) != LEFT);
 
   do
     {
@@ -108,7 +108,7 @@ Tie::do_post_processing()
 			        -0.5 * nw_f);
 	}
     }
-  while ((d *= -1) != LEFT);
+  while (flip(&d) != LEFT);
 }
 
 void

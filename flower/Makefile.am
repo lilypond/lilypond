@@ -12,6 +12,9 @@
 
 SUBDIRS = include test 
 
+# the wild-perl script needs this.
+real_topdir = $(top_srcdir)/..
+
 lib_LTLIBRARIES = libflower.la
 
 README_FILES = ONEWS NEWS README TODO VERSION
@@ -23,5 +26,7 @@ libflower_la_LDFLAGS = -version-info @CURRENT@:@REVISION@:@AGE@
 
 INCLUDES = -I$(srcdir)/include
 
+distclean-local:
+	-rm -rf .deps
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
-	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
+	$(PERL) $(top_srcdir)/bin/wild-perl --top-srcdir="$(real_topdir)" < $< > $@

@@ -40,6 +40,9 @@
 #include "duration-convert.hh"
 #include "change-translator.hh"
 
+// needed for bison.simple's malloc() and free()
+#include <malloc.h>
+
 int const GUESS_PLET = 5;
 int guess_plet_a[GUESS_PLET] =
 { 
@@ -863,8 +866,8 @@ dynamic_req:
 	}
 	| SPANDYNAMIC '{' int int '}' {
 		Span_dynamic_req * sp_p = new Span_dynamic_req;
-		sp_p->spantype = $4;
-		sp_p-> dynamic_dir_  = $3;
+		sp_p->spantype = (Span_req::Spantype)$4;
+		sp_p-> dynamic_dir_  = (Direction)$3;
 		$$ = sp_p;
 	}
 	;
@@ -993,7 +996,7 @@ script_req:
 		m->scriptdef_p_ = $2;
 		m->set_spot (THIS->here_input ());
 		if (!m->dir_)
-		  m->dir_  = $1;
+		  m->dir_  = (Direction)$1;
 	}
 	;
 

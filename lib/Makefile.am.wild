@@ -18,3 +18,5 @@ MODULE_CXXFLAGS += -D_REENTRANT
 
 EXTRA_DIST = Makefile.am.wild
 
+distclean-local:
+	-rm -rf .deps

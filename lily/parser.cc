@@ -128,6 +128,9 @@
 #include "duration-convert.hh"
 #include "change-translator.hh"
 
+// needed for bison.simple's malloc() and free()
+#include <malloc.h>
+
 int const GUESS_PLET = 5;
 int guess_plet_a[GUESS_PLET] =
 { 
@@ -151,7 +154,7 @@ int guess_plet_a[GUESS_PLET] =
 #define yyerror THIS->parser_error
 
 
-#line 68 "parser.yy"
+#line 71 "parser.yy"
 typedef union {
     Array<Interval>* intarr;
     Array<Melodic_req*> *melreqvec;/* should clean up naming */
@@ -191,7 +194,7 @@ typedef union {
     int pair[2];
     int ii[10];
 } YYSTYPE;
-#line 107 "parser.yy"
+#line 110 "parser.yy"
 
 
 int
@@ -355,29 +358,29 @@ static const short yyrhs[] = {    -1,
 
 #if YYDEBUG != 0
 static const short yyrline[] = { 0,
-   258,   259,   263,   266,   267,   268,   269,   272,   285,   288,
-   291,   294,   300,   304,   311,   318,   322,   331,   335,   342,
-   347,   351,   355,   359,   363,   367,   371,   374,   377,   381,
-   384,   391,   396,   401,   406,   411,   415,   424,   428,   442,
-   445,   448,   451,   456,   459,   464,   468,   473,   475,   484,
-   489,   493,   496,   500,   501,   504,   507,   511,   515,   520,
-   524,   531,   537,   540,   544,   548,   552,   557,   570,   576,
-   581,   586,   588,   593,   600,   601,   602,   603,   604,   605,
-   608,   610,   613,   614,   615,   618,   631,   645,   647,   651,
-   653,   659,   665,   670,   683,   688,   689,   692,   694,   697,
-   707,   709,   712,   716,   721,   726,   731,   736,   744,   747,
-   750,   754,   758,   764,   769,   778,   782,   791,   793,   796,
-   800,   803,   815,   820,   823,   829,   835,   841,   850,   858,
-   864,   872,   877,   885,   893,   900,   909,   913,   916,   919,
-   922,   925,   929,   941,   949,   958,   962,   965,   968,   970,
-   976,   980,   989,  1000,  1005,  1009,  1015,  1026,  1036,  1038,
-  1039,  1040,  1041,  1042,  1043,  1048,  1050,  1051,  1057,  1059,
-  1060,  1063,  1066,  1075,  1080,  1084,  1094,  1098,  1104,  1108,
-  1113,  1115,  1118,  1122,  1126,  1132,  1138,  1148,  1151,  1154,
-  1157,  1163,  1167,  1177,  1185,  1191,  1203,  1206,  1211,  1215,
-  1219,  1223,  1226,  1233,  1237,  1246,  1251,  1252,  1253,  1254,
-  1260,  1264,  1268,  1271,  1275,  1281,  1285,  1287,  1294,  1300,
-  1307,  1315
+   261,   262,   266,   269,   270,   271,   272,   275,   288,   291,
+   294,   297,   303,   307,   314,   321,   325,   334,   338,   345,
+   350,   354,   358,   362,   366,   370,   374,   377,   380,   384,
+   387,   394,   399,   404,   409,   414,   418,   427,   431,   445,
+   448,   451,   454,   459,   462,   467,   471,   476,   478,   487,
+   492,   496,   499,   503,   504,   507,   510,   514,   518,   523,
+   527,   534,   540,   543,   547,   551,   555,   560,   573,   579,
+   584,   589,   591,   596,   603,   604,   605,   606,   607,   608,
+   611,   613,   616,   617,   618,   621,   634,   648,   650,   654,
+   656,   662,   668,   673,   686,   691,   692,   695,   697,   700,
+   710,   712,   715,   719,   724,   729,   734,   739,   747,   750,
+   753,   757,   761,   767,   772,   781,   785,   794,   796,   799,
+   803,   806,   818,   823,   826,   832,   838,   844,   853,   861,
+   867,   875,   880,   888,   896,   903,   912,   916,   919,   922,
+   925,   928,   932,   944,   952,   961,   965,   968,   971,   973,
+   979,   983,   992,  1003,  1008,  1012,  1018,  1029,  1039,  1041,
+  1042,  1043,  1044,  1045,  1046,  1051,  1053,  1054,  1060,  1062,
+  1063,  1066,  1069,  1078,  1083,  1087,  1097,  1101,  1107,  1111,
+  1116,  1118,  1121,  1125,  1129,  1135,  1141,  1151,  1154,  1157,
+  1160,  1166,  1170,  1180,  1188,  1194,  1206,  1209,  1214,  1218,
+  1222,  1226,  1229,  1236,  1240,  1249,  1254,  1255,  1256,  1257,
+  1263,  1267,  1271,  1274,  1278,  1284,  1288,  1290,  1297,  1303,
+  1310,  1318
 };
 #endif
 
@@ -1220,32 +1223,32 @@ yyreduce:
   switch (yyn) {
 
 case 2:
-#line 259 "parser.yy"
+#line 262 "parser.yy"
 {
 		delete THIS->default_header_p_ ;
 		THIS->default_header_p_ = yyvsp[0].header;
 	;
     break;}
 case 3:
-#line 263 "parser.yy"
+#line 266 "parser.yy"
 {
 		add_score (yyvsp[0].score);
 	;
     break;}
 case 4:
-#line 266 "parser.yy"
-{ ;
-    break;}
-case 6:
-#line 268 "parser.yy"
-{ ;
-    break;}
-case 7:
 #line 269 "parser.yy"
 { ;
     break;}
+case 6:
+#line 271 "parser.yy"
+{ ;
+    break;}
+case 7:
+#line 272 "parser.yy"
+{ ;
+    break;}
 case 8:
-#line 273 "parser.yy"
+#line 276 "parser.yy"
 {
 		if (String (*yyvsp[-1].string) != MUDELA_VERSION) {
 			if (THIS->ignore_version_b_) {
@@ -1258,31 +1261,31 @@ case 8:
 	;
     break;}
 case 10:
-#line 289 "parser.yy"
+#line 292 "parser.yy"
 {
 	;
     break;}
 case 11:
-#line 291 "parser.yy"
+#line 294 "parser.yy"
 {
 		THIS->clear_notenames ();
 	;
     break;}
 case 12:
-#line 294 "parser.yy"
+#line 297 "parser.yy"
 {
 		THIS->add_notename (*yyvsp[-2].string, yyvsp[0].melreq);
 		delete yyvsp[-2].string;
 	;
     break;}
 case 13:
-#line 301 "parser.yy"
+#line 304 "parser.yy"
 {
 		yyval.header = new Header;
 	;
     break;}
 case 14:
-#line 304 "parser.yy"
+#line 307 "parser.yy"
 {
 		(*yyval.header)[*yyvsp[-3].string] = *yyvsp[-1].string;
 		delete yyvsp[-3].string;
@@ -1290,31 +1293,31 @@ case 14:
 	;
     break;}
 case 15:
-#line 312 "parser.yy"
+#line 315 "parser.yy"
 {
 		yyval.header = yyvsp[-1].header;
 	;
     break;}
 case 16:
-#line 319 "parser.yy"
+#line 322 "parser.yy"
 {
 		yyval.string = new String;
 	;
     break;}
 case 17:
-#line 322 "parser.yy"
+#line 325 "parser.yy"
 {
 		*yyval.string += *yyvsp[0].string;
 	;
     break;}
 case 18:
-#line 332 "parser.yy"
+#line 335 "parser.yy"
 {
 		THIS->remember_spot ();
 	;
     break;}
 case 19:
-#line 335 "parser.yy"
+#line 338 "parser.yy"
 {
 	    THIS->lexer_p_->set_identifier (*yyvsp[-3].string, yyvsp[0].id);
 	    yyvsp[0].id->init_b_ = THIS->init_parse_b_;
@@ -1322,98 +1325,98 @@ case 19:
 	;
     break;}
 case 20:
-#line 343 "parser.yy"
+#line 346 "parser.yy"
 {
 		yyval.id = new Score_id (yyvsp[0].score, SCORE_IDENTIFIER);
 
 	;
     break;}
 case 21:
-#line 347 "parser.yy"
+#line 350 "parser.yy"
 {
 		yyval.id = new Paper_def_id (yyvsp[0].paper, PAPER_IDENTIFIER);
 
 	;
     break;}
 case 22:
-#line 351 "parser.yy"
+#line 354 "parser.yy"
 {
 		yyval.id = new Midi_def_id (yyvsp[0].midi, MIDI_IDENTIFIER);
 
 	;
     break;}
 case 23:
-#line 355 "parser.yy"
+#line 358 "parser.yy"
 {
 		yyval.id = new Script_id (yyvsp[0].script, SCRIPT_IDENTIFIER);
 
 	;
     break;}
 case 24:
-#line 359 "parser.yy"
+#line 362 "parser.yy"
 {
 		yyval.id = new Music_id (yyvsp[0].music, MUSIC_IDENTIFIER);
 
 	;
     break;}
 case 25:
-#line 363 "parser.yy"
+#line 366 "parser.yy"
 {
 		yyval.id = new Lookup_id (yyvsp[0].lookup, IDENTIFIER);
 
 	;
     break;}
 case 26:
-#line 367 "parser.yy"
+#line 370 "parser.yy"
 {
 		yyval.id = new Real_id (new Real (yyvsp[0].real), REAL_IDENTIFIER);
 
 	;
     break;}
 case 27:
-#line 371 "parser.yy"
+#line 374 "parser.yy"
 {
 		yyval.id = new Int_id (new int (yyvsp[0].i), INT_IDENTIFIER);
 	;
     break;}
 case 28:
-#line 374 "parser.yy"
+#line 377 "parser.yy"
 {
 		yyval.id = new Request_id (yyvsp[0].request, POST_REQUEST_IDENTIFIER);
 	;
     break;}
 case 29:
-#line 377 "parser.yy"
+#line 380 "parser.yy"
 {
 		yyval.id = new Request_id (yyvsp[0].melreq, MELODIC_REQUEST_IDENTIFIER);
 
 	;
     break;}
 case 30:
-#line 381 "parser.yy"
+#line 384 "parser.yy"
 {
 		yyval.id = new Translator_id (yyvsp[0].trans, TRANS_IDENTIFIER);
 	;
     break;}
 case 31:
-#line 384 "parser.yy"
+#line 387 "parser.yy"
 {
 		yyval.id = new Duration_id (yyvsp[0].duration, DURATION_IDENTIFIER);
 	;
     break;}
 case 32:
-#line 393 "parser.yy"
+#line 396 "parser.yy"
 { yyval.trans = yyvsp[-1].trans; ;
     break;}
 case 33:
-#line 397 "parser.yy"
+#line 400 "parser.yy"
 {
 		yyval.trans = yyvsp[0].id->translator ();
 		yyval.trans-> set_spot (THIS->here_input ());
 	;
     break;}
 case 34:
-#line 401 "parser.yy"
+#line 404 "parser.yy"
 {
 		yyval.trans = get_translator_l (*yyvsp[-1].string)->clone ();
 		yyval.trans->set_spot (THIS->here_input ());
@@ -1421,7 +1424,7 @@ case 34:
 	;
     break;}
 case 35:
-#line 406 "parser.yy"
+#line 409 "parser.yy"
 {
 		yyval.trans-> set_property (*yyvsp[-3].string, *yyvsp[-1].scalar);
 		delete yyvsp[-3].string;
@@ -1429,27 +1432,27 @@ case 35:
 	;
     break;}
 case 36:
-#line 411 "parser.yy"
+#line 414 "parser.yy"
 {
 		yyval.trans->group_l ()->consists_str_arr_.push (*yyvsp[-1].string);
 		delete yyvsp[-1].string;
 	;
     break;}
 case 37:
-#line 415 "parser.yy"
+#line 418 "parser.yy"
 {
 		yyval.trans->group_l ()->accepts_str_arr_.push (*yyvsp[-1].string);
 		delete yyvsp[-1].string;
 	;
     break;}
 case 38:
-#line 425 "parser.yy"
+#line 428 "parser.yy"
 { THIS->remember_spot ();
 		THIS->error_level_i_ =0;
 	;
     break;}
 case 39:
-#line 428 "parser.yy"
+#line 431 "parser.yy"
 {
 		yyval.score = yyvsp[-1].score;
 		yyval.score->set_spot (THIS->pop_spot ());
@@ -1464,25 +1467,25 @@ case 39:
 	;
     break;}
 case 40:
-#line 442 "parser.yy"
+#line 445 "parser.yy"
 {
 		yyval.score = new Score;
 	;
     break;}
 case 41:
-#line 445 "parser.yy"
+#line 448 "parser.yy"
 {
 		yyval.score = yyvsp[0].id->score ();
 	;
     break;}
 case 42:
-#line 448 "parser.yy"
+#line 451 "parser.yy"
 {
 		yyval.score->header_p_ = yyvsp[0].header;
 	;
     break;}
 case 43:
-#line 451 "parser.yy"
+#line 454 "parser.yy"
 {
 		if (yyval.score->music_p_)
 			yyvsp[0].music->warning ("More than one music block");	
@@ -1490,149 +1493,149 @@ case 43:
 	;
     break;}
 case 44:
-#line 456 "parser.yy"
+#line 459 "parser.yy"
 {
 		yyval.score->add (yyvsp[0].outputdef);
 	;
     break;}
 case 45:
-#line 459 "parser.yy"
+#line 462 "parser.yy"
 {
 
 	;
     break;}
 case 46:
-#line 465 "parser.yy"
+#line 468 "parser.yy"
 {
 		yyval.outputdef = yyvsp[0].paper;
 	;
     break;}
 case 47:
-#line 468 "parser.yy"
+#line 471 "parser.yy"
 {
 		yyval.outputdef= yyvsp[0].midi;
 	;
     break;}
 case 48:
-#line 474 "parser.yy"
+#line 477 "parser.yy"
 { yyval.intvec =new Array<int>; ;
     break;}
 case 49:
-#line 475 "parser.yy"
+#line 478 "parser.yy"
 {
 		yyval.intvec->push (yyvsp[-2].i); yyval.intvec->push (yyvsp[0].i);
 	;
     break;}
 case 50:
-#line 486 "parser.yy"
+#line 489 "parser.yy"
 { yyval.paper = yyvsp[-1].paper; ;
     break;}
 case 51:
-#line 490 "parser.yy"
+#line 493 "parser.yy"
 {
 		yyval.paper = THIS->default_paper ();
 	;
     break;}
 case 52:
-#line 493 "parser.yy"
+#line 496 "parser.yy"
 {
 		yyval.paper = yyvsp[0].id->paperdef ();
 	;
     break;}
 case 53:
-#line 496 "parser.yy"
+#line 499 "parser.yy"
 { 
 		yyval.paper->outfile_str_ = *yyvsp[-1].string;
 		delete yyvsp[-1].string;
 	;
     break;}
 case 54:
-#line 500 "parser.yy"
+#line 503 "parser.yy"
 { yyval.paper->set (yyvsp[0].lookup); ;
     break;}
 case 55:
-#line 501 "parser.yy"
-{
-		yyval.paper->set_var (*yyvsp[-3].string, yyvsp[-1].real);
-	;
-    break;}
-case 56:
 #line 504 "parser.yy"
 {
 		yyval.paper->set_var (*yyvsp[-3].string, yyvsp[-1].real);
 	;
     break;}
-case 57:
+case 56:
 #line 507 "parser.yy"
+{
+		yyval.paper->set_var (*yyvsp[-3].string, yyvsp[-1].real);
+	;
+    break;}
+case 57:
+#line 510 "parser.yy"
 {
 		yyval.paper-> assign_translator (*yyvsp[-2].string, yyvsp[0].trans);
 		delete yyvsp[-2].string;
 	;
     break;}
 case 58:
-#line 511 "parser.yy"
+#line 514 "parser.yy"
 {
 		yyval.paper->shape_int_a_ = *yyvsp[-1].intarr;
 		delete yyvsp[-1].intarr;
 	;
     break;}
 case 59:
-#line 515 "parser.yy"
+#line 518 "parser.yy"
 {
 
 	;
     break;}
 case 60:
-#line 521 "parser.yy"
+#line 524 "parser.yy"
 {
 		yyval.intarr = new Array<Interval>;
 	;
     break;}
 case 61:
-#line 524 "parser.yy"
+#line 527 "parser.yy"
 {
 		yyval.intarr->push(Interval(yyvsp[-1].real, yyvsp[-1].real + yyvsp[0].real));
 	;
     break;}
 case 62:
-#line 534 "parser.yy"
+#line 537 "parser.yy"
 { yyval.midi = yyvsp[-1].midi; ;
     break;}
 case 63:
-#line 537 "parser.yy"
+#line 540 "parser.yy"
 {
 		yyval.midi = THIS->default_midi ();
 	;
     break;}
 case 64:
-#line 540 "parser.yy"
+#line 543 "parser.yy"
 {
 		yyval.midi-> assign_translator (*yyvsp[-2].string, yyvsp[0].trans);
 		delete yyvsp[-2].string;
 	;
     break;}
 case 65:
-#line 544 "parser.yy"
+#line 547 "parser.yy"
 {
 		yyval.midi->outfile_str_ = *yyvsp[-1].string;
 		delete yyvsp[-1].string;
 	;
     break;}
 case 66:
-#line 548 "parser.yy"
+#line 551 "parser.yy"
 {
 		yyval.midi->set_tempo (yyvsp[-1].tempo->dur_.length (), yyvsp[-1].tempo->metronome_i_);
 		delete yyvsp[-1].tempo;
 	;
     break;}
 case 67:
-#line 552 "parser.yy"
+#line 555 "parser.yy"
 {
 
 	;
     break;}
 case 68:
-#line 558 "parser.yy"
+#line 561 "parser.yy"
 {
 		yyval.tempo = new Tempo_req;
 		yyval.tempo->dur_ = *yyvsp[-2].duration;
@@ -1641,30 +1644,30 @@ case 68:
 	;
     break;}
 case 69:
-#line 571 "parser.yy"
+#line 574 "parser.yy"
 {
 		yyval.musiclist = yyvsp[-1].musiclist;
 	;
     break;}
 case 70:
-#line 577 "parser.yy"
+#line 580 "parser.yy"
 {
 		yyval.musiclist = new Voice;
 		yyval.musiclist->set_spot (THIS->here_input ());
 	;
     break;}
 case 71:
-#line 581 "parser.yy"
+#line 584 "parser.yy"
 {
 		yyval.musiclist->add (yyvsp[0].music);
 	;
     break;}
 case 72:
-#line 587 "parser.yy"
+#line 590 "parser.yy"
 { yyval.music = yyvsp[0].music; ;
     break;}
 case 73:
-#line 588 "parser.yy"
+#line 591 "parser.yy"
 {
 		yyval.music = yyvsp[0].music;
 		yyval.music->translator_type_str_ = *yyvsp[-1].string;
@@ -1672,7 +1675,7 @@ case 73:
 	;
     break;}
 case 74:
-#line 593 "parser.yy"
+#line 596 "parser.yy"
 {
 		yyval.music = yyvsp[0].music;
 		yyval.music->translator_type_str_ = *yyvsp[-3].string;
@@ -1682,43 +1685,43 @@ case 74:
 	;
     break;}
 case 75:
-#line 600 "parser.yy"
+#line 603 "parser.yy"
 { yyval.music = yyvsp[0].musiclist; ;
     break;}
 case 76:
-#line 601 "parser.yy"
+#line 604 "parser.yy"
 { yyval.music = yyvsp[0].chord; ;
     break;}
 case 77:
-#line 602 "parser.yy"
+#line 605 "parser.yy"
 { yyval.music = yyvsp[0].music; ;
     break;}
 case 78:
-#line 603 "parser.yy"
+#line 606 "parser.yy"
 { yyval.music = yyvsp[0].id->music (); ;
     break;}
 case 79:
-#line 604 "parser.yy"
+#line 607 "parser.yy"
 { yyval.music = yyvsp[-1].id->music (); ;
     break;}
 case 80:
-#line 606 "parser.yy"
+#line 609 "parser.yy"
 { THIS->lexer_p_->push_note_state (); ;
     break;}
 case 81:
-#line 608 "parser.yy"
+#line 611 "parser.yy"
 { yyval.music=yyvsp[0].music; THIS->lexer_p_->pop_state (); ;
     break;}
 case 82:
-#line 611 "parser.yy"
+#line 614 "parser.yy"
 { THIS->lexer_p_->push_lyric_state (); ;
     break;}
 case 83:
-#line 613 "parser.yy"
+#line 616 "parser.yy"
 { yyval.music = yyvsp[0].music; THIS->lexer_p_->pop_state (); ;
     break;}
 case 86:
-#line 619 "parser.yy"
+#line 622 "parser.yy"
 {
 		Change_translator * t = new Change_translator;
 		t-> change_to_type_str_ = *yyvsp[-2].string;
@@ -1731,7 +1734,7 @@ case 86:
 	;
     break;}
 case 87:
-#line 632 "parser.yy"
+#line 635 "parser.yy"
 {
 		Translation_property *t = new Translation_property;
 		t-> translator_type_str_ = *yyvsp[-4].string;
@@ -1745,26 +1748,26 @@ case 87:
 	;
     break;}
 case 88:
-#line 646 "parser.yy"
+#line 649 "parser.yy"
 { yyval.scalar = new Scalar (*yyvsp[0].string); delete yyvsp[0].string; ;
     break;}
 case 89:
-#line 647 "parser.yy"
+#line 650 "parser.yy"
 { yyval.scalar = new Scalar (yyvsp[0].i); ;
     break;}
 case 90:
-#line 652 "parser.yy"
+#line 655 "parser.yy"
 { yyval.chord  = yyvsp[-1].chord; ;
     break;}
 case 91:
-#line 653 "parser.yy"
+#line 656 "parser.yy"
 {
 		yyval.chord = yyvsp[0].chord;
 		yyval.chord->multi_level_i_=yyvsp[-1].i;
 	;
     break;}
 case 92:
-#line 660 "parser.yy"
+#line 663 "parser.yy"
 {
 		yyval.chord = new Chord;
 		yyval.chord-> multi_level_i_ = 1;
@@ -1772,13 +1775,13 @@ case 92:
 	;
     break;}
 case 93:
-#line 665 "parser.yy"
+#line 668 "parser.yy"
 {
 		yyval.chord->add (yyvsp[0].music);
 	;
     break;}
 case 94:
-#line 671 "parser.yy"
+#line 674 "parser.yy"
 {
 		yyval.music = yyvsp[0].music;
 		yyval.music -> transpose (yyvsp[-1].melreq);
@@ -1787,18 +1790,18 @@ case 94:
 	;
     break;}
 case 95:
-#line 684 "parser.yy"
+#line 687 "parser.yy"
 {
 	 	THIS->add_requests ((Chord*)yyvsp[-1].music);//ugh
  		yyval.music = yyvsp[-1].music;
 	;
     break;}
 case 97:
-#line 689 "parser.yy"
+#line 692 "parser.yy"
 { yyval.music = 0; ;
     break;}
 case 100:
-#line 698 "parser.yy"
+#line 701 "parser.yy"
 {
 		yyval.music = new Request_chord;
 		yyval.music-> set_spot (THIS->here_input ());
@@ -1808,30 +1811,30 @@ case 100:
 	;
     break;}
 case 102:
-#line 709 "parser.yy"
+#line 712 "parser.yy"
 { yyval.request = yyvsp[-1].request; ;
     break;}
 case 103:
-#line 713 "parser.yy"
+#line 716 "parser.yy"
 {
 		yyval.request = new Barcheck_req;
 	;
     break;}
 case 104:
-#line 716 "parser.yy"
+#line 719 "parser.yy"
 {
 		yyval.request = yyvsp[0].id->request ();
 	;
     break;}
 case 105:
-#line 722 "parser.yy"
+#line 725 "parser.yy"
 {
 		yyval.request = new Bar_req (*yyvsp[0].string);
 		delete yyvsp[0].string;
 	;
     break;}
 case 106:
-#line 726 "parser.yy"
+#line 729 "parser.yy"
 {
 		Break_force_req * f = new Break_force_req;
 		f-> set_spot (THIS->here_input ());
@@ -1839,7 +1842,7 @@ case 106:
 	;
     break;}
 case 107:
-#line 731 "parser.yy"
+#line 734 "parser.yy"
 {
 		Meter_change_req *m = new Meter_change_req;
 		m->set (yyvsp[-2].i,yyvsp[0].i);
@@ -1847,7 +1850,7 @@ case 107:
 	;
     break;}
 case 108:
-#line 736 "parser.yy"
+#line 739 "parser.yy"
 {
 		Skip_req * skip_p = new Skip_req;
 		skip_p->duration_.set_plet (yyvsp[0].moment->num (),
@@ -1858,33 +1861,33 @@ case 108:
 	;
     break;}
 case 109:
-#line 744 "parser.yy"
+#line 747 "parser.yy"
 {
 		yyval.request = yyvsp[0].tempo;
 	;
     break;}
 case 110:
-#line 747 "parser.yy"
+#line 750 "parser.yy"
 {
 		yyval.request = new Cadenza_req (yyvsp[0].i);
 	;
     break;}
 case 111:
-#line 750 "parser.yy"
+#line 753 "parser.yy"
 {
 		yyval.request = new Partial_measure_req (*yyvsp[0].moment);
 		delete yyvsp[0].moment;
 	;
     break;}
 case 112:
-#line 754 "parser.yy"
+#line 757 "parser.yy"
 {
 		yyval.request = new Clef_change_req (*yyvsp[0].string);
 		delete yyvsp[0].string;
 	;
     break;}
 case 113:
-#line 758 "parser.yy"
+#line 761 "parser.yy"
 {
 		Key_change_req *key_p= new Key_change_req;
 		key_p->melodic_p_arr_ = *yyvsp[0].melreqvec;
@@ -1893,13 +1896,13 @@ case 113:
 	;
     break;}
 case 114:
-#line 764 "parser.yy"
+#line 767 "parser.yy"
 {
 		yyval.request = get_grouping_req (*yyvsp[0].intvec); delete yyvsp[0].intvec;
 	;
     break;}
 case 115:
-#line 770 "parser.yy"
+#line 773 "parser.yy"
 {
 		/* something silly happened.  Junk this stuff*/
 		if (!THIS->post_reqs.empty ())
@@ -1910,14 +1913,14 @@ case 115:
 	;
     break;}
 case 116:
-#line 778 "parser.yy"
+#line 781 "parser.yy"
 {
 		yyvsp[0].request->set_spot (THIS->here_input ());
 		THIS->post_reqs.push (yyvsp[0].request);
 	;
     break;}
 case 117:
-#line 782 "parser.yy"
+#line 785 "parser.yy"
 {
 		Array<Request*>& r = *THIS->get_parens_request (yyvsp[0].i);
 		for (int i = 0; i < r.size (); i++ )
@@ -1927,19 +1930,19 @@ case 117:
 	;
     break;}
 case 120:
-#line 797 "parser.yy"
+#line 800 "parser.yy"
 {
 		yyval.request = (Request*)yyvsp[0].id->request ();
 	;
     break;}
 case 121:
-#line 800 "parser.yy"
+#line 803 "parser.yy"
 {
 		yyval.request = yyvsp[0].request;
 	;
     break;}
 case 122:
-#line 803 "parser.yy"
+#line 806 "parser.yy"
 {
 		Abbreviation_req* a = new Abbreviation_req;
 		a->type_i_ = yyvsp[0].i;
@@ -1947,27 +1950,27 @@ case 122:
 	;
     break;}
 case 123:
-#line 816 "parser.yy"
+#line 819 "parser.yy"
 {
 		yyval.melreq = yyvsp[0].melreq->clone ()->musical ()->melodic ();
 		yyval.melreq->octave_i_ += THIS->default_octave_i_;
 	;
     break;}
 case 124:
-#line 820 "parser.yy"
+#line 823 "parser.yy"
 {
 		yyval.melreq-> octave_i_ += yyvsp[0].i;
 	;
     break;}
 case 125:
-#line 823 "parser.yy"
+#line 826 "parser.yy"
 {
 		yyval.melreq = yyvsp[0].melreq;
 		yyvsp[0].melreq-> octave_i_ -= yyvsp[-1].i;
 	;
     break;}
 case 126:
-#line 830 "parser.yy"
+#line 833 "parser.yy"
 {
 		yyval.notereq = new Note_req;
 		* (Melodic_req *) yyval.notereq = *yyvsp[0].melreq;
@@ -1975,13 +1978,13 @@ case 126:
 	;
     break;}
 case 127:
-#line 835 "parser.yy"
+#line 838 "parser.yy"
 {
 		yyval.notereq->forceacc_b_ = ! yyval.notereq->forceacc_b_;
 	;
     break;}
 case 128:
-#line 842 "parser.yy"
+#line 845 "parser.yy"
 {/* ugh */
 		yyval.melreq = new Melodic_req;
 		yyval.melreq->octave_i_ = yyvsp[-3].i;
@@ -1990,7 +1993,7 @@ case 128:
 	;
     break;}
 case 129:
-#line 851 "parser.yy"
+#line 854 "parser.yy"
 {
 		yyval.duration = new Duration;
 		yyval.duration-> durlog_i_ = yyvsp[-2].i;
@@ -1998,7 +2001,7 @@ case 129:
 	;
     break;}
 case 130:
-#line 859 "parser.yy"
+#line 862 "parser.yy"
 {
 		Absolute_dynamic_req *ad_p = new Absolute_dynamic_req;
 		ad_p ->loudness_ = (Dynamic_req::Loudness)yyvsp[-1].i;
@@ -2006,23 +2009,23 @@ case 130:
 	;
     break;}
 case 131:
-#line 864 "parser.yy"
+#line 867 "parser.yy"
 {
 		Span_dynamic_req * sp_p = new Span_dynamic_req;
-		sp_p->spantype = yyvsp[-1].i;
-		sp_p-> dynamic_dir_  = yyvsp[-2].i;
+		sp_p->spantype = (Span_req::Spantype)yyvsp[-1].i;
+		sp_p-> dynamic_dir_  = (Direction)yyvsp[-2].i;
 		yyval.request = sp_p;
 	;
     break;}
 case 132:
-#line 873 "parser.yy"
+#line 876 "parser.yy"
 {
 		yyval.pair[0] = yyvsp[-2].i;
 		yyval.pair[1] = yyvsp[0].i;
 	;
     break;}
 case 133:
-#line 878 "parser.yy"
+#line 881 "parser.yy"
 {
 		int num = yyvsp[0].i >? 1;
 		yyval.pair[0] = guess_plet_a[(num <? GUESS_PLET) - 1];
@@ -2030,7 +2033,7 @@ case 133:
 	;
     break;}
 case 134:
-#line 886 "parser.yy"
+#line 889 "parser.yy"
 {
 		yyval.i = MAEBTELP;
 		THIS->plet_.type_i_ = yyvsp[0].pair[1];
@@ -2040,7 +2043,7 @@ case 134:
 	;
     break;}
 case 135:
-#line 893 "parser.yy"
+#line 896 "parser.yy"
 {
 		yyval.i = TELP;
 		THIS->plet_.type_i_ = 1;
@@ -2050,7 +2053,7 @@ case 135:
 	;
     break;}
 case 136:
-#line 900 "parser.yy"
+#line 903 "parser.yy"
 {
 		yyval.i = TELP;
 		THIS->plet_.type_i_ = yyvsp[0].pair[1];
@@ -2060,42 +2063,42 @@ case 136:
 	;
     break;}
 case 137:
-#line 910 "parser.yy"
+#line 913 "parser.yy"
 {
 		yyval.i = '~';
 	;
     break;}
 case 138:
-#line 913 "parser.yy"
+#line 916 "parser.yy"
 {
 		yyval.i='(';
 	;
     break;}
 case 139:
-#line 916 "parser.yy"
+#line 919 "parser.yy"
 {
 		yyval.i = ']';
 	;
     break;}
 case 140:
-#line 919 "parser.yy"
+#line 922 "parser.yy"
 {
 		yyval.i = '<';
 	;
     break;}
 case 141:
-#line 922 "parser.yy"
+#line 925 "parser.yy"
 {
 		yyval.i = '>';
 	;
     break;}
 case 142:
-#line 925 "parser.yy"
+#line 928 "parser.yy"
 {
 	;
     break;}
 case 143:
-#line 930 "parser.yy"
+#line 933 "parser.yy"
 {
 		yyval.c = '[';
 		if (!Duration::duration_type_b (yyvsp[0].i))
@@ -2107,7 +2110,7 @@ case 143:
 	;
     break;}
 case 144:
-#line 942 "parser.yy"
+#line 945 "parser.yy"
 {
 		yyval.i = BEAMPLET;
 		THIS->plet_.type_i_ = yyvsp[0].pair[1];
@@ -2117,7 +2120,7 @@ case 144:
 	;
     break;}
 case 145:
-#line 949 "parser.yy"
+#line 952 "parser.yy"
 {
 		yyval.i = PLET;
 		THIS->plet_.type_i_ = yyvsp[0].pair[1];
@@ -2127,39 +2130,39 @@ case 145:
 	;
     break;}
 case 146:
-#line 959 "parser.yy"
+#line 962 "parser.yy"
 {
 		yyval.i = '!';
 	;
     break;}
 case 147:
-#line 962 "parser.yy"
+#line 965 "parser.yy"
 {
 		yyval.i=')';
 	;
     break;}
 case 148:
-#line 965 "parser.yy"
+#line 968 "parser.yy"
 {
 		yyval.i='[';
 	;
     break;}
 case 149:
-#line 968 "parser.yy"
+#line 971 "parser.yy"
 {
 	;
     break;}
 case 150:
-#line 970 "parser.yy"
+#line 973 "parser.yy"
 {
 	;
     break;}
 case 151:
-#line 977 "parser.yy"
+#line 980 "parser.yy"
 { yyval.script = yyvsp[-1].script; ;
     break;}
 case 152:
-#line 981 "parser.yy"
+#line 984 "parser.yy"
 {
 		Script_def *s = new Script_def;
 		s->set_from_input (*yyvsp[-5].string,yyvsp[-4].i, yyvsp[-3].i,yyvsp[-2].i,yyvsp[-1].i, yyvsp[0].i);
@@ -2168,39 +2171,39 @@ case 152:
 	;
     break;}
 case 153:
-#line 990 "parser.yy"
+#line 993 "parser.yy"
 {
 		Musical_script_req *m = new Musical_script_req;
 		yyval.request = m;
 		m->scriptdef_p_ = yyvsp[0].script;
 		m->set_spot (THIS->here_input ());
 		if (!m->dir_)
-		  m->dir_  = yyvsp[-1].i;
+		  m->dir_  = (Direction)yyvsp[-1].i;
 	;
     break;}
 case 154:
-#line 1001 "parser.yy"
+#line 1004 "parser.yy"
 { 
 		yyval.script = yyvsp[0].textdef;
 		((Text_def*) yyval.script)->align_i_ = CENTER; /* UGH */
 	;
     break;}
 case 155:
-#line 1005 "parser.yy"
+#line 1008 "parser.yy"
 { 
 		yyval.script = yyvsp[0].script;
 		yyval.script-> set_spot (THIS->here_input ());
 	;
     break;}
 case 156:
-#line 1009 "parser.yy"
+#line 1012 "parser.yy"
 {
 		yyval.script = yyvsp[0].textdef;
 		((Text_def*)yyval.script)->align_i_ = CENTER;
 	;
     break;}
 case 157:
-#line 1016 "parser.yy"
+#line 1019 "parser.yy"
 {
 		Text_def *t  = new Text_def;
 		yyval.textdef = t;
@@ -2211,7 +2214,7 @@ case 157:
 	;
     break;}
 case 158:
-#line 1027 "parser.yy"
+#line 1030 "parser.yy"
 {
 		Text_def* t  = new Text_def;
 		yyval.textdef = t;
@@ -2221,69 +2224,69 @@ case 158:
 	;
     break;}
 case 159:
-#line 1037 "parser.yy"
+#line 1040 "parser.yy"
 { yyval.string = get_scriptdef ('^'); ;
     break;}
 case 160:
-#line 1038 "parser.yy"
+#line 1041 "parser.yy"
 { yyval.string = get_scriptdef ('+'); ;
     break;}
 case 161:
-#line 1039 "parser.yy"
+#line 1042 "parser.yy"
 { yyval.string = get_scriptdef ('-'); ;
     break;}
 case 162:
-#line 1040 "parser.yy"
+#line 1043 "parser.yy"
 { yyval.string = get_scriptdef ('|'); ;
     break;}
 case 163:
-#line 1041 "parser.yy"
+#line 1044 "parser.yy"
 { yyval.string = get_scriptdef ('o'); ;
     break;}
 case 164:
-#line 1042 "parser.yy"
+#line 1045 "parser.yy"
 { yyval.string = get_scriptdef ('>'); ;
     break;}
 case 165:
-#line 1043 "parser.yy"
+#line 1046 "parser.yy"
 {
 		yyval.string = get_scriptdef ('.');
 	;
     break;}
 case 166:
-#line 1049 "parser.yy"
+#line 1052 "parser.yy"
 { yyval.script = yyvsp[0].id->script (); ;
     break;}
 case 167:
-#line 1050 "parser.yy"
+#line 1053 "parser.yy"
 { yyval.script = yyvsp[0].script; ;
     break;}
 case 168:
-#line 1051 "parser.yy"
+#line 1054 "parser.yy"
 {
 		yyval.script = THIS->lexer_p_->lookup_identifier (*yyvsp[0].string)->script ();
 		delete yyvsp[0].string;
 	;
     break;}
 case 169:
-#line 1058 "parser.yy"
+#line 1061 "parser.yy"
 { yyval.i = -1; ;
     break;}
 case 170:
-#line 1059 "parser.yy"
+#line 1062 "parser.yy"
 { yyval.i = 1; ;
     break;}
 case 171:
-#line 1060 "parser.yy"
+#line 1063 "parser.yy"
 { yyval.i = 0; ;
     break;}
 case 172:
-#line 1064 "parser.yy"
+#line 1067 "parser.yy"
 {
 	;
     break;}
 case 173:
-#line 1066 "parser.yy"
+#line 1069 "parser.yy"
 {
 		Array<Request*>& r = *THIS->get_parens_request (yyvsp[0].i);
 		for (int i = 0; i < r.size (); i++ )
@@ -2293,21 +2296,21 @@ case 173:
 	;
     break;}
 case 174:
-#line 1076 "parser.yy"
+#line 1079 "parser.yy"
 {
 		THIS->set_duration_mode (*yyvsp[0].string);
 		delete yyvsp[0].string;
 	;
     break;}
 case 175:
-#line 1080 "parser.yy"
+#line 1083 "parser.yy"
 {
 		THIS->set_default_duration (yyvsp[0].duration);
 		delete yyvsp[0].duration;
 	;
     break;}
 case 176:
-#line 1084 "parser.yy"
+#line 1087 "parser.yy"
 {
 		/*
 			This is weird, but default_octave_i_
@@ -2319,67 +2322,67 @@ case 176:
 		THIS->default_octave_i_ = 1; ;
     break;}
 case 177:
-#line 1094 "parser.yy"
+#line 1097 "parser.yy"
 {
 		THIS->default_octave_i_ = yyvsp[0].melreq->octave_i_;
 		delete yyvsp[0].melreq;
 	;
     break;}
 case 178:
-#line 1098 "parser.yy"
+#line 1101 "parser.yy"
 {
 		THIS->textstyle_str_ = *yyvsp[0].string;
 		delete yyvsp[0].string;
 	;
     break;}
 case 179:
-#line 1105 "parser.yy"
+#line 1108 "parser.yy"
 {
 		yyval.moment = new Moment (0,1);
 	;
     break;}
 case 180:
-#line 1108 "parser.yy"
+#line 1111 "parser.yy"
 {
 		*yyval.moment += yyvsp[0].duration->length ();
 	;
     break;}
 case 181:
-#line 1114 "parser.yy"
+#line 1117 "parser.yy"
 { yyval.i = 1; ;
     break;}
 case 182:
-#line 1115 "parser.yy"
+#line 1118 "parser.yy"
 { yyval.i ++; ;
     break;}
 case 183:
-#line 1119 "parser.yy"
+#line 1122 "parser.yy"
 {
 		yyval.duration = new Duration (THIS->default_duration_);
 	;
     break;}
 case 184:
-#line 1122 "parser.yy"
+#line 1125 "parser.yy"
 {
 		yyval.duration = new Duration (THIS->default_duration_);
 		yyval.duration->dots_i_  = yyvsp[0].i;
 	;
     break;}
 case 185:
-#line 1126 "parser.yy"
+#line 1129 "parser.yy"
 {
 		THIS->set_last_duration (yyvsp[0].duration);
 		yyval.duration = yyvsp[0].duration;
 	;
     break;}
 case 186:
-#line 1133 "parser.yy"
+#line 1136 "parser.yy"
 {
 		yyval.duration = yyvsp[0].duration;
 	;
     break;}
 case 187:
-#line 1139 "parser.yy"
+#line 1142 "parser.yy"
 {
 		yyval.duration = new Duration;
 		if (!Duration::duration_type_b (yyvsp[0].i))
@@ -2391,37 +2394,37 @@ case 187:
 	;
     break;}
 case 188:
-#line 1148 "parser.yy"
+#line 1151 "parser.yy"
 {
 		yyval.duration = yyvsp[0].id->duration ();
 	;
     break;}
 case 189:
-#line 1151 "parser.yy"
+#line 1154 "parser.yy"
 {
 		yyval.duration->dots_i_ ++;
 	;
     break;}
 case 190:
-#line 1154 "parser.yy"
+#line 1157 "parser.yy"
 {
 		yyval.duration->plet_.iso_i_ = yyvsp[0].i;
 	;
     break;}
 case 191:
-#line 1157 "parser.yy"
+#line 1160 "parser.yy"
 {
 		yyval.duration->plet_.type_i_ = yyvsp[0].i;
 	;
     break;}
 case 192:
-#line 1164 "parser.yy"
+#line 1167 "parser.yy"
 {
 		yyval.i =0;
 	;
     break;}
 case 193:
-#line 1167 "parser.yy"
+#line 1170 "parser.yy"
 {
 		if (!Duration::duration_type_b (yyvsp[0].i))
 			THIS->parser_error ("3:Not a duration");
@@ -2431,7 +2434,7 @@ case 193:
 	;
     break;}
 case 194:
-#line 1178 "parser.yy"
+#line 1181 "parser.yy"
 {
 		if (!THIS->lexer_p_->note_state_b ())
 			THIS->parser_error ("have to be in Note mode for notes");
@@ -2441,14 +2444,14 @@ case 194:
 	;
     break;}
 case 195:
-#line 1185 "parser.yy"
+#line 1188 "parser.yy"
 {
 		yyval.music = THIS->get_rest_element (*yyvsp[-1].string, yyvsp[0].duration);
 		delete yyvsp[-1].string;
 	;
     break;}
 case 196:
-#line 1192 "parser.yy"
+#line 1195 "parser.yy"
 {
 	/* this sux! text-def should be feature of lyric-engraver. */
 		if (!THIS->lexer_p_->lyric_state_b ())
@@ -2458,43 +2461,43 @@ case 196:
 	;
     break;}
 case 197:
-#line 1203 "parser.yy"
+#line 1206 "parser.yy"
 {
 		yyval.melreqvec = new Array<Melodic_req*>;
 	;
     break;}
 case 198:
-#line 1206 "parser.yy"
+#line 1209 "parser.yy"
 {
 		yyval.melreqvec->push (yyvsp[0].melreq->clone ()->musical ()->melodic ());
 	;
     break;}
 case 199:
-#line 1212 "parser.yy"
-{
-		yyval.i = yyvsp[0].i;
-	;
-    break;}
-case 200:
 #line 1215 "parser.yy"
 {
 		yyval.i = yyvsp[0].i;
 	;
     break;}
+case 200:
+#line 1218 "parser.yy"
+{
+		yyval.i = yyvsp[0].i;
+	;
+    break;}
 case 201:
-#line 1220 "parser.yy"
+#line 1223 "parser.yy"
 {
 		yyval.i = yyvsp[0].i;
 	;
     break;}
 case 202:
-#line 1223 "parser.yy"
+#line 1226 "parser.yy"
 {
 		yyval.i = -yyvsp[0].i;
 	;
     break;}
 case 203:
-#line 1226 "parser.yy"
+#line 1229 "parser.yy"
 {
 		int *i_p = yyvsp[0].id->intid ();
 		yyval.i = *i_p;
@@ -2502,13 +2505,13 @@ case 203:
 	;
     break;}
 case 204:
-#line 1234 "parser.yy"
+#line 1237 "parser.yy"
 {
 		yyval.real = yyvsp[0].real;
 	;
     break;}
 case 205:
-#line 1237 "parser.yy"
+#line 1240 "parser.yy"
 {
 		Real *r_p = yyvsp[0].id->real ();
 		yyval.real = * r_p;
@@ -2516,65 +2519,65 @@ case 205:
 	;
     break;}
 case 206:
-#line 1247 "parser.yy"
+#line 1250 "parser.yy"
 { yyval.real = yyvsp[-1].real*yyvsp[0].real; ;
     break;}
 case 207:
-#line 1251 "parser.yy"
+#line 1254 "parser.yy"
 { yyval.real = 1 CM; ;
     break;}
 case 208:
-#line 1252 "parser.yy"
+#line 1255 "parser.yy"
 { yyval.real = 1 INCH; ;
     break;}
 case 209:
-#line 1253 "parser.yy"
+#line 1256 "parser.yy"
 { yyval.real = 1 MM; ;
     break;}
 case 210:
-#line 1254 "parser.yy"
+#line 1257 "parser.yy"
 { yyval.real = 1 PT; ;
     break;}
 case 211:
-#line 1261 "parser.yy"
+#line 1264 "parser.yy"
 { yyval.lookup = yyvsp[-1].lookup; ;
     break;}
 case 212:
-#line 1265 "parser.yy"
+#line 1268 "parser.yy"
 {
 		yyval.lookup = new Lookup;
 	;
     break;}
 case 213:
-#line 1268 "parser.yy"
+#line 1271 "parser.yy"
 {
 		yyval.lookup = yyvsp[0].id->lookup ();
 	;
     break;}
 case 214:
-#line 1271 "parser.yy"
+#line 1274 "parser.yy"
 {
 		yyval.lookup->texsetting = *yyvsp[0].string;
 		delete yyvsp[0].string;
 	;
     break;}
 case 215:
-#line 1275 "parser.yy"
+#line 1278 "parser.yy"
 {
 		yyval.lookup->add (*yyvsp[-2].string, yyvsp[0].symtable);
 		delete yyvsp[-2].string;
 	;
     break;}
 case 216:
-#line 1282 "parser.yy"
+#line 1285 "parser.yy"
 { yyval.symtable = yyvsp[-1].symtable; ;
     break;}
 case 217:
-#line 1286 "parser.yy"
+#line 1289 "parser.yy"
 { yyval.symtable = new Symtable; ;
     break;}
 case 218:
-#line 1287 "parser.yy"
+#line 1290 "parser.yy"
 {
 		yyval.symtable->add (*yyvsp[-1].string, *yyvsp[0].symbol);
 		delete yyvsp[-1].string;
@@ -2582,7 +2585,7 @@ case 218:
 	;
     break;}
 case 219:
-#line 1295 "parser.yy"
+#line 1298 "parser.yy"
 {
 		yyval.symbol = new Atom (*yyvsp[-1].string, *yyvsp[0].box);
 		delete yyvsp[-1].string;
@@ -2590,7 +2593,7 @@ case 219:
 	;
     break;}
 case 220:
-#line 1300 "parser.yy"
+#line 1303 "parser.yy"
 {
 		Box b (Interval (0,0), Interval (0,0));
 		yyval.symbol = new Atom (*yyvsp[0].string, b);
@@ -2598,7 +2601,7 @@ case 220:
 	;
     break;}
 case 221:
-#line 1308 "parser.yy"
+#line 1311 "parser.yy"
 {
 		yyval.box = new Box (*yyvsp[-1].interval, *yyvsp[0].interval);
 		delete yyvsp[-1].interval;
@@ -2606,7 +2609,7 @@ case 221:
 	;
     break;}
 case 222:
-#line 1315 "parser.yy"
+#line 1318 "parser.yy"
 {
 		yyval.interval = new Interval (yyvsp[-1].real, yyvsp[0].real);
 	;
@@ -2809,7 +2812,7 @@ yyerrhandle:
   yystate = yyn;
   goto yynewstate;
 }
-#line 1320 "parser.yy"
+#line 1323 "parser.yy"
 
 
 void

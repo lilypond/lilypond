@@ -13,7 +13,7 @@ InitLexer		1
 Lexer			1
 
 
-walking		0
+walking		11
 
 # flower lib
 File_path		1
@@ -37,7 +37,7 @@ Engraver_group_engraver 0
 Group_change_req	0
 Head_column		0
 Idealspacing		0
-Ineq_constrained_qp 	1
+Ineq_constrained_qp 	0
 Input_translator	0
 Item			0
 Key_item		0

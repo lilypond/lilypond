@@ -11,8 +11,8 @@ if test x$MY_PATCH_LEVEL != x; then
 fi
 AM_INIT_AUTOMAKE(lilypond, $FULL_VERSION)
 
-AC_PROG_CC
-AC_PROG_CXX
+#AC_PROG_CC
+#AC_PROG_CXX
 
 # turn off shared libraries by default (may be enabled using --enable-shared)
 AM_DISABLE_SHARED
@@ -179,9 +179,9 @@ else
  find_texprefix=$TEXPREFIX
 fi
 
-# if test "x$MFDIR" = xauto; then
-#     AC_MF_SUBDIR(MFDIR)
-# fi
+if test "x$MFDIR" = xauto; then
+    AC_MF_SUBDIR(MFDIR)
+fi
     
 if test "x$TEXDIR" = xauto ; then
     AC_TEX_SUBDIR(TEXDIR)

@@ -11,7 +11,7 @@
 #define SPAN_VERTICAL_GROUP_HH
 
 #include "axis-group-spanner.hh"
-#include "elem-group.hh"
+#include "vertical-group-elem.hh"
 
 /** An element which groups a line. 
  */
@@ -27,5 +27,6 @@ public:
   virtual void add_element (Graphical_element*e) { Vertical_group_element::add_element (e); }
   virtual void remove_element (Graphical_element*e) { Vertical_group_element::remove_element (e); }  
 };
+
 
 #endif // SPAN_VERTICAL_GROUP_HH

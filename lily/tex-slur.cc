@@ -179,7 +179,7 @@ Lookup::ps_slur (Real dy , Real dx, Real ht, Real dir) const
 Atom
 Lookup::tex_slur (int dy , Real &dx, Direction dir) const
 {
-  assert (abs (dir) <= 1);
+  assert (abs ((int)dir) <= 1);
   Atom s;
   Direction y_sign = (Direction) sign (dy);
 

@@ -135,16 +135,13 @@ Break_algorithm::feasible (Line_of_cols curline) const
   if (linelength <=  0)
     return true;
 
-  Real l =0;
   for (int i=0; i < curline.size (); i++)
     {
       if (i && i < curline.size () -1
 	  && ((Score_column*)curline[i])->forced_break_b ())
 	return false;
-      
-      l +=curline[i]->width ().length ();
     }
-  return l < linelength;
+  return true;
 }
 
 void

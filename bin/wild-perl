@@ -1,6 +1,11 @@
 # -*- perl -*-
 ##! @PERL@
 
+use Getopt::Long;
+GetOptions("top-srcdir:s");
+
+$my_topdir = $opt_top_srcdir ? $opt_top_srcdir : "\$(top_srcdir)";
+
 @ignorestuff = ();
 
 sub ignore_query
@@ -10,6 +15,7 @@ sub ignore_query
 }
 
 print "# Generated automatically by wild-perl 0.1\n";
+
 
 while (<>) {
 	$line = $_;
@@ -37,5 +43,5 @@ while (<>) {
 
 
 print "\$(srcdir)/Makefile.am: \$(srcdir)/Makefile.am.wild\n" .
-    "\t\$(PERL) \$(top_srcdir)/bin/wild-perl < \$< > \$@";
+    "\t\$(PERL) $my_topdir/bin/wild-perl --top-srcdir=\"\$(real_topdir)\" < \$< > \$@";
 

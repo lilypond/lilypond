@@ -86,6 +86,12 @@ struct Interval_t {
   String str() const;    
   void print () const;
   bool elt_b (T r);
+  void negate () {
+    T r = -left;
+    T l = -right;
+    left = l;
+    right =r;
+  }
 };
 
 
@@ -117,6 +123,23 @@ template<class T>
 inline
 Interval_t<T> operator +(T a,Interval_t<T> i)
 {
+  i += a;
+  return i;
+}
+
+template<class T>
+inline
+Interval_t<T> operator - (Interval_t<T> i, T a)
+{
+  i += -a;
+  return i;
+}
+
+template<class T>
+inline
+Interval_t<T> operator - (T a,Interval_t<T> i)
+{
+  i.negate ();
   i += a;
   return i;
 }

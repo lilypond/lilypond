@@ -52,6 +52,8 @@ enum Score_elem_status {
   PREBROKEN,
   PRECALCING,
   PRECALCED,		// calcs before spacing done
+  SPACING,
+  SPACED,
   BROKEN,
   POSTCALCING,		// busy calculating. This is used to trap cyclic deps.
   POSTCALCED,		// after spacing calcs done
@@ -65,6 +67,12 @@ void
 Super_elem::pre_processing ()
 {
   calcalute_dependencies (PRECALCING, PRECALCED, &Score_elem::do_pre_processing);
+}
+
+void
+Super_elem::space_processing ()
+{
+  calcalute_dependencies (SPACING, SPACED, &Score_elem::do_space_processing);
 }
 
 /* for break processing, use only one status, because copies have to

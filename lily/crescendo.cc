@@ -53,7 +53,7 @@ Crescendo::get_symbol() const
   do {
     Score_column* s = (Score_column* )spanned_drul_[d] ; // UGH
     broken[d] = (!s->musical_b());
-  } while ((d *= -1) != LEFT);
+  } while (flip(&d) != LEFT);
   
 
   bool continued = broken[(Direction)-grow_dir_];

@@ -1,4 +1,5 @@
 #include "leastsquares.hh"
+
 void
 Least_squares::OK() const
 {
@@ -9,6 +10,7 @@ Least_squares::OK() const
 
   assert (dx);
 }
+
 void
 Least_squares::minimise (Real &coef, Real &offset)
 {

@@ -11,6 +11,9 @@
 #	Han-Wen Nienhuys <hanwen@stack.nl>
 #
 
+# the wild-perl script needs this.
+real_topdir = $(top_srcdir)/..
+
 # bin_PROGRAMS = test
 
 # TEST = test
@@ -27,4 +30,4 @@ noinst_HEADERS = flower-test.hh
 INCLUDES = -I../include
 
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
-	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
+	$(PERL) $(top_srcdir)/bin/wild-perl --top-srcdir="$(real_topdir)" < $< > $@

@@ -42,6 +42,7 @@ Moment_compare (Moment const &m1, Moment const &m2)
 void
 Score_column::preprocess()
 {
+  Paper_column ::preprocess ();
   durations.sort (Moment_compare);
 }
 

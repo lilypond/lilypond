@@ -192,6 +192,11 @@ Score_elem::do_pre_processing()
 }
 
 void
+Score_elem::do_space_processing ()
+{
+}
+
+void
 Score_elem::do_add_processing()
 {
 }

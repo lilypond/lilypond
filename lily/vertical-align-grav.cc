@@ -9,6 +9,7 @@
 #include "p-col.hh"
 #include "vertical-align-grav.hh"
 #include "vertical-align-spanner.hh"
+#include "vertical-group-elem.hh"
 
 Vertical_align_engraver::Vertical_align_engraver()
 {

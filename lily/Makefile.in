@@ -112,7 +112,7 @@ bin_PROGRAMS = lilypond
 # ignoring wildcards for `lexer.cc'
 # ignoring wildcards for `parser.cc'
 
-lilypond_SOURCES = abbrev.cc abbreviation-beam-engraver.cc abbreviation-beam.cc atom.cc audio-column.cc audio-element.cc audio-item.cc audio-staff.cc axis-group-administration.cc axis-group-element.cc axis-group-item.cc axis-group-spanner.cc axis.cc bar-column-grav.cc bar-column.cc bar-grav.cc bar-number-grav.cc bar.cc beam-grav.cc beam-swallow-trans.cc beam.cc bow.cc boxes.cc break-align-item.cc break.cc change-iterator.cc change-translator.cc chord-iterator.cc clef-grav.cc clef-item.cc col-info.cc colhpos.cc collision-grav.cc collision.cc command-request.cc crescendo.cc debug.cc dimen.cc directional-spanner.cc dot-column-grav.cc dot-column.cc dots.cc dynamic-grav.cc elem-group.cc engraver-group.cc engraver.cc general-script-def.cc global-translator.cc gourlay-breaking.cc graphical-element.cc grouping.cc head-grav.cc header.cc horizontal-align-item.cc horizontal-group-item.cc horizontal-vertical-group-item.cc idealspacing.cc identifier.cc ineq-constrained-qp.cc item.cc key-grav.cc key-item.cc key-performer.cc key.cc keyword.cc leastsquares.cc lexerinit.cc lily-version.cc line-group-grav.cc line-spacer.cc linear-programming.cc local-key-grav.cc local-key-item.cc lookup.cc lyric-grav.cc lyric-performer.cc main.cc meter-grav.cc meter-performer.cc meter.cc midi-def.cc midi-item.cc midi-stream.cc midi-walker.cc misc.cc molecule.cc music-iterator.cc music-list.cc music-output-def.cc music.cc musical-request.cc my-lily-lexer.cc my-lily-parser.cc note-column.cc note-head.cc note-performer.cc note.cc notename-table.cc offset.cc outputter.cc p-col.cc p-score.cc paper-def.cc performance.cc performer-group-performer.cc performer.cc pitch-squash-grav.cc plet-engraver.cc plet-spanner.cc plet-swallow-engraver.cc priority-halign-grav.cc property-iterator.cc ps-plet.cc qlp.cc qlpsolve.cc request-iterator.cc request.cc rest-collision-grav.cc rest-collision.cc rest-grav.cc rest.cc rhythmic-column-grav.cc rhythmic-head.cc score-bar.cc score-column.cc score-elem-info.cc score-elem.cc score-grav.cc score-performer.cc score-priority-grav.cc score.cc scoreline.cc scores.cc script-column.cc script-def.cc script-grav.cc script.cc slur-grav.cc slur.cc span-bar-grav.cc span-bar.cc span-score-bar-grav.cc span-score-bar.cc spanner.cc spring-spacer.cc staff-info.cc staff-performer.cc staff-side.cc staff-sym-grav.cc staff-sym.cc stem-grav.cc stem-info.cc stem.cc super-elem.cc swallow-grav.cc swallow-perf.cc symtable.cc template1.cc template2.cc template3.cc template4.cc template5.cc template6.cc template7.cc template8.cc tex-beam.cc tex-slur.cc tex-stream.cc tex.cc text-def.cc text-item.cc text-spanner.cc tie-grav.cc tie.cc time-description.cc timing-grav.cc timing-translator.cc translation-property.cc translator-ctors.cc translator-group.cc translator.cc type-swallow-trans.cc version.cc vertical-align-elem.cc vertical-align-grav.cc vertical-align-spanner.cc vertical-group-spanner.cc voice-iterator.cc warn.cc word-wrap.cc lexer.ll parser.yy
+lilypond_SOURCES = abbrev.cc abbreviation-beam-engraver.cc abbreviation-beam.cc atom.cc audio-column.cc audio-element.cc audio-item.cc audio-staff.cc axis-group-administration.cc axis-group-element.cc axis-group-item.cc axis-group-spanner.cc axis.cc bar-column-grav.cc bar-column.cc bar-grav.cc bar-number-grav.cc bar.cc beam-grav.cc beam-swallow-trans.cc beam.cc bow.cc boxes.cc break-align-item.cc break.cc change-iterator.cc change-translator.cc chord-iterator.cc clef-grav.cc clef-item.cc col-info.cc colhpos.cc collision-grav.cc collision.cc command-request.cc crescendo.cc debug.cc dimen.cc directional-spanner.cc dot-column-grav.cc dot-column.cc dots.cc dynamic-grav.cc engraver-group.cc engraver.cc general-script-def.cc global-translator.cc gourlay-breaking.cc graphical-element.cc grouping.cc head-grav.cc header.cc horizontal-align-item.cc horizontal-group-elem.cc horizontal-group-item.cc horizontal-vertical-group-elem.cc horizontal-vertical-group-item.cc idealspacing.cc identifier.cc ineq-constrained-qp.cc item.cc key-grav.cc key-item.cc key-performer.cc key.cc keyword.cc leastsquares.cc lexerinit.cc lily-version.cc line-group-grav.cc line-spacer.cc linear-programming.cc local-key-grav.cc local-key-item.cc lookup.cc lyric-grav.cc lyric-performer.cc main.cc meter-grav.cc meter-performer.cc meter.cc midi-def.cc midi-item.cc midi-stream.cc midi-walker.cc misc.cc molecule.cc music-iterator.cc music-list.cc music-output-def.cc music.cc musical-request.cc my-lily-lexer.cc my-lily-parser.cc note-column.cc note-head.cc note-performer.cc note.cc notename-table.cc offset.cc outputter.cc p-col.cc p-score.cc paper-def.cc performance.cc performer-group-performer.cc performer.cc pitch-squash-grav.cc plet-engraver.cc plet-spanner.cc plet-swallow-engraver.cc priority-halign-grav.cc property-iterator.cc ps-plet.cc qlp.cc qlpsolve.cc request-iterator.cc request.cc rest-collision-grav.cc rest-collision.cc rest-grav.cc rest.cc rhythmic-column-grav.cc rhythmic-head.cc rod.cc score-bar.cc score-column.cc score-elem-info.cc score-elem.cc score-grav.cc score-performer.cc score-priority-grav.cc score.cc scoreline.cc scores.cc script-column.cc script-def.cc script-grav.cc script.cc separating-group-spanner.cc separating-line-group-grav.cc single-malt-grouping-item.cc slur-grav.cc slur.cc span-bar-grav.cc span-bar.cc span-score-bar-grav.cc span-score-bar.cc spanner.cc spring-spacer.cc staff-info.cc staff-performer.cc staff-side.cc staff-sym-grav.cc staff-sym.cc stem-grav.cc stem-info.cc stem.cc super-elem.cc swallow-grav.cc swallow-perf.cc symtable.cc template1.cc template2.cc template3.cc template4.cc template5.cc template6.cc template7.cc template8.cc tex-beam.cc tex-slur.cc tex-stream.cc tex.cc text-def.cc text-item.cc text-spanner.cc tie-grav.cc tie.cc time-description.cc timing-grav.cc timing-translator.cc translation-property.cc translator-ctors.cc translator-group.cc translator.cc type-swallow-trans.cc version.cc vertical-align-elem.cc vertical-align-grav.cc vertical-align-spanner.cc vertical-group-elem.cc vertical-group-spanner.cc voice-iterator.cc warn.cc word-wrap.cc lexer.ll parser.yy
 noinst_HEADERS = parser.hh
 
 #lilypond_LDADD = -llily -lflower @LEXLIB@
@@ -141,29 +141,31 @@ beam-swallow-trans.o beam.o bow.o boxes.o break-align-item.o break.o \
 change-iterator.o change-translator.o chord-iterator.o clef-grav.o \
 clef-item.o col-info.o colhpos.o collision-grav.o collision.o \
 command-request.o crescendo.o debug.o dimen.o directional-spanner.o \
-dot-column-grav.o dot-column.o dots.o dynamic-grav.o elem-group.o \
-engraver-group.o engraver.o general-script-def.o global-translator.o \
-gourlay-breaking.o graphical-element.o grouping.o head-grav.o header.o \
-horizontal-align-item.o horizontal-group-item.o \
-horizontal-vertical-group-item.o idealspacing.o identifier.o \
-ineq-constrained-qp.o item.o key-grav.o key-item.o key-performer.o \
-key.o keyword.o leastsquares.o lexerinit.o lily-version.o \
-line-group-grav.o line-spacer.o linear-programming.o local-key-grav.o \
-local-key-item.o lookup.o lyric-grav.o lyric-performer.o main.o \
-meter-grav.o meter-performer.o meter.o midi-def.o midi-item.o \
-midi-stream.o midi-walker.o misc.o molecule.o music-iterator.o \
-music-list.o music-output-def.o music.o musical-request.o \
-my-lily-lexer.o my-lily-parser.o note-column.o note-head.o \
-note-performer.o note.o notename-table.o offset.o outputter.o p-col.o \
-p-score.o paper-def.o performance.o performer-group-performer.o \
-performer.o pitch-squash-grav.o plet-engraver.o plet-spanner.o \
-plet-swallow-engraver.o priority-halign-grav.o property-iterator.o \
-ps-plet.o qlp.o qlpsolve.o request-iterator.o request.o \
-rest-collision-grav.o rest-collision.o rest-grav.o rest.o \
-rhythmic-column-grav.o rhythmic-head.o score-bar.o score-column.o \
-score-elem-info.o score-elem.o score-grav.o score-performer.o \
-score-priority-grav.o score.o scoreline.o scores.o script-column.o \
-script-def.o script-grav.o script.o slur-grav.o slur.o span-bar-grav.o \
+dot-column-grav.o dot-column.o dots.o dynamic-grav.o engraver-group.o \
+engraver.o general-script-def.o global-translator.o gourlay-breaking.o \
+graphical-element.o grouping.o head-grav.o header.o \
+horizontal-align-item.o horizontal-group-elem.o horizontal-group-item.o \
+horizontal-vertical-group-elem.o horizontal-vertical-group-item.o \
+idealspacing.o identifier.o ineq-constrained-qp.o item.o key-grav.o \
+key-item.o key-performer.o key.o keyword.o leastsquares.o lexerinit.o \
+lily-version.o line-group-grav.o line-spacer.o linear-programming.o \
+local-key-grav.o local-key-item.o lookup.o lyric-grav.o \
+lyric-performer.o main.o meter-grav.o meter-performer.o meter.o \
+midi-def.o midi-item.o midi-stream.o midi-walker.o misc.o molecule.o \
+music-iterator.o music-list.o music-output-def.o music.o \
+musical-request.o my-lily-lexer.o my-lily-parser.o note-column.o \
+note-head.o note-performer.o note.o notename-table.o offset.o \
+outputter.o p-col.o p-score.o paper-def.o performance.o \
+performer-group-performer.o performer.o pitch-squash-grav.o \
+plet-engraver.o plet-spanner.o plet-swallow-engraver.o \
+priority-halign-grav.o property-iterator.o ps-plet.o qlp.o qlpsolve.o \
+request-iterator.o request.o rest-collision-grav.o rest-collision.o \
+rest-grav.o rest.o rhythmic-column-grav.o rhythmic-head.o rod.o \
+score-bar.o score-column.o score-elem-info.o score-elem.o score-grav.o \
+score-performer.o score-priority-grav.o score.o scoreline.o scores.o \
+script-column.o script-def.o script-grav.o script.o \
+separating-group-spanner.o separating-line-group-grav.o \
+single-malt-grouping-item.o slur-grav.o slur.o span-bar-grav.o \
 span-bar.o span-score-bar-grav.o span-score-bar.o spanner.o \
 spring-spacer.o staff-info.o staff-performer.o staff-side.o \
 staff-sym-grav.o staff-sym.o stem-grav.o stem-info.o stem.o \
@@ -174,8 +176,8 @@ text-item.o text-spanner.o tie-grav.o tie.o time-description.o \
 timing-grav.o timing-translator.o translation-property.o \
 translator-ctors.o translator-group.o translator.o type-swallow-trans.o \
 version.o vertical-align-elem.o vertical-align-grav.o \
-vertical-align-spanner.o vertical-group-spanner.o voice-iterator.o \
-warn.o word-wrap.o lexer.o parser.o
+vertical-align-spanner.o vertical-group-elem.o vertical-group-spanner.o \
+voice-iterator.o warn.o word-wrap.o lexer.o parser.o
 lilypond_DEPENDENCIES =  $(top_builddir)/lib/liblily.la \
 $(top_builddir)/flower/libflower.la
 LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
@@ -389,7 +391,7 @@ abbrev.o: abbrev.cc include/abbrev.hh include/item.hh include/boxes.hh \
 	include/direction.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh \
 	include/beam.hh include/directional-spanner.hh \
-	include/spanner.hh ../flower/include/plist.hh \
+	include/spanner.hh include/rod.hh ../flower/include/plist.hh \
 	../flower/include/list.hh ../flower/include/list.icc \
 	../flower/include/cursor.hh ../flower/include/link.hh \
 	../flower/include/link.icc ../flower/include/pcursor.hh \
@@ -429,9 +431,11 @@ abbreviation-beam-engraver.o: abbreviation-beam-engraver.cc \
 	../flower/include/iterate.hh ../flower/include/plist.icc \
 	include/abbreviation-beam.hh include/beam.hh \
 	include/directional-spanner.hh include/spanner.hh \
-	include/musical-request.hh include/misc.hh include/grouping.hh
+	include/rod.hh include/musical-request.hh include/misc.hh \
+	include/grouping.hh
 abbreviation-beam.o: abbreviation-beam.cc include/p-col.hh \
-	include/horizontal-group-item.hh include/elem-group.hh \
+	include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/score-elem.hh ../flower/include/parray.hh \
 	../flower/include/varray.hh \
 	../flower/include/virtual-methods.hh \
@@ -443,7 +447,7 @@ abbreviation-beam.o: abbreviation-beam.cc include/p-col.hh \
 	../flower/include/fproto.hh ../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/interval.hh include/axis-group-element.hh \
+	../flower/include/interval.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/item.hh include/boxes.hh include/drul-array.hh \
 	include/direction.hh ../flower/include/plist.hh \
@@ -451,7 +455,7 @@ abbreviation-beam.o: abbreviation-beam.cc include/p-col.hh \
 	../flower/include/cursor.hh ../flower/include/link.hh \
 	../flower/include/link.icc ../flower/include/pcursor.hh \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc include/dimen.hh \
+	../flower/include/plist.icc include/rod.hh include/dimen.hh \
 	include/abbreviation-beam.hh include/beam.hh \
 	include/directional-spanner.hh include/spanner.hh \
 	include/misc.hh ../lib/include/moment.hh \
@@ -579,12 +583,12 @@ axis-group-item.o: axis-group-item.cc include/axis-group-item.hh \
 	include/axis-group-administration.hh include/item.hh \
 	include/boxes.hh include/drul-array.hh include/direction.hh \
 	include/p-col.hh include/horizontal-group-item.hh \
-	include/elem-group.hh ../flower/include/plist.hh \
+	include/horizontal-group-elem.hh ../flower/include/plist.hh \
 	../flower/include/list.hh ../flower/include/list.icc \
 	../flower/include/cursor.hh ../flower/include/link.hh \
 	../flower/include/link.icc ../flower/include/pcursor.hh \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc
+	../flower/include/plist.icc include/rod.hh
 axis-group-spanner.o: axis-group-spanner.cc \
 	include/axis-group-spanner.hh include/spanner.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
@@ -599,16 +603,17 @@ axis-group-spanner.o: axis-group-spanner.cc \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	../flower/include/interval.hh include/drul-array.hh \
-	include/direction.hh include/axis-group-element.hh \
+	include/direction.hh include/rod.hh \
+	include/axis-group-element.hh \
 	include/axis-group-administration.hh include/item.hh \
 	include/boxes.hh include/p-col.hh \
-	include/horizontal-group-item.hh include/elem-group.hh \
-	include/axis-group-item.hh ../flower/include/plist.hh \
-	../flower/include/list.hh ../flower/include/list.icc \
-	../flower/include/cursor.hh ../flower/include/link.hh \
-	../flower/include/link.icc ../flower/include/pcursor.hh \
-	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc
+	include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-item.hh \
+	../flower/include/plist.hh ../flower/include/list.hh \
+	../flower/include/list.icc ../flower/include/cursor.hh \
+	../flower/include/link.hh ../flower/include/link.icc \
+	../flower/include/pcursor.hh ../flower/include/cursor.icc \
+	../flower/include/iterate.hh ../flower/include/plist.icc
 axis.o: axis.cc include/axes.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -636,7 +641,9 @@ bar-column-grav.o: bar-column-grav.cc include/bar-column-grav.hh \
 	include/score-elem.hh ../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/offset.hh include/axes.hh \
 	include/axis-group-administration.hh include/item.hh \
-	include/boxes.hh include/drul-array.hh include/elem-group.hh \
+	include/boxes.hh include/drul-array.hh \
+	include/horizontal-vertical-group-elem.hh \
+	include/vertical-group-elem.hh include/horizontal-group-elem.hh \
 	include/script.hh include/staff-side.hh include/bar.hh
 bar-column.o: bar-column.cc include/bar.hh include/item.hh \
 	include/boxes.hh ../flower/include/fproto.hh \
@@ -655,7 +662,9 @@ bar-column.o: bar-column.cc include/bar.hh include/item.hh \
 	include/script-column.hh \
 	include/horizontal-vertical-group-item.hh \
 	include/axis-group-item.hh include/axis-group-element.hh \
-	include/axis-group-administration.hh include/elem-group.hh
+	include/axis-group-administration.hh \
+	include/horizontal-vertical-group-elem.hh \
+	include/vertical-group-elem.hh include/horizontal-group-elem.hh
 bar-grav.o: bar-grav.cc include/bar-grav.hh include/engraver.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -758,10 +767,10 @@ beam-grav.o: beam-grav.cc ../lib/include/duration-convert.hh \
 	../flower/include/pcursor.hh ../flower/include/cursor.icc \
 	../flower/include/iterate.hh ../flower/include/plist.icc \
 	include/beam.hh include/directional-spanner.hh \
-	include/spanner.hh include/musical-request.hh \
+	include/spanner.hh include/rod.hh include/musical-request.hh \
 	include/grouping.hh include/p-col.hh \
-	include/horizontal-group-item.hh include/elem-group.hh \
-	include/axis-group-element.hh \
+	include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh
 beam-swallow-trans.o: beam-swallow-trans.cc \
 	include/type-swallow-trans.hh include/translator.hh \
@@ -781,8 +790,9 @@ beam-swallow-trans.o: beam-swallow-trans.cc \
 	../flower/include/interval.hh include/direction.hh \
 	../lib/include/duration.hh ../lib/include/plet.hh
 beam.o: beam.cc include/p-col.hh include/horizontal-group-item.hh \
-	include/elem-group.hh include/score-elem.hh \
-	../flower/include/parray.hh ../flower/include/varray.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
+	include/score-elem.hh ../flower/include/parray.hh \
+	../flower/include/varray.hh \
 	../flower/include/virtual-methods.hh \
 	../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/offset.hh \
@@ -792,7 +802,7 @@ beam.o: beam.cc include/p-col.hh include/horizontal-group-item.hh \
 	../flower/include/fproto.hh ../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/interval.hh include/axis-group-element.hh \
+	../flower/include/interval.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/item.hh include/boxes.hh include/drul-array.hh \
 	include/direction.hh ../flower/include/plist.hh \
@@ -800,9 +810,9 @@ beam.o: beam.cc include/p-col.hh include/horizontal-group-item.hh \
 	../flower/include/cursor.hh ../flower/include/link.hh \
 	../flower/include/link.icc ../flower/include/pcursor.hh \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc include/dimen.hh include/beam.hh \
-	include/directional-spanner.hh include/spanner.hh \
-	include/abbreviation-beam.hh include/misc.hh \
+	../flower/include/plist.icc include/rod.hh include/dimen.hh \
+	include/beam.hh include/directional-spanner.hh \
+	include/spanner.hh include/abbreviation-beam.hh include/misc.hh \
 	../lib/include/moment.hh ../flower/include/rational.hh \
 	../flower/include/scalar.hh include/grouping.hh \
 	include/minterval.hh include/debug.hh \
@@ -825,7 +835,7 @@ bow.o: bow.cc include/bow.hh include/directional-spanner.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	../flower/include/interval.hh include/drul-array.hh \
-	include/direction.hh include/paper-def.hh \
+	include/direction.hh include/rod.hh include/paper-def.hh \
 	../lib/include/moment.hh ../flower/include/rational.hh \
 	include/music-output-def.hh ../flower/include/plist.hh \
 	../flower/include/list.hh ../flower/include/list.icc \
@@ -843,35 +853,35 @@ boxes.o: boxes.cc include/boxes.hh ../flower/include/fproto.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/varray.hh
 break-align-item.o: break-align-item.cc include/break-align-item.hh \
-	include/horizontal-align-item.hh include/elem-group.hh \
-	include/score-elem.hh ../flower/include/parray.hh \
-	../flower/include/varray.hh \
-	../flower/include/virtual-methods.hh \
-	../flower/include/directed-graph.hh \
-	include/graphical-element.hh include/offset.hh \
-	../flower/include/real.hh include/axes.hh \
+	include/horizontal-align-item.hh include/item.hh \
+	include/boxes.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/interval.hh \
+	../flower/include/compare.hh include/offset.hh include/axes.hh \
 	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
-	../flower/include/fproto.hh ../flower/include/string-handle.hh \
-	../flower/include/international.hh ../flower/include/compare.hh \
-	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/interval.hh include/axis-group-element.hh \
-	include/axis-group-administration.hh include/item.hh \
-	include/boxes.hh include/drul-array.hh include/direction.hh
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh include/score-elem.hh \
+	../flower/include/parray.hh ../flower/include/varray.hh \
+	../flower/include/virtual-methods.hh \
+	../flower/include/directed-graph.hh \
+	include/graphical-element.hh include/lily-proto.hh \
+	../lib/include/proto.hh include/drul-array.hh \
+	include/direction.hh
 break.o: break.cc include/score-column.hh include/lily-proto.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/varray.hh \
 	../lib/include/moment.hh ../flower/include/rational.hh \
 	../flower/include/compare.hh \
 	../flower/include/arithmetic-operator.hh include/p-col.hh \
-	include/horizontal-group-item.hh include/elem-group.hh \
+	include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/score-elem.hh ../flower/include/parray.hh \
 	../flower/include/virtual-methods.hh \
 	../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/offset.hh include/axes.hh \
 	../flower/include/string.hh ../flower/include/string-handle.hh \
 	../flower/include/international.hh \
-	../flower/include/interval.hh include/axis-group-element.hh \
+	../flower/include/interval.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/item.hh include/boxes.hh include/drul-array.hh \
 	include/direction.hh ../flower/include/plist.hh \
@@ -879,14 +889,14 @@ break.o: break.cc include/score-column.hh include/lily-proto.hh \
 	../flower/include/cursor.hh ../flower/include/link.hh \
 	../flower/include/link.icc ../flower/include/pcursor.hh \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc include/break.hh include/colhpos.hh \
-	include/paper-def.hh include/music-output-def.hh \
-	../flower/include/dictionary.hh ../flower/include/assoc.hh \
-	include/line-spacer.hh ../flower/include/vector.hh \
-	include/debug.hh ../flower/include/dstream.hh \
-	../lib/include/warn.hh include/scoreline.hh include/spanner.hh \
-	include/p-score.hh include/music-output.hh \
-	../flower/include/cpu-timer.hh
+	../flower/include/plist.icc include/rod.hh include/break.hh \
+	include/colhpos.hh include/paper-def.hh \
+	include/music-output-def.hh ../flower/include/dictionary.hh \
+	../flower/include/assoc.hh include/line-spacer.hh \
+	../flower/include/vector.hh include/debug.hh \
+	../flower/include/dstream.hh ../lib/include/warn.hh \
+	include/scoreline.hh include/spanner.hh include/p-score.hh \
+	include/music-output.hh ../flower/include/cpu-timer.hh
 change-iterator.o: change-iterator.cc include/change-iterator.hh \
 	include/music-iterator.hh include/lily-proto.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
@@ -995,7 +1005,8 @@ clef-item.o: clef-item.cc include/clef-item.hh include/item.hh \
 	include/score-elem-info.hh include/staff-info.hh \
 	include/translator.hh
 col-info.o: col-info.cc include/p-col.hh \
-	include/horizontal-group-item.hh include/elem-group.hh \
+	include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/score-elem.hh ../flower/include/parray.hh \
 	../flower/include/varray.hh \
 	../flower/include/virtual-methods.hh \
@@ -1007,7 +1018,7 @@ col-info.o: col-info.cc include/p-col.hh \
 	../flower/include/fproto.hh ../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/interval.hh include/axis-group-element.hh \
+	../flower/include/interval.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/item.hh include/boxes.hh include/drul-array.hh \
 	include/direction.hh ../flower/include/plist.hh \
@@ -1015,9 +1026,10 @@ col-info.o: col-info.cc include/p-col.hh \
 	../flower/include/cursor.hh ../flower/include/link.hh \
 	../flower/include/link.icc ../flower/include/pcursor.hh \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc include/col-info.hh \
-	../flower/include/pointer.hh include/debug.hh \
-	../flower/include/dstream.hh ../lib/include/warn.hh
+	../flower/include/plist.icc include/rod.hh include/col-info.hh \
+	../flower/include/pointer.hh ../flower/include/assoc.hh \
+	include/debug.hh ../flower/include/dstream.hh \
+	../lib/include/warn.hh
 colhpos.o: colhpos.cc include/colhpos.hh ../flower/include/varray.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -1044,7 +1056,9 @@ collision-grav.o: collision-grav.cc include/note-column.hh \
 	include/direction.hh include/script-column.hh \
 	include/horizontal-vertical-group-item.hh \
 	include/axis-group-item.hh include/axis-group-element.hh \
-	include/axis-group-administration.hh include/elem-group.hh \
+	include/axis-group-administration.hh \
+	include/horizontal-vertical-group-elem.hh \
+	include/vertical-group-elem.hh include/horizontal-group-elem.hh \
 	include/collision-grav.hh include/engraver.hh \
 	include/request.hh ../lib/include/moment.hh \
 	../flower/include/rational.hh ../lib/include/input.hh \
@@ -1071,17 +1085,18 @@ collision.o: collision.cc include/debug.hh ../flower/include/dstream.hh \
 	../flower/include/interval.hh \
 	include/axis-group-administration.hh include/item.hh \
 	include/boxes.hh include/drul-array.hh include/direction.hh \
-	include/elem-group.hh include/note-column.hh \
-	include/script-column.hh include/note-head.hh \
-	include/rhythmic-head.hh include/paper-def.hh \
-	../lib/include/moment.hh ../flower/include/rational.hh \
-	include/music-output-def.hh ../flower/include/plist.hh \
-	../flower/include/list.hh ../flower/include/list.icc \
-	../flower/include/cursor.hh ../flower/include/link.hh \
-	../flower/include/link.icc ../flower/include/pcursor.hh \
-	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc ../flower/include/dictionary.hh \
-	../flower/include/assoc.hh
+	include/horizontal-vertical-group-elem.hh \
+	include/vertical-group-elem.hh include/horizontal-group-elem.hh \
+	include/note-column.hh include/script-column.hh \
+	include/note-head.hh include/rhythmic-head.hh \
+	include/paper-def.hh ../lib/include/moment.hh \
+	../flower/include/rational.hh include/music-output-def.hh \
+	../flower/include/plist.hh ../flower/include/list.hh \
+	../flower/include/list.icc ../flower/include/cursor.hh \
+	../flower/include/link.hh ../flower/include/link.icc \
+	../flower/include/pcursor.hh ../flower/include/cursor.icc \
+	../flower/include/iterate.hh ../flower/include/plist.icc \
+	../flower/include/dictionary.hh ../flower/include/assoc.hh
 command-request.o: command-request.cc include/command-request.hh \
 	include/request.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
@@ -1115,15 +1130,15 @@ crescendo.o: crescendo.cc include/molecule.hh include/lily-proto.hh \
 	../flower/include/virtual-methods.hh \
 	../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/spanner.hh \
-	include/drul-array.hh include/lookup.hh include/atom.hh \
-	../flower/include/scalar.hh include/paper-def.hh \
-	../lib/include/moment.hh ../flower/include/rational.hh \
-	include/music-output-def.hh ../flower/include/dictionary.hh \
-	../flower/include/assoc.hh include/debug.hh \
-	../flower/include/dstream.hh ../lib/include/warn.hh \
-	include/score-column.hh include/p-col.hh \
-	include/horizontal-group-item.hh include/elem-group.hh \
-	include/axis-group-element.hh \
+	include/drul-array.hh include/rod.hh include/lookup.hh \
+	include/atom.hh ../flower/include/scalar.hh \
+	include/paper-def.hh ../lib/include/moment.hh \
+	../flower/include/rational.hh include/music-output-def.hh \
+	../flower/include/dictionary.hh ../flower/include/assoc.hh \
+	include/debug.hh ../flower/include/dstream.hh \
+	../lib/include/warn.hh include/score-column.hh include/p-col.hh \
+	include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/item.hh
 debug.o: debug.cc include/debug.hh ../flower/include/dstream.hh \
@@ -1158,7 +1173,7 @@ directional-spanner.o: directional-spanner.cc \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	../flower/include/interval.hh include/drul-array.hh \
-	include/direction.hh
+	include/direction.hh include/rod.hh
 dot-column-grav.o: dot-column-grav.cc
 dot-column.o: dot-column.cc include/dots.hh include/item.hh \
 	include/boxes.hh ../flower/include/fproto.hh \
@@ -1174,8 +1189,8 @@ dot-column.o: dot-column.cc include/dots.hh include/item.hh \
 	include/graphical-element.hh include/lily-proto.hh \
 	../lib/include/proto.hh include/drul-array.hh \
 	include/direction.hh include/dot-column.hh \
-	include/horizontal-group-item.hh include/elem-group.hh \
-	include/axis-group-element.hh \
+	include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/rhythmic-head.hh
 dots.o: dots.cc include/dots.hh include/item.hh include/boxes.hh \
@@ -1214,7 +1229,7 @@ dynamic-grav.o: dynamic-grav.cc include/debug.hh \
 	../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/offset.hh include/axes.hh \
 	../flower/include/interval.hh include/direction.hh \
-	include/spanner.hh include/drul-array.hh \
+	include/spanner.hh include/drul-array.hh include/rod.hh \
 	include/dynamic-grav.hh include/engraver.hh include/request.hh \
 	../lib/include/moment.hh ../flower/include/rational.hh \
 	../lib/include/input.hh include/music.hh include/minterval.hh \
@@ -1232,11 +1247,13 @@ dynamic-grav.o: dynamic-grav.cc include/debug.hh \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
 	../flower/include/plist.icc include/score-column.hh \
 	include/p-col.hh include/horizontal-group-item.hh \
-	include/elem-group.hh include/axis-group-element.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/staff-sym.hh include/note-column.hh \
 	include/script-column.hh \
-	include/horizontal-vertical-group-item.hh
+	include/horizontal-vertical-group-item.hh \
+	include/horizontal-vertical-group-elem.hh \
+	include/vertical-group-elem.hh
 elem-group.o: elem-group.cc include/elem-group.hh include/score-elem.hh \
 	../flower/include/parray.hh ../flower/include/varray.hh \
 	../flower/include/virtual-methods.hh \
@@ -1344,23 +1361,23 @@ gourlay-breaking.o: gourlay-breaking.cc include/gourlay-breaking.hh \
 	../flower/include/pcursor.hh ../flower/include/cursor.icc \
 	../flower/include/iterate.hh ../flower/include/plist.icc \
 	include/col-info.hh ../flower/include/pointer.hh \
-	../lib/include/moment.hh ../flower/include/rational.hh \
+	../flower/include/assoc.hh ../lib/include/moment.hh \
+	../flower/include/rational.hh \
 	../flower/include/arithmetic-operator.hh include/debug.hh \
 	../flower/include/dstream.hh ../flower/include/string.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../lib/include/warn.hh \
 	include/p-col.hh include/horizontal-group-item.hh \
-	include/elem-group.hh include/score-elem.hh \
-	../flower/include/parray.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
+	include/score-elem.hh ../flower/include/parray.hh \
 	../flower/include/virtual-methods.hh \
 	../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/offset.hh include/axes.hh \
-	include/axis-group-element.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/item.hh include/boxes.hh include/drul-array.hh \
-	include/direction.hh include/p-score.hh include/music-output.hh \
-	include/paper-def.hh include/music-output-def.hh \
-	../flower/include/dictionary.hh ../flower/include/assoc.hh
+	include/direction.hh include/rod.hh include/p-score.hh \
+	include/music-output.hh include/paper-def.hh \
+	include/music-output-def.hh ../flower/include/dictionary.hh
 graphical-element.o: graphical-element.cc include/graphical-element.hh \
 	include/offset.hh ../flower/include/real.hh include/axes.hh \
 	../flower/include/string.hh \
@@ -1423,7 +1440,23 @@ header.o: header.cc ../flower/include/string.hh \
 	../flower/include/varray.hh ../flower/include/dictionary.hh \
 	include/header.hh
 horizontal-align-item.o: horizontal-align-item.cc \
-	include/horizontal-align-item.hh include/elem-group.hh \
+	include/horizontal-align-item.hh include/item.hh \
+	include/boxes.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/interval.hh \
+	../flower/include/compare.hh include/offset.hh include/axes.hh \
+	../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh include/score-elem.hh \
+	../flower/include/parray.hh ../flower/include/varray.hh \
+	../flower/include/virtual-methods.hh \
+	../flower/include/directed-graph.hh \
+	include/graphical-element.hh include/lily-proto.hh \
+	../lib/include/proto.hh include/drul-array.hh \
+	include/direction.hh include/debug.hh \
+	../flower/include/dstream.hh ../lib/include/warn.hh
+horizontal-group-elem.o: horizontal-group-elem.cc \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/score-elem.hh ../flower/include/parray.hh \
 	../flower/include/varray.hh \
 	../flower/include/virtual-methods.hh \
@@ -1435,13 +1468,14 @@ horizontal-align-item.o: horizontal-align-item.cc \
 	../flower/include/fproto.hh ../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/interval.hh include/axis-group-element.hh \
+	../flower/include/interval.hh \
 	include/axis-group-administration.hh include/item.hh \
 	include/boxes.hh include/drul-array.hh include/direction.hh \
 	include/debug.hh ../flower/include/dstream.hh \
 	../lib/include/warn.hh
 horizontal-group-item.o: horizontal-group-item.cc include/p-col.hh \
-	include/horizontal-group-item.hh include/elem-group.hh \
+	include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/score-elem.hh ../flower/include/parray.hh \
 	../flower/include/varray.hh \
 	../flower/include/virtual-methods.hh \
@@ -1453,7 +1487,7 @@ horizontal-group-item.o: horizontal-group-item.cc include/p-col.hh \
 	../flower/include/fproto.hh ../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/interval.hh include/axis-group-element.hh \
+	../flower/include/interval.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/item.hh include/boxes.hh include/drul-array.hh \
 	include/direction.hh ../flower/include/plist.hh \
@@ -1461,7 +1495,27 @@ horizontal-group-item.o: horizontal-group-item.cc include/p-col.hh \
 	../flower/include/cursor.hh ../flower/include/link.hh \
 	../flower/include/link.icc ../flower/include/pcursor.hh \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc
+	../flower/include/plist.icc include/rod.hh
+horizontal-vertical-group-elem.o: horizontal-vertical-group-elem.cc \
+	include/horizontal-vertical-group-elem.hh \
+	include/vertical-group-elem.hh include/axis-group-element.hh \
+	include/score-elem.hh ../flower/include/parray.hh \
+	../flower/include/varray.hh \
+	../flower/include/virtual-methods.hh \
+	../flower/include/directed-graph.hh \
+	include/graphical-element.hh include/offset.hh \
+	../flower/include/real.hh include/axes.hh \
+	../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/fproto.hh ../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/compare.hh \
+	include/lily-proto.hh ../lib/include/proto.hh \
+	../flower/include/interval.hh \
+	include/axis-group-administration.hh \
+	include/horizontal-group-elem.hh include/item.hh \
+	include/boxes.hh include/drul-array.hh include/direction.hh \
+	include/debug.hh ../flower/include/dstream.hh \
+	../lib/include/warn.hh
 horizontal-vertical-group-item.o: horizontal-vertical-group-item.cc \
 	include/horizontal-vertical-group-item.hh \
 	include/axis-group-item.hh include/axis-group-element.hh \
@@ -1479,19 +1533,22 @@ horizontal-vertical-group-item.o: horizontal-vertical-group-item.cc \
 	../flower/include/interval.hh \
 	include/axis-group-administration.hh include/item.hh \
 	include/boxes.hh include/drul-array.hh include/direction.hh \
-	include/elem-group.hh include/p-col.hh \
-	include/horizontal-group-item.hh ../flower/include/plist.hh \
-	../flower/include/list.hh ../flower/include/list.icc \
-	../flower/include/cursor.hh ../flower/include/link.hh \
-	../flower/include/link.icc ../flower/include/pcursor.hh \
-	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc
+	include/horizontal-vertical-group-elem.hh \
+	include/vertical-group-elem.hh include/horizontal-group-elem.hh \
+	include/p-col.hh include/horizontal-group-item.hh \
+	../flower/include/plist.hh ../flower/include/list.hh \
+	../flower/include/list.icc ../flower/include/cursor.hh \
+	../flower/include/link.hh ../flower/include/link.icc \
+	../flower/include/pcursor.hh ../flower/include/cursor.icc \
+	../flower/include/iterate.hh ../flower/include/plist.icc \
+	include/rod.hh
 idealspacing.o: idealspacing.cc include/idealspacing.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	include/p-col.hh include/horizontal-group-item.hh \
-	include/elem-group.hh include/score-elem.hh \
-	../flower/include/parray.hh ../flower/include/varray.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
+	include/score-elem.hh ../flower/include/parray.hh \
+	../flower/include/varray.hh \
 	../flower/include/virtual-methods.hh \
 	../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/offset.hh include/axes.hh \
@@ -1499,7 +1556,7 @@ idealspacing.o: idealspacing.cc include/idealspacing.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
-	../flower/include/interval.hh include/axis-group-element.hh \
+	../flower/include/interval.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/item.hh include/boxes.hh include/drul-array.hh \
 	include/direction.hh ../flower/include/plist.hh \
@@ -1507,7 +1564,7 @@ idealspacing.o: idealspacing.cc include/idealspacing.hh \
 	../flower/include/cursor.hh ../flower/include/link.hh \
 	../flower/include/link.icc ../flower/include/pcursor.hh \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc include/p-score.hh \
+	../flower/include/plist.icc include/rod.hh include/p-score.hh \
 	include/colhpos.hh include/music-output.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh
 identifier.o: identifier.cc include/midi-def.hh include/lily-proto.hh \
@@ -1570,10 +1627,10 @@ item.o: item.cc include/p-score.hh include/colhpos.hh \
 	../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/drul-array.hh \
 	include/direction.hh include/p-col.hh \
-	include/horizontal-group-item.hh include/elem-group.hh \
-	include/axis-group-element.hh \
+	include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
-	include/spanner.hh
+	include/rod.hh include/spanner.hh
 key-grav.o: key-grav.cc include/key-grav.hh include/engraver.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -1706,12 +1763,14 @@ line-group-grav.o: line-group-grav.cc include/staff-sym.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	../flower/include/interval.hh include/drul-array.hh \
-	include/direction.hh include/vertical-group-spanner.hh \
-	include/axis-group-spanner.hh include/axis-group-element.hh \
-	include/axis-group-administration.hh include/elem-group.hh \
-	include/command-request.hh include/request.hh \
-	../lib/include/moment.hh ../flower/include/rational.hh \
-	../lib/include/input.hh include/music.hh include/minterval.hh \
+	include/direction.hh include/rod.hh \
+	include/vertical-group-spanner.hh include/axis-group-spanner.hh \
+	include/axis-group-element.hh \
+	include/axis-group-administration.hh \
+	include/vertical-group-elem.hh include/command-request.hh \
+	include/request.hh ../lib/include/moment.hh \
+	../flower/include/rational.hh ../lib/include/input.hh \
+	include/music.hh include/minterval.hh \
 	../lib/include/duration.hh ../lib/include/plet.hh \
 	include/bar.hh include/item.hh include/boxes.hh \
 	include/debug.hh ../flower/include/dstream.hh \
@@ -1720,7 +1779,8 @@ line-group-grav.o: line-group-grav.cc include/staff-sym.hh \
 	../flower/include/scalar.hh include/staff-info.hh \
 	include/translator.hh ../flower/include/dictionary.hh \
 	../flower/include/assoc.hh include/p-col.hh \
-	include/horizontal-group-item.hh include/axis-group-item.hh \
+	include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-item.hh \
 	../flower/include/plist.hh ../flower/include/list.hh \
 	../flower/include/list.icc ../flower/include/cursor.hh \
 	../flower/include/link.hh ../flower/include/link.icc \
@@ -1758,7 +1818,7 @@ local-key-grav.o: local-key-grav.cc include/musical-request.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh \
 	include/key-item.hh include/tie.hh include/bow.hh \
 	include/directional-spanner.hh include/spanner.hh \
-	include/note-head.hh include/rhythmic-head.hh \
+	include/rod.hh include/note-head.hh include/rhythmic-head.hh \
 	include/time-description.hh
 local-key-item.o: local-key-item.cc include/dimen.hh \
 	../flower/include/real.hh ../flower/include/string.hh \
@@ -2209,7 +2269,8 @@ my-lily-parser.o: my-lily-parser.cc include/my-lily-parser.hh \
 	include/command-request.hh parser.hh include/header.hh \
 	../flower/include/dictionary.hh ../flower/include/assoc.hh
 note-column.o: note-column.cc include/dot-column.hh \
-	include/horizontal-group-item.hh include/elem-group.hh \
+	include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/score-elem.hh ../flower/include/parray.hh \
 	../flower/include/varray.hh \
 	../flower/include/virtual-methods.hh \
@@ -2221,12 +2282,14 @@ note-column.o: note-column.cc include/dot-column.hh \
 	../flower/include/fproto.hh ../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/interval.hh include/axis-group-element.hh \
+	../flower/include/interval.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/item.hh include/boxes.hh include/drul-array.hh \
 	include/direction.hh include/note-column.hh \
 	include/script-column.hh \
-	include/horizontal-vertical-group-item.hh include/script.hh \
+	include/horizontal-vertical-group-item.hh \
+	include/horizontal-vertical-group-elem.hh \
+	include/vertical-group-elem.hh include/script.hh \
 	include/staff-side.hh include/note-head.hh \
 	include/rhythmic-head.hh include/stem.hh \
 	../lib/include/moment.hh ../flower/include/rational.hh \
@@ -2346,8 +2409,9 @@ outputter.o: outputter.cc include/outputter.hh include/lily-proto.hh \
 	include/direction.hh ../flower/include/varray.hh \
 	include/dimen.hh include/tex.hh ../flower/include/scalar.hh
 p-col.o: p-col.cc include/p-col.hh include/horizontal-group-item.hh \
-	include/elem-group.hh include/score-elem.hh \
-	../flower/include/parray.hh ../flower/include/varray.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
+	include/score-elem.hh ../flower/include/parray.hh \
+	../flower/include/varray.hh \
 	../flower/include/virtual-methods.hh \
 	../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/offset.hh \
@@ -2357,7 +2421,7 @@ p-col.o: p-col.cc include/p-col.hh include/horizontal-group-item.hh \
 	../flower/include/fproto.hh ../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/interval.hh include/axis-group-element.hh \
+	../flower/include/interval.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/item.hh include/boxes.hh include/drul-array.hh \
 	include/direction.hh ../flower/include/plist.hh \
@@ -2365,7 +2429,7 @@ p-col.o: p-col.cc include/p-col.hh include/horizontal-group-item.hh \
 	../flower/include/cursor.hh ../flower/include/link.hh \
 	../flower/include/link.icc ../flower/include/pcursor.hh \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc include/p-score.hh \
+	../flower/include/plist.icc include/rod.hh include/p-score.hh \
 	include/colhpos.hh include/music-output.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh
 p-score.o: p-score.cc include/main.hh include/lily-proto.hh \
@@ -2384,24 +2448,24 @@ p-score.o: p-score.cc include/main.hh include/lily-proto.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh \
 	include/lookup.hh include/atom.hh include/boxes.hh \
 	../flower/include/scalar.hh include/direction.hh \
-	include/spanner.hh include/drul-array.hh include/paper-def.hh \
-	../lib/include/moment.hh ../flower/include/rational.hh \
-	include/music-output-def.hh ../flower/include/plist.hh \
-	../flower/include/list.hh ../flower/include/list.icc \
-	../flower/include/cursor.hh ../flower/include/link.hh \
-	../flower/include/link.icc ../flower/include/pcursor.hh \
-	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc ../flower/include/dictionary.hh \
-	../flower/include/assoc.hh include/scoreline.hh \
-	include/colhpos.hh include/p-col.hh \
-	include/horizontal-group-item.hh include/elem-group.hh \
-	include/axis-group-element.hh \
+	include/spanner.hh include/drul-array.hh include/rod.hh \
+	include/paper-def.hh ../lib/include/moment.hh \
+	../flower/include/rational.hh include/music-output-def.hh \
+	../flower/include/plist.hh ../flower/include/list.hh \
+	../flower/include/list.icc ../flower/include/cursor.hh \
+	../flower/include/link.hh ../flower/include/link.icc \
+	../flower/include/pcursor.hh ../flower/include/cursor.icc \
+	../flower/include/iterate.hh ../flower/include/plist.icc \
+	../flower/include/dictionary.hh ../flower/include/assoc.hh \
+	include/scoreline.hh include/colhpos.hh include/p-col.hh \
+	include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/item.hh include/p-score.hh include/music-output.hh \
 	include/tex-stream.hh include/header.hh include/word-wrap.hh \
 	include/break.hh include/gourlay-breaking.hh \
-	include/outputter.hh ../flower/include/plist.tcc \
-	../flower/include/pcursor.tcc
+	include/outputter.hh ../flower/include/list.tcc \
+	../flower/include/cursor.tcc
 paper-def.o: paper-def.cc ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -2576,15 +2640,16 @@ plet-engraver.o: plet-engraver.cc ../lib/include/proto.hh \
 	include/directional-spanner.hh include/spanner.hh \
 	include/score-elem.hh ../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/offset.hh include/axes.hh \
-	include/text-def.hh include/general-script-def.hh \
-	include/beam.hh ../flower/include/plist.hh \
-	../flower/include/list.hh ../flower/include/list.icc \
-	../flower/include/cursor.hh ../flower/include/link.hh \
-	../flower/include/link.icc ../flower/include/pcursor.hh \
-	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc include/score-column.hh \
-	include/p-col.hh include/horizontal-group-item.hh \
-	include/elem-group.hh include/axis-group-element.hh \
+	include/rod.hh include/text-def.hh \
+	include/general-script-def.hh include/beam.hh \
+	../flower/include/plist.hh ../flower/include/list.hh \
+	../flower/include/list.icc ../flower/include/cursor.hh \
+	../flower/include/link.hh ../flower/include/link.icc \
+	../flower/include/pcursor.hh ../flower/include/cursor.icc \
+	../flower/include/iterate.hh ../flower/include/plist.icc \
+	include/score-column.hh include/p-col.hh \
+	include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/item.hh include/boxes.hh include/stem.hh \
 	include/molecule.hh
@@ -2606,18 +2671,20 @@ plet-spanner.o: plet-spanner.cc include/atom.hh \
 	../flower/include/pcursor.hh ../flower/include/cursor.icc \
 	../flower/include/iterate.hh ../flower/include/plist.icc \
 	include/p-col.hh include/horizontal-group-item.hh \
-	include/elem-group.hh include/score-elem.hh \
-	../flower/include/parray.hh ../flower/include/varray.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
+	include/score-elem.hh ../flower/include/parray.hh \
+	../flower/include/varray.hh \
 	../flower/include/virtual-methods.hh \
 	../flower/include/directed-graph.hh \
-	include/graphical-element.hh include/axis-group-element.hh \
+	include/graphical-element.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
-	include/item.hh include/drul-array.hh include/paper-def.hh \
-	../lib/include/moment.hh ../flower/include/rational.hh \
-	include/music-output-def.hh ../flower/include/dictionary.hh \
-	../flower/include/assoc.hh include/plet-spanner.hh \
-	include/bow.hh include/directional-spanner.hh \
-	include/spanner.hh include/stem.hh include/text-def.hh \
+	include/item.hh include/drul-array.hh include/rod.hh \
+	include/paper-def.hh ../lib/include/moment.hh \
+	../flower/include/rational.hh include/music-output-def.hh \
+	../flower/include/dictionary.hh ../flower/include/assoc.hh \
+	include/plet-spanner.hh include/bow.hh \
+	include/directional-spanner.hh include/spanner.hh \
+	include/stem.hh include/text-def.hh \
 	include/general-script-def.hh ../lib/include/input.hh
 plet-swallow-engraver.o: plet-swallow-engraver.cc \
 	include/musical-request.hh include/lily-proto.hh \
@@ -2652,9 +2719,7 @@ priority-halign-grav.o: priority-halign-grav.cc include/bar.hh \
 	include/graphical-element.hh include/lily-proto.hh \
 	../lib/include/proto.hh include/drul-array.hh \
 	include/direction.hh include/break-align-item.hh \
-	include/horizontal-align-item.hh include/elem-group.hh \
-	include/axis-group-element.hh \
-	include/axis-group-administration.hh \
+	include/horizontal-align-item.hh \
 	include/priority-halign-grav.hh include/engraver.hh \
 	include/request.hh ../lib/include/moment.hh \
 	../flower/include/rational.hh ../lib/include/input.hh \
@@ -2789,7 +2854,9 @@ rest-collision-grav.o: rest-collision-grav.cc include/debug.hh \
 	../flower/include/dictionary.hh ../flower/include/assoc.hh \
 	include/collision.hh include/horizontal-vertical-group-item.hh \
 	include/axis-group-item.hh include/axis-group-element.hh \
-	include/axis-group-administration.hh include/elem-group.hh \
+	include/axis-group-administration.hh \
+	include/horizontal-vertical-group-elem.hh \
+	include/vertical-group-elem.hh include/horizontal-group-elem.hh \
 	include/note-column.hh include/script-column.hh
 rest-collision.o: rest-collision.cc include/debug.hh \
 	../flower/include/dstream.hh ../flower/include/string.hh \
@@ -2809,7 +2876,9 @@ rest-collision.o: rest-collision.cc include/debug.hh \
 	include/script-column.hh \
 	include/horizontal-vertical-group-item.hh \
 	include/axis-group-item.hh include/axis-group-element.hh \
-	include/axis-group-administration.hh include/elem-group.hh \
+	include/axis-group-administration.hh \
+	include/horizontal-vertical-group-elem.hh \
+	include/vertical-group-elem.hh include/horizontal-group-elem.hh \
 	include/stem.hh ../lib/include/moment.hh \
 	../flower/include/rational.hh include/molecule.hh \
 	../flower/include/plist.hh ../flower/include/list.hh \
@@ -2899,7 +2968,9 @@ rhythmic-column-grav.o: rhythmic-column-grav.cc \
 	include/script-column.hh \
 	include/horizontal-vertical-group-item.hh \
 	include/axis-group-item.hh include/axis-group-element.hh \
-	include/axis-group-administration.hh include/elem-group.hh \
+	include/axis-group-administration.hh \
+	include/horizontal-vertical-group-elem.hh \
+	include/vertical-group-elem.hh include/horizontal-group-elem.hh \
 	include/script.hh include/staff-side.hh include/dot-column.hh \
 	include/horizontal-group-item.hh
 rhythmic-head.o: rhythmic-head.cc include/rhythmic-head.hh \
@@ -2930,6 +3001,30 @@ rhythmic-head.o: rhythmic-head.cc include/rhythmic-head.hh \
 	include/axis-group-element.hh \
 	include/axis-group-administration.hh include/p-score.hh \
 	include/colhpos.hh include/music-output.hh
+rod.o: rod.cc include/rod.hh include/lily-proto.hh \
+	../lib/include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh include/direction.hh \
+	include/drul-array.hh include/p-col.hh \
+	include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
+	include/score-elem.hh ../flower/include/parray.hh \
+	../flower/include/varray.hh \
+	../flower/include/virtual-methods.hh \
+	../flower/include/directed-graph.hh \
+	include/graphical-element.hh include/offset.hh include/axes.hh \
+	../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/compare.hh \
+	../flower/include/interval.hh \
+	include/axis-group-administration.hh include/axis-group-item.hh \
+	include/item.hh include/boxes.hh ../flower/include/plist.hh \
+	../flower/include/list.hh ../flower/include/list.icc \
+	../flower/include/cursor.hh ../flower/include/link.hh \
+	../flower/include/link.icc ../flower/include/pcursor.hh \
+	../flower/include/cursor.icc ../flower/include/iterate.hh \
+	../flower/include/plist.icc include/debug.hh \
+	../flower/include/dstream.hh ../lib/include/warn.hh
 score-bar.o: score-bar.cc include/score-bar.hh include/bar.hh \
 	include/item.hh include/boxes.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/interval.hh \
@@ -2952,13 +3047,14 @@ score-column.o: score-column.cc include/debug.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
 	../lib/include/warn.hh include/p-col.hh \
-	include/horizontal-group-item.hh include/elem-group.hh \
+	include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/score-elem.hh ../flower/include/parray.hh \
 	../flower/include/varray.hh \
 	../flower/include/virtual-methods.hh \
 	../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/offset.hh include/axes.hh \
-	../flower/include/interval.hh include/axis-group-element.hh \
+	../flower/include/interval.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/item.hh include/boxes.hh include/drul-array.hh \
 	include/direction.hh ../flower/include/plist.hh \
@@ -2966,8 +3062,9 @@ score-column.o: score-column.cc include/debug.hh \
 	../flower/include/cursor.hh ../flower/include/link.hh \
 	../flower/include/link.icc ../flower/include/pcursor.hh \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc include/score-column.hh \
-	../lib/include/moment.hh ../flower/include/rational.hh
+	../flower/include/plist.icc include/rod.hh \
+	include/score-column.hh ../lib/include/moment.hh \
+	../flower/include/rational.hh
 score-elem-info.o: score-elem-info.cc include/score-elem-info.hh \
 	../flower/include/scalar.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
@@ -3005,9 +3102,10 @@ score-elem.o: score-elem.cc include/outputter.hh include/lily-proto.hh \
 	include/graphical-element.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh \
 	include/tex.hh include/dimen.hh include/spanner.hh \
-	include/drul-array.hh include/scoreline.hh include/item.hh \
-	include/p-col.hh include/horizontal-group-item.hh \
-	include/elem-group.hh include/axis-group-element.hh \
+	include/drul-array.hh include/rod.hh include/scoreline.hh \
+	include/item.hh include/p-col.hh \
+	include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh
 score-grav.o: score-grav.cc include/super-elem.hh include/score-elem.hh \
 	../flower/include/parray.hh ../flower/include/varray.hh \
@@ -3022,7 +3120,7 @@ score-grav.o: score-grav.cc include/super-elem.hh include/score-elem.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
 	../flower/include/interval.hh include/scoreline.hh \
 	include/colhpos.hh include/spanner.hh include/drul-array.hh \
-	include/direction.hh include/debug.hh \
+	include/direction.hh include/rod.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh \
 	include/item.hh include/boxes.hh include/score-grav.hh \
 	include/engraver-group.hh ../flower/include/plist.hh \
@@ -3041,8 +3139,8 @@ score-grav.o: score-grav.cc include/super-elem.hh include/score-elem.hh \
 	include/p-score.hh include/music-output.hh \
 	include/musical-request.hh ../lib/include/duration.hh \
 	../lib/include/plet.hh include/score-column.hh include/p-col.hh \
-	include/horizontal-group-item.hh include/elem-group.hh \
-	include/axis-group-element.hh \
+	include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/command-request.hh include/paper-def.hh \
 	include/music-output-def.hh
@@ -3079,7 +3177,8 @@ score-performer.o: score-performer.cc include/score-performer.hh \
 	../lib/include/source-file.hh ../lib/include/source.hh \
 	include/audio-staff.hh
 score-priority-grav.o: score-priority-grav.cc \
-	include/horizontal-group-item.hh include/elem-group.hh \
+	include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/score-elem.hh ../flower/include/parray.hh \
 	../flower/include/varray.hh \
 	../flower/include/virtual-methods.hh \
@@ -3091,7 +3190,7 @@ score-priority-grav.o: score-priority-grav.cc \
 	../flower/include/fproto.hh ../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/interval.hh include/axis-group-element.hh \
+	../flower/include/interval.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/item.hh include/boxes.hh include/drul-array.hh \
 	include/direction.hh include/score-priority-grav.hh \
@@ -3142,17 +3241,18 @@ scoreline.o: scoreline.cc include/scoreline.hh include/colhpos.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	../flower/include/interval.hh include/drul-array.hh \
-	include/direction.hh include/dimen.hh include/atom.hh \
-	include/boxes.hh include/paper-def.hh ../lib/include/moment.hh \
-	../flower/include/rational.hh include/music-output-def.hh \
-	../flower/include/plist.hh ../flower/include/list.hh \
-	../flower/include/list.icc ../flower/include/cursor.hh \
-	../flower/include/link.hh ../flower/include/link.icc \
-	../flower/include/pcursor.hh ../flower/include/cursor.icc \
-	../flower/include/iterate.hh ../flower/include/plist.icc \
-	../flower/include/dictionary.hh ../flower/include/assoc.hh \
-	include/p-col.hh include/horizontal-group-item.hh \
-	include/elem-group.hh include/axis-group-element.hh \
+	include/direction.hh include/rod.hh include/dimen.hh \
+	include/atom.hh include/boxes.hh include/paper-def.hh \
+	../lib/include/moment.hh ../flower/include/rational.hh \
+	include/music-output-def.hh ../flower/include/plist.hh \
+	../flower/include/list.hh ../flower/include/list.icc \
+	../flower/include/cursor.hh ../flower/include/link.hh \
+	../flower/include/link.icc ../flower/include/pcursor.hh \
+	../flower/include/cursor.icc ../flower/include/iterate.hh \
+	../flower/include/plist.icc ../flower/include/dictionary.hh \
+	../flower/include/assoc.hh include/p-col.hh \
+	include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/item.hh include/p-score.hh include/music-output.hh
 scores.o: scores.cc include/main.hh include/lily-proto.hh \
@@ -3192,10 +3292,11 @@ script-column.o: script-column.cc include/script-column.hh \
 	../flower/include/interval.hh \
 	include/axis-group-administration.hh include/item.hh \
 	include/boxes.hh include/drul-array.hh include/direction.hh \
-	include/elem-group.hh include/debug.hh \
-	../flower/include/dstream.hh ../lib/include/warn.hh \
-	include/script.hh include/staff-side.hh include/note-head.hh \
-	include/rhythmic-head.hh include/stem.hh \
+	include/horizontal-vertical-group-elem.hh \
+	include/vertical-group-elem.hh include/horizontal-group-elem.hh \
+	include/debug.hh ../flower/include/dstream.hh \
+	../lib/include/warn.hh include/script.hh include/staff-side.hh \
+	include/note-head.hh include/rhythmic-head.hh include/stem.hh \
 	../lib/include/moment.hh ../flower/include/rational.hh \
 	include/molecule.hh ../flower/include/plist.hh \
 	../flower/include/list.hh ../flower/include/list.icc \
@@ -3251,7 +3352,7 @@ script-grav.o: script-grav.cc include/script-grav.hh include/engraver.hh \
 	../flower/include/link.hh ../flower/include/link.icc \
 	../flower/include/pcursor.hh ../flower/include/cursor.icc \
 	../flower/include/iterate.hh ../flower/include/plist.icc \
-	include/staff-sym.hh include/spanner.hh \
+	include/staff-sym.hh include/spanner.hh include/rod.hh \
 	include/general-script-def.hh
 script.o: script.cc include/script-def.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
@@ -3279,6 +3380,86 @@ script.o: script.cc include/script-def.hh ../flower/include/string.hh \
 	include/item.hh include/boxes.hh include/drul-array.hh \
 	include/stem.hh include/molecule.hh include/lookup.hh \
 	include/atom.hh ../flower/include/scalar.hh
+separating-group-spanner.o: separating-group-spanner.cc \
+	include/separating-group-spanner.hh \
+	include/vertical-group-spanner.hh include/axis-group-spanner.hh \
+	include/spanner.hh include/lily-proto.hh \
+	../lib/include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh include/score-elem.hh \
+	../flower/include/parray.hh ../flower/include/varray.hh \
+	../flower/include/virtual-methods.hh \
+	../flower/include/directed-graph.hh \
+	include/graphical-element.hh include/offset.hh include/axes.hh \
+	../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/compare.hh \
+	../flower/include/interval.hh include/drul-array.hh \
+	include/direction.hh include/rod.hh \
+	include/axis-group-element.hh \
+	include/axis-group-administration.hh \
+	include/vertical-group-elem.hh \
+	include/single-malt-grouping-item.hh include/item.hh \
+	include/boxes.hh
+separating-line-group-grav.o: separating-line-group-grav.cc \
+	include/separating-line-group-grav.hh \
+	include/line-group-grav.hh include/engraver.hh \
+	include/lily-proto.hh ../lib/include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/varray.hh include/request.hh \
+	../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/compare.hh \
+	../lib/include/moment.hh ../flower/include/rational.hh \
+	../flower/include/virtual-methods.hh ../lib/include/input.hh \
+	include/music.hh include/minterval.hh \
+	../flower/include/interval.hh include/direction.hh \
+	include/score-elem-info.hh ../flower/include/scalar.hh \
+	include/staff-info.hh include/translator.hh \
+	../flower/include/dictionary.hh ../flower/include/assoc.hh \
+	../flower/include/parray.hh include/separating-group-spanner.hh \
+	include/vertical-group-spanner.hh include/axis-group-spanner.hh \
+	include/spanner.hh include/score-elem.hh \
+	../flower/include/directed-graph.hh \
+	include/graphical-element.hh include/offset.hh include/axes.hh \
+	include/drul-array.hh include/rod.hh \
+	include/axis-group-element.hh \
+	include/axis-group-administration.hh \
+	include/vertical-group-elem.hh \
+	include/single-malt-grouping-item.hh include/item.hh \
+	include/boxes.hh include/p-col.hh \
+	include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-item.hh \
+	../flower/include/plist.hh ../flower/include/list.hh \
+	../flower/include/list.icc ../flower/include/cursor.hh \
+	../flower/include/link.hh ../flower/include/link.icc \
+	../flower/include/pcursor.hh ../flower/include/cursor.icc \
+	../flower/include/iterate.hh ../flower/include/plist.icc
+single-malt-grouping-item.o: single-malt-grouping-item.cc \
+	include/single-malt-grouping-item.hh include/item.hh \
+	include/boxes.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/interval.hh \
+	../flower/include/compare.hh include/offset.hh include/axes.hh \
+	../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh include/score-elem.hh \
+	../flower/include/parray.hh ../flower/include/varray.hh \
+	../flower/include/virtual-methods.hh \
+	../flower/include/directed-graph.hh \
+	include/graphical-element.hh include/lily-proto.hh \
+	../lib/include/proto.hh include/drul-array.hh \
+	include/direction.hh include/p-col.hh \
+	include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
+	include/axis-group-administration.hh include/axis-group-item.hh \
+	../flower/include/plist.hh ../flower/include/list.hh \
+	../flower/include/list.icc ../flower/include/cursor.hh \
+	../flower/include/link.hh ../flower/include/link.icc \
+	../flower/include/pcursor.hh ../flower/include/cursor.icc \
+	../flower/include/iterate.hh ../flower/include/plist.icc \
+	include/rod.hh
 slur-grav.o: slur-grav.cc ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/plist.hh ../flower/include/list.hh \
@@ -3306,13 +3487,15 @@ slur-grav.o: slur-grav.cc ../lib/include/proto.hh \
 	include/spanner.hh include/score-elem.hh \
 	../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/offset.hh include/axes.hh \
-	include/drul-array.hh include/bow.hh include/debug.hh \
-	../flower/include/dstream.hh ../lib/include/warn.hh \
-	include/note-column.hh include/item.hh include/boxes.hh \
-	include/script-column.hh \
+	include/drul-array.hh include/rod.hh include/bow.hh \
+	include/debug.hh ../flower/include/dstream.hh \
+	../lib/include/warn.hh include/note-column.hh include/item.hh \
+	include/boxes.hh include/script-column.hh \
 	include/horizontal-vertical-group-item.hh \
 	include/axis-group-item.hh include/axis-group-element.hh \
-	include/axis-group-administration.hh include/elem-group.hh
+	include/axis-group-administration.hh \
+	include/horizontal-vertical-group-elem.hh \
+	include/vertical-group-elem.hh include/horizontal-group-elem.hh
 slur.o: slur.cc include/slur.hh include/directional-spanner.hh \
 	include/spanner.hh include/lily-proto.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
@@ -3326,9 +3509,9 @@ slur.o: slur.cc include/slur.hh include/directional-spanner.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	../flower/include/interval.hh include/drul-array.hh \
-	include/direction.hh include/bow.hh ../flower/include/scalar.hh \
-	include/lookup.hh include/atom.hh include/boxes.hh \
-	include/paper-def.hh ../lib/include/moment.hh \
+	include/direction.hh include/rod.hh include/bow.hh \
+	../flower/include/scalar.hh include/lookup.hh include/atom.hh \
+	include/boxes.hh include/paper-def.hh ../lib/include/moment.hh \
 	../flower/include/rational.hh include/music-output-def.hh \
 	../flower/include/plist.hh ../flower/include/list.hh \
 	../flower/include/list.icc ../flower/include/cursor.hh \
@@ -3339,7 +3522,9 @@ slur.o: slur.cc include/slur.hh include/directional-spanner.hh \
 	include/note-column.hh include/item.hh include/script-column.hh \
 	include/horizontal-vertical-group-item.hh \
 	include/axis-group-item.hh include/axis-group-element.hh \
-	include/axis-group-administration.hh include/elem-group.hh \
+	include/axis-group-administration.hh \
+	include/horizontal-vertical-group-elem.hh \
+	include/vertical-group-elem.hh include/horizontal-group-elem.hh \
 	include/stem.hh include/molecule.hh include/p-col.hh \
 	include/horizontal-group-item.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh
@@ -3364,9 +3549,7 @@ span-bar-grav.o: span-bar-grav.cc include/span-bar.hh include/bar.hh \
 	include/staff-info.hh include/translator.hh \
 	../flower/include/dictionary.hh ../flower/include/assoc.hh \
 	include/vertical-align-spanner.hh include/spanner.hh \
-	include/vertical-align-elem.hh include/elem-group.hh \
-	include/axis-group-element.hh \
-	include/axis-group-administration.hh
+	include/rod.hh include/vertical-align-elem.hh
 span-bar.o: span-bar.cc include/dimen.hh ../flower/include/real.hh \
 	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
@@ -3390,9 +3573,7 @@ span-bar.o: span-bar.cc include/dimen.hh ../flower/include/real.hh \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
 	../flower/include/plist.icc ../flower/include/dictionary.hh \
 	../flower/include/assoc.hh include/molecule.hh \
-	include/vertical-align-elem.hh include/elem-group.hh \
-	include/axis-group-element.hh \
-	include/axis-group-administration.hh
+	include/vertical-align-elem.hh
 span-score-bar-grav.o: span-score-bar-grav.cc include/span-score-bar.hh \
 	include/span-bar.hh include/bar.hh include/item.hh \
 	include/boxes.hh ../flower/include/fproto.hh \
@@ -3452,9 +3633,9 @@ spanner.o: spanner.cc include/debug.hh ../flower/include/dstream.hh \
 	../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/offset.hh include/axes.hh \
 	../flower/include/interval.hh include/drul-array.hh \
-	include/direction.hh include/p-col.hh \
-	include/horizontal-group-item.hh include/elem-group.hh \
-	include/axis-group-element.hh \
+	include/direction.hh include/rod.hh include/p-col.hh \
+	include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/item.hh include/boxes.hh ../flower/include/plist.hh \
 	../flower/include/list.hh ../flower/include/list.icc \
@@ -3474,28 +3655,29 @@ spring-spacer.o: spring-spacer.cc include/spring-spacer.hh \
 	../flower/include/link.icc ../flower/include/pcursor.hh \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
 	../flower/include/plist.icc include/col-info.hh \
-	../flower/include/pointer.hh include/colhpos.hh \
-	../lib/include/moment.hh ../flower/include/rational.hh \
+	../flower/include/pointer.hh ../flower/include/assoc.hh \
+	include/colhpos.hh ../lib/include/moment.hh \
+	../flower/include/rational.hh \
 	../flower/include/arithmetic-operator.hh include/p-col.hh \
-	include/horizontal-group-item.hh include/elem-group.hh \
+	include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/score-elem.hh ../flower/include/parray.hh \
 	../flower/include/virtual-methods.hh \
 	../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/offset.hh include/axes.hh \
 	../flower/include/string.hh ../flower/include/string-handle.hh \
 	../flower/include/international.hh \
-	include/axis-group-element.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/item.hh include/boxes.hh include/drul-array.hh \
-	include/direction.hh include/debug.hh \
+	include/direction.hh include/rod.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh \
 	include/qlp.hh include/ineq-constrained-qp.hh \
 	../flower/include/matrix.hh ../flower/include/matrix-storage.hh \
 	../flower/include/unionfind.hh include/idealspacing.hh \
 	../flower/include/pointer.tcc include/score-column.hh \
 	include/paper-def.hh include/music-output-def.hh \
-	../flower/include/dictionary.hh ../flower/include/assoc.hh \
-	include/dimen.hh include/main.hh
+	../flower/include/dictionary.hh include/dimen.hh \
+	include/main.hh
 staff-info.o: staff-info.cc ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/plist.hh ../flower/include/list.hh \
@@ -3508,17 +3690,18 @@ staff-info.o: staff-info.cc ../lib/include/proto.hh \
 	../flower/include/varray.hh ../lib/include/moment.hh \
 	../flower/include/rational.hh \
 	../flower/include/arithmetic-operator.hh include/p-col.hh \
-	include/horizontal-group-item.hh include/elem-group.hh \
+	include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/score-elem.hh ../flower/include/parray.hh \
 	../flower/include/virtual-methods.hh \
 	../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/offset.hh include/axes.hh \
 	../flower/include/string.hh ../flower/include/string-handle.hh \
 	../flower/include/international.hh \
-	../flower/include/interval.hh include/axis-group-element.hh \
+	../flower/include/interval.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/item.hh include/boxes.hh include/drul-array.hh \
-	include/direction.hh
+	include/direction.hh include/rod.hh
 staff-performer.o: staff-performer.cc include/staff-performer.hh \
 	include/performer-group-performer.hh include/lily-proto.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
@@ -3565,7 +3748,7 @@ staff-side.o: staff-side.cc ../flower/include/interval.hh \
 	../flower/include/parray.hh ../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/offset.hh include/axes.hh \
 	include/direction.hh include/staff-sym.hh include/spanner.hh \
-	include/drul-array.hh include/debug.hh \
+	include/drul-array.hh include/rod.hh include/debug.hh \
 	../flower/include/dstream.hh ../lib/include/warn.hh
 staff-sym-grav.o: staff-sym-grav.cc include/staff-sym-grav.hh \
 	include/engraver.hh include/lily-proto.hh \
@@ -3586,14 +3769,14 @@ staff-sym-grav.o: staff-sym-grav.cc include/staff-sym-grav.hh \
 	include/spanner.hh include/score-elem.hh \
 	../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/offset.hh include/axes.hh \
-	include/drul-array.hh include/score.hh \
+	include/drul-array.hh include/rod.hh include/score.hh \
 	../flower/include/plist.hh ../flower/include/list.hh \
 	../flower/include/list.icc ../flower/include/cursor.hh \
 	../flower/include/link.hh ../flower/include/link.icc \
 	../flower/include/pcursor.hh ../flower/include/cursor.icc \
 	../flower/include/iterate.hh ../flower/include/plist.icc \
 	include/p-col.hh include/horizontal-group-item.hh \
-	include/elem-group.hh include/axis-group-element.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/item.hh include/boxes.hh
 staff-sym.o: staff-sym.cc include/staff-sym.hh include/spanner.hh \
@@ -3609,8 +3792,8 @@ staff-sym.o: staff-sym.cc include/staff-sym.hh include/spanner.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	../flower/include/interval.hh include/drul-array.hh \
-	include/direction.hh include/lookup.hh include/atom.hh \
-	include/boxes.hh ../flower/include/scalar.hh \
+	include/direction.hh include/rod.hh include/lookup.hh \
+	include/atom.hh include/boxes.hh ../flower/include/scalar.hh \
 	include/paper-def.hh ../lib/include/moment.hh \
 	../flower/include/rational.hh include/music-output-def.hh \
 	../flower/include/plist.hh ../flower/include/list.hh \
@@ -3703,12 +3886,13 @@ stem.o: stem.cc include/stem.hh include/item.hh include/boxes.hh \
 	../flower/include/assoc.hh include/note-head.hh \
 	include/rhythmic-head.hh include/lookup.hh include/atom.hh \
 	../flower/include/scalar.hh include/p-col.hh \
-	include/horizontal-group-item.hh include/elem-group.hh \
-	include/axis-group-element.hh \
+	include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
-	include/misc.hh include/grouping.hh include/minterval.hh \
-	include/beam.hh include/directional-spanner.hh \
-	include/spanner.hh include/rest.hh
+	include/rod.hh include/misc.hh include/grouping.hh \
+	include/minterval.hh include/beam.hh \
+	include/directional-spanner.hh include/spanner.hh \
+	include/rest.hh
 super-elem.o: super-elem.cc include/super-elem.hh include/score-elem.hh \
 	../flower/include/parray.hh ../flower/include/varray.hh \
 	../flower/include/virtual-methods.hh \
@@ -3722,7 +3906,7 @@ super-elem.o: super-elem.cc include/super-elem.hh include/score-elem.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
 	../flower/include/interval.hh include/scoreline.hh \
 	include/colhpos.hh include/spanner.hh include/drul-array.hh \
-	include/direction.hh include/p-score.hh \
+	include/direction.hh include/rod.hh include/p-score.hh \
 	../flower/include/plist.hh ../flower/include/list.hh \
 	../flower/include/list.icc ../flower/include/cursor.hh \
 	../flower/include/link.hh ../flower/include/link.icc \
@@ -3785,7 +3969,8 @@ template1.o: template1.cc ../lib/include/proto.hh \
 	../flower/include/compare.hh ../flower/include/pcursor.hh \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
 	../flower/include/plist.icc include/p-col.hh \
-	include/horizontal-group-item.hh include/elem-group.hh \
+	include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/score-elem.hh ../flower/include/parray.hh \
 	../flower/include/varray.hh \
 	../flower/include/virtual-methods.hh \
@@ -3795,10 +3980,10 @@ template1.o: template1.cc ../lib/include/proto.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh \
-	../flower/include/interval.hh include/axis-group-element.hh \
+	../flower/include/interval.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/item.hh include/boxes.hh include/drul-array.hh \
-	include/direction.hh include/musical-request.hh \
+	include/direction.hh include/rod.hh include/musical-request.hh \
 	include/request.hh ../lib/include/moment.hh \
 	../flower/include/rational.hh ../lib/include/input.hh \
 	include/music.hh include/minterval.hh \
@@ -3838,22 +4023,7 @@ template4.o: template4.cc ../lib/include/proto.hh \
 	../flower/include/cursor.hh ../flower/include/link.hh \
 	../flower/include/link.icc ../flower/include/compare.hh \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc include/audio-item.hh \
-	include/lily-proto.hh ../flower/include/string.hh \
-	../flower/include/arithmetic-operator.hh \
-	../flower/include/string-handle.hh \
-	../flower/include/international.hh include/audio-element.hh \
-	../flower/include/virtual-methods.hh include/audio-staff.hh \
-	include/p-col.hh include/horizontal-group-item.hh \
-	include/elem-group.hh include/score-elem.hh \
-	../flower/include/parray.hh ../flower/include/varray.hh \
-	../flower/include/directed-graph.hh \
-	include/graphical-element.hh include/offset.hh include/axes.hh \
-	../flower/include/interval.hh include/axis-group-element.hh \
-	include/axis-group-administration.hh include/axis-group-item.hh \
-	include/item.hh include/boxes.hh include/drul-array.hh \
-	include/direction.hh include/p-score.hh include/colhpos.hh \
-	include/music-output.hh ../flower/include/cursor.tcc \
+	../flower/include/plist.icc ../flower/include/cursor.tcc \
 	../flower/include/list.tcc ../flower/include/pcursor.tcc \
 	../flower/include/plist.tcc
 template5.o: template5.cc ../lib/include/proto.hh \
@@ -4051,13 +4221,13 @@ text-spanner.o: text-spanner.cc include/molecule.hh \
 	../flower/include/virtual-methods.hh \
 	../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/drul-array.hh \
-	include/text-def.hh include/general-script-def.hh \
-	../lib/include/input.hh include/debug.hh \
-	../flower/include/dstream.hh ../lib/include/warn.hh \
-	include/paper-def.hh ../lib/include/moment.hh \
-	../flower/include/rational.hh include/music-output-def.hh \
-	../flower/include/dictionary.hh ../flower/include/assoc.hh \
-	include/atom.hh
+	include/rod.hh include/text-def.hh \
+	include/general-script-def.hh ../lib/include/input.hh \
+	include/debug.hh ../flower/include/dstream.hh \
+	../lib/include/warn.hh include/paper-def.hh \
+	../lib/include/moment.hh ../flower/include/rational.hh \
+	include/music-output-def.hh ../flower/include/dictionary.hh \
+	../flower/include/assoc.hh include/atom.hh
 tie-grav.o: tie-grav.cc include/tie-grav.hh include/engraver.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -4077,7 +4247,7 @@ tie-grav.o: tie-grav.cc include/tie-grav.hh include/engraver.hh \
 	include/directional-spanner.hh include/spanner.hh \
 	include/score-elem.hh ../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/offset.hh include/axes.hh \
-	include/drul-array.hh include/note-head.hh \
+	include/drul-array.hh include/rod.hh include/note-head.hh \
 	include/rhythmic-head.hh include/item.hh include/boxes.hh \
 	include/musical-request.hh ../lib/include/duration.hh \
 	../lib/include/plet.hh include/music-list.hh \
@@ -4106,10 +4276,11 @@ tie.o: tie.cc include/paper-def.hh include/lily-proto.hh \
 	include/score-elem.hh ../flower/include/parray.hh \
 	../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/offset.hh include/axes.hh \
-	include/drul-array.hh include/direction.hh include/note-head.hh \
-	include/rhythmic-head.hh include/item.hh include/boxes.hh \
-	include/p-col.hh include/horizontal-group-item.hh \
-	include/elem-group.hh include/axis-group-element.hh \
+	include/drul-array.hh include/direction.hh include/rod.hh \
+	include/note-head.hh include/rhythmic-head.hh include/item.hh \
+	include/boxes.hh include/p-col.hh \
+	include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/debug.hh ../flower/include/dstream.hh \
 	../lib/include/warn.hh
@@ -4266,9 +4437,8 @@ version.o: version.cc include/main.hh include/lily-proto.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh
 vertical-align-elem.o: vertical-align-elem.cc \
-	include/vertical-align-elem.hh include/elem-group.hh \
-	include/score-elem.hh ../flower/include/parray.hh \
-	../flower/include/varray.hh \
+	include/vertical-align-elem.hh include/score-elem.hh \
+	../flower/include/parray.hh ../flower/include/varray.hh \
 	../flower/include/virtual-methods.hh \
 	../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/offset.hh \
@@ -4278,10 +4448,10 @@ vertical-align-elem.o: vertical-align-elem.cc \
 	../flower/include/fproto.hh ../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/interval.hh include/axis-group-element.hh \
-	include/axis-group-administration.hh
+	../flower/include/interval.hh
 vertical-align-grav.o: vertical-align-grav.cc include/p-col.hh \
-	include/horizontal-group-item.hh include/elem-group.hh \
+	include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/score-elem.hh ../flower/include/parray.hh \
 	../flower/include/varray.hh \
 	../flower/include/virtual-methods.hh \
@@ -4293,7 +4463,7 @@ vertical-align-grav.o: vertical-align-grav.cc include/p-col.hh \
 	../flower/include/fproto.hh ../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
-	../flower/include/interval.hh include/axis-group-element.hh \
+	../flower/include/interval.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/item.hh include/boxes.hh include/drul-array.hh \
 	include/direction.hh ../flower/include/plist.hh \
@@ -4301,15 +4471,16 @@ vertical-align-grav.o: vertical-align-grav.cc include/p-col.hh \
 	../flower/include/cursor.hh ../flower/include/link.hh \
 	../flower/include/link.icc ../flower/include/pcursor.hh \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc include/vertical-align-grav.hh \
-	include/engraver.hh include/request.hh ../lib/include/moment.hh \
+	../flower/include/plist.icc include/rod.hh \
+	include/vertical-align-grav.hh include/engraver.hh \
+	include/request.hh ../lib/include/moment.hh \
 	../flower/include/rational.hh ../lib/include/input.hh \
 	include/music.hh include/minterval.hh \
 	include/score-elem-info.hh ../flower/include/scalar.hh \
 	include/staff-info.hh include/translator.hh \
 	../flower/include/dictionary.hh ../flower/include/assoc.hh \
 	include/vertical-align-spanner.hh include/spanner.hh \
-	include/vertical-align-elem.hh
+	include/vertical-align-elem.hh include/vertical-group-elem.hh
 vertical-align-spanner.o: vertical-align-spanner.cc \
 	include/vertical-align-spanner.hh include/spanner.hh \
 	include/lily-proto.hh ../lib/include/proto.hh \
@@ -4324,9 +4495,26 @@ vertical-align-spanner.o: vertical-align-spanner.cc \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	../flower/include/interval.hh include/drul-array.hh \
-	include/direction.hh include/vertical-align-elem.hh \
-	include/elem-group.hh include/axis-group-element.hh \
-	include/axis-group-administration.hh
+	include/direction.hh include/rod.hh \
+	include/vertical-align-elem.hh
+vertical-group-elem.o: vertical-group-elem.cc \
+	include/vertical-group-elem.hh include/axis-group-element.hh \
+	include/score-elem.hh ../flower/include/parray.hh \
+	../flower/include/varray.hh \
+	../flower/include/virtual-methods.hh \
+	../flower/include/directed-graph.hh \
+	include/graphical-element.hh include/offset.hh \
+	../flower/include/real.hh include/axes.hh \
+	../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/fproto.hh ../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/compare.hh \
+	include/lily-proto.hh ../lib/include/proto.hh \
+	../flower/include/interval.hh \
+	include/axis-group-administration.hh include/item.hh \
+	include/boxes.hh include/drul-array.hh include/direction.hh \
+	include/debug.hh ../flower/include/dstream.hh \
+	../lib/include/warn.hh
 vertical-group-spanner.o: vertical-group-spanner.cc \
 	include/vertical-group-spanner.hh include/axis-group-spanner.hh \
 	include/spanner.hh include/lily-proto.hh \
@@ -4341,10 +4529,12 @@ vertical-group-spanner.o: vertical-group-spanner.cc \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	../flower/include/interval.hh include/drul-array.hh \
-	include/direction.hh include/axis-group-element.hh \
-	include/axis-group-administration.hh include/elem-group.hh \
-	include/item.hh include/boxes.hh include/p-col.hh \
-	include/horizontal-group-item.hh include/axis-group-item.hh \
+	include/direction.hh include/rod.hh \
+	include/axis-group-element.hh \
+	include/axis-group-administration.hh \
+	include/vertical-group-elem.hh include/item.hh include/boxes.hh \
+	include/p-col.hh include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-item.hh \
 	../flower/include/plist.hh ../flower/include/list.hh \
 	../flower/include/list.icc ../flower/include/cursor.hh \
 	../flower/include/link.hh ../flower/include/link.icc \
@@ -4411,13 +4601,13 @@ word-wrap.o: word-wrap.cc include/word-wrap.hh include/break.hh \
 	../flower/include/parray.hh include/music-output.hh \
 	include/debug.hh ../flower/include/dstream.hh \
 	../lib/include/warn.hh include/p-col.hh \
-	include/horizontal-group-item.hh include/elem-group.hh \
+	include/horizontal-group-item.hh \
+	include/horizontal-group-elem.hh include/axis-group-element.hh \
 	include/score-elem.hh ../flower/include/directed-graph.hh \
 	include/graphical-element.hh include/offset.hh include/axes.hh \
-	include/axis-group-element.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
 	include/item.hh include/boxes.hh include/drul-array.hh \
-	include/direction.hh include/spring-spacer.hh \
+	include/direction.hh include/rod.hh include/spring-spacer.hh \
 	include/line-spacer.hh ../flower/include/vector.hh \
 	include/col-info.hh ../flower/include/pointer.hh
 
@@ -4484,7 +4674,7 @@ mostlyclean:  mostlyclean-recursive mostlyclean-am
 
 clean:  clean-recursive clean-am
 
-distclean:  distclean-recursive distclean-am
+distclean:  distclean-recursive distclean-am distclean-local
 	-rm -f config.status
 	-rm -f libtool
 
@@ -4529,8 +4719,10 @@ all-am: Makefile $(PROGRAMS) wild-check
 # dummy target for non-GNU makes; is overridden in GNUmakefile
 wild-check:
 
+distclean-local:
+	-rm -rf .deps
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
-	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
+	$(PERL) $(top_srcdir)/bin/wild-perl --top-srcdir="$(real_topdir)" < $< > $@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

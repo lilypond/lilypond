@@ -97,6 +97,9 @@ protected:
   /// do calculations before determining horizontal spacing
   virtual void do_pre_processing();
 
+  /// generate rods & springs
+  virtual void do_space_processing ();
+
   virtual void do_breakable_col_processing();
   /// do calculations after determining horizontal spacing
   virtual void do_post_processing();

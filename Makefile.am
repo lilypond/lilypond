@@ -26,5 +26,10 @@ PATCHES:
 	rm -f PATCHES
 	ln `$(FIND) ./ -name PATCHES.txt -print | head -1` $@
 
+
+# a hack due to a bug in automake: the macro AM_CONFIG_HEADER does not
+# respect the directory
+distclean-local:
+	rm -f lib/config.hh
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
-	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
+	$(PERL) $(top_srcdir)/bin/wild-perl --top-srcdir="$(real_topdir)" < $< > $@

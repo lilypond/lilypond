@@ -13,7 +13,7 @@ SUBDIRS = include
 
 bin_PROGRAMS = mi2mu
 
-mi2mu_SOURCES = main.cc mi2mu-version.cc midi-parser.cc midi-score-parser.cc midi-track-parser.cc mudela-column.cc mudela-item.cc mudela-score.cc mudela-staff.cc mudela-stream.cc mudela-voice.cc template.cc version.cc
+mi2mu_SOURCES = main.cc mi2mu-version.cc midi-parser.cc midi-score-parser.cc midi-track-parser.cc mudela-column.cc mudela-item.cc mudela-score.cc mudela-staff.cc mudela-stream.cc mudela-voice.cc template9.cc version.cc
 
 # ugh -lfl bo lib/FlexLexer stuff
 #mi2mu_LDADD = -llily -lflower -lfl
@@ -31,5 +31,8 @@ all-am: Makefile $(PROGRAMS) wild-check
 
 # dummy target for non-GNU makes; is overridden in GNUmakefile
 wild-check:
+
+distclean-local:
+	-rm -rf .deps
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
-	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
+	$(PERL) $(top_srcdir)/bin/wild-perl --top-srcdir="$(real_topdir)" < $< > $@

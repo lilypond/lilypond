@@ -8,13 +8,13 @@ CLEANFILES = $(wildcard feta*.ly)
 FONT_FILES = $(wildcard ../mf/*[0-9].mf)
 TABLES = $(patsubst ../mf/%.mf,%.ly,$(FONT_FILES))
 
-# localclean:
+# clean-local:
 # 	rm -f $(TABLES)
 
-install-data:
+install-data-local:
 	$(INSTALL) -d $(datadir)/lilypond/init
 	$(INSTALL) -m 644 $(INIFILES) $(datadir)/lilypond/init
 
-uninstall-data:
+uninstall-local:
 	for i in $(INIFILES) ; do rm -f $(datadir)/lilypond/init/$$i; done
 	-rmdir $(datadir)/lilypond/init $(datadir)/lilypond/

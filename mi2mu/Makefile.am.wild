@@ -28,3 +28,6 @@ all-am: Makefile $(PROGRAMS) wild-check
 
 # dummy target for non-GNU makes; is overridden in GNUmakefile
 wild-check:
+
+distclean-local:
+	-rm -rf .deps

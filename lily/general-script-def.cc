@@ -71,3 +71,11 @@ General_script_def::get_atom (Paper_def*, Direction) const
 }
 
 IMPLEMENT_IS_TYPE_B(General_script_def);
+
+
+Interval
+General_script_def::width (Paper_def*) const
+{
+  Interval t;
+  return t;
+}

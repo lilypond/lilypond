@@ -10,6 +10,7 @@
 #include "lily-proto.hh"
 #include "score-elem.hh"
 #include "drul-array.hh"
+#include "rod.hh"
 
 /** A symbol which is attached between two columns. A spanner is a
   symbol which spans across several columns, so its final appearance
@@ -41,7 +42,7 @@ public:
   virtual Spanner* spanner() { return this; }    
   Spanner();
   bool broken_b() const;
-
+  virtual Array<Rod> get_rods () const;
   Spanner* find_broken_piece (Line_of_score*) const;
 protected:
   void set_my_columns();
@@ -57,6 +58,7 @@ protected:
   virtual void do_unlink();
   virtual void do_junk_links();
   virtual void do_brew_molecule ();
+  virtual void do_space_processing ();
   virtual void do_break_processing();
   virtual Interval do_width() const;
   virtual void do_print() const;

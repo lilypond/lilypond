@@ -22,21 +22,34 @@ texout = $(depth)/tex
 LYTABLES = $(addprefix $(lyout)/, $(FET_FILES:.mf=.ly))
 TEXTABLES = $(addprefix $(texout)/, $(FET_FILES:.mf=.tex))
 
-default: all $(LYTABLES) $(TEXTABLES)
 
-localclean:
-	rm -f $(LYTABLES) $(TEXTABLES) 
+all-local: $(LYTABLES) $(TEXTABLES)
 
-localrealclean: 
-	rm -f $(MFDEPS)
+dist-hook: $(LYTABLES) $(TEXTABLES)
 
-localinstall:
+clean-local:
+	-rm -f $(LYTABLES) $(TEXTABLES)
+	-rm -f *.log
+
+distclean-local:
+	-rm -f $(MFDEPS)
+
+install-data-local:
 	$(INSTALL) -d $(MFDIR)/public/lilypond
+	$(INSTALL) -d $(TEXDIR)/lilypond
+	$(INSTALL) -d $(datadir)/lilypond/init
 	$(INSTALL) -m 644 $(MFFILES) $(MFDIR)/public/lilypond/
+	$(INSTALL) -m 644 $(TEXTABLES) $(TEXDIR)/lilypond
+	$(INSTALL) -m 644 $(LYTABLES) $(datadir)/lilypond/init/
 
-localuninstall:
-	for i in $(MFFILES) ; do rm -f $(MFDIR)/lilypond/$$i; done
-	-rmdir $(MFDIR)/public/lilypond/
+uninstall-local:
+	for i in $(MFFILES) ; do rm -f $(MFDIR)/public/lilypond/$$i; done
+	for i in $(TEXTABLES) ; do rm -f $(TEXDIR)/lilypond/$$i; done
+	for i in $LYTABLES) ; do rm -f $(datadir)/lilypond/init/$$i; done
+	-rmdir $(MFDIR)/public/lilypond
+	-rmdir $(TEXDIR)/lilypond
+	-rmdir $(datadir)/lilypond/init
+	-rmdir $(datadir)/lilypond
 
 include $(srcdir)/Rules.make
 
@@ -44,4 +57,3 @@ include $(srcdir)/Rules.make
 #
 include $(MFDEPS)
 #
-

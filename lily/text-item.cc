@@ -65,10 +65,9 @@ Text_item::brew_molecule_p () const
 {
   Atom a (tdef_p_->get_atom (paper (), dir_));
 
-  /*
-    if (fat_b_)
-    a.sym.dim.x = tdef_p_->width (paper ());
-    */
+
+  if (fat_b_)
+    a.dim_[X_AXIS] = tdef_p_->width (paper ());
   Molecule* mol_p = new Molecule (a);
 
   if (dir_<0)		// should do something better anyway.

@@ -98,7 +98,7 @@ Axis_group_spanner::do_break_processing()
 		  if (v)
 		    v->add_element (my_item);
 		}
-	      while ((j*=-1) != LEFT);
+	      while (flip(&j) != LEFT);
 	    }
 	}
       else 
