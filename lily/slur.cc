@@ -329,7 +329,7 @@ Slur::get_attachment (Grob *me, Direction dir,
 	    }
 	  else if (str == "alongside-stem")
 	    {
-	      o = Offset (0, Stem::chord_start_f (stem));
+	      o = Offset (0, Stem::chord_start_y (stem));
 	      /*
 		Default position is on stem X, on outer side of head Y
 	       */

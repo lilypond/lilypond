@@ -38,7 +38,9 @@ have appropriate environment variables set.  For @TeX{}, you have to
 set @code{MFINPUTS} and @code{TEXINPUTS} to point to the directory
 containing LilyPond metafont and @file{.tex} files.  For processing
 PostScript output with Ghostscript you have to set @code{GS_FONTPATH}
-to point to the directory containing LilyPond PFA files.
+to point to the directory containing LilyPond PFA files.  When you
+print direct PS output, remember to send the PFA files to the printer
+as well.
 
 Scripts to do this are included in
 @file{buildscripts/out/lilypond-profile} (for sh shells) and
