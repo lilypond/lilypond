@@ -1,3 +1,10 @@
+2005-01-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* 
+
+	* lily/auto-beam-engraver.cc (acknowledge_grob): stop beam
+	if encountering barline. Fixes: auto-beam-repeat.ly
+
 2005-01-26  Werner Lemberg  <wl@gnu.org>
 
 	* mf/feta-slag.mf (draw_trillelement): Fix shape to get clean
@@ -102,6 +109,10 @@
 	* Documentation/user/changing-defaults: added info on
 	creating a copyright symbol.
 
+2005-01-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* VERSION: release 2.5.9
+	
 2005-01-18  Erlend Aasland  <erlenda@gmail.com>
 
 	* scm/auto-beam.scm: Simplify score-override-auto-beam-setting
