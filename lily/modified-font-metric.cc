@@ -34,7 +34,7 @@ Modified_font_metric::Modified_font_metric (String input_encoding,
   
   SCM desc = m->description_;
 
-  Real total_mag = magn * ly_scm2double (ly_cdr (desc));
+  Real total_mag = magn * scm_to_double (ly_cdr (desc));
   assert (total_mag);
   
   description_ = scm_cons (ly_car (desc), scm_make_real (total_mag));

@@ -209,7 +209,7 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
     }
 
   space_def = ly_cdr (space_def);
-  Real distance = ly_scm2double (ly_cdr (space_def));
+  Real distance = scm_to_double (ly_cdr (space_def));
   SCM type = ly_car (space_def) ;
 
   *fixed = last_ext[RIGHT];

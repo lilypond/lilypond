@@ -138,9 +138,9 @@ select_encoded_font (Output_def *paper, SCM chain, SCM input_encoding)
       SCM font_size = ly_assoc_chain (ly_symbol2scm ("font-size"), chain);
       Real req = 0;
       if (ly_c_pair_p (font_size))
-	req = ly_scm2double (ly_cdr (font_size));
+	req = scm_to_double (ly_cdr (font_size));
 
-      return get_font_by_mag_step (paper, req, vec, ly_scm2double (base_size),
+      return get_font_by_mag_step (paper, req, vec, scm_to_double (base_size),
 				   input_encoding);
     }
 

@@ -36,9 +36,9 @@ Font_size_engraver::acknowledge_grob (Grob_info gi)
   if (gi.origin_trans_->context () != context ())
     return ;
   
-  if (ly_c_number_p (sz) && ly_scm2double (sz))
+  if (ly_c_number_p (sz) && scm_to_double (sz))
     {
-      Real font_size = ly_scm2double (sz);
+      Real font_size = scm_to_double (sz);
       
       font_size +=  robust_scm2double (gi.grob_->get_property ("font-size"), 0);
       gi.grob_->set_property ("font-size", scm_make_real (font_size));

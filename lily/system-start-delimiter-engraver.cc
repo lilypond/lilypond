@@ -56,7 +56,7 @@ System_start_delimiter_engraver::acknowledge_grob (Grob_info inf)
        {
          inf.grob_->translate_axis ( -0.8, X_AXIS); // ugh
          inf.grob_->set_property ("arch-height",
-				       scm_make_real (ly_scm2double (inf.grob_->get_property
+				       scm_make_real (scm_to_double (inf.grob_->get_property
                                        ("arch-height"))+0.5));
        }
     }

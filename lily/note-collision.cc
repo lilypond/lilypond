@@ -321,7 +321,7 @@ Note_collision_interface::do_shifts (Grob* me)
   for (; ly_c_pair_p (hand); hand =ly_cdr (hand))
     {
       Grob * s = unsmob_grob (ly_caar (hand));
-      Real amount = ly_scm2double (ly_cdar (hand)) * wid;
+      Real amount = scm_to_double (ly_cdar (hand)) * wid;
 
       done.push (s);
       amounts.push (amount);
@@ -332,7 +332,7 @@ Note_collision_interface::do_shifts (Grob* me)
   for (; ly_c_pair_p (autos); autos =ly_cdr (autos))
     {
       Grob * s = unsmob_grob (ly_caar (autos));
-      Real amount = ly_scm2double (ly_cdar (autos)) *wid;
+      Real amount = scm_to_double (ly_cdar (autos)) *wid;
       
       if (!done.find (s))
 	{

@@ -86,7 +86,7 @@
 	  Real distance;
 	  if (incr_scm != SCM_EOL)
 	    {
-	      distance = ly_scm2double (incr_scm);
+	      distance = scm_to_double (incr_scm);
 	    }
 	  else
 	    {

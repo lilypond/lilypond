@@ -39,7 +39,7 @@ Self_alignment_interface::aligned_on_parent (SCM element_smob, SCM axis)
     return scm_int2num (0);
 
   Real x = 0.0;
-  Real align = ly_scm2double (align_prop);
+  Real align = scm_to_double (align_prop);
       
   Interval ext (me->extent (me, a));
   if (ext.is_empty ())
@@ -86,7 +86,7 @@ Self_alignment_interface::aligned_on_self (SCM element_smob, SCM axis)
       if (ext.is_empty ())
 	programming_error ("I'm empty. Can't align on self");
       else
-	return scm_make_real (- ext.linear_combination (ly_scm2double (align)));
+	return scm_make_real (- ext.linear_combination (scm_to_double (align)));
     }
   return scm_make_real (0.0);
 }

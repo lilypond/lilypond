@@ -52,7 +52,7 @@ Staff_symbol::print (SCM smob)
 	    since that would make aligning staff symbols of different sizes to
 	    one right margin hell.
 	  */      
-	  span_points[RIGHT] = ly_scm2double (width_scm);
+	  span_points[RIGHT] = scm_to_double (width_scm);
 	}
       else
 	{

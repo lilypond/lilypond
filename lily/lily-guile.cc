@@ -283,16 +283,16 @@ to_dir (SCM s)
 }
 
 Interval
-scm_to_interval (SCM p)
+ly_scm2interval (SCM p)
 {
-  return Interval (ly_scm2double (ly_car (p)), ly_scm2double (ly_cdr (p)));
+  return Interval (scm_to_double (ly_car (p)), scm_to_double (ly_cdr (p)));
 }
 
 Drul_array<Real>
 ly_scm2realdrul (SCM p)
 {
-  return Drul_array<Real> (ly_scm2double (ly_car (p)),
-			   ly_scm2double (ly_cdr (p)));
+  return Drul_array<Real> (scm_to_double (ly_car (p)),
+			   scm_to_double (ly_cdr (p)));
 }
 
 SCM
@@ -336,8 +336,8 @@ ly_offset2scm (Offset o)
 Offset
 ly_scm2offset (SCM s)
 {
-  return Offset (ly_scm2double (ly_car (s)),
-		 ly_scm2double (ly_cdr (s)));
+  return Offset (scm_to_double (ly_car (s)),
+		 scm_to_double (ly_cdr (s)));
 }
 
 LY_DEFINE (ly_number2string, "ly:number->string",
@@ -350,7 +350,7 @@ LY_DEFINE (ly_number2string, "ly:number->string",
 
   if (scm_exact_p (s) == SCM_BOOL_F)
     {
-      Real r (ly_scm2double (s));
+      Real r (scm_to_double (s));
 
       if (my_isinf (r) || my_isnan (r))
 	{
@@ -730,7 +730,7 @@ Real
 robust_scm2double (SCM k, double x)
 {
   if (ly_c_number_p (k))
-    x = ly_scm2double (k);
+    x = scm_to_double (k);
   return x;
 }
 
@@ -741,7 +741,7 @@ robust_scm2interval (SCM k, Drul_array<Real> v)
   i[LEFT]= v[LEFT];
   i[RIGHT]= v[RIGHT];
   if (is_number_pair (k))
-    i = scm_to_interval (k);
+    i = ly_scm2interval (k);
   return i;
 }
 
@@ -749,7 +749,7 @@ Drul_array<Real>
 robust_scm2drul (SCM k, Drul_array<Real> v)
 {
   if (is_number_pair (k))
-    v = scm_to_interval (k);
+    v = ly_scm2interval (k);
   return v;
 }
 

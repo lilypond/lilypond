@@ -63,9 +63,9 @@ Dynamic_performer::create_audio_elements ()
 	{
 	  Interval iv (0, 1);
 	  if (ly_c_number_p (min))
-	    iv[MIN] = ly_scm2double (min);
+	    iv[MIN] = scm_to_double (min);
 	  if (ly_c_number_p (max))
-	    iv[MAX] = ly_scm2double (max);
+	    iv[MAX] = scm_to_double (max);
 	  volume = iv[MIN] + iv.length () * volume;
 	}
       else
@@ -90,7 +90,7 @@ Dynamic_performer::create_audio_elements ()
 
 	  if (is_number_pair (s))
 	    {
-	      Interval iv = scm_to_interval (s);
+	      Interval iv = ly_scm2interval (s);
 	      volume = iv[MIN] + iv.length () * volume;
 	    }
 	}

@@ -80,7 +80,7 @@ Beam::get_beam_translation (Grob *me)
   if (ly_c_procedure_p (func))
     {
       SCM s = scm_call_2 (func, me->self_scm (), scm_int2num (get_beam_count (me)));
-      return ly_scm2double (s);
+      return scm_to_double (s);
     }
   else
     {
@@ -455,7 +455,7 @@ Beam::print (SCM grob)
 
 	      SCM proc = me->get_property ("flag-width-function");
 	      SCM result = scm_call_1 (proc, scm_int2num (t));
-	      nw_f = ly_scm2double (result);
+	      nw_f = scm_to_double (result);
 	    }
 	  else
 	    nw_f = break_overshoot / 2;
@@ -667,7 +667,7 @@ Beam::consider_auto_knees (Grob* me)
   if (!ly_c_number_p (scm))
     return ;
 
-  Real threshold = ly_scm2double (scm);
+  Real threshold = scm_to_double (scm);
   
   Int_set gaps;
 
@@ -789,7 +789,7 @@ Beam::set_stem_shorten (Grob *me)
   
   SCM shorten_elt =
     robust_list_ref (beam_count -1, shorten_list);
-  Real shorten_f = ly_scm2double (shorten_elt) * staff_space;
+  Real shorten_f = scm_to_double (shorten_elt) * staff_space;
 
   /* your similar cute comment here */
   shorten_f *= forced_fraction;
@@ -992,7 +992,7 @@ Beam::shift_region_to_valid (SCM grob)
   
   Real dx = lvs->relative_coordinate (commonx, X_AXIS) - x0;
 
-  Drul_array<Real> pos = scm_to_interval ( me->get_property ("positions"));
+  Drul_array<Real> pos = ly_scm2interval ( me->get_property ("positions"));
 
   scale_drul (&pos,  Staff_symbol_referencer::staff_space (me));
   
@@ -1101,7 +1101,7 @@ Beam::check_concave (SCM smob)
   SCM gap = me->get_property ("concaveness-gap");
   if (ly_c_number_p (gap))
     {
-      Real r1 = ly_scm2double (gap);
+      Real r1 = scm_to_double (gap);
       Real dy = Stem::chord_start_y (stems.top ())
 	- Stem::chord_start_y (stems[0]);
 
@@ -1138,7 +1138,7 @@ Beam::check_concave (SCM smob)
   Real r2 = infinity_f;
   if (!is_concave1 && ly_c_number_p (thresh))
     {
-      r2 = ly_scm2double (thresh);
+      r2 = scm_to_double (thresh);
       
       Interval iv;
       iv.add_point (Stem::chord_start_y (stems[0]));
@@ -1157,7 +1157,7 @@ Beam::check_concave (SCM smob)
   /* TODO: some sort of damping iso -> plain horizontal */
   if (is_concave1 || concaveness2 > r2)
     {
-      Drul_array<Real> pos = scm_to_interval (me->get_property ("positions"));
+      Drul_array<Real> pos = ly_scm2interval (me->get_property ("positions"));
       Real r = linear_combination (pos, 0.0);
 
       r /= Staff_symbol_referencer::staff_space (me);
@@ -1185,7 +1185,7 @@ Beam::slope_damping (SCM smob)
 
   if (damping)
     {
-      Drul_array<Real>  pos = scm_to_interval (me->get_property ("positions"));
+      Drul_array<Real>  pos = ly_scm2interval (me->get_property ("positions"));
       scale_drul (&pos,  Staff_symbol_referencer::staff_space (me));
       
       Real dy = pos[RIGHT] - pos[LEFT];
@@ -1471,7 +1471,7 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
   Drul_array<Real> pos (0, 0);
   SCM s = beam->get_property ("positions");
   if (ly_c_pair_p (s) && ly_c_number_p (ly_car (s)))
-    pos = scm_to_interval (s);
+    pos = ly_scm2interval (s);
   Real staff_space = Staff_symbol_referencer::staff_space (rest);
 
   scale_drul (&pos, staff_space);

@@ -373,7 +373,7 @@ Grob::get_offset (Axis a) const
       SCM cb = scm_list_ref (dim_cache_[a].offset_callbacks_, scm_int2num (l));
       SCM retval = scm_call_2 (cb, self_scm (), scm_int2num (a));
 
-      Real r =  ly_scm2double (retval);
+      Real r =  scm_to_double (retval);
       if (isinf (r) || isnan (r))
 	{
 	  programming_error (INFINITY_MSG);
@@ -409,7 +409,7 @@ Grob::extent (Grob *refp, Axis a) const
   if (!ly_c_pair_p (d->dimension_))
     return ext;
 
-  ext = scm_to_interval (d->dimension_);
+  ext = ly_scm2interval (d->dimension_);
 
   SCM extra = get_property (a == X_AXIS
 			    ? "extra-X-extent"
@@ -418,16 +418,16 @@ Grob::extent (Grob *refp, Axis a) const
   /* Signs ?  */
   if (ly_c_pair_p (extra))
     {
-      ext[BIGGER] += ly_scm2double (ly_cdr (extra));
-      ext[SMALLER] += ly_scm2double (ly_car (extra));
+      ext[BIGGER] += scm_to_double (ly_cdr (extra));
+      ext[SMALLER] += scm_to_double (ly_car (extra));
     }
 
   extra = get_property (a == X_AXIS
 			? "minimum-X-extent"
 			: "minimum-Y-extent");
   if (ly_c_pair_p (extra))
-    ext.unite (Interval (ly_scm2double (ly_car (extra)),
-			 ly_scm2double (ly_cdr (extra))));
+    ext.unite (Interval (scm_to_double (ly_car (extra)),
+			 scm_to_double (ly_cdr (extra))));
 
   ext.translate (x);
 

@@ -213,11 +213,11 @@ Tuplet_bracket::print (SCM smob)
       do {
 	flare[d] =  height[d] = shorten[d] = 0.0;
 	if (is_number_pair (fl))
-	  flare[d] +=  ss * ly_scm2double (index_get_cell (fl, d));
+	  flare[d] +=  ss * scm_to_double (index_get_cell (fl, d));
 	if (is_number_pair (eh))
-	  height[d] +=  - dir * ss *ly_scm2double (index_get_cell (eh, d));
+	  height[d] +=  - dir * ss *scm_to_double (index_get_cell (eh, d));
 	if (is_number_pair (sp))
-	  shorten[d] +=  ss *ly_scm2double (index_get_cell (sp, d));
+	  shorten[d] +=  ss *scm_to_double (index_get_cell (sp, d));
       }
       while (flip (&d) != LEFT);
       
@@ -383,7 +383,7 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
     }
 
   // padding
-  *offset +=  ly_scm2double (me->get_property ("padding")) *dir;
+  *offset +=  scm_to_double (me->get_property ("padding")) *dir;
 
   
   /*
@@ -473,13 +473,13 @@ Tuplet_bracket::after_line_breaking (SCM smob)
     {
       SCM ps =  par_beam->get_property ("positions"); 
 
-      Real lp = ly_scm2double (ly_car (ps));
-      Real rp = ly_scm2double (ly_cdr (ps));
+      Real lp = scm_to_double (ly_car (ps));
+      Real rp = scm_to_double (ly_cdr (ps));
 
       /*
 	duh. magic.
 <       */
-      offset = lp + dir * (0.5 + ly_scm2double (me->get_property ("padding")));
+      offset = lp + dir * (0.5 + scm_to_double (me->get_property ("padding")));
       dy = rp- lp;
     }
   
@@ -489,11 +489,11 @@ Tuplet_bracket::after_line_breaking (SCM smob)
   
   if (ly_c_number_p (lp) && !ly_c_number_p (rp))
     {
-      rp = scm_make_real (ly_scm2double (lp) + dy);
+      rp = scm_make_real (scm_to_double (lp) + dy);
     }
   else if (ly_c_number_p (rp) && !ly_c_number_p (lp))
     {
-      lp = scm_make_real (ly_scm2double (rp) - dy);
+      lp = scm_make_real (scm_to_double (rp) - dy);
     }
   else if (!ly_c_number_p (rp) && !ly_c_number_p (lp))
     {

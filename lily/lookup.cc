@@ -712,10 +712,10 @@ LY_DEFINE (ly_bracket ,"ly:bracket",
   SCM_ASSERT_TYPE (ly_c_number_p (p), a, SCM_ARG4, __FUNCTION__, "number") ;
 
 
-  return Lookup::bracket ((Axis)scm_to_int (a), scm_to_interval (iv),
-			  ly_scm2double (t),
-			  ly_scm2double (p),
-			  0.95 * ly_scm2double (t)).smobbed_copy ();
+  return Lookup::bracket ((Axis)scm_to_int (a), ly_scm2interval (iv),
+			  scm_to_double (t),
+			  scm_to_double (p),
+			  0.95 * scm_to_double (t)).smobbed_copy ();
 }
 
 
@@ -732,7 +732,7 @@ LY_DEFINE (ly_filled_box ,"ly:round-filled-box",
   SCM_ASSERT_TYPE (is_number_pair (yext), yext, SCM_ARG2, __FUNCTION__, "number pair") ;
   SCM_ASSERT_TYPE (ly_c_number_p (blot), blot, SCM_ARG3, __FUNCTION__, "number") ;
 
-  return Lookup::round_filled_box (Box (scm_to_interval (xext), scm_to_interval (yext)),
-				   ly_scm2double (blot)).smobbed_copy ();
+  return Lookup::round_filled_box (Box (ly_scm2interval (xext), ly_scm2interval (yext)),
+				   scm_to_double (blot)).smobbed_copy ();
 }
 

@@ -218,7 +218,7 @@ Span_bar::evaluate_glyph (Grob*me)
 Interval
 Span_bar::get_spanned_interval (Grob*me) 
 {
-  return scm_to_interval (Axis_group_interface::group_extent_callback
+  return ly_scm2interval (Axis_group_interface::group_extent_callback
 			  (me->self_scm (), scm_int2num (Y_AXIS))); 
 }
 

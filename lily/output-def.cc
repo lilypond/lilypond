@@ -103,7 +103,7 @@ Real
 Output_def::get_dimension (SCM s) const
 {
   SCM val = lookup_variable (s);
-  return ly_scm2double (val);
+  return scm_to_double (val);
 }
 
 SCM

@@ -1,4 +1,4 @@
-/*
+ii/*
   lily-guile.hh encapsulate guile
 
   source file of the GNU LilyPond music typesetter
@@ -27,7 +27,10 @@
 #define scm_i_string_chars(x) SCM_STRING_CHARS(x)
 #define scm_i_string_length(x) SCM_STRING_LENGTH(x)
 #define scm_is_number(x) (scm_number_p(x)==SCM_BOOL_T)
+inline int ly_scm2int (SCM x) { return scm_num2int (x, 0, "ly_scm2int"); }
 #define scm_to_int(x) (ly_scm2int(x))
+
+inline double ly_scm2double (SCM x) { return scm_num2dbl (x, "ly_scm2double"); }
 #define scm_to_double(x) (ly_scm2double(x))
 #define scm_from_double(x) (scm_make_real(x))
 #endif /* SCM_MINOR_VERSION < 7 */
@@ -164,8 +167,6 @@ inline bool ly_c_equal_p (SCM x, SCM y) {
 
 inline bool ly_scm2bool (SCM x) { return SCM_NFALSEP (x); }
 inline char ly_scm2char (SCM x) { return SCM_CHAR(x); }
-inline int ly_scm2int (SCM x) { return scm_num2int (x, 0, "ly_scm2int"); }
-inline double ly_scm2double (SCM x) { return scm_num2dbl (x, "ly_scm2double"); }
 inline unsigned long ly_length (SCM x) {
   return scm_num2ulong (scm_length (x), 0, "ly_length");
 }

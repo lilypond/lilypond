@@ -213,6 +213,7 @@ of lines. "
   (define (get-path node done)
     "Follow NODE.PREV, and return as an ascending list of pages. DONE
 is what have collected so far, and has ascending page numbers."
+    
     (if (is-a? node <optimally-broken-page-node>)
 	(get-path (node-prev node) (cons node done))
 	done))
@@ -368,7 +369,7 @@ CURRENT-BEST is the best result sofar, or #f."
 			   #:penalty total-penalty)
                          current-best)))
       
-      (if #t ;; debug
+      (if #f ;; debug
           (display
            (list
             "\nuser pen " user-penalty

@@ -2374,10 +2374,10 @@ bare_number:
 		$$ = $1;
 	}
 	| REAL NUMBER_IDENTIFIER	{
-		$$ = scm_make_real (ly_scm2double ($1) *ly_scm2double ($2));
+		$$ = scm_make_real (scm_to_double ($1) *scm_to_double ($2));
 	}
 	| UNSIGNED NUMBER_IDENTIFIER	{
-		$$ = scm_make_real ($1 *ly_scm2double ($2));
+		$$ = scm_make_real ($1 *scm_to_double ($2));
 	}
 	;
 
