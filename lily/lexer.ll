@@ -57,7 +57,7 @@ RH 7 fix (?)
 void strip_trailing_white (String&);
 void strip_leading_white (String&);
 String lyric_fudge (String s);
-int music_head_type (SCM);
+int music_function_type (SCM);
 SCM lookup_markup_command (String s);
 bool is_valid_version (String s);
 
@@ -892,7 +892,7 @@ lookup_markup_command (String s)
 int
 music_function_type (SCM func)
 {
-	SCM type= scm_object_property (func, ly_symbol2scm ("music-head-signature-keyword"));
+	SCM type= scm_object_property (func, ly_symbol2scm ("music-function-signature-keyword"));
 	if (type == ly_symbol2scm ("scm"))
 	{
 		return MUSIC_FUNCTION_SCM;
@@ -918,7 +918,10 @@ music_function_type (SCM func)
 		return MUSIC_FUNCTION_SCM_SCM_MUSIC;
 	}
 	else
-		assert (false);
+		{
+		/* TODO: print location */
+		error ("Can not find sigature for music function.");
+		}
 
-	return MUSIC_FUNCTION_SCM_MUSIC_MUSIC;
+	return MUSIC_FUNCTION_SCM;
 }

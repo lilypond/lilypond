@@ -31,7 +31,6 @@ static Keyword_ent the_key_tab[] = {
   {"addquote", ADDQUOTE},
   {"alias", ALIAS},
   {"alternative", ALTERNATIVE},
-  {"apply", APPLY},
   {"applycontext", APPLYCONTEXT},
   {"applyoutput", APPLYOUTPUT},
   {"appoggiatura", APPOGGIATURA},

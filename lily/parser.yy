@@ -247,7 +247,6 @@ or
 %token LYRICSTO
 %token ALIAS
 %token ALTERNATIVE
-%token APPLY
 %token APPLYCONTEXT
 %token APPLYOUTPUT
 %token AUTOCHANGE
@@ -1142,23 +1141,6 @@ basic music objects too, since the meaning is different.
 		p->transpose (interval (from, to));
 		$$->set_property ("element", p->self_scm ());
 		scm_gc_unprotect_object (p->self_scm ());
-	}
-	| APPLY embedded_scm Music  {
-		if (!ly_input_procedure_p ($2))
-			{
-			THIS->parser_error (_ ("\\apply takes function argument"));
-			$$ = $3;
-			}
-		else
-			{
-			SCM ret = scm_call_1 ($2, $3->self_scm ());
-			Music *m = unsmob_music (ret);
-			if (!m) {
-				THIS->parser_error ("\\apply must return a Music");
-				m = MY_MAKE_MUSIC ("Music");
-				}
-			$$ = m;
-			}
 	}
 	| NOTES
 		{

@@ -1,3 +1,4 @@
+@c -*-texinfo-*-
 @node Interfaces for programmers
 @appendix Interfaces for programmers
 
@@ -5,16 +6,17 @@
 
 @menu
 * Programmer interfaces for input ::  
-* Markup programmer interface::	 
-* Contexts for programmers::	
+* Markup programmer interface::  
+* Contexts for programmers::    
 @end menu
 
 @node Programmer interfaces for input 
 @appendixsec Programmer interfaces for input 
 
 @menu
-* Input variables and Scheme::	
+* Input variables and Scheme::  
 * Internal music representation::  
+* Extending music syntax::      
 * Manipulating music expressions::  
 @end menu
 
@@ -156,8 +158,41 @@ a user-defined function to a music expression.  Its syntax is
 \apply #@var{func} @var{music}
 @end example
 
-A music function is created with @code{ly:make-music-function}.
+A music function is created with @code{ly:make-music-function},
 
+@example
+  (ly:make-music-function
+@end example
+
+@code{\apply} takes a Scheme function and a Music expression as
+argument. This is encoded in its first argument,
+
+@example
+   (list procedure? ly:music?)
+@end example
+
+The function itself takes another argument, an Input location
+object. That object is used to provide error messages with file names
+and line numbers.  The definition is the second argument of
+@code{ly:make-music-function}. The body is function simply calls the
+function
+
+@example
+  (lambda (where func music)
+   (func music))
+@end example
+
+The above Scheme code only defines the functionality. The tag
+@code{\apply} is selected by defining
+
+@example
+  apply = #(ly:make-music-function
+   (list procedure? ly:music?)
+   (lambda (where func music)
+     (func music)))
+@end example
+
+Examples of the use of @code{\apply} are in the next section.
 
 
 @node Manipulating music expressions
@@ -259,7 +294,7 @@ LilyPond input to other formats  (@inputfileref{input/test,to-xml.ly})
 
 @menu
 * Markup construction in scheme::  
-* Markup command definition::	
+* Markup command definition::   
 @end menu
 
 @node Markup construction in scheme
@@ -482,7 +517,7 @@ to the @code{interpret-markup} function, with the @code{paper} and
 
 
 @menu
-* Context evaluation::		
+* Context evaluation::          
 * Running a function on all layout objects::  
 @end menu
 
