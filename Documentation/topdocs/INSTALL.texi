@@ -128,7 +128,6 @@ following software:
 @item @uref{http://www.python.org,Python} (version 2.1 or newer).
 @item @TeX{}.
 @item Xdvi and Ghostscript.
-@item @uref{http://www.gnu.org/software/guile/guile.html,GUILE} 1.6.0, or newer.
 @end itemize
 
 You have to help @TeX{} and MetaFont find LilyPond support
@@ -228,13 +227,13 @@ and for the profiling version, I specify a different configuration:
 @section Emacs mode
 
 An Emacs mode for entering music and running LilyPond is contained in
-the source archive in the @file{elisp} directory.  @command{make
-install} installs it @var{elispdir}.  The file @file{lilypond-init.el}
+the source archive in the @file{elisp} directory.  Do @command{make
+install} to install it to @var{elispdir}.  The file @file{lilypond-init.el}
 should be placed to @var{load-path}@file{/site-start.d/} or appended
 to your @file{~/.emacs} or @file{~/.emacs.el}.
 
-As a user, you may want add your source path or, e.g., @file{~/site-lisp/} 
-to your @var{load-path}. Append the following line (modified) to your 
+As a user, you may want add your source path (e.g. @file{~/site-lisp/}) to
+your @var{load-path} by appending the following line (as modified) to your 
 @file{~/.emacs}:
 @c any reason we do not advise:  (push "~/site-lisp" load-path)
 @quotation
@@ -247,8 +246,9 @@ to your @var{load-path}. Append the following line (modified) to your
 @section Vim mode
 
 A Vim mode for entering music and running LilyPond is contained in the 
-source archive. For version 6.2 and newer, Vim-mode works directly after 
-installing LilyPond. Otherwise, complete the following two steps.
+source archive in @code{$VIM} directory.  For version 6.2 and newer, 
+Vim-mode works directly after installing LilyPond.  Otherwise, 
+complete the following two steps.
 
 For earlier versions (and if @code{$VIM} environment variable does not
 fall-back to @file{/usr/local/share/vim}, see @code{:version} in vim), 
