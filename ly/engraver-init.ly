@@ -1,4 +1,4 @@
-\version "1.5.49"
+\version "1.5.68"
 
 %
 % setup for Request->Element conversion. Guru-only
@@ -34,8 +34,8 @@ StaffContext=\translator {
 	\consists "Forbid_line_break_engraver"
 	\consistsend "Axis_group_engraver"
 
-	minimumVerticalExtent = #'(-6 . 6)
-	extraVerticalExtent = ##f
+	minimumverticalExtent = #'(-6 . 6)
+	extraverticalExtent = ##f
 	verticalExtent = ##f 
 	localKeySignature = #'()
 
@@ -53,8 +53,8 @@ StaffContext=\translator {
 StaffContainerContext = \translator {
 	\type Engraver_group_engraver
 	\consists "Axis_group_engraver"
-	minimumVerticalExtent = ##f
-	extraVerticalExtent = ##f
+	minimumverticalExtent = ##f
+	extraverticalExtent = ##f
 	verticalExtent = ##f 
 	localKeySignature = #'()
 
@@ -91,8 +91,8 @@ RhythmicStaffContext=\translator{
 	\consists "Output_property_engraver"	
 
 
-	minimumVerticalExtent = ##f
-	extraVerticalExtent = ##f
+	minimumverticalExtent = ##f
+	extraverticalExtent = ##f
 	verticalExtent = ##f 
 	localKeySignature = #'()
 
@@ -248,8 +248,8 @@ StaffGroupContext = \translator {
 LyricsVoiceContext= \translator{
 	\type "Engraver_group_engraver"
 	\consistsend "Axis_group_engraver"
-	minimumVerticalExtent = #(cons -1.2 1.2)
-	extraVerticalExtent = ##f
+	minimumverticalExtent = #(cons -1.2 1.2)
+	extraverticalExtent = ##f
 	verticalExtent = ##f 
 	\name LyricsVoice 
 	\consists "Separating_line_group_engraver"
@@ -266,8 +266,8 @@ NoteNamesContext = \translator {
 	\name NoteNames
 	\consistsend "Axis_group_engraver"
 
-	minimumVerticalExtent = ##f
-	extraVerticalExtent = ##f
+	minimumverticalExtent = ##f
+	extraverticalExtent = ##f
 	verticalExtent = ##f 
 
 	
@@ -282,8 +282,8 @@ LyricsContext = \translator {
 
 
 	\consistsend "Axis_group_engraver"
-	minimumVerticalExtent = ##f
-	extraVerticalExtent = ##f
+	minimumverticalExtent = ##f
+	extraverticalExtent = ##f
 	verticalExtent = ##f 
 	
 	\accepts "LyricsVoice"
@@ -302,8 +302,8 @@ ChordNamesContext = \translator {
 	\consists "Chord_name_engraver"
 	\consists "Skip_req_swallow_translator"
 	\consistsend "Axis_group_engraver"
-	minimumVerticalExtent = ##f
-	extraVerticalExtent = ##f
+	minimumverticalExtent = ##f
+	extraverticalExtent = ##f
 	verticalExtent = ##f 
 }
 

@@ -18,6 +18,8 @@ Scaled_font_metric::Scaled_font_metric (Font_metric* m, Real magn)
   SCM desc = m->description_;
 
   Real total_mag = magn * gh_scm2double (ly_cdr (desc));
+  assert (total_mag);
+  
   description_ = gh_cons (ly_car (desc), gh_double2scm (total_mag));
   orig_ = m;
 }

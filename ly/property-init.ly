@@ -1,6 +1,6 @@
 % property-init.ly
 
-\version "1.5.49"
+\version "1.5.68"
 
 stemUp = \property Voice.Stem \set #'direction = #1
 stemDown = \property Voice.Stem \set #'direction = #-1 

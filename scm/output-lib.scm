@@ -155,7 +155,44 @@ centered, X==1 is at the right, X == -1 is at the left."
      ;; this also works for easy notation.
      '(1.0 . 0.0)
      )))
-		     
+
+(define (find-timesig-symbol nom denom style)
+  (case style
+   ((mensural)
+    (cons (string-append
+	     "mensural"
+	     (number->string nom)
+	     "/"
+	     (number->string denom))
+	  "ancient"))
+   ((neo_mensural)
+    (cons (string-append
+	     "neo_mensural"
+	     (number->string nom)
+	     "/"
+	     (number->string denom))
+	  "ancient"))
+   ((numbered)
+    (cons (string-append
+	   (number->string nom)
+	   "/"
+	   (number->string denom))
+	  "music"))
+   (else
+    ;; default: use "C" style when possible, otherwise return ""
+    (cons
+     (case nom
+       ((2)
+	(case denom
+	  ((2) "C2/2")
+	  (else "")))
+       ((4)
+	(case denom
+	  ((4) "C4/4")
+	  (else "")))
+       (else ""))
+     "music"))))
+
 (define (string-encode-integer i)
   (cond
    ((= i  0) "o")

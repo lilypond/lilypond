@@ -93,5 +93,5 @@ pfa: $(PFA_FILES)
 
 # needed for web documentation
 $(outdir)/cmbxti8.pfa:
-	$(PKTRACE)  -I $(outdir)/ --pfa --simplify --keep-trying cmbxti8
+	$(MFTRACE)  -I $(outdir)/ --pfa --simplify --keep-trying cmbxti8
 	mv cmbxti8.pfa $(outdir)/
