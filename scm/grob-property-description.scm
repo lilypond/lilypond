@@ -100,7 +100,8 @@ In the case of alignment grobs, this should contain only one number.")
 (grob-property-description 'beam-thickness number? "thickness, measured in staffspace.")
 (grob-property-description 'beam-width number? "width of the tremolo sign.")
 (grob-property-description 'beamed-lengths list? "list of stem lengths given beam multiplicity .")
-(grob-property-description 'beamed-minimum-lengths list? "list of minimum stem lengths given beam multiplicity.")
+(grob-property-description 'beamed-minimum-free-lengths list? "list of normal minimum free stem lengths (chord to beams) given beam multiplicity.")
+(grob-property-description 'beamed-extreme-free-lengths list? "list of extreme minimum free stem lengths (chord to beams) given beam multiplicity.")
 (grob-property-description 'beamed-stem-shorten list? "shorten beamed stems in forced direction.")
 (grob-property-description 'beaming pair?
 			   "Pair of number lists. Each number list

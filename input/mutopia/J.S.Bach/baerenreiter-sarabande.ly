@@ -14,9 +14,8 @@ forcedLastBreak = \notes { \break }
 			  (get-original
 			   (get-system smob))))))
     (if (not (equal? n systems))
-	;; Can't use error yet, as we know that we're not using 6...
-	;;(error
-	(warn
+	(error
+	;;(warn
 	(string-append "Got " (number->string systems)
 			     " systems (expecting " (number->string n))))))
             
@@ -131,7 +130,7 @@ sarabandeA =  \context Voice \notes \relative c {
   d4
   \property Thread.NoteHead
   \override #'after-line-breaking-callback
-  = #(lambda (smob) (assert-system-count smob 6.1))
+  = #(lambda (smob) (assert-system-count smob 6))
   d,,2 |
 }
 

@@ -305,7 +305,6 @@ Stem::get_default_stem_end_position (Grob*me)
 	}
     }
 
-
   Real shorten_f = 0.0;
   
   SCM sshorten = me->get_grob_property ("stem-shorten");
@@ -752,8 +751,6 @@ Stem::off_callback (SCM element_smob, SCM)
   return gh_double2scm (r);
 }
 
-
-
 Grob*
 Stem::get_beam (Grob*me)
 {
@@ -761,127 +758,149 @@ Stem::get_beam (Grob*me)
   return unsmob_grob (b);
 }
 
-// ugh still very long.
 Stem_info
-Stem::calc_stem_info (Grob*me) 
+Stem::get_stem_info (Grob *me)
 {
+  /* DOCME!!! So, what's this all about? */
   SCM up_to_staff = me->get_grob_property ("up-to-staff");
-  if (gh_scm2bool(up_to_staff)) {
-    
-    // Up-to-staff : the stem end out of the staff.
-
-    /*
-      FIXME: duplicate code.
-     */
-    int line_count = Staff_symbol_referencer::line_count (me);
-    
-    Stem_info si ;
-    
-    Direction dir = get_direction (me);
-    
-    si.ideal_y_ = dir*  (line_count + 1.5);
-    si.dir_ = dir;
-    si.shortest_y_ = si.ideal_y_; 
-    
-    return si;
-  }
-  
-  SCM scm_info = me->get_grob_property ("stem-info");
-
-  if (gh_pair_p (scm_info ))
+  if (gh_scm2bool(up_to_staff))
     {
+      /* Up-to-staff : the stem end out of the staff. */
+
+      /* FIXME: duplicate code. */
+      int line_count = Staff_symbol_referencer::line_count (me);
       Stem_info si ;
+      Direction dir = get_direction (me);
 
-      si.dir_ = Directional_element_interface::get(me); 
-      si.ideal_y_ = gh_scm2double (gh_car (scm_info)); 
-      si.shortest_y_ = gh_scm2double (gh_cadr (scm_info));
-
+      si.ideal_y_ = dir*  (line_count + 1.5);
+      si.dir_ = dir;
+      si.shortest_y_ = si.ideal_y_; 
       return si;
     }
 
-  Direction mydir = Directional_element_interface::get (me);
+
+  /* Return cached info if available */
+  SCM scm_info = me->get_grob_property ("stem-info");
+  if (!gh_pair_p (scm_info))
+    {
+      calc_stem_info (me);
+      scm_info = me->get_grob_property ("stem-info");
+    }
+  
+  Stem_info si;
+  si.dir_ = Directional_element_interface::get (me); 
+  si.ideal_y_ = gh_scm2double (gh_car (scm_info)); 
+  si.shortest_y_ = gh_scm2double (gh_cadr (scm_info));
+  return si;
+}
+
+void
+Stem::calc_stem_info (Grob *me)
+{
+  Direction my_dir = Directional_element_interface::get (me);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
-  Real half_space = staff_space / 2;
+  Grob *beam = get_beam (me);
+  Real beam_translation = Beam::get_beam_translation (beam);
+  Real beam_thickness = gh_scm2double (beam->get_grob_property ("thickness"));
+  int beam_count = Beam::get_direction_beam_count (beam, my_dir);
 
-  Grob * beam = get_beam (me);
-  int beam_count = Beam::get_direction_beam_count (beam, mydir);
-  Real beam_translation= Beam::get_beam_translation (beam);
-  Real thick = gh_scm2double (beam->get_grob_property ("thickness"));
-  Real note_start = chord_start_y (me);
+
+  /* Simple standard stem length */
+  Real ideal_length =
+    gh_scm2double (robust_list_ref
+		   (beam_count - 1,
+		    me->get_grob_property ("beamed-lengths")))
+    * staff_space
+    /* stem only extends to center of beam */
+    - 0.5 * beam_thickness;
+
   
-  /* from here on, calculate as if dir == UP */
-  note_start *= mydir;
+  /* Condition: sane minimum free stem length (chord to beams) */
+  Real ideal_minimum_free =
+    gh_scm2double (robust_list_ref
+		   (beam_count - 1,
+		    me->get_grob_property ("beamed-minimum-free-lengths")))
+    * staff_space;
   
-  SCM grace_prop = me->get_grob_property ("grace");
+  int my_beam_count = Stem::beam_multiplicity (me).length () + 1;
+  Real height_of_my_beams = beam_thickness
+    + (my_beam_count - 1) * beam_translation;
   
-  bool grace_b = to_boolean (grace_prop);
-  SCM bml = robust_list_ref ( beam_count - 1,
-			      me->get_grob_property ("beamed-minimum-lengths"));
+  Real ideal_minimum_length = ideal_minimum_free
+    + height_of_my_beams
+    /* stem only extends to center of beam */
+    - 0.5 * beam_thickness;
 
-  Real minimum_length = gh_scm2double(bml)*staff_space;
-  SCM bl =  robust_list_ref ( beam_count - 1,
-			      me->get_grob_property ("beamed-lengths"));
-  Real stem_length =  gh_scm2double(bl) * staff_space;
+  ideal_length = ideal_length >? ideal_minimum_length;
+
+  
+  /* Convert to Y position, calculate for dir == UP */
+  Real note_start =
+    /* staff positions */
+    head_positions (me)[my_dir] * 0.5
+    * my_dir;
+  Real ideal_y = note_start + ideal_length;
 
 
-  /*
-    stem goes to center of beam, hence 0.5
-   */
-  Real beam_lengthen = beam_translation* (beam_count - 1)
-    + 0.5 * thick;
+  /* Conditions for Y position */
 
-  Real shortest_y = note_start + minimum_length + beam_lengthen;
-  Real ideal_y = stem_length + note_start + beam_lengthen;
+  /* Lowest beam of (UP) beam must never be lower than second staffline
+ 
+     Reference?
+ 
+     Although this (additional) rule is probably correct,
+     I expect that highest beam (UP) should also never be lower
+     than middle staffline, just as normal stems.
 
-  /*
-    lowest beam of (UP) beam must never be lower than second staffline
+     Reference?
 
-    Hmm, reference (Wanske?)
-
-    Although this (additional) rule is probably correct,
-    I expect that highest beam (UP) should also never be lower
-    than middle staffline, just as normal stems.
-
-    Add: not for knees.  Not sure if that's is a good thing.
-  */
+     Obviously not for grace beams.
+     
+     Also, not for knees.  Seems to be a good thing. */
+  SCM grace = me->get_grob_property ("grace");
+  bool grace_b = to_boolean (grace);
   bool no_extend_b = to_boolean (me->get_grob_property ("no-stem-extend"));
   bool knee_b = to_boolean (beam->get_grob_property ("knee"));
   if (!grace_b && !no_extend_b && !knee_b)
     {
-      /* highest beam of (UP) beam must never be lower than middle
-	 staffline
-	 lowest beam of (UP) beam must never be lower than second staffline
-      */
-      ideal_y =
-	ideal_y >? 0
-	>? (- 2 * half_space - thick + beam_lengthen);
+      /* Highest beam of (UP) beam must never be lower than middle
+	 staffline */
+      ideal_y =	ideal_y >? 0;
+      /* Lowest beam of (UP) beam must never be lower than second staffline */
+      ideal_y =	ideal_y >? (-staff_space
+			    - beam_thickness + height_of_my_beams);
     }
-    
-  
-  //  ideal_y = ideal_y >? shortest_y;
-  SCM s = beam->get_grob_property ("shorten");
-  if (gh_number_p (s))
-    ideal_y -= gh_scm2double (s);
 
+
+  SCM shorten = beam->get_grob_property ("shorten");
+  if (gh_number_p (shorten))
+    ideal_y -= gh_scm2double (shorten);
+
+
+  Real minimum_free =
+    gh_scm2double (robust_list_ref
+		   (beam_count - 1,
+		    me->get_grob_property
+		    ("beamed-extreme-minimum-free-lengths")))
+    * staff_space;
+
+  Real minimum_length = minimum_free
+    + height_of_my_beams
+    /* stem only extends to center of beam */
+    - 0.5 * beam_thickness;
+
+  Real minimum_y = note_start + minimum_length;
   
-  ideal_y *= mydir;
-  shortest_y *= mydir; 
+  
+  ideal_y *= my_dir;
+  Real shortest_y = minimum_y * my_dir; 
   
   me->set_grob_property ("stem-info",
 			 scm_list_n (gh_double2scm (ideal_y),
 				     gh_double2scm (shortest_y),
 				     SCM_UNDEFINED));
-
-  Stem_info si;
-  si.dir_ = mydir;
-  si.shortest_y_ = shortest_y;
-  si.ideal_y_ = ideal_y;
-  
-  return si;
 }
 
-
-// move to stem?
 Slice
 Stem::beam_multiplicity (Grob *stem)
 {
@@ -896,6 +915,6 @@ Stem::beam_multiplicity (Grob *stem)
 
 ADD_INTERFACE (Stem,"stem-interface",
   "A stem",
-  "up-to-staff avoid-note-head adjust-if-on-staffline thickness stem-info beamed-lengths beamed-minimum-lengths lengths beam stem-shorten duration-log beaming neutral-direction stem-end-position support-head note-heads direction length style no-stem-extend flag-style");
+  "up-to-staff avoid-note-head adjust-if-on-staffline thickness stem-info beamed-lengths beamed-minimum-free-lengths beamed-extreme-minimum-free-lengths lengths beam stem-shorten duration-log beaming neutral-direction stem-end-position support-head note-heads direction length style no-stem-extend flag-style");
 
 

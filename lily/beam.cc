@@ -81,18 +81,15 @@ Beam::get_beam_translation (Grob *me)
   return gh_scm2double (s);
 }
 
-/*
-  Maximum beam_count.
- */
+/* Maximum beam_count. */
 int
 Beam::get_beam_count (Grob *me) 
 {
   int m = 0;
   for (SCM s = me->get_grob_property ("stems"); gh_pair_p (s); s = ly_cdr (s))
     {
-      Grob *sc = unsmob_grob (ly_car (s));
-      
-      m = m >? (Stem::beam_multiplicity (sc).length () + 1);
+      Grob *stem = unsmob_grob (ly_car (s));
+      m = m >? (Stem::beam_multiplicity (stem).length () + 1);
     }
   return m;
 }
@@ -727,7 +724,8 @@ Beam::set_stem_shorten (Grob *me)
   if (knee_b(me))
     return ;
   
-  Real forced_fraction = forced_stem_count (me) / visible_stem_count (me);
+  Real forced_fraction = 1.0 * forced_stem_count (me)
+    / visible_stem_count (me);
 
   int beam_count = get_beam_count (me);
 
@@ -802,9 +800,9 @@ Beam::least_squares (SCM smob)
   Grob *fvs  = first_visible_stem (me);
   Grob *lvs  = last_visible_stem (me);
   
-  Interval ideal (Stem::calc_stem_info (fvs).ideal_y_
+  Interval ideal (Stem::get_stem_info (fvs).ideal_y_
 		  + fvs->relative_coordinate (commony, Y_AXIS) -my_y,
-		  Stem::calc_stem_info (lvs).ideal_y_
+		  Stem::get_stem_info (lvs).ideal_y_
 		  + lvs->relative_coordinate (commony, Y_AXIS) - my_y);
   
   Real x0 = first_visible_stem (me)->relative_coordinate (commonx, X_AXIS);
@@ -863,7 +861,7 @@ Beam::least_squares (SCM smob)
 	  if (Stem::invisible_b (s))
 	    continue;
 	  ideals.push (Offset (x_posns[i],
-			       Stem::calc_stem_info (s).ideal_y_
+			       Stem::get_stem_info (s).ideal_y_
 			       + s->relative_coordinate (commony, Y_AXIS)
 			       - my_y));
 	}
@@ -939,7 +937,7 @@ Beam::shift_region_to_valid (SCM grob)
       Direction d = Stem::get_direction (s);
 
       Real left_y =
-	Stem::calc_stem_info (s).shortest_y_
+	Stem::get_stem_info (s).shortest_y_
 	- dydx * x_posns [i];
 
       /*
@@ -1306,7 +1304,9 @@ Beam::forced_stem_count (Grob *me)
       if (Stem::invisible_b (s))
 	continue;
 
-      if (((int)Stem::chord_start_y (s)) 
+      /* I can imagine counting those boundaries as a half forced stem,
+	 but let's count them full for now. */
+      if (abs (Stem::chord_start_y (s)) > 0.1
         && (Stem::get_direction (s) != Stem::get_default_dir (s)))
         f++;
     }

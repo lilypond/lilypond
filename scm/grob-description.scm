@@ -144,7 +144,23 @@
 	(after-line-breaking-callback . ,Beam::after_line_breaking)
 	(neutral-direction . -1)
 	(dir-function . ,beam-dir-majority-median)
-	(beamed-stem-shorten . (1.0 0.5))
+	
+	;; Whe have some unreferenced problems here.
+	;;
+	;; If we shorten beamed stems less than normal stems (1 staffspace),
+	;; or high order less than 8th beams, patterns like
+	;;     c''4 [c''8 c''] c''4 [c''16 c]
+	;; are ugly (different stem lengths).
+	;;
+	;; But if we shorten 16th beams as much as 8th beams, a single
+	;; forced 16th beam looks *very* short.
+
+	;; We choose to shorten 8th beams the same as single stems,
+	;; and high order beams less than 8th beams, so that all
+	;; isolated shortened beams look nice and a bit shortened,
+	;; sadly possibly breaking patterns with high order beams.
+	(beamed-stem-shorten . (1.0 0.5 0.25))
+	
 	(outer-stem-length-limit . 0.2)
 	(slope-limit . 0.2)
 	(flag-width-function . ,default-beam-flag-width-function)
@@ -822,19 +838,43 @@
 	(before-line-breaking-callback . ,Stem::before_line_breaking)
 	(molecule-callback . ,Stem::brew_molecule)
 	(thickness . 1.3)
-	(beamed-lengths . (2.5 2.0 1.5))
 
-	;; 
-	(beamed-minimum-lengths . (1.5 1.25 1.0))
-
-	;;  Stems in unnatural (forced) direction should be shortened,
-	;;  according to [Roush & Gourlay].  Their suggestion to knock off
-	;;  a whole staffspace seems a bit drastical: we'll do half.
-
+	;; 3.5 (or 3 measured from note head) is standar length
+	;; 32nd, 64th flagged stems should be longer
 	(lengths . (3.5 3.5 3.5 4.5 5.0))
+	
+	;; Stems in unnatural (forced) direction should be shortened by
+	;; one staff space, according to [Roush & Gourlay].
+	;; Flagged stems we shorten only half a staff space.
 	(stem-shorten . (1.0 0.5))
-					; if stem is on middle line, choose this direction.
+
+	;; default stem direction for note on middle line
 	(neutral-direction . -1)
+	
+	;; [Wanske]: standard length (but no shorter than minimum).
+	(beamed-lengths . (3.5))
+
+	;; [Wanske] lists three sets of minimum lengths.  One
+	;; set for the nomal case, and one set for beams with `der
+	;; Balkenendpunkt weiter "uber bzw. unter die Systemgrenze
+	;; hinaus (bei Gruppen mit grossem Tonumfang)' and the extreme
+	;; case.
+
+	;; Note that Wanske lists numbers lengths starting from top of
+	;; head, so we must add half a staff space.
+	
+	;; We use the normal minima as minimum for the ideal lengths,
+	;; and the extreme minima as abolute minimum length.
+	
+	;; The 'normal' minima
+	(beamed-minimum-free-lengths . (2.5 2.0 1.5))
+	
+	;; The 'far outside staff' minima, not used
+	;(beamed-far-minimum-free-lengths . (1.83))
+	
+	;; The 'extreme case' minima
+	(beamed-extreme-minimum-free-lengths . (1.83 1.5))
+
 	(X-offset-callbacks . (,Stem::off_callback))
 	(X-extent-callback . ,Stem::dim_callback)	
 	(Y-extent-callback . ,Stem::height)
