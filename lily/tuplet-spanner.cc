@@ -33,7 +33,7 @@ Plet_spanner::Plet_spanner ()
 }
 
 Molecule*
-Plet_spanner::brew_molecule_p () const
+Plet_spanner::do_brew_molecule_p () const
 {
   Molecule* mol_p = new Molecule;
 
@@ -51,7 +51,7 @@ Plet_spanner::brew_molecule_p () const
       {
 	Real dy = column_arr_.top ()->extent (Y_AXIS) [dir_]
 	  - column_arr_[0]->extent (Y_AXIS) [dir_];
-	Real w = width ().length () + ncw;
+	Real w = extent (X_AXIS).length () + ncw;
 
 	num.translate (Offset (w/2, dy/2));
 	mol_p->add_atom (lookup_l ()->plet (dy, w, dir_));

@@ -10,7 +10,6 @@
 #include "debug.hh"
 #include "item.hh"
 #include "p-col.hh"
-// #include "elem-group.hh"
 #include "spanner.hh"
 
 Item::Item ()
@@ -43,13 +42,10 @@ Item::hpos_f() const
 Line_of_score *
 Item::line_l() const
 {
-  Graphical_axis_group *ga = axis_group_l_a_[X_AXIS];
-  
-  if (!ga)
+  Graphical_element *g =parent_l (X_AXIS);
+  if (!g)
     return 0;
-  
-  assert (dynamic_cast <Score_element *> (ga));
-  return dynamic_cast <Score_element *> (ga)-> line_l ();
+  return dynamic_cast <Score_element *> (g)-> line_l ();
 }
 
 Direction
@@ -129,13 +125,8 @@ Item::handle_prebroken_dependencies()
 int
 Item::left_right_compare(Item const *l, Item const *r)
 {
-  while (!(dynamic_cast<Paper_column const *> (l)))
-    l = dynamic_cast<Item const*> (l->axis_group_l_a_[X_AXIS]);
-  while (!(dynamic_cast<Paper_column const *> (r)))
-    r = dynamic_cast<Item const*> (r->axis_group_l_a_[X_AXIS]);
-
-  Paper_column *p1 = (Paper_column*)l;
-  Paper_column* p2 = (Paper_column*)r;
+  Paper_column *p1 = l->column_l ();
+  Paper_column* p2 = r->column_l ();
   return p1->rank_i () - p2->rank_i ();
 }
 
@@ -176,7 +167,7 @@ Item::do_unlink()
 Paper_column *
 Item::column_l () const
 {
-  return dynamic_cast<Item*> (axis_group_l_a_[X_AXIS]) ->column_l ();
+  return dynamic_cast<Item*> (parent_l (X_AXIS))->column_l ();
 }
 
 Item::Item (Item const &s)

@@ -13,7 +13,7 @@
 bool
 Graphical_element::empty_b () const
 {
-  return empty_b_; 
+  return dim_cache_[X_AXIS].empty_b () && dim_cache_[Y_AXIS].empty_b ();
 }
 
 Graphical_element::Graphical_element ()
@@ -22,42 +22,21 @@ Graphical_element::Graphical_element ()
 }
 
 Graphical_element::Graphical_element (Graphical_element const &s)
+  : dim_cache_ (s.dim_cache_)
 {
   init ();
-  empty_b_ = s.empty_b_;
-  axis_group_l_a_[0] = axis_group_l_a_[1] =0;
-  offset_ = Offset (0,0);	// Hmmmm.... Should copy?
 } 
 
 void
 Graphical_element::init ()
 {
-  empty_b_ = false;
-  axis_group_l_a_[X_AXIS] = axis_group_l_a_[Y_AXIS] =0;
-  offset_ = Offset (0,0);
-  cached_valid_b_a_ [X_AXIS] = cached_valid_b_a_[Y_AXIS] = false;
-}
-
-void
-Graphical_element::invalidate_cache (Axis a)
-{
-  Graphical_element * g = this;
-  while (g && g->cached_valid_b_a_[a])
-    {
-      g->cached_valid_b_a_ [a] = false;  
-      g = g->axis_group_l_a_[a];
-    }
+  dim_cache_[X_AXIS].elt_l_ = dim_cache_[Y_AXIS].elt_l_ = this;  
 }
 
 Real
 Graphical_element::absolute_coordinate (Axis a) const
 {
-  Real r = offset_[a];
-  for (Graphical_axis_group * axis_group_l = axis_group_l_a_[a];
-       axis_group_l; axis_group_l = axis_group_l->axis_group_l_a_[a])
-	
-    r += axis_group_l->offset_[a];
-  return r;
+  return dim_cache_[a].absolute_coordinate ();
 }
  
 
@@ -67,45 +46,25 @@ Graphical_element::absolute_offset() const
   return Offset (absolute_coordinate (X_AXIS), absolute_coordinate (Y_AXIS));
 }
 
+
+
 void
 Graphical_element::translate_axis (Real y, Axis a)
 {
-  if (axis_group_l_a_[a])
-    axis_group_l_a_[a]->invalidate_cache (a);
-  offset_[a] += y;
-}
+  dim_cache_[a].translate (y);
+}  
 
 Real
-Graphical_element::relative_coordinate (Graphical_axis_group*e, Axis a) const
+Graphical_element::relative_coordinate (Dimension_cache*e, Axis a) const
 {
-  Real r =0.0;
-  for (Graphical_axis_group * axis_group_l = axis_group_l_a_[a];
-       axis_group_l != e;
-       axis_group_l = axis_group_l->axis_group_l_a_[a])
-    r +=  axis_group_l->offset_[a];
-
-  return r;
+  return dim_cache_[a].relative_coordinate (e);
 }
 
-Graphical_axis_group* 
+Dimension_cache * 
 Graphical_element::common_group (Graphical_element const* s, Axis a) const
 {
-  Link_array<Graphical_axis_group> my_groups;
-  for (Graphical_axis_group * axis_group_l = axis_group_l_a_[a];
-       axis_group_l;
-       axis_group_l = axis_group_l->axis_group_l_a_[a])
-    my_groups.push (axis_group_l);
-
-  Graphical_axis_group* common_l=0;
-  for (Graphical_axis_group * axis_group_l = s->axis_group_l_a_[a];
-       !common_l && axis_group_l;
-       axis_group_l = axis_group_l->axis_group_l_a_[a])
-    common_l = my_groups.find_l (axis_group_l);
-
-  return common_l;
+  return dim_cache_[a].common_group (&s->dim_cache_[a]);
 }
-
-
 
 void
 Graphical_element::translate (Offset offset)
@@ -114,76 +73,88 @@ Graphical_element::translate (Offset offset)
   translate_axis (offset[X_AXIS], X_AXIS);
 }
 
-Interval
-Graphical_element::width() const
-{
-  return extent (X_AXIS);
-}
 
 void
 Graphical_element::set_empty (bool b)
 {
-  if (empty_b_ != b)
-    {
-      empty_b_ = b;
-      if (!empty_b_)
-	{
-	  invalidate_cache (X_AXIS);
-	  invalidate_cache (Y_AXIS);
-	}
-    }
-  
+  dim_cache_[X_AXIS].set_empty (b);
+  dim_cache_[Y_AXIS].set_empty (b);
 }
 
 Interval
 Graphical_element::extent (Axis a) const
 {
-  if (empty_b_)
+  Dimension_cache const * d = //(Dimension_cache*)
+    &dim_cache_[a];
+
+  if (d->empty_b ())
     return Interval ();
   
-  if (!cached_valid_b_a_[a])
-    {
-      Graphical_element *self = (Graphical_element*)this;
-      self->cached_dimension_a_[a] = (a == X_AXIS)? do_width(): do_height ();
-      self->cached_valid_b_a_[a] = true;
-    }
+  if (!d->valid_b ())
+    ((Dimension_cache*)d)->set_dim  ((a == X_AXIS)? do_width(): do_height ());
   
-  Interval r(cached_dimension_a_[a]);
-  if (!r.empty_b()) // float exception on DEC Alpha
-    r+=offset_[a];
 
-  return r;
-}
-
-Interval
-Graphical_element::height() const
-{
-  return extent (Y_AXIS);
+  return d->get_dim ();
 }
 
 void
 Graphical_element::unlink ()
 {
-  for (int j=0; j < 2; j++)
-    if (axis_group_l_a_[j])
-      axis_group_l_a_[j]->remove_element (this);
+  for (int a=X_AXIS; a < NO_AXES; a++)
+    if (Dimension_cache * d = dim_cache_[a].parent_l_)
+      {
+	if (Graphical_axis_group * eg
+	    = dynamic_cast<Graphical_axis_group*> (d->elt_l_))
+	  eg->remove_element (this);
+      }
 }
 
 void
 Graphical_element::junk_links ()
 {
-    axis_group_l_a_[X_AXIS] = axis_group_l_a_[Y_AXIS] =0;
 }
 
 void
 Graphical_element::do_print () const
 {
 #ifndef NPRINT
-  if (offset_.x() || offset_.y ())
-    DOUT << "offset: " << offset_.str() ;
   DOUT << '\n';
 #endif
 }
 
 
 
+void
+Graphical_element::invalidate_cache (Axis a)
+{
+  dim_cache_[a].invalidate ();
+}
+
+Graphical_element*
+Graphical_element::parent_l (Axis a) const
+{
+  Dimension_cache*d= dim_cache_[a].parent_l_;
+  return d ? d->elt_l_ : 0;
+}
+
+Graphical_element::~Graphical_element ()
+{
+}
+
+Dimension_cache *
+Graphical_element::common_group (Link_array<Graphical_element> gs, Axis a) const
+{
+  Dimension_cache * common = &dim_cache_[a];
+  for (int i=0; i < gs.size (); i++)
+    {
+      common = common->common_group (&gs[i]->dim_cache_[a]);
+    }
+
+  return common;
+}
+
+char const *
+Graphical_element::name () const
+{
+  return classname (this);
+}

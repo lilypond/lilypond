@@ -11,14 +11,13 @@
 #define SCOREF_ALIGN_GRAV_HH
 
 #include "engraver.hh"
-#include "assoc.hh"
 
 /**
   Group  a number of items across staffs
  */
 class Score_priority_engraver : public Engraver
 {
-  Assoc<int, Horizontal_group_item  *> align_p_assoc_;
+  Hash_table<int, Horizontal_group_item  *> align_p_tab_;
 public:
   VIRTUAL_COPY_CONS(Translator);
   Score_priority_engraver ();

@@ -109,7 +109,7 @@ Tie::do_post_processing()
       // uhm? loose end of tie // tie attached to stem
       else
 	{
-	  dx_f_drul_[d] = -d * (spanned_drul_[d]->width ().length () 
+	  dx_f_drul_[d] = -d * (spanned_drul_[d]->extent (X_AXIS).length () 
 			        -0.5 * notewidth);
 	}
     }
@@ -140,7 +140,7 @@ Tie::do_post_processing()
   Real damp_f = paper ()->get_var ("tie_slope_damping");
   Offset d_off = Offset (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT],
     dy_f_drul_[RIGHT] - dy_f_drul_[LEFT]);
-  d_off.x () += width ().length ();
+  d_off.x () += extent (X_AXIS).length ();
 
   Real ratio_f = abs (d_off.y () / d_off.x ());
   if (ratio_f > damp_f)

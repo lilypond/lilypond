@@ -166,7 +166,7 @@ Clef_engraver::acknowledge_element (Score_element_info info)
 void
 Clef_engraver::do_creation_processing()
 {
-  Scalar def = get_property ("defaultClef");
+  Scalar def = get_property ("defaultClef", 0);
   if (def.to_bool ()) // egcs: Scalar to bool is ambiguous
     set_type (def);
   

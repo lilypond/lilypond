@@ -76,7 +76,7 @@ Key_item::calculate_position(int p, int a) const
   TODO space the `natural' signs wider
  */
 Molecule*
-Key_item::brew_molecule_p() const
+Key_item::do_brew_molecule_p() const
 {
   Molecule*output = new Molecule;
   Real inter = paper()->internote_f ();

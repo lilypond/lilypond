@@ -22,7 +22,7 @@ public:
 
 protected:
   virtual void do_pre_processing ();
-  Molecule* brew_molecule_p () const;
+  virtual Molecule* do_brew_molecule_p () const;
 
 private:
   void do_print () const;

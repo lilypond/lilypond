@@ -26,7 +26,7 @@ public:
 protected:
   virtual void do_print() const;
   virtual Molecule stem_beams (Stem *here, Stem *next, Stem *prev) const;
-  virtual Molecule* brew_molecule_p() const;
+  virtual Molecule* do_brew_molecule_p() const;
 };
 
 #endif // ABBREVIATION_BEAM_HH

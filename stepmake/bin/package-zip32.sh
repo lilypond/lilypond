@@ -63,7 +63,7 @@ fi
 #
 # Post install clean up
 #
-CYGWIN_LIB=$PACKAGE_ROOTDIR/distfiles/winnt/cygwinb19.dll
+CYGWIN_LIB=$PACKAGE_ROOTDIR/distfiles/winnt/cygwin1.dll
 if [ ! -e $CYGWIN_LIB ]; then
     echo "Unable to locate $CYGWIN_LIB"
     exit 1

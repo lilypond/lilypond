@@ -41,9 +41,9 @@ Staff_symbol::do_height() const
 }
 
 Molecule*
-Staff_symbol::brew_molecule_p() const
+Staff_symbol::do_brew_molecule_p() const
 {
-  Real w = width ().length ();
+  Real w = extent (X_AXIS).length ();
   Real left_dx = -spanned_drul_[LEFT]->extent (X_AXIS)[LEFT];
   Real right_dx = spanned_drul_[RIGHT]->extent (X_AXIS)[RIGHT];
   //  w += right_dx+ left_dx;

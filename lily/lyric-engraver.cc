@@ -7,7 +7,6 @@
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "lyric-engraver.hh"
 #include "musical-request.hh"
 #include "text-item.hh"
 #include "paper-def.hh"
@@ -15,8 +14,32 @@
 #include "paper-def.hh"
 #include "main.hh"
 #include "dimensions.hh"
+#include "g-text-item.hh"
+
+
+#include "engraver.hh"
+#include "array.hh"
+#include "lily-proto.hh"
+
+class Lyric_engraver : public Engraver 
+{
+protected:
+  virtual void do_pre_move_processing();
+  virtual bool do_try_music (Music*);
+  virtual void do_process_requests();
+
+public:
+  Lyric_engraver();
+  VIRTUAL_COPY_CONS(Translator);
+
+private:
+  Link_array<Lyric_req> lyric_req_l_arr_;
+  Link_array<Item> text_p_arr_;
+};
+
 
 ADD_THIS_TRANSLATOR(Lyric_engraver);
+
 
 Lyric_engraver::Lyric_engraver()
 {
@@ -39,27 +62,16 @@ Lyric_engraver::do_process_requests()
   if (text_p_arr_.size ())
     return;
 
-  Scalar style = get_property ("textstyle");
-  Scalar alignment = get_property ("textalignment");
   for (int i=0; i < lyric_req_l_arr_.size (); i++)
     {
       Lyric_req* request_l = lyric_req_l_arr_[i];
-      Text_def* text_p = new Text_def;
-      text_p->text_str_ = request_l->text_str_;
-      text_p->align_dir_ = LEFT;
+      G_text_item* item_p =  new G_text_item;
+      item_p->text_str_ = request_l->text_str_;
+
+      Scalar style = get_property ("textstyle", 0);
       if (style.length_i ())
-	text_p->style_str_ = style;
-      if (alignment.isnum_b())
-	text_p->align_dir_= (Direction)(int)alignment;
+	item_p->style_str_ = style;
       
-      Text_item* item_p =  new Text_item (text_p);
-      item_p->dir_ = DOWN;
-      item_p->fat_b_ = true;
-      // urg
-      // item_p->translate (Offset (0, (i - 1) * item_p->height ().length_i ()));
-//      if (i && ((Text_def*)text_p_arr_[i - 1]->tdef_p_)->text_str_.length_i ())
-      // urg, when/how can one get the heigt of this thing?
-      item_p->translate (Offset (0, - i * 12 PT));
       text_p_arr_.push (item_p);
       announce_element (Score_element_info (item_p, request_l));
     }

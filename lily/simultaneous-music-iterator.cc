@@ -24,14 +24,15 @@ void
 Simultaneous_music_iterator::construct_children()
 {
   int j = 0;
-  for (PCursor<Music*> i (simultaneous_music_l ()->music_p_list_p_->top());  
+  Simultaneous_music const *sim = dynamic_cast<Simultaneous_music const*> (music_l_);
+  for (PCursor<Music*> i (sim->music_p_list_p_->top());  
        i.ok(); j++, i++) 
     {
       Music_iterator * mi = get_iterator_p (i.ptr());
       if (mi->ok()) 
 	{
-	  if  (simultaneous_music_l ()->translator_type_str_.empty_b ())
-	    set_translator (mi->report_to_l()->ancestor_l (0));
+	  if  (sim->translator_type_str_.empty_b ())
+	    set_translator (mi->report_to_l()->ancestor_l (0));	// huh?
 	  children_p_list_.bottom().add (mi);
 	}
       else 
@@ -89,8 +90,3 @@ Simultaneous_music_iterator::ok() const
   return children_p_list_.size();
 }
 
-Simultaneous_music*
-Simultaneous_music_iterator::simultaneous_music_l ()const
-{
-  return (  Simultaneous_music *) music_l_;
-}

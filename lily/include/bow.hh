@@ -28,7 +28,7 @@ public:
   int dash_i_;
 
 protected:
-  virtual Molecule* brew_molecule_p () const;
+  virtual Molecule* do_brew_molecule_p () const;
   virtual Interval do_width () const;    
   Array<Offset> get_controls () const;
   virtual Array<Offset> get_encompass_offset_arr () const;

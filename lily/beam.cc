@@ -62,10 +62,9 @@ Beam::add_stem (Stem*s)
 }
 
 Molecule*
-Beam::brew_molecule_p () const
+Beam::do_brew_molecule_p () const
 {
   Molecule *mol_p = new Molecule;
-
   Real internote_f = paper ()->internote_f ();
 
   Real x0 = stems_[0]->hpos_f ();
@@ -89,7 +88,7 @@ Beam::brew_molecule_p () const
 Offset
 Beam::center () const
 {
-  Real w= (paper ()->note_width () + width ().length ())/2.0;
+  Real w= (paper ()->note_width () + extent (X_AXIS).length ())/2.0;
   return Offset (w, (left_y_ + w* slope_f_)*paper ()->internote_f ());
 }
 
@@ -610,12 +609,17 @@ Beam::set_grouping (Rhythmic_grouping def, Rhythmic_grouping cur)
     assert (stems_.size () == b.size ()/2);
   }
 
-  for (int j=0, i=0; i < b.size () && j <stems_.size (); i+= 2, j++)
+  for (int j=0, i=0; i < b.size () && j <stems_.size (); j++)
     {
       Stem *s = stems_[j];
-      s->beams_i_drul_[LEFT] = b[i];
-      s->beams_i_drul_[RIGHT] = b[i+1];
-      multiple_i_ = multiple_i_ >? (b[i] >? b[i+1]);
+      Direction d = LEFT;
+      do {
+	if (s->beams_i_drul_[d] < 0)
+	  s->beams_i_drul_[d] = b[i];
+
+	multiple_i_ = multiple_i_ >? s->beams_i_drul_[d];
+	i++;
+      } while ((flip (&d)) != LEFT);
     }
 }
 

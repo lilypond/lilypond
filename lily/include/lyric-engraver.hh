@@ -14,20 +14,5 @@
 
 #include "lily-proto.hh"
 
-class Lyric_engraver : public Engraver 
-{
-protected:
-  virtual void do_pre_move_processing();
-  virtual bool do_try_music (Music*);
-  virtual void do_process_requests();
-
-public:
-  Lyric_engraver();
-  VIRTUAL_COPY_CONS(Translator);
-
-private:
-  Link_array<Lyric_req> lyric_req_l_arr_;
-  Link_array<Text_item> text_p_arr_;
-};
 
 #endif // LYRIC_ENGRAVER_HH

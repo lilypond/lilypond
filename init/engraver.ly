@@ -56,6 +56,7 @@ StaffContext=\translator {
 	\consists "Separating_line_group_engraver";
 	  
 	\accepts "Voice";
+	dynamicStyle = "dynamic";
 };
 
 \translator{\StaffContext }
@@ -94,15 +95,17 @@ VoiceContext = \translator {
  	\consists "Rest_engraver";
 	\consists "Dot_column_engraver";
 	\consists "Stem_engraver";
-%	\consists "Plet_engraver";
-	\consists "Command_beam_engraver";
+	\consists "Beam_engraver";
 	\consists "Abbreviation_beam_engraver";
 	\consists "Multi_measure_rest_engraver";
+
+	% ugh.  Order matters here.
+	\consists "Text_engraver";
 	\consists "Script_engraver";
 	\consists "Rhythmic_column_engraver";
 	\consists "Font_size_engraver";
 	\consists "Slur_engraver";
-	\consists "Command_tie_engraver";
+	\consists "Tie_engraver";
 	\consists "Tuplet_engraver";	
 	\consists "Note_heads_engraver" ;	
 	\consists "Skip_req_swallow_translator";
@@ -144,7 +147,6 @@ GrandStaffContext=\translator{
 	\consists "Lyric_engraver";
 	\consists "Extender_engraver";
 	\consists "Beam_req_swallow_translator";
-	\consists "Plet_swallow_engraver";
 }
 
 \translator {

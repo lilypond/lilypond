@@ -11,7 +11,6 @@
 #include "midi-def.hh"
 #include "translator.hh"
 #include "performance.hh"
-#include "assoc-iter.hh"
 #include "score-performer.hh"
 #include "debug.hh"
 
@@ -67,10 +66,8 @@ Midi_def::print() const
 #endif
 }
 
-
-
-
 int Midi_def::default_count_i_=0;
+
 int
 Midi_def::get_next_default_count () const
 {

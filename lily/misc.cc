@@ -41,7 +41,7 @@ itemlist_width (const Array<Item*> &its)
    
   for (int j =0; j < its.size(); j++)
     {
-	iv.unite (its[j]->width());
+	iv.unite (its[j]->extent (X_AXIS));
 
     }
   return iv;

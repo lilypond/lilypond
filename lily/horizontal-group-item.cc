@@ -19,5 +19,5 @@ Horizontal_group_item::do_print() const
 
 Horizontal_group_item::Horizontal_group_item ()
 {
-  axis1_ = axis2_ = X_AXIS;
+  axes_[0] = axes_[1] = X_AXIS;
 }

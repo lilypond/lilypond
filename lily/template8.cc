@@ -8,7 +8,7 @@
 
 #include "proto.hh"
 #include "plist.hh"
-#include "audio-item.hh"
+#include "audio-element.hh"
 #include "audio-column.hh"
 #include "midi-item.hh"
 #include "cursor.tcc"

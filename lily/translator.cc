@@ -155,16 +155,20 @@ Translator::pre_move_processing ()
 }
 
 Scalar
-Translator::get_property (String id)
+Translator::get_property (String id, Translator const **where_l) const
 {
   if (properties_dict_.elem_b (id))
     {
+      if (where_l)
+	*where_l = this;
       return properties_dict_[id];
     }
   
   if (daddy_trans_l_)
-    return daddy_trans_l_->get_property (id);
+    return daddy_trans_l_->get_property (id, where_l);
 
+  if (where_l)
+    *where_l = 0;
   return "";
 }
 

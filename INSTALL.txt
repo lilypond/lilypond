@@ -33,10 +33,10 @@ Contents
 
 This  document  explains  what you need to install LilyPond,
 and what you should do.  If you are  going  to  compile  and
-install  LilyPond very often you might want to check out the
-buildscripts/set-lily.sh script.  It sets  some  environment
-variables  and symlinks, which comes in handly when you have
-to compile LilyPond more often.
+install  LilyPond  often,  e.g.  when doing development, you
+might want to check out the buildscripts/set-lily.sh script.
+It sets some environment variables and symlinks, which comes
+in handly when you have to compile LilyPond more often.
 
 
 2: PREREQUISITES
@@ -67,7 +67,7 @@ o    Python  1.5  (Strictly  speaking,  you  shouldn't  need
      to regenerate the font tables, e.g.).
 
 o    GUILE  1.3  (no,  GUILE  1.2  won't  work),  check  out
-     http://www.gnu.org/programs/guile.html.
+     http://www.gnu.org/software/guile/guile.html.
 
 
 3: RUNNING
@@ -153,35 +153,35 @@ o    The geometry package for LaTeX is needed to use ly2dvi.
      mirror site ftp://ftp.dante.de
 
 
-o    A fast computer (a full page of music typically takes 1
+o    A fast computer: a full page of music typically takes 1
      minute on my 486/133, using the --enable-checking  com-
-     pile. It's lot slower than most MusiXTeX preprocessors)
+     pile.
 
 
 5: WEBSITE
 
 
-If you want to auto-generate  Lily's  website,  you'll  need
+If  you  want  to  auto-generate Lily's website, you'll need
 some additional conversion tools.
 
 
 o    xpmtoppm (from the Portable Bitmap Utilities) (For Red-
-     Hat Linux users: it  is  included  within  the  package
+     Hat  Linux  users:  it  is  included within the package
      libgr-progs).
 
 o    Bib2html http://pertsserver.cs.uiuc.edu/~hull/bib2html.
      Which, in turn depends on man2html for proper installa-
-     tion.    man2html   can   be  had  from  http://askdon-
+     tion.   man2html  can  be   had   from   http://askdon-
      ald.ask.uni-karlsruhe.de/hppd/hpux/Network-
      ing/WWW/Man2html-1.05.
 
      TeTeX users should not forget to rerun texhash.
 
 Building the website requires pnmtopng.  The version of pnm-
-topng that is distributed with RedHat  5.1  contains  a  bug
-(pnmtopng  is  dynamically  linked  to  the wrong version of
-libpng).  Recompile it from source, and make sure  that  the
-pnmtopng  binary  is linked statically to the libpng that is
+topng  that  is  distributed  with RedHat 5.1 contains a bug
+(pnmtopng is dynamically linked  to  the  wrong  version  of
+libpng).   Recompile  it from source, and make sure that the
+pnmtopng binary is linked statically to the libpng  that  is
 included in libgr.
 
 
@@ -236,9 +236,9 @@ This will install a number of files, something close to:
 
 
 
-The above assumes that you are root and have the GNU  devel-
+The  above assumes that you are root and have the GNU devel-
 opment tools, and your make is GNU make.  If this is not the
-case, you can adjust  your  environment  variables  to  your
+case,  you  can  adjust  your  environment variables to your
 
 
 taste:
@@ -258,7 +258,7 @@ taste:
 CPPFLAGS are the preprocessor flags.
 
 The configure script is Cygnus configure, and it will accept
---help. If you are not root, you will probably have to  make
+--help.  If you are not root, you will probably have to make
 it with a different --prefix option.  Our favourite location
 is
 
@@ -273,10 +273,10 @@ is
 
 
 
-In this case, you will have to set up MFINPUTS,  and  TEXIN-
+In  this  case, you will have to set up MFINPUTS, and TEXIN-
 PUTS accordingly.
 
-Since  GNU  LilyPond  currently  is beta, you are advised to
+Since GNU LilyPond currently is beta,  you  are  advised  to
 also use
 
 
@@ -301,18 +301,18 @@ Options to configure include:
      Enable debugging print routines (lilypond -D option)
 
 --enable-optimise
-     Set maximum optimisation: compile with -O2.   This  can
-     be  unreliable  on  some compiler/platform combinations
+     Set  maximum  optimisation: compile with -O2.  This can
+     be unreliable on  some  compiler/platform  combinations
      (eg, DEC Alpha and PPC)
 
 --enable-profiling
      Compile with support for profiling.
 
 --enable-config
-     Output to a different configuration file.   Needed  for
+     Output  to  a different configuration file.  Needed for
      multi-platform builds
 
-All  options are documented in the configure help The option
+All options are documented in the configure help The  option
 --enable-optimise is recommended for Real Life usage.
 
 If you do
@@ -328,8 +328,8 @@ If you do
 
 
 
-everything will be compiled, but nothing will be  installed.
-The  resulting  binaries  can be found in the subdirectories
+everything  will be compiled, but nothing will be installed.
+The resulting binaries can be found  in  the  subdirectories
 out/ (which contain all files generated during compilation).
 
 
@@ -337,8 +337,8 @@ out/ (which contain all files generated during compilation).
 
 
 If you want to compile LilyPond with different configuration
-settings, then, you  can  use  the  --enable-config  option.
-Example:  suppose I want to build with and   without profil-
+settings,  then,  you  can  use  the --enable-config option.
+Example: suppose I want to build with and   without  profil-
 ing.  Then I'd use the following for the normal build,
 
 
@@ -386,7 +386,7 @@ If you have done a successful make, then a simple
 should do the trick.
 
 If you are doing an upgrade, please remember to remove obso-
-lete .pk and .tfm files of the fonts.   A  script  has  been
+lete  .pk  and  .tfm  files of the fonts.  A script has been
 provided to do the work for you, see bin/clean-fonts.sh.
 
 
@@ -394,8 +394,8 @@ CAVEATS
 
 
 
-o    The  -O2  option to gcc triggers a gcc bug on DEC Alpha
-     in dstream.cc. You should turn off this flag  for  this
+o    The -O2 option to gcc triggers a gcc bug on  DEC  Alpha
+     in  dstream.cc.  You should turn off this flag for this
 
 
      file.
@@ -452,8 +452,8 @@ refer to the man page for more information.
 9: REDHAT LINUX
 
 
-RedHat Linux users can compile an RPM. A  spec  file  is  in
-make/out/lilypond.spec,  it  is  distributed  along with the
+RedHat  Linux  users  can  compile an RPM. A spec file is in
+make/out/lilypond.spec, it is  distributed  along  with  the
 sources.
 
 You can make the rpm by issuing
@@ -473,7 +473,7 @@ You can make the rpm by issuing
 10: DEBIAN GNU/LINUX
 
 
-A Debian package is  also  available;  contact  Anthony  Fok
+A  Debian  package  is  also  available; contact Anthony Fok
 foka@debian.org <foka@debian.org>.  The build scripts are in
 the subdirectory debian/.
 

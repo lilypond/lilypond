@@ -14,7 +14,7 @@ Output: DVI file
 """
 
 name = 'ly2dvi'
-version = '0.0.7'
+version = '0.0.9'
 errorlog = ''
 
 import sys
@@ -370,7 +370,7 @@ class Properties:
         # init          Initial default values
         # file          The values found in the lilypond generated TeX files
         # environment   Envrionment variables LILYINCLUDE, LILYPONDPREFIX
-        # rcfile        $LILYPONDPREFIX/share/lilypond/.lilyrc
+        # rcfile        $LILYPONDPREFIX/.lilyrc
         # rcfile        $HOME/.lilyrc
         # rcfile        ./.lilyrc
         # commandline   command line arguments
@@ -424,7 +424,7 @@ class Properties:
             p=os.path.split(p[0])
 	    # bit silly. for ly2dvi, overrules compiled-in datadir...
 	    # how to do this better (without running lily, of course?
-            this.setRoot(p[0] + '/share/lilypond', 'init')
+            this.setRoot(os.path.join(p[0],'share','lilypond'), 'init')
 
         if not os.environ.has_key('HOME'):
             if os.environ.has_key('HOMEDRIVE') and \
@@ -445,15 +445,15 @@ class Properties:
 
         t=''
 	if os.environ.has_key ('TEXINPUTS'):
-		t = os.pathsep + os.environ['TEXINPUTS']
-        os.environ['TEXINPUTS'] = os.path.join(this.get('root'), 'share',
-					       'lilypond', 'tex' ) + t
+		t = os.environ['TEXINPUTS'] + os.pathsep
+        os.environ['TEXINPUTS'] = t + \
+	os.path.join(this.get('root'), 'tex' ) + \
+	os.pathsep + os.path.join(this.get('root'), 'ps' )
 
         t=''
 	if os.environ.has_key ('MFINPUTS'):
-		t = os.pathsep + os.environ['MFINPUTS']
-        os.environ['MFINPUTS'] = os.path.join(this.get('root'), 'share',
-					       'lilypond', 'mf' ) + t
+		t = os.environ['MFINPUTS'] + os.pathsep
+        os.environ['MFINPUTS'] = t + os.path.join(this.get('root'), 'mf' )
 
         if os.environ.has_key('TMP'):
             this.__set('tmp',os.environ['TMP'],'environment')
@@ -507,8 +507,7 @@ class Properties:
         """
 
         if os.name == 'nt':
-            path = os.path.join(this.get('root'), 'share', 'lilypond',
-                                'tex', var)
+            path = os.path.join(this.get('root'), 'tex', var)
         else:
             path =''
             cmd =('kpsewhich tex %s %s' % (var,errorlog))
@@ -516,8 +515,7 @@ class Properties:
             path = pipe.readline ()[:-1] # chop off \n
             return_status =  pipe.close()
             if return_status and not path:
-                path = os.path.join(this.get('root'), 'share', 'lilypond',
-                                    'tex', var)
+                path = os.path.join(this.get('root'), 'tex', var)
 	fd = open(path, 'r')
         return fd
 
@@ -556,7 +554,7 @@ class Properties:
         else: # Windows apps like edit choke on .lilyrc
             dotFilename='_lilyrc'
 
-	for d in [os.path.join(this.get('root'),'share','lilypond','ly'), \
+	for d in [os.path.join(this.get('root'),'ly'), \
                   os.environ['HOME'], os.curdir ]:
 	    file=os.path.join(d,dotFilename)
 	    try:

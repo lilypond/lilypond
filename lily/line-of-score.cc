@@ -26,7 +26,7 @@ void
 Line_of_score::add_element (Score_element*e)
 {
   // avoid excess dependencies.
-  if (!(e->axis_group_l_a_[0] || e->axis_group_l_a_[1]))
+  if (! (e->parent_l (X_AXIS) || e->parent_l (Y_AXIS)) )
     add_dependency (e);
 }
 

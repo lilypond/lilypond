@@ -97,9 +97,9 @@ Rhythmic_column_engraver::do_pre_move_processing()
     {
       if (! ncol_p_->h_shift_b_)
 	// egcs
-	ncol_p_->h_shift_b_  = get_property ("hshift").operator bool ();
+	ncol_p_->h_shift_b_  = get_property ("hshift", 0).operator bool ();
       if (! ncol_p_->dir_)
-	ncol_p_->dir_ =(Direction) int(get_property ("ydirection"));
+	ncol_p_->dir_ =(Direction) int(get_property ("ydirection", 0));
 
       typeset_element (ncol_p_);
       ncol_p_ =0;

@@ -34,7 +34,7 @@ Single_malt_grouping_item::my_width () const
     {
       Item *il = item_l_arr_[i];
       assert (pc == il->column_l ());
-      w.unite  (il->width () + il->relative_coordinate (pc, X_AXIS));
+      w.unite  (il->extent (X_AXIS) + il->relative_coordinate (&pc->dim_cache_[X_AXIS], X_AXIS));
     }
 
   return w;

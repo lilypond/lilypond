@@ -10,10 +10,7 @@
 #include "item.hh"
 #include "p-col.hh"
 
-
-
-
 Vertical_group_spanner::Vertical_group_spanner ()
 {
-  axis1_ = axis2_ = Y_AXIS;
+  axes_[0] = axes_[1] = Y_AXIS;
 }

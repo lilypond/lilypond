@@ -27,7 +27,7 @@ Abbreviation::do_print () const
 }
 
 Molecule*
-Abbreviation::brew_molecule_p () const
+Abbreviation::do_brew_molecule_p () const
 {
   Real interbeam_f = paper ()->interbeam_f (stem_l_->mult_i_);
   Real w = 1.5 * lookup_l ()->ball (2).dim_.x ().length ();

@@ -55,7 +55,7 @@ Text_spanner::do_post_processing()
 }
 
 Molecule*
-Text_spanner::brew_molecule_p() const
+Text_spanner::do_brew_molecule_p() const
 {
   Atom tsym (spec_p_->get_atom (paper(),CENTER));
   tsym.translate (text_off_);
@@ -74,7 +74,7 @@ Text_spanner::do_pre_processing()
 Interval
 Text_spanner::height() const
 {
-  return brew_molecule_p()->extent ().y ();
+  return do_brew_molecule_p()->extent ().y ();
 }
 
 void

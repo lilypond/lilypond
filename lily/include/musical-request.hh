@@ -141,11 +141,6 @@ public:
   
 };
 
-/** Start / stop a beam at this note */
-class Beam_req  : public Musical_span_req  {
-public:
-  REQUESTMETHODS(Beam_req);
-};
 
 /** 
  Start / stop an abbreviation beam at this note. 
@@ -159,28 +154,13 @@ public:
   int type_i_;
 };
 
-/**
-  Start a tie at this note, end it at the next
- */
-class Tie_req : public Musical_req {
-public:
-  REQUESTMETHODS(Tie_req);
-};
+
 
 /// a slur
 class Slur_req  : public Musical_span_req  {
 public:
   REQUESTMETHODS(Slur_req);
 
-};
-
-/// a tuplet (bracket with) number
-class Plet_req : public Musical_span_req  {
-public:
-  int plet_i_;
-
-  REQUESTMETHODS(Plet_req);
-  Plet_req ();
 };
 
 /// an extender line

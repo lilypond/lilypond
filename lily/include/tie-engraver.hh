@@ -1,5 +1,5 @@
 /*   
-  ctie-engraver.hh -- declare Command_tie_engraver
+  ctie-engraver.hh -- declare Tie_engraver
   
   source file of the GNU LilyPond music typesetter
   
@@ -29,10 +29,10 @@ inline int compare (CHead_melodic_tuple const &a, CHead_melodic_tuple const &b)
 }
 
 
-class Command_tie_engraver : public Engraver
+class Tie_engraver : public Engraver
 {
   PQueue<CHead_melodic_tuple> past_notes_pq_;
-  Command_tie_req *req_l_;
+  Tie_req *req_l_;
   Array<CHead_melodic_tuple> now_heads_;
   Array<CHead_melodic_tuple> stopped_heads_;
   Link_array<Tie> tie_p_arr_;
@@ -46,7 +46,7 @@ protected:
   virtual void process_acknowledged ();
 public:
   VIRTUAL_COPY_CONS(Translator);
-  Command_tie_engraver();
+  Tie_engraver();
   
 };
 

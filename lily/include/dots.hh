@@ -19,7 +19,7 @@
 class Dots : public Item
 {
 protected:
-  virtual Molecule * brew_molecule_p () const;
+  virtual Molecule * do_brew_molecule_p () const;
   virtual void do_post_processing ();
 public:
   int no_dots_i_;

@@ -199,6 +199,7 @@ Mudela_note::str ()
     return name_str + Duration_convert::dur2_str (dur) + " ";
 
   String str;
+
   //ugh
   if (dur.plet_b ())
     str += String ("\\[")

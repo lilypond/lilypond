@@ -148,12 +148,13 @@ Score_engraver::typeset_all()
 	{
 	  Item *item_p = dynamic_cast <Item *> (elem_p);
 	  pscore_p_->typeset_element (item_p);
-	  if (!item_p->axis_group_l_a_[X_AXIS]) {
-	    if (item_p->breakable_b_) 
-	      command_column_l_->add_element(item_p);
-	    else
-	      musical_column_l_->add_element(item_p);
-	  }
+	  if (!item_p->parent_l (X_AXIS))
+	    {
+	      if (item_p->breakable_b_) 
+		command_column_l_->add_element(item_p);
+	      else
+		musical_column_l_->add_element(item_p);
+	    }
 	}
       scoreline_l_->add_element (elem_p);
     }

@@ -31,7 +31,7 @@ protected:
   virtual void do_pre_processing();
   virtual void do_post_processing();
   virtual Interval height() const ;
-  virtual Molecule* brew_molecule_p() const;
+  virtual Molecule* do_brew_molecule_p() const;
   virtual void do_print() const;
 };
 #endif // TEXTSPANNER_HH

@@ -103,7 +103,7 @@ Script::symbol_width () const
 }
 
 Molecule*
-Script::brew_molecule_p () const
+Script::do_brew_molecule_p () const
 {
   Real dx =0.;
 

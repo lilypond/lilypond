@@ -52,7 +52,7 @@ Span_bar_engraver::acknowledge_element (Score_element_info i)
 
 	/*
 
-	  use a property?  get_property ("singleStaffBracket") ?
+	  use a property?  get_property ("singleStaffBracket", 0) ?
 
 	  --hwn
 	 */

@@ -79,5 +79,18 @@ public:
   Span_req();
 };
 
+/**
+  Start a tie at this note, end it at the next
+ */
+class Tie_req : public Request {
+public:
+  REQUESTMETHODS(Tie_req);
+};
+
+/** Start / stop a beam at this note */
+class Beam_req  : public Span_req  {
+public:
+  REQUESTMETHODS(Beam_req);
+};
 
 #endif

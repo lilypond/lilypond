@@ -27,7 +27,8 @@ global = \notes {
 dux = \notes \relative c'' {
   \clef violin;
 
-  \stemdown
+  \property Voice.ydirection = "-1"
+  
   r8 [c16 b] [c8 g] [as c16 b] [c8 d ] |
   [g, c16 b] [c8 d ] [f,16 g] as4 [g16 f] |
   [es c'  b a] [g f! es d] [c8 es'  d  c ] |

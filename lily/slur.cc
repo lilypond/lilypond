@@ -132,12 +132,12 @@ Slur::do_post_processing ()
 	{
 	  // ugh -- check if needed
 	  dx_f_drul_[d] = -d 
-	    *(spanned_drul_[d]->width ().length () - 0.5 * notewidth_f);
+	    *(spanned_drul_[d]->extent (X_AXIS).length () - 0.5 * notewidth_f);
 
 	  // prebreak
 	  if (d == RIGHT)
 	    {
-	      dx_f_drul_[LEFT] = spanned_drul_[LEFT]->width ().length ();
+	      dx_f_drul_[LEFT] = spanned_drul_[LEFT]->extent (X_AXIS).length ();
 
 	      // urg -- check if needed
 	      if (encompass_arr_.size () > 1)
@@ -150,8 +150,8 @@ Slur::do_post_processing ()
       else if (extrema[d]->stem_l_ && !extrema[d]->stem_l_->transparent_b_ 
 	       && extrema[d]->head_l_arr_.size ()) 
         {
-	  Real notewidth_f = extrema[d]->width ().length ();
-	  dy_f_drul_[d] = (int)rint (extrema[d]->stem_l_->height ()[dir_]);
+	  Real notewidth_f = extrema[d]->extent (X_AXIS).length ();
+	  dy_f_drul_[d] = (int)rint (extrema[d]->stem_l_-> extent (Y_AXIS)[dir_]);
 	  dx_f_drul_[d] += 0.5 * notewidth_f - d * gap_f;
 	  if (dir_ == extrema[d]->stem_l_->dir_)
 	    {
@@ -163,7 +163,7 @@ Slur::do_post_processing ()
 	}
 	else 
 	  {
-	    Real notewidth_f = extrema[d]->width ().length ();
+	    Real notewidth_f = extrema[d]->extent (X_AXIS).length ();
 	    dy_f_drul_[d] = (int)rint (extrema[d]->head_positions_interval ()
 				       [dir_]) * internote_f;
 	    dx_f_drul_[d] += 0.5 * notewidth_f - d * gap_f;
@@ -209,7 +209,7 @@ Slur::do_post_processing ()
   Real damp_f = paper ()->get_var ("slur_slope_damping");
   Offset d_off = Offset (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT],
     dy_f_drul_[RIGHT] - dy_f_drul_[LEFT]);
-  d_off.x () += width ().length ();
+  d_off.x () += extent (X_AXIS).length ();
 
   Real ratio_f = abs (d_off.y () / d_off.x ());
   if (ratio_f > damp_f)
@@ -252,7 +252,7 @@ Slur::get_encompass_offset_arr () const
 
   Offset d = Offset (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT],
     dy_f_drul_[RIGHT] - dy_f_drul_[LEFT]);
-  d.x () += width ().length ();
+  d.x () += extent (X_AXIS).length ();
 
   int first = 1;
   int last = encompass_arr_.size () - 1;

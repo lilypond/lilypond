@@ -313,12 +313,16 @@ Paper_score::broken_col_range (Item const*l_item_l, Item const*r_item_l) const
   Item const*r=r_item_l;
 
   // huh? see Item::left_right_compare ()
+  /*
   while (! (dynamic_cast<Paper_column const *> (l)))
     l = dynamic_cast<Item*> (l->axis_group_l_a_[X_AXIS]);
 
   while (! (dynamic_cast<Paper_column const *> (r)))
     r = dynamic_cast<Item*>(r->axis_group_l_a_[X_AXIS]);
-
+  */
+  l = l->column_l ();
+  r = r->column_l ();
+  
   PCursor<Paper_column*> start (l ? find_col ((Paper_column*)l)+1 : col_p_list_.top ());
   PCursor<Paper_column*> stop (r ? find_col ((Paper_column*)r) : col_p_list_.bottom ());
 

@@ -31,3 +31,13 @@ unsigned int hash (String s)
   return result;
 }
 
+
+unsigned int hash (unsigned int i)
+{
+  return i;
+}
+
+unsigned int hash (int i)
+{
+  return (unsigned) i;
+}

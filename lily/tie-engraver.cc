@@ -1,5 +1,5 @@
 /*   
-  ctie-engraver.cc --  implement Command_tie_engraver
+  ctie-engraver.cc --  implement Tie_engraver
   
   source file of the GNU LilyPond music typesetter
   
@@ -7,22 +7,22 @@
   
  */
 
-#include "ctie-engraver.hh"
+#include "tie-engraver.hh"
 #include "command-request.hh"
 #include "note-head.hh"
 #include "musical-request.hh"
 #include "tie.hh"
 
-Command_tie_engraver::Command_tie_engraver()
+Tie_engraver::Tie_engraver()
 {
   req_l_ = 0;
 }
 
 
 bool
-Command_tie_engraver::do_try_music (Music *m)
+Tie_engraver::do_try_music (Music *m)
 {
-  if (Command_tie_req * c = dynamic_cast<Command_tie_req*> (m))
+  if (Tie_req * c = dynamic_cast<Tie_req*> (m))
     {
       req_l_ = c;
       return true;
@@ -31,7 +31,7 @@ Command_tie_engraver::do_try_music (Music *m)
 }
 
 void
-Command_tie_engraver::acknowledge_element (Score_element_info i)
+Tie_engraver::acknowledge_element (Score_element_info i)
 {
   if (Note_head *nh = dynamic_cast<Note_head *> (i.elem_l_))
     {
@@ -41,7 +41,7 @@ Command_tie_engraver::acknowledge_element (Score_element_info i)
 }
 
 void
-Command_tie_engraver::do_process_requests ()
+Tie_engraver::do_process_requests ()
 {
   if (req_l_)
     {
@@ -57,7 +57,7 @@ Command_tie_engraver::do_process_requests ()
 }
 
 void
-Command_tie_engraver::process_acknowledged ()
+Tie_engraver::process_acknowledged ()
 {
   if (req_l_)
     {
@@ -87,7 +87,7 @@ Command_tie_engraver::process_acknowledged ()
 }
 
 void
-Command_tie_engraver::do_pre_move_processing ()
+Tie_engraver::do_pre_move_processing ()
 {
   for (int i=0; i < now_heads_.size (); i++)
     {
@@ -103,7 +103,7 @@ Command_tie_engraver::do_pre_move_processing ()
 }
 
 void
-Command_tie_engraver::do_post_move_processing ()
+Tie_engraver::do_post_move_processing ()
 {
   req_l_ =0;
   Moment now = now_moment ();
@@ -113,7 +113,7 @@ Command_tie_engraver::do_post_move_processing ()
 
 
 
-ADD_THIS_TRANSLATOR(Command_tie_engraver);
+ADD_THIS_TRANSLATOR(Tie_engraver);
 
 
 CHead_melodic_tuple::CHead_melodic_tuple ()

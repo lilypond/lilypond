@@ -35,7 +35,9 @@ class Active_constraints {
   Ineq_constrained_qp const *opt;
 
 public:
-
+  
+  /** This counts the number of errors the algorithms makes.  The
+      optimum search should be abandoned if it becomes too high.  */
   int degenerate_count_i_;
   String status() const;
     

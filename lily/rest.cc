@@ -35,7 +35,7 @@ Rest::Rest ()
 }
 
 Molecule *
-Rest::brew_molecule_p () const
+Rest::do_brew_molecule_p () const
 {
   int staff_size_i_ = 8;
   bool streepjes_b = abs(position_i_) > staff_size_i_ /2 &&  

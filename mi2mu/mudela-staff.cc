@@ -101,7 +101,7 @@ Mudela_staff::name_str()
 void
 Mudela_staff::output (Mudela_stream& mudela_stream_r)
 {
-  mudela_stream_r << id_str() << " = \\melodic";
+  mudela_stream_r << id_str() << " = \\notes";
   mudela_stream_r <<  (mudela_voice_p_list_.size() > 1 ? "<" : "{");
   mudela_stream_r << '\n';
   mudela_stream_r << _ ("% midi copyright:") << copyright_str_ << '\n';

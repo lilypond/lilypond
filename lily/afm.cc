@@ -107,12 +107,13 @@ Adobe_font_metric::str () const
 Adobe_font_char_metric
 Adobe_font_metric::find_char (String nm, bool warn) const
 {
-  for (int i=0; i < char_metrics_.size (); i++)
-    if (char_metrics_[i].N_ == nm)
-      return char_metrics_[i];
-  if (warn)
-    warning (_f ("can't find character called `%s'", nm.ch_C()));
-
- Adobe_font_char_metric a;
- return a;
+  if (warn && !name_to_metric_dict_.elem_b (nm))
+    {
+      Adobe_font_char_metric m;
+      warning (_f ("can't find character called `%s'", nm.ch_C()));
+      return m;
+    }
+  
+  return char_metrics_[name_to_metric_dict_ [nm]];
 }
+

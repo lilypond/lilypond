@@ -48,8 +48,8 @@ Staff_margin_engraver::acknowledge_element (Score_element_info i)
       || (i.origin_grav_l_arr_.size() != 1))
     return;
 
-  String string = get_property ("instrument");
-  String str = get_property ("instr");
+  String string = get_property ("instrument", 0);
+  String str = get_property ("instr", 0);
   if (now_moment () > Moment (0))
     string = str;
 
@@ -68,7 +68,7 @@ Staff_margin_engraver::acknowledge_element (Score_element_info i)
   script_p_->breakable_b_ = true;
 
   
-  Scalar pri = get_property ("marginBreakPriority");
+  Scalar pri = get_property ("marginBreakPriority", 0);
   if (pri.length_i () && pri.isnum_b ())
     {
       script_p_->break_priority_i_ = int (pri);

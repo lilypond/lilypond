@@ -78,9 +78,6 @@
 (define (settypewriter s) (text "typewriter" s))
 (define (setnumber s) (text "number" s))
 (define (setbold s) (text "bold" s))
-(define (setlarge s) (text "large" s))
-(define (setLarge s) (text "Large" s))
-(define (setmark s) (text "mark" s))
 (define (setfinger s) (text "finger" s))
 (define (setitalic s) (text "italic" s))
 (define (setnumber-1 s) (text "numberj" s))
@@ -159,7 +156,9 @@
   (define (invoke-dim1 s d)
     (string-append
      "\n\\" s "{" (number->dim d) "}"))
-
+  (define (pt->sp x)
+    (* 65536 x))
+  
   ;;
   ;; need to do something to make this really safe.
   ;;
@@ -174,7 +173,7 @@
 
   (define (number->dim x)
     (string-append 
-     (number->string (chop-decimal x)) "pt "))
+     (number->string  (chop-decimal x)) "pt "))
 
   (define (placebox x y s) 
     (string-append 

@@ -80,19 +80,11 @@ chordInversion		0/1	Find and display chord with inversion?
 %hmm, (these) abbrevs suck, imo
 % i guess they're meant as some form of doco
 % that's what i use them for...
-stemup = \notes {
-	s1*0
-	% Stupid hack to make < { \stemup } > work
+stemup = 
 	\property Voice.ydirection = \up 
-	}
-stemboth= \notes {
-	s1*0
-	\property Voice.ydirection = \center
-}
-stemdown = \notes { 	
-	s1*0
-	\property Voice.ydirection = \down
-}
+stemboth= 	\property Voice.ydirection = \center
+stemdown = 	\property Voice.ydirection = \down
+
 slurup = \notes {
 	s1*0
 	\property Voice.slurydirection = \up 

@@ -28,7 +28,7 @@ public:
   bool last_b_;
  
 protected:
-  virtual Molecule* brew_molecule_p () const;
+  virtual Molecule* do_brew_molecule_p () const;
   VIRTUAL_COPY_CONS(Score_element);
 
   virtual void do_add_processing ();

@@ -77,7 +77,7 @@ void
 Super_element::output_all () 
 {
   pscore_l_->outputter_l_->start_line ();
-  calculate_dependencies (BREWING, BREWED, &Score_element::do_brew_molecule);
+  calculate_dependencies (BREWING, BREWED, &Score_element::output_processing);
   pscore_l_->outputter_l_->stop_line ();
 }
 

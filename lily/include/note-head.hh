@@ -37,7 +37,7 @@ public:
 protected:
   virtual Interval do_width () const;
   virtual void do_pre_processing();
-  virtual Molecule* brew_molecule_p() const;
+  virtual Molecule* do_brew_molecule_p() const;
 };
 #endif // NOTEHEAD_HH
 

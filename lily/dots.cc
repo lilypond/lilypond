@@ -30,7 +30,7 @@ Dots::do_post_processing ()
 }
 
 Molecule* 
-Dots::brew_molecule_p () const
+Dots::do_brew_molecule_p () const
 {
   Molecule *out = new Molecule;
   Atom fill = lookup_l ()->fill (Box (Interval (0,0),

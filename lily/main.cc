@@ -12,6 +12,7 @@
 #include <locale.h>
 #include "lily-guile.hh"
 
+#include "all-fonts.hh"
 #include "proto.hh"
 #include "dimensions.hh"
 #include "plist.hh"
@@ -38,6 +39,7 @@ bool no_timestamps_global_b = false;
 bool find_old_relative_b = false;
 
 char const* output_global_ch = "tex";
+All_font_metrics *all_fonts_global_p;
 
 String default_outname_base_global =  "lelie";
 String outname_str_global;
@@ -246,7 +248,8 @@ void
 main_prog (int argc, char **argv)
 {
   default_outname_base_global = "lelie";
-
+  all_fonts_global_p = new All_font_metrics (global_path.str ());
+  
   int p=0;
   const char *arg ;
   while ((arg= oparser_global_p->get_next_arg ()))
@@ -361,7 +364,12 @@ main (int argc, char **argv)
 	}
     }
 
+#ifdef WINNT
+  gh_enter (argc, argv, main_prog);
+#else
   gh_enter (argc, argv, (void(*)())main_prog);
+#endif
+
   return 0;			// unreachable
 }
 

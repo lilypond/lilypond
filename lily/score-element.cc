@@ -23,10 +23,9 @@
 #include "misc.hh"
 #include "paper-outputter.hh"
 
-#define PARANOID
-
 Score_element::Score_element()
 {
+  output_p_ =0;
   transparent_b_ = false;
   size_i_ = 0;
   pscore_l_=0;
@@ -41,6 +40,7 @@ Score_element::Score_element (Score_element const&s)
      dependents.      
    */
   copy_edges_out (s);
+  output_p_ =0;
   transparent_b_ = s.transparent_b_;
   status_i_ = s.status_i_;
   pscore_l_ = s.pscore_l_;
@@ -52,6 +52,7 @@ Score_element::Score_element (Score_element const&s)
 
 Score_element::~Score_element()
 {
+  delete output_p_; 
   assert (status_i_ >=0);
 }
 
@@ -86,9 +87,11 @@ Score_element::do_width() const
 {
   Interval r;
 
-  Molecule*m = brew_molecule_p();
+  Molecule*m = output_p_ ?  output_p_ : do_brew_molecule_p();
   r = m->extent().x ();
-  delete m;
+
+  if (!output_p_)
+    delete m;
   
   return r;
 }
@@ -97,9 +100,11 @@ Interval
 Score_element::do_height() const 
 {
   Interval r;
-  Molecule*m = brew_molecule_p();
+  Molecule*m = output_p_ ?  output_p_ : do_brew_molecule_p();
   r = m->extent().y ();
-  delete m;
+  if (!output_p_)
+    delete m;
+
   return r;
 }
 
@@ -171,18 +176,22 @@ Score_element::calculate_dependencies (int final, int busy,
 }
 
 void
-Score_element::do_brew_molecule () 
+Score_element::output_processing () 
 {
   if (transparent_b_)
     return;
-  Molecule *output= brew_molecule_p ();
-  for (PCursor<Atom*> i(output->atoms_); i.ok(); i++)
+  if (output_p_)
+    delete output_p_;
+  
+  output_p_ = do_brew_molecule_p ();
+  for (PCursor<Atom*> i(output_p_->atoms_); i.ok(); i++)
     {
       i->origin_l_ = this;
     }
   
-  pscore_l_->outputter_l_->output_molecule (output, absolute_offset (), classname(this));
-  delete output;
+  pscore_l_->outputter_l_->output_molecule (output_p_,
+					    absolute_offset (),
+					    classname(this));
 }
 
 /*
@@ -245,7 +254,7 @@ Score_element::do_junk_links()
 
 
 Molecule*
-Score_element::brew_molecule_p() const
+Score_element::do_brew_molecule_p() const
 {
   Atom a (lookup_l ()->fill (Box (Interval (0,0), Interval (0,0))));
   return new Molecule (a);

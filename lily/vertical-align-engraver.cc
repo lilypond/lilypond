@@ -27,13 +27,13 @@ Vertical_align_engraver::do_creation_processing()
 void
 Vertical_align_engraver::do_removal_processing()
 {
-  Scalar dist (get_property ("maxVerticalAlign"));
+  Scalar dist (get_property ("maxVerticalAlign", 0));
   if (dist.length_i () && dist.isnum_b ())
     {
       valign_p_->threshold_interval_[BIGGER]  = Real (dist);
     }
 
-  dist = get_property ("minVerticalAlign");
+  dist = get_property ("minVerticalAlign", 0);
   if (dist.length_i () && dist.isnum_b ())
     {
       valign_p_->threshold_interval_[SMALLER]  = Real (dist);
@@ -47,9 +47,9 @@ Vertical_align_engraver::do_removal_processing()
 void
 Vertical_align_engraver::acknowledge_element (Score_element_info i)
 {
-  if (i.origin_grav_l_arr_.size() == 1 && 
-      dynamic_cast<Vertical_group_spanner *> (i.elem_l_) &&
-      !i.elem_l_->axis_group_l_a_[Y_AXIS]) 
+  if (i.origin_grav_l_arr_.size() == 1
+      && dynamic_cast<Vertical_group_spanner *> (i.elem_l_)
+      && !i.elem_l_->parent_l (Y_AXIS))
     {
       assert (!valign_p_->contains_b (i.elem_l_));
 

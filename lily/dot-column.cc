@@ -47,10 +47,10 @@ Dot_column::do_pre_processing ()
 {
   Interval w;
   for (int i=0; i < head_l_arr_.size (); i++)
-    w.unite (head_l_arr_[i]->width ());
+    w.unite (head_l_arr_[i]->extent (X_AXIS));
   
   if (!w.empty_b ())
-    translate_axis (w[RIGHT] - width() [LEFT],X_AXIS);
+    translate_axis (w[RIGHT] - extent(X_AXIS) [LEFT],X_AXIS);
 }
 
 

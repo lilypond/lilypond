@@ -128,10 +128,8 @@ Ineq_constrained_qp::constraint_solve (Vector start) const
 
   while (iterations++ < MAXITER && act.degenerate_count_i_ < MAXDEGEN)
     {
-      //#ifdef PARANOID
       if (experimental_features_global_b)
 	assert_solution (x);
-      //#endif
       
       Vector direction= - act.find_active_optimum (gradient);
 
@@ -155,9 +153,13 @@ Ineq_constrained_qp::constraint_solve (Vector start) const
 	  for (Inactive_iter ia (act); ia.ok(); ia++)
 	    {
 	      Real dot = ia.vec() * direction;
-	      if (dot >= 0)
+	      Real mindot =  (experimental_features_global_b)
+		? -EPS
+		: 0;
+	      
+	      if (dot >= mindot)
 		continue;
-
+	      
 	      
 	      Real numerator = ia.rhs () - ia.vec()*x;
 	      if (numerator >= 0)

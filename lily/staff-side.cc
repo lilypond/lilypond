@@ -30,7 +30,7 @@ Staff_side::support_extent() const
   Interval y_int;
   for (int i=0; i < support_l_arr_.size(); i++) 
     {
-    Graphical_axis_group *common = 
+      Dimension_cache *common = 
 	common_group (support_l_arr_[i], axis_);
 	
       Real y = support_l_arr_[i]->relative_coordinate (common, axis_)  
@@ -76,11 +76,8 @@ Staff_side::get_position_f () const
   // ugh: 5 -> staff_lines
   if (axis_ == Y_AXIS && abs (coordinate_offset_f_i) < 5)
     {
-      /* I don't understand how this is supposed to work, 
-	 simple patch below. Mats B
-	 if (!(abs (coordinate_offset_f_i) % 2))
-	 y += (Real)dir_ * inter_f; */
-      y = (Real)dir_ * 6 * inter_f;
+      if (!(abs (coordinate_offset_f_i) % 2))
+	y += (Real)dir_ * inter_f;
     }
 //  else
 //    y = v[dir_] + 1 * dir_ * inter_f;

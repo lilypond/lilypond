@@ -30,7 +30,7 @@ Bar_column_engraver::do_creation_processing ()
 void
 Bar_column_engraver::do_process_requests ()
 {
-  Scalar pri = get_property ("barColumnPriority");
+  Scalar pri = get_property ("barColumnPriority", 0);
   if (pri.length_i() && pri.isnum_b ())
     {
       break_priority_i_ = int(pri);

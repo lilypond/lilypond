@@ -15,8 +15,8 @@
   Graphical_axis_group at one time.  */
 Graphical_axis_group::Graphical_axis_group (Graphical_axis_group const&s)
 {
-  axis1_ = s.axis1_;
-  axis2_ = s.axis2_;
+  axes_[0] = s.axes_[0];
+  axes_[1] = s.axes_[1];
 }
 
 bool 
@@ -37,13 +37,15 @@ Graphical_axis_group::extent (Axis axis) const
 void
 Graphical_axis_group::add_element (Graphical_element*e)
 {
-  Graphical_axis_group *& g1 = e->axis_group_l_a_[axis1_];
-  Graphical_axis_group *& g2 = e->axis_group_l_a_[axis2_];
-  
-  assert (!g1 || g1 == this);
-  assert (!g2 || g2 == this);
-  g1 = this;
-  g2 = this;
+  for (int i = 0; i < 2; i++)
+    {
+      Axis a = axes_[i];
+      Dimension_cache * &d = e->dim_cache_[a].parent_l_;
+      assert (!d || d == &dim_cache_[a]);
+      d = &dim_cache_[a];
+      d->dependencies_l_arr_.push (&dim_cache_[a]);
+    }
+
   elem_l_arr_.push (e);
 }
 
@@ -55,8 +57,13 @@ Graphical_axis_group::remove_element (Graphical_element*e)
   assert (contains_b (e));
   elem_l_arr_.unordered_substitute (e,0);
   
-  e->axis_group_l_a_[axis1_] = 0;
-  e->axis_group_l_a_[axis2_] = 0;    
+  for (int i=0; i<  2; i++)
+    {
+      Axis a=axes_[i];
+      Dimension_cache * d = &e->dim_cache_[a];
+      d->parent_l_ = 0;
+      d->dependencies_l_arr_.unordered_substitute (&dim_cache_[a], 0);
+    }
 }
 
 void
@@ -65,8 +72,14 @@ Graphical_axis_group::remove_all ()
   for (int i=0; i < elem_l_arr_.size(); i++) 
     {
       Graphical_element*e=elem_l_arr_[i];
-      e->axis_group_l_a_[axis1_] = 0;
-      e->axis_group_l_a_[axis2_] = 0;  
+      for (int i=0; i<  2; i++)
+	{
+	  Axis a=axes_[i];
+	  Dimension_cache * d = &e->dim_cache_[a];
+	  d->parent_l_ = 0;
+	  d->dependencies_l_arr_.clear ();
+	}
+      
     }
   elem_l_arr_.clear ();
 }
@@ -83,8 +96,8 @@ Graphical_axis_group::do_print() const
 
 Graphical_axis_group::Graphical_axis_group (Axis a1, Axis a2)
 {
-  axis1_ =a1;
-  axis2_ = a2;
+  axes_[0] = a1;
+  axes_[1] = a2;
 }
 
 

@@ -41,7 +41,7 @@ Mark_engraver::do_process_requests ()
     return;
 
   script_p_ = new Script;
-  //  script_p_->breakable_b_ = true;
+  script_p_->breakable_b_ = true;
 
   Text_def *td_p = new Text_def;
 
@@ -51,16 +51,16 @@ Mark_engraver::do_process_requests ()
   td_p->style_str_ = td_p->text_str_.index_any_i ("0123456789") >= 0 
     ? "mark" : "Large";
 
-  script_p_->dir_ = UP;
+  script_p_->dir_ = LEFT;
   script_p_->specs_p_ = td_p->clone ();
-  // script_p_->postbreak_only_b_ = false;
+  script_p_->postbreak_only_b_ = true;
   
-  Scalar padding = get_property ("markScriptPadding");
+  Scalar padding = get_property ("markScriptPadding", 0);
   if (padding.length_i() && padding.isnum_b ())
     {
       script_p_->padding_f_ = Real(padding);
     }
-  Scalar break_priority = get_property ("markBreakPriority");
+  Scalar break_priority = get_property ("markBreakPriority", 0);
   if (break_priority.length_i() && break_priority.isnum_b ())
     {
       script_p_->break_priority_i_ = int(break_priority);

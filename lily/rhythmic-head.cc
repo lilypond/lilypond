@@ -21,11 +21,15 @@ Rhythmic_head::do_add_processing ()
 {
   if (dots_i_ && !dots_l_)
     {
-      Dots *d = new Dots;
+      assert (false);
+      /*      Dots *d = new Dots;
       add_dots (d);
       pscore_l_->typeset_element (d);
+
+
+      
       axis_group_l_a_[Y_AXIS]->add_element (d);
-      axis_group_l_a_[X_AXIS]->add_element (d);
+      axis_group_l_a_[X_AXIS]->add_element (d);*/
     }
   if (dots_l_)
     {

@@ -23,7 +23,7 @@ Line_group_engraver_group::Line_group_engraver_group()
 void
 Line_group_engraver_group::typeset_element (Score_element *elem)
 {
-  if (!elem->axis_group_l_a_[Y_AXIS])
+  if (!elem->parent_l (Y_AXIS))      
     staffline_p_->add_element (elem);
   Engraver_group_engraver::typeset_element (elem);
 }

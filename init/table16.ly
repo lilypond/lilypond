@@ -7,7 +7,7 @@
 
 table_sixteen= 
 \symboltables {
-   \font 	"feta16.afm"
+   \font 	"feta16"
 
    % index symbol #parameters  	xmin xmax ymin ymax
 

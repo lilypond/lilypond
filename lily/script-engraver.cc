@@ -66,12 +66,12 @@ Script_engraver::do_pre_move_processing()
 	  Text_def * td_l = (Text_def*)script_p->specs_p_;
 	  if (!td_l->style_str_.length_i ())
 	    {
-	      Scalar style = get_property ("textstyle");
+	      Scalar style = get_property ("textstyle", 0);
 	      if (style.to_bool ())
 		td_l->style_str_= style;
 	    }
 	  // urg, what if this is already set? in-band signaling...
-	  Scalar alignment = get_property ("textalignment");
+	  Scalar alignment = get_property ("textalignment", 0);
 	  if (alignment.isnum_b())
 	    {
 	      td_l->align_dir_= (Direction)(int)alignment;

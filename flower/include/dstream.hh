@@ -14,9 +14,6 @@
 
 const char eol= '\n';
 
-template<class K,class V>
-struct Assoc;
-
 /**  Debug stream. 
    a class for providing debug output of nested structures,
    with indents according to \{\}()[].
@@ -41,7 +38,7 @@ class Dstream
   bool default_silence_b_;
   String current_classname_str_;
   void output (String s);
-  Assoc<String, bool> *silent_assoc_p_;
+  Dictionary<bool> *silent_dict_p_;
 
 public:
   void clear_silence();

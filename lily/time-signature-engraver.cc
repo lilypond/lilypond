@@ -54,7 +54,7 @@ Time_signature_engraver::do_pre_move_processing()
 {
   if (time_signature_p_) 
     {
-      Scalar sigstyle = get_property ("timeSignatureStyle");
+      Scalar sigstyle = get_property ("timeSignatureStyle", 0);
       if (sigstyle.length_i ())
 	{
 	  time_signature_p_->time_sig_type_str_ = sigstyle;

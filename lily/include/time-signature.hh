@@ -23,7 +23,7 @@ class Time_signature: public Item {
   
 
 protected:
-  virtual Molecule*brew_molecule_p() const;
+  virtual Molecule*do_brew_molecule_p() const;
 public:
   Time_signature () ;
   Array<int> args_;

@@ -40,17 +40,17 @@ Extender_spanner::~Extender_spanner ()
 Offset
 Extender_spanner::center () const
 {
-  Real dx = width ().length ();
+  Real dx = extent (X_AXIS).length ();
 
   return Offset (dx / 2, 0);
 }
 
 Molecule*
-Extender_spanner::brew_molecule_p () const
+Extender_spanner::do_brew_molecule_p () const
 {
   Molecule* mol_p = new Molecule;
 
-  Real w = width ().length ();
+  Real w = extent (X_AXIS).length ();
   
   w += (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
   
@@ -94,9 +94,9 @@ Extender_spanner::do_post_processing ()
     {
       Text_item* t = textitem_l_drul_[d] ? textitem_l_drul_[d] : textitem_l_drul_[(Direction)-d];
 
-      dy_f_drul_[d] += t->height ().length () / 2;
+      dy_f_drul_[d] += t->extent (Y_AXIS).length () / 2;
       if (d == LEFT)
-        dx_f_drul_[d] += t->width ().length ();
+        dx_f_drul_[d] += t->extent (X_AXIS).length ();
       else
 	dx_f_drul_[d] -= d * nw_f / 2;
 

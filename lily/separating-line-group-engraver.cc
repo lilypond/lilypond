@@ -39,7 +39,7 @@ void
 Separating_line_group_engraver::acknowledge_element (Score_element_info i)
 {
   Item * it = dynamic_cast <Item *> (i.elem_l_);
-  if (it && !it->axis_group_l_a_[X_AXIS])
+  if (it && !it->parent_l (X_AXIS))
     {
       Single_malt_grouping_item *&p_ref_ (it->breakable_b_
 					  ? break_malt_p_ : nobreak_malt_p_);

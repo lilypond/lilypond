@@ -23,7 +23,7 @@
 class Graphical_axis_group : public virtual Graphical_element {
 public:
   Link_array<Graphical_element> elem_l_arr_;
-  Axis axis1_, axis2_;
+  Axis axes_[2];
     
   Interval extent (Axis) const;
   virtual void do_print() const;

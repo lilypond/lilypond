@@ -36,7 +36,7 @@ Volta_spanner::Volta_spanner ()
 }
 
 Molecule*
-Volta_spanner::brew_molecule_p () const
+Volta_spanner::do_brew_molecule_p () const
 {
   Molecule* mol_p = new Molecule;
 
@@ -44,7 +44,7 @@ Volta_spanner::brew_molecule_p () const
     {
       Real internote_f = paper ()->internote_f ();
       Real dx = internote_f;
-      Real w = width ().length () - 2 * dx;
+      Real w = extent (X_AXIS).length () - 2 * dx;
       Atom volta (lookup_l ()->volta (w, last_b_));
       Real h = volta.dim_.y ().length ();
       Atom num (number_p_->get_atom (paper (), LEFT));
@@ -52,8 +52,12 @@ Volta_spanner::brew_molecule_p () const
       Real dy = column_arr_.top ()->extent (Y_AXIS) [dir_] > 
 	column_arr_[0]->extent (Y_AXIS) [dir_];
       dy += 2 * h;
+
+      /*
+	UGH.  Must use extent  ()[dir_]
+       */
       for (int i = 0; i < note_column_arr_.size (); i++)
-        dy = dy >? note_column_arr_[i]->height ().max ();
+        dy = dy >? note_column_arr_[i]->extent (Y_AXIS).max ();
       dy -= h;
 
       Real gap = num.dim_.x ().length () / 2;

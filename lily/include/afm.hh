@@ -13,6 +13,7 @@
 #include "string.hh"
 #include "box.hh"
 #include "array.hh"
+#include "dictionary.hh"
 
 struct Adobe_font_char_metric {
   int C_;
@@ -42,13 +43,17 @@ struct Adobe_font_metric {
   String Notice_;
   String EncodingScheme_;
   Array<Adobe_font_char_metric> char_metrics_;
-
+  Array<int> ascii_to_metric_idx_;
+  Dictionary<int> name_to_metric_dict_;
+  
   Adobe_font_char_metric find_char (String name, bool warn=true) const;
+  Adobe_font_char_metric find_ascii (int ascii) const;
   String str () const;
   Adobe_font_metric ();
+  void read_char_metrics (Data_file &input);
 };
 
-Adobe_font_metric read_afm (String fn);
+Adobe_font_metric read_afm_file (String fn);
 
 
 

@@ -25,8 +25,6 @@ public:
   virtual bool ok () const;
 
 protected:
-  Music_list* music_list_l () const;
-
   virtual void do_print () const;
   virtual void do_process_and_next (Moment);
 };

@@ -90,18 +90,18 @@ Span_bar::get_bar_sym (Real dy) const
 }
 
 Molecule*
-Span_bar::brew_molecule_p () const
+Span_bar::do_brew_molecule_p () const
 {
   Interval y_int;
   for (int i=0; i < spanning_l_arr_.size (); i++) 
     {
-      Graphical_axis_group *common = 
+      Dimension_cache*common = 
 	common_group (spanning_l_arr_[i], Y_AXIS);
 	
-      Real y = spanning_l_arr_[i]->relative_coordinate (common, Y_AXIS)  
-	-relative_coordinate (common,Y_AXIS);
+      Real y = spanning_l_arr_[i]->dim_cache_[Y_AXIS].relative_coordinate (common)  
+	-dim_cache_[Y_AXIS].relative_coordinate (common);
 
-      y_int.unite (y + spanning_l_arr_[i]->height ());
+      y_int.unite (y + spanning_l_arr_[i]->extent(Y_AXIS));
     }
 
   Atom s = get_bar_sym (y_int.length ());
