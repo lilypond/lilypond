@@ -365,7 +365,7 @@ output_dict= {
 		'output-default-pre': "\\def\preLilypondExample{}\n",
 		'usepackage-graphics': '\\usepackage{graphics}\n',
 		'output-eps': '\\noindent\\parbox{\\lilypondepswidth{%(fn)s.eps}}{\includegraphics{%(fn)s.eps}}',
-		'output-tex': '\\preLilypondExample \\input %(fn)s.tex \\postLilypondExample\n',
+		'output-tex': '{\\preLilypondExample \\input %(fn)s.tex \\postLilypondExample\n}',
 		'pagebreak': r'\pagebreak',
 		},
 	'texi' : {'output-lilypond': """@lilypond[%s]
