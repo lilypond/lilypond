@@ -118,13 +118,14 @@ Property_engraver::apply_properties (SCM p, Score_element *e, Translator_group*o
 
 	  SCM errport = scm_current_error_port ();
 	  scm_display (prop_sym, errport);
-	  scm_puts (" is deprecated. Use\n \\property ", errport);
+	  scm_puts (_(" is deprecated. Use\n \\property ").ch_C(), errport);
 
-	  SCM name = e->get_elt_property ("name");
 	  scm_puts (origin->type_str_.ch_C(), errport);
 	  scm_puts (".", errport);
 	  
-	  scm_display (name, errport);
+	  SCM name = e->get_elt_property ("meta");
+	  name = scm_assoc (ly_symbol2scm ("name"), name);
+	  scm_display (gh_cdr(name), errport);
 	  scm_puts(" \\push #'",errport);
 	  scm_display (elt_prop_sym,errport);
 	  scm_puts ( " = #",errport);
