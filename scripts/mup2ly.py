@@ -165,7 +165,7 @@ def help ():
 	sys.stdout.write ('\n')
 	warning (_ ("%s is far from completed.  Not all constructs are recognised.") % program_name)
 	sys.stdout.write ('\n')
-	sys.stdout.write (_ ("Report bugs to %s") % 'bug-gnu-music@gnu.org')
+	sys.stdout.write (_ ("Report bugs to %s") % 'bug-lilypond@gnu.org')
 	sys.stdout.write ('\n')
 	sys.exit (0)
 

@@ -11,12 +11,11 @@ I'm stuck, HELP!
 (http://appel.lilypond.org/wiki?LilyPondFaqs).  Also, please look in
 the searchable mailinglist archives:
 
-   * help-gnu-music (http://www.mail-archive.com/help-gnu-music@gnu.org)
+   * lilypond-user (http://www.mail-archive.com/lilypond-user@gnu.org)
 
-   * bug-gnu-music (http://www.mail-archive.com/bug-gnu-music@gnu.org)
+   * bug-lilypond (http://www.mail-archive.com/bug-lilypond@gnu.org)
 
-   * gnu-music-discuss
-     (http://www.mail-archive.com/gnu-music-discuss@gnu.org)
+   * lilypond-devel (http://www.mail-archive.com/lilypond-devel@gnu.org)
 
    If you are still at loss, send your questions to the *mailing list*,
 and not to authors directly.
@@ -43,6 +42,8 @@ yourself:
 
          autoconf
          configure
+
+   i
 
 I downloaded the windows32 port, and it doesn't match the website!
 ------------------------------------------------------------------

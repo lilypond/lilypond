@@ -80,7 +80,7 @@
 		 (thickness . 0.48) ; in staff-space
 		 (before-line-breaking-callback . ,Beam::before_line_breaking)
 		 (after-line-breaking-callback . ,Beam::after_line_breaking)
-		 (neutral-direction . 1)
+		 (neutral-direction . -1)
 		 (dir-function . ,beam-dir-majority)
 		 (height-quants .  ,default-beam-dy-quants)
 		 (vertical-position-quant-function . ,default-beam-y-quants)
@@ -581,7 +581,7 @@
 		(lengths . (3.5 3.5 3.5 4.5 5.0))
 		(stem-shorten . (0.5))
 		; if stem is on middle line, choose this direction.
-		(neutral-direction . 1)
+		(neutral-direction . -1)
 		(X-offset-callbacks . (,Stem::off_callback))
 		(X-extent-callback . ,Stem::dim_callback)	
 		(Y-extent-callback . ,Stem::height)

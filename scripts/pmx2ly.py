@@ -748,7 +748,7 @@ Options:
 PMX is a Musixtex preprocessor written by Don Simons, see
 http://www.gmd.de/Misc/Music/musixtex/software/pmx/
 
-Report bugs to bug-gnu-music@gnu.org.
+Report bugs to bug-lilypond@gnu.org.
 
 Written by Han-Wen Nienhuys <hanwen@cs.uu.nl>
 """)

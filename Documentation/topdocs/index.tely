@@ -41,6 +41,27 @@ LilyPond is @b{free software}. It is part of the
 Public License, so you can use, modify and redistribute the program with
 almost no restrictions.
 
+
+is actively developed. Experimental, development releases have
+an odd version number (e.g. 1.5.7), while stable releases have
+(e.g. 1.4.7) should be unchanging and bug-free. Unless you have special
+needs, you should use the stable version. You can access the websites of
+the stable version @uref{http://lilypond.org/stable, here}. The website
+of the development series are @uref{http://lilypond.org/development,
+here}
+
+
+LilyPond has a development version and a stable version.  This webpage
+is for the @b{stable} release.  This means that it won't change much,
+and it is essentially bug-free.  On the other hand, experimental
+releases contain experimental and often buggy code. They are under
+active development, so you should use those if you need any special new
+features. The website of the latest development release is
+@uref{http://lilypond.org/development, here}
+
+
+
+
 @unnumberedsec Want to know more?
 
 If you want to know more, visit the

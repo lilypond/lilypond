@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-09-09 17:30+0200\n"
+"POT-Creation-Date: 2001-06-14 13:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,175 +14,160 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ly2dvi.py:106
+#: ly2dvi.py:105
 msgid "Generate .dvi with LaTeX for LilyPond"
 msgstr ""
 
-#: data-file.cc:118 input.cc:85 ly2dvi.py:191 midi-parser.cc:100 mup2ly.py:93
+#: data-file.cc:118 input.cc:85 ly2dvi.py:190 midi-parser.cc:100 mup2ly.py:93
 #: update-lily.py:118 warn.cc:23
 msgid "warning: "
 msgstr ""
 
-#: input.cc:90 ly2dvi.py:206 ly2dvi.py:639 ly2dvi.py:657 ly2dvi.py:848
-#: mup2ly.py:98 mup2ly.py:188 update-lily.py:123 update-lily.py:211 warn.cc:9
-#: warn.cc:17
+#: input.cc:90 ly2dvi.py:205 ly2dvi.py:804 mup2ly.py:98 mup2ly.py:188
+#: update-lily.py:123 update-lily.py:211 warn.cc:9 warn.cc:17
 msgid "error: "
 msgstr ""
 
-#: ly2dvi.py:207 mup2ly.py:100 update-lily.py:125
+#: ly2dvi.py:206 mup2ly.py:100 update-lily.py:125
 msgid "Exiting ... "
 msgstr ""
 
-#: ly2dvi.py:265 mup2ly.py:158 update-lily.py:183
+#: ly2dvi.py:264 mup2ly.py:158 update-lily.py:183
 #, c-format
 msgid "Usage: %s [OPTION]... FILE"
 msgstr ""
 
-#: ly2dvi.py:269 main.cc:120 main.cc:149 mup2ly.py:162 update-lily.py:187
+#: ly2dvi.py:268 main.cc:120 main.cc:148 mup2ly.py:162 update-lily.py:187
 msgid "Options:"
 msgstr ""
 
-#: ly2dvi.py:273 main.cc:124 main.cc:172 mup2ly.py:168 update-lily.py:191
+#: ly2dvi.py:272 main.cc:124 main.cc:171 mup2ly.py:168 update-lily.py:191
 #, c-format
 msgid "Report bugs to %s"
 msgstr ""
 
-#: ly2dvi.py:306 mup2ly.py:185 update-lily.py:208
+#: ly2dvi.py:305 mup2ly.py:185 update-lily.py:208
 #, c-format
 msgid "Invoking `%s'"
 msgstr ""
 
-#: ly2dvi.py:310 mup2ly.py:188 update-lily.py:211
+#: ly2dvi.py:309 mup2ly.py:188 update-lily.py:211
 #, c-format
 msgid "command exited with value %d"
 msgstr ""
 
-#: ly2dvi.py:312 mup2ly.py:190 update-lily.py:213
+#: ly2dvi.py:311 mup2ly.py:190 update-lily.py:213
 msgid "(ignored)"
 msgstr ""
 
-#: ly2dvi.py:322
+#: ly2dvi.py:321
 #, c-format
 msgid "Cleaning %s..."
 msgstr ""
 
-#: ly2dvi.py:337 mup2ly.py:214 update-lily.py:237
+#: ly2dvi.py:336 mup2ly.py:214 update-lily.py:237
 #, c-format
 msgid "no such setting: %s"
 msgstr ""
 
-#: ly2dvi.py:350 main.cc:113
+#: ly2dvi.py:349 main.cc:112
 msgid "write Makefile dependencies for every input file"
 msgstr ""
 
-#: ly2dvi.py:351 main.cc:96 main.cc:109 mup2ly.py:1117 update-lily.py:251
+#: ly2dvi.py:350 main.cc:96 main.cc:108 mup2ly.py:1117 update-lily.py:251
 msgid "this help"
 msgstr ""
 
-#: ly2dvi.py:352 main.cc:111 main.cc:116
+#: ly2dvi.py:351 main.cc:110 main.cc:115
 msgid "DIR"
 msgstr ""
 
-#: ly2dvi.py:352
+#: ly2dvi.py:351
 msgid "add DIR to LilyPond's search path"
 msgstr ""
 
-#: ly2dvi.py:353
+#: ly2dvi.py:352
 #, c-format
 msgid "keep all output, and name the directory %s.dir"
 msgstr ""
 
-#: ly2dvi.py:354
+#: ly2dvi.py:353
 msgid "don't run LilyPond"
 msgstr ""
 
-#: ly2dvi.py:355 main.cc:114
+#: ly2dvi.py:354 main.cc:113
 msgid "produce MIDI output only"
 msgstr ""
 
-#: ly2dvi.py:356 ly2dvi.py:357 main.cc:99 main.cc:112 main.cc:115
+#: ly2dvi.py:355 main.cc:99 main.cc:111 main.cc:114
 msgid "FILE"
 msgstr ""
 
-#: ly2dvi.py:356
+#: ly2dvi.py:355
 msgid "write ouput to FILE"
 msgstr ""
 
 #: ly2dvi.py:357
-msgid "find pfa fonts used in FILE"
-msgstr ""
-
-#: ly2dvi.py:359
 msgid "generate PostScript output"
 msgstr ""
 
-#: ly2dvi.py:360
+#: ly2dvi.py:358
 msgid "KEY=VAL"
 msgstr ""
 
-#: ly2dvi.py:360
+#: ly2dvi.py:358
 msgid "change global setting KEY to VAL"
 msgstr ""
 
-#: ly2dvi.py:361 main.cc:119 mup2ly.py:1120 update-lily.py:255
+#: ly2dvi.py:359 main.cc:118 mup2ly.py:1120 update-lily.py:255
 msgid "verbose"
 msgstr ""
 
-#: ly2dvi.py:362 main.cc:105 main.cc:118 mup2ly.py:1121 update-lily.py:256
+#: ly2dvi.py:360 main.cc:105 main.cc:117 mup2ly.py:1121 update-lily.py:256
 msgid "print version number"
 msgstr ""
 
-#: ly2dvi.py:363 main.cc:107 main.cc:120 mup2ly.py:1122 update-lily.py:258
+#: ly2dvi.py:361 main.cc:107 main.cc:119 mup2ly.py:1122 update-lily.py:258
 msgid "show warranty and copyright"
 msgstr ""
 
-#: ly2dvi.py:385 ly2dvi.py:580 ly2dvi.py:605
+#: ly2dvi.py:383 ly2dvi.py:578 ly2dvi.py:603
 #, c-format
 msgid "Running %s..."
 msgstr ""
 
-#: ly2dvi.py:398
+#: ly2dvi.py:396
 #, c-format
 msgid "Analyzing %s..."
 msgstr ""
 
-#: ly2dvi.py:454
+#: ly2dvi.py:452
 #, c-format
 msgid "no lilypond output found for %s"
 msgstr ""
 
-#: ly2dvi.py:496
+#: ly2dvi.py:494
 #, c-format
 msgid "invalid value: %s"
 msgstr ""
 
-#: ly2dvi.py:639
-#, c-format
-msgid "not a PostScript file: `%s'"
-msgstr ""
-
-#: ly2dvi.py:657
-#, c-format
-msgid "getopt says: `%s'"
-msgstr ""
-
-#: ly2dvi.py:824 scores.cc:44
+#: ly2dvi.py:781 scores.cc:44
 #, c-format
 msgid "dependencies output to `%s'..."
 msgstr ""
 
-#: ly2dvi.py:835
+#: ly2dvi.py:791
 #, c-format
 msgid "%s output to `%s'..."
 msgstr ""
 
-#: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:837
+#: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:793
 #: midi-score-parser.cc:24 scores.cc:136 scores.cc:142
 #, c-format
 msgid "can't find file: `%s'"
 msgstr ""
 
-#: ly2dvi.py:848
+#: ly2dvi.py:804
 msgid "no files specified on command line."
 msgstr ""
 
@@ -208,7 +193,7 @@ msgstr ""
 msgid "define macro NAME [optional expansion EXP]"
 msgstr ""
 
-#: main.cc:115 mup2ly.py:1118
+#: main.cc:114 mup2ly.py:1118
 msgid "write output to FILE"
 msgstr ""
 
@@ -426,6 +411,14 @@ msgstr ""
 msgid "Can't switch translators, I'm there already"
 msgstr ""
 
+#: beam.cc:86
+msgid "beam has less than two stems"
+msgstr ""
+
+#: beam.cc:637
+msgid "weird beam vertical offset"
+msgstr ""
+
 #: beam-engraver.cc:91 beam-engraver.cc:124
 msgid "can't find start of beam"
 msgstr ""
@@ -448,14 +441,6 @@ msgstr ""
 
 #: beam-engraver.cc:273
 msgid "beam was started here"
-msgstr ""
-
-#: beam.cc:86
-msgid "beam has less than two stems"
-msgstr ""
-
-#: beam.cc:637
-msgid "weird beam vertical offset"
 msgstr ""
 
 #: break-align-item.cc:136
@@ -482,22 +467,22 @@ msgstr ""
 msgid "none of these in my family"
 msgstr ""
 
+#: chord.cc:369
+#, c-format
+msgid "invalid subtraction: not part of chord: %s"
+msgstr ""
+
+#: chord.cc:398
+#, c-format
+msgid "invalid inversion pitch: not part of chord: %s"
+msgstr ""
+
 #: chord-tremolo-engraver.cc:141 percent-repeat-engraver.cc:192
 msgid "unterminated chord tremolo"
 msgstr ""
 
 #: chord-tremolo-iterator.cc:48
 msgid "no one to print a tremolos"
-msgstr ""
-
-#: chord.cc:376
-#, c-format
-msgid "invalid subtraction: not part of chord: %s"
-msgstr ""
-
-#: chord.cc:405
-#, c-format
-msgid "invalid inversion pitch: not part of chord: %s"
 msgstr ""
 
 #: collision.cc:127
@@ -607,73 +592,72 @@ msgstr ""
 msgid "Huh? Melismatic note found to have associated lyrics."
 msgstr ""
 
-#. print example usage:  lilypond -e "(set-lily-option 'help 0)" ?
-#: main.cc:105
+#: main.cc:104
 msgid "EXPR"
 msgstr ""
 
-#: main.cc:105
+#: main.cc:104
 msgid "evalute EXPR as Scheme after .scm init is read"
 msgstr ""
 
 #. another bug in option parser: --output=foe is taken as an abbreviation
 #. for --output-format
-#: main.cc:108
+#: main.cc:107
 msgid "EXT"
 msgstr ""
 
-#: main.cc:108
+#: main.cc:107
 msgid "use output format EXT (scm, ps, tex or as)"
 msgstr ""
 
-#: main.cc:110
+#: main.cc:109
 msgid "FIELD"
 msgstr ""
 
-#: main.cc:110
+#: main.cc:109
 msgid "write header field to BASENAME.FIELD"
 msgstr ""
 
-#: main.cc:111
+#: main.cc:110
 msgid "add DIR to search path"
 msgstr ""
 
-#: main.cc:112
+#: main.cc:111
 msgid "use FILE as init file"
 msgstr ""
 
-#: main.cc:116
+#: main.cc:115
 msgid "prepend DIR to dependencies"
 msgstr ""
 
-#: main.cc:117
+#: main.cc:116
 msgid "inhibit file output naming and exporting"
 msgstr ""
 
 #.
 #. No version number or newline here. It confuses help2man
 #.
-#: main.cc:137
+#: main.cc:136
 #, c-format
 msgid "Usage: %s [OPTION]... FILE..."
 msgstr ""
 
-#: main.cc:139
+#: main.cc:138
 msgid "Typeset music and or play MIDI from FILE"
 msgstr ""
 
-#: main.cc:143
+#: main.cc:142
 msgid ""
 "LilyPond is a music typesetter.  It produces beautiful sheet music\n"
 "using a high level description file as input.  LilyPond is part of \n"
 "the GNU Project.\n"
 msgstr ""
 
-#: main.cc:153
+#: main.cc:152
 msgid "This binary was compiled with the following options:"
 msgstr ""
 
-#: main.cc:56 main.cc:180
+#: main.cc:56 main.cc:179
 #, c-format
 msgid ""
 "This is free software.  It is covered by the GNU General Public License,\n"
@@ -681,16 +665,16 @@ msgid ""
 "certain conditions.  Invoke as `%s --warranty' for more information.\n"
 msgstr ""
 
-#: main.cc:63 main.cc:187 main.cc:199
+#: main.cc:63 main.cc:186 main.cc:198
 #, c-format
 msgid "Copyright (c) %s by"
 msgstr ""
 
-#: main.cc:197
+#: main.cc:196
 msgid "GNU LilyPond -- The music typesetter"
 msgstr ""
 
-#: main.cc:72 main.cc:205
+#: main.cc:72 main.cc:204
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License version 2\n"
@@ -720,9 +704,9 @@ msgstr ""
 msgid "silly pitch"
 msgstr ""
 
-#: music-output-def.cc:115
+#: musical-request.cc:28
 #, c-format
-msgid "can't find `%s' context"
+msgid "Transposition by %s makes accidental larger than two"
 msgstr ""
 
 #: music.cc:232
@@ -745,9 +729,9 @@ msgstr ""
 msgid "ly_music_name (): Not a music expression"
 msgstr ""
 
-#: musical-request.cc:28
+#: music-output-def.cc:115
 #, c-format
-msgid "Transposition by %s makes accidental larger than two"
+msgid "can't find `%s' context"
 msgstr ""
 
 #: my-lily-lexer.cc:139
@@ -884,13 +868,8 @@ msgstr ""
 msgid "too many notes for rest collision"
 msgstr ""
 
-#: scm-option.cc:63
+#: scm-option.cc:59
 msgid "Scheme options:"
-msgstr ""
-
-#: score-engraver.cc:188
-#, c-format
-msgid "unbound spanner `%s'"
 msgstr ""
 
 #: score.cc:78
@@ -909,6 +888,11 @@ msgstr ""
 #: score.cc:112
 #, c-format
 msgid "elapsed time: %.2f seconds"
+msgstr ""
+
+#: score-engraver.cc:188
+#, c-format
+msgid "unbound spanner `%s'"
 msgstr ""
 
 #: scores.cc:106
@@ -930,6 +914,14 @@ msgstr ""
 msgid "Separation_item:  I've been drinking too much"
 msgstr ""
 
+#: slur.cc:48
+msgid "Putting slur over rest.  Ignoring."
+msgstr ""
+
+#: slur.cc:383
+msgid "Slur over rest?"
+msgstr ""
+
 #: slur-engraver.cc:127
 msgid "unterminated slur"
 msgstr ""
@@ -940,12 +932,8 @@ msgstr ""
 msgid "can't find start of slur"
 msgstr ""
 
-#: slur.cc:48
-msgid "Putting slur over rest.  Ignoring."
-msgstr ""
-
-#: slur.cc:383
-msgid "Slur over rest?"
+#: stem.cc:116
+msgid "Weird stem size; check for narrow beams"
 msgstr ""
 
 #: stem-engraver.cc:115
@@ -953,8 +941,8 @@ msgstr ""
 msgid "Adding note head to incompatible stem (type = %d)"
 msgstr ""
 
-#: stem.cc:116
-msgid "Weird stem size; check for narrow beams"
+#: text-spanner.cc:121
+msgid "Text_spanner too small"
 msgstr ""
 
 #: text-spanner-engraver.cc:94
@@ -969,8 +957,9 @@ msgstr ""
 msgid "unterminated text spanner"
 msgstr ""
 
-#: text-spanner.cc:121
-msgid "Text_spanner too small"
+#: tfm.cc:77
+#, c-format
+msgid "can't find ascii character: %d"
 msgstr ""
 
 #: tfm-reader.cc:106
@@ -981,11 +970,6 @@ msgstr ""
 #: tfm-reader.cc:140
 #, c-format
 msgid "%s: TFM file has %u parameters, which is more than the %u I can handle"
-msgstr ""
-
-#: tfm.cc:77
-#, c-format
-msgid "can't find ascii character: %d"
 msgstr ""
 
 #. How to shut up this warning, when no notes appeared because
@@ -1124,7 +1108,7 @@ msgstr ""
 msgid "Have to be in Chord mode for chords"
 msgstr ""
 
-#: parser.yy:1911
+#: parser.yy:1910
 msgid "need integer number arg"
 msgstr ""
 

@@ -46,7 +46,10 @@ ly_find_tfm (char const * name)
     return p;
   
 #if (KPATHSEA && HAVE_KPSE_FIND_FILE)
-  return kpse_find_file (name, kpse_tfm_format, true);
+  char const * str = kpse_find_file (name, kpse_tfm_format, true);
+  if (!str)
+    str = "";
+  return String (str);
 #endif
   return "";
 }

@@ -188,7 +188,7 @@ def help ():
 	sys.stdout.write ('\n')
 	sys.stdout.write (options_help_str (option_definitions))
 	sys.stdout.write ('\n\n')
-	sys.stdout.write (_ ("Report bugs to %s") % 'bug-gnu-music@gnu.org')
+	sys.stdout.write (_ ("Report bugs to %s") % 'bug-lilypond@gnu.org')
 	sys.stdout.write ('\n')
 	sys.exit (0)
 

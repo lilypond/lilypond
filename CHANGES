@@ -1,9 +1,40 @@
-1.4.6.jcn2
+1.4.6.hwn1
 ==========
 
-* Fixes for PostScript beams and stems.
+* Change gnu-music to lilypond in email adresses.
 
+* Neutral direction down
+
+* Redhat Xdvi fix
+
+* Bugfix in stem interface description 
+
+* Bugfix: don't crash on lost TFM fonts.
+
+* Junk hash-table-* 
+
+* Syntax fixes for midi2ly.
+
+1.4.6.jcn1
+==========
+ 
+* Fixes for PostScript beams and stems.
+  
 * Use Cygwin included Python; drop Windows Python and workarounds.
+  
+1.4.6.mb1
+=========
+
+* Allow for duplicated articulation scripts with different direction.
+
+* Added new ornaments: \upmordent, \downmordent, \pralldown, \prallup,
+  \lineprall, \thumb, \comma (to be used with scriptHorizontal = ##t), 
+  see also input/test/trill.ly. [WARNING: FONT UPDATE!]
+
+* Bug fix: staccato dot placement.
+
+* Handle keys with double flats/sharps better.
+
 
 1.4.6
 =====

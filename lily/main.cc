@@ -169,7 +169,7 @@ _ (
 
   cout << endl;
 
-  cout << _f ("Report bugs to %s", "bug-gnu-music@gnu.org") << endl;
+  cout << _f ("Report bugs to %s", "bug-lilypond@gnu.org") << endl;
 }
 
 void

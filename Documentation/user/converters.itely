@@ -75,7 +75,7 @@ robust midi2ly.
 @end table
 
 
-Report bugs to @email{bug-gnu-music@@gnu.org}.
+Report bugs to @email{bug-lilypond@@gnu.org}.
 
 
 Written by @email{Jan Nieuwenhuizen, janneke@@gnu.org}.
@@ -115,7 +115,7 @@ Known: articulation scripts are buggy.  Empty measures confuse etf2ly.
 
 Written by @email{Han-Wen Nienhuys,hanwen@@cs.uu.nl}.
 
-Report bugs to @email{bug-gnu-music@@gnu.org}.
+Report bugs to @email{bug-lilypond@@gnu.org}.
 
 @node abc2ly
 @section abc2ly
@@ -175,7 +175,7 @@ abc2ly ignores the ABC beaming.
 Written by @email{Han-Wen Nienhuys,hanwen@@cs.uu.nl}.
 @c How about Laura?   /MB
 
-Report bugs to @email{bug-gnu-music@@gnu.org}.
+Report bugs to @email{bug-lilypond@@gnu.org}.
 
 @node pmx2ly
 @section pmx2ly
@@ -183,7 +183,7 @@ Report bugs to @email{bug-gnu-music@@gnu.org}.
 PMX is a MusiXTeX preprocessor written by Don Simons, see
 @uref{http://icking-music-archive.sunsite.dk/Misc/Music/musixtex/software/pmx/}.
 
-Report bugs to @email{bug-gnu-music@@gnu.org}.
+Report bugs to @email{bug-lilypond@@gnu.org}.
 
 @subsection Invoking pmx2ly
 
@@ -204,7 +204,7 @@ set output filename to FILE
 version information
 @end table
 
-Report bugs to @email{bug-gnu-music@@gnu.org}.
+Report bugs to @email{bug-lilypond@@gnu.org}.
 
 Written by @email{Han-Wen Nienhuys,hanwen@@cs.uu.nl}.
 
@@ -242,7 +242,7 @@ version information
 @var{REFFILE}
 @end table
 
-Report bugs to @email{bug-gnu-music@@gnu.org}.
+Report bugs to @email{bug-lilypond@@gnu.org}.
 
 Written by @email{Han-Wen Nienhuys,hanwen@@cs.uu.nl}.
 
@@ -289,7 +289,7 @@ converted.
 
 Written by @email{Jan Nieuwenhuizen,janneke@@gnu.org}, based on pmx2ly.
 
-Report bugs to @email{bug-gnu-music@@gnu.org}.
+Report bugs to @email{bug-lilypond@@gnu.org}.
 
 
 

@@ -24,11 +24,11 @@ FAQs}.  Also, please look in the searchable mailinglist archives:
 
 @itemize @bullet
 @item
-@uref{http://www.mail-archive.com/help-gnu-music@@gnu.org,help-gnu-music}
+@uref{http://www.mail-archive.com/lilypond-user@@gnu.org,lilypond-user}
 @item
-@uref{http://www.mail-archive.com/bug-gnu-music@@gnu.org,bug-gnu-music}
+@uref{http://www.mail-archive.com/bug-lilypond@@gnu.org,bug-lilypond}
 @item
-@uref{http://www.mail-archive.com/gnu-music-discuss@@gnu.org,gnu-music-discuss}
+@uref{http://www.mail-archive.com/lilypond-devel@@gnu.org,lilypond-devel}
 @end itemize
 
 If you are still at loss, send your questions to the @strong{mailing
@@ -58,7 +58,7 @@ yourself:
  
 @end example 
 
-@subsection I downloaded the windows32 port, and it doesn't match the website!
+i@subsection I downloaded the windows32 port, and it doesn't match the website!
 
 The website is usually made from the latest snapshots.  Binary releases,
 in particular the windows32 binaries, are only made every once in a while.

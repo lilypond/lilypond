@@ -121,7 +121,7 @@ usage()
   cout << '\n';
   cout << Long_option_init::table_str (long_option_init_a) << endl;
 
-  cout << _f ("Report bugs to %s", "bug-gnu-music@gnu.org") << endl;
+  cout << _f ("Report bugs to %s", "bug-lilypond@gnu.org") << endl;
 }
 
 void

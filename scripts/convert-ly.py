@@ -53,7 +53,7 @@ Options:
   -n, --no-version       don't add new version stamp.
       --version          print program version
 
-Report bugs to bugs-gnu-music@gnu.org
+Report bugs to bugs-lilypond@gnu.org
 
 """ % program_name)
 	

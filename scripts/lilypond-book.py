@@ -1096,7 +1096,7 @@ Options:
 
 
 
-Report bugs to bug-gnu-music@gnu.org.
+Report bugs to bug-lilypond@gnu.org.
 
 Written by Tom Cato Amundsen <tca@gnu.org> and
 Han-Wen Nienhuys <hanwen@cs.uu.nl>

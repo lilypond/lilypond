@@ -66,7 +66,10 @@ import __main__
 import operator
 import tempfile
 import traceback
-
+import resource
+ 
+ 
+       
 datadir = '@datadir@'
 sys.path.append (datadir + '/python')
 try:
@@ -267,7 +270,7 @@ def help ():
 		('\n'),
 		(options_help_str (option_definitions)),
 		('\n\n'),
-		(_ ("Report bugs to %s") % 'bug-gnu-music@gnu.org'),
+		(_ ("Report bugs to %s") % 'bug-lilypond@gnu.org'),
 		('\n')]
 	map (sys.stdout.write, ls)
 	
@@ -293,6 +296,10 @@ def system (cmd, ignore_error = 0):
 
 	Exit status of CMD
 	"""
+
+        # Attempt to fix problems with limited stack size set by Python!
+        # Sets unlimited stack size.
+        resource.setrlimit(resource.RLIMIT_STACK, (-1,-1))
 	
 	if verbose_p:
 		progress (_ ("Invoking `%s\'") % cmd)

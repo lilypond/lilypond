@@ -11,8 +11,6 @@
 #define DICTIONARY_ITER_HH
 
 #include "dictionary.hh"
-#include "hash-table-iter.hh"
-
 
 template<class V>
 class Dictionary_iter : public Hash_table_iter<String,V>
