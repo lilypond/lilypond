@@ -23,7 +23,7 @@ fi
 # If you have such a setup, invoke this script as:
 #   autoconf=autoconf2.50 ./autogen.sh
 for i in autoconf2.50 autoconf-2.50 autoconf  false; do
-  version=`$i --version 2>/dev/null | head -1 | awk '{print $NF}' | awk -F. '{print $1 * 100 + $2}'`
+  version=`$i --version 2>/dev/null | head -n 1 | awk '{print $NF}' | awk -F. '{print $1 * 100 + $2}'`
   if test "0$version" -ge 250; then
     autoconf=$i
     break

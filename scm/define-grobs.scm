@@ -101,7 +101,7 @@
 	(padding . 1.0)
 	(direction . 1)
 	(font-family . roman)
-	(font-relative-size . -1)
+	(font-size . -2)
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(self-alignment-X . 1)
@@ -123,7 +123,7 @@
 
 	;; We must do this, other BFs in
 	;; paper16 become too small.
-	(font-relative-size . -2)
+	(font-size . -4)
 	(font-magnification . 0.8) 
 	(kern . 0.2)
 	(meta . ((interfaces . (text-interface 							rhythmic-grob-interface
@@ -369,12 +369,11 @@
      . (
 	(molecule-callback . ,Text_item::brew_molecule)
 	(padding . 0.6)
-	;;		(direction . -1)
 	(self-alignment-X . 0)
 	(self-alignment-Y . 0)
 	(script-priority . 100)
 	(font-family . number)
-	(font-relative-size . -3)
+	(font-size . -4)
 	(font-shape . upright)
 	(meta . ((interfaces . (finger-interface font-interface text-script-interface text-interface side-position-interface self-alignment-interface item-interface ))))
 	))
@@ -519,10 +518,9 @@
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))	
 	(self-alignment-X . 0)
-	(break-align-symbol . time-signature)
 	(direction . 1)
 	(breakable . #t)
-	(font-relative-size . 1)
+	(font-size . 2)
 	(font-family . roman)
 	(baseline-skip . 2)
 	(break-visibility . ,end-of-line-invisible)
@@ -661,7 +659,7 @@
 	(molecule-callback . ,Text_item::brew_molecule)
 	(font-shape . italic)
 	(padding . 0.4)
-	(font-relative-size . -2)
+	(font-size . -4)
 	(font-family . roman)
 	(meta . ((interfaces . (text-interface self-alignment-interface side-position-interface font-interface item-interface ))))
 	))
@@ -1168,7 +1166,7 @@
 	(font-shape . italic)
 	(font-series . bold)
 
-	(font-relative-size . -1)
+	(font-size . -2)
 	(meta .  ((interfaces . (text-interface tuplet-bracket-interface font-interface spanner-interface))))
 	))
 
@@ -1217,7 +1215,7 @@
 	(height . 2.0) ; staffspace;
 	(minimum-space . 5)
 	(font-family . number)
-	(font-relative-size . -2)
+	(font-size . -4)
 	(meta . ((interfaces . (volta-bracket-interface text-interface side-position-interface font-interface spanner-interface))))
 	))
     

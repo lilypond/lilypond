@@ -8057,7 +8057,10 @@ This translates an object. Its first argument is a cons of numbers
 @example
 A \translate #(cons 2 -3) @{ B C @} D
 @end example
-This moves `B C' 2 spaces to the right, and 3 down.
+This moves `B C' 2 spaces to the right, and 3 down, relative to its
+surroundings. This command cannot be used to move isolated scripts
+vertically, for the same reason that @code{\raise} cannot be used for
+that.
 
 @item \magnify  #@var{mag}
 @cindex @code{\magnify}

@@ -8,6 +8,12 @@
 @chapter New features in 2.1 since 2.0
 
 @itemize
+@item Processing scores is now done while parsing the file. New
+Scheme functions give more flexibility: for example, it is now possible
+interpret a score, collecting synchronized musical events in a list, and
+manipulate that information using inline Scheme. For an example, see
+@file{input/no-notation/recording.ly}.
+
 @item Font sizes can now truly be scaled continuously: the  @code{font-size}
 is similar to the old @code{font-relative-size}, but may be set to
 fractional values; the closest design size will be scaled to achieve

@@ -157,8 +157,8 @@ Lyric_combine_music_iterator::do_quit ()
     music_iter_->quit();
   if (lyric_iter_)
     lyric_iter_->quit();
-  
 }
+
 Lyric_combine_music_iterator::Lyric_combine_music_iterator (Lyric_combine_music_iterator const & src)
     : Music_iterator (src)
 {

@@ -54,7 +54,7 @@ if [ true ]; then
 		echo "$name: huh 2?"
 		exit 1
 	fi
-	LATEST=`cd $reldir; ls -t1 stepmake-*.tar.gz | head -1 | sed 's!stepmake-!!' | sed 's!.tar.gz!!'`
+	LATEST=`cd $reldir; ls -t1 stepmake-*.tar.gz | head -n 1 | sed 's!stepmake-!!' | sed 's!.tar.gz!!'`
 	# urg
 	latest=`echo $LATEST | sed 's/\.[a-zA-Z][a-zA-Z]*[0-9]*$//'`
 	latest_val=`value $latest`
