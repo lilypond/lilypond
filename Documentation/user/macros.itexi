@@ -112,7 +112,7 @@ b
 
 @ifinfo
 @macro internalsref{NAME}
-@inforef{\NAME\,,lilypond-internals}@c
+@inforef{\NAME\,,lilypond/lilypond-internals}@c
 @cindex \NAME\@c
 @end macro
 
@@ -145,9 +145,17 @@ internals document,  @internalsref{\NAME\}
 @end macro
 @end ifnottex
 
+@ifinfo
+@macro usermanref{NAME}
+@ref{\NAME\,,,lilypond/lilypond}@c
+@end macro
+@end ifinfo
+
+@ifnotinfo
 @macro usermanref{NAME}
 @ref{\NAME\}@c
 @end macro
+@end ifnotinfo
 
 @macro refbugs
 @noindent
