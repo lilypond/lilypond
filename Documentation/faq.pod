@@ -138,6 +138,22 @@ output PostScript or render to an X window too)
 
 =head2 Miscellaneous
 
+Q: Do you support pop songs (chords, single staff, lyrics)?
+
+A: Yes, see the twinkle-pop example
+
+Q: Do you support guitar chord diagrams?
+
+A: No, not yet. We ourselves don't play guitar, and don't know the
+fine points of this notation.  We would welcome anyone who could give
+this a try.
+
+Q: Do you support TAB notation
+
+A: No. The same as for the previous question goes, but TAB is a lot
+more work than diagrams (TAB needs modification of Parser, Lexer,
+Notehead, Stem, and stem-code. )
+
 Q: How do I change the TeX layout?
 
 A: See lilyponddefs.tex, it has some comments.
@@ -199,21 +215,21 @@ Q: I want a DOS/NT/W95 port.
 
 A.0: Reconsider.  Try Linux.  It's fun!
 
-A.1: Currently (patchlevel 27), GNU LilyPond (and flowerLib) compiles, links
-and runs on windhoos-nt, using the cygnus gnu port (release b17.1). 
+A.1: Currently (patchlevel 27), GNU LilyPond (and flowerLib) compiles, 
+links and runs on Windows-nt, using Cygnus' gnu port (release b17.1). 
 I (JCN) only had to make a minor workaround for missing library calls.  
-Have a look at http://www.cygnus.com/gnu-win32.  To make GNU LilyPond type
-C<make $OSTYPE>. (I am not promising to maintain this platform, it is just 
-that when having to use doze, i-m sometimes too lazy to reboot.)
+Have a look at http://www.cygnus.com/gnu-win32.  To make GNU LilyPond 
+type C<make>. (I am not promising to maintain this platform, it is just
+that when forced into doze, i'm sometimes too lazy to reboot.)
 
 A.2: I haven't had time to find a GCC crosscompiler (I<with> g++ and
-libg++, mind you) to DOS/win (in rpm, please :-)
+libg++, mind you) to DOS/Windows (in rpm, please :-)
 
 
-Q: I-m dozed enough to run the (sometimes bit stale) .exe-s you distribute. 
+Q: I just love to blindly run the (sometimes bit stale) .exe's you distribute. 
 Why do i need cygwin.dll?
 
-A: It-s all in this cut-n-paste:
+A: It's all in this cut-n-paste:
 
 Minimalist GNU-Win32 Readme                   
 version 0.1.3                           
