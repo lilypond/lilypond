@@ -16,6 +16,8 @@
 class Change_iterator : public Music_iterator
 {
   Change_translator *change_l_;
+
+  void  error (String);
   
 public:
   DECLARE_MY_RUNTIME_TYPEINFO;

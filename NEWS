@@ -1,4 +1,20 @@
 
+pl 45
+	- bf: translator switching 
+	- SunOS and IRIX patches (AO)
+	- preludes bugfixes; preludes.tex ugh (JCN)
+	- shared lib numbering (AF)
+	- various fixes for debian (AF)
+	- ly2dvi .6.jaf (JAF)
+
+pl 44.jcn5
+	- bf: crescendo.cc: bigger and use bar_size
+	- slur: guess extra height for height limit for extending notes/stems
+	- ps: adjustable slur height limit, bf crescendo
+
+
+******
+feb 6
 pl 44
 	- ly2dvi 0.6.hwn1 
 	- ly2dvi 0.6 (JAF)
