@@ -14,7 +14,6 @@ stafflinethickness = \staffspace / 2.0
 \translator { \NoteNamesContext }
 \translator { \ScoreContext }
 \translator { \ChoirStaffContext }
-\translator { \GraceContext }
 \translator { \RhythmicStaffContext}
 \translator { \StaffContext }
 \translator { \VoiceContext }

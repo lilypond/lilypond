@@ -1,3 +1,7 @@
+2003-05-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* ly/engraver-init.ly: remove GraceContext. Update examples.
+
 2003-05-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* GNUmakefile.in (fonts): Also make fontball.
@@ -15,6 +19,8 @@
 
 2003-05-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION: 1.7.19 released
+	
 	* scm/music-functions.scm (set-octavation): new function.
 
 	* input/regression/ottava.ly: new file

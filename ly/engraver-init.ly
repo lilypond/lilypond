@@ -1,11 +1,6 @@
 \version "1.7.18"
 
 
-% web site build hack
-GraceContext = \translator{
-        \type "Engraver_group_engraver"
-}
-
 
 %
 % setup for Request->Element conversion. Guru-only

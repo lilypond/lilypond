@@ -7,23 +7,14 @@
  title="Flower of Scotland"
 }
 
+#(add-to-grace-init NoteHead 'font-relative-size -2)
+#(add-to-grace-init Stem 'stroke-style "")
+#(add-to-grace-init Stem 'length 6)
+#(add-to-grace-init Stem 'font-relative-size -2)
+
 \paper {
   linewidth = 14.0 \cm
   indent = 0.0 \cm
-  \translator {
-  	\GraceContext
-
-	NoteHead \override #'font-relative-size = #-2
-	NoteHead \override #'font-relative-size = #-2	
-        Stem \override #'stroke-style = #""
-    % The following determines the length of stems without beams
-    % default is between 2.8 and 4.0 depending on the number of flags
-         Stem \override #'length = #6	
-        Stem \override #'font-relative-size = #-2
-	GraceAlignItem \override #'horizontal-space = #1
-	Stem \override #'stroke-style = #""
- 
-  }
   \translator { \StaffContext
   	TimeSignature \override #'style = #'C
 %  	TimeSignature \override #'visibility-function = #begin-of-line-visible
