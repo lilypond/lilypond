@@ -298,9 +298,10 @@
 	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent
 			       ,Self_alignment_interface::aligned_on_self))
 	(padding . 0.6)
-					;		(direction . -1)
+	;;		(direction . -1)
 	(self-alignment-X . 0)
 	(self-alignment-Y . 0)
+	(script-priority . 100)
 	(font-family . number)
 	(font-relative-size . -3)
 	(font-shape . upright)
@@ -667,7 +668,8 @@
 
 	;; This value is sensitive: if too large, staccato dots will move a
 	;; space a away.
-	(padding . 0.25) 
+	(padding . 0.25)
+	;; (script-priority . 0) priorities for scripts, see script.scm
 	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent))
 	(before-line-breaking-callback . ,Script_interface::before_line_breaking)
 	(font-family . music)
@@ -914,6 +916,7 @@
 	(no-spacing-rods . #t)
 	(direction . -1)
 	(padding . 0.5)
+	(script-priority . 200)
 	;; todo: add X self alignment?
 	(baseline-skip . 2)
 	(font-family . roman)

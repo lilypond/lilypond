@@ -27,6 +27,7 @@ static char const *eat_spanners[] = {
   "beam",
   "crescendo",
   "decrescendo",
+  "rest",
   "slur",
   0
 };

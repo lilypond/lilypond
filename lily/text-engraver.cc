@@ -99,11 +99,16 @@ Text_engraver::process_acknowledged_grobs ()
       Axis ax = to_boolean (axisprop) ? X_AXIS : Y_AXIS;
       Side_position_interface::set_axis (text, ax);
 
-      /*
-	make sure they're in order by adding i to the priority field.
-	*/
-      text->set_grob_property ("script-priority",
-			      gh_int2scm (200 + i));
+      // Hmm
+      int priority = 200;
+      SCM s = text->get_grob_property ("script-priority");
+      if (gh_number_p (s))
+	priority = gh_scm2int (s);
+      
+      /* Make sure they're in order of user input by adding index i. */
+      priority += i * (r->get_direction () ? r->get_direction () : 1);
+      
+      text->set_grob_property ("script-priority", gh_int2scm (priority));
 
       if (r->get_direction ())
 	Side_position_interface::set_direction (text, r->get_direction ());
