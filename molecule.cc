@@ -11,13 +11,19 @@ Atom::extent() const
     return b;
 }
 
+Atom::Atom(const Symbol * s)
+{
+    sym=s;
+}
+
 String
 Atom::TeXstring() const
 {
     // whugh.. Hard coded...
     String s("\\raise");
     s+= String(off.y * VERT_TO_PT)+"pt\\hbox to 0pt{\\kern ";
-    s+=String(off.x * HOR_TO_PT) + "pt" + sym->tex + "\\hss}";
+    s+= String(off.x * HOR_TO_PT) + "pt";
+    s+= sym->tex + "\\hss}";
     return s;
 }
 
