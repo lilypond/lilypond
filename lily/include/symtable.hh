@@ -1,16 +1,23 @@
 /*
-  lilypond, (c) 1996,97 Han-Wen Nienhuys
+  symtable.hh -- declare 
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
+
+
 #ifndef SYMTABLE_HH
 #define SYMTABLE_HH
+
 #include "dictionary.hh"
 #include "string.hh"
-#include "symbol.hh"
+#include "atom.hh"
 
-struct  Symtable : public Dictionary<Symbol> {
+struct  Symtable : public Dictionary<Atom> {
     String id_str;
     
-    Symbol lookup (String) const;
+    Atom lookup (String) const;
     void print() const;
 };
 

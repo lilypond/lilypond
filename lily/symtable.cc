@@ -10,7 +10,7 @@
 #include "dimen.hh"
 #include "debug.hh"
 #include "real.hh"
-#include "symbol.hh"
+#include "atom.hh"
 #include "assoc.hh"
 #include "assoc-iter.hh"
 #include "symtable.hh"
@@ -35,7 +35,7 @@ Symtables::~Symtables()
     }
 }
 
-Symbol 
+Atom 
 Symtable::lookup (String s) const
 {
   if (elt_b (s))
@@ -43,7 +43,7 @@ Symtable::lookup (String s) const
   else 
     {
       warning ("Symtable `" + id_str+ "\': unknown symbol `" +s+"'\n");
-      Symbol sy;	
+      Atom sy;	
       return sy;
     }
 }
@@ -66,7 +66,7 @@ Symtables::print() const
 void
 Symtable::print() const
 {
-  for (Assoc_iter<String, Symbol>  i (*this); i.ok(); i++) 
+  for (Assoc_iter<String, Atom>  i (*this); i.ok(); i++) 
     {
       DOUT << "\'" << i.key() << "\'->" << i.val ().str () << "\n";
     }

@@ -9,7 +9,7 @@
 
 #include "general-script-def.hh"
 #include "debug.hh"
-#include "symbol.hh"
+#include "atom.hh"
 Direction
 General_script_def::staff_dir() const
 {
@@ -65,7 +65,7 @@ General_script_def::do_print() const
 Atom
 General_script_def::get_atom (Paper_def*, Direction) const
 {
-  Symbol s;
+  Atom s;
   return Atom (s);
 }
 

@@ -32,7 +32,7 @@ public:
     SCORE_ELEM_CLONE(Piano_brace);
 protected:
     virtual Interval do_width() const;
-    virtual Symbol get_bar_sym (Real) const;
+    virtual Atom get_bar_sym (Real) const;
 };
 
 #endif // SPAN_SCORE_BAR_HH

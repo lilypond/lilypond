@@ -30,7 +30,7 @@ protected:
   DECLARE_MY_RUNTIME_TYPEINFO;
     
 private:
-  Symbol get_symbol() const;
+  Atom get_symbol() const;
 };
 
 #endif // CRESCENDO_HH

@@ -8,7 +8,7 @@
 
 #include "debug.hh"
 #include "script-def.hh"
-#include "symbol.hh"
+#include "atom.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
 

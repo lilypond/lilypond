@@ -12,7 +12,7 @@
 #include "text-def.hh"
 #include "debug.hh"
 #include "paper-def.hh"
-#include "symbol.hh"
+#include "atom.hh"
 
 
 void

@@ -199,7 +199,7 @@ struct Stem_beam_engraver;
 struct Stem_req;
 struct String;
 struct Subtle_req;
-struct Symbol;
+struct Atom;
 struct Symtable;
 struct Symtables;
 struct Super_elem;

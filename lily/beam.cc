@@ -21,7 +21,7 @@
 #include "abbreviation-beam.hh"
 #include "misc.hh"
 #include "debug.hh"
-#include "symbol.hh"
+#include "atom.hh"
 #include "molecule.hh"
 #include "leastsquares.hh"
 #include "stem.hh"
@@ -304,8 +304,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       int lhalfs= lhalfs = here->beams_left_i_ - prev->beams_right_i_ ;
       int lwholebeams= here->beams_left_i_ <? prev->beams_right_i_ ;
       Real w = (here->hpos_f () - prev->hpos_f ())/4;
-      Symbol dummy;
-      Atom a (dummy);
+      Atom a;
       if (lhalfs)		// generates warnings if not
 	a =  paper()->lookup_l ()->beam (sl, w);
       a.translate (Offset (-w, -w * sl));

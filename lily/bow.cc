@@ -44,12 +44,10 @@ Bow::brew_molecule_p() const
   w+= (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]) * nw_f ;
   Real round_w = w;		// slur lookup rounds the slurwidth .
   
-  Symbol sl = paper()->lookup_l ()->slur (dy , round_w, dir_);
+  Atom a = paper()->lookup_l ()->slur (dy , round_w, dir_);
 
   Real error = w-round_w;
-  
-  Atom a (sl);
-  a.translate (Offset ((dx_f_drul_[LEFT] + 0.5)*nw_f + error/2,
+    a.translate (Offset ((dx_f_drul_[LEFT] + 0.5)*nw_f + error/2,
 		       pos_i_drul_[LEFT] * nh_f));
   output->add (a);
   return output;

@@ -6,7 +6,7 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
-#include "symbol.hh"
+#include "atom.hh"
 #include "molecule.hh"
 #include "plist.tcc"
 #include "pcursor.tcc"
