@@ -1,0 +1,31 @@
+This describes the ownership of certain classes in LilyPond. +
+signifies a "list of". (This is not complete)
+
+Score:
+	Paperdef
+	Staff+
+	Score_commands
+	Score_columns+
+	PScore
+		
+Staff:
+	Voice
+	Staff_column+
+	Command+
+
+
+Voice:
+	Voice_element
+
+Voice_element:
+	Request+
+
+
+PScore:
+	PStaff+
+	PCol+
+	Idealspacing+
+	Item+
+	Spanner+
+	Spanner+ (broken)
+	

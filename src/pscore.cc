@@ -13,7 +13,7 @@ void
 PScore::clean_cols()
 {
     for (PCursor<PCol *> c(cols); c.ok(); )
-	if (!c->used) {
+	if (!c->used()) {
 	    c.del();
 	} else
 	    c++;
@@ -71,8 +71,7 @@ PScore::typeset_spanner(Spanner*sp, PStaff*ps)
     sp->pstaff_ = ps;
     spanners.bottom().add(sp);
     ps->spans.bottom().add(sp);
-    sp->left->starters.bottom().add(sp);
-    sp->right->stoppers.bottom().add(sp);
+    // do not init start/stop fields. These are for broken spans only.
 }
 
 
@@ -83,7 +82,7 @@ PScore::add_line(svec<const PCol *> curline, svec<Real> config)
     lines.bottom().add(p);   	
     for (int i=0; i < curline.sz(); i++){
 	PCol *c=(PCol *)curline[i]; // so, this isn't really const.
-	c->hpos= config[i];
+	c->hpos = config[i];
     }
 }
 
@@ -104,6 +103,15 @@ PScore::get_spacing(PCol*l, PCol*r)
 }
 
 
+int
+PScore::compare_pcols(const PCol*a, const PCol*b)const
+{
+    PCursor<PCol*> ac(find_col(a));
+    PCursor<PCol*> bc(find_col(b));
+    assert(ac.ok() && bc.ok());
+    return ac - bc;
+}
+
 /*
   return all breakable columns
  */
@@ -121,6 +129,11 @@ PScore::find_breaks() const
 void
 PScore::add(PCol *p)
 {
+    p->pscore_ = this;
+    if (p->breakable()){
+	p->prebreak->pscore_ = this;
+	p->postbreak->pscore_ = this;
+    }
     cols.bottom().add(p);
 }
 
@@ -196,10 +209,28 @@ PScore::preprocess()
 void
 PScore::postprocess()
 {
-    for (PCursor<Spanner*> ic(spanners); ic.ok(); ic++) {
+    for (PCursor<Spanner*> ic(broken_spans); ic.ok(); ic++) {
 	ic->process();
     }
     for (PCursor<Item*> ic(its); ic.ok(); ic++){
 	ic->postprocess();
     }
+}
+
+PCursor<PCol *>
+PScore::find_col(const PCol *c)const
+{
+    PCursor<PCol*> cc(cols);
+    for (; cc.ok(); cc++)
+	if (cc.ptr() == c || cc->prebreak == c || cc->postbreak == c)
+	    return cc;
+    return cc;
+}
+
+void
+PScore::add_broken(Spanner*s)
+{
+    broken_spans.bottom().add(s);
+    s->left->starters.bottom().add (s);
+    s->right->stoppers.bottom().add (s);
 }

@@ -30,8 +30,13 @@ struct PScore {
     /// crescs etc; no particular order
     IPointerList<Spanner *> spanners;
 
-    /****************************************************************/
+    /// broken spanners
+    IPointerList<Spanner*> broken_spans;
 
+    /****************/
+
+    void add_broken(Spanner*);
+    
     svec<Item*> select_items(PStaff*, PCol*);
 
     /// before calc_breaking
@@ -78,7 +83,7 @@ struct PScore {
     */
 
     /// return argument as a cursor.
-    PCursor<PCol *> find_col(PCol *);
+    PCursor<PCol *> find_col(const PCol *)const;
 
     /// delete unused columns
     void clean_cols();
@@ -94,6 +99,9 @@ struct PScore {
 
     /// does curline fit on the paper?
     bool feasible(svec<const PCol *> curline) const;
+
+    /// which is first (left, higher)
+    int compare_pcols(const PCol*, const PCol*)const;
 };
 /** notes, signs, symbols in a score can be grouped in two ways:
     horizontally (staffwise), and vertically (columns). #PScore#
