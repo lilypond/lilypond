@@ -25,11 +25,6 @@ Axis_group_interface (Score_element*s)
 void
 Axis_group_interface::add_element (Score_element *e)
 {
-
-  // ugh. used_b_ should be junked.
-  elt_l_->used_b_ = true;
-  e->used_b_ = true;
-
   for (SCM ax = elt_l_->get_elt_property ("axes"); ax != SCM_EOL ; ax = gh_cdr (ax))
     {
       Axis a = (Axis) gh_scm2int (gh_car (ax));
@@ -38,7 +33,7 @@ Axis_group_interface::add_element (Score_element *e)
 	e->set_parent (elt_l_, a);
     }
 
-  Group_interface (elt_l_).add_element (e);
+  Pointer_group_interface (elt_l_).add_element (e);
   elt_l_->add_dependency (e);
 }
 
@@ -68,14 +63,14 @@ Axis_group_interface::group_extent_callback (Score_element const*me, Axis a)
 {
   Score_element * common =(Score_element*) me;
 
-  for (SCM s = me->get_elt_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = me->get_elt_pointer ("elements"); gh_pair_p (s); s = gh_cdr (s))
     {
       Score_element * se = unsmob_element (gh_car (s));
       common = se->common_refpoint (common, a);
     }
 
   Real my_coord = me->relative_coordinate (common, a);
-  Interval r (relative_group_extent (a, common, me->get_elt_property ("elements")));
+  Interval r (relative_group_extent (a, common, me->get_elt_pointer ("elements")));
 
   return r - my_coord;
 }
@@ -85,24 +80,31 @@ Axis_group_interface::set_interface ()
 {
   if (!has_interface_b ())
     {
-      elt_l_->set_elt_property ("elements", SCM_EOL);
+      elt_l_->set_elt_pointer ("elements", SCM_EOL);
       elt_l_->set_elt_property ("transparent", SCM_BOOL_T); //  junk this?
-      elt_l_->set_elt_property ("axes" , SCM_EOL);
-      group (elt_l_, "interfaces").add_thing (ly_symbol2scm ("Axis_group"));
+
+      Group_interface (elt_l_, "interfaces").add_thing (ly_symbol2scm ("Axis_group"));
     }
 }
 
 void
 Axis_group_interface::set_axes (Axis a1, Axis a2)
 {
-  // set_interface () ? 
+  // set_interface () ?
+  SCM sa1= gh_int2scm (a1);
+  SCM sa2 = gh_int2scm (a2);
 
-  SCM ax = gh_cons (gh_int2scm (a1), SCM_EOL);
-  if (a1 != a2)
-    ax= gh_cons (gh_int2scm (a2), ax);
-
+  SCM prop = elt_l_->get_elt_property ("axes");
   
-  elt_l_->set_elt_property ("axes", ax);
+  if (prop == SCM_UNDEFINED
+      || scm_memq (sa1, prop) == SCM_BOOL_F
+      || scm_memq (sa2, prop) == SCM_BOOL_F)
+    {
+      SCM ax = gh_cons (sa1, SCM_EOL);
+      if (a1 != a2)
+	ax= gh_cons (sa2, ax);
+      elt_l_->set_elt_property ("axes", ax);
+    }
 
   if (a1 != X_AXIS && a2 != X_AXIS)
     elt_l_->set_extent_callback (0, X_AXIS);
@@ -122,7 +124,7 @@ Axis_group_interface::get_children ()
   if (!has_interface_b ())
     return childs;
   
-  for (SCM ep = elt_l_->get_elt_property ("elements"); gh_pair_p (ep); ep = gh_cdr (ep))
+  for (SCM ep = elt_l_->get_elt_pointer ("elements"); gh_pair_p (ep); ep = gh_cdr (ep))
     {
       Score_element* e = unsmob_element (gh_car (ep));
       if (e)
