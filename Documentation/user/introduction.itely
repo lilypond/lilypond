@@ -712,9 +712,9 @@ there is an extensive index@footnote{If you are looking for something,
 and you cannot find it in the manual, that is considered a bug.  In
 that case, please file a bug report.}, but the document is also
 available in
-@ifnothtml
+@iftex
 a big HTML page,
-@end ifnothtml
+@end iftex
 @ifhtml
 @uref{../lilypond.html, a big HTML page}
 @end ifhtml
@@ -727,14 +727,17 @@ browser.
 @c add/integrate glossary, put in list above
 If you are not familiar with music notation or music terminology
 (especially if you are a non-native English speaker), it is advisable
-to consult the glossary as well.  The glossary explains musical terms,
-and includes translations to various languages.  It is a
-@ifhtml
-@uref{../music-glossary.html,separate document}.
-@end ifhtml
-@ifnothtml
-separate document, available in HTML and PDF.
-@end ifnothtml
+to consult the glossary as well.
+@iftex
+The music glossary explains musical terms, and includes translations
+to various languages.  It is a separate document, available in HTML
+and PDF.
+@end iftex
+@ifnottex
+The @ref{music-glossary,Music glossary,,music-glossary}, explains musical terms and
+includes translations to various languages.  It is also available in
+PDF.
+@end ifnottex
 @cindex idiom
 @cindex jargon
 @cindex terminology
@@ -744,14 +747,16 @@ separate document, available in HTML and PDF.
 
 This manual is not complete without a number of other documents.  They
 are not available in print, but should be included with the
-documentation package for your platform:
+documentation package for your platform
 
 @itemize @bullet
 @item
+@iftex
 Program reference
-@ifhtml
-(available @uref{../lilypond-internals/lilypond-internals.html,here})
-@end ifhtml
+@end iftex
+@ifnottex
+@ref{lilypond-internals,Program reference,,lilypond-internals}.
+@end ifnottex
 
 The program reference is a set of heavily cross linked HTML pages,
 which document the nitty-gritty details of each and every LilyPond
@@ -768,9 +773,11 @@ generated documentation.  In the HTML document, these subsections
 have clickable links.
 
 @item
-Various input examples
+@ifnothtml
+Various input examples.
+@end ifnothtml
 @ifhtml
-(available @uref{../../../../input/test/out-www/collated-files.html,here})
+@uref{../../../../input/test/out-www/collated-files.html,Various input examples}.
 @end ifhtml
 @cindex snippets
 
@@ -779,9 +786,11 @@ available as a big HTML document, with pictures and explanatory texts
 included.
 
 @item
-The regression tests
+@ifnothtml
+The regression tests.
+@end ifnothtml
 @ifhtml
-(available @uref{../../../../input/regression/out-www/collated-files.html,here})
+@uref{../../../../input/regression/out-www/collated-files.html,The regression tests}.
 @end ifhtml
 
 This collection of files tests each notation and engraving feature of

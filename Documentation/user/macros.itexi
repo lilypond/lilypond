@@ -1,20 +1,5 @@
 @c -*- coding: latin-1; mode: texinfo; -*-
 
-
-@c Reference GLOSsary
-@macro rglos {NAME}
-@ifhtml
-@c ugh: @ref assumes that external refs are split documents too
-@html
-<a style="text-decoration: none; color: inherit;" href="../music-glossary.html#\NAME\">\NAME\</a>@c
-@end html
-@end ifhtml
-@ifnothtml
-\NAME\@c
-@end ifnothtml
-@end macro
-
-
 @ifnottex
   @macro texisharp {word}
   #
@@ -57,13 +42,9 @@
 @end macro
 
 
-
-@c dup?
 @ifhtml
+@c ***** HTML *****
 
- @c ***** HTML *****
-
-@macro internalsref{NAME}@c
 @c makeinfo-4.7 encodes html names, which means that nodes that
 @c contain nonalphanum characters will be broken links on the website.
 @c @uref{../lilypond-internals/\NAME\.html,\NAME\}@c
@@ -71,44 +52,48 @@
 @c better than a broken link.
 @c @inforef{\NAME\,,lilypond-internals}@c
 @c using @ref without punctuation is OK without for formats other than info
+
+@macro internalsref{NAME}@c
 @ref{\NAME\,,,lilypond-internals}@c
-@c should we do this? 
 @findex \NAME\
 @end macro
 
+@macro inputfileref{DIR,NAME}
+@uref{../../../../\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
+@end macro
 
- @macro inputfileref{DIR,NAME}
- @uref{../../../../\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
- @end macro
-
+@macro rglos{NAME}@c
+@c annoying parentheses
+@ref{\NAME\,,,music-glossary}@c
+@findex \NAME\
+@end macro
+ 
 @end ifhtml
 
-@c dup?
+
 @ifdocbook
+@c ***** DOCBOOK-XML *****
 
- @c ***** DOCBOOK-XML *****
-
- @macro internalsref{NAME}
- @c makeinfo-4.7 encodes html names
- @c @uref{../lilypond-internals/\NAME\.html,\NAME\}@c
- @ref{\NAME\,,,lilypond-internals}@c
- @c should we do this? 
- @findex @code{\NAME\}
- @end macro
+@macro internalsref{NAME}
+@ref{\NAME\,,,lilypond-internals}@c
+@findex @code{\NAME\}
+@end macro
  
- @macro usermanref{NAME}
- @ref{\NAME\,,,lilypond}@c
- @end macro
+@macro inputfileref{DIR,NAME}
+@uref{../../../../\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
+@end macro
 
- @macro inputfileref{DIR,NAME}
- @uref{../../../../\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
- @end macro
+@macro rglos{NAME}@c
+@ref{\NAME\,,,music-glossary}@c
+@findex \NAME\
+@end macro
 
 @end ifdocbook
 
-@ifinfo
 
+@ifinfo
 @c **** INFO ****
+
 @macro internalsref{NAME}
 @inforef{\NAME\,,lilypond-internals}@c
 @findex \NAME\@c
@@ -118,11 +103,17 @@
 @file{\DIR\/\NAME\}
 @end macro
 
+@macro rglos{NAME}@c
+@inforef{\NAME\,,,music-glossary}@c
+@findex \NAME\
+@end macro
+
 @macro usermanref{NAME}
 @inforef{\NAME\,,lilypond}@c
 @end macro
 
 @end ifinfo
+
 
 @c **** TEX ****
 @iftex
@@ -136,6 +127,11 @@
 @file{\DIR\/@/\NAME\}@c
 @end macro
 
+@macro rglos {NAME}
+@findex \NAME\ @c
+@code{\NAME\}@c
+@end macro
+
 @macro seeinternals{NAME}
 internals document, @internalsref{\NAME\}
 @end macro
@@ -145,18 +141,20 @@ user manual, @internalsref{\NAME\}
 @end macro
 
 @end iftex
+
+@ifnottex
 @c **** not TEX ****
 
-@ifnottex
- @macro seeinternals{NAME}
- @internalsref{\NAME\}
- @end macro
-@end ifnottex
+@macro seeinternals{NAME}
+@internalsref{\NAME\}
+@end macro
 
-@ifnottex
- @macro usermanref{NAME}
- @ref{\NAME\}@c
- @end macro
+@ifnotinfo
+@macro usermanref{NAME}
+@ref{\NAME\}@c
+@end macro
+@end ifnotinfo
+
 @end ifnottex
 
 @macro refbugs
@@ -181,22 +179,6 @@ user manual, @internalsref{\NAME\}
 @code{\NAME\}@c should use internalsref
 @findex \NAME\@c
 @end macro
-
-@c I want
-@c @cindex @code{@backslash\WHAT\}
-@c how do I do that?  --hwn
-
-@ignore
-
-Is this question still relevant?  With texinfo 4.7,
-escape the backslash, like so  --jcn
-
-@macro refcommand{WHAT}
-@cindex @code{\\\WHAT\}
-@code{\WHAT\},
-@end macro
-
-@end ignore
 
 @macro refcommand{WHAT}
 @findex \WHAT\

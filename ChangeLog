@@ -1,3 +1,19 @@
+2005-04-01  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/user/tutorial.itely (Running LilyPond for the
+	first time): Add/replace some @rglos links.  TODO: add more
+	@rglos links in tutorial, test non-intrusiveness (.css).
+
+	* stepmake/bin/add-html-footer.py (do_file): Remove info's
+	annoying's indication of referencing external document.
+
+	* Documentation/user/GNUmakefile: Split version of glossary too.
+	* Documentation/user/macros.itexi (@rglos): Have makeinfo produce
+	links, not only for html.
+
+	* Documentation/user/introduction.itely: Fix some links for other
+	than html, do not use `here' as link name.
+
 2005-03-31  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/documentation-generate.scm (string-append): Fix @usermanref,
