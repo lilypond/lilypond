@@ -2,7 +2,7 @@
 
 %define name lilypond
 %define version @TOPLEVEL_VERSION@
-%define release 2mdk
+%define release 4mdk
 
 Summary:	A program for printing sheet music.
 Name:		%{name}
@@ -12,12 +12,9 @@ License:	GPL
 Group:		Applications/Publishing
 URL:		http://www.lilypond.org/
 Source0:	ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-%{version}.tar.gz
-# Source1:	%name-16x16.png.tar.bz2
-# Source2:	%name-32x32.png.tar.bz2
-# Source3:	%name-48x48.png.tar.bz2
 BuildRoot:	%{_tmppath}/%{name}-buildroot
 BuildRequires:	t1utils bison texinfo
-Requires:	tetex tetex-latex
+Requires:	tetex tetex-latex chkfontpath XFree86 info-install
 
 %description
 LilyPond is a music typesetter.  It produces beautiful sheet music using a
@@ -97,23 +94,23 @@ tar -C web -xzf out/web.tar.gz
 # Every entry must be changed according package specifications
 # Pay attention to "section" "command" and "longtitle"
 
-# mkdir -p $RPM_BUILD_ROOT%{_menudir}
-# cat >$RPM_BUILD_ROOT%{_menudir}/%{name} <<EOF
-# ?package(%name): command="%{_bindir}/%{name}" needs="X11" \
-# icon="%{name}.png" section="Applications/Publishing" \
-# title="%{name}" longtitle="%{name}"
-# EOF
+mkdir -p $RPM_BUILD_ROOT%{_menudir}
+cat >$RPM_BUILD_ROOT%{_menudir}/%{name} <<EOF
+?package(%name): command="%{_bindir}/%{name}" needs="X11" \
+icon="%{name}.xpm" section="Applications/Publishing" \
+title="%{name}" longtitle="%{name}"
+EOF
   
 # icon
-# install -d $RPM_BUILD_ROOT/%{_miconsdir}
-# install -d $RPM_BUILD_ROOT/%{_iconsdir}
-# install -d $RPM_BUILD_ROOT/%{_liconsdir}
-# bzcat %{SOURCE1} > $RPM_BUILD_ROOT/%{_miconsdir}/%{name}.png
-# bzcat %{SOURCE2} > $RPM_BUILD_ROOT/%{_iconsdir}/%{name}.png
-# bzcat %{SOURCE3} > $RPM_BUILD_ROOT/%{_liconsdir}/%{name}.png
+install -d $RPM_BUILD_ROOT/%{_miconsdir}
+install -d $RPM_BUILD_ROOT/%{_iconsdir}
+install -d $RPM_BUILD_ROOT/%{_liconsdir}
+install -m 644 Documentation/pictures/%{name}-16x16.xpm $RPM_BUILD_ROOT/%{_miconsdir}/%{name}.xpm
+install -m 644 Documentation/pictures/%{name}-32x32.xpm $RPM_BUILD_ROOT/%{_iconsdir}/%{name}.xpm
+install -m 644 Documentation/pictures/%{name}-48x48.xpm $RPM_BUILD_ROOT/%{_liconsdir}/%{name}.xpm
 
 %post
-# %{update_menus}
+%{update_menus}
 
 touch /tmp/.lilypond-install
 rm `find /var/lib/texmf -name 'feta*pk' -or -name 'feta*tfm' -or -name 'parmesan*pk' -or -name 'parmesan*tfm' -print` /tmp/.lilypond-install
@@ -137,7 +134,7 @@ rm -f %{_datadir}/lilypond/%{version}/fonts/type1/fonts.dir
 chkfontpath --remove=%{_datadir}/lilypond/%{version}/fonts/type1/
 
 %postun
-# %{clean_menus}
+%{clean_menus}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -146,7 +143,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-, root, root)
 %doc COPYING README.txt INSTALL.txt DEDICATION NEWS AUTHORS.txt THANKS
 
-# is the following really started during startup of emacs?
 %{_datadir}/emacs/site-lisp/site-start.d/lilypond-*
 %{_datadir}/emacs/site-lisp/lilypond*
 
@@ -159,10 +155,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_prefix}/../etc/profile.d/lilypond.*
 %_bindir/*
 %_mandir/*
-# %_menudir/*
-# %_miconsdir/*
-# %_iconsdir/*
-# %_liconsdir/*
+%_menudir/*
+%_miconsdir/*
+%_iconsdir/*
+%_liconsdir/*
 
 %files documentation
 %defattr(-, root, root)
@@ -170,15 +166,16 @@ rm -rf $RPM_BUILD_ROOT
 %doc web/
 
 %changelog
+* Fri Nov 30 2002 Heikki Johannes Junes <hjunes@cc.hut.fi> 1.7.8-4mdk
+- add pre/post-dependencies and menus with icon from source.
+
 * Fri Oct 28 2002 Heikki Johannes Junes <hjunes@cc.hut.fi> 1.7.4-1mdk
 - info, commented menu
 
-%changelog
 * Fri Aug 30 2002 Heikki Johannes Junes <hjunes@cc.hut.fi> 1.6.0-1mdk
 - Adapted from lilypond.redhat.skel and skeleton found in Mandrake's RPM-docs.
 - TODO: info (?) and dependencies.
 
-%changelog
 * Fri Jun 01 2001 Lenny Cartier <lenny@mandrakesoft.com> 1.4.2-1mdk
 - updated by Michael Brown <mbrown@linux-mandrake.com> :
 	- Upgraded to 1.4.2
