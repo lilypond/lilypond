@@ -14,27 +14,14 @@ applymusic = #(def-music-function (location func music) (procedure? ly:music?)
                (func music))
 
 addlyrics = #(def-music-function (location music lyrics) (ly:music? ly:music?)
-              (make-music 'LyricCombineMusic 'elements (list music lyrics)))
-
-#(use-modules (srfi srfi-1))
-#(define-public (symbol-or-symbols? obj)
-  "Return #t iif obj is a symbol or a symbol list."
-  (or (symbol? obj)
-      (and (list? obj)
-           (null? (remove symbol? obj)))))
-
-%{
-%% \mytag #'foo { ... } ==> OK
-%% c-\mytag #'foo ^4    ==> KO
-mytag = #(def-music-function (location tagname music) (symbol-or-symbols? ly:music?)
-        (set! (ly:music-property music 'tags)
-              ((if (list? tagname) append cons) tagname (ly:music-property music 'tags)))
-        music)
-%}
+              (make-music 'LyricCombineMusic 
+                          'origin location
+                          'elements (list music lyrics)))
 
 #(defmacro def-grace-function (start stop)
   `(def-music-function (location music) (ly:music?)
      (make-music 'GraceMusic
+       'origin location
        'element (make-music 'SequentialMusic
                   'elements (list (ly:music-deep-copy ,start)
                                   music
@@ -50,13 +37,35 @@ autochange = #(def-music-function (location music) (ly:music?)
                (make-autochange-music music))
 
 applycontext = #(def-music-function (location proc) (procedure?)
-                 (make-music 'ApplyContext 'procedure proc))
+                 (make-music 'ApplyContext 
+                   'origin location
+                   'procedure proc))
 
 applyoutput = #(def-music-function (location proc) (procedure?)
-                (make-music 'ApplyOutputEvent 'procedure proc))
+                (make-music 'ApplyOutputEvent 
+                  'origin location
+                  'procedure proc))
 
 breathe = #(def-music-function (location) ()
-            (make-music 'EventChord 'elements (list (make-music 'BreathingSignEvent))))
+            (make-music 'EventChord 
+              'origin location
+              'elements (list (make-music 'BreathingSignEvent))))
+
+%% \mytag #'foo { ... } ==> OK
+%% c-\mytag #'foo ^4    ==> KO
+%{
+#(use-modules (srfi srfi-1))
+#(define-public (symbol-or-symbols? obj)
+  "Return #t iif obj is a symbol or a symbol list."
+  (or (symbol? obj)
+      (and (list? obj)
+           (null? (remove symbol? obj)))))
+
+mytag = #(def-music-function (location tagname music) (symbol-or-symbols? ly:music?)
+        (set! (ly:music-property music 'tags)
+              ((if (list? tagname) append cons) tagname (ly:music-property music 'tags)))
+        music)
+%}
 
 %{
 
