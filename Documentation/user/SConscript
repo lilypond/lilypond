@@ -1,0 +1,99 @@
+# -*-python-*-
+
+import glob
+import os
+
+here = os.getcwd ()
+reldir = str (Dir ('.').srcnode ())
+os.chdir (reldir)
+sources = glob.glob ('*.tely')
+pngs = glob.glob ('*.png')
+os.chdir (here)
+
+Import ('env')
+e = env.Copy ()
+outdir = os.path.join (env['build'], reldir, env['out'])
+
+# Too late
+e.Append (LILYPOND_BOOK_PATH = [os.path.join (env['srcdir'], reldir, 'user')])
+e['LILYPOND_BOOK_PATH'].append (os.path.join (env['srcdir'], reldir, 'user'))
+
+def verbose_opt (env, opt):
+	if env['verbose']:
+		return opt
+	return ''
+
+LILYPOND_BIN = env['LILYPOND_BIN']
+LILYPONDPREFIX = env['LILYPONDPREFIX']
+
+mfbuild = os.path.join (env['absbuild'], 'mf', env['out'])
+lilybuild = os.path.join (env['absbuild'], 'lily', env['out'])
+userbuild = os.path.join (env['absbuild'], 'Documentation/user', env['out'])
+e.Depends ('lilypond.texi', os.path.join (mfbuild, 'feta16list.ly'))
+e.Depends ('lilypond.texi', os.path.join (mfbuild, 'parmesan16list.ly'))
+e.Depends ('lilypond.texi', LILYPOND_BIN)
+e.Depends ('lilypond.texi', 'lilypond-internals.texi')
+#e.Depends ('lilypond.texi', os.path.join (lilybuild, 'lilypond-bin'))
+
+png_stems = map (lambda x: os.path.splitext (x)[0], pngs)
+epss = map (e.Png2eps, png_stems)
+e.Depends ('lilypond.texi', epss)
+
+e.Command ('lilypond-internals.texi', LILYPOND_BIN,
+	   ('(cd $$(dirname $TARGET) && \
+	   LILYPONDPREFIX=%(LILYPONDPREFIX)s %(LILYPOND_BIN)s ' \
+	    + verbose_opt (env, ' --verbose') \
+	    + ' ' + os.path.join (env['srcdir'], 'ly/generate-documentation')\
+	    + ')') % vars ())
+
+doc_stems = map (lambda x: os.path.splitext (x)[0], sources)
+texis = map (e.Tely2texi, doc_stems)
+dvis = map (e.Texi2dvi, doc_stems)
+pss = map (e.PostScript, map (lambda x: x + '.dvi', doc_stems))
+pdfs = map (e.Dvi2pdf, doc_stems)
+
+docdir = os.path.join (env['srcdir'], 'Documentation')
+out = env['out']
+srcdir = env['srcdir']
+##MAKEINFO_INCLUDES = join_path (env['MAKEINFO_PATH'], '', ' -I')
+##MAKEINFO = env['MAKEINFO']
+# TODO: purl (ugh?), symlinks
+verbose = verbose_opt (env, ' --verbose')
+a = ('makeinfo -I%(srcdir)s/%(reldir)s -I$$(dirname $SOURCE)'\
+     + ' --output=%(out)s/lilypond'\
+     + ' --css-include=%(docdir)s/texinfo.css'\
+     + ' --html%(verbose)s'\
+     + ' $SOURCE &&' \
+     + ' makeinfo -I%(srcdir)s/%(reldir)s -I$$(dirname $SOURCE)' \
+     + ' --output=$TARGET' \
+     + ' --css-include=%(docdir)s/texinfo.css' \
+     + ' --html --no-split --no-headers %(verbose)s' \
+     + ' $SOURCE') % vars ()
+e.Command ('lilypond/lilypond.html', 'lilypond.texi', a)
+
+# TODO: purl (ugh?), symlinks
+a = ('makeinfo -I%(srcdir)s/%(reldir)s -I$$(dirname $SOURCE)'\
+     + ' --output=%(out)s/lilypond-internals' \
+     + ' --css-include=%(docdir)s/texinfo.css' \
+     + ' --html%(verbose)s'\
+     + ' $SOURCE &&' \
+     + ' makeinfo -I%(srcdir)s/%(reldir)s -I$$(dirname $SOURCE)' \
+     + ' --output=$TARGET' \
+     + ' --css-include=%(docdir)s/texinfo.css' \
+     + ' --html --no-split --no-headers %(verbose)s' \
+     + ' $SOURCE') % vars ()
+e.Command ('lilypond-internals/lilypond-internals.html',
+	   'lilypond-internals.texi',
+	   a)
+
+e.Alias ('doc', texis)
+e.Alias ('doc', dvis)
+e.Alias ('doc', pss)
+e.Alias ('doc', pdfs)
+
+e.Alias ('doc', 'lilypond-internals/lilypond.html')
+e.Alias ('doc', 'lilypond-internals/lilypond-internals.html')
+
+#testing
+all_sources = ['SConscript',] + sources + pngs
+x = env.Tar (env['tarball'], all_sources)
