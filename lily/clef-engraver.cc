@@ -30,7 +30,7 @@ Clef_engraver::Clef_engraver()
 }
 
 /*
-  ugh.  Should be configurable.
+  PUT THIS IN GUILE!
  */
 struct Clef_settings {
   char const *name;
@@ -125,9 +125,11 @@ Clef_engraver::acknowledge_element (Score_element_info info)
   if (dynamic_cast<Bar*>(info.elem_l_)
       && clef_type_str_.length_i())
     {
+      bool def = !clef_p_;
       create_clef();
-      if (!clef_req_l_)
-	clef_p_->default_b_ = true;
+      if(def)
+	clef_p_->set_elt_property(visibility_lambda_scm_sym,
+				  gh_eval_str ("postbreak_only_visibility"));
     }
 
   /* ugh; should make Clef_referenced baseclass */
@@ -161,7 +163,7 @@ Clef_engraver::do_creation_processing()
   if (clef_type_str_.length_i ())
     { 
       create_clef();
-      clef_p_->default_b_ = false;
+      clef_p_->set_elt_property (non_default_scm_sym, SCM_BOOL_T);
     }
 }
 
@@ -194,7 +196,10 @@ Clef_engraver::create_clef()
   
   clef_p_->symbol_ = clef_type_str_;
   clef_p_->y_position_i_ = clef_position_i_;
-  clef_p_->octave_dir_ = octave_dir_;
+  if (octave_dir_)
+    {
+      clef_p_->set_elt_property (octave_dir_scm_sym, gh_int2scm (octave_dir_));
+    }
 }
 
 
@@ -204,14 +209,12 @@ Clef_engraver::do_process_requests()
   if (clef_req_l_)
     {
       create_clef();
-      clef_p_->default_b_ = false;
     }
   else if (create_default_b_)
     {
       String type = get_property ("defaultClef", 0);
       set_type (type.length_i () ? type : "treble");
       create_clef ();
-      clef_p_->default_b_ = false;
       create_default_b_ =0;
     }
 }
