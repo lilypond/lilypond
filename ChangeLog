@@ -1,5 +1,10 @@
 2004-03-31  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* autogen.sh (srcdir): Regenerate.
+
+	* stepmake/autogen.sh (srcdir): Copy SUSE fix to the master
+	autogen.sh.
+
 	* configure.in: Use C++ to check for C++ header.
 
 	* po/nl.po: Update.
