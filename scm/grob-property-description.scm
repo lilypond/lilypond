@@ -61,7 +61,7 @@ the grob to the nearest open space.
 
 (grob-property-description 'accidental-grobs list? "Alis with (NOTENAME . GROBLIST) entries")
 (grob-property-description 'accidentals list? "List of alteration numbers.")
-(grob-property-description 'add-stem boolean? "Add stem to porrectus?.")
+(grob-property-description 'add-stem boolean? "does this flexa shape require an additional stem on the left side?.")
 (grob-property-description 'adjust-if-on-staffline boolean? "If this grob is on a staff line, adjust its appearance, so that it better fits into the staff.  E.g., if set true on stem grobs, flares of mensural flags will always be aligned with the staff lines, regardless if the associated note head is printed on a staff line or inbetween.")
 (grob-property-description 'after-line-breaking-callback procedure? "Procedure taking a grob as argument.
 This procedure is called (using dependency resolution) after line breaking. Return value is ignored.")
@@ -86,7 +86,6 @@ these symbols may be alongside-stem, stem, head or loose-end.")
 attachments to prevent ugly slurs.  [fixme: we need more documentation here].
 .")
 (grob-property-description 'auctum boolean? "is this neume augmented?.")
-(grob-property-description 'auto-properties boolean? "if true, as many properties of this grob as possible will be determined automatically from the musical context.")
 (grob-property-description 'auto-knee-gap ly:dimension? "If a gap is found between noteheads
 where a  horizontal beam fits that is larger than this number,  make a kneed beam.")
 (grob-property-description 'axes list? "list of axis numbers.
@@ -205,7 +204,8 @@ options include undefined and mensural.
   Additionally, @code{no-flag} switches off the flag.")
 (grob-property-description 'stroke-style string? "set to \"grace\" to turn stroke through flag on.")
 (grob-property-description 'flag-width-function procedure? "Procedure that computes the width of a half-beam (a non-connecting beam.).")
-(grob-property-description 'flexa-width ly:dimension? "width of a flexa shape in a ligature grob.")
+(grob-property-description 'flexa-height ly:dimension? "height of a flexa shape in a ligature grob in staff_space.")
+(grob-property-description 'flexa-width ly:dimension? "width of a flexa shape in a ligature grob in staff_space.")
 (grob-property-description 'font-family symbol? "partial font
 definition: music roman braces dynamic math ...")
 (grob-property-description 'font-name string? "file name for the font to load.
@@ -289,8 +289,6 @@ For barline, space after a thick line.")
 (grob-property-description 'left-position number? "position of left part of spanner.")
 (grob-property-description 'right-position number? "position of right part of spanner.")
 (grob-property-description 'left-padding ly:dimension? "space left of accs.")
-(grob-property-description 'right-head ly:grob? "")
-(grob-property-description 'left-head ly:grob? "")
 
 (grob-property-description 'left-widen boolean? "Whether the left edge of a piano pedal bracket should be widened by the first element of edge-widen.")
 
@@ -379,8 +377,6 @@ as a real penalty.")
 (grob-property-description 'pitches list? "list of musical-pitch.")
 (grob-property-description 'quilisma boolean? "is this neume a quilisma?.")
 (grob-property-description 'positions pair? "cons of staff positions (LEFT . RIGHT")
-(grob-property-description 'porrectus-height ly:dimension? "in staffspace.")
-(grob-property-description 'porrectus-width ly:dimension? "in staffspace.")
 (grob-property-description 'prefix-set number? "DOCME")
 
 (grob-property-description 'raise ly:dimension? "height for text to be raised (a negative value lowers the text.")
@@ -413,7 +409,6 @@ with this much space for the shortest duration. This is explessed in @code{spaci
 (grob-property-description 'side-support-elements grob-list? "the support, a list of grobs.")
 (grob-property-description 'slope number? "some kind of slope")
 (grob-property-description 'slope-limit number? "set slope to zero if slope is running away steeper than this.")
-(grob-property-description 'solid boolean? "should porrectus be solidly filled?.")
 
 (grob-property-description 'space-alist list? "Alist of break align
 spacing tuples: format = (SYMBOL . (TYPE . DISTANCE)), where TYPE can be

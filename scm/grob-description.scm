@@ -196,6 +196,7 @@
 	(breakable . #t)
 	(space-alist . (
 			(ambitus . (extra-space . 2.0))
+			(custos . (minimum-space . 1.0))
 			(key-signature . (minimum-space . 1.5))
 			(staff-bar . (minimum-space . 1.5))
 			(clef . (minimum-space . 2.0))
@@ -514,19 +515,6 @@
 	(molecule-callback . ,Mensural_ligature::brew_molecule)
 	(font-family . ancient)
 	(meta . ((interfaces . (mensural-ligature-interface font-interface))))
-	))
-
-    (Porrectus
-     . (
-	(style . mensural)
-	(auto-properties . #f)
-	(solid . #f)
-	(width . 2.4)
-	(thickness . 1.0)
-	(add-stem . #t)
-	(direction . 1)
-	(molecule-callback . ,Porrectus::brew_molecule)
-	(meta . ((interfaces . (porrectus-interface))))
 	))
 
     (RehearsalMark

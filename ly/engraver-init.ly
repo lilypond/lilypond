@@ -164,7 +164,6 @@ VoiceContext = \translator {
 	\consists "Slur_engraver"
 	\consists "Tie_engraver"
 	\consists "New_tie_engraver"
-	\consists "Porrectus_engraver"
 	\consists "Tuplet_engraver"
 	\consists "A2_engraver"
 

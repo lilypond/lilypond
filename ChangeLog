@@ -1,3 +1,29 @@
+2003-04-22  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* Documentation/user/music-glossary.tely: bugfix: #'flag-style =
+	#"" -> #'flag-style = #'()
+
+	* lily/cluster-engraver.cc, lily/ligature-bracket-engraver.cc:
+	cleanup: removed dead #includes
+
+	* lily/gregorian-ligature-engraver.cc,
+	lily/include/gregorian-ligature.hh,
+	scm/grob-property-description.scm: small cleanups, small spacing
+	fixes
+
+	* lily/gregorian-ligature-engraver.cc, lily/parser.yy,
+	lily/vaticana-ligature.cc,
+	lily/include/gregorian-ligature-engraver.hh,
+	scm/grob-property-description.scm, scm/music-types.scm:
+	"porrectus" -> "pes or flexa"
+
+	* ly/engraver-init.ly, scm/grob-description.scm,
+	scm/grob-property-description.scm: junked porrectus, now handled
+	by ligature code
+
+	* scm/grob-description.scm: bugfix: added space-alist entry for
+	breathing sign/custos
+
 2003-04-24  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Another grand 2003 update.

@@ -10,8 +10,6 @@
 #include "item.hh"
 #include "spanner.hh"
 #include "note-head.hh"
-#include "protected-scm.hh"
-#include "warn.hh"
 #include "note-column.hh"
 #include "group-interface.hh"
 
