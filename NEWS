@@ -1,10 +1,23 @@
+pl 17.jcn1
+	- all of the above
+
+pl 16.jcn3
+	- polished noteheads
+	- fixed 8-128 rests
+	- 4rest
+	- mf-to-table generates tex defs
+	- bf:mf-to-table and conflily outname check
+
+pl 16.jcn2
+	- 8-128 rests
+ 
 pl 17
 	- bf: ledgerline width
 	- bf: toccata-fuga-E
 	- took out some hardwiring of tex-beam
 	
-pl 16.jcn2
-	- mf-to-table.in: generate mozarella metric info tables
+pl 16.jcn1
+  	- mf-to-table.in: generate mozarella metric info tables
 	- autometric.mf: write metric info to mf logfile
 	- ital-r.mf, smaller ital-m.mf
 	- variable streepjes length (top/bottomlines); fixed (for 20pt?)
