@@ -1,3 +1,18 @@
+* Small cleanups to bring down  compile time and binary ensmallment.
+
+* Made Lookup into a smob, and use guile alist iso. an STL map.
+
+* Changed repeated music semantics for relative octave: each
+alternative takes its inital octave from the body.
+
+* Fixed: parser accepts booleans for property values as well.
+
+* Added Scarlatti sonata test file to input/
+
+* kpathsea support, courtesy Carsten Block <carsten.block@gmx.de> 
+
+1.3.70
+======
 * Fixed: long standing problem in optical-illusion code.
 
 * Fixed: stop beam if stem *has* a beam in auto-beam-engraver. 
