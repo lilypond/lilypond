@@ -17,17 +17,16 @@
   (chord) and scripts) as a single entity.  */
 class Note_column : public Head_column {
 protected:
-    virtual void do_pre_processing();
+  virtual void do_pre_processing();
 
 public:
-    bool h_shift_b_;
+  bool h_shift_b_;
     
-    Interval_t<int> head_positions_interval()const;
+  Interval_t<int> head_positions_interval() const;
         
-    DECLARE_MY_RUNTIME_TYPEINFO;
-    Note_column();
-    virtual void set (Stem *);
-    void sort();
+  DECLARE_MY_RUNTIME_TYPEINFO;
+  Note_column();
+  void sort();
 };
 
 #endif // NOTE_COLUMN_HH
