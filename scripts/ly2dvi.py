@@ -738,7 +738,7 @@ None.
 		opts = opts + ' -tlandscape'
 
 	if 'PDF' in targets:
-		opts = opts + '-Ppdf -G0 -u lilypond.map'
+		opts = opts + ' -Ppdf -G0 -u lilypond.map'
 		
 	cmd = 'dvips %s -o%s %s' % (opts, outbase + '.ps', outbase + '.dvi')
 	quiet_system (cmd, 'dvips')
