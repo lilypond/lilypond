@@ -1,3 +1,8 @@
+2005-02-21  Pedro Kroger  <kroeger@pedrokroeger.net>
+
+	* input/regression/utf8.ly (portuguese): added a portuguese example
+	to show latin1 accents.
+
 2005-02-21  Pal Benko  <benkop@freestart.hu>
 
 	* lily/mensural-ligature-engraver.cc:
