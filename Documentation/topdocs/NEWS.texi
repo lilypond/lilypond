@@ -7,6 +7,19 @@
 @unnumbered New features in 2.5 since 2.4
 
 @itemize @bullet
+
+@item
+LilyPond now optionally uses Pango and FontConfig for selecting and
+rendering internationalized text. This is supported for backends other
+than @TeX{}. A font may be selected by using a FontConfig name,
+
+@example
+\override TextScript #'font-name = #"Serif"
+@end example
+
+Input strings encoded in UTF-8 are then rendered properly through
+Pango.
+
 @item
 Metrics of blocks of text can be retrieved from (La)@TeX{} directly,
 using the @code{-f texstr} output backend. This provides exact metrics
