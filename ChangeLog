@@ -1,3 +1,9 @@
+2004-04-02  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/slur-performer.cc (Slur_performer): add inits
+
+	* lily/beam-performer.cc (Beam_performer): add inits
+
 2004-04-01  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* VERSION (PACKAGE_NAME): release 2.2.0

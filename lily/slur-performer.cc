@@ -32,6 +32,14 @@ private:
   bool slur_;
 };
 
+Slur_performer::Slur_performer ()
+{
+  slur_ = false;
+  start_ev_ = 0;
+  now_stop_ev_ = 0;
+}
+
+
 void 
 Slur_performer::process_music ()
 {
@@ -85,7 +93,3 @@ Slur_performer::try_music (Music *m)
 ENTER_DESCRIPTION (Slur_performer,"","",
 		  "slur-event","","","");
 
-Slur_performer::Slur_performer ()
-{
-  slur_ = false;
-}
