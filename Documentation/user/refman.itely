@@ -5047,13 +5047,13 @@ One practical application of complicated markup is to fake a metronome
 marking:
 
 @lilypond[verbatim]
-eigthStem = \markup \combine
+eighthStem = \markup \combine
 	\musicglyph #"flags-stem"
 	\translate #'(0.0 . 3.5) \musicglyph #"flags-u3"
 eighthNote = \markup
 	\override #'(word-space . 0.0)
 	{ \musicglyph #"noteheads-2"
-	  \translate #'(-0.05 . 0.1) \eigthStem }
+	  \translate #'(-0.05 . 0.1) \eighthStem }
 
 \score {
   \notes\relative c'' {
