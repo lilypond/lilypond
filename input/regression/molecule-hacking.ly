@@ -28,16 +28,14 @@ Example usage:
 GROB.  The dimensions of the stencil is not affected.
 "
      
-     (let* (
-	    (fn (ly:get-default-font grob))
+     (let* ((fn (ly:get-default-font grob))
 	    (pclose (ly:find-glyph-by-name fn "accidentals-rightparen"))
 	    (popen (ly:find-glyph-by-name fn "accidentals-leftparen"))
 	    (subject (callback grob))
 
 	    ; remember old size
 	    (subject-dim-x (ly:stencil-extent subject 0))
-	    (subject-dim-y (ly:stencil-extent subject 1))
-	)
+	    (subject-dim-y (ly:stencil-extent subject 1)))
 
         ; add parens
         (set! subject
@@ -48,31 +46,26 @@ GROB.  The dimensions of the stencil is not affected.
 	; revert old size.
        (ly:stencil-set-extent! subject 0 subject-dim-x)
        (ly:stencil-set-extent! subject 1 subject-dim-y)
-       subject
-    )
-     )
-   parenthesize-stencil
-   )
+       subject))
+   parenthesize-stencil)
     
 
+\paper { raggedright = ##t }
+\relative c' {
+    c4 e
 
-\score {
-	 \relative c' { c4 e
+    \override NoteHead  #'print-function
+    =
+    #(parenthesize-callback Note_head::print)
+    g bes
+    \revert NoteHead #'print-function
+    \override Beam  #'print-function
+    =
+    #(parenthesize-callback Beam::print)
 
-		    \override NoteHead  #'print-function
-		   =
-		      #(parenthesize-callback Note_head::print)
-		    g bes
-		    \revert NoteHead #'print-function
-		    \override Beam  #'print-function
-		   =
-		      #(parenthesize-callback Beam::print)
+    a8 gis8 a2.
+    
+}
 
-		    a8 gis8 a2.
-		    
-		    }
-
-	\paper { raggedright = ##t}
-	}
 
 
