@@ -26,6 +26,7 @@ Sources* source_global_l = 0;
 bool no_paper_global_b = false;
 bool no_timestamps_global_b = false;
 
+bool embedded_mf_global_b = false;
 bool experimental_features_global_b = false;
 bool postscript_global_b = true;
 int exit_status_i_;
@@ -77,7 +78,7 @@ usage ()
 #ifdef STRING_UTILS_INLINED
     "STRING_UTILS_INLINED "
 #endif
-    "datadir= " DIR_DATADIR
+        "datadir= " DIR_DATADIR
 
     "\n";
 

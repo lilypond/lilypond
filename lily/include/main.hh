@@ -25,6 +25,7 @@ extern bool no_timestamps_global_b;
 extern int exit_status_i_;
 extern bool experimental_features_global_b;
 extern bool postscript_global_b;
+extern bool embedded_mf_global_b;
 
 extern String default_outname_base_global;
 extern String default_outname_suffix_global;

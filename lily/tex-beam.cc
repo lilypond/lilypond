@@ -99,7 +99,9 @@ Lookup::ps_beam (Real slope, Real width, Real y_thickness)const
   mf += "}\n";
 
   Atom s;
-  s.tex_ = ps + mf;
+  s.tex_ = ps;
+  if (embedded_mf_global_b)
+    s.tex_ += mf;
   
   return s;
 }
