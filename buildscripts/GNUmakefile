@@ -3,7 +3,7 @@ depth = ..
 #STEPMAKE_TEMPLATES=script install install-out po
 STEPMAKE_TEMPLATES=script install po
 
-INSTALLATION_FILES=$(outdir)/gettext.py
+INSTALLATION_FILES=$(outdir)/gettext.py $(outdir)/lilylib.py
 INSTALLATION_DIR=$(datadir)/python
 
 include $(depth)/make/stepmake.make 
@@ -14,5 +14,5 @@ include $(depth)/make/stepmake.make
 #INSTALLATION_OUT_DIR1=$(datadir)/scripts
 #INSTALLATION_OUT_FILES1=$(outdir)/lilypond-login $(outdir)/lilypond-profile
 
-all: $(outdir)/gettext.py
+all: $(INSTALLATION_FILES)
 
