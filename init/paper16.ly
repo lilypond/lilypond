@@ -10,7 +10,6 @@
 
 paper_sixteen = \paper {
 	staffheight = 16.0\pt;
-	linewidth = 15.5 \cm;
 
 	% ugh, see table16 for sizes
 	quartwidth = 5.28\pt;

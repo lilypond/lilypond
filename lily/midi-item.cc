@@ -153,9 +153,9 @@ char const* const instrument_name_sz_a_[ ] = {
 	  /* 19 */ "rock organ",
 	  /* 20 */ "church organ",
 	  /* 21 */ "reed organ",
-	  /* 22 */ "accoridan",
+	  /* 22 */ "accordion",
 	  /* 23 */ "harmonica",
-	  /* 24 */ "tango accordian",
+	  /* 24 */ "concertina",
 
 	  /* (25-32 guitar) */
 	  /* 25 */ "acoustic guitar (nylon)",
@@ -164,7 +164,7 @@ char const* const instrument_name_sz_a_[ ] = {
 	  /* 28 */ "electric guitar (clean)",
 	  /* 29 */ "electric guitar (muted)",
 	  /* 30 */ "overdriven guitar",
-	  /* 31 */ "distortion guitar",
+	  /* 31 */ "distorted guitar",
 	  /* 32 */ "guitar harmonics",
 
 	  /* (33-40 bass) */

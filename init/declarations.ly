@@ -11,6 +11,8 @@ longa = \duration { -2 0 }
 Gourlay = 1.0
 Wordwrap = 0.0
 
+papersize = "a4"
+
 \include "paper20.ly"
 
 \paper{
