@@ -34,7 +34,7 @@
 
 Beam::Beam ()
 {
-  Group_interface g (this, "stems");
+  Pointer_group_interface g (this, "stems");
   g.set_interface ();
 
   set_elt_property ("height", gh_int2scm (0)); // ugh.
@@ -44,13 +44,13 @@ Beam::Beam ()
 void
 Beam::add_stem (Stem*s)
 {
-  Group_interface gi (this, "stems");
+  Pointer_group_interface gi (this, "stems");
   gi.add_element (s);
   
   s->add_dependency (this);
 
   assert (!s->beam_l ());
-  s->set_elt_property ("beam", self_scm_);
+  s->set_elt_pointer ("beam", self_scm_);
 
   if (!get_bound (LEFT))
     set_bound (LEFT,s);
@@ -62,7 +62,7 @@ int
 Beam::get_multiplicity () const
 {
   int m = 0;
-  for (SCM s = get_elt_property ("stems"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = get_elt_pointer ("stems"); gh_pair_p (s); s = gh_cdr (s))
     {
       Score_element * sc = unsmob_element (gh_car (s));
 
@@ -780,20 +780,20 @@ Beam::forced_stem_count () const
 Stem *
 Beam::stem (int i) const
 {
-  return Group_interface__extract_elements ((Beam*) this, (Stem*) 0, "stems")[i];
+  return Pointer_group_interface__extract_elements ((Beam*) this, (Stem*) 0, "stems")[i];
 }
 
 int
 Beam::stem_count () const
 {
-  Group_interface gi (this, "stems");
+  Pointer_group_interface gi (this, "stems");
   return gi.count ();
 }
 
 Stem*
 Beam::stem_top () const
 {
-  SCM s = get_elt_property ("stems");
+  SCM s = get_elt_pointer ("stems");
   
   return gh_pair_p (s) ? dynamic_cast<Stem*> (unsmob_element (gh_car (s))) : 0;
 }

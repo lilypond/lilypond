@@ -73,7 +73,7 @@ Collision::automatic_shift ()
   Drul_array<Array<int> > shifts;
   SCM  tups = SCM_EOL;
 
-  SCM s = get_elt_property ("elements");
+  SCM s = get_elt_pointer ("elements");
   for (; gh_pair_p (s); s = gh_cdr (s))
     {
       SCM car = gh_car (s);
@@ -200,10 +200,10 @@ Collision::forced_shift ()
 {
   SCM tups = SCM_EOL;
   
-  SCM s = get_elt_property ("elements");
+  SCM s = get_elt_pointer ("elements");
   for (; gh_pair_p (s); s = gh_cdr (s))
     {
-      Score_element * se = unsmob_element ( gh_car (s));
+      Score_element * se = unsmob_element (gh_car (s));
 
       SCM force =  se->remove_elt_property ("force-hshift");
       if (gh_number_p (force))

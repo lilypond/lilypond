@@ -39,7 +39,7 @@ System_start_delimiter_engraver::acknowledge_element (Score_element_info inf)
 	don't add as Axis_group_interface (delim_).add_element (),
 	because that would set the parent as well */
 	  
-      Group_interface (delim_).add_element (inf.elem_l_);
+      Pointer_group_interface (delim_).add_element (inf.elem_l_);
     }
   else if (System_start_delimiter * b = dynamic_cast<System_start_delimiter *> (inf.elem_l_))
     {

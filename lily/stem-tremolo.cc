@@ -25,14 +25,14 @@
 
 Stem_tremolo::Stem_tremolo ()
 {
-  set_elt_property ("stem", SCM_EOL);
+  set_elt_pointer ("stem", SCM_EOL);
 }
 
 
 Stem *
 Stem_tremolo::stem_l ()const
 {
-  SCM s =   get_elt_property ("stem");
+  SCM s =   get_elt_pointer ("stem");
 
   return dynamic_cast<Stem*> (  unsmob_element (s));
 }
@@ -132,7 +132,7 @@ Stem_tremolo::do_brew_molecule () const
 void
 Stem_tremolo::set_stem (Stem *s)
 {
-  set_elt_property ("stem", s->self_scm_);
+  set_elt_pointer ("stem", s->self_scm_);
   add_dependency (s);
 }
 

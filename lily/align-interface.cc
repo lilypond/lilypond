@@ -32,7 +32,7 @@ Align_interface::alignment_callback (Score_element const *sc, Axis ax)
 Real
 Align_interface::center_on_element (Score_element const *me, Axis a)
 {
-  Score_element *cent = unsmob_element (me->get_elt_property ("group-center-element"));
+  Score_element *cent = unsmob_element (me->get_elt_pointer ("group-center-element"));
 
   if (cent)
     {
@@ -61,7 +61,7 @@ Align_interface::do_side_processing (Axis a)
 
   Link_array<Score_element> elems;
   Link_array<Score_element> all_elts
-    = Group_interface__extract_elements (  elt_l_, (Score_element*) 0, "elements");
+    = Pointer_group_interface__extract_elements (  elt_l_, (Score_element*) 0, "elements");
   for (int i=0; i < all_elts.size(); i++) 
     {
       Interval y = all_elts[i]->extent(a) + all_elts[i]->relative_coordinate (elt_l_, a);
@@ -134,7 +134,7 @@ Align_interface::axis ()const
 int
 Align_interface::get_count (Score_element*s)const
 {
-  SCM e = elt_l_->get_elt_property ("elements");
+  SCM e = elt_l_->get_elt_pointer ("elements");
   int c =0;
   while (gh_pair_p (e))
     {

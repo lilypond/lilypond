@@ -58,7 +58,7 @@ class Score_element  {
      The lookup, determined by the font size. Cache this value.
    */
   Lookup * lookup_l_;
-public:
+
   /**
      properties specific for this element. Destructor will not call
      scm_unprotect, so as to allow more flexible GC arrangements.  The
@@ -66,8 +66,10 @@ public:
      need for more scm_protect calls.
 
   */
-  SCM element_property_alist_;
-  
+public:				// ugh.
+  SCM property_alist_;
+  SCM pointer_alist_;
+public:
   Score_element *original_l_;
 
   /**
@@ -103,6 +105,13 @@ public:
   void set_elt_property (String, SCM val);
 
   /**
+     Pointers are like properties, but they are subject to    a substitution
+     after line breaking.
+   */
+  SCM get_elt_pointer (const char*) const;
+  void set_elt_pointer (const char*, SCM val);
+  friend class Property_engraver; //  UGHUGHUGH.
+  /**
      UGH! JUNKME ?
 
      This gets messy because it changes state
@@ -117,7 +126,7 @@ public:
      twice may do weird things if Bar::foo has a default set.
      
    */
-  SCM remove_elt_property (String nm);
+  SCM remove_elt_property (const char* nm);
 
   /*
     related classes.

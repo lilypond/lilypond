@@ -28,7 +28,7 @@ Staff_symbol_referencer_interface::set_interface ()
 bool
 Staff_symbol_referencer_interface::has_interface_b ()
 {
-  return unsmob_element (elt_l_->get_elt_property ("staff-symbol"))
+  return unsmob_element (elt_l_->get_elt_pointer ("staff-symbol"))
     || gh_number_p (elt_l_->get_elt_property ("staff-position"));
 }
 
@@ -43,7 +43,7 @@ Staff_symbol_referencer_interface::line_count () const
 Staff_symbol*
 Staff_symbol_referencer_interface::staff_symbol_l () const
 {
-  SCM st = elt_l_->get_elt_property ("staff-symbol");
+  SCM st = elt_l_->get_elt_pointer ("staff-symbol");
   return dynamic_cast<Staff_symbol* > (unsmob_element(st));
 }
 

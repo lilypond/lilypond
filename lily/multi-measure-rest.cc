@@ -22,7 +22,7 @@
 
 Multi_measure_rest::Multi_measure_rest ()
 {
-  set_elt_property ("columns", SCM_EOL);
+  set_elt_pointer ("columns", SCM_EOL);
 }
 
 
@@ -139,9 +139,9 @@ Multi_measure_rest::do_brew_molecule () const
 void
 Multi_measure_rest::do_add_processing ()
 {
-  if (gh_pair_p (get_elt_property ("columns")))
+  if (gh_pair_p (get_elt_pointer ("columns")))
     {
-      Link_array<Item> column_arr (Group_interface__extract_elements (this, (Item*)0, "columns"));
+      Link_array<Item> column_arr (Pointer_group_interface__extract_elements (this, (Item*)0, "columns"));
 				    
       set_bound (LEFT, column_arr[0 >? column_arr.size () - 2]);
       set_bound (RIGHT, column_arr.top ());
@@ -153,7 +153,7 @@ Multi_measure_rest::do_add_processing ()
 void
 Multi_measure_rest::after_line_breaking ()
 {
-  if (!gh_pair_p (get_elt_property ("columns")))
+  if (!gh_pair_p (get_elt_pointer ("columns")))
     set_elt_property ("transparent", SCM_BOOL_T);
 }
 
@@ -162,7 +162,7 @@ Multi_measure_rest::after_line_breaking ()
 void
 Multi_measure_rest::add_column (Item* c)
 {
-  Group_interface gi (this, "columns");
+  Pointer_group_interface gi (this, "columns");
   gi.add_element (c);
 
   

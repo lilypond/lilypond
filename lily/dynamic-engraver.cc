@@ -114,7 +114,7 @@ ADD_THIS_TRANSLATOR (Dynamic_engraver);
 void
 Dynamic_engraver::announce_element (Score_element_info i)
 {
-  group (i.elem_l_, "interfaces").add_thing (ly_symbol2scm ("dynamic"));
+  Group_interface (i.elem_l_, "interfaces").add_thing (ly_symbol2scm ("dynamic"));
   
   Engraver::announce_element (i);
 }

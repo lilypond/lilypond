@@ -65,7 +65,7 @@ Scheme_hash_table::print_smob (SCM s, SCM p, scm_print_state*)
   sprintf (str, "#<Scheme_hash_table 0x%0x ", s);
   scm_puts (str, p);      
   Scheme_hash_table *me = SMOB_TO_TYPE(Scheme_hash_table,s);
-  for (Scm_stl_map ::const_iterator i = me->begin (); i != me->end(); i++)
+  for (Scm_stl_map::const_iterator i = me->begin (); i != me->end(); i++)
     {
       scm_display ((*i).first, p);
       scm_puts (" = ",p);      

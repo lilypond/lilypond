@@ -137,8 +137,11 @@ Item::handle_prebroken_dependencies ()
 {
   if (original_l_)
     {
-      element_property_alist_
-	= handle_broken_smobs (original_l_->element_property_alist_,
+      property_alist_
+	= handle_broken_smobs (original_l_->property_alist_,
+			       gh_int2scm (break_status_dir ()));
+      pointer_alist_
+	= handle_broken_smobs (original_l_->pointer_alist_,
 			       gh_int2scm (break_status_dir ()));
     }
   

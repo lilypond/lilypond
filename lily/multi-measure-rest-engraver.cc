@@ -127,7 +127,7 @@ Multi_measure_rest_engraver::do_pre_move_processing ()
 
   if (mmrest_p_ && (now_mom () >= start_moment_) 
     && !mp
-    && (scm_ilength (mmrest_p_->get_elt_property ("columns")) >= 2))
+    && (scm_ilength (mmrest_p_->get_elt_pointer ("columns")) >= 2))
     {
       typeset_element (mmrest_p_);
       /*

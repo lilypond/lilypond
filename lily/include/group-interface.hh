@@ -34,22 +34,29 @@ public:
   void add_thing (SCM);
   bool has_interface_b ();
   void set_interface ();
-  void add_element (Score_element*);
 };
 
-Group_interface group (Score_element*);
-Group_interface group (Score_element*, String);
-
+struct Pointer_group_interface {
+  Score_element * elt_l_;
+  String name_;
+public:
+  Pointer_group_interface (Score_element const*);
+  Pointer_group_interface (Score_element const*, String);
+  int count ();
+  void set_interface ();
+  bool has_interface_b ();
+  void add_element (Score_element*);
+};
 /** 
   Put all score elements of ELT's property called NAME into an array,
   and return it.  */
 template<class T>
 Link_array<T>
-Group_interface__extract_elements (Score_element const *elt, T *, String name)
+Pointer_group_interface__extract_elements (Score_element const *elt, T *, const char* name)
 {
   Link_array<T> arr;
 
-  for (SCM s = elt->get_elt_property (name); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = elt->get_elt_pointer (name); gh_pair_p (s); s = gh_cdr (s))
     {
       SCM e = gh_car (s);
       assert (SMOB_IS_TYPE_B(Score_element,e));

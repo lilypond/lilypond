@@ -18,7 +18,7 @@
 void
 Span_bar::add_bar (Score_element*b)
 {
-  Group_interface gi (this);
+  Pointer_group_interface gi (this);
   gi.add_element (b);
 
   add_dependency (b);
@@ -26,7 +26,7 @@ Span_bar::add_bar (Score_element*b)
 
 
 Interval
-Span_bar::width_callback (Score_element const *se, Axis a)
+Span_bar::width_callback (Score_element const *se, Axis )
 {
   Span_bar*  s= dynamic_cast<Span_bar*> ((Score_element*)se);
   String gl = ly_scm2string (s->get_elt_property ("glyph"));
@@ -112,7 +112,7 @@ Span_bar::get_bar_size () const
 
 Span_bar::Span_bar ()
 {
-  group (this).set_interface ();
+  Pointer_group_interface(this).set_interface ();
   set_extent_callback (width_callback, X_AXIS);
   
   // dim_cache_[Y_AXIS]->set_extent_callback (Axis_group_interface::group_extent_callback);

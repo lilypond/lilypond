@@ -232,7 +232,7 @@ Slur::add_column (Note_column*n)
     warning (_ ("Putting slur over rest.  Ignoring."));
   else
     {
-      Group_interface (this, "note-columns").add_element (n);
+      Pointer_group_interface (this, "note-columns").add_element (n);
       add_dependency (n);
     }
 }
@@ -271,7 +271,7 @@ Direction
 Slur::get_default_dir () const
 {
   Link_array<Note_column> encompass_arr =
-    Group_interface__extract_elements (this, (Note_column*)0, "note-columns");
+    Pointer_group_interface__extract_elements (this, (Note_column*)0, "note-columns");
   
   Direction d = DOWN;
   for (int i=0; i < encompass_arr.size (); i ++) 
@@ -289,7 +289,7 @@ void
 Slur::do_add_processing ()
 {
   Link_array<Note_column> encompass_arr =
-    Group_interface__extract_elements (this, (Note_column*)0, "note-columns");
+    Pointer_group_interface__extract_elements (this, (Note_column*)0, "note-columns");
 
   if (encompass_arr.size ())
     {
@@ -357,7 +357,7 @@ void
 Slur::set_extremities ()
 {
   Link_array<Note_column> encompass_arr =
-    Group_interface__extract_elements (this, (Note_column*)0, "note-columns");
+    Pointer_group_interface__extract_elements (this, (Note_column*)0, "note-columns");
 
   if (!encompass_arr.size ())
     {
@@ -517,7 +517,7 @@ int
 Slur::cross_staff_count ()const
 {
   Link_array<Note_column> encompass_arr =
-    Group_interface__extract_elements (this, (Note_column*)0, "note-columns");
+    Pointer_group_interface__extract_elements (this, (Note_column*)0, "note-columns");
 
   int k=0;
 
@@ -534,7 +534,7 @@ Array<Offset>
 Slur::get_encompass_offset_arr () const
 {
   Link_array<Note_column> encompass_arr =
-    Group_interface__extract_elements (this, (Note_column*)0, "note-columns");
+    Pointer_group_interface__extract_elements (this, (Note_column*)0, "note-columns");
   
   Array<Offset> offset_arr;
 

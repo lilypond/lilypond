@@ -24,7 +24,7 @@
 
 Volta_spanner::Volta_spanner ()
 {
-  set_elt_property ("bars", SCM_EOL);
+  set_elt_pointer ("bars", SCM_EOL);
   Side_position_interface (this).set_axis (Y_AXIS);
   directional_element (this).set (UP);
 }
@@ -46,7 +46,7 @@ Volta_spanner::do_brew_molecule () const
   Molecule  mol;
 
   Link_array<Bar> bar_arr
-    = Group_interface__extract_elements (this, (Bar*)0, "bars");
+    = Pointer_group_interface__extract_elements (this, (Bar*)0, "bars");
 
   if (!bar_arr.size ())
     return mol;
@@ -100,7 +100,7 @@ Volta_spanner::do_add_processing ()
 {
 
   Link_array<Bar> bar_arr
-    = Group_interface__extract_elements (this, (Bar*)0, "bars");
+    = Pointer_group_interface__extract_elements (this, (Bar*)0, "bars");
 
   if (bar_arr.size ())
     {
@@ -118,7 +118,7 @@ Volta_spanner::after_line_breaking ()
 void
 Volta_spanner::add_bar  (Bar* b)
 {
-  Group_interface gi(this, "bars");
+  Pointer_group_interface gi(this, "bars");
   gi.add_element (b);
 
   Side_position_interface (this).add_support (b);

@@ -38,7 +38,7 @@ Axis_group_interface::add_element (Score_element *e)
 	e->set_parent (elt_l_, a);
     }
 
-  Group_interface (elt_l_).add_element (e);
+  Pointer_group_interface (elt_l_).add_element (e);
   elt_l_->add_dependency (e);
 }
 
@@ -68,14 +68,14 @@ Axis_group_interface::group_extent_callback (Score_element const*me, Axis a)
 {
   Score_element * common =(Score_element*) me;
 
-  for (SCM s = me->get_elt_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = me->get_elt_pointer ("elements"); gh_pair_p (s); s = gh_cdr (s))
     {
       Score_element * se = unsmob_element (gh_car (s));
       common = se->common_refpoint (common, a);
     }
 
   Real my_coord = me->relative_coordinate (common, a);
-  Interval r (relative_group_extent (a, common, me->get_elt_property ("elements")));
+  Interval r (relative_group_extent (a, common, me->get_elt_pointer ("elements")));
 
   return r - my_coord;
 }
@@ -85,10 +85,10 @@ Axis_group_interface::set_interface ()
 {
   if (!has_interface_b ())
     {
-      elt_l_->set_elt_property ("elements", SCM_EOL);
+      elt_l_->set_elt_pointer ("elements", SCM_EOL);
       elt_l_->set_elt_property ("transparent", SCM_BOOL_T); //  junk this?
       elt_l_->set_elt_property ("axes" , SCM_EOL);
-      group (elt_l_, "interfaces").add_thing (ly_symbol2scm ("Axis_group"));
+      Group_interface (elt_l_, "interfaces").add_thing (ly_symbol2scm ("Axis_group"));
     }
 }
 
@@ -122,7 +122,7 @@ Axis_group_interface::get_children ()
   if (!has_interface_b ())
     return childs;
   
-  for (SCM ep = elt_l_->get_elt_property ("elements"); gh_pair_p (ep); ep = gh_cdr (ep))
+  for (SCM ep = elt_l_->get_elt_pointer ("elements"); gh_pair_p (ep); ep = gh_cdr (ep))
     {
       Score_element* e = unsmob_element (gh_car (ep));
       if (e)
