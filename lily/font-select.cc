@@ -133,7 +133,7 @@ select_encoded_font (Output_def *layout, SCM chain)
 	req = scm_to_double (scm_cdr (font_size));
 
       return get_font_by_mag_step (layout, req, vec,
-				   scm_to_double (base_size) * point_constant);
+				   scm_to_double (base_size));
     }
 
   assert (0);
