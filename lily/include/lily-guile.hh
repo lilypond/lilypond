@@ -52,12 +52,12 @@
 #define scm_set_current_module(x) (void)x
 #define scm_c_resolve_module(x) (SCM)0
 
-inline scm_c_make_vector  (int k, SCM val) {
+inline SCM scm_c_make_vector  (int k, SCM val) {
   return scm_make_vector (SCM_MAKINUM (k), val);
 }
 #define scm_c_define_gsubr scm_make_gsubr
 #define scm_c_eval_string(str) gh_eval_str ((char*)str)
-#define scm_c_memq scm_sloppy_memq
+
 #define scm_gc_protect_object scm_protect_object
 #define scm_gc_unprotect_object scm_unprotect_object
 #define scm_list_n scm_listify
