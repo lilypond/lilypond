@@ -12,6 +12,8 @@
 
 #include "array.hh"
 
+
+
 /**
   an array of pointers.
 
@@ -21,14 +23,7 @@
 template<class T>
 class Link_array : private Array<void *>
 {
-  static int default_compare (T *const& p1, T  *const&p2) {
-    /* can't do p1 -p2, since T might be an incomplete type */
-    if (p1 < p2)
-      return -1 ;
-    if (p2 < p1)
-      return 1;
-    return 0;
-  }
+
   Link_array (Array<void*> v)
     :Array<void*> (v)
     {
@@ -37,6 +32,15 @@ public:
   Link_array ()
     {}
 
+  static int default_compare (T *const& p1, T  *const&p2)
+  {
+    /* can't do p1 -p2, since T might be an incomplete type */
+    if (p1 < p2)
+      return -1 ;
+    if (p2 < p1)
+      return 1;
+    return 0;
+  }
   Link_array (T * const *tp, int n)
     : Array<void*> ((void **)tp, n)
     {
@@ -179,7 +183,6 @@ public:
       else
 	return 0;
     }
-  
 };
 
 template<class T, class V>
@@ -294,6 +297,31 @@ binsearch_links (Link_array<T> const &arr, T *t,
     return -1;              /* not found */
 }
 
+
+template<class T>
+void
+binary_search_bounds (Link_array<T> const &table,
+		      T const *key, int (*compare) (T * const& , T *const &),
+		      int *lo,
+		      int *hi)
+{
+  int cmp;
+  int result;
+
+  /* binary search */
+  do
+  {
+      cmp = (*lo + *hi) / 2;
+
+      result = (*compare)  ((T*) key, table[cmp]);
+
+      if (result < 0)
+          *hi = cmp;
+      else
+          *lo = cmp;
+    }
+  while (*hi - *lo > 1);
+}
 
 #endif // PARRAY_HH
 

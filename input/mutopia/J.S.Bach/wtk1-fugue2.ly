@@ -20,9 +20,8 @@
     ".\\\\Unrestricted modification and redistribution is permitted
     and encouraged---copy this music and share it.}"
   tagline = \mutopiapublicdomain
-  lastupdated = "2002/July/7"
-  footer = "Mutopia-2002/07/07-6"
-
+  lastupdated = "2002/August/19"
+  footer = "Mutopia-2002/08/19-6"
 }
 
 
@@ -33,11 +32,12 @@
 
  the few forced linebreaks were an earlier attempt to get the spacing
  to match up.
- 
+
+%\include "paper19.ly" 
 %}
 
-\include "paper19.ly"
-\version "1.5.68"
+
+\version "1.6.0"
 
 
 

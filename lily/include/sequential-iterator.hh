@@ -54,13 +54,14 @@ public:
   Grace_fixup * grace_fixups_;
   
   VIRTUAL_COPY_CONS (Music_iterator);
-  static SCM constructor_cxx_function;
+  DECLARE_SCHEME_CALLBACK(constructor, ());
   Sequential_iterator ();
   Sequential_iterator (Sequential_iterator const&);
-  virtual ~Sequential_iterator ();
+  virtual void derived_mark () const;
 
   virtual void construct_children ();
   virtual Moment pending_moment () const;
+  virtual void do_quit(); 
   virtual bool ok () const;
   virtual void skip (Moment);
   virtual SCM get_pending_events (Moment)const;
@@ -72,7 +73,7 @@ protected:
 protected:
   Moment here_mom_;
   Music_iterator * iter_;
-  Protected_scm  list_;
+  SCM  list_;
   SCM cursor_;
   
   virtual void next_element (bool side_effect);

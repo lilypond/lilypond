@@ -43,7 +43,8 @@ class Completion_heads_engraver : public Engraver
   Moment note_end_mom_;
   bool first_b_;
   Rational left_to_do_;
-
+  Rational do_nothing_until_;
+  
   Moment next_barline_moment ();
   Duration find_nearest_duration (Rational length);
   
@@ -81,6 +82,8 @@ Completion_heads_engraver::try_music (Music *m)
 	  musiclen.main_part_ = Rational (0,1);
 	}
       note_end_mom_  = note_end_mom_ >? (now + musiclen);
+      do_nothing_until_ = Rational (0,0);
+      
       return true;
     }
   else if (dynamic_cast<Busy_playing_req*> (m))
@@ -92,6 +95,9 @@ Completion_heads_engraver::try_music (Music *m)
   
 }
 
+/*
+  The duration _until_ the next barline.
+ */
 Moment
 Completion_heads_engraver::next_barline_moment ( )
 {
@@ -146,8 +152,12 @@ Completion_heads_engraver::process_music ()
 {
   if (!first_b_ && !left_to_do_)
     return ;
-
+  
   first_b_ = false;
+
+  Moment now =  now_mom ();
+  if (do_nothing_until_ > now.main_part_)
+    return ;
   
   Duration note_dur;
   Duration *orig = 0;
@@ -160,15 +170,15 @@ Completion_heads_engraver::process_music ()
       orig = unsmob_duration (note_reqs_[0]->get_mus_property ("duration"));
       note_dur = *orig;
     }
-
   Moment nb = next_barline_moment ();
   if (nb < note_dur.length_mom ())
     {
       note_dur = find_nearest_duration (nb.main_part_);
 
-      Moment next = now_mom();
+      Moment next = now;
       next.main_part_ += note_dur.length_mom ();
       top_engraver ()->add_moment_to_process (next);
+      do_nothing_until_ = next.main_part_;
     }
 
   if (orig)

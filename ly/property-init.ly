@@ -66,10 +66,10 @@ tupletBoth = {
 
 
 
-cadenzaOn = \property Score.timing = ##f
+cadenzaOn = \property Timing.timing = ##f
 cadenzaOff = {
-  \property Score.timing = ##t
-  \property Score.measurePosition = #(make-moment 0 1)
+  \property Timing.timing = ##t
+  \property Timing.measurePosition = #(make-moment 0 1)
 }
 
 newpage = {

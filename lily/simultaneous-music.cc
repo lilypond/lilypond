@@ -20,14 +20,14 @@ Simultaneous_music::Simultaneous_music (SCM head)
   : Music_sequence (head)
 {
   set_mus_property ("iterator-ctor",
-		    Simultaneous_music_iterator::constructor_cxx_function);
+		    Simultaneous_music_iterator::constructor_proc);
 }
 
 Simultaneous_music::Simultaneous_music ()
   : Music_sequence ()
 {
   set_mus_property ("iterator-ctor",
-		    Simultaneous_music_iterator::constructor_cxx_function);
+		    Simultaneous_music_iterator::constructor_proc);
   
 }
 

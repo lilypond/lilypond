@@ -18,6 +18,11 @@ d = usr/share/doc/$(package)
 include VERSION
 VERSION = $(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_LEVEL)
 
+gcc_version = $(shell g++ --version 2>&1 \
+		| grep '[0-9]\.[0-9]' | head -1 \
+		| sed -e 's/.*[^-.0-9]\([0-9][0-9]*\.[0-9][.0-9]*\).*/\1/' \
+		      -e 's/^\([0-9]\+\).*/\1/')
+
 # "main_memory = 263000" in /etc/texmf/texmf.cnf isn't large enough
 # for latex to process standchen.dvi.latex, so adding extra_mem_* ...
 # export extra_mem_top = 100000
@@ -44,10 +49,13 @@ build: build-stamp
 build-stamp:
 	dh_testdir
 
-	./configure --enable-checking --disable-debugging \
+	if [ "$(gcc_version)" = "3" ]; then ./lexer-gcc-3.1.sh; fi
+	CPPFLAGS=-I`pwd`/lily/out \
+	./configure --enable-checking --enable-debugging \
 		--prefix=/usr --enable-optimise \
 		--infodir='$${prefix}/share/info' \
 		--mandir='$${prefix}/share/man'
+	if [ "$(gcc_version)" = "3" ]; then ./lexer-gcc-3.1.sh; fi
 	$(MAKE) MAKE_PFA_FILES=1
 
 	touch build-stamp
@@ -114,7 +122,7 @@ binary-indep: build-doc install
 	dh_md5sums
 	dh_builddeb
 
-binary-arch: DH_OPTIONS=-a
+binary-arch: DH_OPTIONS=-s
 binary-arch: build install
 	dh_testdir
 	dh_testroot

@@ -15,7 +15,7 @@ class Output_property_music_iterator : public Simple_music_iterator
 {
 public:  
   VIRTUAL_COPY_CONS (Music_iterator);
-  static SCM constructor_cxx_function;
+  DECLARE_SCHEME_CALLBACK(constructor, ());
   /* construction */
 protected:
   virtual void process (Moment);

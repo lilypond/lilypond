@@ -22,13 +22,14 @@ class Music_wrapper_iterator : public Music_iterator
 {
 public:
   VIRTUAL_COPY_CONS (Music_iterator);
-  static SCM constructor_cxx_function;  
+  DECLARE_SCHEME_CALLBACK(constructor, ());  
   Music_wrapper_iterator ();
   Music_wrapper_iterator (Music_wrapper_iterator const&);
-  ~Music_wrapper_iterator ();
 
+  virtual void derived_mark () const;
   virtual void construct_children () ;
   virtual Moment pending_moment () const;
+  virtual void do_quit(); 
   virtual bool ok () const;
   virtual SCM get_pending_events (Moment)const;
   virtual void skip (Moment);

@@ -45,7 +45,7 @@ Grob::Grob (SCM basicprops)
   /*
     fixme: default should be no callback.
    */
-
+  self_scm_ = SCM_EOL;
   pscore_=0;
   status_ = 0;
   original_ = 0;
@@ -122,6 +122,8 @@ Grob::Grob (Grob const&s)
    : dim_cache_ (s.dim_cache_)
 {
   original_ = (Grob*) &s;
+  self_scm_ = SCM_EOL;
+
   immutable_property_alist_ = s.immutable_property_alist_;
 
   mutable_property_alist_ = SCM_EOL;
@@ -751,7 +753,7 @@ Grob::print_smob (SCM s, SCM port, scm_print_state *)
 }
 
 SCM
-Grob::do_derived_mark ()
+Grob::do_derived_mark () const
 {
   return SCM_EOL;
 }

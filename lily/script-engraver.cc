@@ -89,8 +89,11 @@ Script_engraver::process_music ()
       if (gh_number_p (s))
 	priority = gh_scm2int (s);
 
-      /* Make sure they're in order of user input by adding index i. */
-      priority += i * (to_dir (force_dir) ? to_dir (force_dir) : 1);
+      /* Make sure they're in order of user input by adding index i.
+      Don't use the direction in this priority. Smaller means closer
+      to the head.
+      */
+      priority += i;
 
       if (ly_dir_p (force_dir) && to_dir (force_dir))
 	p->set_grob_property ("direction", force_dir);

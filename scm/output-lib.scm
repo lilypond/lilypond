@@ -9,7 +9,7 @@
 
 ; The TabNoteHead stem attachment function.
 (define (tablature-stem-attachment-function style duration)
-  (cons 0.0 1.0)
+  (cons 0.0 0.5) ;; UGH!
 )
 
 ; The TabNoteHead molecule callback.
@@ -66,8 +66,33 @@
 
 
 
+(define guitar-tunings '(4 -1 -5 -10 -15 -20))
 
 ; end of tablature functions
+
+
+(define (make-molecule-boxer line-thick x-padding y-padding callback)
+   "Makes a routine that adds a box around the grob parsed as argument"
+  (define (molecule-boxer grob)
+  (let*
+   (
+    (mol    (callback grob))
+    (x-ext (widen-interval (ly-get-molecule-extent mol 0) x-padding))
+    (y-ext (widen-interval (ly-get-molecule-extent mol 1) y-padding))
+    (x-rule (box-molecule (widen-interval x-ext line-thick)
+                              (cons 0 line-thick)))
+    (y-rule (box-molecule (cons 0 line-thick) y-ext))
+    )
+    
+    (set! mol (ly-combine-molecule-at-edge mol 0 1 y-rule x-padding))
+    (set! mol (ly-combine-molecule-at-edge mol 0 -1  y-rule x-padding))
+    (set! mol (ly-combine-molecule-at-edge mol 1 1  x-rule 0))  
+    (set! mol (ly-combine-molecule-at-edge mol 1 -1 x-rule 0))
+    
+    mol
+ ))
+ molecule-boxer
+ )
 
 
 (define (arg->string arg)
@@ -127,22 +152,20 @@
 ;; silly, use alist? 
 (define (find-notehead-symbol duration style)
   (case style
-   ((xcircle) (cons "2xcircle" "music"))
-   ((harmonic) (cons "0neo_mensural" "music"))
+   ((xcircle) "2xcircle")
+   ((harmonic) "0neo_mensural")
    ((baroque) 
     ;; Oops, I actually would not call this "baroque", but, for
     ;; backwards compatibility to 1.4, this is supposed to take
     ;; brevis, longa and maxima from the neo-mensural font and all
     ;; other note heads from the default font.  -- jr
     (if (< duration 0)
-	(cons (string-append (number->string duration) "neo_mensural") "ancient")
-	(cons (number->string duration) "music")))
+	(string-append (number->string duration) "neo_mensural")
+	(number->string duration)))
    ((mensural)
-    (cons (string-append (number->string duration) (symbol->string style))
-     "ancient"))
+    (string-append (number->string duration) (symbol->string style)))
    ((neo_mensural)
-    (cons (string-append (number->string duration) (symbol->string style))
-     "ancient"))
+    (string-append (number->string duration) (symbol->string style)))
    ((default)
     ;; The default font in mf/feta-bolletjes.mf defines a brevis, but
     ;; neither a longa nor a maxima.  Hence let us, for the moment,
@@ -151,11 +174,13 @@
     ;; should look exactly like the brevis of the default font, but
     ;; with a stem exactly like that of the quarter note. -- jr
     (if (< duration -1)
-	(cons (string-append (number->string duration) "neo_mensural") "ancient")
-	(cons (number->string duration) "music")))
+	(string-append (number->string duration) "neo_mensural")
+	(number->string duration)))
    (else
-    (cons (string-append (number->string (max 0 duration)) (symbol->string style))
-     "music"))))
+    (if (string-match "vaticana*|hufnagel*|medicaea*" (symbol->string style))
+	(symbol->string style)
+	(string-append (number->string (max 0 duration))
+		       (symbol->string style))))))
 
 
 (define (note-head-style->attachment-coordinates style duration)
@@ -188,43 +213,6 @@ centered, X==1 is at the right, X == -1 is at the left."
      '(1.0 . 0.0)
      )))
 
-(define (find-timesig-symbol nom denom style)
-  (case style
-   ((mensural)
-    (cons (string-append
-	     "mensural"
-	     (number->string nom)
-	     "/"
-	     (number->string denom))
-	  "ancient"))
-   ((neo_mensural)
-    (cons (string-append
-	     "neo_mensural"
-	     (number->string nom)
-	     "/"
-	     (number->string denom))
-	  "ancient"))
-   ((numbered)
-    (cons (string-append
-	   (number->string nom)
-	   "/"
-	   (number->string denom))
-	  "music"))
-   (else
-    ;; default: use "C" style when possible, otherwise return ""
-    (cons
-     (case nom
-       ((2)
-	(case denom
-	  ((2) "C2/2")
-	  (else "")))
-       ((4)
-	(case denom
-	  ((4) "C4/4")
-	  (else "")))
-       (else ""))
-     "music"))))
-
 (define (string-encode-integer i)
   (cond
    ((= i  0) "o")
@@ -234,6 +222,6 @@ centered, X==1 is at the right, X == -1 is at the left."
 	  (string-encode-integer (quotient i 26))))))
 
 
+(define ((every-nth-bar-number-visible n) barnum) (= 0 (modulo barnum n)))
 
-
-
+(define (default-bar-number-visibility barnum) (> barnum 1))

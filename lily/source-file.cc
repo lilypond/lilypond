@@ -7,6 +7,8 @@
   & Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "config.h"
+
 #include <stdio.h>
 #include <assert.h>
 #if HAVE_SSTREAM
@@ -99,6 +101,10 @@ Source_file::Source_file (String filename_string)
   pos_str0_ = to_str0 ();
 
   init_port();
+
+  for (int i = 0; i < length_; i++)
+    if (contents_str0_[i] == '\n')
+      newline_locations_.push (contents_str0_ + i);
 }
 
 void
@@ -121,11 +127,6 @@ Source_file::tell () const
 std::istream*
 Source_file::get_istream ()
 {
-  /*
-    if (!name_string_.length ())
-      return &cin;
-    */
-
   if (!istream_)
     {
       if (length ()) // can-t this be done without such a hack?
@@ -160,7 +161,7 @@ Source_file::~Source_file ()
 {
   delete istream_;
   istream_ = 0;
-  delete contents_str0_;
+  delete[] contents_str0_;
 }
 
 Slice
@@ -261,15 +262,15 @@ Source_file::get_line (char const* pos_str0) const
   if (!in_b (pos_str0))
     return 0;
 
-  int i = 1;
-  char const* scan_str0 = to_str0 ();
-  if (!scan_str0)
-    return 0;
-
-  while (scan_str0 < pos_str0)
-    if (*scan_str0++ == '\n')
-      i++;
-  return i;
+  int lo=0;
+  int hi = newline_locations_.size();
+  
+  binary_search_bounds (newline_locations_,
+			pos_str0, 
+			Link_array<char>::default_compare,
+			&lo, &hi);
+  
+  return lo;
 }
 
 int

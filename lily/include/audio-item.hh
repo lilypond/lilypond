@@ -17,10 +17,9 @@
 #include "drul-array.hh"
 
 /**
-  Any piece of audio information.
-  We need virtual conclassors, 
-  let's try decentralised factory for specific audio implemenations.
-
+   
+  Any piece of audio information.  We need virtual constructors, let's
+  try decentralised factory for specific audio implemenations.
  */
 class Audio_item : public Audio_element
 {

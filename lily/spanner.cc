@@ -289,7 +289,7 @@ Spanner::get_broken_left_end_align () const
 }
 
 SCM
-Spanner::do_derived_mark ()
+Spanner::do_derived_mark () const
 {
   /*
     We'd be fucked if this is called before spanned_drul_[] is inited.  */
@@ -336,8 +336,7 @@ Spanner::set_spacing_rods (SCM smob)
   r.item_l_drul_[LEFT] = sp->get_bound (LEFT);
   r.item_l_drul_[RIGHT] = sp->get_bound (RIGHT);
   r.distance_ =
-    gh_scm2double (me->get_grob_property ("minimum-length"))
-    * 1.0;
+    gh_scm2double (me->get_grob_property ("minimum-length"));
 
   r.add_to_cols ();
   return SCM_UNSPECIFIED;

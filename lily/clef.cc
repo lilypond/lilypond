@@ -19,7 +19,7 @@ MAKE_SCHEME_CALLBACK (Clef,before_line_breaking,1);
 SCM
 Clef::before_line_breaking (SCM smob)
 {
-  Item * s = unsmob_item (smob);
+  Item *s = unsmob_item (smob);
 
   SCM glyph = s->get_grob_property ("glyph-name");
   
@@ -51,16 +51,19 @@ MAKE_SCHEME_CALLBACK (Clef,brew_molecule,1)
 SCM
 Clef::brew_molecule (SCM smob) 
 {
-  Grob * sc = unsmob_grob (smob);
-  SCM glyph = sc->get_grob_property ("glyph-name");
-  if (gh_string_p (glyph))
+  Grob *me = unsmob_grob (smob);
+  SCM glyph_scm = me->get_grob_property ("glyph-name");
+  if (!gh_string_p (glyph_scm))
+    return SCM_EOL;
+
+  String glyph = String (ly_scm2string (glyph_scm));
+  Font_metric *fm = Font_interface::get_default_font (me);
+  Molecule out = fm->find_by_name (glyph);
+  if (out.empty_b())
     {
-      return Font_interface::get_default_font (sc)->find_by_name (String (ly_scm2string (glyph))).smobbed_copy ();
+      me->warning (_f ("clef `%s' not found", glyph.to_str0 ()));
     }
-  else
-    {
-      return SCM_EOL;
-    }
+  return out.smobbed_copy ();
 }
 
 

@@ -426,24 +426,9 @@ Mensural_ligature_engraver::propagate_properties ()
     gh_scm2double (thickness_scm) : 1.4;
   thickness *= finished_ligature_->get_paper ()->get_var ("linethickness");
 
-  /*
-   * FIXME: Since character "noteheads--1mensural" is defined in
-   * parmesan font only, the right-hand expression in the
-   * following assignment evaluates to a width of 0.0, in case
-   * font-family of finished_ligature_ is _not_ set to "ancient"
-   * (by default, it is; see grob properties of MensuralLigature
-   * in scm/grob-description.scm).  This may arise severe problems
-   * in the future when switching between fonts (e.g. mensural
-   * versus neo-mensural).
-   */
   Real head_width =
     Font_interface::get_default_font (finished_ligature_)->
     find_by_name ("noteheads--1mensural").extent (X_AXIS).length ();
-  if (head_width == 0.0)
-    {
-      programming_error ("Mensural_ligature_engraver: failed evaluating head_width (most probably a font-family selection problem)");
-    }
-
   SCM flexa_width_scm =
     finished_ligature_->get_grob_property ("flexa-width");
   Real flexa_width = (flexa_width_scm != SCM_EOL) ?

@@ -63,11 +63,11 @@ U = \sustainUp
 D = \sustainDown
 pial = \notes {
     \pial
-    a,,8 a, e, <h,,8 h,> r <d,,4 d,> e,8 | 
+    \stemBoth a,,8 a, e, <h,,8 h,> r <d,,4 d,> e,8 | 
 }
 guitar = \notes {
     \guitar
-    e8-2 e-2 < a-3 d'-4> e-2 e-2 < a-3 d'-4> e-2 < h-3 e'-4> |
+    e8\2 e\2 < a\3 d'\4> e\2 e\2 < a\3 d'\4> e\2 < h\3 e'\4> |
 }
 
 cello = \notes {

@@ -4,7 +4,7 @@ Build-Depends-Indep: bibtex2html, gs | gs-aladdin, netpbm (>= 2:9.10-1)
 Section: tex
 Priority: optional
 Maintainer: Anthony Fok <foka@debian.org>
-Standards-Version: 3.5.6
+Standards-Version: 3.5.7
 
 Package: lilypond
 Architecture: any
@@ -28,18 +28,18 @@ Description: A program for printing sheet music.
 Package: lilypond-doc
 Section: doc
 Architecture: all
-Suggests: lilypond (>= 1.5.68-1), postscript-viewer, www-browser
+Suggests: lilypond (>= 1.6.2-1), postscript-viewer, www-browser
 Description: LilyPond Documentation in HTML, PS and DVI formats
  This package contains the HTML, PostScript and DVI documentation for the
  LilyPond music typesetting software.
 
 Package: lilypond1.3
 Architecture: arm i386 m68k powerpc sparc
-Depends: lilypond (>= 1.5.68-1)
+Depends: lilypond (>= 1.6.2-1)
 Description: Dummy package for transition to new stable lilypond.
  This dummy package provides a transition from the previous lilypond1.3
- package back to a newer lilypond because the stable 1.4 series
- (soon 1.6 series) has arrived.
+ package back to a newer lilypond because the stable 1.4 and now 1.6 series
+ have arrived.
  .
  Please feel free to remove this dummy package after you have upgraded
  to the latest lilypond.

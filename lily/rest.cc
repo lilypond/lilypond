@@ -48,11 +48,10 @@ Rest::after_line_breaking (SCM smob)
 /*
   make this function easily usable in C++
  */
-
 String
-Rest::glyph_name (Grob * me, int balltype, String style)
+Rest::glyph_name (Grob *me, int balltype, String style)
 {
-  bool ledger_b =false;
+  bool ledgered_b = false;
 
   if (balltype == 0 || balltype == 1)
     {
@@ -63,18 +62,49 @@ Rest::glyph_name (Grob * me, int balltype, String style)
 	Figure out when the rest is far enough outside the staff. This
 	could bemore generic, but hey, we understand this even after
 	dinner.
-	
        */
-      ledger_b = ledger_b || (balltype == 0 && (pos >= rad +2   || pos < -rad ));
-      ledger_b = ledger_b || (balltype == 1 &&
-			      (pos  <= -rad -2 || pos > rad));
+      ledgered_b |= (balltype == 0) && (pos >= +rad + 2 || pos < -rad);
+      ledgered_b |= (balltype == 1) && (pos <= -rad - 2 || pos > +rad);
     }
 
-  return ("rests-") + to_string (balltype)
-    + (ledger_b ? "o" : "") + style;
+  String actual_style (style.to_str0 ());
+
+  if ((style == "mensural") || (style == "neo_mensural")) {
+
+    /*
+      FIXME: Currently, ancient font does not provide ledgered rests;
+      hence the "o" suffix in the glyph name is bogus.  But do we need
+      ledgered rests at all now that we can draw ledger lines with
+      variable width, length and blotdiameter? -- jr
+    */
+    ledgered_b = 0;
+
+    /*
+      There are no 32th/64th/128th mensural/neo_mensural rests.  In
+      these cases, revert back to default style.
+    */
+    if (balltype > 4)
+      actual_style = "";
+  }
+
+  if ((style == "classical") && (balltype != 2)) {
+    /*
+      classical style: revert back to default style for any rest other
+      than quarter rest
+    */
+    actual_style = "";
+  }
+
+  if (style == "default") {
+    /*
+      Some parts of lily still prefer style "default" over "".
+      Correct this here. -- jr
+    */
+    actual_style = "";
+  }
+
+  return ("rests-") + to_string (balltype) + (ledgered_b ? "o" : "") + actual_style;
 }
-
-
 
 
 MAKE_SCHEME_CALLBACK (Rest,brew_molecule,1);
@@ -91,20 +121,21 @@ Rest::brew_internal_molecule (SCM smob)
   int balltype = gh_scm2int (balltype_scm);
   
   String style; 
-  SCM style_sym =me->get_grob_property ("style");
-  if (gh_symbol_p (style_sym))
+  SCM style_scm = me->get_grob_property ("style");
+  if (gh_symbol_p (style_scm))
     {
-      style = ly_scm2string (scm_symbol_to_string (style_sym));
+      style = ly_scm2string (scm_symbol_to_string (style_scm));
     }
 
-  for(;;) {
-    String idx = glyph_name (me, balltype, style);
-    Molecule res = Font_interface::get_default_font (me)->find_by_name (idx);
-    if(res.empty_b() && style!="")
-      style="";
-    else
-      return res.smobbed_copy();
-  }
+  Font_metric *fm = Font_interface::get_default_font (me);
+  String font_char = glyph_name (me, balltype, style);
+  Molecule out = fm->find_by_name (font_char);
+  if (out.empty_b())
+    {
+      me->warning (_f ("rest `%s' not found, ", font_char.to_str0 ()));
+    }
+
+  return out.smobbed_copy();
 }
 
 SCM 

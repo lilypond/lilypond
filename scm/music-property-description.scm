@@ -21,7 +21,7 @@
 
 
 
-(music-property-description 'iterator-ctor c++-function? "Function to construct music-event-iterator object for this Music")
+(music-property-description 'iterator-ctor procedure? "Function to construct music-event-iterator object for this Music")
 (music-property-description 'duration duration? "Duration of this note/lyric.")
 (music-property-description 'metronome-count number? "How many beats in a minute?")
 (music-property-description 'span-type string? "What kind of spanner should be created?
@@ -49,6 +49,7 @@ TODO: consider making type into symbol ")
 (music-property-description 'last-pitch pitch? "The last pitch after relativization.")
 (music-property-description 'length procedure? "How to compute the duration of this music")
 (music-property-description 'numerator integer? "numerator of a time signature")
+(music-property-description 'once boolean? "Apply this operation only during one time step?")
 (music-property-description 'origin ly-input-location? "where was this piece of music defined?")
 (music-property-description 'penalty number? "Penalty for break hint.")
 (music-property-description 'pitch pitch? "the pitch of this note")
@@ -62,7 +63,7 @@ TODO: consider making type into symbol ")
 
 (music-property-description 'start-moment-function procedure? "Function to compute the negative length of
 starting grace notes.")
-
+(music-property-description 'string-number integer? "The number of the string in a String_number_req")
 (music-property-description 'symbol symbol? "Grob name to perform an override/revert on.")
 (music-property-description 'text markup? "markup expression to be printed")
 ;; markup?

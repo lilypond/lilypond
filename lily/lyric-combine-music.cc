@@ -15,7 +15,7 @@ Lyric_combine_music::Lyric_combine_music (SCM l)
   : Music (l)
 {
   set_mus_property ("iterator-ctor",
-		    Lyric_combine_music_iterator::constructor_cxx_function);
+		    Lyric_combine_music_iterator::constructor_proc);
 }
 
 

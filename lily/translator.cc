@@ -32,6 +32,7 @@ Translator::init ()
 
 Translator::Translator ()
 {
+  self_scm_ = SCM_EOL;
   init ();
   output_def_ = 0;
   smobify_self ();
@@ -39,6 +40,7 @@ Translator::Translator ()
 
 Translator::Translator (Translator const &s)
 {
+  self_scm_ = SCM_EOL;
   init ();
   output_def_ = s.output_def_;
   type_string_ = s.type_string_;

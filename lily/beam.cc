@@ -67,6 +67,16 @@ Beam::add_stem (Grob *me, Grob *s)
 }
 
 
+Real
+Beam::get_thickness (Grob * me)
+{
+  SCM th = me->get_grob_property ("thickness");
+  if (gh_number_p (th))
+    return gh_scm2double (th)* Staff_symbol_referencer::staff_space (me);
+  else
+    return 0.0;
+}
+
 /* Return the translation between 2 adjoining beams. */
 Real
 Beam::get_beam_translation (Grob *me)
@@ -97,8 +107,7 @@ Beam::space_function (SCM smob, SCM beam_count)
   
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real line = me->get_paper ()->get_var ("linethickness");
-  Real thickness = gh_scm2double (me->get_grob_property ("thickness"))
-    * staff_space;
+  Real thickness = get_thickness (me);
   
   Real beam_translation = gh_scm2int (beam_count) < 4
     ? (2*staff_space + line - thickness) / 2.0
@@ -316,8 +325,7 @@ Beam::brew_molecule (SCM grob)
   Real dy = pos.delta ();
   Real dydx = dy && dx ? dy/dx : 0;
   
-  Real thick = gh_scm2double (me->get_grob_property ("thickness"))
-    * Staff_symbol_referencer::staff_space (me);
+  Real thick = get_thickness (me);
   Real bdy = get_beam_translation (me);
 
   SCM last_beaming = SCM_EOL;;
@@ -1215,8 +1223,7 @@ Beam::set_stem_lengths (Grob *me)
       &&gh_scm2double (me->get_grob_property ("gap")))
   {
     gap = true;
-    thick = gh_scm2double (me->get_grob_property ("thickness"))
-      * Staff_symbol_referencer::staff_space(me);
+    thick = get_thickness(me);
   }
       
   // ugh -> use commonx

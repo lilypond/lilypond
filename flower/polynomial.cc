@@ -94,22 +94,28 @@ Polynomial::clean ()
 }
 
 
-Polynomial 
-Polynomial::add (const Polynomial & p1, const Polynomial & p2)
+
+void
+Polynomial::operator += (Polynomial const &p)
 {
-  Polynomial dest;
-  int tempord =  p2.degree () >? p1.degree ();
-  for (int i = 0; i <= tempord; i++)
-    {
-      Real temp = 0.0;
-      if (i <= p1.degree ())
-	temp += p1.coefs_[i];
-      if (i <= p2.degree ())
-	temp += p2.coefs_[i];
-      dest.coefs_.push (temp);
-    }
-  return dest;
+  while (degree () < p.degree())
+    coefs_.push (0.0);
+
+  for (int i = 0; i <= p.degree(); i++)
+    coefs_[i] += p.coefs_[i];
 }
+
+
+void
+Polynomial::operator -= (Polynomial const &p)
+{
+  while (degree () < p.degree())
+    coefs_.push (0.0);
+
+  for (int i = 0; i <= p.degree(); i++)
+    coefs_[i] -= p.coefs_[i];
+}
+
 
 void
 Polynomial::scalarmultiply (Real fact)
@@ -118,24 +124,7 @@ Polynomial::scalarmultiply (Real fact)
     coefs_[i] *= fact;
 }
 
-Polynomial
-Polynomial::subtract (const Polynomial & p1, const Polynomial & p2)
-{
-  Polynomial dest;
-  int tempord =  p2.degree () >? p1.degree ();
-  
-  for (int i = 0; i <= tempord; i++)
-    {
-      Real temp = 0.0;	// can't store result directly.. a=a-b
-      if (i <= p1.degree ())
-	temp += p1.coefs_[i];
-      if (i <= p2.degree ())
-	temp -= p2.coefs_[i];
-      dest.coefs_.push (temp);
-    }
-  return dest;
-  
-}
+
 
 void
 Polynomial::set_negate (const Polynomial & src)
@@ -356,14 +345,4 @@ Polynomial:: operator *= (Polynomial const &p2)
   *this = multiply (*this,p2);
 }  
 
-void
-Polynomial::operator += (Polynomial const &p)
-{
-  *this = add ( *this, p);
-}
 
-void
-Polynomial::operator -= (Polynomial const &p)
-{
-  *this = subtract (*this, p);
-}

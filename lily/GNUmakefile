@@ -6,11 +6,18 @@ SUBDIRS = include
 
 MODULE_LIBS=$(depth)/flower 
 MODULE_INCLUDES= $(depth)/flower/include
-MODULE_CXXFLAGS=
+MODULE_CXXFLAGS= 
+
+
 HELP2MAN_EXECS = lilypond
 STEPMAKE_TEMPLATES= c++ executable po help2man
 
 include $(depth)/make/stepmake.make 
+
+# for profiling, link guile statically:
+#
+# USER_LDFLAGS += -static -lltdl -ldl
+#
 
 ETAGS_FLAGS += -r '/^LY_DEFINE *(\([^,]+\),/\1/'  -r '/^LY_DEFINE *([^,]+, *"\([^"]+\)"/\1/' 
 

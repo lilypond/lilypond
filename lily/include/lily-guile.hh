@@ -58,7 +58,7 @@ inline SCM scm_c_make_vector  (int k, SCM val) {
 }
 #define scm_c_define_gsubr scm_make_gsubr
 #define scm_c_eval_string(str) gh_eval_str ((char*)str)
-
+#define scm_remember_upto_here_1(s) scm_remember (&s)
 #define scm_gc_protect_object scm_protect_object
 #define scm_gc_unprotect_object scm_unprotect_object
 #define scm_list_n scm_listify
@@ -103,6 +103,12 @@ SCM ly_last (SCM list);
 SCM ly_write2scm (SCM s);
 SCM ly_deep_copy (SCM);
 SCM ly_truncate_list (int k, SCM l );
+
+
+/*
+  Unreliable on gcc2
+ */
+// #define CACHE_SYMBOLS
 
 
 #if (__GNUC__ > 2)
@@ -269,19 +275,28 @@ public:\
 } _ ## name ## _scm_initter;			\
 /* end define */
 
-#define LY_DEFINE(FNAME, PRIMNAME, REQ, OPT, VAR, ARGLIST, DOCSTRING) \
-SCM FNAME ARGLIST ; \
+#define LY_DEFINE_WITHOUT_DECL(INITPREFIX, FNAME, PRIMNAME, REQ, OPT, VAR, ARGLIST, DOCSTRING) \
 SCM FNAME ## _proc;\
 void \
-FNAME ## init ()\
+INITPREFIX ## init ()\
 {\
  FNAME ## _proc \
     = scm_c_define_gsubr (PRIMNAME,REQ, OPT, VAR, (Scheme_function_unknown) FNAME);\
   ly_add_function_documentation (PRIMNAME, #ARGLIST,  DOCSTRING);\
 }\
-ADD_SCM_INIT_FUNC (FNAME ## init_unique_prefix, FNAME ## init);\
+ADD_SCM_INIT_FUNC (INITPREFIX ## init_unique_prefix, INITPREFIX ## init);\
 SCM \
 FNAME ARGLIST\
+
+
+#define LY_DEFINE(FNAME, PRIMNAME, REQ, OPT, VAR, ARGLIST, DOCSTRING) \
+SCM FNAME ARGLIST ; \
+LY_DEFINE_WITHOUT_DECL(FNAME, FNAME, PRIMNAME, REQ, OPT, VAR, ARGLIST, DOCSTRING) 
+
+
+#define LY_DEFINE_MEMBER_FUNCTION(CLASS, FNAME, PRIMNAME, REQ, OPT, VAR, ARGLIST, DOCSTRING) \
+SCM FNAME ARGLIST ; \
+LY_DEFINE_WITHOUT_DECL(CLASS ## FNAME,  CLASS::FNAME, PRIMNAME, REQ, OPT, VAR, ARGLIST, DOCSTRING) 
 
 
 #endif /* LILY_GUILE_HH */

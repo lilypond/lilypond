@@ -14,13 +14,6 @@
 #include "global-translator.hh"
 #include "warn.hh"
 
-
-Grace_iterator::~Grace_iterator () 
-{
-  //  child_iter_ = 0;
-}
-
-
 void
 Grace_iterator::process (Moment m)
 {
@@ -28,14 +21,6 @@ Grace_iterator::process (Moment m)
   main.main_part_ = - start_mom_.grace_part_ + m.grace_part_;
   Music_wrapper_iterator::process (main);
 }
-
-void
-Grace_iterator::construct_children ()
-{
-  Music_wrapper_iterator::construct_children ();
-}
-
-
 
 Moment
 Grace_iterator::pending_moment () const

@@ -204,6 +204,13 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
   if (!last_grob)
     {
       /*
+	TODO:
+	
+	Should  insert a adjustable space here? For excercises, you might want to
+	use a staff without a clef in the beginning. 
+       */
+      
+      /*
 	we used to have a warning here, but itgenerates a lot of
 	spurious error messages.
       */

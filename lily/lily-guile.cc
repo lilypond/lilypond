@@ -13,6 +13,20 @@
 #include <stdlib.h>
 #include <math.h>   /* isinf */
 #include <string.h> /* strdup, strchr */
+
+
+#include "lily-proto.hh"
+
+/* macosx fix:
+
+
+ source-file.hh includes cmath which undefines isinf and isnan
+*/
+inline int my_isinf(Real r) { return isinf(r); }
+inline int my_isnan(Real r) { return isnan(r); }
+
+
+
 #include "libc-extension.hh"
 #include "lily-guile.hh"
 #include "main.hh"
@@ -26,28 +40,6 @@
 #include "source-file.hh"
 
 // #define TEST_GC
-
-#ifdef PARANOID
-#include <libguile/gc.h>
-#undef gh_pair_p
-bool
-ly_pair_p (SCM x)
-{
-#if 0
-  assert (!SCM_CONSP (x) || (*(scm_t_bits*) SCM2PTR (SCM_CAR (x))) != scm_tc_free_cell);
-  assert (!SCM_CONSP (x) || (*(scm_t_bits*) SCM2PTR (SCM_CDR (x))) != scm_tc_free_cell);
-#elif GUILE_MINOR_VERSION < 5
-  assert (!SCM_CONSP (x) || !SCM_FREEP (SCM_CAR (x)));
-  assert (!SCM_CONSP (x) || !SCM_FREEP (SCM_CDR (x)));
-#else
-  assert (!SCM_CONSP (x) || !SCM_FREE_CELL_P (SCM_CAR (x)));
-  assert (!SCM_CONSP (x) || !SCM_FREE_CELL_P (SCM_CDR (x)));
-#endif  
-  //return SCM_NFALSEP (scm_pair_p (x));
-  return gh_pair_p (x); 
-}
-#define gh_pair_p ly_pair_p
-#endif
 
 SCM
 ly_last (SCM list)
@@ -106,7 +98,7 @@ gulp_file_to_string (String fn)
   int n;
   char * str = gulp_file (s, &n);
   String result (str);
-  delete str;
+  delete[] str;
   
   if (verbose_global_b)
     progress_indication ("]");
@@ -201,8 +193,6 @@ void add_scm_init_func (void (*f) ())
   scm_init_funcs_->push (f);
 }
 
-extern void init_cxx_function_smobs ();
-
 
 void
 ly_init_guile ()
@@ -210,7 +200,6 @@ ly_init_guile ()
   SCM last_mod = scm_current_module ();
   scm_set_current_module (scm_c_resolve_module ("guile"));
   
-  init_cxx_function_smobs ();
   for (int i=scm_init_funcs_->size () ; i--;)
     (scm_init_funcs_->elem (i)) ();
 
@@ -319,11 +308,6 @@ ly_scm2offset (SCM s)
 		 gh_scm2double (ly_cdr (s)));
 }
 
-
-/*
-  convert without too many decimals, and leave  a space at the end.
- */
-   
    
 LY_DEFINE(ly_number2string,  "ly-number->string", 1, 0,0,
 	  (SCM s),
@@ -339,7 +323,7 @@ leaves a space at the end.
     {
       Real r (gh_scm2double (s));
 
-      if (isinf (r) || isnan (r))
+      if (my_isinf (r) || my_isnan (r))
 	{
 	  programming_error ("Infinity or NaN encountered while converting Real number; setting to zero.");
 	  r = 0.0;
@@ -359,7 +343,7 @@ leaves a space at the end.
   Undef this to see if GUILE GC is causing too many swaps.
  */
 
-// #define TEST_GC
+//#define TEST_GC
 
 #ifdef TEST_GC
 #include <libguile/gc.h>

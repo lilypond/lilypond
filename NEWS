@@ -10,8 +10,8 @@ now.
 
 * Completely rewritten MIDI import support.
 
-* Completely rewritten grace note support. Practically speaking this means
-that grace notes can be slurred to normal normal notes.
+* Completely rewritten grace note support. Practically speaking this
+means that grace notes can be slurred to normal normal notes.
 
 * Improved accidental handling and formatting: styles for producing
 cautionaries may vary, and complex collisions between accidentals of a

@@ -6,8 +6,10 @@
   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+
 #include <math.h>
 
+#include "virtual-font-metric.hh"
 #include "all-font-metrics.hh"
 #include "string.hh"
 #include "misc.hh"
@@ -133,6 +135,8 @@ Paper_def::get_paper_outputter ()
 
 /*
   todo: use symbols and hashtable idx?
+
+
 */
 Font_metric *
 Paper_def::find_font (SCM fn, Real m)
@@ -143,19 +147,31 @@ Paper_def::find_font (SCM fn, Real m)
   if (gh_pair_p (met))
     return unsmob_metrics (ly_cdr (met));
 
-  SCM ssc;
-  if (variable_tab_->try_retrieve (ly_symbol2scm ("outputscale"), &ssc))
+  /*
+    Hmm. We're chaining font - metrics. Should consider wether to merge
+    virtual-font and scaled_font.
+   */
+  Font_metric*  f=0;
+  if (gh_list_p (fn))
     {
-      m /= gh_scm2double (ssc);
+      f = new Virtual_font_metric (fn, m, this);
     }
-  
-  Font_metric*  f = all_fonts_global->find_font (ly_scm2string (fn));
-  SCM val = Scaled_font_metric::make_scaled_font_metric (f, m);
-  scaled_fonts_ = scm_acons (key, val, scaled_fonts_);
+  else
+    {
+      SCM ssc;
+      if (variable_tab_->try_retrieve (ly_symbol2scm ("outputscale"), &ssc))
+	{
+	  m /= gh_scm2double (ssc);
+	}
 
-  scm_gc_unprotect_object (val);
+      f = all_fonts_global->find_font (ly_scm2string (fn));
+      SCM val = Scaled_font_metric::make_scaled_font_metric (f, m);
+      scaled_fonts_ = scm_acons (key, val, scaled_fonts_);
+      f = unsmob_metrics (val);
+      scm_gc_unprotect_object (val);
+    }
 
-  return dynamic_cast<Scaled_font_metric*> (unsmob_metrics (val));
+  return f;
 }
 
 

@@ -134,6 +134,14 @@ Tuplet_bracket::brew_molecule (SCM smob)
     number_visibility = !par_beam;
 	
   Grob * commonx = columns[0]->common_refpoint (columns.top (),X_AXIS);
+
+  /*
+    Tuplet brackets are normally not broken, but we shouldn't crash if
+    they are.
+   */
+  commonx = commonx->common_refpoint (sp->get_bound(LEFT), X_AXIS);
+  commonx = commonx->common_refpoint (sp->get_bound(RIGHT), X_AXIS);  
+  
   Direction dir = Directional_element_interface::get (me);
 
   Grob * lgr = get_x_bound_grob (columns[0], dir);
@@ -308,7 +316,7 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
     {
       Real notey = columns[i]->extent (commony, Y_AXIS)[dir] 
 	- me->relative_coordinate (commony, Y_AXIS);
-
+      
       Real x = columns[i]->relative_coordinate (commonx, X_AXIS) - x0;
       Real tuplety =  *dy * x * factor;
 
@@ -322,11 +330,12 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
   
   /*
     horizontal brackets should not collide with staff lines.
+    
    */
-  if (*dy == 0)
+  Real ss= Staff_symbol_referencer::staff_space (me);
+  if (*dy == 0 && fabs (*offset) <  ss * Staff_symbol_referencer::staff_radius (me))
     {
       // quantize, then do collision check.
-      Real ss= Staff_symbol_referencer::staff_space (me);
       *offset *= 2 / ss;
       
       *offset = rint (*offset);

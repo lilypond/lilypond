@@ -1,12 +1,13 @@
 # Danish translation of lilypond
 # Copyright (C) 2001 Free Software Foundation, Inc.
-# Keld Simonsen <keld@dkuug.dk>, 2001.
+# Keld Simonsen <keld@dkuug.dk>, 2001-2002.
+# Reviewed 2001-09-28 Rune Zedeler <rz@daimi.au.dk>
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 1.4.6\n"
+"Project-Id-Version: lilypond 1.6.0\n"
 "POT-Creation-Date: 2002-08-18 17:05+0200\n"
-"PO-Revision-Date: 2001-09-22 21:00+0200\n"
+"PO-Revision-Date: 2002-09-07 21:00+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -19,9 +20,7 @@ msgid "Running %s..."
 msgstr "Kør %s..."
 
 #: ly2dvi.py:118
-msgid ""
-"Distributed under terms of the GNU General Public License.  It comes with NO "
-"WARRANTY."
+msgid "Distributed under terms of the GNU General Public License.  It comes with NO WARRANTY."
 msgstr ""
 
 #: ly2dvi.py:125 midi2ly.py:148 mup2ly.py:143 update-lily.py:137 input.cc:87
@@ -97,9 +96,9 @@ msgstr "tilføj KATALOG til LilyPonds søgesti"
 
 # %s er programmets navn
 #: ly2dvi.py:338
-#, fuzzy, c-format
+#, c-format
 msgid "keep all output, output to directory %s.dir"
-msgstr "behold al uddata, og navngiv kataloget %s.dir"
+msgstr "behold al uddata, udskrivo i kataloget %s.dir"
 
 #: ly2dvi.py:339
 msgid "don't run LilyPond"
@@ -119,7 +118,7 @@ msgstr "skriv uddata til FIL"
 
 #: ly2dvi.py:342
 msgid "find pfa fonts used in FILE"
-msgstr ""
+msgstr "find pfa-skrifttyper brugt i FIL"
 
 #: ly2dvi.py:344
 msgid "set the resolution of the preview to RES"
@@ -130,9 +129,8 @@ msgid "generate PostScript output"
 msgstr "lav PostScript-uddata"
 
 #: ly2dvi.py:346
-#, fuzzy
 msgid "generate PDF output"
-msgstr "lav PostScript-uddata"
+msgstr "lav PDF-uddata"
 
 #: ly2dvi.py:347
 msgid "use pdflatex to generate a PDF output"
@@ -164,14 +162,14 @@ msgid "show warranty and copyright"
 msgstr "vis garanti og copyright"
 
 #: ly2dvi.py:448
-#, fuzzy, c-format
+#, c-format
 msgid "no such setting: `%s'"
-msgstr "indstillingen findes ikke: %s"
+msgstr "indstillingen findes ikke: '%s'"
 
 #: ly2dvi.py:508
 #, c-format
 msgid "LilyPond crashed (signal %d)."
-msgstr ""
+msgstr "LilyPond gik ned (signal %d)."
 
 #: ly2dvi.py:509
 msgid "Please submit a bug report to bug-lilypond@gnu.org"
@@ -188,14 +186,14 @@ msgid "Analyzing %s..."
 msgstr "Analyserer %s..."
 
 #: ly2dvi.py:578
-#, fuzzy, c-format
+#, c-format
 msgid "no LilyPond output found for `%s'"
-msgstr "ingen lilyponduddata fundet for %s"
+msgstr "ingen lilyponduddata fundet for '%s'"
 
 #: ly2dvi.py:618
-#, fuzzy, c-format
+#, c-format
 msgid "invalid value: `%s'"
-msgstr "ugyldigt værdi: %s"
+msgstr "ugyldig værdi: '%s'"
 
 #: ly2dvi.py:724
 msgid "LaTeX failed on the output file."
@@ -206,14 +204,14 @@ msgid "The error log is as follows:"
 msgstr ""
 
 #: ly2dvi.py:849
-#, fuzzy, c-format
+#, c-format
 msgid "not a PostScript file: `%s'"
-msgstr "kan ikke åbne fil: \"%s\""
+msgstr "ikke en PostScript fil: '%s'"
 
 #: ly2dvi.py:865 midi2ly.py:1012 update-lily.py:458
 #, c-format
 msgid "getopt says: `%s'"
-msgstr ""
+msgstr "getopt siger: '%s'"
 
 #: ly2dvi.py:948
 msgid "pseudo filter"
@@ -224,9 +222,9 @@ msgid "pseudo filter only for single input file"
 msgstr ""
 
 #: ly2dvi.py:980
-#, fuzzy, c-format
+#, c-format
 msgid "filename should not contain spaces: `%s'"
-msgstr "Indholder allerede: \"%s\""
+msgstr "filnavn bør ikke indeholde mellemrum: '%s'"
 
 # hær er det spørg om skrivning til en fil
 #: ly2dvi.py:1076 input-file-results.cc:67
@@ -248,13 +246,12 @@ msgid "%s output to `%s'..."
 msgstr "%s udskrevet til \"%s\"..."
 
 #: ly2dvi.py:1111
-#, fuzzy
 msgid "no files specified on command line"
 msgstr "ingen filer angivne på kommandolinjen."
 
 #: midi2ly.py:92
 msgid "Convert MIDI to LilyPond source"
-msgstr ""
+msgstr "Konvertér MIDI til LilyPond-klide"
 
 #: midi2ly.py:95
 msgid "print absolute pitches"
@@ -270,17 +267,16 @@ msgstr ""
 
 #: midi2ly.py:97
 msgid "print explicit durations"
+msgstr "udskriv eksplicitte længder"
+
+#: midi2ly.py:99
+msgid "ALT[:MINOR]"
 msgstr ""
 
 #: midi2ly.py:99
 #, fuzzy
-msgid "ALT[:MINOR]"
-msgstr "TONE[:MOL]"
-
-#: midi2ly.py:99
-#, fuzzy
 msgid "set key: ALT=+sharps|-flats; MINOR=1"
-msgstr "sæt tonart: TONE +forhøjelser/-sænkninger; :1 mol"
+msgstr "sæt toneart: TONE +forhøjelser/-sænkninger; :1 mol"
 
 #: midi2ly.py:101
 msgid "quantise note starts on DUR"
@@ -300,16 +296,15 @@ msgstr ""
 
 #: midi2ly.py:1027
 msgid "Example:"
-msgstr ""
+msgstr "Eksempel:"
 
 #: midi2ly.py:1081
 msgid "no files specified on command line."
 msgstr "ingen filer angivne på kommandolinjen."
 
 #: mup2ly.py:69
-#, fuzzy
 msgid "Convert mup to LilyPond source"
-msgstr "Konvertér mup til ly"
+msgstr "Konvertér mup til LilyPond-kilde"
 
 #: mup2ly.py:72
 msgid "debug"
@@ -440,19 +435,19 @@ msgid "invalid argument `%s' to option `%s'"
 msgstr "ugyldigt argument \"%s\" til flag \"%s\""
 
 #: warn.cc:24
-#, fuzzy, c-format
+#, c-format
 msgid "warning: %s\n"
-msgstr "advarsel: "
+msgstr "advarsel: %s\n"
 
 #: warn.cc:30
-#, fuzzy, c-format
+#, c-format
 msgid "error: %s\n"
-msgstr "fejl: "
+msgstr "fejl: %s\n"
 
 #: warn.cc:43
-#, fuzzy, c-format
+#, c-format
 msgid "programming error: %s (Continuing; cross thumbs)\n"
-msgstr " (Fortsætter, kryds fingrene)"
+msgstr "programfejl: %s (Fortsætter, kryds fingrene)\n"
 
 #: accidental-engraver.cc:181 new-accidental-engraver.cc:237
 #, c-format
@@ -460,9 +455,9 @@ msgid "Accidental typesetting list must begin with context-name: %s"
 msgstr ""
 
 #: accidental-engraver.cc:206 new-accidental-engraver.cc:262
-#, fuzzy, c-format
+#, c-format
 msgid "unknown accidental typesetting: %s. Ignored"
-msgstr "ukendt \"escaped\" streng: \"\\%s\""
+msgstr ""
 
 #: accidental-engraver.cc:222 new-accidental-engraver.cc:278
 #, c-format
@@ -500,12 +495,8 @@ msgid "does not match: `%s'"
 msgstr "matcher ikke: \"%s\""
 
 #: all-font-metrics.cc:102
-msgid ""
-" Rebuild all .afm files, and remove all .pk and .tfm files.  Rerun with -V "
-"to show font paths."
-msgstr ""
-" Genopbyg alle .afm-filer, og fjern alle .pk- og .tfm-filer. Kør igen med -V "
-"for at vise skrifttypesøgestier."
+msgid " Rebuild all .afm files, and remove all .pk and .tfm files.  Rerun with -V to show font paths."
+msgstr " Genopbyg alle .afm-filer, og fjern alle .pk- og .tfm-filer. Kør igen med -V for at vise skrifttypesøgestier."
 
 #: all-font-metrics.cc:167
 #, c-format
@@ -561,25 +552,21 @@ msgid "beam was started here"
 msgstr "bjælken startede her"
 
 #: beam.cc:134
-#, fuzzy
 msgid "beam has less than two visible stems"
-msgstr "bjælke har mindre end to nodehalse"
+msgstr "bjælke har mindre end to synlige nodehalse"
 
 #: beam.cc:139
-#, fuzzy
 msgid "Beam has less than two stems. Removing beam."
-msgstr "bjælke har mindre end to nodehalse"
+msgstr "Bjælke har mindre end to nodehalse. Fjerner bjælke."
 
 #: beam.cc:951
-msgid ""
-"Not sure that we can find a nice beam slope (no viable initial configuration "
-"found)."
-msgstr ""
+msgid "Not sure that we can find a nice beam slope (no viable initial configuration found)."
+msgstr "Ikke sikker på at vi kan finde en pæn hældning på bjælken (ingen brugelig initiel konfiguration fundet)."
 
 #: break-align-interface.cc:166
-#, fuzzy, c-format
+#, c-format
 msgid "No spacing entry from %s to `%s'"
-msgstr "Tilføjer ikke oversætter: \"%s\""
+msgstr "Ingen mellemrums-indgang fra %s til `%s'"
 
 #: change-iterator.cc:22
 #, c-format
@@ -636,9 +623,8 @@ msgid "already have a decrescendo"
 msgstr "har allerede et diminuendo"
 
 #: dynamic-engraver.cc:215
-#, fuzzy
 msgid "Cresc started here"
-msgstr "bjælken startede her"
+msgstr "Cresc startede her"
 
 #: dynamic-engraver.cc:307
 msgid "unterminated (de)crescendo"
@@ -650,13 +636,11 @@ msgstr "uafsluttet udvider"
 
 #: extender-engraver.cc:108
 msgid "Nothing to connect extender to on the left.  Ignoring extender request."
-msgstr ""
-"Der er ingenting at forbinde udvideren mod til venstre. Ignorerer ønsket om "
-"udvider"
+msgstr "Der er ingenting at forbinde udvideren mod til venstre. Ignorerer ønsket om udvider"
 
 #: folded-repeat-iterator.cc:78
 msgid "no one to print a repeat brace"
-msgstr "det er ingen som kan skrive et gentagelsestegn"
+msgstr "der er ingen som kan skrive et gentagelsestegn"
 
 #: font-interface.cc:238
 msgid "couldn't find any font satisfying "
@@ -685,9 +669,7 @@ msgstr "uafsluttet bindestreg"
 
 #: hyphen-engraver.cc:101
 msgid "Nothing to connect hyphen to on the left.  Ignoring hyphen request."
-msgstr ""
-"Det er ingenting at forbinde bindestregen mod til venstre. Ignorerer "
-"bindestregsforespørgslen."
+msgstr "Der er ingenting at forbinde bindestregen med til venstre. Ignorerer bindestregsforespørgslen."
 
 #: input-file-results.cc:71 source-file.cc:52 streams.cc:38
 #, c-format
@@ -724,22 +706,22 @@ msgid "FIXME: key change merge"
 msgstr "FIX: tonartsskiftsfletning"
 
 #: kpath.cc:64
-#, fuzzy, c-format
+#, c-format
 msgid "Kpathsea couldn't find TFM file `%s'"
-msgstr "kan ikke finde fil: \"%s\""
+msgstr "Kpathsea kunne ikke finde TMF-fil: \"%s\""
 
 #: ligature-bracket.cc:105 ligature-bracket.cc:139 ligature-engraver.cc:124
 msgid "no left bound"
-msgstr ""
+msgstr "Ingen venstrekant"
 
 #: ligature-engraver.cc:81
 #, fuzzy
 msgid "can't find start of ligature"
-msgstr "kan ikke finde start på bue"
+msgstr "kan ikke finde start på legatobue"
 
 #: ligature-engraver.cc:86
 msgid "no right bound"
-msgstr ""
+msgstr "Ingen højrekant"
 
 #: ligature-engraver.cc:108
 #, fuzzy
@@ -749,7 +731,7 @@ msgstr "har allerede en bjælke"
 #: ligature-engraver.cc:166
 #, fuzzy
 msgid "unterminated ligature"
-msgstr "uafsluttet bue"
+msgstr "uafsluttet legatobue"
 
 #: ligature-engraver.cc:183
 msgid "ligature may not contain rest; ignoring rest"
@@ -763,28 +745,25 @@ msgstr "bjælken startede her"
 #: lily-guile.cc:99
 #, c-format
 msgid "(load path: `%s')"
-msgstr "(indlæsningssøgesti: \"%s\""
+msgstr "(indlæsningssøgesti: \"%s\")"
 
 #: lily-guile.cc:582
-#, fuzzy, c-format
+#, c-format
 msgid "Can't find property type-check for `%s' (%s)."
-msgstr ""
-"Kan ikke finde egenskabstypekontrol for \"%s\". Måske har du lavet en "
-"tastefejl? Laver tildeling alligevel."
+msgstr "Kan ikke finde typetjek for egenskab af '%s' (%s)."
 
 #: lily-guile.cc:585
 msgid "Perhaps you made a typing error?"
-msgstr ""
+msgstr "Måske lavede du en tastefejl?"
 
 #: lily-guile.cc:591
 msgid "Doing assignment anyway."
-msgstr ""
+msgstr "Laver tildeling aligevel."
 
 #: lily-guile.cc:605
 #, c-format
 msgid "Type check for `%s' failed; value `%s' must be of type `%s'"
-msgstr ""
-"Typekontrol for \"%s\" mislykkedes; værdi \"%s\" skal have typen \"%s\""
+msgstr "Typekontrol for \"%s\" mislykkedes; værdi \"%s\" skal have typen \"%s\""
 
 #: lookup.cc:141
 msgid "round filled box horizontal extent smaller than blot; decreasing blot"
@@ -796,7 +775,7 @@ msgstr ""
 
 #: lyric-phrasing-engraver.cc:311
 msgid "lyrics found without any matching notehead"
-msgstr "tekst fundet uden noget matchende nodehoved"
+msgstr "tekst fundet uden noget tilhørende nodehoved"
 
 #: lyric-phrasing-engraver.cc:317
 msgid "Huh? Melismatic note found to have associated lyrics."
@@ -808,7 +787,7 @@ msgstr "UDTR"
 
 #: main.cc:107
 msgid "set options, use -e '(ly-option-usage)' for help"
-msgstr ""
+msgstr "sæt alternativer, brug -e '(ly-option-usage)' for hjælp"
 
 #. another bug in option parser: --output=foe is taken as an abbreviation
 #. for --output-format
@@ -817,8 +796,9 @@ msgid "EXT"
 msgstr "FMT"
 
 #: main.cc:110
+#, fuzzy
 msgid "use output format EXT"
-msgstr ""
+msgstr "brug uddataformat FMT (scm, ps, tex eller as)"
 
 #: main.cc:112
 msgid "FIELD"
@@ -826,7 +806,7 @@ msgstr "FELT"
 
 #: main.cc:112
 msgid "write header field to BASENAME.FIELD"
-msgstr "skriv rubrikfælt til BASNAVN.FELT"
+msgstr "skriv rubrikfelt til BASENAVN.FELT"
 
 #: main.cc:113
 msgid "add DIR to search path"
@@ -980,7 +960,7 @@ msgstr "kan ikke finde omgivelsen \"%s\""
 #: music.cc:159
 #, c-format
 msgid "Transposition by %s makes accidental larger than two"
-msgstr "Transponering med %s gør accicental større end to"
+msgstr "Transponering med %s medfører løst fortegn større end to"
 
 #: my-lily-lexer.cc:142
 #, c-format
@@ -998,15 +978,15 @@ msgstr "Tolker..."
 
 #: my-lily-parser.cc:54
 msgid "Braces don't match"
-msgstr "Krølleparenteser passer ikke"
+msgstr "Klammer passer ikke"
 
 #: note-collision.cc:340
 msgid "Too many clashing notecolumns.  Ignoring them."
-msgstr "For mange sammenhængende nodekolonner. Ignorerer dem."
+msgstr "For mange overlappende nodekolonner. Ignorerer dem."
 
 #: note-head.cc:134
 msgid "Symbol not found, "
-msgstr ""
+msgstr "Symbol ikke fundet, "
 
 #: output-property-music-iterator.cc:20 request-chord-iterator.cc:76
 #, c-format
@@ -1023,9 +1003,9 @@ msgid ", at "
 msgstr ", ved "
 
 #: paper-score.cc:77
-#, fuzzy, c-format
+#, c-format
 msgid "Element count %d (spanners %d) "
-msgstr "Elementantal %d "
+msgstr ""
 
 #: paper-score.cc:82
 msgid "Preprocessing elements..."
@@ -1037,7 +1017,7 @@ msgstr "Udskriver partitur, defineret ved: "
 
 #: parse-scm.cc:80
 msgid "GUILE signaled an error for the expression begining here"
-msgstr ""
+msgstr "GUILE signalerede en fejl for udtrykket, der begynder her"
 
 #.
 #. We could change the current translator's id, but that would make
@@ -1048,7 +1028,7 @@ msgstr ""
 #: part-combine-music-iterator.cc:116
 #, c-format
 msgid "I'm one myself: `%s'"
-msgstr "Jag er selv én: \"%s\""
+msgstr "Jeg er selv én: \"%s\""
 
 #: part-combine-music-iterator.cc:119
 #, c-format
@@ -1057,11 +1037,11 @@ msgstr "ingen af disse i min familie: \"%s\""
 
 #: percent-repeat-engraver.cc:116
 msgid "Don't know how to handle a percent repeat of this length."
-msgstr "Véd ikke hvordan en procentgentagelse af denne længde skal håndteres."
+msgstr "Véd ikke hvordan en procenttegnsgentagelse (percent) af denne længde skal håndteres."
 
 #: percent-repeat-iterator.cc:53
 msgid "no one to print a percent"
-msgstr "der er ingen som kan skrive en procent"
+msgstr "der er ingen som kan skrive et procent-tegn"
 
 #: performance.cc:51
 msgid "Track ... "
@@ -1072,9 +1052,8 @@ msgid "Creator: "
 msgstr "Skaber: "
 
 #: performance.cc:103
-#, fuzzy
 msgid "at "
-msgstr ", ved "
+msgstr "ved "
 
 #: performance.cc:114
 #, c-format
@@ -1101,9 +1080,8 @@ msgid "can't find start of piano pedal: `%s'"
 msgstr "kan ikke finde start på pianopedal: \"%s\""
 
 #: piano-pedal-engraver.cc:405
-#, fuzzy
 msgid "unterminated pedal bracket"
-msgstr "uafsluttet bjælke"
+msgstr ""
 
 #: pitch.cc:25
 msgid "Pitch arguments out of range"
@@ -1155,13 +1133,11 @@ msgid "  Evalute the Scheme EXPR before parsing any .ly files."
 msgstr ""
 
 #: scm-option.cc:48
-msgid ""
-"  Multiple -e options may be given, they will be evaluated sequentially."
+msgid "  Multiple -e options may be given, they will be evaluated sequentially."
 msgstr ""
 
 #: scm-option.cc:50
-msgid ""
-"  The function ly-set-option allows for access to some internal variables."
+msgid "  The function ly-set-option allows for access to some internal variables."
 msgstr ""
 
 #: scm-option.cc:52
@@ -1177,9 +1153,9 @@ msgid "Unknown internal option!"
 msgstr ""
 
 #: score-engraver.cc:102
-#, fuzzy, c-format
+#, c-format
 msgid "can't find `%s'"
-msgstr "kan ikke finde: \"%s\""
+msgstr "kan ikke finde: '%s'"
 
 #: score-engraver.cc:103
 msgid "Fonts have not been installed properly.  Aborting"
@@ -1230,22 +1206,21 @@ msgstr ""
 
 #: slur-engraver.cc:140
 msgid "unterminated slur"
-msgstr "uafsluttet bue"
+msgstr "uafsluttet legatobue"
 
 #. How to shut up this warning, when Voice_devnull_engraver has
 #. eaten start request?
 #: slur-engraver.cc:157
 msgid "can't find start of slur"
-msgstr "kan ikke finde start på bue"
+msgstr "kan ikke finde start på legatobue"
 
 #: slur.cc:53
-#, fuzzy
 msgid "Putting slur over rest."
-msgstr "Sætter bue over pause. Ignorerer."
+msgstr "Sætter legatobue over pause."
 
 #: slur.cc:424
 msgid "Slur over rest?"
-msgstr "Bue over pause?"
+msgstr "Legatobue over pause?"
 
 #: source-file.cc:65
 #, c-format
@@ -1269,7 +1244,7 @@ msgstr ""
 #: stem-engraver.cc:117
 #, c-format
 msgid "Adding note head to incompatible stem (type = %d)"
-msgstr "Tilføjer nodehoved til inkompatibel bue (type = %d)"
+msgstr "Tilføjer nodehoved til inkompatibel nodehals (type = %d)"
 
 #: stem.cc:118
 msgid "Weird stem size; check for narrow beams"
@@ -1324,8 +1299,7 @@ msgstr "TFM-rubrik i \"%s\" har kun %u ord"
 #: tfm-reader.cc:142
 #, c-format
 msgid "%s: TFM file has %u parameters, which is more than the %u I can handle"
-msgstr ""
-"%s: TFM-fil har %u parametre, hvilket er mere end de %u jeg kan håndtere"
+msgstr "%s: TFM-fil har %u parametre, hvilket er mere end de %u jeg kan håndtere"
 
 #: tfm.cc:83
 #, c-format
@@ -1334,15 +1308,15 @@ msgstr "kan ikke finde ASCII-tegn: %d"
 
 #: tie-engraver.cc:216
 msgid "lonely tie"
-msgstr "ensom bue"
+msgstr "ensom bindebue"
 
 #: tie-performer.cc:161
 msgid "No ties were created!"
-msgstr "Ingen buer blev lavet!"
+msgstr "Ingen bindebuer blev lavet!"
 
 #: time-scaled-music-iterator.cc:25
 msgid "no one to print a tuplet start bracket"
-msgstr "der findes ingen som kan skrive en startparentes for tuppel"
+msgstr "der findes ingen som kan skrive en startklamme for tuppel"
 
 #: translator-ctors.cc:53
 #, c-format
@@ -1380,11 +1354,11 @@ msgstr "kan ikke finde eller oprette: \"%s\""
 
 #: volta-engraver.cc:111
 msgid "No volta spanner to end"
-msgstr "Ingen reprisebro til slut"
+msgstr "Ingen volte-bro at afslutte"
 
 #: volta-engraver.cc:121
 msgid "Already have a volta spanner.  Stopping that one prematurely."
-msgstr "Har allerede en reprisebro. Stopper denne for tidligt."
+msgstr "Har allerede en volte-bro. Stopper denne for tidligt."
 
 #: volta-engraver.cc:125
 msgid "Also have a stopped spanner.  Giving up."
@@ -1397,7 +1371,7 @@ msgstr "Identificerer må kun indeholde alfabetiske tegn"
 
 #: parser.yy:729
 msgid "More alternatives than repeats.  Junking excess alternatives."
-msgstr "Flere alternativer end repriser. Stryger tiloversblevne alternativer."
+msgstr "Flere alternativer end gentagelser. Stryger tiloversblevne alternativer."
 
 #: parser.yy:798
 msgid "Second argument must be a symbol"
@@ -1504,22 +1478,19 @@ msgstr "Overvej at konvertere inddata med skriptet \"convert-ly\""
 #~ msgid "Generate .dvi with LaTeX for LilyPond"
 #~ msgstr "Generér .dvi med LaTeX for LilyPond"
 
-# det handlar om mmap hær
-#~ msgid "can't map file"
-#~ msgstr "kan ikke lave \"mmap\" på filen"
+# %s er progravnavnet (mup2ly)
+#~ msgid "%s is far from completed.  Not all constructs are recognised."
+#~ msgstr "%s er langt fra færdig, og kan ikke genkende alle konstruktioner."
 
-#, fuzzy
-#~ msgid "use output format EXT (tex [default], pdftex, ps, scm or as)"
-#~ msgstr "brug uddataformat FMT (scm, ps, tex eller as)"
-
-#~ msgid "This binary was compiled with the following options:"
-#~ msgstr "Dette program blev oversat med følgende flag:"
-
-#~ msgid "Expecting %d arguments"
-#~ msgstr "Forventer %d argumenter"
+#~ msgid "Cleaning `%s'..."
+#~ msgstr "Renser \"%s\"..."
 
 #~ msgid "EOF in a string"
 #~ msgstr "EOF i en streng"
+
+# det handlar om mmap hær
+#~ msgid "can't map file"
+#~ msgstr "kan ikke lave \"mmap\" på filen"
 
 #~ msgid "<stdin>"
 #~ msgstr "<stdin>"
@@ -1531,13 +1502,22 @@ msgstr "Overvej at konvertere inddata med skriptet \"convert-ly\""
 #~ msgstr "kan ikke finde start på bjælke"
 
 #~ msgid "weird beam vertical offset"
-#~ msgstr "underligt lodret afstand for bjælke"
+#~ msgstr "underlig lodret afstand for bjælke"
 
 #~ msgid "unknown spacing pair `%s', `%s'"
 #~ msgstr "ukendt afstandspar \"%s\", \"%s\""
 
+#~ msgid "no Grace context available"
+#~ msgstr "ingen forslagsnodeomgivelse (Grace) tilgængelig"
+
+#~ msgid "Unattached grace notes.  Attaching to last musical column."
+#~ msgstr "Ikke-fæstede forslagsnoder. Fæster ved sidste musikkolonne."
+
 #~ msgid "evalute EXPR as Scheme after .scm init is read"
 #~ msgstr "evaluér UDTR som Scheme efter .scm-init er læst"
+
+#~ msgid "This binary was compiled with the following options:"
+#~ msgstr "Dette program blev oversat med følgende flag:"
 
 #~ msgid "ly_get_mus_property (): Not a Music"
 #~ msgstr "ly_get_mus_property (): Ikke en \"Music\""
@@ -1553,6 +1533,9 @@ msgstr "Overvej at konvertere inddata med skriptet \"convert-ly\""
 
 #~ msgid "ly_music_name (): Not a music expression"
 #~ msgstr "ly_music_name (): Ikke et musikudtryk"
+
+#~ msgid "writing header field `%s' to `%s'..."
+#~ msgstr "skriver rubrikfelt \"%s\" til \"%s\"..."
 
 #~ msgid ""
 #~ "`%s' is deprecated.  Use\n"
@@ -1570,27 +1553,17 @@ msgstr "Overvej at konvertere inddata med skriptet \"convert-ly\""
 #~ msgid "Scheme options:"
 #~ msgstr "Scheme-flag:"
 
+#~ msgid "Can't find property type-check for `%s'.  Perhaps you made a typing error? Doing assignment anyway."
+#~ msgstr "Kan ikke finde egenskabstypekontrol for \"%s\". Måske har du lavet en tastefejl? Laver tildeling alligevel."
+
 #~ msgid "ly-get-trans-property: expecting a Translator_group argument"
 #~ msgstr "ly-get-trans-property: forventede et Translator_group-argument"
 
+#~ msgid "Expecting %d arguments"
+#~ msgstr "Forventer %d argumenter"
+
 #~ msgid "Oldest supported input version: %s"
 #~ msgstr "Ældste inddataversion som understøttes: %s"
-
-# %s er progravnavnet (mup2ly)
-#~ msgid "%s is far from completed.  Not all constructs are recognised."
-#~ msgstr "%s er langt fra færdig, og kan ikke genkende alle konstruktioner."
-
-#~ msgid "Cleaning `%s'..."
-#~ msgstr "Renser \"%s\"..."
-
-#~ msgid "no Grace context available"
-#~ msgstr "ingen prydomgivelse tilgængelig"
-
-#~ msgid "Unattached grace notes.  Attaching to last musical column."
-#~ msgstr "Ikke-fæstede prydsnoder. Fæster ved sidste musikkolonne."
-
-#~ msgid "writing header field `%s' to `%s'..."
-#~ msgstr "skriver rubrikfelt \"%s\" til \"%s\"..."
 
 #~ msgid "#32 in quarter: %d"
 #~ msgstr "#32 i fjerdedel: %d"

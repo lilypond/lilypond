@@ -263,7 +263,7 @@ setup_paths ()
     for (char **s = suffixes; *s; s++)
       {
 	String p = prefix_directory[i] + to_string ('/') + String (*s);
-	global_path.add (p);
+	global_path.prepend (p);
 	
 #if !KPATHSEA
 	/* Urg: GNU make's $ (word) index starts at 1 */

@@ -44,7 +44,7 @@ public:
 protected:
   virtual void discretionary_processing ();
   void copy_breakable_items ();
-  virtual SCM do_derived_mark ();
+  virtual SCM do_derived_mark () const;
 };
 
 

@@ -64,7 +64,7 @@ pial = \notes {
 guitar = \notes {
     \guitar
     \relative c' {
-	<d,2-2 g-3 h-4 e-5 a-6> r2 |
+	<d,2\2 g\3 h\4 e\5 a\6> r2 |
     }
 }
 

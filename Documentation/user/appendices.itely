@@ -210,3 +210,7 @@ accessed directly using text markup such as
 
 @lilypondfile{feta16list.ly}
 
+@c parmesan is too big. Apparently pythons re's choke on this.
+@c @lil ypondfile{parmesan16list.ly}
+
+

@@ -11,7 +11,6 @@
 #define SIMULTANEOUS_MUSIC_ITERATOR_HH
 
 #include "music-iterator.hh"
-#include "cons.hh"
 
 class Simultaneous_music_iterator : public Music_iterator
 {
@@ -19,15 +18,15 @@ public:
   VIRTUAL_COPY_CONS (Music_iterator);
   Simultaneous_music_iterator ();
   Simultaneous_music_iterator (Simultaneous_music_iterator const&);
-  virtual ~Simultaneous_music_iterator ();
-  static SCM constructor_cxx_function;
+  virtual void derived_mark () const;
+  DECLARE_SCHEME_CALLBACK(constructor, ());
   
   /// make a new context for every child.
   bool separate_contexts_b_;
-  int cursor_;
 
   virtual void construct_children ();
   virtual Moment pending_moment () const;
+  virtual void do_quit(); 
   virtual bool ok () const;
   virtual SCM get_pending_events (Moment)const;
   virtual void skip (Moment);
@@ -37,7 +36,7 @@ protected:
   virtual Music_iterator *try_music_in_children (Music *) const;
 
 private:
-  Cons_list<Music_iterator> children_p_list_;
+  SCM children_list_;
 };
 
 #endif // SIMULTANEOUS_MUSIC_ITERATOR_HH

@@ -95,28 +95,27 @@ Clef_engraver::create_clef ()
       announce_grob(c, SCM_EOL);
 
       clef_ = c;
-    }
-  SCM cpos = get_property ("clefPosition");
+      SCM cpos = get_property ("clefPosition");
 
-  if (gh_number_p (cpos))
-    Staff_symbol_referencer::set_position (clef_, gh_scm2int (cpos));
+      if (gh_number_p (cpos))
+	Staff_symbol_referencer::set_position (clef_, gh_scm2int (cpos));
 
-  SCM oct =  get_property ("clefOctavation");
-  if (gh_number_p (oct) && gh_scm2int (oct))
-    {
-      Item * g = new Item (get_property ("OctavateEight"));
+      SCM oct =  get_property ("clefOctavation");
+      if (gh_number_p (oct) && gh_scm2int (oct))
+	{
+	  Item * g = new Item (get_property ("OctavateEight"));
 
-      Side_position_interface::add_support (g,clef_);      
+	  Side_position_interface::add_support (g,clef_);      
 
-      g->set_parent (clef_, Y_AXIS);
-      g->set_parent (clef_, X_AXIS);
+	  g->set_parent (clef_, Y_AXIS);
+	  g->set_parent (clef_, X_AXIS);
 
-      g->set_grob_property ("direction", scm_int2num (sign (gh_scm2int (oct))));
-      octavate_ = g;
-      announce_grob(octavate_, SCM_EOL);
+	  g->set_grob_property ("direction", scm_int2num (sign (gh_scm2int (oct))));
+	  octavate_ = g;
+	  announce_grob(octavate_, SCM_EOL);
+	}
     }
 }
-
 void
 Clef_engraver::process_music ()
 {

@@ -142,7 +142,7 @@
   (begin
 					; uncomment for some stats about lily memory	  
 					;		(display (gc-stats))
-    (string-append "\n\\EndLilyPondOutput"
+    (string-append "\n\\EndLilyPondOutput\n"
 					; Put GC stats here.
 		   )))
 

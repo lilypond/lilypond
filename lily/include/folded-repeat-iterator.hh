@@ -20,14 +20,14 @@ class Folded_repeat_iterator : public Music_iterator
 {
 public:
   VIRTUAL_COPY_CONS (Music_iterator);
-  static SCM constructor_cxx_function;
+  DECLARE_SCHEME_CALLBACK(constructor, ());
 
   Folded_repeat_iterator (Folded_repeat_iterator const &src);
   Folded_repeat_iterator ();
-  ~Folded_repeat_iterator ();
-  
+  virtual void derived_mark () const;
   virtual void construct_children ();
   virtual Moment pending_moment () const;
+  virtual void do_quit(); 
   virtual bool ok () const;
 
 protected:

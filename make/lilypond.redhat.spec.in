@@ -26,7 +26,7 @@ Group: Applications/Publishing
 
 %description documentation
 
-The documentation of LilyPond, both in HTML and PostScript.
+The documentation and example files of LilyPond.
 
 %prep
 %setup
@@ -39,7 +39,7 @@ The documentation of LilyPond, both in HTML and PostScript.
 # In fact, do not take out the spaces between % and { in the above comment,
 # because RPM will gladly do a substitution anyway.
 
-./configure --disable-checking --prefix=%{_prefix} --enable-optimise
+./configure --disable-checking --prefix=%{_prefix} --enable-optimising
 
 make MAKE_PFA_FILES=1 all
 

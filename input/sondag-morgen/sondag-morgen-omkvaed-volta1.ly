@@ -87,21 +87,23 @@ piar = \notes {
 }
 U = \sustainUp
 D = \sustainDown
+Su = { \su \stemDown }
+Sd = { \sd \stemUp }
 pial = \notes {
     \pial
-    a,, a, e, <h,,8 h,> r <d,,4 d,> e,8 | 
-    e,,8 e, \su <g h d' e' g'> \sd g, g,, \su <g a h d' fis'> \sd e, <a,, a,>~
-    <a,,1 a,> |
+    \stemBoth a,, a, e, <h,,8 h,> r <d,,4 d,> e,8 | 
+    e,,8 e, \Su <g h d' e' g'> \Sd g, g,, \Su <g a h d' fis'> \Sd e, <a,, a,>~
+    \stemBoth <a,,1 a,> |
     <d, d> |
     <d,2 d> r |
 }
 guitar = \notes {
     \guitar
-    e8-2 e-2 < a-3 d'-4> e-2 e-2 < a-3 d'-4> e-2 < h-3 e'-4> |
-    e8-2 < d'-4 g'-5> e-2 e-2 < e'-4 a'-5> e-2 e-2 <g8-3 c'-4 e'-5 a'-6> ~ |
-    <g1-3 c'-4 e'-5 a'-6>
-    <a1-3 d'-4 e'-5 a'-6> ~
-    <a2-3 d'-4 fis'-5 a'-6> r |
+    e8\2 e\2 < a\3 d'\4> e\2 e\2 < a\3 d'\4> e\2 < h\3 e'\4> |
+    e8\2 < d'\4 g'\5> e\2 e\2 < e'\4 a'\5> e\2 e\2 <g8\3 c'\4 e'\5 a'\6> ~ |
+    <g1\3 c'\4 e'\5 a'\6>
+    <a1\3 d'\4 e'\5 a'\6> ~
+    <a2\3 d'\4 fis'\5 a'\6> r |
 }
 
 cello = \notes {
