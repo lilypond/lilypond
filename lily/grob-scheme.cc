@@ -3,6 +3,7 @@
 #include "spanner.hh"
 #include "item.hh"
 #include "paper-def.hh"
+#include "system.hh"
 
 LY_DEFINE(ly_set_grob_property,"ly-set-grob-property!", 3, 0, 0,
   (SCM grob, SCM sym, SCM val),
@@ -114,7 +115,7 @@ Return the System Grob of @var{grob}.
   Grob *me = unsmob_grob (grob);
   SCM_ASSERT_TYPE (me, grob, SCM_ARG1, __FUNCTION__, "grob");
   
-  if (Grob *g = me->get_system ())
+  if (System *g = me->get_system ())
     return g->self_scm ();
     
   return SCM_EOL;
