@@ -102,21 +102,13 @@ Lyric_combine_music_iterator::process (Moment m)
   
   music_iter_->process (m);
 
-  if ( get_busy_status ())
+  if (get_busy_status ())
     {
       bool melisma_b = try_music (melisma_playing_req);
       if (!melisma_b)
 	{
 	  if (lyric_iter_->ok ())
 	    {
-	      // FIXME
-#if 0				// devise a new way for this
-	      if (melisma_b && !melisma_started_b_)
-		lyric_iter_->try_music (melisma_start_req);
-	      else if (melisma_started_b_)
-		lyric_iter_->try_music (melisma_stop_req);
-#endif
-	      
 	      Moment m= lyric_iter_->pending_moment ();
 	      lyric_iter_->process (m);
 	    }

@@ -134,6 +134,7 @@ VoiceContext = \translator {
 	\consists "Arpeggio_engraver"
 	\consists "Multi_measure_rest_engraver"
 	\consists "Text_spanner_engraver"
+	\consists "Grob_pq_engraver"
 
 	\consists "Ligature_bracket_engraver"
 	\consists "Breathing_sign_engraver"

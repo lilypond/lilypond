@@ -1,3 +1,10 @@
+2002-08-31  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/regression/lyric-combine-polyphonic.ly: new file.
+
+	* ly/engraver-init.ly (VoiceContext): add Grob_pq_engraver to
+	Voice context.
+
 2002-08-31 Graham Percival  <gperciva@sfu.ca>
 
         * Documentation/user/tutorial.itely:  editorial changes
