@@ -146,9 +146,9 @@ def gen_list(inputs, filename):
 		desc = read_dict('description', '')
 		list.write('<hr>\n')
 		list.write('<h1>%s</h1>\n' % head);
-		if composer <> '':
+		if composer:
 			list.write('<h2>%s</h2>\n' % composer)
-		if desc <> '':
+		if desc:
 			list.write('%s<p>' % desc)
 		list.write ('<ul>\n')
 		def list_item(filename, desc, type, l = list):

@@ -1,5 +1,10 @@
 2003-07-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/user/GNUmakefile: copy unsplit file to
+	lilypond.html (idem for lilypond-internals).
+
+	* buildscripts/mutopia-index.py (read_dict): remove "example file:"
+
 	* Documentation/topdocs/NEWS.texi (Top): rewrite NEWS in texinfo.
 
 	* python/lilylib.py (lilypond_version): 2.1 proof version check.
