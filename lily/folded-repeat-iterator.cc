@@ -161,4 +161,14 @@ Folded_repeat_iterator::derived_mark()const
   if (alternative_iter_)
     scm_gc_mark (alternative_iter_->self_scm());
 }
+
+void
+Folded_repeat_iterator::derived_substitute (Translator_group*f, Translator_group*t) 
+{
+  if (main_iter_)
+    main_iter_->substitute_outlet (f,t);
+  if (alternative_iter_)
+    alternative_iter_->substitute_outlet (f,t);
+}
+
 IMPLEMENT_CTOR_CALLBACK (Folded_repeat_iterator);

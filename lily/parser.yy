@@ -283,6 +283,7 @@ yylex (YYSTYPE *s,  void * v)
 %token OVERRIDE SET REVERT 
 %token PAPER
 %token PARTCOMBINE
+%token NEWPARTCOMBINE
 %token PARTIAL
 %token PITCHNAMES
 %token PROPERTY
@@ -549,7 +550,6 @@ all objects can be unprotected as soon as they're here.
 	}
 	| embedded_scm { }
 	;
-
 
 
 identifier_init:
@@ -1120,6 +1120,15 @@ part_combined_music:
 		p->set_mus_property ("what", scm_string_to_symbol ($2));
 		p->set_mus_property ("elements", gh_list ($3->self_scm (),$4->self_scm (), SCM_UNDEFINED));  
 
+		scm_gc_unprotect_object ($3->self_scm ());
+		scm_gc_unprotect_object ($4->self_scm ());  
+
+		$$ = p;
+	}
+	| NEWPARTCOMBINE embedded_scm Music Music {
+		Music * p= MY_MAKE_MUSIC("NewPartCombineMusic");
+		p->set_mus_property ("elements", gh_list ($3->self_scm (),$4->self_scm (), SCM_UNDEFINED));  
+		p->set_mus_property ("split-list", $2);
 		scm_gc_unprotect_object ($3->self_scm ());
 		scm_gc_unprotect_object ($4->self_scm ());  
 

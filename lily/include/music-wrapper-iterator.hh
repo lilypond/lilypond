@@ -26,6 +26,8 @@ public:
   Music_wrapper_iterator ();
   Music_wrapper_iterator (Music_wrapper_iterator const&);
 
+  virtual void derived_substitute (Translator_group*f, Translator_group*t) ;
+
   virtual void derived_mark () const;
   virtual void construct_children () ;
   virtual Moment pending_moment () const;

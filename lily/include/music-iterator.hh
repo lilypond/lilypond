@@ -91,8 +91,8 @@ public:
   static SCM get_static_get_iterator (Music * mus);
   void init_translator (Music  *, Translator_group *); 
   void quit ();
-
-  
+  void substitute_outlet (Translator_group* from, Translator_group *to);
+  virtual void derived_substitute (Translator_group*, Translator_group*);
   virtual Moment pending_moment () const;
   virtual bool ok () const;
 
@@ -100,6 +100,7 @@ public:
   virtual SCM get_pending_events (Moment until)const;
   virtual void process (Moment until);
   virtual void skip (Moment until);
+
   virtual void derived_mark ()const;
   virtual void construct_children ();
   

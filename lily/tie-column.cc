@@ -22,7 +22,9 @@
 /*
   tie dir depends on what Tie_column does.
 */
-
+/*
+  TODO: this doesn't follow standard pattern. Regularize.
+ */
 void
 Tie_column::add_tie (Grob*me,Grob *s)
 {
@@ -46,8 +48,6 @@ Tie_column::set_directions (Grob*me)
 {
   werner_directions (me);
 }
-  
-
 
 int
 tie_compare (Grob* const & s1,
@@ -74,11 +74,9 @@ Tie_column::old_directions (Grob*me)
   for (int i = ties.size (); i--;)
     if (get_grob_direction (ties[i]))
       ties.del (i);
-  
 
   if (!ties.size ())
     return ;
-  
 
   Direction d = get_grob_direction (me);
   if (d)

@@ -85,6 +85,14 @@ Sequential_iterator::derived_mark ()const
 }
 
 
+void
+Sequential_iterator::derived_substitute (Translator_group*f,Translator_group*t)
+{
+  if (iter_)
+    iter_->substitute_outlet (f,t);
+  
+}
+
 Grace_fixup *
 get_grace_fixups (SCM cursor)
 {

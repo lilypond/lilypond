@@ -18,6 +18,7 @@ public:
   VIRTUAL_COPY_CONS (Music_iterator);
   Simultaneous_music_iterator ();
   Simultaneous_music_iterator (Simultaneous_music_iterator const&);
+  virtual void derived_substitute (Translator_group*f, Translator_group*t) ;
   virtual void derived_mark () const;
   DECLARE_SCHEME_CALLBACK(constructor, ());
   

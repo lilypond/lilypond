@@ -20,6 +20,8 @@ public:
   Chord_tremolo_iterator ();
   Chord_tremolo_iterator (Chord_tremolo_iterator const & );
 protected:
+  virtual void derived_substitute (Translator_group*f, Translator_group*t) ;
+
   virtual void derived_mark () const;
   virtual Moment pending_moment () const;
   virtual void do_quit(); 

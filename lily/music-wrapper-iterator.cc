@@ -39,6 +39,13 @@ Music_wrapper_iterator::derived_mark () const
     scm_gc_mark (child_iter_->self_scm());
 }
 
+void
+Music_wrapper_iterator::derived_substitute (Translator_group*f,Translator_group*t) 
+{
+  
+  if (child_iter_)
+    child_iter_->substitute_outlet (f,t);
+}
 
 void
 Music_wrapper_iterator::construct_children ()

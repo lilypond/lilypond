@@ -136,6 +136,18 @@ Music_iterator::init_translator (Music *m, Translator_group *report)
     set_translator (report);
 }
 
+void
+Music_iterator::substitute_outlet (Translator_group*f, Translator_group *t)
+{
+  if (report_to () == f)
+    set_translator (t);
+  derived_substitute (f,t);
+}
+
+void
+Music_iterator::derived_substitute (Translator_group*,Translator_group*)
+{
+}
 
 SCM
 Music_iterator::get_iterator (Music *m) const
