@@ -31,20 +31,20 @@ static Real absdyn_dim = 10 PT;	// ugh
 
 Atom
 Crescendo::get_symbol() const
-{    
+{
   Real w_dim = width().length ();
-  if (dyn_b_drul_[LEFT]) 
+  if (dyn_b_drul_[LEFT])
     {
       w_dim -= absdyn_dim;
     }
-  if (dyn_b_drul_[RIGHT]) 
+  if (dyn_b_drul_[RIGHT])
     {
       w_dim -= absdyn_dim;
     }
-  
-  if (w_dim < 0) 
+
+  if (w_dim < 0)
     {
-      warning ("Crescendo too small");
+      warning (_("Crescendo too small"));
       w_dim = 0;
     }
 
@@ -58,7 +58,7 @@ Crescendo::brew_molecule_p() const
   Real x_off_dim=0.0;
   if (dyn_b_drul_[LEFT])
     x_off_dim += absdyn_dim;
-  
+
   m_p = new Molecule;
   Atom s (get_symbol());
   m_p->add (Atom (s));

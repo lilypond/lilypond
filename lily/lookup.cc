@@ -7,9 +7,9 @@
 
   TODO
   This doth suck. We should have PS output, and read spacing info from TFMs
-  
+
   Glissando, bracket
-  
+
 */
 
 #include "lookup.hh"
@@ -58,7 +58,7 @@ Atom
 Lookup::text (String style, String text, int dir) const
 {
   Array<String> a;
- 
+
   a.push (text);
   Atom tsym =  (*symtables_)("style")->lookup (style);
   a[0] = substitute_args (tsym.tex_,a);
@@ -130,7 +130,7 @@ Lookup::clef (String s) const
 {
   return (*symtables_)("clefs")->lookup (s);
 }
- 
+
 Atom
 Lookup::dots () const
 {
@@ -148,16 +148,16 @@ Atom
 Lookup::streepjes (int type, int i) const
 {
   assert (i);
-  
+
   int arg;
   String idx;
-  
-  if (i < 0) 
+
+  if (i < 0)
     {
       idx = "botlines";
       arg = -i;
     }
-  else 
+  else
     {
       arg = i;
       idx = "toplines";
@@ -167,7 +167,7 @@ Lookup::streepjes (int type, int i) const
   Real w = ball (type).dim_[X_AXIS].length ();
 
   Atom ret = (*symtables_)("streepjes")->lookup (idx);
-  
+
   Array<String> a;
   a.push (String (w) + "pt");
   a.push (arg);
@@ -184,7 +184,7 @@ Lookup::hairpin (Real &wid, bool decresc) const
   wid = idx*6 PT;
   String idxstr = (decresc)? "decrescendosym" : "crescendosym";
   Atom ret=(*symtables_)("param")->lookup (idxstr);
-     
+
   Array<String> a;
   a.push (idx);
   ret.tex_ = substitute_args (ret.tex_, a);
@@ -218,28 +218,28 @@ Lookup::meter (Array<Scalar> a) const
 {
   Atom s((*symtables_)("param")->lookup ("meter"));
   s.tex_ = substitute_args (s.tex_,a);
-  return s;    
+  return s;
 }
 
 
 Atom
 Lookup::stem (Real y1,Real y2) const
 {
-  if (y1 > y2) 
+  if (y1 > y2)
     {
       Real t = y1;
       y1 = y2;
       y2 = t;
     }
   Atom s;
-  
+
   s.dim_.x() = Interval (0,0);
   s.dim_.y() = Interval (y1,y2);
-  
+
   Array<String> a;
   a.push (print_dimen (y1));
   a.push (print_dimen (y2));
-	
+
   String src = (*symtables_)("param")->lookup ("stem").tex_;
   s.tex_ = substitute_args (src,a);
   return s;
@@ -251,19 +251,19 @@ Lookup::stem (Real y1,Real y2) const
 Atom
 Lookup::vbrace (Real &y) const
 {
-  if (y < 2* 20 PT) 
+  if (y < 2* 20 PT)
     {
-      warning ("piano brace too small (" + print_dimen (y)+ ")");
+      warning (_("piano brace too small (") + print_dimen (y)+ ")");
       y = 2*20 PT;
     }
-  if (y > 67 * 2 PT) 
+  if (y > 67 * 2 PT)
     {
-      warning ("piano brace too big (" + print_dimen (y)+ ")");	
+      warning (_("piano brace too big (") + print_dimen (y)+ ")");
       y = 67 *2 PT;
     }
-  
+
   int idx = int (rint ((y/2.0 - 20) + 148));
-  
+
   Atom s = (*symtables_)("param")->lookup ("brace");
   {
     Array<String> a;
@@ -279,6 +279,6 @@ Lookup::vbrace (Real &y) const
     s.tex_ = substitute_args ("\\placebox{%}{%}{%}", a);
   }
 
-	
+
   return s;
 }

@@ -50,28 +50,28 @@ Score::run_translator (Music_output_def *odef_l)
   Global_translator * trans_p = odef_l->get_global_translator_p();
   if (!trans_p)
     return ;
-  
-  *mlog << "\nInterpreting music ...";
+
+  *mlog << _("\nInterpreting music ...");
   trans_p->last_mom_ = music_p_->time_int().max ();
 
-  Music_iterator * iter = Music_iterator::static_get_iterator_p (music_p_, 
+  Music_iterator * iter = Music_iterator::static_get_iterator_p (music_p_,
 								 trans_p);
   iter->construct_children();
 
-  if (! iter->ok()) 
+  if (! iter->ok())
     {
       delete iter;
-      warning ("Need music in a score");
+      warning (_("Need music in a score"));
       errorlevel_i_ =1;
       return ;
     }
-  
+
   trans_p->start();
-  
-  while (iter->ok() || trans_p->moments_left_i ()) 
+
+  while (iter->ok() || trans_p->moments_left_i ())
     {
       Moment w = infinity_mom;
-      if (iter->ok()) 
+      if (iter->ok())
 	{
 	  w = iter->next_moment();
 	  DOUT << "proccing: " << w <<"\n";
@@ -87,22 +87,22 @@ Score::run_translator (Music_output_def *odef_l)
   delete iter;
   trans_p->finish();
 
-  
-  if (errorlevel_i_) 
+
+  if (errorlevel_i_)
     {
-      // should we? hampers debugging. 
-      warning ("Errors found, /*not processing score*/");
+      // should we? hampers debugging.
+      warning (_("Errors found, /*not processing score*/"));
     }
-    
+
   Music_output * output = trans_p->get_output_p();
   delete trans_p;
-  *mlog << " (time: " << String(timer.read (), "%.2f") << " seconds)";
+  *mlog << _(" (time: ") << String(timer.read (), "%.2f") << _(" seconds)");
 
-  
+
   output->header_l_ = header_p_;
   output->default_out_str_ = default_out_fn;
   output->origin_str_ =  location_str();
-  
+
   *mlog << endl;
   output->process();
   delete output ;
@@ -126,7 +126,7 @@ void
 Score::print() const
 {
 #ifndef NPRINT
-  DOUT << "score {\n"; 
+  DOUT << "score {\n";
   music_p_ -> print ();
   for (int i=0; i < def_p_arr_.size (); i++)
     def_p_arr_[i]->print();
@@ -139,6 +139,3 @@ Score::add (Music_output_def *pap_p)
 {
   def_p_arr_.push(pap_p);
 }
-
-
-

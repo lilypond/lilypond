@@ -51,12 +51,12 @@ Mudela_key::str ()
   else
 	key_i =   ((-accidentals_i_ % 7)[ "cfbeadg" ] - 'a' - 2) % 7;
   String str = "\\key ";
-  if (!minor_i_) 
+  if (!minor_i_)
 	str += String ((char)  ((key_i + 2) % 7 + 'A'));
   else // heu, -2: should be - 1 1/2: A -> fis
 	str += String ((char)  ((key_i + 2 - 2) % 7 + 'a'));
   str = String ("% \"") + str
-	+ String ('"') + "; % not supported yet\n"; 
+	+ String ('"') + _("; % not supported yet\n");
   return str;
 }
 
@@ -70,10 +70,10 @@ Mudela_key::notename_str (int pitch_i)
   // minor scale: la-la  (= + 5)
   static int notename_i_a[ 12 ] = { 0, 0, 1, 1, 2, 3, 3, 4, 4, 5, 5, 6 };
   int notename_i = notename_i_a[  (minor_i_ * 5 + pitch_i) % 12 ];
-  
+
   static int accidentals_i_a[ 12 ] = { 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0 };
   int accidental_i = accidentals_i_a[ (minor_i_ * 5 + pitch_i) % 12 ];
-  if (accidental_i &&  (accidentals_i_ < 0)) 
+  if (accidental_i &&  (accidentals_i_ < 0))
     {
 	accidental_i = - accidental_i;
 	notename_i =  (notename_i + 1) % 7;
@@ -101,10 +101,10 @@ Mudela_meter::Mudela_meter (int num_i, int den_i, int clocks_4_i, int count_32_i
   sync_dur_.durlog_i_ = 3;
   sync_f_ = 1.0;
   if (count_32_i != 8)
-	warning (String ("#32 in quarter: ") + String (count_32_i));
+	warning (String (_("#32 in quarter: ")) + String (count_32_i));
   num_i_ = num_i;
   den_i_ = den_i;
-  clocks_1_i_ = clocks_4_i * 4; 
+  clocks_1_i_ = clocks_4_i * 4;
 }
 
 Moment
@@ -137,7 +137,7 @@ String
 Mudela_meter::str ()
 {
   String str = "\\meter "
-	+ String (num_i_) + "/" + String (1 << den_i_) 
+	+ String (num_i_) + "/" + String (1 << den_i_)
 	+ ";\n";
   return str;
 }
@@ -145,9 +145,9 @@ Mudela_meter::str ()
 
 // statics Mudela_note
 /*
- this switch can be used to write simple plets like 
-   c4*2/3 
- as  
+ this switch can be used to write simple plets like
+   c4*2/3
+ as
    \plet 2/3; c4 \plet 1/1;
  */
 bool const Mudela_note::simple_plet_b_s = true;
@@ -158,7 +158,7 @@ Mudela_note::Mudela_note (Mudela_column* mudela_column_l, int channel_i, int pit
   // junk dynamics
   (void)dyn_i;
   channel_i_ = channel_i;
-  pitch_i_ = pitch_i;	
+  pitch_i_ = pitch_i;
   end_column_l_ = 0;
 }
 
@@ -186,7 +186,7 @@ Mudela_note::str ()
   if (dur.durlog_i_ < -10)
 	return "";
 
-  String name_str 
+  String name_str
     = mudela_column_l_->mudela_score_l_->mudela_key_l_->notename_str (pitch_i_);
 
   if (simple_plet_b_s)
@@ -263,7 +263,7 @@ Mudela_tempo::str ()
   return str;
 }
 
-int 
+int
 Mudela_tempo::useconds_per_4_i ()
 {
   return useconds_per_4_i_;
@@ -285,10 +285,9 @@ Mudela_text::Mudela_text (Mudela_text::Type type, String text_str)
 String
 Mudela_text::str ()
 {
-  if (!text_str_.length_i () 
+  if (!text_str_.length_i ()
 	||  (text_str_.length_i () != (int)strlen (text_str_.ch_C ())))
 	return "";
 
   return "% " + text_str_ + "\n";
 }
-

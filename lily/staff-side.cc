@@ -43,10 +43,10 @@ Interval
 Staff_side::support_height() const
 {
   Interval r;
-  
+
   for (int i=0; i < support_l_arr_.size(); i++)
     r.unite (support_l_arr_[i]->height());
-  if (r.empty_b()) 
+  if (r.empty_b())
     {
       r = Interval (0,0);
     }
@@ -63,33 +63,33 @@ Staff_side::add_support (Score_elem*i)
 int
 Staff_side::get_position_i() const
 {
-  if (!dir_) 
+  if (!dir_)
     {
-      warning ("Staff_side::get_position_i(): " 
-	       "somebody forgot to set my vertical direction, returning -20");
+      warning (_("Staff_side::get_position_i(): "
+	       "somebody forgot to set my vertical direction, returning -20"));
       return -20;
     }
-  
+
 
   Real y=0;
   Real inter_f = paper()-> internote_f ();
-  if (!inside_staff_b_) 
+  if (!inside_staff_b_)
     {
-      y  = (staff_sym_l_) ? dir_ * (staff_sym_l_->steps_i()/2 + 2) : -2;  
+      y  = (staff_sym_l_) ? dir_ * (staff_sym_l_->steps_i()/2 + 2) : -2;
       y *=inter_f;
-      
+
       Interval v= support_height();
 
-      if (dir_ > 0) 
+      if (dir_ > 0)
 	{
 	  y = y >? (v.max() + 2*inter_f);
 	}
-      else if (dir_ < 0) 
+      else if (dir_ < 0)
 	{
 	  y = y <? (v.min() - 2*inter_f);
 	}
     }
-  else 
+  else
     {
       Interval v= support_height();
       y = v[dir_]  + 2*dir_*inter_f;	// ugh
@@ -114,7 +114,7 @@ Staff_side::do_post_processing()
 
 void
 Staff_side::do_substitute_dependency (Score_elem*o, Score_elem*n)
-{ 
+{
   support_l_arr_.unordered_substitute (o,n);
   if (staff_sym_l_ == o)
     staff_sym_l_ = n ? (Staff_symbol*) n->spanner():0;

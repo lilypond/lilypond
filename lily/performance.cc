@@ -48,29 +48,29 @@ void
 Performance::output_header_track (Midi_stream& midi_stream_r)
 {
   Midi_track midi_track;
-  
+
   time_t t = time (0);
 
   // perhaps multiple text events?
-  String str = String ("Creator: ") + get_version_str() + "\n";
+  String str = String (_("Creator: ")) + get_version_str() + "\n";
 
   Midi_text creator (Midi_text::TEXT, str);
   midi_track.add (Moment (0), &creator);
 
-  str = "Automatically generated at ";
+  str = _("Automatically generated at ");
   str += ctime (&t);
   str = str.left_str (str.length_i() - 1);
   str += "\n";
   Midi_text generate (Midi_text::TEXT, str);
   midi_track.add (Moment (0), &generate);
 
-  str = "from musical definition: ";
+  str = _("from musical definition: ");
 
   str += origin_str_;
   Midi_text from (Midi_text::TEXT, str);
   midi_track.add (Moment (0), &from);
 
-  Midi_text track_name (Midi_text::TRACK_NAME, "Track " 
+  Midi_text track_name (Midi_text::TRACK_NAME, "Track "
 			+ String_convert::i2dec_str (0, 0, '0'));
   midi_track.add (Moment (0), &track_name);
 
@@ -94,31 +94,31 @@ Performance::add (Audio_element *p)
 
 void
 Performance::print() const
-{    
+{
 #ifndef NPRINT
   DOUT << "Performance { ";
   DOUT << "Items: ";
   for (PCursor<Audio_element*> i (audio_elem_p_list_.top ()); i.ok (); i++)
     i->print ();
-  
+
   DOUT << "\ncolumns: ";
   for (PCursor<Audio_column*> i (audio_column_p_list_); i.ok(); i++)
     i->print();
   DOUT << "}\n";
-#endif 
+#endif
 }
 
 void
 Performance::process()
 {
   print ();
-  
+
   String out=midi_l_->outfile_str_;
   if (out.empty_b ())
     out = default_out_str_ + ".midi";
 
   Midi_stream midi_stream (out);
-  *mlog << "MIDI output to " << out<< " ..." << endl;    
+  *mlog << _("MIDI output to ") << out<< " ..." << endl;
 
   output (midi_stream);
   *mlog << endl;

@@ -9,7 +9,7 @@
 */
 
 #include "stem.hh"
-#include "dimen.hh" 
+#include "dimen.hh"
 #include "debug.hh"
 #include "paper-def.hh"
 #include "note-head.hh"
@@ -24,7 +24,7 @@ const int STEMLEN=7;
 
 IMPLEMENT_IS_TYPE_B1 (Stem,Item);
 
-Stem::Stem () 
+Stem::Stem ()
 {
   /*
     TODO: staff-size
@@ -59,7 +59,7 @@ Stem::max_head_i () const
   for (int i =0; i < head_l_arr_.size (); i++)
     m = m >? head_l_arr_[i]->position_i_;
   return m;
-  
+
 }
 
 void
@@ -72,7 +72,7 @@ Stem::do_print () const
 #endif
 }
 
-Real 
+Real
 Stem::stem_length_f () const
 {
   return yextent_drul_[UP]-yextent_drul_[DOWN] ;
@@ -95,9 +95,9 @@ void
 Stem::set_stemend (Real se)
 {
   // todo: margins
-  if (!  ((dir_ > 0 && se >= max_head_i ()) || 
-	  (se <= min_head_i () && dir_ <0)))	
-    warning ("Weird stem size; check for narrow beams");
+  if (!  ((dir_ > 0 && se >= max_head_i ()) ||
+	  (se <= min_head_i () && dir_ <0)))
+    warning (_("Weird stem size; check for narrow beams"));
 
   yextent_drul_[UP]  = (dir_ < 0) ? max_head_i () : se;
   yextent_drul_[DOWN]  = (dir_ < 0) ? se  : min_head_i ();
@@ -120,14 +120,14 @@ Stem::add (Rhythmic_head *n)
   else if (n->is_type_b (Rest::static_name ()))
     {
       rest_l_arr_.push ((Rest*)n);
-    }    
+    }
 }
 
 bool
 Stem::invisible_b () const
 {
-  
-  return (!head_l_arr_.size () || 
+
+  return (!head_l_arr_.size () ||
     head_l_arr_[0]->balltype_i_ <= 0);
 
 }
@@ -162,7 +162,7 @@ Stem::get_default_dir ()
   if (dir_)
     return dir_;
   return (get_center_distance_from_top () >=
-	  get_center_distance_from_bottom ()) ? 
+	  get_center_distance_from_bottom ()) ?
     (Direction)-1 : (Direction)1;
 }
 
@@ -179,7 +179,7 @@ Stem::set_default_stemlen ()
   if (!dir_)
     set_default_dir ();
 
-   
+
   Real dy = paper ()->interbeam_f ();
   Real len = STEMLEN;
   // ugh, should get nice *rule* for this
@@ -187,14 +187,14 @@ Stem::set_default_stemlen ()
     len += (abbrev_flag_i_ - 1)* dy / 2;
   set_stemend ((dir_ > 0) ? max_head_i () + len :
 	       min_head_i () - len);
-  
+
 
   if (dir_ * stem_end_f () < 0)
     {
       set_stemend (0);
     }
- 
-  
+
+
 }
 
 void
@@ -203,9 +203,9 @@ Stem::set_default_extents ()
   if (!stem_length_f ())
     set_default_stemlen ();
 
-  set_stemend ((dir_< 0) ? 
+  set_stemend ((dir_< 0) ?
 	       max_head_i ()-stem_length_f (): min_head_i () + stem_length_f ());
-  
+
   if (dir_ == UP)
     stem_xdir_ = RIGHT;
   if (invisible_b ())
@@ -214,7 +214,7 @@ Stem::set_default_extents ()
 
 /*
   TODO
-  
+
   move into note_column.cc
 
   */
@@ -224,18 +224,18 @@ Stem::set_noteheads ()
   if (!head_l_arr_.size ())
     return;
   head_l_arr_.sort (Note_head::compare);
-  if (dir_ < 0) 
+  if (dir_ < 0)
     head_l_arr_.reverse ();
-  
+
   head_l_arr_[0]->extremal_i_ = -1;
   head_l_arr_.top ()->extremal_i_ = 1;
   int parity=1;
   int lastpos = head_l_arr_[0]->position_i_;
-  for (int i=1; i < head_l_arr_.size (); i ++) 
+  for (int i=1; i < head_l_arr_.size (); i ++)
     {
       int dy =abs (lastpos- head_l_arr_[i]->position_i_);
-	
-      if (dy <= 1) 
+
+      if (dy <= 1)
 	{
 	  if (parity)
 	    head_l_arr_[i]->x_dir_ = (stem_xdir_ == LEFT) ? LEFT : RIGHT;
@@ -279,25 +279,25 @@ Stem::do_width () const
 }
 
 
-  
+
 Molecule
 Stem::abbrev_mol () const
 {
   Real dy = paper ()->interbeam_f ();
   Real w = 1.5 * paper ()->lookup_l ()->ball (2).dim_.x ().length ();
   Real beamdy = paper ()->interline_f () / 2;
- 
+
   int beams_i = 0;
   Real slope = paper ()->internote_f () / 4;
- 
+
   if (beam_l_) {
     // huh?
       slope = 2 * beam_l_->slope;
     // ugh, rather calc from Abbreviation_req
-      beams_i = beams_right_i_ >? beams_left_i_; 
+      beams_i = beams_right_i_ >? beams_left_i_;
   }
   paper ()->lookup_l ()->beam (slope, 20 PT);
-  
+
   Molecule beams;
   Atom a (paper ()->lookup_l ()->beam (slope, w));
   a.translate (Offset(- w / 2, stem_end_f () - (w / 2 * slope)));
@@ -306,43 +306,43 @@ Stem::abbrev_mol () const
       a.translate_axis (dy + beamdy - dir_ * dy, Y_AXIS);
     else
       a.translate_axis (2 * beamdy - dir_ * (beamdy - dy), Y_AXIS);
-  
-  for (int i = 0; i < abbrev_flag_i_; i++) 
+
+  for (int i = 0; i < abbrev_flag_i_; i++)
     {
       Atom b (a);
       b.translate_axis (-dir_ * dy * (beams_i + i), Y_AXIS);
       beams.add (b);
     }
-  
+
   return beams;
 }
 
 Molecule*
-Stem::brew_molecule_p () const 
+Stem::brew_molecule_p () const
 {
   Molecule *mol_p =new Molecule;
-  
+
   Real bot  = yextent_drul_[DOWN];
   Real top = yextent_drul_[UP];
-  
+
   assert (bot!=top);
-  
+
   Paper_def *p =paper ();
-  
+
   Real dy = p->internote_f ();
   if (!invisible_b ())
     {
       Atom ss =p->lookup_l ()->stem (bot*dy,top*dy);
       mol_p->add (Atom (ss));
     }
-  
+
   if (!beam_l_ &&abs (flag_i_) > 2)
     {
       Atom fl = p->lookup_l ()->flag (flag_i_, dir_);
       mol_p->add_at_edge (Y_AXIS, dir_, Molecule (Atom (fl)));
       assert (!abbrev_flag_i_);
     }
-  
+
   if (abbrev_flag_i_)
     mol_p->add (abbrev_mol ());
 
@@ -353,7 +353,7 @@ Stem::brew_molecule_p () const
   return mol_p;
 }
 
-Real 
+Real
 Stem::note_delta_f () const
 {
   Real r=0;

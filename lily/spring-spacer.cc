@@ -25,11 +25,11 @@
 Vector
 Spring_spacer::default_solution() const
 {
-  return try_initial_solution() ; 
+  return try_initial_solution() ;
 }
 
 Score_column*
-Spring_spacer::scol_l (int i) 
+Spring_spacer::scol_l (int i)
 {
   return (Score_column*)cols[i].pcol_l_;
 }
@@ -55,20 +55,20 @@ Spring_spacer::OK() const
     assert (cols[i].rank_i_ > cols[i-1].rank_i_);
   for (int i = 1; i < loose_col_arr_.size(); i++)
     assert (loose_col_arr_[i].rank_i_ > loose_col_arr_[i-1].rank_i_);
-#endif 
+#endif
 }
 
 /**
-  Make sure no unconnected columns happen. 
+  Make sure no unconnected columns happen.
  */
 void
-Spring_spacer::handle_loose_cols() 
+Spring_spacer::handle_loose_cols()
 {
   Union_find connected (cols.size());
   Array<int> fixed;
   for (PCursor<Idealspacing*> i (ideal_p_list_.top()); i.ok (); i++)
     {
-      connected.connect (i->left_i_,i->right_i_);		
+      connected.connect (i->left_i_,i->right_i_);
     }
   for (int i = 0; i < cols.size(); i++)
     if (cols[i].fixed())
@@ -76,11 +76,11 @@ Spring_spacer::handle_loose_cols()
   for (int i=1; i < fixed.size(); i++)
     connected.connect (fixed[i-1], fixed[i]);
 
-  for (int i = cols.size(); i--;) 
+  for (int i = cols.size(); i--;)
     {
-      if (! connected.equiv (fixed[0], i)) 
+      if (! connected.equiv (fixed[0], i))
 	{
-	  warning ("unconnected column: " + String (i));
+	  warning (_("unconnected column: ") + String (i));
 	  loosen_column (i);
 	}
     }
@@ -90,23 +90,23 @@ Spring_spacer::handle_loose_cols()
 
 /**
   Guess a stupid position for loose columns.  Put loose columns at
-  regular distances from enclosing calced columns 
+  regular distances from enclosing calced columns
   */
 void
 Spring_spacer::position_loose_cols (Vector &sol_vec) const
 {
   if (!loose_col_arr_.size())
-    return ; 
+    return ;
   assert (sol_vec.dim());
   Array<bool> fix_b_arr;
   fix_b_arr.set_size (cols.size() + loose_col_arr_.size ());
   Real utter_right_f=-infinity_f;
   Real utter_left_f =infinity_f;
-  for (int i=0; i < loose_col_arr_.size(); i++) 
+  for (int i=0; i < loose_col_arr_.size(); i++)
     {
       fix_b_arr[loose_col_arr_[i].rank_i_] = false;
     }
-  for (int i=0; i < cols.size(); i++) 
+  for (int i=0; i < cols.size(); i++)
     {
       int r= cols[i].rank_i_;
       fix_b_arr[r] = true;
@@ -116,18 +116,18 @@ Spring_spacer::position_loose_cols (Vector &sol_vec) const
   Vector v (fix_b_arr.size());
   int j =0;
   int k =0;
-  for (int i=0; i < v.dim(); i++) 
+  for (int i=0; i < v.dim(); i++)
     {
-      if (fix_b_arr[i]) 
+      if (fix_b_arr[i])
 	{
 	  assert (cols[j].rank_i_ == i);
 	  v (i) = sol_vec (j++);
 	}
-      else 
+      else
 	{
-	  Real left_pos_f = 
+	  Real left_pos_f =
 	    (j>0) ?sol_vec (j-1) : utter_left_f;
-	  Real right_pos_f = 
+	  Real right_pos_f =
 	    (j < sol_vec.dim()) ? sol_vec (j) : utter_right_f;
 	  int left_rank = (j>0) ? cols[j-1].rank_i_ : 0;
 	  int right_rank = (j<sol_vec.dim()) ? cols[j].rank_i_ : sol_vec.dim ();
@@ -137,36 +137,36 @@ Spring_spacer::position_loose_cols (Vector &sol_vec) const
 	  int r = loose.rank_i_ ;
 	  assert (r > left_rank && r < right_rank);
 
-	  v (i) =  (r - left_rank)*left_pos_f/ d_r + 
+	  v (i) =  (r - left_rank)*left_pos_f/ d_r +
 	    (right_rank - r) *right_pos_f /d_r;
 	}
     }
   sol_vec = v;
 }
- 
+
 bool
-Spring_spacer::check_constraints (Vector v) const 
+Spring_spacer::check_constraints (Vector v) const
 {
   int dim=v.dim();
   assert (dim == cols.size());
-  
-  for (int i=0; i < dim; i++) 
+
+  for (int i=0; i < dim; i++)
     {
 
       if (cols[i].fixed()&&
-	  abs (cols[i].fixed_position() - v (i)) > COLFUDGE) 
+	  abs (cols[i].fixed_position() - v (i)) > COLFUDGE)
 	return false;
-	
-      if (!i) 
+
+      if (!i)
 	continue;
-	
+
       Real mindist=cols[i-1].width_[RIGHT]
 	-cols[i].width_[LEFT];
 
       // ugh... compares
       Real dif =v (i) - v (i-1)- mindist;
       bool b = (dif > - COLFUDGE);
-	
+
 
       if (!b)
 	return false;
@@ -179,7 +179,7 @@ bool
 Spring_spacer::check_feasible() const
 {
   Vector sol (try_initial_solution());
-  return check_constraints (sol);     
+  return check_constraints (sol);
 }
 
 /// generate a solution which obeys the min distances and fixed positions
@@ -188,31 +188,31 @@ Spring_spacer::try_initial_solution() const
 {
   int dim=cols.size();
   Vector initsol (dim);
-  for (int i=0; i < dim; i++) 
+  for (int i=0; i < dim; i++)
     {
-      if (cols[i].fixed()) 
+      if (cols[i].fixed())
 	{
-	  initsol (i)=cols[i].fixed_position();	
+	  initsol (i)=cols[i].fixed_position();
 
-	  if (i > 0) 
+	  if (i > 0)
 	    {
 	      Real r =initsol (i-1)  + cols[i-1].width_[RIGHT];
-	      if (initsol (i) < r) 
+	      if (initsol (i) < r)
 		{
-		  warning ("overriding fixed position");
+		  warning (_("overriding fixed position"));
 		  initsol (i) =r;
 		}
 	    }
-		
+
 	}
-      else 
+      else
 	{
 	  Real mindist=cols[i-1].width_[RIGHT]
 	    - cols[i].width_[LEFT];
 	  if (mindist < 0.0)
-	    warning ("Excentric column");
+	    warning (_("Excentric column"));
 	  initsol (i)=initsol (i-1)+mindist;
-	}	
+	}
     }
 
   return initsol;
@@ -223,7 +223,7 @@ Spring_spacer::try_initial_solution() const
 Vector
 Spring_spacer::find_initial_solution() const
 {
-  Vector v (try_initial_solution());     
+  Vector v (try_initial_solution());
   assert (check_constraints (v));
   return v;
 }
@@ -235,8 +235,8 @@ Spring_spacer::make_matrices (Matrix &quad, Vector &lin, Real &c) const
   quad.fill (0);
   lin.fill (0);
   c = 0;
-  
-  for (PCursor<Idealspacing*> i (ideal_p_list_.top()); i.ok (); i++) 
+
+  for (PCursor<Idealspacing*> i (ideal_p_list_.top()); i.ok (); i++)
     {
       int l = i->left_i_;
       int r = i->right_i_;
@@ -256,28 +256,28 @@ Spring_spacer::make_matrices (Matrix &quad, Vector &lin, Real &c) const
 void
 Spring_spacer::set_fixed_cols (Mixed_qp &qp) const
 {
-  for (int j=0; j < cols.size(); j++) 
-    if (cols[j].fixed()) 
-      qp.add_fixed_var (j,cols[j].fixed_position());	    
-	
-  
+  for (int j=0; j < cols.size(); j++)
+    if (cols[j].fixed())
+      qp.add_fixed_var (j,cols[j].fixed_position());
+
+
 }
 
 // put the constraints into the LP problem
 void
 Spring_spacer::make_constraints (Mixed_qp& lp) const
-{    
+{
   int dim=cols.size();
-  for (int j=0; j < dim; j++) 
+  for (int j=0; j < dim; j++)
     {
       Colinfo c=cols[j];
       if (j > 0)
 	{
 	  Vector c1(dim);
-	    
+
 	  c1(j)=1.0 ;
 	  c1(j-1)=-1.0 ;
-	  lp.add_inequality_cons (c1, 
+	  lp.add_inequality_cons (c1,
 				  cols[j-1].width_[RIGHT] - cols[j].width_[LEFT]);
 	}
     }
@@ -288,11 +288,11 @@ Real
 Spring_spacer::calculate_energy_f (Vector solution) const
 {
   Real e = 0.0;
-  for (PCursor<Idealspacing*> i (ideal_p_list_.top()); i.ok(); i++)  
+  for (PCursor<Idealspacing*> i (ideal_p_list_.top()); i.ok(); i++)
     {
       e += i->energy_f(solution(i->right_i_) - solution(i->left_i_));
     }
-  
+
   return e;
 }
 void
@@ -318,27 +318,27 @@ Spring_spacer::solve (Col_hpositions*positions) const
 
   Mixed_qp lp (cols.size());
   make_matrices (lp.quad,lp.lin, lp.const_term);
-  make_constraints (lp);    
+  make_constraints (lp);
   set_fixed_cols (lp);
-  Vector start=find_initial_solution();    
+  Vector start=find_initial_solution();
   Vector solution_vec (lp.solve (start));
 
 
   positions->satisfies_constraints_b_ = check_constraints (solution_vec);
-  if (!positions->satisfies_constraints_b_) 
+  if (!positions->satisfies_constraints_b_)
     {
-      WARN << "solution doesn't satisfy constraints.\n" ;
+      WARN << _("solution doesn't satisfy constraints.\n") ;
     }
-  position_loose_cols (solution_vec); 
+  position_loose_cols (solution_vec);
   positions->energy_f_ = calculate_energy_f (solution_vec);
   positions->config = solution_vec;
   positions->error_col_l_arr_ = error_pcol_l_arr();
-  
+
 }
 
 /**
   add one column to the problem.
-*/    
+*/
 void
 Spring_spacer::add_column (Paper_column  *col, bool fixed, Real fixpos)
 {
@@ -357,7 +357,7 @@ Spring_spacer::error_pcol_l_arr() const
   for (int i=0; i< cols.size(); i++)
     if (cols[i].ugh_b_)
       retval.push (cols[i].pcol_l_);
-  for (int i=0;  i < loose_col_arr_.size(); i++) 
+  for (int i=0;  i < loose_col_arr_.size(); i++)
     {
       retval.push (loose_col_arr_[i].pcol_l_);
     }
@@ -376,9 +376,9 @@ Spring_spacer::loosen_column (int i)
 	j++;
     }
   c.ugh_b_ = true;
-  
+
   int j=0;
-  for (; j < loose_col_arr_.size(); j++) 
+  for (; j < loose_col_arr_.size(); j++)
     {
       if (loose_col_arr_[j].rank_i_ > c.rank_i_)
 	break;
@@ -391,7 +391,7 @@ void
 Spring_spacer::print() const
 {
 #ifndef NPRINT
-  for (int i=0; i < cols.size(); i++) 
+  for (int i=0; i < cols.size(); i++)
     {
       DOUT << "col " << i<<' ';
       cols[i].print();
@@ -409,13 +409,13 @@ Spring_spacer::connect (int i, int j, Real d, Real h)
 {
   assert(d >= 0 && d <= 100 CM);
   assert(h >=0);
-  
+
   Idealspacing * s = new Idealspacing;
   s->left_i_ = i;
   s->right_i_ = j;
   s->space_f_ = d;
   s->hooke_f_ = h;
-  
+
   ideal_p_list_.bottom().add (s);
 }
 
@@ -431,11 +431,11 @@ Spring_spacer::prepare()
 }
 
 Line_spacer*
-Spring_spacer::constructor() 
+Spring_spacer::constructor()
 {
   return new Spring_spacer;
 }
- 
+
 
 
 /**
@@ -444,7 +444,7 @@ void
 Spring_spacer::get_ruling_durations(Array<Moment> &shortest_playing_arr,
 				    Array<Moment> &context_shortest_arr)
 {
-  for (int i=0; i < cols.size(); i++) 
+  for (int i=0; i < cols.size(); i++)
     scol_l (i)->preprocess();
 
   int start_context_i=0;
@@ -458,7 +458,7 @@ Spring_spacer::get_ruling_durations(Array<Moment> &shortest_playing_arr,
 
       if (scol_l (i)->breakable_b_)
 	{
-	  for (int ji=i; ji >= start_context_i; ji--) 
+	  for (int ji=i; ji >= start_context_i; ji--)
 	    context_shortest_arr[ji] = context_shortest;
 	  start_context_i = i;
 	  context_shortest = infinity_mom;
@@ -473,22 +473,22 @@ Spring_spacer::get_ruling_durations(Array<Moment> &shortest_playing_arr,
 	  if (scol_l(ji)->durations.size() &&
 	      now - scol_l(ji)->when() >= shortest_playing)
 	    break;
-	    	    
-	  for (int k =  scol_l (ji)->durations.size(); 
-	       k-- && scol_l(ji)->durations[k] + scol_l(ji)->when() > now;  
-	       ) 
+
+	  for (int k =  scol_l (ji)->durations.size();
+	       k-- && scol_l(ji)->durations[k] + scol_l(ji)->when() > now;
+	       )
 	    {
 	      shortest_playing = shortest_playing <? scol_l(ji)->durations[k];
 	    }
 	}
       shortest_playing_arr.push(shortest_playing);
     }
-    
+
 #ifndef NPRINT
   DOUT << "shortest_playing/:[ ";
   for (int i=0; i < shortest_playing_arr.size(); i++)
     {
-      DOUT << shortest_playing_arr[i] << " "; 
+      DOUT << shortest_playing_arr[i] << " ";
       DOUT << context_shortest_arr[i] << ", ";
     }
   DOUT << "]\n";
@@ -499,16 +499,16 @@ Spring_spacer::get_ruling_durations(Array<Moment> &shortest_playing_arr,
   generate springs between columns.
 
   UNDER DESTRUCTION
-  
+
   TODO: This needs rethinking.  Spacing should take optical
   effects into account, and should be local (measure wide)
 
-  The algorithm is taken from : 
+  The algorithm is taken from :
 
   John S. Gourlay. ``Spacing a Line of Music,'' Technical Report
   OSU-CISRC-10/87-TR35, Department of Computer and Information
   Science, The Ohio State University, 1987.
-  
+
   */
 void
 Spring_spacer::calc_idealspacing()
@@ -517,14 +517,14 @@ Spring_spacer::calc_idealspacing()
   Array<Moment> context_shortest_arr;
   get_ruling_durations(shortest_playing_arr, context_shortest_arr);
 
-  
+
   Array<Real> ideal_arr_;
-  Array<Real> hooke_arr_;    
+  Array<Real> hooke_arr_;
   for (int i=0; i < cols.size(); i++){
     ideal_arr_.push (-1.0);
     hooke_arr_.push (1.0);
   }
-    
+
   for (int i=0; i < cols.size(); i++)
     {
       if (!scol_l (i)->musical_b())
@@ -544,7 +544,7 @@ Spring_spacer::calc_idealspacing()
 		durational_distance =  paper_l()->duration_to_dist (delta_t,k);
 	      symbol_distance += -cols[i+1].width_[LEFT];
 	    }
-	    
+
 	  ideal_arr_[i] = symbol_distance >? durational_distance;
 	  hooke_arr_[i] = 2.0;
 	}
@@ -557,13 +557,13 @@ Spring_spacer::calc_idealspacing()
 	  Moment context_shortest = context_shortest_arr[i];
 	  if (! shortest_playing_len)
 	    {
-	      warning ("Can't find a ruling note at " 
+	      warning (_("Can't find a ruling note at ")
 		       +String (scol_l (i)->when()));
 	      shortest_playing_len = 1;
 	    }
 	  if (! context_shortest)
 	    {
-	      warning("No minimum in measure at "
+	      warning(_("No minimum in measure at ")
 		      + String (scol_l (i)->when()));
 	      context_shortest = 1;
 	    }
@@ -571,7 +571,7 @@ Spring_spacer::calc_idealspacing()
 	  Real k=  paper_l()->arithmetic_constant(context_shortest);
 	  Real dist = paper_l()->duration_to_dist (shortest_playing_len, k);
 	  dist *= delta_t / shortest_playing_len;
-	
+
 	  /* all sorts of ugliness to avoid running into bars/clefs, but not taking
 	     extra space if this is not needed */
 	  if (!scol_l (i+1)->musical_b())

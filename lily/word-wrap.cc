@@ -13,9 +13,9 @@
 #include "spring-spacer.hh"
 
 
-/** el stupido. 
-   
-  
+/** el stupido.
+
+
    A Dynamic Programming type of algorithm
    similar to TeX's is in Gourlay_breaking
 
@@ -24,14 +24,14 @@ Array<Col_hpositions>
 Word_wrap::do_solve() const
 {
   problem_OK();
-  
+
   PCursor<Paper_column*> curcol (pscore_l_->col_p_list_.top());
   Array<Col_hpositions> breaking;
   Line_of_cols breakpoints (find_breaks());
   assert (breakpoints.size()>=2);
 
-  int break_idx_i=0;			
-  while (break_idx_i < breakpoints.size() -1) 
+  int break_idx_i=0;
+  while (break_idx_i < breakpoints.size() -1)
     {
       Col_hpositions minimum;
       Col_hpositions current;
@@ -42,9 +42,9 @@ Word_wrap::do_solve() const
       curcol++;		// skip the breakable.
       break_idx_i++;
 
-      while (break_idx_i < breakpoints.size()) 
+      while (break_idx_i < breakpoints.size())
 	{
-	
+
 	  // add another measure.
 	  while (breakpoints[break_idx_i] != curcol.ptr())
 	    {
@@ -56,22 +56,22 @@ Word_wrap::do_solve() const
 	  current.spacer_l_ = generate_spacing_problem (current.cols);
 
 	  // try to solve
-	  if (!feasible (current.cols)) 
+	  if (!feasible (current.cols))
 	    {
-	      if (!minimum.cols.size()) 
+	      if (!minimum.cols.size())
 		{
-		  warning ("Ugh, this measure is too long, breakpoint: "
+		  warning (_("Ugh, this measure is too long, breakpoint: ")
 			   + String (break_idx_i) +
-			   " (generating stupido solution)");
+			   _(" (generating stupido solution)"));
 		  current.stupid_solution();
 		  current.energy_f_ = - 1; // make sure we break out.
 		}
 	      else
 		current.energy_f_ = infinity_f;	// make sure we go back
 	    }
-	  else 
+	  else
 	    {
-		
+
 	      current.solve_line();
 	      current.print();
 	    }
@@ -80,7 +80,7 @@ Word_wrap::do_solve() const
 	  current.spacer_l_ =0;
 
 	  // update minimum, or backup.
-	  if (current.energy_f_ < minimum.energy_f_ || current.energy_f_ < 0) 
+	  if (current.energy_f_ < minimum.energy_f_ || current.energy_f_ < 0)
 	    {
 	      minimum = current;
 	    }

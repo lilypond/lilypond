@@ -46,12 +46,12 @@ Paper_def::set_var (String s, Real r)
 {
   real_vars_p_->elem (s) = r;
 }
- 
+
 Real
 Paper_def::get_var (String s) const
 {
   if (! real_vars_p_->elt_b (s))
-    error ("unknown paper variable `"  + s+"'");
+    error (_("unknown paper variable `")  + s+"'");
   return real_vars_p_->elem (s);
 }
 
@@ -73,7 +73,7 @@ Paper_def::duration_to_dist (Moment d,Real k) const
 /**
   Get the measure wide constant for arithmetic.
 
-  @see   
+  @see
   John S. Gourlay. ``Spacing a Line of Music,'' Technical Report
   OSU-CISRC-10/87-TR35, Department of Computer and Information Science,
   The Ohio State University, 1987.
@@ -128,7 +128,7 @@ Paper_def::interbeam_f() const
 Real
 Paper_def::internote_f() const
 {
-  return interline_f() / 2; 
+  return interline_f() / 2;
 }
 
 Real
@@ -145,7 +145,7 @@ Paper_def::print() const
   DOUT << "Paper {";
   DOUT << "out: " <<outfile_str_;
   lookup_p_->print();
-  for (Assoc_iter<String,Real> i (*real_vars_p_); i.ok(); i++) 
+  for (Assoc_iter<String,Real> i (*real_vars_p_); i.ok(); i++)
     {
       DOUT << i.key() << "= " << i.val () << "\n";
     }

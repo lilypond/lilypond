@@ -16,13 +16,13 @@
 /**
   Stupid but foolproof way of opening files.
 
-  TODO 
+  TODO
   Should check IO status
 
   This is of course a build it yourself version of mmap, so we should
   have been using that... (see Mapped_file_storage) But we noticed
   some problems with this (unexplained lexer crashes)
-  
+
   [Some versions later] The crashes aren't caused by the mmap
   code. But no reason to take it out, is there?  */
 
@@ -31,14 +31,14 @@ Simple_file_storage::Simple_file_storage(String s)
   data_p_ =0;
 
   /*
-    let's hope that "b" opens anything binary, and does not apply 
+    let's hope that "b" opens anything binary, and does not apply
     CR/LF translation
     */
   FILE * f =  (s.length_i ()) ?  fopen (s.ch_C(), "rb") : stdin;
-  
-  if (!f) 
+
+  if (!f)
     {
-      warning("can't open file `" + s + "'");
+      warning(_("can't open file `") + s + "'");
       return ;
     }
 
@@ -49,10 +49,10 @@ Simple_file_storage::Simple_file_storage(String s)
   data_p_[len_i_] = 0;
   ret = fread(data_p_, sizeof(char), len_i_, f);
 
-     
+
   if  (ret!=len_i_)
-    warning ("Huh? got " + String(ret) + ", expected " 
-	     + String(len_i_) + " characters");
+    warning (_("Huh? got ") + String(ret) + _(", expected ")
+	     + String(len_i_) + _(" characters"));
 
   if (f != stdin)
     fclose(f);
@@ -69,7 +69,7 @@ Simple_file_storage::length_i() const
 {
   return len_i_;
 }
-    
+
 
 Simple_file_storage::~Simple_file_storage()
 {

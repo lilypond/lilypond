@@ -17,12 +17,12 @@
 #include "cpu-timer.hh"
 
 String
-Col_stats::str() const { 
+Col_stats::str() const {
   String s (count_i_);
-  s += " lines";
+  s += _(" lines");
   if  (count_i_)
-    s += String (Real (cols_i_)/count_i_, ", (with an average of %.1f columns)");
-  
+    s += String (Real (cols_i_)/count_i_, _(", (with an average of %.1f columns)"));
+
   return s;
 }
 
@@ -46,25 +46,25 @@ Line_of_cols
 Break_algorithm::all_cols() const
 {
   Line_of_cols retval;
-  for (PCursor<Paper_column*> c (pscore_l_->col_p_list_.top()); 
-       c.ok(); c++) 
+  for (PCursor<Paper_column*> c (pscore_l_->col_p_list_.top());
+       c.ok(); c++)
     {
-	
+
       retval.push (c);
     }
   return retval;
 }
 
-Array<int> 
+Array<int>
 Break_algorithm::find_break_indices() const
 {
   Line_of_cols all (all_cols());
   Array<int> retval;
-  
+
   for (int i=0; i < all.size(); i++)
     if (all[i]->breakable_b_)
       retval.push (i);
-  
+
   if (linelength <=0)
     while (retval.size() >2)
       retval.del (1);
@@ -78,7 +78,7 @@ Break_algorithm::find_breaks() const
 {
   Line_of_cols all (all_cols());
   Line_of_cols retval;
-  
+
   for (int i=0; i < all.size(); i++)
     if (all[i]->breakable_b_)
       retval.push (all[i]);
@@ -93,7 +93,7 @@ Break_algorithm::find_breaks() const
 
 
 
- 
+
 
 Line_spacer*
 Break_algorithm::generate_spacing_problem (Line_of_cols curline) const
@@ -134,18 +134,18 @@ Break_algorithm::feasible (Line_of_cols curline) const
 {
   if (linelength <=  0)
     return true;
-  
+
   Real l =0;
   for (int i=0; i < curline.size(); i++)
     l +=curline[i]->width().length ();
-  return l < linelength;    
+  return l < linelength;
 }
 
 void
 Break_algorithm::problem_OK() const
 {
   if (!pscore_l_->col_p_list_.size())
-    error ("Score does not have any columns");
+    error (_("Score does not have any columns"));
   OK();
 }
 
@@ -155,8 +155,8 @@ Break_algorithm::OK() const
 #ifndef NDEBUG
   iter_top (pscore_l_->col_p_list_,start);
   PCursor<Paper_column *> end (pscore_l_->col_p_list_.bottom());
-  
-  assert (start->breakable_b_);    
+
+  assert (start->breakable_b_);
   assert (end->breakable_b_);
 #endif
 }
@@ -167,19 +167,18 @@ Break_algorithm::solve() const
   Cpu_timer timer;
 
   Array<Col_hpositions> h= do_solve();
-  
+
   if (approx_stats_.count_i_)
-    *mlog << "\nApproximated: " << approx_stats_.str() << "\n";
+    *mlog << _("\nApproximated: ") << approx_stats_.str() << "\n";
   if (exact_stats_.count_i_)
-    *mlog << "Calculated exactly: " << exact_stats_.str() << "\n";
-  *mlog << "Time: " << String(timer.read (), "%.2f") << " seconds\n";
-  
+    *mlog << _("Calculated exactly: ") << exact_stats_.str() << "\n";
+  *mlog << _("Time: ") << String(timer.read (), "%.2f") << _(" seconds\n");
+
   return h;
 }
 
 void
 Break_algorithm::do_set_pscore()
 {
-  
-}
 
+}

@@ -25,20 +25,20 @@ Collision::add (Note_column* ncol_l)
 /**
   should derive of Array.
  */
-static 
+static
 int idx (int dir, bool h_shift_b)
 {
   assert (abs (dir) == 1);
   int j = dir > 0 ? 0 : 3;
-  if (h_shift_b) 
+  if (h_shift_b)
 	j += dir;
   return j;
 }
 
 /** This complicated routine moves note columns around horizontally
-  (and rests vertically) to ensure that notes don't clash. 
+  (and rests vertically) to ensure that notes don't clash.
 
-  This should be done better, probably.  
+  This should be done better, probably.
 
   This routine is dedicated to Stine Randmael :-)
 
@@ -48,36 +48,36 @@ Collision::do_pre_processing()
 {
   if (clash_l_arr_.size() <= 1)
 	return;
-  
+
   /*
     [stem up, stem up shifted, stem down shifted, stem down]
     */
   Array<Note_column*> clash_group_arr_a[4];
-  
-  for (int i=0; i < clash_l_arr_.size(); i++) 
+
+  for (int i=0; i < clash_l_arr_.size(); i++)
     {
       Note_column* c_l = clash_l_arr_[i];
-      if (! c_l->dir_) 
+      if (! c_l->dir_)
 	{
-	  warning ("No stem direction set. Ignoring column in clash. ");
+	  warning (_("No stem direction set. Ignoring column in clash. "));
 	  continue;
 	}
       int d = (c_l->dir_);
-	
+
       clash_group_arr_a[idx (d, c_l->h_shift_b_)].push (c_l);
     }
-  
-  
-  for (int j=0; j < 4; j++) 
+
+
+  for (int j=0; j < 4; j++)
     {
-      if (clash_group_arr_a[j].size() > 1) 
+      if (clash_group_arr_a[j].size() > 1)
 	{
-	  warning ("Too many clashing notecolumns. Ignoring them.");
+	  warning (_("Too many clashing notecolumns. Ignoring them."));
 	  return;
 	}
     }
   int d = 1;
-  do 
+  do
     {
       if (!clash_group_arr_a[idx (d, false)].size())
 	{
@@ -86,21 +86,21 @@ Collision::do_pre_processing()
 	}
     }
   while ((d *= -1) != 1);
-				  
+
 
   Interval_t<int> y_extent[4];
   Note_column * col_l_a[4];
   Real x_off [4];
   int y_off[4];
-  
-  for (int j =0 ; j < 4; j++) 
+
+  for (int j =0 ; j < 4; j++)
     {
-      if (clash_group_arr_a[j].size()) 
+      if (clash_group_arr_a[j].size())
 	col_l_a[j] = clash_group_arr_a[j][0];
       else
 	col_l_a[j] = 0;
-	
-      if (col_l_a[j]) 
+
+      if (col_l_a[j])
 	{
 	  y_extent[j] = col_l_a[j]->head_positions_interval();
 	}
@@ -109,16 +109,16 @@ Collision::do_pre_processing()
       x_off [j] = 0.0;
       y_off[j] = 0;
     }
-  
-  do 
+
+  do
     {
       x_off[idx (d, true)] = d*0.5;
     }
   while ((d *= -1) != 1);
 
-  
+
   // y_extent: smallest y-pos noteball interval containing all balls
-  // 4 (0..3) groups: stem up/down; shift on/off; 
+  // 4 (0..3) groups: stem up/down; shift on/off;
   Interval_t<int> middle (y_extent[idx (-1,0)].max(),
 			  y_extent[idx (1,0)].min());
   Interval_t<int> open_middle (y_extent[idx (-1,0)].max()+1, y_extent[idx (1,0)].min ()-1);
@@ -127,30 +127,30 @@ Collision::do_pre_processing()
       if (!open_middle.contains_b (y_extent[idx (d,true)]))
 	x_off[idx (d, true)] = d *1.0 ;
     } while ((d *= -1) != 1);
-   
-  if (!middle.empty_b() 
-      && middle.length() < 2 && col_l_a[idx (1,0)] && col_l_a[idx (-1,0)]) {	
+
+  if (!middle.empty_b()
+      && middle.length() < 2 && col_l_a[idx (1,0)] && col_l_a[idx (-1,0)]) {
     // reproduction of bugfix at 3am ?
     Note_head * nu_l= col_l_a[idx (1,0)]->head_l_arr_[0];
     Note_head * nd_l = col_l_a[idx (-1,0)]->head_l_arr_.top();
-    if (! (nu_l->balltype_i_ == nd_l->balltype_i_ 
-	   && nu_l->dots_i_ == nd_l->dots_i_  && middle.length() == 0)) 
+    if (! (nu_l->balltype_i_ == nd_l->balltype_i_
+	   && nu_l->dots_i_ == nd_l->dots_i_  && middle.length() == 0))
       {
 	x_off[idx (1,0)] -= 0.5;
 	x_off[idx (1,1)] -= 0.5;
 	x_off[idx (-1,1)] += 0.5;
 	x_off[idx (-1,0)] += 0.5;
       }
-	
+
   }
   Real inter_f = paper()->internote_f ();
   Real wid_f = paper()->note_width ();
-  for (int j=0; j < 4; j++) 
+  for (int j=0; j < 4; j++)
     {
-      if (col_l_a[j]) 
+      if (col_l_a[j])
 	{
-	  /* collision.cc:138: request for method `translate' is ambiguous 
-	       
+	  /* collision.cc:138: request for method `translate' is ambiguous
+
 	     (shaddup)
 	     */
 	  Offset o (x_off[j] * wid_f, y_off[j] * inter_f);
@@ -165,6 +165,6 @@ IMPLEMENT_IS_TYPE_B1(Collision, Item);
 void
 Collision::do_substitute_dependency (Score_elem*o_l,Score_elem*n_l)
 {
-  clash_l_arr_.substitute ((Note_column*)o_l->item(), 
+  clash_l_arr_.substitute ((Note_column*)o_l->item(),
 			   (Note_column*)(n_l?n_l->item():0));
 }

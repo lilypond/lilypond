@@ -10,7 +10,7 @@
 #include <sys/stat.h>		// open
 #include <sys/mman.h>		// mmap
 #include <limits.h>		// INT_MAX
-#include <fcntl.h>		// open 
+#include <fcntl.h>		// open
 #include <unistd.h>		// close, stat
 #include <stdio.h>		// fdopen
 #include <string.h>		// strerror
@@ -46,18 +46,18 @@ Mapped_file_storage::map()
   data_caddr_ = (caddr_t)mmap((void*)0, size_off_, PROT_READ, MAP_SHARED, fildes_i_, 0);
 
   if ((int)data_caddr_ == -1)
-    warning(String("can't map: error no: ") + strerror(errno));
+    warning(String(_("can't map: error no: ")) + strerror(errno));
 }
 
 
 void
 Mapped_file_storage::open(String name_str)
 {
-  fildes_i_ = ::open(name_str.ch_C (), O_RDONLY);	
-	    
-  if (fildes_i_ == -1) 
+  fildes_i_ = ::open(name_str.ch_C (), O_RDONLY);
+
+  if (fildes_i_ == -1)
     {
-      warning(String("can't open: ") + name_str + String(": ") + strerror(errno)); 
+      warning(String(_("can't open: ")) + name_str + String(": ") + strerror(errno));
       return;
     }
 
@@ -70,7 +70,7 @@ Mapped_file_storage::open(String name_str)
 void
 Mapped_file_storage::unmap()
 {
-  if (data_caddr_) 
+  if (data_caddr_)
     {
       munmap(data_caddr_, size_off_);
       data_caddr_ = 0;
@@ -82,7 +82,7 @@ void
 Mapped_file_storage::close()
 {
   unmap();
-  if (fildes_i_) 
+  if (fildes_i_)
     {
       ::close(fildes_i_);
       fildes_i_ = 0;

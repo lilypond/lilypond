@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997 Jan Nieuwenhuizen <jan@digicash.com> 
+  (c) 1997 Jan Nieuwenhuizen <jan@digicash.com>
   & Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
@@ -33,12 +33,12 @@ Source_file::istream_l()
     if (!name_str_.length_i())
       return &cin;
     */
-  
-  if (!istream_p_) 
+
+  if (!istream_p_)
     {
       if (length_i()) // can-t this be done without such a hack?
 	istream_p_ = new istrstream(ch_C(), length_i());
-      else 
+      else
 	{
 	  istream_p_ = new istrstream("", 0);
 	  istream_p_->set(ios::eofbit);
@@ -51,7 +51,7 @@ String
 Source_file::file_line_no_str(char const *context_ch_C) const
 {
   if  (!ch_C())
-    return "(unknown)";
+    return _("(unknown)");
   else
     return name_str() + ": "
       + String(line_i(context_ch_C));
@@ -76,14 +76,14 @@ Source_file::error_str(char const* pos_ch_C) const
   char const* data_ch_C = ch_C();
   char const * eof_C_ = data_ch_C + length_i();
   if (!in_b(pos_ch_C))
-    return "(position unknown)";
+    return _("(position unknown)");
 
-    
+
   if (pos_ch_C == eof_C_)
     pos_ch_C --;
   char const* begin_ch_C = pos_ch_C;
   while (begin_ch_C > data_ch_C)
-    if (*--begin_ch_C == '\n') 
+    if (*--begin_ch_C == '\n')
       {
 	begin_ch_C++;
 	break;
@@ -91,12 +91,12 @@ Source_file::error_str(char const* pos_ch_C) const
 
   char const* end_ch_C = pos_ch_C;
   while (end_ch_C < eof_C_)
-    if (*end_ch_C++ == '\n') 
+    if (*end_ch_C++ == '\n')
       {
 	end_ch_C--;
 	break;
       }
-  
+
   //    String(char const* p, int length) is missing!?
   String line_str((Byte const*)begin_ch_C, end_ch_C - begin_ch_C);
 
@@ -108,9 +108,9 @@ Source_file::error_str(char const* pos_ch_C) const
     else
       error_col_i++;
 
-  String str = line_str.left_str(pos_ch_C - begin_ch_C) 
+  String str = line_str.left_str(pos_ch_C - begin_ch_C)
     + String('\n')
-    + String(' ', error_col_i) 
+    + String(' ', error_col_i)
     + line_str.mid_str(pos_ch_C - begin_ch_C, INT_MAX); // String::mid should take 0 arg..
   return str;
 }
@@ -132,7 +132,7 @@ Source_file::line_i(char const* pos_ch_C) const
   char const* scan_ch_C = ch_C();
   if (!scan_ch_C)
     return 0;
-    
+
   while (scan_ch_C < pos_ch_C)
     if (*scan_ch_C++ == '\n')
       i++;
