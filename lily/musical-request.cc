@@ -198,7 +198,8 @@ Rhythmic_req::do_print() const
 
 
 Moment
-Rhythmic_req::duration() const {
+Rhythmic_req::duration() const
+{
   return duration_.length();
 }
 /* *************** */
