@@ -33,7 +33,7 @@ static PyObject *Midi_error;
 static PyObject *Midi_warning;
 
 static PyObject *
-midi_error (char * func, char *s)
+midi_error (char const *func, char *s)
 {
   char*dest = (char*) malloc (sizeof (char) * (strlen (func) + strlen (s) + 1));
   strcpy (dest, func);
@@ -45,7 +45,7 @@ midi_error (char * func, char *s)
 }
 
 static PyObject *
-midi_warning (char *s)
+midi_warning (char const *s)
 {
   PyErr_SetString (Midi_warning, s);
   return 0;
