@@ -1,6 +1,7 @@
 2004-09-23  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* input/regression/lyric-extender.ly: simplify.
+	complexify.
 
 	* lily/lyric-extender.cc (print): use it to determine size of
 	extender. Remove Lyric_extender::is_visible().
