@@ -1,6 +1,6 @@
-\version "2.1.7"
+\version "2.1.19"
 \header{
-	texidoc="
+    texidoc="
 
 @cindex shorter volta bracket
 
@@ -13,30 +13,30 @@ can be shortened.
 
 
 \score {
-	<<
-		\context Staff \notes\relative c''{
-			c c c c
-			% coda-klugde: let volta span only one bar
-			\property Staff.voltaSpannerDuration = #(ly:make-moment 1 1)
-			\repeat "volta" 5 { d d d d }
-				\alternative { { e e e e f f f f }
-			{ g g g g } }
-		}
-		\context Lyrics \lyrics{
-			intro1
-			\repeat fold 5 { }
-			\alternative {
-				{ chorus1 one verse1 }
-				{ chorus1 two verse1 }
-				{ chorus1 three verse }
-				{ chorus1 four verse }
-			}
-			five1
-		}
-	>>
-\paper{raggedright = ##t}
+    <<
+	\context Staff \notes\relative c''{
+	    c c c c
+				% coda-klugde: let volta span only one bar
+	    \property Staff.voltaSpannerDuration = #(ly:make-moment 1 1)
+	    \repeat "volta" 5 { d d d d }
+	    \alternative { { e e e e f f f f }
+			   { g g g g } }
+	}
+	\context LyricsVoice \lyrics{
+	    intro1
+	    \repeat fold 5 { }
+	    \alternative {
+		{ chorus1 one verse1 }
+		{ chorus1 two verse1 }
+		{ chorus1 three verse }
+		{ chorus1 four verse }
+	    }
+	    five1
+	}
+    >>
+    \paper{ raggedright = ##t }
 }
 
 
-% 
+				% 
 

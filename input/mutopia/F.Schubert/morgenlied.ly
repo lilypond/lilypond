@@ -26,7 +26,7 @@
 
 }
 
-\version "2.1.13"
+\version "2.1.19"
 manuscriptBreak = { \break }
 
 
@@ -152,7 +152,7 @@ pianoLH = \notes \relative c'' \repeat volta 2 {
      \new Staff <<
 	 \context Staff \modernAccidentals
 	 \melody >>
-     \new Lyrics <<
+     \new LyricsVoice <<
 	 \lyricsto "singer" \new LyricsVoice \firstVerse
 	 \lyricsto "singer" \new LyricsVoice \secondVerse
 	 >>

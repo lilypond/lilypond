@@ -1,5 +1,5 @@
 
-\version "2.1.10"
+\version "2.1.19"
 \header{
   texidoc="Lyric phrasing
 
@@ -29,7 +29,7 @@
       \autoBeamOff
       a a a8 ( a) a4
     }
-    \context Lyrics <<
+  <<
       \new LyricsVoice \lyricsto "v"  \lyrics {
         \property LyricsVoice . stanza = "1:"
         Start sentence melisma end.

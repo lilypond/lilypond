@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.19"
 %% +.ly: Be the first .ly file for lys-to-tely.py.
 %% Better to make lys-to-tely.py include "introduction.texi" or
 %% other .texi documents too?
@@ -21,5 +21,5 @@ Smaller and neater tests.
 
 }
 
-\score { \context Lyrics \lyrics { " " }}
+\score { \context LyricsVoice \lyrics { " " }}
 

@@ -1,4 +1,4 @@
-\version "2.1.10"
+\version "2.1.19"
 \header {
 
     texidoc = "With the @code{\\lyricsto} mechanism, individual lyric
@@ -28,7 +28,6 @@
 	blob
     }
     
-    \new Lyrics <<  \lyricsto "bla" \lyrics \new LyricsVoice { nes ted lyrics voice with more words than no tes } >>
-    >>
+    \lyricsto "bla" \lyrics \new LyricsVoice { nes ted lyrics voice with more words than no tes } >>
 
     }

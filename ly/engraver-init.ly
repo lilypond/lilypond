@@ -1,4 +1,4 @@
-\version "1.9.8"
+\version "2.1.19"
 
 
 %
@@ -105,7 +105,7 @@
     \accepts "RhythmicStaff"
     \accepts "GrandStaff"
     \accepts "PianoStaff"
-    \accepts "Lyrics"
+    \accepts "LyricsVoice"
     \accepts "ChordNames"
 }
 
@@ -304,7 +304,7 @@
     \accepts "GrandStaff"
     \accepts "PianoStaff"
     \accepts "TabStaff"	
-    \accepts "Lyrics"
+    \accepts "LyricsVoice"
     \accepts "ChordNames"
 }
 
@@ -445,7 +445,7 @@ AncientRemoveEmptyStaffContext = \translator {
     \accepts "StaffGroup"
     \accepts "RhythmicStaff"
     \accepts "DrumStaff"
-    \accepts "Lyrics"
+    \accepts "LyricsVoice"
     \accepts "ChordNames"
     \accepts "GrandStaff"
     \accepts "ChoirStaff"

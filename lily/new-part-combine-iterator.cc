@@ -267,9 +267,10 @@ New_pc_iterator::construct_children ()
   split_list_ =  get_music ()->get_mus_property ("split-list");
   SCM lst =  get_music ()->get_mus_property ("elements");
 
-  SCM props = scm_list_n (scm_list_n (ly_symbol2scm ("denies"), ly_symbol2scm ("Thread"), SCM_UNDEFINED),
-			  scm_list_n (ly_symbol2scm ("consists"), ly_symbol2scm ("Rest_engraver"), SCM_UNDEFINED),
-			  scm_list_n (ly_symbol2scm ("consists"), ly_symbol2scm ("Note_heads_engraver"), SCM_UNDEFINED),
+  SCM props = scm_list_n (/*
+			    used to have tweaks here.
+			   */
+			  
 			  SCM_UNDEFINED);
 
   Translator_group *tr
