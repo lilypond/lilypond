@@ -1,3 +1,7 @@
+2002-12-04  Heikki Junes <hjunes@cc.hut.fi>
+
+	* lilypond.words: take \words from Info-index.
+
 2002-12-04  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/sodipodi.scm: Add instruction for generating pfa fonts.
