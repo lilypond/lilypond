@@ -30,10 +30,9 @@ Abbreviation::do_print () const
 Molecule*
 Abbreviation::brew_molecule_p () const
 {
-  Real dy = paper ()->interbeam_f ();
+  Real dy = paper ()->interbeam_f (stem_l_->mult_i_);
   Real w = 1.5 * paper ()->lookup_l ()->ball (2).dim_.x ().length ();
   Real interline_f = paper ()->interline_f ();
-  Real beamdy = interline_f/2;
 
   int beams_i = 0;
   Real slope_f = paper ()->internote_f () / 4;
