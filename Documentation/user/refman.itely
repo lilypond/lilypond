@@ -5404,8 +5404,7 @@ If the variable @code{lastpagefill} is defined,
 systems are evenly distributed vertically on the last page.  This
 might produce ugly results in case there are not enough systems on the
 last page.  Note that @command{lilypond-book} ignores
-@code{lastpagefill}.  See @ref{Integrating text and music with
-lilypond-book} for more information.
+@code{lastpagefill}.  See @ref{lilypond-book manual} for more information.
 
 @cindex @code{lastpagefill}
 
