@@ -23,23 +23,19 @@
 (define (dump-stencils-as-EPSes stencils book basename)
   (define paper (ly:paper-book-paper book))
   (define (dump-infinite-stack-EPS stencils)
-    (let*
-	((dump-me (stack-stencils Y DOWN 2.0 stencils)))
-      (dump-stencil-as-EPS paper dump-me basename #t)
-      ))
+    (let* ((dump-me (stack-stencils Y DOWN 2.0 stencils)))
+      (dump-stencil-as-EPS paper dump-me basename #t)))
 
   (define (dump-stencils-as-separate-EPS stencils count)
     (if (pair? stencils)
-	(let*
-	    ((line (car stencils))
-	     (rest (cdr stencils)))
+	(let* ((line (car stencils))
+	       (rest (cdr stencils)))
 	  (dump-stencil-as-EPS
 	   paper
 	   line (format "~a-~a" basename count)
 	   (ly:output-def-lookup paper 'force-eps-font-include))
-
-	  (dump-stencils-as-separate-EPS rest (1+ count))
-	  )))
+	  
+	  (dump-stencils-as-separate-EPS rest (1+ count)))))
   
   (let* ((tex-system-name (format "~a-systems.tex" basename))
 	 (texi-system-name (format "~a-systems.texi" basename))
@@ -63,18 +59,16 @@
     (postprocess-output book framework-eps-module
 			(format "~a.eps" basename) (ly:output-formats)))
 
-(define-public (output-classic-framework
-		basename book scopes fields)
-
+(define-public (output-classic-framework basename book scopes fields)
+  (output-scopes scopes fields basename)
   (dump-stencils-as-EPSes
    (map ly:paper-system-stencil (ly:paper-book-systems book))
    book
    basename))
 
 (define-public (output-framework basename book scopes fields)
-  (dump-stencils-as-EPSes (ly:paper-book-pages book)
-			  book
-			  basename))
+  (output-scopes scopes fields basename)
+  (dump-stencils-as-EPSes (ly:paper-book-pages book) book basename))
   
 
 ; redefine to imports from framework-ps

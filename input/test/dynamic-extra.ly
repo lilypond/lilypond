@@ -1,9 +1,9 @@
 
-\version "2.4.0"
+\version "2.5.13"
 % probably should be merged into refman.
 \header{
     texidoc = "@cindex Dynamic Piu Forte
-Più forte dynamics is produced using @code{\markup}. " }
+PiÃ¹ forte dynamics is produced using @code{\markup}. " }
 
 piuf =	\markup {  \italic "pi\\`u" \dynamic "f" }
 
@@ -19,3 +19,6 @@ piuf =	\markup {  \italic "pi\\`u" \dynamic "f" }
     }
 
 
+%% Local Variables:
+%% coding: utf-8
+%% End:

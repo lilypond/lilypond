@@ -1,10 +1,10 @@
 
-\version "2.5.2"
+\version "2.5.13"
 
 
 % Ugh, we need to override some LaTeX titling stuff
 \header {
-  title =	"Ouvertüre"
+  title =	"OuvertÃ¼re"
   subtitle =	"Zu Heinrich Joseph v. Collins Trauerspiel"
   subsubtitle =	\markup { \large \bold "Coriolan" }
   opus = "Op. 62"
@@ -154,3 +154,7 @@ violoncello =  \relative c' {
 	linewidth=150.0\mm
     }
 }
+
+%% Local Variables:
+%% coding: utf-8
+%% End:

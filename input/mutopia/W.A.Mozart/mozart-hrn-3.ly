@@ -1,8 +1,8 @@
 \header{
-  title =	 "Konzert Nr. 3 Es dur"
-  subtitle = "für Horn und Orchester"
-  composer =	 "Wolfgang Amadeus Mozart (1756-1791)"
-  enteredby =	 "HWN"
+  title = "Konzert Nr. 3 Es dur"
+  subtitle = "fÃ¼r Horn und Orchester"
+  composer = "Wolfgang Amadeus Mozart (1756-1791)"
+  enteredby = "HWN"
   opus = "KV 447"
 
   copyright = "public domain"
@@ -41,7 +41,7 @@ virtuoso that taught in Geneva.
 
 %}
 
-\version "2.5.2"
+\version "2.5.13"
 
 \include "mozart-hrn3-defs.ily"
 \include "mozart-hrn3-allegro.ily"
@@ -55,31 +55,29 @@ virtuoso that taught in Geneva.
 
 
 \book {
-    \score
-    {
+    \score {
 	{ \transpose c' bes \allegro }
-	\layout{ }
+	\layout { }
 	\header { piece = "allegro" opus = "" }	
-	\midi{ \tempo 4=90 }
+	\midi { \tempo 4=90 }
     }
 
-
-    \score
-    {
+    \score {
 	{ \transpose c' bes \romanze }
 	\header { piece = "romanze" opus = "" }	
-	\midi{ \tempo 4 = 70  }
-	\layout{}
+	\midi { \tempo 4 = 70  }
+	\layout {}
     }
-
 
     \score
     {
-	{ \transpose c' bes	\rondo }
+	{ \transpose c' bes \rondo }
 	\header { piece = "rondo" opus = "" }
-	\midi{ \tempo 4 = 100 }
+	\midi { \tempo 4 = 100 }
 	\layout { }
     }
-
-
 }
+
+%% Local Variables:
+%% coding: utf-8
+%% End:

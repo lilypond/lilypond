@@ -1,3 +1,13 @@
+2005-03-13  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/backend-library.scm (output-scopes, header-to-file): Move
+	from framework-tex.scm.
+
+	* scm/framework-ps.scm (output-framework)
+	(output-preview-framework):
+	* scm/framework-eps.scm (output-classic-framework)
+	(output-framework): Use it.  Fixes collated files.
+
 2005-03-12  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* input/sakura-sakura.ly: 

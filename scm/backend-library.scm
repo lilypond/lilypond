@@ -84,3 +84,31 @@
    '("tex" "dvi" "ps" "pdf" "png"))
 
   new-fmts)
+
+(define (header-to-file file-name key value)
+  (set! key (symbol->string key))
+  (if (not (equal? "-" file-name))
+      (set! file-name (string-append file-name "." key)))
+  (format (current-error-port)
+	  (_ "Writing header field `~a' to `~a'...")
+	  key
+	  (if (equal? "-" file-name) "<stdout>" file-name))
+  (if (equal? file-name "-")
+      (display value)
+      (display value (open-file file-name "w")))
+  (newline (current-error-port))
+  "")
+
+(define-public (output-scopes scopes fields basename)
+  (define (output-scope scope)
+    (apply
+     string-append
+     (module-map
+      (lambda (sym var)
+	(let ((val (if (variable-bound? var) (variable-ref var) "")))
+	  (if (and (memq sym fields) (string? val))
+	      (header-to-file basename sym val))
+	  ""))
+      scope)))
+  (apply string-append (map output-scope scopes)))
+

@@ -269,7 +269,7 @@
 	 (page-count (length pages))
 	 (port (ly:outputter-port outputter)))
 
-
+    (output-scopes scopes fields basename)
     (display (page-header paper page-count #t) port)
     (write-preamble paper #t  port)
 
@@ -331,10 +331,10 @@
     ))
 
 
-(define-public (output-preview-framework basename book scopes fields )
+(define-public (output-preview-framework basename book scopes fields)
   (let* ((paper (ly:paper-book-paper book))
 	 (systems (ly:paper-book-systems book))
-	 (scale  (ly:output-def-lookup paper 'outputscale))
+	 (scale (ly:output-def-lookup paper 'outputscale))
 	 (titles (take-while ly:paper-system-title? systems))
 	 (non-title (find (lambda (x)
 			    (not (ly:paper-system-title? x))) systems))
@@ -342,6 +342,7 @@
 	  (stack-stencils Y DOWN 0.0
 			  (map ly:paper-system-stencil
 			       (append titles (list non-title))))))
+    (output-scopes scopes fields basename)
     (dump-stencil-as-EPS paper dump-me
 			 (format "~a.preview" basename)
 			 #t)))

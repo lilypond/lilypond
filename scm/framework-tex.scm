@@ -122,34 +122,6 @@
 	  (map (lambda (x) (font-load-command paper x))
 	       (ly:paper-fonts paper)))))
 
-(define (header-to-file fn key val)
-  (set! key (symbol->string key))
-  (if (not (equal? "-" fn))
-      (set! fn (string-append fn "." key)))
-  (display
-   (format (_ "Writing header field `~a' to `~a'...")
-	   key
-	   (if (equal? "-" fn) "<stdout>" fn))
-   (current-error-port))
-  (if (equal? fn "-")
-      (display val)
-      (display val (open-file fn "w")))
-  (newline (current-error-port))
-  "")
-
-(define (output-scopes scopes fields basename)
-  (define (output-scope scope)
-    (apply
-     string-append
-     (module-map
-      (lambda (sym var)
-	(let ((val (if (variable-bound? var) (variable-ref var) "")))
-	  (if (and (memq sym fields) (string? val))
-	      (header-to-file basename sym val))
-	  ""))
-      scope)))
-  (apply string-append (map output-scope scopes)))
-
 (define (tex-string-def prefix key str)
   (if (equal? "" (sans-surrounding-whitespace (sanitize-tex-string str)))
       (string-append "\\let\\" prefix (symbol->tex-key key) "\\undefined%\n")

@@ -1,4 +1,4 @@
-\version "2.5.2"
+\version "2.5.13"
 
 %{
    Markup titles also available for direct PostScript output:
@@ -33,7 +33,7 @@ For century schoolbook font:
 }
 
 latinTest = \markup {
-    "Hellö"
+    "HellÃ¶"
 }
     
 sizeTest = \markup {
@@ -65,11 +65,11 @@ spaceTest = \markup { "two space chars" }
 
     tagline = "my tagline for "
     
-    %dedication = "För my dør Lily"
+    %dedication = "FÃ¶r my dÃ¸r Lily"
     % ugh: encoding char-size
-    %dedication = "For my öòóôõø so dear Lily"
+    %dedication = "For my Ã¶Ã²Ã³Ã´ÃµÃ¸ so dear Lily"
     dedication = \markup { "For my "
-%			   "öòóôõø"
+%			   "Ã¶Ã²Ã³Ã´ÃµÃ¸"
 			   " so dear Lily" }
     title = "Title"
     subtitle = "(and (the) subtitle)"
@@ -121,3 +121,7 @@ spaceTest = \markup { "two space chars" }
 	}
     }
 }
+
+%% Local Variables:
+%% coding: utf-8
+%% End:
