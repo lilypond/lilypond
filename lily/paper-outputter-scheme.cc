@@ -78,3 +78,16 @@ LY_DEFINE (ly_outputter_close, "ly:outputter-close",
   po->close ();
   return SCM_UNSPECIFIED;
 }
+
+
+LY_DEFINE (ly_outputter_output_scheme, "ly:outputter-output-scheme",
+	   2, 0, 0, (SCM outputter, SCM expr),
+	   "Eval @var{expr} in module of @var{outputter}.")
+{
+  Paper_outputter *po = unsmob_outputter (outputter);
+  SCM_ASSERT_TYPE (po, outputter, SCM_ARG1, __FUNCTION__, "Paper_outputter");
+
+  po->output_scheme (expr);
+
+  return SCM_UNSPECIFIED;
+}

@@ -151,7 +151,7 @@ lilypond -fgnome input/simple-song.ly
   (* 1.85
      (if (string? font)
 	 12
-	 (* output-scale (font-size font)))))
+	 (* output-scale (modified-font-metric-font-scaling font)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Wrappers from guile-gnome TLA
