@@ -11,7 +11,10 @@
 ;;     syntax, description and example. 
 
 
-  
+(def-markup-command (stencil paper props stil) (ly:stencil?)
+  "Stencil as markup"
+  stil)
+
 (def-markup-command (simple paper props str) (string?)
   "A simple text string; @code{\\markup @{ foo @}} is equivalent with
 @code{\\markup @{ \\simple #\"foo\" @}}."

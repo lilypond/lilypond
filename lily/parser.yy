@@ -2446,15 +2446,15 @@ markup:
 		$$ = $1;
 	}
 	| score_block {
+		// WIP -- arbitrary, shoul also allow \book or Composite_music.
  		Score *score = $1;
-		//Book *book = unsmob_book (ly_score_bookify (score->self_scm ()));
  		Book *book = new Book;
 		book->scores_.push (score);
 		extern Music_output_def* get_paper (My_lily_parser *parser);
 		Music_output_def *paper = get_paper (THIS);
 		SCM s = book->to_stencil (paper, THIS->header_);
-//		$$ = s;
-		$$ = Text_item::interpret_markup (paper->self_scm (), SCM_EOL, s);
+		$$ = scm_list_2 (ly_scheme_function ("stencil-markup"), s);
+ 		scm_gc_unprotect_object (score->self_scm ());
 	}
 	;
 
