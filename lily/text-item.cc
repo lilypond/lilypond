@@ -57,9 +57,19 @@ Text_item::text2molecule (Score_element *me, SCM text, SCM properties)
 Molecule
 Text_item::string2molecule (Score_element *me, SCM text, SCM properties)
 {
-  SCM f = me->get_elt_property ("get-font-name");
-  SCM style = me->get_elt_property ("style-sheet");
-  SCM font_name = gh_call2 (f, style, properties);
+  SCM style = scm_assoc (ly_symbol2scm ("font-style"), properties);
+  SCM paper = me->get_elt_property ("style-sheet");
+  SCM font_name;
+  if (gh_pair_p (style))
+    {
+      SCM f = me->get_elt_property ("style-to-font-name");
+      font_name = gh_call2 (f, paper, gh_cdr (style));
+    }
+  else
+    {
+      SCM f = me->get_elt_property ("properties-to-font-name");
+      font_name = gh_call2 (f, paper, properties);
+    }
   String font_str = "roman";
   if (gh_string_p (font_name))
     font_str = ly_scm2string (font_name);

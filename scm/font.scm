@@ -1,97 +1,132 @@
 ;;;
 ;;; font.scm -- implement Font stuff
 ;;;
-;;;  source file of the GNU LilyPond music typesetter
+;;; source file of the GNU LilyPond music typesetter
 ;;; 
 ;;; (c) 2000 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;
 
+	 
+;; Corresponding properties:
+;;
+;;   font-series font-shape font-family font-name font-point font-size
+;;
 
-;; corresponding properties:
-;;
-;;   font-series font-shape font-family font-name font-size font-points
-;;
-(define style-sheet-alist
+(define style-to-font-alist
   '(
-    (paper16 . (
-		("medium upright music feta 0 16" . "feta16")
-		("medium upright music feta -1 13" . "feta13")
-		("medium upright music feta -2 11" . "feta11")
-		("medium upright music feta 1 20" . "feta20")
-		("medium upright music feta 2 23" . "feta23")
-		("medium upright orator feta-nummer 0 8" . "feta-nummer8")
-		("medium upright orator feta-nummer -4 4" . "feta-nummer4")
-		("medium upright roman cmr 0 8" . "cmr8")
-		("medium upright roman cmr 1 10" . "cmr10")
-		("bold upright roman cmbx 0 8" . "cmbx8")
-		("bold upright roman cmbx 1 10" . "cmbx10")
-		("medium italic roman cmbx 0 8" . "cmbx8")
-		("medium italic roman cmbx 1 10" . "cmbx10")
-		))
-    (paper20 . (
-		("medium upright music feta 0 20" . "feta20")
-		("medium upright music feta -1 16" . "feta16")
-		("medium upright music feta -2 13" . "feta13")
-		("medium upright music feta 1 23" . "feta23")
-		("medium upright music feta 2 26" . "feta26")
-		("medium upright orator feta-nummer 0 10" . "feta-nummer10")
-		("medium upright orator feta-nummer -4 5" . "feta-nummer5")
-		("medium upright roman cmr 0 10" . "cmr10")
-		("medium upright roman cmr 1 12" . "cmr12")
-		("bold upright roman cmbx 0 10" . "cmbx10")
-		("bold upright roman cmbx 1 12" . "cmbx12")
-		("medium italic roman cmbx 0 10" . "cmbx10")
-		("medium italic roman cmbx 1 12" . "cmbx12")
-		))
+    (finger . "* * orator * * -4")
+    (volta . "* * orator * * -3")
+    (timesig . "* * orator * * 0")
+    (mark . "* * orator * * 2")
+    (script . "* * roman * * -1")
+    (large . "* * roman * * 1")
+    (Large . "bold * roman * * 2")
+    (dynamic . "bold * dynamic * * 0")
     ))
 
-(define (get-font-name style properties-alist)
-  (let ((font-regexp
-	 (let loop ((p '(font-series font-shape font-family font-name font-size font-points)) (s ""))
-	   (let* ((key (if (pair? p) (car p) p))
-		  (entry (assoc key properties-alist))
-		  (value (if entry (cdr entry) "[^ ]+")))
-	     (if (pair? (cdr p))
-		 (loop (cdr p) (string-append s value " "))
-		 (string-append (string-append s value))))))
-	(style-sheet (cdr (assoc style style-sheet-alist))))
-    ;;(display "regex: `")
-    ;;(display font-regexp)
-    ;;(display "'")
-    ;;(newline)
+(define paper20-style-sheet-alist-template
+  '(
+    (("medium upright music feta 20" . 0) . "feta20")
+    (("medium upright music feta 16" . -1) . "feta16")
+    (("medium upright music feta 13" . -2) . "feta13")
+    (("medium upright music feta 23" . 1) . "feta23")
+    (("medium upright music feta 26" . 2) . "feta26")
+    (("medium upright braces feta-braces 20" . 0) . "feta-braces20")
+    (("bold italic dynamic feta 10" . 0) . "feta-din10")
+    ;; Hmm
+    (("medium upright orator feta-nummer 13" . 3) . "feta-nummer13")
+    (("medium upright orator feta-nummer 13" . 2) . "feta-nummer13")
+    (("medium upright orator feta-nummer 12" . 1) . "feta-nummer12")
+    (("medium upright orator feta-nummer 10" . 0) . "feta-nummer10")
+    (("medium upright orator feta-nummer 8" . -1) . "feta-nummer8")
+    (("medium upright orator feta-nummer 6" . -2) . "feta-nummer6")
+    (("medium upright orator feta-nummer 5" . -3) . "feta-nummer5")
+    (("medium upright orator feta-nummer 4" . -4) . "feta-nummer4")
+    (("medium upright orator feta-nummer 3" . -5) . "feta-nummer3")
+    (("medium upright roman cmr 8" . -1) . "cmr8" )
+    (("medium upright roman cmr 10" . 0) . "cmr10")
+    (("medium upright roman cmr 12" . 1) . "cmr12")
+    (("bold upright roman cmbx 10" . 0) . "cmbx10")
+    (("bold upright roman cmbx 12" . 1) . "cmbx12")
+    (("medium italic roman cmbx 10" . 0) . "cmbx10")
+    (("medium italic roman cmbx 12" . 1) . "cmbx12")
+    ))
+
+(define (style-sheet-template-entry-compile entry size)
+  (cons 
+   (string-append (caar entry)
+		  " "
+		  (number->string (- (cdar entry) size))
+		  " ")
+   (cdr entry)))
+   
+(define style-sheet-alist
+  `(
+    (paper11 . ,(map (lambda (x) (style-sheet-template-entry-compile x -3))
+		     paper20-style-sheet-alist-template))
+    (paper13 . ,(map (lambda (x) (style-sheet-template-entry-compile x -2))
+		     paper20-style-sheet-alist-template))
+    (paper16 . ,(map (lambda (x) (style-sheet-template-entry-compile x -1))
+		     paper20-style-sheet-alist-template))
+    (paper20 . ,(map (lambda (x) (style-sheet-template-entry-compile x 0))
+		     paper20-style-sheet-alist-template))
+    (paper23 . ,(map (lambda (x) (style-sheet-template-entry-compile x 1))
+		     paper20-style-sheet-alist-template))
+    (paper26 . ,(map (lambda (x) (style-sheet-template-entry-compile x 2))
+		     paper20-style-sheet-alist-template))
+     ))
+
+(define (font-regexp-to-font-name paper regexp)
+  (let ((style-sheet (cdr (assoc paper style-sheet-alist))))
     (let loop ((fonts style-sheet))
-      ;;(display "font: `")
-      ;;(display (caar fonts))
-      ;;(display "' = ")
-      ;;(display (cdar fonts))
-      ;;(newline)
-      (if (string-match font-regexp (caar fonts))
+      (if (string-match regexp (caar fonts))
 	  (cdar fonts)
 	  (if (pair? (cdr fonts))
 	      (loop (cdr fonts))
 	      '())))))
-	
+
+(define (properties-to-font-name paper properties-alist)
+  (let ((font-regexp (apply string-append
+	 (map (lambda (key)
+		(string-append
+		 (let ((entry (assoc key properties-alist)))
+		   (if entry (cdr entry) "[^ ]+"))
+		 " "))
+	      '(font-series font-shape font-family font-name font-point font-size)))))
+    (font-regexp-to-font-name paper font-regexp)))
+
 (define markup-to-properties-alist
-  '((series . font-series)
+  '(
+    (style . font-style)
+    (series . font-series)
     (shape . font-shape)
     (family . font-family)
     (name . font-name)
     (size . font-size)
-    (point . font-point)))
-
-(define markup-abbrev-to-properties-alist
-  '((rows . (align . 0))
-    (lines . (align . 1))
-    (roman . (font-family . "roman"))
-    (music . (font-family . "music"))
-    (bold . (font-series . "bold"))
-    (italic . (font-shape . "italic"))))
+    (point . font-point)
+    ))
     
+(define markup-abbrev-to-properties-alist
+  (append
+   '(
+     (rows . (align . 0))
+     (lines . (align . 1))
+     (roman . (font-family . "roman"))
+     (music . (font-family . "music"))
+     (bold . (font-series . "bold"))
+     (italic . (font-shape . "italic")))
+   (map (lambda (x) (cons (car x) (cons 'font-style (car x))))
+	style-to-font-alist)))
+  
 (define (markup-to-properties markup)
-  ;;(display "markup: ")
-  ;;(display markup)
-  ;;(newline)
   (if (pair? markup)
       (cons (cdr (assoc (car markup) markup-to-properties-alist)) (cdr markup))
       (cdr (assoc markup markup-abbrev-to-properties-alist))))
 	
+(define (style-to-font-name paper style)
+  (let* ((entry (assoc style style-to-font-alist))
+	 (font (if entry (cdr entry) "* * * * * *"))
+	 (font-regexp
+	  (regexp-substitute/global #f "\\*" font 'pre "[^ ]+" 'post)))
+    (font-regexp-to-font-name paper font-regexp)))
+

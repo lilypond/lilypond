@@ -11,6 +11,7 @@
 		e-\textscript #'(lines (bold "een") 
 		  (rows "en" "dat" "is" ((family . "orator") "2"))
 		  (italic "drie"))
+		f-\textscript #'(finger "3")
 	}
 	\paper{
 		linewidth = -1.\mm;
