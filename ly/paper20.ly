@@ -28,13 +28,15 @@ paper_twenty = \paper {
 	quartwidth =  6.61\pt;
 	wholewidth = 9.90\pt;
 
-	-2 = \font "feta13"
-	-1 = \font "feta16"
 	0 = \font "feta20"
+	-1 = \font "feta16"
+	-2 = \font "feta13"
+	-3 = \font "feta11"
 
-	"font_feta-2" = 13.;
-	"font_feta-1" = 16.;
 	"font_feta" = 20.;
+	"font_feta-1" = 16.;
+	"font_feta-2" = 13.;
+	"font_feta-3" = 11.;
 
 	\include "params.ly";
 }

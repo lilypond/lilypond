@@ -2,7 +2,7 @@
 default:
 
 
-local-WWW: $(OUTHTML_FILES)
+local-WWW: $(OUTHTML_FILES) footify
 
 local-web:
 	$(MAKE) CONFIGSUFFIX=www local-WWW

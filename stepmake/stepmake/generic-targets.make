@@ -88,8 +88,12 @@ doc: local-doc
 local-doc:
 
 # Ugh.  C++ specific.
+# If you're not the maintainer, there's no tarball in $(outdir)!
+# Maybe, there is one in ../releases
 doc++:
-	(cd $(outdir); sh ../$(step-bindir)/tar-docxx.sh $(package)-$(TOPLEVEL_VERSION).tar.gz)
+	(cd $(outdir); \
+		$(SHELL) ../$(step-bindir)/tar-docxx.sh $(package)-$(TOPLEVEL_VERSION).tar.gz || \
+		$(SHELL) ../$(step-bindir)/tar-docxx.sh $(release-dir)/$(package)-$(TOPLEVEL_VERSION).tar.gz)
 
 
 local-dist: $(DIST_FILES) $(OUT_DIST_FILES) $(NON_ESSENTIAL_DIST_FILES)

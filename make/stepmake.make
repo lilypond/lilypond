@@ -21,9 +21,9 @@ endif
 
 # Use same configuration, but different output directory:
 #
-#     make out=WWW
+#     make out=www
 #
-# uses config.make and config.h; output goes to out-WWW.
+# uses config.make and config.h; output goes to out-www.
 #
 ifdef out
   outbase=out-$(out)

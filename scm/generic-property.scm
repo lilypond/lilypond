@@ -80,16 +80,16 @@
 
 (define generic-crescendo-properties
   (cons "Crescendo" (list
-		     (list 'verticalDirection dir? 'direction)
 		     (list 'dynamicDirection dir? 'direction)
+		     (list 'verticalDirection dir? 'direction)
 		     (list 'dynamicPadding number? 'padding) 
 		     (list 'dynamicMinimumSpace number? 'minimum-space) 
 		     )))
   
 (define generic-dynamic-line-spanner-properties
   (cons "Dynamic_line_spanner" (list
-		     (list 'verticalDirection dir? 'direction)
 		     (list 'dynamicDirection dir? 'direction)
+		     (list 'verticalDirection dir? 'direction)
 		     (list 'dynamicPadding number? 'padding) 
 		     (list 'dynamicMinimumSpace number? 'minimum-space) 
 		     )))
@@ -223,6 +223,7 @@
    generic-timesig-properties
    generic-clef-properties
    generic-collision-properties
+   generic-sustain-pedal-properties
    generic-rest-collision-properties
    generic-volta-spanner-properties
 ;   generic-staff-symbol-properties

@@ -7,6 +7,8 @@ $(outdir)/%.info: $(outdir)/%.texi
 
 $(outdir)/%.html:	$(outdir)/%.texi
 	-makeinfo --force --output=$@ --html --no-headers $< 
+# we want footers even if website builds (or is built) partly
+	$(footify) $@
 
 $(outdir)/%.dvi:	$(outdir)/%.texi
 # --clean only in >= 3.12s

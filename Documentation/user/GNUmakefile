@@ -32,10 +32,11 @@ local-WWW: $(HTML_FILES)   $(datafiles) $(PS_GZ_FILES)
 	$(PYTHON) $(step-bindir)/ls-latex.py --title 'User documentation' \
 	   $(DOC_FILES) $(TEX_FILES) $(TELY_FILES) \
 	  | sed "s!$(outdir)/!!g" > $(outdir)/index.html
-	$(footify) $(outdir)/index.html
 
 $(outdir)/%.bib: %.bib
 	ln -f $< $@
+# we want footers even if website builds (or is built) partly
+	$(MAKE) footify
 
 localclean:
 	rm -f fonts.aux fonts.log feta*.tfm feta*.*pk 
