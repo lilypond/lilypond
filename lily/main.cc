@@ -277,13 +277,8 @@ setup_paths ()
     new_glp = ":" + new_glp;
   new_glp = prefix_directory + new_glp;
 
-  /*
-    Yes , so setenv is not posix.
-
-    I say, fuckem'all.
-   */
-
-  setenv ("GUILE_LOAD_PATH", new_glp.ch_C(), 1);
+  /* URG, overwrite load path */
+  putenv ((char*)("GUILE_LOAD_PATH=" + new_glp).ch_C ());
 }
 
 /**
