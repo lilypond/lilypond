@@ -11,6 +11,8 @@ STEPMAKE_INIT
 # For all packages except the StepMake package itself
 # AC_CONFIG_SUBDIRS(stepmake)
 
+CC=echo
+AC_SUBST(CC)
 # Uncomment the configuration options your package needs.
 # STEPMAKE_COMPILE
 # AC_HAVE_HEADERS(limits.h malloc.h string.h unistd.h values.h)

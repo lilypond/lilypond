@@ -1,3 +1,3 @@
 
-$(outdir)/%$(SHARED_LIB_SUFFIX): $(outdir)/%.lo
+$(outdir)/%$(SHARED_MODULE_SUFFIX): $(outdir)/%.lo
 	$(LD) $(SHARED_FLAGS) -o $@ $< $(ALL_LDFLAGS)

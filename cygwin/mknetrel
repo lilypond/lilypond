@@ -10,7 +10,7 @@
 # To use this, do something like:
 cat >/dev/null <<EOC
 
-   wget -P/var/tmp ftp://lilypond.org/pub/LilyPond/v1.5/lilypond-1.5.68.tar.gz
+   wget -P/var/tmp ftp://lilypond.org/pub/LilyPond/v1.5/lilypond-1.5.71.tar.gz
    rm -rf /home/netrel/src/lilypond-*
    mkdir -p /home/netrel/src && cd /home/netrel/src
    ## TODO: look at pimport
@@ -152,7 +152,6 @@ lib_split () {
    
 devel_split () {
     mkdir -p ./$prefix/bin || exit 1
-    mv $inst/$prefix/bin/guile-* ./$prefix/bin
     mv $inst/$prefix/include ./$prefix/include
     mkdir -p ./$prefix/lib || exit 1
     mv $inst/$prefix/lib/*.a ./$prefix/lib
@@ -248,8 +247,7 @@ needdevoflags () {
     return 1
 }
 
-# do I have a broken setup, do the Guile developers not know how to
-# write configure.in and Makefile.am, or are automake/libtool broken?
+
 preconfig () { # aka libtool_woes ()
 
     # Add to mknetrel?
@@ -261,17 +259,18 @@ preconfig () { # aka libtool_woes ()
 
     GUILE=1.5.6
     cat > guile-config <<EOF
-#/bin/sh
+#!/bin/sh
 [ "\$1" == "--version" ] && echo "guile-config - Guile version $GUILE"
-[ "\$1" == "compile" ] && echo "-I$PREFIX/include"
-[ "\$1" == "link" ] && echo "-L$PREFIX/lib -lguile"
+[ "\$1" == "compile" ] && echo "-I$cygwin_prefix/include"
+[ "\$1" == "link" ] && echo "-L$cygwin_prefix/lib -lguile"
 exit 0
 EOF
 
     chmod 755 guile-config
     PATH=$(pwd):$PATH
-    
+
     ##opt='-O2 -g' LDFLAGS='"$cygwin_prefix/bin/libpython2.2.dll"
+    rm -f config.cache  
 }
 
 postconfig () {

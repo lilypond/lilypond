@@ -323,6 +323,17 @@ prepend_load_path (String dir)
   scm_c_eval_string (s.to_str0 ());
 }
 
+/* Move this to libguile/read.h 
+   Note: auto-export is assumed (no __declspec (dllexport)) */
+#if (defined(_WIN32) || defined(__CYGWIN__)) \
+  && !(defined(GUILE_BUILD_DLL) || defined(GUILE_STATIC))
+#define DLL_IMPORT __declspec (dllimport)
+#else
+#define DLL_IMPORT
+#endif
+extern DLL_IMPORT scm_t_option scm_read_opts[];
+
+
 void
 main_prog (void *, int, char **)
 {
@@ -337,7 +348,8 @@ main_prog (void *, int, char **)
       prepend_load_path (String (prefix_directory[i]) + "/scm");
     }
 
-  SCM_RECORD_POSITIONS_P = 1; 
+  SCM_RECORD_POSITIONS_P = 1;
+  
   if (verbose_global_b)
     dirinfo (stderr);
   
