@@ -432,4 +432,19 @@ fet_beginchar("grace dash (down)", "dgrace", "dgracedash")
 	y_mirror_char;
 fet_endchar;
 
+% ustem?
+fet_beginchar("stem (up)", "stem", "stem")
+	set_char_box(stemthickness#/2, 0, 3.5staff_space#, stemthickness#/2);
+	pickup pencircle scaled stemthickness;
+	draw (0, 0.2staff_space) .. (0, 3.5staff_space);
+fet_endchar;
+
+% do we want this?
+fet_beginchar("stem (down)", "dstem", "dstem")
+	set_char_box(stemthickness#/2, -3.5staff_space#, 0, stemthickness#/2);
+	pickup pencircle scaled stemthickness;
+	draw (0, -0.2staff_space) .. (-3.5staff_space, 0);
+fet_endchar;
+
+
 fet_endgroup("flags");
