@@ -4,7 +4,7 @@ DEFINEMACRO(pic)(1)(url(ARG1)(DOEXPAND(docdir)/pictures/DOEXPAND(outdir)/ARG1.pn
 ))
 
 DEFINEMACRO(beginbold)(0)(whenhtml(htmlcommand(<font size=4><strong>)))
-DEFINEMACRO(endbold)(0)(whenhtml(htmlcommand(</strong><font size=3>)))
+DEFINEMACRO(endbold)(0)(whenhtml(htmlcommand(</strong></font>)))
 redef(htmlnewfile)(0)()
 setchapterstring()
 

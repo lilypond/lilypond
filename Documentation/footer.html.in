@@ -1,0 +1,27 @@
+<!if this file ./Documentation/footer.html.in is present, it is included>
+<!automatically by add-html-footer, and replaces the simple standard footer>
+<!substitutions: package.Name, package.Name, ENV:WEBMASTER, ENV:WEBMASTER>
+<hr>
+Return to <a href=%s>%s's home page</a>.
+<p>
+Please send GNU LilyPond questions and comments to 
+
+<a href="mailto:gnu-music-discuss@gnu.org">
+<em>gnu-music-discuss@gnu.org</em></a>.
+<p>
+
+Please send comments on these web pages to 
+
+<a href="mailto:%s"><em>%s</em></a>,
+send other FSF &amp; GNU inquiries and questions to 
+
+<a href="mailto:gnu@gnu.org"><amp>gnu@gnu.org</em></a>.<p>
+<p>
+<!Copyright (C) 1998 Free Software Foundation, Inc.,
+59 Temple Place - Suite 330, Boston, MA  02111,  USA>
+<!hmm, is this ok?>
+Copyright (c) 1997, 1998 Han-Wen Nienhuys and Jan Nieuwenhuizen.
+<p>
+Verbatim copying and distribution of this entire article is 
+permitted in any medium, provided this notice is preserved.<p>
+

@@ -9,6 +9,7 @@ version = '0.1'
 
 import sys
 import os
+import time
 from string import *
 import getopt
 import __main__
@@ -20,6 +21,12 @@ index_file=''
 banner_file = ''
 news_file=''
 news =''
+footer = '\n<hr>Please take me <a href=%s>back to the index</a>\n\
+of %s<!%s%s>\n'
+builtstr = '\n<hr><font size=-1>\n\
+This page was built from %s-%s by\
+<address><br>%s &lt<a href=mailto:%s>%s</a>&gt, at %s.</address><p></font>' 
+
 (options, files) = getopt.getopt(sys.argv[1:], 'hp:', ['help', 'news=', 'index=', 'package=']) 
 
 def help ():
@@ -48,6 +55,9 @@ from packagepython import *
 package = Package (topdir)
 packager = Packager ()
 
+if package.NAME == 'LILYPOND':
+    package.Name = 'GNU LilyPond'
+
 def set_vars():
     os.environ["CONFIGSUFFIX"] = 'www';
     if os.name == 'nt':
@@ -61,17 +71,16 @@ def set_vars():
 
 set_vars ()
 
-backstr = '\n<hr>Please take me <a href=%s>back to the index</a>\n\
-of ' + package.Name + '\n'
-builtstr = '\n<hr><font size=-1>\n\
-This page was built  from ' + package.name + '-%s by <p>\n\
-<address><br>%s &lt<a href=mailto:%s>%s</a>&gt</address>\n\
-<p></font>' 
-
 def footstr(index):
-    s = backstr % index
-    s = s + builtstr % (version_tuple_to_str (package.version), fullname,
-		         packager.mail, packager.mail)
+    try:
+    	footer = gulp_file (package.topdir + '/Documentation/footer.html.in')
+    except:
+        pass
+    s = footer % (index, package.Name, packager.webmaster, packager.webmaster)
+    s = s + builtstr % (package.Name, 
+    			version_tuple_to_str (package.version), fullname,
+		        packager.mail, packager.mail, 
+			time.strftime ('%c %Z', time.localtime (time.time ())))
     return s
 
 banner = footstr (index_file)

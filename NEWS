@@ -1,4 +1,12 @@
---- ../lilypond-1.1.8.hwn2/NEWS	Wed Nov 25 14:00:43 1998
+--- ../lilypond-1.1.8.jcn2/NEWS	Tue Nov 24 20:37:55 1998
+++ b/NEWS	Thu Nov 26 01:10:29 1998
+@@ -1,3 +1,6 @@
+pl 8.jcn3
+	- website: gnuisation of footers
+
+ pl 8.jcn2
+ 	- input/test/vertical-text.ly: urg ydim of text chords
+ 	- bf: one set of |: :| volta per staff--- ../lilypond-1.1.8.hwn2/NEWS	Wed Nov 25 14:00:43 1998
 ++ b/NEWS	Wed Nov 25 22:52:54 1998
 @@ -1,3 +1,6 @@
 pl 8.hwn3
