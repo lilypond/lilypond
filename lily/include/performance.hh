@@ -1,25 +1,24 @@
 /*
-  audio-score.hh -- declare Audio_score
+  performance.hh -- declare Performance
 
   (c) 1997 Jan Nieuwenhuizen <jan@digicash.com>
  */
 
-#ifndef AUDIO_SCORE_HH
-#define AUDIO_SCORE_HH
+#ifndef PERFORMANCE_HH
+#define PERFORMANCE_HH
 
 #include "lily-proto.hh"
 #include "plist.hh"
 #include "music-output.hh"
 
 /** all stuff which goes onto midi. notes, signs, symbols in a score
-     #Audio_score# contains the items, the columns.
-    
+     #Performance# contains the items, the columns.
     */
 
-class Audio_score : public Music_output {
+class Performance : public Music_output {
 public:
-  Audio_score ();
-  ~Audio_score () {}
+  Performance ();
+  ~Performance () {}
 
   void add (Audio_column*);
   void add_staff (Audio_staff* l);
@@ -38,4 +37,4 @@ public:
   Midi_def  * midi_l_;
 };
 
-#endif // AUDIO_SCORE_HH
+#endif // PERFORMANCE_HH

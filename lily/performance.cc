@@ -1,5 +1,5 @@
 /*
-  audio-score.cc -- implement Audio_score
+  audio-score.cc -- implement Performance
 
   source file of the GNU LilyPond music typesetter
 
@@ -16,23 +16,23 @@
 #include "midi-stream.hh"
 #include "audio-column.hh"
 #include "audio-staff.hh"
-#include "audio-score.hh"
+#include "performance.hh"
 #include "score.hh"
 
-Audio_score::Audio_score ()
+Performance::Performance ()
 {
   midi_l_ =0;
 }
 
 void
-Audio_score::add (Audio_column* p)
+Performance::add (Audio_column* p)
 {
-  p->audio_score_l_ = this;
+  p->performance_l_ = this;
   audio_column_p_list_.bottom().add (p);
 }
 
 void
-Audio_score::output (Midi_stream& midi_stream_r)
+Performance::output (Midi_stream& midi_stream_r)
 {
   int tracks_i = audio_staff_l_list_.size() + 1;
   // ugh
@@ -41,11 +41,11 @@ Audio_score::output (Midi_stream& midi_stream_r)
   output_header_track (midi_stream_r);
   int n = 1;
   for (PCursor<Audio_staff*> i (audio_staff_l_list_); i.ok(); i++)
-	i->output (midi_stream_r, n++);
+    i->output (midi_stream_r, n++);
 }
 
 void
-Audio_score::output_header_track (Midi_stream& midi_stream_r)
+Performance::output_header_track (Midi_stream& midi_stream_r)
 {
   Midi_track midi_track;
   
@@ -71,7 +71,7 @@ Audio_score::output_header_track (Midi_stream& midi_stream_r)
   midi_track.add (Moment (0), &from);
 
   Midi_text track_name (Midi_text::TRACK_NAME, "Track " 
-			  + String_convert::i2dec_str (0, 0, '0'));
+			+ String_convert::i2dec_str (0, 0, '0'));
   midi_track.add (Moment (0), &track_name);
 
   Midi_tempo tempo (midi_l_->get_tempo_i (Moment (1, 4)));
@@ -81,34 +81,40 @@ Audio_score::output_header_track (Midi_stream& midi_stream_r)
 }
 
 void
-Audio_score::add_staff (Audio_staff* l)
+Performance::add_staff (Audio_staff* l)
 {
   audio_staff_l_list_.bottom().add (l);
 }
 
 void
-Audio_score::add (Audio_element *p)
+Performance::add (Audio_element *p)
 {
   audio_elem_p_list_.bottom().add (p);
 }
 
 void
-Audio_score::print() const
+Performance::print() const
 {    
 #ifndef NPRINT
-  DOUT << "Audio_score { ";
+  DOUT << "Performance { ";
+  DOUT << "Items: ";
+  for (PCursor<Audio_element*> i (audio_elem_p_list_.top ()); i.ok (); i++)
+    i->print ();
+  
   DOUT << "\ncolumns: ";
   for (PCursor<Audio_column*> i (audio_column_p_list_); i.ok(); i++)
-	i->print();
+    i->print();
   DOUT << "}\n";
 #endif 
 }
 
 void
-Audio_score::process()
+Performance::process()
 {
+  print ();
+  
   String out=midi_l_->outfile_str_;
-  if (out == "")
+  if (!out)
     out = default_out_str_ + ".midi";
 
   Midi_stream midi_stream (out);
