@@ -12,8 +12,14 @@
 
 /// store simultaneous requests
 class Staff_column {
+
     Staff_column(Staff_column const&);
+
 public:
+    Array<Request*> musicalreq_l_arr_;
+    Array<Request*> commandreq_l_arr_;
+    Staff * staff_l_;
+
     /// fields to collect timing data vertically.
     Array<Timing_req*> timing_req_l_arr_;
     Score_column *musical_column_l_, *command_column_l_;
@@ -26,12 +32,13 @@ public:
     void set_cols(Score_column *c1, Score_column *c2);
     void add(Voice_element*ve);
     void OK() const;
-    virtual ~Staff_column();
-
-
+    ~Staff_column();
+    void typeset_breakable_items(Array<Item *> &pre_p_arr,
+				 Array<Item *> &nobreak_p_arr,
+				 Array<Item *> &post_p_arr);
+    void typeset_musical_item(Item *i);
 protected:
-    virtual void setup_one_request(Request*)=0;
-
+     void setup_one_request(Request*);
 };
 
 

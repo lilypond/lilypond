@@ -10,7 +10,6 @@
 #include "bar.hh"
 #include "commandrequest.hh"
 #include "complexwalker.hh"
-#include "complexcolumn.hh"
 #include "sccol.hh"
 
 
