@@ -1,5 +1,7 @@
 2003-08-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION (PACKAGE_NAME): Branch lilypond_1_8, release 1.8.1 
+
 	* Documentation/user/refman.itely (Text markup): add comment about
 	markup in header.
 
