@@ -11,14 +11,18 @@ Pitches can be verified by printing them  with the @code{NoteNames} context.
 }
 
 thenotes = \notes \relative cis' { \time 4/4;
-gis'2 gis ~ |
+g'2 g ~ |
+g g4 gis |
+gis2 gis ~ |
 gis4 gis8 ~ gis g4 gis |
 g2 gis ~ |
 gis g4 gis |
 g2 gis( |
 )g! gis4 gis |
-
+\break
 \key a \major;
+gis2 gis ~ |
+gis4 gis8 ~ gis g4 gis |
 gis2 g ~ |
 g4 gis8 ~ gis g4 gis |
 g2 gis ~ |

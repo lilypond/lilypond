@@ -1,5 +1,5 @@
 
-% 	$Id: norsk.ly,v 1.9 2000/11/26 19:05:12 fred Exp $	
+% 	$Id: norsk.ly,v 1.10 2001/01/09 18:54:26 fred Exp $	
 
 %{
 
@@ -27,7 +27,7 @@
 
 %}
 
-\pitchnames #'(
+\pitchnames #`(
 	(ceses . ,(make-pitch -1 0 -2 ))
 	(cessess . ,(make-pitch -1 0 -2 ))
 	(ces . ,(make-pitch -1 0 -1 ))

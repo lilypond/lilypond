@@ -28,8 +28,8 @@ accompaniment =\chords {
 
           \addlyrics
              \context Staff = mel
-             {	\property Staff.noAutoBeaming = "1"
-        	\property Staff.automaticMelismas = "1"
+             {	\property Staff.noAutoBeaming = ##t
+		\property Staff.automaticMelismata = ##t
           	\melody }
              \context Lyrics \text
         }

@@ -1,6 +1,29 @@
-
-1.3.120.jcn1
+1.3.121.hwn1
 ============
+
+* Small lilypond-book cleanups.
+
+* Bugfix: fix lyric extenders.
+
+1.3.121.mb2
+===========
+
+* Bugfix: svenska.ly and norsk.ly
+
+* Bugfix: tied-over accidentals handled more correctly.
+
+1.3.121.jcn2
+============
+
+* Renamed last instances of musical_*pitch to pitch.
+
+* Bugfix: actually read pitch value in \pitch #(make-pitch ...)
+
+* Bugfix(?): always allow explicit duration entry.
+
+* Fixed .po charsets for upcoming msgfmt release (Bruno Haible).
+
+* Some doco updates and fixes.
 
 * Bugfix Ly2dvi: reset LC_ALL and LC_LANG too.
 
@@ -12,7 +35,10 @@ break --srcdir builds and texi2dvi.
 * Several fixes for --srcdir build, allowing build from read only media.
 
 * Moved make/toplevel.make.in to less unusual GNUmakefile.in
- 
+
+* Bugfix: changed beam thickness to .48 staff-space.
+
+
 1.3.120.uu1
 ===========
 
@@ -1329,7 +1355,7 @@ syntax is most likely only temporary.
    when there's a change in the chord-name-scheme, Also, a chord
    name should always be displayed after a line break.  See
 
-       input/test/drarn-chords.ly
+       input/test/chord-changes.ly
 
 * Reverted duration-iter change in midi2ly, moved printing of options.
 

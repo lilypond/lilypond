@@ -1,5 +1,6 @@
 @c -*-texinfo-*-
 
+@c ugh: because of @include, we need to fill in these nodes?
 @node Tutorial, , , Top
 @chapter Tutorial
 
@@ -11,7 +12,7 @@
 * end of tutorial::                The end
 @end menu
 
-@node Introduction,  , , Tutorial
+@node Introduction
 @section Introduction
 
   
@@ -30,7 +31,7 @@ subdirectory @file{input/tutorial/}.  It is recommended that you
 experiment with writing Lilypond input yourself, to get a feel for
 how LilyPond behaves.
 
-@node The first tune,  , , Tutorial
+@node The first tune
 @section The first tune
 
 
@@ -83,31 +84,13 @@ To view this output, issue the command `@code{xdvi menuet}'.
 
 Now that we are familiar with the procedure of producing output, we
 will analyse the input, line by line.
-@ignore
-Let's try to redo this
 @example
-
 	% lines preceded by a percent are comments which
 	% are ignored by Lilypond.
-
- 
 @end example 
 The percent sign, `@code{%}', introduces a line comment.  If you want to
 make larger comments, you can use block comments. These are delimited
 by `@code{%@{}' and `@code{%@}}'
-@end ignore
-@multitable @columnfractions .60 .39
-@item
-@noindent
-@c @example  urg: no tt font
-@c @exdent % lines preceded by a percent are comments.
-@exdent @code{% lines preceded by a percent are comments.}
-@c @end example
-@tab
-The percent sign, `@code{%}', introduces a line comment.  If you
-want to make larger comments, you can use block comments. These
-are delimited by `@code{%@{}' and `@code{%@}}'
-@end multitable
 @example 
 
         \input "paper16.ly"
@@ -336,7 +319,7 @@ symbols and their placement is @emph{generated} from a high-level musical
 description.  In other words,  LilyPond would be best
 described by `music compiler' or `music to notation compiler'.
 
-@node Lyrics and chords, , , Tutorial
+@node Lyrics and chords
 @section Lyrics and chords
 
 In this section we show how to typeset a song of unknown
@@ -699,7 +682,7 @@ will be set in two lines.
 @end example 
 End the score block.
 
-@node Piano music, , , Tutorial
+@node Piano music
 @section Piano music
 
 Our third subject is a piece of piano music.  The fragment in the input
@@ -975,7 +958,7 @@ parts.
 
 [TODO: demonstrate Hara-Kiri with scores and  part extraction.]
 
-@node  end of tutorial, , , Tutorial
+@node  end of tutorial
 @section The end        
          
 That's all folks.  From here, you can either try fiddling with input
