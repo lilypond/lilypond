@@ -10,23 +10,34 @@
  
     }
 
-%% This slur does not look good. Looks like there have not been a line 
-%% break at some point, it is then added, but the slur does not break 
-%% in the case of a line break. -HJJ
+\score {
+    \notes \new PianoStaff
+    <<
+	\context Staff = up {
+	    \clef bass
+	    s1 * 4
+	} 
+	\context Staff = down \relative c <<
+	    s1*4
+	    {
+	    \clef bass
+	    r4 r8
+	    \once\override Slur  #'extra-offset = #'(0 . -8)
+	    \once\override Slur  #'control-points =
+	    #'((0 . -4) (2 . 0) (60 . 0) (63 . 4))
+	    c8( as' f c' as
 
-\score {\notes \new PianoStaff  <<
-    \context Staff = up { \clef bass s1 * 6 } 
-    \context Staff = down \relative c {
-	\clef bass
-	r4 r8
-	\once\override Slur  #'extra-offset = #'(0 . -8)
-	\once\override Slur  #'control-points =
-	#'((0 . -4) (2 . 0) (60 . 0) (63 . 4))
-			   c8( as' f c' as f c as' f
-			   \change Staff = up
-			   \clef treble
-			   c' as f' c as' f c' as
-			   f' c as' f c'4)
-			   }>>
-\paper { raggedright = ##t }
-    }
+	    % line breaks will mess up this example  
+	    \noBreak
+	    f c as' f
+	    \change Staff = up
+	    \clef treble
+	    c' as f' c
+    	    \noBreak
+	    as' f c' as
+	    f' c as' f c'4)
+	}>>
+    >>
+    \paper { raggedright = ##t }
+}
+

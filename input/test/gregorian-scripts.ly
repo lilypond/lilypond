@@ -7,6 +7,10 @@ Here is demonstrated a preliminary support of Gregorian Scripts:
 
 ictus, circulus, semicirculus, accentus, episem.
 
+"}
+
+%{
+
 TODO: augmentum.  Syntax: either as bracket (\augmentumInitium,
 \augmentumFinis), or as head prefix with subsequently collecting all
 dots and putting them behind the ligature in a vertical row.
@@ -19,7 +23,7 @@ FIXME: padding/minimum-distance is fragile.
 
 FIXME: episem stops one notehead too early.
 
-"}
+%}
 
 \include "gregorian-init.ly"
 

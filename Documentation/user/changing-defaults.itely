@@ -139,7 +139,7 @@ be used for another calculation.
    @result{} #13
 @end lisp
 
-These calculations are examples of evaluations: an expression (like
+These calculations are examples of evaluations: an expression like
 @code{(* 3 4)} is replaced by its value @code{12}. A similar thing
 happens with variables. After defining a variable  
 
@@ -213,8 +213,10 @@ a quote. For example,
 
 We have been using lists all along.  A calculation, like @code{(+ 1
 2)} is also a list (containing the symbol @code{+} and the numbers 1
-and 2). For entering lists, use a quote @code{'} and for
-calculations, do not use a quote. 
+and 2). Normally lists are interpreted as calculations, and the Scheme
+interpreter substitutes the outcome of the calculation. To enter a
+list, we stop evaluation. This is done by quoting the list with a
+quote @code{'} symbol.  For calculations, do not use a quote.
 
 Inside a quoted list or pair, there is no need to quote anymore.  The
 following is a pair of symbols, a list of symbols and a list of lists
@@ -262,7 +264,7 @@ reference, see
 Translation @arrow{} Context.
 @end ifnothtml
 
-[TODO: describe propagation]
+@c [TODO: describe propagation]
 
 
 @menu
@@ -530,9 +532,10 @@ example which removes @code{Time_signature_engraver} and
 @end lilypond
 
 In the second stave there are no time signature or clef symbols.  This
-is a rather crude method of making objects disappear, it will affect the
-entire staff. The spacing will be adversely influenced too. More
-sophisticated methods of blanking objects are shown in (TODO).
+is a rather crude method of making objects disappear, it will affect
+the entire staff. The spacing will be adversely influenced too. A more
+sophisticated methods of blanking objects is shown in @ref{Common
+tweaks}.
 
 The next example shows a practical application.  Bar lines and time
 signatures are normally synchronized across the score.  This is done
@@ -581,9 +584,9 @@ The syntax for this is
 Here @var{name} is the name of a graphical object, like @code{Stem} or
 @code{NoteHead}.  @var{property} is an internal variable of the
 formatting system (`grob property' or `layout property'). It is a
-symbol, so it must be quoted. The subsection refTODO explains what to
-fill in for @var{name}, @var{property} and @var{value}. Here we only
-discuss functionality of this command.
+symbol, so it must be quoted. The subsection @ref{Constructing a
+tweak} explains what to fill in for @var{name}, @var{property} and
+@var{value}. Here we only discuss functionality of this command.
 
 The command
 
@@ -1091,9 +1094,6 @@ select the correct version, and then click ``Program reference.''
 If you have them, use the local HTML files.  They will load faster,
 and they are exactly matched to LilyPond version installed.
  
-
-
-@c  [TODO: revise for new site.]
 
 @node Navigating the program reference
 @subsection Navigating the program reference

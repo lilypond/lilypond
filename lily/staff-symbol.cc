@@ -55,10 +55,10 @@ Staff_symbol::print (SCM smob)
 	{
 	  Item * x = sp->get_bound (d);
 
-	  if (x->break_status_dir ())
-	    span_points[d] = x->relative_coordinate (common , X_AXIS);
-	  else
-	    span_points[d] = x->extent (common, X_AXIS)[d];
+	  span_points[d] = x->relative_coordinate (common , X_AXIS);
+	  if (!x->break_status_dir ()
+	      && !x->extent (x, X_AXIS).is_empty ())
+	    span_points[d] += x->extent (x, X_AXIS)[d];
 	}
     }
   while (flip (&d) !=LEFT);
