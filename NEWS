@@ -1,3 +1,13 @@
+pl 37.jcn3
+	- max beam slope "compile time parameterised" and set to 0.6
+	  (oh, how we need runtime generated beams!)
+	- beam's left y-pos quantisation
+	- beam slopes' y-span quantisation
+	- stem.ly
+
+pl 37.jcn2
+	- feta: fixed sizes small numerals + flageolet
+
 pl 37.jcn1
 	- feta: numerals
 	- feta: flageolet

@@ -1,13 +1,13 @@
 % Creator: mf-to-table.py version 0.4
-% Automatically generated on Sat Dec 13 20:07:39 1997
+% Automatically generated on Wed Dec 24 11:21:40 1997
 % Do not edit
 % input from out/feta20.log
 % name=\symboltables {
     "rests"	 = \table {
-        "0"	"\\wholerest"	-0.00\pt	7.50\pt	-3.13\pt	0.00\pt	
-        "1"	"\\halfrest"	-0.00\pt	7.50\pt	-0.00\pt	3.13\pt	
-        "0o"	"\\outsidewholerest"	-3.13\pt	10.62\pt	-3.13\pt	0.50\pt	
-        "1o"	"\\outsidehalfrest"	-3.13\pt	10.62\pt	-0.50\pt	3.13\pt	
+        "0"	"\\wholerest"	-0.00\pt	7.50\pt	-3.12\pt	0.00\pt	
+        "1"	"\\halfrest"	-0.00\pt	7.50\pt	-0.00\pt	3.12\pt	
+        "0o"	"\\outsidewholerest"	-3.12\pt	10.62\pt	-3.12\pt	0.50\pt	
+        "1o"	"\\outsidehalfrest"	-3.12\pt	10.62\pt	-0.50\pt	3.12\pt	
         "2"	"\\quartrest"	-0.00\pt	5.40\pt	3.75\pt	18.00\pt	
         "3"	"\\eighthrest"	-0.00\pt	6.67\pt	5.00\pt	14.21\pt	
         "4"	"\\sixteenthrest"	-0.00\pt	7.76\pt	-0.00\pt	14.21\pt	
@@ -23,7 +23,7 @@
         "2"	"\\sharpsharp"	-0.00\pt	5.00\pt	-2.50\pt	2.50\pt	
         }
     "dots"	 = \table {
-        "dot"	"\\dot"	-0.00\pt	2.25\pt	-1.13\pt	1.13\pt	
+        "dot"	"\\dot"	-0.00\pt	2.25\pt	-1.12\pt	1.12\pt	
         "repeatcolon"	"\\repeatcolon"	-0.00\pt	2.25\pt	-2.50\pt	2.50\pt	
         }
     "balls"	 = \table {

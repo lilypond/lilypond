@@ -11,7 +11,7 @@
 /// copy a bare (C-)array from #src# to #dest# sized  #count#
 template<class T>
 inline void arrcpy (T*dest, T*src, int count) {
-    for (int i=0; i < count ; i++)
+    for (int i_shadows_local=0; i_shadows_local < count ; i_shadows_local++)
 	*dest++ = *src++;
 }
 

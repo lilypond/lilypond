@@ -84,7 +84,6 @@ Stem::stem_end_f () const
   return yextent_drul_[dir_];
 }
 
-
 void
 Stem::set_stemend (Real se)
 {
@@ -273,19 +272,19 @@ Stem::abbrev_mol () const
   Real beamdy = paper ()->interline_f () / 2;
 
   int beams_i = 0;
-  Real slope = paper ()->internote_f () / 4;
+  Real slope_f = paper ()->internote_f () / 4;
 
   if (beam_l_) {
     // huh?
-      slope = 2 * beam_l_->slope;
+      slope_f = 2 * beam_l_->slope_f;
     // ugh, rather calc from Abbreviation_req
       beams_i = beams_right_i_ >? beams_left_i_;
   }
-  paper ()->lookup_l ()->beam (slope, 20 PT);
+  paper ()->lookup_l ()->beam (slope_f, 20 PT);
 
   Molecule beams;
-  Atom a (paper ()->lookup_l ()->beam (slope, w));
-  a.translate (Offset(- w / 2, stem_end_f () - (w / 2 * slope)));
+  Atom a (paper ()->lookup_l ()->beam (slope_f, w));
+  a.translate (Offset(- w / 2, stem_end_f () - (w / 2 * slope_f)));
   
   // ugh
   if (!beams_i)
