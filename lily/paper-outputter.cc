@@ -126,7 +126,8 @@ Paper_outputter::output_metadata (Paper_def *paper, SCM scopes)
 }
 
 void
-Paper_outputter::output_header (Paper_def *paper, SCM scopes, int page_count)
+Paper_outputter::output_header (Paper_def *paper, SCM scopes, int page_count,
+				bool is_classic)
 {
   String creator = gnu_lilypond_version_string ();
   creator += " (http://lilypond.org)";
@@ -134,10 +135,13 @@ Paper_outputter::output_header (Paper_def *paper, SCM scopes, int page_count)
   String time_stamp = ctime (&t);
   time_stamp = time_stamp.left_string (time_stamp.length () - 1)
     + " " + *tzname;
-  output_scheme (scm_list_4 (ly_symbol2scm ("header"),
+  output_scheme (scm_list_n (ly_symbol2scm ("header"),
 			     scm_makfrom0str (creator.to_str0 ()),
 			     scm_makfrom0str (time_stamp.to_str0 ()),
-			     scm_int2num (page_count)));
+			     paper->self_scm (),
+			     scm_int2num (page_count),
+			     ly_bool2scm (is_classic),
+			     SCM_UNDEFINED));
 
   output_metadata (paper, scopes);
   output_music_output_def (paper);

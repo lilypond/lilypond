@@ -1,5 +1,19 @@
 2004-04-11  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scm/output-ps.scm (header): Papersize from paper.
+
+	* scripts/lilypond.py (global_latex_preamble): Oldish behaviour
+	for classic output.
+
+	* tex/lilyponddefs.tex (interscoreline): Oldish behaviour if
+	lilypondclassic is defined.
+	(lilypondstart): Oldish behaviour if lilypondclassic is defined.
+
+	* input/regression/between-systems.ly: Remove.
+
+	* python/lilylib.py (get_bbox): Fix regular expression
+	for bounding box.
+
 	* tex/lilyponddefs.tex (lilypondpagebreak): New overridable macro.
 
 	* scm/output-tex.scm (stop-page): Use it.

@@ -267,7 +267,7 @@
   (string-append (ly:numbers->string (list breapth width depth height))
 		 " draw_box"))
 
-(define (header creator time-stamp page-count-)
+(define (header creator time-stamp paper page-count- classic?)
   (set! page-count page-count-)
   (set! page-number 0)
   (string-append
@@ -275,8 +275,7 @@
    "%%Creator: " creator " " time-stamp "\n"
    "%%Pages: " (number->string page-count) "\n"
    "%%PageOrder: Ascend\n"
-   ;; FIXME: TODO get from paper
-   ;; "%%DocumentPaperSizes: a6\n"
+   "%%DocumentPaperSizes: " (ly:paper-lookup paper 'papersize) "\n"
    ;;(string-append "GNU LilyPond (" (lilypond-version) "), ")
    ;;	   (strftime "%c" (localtime (current-time))))
    ;; FIXME: duplicated in every backend

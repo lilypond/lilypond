@@ -251,7 +251,7 @@ Paper_book::output (String outname)
 
   Paper_def *paper = papers_[0];
   Paper_outputter *out = paper->get_paper_outputter (outname);
-  out->output_header (paper, scopes (0), pages->size ());
+  out->output_header (paper, scopes (0), pages->size (), false);
 
   int page_count = pages->size ();
   for (int i = 0; i < page_count; i++)
@@ -309,7 +309,7 @@ Paper_book::classic_output (String outname)
 {
   int count = scores_.size ();
   Paper_outputter *out = papers_.top ()->get_paper_outputter (outname);
-  out->output_header (papers_.top (), scopes (count - 1), 0);
+  out->output_header (papers_.top (), scopes (count - 1), 0, true);
 
   Paper_line *first = unsmob_paper_line (scm_vector_ref (scores_.top (),
 							 scm_int2num (0)));
@@ -404,10 +404,10 @@ Paper_book::pages ()
   SCM all = lines ();
   SCM proc = paper->get_scmvar ("page-breaking");
   SCM breaks = scm_apply_0 (proc, scm_list_n (all, scm_make_real (height_),
-					    scm_make_real (text_height),
-					    scm_make_real (-copy_height),
-					    scm_make_real (-tag_height),
-					    SCM_UNDEFINED));
+					      scm_make_real (text_height),
+					      scm_make_real (-copy_height),
+					      scm_make_real (-tag_height),
+					      SCM_UNDEFINED));
 
   /* Copyright on first page.  */
   if (unsmob_stencil (copyright_))
