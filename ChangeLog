@@ -7,6 +7,13 @@
 
 2004-09-11  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/slur-scoring.cc (broken_trend_y): always take use vdir
+	extent index of other system. Fixes slurs across line breaks.
+
+	* lily/tuplet-engraver.cc (start_translation_timestep): use
+	Tuplet_description::stop_ for determining when to stop producing
+	tuplet brackets. This fixes: tuplet-overwrite.ly
+
 	* lily/*-engraver.cc: remove all Protected_scm objects to fix GC
 	errors with GUILE 1.7 CVS.
 

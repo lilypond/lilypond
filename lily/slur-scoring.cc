@@ -241,7 +241,7 @@ Slur_score_parameters::Slur_score_parameters(Grob *me)
   init_score_param (me, this);
 }
 
-/* HDIR indicates the direction for the slur.  */
+/* HDIR indicates which side (left or right) we are processing here.  */
 Real
 broken_trend_y (Grob *me, Grob **common, Direction hdir)
 {
@@ -282,7 +282,7 @@ broken_trend_y (Grob *me, Grob **common, Direction hdir)
       Direction vdir = get_grob_direction (me);
       Real neighbor_y
 	= neighbor_col->extent (neighbor_common, Y_AXIS)
-	.linear_combination (int(neighbor_cols.size()==1 ? CENTER : vdir))
+	.linear_combination (int(vdir))
 	- common_next_system->relative_coordinate (neighbor_common, Y_AXIS);
 
       Link_array<Grob> my_cols
