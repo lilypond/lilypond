@@ -1,4 +1,4 @@
-\version "2.4.0"
+\version "2.5.2"
 
 %{
    Markup titles also available for direct PostScript output:
@@ -37,7 +37,7 @@ latinTest = \markup {
 }
     
 sizeTest = \markup {
-	\column <
+	\column {
             { \normalsize "normalsize"
               \hspace #5
               \smaller "smaller"
@@ -55,7 +55,7 @@ sizeTest = \markup {
               \hspace #5
               \bigger \bigger \bigger "bigger"
             }
-       >
+       }
 }
 
 \encoding "latin1"
@@ -85,7 +85,7 @@ spaceTest = \markup { "two space chars" }
     piece = "Piece"
 
     %% Override automatic book title
-    %% bookTitle = \markup { \fill-line < \huge\bold \title > > }
+    %% bookTitle = \markup { \fill-line { \huge\bold \title } }
 }
 
 \book {

@@ -1,5 +1,5 @@
 
-\version "2.4.0"
+\version "2.5.2"
 
 
 % Ugh, we need to override some LaTeX titling stuff
@@ -42,7 +42,7 @@ oboi =  \relative c' {
 }
 
 clarinetti =  \relative c' {
-    \set Staff.instrument = \markup { \column < "Clarinetti" { "in B" \raisedFlat } > }
+    \set Staff.instrument = \markup { \column { "Clarinetti" { "in B" \raisedFlat } } }
     \set Staff.instr = \markup { \smaller  { "Cl(B" \raisedFlat ")" } }
 
   c1 c
@@ -55,21 +55,21 @@ fagotti =  \relative c' {
 }
 
 corni =  \relative c' {
-    \set Staff.instrument = \markup { \column < "Corni" { "in E" \raisedFlat } > }
+    \set Staff.instrument = \markup { \column { "Corni" { "in E" \raisedFlat } } }
     \set Staff.instr = \markup { \smaller  { "Cor(E" \raisedFlat ")" } }
 
   c1 c
 }
 
 trombe =  \relative c' {
-  \set Staff.instrument = \markup \column < "2 Trombe" "(C)" >
-  \set Staff.instr = \markup \column <  "Tbe." "(C)" >
+  \set Staff.instrument = \markup \column { "2 Trombe" "(C)" }
+  \set Staff.instr = \markup \column {  "Tbe." "(C)" }
 
   c1 c
 }
 
 timpani =  \relative c' {
-  \set Staff.instrument = \markup \column < "Timpani" "(C-G)" >
+  \set Staff.instrument = \markup \column { "Timpani" "(C-G)" }
   \set Staff.instr = #"Timp."
 
   c1 c
@@ -95,8 +95,8 @@ viola =  \relative c' {
 }
 
 violoncello =  \relative c' {
-  \set Staff.instrument = \markup \column < "Violoncello" "e" "Contrabasso" >
-  \set Staff.instr = \markup \column <  "Vc." "Cb." >
+  \set Staff.instrument = \markup \column { "Violoncello" "e" "Contrabasso" }
+  \set Staff.instr = \markup \column {  "Vc." "Cb." }
   c1 c
 }
 

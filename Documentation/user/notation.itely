@@ -5175,8 +5175,8 @@ names, for example
 
 @lilypond[quote,fragment,verbatim,raggedright]
 \set Staff.instrument = \markup {
-  \column < "Clarinetti"
-            { "in B" \smaller \flat } > }
+  \column { "Clarinetti"
+            { "in B" \smaller \flat } } }
 c''1
 @end lilypond
 
@@ -5944,24 +5944,24 @@ select ancient accidentals.   Supported styles are
 {
   \fatText
   s^\markup {
-    \column <
+    \column {
       "vaticana"
       { " " \musicglyph #"accidentals-vaticana-1"
       " " \musicglyph #"accidentals-vaticana0" }
-    >
-    \column <
+    }
+    \column {
       "medicaea"
       { " " \musicglyph #"accidentals-medicaea-1" }
-    >
-    \column <
+    }
+    \column {
       "hufnagel"
       { " " \musicglyph #"accidentals-hufnagel-1" }
-    >
-    \column <
+    }
+    \column {
       "mensural"
       { " " \musicglyph #"accidentals-mensural-1"
       " " \musicglyph #"accidentals-mensural1" }
-    >
+    }
   }
 }
 \layout {
@@ -6458,22 +6458,22 @@ supported are @code{vaticana}, @code{medicaea}, @code{hufnagel}, and
 
 @lilypond[quote,raggedright,fragment]
 \new Lyrics \lyricmode {
-  \markup { \column <
+  \markup { \column {
     \typewriter "vaticana"
     { " " \musicglyph #"custodes-vaticana-u0" }
-  > }
-  \markup { \column <
+  } }
+  \markup { \column {
     \typewriter "medicaea"
     { " " \musicglyph #"custodes-medicaea-u0" }
-  >}
-  \markup { \column <
+  }}
+  \markup { \column {
     \typewriter "hufnagel"
     { " " \musicglyph #"custodes-hufnagel-u0" }
-  >}
-  \markup { \column <
+  }}
+  \markup { \column {
     \typewriter "mensural"
     { " " \musicglyph #"custodes-mensural-u0" }
-  >}
+  }}
 }
 @end lilypond
 
@@ -7756,9 +7756,9 @@ created with a markup text.  This markup text is inserted in the
 % create 2/4 + 5/8
 tsMarkup =\markup {
   \number {
-    \column < "2" "4" >
+    \column { "2" "4" }
     \musicglyph #"scripts-stopped"
-    \bracket \column < "5" "8" >
+    \bracket \column { "5" "8" }
   }
 }
 

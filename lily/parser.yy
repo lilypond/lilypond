@@ -444,7 +444,7 @@ or
 %type <scm>  	Generic_prefix_music_scm 
 %type <scm>  	lyric_element
 %type <scm>     Alternative_music
-%type <scm>	markup markup_line markup_list markup_list_body full_markup
+%type <scm>	full_markup markup_composed_list markup_braced_list markup_braced_list_body markup_head_1_item markup_head_1_list markup simple_markup markup_top
 %type <scm> 	mode_changing_head
 %type <scm> 	mode_changing_head_with_context
 %type <scm>     object_id_setting 
@@ -2463,57 +2463,84 @@ questions:
 	| questions '?'	{ $$ ++; }
 	;
 
-
+/*
+This should be done more dynamically if possible.
+*/
 
 full_markup:
 	MARKUP_IDENTIFIER {
 		$$ = $1;
- 	}
+	}
 	| MARKUP
 		{ THIS->lexer_->push_markup_state (); }
-	markup
-		{ $$ = $3;
-		  THIS->lexer_->pop_state ();
-		}
+	markup_top {
+		$$ = $3;
+		THIS->lexer_->pop_state ();
+	}
 	;
 
-
-/*
-This should be done more dynamically if possible.
-*/
-markup:
-	STRING {
-		$$ = make_simple_markup (THIS->lexer_->encoding (), $1);
+markup_top:
+	markup_composed_list { 
+		$$ = scm_list_2 (ly_scheme_function ("line-markup"),  $1); 
 	}
-	| MARKUP_HEAD_EMPTY {
-		$$ = scm_list_1 ($1);
+	| markup_head_1_list simple_markup	{
+		$$ = scm_car (scm_call_2 (ly_scheme_function ("map-markup-command-list"), $1, scm_list_1 ($2)));
 	}
-	| MARKUP_HEAD_MARKUP0 markup {
-		$$ = scm_list_2 ($1, $2);
-	}
-	| MARKUP_HEAD_MARKUP0_MARKUP1 markup markup {
-		$$ = scm_list_3 ($1, $2, $3);
-	}
-	| MARKUP_HEAD_SCM0_MARKUP1 SCM_T markup {
-		$$ = scm_list_3 ($1, $2, $3);
-	}
-	| markup_line {
+	| simple_markup	{
 		$$ = $1;
 	}
-	| MARKUP_HEAD_LIST0 markup_list {
-		$$ = scm_list_2 ($1,$2);
+	| markup_braced_list	{
+		$$ = scm_list_2 (ly_scheme_function ("line-markup"), $1);
 	}
-	| MARKUP_HEAD_SCM0 embedded_scm {
+	;
+
+markup_composed_list:
+	markup_head_1_list markup_braced_list {
+		$$ = scm_call_2 (ly_scheme_function ("map-markup-command-list"), $1, $2);
+		
+	}
+	;
+
+markup_braced_list:
+	'{' markup_braced_list_body '}'	{
+		$$ = scm_reverse_x ($2, SCM_EOL);
+	}
+	;
+
+markup_braced_list_body:
+	/* empty */	{  $$ = scm_list (SCM_EOL); }
+	| markup_braced_list_body markup {
+		$$ = scm_cons ($2, $1);
+	}
+	| markup_braced_list_body markup_composed_list {
+		$$ = scm_append_x (scm_list_2 (scm_reverse_x ($2, SCM_EOL), $1));
+	}
+	;
+
+markup_head_1_item:
+	MARKUP_HEAD_MARKUP0	{
+		$$ = scm_list_1 ($1);
+	}
+	| MARKUP_HEAD_SCM0_MARKUP1 embedded_scm	{
 		$$ = scm_list_2 ($1, $2);
 	}
-	| MARKUP_HEAD_SCM0_SCM1_MARKUP2 embedded_scm embedded_scm markup {
-		$$ = scm_list_4 ($1, $2, $3, $4);
-	}
-	| MARKUP_HEAD_SCM0_SCM1_SCM2 embedded_scm embedded_scm embedded_scm {
-		$$ = scm_list_4 ($1, $2, $3, $4);
-	}
-	| MARKUP_HEAD_SCM0_SCM1 embedded_scm embedded_scm {
+	| MARKUP_HEAD_SCM0_SCM1_MARKUP2 embedded_scm embedded_scm	{
 		$$ = scm_list_3 ($1, $2, $3);
+	}
+	;
+
+markup_head_1_list:
+	markup_head_1_item	{
+		$$ = scm_list_1 ($1);
+	}
+	| markup_head_1_list markup_head_1_item	{
+		$$ = scm_cons ($2, $1);
+	}
+	;
+
+simple_markup:
+	STRING {
+		$$ = make_simple_markup (THIS->lexer_->encoding (), $1);
 	}
 	| MARKUP_IDENTIFIER {
 		$$ = $1;
@@ -2530,27 +2557,37 @@ markup:
 		scm_gc_unprotect_object (sc->self_scm ());
 		THIS->lexer_->pop_state ();
 	}
+	| MARKUP_HEAD_SCM0 embedded_scm {
+		$$ = scm_list_2 ($1, $2);
+	}
+	| MARKUP_HEAD_SCM0_SCM1_SCM2 embedded_scm embedded_scm embedded_scm {
+		$$ = scm_list_4 ($1, $2, $3, $4);
+	}
+	| MARKUP_HEAD_SCM0_SCM1 embedded_scm embedded_scm {
+		$$ = scm_list_3 ($1, $2, $3);
+	}
+	| MARKUP_HEAD_EMPTY {
+		$$ = scm_list_1 ($1);
+	}
+	| MARKUP_HEAD_LIST0 markup_braced_list {
+		$$ = scm_list_2 ($1,$2);
+	}
+	| MARKUP_HEAD_MARKUP0_MARKUP1 markup markup {
+		$$ = scm_list_3 ($1, $2, $3);
+	}
 	;
-
-markup_list:
-	chord_open markup_list_body chord_close { $$ = scm_reverse_x ($2, SCM_EOL); }
-	;
-
-markup_line:
-	'{' markup_list_body '}' {
-		SCM line = ly_scheme_function ("line-markup");
 	
-		$$ = scm_list_2 (line, scm_reverse_x ($2, SCM_EOL));
+markup:
+	markup_head_1_list simple_markup	{
+		$$ = scm_car (scm_call_2 (ly_scheme_function ("map-markup-command-list"), $1, scm_list_1 ($2)));
+	}
+	| simple_markup	{
+		$$ = $1;
+	}
+	| markup_braced_list {
+		$$ = scm_list_2 (ly_scheme_function ("line-markup"), $1);
 	}
 	;
-
-markup_list_body:
-	/**/ {  $$ = SCM_EOL; }
-	| markup_list_body markup {
-		$$ = scm_cons ($2, $1);
-	}
-	;
-
 
 %%
 

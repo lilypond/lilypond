@@ -1,4 +1,4 @@
-\version "2.4.0"
+\version "2.5.2"
 
 \header {
   texidoc = "Wilhelmus van Nassouwe"
@@ -142,7 +142,7 @@ text = \lyricmode {
 
 oneHalfNoteTime = \markup {
   \override #'(baseline-skip . 0)
-  \column < { \number "1" } { \smaller \smaller \note #"2" #-0.5 } >
+  \column { { \number "1" } { \smaller \smaller \note #"2" #-0.5 } }
 }
 
 \layout {
