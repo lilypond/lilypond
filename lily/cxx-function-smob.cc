@@ -31,9 +31,8 @@ free_smob (SCM)
   return 0;
 }
 
-
-SCM
-cxx_function_type_p (SCM x)
+LY_DEFINE(cxx_function_type_p, "c++-function?", 1, 0, 0, (SCM x),
+	  "Is this an encapsulated C++ function ?")
 {
   return (SCM_CELL_TYPE (x)) == callback_tag ? SCM_BOOL_T : SCM_BOOL_F; 
 }
@@ -45,9 +44,6 @@ void init_cxx_function_smobs ()
   scm_set_smob_free (callback_tag, free_smob);
   scm_set_smob_print (callback_tag, print_smob);
   scm_set_smob_equalp (callback_tag, 0);
-
-  scm_c_define_gsubr ("c++-function?", 1, 0, 0,
-		      (Scheme_function_unknown) cxx_function_type_p);
 }
 
 SCM

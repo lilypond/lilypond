@@ -19,9 +19,9 @@
  */
 Dictionary<Translator*> *global_translator_dict_p=0;
 
-
-SCM
-ly_get_all_translators ()
+LY_DEFINE(ly_get_all_translators,"ly-get-all-translators", 0, 0, 0,  (),
+	  "Return an list of a all translator objects that may be instantiated
+during a lilypond run.")
 {
   SCM l = SCM_EOL;
   for (std::map<String,Translator*>::const_iterator (ci (global_translator_dict_p->begin()));
@@ -31,14 +31,6 @@ ly_get_all_translators ()
     }
   return l;
 }
-
-static void
-all_trans_init()
-{
-  scm_c_define_gsubr ("ly-get-all-translators", 0, 0, 0, (Scheme_function_unknown) ly_get_all_translators);
-}
-
-ADD_SCM_INIT_FUNC(all_trans_init,all_trans_init);
 
 void
 add_translator (Translator *t)

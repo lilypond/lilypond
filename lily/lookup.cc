@@ -531,7 +531,7 @@ Lookup::repeat_slash (Real w, Real s, Real t)
 }
 
 Molecule
-Lookup::bracket (Axis a, Interval iv, Direction d, Real thick, Real protude)
+Lookup::bracket (Axis a, Interval iv, Real thick, Real protude)
 {
   Box b;
   Axis other = Axis((a+1)%2);
@@ -541,8 +541,8 @@ Lookup::bracket (Axis a, Interval iv, Direction d, Real thick, Real protude)
   Molecule m =  filledbox (b);
 
   b[a] = Interval (iv[UP] - thick, iv[UP]);
-  Interval oi = Interval (-thick/2, thick/2 + protude) ;
-  oi *=  d;
+  Interval oi = Interval (-thick/2, thick/2 + fabs (protude)) ;
+  oi *=  sign (protude);
   b[other] = oi;
   m.add_molecule (filledbox (b));
   b[a] = Interval (iv[DOWN], iv[DOWN]  +thick);
@@ -551,25 +551,24 @@ Lookup::bracket (Axis a, Interval iv, Direction d, Real thick, Real protude)
   return m;
 }
 
-SCM
-ly_bracket (SCM a, SCM iv, SCM d, SCM t, SCM p)
+/*
+  TODO: use rounded boxes.
+ */
+LY_DEFINE(ly_bracket ,"ly-bracket",
+	  4, 0, 0,
+	  (SCM a, SCM iv, SCM t, SCM p),
+	  "Make a bracket in direction @var{a}. The extent of the bracket is
+given by @var{iv}. The wings protude by an amount of @var{p}, which
+may be negative. The thickness is given by @var{t}.")
 {
   SCM_ASSERT_TYPE(ly_axis_p (a), a, SCM_ARG1, __FUNCTION__, "axis") ;
-  SCM_ASSERT_TYPE(ly_number_pair_p (iv), iv, SCM_ARG1, __FUNCTION__, "number pair") ;
-  SCM_ASSERT_TYPE(ly_dir_p (d), a, SCM_ARG1, __FUNCTION__, "direction") ;
-  SCM_ASSERT_TYPE(gh_number_p (t), a, SCM_ARG1, __FUNCTION__, "number") ;
-  SCM_ASSERT_TYPE(gh_number_p(p), a, SCM_ARG1, __FUNCTION__, "number") ;
+  SCM_ASSERT_TYPE(ly_number_pair_p (iv), iv, SCM_ARG2, __FUNCTION__, "number pair") ;
+  SCM_ASSERT_TYPE(gh_number_p (t), a, SCM_ARG3, __FUNCTION__, "number") ;
+  SCM_ASSERT_TYPE(gh_number_p(p), a, SCM_ARG4, __FUNCTION__, "number") ;
 
 
   return Lookup::bracket ((Axis)gh_scm2int (a), ly_scm2interval (iv),
-		  (Direction)gh_scm2int (d), gh_scm2double (t), gh_scm2double (p)).smobbed_copy ();
+			  gh_scm2double (t),
+			  gh_scm2double (p)).smobbed_copy ();
 }
   
-static void
-lookup_init ()
-{
-  scm_c_define_gsubr ("ly-bracket", 5, 0, 0, (Scheme_function_unknown) ly_bracket);
-}
-
-ADD_SCM_INIT_FUNC (lookup,lookup_init);
-

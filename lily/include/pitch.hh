@@ -62,7 +62,7 @@ public:
   /// return pitch from central c (in halfnotes)
   int semitone_pitch () const; 
   String str () const;
-  static SCM transpose (SCM,SCM);
+  
 
 
   SCM smobbed_copy () const;
@@ -71,7 +71,7 @@ public:
 
 
 };
-SCM pitch_transpose (SCM p, SCM delta);
+SCM ly_pitch_transpose (SCM p, SCM delta);
 DECLARE_UNSMOB(Pitch,pitch);
 
 #include "compare.hh"

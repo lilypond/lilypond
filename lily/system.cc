@@ -260,23 +260,6 @@ System::break_into_pieces (Array<Column_x_positions> const &breaking)
 }
 
 
-#define GLOBAL_SYMBOL(cname, name)  \
-SCM cname ;					\
-void \
-cname ## _init_func ()				\
-{						\
-  cname = ly_symbol2scm (name);			\
-  scm_permanent_object (cname);			\
-}						\
-ADD_SCM_INIT_FUNC (cname,cname ## _init_func);\
-
-
-GLOBAL_SYMBOL (offset_sym , "translate-molecule");
-GLOBAL_SYMBOL (placebox_sym , "placebox");
-GLOBAL_SYMBOL (combine_sym , "combine-molecule");
-
-
-
 void
 System::output_molecule (SCM expr, Offset o)
 {
@@ -317,7 +300,7 @@ System::output_molecule (SCM expr, Offset o)
       else
 	{
 	  pscore_l_->outputter_l_->
-	    output_scheme (scm_list_n (placebox_sym,
+	    output_scheme (scm_list_n (ly_symbol2scm ("placebox"),
 				    gh_double2scm (o[X_AXIS]),
 				    gh_double2scm (o[Y_AXIS]),
 				    expr,

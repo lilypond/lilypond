@@ -1,3 +1,11 @@
+2002-05-19  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/*.cc: use LY_DEFINE everywhere. Move doc strings from
+	Documentation/user/internals.itely.
+
+	* lily/function-documentation.cc: new file. Infrastructure for
+	self documenting Scheme functions.
+
 2002-05-18  Han-Wen  <hanwen@cs.uu.nl>
 
 	* lily/stem.cc (calc_stem_info): bugfix for less ugly knees.

@@ -39,14 +39,16 @@ free_smob (SCM s)
   We don't use IMPLEMENT_TYPE_P, since the smobification part is
   implemented separately from the class.
  */
-SCM
-ly_input_p (SCM x)
+LY_DEFINE(ly_input_p, "ly-input-location?", 1, 0, 0,
+	  (SCM x),
+	  "Return whether @var{x} is an input location")
 {
   return unsmob_input (x) ? SCM_BOOL_T : SCM_BOOL_F ;
 }
 
-SCM
-ly_input_message (SCM sip, SCM msg)
+LY_DEFINE(ly_input_message,  "ly-input-message", 2, 0, 0, (SCM sip, SCM msg),
+	  "Print @var{msg} as a GNU compliant error message, pointing to the
+location in @var{sip}.")
 {
   Input *ip  = unsmob_input(sip);
   
@@ -70,10 +72,6 @@ start_input_smobs ()
   scm_set_smob_equalp (input_tag, 0);
 
   
-  scm_c_define_gsubr ("ly-input-location?", 1, 0, 0,
-		      (Scheme_function_unknown)ly_input_p);
-  scm_c_define_gsubr ("ly-input-message", 2, 0, 0,
-		      (Scheme_function_unknown)ly_input_message);
 }
 
 SCM

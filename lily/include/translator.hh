@@ -46,8 +46,6 @@ public:
 
   
   Translator_group * daddy_trans_l_ ;
-  DECLARE_SCHEME_CALLBACK(name, (SCM trans));
-  DECLARE_SCHEME_CALLBACK(description,(SCM trans));
   void announces ();
 
   void removal_processing ();

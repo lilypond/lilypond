@@ -134,8 +134,10 @@ Font_metric::find_by_name (String) const
 }
 
 
-SCM
-ly_find_glyph_by_name (SCM font, SCM name)
+LY_DEFINE(ly_find_glyph_by_name, "ly-find-glyph-by-name", 2 , 0, 0,
+	  (SCM font, SCM name),
+	  "This function retrieves a Molecule for the glyph named @var{name} in
+@var{font}.  The font must be available as an AFM file.")
 {
   Font_metric *fm = unsmob_metrics (font);
   SCM_ASSERT_TYPE(fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
@@ -145,8 +147,11 @@ ly_find_glyph_by_name (SCM font, SCM name)
 }
 
 
-SCM
-ly_text_dimension (SCM font, SCM text)
+LY_DEFINE(ly_text_dimension,"ly-text-dimension", 2 , 0, 0,
+	  (SCM font, SCM text),
+	  "Given the font metric in @var{font} and the string @var{text}, compute
+the extents of that text in that font. The return value is a pair of
+number-pairs.")
 {
   Box b;
   Font_metric *fm = unsmob_metrics (font);
@@ -159,13 +164,3 @@ ly_text_dimension (SCM font, SCM text)
 }
 
 
-static void
-font_metric_init ()
-{
-   scm_c_define_gsubr ("ly-find-glyph-by-name", 2 , 0, 0,
-		       (Scheme_function_unknown) ly_find_glyph_by_name);
-   scm_c_define_gsubr ("ly-text-dimension", 2 , 0, 0,
-		       (Scheme_function_unknown) ly_text_dimension);
-}
-
-ADD_SCM_INIT_FUNC (font_metric_init, font_metric_init);

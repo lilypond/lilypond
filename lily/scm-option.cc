@@ -51,8 +51,20 @@ Switch on any experimental features.  Not for general public use.
 
  */
 
-SCM
-set_lily_option (SCM var, SCM val)
+LY_DEFINE(set_lily_option,"set-lily-option", 2, 0, 0,  (SCM var, SCM val),
+	  "Set a global option for the program. Supported options  include
+
+
+@table @code
+@item help
+List all options.
+@item midi-debug
+If set to true, generate human  readable MIDI
+@end table
+
+This function is useful to call from the command line: @code{lilypond -e
+\"(set-lily-option 'midi-debug #t)\"}.
+")
 {
   /*
     Scheme option usage:
@@ -114,13 +126,5 @@ possible options for SYMBOL are :
 }
 
 
-static void
-init_functions ()
-{
-  scm_c_define_gsubr ("set-lily-option", 2, 0, 0, (Scheme_function_unknown)set_lily_option);
-}
-
-
-ADD_SCM_INIT_FUNC (init_functions_sopt, init_functions);
 
 

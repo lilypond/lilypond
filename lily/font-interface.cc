@@ -65,8 +65,9 @@ Font_interface::get_default_font (Grob*me)
 }
 
 
-SCM
-ly_font_interface_get_default_font (SCM grob)
+LY_DEFINE(ly_font_interface_get_default_font,
+	  "ly-get-default-font", 1 , 0, 0,
+	  (SCM grob), "Return the default font for grob @var{gr}.")
 {
   Grob * gr  = unsmob_grob (grob);
   SCM_ASSERT_TYPE(gr, grob, SCM_ARG1, __FUNCTION__, "grob");
@@ -74,8 +75,21 @@ ly_font_interface_get_default_font (SCM grob)
   return Font_interface::get_default_font (gr)->self_scm ();
 }
 
-SCM
-ly_font_interface_get_font (SCM grob, SCM alist)
+LY_DEFINE(ly_font_interface_get_font,"ly-get-font", 2, 0, 0,
+	  (SCM grob, SCM alist),
+	  "Return a font metric satisfying the font-qualifiers in @var{alist}.
+
+
+The font object represents the metric information of a font. Every font
+that is loaded into LilyPond can be accessed via Scheme. 
+
+LilyPond only needs to know the dimension of glyph to be able to process
+them. This information is stored in font metric files. LilyPond can read
+two types of font-metrics: @TeX{} Font Metric files (TFM files) and
+Adobe Font Metric files (AFM files).  LilyPond will always try to load
+AFM files first since they are more versatile.
+
+")
 {
   Grob * gr  = unsmob_grob (grob);
   SCM_ASSERT_TYPE(gr, grob, SCM_ARG1, __FUNCTION__, "grob");
@@ -162,21 +176,15 @@ init_syms ()
   rel_sz_sym = scm_permanent_object (ly_symbol2scm ("font-relative-size"));
   design_sz_sym = scm_permanent_object (ly_symbol2scm ("font-design-size"));
   wild_sym = scm_permanent_object (ly_symbol2scm ("*"));
-
-  scm_c_define_gsubr ("ly-get-default-font", 1 , 0, 0,
-		      (Scheme_function_unknown) ly_font_interface_get_default_font);
-  scm_c_define_gsubr ("ly-get-font", 2, 0, 0,
-		      (Scheme_function_unknown) ly_font_interface_get_font);
 }
 
+ADD_SCM_INIT_FUNC(fi_init_syms, init_syms);
 
 bool
 Font_interface::wild_compare (SCM field_val, SCM val)
 {
   return (val == SCM_BOOL_F || field_val == wild_sym || field_val == val);
 }
-
-ADD_SCM_INIT_FUNC (Font_interface_syms,init_syms);
 
 
 MAKE_SCHEME_CALLBACK (Font_interface,properties_to_font_name,2);

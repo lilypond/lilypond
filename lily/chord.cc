@@ -23,8 +23,8 @@ Chord::base_pitches (SCM tonic)
   SCM minor = Pitch (0, 2, -1).smobbed_copy ();
 
   base = gh_cons (tonic, base);
-  base = gh_cons (pitch_transpose (ly_car (base), major), base);
-  base = gh_cons (pitch_transpose (ly_car (base), minor), base);
+  base = gh_cons (ly_pitch_transpose (ly_car (base), major), base);
+  base = gh_cons (ly_pitch_transpose (ly_car (base), minor), base);
 
   return scm_reverse_x (base, SCM_EOL);
 }
@@ -38,7 +38,7 @@ Chord::transpose_pitches (SCM tonic, SCM pitches)
   SCM transposed = SCM_EOL;
   for (SCM i = pitches; gh_pair_p (i); i = ly_cdr (i))
     {
-      transposed = gh_cons (pitch_transpose (tonic, ly_car (i)),
+      transposed = gh_cons (ly_pitch_transpose (tonic, ly_car (i)),
 			    transposed);
     }
   return scm_reverse_x (transposed, SCM_EOL);
@@ -60,7 +60,7 @@ Chord::lower_step (SCM tonic, SCM pitches, SCM step)
       if (gh_equal_p (step_scm (tonic, ly_car (i)), step)
 	  || gh_scm2int (step) == 0)
 	{
-	  p = pitch_transpose (p, Pitch (0, 0, -1).smobbed_copy ());
+	  p = ly_pitch_transpose (p, Pitch (0, 0, -1).smobbed_copy ());
 	}
       lowered = gh_cons (p, lowered);
     }
@@ -169,7 +169,7 @@ Chord::missing_thirds (SCM pitches)
 	{
 	  int third = (unsmob_pitch (last)->notename_i_
 		       - unsmob_pitch (tonic)-> notename_i_ + 7) % 7;
-	  last = pitch_transpose (last, scm_vector_ref (thirds, gh_int2scm (third)));
+	  last = ly_pitch_transpose (last, scm_vector_ref (thirds, gh_int2scm (third)));
 	}
       
       if (step > gh_scm2int (step_scm (tonic, last)))
@@ -179,7 +179,7 @@ Chord::missing_thirds (SCM pitches)
 	      missing = gh_cons (last, missing);
 	      int third = (unsmob_pitch (last)->notename_i_
 			   - unsmob_pitch (tonic)->notename_i_ + 7) % 7;
-	      last = pitch_transpose (last, scm_vector_ref (thirds,
+	      last = ly_pitch_transpose (last, scm_vector_ref (thirds,
 						      gh_int2scm (third)));
 	    }
 	}
@@ -199,7 +199,7 @@ Chord::add_above_tonic (SCM pitch, SCM pitches)
   /* Should we maybe first make sure that PITCH is below tonic? */
   if (pitches != SCM_EOL)
     while (Pitch::less_p (pitch, ly_car (pitches)) == SCM_BOOL_T)
-      pitch = pitch_transpose (pitch, Pitch (1, 0, 0).smobbed_copy ());
+      pitch = ly_pitch_transpose (pitch, Pitch (1, 0, 0).smobbed_copy ());
    
   pitches = gh_cons (pitch, pitches);
   return scm_sort_list (pitches, Pitch::less_p_proc);
@@ -211,7 +211,7 @@ Chord::add_below_tonic (SCM pitch, SCM pitches)
 {
   if (pitches != SCM_EOL)
     while (Pitch::less_p (ly_car (pitches), pitch) == SCM_BOOL_T)
-      pitch = Pitch::transpose (pitch, Pitch (-1, 0, 0).smobbed_copy ());
+      pitch = ly_pitch_transpose (pitch, Pitch (-1, 0, 0).smobbed_copy ());
   return gh_cons (pitch, pitches);
 }
 
@@ -284,7 +284,7 @@ Chord::tonic_add_sub_to_pitches (SCM tonic, SCM add, SCM sub)
 
   /* if additions include any 4, assume sus4 and don't add third implicitely
      C-sus (4) = c f g (1 4 5) */
-  SCM sus = Pitch::transpose (tonic, Pitch (0, 3, 0).smobbed_copy ());
+  SCM sus = ly_pitch_transpose (tonic, Pitch (0, 3, 0).smobbed_copy ());
   if (member_notename (sus, add) != SCM_BOOL_F)
     missing = scm_delete (third, missing);
   

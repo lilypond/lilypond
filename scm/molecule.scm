@@ -29,8 +29,8 @@
 
   (let* (
 	 (ext (ly-get-molecule-extent mol axis))
-	 (lb (ly-bracket axis ext -1 thick protusion))
-	 (rb (ly-bracket axis ext 1 thick protusion))
+	 (lb (ly-bracket axis ext thick (- protusion)))
+	 (rb (ly-bracket axis ext thick protusion))
 	 )
     (set! mol (ly-combine-molecule-at-edge mol (other-axis  axis) 1 lb padding))
     (set! mol (ly-combine-molecule-at-edge mol (other-axis  axis) -1 rb padding))

@@ -18,8 +18,9 @@ void add_interface (const char * symbol,
   ly_add_interface(s,d,l);
 }
 
-SCM
-ly_add_interface (SCM a, SCM b, SCM c)
+
+LY_DEFINE(ly_add_interface, "ly-add-interface", 3,0,0, (SCM a, SCM b, SCM c),
+	  "Add an interface description.")
 {
   SCM_ASSERT_TYPE (gh_symbol_p(a), a, SCM_ARG1, __FUNCTION__, "symbol");
   SCM_ASSERT_TYPE (gh_string_p(b), b, SCM_ARG2, __FUNCTION__, "string");  
@@ -38,22 +39,12 @@ ly_add_interface (SCM a, SCM b, SCM c)
 }
 
 
-SCM
-ly_all_grob_interfaces ()
+LY_DEFINE(ly_all_grob_interfaces, "ly-all-grob-interfaces",
+	  0,0,0, (),
+	  "Get a hash table with all interface descriptions.")
 {
   return all_ifaces;
 }
-
-void
-init_iface_funcs ()
-{
-  scm_c_define_gsubr ("ly-add-interface", 3, 0, 0,
-		      (Scheme_function_unknown)ly_add_interface);
-  scm_c_define_gsubr ("ly-all-grob-interfaces", 0, 0, 0,
-		      (Scheme_function_unknown)ly_all_grob_interfaces);
-}
-
-ADD_SCM_INIT_FUNC(giface, init_iface_funcs);
 
 void
 check_interfaces_for_property (Grob const *me, SCM sym)

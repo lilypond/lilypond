@@ -418,9 +418,10 @@ Translator_group::finalize ()
   each (&Translator::removal_processing);
 }
 
-
-SCM
-ly_get_trans_property (SCM context, SCM name)
+LY_DEFINE(ly_get_context_property,
+	  "ly-get-context-property", 2, 0, 0,
+	  (SCM context, SCM name),
+	  "retrieve the value of @var{sym} from context @var{tr}")
 {
   Translator *t = unsmob_translator (context);
   Translator_group* tr=   dynamic_cast<Translator_group*> (t);
@@ -430,27 +431,18 @@ ly_get_trans_property (SCM context, SCM name)
   return tr->internal_get_property (name);
   
 }
-SCM
-ly_set_trans_property (SCM context, SCM name, SCM val)
+
+LY_DEFINE(ly_set_context_property,
+	  "ly-set-context-property", 3, 0, 0,
+	  (SCM context, SCM name, SCM val),
+	  "set value of property @var{sym} in context @var{tr} to @var{val}.
+")
 {
   Translator *t = unsmob_translator (context);
   Translator_group* tr=   dynamic_cast<Translator_group*> (t);
 
-  SCM_ASSERT_TYPE(tr, context, SCM_ARG1, __FUNCTION__, "Translator group");
+  SCM_ASSERT_TYPE(tr, context, SCM_ARG1, __FUNCTION__, "Context");
   tr->internal_set_property (name, val);
 
   return SCM_UNSPECIFIED;
 }
-
-
-
-
-void
-add_trans_scm_funcs ()
-{
-  scm_c_define_gsubr ("ly-get-trans-property", 2, 0, 0, (Scheme_function_unknown)ly_get_trans_property);
-  scm_c_define_gsubr ("ly-set-trans-property", 3, 0, 0, (Scheme_function_unknown)ly_set_trans_property);
-}
-
-ADD_SCM_INIT_FUNC (trans_scm, add_trans_scm_funcs);
-

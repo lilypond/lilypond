@@ -848,6 +848,15 @@ if 1:
 	
 	conversions.append (((1,5,49), conv, 'noAutoBeaming -> autoBeaming'))
 
+
+if 1:
+	def conv (str):
+		str = re.sub ('Pitch::transpose', 'ly-transpose-pitch', str)
+
+		return str
+	
+	conversions.append (((1,5,56), conv, 'Pitch::transpose->ly-transpose-pitch'))
+
 ################################
 #	END OF CONVERSIONS	
 ################################
