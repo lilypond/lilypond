@@ -26,8 +26,8 @@ Breathing_sign::Breathing_sign ()
   set_elt_property ("breakable", SCM_BOOL_T);
 }
 
-Molecule*
-Breathing_sign::do_brew_molecule_p () const
+Molecule 
+Breathing_sign::do_brew_molecule () const
 {
   Staff_symbol_referencer_interface si (this);
   
@@ -35,9 +35,7 @@ Breathing_sign::do_brew_molecule_p () const
   Interval i1(0, space / 6), i2(-space / 2, space / 2);
   Box b(i1, i2);
 
-  Molecule *output = new Molecule (lookup_l()->filledbox(b));
- 
-  return output;
+  return lookup_l()->filledbox(b);
 }
 
 void

@@ -30,10 +30,10 @@ Extender_spanner::Extender_spanner ()
 
 
 
-Molecule*
-Extender_spanner::do_brew_molecule_p () const
+Molecule 
+Extender_spanner::do_brew_molecule () const
 {
-  Molecule* mol_p = new Molecule;
+  Molecule  mol;
 
   Real w = spanner_length ();
   
@@ -42,9 +42,9 @@ Extender_spanner::do_brew_molecule_p () const
   Molecule a = lookup_l ()->filledbox ( Box (Interval (0,w), Interval (0,h)));
   a.translate (Offset (dx_f_drul_[LEFT], 0));
 
-  mol_p->add_molecule (a);
+  mol.add_molecule (a);
 
-  return mol_p;
+  return mol;
 }
 
 

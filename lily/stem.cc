@@ -444,10 +444,10 @@ Stem::dim_callback (Dimension_cache const* c)
 
 const Real ANGLE = 20* (2.0*M_PI/360.0); // ugh!
 
-Molecule*
-Stem::do_brew_molecule_p () const
+Molecule 
+Stem::do_brew_molecule () const
 {
-  Molecule *mol_p =new Molecule;
+  Molecule mol;
 
   Staff_symbol_referencer_interface si (first_head ());
   
@@ -468,17 +468,17 @@ Stem::do_brew_molecule_p () const
       Real stem_width = paper_l ()->get_var ("stemthickness");
       Molecule ss =lookup_l ()->filledbox (Box (Interval (-stem_width/2, stem_width/2),
 						 Interval (stem_y[DOWN]*dy, stem_y[UP]*dy)));
-      mol_p->add_molecule (ss);
+      mol.add_molecule (ss);
     }
 
   if (!beam_l () && abs (flag_i ()) > 2)
     {
       Molecule fl = flag ();
       fl.translate_axis(stem_y[get_direction ()]*dy, Y_AXIS);
-      mol_p->add_molecule (fl);
+      mol.add_molecule (fl);
     }
 
-  return mol_p;
+  return mol;
 }
 
 Real

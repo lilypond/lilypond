@@ -16,6 +16,7 @@
 #include "lily-guile.hh"
 #include "protected-scm.hh"
 
+// huh?
 #ifdef __powerpc__
 #include "protected-scm.hh"
 #endif
@@ -31,8 +32,6 @@ public:
   Paper_outputter ();
 
   void dump_onto (Paper_stream *);
-
-
   void output_int_def (String k, int v);
   void output_Real_def (String k, Real v);
   void output_String_def (String k, String v);
@@ -41,7 +40,7 @@ public:
   void output_font_def (int i, String str);
   void output_font_switch (int i);
   void output_header ();
-  void output_molecule (Molecule const *, Offset, char const *);
+  void output_molecule (SCM expr, Offset, char const *);
   void output_comment (String s);
   void output_scheme (SCM scm);
 

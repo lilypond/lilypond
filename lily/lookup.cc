@@ -59,9 +59,10 @@ Lookup::afm_find (String s, bool warn) const
 	}
     }
   AFM_CharMetricInfo const *cm = afm_l_->find_char_metric (s, warn);
-  Molecule m;
+
   if (!cm)
     {
+      Molecule m;
       m.set_empty (false);
       return m;
     }
@@ -71,9 +72,7 @@ Lookup::afm_find (String s, bool warn) const
 		    SCM_UNDEFINED));
 
   at= fontify_atom (afm_l_,at);
-  m.dim_ = afm_bbox_to_box (cm->charBBox);
-  m.add_atom (at);
-  return m;
+  return Molecule ( afm_bbox_to_box (cm->charBBox), at);
 }
 
 Molecule
@@ -177,19 +176,17 @@ Lookup::beam (Real slope, Real width, Real thick)
   Real max_y = (0 >? height) + thick/2;
 
   
-  Molecule m;
-  m.dim_[X_AXIS] = Interval (0, width);
-  m.dim_[Y_AXIS] = Interval (min_y, max_y);
+
+  Box b( Interval (0, width),
+	 Interval (min_y, max_y));
 
   
-  SCM at = (gh_list (ly_symbol2scm ("beam"),
-	      gh_double2scm (width),
-	      gh_double2scm (slope),
-	      gh_double2scm (thick),
-	      SCM_UNDEFINED));
-
-  m.add_atom (at);
-  return m;
+  SCM at = gh_list (ly_symbol2scm ("beam"),
+		    gh_double2scm (width),
+		    gh_double2scm (slope),
+		    gh_double2scm (thick),
+		    SCM_UNDEFINED);
+  return Molecule (b, at);
 }
 
 
@@ -198,9 +195,10 @@ Molecule
 Lookup::dashed_slur (Bezier b, Real thick, Real dash)
 {
   SCM l = SCM_EOL;
+  // this is silly, we have array_to_scm
   for (int i= 4; i -- ;)
     {
-      l = gh_cons (ly_offset2scm (b.control_[i]), l);
+      l = gh_cons (to_scm (b.control_[i]), l);
     }
 
   SCM at = (gh_list (ly_symbol2scm ("dashed-slur"),
@@ -208,9 +206,9 @@ Lookup::dashed_slur (Bezier b, Real thick, Real dash)
 			       gh_double2scm (dash),
 			       ly_quote_scm (l),
 			       SCM_UNDEFINED));
-  Molecule m;
-  m.add_atom (at);
-  return m;
+
+  Box box (Interval(0,0),Interval( 0,0));
+  return   Molecule (box, at);
 }
 
 
@@ -228,8 +226,6 @@ Lookup::fill (Box b)
 Molecule
 Lookup::filledbox (Box b ) 
 {
-  Molecule m;
-  
   SCM  at  = (gh_list (ly_symbol2scm ("filledbox"),
 		     gh_double2scm (-b[X_AXIS][LEFT]),
 		     gh_double2scm (b[X_AXIS][RIGHT]),		       
@@ -237,9 +233,7 @@ Lookup::filledbox (Box b )
 		     gh_double2scm (b[Y_AXIS][UP]),		       
 		     SCM_UNDEFINED));
 
-  m.dim_ = b;
-  m.add_atom (at);
-  return m;
+  return Molecule ( b,at);
 }
 
 Molecule
@@ -320,7 +314,6 @@ sanitise_PS_string (String t)
 Molecule
 Lookup::text (String style, String text, Paper_def *paper_l) 
 {
-  Molecule m;
   if (style.empty_b ())
     style = "roman";
   
@@ -361,15 +354,14 @@ Lookup::text (String style, String text, Paper_def *paper_l)
   else if (output_global_ch == "ps")
     text = sanitise_PS_string (text);
     
-  m.dim_ = metric_l->text_dimension (text);
+
   
   SCM at = (gh_list (ly_symbol2scm ("text"),
 		     ly_str02scm (text.ch_C()),
 		     SCM_UNDEFINED));
   at = fontify_atom (metric_l,at);
-  
-  m.add_atom (at);
-  return m;
+  return Molecule ( metric_l->text_dimension (text),
+		    at);
 }
   
 
@@ -377,8 +369,6 @@ Lookup::text (String style, String text, Paper_def *paper_l)
 Molecule
 Lookup::staff_brace (Real y, int staff_size) 
 {
-  Molecule m;
-
   // URG
   Real step  = 1.0;
   int minht  = 2 * staff_size;
@@ -396,10 +386,9 @@ Lookup::staff_brace (Real y, int staff_size)
 
   at = fontify_atom (all_fonts_global_p->find_font (nm), at);
   
-  m.dim_[Y_AXIS] = Interval (-y/2,y/2);
-  m.dim_[X_AXIS] = Interval (0,0);
-  m.add_atom (at);
-  return m;
+  Box b ( Interval (-y/2,y/2),
+	   Interval (0,0));
+  return Molecule(b, at);
 }
  
 
@@ -417,10 +406,11 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick)
   back.control_[2] += curvethick * complex_exp (Offset (0, alpha + M_PI/2));  
 
   SCM scontrols[8];
+  // this is silly, we have array_to_scm
   for (int i=4; i--;)
-    scontrols[ i ] = ly_offset2scm (back.control_[i]);
+    scontrols[ i ] = to_scm (back.control_[i]);
   for (int i=4 ; i--;)
-    scontrols[i+4] = ly_offset2scm (curve.control_[i]);
+    scontrols[i+4] = to_scm (curve.control_[i]);
 
   /*
     Need the weird order b.o. the way PS want its arguments  
@@ -438,17 +428,13 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick)
 		     gh_double2scm (linethick),
 		     SCM_UNDEFINED));
 
-  Molecule m; 
-  m.dim_[X_AXIS] = curve.extent (X_AXIS);
-  m.dim_[Y_AXIS] = curve.extent (Y_AXIS);
-  m.add_atom (at);
-  return m;
+  Box b ( curve.extent (X_AXIS), curve.extent (Y_AXIS));
+  return Molecule (b, at);
 }
 
 Molecule
 Lookup::staff_bracket (Real height, Paper_def* paper_l)
 {
-  Molecule m;
   SCM at = ( gh_list (ly_symbol2scm ("bracket"),
 		      gh_double2scm (paper_l->get_var("bracket_arch_angle")),
 		      gh_double2scm (paper_l->get_var("bracket_arch_width")),
@@ -458,10 +444,9 @@ Lookup::staff_bracket (Real height, Paper_def* paper_l)
 		      gh_double2scm (paper_l->get_var("bracket_arch_thick")),
 		      gh_double2scm (paper_l->get_var("bracket_thick")),
   		      SCM_UNDEFINED));
-  
-  m.add_atom (at);				 
-  m.dim_[Y_AXIS] = Interval (-height/2,height/2);
-  m.dim_[X_AXIS] = Interval (0,4 PT);
+
+  Box b ( Interval (-height/2,height/2), Interval (0,4 PT));
+  Molecule m (b, at);
 
   m.translate_axis (- 4. / 3. * m.dim_[X_AXIS].length (), X_AXIS);
   return m;

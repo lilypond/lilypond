@@ -30,7 +30,8 @@ integrating text and music in LaTeX and texinfo; also available in
 @uref{../user/out-www/mudela-book.ps.gz,Postscript}
 @item @uref{../programmer/out-www/index.html,Programmer documentation}
 @item @uref{../bibliography/out-www/index.html,Bibliography}
-@item @uref{../misc/out-www/index.html,Miscellaneous texts}
+@item @uref{../misc/out-www/index.html,Miscellaneous texts}:
+announcements and change logs for old versions; background information.
 @end itemize
 
 

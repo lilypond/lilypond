@@ -40,7 +40,7 @@ public:
   void banter (Array<Musical_pitch> pitch_arr, Chord_mol* name_p) const;
 
 protected:
-  virtual Molecule* do_brew_molecule_p () const;
+  virtual Molecule do_brew_molecule () const;
 };
 
 #endif // CHORD_NAME_HH

@@ -67,6 +67,27 @@ slur_y_gap = 0.25 * \staffspace;
 slur_y_free = 0.75 * \staffspace;
 slur_x_minimum = 1.5 * \staffspace;
 
+
+% use tangent controls or area asymmetry?
+bezier_area = 1.0;
+bezier_asymmetry = 1.0;
+bezier_beautiful = 2.0;
+
+% The constants that define the valid areas for the middle control points
+% Used in de_uglyfy.  Bit empirical.
+bezier_control1 = 1.5;
+bezier_control2 = 0.8;
+bezier_control3 = -2.0;
+
+% URG: the magic constants for area asymmetry
+bezier_pct_c0 = -0.2;
+bezier_pct_c3 = 0.000006;
+bezier_pct_out_max = 0.8;
+bezier_pct_in_max = 1.2;
+bezier_area_steps = 1.0;
+
+bezier_before_blowfit = 0.5;
+
 %{
 Like beams, slurs often aren't as steep as the notes they encompass.
 This sets the amount of damping.

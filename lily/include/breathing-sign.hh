@@ -20,7 +20,7 @@ public:
   Breathing_sign ();
 protected:
   virtual void do_post_processing ();
-  virtual Molecule* do_brew_molecule_p () const;
+  virtual Molecule do_brew_molecule () const;
 };
 
 

@@ -31,8 +31,6 @@ Scheme_hash_table::do_smobify_self ()
 {
 }
 
-#include "ly-smobs.icc"
-IMPLEMENT_SMOBS(Scheme_hash_table);
 
 SCM
 Scheme_hash_table::mark_smob (SCM s)
@@ -108,3 +106,7 @@ Scheme_hash_table::to_alist () const
   return l;  
 }
 
+
+#include "ly-smobs.icc"
+IMPLEMENT_UNSMOB(Scheme_hash_table,scheme_hash);
+IMPLEMENT_SMOBS(Scheme_hash_table);

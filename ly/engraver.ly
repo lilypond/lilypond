@@ -61,8 +61,6 @@ StaffContext=\translator {
 %}
 	defaultClef = #"treble"
 
-	marginBreakPriority = #-5
-
 	\consists "Separating_line_group_engraver";
 	  
 	\accepts "Voice";
@@ -291,8 +289,6 @@ StupidScore = \translator {
 
 BarNumberingStaffContext = \translator {
 	\StaffContext
-	barColumnPriority = #0
-	marginBreakPriority = #-4
 	\consists "Mark_engraver";
 	\consists "Bar_number_engraver";
 };
@@ -306,8 +302,6 @@ HaraKiriStaffContext = \translator {
 
 OrchestralPartStaffContext = \translator {
 	\StaffContext
-	barColumnPriority = #0
-	marginBreakPriority = #-4
 	\consists "Mark_engraver";
 	\consists "Bar_number_engraver";
 };
@@ -345,8 +339,9 @@ ScoreContext = \translator {
 	\accepts "PianoStaff";
 	\accepts "NoteNames";
 
-	clefBreakPriority = #-2
-	breathingSignBreakPriority = #-4
+	markVisibilityFunction = #end-of-line-invisible
+	barNumberVisibilityFunction = #end-of-line-invisible
+	marginVisibilityFunction = #begin-of-line-visible
 };
 
 \translator { \ScoreContext }

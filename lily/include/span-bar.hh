@@ -38,7 +38,7 @@ protected:
   
   virtual void do_pre_processing();
   virtual void do_post_processing();
-  virtual Molecule * do_brew_molecule_p() const;
+  virtual Molecule do_brew_molecule() const;
 };
 
 #endif // SPAN_BAR_HH

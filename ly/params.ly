@@ -41,9 +41,9 @@ arithmetic_multiplier = 0.9 * \quartwidth ;
 
 #'Stem_tremolo::beam-width = 1.5 * \quartwidth ; 
 
-#'Clef_item::visibility-lambda = #postbreak-only-visibility
-#'Key_item::visibility-lambda = #postbreak-only-visibility
-#'Breathing_sign::visibility-lambda = #non-postbreak-visibility
+#'Clef_item::visibility-lambda = #begin-of-line-visible
+#'Key_item::visibility-lambda = #begin-of-line-visible
+#'Breathing_sign::visibility-lambda = #begin-of-line-invisible
 
 % catch suspect beam slopes, set slope to zero if
 % outer stem is lengthened more than
@@ -51,10 +51,22 @@ beam_lengthened = 0.2 * \staffspace;
 % and slope is running away steeper than
 beam_steep_slope = 0.2 / 1.0;
 
-%{
-dit(code(slur_x_gap)) Horizontal space between note and slur.  Set to
-code(\staffspace / 5) by default.  
 
+
+%{
+  Slur parameters.
+  
+  See Documentation/programmer/fonts.doc
+%}
+% Height-limit (h_inf) = factor * staff_space
+slur_height_limit_factor = 2.0;
+slur_ratio = 1.0 / 3.0;
+
+slur_thickness = 1.2 * \stafflinethickness;
+
+
+%{
+Horizontal space between centre of notehead and slur.
 %}
 % OSU: suggested gap = ss / 5;
 slur_x_gap = \staffspace / 5.0;
@@ -62,25 +74,34 @@ slur_y_gap = 0.25 * \staffspace;
 slur_y_free = 0.75 * \staffspace;
 slur_x_minimum = 1.5 * \staffspace;
 
+
+bezier_asymmetry = 1.0;
+bezier_beautiful = 2.0;
+
+% The constants that define the valid areas for the middle control points
+% Used in de_uglyfy.  Bit empirical.
+bezier_control1 = 1.5;
+bezier_control2 = 0.8;
+bezier_control3 = -2.0;
+
+% URG: the magic constants for area asymmetry
+bezier_pct_c0 = -0.2;
+bezier_pct_c3 = 0.000006;
+bezier_pct_out_max = 0.8;
+bezier_pct_in_max = 1.2;
+bezier_area_steps = 1.0;
+
+slur_force_blowfit = 0.5;
+slur_beautiful = 0.5;
+
+
 %{
-Like beams, slurs often aren't as steep as the notes they encompass.
-This sets the amount of damping.
+  Tie parameters
 %}
-% slope damping: keep dy/dx < slur_slope_damping
-slur_slope_damping = 0.3;
-slur_interstaff_slope_damping = 0.6;
-% height damping: keep h/dx < slur_height_damping
-slur_height_damping = 0.4;
-slur_interstaff_height_damping = 0.5;
-% snap to stem if slur ends closer to stem than
-slur_snap_to_stem = 1.75 * \staffspace;
-slur_interstaff_snap_to_stem = 2.5 * \staffspace;
-% maximum dy change allowed by snapping
-slur_snap_max_slope_change = 0.5;
-slur_interstaff_snap_max_slope_change = 0.5;
-slur_thickness = 1.2 * \stafflinethickness;
 
-
+tie_height_limit_factor = \slur_height_limit_factor;
+tie_ratio = \slur_ratio;
+tie_thickness = \slur_thickness;
 
 tie_x_minimum = \staffspace + \slur_x_minimum;
 % OSU: tie gap == slur gap
@@ -89,29 +110,10 @@ tie_y_gap = 0.25 * \staffspace;
 % length of a tie that's a staffspace high
 tie_staffspace_length = 4.0 * \staffspace;
 
-% ugh: rename to bow (in bezier.cc and fonts.doc too...)
-
-% used to be 1.4 .
-tie_thickness = 1.2 * \stafflinethickness;
 tie_staffline_clearance = 2.0 *\tie_thickness;
 
-%{
- Specifies the maximum height of slurs.
-%}
-slur_height_limit = \staffheight;
 
 
-%{
-Specifes the ratio of slur hight to slur width
-to aim for.  Default value is 0.3. 
-%}
-% slur_ratio = 0.3;
-% try bit flatter slurs
-slur_ratio = 0.25;
-slur_clip_ratio = 1.2;
-slur_clip_height = 3.0 * \staffheight;
-slur_clip_angle = 100.0;
-slur_rc_factor = 2.4;
 
 % ugh
 notewidth = (\quartwidth + \wholewidth) / 2.0;

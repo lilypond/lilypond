@@ -147,6 +147,3 @@ All_font_metrics::font_descriptions () const
 }
 
 
-
-#include "ly-smobs.icc"
-IMPLEMENT_SMOBS(Font_metric);

@@ -64,6 +64,7 @@ make_rational (SCM n, SCM d)
 
 #include "ly-smobs.icc"
 
+IMPLEMENT_UNSMOB(Moment,moment);
 IMPLEMENT_SMOBS(Moment);
 
 void

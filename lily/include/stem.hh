@@ -91,7 +91,7 @@ protected:
 
   virtual void do_pre_processing();
   static Interval dim_callback (Dimension_cache const*);
-  virtual Molecule* do_brew_molecule_p() const;
+  virtual Molecule do_brew_molecule() const;
 
   void set_spacing_hints () ;
 };

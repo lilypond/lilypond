@@ -10,8 +10,10 @@
   ugh. Rewrite not finished yet. Still must copy atom lists.
  */
 
+
 #include <math.h>
 
+#include "dimensions.hh"
 #include "interval.hh"
 #include "string.hh"
 #include "molecule.hh"
@@ -32,65 +34,58 @@ Molecule::extent(Axis a) const
   return dim_[a];
 }
 
+Molecule::Molecule (Box b, SCM func)
+{
+  expr_ = func;
+  dim_ = b ;
+}
+
+Molecule::Molecule()
+{
+  expr_ = SCM_EOL;
+  set_empty (true);
+}
+
 void
 Molecule::translate (Offset o)
 {
-  if (isinf (o.length ()))
+  Axis a = X_AXIS;
+  while (a < NO_AXES)
     {
-      programming_error ("Translating infinitely. Ignore.");
-      return;
+      if (abs(o[a]) > 30 CM
+	  || isinf (o[a]) || isnan (o[a]))
+	{
+	  programming_error ("Improbable offset for translation: setting to zero");
+	  o[a] =  0.0;
+	}
+      incr (a);
     }
-    
-  for (SCM ptr = gh_cdr (atom_list_);  ptr != SCM_EOL; ptr = gh_cdr(ptr))
-    {
-      gh_set_car_x (ptr, translate_atom (o, gh_car (ptr)));
-    }
+
+  expr_ = gh_list (ly_symbol2scm ("translate-molecule"),
+		   to_scm (o),
+		   expr_, SCM_UNDEFINED);
   if (!empty_b ())
     dim_.translate (o);
 }
+  
 
 void
 Molecule::translate_axis (Real x,Axis a)
 {
-  if (isinf (x))
-    {
-      programming_error ("Translating infinitely. Ignore.");
-      return;
-    }
-  for (SCM ptr = gh_cdr (atom_list_);  ptr != SCM_EOL; ptr = gh_cdr(ptr))
-    {
-      gh_set_car_x (ptr, translate_atom_axis (x, a, gh_car (ptr)));
-    }
+  Offset o(0,0);
+  o[a] = x;
+  translate (o);
+}  
 
-  if (!dim_[a].empty_b ())
-    dim_[a] += x;
-}
+
 
 void
 Molecule::add_molecule (Molecule const &m)
 {
-  for (SCM ptr = gh_cdr (m.atom_list_);  ptr != SCM_EOL; ptr = gh_cdr(ptr))
-    {
-      add_atom (gh_car (ptr));
-    }
+  expr_ = gh_list (ly_symbol2scm ("combine-molecule"),
+		   m.expr_,
+		   expr_, SCM_UNDEFINED);
   dim_.unite (m.dim_);
-}
-
-void
-Molecule::add_atom (SCM atomsmob)
-{
-  gh_set_cdr_x (atom_list_,
-		gh_cons  (atomsmob, gh_cdr (atom_list_)));
-}
-
-void
-Molecule::operator=(Molecule const & src)
-{
-  if (&src == this)
-    return;
-
-  atom_list_ = gh_cons (SCM_EOL,scm_list_copy (gh_cdr (src.atom_list_)));
-  dim_= src.dim_;
 }
 
 void
@@ -112,41 +107,16 @@ void
 Molecule::print () const
 {
 #ifndef NPRINT
-  for (SCM ptr = gh_cdr (atom_list_);  ptr != SCM_EOL; ptr = gh_cdr(ptr))
-    gh_display (gh_car (ptr));
+  gh_display (expr_);
 #endif
 }
-
-Molecule::Molecule (Molecule const &s)
-{
-  atom_list_ = gh_cons (SCM_EOL, scm_list_copy (gh_cdr (s.atom_list_)));
-  dim_ = s.dim_;
-}
-
-Molecule::~Molecule ()
-{
-}
-
 
 void
 Molecule::align_to (Axis a, Direction d)
 {
-  if (d == CENTER)
-    {
-      Interval i (extent (a));
-      translate_axis (-i.center (), a);
-    }
-  else
-    {
-      translate_axis (-extent (a)[d], a);
-    }
-}
-
-Molecule::Molecule ()
-{
-  dim_[X_AXIS].set_empty ();
-  dim_[Y_AXIS].set_empty ();
-  atom_list_ = gh_cons (SCM_EOL, SCM_EOL);
+  Interval i (extent (a));
+  Real r =  (d == CENTER) ? i.center () : i[d];
+  translate_axis (-r, a);
 }
 
 
@@ -168,5 +138,5 @@ Molecule::add_at_edge (Axis a, Direction d, Molecule const &m, Real padding)
 bool
 Molecule::empty_b () const
 {
-  return gh_cdr (atom_list_) == SCM_EOL;
+  return expr_ == SCM_EOL;
 }

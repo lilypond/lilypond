@@ -19,36 +19,27 @@
   from bow paratime_signatures.  */
 class Bezier_bow
 {
+public:
+  Bezier_bow (Array<Offset> encompass, Direction dir);
+
+  Bezier get_bezier () const;
+  Bezier get_default_bezier (Real h_inf, Real r_0) const;
+  Real get_default_height (Real h_inf, Real r_0, Real length) const;
+  void set_default_bezier (Real h_inf, Real r_0);
+
+  /**
+     The canonical bezier.
+   */
   Bezier curve_;
+
+protected:
   Array<Offset> encompass_;
-  
-  void blow_fit ();
-  void de_uglyfy ();
-  void calc_default ();
-  void to_canonic_form ();
-  void calc_tangent_controls ();
-  Real calc_enclosed_area_f () const;
-  void minimise_enclosed_area ();
-  Array<Offset> area_gradient_offset_arr ();
 
-  Real fit_factor () const;
-
-
-  Paper_def* paper_l_;
+private:
+  void to_canonical_form ();
   Direction dir_;
   Real alpha_;
   Offset origin_;
-public:
-  Real  rc_factor_;
-  Real height_limit_;
-  Real ratio_;
-
-
-  Real vertical_offset_needed () const;
-  
-  Bezier_bow (Array<Offset> points, Direction dir);
-  void calculate ();
-  Bezier get_curve () const;
 };
 
 

@@ -20,7 +20,7 @@ class Text_item : public Item
 public:
   VIRTUAL_COPY_CONS (Score_element);
 protected:
-  virtual Molecule *do_brew_molecule_p () const;
+  virtual Molecule do_brew_molecule () const;
 };
 
 #endif /* Text_ITEM_HH */

@@ -24,14 +24,18 @@ Bar_script_engraver::Bar_script_engraver ()
 {
   axis_ = Y_AXIS;
   text_p_ =0;
-  visibility_lambda_ 
-    = ly_eval_str ("non-postbreak-visibility");
 }
 
 void
 Bar_script_engraver::do_creation_processing ()
 {
+  String t = type_  + "VisibilityFunction";
+  SCM proc = get_property (t, 0);
+
+  if (gh_procedure_p (proc))
+      visibility_lambda_ = proc;
 }
+
 
 /*
   Some interesting item came across.  Lets attach the text and the
@@ -142,9 +146,10 @@ Bar_script_engraver::create_items (Request *rq)
 	->set_elt_property ("padding",
 			    gh_double2scm(paper_l ()->get_var ("interline")));
     }
-  
-  text_p_->set_elt_property ("visibility-lambda",
-			     visibility_lambda_);
+
+  if (gh_procedure_p (visibility_lambda_))
+      text_p_->set_elt_property ("visibility-lambda",
+				 visibility_lambda_);
   
   announce_element (Score_element_info (text_p_, rq));
 }

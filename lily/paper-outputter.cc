@@ -73,57 +73,43 @@ Paper_outputter::output_header ()
 }
 
 void
-Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
+Paper_outputter::output_molecule (SCM expr, Offset o, char const *nm)
 {
+#if 0
   if (flower_dstream)
     {
       output_comment (nm);
     }
+#endif
+  
+  SCM offset_sym = ly_symbol2scm ("translate-molecule");
+  SCM combine_sym = ly_symbol2scm ("combine-molecule");
+enter:
 
-  SCM offset_sym = ly_symbol2scm ("translate-atom"); 
-  for (SCM ptr = gh_cdr (m->atom_list_); ptr != SCM_EOL; ptr = gh_cdr (ptr))
+  if (!gh_pair_p (expr))
+    return;
+  
+  SCM head =gh_car (expr);
+  if (head == offset_sym)
     {
-      SCM func =  gh_car (ptr);
-      SCM funcptr = func;
+      o += scm_to (gh_cadr (expr), &o);
+      expr = gh_caddr (expr);
+      goto enter;
+    }
+  else if (head == combine_sym)
+    {
+      output_molecule (gh_cadr (expr), o, nm);
+      expr = gh_caddr (expr);
+      goto enter;		// tail recursion
+    }
+  else
+    {
+      output_scheme (gh_list (ly_symbol2scm ("placebox"),
+			      gh_double2scm (o[X_AXIS]),
+			      gh_double2scm (o[Y_AXIS]),
+			      expr,
+			      SCM_UNDEFINED));
 
-      Offset a_off (0,0);
-      while (gh_pair_p (funcptr))
-	{
-	  if (gh_car (funcptr) == offset_sym)
-	    {
-	      SCM quot = gh_cadr (funcptr);
-	      a_off += ly_scm2offset (gh_cadr (quot));
-	    }
-	  funcptr = scm_last_pair (funcptr);
-	  if (funcptr != SCM_EOL )
-	    {
-	      funcptr = gh_car (funcptr);
-	    }
-	}
-      
-      a_off += o;
-      
-      Axis a = X_AXIS;
-      while (a < NO_AXES)
-	{
-	  if (abs(a_off[a]) > 30 CM
-	      || isinf (a_off[a]) || isnan (a_off[a]))
-	    {
-	      programming_error ("Improbable offset for object: setting to zero");
-	      a_off[a] =  0.0;
-	    }
-	  incr (a);
-	}
-
-      	
-      SCM box_scm
-	= gh_list (ly_symbol2scm ("placebox"),
-		   gh_double2scm (a_off[X_AXIS]),
-		   gh_double2scm (a_off[Y_AXIS]),
-		   func,
-		   SCM_UNDEFINED);
-
-      output_scheme (box_scm);
     }
 }
 

@@ -10,6 +10,45 @@
 #include "bezier.hh"
 #include "polynomial.hh"
 
+Real
+binomial_coefficient (Real over , int under)
+{
+  Real x = 1.0;
+
+  while (under)
+    {
+      x *= over / Real (under);
+
+      over  -= 1.0;
+      under --;
+    }
+  return x;
+}
+
+void
+flip (Array<Offset>* arr_p, Axis a)
+{
+  // huh?
+  //  for (int i = c.size (); i--;)
+  for (int i = 0; i < arr_p->size (); i++)
+    (*arr_p)[i][a] = - (*arr_p)[i][a];
+}
+
+void
+rotate (Array<Offset>* arr_p, Real phi)
+{
+  Offset rot (complex_exp (Offset (0, phi)));
+  for (int i = 0; i < arr_p->size (); i++)
+    (*arr_p)[i] = complex_multiply (rot, (*arr_p)[i]);
+}
+
+void
+translate (Array<Offset>* arr_p, Offset o)
+{
+  for (int i = 0; i < arr_p->size (); i++)
+    (*arr_p)[i] += o;
+}
+
 /*
 
   Formula of the bezier 3-spline
@@ -18,6 +57,7 @@
  */
 
 Bezier::Bezier ()
+  : control_ (CONTROL_COUNT)
 {
 }
 
@@ -33,20 +73,6 @@ Bezier::get_other_coordinate (Axis a,  Real x) const
   return c[other];
 }
 
-Real
-binomial_coefficient (Real over , int under)
-{
-  Real x = 1.0;
-
-  while (under)
-    {
-      x *= over / Real (under);
-
-      over  -= 1.0;
-      under --;
-    }
-  return x;
-}
 
 Offset
 Bezier::curve_point (Real t)const
@@ -151,27 +177,23 @@ Bezier::extent (Axis a)const
 void
 Bezier::flip (Axis a)
 {
-  for (int i = CONTROL_COUNT; i--;)
-    control_[i][a] = - control_[i][a];
+  ::flip (&control_, a);
 }
 
 void
 Bezier::rotate (Real phi)
 {
-  Offset rot (complex_exp (Offset (0, phi)));
-  for (int i = 0; i < CONTROL_COUNT; i++)
-    control_[i] = complex_multiply (rot, control_[i]);
+  ::rotate (&control_, phi);
 }
 
 void
 Bezier::translate (Offset o)
 {
-  for (int i = 0; i < CONTROL_COUNT; i++)
-    control_[i] += o;
+  ::translate (&control_, o);
 }
 
 void
-Bezier::check_sanity () const
+Bezier::assert_sanity () const
 {
   for (int i=0; i < CONTROL_COUNT; i++)
     assert (!isnan (control_[i].length ())

@@ -54,6 +54,14 @@ Staff_symbol_engraver::do_creation_processing()
 void
 Staff_symbol_engraver::do_removal_processing()
 {
+  SCM n = get_property ("numberOfStaffLines",0);
+  SCM ss = get_property ("staffSpace", 0);
+
+  if (gh_number_p (ss))
+    span_p_->set_elt_property ("staff-space", ss);
+  if (gh_number_p (n))
+    span_p_->set_elt_property ("line-count", n);
+
   span_p_->set_bounds(RIGHT,get_staff_info().command_pcol_l ());
   typeset_element (span_p_);
   span_p_ =0;

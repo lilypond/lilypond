@@ -25,7 +25,7 @@ Hyphen_spanner ();
   void set_textitem (Direction, Item*);
 
 protected:
-  virtual Molecule* do_brew_molecule_p () const;
+  virtual Molecule do_brew_molecule () const;
   Interval do_height () const;
 
   void do_post_processing ();

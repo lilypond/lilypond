@@ -22,8 +22,8 @@ Crescendo::Crescendo ()
 
 
 
-Molecule*
-Crescendo::do_brew_molecule_p () const
+Molecule 
+Crescendo::do_brew_molecule () const
 {
   Real absdyn_dim = paper_l ()-> get_var ("crescendo_shorten");
   Real extra_left =  get_broken_left_end_align ();
@@ -33,9 +33,11 @@ Crescendo::do_brew_molecule_p () const
 
   if (!isdir_b (dir) || !gh_pair_p (dyns))
     {
-Crescendo * me = (Crescendo*)this;
+      Crescendo * me = (Crescendo*)this;
       me->set_elt_property ("transparent", SCM_BOOL_T);
-      return new Molecule;
+      Molecule m;
+      
+      return m;
     }
   
   Direction gd = to_dir (dir);
@@ -78,10 +80,9 @@ Crescendo * me = (Crescendo*)this;
   Real thick = paper_l ()->get_var ("crescendo_thickness");
 
   const char* hairpin = (gd < 0)? "decrescendo" :  "crescendo";
-  Molecule * m
-    = new Molecule;
-  m->dim_.x () = Interval (0, width);
-  m->dim_.y () = Interval (-2*height, 2*height);
+
+  Box b (Interval (0, width),
+	 Interval (-2*height, 2*height));
 
   SCM at = gh_list (ly_symbol2scm (hairpin),
 		     gh_double2scm (thick),
@@ -90,8 +91,9 @@ Crescendo * me = (Crescendo*)this;
 		     gh_double2scm (continued ? height/2 : 0.0),
 		     SCM_UNDEFINED);
 
-  m->add_atom (at);
-  m->translate_axis (extra_left, X_AXIS);
+  Molecule m (b, at);
+  
+  m.translate_axis (extra_left, X_AXIS);
   return m;
 }
 

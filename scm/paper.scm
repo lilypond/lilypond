@@ -2,7 +2,7 @@
 ;;;
 ;;;  source file of the GNU LilyPond music typesetter
 ;;; 
-;;; (c) 1999 Jan Nieuwenhuizen <janneke@gnu.org>
+;;; (c) 1999--2000 Jan Nieuwenhuizen <janneke@gnu.org>
 
 ;;; All dimensions are measured in staff-spaces
 
@@ -125,3 +125,12 @@
 
 (define stem-shorten '(0.5))
 (define grace-stem-shorten '(0.0))
+
+;; urg
+(define pi (* 2 (acos 0)))
+
+(define (slur-default-height h-inf r-0 b)
+  (let ((alpha (/ (* 2.0 h-inf) pi))
+	(beta (/ (* pi r-0) (* 2.0 h-inf))))
+    (* alpha (atan (* beta b)))))
+ 

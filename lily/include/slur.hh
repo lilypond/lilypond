@@ -15,8 +15,6 @@
  */
 class Slur : public Spanner
 {
-  int cross_staff_count () const;
-  Offset encompass_offset (Note_column const* )const;
 public:
   Slur ();
   VIRTUAL_COPY_CONS(Score_element);
@@ -25,7 +23,7 @@ public:
 
 
 protected:
-  virtual Molecule* do_brew_molecule_p () const;
+  virtual Molecule do_brew_molecule () const;
   virtual Array<Offset> get_encompass_offset_arr () const;
   Bezier get_curve () const;
   Drul_array<Real> dy_f_drul_;
@@ -35,6 +33,13 @@ protected:
   virtual void do_post_processing ();
   virtual void do_add_processing ();
   Array<Rod> get_rods () const;
+
+private:  
+  void de_uglyfy (class Slur_bezier_bow* bb, Real default_height);
+  void set_extremities ();
+  void set_control_points ();
+  int cross_staff_count () const;
+  Offset encompass_offset (Note_column const* )const;
 };
 
 #endif // SLUR_HH

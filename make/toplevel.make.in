@@ -39,8 +39,7 @@ examples:
 	$(PYTHON) $(buildscripts)/mutopia-index.py -o short-examples.html input/
 	$(PYTHON) $(buildscripts)/mutopia-index.py -o long-examples.html mutopia/
 
-
-	tar --exclude='*.dvi' --exclude='*.tex' --exclude='*.ps' --exclude='*.ppm' -czf $(outdir)/examples.tar.gz  `find input mutopia -type d -name 'out-www' -print`
+	tar --exclude='*.dvi' --exclude='*.tex' --exclude='*.ps' --exclude='*.ppm' -czf $(outdir)/examples.tar.gz *-examples.html  `find input mutopia -type d -name 'out-www' -print`
 
 localinstall:
 	mkdir -p $(datadir)

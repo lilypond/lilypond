@@ -36,7 +36,7 @@ public:
   int calculate_position(int p, int a) const;
 
 protected:
-  virtual Molecule* do_brew_molecule_p() const;
+  virtual Molecule do_brew_molecule() const;
 };
 
 #endif // KEYITEM_HH

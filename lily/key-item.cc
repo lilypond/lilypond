@@ -93,10 +93,10 @@ Key_item::calculate_position(int p, int a) const
   - space the `natural' signs wider
   - dehair this
  */
-Molecule*
-Key_item::do_brew_molecule_p() const
+Molecule 
+Key_item::do_brew_molecule() const
 {
-  Molecule*output = new Molecule;
+  Molecule mol;
 
   Staff_symbol_referencer_interface si (this);
   Real inter = si.staff_space ()/2.0;
@@ -118,7 +118,7 @@ Key_item::do_brew_molecule_p() const
               Molecule m =lookup_l ()->afm_find ("accidentals-0");
 
               m.translate_axis (calculate_position(old_pitch_arr_[i], old_acc_arr_[i]) * inter, Y_AXIS);
-              output->add_at_edge (X_AXIS, RIGHT, m,0);	
+              mol.add_at_edge (X_AXIS, RIGHT, m,0);	
             }
         }
 
@@ -130,17 +130,17 @@ Key_item::do_brew_molecule_p() const
       Interval x(0, inter);
       Interval y(0,0);
 
-      output->add_at_edge (X_AXIS, RIGHT, lookup_l()->fill (Box(x,y)),0);
+      mol.add_at_edge (X_AXIS, RIGHT, lookup_l()->fill (Box(x,y)),0);
     }
  
   for (int i =0; i < pitch_arr_.size(); i++) 
     {
       Molecule m = lookup_l ()->afm_find ("accidentals-" + to_str (acc_arr_[i]));
       m.translate_axis (calculate_position(pitch_arr_[i], acc_arr_[i]) * inter, Y_AXIS);
-      output->add_at_edge (X_AXIS, RIGHT, m, 0);
+      mol.add_at_edge (X_AXIS, RIGHT, m, 0);
     }
 
-  return output;
+  return mol;
 }
 
 

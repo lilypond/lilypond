@@ -13,8 +13,6 @@
 #include "box.hh"
 #include "lily-guile.hh"
 
-SCM translate_atom (Offset, SCM);
-SCM translate_atom_axis (Real, Axis,SCM); 
 SCM fontify_atom (Font_metric*, SCM atom);
 
 #endif

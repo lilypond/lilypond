@@ -30,8 +30,8 @@ Multi_measure_rest::Multi_measure_rest ()
    [TODO]                                      17
  * variable-sized multi-measure rest symbol: |====| ??
 */
-Molecule*
-Multi_measure_rest::do_brew_molecule_p () const
+Molecule 
+Multi_measure_rest::do_brew_molecule () const
 {
   Real staff_space
     = staff_symbol_referencer (this).staff_space ();
@@ -48,7 +48,7 @@ Multi_measure_rest::do_brew_molecule_p () const
       sp_iv[d] = coldim[-d]  ;
     }
   while ((flip (&d)) != LEFT);
-  Molecule *mol_p  = new Molecule;
+  Molecule mol;
   Real x_off = 0.0;
 
   Real rx  = spanned_drul_[LEFT]->relative_coordinate (0, X_AXIS);
@@ -119,17 +119,17 @@ Multi_measure_rest::do_brew_molecule_p () const
       s = lookup_l ()->afm_find (idx);
     }
   
-  mol_p->add_molecule (s);
+  mol.add_molecule (s);
 
   if (measures > 1)
     {
       Molecule s (lookup_l ()->text ("number", to_str (measures), paper_l ()));
       s.align_to (X_AXIS, CENTER);
       s.translate_axis (3.0 * staff_space, Y_AXIS);
-      mol_p->add_molecule (s);
+      mol.add_molecule (s);
     }
-  mol_p->translate_axis (x_off, X_AXIS);
-  return mol_p;
+  mol.translate_axis (x_off, X_AXIS);
+  return mol;
 }
 
 /*
