@@ -1,5 +1,7 @@
 2004-02-19  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* THANKS: update bugreporter list.
+
 	* lily/beam.cc (print): broken beams last until end of staff.
 	(print): broken beams start from prefatory matter.
 

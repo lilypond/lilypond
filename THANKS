@@ -1,21 +1,52 @@
 Release 2.1
 ***********
 
+HEAD HACKERS
+
+Han-Wen Nienhuys
+Jan Nieuwenhuizen
+
+CONTRIBUTORS
+
+Heikki Junes
+Nicolas Sceaux
+
 BUG HUNTERS/SUGGESTIONS
 
-Matthias Kilian
+Atte Andre Jensen 
+Bertalan Fodor
+Bruce McIntyre
+Dave Symonds
+David Bobroff
+Darius
 Delma Avers
+Edward Sanford Sutton
 Eric Wurbel
+Erik Sandberg
+Hans Forbrich
 John Williams
 José Luis Cruz
-Reuben Thomas
-Thomas Willhalm
-Werner Lemberg
-Nicolas Sceaux 
-Nick Busigin
-Matthias Kilian
-Erik Sandberg
+Juergen Reuter
 Kieren Richard MacMillan
+Laurent Martelli
+Matthias Kilian
+Nancho Alvarez
+Nick Busigin
+Nicolas Sceaux 
+Olivier Guery
+Patrick Atamaniuk
+Paul Scott
+Pawel D
+Pedro Kroger
+Ray McKinney
+Reuben Thomas
+Rob V
+Stef Epardaud
+Thomas Willhalm
+Tom Bäckström
+Werner Lemberg
+Will Oram
+
 
 Release 2.0
 ***********
