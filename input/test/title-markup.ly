@@ -33,16 +33,6 @@ sizeTest = \markup {
 spaceTest = \markup { "two space chars" }
 \header {
     texidoc = "Make titles using markup (WIP)."
-
-
-    % FIXME
-    fonts = #'((font-family . roman)
- 		  (word-space . 1)
- 		  (baseline-skip . 2)
- 		  (font-series . medium)
- 		  (font-style . roman)
- 		  (font-shape . upright)
- 		  (font-size . 2))
     
     %dedication = "För my dør Lily"
     dedication = "For my öòóôõø so dear Lily"
