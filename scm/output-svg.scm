@@ -115,7 +115,7 @@
 
 (define (svg-font font)
   (let* ((encoding (ly:font-encoding font))
-	 (anchor (if (memq encoding '(fetaMusic fetaBraces)) 'start 'middle)))
+	 (anchor (if (memq encoding '(fetaMusic fetaBraces)) 'start 'start)))
    (format #f "font-family:~a;font-size:~a;text-anchor:~S;"
 	   (font-family font) (font-size font) anchor)))
 
