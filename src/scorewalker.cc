@@ -16,6 +16,7 @@
 Score_walker::Score_walker(Score *s)
     :PCursor<Score_column *> (s->cols_)
 {
+    score_l_ = s;
     for (iter_top(s->staffs_,i); i.ok(); i++) {
 	Staff_walker* w_p=i->get_walker_p();
 	w_p->score_walk_l_ =this;
@@ -104,6 +105,7 @@ Score_walker::~Score_walker()
 {
     for (int i=0; i < walker_p_arr_.size(); i++) 
 	delete walker_p_arr_[i];
+    assert( !score_l_->find_col(score_l_->last(), true)->used_b());
 }
 
 
