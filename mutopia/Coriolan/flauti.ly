@@ -6,7 +6,7 @@
 
 flautiStaff =  \notes \context Staff = flauti <
 	\property Staff.midiInstrument = #"flute"
-	\property Staff.instrument = #"2 Flauti"
+	\property Staff.instrument = #"Flauti"
 	\property Staff.instr = #"Fl."
 	\global
 	\context Voice=one \partcombine Voice

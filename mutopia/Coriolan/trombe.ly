@@ -8,7 +8,7 @@ trombeStaff =  \context Staff = trombe <
 	\context Staff=trombe {
 		\property Staff.midiInstrument = #"trumpet"
 
-		\property Staff.instrument = #`(lines "2 Trombe" (rows "(C)"))
+		\property Staff.instrument = #"Trombe in C"
 		\property Staff.instr = #`(lines "Tbe." (rows "(C)"))
 
 		\notes { \key c \major; }

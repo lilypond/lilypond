@@ -9,10 +9,9 @@
 
 (use-modules
    (ice-9 debug)
-   ;; urg, these two only to guess if a '/' is needed to separate
-   ;; user-chord-name and additions/subtractions
    (ice-9 format)
    (ice-9 regex)
+   (ice-9 string-fun)
    )
 
 ;;

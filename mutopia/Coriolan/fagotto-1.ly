@@ -37,11 +37,11 @@ fagottoI =  \notes \relative c {
 	f\sf r|
 	f\sf r|
 	e1\sf es\sf|
-	d2. es4\sf(|
-	)d2. es4\sf(|
-	)d2. es4\sf(|
-	)d2. es4\sf(|
-	)d4 r r2|
+	d2. es4\sf|
+	d2. es4\sf|
+	d2. es4\sf|
+	d2. es4\sf|
+	d4 r r2|
 	R1*9|
 	
 	\clef "tenor";
@@ -108,7 +108,7 @@ fagottoI =  \notes \relative c {
 	%% 110|
 	% copied from cello, copied from viola|
 	[g8 bes d es][f, a cis d]|
-	[es,8:8 g: b: c!:][d,: f: a: bes:]|
+	[es,8:8 g: b: c:][d,: f: a: bes:]|
 	[c,: es: g: a:][cis,: e: g: bes:]|
 	[d,: g: bes: d:][d,: fis: a: d:]|
 	g,2 ~ g4. g8|
@@ -189,13 +189,15 @@ fagottoI =  \notes \relative c {
 	g~|
 	g~|
 	g|
-	e''2.(f4|
+	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoSpanner = #'dashed-line
+	e''2.(\<f4|
 	e d b)g|
 	g'2.(a4|
 	g2)f|
 	e2.(f4|
 	e d b)g|
-	g2\ff f|
+	\!g2\ff f|
 	e a~|
 	a1\p~|
 	a~|
@@ -257,8 +259,8 @@ fagottoI =  \notes \relative c {
 	R1*7|
 
 	%%238 copied from cello from viola|
-	[c8\f e g as][bes, d fis g]|
-	[as, c e f!][g, bes d es]|
+	[c8\f es g as][bes, d fis g]|
+	[as, c e f][g, bes d es]|
 
 	f4 r r2|
 
@@ -291,7 +293,7 @@ fagottoI =  \notes \relative c {
 	r4 r8 d d2\sf|
 
 	%% 270 copied from cello|
-	[c,8-"sempre"\ff b c d][es\ff d es c]|
+	[c,8-"sempre"\ff b c d][es d es c]|
 	[b c d c][b c b g]|
 	[c8 b c d][es d es c]|
 	[b c d c][b c b g]|

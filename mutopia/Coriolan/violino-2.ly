@@ -46,7 +46,7 @@ violinoII =  \notes \relative c {
 	%35
 	[f16 f f f][es es es es][des des des des][c c c c]|
 	b2:16 c:|
-	d!: es:|
+	d: es:|
 	e: f:|
 	
 	<g: c,:> <as: c,:>|
@@ -150,7 +150,7 @@ violinoII =  \notes \relative c {
 	g4 r r r8 f|
 	es4 r r r8 d|
 	
-	c4 r8 g fis4 r8 c'|
+	c4 r8 g' fis4 r8 c'|
 	
 	% looks lot like violino-1 110-113
 	%110
@@ -158,7 +158,7 @@ violinoII =  \notes \relative c {
 	
 	g4 r8 c bes4 r8 f|
 	
-	es4 r8 a g4 r8 cis|
+	es4 r8 a g4 r8 cis,|
 	<[d16 s> <bes g'> <bes g'> <bes g'>] <a4:16 fis':> <a2:16 fis':>|
 	<bes: g':> <bes: g':>|
 	<bes: g':> <bes: g':>|
@@ -166,28 +166,10 @@ violinoII =  \notes \relative c {
 	<bes: g':> <bes: g':>|
 	<bes4\p g'> r r2|
 	
-	% copied... urg: *same* as violino-1(119,128)
-	% URG: or is this R1*10??
-	% should hara-kiri like viola-1/2...
-	       a'4 r8 es' d4 r8 a|
-	
-	%120
-	bes4 r8 es des4 r8 bes|
-	as!4 r8 es' des4 r8 as|
-	g4 r r2|
-	r4 r8 es' des4 r8 as|
-	g4 r r2|
-	%125
-	r4 r8 c bes4 r8 e,|
-	
-	as4 r8 des c4 r8 as|
-	
-	g4 r8 des' c4 r8 g|
-	as4 r8 es' des4 r8 as|
-	R1*3
+	R1*13
 	%131
 	% copied from viola(131,140)
-	[as,8 as c es][f es c as]|
+	[as8 as c es][f es c as]|
 	[a c es f][ges f c a]|
 	[bes des f ges][as ges des bes]|
 
@@ -195,7 +177,7 @@ violinoII =  \notes \relative c {
 	[c es g as][bes as es c]|
 	[des\p f a bes][c, es g as]|
 
-	% urg, copied, but nog ges, f, on violino!
+	% urg, copied, but nog ges, f, on violino.
 	[bes, des f ges][as, c e f]|r [bes, d es]r[as, c des]|
 	% [es, ges bes des][as c es as,]|
 	r[bes bes des][as c es ges]|
@@ -205,7 +187,7 @@ violinoII =  \notes \relative c {
 	f4\f r8 bes as4 r8 es|
 	des4 r8 ges f4 r8 c|
 	bes4 r8 e f4 r8 bes,|
-	bes4 r8 g'! e4 r8 bes'|
+	bes4 r8 g' e4 r8 bes'|
 	\property Voice.crescendoText = #"cresc."
 	\property Voice.crescendoSpanner = #'dashed-line
 	as4\p r8 des\< c4 r8 g|
@@ -230,7 +212,7 @@ violinoII =  \notes \relative c {
 	f1 ~|
 	f|
 	
-	<d2\sf d'!> [f8-. as-.][as()g]|
+	<d2\sf d'> [f8-. as-.][as()g]|
 	<d2\sf d'> [f8-. as-.][as()g]|
 	%160
 	R1|
@@ -353,7 +335,7 @@ violinoII =  \notes \relative c {
 	%copied violino-1(238,243)
 	es'4\f r8 as g4 r8 d|
 	
-	c4\f r8 f es4 r8 bes|
+	c4 r8 f es4 r8 bes|
 	
 	%240
 	as4-. des-. r2|
@@ -364,18 +346,20 @@ violinoII =  \notes \relative c {
 	[g8( d' b d][g d b )g~]|
 	[g8( e' c e][g e c )g~]|
 	[g8( f' d f][g f d )g,~]|
-	[g8( es'! c es][g es c )g~]|
+	[g8( es' c es][g es c )g~]|
 	[g8( d' b d][g d b )g~]|
 
 	%250
 	[g8( es' c es][g es c )g~]|
 	[g8( f' d f][g f d )g,~]|
-	[g8( es' c es][g es c )g~]|
+	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoSpanner = #'dashed-line
+	[g8(\< es' c es][g es c )g~]|
 	[g8( d' b d][g d b )g~]|
 	[g8( es' c es][g es c )g]|
 
 	%255
-	<c2:16\f es:> <c: es:>|
+	<\!c2:16\f es:> <c: es:>|
 	[as8\p( f' des f][as f des )as]|
 	<d2:16\f f:> <d: f:>|
 	[bes8\p( g' es g][bes g es )bes]|
@@ -399,7 +383,7 @@ violinoII =  \notes \relative c {
 	r4 r8 f as4.\sf()g8|
 
 	%270
-	g2:16-"sempre" g:\ff|
+	g2:16-"sempre"\ff g:|
 	g: g:|
 	g: g:|
 	g: g:|
@@ -445,7 +429,7 @@ violinoIIStaff =  \context Staff = violino2 <
 	% eerste en tweede viool ;-)
 	\property Staff.midiInstrument = #"violin"
 	\property Staff.instrument = #"Violino II  "
-	\property Staff.instr = #"Vl. II   "
+	\property Staff.instr = #"Vl. II    "
 	\notes< 
 		\global
 		\context Voice=violinoii

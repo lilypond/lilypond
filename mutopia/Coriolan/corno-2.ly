@@ -94,7 +94,7 @@ cornoII =  \notes \relative c {
 	R1*3|
 	d4\ff r c r|
 	d r c r|
-	e, r d' r|
+	g r d' r|
 	d r e r|
 	d4 r r2|
 	R1|

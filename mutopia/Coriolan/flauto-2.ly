@@ -74,9 +74,9 @@ flautoII =  \notes \relative c {
 	bes4 r8 bes' bes4 r8 bes|
 	bes4 r8 bes bes4 r8 bes|
 	R1*4|
-	as,4\ff r8 des c4 r8 g|
+	as4\ff r8 des c4 r8 g|
 	f4 r8 bes as4 r8 es|
-	des4 r8 g f4 r8 as'|
+	des4 r8 g f4 r8 as|
 	g4 r8 g g4 r8 g|
 	as4 r r2|
 	R1|

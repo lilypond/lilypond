@@ -35,7 +35,7 @@ information is taken to the extreme.
     \\texttt{http://www.mutopiaproject.org/}\\\\It has been typeset
     and placed in the public domain by " + \maintainer +
     ".\\\\Unrestricted modification and redistribution is permitted
-    and encouraged---copy this music and share it!}";
+    and encouraged---copy this music and share it.}";
  tagline = \mutopiapublicdomain;
  footer = "Mutopia-2001/01/31-2";
 }

@@ -6,7 +6,7 @@
 
 fagottiStaff =  \context Staff = fagotti <
 	\property Staff.midiInstrument = #"bassoon"
-	\property Staff.instrument = #"2 Fagotti"
+	\property Staff.instrument = #"Fagotti"
 	\property Staff.instr = #"Fg."
 	\clef "bass";
 	%\property Staff.clefGlyph = #"clefs-F"

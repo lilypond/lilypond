@@ -25,15 +25,12 @@ clarinettoII =  \notes \relative c {
 	cis\sf r|
 	c1\sf|
 	b|
-	g2. as4\sf(|
-	)g2. as4\sf(|
-	)g2. as4\sf(|
-	)g2. as4\sf(|
-	)g4 r r2|
-	R1*9|
-	%a deux; urg: copied clarinetto-1(60,61)|
-	a'2.(bes4|
-	a g e)c|
+	g2. as4\sf|
+	g2. as4\sf|
+	g2. as4\sf|
+	g2. as4\sf|
+	g4 r r2|
+	R1*11|
 	c2\ff es,|
 	d1~|
 	d\p~|
