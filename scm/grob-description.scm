@@ -97,8 +97,10 @@
      . (
 	;; todo: clean this up a bit: the list is getting
 	;; rather long.
-	(molecule-callback . ,Beam::brew_molecule)
+	;(molecule-callback . ,Beam::brew_molecule)
+	(molecule-callback . ,New_beam::brew_molecule)
 	(concaveness-threshold . 0.08)
+	(position . (#f . #f))
 	(y-dy-callbacks . (,Beam::least_squares
 			   ,Beam::check_concave
 			   ,Beam::slope_damping
@@ -106,9 +108,21 @@
 			   ,Beam::user_override
 			   ,Beam::do_quantise_y))
 
+	(position-callbacks . (,New_beam::least_squares
+			       ,New_beam::check_concave
+			       ,New_beam::slope_damping
+			       ,New_beam::quantise_position
+			       ,New_beam::user_override))
+	
 	(thickness . 0.48) ; in staff-space
 	(before-line-breaking-callback . ,Beam::before_line_breaking)
-	(after-line-breaking-callback . ,Beam::after_line_breaking)
+	;;(after-line-breaking-callback . ,Beam::after_line_breaking)
+	(after-line-breaking-callback . (,New_beam::after_line_breaking
+					 ,New_beam::least_squares
+					 ,New_beam::check_concave
+					 ,New_beam::slope_damping
+					 ,New_beam::quantise_position
+					 ,New_beam::user_override))
 	(neutral-direction . -1)
 	(dir-function . ,beam-dir-majority)
 	(height-quant-function .  ,default-beam-dy-quants)

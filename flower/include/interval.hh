@@ -42,6 +42,7 @@ struct Interval_t : public Drul_array<T> {
   void intersect (Interval_t<T> h);
 
   T length () const;
+  T delta () const;
   void set_empty () ;
   bool empty_b () const { return elem (LEFT) > elem (RIGHT); }
   bool contains_b (Interval_t<T> const&) const;
@@ -85,8 +86,7 @@ struct Interval_t : public Drul_array<T> {
     elem (LEFT) = l;
     elem (RIGHT) =r;
   }
-private:
-
+  
   void swap ()
   {
     T t = elem (LEFT);
