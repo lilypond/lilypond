@@ -9,7 +9,6 @@
 
 
 #include "key.hh"
-#include "stcol.hh"
 #include "staff.hh"
 #include "staffwalker.hh"
 

@@ -7,7 +7,7 @@
 #include "pscore.hh"
 #include "bar.hh"
 #include "meter.hh"
-#include "sccol.hh"
+#include "scorecolumn.hh"
 #include "commandrequest.hh"
 
 const NO_LINES = 5;

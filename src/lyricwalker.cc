@@ -13,7 +13,7 @@
 #include "lyricwalker.hh"
 #include "debug.hh"
 #include "lyricitem.hh"
-#include "stcol.hh"
+#include "staffcolumn.hh"
 
 void
 Lyric_walker::process_requests()
