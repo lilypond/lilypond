@@ -37,7 +37,7 @@ two = \notes \relative c'' {
 	\context Voice=one \partcombine Voice
 		\context Thread=one \one
 		\context Thread=two \two
-    > ~
+    >
   >
   \paper {
     \translator {
