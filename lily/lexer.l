@@ -67,6 +67,7 @@ COMMENT		%.*\n
 
 
 
+<notes,INITIAL,lyrics>
 include           {
 	yy_push_state(incl);
 }
@@ -186,7 +187,7 @@ include           {
 <lyrics>[{}]	{
 	return YYText()[0];
 }
-<lyrics>[()\[\]|/.^>_-] {
+<lyrics>[()\[\]|/.^>;_-] {
 	return yylval.c = YYText()[0];
 }
 
@@ -228,6 +229,20 @@ include           {
 <notes>.	{
 	return yylval.c = YYText()[0];
 }
+<INITIAL,lyrics,notes>\\. {
+    char c= YYText()[1];
+    yylval.c = c;
+    switch (c) {
+    case '>':
+	return E_BIGGER;
+    case '<':
+	return E_SMALLER;
+    case '!':
+	return E_EXCLAMATION;
+    default:
+	return E_CHAR;
+    }
+}
 
 <*>.		{
 	LexerError( String( "illegal character: " ) +String( YYText()[0] ));
@@ -262,6 +277,12 @@ My_lily_lexer::scan_escaped_word(String str)
 		mtor << "(keyword)\n";
 		return l;
 	}
+	Identifier * id = lookup_identifier(str);
+	if (id) {
+		mtor << "(identifier)\n";
+		yylval.id = id;
+		return id->token_code_i_;
+	}
 	String *sp = new String( str);
 	yylval.string=sp;
 	return STRING;
@@ -270,13 +291,23 @@ int
 My_lily_lexer::scan_bare_word(String str)
 {
 	mtor << "word: `" << str<< "'\n";	
-	Identifier * id = lookup_identifier(str);
-	if (id) {
-		mtor << "(identifier)\n";
-		yylval.id = id;
-		return id->token_code_i_;
+	if (YYSTATE == notes){
+		Melodic_req * mel_l = lookup_melodic_req_l(str);
+		if (mel_l) {
+		    mtor << "(notename)\n";
+		    yylval.melreq = mel_l;
+		    return NOTENAME_ID;
+		}
 	}
-
+	if (YYSTATE != notes) {
+		// ugr. Should do this in note mode?
+		Identifier * id = lookup_identifier(str);
+		if (id) {
+			mtor << "(identifier)\n";
+			yylval.id = id;
+			return id->token_code_i_;
+		}
+	}
 	yylval.string=new String( str );
 	return STRING;
 }
