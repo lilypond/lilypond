@@ -20,27 +20,39 @@
     ".\\\\Unrestricted modification and redistribution is permitted
     and encouraged---copy this music and share it.}"
   tagline = \mutopiapublicdomain
-  lastupdated = "2000/Feb/14"
+  lastupdated = "2002/July/7"
+  footer = "Mutopia-2002/07/07-6"
+
 }
 
 
-% It would be nice to squeeze this onto two pages, but I am not sure
-% if it would work with US paper.
+%{
+ We really want this piece on 2 pages.
 
-\version "1.3.146"
+ tweaks:  we use 19 iso. 20 pt staff space, and squeeze up the spacing a bit.
 
-  
+ the few forced linebreaks were an earlier attempt to get the spacing
+ to match up.
+ 
+%}
+
+\include "paper19.ly"
+\version "1.5.65"
+
+
+
+
 dux =  \context Voice=two \notes \relative c''{
   \voiceTwo
   \clef violin
 
   r8 c16 b c8 g as c16 b c8 d |
   g, c16 b c8 d f,16 g as4 g16 f |
-  es c' b a g f! es d c8 es' d c |
+  es c' b a g f! es d c8 es' d c | \break 
   bes a bes c fis, g a fis |
 %%5
   g4 r16 c, d es f g as8~ as16 d, es f |
-  g a bes8 ~ bes16 es, f g as g f es d8 c'16 b! |
+  g a bes8 ~ bes16 es, f g as g f es d8 c'16 b! |  \break
           % forced accident!
   c4 r4 r8 f es d |
   r8 as g f g f16 es f8 d | 
@@ -63,13 +75,13 @@ dux =  \context Voice=two \notes \relative c''{
   d, g16 fis g8 a! c,16 d es4 d16 c |  % forced accident!
   bes8 r8 r16 d e fis g a bes8 ~ bes16 e, f g |
   a bes c8 ~ c16 fis,16 g a bes8 es,!16 d es8 g, |
+  \break 
   as f'16 es f8 a,8 bes g'16 f g8 b, |
 %%20
-  c16 f \translator Staff = bass
-  \stemBoth \stemUp
-     es d c bes! as g 
+  c16 f es d
+  \translator Staff = bass
+   c bes! as g 
   f8 \translator Staff = treble
-  \stemBoth \stemDown
   as' g f |
   es d es f b, c d b |
   c4 r8 e8 f f16 e f8 c |
@@ -89,6 +101,7 @@ dux =  \context Voice=two \notes \relative c''{
 
 comes =  \context Voice=one \notes \relative c'' {
   \voiceOne
+  \property Voice.MultiMeasureRest \override #'staff-position = #6 
   R1 |
   R1 |
   r8 g'16 fis g8 c, es g16 fis g8 a |
@@ -167,10 +180,9 @@ bassdux =  \context Voice=three \notes \relative c' {
   f,16 g as4 g16 f es4 r8 es' |
   d c g' g, 
 %%30
-  \context Staff=bass <
-    { \voiceOne c2 ~ | c1 ~ | c1 }
-    \context Voice=four { \voiceTwo  c,2 ~ | c1 ~ | c1 }
-  >
+  < {  c2 ~ | c1 ~ | c1 } \\
+    {   c,2 ~ | c1 ~ | c1 }
+  > 
 }
 
 \score {
@@ -179,7 +191,6 @@ bassdux =  \context Voice=three \notes \relative c' {
         \property Score.TimeSignature \override #'style = #'C
 	\context Staff = treble <
 	    \key c \minor
-%	\key es \major
 	    \dux
 	    { \comes \bar "|." }
 	      \time 4/4
@@ -192,6 +203,10 @@ bassdux =  \context Voice=three \notes \relative c' {
 
     \paper {
         linewidth = 18.0 \cm
+	\translator { \ScoreContext
+	SpacingSpanner \override #'spacing-increment = #1.0
+	SpacingSpanner \override #'shortest-duration-space = #1.9	
+	}
     }
     \header{
 	opus = "BWV 847"

@@ -139,7 +139,6 @@
     ((2 * * music 26) . "feta26")
     ((1 * * music 23) . "feta23")
     ((0 * * music 20) . "feta20")
-    ((-0.5 * * music 20) . "feta19")    
     ((-1 * * music 16) . "feta16")
     ((-2 * * music 13) . "feta13")
     ((-3 * * music 11) . "feta11")
@@ -148,7 +147,6 @@
     ((2 * * ancient 26) . "parmesan26")
     ((1 * * ancient 23) . "parmesan23")
     ((0 * * ancient 20) . "parmesan20")
-    ((-0.5 * * ancient 20) . "parmesan19")    
     ((-1 * * ancient 16) . "parmesan16")
     ((-2 * * ancient 13) . "parmesan13")
     ((-3 * * ancient 11) . "parmesan11")
@@ -166,6 +164,13 @@
   (cons (- (car font-desc) decrement) (cdr font-desc))
   )
 
+(define (change-rhs-size font-desc from to )
+  (cons (car font-desc)
+	(regexp-substitute/global #f from (cdr font-desc) 'pre to 'post))
+
+  )
+
+  
 ;; 
 (define (map-alist-keys func list)
   "map a  function FUNC over the keys of an alist LIST, leaving the vals. "
@@ -196,13 +201,19 @@
 		  '((paper11 . -3)
 		    (paper13 . -2)
 		    (paper16 . -1)
-		    (paper19 . -0.5)	
 		    (paper20 . 0)
 		    (paper23 . 1)
 		    (paper26 . 2)
 		    ))
   )
 
+(set! font-list-alist
+      (cons
+       (cons
+	'paper19
+	(map (lambda (x) (change-rhs-size x "20" "19"))
+	     paper20-style-sheet-alist))
+       font-list-alist))
 
 (define (make-style-sheet sym)
   `((fonts . ,(append paper-style-sheet-alist
