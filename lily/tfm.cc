@@ -1,5 +1,5 @@
 /*   
-  tfm.cc --  implement Tex_font_metric
+  tfm.cc -- implement Tex_font_metric
   
   source file of the GNU LilyPond music typesetter
   
@@ -18,6 +18,13 @@
 Box
 Tex_font_char_metric::dimensions () const
 {
+  if (!exists_b_)
+    {
+      Box b;
+      b.set_empty ();
+      return b;
+    }
+  
   Real d = -depth_;
   return Box (Interval (0, width_),Interval ( d <? height_, d >? height_));
 }
@@ -66,7 +73,6 @@ Tex_font_metric::find_ascii (int ascii, bool warn) const
   if (ascii < ascii_to_metric_idx_.size() && ascii_to_metric_idx_[ascii] >= 0)
     return & char_metrics_[ascii_to_metric_idx_ [ascii]];
   else if (warn)
-
     {
       warning (_f ("can't find ascii character %d", ascii));
     }
