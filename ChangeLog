@@ -5,6 +5,9 @@
 
 	* Documentation/index.html.in: bugfix: link to Tutorial.html
 
+	* input/puer-fragment.ly: bugfix: assigment of syllables "no-bis"
+	to neumes
+
 2003-08-12  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el: split `Insert Tag' if it is long enough.
