@@ -30,7 +30,7 @@ LY_DEFINE(ly_set_molecule_extent_x,"ly:set-molecule-extent!", 3 , 0, 0,
 }
 
 
-LY_DEFINE(ly_translate_molecule,"ly:molecule-translate-axis", 3, 0, 0, 
+LY_DEFINE(ly_translate_molecule_axis,"ly:molecule-translate-axis", 3, 0, 0, 
 	  (SCM mol, SCM amount, SCM axis),
 	  "Return a @var{mol}, but translated by @var{amount} in @var{axis} direction")
 {
@@ -43,6 +43,20 @@ LY_DEFINE(ly_translate_molecule,"ly:molecule-translate-axis", 3, 0, 0,
   Molecule q (*m);
   q.translate_axis (gh_scm2double (amount), Axis (gh_scm2int (axis)));
 
+  return q.smobbed_copy();
+}
+
+LY_DEFINE(ly_translate_molecule,"ly:molecule-translate", 2, 0, 0, 
+	  (SCM mol, SCM offset),
+	  "Return a @var{mol}, but translated by @var{offset} (a pair of numbers).")
+{
+  Molecule* m = unsmob_molecule (mol);
+  SCM_ASSERT_TYPE (m, mol, SCM_ARG1, __FUNCTION__, "molecule");
+  SCM_ASSERT_TYPE (ly_number_pair_p (offset), offset, SCM_ARG2, __FUNCTION__, "number pair");
+  Offset o = ly_scm2offset (offset);
+  
+  Molecule q (*m);
+  q.translate (o);
   return q.smobbed_copy();
 }
 

@@ -1,3 +1,22 @@
+2002-12-09  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/test/markup.ly: use new syntax.
+
+2002-12-08  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* ly/params-init.ly (interscoreline): add word-space
+
+	* input/test/metronome.ly (eighthNote): idem.
+
+	* input/test/script-priority.ly: use new markup
+
+	* lily/parser.yy (markup): allow HEAD markup0 markup1 
+
+	* lily/molecule-scheme.cc (ly:molecule-translate): new function.
+
+	* lily/parser.yy (gen_text_def): bugfix.
+	(full_markup): allow markup identifier.
+
 2002-12-09  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el (LilyPond-kill-job): Kill all Lilypond compiling

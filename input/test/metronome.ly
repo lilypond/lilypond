@@ -13,13 +13,17 @@
 %
 % FIXME: put in an item, and typeset by an engraver.
 
-#(define note '(columns (music "noteheads-2" ((kern . -0.1) "flags-stem"))))
-#(define eight-note `(columns ,note ((kern . -0.1) (music ((raise . 3.5) "flags-u3")))))
-#(define dotted-eight-note `(columns ,eight-note (music "dots-dot")))
+eigthStem = \markup \combine
+	\musicglyph #"flags-stem"
+	\translate #'(0.0 . 3.5) \musicglyph #"flags-u3"
+eighthNote = \markup
+	\override #'(word-space . 0.0)
+	{ \musicglyph #"noteheads-2"
+	  \translate #'(-0.05 . 0.1) \eigthStem }
 
 \score {
   \notes\relative c'' {
-    a1^#`((columns (font-relative-size . -1)) ,dotted-eight-note " = 64")
+    a1^\markup { \magnify #0.9 \eighthNote " = 64" }
   }
   \paper {
     linewidth = -1.

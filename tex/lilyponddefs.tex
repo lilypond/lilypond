@@ -123,8 +123,6 @@
   \lilypondnext
 }
 
-\newread\lilypondinput
-
 % the following macro is executed only once
 \gdef\lilypondspecial{
   \special{header=music-drawing-routines.ps}
@@ -189,7 +187,7 @@
       {\input lily-ps-defs }
       {
         \pdfoutput = 1
-        \input lily-pdf-defs
+        \input lily-pdf-defs %
       }
   }
   {}

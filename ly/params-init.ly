@@ -53,13 +53,14 @@ interscoreline = 4. \mm
 
 
 %%
-%% TODO: baseline-skip should come from the font.
+%% TODO: baseline-skip, word-space should come from the font.
 %%
 #(define font-defaults
       '((font-family . music)
 	(font-relative-size . 0)
 	(font-shape . upright)
-	(baseline-skip . 2) 
+	(baseline-skip . 2)
+	(word-space . 0.6)
 	(font-series . medium)
 	))
 

@@ -1,23 +1,16 @@
 \version "1.7.6"
-
-
-%
-% Test font selection and scm text markup
-%
+\header {
+texidoc = "Test font selection and scm text markup"
+}
 
 \score{
   \notes\relative c''{
-    c'1^#'(columns (dynamic "p") " ma sosten.") 
-    c^#'(bold "ABCD")
-    c^#'(columns "Dal " (music "scripts-segno")) 
-    c^#'(Large "ABCD") 
-    \break
     \property Voice . TextScript \override #'font-shape = #'upright
-    c1^#'(columns (dynamic "p") " ma sosten.")  
-    c^#'(bold "ABCD")
+    c1^\markup { \dynamic "p" "ma sosten." }  
+    c^\markup \Large "ABCD" 
     \property Voice . TextScript \override #'font-series = #'bold
-    c^#'(columns "Dal " (music "scripts-segno")) 
-    c^#'(Large "ABCD")
+    c^\markup { \bold "Dal" " " \raise #0.8 \musicglyph #"scripts-segno" }
+    c^\markup \huge "ABCD"
   }
 }
 %% new-chords-done %%
