@@ -65,12 +65,8 @@ Simple_file_storage::load_file (String s)
   Should check IO status
 
   This is of course a build it yourself version of mmap, so we should
-  have been using that... (see Mapped_file_storage) But we noticed
-  some problems with this (unexplained lexer crashes)
-
-  [Some versions later] The crashes aren't caused by the mmap
-  code. But no reason to take it out, is there?  mmap ()
-
+  have been using that..., but this is simple & portable
+  
 */
 
 Simple_file_storage::Simple_file_storage (String s)
