@@ -1,3 +1,7 @@
+2004-04-01  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* input/test/cadenza-skip.ly:  new file.
+
 2004-03-31  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* po/nl.po: Spelling fixes.
