@@ -5,7 +5,8 @@ A hammer in tablature can be faked with slurs. "
 } 
 
 \score{
-  \context TabStaff <<
+  %BROKEN \context TabStaff
+  <<
 	\relative c''{
 		c(d)
 		d(d)

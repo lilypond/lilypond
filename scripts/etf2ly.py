@@ -1178,7 +1178,7 @@ This is free software.  It is covered by the GNU General Public License,
 and you are welcome to change it and/or distribute copies of it under
 certain conditions.  Invoke as `midi2ly --warranty' for more information.
 
-Copyright (c) 2000--2004 by Han-Wen Nienhuys <hanwen@cs.uu.nl>
+Copyright (c) 2000--2005 by Han-Wen Nienhuys <hanwen@cs.uu.nl>
 """ % version)
 
 

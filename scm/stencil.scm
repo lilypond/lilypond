@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c)  2003--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;; (c) 2003--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 (define-public (stack-stencils axis dir padding stils)
   "Stack stencils STILS in direction AXIS, DIR, using PADDING."

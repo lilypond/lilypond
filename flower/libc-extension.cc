@@ -4,7 +4,7 @@
 
   source file of the flowerlib
 
-  (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
          Jan Nieuwenhuizen <janneke@gnu.org>
 */
 

@@ -1,6 +1,6 @@
 % solfa.mf - implements solfa shaped notes
 %
-% (c) 2001--2004 Glen Prideaux <glenprideaux@iname.com>
+% (c) 2001--2005 Glen Prideaux <glenprideaux@iname.com>
 
 % We can use the regular distorted-elliptical head in the feta font
 % for the sol head, but we can't use the triangle or diamond heads for

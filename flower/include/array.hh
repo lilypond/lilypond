@@ -1,5 +1,5 @@
 /*
-  (c) 1995--2004 Han-Wen Nienhuys
+  (c) 1995--2005 Han-Wen Nienhuys
 
   Distributed under GNU GPL  
 */
