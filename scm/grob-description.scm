@@ -486,6 +486,7 @@
 	(direction . 1)
 	(breakable . #t)
 	(font-family . roman)
+	(baseline-skip . 2)
 	(break-visibility . ,end-of-line-invisible)
 	(padding . 0.8)
 	(meta . ((interfaces . (text-interface side-position-interface font-interface mark-interface self-alignment-interface item-interface ))))
