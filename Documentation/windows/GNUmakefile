@@ -27,7 +27,7 @@ $(outdir)/%.sh: %.sh
 	chmod 755 $@
 
 # Urg
-$(outdir)/lilypond-profile.sh: $(outdir)/../$(depth)/buildscripts/out/lilypond-profile
+$(outdir)/lilypond-profile.sh: $(outdir)/../$(depth)/buildscripts/$(outconfbase)/lilypond-profile
 	cp $< $@
 	chmod 755 $@
 

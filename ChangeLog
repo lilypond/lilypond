@@ -1,3 +1,13 @@
+2002-06-12  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* stepmake/stepmake/generic-vars.make: 
+	* make/lilypond-vars.make:
+	* GNUmakefile.in (builddir-setup): New setup for builddir run.
+	Fixes LilyPond run from builddir for --srcdir builds.
+
+	* Documentation/windows/GNUmakefile (OUT_PROFILES): Bugfix for
+	--srcdir build.
+
 2002-06-12  Han-Wen  <hanwen@cs.uu.nl>
 
 	* scm/grob-description.scm (all-grob-descriptions): add

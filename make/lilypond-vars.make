@@ -2,8 +2,21 @@
 ## settings to run LilyPond
 
 
-export PATH:=$(topdir)/lily/out:$(topdir)/buildscripts/out:$(PATH)
-export TEXMF:={$(topdir),$(shell kpsexpand \$$TEXMF)}
+export PATH:=$(abs-builddir)/lily/$(outconfbase):$(abs-builddir)/buildscripts/$(outconfbase):$(PATH)
+
+# LilyPond is often run from within $(outdir), making a relative
+# PREFIX incorrect.
+export LILYPONDPREFIX:=$(shell cd $(depth)/$(builddir)/share/lilypond/$(TOPLEVEL_VERSION); pwd)
+
+export PYTHONPATH:=$(topdir)/python:$(PYTHONPATH)
+
+## arg, TEXINPUTS, TFMFONTS, MFINPUTS may still override and thus break this
+export TEXMF:={$(LILYPONDPREFIX),$(shell kpsexpand \$$TEXMF)}
+
+export MFINPUTS:=
+export TEXINPUTS:=
+export TFMFONTS:=
+
 
 export extra_mem_top=1000000
 export extra_mem_bottom=1000000
@@ -16,13 +29,6 @@ export MT_DESTROOT := $(topdir)/mf/out
 export DVIPSMAKEPK := mktexpk --destdir $(topdir)/mf/out
 endif
 
-# don't change to "depth". It makes the GUILE barf.
-#
-# LilyPond is often run from within $(outdir), making a relative
-# PREFIX incorrect.
-export LILYPONDPREFIX:=$(shell cd $(depth)/ ; pwd)
-
-export PYTHONPATH:=$(topdir)/python:$(PYTHONPATH)
 
 # guile load path?
 
@@ -35,9 +41,9 @@ ifneq ($(the-script-dir),)
 
 ABC2LY = $(script-dir)/abc2ly.py
 CONVERT_LY = $(script-dir)/convert-ly.py
-LILYPOND = $(depth)/$(builddir)/lily/$(outconfbase)/lilypond
+LILYPOND = $(abs-builddir)/lily/$(outconfbase)/lilypond
 LILYPOND_BOOK = $(script-dir)/lilypond-book.py
-LILYPOND_BOOK_INCLUDES = -I $(pwd) -I $(outdir) -I$(input-dir) -I $(input-dir)/tricks/ -I $(input-dir)/regression/ -I $(input-dir)/test/ -I $(input-dir)/tutorial/ -I $(depth)/$(builddir)/mf/$(outconfbase)/  -I $(depth)/$(builddir)/mf/out/
+LILYPOND_BOOK_INCLUDES = -I $(pwd) -I $(outdir) -I$(input-dir) -I $(input-dir)/tricks/ -I $(input-dir)/regression/ -I $(input-dir)/test/ -I $(input-dir)/tutorial/ -I $(abs-builddir)/mf/$(outconfbase)/  -I $(abs-builddir)/mf/out/
 LY2DVI = $(script-dir)/ly2dvi.py
 LYS_TO_TELY = $(buildscript-dir)/lys-to-tely.py
 PS_TO_GIFS = $(buildscript-dir)/ps-to-gifs.sh
