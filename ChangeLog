@@ -1,3 +1,16 @@
+2004-07-27  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/parser.yy (context_def_mod): remove \consistsend
+
+	* lily/context-def.cc (instantiate): use Translator::must_be_last
+	to determine engraver order.
+
+	* lily/translator.cc (must_be_last): new function
+
+	* scripts/convert-ly.py (conv): rule.
+
+	* lily/bar-line.cc (print): return '() for height == 0.0 too.
+
 2004-07-27  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* input/regression/{stanza-number,volta-multi-staff}.ly: fix docs.

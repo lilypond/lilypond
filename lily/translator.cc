@@ -24,6 +24,7 @@ Translator::~Translator ()
 void
 Translator::init ()
 {
+  must_be_last_ = false;
   self_scm_ = SCM_EOL;
   simple_trans_list_ = SCM_BOOL_F;
   daddy_context_ =0;
@@ -46,9 +47,10 @@ Translator::Translator ()
   init ();
 }
 
-Translator::Translator (Translator const &)
+Translator::Translator (Translator const &src)
 {
   init ();
+  must_be_last_ = src.must_be_last_;
 }
 
 bool
@@ -157,3 +159,10 @@ Translator::static_translator_description ()const
 IMPLEMENT_SMOBS (Translator);
 IMPLEMENT_DEFAULT_EQUAL_P (Translator);
 IMPLEMENT_TYPE_P (Translator,"ly:translator?");
+
+bool
+Translator::must_be_last () const
+{
+  return must_be_last_;
+}
+

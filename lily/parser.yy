@@ -257,7 +257,6 @@ or
 %token CLEF
 %token COMMANDSPANREQUEST
 %token CONSISTS
-%token CONSISTSEND
 %token CONTEXT
 %token DEFAULT
 %token DENIES
@@ -1276,8 +1275,7 @@ property_operation:
 	;
 
 context_def_mod:
-	CONSISTSEND { $$ = ly_symbol2scm ("consists-end"); }
-	| CONSISTS { $$ = ly_symbol2scm ("consists"); }
+	CONSISTS { $$ = ly_symbol2scm ("consists"); }
 	| REMOVE { $$ = ly_symbol2scm ("remove"); }
 
 	| ACCEPTS { $$ = ly_symbol2scm ("accepts"); }
