@@ -31,13 +31,15 @@ protected:
   virtual void finalize ();
   virtual void stop_translation_timestep ();
   virtual void process_music ();
-  virtual void process_acknowledged_grobs ();
   
   Moment started_mom_;
   Spanner *volta_span_;
   Spanner *end_volta_span_;
   SCM staff_;
   SCM start_string_;
+
+  bool staff_eligible ();
+ 
 };
 
 Volta_engraver::Volta_engraver ()
@@ -48,11 +50,23 @@ Volta_engraver::Volta_engraver ()
 }
 
 
-void
-Volta_engraver::process_music ()
+/*
+  TODO: this logic should be rewritten, it is buggy.
+
+  One of the problems is that we can't determine wether or not to
+  print the volta bracket during the first step, since that requires
+  acknowledging the staff.
+ */
+bool
+Volta_engraver::staff_eligible ()
 {
-  if (unsmob_grob (staff_)
-      && !to_boolean (get_property ("voltaOnThisStaff")))
+  /*
+    UGH.
+   */
+  if (!unsmob_grob (staff_))
+    return true;
+  
+  if (!to_boolean (get_property ("voltaOnThisStaff")))
     {
       /*
 	TODO: this does weird things when you open a piece with a
@@ -69,14 +83,27 @@ Volta_engraver::process_music ()
 	
       */
       if (!gh_pair_p (staffs))
-	programming_error ("Huh? Volta engraver can't find staffs?");
+	{
+	  programming_error ("Huh? Volta engraver can't find staffs?");
+	  return false;
+	}
       else if (ly_car (scm_last_pair (staffs)) != staff_)
-	return ;
+	{
+	  return false;
+	}
     }
-	
-  
+  return true;
+}
+
+void
+Volta_engraver::process_music ()
+{
   SCM cs = get_property ("repeatCommands");
 
+  if (!staff_eligible ())
+    return ; 
+
+    
   bool  end = false;
   start_string_ = SCM_EOL;
   while (gh_pair_p (cs))
@@ -132,14 +159,7 @@ Volta_engraver::process_music ()
       end_volta_span_ = volta_span_;
       volta_span_ = 0;
     }
-}
 
-/*
-  this could just as well be done in process_music (), but what the hack.
- */
-void
-Volta_engraver::process_acknowledged_grobs ()
-{
   if (!volta_span_ && 
       (gh_string_p (start_string_) || gh_pair_p (start_string_)))
     {
@@ -151,6 +171,7 @@ Volta_engraver::process_acknowledged_grobs ()
       volta_span_->set_grob_property ("text", start_string_);
     }
 }
+
 
 void
 Volta_engraver::acknowledge_grob (Grob_info i)
@@ -201,6 +222,19 @@ Volta_engraver::finalize ()
 void 
 Volta_engraver::stop_translation_timestep ()
 {
+  if (volta_span_ && !staff_eligible ())
+    {
+      /*
+	THIS IS A KLUDGE.
+
+	we need to do this here, because STAFF_ is not initialized yet
+	in the 1st call of process_music()
+      */
+      
+      volta_span_->suicide( );
+      volta_span_ = 0;
+    }
+  
   if (end_volta_span_)
     {
       typeset_grob (end_volta_span_);
