@@ -37,7 +37,6 @@ public:
   Molecule ledger_line (Interval) const;
   Molecule fill (Box b) const;
   Molecule filledbox (Box b) const;  
-  Molecule flag (int, Direction) const;
   Molecule hairpin (Real width, Real height, bool decresc, bool continued) const;
   Molecule tuplet_bracket (Real dy, Real dx, Real thick,Real interline, Direction dir) const;
   Molecule rest (int, bool outside, String) const;
