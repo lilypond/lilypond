@@ -10,26 +10,26 @@ Rhythmic_grouping::OK()const
     for (int i= 0; i < children.sz(); i++) {
 	children[i]->OK();
 	if (i>0)
-	    assert(children[i-1]->interval().max ==
-		   children[i]->interval().min);
+	    assert(children[i-1]->interval().right ==
+		   children[i]->interval().left);
     }
 }
 
-Real
+Moment
 Rhythmic_grouping::length() const
 {
     return interval().length();
 }
 
-Interval
+MInterval
 Rhythmic_grouping::interval()const
 {
     if (interval_)
 	return *interval_;
     else
 	return
-	    Interval(children[0]->interval().min,
-		     children.last()->interval().max);
+	    MInterval(children[0]->interval().left,
+		     children.last()->interval().right);
 }
 
 void
@@ -50,14 +50,14 @@ Rhythmic_grouping::split(Rhythmic_grouping r)
 }
 
 
-svec<Interval>
+svec<MInterval>
 Rhythmic_grouping::intervals()
 {
-    svec<Interval> r;
+    svec<MInterval> r;
     if (interval_ || children.sz() == 1) {
-	Interval i(interval());
-	Interval r1(i), r2(i);
-	r1.max = r2.min = i.center();
+	MInterval i(interval());
+	MInterval r1(i), r2(i);
+	r1.right = r2.left = i.center();
 	r.add(r1); r.add(r2);
     } else {
 	for (int i=0; i < children.sz(); i++)
@@ -66,20 +66,20 @@ Rhythmic_grouping::intervals()
     return r;
 }
 
-Rhythmic_grouping::Rhythmic_grouping(Interval t, int n)
+Rhythmic_grouping::Rhythmic_grouping(MInterval t, int n)
 {
     if (n == 1 || !n) {
-	interval_ = new Interval(t);
+	interval_ = new MInterval(t);
 	return;
     }
-    Real dt = t.length()/n;
-    Interval basic = Interval(t.min, t.min+dt);
+    Moment dt = t.length()/n;
+    MInterval basic = MInterval(t.left, t.left+dt);
     for (int i= 0; i < n; i++)
 	children.add(new Rhythmic_grouping( dt*i + basic ));
 }
 
 void
-Rhythmic_grouping::intersect(Interval t)
+Rhythmic_grouping::intersect(MInterval t)
 {
     if (interval_) {
 	interval_->intersect(t);
@@ -87,8 +87,8 @@ Rhythmic_grouping::intersect(Interval t)
     }
     
     for (int i=0; i < children.sz(); i++) {
-	Interval inter = intersection(t, children[i]->interval());
-	if (inter.empty() || inter.length() < 1e-8) {
+	MInterval inter = intersection(t, children[i]->interval());
+	if (inter.empty() || inter.length() <= 0) {
 	    delete children[i];
 	    children[i] =0;
 	} else {
@@ -105,7 +105,7 @@ Rhythmic_grouping::intersect(Interval t)
 }
 
 void
-Rhythmic_grouping::split(svec<Interval> splitpoints)
+Rhythmic_grouping::split(svec<MInterval> splitpoints)
 {
     //check on splitpoints..
     int j = 0, i=0, starti = 0, startj = 0;
@@ -115,11 +115,11 @@ Rhythmic_grouping::split(svec<Interval> splitpoints)
 	if  ( i >= children.sz() || j >= splitpoints.sz())
 	    break;
 	
-	assert( distance(
-	    children[starti]->interval().min, splitpoints[startj].min)<1e-8);
-		if (children[i]->interval().max < splitpoints[j].max - 1e-8) {
+	assert( 
+	    children[starti]->interval().left== splitpoints[startj].left);
+		if (children[i]->interval().right < splitpoints[j].right) {
 	    i ++;
-	} else if (children[i]->interval().max > splitpoints[j].max + 1e-8) {
+	} else if (children[i]->interval().right > splitpoints[j].right ) {
 	    j ++;
 	} else {
 
@@ -157,7 +157,7 @@ Rhythmic_grouping::~Rhythmic_grouping()
 void
 Rhythmic_grouping::copy(Rhythmic_grouping const&s)
 {
-    interval_ =  (s.interval_)? new Interval(*s.interval_) : 0;
+    interval_ =  (s.interval_)? new MInterval(*s.interval_) : 0;
     for (int i=0; i < s.children.sz(); i++)
        children.add(new Rhythmic_grouping(*s.children[i]));
 }
@@ -199,20 +199,20 @@ Rhythmic_grouping::print()const
 }
 
 void
-Rhythmic_grouping::add_child(Real start, Real len)
+Rhythmic_grouping::add_child(Moment start, Moment len)
 {
-    Real stop = start+len;
+    Moment stop = start+len;
     for (int i=0; i < children.sz(); i ++) {
-	Interval j=children[i]->interval();
-	if (distance (j.min, start)<1e-8 && distance (j.max, stop)<1e-8) {
+	MInterval j=children[i]->interval();
+	if (j.left == start && j.right==stop) {
 	    return;
 	}
     }
     
     if (children.sz())
-	assert ( distance(children.last()->interval().max , start) < 1e-8);
+	assert ( children.last()->interval().right== start);
 
-    children.add(new Rhythmic_grouping(Interval(start, stop)));
+    children.add(new Rhythmic_grouping(MInterval(start, stop)));
 }
 
 Rhythmic_grouping::Rhythmic_grouping()
