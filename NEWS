@@ -24,6 +24,14 @@ music. Combined with this: uniform postfix syntax for articulations:
 
 for a beamed slurred pair of eighth notes.
 
+*NOTE* In version 2.0, this syntax will be changed to
+
+    < PITCHES >  for chords
+
+and
+
+   \simultaneous { .. } for simultaneous music.
+
 ** User code evaluation during interpreting. Syntax
 
 	\applycontext #SCHEME-FUNCTION
@@ -39,6 +47,8 @@ for a beamed slurred pair of eighth notes.
 
 
 * NOTATION
+
+** Ancient notation ... ?? ...  (Jurgen?)
 
 ** Completely rewritten text formatting support. It is implemented in a
 completely modular way.
