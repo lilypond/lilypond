@@ -15,7 +15,11 @@ texidoc = "@cindex Orchestra Score
 Demonstration of how to set up an orchestral score (Beethoven's Coriolan overture).
 " }
 
+\include "paper16.ly"
+
 raisedFlat = \markup { \raise #0.4 \smaller \smaller \musicglyph #"accidentals--1"  }
+
+
 
 flauti = \notes \relative c' {
   \property Staff.instrument	= #"2 Flauti"

@@ -74,13 +74,29 @@ System_start_delimiter::after_line_breaking (SCM smob)
 {
   Grob * me = unsmob_grob (smob);
   SCM   gl = me->get_grob_property ("glyph");
-
-  if (scm_ilength (me->get_grob_property ("elements")) <=  1
-      && gh_equal_p (gl,scm_makfrom0str ("bar-line")))
+  if (gh_equal_p (gl,scm_makfrom0str ("bar-line")))
     {
-      me->suicide ();
-    }
+      int count = 0;
 
+      /*
+	Get all coordinates, to trigger Hara kiri. 
+      */
+      SCM elts = me->get_grob_property ("elements");
+      Grob *common = common_refpoint_of_list (elts, me, Y_AXIS);
+      for (SCM s = elts; gh_pair_p (s); s = gh_cdr (s))
+	{
+	  Interval v = unsmob_grob (gh_car (s))->extent (common, Y_AXIS);
+
+	  if (!v.empty_b ())
+	    count ++;
+	}
+  
+  
+      if (count <=  1)
+	{
+	  me->suicide ();
+	}
+    }
   return SCM_UNSPECIFIED;
 }
 
