@@ -1,3 +1,4 @@
+#include "idealspacing.hh"
 #include "tstream.hh"
 #include "score.hh"
 #include "pscore.hh"
@@ -37,11 +38,11 @@ Score::connect(PCol* c1, PCol *c2, Real d, Real h)
 void
 Score::calc_idealspacing()
 {
-    PCursor<Score_column*> i(cols_);
+    iter_top(cols_,i);
 
     for (; i.ok(); i++) {
 	assert(i->used());
-	PCursor<Score_column*> j (i+1);
+	PCursor<Score_column*> j(i+1);
 	if (i->musical) {
 	    assert(j.ok());
 	    for (int n=0; n < i->durations.sz(); n++) {

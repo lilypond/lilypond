@@ -1,0 +1,37 @@
+/*
+  script.hh -- part of LilyPond
+
+  (c) 1996 Han-Wen Nienhuys
+*/
+
+#ifndef SCRIPT_HH
+#define SCRIPT_HH
+
+#include "scriptdef.hh"
+#include "item.hh"
+  
+struct Script : Item{
+    int dir;
+    int symdir;
+    int pos;
+    int staffsize;
+    Script_def*specs;
+    Stem * stem_;
+    Item * support;
+
+    /****************/
+    
+    void    	set_symdir();
+    void	set_default_dir();
+    void	set_default_pos();
+
+    Molecule*	brew_molecule()const;
+    virtual void do_post_processing();
+    virtual void do_pre_processing();
+    Script(Script_req*, Item*,int,Stem*p=0);
+    virtual Interval width() const;    
+};
+
+
+#endif // SCRIPT_HH
+

@@ -33,7 +33,7 @@ struct My_flex_lexer : yyFlexLexer {
     /****************/
     
     void set(Notename_tab *n);
-    int     lookup_keyword(String);
+    int lookup_keyword(String);
     void lookup_notename(int &large, int &small, String s);
     void LexerError(const char *);
     Identifier*lookup_identifier(String s);

@@ -47,7 +47,7 @@ Input_file::Input_file(String s)
 	is = new ifstream( s );
     
    if ( ! *is) {
-	String e("cant open "  + s);
+	String e("can\'t open `"  + s+"\'");
       error(e);
    }
    cout << "["<<s<<flush;

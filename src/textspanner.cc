@@ -1,22 +1,18 @@
-#include "paper.hh"
 #include "molecule.hh"
-#include "lookup.hh"
 #include "boxes.hh"
 #include "textspanner.hh"
+#include "textdef.hh"
 
 Text_spanner::Text_spanner(Directional_spanner*d)
 {
     support = d;
-    align = 0;
-    style = "roman";
+    dependencies.add(d);
 }
 
 void
-Text_spanner::process()
+Text_spanner::do_post_processing()
 {
-    Offset tpos;
-
-    switch(align) {
+    switch(spec.align) {
     case 0:
 	tpos = support->center();
 	break;
@@ -25,16 +21,24 @@ Text_spanner::process()
 	break;
     }
     
-    Paperdef *pap_p = paper();
     
-    Atom tsym (pap_p->lookup_->text(style, text, -align));
-    tsym.translate(tpos);
-    output = new Molecule;
-    output->add( tsym );    
 }
+Molecule*
+Text_spanner::brew_molecule() const
+{
+    Atom tsym (spec.create(paper()));
+    tsym.translate(tpos);
 
+    Molecule*output = new Molecule;
+    output->add( tsym );
+    return output;
+}
 void
-Text_spanner::preprocess()
+Text_spanner::print() const	// todo
+{
+}
+void
+Text_spanner::do_pre_processing()
 {
     right = support->right;
     left = support->left;
@@ -44,14 +48,11 @@ Text_spanner::preprocess()
 Interval
 Text_spanner::height()const
 {
-    return output->extent().y;
+    return brew_molecule()->extent().y;
 }
 
 Spanner*
-Text_spanner::broken_at(PCol*c1, PCol*c2)const
+Text_spanner::do_break_at(PCol*c1, PCol*c2)const
 {
-    Text_spanner *n=new Text_spanner(*this);
-    n->left = c1;
-    n->right = c2;
-    return n;
+    return new Text_spanner(*this);    
 }

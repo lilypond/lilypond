@@ -1,12 +1,12 @@
 # class name		silence?
 
-My_flex_lexer		0
+My_flex_lexer		1
 yyFlexLexer		1
 PCol			1
 Score_column		1
 Ineq_constrained_qp 	1
-Spacing_problem 	1
-Colinfo			1
+Spacing_problem 	0
+Colinfo			0
 Mixed_qp		1
 PScore			1
 Idealspacing		1
@@ -25,14 +25,14 @@ Note_req		1
 Rhythmic_req		1
 Rest_req		1
 delete_identifiers	1
-Command			0
-Staff_commands		0
-Stem			0
-Staff			0
-Score			0
-Voice			0
+Command			1
+Staff_commands		1
+Stem			1
+Staff			1
+Score			1
+Voice			1
 Voice_element		1
 Input_cursor		1
 Commands_at		1
 Input_command		1
-Moment		0
+Time_description	1	

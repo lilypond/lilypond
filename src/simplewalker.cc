@@ -1,7 +1,8 @@
 /*
   UGR
   */
-
+#include "textspanner.hh"
+#include "script.hh"
 #include "request.hh"
 #include "voice.hh"
 #include "clef.hh"
@@ -19,11 +20,11 @@
 #include "keyitem.hh"
 #include "slur.hh"
 #include "localkeyitem.hh"
+#include "textitem.hh"
 
 Rhythmic_grouping
 parse_grouping(svec<Scalar> a, Moment one_beat)
 {
-    
     svec<int> r;
     for (int i= 0 ; i < a.sz(); i++)
 	r.add(a[i]);
@@ -47,13 +48,14 @@ Simple_walker::do_INTERPRET_command(Command*com)
     svec<Scalar> args(com->args);
     args.del(0);
     if (com->args[0] == "GROUPING") {	
-	default_grouping = parse_grouping(args, col()->tdescription_->one_beat);
+	default_grouping = parse_grouping(args,
+					  col()->tdescription_->one_beat);
     }else if (com->args[0] == "BAR") {
 	local_key_.reset(key_);
 
     } else if (com->args[0] == "KEY") {
 	
-	if (col()->when()) {
+	if (col()->when() > Moment(0)) {
 	    assert(!oldkey_undo);
 	    oldkey_undo = new svec<int>( key_.oldkey_undo(args));
 	}
@@ -76,7 +78,7 @@ Simple_walker::do_TYPESET_command(Command*com)
 	if (processed_key) 
 	    return;
 	else
-	    com->args[0] = "KEY"; 
+	    com->args[0] = "KEY"; // urgh
     
     if (com->args[0] == "CURRENTCLEF") {
 	if (processed_clef) 
@@ -95,6 +97,7 @@ Simple_walker::do_TYPESET_command(Command*com)
 	    oldkey_undo = 0;
 	}
 	processed_key = true;
+	
 	((Keyitem*) i)->read(typesetkey); // ugh	
     }
 
@@ -108,7 +111,7 @@ Simple_walker::do_TYPESET_command(Command*com)
 }
 
 void
-Simple_walker::do_local_key(Note_req*n)
+Simple_walker::do_local_key(Note_req*n,Notehead* head_p)
 {
     if ( local_key_.oct(n->octave).acc(n->name) != n->accidental) {
 	if (!local_key_item_) {
@@ -116,26 +119,27 @@ Simple_walker::do_local_key(Note_req*n)
 	    local_key_item_->c0_position = clef_.c0_pos;
 	}
 	
-	local_key_item_->add(n->octave, n->name, n->accidental);	
+	local_key_item_->add(n->octave, n->name, n->accidental, head_p);
 	local_key_.oct(n->octave).set(n->name, n->accidental);
     }
 }
 
 void
-Simple_walker::do_note(Rhythmic_req*rq)
+Simple_walker::do_note(Note_info n)
 {
     Simple_column*c = col();
     Simple_staff *s = staff();
-    
-    if (rq->note()) {
-	Note_req * req = rq->note() ;
+    	Item*rhythmic=0;
+    if (n.rq->note()) {
+	Note_req * req = n.rq->note() ;
 	const Voice *v = req->elt->voice_;
-	
+
 	Notehead*n = s->get_notehead(req, clef_.c0_pos);
+	rhythmic=n;
 	stem_->add(n);
 	if (current_grouping) {
 	    current_grouping->add_child(
-		c->tdescription_->whole_in_measure, rq->duration());
+		c->tdescription_->whole_in_measure, req->duration());
 	}
 	noteheads.add(n);
 	int sidx =find_slur(v);
@@ -144,12 +148,13 @@ Simple_walker::do_note(Rhythmic_req*rq)
 	}
 
 	if (wantkey)
-	    do_local_key(req);
+	    do_local_key(req,n);
+    }else if (n.rq->rest()) {
+	rhythmic = s->get_rest(n.rq->rest());
+	c->typeset_item(rhythmic);
     }
-
-    if (rq->rest()) {
-	c->typeset_item( s->get_rest(rq->rest()) );
-    }      
+    for (int i= 0; i < n.scripts.size(); i ++)
+	c->typeset_item(new Script(n.scripts[i], rhythmic, 10, stem_));	// UGR
 }
 
 void
@@ -157,6 +162,7 @@ Simple_walker::process_requests()
 {
     Simple_column*c = col();
     Simple_staff *s = staff();
+
     if (c->beam_&& c->beam_->spantype == Span_req::START) {
 	if (beam_)
 	    error("Too many beams (t = "
@@ -164,6 +170,7 @@ Simple_walker::process_requests()
 	beam_ = new Beam;
 	current_grouping = new Rhythmic_grouping;
     }
+    
     for (int i=0; i < c->slurs.sz(); i++) {
 	Slur_req*sl = c->slurs[i];
 
@@ -175,6 +182,10 @@ Simple_walker::process_requests()
 	}
     }
     
+    if (c->text_) {
+	c->typeset_item(new Text_item(c->text_, 10)); // UGR
+    }
+
     if (c->stem_) {
 	stem_ = s->get_stem(c->stem_->stem(), c->stem_requester_len);
     }
@@ -200,6 +211,14 @@ Simple_walker::process_requests()
     if (c->beam_&& c->beam_->spantype == Span_req::STOP) {
 	beam_->set_grouping(default_grouping, *current_grouping);
 	pscore_->typeset_spanner(beam_, s->theline);
+
+	if (c->beam_->nplet) {
+	    Text_spanner* t = new Text_spanner(beam_);
+	    t->spec.align = 0;
+	    t->spec.text = c->beam_->nplet;
+	    pscore_->typeset_spanner(t, s->theline);
+	}
+
 	beam_ = 0;
 	delete current_grouping;
 	current_grouping =0;

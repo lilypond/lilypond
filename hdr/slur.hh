@@ -20,16 +20,17 @@ struct Slur : Directional_spanner {
 
     /****************/
     Offset center() const;
-    void calculate();
-    void print()const;    
-    void preprocess();
+    Slur();
+    void print() const;    
+    void do_post_processing();
+    void do_pre_processing();
     void add(Notehead*);
     void set_default_dir();
-    Interval height() const;
-    Spanner* broken_at( PCol*, PCol*) const;
+
+    Spanner* do_break_at( PCol*, PCol*) const;
     void process();
 private:
-    void brew_molecule();
+Molecule*brew_molecule()const;
 };
 
 #endif // SLUR_HH

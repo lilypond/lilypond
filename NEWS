@@ -1,3 +1,10 @@
+pl 21:
+	- Move breaking stuff into a separate class Break_algorithm
+	- dependencies for Staff_elem's
+	- scripts
+	- texts
+	- nplets (triplets!)
+
 pl 20:
 	- Rational for time measurement
 	- updated doco to .pod

@@ -8,12 +8,13 @@ PCol::width() const
 {
     Interval w;
 
-    for (PCursor<const Item *> ic(its); ic.ok(); ic++)
-	w.unite(ic->width());
+    for (iter_top(its,i); i.ok(); i++)
+	w.unite(i->width());
     if (w.empty())
 	w.unite(Interval(0,0));
     return w;
 }
+
 int
 PCol::rank() const
 {

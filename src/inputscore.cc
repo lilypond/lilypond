@@ -32,7 +32,7 @@ Input_score::parse()
     Paperdef* p=new Paperdef(*paper_);
     Score *s = new Score(p);
     
-    for (PCursor<Input_staff*> i(staffs_); i.ok(); i++) {
+    for (iter_top(staffs_,i); i.ok(); i++) {
 	Staff* staf=i->parse(commands_);
 	s->add(staf);
     }
@@ -54,7 +54,7 @@ void
 Input_score::print()const
 {
     mtor << "Input_score {\n";
-    for (PCursor<Input_staff*> i(staffs_); i.ok(); i++) {
+    for (iter_top(staffs_,i); i.ok(); i++) {
 	i->print();
     }
     mtor << "}\n";

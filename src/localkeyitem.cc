@@ -3,34 +3,34 @@
 #include "scalar.hh"
 #include "lookup.hh"
 #include "paper.hh"
-
+#include "notehead.hh"
 Local_key_item::Local_key_item(int i)
 {
     c0_position  = i;
 }
 
 void
-Local_key_item::add (int o, int p , int a)
+Local_key_item::add (int o, int p , int a,Notehead*head_p)
 {
     Local_acc l;
     l.octave = o;
     l.name = p;
     l.acc = a;
     accs.add(l);
+    group.add(head_p);
+    dependencies.add(head_p);
 }
 
 void
-Local_key_item::preprocess()
-{
-    brew_molecole();
-}
-
-void
-Local_key_item::brew_molecole()
+Local_key_item::do_pre_processing()
 {
     accs.sort(Local_acc::compare);
+}
+Molecule*
+Local_key_item::brew_molecule()const
+{
 
-    output = new Molecule;
+    Molecule*    output = new Molecule;
     Molecule*octmol = 0;
     int lastoct = -100;
     for  (int i = 0; i <  accs.sz(); i++) {
@@ -58,6 +58,7 @@ Local_key_item::brew_molecole()
 	output->add(*octmol);
 	delete octmol;
     }
+    return output;
 }
 
 int

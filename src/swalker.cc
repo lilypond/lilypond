@@ -24,7 +24,7 @@ Staff_walker::process()
 {
     break_status = BREAK_END - BREAK_PRE;
     if (ptr()->s_commands)
-	for (PCursor<Command*> i(*ptr()->s_commands); i.ok(); i++) {
+	for (iter_top(*ptr()->s_commands,i); i.ok(); i++) {
 	    process_command(i);
     }
 

@@ -37,8 +37,11 @@ Stem_info::Stem_info(const Stem*s)
 Offset
 Beam::center()const
 {
-    if(!dir)
-        ((Beam*)this)->calculate();
+    assert(status >= POSTCALCED);
+    if (calc_children){		// URGGGG!!!
+	Beam*me_p = (Beam*)this;
+	me_p->do_post_processing();
+    }
     Real w=width().length()/2;
     return Offset(w,
                   (left_pos + w* slope)*paper()->interline());
@@ -57,6 +60,7 @@ void
 Beam::add(Stem*s)
 {
     stems.bottom().add(s);
+    s->dependencies.add(this);
     s->print_flag = false;
 }
 
@@ -65,13 +69,13 @@ Beam::set_default_dir()
 {
     int dirs[2];
     dirs[0]=0; dirs[1] =0;
-    for (PCursor<Stem*> sc(stems); sc.ok(); sc++) {
-	sc->set_default_dir();
-	dirs[(sc->dir+1)/2] ++;
+    for (iter_top(stems,i); i.ok(); i++) {
+	i->set_default_dir();
+	dirs[(i->dir+1)/2] ++;
     }
     dir =  (dirs[0] > dirs[1]) ? -1 : 1;
-    for (PCursor<Stem*> sc(stems); sc.ok(); sc++) {
-	sc->dir = dir;
+    for (iter_top(stems,i); i.ok(); i++) {
+	i->dir = dir;
     }
 }
 
@@ -82,10 +86,10 @@ void
 Beam::solve_slope()
 {
     svec<Stem_info> sinfo;
-    for (PCursor<Stem* >sc(stems); sc.ok(); sc++) {
-	sc->set_default_extents();
-	Stem_info i(sc);
-	sinfo.add(i);
+    for (iter_top(stems,i); i.ok(); i++) {
+	i->set_default_extents();
+	Stem_info info(i);
+	sinfo.add(info);
     }
     Real leftx = sinfo[0].x;
     Least_squares l;
@@ -106,13 +110,17 @@ Beam::solve_slope()
     left_pos += dy;
     left_pos *= dir;    
     slope *= dir;
-    
+
+				// URG
+    Real sl = slope*paper()->internote();
+    paper()->lookup_->beam(sl, convert_dimen(20,"pt"));
+    slope = sl /paper()->internote();
 }
 
 void
 Beam::set_stemlens()
 {
-    PCursor<Stem*> s(stems);
+    iter_top(stems,s);
     Real x0 = s->hpos();    
     for (; s.ok() ; s++) {
 	Real x =  s->hpos()-x0;
@@ -120,22 +128,11 @@ Beam::set_stemlens()
     }
 }
 
-void
-Beam::calculate()
-{
-    assert(stems.size()>1);
-    if (!dir)
-	set_default_dir();
-
-    solve_slope();
-}
 
 void
-Beam::process()
+Beam::do_post_processing()
 {
-    calculate();
-
-    brew_molecule();
+    solve_slope();    
     set_stemlens();
 }
 
@@ -150,7 +147,7 @@ Beam::set_grouping(Rhythmic_grouping def, Rhythmic_grouping cur)
     group = new Rhythmic_grouping(cur);
     svec<int> b;
     {
-	PCursor<Stem*> s(stems);
+	iter_top(stems,s);
 	svec<int> flags;
 	for (; s.ok(); s++) {
 	    int f = intlog2(abs(s->flag))-2;
@@ -164,7 +161,7 @@ Beam::set_grouping(Rhythmic_grouping def, Rhythmic_grouping cur)
 	assert(stems.size() == b.sz()/2);
     }
 
-    PCursor<Stem*> s(stems);
+    iter_top(stems,s);
     for (int i=0; i < b.sz() && s.ok(); i+=2, s++) {
 	s->beams_left = b[i];
 	s->beams_right = b[i+1];
@@ -174,23 +171,22 @@ Beam::set_grouping(Rhythmic_grouping def, Rhythmic_grouping cur)
 
 // todo.
 Spanner *
-Beam::broken_at( PCol *, PCol *) const
+Beam::do_break_at( PCol *, PCol *) const
 {
     return new Beam(*this);
 }
 
 void
-Beam::preprocess()
+Beam::do_pre_processing()
 {
     left  = (*stems.top())   ->pcol_;
     right = (*stems.bottom())->pcol_;    
+    assert(stems.size()>1);
+    if (!dir)
+	set_default_dir();
+
 }
 
-Interval
-Beam::height() const
-{
-    return output->extent().y;
-}
 
 Interval
 Beam::width() const
@@ -204,7 +200,7 @@ Beam::width() const
   beams to go with one stem.
   */
 Molecule
-Beam::stem_beams(Stem *here, Stem *next, Stem *prev)
+Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 {
     assert( !next || next->hpos() > here->hpos()  );
     assert( !prev || prev->hpos() < here->hpos()  );
@@ -212,7 +208,7 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)
     Real stemdx = paper()->rule_thickness();
     Real sl = slope*paper()->internote();
     paper()->lookup_->beam(sl, convert_dimen(20,"pt"));
-    slope = sl /paper()->internote();
+
     Molecule leftbeams;
     Molecule rightbeams;
 
@@ -258,15 +254,15 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)
 }
 
 
-void
-Beam::brew_molecule()
+Molecule*
+Beam::brew_molecule() const return out;
 {
     assert(left->line == right->line);
     Real inter=paper()->internote();
-    output = new Molecule;
+    out = new Molecule;
     Real x0 = stems.top()->hpos();
     
-    for (PCursor<Stem*> i(stems); i.ok(); i++) {
+    for (iter_top(stems,i); i.ok(); i++) {
 	PCursor<Stem*> p(i-1);
 	PCursor<Stem*> n(i+1);
 	Stem * prev = p.ok() ? p.ptr() : 0;
@@ -275,9 +271,9 @@ Beam::brew_molecule()
 	Molecule sb = stem_beams(i, next, prev);
 	Real  x = i->hpos()-x0;
 	sb.translate(Offset(x, (x * slope  + left_pos)* inter));
-	output->add(sb);
+	out->add(sb);
     }
-    output->translate(Offset(x0 - left->hpos,0));
+    out->translate(Offset(x0 - left->hpos,0));
 }
 
 void

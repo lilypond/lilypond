@@ -1,5 +1,4 @@
 #include "misc.hh"
-
 #include "notehead.hh"
 #include "dimen.hh" 
 #include "debug.hh"
@@ -27,11 +26,6 @@ Notehead::print()const
 #endif
 }
 
-void
-Notehead::preprocess()
-{
-    brew_molecole();
-}
 
 int
 Notehead::compare(Notehead*&a, Notehead*&b)
@@ -39,27 +33,24 @@ Notehead::compare(Notehead*&a, Notehead*&b)
     return a->position - b->position;
 }
 
-void
-Notehead::brew_molecole()
+Molecule*
+Notehead::brew_molecule() const return out;
 {
-    assert(pstaff_);
-    assert(!output);
-
     Paperdef *p = paper();
 
     Real dy = p->internote();
     Symbol s = p->lookup_->ball(balltype);
     
-    output = new Molecule(Atom(s));
+    out = new Molecule(Atom(s));
     if (dots) {
 	Symbol d = p->lookup_->dots(dots);
 	Molecule dm;
 	dm.add(Atom(d));
 	if (!(position %2))
 	    dm.translate(Offset(0,dy));
-	output->add_right(dm);
+	out->add_right(dm);
     }
-    output->translate(Offset(x_dir * p->note_width(),0));
+    out->translate(Offset(x_dir * p->note_width(),0));
     bool streepjes = (position<-1)||(position > staff_size+1);
     if (streepjes) {
 	int dir = sign(position);
@@ -69,10 +60,10 @@ Notehead::brew_molecole()
 	sm.add(Atom(str));
 	if (position % 2)
 	    sm.translate(Offset(0,-dy* dir));
-	output->add(sm);	    
+	out->add(sm);	    
     }
     
 
-    output->translate(Offset(0,dy*position));
+    out->translate(Offset(0,dy*position));
 }
 

@@ -1,3 +1,4 @@
+#include "idealspacing.hh"
 #include "pcol.hh"
 #include "pscore.hh"
 #include "pstaff.hh"

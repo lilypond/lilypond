@@ -21,17 +21,15 @@ struct Notehead : public Item
     
     /****************/
     
-    void preprocess();
 
     Notehead(int staff_size);
     /**
       position of top line (5 linestaff: 8)
       */
-    
+
     void print()const;
     static int compare(Notehead*&a, Notehead*&b) ;
-private:
-    void brew_molecole();
+    Molecule* brew_molecule()const;
 };
 /**
   takes care of:

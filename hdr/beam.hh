@@ -24,22 +24,24 @@ struct Beam:  public Directional_spanner {
     
     virtual Interval width()const;    
     Offset center() const;
-    Spanner *broken_at(PCol *,  PCol *) const;
+    Spanner *do_break_at(PCol *,  PCol *) const;
     Beam();
     void add(Stem*);
-    void process();
-    void calculate();
+    
+
     void set_default_dir();
-    void preprocess();
-    Interval height()const;
+    void do_pre_processing();
+    void do_post_processing();
+
     void print() const;
     void set_grouping(Rhythmic_grouping def, Rhythmic_grouping current);
     void set_stemlens();
     ~Beam();
+
 private:
-    Molecule stem_beams(Stem *here, Stem *next, Stem *prev);
+    Molecule stem_beams(Stem *here, Stem *next, Stem *prev)const;
     void solve_slope();
-    void brew_molecule();
+    Molecule*brew_molecule()const;
 };
 /** Beam adjusts the stems its owns to make sure that they reach the
   beam and that point in the correct direction */

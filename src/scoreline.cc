@@ -12,7 +12,7 @@ String
 Line_of_score::TeXstring() const
 {
      String s("\\vbox{%<- line of score\n");
-     for (PCursor<Line_of_staff*> sc(staffs); sc.ok(); sc++){
+     for (iter_top(staffs,sc); sc.ok(); sc++){
 	 s += sc->TeXstring();
 	 if ((sc+1).ok())
 	     s+= "\\interstaffline\n";
@@ -32,7 +32,7 @@ Line_of_score::Line_of_score(svec<PCol *> sv,
 	p->line=this;
     }
 
-    for (PCursor<PStaff*> sc(pscore_->staffs); sc.ok(); sc++)
+    for (iter_top(pscore_->staffs,sc); sc.ok(); sc++)
 	staffs.bottom().add(new Line_of_staff(this, sc));    
 }
 /* construct a line with the named columns. Make the line field
@@ -45,7 +45,7 @@ Line_of_score::Line_of_score(svec<PCol *> sv,
 void
 Line_of_score::process()
 {
-    for (PCursor<Line_of_staff*> i(staffs); i.ok(); i++)
+    for (iter_top(staffs,i); i.ok(); i++)
 	i->process();
 }
 	

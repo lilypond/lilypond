@@ -79,21 +79,4 @@ struct PCol {
 instantiate_compare(const PCol &, PCol::compare);
      
 
-/// ideal spacing between two columns
-struct Idealspacing {
-
-    /// the ideal distance
-    Real space;
-
-    /// Hooke's constant: how strong are the "springs" attached to columns
-    Real hooke;
-
-    /// the two columns
-    const PCol *left, *right;
-    
-    void print()const;
-    void OK() const ;
-    Idealspacing(const PCol *left,const PCol *right);    
-};
-
 #endif

@@ -45,6 +45,7 @@ struct Rhythmic_grouping {
     svec<int> generate_beams(svec<int>, int&);
 
 private:
+    void init();
     void junk();
     void copy(Rhythmic_grouping const&);
 };

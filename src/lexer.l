@@ -97,8 +97,6 @@ DOTS		\.+
 }
 <notes>\|		{
 }
-<notes>[:space:]+		{
-}
 <notes>[%#].*\n		{ 
 
 }
@@ -120,7 +118,16 @@ DOTS		\.+
 	yylval.c = YYText()[0];
 	return CLOSE_REQUEST_PARENS;
 }
+<notes>\"[^\"]*\" {
+	String s (YYText()+1);
+	s = s.left(s.len()-1);
+	yylval.string = new String(s);
+	return STRING;
+}
+<notes>[/.^>_-] {
+	return yylval.c = YYText()[0];
 
+}
 <notes>.	{
 	String s("lexer error: illegal character found: " + String(YYText()));
 	yyerror(s);
@@ -133,6 +140,7 @@ DOTS		\.+
 	yylval.string = new String (YYText());
 }
 <quote>\"	{
+	mtor << "quoted string\n";
 	BEGIN(INITIAL);
 	return STRING;
 }

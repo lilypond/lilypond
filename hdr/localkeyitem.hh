@@ -16,19 +16,16 @@ struct Local_acc {
 
 struct Local_key_item : Item {
     svec<Local_acc> accs;
-
-    int c0_position;
+    svec<Notehead*> group;
+    int c0_position;		// move into walker
 
     /****************/
     
     Local_key_item(int c0position);
-    void add(int oct, int pitch, int acc);
+    void add(int oct, int pitch, int acc, Notehead*);
 
-    void preprocess();
-
-private:
-    void brew_molecole();
-
+    void do_pre_processing();    
+    Molecule* brew_molecule()const;
 };
 #endif // LOCALKEYITEM_HH
 

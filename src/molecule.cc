@@ -1,4 +1,3 @@
-#include "glob.hh"
 #include "vray.hh"
 #include "interval.hh"
 #include "dimen.hh"
@@ -46,7 +45,7 @@ String
 Molecule::TeXstring() const
 {
     String s;
-    for(PCursor<Atom*> c(ats); c.ok(); c++)
+    for(iter_top(ats,c); c.ok(); c++)
 	s+=c->TeXstring();
     return s;
 }
@@ -55,7 +54,7 @@ Box
 Molecule::extent() const
 {
     Box b;
-    for(PCursor<Atom*> c(ats); c.ok(); c++)
+    for(iter_top(ats,c); c.ok(); c++)
 	b.unite(c->extent());
     return b;
 }
@@ -63,14 +62,14 @@ Molecule::extent() const
 void
 Molecule::translate(Offset o)
 {
-    for (PCursor<Atom*> c(ats); c.ok(); c++)
+    for (iter_top(ats,c); c.ok(); c++)
 	c->translate(o);
 }
 
 void
 Molecule::add(const Molecule &m)
 {
-    for (PCursor<Atom*> c(m.ats); c.ok(); c++) {
+    for (iter_top(m.ats,c); c.ok(); c++) {
 	add(**c);
     }
 }
@@ -142,6 +141,6 @@ Molecule::Molecule(const Molecule&s)
 void
 Molecule::print() const
 {
-    for (PCursor<Atom*> c(ats); c.ok(); c++)
+    for (iter_top(ats,c); c.ok(); c++)
 	c->print();
 }

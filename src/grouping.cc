@@ -3,6 +3,13 @@
 #include "interval.hh"
 
 void
+Rhythmic_grouping::init()
+{
+    interval_ = 0;
+    children.set_size(0);     
+}
+
+void
 Rhythmic_grouping::OK()const
 {
     assert(bool(children.sz()) != bool(interval_));
@@ -65,19 +72,6 @@ Rhythmic_grouping::intervals()
     }
     return r;
 }
-
-Rhythmic_grouping::Rhythmic_grouping(MInterval t, int n)
-{
-    if (n == 1 || !n) {
-	interval_ = new MInterval(t);
-	return;
-    }
-    Moment dt = t.length()/n;
-    MInterval basic = MInterval(t.left, t.left+dt);
-    for (int i= 0; i < n; i++)
-	children.add(new Rhythmic_grouping( dt*i + basic ));
-}
-
 void
 Rhythmic_grouping::intersect(MInterval t)
 {
@@ -143,6 +137,21 @@ Rhythmic_grouping::split(svec<MInterval> splitpoints)
 	children = ch;
     }
 
+
+Rhythmic_grouping::Rhythmic_grouping(MInterval t, int n)
+{
+    init();
+    if (n == 1 || !n) {
+	interval_ = new MInterval(t);
+	return;
+    }
+    Moment dt = t.length()/n;
+    MInterval basic = MInterval(t.left, t.left+dt);
+    for (int i= 0; i < n; i++)
+	children.add(new Rhythmic_grouping( dt*i + basic ));
+}
+
+
 Rhythmic_grouping::Rhythmic_grouping(svec<Rhythmic_grouping*> r)
     :children(r)
 {
@@ -152,6 +161,7 @@ Rhythmic_grouping::Rhythmic_grouping(svec<Rhythmic_grouping*> r)
 Rhythmic_grouping::~Rhythmic_grouping()
 {
     junk();
+    
 }
 
 void
@@ -171,6 +181,7 @@ Rhythmic_grouping::operator=(Rhythmic_grouping const &s)
 
 Rhythmic_grouping::Rhythmic_grouping(Rhythmic_grouping const&s)
 {
+    init();
     copy(s);
 }
 
@@ -178,10 +189,9 @@ void
 Rhythmic_grouping::junk()
 {
     delete interval_;
-    interval_ = 0;
     for (int i=0; i < children.sz(); i++)
 	delete children[i];
-    children.set_size(0);
+    init();
 }
 
 void

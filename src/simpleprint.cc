@@ -20,7 +20,7 @@ Simple_staff::get_TYPESET_item(Command *com)
 	s = new Bar(com->args[1]);	
     } else if (type == "METER") {
 	s = new Meter(arg);
-    } else if (type == "CLEF" ||type == "CURRENTCLEF") {
+    } else if (type == "CLEF" || type == "CURRENTCLEF") {
 	Clef_item * c = new Clef_item;
 	s = c;
 	c->change = (type == "CLEF");	

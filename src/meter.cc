@@ -9,10 +9,10 @@ Meter::Meter(svec<Scalar>a)
 {
 }
 
-void
-Meter::preprocess()
+Molecule*
+Meter::brew_molecule()const
 {
     Symbol s = paper()->lookup_->meter(args);
-    output = new Molecule(Atom(s));
+return new Molecule(Atom(s));
 }
 

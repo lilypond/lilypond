@@ -1,6 +1,6 @@
 \font\musicfnt=musix20
-\font\slurfont=xslhu20
-\def\thefont{\musicfnt}
+\font\slurfont=xslu16
+\def\thefont{\slurfont}
 
 \def\mb#1{{\thefont\char#1}}
 
@@ -8,42 +8,42 @@
 \newdimen\inc
 \newdimen\here
 \def\hruler#1{%
-	\wid=#1pt
-	\inc=\wid
-	\divide\inc by #1
-	\divide\wid by 2
-	\here=-\wid
-	\loop\ifdim\here<\wid\advance\here by\inc
-		\hbox to0pt{\kern\here\vrule width0.05pt height 2pt\hss}%
-	\repeat%
+        \wid=#1pt
+        \inc=\wid
+        \divide\inc by #1
+        \divide\wid by 2
+        \here=-\wid
+        \loop\ifdim\here<\wid\advance\here by\inc
+                \hbox to0pt{\kern\here\vrule width0.05pt height 2pt\hss}%
+        \repeat%
 }
 
 \def\vruler#1{%
-	\wid=#1pt
-	\inc=\wid
-	\divide\inc by #1
-	\divide\wid by 2
-	\here=-\wid
-	\loop\ifdim\here<\wid\advance\here by\inc
-		\vbox to0pt{\vskip\here\vrule width2pt height 0.05pt\vss}%
-	\repeat%
+        \wid=#1pt
+        \inc=\wid
+        \divide\inc by #1
+        \divide\wid by 2
+        \here=-\wid
+        \loop\ifdim\here<\wid\advance\here by\inc
+                \vbox to0pt{\vskip\here\vrule width2pt height 0.05pt\vss}%
+        \repeat%
 }
 \def\twhrul{\hbox to 0pt{\hbox{\hruler{20}\vrule
-	width0.1pt height 3ptdepth 1pt}}}
+        width0.1pt height 3ptdepth 1pt}}}
 \def\twvrul{\hbox{\vbox to 20pt{\vruler{20}\vrule
-	width3pt height 0.1pt}}}
+        width3pt height 0.1pt}}}
  
 \def\doitem#1{
-	#1 %
-	 %\twvrul%doesn't work
-	\hbox to 50pt{\qquad\twhrul\mb{#1}\hss}\setbox0=\hbox{\mb{#1}} width \the\wd0\ depth \the\dp0 \ height \the\ht0}
+        #1 %
+         %\twvrul%doesn't work
+        \hbox to 50pt{\qquad\twhrul\mb{#1}\hss}\setbox0=\hbox{\mb{#1}} width \the\wd0\ depth \the\dp0 \ height \the\ht0}
 
 \newcount\n
 \def\charn{\n=-1
-	\loop\ifnum\n<255\advance\n by1
-	\doitem{\number\n}\endgraf\repeat}
+        \loop\ifnum\n<255\advance\n by1
+        \doitem{\number\n}\endgraf\repeat}
 
 
-	\charn
+        \charn
 
 \bye

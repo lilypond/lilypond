@@ -1,37 +1,29 @@
-#include "pstaff.hh"
 #include "debug.hh"
-#include "pscore.hh"
 #include "spanner.hh"
-#include "symbol.hh"
-#include "molecule.hh"
 #include "pcol.hh"
-void
-Spanner::calculate()
+
+Spanner*
+Spanner::broken_at(PCol*c1, PCol *c2)const
 {
-}
-String
-Spanner::TeXstring() const
-{
+    Spanner *me_p = (Spanner*)this;
+    Spanner *span_p = do_break_at(c1,c2);
+
+    me_p->calc_children = true;
+    me_p->dependencies.add(span_p);
+
+    span_p->calc_children = false; // should handle in ctor
+
+    span_p->left = c1;
+    span_p->right = c2;
     
-    assert(output);
-    return output->TeXstring();
+    return span_p;
 }
 
 Spanner::Spanner()
 {
-    pstaff_=0;
     left = right = 0;
 }
 
-void
-Spanner::process()
-{
-}
-
-void
-Spanner::preprocess()
-{
-}
 
 Interval
 Spanner::width()const
@@ -43,26 +35,13 @@ Spanner::width()const
     return Interval(0, r-l);
 }
 
-Paperdef*
-Spanner::paper()const
-{
-    assert(pstaff_);
-    return pstaff_->pscore_->paper_;
-}
 void
-Spanner::print()const
+Spanner::print() const
 {
 #ifndef NPRINT
     mtor << "Spanner { ";
-    if (output) {
-	mtor << "Output ";
-	output->print();
-    }
-    
+    Staff_elem::print();
     mtor << "}\n";
 #endif
 }
-Spanner::~Spanner()
-{
-    delete output;
-}
+

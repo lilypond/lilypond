@@ -19,17 +19,11 @@ Rest::print()const
     Item::print();
 }
 
-void
-Rest::preprocess()
-{
-    brew_molecole();
-}
-
-void
-Rest::brew_molecole()
+Molecule*
+Rest::brew_molecule()const
 {
     assert(pstaff_);
-    assert(!output);
+
     Paperdef *p =paper();
 
     Symbol s;
@@ -42,6 +36,6 @@ Rest::brew_molecole()
 	dm.add(Atom(d));
 	m->add_right(dm);
     }
-    output = m;
+    return m;
 }
 

@@ -16,11 +16,11 @@ struct Rest : public Item
 
     /****************/
 
-    void preprocess();
+
     Rest(int dur,int dots);
     void print()const;
-private:
-    void brew_molecole();
+
+    Molecule* brew_molecule()const;
 };
 /**
   takes care of:

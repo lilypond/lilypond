@@ -10,7 +10,7 @@
 void
 Staff::add(PointerList<Voice*> &l)
 {
-    for (PCursor<Voice*> i(l); i.ok(); i++)
+    for (iter_top(l,i); i.ok(); i++)
 	voices.bottom().add(i);
 }
 
@@ -30,7 +30,7 @@ Staff::paper() const
 void
 Staff::clean_cols()
 {
-    PCursor<Staff_column *> i(cols);
+    iter_top(cols,i);
     for(; i.ok(); ){
 	if (!i->score_column->used())
 	    i.del();
@@ -45,7 +45,7 @@ Staff::get_col(Moment w, bool mus)
     Score_column* sc = score_->find_col(w,mus);
     assert(sc->when == w);
     
-    PCursor<Staff_column *> i(cols);
+    iter_top(cols,i);
     for (; i.ok(); i++) {
 	if (*i->score_column > *sc) // too far
 	    break;
@@ -88,9 +88,9 @@ Staff::get_col(Moment w, bool mus)
 void
 Staff::setup_staffcols()
 {    
-    for (PCursor<Voice*> i(voices); i.ok(); i++) {
+    for (iter_top(voices,i); i.ok(); i++) {
 	Moment now = i->start;
-	for (PCursor<Voice_element *> ve(i->elts); ve.ok(); ve++) {
+	for (iter_top(i->elts,ve); ve.ok(); ve++) {
 
 	    Staff_column *sc=get_col(now,true);
 	    sc->add(ve);
@@ -98,14 +98,14 @@ Staff::setup_staffcols()
 	}	
     }
 
-    for (PCursor<Staff_commands_at*> cc(*staff_commands_); cc.ok(); cc++) {
+    for (iter_top(*staff_commands_,cc); cc.ok(); cc++) {
 	Staff_column *sc=get_col(cc->tdescription_.when,false);
 	sc->s_commands = cc;
 	sc->tdescription_ = new Time_description(cc->tdescription_);
     }
 
-    PCursor<Staff_commands_at*> cc(*staff_commands_);
-    for (PCursor<Staff_column*> i(cols); i.ok(); i++) {
+    iter_top(*staff_commands_,cc);
+    for (iter_top(cols,i); i.ok(); i++) {
 	while  ((cc+1).ok() && (cc+1)->when() < i->when())
 	    cc++;
 
@@ -142,7 +142,7 @@ Moment
 Staff::last() const
 {
     Moment l = 0.0;
-    for (PCursor<Voice*> i(voices); i.ok(); i++) {
+    for (iter_top(voices,i); i.ok(); i++) {
 	l = l >? i->last();
     }
     return l;
@@ -154,7 +154,7 @@ Staff::print() const
 {
 #ifndef NPRINT
     mtor << "Staff {\n";
-    for (PCursor<Voice*> i(voices); i.ok(); i++) {
+    for (iter_top(voices,i); i.ok(); i++) {
 	i->print();	
     }
     if (staff_commands_)

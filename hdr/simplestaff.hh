@@ -17,17 +17,23 @@
    */
 
 struct Simple_staff;
+struct Note_info {
+    Rhythmic_req *rq;
+    svec<Script_req*> scripts;
+    Note_info();
+    Note_info(Rhythmic_req*);
+};
 
 /// column of Simple_staff: store one request
 struct Simple_column : Staff_column {
 
-    svec<Rhythmic_req *> notes;
+    svec<Note_info> notes;
     svec<Slur_req *> slurs;
     Stem_req *stem_;
     Moment stem_requester_len;
     Beam_req *beam_;
     Simple_staff* staff_;
-
+    Text_req *text_;
     
     /****************/
     Slur_req  * find_slur(Voice *);

@@ -18,6 +18,7 @@ Simple_column::Simple_column(Score_column*s, Simple_staff *rs)
     stem_ = 0;    
     staff_ = rs;
     beam_ = 0;
+    text_=0;
 }
 
 Simple_staff::Simple_staff()
@@ -30,7 +31,7 @@ Simple_staff::Simple_staff()
 
     BREAK: all
     TYPESET: bar, meter,
-
+Scalar
     */
 
 
@@ -39,16 +40,21 @@ void
 Simple_column::process_requests()
 {
     for (int i = 0 ; i < v_elts.sz(); i ++)
-	for (PCursor<Request *> rqc(v_elts[i]->reqs); rqc.ok(); rqc++) {
-	    Request *rq= rqc;
+	for (iter_top(v_elts[i]->reqs,j); j.ok(); j++) {
+	    Request *rq= j;
 	    if (rq->rhythmic()){
-		notes.add( rq->rhythmic());
+		notes.add(rq->rhythmic());
+	    }
+	    if (rq->script()) {
+		notes.last().scripts.add(rq->script());
 	    }
 	    if (rq->stem()) {
 		stem_ = rq->stem();
 		stem_requester_len = v_elts[i]->duration;
 	    }
-
+	    if (rq->text()) {
+		text_ = rq->text();
+	    }
 	    if (rq->beam()) {
 		beam_ = rq->beam();
 	    }
@@ -72,4 +78,10 @@ Simple_staff::walk()
 	sc.process();
     }
 }
-
+Note_info::Note_info()
+{
+    rq =0;
+}
+Note_info::Note_info(Rhythmic_req*r) {
+    rq = r;
+}

@@ -25,13 +25,9 @@ struct Simple_walker: Staff_walker {
     Clef clef_;
     Rhythmic_grouping default_grouping;
     Rhythmic_grouping *current_grouping;
-//    Real inbar;			// whuh?
-    
     svec<Slur_req*> pending_slur_reqs;
     svec<Slur*>  pending_slurs;
-
-
-
+    
     /****************/
 
     virtual void do_TYPESET_command(Command*);
@@ -39,12 +35,12 @@ struct Simple_walker: Staff_walker {
     virtual void process_requests();
     virtual void reset();
     
-    void do_note(Rhythmic_req*);
+    void do_note(Note_info);
     Simple_walker(Simple_staff*);
     Simple_column *col();
     Simple_staff *staff();
 
-    void do_local_key(Note_req*n);
+    void do_local_key(Note_req*, Notehead*);
     int find_slur(const Voice*v);
 };
 

@@ -3,7 +3,6 @@
 
 #include "plist.hh"
 #include "boxes.hh"
-#include "item.hh"
 #include "symbol.hh"
 
 /// a symbol which can be translated, and freely copied
@@ -28,7 +27,7 @@ struct Atom {
 
 /// a group of #Atom#s
 struct Molecule {
-    IPointerList<Atom*> ats;
+    IPointerList<Atom*> ats;	// change to List<Atom>? 
 
     /****************/
     

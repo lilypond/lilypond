@@ -47,14 +47,14 @@ Complex_music::add(Input_music*v)
 void
 Complex_music::print() const
 {
-    for (PCursor<Input_music*> i(elts); i.ok(); i++)
+    for (iter_top(elts,i); i.ok(); i++)
 	 i->print();
 }
 
 void
 Complex_music::concatenate(Complex_music*h)
 {
-    for (PCursor<Input_music*> i(h->elts); i.ok(); i++)
+    for (iter_top(h->elts,i); i.ok(); i++)
 	add(i->clone());    
 }
 
@@ -64,7 +64,7 @@ Complex_music::Complex_music()
 
 Complex_music::Complex_music(Complex_music const&s)
 {
-    for (PCursor<Input_music*> i(s.elts); i.ok(); i++)
+    for (iter_top(s.elts,i); i.ok(); i++)
 	add(i->clone());
 }
 
@@ -98,7 +98,7 @@ Music_voice::length()
 {
     Moment l = 0.0;
     
-    for (PCursor<Input_music*> i(elts); i.ok(); i++)
+    for (iter_top(elts,i); i.ok(); i++)
 	l += i->length();
     return l;
 }
@@ -110,13 +110,12 @@ Music_voice::convert()
     Voice_list l;
     Moment here = 0.0;
     
-    for (PCursor<Input_music*> i(elts); i.ok(); i++) {
+    for (iter_top(elts,i); i.ok(); i++) {
 	Moment len = i->length();	
 	Voice_list k(i->convert());
 	k.translate_time(here);	
 	l.concatenate(k);
-	here +=len;
-	
+	here +=len;	
     }
     return l;    
 }
@@ -150,7 +149,7 @@ Music_general_chord::print() const
 void
 Music_general_chord::translate_time(Moment t)
 {
-    for (PCursor<Input_music*> i(elts); i.ok(); i++) 
+    for (iter_top(elts,i); i.ok(); i++) 
 	i->translate_time(t);    
 }
 
@@ -159,7 +158,7 @@ Music_general_chord::length()
 {
     Moment l =0.0;
     
-    for (PCursor<Input_music*> i(elts); i.ok(); i++) 
+    for (iter_top(elts,i); i.ok(); i++) 
 	l = l >? i->length();
     return l;
 }
@@ -168,7 +167,7 @@ Voice_list
 Music_general_chord::convert()
 {
     Voice_list l;
-    for (PCursor<Input_music*> i(elts); i.ok(); i++) {
+    for (iter_top(elts,i); i.ok(); i++) {
 	Voice_list k(i->convert());
 	l.concatenate(k);
     }
@@ -181,7 +180,7 @@ Music_general_chord::convert()
 void
 Voice_list::translate_time(Moment x)
 {
-    for (PCursor<Voice*> i(*this); i.ok(); i++)
+    for (iter_top(*this,i); i.ok(); i++)
 	i->start += x;    
 }
 

@@ -6,55 +6,59 @@
 %% musix defs
 \parindent=0pt
 \newdimen\interlinedist
-	\newcount\n
-	\newdimen\balkhoog
-	\newdimen\notewidth
-	\newdimen\notewidthhalf
-	\newdimen\notewidthdouble
-	\newdimen\staffrulethickness
-	\newdimen\interstaffrule
-
+        \newcount\n
+        \newdimen\balkhoog
+        \newdimen\notewidth
+        \newdimen\notewidthhalf
+        \newdimen\notewidthdouble
+        \newdimen\staffrulethickness
+        \newdimen\interstaffrule
+\newdimen\balkhalf
 \def\musixtwentydefs{
-	\font\textfont=cmr10
-	\font\slurufont=xslu20
-	\font\slurdfont=xsld20
-	\font\slurhfont=xslz20
-	\font\hslurufont=xslhu20
-	\font\hslurdfont=xslhd20
-	\font\hslurhfont=xslhz20
-	\font\musicfnt=musix20
-	\font\italicfont=cmti10
-	\balkhoog=20pt
-	\notewidth=6pt
-	\staffrulethickness=0.4pt
+        \font\textfont=cmr10
+        \font\meterfont=cmbx12
+        \font\slurufont=xslu20
+        \font\slurdfont=xsld20
+        \font\slurhfont=xslz20
+        \font\hslurufont=xslhu20
+        \font\hslurdfont=xslhd20
+        \font\hslurhfont=xslhz20
+        \font\musicfnt=musix20
+        \font\italicfont=cmti10
+        \balkhoog=20pt
+        \notewidth=6pt
+        \staffrulethickness=0.4pt
 
-	\musixcalc
+        \musixcalc
 }
 \def\musixsixteendefs{
-	\font\textfont=cmr8
-	\font\italicfont=cmti8
-	\font\slurufont=xslu16
-	\font\slurdfont=xsld16
-	\font\slurhfont=xslz20 % sigh
-	\font\hslurufont=xslhu16
-	\font\hslurdfont=xslhd16
-	\font\hslurhfont=xslhz20
-	\font\musicfnt=musix16
-	\balkhoog=16pt
-	\staffrulethickness=0.4pt
-	\notewidth=5pt
-	\musixcalc
+        \font\textfont=cmr8
+        \font\meterfont=cmbx12
+        \font\italicfont=cmti8
+        \font\slurufont=xslu16
+        \font\slurdfont=xsld16
+        \font\slurhfont=xslz20 % sigh
+        \font\hslurufont=xslhu16
+        \font\hslurdfont=xslhd16
+        \font\hslurhfont=xslhz20
+        \font\musicfnt=musix16
+        \balkhoog=16pt
+        \staffrulethickness=0.4pt
+        \notewidth=5pt
+        \musixcalc
 }
 
 \def\musixcalc{
-	\interstaffrule=\balkhoog
-	\advance\interstaffrule by-\staffrulethickness
-	\divide\interstaffrule by 4
-	\advance\interstaffrule by -\staffrulethickness
-	\notewidthhalf=\notewidth
-	\notewidthdouble=\notewidth
-	\divide	\notewidthhalf by 2
-	\multiply \notewidthdouble by 2
+        \interstaffrule=\balkhoog
+        \advance\interstaffrule by-\staffrulethickness
+        \divide\interstaffrule by 4
+        \advance\interstaffrule by -\staffrulethickness
+        \notewidthhalf=\notewidth
+        \notewidthdouble=\notewidth
+        \divide \notewidthhalf by 2
+        \multiply \notewidthdouble by 2
+        \balkhalf=\balkhoog
+        \divide \balkhalf by 2
 }
 
 
@@ -101,17 +105,19 @@
 
 \def\maatstreep{\vrule height\balkhoog}
 \def\finishbar{\vrule height\balkhoog  width 1pt}
-\def\generalmeter#1#2{\vbox to 0pt{\vss\textfont\hbox{#1}\hbox{#2}}}
+\def\generalmeter#1#2{\botalign{\vbox to\balkhalf{\vss \meterfont#1}%
+        \nointerlineskip
+        \vbox to \balkhalf{\vss\meterfont #2}}}
 \def\lineseparator{\vbox{\mussepline\vskip -5pt\mussepline}}
 
 \def\beauty{%
-	\par\vskip 10pt plus 30pt minus 10pt\par
-	\hskip -5pt\lineseparator
-	\par\vskip 10pt plus 30pt minus 10pt\par
+        \par\vskip 10pt plus 30pt minus 10pt\par
+        \hskip -5pt\lineseparator
+        \par\vskip 10pt plus 30pt minus 10pt\par
 }
 
 \def\interstaffline{%
-	\vskip 10pt
+        \vskip 10pt
 }
 \def\ugly{\nointerlineskip\par
 \vskip 40pt\par\vbox{\leftalign{\vrule width30pt height1pt}}\par\vskip 40pt
@@ -121,25 +127,22 @@
 
 \def\lines#1#2{%
  \vbox{\kern-\interstaffrule
-	\n=0\nointerlineskip%
-	\loop\ifnum\n<#1\advance\n by1%
-		\kern\interstaffrule
-		\hrule height \staffrulethickness width#2
-		\repeat
-	}}
+        \n=0\nointerlineskip%
+        \loop\ifnum\n<#1\advance\n by1%
+                \kern\interstaffrule
+                \hrule height \staffrulethickness width#2
+                \repeat
+        }}
 
 \def\toplines#1{ % why space needed here?
-	\vbox to 0pt{\hbox{\kern-\notewidth\lines{#1}{\notewidthdouble}}\vss}}
+        \topalign{\hbox{\kern-\notewidth\lines{#1}{\notewidthdouble}}}}
 \def\botlines#1{ % idem ditto
-	\vbox to 0pt{\vss\hbox{\kern-\notewidth\lines{#1}{\notewidthdouble}}}}
+        \botalign{\hbox{\kern-\notewidth\lines{#1}{\notewidthdouble}}}}
 
 %
 % a staffsymbol with #1 lines, width #2
 % bottom at baseline
-\def\linestafsym#1#2{\leftalign{\vbox to 0pt{\vss\lines{#1}{#2}}}}
-
-\def\vcenter#1{\vbox to 0pt{\vss #1\vss}}
-\def\topalign#1{\vbox to 0pt{#1\vss}}
+\def\linestafsym#1#2{\leftalign{\botalign{\lines{#1}{#2}}}}
 
 \def\eigthflag{\topalign{\ueigthflag}}
 \def\sixteenthflag{\topalign{\usixteenthflag}}
@@ -154,12 +157,28 @@
 \def\ldoubledot{\kern-\notewidth\doubledot}
 \def\ltripledot{\kern-\notewidth\tripledot}
 
-
+\mdef\maccent{30}
+\mdef\fermata{80}
+\mdef\ifermata{81}
+\mdef\iaccent{31}
+\mdef\msxmarcato{20}
+\def\marcato{\botalign{\msxmarcato}}
+\mdef\msximarcato{21}
+\def\imarcato{\topalign{\msximarcato}}
+\mdef\staccato{24}
+\mdef\istaccato{25}
+\mdef\staccatissimo{16}
+\mdef\istaccatissimo{17}
+\mdef\spicato{28}
+\mdef\ispicato{29}
+\mdef\upbow{22}
+\mdef\downbow{23}
+\mdef\portato{26}
 
 \def\stem#1#2{\vrule height#2 depth-#1}
 
 \def\placebox#1#2#3{%
-	\vbox to 0pt{\vss\hbox{\raise #1\leftalign{\kern #2{}#3}}}%
+        \botalign{\hbox{\raise #1\leftalign{\kern #2{}#3}}}%
 }
 
 
@@ -168,6 +187,11 @@
 
 \def\settext#1{\textfont #1}
 \def\setitalic#1{\italicfont #1}
+
+\def\vcenter#1{\vbox to 0pt{\vss #1\vss}}
+
+\def\topalign#1{\vbox to 0pt{#1\vss}}
+\def\botalign#1{\vbox to 0pt{\vss #1}}
 
 \def\centeralign#1{\hbox to 0pt{\hss#1\hss}}
 \def\leftalign#1{\hbox to 0pt{#1\hss}}

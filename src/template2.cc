@@ -7,7 +7,7 @@
 #include "stcol.hh"
 #include "spanner.hh"
 
-#include "plist.cc"
+#include "plist.tcc"
 
 
 IPL_instantiate(Request);

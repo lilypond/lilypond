@@ -11,9 +11,10 @@
 
 struct Meter: Item {
     svec<Scalar> args;
+    /****************/
     
     Meter(svec<Scalar> args) ;
-    void preprocess();
+    Molecule*brew_molecule() const;
 };
 #endif // METER_HH
 

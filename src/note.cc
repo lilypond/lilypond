@@ -1,14 +1,41 @@
 #include <ctype.h>
-
+#include "lexer.hh"
 #include "string.hh"
 #include "real.hh"
 #include "debug.hh"
 #include "request.hh"
 #include "voice.hh"
 #include "notename.hh"
+#include "identparent.hh"
 #include "vray.hh"
+#include "textdef.hh"
 
 int default_duration = 4, default_dots=0, default_octave=0;
+int default_plet_type = 1, default_plet_dur = 1;
+String textstyle="roman";		// in lexer?
+
+/* triplet is '2/3' */
+void set_plet(int num,int den)
+{
+    assert(num >0&& den>0);
+    default_plet_dur = num;
+    default_plet_type = den;
+}
+
+Text_def*
+get_text(String s) return t;
+{
+    t= new Text_def;
+    t->text= s;
+    t->style = textstyle;
+    return t;
+}
+
+void
+set_text_style(String s)
+{
+    textstyle = s;
+}
 
 void
 parse_octave (const char *a, int &j, int &oct)
@@ -71,7 +98,7 @@ get_note_element(String pitch, int * notename, int * duration )
     rq->forceacc = forceacc;
     rq->balltype = dur;
     rq->dots = dots;
-    
+    rq->plet_factor = Moment(default_plet_dur, default_plet_type);
     rq->print();
 
     v->add(rq);
@@ -85,7 +112,7 @@ get_rest_element(String,  int * duration )
     Voice_element*v = new Voice_element;
 
     Rest_req * rq = new Rest_req;
-  
+    rq->plet_factor = Moment(default_plet_dur, default_plet_type);
     rq->balltype = duration[0];
     rq->dots = duration[1];    
     rq->print();
@@ -124,7 +151,12 @@ get_request(char c)
     switch (c) {
     case '[':
     case ']':
-	ret = new Beam_req;
+    {
+	Beam_req*b = new Beam_req;
+	if (default_plet_type != 1)
+	    b->nplet = default_plet_type;
+	ret = b;
+    }
 	break;
 
     case ')':
@@ -161,3 +193,42 @@ add_requests(Voice_element *v, svec<Request*> &req)
     }
     req.set_size(0);
 }
+
+Script_def*
+get_scriptdef(char c)
+{
+    String s;
+    switch (c) {
+    case '^' : s = "marcato";
+	break;
+    case  '+' : s = "stopped";
+	break;
+    case '-' : s = "portato";
+	break;
+    case  '|':  s = "staccatissimo";
+	break;
+    case  'o' : s = "";
+	break;
+    case '>' : s = "accent";
+	break;
+    case  'v' : s = ""; 
+	break;
+    case  '.' : s = "staccato";
+	break;
+    }
+    return lexer->lookup_identifier(s)->script(1);
+}
+
+Request*
+get_script_req(int d , Script_def*def)
+{
+    return new Script_req(d, def);
+}
+
+
+Request*
+get_text_req(int d , Text_def*def)
+{
+    return new Text_req(d, def);
+}
+

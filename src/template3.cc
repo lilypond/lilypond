@@ -6,8 +6,10 @@
 #include "inputcommand.hh"
 #include "inputcommands.hh"
 #include "molecule.hh"
-#include "plist.cc"
 #include "staffcommands.hh"
+
+
+#include "plist.tcc"
 
 IPL_instantiate(Atom);
 IPL_instantiate(Command);

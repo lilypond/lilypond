@@ -1,6 +1,6 @@
-Please refer to the directory Documentation/.
+Please refer to the directory Documentation/, Documentation/README.*
 
-To generate the pretty-printed docs, do a:
+To generate the pretty-printed docs, do this:
 
 	make doc
 

@@ -6,9 +6,7 @@
 #include "misc.hh"
 #include "lexer.hh"
 #include "paper.hh"
-#include "inputstaff.hh"
 #include "inputscore.hh"
-#include "inputmusic.hh"
 #include "main.hh"
 #include "keyword.hh"
 #include "inputcommand.hh"
@@ -57,6 +55,8 @@ Paperdef*default_paper();
     Interval *interval;
     Box *box;
     Notename_tab *notename_tab;
+    Script_def * script;
+    Text_def * textdef;
 }
 
 %token VOICE STAFF SCORE TITLE  BAR NOTENAME OUTPUT
@@ -64,7 +64,7 @@ Paperdef*default_paper();
 %token GEOMETRIC START_T DURATIONCOMMAND OCTAVECOMMAND
 %token KEY CLEF VIOLIN BASS MULTI TABLE CHORD VOICES
 %token PARTIAL RHYTHMIC MELODIC MUSIC GROUPING
-%token END SYMBOLTABLES TEXID TABLE NOTENAMES
+%token END SYMBOLTABLES TEXID TABLE NOTENAMES SCRIPT TEXTSTYLE PLET
 
 %token <id>  IDENTIFIER
 %token <string> NEWIDENTIFIER 
@@ -91,7 +91,7 @@ Paperdef*default_paper();
 %type <intvec> int_list
 %type <commandvec> score_commands_block score_commands_body
 %type <commandvec> staff_commands_block staff_commands_body
-%type <request> post_request pre_request
+%type <request> post_request pre_request 
 %type <string> clef_id pitchmod
 %type <music> music 
 %type <chord> music_chord music_chord_body
@@ -104,6 +104,11 @@ Paperdef*default_paper();
 %type <lookup> symtables symtables_body
 %type <symbol> symboldef
 %type <notename_tab> notename_tab notename_tab_body
+%type <i> script_dir
+%type <script> script_definition script_body mudela_script
+%type <request> script_req textscript_req
+%type <textdef> mudela_text
+
 
 %%
 
@@ -139,6 +144,10 @@ declaration:
 	}
 	| declarable_identifier '=' music_voice {
 		$$ = new M_voice_id(*$1, $3);
+		delete $1;
+	}
+	| declarable_identifier '=' script_definition {
+		$$ = new Script_id(*$1, $3);
 		delete $1;
 	}
 	| declarable_identifier '=' music_chord  {
@@ -369,6 +378,53 @@ post_requests:
 
 post_request:
 	CLOSE_REQUEST_PARENS		{ $$ = get_request($1); }
+	| script_req
+	| textscript_req
+	;
+
+script_definition:
+	SCRIPT '{' script_body '}' 	{ $$ = $3; }
+	;
+
+script_body:
+	STRING int int int 		{
+		$$ = new Script_def(*$1,$2, $3,$4);
+		delete $1;
+	}	
+	;
+
+textscript_req:
+	script_dir mudela_text		{ $$ = get_text_req($1,$2); }
+	;
+
+mudela_text:
+	STRING			{ $$ = get_text(*$1); delete $1; }
+	;
+
+script_req:
+	script_dir mudela_script	{ $$ = get_script_req($1, $2); }
+	;
+
+mudela_script:
+	IDENTIFIER		{ $$ = $1->script(true); }
+	| script_definition		{ $$ = $1; }
+	| '^'		{ $$ = get_scriptdef('^'); }
+	| '+'		{ $$ = get_scriptdef('+'); }
+	| '-'		{ $$ = get_scriptdef('-'); }
+ 	| '|'		{ $$ = get_scriptdef('|'); }
+	| 'o'		{ $$ = get_scriptdef('o'); }
+	| '>'		{ $$ = get_scriptdef('>'); }
+	| '.' 		{ $$ = get_scriptdef('.'); }
+	| DOTS 		{
+		if ($1>1) error("too many staccato reqs");
+		$$ = get_scriptdef('.');
+	}
+	;
+
+script_dir:
+	'_'	{ $$ = -1; }
+	|'^'	{ $$ = 1; }
+	|'-'	{ $$ = 0; }
 	;
 
 pre_requests:
@@ -384,12 +440,19 @@ pre_request:
 
 
 voice_command:
-	DURATIONCOMMAND '{' duration '}'	{
+	PLET	'{' INT '/' INT '}'		{
+		set_plet($3,$5);
+	}
+	| DURATIONCOMMAND '{' duration '}'	{
 		set_default_duration($3);
 	}
 	| OCTAVECOMMAND '{' pitchmod '}'	{
 		set_default_octave(*$3);
 		delete $3;
+	}
+	| TEXTSTYLE STRING	{
+		set_text_style(*$2);
+		delete $2;
 	}
 	;
 
@@ -552,5 +615,6 @@ parse_file(String s)
 Paperdef*
 default_paper()
 {
-	return new Paperdef(lexer->lookup_identifier("default_table")->lookup(true));
+    return new Paperdef(
+	lexer->lookup_identifier("default_table")->lookup(true));
 }

@@ -33,11 +33,13 @@ Lookup::text( String style, String text , int dir)
 {
     svec<String> a;
  
-    a.add((*symtables_)("style")->lookup(style).tex);
-    Symbol s = (*symtables_)("align")->lookup(dir);
-    a[0] =  substitute_args( text,a);
+    a.add(text);
+    Symbol tsym =  (*symtables_)("style")->lookup(style);
+    a[0] = substitute_args(tsym.tex,a);
 
+    Symbol s = (*symtables_)("align")->lookup(dir);
     s.tex = substitute_args(s.tex,a);
+    s.dim.y = tsym.dim.y;
     return s;
 }
 
@@ -82,6 +84,12 @@ Symbol
 Lookup::bar(String s)
 {
     return (*symtables_)("bars")->lookup(s);
+}
+
+Symbol
+Lookup::script(String s)
+{
+    return (*symtables_)("scripts")->lookup(s);
 }
 
 Symbol

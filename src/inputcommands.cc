@@ -11,7 +11,7 @@ Commands_at::print() const
 #ifndef NPRINT
     mtor << "Commands_at {";
     tdescription_.print();
-    for (PCursor<Input_command *> cc(*this); cc.ok(); cc++) 
+    for (iter_top(*this,cc); cc.ok(); cc++) 
 	cc->print();
     mtor << "}\n";
 #endif
@@ -69,7 +69,7 @@ void
 Commands_at::parse(Staff_commands_at*s)
 {
     s->tdescription_ = tdescription_;
-    for (PCursor<Input_command *> cc(*this); cc.ok(); cc++) {
+    for (iter_top(*this,cc); cc.ok(); cc++) {
 	if (cc->args.sz() &&  cc->args[0] !="") {
 	    Command c = **cc;
 	    s->add(c);
@@ -175,7 +175,7 @@ Input_commands::parse() const
     print();
     Staff_commands*nc = new Staff_commands;
 
-    for (PCursor<Commands_at*> i(*this); i.ok(); i++) {
+    for (iter_top(*this,i); i.ok(); i++) {
 
 	Staff_commands_at* s= nc->find(i->when());
 	if (!s){
@@ -200,7 +200,7 @@ void
 Input_commands::print() const
 {
 #ifndef NPRINT
-    for (PCursor<Commands_at*> cc(*this); cc.ok() ; cc++) {
+    for (iter_top(*this,cc); cc.ok() ; cc++) {
 	cc->print();
     }
 #endif

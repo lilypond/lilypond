@@ -4,18 +4,26 @@
 #include "glob.hh"
 #include "plist.hh"
 #include "vray.hh"
-#include "pcol.hh"
-#include "matrix.hh"
+#include "vector.hh"
+#include "interval.hh"
 
 /// helper struct for #Spacing_problem#
 struct Colinfo {
     const PCol *pcol_;
-    bool fixed;
-    Real fixpos;
+    const Real* fixpos;
+    Interval width;
+    
+    /****************/
     Colinfo();
+    void operator=(Colinfo const&);
+    Colinfo(Colinfo const&);
+    ~Colinfo();
+    Colinfo(const PCol*,const Real*);
     void print() const;
-    Real minright() const { return pcol_->width().right; }
-    Real minleft() const { return -pcol_->width().left; }
+    bool fixed() const { return fixpos;}
+    Real fixed_position()const { return *fixpos; }
+    Real minright() const { return width.right; }
+    Real minleft() const { return -width.left; }
 };
 
 

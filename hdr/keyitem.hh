@@ -9,19 +9,26 @@
 
 #include "item.hh"
 #include "vray.hh"
+
+/// 
 struct Keyitem : Item {
     svec<int> pitch;
     svec<int> acc;
     int c_position;
 
+    
     /****************/
     
     Keyitem(int cposition);
     void add(int pitch, int acc);
     void read(svec<int> k);
+
     void preprocess();
 
-private:
-    void brew_molecole();
+    Molecule* brew_molecule()const;
 };
+/**
+  An item which places accidentals at the start of the line
+  */
+
 #endif // KEYITEM_HH

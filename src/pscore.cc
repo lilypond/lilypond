@@ -1,4 +1,4 @@
-// utility functions for PScore
+#include "idealspacing.hh"
 #include "debug.hh"
 #include "lookup.hh"
 #include "spanner.hh"
@@ -8,12 +8,30 @@
 #include "scoreline.hh"
 #include "pscore.hh"
 #include "tstream.hh"
+#include "item.hh"
+
+
+Idealspacing*
+PScore::get_spacing(PCol*l, PCol*r)
+{
+    assert(l!=r);
+    for (iter_top(suz,ic); ic.ok(); ic++) {
+	if (ic->left == l && ic->right == r){
+	    return ic;
+	}
+    }
+    
+    Idealspacing*ip =new Idealspacing(l,r);
+    suz.bottom().add(ip);
+
+    return ip;
+}
 
 
 void
 PScore::clean_cols()
 {
-    for (PCursor<PCol *> c(cols); c.ok(); )
+    for (iter_top(cols,c); c.ok(); )
 	if (!c->used()) {
 	    c.del();
 	} else
@@ -49,58 +67,18 @@ PScore::typeset_item(Item *i, PCol *c, PStaff *s, int breakstat)
     c->add(i);
 
     /* first do this, because i->width() may follow the 0-pointer */
-    i->preprocess();
-
-
-    if (0 && c->daddy && c == c->daddy->prebreak) { // makeshift.
-	
-	Interval iv (i->width());
-	if (!iv.empty()) {
-	    svec<Item*> col_its (select_items(s, c));
-	    for (int j =0; j < col_its.sz(); j++)
-		col_its[j]->translate(Offset(-iv.length(),0));
-	    i->translate (Offset(-iv.right, 0));
-	}
-    }
-    
+    i->add_processing();    
 }
 
 void
-PScore::typeset_spanner(Spanner*sp, PStaff*ps)
+PScore::typeset_spanner(Spanner*span_p, PStaff*ps)
 {
-    sp->preprocess();
-    sp->pstaff_ = ps;
-    spanners.bottom().add(sp);
-    ps->spans.bottom().add(sp);
+    span_p->pstaff_ = ps;
+    spanners.bottom().add(span_p);
+    ps->spans.bottom().add(span_p);
+
     // do not init start/stop fields. These are for broken spans only.
-}
-
-
-void
-PScore::add_line(svec< PCol *> curline, svec<Real> config)
-{    
-    Line_of_score *p = new Line_of_score(curline,this);
-    lines.bottom().add(p);   	
-    for (int i=0; i < curline.sz(); i++){
-	PCol *c=(PCol *)curline[i]; // so, this isn't really const.
-	c->hpos = config[i];
-    }
-}
-
-Idealspacing*
-PScore::get_spacing(PCol*l, PCol*r)
-{
-    assert(l!=r);
-    for (PCursor<Idealspacing*> ic (suz); ic.ok(); ic++) {
-	if (ic->left == l && ic->right == r){
-	    return ic;
-	}
-    }
-    
-    Idealspacing*ip =new Idealspacing(l,r);
-    suz.bottom().add(ip);
-
-    return ip;
+    span_p->add_processing();
 }
 
 
@@ -111,20 +89,6 @@ PScore::compare_pcols(PCol*a,  PCol*b)const
     PCursor<PCol*> bc(find_col(b));
     assert(ac.ok() && bc.ok());
     return ac - bc;
-}
-
-/*
-  return all breakable columns
- */
-svec< PCol *>
-PScore::find_breaks() const
-{
-    svec< PCol *> retval;
-    for (PCursor<PCol *> c(cols); c.ok(); c++)
-	if (c->breakable())
-	    retval.add(c);
-
-    return retval;
 }
 
 void
@@ -149,7 +113,7 @@ PScore::output(Tex_stream &ts)
     int l=1;
 
     ts << "\n "<<  paper_->lookup_->texsetting << "%(Tex id)\n";
-    for (PCursor<Line_of_score*> lic(lines); lic.ok(); lic++) {
+    for (iter_top(lines,lic); lic.ok(); lic++) {
 	ts << "% line of score no. " << l++ <<"\n";
 	ts << lic->TeXstring();
 	if ((lic+1).ok())
@@ -163,9 +127,9 @@ PScore::select_items(PStaff*ps , PCol*pc)
 {
     svec<Item*> ret;
     assert(ps && pc);
-    for (PCursor<const Item*> ic(pc->its); ic.ok(); ic++){
-	if (ic->pstaff_ == ps)
-	    ret.add((Item*)(const Item*)ic);
+    for (iter_top(pc->its,i); i.ok(); i++){
+	if (i->pstaff_ == ps)
+	    ret.add((Item*)(const Item*)i);
     }
     return ret;
 }
@@ -174,10 +138,10 @@ void
 PScore::OK()const
 {
 #ifdef NDEBUG
-    for (PCursor<PCol*> cc(cols); cc.ok(); cc++)
+    for (iter_top(cols,cc); cc.ok(); cc++)
 	cc->OK();
-    for (PCursor<Idealspacing*> ic(suz); ic.ok(); ic++)
-	ic->OK();
+    for (iter_top(suz,i); i.ok(); i++)
+	i->OK();
 #endif
 }
 
@@ -188,12 +152,12 @@ PScore::print() const
     mtor << "PScore { ";
     paper_->print();
     mtor << "\ncolumns: ";
-    for (PCursor<PCol*> cc(cols); cc.ok(); cc++)
+    for (iter_top(cols,cc); cc.ok(); cc++)
 	cc->print();
     
     mtor << "\nideals: ";
-    for (PCursor<Idealspacing*> ic(suz); ic.ok(); ic++)
-	ic->print();
+    for (iter_top(suz,i); i.ok(); i++)
+	i->print();
     mtor << "}\n";
 #endif 
 }
@@ -201,19 +165,34 @@ PScore::print() const
 void
 PScore::preprocess()
 {
+    for (iter_top(spanners,i); i.ok(); i++) {
+	i->pre_processing();
+    }
+    for (iter_top(its,i); i.ok(); i++){
+	i->pre_processing();
+    }
 }
 
 void
 PScore::postprocess()
 {
-    for (PCursor<Spanner*> ic(broken_spans); ic.ok(); ic++) {
-	ic->process();
+    for (iter_top(broken_spans,i); i.ok(); i++) { // could chase spans as well.
+	i->post_processing();
     }
-    for (PCursor<Item*> ic(its); ic.ok(); ic++){
-	ic->postprocess();
+    for (iter_top(its,i); i.ok(); i++){
+	i->post_processing();
     }
-    for (PCursor<Line_of_score*> i(lines); i.ok(); i++)
+    
+    for (iter_top(broken_spans,i); i.ok(); i++) {
+	i->molecule_processing();
+    }
+    for (iter_top(its,i); i.ok(); i++){
+	i->molecule_processing();
+    }
+
+    for (iter_top(lines,i); i.ok(); i++)
 	i->process();
+
 }
 
 PCursor<PCol *>
@@ -229,7 +208,30 @@ PScore::find_col(PCol *c)const
 void
 PScore::add_broken(Spanner*s)
 {
+    assert(s->left->line == s->right->line);
     broken_spans.bottom().add(s);
     s->left->starters.bottom().add (s);
     s->right->stoppers.bottom().add (s);
+}
+
+void
+PScore::set_breaking(svec<Col_configuration> breaking)
+{
+    for (int j=0; j < breaking.sz(); j++) {
+	svec<PCol*> &curline(breaking[j].cols);
+	svec<Real> &config(breaking[j].config);
+	
+	Line_of_score *p = new Line_of_score(curline,this);
+	lines.bottom().add(p);   	
+	for (int i=0; i < curline.sz(); i++){
+	    curline[i]->hpos = config[i];
+	}
+    }
+}
+
+void
+PScore::calc_breaking()
+{
+    Word_wrap w(*this);
+    set_breaking(w.solve());
 }

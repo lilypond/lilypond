@@ -4,7 +4,8 @@ LilyGuts - doco to the internals of LilyPond
 
 =head1 DESCRIPTION
 
-This page documents some aspects of the internals of LilyPond
+This page documents some aspects of the internals of LilyPond. Some of
+this stuff comes from e-mail I wrote, some from e-mail others wrote, some are large comments taken away from the headers
 
 =head1 OVERVIEW
 
@@ -39,7 +40,81 @@ Very simple, just walk all Line_of_* and follow the links over there
 
 =back
 
+=head1 REQUESTS
+
+[see F<request.hh>]
+
+Any Voice_element can do a number of requests. A request is done
+to the C<Staff> which contains the C<Voice_element>. The staff decides
+whether to to honor the request, ignore it, or merge it with other
+requests. Merging of requests is preferably done with other
+requests done by members of the same voicegroups (beams, brackets, stems) 
+
+Please refer to the documentation of the Child classes of
+C<Request> for explanation of each request type.
+
+The result of a request will be an C<Item> or a C<Spanner>, which
+will be put on a C<PStaff>. Note that the C<PStaff> and the original
+C<Staff> need not have anything in common. For example, the
+``double'' piano Staff could interpret commands which juggle
+melodies across the left and right hand, and may put the result in
+two five-line PStaffs (maybe with extra PStaffs to carry the dynamic
+signs and any lyric.
+
+The class C<Staff> should be thought as a container for the
+C<Voice>s, and an interpreter for C<Request>s and C<Command>s.
+Different staffs can produce different outputs; a melodious voice
+which is put into a percussion-Staff, will be typeset as the rythm of
+that voice.
+
+After C<Staff> made up her mind (Would C<Staff> be a smart
+name? How about C<struct Susan {}> :-), the resultant items and
+spanners are put on the PScore, and pointers to these items are
+stored in the C<Voice_element>. This construction enables the
+beams/stems to look up the balls it has to connect to. 
+
+=over 5
+
+=item Note_req
+
+Staff has to decide if the ball should be hanging left or right. This
+influences the horizontal dimensions of a column, and this  is why
+request processing should be done before horizontal spacing.
+
+Other voices' frivolities may cause the need for accidentals, so this
+is also for the Staff to decide. The Staff can decide on positioning
+based on ottava commands and the appropriate clef.
+
+=item Rest_req
+
+Why a request? It might be a good idea to not typeset the rest, if the
+paper is too crowded.
+
+=item Span_req
+
+This type of request typically results in the creation of a C<Spanner>
+
+=item Beam_req
+
+Staff has to combine this request with the stem_request, since the
+number of flags that a stem wants to carry will determine the
+number of beams.
+
+=item  Dynamic
+
+Each dynamic is bound to one note ( a crescendo spanning multiple
+notes is thought to be made of two "dynamics": a start and a stop).
+Dynamic changes can occur in a smaller time than the length of its
+note, therefore fore each Dynamic request carries a time, measured
+from the start of its note.
+
+This subfield would come in handy, if mpp96 was adapted for midi
+support.
+
+=back
+
 =head1 COMMANDS
+
 
 This table decribes the proper order for the different commands:
 
@@ -206,6 +281,9 @@ signifies a "list of". (This is not complete)
 
 =head2 References
 
+[partly by Mark Basinski <basinski@arizona.edu>]
+
+
 Herbert Chlapik, 
 
 W.A. Hegazy and J. S. Gourlay. Optimal line breaking in music. In
@@ -213,12 +291,12 @@ W.A. Hegazy and J. S. Gourlay. Optimal line breaking in music. In
 
 Ross, Ted. ``Teach yourself the art of music engraving and processing'' 
 (3rd edition). Hansen House, Miami Beach, FL.
- 
+
 	Hansen House
 	1820 West Ave.
 	Miami, FL  33139
 	(305) 532-5461
- 
+
 [This is about *engraving* i.e. professional music typesetting, and includes 
 some good spacing tables]
  
