@@ -233,12 +233,13 @@ def set_setting (dict, key, val):
 		dict[key] = [val]
 
 
-def escape_path (x):
-	return re.sub ('([ \n\t\\\\])', r'\\\1',x)
+def escape_shell (x):
+	return re.sub (r'''([^\\])([`'"\\\s])''', r'\1\\\2', x)
+	# help emacs'" broken python mode
 
 def run_lilypond (files, dep_prefix):
 	def make_include_option (x):
-		return '-I %s' %   escape_path (x)
+		return '-I %s' %   escape_shell (x)
 
 	opts = ''
 	opts = opts + ' ' + string.join (map (make_include_option, include_path))
@@ -258,7 +259,7 @@ def run_lilypond (files, dep_prefix):
 		if dep_prefix:
 			opts = opts + ' --dep-prefix=%s' % dep_prefix
 
-	fs = string.join (map (escape_path, files))
+	fs = string.join (map (escape_shell, files))
 
 	global verbose_p
 	if verbose_p:
