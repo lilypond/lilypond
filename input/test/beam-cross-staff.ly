@@ -20,14 +20,6 @@
 		s1
 	}
 	>
-	\paper{
-		\translator{
-			\PianoStaffContext
-			minVerticalAlign = 3.0*\staffheight;
-			maxVerticalAlign = 3.0*\staffheight;
-		}
-%		linewidth=-1.;
-	}
 }
 
 \version "1.3.59"; 

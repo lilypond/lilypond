@@ -24,12 +24,31 @@ Crescendo::set_interface (Score_element*s)
 
 
 MAKE_SCHEME_CALLBACK(Crescendo,brew_molecule);
+
+/*
+
+  TODO:
+
+  * should span the crescendo on any dynamic-text items, and
+  calculate their dimensions to determine shortening; junk shortening
+  code and related elt props.
+
+  * separate the dashed-line version and the hairpin version into two
+  brew_molecule functions.
+
+  * generalise dashed-line into generic text spanner, for ottava, accelerando, etc.
+
+  
+*/
 SCM
 Crescendo::brew_molecule (SCM smob) 
 {
   Score_element *me= unsmob_element (smob);
   Spanner * sp = dynamic_cast<Spanner*>(me);
-  Real absdyn_dim = me->paper_l ()-> get_var ("crescendo_shorten");
+  Real ss = me->paper_l ()->get_var ("staffspace");
+  Real sl = me->paper_l ()->get_var ("stafflinethickness");  
+  
+  Real absdyn_dim = gh_scm2double (me->get_elt_property ("shorten-for-letter"));
   Real extra_left =  sp->get_broken_left_end_align ();
 
   SCM dir = me->get_elt_property("grow-direction");
@@ -87,7 +106,7 @@ Crescendo::brew_molecule (SCM smob)
 						  me->paper_l ()));
       m.add_molecule (start_text);
 
-      pad = me->paper_l ()->get_var ("interline") / 2;
+      pad = me->paper_l ()->get_var ("staffspace") / 2;	//  ugh.
 
       width -= start_text.extent (X_AXIS).length ();
       width -= pad;
@@ -97,10 +116,12 @@ Crescendo::brew_molecule (SCM smob)
   SCM at;
   s =me->get_elt_property ("spanner");
   Real height;
+
   if (gh_string_p (s) && ly_scm2string (s) == "dashed-line")
     {
-      Real thick = me->paper_l ()->get_var ("crescendo_dash_thickness");
-      Real dash = me->paper_l ()->get_var ("crescendo_dash");
+      Real thick = gh_scm2double (me->get_elt_property ("dash-thickness")) * sl ;
+      Real dash = gh_scm2double (me->get_elt_property  ("dash-length")) * ss;
+      
       height = thick;
       at = gh_list (ly_symbol2scm (ly_scm2string (s).ch_C ()),
 		    gh_double2scm (thick),
@@ -111,8 +132,8 @@ Crescendo::brew_molecule (SCM smob)
   else
     {
       bool continued = broken[Direction (-gd)];
-      height = me->paper_l()->get_var ("crescendo_height");
-      Real thick = me->paper_l ()->get_var ("crescendo_thickness");
+      height = ss * gh_scm2double (me->get_elt_property ("height"));
+      Real thick = sl * gh_scm2double (me->get_elt_property ("thickness"));
       
       const char* hairpin = (gd < 0)? "decrescendo" :  "crescendo";
 

@@ -21,19 +21,12 @@ Simple_music_iterator::Simple_music_iterator (Simple_music_iterator const &src)
   : Music_iterator (src)
 {
   last_processed_mom_ = src.last_processed_mom_;
-  length_mom_ = src.length_mom_;
-}
-
-void
-Simple_music_iterator::construct_children ()
-{
-  length_mom_ = music_l_->length_mom ();
 }
 
 bool
 Simple_music_iterator::ok ()const
 {
-  return last_processed_mom_ < length_mom_;
+  return last_processed_mom_ < music_length_mom ();
 }
 
 Moment
@@ -42,7 +35,7 @@ Simple_music_iterator::pending_moment ()const
   if (music_l_)
     return Moment (0);
   else
-    return length_mom_;
+    return music_length_mom ();
 }
 
 void

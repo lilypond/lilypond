@@ -20,11 +20,9 @@ Grace_align_item::before_line_breaking (SCM smob)
   Score_element*me = unsmob_element (smob);
 
   SCM space = me->get_elt_property ("horizontal-space");
-  Real ss = me->paper_l ()->get_var ("staffspace");
-  
   me->set_elt_property ("threshold",
-		    gh_cons (gh_double2scm (ss  *gh_scm2double (space)),
-			     gh_double2scm (infinity_f)));
+			gh_cons (space,
+				 gh_double2scm (infinity_f)));
   dynamic_cast<Item*>(me)->column_l ()->set_elt_property ("contains-grace", SCM_BOOL_T);
 
   return SCM_UNSPECIFIED;

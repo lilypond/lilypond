@@ -128,9 +128,12 @@ Part_combine_music_iterator::get_state (Moment)
 {
   int state = UNKNOWN;
   Part_combine_music const *p = dynamic_cast<Part_combine_music const* > (music_l_);
-  Translator_group *first_translator = first_iter_p_->report_to_l ()->find_create_translator_l (p->what_str_, "one");
+  Translator_group *first_translator = first_iter_p_->report_to_l ()->find_create_translator_l (p->what_str_, "one" + suffix_);
 
   SCM s = first_translator->get_property (ly_symbol2scm ("changeMoment"));
+  if (!gh_pair_p (s))
+    return state;
+
   Moment change_mom = *unsmob_moment (gh_car (s));
   Moment diff_mom = *unsmob_moment (gh_cdr (s));
   
@@ -139,30 +142,42 @@ Part_combine_music_iterator::get_state (Moment)
   if (!now.mod_rat (change_mom))
     {
       SCM interval = SCM_BOOL_F;
-      Moment first_mom = first_until_ - now;
-      Moment second_mom = second_until_ - now;
+      if (first_until_ < now)
+	first_until_ = now;
+      if (second_until_ < now)
+	second_until_ = now;
+
+      Moment first_mom = first_until_;
+      Moment second_mom = second_until_;
+      Moment diff_until = diff_mom + now;
 
       bool first = true;
       Music_iterator *first_iter = first_iter_p_->clone ();
       Music_iterator *second_iter = second_iter_p_->clone ();
-      while ((first_mom <? second_mom) < diff_mom
-	     && (first_iter->ok () || second_iter->ok ()))
+
+      Moment last_pending (-1);
+      Moment pending = now;
+      while (now < diff_until
+	      && (first_iter->ok () || second_iter->ok ())
+
+	     // urg, this is a hack, haven't caught this case yet
+	     && (pending != last_pending))
 	{
-	  Moment m;
 	  if (!second_iter->ok ())
-	    m = first_iter->pending_moment ();
+	    pending = first_iter->pending_moment ();
 	  else if (!first_iter->ok ())
-	    m = second_iter->pending_moment ();
+	    pending = second_iter->pending_moment ();
 	  else
-	    m = first_iter->pending_moment () <? second_iter->pending_moment ();
+	    pending = first_iter->pending_moment () <? second_iter->pending_moment ();
+	  last_pending = pending;
 
 	  Array<Musical_pitch> first_pitches;
 	  Array<Duration> first_durations;
-	  get_music_info (m, first_iter, &first_pitches, &first_durations);
+	  get_music_info (pending, first_iter, &first_pitches, &first_durations);
       
 	  Array<Musical_pitch> second_pitches;
 	  Array<Duration> second_durations;
-	  get_music_info (m, second_iter, &second_pitches, &second_durations);
+	  get_music_info (pending, second_iter, &second_pitches, &second_durations);
 
 	  if (first_pitches.size () && second_pitches.size ())
 	    {
@@ -175,36 +190,16 @@ Part_combine_music_iterator::get_state (Moment)
 	    {
 	      first_durations.sort (Duration::compare);
 	      first_mom += first_durations.top ().length_mom ();
-	      if (first && !first_pitches.empty ())
-		first_until_ = first_mom + now;
 	    }
 
 	  if (second_durations.size ())
 	    {
 	      second_durations.sort (Duration::compare);
 	      second_mom += second_durations.top ().length_mom ();
-	      if (first && !second_pitches.empty ())
-		second_until_ = second_mom + now;
 	    }
-	  first = false;
-
-#if 0 /* DEBUG */
-	  printf ("now: %s\n", now.str ().ch_C ());
-	  printf ("first: ");
-	  for (int i = 0; i < first_pitches.size (); i++)
-	    {
-	      printf ("%s, ", first_pitches[i].str ().ch_C ());
-	    }
-	  printf ("\nsecond: ");
-	  for (int i = 0; i < second_pitches.size (); i++)
-	    {
-	      printf ("%s, ", second_pitches[i].str ().ch_C ());
-	    }
-	  printf ("\n");
-#endif
 
 	  if (!first_pitches.empty () && second_pitches.empty ()
-	      && !(second_until_ > now))
+	       && !(second_until_ > now))
 	    {
 	      state |= UNRELATED;
 	      state &= ~UNISILENCE;
@@ -249,6 +244,8 @@ Part_combine_music_iterator::get_state (Moment)
 	      if (!(state & ~(UNIRHYTHM | UNISILENCE)))
 		state |= UNISILENCE;
 	    }
+	  else if (!state)
+	    state |= UNRELATED;
 	  else
 	    state &= ~(UNISILENCE);
 
@@ -269,18 +266,17 @@ Part_combine_music_iterator::get_state (Moment)
 		state &= ~(SPLIT_INTERVAL);
 	    }
 
-#if 0
-	  Moment next = (first_mom <? second_mom) + now;
+	  if (first && !first_pitches.empty ())
+	    first_until_ = first_mom;
+	  if (first && !second_pitches.empty ())
+	    second_until_ = second_mom;
+	  first = false;
+
 	  if (first_iter->ok ())
-	    first_iter->skip (next);
+	    first_iter->skip (pending);
 	  if (second_iter->ok ())
-	    second_iter->skip (next);
-#else
-	  if (first_iter->ok ())
-	    first_iter->skip (first_mom + now);
-	  if (second_iter->ok ())
-	    second_iter->skip (second_mom + now);
-#endif
+	    second_iter->skip (pending);
+	  now = pending;
 	}
       delete first_iter;
       delete second_iter;
@@ -297,8 +293,17 @@ Part_combine_music_iterator::process (Moment m)
     - Use three named contexts (be it Thread or Voice): one, two, solo.
       Let user pre-set (pushproperty) stem direction, remove
       dynamic-engraver, and such.
+
+      **** Tried this, but won't work:
+
+      Consider thread switching: threads "one", "two" and "both".
+      User can't pre-set the (most important) stem direction at
+      thread level!
    */
  
+  if (suffix_.empty_b ())
+    suffix_ = first_iter_p_->report_to_l ()->daddy_trans_l_->id_str_.cut_str (3, INT_MAX);
+
   int state = get_state (m);
   if (state)
     state_ = state;
@@ -307,25 +312,25 @@ Part_combine_music_iterator::process (Moment m)
   
   Part_combine_music const *p = dynamic_cast<Part_combine_music const* > (music_l_);
 
-  bool combined_b = first_iter_p_->report_to_l ()->daddy_trans_l_
+
+  bool previously_combined_b = first_iter_p_->report_to_l ()->daddy_trans_l_
     == second_iter_p_->report_to_l ()->daddy_trans_l_;
 
-  String to_id =  combined_b ? "one" : "two";
-  if ((!(state & UNIRHYTHM) && combined_b)
-      || ((state & SPLIT_INTERVAL) && combined_b)
-      || ((state & (SOLO1 | SOLO2)) && combined_b)
-      || (((state & (UNIRHYTHM | UNISILENCE))
-	   && !combined_b && !(state & SPLIT_INTERVAL)
-	   && !(state & (SOLO1 | SOLO2)))))
-    {
-      combined_b = !combined_b;
-      to_id =  combined_b ? "one" : "two";
-      change_to (second_iter_p_, p->what_str_, to_id);
-    }
+  bool combine_b = previously_combined_b;
 
+  if (!(state & UNIRHYTHM)
+      || (state & SPLIT_INTERVAL)
+      || (state & (SOLO1 | SOLO2)))
+    combine_b = false;
+  else if (state & (UNIRHYTHM | UNISILENCE))
+    combine_b = true;
 
-  Translator_group *first_translator = first_iter_p_->report_to_l ()->find_create_translator_l (p->what_str_, "one");
-  Translator_group *second_translator = second_iter_p_->report_to_l ()->find_create_translator_l (p->what_str_, "two");
+  if (combine_b != previously_combined_b)
+    change_to (second_iter_p_, p->what_str_, (combine_b ? "one" : "two")
+	       + suffix_);
+
+  Translator_group *first_translator = first_iter_p_->report_to_l ()->find_create_translator_l (p->what_str_, "one" + suffix_);
+  Translator_group *second_translator = second_iter_p_->report_to_l ()->find_create_translator_l (p->what_str_, "two" + suffix_);
 
   /*
     hmm

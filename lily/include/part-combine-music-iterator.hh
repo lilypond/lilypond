@@ -39,6 +39,7 @@ private:
   Moment first_until_;
   Moment second_until_;
   int state_;
+  String suffix_;
 };
 
 #endif /* PART_COMBINE_MUSIC_ITERATOR_HH */

@@ -15,6 +15,7 @@
 #include "directional-element-interface.hh"
 #include "side-position-interface.hh"
 #include "local-key-item.hh"
+#include "paper-def.hh"
 
 /**
    Catch notes, and put them in a row. Used for aligning grace notes.
@@ -96,14 +97,15 @@ Align_note_column_engraver::process_acknowledged ()
 	 UGH UGH: separate note-spacing into  separate class,  and
 	 use that to space grace notes.	 
       */
-      SCM grsp = get_property ("graceAccidentalSpace");
+      SCM grsp = get_property ("graceAccidentalSpace") ;
       if (gh_number_p(grsp))
 	{
 	  /*
 	    ugh.
 	  */
 	  Real extra_space = gh_scm2double(grsp);
-	  SCM e = gh_cons (gh_double2scm (-extra_space), gh_double2scm (0.0));
+	  SCM e = gh_cons (gh_double2scm (-extra_space * paper_l ()->get_var ("staffspace")),
+			   gh_double2scm (0.0));
 	  now_column_l_->set_elt_property ("extra-space", e);
 	}
     }

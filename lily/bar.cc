@@ -68,10 +68,6 @@ Bar::compound_barline (Score_element*me, String str, Real h)
     {
       return me->lookup_l ()->blank (Box (Interval(0, 0), Interval (-h/2, h/2)));
     }
-  if (str == "scorepostbreak")
-    {
-      return simple_barline (me, me->paper_l ()->get_var ("barthick_score"), h);
-    }
   else if (str == "|")
     {
       return thin;

@@ -34,12 +34,11 @@
 					a2 \property VoiceCombineThread.soloADue = ##f a
 				}
 		>
-	\context PianoStaff <
-		\context StaffCombineStaff=one \skip 1*9;
-		\context StaffCombineStaff=two \skip 1*9;
-		\context StaffCombineStaff=one \partcombine StaffCombineStaff
-			\context StaffCombineVoice=one \notes\relative c''
-			%\context StaffCombineThread=one \notes\relative c''
+	\context PianoStaff = violi <
+		\context StaffCombineStaff=oneVioli { \clef alto; \skip 1*9;}
+		\context StaffCombineStaff=twoVioli { \clef alto; \skip 1*9;}
+		\context StaffCombineStaff=oneVioli \partcombine StaffCombineStaff
+			\context StaffCombineVoice=one \notes\relative c'
 				{
 					c4 d e f
 					c d e f
@@ -48,12 +47,10 @@
 					c d e f
 					c d e f
 					c4 d e f
-					a8 a a a
-					b b b b
+					a8 a a a b b b b
 					d1
 				}
-			\context StaffCombineVoice=two \notes\relative c''
-			%\context StaffCombineThread=two \notes\relative c''
+			\context StaffCombineVoice=two \notes\relative c'
 				{
 					c4 d e f
 					c d e f
@@ -62,9 +59,39 @@
 					c4 d e f
 					c2 e2
 					c,4 d e f
-					a8 a a a
-					b b b b
+					a8 a a a b b b b
 					b1
+				}
+		>
+	\context PianoStaff = lower <
+		\context StaffCombineStaff=oneBassi { \clef bass; \skip 1*9;}
+		\context StaffCombineStaff=twoBassi { \clef bass; \skip 1*9;}
+		\context StaffCombineStaff=oneBassi \partcombine StaffCombineStaff
+			\context StaffCombineVoice=oneB \notes\relative c
+				{
+					\clef bass;
+					c1
+					d
+					e
+					f
+					c
+					d
+					e
+					f
+					c
+				}
+			\context StaffCombineVoice=twoB \notes\relative c
+				{
+					\clef bass;
+					c1
+					d4 e d e
+					e1
+					f4 g f g
+					c1
+					d4 e d e
+					e
+					f4 g f g
+					c1
 				}
 		>
 	>

@@ -135,6 +135,8 @@ Slur::set_extremities (Score_element*me)
 	{
 	  
 	  // for (SCM s = get_elt_property ("slur-extremity-rules"); s != SCM_EOL; s = gh_cdr (s))
+
+	  // FIXME: global GUILE scope used!
 	  for (SCM s = scm_eval2 (ly_symbol2scm ("slur-extremity-rules"),
 				  SCM_EOL);
 	       s != SCM_EOL; s = gh_cdr (s))
@@ -190,9 +192,9 @@ Slur::broken_trend_offset (Score_element *me, Direction dir)
   Offset o;
   if (Spanner *mother =  dynamic_cast<Spanner*> (me->original_l_))
     {
-      for (int i = dir == LEFT ? 0 : mother->broken_into_l_arr_.size ();
-	   dir == LEFT ? i < mother->broken_into_l_arr_.size () : i;
-	   dir == LEFT ? i++ : --i)
+      for (int i = dir == LEFT ? 0 : mother->broken_into_l_arr_.size () - 1;
+	   dir == LEFT ? i < mother->broken_into_l_arr_.size () : i > 0;
+	   dir == LEFT ? i++ : i--)
 	{
 	  if (mother->broken_into_l_arr_[i - dir] == me)
 	    {
@@ -286,7 +288,9 @@ Slur::get_attachment (Score_element*me,Direction dir,
 	}
 	
     }
-	  
+
+
+  // FIXME
   SCM l = scm_assoc
     (scm_listify (a,
 		  gh_int2scm (stem ? Stem::get_direction (stem) : 1 * dir),
@@ -353,7 +357,8 @@ Slur::encompass_offset (Score_element*me,
   /*
    leave a gap: slur mustn't touch head/stem
    */
-  o[Y_AXIS] += dir * me->paper_l ()->get_var ("slur_y_free");
+  o[Y_AXIS] += dir * gh_scm2double (me->get_elt_property ("y-free")) *
+    me->paper_l ()->get_var ("staffspace");
   return o;
 }
 
@@ -478,10 +483,14 @@ Slur::brew_molecule (SCM smob)
 void
 Slur::set_control_points (Score_element*me)
 {
-  Real staff_space = Staff_symbol_referencer::staff_space ((Score_element*)me);  
-  Real h_inf = me->paper_l ()->get_var ("slur_height_limit_factor") *
-    staff_space;
-  Real r_0 = me->paper_l ()->get_var ("slur_ratio");
+  Real staff_space = Staff_symbol_referencer::staff_space ((Score_element*)me);
+
+  SCM details = me->get_elt_property ("details");
+  SCM h_inf_scm = scm_assq (ly_symbol2scm ("height-limit"), details);
+  SCM r_0_scm = scm_assq (ly_symbol2scm ("ratio"), details);
+
+  Real r_0 = gh_scm2double (gh_cdr (r_0_scm));
+  Real h_inf = staff_space * gh_scm2double (gh_cdr (h_inf_scm));
   
   Slur_bezier_bow bb (get_encompass_offset_arr (me),
 		      Directional_element_interface::get (me),
@@ -491,14 +500,21 @@ Slur::set_control_points (Score_element*me)
     {
       Real length = bb.curve_.control_[3][X_AXIS]; 
       Real default_height = slur_height (length, h_inf, r_0);
-      bb.minimise_enclosed_area (me->paper_l());
-      
-      Real bff = me->paper_l ()->get_var ("slur_force_blowfit");
+
+      SCM ssb = scm_assq (ly_symbol2scm ("beautiful"), details);
+      Real sb =gh_scm2double (gh_cdr (ssb));
+
+      bb.minimise_enclosed_area (me->paper_l(), sb);
+      SCM sbf = scm_assq (ly_symbol2scm ("force-blowfit"), details);
+      Real bff = 1.0;
+      if (gh_pair_p (sbf) && gh_number_p (gh_cdr (sbf)))
+	  bff = gh_scm2double (gh_cdr (sbf));
+
       bb.curve_.control_[1][Y_AXIS] *= bff;
       bb.curve_.control_[2][Y_AXIS] *= bff;
       bb.blow_fit ();
 
-      Real sb = me->paper_l ()->get_var ("slur_beautiful");
+      
       Real beautiful = length * default_height * sb;
       Real area = bb.enclosed_area_f ();
       

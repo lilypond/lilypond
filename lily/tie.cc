@@ -127,7 +127,7 @@ Tie::get_control_points (SCM smob)
   
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
-  Real x_gap_f = me->paper_l ()->get_var ("tie_x_gap");
+  Real x_gap_f = gh_scm2double (me->get_elt_property ("x-gap"));
 
   Score_element* commonx = me->common_refpoint (me->get_bound (LEFT), X_AXIS);
   commonx = me->common_refpoint (me->get_bound (RIGHT), X_AXIS);
@@ -167,10 +167,14 @@ Tie::get_control_points (SCM smob)
     }
   
   Direction dir = Directional_element_interface::get(me);
-  
-  Real h_inf = me->paper_l ()->get_var ("tie_height_limit_factor") * staff_space;
-  Real r_0 = me->paper_l ()->get_var ("tie_ratio");
 
+  SCM details = me->get_elt_property ("details");
+
+  SCM lim // groetjes aan de chirurgendochter.
+    = scm_assq (ly_symbol2scm ("height-limit"),details);
+  
+  Real h_inf = gh_scm2double (gh_cdr (lim)) *  staff_space;
+  Real r_0 = gh_scm2double (gh_cdr (scm_assq (ly_symbol2scm ("ratio"),details)));
 
   Bezier b  = slur_shape (width, h_inf, r_0);
   
@@ -224,8 +228,11 @@ Tie::get_control_points (SCM smob)
       Real ry = rint (y/staff_space) * staff_space;
       Real diff = ry - y;
       Real newy = y;
-      if (fabs (y) <= Staff_symbol_referencer::staff_radius (me)
-	  && fabs (diff) < me->paper_l ()->get_var ("tie_staffline_clearance"))
+
+      Real clear = staff_space * gh_scm2double (me->get_elt_property ("staffline-clearance"));
+
+	if (fabs (y) <= Staff_symbol_referencer::staff_radius (me)
+	  && fabs (diff) < clear)
 	{
 	  newy = ry - 0.5 * staff_space * sign (diff) ;
 	}

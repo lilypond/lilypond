@@ -120,6 +120,17 @@
 	)
   )	
 
+(define generic-bar-number-properties
+  (cons 'bar-number-interface
+	(list
+	 (list 'barNumberScriptPadding number? 'padding)
+	 (list 'barNumberDirection dir? 'direction)	 
+	 )
+	
+	)
+  )
+
+  
 ; don't do this yet. Depends on whennn the staff is really announced
 (define generic-staff-symbol-properties
   (cons 'staff-symbol-interface

@@ -160,11 +160,6 @@ they tend to be very big and don't help with describing the problem.
     For discussions concerning LilyPond.
 @end itemize
 
-If you want to unsubscribe use the same procedure as subscribing, but
-substitute @code{unsubscribe} where you would put @code{subscribe}.
-
-@unnumberedsubsec Webmaster's Disclaimer
-
 These pages were entirely created from a @strong{development snapshot}
 of the LilyPond package.  The version of this webpage is printed at the
 bottom.

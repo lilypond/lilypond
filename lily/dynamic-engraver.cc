@@ -268,7 +268,10 @@ Dynamic_engraver::do_process_music ()
 	    {
 	      index_set_cell (cresc_p_->get_elt_property ("dynamic-drul"),
 			      LEFT, text_p_->self_scm ());
-	      if (finished_cresc_p_)
+
+	      if (finished_cresc_p_
+	      // I don't see why, but we need this check
+		  && gh_pair_p (finished_cresc_p_->get_elt_property ("dynamic-drul")))
 		index_set_cell (finished_cresc_p_->get_elt_property ("dynamic-drul"),
 				RIGHT, text_p_->self_scm ());
 	    }
@@ -302,6 +305,7 @@ Dynamic_engraver::do_removal_processing ()
     {
       current_cresc_req_->origin ()->warning (_ ("unterminated (de)crescendo"));
       cresc_p_->suicide ();
+      cresc_p_ = 0;
     }
 }
 

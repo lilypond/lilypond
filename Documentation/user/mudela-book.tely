@@ -79,22 +79,335 @@ translation approved by the Free Software Foundation.
 
 @section Introduction
 
+[ The tutorial part is at the moment commented out and moved to 
+the end of this document ]
+
+
 [TODO: THIS MANUAL IS NOT FINISHED YET. FIXME.]
 
-@ignore
-Mudela-book is a script that process your La@TeX{} file and with great
-help from GNU LilyPond it translates blocks of mudela code it finds
-inside @code{mudela} environments to tex or eps graphics. It then
-creates a new file that can be sent through La@TeX{} to create a
-@file{.dvi} file with lines of music integrated with text.
+@command{mudela-book} is a script that helps integrating mudela with
+La@TeX{} or TeXinfo. @command{mudela-book} runs Lilypond on fragments
+of mudela in your source file, and includes the results into a
+document that can be processed with La@TeX{}, @command{makeinfo}
+or @command{texi2dvi}.
+The result is a text document with formatted music integrated.
 
-Mudela-book will do its best to try to align the music to the left and
-right margins. Currently the most used papersizes and one- and
-twocolumn mode is supported, but if you use the geometry-package from
-La@TeX{} or change the margins things will break.
+@command{mudela-book} will do its best to try to align the music to
+the left and right margins. Currently the most used papersizes and
+one- and twocolumn mode is supported. But if you use some more
+advances features, like the geometry-package or change the margins in
+La@TeX{} or use @code{@@pagesize} in texinfo, will break.
 
 This document assumes you have basic knowledge of GNU LilyPond and
-La@TeX{}.
+La@TeX{} or texinfo.
+
+@section TeXinfo reference
+
+Your markup the mudela code like this:
+@example
+@@mudela[options, go, here]
+ YOUR MUDELA CODE
+@@end mudela
+@end example
+
+or
+
+@example
+@@mudela[option, go, here]@{ YOUR MUDELA CODE @}
+@end example
+
+@command{mudela-book} knows the default margins, and a few papersizes.
+These commands should be in the beginning of the document:
+@itemize @bullet
+@item @code{@@afourpaper}
+@item @code{@@afourwide}
+@item @code{@@smallbook}
+@end itemize
+@code{@@pagesizes} are not supported.
+
+@subsection{Examples}
+
+Two simple examples. First a complete block:
+
+@example
+@@mudela[26pt]
+c' d' e' f' g'2 g'
+@@end mudela
+@end example
+
+produces this music:
+@mudela
+c' d' e' f' g'2 g'
+@end mudela
+
+Then the short version:
+@example
+@@mudela[11pt]@{<c' e' g'>@}
+@end example
+
+and its music:
+
+@mudela[11pt]{<c' e' g'>}
+
+
+@subsection{@@example and @@code}
+
+I'm not sure if this will go into the final documentation, this is
+here mostly to remember me on why things are the way they are.
+
+@command{mudela-book} will do nothing with special with @code{@@code} and
+@code{@@example} environments. The 'code' and 'example' commands
+should work just as normal. People looking at document that should be
+processed by @command{mudela-book}, should notice nothing special, except from
+some block like this:
+@example
+@@mudela
+BLABLA
+@@end mudela
+@end example
+
+or this:
+
+@code{@@mudela@{ BLABLA @}}
+
+Anything other is a bug in @command{mudela-book}.
+
+So to get this in the printed manual:
+
+@example
+@@mudela[26pt]
+\relative c'@{c d e f g2 g@}
+@@end mudela
+@end example
+
+you have to write this:
+
+@example
+@@example
+@@@@mudela[26pt]
+\relative c'@@@{c d e f g2 g@@@}
+@@@@end mudela
+@@end example
+@end example
+
+Simply explained, every '@{', '@}' and '@@' has to be written as '@@@{',
+'@@@}' and '@@@@'. This is how it works in plain texinfo too.
+
+@section La@TeX{} reference
+
+Your markup the mudela code like this:
+@example
+\begin[option, go, here]@{mudela@}
+ YOUR MUDELA CODE
+\end@{mudela@}
+@end example
+
+or 
+
+@example
+\mudela@{ YOUR MUDELA CODE @}
+@end example
+
+The 'geometry' package is is not supported. The most popular
+papersizes should work.
+
+Mudela-book know about the @code{\onecolumn} and 
+@code{\twocolumn} commands.
+
+The music will be surrounded by @code{\preMudelaExample} and
+@code{\postMudelaExample}. The variables are 
+defined to nothing by default, and the user can redefine them
+to whatever he wants.
+@strong{[UGH: THIS DOES NOT HAPPEN WHEN
+YOU USE THE SHORT FORM, \MUDELA@{ ... @}, CHECK OUT WHY]}
+
+@subsection{@code{landscape} package}
+There is some simple support for landscape paper format, and this
+can be combined with the @code{\twocolumn} command. Only a4 and
+letter paper is supported, more to come...
+
+A more complete
+support, maybe also supporting the geometry package is planned, but
+there are more work that has to be done on @command{mudela-book}
+first.
+
+This should work:
+@example
+\documentclass@{article@}
+\usepackage@{landscape@}
+\begin@{document@}
+\twocolumn
+BLA BLA BLA
+\end@{document@}
+@end example
+
+@subsection{Examples}
+
+@example
+\begin[26pt]@{mudela@}
+c' d' e' f' g'2 g'2
+\end@{mudela@}
+@end example
+
+produces this music:
+
+@mudela[26pt]
+c' d' e' f' g'2 g'2
+@end mudela
+
+Then the short version:
+@example
+\mudela[11pt]@{<c' e' g'>@}
+@end example
+
+and its music:
+
+@mudela[11pt]{<c' e' g'>}
+
+
+@subsection{\begin@{verbatim@} and \verb|\verb|}
+
+There work just as expected. Look at @file{mb-latex.tex} for details.
+
+@section Options
+
+@table @samp
+@item eps
+    the music is created as eps graphics that can be inserted in 
+    the middle of a text line, not only as a separate paragraph.
+    (La@TeX{} only)
+@item verbatim
+    CONTENTS is copied into the source enclosed in a verbatim block,
+    followed by any text given with the @code{intertext} option, then
+    the actual music is displayed. This option does not work with
+    the short version of the mudela blocks:
+
+    @code{ @@mudela@{ CONTENTS @} } and @code{ \mudela@{ CONTENTS @} }
+    
+@item intertext="text inside apostrophs"
+    Used in conjunction with @code{verbatim} option.
+@item filename=FILENAME
+    Save the mudela code to FILENAME instead of using a hash value
+    of CONTENTS.
+@item 11pt, 13pt, 16pt, 20pt, 26pt
+    set the fontsize to use for the music
+@item singleline
+  linewidth = -1.
+@item multiline
+  linewidth = textwidth
+@item fragment
+@item nonfragment
+    Override @command{mudela-book} autodetection of what type of code is in the
+    mudela block, voice contents or complete code.
+@end table
+
+@section Invocation
+
+When you run @command{mudela-book} it will generate lots of small
+files that Lilypond will process. So to avoid all the garbage in
+your source directory, you should either change to a temporary
+directory, or use the @code{--outdir} commandline options:
+
+@code{cd out && mudela-book ../yourfile.tex}
+
+@code{mudela-book --outdir=out yourfile.tex}
+
+
+For latex input, the file to give to latex has ext @file{.latex}.
+TeXinfo input will be written to a file with ext @file{.texi}. So be
+careful, don't give the source file that ext, or the file will be
+overwritten.
+
+@strong{[UGH: IS THIS THE BEST WAY TO DO IT. MAYBE ADD A COMMENT LINE TO THE
+GENERATED FILE, SO MUDELA-BOOK CAN TEST IF THE FILE IT IS TO OVERWRITE
+IS GENERATED.]}
+
+@strong{About the input}
+
+If the file contains the ``block''
+
+@example 
+
+        \begin@{mudela@}
+        CONTENTS
+        \end@{mudela@}
+ 
+@end example 
+
+then LilyPond is run on CONTENTS.  @command{mudela-book} puts the result back,
+surrounded by @code{\preMudelaExample} and @code{\postMudelaExample}
+commands. @code{\preMudelaExample} and @code{posMudelaExample} is
+defined to nothing by default, and the user can redefine them
+to whatever he wants.
+
+
+@subsection Command line options
+
+@table @samp
+
+@item @option{-f}, @option{--format=}
+    Specify the document type to process, @code{latex} or @code{texi}.
+    @command{mudela-book} usually figure out this automatically.
+@item --default-music-fontsize=??pt
+    Set the fontsize to use for mudela if no fontsize is given
+    as option.
+@item --force-music-fontsize=??pt
+    Force all mudela to use this fontsize, overriding options
+    given to \begin@{mudela@}
+@item -I DIR, --include=DIR
+    include path
+@item -M, --dependencies
+        Write dependencies to out-www/filename.dep
+@item --dep-prefix=PREF
+	prepend PREF before each -M dependency
+@item -n, --no-lily
+	don't run lilypond
+@item --no-pictures
+	don't generate pictures
+@item --read-lys
+	don't write ly files. This way you can do
+	@example
+	mudela-book file.tely
+	convert-mudela
+	mudela-book --read-lys
+	@end example
+@item --outname=FILE
+    The name of La@TeX{} file to output. If this option  is not given,
+    the output name derived from the input name.
+@item --outdir=
+	where to place generated files
+@item --version
+	print version information
+@item --help
+	Print a short help message
+@end table
+
+
+
+@command{mudela-book} is written in python 1.5, so you have to install
+@uref{http://www.python.org,python}.
+
+
+
+@section Bugs
+  
+The La@TeX{} \includeonly@{...@} command is ignored.
+
+Ignores almost all La@TeX{} commands that changes margins and linewidths.
+
+La@TeX{} comments can confuse command{mudela-book}:
+@example
+% this music will be displayed: \mudela@{c d e@}
+@end example
+
+@section Authors
+
+@email{hanwen@@cs.uu.nl, Han-Wen Nienhuys}, @uref{http://www.cs.uu.nl/people/hanwen}
+
+@email{tca@@gnu.org, Tom Cato Amundsen}
+
+@bye
+@ignore
 
 So what does this look like? Well, here is an example:
 @mudela[veryverbatim, intertext="produces this music:"]
@@ -149,7 +462,7 @@ Very often, if you mix music and text, the music is often only a
 few notes or at most a few bars. This music should be as short as
 possible and not stretched to be aligned to the right margin.
 
-If you only write voice-contents in the mudela block, mudela-book 
+If you only write voice-contents in the mudela block, @command{mudela-book}
 will set the @code{linewidth} variable to -1, so Lilypond
 will make the music as short as possible but without breaking the
 line. Here is a well know harmonic progression:
@@ -198,7 +511,7 @@ You can also use @code{mudelafile} (on a separate line, FIXME), to
 include another file.
 
 @section Fontsize options You can use all lilypond fontsizes in
-mudela-book.  The default 16pt fontsize is probably to big to be
+@command{mudela-book}.  The default 16pt fontsize is probably to big to be
 included in the middle of the text, 11pt or 13pt is probably better.
 
 The code can look like this:
@@ -258,8 +571,8 @@ lines.
 
 @section Just in case...
 The options @code{fragment} and @code{nonfragment} will override
-mudela-book when it scans the mudela code to see if it is voice
-contents or complete code. This might be useful if mudela-book choose
+@command{mudela-book} when it scans the mudela code to see if it is voice
+contents or complete code. This might be useful if @command{mudela-book} choose
 wrong. 
 
 Since there is no finder's fee which doubles every year, there is no
@@ -322,108 +635,4 @@ Verbatim environments will also ignore the page margins. That is
 a feature of La@TeX{}. (But you usually put things inside a verbatim
 environment when you don't want La@TeX{} to do any linebreaking)
 
-
-@section Texinfo behavior
-
-[TODO]
-
-@section Invocation
-
-@file{mudela-book} is a script that helps integrating mudela and
-La@TeX{}.  mudela-book runs LilyPond on fragments of mudela in your
-source file, and includes the results into document that can be
-processed with La@TeX{}.  The result is a text document with formatted
-music integrated.
-
-Lilypond will by default create all output files in directory @file{out}.
-The file to give to latex has ext @file{.latex}.
-
-@strong{About the input}
-
-If the file contains the ``block''
-
-@example 
-
-        \begin@{mudela@}
-        CONTENTS
-        \end@{mudela@}
- 
-@end example 
-
-then LilyPond is run on CONTENTS.  mudela-book puts the result back,
-surrounded by @code{\preMudelaExample} and @code{\postMudelaExample}
-commands. @code{\preMudelaExample} and @code{posMudelaExample} is
-defined to nothing by default, and the user can redefine them
-to whatever he wants.
-
-@code{\begin} takes the following options:
 @end ignore
-
-
-@subsection Command line options
-
-@table @samp
-
-@item -f, --format=
-    Specify the document type to process, @code{latex} or @code{texi}.
-    @file{mudela-book} usually figure out this automatically.
-@item --default-music-fontsize=??pt
-    Set the fontsize to use for mudela if no fontsize is given
-    as option.
-@item --force-music-fontsize=??pt
-    Force all mudela to use this fontsize, overriding options
-    given to \begin@{mudela@}
-@item -I DIR, --include=DIR
-    include path
-@item -M, --dependencies
-        Write dependencies to out-www/filename.dep
-@item --dep-prefix=PREF
-	prepend PREF before each -M dependency
-@item -n, --no-lily
-	don't run lilypond
-@item --no-pictures
-	don't generate pictures
-@item --read-lys
-	don't write ly files. This way you can do
-	@example
-	mudela-book file.tely
-	convert-mudela
-	mudela-book --read-lys
-	@end example
-@item --outname=FILE
-    The name of La@TeX{} file to output. If this option  is not given,
-    the output name derived from the input name.
-@item --outdir=
-	where to place generated files
-@item --version
-	print version information
-@item --help
-	Print a short help message
-@end table
-
-
-
-@file{mudela-book} is written in python 1.5, so you have to install
-@uref{http://www.python.org,python}.
-
-
-
-@section Bugs
-  
-The La@TeX{} \includeonly@{...@} command is ignored.
-
-Ignores almost all La@TeX{} commands that changes margins and linewidths.
-
-La@TeX{} comments can confuse mudela-book:
-@example
-% this music will be displayed: \mudela@{c d e@}
-@end example
-
-@section Authors
-
-@email{hanwen@@cs.uu.nl, Han-Wen Nienhuys}, @uref{http://www.cs.uu.nl/people/hanwen}
-
-@email{tca@@gnu.org, Tom Cato Amundsen}
-
-@bye
-

@@ -26,8 +26,8 @@ public:
   virtual void construct_children ();
   virtual Moment pending_moment () const;
   virtual bool ok () const;
-  virtual SCM get_music (Moment)const;
   virtual void skip (Moment);
+  virtual SCM get_music (Moment)const;
 
 protected:
   virtual void process (Moment);
@@ -39,12 +39,7 @@ private:
   SCM cursor_;
   Music_iterator * iter_p_;
 
-  /*
-    perhaps these can be virtual and protected iso. private?  
-   */
-  void start_next_element();
-  void leave_element();
-  void set_sequential_music_translator();
+  void descend_to_child ();
 };
 
 #endif // SEQUENTIAL_MUSIC_ITERATOR_HH

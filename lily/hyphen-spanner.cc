@@ -15,6 +15,7 @@
 #include "molecule.hh"
 #include "paper-def.hh"
 #include "hyphen-spanner.hh"
+#include "paper-column.hh"
 #include "spanner.hh"
 #include "item.hh"
 
@@ -60,7 +61,28 @@ Hyphen_spanner::brew_molecule (SCM smob)
   */
   if(l < w)
     l = sqrt(l*w);
-
+  else
+    {
+      /* OK, we have a problem. Usually this means that we're on the
+         first column, and we have a long lyric which extends to near
+         the offset for stuff */
+      /* This test for being on the first column has been shamelessly
+         ripped from spanner.cc */
+      Paper_column *sc = dynamic_cast<Paper_column*> (sp->get_bound(LEFT)->column_l());
+      if (sc != NULL &&
+	  sc->break_status_dir () == RIGHT)
+	{
+	  /* We are on the first column, so it's probably harmless to
+             get the minimum length back by extending leftwards into
+             the space under the clef/key sig/time sig */
+	  bounds[LEFT] = bounds[RIGHT] - l;
+	}
+      else 
+	{
+	  /* We can't get the length desired. Maybe we should warn. */
+	  l = w;
+	}
+    }
   Box b  (Interval (-l/2,l/2), Interval (h,h+th));
   Molecule mol (sp->lookup_l ()->filledbox (b));
   mol.translate_axis (bounds.center ()
@@ -80,3 +102,4 @@ Hyphen_spanner::Hyphen_spanner (Spanner*s)
 {
   elt_l_ = s;
 }
+

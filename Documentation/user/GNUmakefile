@@ -2,18 +2,18 @@
 
 depth=../..
 
-DATA_FILES = $(wildcard *.data)
-datafiles = $(addprefix $(outdir)/,$(DATA_FILES:.data=.html))
 
-DOC_FILES = $(wildcard *.doc)
 
-DVI_FILES = $(addprefix $(outdir)/,$(DOC_FILES:.doc=.dvi)  $(TELY_FILES:.tely=.dvi))
+LATEX_FILES =$(wildcard *.latex)
 
-EXTRA_DIST_FILES= $(DOC_FILES) $(DATA_FILES)  $(wildcard *.itexi *.itely) 
- 
+DVI_FILES = $(addprefix $(outdir)/,$(LATEX_FILES:.latex=.dvi)   $(TELY_FILES:.tely=.dvi))
+
+EXTRA_DIST_FILES= $(LATEX_FILES)    $(wildcard *.itexi *.itely)
+
 HTML_FILES = $(addprefix $(outdir)/, $(TELY_FILES:.tely=.html))
 
 PS_FILES = $(DVI_FILES:.dvi=.ps)  $(OUTDOC_FILES:.doc=.ps) $(OUTTEX_FILES:.tex=.ps)
+
 PS_GZ_FILES= $(addsuffix .gz, $(PS_FILES))
 
 STEPMAKE_TEMPLATES=tex texinfo documentation

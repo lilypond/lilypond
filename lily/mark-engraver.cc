@@ -127,7 +127,7 @@ Mark_engraver::create_items (Request *rq)
     {
       text_p_
 	->set_elt_property ("padding",
-			    gh_double2scm(paper_l ()->get_var ("interline")));
+			    gh_double2scm(paper_l ()->get_var ("staffspace")));
     }
 
   

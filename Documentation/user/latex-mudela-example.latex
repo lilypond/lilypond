@@ -1,0 +1,161 @@
+\documentclass[a4paper, 12pt]{article}
+%\def\pre MudelaExample{This if before}
+%\def\pre MudelaExample{This is after}
+%\usepackage{landscape}
+\begin{document}
+%uncomment this to try twocolumn mode
+%\twocolumn
+
+
+\section{Mudelabook + LaTeX}
+
+This is an examplefile for mixing Lilypond and Latex. It is also
+used to test mudela-book. View the source to see how it is done.
+
+A simple scale:
+
+\begin{mudela}
+\score{
+ \notes\relative c'{c d e f g a b c}
+}
+\end{mudela}
+
+Mudela-book search for the \verb|\score| command when it decides
+if the code is only a fragment. Thus, in the following code, you have
+to use \verb|fragment| option, because the comment confuses mudela-book.
+
+\begin[fragment]{mudela}
+c d e % \score
+\end{mudela}
+
+There is also a shorthand version \verb|\mudela{c' e' g'}|:
+
+\mudela{c' e' g'}
+
+that is the same as writing
+\begin{verbatim}
+\begin[eps]{mudela}
+c' e' g'
+\end{mudela}
+\end{verbatim}
+
+This C major
+\begin[eps, 11pt]{mudela}
+c' e' g'
+\end{mudela}
+and C minor \mudela[11pt]{c' es' g'}  chords are floating inside the text.
+
+\subsection{verb and verbatim}
+
+As you see, the begin/end verbatim command inside 
+does not confuse mudela-book:
+
+\verb|\begin{mudela}c d e\end{mudela}|
+
+Neither does a verbatim inside verb:
+
+\verb|\begin{verbatim}\begin{mudela}c d e\end{mudela}\end{verbatim}|
+
+or verb inside verbatim:
+
+\begin{verbatim}
+\verb|\begin{mudela}c d e\end{mudela}|
+\end{verbatim}
+
+But this is just to stress \verb|mudela-book|. What you need is:
+
+\verb|\mudela{c' d' e'}|
+
+and
+
+\begin{verbatim}
+\begin{mudela}
+c d e
+\end{mudela}
+\end{verbatim}
+
+\subsection{The 'verbatim' and 'intertext' option}
+This shows the verbatim option:
+\begin[verbatim, intertext="gives this music:"]{mudela}
+c' d' e'
+\end{mudela}
+
+\subsection{LaTeX comments}
+This is a line with mudela code after the comment char % \mudela{<c' e' g'>}
+% \mudela{<c' e' g'>}
+
+If you do not see any music from the heading 'LaTeX comments' and until
+this line, then mudela-book is handling latex comments pretty well :-)
+
+\subsection{To float or not to float}
+This music
+\begin[eps]{mudela}
+c' e' 
+\end{mudela}
+should be floating inside the text by using the \verb|eps| options.
+
+This music
+
+\begin[eps]{mudela}
+c' e'
+\end{mudela}
+
+has also the \verb|eps| options, but is not floating because there
+are an emptry line before and after the mudela block. That is
+correct behaviour because it follows La\TeX{} convention that an
+empty line signals a new paragraph. Note that the \verb|eps| option
+is not necessary when you want the music in a paragraph on its own.
+
+\subsection{More examples}
+
+Itemize environment:
+\begin{itemize}
+\item \mudela[11pt]{ c'} do
+\item \mudela[11pt]{d'} re
+\item \mudela[11pt]{e'} mi
+\item \mudela[11pt]{f'} fa
+\item \mudela[11pt]{g'} sol
+\end{itemize}
+
+Tables\footnote{ and footnote: \mudela[eps,11pt]{c' e' g'} }:
+\marginpar{ Yes, even as marginpar
+\mudela[eps,11pt]{c' d' e'} }
+
+\begin{tabular}{|l|l|r|}
+\hline
+\em Notes & \em Name \\
+\hline
+\mudela[11pt, filename="cdur"]{<c' e' g'>} & major \\
+\mudela[11pt]{<c' es' g'>} & minor \\
+\mudela[11pt]{<c' es' ges'>} & diminished \\
+\mudela[11pt]{<c' e' gis'>} & augmented \\
+\hline
+\end{tabular}
+
+\pagebreak
+
+Testing of spacing. The next music is surrounded by an empty line.
+text text text text text text text text text text text text 
+text text text text text text text text text text text text 
+
+\begin{mudela}
+\score{ \notes\relative c'{ c d e f g a b c} }
+\end{mudela}
+
+text text text text text text text text text text text text 
+text text text text text text text text text text text text 
+text text text text text text text text text text text text 
+
+Next has no empty lines.
+text text text text text text text text text text text text 
+text text text text text text text text text text text text 
+text text text text text text text text text text text text 
+\begin{mudela}
+\score{ \notes\relative c'{ c d e f g a b c} }
+\end{mudela}
+text text text text text text text text text text text text 
+text text text text text text text text text text text text 
+
+
+
+\end{document}

@@ -1,7 +1,13 @@
 #!@PYTHON@
 # vim: set noexpandtab:
-# TODO: Figure out clean set of options.
-# add support for .lilyrc
+# TODO:
+# * Figure out clean set of options.
+# * add support for .lilyrc
+# * %\def\preMudelaExample should be ignored by mudela-book because
+#   it is commented out
+# * if you run mudela-book once with --no-pictures, and then again
+#   without the option, then the pngs will not be created. You have
+#   to delete the generated .ly files and  rerun mudela-book.
 
 import os
 import stat
@@ -15,7 +21,7 @@ import __main__
 
 program_version = '@TOPLEVEL_VERSION@'
 if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
-	program_version = '1.3.69-very-unstable'	
+	program_version = '1.3.85'	
 
 include_path = [os.getcwd()]
 
@@ -36,18 +42,22 @@ default_text_fontsize = 12
 # indices are no. of columns, papersize,  fontsize
 # Why can't this be calculated?
 latex_linewidths = {
- 1: {'a4':{10: 345, 11: 360, 12: 390},
-	 'a5':{10: 276, 11: 276, 12: 276},
-	 'b5':{10: 345, 11: 356, 12: 356},
-	 'letter':{10: 345, 11: 360, 12: 390},
-	 'legal': {10: 345, 11: 360, 12: 390},
-	 'executive':{10: 345, 11: 360, 12: 379}},
- 2: {'a4':{10: 167, 11: 175, 12: 190},
-	 'a5':{10: 133, 11: 133, 12: 133},
-	 'b5':{10: 167, 11: 173, 12: 173},
-	 'letter':{10: 167, 11: 175, 12: 190},
-	 'legal':{10: 167, 11: 175, 12: 190},
-	 'executive':{10: 167, 11: 175, 12: 184}}}
+ 1: {	'a4':{10: 345, 11: 360, 12: 390},
+	'a4-landscape': {10: 598, 11: 596, 12:592},
+	'a5':{10: 276, 11: 276, 12: 276},
+	'b5':{10: 345, 11: 356, 12: 356},
+	'letter':{10: 345, 11: 360, 12: 390},
+	'letter-landscape':{10: 598, 11: 596, 12:596},
+	'legal': {10: 345, 11: 360, 12: 390},
+	'executive':{10: 345, 11: 360, 12: 379}},
+ 2: {	'a4':{10: 167, 11: 175, 12: 190},
+ 	'a4-landscape': {10: 291, 11: 291, 12: 291},
+	'a5':{10: 133, 11: 133, 12: 133},
+	'b5':{10: 167, 11: 173, 12: 173},
+	'letter':{10: 167, 11: 175, 12: 190},
+	'letter-landscape':{10: 270, 11: 267, 12: 269},
+	'legal':{10: 167, 11: 175, 12: 190},
+	'executive':{10: 167, 11: 175, 12: 184}}}
 
 texi_linewidths = {
 	'a4': {12: 455},
@@ -152,23 +162,27 @@ re_dict = {
 		 
 		  'option-sep' : ', *',
 		  'header': r"""\\documentclass(\[.*?\])?""",
+		  #              ^(?m)[^%]* is here so we can comment it out
+		  'landscape': r"^(?m)[^%]*\\usepackage{landscape}",
 		  'preamble-end': '\\\\begin{document}',
 		  'verbatim': r"""(?s)(?P<code>\\begin{verbatim}.*?\\end{verbatim})""",
 		  'verb': r"""(?P<code>\\verb(?P<del>.).*?(?P=del))""",
 		  'mudela-file': r'\\mudelafile(\[(?P<options>.*?)\])?\{(?P<filename>.+)}',
-		  'mudela' : '(?m)\\\\mudela(\[(?P<options>.*?)\])?{(?P<code>.*?)}',
+		  'mudela' : '(?m)^[^%]*?\\\\mudela(\[(?P<options>.*?)\])?{(?P<code>.*?)}',
 		  #'mudela-block': r"""(?m)^[^%]*?\\begin(\[(?P<options>.*?)\])?{mudela}(?P<code>.*?)\\end{mudela}""",
 		  'mudela-block': r"""(?s)\\begin(\[(?P<options>.*?)\])?{mudela}(?P<code>.*?)\\end{mudela}""",
 		  'def-post-re': r"""\\def\\postMudelaExample""",
 		  'def-pre-re': r"""\\def\\preMudelaExample""",		  
 		  'intertext': r',?\s*intertext=\".*?\"',
-		  'ignore': r"(?m)(?P<code>%.*?^)",
+		  #'ignore': r"(?m)(?P<code>%.*?^)",
+		  'ignore': r"(?m)(?P<code>^%.*)$",
 		  'numcols': r"(?P<code>\\(?P<num>one|two)column)",
 		  },
 	
 	'texi': {
 		 'include':  '@mbinclude[ \n\t]+(?P<filename>[^\t \n]*)',
 		 'input': no_match,
+		 'landscape': no_match,
 		 'header': no_match,
 		 'preamble-end': no_match,
 		 'verbatim': r"""(?s)(?P<code>@example\s.*?@end example\s)""",
@@ -235,12 +249,16 @@ def compose_full_body (body, opts):
 	else:
 		paper = 'letter' # yes, latex use letter as default, at least
 		                 # my tetex distro
+		if 'landscape' in opts:
+		    paper = paper + '-' + 'landscape'
 	music_size = default_music_fontsize
 	latex_size = default_text_fontsize
 	for o in opts:
 		m = re.search ('^(.*)paper$', o)
 		if m:
 			paper = m.group (1)
+			if 'landscape' in opts:
+				paper = paper + '-' + 'landscape'
 		
 		if g_force_mudela_fontsize:
 			music_size = g_force_mudela_fontsize
@@ -300,6 +318,9 @@ def scan_preamble (str):
 			options = ['a4widepaper']
 		elif string.find(str[:x], "@smallbook") != -1:
 			options = ['smallbookpaper']
+	m = get_re ('landscape').search(str)
+	if m:
+	    options.append('landscape')
 	m = get_re ('header').search( str)
 	# should extract paper & fontsz.
 	if m and m.group (1):
@@ -473,6 +494,7 @@ def schedule_mudela_block (chunk, extra_opts):
 	TODO has format [basename, extension, extension, ... ]
 	
 	"""
+	#print "-schedule_mudela_block", extra_opts
 	if len(chunk) == 3:
 		(type, body, opts) = chunk
 		complete_body = None
@@ -571,7 +593,9 @@ def compile_all_files (chunks):
 			if e == 'eps':
 				eps.append (base)
 			elif e == 'tex':
-				tex.append (base + '.ly')
+				#ugh
+				if base + '.ly' not in tex:
+					tex.append (base + '.ly')
 			elif e == 'png' and g_do_pictures:
 				png.append (base)
 	d = os.getcwd()
@@ -719,8 +743,8 @@ def do_file(input_filename):
 	chunks = chop_chunks(chunks, 'mudela', make_mudela)
 	chunks = chop_chunks(chunks, 'mudela-file', make_mudela_file)
 	chunks = chop_chunks(chunks, 'mudela-block', make_mudela_block)
-	#for c in chunks: print c, "\n"
 	chunks = chop_chunks(chunks, 'ignore', do_ignore)
+	#for c in chunks: print "c:", c
 	chunks = chop_chunks(chunks, 'numcols', do_columns)
 	global_options = scan_preamble(chunks[0][1])
 	chunks = process_mudela_blocks(my_outname, chunks, global_options)

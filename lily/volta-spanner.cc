@@ -63,7 +63,7 @@ Volta_spanner::brew_molecule (SCM smob)
     no_vertical_end = false;
 #endif
 
-  Real staff_space = me->paper_l ()->get_var ("interline");
+  Real staff_space = me->paper_l ()->get_var ("staffspace");
   Real staff_thick = me->paper_l ()->get_var ("stafflinethickness");  
   Real half_space = staff_space / 2;
   Real left = dynamic_cast<Spanner*>(me)->get_broken_left_end_align ();

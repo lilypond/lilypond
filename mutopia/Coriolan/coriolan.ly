@@ -13,7 +13,7 @@ copyright =	 "public domain";
 \include "global.ly"
 \include "paper16.ly"
 
-\include "contrabasso.ly"
+\include "bassi.ly"
 \include "clarinetti.ly"
 \include "corni.ly"
 \include "fagotti.ly"
@@ -21,11 +21,9 @@ copyright =	 "public domain";
 \include "oboi.ly"
 \include "timpani.ly"
 \include "trombe.ly"
-\include "viola-1.ly"
-\include "viola-2.ly"
+\include "violi.ly"
 \include "violino-1.ly"
 \include "violino-2.ly"
-\include "violoncello.ly"
 
 
 legniGroup = \context StaffGroup = legni_group <
@@ -50,45 +48,6 @@ violiniGroup = \context GrandStaff = violini_group <
 	\violinoIStaff
 	\violinoIIStaff
 >
-
-violiGroup = \context PianoStaff = violi_group \notes <
-	\context StaffCombineStaff=one {
-		\clef "alto"; 
-		\key es \major;
-		\skip 1*314; 
-		\bar "|."; 
-	}
-	\context StaffCombineStaff=two {
-		\clef "alto"; 
-		\key es \major;
-		\skip 1*314; 
-		\bar "|."; 
-	}
-
-	\context StaffCombineStaff=one \partcombine StaffCombineStaff
-		\context StaffCombineVoice=one \violaI
-		\context StaffCombineVoice=two \violaII
->
-
-bassiGroup = \context PianoStaff = bassi_group \notes <
-	\context StaffCombineStaff=one {
-		\clef "bass"; 
-		\key es \major;
-		\skip 1*314; 
-		\bar "|."; 
-	}
-	\context StaffCombineStaff=two {
-		\clef "bass"; 
-		\key es \major;
-		\skip 1*314; 
-		\bar "|."; 
-	}
-
-	\context StaffCombineStaff=one \partcombine StaffCombineStaff
-		\context StaffCombineVoice=one \violoncello
-		\context StaffCombineVoice=two \contrabasso
->
-
 
 archiGroup = \context StaffGroup = archi_group <
 	\violiniGroup

@@ -13,11 +13,7 @@
     }
   >
   \paper{
-    interscoreline = "3.0mm";
-
-%    % Alternative to fill the pages with evenly distributed score lines:
-%    interscoreline = "3.0mm plus 1fill";
-
+    interscoreline = 3.0\mm;
     \translator{\ScoreContext \remove "Bar_number_engraver";}
     \translator{\StaffContext StaffMinimumVerticalExtent = #'(-2.0 . 2.0)}
   }

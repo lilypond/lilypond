@@ -7,9 +7,8 @@ TODO:
 
 * cleanup
 * use elt properties, iso. paper variables.
+
 %}
-
-
 
 paperfile = \papersize + ".ly";
 % paperfile = "a4.ly";
@@ -18,9 +17,6 @@ paperfile = \papersize + ".ly";
 
 staffspace = \staffheight / 4.0;
 stafflinethickness = \staffspace / 10.0;
-
-% deprecated
-interline = \staffspace;
 
 %{
 The space taken by a note is determined by the formula 
@@ -69,43 +65,6 @@ arithmetic_multiplier = 0.9 * 1.32 * \staffspace ;
 arithmetic_basicspace = 2.0;
 
 
-% 
-% UGH; junk these!
-%
-
-% catch suspect beam slopes, set slope to zero if
-% outer stem is lengthened more than
-beam_lengthened = 0.2 * \staffspace;
-% and slope is running away steeper than
-beam_steep_slope = 0.2 / 1.0;
-
-
-
-%{
-  Slur parameters.
-  
-  See Documentation/programmer/fonts.doc
-
-  TODO: -> elt-properties.
-%}
-% Height-limit (h_inf) = factor * staff_space
-slur_height_limit_factor = 2.0;
-slur_ratio = 1.0 / 3.0;
-
-slur_thickness = 1.2 * \stafflinethickness;
-
-slur_force_blowfit = 0.5;
-slur_beautiful = 0.5;
-
-
-%{
-Horizontal space between centre of notehead and slur.
-%}
-% OSU: suggested gap = ss / 5;
-slur_x_gap = \staffspace / 5.0;
-slur_y_gap = 0.25 * \staffspace;
-slur_y_free = 0.75 * \staffspace;
-slur_x_minimum = 1.5 * \staffspace;
 
 % URG: the magic constants for area asymmetry
 bezier_pct_c0 = -0.2;
@@ -115,26 +74,8 @@ bezier_pct_in_max = 1.2;
 bezier_area_steps = 1.0;
 
 
-%{
-  Tie parameters
-%}
-
-tie_height_limit_factor = 1.0 ; 
-tie_ratio = \slur_ratio;
-
-% OSU: tie gap == slur gap
-tie_x_gap = 0.2 * \staffspace;
-tie_staffline_clearance = 2.0 *\slur_thickness;
-
 % vertical space between lines of text.
 line_kern = \staffspace;
-
-% chop off this much when next to pp / ff sign.
-crescendo_shorten = 4.0 * \staffspace;
-crescendo_thickness   = \stafflinethickness;
-crescendo_height = 0.666 * \staffspace;
-crescendo_dash_thickness = 1.2*\stafflinethickness;
-crescendo_dash = 4.0*\staffspace;
 
 
 % optical correction amount.
@@ -175,9 +116,22 @@ will cause scores to be set looser
 
 compression_energy_factor = 0.6;
 
+\translator { \NoteNamesContext }
+\translator { \ScoreContext }
+\translator { \ChoirStaffContext}
+\translator { \GraceContext}
+\translator { \RhythmicStaffContext}
+\translator { \StaffContext }
+\translator { \VoiceContext}
+\translator { \StaffGroupContext }
+\translator { \ChordNameContext }
+\translator { \ChordNameVoiceContext}
+\translator { \GrandStaffContext}
+\translator { \LyricsContext }
+\translator { \ThreadContext}
+\translator { \PianoStaffContext}
+\translator { \LyricsVoiceContext }
 
-
-\include "engraver.ly";
 
 
 

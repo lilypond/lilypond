@@ -34,7 +34,7 @@ Vertical_align_engraver::Vertical_align_engraver()
 void
 Vertical_align_engraver::do_creation_processing()
 {
-  valign_p_ =new Spanner (SCM_EOL); // todo -> basic props
+  valign_p_ =new Spanner (get_property ("basicVerticalAlignmentProperties"));
   Align_interface::set_interface (valign_p_);
   Align_interface::set_axis (valign_p_,Y_AXIS);
   valign_p_->set_elt_property ("stacking-dir",
@@ -58,6 +58,7 @@ Vertical_align_engraver::do_removal_processing()
       valign_p_->set_elt_property ("threshold",
 				   gh_cons (min,max));
     }
+  
   valign_p_->set_bound(RIGHT,unsmob_element (get_property ("currentCommandColumn")));
   typeset_element (valign_p_);
   valign_p_ =0;

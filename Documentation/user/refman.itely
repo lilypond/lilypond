@@ -2485,9 +2485,7 @@ Nevertheless, here are some variables you may want to use or change:
     ly2dvi.
 
   @item @code{interscoreline}@indexcode{interscoreline}  
-    Sets the spacing between the score lines. The value should be
-    a string with a length specified in TeX syntax. 
-    Defaults to  @code{"16 pt"}.
+    Sets the spacing between the score lines. Defaults to 16 pt.
 
   @item @code{output}@indexcode{output}  
     Specifies an alternate name for the the output @file{s}.
@@ -2681,9 +2679,7 @@ The engravers for paper output are:
 
   @item @code{Bar_number_engraver}@indexcode{Bar_number_engraver}  
     Engrave bar numbers.  These numbers appear at the start of each
-    line.  Not normally in any translator.  Can be added to
-    @code{Score} for score-wide numbering or to @code{Staff} for
-    numbering on each staff.
+    line.  Part of @code{Score} context.
 
   @item @code{Beam_engraver}@indexcode{Beam_engraver}  
     Handles beam requests by engraving beams.  Normally appears in
