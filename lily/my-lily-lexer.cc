@@ -31,6 +31,7 @@ static Keyword_ent the_key_tab[] = {
   {"alternative", ALTERNATIVE},
   {"bar", BAR},
   {"book", BOOK},
+  {"bookpaper", BOOKPAPER},
   {"change", CHANGE},
   {"chords", CHORDS},
   {"clef", CLEF},

@@ -194,6 +194,7 @@ of the parse stack onto the heap. */
 
 %union {
 	Book *book;
+	Book_paper_def *bookpaper;
 	Music_output_def *outputdef;
 	SCM scm;
 	String *string;
@@ -249,6 +250,7 @@ or
 %token ALTERNATIVE
 %token BAR
 %token BOOK
+%token BOOKPAPER
 %token CHANGE
 %token CHORDMODIFIERS
 %token CHORDS
@@ -362,6 +364,8 @@ or
 %type <scm> markup markup_line markup_list  markup_list_body full_markup
 
 %type <book>	book_block book_body
+%type <bookpaper> book_paper_head book_paper_block book_paper_body
+
 %type <i>	exclamations questions dots optional_rest
 %type <i>  	bass_mod
 %type <scm> 	oct_check
@@ -475,6 +479,10 @@ toplevel_expression:
 		else if (dynamic_cast<Midi_def*> ($1))
 			id = scm_makfrom0str ("$defaultmidi");
 		THIS->lexer_->set_identifier (id, $1->self_scm ());
+		scm_gc_unprotect_object ($1->self_scm ());
+	}
+	| book_paper_block {
+		THIS->lexer_->set_identifier (scm_makfrom0str ("$defaultbookpaper"), $1->self_scm ());
 		scm_gc_unprotect_object ($1->self_scm ());
 	}
 	;
@@ -606,6 +614,26 @@ context_def_spec_body:
 	}
 	;
 
+
+book_paper_block:
+	book_paper_body '}' {
+		$$ = $1;
+	}
+	;
+book_paper_head:
+	BOOKPAPER '{' {
+		$$ = unsmob_book_paper_def (THIS->lexer_->lookup_identifier ("$defaultbookpaper"))->clone ();
+		THIS->lexer_->add_scope ($$->scope_);
+	}
+	;
+
+book_paper_body:
+	book_paper_head
+	| book_paper_body assignment { }
+	;
+	
+
+
 book_block:
 	BOOK {
 		THIS->push_spot ();
@@ -623,7 +651,11 @@ book_body:
 	{
 		$$ = new Book;
 		$$->set_spot (THIS->here_input ());
-		$$->bookpaper_ = unsmob_book_paper_def (THIS->lexer_->lookup_identifier ("$defaultbookpaper"));
+		scm_gc_unprotect_object ($$->bookpaper_->self_scm ());
+	}
+	| book_body book_paper_block {
+		$$->bookpaper_ = $2;
+		scm_gc_unprotect_object ($2->self_scm ());
 	}
 	| book_body score_block {
 		Score *score = $2;
@@ -641,6 +673,7 @@ book_body:
 		THIS->header_ = $1;
 	}
 	| book_body error {
+
 	}
 	;
 

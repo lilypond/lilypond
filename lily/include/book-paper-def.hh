@@ -19,7 +19,8 @@ class Book_paper_def
 
 public:
   VIRTUAL_COPY_CONSTRUCTOR (Book_paper_def, Book_paper_def);
-  
+  Book_paper_def(Book_paper_def const &);
+  SCM scope_;
   SCM scaled_fonts_;
   Real output_scale_;
 
