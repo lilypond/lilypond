@@ -1,0 +1,13 @@
+% metric.mf
+% part of LilyPond's pretty-but-neat music font
+
+def fet_beginfont(expr name,size) =
+	message "@@font:"&name&":"&decimal size&"@@";
+	message "";
+	enddef;
+	
+def fet_beginchar(expr code,w,h,d,name) =
+	message "@@char:"&name&":"&decimal code&":"&decimal w&":"&decimal h&":"&decimal d&"@@";
+	beginchar(code,w,h,d) name;
+	enddef;
+

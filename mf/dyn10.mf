@@ -1,5 +1,10 @@
 % dyn10.mf
 % from cmbxti10.mf
+%
+% music dynamics font
+%
+% 16pt staff: \font\dynfont=dyn10 scaled \magstep1
+% 20pt staff: \font\dynfont=dyn10 scaled \magstep2
 
 % Computer Modern Bold Extended Text Italic 10 point
 % if unknown cmbase: input cmbase fi
@@ -82,10 +87,10 @@ math_fitting:=false;    % should math-mode spacing be used?
 
 % mode_setup; font_setup;
 
-% "f" obviously has a _lot_ bigger slant than "p" (see wanske p239)
+% "f" obviously has a _lot_ bigger slant than "p" (see Wanske p.239)
 % however; perhaps we need two f symbols:
 %  - a super-slanted one used in "f" "mf" "sfz" "sf", and
-%  - a more normal-slanted in "ff" "fff" "fp" "fp" (see wanske p241)
+%  - a more normal-slanted in "ff" "fff" "fp" "fp" (see Wanske p.241)
 %
 % looking at professionally typeset music reveals that typesetters 
 % are somewhat unsure about slanting in "mf", "fp", "sfz"
