@@ -280,12 +280,14 @@ lilypond -fgnome input/simple-song.ly
 ;;design:20.0
 
 (define (text font string)
-  (stderr "font-name: ~S\n" (ly:font-name font))
-  ;; TODO s/filename/file-name/
-  (stderr "font-filename: ~S\n" (ly:font-filename font))
-  
-  (stderr "pango-font-name: ~S\n" (pango-font-name font))
-  (stderr "pango-font-size: ~S\n" (pango-font-size font))
+  (if #f
+      (begin
+	(stderr "font-name: ~S\n" (ly:font-name font))
+	;; TODO s/filename/file-name/
+	(stderr "font-filename: ~S\n" (ly:font-filename font))
+	
+	(stderr "pango-font-name: ~S\n" (pango-font-name font))
+	(stderr "pango-font-size: ~S\n" (pango-font-size font))))
   
   (make <gnome-canvas-text>
     #:parent (canvas-root)
