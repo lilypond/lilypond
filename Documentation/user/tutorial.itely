@@ -2,8 +2,6 @@
 
 @c TODO: LilyPond Lilypond lilypond
 
-FIXME: choose one of: notation context/interpretation context.
-
 
 @node Tutorial
 @chapter Tutorial
@@ -36,7 +34,7 @@ yourself, to get a feel for how the program behaves.
 * A piano excerpt::             Piano music
 * An orchestral score::         
 * Other ways to run LilyPond::  
-* Latex and texinfo integration::  
+* Integrating text and music::  
 * end of tutorial::             The end
 @end menu
 
@@ -445,7 +443,7 @@ identifier.
 @end example 
 Here the music ends.  LilyPond does not automatically typeset and end
 bar, we must explicitely request one, using @code{"|."}.
-@c FIXME: Why not?!  better to override \bar "" if not wanted?
+
 @separate
 @example 
 
@@ -594,7 +592,7 @@ the @code{\header} block contains assignments.  In each assignment, a
 variable is set to a value. Lexically, both the variable name and the
 assigned value are strings. The values have to be quoted here, because
 they contain spaces, the variable names could also be put within quotes
-but it is not necessary. Each assignment is finished with a semicolon.
+but it is not necessary. 
 @separate
 @example 
 
@@ -646,10 +644,7 @@ beams off, and use explicit beaming where needed.
         @}
  
 @end example 
-This ends the definition of @code{melody}.  Note that there are no
-semicolons after assignments at the top level.
-
-[FIXME: no longer true for 146?]
+This ends the definition of @code{melody}.  
 
 @separate
 @example 
@@ -774,8 +769,9 @@ Normally, the notes that you enter are transformed into note heads.
 Note heads alone make no sense, they need surrounding information: a key
 signature, a clef, staff lines, etc.  They need @emph{context}.  In
 LilyPond, these symbols are created by objects called `interpretation
-contexts'.  Interpretation contexts (or `Notation contexts') only exist
-during a run of LilyPond.
+contexts'.  Interpretation contexts exist for generating notation
+(`notation context') and for generating sound (`performance
+context'). These objects only exist during a run of LilyPond.
 
 By default, LilyPond will create a Staff context for you.  If you would
 remove the @code{%} sign in the previous line, you would see that
@@ -1838,18 +1834,6 @@ We specify a big indent for the first line and a small linewidth for this
 tutorial.
 
 @separate
-@example
-    \translator@{
-      \VoiceContext
-      \consists "Multi_measure_rest_engraver"
-    @}
-    \translator@{
-      \HaraKiriStaffContext
-      \remove "Multi_measure_rest_engraver"
-    @}
-@end example
-[FIXME: ignoring mmrest moving for now, assuming we'll do that in
-engraver.ly]
 
 Usually, LilyPond's predefined setup of notation contexts (Thread,
 Voice, Staff, Staffgroup, Score) is just fine.  But in this case, we
@@ -1939,15 +1923,13 @@ true.
 @node Other ways to run LilyPond
 @section Other ways to run LilyPond
 
-[FIXME: describe all programs involved in one list.]
-
 Until now, you have been using @file{ly2dvi} to invoke LilyPond.
 There are three other routes.  Firstly, there is a script called
 @code{lilypond-book}, that allows you to freely mix LilyPond input with
 Texinfo or LaTeX input. For example, this manual was written using
 @code{lilypond-book}. It is discussed in @ref{lilypond-book}.
 
-@c FIXME: ly2dvi option?
+
 Secondly, you can generate PostScript directly. This is useful if you
 can not or do not want to run @TeX{} on your system.  To obtain direct
 PostScript output, invoke LilyPond as follows:
@@ -1959,316 +1941,156 @@ You have to set some environment variables to view or print this
 output. More information can be found in @ref{Invoking
 LilyPond}.
 
-@c FIXME: ly2dvi option?
+
 Thirdly, if you want to do special things with your output, you can run
 invoke lilypond directly:
 @example
 lilypond test.ly
 @end example
-to produce plain @TeX{}@footnote{@TeX{} is a text-typesetting system
-that is especially suited for typesetting mathematics.}  output.  Note
-that you must run @TeX{} on the resulting @file{test.tex}, ie, not
-LaTeX.
+to produce plain @TeX{} output.  Note that La@TeX{} will not work on the
+resulting @file{test.tex}.  You must run plain @TeX{} on it.
+
 @cindex @TeX{}
 
 
 
 
 
-@node Latex and texinfo integration
-@section Latex and texinfo integration
+@node Integrating text and music
+@section Integrating text and music
 
+Sometimes, you might want to use music examples in a text that you are
+writing. For example, if you are writing a musicological treatise, a
+songbook, or (like us) the LilyPond manual.  You can make such texts by
+hand, simply by importing a PostScript figure into your wordprocessor.
+However, there is a also an automated procedure:
 
-[TODO: rewrite completely.]
-
-@menu
-* Songs with additional verses::  
-@end menu
-
-
-So what does this look like? Well, here is an example:
-@lilypond[veryverbatim, intertext="produces this music:"]
-\score{
-  \notes\relative c'{
-    \time 5/8
-    [e16( g b c a g][e a b d] | )e2 d,8 |
-    [e16( g b c a g][e a b d] | )b2 [a16( f] |
-    [e a b d] )e4 c8 | [es16( bes a as g es][d c b! )g] |
-    [f( a b d b a][f a b d] | )e2
-  }
-}
-@end lilypond
-If you are lucky, the above example show a nice feature of LilyPond
-and La@TeX{}. Since LilyPond can output the music as @TeX{} graphics,
-La@TeX{} can insert pagebreaks between the lines of music.
-
-Notice that there is no @code{\paper} statement in the example
-above. Lilypond-book will insert some code for you that defines the
-linewidth and the font to use. If you don't want to change the default, 
-there is no need to put an empty @code{\paper@{@}} inside the @code{\score}.
-In the example above, something like this might be inserted before your code:
-@example
-\include "paper16.ly"
-\paper@{ \paper_sixteen
-    linewidth = 390.\pt
-@}
-@end example
-The actual values for linewidth will differ depending on papersize and
-number of columns. Also, if you use a different fontsize for the
-music, another file than @code{paper16.ly} should be included.
-
-If you want to make the music not so wide, you can insert a
-@code{\paper} statement to set the linewidth:
-
-@lilypond[veryverbatim, intertext="produces this music:"]
-\score{
-  \notes\relative c'{
-    \time 5/8
-    [e16( g b c a g][e a b d] | )e2 d,8 |
-    [e16( g b c a g][e a b d] | )b2 [a16( f] |
-    [e a b d] )e4 c8 | [es16( bes a as g es][d c b! )g] |
-    [f( a b d b a][f a b d] | )e2
-  }
-  \paper{linewidth = 10.\cm }
-}
-@end lilypond
-
-Very often, if you mix music and text, the music is often only a 
-few notes or at most a few bars. This music should be as short as
-possible and not stretched to be aligned to the right margin.
-
-If you only write voice-contents in the lilypond block, @command{lilypond-book}
-will set the @code{linewidth} variable to -1, so Lilypond
-will make the music as short as possible but without breaking the
-line. Here is a well know harmonic progression:
-@lilypond[veryverbatim, intertext="produce a well known harmonic progression:"]
-  \context Voice { <c' e g> <b d g> <c2 e g> }
-@end lilypond
-
-If you want to place music examples in the text,
-@lilypond[eps]
-  \context Voice {  <c' e g> <b d g> <c2 e g> }
-@end lilypond
-, you can use the @code{eps} option. This will create the music as
-eps graphics and include it into the document with the 
-@code{\includegraphics} command.
-
-The code used look like this:
-@example
-@@lilypond[eps]
- \context Voice @{ <c' e g> <b d g> <c2 e g> @}
-@@end lilypond
-@end example
-
-You can also use the @code{eps} option if the block is a complete
-lilypond source. This 5 cm long empty line, 
-@lilypond[eps]
-\score{
-  \notes{s}
-  \paper{ linewidth = 5.\cm }
-}
-@end lilypond
-was created with this code:
-@example
-@@lilypond[eps]
-\score@{
-  \notes@{s@}
-  \paper@{ linewidth = 5.\cm@}
-@}
-@@end lilypond
-@end example
-
-To avoid that La@TeX{} places the music on a line of its one, there should
-be no empty lines between the normal text and the lilypond
-environment. 
-
-You can also use @code{lilypondfile} (on a separate line, FIXME), to
-include another file.
-
-@subsection Fontsize options
-
-You can use all lilypond fontsizes in @command{lilypond-book}.  The
-default 16pt fontsize is probably to big to be included in the middle of
-the text, 11pt or 13pt is probably better.
-
-The code can look like this:
-@example
-@@lilypond[13pt, eps]
-<c' e g>
-@@end lilypond
-@end example
-
-The following options set the fontsize:
-@itemize
-@item @code{11pt}
-@lilypond[11pt, eps]
-  \relative c'{
-    r16 [c d e][f d e c] [g'8 c][b-\prall c] |
-    [d16 g, a b][c a b g][d'8 g f-\prall g]
-  }
-@end lilypond
-@item @code{13pt}
-@lilypond[13pt, eps]
-  \relative c'{
-    r16 [c d e][f d e c] [g'8 c][b-\prall c] |
-    [d16 g, a b][c a b g][d'8 g f-\prall g]
-  }
-@end lilypond
-@item @code{16pt}
-@lilypond[16pt, eps]
-  \relative c'{
-    r16 [c d e][f d e c] [g'8 c][b-\prall c] |
-    [d16 g, a b][c a b g][d'8 g f-\prall g]
-  }
-@end lilypond
-@item @code{20pt}
-@lilypond[20pt, eps]
-  \relative c'{
-    r16 [c d e][f d e c] [g'8 c][b-\prall c] |
-    [d16 g, a b][c a b g][d'8 g f-\prall g]
-  }
-@end lilypond
-@item @code{26pt}
-@lilypond[26pt, eps]
-  \relative c'{
-    r16 [c d e][f d e c] [g'8 c][b-\prall c] |
-  }
-@end lilypond
-@end itemize
-
-
-@subsection More options
-
-@itemize
-@item The @code{singleline} option sets @code{linewidth} to -1.0.
-@item The @code{multiline} option sets @code{linewidth} to a value letting
-the music be aligned to the right margin. The music can span several
-lines. 
-@end itemize
-
-@subsection Just in case...
-The options @code{fragment} and @code{nofragment} will override
-@command{lilypond-book} when it scans the lilypond code to see if it is voice
-contents or complete code. This might be useful if @command{lilypond-book} choose
-wrong. 
-
-Since there is no finder's fee which doubles every year, there is no
-need to wait for the price money to grow. So send a bug report today
-if you need this one of these options.
-
-@subsection Examples
-
-This was all options to @code{\begin}. The rest of the lilypond
-document will show some ways you can use lilypond in
-La@TeX{} documents. It will also act as a simple test-suite for
-lilypond-book. You can place @code{eps} lilypond in and marginspars just
-as any other included eps graphics.
-
-@lilypond
-\score{
-  \notes\relative c'{ 
-        \time 12/8
-        r4-\fermata [b16-.( )b-.] [f'8-- dis16-.( )dis-. gis8--]
-        [f16-.( )f-. dis8-- gis16-.( )gis-.] cis4.-\fermata |
-        
-        r4.-\fermata [cis,16 cis g'8 f16 f b8][g16 g f8 b16 b] dis4.-\fermata
-  }
-  \paper{linewidth = 7.\cm}
-}
-@end lilypond
-
-
-To the right you can see some bars from the trumpet fanfara from the
-beginning of the fantastic street opera ``Houdini the Great'', by the
-Danish composer Andy Pape. The music is put inside a
-@code{floatingfigure} environment, and the music will be aligned by
-the right margin if you set floatingfigure width and lilypond linewidth
-to the same value. The code looks like this:
-
-@lilypond[verbatim]
-\score{
-  \notes\relative c'{ 
-    \time 12/8
-    r4.-\fermata [b16-.( )b-.] [f'8-- dis16-.( )dis-. gis8--]
-    [f16-.( )f-. dis8-- gis16-.( )gis-.] cis8.-\fermata |
-        
-    r4.-\fermata [cis,16 cis g'8 f16 f b8]
-    [g16 g f8 b16 b] dis4.-\fermata
-  }
-  \paper{linewidth = 7.\cm }
-}
-@end lilypond
-
-If you have a lot of small music examples like this in the middle of
-your text, you might get a nicer look by using ``double'' line
-spacing. Put the @code{\linespread@{1.6@}} command into the preamble of
-your document. Then the line spacing will not be increased between the
-lines where you have music printed with the smallest font size.
-
-Lilypond-book does know about @code{\onecolumn} and @code{\twocolumn}. 
-So the music will be adjusted to the new linewidth:
-
-Verbatim environments will also ignore the page margins. That is
-a feature of La@TeX{}. (But you usually put things inside a verbatim
-environment when you don't want La@TeX{} to do any linebreaking)
-
-@node Songs with additional verses
-@subsection Songs with additional verses
-
-With lilypond-book, you can typeset songs with additional verses.  To
-make lilypond-book print titles like ly2dvi, add
-
-[TODO: merge with lilypond-book tutorial]
-
-
-
+If you use La@TeX{} or texinfo, you can mix text and lilypond code. A
+script called @code{lilypond-book} will extract the music fragments, run
+lilypond on them, and put back the resulting notation.  lilypond-book is
+described fully in @ref{lilypond-book}, but here we show a small
+example. Since the example also contains explanatory text, we won't
+comment on the contents.
 
 @example
-\input titledefs.tex
-\def\preLilypondExample@{\def\mustmakelilypondtitle@{@}@}
-@end example
+\documentclass[a4paper]@{article@}
+\begin@{document@}
 
-just before the music fragment.
+In a lilypond-book document, you can freely mix music and text. For
+example:
+\begin@{lilypond@}
+  \score @{ \notes \relative c' @{
+     c2 g'2 \times 2/3 @{ f8 e d @} c'2 g4
+  @} @}
+\end@{lilypond@}
+Notice that the music line length matches the margin settings of the
+document.
 
-@c urg: can't show, won't work for .texi docs
-
-@example
-% generate standard lilypond titles
-\input titledefs.tex
-\def\preLilypondExample@{\def\mustmakelilypondtitle@{@}@}
+If you have no \verb+\score+ block in the fragment,
+\texttt@{lilypond-book@} will supply one:
 
 \begin@{lilypond@}
-\header @{
-  title =	"Title"
-  subtitle =	"Subtitle"
-  subsubtitle =	"Subsubtitle"
-  opus =  "Opus 1"
-  piece = "Piece"
-  composer = 	 "Composer"
-  enteredby = 	 "JCN"
-  instrument = "instrument"
-@}
-\paper @{ linewidth = -1. @}
-\score @{
-  \notes \relative c'' @{ a b c d @}
-@}
+  c'4
 \end@{lilypond@}
 
-\begin@{enumerate@}
-\item Verse one.  aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
-\item Verse two.  bbb bbb bbb bbb bbb bbb bbb bbb bbb bbb 
-\end@{enumerate@}
+In the example you see here, a number of things happened: a
+\verb+\score+ block was added, and the line width was set to natural
+length. You can specify many more options using  \LaTeX style options
+in brackets:
+
+\begin[verbatim,11pt,singleline,
+  fragment,relative,intertext="hi there!"]@{lilypond@}
+  c'4 f bes es
+\end@{lilypond@}
+
+\texttt@{verbatim@} also shows the lilypond code, \texttt@{11pt@} selects
+the default music size, \texttt@{fragment@} adds a score block,
+\texttt@{relative@} uses relative mode for the fragment, and
+\texttt@{intertext@} specifies what to print between the
+\texttt@{verbatim@} code and the music.
+
+If you include large examples into the text, it may be more convenient
+to put the example in a separate file:
+
+\lilypondfile[printfilename]@{sammartini.ly@}
+
+The \texttt@{printfilename@} option adds the file name to the output.
+
+\end@{document@}
 @end example
 
+Under Unix, you can view the results as follows.
+@example
+$ cd input/tutorial
+$ lilypond-book --outdir=out/ lilbook.tex
+lilypond-book (GNU LilyPond) 1.3.146
+Reading `/home/hanwen/usr/src/lilypond-1.3.146/input/tutorial/lilbook.tex'
+Reading
+`/home/hanwen/usr/src/lilypond-1.3.146/input/tutorial/sammartini.ly'
+@var{lots of stuff deleted}
+Writing `out/lilbook.latex'
+$ cd out
+$ latex lilbook.latex
+@var{lots of stuff deleted}
+$ xdvi lilbook 
+@end example
 
+Notice the @code{outdir} option to lilypond-book. Running lilypond-book
+and running latex creates a lot of temporary files, and you wouldn't
+those to clutter up your working directory. Hence, we have them created
+in a separate subdirectory.
 
+The result more or less looks like this: 
+
+@separate
+
+In a lilypond-book document, you can freely mix music and text. For
+example:
+@lilypond
+  \score { \notes \relative c' {
+     c2 g'2 \times 2/3 { f8 e d } c'2 g4
+  } }
+@end lilypond
+Notice that the music line length matches the margin settings of the
+document.
+
+If you have no @code{\score} block in the fragment,
+@code{lilypond-book} will supply one:
+
+@lilypond
+  c'4
+@end lilypond
+
+In the example you see here, a number of things happened: a
+@code{\score} block was added, and the line width was set to natural
+length. You can specify many more options using  La@TeX{} style options
+in brackets:
+
+@lilypond[verbatim,11pt,singleline,
+  fragment,relative,intertext="hi there!"]
+  c'4 f bes es
+@end lilypond
+
+@code{verbatim} also shows the lilypond code, @code{11pt} selects
+the default music size, @code{fragment} adds a score block,
+@code{relative} uses relative mode for the fragment, and
+@code{intertext} specifies what to print between the
+@code{verbatim} code and the music.
+
+If you include large examples into the text, it may be more convenient
+to put the example in a separate file:
+
+@lilypondfile[printfilename]{sammartini.ly}
+
+The @code{printfilename} option adds the file name to the output.
 @node  end of tutorial
 @section The end        
          
 That's all folks.  From here, you can either try fiddling with input
 files, or you can read the reference manual.  You can find more example
 files in @file{input} and @file{input/test}.  You can also look at some
-Real Music (TM), have a look at the @ref{Mutopia project}.
+real music.  Have a look at the @uref{Mutopia project,
+http://www.mutopiaproject.org}.
 
 
 
@@ -2307,6 +2129,245 @@ Type @samp{make help} to see possible targets.
 
 [TODO]
 @file{/usr/share/lilypond/doc/lilypond/examples/input/mutopia-header.ly}
+
+
+
+
+
+[TODO: rewrite completely.]
+
+@menu
+* Songs with additional verses::  
+@end menu
+
+
+So what does this look like? Well, here is an example:
+@li lypond[veryverbatim, intertext="produces this music:"]
+\score{
+  \notes\relative c'{
+    \time 5/8
+    [e16( g b c a g][e a b d] | )e2 d,8 |
+    [e16( g b c a g][e a b d] | )b2 [a16( f] |
+    [e a b d] )e4 c8 | [es16( bes a as g es][d c b! )g] |
+    [f( a b d b a][f a b d] | )e2
+  }
+}
+@end lilypond
+If you are lucky, the above example show a nice feature of LilyPond
+and La@TeX{}. Since LilyPond can output the music as @TeX{} graphics,
+La@TeX{} can insert pagebreaks between the lines of music.
+
+Notice that there is no @code{\paper} statement in the example
+above. Lilypond-book will insert some code for you that defines the
+linewidth and the font to use. If you don't want to change the default, 
+there is no need to put an empty @code{\paper@{@}} inside the @code{\score}.
+In the example above, something like this might be inserted before your code:
+@example
+\include "paper16.ly"
+\paper@{ \paper_sixteen
+    linewidth = 390.\pt
+@}
+@end example
+The actual values for linewidth will differ depending on papersize and
+number of columns. Also, if you use a different fontsize for the
+music, another file than @code{paper16.ly} should be included.
+
+If you want to make the music not so wide, you can insert a
+@code{\paper} statement to set the linewidth:
+
+@li lypond[veryverbatim, intertext="produces this music:"]
+\score{
+  \notes\relative c'{
+    \time 5/8
+    [e16( g b c a g][e a b d] | )e2 d,8 |
+    [e16( g b c a g][e a b d] | )b2 [a16( f] |
+    [e a b d] )e4 c8 | [es16( bes a as g es][d c b! )g] |
+    [f( a b d b a][f a b d] | )e2
+  }
+  \paper{linewidth = 10.\cm }
+}
+@end lilypond
+
+Very often, if you mix music and text, the music is often only a 
+few notes or at most a few bars. This music should be as short as
+possible and not stretched to be aligned to the right margin.
+
+If you only write voice-contents in the lilypond block, @command{lilypond-book}
+will set the @code{linewidth} variable to -1, so Lilypond
+will make the music as short as possible but without breaking the
+line. Here is a well know harmonic progression:
+@li lypond[veryverbatim, intertext="produce a well known harmonic progression:"]
+  \context Voice { <c' e g> <b d g> <c2 e g> }
+@end lilypond
+
+If you want to place music examples in the text,
+@li lypond[eps]
+  \context Voice {  <c' e g> <b d g> <c2 e g> }
+@end lilypond
+, you can use the @code{eps} option. This will create the music as
+eps graphics and include it into the document with the 
+@code{\includegraphics} command.
+
+The code used look like this:
+@example
+@@li lypond[eps]
+ \context Voice @{ <c' e g> <b d g> <c2 e g> @}
+@@end lilypond
+@end example
+
+You can also use the @code{eps} option if the block is a complete
+lilypond source. This 5 cm long empty line, 
+@li lypond[eps]
+\score{
+  \notes{s}
+  \paper{ linewidth = 5.\cm }
+}
+@end lilypond
+was created with this code:
+@example
+@@li lypond[eps]
+\score@{
+  \notes@{s@}
+  \paper@{ linewidth = 5.\cm@}
+@}
+@@end lilypond
+@end example
+
+To avoid that La@TeX{} places the music on a line of its one, there should
+be no empty lines between the normal text and the lilypond
+environment. 
+
+You can also use @code{lilypondfile}, to include another file:
+@example
+        @@li lypondfile[printfilename]@{foo.ly@}
+@end example
+
+@subsection Fontsize options
+
+You can use all lilypond fontsizes in @command{lilypond-book}.  The
+default 16pt fontsize is probably to big to be included in the middle of
+the text, 11pt or 13pt is probably better.
+
+The code can look like this:
+@example
+@@li lypond[13pt, eps]
+<c' e g>
+@@end lilypond
+@end example
+
+The following options set the fontsize:
+@itemize
+@item @code{11pt}
+@li lypond[11pt, eps]
+  \relative c'{
+    r16 [c d e][f d e c] [g'8 c][b-\prall c] |
+    [d16 g, a b][c a b g][d'8 g f-\prall g]
+  }
+@end lilypond
+@item @code{13pt}
+@li lypond[13pt, eps]
+  \relative c'{
+    r16 [c d e][f d e c] [g'8 c][b-\prall c] |
+    [d16 g, a b][c a b g][d'8 g f-\prall g]
+  }
+@end lilypond
+@item @code{16pt}
+@li lypond[16pt, eps]
+  \relative c'{
+    r16 [c d e][f d e c] [g'8 c][b-\prall c] |
+    [d16 g, a b][c a b g][d'8 g f-\prall g]
+  }
+@end lilypond
+@item @code{20pt}
+@li lypond[20pt, eps]
+  \relative c'{
+    r16 [c d e][f d e c] [g'8 c][b-\prall c] |
+    [d16 g, a b][c a b g][d'8 g f-\prall g]
+  }
+@end lilypond
+@item @code{26pt}
+@li lypond[26pt, eps]
+  \relative c'{
+    r16 [c d e][f d e c] [g'8 c][b-\prall c] |
+  }
+@end lilypond
+@end itemize
+
+
+@subsection More options
+
+@itemize
+@item The @code{singleline} option sets @code{linewidth} to -1.0.
+@item The @code{multiline} option sets @code{linewidth} to a value letting
+the music be aligned to the right margin. The music can span several
+lines. 
+@end itemize
+
+@subsection Just in case...
+The options @code{fragment} and @code{nofragment} will override
+@command{lilypond-book} when it scans the lilypond code to see if it is voice
+contents or complete code. This might be useful if @command{lilypond-book} choose
+wrong. 
+
+Since there is no finder's fee which doubles every year, there is no
+need to wait for the price money to grow. So send a bug report today
+if you need this one of these options.
+
+@subsection Examples
+
+This was all options to @code{\begin}. The rest of the lilypond
+document will show some ways you can use lilypond in
+La@TeX{} documents. It will also act as a simple test-suite for
+lilypond-book. You can place @code{eps} lilypond in and marginspars just
+as any other included eps graphics.
+
+@li lypond
+\score{
+  \notes\relative c'{ 
+        \time 12/8
+        r4-\fermata [b16-.( )b-.] [f'8-- dis16-.( )dis-. gis8--]
+        [f16-.( )f-. dis8-- gis16-.( )gis-.] cis4.-\fermata |
+        
+        r4.-\fermata [cis,16 cis g'8 f16 f b8][g16 g f8 b16 b] dis4.-\fermata
+  }
+  \paper{linewidth = 7.\cm}
+}
+@end lilypond
+
+
+To the right you can see some bars from the trumpet fanfara from the
+beginning of the fantastic street opera ``Houdini the Great'', by the
+Danish composer Andy Pape. The music is put inside a
+@code{floatingfigure} environment, and the music will be aligned by
+the right margin if you set floatingfigure width and lilypond linewidth
+to the same value. The code looks like this:
+
+@li lypond[verbatim]
+\score{
+  \notes\relative c'{ 
+    \time 12/8
+    r4.-\fermata [b16-.( )b-.] [f'8-- dis16-.( )dis-. gis8--]
+    [f16-.( )f-. dis8-- gis16-.( )gis-.] cis8.-\fermata |
+        
+    r4.-\fermata [cis,16 cis g'8 f16 f b8]
+    [g16 g f8 b16 b] dis4.-\fermata
+  }
+  \paper{linewidth = 7.\cm }
+}
+@end lilypond
+
+If you have a lot of small music examples like this in the middle of
+your text, you might get a nicer look by using ``double'' line
+spacing. Put the @code{\linespread@{1.6@}} command into the preamble of
+your document. Then the line spacing will not be increased between the
+lines where you have music printed with the smallest font size.
+
+Lilypond-book does know about @code{\onecolumn} and @code{\twocolumn}. 
+So the music will be adjusted to the new linewidth:
+
+Verbatim environments will also ignore the page margins. That is
+a feature of La@TeX{}. (But you usually put things inside a verbatim
+environment when you don't want La@TeX{} to do any linebreaking)
 
 @end ignore
 

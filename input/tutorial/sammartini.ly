@@ -51,7 +51,7 @@ bassvoices = \notes \relative c' {
              \viola
              \oboes
          >
-         \context Staff = down < \time 2/2 \clef bass;
+         \context Staff = down < \time 2/2 \clef bass
              \bassvoices
          >
     >

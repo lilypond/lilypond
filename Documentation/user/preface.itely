@@ -4,17 +4,16 @@
 
 
 It must have been during a rehearsal of the EJE (Eindhoven Youth
-Orchestra), somewhere in 1994 that Jan, one of the cranked violists
-told Han-Wen, one of the distorted french horn players, about the
-grand new project he was working on.  It was an automated system for
-printing music (to be precise, it was MPP, a preprocessor for
-MusiXTeX).  As it happened, Han-Wen accidentally wanted to print out
-some parts from a score, so he started looking at the software, and he
-quickly got hooked.  We soon realised that MPP was fundamentally
-broken by design and it slowly died during 1995.  We debated a lot
-about the requirements to an inputformat, but that didn't produce any
-new code.  In 1996, Han-Wen started LilyPond.  This time, Jan got
-sucked into Han-Wen's new project.  The rest is, as they say, history.
+Orchestra), somewhere in 1995 that Jan, one of the cranked violists told
+Han-Wen, one of the distorted french horn players, about the grand new
+project he was working on.  It was an automated system for printing
+music (to be precise, it was MPP, a preprocessor for MusiXTeX).  As it
+happened, Han-Wen accidentally wanted to print out some parts from a
+score, so he started looking at the software, and he quickly got hooked.
+It was soon decided that MPP was a dead end. After lots of
+philosophizing and heated e-mail exchanges Han-Wen started LilyPond in
+1996.  This time, Jan got sucked into Han-Wen's new project.  The rest
+is, as they say, history.
 
 You're reading the preface of the manual for LilyPond 1.4, which is in
 all honesty, the first release of LilyPond that combines stability,
@@ -22,11 +21,10 @@ flexibility and good documentation.  We hope you will have as much fun
 in using LilyPond as we have when hacking it.
 
 This manual was written to help you learn LilyPond, but as you might
-imagine, we ourselves don't have much to learn about it.  Therefore,
-we can't really judge whether the manual is clear for a newbie, but
-maybe you can!  So, should you find any part of the manual vague or
-outdated, please tell us your suggestions: if you don't, we'll never
-know.
+imagine, we ourselves don't have much to learn about it.  We can't
+really judge whether the manual is helpful for users, but maybe you can!
+So should you find any part of the manual vague, unclear or outdated,
+please let us know.
 
 Han-Wen and Jan
 

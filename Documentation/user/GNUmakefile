@@ -115,8 +115,8 @@ local-clean:
 	rm -f fonts.aux fonts.log feta*.tfm feta*.*pk 
 	rm -rf $(outdir)/lilypond $(outdir)/lilypond-internals
 
-$(outdir)/lilypond.nexi: $(outdir)/interfaces.itexi
-$(outdir)/lilypond.texi: $(outdir)/interfaces.itexi
+#$(outdir)/lilypond.nexi: $(outdir)/interfaces.itexi
+#$(outdir)/lilypond.texi: $(outdir)/interfaces.itexi
 
 # Rules for the automatically generated documentation
 # When cross-compiling, we don't have lilypond, so we fake

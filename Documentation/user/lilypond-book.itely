@@ -246,6 +246,18 @@ commands. @code{\preLilypondExample} and @code{posLilypondExample} is
 defined to nothing by default, and the user can redefine them
 to whatever he wants.
 
+@cindex titling and lilypond-book
+@cindex lilypond-book and titling
+@cindex \header in LaTeX documents
+
+If you want to combine music that has titling in @code{\header}
+files, you should add  the following to the top of your LaTeX
+@example
+\input titledefs.tex
+\def\preLilypondExample@{\def\mustmakelilypondtitle@{@}@}
+@end example
+
+
 
 @subsection Command line options
 

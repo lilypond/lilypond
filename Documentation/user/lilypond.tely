@@ -71,7 +71,6 @@ this and other documentation.
 * Preface::                        Preface.
 * Tutorial::                       A tutorial introduction to LilyPond.
 * Reference Manual::               Reference Manual.
-* Mutopia project::                Mutopia project.
 * Invoking LilyPond::              Operation.
 * Bug reports::                    Where to report bugs.
 * ly2dvi::                         Generating nice output with titles.
@@ -80,7 +79,6 @@ this and other documentation.
 * lilypond-book::                  Interleaving text with music.
 * Internals::                      How it all works.
 * Literature::                     Additional reading
-* Full Grob interface list::       Generated list of all Grob properties.
 * Index of internals:(lilypond-internals).  Auto generated detailed documentation.
 * Index::                          Unified index.
 * Function Index::                 Function index.
@@ -96,7 +94,6 @@ this and other documentation.
 @mbinclude preface.itely
 @mbinclude tutorial.itely
 @mbinclude refman.itely
-@mbinclude mutopia.itely
 @mbinclude internals.itely
 @mbinclude invoking.itexi
 @mbinclude bugs.itexi
@@ -105,7 +102,7 @@ this and other documentation.
 @mbinclude lilypond-book.itely
 @mbinclude converters.itely
 @mbinclude literature.itely
-@mbinclude interfaces.itexi
+
 
 @c FIXME: Index has two alphabetically sorted lists @code vs plain?
 @node Index
