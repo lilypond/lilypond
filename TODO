@@ -12,6 +12,43 @@ grep for TODO and ugh/ugr/urg
 
 TODO before 1.2
 
+	- cf'able ly2dvi  tagline.
+
+	- make ly2dvi test page.
+
+	- fix dynamics decently, ie. use kerning & ligatures.  Junk
+TeX macros.
+
+
+	- span bars. ->gallina 
+
+*******
+m=\notes\relative c'{
+\voiceone
+c1
+\mark "A"; R1*3 \mark "B";
+<{R1*3}{s1 \mark "C";}>
+}
+
+n=\notes\relative c'{
+\voicetwo
+c1 | c1 | c1 | c1 | c1 | c1 | c1 |
+}
+
+\score{ 
+    \type StaffGroup <
+       \type Staff = m <\m>
+       \type Staff = n <\n>
+    >
+
+        \paper {
+                \translator { \OrchestralScoreContext
+                        markScriptPadding = "4.0";
+               }
+        }
+}
+*********
+
 	* junk Text_def, use G_text_item in stead.
 
 	* junk Script_def
@@ -32,12 +69,14 @@ TODO before 1.2
 
 	* make a SMOB of Atom and Molecule
 
-	* use kerning for dynamics.
-
 	* sort out directory stuff.
 	- --prefix option?
 	- -I option per filetype?
 	- kpathsea?
+
+	* is \break broken? input/test/hara-kiri.ly
+
+	* fix OrchestralScore and Hara-kiri (i.e., fix Coriolan)
 
 **************
 I also found a few bugs:
@@ -51,6 +90,14 @@ I also found a few bugs:
 
  	* support_l_arr_ empty in staff-margin's G_staff_side_item
 
+	* todo doc left/rightbeamcount
+
+
+	* doc Single_malt_grouping_item
+
+	* ly2dvi/lilypond logfile.
+
+	* remove old preformats in RPM
 
 ************
 
@@ -204,8 +251,6 @@ BUGS:
 	   see input/test/vertical-text.ly; input/test/repeat.ly
 
 	* latex bla.tex broken (titles / \lilyfooter stuff?)
-
-	* check/set minimum slur/tie length
 
 	* msgfmt -o check?
 

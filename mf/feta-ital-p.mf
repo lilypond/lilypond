@@ -12,7 +12,7 @@
 % cmchar "Italic letter p";
 % beginchar("p",9u#,x_height#,desc_depth#);
 \"Dynamic letter p";
-beginchar(incr num,9u#,x_height#,desc_depth#);
+beginchar(112, 9u#,x_height#,desc_depth#);
 italcorr .7x_height#*slant+.5curve#-u# if math_fitting:-.5u# fi;
 adjust_fit(0,0); pickup fine.nib;
 x0=0; x2-.5stem=hround(2.5u-.5stem); hook_in(0,1,2);  % opening hook

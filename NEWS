@@ -1,3 +1,38 @@
+pl 27 (feb 3)
+
+pl 26.uu1 
+	- make TFMs too. 
+	- bf: dynamics.  (Don't hang on spanner!)
+	- read TFM before AFM.
+	- fix din-MF stuff (UGH)
+
+pl 26.jcn4
+	- Chord: handle all chord stuff; lots of chord fixes
+	- bf: Chord-name-engraver: find tonic
+	- bf: my-lily-parser: get_chord
+
+
+pl 26.jcn3
+	- bf's: spring spacer end of measure
+	- bf: tie/slur rods (dankje, lieverd)
+	- bf's: intl/ compile, install, uninstall
+
+pl 26.jcn2
+	- enforce {slur,tie}_x_minimum (urg, paper vars?)
+	- tie listens to tieydirection/ydirection
+	- bf: tie placement
+
+pl 26.jcn1
+	- tutorial fixes
+	- bf: OrchestralScore should do hara-kiri..
+	- bf: makeinfo: 
+	  - info in rpm again 
+	  - update to yodl pl10, yodl2texinfo fixes
+	  - use --force, .info should always be generated
+
+*********
+pl 26 (feb 1, 99)
+
 25.jcn2
 	- bf: staffside axis init
 	- bf: staffmargin stuff.
