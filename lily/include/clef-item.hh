@@ -18,7 +18,7 @@ protected:
 public:
     
     String type_;
-    int y_off;
+    int y_position_i_;
 
     /// is this a change clef (smaller size)?
     bool change_b_;
