@@ -508,7 +508,8 @@ Spacing_spanner::do_measure (Rational shortest, Grob*me, Link_array<Grob> *cols)
 
 
 /*
-  Generate the space between two musical columns LC and RC, given spacing parameters INCR and SHORTEST.
+  Generate the space between two musical columns LC and RC, given
+  spacing parameters INCR and SHORTEST.
  */
 void
 Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real increment, Rational shortest)
@@ -552,10 +553,20 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real inc
   if (max_note_space < 0)
     {
       max_note_space = base_note_space;
-      max_fixed_note_space = increment;
+      max_fixed_note_space =  increment;
     }
 
   bool ragged = to_boolean (me->paper_l ()->get_scmvar ("raggedright"));
+
+  /*
+    Whatever we do, the fixed space is smaller than the real
+    space.
+
+    TODO: this criterion is discontinuous in the derivative.
+    Maybe it should be continuous?
+  */
+  max_fixed_note_space = max_fixed_note_space <?  max_note_space;
+  
   Real strength = (ragged) ? 1.0 : 1 / (max_note_space - max_fixed_note_space);
   Real distance = (ragged) ? max_fixed_note_space : max_note_space;
   //  Spaceable_grob::add_spring (lc, rc, distance, strength, expand_only);
@@ -563,6 +574,11 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real inc
   Spaceable_grob::add_spring (lc, rc, distance, strength, false);  
 }
 
+
+/*
+  The one-size-fits all spacing. It doesn't take into account
+  different spacing wishes from one to the next column.
+ */
 void
 Spacing_spanner::standard_breakable_column_spacing (Grob * me, Item*l, Item*r,
 				   Real * fixed, Real * space,
@@ -634,10 +650,21 @@ Spacing_spanner::breakable_column_spacing (Grob*me, Item* l, Item *r,Moment shor
 
   
   
-
+    
   if (isinf (max_space))
     {
-      programming_error ("No pref spacing found");
+    /*
+      One situation where this can happen is when there is a column
+      that only serves as a spanning point for a short staff-symbol.
+
+     ===============X===
+
+         |=======Y
+
+
+      (here no StaffSpacing from Y to X is found.)
+    */      
+      programming_error ("No StaffSpacing wishes found");
       max_space = 2.0;
       max_fixed = 1.0;
     }

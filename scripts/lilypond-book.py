@@ -1453,15 +1453,6 @@ def fix_epswidth (chunks):
 ##docme: why global?
 foutn=""
 def do_file(input_filename):
-	global foutn
-	file_settings = {}
-	if outname:
-		my_outname = outname
-	elif input_filename == '-' or input_filename == "/dev/stdin":
-		my_outname = '-'
-	else:
-		my_outname = os.path.basename (os.path.splitext(input_filename)[0]) + '.' + format
-	my_depname = my_outname + '.dep'		
 
 	chunks = read_doc_file(input_filename)
 	chunks = chop_chunks(chunks, 'lilypond', make_lilypond, 1)
@@ -1486,6 +1477,18 @@ def do_file(input_filename):
 
 	x = 0
 	chunks = completize_preamble (chunks)
+
+
+	global foutn
+
+	if outname:
+		my_outname = outname
+	elif input_filename == '-' or input_filename == "/dev/stdin":
+		my_outname = '-'
+	else:
+		my_outname = os.path.basename (os.path.splitext(input_filename)[0]) + '.' + format
+	my_depname = my_outname + '.dep'		
+	
 	if my_outname == '-' or my_outname == '/dev/stdout':
 		fout = sys.stdout
 		foutn = "<stdout>"

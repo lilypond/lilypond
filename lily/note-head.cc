@@ -81,13 +81,8 @@ Note_head::brew_ledger_lines (Grob *me,
 		  +0.5*(ledgerlinethickness));
       Box ledger_line (x_extent, y_extent);
 
-#if 1
       Molecule proto_ledger_line =
 	Lookup::roundfilledbox (ledger_line, blotdiameter);
-#else
-      Molecule proto_ledger_line = // if you like it the old way
-	Lookup::filledbox (ledger_line);
-#endif
       
       if (!take_space)
         proto_ledger_line.set_empty (true);
@@ -127,7 +122,11 @@ internal_brew_molecule (Grob *me,  bool ledger_take_space)
 			SCM_UNDEFINED);
   String name = "noteheads-" + ly_scm2string (scm_primitive_eval (exp));
   Molecule out = Font_interface::get_default_font (me)->find_by_name (name);
-
+  if (out.empty_b())
+    {
+      warning (_f("Symbol not found, ", name.ch_C()));
+    }
+  
   int interspaces = Staff_symbol_referencer::line_count (me)-1;
   int pos = (int)rint (Staff_symbol_referencer::position_f (me));
   if (abs (pos) - interspaces > 1)

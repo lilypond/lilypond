@@ -1,3 +1,14 @@
+2002-05-20  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/note-head.cc (internal_brew_molecule): warn if note head
+	not found.
+
+	* lily/time-signature.cc (special_time_signature): remove warning
+	about time signature. 
+
+	* lily/spacing-spanner.cc (musical_column_spacing): Prevent
+	reverse springs by limiting fixed-note space.
+
 2002-05-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* stepmake/aclocal.m4: Bugfix: complain if program not found.
