@@ -15,7 +15,7 @@ classic lilypond-book:
 TODO:
     *  ly-options: intertext?
     *  --linewidth?
-    *  eps in latex / eps by lilypond -fps?
+    *  eps in latex / eps by lilypond -b ps?
     *  check latex parameters, twocolumn, multicolumn?
     *  use --png --ps --pdf for making images?
 
@@ -1151,7 +1151,7 @@ def process_snippets (cmd, ly_snippets, texstr_snippets, png_snippets):
 	# it is too generic for lilypond-book.
 	if texstr_names and re.search ('^[0-9A-Za-z/]*lilypond', cmd):
 		
-		my_system (string.join ([cmd + ' -f texstr ' ] + texstr_names))
+		my_system (string.join ([cmd + ' --backend texstr ' ] + texstr_names))
 		for l in texstr_names:
 			my_system ('latex %s.texstr' % l)
 					

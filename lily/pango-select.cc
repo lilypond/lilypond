@@ -67,7 +67,7 @@ symbol_to_pango_style (SCM style)
   PangoStyle pstyle = PANGO_STYLE_NORMAL;
   if (style == ly_symbol2scm ("italic"))
     {
-      pstyle = PANGO_STYLE_NORMAL;
+      pstyle = PANGO_STYLE_ITALIC;
     }
   else if (style == ly_symbol2scm ("oblique")
 	   || style == ly_symbol2scm ("slanted")
@@ -82,7 +82,7 @@ symbol_to_pango_style (SCM style)
 PangoVariant
 symbol_to_pango_variant (SCM variant)
 {
-  PangoVariant pvariant;
+  PangoVariant pvariant = PANGO_VARIANT_NORMAL;
   if (variant == ly_symbol2scm ("caps"))
     {
       pvariant = PANGO_VARIANT_SMALL_CAPS;
