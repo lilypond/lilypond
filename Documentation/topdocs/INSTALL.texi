@@ -48,12 +48,27 @@ If you want to compile LilyPond from source, download here:
 @uref{http://www.lilypond.org/ftp/} by HTTP.
 @end itemize
 
+
 Of course, if your platform supports LilyPond, such as Debian GNU/Linux,
 FreeBSD, OpenBSD or NetBSD, you're encouraged to use the native build
 from source drill.
 
 For Red Hat Linux and SuSE Linux, @file{.spec} files are included in the
 tarball; see instructions below.
+
+
+@subsubsection Anonymous CVS access
+
+Short version:
+
+@quotation
+@example
+cvs -d :pserver:anoncvs@@lilypond.org:/home/lilypond login
+cvs -d :pserver:anoncvs@@lilypond.org:/home/lilypond co -P lilypond
+@end example
+@end quotation
+
+See @uref{http://lilypond.org/wiki/?CVS} for more information.
 
 @html
 <a name="download-binaries">
@@ -178,9 +193,11 @@ UNIX), you can compile LilyPond without kpathsea support.  In that case,
 you'll probably have to indicate where @TeX{}'s tfm files live.  Invoke
 configure something like:
 
+@quotation
 @example
 ./configure --without-kpathsea --enable-tfm-path=/usr/share/texmf/fonts/tfm/public/cm/:/usr/share/texmf/fonts/tfm/ams/symbols
 @end example
+@end quotation
 
 @end itemize
 
@@ -265,7 +282,9 @@ If you want to build multiple versions of LilyPond with different
 configuration settings, you can use the @code{--enable-config=CONF}
 option of configure.  You should use @samp{make conf=CONF} to generate
 the output in @file{out-CONF}.  Example: suppose I want to build with
-and without profiling.  Then I'd use the following for the normal build,
+and without profiling.  Then I'd use the following for the normal
+build,
+@c prefix=~ ?
 @example 
 
       ./configure --prefix=~ --enable-checking
