@@ -25,6 +25,8 @@ global _;_=ly._
 global re;re = ly.re
 
 preview_resolution = 90
+# Use /etc/papersize?
+preview_papersize = "a4"
 
 # lilylib globals
 program_name = sys.argv[0]
@@ -39,8 +41,8 @@ copyright = ('Han-Wen Nienhuys <hanwen@cs.uu.nl',
 option_definitions = [
 	('', 'h', 'help', _ ("print this help")),
 	('', 'V', 'verbose', _ ("be verbose")),
-	(_ ('RES'), 'R', 'resolution',
-	 _ ("set the resolution of the preview to RES")),
+	(_ ('PAPER'), 'P', 'papersize', _ ("use papersize PAPER")),
+	(_ ('RES'), 'R', 'resolution', _ ("set the resolution of the preview to RES")),
 	]
 
 (sh, long) = ly.getopt_args (option_definitions)
@@ -60,13 +62,16 @@ for opt in options:
 	if o == '--help' or o == '-h':
 		ly.help ()
 		sys.exit (0)
+	elif o == '--papersize' or o == '-P':
+		preview_papersize = a
 	elif o == '--resolution' or o == '-R':
 		preview_resolution = string.atoi (a)
 	elif o == '--verbose' or o == '-V':
 		verbose_p = 1
 
 for f in files:
-	outfiles = ly.make_ps_images (f, resolution = preview_resolution)
+	outfiles = ly.make_ps_images (f, resolution = preview_resolution,
+				      papersize = preview_papersize)
 	## FIXME: silly message containing %d
 	
 	sys.stderr.write (_ ("Wrote `%s'" % string.join (outfiles, ', ')))

@@ -184,7 +184,6 @@ pianoLH =  \relative c'' \repeat volta 2 {
 		\PianoStaff
 		\override VerticalAlignment #'forced-distance = #10
 	    }
-	    inputencoding = "latin1"
 	}
 	\midi {
 	    \tempo 4 = 70

@@ -1,5 +1,13 @@
 2005-03-17  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	Fix truncated --png output (Peter Danenberg).
+	
+	* python/lilylib.py (make_ps_images):
+	* scripts/ps2png.py (copyright): Grok --papersize option.
+
+	* scm/backend-library.scm (postscript->png): Add parameter
+	PAPERSIZE.  Update callers.
+
 	* scm/output-gnome.scm (music-font?): Bugfix: use "Emmentaler".
 	Fixes symbol placement.
 
