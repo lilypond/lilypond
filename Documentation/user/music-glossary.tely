@@ -205,7 +205,7 @@ by a @aref{whole tone}, a flat lowers it by a semitone and a double
 flat lowers it by a whole tone. A natural cancels the effect of a previous
 accidental.
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 %\override TextScript   #'font-style = #'large
 \addlyrics
@@ -312,7 +312,7 @@ FI: luonnollinen molliasteikko.
 
 @aref{diatonic scale} (ancient minor).
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 \notes\relative c'' {
 a1 b c d e f g a }
@@ -548,7 +548,7 @@ FI: palkki.
 Line connecting a series of notes (shorter than a quarter note).
 The number of beams determine the note value of the connected notes.
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 %\override TextScript   #'font-style = #'large
 \notes\relative c'' {
@@ -648,7 +648,7 @@ FI: brevis.
 @aref{note value} twice as long as a whole note.  Mainly used
 in pre-1650 music.
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 \notes\relative c'' { g\breve }
 @end lilypond
@@ -676,7 +676,7 @@ FI: C-avain.
 Clef symbol indicating the position of the middle C.  Used on all note
 lines.
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 \override Score.Clef   #'full-size-change = ##t
 %\override Score.LyricText   #'font-style = #'large
@@ -770,7 +770,7 @@ and five-tone @emph{ninth} major chords are most often used as dominants
 third above the lower notes to define their quality as major or minor.  Such
 chords are denoted open chords
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 %\override TextScript   #'font-style = #'large
 \addlyrics
@@ -801,7 +801,7 @@ FI: kromaattinen asteikko.
 
 A scale consisting of all 12 @aref{semitone}s.
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 \notes\relative c' { c1 cis d dis e f fis g gis a ais b c }
 @end lilypond
@@ -866,7 +866,7 @@ geometrically describes the development of a range of pitches
 geometrical shape of a cluster covers the area in which any single
 pitch contained in the cluster would be notated as an ordinary note.
 
-@lilypond[relative=2,verbatim]
+@lilypond[fragment,relative=2,verbatim]
     \apply #notes-to-clusters {  <c e > <b f'> <b g'> <c g> <f e>  }
 @end lilypond
 
@@ -972,7 +972,7 @@ also the contrapunctal technique used in the @emph{fugue} which, since the
 music of the baroque era, has been one of the most popular polyphonic
 composition methods.
 
-@lilypond[staffsize=11]
+@lilypond[fragment,staffsize=11]
 \set Score.TimeSignature =\turnOff
 \notes\context PianoStaff <<
   \context Staff = SA \relative c' {
@@ -1183,7 +1183,7 @@ of a piano keybord are diatonic.
 The church modes are used in gregorial chant and in pre baroque early music but
 also to some extent in newer jazz music.
 
-@lilypond[notime,linewidth=110\mm]
+@lilypond[fragment,notime,linewidth=110\mm]
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
@@ -1198,7 +1198,7 @@ also to some extent in newer jazz music.
   }
 @end lilypond
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
@@ -1213,7 +1213,7 @@ also to some extent in newer jazz music.
   }
 @end lilypond
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
@@ -1227,7 +1227,7 @@ also to some extent in newer jazz music.
   }
 @end lilypond
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
@@ -1242,7 +1242,7 @@ also to some extent in newer jazz music.
   }
 @end lilypond
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
@@ -1256,7 +1256,7 @@ also to some extent in newer jazz music.
   }
 @end lilypond
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
@@ -1276,7 +1276,7 @@ compositional music are primarily the major and the minor scales.  In the
 harmonic minor scale type an augmented second (A) occurs between the 6th and
 7th tone.
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
@@ -1291,7 +1291,7 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
   }
 @end lilypond
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
@@ -1306,7 +1306,7 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
   }
 @end lilypond
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
@@ -1321,7 +1321,7 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
   }
 @end lilypond
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
@@ -1643,7 +1643,7 @@ FI: enharmoninen.
 Two notes, intervals, or scales are enharmonic if they have different names
 but equal pitch.
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 %\override Score.TextScript   #'font-style = #'large
 \addlyrics
@@ -1710,7 +1710,7 @@ an octave higher (for example bass recorder) while 8@w{ }below the clef
 symbol indicates playing an octave lower (for example on double bass
 @aref{strings}).
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 \override Staff.Clef   #'full-size-change = ##t
 %\override Score.LyricText   #'font-style = #'large
@@ -1799,7 +1799,7 @@ Ornament at the end of the stem of a note used for notes with values
 less than a quarter note.  The number of flags determines the
 @aref{note value}.
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 %\override Score.TextScript   #'font-style = #'large
 \notes\relative c'' {
@@ -1878,7 +1878,7 @@ first note of the scale), subdominant (S, the chord on the fourth note), and
 dominant (D, the chord on the fifth note).  Other are considered to be
 variants of the base chords.
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
@@ -1915,7 +1915,7 @@ the notes must be played an octave higher while 8 below the clef symbol
 indicates playing or singing an octave lower (most tenor parts in choral
 scores are notated like that).
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 \override Staff.Clef   #'full-size-change = ##t
 %\override Score.LyricText   #'font-style = #'large
@@ -2065,7 +2065,7 @@ Tones sounding simultaneously.  Two note harmonies fall into the categories
 
 Consonances:
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 %\override Score.TextScript   #'font-style = #'large
 \context Voice \notes\relative c'' {
@@ -2081,7 +2081,7 @@ Consonances:
 
 Dissonances:
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 %\override Score.TextScript   #'font-style = #'large
 \context Voice  \notes\relative c'' {
@@ -2122,7 +2122,7 @@ identical (@aref{enharmonic}) and are called @emph{tritonus}
 because they consist of three @aref{whole tone}s.  The addition
 of such two forms an octave.
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
@@ -2143,7 +2143,7 @@ of such two forms an octave.
 }
 @end lilypond
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
@@ -2164,7 +2164,7 @@ of such two forms an octave.
 }
 @end lilypond
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
@@ -2197,7 +2197,7 @@ FI: k@"a@"anteisintervalli.
 
 The difference between an interval and an octave.
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 %\override Score.TextScript   #'font-style = #'large
 \context Staff \notes\relative c'' {
@@ -2285,7 +2285,7 @@ FI: apuviiva.
 
 A ledger line is an extension of the staff.
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 \notes\relative c'' { a,1 s c'' }
 @end lilypond
@@ -2304,7 +2304,7 @@ To be performed (a) without any perceptible interruption between the notes,
 unlike (b) @emph{leggiero} or @emph{non-legato}, (c) @emph{portato}, and
 (d) @aref{staccato}.
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 \addlyrics
 \context Staff \notes\relative c'' {
@@ -2388,7 +2388,7 @@ FI: longa.
 Note value: double length of @aref{breve}.
 @aref{note value}.
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 \notes\relative c'' {
   \override NoteHead   #'style = #'mensural
@@ -2579,7 +2579,7 @@ FI: keski-C.
 
 First C below the 440 Hz A.
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 \override Staff.Clef   #'full-size-change = ##t
 \notes\relative c' {
@@ -2789,7 +2789,7 @@ higher note value.  The longest duration normally used is called @emph{brevis},
 but sometimes (mostly in pre baroque music) the double length note value
 @emph{longa} is used.
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 %\override Score.TextScript   #'font-style = #'large
 \set Score.automaticBars = ##f
 \notes\relative c'' {
@@ -2800,7 +2800,7 @@ but sometimes (mostly in pre baroque music) the double length note value
   g16_"1/16" s16 g32_"1/32" s16 g64_"1/64" s32 }
 @end lilypond
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 %\override Score.TextScript   #'font-style = #'large
 \set Score.automaticBars = ##f
 \notes\relative c'' {
@@ -3150,7 +3150,7 @@ FI: rinnakkaiss@"avellaji.
 @aref{major} and @aref{minor} @aref{key}
 with the same @aref{key signature}.
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 %\override Score.TextScript   #'font-style = #'large
 \notes\relative c' {
@@ -3160,7 +3160,7 @@ with the same @aref{key signature}.
 }
 @end lilypond
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 %\override Score.TextScript   #'font-style = #'large
 \notes\relative c' {
@@ -3271,7 +3271,7 @@ Names and symbols used in harmonic analysis to denote tones of the scale as
 roots of chords.  The most important are degrees I = tonic (T), IV =
 sub@-do@-mi@-nant (S) and V = dominant (D).
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\set minVerticalAlign = #8
@@ -3332,7 +3332,7 @@ tones on the piano keyboard -- including black and white keys -- is a
 semitone.  An octave may be divided into 12@w{ }semitones.
 @aref{interval}, @aref{chromatic scale}.
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 \notes\relative c'' { g1 gis s a bes s b! c }
 @end lilypond
@@ -3568,7 +3568,7 @@ FI: nuottipalkki.
 Vertical line above or below a @aref{note head} shorter than a
 whole note.  @aref{beam}.
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.autoBeaming = ##f
 \set Score.automaticBars = ##f
 %\override Score.TextScript   #'font-style = #'large
@@ -3876,7 +3876,7 @@ A curved line, identical in appearance with the @aref{slur}, which
 connects two succesive notes of the same pitch, and which has the function of
 uniting them into a single sound equal to the combined durations.
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 \notes\relative c'' { g2 ~ g4. }
 @end lilypond
@@ -3981,7 +3981,7 @@ the same tone, produced by a rapid up-and-down movement movement of the bow
 a @aref{chord}, usually in the distance of a third
 (@aref{interval}).
 
-@lilypond[notime]
+@lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 %\override Score.TextScript   #'font-style = #'large
 \notes\relative c' {

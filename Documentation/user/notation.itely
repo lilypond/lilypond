@@ -4338,7 +4338,7 @@ and @internalsref{Staff}.@code{instr}. This will print a string before
 the start of the staff. For the first start, @code{instrument} is
 used, for the next ones @code{instr} is used.
 
-@lilypond[quote,verbatim,raggedright,relative=1,fragmen]
+@lilypond[quote,verbatim,raggedright,relative=1,fragment]
 \set Staff.instrument = "Ploink "
 \set Staff.instr = "Plk "
 c1
@@ -5045,7 +5045,7 @@ with respect to that clef.
 modern style mensural C clef @tab
 @code{neo_mensural_c1}, @code{neo_mensural_c2},
 @code{neo_mensural_c3}, @code{neo_mensural_c4} @tab
-@lilypond[quote,relative=1,notime]
+@lilypond[fragment,quote,relative=1,notime]
 \override Staff.TimeSignature   #'transparent = ##t
 \clef "neo_mensural_c2" c
 @end lilypond
@@ -5069,7 +5069,7 @@ petrucci style mensural C clefs, for use  on different  staff lines
 @code{petrucci_c5}
 
 @tab
-@lilypond[quote,relative=1,notime]
+@lilypond[fragment,quote,relative=1,notime]
 \override Staff.TimeSignature   #'transparent = ##t
 \clef "petrucci_c2" c
 @end lilypond
@@ -5078,7 +5078,7 @@ petrucci style mensural C clefs, for use  on different  staff lines
 @code{clefs-petrucci_f} @tab
 petrucci style mensural F clef @tab
 @code{petrucci_f} @tab
-@lilypond[quote,relative=1,notime]
+@lilypond[fragment,quote,relative=1,notime]
 \override Staff.TimeSignature   #'transparent = ##t
 \clef "petrucci_f" c
 @end lilypond
@@ -5087,7 +5087,7 @@ petrucci style mensural F clef @tab
 @code{clefs-petrucci_g} @tab
 petrucci style mensural G clef @tab
 @code{petrucci_g} @tab
-@lilypond[quote,relative=1,notime]
+@lilypond[fragment,quote,relative=1,notime]
 \override Staff.TimeSignature   #'transparent = ##t
 \clef "petrucci_g" c
 @end lilypond
@@ -5097,7 +5097,7 @@ petrucci style mensural G clef @tab
 historic style mensural C clef @tab
 @code{mensural_c1}, @code{mensural_c2}, @code{mensural_c3},
 @code{mensural_c4} @tab
-@lilypond[quote,relative=1,notime]
+@lilypond[fragment,quote,relative=1,notime]
 \override Staff.TimeSignature   #'transparent = ##t
 \clef "mensural_c2" c
 @end lilypond
@@ -5106,7 +5106,7 @@ historic style mensural C clef @tab
 @code{clefs-mensural_f} @tab
 historic style mensural F clef @tab
 @code{mensural_f} @tab
-@lilypond[quote,relative=1,notime]
+@lilypond[fragment,quote,relative=1,notime]
 \override Staff.TimeSignature   #'transparent = ##t
 \clef "mensural_f" c
 @end lilypond
@@ -5115,7 +5115,7 @@ historic style mensural F clef @tab
 @code{clefs-mensural_g} @tab
 historic style mensural G clef @tab
 @code{mensural_g} @tab
-@lilypond[quote,relative=1,notime]
+@lilypond[fragment,quote,relative=1,notime]
 \override Staff.TimeSignature   #'transparent = ##t
 \clef "mensural_g" c
 @end lilypond
@@ -5124,7 +5124,7 @@ historic style mensural G clef @tab
 @code{clefs-vaticana_do} @tab
 Editio Vaticana style do clef @tab
 @code{vaticana_do1}, @code{vaticana_do2}, @code{vaticana_do3} @tab
-@lilypond[quote,relative=1,notime]
+@lilypond[fragment,quote,relative=1,notime]
     \override Staff.StaffSymbol   #'line-count = #4
 \override Staff.TimeSignature   #'transparent = ##t
 \clef "vaticana_do2" c
@@ -5134,7 +5134,7 @@ Editio Vaticana style do clef @tab
 @code{clefs-vaticana_fa} @tab
 Editio Vaticana style fa clef @tab
 @code{vaticana_fa1}, @code{vaticana_fa2} @tab
-@lilypond[quote,relative=1,notime]
+@lilypond[quote,relative=1,notime,fragment]
     \override Staff.StaffSymbol   #'line-count = #4
 \override Staff.TimeSignature   #'transparent = ##t
 \clef "vaticana_fa2" c
@@ -5144,7 +5144,7 @@ Editio Vaticana style fa clef @tab
 @code{clefs-medicaea_do} @tab
 Editio Medicaea style do clef @tab
 @code{medicaea_do1}, @code{medicaea_do2}, @code{medicaea_do3} @tab
-@lilypond[quote,relative=1,notime]
+@lilypond[fragment,quote,relative=1,notime]
     \override Staff.StaffSymbol   #'line-count = #4
 \override Staff.TimeSignature   #'transparent = ##t
 \clef "medicaea_do2" c
@@ -5154,7 +5154,7 @@ Editio Medicaea style do clef @tab
 @code{clefs-medicaea_fa} @tab
 Editio Medicaea style fa clef @tab
 @code{medicaea_fa1}, @code{medicaea_fa2} @tab
-@lilypond[quote,relative=1,notime]
+@lilypond[fragment,quote,relative=1,notime]
     \override Staff.StaffSymbol   #'line-count = #4
 \override Staff.TimeSignature   #'transparent = ##t
 \clef "medicaea_fa2" c
@@ -5164,7 +5164,7 @@ Editio Medicaea style fa clef @tab
 @code{clefs-hufnagel_do} @tab
 historic style hufnagel do clef @tab
 @code{hufnagel_do1}, @code{hufnagel_do2}, @code{hufnagel_do3} @tab
-@lilypond[quote,relative=1,notime]
+@lilypond[fragment,quote,relative=1,notime]
     \override Staff.StaffSymbol   #'line-count = #4
 \override Staff.TimeSignature   #'transparent = ##t
 \clef "hufnagel_do2" c
@@ -5174,7 +5174,7 @@ historic style hufnagel do clef @tab
 @code{clefs-hufnagel_fa} @tab
 historic style hufnagel fa clef @tab
 @code{hufnagel_fa1}, @code{hufnagel_fa2} @tab
-@lilypond[quote,relative=1,notime]
+@lilypond[fragment,quote,relative=1,notime]
     \override Staff.StaffSymbol   #'line-count = #4
 \override Staff.TimeSignature   #'transparent = ##t
 \clef "hufnagel_fa2" c
@@ -5184,7 +5184,7 @@ historic style hufnagel fa clef @tab
 @code{clefs-hufnagel_do_fa} @tab
 historic style hufnagel combined do/fa clef @tab
 @code{hufnagel_do_fa} @tab
-@lilypond[quote,relative=1,notime]
+@lilypond[fragment,quote,relative=1,notime]
 \override Staff.TimeSignature   #'transparent = ##t
 \clef "hufnagel_do_fa" c
 @end lilypond
@@ -7544,7 +7544,7 @@ Examples: @inputfileref{input/regression,balloon.ly}.
 The `easy play' note head includes a  name inside the head.  It is
 used in music for beginners
 
-@lilypond[quote,raggedright,verbatim,staffsize=26]
+@lilypond[quote,raggedright,verbatim,fragment,staffsize=26]
 \setEasyHeads
 c'2 e'4 f' | g'1
 @end lilypond
