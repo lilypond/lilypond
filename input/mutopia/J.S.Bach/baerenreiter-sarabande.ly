@@ -20,7 +20,7 @@ forcedLastBreak =  { \break }
 \header {
   title = "Solo Cello Suite II"
   piece ="Sarabande"
-  composer = "J.S. Bach"
+  composer = "Johann Sebastian Bach (1685-1750)"
   editor = "August Wenzinger"
   source= "B\\\"arenreiter Urtext"
 

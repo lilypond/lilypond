@@ -1,3 +1,9 @@
+2004-09-16  Heikki Junes  <hjunes@cc.hut.fi>
+ 
+         *  input/mutopia/F.Schubert/morgenlied.ly,
+         input/mutopia/J.S.Bach/baerenreiter-sarabande.ly,
+         input/mutopia/R.Schumann/romanze-op28-2.ly: Add lifetime and full name.
+
 2004-09-15  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* mf/parmesan-heads.mf: bugfixes: (i) removed duplicate
