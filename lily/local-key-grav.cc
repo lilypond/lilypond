@@ -33,7 +33,10 @@ Local_key_engraver::do_creation_processing ()
       warning ("Out of tune! Can't find key engraver");
     }
   else
-    key_C_ = &((Key_engraver*)result->engraver_l ())->key_;
+    {
+      key_C_ = &((Key_engraver*)result->engraver_l ())->key_;
+      local_key_ = *key_C_;
+    }
 }
 
 void
