@@ -1,4 +1,3 @@
-#(ly:set-option 'old-relative)
 
 \version "1.9.6"
 \header {
@@ -24,7 +23,7 @@ Staff context.
 
     }
 \paper { raggedright = ##t }
-\include "engraver-example.ly"
+\include "engraver-example.lyinc"
 
 
 %
