@@ -1,5 +1,14 @@
 2003-05-24  Juergen Reuter  <reuter@ipd.uka.de>
 
+	* Documentation/user/refman.itely: bugfix: "Chord namess" ->
+	"Chord names"; added table with input syntax for solesmes neumes
+	table; added some words about rationale on input syntax design
+
+	* lily/gregorian-ligature-engraver.cc,
+	lily/vaticana-ligature-engraver.cc, lily/vaticana-ligature.cc,
+	lily/include/gregorian-ligature.hh: bugfix: horizontal head
+	alignment of Pes Initio Debilis
+
 	* Documentation/user/refman.itely,
 	lily/vaticana-ligature-engraver.cc, lily/vaticana-ligature.cc,
 	mf/parmesan-heads.mf: fixed most of the head selection/alignment

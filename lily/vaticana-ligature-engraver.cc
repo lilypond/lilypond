@@ -84,10 +84,8 @@ Vaticana_ligature_engraver::finish_primitive (Item *first_primitive,
 	is_stacked = false;
 
       // ... or the previous note is a semivocalis or inclinatum
-      /* TODO:
-        if (prev_prefix_set & DEMINUTUM)
-	   is_stacked = false;
-      */
+      if (context_info & AFTER_DEMINUTUM)
+	is_stacked = false;
 
       // auctum head is never stacked upon preceding note
       if (prefix_set & AUCTUM)

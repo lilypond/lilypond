@@ -35,10 +35,15 @@
  * Ligature context info: these attributes are derived from the head
  * prefixes by considering the current and the following head.
  */
-#define PES_LOWER    0x0001 // this is a head before "\~" in an ascending melody
-#define PES_UPPER    0x0002 // this is a head after "\~" in an ascending melody
-#define FLEXA_LEFT   0x0004 // this is a head before "\~" in a descending melody
-#define FLEXA_RIGHT  0x0008 // this is a head after "\~" in a descending melody
-#define AFTER_VIRGA  0x0010 // previous head was a virga
+#define PES_LOWER       0x0001 // this is a head before "\~" in an
+			       // ascending melody
+#define PES_UPPER       0x0002 // this is a head after "\~" in an
+			       // ascending melody
+#define FLEXA_LEFT      0x0004 // this is a head before "\~" in a
+			       // descending melody
+#define FLEXA_RIGHT     0x0008 // this is a head after "\~" in a
+			       // descending melody
+#define AFTER_VIRGA     0x0010 // previous head was a virga
+#define AFTER_DEMINUTUM 0x0020 // previous head was a deminutum
 
 #endif /* GREGORIAN_LIGATURE_HH */
