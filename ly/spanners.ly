@@ -23,6 +23,10 @@ xendcresc = {
 cresc = \spanrequest \start "crescendo"
 endcresc = \spanrequest \stop "crescendo"
 
+% better name sustainstart/stop? 
+sustaindown = \spanrequest \start "sustain"
+sustainup = \spanrequest \stop "sustain"
+
 %crescpoco = \property Voice.crescendoText = "cresc. poco a poco"
 %decresc = \property Voice.crescendoText = "decr."
 %dim = \property Voice.crescendoText = "dim."

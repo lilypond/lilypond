@@ -76,6 +76,12 @@ public:
   Audio_note* tied_;
 };
 
+class Audio_piano_pedal : public Audio_item
+{
+public:
+  bool type_b_;
+};
+
 class Audio_text : public Audio_item
 {
 public:

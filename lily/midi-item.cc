@@ -29,6 +29,8 @@ Midi_item::midi_p (Audio_item* a)
     return new Midi_note (i);
   else if (Audio_dynamic* i = dynamic_cast<Audio_dynamic*> (a))
     return new Midi_dynamic (i);
+  else if (Audio_piano_pedal* i = dynamic_cast<Audio_piano_pedal*> (a))
+    return new Midi_piano_pedal (i);
   else if (Audio_tempo* i = dynamic_cast<Audio_tempo*> (a))
     return new Midi_tempo (i);
   else if (Audio_time_signature* i = dynamic_cast<Audio_time_signature*> (a))
@@ -486,6 +488,23 @@ Midi_dynamic::str () const
 
   str += to_str ((char)0x07);
   str += to_str ((char)volume);
+  return str;
+}
+
+Midi_piano_pedal::Midi_piano_pedal (Audio_piano_pedal* a)
+{
+  audio_l_ = a;
+}
+
+String
+Midi_piano_pedal::str () const
+{
+  Byte status_byte = (char) (0xB0 + channel_i_);
+  String str = to_str ((char)status_byte);
+
+  str += to_str ((char)0x40);
+  int pedal = audio_l_->type_b_ ? 0x7f : 0;
+  str += to_str ((char)pedal);
   return str;
 }
 
