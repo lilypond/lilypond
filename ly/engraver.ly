@@ -557,7 +557,7 @@ ScoreContext = \translator {
  		
 	basicSlurProperties = #`(
 		(molecule-callback . ,Slur::brew_molecule)
-		(after-line-breaking-callback . ,Rest::after_line_breaking) 
+		(after-line-breaking-callback . ,Slur::after_line_breaking) 
 	)
 	basicSpanBarProperties = #`(
 		(break-align-symbol . Staff_bar)
