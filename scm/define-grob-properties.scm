@@ -435,6 +435,8 @@ the Nth element of the list gives the amount stem shortening of a note with N fl
 (grob-property-description 'stems grob-list? "list of stem objects, corresponding to the notes that the arpeggio has to be before.")
 (grob-property-description 'stropha boolean? "is this neume a stropha?.")
 (grob-property-description 'style symbol? "a string determining what style of  glyph is typeset. Valid choices depend on the function that is reading this property. .")
+(grob-property-description 'text-repeat-if-broken boolean?
+			   "Repeat text on broken text-spanner?")
 (grob-property-description 'text markup? "Text markup.  See the
 notation manual for more information.")
 (grob-property-description 'thick-thickness number? "thickness, measured in stafflinethickness.")

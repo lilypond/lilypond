@@ -1,5 +1,17 @@
 2004-01-13  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/side-position-interface.cc (out_of_staff): also do
+	out_of_staff() correctly for d == DOWN.
+
+	* lily/text-spanner.cc (brew_molecule): only put vertical line and
+	horizontal line if they move to the right.
+	
+	* scm/define-grobs.scm (all-grob-descriptions): set
+	text-repeat-if-broken for ottava spanner
+
+	* lily/text-spanner.cc (brew_molecule): text-repeat-if-broken
+	property.
+
 	* mf/feta18.mf: design size is 18 not 22.5
 
 	* lily/new-lyric-combine-music-iterator.cc (process): new file.

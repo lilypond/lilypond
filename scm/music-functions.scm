@@ -189,6 +189,19 @@ i.e.  this is not an override"
      m
    
    ))
+(define-public (make-grob-property-override grob gprop val)
+
+  "Make a Music expression that sets GPROP to VAL in GROB. Does a pop first,
+i.e.  this is not an override"
+  
+   (let* ((m (make-music-by-name  'OverrideProperty)))
+     (ly:set-mus-property! m 'symbol grob)
+     (ly:set-mus-property! m 'grob-property gprop)
+     (ly:set-mus-property! m 'grob-value val)
+		
+     m
+   
+   ))
 
 
 (define-public (make-grob-property-revert grob gprop)
@@ -363,9 +376,10 @@ a property set for MultiMeasureRestNumber."
     
   
   (define (ottava-modify context)
-    "Either reset centralCPosition to the stored original,
-or remember old centralCPosition, add OCTAVATION to centralCPosition,
-and set OTTAVATION to `8va', or whatever appropriate."
+    "Either reset centralCPosition to the stored original, or remember
+old centralCPosition, add OCTAVATION to centralCPosition, and set
+OTTAVATION to `8va', or whatever appropriate."
+    
     (if (number? (ly:get-context-property  context 'centralCPosition))
 	
 	(if (= octavation 0)
