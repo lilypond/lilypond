@@ -148,9 +148,11 @@ property of @internalsref{RepeatedMusic}, and the alternatives in
 @node Extending music syntax
 @subsection Extending music syntax
 
-The syntax of composite music expressions, like
-@code{\repeat}, @code{\transpose}, and @code{\context}
-follows the general form of
+@c TODO: rewrite example.
+@c The use of FUNC as example  argument is rather confusing.
+
+The syntax of composite music expressions, like @code{\repeat},
+@code{\transpose}, and @code{\context} follows the general form of
 
 @example
 \@code{keyword} @var{non-music-arguments} @var{music-arguments}
@@ -194,7 +196,7 @@ The above Scheme code only defines the functionality.  The tag
 @example
 applymusic = #(ly:make-music-function
                 (list procedure? ly:music?)
-                (lambda (location func music)
+                (lambda (parser location func music)
                   (func music)))
 @end example
 
@@ -203,7 +205,7 @@ A @code{def-music-function} macro is introduced on top of
 functions:
 
 @example
-applymusic = #(def-music-function (location func music)
+applymusic = #(def-music-function (parser location func music)
                 (procedure? ly:music?)
                 (func music))
 @end example
@@ -396,7 +398,7 @@ This function may also be defined as a music function:
 
 @lilypond[quote,verbatim,raggedright]
 withPadding =
-  #(def-music-function (location padding music) (number? ly:music?)
+  #(def-music-function (parser location padding music) (number? ly:music?)
     #{ \override TextScript #'padding = #$padding
        $music 
        \revert TextScript #'padding #})
@@ -413,10 +415,11 @@ withPadding =
 @section Markup programmer interface
 
 @c Please rewrite the second sentence; I don't understand its meaning. AS
-Markups are implemented as special Scheme functions.  When applied with as
-arguments an output definition (@code{\layout} or @code{\paper}),
-and a list of properties and other arguments, produce a Stencil
-object.
+
+Markups are implemented as special Scheme functions.  When applied
+with as arguments an output definition (@code{\layout} or
+@code{\paper}), and a list of properties and other arguments, produce
+a Stencil object.
 
 @menu
 * Markup construction in Scheme::  

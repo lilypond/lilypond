@@ -105,5 +105,5 @@ ADD_INTERFACE (Spaceable_grob,"spaceable-grob-interface",
 	       "A layout object that takes part in the spacing problem. "
 	       ,
 	       "measure-length spacing-wishes penalty minimum-distances ideal-distances "
-	       "left-neighbors right-neighbors");
+	       "allow-outside-line left-neighbors right-neighbors");
 
