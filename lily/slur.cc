@@ -574,11 +574,11 @@ Slur::set_control_points (Grob*me)
   Real staff_space = Staff_symbol_referencer::staff_space ((Grob*)me);
 
   SCM details = me->get_grob_property ("details");
-  SCM h_inf_scm = scm_assq (ly_symbol2scm ("height-limit"), details);
-  SCM r_0_scm = scm_assq (ly_symbol2scm ("ratio"), details);
+  SCM h_inf_scm = me->get_grob_property ("height-limit");
+  SCM r_0_scm = me->get_grob_property ("ratio");
 
-  Real r_0 = gh_scm2double (ly_cdr (r_0_scm));
-  Real h_inf = staff_space * gh_scm2double (ly_cdr (h_inf_scm));
+  Real r_0 = gh_scm2double (r_0_scm);
+  Real h_inf = staff_space * gh_scm2double (h_inf_scm);
   
   Slur_bezier_bow bb (get_encompass_offsets (me),
 		      Directional_element_interface::get (me),
@@ -691,5 +691,5 @@ Slur::get_curve (Grob*me)
 
 ADD_INTERFACE (Slur,"slur-interface",
   "A slur",
-  "slope-limit de-uglify-parameters details attachment direction attachment-offset beautiful y-free control-points extremity-rules extremity-offset-alist thickness dashed");
+  "attachment attachment-offset beautiful control-points dashed details de-uglify-parameters direction extremity-rules extremity-offset-alist height-limit ratio slope-limit thickness y-free");
 
