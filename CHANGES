@@ -1,10 +1,77 @@
+1.3.38.hwn2
+===========
+
+* General cleanups of My_lily_parser. 
+
+* Start of a Chord_tremolo_iterator for the `\repeat 4 "tremolo"'
+syntax.
+
+* Moved Score_element::do_space_processing out of the dependency
+mechanism.
+
+* Use Scheme for notename tables.  Removed uppercase letters for low
+octave notes. Removed Notename_table.
+
+* Fixed core dump with declared "\key  ; "
+
+* Extra robustness warning for Side_position_interface::aligned_on_self ()
+
+* Extra robustness: make sure that first and last columns are breakable.
+  	
+1.3.38.jcn4
+===========
+
+* stepmake/aclocal.m4: Added support for cross-compiling with guile.
+
+* buildscripts/make-cygwin-cross.sh: A try at dropping cygwin1.dll
+ dependency by using mingw.  Compiling guile is too much to ask
+ for mingw, though.  Also:
+ - rename python scripts .py (request from Alain)
+ - install native packages under their own, separate root. (Alain)
+
+* lily.scm: Don't use regex module when running on
+Windows. (Shamus)
+
+* lily/staff-margin-engraver.cc (acknowledge_element): If
+possible, hang y-axis of margin script to span-bar.  This fixes
+vertical placement of margin scripts attached to staff groups.
+
+* help2man-rules.make: Fixes for generating manpages by copying
+and for building using --scrdir.
+
+* stepmake/stepmake/generic-targets.make: Preserve date stamp of
+config.h, version.hh files file when copying.
+
+* buildscripts/make-cygwin-cross.sh: made number of fixes:
+	- add `Cygnus/' prefix to directories in .zip-file too.
+	- package guile too.
+	- don't link to cygwin1.dll
+
+* stepmake/stepmake/install-targets.make: bugfix, don't fail if directory
+  is not emty when uninstalling.
+	
+* stepmake/stepmake/generic-targets.make: added man target.
+
+* buildscripts/make-cygwin-cross.sh: new script for cross-building cygwin
+  development tools and lilypond executable.
+
+* Documentation/ntweb/lilypond-manpages.patch: provide pre-built
+  manpages, so that make doesn't fail on help2man trying to execute
+  a GNU/windows executable.	
+
+* Documentation/ntweb/guile-1.3.4-gnu-windows.patch: new patch for
+  guile-1.3.4.  
+
+* flower/libc-extension.cc (memmem): cygwin compile fix.
+
 1.3.38
 ======
 
 1.3.37.hwn1
 ===========
 
-* (generic-property.scm) added tieDash
+* (generic-property.scm) added \property tieDash to set dashing on
+ties.
 
 * Removed  ly_eval_str(), we should use scm_eval (Scm_object).
 
@@ -208,6 +275,8 @@ don't run into the text anymore.
 * Dynamic elements are only put in a Dynamic_line_spanner if there
   actually is more than one adjacent note-column with a dynamic.
   This breaks the fine looks of all dynamics, again :-)
+
+
 
 
 1.3.33
