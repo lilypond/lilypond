@@ -25,7 +25,7 @@ Active_constraints::status() const
 void
 Active_constraints::OK()
 {
-    #ifndef NDEBUG
+#ifndef NDEBUG
     H.OK();
     A.OK();
     assert(active.size() +inactive.size() == opt->cons.size());
@@ -113,10 +113,10 @@ Active_constraints::drop(int k)
 	A -= A*opt->quad*Matrix(a,a/q);
     }else
 	WARN << "degenerate constraints";
-   #ifndef NDEBUG
+#ifndef NDEBUG
     Vector rem_row(A.row(q));
     assert(rem_row.norm() < EPS);
-   #endif
+#endif
      
     A.delete_row(q);
 }
