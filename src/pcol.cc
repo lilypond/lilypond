@@ -18,12 +18,12 @@ PCol::width() const
 int
 PCol::rank() const
 {
-    if(!pscore_)
+    if(!pscore_l_)
 	return -1;
-    PCursor<PCol*> me=pscore_->find_col( (PCol*)this);
+    PCursor<PCol*> me=pscore_l_->find_col( (PCol*)this);
     if (!me.ok())
 	return -1;
-    PCursor<PCol*> bot(pscore_->cols.top());
+    PCursor<PCol*> bot(pscore_l_->cols.top());
     return me - bot;
 }
 
@@ -39,10 +39,11 @@ PCol::print() const
     mtor << "# symbols: " << its.size() ;
     if (breakable()){
 	mtor << "\npre,post: ";
-	prebreak->print();
-	postbreak->print();
-    } else if (daddy) {
-	mtor<<'\n' << ((this == daddy->prebreak) ? "prebreak" : "postbreak");
+	prebreak_p_->print();
+	postbreak_p_->print();
+    } else if (daddy_l_) {
+	mtor<<'\n' << ((this == daddy_l_->prebreak_p_) ?
+		       "prebreak_p_" : "postbreak");
     }
     mtor << "extent: " << width().str() << "\n";
     mtor << "}\n";
@@ -52,17 +53,23 @@ PCol::print() const
 int
 PCol::compare(const PCol &c1, const PCol &c2)
 {
-    return c1.pscore_->compare_pcols((PCol*)&c1,(PCol*)&c2);
+    PScore*ps_l = c1.pscore_l_;
+    PCursor<PCol*> ac(ps_l->find_col(&c1));
+    PCursor<PCol*> bc(ps_l->find_col(&c2));
+    assert(ac.ok() && bc.ok());
+    return ac - bc;
 }
 
 void
-PCol::OK () const
+PCol::OK() const
 {
-    if (prebreak || postbreak ) {
-	assert(prebreak&&postbreak);
-	assert(prebreak->daddy == this);
-	assert(postbreak->daddy == this);
-    }    
+#ifndef NDEBUG
+    if (prebreak_p_ || postbreak_p_ ) {
+	assert(prebreak_p_&&postbreak_p_);
+	assert(prebreak_p_->daddy_l_ == this);
+	assert(postbreak_p_->daddy_l_ == this);
+    }
+#endif
 }
 
 void
@@ -71,42 +78,39 @@ PCol::set_breakable()
     if (breakable())
 	return;
 
-    prebreak = new PCol(this);
-    postbreak = new PCol(this);
-    prebreak->pscore_ = pscore_;
-    postbreak->pscore_ = pscore_;
-    
- 
+    prebreak_p_ = new PCol(this);
+    postbreak_p_ = new PCol(this);
+    prebreak_p_->pscore_l_ = pscore_l_;
+    postbreak_p_->pscore_l_ = pscore_l_;
 }
 
 bool
 PCol::breakable() const
 {
-    return prebreak||postbreak;
+    return prebreak_p_||postbreak_p_;
 }
 
 PCol::PCol(PCol *parent)
 {
-    daddy = parent;
-    prebreak=0;
-    postbreak=0;
-    line=0;
+    daddy_l_ = parent;
+    prebreak_p_=0;
+    postbreak_p_=0;
+    line_l_=0;
  
-    pscore_ = 0;
+    pscore_l_ = 0;
 }
 
 PCol::~PCol()
 {
-    delete prebreak;
-    delete postbreak;	
+    delete prebreak_p_;
+    delete postbreak_p_;	
 }
 
 void
 PCol::add( Item *i)
 {
     its.bottom().add(i);
-    i->pcol_ = this;
- 
+    i->pcol_l_ = this; 
 }
 
 bool
