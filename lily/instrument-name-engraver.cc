@@ -91,7 +91,7 @@ Instrument_name_engraver::acknowledge_grob (Grob_info i)
    */
   if (dynamic_cast<Spanner*> (i.grob_)
       && (i.grob_->internal_has_interface (ly_symbol2scm ("dynamic-interface"))
-	  || i.grob_->internal_has_interface (ly_symbol2scm ("pedal-interface")))
+	  || i.grob_->internal_has_interface (ly_symbol2scm ("piano-pedal-interface")))
 	  )
     return;
 

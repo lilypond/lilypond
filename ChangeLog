@@ -1,5 +1,13 @@
 2005-01-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/part-combiner.scm (analyse-spanner-states): trigger on
+	crescendo-end as well. (decr maybe ended with Stop cresc.). Fixes:
+	partcombine-diminuendo.ly
+
+	* scm/script.scm (default-script-alist): swap portato symbols.
+
+	* lily/instrument-name-engraver.cc (acknowledge_grob): typo.
+
 	* lily/paper-outputter-scheme.cc (LY_DEFINE):
 	ly:outputter-port. New function.
 
