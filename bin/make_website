@@ -1,4 +1,6 @@
 #!/usr/bin/perl -w
+# stuff should be generated in out directory.
+
 sub
 	set_hrefs
 {
@@ -22,25 +24,93 @@ sub all_refs
 }
 
 local $base="lilypond/";
-local @examples=("wohltemperirt");
+local @examples=("wohltemperirt" ,"standchen", "scsii-menuetto");
 
-system  'pod2html';
+#mkdir "lilypond";
+sub
+    gen_html
+{
+    print "generating HTML";
+    foreach $a (<*.pod>) {
+	$f = $a;
+	$f =~ s/.pod/.html/;
 
-print "generating examples";
-
-foreach $a (@examples) {
-    $texfile="test";
-    system "ln ../input/$a.ly ./$a.ly.txt";
-    system "cd ..; lilypond input/$a; tex $texfile;".
-	"dvips -o $texfile.ps $texfile;";
-
-    # generate the pixmap at twice the size, then rescale (for antialiasing)
-    if ( ! -f "$a.gif" ) {
-    system "mv ../$texfile.ps $a.ps; ".
-	"mv ../lelie.midi $a.midi; ".
-        "gs -q -sDEVICE=ppmraw -sOutputFile=- -r200 -dNOPAUSE  $a.ps -c quit |pnmscale 0.5| ppmtogif > $a.gif";
-    }   
+	system "pod2html $a" 	if ( ! -f $f ) ;
+    }
 }
 
-system "cd out; tar hcf ../website.tar *.html *.gif lelie_logo.png *.ps *.ly.txt *.midi docxx/;" .
-    "gzip -f9 website.tar;"
+sub
+    gen_examples
+{
+    print "generating examples: ";
+    foreach $a (@examples) {
+	print "$a\n";
+	$texfile="test";
+	$tex = "tex $texfile";
+	if ($a eq "standchen" || $a eq "scsii-menuetto") {
+	    $tex = "latex input/$a";
+	    $texfile = "$a";
+	}
+	if ( ! -f "$a.ly.txt" ) {
+	    system "ln ../input/$a.ly ./$a.ly.txt";
+	}
+	if ( ! -f "$a.ps.gz" ) {
+	    system "cd ..; lilypond input/$a;$tex;".
+		"dvips -o $a.ps $texfile;";
+	}
+	# generate the pixmap at twice the size, then rescale (for antialiasing)
+	if ( ! -f "$a.gif" ) {
+	    system "mv ../$a.ps $a.ps; ".
+		"mv ../lelie.midi ../$a.midi $a.midi; ".
+		    "gs -q -sDEVICE=ppmraw -sOutputFile=- -r200 -dNOPAUSE  $a.ps -c quit |pnmscale 0.5| ppmtogif > $a.gif";
+	    system "gzip $a.ps";
+	}   
+    }
+}
+
+
+sub
+    gen_list
+{
+    open HTMLLIST, ">example_output.html";
+    print HTMLLIST "<title>LilyPond examples</title>\n";
+    foreach $a (@examples) {
+	$name=$a;
+	print HTMLLIST "<h1>example file: $name</h1>\n<XMP>\n";
+	$cmd= "head ../input/$a.ly | grep \^% \| sed \"s/^%/	/\"";
+	$desc = `$cmd`;
+	print HTMLLIST "$desc\n</XMP>";
+
+	$inputf="$a.ly.txt";
+	$giff="$a.gif";
+	$psf="$a.ps.gz";
+	$midif="$a.midi";
+	
+	print HTMLLIST "<ul>
+<li><a href=$inputf> The input file</a>
+<li><a href=$giff>The output (gif)</a>
+<li><a href=$psf>The output (PS)</a>
+<li><a href=$midif>The output (MIDI)</a>
+</ul>";
+    }
+}
+sub
+    copy_files
+{  
+    print `ln -s ../out ./docxx` if ( ! -x "docxx" ) ;
+    system "cp ../TODO ./TODO.txt";
+    system "cp ../NEWS ./NEWS.txt";
+}
+
+sub
+    do_tar
+{
+     system " tar hcf website.tar *.html *.gif lelie_logo.png *.ps.gz *.ly.txt *.midi docxx/*;" .
+    "gzip -f9 website.tar;" if ( ! -f "website.tar" ) ;
+}
+
+gen_html;
+gen_examples;
+gen_list;
+copy_files;
+do_tar;
