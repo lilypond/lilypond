@@ -181,8 +181,8 @@ LY_DEFINE (ly_fontify_atom,"ly:fontify-atom", 2, 0, 0,
   return fontify_atom (unsmob_metrics (met), f);
 }
 
-LY_DEFINE (ly_align_to_x,"ly:stencil-align-to!", 3, 0, 0,  (SCM stil, SCM axis, SCM dir),
-
+LY_DEFINE (ly_align_to_x,"ly:stencil-align-to!", 3, 0, 0,
+	   (SCM stil, SCM axis, SCM dir),
 	   "Align @var{stil} using its own extents. "
 	   "@var{dir} is a number -1, 1 are left and right respectively. "
 	   "Other values are interpolated (so 0 means the center. ")
