@@ -63,8 +63,11 @@ Clef_item::do_add_processing ()
 
 	  Real r = do_height ()[d] + g->extent (Y_AXIS)[-d];
 	  g->dim_cache_[Y_AXIS].set_offset (r);
-	  g->set_elt_property (visibility_lambda_scm_sym,
-			       get_elt_property (visibility_lambda_scm_sym));
+
+	  SCM my_vis = get_elt_property (visibility_lambda_scm_sym);
+	  if (my_vis != SCM_BOOL_F)
+	    g->set_elt_property (visibility_lambda_scm_sym, SCM_CDR (my_vis));
+			
 	}
 
     }
