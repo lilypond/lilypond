@@ -1,3 +1,7 @@
+2002-06-08  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/molecule.cc (translate): set max distance to 100 cm.
+
 2002-06-07  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* VERSION: 1.5.60 released
