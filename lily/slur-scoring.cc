@@ -552,7 +552,7 @@ set_end_points (Grob *me)
     {
       Offset o = b.control_[i]
 	- Offset (me->relative_coordinate (common[X_AXIS], X_AXIS),
-		  me->relative_coordinate (common[Y_AXIS], Y_AXIS));
+ 		  me->relative_coordinate (common[Y_AXIS], Y_AXIS));
       controls = scm_cons (ly_offset2scm (o), controls);
     }
   me->set_property ("control-points", controls);

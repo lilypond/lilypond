@@ -170,8 +170,6 @@
 	;; todo: clean this up a bit: the list is getting
 	;; rather long.
 	(print-function . ,Beam::print)
-	(concaveness-gap . 1.85)
-	(concaveness-threshold . 0.26)
 	(gap . 0.8)
 	(positions . (#f . #f))
 	(position-callbacks . (,Beam::least_squares
