@@ -51,22 +51,22 @@ struct Slur_score
 */
 struct Slur_score_parameters
 {
-  int SLUR_REGION_SIZE;
-  Real HEAD_ENCOMPASS_PENALTY;
-  Real STEM_ENCOMPASS_PENALTY;
-  Real CLOSENESS_FACTOR;
-  Real EDGE_ATTRACTION_FACTOR;
-  Real SAME_SLOPE_PENALTY;
-  Real STEEPER_SLOPE_FACTOR;
-  Real NON_HORIZONTAL_PENALTY;
-  Real HEAD_STRICT_FREE_SPACE;
-  Real MAX_SLOPE;
-  Real MAX_SLOPE_FACTOR;
-  Real EXTRA_OBJECT_COLLISION;
-  Real ACCIDENTAL_COLLISION;
-  Real FREE_HEAD_DISTANCE;
-  Real EXTRA_ENCOMPASS_FREE_DISTANCE;
-  Slur_score_parameters ();
+  int slur_region_size_;
+  Real head_encompass_penalty_;
+  Real stem_encompass_penalty_;
+  Real closeness_factor_;
+  Real edge_attraction_factor_;
+  Real same_slope_penalty_;
+  Real steeper_slope_factor_;
+  Real non_horizontal_penalty_;
+  Real head_strict_free_space_;
+  Real max_slope_;
+  Real max_slope_factor_;
+  Real extra_object_collision_;
+  Real accidental_collision_;
+  Real free_head_distance_;
+  Real extra_encompass_free_distance_;
+  Slur_score_parameters (Grob*);
 };
 
 /*
@@ -160,7 +160,7 @@ static void generate_curves (Grob *me,
 			     Drul_array<Offset> base_attach,
 			     Array<Slur_score> *scores);
 static Array<Slur_score> enumerate_attachments
-(Grob *me, Grob *common[], Slur_score_parameters *score_param,
+(Grob *me, Grob *common[], Slur_score_parameters*,
  Drul_array<Bound_info> extremes,
  Drul_array<Offset> base_attachment, Drul_array<Real> end_ys);
 static Drul_array<Offset> get_base_attachments
@@ -169,29 +169,59 @@ static Drul_array<Real> get_y_attachment_range
 (Spanner *sp, Grob **common, Drul_array<Bound_info> extremes,
  Drul_array<Offset> base_attachment);
 
-void
-init_score_param (Slur_score_parameters *score_param)
+
+Real
+get_detail (SCM alist, SCM sym)
 {
-  score_param->SLUR_REGION_SIZE = 5;
-  score_param->HEAD_ENCOMPASS_PENALTY = 1000.0;
-  score_param->STEM_ENCOMPASS_PENALTY = 30.0;
-  score_param->CLOSENESS_FACTOR = 10;
-  score_param->EDGE_ATTRACTION_FACTOR = 4;
-  score_param->SAME_SLOPE_PENALTY = 20;
-  score_param->STEEPER_SLOPE_FACTOR = 50;
-  score_param->NON_HORIZONTAL_PENALTY = 15;
-  score_param->HEAD_STRICT_FREE_SPACE = 0.2;
-  score_param->MAX_SLOPE = 1.1;
-  score_param->MAX_SLOPE_FACTOR = 10;
-  score_param->FREE_HEAD_DISTANCE = 0.3;
-  score_param->EXTRA_OBJECT_COLLISION = 50;
-  score_param->ACCIDENTAL_COLLISION = 3;
-  score_param->EXTRA_ENCOMPASS_FREE_DISTANCE = 0.5;
+  SCM entry = scm_assq (sym, alist);
+  return robust_scm2double (ly_c_pair_p (entry)
+			    ? ly_cdr (entry) 
+			    : SCM_EOL,
+			    0.0);
 }
 
-Slur_score_parameters::Slur_score_parameters()
+void
+init_score_param (Grob *me,
+                  Slur_score_parameters *score_param)
 {
-  init_score_param (this);
+  SCM details = me->get_property ("slur-details");
+  
+  score_param->slur_region_size_ 
+    = (int) get_detail (details, ly_symbol2scm ("slur-region-size"));
+  score_param->head_encompass_penalty_ 
+    = get_detail (details, ly_symbol2scm ("head-encompass-penalty"));
+  score_param->stem_encompass_penalty_ 
+    = get_detail (details, ly_symbol2scm ("stem-encompass-penalty"));
+  score_param->closeness_factor_ 
+    = get_detail (details, ly_symbol2scm ("closeness-factor"));
+  score_param->edge_attraction_factor_ 
+    = get_detail (details, ly_symbol2scm ("edge-attraction-factor"));
+  score_param->same_slope_penalty_ 
+    = get_detail (details, ly_symbol2scm ("same-slope-penalty"));
+  score_param->steeper_slope_factor_ 
+    = get_detail (details, ly_symbol2scm ("steeper-slope-factor"));
+  score_param->non_horizontal_penalty_ 
+    = get_detail (details, ly_symbol2scm ("non-horizontal-penalty"));
+  score_param->head_strict_free_space_ 
+    = get_detail (details, ly_symbol2scm ("head-strict-free-space"));
+  score_param->max_slope_ 
+    = get_detail (details, ly_symbol2scm ("max-slope"));
+  score_param->max_slope_factor_ 
+    = get_detail (details, ly_symbol2scm ("max-slope-factor"));
+  score_param->free_head_distance_ 
+    = get_detail (details, ly_symbol2scm ("free-head-distance"));
+  score_param->extra_object_collision_ 
+    = get_detail (details, ly_symbol2scm ("extra-object-collision"));
+  score_param->accidental_collision_ 
+    = get_detail (details, ly_symbol2scm ("accidental-collision"));
+  score_param->extra_encompass_free_distance_ 
+    = get_detail (details, ly_symbol2scm ("extra-encompass-free-distance"));
+}
+
+
+Slur_score_parameters::Slur_score_parameters(Grob *me)
+{
+  init_score_param (me, this);
 }
 
 /* HDIR indicates the direction for the slur.  */
@@ -410,7 +440,7 @@ set_end_points (Grob *me)
 {
   Link_array<Grob> columns
     = Pointer_group_interface__extract_grobs (me, (Grob *) 0, "note-columns");
-  Slur_score_parameters params;
+
   if (columns.is_empty ())
     {
       me->suicide ();
@@ -439,6 +469,7 @@ set_end_points (Grob *me)
     = get_base_attachments (sp, common, extremes);
   Drul_array<Real> end_ys
     = get_y_attachment_range (sp, common, extremes, base_attachment);
+  Slur_score_parameters params (me);
   Array<Slur_score> scores = enumerate_attachments (me, common, &params,
 						    extremes, base_attachment,
 						    end_ys);
@@ -553,7 +584,6 @@ get_base_attachments (Spanner *me,
   Link_array<Grob> columns
     = Pointer_group_interface__extract_grobs (me, (Grob *)0, "note-columns");
   Drul_array<Offset> base_attachment;
-  Slur_score_parameters params;
   Real staff_space = Staff_symbol_referencer::staff_space ((Grob *) me);
   Direction dir = get_grob_direction (me);
   Direction d = LEFT;
@@ -741,7 +771,7 @@ enumerate_attachments (Grob *me, Grob *common[],
 	  Offset dz;	
 	  dz = os[RIGHT] - os[LEFT];
 	  if (dz[X_AXIS] < minimum_length
-	      || fabs (dz[Y_AXIS] / dz[X_AXIS]) > score_param->MAX_SLOPE
+	      || fabs (dz[Y_AXIS] / dz[X_AXIS]) > score_param->max_slope_
 	      )
 	    {
 	      do
@@ -823,13 +853,13 @@ score_encompass (Grob *me, Grob *common[],
 	    {
 	      Real head_dy = (y - infos[j].head_);
 	      if (dir * head_dy < 0)
-		demerit += score_param->HEAD_ENCOMPASS_PENALTY;
+		demerit += score_param->head_encompass_penalty_;
 	      else
 		{
 		  Real hd = (head_dy)
-		    ? (1 / fabs (head_dy) - 1 / score_param->FREE_HEAD_DISTANCE)
-		    : score_param->HEAD_ENCOMPASS_PENALTY;
-		  hd = (hd >? 0)<? score_param->HEAD_ENCOMPASS_PENALTY;
+		    ? (1 / fabs (head_dy) - 1 / score_param->free_head_distance_)
+		    : score_param->head_encompass_penalty_;
+		  hd = (hd >? 0)<? score_param->head_encompass_penalty_;
 
 		  demerit += hd;	
 		}
@@ -837,7 +867,7 @@ score_encompass (Grob *me, Grob *common[],
 
 	  if (dir * (y - infos[j].stem_) < 0)
 	    {
-	      Real stem_dem =score_param->STEM_ENCOMPASS_PENALTY ;
+	      Real stem_dem =score_param->stem_encompass_penalty_ ;
 	      if ((l_edge && dir == UP)
 		  || (r_edge && dir == DOWN))
 		stem_dem /= 5;
@@ -851,9 +881,9 @@ score_encompass (Grob *me, Grob *common[],
 	      ext.add_point (infos[j].head_);
 
 	      // ?
-	      demerit += -score_param->CLOSENESS_FACTOR
+	      demerit += -score_param->closeness_factor_
 		* (dir
-		   * (y - (ext[dir] + dir * score_param->FREE_HEAD_DISTANCE))
+		   * (y - (ext[dir] + dir * score_param->free_head_distance_))
 		   <? 0)
 		/ infos.size ();
 	    }
@@ -988,13 +1018,13 @@ score_extra_encompass (Grob *me, Grob *common[],
 
 	  Real collision_demerit = 
 	       (Accidental_interface::has_interface (encompasses[j]))
-	    ? score_param->ACCIDENTAL_COLLISION
-	    : score_param->EXTRA_OBJECT_COLLISION;
+	    ? score_param->accidental_collision_
+	    : score_param->extra_object_collision_;
 	  
 	  Real dist = yexts[j].distance (y);
 	  demerit +=
-	    fabs (0 >? (score_param->EXTRA_ENCOMPASS_FREE_DISTANCE - dist)) /
-	    score_param->EXTRA_ENCOMPASS_FREE_DISTANCE  * collision_demerit;
+	    fabs (0 >? (score_param->extra_encompass_free_distance_ - dist)) /
+	    score_param->extra_encompass_free_distance_  * collision_demerit;
 	}
 #if DEBUG_SLUR_QUANTING
       (*scores)[i].score_card_ += to_string ("X%.2f", demerit);
@@ -1021,7 +1051,7 @@ score_edges (Grob *me, Grob *common[],
 	  Real y = scores->elem (i).attachment_[d][Y_AXIS];
 	  Real dy = fabs (y - base_attach[d][Y_AXIS]);
 	
-	  Real factor = score_param->EDGE_ATTRACTION_FACTOR;
+	  Real factor = score_param->edge_attraction_factor_;
 	  Real demerit = factor * dy;
 	  if (extremes[d].stem_
 	      && extremes[d].stem_dir_ == dir
@@ -1073,31 +1103,31 @@ score_slopes (Grob *me, Grob *common[],
       Real demerit = 0.0;
 
       demerit += ((fabs (slur_dy / slur_dz[X_AXIS])
-		   - score_param->MAX_SLOPE) >? 0)
-	* score_param->MAX_SLOPE_FACTOR;
+		   - score_param->max_slope_) >? 0)
+	* score_param->max_slope_factor_;
 
       /* 0.2: account for staffline offset. */
       Real max_dy = (fabs (dy) + 0.2);
       if (has_beams)
 	max_dy += 1.0;
 
-      demerit += score_param->STEEPER_SLOPE_FACTOR
+      demerit += score_param->steeper_slope_factor_
 	* ((fabs (slur_dy) -max_dy) >? 0);
 
       demerit += ((fabs (slur_dy/slur_dz[X_AXIS])
-		   - score_param->MAX_SLOPE) >? 0)
-	* score_param->MAX_SLOPE_FACTOR;
+		   - score_param->max_slope_) >? 0)
+	* score_param->max_slope_factor_;
 
       if (sign (dy) == 0
 	  && sign (slur_dy) != 0)
-	demerit += score_param->NON_HORIZONTAL_PENALTY;
+	demerit += score_param->non_horizontal_penalty_;
 
       if (sign (dy)
 	  && sign (slur_dy)
 	  && sign (slur_dy) != sign (dy))
 	demerit += has_beams
-	  ? score_param->SAME_SLOPE_PENALTY / 10
-	  : score_param->SAME_SLOPE_PENALTY;
+	  ? score_param->same_slope_penalty_ / 10
+	  : score_param->same_slope_penalty_;
 
 #if DEBUG_SLUR_QUANTING
       (*scores)[i].score_card_ += to_string ("S%.2f", d);
@@ -1108,5 +1138,6 @@ score_slopes (Grob *me, Grob *common[],
 
   
 }
+
 
 

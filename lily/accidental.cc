@@ -230,7 +230,10 @@ Accidental_interface::print (SCM smob)
 }
 
 
-
+/*
+  TODO: should move inside-slur into item?
+  
+ */
 ADD_INTERFACE (Accidental_interface, "accidental-interface",
 	      "a single accidental",
-	       "cautionary cautionary-style style tie accidentals");
+	       "inside-slur cautionary cautionary-style style tie accidentals");
