@@ -786,7 +786,7 @@ alist_to_hashq (SCM alist)
   return tab; 
 }
 
-#if 0
+#if 1
 /*
   Debugging mem leaks:
  */

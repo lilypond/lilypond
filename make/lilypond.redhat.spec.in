@@ -66,7 +66,7 @@ make prefix="$RPM_BUILD_ROOT%{_prefix}" infodir="$RPM_BUILD_ROOT%{_infodir}"  ma
 
 %if %{info}
 rm -f $RPM_BUILD_ROOT/%{_infodir}/dir
-gzip -9fn $RPM_BUILD_ROOT%{_infodir}/*
+gzip -9fn `find $RPM_BUILD_ROOT%{_infodir}/ -name '*.info'`
 %endif
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/emacs/site-lisp/site-start.d

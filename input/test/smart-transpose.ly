@@ -18,7 +18,7 @@ C scale to Ais.
 % how useful these enharmonic modifications are. Mats B.
 % 
 % Why not to have a function that minimizes the number of accidentals? -HJJ
-i%
+%
 
 #(define  (unhair-pitch p)
   (let* ((o (ly:pitch-octave p))
