@@ -132,6 +132,85 @@ Molecule::add_at_edge (Axis a, Direction d, Molecule const &m, Real padding)
   add_molecule (toadd);
 }
 
+
+
+
+bool
+number_pair_p (SCM p)
+{
+  return gh_pair_p (p) && gh_number_p (gh_car (p)) && gh_number_p (gh_cdr (p));
+}
+
+bool
+axis_p (SCM a)
+{
+  return gh_number_p (a) && (gh_scm2int (a) == 0 || gh_scm2int (a) == 1); 
+}
+
+SCM
+Molecule::ly_set_molecule_extent_x (SCM mol, SCM axis, SCM np)
+{
+  Molecule* m = unsmob_molecule (mol);
+  if (m && axis_p (axis) && number_pair_p (np))
+    {
+      Interval iv = ly_scm2interval (np);
+      m->dim_[Axis(gh_scm2int (axis))] = ly_scm2interval (np);
+    }
+  else
+    warning ("ly-set-molecule-extent!: invalid arguments");
+  return SCM_UNDEFINED;
+}
+
+SCM
+Molecule::ly_get_molecule_extent (SCM mol, SCM axis)
+{
+  Molecule *m = unsmob_molecule (mol);
+ 
+  if (!m || !axis_p (axis))
+    {
+      warning ("ly-get-molecule-extent: invalid arguments");
+      return ly_interval2scm (Interval (0,0));
+    }
+
+  return ly_interval2scm (m->extent (Axis (gh_scm2int (axis))));
+}
+
+
+SCM
+Molecule::ly_molecule_combined_at_edge (SCM first, SCM axis, SCM direction,
+			   SCM second, SCM padding)
+
+{
+  Molecule * m1 = unsmob_molecule (first);
+  Molecule * m2 = unsmob_molecule (second);
+  Molecule result;
+  
+  if (!m1 || !m2 || !isdir_b (direction) || !axis_p (axis) || !gh_number_p (padding))
+    {
+      warning ("ly-combine-molecule-at-edge: invalid arguments");
+      Molecule r;
+      return  r.smobbed_copy ();
+    }
+
+  result = *m1;
+
+  result.add_at_edge (Axis (gh_scm2int (axis)), Direction (gh_scm2int (direction)),
+		      *m2, gh_scm2double (padding));
+
+  return result.smobbed_copy ();
+}
+
+
+static void
+molecule_init ()
+{
+  scm_make_gsubr ("ly-combine-molecule-at-edge", 5 , 0, 0, (Scheme_function_unknown) Molecule::ly_molecule_combined_at_edge);
+  scm_make_gsubr ("ly-set-molecule-extent!", 3 , 0, 0, (Scheme_function_unknown) Molecule::ly_set_molecule_extent_x);
+  scm_make_gsubr ("ly-get-molecule-extent", 2 , 0, 0, (Scheme_function_unknown) Molecule::ly_get_molecule_extent);
+}
+ADD_SCM_INIT_FUNC(molecule,molecule_init);
+
+
 bool
 Molecule::empty_b () const
 {

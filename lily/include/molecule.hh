@@ -78,6 +78,11 @@ public:
    */
   SCM create_scheme () const;
   bool empty_b() const;
+
+
+  static SCM ly_get_molecule_extent (SCM mol, SCM axis);
+  static SCM ly_set_molecule_extent_x (SCM,SCM,SCM);
+  static SCM ly_molecule_combined_at_edge (SCM,SCM,SCM,SCM,SCM);
 };
 
 
