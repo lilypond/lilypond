@@ -1,5 +1,105 @@
+pl 7
+	- Audio_element as base for Audio_item and Audio_staff. fixes
+midi-lyric segfault
+	- added "Gallina a due violini"
+	- make MIDI files on website.
+	- Collision now also is an Element_group.
+	- bf: announce Collision when created
+
+********
+aug 13
+pl 6
+	- bf: 13 shift/reduce in parser fixed
+	- bf: plets in parser
+	- bf: main.o (again)
+	- german notenames (RM)
+	- Score_elem::offset_ now relative to its X/Y groups. Slight
+speed increase? 
+
+********
+aug 12
+pl 5
+
+	- Wordwrap revert
+	- added LilyPond in WWW titles
+	- oops. A quaver is a 8th note, not a 4th
+	- bf: main.o remaking in lily/Makefile 
+	- unhair Voice_iterator 
+	- bf: error if no music in score
+	- bf: don't create translators if Chord element is empty
+	- bf: ctor of Tempo_req
+	- use virtual do_equal_b() for request comparison
+	- bf: turned off default plets: c4*2/3 c4*2/3 -> c4*2/3 c4*4/9
+	- bf: time_int() of an empty chord/voice
+	- more corrections to GMP Manifesto
+	- debian updates (AF)
+	- bf: g++ ICE in Performer_group_performer
+	- use fread() for reading in Simple_file_storage
+
+pl 0.1.3.jcn1
+	- mi2mu: simplification +bf lily_stream: indentation and wordwrap
+	- mi2mu: bf: blunt: non-alpha(num) chars from identifiers
+
+*********
+aug 11
+pl 4
+	- correction of GNU Music Manifesto
+	- moved lowlevel stuff of Source_file to Mapped_file_storage. 
+Interface via File_storage. (Now using Simple_file_storage)
+	- bf: c4-"A"-"B"
+	- bf: exit status
+	- declarable keys
+	- Engraver_group_engraver::find_simple_engraver()
+	- bf: lily/Makefile
+	- bf: Midi_note_event ctor 
+	- bf: tempo request
+	- popular twinkle twinkle (JV)
+	- mudela: parse tempo requests, \midi{ \tempo 4= 60;}
+
+******
+aug 8
+pl 3
+	- don't crash if no Clef_engraver.
+	- PScore -> Paper_score
+	- bf: Score_elem::extent() init of interval
+	- bfs: {Horizontal,Vertical}_group related
+	- bf: don't change original Item while doing making 
+	multiple copies
+	- bf: configure DATADIR
+	- bf: type of spanbar.
+
+pl 0.1.2.jcn1
+	- minor doco fixes
+	- revived Midi_walker
+	- moved midi out of performer-* to audio-*
+	- Audio_staff
+	- removed all <ugh> members from performers
+
+*******
+aug 7
+pl 2
+	- junked Line_of_staff
+	- bf: --output
+	- bf: . in lexer
+	- bf: mi2mu version number.
+	- bf: in mudela-book
+	- bf: don't forget to make mi2mu
+	- Bar_number_grav: measure numbers (experimental)
+	- Bar_column_engraver, Bar_column: scripts on bars
+	- rewrite of {Horizontal,Vertical}_group. Yes, again. 
+Now neatly integrated into class hierarchy
+	- Axis, Axis_group
+	- Debian rules (AF)
+
+pl 0.1.1.jcn1
+	- Audio{column,score,item,...}, more generic audio
+	- bf: Makefiles
+	- bf: mi2mu mudela version
+*********
+aug 5
+
 pl 0.1.1
-	- {Horizontal, Vertical}_group.  A score_element may be in at most one. 
+	- {Horizontal, Vertical}_group.  A score_element may be in at most one.
 	- This means Horizontal_group_item and Vertical_group_spanner need special support.
 	- This also means a big speed increase
 	- configure cleanup
