@@ -19,6 +19,7 @@ Prereq: tetex
 %build
 ./configure --disable-checking --disable-debugging --enable-printing --prefix=/usr --enable-optimise --enable-shared --enable-tex-dir='${prefix}/lib/texmf/texmf/tex/generic' --enable-mf-dir='${prefix}/lib/texmf/texmf/fonts/source/'
 make all
+make -C Documentation texinfo || true
 make htmldoc
 
 %install
@@ -51,6 +52,7 @@ make prefix="$RPM_BUILD_ROOT/usr" install
 /usr/man/man1/mudela-book.1
 /usr/man/man1/ly2dvi.1
 /usr/man/man1/convert-mudela.1
+/usr/info/lilypond.info*
 /usr/lib/texmf/texmf/tex/generic/lilypond
 /usr/lib/texmf/texmf/fonts/source/public/lilypond
 /usr/share/lilypond/
