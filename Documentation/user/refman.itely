@@ -2906,7 +2906,8 @@ To apply, add the @internalsref{Ambitus_engraver} to the
     @} @}
 @end example
 
-The result will look like this.
+For example,
+
 @lilypond[singleline]
 upper = \notes \relative c {
   \clef "treble"
@@ -3098,15 +3099,12 @@ like a common pitch, for example,
 @lilypond[fragment,verbatim,quote, relative=1]
 \chords { es4.  d8 c2 }
 @end lilypond
-is the notation for three chords: an E-flat major chord, a D major and
-a C major.
-
 @cindex chord entry
 @cindex chord mode
 
-Other chords may be entered
-by suffixing a colon, and introducing a modifier, and optionally, a
-number, for example
+Other chords may be entered by suffixing a colon, and introducing a
+modifier, and optionally, a number, for example
+@c
 @lilypond[fragment,verbatim,quote]
 \chords { e1:m e1:7 e1:m7  }
 @end lilypond
@@ -3148,7 +3146,7 @@ supported
   is the   diminished chord. This modifier lowers the 3rd, 5th and (if present)
   the 7th step 
 @item aug
-  is augmented chord. This modifier raises the 5th step.
+  is the augmented chord. This modifier raises the 5th step.
 @item maj
   is the major 7th chord. This modifier raises the 7th step if present.  
 @item sus
@@ -3265,42 +3263,14 @@ through the following properties:
 @table @code
 @item chordNameExceptions
 This is a list that contains the chords that have special formatting.
-For example.
-@lilypond[verbatim,singleline]
-chExceptionMusic = \notes { <<c f g bes>>1-\markup { \super "7" "wahh" }}
-chExceptions = #(append
-  (sequential-music-to-chord-exceptions chExceptionMusic)
-  ignatzekExceptions)
-
-\score { \context ChordNames
-    \chords {
-      c:7sus4 c:dim7
-      \property ChordNames.chordNameExceptions = #chExceptions
-      c:7sus4 c:dim7 } }
-@end lilypond
-
-Putting the exceptions list encoded as
-@example
- \notes @{ <<c f g bes>>1-\markup @{ \super "7" "wahh" @} @}
-@end example
-into @code{chordNameExceptions} takes a little manoeuvring. The
-following code transforms @code{chExceptionMusic} (which is a
-sequential music) into a list of exceptions.
-@example
-  (sequential-music-to-chord-exceptions chExceptionMusic)
-@end example
-Then,
-@example
-#(append
-  ... ignatzekExceptions)
-@end example
-adds the new exceptions to the default ones, which are defined in
-@file{ly/chord-modifier-init.ly}.
+For an example, see
+@inputfileref{input/regression/,chord-name-exceptions.ly}.
 
 @item majorSevenSymbol
 This property contains the markup object used for the 7th step, when
 it is major. Predefined options are @code{whiteTriangleMarkup},
-@code{blackTriangleMarkup}.
+@code{blackTriangleMarkup}.  See
+@inputfileref{input/regression/,chord-name-major7.ly} for an example.
 
 @item chordNameSeparator
 Different parts of a chord name are normally separated by a
@@ -3319,7 +3289,8 @@ separators, e.g.
 @seealso
 
 @inputfileref{input/regression/,chord-name-major7.ly},
-@file{scm/chords-ignatzek.scm}, @file{scm/chord-entry.scm}.
+@inputfileref{input/regression/,chord-name-exceptions.ly},
+@file{scm/chords-ignatzek.scm}, @file{scm/chord-entry.scm}
 
 
 @refbugs
@@ -3363,33 +3334,29 @@ To print a  rehearsal mark, use the @code{\mark} command.
 @lilypond[fragment,verbatim]
 \relative c'' {
   c1 \mark "A"
-  c1 \mark \default
-  c1 \mark \default 
+  c1 \mark "B"
   c1 \mark "12"
-  c1 \mark \default
+  c1 \mark "13"
   c1
 }
 @end lilypond
 
-As you can see, the mark is incremented automatically if you use
-@code{\mark \default}. The value to use is stored in the property
-@code{rehearsalMark} is used and automatically incremented.  The object
-is @internalsref{RehearsalMark} in @internalsref{Score} context. See
-@inputfileref{input/test,boxed-molecule.ly} if you need boxes around the
-marks.
+The mark is incremented automatically if you use @code{\mark
+\default}. The value to use is stored in the property
+@code{rehearsalMark} is used and automatically incremented.
 
 The @code{\mark} command can also be used to put signs like coda,
-segno and fermatas on a barline.  The trick is to use the text markup
-mechanism to access the fermata symbol.
+segno and fermatas on a barline. Use @code{\markup} to
+to access the appropriate symbol.
+
 @lilypond[fragment,verbatim,relative=1]
   c1 \mark \markup { \musicglyph #"scripts-ufermata" }
   c1
 @end lilypond
 
-
-The problem is that marks that occur at a line break are typeset only
-at the beginning of the next line, opposite to what you want for the
-fermata. This can be corrected by the following property setting
+In this case, during line breaks,
+marks must also be printed at the end of the line, and not at the
+beginning. Use the following to force that behavior
 @example
 \property Score.RehearsalMark \override
   #'break-visibility = #begin-of-line-invisible
@@ -3399,6 +3366,12 @@ fermata. This can be corrected by the following property setting
 @cindex coda
 @cindex segno
 @cindex barlines, putting symbols on 
+
+@seealso
+
+The object is @internalsref{RehearsalMark} in @internalsref{Score}
+context. See @inputfileref{input/test,boxed-molecule.ly} for putting
+boxes around the marks.
 
 
 @node Bar numbers
@@ -3410,109 +3383,65 @@ fermata. This can be corrected by the following property setting
 @cindex currentBarNumber
 
 Bar numbers are printed by default at the start of the line.  The
-number itself is a property that can be set by modifying the
-@code{currentBarNumber} property, although that is usually not
-necessary, i.e.
-@example
-  \property Score.currentBarNumber = #217
-@end example
+number itself is stored in the 
+@code{currentBarNumber} property,
+which is normally updated automatically for every measure.
 
-To typeset Bar Numbers at regular intervals instead of at the beginning of each line,
-you need to change the grob property @code{break-visibility} as well as the translator
-property @code{barNumberVisibility}, as illustrated in the following example which also
-adds a box around the bar numbers:
-@example
-\property Score.BarNumber \override #'break-visibility =
-  #end-of-line-invisible
-\property Score.barNumberVisibility = #(every-nth-bar-number-visible 5)
-\property Score.BarNumber \override #'molecule-callback =
-  #(make-molecule-boxer 0.1 0.25 0.25 Text_item::brew_molecule)
-\property Score.BarNumber \override #'font-relative-size = #0
-@end example
-@lilypond[noindent]
-\score {
-    \context Staff \notes \transpose c c'' {
-	\property Score.BarNumber \override #'break-visibility = #end-of-line-invisible
-	\property Score.barNumberVisibility = #(every-nth-bar-number-visible 5)
-	\property Score.BarNumber \override #'molecule-callback =
-	#(make-molecule-boxer 0.1 0.25 0.25 Text_item::brew_molecule)
-	\property Score.BarNumber \override #'font-relative-size = #0
-	
-	\repeat unfold 16 c1 \bar "|."
-    }
-}
-@end lilypond
+Bar numbers can be typeset at regular intervals instead of at the
+beginning of each line. This is illustrated in the following example,
+whose source is available as
+@inputfileref{input/test/,bar-number-every-fifth.ly}
 
-If you would like the bar numbers to appear at regular intervals, but
-not starting from measure zero, you can use the context function,
-@code{set-bar-number-visibility}, to automatically set
-@code{barNumberVisibility} so that the bar numbers appear at regular
-intervals, starting from the @code{\applycontext}:
+@lilypondfile[notexidoc]{bar-number-every-fifth.ly}
 
-@example
-resetBarnum = \context Score \applycontext
-  #(set-bar-number-visibility 4)
-...
-\property Score.BarNumber \override #'break-visibility =
-  #end-of-line-invisible
-\mark "A" \resetBarnum
-\repeat unfold 10 c1
-\mark \default \resetBarnum
-\repeat unfold 8 c
-@end example
-@lilypond[noindent]
-resetBarnum = \context Score \applycontext
-  #(set-bar-number-visibility 4)
-\score {
-    <
-        \notes \transpose c c'' {
-	    \property Score.BarNumber \override #'break-visibility =#end-of-line-invisible
-	    \property Score.RehearsalMark \override #'padding = #2.5
-	    \mark "A" \resetBarnum
-	    \repeat unfold 10 c1
-	    \mark \default \resetBarnum
-	    \repeat unfold 8 c
-            \bar "|."
-        }
-    >
-}
-@end lilypond
+The start of that numbering can also be reset, as demonstrated in
+@inputfileref{input/test/,bar-number-every-5-reset.ly}.
 
-See also @seeinternals{BarNumber}.
+@lilypondfile[notexidoc]{bar-number-every-5-reset.ly}
+
+
+@seealso
+
+@internalsref{BarNumber}.
+@inputfileref{input/test/,bar-number-every-5-reset.ly}.
+@inputfileref{input/test/,bar-number-every-fifth.ly}
 
 @refbugs
 
-Barnumbers can collide with the StaffGroup, if there is one at the
-top. To solve this, You have to twiddle with the
+Bar numbers can collide with the @internalsref{StaffGroup} bracket, if
+there is one at the top. To solve this, You have to twiddle with the
 @internalsref{padding} property of @internalsref{BarNumber} if your
 score starts with a @internalsref{StaffGroup}.
 
 @node Instrument names
 @subsection Instrument names
 
-In scores, the instrument name is printed before the staff. This can
-be done by setting @code{Staff.instrument} and
-@code{Staff.instr}. This will print a string before the start of the
-staff. For the first start, @code{instrument} is used, for the next
-ones @code{instr} is used.
+In an orchestral score, instrument names are printed left of the
+staffs.
+
+This can be achieved by setting @internalsref{Staff}.@code{instrument}
+and @internalsref{Staff}.@code{instr}. This will print a string before
+the start of the staff. For the first start, @code{instrument} is
+used, for the next ones @code{instr} is used.
 
 @lilypond[verbatim,singleline]
   \property Staff.instrument = "ploink " { c''4 }  
 @end lilypond
 
 You can also use markup texts to construct more complicated instrument
-names:
+names.
 
-
-@lilypond[verbatim,singleline]
-\score {
+@lilypond[fragment,verbatim,singleline]
   \notes \context Staff = treble {
-    \property Staff.instrument
-	= \markup { \column << "Clarinetti" { "in B" \smaller \musicglyph #"accidentals--1" } >> }
-    { c''1 }
+    \property Staff.instrument = \markup {
+        \column << "Clarinetti"
+          { "in B"
+            \smaller \musicglyph #"accidentals--1"
+          }
+          >>
+     }
+     { c''1 }
   }
-  \paper { linewidth= 8.0\cm }
-}
 @end lilypond
 
 
@@ -3534,8 +3463,8 @@ is
   \transpose @var{from} @var{to} @var{musicexpr}
 @end example
 
-This means that @var{musicexpr} is transposed to by the interval
-between @var{from} is @var{to}.
+This means that @var{musicexpr} is transposed by the interval
+between @var{from} and @var{to}.
 
 @code{\transpose} distinguishes between enharmonic pitches: both
 @code{\transpose c cis} or @code{\transpose c des} will transpose up
@@ -3552,9 +3481,12 @@ mus =\notes { \key d \major cis d fis g }
 }}
 @end lilypond
 
+@refbugs
+
 If you want to use both @code{\transpose} and @code{\relative}, then
-you must use @code{\transpose} first.  @code{\relative} will have no
-effect music that appears inside a @code{\transpose}.
+you must put @code{\transpose} outside of @code{\relative}, since
+@code{\relative} will have no effect music that appears inside a
+@code{\transpose}.
 
 
 @node  Multi measure rests
@@ -3577,8 +3509,7 @@ empty measures, and the appropriate number is added automatically.
 
 The @code{1} in @code{R1} is similar to the duration notation used for
 notes. Hence, for time signatures other than 4/4, you must enter other
-durations.  This can be done with augmentation dots, or with
-fractions:
+durations.  This can be done with augmentation dots or fractions:
 
 @lilypond[fragment,verbatim]
  \property Score.skipBars = ##t
@@ -3590,9 +3521,9 @@ fractions:
 @end lilypond
 
 A @code{R} spanning a single measure is printed as a whole rest
-centered in the measure, regardless of the time signature.
+centered in the measure (or a breve when the measure lasts longer than
+two whole notes), regardless of the time signature.
 
-[ add note about breves.]
  
 
 @cindex text on multi-measure rest
@@ -3615,6 +3546,8 @@ adding fermatas.
 
 @cindex whole rests for a full measure 
 
+@seealso
+
 The object for this object is @internalsref{MultiMeasureRest},
 @internalsref{MultiMeasureRestNumber} (for the default number), and
 @internalsref{MultiMeasureRestText} (for user specified texts).
@@ -3626,9 +3559,9 @@ over multi-measure rests.
 
 @cindex condensing rests
 
- There is no way to automatically condense multiple rests
-into a single multimeasure rest. Multi measure rests do not take part
-in rest collisions.
+There is no way to automatically condense multiple rests into a single
+multimeasure rest. Multi measure rests do not take part in rest
+collisions.
 
 Be careful when entering multimeasure rests followed by whole notes,
 @example
@@ -3644,12 +3577,13 @@ ok, but the bar numbering will be off.
 
 
 Automatic part combining is used to merge two parts of music onto a
-staff in an intelligent way.  It is aimed primarily at typesetting
-orchestral scores.  When the two parts are identical for a period of
-time, only one is shown.  In places where the two parts differ, they
-are typeset as separate voices, and stem directions are set
-automatically.  Also, solo and @emph{a due} parts can be identified
-and marked.
+staff.  It is aimed at typesetting orchestral scores.  When the two
+parts are identical for a period of time, only one is shown.  In
+places where the two parts differ, they are typeset as separate
+voices, and stem directions are set automatically.  Also, solo and
+@emph{a due} parts are identified and can be marked.
+
+@syntax
 
 The syntax for part combining is
 
@@ -3661,8 +3595,9 @@ combined into one context of type @var{context}.  The music expressions
 must be interpreted by contexts whose names should start with @code{one}
 and @code{two}.
 
-The most useful function of the part combiner is to combine parts into
-one voice, as common for wind parts in orchestral scores:
+The following example demonstrates the basic functionality of the part
+combiner: putting parts on one staff, and setting stem directions and
+polyphony.
 
 @lilypond[verbatim,singleline,fragment]
   \context Staff <
@@ -3699,14 +3634,16 @@ may set the property @var{soloADue} to false.
   >
 @end lilypond
 
-There are a number of other properties that you can use to tweak the
-behavior of part combining, refer to the automatically generated
-documentation of @internalsref{Thread_devnull_engraver} and
-@internalsref{Voice_devnull_engraver}. Look at the documentation of the
-responsible engravers, @code{Thread_devnull_engraver},
-@code{Voice_devnull_engraver} and @code{A2_engraver}.
+@seealso
+
+ Look at the documentation of the responsible engravers,
+@code{Thread_devnull_engraver}, @code{Voice_devnull_engraver} and
+@code{A2_engraver}.
 
 @refbugs
+
+The syntax for naming contexts in inconsistent with the syntax for
+combining stanzas.
 
 In @code{soloADue} mode, when the two voices play the same notes on and
 off, the part combiner may typeset @code{a2} more than once in a
@@ -3724,6 +3661,8 @@ measure.
   >
 @end lilypond
 
+The part combiner is slated to be rewritten [TODO: explain why] .
+
 @cindex @code{Thread_devnull_engraver}
 @cindex @code{Voice_engraver}
 @cindex @code{A2_engraver}
@@ -3732,15 +3671,21 @@ measure.
 @subsection Hara kiri staves
 
 In orchestral scores, staff lines that only have rests are usually removed.
-This saves some space.  LilyPond also supports this through the hara
-kiri@footnote{Hara kiri, also called Seppuku, is the ritual suicide of
-the Japanese Samourai warriors.} staff. This staff commits suicide when
-it finds itself to be empty after the line-breaking process.  It will
-not disappear when it contains normal rests, you must use multi measure
+This saves some space. This style is called `French Score'. 
+
+@syntax
+
+This is supported through the hara kiri@footnote{Hara kiri is the
+vulgar name for Seppuku, is the ritual suicide of the Japanese
+Samourai warriors.} staff. This staff commits suicide when it finds
+itself to be empty after the line-breaking process.  It will not
+disappear when it contains normal rests, you must use multi measure
 rests.
 
-The hara kiri staff is specialized version of the @internalsref{Staff}
-context. It is available as the context identifier
+For @internalsref{Lyrics}, @internalsref{LyricsVoice},
+@internalsref{ChordNames} and @internalsref{FiguredBass}, hara-kiri is
+switched on by default. For normal staffs, hara kiri is available as a
+specialized @internalsref{Staff} context, with the name identifier
 @code{\HaraKiriStaffContext}.  Observe how the second staff in this
 example disappears in the second line.
 
@@ -3756,10 +3701,6 @@ example disappears in the second line.
   }
 }
 @end lilypond
-
-For @internalsref{Lyrics}, @internalsref{LyricsVoice},
-@internalsref{ChordNames} and @internalsref{FiguredBass}, hara-kiri is
-switched on by default.
 
 
 @node Sound output for transposing instruments
@@ -3787,6 +3728,8 @@ output.
 @cindex hufnagel
 @cindex Petrucci
 @cindex mensural
+
+[TODO: write introduction on ancient notation]
 
 @menu
 * Ancient note heads::          
