@@ -1,3 +1,9 @@
+2003-05-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/slash-repeat-engraver.cc (try_music): new file, handle
+	slash repeats separately. Slash repeats and %
+	repeats can now be nested.
+
 2003-05-22  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-indent.el: Add preliminary test for closing \] and \).

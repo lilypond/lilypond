@@ -51,16 +51,13 @@ protected:
 
   enum {
     UNKNOWN,
-    BEAT,
     MEASURE,
     DOUBLE_MEASURE,
   } repeat_sign_type_ ;
 
-  Item * beat_slash_;
   Item * double_percent_;
   Spanner * perc_;
   Spanner * finished_perc_;
-  Item * stem_tremolo_;
 protected:
   virtual void finalize ();
   virtual bool try_music (Music*);
@@ -71,11 +68,10 @@ protected:
 
 Percent_repeat_engraver::Percent_repeat_engraver ()
 {
-  perc_  = finished_perc_ = 0;
+  perc_  = 0;
+  finished_perc_ = 0;
   repeat_ =0;
-  stem_tremolo_ = 0;
 
-  beat_slash_ = 0;
   double_percent_ = 0;
 }
 
@@ -101,10 +97,7 @@ Percent_repeat_engraver::try_music (Music * m)
       if (unsmob_moment (m))
 	meas_len = *unsmob_moment (m);
 
-      if (body_length_ < meas_len &&
-	  meas_len.main_part_.mod_rat (body_length_.main_part_) == Moment (Rational (0,0)))
-	repeat_sign_type_ = BEAT;
-      else if (meas_len == body_length_)
+      if (meas_len == body_length_)
 	repeat_sign_type_ = MEASURE;
       else if (Moment (2)* meas_len == body_length_)
 	{
@@ -135,12 +128,7 @@ Percent_repeat_engraver::process_music ()
 {
   if (repeat_ && now_mom () == next_moment_)
     {
-      if (repeat_sign_type_ == BEAT)
-	{
-	  beat_slash_ = new Item (get_property ("RepeatSlash"));
-	  announce_grob(beat_slash_, repeat_->self_scm());
-	}
-      else if (repeat_sign_type_ == MEASURE)
+      if (repeat_sign_type_ == MEASURE)
 	{
 	  finished_perc_ = perc_;
 	  typeset_perc ();
@@ -172,7 +160,7 @@ Percent_repeat_engraver::finalize ()
   typeset_perc ();
   if (perc_)
     {
-      repeat_->origin ()->warning (_ ("unterminated chord tremolo"));
+      repeat_->origin ()->warning (_ ("unterminated percent repeat"));
       perc_->suicide ();
     }
 }
@@ -186,12 +174,6 @@ Percent_repeat_engraver::typeset_perc ()
       finished_perc_->set_bound (RIGHT, unsmob_grob (col));
       typeset_grob (finished_perc_);
       finished_perc_ = 0;
-    }
-
-  if (beat_slash_)
-    {
-      typeset_grob (beat_slash_);
-      beat_slash_ = 0;
     }
 
   if (double_percent_)
@@ -231,8 +213,8 @@ Percent_repeat_engraver::stop_translation_timestep ()
 
 
 ENTER_DESCRIPTION(Percent_repeat_engraver,
-/* descr */       "Make beat, whole bar and double bar repeats.",
-/* creats*/       "PercentRepeat RepeatSlash DoublePercentRepeat",
+/* descr */       "Make whole bar and double bar repeats.",
+/* creats*/       "PercentRepeat DoublePercentRepeat",
 /* accepts */     "repeated-music",
 /* acks  */      "",
 /* reads */       "measureLength currentCommandColumn",

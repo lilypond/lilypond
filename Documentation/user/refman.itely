@@ -2273,7 +2273,8 @@ example file @inputfileref{input/test,unfold-all-repeats.ly}.
 Timing information is not remembered at the start of an alternative,
 so you have to reset timing information after a repeat, e.g. using a
 bar-check (See @ref{Bar check}), setting @code{Score.measurePosition}
-or entering @code{\partial}.  Slurs or ties are also not repeated.
+or entering @code{\partial}.  Similarly, slurs or ties are also not
+repeated.
 
 
 @node Manual repeat commands
@@ -2391,8 +2392,7 @@ patterns that divide the measure length are replaced by slashes.
 
 @refbugs
 
-You cannot nest percent repeats, e.g. by filling in the first measure
-with slashes, and repeating that measure with percents.
+Single measure and double measure percent-repeats cannot be nested.
 
 @node Rhythmic music
 @section Rhythmic music
