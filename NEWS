@@ -1,3 +1,9 @@
+pl 15.jcn1
+	- chord inversion: 
+	  * enter C/E
+	  * display chord names according to boolean property
+	    \property Score.chordInversion; 
+
 pl 15
 
 pl 14.hwn1

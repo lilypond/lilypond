@@ -1,6 +1,6 @@
 \header{
 enteredby =	 "jcn";
-copyright =	 "PD";
+copyright =	 "public domain";
 TestedFeatures =	 "This file tests Feta embedded slurs" +
 	 "(Feta definitively is not an abbreviation of Font-En-TjA)";
 }
