@@ -42,9 +42,15 @@ protected:
 bool
 Tuplet_engraver::try_music (Music *r)
 {
-  if ( c->is_mus_type ("time-scaled-music"))
+#if 1
+  if (Time_scaled_music * c = dynamic_cast<Time_scaled_music *> (r))
     {
       Music *el = c->element ();
+#else    
+  if (r->is_mus_type ("time-scaled-music"))
+    {
+      Music *el = unsmob_music (c->get_mus_property ("element"));
+#endif
       if (!dynamic_cast<Request_chord*> (el))
 	{
 	  time_scaled_musics_.push (c);
