@@ -489,7 +489,7 @@ output = {
 
 		OUTPUT: r'''
 @iftex
-@include %(base)s-systems.tex
+@include %(base)s-systems.texi
 @end iftex
 ''',
 

@@ -1,3 +1,7 @@
+2005-01-31  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scripts/lilypond-book.py (Module): revert @include.
+	
 2005-01-31  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/lilypond-book.py: Resurrect HTML links to .ly source.
