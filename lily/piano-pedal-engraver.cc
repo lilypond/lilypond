@@ -164,7 +164,7 @@ Piano_pedal_engraver::try_music (Music *m)
 	{
 	  String nm = p->name_ + String ("Event");
 	  if (gh_equal_p (m->get_property ("name") ,
-			  gh_symbol2scm (nm.to_str0())))
+			  scm_str2symbol (nm.to_str0())))
 	    {
 	      Direction d = to_dir (m->get_property ("span-direction"));
 	      p->event_drul_[d] = m;

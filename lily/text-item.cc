@@ -33,7 +33,7 @@ Text_item::interpret_markup (SCM paper, SCM props, SCM markup)
 	{
 	  lst = fontify_atom (mf, lst);
 	
-	  Box b = mf->text_dimension (str);
+	  b = mf->text_dimension (str);
 	}
       else
 	{
