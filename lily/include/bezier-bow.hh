@@ -26,6 +26,9 @@ class Bezier_bow
   void calc_default ();
   void to_canonic_form ();
   void calc_tangent_controls ();
+  Real calc_enclosed_area_f () const;
+  void minimise_enclosed_area ();
+
   Real fit_factor () const;
 
 

@@ -74,6 +74,59 @@ Bezier_bow::blow_fit ()
   curve_.check_sanity ();
 }
 
+Real
+Bezier_bow::calc_enclosed_area_f () const
+{
+  Real a = 0;
+  for (int i=0; i < encompass_.size (); i++)
+    {
+      Interval x;
+      Interval y;
+      if (i == 0)
+	x = Interval (0, encompass_[1][X_AXIS]/2);
+      else if (i == encompass_.size () - 1)
+	x = Interval ((encompass_[i-1][X_AXIS] + encompass_[i][X_AXIS])/2, 
+		      encompass_[i][X_AXIS]);
+      else
+	x = Interval ((encompass_[i-1][X_AXIS] + encompass_[i][X_AXIS])/2, 
+		      (encompass_[i][X_AXIS] + encompass_[i+1][X_AXIS])/2);
+      
+      y[MIN] = encompass_[i][Y_AXIS];
+      // solve_point (X, 0|Xmax) has no solutions...
+      y[MAX] = (x[MIN] ? curve_.get_other_coordinate (X_AXIS, x[MIN]) : 0
+		+ curve_.get_other_coordinate (X_AXIS, (x[MIN] + x[MAX])/2)
+		+ x[MAX] != encompass_.top ()[X_AXIS] ? curve_.get_other_coordinate (X_AXIS, x[MAX]) : 0)/3;
+      Real da = x.length () * y.length ();
+      if (da > 0)
+	a += da;
+    }
+  return a;
+}
+
+void
+Bezier_bow::minimise_enclosed_area ()
+{
+  Real area = calc_enclosed_area_f ();
+  
+  Array<Offset> da (2);
+  for (int i=1; i < 3; i++)
+    {
+      for (Axis a=X_AXIS; a < NO_AXES; incr (a)) 
+	{
+	  Real r = curve_.control_[i][a];
+	  curve_.control_[i][a] += 1;
+	  da[i-1][a] = (calc_enclosed_area_f () - area) / area;
+	  curve_.control_[i][a] = r;
+	}
+    }
+  
+  for (int i=1; i < 3; i++)
+    {
+      da[i-1] *= da[i-1].length () ? 1.0 / da[i-1].length () : 1.0;
+      curve_.control_[i] -= da[i-1] * curve_.control_[i].length ();
+    }
+}
+
 void
 Bezier_bow::calculate ()
 {
@@ -82,6 +135,7 @@ Bezier_bow::calculate ()
     {
       //    calc_tangent_controls ();
       blow_fit ();
+      minimise_enclosed_area ();
     }
 }
 

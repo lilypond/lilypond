@@ -1,0 +1,3 @@
+\property Voice.slurVerticalDirection = #1
+\property Voice.stemVerticalDirection = #-1
+a''(a' a,)a
