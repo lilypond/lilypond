@@ -210,6 +210,7 @@ void
 ly_init_guile ()
 {
   lily_module = scm_c_define_module ("lily", ly_init_ly_module, 0);
+  scm_c_use_module ("lily");
 }
 
 unsigned int ly_scm_hash (SCM s)

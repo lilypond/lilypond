@@ -10,6 +10,7 @@ source file of the GNU LilyPond music typesetter
 #include "string.hh"
 #include "lily-guile.hh"
 #include "ly-modules.hh"
+#define FUNC_NAME __FUNCTION__
 
 static int module_count;
 
@@ -30,6 +31,9 @@ ly_make_anonymous_module ()
 void
 ly_copy_module_variables (SCM dest, SCM src)
 {
+ #define FUNC_NAME __FUNCTION__
+  SCM_VALIDATE_MODULE (1, src);
+
   SCM obarr= SCM_MODULE_OBARRAY(src);
   SCM syms = SCM_EOL;
 
@@ -46,6 +50,8 @@ ly_copy_module_variables (SCM dest, SCM src)
 SCM
 ly_module_symbols (SCM mod)
 {
+  SCM_VALIDATE_MODULE (1, mod);
+  
   SCM obarr= SCM_MODULE_OBARRAY(mod);
   SCM syms = SCM_EOL;
 
@@ -65,6 +71,9 @@ ly_module_symbols (SCM mod)
 SCM
 ly_module_to_alist (SCM mod)
 {
+  SCM_VALIDATE_MODULE (1, mod);
+  
+  
   SCM obarr= SCM_MODULE_OBARRAY(mod);
   SCM alist = SCM_EOL;
 
@@ -86,12 +95,10 @@ ly_module_to_alist (SCM mod)
 SCM
 ly_module_lookup (SCM module, SCM sym)
 {
-  SCM var;
 #define FUNC_NAME __FUNCTION__
   SCM_VALIDATE_MODULE (1, module);
 
-  var = scm_sym2var (sym, scm_module_lookup_closure (module), SCM_BOOL_F);
-  return var;
+  return scm_sym2var (sym, scm_module_lookup_closure (module), SCM_BOOL_F);
 }
 
 SCM export_function ;

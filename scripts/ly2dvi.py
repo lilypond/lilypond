@@ -334,6 +334,8 @@ pseudo_filter_p = 0
 latex_cmd = 'latex'
 tex_extension = '.tex'
 pdftex_p = 0
+binary = 'lilypond'
+#binary = 'valgrind --suppressions=%(home)s/usr/src/guile-1.6.supp --num-callers=10 %(home)s/usr/src/lilypond/lily/out/lilypond '% { 'home' : '/home/hanwen' }
 
 help_summary = _ ("Run LilyPond using LaTeX for titling")
 
@@ -503,7 +505,7 @@ def run_lilypond (files, dep_prefix):
 		# for better debugging!
 		print_environment ()
 
-	cmd = 'lilypond %s %s ' % (opts, fs)
+	cmd = '%s %s %s ' % (binary, opts, fs)
 	if  verbose_p:
 		progress ("Invoking `%s'"% cmd)
 	status = os.system (cmd)

@@ -27,13 +27,13 @@
 
 (define-public security-paranoia #f)
 
-(define (line-column-location line col file)
+(define-public (line-column-location line col file)
   "Print an input location, including column number ."
   (string-append (number->string line) ":"
 		 (number->string col) " " file)
   )
 
-(define (line-location line col file)
+(define-public (line-location line col file)
   "Print an input location, without column number ."
   (string-append (number->string line) " " file)
   )
