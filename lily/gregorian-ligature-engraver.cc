@@ -227,6 +227,10 @@ provide_context_info (Array<Grob_info> primitives)
       {
 	context_info |= AFTER_VIRGA;
       }
+    if (prev_prefix_set & DEMINUTUM)
+      {
+	context_info |= AFTER_DEMINUTUM;
+      }
 
     if (prev_primitive)
       prev_primitive->set_grob_property ("context-info",
