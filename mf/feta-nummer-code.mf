@@ -35,21 +35,22 @@ define_pixels(kuulleke);
 % direction = is ink on left or right side (1 or -1)
 %
 
+% 
+% move_away_to = amount left (for 2) 
+% turn_to  = amount down (for  2 )
+% 
 def number_flare_path(expr pos,alpha,beta,line,flare,
 
 			move_away_to,
-			turn_to,
-			away_from_start_pos, direction) =
+			turn_to, taille, taille_ratio,
+			direction) =
 	begingroup;
 	clearxy;
 
-	z5 = z2 + 0.43* flare *dir (alpha - 1.5 beta);
+%	z5 = z2 + 0.43* flare *dir (alpha - 1.5 beta);
 
-	save taille;
-
-	taille = 0.06;
 	z4 = (0.75 - taille)  [z2r, z2l] + whatever* dir (alpha - beta) ;
-	z4 = (0.00 + .4 taille) [z3l, z3r] + whatever* dir(alpha);
+	z4 = (taille_ratio * taille) [z3l, z3r] + whatever* dir(alpha);
 	penpos1(line,180+beta+alpha);
 	z1r=pos;
 
@@ -204,8 +205,7 @@ fet_endchar;
 code := 47; % 0 = 48
 
 fet_beginchar("Numeral 0", "0", "zero")
-%	set_char_box(0, 4/5height#*widen, 0, height#);
-	set_char_box(0, 11/15height#*widen, 0, height#);
+	set_char_box(0, 11/15height# * widen, 0, height#);
 	message "w:"&decimal w;
 	message "h:"&decimal h;
 	penpos1(thin,90);
@@ -256,7 +256,7 @@ fet_beginchar("Numeral 1", "1", "one")
 fet_endchar;
 
 fet_beginchar("Numeral 2", "2", "two")
-	set_char_box(0, 11/15height#*widen, 0, height#);
+	set_char_box(0, 23/30 height#*widen, 0, height#);
 	message "w:"&decimal w;
 	message "h:"&decimal h;
 	clearxy;
@@ -278,11 +278,11 @@ fet_beginchar("Numeral 2", "2", "two")
 		..z3l{dir(180+gamma)}..{dir(180+alpha - 5)}z2l
 		..{dir(180+beta)}z1l..cycle;
 
-	penpos4(0.85 thick,0);
+	penpos4(thick,0);
 	z4r=(w-thin/2, .71 h);
 	penpos5(hair,90);
 	y5r = h;
-	x5r = 1/2 hair + 1.0 flare + flare_start* flare;
+	x5r = 9/20 w ;
 
 	penlabels(1,2,3,4);
 	penlabels(5,6);
@@ -291,10 +291,9 @@ fet_beginchar("Numeral 2", "2", "two")
 	save p;
 	path p ;
 	p := z1l{dir(beta)}..tension t..z4r{up}
- 		.. number_flare_path(z5r,180,90,hair, flare,
+ 		.. number_flare_path(z5r,180,90,hair, 1.05 flare,
 				x5r  - 1/2 hair,
-				.20 h, 
-				flare_start* flare, 1)
+				.21 h, 0.006, 0.4, 1)
 		.. z4l{down}..tension t
 		..{dir(180+beta)}z1r..cycle;
 
@@ -309,7 +308,12 @@ fet_beginchar("Numeral 3", "3", "three")
 	message "w:"&decimal w;
 	message "h:"&decimal h;
 	penpos1(hair,-90);
-	z1l=(17/16thick,h);
+
+%	flare_start = 0.25 ;
+	x1l = 17/40 w;
+	y1l = h;
+	
+%	z1l=(17/16thick,h);
 	penpos2(7/8thick,180);
 	z2l=(w-thick/8,3/4h+thick/16);
 	penpos3(thin,90);
@@ -319,23 +323,28 @@ fet_beginchar("Numeral 3", "3", "three")
 	penpos5(thick,0);
 	z5r=(w,1/4h+thick/16);
 	penpos6(hair,-90);
-	z6r=(9/8thick,0);
+
+	x6r= 18/40 w;
+	y6r = 0;
 	penpos7(3/2thin,90);
 	z7=(x5,y3);
 	penlabels(1,2,3,4,5,6,7);
 	save alpha; alpha=25;
 	save t; t=tense;
 	pickup pencircle scaled 1;
+
+	%.. number_flare_path(z5r,180,90,hair, 1.05 flare, x5r  - 1/2 hair, .21 h, 1)
+	
 %	draw
 	fill
-		flare_path (z1l, 180, 90, hair, 7/8 flare, -1) 
-		.. super_curvelet(z1l, z2l, 0.76, -1)
+		number_flare_path (z1l, 180, 90, hair,  flare, x1l, .15 h, 0.05, 2,  -1)
+%		flare_path (z1l, 180, 90, hair, 7/8 flare,  -1)
+%		.. super_curvelet(z1l, z2l, 0.76, -1)
 		.. z2l{down}..z7r{dir(180+alpha)}
-		..z7l{dir(-alpha)}..z5r{down}..tension t..
-
-		flare_path (z6r, 180, -90, hair, flare, 1) ..tension t..
-
-		z5l{up}
+		..z7l{dir(-alpha)}..z5r{down}..
+		number_flare_path (z6r, 180, -90, hair,  flare, x6l, .17 h, 0.05, 2,  1)
+%		flare_path (z6r, 180, -90, hair, flare, 1) ..tension t..
+		.. z5l{up}
 		..tension t..z3l{left}..z4l{left}
 		..z4r{right}..z3r{right}..tension t..z2r{up}
 		..tension t.. cycle

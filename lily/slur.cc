@@ -477,7 +477,6 @@ Slur::get_encompass_offset_arr (Grob *me)
   /*
     left is broken edge
   */
-
   if (encompass_arr[0] != sp->get_bound (LEFT))
     {
       first--;
