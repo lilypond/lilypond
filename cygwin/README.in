@@ -72,10 +72,10 @@ Canonical download:
 
 Build instructions:
 
-  # Unpack lilypond-1.5.72-1-src.tar.bz2 in /usr/src
+  # Unpack lilypond-@TOPLEVEL_VERSION@-1-src.tar.bz2 in /usr/src
 
     cd /usr/src
-    tar xjf lilypond-1.5.72-1-src.tar.bz2
+    tar xjf lilypond-@TOPLEVEL_VERSION@-1-src.tar.bz2
     # (or, if you use setup to install this src package, it will be
     #  unpacked under /usr/src automatically)
 
@@ -83,18 +83,16 @@ Build instructions:
      cvs -d:pserver:anoncvs@sources.redhat.com:/cvs/cygwin-apps co mknetrel
 
   # Copy the extra mknetrel script for LilyPond to mknetrel:
-     cp lilypond-1.5.72-1/cygwin/mknetrel mknetrel/extra/lilypond
+     cp lilypond-@TOPLEVEL_VERSION@-1/cygwin/mknetrel mknetrel/extra/lilypond
 
   # Build the package:
 
      ./mknetrel/bin/mknetrel lilypond
 
 This will create:
-
-This will create:
-  /usr/src/uploads/lilypond-1.5.72-1-src.tar.bz2
-  /usr/src/uploads/lilypond-1.5.72-1.tar.bz2
-  /usr/src/uploads/lilypond-doc/lilypond-doc-1.5.72-1.tar.bz2
+  /usr/src/uploads/lilypond-@TOPLEVEL_VERSION@-1-src.tar.bz2
+  /usr/src/uploads/lilypond-@TOPLEVEL_VERSION@-1.tar.bz2
+  /usr/src/uploads/lilypond-doc/lilypond-doc-@TOPLEVEL_VERSION@-1.tar.bz2
 
 ------------------
 

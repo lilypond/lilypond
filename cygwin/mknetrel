@@ -10,7 +10,7 @@
 # To use this, do something like:
 cat >/dev/null <<EOC
 
-   wget -P/var/tmp ftp://lilypond.org/pub/LilyPond/v1.5/lilypond-1.5.71.tar.gz
+   wget -P/var/tmp ftp://lilypond.org/pub/LilyPond/v1.5/lilypond-1.5.72.tar.gz
    rm -rf /home/netrel/src/lilypond-*
    mkdir -p /home/netrel/src && cd /home/netrel/src
    ## TODO: look at pimport
@@ -329,10 +329,10 @@ postinstall () {
     ## Cygwin readmes
     cygwin=cygwin
     cd $src || exit 1
-    install -m644 $cygwin/README $inst/$docdir/README.Cygwin
+    install -m644 $cygwin/out/README $inst/$docdir/README.Cygwin
     install -m644 $cygwin/changelog $inst/$docdir/changelog.Cygwin
     install -d -m755 $inst/$prefix/doc/Cygwin
-    install -m644 $cygwin/README $inst/$prefix/doc/Cygwin/$package.README
+    install -m644 $cygwin/out/README $inst/$prefix/doc/Cygwin/$package.README
 
     ## copy examples
     cd $src || exit 1
