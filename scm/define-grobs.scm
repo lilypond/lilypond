@@ -51,7 +51,19 @@
 		       ))
        (meta . ((interfaces . (ambitus-interface staff-symbol-referencer-interface break-aligned-interface item-interface  font-interface))))
        ))
-
+    (AmbitusNoteHead
+     . (
+	(style . default)
+	(breakable . #t)
+	(print-function . ,Note_head::print)
+	(break-align-symbol . ambitus)
+	(glyph-name-procedure . ,find-notehead-symbol)
+	(X-extent-callback . ,Note_head::extent)
+	(Y-extent-callback . ,Note_head::extent)
+	(Y-offset-callbacks  . (,Staff_symbol_referencer::callback))
+	(meta . ((interfaces . (font-interface note-head-interface ambitus-interface staff-symbol-referencer-interface item-interface ))))
+	))
+    
     (Arpeggio
      . (
 	(X-extent-callback . ,Arpeggio::width_callback)
@@ -487,6 +499,9 @@
 	))
     (LedgerLineSpanner
      . (
+	(print-function . ,Ledger_line_spanner::print)
+	(X-extent-callback . #f)
+	(Y-extent-callback . #f)
 	(print-function . ,Ledger_line_spanner::print)
 	(meta . ((interfaces . (spanner-interface ledger-line-interface))))
 	))

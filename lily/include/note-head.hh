@@ -22,8 +22,6 @@ class Note_head
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM ));
   static Interval head_extent (Grob*, Axis);
-  static Stencil brew_ledger_lines (Grob *me, int pos, int interspaces,
-				     Interval x_extent, Real, bool);
   DECLARE_SCHEME_CALLBACK (brew_ez_stencil, (SCM));
   DECLARE_SCHEME_CALLBACK (extent, (SCM,SCM));
   static bool has_interface (Grob*);

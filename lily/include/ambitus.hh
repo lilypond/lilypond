@@ -15,6 +15,8 @@ struct Ambitus
 {
   DECLARE_SCHEME_CALLBACK (print, (SCM smob));
   static bool has_interface (Grob*);
+  static Slice get_positions (Grob*);
+  static Interval head_width (Grob* me, Grob * common);
 };
 
 #endif // AMBITUS_HH

@@ -102,28 +102,6 @@ brew_flexa (Grob *me,
   return stencil;
 }
 
-void
-add_ledger_lines (Grob *me, Stencil *out, int pos, Real offs,
-		  bool ledger_take_space)
-{
-  int interspaces = Staff_symbol_referencer::line_count (me)-1;
-  if (abs (pos) - interspaces > 1)
-    {
-      Interval hd = out->extent (X_AXIS);
-      Real left_ledger_protusion = hd.length ()/4;
-      Real right_ledger_protusion = left_ledger_protusion;
-
-      Interval l_extents = Interval (hd[LEFT] - left_ledger_protusion,
-				     hd[RIGHT] + right_ledger_protusion);
-      Stencil ledger_lines =
-	Note_head::brew_ledger_lines (me, pos, interspaces,
-				      l_extents,0,
-				      ledger_take_space);
-      ledger_lines.translate_axis (offs, Y_AXIS);
-      out->add_stencil (ledger_lines);
-    }
-}
-
 Stencil
 internal_brew_primitive (Grob *me, bool ledger_take_space)
 {
@@ -203,11 +181,9 @@ internal_brew_primitive (Grob *me, bool ledger_take_space)
     }
 
   int pos = Staff_symbol_referencer::get_rounded_position (me);
-  add_ledger_lines (me, &out, pos, 0, ledger_take_space);
   if (primitive & MLP_FLEXA)
     {
       pos += delta_pitch;
-      add_ledger_lines (me, &out, pos, 0.5*delta_pitch, ledger_take_space);
     }
 
   return out;

@@ -11,6 +11,7 @@
 #include "group-interface.hh"
 #include "spanner.hh"
 #include "engraver.hh"
+#include "ambitus.hh"
 
 class Ledger_line_engraver : public Engraver
 {
@@ -55,11 +56,10 @@ Ledger_line_engraver::acknowledge_grob (Grob_info s)
   Pointer_group_interface::add_grob (span_, ly_symbol2scm ("note-heads"),
 				     s.grob_);
 }
-
 ENTER_DESCRIPTION (Ledger_line_engraver,
 		   "Creates spanner to draw ledger lines",
 		   /* creats*/       "LedgerLineSpanner",
 		   /* accepts */     "",
-		   /* acks  */      "note-head-interface", // ledgered-interface? 
+		   /* acks  */      "custos-interface note-head-interface", // ledgered-interface? 
 		   /* reads */       "",
 		   /* write */       "")

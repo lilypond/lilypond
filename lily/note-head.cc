@@ -22,102 +22,10 @@
 #include "output-def.hh"
 
 /*
-  Note_head contains the code for printing note heads.
-
-  Ledger lines:
-
-  It also contains the ledger lines, for historical reasons.  Ledger
-  lines are somewhat of a PITA. In some cases, they take up no space, in
-  some cases they don't:
-
-  DO take space:
-
-  - when ledgered notes are juxtaposed: there should be some white
-   space between the ledger lines.
-
-  - when accidentals are near: the accidentals should not be on the
-  ledger lines
-
-  [both tips by Heinz Stolba from Universal Edition].
-
-  DO NOT take space into account:
-
-  - for basically everything else, e.g. swapping ledgered notes on
-   clustered chords, spacing between ledgered and unledgered notes.
-  
-  TODO: fix this. It is not feasible to have a special grob for
-  ledgers, since you basically don't know if there will be ledgers,
-  unless you know at interpretation phase already 1. the Y-position,
-  2. the number of staff lines. It's not yet specced when both pieces
-  of information are there, so for now, it is probably better to build
-  special support for ledgers into the accidental and separation-item
-  code.
-
-  (Besides a separate ledger seems overkill. For what else would
-  it be useful?)
-
+  clean up the mess left by ledger line handling.
 */
-
-/*
-  TODO: ledger lines are also a property of the staff. Maybe move them
-  to there?
- */
-Stencil
-Note_head::brew_ledger_lines (Grob *me,
-                              int pos,
-                              int interspaces,
-                              Interval x_extent,
-			      Real left_shorten,
-			      bool take_space)
-{
-  Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
-  Real inter_f = Staff_symbol_referencer::staff_space (me)/2;
-  int line_count = ((abs (pos) < interspaces)
-		    ? 0
-		    : (abs (pos) - interspaces) / 2);
-  Stencil stencil;
-  if (line_count)
-    {
-      Real ledgerlinethickness =
-	Staff_symbol::get_ledger_line_thickness (staff);
-      Real blotdiameter = ledgerlinethickness;
-      Interval y_extent =
-	Interval (-0.5*(ledgerlinethickness),
-		  +0.5*(ledgerlinethickness));
-      Stencil proto_ledger_line =
-	Lookup::round_filled_box (Box (x_extent, y_extent), blotdiameter);
-
-      x_extent[LEFT] += left_shorten;
-      Stencil proto_first_line =
-	Lookup::round_filled_box (Box (x_extent, y_extent), blotdiameter);
-
-      if (!take_space)
-        {
-	  proto_ledger_line.set_empty (true);
-	  proto_first_line.set_empty (true);
-	}
-      
-      Direction dir = (Direction)sign (pos);
-      Real offs = (Staff_symbol_referencer::on_staffline (me, pos))
-        ? 0.0
-        : -dir * inter_f;
-      
-      for (int i = 0; i < line_count; i++)
-        {
-          Stencil ledger_line ((i == 0) 
-				? proto_first_line
-				: proto_ledger_line
-				);
-          ledger_line.translate_axis (-dir * inter_f * i * 2 + offs, Y_AXIS);
-          stencil.add_stencil (ledger_line);
-        }
-    }
-
-  return stencil;
-}
-
-Stencil
-internal_print (Grob *me, bool with_ledgers)
+static Stencil
+internal_print (Grob *me)
 {
   SCM style  = me->get_property ("style");
   if (!ly_c_symbol_p (style))
@@ -137,47 +45,6 @@ internal_print (Grob *me, bool with_ledgers)
       me->warning (_f ("note head `%s' not found", font_char.to_str0 ()));
     }
 
-#if 0
-  int interspaces = Staff_symbol_referencer::line_count (me)-1;
-  int pos = Staff_symbol_referencer::get_rounded_position (me);
-  if (with_ledgers && interspaces >= 0
-      && abs (pos) - interspaces > 1)
-    {
-      Interval ledger_size = out.extent (X_AXIS);
-      ledger_size.widen ( ledger_size.length ()/4);
-
-      Real left_shorten =0.0;
-      if (Grob * g = unsmob_grob (me->get_property ("accidental-grob")))
-	{
-	  /*
-	    make a little room for accidentals.
-	  
-	    TODO: this will look silly if a chord has ledger lines,
-	    and only the bottom note has an accidental.
-	  */
-
-	  Grob *common = g->common_refpoint (me, X_AXIS);
-	  Real d =
-	    linear_combination (Drul_array<Real> (me->extent (common, X_AXIS)[LEFT],
-						  g->extent (common, X_AXIS)[RIGHT]),
-				
-				0.5);
-
-	  left_shorten =  (-ledger_size[LEFT] + d) >?  0 ;
-
-	  /*
-	    TODO: shorten 2 ledger lines for the case natural +
-	    downstem.
-	   */
-	}
-
-      out.add_stencil (Note_head::brew_ledger_lines (me, pos, interspaces,
-						      ledger_size,
-						      left_shorten,
-						      false));
-    }
-#endif
-      
   return out;
 }
 
@@ -188,10 +55,7 @@ Note_head::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
-  /*
-    ledgers don't take space. See top of file.
-   */
-  return internal_print (me, true).smobbed_copy ();
+  return internal_print (me).smobbed_copy ();
 }
 
 /*
@@ -206,7 +70,7 @@ Note_head::head_extent (Grob *me, Axis a)
   SCM brewer = me->get_property ("print-function");
   if (brewer == Note_head::print_proc)
     {
-      Stencil mol = internal_print (me, false);
+      Stencil mol = internal_print (me);
   
       if (!mol.is_empty ())
 	return mol.extent (a);
@@ -269,15 +133,6 @@ Note_head::brew_ez_stencil (SCM smob)
 		       SCM_UNDEFINED);
   Box bx (Interval (0, 1.0), Interval (-0.5, 0.5));
   Stencil m (bx, at);
-
-  int pos = Staff_symbol_referencer::get_rounded_position (me);
-  int interspaces = Staff_symbol_referencer::line_count (me)-1;
-  if (abs (pos) - interspaces > 1)
-    {
-      Interval hd = m.extent (X_AXIS);
-      hd.widen ( hd.length ()/4);
-      m.add_stencil (brew_ledger_lines (me, pos, interspaces, hd, 0, false));
-    }
 
   return m.smobbed_copy ();
 }

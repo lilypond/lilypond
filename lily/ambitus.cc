@@ -114,6 +114,8 @@ number_accidentals (SCM key_signature, Pitch *pitch,
   return 2;
 }
 
+
+
 void
 add_accidentals (Item *me, Stencil *head, int num_acc,
 		 Pitch *pitch, String accidentals_style, Real yoffs)
@@ -169,37 +171,10 @@ Ambitus::print (SCM smob)
     FIXME: Use positions. 
    */
   int p_min, p_max;
-  Pitch *pitch_min = unsmob_pitch (me->get_property ("pitch-min"));
-  if (!pitch_min)
-    {
-      me->programming_error ("Ambitus: pitch_min undefined; assuming 0");
-      p_min = 0;
-    }
-  else
-    {
-      p_min = pitch_min->steps ();
-    }
-  Pitch *pitch_max = unsmob_pitch (me->get_property ("pitch-max"));
-  if (!pitch_max)
-    {
-      me->programming_error ("Ambitus: pitch_max undefined; assuming 0");
-      p_max = 0;
-    }
-  else
-    {
-      p_max = pitch_max->steps ();
-    }
-  if (p_min > p_max)
-    {
-      me->programming_error ("Ambitus: reverse range");
-    }
-
-  SCM c0 = me->get_property ("c0-position");
-  if (ly_c_number_p (c0))
-    {
-      p_min += ly_scm2int (c0);
-      p_max += ly_scm2int (c0);
-    }
+  Slice posns = get_positions(me);
+  
+  p_min = posns[LEFT];
+  p_max = posns[RIGHT];
 
   // create heads
   Stencil head_min =
@@ -223,23 +198,7 @@ Ambitus::print (SCM smob)
       stencil.add_stencil (line);
     }
 
-  // add ledger lines
-  Interval hd = head_min.extent (X_AXIS);
-  Real left_ledger_protusion = hd.length () / 4;
-  Real right_ledger_protusion = left_ledger_protusion;
-  Interval l_extents = Interval (hd[LEFT] - left_ledger_protusion,
-				 hd[RIGHT] + right_ledger_protusion);
-  Stencil ledger_lines;
-  int interspaces = Staff_symbol_referencer::line_count (me) - 1;
-  ledger_lines =
-    Note_head::brew_ledger_lines (me, p_min, interspaces, l_extents, 0,true);
-  ledger_lines.translate_axis (0.5 * p_min, Y_AXIS);
-  stencil.add_stencil (ledger_lines);
-  ledger_lines =
-    Note_head::brew_ledger_lines (me, p_max, interspaces, l_extents, 0, true);
-  ledger_lines.translate_axis (0.5 * p_max, Y_AXIS);
-  stencil.add_stencil (ledger_lines);
-
+  
   // add accidentals
   SCM key_signature = me->get_property ("key-signature");
   SCM scm_accidentals_style = me->get_property ("accidentals-style");
@@ -255,6 +214,8 @@ Ambitus::print (SCM smob)
     }
   
   int num_acc;
+  Pitch *pitch_min = unsmob_pitch (me->get_property ("pitch-min"));
+  Pitch *pitch_max = unsmob_pitch (me->get_property ("pitch-max"));
   num_acc = number_accidentals (key_signature, pitch_min, true, false);
   add_accidentals (me, &head_min, num_acc, pitch_min,
 		   accidentals_style, 0.5 * p_min);

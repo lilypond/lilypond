@@ -12,13 +12,10 @@
 #include "staff-symbol-referencer.hh"
 #include "event.hh"
 #include "pitch.hh"
+#include "pitch-interval.hh"
+#include "protected-scm.hh"
 
 
-/*
-  UGH UGH UGH .
-
-  rewrite this complely. --hwn
- */
 
 /*
  * This class implements an engraver for ambitus grobs.
@@ -79,21 +76,26 @@ TRANSLATOR_DECLARATIONS (Ambitus_engraver);
 private:
   void create_ambitus ();
   Item *ambitus_;
-  bool is_typeset;
-  Pitch pitch_min, pitch_max;
+  Drul_array<Item *> heads_;
+  Drul_array<Item *> accidentals_;
+  Pitch_interval pitch_interval_;
+  bool is_typeset_;
+  int start_c0_;
+  Protected_scm start_key_sig_;
 };
+
+void
+Ambitus_engraver::create_ambitus ()
+{
+  ambitus_ = make_item ("Ambitus",SCM_EOL);
+  is_typeset_ = false;		
+}
+
 
 Ambitus_engraver::Ambitus_engraver ()
 {
   ambitus_ = 0;
-  is_typeset = 0;
-
-  /*
-   * (pitch_min > pitch_max) means that pitches are not yet
-   * initialized
-   */
-  pitch_min = Pitch (0, 0, SHARP);
-  pitch_max = Pitch (0, 0, FLAT);
+  is_typeset_ = false;
 }
 
 void
@@ -105,15 +107,16 @@ Ambitus_engraver::process_music ()
    * Otherwise, if a voice begins with a rest, the ambitus grob will
    * be placed after the rest.
    */
-  if (!ambitus_) {
-    create_ambitus ();
-  }
+  if (!ambitus_)
+    {
+      create_ambitus ();
+    }
 }
 
 void
 Ambitus_engraver::stop_translation_timestep ()
 {
-  if (ambitus_ && !is_typeset)
+  if (ambitus_ && !is_typeset_)
     {
       /*
        * Evaluate middleCPosition not until now, since otherwise we
@@ -121,17 +124,18 @@ Ambitus_engraver::stop_translation_timestep ()
        * we are in a voice context; middleCPosition would then be
        * assumed to be 0.
        */
-      SCM c0 = get_property ("middleCPosition");
-      ambitus_->set_property ("c0-position", c0);
+      start_c0_ = robust_scm2int (get_property ("middleCPosition"), 0);
+      start_key_sig_ = get_property ("keySignature");
 
-      /*
-       * Similar for keySignature.
-       */
-      SCM key_signature = get_property ("keySignature");
-      ambitus_->set_property ("accidentals", key_signature);
-
-      
-      is_typeset = true;
+      Direction d = DOWN;
+      do
+	{
+	  heads_[d] = make_item ("AmbitusNoteHead", SCM_EOL);
+	  accidentals_[d] = make_item ("AmbitusAccidental", SCM_EOL);
+	  heads_[d]->set_property ("accidental-grob", accidentals_[d]->self_scm ());
+	}
+      while (flip (&d) != DOWN);
+      is_typeset_ = true;
     }
 }
 
@@ -147,53 +151,56 @@ Ambitus_engraver::acknowledge_grob (Grob_info info)
 	  if (nr && nr->is_mus_type ("note-event"))
 	    {
 	      Pitch pitch = *unsmob_pitch (nr->get_property ("pitch"));
-	      if (Pitch::compare (pitch_min, pitch_max) > 0) // already init'd?
-		{
-		  // not yet init'd; use current pitch to init min/max
-		  pitch_min = pitch;
-		  pitch_max = pitch;
-		}
-	      else if (Pitch::compare (pitch, pitch_max) > 0) // new max?
-		{
-		  pitch_max = pitch;
-		}
-	      else if (Pitch::compare (pitch, pitch_min) < 0) // new min?
-		{
-		  pitch_min = pitch;
-		}
+	      pitch_interval_.add_point (pitch);
 	    }
 	}
     }
 }
 
 void
-Ambitus_engraver::create_ambitus ()
-{
-  ambitus_ = make_item ("Ambitus",SCM_EOL);
-  is_typeset = false;		
-}
-
-void
 Ambitus_engraver::finalize ()
 {
-  if (ambitus_)
+  if (ambitus_ && !pitch_interval_.is_empty ())
     {
-      if (Pitch::compare (pitch_min, pitch_max) <= 0)
-  	{
- 	  ambitus_->set_property ("pitch-min",
-				  pitch_min.smobbed_copy ());
-  	  ambitus_->set_property ("pitch-max",
-				  pitch_max.smobbed_copy ());
-  	}
-      else // have not seen any pitch, so forget about the ambitus
+      Direction d = DOWN;
+      do
 	{
-	  /*
-	   * Do not print a warning on empty ambitus range, since this
-	   * most probably arises from an empty voice, such as shared
-	   * global timesig/clef definitions.
-	   */
-	  ambitus_->suicide ();
+	  Pitch p = pitch_interval_[d];
+	  heads_[d]->set_property ("position",
+				   scm_from_int (start_c0_ +
+						 p.steps ()));
+
+	  SCM handle = scm_assoc (scm_cons (scm_from_int (p.get_octave ()),
+					    scm_from_int (p.get_notename ())),
+				  start_key_sig_);
+
+	  int sig_alter = (handle != SCM_BOOL_F) ? ly_scm2int (ly_car (handle)) : 0;
+	  if (sig_alter == p.get_alteration ())
+	    {
+	      accidentals_[d]->suicide();
+	      heads_[d]->set_property ("accidental-grob", SCM_EOL);
+	    }
+	  else
+	    {
+	      accidentals_[d]->set_property ("accidentals",
+					     scm_list_1 (scm_from_int (p.get_alteration ())));
+	    }
 	}
+      while (flip (&d) != DOWN);
+
+      ambitus_->set_property ("note-heads", scm_list_2 (heads_[DOWN]->self_scm (),
+							heads_[UP]->self_scm ()));
+    }
+  else
+    {
+      Direction d = DOWN;
+      do
+	{
+	  accidentals_[d]->suicide();
+	  heads_[d]->suicide();
+   	}
+      while (flip (&d) != DOWN);
+      ambitus_->suicide();
     }
 }
 
