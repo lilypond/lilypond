@@ -9,6 +9,8 @@
 #include "types.h"
 #include "proto.h"
 
+#define ALIAS_FILE_TO_FILECOOKIE
+
 #include "libc-extension.hh"
 
 void *
