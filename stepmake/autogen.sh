@@ -4,18 +4,13 @@
 srcdir=`dirname $0`
 DIE=0
 
-(autoconf --version) < /dev/null > /dev/null 2>&1 || {
-  echo
-  echo "ERROR: You must have \`autoconf' installed to."
-  echo "Download the appropriate package for your distribution,"
-  echo "or get the source tarball at ftp://ftp.gnu.org/pub/gnu/"
-  DIE=1
-}
-
-if test "$DIE" -eq 1; then
+# autoconf > 2.50 is not very common yet,
+# and disappointingly incompatible with the widely available 2.13
+version=`autoconf --version 2>/dev/null | awk '{print $3}'`
+if test "$version" != "2.13"; then
+  echo "ERROR: Please install autoconf 2.13"
   exit 1
 fi
-
 
 if test -z "$*"; then
   echo "WARNING: I am going to run \`configure' with no arguments."
