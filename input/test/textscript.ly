@@ -1,5 +1,5 @@
 
-\version "2.1.22"
+\version "2.1.26"
 
 \header { texidoc = "@cindex Textscript
 Test font selection and scm text markup. "

@@ -245,7 +245,7 @@ LY_DEFINE(ly_music_length,
   return sc->get_length().smobbed_copy();
 }
 
-LY_DEFINE(ly_get_property,
+LY_DEFINE(ly_music_property,
 	  "ly:music-property", 2, 0, 0,  (SCM mus, SCM sym),
 	  "Get the property @var{sym} of music expression @var{mus}.\n"
 	  "If @var{sym} is undefined, return @code{'()}.\n" )
@@ -257,7 +257,7 @@ LY_DEFINE(ly_get_property,
   return sc->internal_get_property (sym);
 }
 
-LY_DEFINE(ly_set_property,
+LY_DEFINE(ly_music_set_property,
 	  "ly:music-set-property!", 3, 0, 0,
 	  (SCM mus, SCM sym, SCM val),
 	  "Set property @var{sym} in music expression @var{mus} to @var{val}.")

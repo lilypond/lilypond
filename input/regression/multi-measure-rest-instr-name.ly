@@ -1,4 +1,4 @@
-\version "2.1.23"
+\version "2.1.26"
 \header { texidoc = "There are both long and short intstrument names.
 Engraving instrument names should not be confused by the
 multimeasure rests. " }

@@ -1,5 +1,5 @@
 
-\version "2.1.22"
+\version "2.1.26"
 \header{
        texidoc = "
 The line-spanners connects to the Y position of the note  on the next line.

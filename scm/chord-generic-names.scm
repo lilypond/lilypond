@@ -99,7 +99,7 @@ input/test/dpncnt.ly).
     (make-line-markup
      (if (and (= (step-nr pitch) 7)
 	      (= (step-alteration pitch) 1))
-	 (list (ly:get-context-property context 'majorSevenSymbol))
+	 (list (ly:context-property context 'majorSevenSymbol))
 	 (list (accidental->markup (step-alteration pitch))
 	       (make-simple-markup (number->string (step-nr pitch)))))))
 	 
@@ -147,11 +147,11 @@ input/test/dpncnt.ly).
   (if #f (begin  
 	   (write-me "pitches: " pitches)))
   (let* ((full-exceptions
-	  (ly:get-context-property context 'chordNameExceptionsFull))
+	  (ly:context-property context 'chordNameExceptionsFull))
 	 (full-exception (full-match full-exceptions))
 	 (full-markup (if full-exception (cadr full-exception) '()))
 	 (partial-exceptions
-	  (ly:get-context-property context 'chordNameExceptionsPartial))
+	  (ly:context-property context 'chordNameExceptionsPartial))
 	 (partial-exception (partial-match partial-exceptions))
 	 (partial-pitches (if partial-exception (car partial-exception) '()))
 	 (partial-markup-prefix

@@ -1,5 +1,9 @@
 2004-02-22  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scripts/lilypond-book.py (do_file): do not overwrite input file.
+
+	* scripts/convert-ly.py (conv): add rules for name changes.
+
 	* lily/context-scheme.cc (LY_DEFINE): use Scheme style naming for
 	music/context/grob property functions. Internally, use
 	get_property() and set_property() for both.

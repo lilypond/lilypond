@@ -7,7 +7,7 @@
 
 }
 
-\version "2.1.25"
+\version "2.1.26"
 
 wipeNote = {
     \once \override NoteHead #'transparent = ##t

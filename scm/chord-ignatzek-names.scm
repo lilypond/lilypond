@@ -82,14 +82,14 @@
 	    ps)
 	))
   
-  (define name-root (ly:get-context-property context 'chordRootNamer))
+  (define name-root (ly:context-property context 'chordRootNamer))
   (define name-note 
-    (let ((nn (ly:get-context-property context 'chordNoteNamer)))
+    (let ((nn (ly:context-property context 'chordNoteNamer)))
       (if (eq? nn '())
 	  ; replacing the next line with name-root gives guile-error...? -rz
 
 	  ;; apparently sequence of defines is equivalent to let, not let* ? -hwn
-	  (ly:get-context-property context 'chordRootNamer)	  
+	  (ly:context-property context 'chordRootNamer)	  
 	  ;; name-root
 	  nn)))
 
@@ -177,7 +177,7 @@ work than classifying the pitches."
 	   (args (list num-markup))
 	   (total (if (= (ly:pitch-alteration pitch) 0)
 		      (if (= (pitch-step pitch) 7)
-			  (list (ly:get-context-property context 'majorSevenSymbol))
+			  (list (ly:context-property context 'majorSevenSymbol))
 			  args)
 		      (cons (accidental->markup (step-alteration pitch)) args)
 		      ))
@@ -187,7 +187,7 @@ work than classifying the pitches."
 
     (let*
 	(
-	 (sep (ly:get-context-property context 'chordNameSeparator))
+	 (sep (ly:context-property context 'chordNameSeparator))
 	 (root-markup (name-root root))
 	 (add-markups (map (lambda (x)
 			     (glue-word-to-step "add" x))
@@ -229,7 +229,7 @@ work than classifying the pitches."
 	,exception-markup
 	. 
 	,(if (ly:pitch? bass-pitch)
-	    (list (ly:get-context-property context 'chordNameSeparator)
+	    (list (ly:context-property context 'chordNameSeparator)
 		  (name-note bass-pitch))
 	   '()))))
 
@@ -237,7 +237,7 @@ work than classifying the pitches."
       (
        (root (car in-pitches))
        (pitches (map (lambda (x) (ly:pitch-diff x root)) (cdr in-pitches)))
-       (exceptions (ly:get-context-property context 'chordNameExceptions))
+       (exceptions (ly:context-property context 'chordNameExceptions))
        (exception (assoc-get-default pitches exceptions #f))
        (prefixes '())
        (suffixes '())

@@ -88,9 +88,9 @@
   "Like the C++ code that executes \\override, but without type
 checking. "
 
-  (ly:set-context-property! context context-prop
+  (ly:context-set-property! context context-prop
 			   (cons (cons setting value)
-				 (ly:get-context-property context context-prop)
+				 (ly:context-property context context-prop)
 				 )
 			   )
   )
@@ -110,9 +110,9 @@ a fresh copy of the  list-head is made."
 
   
   
-    (ly:set-context-property!
+    (ly:context-set-property!
      context context-prop
-     (revert-assoc (ly:get-context-property context context-prop)
+     (revert-assoc (ly:context-property context context-prop)
 		   setting))
   )
 

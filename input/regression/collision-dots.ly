@@ -5,7 +5,7 @@
   on the right side."
 }
 
-\version "2.1.22"
+\version "2.1.26"
     \paper { raggedright= ##t }
 
 

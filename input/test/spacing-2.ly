@@ -1,4 +1,4 @@
-\version "2.1.22"
+\version "2.1.26"
 
 % more yummy regression goodness.  -gp
 \header {

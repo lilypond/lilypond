@@ -1,5 +1,5 @@
 
-\version "2.1.22"
+\version "2.1.26"
 
 \header { texidoc = "@cindex Tie Sparse
 Setting sparseTies causes only one tie to be

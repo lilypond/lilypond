@@ -5,7 +5,7 @@
 music may be quoted. " 
 
 }
-\version "2.1.25"
+\version "2.1.26"
 
 bla = \notes\relative c' { fis4 fis fis fis }
 

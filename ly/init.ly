@@ -4,7 +4,7 @@
 #(define-public midi-debug #f)
 
 
-\version "2.1.25"
+\version "2.1.26"
 
 \include "declarations-init.ly"
 

@@ -1,4 +1,4 @@
-\version "2.1.22"
+\version "2.1.26"
 
 \header { texidoc = "@cindex Stem Cross Staff
 There is no support for putting chords across staves.

@@ -1,4 +1,4 @@
-\version "2.1.25"
+\version "2.1.26"
 
 % possible rename to scheme- or something like that.  -gp
 \header { texidoc= "@cindex Scheme Manual Accidentals
@@ -9,8 +9,8 @@ involves some scheme code. " }
   (lambda (elt)
    (and
       (not (eq? #f (memq 'accidental-interface
-                    (ly:get-grob-property elt 'interfaces))))
-      (eq? (ly:get-grob-property
+                    (ly:grob-property elt 'interfaces))))
+      (eq? (ly:grob-property
 	    (ly:grob-parent elt 1) 'staff-position) pos))))
 
 \score {

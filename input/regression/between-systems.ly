@@ -1,5 +1,5 @@
 
-\version "2.1.25"
+\version "2.1.26"
 
 \header{
 texidoc="
@@ -13,11 +13,11 @@ of course.
 
 #(define (set-page-break grob grob-c context)
   (let*
-   ((meta (ly:get-grob-property grob 'meta))
+   ((meta (ly:grob-property grob 'meta))
     (name (cdr (assoc 'name meta))))
    
    (if (equal? 'NonMusicalPaperColumn name)
-    (ly:set-grob-property! grob 'between-system-string "(pagebreak)\n\n"))
+    (ly:grob-set-property! grob 'between-system-string "(pagebreak)\n\n"))
 ))
 
 \score {

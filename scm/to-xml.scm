@@ -107,12 +107,12 @@ is then separated.
 		   (alteration . ,(ly:pitch-alteration p)))))
 			       
 (define (music->xml-node music)
-  (let* ((name (ly:get-mus-property music 'name))
-	 (e (ly:get-mus-property music 'element))
-	 (es (ly:get-mus-property music 'elements))
+  (let* ((name (ly:music-property music 'name))
+	 (e (ly:music-property music 'element))
+	 (es (ly:music-property music 'elements))
 	 (mprops (ly:get-mutable-properties music))
-	 (d (ly:get-mus-property music 'duration))
-	 (p (ly:get-mus-property music 'pitch))
+	 (d (ly:music-property music 'duration))
+	 (p (ly:music-property music 'pitch))
 	 (ignore-props '(origin elements duration pitch element)))
     
     (make <xml-node>

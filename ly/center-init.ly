@@ -1,6 +1,6 @@
 % Toplevel initialisation file. 
 	
-\version "2.1.22"
+\version "2.1.26"
 
 
 \include "declarations-init.ly"

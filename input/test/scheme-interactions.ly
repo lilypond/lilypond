@@ -1,4 +1,4 @@
-\version "2.1.22"
+\version "2.1.26"
 \header { texidoc = "@cindex Scheme Interactions
 With @code{ly:export}, you can pass of the result of
 Scheme expressions as lilypond input.  Within a Scheme expression,

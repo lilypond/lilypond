@@ -8,7 +8,7 @@ their horizontal line does not stick out."
 
 
 }
-\version "2.1.22"
+\version "2.1.26"
 
 
 \paper { raggedright = ##t} 

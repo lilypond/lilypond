@@ -1,5 +1,5 @@
 
-\version "2.1.22"
+\version "2.1.26"
 \header{
   texidoc="
   The multiple stanzas of lyric phrasing are aligned according to the start 

@@ -1,5 +1,5 @@
 
-\version "2.1.22"
+\version "2.1.26"
 \header {
     texidoc = "Grace notes may be put in a @code{partcombine}r."
 }

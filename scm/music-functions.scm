@@ -2,14 +2,14 @@
 
 (define-public (music-map function music)
   "Apply @var{function} to @var{music} and all of the music it contains. "
-  (let* ((es (ly:get-mus-property music 'elements))
-         (e (ly:get-mus-property music 'element))
+  (let* ((es (ly:music-property music 'elements))
+         (e (ly:music-property music 'element))
 	 )
 
-    (ly:set-mus-property! music 'elements 
+    (ly:music-set-property! music 'elements 
 	(map (lambda (y) (music-map  function y)) es))
 	(if (ly:music? e)
-	    (ly:set-mus-property! music 'element (music-map function  e)))
+	    (ly:music-set-property! music 'element (music-map function  e)))
 	(function music)
 	))
 
@@ -18,9 +18,9 @@
   
   (define (inner-music-filter pred? music)
     "Recursive function."
-    (let* ((es (ly:get-mus-property music 'elements))
-	   (e (ly:get-mus-property music 'element))
-	   (as (ly:get-mus-property music 'articulations))
+    (let* ((es (ly:music-property music 'elements))
+	   (e (ly:music-property music 'element))
+	   (as (ly:music-property music 'articulations))
 	   (filtered-as (filter ly:music? (map (lambda (y) (inner-music-filter pred? y)) as)))
 	   (filtered-e (if (ly:music? e)
 			   (inner-music-filter pred? e)
@@ -28,9 +28,9 @@
 	   (filtered-es (filter ly:music? (map (lambda (y) (inner-music-filter pred? y)) es)))
 	   )
 
-      (ly:set-mus-property! music 'element filtered-e)
-      (ly:set-mus-property! music 'elements filtered-es)
-      (ly:set-mus-property! music 'articulations filtered-as)
+      (ly:music-set-property! music 'element filtered-e)
+      (ly:music-set-property! music 'elements filtered-es)
+      (ly:music-set-property! music 'articulations filtered-as)
 
       ;; if filtering emptied the expression, we remove it completely.
       (if (or (pred? music)
@@ -51,7 +51,7 @@
   (lambda (mus)
     (music-filter
      (lambda (m)
-       (let* ((tags (ly:get-mus-property m 'tags))
+       (let* ((tags (ly:music-property m 'tags))
 	      (res (memq tag tags)))
        res)) mus)))
 
@@ -60,8 +60,8 @@
   (display music)
   (display ": { ")
   
-  (let* ((es (ly:get-mus-property music 'elements))
-         (e (ly:get-mus-property music 'element))
+  (let* ((es (ly:music-property music 'elements))
+         (e (ly:music-property music 'element))
 	 )
 
     (display (ly:get-mutable-properties music))
@@ -96,7 +96,7 @@
 
   (let*
       (
-       (d (ly:get-mus-property music 'duration))
+       (d (ly:music-property music 'duration))
        )
     (if (ly:duration? d)
 	(let* (
@@ -107,7 +107,7 @@
 				     (cdr cp)))
 	       
 	       )
-	  (ly:set-mus-property! music 'duration nd)
+	  (ly:music-set-property! music 'duration nd)
 	  ))
     music))
 
@@ -123,11 +123,11 @@
 
 (define-public (note-to-cluster music)
   "Replace NoteEvents by ClusterNoteEvents."
-  (if (eq? (ly:get-mus-property music 'name) 'NoteEvent)
+  (if (eq? (ly:music-property music 'name) 'NoteEvent)
       (let* ((cn (make-music-by-name 'ClusterNoteEvent)))
 
-	     (ly:set-mus-property! cn 'pitch (ly:get-mus-property music 'pitch))
-	     (ly:set-mus-property! cn 'duration (ly:get-mus-property music 'duration))
+	     (ly:music-set-property! cn 'pitch (ly:music-property music 'pitch))
+	     (ly:music-set-property! cn 'duration (ly:music-property music 'duration))
 	     cn)
       music))
 
@@ -141,31 +141,31 @@
 "
 This function replaces all repeats  with unfold repeats. It was 
 written by Rune Zedeler. "
-  (let* ((es (ly:get-mus-property music 'elements))
-         (e (ly:get-mus-property music 'element))
+  (let* ((es (ly:music-property music 'elements))
+         (e (ly:music-property music 'element))
          (n  (ly:music-name music)))
  
     (if (equal? n "Repeated_music")
         (begin
 	  (if (equal?
-	       (ly:get-mus-property music 'iterator-ctor)
+	       (ly:music-property music 'iterator-ctor)
 	       Chord_tremolo_iterator::constructor)
-	      (shift-duration-log music  (ly:intlog2 (ly:get-mus-property music 'repeat-count)) 0)
+	      (shift-duration-log music  (ly:intlog2 (ly:music-property music 'repeat-count)) 0)
 	      )
-          (ly:set-mus-property!
+          (ly:music-set-property!
            music 'length Repeated_music::unfolded_music_length)
-	  (ly:set-mus-property!
+	  (ly:music-set-property!
 	   music 'start-moment-function Repeated_music::first_start)
-          (ly:set-mus-property!
+          (ly:music-set-property!
            music 'iterator-ctor Unfolded_repeat_iterator::constructor)))
 
     (if (pair? es)
-        (ly:set-mus-property!
+        (ly:music-set-property!
          music 'elements
          (map unfold-repeats es)))
 
     (if (ly:music? e)
-        (ly:set-mus-property!
+        (ly:music-set-property!
          music 'element
          (unfold-repeats e)))
 
@@ -181,10 +181,10 @@ written by Rune Zedeler. "
 i.e.  this is not an override"
   
    (let* ((m (make-music-by-name  'OverrideProperty)))
-     (ly:set-mus-property! m 'symbol grob)
-     (ly:set-mus-property! m 'grob-property gprop)
-     (ly:set-mus-property! m 'grob-value val)
-     (ly:set-mus-property! m 'pop-first #t)
+     (ly:music-set-property! m 'symbol grob)
+     (ly:music-set-property! m 'grob-property gprop)
+     (ly:music-set-property! m 'grob-value val)
+     (ly:music-set-property! m 'pop-first #t)
 		
      m
    
@@ -195,9 +195,9 @@ i.e.  this is not an override"
 i.e.  this is not an override"
   
    (let* ((m (make-music-by-name  'OverrideProperty)))
-     (ly:set-mus-property! m 'symbol grob)
-     (ly:set-mus-property! m 'grob-property gprop)
-     (ly:set-mus-property! m 'grob-value val)
+     (ly:music-set-property! m 'symbol grob)
+     (ly:music-set-property! m 'grob-property gprop)
+     (ly:music-set-property! m 'grob-value val)
 		
      m
    
@@ -207,8 +207,8 @@ i.e.  this is not an override"
 (define-public (make-grob-property-revert grob gprop)
   "Revert the grob property GPROP for GROB."
    (let* ((m (make-music-by-name  'OverrideProperty)))
-     (ly:set-mus-property! m 'symbol grob)
-     (ly:set-mus-property! m 'grob-property gprop)
+     (ly:music-set-property! m 'symbol grob)
+     (ly:music-set-property! m 'grob-property gprop)
 		
      m
    
@@ -248,10 +248,10 @@ i.e.  this is not an override"
   "Add \\context CONTEXT = foo to M. "
   
   (let* ((cm (make-music-by-name 'ContextSpeccedMusic)))
-    (ly:set-mus-property! cm 'element m)
-    (ly:set-mus-property! cm 'context-type context)
+    (ly:music-set-property! cm 'element m)
+    (ly:music-set-property! cm 'context-type context)
     (if (and  (pair? rest) (string? (car rest)))
-	(ly:set-mus-property! cm 'context-id (car rest))
+	(ly:music-set-property! cm 'context-id (car rest))
     )
     cm
   ))
@@ -260,32 +260,32 @@ i.e.  this is not an override"
   (let*
       ((m (make-music-by-name 'ApplyContext)))
 
-    (ly:set-mus-property! m 'procedure func)
+    (ly:music-set-property! m 'procedure func)
     m
   ))
 
 (define-public (make-sequential-music elts)
   (let*  ((m (make-music-by-name 'SequentialMusic)))
-    (ly:set-mus-property! m 'elements elts)
+    (ly:music-set-property! m 'elements elts)
     m
   ))
 
 (define-public (make-simultaneous-music elts)
   (let*  ((m (make-music-by-name 'SimultaneousMusic)))
-    (ly:set-mus-property! m 'elements elts)
+    (ly:music-set-property! m 'elements elts)
     m
     ))
 
 (define-public (make-event-chord elts)
   (let*  ((m (make-music-by-name 'EventChord)))
-    (ly:set-mus-property! m 'elements elts)
+    (ly:music-set-property! m 'elements elts)
     m
     ))
 
 
 (define-public (make-skip-music dur)
   (let*  ((m (make-music-by-name 'SkipMusic)))
-    (ly:set-mus-property! m 'duration dur)
+    (ly:music-set-property! m 'duration dur)
     m
   ))
 
@@ -301,10 +301,10 @@ i.e.  this is not an override"
        (seq (make-music-by-name 'MultiMeasureRestMusicGroup))
        )
 
-    (map (lambda (x) (ly:set-mus-property! x 'origin location))
+    (map (lambda (x) (ly:music-set-property! x 'origin location))
 	 (list start ch ch2 seq))
-    (ly:set-mus-property! start 'duration duration)
-    (ly:set-mus-property! seq 'elements
+    (ly:music-set-property! start 'duration duration)
+    (ly:music-set-property! seq 'elements
      (list
       ch
       (make-event-chord (list start))
@@ -323,27 +323,27 @@ a property set for MultiMeasureRestNumber."
     
     (let*
 	(
-	 (text (ly:get-mus-property script-music 'text))
-	 (dir (ly:get-mus-property script-music 'direction))
+	 (text (ly:music-property script-music 'text))
+	 (dir (ly:music-property script-music 'direction))
 	 (p (make-music-by-name 'MultiMeasureTextEvent))
 	 )
 
       (if (ly:dir? dir)
-	  (ly:set-mus-property! p  'direction dir))
-      (ly:set-mus-property! p 'text text)
+	  (ly:music-set-property! p  'direction dir))
+      (ly:music-set-property! p 'text text)
       p
     ))
   
-  (if (eq? (ly:get-mus-property music 'name)  'MultiMeasureRestMusicGroup)
+  (if (eq? (ly:music-property music 'name)  'MultiMeasureRestMusicGroup)
       (let*
 	  (
-	   (text? (lambda (x) (memq 'script-event (ly:get-mus-property x 'types))))
-	   (es (ly:get-mus-property  music 'elements))
+	   (text? (lambda (x) (memq 'script-event (ly:music-property x 'types))))
+	   (es (ly:music-property  music 'elements))
 	   (texts (map script-to-mmrest-text  (filter text? es)))
 	   (others (remove text? es))
 	   )
 	(if (pair? texts)
-	    (ly:set-mus-property!
+	    (ly:music-set-property!
 	     music 'elements
 	     (cons (make-event-chord texts) others)
 	    ))
@@ -357,8 +357,8 @@ a property set for MultiMeasureRestNumber."
       (
        (m (make-music-by-name 'PropertySet))
        )
-    (ly:set-mus-property! m 'symbol sym)
-    (ly:set-mus-property! m 'value val)
+    (ly:music-set-property! m 'symbol sym)
+    (ly:music-set-property! m 'value val)
     m
   ))
 
@@ -374,20 +374,20 @@ a property set for MultiMeasureRestNumber."
 old centralCPosition, add OCTAVATION to centralCPosition, and set
 OTTAVATION to `8va', or whatever appropriate."
     
-    (if (number? (ly:get-context-property  context 'centralCPosition))
+    (if (number? (ly:context-property  context 'centralCPosition))
 	
 	(if (= octavation 0)
 	    (let*
 		((where (ly:context-property-where-defined context 'centralCPosition))
-		 (oc0 (ly:get-context-property context 'originalCentralCPosition)))
+		 (oc0 (ly:context-property context 'originalCentralCPosition)))
 
-	      (ly:set-context-property! context 'centralCPosition oc0)
+	      (ly:context-set-property! context 'centralCPosition oc0)
 	      (ly:unset-context-property where 'originalCentralCPosition)
 	      (ly:unset-context-property where 'ottavation))
 
 	    (let*
 		((where (ly:context-property-where-defined context 'centralCPosition))
-		 (c0 (ly:get-context-property context 'centralCPosition))
+		 (c0 (ly:context-property context 'centralCPosition))
 		 (new-c0 (+ c0 (* -7 octavation)))
 		 (string (cdr
 			  (assoc octavation '((2 . "15ma")
@@ -396,13 +396,13 @@ OTTAVATION to `8va', or whatever appropriate."
 					      (-1 . "8va bassa")
 					      (-2 . "15ma bassa"))))))
 
-	      (ly:set-context-property! context 'centralCPosition new-c0)
-	      (ly:set-context-property! context 'originalCentralCPosition c0)
-	      (ly:set-context-property! context 'ottavation string)
+	      (ly:context-set-property! context 'centralCPosition new-c0)
+	      (ly:context-set-property! context 'originalCentralCPosition c0)
+	      (ly:context-set-property! context 'ottavation string)
 	      
 	      ))))
 
-  (ly:set-mus-property! m 'procedure  ottava-modify)
+  (ly:music-set-property! m 'procedure  ottava-modify)
   (context-spec-music m 'Staff)
   ))
 
@@ -447,7 +447,7 @@ Rest can contain a list of beat groupings
     (if set
 	(make-sequential-music (list set ch))
 	(begin
-	  (ly:set-mus-property! ev 'label label)
+	  (ly:music-set-property! ev 'label label)
 	  ch))))
     
 
@@ -458,29 +458,29 @@ Rest can contain a list of beat groupings
 (define-public (make-penalty-music pen)
  (let
      ((m (make-music-by-name 'BreakEvent)))
-   (ly:set-mus-property! m 'penalty pen)
+   (ly:music-set-property! m 'penalty pen)
    m))
 
 (define-public (make-articulation name)
   (let* (
 	 (m (make-music-by-name 'ArticulationEvent))
       )
-      (ly:set-mus-property! m 'articulation-type name)
+      (ly:music-set-property! m 'articulation-type name)
       m
   ))
 
 (define-public (make-lyric-event string duration)
   (let* ((m (make-music-by-name 'LyricEvent)))
 
-    (ly:set-mus-property! m 'duration duration)
-    (ly:set-mus-property! m 'text string)
+    (ly:music-set-property! m 'duration duration)
+    (ly:music-set-property! m 'text string)
     m))
 
 (define-public (make-span-event type spandir)
   (let* (
 	 (m (make-music-by-name  type))
 	 )
-    (ly:set-mus-property! m 'span-direction spandir)
+    (ly:music-set-property! m 'span-direction spandir)
     m
     ))
 
@@ -488,7 +488,7 @@ Rest can contain a list of beat groupings
   "Set all of ALIST as properties of M." 
   (if (pair? alist)
       (begin
-	(ly:set-mus-property! m (caar alist) (cdar alist))
+	(ly:music-set-property! m (caar alist) (cdar alist))
 	(set-mus-properties! m (cdr alist)))
   ))
 
@@ -496,7 +496,7 @@ Rest can contain a list of beat groupings
 
 (define-public (music-separator? m)
   "Is M a separator?"
-  (let* ((ts (ly:get-mus-property m 'types )))
+  (let* ((ts (ly:music-property m 'types )))
     (memq 'separator ts)
   ))
 
@@ -525,9 +525,9 @@ Rest can contain a list of beat groupings
 
 (define (voicify-chord ch)
   "Split the parts of a chord into different Voices using separator"
-   (let* ((es (ly:get-mus-property ch 'elements)))
+   (let* ((es (ly:music-property ch 'elements)))
      
-     (ly:set-mus-property!  ch 'elements
+     (ly:music-set-property!  ch 'elements
        (voicify-list (split-list es music-separator?) 0))
      ch
    ))
@@ -540,13 +540,13 @@ Rest can contain a list of beat groupings
        (error "not music!"))
        )
    (let*
-       ((es (ly:get-mus-property m 'elements))
-	(e (ly:get-mus-property m 'element))
+       ((es (ly:music-property m 'elements))
+	(e (ly:music-property m 'element))
 	)
      (if (pair? es)
-	 (ly:set-mus-property! m 'elements (map voicify-music es)))
+	 (ly:music-set-property! m 'elements (map voicify-music es)))
      (if (ly:music? e)
-	 (ly:set-mus-property! m 'element  (voicify-music e)))
+	 (ly:music-set-property! m 'element  (voicify-music e)))
      (if
       (and (equal? (ly:music-name m) "Simultaneous_music")
 	   (reduce (lambda (x y ) (or x y)) #f (map music-separator? es)))
@@ -565,12 +565,12 @@ Rest can contain a list of beat groupings
 (define-public (make-type-checker symbol)
   (lambda (elt)
     ;;(display  symbol)
-    ;;(eq? #t (ly:get-grob-property elt symbol))
-    (not (eq? #f (memq symbol (ly:get-grob-property elt 'interfaces))))))
+    ;;(eq? #t (ly:grob-property elt symbol))
+    (not (eq? #f (memq symbol (ly:grob-property elt 'interfaces))))))
 
 (define-public ((outputproperty-compatibility func sym val) grob g-context ao-context)
   (if (func grob)
-      (ly:set-grob-property! grob sym val)))
+      (ly:grob-set-property! grob sym val)))
 
 
 (define-public ((set-output-property grob-name symbol val)  grob grob-c context)
@@ -581,10 +581,10 @@ Rest can contain a list of beat groupings
 "
    
    (let*
-       ((meta (ly:get-grob-property grob 'meta)))
+       ((meta (ly:grob-property grob 'meta)))
 
      (if (equal?  (cdr (assoc 'name meta)) grob-name)
-	 (ly:set-grob-property! grob symbol val)
+	 (ly:grob-set-property! grob symbol val)
 	 )))
 
 
@@ -598,7 +598,7 @@ Rest can contain a list of beat groupings
        )
     
     (define (checker tr)
-      (let* ((bn (ly:get-context-property tr 'currentBarNumber)))
+      (let* ((bn (ly:context-property tr 'currentBarNumber)))
 	(if (= bn  n)
 	    #t
 	    (error
@@ -606,7 +606,7 @@ Rest can contain a list of beat groupings
 		     n bn ))
 	    )))
 
-    (ly:set-mus-property! m 'procedure checker)
+    (ly:music-set-property! m 'procedure checker)
     m
     ))
 
@@ -621,7 +621,7 @@ Rest can contain a list of beat groupings
 (define (ly:music-message music msg)
   (let*
       (
-      (ip (ly:get-mus-property music 'origin))
+      (ip (ly:music-property music 'origin))
       )
 
     (if (ly:input-location? ip)
@@ -633,8 +633,8 @@ Rest can contain a list of beat groupings
   "Check music expression for a Simultaneous_music containing notes\n(ie. Request_chords), without context specification. Called  from parser."
   
      (let*
-       ((es (ly:get-mus-property music 'elements))
-	(e (ly:get-mus-property music 'element))
+       ((es (ly:music-property music 'elements))
+	(e (ly:music-property music 'element))
 	(name (ly:music-name music)) 
 	)
 
@@ -697,10 +697,10 @@ Rest can contain a list of beat groupings
   (define (set-prop context)
     (let*
 	((where (ly:context-property-where-defined context 'graceSettings))
-	 (current (ly:get-context-property where 'graceSettings))
+	 (current (ly:context-property where 'graceSettings))
 	 (new-settings (vector-extend current (list context-name grob sym val)))
 	 )
-      (ly:set-context-property! where 'graceSettings new-settings)))
+      (ly:context-set-property! where 'graceSettings new-settings)))
     
     (ly:export (context-spec-music (make-apply-context set-prop) 'Voice)))
 
@@ -715,7 +715,7 @@ Rest can contain a list of beat groupings
 	  )))
   
   (let*
-      ((props (ly:get-context-property context 'graceSettings)))
+      ((props (ly:context-property context 'graceSettings)))
     (if (vector? props)
 	(vector-map execute-1 props))))
 
@@ -728,7 +728,7 @@ Rest can contain a list of beat groupings
 	  )))
   
   (let*
-      ((props (ly:get-context-property context 'graceSettings)))
+      ((props (ly:context-property context 'graceSettings)))
     (if (vector? props)
 	(vector-reverse-map execute-1 props))))
 
@@ -758,9 +758,9 @@ Rest can contain a list of beat groupings
 (define (apply-durations lyric-music durations) 
   (define (apply-duration music)
     (if (and (not (equal? (ly:music-length music) ZERO-MOMENT))
-	     (ly:duration?  (ly:get-mus-property music 'duration)))
+	     (ly:duration?  (ly:music-property music 'duration)))
 	(begin
-	  (ly:set-mus-property! music 'duration (car durations))
+	  (ly:music-set-property! music 'duration (car durations))
 	  (set! durations (cdr durations))
 	  )))
 
@@ -774,17 +774,17 @@ Rest can contain a list of beat groupings
 (define-public ((add-balloon-text object-name text off) grob orig-context cur-context)
    "Usage: see input/regression/balloon.ly "
   (let*
-   ((meta (ly:get-grob-property grob 'meta))
+   ((meta (ly:grob-property grob 'meta))
     (nm (if (pair? meta) (cdr (assoc 'name meta)) "nonexistant"))
-    (cb (ly:get-grob-property grob 'print-function)))
+    (cb (ly:grob-property grob 'print-function)))
     
    (if (equal? nm object-name)
     (begin
-     (ly:set-grob-property! grob 'print-function Balloon_interface::print)
-     (ly:set-grob-property! grob 'balloon-original-callback cb)
-     (ly:set-grob-property! grob 'balloon-text text)
-     (ly:set-grob-property! grob 'balloon-text-offset off)
-     (ly:set-grob-property! grob 'balloon-text-props '((font-family . roman)))
+     (ly:grob-set-property! grob 'print-function Balloon_interface::print)
+     (ly:grob-set-property! grob 'balloon-original-callback cb)
+     (ly:grob-set-property! grob 'balloon-text text)
+     (ly:grob-set-property! grob 'balloon-text-offset off)
+     (ly:grob-set-property! grob 'balloon-text-props '((font-family . roman)))
 
      ))))
 

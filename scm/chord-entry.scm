@@ -224,8 +224,8 @@ DURATION, and INVERSION."
 	 (ev   (make-music-by-name 'NoteEvent))
 	 )
 
-      (ly:set-mus-property! ev 'duration duration)
-      (ly:set-mus-property! ev 'pitch pitch)
+      (ly:music-set-property! ev 'duration duration)
+      (ly:music-set-property! ev 'pitch pitch)
       ev      
       ))
   
@@ -239,14 +239,14 @@ DURATION, and INVERSION."
     
     (if bass-note
 	(begin
-	  (ly:set-mus-property! bass-note 'bass #t)
+	  (ly:music-set-property! bass-note 'bass #t)
 	  (set! nots (cons bass-note nots))))
     
     
     (if inv-note
 	(begin
-	  (ly:set-mus-property! inv-note 'inversion #t)
-	  (ly:set-mus-property! inv-note 'octavation
+	  (ly:music-set-property! inv-note 'inversion #t)
+	  (ly:music-set-property! inv-note 'octavation
 				(- (ly:pitch-octave inversion)
 				   (ly:pitch-octave original-inv-pitch))
 				)

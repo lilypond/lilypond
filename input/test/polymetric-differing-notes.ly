@@ -1,4 +1,4 @@
-\version "2.1.25"
+\version "2.1.26"
 
 \header{ texidoc="
 
@@ -23,7 +23,7 @@ what happens on the inside: a 3/4 time signature is combined with a
 #(define (scale-one-music m fraction)
   "Maybe we should just export Music::compress to Scheme?"
   (let*
-   ((dur (ly:get-mus-property m 'duration)))
+   ((dur (ly:music-property m 'duration)))
    
    (if (ly:duration? dur)
     (let*
@@ -31,7 +31,7 @@ what happens on the inside: a 3/4 time signature is combined with a
       (d (ly:duration-dot-count dur))
       (factor (ly:duration-factor dur)))
 
-      (ly:set-mus-property! m 'duration
+      (ly:music-set-property! m 'duration
                             (ly:make-duration l d
 			     (* (car fraction) (car factor))
 			     (* (cdr fraction) (cdr factor))))))

@@ -2,20 +2,20 @@
 ;; tuplets.
 
 (define-public (denominator-tuplet-formatter mus)
-  (number->string (ly:get-mus-property mus 'denominator)))
+  (number->string (ly:music-property mus 'denominator)))
 
 (define-public (fraction-tuplet-formatter mus)
-  (string-append (number->string (ly:get-mus-property mus 'numerator))
+  (string-append (number->string (ly:music-property mus 'numerator))
 		 ":"
-		 (number->string (ly:get-mus-property mus 'denominator))
+		 (number->string (ly:music-property mus 'denominator))
 		 ))
 
 
 ;; metronome marks
 (define-public (format-metronome-markup event context)
   (let*
-      ((dur  (ly:get-mus-property event 'tempo-unit))
-       (count (ly:get-mus-property event 'metronome-count))
+      ((dur  (ly:music-property event 'tempo-unit))
+       (count (ly:music-property event 'metronome-count))
        (note-mark (make-note-by-number-markup (ly:duration-log dur)
 					      (ly:duration-dot-count dur)
 					      1) ) ) 

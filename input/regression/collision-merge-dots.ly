@@ -2,7 +2,7 @@
 
     texidoc = "When merging heads, the dots are merged too."
     }
-\version "2.1.22"
+\version "2.1.26"
 
 \score {
 \notes {

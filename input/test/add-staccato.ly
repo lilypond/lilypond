@@ -1,5 +1,5 @@
 
-\version "2.1.25"
+\version "2.1.26"
 
 \header {
 
@@ -12,15 +12,15 @@ one would not use scm constructs.  See separate-staccato.ly first.
 
 #(define (make-script x)
    (let ((m (make-music-by-name 'ArticulationEvent)))
-     (ly:set-mus-property! m 'articulation-type x)
+     (ly:music-set-property! m 'articulation-type x)
      m))
     
 #(define (add-script m x)
    (if
-    (equal? (ly:get-mus-property m 'name) 'EventChord)
-    (ly:set-mus-property! m 'elements
+    (equal? (ly:music-property m 'name) 'EventChord)
+    (ly:music-set-property! m 'elements
 			  (cons (make-script x)
-				(ly:get-mus-property m 'elements))))
+				(ly:music-property m 'elements))))
    m)
 
 #(define (add-staccato m)

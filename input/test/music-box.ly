@@ -1,4 +1,4 @@
-\version "2.1.25"
+\version "2.1.26"
 \include "deutsch.ly"
 % possible rename to scheme- something.  -gp
 % TODO: ask if it needs to have so many empty bars in the middle.  -gp
@@ -8,7 +8,7 @@ using Scheme functions to avoid typing work. " }
 
 
 #(define (transform music)
-  (let* ((es (ly:get-mus-property music 'elements))
+  (let* ((es (ly:music-property music 'elements))
          (n  (ly:music-name music))
         )
    (if (not (equal? n "Sequential_music"))
@@ -17,7 +17,7 @@ using Scheme functions to avoid typing work. " }
       (let recurse ((elts es))
        (if (not (equal? elts '()))
 	 (begin
-           ((trans (ly:get-mus-property (cadr elts) 'elements)) (car elts))
+           ((trans (ly:music-property (cadr elts) 'elements)) (car elts))
 	   (set-cdr! elts (cddr elts))
 	   (recurse (cdr elts))
 	 )
@@ -30,17 +30,17 @@ using Scheme functions to avoid typing work. " }
  )
 
 #(define ((trans pitches) music)
-  (let* ((es (ly:get-mus-property music 'elements))
-         (e (ly:get-mus-property music 'element))
-         (p (ly:get-mus-property music 'pitch)))
+  (let* ((es (ly:music-property music 'elements))
+         (e (ly:music-property music 'element))
+         (p (ly:music-property music 'pitch)))
 
     (if (pair? es)
-        (ly:set-mus-property!
+        (ly:music-set-property!
          music 'elements
          (map (trans pitches) es)))
 
     (if (ly:music? e)
-        (ly:set-mus-property!
+        (ly:music-set-property!
          music 'element
          ((trans pitches) e)))
 
@@ -48,10 +48,10 @@ using Scheme functions to avoid typing work. " }
        (let* ((o (ly:pitch-octave p))
               (n (ly:pitch-notename p))
               (i (+ (* 7 o) n))
-	      (pes (ly:get-mus-property (list-ref pitches i) 'elements))
-	      (pnew (ly:get-mus-property (car pes) 'pitch))
+	      (pes (ly:music-property (list-ref pitches i) 'elements))
+	      (pnew (ly:music-property (car pes) 'pitch))
              )
-          (ly:set-mus-property! music 'pitch pnew)
+          (ly:music-set-property! music 'pitch pnew)
 	)
     )
     music
@@ -62,7 +62,7 @@ using Scheme functions to avoid typing work. " }
 
 
 
-\version "2.1.25"
+\version "2.1.26"
 
 pat = \notes \transpose c c' \repeat unfold 2 {
   << { \context Staff=up {r8 e16 f g e f g } }

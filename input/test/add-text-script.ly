@@ -1,4 +1,4 @@
-\version "2.1.25"
+\version "2.1.26"
 
 \header {
 texidoc= "@cindex make-music Fingering
@@ -12,18 +12,18 @@ create, then write a function that will build the structure for you.
 
 #(define (make-text-script x) 
    (let ((m (make-music-by-name 'TextScriptEvent)))
-    (ly:set-mus-property! m 'direction DOWN) 
-     (ly:set-mus-property! m 'text (make-simple-markup x))
+    (ly:music-set-property! m 'direction DOWN) 
+     (ly:music-set-property! m 'text (make-simple-markup x))
      m))
      
 #(define (add-text-script m x)
-   (if (equal? (ly:get-mus-property m 'name) 'EventChord)
-       (ly:set-mus-property! m 'elements
+   (if (equal? (ly:music-property m 'name) 'EventChord)
+       (ly:music-set-property! m 'elements
 			    (cons (make-text-script x)
-				  (ly:get-mus-property m 'elements)))
+				  (ly:music-property m 'elements)))
        
-       (let ((es (ly:get-mus-property m 'elements))
-	     (e (ly:get-mus-property m 'element)) )
+       (let ((es (ly:music-property m 'elements))
+	     (e (ly:music-property m 'element)) )
 	 (map (lambda (y) (add-text-script y x)) es)
 	 (if (ly:music? e)
 	     (add-text-script e x))))

@@ -1,4 +1,4 @@
-\version "2.1.22"
+\version "2.1.26"
 \header {
 
 texidoc ="Polyphonic rhythms and rests do not disturb

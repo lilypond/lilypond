@@ -16,7 +16,7 @@
 (define-public (tablature-print-function grob)
   (let ((stencil (fontify-text
                    (ly:get-default-font grob)
-                   (ly:get-grob-property grob 'text)
+                   (ly:grob-property grob 'text)
                    )))
     stencil ; return the stencil.
     ))
@@ -32,13 +32,13 @@
       ) ) ) 
 
 (define-public (hammer-print-function grob)
-  (let* ((note-collums (ly:get-grob-property grob 'note-columns))
+  (let* ((note-collums (ly:grob-property grob 'note-columns))
          (note-column1 (cadr note-collums))
          (note-column2 (car  note-collums))
-         (note1        (car (ly:get-grob-property note-column1 'note-heads)))
-         (note2        (car (ly:get-grob-property note-column2 'note-heads)))
-	 (text1  (ly:get-grob-property note1 'text))
-	 (text2  (ly:get-grob-property note2 'text))
+         (note1        (car (ly:grob-property note-column1 'note-heads)))
+         (note2        (car (ly:grob-property note-column2 'note-heads)))
+	 (text1  (ly:grob-property note1 'text))
+	 (text2  (ly:grob-property note2 'text))
          (fret1        (if (string? text1) (string->number text1) 0))
          (fret2        (if (string? text2) (string->number text2) 0))
          (letter       (cond
@@ -201,8 +201,8 @@ centered, X==1 is at the right, X == -1 is at the left."
 (define-public ((modulo-bar-number-visible n m) barnum) (and (> barnum 1) (= m (modulo barnum n))))
 
 (define-public ((set-bar-number-visibility n) tr)
-  (let* ((bn (ly:get-context-property tr 'currentBarNumber)))
-   (ly:set-context-property! tr 'barNumberVisibility (modulo-bar-number-visible n (modulo bn n)))))
+  (let* ((bn (ly:context-property tr 'currentBarNumber)))
+   (ly:context-set-property! tr 'barNumberVisibility (modulo-bar-number-visible n (modulo bn n)))))
 
 (define-public (default-bar-number-visibility barnum) (> barnum 1))
 

@@ -1,4 +1,4 @@
-\version "2.1.22"
+\version "2.1.26"
 \header { texidoc = "@cindex Horizontal Shift
 You can manually shift notes horizontally. " }
 
