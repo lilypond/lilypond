@@ -4,7 +4,8 @@
 ;;; source file of the GNU LilyPond music typesetter
 ;;; 
 ;;; (c)  2000--2003 Jan Nieuwenhuizen <janneke@gnu.org>
-;;; Han-Wen Nienhuys
+;;;
+;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 (define (natural-chord-alteration p)
   "Return the natural alteration for step P."
@@ -77,13 +78,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 
-(define-public (sequential-music-to-chord-exceptions seq omit-root)
+;; fixme we should standardize on omit-root (or the other one.)
+;; perhaps the  default should also be reversed --hwn
+(define-public (sequential-music-to-chord-exceptions seq . rest)
   "Transform sequential music SEQ of type <<c d e>>-\markup{ foobar }
 to (cons CDE-PITCHES FOOBAR-MARKUP), or to (cons DE-PITCHES
-FOOBAR-MARKUP) if OMIT-ROOT.
+FOOBAR-MARKUP) if OMIT-ROOT is given and non-false.
 "
+
   (define (chord-to-exception-entry m)
     (let* ((elts (ly:get-mus-property m 'elements))
+	   (omit-root (and (pair? rest) (car rest)))
 	   (pitches (map (lambda (x) (ly:get-mus-property x 'pitch))
 			 (filter-list
 			  (lambda (y) (memq 'note-event
@@ -91,6 +96,7 @@ FOOBAR-MARKUP) if OMIT-ROOT.
 			  elts)))
 	   (sorted (sort pitches ly:pitch<?))
 	   (root (car sorted))
+	   
 	   ;; ugh?
 	   ;;(diff (ly:pitch-diff root (ly:make-pitch -1 0 0)))
 	   ;; FIXME.  This results in #<Pitch c> ...,
@@ -103,8 +109,7 @@ FOOBAR-MARKUP) if OMIT-ROOT.
 			(lambda (y) (memq 'text-script-event
 					  (ly:get-mus-property y 'types)))
 			elts)))
-	   ;;(text (if (null? texts) #f (if (= length texts) 1)
-	   ;;	     (car texts) (reverse texts))))
+
 	   (text (if (null? texts) #f (if omit-root (car texts) texts))))
       (cons (if omit-root (cdr normalized) normalized) text)))
 

@@ -2,15 +2,11 @@
 @appendix Reference manual details
 
 @menu
-* Lyrics mode definition::      
 * American Chords ::            
 * Jazz chords::                 
 * MIDI instruments::            
 * The Feta font::
 @end menu
-
-@node Lyrics mode definition
-@section Lyrics mode definition
 
 
 @node American Chords 
