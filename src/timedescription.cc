@@ -1,3 +1,11 @@
+/*
+  timedescription.cc -- implement Time_description
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include "timedescription.hh"
 #include "debug.hh"
 
@@ -17,13 +25,15 @@ Time_description::str()const
 
 void
 Time_description::print() const
-{    
+{
+#ifndef NPRINT
     mtor << str();
+#endif
 }
 void
 Time_description::OK() const
 {
-#ifdef NDEBUG
+#ifndef NDEBUG
     if (!cadenza_b_)
 	assert(whole_in_measure_ < whole_per_measure_);
     assert(0 <= whole_in_measure_);
@@ -52,6 +62,7 @@ Time_description::Time_description()
     bars_i_ = 0;
     cadenza_b_ = false;
 }
+
 void
 Time_description::add(Moment dt)
 {
