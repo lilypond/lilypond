@@ -32,7 +32,7 @@ MY_LIBTOOL=$(dpkg -l libtool | tail -1 | awk '{ print $3 }')
 PANGO_LIBTOOL=1.5.6-1
 
 # Please state your love for the autotools today
-if [ "$I_LOVE_AUTOTOOLS" = "" ] ; then
+if [ -z "$I_LOVE_AUTOTOOLS" ]; then
     I_LOVE_AUTOTOOLS=no
 else
     I_LOVE_AUTOTOOLS=yes

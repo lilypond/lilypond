@@ -1,3 +1,13 @@
+2004-06-19  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/fret-diagrams.scm: Use UNIX style line endings.
+	(fret-diagram-verbose): A couple of @{VAR} and an closing itemize
+	typo.  Fixes compile.
+
+	* scm/output-ps.scm (white-dot): Remove second incarnation.
+
+	* scm/lily.scm (ly:all-stencil-expressions): Add white-dot.
+
 2004-06-19  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scripts/lilypond.py (ic_p.make_include_option): set error_p for

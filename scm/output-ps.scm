@@ -154,12 +154,6 @@
    (ly:numbers->string
     (list x y radius)) " draw_white_dot"))
 
-(define (white-dot x y radius)
-  (string-append
-   " "
-   (ly:numbers->string
-    (list x y radius)) " draw_white_dot"))
-
 (define (draw-line thick x1 y1 x2 y2)
   (string-append 
    "1 setlinecap 1 setlinejoin "
