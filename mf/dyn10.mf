@@ -112,6 +112,9 @@ flare#:=52/36pt#;    % diameter of bulbs or breadth of terminals
 mode_setup;
 font_setup;
 
+input autometric;
+fet_beginfont("dyn", 10);
+
 num=-1;
 input ital-f;
 
@@ -149,4 +152,6 @@ input ital-s;
 input ital-z;
 
 font_slant slant; font_x_height x_height#;
-bye.
+
+fet_endfont("dyn");
+end.

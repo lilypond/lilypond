@@ -12,9 +12,11 @@ stafflinethickness#:=0.4pt#;
 code:=-1;
 
 input autometric;
-fet_beginfont("font-en-tja", 16);
+fet_beginfont("font-en-tja", 20);
 
 input bolletjes;
+
+fet_endfont("font-en-tja");
 
 end.
 

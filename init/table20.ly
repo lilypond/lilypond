@@ -78,12 +78,8 @@ table_twenty =
 	"tenor_change"	"\caltoclef" 	0.0\pt	16.0\pt	0.0\pt	20.0\pt
     }
 
-    "balls" = \table {
-	"-1"	"\breveball" 	0.0\pt	7.5\pt	-2.5\pt	2.5\pt
-	"0"	"\wholeball"	0.0\pt	10.2\pt	0.0\pt	5.4\pt
-	"1"	"\halfball"	0.0\pt	6.8\pt	0.0\pt	5.4\pt
-	"2"	"\quartball"	0.0\pt	6.6\pt	0.0\pt	5.4\pt
-    }
+    % ugh what's our outdir called?
+    \include "mf/out/font-en-tja20.ly"
 
     "slur" = \table {
 	"whole"	"\slurchar%{%}"	0.0\pt	0.0\pt	0.0\pt	0.0\pt

@@ -1,3 +1,7 @@
+pl 15.jcn2
+	- mf-to-table.in: generate mozarella metric info tables
+	- autometric.mf: write metric info to mf logfile
+
 pl 15.jcn1
 	- bf: typos whole and half notehead
 	- de-uglyfied bolletjes.mf
