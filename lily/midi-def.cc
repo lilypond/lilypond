@@ -1,10 +1,11 @@
-//
-// midi-def.cc -- implement midi output
-//
-// source file of the GNU LilyPond music typesetter
-//
-// (c) 1997 Jan Nieuwenhuizen <jan@digicash.com>
+/*
+  midi-def.cc -- implement Midi_def
 
+  source file of the GNU LilyPond music typesetter
+
+  (c) 1997 Jan Nieuwenhuizen <jan@digicash.com>
+
+*/
 #include <math.h>
 #include "misc.hh"
 #include "midi-def.hh"
