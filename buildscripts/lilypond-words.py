@@ -78,6 +78,7 @@ for name in [
 'ly/norsk.ly',
 'ly/suomi.ly',
 'ly/svenska.ly',
+'ly/vlaams.ly',
 ]:
     F = open(name, 'r')
     for line in F.readlines():
