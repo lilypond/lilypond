@@ -5162,8 +5162,9 @@ adding fermatas
 
 
 @lilypond[quote,verbatim,fragment]
+  \set Score.skipBars = ##t
   \time 3/4
-  R2._\markup { "Ad lib" }
+  R2.*10^\markup { \number 10 }_\markup { "Ad lib" }
   R2.^\fermataMarkup
 @end lilypond
 
