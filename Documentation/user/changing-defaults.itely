@@ -5,16 +5,16 @@
 
 The purpose of LilyPond's design is to provide the finest output
 quality as a default. Nevertheless, it may happen that you need to
-change that default layout.  The layout is controlled through a large
+change this default layout.  The layout is controlled through a large
 number of proverbial ``knobs and switches.''  This chapter does not
 list each and every knob. Rather, it outlines what groups of controls
-are available, and it explains how to lookup which knob to use for a
+are available and explains how to lookup which knob to use for a
 certain effect.
 
-The controls are available for tuning are described in a separate
+The controls available for tuning are described in a separate
 document, the @internalsref{Program reference} manual. This manual
 lists all different variables, functions and options available in
-LilyPond. It is available as a HTML document, which is available
+LilyPond. It is written as a HTML document, which is available
 @uref{http://lilypond.org/doc/Documentation/user/out-www/lilypond-internals/,on-line},
 but is also included with the LilyPond documentation package.
 
@@ -106,7 +106,7 @@ respectively.
 
 
 In a music file, snippets of Scheme code are introduced with the hash
-mark @code{#}. So, the previous examples translated in LilyPondese are
+mark @code{#}. So, the previous examples translated in LilyPond are
 
 @example
   ##t ##f 
@@ -186,7 +186,7 @@ Two-dimensional offsets (X and Y coordinates) as well as object sizes
 (intervals with a left and right point) are entered as @code{pairs}. A
 pair@footnote{In Scheme terminology, the pair is called @code{cons},
 and its two elements are called car and cdr respectively.}  is entered
-as @code{(first . second)}, and like symbols, they must be quoted,
+as @code{(first . second)} and, like symbols, they must be quoted,
 
 @example
   \override TextScript #'extra-offset = #'(1 . 2)  
@@ -234,31 +234,31 @@ respectively,
 
 When music is printed, a lot of things notation elements must be added
 to the input, which is often bare bones.  For example, compare the
-input and output of the following example
+input and output of the following example:
 
 @lilypond[verbatim,relative=2]
   cis4 cis2. g4
 @end lilypond
 
 The input is rather sparse, but in the output, bar lines, accidentals,
-clef and time signature are added. LilyPond @emph{interprets} the
+clef, and time signature are added. LilyPond @emph{interprets} the
 input. During this step, the musical information is inspected in time
 order, similar to reading a score from left to right. While reading,
 the program remembers where measure boundaries are, and what pitches
 need explicit accidentals.
 
-This is contextual information. and it can be present on several
+This is contextual information and it can be presented on several
 levels.  For example, the effect of an accidental is limited to a
 single stave, while a bar line must be synchronized across the entire
 score.  To match this hierarchy, LilyPond's interpretation step is
 hierarchical.  There are interpretation contexts, like
-@context{Voice}, Staff and Score, and each level can maintain its own
-properties.
+@context{Voice}, @context{Staff}, and @context{Score}, and each level 
+can maintain its own properties.
 
 Full description of all available contexts is in the program
 reference, see
 @ifhtml
-@internalsref{Contexts}
+@internalsref{Contexts}.
 @end ifhtml
 @ifnothtml 
 Translation @arrow{} Context.
@@ -282,7 +282,7 @@ Translation @arrow{} Context.
 
 For scores with only one voice and one staff, correct contexts are
 created automatically. For more complex scores, it is necessary to
-instantiate them by hand.  There are three commands to do this.
+instantiate them by hand.  There are three commands which do this.
 
 The easiest command is @code{\new}, and it also the quickest to type.
 It is prepended to a  music expression, for example
@@ -297,8 +297,8 @@ where @var{type} is a context name (like @code{Staff} or
 interpreting @var{music expression} with that.
 
 A practical application of @code{\new} is a score with many
-staves. Each part that should be on its own staff, gets a @code{\new
-Staff}.
+staves. Each part that should be on its own staff, is preceded with 
+@code{\new Staff}.
 
 @lilypond[verbatim,relative=2,raggedright]
   << \new Staff { c4 c }
@@ -316,7 +316,7 @@ syntax is
 
 This form will search for an existing context of type @var{type}
 called @var{id}. If that context does not exist yet, it is created.
-This is useful if the context referred to later on. For example, when
+This is useful if the context is referred to later on. For example, when
 setting lyrics the melody is in a named context
 
 @example
@@ -379,7 +379,7 @@ several levels. For example, the @code{\applyoutput} command (see
   \applyoutput #@var{function}   % apply to Voice
 @end example
 
-To have it interpreted at @context{Score} or @context{Staff} level use
+To have it interpreted at the @context{Score} or @context{Staff} level use
 these forms
 
 @example
@@ -388,8 +388,8 @@ these forms
 @end example
 
 
-@node Changing context properties on the fly 
-@subsection Changing context properties  on the fly
+@node Changing context properties on the fly
+@subsection Changing context properties on the fly
 
 Each context can have different @emph{properties}, variables contained
 in that context. They can be changed during the interpretation step.
@@ -411,7 +411,7 @@ multi rests are condensed.  The value assigned is a Scheme object. In
 this case, it is @code{#t}, the boolean True value.
 
 If the @var{context} argument is left out, then the current bottom-most
-context (typically @context{ChordNames}, @context{Voice} or
+context (typically @context{ChordNames}, @context{Voice}, or
 @context{Lyrics}) is used.  In this example,
 
 @lilypond[verbatim,relative=2]
@@ -436,8 +436,8 @@ There is also an @code{\unset} command,
 @end quotation
 
 @noindent
-which removes the definition of @var{prop}. This command only removes
-the definition if it is set in @var{context}. In
+which removes the definition of @var{prop}. This command removes
+the definition only if it is set in @var{context}. In
 
 @example
   \set Staff.autoBeaming = ##f
@@ -484,7 +484,7 @@ elements. For example, the Voice context contains a
 
 For a full a description of each plug-in, see 
 @ifhtml
-@internalsref{Engravers}
+@internalsref{Engravers}.
 @end ifhtml
 @ifnothtml
 Program reference @arrow Translation @arrow{} Engravers.
@@ -532,7 +532,7 @@ example which removes @code{Time_signature_engraver} and
 @end lilypond
 
 In the second stave there are no time signature or clef symbols.  This
-is a rather crude method of making objects disappear, it will affect
+is a rather crude method of making objects disappear since it will affect
 the entire staff. The spacing will be adversely influenced too. A more
 sophisticated methods of blanking objects is shown in @ref{Common
 tweaks}.
@@ -542,7 +542,7 @@ signatures are normally synchronized across the score.  This is done
 by the @code{Timing_engraver}. This plug-in keeps an administration of
 time signature, location within the measure, etc. By moving the
 @code{Timing_engraver} engraver from Score to Staff context, we can
-have score where each staff has its own time signature.
+have a score where each staff has its own time signature.
 
 @cindex polymetric scores
 
@@ -582,10 +582,10 @@ The syntax for this is
 @end example
 
 Here @var{name} is the name of a graphical object, like @code{Stem} or
-@code{NoteHead}.  @var{property} is an internal variable of the
-formatting system (`grob property' or `layout property'). It is a
+@code{NoteHead}, and @var{property} is an internal variable of the
+formatting system (`grob property' or `layout property'). The latter is a
 symbol, so it must be quoted. The subsection @ref{Constructing a
-tweak} explains what to fill in for @var{name}, @var{property} and
+tweak} explains what to fill in for @var{name}, @var{property}, and
 @var{value}. Here we only discuss functionality of this command.
 
 The command
@@ -613,8 +613,8 @@ and changes the definition of the @code{Stem} within
 @context{Staff}. After the command all stems are thickened.
 
 Analogous to @code{\set}, the @var{context} argument may be left out,
-causing it to default to @context{Voice} and adding @code{\once} applies
-the change during only one timestep
+causing it to default to @context{Voice}, and adding @code{\once} applies
+the change during one timestep only 
 
 @lilypond[verbatim,relative=2]
   c4
@@ -625,7 +625,7 @@ the change during only one timestep
 
 The @code{\override} must be done before the object is
 started. Therefore, when altering @emph{Spanner} objects, like slurs or
-beams, the @code{\override} command must be executed at the moment that
+beams, the @code{\override} command must be executed at the moment when
 the object is created. In this example,
 
 
@@ -664,7 +664,7 @@ Internals: @internalsref{OverrideProperty}, @internalsref{RevertProperty},
 
 The back-end is not very strict in type-checking object properties.
 Cyclic references in Scheme values for properties can cause hangs
-and/or crashes.
+or crashes, or both.
 
 
 @node Changing context default settings
@@ -686,16 +686,15 @@ from the music, in the @code{\paper} block,
    @}
 @end example
 
-This
+Here
 @example
   \StaffContext
 @end example
 
 @noindent
 takes the existing definition @context{Staff} from the identifier
-@code{StaffContext}. This works analogously other contexts, so the
-existing definition  of @code{Voice} is in 
-@code{\VoiceContext}.
+@code{StaffContext}. This works analogously to other contexts, so that
+the existing definition  of @code{Voice} is in @code{\VoiceContext}.
 
 The statements
 @example
@@ -721,13 +720,13 @@ will also work.
 @refbugs
 
 It is not possible to collect changes in a variable, and apply them to
-one @code{\context} definition by referencing that variable.
+one @code{\context} definition by referring to that variable.
 
 
 @node Defining new  contexts
 @subsection Defining new  contexts
 
-Specific contexts, like @context{Staff} and @code{Voice} are made of
+Specific contexts, like @context{Staff} and @code{Voice}, are made of
 simple building blocks, and it is possible to compose engraver
 plug-ins in different combinations, thereby creating new types of
 contexts.
@@ -772,7 +771,7 @@ These settings are again done within a @code{\context} block inside a
 @end example
 
 In the following discussion, the example input shown should go on the
-@dots{} of the previous fragment.
+@dots{} in the previous fragment.
 
 First, name the context gets a name. Instead of @context{Voice} it
 will be called @context{ImproVoice},
@@ -824,7 +823,7 @@ This should always be @internalsref{Engraver_group_engraver},
  \type "Engraver_group_engraver"
 @end example
 
-Put together, we get
+Putting together, we get
 
 @verbatim
   \context {
@@ -917,11 +916,11 @@ for many situations. The next section will discuss general use of
 
 
 
--nmost adjustments simply
+-nmost adjustments simply @c HJ: what is this?
 
 
 
-The commands changes 
+The commands changes  @c HJ: what is this?
 
 
 There are situations where default layout decisions are not
@@ -930,12 +929,12 @@ defaults.
 
 Formatting is internally done by manipulating so called objects
 (graphic objects). Each object carries with it a set of properties
-(object or layout properties) specific to that object.  For example, a
-stem object has properties that specify its direction, length and
+(object or layout properties) specific to the object.  For example, a
+stem object has properties that specify its direction, length, and
 thickness.
 
-The most direct way of tuning the output is by altering the values of
-these properties. There are two ways of doing that: first, you can
+The most direct way of tuning the output is to alter the values of
+these properties. There are two ways of doing that: First, you can
 temporarily change the definition of one type of object, thus
 affecting a whole set of objects.  Second, you can select one specific
 object, and set a layout property in that object.
@@ -970,7 +969,7 @@ layout property name:
 @subsection Common tweaks
 
 Some overrides are so common that predefined commands are provided as
-a short cut.  For example, @code{\slurUp} and @code{\stemDown}. These
+a short-cut, for example, @code{\slurUp} and @code{\stemDown}. These
 commands are described in
 @ifhtml
 the
@@ -1075,10 +1074,10 @@ a command like
 means that we have to determine these bits of information:
 
 @itemize
-@item The context, here: @context{Voice}.
-@item The layout object, here @code{Stem}.
-@item The layout property, here @code{thickness}
-@item A sensible value, here @code{3.0}
+@item the context: here @context{Voice}.
+@item the layout object: here @code{Stem}.
+@item the layout property: here @code{thickness}
+@item a sensible value: here @code{3.0}
 @end itemize  
 
 
@@ -1094,8 +1093,8 @@ We demonstrate how to glean this information from the notation manual
 and the program reference.
 
 The program reference is a set of HTML pages, which is part of the
-documentation package. On Unix systems, it is is typically in
-@file{/usr/share/doc/lilypond}, if you have them, it is best to
+documentation package. On Unix systems, it is typically in
+@file{/usr/share/doc/lilypond}. If you have them, it is best to
 bookmark them in your webbrowser, because you will need them.  They
 are also available on the web: go to the
 @uref{http://lilypond.org,LilyPond website}, click ``Documentation'',
@@ -1128,7 +1127,7 @@ Program reference: @internalsref{FingerEvent} and @internalsref{Fingering}.
 @end quotation
 
 This  fragments points to two parts of the program reference: a page
-on @code{FingerEvent} and @code{Fingering}.
+on @code{FingerEvent} and on @code{Fingering}.
 
 The page on  @code{FingerEvent} describes the properties of the  music
 expression for the input @code{-2}. The page contains many links
@@ -1214,7 +1213,7 @@ has the following aspects
 
 @item It is a piece of text. Granted, it's usually  a very short text.
 
-@item That piece of text is set in a font, unlike slurs or beams.
+@item That piece of text is typeset with a font, unlike slurs or beams.
 @item Horizontally, the center of the symbol should be aligned to the
 center of the notehead
 @item Vertically, the symbol is placed next to the note and the staff.
@@ -1233,7 +1232,7 @@ This object supports the following interfaces:
 @internalsref{self-alignment-interface},
 @internalsref{side-position-interface}, @internalsref{text-interface},
 @internalsref{text-script-interface}, @internalsref{font-interface},
-@internalsref{finger-interface} and @internalsref{grob-interface}
+@internalsref{finger-interface}, and @internalsref{grob-interface}.
 @end quotation
 
 Clicking any of the links will take you to the page of the respective
@@ -1281,7 +1280,8 @@ f
 
 Since the @b{2} is vertically positioned next to its note, we have to
 meddle with the interface associated with this positioning. This is
-done by @code{side-position-interface}. The page for this interface says
+done using @code{side-position-interface}. The page for this interface 
+says
 
 @quotation
 @code{side-position-interface}
@@ -1384,7 +1384,7 @@ notes. An elaborate example of those is in
 
 @refcommands
 
-The following commands set @code{fontSize} for the current voice.
+The following commands set @code{fontSize} for the current voice:
 
 @cindex @code{\tiny}
 @code{\tiny}, 
@@ -1420,12 +1420,12 @@ font.
 
 @item @code{font-family}
  is a symbol indicating the general class of the typeface.  Supported are
-@code{roman} (Computer Modern), @code{sans} and @code{typewriter}
+@code{roman} (Computer Modern), @code{sans}, and @code{typewriter}.
   
 @item @code{font-shape}
   is a symbol indicating the shape of the font, there are typically
 several font shapes available for each font family. Choices are
-@code{italic}, @code{caps} and @code{upright}.
+@code{italic}, @code{caps}, and @code{upright}.
 
 @item @code{font-series}
 is a  symbol indicating the series of the font. There are typically several
@@ -1494,8 +1494,8 @@ similar to lyrics: simply enter them, surrounded by spaces:
 @cindex font switching
 
 The markup in the example demonstrates font switching commands.  The
-command @code{\bold} and @code{\italic} only apply to the first
-following word; enclose a set of texts with braces to apply a command
+command @code{\bold} and @code{\italic} apply to the first following 
+word only; enclose a set of texts with braces to apply a command
 to more words:
 @example
   \markup @{ \bold @{ hi there @} @}
@@ -1512,9 +1512,9 @@ For clarity, you can also do this for single arguments, e.g.
 
 
 In markup mode you can compose expressions, similar to mathematical
-expressions, XML documents and music expressions.  The braces group
+expressions, XML documents, and music expressions.  The braces group
 notes into horizontal lines. Other types of lists also exist: you can
-stack expressions grouped with @code{<}, and @code{>} vertically with
+stack expressions grouped with @code{<} and @code{>} vertically with
 the command @code{\column}. Similarly, @code{\center-align} aligns
 texts by their center lines:
 
@@ -1585,17 +1585,17 @@ for formatting.
 @section Global layout
 
 The global layout determined by three factors: the page layout, the
-line breaks and the spacing. These all influence each other. The
+line breaks, and the spacing. These all influence each other. The
 choice of spacing determines how densely each system of music is set,
-which influences where line breaks breaks are chosen, and thus
+which influences where line breaks are chosen, and thus
 ultimately how many pages a piece of music takes. This section
 explains how to tune the algorithm for spacing.
 
 Globally spoken, this procedure happens in three steps: first,
 flexible distances (``springs'') are chosen, based on durations. All
 possible line breaking combination are tried, and the one with the
-best results---a layout that has uniform density and requires as
-little stretching or cramping as possible---is chosen. When the score
+best results --- a layout that has uniform density and requires as
+little stretching or cramping as possible --- is chosen. When the score
 is processed by @TeX{}, each page is filled with systems, and page breaks
 are chosen whenever the page gets full.
 
@@ -1618,8 +1618,8 @@ are chosen whenever the page gets full.
 @cindex @code{paper} file
 
 The Feta font provides musical symbols at eight  different
-sizes. Each font is tuned for a different staff size: at smaller sizes
-the font gets heavier, to match the relatively heavier staff lines.
+sizes. Each font is tuned for a different staff size: at a smaller size
+the font becomes heavier, to match the relatively heavier staff lines.
 The recommended font sizes are listed in the following table:
 
 @multitable @columnfractions  .25 .25 .25 .25
@@ -1767,7 +1767,7 @@ The longer the duration, the more space it gets: doubling a
 duration adds a fixed amount (this amount is controlled by
 @code{spacing-increment}) of space to the note.
 
-For example, the following piece contains lots of half, quarter and
+For example, the following piece contains lots of half, quarter, and
 8th notes, the eighth note is followed by 1 note head width (NHW). 
 The quarter note is followed by 2 NHW, the half by 3 NHW, etc.
 @lilypond[fragment,verbatim,relative=1] c2 c4. c8 c4. c8 c4. c8 c8
@@ -1812,7 +1812,7 @@ through @code{base-shortest-duration}.
 @cindex @code{stem-spacing-correction}
 @cindex @code{spacing}
 
-In the introduction it was explained that stem directions influence
+In the Introduction it was explained that stem directions influence
 spacing. This is controlled with @code{stem-spacing-correction}
 property in @internalsref{NoteSpacing}, which are generated for every
 @internalsref{Voice} context. The @code{StaffSpacing} object
@@ -1906,7 +1906,7 @@ This makes the following 28 measures (assuming 4/4 time) be broken every
 
 @refcommands
 
-@code{\break}, @code{\noBreak}
+@code{\break}, and @code{\noBreak}.
 @cindex @code{\break}
 @cindex @code{\noBreak}
 
@@ -1967,7 +1967,7 @@ information.
 @cindex @code{lastpagefill}
 
 Page breaks are normally computed by @TeX{}, so they are not under
-direct control of LilyPond.  However, you can insert a commands into
+direct control of LilyPond.  However, you can insert commands into
 the @file{.tex} output to instruct @TeX{} where to break pages.  This
 is done by setting the @code{between-systems-strings} on the
 @internalsref{NonMusicalPaperColumn} where the system is broken.
