@@ -17,6 +17,5 @@ Primary-site: sunsite.unc.edu /pub/Linux/apps
 	340k lilypond-@TOPLEVEL_VERSION@.tar.gz 
 Original-site: pcnov095.win.tue.nl /pub/lilypond/
 	340k lilypond-@TOPLEVEL_VERSION@.tar.gz 
-Platform: Unix/windoze32, GNU C++
 Copying-policy: GPL
 End
