@@ -264,8 +264,6 @@ datadir = '@datadir@'
 
 
 if os.environ.has_key ('LILYPONDPREFIX') :
-# huh ? this always leads to exception.
-# or '@datadir@' == '@' + 'datadir' + '@':   
 	datadir = os.environ['LILYPONDPREFIX']
 else:
 	datadir = '@datadir@'
@@ -376,12 +374,22 @@ environment = {
 	'GS_LIB' : datadir + '/ps',
 }
 
+# tex needs lots of memory, more than it gets by default on Debian
+non_path_environment = {
+	'extra_mem_top' : '1000000',
+	'extra_mem_bottom' : '1000000',
+	'pool_size' : '250000',
+}
 
 def setup_environment ():
 	for key in environment.keys ():
 		val = environment[key]
 		if os.environ.has_key (key):
 			val = os.environ[key] + os.pathsep + val 
+		os.environ[key] = val
+
+	for key in non_path_environment.keys ():
+		val = non_path_environment[key]
 		os.environ[key] = val
 
 #what a name.
