@@ -92,11 +92,13 @@ Grob::Grob (SCM basicprops)
     }
 
   SCM meta = get_grob_property ("meta");
-  SCM ifs = scm_assoc (ly_symbol2scm ("interfaces"), meta);
+  if (gh_pair_p (meta))
+    {
+      SCM ifs = scm_assoc (ly_symbol2scm ("interfaces"), meta);
   
-  set_grob_property ("interfaces",ly_cdr (ifs));
+      set_grob_property ("interfaces",ly_cdr (ifs));
+    }
 }
-
 
 Grob::Grob (Grob const&s)
    : dim_cache_ (s.dim_cache_)

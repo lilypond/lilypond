@@ -115,15 +115,17 @@ Type predicate, return true if @var{obj} is an input location.
 @node Moment
 @section Moment
 
-Moment is a rational number. Since GUILE doesn't support them natively,
-so we created our own rational data type.
+Moment is a point in musical time. It is consists of a pair of
+rationals (@var{m},@var{g}), where @var{m} is the timing for the  main
+notes, and @var{g} the timing for  grace notes. In absence of grace
+notes, @var{g} is zero.
 
 @defun moment? obj
 Type predicate, return true if @var{obj} is a moment.
 @end defun
 
 @defun make-moment num den
-create the rational number @var{num}/@var{den}. 
+create the rational number with main timing @var{num}/@var{den}. 
 @end defun
 
 @node Duration
@@ -236,6 +238,13 @@ retrieve the value of @var{sym} from context @var{tr}
 set value of property @var{sym} in context @var{tr} to @var{val}.
 @end defun
 
+@defun Translator::name tr
+Return the type name of the translator @var{tr}.
+@end defun 
+
+@defun Translator::description tr
+Return an alist of properties of  translator @var{tr}.
+@end defun
 
 @node Grobs
 @section Grobs

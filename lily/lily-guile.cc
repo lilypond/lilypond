@@ -115,12 +115,6 @@ ly_quote_scm (SCM s)
 }
 
 
-SCM
-ly_symbol2scm (const char *s)
-{
-  return gh_symbol2scm ((char *)s);
-}
-
 
 String
 ly_symbol2string (SCM s)
@@ -167,7 +161,6 @@ void
 read_lily_scm_file (String fn)
 {
   gh_eval_str ((char *) gulp_file_to_string (fn).ch_C ());
-  //  scm_c_eval_string ((char *) gulp_file_to_string (fn).ch_C ());
 }
 
 extern "C" {

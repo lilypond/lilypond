@@ -26,6 +26,7 @@ startGraceMusic = {
 }
 
 stopGraceMusic = {
+    \property Staff.Accidentals \revert #'font-relative-size
     \property Voice.Beam \revert #'space-function
     \property Voice.Beam \revert #'thickness
 
@@ -41,5 +42,4 @@ stopGraceMusic = {
     % be smaller as well.
 
     \property Voice.fontSize \unset
-    \property Staff.LocalKeyItem \revert #'font-relative-size
 }

@@ -1004,7 +1004,6 @@ beams) can be tweaked through grob-properties @code{height} and
 span. Both are measured in half staff-spaces, @code{staff-position=0}
 corresponds to the middle staff line.
 
-
 Set @code{height} to zero, to get horizontal beams:
 
 @lilypond[fragment,relative,verbatim]
@@ -1021,7 +1020,9 @@ horizontal, falls two staff spaces:
   \property Voice.Beam \set #'height = #-4
   [c8 c] 
 @end lilypond
-@cindex @code{default-neutral-direction}
+
+@c TODO -> why this ref? Document? 
+@cindex @code{neutral-direction}
 
 @node Expressive marks
 @section Expressive marks

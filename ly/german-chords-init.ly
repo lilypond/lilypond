@@ -1,10 +1,10 @@
-\version "1.3.148"
+\version "1.5.12"
 
-%  german-chords.ly:
+%  german-chords-init.ly:
 % german/norwegian/danish?
 
 % To get Bb instead of B, use
-% \include "german-chords.ly"
+% \include "german-chords-init.ly"
 % #(set! german-Bb #t)
 
 #(define german-Bb #f)
@@ -14,7 +14,8 @@
 		      (list 7 (+ (if german-Bb 0 1) (caddr pitch)))
 		      (cdr pitch)
 		 )))
-     (cons
+	(list
+        'columns
        (list-ref '("C" "D" "E" "F" "G" "A" "H" "B") (car dopitch))
        (accidental->text-super (cadr dopitch))
      )

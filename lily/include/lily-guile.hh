@@ -73,7 +73,27 @@ SCM ly_last (SCM list);
 SCM ly_str02scm (char const*c);
 SCM ly_write2scm (SCM s);
 SCM ly_deep_copy (SCM);
-SCM ly_symbol2scm (char const *);
+
+#ifdef CACHE_SYMBOLS
+/*
+  Using this trick we cache the value of gh_symbol2scm ("fooo") where
+  "fooo" is a constant string. This is done at the cost of one static
+  variable per ly_symbol2scm() use, and one boolean evaluation for
+  every call.
+
+  The overall speedup of lily is about 5% on a run of wtk1-fugue2
+
+*/
+#define ly_symbol2scm(x) ({ static SCM cached;  \
+ (__builtin_constant_p (x)) \
+  ? ((cached) ? cached : scm_permanent_object (cached = gh_symbol2scm((char*)x))) \
+  : gh_symbol2scm(x); })
+#else
+inline SCM ly_symbol2scm(char const* x) { return gh_symbol2scm((char*)x); }
+#endif 
+
+
+
 String ly_scm2string (SCM s);
 String ly_symbol2string (SCM);
 SCM ly_offset2scm (Offset);

@@ -11,21 +11,9 @@
 #define SCM_HASH_HH
 
 
-#include <map>
-
 #include "lily-guile.hh"
 #include "smobs.hh"
 
-
-struct SCM_less
-{
-  bool operator () (SCM s1, SCM s2) const
-  {
-    return long (s1) < long (s2);
-  }
-};
-
-typedef std::map<SCM,SCM, SCM_less> Scm_stl_map;
 
 /**
    auto resizing hash table. 
@@ -58,8 +46,9 @@ typedef std::map<SCM,SCM, SCM_less> Scm_stl_map;
 
   - use GUILE hashtables iso STL.
  */
-class Scheme_hash_table :  private Scm_stl_map
-{
+
+class Scheme_hash_table
+{  
 public:
   bool try_retrieve (SCM key, SCM *val);
   bool elem_b (SCM key) const;
@@ -75,8 +64,13 @@ public:
   Scheme_hash_table (Scheme_hash_table const &);
 
   SCM to_alist () const;
+private:
+  SCM hash_tab_;
+  unsigned elt_count_;
+  
   DECLARE_SMOBS (Scheme_hash_table,foo);
 };
+
 
 #endif /* SCM_HASH_HH */
 

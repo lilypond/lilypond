@@ -1,4 +1,3 @@
-
 ;;; generate-documentation.scm -- Generate documentation
 ;;;
 ;;; source file of the GNU LilyPond music typesetter
@@ -30,7 +29,7 @@
 	     (document-music "LilyPond music properties") 
  	     (document-paper "LilyPond interpretation contexts")
  	     (document-all-engravers "LilyPond engravers")
-	     (document-all-engraver-properties "LilyPond context properties")	     
+	     (document-all-engraver-properties "LilyPond context properties")
  	     (document-all-grobs "LilyPond backend")
  	     (document-all-interfaces "LilyPond interfaces")
 	     (document-all-backend-properties "LilyPond backend properties")
