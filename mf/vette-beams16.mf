@@ -12,7 +12,7 @@ test:=0;
 staffsize#:=16pt#;
 stafflines:=5;
 stafflinethickness#:=0.4pt#;
-input generic-params;
+input feta-params;
 input wat-zie-ik;
 end.
 
