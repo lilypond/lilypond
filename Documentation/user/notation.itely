@@ -6139,26 +6139,13 @@ Editio Vaticana style.
     a4\accentus_"accentus" s1
     \[ a4_"episem" \episemInitium \pes b \flexa a \episemFinis \]
   }
-  \paper {
-    \context {
-	\VaticanaVoice
-	% Prepare TextSpanner for \episem{Initium|Finis} use.
-	\override TextSpanner #'style = #'line
-	\override TextSpanner #'edge-height = #'(0 . 0)
-	\override TextSpanner #'padding = #0.5
-	\override TextSpanner #'enclose-bounds = #1
-	\override TextSpanner #'edge-text = #'("" . "")
-    }
-  }
 }
 @end lilypond
 
 @refbugs
 
-The line @code{\override Script #'padding = #-0.1} is required to
-force the articulation signs being placed vertically tightly to the
+Some articulations are vertically placed too closely to the
 correpsonding note heads.
-
 
 @node Custodes
 @subsection Custodes

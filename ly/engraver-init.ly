@@ -679,10 +679,14 @@ EasyNotation = \context {	% TODO: why \context override?
   % N.B.: dash-fraction MUST be unset; otherwise, TextSpanner will
   % always produce dashed lines, regardless of the style property.
   %
+  % FIXME: The line @code{\override TextSpanner #'padding = #-0.1} is
+  % required to force the articulation signs being placed vertically
+  % tightly to the correpsonding note heads.
+  %
   \override TextSpanner #'dash-fraction = #'()
   \override TextSpanner #'style = #'line
   \override TextSpanner #'edge-height = #'(0 . 0)
-  \override TextSpanner #'padding = #0.5
+  \override TextSpanner #'padding = #-0.1
   \override TextSpanner #'enclose-bounds = #1
   \override TextSpanner #'edge-text = #'("" . "")
 }
@@ -749,10 +753,14 @@ EasyNotation = \context {	% TODO: why \context override?
   % N.B.: dash-fraction MUST be unset; otherwise, TextSpanner will
   % always produce dashed lines, regardless of the style property.
   %
+  % FIXME: The line @code{\override TextSpanner #'padding = #-0.1} is
+  % required to force the articulation signs being placed vertically
+  % tightly to the correpsonding note heads.
+  %
   \override TextSpanner #'dash-fraction = #'()
   \override TextSpanner #'style = #'line
   \override TextSpanner #'edge-height = #'(0 . 0)
-  \override TextSpanner #'padding = #0.5
+  \override TextSpanner #'padding = #-0.1
   \override TextSpanner #'enclose-bounds = #1
   \override TextSpanner #'edge-text = #'("" . "")
 }

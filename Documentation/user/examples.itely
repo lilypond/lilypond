@@ -687,9 +687,6 @@ bassusLyrics = \lyricmode {
 	    \override Slur #'transparent = ##t
 	}
     }
-    \midi {
-	\tempo 4 = 96
-    }
 }
 
 @end lilypond
