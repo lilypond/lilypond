@@ -40,6 +40,8 @@ lily = e.Program (name, sources)
 env.Install (env['bindir'], lily)
 env.Alias ('install', env['bindir'])
 
+env.Alias ('lily', lily)
+
 
 #testing
 all_sources = ['SConscript',] + sources + includes 

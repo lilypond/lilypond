@@ -4,8 +4,13 @@
 Experimental scons (www.scons.org) building:
 
 Usage:
-    scons
+    scons lily            # build lily
     LILYPONDPREFIX=out-scons/usr/share/lilypond lily/out-scons/lilypond-bin
+    scons doc             # build web doc
+
+    scons                 # without args builds all targets below ./
+                          # maybe catch this one and only build lily?
+    scons /               # builds all possible targets
 
     scons install
     scons -c              # clean
