@@ -326,8 +326,7 @@ yylex (YYSTYPE *s,  void * v)
 
 %type <outputdef> output_def
 %type <scm> 	lilypond_header lilypond_header_body
-%type <music>	open_event_parens close_event_parens open_event close_event
-%type <music> event_with_dir event_that_take_dir verbose_event
+%type <music>	open_event close_event
 %type <i>	sub_quotes sup_quotes
 %type <music>	simple_element  event_chord command_element Simple_music  Composite_music 
 %type <music>	Repeated_music
@@ -343,7 +342,7 @@ yylex (YYSTYPE *s,  void * v)
 %type <scm>  verbose_duration
 	
 %type <scm>   post_events
-%type <music> gen_text_def
+%type <music> gen_text_def direction_less_event direction_reqd_event
 %type <scm>   steno_pitch pitch absolute_pitch pitch_also_in_chords
 %type <scm>   explicit_pitch steno_tonic_pitch
 
@@ -365,7 +364,7 @@ yylex (YYSTYPE *s,  void * v)
 %type <music> command_req verbose_command_req
 %type <music>	extender_req
 %type <music> hyphen_req
-%type <music> string_event
+%type <music> string_number_event
 %type <scm>	string bare_number number_expression number_term number_factor 
 %type <score>	score_block score_body
 
@@ -1066,7 +1065,8 @@ relative_music:
 		scm_gc_unprotect_object (p->self_scm ());
 
 
-		$$->set_mus_property ("last-pitch", p->to_relative_octave (pit).smobbed_copy ());
+		if (lily_1_8_relative)
+			$$->set_mus_property ("last-pitch", p->to_relative_octave (pit).smobbed_copy ());
 
 	}
 	;
@@ -1407,21 +1407,6 @@ shorthand_command_req:
 	| hyphen_req {
 		$$ = $1;
 	}
-	| '~'	{
-		$$ = MY_MAKE_MUSIC("TieEvent");
-	}
-	| '['		{
-		Music *b= MY_MAKE_MUSIC("BeamEvent");
-		b->set_mus_property ("span-direction", gh_int2scm (START));
-		$$ = b;
-
-		THIS->last_beam_start_ = b->self_scm ();
-	}
-	| ']'		{
-		Music *b= MY_MAKE_MUSIC("BeamEvent");
-		b->set_mus_property ("span-direction", gh_int2scm (STOP));
-		$$ = b;
-	}
 	| BREATHE {
 		$$ = MY_MAKE_MUSIC("BreathingSignEvent");
 	}
@@ -1480,14 +1465,24 @@ post_events:
 	}
 	;
 
+
+
 post_event:
-	verbose_event
-	| event_with_dir
-	| close_event
-	| string_event
+	direction_less_event {
+		$$ = $1;
+	}
+	| script_dir direction_reqd_event {
+		$2->set_mus_property ("direction", gh_int2scm ($1));
+		$$ = $2;
+	}
+	| script_dir direction_less_event {
+		$2->set_mus_property ("direction", gh_int2scm ($1));
+		$$ = $2;
+	}
+	| string_number_event
 	;
 
-string_event:
+string_number_event:
 	E_UNSIGNED {
 		Music * s = MY_MAKE_MUSIC("StringNumberEvent");
 		s->set_mus_property ("string-number",  gh_int2scm($1));
@@ -1497,12 +1492,8 @@ string_event:
 	;
 
 
-event_that_take_dir:
-	gen_text_def
-	| verbose_event
-	| close_event
-	| open_event
-	| '['  {
+direction_less_event:
+	'['  {
 
 
 /*
@@ -1530,6 +1521,29 @@ configurable, i.e.
 		m->set_spot (THIS->here_input());
 		$$ = m;
 	}
+	| close_event {
+		$$ = $1;
+		dynamic_cast<Music *> ($$)->set_mus_property ("span-direction", gh_int2scm (START));
+	}
+	| open_event {
+		$$ = $1;
+		dynamic_cast<Music *> ($$)->set_mus_property ("span-direction", gh_int2scm (STOP))
+	}
+	| EVENT_IDENTIFIER	{
+		$$ = unsmob_music ($1);
+	}
+	| tremolo_type  {
+               Music * a = MY_MAKE_MUSIC("TremoloEvent");
+               a->set_spot (THIS->here_input ());
+               a->set_mus_property ("tremolo-type", gh_int2scm ($1));
+               $$ = a;
+        }
+	;	
+	
+direction_reqd_event:
+	gen_text_def {
+		$$ = $1; 
+	}
 	| script_abbreviation {
 		SCM s = THIS->lexer_->lookup_identifier ("dash" + ly_scm2string ($1));
 		Music *a = MY_MAKE_MUSIC("ArticulationEvent");
@@ -1539,26 +1553,7 @@ configurable, i.e.
 		$$ = a;
 	}
 	;
-
-event_with_dir:
-	script_dir event_that_take_dir	{
-		$2->set_mus_property ("direction", gh_int2scm ($1));
-		$$ = $2;
-	}
-	;
 	
-verbose_event:
-	EVENT_IDENTIFIER	{
-		$$ = unsmob_music ($1);
-	}
-	| tremolo_type  {
-               Music * a = MY_MAKE_MUSIC("TremoloEvent");
-               a->set_spot (THIS->here_input ());
-               a->set_mus_property ("tremolo-type", gh_int2scm ($1));
-               $$ = a;
-        }
-	;
-
 sup_quotes:
 	'\'' {
 		$$ = 1;
@@ -1666,14 +1661,6 @@ hyphen_req:
 	;
 
 close_event:
-	close_event_parens {
-		$$ = $1;
-		dynamic_cast<Music *> ($$)->set_mus_property ("span-direction", gh_int2scm (START))
-;
-	}
-	;
- 
-close_event_parens:
 	'('	{
 		Music * s= MY_MAKE_MUSIC("SlurEvent");
 		$$ = s;
@@ -1698,14 +1685,6 @@ close_event_parens:
 
 
 open_event:
-	open_event_parens {
-		$$ = $1;
-		dynamic_cast<Music *> ($$)->set_mus_property ("span-direction", gh_int2scm (STOP))
-;
-	}
-	;
-
-open_event_parens:
 	E_EXCLAMATION 	{
 		Music *s =  MY_MAKE_MUSIC("CrescendoEvent");
 		s->set_spot (THIS->here_input());
@@ -1727,13 +1706,7 @@ open_event_parens:
 	;
 
 gen_text_def:
-	embedded_scm {
-		Music *t = MY_MAKE_MUSIC("TextScriptEvent");
-		t->set_mus_property ("text", $1);
-		t->set_spot (THIS->here_input ());
-		$$ = t;
-	}
-	| full_markup {
+	full_markup {
 		Music *t = MY_MAKE_MUSIC("TextScriptEvent");
 		t->set_mus_property ("text", $1);
 		t->set_spot (THIS->here_input ());

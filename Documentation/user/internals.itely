@@ -824,7 +824,6 @@ LilyPond input to other formats  (@inputfileref{input/test,to-xml.ly})
 
 @file{scm/music-functions.scm}, @file{scm/music-types.scm},
 @inputfileref{input/test,add-staccato.ly},
-@inputfileref{input/test,duration-check.ly}.
 @inputfileref{input/test,unfold-all-repeats.ly}, and
 @inputfileref{input/test,music-box.ly}.
 

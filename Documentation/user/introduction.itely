@@ -488,7 +488,7 @@ If you are not familiar with music notation, or music terminology
 advisable to consult the glossary as well. The glossary explains
 musical terms, and includes translations to various languages. It is a
 @ifhtml
-@uref{../glossary.html,separate document}.
+@uref{../music-glossary.html,separate document}.
 @end ifhtml
 @ifnothtml
 separate document, available in HTML and PDF.
@@ -528,7 +528,7 @@ have clickable links.
 @item
   Templates
 @ifhtml
-(available @uref{../../../input/templates/out-www/collated-files.html,here})
+(available @uref{../../../input/template/out-www/collated-files.html,here})
 @end ifhtml
 
 After you have gone through the tutorial, in theory you should be able
@@ -541,7 +541,7 @@ appropriate places.
 @item
   Various input examples
 @ifhtml
-(available @uref{../../../input/test/out-www/collated-files.html,here})
+(available @uref{../../../../input/test/out-www/collated-files.html,here})
 @end ifhtml
 @cindex snippets
 

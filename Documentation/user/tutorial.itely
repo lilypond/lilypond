@@ -483,7 +483,7 @@ put, they can be entered by hand. Mark the first note to be beamed
 with @code{[} and the last one with @code{]}:
 @quotation
 @lilypond[fragment,relative 1, verbatim]
-a8-[ ais-] d-[ es r d-]
+a8[ ais] d[ es r d]
 @end lilypond
 @end quotation
 @separate
@@ -700,8 +700,8 @@ We can now typeset a melody with two staves:
       \time 3/4
       \clef violin
       \relative c'' {
-        e2-( d4 c2 b4 a8-[ a-]
-        b-[ b-] g-[ g-] a2.-) }  
+        e2( d4 c2 b4 a8[ a]
+        b[ b] g[ g] a2.) }  
     }
     \context Staff = staffB {
        \clef bass
@@ -830,7 +830,7 @@ A slur is drawn across many notes, and indicates bound articulation
 
 @quotation
 @lilypond[fragment,relative 1, verbatim]
-d4-( c16-)-( cis d e c cis d e-)-( d4-)
+d4( c16)( cis d e c cis d e)( d4)
 @end lilypond
 @end quotation
 @separate
@@ -840,7 +840,7 @@ sound longer, and can only be used on pairs of notes with the same
 pitch. Slurs indicate the articulations of notes, and can be used on
 larger groups of notes. Slurs and ties are also nested in practice:
 @lilypond[fragment, relative=1]
-c2-~-( c8 fis fis4 ~ fis2 g2-)
+c2-~( c8 fis fis4 ~ fis2 g2)
 @end lilypond
 
 @cindex phrasing slurs
@@ -850,7 +850,7 @@ phrasing), you can also make a phrasing slur with @code{\(} and
 
 @quotation
 @lilypond[fragment,relative 1, verbatim]
-a8-(-\( ais b  c-) cis2 b'2 a4 cis,  c-\)
+a8(-\( ais b  c) cis2 b'2 a4 cis,  c-\)
 @end lilypond
 @end quotation
 
@@ -878,17 +878,17 @@ You can combine beams and ties with chords.  Beam and tie markings
 must be placed outside the chord markers:
 @quotation
 @lilypond[relative 0, fragment,verbatim]
-r4 <<c e g>>8-[ <<c f a>>-]-~ <<c f a>>
+r4 <<c e g>>8[ <<c f a>>]-~ <<c f a>>
 @end lilypond
 @end quotation
 
 @quotation
 @example
-r4 <<c e g>>8-\>-( <<c e g>> <<c e g>>  <<c f a>>8-\!-)
+r4 <<c e g>>8-\>( <<c e g>> <<c e g>>  <<c f a>>8-\!)
 @end example
 @lilypond[relative 0, fragment]
 \slurUp
-r4 <<c e g>>8-\>-( <<c e g>> <<c e g>>  <<c f a>>8-\!-)
+r4 <<c e g>>8-\>( <<c e g>> <<c e g>>  <<c f a>>8-\!)
 @end lilypond
 @end quotation
 @separate
@@ -932,8 +932,8 @@ of music is multiplied by the fraction.  Triplets make notes occupy
 Grace notes are also made by prefixing a note, or a set of notes with
 a keyword. In this case, the keyword is @code{\grace}:
 @lilypond[relative 1, verbatim,fragment]
-  c4 \grace b16-( c4-)
-  \grace { d16-( e } d4-)
+  c4 \grace b16( c4)
+  \grace { d16( e } d4)
 @end lilypond
 
 @noindent
@@ -995,7 +995,7 @@ The melody for this song is as follows:
 @lilypond[fragment,relative=1]
    \partial 8
      c8
-   \times 2/3 {  f4 g g } \times 2/3 { g4-( a2-) }
+   \times 2/3 {  f4 g g } \times 2/3 { g4( a2) }
 @end lilypond
 
 The lyrics can be set to these notes, combining both with the
@@ -1014,7 +1014,7 @@ The final result is
    \relative c' {
      \partial 8
      c8
-     \times 2/3 { f g g } \times 2/3 { g4-( a2-) }
+     \times 2/3 { f g g } \times 2/3 { g4( a2) }
    }
    \context Lyrics  \lyrics { I want to break free }
  }
@@ -1038,7 +1038,7 @@ line}. It is entered as two underscores, i.e.
    \relative c' {
    \partial 8
      c8
-     \times 2/3 { f g g } \times 2/3 { g4-( a2-) }
+     \times 2/3 { f g g } \times 2/3 { g4( a2) }
 
      %% ugh, this is to deal with bugs in the extender implementation
      \hideNotes
@@ -1132,7 +1132,7 @@ a lead sheet, for example,
     \notes \relative c' {
      \partial 8
      c8
-     \times 2/3 { f g g } \times 2/3 { g4-( a2-) } }
+     \times 2/3 { f g g } \times 2/3 { g4( a2) } }
    \context Lyrics  \lyrics { I want to break free __ }
   >
  \paper{ raggedright = ##t }
@@ -1491,7 +1491,7 @@ in that voice, the tie appears to cross voices:
       \once \property Voice.Stem \set #'transparent = ##t
       b8~ b8
   } \\ {
-       b-[ g8-]
+       b[ g8]
   } >
 @end lilypond
 

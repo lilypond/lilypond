@@ -23,18 +23,15 @@ public:
   VIRTUAL_COPY_CONS (Music);
   
   Pitch do_relative_octave (Pitch p, bool b);
-  static void transpose_list (SCM , Pitch);
-  static void compress_list (SCM, Moment);
   
-  virtual void transpose (Pitch );
-  virtual void compress (Moment);
-
   static Moment cumulative_length (SCM) ;
   static Moment maximum_length (SCM) ;
   static Moment first_start (SCM list) ;
   static Moment minimum_start (SCM list);
-  
-protected:
-  virtual Pitch to_relative_octave (Pitch);
 };
+
+Pitch music_list_to_relative (SCM l,Pitch p, bool ret_first);
+void transpose_music_list (SCM , Pitch);
+void compress_music_list (SCM, Moment);
+
 #endif

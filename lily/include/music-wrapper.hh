@@ -24,14 +24,10 @@ class Music_wrapper : public Music
 public:
   Music_wrapper ();
   Music * element () const;
-  virtual void transpose (Pitch);
-
   
   VIRTUAL_COPY_CONS (Music);
   virtual Moment get_length () const;
   virtual Moment start_mom () const;
-  virtual Pitch to_relative_octave (Pitch);
-  virtual void compress (Moment);
 };
 
 

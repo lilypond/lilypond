@@ -10,16 +10,12 @@
 #include "grace-music.hh"
 #include "grace-iterator.hh"
 
-void
-Grace_music::compress (Moment m) 
-{
-  Music_wrapper::compress (m); 
-}
+
 
 Moment
 Grace_music::get_length () const
 {
-  Moment m ;
+  Moment m;
   return m;
 }
 

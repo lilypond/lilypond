@@ -909,7 +909,7 @@ Internally the @code{set-octavation} function sets the properties
 
 @seealso
 
-@internalsref{OttavaBracket}.
+@internalsref{OttavaSpanner}.
 
 @refbugs
 
@@ -959,7 +959,7 @@ measure is subdivided in 2, 2, 2 and 3. This is passed to
 @lilypond[verbatim]
 \score { \notes \relative c'' {
    #(set-time-signature 9 8 '(2 2 2 3))
-   g8-[ g-] d-[ d-] g-[ g-] a8-[-( bes g-]-) | 
+   g8[ g] d[ d] g[ g] a8[( bes g]) | 
    #(set-time-signature 5 8 '(3 2))
    a4. g4
    }
@@ -1150,7 +1150,7 @@ the @internalsref{NoteCollision} object, they are merged:
      \property Staff.NoteCollision \override
         #'merge-differently-dotted = ##t
      g8 g8
-  } \\ { g8.-[ f16-] g8.-[ f16-] } 
+  } \\ { g8.[ f16] g8.[ f16] } 
   >
 @end lilypond
 
@@ -1256,7 +1256,7 @@ point are marked with @code{[} and @code{]}:
 
 @lilypond[fragment,relative,verbatim]
   \context Staff {
-    r4 r8-[ g' a r8-] r8 g-[ | a-] r8
+    r4 r8[ g' a r8] r8 g[ | a] r8
   }
 @end lilypond
 
@@ -1270,8 +1270,8 @@ is set, its value will be used only once, and then it is erased.
 
 @lilypond[fragment,relative,verbatim]
   \context Staff {
-    f8-[ r16 f g a-]
-    f8-[ r16 \property Voice.stemLeftBeamCount = #1 f g a-]
+    f8[ r16 f g a]
+    f8[ r16 \property Voice.stemLeftBeamCount = #1 f g a]
   }
 @end lilypond
 @cindex @code{stemRightBeamCount}
@@ -1285,11 +1285,11 @@ but it take less typing:
 
 
 @lilypond[relative=1,verbatim,noindent]
-        c16-[ c c c c c c c-]
+        c16[ c c c c c c c]
         \property Voice.subdivideBeams = ##t
-        c16-[ c c c c c c c-]
+        c16[ c c c c c c c]
         \property Score.beatLength = #(ly:make-moment 1 8)
-        c16-[ c c c c c c c-]
+        c16[ c c c c c c c]
 @end lilypond
 @cindex subdivideBeams
 
@@ -1439,7 +1439,7 @@ manual beaming.
   \property Voice.autoBeamSettings
   \override #'(end * * * *) = #(ly:make-moment 3 8)
   % rather show case where it goes wrong
-  %\time 12/8 c'8 c c c16 c c c c c c-[ c c c-] c8-[ c-] c4
+  %\time 12/8 c'8 c c c16 c c c c c c[ c c c] c8[ c] c4
   \time 12/8 c'8 c c c16 c c c c c c c c c c8 c c4
 @end lilypond
 It is not possible to specify beaming parameters that act differently in
@@ -1718,8 +1718,8 @@ A slur indicates that notes are to be played bound or @emph{legato}.
 
 They are entered using parentheses:
 @lilypond[fragment,verbatim,center]
-  f'-( g'-)-( a'-) a'8-[ b'-(-] a'4 g'2 f'4-)
-  <<c' e'>>2-( <<b d'>>2-)
+  f'( g')( a') a'8[ b'(] a'4 g'2 f'4)
+  <<c' e'>>2( <<b d'>>2)
 @end lilypond
 
 
@@ -1736,9 +1736,9 @@ the attachment type of the left and right end points:
 @lilypond[fragment,relative,verbatim]
   \slurUp
   \property Voice.Stem \set #'length = #5.5
-  g'8-(g g4-)
+  g'8(g g4)
   \property Voice.Slur \set #'attachment = #'(stem . stem)
-  g8-( g g4-)
+  g8( g g4)
 @end lilypond
 
 If a slur would strike through a stem or beam, the slur will be moved
@@ -1747,9 +1747,9 @@ stems might look better:
 
 @lilypond[fragment,relative,verbatim]
   \stemUp \slurUp
-  d32-( d'4 d8..-)
+  d32( d'4 d8..)
   \property Voice.Slur \set #'attachment = #'(stem . stem)
-  d,32-( d'4 d8..-)
+  d,32( d'4 d8..)
 @end lilypond
 
 @refcommands
@@ -1791,7 +1791,7 @@ indicate a musical sentence. It is started using @code{\(} and @code{\)}
 respectively:
 
 @lilypond[fragment,verbatim,center,relative]
-  \time 6/4 c'-\(  d-( e-) f-( e-)  d-\) 
+  \time 6/4 c'-\(  d( e) f( e)  d-\) 
 @end lilypond
 
 Typographically, the phrasing slur behaves almost exactly like a
@@ -1869,7 +1869,7 @@ paper output, a metronome marking is printed:
 
 @seealso
 
-@internalsref{TempoEvent}.
+@internalsref{MetronomeChangeEvent}.
   
 
 
@@ -2038,8 +2038,8 @@ You can use the thumb-script to indicate that a note should be
 played with your thumb (used in cello music):
 
 @lilypond[verbatim, singleline, fragment]
-      <<a' a''-3>>8-(_\thumb-[ <<b' b''-3>>-)_\thumb
-      <<c'' c'''-3>>-(_\thumb <<d'' d'''-3>>-)_\thumb-]
+      <<a' a''-3>>8(_\thumb[ <<b' b''-3>>)_\thumb
+      <<c'' c'''-3>>(_\thumb <<d'' d'''-3>>)_\thumb]
 @end lilypond
 
 Fingerings for chords can also be added to individual notes
@@ -2122,7 +2122,7 @@ with timing tuples:
 @lilypond[]
 \score { \notes \relative c''{ 
   c4^"(0,0)"  \grace c16_" "_"(1/4,-1/16)"  c4^"(1/4,0)"  \grace {
-  c16_"(2/4,-1/8)"-[  d16^"(2/4,-1/16)" ] } c4_" "_"(2/4,0)"
+  c16_"(2/4,-1/8)"[  d16^"(2/4,-1/16)" ] } c4_" "_"(2/4,0)"
   }
 \paper {  linewidth = 12.\cm }
 }
@@ -2134,8 +2134,8 @@ In the following example, there are two sixteenth graces notes for
 every eighth grace note:
 
 @lilypond[relative=2,verbatim,fragment] 
-< \context Staff = SA { e4 \grace { c16-[ d e f-] } e4 }
-  \context Staff = SB { c'4 \grace { g8-[ b-] } c4 } >
+< \context Staff = SA { e4 \grace { c16[ d e f] } e4 }
+  \context Staff = SB { c'4 \grace { g8[ b] } c4 } >
 @end lilypond
 
 
@@ -2161,7 +2161,7 @@ The @code{\override} is carefully matched with a @code{\revert}:
 
 @lilypond[fragment,verbatim]
 \relative c'' \context Voice {
-  \grace c8 c4 \grace { c16-[ c16-] } c4
+  \grace c8 c4 \grace { c16[ c16] } c4
   \grace { 
     \property Voice.Stem \override #'stroke-style = #'() 
     c16 
@@ -2175,7 +2175,7 @@ is to put the grace notes before a phantom ``space note'', e.g.
 @lilypond[fragment,verbatim, relative=2]
 \context Voice {
     < { d1^\trill ( }
-     { s2 \grace { c16-[ d-] } } >
+     { s2 \grace { c16[ d] } } >
    )c4
 }
 @end lilypond
@@ -2196,14 +2196,14 @@ second bars in this example:
 \relative c'' \context Voice {
     \slurUp
     \grace {
-        a4-( }
-    ) a4 a4-( a2-)
+        a4( }
+    ) a4 a4( a2)
     \slurBoth
 
     \grace {
         \slurUp
-        a4-( }
-    ) a4 a4-( a2-)
+        a4( }
+    ) a4 a4( a2)
     \slurBoth
 }
 @end lilypond
@@ -2322,7 +2322,7 @@ use spacer notes if multiple marks during one note are needed:
   < f''1 { s4 s4-\< s4-\! \>  s4-\! } >
 @end lilypond
 This may give rise to very short hairpins. Use @code{minimum-length}
-in @internalsref{Voice}.@internalsref{HairPin} to lengthen them, for
+in @internalsref{Voice}.@internalsref{Hairpin} to lengthen them, for
 example:
 
 @example
@@ -2962,7 +2962,7 @@ it reaches the stem in the upper stave, or vice versa. An example is
 included with the distribution as @inputfileref{input/test,stem-cross-staff.ly}.
 
 Dynamics are not centered, but kludges do exist. See
-@inputfileref{input/templates,piano-dynamics.ly}.
+@inputfileref{input/template,piano-dynamics.ly}.
 
 @cindex cross staff stem
 @cindex stem, cross staff
@@ -3352,12 +3352,12 @@ putting both together, you would get
 @cindex choral score
 
 A complete example of a SATB score setup is in the file
-@inputfileref{input/template,satb}.
+@inputfileref{input/template,satb.ly}.
 
 @seealso
 
 @internalsref{LyricCombineMusic}, @internalsref{Lyrics}, and
-@inputfileref{input/template,satb}.
+@inputfileref{input/template,satb.ly}.
 
 @refbugs
 
@@ -3387,7 +3387,7 @@ To this end, give the @internalsref{Voice} context an identity:
 Then set the @internalsref{LyricsVoice} contexts to names starting with
 that identity followed by a dash.  In the preceding example, the
 @internalsref{Voice} identity is @code{duet}, so the identities of the
-@internalsref{LyricsVoices} are marked @code{duet-1} and @code{duet-2}:
+@internalsref{LyricsVoice}s are marked @code{duet-1} and @code{duet-2}:
 @example
   \context LyricsVoice = "duet-1" @{
     Hi, my name is bert. @}
@@ -4047,7 +4047,7 @@ whose source is available as
 
 Bar numbers can collide with the @internalsref{StaffGroup} bracket, if
 there is one at the top. To solve this, the
-@internalsref{padding} property of @internalsref{BarNumber} can be
+@code{padding} property of @internalsref{BarNumber} can be
 used to position the number correctly.
 
 @node Instrument names
@@ -4254,7 +4254,7 @@ polyphony:
   \context Staff <
     \context Voice=one \partcombine Voice
       \context Thread=one \relative c'' {
-        g a-( b-) r
+        g a( b) r
       }
       \context Thread=two \relative c'' {
         g r4 r f
@@ -7046,9 +7046,9 @@ entering the chant, as the following short excerpt demonstrates:
   \context VaticanaVoice {
     \property Score.BarNumber \set #'transparent = ##t
     \notes {
-      \[ c'( c' \flexa a \] \[ a \flexa \deminutum g-) \] f \divisioMinima
-      \[ f( \pes a c' c' \pes d'-) \] c' \divisioMinima \break
-      \[ c'( c' \flexa a \] \[ a \flexa \deminutum g-) \] f \divisioMinima
+      \[ c'( c' \flexa a \] \[ a \flexa \deminutum g) \] f \divisioMinima
+      \[ f( \pes a c' c' \pes d') \] c' \divisioMinima \break
+      \[ c'( c' \flexa a \] \[ a \flexa \deminutum g) \] f \divisioMinima
     }
   }
   \context Lyrics \lyrics {
@@ -7118,7 +7118,7 @@ looks like:
 
 @lilypondfile[notexidoc]{cluster.ly}
 
-By default, @internalsref{Cluster_engraver} is in the
+By default, @internalsref{Cluster_spanner_engraver} is in the
 @internalsref{Voice} context.  This allows putting ordinary notes and
 clusters together in the same staff, even simultaneously.  In such a
 case no attempt is made to automatically avoid collisions between
@@ -7128,7 +7128,7 @@ ordinary notes and clusters.
 
 @internalsref{ClusterSpanner}, @internalsref{ClusterSpannerBeacon},
 @inputfileref{input/regression,cluster.ly},
-@internalsref{Cluster_engraver}, and @internalsref{ClusterNoteEvent}.
+@internalsref{Cluster_spanner_engraver}, and @internalsref{ClusterNoteEvent}.
 
 @refbugs
 
@@ -8042,7 +8042,7 @@ only a few 16th notes to the example above, they would be followed by
 half a NHW:
 
 @lilypond[fragment, verbatim, relative=2]
- c2 c4. c8 c4. c16-[ c-] c4. c8 c8 c8 c4 c4 c4
+ c2 c4. c8 c4. c16[ c] c4. c8 c8 c8 c4 c4 c4
 @end lilypond
 
 The most common shortest duration is determined as follows: in every

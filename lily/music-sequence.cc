@@ -34,13 +34,7 @@ Music_sequence::Music_sequence ( )
 }
 
 void
-Music_sequence::transpose (Pitch rq)
-{
-  transpose_list (music_list (), rq);
-}
-
-void
-Music_sequence::transpose_list (SCM l,  Pitch rq)
+transpose_music_list (SCM l,  Pitch rq)
 {
   for (SCM s = l; gh_pair_p (s);  s = ly_cdr (s))
     unsmob_music (ly_car (s))->transpose (rq);    
@@ -69,13 +63,6 @@ Music_sequence::cumulative_length (SCM l)
   return  cumulative;
 }
 
-Pitch
-Music_sequence::to_relative_octave (Pitch p)
-{
-  return do_relative_octave (p, false);
-}
-
-
 Moment
 Music_sequence::maximum_length (SCM l)
 {
@@ -90,15 +77,14 @@ Music_sequence::maximum_length (SCM l)
   return dur;
 }
 
-
 Pitch
-Music_sequence::do_relative_octave (Pitch p, bool ret_first)
+music_list_to_relative (SCM l,Pitch p, bool ret_first)
 {
-  Pitch first;
+  Pitch first = p;
   int count=0;
 
   Pitch last = p;
-  for (SCM s = music_list (); gh_pair_p (s);  s = ly_cdr (s))
+  for (SCM s = l; gh_pair_p (s);  s = ly_cdr (s))
     {
       if (Music *m = unsmob_music (ly_car (s)))
 	{
@@ -108,20 +94,12 @@ Music_sequence::do_relative_octave (Pitch p, bool ret_first)
 	}
     }
 
-  if (ret_first)
-    return first;
-  else
-    return last;
+  return  (ret_first)?  first : last;
 }
 
-void
-Music_sequence::compress (Moment m)
-{
-  compress_list (music_list (), m);
-}
 
 void
-Music_sequence::compress_list (SCM l, Moment m)
+compress_music_list (SCM l, Moment m)
 {
   for (SCM s = l; gh_pair_p (s);  s = ly_cdr (s))
     unsmob_music (ly_car (s))->compress (m);

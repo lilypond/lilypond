@@ -15,35 +15,11 @@ Lyric_combine_music::Lyric_combine_music ()
 {
 }
 
-
-void
-Lyric_combine_music::transpose (Pitch p)
-{
-  get_music ()->transpose (p);
-  get_lyrics () ->transpose (p);
-}
-
-
 Moment
 Lyric_combine_music::get_length () const
 {
   return get_music ()->get_length ();
 }
-
-Pitch
-Lyric_combine_music::to_relative_octave (Pitch p)
-{
-  p = get_music ()->to_relative_octave (p);
-  return get_lyrics () ->to_relative_octave (p);
-}
-
-void
-Lyric_combine_music::compress (Moment m)
-{
-  get_music ()->compress (m);
-}
-
-
 
 Music*
 Lyric_combine_music::get_music () const
