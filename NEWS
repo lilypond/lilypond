@@ -1,10 +1,27 @@
+
+pl 75
+	- inbook.ly & book.tex example.
+	- natural width: linewidth = -1.0\cm
+
+pl 74pre.jcn1
+	- oversimplified midi output thru performer hierarchy
+	- bf: Spanner::doprint
+
+pl 72pre.jcn1
+	- naming fixes; some iter*() explicitations
+        - removed acceptor.hh
+	- *performer*: second draft of midi (audio/...)
+
+*******
+july 9
+
 pl 74pre
 	- Input_engraver -> Input_translator
 	- bf: span start/stop is now a "used" col.
 	- Rest_column/Rest_collisions bugfixes
 	- bf: crescendi.
 	- Spanner do_print()
-	
+
 ******
 july 7
 pl 73pre
