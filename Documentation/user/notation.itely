@@ -3435,8 +3435,8 @@ This aligns the lyrics to the
 notes of the @internalsref{Voice} context called @var{name}, which has
 to exist. Therefore, normally the @code{Voice} is specified first, and
 then the lyrics are specified with @code{\lyricsto}. The command
-@code{\lyricsto} switches to @code{\lyrics} mode automatically, so
-@code{\lyrics} may be skipped.
+@code{\lyricsto} switches to @code{\lyrics} mode automatically, so the
+@code{\lyrics} keyword may be omitted.
 
 For different or more complex orderings, the best way is to setup the
 hierarchy of staves and lyrics first, e.g.
@@ -6704,7 +6704,7 @@ settings.  Hence, the MIDI file should not have more than 15 staves
 
 Not all MIDI players correctly handle tempo change in the MIDI
 output. Players that are known to work include
-@uref{timidity,http://timidity.sourceforge.net/}
+@uref{http://timidity.sourceforge.net/,timidity}
 
 
 @menu

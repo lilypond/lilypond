@@ -1,4 +1,4 @@
-\version "2.3.4"
+\version "2.3.8"
 
 \header {
   texidoc = "Simple piano music." 

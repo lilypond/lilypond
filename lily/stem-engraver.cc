@@ -106,11 +106,15 @@ Stem_engraver::acknowledge_grob (Grob_info gi)
     {
       if (Rhythmic_head::get_stem (gi.grob_))
 	return;
+
+      Music * cause = gi.music_cause ();
+      if (!cause)
+	return ;
       
       if (!stem_)
 	make_stem (gi);
       
-      int duration_log = gi.music_cause ()->duration_log ();
+      int duration_log = cause->duration_log ();
       if (Stem::duration_log (stem_) != duration_log)
 	{
 	  // FIXME: 

@@ -1,4 +1,4 @@
-\version "2.3.4"
+\version "2.3.8"
 \header {
 
     texidoc = "With the @code{\\lyricsto} mechanism, individual lyric
@@ -13,8 +13,8 @@
 	\autoBeamOff
 	c2( d4) e8[ c b c] f4
     }
-    \lyricsto "bla" \new Lyrics \lyrics { bla ab blob blob }
-    \lyricsto "bla" \new Lyrics \lyrics {
+    \lyricsto "bla"  \new Lyrics  { bla ab blob blob }
+    \lyricsto "bla"  \new Lyrics  {
 	bla 
 
 	\set ignoreMelismata = ##t
@@ -28,7 +28,7 @@
 	blob
     }
     
-    \lyricsto "bla" \new Lyrics \lyrics {
+    \lyricsto "bla"  \new Lyrics  {
 	nes ted lyrics voice with more words than no tes
     }
     >>

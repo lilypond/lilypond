@@ -78,7 +78,7 @@
 	(X-extent-callback . ,Note_head::extent)
 	(Y-extent-callback . ,Note_head::extent)
 	(Y-offset-callbacks  . (,Staff_symbol_referencer::callback))
-	(meta . ((interfaces . (font-interface note-head-interface ambitus-interface staff-symbol-referencer-interface item-interface ))))
+	(meta . ((interfaces . (font-interface note-head-interface ambitus-interface staff-symbol-referencer-interface rhythmic-head-interface item-interface ))))
 	))
     
     (Arpeggio
