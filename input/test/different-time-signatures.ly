@@ -1,8 +1,8 @@
 
 % barline spacing  disrupts visual rhythm.
 
-\scm "(set! space-alist (assoc-set! space-alist '(\"Staff_bar\" \"begin-of-note\") '(minimum_space 0.0)))";
-\scm "(set! space-alist (assoc-set! space-alist '(\"\" \"Staff_bar\") '(minimum_space 0.0)))";
+#(set! space-alist (assoc-set! space-alist '("Staff_bar" "begin-of-note") '(minimum_space 0.0)))
+#(set! space-alist (assoc-set! space-alist '("Staff_bar") '(minimum_space 0.0)))
 
 \score{
     \notes \relative c'  <

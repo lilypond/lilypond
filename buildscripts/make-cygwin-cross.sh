@@ -27,6 +27,8 @@
 #
 #          bin-crtdll-2000-02-03.tar.gz  (mingw only)
 #
+#  * regex-0.12.tar.gz
+#
 #  * guile-1.3.4.tar.gz
 #
 #  * lilypond-1.3.38.jcn1.tar.gz
@@ -100,6 +102,13 @@ cygwin_make='-k || true'
 # so that's how we configure them.
 #
 native_configure='--target=$TARGET_ARCH --build=$TARGET_ARCH --host=$HOST --oldincludedir=$PREFIX/include --prefix=$NATIVE_PREFIX/$package --program-suffix='
+native_config_site='$PREFIX/share/native-config.site'
+
+# urg: avoid making doc dir
+regex_make='subdirs=test'
+regex_before_install='ar -ru libregex.a regex.o \; mkdir -p $PREFIX/{include,lib} \; cp ../$package/regex.h $PREFIX/include \; cp libregex.a $PREFIX/lib'
+regex_install='subdirs=test'
+regex_before_zip='mkdir -p $install_prefix/{include,lib} \; cp ../$package/regex.h $install_prefix/include \; cp libregex.a $install_prefix/lib'
 
 guile_patch='guile-1.3.4-gnu-windows.patch'
 if [ $target = mingw ]; then
@@ -107,7 +116,6 @@ if [ $target = mingw ]; then
 	guile_cflags='-I $PREFIX/$TARGET_ARCH/include -I $PREFIX/i686-pc-cygwin/include'
 fi
 guile_ldflags='-L$PREFIX/lib $PREFIX/bin/$CYGWIN_DLL'
-guile_configure='--enable-sizeof-int=4 --enable-sizeof-long=4 --enable-restartable-syscalls=yes'
 guile_make='oldincludedir=$PREFIX/include'
 
 # We need to get guile properly installed for cross-development, ie
@@ -121,14 +129,16 @@ if [ $target = mingw ]; then
 	lilypond_cflags='-I $PREFIX/$TARGET_ARCH/include -I $PREFIX/i686-pc-cygwin/include'
 fi
 lilypond_ldflags='-L$PREFIX/lib -lguile $PREFIX/bin/$CYGWIN_DLL'
-#lilypond_configure='--prefix=$lilypond_prefix'
+#lilypond_configure='--enable-tex-tfmdir=miktex/usr/share/texmf/fonts/tfm/public/cm/'
 ## URG, help2man: doesn't know about cross-compilation.
 #lilypond_make='-k || make -k || true'
 lilypond_patch=lilypond-manpages.patch
 # Don't install lilypond
 lilypond_install='--just-print'
+lilypond_before_zip='cp -pr $PREFIX/src/$package/input $install_prefix \; cp -p \`find $PREFIX/src/$package -type f -maxdepth 1\` $install_prefix'
 
 native_packages="
+regex-0.12
 guile-1.3.4
 lilypond-$lilypond_version
 "
@@ -172,7 +182,7 @@ expand ()
 {(
 
 	set -
-	string=`eval echo $\`eval echo ${1}${2}\``
+	string=`eval echo $\`eval echo "${1}${2}"\``
 	eval echo $string
 )
 }
@@ -220,8 +230,10 @@ build ()
         name_cflags=`expand $name _cflags`
         name_ldflags=`expand $name _ldflags`
         name_configure=`expand $name _configure`
+        type_config_site=`expand $type _config_site`
         type_configure=`expand $type _configure`
         name_make=`expand $name _make`
+        name_before_install="`expand $name _before_install`"
         name_install=`expand $name _install`
 
 	found=`find_path $package*src.tar.gz`
@@ -242,6 +254,7 @@ build ()
 	while [ "x$patch" != "x" ]; do
 		(
 		cd $package
+		set -x
 		found=`find_path $patch`
 		if [ "$found" = "" ]; then
 			echo "$patch: no such file"
@@ -252,13 +265,13 @@ build ()
 		count=`expr $count + 1`
 		patch=`expand $name _patch$count`
 	done
-	set -x
 	mkdir $type-$package
 	cd $type-$package
 
 	rm -f config.cache
-	CFLAGS="$name_cflags" LDFLAGS="$name_ldflags" ../$package/configure $type_configure $name_configure || exit 1
+	CONFIG_SITE="$type_config_site" CFLAGS="$name_cflags" LDFLAGS="$name_ldflags" ../$package/configure $type_configure $name_configure || exit 1
 	make $name_make || exit 1
+	`eval $name_before_install` || exit 1
 	make install $name_install || exit 1
 )
 }
@@ -280,6 +293,7 @@ pack ()
         name_pack_install=`expand $name _pack_install`
 	install_root=/tmp/$package-install
 	install_prefix=$install_root/$NATIVE_PREFIX/$package
+	name_before_zip=`expand $name _before_zip`
 
 	set -x
 	rm -rf $install_root
@@ -297,7 +311,8 @@ pack ()
 	done
 
         rm -f $zip
-        cd $install_root && zip -r $zip .$NATIVE_PREFIX
+	`eval $name_before_zip` || exit 1
+        cd $install_root && zip -ry $zip .$NATIVE_PREFIX
 )
 }
 ##################
@@ -377,6 +392,15 @@ PATH=$PREFIX/$TARGET_ARCH/bin:$PREFIX/bin:$PATH
 
 mkdir -p $PREFIX/src
 cd $PREFIX/src
+
+ncs=`eval echo $native_config_site`
+rm -f $ncs
+mkdir -p `dirname $ncs`
+cat > $ncs <<EOF
+ac_cv_sizeof_int=4
+ac_cv_sizeof_long=4
+ac_cv_sys_restartable_syscalls=yes
+EOF
 
 set -x
 type=native

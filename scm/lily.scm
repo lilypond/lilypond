@@ -17,8 +17,12 @@
 
 (use-modules (ice-9 regex))
 
-(define use-regex
-  (not (string-match ".*windows.*" (string-downcase (vector-ref (uname) 0)))))
+;; The regex module may not be available, or may be broken.
+;; If you have trouble with regex, define #f
+(define use-regex #t)
+;;(define use-regex #f)
+;;(define use-regex
+;;  (not (equal? "Windows" (substring (vector-ref (uname) 0) 0 7))))
 
 ;; do nothing in .scm output
 (define (comment s) "")

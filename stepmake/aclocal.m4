@@ -175,8 +175,12 @@ AC_DEFUN(AC_STEPMAKE_GUILE, [
 	AC_MSG_ERROR("cannot find guile-config; is Guile installed?")
 	exit 1
     fi
-    if $guile_config --version 2>&1 | grep -q 'version 1\.[012]'; then
-        AC_STEPMAKE_WARN(Guile version 1.3 or better needed)
+    AC_MSG_CHECKING("Guile version")
+    need_guile_version="1.3.4"
+    guile_version=`expr "\`$guile_config --version 2>&1\`" : ".*\($need_guile_version\).*"`
+    AC_MSG_RESULT("$guile_version")
+    if test "$guile_version" != "$need_guile_version"; then
+        AC_STEPMAKE_WARN("Guile version "$need_guile_version" or newer is needed")
     fi
     GUILE_FLAGS
     AC_PATH_PROG(GUILE, guile, error)
@@ -785,8 +789,8 @@ AC_DEFUN([GUILE_FLAGS],[
       AC_MSG_ERROR("cannot find guile-config; is Guile installed?")
       exit 1
   fi
-  GUILE_CFLAGS="`guile-config compile`"
-  GUILE_LDFLAGS="`guile-config link`"
+  GUILE_CFLAGS="`$guile_config compile`"
+  GUILE_LDFLAGS="`$guile_config link`"
   AC_SUBST(GUILE_CFLAGS)
   AC_SUBST(GUILE_LDFLAGS)
   AC_MSG_RESULT(yes)
