@@ -12,23 +12,23 @@ Provide musicians with free software for
 
 =over 4
 
-=item -
+=item *
 
 composing
 
-=item -
+=item *
 
 engraving
 
-=item -
+=item *
 
 playing
 
-=item -
+=item *
 
 sequencing
 
-=item -
+=item *
 
 interchanging music
 
@@ -38,11 +38,11 @@ and possibly for
 
 =over 4
 
-=item - 
+=item *
 
 arranging
 
-=item -
+=item *
 
 performing
 
@@ -75,23 +75,23 @@ should be.
 
 =over 4
 
-=item * high-quality 
+=item high-quality
 
 (cf TeX), from engraving point of view
 
-=item * high-quality
+=item high-quality
 
 (cf Emacs) from software point of view: like all GNU software, it
 should have no limits, be fast, etc.
 
-=item * tweakable
+=item tweakable
 
 Printed music has a lot of styles, and special symbols. It may be
 unfeasible to provide and maintain  lots of code that is hardwired
 into the system. The tools should be extensible/programmable like
 Emacs and TeX
 
-=item * easy to use. 
+=item easy to use.
 
 That is, for technical users (that can read a manual). The learning
 curve should be as easy as possible but not at the expense of comfort
@@ -108,7 +108,7 @@ of use and power.
 Preferably in Metafont, suited to both screen display and use on
 paper;  This is because the copyright heritage of {Opus,Musix}tex is unclear.
 
-=item A typesetting engine. 
+=item A typesetting engine
 
 A system with rules on how to set properties of items to be printed
 (up/down directions, breaking, etc) LilyPond provides one, but it is
@@ -192,7 +192,7 @@ recognizing input.
 
 =over 4
 
-=item * 
+=item *
 
 Gather a  moderate number of test users and hackers
 
@@ -208,7 +208,7 @@ Libs for r/w MIDI
 
 Think about interfaces for components.
 
-=item * 
+=item *
 
 Find sponsors. This project will take a long time, and in its infant
 stages, having a hard and small core which does a lot of work, is more

@@ -81,34 +81,66 @@ John S. Gourlay. ``Spacing a Line of Music,'' Technical Report
 OSU-CISRC-10/87-TR35, Department of Computer and Information Science,
 The Ohio State University, 1987.
 
+[Algorithm to generate spacing in polyphonic music, tailored for use
+with MusiCopy HWN]
+
+Allen Parish, Wael A. Hegazy, John S. Gourlay, Dean K. Roush and
+F. Javier Sola. ``MusiCopy: An automated Music Formatting System''.
+Technical Report OSU-CISRC-10/87-TR29, Department of Computer and
+Information Science, The Ohio State University, 1987.
+
+[A brief overview of MusiCopy HWN]
+
 John S. Gourlay, A. Parrish, D. Roush, F. Sola, Y. Tien. ``Computer
 Formatting of Music,'' Technical Report OSU-CISRC-2/87-TR3, Department
 of Computer and Information Science, The Ohio State University, 1987.
+
+[This paper discusses the development of algorithms for the formatting
+of musical scores (from abstract). It also appeared at PROTEXT III,
+Ireland 1986]
 
 Wael A. Hegazy. ``On the Implementation of the MusiCopy Language
 Processor,'' Technical Report OSU-CISRC-10/87-TR34, Department of
 Computer and Information Science, The Ohio State University, 1987.
 
+[Describes the "parser" which converts MusiCopy MDL  to MusiCopy
+Simultaneities & columns HWN]
+
+Dean K. Roush. ``Using MusiCopy''. Technical Report
+OSU-CISRC-18/87-TR31, Department of Computer and Information Science,
+The Ohio State University, 1987
+
+[User manual of MusiCopy. Includes an impressive example piece.  HWN.]
+
 A. Parrish and John S. Gourlay. ``Computer Formatting of Musical
 Simultaneities,'' Technical Report OSU-CISRC-10/87-TR28, Department of
 Computer and Information Science, The Ohio State University, 1987.
+
+[Placement of balls, stems, dots which occur at the same moment
+("Simultaneity") HWN]
 
 D. Roush. ``Music Formatting Guidelines,'' Technical Report
 OSU-CISRC-3/88-TR10, Department of Computer and Information Science,
 The Ohio State University, 1988.
 
+[Rules on formatting music formulated for use in computers HWN]
+
 F. Sola. ``Computer Design of Musical Slurs, Ties and Phrase Marks,''
 Technical Report OSU-CISRC-10/87-TR32, Department of Computer and
 Information Science, The Ohio State University, 1987.
+
+[Overview of a procedure for generating slurs HWN]
 
 F. Sola and D. Roush. ``Design of Musical Beams,'' Technical Report
 OSU-CISRC-10/87-TR30, Department of Computer and Information Science,
 The Ohio State University, 1987.
 
+[Calculating beam slopes HWN]
+
 John. S. Gourlay. ``A language for music printing'', Communications
 of the ACM, Vol. 29(5), 388--401, 1986.
 
-[This paper describes a vapourware music setting system and an input
+[This paper describes the MusiCopy musicsetting system and an input
 language to go with it. HWN]
 
 Dorothea Blostein and Lippold Haken, ``The Lime Music Editor: A Diagram
