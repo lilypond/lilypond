@@ -20,6 +20,7 @@ struct Parse_start
   char const* str;
   int nchars;
   Input start_location_;
+  bool safe_;
 };
 
 SCM catch_protected_parse_body (void *);

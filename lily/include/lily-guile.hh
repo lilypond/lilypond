@@ -137,6 +137,9 @@ inline SCM ly_symbol2scm(char const* x) { return scm_str2symbol((x)); }
 
 extern SCM global_lily_module;
 
+/*
+  TODO: rename me to ly_c_lily_module_eval
+ */
 #define ly_scheme_function(x) ({static SCM cached; \
  SCM value = cached;  /* We store this one locally, since G++ -O2 fucks up else */   \
  if ( __builtin_constant_p ((x)))\

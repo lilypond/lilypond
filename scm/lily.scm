@@ -95,10 +95,6 @@
 
 (define-public default-script-alist '())
 
-(define-public safe-mode? #f)
-
-
-
 
 ;; parser stuff.
 (define-public (print-music-as-book parser music)

@@ -148,7 +148,10 @@ LY_DEFINE (ly_get_option, "ly:get-option", 1, 0, 0, (SCM var),
 	   "\n")
 {
   SCM o = SCM_UNSPECIFIED;
-  if (var == ly_symbol2scm ("old-relative-used"))
+  
+  if (var == ly_symbol2scm ("safe")) // heavily used; put in front. 
+    o = ly_bool2scm (safe_global_b);
+  else  if (var == ly_symbol2scm ("old-relative-used"))
     o = ly_bool2scm (lily_1_8_compatibility_used);
   else if (var == ly_symbol2scm ("old-relative"))
     o = ly_bool2scm (lily_1_8_relative);

@@ -38,15 +38,8 @@ Paper_outputter::Paper_outputter (String filename)
   file_ = scm_open_file (scm_makfrom0str (filename.to_str0 ()),
 			 scm_makfrom0str ("w"));
 
-  /*
-    UGH. -> global variable. 
-   */
-  if (safe_global_b)
-    scm_define (ly_symbol2scm ("safe-mode?"), SCM_BOOL_T);      
-
   String module_name = "scm output-" + output_format_global;
   output_module_ = scm_c_resolve_module (module_name.to_str0 ());
-  
 }
 
 Paper_outputter::~Paper_outputter ()

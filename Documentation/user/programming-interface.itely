@@ -85,6 +85,9 @@ written as
   \score @{ #(ly:export (make-sequential-music newLa)) @}
 @end example
 
+@refbugs
+
+Mixing Scheme and lily identifiers is not possible with @code{--safe}.
 
 @node Internal music representation
 @appendixsubsec Internal music representation

@@ -9,8 +9,16 @@
 
 2004-05-09  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/output-tex.scm (output-tex-string): tighten safe security.
+
+	* lily/scm-option.cc (LY_DEFINE): add 'safe to ly:get-option
+
+	* scm/safe-lily.scm (make-safe-lilypond-module): new file. Define
+	allowed ly functions.
+
 	* lily/ly-module.cc (ly_module_define): only define variable if
 	bound.
+	(ly_make_anonymous_module): take safe option.
 
 2004-05-08  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 

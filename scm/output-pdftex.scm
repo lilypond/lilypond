@@ -173,8 +173,11 @@
 
 ;; FIXME: explain ploblem: need to do something to make this really safe.  
 (define (output-tex-string s)
-  (if safe-mode?
-      (regexp-substitute/global #f "\\\\" s 'pre "$\\backslash$" 'post)
+  (if (ly:get-option 'safe)
+      (regexp-substitute/global #f "\\\\"
+				(regexp-substitute/global #f "\\([{}]\\)" s 'pre "\\1" 'post)
+				 'pre "$\\backslash$" 'post)
+      
       s))
 
 (define (lily-def key val)
