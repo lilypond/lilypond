@@ -405,22 +405,23 @@ and/or @code{extra-offset} properties. "
 @var{dir}, you can obtain longer or shorter stems."
   
   (let* ((font (ly:paper-get-font paper (cons '((font-encoding . fetaMusic)) props)))
-         (stemlen (max 3 (- log 1)))
-         (headgl (ly:find-glyph-by-name
+	 (size (chain-assoc-get 'font-size props 0))
+         (stem-length (* (magstep size) (max 3 (- log 1))))
+         (head-glyph (ly:find-glyph-by-name
                   font
                   (string-append "noteheads-" (number->string (min log 2)))))
-         (stemth 0.13)
-         (stemy (* dir stemlen))
+         (stem-thickness 0.13)
+         (stemy (* dir stem-length))
          (attachx (if (> dir 0)
-                      (- (cdr (ly:stencil-extent headgl X)) stemth)
+                      (- (cdr (ly:stencil-extent head-glyph X)) stem-thickness)
                       0))
          (attachy (* dir 0.28))
-         (stemgl (and (> log 0)
+         (stem-glyph (and (> log 0)
                       (ly:round-filled-box
-                       (cons attachx (+ attachx  stemth))
+                       (cons attachx (+ attachx  stem-thickness))
                        (cons (min stemy attachy)
                              (max stemy attachy))
-                       (/ stemth 3))))
+                       (/ stem-thickness 3))))
          (dot (ly:find-glyph-by-name font "dots-dot"))
          (dotwid (interval-length (ly:stencil-extent dot X)))
          (dots (and (> dot-count 0)
@@ -435,25 +436,25 @@ and/or @code{extra-offset} properties. "
                                               (string-append "flags-"
                                                              (if (> dir 0) "u" "d")
                                                              (number->string log)))
-                       (cons (+ attachx (/ stemth 2)) stemy)))))
+                       (cons (+ attachx (/ stem-thickness 2)) stemy)))))
     (if flaggl
-        (set! stemgl (ly:stencil-add flaggl stemgl)))
-    (if (ly:stencil? stemgl)
-        (set! stemgl (ly:stencil-add stemgl headgl))
-        (set! stemgl headgl))
+        (set! stem-glyph (ly:stencil-add flaggl stem-glyph)))
+    (if (ly:stencil? stem-glyph)
+        (set! stem-glyph (ly:stencil-add stem-glyph head-glyph))
+        (set! stem-glyph head-glyph))
     (if (ly:stencil? dots)
-        (set! stemgl
+        (set! stem-glyph
               (ly:stencil-add
                (ly:stencil-translate-axis dots
                                            (+ (if (and (> dir 0) (> log 2))
                                                   (* 1.5 dotwid)
                                                   0)
                                               ;; huh ? why not necessary?
-                                              ;;(cdr (ly:stencil-extent headgl X))
+                                              ;;(cdr (ly:stencil-extent head-glyph X))
                                               dotwid)
                                            X)
-               stemgl)))
-    stemgl))
+               stem-glyph)))
+    stem-glyph))
 
 (use-modules (ice-9 regex))
 
