@@ -22,22 +22,14 @@
 
 \version "1.2.13";
 
-\include "nederlands.ly"                 % for correct parsing of note names
-
 global = \notes {
   \key c \minor;
-  \time 4/4;
-  \property Staff.timeSignatureStyle = "C"
-  \skip 1*31;
-  \bar "|."; |
 }
   
 dux = \context Voice=two \notes \relative c''{
   \voicetwo
   \clef violin;
 
-  \property Voice.verticalDirection = "-1"
-  
   r8 c16 b c8 g as c16 b c8 d |
   g, c16 b c8 d f,16 g as4 g16 f |
   es c' b a g f! es d c8 es' d c |
@@ -174,9 +166,10 @@ bassdux = \context Voice=three \notes \relative c' {
  
     \context PianoStaff < 
 	\context Staff = treble < 
-	    \global 
 	    \dux
-	    \comes 
+	    { \comes \bar "|."; }
+	      \time 4/4;
+	      \property Score.timeSignatureStyle = "C"
 	  >
 	\context Staff = bass <
 	    \global

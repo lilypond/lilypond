@@ -11,7 +11,6 @@
 #include "musical-request.hh"
 #include "bar.hh"
 #include "beam.hh"
-#include "chord-tremolo.hh"
 #include "rest.hh"
 #include "stem.hh"
 #include "debug.hh"
@@ -210,6 +209,7 @@ Auto_beam_engraver::create_beam_p ()
       beam_p->add_stem ((*stem_l_arr_p_)[i]);
     }
   
+  announce_element (Score_element_info (beam_p, 0));
 
   return beam_p;
 }
@@ -283,7 +283,7 @@ Auto_beam_engraver::do_removal_processing ()
 bool
 Auto_beam_engraver::same_grace_state_b (Score_element* e)
 {
-  bool gr = e->get_elt_property (grace_scm_sym) != SCM_BOOL_F;
+  bool gr = e->get_elt_property ("grace") == SCM_BOOL_T;
   SCM wg =get_property ("weAreGraceContext",0);
   return (gh_boolean_p (wg) && gh_scm2bool (wg)) == gr;
 }
@@ -297,10 +297,6 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
   if (stem_l_arr_p_)
     {
       if (Beam *b = dynamic_cast<Beam *> (info.elem_l_))
-	{
-	  end_beam ();
-	}
-      else if (Chord_tremolo *b = dynamic_cast<Chord_tremolo*> (info.elem_l_))
 	{
 	  end_beam ();
 	}
@@ -406,3 +402,4 @@ Auto_beam_engraver::process_acknowledged ()
 	}
     }
 }
+

@@ -42,7 +42,7 @@ Extender_spanner::do_brew_molecule_p () const
   Real w = extent (X_AXIS).length ();
   
   w += (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
-  Real h = paper_l ()->get_realvar (extender_height_scm_sym);
+  Real h = paper_l ()->get_var ("extender_height");
   Molecule a = lookup_l ()->filledbox ( Box (Interval (0,w), Interval (0,h)));
   a.translate (Offset (dx_f_drul_[LEFT], 0));
 
@@ -61,7 +61,7 @@ void
 Extender_spanner::do_post_processing ()
 {
   // UGH
-  Real gap = paper_l ()->get_realvar (interline_scm_sym);
+  Real gap = paper_l ()->get_var ("interline");
 
   Direction d = LEFT;
   do
@@ -83,4 +83,5 @@ Extender_spanner::set_textitem (Direction d, Item* textitem_l)
   set_bounds (d, textitem_l);
   add_dependency (textitem_l);
 }
+
 

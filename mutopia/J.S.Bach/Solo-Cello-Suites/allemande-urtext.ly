@@ -76,9 +76,9 @@ allemande_b = \notes \relative c {
 	s1 |
 	f!16 s16*3 b, s16*3 s2 |
 	s1 |
-	\property Voice.slurVerticalDirection=1
+	\slurdown
 	s4 e [dis8 ~ dis32 e( fis gis] [a b c d! c b c )a] |
-	\property Voice.slurVerticalDirection=0
+	\slurboth
 	%10
 	s2 <a8 c,> s8 s4 |
 	<b8 gis,> s8 s4 <e,8 a,> s8 s4 |

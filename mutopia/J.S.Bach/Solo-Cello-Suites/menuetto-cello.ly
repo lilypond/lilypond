@@ -16,7 +16,7 @@ menuetto_i_cello_global = \notes{
 		\skip 2.*1;
 		\slurdotted
 		\skip 2.*14;
-		\property Voice.textEmptyDimension = 1
+		\emptyText
 		s2._"Fine"
 	}
 }
@@ -73,7 +73,7 @@ menuetto_ii_cello_global = \notes{
 		\skip 2.*1;
 		\slurdotted
 		\skip 2.*14;
-		\property Voice.textEmptyDimension = 1
+		\emptyText
 		s2._"Menuetto I da Capo"
 	}
 

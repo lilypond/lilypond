@@ -45,12 +45,12 @@ Hyphen_spanner::do_brew_molecule_p () const
 
   w += (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
 
-  Real th = paper_l ()->get_realvar (hyphen_thickness_scm_sym);
-  Real h = paper_l ()->get_realvar (hyphen_height_scm_sym);
+  Real th = paper_l ()->get_var ("hyphen_thickness");
+  Real h = paper_l ()->get_var ("hyphen_height");
 
   // UGH. First try: just make the hyphen take 1/3 of the available space  
   // for length, use a geometric mean of the available space and some minimum
-  Real l = paper_l ()->get_realvar (hyphen_minimum_length_scm_sym);
+  Real l = paper_l ()->get_var ("hyphen_minimum_length");
   if(l < w)
     l = sqrt(l*w);
   Molecule a = lookup_l ()->filledbox ( Box (Interval ((w-l)/2,(w+l)/2), Interval (h,h+th)));
@@ -71,7 +71,7 @@ void
 Hyphen_spanner::do_post_processing ()
 {
   // UGH
-  Real gap = paper_l ()->get_realvar (interline_scm_sym);
+  Real gap = paper_l ()->get_var ("interline");
 
   Direction d = LEFT;
   do
@@ -93,4 +93,5 @@ Hyphen_spanner::set_textitem (Direction d, Item* textitem_l)
   set_bounds (d, textitem_l);
   add_dependency (textitem_l);
 }
+
 

@@ -35,8 +35,8 @@ Tuplet_spanner::do_brew_molecule_p () const
   // Default behaviour: number always, bracket when no beam!
   bool bracket_visibility = !parallel_beam_b_;
   bool number_visibility = true;
-  SCM visibility_sym =get_elt_property (tuplet_visibility_scm_sym);
-  if (visibility_sym != SCM_BOOL_F)
+  SCM visibility_sym =get_elt_property ("tuplet-visibility");
+  if (visibility_sym != SCM_UNDEFINED)
     {
       /*
 	ARG. Fixme.
@@ -49,7 +49,7 @@ Tuplet_spanner::do_brew_molecule_p () const
 	 3       show number, and bracket-if-no-beam
 	 4       show number, and bracket
       */
-      int value = gh_scm2int (SCM_CDR(visibility_sym));
+      int value = gh_scm2int ((visibility_sym));
       bracket_visibility = (value == 4 || (value > 1 && !parallel_beam_b_));
       number_visibility = (value > 2 || value == 1 || 
 			   (value == 2 && !parallel_beam_b_));
@@ -62,7 +62,7 @@ Tuplet_spanner::do_brew_molecule_p () const
 				     number_str_, paper_l ()));
     num.align_to (X_AXIS, CENTER);
     num.translate_axis (w/2, X_AXIS);
-    Real interline = paper_l ()->get_realvar (interline_scm_sym);
+    Real interline = paper_l ()->get_var ("interline");
     Real dy = column_arr_.top ()->extent (Y_AXIS) [dir_]
       - column_arr_[0]->extent (Y_AXIS) [dir_];
     num.align_to (Y_AXIS, CENTER);
@@ -70,7 +70,7 @@ Tuplet_spanner::do_brew_molecule_p () const
 	
     num.translate_axis (dy/2, Y_AXIS);
     
-    Real thick = paper_l ()->get_realvar (tuplet_thick_scm_sym);
+    Real thick = paper_l ()->get_var ("tuplet_thick");
     if (bracket_visibility)      
       {
 	Real gap = paper_l () -> get_var ("tuplet_spanner_gap");
@@ -131,9 +131,9 @@ Direction
 Tuplet_spanner::get_default_dir () const
 {
   Direction d = UP;
-  SCM dir_sym =get_elt_property (dir_forced_scm_sym);
-  if (dir_sym != SCM_BOOL_F) {
-    d= (Direction) gh_scm2int (SCM_CDR(dir_sym));
+  SCM dir_sym =get_elt_property ("dir-forced");
+  if (dir_sym != SCM_UNDEFINED) {
+    d= (Direction) gh_scm2int (dir_sym);
     if (d != CENTER)
       return d;
   }
@@ -162,4 +162,5 @@ Tuplet_spanner::add_column (Note_column*n)
   column_arr_.push (n);
   add_dependency (n);
 }
+
 

@@ -43,9 +43,9 @@ Volta_spanner::do_brew_molecule_p () const
   if (bar_arr_.top ()->type_str_.length_i () > 1)
     no_vertical_end = false;
 
-  Real interline_f = paper_l ()->get_realvar (interline_scm_sym);
+  Real interline_f = paper_l ()->get_var ("interline");
   Real internote_f = interline_f/2;
-  Real t = paper_l ()->get_realvar (volta_thick_scm_sym);
+  Real t = paper_l ()->get_var ("volta_thick");
 
   Real dx = internote_f;
   Real w = extent (X_AXIS).length () - dx - get_broken_left_end_align ();
@@ -129,4 +129,5 @@ Volta_spanner::add_column (Note_column* c)
   note_column_arr_.push (c);
   add_dependency (c);
 }
+
 

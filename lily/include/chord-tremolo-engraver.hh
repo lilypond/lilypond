@@ -16,6 +16,9 @@
 
 /**
   Generate an abbreviation beam.  Eat stems.
+
+  UGH. Derive me from Beam_engraver.
+  
  */
 class Chord_tremolo_engraver : public Engraver
 {
@@ -37,8 +40,8 @@ private:
   void typeset_beam ();
   Drul_array<Chord_tremolo_req*> reqs_drul_;
   Chord_tremolo_req* prev_start_req_;
-  Chord_tremolo* abeam_p_;
-  Chord_tremolo* finished_abeam_p_;
+  Beam* abeam_p_;
+  Beam* finished_abeam_p_;
 };
 
 #endif // Chord_tremolo_ENGRAVER_HH

@@ -46,7 +46,7 @@ Score_element::Score_element()
   status_i_ = 0;
   self_scm_ = SCM_EOL;
   original_l_ = 0;
-  element_property_alist_ = scm_protect_object (gh_cons (gh_cons (void_scm_sym, SCM_BOOL_T) , SCM_EOL));
+  element_property_alist_ = SCM_EOL;
 
   smobify_self ();
 }
@@ -87,38 +87,46 @@ Score_element::dependency_size () const
   return dependency_arr_.size ();
 }
 
+// should also have one that takes SCM arg. 
 SCM
-Score_element::get_elt_property (SCM sym) const
+Score_element::get_elt_property (String nm) const
 {
-  SCM s =  scm_assq(sym, element_property_alist_);
+  SCM sym =  ly_symbol (nm);
+  SCM s = scm_assq(sym, element_property_alist_);
 
-  // is this a good idea?
   if (s != SCM_BOOL_F)
-    return s;
-
+    return SCM_CDR (s); 
+  
   if (pscore_l_)
     {
+      SCM sym2 = ly_symbol (name () + ("::" + nm));
+      SCM val;
+      
       // should probably check for Type::sym as well.
-      if (pscore_l_->paper_l_->default_properties_.elem_b (sym))
-	return pscore_l_->paper_l_->default_properties_[sym];
+      Paper_def * p= pscore_l_->paper_l_;
+      if (p->default_properties_.try_retrieve (sym2, &val))
+	return val;
+      else if (p->default_properties_.try_retrieve (sym, &val))
+	return val;
     }
   
-  return SCM_BOOL_F;
+  return SCM_UNDEFINED;
 }
 
 SCM
-Score_element::remove_elt_property (SCM key)
+Score_element::remove_elt_property (String key)
 {
   SCM s = get_elt_property (key); 
-  SCM_CDR(element_property_alist_) =  scm_assq_remove_x (SCM_CDR (element_property_alist_), key);
+  SCM sym = ly_symbol (key);	
+  element_property_alist_ =  scm_assq_remove_x (element_property_alist_, sym);
   return s;
 }
 
 void
-Score_element::set_elt_property (SCM s, SCM v)
+Score_element::set_elt_property (String k, SCM v)
 {
-  SCM_CDR(element_property_alist_) =
-    scm_assoc_set_x (SCM_CDR (element_property_alist_), s, v);
+  SCM s = ly_symbol (k);
+  element_property_alist_ = scm_assoc_set_x (element_property_alist_, s, v);
 }
 
 Interval
@@ -176,9 +184,9 @@ Score_element::lookup_l () const
   if (!lookup_l_)
     {
       Score_element * urg = (Score_element*)this;
-      SCM sz = urg->remove_elt_property (fontsize_scm_sym);
-      int i = (sz != SCM_BOOL_F)
-	? gh_scm2int (SCM_CDR (sz))
+      SCM sz = urg->remove_elt_property ("fontsize");
+      int i = (sz != SCM_UNDEFINED)
+	? gh_scm2int  (sz)
 	: 0;
 
       urg->lookup_l_ =  (Lookup*)pscore_l_->paper_l_->lookup_l (i);
@@ -224,7 +232,7 @@ Score_element::calculate_dependencies (int final, int busy,
 void
 Score_element::output_processing () 
 {
-  if (get_elt_property (transparent_scm_sym) != SCM_BOOL_F)
+  if (get_elt_property ("transparent") != SCM_UNDEFINED)
     return;
 
   // we're being silly here. 
@@ -233,6 +241,14 @@ Score_element::output_processing ()
   
   output_p_ = do_brew_molecule_p ();
   Offset o (relative_coordinate (0, X_AXIS), relative_coordinate (0, Y_AXIS));
+
+  SCM s = get_elt_property ("extra-offset");
+  if (gh_pair_p (s))
+    {
+      Real il = paper_l ()->get_var ("interline");
+      o[X_AXIS] += il * gh_scm2double (gh_car (s));
+      o[Y_AXIS] += il * gh_scm2double (gh_cdr (s));      
+    }
   
   pscore_l_->outputter_l_->output_molecule (output_p_,
 					    o,
@@ -477,3 +493,4 @@ Score_element::equal_p (SCM a, SCM b)
 {
   return SCM_CDR(a) == SCM_CDR(b) ? SCM_BOOL_T : SCM_BOOL_F;
 }
+

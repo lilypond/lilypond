@@ -24,7 +24,6 @@ needs what, and what information should be available when.
 
 #include <math.h>
 
-#include "chord-tremolo.hh"
 #include "beaming.hh"
 #include "proto.hh"
 #include "dimensions.hh"
@@ -129,9 +128,9 @@ Beam::auto_knee (SCM gap, bool interstaff_b)
   bool knee = false;
   int knee_y = 0;
   Real internote_f = stems_[0]->staff_line_leading_f ()/2;
-  if (gap != SCM_BOOL_F)
+  if (gap != SCM_UNDEFINED)
     {
-      int auto_gap_i = gh_scm2int (SCM_CDR (gap));
+      int auto_gap_i = gh_scm2int (gap);
       for (int i=1; i < stems_.size (); i++)
         {
 	  bool is_b = (bool)(sinfo_[i].interstaff_f_ - sinfo_[i-1].interstaff_f_);
@@ -160,7 +159,7 @@ Beam::auto_knee (SCM gap, bool interstaff_b)
 	  int y = (int)(stems_[i]->chord_start_f () / internote_f)
 	    + (int)sinfo_[i].interstaff_f_;
 	  stems_[i]->dir_ = y < knee_y ? UP : DOWN;
-	  stems_[i]->set_elt_property (dir_forced_scm_sym, SCM_BOOL_T);
+	  stems_[i]->set_elt_property ("dir-forced", SCM_BOOL_T);
 	}
     }
   return knee;
@@ -169,10 +168,10 @@ Beam::auto_knee (SCM gap, bool interstaff_b)
 bool
 Beam::auto_knees ()
 {
-  if (auto_knee (get_elt_property (auto_interstaff_knee_gap_scm_sym), true))
+  if (auto_knee (get_elt_property ("auto-interstaff-knee-gap"), true))
     return true;
   
-  return auto_knee (get_elt_property (auto_knee_gap_scm_sym), false);
+  return auto_knee (get_elt_property ("auto-knee-gap"), false);
 }
 
 
@@ -204,7 +203,7 @@ Beam::do_post_processing ()
   if (stems_.size () < 2)
     {
       warning (_ ("beam with less than two stems"));
-      set_elt_property (transparent_scm_sym, SCM_BOOL_T);
+      set_elt_property ("transparent", SCM_BOOL_T);
       return;
     }
   set_steminfo ();
@@ -219,7 +218,7 @@ Beam::do_post_processing ()
 
       /* auto-knees used to only work for slope = 0
 	 anyway, should be able to set slope per beam
-         set_elt_property (damping_scm_sym, gh_int2scm(1000));
+         set_elt_property ("damping", gh_int2scm(1000));
       */
 
       sinfo_.clear ();
@@ -279,11 +278,10 @@ Beam::get_default_dir () const
 
      If dir is not determined: up (see stem::get_default_dir ()) */
 
-  Direction beam_dir;
+  Direction beam_dir = CENTER;
   Direction neutral_dir = (Direction)(int)paper_l ()->get_var ("stem_default_neutral_direction");
 
-  SCM a = get_elt_property (gh_symbol2scm ("beam_dir_algorithm"));
-  a= gh_cdr (a);
+  SCM a = get_elt_property ("beam-dir-algorithm");
   
   if (a == gh_symbol2scm ("majority")) // should get default from paper.
     beam_dir = (count[UP] == count[DOWN]) ? neutral_dir 
@@ -318,10 +316,10 @@ Beam::set_direction (Direction d)
   for (int i=0; i <stems_.size (); i++)
     {
       Stem *s = stems_[i];
-      s->set_elt_property (beam_dir_scm_sym, gh_int2scm (d));
+      s->set_elt_property ("beam-dir", gh_int2scm (d));
 
-      SCM force = s->remove_elt_property (dir_forced_scm_sym);
-      if (force == SCM_BOOL_F)
+      SCM force = s->remove_elt_property ("dir-forced");
+      if (force == SCM_UNDEFINED)
 	s->dir_ = d;
     }
 }
@@ -352,7 +350,7 @@ Beam::check_stemlengths_f (bool set_b)
 {
   Real interbeam_f = paper_l ()->interbeam_f (multiple_i_);
 
-  Real beam_f = paper_l ()->get_realvar (beam_thickness_scm_sym);;
+  Real beam_f = paper_l ()->get_var ("beam_thickness");;
   Real staffline_f = paper_l ()-> get_var ("stafflinethickness");
   Real epsilon_f = staffline_f / 8;
   Real dy_f = 0.0;
@@ -411,7 +409,7 @@ Beam::set_steminfo ()
       total_count_i++;
     }
 
-  bool grace_b = get_elt_property (grace_scm_sym) != SCM_BOOL_F;
+  bool grace_b = get_elt_property ("grace") == SCM_BOOL_T;
   String type_str = grace_b ? "grace_" : "";
   int stem_max = (int)rint(paper_l ()->get_var ("stem_max"));
   Real shorten_f = paper_l ()->get_var (type_str + "forced_stem_shorten"
@@ -424,7 +422,8 @@ Beam::set_steminfo ()
       /*
 	Chord tremolo needs to beam over invisible stems of wholes
       */
-      if (!dynamic_cast<Chord_tremolo*> (this))
+      SCM trem = get_elt_property ("chord-tremolo");
+      if (gh_boolean_p (trem) && gh_scm2bool (trem))
 	{
 	  if (s->invisible_b ())
 	    continue;
@@ -484,10 +483,10 @@ Beam::calculate_slope ()
 	damped = tanh (slope_f_)
 	corresponds with some tables in [Wanske]
       */
-      SCM damp = remove_elt_property (damping_scm_sym);
+      SCM damp = remove_elt_property ("damping");
       int damping = 1;		// ugh.
-      if (damp!= SCM_BOOL_F)
-	damping = gh_int2scm (SCM_CDR(damp));
+      if (damp!= SCM_UNDEFINED)
+	damping = gh_int2scm (damp);
 
       if (damping)
 	slope_f_ = 0.6 * tanh (slope_f_) / damping;
@@ -514,8 +513,7 @@ Beam::quantise_dy ()
     + n * interline
     */
 
-  SCM q = get_elt_property (gh_symbol2scm ("slope_quantisation"));
-  q = gh_cdr (q);
+  SCM q = get_elt_property ("slope-quantisation");
   
   if (q == gh_symbol2scm ("none"))
     return;
@@ -523,7 +521,7 @@ Beam::quantise_dy ()
   Real interline_f = stems_[0]->staff_line_leading_f ();
   Real internote_f = interline_f / 2;
   Real staffline_f = paper_l ()->get_var ("stafflinethickness");
-  Real beam_f = paper_l ()->get_realvar (beam_thickness_scm_sym);;
+  Real beam_f = paper_l ()->get_var ("beam_thickness");;
 
   Real dx_f = stems_.top ()->hpos_f () - stems_[0]->hpos_f ();
 
@@ -559,8 +557,8 @@ Beam::quantise_left_y (bool extend_b)
     we only need to quantise the start of the beam as dy is quantised too
    if extend_b then stems must *not* get shorter
    */
-  SCM q = get_elt_property (gh_symbol2scm ("slope_quantisation"));
-  q = gh_cdr (q);
+  SCM q = get_elt_property ("slope-quantisation");
+
 
   /*
     ----------------------------------------------------------
@@ -576,7 +574,7 @@ Beam::quantise_left_y (bool extend_b)
   Real space = stems_[0]->staff_line_leading_f ();
   Real internote_f = space /2;
   Real staffline_f = paper_l ()->get_var ("stafflinethickness");
-  Real beam_f = paper_l ()->get_realvar (beam_thickness_scm_sym);;
+  Real beam_f = paper_l ()->get_var ("beam_thickness");;
 
   /*
     [TODO]
@@ -709,7 +707,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
   Real interbeam_f = paper_l ()->interbeam_f (multiple_i_);
 
   Real internote_f = here->staff_line_leading_f ()/2;
-  Real beam_f = paper_l ()->get_realvar (beam_thickness_scm_sym);;
+  Real beam_f = paper_l ()->get_var ("beam_thickness");;
 
   Real dy = interbeam_f;
   Real stemdx = staffline_f;
@@ -763,10 +761,10 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       int j = 0;
       Real gap_f = 0;
 
-      SCM gap = get_elt_property (beam_gap_scm_sym);
-      if (gap != SCM_BOOL_F)
+      SCM gap = get_elt_property ("beam-gap");
+      if (gap != SCM_UNDEFINED)
 	{
-	  int gap_i = gh_scm2int (SCM_CDR (gap));
+	  int gap_i = gh_scm2int ( (gap));
 	  int nogap = rwholebeams - gap_i;
 	  
 	  for (; j  < nogap; j++)
@@ -811,4 +809,5 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
    */
   return leftbeams;
 }
+
 
