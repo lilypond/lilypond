@@ -238,9 +238,9 @@
   (string-append
    ;; URG: now we can't use scm output without Lily
    (ly:gulp-file "lilyponddefs.ps")
-   " {exch pop //systemdict /run get exec} "
+   "{exch pop //systemdict /run get exec}\n\n"
    (ly:gulp-file "music-drawing-routines.ps")
-   "{ exch pop //systemdict /run get exec } "
+   "{ exch pop //systemdict /run get exec }\n\n"
    ;; ps-testing wreaks havoc when used with lilypond-book.
    ;;  -- is this still true with new modules system?
 ;;   (if (defined? 'ps-testing) "\n /testing true def" "")
