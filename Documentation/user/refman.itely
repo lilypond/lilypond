@@ -967,7 +967,7 @@ The @code{set-octavation} function also takes -1 (for 8va bassa) and 2
 
 @seealso
 
-Internals: @internalsref{OttavaSpanner}.
+Internals: @internalsref{OttavaBracket}.
 
 Examples: @inputfileref{input/regression,ottava.ly},
 @inputfileref{input/regression,ottava-broken.ly}.
