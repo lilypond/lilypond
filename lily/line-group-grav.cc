@@ -7,12 +7,12 @@
 */
 
 #include "staff-sym.hh"
-#include "line-group-grav.hh"
+#include "vertical-group-spanner.hh"
 #include "command-request.hh"
 #include "bar.hh"
 #include "debug.hh"
 #include "staffline.hh"
-
+#include "line-group-grav.hh"
 
 Line_group_engraver::Line_group_engraver()
 {
@@ -22,7 +22,8 @@ Line_group_engraver::Line_group_engraver()
 void
 Line_group_engraver::acknowledge_element(Score_elem_info  elem)
 {
-    staffline_p_->add_element(elem.elem_l_);
+    if ( !elem.elem_l_->y_group_l_ )
+	staffline_p_->add_element(elem.elem_l_);
 }
 
 
@@ -37,7 +38,7 @@ Line_group_engraver::do_removal_processing()
 void
 Line_group_engraver::do_creation_processing()
 {
-    staffline_p_ = new Line_of_staff;
+    staffline_p_ = new Vertical_group_spanner ;
     staffline_p_->left_col_l_ = get_staff_info().command_pcol_l();
 
     // don't broadcast to self.
