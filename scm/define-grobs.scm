@@ -244,13 +244,13 @@
 	(meta . ((interfaces . (cluster-beacon-interface item-interface))))
 	))
     
-    (Cluster
+    (ClusterSpanner
      . (
 	(molecule-callback . ,Cluster::brew_molecule)
 	(spacing-procedure . ,Spanner::set_spacing_rods)		
 	(minimum-length . 0.0)
 	(padding . 0.25)
-	(shape . leftsided-stairs)
+	(style . ramp)
 	(meta . ((interfaces . (cluster-interface spanner-interface))))
 	))
 

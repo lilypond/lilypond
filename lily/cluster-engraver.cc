@@ -104,15 +104,16 @@ Cluster_spanner_engraver::process_music ()
 	  pmin = pmin <? p;
 	}
       
-      Item *it = new Item (get_property ("ClusterSpannerBeacon"));
-      it->set_grob_property ("positions", scm_cons (gh_int2scm (pmin),
-						   gh_int2scm (pmax)));
-      
+      beacon_ = new Item (get_property ("ClusterSpannerBeacon"));
+      beacon_->set_grob_property ("positions",
+				  scm_cons (gh_int2scm (pmin),
+					    gh_int2scm (pmax)));
+      announce_grob (beacon_, cluster_notes_[0]->self_scm ());
     }
 
   if (beacon_ && !spanner_)
     {    
-      spanner_ = new Spanner (get_property ("Cluster"));
+      spanner_ = new Spanner (get_property ("ClusterSpanner"));
       announce_grob (spanner_, cluster_notes_[0]->self_scm ());
     }
   
@@ -145,8 +146,9 @@ Cluster_spanner_engraver::acknowledge_grob (Grob_info info)
 
 ENTER_DESCRIPTION(Cluster_spanner_engraver,
 /* descr */	"Engraves a cluster using Spanner notation ",
-/* creats*/	"Cluster",
+/* creats*/	"ClusterSpanner ClusterSpannerBeacon",
 /* accepts */	"cluster-note-event abort-event",
 /* acks  */	"note-column-interface",
 /* reads */	"",
 /* write */	"");
+

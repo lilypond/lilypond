@@ -10,8 +10,8 @@
 */
 
 #include <stdio.h>
+
 #include "cluster.hh"
-#include "grob.hh"
 #include "spanner.hh"
 #include "item.hh"
 #include "pitch.hh"
@@ -20,11 +20,12 @@
 #include "box.hh"
 #include "interval.hh"
 #include "paper-def.hh"
-#include "paper-column.hh"
-#include "note-column.hh"
+#include "warn.hh"
+
 
 /*
- * TODO: Add support for cubic spline segments.
+   TODO: Add support for cubic spline segments.
+
  */
 Molecule
 brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_points)
@@ -47,13 +48,16 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
 
   SCM shape_scm = me->get_grob_property ("style");
   String shape;
+
   if (gh_symbol_p (shape_scm))
     {
       shape = ly_symbol2string (shape_scm);
     }
   else
     {
-      shape = "leftsided-stairs";
+      programming_error ("#'style should be symbol.");
+      me->suicide();
+      return  Molecule();
     }
 
 
@@ -162,6 +166,13 @@ Cluster::brew_molecule (SCM smob)
 
   Real left_coord = left_bound->relative_coordinate (common, X_AXIS);
 
+  Real unit = Staff_symbol_referencer::staff_space (me) *0.5;
+
+  /*
+    TODO: should we move the cluster a little to the right to be in
+    line with the center of the note heads?
+    
+   */
   for (SCM s = cols; gh_pair_p (s); s = ly_cdr (s))
     {
       Grob * col = unsmob_grob (ly_car (s));
@@ -174,8 +185,8 @@ Cluster::brew_molecule (SCM smob)
 		   gh_scm2int (gh_cdr (posns)));
 
       Real x = col->relative_coordinate (common, X_AXIS) - left_coord;
-      bottom_points.push (Offset (x, s[DOWN] *0.5));
-      top_points.push (Offset (x, s[UP] * 0.5));
+      bottom_points.push (Offset (x, s[DOWN] *unit));
+      top_points.push (Offset (x, s[UP] * unit));
     }
 
   /*
@@ -201,8 +212,8 @@ Cluster::brew_molecule (SCM smob)
 
 	      Real x = right_bound->relative_coordinate (common,X_AXIS) - left_coord;
 	      
-	      bottom_points.insert (Offset (x, s[DOWN] * 0.5),0);
-	      top_points.insert (Offset (x, s[UP] * 0.5),0);
+	      bottom_points.insert (Offset (x, s[DOWN] * unit),0);
+	      top_points.insert (Offset (x, s[UP] * unit),0);
 	    }
 	}
     }

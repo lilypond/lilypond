@@ -119,13 +119,17 @@ c8-[ c c-] c8")
 
 	(internal-class-name . "Event")
 	(types . (general-music event busy-playing-event))
-	)) 
+	))
+    
     (ClusterNoteEvent
      . (
 	(description .  "A note that is part of a cluster.")
 	(internal-class-name . "Event")
-	(types . (general-music note-event cluster-note-event melodic-event rhythmic-event event))
+
+	; not a note-event, to ensure that Note_engraver doesn't eat it. 
+	(types . (general-music cluster-note-event melodic-event rhythmic-event event))
 	))
+    
     (ContextSpeccedMusic
      . (
 	(description .  "Interpret the argument music within a specific context.")
@@ -133,6 +137,7 @@ c8-[ c c-] c8")
 	(internal-class-name . "Music_wrapper")
 	(types . (context-specification general-music music-wrapper-music))
 	))
+    
     (CrescendoEvent
      . (
    (description .  "Begins or ends a crescendo.  Syntax: @var{note}\\cr
@@ -390,6 +395,7 @@ SYNTAX
 	
 	(types . (general-music simultaneous-music))
 	))
+    
     (SlurEvent
      . (
 	(description . "Start or end slur. Syntax NOTE(  and )NOTE")

@@ -1,3 +1,22 @@
+2003-07-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/define-grob-interfaces.scm (cluster-beacon-interface): add
+	cluster-beacon-interface
+
+	* scm/define-grobs.scm (all-grob-descriptions): default to ramp.
+
+	* scripts/convert-ly.py (FatalConversionError.conv): add cluster rule.
+
+	* ly/spanners-init.ly (stopGroup): remove start/stopCluster.
+
+	* lily/cluster.cc (brew_molecule): examine ClusterSpannerBeacons
+	to get positions.
+
+	* lily/cluster-engraver.cc: rewrite: catch cluster-note-events,
+	make ClusterSpannerBeacon to record Y positions. This removes the
+	need to switch off notes. Use \apply #notes-to-clusters { .. }  to
+	make cluster-note-events.
+
 2003-07-17  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* configure.in: Use lily/main.cc as identifying source file.

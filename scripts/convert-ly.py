@@ -1225,6 +1225,20 @@ if 1:
 	conversions.append (((1,7,23), conv,"barNonAuto -> automaticBars"))
 	
 
+if 1:
+	def conv(str):
+		if re.search( r'-(start|stop)Cluster', str):
+			sys.stderr.write ("""Cluster syntax has been changed.
+Please refer to the manual for details, and convert manually.
+""")
+			
+			raise FatalConversionError()
+
+		return str
+	
+	conversions.append (((1,7,24), conv,"cluster syntax"))
+
+
 
 ################################
 #	END OF CONVERSIONS	
