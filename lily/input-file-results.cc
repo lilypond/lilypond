@@ -139,7 +139,7 @@ Input_file_results::Input_file_results (String init, String in_file, String out_
   sources_.set_path (&global_path);
   
 
-  progress_indication (_f ("Now processing: `%s'", in_file.to_str0 ()));
+  progress_indication (_f ("Now processing `%s'", in_file.to_str0 ()));
   progress_indication ("\n");
 
   My_lily_parser parser (this);

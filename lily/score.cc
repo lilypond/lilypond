@@ -122,7 +122,7 @@ LY_DEFINE (ly_run_translator, "ly:run-translator",
       programming_error ("no toplevel translator");
       return SCM_BOOL_F;
     }
-  progress_indication (_ ("Interpreting music..."));
+  progress_indication (_ ("Interpreting music... "));
   
   SCM protected_iter = Music_iterator::get_static_get_iterator (music);
   Music_iterator * iter = unsmob_iterator (protected_iter);
