@@ -6,51 +6,50 @@
 
 #include "inputcommand.hh"
 
-#define VIRTUALCONS(T,R) R *T::clone() const { return  new T(*this); } struct T
-#define RCONS(T) VIRTUALCONS(T, Request)
-
-RCONS(Rest_req);
-RCONS(Barcheck_req);
-RCONS(Text_req);
-RCONS(Rhythmic_req);
-RCONS(Lyric_req);
-RCONS(Mark_req);
-RCONS(Stem_req);
-RCONS(Script_req);
-RCONS(Note_req);
-RCONS(Melodic_req);
-RCONS(Span_req);
-RCONS(Slur_req);
-RCONS(Beam_req);
-RCONS(Staff_command_req);
-
 void
-Stem_req::print() const
+Stem_req::do_print() const
 {
-    mtor << "Stem\n";
+    Rhythmic_req::do_print();    
 }
+
+Stem_req::Stem_req(int s, int d)
+    : Rhythmic_req(s,d)
+{
+}
+
 /****************/
 void
-Barcheck_req::print() const    
+Barcheck_req::do_print() const    
 {
 #ifndef NPRINT
-    mtor << "Barcheck\n";
-#endif
-}
-/****************/
-void
-Request::print() const    
-{
-#ifndef NPRINT
-    mtor << "Req{ unknown }\n";
+
 #endif
 }
 
+/****************/
+
 void
-Span_req::print() const    
+Request::print() const
+
+{
+    mtor << name() << " {";
+    do_print();
+    mtor << "}\n";
+}
+     
+
+void
+Request::do_print() const    
 {
 #ifndef NPRINT
-    mtor << "Span_req {" << spantype << "}\n";
+#endif
+}
+
+void
+Span_req::do_print() const    
+{
+#ifndef NPRINT
+    mtor  << spantype ;
 #endif
 }
 
@@ -65,25 +64,37 @@ Request::Request(Request const&)
 /****************/
 Melodic_req::Melodic_req()
 {
-    name = 0;
+    notename = 0;
     octave = 0;
     accidental = 0;
     forceacc = false;
 }
 
 void
-Melodic_req::print() const
+Melodic_req::do_print() const
 {
-    mtor << "note: " << name << " oct: "<< octave;
+    mtor << "notename: " << notename << " oct: "<< octave;
 }
 
 int
 Melodic_req::height() const
 {
-    return  name + octave*7;
+    return  notename + octave*7;
 }
 
 /****************/
+int
+Rhythmic_req::compare(const Rhythmic_req &r1, const Rhythmic_req &r2)
+{
+    return r1.duration() - r2.duration();
+}
+Rhythmic_req::Rhythmic_req(int b, int d)
+{
+    plet_factor = 1;
+    balltype = b;
+    dots = d;
+}
+
 Rhythmic_req::Rhythmic_req()
 {
     plet_factor = 1;
@@ -92,9 +103,9 @@ Rhythmic_req::Rhythmic_req()
 }
 
 void
-Rhythmic_req::print() const
+Rhythmic_req::do_print() const
 {
-    mtor << "rhythmic: " << balltype ;
+    mtor << "ball: " << balltype ;
     int d =dots;
     while (d--)
 	mtor << '.';
@@ -117,32 +128,41 @@ Lyric_req::Lyric_req(Text_def* def_p)
 }
 
 void
-Lyric_req::print() const
-{
-    mtor << "lyric: ";
-    Rhythmic_req::print();
-    Text_req::print();
+Lyric_req::do_print() const
+{    
+    Rhythmic_req::do_print();
+    Text_req::do_print();
 }
 /****************/
 void
-Note_req::print() const
+Note_req::do_print() const
 {
-    Melodic_req::print();
-    Rhythmic_req::print();
+    Melodic_req::do_print();
+    Rhythmic_req::do_print();
 }
 /****************/
 void
-Rest_req::print() const
+Rest_req::do_print() const
 {
-    mtor << "rest, " ;
-    Rhythmic_req::print();
+        Rhythmic_req::do_print();
 }
+
 /****************/
 Beam_req::Beam_req()
 {
     nplet = 0;
 }
+
+void Beam_req::do_print()const{}
 /****************/
+void Slur_req::do_print()const{}
+/****************/
+int
+Span_req:: compare(const Span_req &r1, const Span_req &r2)
+{
+     return r1.spantype - r2.spantype;
+}
+
 Span_req::Span_req()
 {
     spantype = NOSPAN;
@@ -161,7 +181,7 @@ Script_req::Script_req(Script_req const &s)
 }
 
 void
-Script_req::print() const
+Script_req::do_print() const
 {
     mtor << " dir " << dir ;
     scriptdef->print();
@@ -193,7 +213,7 @@ Text_req::Text_req(int dir_i, Text_def* tdef_p)
 }
 
 void
-Text_req::print() const
+Text_req::do_print() const
 {
     mtor << " dir " << dir_i_ ;
     tdef_p_->print();
@@ -209,10 +229,10 @@ Mark_req::Mark_req(String s)
 }
 
 void
-Mark_req::print()const
+Mark_req::do_print()const
 {
 #ifndef NDEBUG
-    mtor<< "Mark `" << mark_str_ << "\'\n";
+    mtor<< " `" << mark_str_ << "\'\n";
 #endif
 }
 /****************/
@@ -229,9 +249,8 @@ Staff_command_req::Staff_command_req(Staff_command_req const&src)
     com_p_ = new Input_command(*src.com_p_);
 }
 void
-Staff_command_req::print()const
+Staff_command_req::do_print()const
 {
-    mtor << "Command request: " ;
     com_p_->print();
 }
 

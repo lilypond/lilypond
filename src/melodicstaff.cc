@@ -6,7 +6,7 @@
 #include "paper.hh"
 #include "molecule.hh"
 #include "linepstaff.hh"
-#include "rhythmstaff.hh"
+//#include "rhythmstaff.hh"
 #include "sccol.hh" 
 #include "localkeyitem.hh"
 #include "request.hh"
@@ -25,12 +25,8 @@ Melodic_staff::set_output(PScore*ps)
 Notehead*
 Melodic_staff::get_notehead(Note_req *rq, int bottom)
 {        
-    int b  = rq->rhythmic()->balltype;
-    int d  = rq->rhythmic()->dots;
-    
     Notehead *n =new Notehead((NO_LINES-1)*2);
-    n->balltype =b;
-    n->dots = d;
+    n->set_rhythmic(rq->rhythmic());
     n->position = rq->note()->height() + bottom;
     return n;
 }
@@ -45,20 +41,11 @@ Melodic_staff::get_TYPESET_item(Command*com)
 }
 
 Stem *
-Melodic_staff::get_stem(Stem_req*rq, Moment dur)
+Melodic_staff::get_stem(Stem_req*rq)
 {
-    Stem * s = new Stem(NO_LINES-1, dur);
-    s->flag = rq->stem_number;
+    Stem * s = new Stem(NO_LINES-1);
+    s->flag = rq->balltype;
     return s;
-}
-
-/*
-  creation
-  */
-Staff *
-get_new_melodicstaff()
-{
-    return new Melodic_staff;
 }
 
 Rest*

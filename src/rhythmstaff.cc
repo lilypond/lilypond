@@ -32,30 +32,16 @@ Rhythmic_staff::get_TYPESET_item(Command *com)
 Notehead*
 Rhythmic_staff::get_notehead(Note_req *rq, int)
 {
-    int b = rq->rhythmic()->balltype;
-    int d = rq->rhythmic()->dots;
-
     Notehead *n =new Notehead(1);
-    n->balltype = b;
-    n->dots =d;
+    n->set_rhythmic(rq->rhythmic());
     n->position = 0;
     return n;
 }
 
 Stem *
-Rhythmic_staff::get_stem(Stem_req*rq, Moment l)
+Rhythmic_staff::get_stem(Stem_req*rq)
 {
-    Stem * s = new Stem(0,l);
-    s->flag = rq->stem_number;
+    Stem * s = new Stem(0);
+    s->flag = rq->balltype;
     return s;    
 }
-
-/*
-  creation
-  */
-Staff *
-get_new_rhythmstaff()
-{
-    return new Rhythmic_staff;
-}
-
