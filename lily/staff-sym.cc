@@ -24,7 +24,10 @@ IMPLEMENT_IS_TYPE_B1(Staff_symbol,Spanner);
 void
 Staff_symbol::do_print()const
 {
+#ifndef NPRINT
+    Spanner::do_print();
     mtor << "lines: " << no_lines_i_;
+#endif
 }
 
 Molecule*
