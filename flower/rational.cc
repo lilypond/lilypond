@@ -66,11 +66,13 @@ int gcd (int a, int b)
   return b;
 }
 
+#if 0
 static
 int lcm (int a, int b)
 {
   return abs (a*b / gcd (a,b));
 }
+#endif
 
 void
 Rational::set_infinite (int s)

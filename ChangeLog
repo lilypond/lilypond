@@ -1,7 +1,17 @@
+2003-01-04  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/source-file.cc (Source_file): Add warning for possibly
+	intentional but suspicious initialization.
+
+	* scm/chord-name.scm: Small rewrites, layout fixes.  Identify and
+	add comments about cut-and-paste programming.
+
+	* flower/rational.cc (lcm): Not used; comment out.
+
 2003-01-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scripts/convert-ly.py	(FatalConversionError.conv): add style
-	covnersion rule. 
+	conversion rule. 
 
 	* scm/chord-name.scm (set-chord-name-style): new function.
 	(new-chord-name-brew-molecule): revise to interpret markup only
@@ -14,6 +24,12 @@
 	* input/test/{banter,jazz,american}-chords.ly (scheme): update
 	style settings. Rename to chord-names-*.ly
 
+2003-01-03  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/chord-name.scm: Painful merge of Amy's patch to old-style
+	markup code and update to new markup.  Most probably broke some of
+	it.
+	
 2002-12-30  Juergen Reuter  <reuter@ipd.uka.de>
 
         * Documentation/user/refman.itely: added docu for ambitus and
