@@ -65,6 +65,7 @@ import shutil
 import __main__
 import operator
 import tempfile
+import traceback
 
 datadir = '@datadir@'
 sys.path.append (datadir + '/python')
@@ -353,6 +354,7 @@ option_definitions = [
 	('', '', 'no-lily', _ ("don't run LilyPond")),
 	('', 'm', 'no-paper', _ ("produce MIDI output only")),
 	(_ ("FILE"), 'o', 'output', _ ("write ouput to FILE")),
+	(_ ("FILE"), 'f', 'find-pfa', _ ("find pfa fonts used in FILE")),
 	# why capital P?
 	('', 'P', 'postscript', _ ("generate PostScript output")),
 	(_ ("KEY=VAL"), 's', 'set', _ ("change global setting KEY to VAL")),
@@ -622,11 +624,39 @@ def generate_dependency_file (depfile, outname):
 	df.write ('\n')
 	df.close ();
 
+def find_file_in_path (path, name):
+	for d in string.split (path, os.pathsep):
+		if name in os.listdir (d):
+			return os.path.join (d, name)
+
+# Added as functionality to ly2dvi, because ly2dvi may well need to do this
+# in future too.
+PS = '%!PS-Adobe'
+def find_pfa_fonts (name):
+	s = open (name).read ()
+	if s[:len (PS)] != PS:
+		# no ps header?
+		errorport.write (_( "error: ") + _ ("not a PostScript file: `%s\'" % name))
+		errorport.write ('\n')
+		sys.exit (1)
+	here = 0
+	m = re.match ('.*?/(feta[-a-z0-9]+) +findfont', s[here:], re.DOTALL)
+	pfa = []
+	while m:
+		here = m.end (1)
+		pfa.append (m.group (1))
+		m = re.match ('.*?/(feta[-a-z0-9]+) +findfont', s[here:], re.DOTALL)
+	return pfa
+
+	
 (sh, long) = getopt_args (__main__.option_definitions)
 try:
 	(options, files) = getopt.getopt(sys.argv[1:], sh, long)
-except getopt.error, s: 
-	errorport.write ("\nerror: getopt says `%s\'\n\n" % s)
+except getopt.error, s:
+	errorport.write ('\n')
+	errorport.write (_( "error: ") + _ ("getopt says: `%s\'" % s))
+	errorport.write ('\n')
+	errorport.write ('\n')
 	help ()
 	sys.exit (2)
 	
@@ -638,6 +668,13 @@ for opt in options:
 		pass
 	elif o == '--help' or o == '-h':
 		help ()
+		sys.exit (0)
+	elif o == '--find-pfa' or o == '-f':
+		fonts = map (lambda x: x + '.pfa', find_pfa_fonts (a))
+		files = map (lambda x:
+			     find_file_in_path (os.environ['GS_FONTPATH'], x),
+			     fonts)
+		print string.join (files, ' ')
 		sys.exit (0)
 	elif o == '--include' or o == '-I':
 		include_path.append (a)
@@ -702,8 +739,10 @@ include_path = map (abspath, include_path)
 
 original_output = output_name
 
+
 if files and files[0] != '-':
 
+	# Ugh, maybe make a setup () function
 	files = map (lambda x: strip_extension (x, '.ly'), files)
 
 	(outdir, outbase) = ('','')
@@ -738,40 +777,44 @@ if files and files[0] != '-':
 
 	os.chdir (tmpdir)
 	
-	extra = extra_init
-	
 	if lily_p:
-##		try:
+		try:
 			run_lilypond (files, outbase, dep_prefix)
-## #		except:
-## 			# TODO: friendly message about LilyPond setup/failing?
-## 			#
-## 			# TODO: lilypond should fail with different
-## 			# error codes for:
-## 			#   - guile setup/startup failure
-## 			#   - font setup failure
-## 			#   - init.ly setup failure
-## 			#   - parse error in .ly
-## 			#   - unexpected: assert/core dump
-## #			targets = {}
+		except:
+ 			# TODO: friendly message about LilyPond setup/failing?
+ 			#
+ 			# TODO: lilypond should fail with different
+ 			# error codes for:
+ 			#   - guile setup/startup failure
+ 			#   - font setup failure
+ 			#   - init.ly setup failure
+ 			#   - parse error in .ly
+ 			#   - unexpected: assert/core dump
+			targets = {}
+			traceback.print_exc ()
 
 	if targets.has_key ('DVI') or targets.has_key ('PS'):
-#		try:
-			run_latex (files, outbase, extra)
+		try:
+			run_latex (files, outbase, extra_init)
 			# unless: add --tex, or --latex?
 			del targets['TEX']
 			del targets['LATEX']
-#		except Foobar:
-#			# TODO: friendly message about TeX/LaTeX setup,
-#			# trying to run tex/latex by hand
-#			if targets.has_key ('DVI'):
-#				del targets['DVI']
-#			if targets.has_key ('PS'):
-#				del targets['PS']
+		except:
+			# TODO: friendly message about TeX/LaTeX setup,
+			# trying to run tex/latex by hand
+			if targets.has_key ('DVI'):
+				del targets['DVI']
+			if targets.has_key ('PS'):
+				del targets['PS']
+			traceback.print_exc ()
 
-	# TODO: does dvips ever fail?
 	if targets.has_key ('PS'):
-		run_dvips (outbase, extra)
+		try:
+			run_dvips (outbase, extra_init)
+		except: 
+			if targets.has_key ('PS'):
+				del targets['PS']
+			traceback.print_exc ()
 
 	# add DEP to targets?
 	if track_dependencies_p:
@@ -780,6 +823,7 @@ if files and files[0] != '-':
 		if os.path.isfile (depfile):
 			progress (_ ("dependencies output to `%s'...") % depfile)
 
+	# Hmm, if this were a function, we could call it the except: clauses
 	for i in targets.keys ():
 		ext = string.lower (i)
 		cp_to_dir ('.*\.%s$' % ext, outdir)
@@ -799,7 +843,7 @@ if files and files[0] != '-':
 	cleanup_temp ()
 	
 else:
-	# FIXME
+	# FIXME: read from stdin when files[0] = '-'
 	help ()
 	errorport.write ("ly2dvi: " + _ ("error: ") + _ ("no files specified on command line.") + '\n')
 	sys.exit (2)

@@ -3,7 +3,7 @@
 
 
 gs550="/usr/windows/gstools/gs5.50"
-gs650="/usr/windows/gs/gs6.50"
+gs650="/usr/windows/gs/gs6.50/bin"
 
 gsview26="/usr/windows/gstools/gsview"
 gsview36="/usr/windows/Ghostgum/GSview"

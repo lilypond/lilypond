@@ -825,7 +825,7 @@ Beam::stem_beams (Grob*me,Item *here, Item *next, Item *prev,
       if (lhalfs)		// generates warnings if not
 	a =  Lookup::beam (dydx, w + stem_w, thick);
       a.translate (Offset (-w, -w * dydx));
-      //a.translate_axis (stem_w/2, X_AXIS);
+      a.translate_axis (-stem_w/2, X_AXIS);
       for (int j = 0; j  < lhalfs; j++)
 	{
 	  Molecule b (a);
