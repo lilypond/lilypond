@@ -1,6 +1,7 @@
 2005-03-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* kpath-guile/kpath.c (open_library): dlopen libkpathsea.so
+	(open_library): alternative for static library.
 
 2005-03-06  Jan Nieuwenhuizen  <janneke@gnu.org>
 
