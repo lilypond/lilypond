@@ -4,7 +4,7 @@
 # 
 # source file of the GNU LilyPond music typesetter
 # 
-# (c) 1998 Jan Nieuwenhuizen <janneke@gnu.org>
+# (c) 1998, 1999 Jan Nieuwenhuizen <janneke@gnu.org>
 
 # TODO: regex -> re.
 
@@ -84,6 +84,11 @@ def line_to_ly (s):
 			last_name = name
 		else:
 			name = last_name
+		name = lstrip (name)
+		name = rstrip (name)
+		if name == "ms":
+			name = "s"
+			duration = 1
 		if duration:
 			last_duration = duration
 		else:
@@ -91,7 +96,7 @@ def line_to_ly (s):
 		name = regsub.sub ("#", "is", name)
 		name = regsub.sub ("+", "'", name)
 		name = regsub.sub ("-", ",", name)
-		name = regsub.sub ("ms", "s1", name)
+		#name = regsub.sub ("ms", "s1", name)
 		notes = notes + " %s%s" % (name, duration)
 	return notes
 
@@ -149,7 +154,7 @@ for i in range (len (staffs)):
 lyfile.write ("\\score{\n")
 lyfile.write ("\\notes <\n")
 for i in range (len (staffs)):
-	lyfile.write ("\\type Staff=staff%s <\n" % chr(ord('A')+i))
+	lyfile.write ("\\context Staff=staff%s <\n" % chr(ord('A')+i))
 	for v in range (len (staffs[i])):
 		lyfile.write ("{ \\$staff%d_voice_%d } " % (i+1, v+1))
 	lyfile.write ("\n>\n")
