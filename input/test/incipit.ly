@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.30"
 \header { texidoc = "@cindex Incipit
 This example shows how to make an ``incipit'' to indicate 
 scordatora tuning of a violin part, by overriding the @code{style} of

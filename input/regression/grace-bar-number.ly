@@ -1,5 +1,5 @@
 
-\version "2.1.28"
+\version "2.1.30"
 \header {
 
 texidoc = "Grace notes do tricky things with timing. If a measure

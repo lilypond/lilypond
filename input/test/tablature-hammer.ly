@@ -1,5 +1,5 @@
 
-\version "2.1.28"
+\version "2.1.30"
 \header {texidoc = "@cindex Tablature hammer
 A hammer in tablature can be faked with slurs. "
 } 

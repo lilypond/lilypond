@@ -1,4 +1,4 @@
-\version "2.1.29"
+\version "2.1.30"
 \header { texidoc = "@cindex Instrument Name Grandstaff
 You can have a name for the whole @code{GrandStaff} in addition to 
 individual @code{Staff}s. " }

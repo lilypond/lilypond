@@ -1,5 +1,5 @@
 
-\version "2.1.28"
+\version "2.1.30"
 % check with invisible-notes or blank-notes.  possible rename. -gp
 \header{ texidoc = "@cindex Partial Blank
 When entering partially typeset music (i.e. for students to be 

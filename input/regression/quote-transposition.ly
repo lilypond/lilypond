@@ -6,7 +6,7 @@
 In this example, all instruments play sounding central C, the target is a instrument in F."
 
 }
-\version "2.1.28"
+\version "2.1.30"
 
 
 \addquote clarinet \notes {

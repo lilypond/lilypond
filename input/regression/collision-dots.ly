@@ -5,7 +5,7 @@
   on the right side."
 }
 
-\version "2.1.28"
+\version "2.1.30"
 \paper { raggedright= ##t }
 
 % todo: b2 (up) + b8 down looks strange compared to c2up + b8. (down)

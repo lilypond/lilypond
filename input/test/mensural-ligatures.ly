@@ -1,4 +1,4 @@
-\version "2.1.29"
+\version "2.1.30"
 % TODO:
 % check with ancient- stuff.  rename, merge, something.  -gp
 
@@ -67,7 +67,6 @@ voice = \notes \transpose c c' {
 	    \override Custos #'style = #'mensural
 	    \override Custos #'neutral-position = #3
 	    \override Custos #'neutral-direction = #-1
-	    \override Custos #'adjust-if-on-staffline = ##t
 	    clefGlyph = #"clefs-petrucci_g"
 	    clefPosition = #-2
 	    clefOctavation = #-0

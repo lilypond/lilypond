@@ -1,25 +1,27 @@
-\version "2.1.29"
+\version "2.1.30"
 \header {
 
     texidoc = "There are both long and short instrument names.
 Engraving instrument names should not be confused by the
 multimeasure rests. "
 
-      }
-% (there was an interesting bug in 1.3.98)
+}
+
 \score{
-	\context Staff <<
-	      \set Staff.instrument = "instrument"
-	      \set Staff.instr = "instr"
-	      \notes{c''1 \break R1 }
-	    >>
-	 \paper {
-	    \context { \StaffContext
+    \context Staff <<
+	\set Staff.instrument = "instrument"
+	\set Staff.instr = "instr"
+	\notes{c''1 \break R1 }
+    >>
+    \paper {
+	raggedright = ##t
+	\context {
+	    \StaffContext
 	    \consists Instrument_name_engraver
 
-	    }
-	  }
-	\paper { raggedright = ##t }
 	}
+    }
+}
+
 
 

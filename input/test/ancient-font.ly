@@ -1,4 +1,4 @@
-\version "2.1.29"
+\version "2.1.30"
 % TODO: split ancient-font into seperate files; possibly in
 % different locations.
 \header {
@@ -260,7 +260,6 @@ lowerStaff = \context MensuralStaff = lowerStaff <<
 	    \override Custos #'style = #'mensural
 	    \override Custos #'neutral-position = #3
 	    \override Custos #'neutral-direction = #-1
-	    \override Custos #'adjust-if-on-staffline = ##t
 	    clefGlyph = #"clefs-petrucci_c2"
 	    clefPosition = #-2
 	    clefOctavation = #0 
@@ -279,7 +278,6 @@ lowerStaff = \context MensuralStaff = lowerStaff <<
 	    \override Custos #'style = #'vaticana
 	    \override Custos #'neutral-position = #4
 	    \override Custos #'neutral-direction = #-1
-	    \override Custos #'adjust-if-on-staffline = ##t
 	    clefGlyph = #"clefs-vaticana_do"
 	    clefPosition = #1
 	    clefOctavation = #0 

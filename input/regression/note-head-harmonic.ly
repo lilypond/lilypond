@@ -6,7 +6,7 @@
   Harmonic heads do not get accidentals or dots."
 }
 
-\version "2.1.28"
+\version "2.1.30"
 
 \score {
  \notes {

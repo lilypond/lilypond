@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.1.28"
+\version "2.1.30"
 \header{
 texidoc="
 Breathing signs are available in different tastes: commas (default),
