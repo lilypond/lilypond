@@ -279,15 +279,10 @@ midi_parse_track (unsigned char **track, unsigned char *track_end)
   debug_print ("%s", "\n");
   
   track_size = track_end - *track;
-#if 0
-  /* need this for direct midi.parse_track (s) on midi file */
-  if (strcmp (*track, "MTrk"))
-    *track = memmem (*track, track_size - 1, "MTrk", 4);
-#endif
 
   debug_print ("%s", "\n");
-  if (!strcmp (*track, "MTrk"))
-    return midi_error ("parse_track(): MTrk expected");
+  if (strcmp (*track, "MTrk"))
+    return midi_error (__FUNCTION__ ": MTrk expected");
   
   *track += 4;
 
@@ -299,7 +294,8 @@ midi_parse_track (unsigned char **track, unsigned char *track_end)
   debug_print ("track begin: %p\n", track);
   debug_print ("track end: %p\n", track + track_len);
   
-  //assert (track_len <= track_size);
+  if (track_len > track_size)
+    return midi_error (__FUNCTION__ ": track size corrupt");
 
   pytrack = PyList_New (0);
 
@@ -341,7 +337,7 @@ pymidi_parse_track (PyObject *self, PyObject *args)
     return 0;
 
   if (track_size < 0)
-    return midi_error ("negative track size");
+    return midi_error (__FUNCTION__  ": negative track size");
 
   track_end = track + track_size;
   
@@ -364,13 +360,13 @@ midi_parse (unsigned char **midi,unsigned  char *midi_end)
 
   
   if (header_len < 6)
-    return midi_error ("header too short");
+    return midi_error (__FUNCTION__ ": header too short");
     
   format = get_number (midi, *midi + 2, 2);
   tracks = get_number (midi, *midi + 2, 2);
 
   if (tracks > 32)
-    return midi_error ("too many tracks");
+    return midi_error (__FUNCTION__ ": too many tracks");
   
   division = get_number (midi, *midi + 2, 2) * 4;
 
@@ -404,7 +400,7 @@ pymidi_parse (PyObject *self, PyObject *args)
     return 0;
 
   if (strcmp (midi, "MThd"))
-      return midi_error ("MThd expected");
+      return midi_error (__FUNCTION__ ": MThd expected");
   
   midi += 4;
 
