@@ -44,6 +44,13 @@ Rational::Rational (int n, int d)
   normalise ();
 }
 
+Rational::Rational (int n)
+{
+  sign_ = ::sign (n);
+  num_ = abs (n);
+  den_= 1;
+}
+
 static
 int gcd (int a, int b)
 {
@@ -99,29 +106,29 @@ Rational::normalise ()
     {
       den_ = 1;
       num_ = 0;
-      return ;
     }
-  if (!den_)
-    sign_ = 2;
-  if (!num_)
-    sign_ = 0;
+  else if (!den_)
+    {
+      sign_ = 2;
+      num_ = 1;
+    }
+  else if (!num_)
+    {
+      sign_ = 0;
+      den_ = 1;
+    }
+  else
+    {
+      int g = gcd (num_ , den_);
 
-  int g = gcd (num_ , den_);
-
-  num_ /= g;
-  den_ /= g;
+      num_ /= g;
+      den_ /= g;
+    }
 }
-
 int
 Rational::sign () const
 {
   return ::sign (sign_);
-}
-
-bool
-Rational::infty_b () const
-{
-  return abs (sign_) > 1;
 }
 
 int
@@ -133,8 +140,17 @@ Rational::compare (Rational const &r, Rational const &s)
     return 1;
   else if (r.infty_b ())
     return 0;
-
-  return (r - s).sign ();
+  else if (r.sign_ == 0)
+    return 0;
+  else
+    {
+      /*
+	TODO: fix this code; (r-s).sign() is too expensive.
+	
+	return r.sign_ * ::sign  (r.num_ * s.den_ - s.num_ * r.den_);
+      */
+      return (r - s).sign ();
+    }
 }
 
 int
