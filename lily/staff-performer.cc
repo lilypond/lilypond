@@ -84,6 +84,12 @@ Staff_performer::create_audio_elements ()
       announce_element (Audio_element_info (instrument_name_, 0));
       instrument_ = new Audio_instrument (str);
       announce_element (Audio_element_info (instrument_, 0));
+
+      /*
+	Have to be here before notes arrive into the staff.
+       */
+      play_element (instrument_);
+      play_element (instrument_name_);
     }
   Performer_group_performer::create_audio_elements ();
 }
@@ -105,16 +111,8 @@ Staff_performer::stop_translation_timestep ()
       play_element (tempo_);
       tempo_ = 0;
     }
-  if (instrument_name_)
-    {
-      play_element (instrument_name_);
-      instrument_name_ = 0;
-    }
-  if (instrument_)
-    {
-      play_element (instrument_);
-      instrument_ = 0;
-    }
+  instrument_name_ = 0;
+  instrument_ = 0;
   Performer_group_performer::stop_translation_timestep ();
 }
 
