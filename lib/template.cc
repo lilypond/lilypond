@@ -12,5 +12,5 @@
 #include "cursor.tcc"
 #include "list.tcc"
 
-template LIST_INSTANTIATE(void *);
-template POINTERLIST_INSTANTIATE(Source_file);
+template LIST_INSTANTIATE (void *);
+template POINTERLIST_INSTANTIATE (Source_file);

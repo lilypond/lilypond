@@ -12,6 +12,6 @@
 
 #include "string.hh"
 
-void warning(String message_str  );
-void error(String message_str);
+void warning (String message_str  );
+void error (String message_str);
 #endif // WARN_HH

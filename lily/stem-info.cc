@@ -50,7 +50,7 @@ Stem_info::Stem_info (Stem const *s)
   Real interbeam_f = s->paper()->interbeam_f () / 2;
          
   /* well eh, huh?
-     idealy_f_  = dir_ * s->stem_start_f() + beams_i_ * interbeam_f; 
+     idealy_f_  = dir_ * s->stem_begin_f() + beams_i_ * interbeam_f; 
      if (beams_i_ < 3)
      idealy_f_ += 2 * interline_f;
      else
@@ -59,7 +59,7 @@ Stem_info::Stem_info (Stem const *s)
 
   idealy_f_  = dir_ * s->stem_end_f();
 
-  miny_f_ = dir_ * s->stem_start_f() + notehead_y + beams_i_ * interbeam_f;
+  miny_f_ = dir_ * s->stem_begin_f() + notehead_y + beams_i_ * interbeam_f;
 
   idealy_f_ =  miny_f_ >? idealy_f_;
   //    assert (miny_f_ <= idealy_f_);

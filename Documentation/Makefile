@@ -23,7 +23,7 @@ include ./Rules.make
 #
 DOCFILES = $(wildcard *.doc)
 OUTPODFILES = $(addprefix $(outdir)/,$(PODFILES))
-TEXTFILES = $(OUTPODFILES:.pod=.text)
+TEXTFILES = $(OUTPODFILES:.pod=.txt)
 GROFFFILES = $(OUTPODFILES:.pod=.1)
 HTMLFILES = $(OUTPODFILES:.pod=.html)
 DVIFILES = $(addprefix $(outdir)/, $(DOCFILES:.doc=.dvi))
@@ -58,9 +58,9 @@ include $(depth)/make/Rules.make
 #
 
 localclean:
-	rm -f $(TEXTFILES) $(HTMLFILES) $(GROFFFILES)
-	rm -f $(outdir)/*  # clean the make-website stuff
-	rm -f $(outdir)/docxx/*  # clean the make-website stuff	
+	rm -f `find $(outdir)`
+
+
 
 MAN1FILES = lilypond convert-mudela mi2mu mudela-book
 MAN1GROFF = $(addprefix $(outdir)/, $(addsuffix .1,$(MAN1FILES)))

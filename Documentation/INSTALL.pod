@@ -24,8 +24,8 @@ For compilation you need.
 
 =item *
 
-A GNU system: GNU LilyPond is known to run on these GNU systems:
-Linux, FreeBSD, AIX, Digital Unix and Solaris.
+A GNU system: GNU LilyPond is known to run on these GNU systems: Linux
+(PPC, intel), FreeBSD, AIX, NeXTStep, Digital Unix and Solaris.
 
 If you have the Cygnus WINDOWS32 port of the GNU utils, it will even
 work in Windows NT/95, but we don't promise to support it.

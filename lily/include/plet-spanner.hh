@@ -26,11 +26,6 @@ public:
 protected:
   virtual Molecule* brew_molecule_p () const;
  
-private:
-
-
-protected:
-
   DECLARE_MY_RUNTIME_TYPEINFO;
   SCORE_ELEM_CLONE(Plet_spanner);
 
@@ -38,6 +33,7 @@ protected:
   virtual void do_post_processing ();
   virtual void set_default_dir ();
   virtual void do_substitute_dependency (Score_elem*,Score_elem*);
+  Plet_spanner (Plet_spanner const&);
 };
 
 #endif // PLET_SPANNER_HH

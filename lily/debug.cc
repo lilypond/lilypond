@@ -6,7 +6,6 @@
   (c) 1996,98 Han-Wen Nienhuys <hanwen@stack.nl>
   
  */
-#include <malloc.h>
 #include <fstream.h>
 #include <signal.h>
 #include <std/new.h>
@@ -75,8 +74,6 @@ bool check_malloc_b = false;
 // #define MEMORY_PARANOID
 
 #ifdef MEMORY_PARANOID
-
-
 void *
 operator new (size_t size)
 {

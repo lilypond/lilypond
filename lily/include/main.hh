@@ -18,6 +18,7 @@ void set_default_output (String s);
 String find_file (String);
 String get_version_str();
 String get_version_number_str();
+void call_constructors ();
 extern Sources* source_global_l;
 extern bool no_paper_global_b;
 extern int exit_status_i_;

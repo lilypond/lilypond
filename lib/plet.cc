@@ -9,20 +9,20 @@
 #include "plet.hh"
 
 
-Plet::Plet()
+Plet::Plet ()
 {
   type_i_ = 1;
   iso_i_ = 1;
 }
 
 Moment
-Plet::mom() const
+Plet::mom () const
 {
-  return  Moment(iso_i_, type_i_);
+  return  Moment (iso_i_, type_i_);
 }
 
 bool
-Plet::unit_b() const
+Plet::unit_b () const
 {
   return type_i_ == 1 && iso_i_ == 1;
 }

@@ -11,9 +11,9 @@
 #include "moment.hh"
 
 void
-printm(Moment const &m)
+printm (Moment const &m)
 {
-    cout << String(m) << flush;
+    cout << String (m) << flush;
 }
     
 

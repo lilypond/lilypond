@@ -65,7 +65,8 @@ Plet_engraver::do_removal_processing ()
   if (plet_spanner_p_)
     {
       span_reqs_drul_[LEFT]->warning (_("unterminated plet"));
-      typeset_element (plet_spanner_p_);
+      plet_spanner_p_->unlink ();
+      delete plet_spanner_p_;
       plet_spanner_p_ = 0;
     }
 }

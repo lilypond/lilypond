@@ -4,6 +4,7 @@
 
 paper_eleven = \paper {
 	linewidth = 15.0 \cm;
+	indent = 8.0\mm;
 	rulethickness = 0.25\pt;
 	barsize = 11.0 \pt;
 	interline = 2.75\pt;

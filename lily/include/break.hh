@@ -10,10 +10,9 @@
 #ifndef BREAK_HH
 #define BREAK_HH
 #include "varray.hh"
+#include "interval.hh"
 #include "lily-proto.hh"
 #include "colhpos.hh"
-
-
 
 /**
   Statistics for the number of columns calced.
@@ -57,10 +56,11 @@ protected:
   bool feasible (Line_of_cols) const;
     
 
-  Line_spacer* generate_spacing_problem (Line_of_cols) const;
+  Line_spacer* generate_spacing_problem (Line_of_cols, Interval) const;
 
   virtual Array<Col_hpositions> do_solve() const=0;
-   virtual void do_set_pscore();
+  virtual void do_set_pscore();
+
 public:
   Col_stats approx_stats_;
   Col_stats exact_stats_;

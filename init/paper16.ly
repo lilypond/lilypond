@@ -13,6 +13,7 @@ paper sizes.
 %}
 paper_sixteen = \paper {
 	linewidth = 15.5 \cm;
+	indent = 5.\mm;
 	rulethickness = 0.4\pt;
 	barsize = 16.0 \pt;
 	interline = 4.\pt;

@@ -86,6 +86,7 @@ public:
   void do_print() const;
   void set_stemend (Real);
   Direction get_default_dir();
+  Direction get_dir ();
 
   int get_center_distance(Direction);
   void set_default_dir();
@@ -95,7 +96,7 @@ public:
 
   Real stem_length_f() const;
   Real stem_end_f() const;
-  Real stem_start_f() const;
+  Real stem_begin_f() const;
   Real note_delta_f () const;
 
   bool invisible_b() const;

@@ -22,15 +22,15 @@ ac_help="$ac_help
 ac_help="$ac_help
   enable-profiling        compile with gprof support. Default: off"
 ac_help="$ac_help
-  mingw-prefix=DIR        set the mingw32 directory (standalone windows32 exes)"
+  enable-mingw-prefix=DIR        set the mingw32 directory (standalone windows32 exes)"
 ac_help="$ac_help
-  tex-prefix=DIR          set the tex-directory to find TeX subdirectories. (default: PREFIX)"
+  enable-tex-prefix=DIR          set the tex-directory to find TeX subdirectories. (default: PREFIX)"
 ac_help="$ac_help
-  tex-dir=DIR             set the directory to put LilyPond TeX files in. "
+  enable-tex-dir=DIR             set the directory to put LilyPond TeX files in. "
 ac_help="$ac_help
-  mf-dir=DIR             set the directory to put LilyPond MetaFont files in. "
+  enable-mf-dir=DIR             set the directory to put LilyPond MetaFont files in. "
 ac_help="$ac_help
-  out-dir                 set the directory for machine generated files. Default out or out-HOST"
+  enable-out-dir                 set the directory for machine generated files. Default out or out-HOST"
 
 # Initialize some variables set by options.
 # The variables have the same names as the options, with

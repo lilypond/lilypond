@@ -31,8 +31,6 @@ grep for TODO and ugh/ugr
 
 	* fix stdin input
 
-	* LILYSOURCEDIR
-	
 	* documentation
 	- info?
 	- LaTeX?
@@ -90,6 +88,8 @@ STUFF
 	* Fix profiling. gprof bugreport?
 
 	* GS: /undefined in draw_beam after XDVI magnification.
+
+	* Rational global static var.
 
 PROJECTS
 
@@ -317,8 +317,6 @@ SMALLISH PROJECTS
 	* declare notenametab?
 
 	* midi esp.: use I32 iso int where 32 bits are needed (or assumed...)
-
-	* parshape
 
 	* Flower types:
 	- A decent scalar type

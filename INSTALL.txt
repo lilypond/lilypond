@@ -4,14 +4,14 @@
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
 
-NNNNAAAAMMMMEEEE
+NAME
        INSTALL - installing GNU LilyPond
 
-DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+DESCRIPTION
        This page documents installation and compilation of GNU
        LilyPond
 
-AAAABBBBSSSSTTTTRRRRAAAACCCCTTTT
+ABSTRACT
        You do something which looks remotely like
 
                configure
@@ -20,48 +20,48 @@ AAAABBBBSSSSTTTTRRRRAAAACCCCTTTT
 
        The detailed instructions follow here.
 
-PPPPRRRREEEERRRREEEEQQQQUUUUIIIISSSSIIIITTTTEEEESSSS
+PREREQUISITES
        For compilation you need.
 
-       +o    A GNU system: GNU LilyPond is known to run on these
-            GNU systems: Linux, FreeBSD, AIX, Digital Unix and
-            Solaris.
+       o    A GNU system: GNU LilyPond is known to run on these
+            GNU systems: Linux (PPC, intel), FreeBSD, AIX,
+            NeXTStep, Digital Unix and Solaris.
 
             If you have the Cygnus WINDOWS32 port of the GNU
             utils, it will even work in Windows NT/95, but we
             don't promise to support it.
 
-       +o    GNU C++ v2.7 or better, with libg++ installed.
+       o    GNU C++ v2.7 or better, with libg++ installed.
             Version 2.7.2 or better recommended.
 
-       +o    GNU make.
+       o    GNU make.
 
-       +o    Flex (2.5.1 or better).
+       o    Flex (2.5.1 or better).
 
-       +o    Bison. (Version 1.25 or better)
+       o    Bison. (Version 1.25 or better)
 
-RRRRUUUUNNNNNNNNIIIINNNNGGGG
+RUNNING
        GNU LilyPond does use a lot of resources. For operation
        you need the following:
 
-       +o    TeX
+       o    TeX
 
-       +o    A PostScript printer and/or viewer (such as
+       o    A PostScript printer and/or viewer (such as
             Ghostscript) is strongly recommended.  Xdvi will show
             all embedded PostScript too if you have Ghostscript
             installed.
 
-RRRREEEECCCCOOOOMMMMMMMMEEEENNNNDDDDEEEEDDDD
+RECOMMENDED
        Although not strictly necessary, these are recommended to
        have.
 
-       +o    Perl-5.  Most documentation was created with the
+       o    Perl-5.  Most documentation was created with the
             perl's Plain Old Documentation. (I use 5.003)
 
 
 
 
-11/Jan/98                LilyPond 0.1.42                        1
+2/Feb/98                 LilyPond 0.1.43                        1
 
 
 
@@ -70,17 +70,17 @@ RRRREEEECCCCOOOOMMMMMMMMEEEENNNNDDDDEEEEDDDD
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
 
-       +o    Python.  Although perl is nice, python is better.  We
+       o    Python.  Although perl is nice, python is better.  We
             will shift towards python for build scripts
 
-       +o    GNU find
+       o    GNU find
 
-       +o    A fast computer (a full page of music typically takes
-            1 minute on my 486/133, using the --------eeeennnnaaaabbbblllleeee----cccchhhheeeecccckkkkiiiinnnngggg
+       o    A fast computer (a full page of music typically takes
+            1 minute on my 486/133, using the --enable-checking
             compile. It's lot slower than most MusiXTeX
             preprocessors)
 
-CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG aaaannnndddd CCCCOOOOMMMMPPPPIIIILLLLIIIINNNNGGGG
+CONFIGURING and COMPILING
        to install GNU LilyPond, simply type:
 
                configure
@@ -99,8 +99,8 @@ CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG a
                /usr/lib/texmf/texmf/tex/lilypond/*
 
        The TeX include directory is detected dynamically, but it
-       can be adjusted with --------eeeennnnaaaabbbblllleeee----tttteeeexxxx----pppprrrreeeeffffiiiixxxx and --------eeeennnnaaaabbbblllleeee----tttteeeexxxx----
-       ddddiiiirrrr. The above assumes that you are root and have the GNU
+       can be adjusted with --enable-tex-prefix and --enable-tex-
+       dir. The above assumes that you are root and have the GNU
        development tools, and your make is GNU make.  If this is
        not the case, you can adjust your environment variables to
        your taste:
@@ -111,7 +111,7 @@ CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG a
        CPPFLAGS are the preprocessor flags.
 
        the configure script is Cygnus configure, and it will
-       accept --------hhhheeeellllpppp. If you are not root, you will probably have
+       accept --help. If you are not root, you will probably have
        to make it with
 
                configure --prefix=/home/me_myself_and_I/
@@ -119,7 +119,7 @@ CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG a
        In this case, you will have to set MFINPUTS, and TEXINPUTS
        accordingly.
 
-       If you want to install GNU LilyPond in _/_u_s_r_/_l_o_c_a_l, and
+       If you want to install GNU LilyPond in /usr/local, and
        your TeX has no default hooks for local stuff (mine is
        broken too), you can do:
 
@@ -127,7 +127,7 @@ CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG a
 
 
 
-11/Jan/98                LilyPond 0.1.42                        2
+2/Feb/98                 LilyPond 0.1.43                        2
 
 
 
@@ -144,33 +144,33 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
 
        other options include:
 
-       --------eeeennnnaaaabbbblllleeee----sssshhhhaaaarrrreeeedddd
+       --enable-shared
            Make a shared library (gnu/linux, solaris (?) only )
 
-       --------eeeennnnaaaabbbblllleeee----pppprrrriiiinnnnttttiiiinnnngggg
-           Enable debugging print routines (lilypond ----dddd option)
+       --enable-printing
+           Enable debugging print routines (lilypond -d option)
 
-       --------eeeennnnaaaabbbblllleeee----ooooppppttttiiiimmmmiiiisssseeee
-           Set maximum optimisation: compile with ----OOOO2222
+       --enable-optimise
+           Set maximum optimisation: compile with -O2
 
-       --------eeeennnnaaaabbbblllleeee----pppprrrrooooffffiiiilllliiiinnnngggg
+       --enable-profiling
            Compile with support for profiling
 
-       --------eeeennnnaaaabbbblllleeee----tttteeeexxxx----pppprrrreeeeffffiiiixxxx
+       --enable-tex-prefix
            Set the directory where TeX and Metafont live
 
-       --------eeeennnnaaaabbbblllleeee----tttteeeexxxx----ddddiiiirrrr
+       --enable-tex-dir
            Set then directory TeX input is in (detected as a
            subdir of tex-prefix)
 
-       --------eeeennnnaaaabbbblllleeee----mmmmffff----ddddiiiirrrr
+       --enable-mf-dir
            Set the directory mf input is in (idem)
 
-       --------eeeennnnaaaabbbblllleeee----oooouuuutttt----ddddiiiirrrr
+       --enable-out-dir
            Set the directory for machine generated output.
 
-       All options are documented in the _c_o_n_f_i_g_u_r_e help The
-       option --------eeeennnnaaaabbbblllleeee----ooooppppttttiiiimmmmiiiisssseeee is recommended for Real Life
+       All options are documented in the configure help The
+       option --enable-optimise is recommended for Real Life
        usage.
 
        If you do
@@ -179,21 +179,21 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
 
        everything will be compiled, but nothing will be
        installed.  The resulting binaries can be found in the
-       subdirectories _o_u_t_/ (which contain all files generated
+       subdirectories out/ (which contain all files generated
        during compilation).
 
-       BBBBuuuuiiiillllddddiiiinnnngggg ffffoooorrrr mmmmuuuullllttttiiiipppplllleeee hhhhoooossssttttssss
+       Building for multiple hosts
 
        LilyPond does not follow the GNU standards when it comes
-       to configuring and making Makefiles. In LilyPond, _m_a_k_e
-       generates _a_l_l output in output directories (called _o_u_t_/,
+       to configuring and making Makefiles. In LilyPond, make
+       generates all output in output directories (called out/,
        by default).  You can have multiple compiles from the same
        source-tree, by overriding the setting for the output
        directory.
 
 
 
-11/Jan/98                LilyPond 0.1.42                        3
+2/Feb/98                 LilyPond 0.1.43                        3
 
 
 
@@ -222,7 +222,7 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
        problem; I never do make install. My prefix dirs are
        linked back to my source directory.
 
-IIIINNNNSSSSTTTTAAAALLLLLLLLIIIINNNNGGGG
+INSTALLING
        If you have done a successful make, then a simple
 
                make install
@@ -231,17 +231,17 @@ IIIINNNNSSSSTTTTAAAALLLLLLLLIIIINNNNGGGG
 
        If you are doing an upgrade, please remember to remove
        obsolete .pk and .tfm files of the fonts.  A script has
-       been provided to do the work, see _b_i_n_/_c_l_e_a_n_-_f_o_n_t_s_._s_h.
+       been provided to do the work, see bin/clean-fonts.sh.
 
-CCCCAAAAVVVVEEEEAAAATTTTSSSS
-       +o    The -O2 option to gcc triggers a gcc bug on DEC Alpha
+CAVEATS
+       o    The -O2 option to gcc triggers a gcc bug on DEC Alpha
             in dstream.cc. You should turn off this flag for this
             file.
 
-       +o    Perl5.003 and Perl5.004 use different syntax for
+       o    Perl5.003 and Perl5.004 use different syntax for
             pod2html.
 
-EEEEXXXXAAAAMMMMPPPPLLLLEEEE
+EXAMPLE
        This is what I type in my xterm:
 
                lilypond someinput.ly
@@ -259,7 +259,7 @@ EEEEXXXXAAAAMMMMPPPPLLLLEEEE
 
 
 
-11/Jan/98                LilyPond 0.1.42                        4
+2/Feb/98                 LilyPond 0.1.43                        4
 
 
 
@@ -285,20 +285,20 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
        Check out the input files, some of them have comments
        Please refer to the man page for more information.
 
-RRRREEEEDDDDHHHHAAAATTTT LLLLIIIINNNNUUUUXXXX
+REDHAT LINUX
        RedHat Linux users should be able to get a RPM. A spec
-       file is in _m_a_k_e_/_o_u_t_/_l_i_l_y_p_o_n_d_._s_p_e_c. You should be able to
+       file is in make/out/lilypond.spec. You should be able to
        create an rpm as a normal user. Be sure you have a
-       _~_/_._r_p_m_r_c, and edit the RPM-dir in _V_a_r_i_a_b_l_e_s_._m_a_k_e. (If you
+       ~/.rpmrc, and edit the RPM-dir in Variables.make. (If you
        create the RPM as a normal user the permissions will not
        be set correctly, unfortunately)
 
-DDDDEEEEBBBBIIIIAAAANNNN GGGGNNNNUUUU////LLLLIIIINNNNUUUUXXXX
+DEBIAN GNU/LINUX
        A Debian package is also available; contact Anthony Fok
        <foka@debian.org>.  The build scripts are in the
        subdirectory debian/
 
-WWWWIIIINNNNDDDDOOOOWWWWSSSS NNNNTTTT////99995555
+WINDOWS NT/95
        So, you're stuck with Windows, eh?  Well, don't worry, you
        just need (to get) Cygnus' windows32 port of gnu
        development stuff; have a look at
@@ -310,12 +310,12 @@ WWWWIIIINNNNDDDDOOOOWWWWSSSS NNNNTTTT////99995
                bash configure
                make
 
-       NNNNooootttteeee If you rely on broken DOS/Windows tools such as
+       Note If you rely on broken DOS/Windows tools such as
        pkzip/WinZIP to unpack the distribution, make sure the
-       eeeennnnttttiiiirrrreeee source tree is unpacked correctly, in particular
-       the empty out directories (_f_l_o_w_e_r_/_o_u_t, _l_i_b_/_o_u_t et. al.)
+       entire source tree is unpacked correctly, in particular
+       the empty out directories (flower/out, lib/out et. al.)
 
-MMMMUUUUSSSSIIIIXXXXTTTTEEEEXXXX
+MUSIXTEX
        Previous versions (before 0.1.39) used fonts from the TeX
        macro package "MusixTeX".  You can still use these, but
        they are not supported.  Since LilyPond's Feta font is
@@ -325,7 +325,7 @@ MMMMUUUUSSSSIIIIXXXXTTTTEEEEXXXX
 
 
 
-11/Jan/98                LilyPond 0.1.42                        5
+2/Feb/98                 LilyPond 0.1.43                        5
 
 
 
@@ -347,7 +347,7 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
 
        ftp://ftp.dante.de/tex-archive/macros/musixtex/taupin
 
-       You only need the contents of the _m_f_/ subdirectory of the
+       You only need the contents of the mf/ subdirectory of the
        package. The primary site of the Taupin version is
        ftp://hprib.lps.u-psud.fr/pub/music_zips/musixtex.zip
 
@@ -359,17 +359,17 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
        applicable)
 
        Example: my fonts are in
-       _/_u_s_r_/_l_o_c_a_l_/_l_i_b_/_t_e_x_f_o_n_t_s_/_m_u_s_i_x_t_e_x_/, and I have a symlink
+       /usr/local/lib/texfonts/musixtex/, and I have a symlink
        pointing to that in
-       _/_u_s_r_/_l_i_b_/_t_e_x_m_f_/_t_e_x_m_f_/_f_o_n_t_s_/_s_o_u_r_c_e_/_p_u_b_l_i_c_/. After I copied
+       /usr/lib/texmf/texmf/fonts/source/public/. After I copied
        the files, I ran "texhash"
 
        Andreas Egler's version of MusixTeX, now called OpusTeX,
        will also work. Andreas moved some characters around in
        the fonts, so you have to edit the definitions in
-       _t_e_x_/_e_g_l_e_r_d_e_f_s_._t_e_x.
+       tex/eglerdefs.tex.
 
-AAAAUUUUTTTTHHHHOOOORRRRSSSS
+AUTHORS
        Han-Wen Nienhuys <hanwen@stack.nl>
 
        Jan Nieuwenhuizen <jan@digicash.com>
@@ -391,6 +391,6 @@ AAAAUUUUTTTTHHHHOOOORRRRSSSS
 
 
 
-11/Jan/98                LilyPond 0.1.42                        6
+2/Feb/98                 LilyPond 0.1.43                        6
 
 

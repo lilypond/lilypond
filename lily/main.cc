@@ -45,7 +45,7 @@ Long_option_init theopts[] = {
 };
 
 void
-usage()
+usage ()
 {
   cout <<
     _("Usage: lilypond [options] [mudela-files]\n"
@@ -83,7 +83,7 @@ usage()
 }
 
 void
-notice()
+notice ()
 {
   cout <<
     _("\n"
@@ -132,7 +132,7 @@ do_one_file (String init_str, String file_str)
     parser.set_version_check (version_ignore_b);
     parser.parse_file (init_str, file_str);
     
-    if (file_str.length_i() && file_str[0] != '-')
+    if (file_str.length_i () && file_str[0] != '-')
       {
 	String a,b,c,d;
 	split_path (file_str, a, b, c, d);
@@ -146,7 +146,7 @@ do_one_file (String init_str, String file_str)
 	exit_status_i_  = 1;
       }
     else
-      do_scores();
+      do_scores ();
     clear_scores ();
   }
   source_global_l = 0;
@@ -155,14 +155,15 @@ do_one_file (String init_str, String file_str)
 void
 identify ()
 {
-  cout << get_version_str() << endl;
+  cout << get_version_str () << endl;
 }
 
 int
 main (int argc, char **argv)
 {
   identify ();
-  debug_init();		// should be first
+  call_constructors ();
+  debug_init ();		// should be first
 
 
   // must override (come before) "/usr/local/share/lilypond"!
@@ -178,7 +179,7 @@ main (int argc, char **argv)
   Getopt_long oparser (argc, argv,theopts);
   String init_str ("lily-init.ly");
 
-  while (Long_option_init const * opt = oparser())
+  while (Long_option_init const * opt = oparser ())
     {
       switch (opt->shortname)
 	{
@@ -189,7 +190,7 @@ main (int argc, char **argv)
 	  default_outname_base_global = oparser.optional_argument_ch_C_;
 	  break;
 	case 'w':
-	  notice();
+	  notice ();
 	  exit (0);
 	  break;
 	case 'I':
@@ -199,7 +200,7 @@ main (int argc, char **argv)
 	  init_str = oparser.optional_argument_ch_C_;
 	  break;
 	case 'h':
-	  usage();
+	  usage ();
 	  exit (0);
 	  break;
 	case 'V':
@@ -222,7 +223,7 @@ main (int argc, char **argv)
 
   int p=0;
   const char *arg ;
-  while ((arg= oparser.get_next_arg()))
+  while ((arg= oparser.get_next_arg ()))
     {
       String f (arg);
       destill_inname (f);
@@ -241,7 +242,7 @@ main (int argc, char **argv)
 void
 destill_inname (String &name_str_r)
 {
-  if (name_str_r.length_i())
+  if (name_str_r.length_i ())
     {
       if (name_str_r[ 0 ] != '-')
 	{

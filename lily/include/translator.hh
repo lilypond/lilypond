@@ -101,15 +101,22 @@ protected:
  */
 #define ADD_THIS_TRANSLATOR(c)				\
 struct c ## init {					\
-    c ## init() {					\
-         Translator *t = new c;\
+   static Translator *ctor ()\
+  {\
+        Translator *t = new c;\
         t-> type_str_ = c::static_name ();\
-	add_translator (t);\
+        return t;\
+    }\
+    c ## init() {					\
+       add_constructor (ctor);\
     }							\
 } _ ## c ## init;
 
+typedef Translator *(*Translator_ctor) ();
+
 extern Dictionary<Translator*> *global_translator_dict_p;
 void add_translator (Translator*trans_p);
+void add_constructor (Translator_ctor ctor);
 
 Translator*get_translator_l (String s);
 

@@ -1,5 +1,5 @@
-pl 34.jcn2
-	- memmem optimise
+pl 36
+	- memmem fix: bugfree and *really* conforming to /usr/include/string.h
 
 pl 35
 	- bf: libc-extension: memmem

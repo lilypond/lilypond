@@ -28,15 +28,15 @@ struct Duration {
   /**
     Ctor of Duration. 
     */
-  Duration();
+  Duration ();
   /// is the "plet factor" of this note != 1 ?
-  bool plet_b();
-  String str() const;
-  void set_plet(int,int );
-  void set_plet(Duration );
-  static bool duration_type_b(int t);
-  void set_ticks(int ticks_i );
-  Moment length() const ;	// zo naai mij
+  bool plet_b ();
+  String str () const;
+  void set_plet (int,int );
+  void set_plet (Duration );
+  static bool duration_type_b (int t);
+  void set_ticks (int ticks_i );
+  Moment length () const ;	// zo naai mij
   static int division_1_i_s;
 
   /// Logarithm of the base duration.

@@ -8,6 +8,12 @@
 
 #include "cpu-timer.hh"
 
+// nextstep
+#ifndef CLOCKS_PER_SEC
+#define CLOCKS_PER_SEC  CLK_TCK
+#endif
+
+
 Cpu_timer::Cpu_timer ()
 {
   restart ();

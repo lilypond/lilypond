@@ -48,27 +48,27 @@ AC_ARG_ENABLE(profiling,
     [profile_b=$enableval])
     
 AC_ARG_ENABLE(mingw-prefix,
-    [  mingw-prefix=DIR        set the mingw32 directory (standalone windows32 exes)],
+    [  enable-mingw-prefix=DIR        set the mingw32 directory (standalone windows32 exes)],
     [MINGWPREFIX=$enableval],
     [MINGWPREFIX=no])
     
 AC_ARG_ENABLE(tex-prefix,
-    [  tex-prefix=DIR          set the tex-directory to find TeX subdirectories. (default: PREFIX)],
+    [  enable-tex-prefix=DIR          set the tex-directory to find TeX subdirectories. (default: PREFIX)],
     [TEXPREFIX=$enableval],
     [TEXPREFIX=auto] )
     
 AC_ARG_ENABLE(tex-dir,
-    [  tex-dir=DIR             set the directory to put LilyPond TeX files in. ],
+    [  enable-tex-dir=DIR             set the directory to put LilyPond TeX files in. ],
     [TEXDIR=$enableval],
     [TEXDIR=auto] )
 
 AC_ARG_ENABLE(mf-dir,
-     [  mf-dir=DIR             set the directory to put LilyPond MetaFont files in. ],
+     [  enable-mf-dir=DIR             set the directory to put LilyPond MetaFont files in. ],
      [MFDIR=$enableval],
      [MFDIR=auto])
 
 AC_ARG_ENABLE(out-dir,
-    [  out-dir                 set the directory for machine generated files. Default out or out-HOST],
+    [  enable-out-dir                 set the directory for machine generated files. Default out or out-HOST],
     [OUTDIR_NAME=$enableval]
     [])
 

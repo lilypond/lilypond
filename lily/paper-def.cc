@@ -54,8 +54,23 @@ Paper_def::get_var (String s) const
   return real_vars_p_->elem (s);
 }
 
+Interval
+Paper_def::line_dimensions_int (int n) const
+{
+  if (!shape_int_a_.size ())    
+    if (n)
+      return Interval (0, linewidth_f ());
+    else
+      return Interval (get_var ("indent"), linewidth_f ());
+
+  if (n >= shape_int_a_.size ())
+    n = shape_int_a_.size () -1;
+
+  return shape_int_a_[n];
+}
+
 Real
-Paper_def::linewidth_f() const
+Paper_def::linewidth_f () const
 {
   return get_var ("linewidth");
 }

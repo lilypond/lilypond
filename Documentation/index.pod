@@ -29,11 +29,19 @@ and the ftp site.
 
 =head2 Examples
 
-<a href=example_output.html
+<a href=examples_output.html
 >
-examples of what LilyPond can do: MIDI, PS, .gif and input.
+short examples of what LilyPond can do: MIDI, PS, .gif and input.
 </a
 >
+
+<a href=mutopiaexamples_output.html 
+>
+examples of what LilyPond can do
+with real music: MIDI, PS, .gif and input 
+</a
+>
+
 
 =head2 NEWS! 
 
