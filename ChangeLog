@@ -1,5 +1,7 @@
 2005-03-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/test/title-markup.ly (spaceTest): remove.
+
 	* input/test/embedded-tex.ly (Module): remove.
 
 	* input/test/music-box.ly: use 'name property, not ly:music-name.
