@@ -533,8 +533,15 @@ SCM
 Translator_group::get_simple_trans_list ()
 {
   return simple_trans_list_;
+
+}
+
+
   
 #if 0
+SCM
+Translator_group::get_simple_trans_list ()
+{
   if (simple_trans_list_ != SCM_BOOL_F)
     return simple_trans_list_;
   
@@ -558,5 +565,5 @@ Translator_group::get_simple_trans_list ()
   
   static_each (simple_trans_list_, &Translator::initialize);
   return simple_trans_list_;
-#endif
 }
+#endif
