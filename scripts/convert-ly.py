@@ -1449,9 +1449,18 @@ if 1:
 			sys.stderr.write ("context-spec-music takes a symbol for the context now. Update by hand."
 			raise FatalConversionError()
 
+		str = re.sub ('fingerHorizontalDirection *= *#(LEFT|-1)',
+			      "fingeringOrientations = #'(up down left)", str)
+		str = re.sub ('fingerHorizontalDirection *= *#(RIGHT|1)',
+			      "fingeringOrientations = #'(up down right)", str)
+
 		return str
 	
-	conversions.append (((1,9,3), conv, """\acciaccatura misspelling"""))
+	conversions.append (((1,9,3), conv,
+			     """\acciaccatura misspelling, fingerHorizontalDirection -> fingeringOrientations"""))
+
+
+			
 
 ################################
 #	END OF CONVERSIONS	

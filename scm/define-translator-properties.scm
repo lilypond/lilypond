@@ -262,9 +262,9 @@ another non-natural.
 				 "Used to set the relative size of all grobs
 in a context. This is done using the @code{Font_size_engraver}.")
 
-(translator-property-description 'fingerHorizontalDirection integer?
-				 "If set, put the middle fingerings to
-the side of the note head. Use LEFT, RIGHT or unset.")
+(translator-property-description
+ 'fingeringOrientations list?
+ "List of symbols, containing left, right, up and/or down. This list determines where fingerings are put wrt. to the chord being fingered.")
 
 (translator-property-description 'forceClef boolean? "Show clef symbol, even if it hasn't changed. Only active for the first clef after the property is set, not for the full staff.")
 

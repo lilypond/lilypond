@@ -1,7 +1,14 @@
 2003-08-30  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scripts/convert-ly.py (FatalConversionError.conv): fingering
+	convert rule.
+
+	* Documentation/user/refman.itely (Fingering instructions): adjust manual.
+
 	* lily/new-fingering-engraver.cc (position_scripts): don't crash
 	for borderline cases (e.g. 1 fingering.)
+	(position_scripts): revise interface, use fingerOrientations to
+	set fingering positions.
 
 	* scm/document-translation.scm (context-doc): add aliases to
 	automated documentation.

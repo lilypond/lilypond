@@ -169,8 +169,6 @@ New_fingering_engraver::position_scripts ()
       fingerings_[i].position_ = gh_scm2int (fingerings_[i].head_ -> get_grob_property( "staff-position"));
     }
 
-  SCM fhd = get_property ("fingerHorizontalDirection");
-
   for (int i = fingerings_.size(); i--;)
     for (int j = heads_.size() ; j--;)
       Side_position_interface::add_support (fingerings_[i].script_, heads_[j]);
@@ -181,23 +179,25 @@ New_fingering_engraver::position_scripts ()
       SCM d = fingerings_[i].finger_event_->get_mus_property ("direction");
       if (to_dir (d))
 	{
-	  if (to_dir (d) == UP)
-	    {
-	      up.push (fingerings_[i]);
-	    }
-	  else
-	    down.push (fingerings_[i]);
+	  ((to_dir (d) == UP) ? up : down ).push (fingerings_[i]);
 	  fingerings_.del (i);
 	}
     }
   
   fingerings_.sort (&Finger_tuple::compare);
-  
-  if (ly_dir_p (fhd))
+  SCM orientations = get_property ("fingeringOrientations");
+
+  bool up_p = scm_memq (ly_symbol2scm ("up"), orientations) != SCM_BOOL_F;
+  bool down_p = scm_memq (ly_symbol2scm ("down"), orientations) != SCM_BOOL_F;
+  bool left_p = scm_memq (ly_symbol2scm ("left"), orientations) != SCM_BOOL_F;
+  bool right_p = scm_memq (ly_symbol2scm ("right"), orientations) != SCM_BOOL_F;
+  Direction hordir = (right_p) ? RIGHT : LEFT;
+  if (left_p || right_p)
     {
-      if (!up.size())
+      if (up_p && !up.size () && fingerings_.size ())
 	up.push (fingerings_.pop());
-      if (fingerings_.size () && !down.size())
+
+      if (down_p && !down.size () && fingerings_.size())
 	{
 	  down.push (fingerings_[0]);
 	  fingerings_.del(0);
@@ -205,13 +205,25 @@ New_fingering_engraver::position_scripts ()
 
       horiz.concat (fingerings_);
     }
-  else
+  else if (up_p && down_p)
     {
       int center = fingerings_.size() / 2;
       down.concat (fingerings_.slice (0,center));
       up.concat (fingerings_.slice (center, fingerings_.size()));
     }
-
+  else if (up_p)
+    {
+      up.concat (fingerings_);
+      fingerings_ .clear ();
+    }
+  else
+    {
+      if (!down_p)
+	warning(_ ("Fingerings are also not down?! Putting them down anyway."));
+      down.concat (fingerings_);
+      fingerings_.clear();
+    }
+  
   for (int i = 0; i < horiz.size(); i++)
     {
       Finger_tuple ft = horiz[i];
@@ -222,7 +234,7 @@ New_fingering_engraver::position_scripts ()
       f->add_offset_callback (Self_alignment_interface::aligned_on_self_proc, Y_AXIS);
       f->add_offset_callback (Side_position_interface::aligned_side_proc, X_AXIS);
 
-      f->set_grob_property ("direction", fhd);
+      f->set_grob_property ("direction", gh_int2scm (hordir));
       typeset_grob (f);
     }
 
