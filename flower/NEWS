@@ -1,4 +1,9 @@
-version 1.1:
+
+
+pl 25
+	- unordered_substitute and unordered_del
+	- Full_storage inline functions
+	- more Diagonal_storage fixes
 
 pl 24 
 	- Diagonal_storage for band matrices.
@@ -9,6 +14,7 @@ pl 24
 pl 23:
 	- virtual-methods : static_is_type_b
 	- Choleski checks off if not PARANOID
+
 pl 22:
 	- ACursor and PACursor to give array a List like interface.
 
@@ -18,6 +24,7 @@ pl 20.mb
 
 pl 20
 	- List::junk_links()
+
 pl 19
 	- Array::reverse()
 
@@ -29,6 +36,7 @@ pl 18
 
 pl 17
 	- naming: Pointer->Link, IPointer->Pointer
+
 pl 16
 	- Array::get()
 	- P< > doco.
@@ -39,6 +47,7 @@ pl 15
 
 pl 14
 	- interval methods
+
 pl 13
 	- better test-bed
 	- Heap PQueue implementation
@@ -115,36 +124,3 @@ pl 1
 0:
 		
 
-------------------
-1.0:
-
-pl 27-3
-	- debug memmove code
-	- StringData bugfix
-	- old String::String( char, int ) bugfix
-
-pl 27-1,2 (not released)
-	patches by JCN
-	- stringutils.cc included again 
-	- bin2hex_str bugfix
-	- String class handles null bytes
-	- StringUtils inlined/outlined by #define
-	- StringConversion (only hex for now)
-
-pl 27
-	- (temporarily?) removed findcursor* t*mat*
-
-pl 26
-	- docxx 3.0
-
-pl 25
-	- merge sstack and Array
-
-pl 24
-	- small fix in vector print
-
-pl 23
-	- win32 patches (JN)
-
-pl 22
-	- Array::add -> Array::push
