@@ -151,7 +151,7 @@ read_afm_file (String nm)
 Box
 afm_bbox_to_box (AFM_BBox bb)
 {
-#if 1 /* Fine for feta; ec-fonts-mftraced do not have AFM :-(  */
+#if 1 /* Fine for feta; ec-fonts-mftraced do not have AFM.  */
   return Box (Interval (bb.llx, bb.urx) * 0.001 PT,
 	      Interval (bb.lly, bb.ury) * 0.001 PT);
 #else /* FIXME: about right for lmodern.  */
@@ -164,7 +164,7 @@ Offset
 Adobe_font_metric::get_indexed_wxwy (int k) const
 {
   AFM_CharMetricInfo const *mi = font_info_->cmi + k;
-#if 1 /* Fine for feta; ec-fonts-mftraced do not have AFM :-( */
+#if 1 /* Fine for feta; ec-fonts-mftraced do not have AFM.  */
   return Offset (mi->wx, mi->wy) * 0.001 PT;
 #else /* FIXME: about right for lmodern.  */
   return Offset (mi->wx, mi->wy) * 1.14 * 0.001 PT;

@@ -245,7 +245,7 @@ Grob::get_uncached_stencil () const
 	  stil = Stencil (m->extent_box (), expr).smobbed_copy ();
 	}
 
-      /* color support... see interpret_stencil_expression() for more... */
+      /* color support... see interpret_stencil_expression () for more... */
       SCM color = get_property ("color");
       if (color != SCM_EOL)
 	{
@@ -663,7 +663,7 @@ Grob::mark_smob (SCM ses)
     scm_gc_mark (s->original_->self_scm ());
 
   if (s->pscore_)
-    scm_gc_mark (s->pscore_->layout_->self_scm());
+    scm_gc_mark (s->pscore_->layout_->self_scm ());
 
   s->do_derived_mark ();
   return s->mutable_property_alist_;

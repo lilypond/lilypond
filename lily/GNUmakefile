@@ -7,7 +7,7 @@ SUBDIRS = include
 MODULE_LIBS=$(depth)/flower  $(depth)/ttftool $(depth)/kpath-guile 
 MODULE_INCLUDES= $(depth)/flower/include $(depth)/ttftool/include 
 MODULE_CXXFLAGS= 
-MODULE_LDFLAGS = $(KPATHSEA_LIBS)
+MODULE_LDFLAGS=
 
 
 HELP2MAN_EXECS = lilypond

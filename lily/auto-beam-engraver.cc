@@ -401,10 +401,8 @@ Auto_beam_engraver::finalize ()
 void
 Auto_beam_engraver::acknowledge_grob (Grob_info info)
 {
-  /*
-    Duplicated from process_music(), since
-    Repeat_acknowledge_engraver::process_music() may also set whichBar
-  */
+  /* Duplicated from process_music (), since
+     Repeat_acknowledge_engraver::process_music () may also set whichBar.  */
   if (scm_is_string (get_property ("whichBar"))
       && beam_start_moment_ < now_mom ())
     {

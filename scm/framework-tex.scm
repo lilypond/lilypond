@@ -1,4 +1,4 @@
-1;;;; framework-tex.scm --
+;;;; framework-tex.scm --
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;
@@ -312,33 +312,32 @@
 (define-public (convert-to-ps book name)
   (let* ((paper (ly:paper-book-paper book))
 	 (preview? (string-contains name ".preview"))
-
 	 (papersizename (ly:output-def-lookup paper 'papersizename))
 	 (landscape? (eq? #t (ly:output-def-lookup paper 'landscape)))
 	 (base (basename name ".tex"))
 	 (ps-name (format "~a.ps"  base ".ps"))
-	 (cmd (string-append "dvips "
+	 (cmd (string-append "dvips"
 			     (if preview?
-				 "-E "
+				 " -E"
 				 (string-append
-				  "-t"
+				  " -t"
 				  ;; careful: papersizename is user-set.
 				  (sanitize-command-option papersizename)
-				  " "))
-			     (if landscape? "-t landscape " "")
+				  ""))
+			     (if landscape? " -tlandscape" "")
 			     (if (ly:kpathsea-find-file "lm.map")
-				 "-u+lm.map " "")
+				 " -u+lm.map" "")
 			     (if (ly:kpathsea-find-file "ecrm10.pfa")
-				 "-u+ec-mftrace.map " "")
-			     "-u+lilypond.map -Ppdf " " "
-			     "-o" ps-name " "
-			     base)))
+				 " -u+ec-mftrace.map" "")
+			     " -u+lilypond.map -Ppdf" ""
+			     " -o" ps-name
+			     " " base)))
     (if (access? ps-name W_OK)
 	(delete-file ps-name))
     (if (not (ly:get-option 'verbose))
 	(format (current-error-port)
-		(_ "Converting to `~a.dvi'...\n")
-		base))
+		(_ "Converting to `~a'...\n")
+		(string-append base ".dvi")))
     (ly:system cmd)))
 
 (define-public (convert-to-dvi book name)

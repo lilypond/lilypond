@@ -1,10 +1,9 @@
-@node Top, , , (dir)
-@top
-@comment  node-name,  next,  previous,  up\input texinfo @c -*-texinfo-*-
+\input texinfo @c -*-texinfo-*-
 @setfilename INSTALL.info
 @settitle INSTALL - compiling and installing GNU LilyPond
 
-@comment  FIXME -- this information is getting rather stale
+@node Top
+@top
 
 @contents
 
@@ -17,38 +16,43 @@
 
 @section Downloading
 
-Even numbered versions are `stable' (2.2, 2.4 etc), while odd version
-are development releases (2.3, 2.5, etc).  Building LilyPond is an
-involved process, so if possible, download a precompiled binary from
-@uref{http://lilypond.org/,the lilypond site}.
-
+Even numbered minor versions are `stable' (2.2, 2.4 etc), while odd
+version are development releases (2.3, 2.5, etc).  Building LilyPond
+is an involved process.  If possible, from
+@uref{http://lilypond.org/download,download a precompiled binary}
+for your platform.
 
 @subsection Source code
 
-Download source tarballs from
+Download source
 @itemize @bullet
-@item Download development releases from
+@item tarballs from
+@itemize @bullet
 @uref{http://lilypond.org/download/} by HTTP.
 @item @uref{ftp://sca.uwaterloo.ca/pub/} by FTP (Canadian mirror).
 @end itemize
-
-
-Use Xdelta to patch tarballs, e.g. to patch  
-@file{lilypond-1.4.2.tar.gz} to @file{lilypond-1.4.3.tar.gz}, do
-@quotation
+@item 
+CVS from @uref{http://savannah.gnu.org/cvs/?group=lilypond,savannah.gnu.org}
+@itemize @bullet
+@c @quotation
 @example
-xdelta patch lilypond-1.4.2-1.4.3.xd lilypond-1.4.2.tar.gz
+CVS_RSH=ssh cvs -d:ext:anoncvs@@savannah.gnu.org:/cvsroot/lilypond co lilypond
 @end example
-@end quotation
+@c @end quotation
+The CVS repository does not contain generated files.  To create
+@file{configure}, run
+@example
+./autogen.sh
+@end example
+@end itemize
+@end itemize
 
-For information on packaging and CVS, see  
-@uref{http://lilypond.org/}, under ``development''.
+For information on packaging, see @uref{http://lilypond.org/devel}.
 
+@subsection Precompiled binary packages
 
-@subsection Precompiled binaries
-
-Check out @uref{http://lilypond.org} for up to date information on
-binary packages.
+Check out @uref{http://lilypond.org/download} for up to date information on
+binary packages for your platform.
 
 
 @subsection Font problems
@@ -69,7 +73,7 @@ In addition to the packages needed for running Lilypond (see below),
 you need the following extra packages for building.
 
 When installing a binary package FOO, you may need to install the
-FOO-devel or libFOO-dev package too.
+FOO-devel, libFOO-dev or FOO-dev package too.
 
 @itemize
 
@@ -82,10 +86,10 @@ You will need to install some additional packages to get mftrace to
 work.
 
 @item @uref{http://www.gnu.org/software/guile/guile.html,GUILE}
- (version 1.6.5 or newer).  If you are installing binary packages, you
+(version 1.6.5 or newer).  If you are installing binary packages, you
 may need to install guile-devel or guile-dev or libguile-dev too.
 
-@item @uref{http://www.gnu.org/software/flex/,Flex} (version 2.5.4a or newer). 
+@item @uref{http://www.gnu.org/software/flex/,Flex} (version 2.5.4a or newer).
 
 WARNING: plain Flex 2.5.4(a) generates invalid C++ code.  GCC 3.x
 chokes on this.  If you wish to use GCC 3.x, make sure that your
@@ -117,7 +121,8 @@ newer, but not 1.50 or 1.75).
 
 @item @uref{http://www.gnu.org/software/gettext/gettext.html,gettext}.
 
-@item All packages necessary for running, including  headers.  
+@item All packages required for running, including development packages with
+header files and libraries.
 
 @end itemize
 
@@ -150,16 +155,16 @@ You can view the documentation online at
 This process requires a successful compile of lilypond.  The
 documentation is built by issuing
 @quotation
-@example 
+@example
 make web
-@end example 
+@end example
 @end quotation
 
 Building the website requires some additional tools and packages
 
 @itemize @bullet
 @item @uref{http://lilypond.org/download/fonts,ec-fonts-mftraced}
-@item The @uref{http://netpbm.sourceforge.net/,netpbm utilities} 
+@item The @uref{http://netpbm.sourceforge.net/,netpbm utilities}
 @item ImageMagick
 @end itemize
 
@@ -177,14 +182,14 @@ make out=www web-install
 
 To install GNU LilyPond, type
 @quotation
-@example 
+@example
 gunzip -c lilypond-x.y.z | tar xf -
 cd lilypond-x.y.z
 ./configure		# run with --help for applicable options
 make
 make install
-sh buildscripts/clean-fonts.sh      
-@end example 
+sh buildscripts/clean-fonts.sh
+@end example
 @end quotation
 
 The most time-consuming part of compiling LilyPond is tracing the
@@ -194,7 +199,7 @@ one of the following commands
 @quotation
 @example
 make -C mf get-pfa                # requires rpm2cpio
-make -C mf get-debian-pfa         # may not be up to date   
+make -C mf get-debian-pfa         # may not be up to date
 @end example
 @end quotation
 
@@ -205,9 +210,9 @@ work for you, see @file{buildscripts/out/clean-fonts}.
 If you are not root, you should choose a @code{--prefix} argument that
 points into your home directory, e.g.
 @quotation
-@example 
+@example
 ./configure --prefix=$HOME/usr
-@end example 
+@end example
 @end quotation
 
 In this case, you have to insert the contents of
@@ -227,21 +232,21 @@ with and without profiling, then use the following for the normal
 build
 
 @quotation
-@example 
+@example
 ./configure --prefix=$HOME/usr/ --enable-checking
 make
 make install
-@end example 
+@end example
 @end quotation
 
 and for the profiling version, specify a different configuration
 
 @quotation
-@example 
+@example
 ./configure --prefix=$HOME/usr/ --enable-profiling --enable-config=prof --disable-checking
 make conf=prof
 make conf=prof install
-@end example 
+@end example
 @end quotation
 
 
@@ -254,7 +259,7 @@ should be placed to @var{load-path}@file{/site-start.d/} or appended
 to your @file{~/.emacs} or @file{~/.emacs.el}.
 
 As a user, you may want add your source path (e.g. @file{~/site-lisp/}) to
-your @var{load-path} by appending the following line (as modified) to your 
+your @var{load-path} by appending the following line (as modified) to your
 @file{~/.emacs}
 @c any reason we do not advise:  (push "~/site-lisp" load-path)
 @quotation
@@ -266,13 +271,13 @@ your @var{load-path} by appending the following line (as modified) to your
 
 @section Vim mode
 
-A Vim mode for entering music and running LilyPond is contained in the 
-source archive in @code{$VIM} directory.  For version 6.2 and newer, 
-Vim-mode works directly after installing LilyPond.  Otherwise, 
+A Vim mode for entering music and running LilyPond is contained in the
+source archive in @code{$VIM} directory.  For version 6.2 and newer,
+Vim-mode works directly after installing LilyPond.  Otherwise,
 complete the following two steps.
 
 For earlier versions (and if @code{$VIM} environment variable does not
-fall-back to @file{/usr/local/share/vim}, see @code{:version} in vim), 
+fall-back to @file{/usr/local/share/vim}, see @code{:version} in vim),
 the LilyPond file type is detected if your file @file{~/.vim/filetype.vim} @c
 has the following content
 @quotation
@@ -285,10 +290,10 @@ augroup filetypedetect
 augroup END
 @end example
 @end quotation
-If Vim has been (pre-)installed to @file{/usr/...} (or any other place) 
-instead of @file{/usr/local/...}, then @file{/usr/local/share/vim} may not 
-be specified in your @code{$VIMRUNTIME} environment variable and you have to 
-include this path explicitly by appending the following line to your 
+If Vim has been (pre-)installed to @file{/usr/...} (or any other place)
+instead of @file{/usr/local/...}, then @file{/usr/local/share/vim} may not
+be specified in your @code{$VIMRUNTIME} environment variable and you have to
+include this path explicitly by appending the following line to your
 @file{~/.vimrc}
 @quotation
 @example
@@ -395,4 +400,4 @@ or
 @end itemize
 
 @bye
-        
+

@@ -2,7 +2,7 @@
 @setfilename README.info
 @settitle Toplevel README
 
-@node Top, , , 
+@node Top
 @top
 
 @chapter Toplevel README
