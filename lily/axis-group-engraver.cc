@@ -110,17 +110,30 @@ Axis_group_engraver::process_acknowledged_grobs ()
       Grob *par = elts_[i]->get_parent (Y_AXIS);
 
       if (!par || !Axis_group_interface::has_interface (par))
-	if (elts_[i]->is_empty (Y_AXIS))
-	  {
-	    /*
-	      We have to do _something_, otherwise staff objects will
-	      end up with System as parent.  
+	{
+	  if (staffline_->get_parent (Y_AXIS)
+	      && staffline_->get_parent (Y_AXIS) == elts_[i])
+	    {
+	      String msg = _("Axis_group_engraver: vertical group already has a parent.\n"
+			     "Do you have two Axis_group_engravers?\n"
+			     "Killing this vertical group.");
+	      staffline_->warning (msg);
+	      staffline_->suicide ();
+	      staffline_ = 0;
+	      break ;
+	    }
+	  else if (elts_[i]->is_empty (Y_AXIS))
+	    {
+	      /*
+		We have to do _something_, otherwise staff objects will
+		end up with System as parent.  
 	      
-	     */
-	    elts_[i]->set_parent (staffline_, Y_AXIS);
-	  }
-	else
-	  add_element (elts_[i]);
+	      */
+	      elts_[i]->set_parent (staffline_, Y_AXIS);
+	    }
+	  else
+	    add_element (elts_[i]);
+	}
     }
   elts_.clear ();
 }
