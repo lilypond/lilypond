@@ -1,5 +1,11 @@
 2004-02-02  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/regression/pc-switch-slur.ly (texidoc): remove file.
+	
+	* input/test/part-combine-{moment,staff}.ly: remove file.
+
+	* input/regression/pc-mmrest.ly (two): remove file.
+
 	* scm/define-music-types.scm (music-descriptions): add
 	Solo{One,Two}Event and UnisonoEvent
 
