@@ -2462,6 +2462,7 @@ Editio Vaticana style.
 \score {
   \context VaticanaVoice {
     \override Staff.StaffSymbol #'color = #red
+    \override Staff.LedgerLineSpanner #'color = #red
     \override TextScript #'font-family = #'typewriter
     \override TextScript #'font-shape = #'upright
     \override Script #'padding = #-0.1
@@ -3666,12 +3667,13 @@ initialize all relevant context properties and grob properties to
 proper values, so you can immediately go ahead entering the chant, as
 the following excerpt demonstrates
 
-@lilypond[quote,raggedright,verbatim]
+@lilypond[quote,raggedright,packed,verbatim]
 \include "gregorian-init.ly"
 \score {
   <<
     \context VaticanaVoice = "cantus" {
       \override Staff.StaffSymbol #'color = #red
+      \override Staff.LedgerLineSpanner #'color = #red
       \override Score.BarNumber #'transparent = ##t {
         \[ c'\melisma c' \flexa a \]
         \[ a \flexa \deminutum g\melismaEnd \]
