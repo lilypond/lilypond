@@ -1,5 +1,7 @@
 2004-03-31  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/change-iterator.cc (process): use find_existing_context().
+
 	* input/test/polymetric-differing-notes.ly: use ly:music-compress.
 
 	* input/regression/repeat-unfold-tremolo.ly: new file.
