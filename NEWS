@@ -1,3 +1,6 @@
+pl 38.jcn3
+	- experimental whitespace fixes at begin and end of bar
+
 pl 38.jcn2
 	- added to beams.ly
 	- open-up beam spacing for mult > 3

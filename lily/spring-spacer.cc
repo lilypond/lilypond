@@ -20,7 +20,7 @@
 #include "paper-def.hh"
 #include "dimen.hh"
 #include "colhpos.hh"
-
+#include "main.hh"		// experimental_fietsers
 
 Vector
 Spring_spacer::default_solution() const
@@ -517,6 +517,7 @@ Spring_spacer::calc_idealspacing()
   Array<Moment> context_shortest_arr;
   get_ruling_durations(shortest_playing_arr, context_shortest_arr);
 
+  Real interline_f = paper_l ()->interline_f ();
 
   Array<Real> ideal_arr_;
   Array<Real> hooke_arr_;
@@ -572,21 +573,96 @@ Spring_spacer::calc_idealspacing()
 	  Real dist = paper_l()->duration_to_dist (shortest_playing_len, k);
 	  dist *= delta_t / shortest_playing_len;
 
-	  /* all sorts of ugliness to avoid running into bars/clefs, but not taking
-	     extra space if this is not needed */
-	  if (!scol_l (i+1)->musical_b())
+	  /*
+	     this is an experimental try to fix the spacing 
+	     at the beginning and end of bars.
+	     if -t option is not used, the old algorithm should still 
+	     be in effect.
+
+	     the "old" comment below about ugliness seems to indicate that
+	     the code below it address the  same problem? but it sounds real
+	     bad.
+
+	     According to [Ross] and [Wanske], and from what i've seen:
+	     * whitespace at the begin of the bar should be fixed at 
+	     (about) two interlines.
+	     [Ross]:
+	     when spacing gets real tight, a smaller fixed value may be 
+	     used, so that there are two discrete amounts of whitespace 
+	     possible at the begin of a bar; but this is not implemented 
+	     right now.
+	     * whitespace at the end of the bar is the normal amount of 
+	     "hinterfleish" that would have been used, had there been
+	     yet another note in the bar.  
+	     [Ross]:
+	     some editors argue that the bar line should not take any 
+	     space, not to hinder the flow of music spaced around a bar 
+	     line.  
+	     [Ross] and [Wanske] do not suggest this, however.  Further,
+	     it introduces some spacing problems and think that it is ugly 
+	     too.
+	   */
+
+	  if (experimental_features_global_b)
 	    {
-	      Real minimum_dist =  - cols[i+1].width_[LEFT] + 2 PT + cols[i].width_[RIGHT];
-	      if (ideal_arr_[i+1] + minimum_dist < dist)
+	      /* 
+	         first musical column of bar?
+	       */
+	      Moment now_mom = scol_l (i)->when ();
+	      if (i && !scol_l (i - 1)->musical_b ()
+		  && ((Moment) floor (now_mom) == now_mom))
 		{
-		  ideal_arr_[i] = dist - ideal_arr_[i+1];
-		  // hooke_arr_[i+1] =1.0;
-		} else {
-		  ideal_arr_[i] = minimum_dist;
+		  /* 
+		     wtk1-fugue2: very nice
+		     standchen: fuk, koor dump in check_feasible ()
+		   */
+		  // fixed: probably should set minimum (rod/spring)?
+		  cols[i-1].width_[RIGHT] += 1.5 * interline_f;
+		  // should adjust dist too?
+		  ideal_arr_[i-1] += 1.5 * interline_f;
 		}
 
-	    } else
-	      ideal_arr_[i] = dist;
+	      /* 
+	         last musical column of bar?
+	       */
+	      Moment next_mom = scol_l (i + 1)->when ();
+	      if ((i + 1 < cols.size ()) && !scol_l (i + 1)->musical_b ()
+		  && ((Moment) floor (next_mom) == next_mom))
+		{
+		  // hmm, how bout?
+		  dist = dist >? interline_f;
+
+		  // uhuh, this looks fine, already??
+		  // someone is junking this last "hinterfleisch" whitespace?!
+		  /* 
+		     wtk1-fugue2: very nice
+		     standchen: fuk, koor dump in check_feasible ()
+		   */
+		  cols[i].width_[RIGHT] = cols[i].width_[RIGHT] >? dist;
+		}
+
+	      // ugh, do we need this?
+	      if (!scol_l (i + 1)->musical_b ())
+		{
+		  Real minimum = -cols[i + 1].width_[LEFT] + cols[i].width_[RIGHT]
+		  + interline_f / 2;
+		  dist = dist >? minimum;
+		}
+	    }
+
+	  /* all sorts of ugliness to avoid running into bars/clefs, 
+	     but not taking extra space if this is not needed 
+	   */
+	  else if (!scol_l (i + 1)->musical_b ())
+	    {
+	      Real minimum_dist = -cols[i + 1].width_[LEFT] + 2 PT
+	      + cols[i].width_[RIGHT];
+	      if (ideal_arr_[i + 1] + minimum_dist < dist)
+		dist -= ideal_arr_[i + 1];
+	      else
+		dist = minimum_dist;
+	    }
+	  ideal_arr_[i] = dist;
 	}
     }
 
