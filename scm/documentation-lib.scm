@@ -1,4 +1,4 @@
-;;;
+;;
 ;;; documentation-lib.scm -- Assorted Functions for generated documentation
 ;;;
 ;;; source file of the GNU LilyPond music typesetter
@@ -28,11 +28,16 @@
 ;;       )
 ;;    x2))
 
+
+
+(define (scm->texi x)
+  (string-append "@code{" (texify (scm->string x)) "}")
+  )
+
 (define (scm->string val)
   (string-append
    (if (self-evaluating? val) "" "'")
-   (texify 
-    (call-with-output-string (lambda (port) (display val port))))
+   (call-with-output-string (lambda (port) (display val port)))
   ))
 
 (define (node name)
@@ -42,7 +47,7 @@
    "\n@end html"
    "\n@node " name ",,,"))
 
-(define section-alist
+(define texi-section-alist
   '(
     ;; Hmm, texinfo doesn't have ``part''
     (0 . "@top")
@@ -53,15 +58,34 @@
     (5 . "@unnumberedsubsubsec")
     ))
     
-(define (section level name)
-  (string-append "\n" (cdr (assoc level section-alist)) " " name "\n"))
-   
-(define (description-list items-alist)
+(define (texi-section level name ref)
+  "texi sectioning command (lower LEVEL means more significant).
+Add a ref if REF is set
+"
+     
+  (string-append
+   "\n" (cdr (assoc level texi-section-alist)) " "
+   (if ref
+       (string-append "@ref{" name "}") 
+       name)
+   "\n"))
+
+
+(define (one-item->texi label-desc-pair)
+  "Document one (LABEL . DESC); return empty string if LABEL is empty string. 
+"
+  (if (eq? (car label-desc-pair) "")
+      ""
+      (string-append "\n@item " (car label-desc-pair) "\n" (cdr label-desc-pair))
+  ))
+
+
+(define (description-list->texi items-alist)
+  "Document ITEMS-ALIST in a table. entries contain (item-label . string-to-use)
+"
   (string-append
    "\n@table @samp\n"
-   (apply string-append
-	  (map (lambda (x) (string-append "\n@item " (car x) "\n" (cdr x)))
-	       items-alist))
+   (apply string-append (map one-item->texi items-alist))
    "\n@end table\n"))
 
 (define (texi-menu items-alist)
@@ -74,7 +98,7 @@
   ;; Menus don't appear in html, so we make a list ourselves
   "\n@ignore\n"
   "\n@ifhtml\n"
-  (description-list (map (lambda (x) (cons (reffy (car x)) (cdr x)))
+  (description-list->texi (map (lambda (x) (cons (reffy (car x)) (cdr x)))
 			 items-alist))
   "\n@end ifhtml\n"
   "\n@end ignore\n"))
@@ -83,7 +107,7 @@
 (define (texi-node-menu name items-alist)
   (string-append
    (node name)
-   (section 1 name)
+   (texi-section 1 name #f)
    (texi-menu items-alist)))
 
 (define (texi-file-head name file-name top items-alist)
@@ -93,7 +117,7 @@
    "\n@settitle " name
    (node "Top") top
    "\n@top"
-   (section 1 name)
+   (texi-section 1 name #f)
    (texi-menu items-alist)
    "\n@contents"
    ))
