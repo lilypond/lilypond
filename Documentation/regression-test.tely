@@ -53,6 +53,8 @@ Accidentals are currently in a development stage.
 
 @lilypondfile[printfilename]{accidental-octave.ly}
 
+@lilypondfile[printfilename]{accidental-voice.ly}
+
 
 @section Stems
 
@@ -303,6 +305,8 @@ Grace note do weird things with timing. Fragile.
 @lilypondfile[printfilename]{part-combine.ly}
 
 @lilypondfile[printfilename]{font-magnification.ly}
+
+@lilypondfile[printfilename]{system-extents.ly}
 
 @lilypondfile[printfilename,nofragment]{size11.ly}
 

@@ -133,8 +133,17 @@ hideStaffSwitch = \property Voice.followVoice = ##f
 % accidentals as they were common in the 18th century.
 defaultAccidentals = {
   \property Score.extraNatural = ##t
-  \property Score.autoAccidentals = #'((measure-same-octave . 0))
-  \property Score.autoCautionaries = #'()  
+  \property Score.autoAccidentals = #'(Staff (same-octave . 0))
+  \property Score.autoCautionaries = #'()
+}
+
+% accidentals in voices instead of staves.
+% Notice that accidentals from one voice do NOT get cancelled in other voices
+voiceAccidentals = {
+  \property Score.extraNatural = ##t
+  \property Score.autoAccidentals = #'(Voice (same-octave . 0))
+  \property Score.autoCautionaries = #'()
+  
 }
 
 % accidentals as suggested by Kurt Stone, Music Notation in the 20th century.
@@ -142,22 +151,57 @@ defaultAccidentals = {
 % in other octaves and in the next measure.
 modernAccidentals = {
   \property Score.extraNatural = ##f
-  \property Score.autoAccidentals = #'((measure-same-octave . 0) (measure-any-octave . 0) (measure-any-octave . 1))
+  \property Score.autoAccidentals = #'(Staff (same-octave . 0) (any-octave . 0) (any-octave . 1))
   \property Score.autoCautionaries = #'()  
 }
 
 % the accidentals that Stone adds to the old standard as cautionaries
 modernCautionaries = {
   \property Score.extraNatural = ##f
-  \property Score.autoAccidentals = #'((measure-same-octave . 0))
-  \property Score.autoCautionaries = #'((measure-any-octave . 0) (measure-any-octave . 1))  
+  \property Score.autoAccidentals = #'(Staff (same-octave . 0))
+  \property Score.autoCautionaries = #'(Staff (any-octave . 0) (any-octave . 1))  
+}
+
+% Multivoice accidentals to be read both by musicians playing one voice
+% and musicians playing all voices.
+% Accidentals are typeset for each voice, but they ARE cancelled across voices.
+modernVoiceAccidentals = {
+  \property Staff.extraNatural = ##f
+  \property Staff.autoAccidentals = #'(
+    Voice (same-octave . 0) (any-octave . 0) (any-octave . 1)
+    Staff (same-octave . 0) (any-octave . 0) (any-octave . 1)
+  )
+  \property Staff.autoCautionaries = #'()  
+}
+
+% same as modernVoiceAccidental eccept that all special accidentals are typeset
+% as cautionaries
+modernVoiceCautionaries = {
+  \property Staff.extraNatural = ##f
+  \property Staff.autoAccidentals = #'(
+    Voice (same-octave . 0) 
+  )
+  \property Staff.autoCautionaries = #'(
+    Voice (any-octave . 0) (any-octave . 1)
+    Staff (same-octave . 0) (any-octave . 0) (any-octave . 1)
+  )  
+}
+
+% stone's suggestions for accidentals on grand staff.
+% Accidentals are cancelled across the staves in the same grand staff as well
+pianoAccidentals = {
+  \property GrandStaff.autoAccidentals = #'(
+    Staff (same-octave . 0) (any-octave . 0) (any-octave . 1)
+    GrandStaff (any-octave . 1)
+  )
+  \property GrandStaff.autoCautionaries = #'()  
 }
 
 % Do not reset the key at the start of a measure.  Accidentals will be
 % printed only once and are in effect until overridden, possibly many
 % measures later.
 noResetKey = {
-  \property Score.autoAccidentals = #'((measure-same-octave . #t))
+  \property Score.autoAccidentals = #'(Staff (same-octave . #t))
   \property Score.autoCautionaries = #'()
 }
 
@@ -167,7 +211,7 @@ noResetKey = {
 % remembered for the duration of a measure.
 % accidentals not being remembered, causing accidentals always to be typeset relative to the time signature
 forgetAccidentals = {
-  \property Score.autoAccidentals = #'((measure-same-octave . -1))
+  \property Score.autoAccidentals = #'(Staff (same-octave . -1))
   \property Score.autoCautionaries = #'()  
 }
 

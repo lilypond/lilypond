@@ -11,13 +11,13 @@
 #include "column-x-positions.hh"
 #include "spanner.hh"
 
-class Line_of_score : public Spanner
+class System : public Spanner
 {
 public:
   int rank_i_;
   void post_processing (bool);
 
-  Line_of_score (SCM);
+  System (SCM);
   /// is #c# contained in #*this#?
   bool contains_b (Paper_column const *c) const;
   int element_count () const;

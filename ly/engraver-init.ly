@@ -38,6 +38,7 @@ StaffContext=\translator {
 	MinimumVerticalExtent = #'(-4 . 4)
 	ExtraVerticalExtent = ##f
 	VerticalExtent = ##f 
+	localKeySignature = #'()
 
 	% explicitly set instrument, so we don't get 
 	% weird effects when doing instrument names for
@@ -56,7 +57,8 @@ StaffContainerContext = \translator {
 	MinimumVerticalExtent = ##f
 	ExtraVerticalExtent = ##f
 	VerticalExtent = ##f 
-	
+	localKeySignature = #'()
+
 	\accepts Staff
 	\name StaffContainer
 }
@@ -67,6 +69,7 @@ InnerChoirStaffContext = \translator {
 	alignmentReference = #0
 	\consists "System_start_delimiter_engraver"
 	systemStartDelimiter = #'SystemStartBracket
+	localKeySignature = #'()
 
 	\accepts "Staff"
 	\accepts "RhythmicStaff"
@@ -92,6 +95,7 @@ RhythmicStaffContext=\translator{
 	MinimumVerticalExtent = ##f
 	ExtraVerticalExtent = ##f
 	VerticalExtent = ##f 
+	localKeySignature = #'()
 
 	\consists "Pitch_squash_engraver"
 	\consists "Separating_line_group_engraver"	
@@ -118,6 +122,7 @@ VoiceContext = \translator {
 	\name Voice
 
 	Generic_property_list = #generic-voice-properties
+	localKeySignature = #'()
 	\consists "Font_size_engraver"
 	
 	% must come before all
@@ -162,6 +167,7 @@ VoiceContext = \translator {
 ThreadContext = \translator{
 	\type Engraver_group_engraver
 	\name Thread
+	localKeySignature = #'()
 
 	\consists "Font_size_engraver"	
 	\consists "Thread_devnull_engraver"
@@ -175,6 +181,7 @@ ThreadContext = \translator{
 GrandStaffContext=\translator{
 	\type "Engraver_group_engraver"
 	\name GrandStaff
+	localKeySignature = #'()
 	\consists "Span_bar_engraver"
 	\consists "Span_arpeggio_engraver"
 	\consists "System_start_delimiter_engraver"
@@ -186,6 +193,7 @@ GrandStaffContext=\translator{
 PianoStaffContext = \translator{
 	\GrandStaffContext
 	\name "PianoStaff"
+	\alias "GrandStaff"
 
 	\consists "Vertical_align_engraver"
 	\consists "Instrument_name_engraver"
@@ -202,6 +210,7 @@ PianoStaffContext = \translator{
 InnerStaffGroupContext= \translator {
 	\type "Engraver_group_engraver"
 	\name InnerStaffGroup
+	localKeySignature = #'()
 
 	\consists "Span_bar_engraver"
 	\consists "Span_arpeggio_engraver"
@@ -323,6 +332,7 @@ HaraKiriStaffContext = \translator {
 ScoreContext = \translator {
 	\type Score_engraver
 	\name Score
+	localKeySignature = #'()
 	
 	\consists "Repeat_acknowledge_engraver"
 	\consists "Staff_collecting_engraver"
@@ -388,7 +398,7 @@ ScoreContext = \translator {
 	
 	subdivideBeams = ##f
 	extraNatural = ##t
-	autoAccidentals = #'((measure-same-octave . 0))
+	autoAccidentals = #'(Staff (same-octave . 0))
 	autoCautionaries = #'()  
 
 

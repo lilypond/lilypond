@@ -93,7 +93,7 @@
    (car name-mag)
    " findfont "
    "20 " (ly-number->string (cdr name-mag)) " mul "
-   "lilypondpaperoutputscale div scalefont setfont } bind def "
+   "output-scale div scalefont setfont } bind def "
    "\n"))
 
 (define (beam width slope thick)

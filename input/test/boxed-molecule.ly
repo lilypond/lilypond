@@ -11,18 +11,6 @@ texidoc = "overriding the molecule callback can also be used to draw a
  "
 }
 
-#(define (box-molecule xext yext)
-  (ly-make-molecule
-      (list 'filledbox (- (car xext)) (cdr xext)
-                       (- (car yext)) (cdr yext))
-      xext yext)		       
-)
-
-#(define (widen-interval iv amount)
-   (cons (- (car iv) amount)
-         (+ (cdr iv) amount))
-)
-
 #(define (make-molecule-boxer callback)
   (define (molecule-boxer grob)
   (let*

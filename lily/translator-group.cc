@@ -312,6 +312,16 @@ Translator_group::internal_set_property (SCM sym, SCM val)
   properties_dict ()->set (sym, val);
 }
 
+void
+Translator_group::internal_set_children_property (SCM sym, SCM val)
+{
+  internal_set_property (sym, val);
+  for (SCM p = trans_group_list_; gh_pair_p (p); p = ly_cdr(p)) {
+    Translator_group *trg =  dynamic_cast<Translator_group*> (unsmob_translator (ly_car (p)));
+    trg->internal_set_children_property(sym,ly_deep_copy(val));
+  }
+}
+
 /*
   TODO: look up to check whether we have inherited var? 
  */

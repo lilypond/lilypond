@@ -36,9 +36,9 @@ public:
   Direction break_status_dir () const;
   
   Item * find_prebroken_piece (Direction) const;
-  Grob * find_broken_piece (Line_of_score*) const;    
+  Grob * find_broken_piece (System*) const;    
 
-  virtual Line_of_score * line_l () const;
+  virtual System * line_l () const;
   virtual Paper_column * column_l () const;
   virtual void handle_prebroken_dependencies ();
 protected:

@@ -51,7 +51,7 @@ Item::column_l () const
   return parent ? parent->column_l () : 0;
 }
 
-Line_of_score *
+System *
 Item::line_l () const
 {
   Grob *g = get_parent (X_AXIS);
@@ -97,7 +97,7 @@ Item::discretionary_processing ()
 }
 
 Grob*
-Item::find_broken_piece (Line_of_score*l) const
+Item::find_broken_piece (System*l) const
 {
   if (line_l () == l) 
     return (Item*) (this);

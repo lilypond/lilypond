@@ -19,7 +19,7 @@
 class Score_engraver : 
   public Engraver_group_engraver, public Global_translator 
 {
-  Line_of_score * scoreline_l_;
+  System * scoreline_l_;
   int breaks_i_;
 
   Link_array<Grob> elem_p_arr_;

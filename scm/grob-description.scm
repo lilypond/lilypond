@@ -372,12 +372,6 @@
 	(meta . ,(grob-description lyric-hyphen-interface ))
 	))
 
-    (LineOfScore
-     . (
-	(axes . (0 1))
-	(meta . ,(grob-description  line-of-score-interface axis-group-interface))
-	))
-
     (LyricExtender
      . (
 	(molecule-callback . ,Lyric_extender::brew_molecule)
@@ -807,6 +801,12 @@
 	(minimum-space . 1.0)
 	(direction . -1)
 	(meta . ,(grob-description piano-pedal-interface axis-group-interface side-position-interface))
+	))
+
+    (System
+     . (
+	(axes . (0 1))
+	(meta . ,(grob-description  line-of-score-interface axis-group-interface))
 	))
 
     (SystemStartBrace
