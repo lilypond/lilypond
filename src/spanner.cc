@@ -2,7 +2,7 @@
 #include "spanner.hh"
 #include "pcol.hh"
 
-NAME_METHOD(Spanner);
+
 
 void
 Spanner::do_print()const

@@ -5,19 +5,19 @@
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
-#include "tstream.hh"
+#include "tex-stream.hh"
 #include "score.hh"
-#include "scorecolumn.hh"
+#include "score-column.hh"
 #include "pscore.hh"
 #include "staff.hh"
 #include "debug.hh"
-#include "paperdef.hh"
+#include "paper-def.hh"
 #include "main.hh"
 #include "source.hh"
-#include "sourcefile.hh"
-#include "scorewalker.hh"
-#include "midioutput.hh"
-#include "mididef.hh"
+#include "source-file.hh"
+#include "score-walker.hh"
+#include "midi-output.hh"
+#include "midi-def.hh"
 
 extern String default_out_fn;
 
@@ -96,7 +96,7 @@ Score::clean_cols()
 
     for (iter_top(cols_,c); c.ok(); ) {
 	if (!c->pcol_l_->used_b()) {
-	    delete c.get();
+	    delete c.get_p();
 	} else {
 	    c->preprocess();
 	    c++;
@@ -178,7 +178,7 @@ Score::last() const
 }
 
 void
-Score::set(Paperdef *pap_p)
+Score::set(Paper_def *pap_p)
 {
     delete paper_p_;
     paper_p_ = pap_p;

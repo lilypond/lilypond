@@ -4,7 +4,7 @@
 melodie = music {
 	$\clef\violin
 	c c | g g | a a | g2 
-	f f | e e | d d8.( e16 | )c2 | % :|
+	f f | e e | d d8. e16 | c2 | % :|
 	$
 }
 
@@ -33,6 +33,7 @@ score {
 	commands {
 		meter { 2 * 4}
 	}
+	paper{}
 	midi {
 		tempo 4:120
 	}

@@ -9,11 +9,11 @@
 #include "leastsquares.hh"
 #include "pcol.hh"
 #include "stem.hh"
-#include "paperdef.hh"
+#include "paper-def.hh"
 #include "lookup.hh"
 #include "grouping.hh"
 
-NAME_METHOD(Beam);
+
 
 struct Stem_info {
     Real x;
@@ -58,7 +58,7 @@ void
 Beam::add(Stem*s)
 {
     stems.bottom().add(s);
-    s->add_depedency(this);
+    s->add_dependency(this);
     s->print_flag = false;
 }
 

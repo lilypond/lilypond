@@ -2,12 +2,12 @@
 #include "notehead.hh"
 #include "dimen.hh" 
 #include "debug.hh"
-#include "paperdef.hh"
+#include "paper-def.hh"
 #include "lookup.hh"
 #include "molecule.hh"
 #include "musicalrequest.hh"
 
-NAME_METHOD(Notehead);
+
 
 Notehead::Notehead(int ss)
 {
@@ -37,7 +37,7 @@ Notehead::do_print()const
 
 
 int
-Notehead::compare(Notehead*&a, Notehead*&b)
+Notehead::compare(Notehead *const  &a, Notehead * const &b)
 {
     return a->position - b->position;
 }
@@ -45,7 +45,7 @@ Notehead::compare(Notehead*&a, Notehead*&b)
 Molecule*
 Notehead::brew_molecule_p() const return out;
 {
-    Paperdef *p = paper();
+    Paper_def *p = paper();
 
     Real dy = p->internote();
     Symbol s = p->lookup_p_->ball(balltype);

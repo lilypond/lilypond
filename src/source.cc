@@ -8,7 +8,7 @@
 #include "proto.hh"
 #include "plist.hh"
 
-#include "sourcefile.hh"
+#include "source-file.hh"
 #include "source.hh"
 
 Source::Source()

@@ -6,7 +6,7 @@
 #include "proto.hh"
 #include "plist.hh"
 #include "string.hh"
-#include "sourcefile.hh"
+#include "source-file.hh"
 #include "source.hh"
 #include "midi-main.hh"    // *tors
 

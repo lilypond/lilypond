@@ -13,7 +13,7 @@
 #include "string.hh"
 #include "lgetopt.hh"
 #include "source.hh"
-#include "sourcefile.hh"
+#include "source-file.hh"
 #include "midi-main.hh"
 #include "moment.hh"
 #include "duration.hh"

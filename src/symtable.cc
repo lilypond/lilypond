@@ -4,7 +4,7 @@
 #include "real.hh"
 #include "symbol.hh"
 #include "assoc.hh"
-#include "associter.hh"
+#include "assoc-iter.hh"
 #include "symtable.hh"
 
 Symtables::Symtables()
@@ -42,3 +42,20 @@ Symtables::operator()(String s)
 {
     return Assoc<String, Symtable*>::operator[](s);
 } 
+void
+Symtables::print() const
+{
+    for (Assoc_iter<String, Symtable*>  i(*this); i.ok(); i++) {
+	mtor << "table \'" << i.key() << "\' {\n";
+	i.val()->print();
+	mtor << "}\n";
+    }
+}
+void
+Symtable::print() const
+{
+    for (Assoc_iter<String, Symbol>  i(*this); i.ok(); i++) {
+	mtor << "\'" << i.key() << "\'->" << i.val().str() << "\n";
+    }
+}
+	

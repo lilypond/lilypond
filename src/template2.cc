@@ -8,10 +8,11 @@
 
 #include "symbol.hh"
 #include "voice.hh"
+#include "voice-element.hh"
 #include "musicalrequest.hh"
 #include "staff.hh"
-#include "scorecolumn.hh"
-#include "staffcolumn.hh"
+#include "score-column.hh"
+#include "staff-column.hh"
 #include "spanner.hh"
 #include "plist.tcc"
 #include "pcursor.tcc"

@@ -1,7 +1,7 @@
 #include "debug.hh"
 #include "item.hh"
 
-NAME_METHOD(Item);
+
 
 Item::Item()
 {

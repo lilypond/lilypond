@@ -2,22 +2,24 @@ before 0.1
 
 	* remove spurious/outdated comments in .ly
 	
-	* more control in Register_groups
-
 	* pushgroup, popgroup.
 
 	* basic dynamics
 
-	* basic syntax
+	* basic syntax & parser/lexer cleanup.
 
 	* decent TeX page layout
 
 	* clean split for m2m of sources.
 
+	* caching of Register_group_register hierarchies.
+
 This is an assorted collection of stuff that will be done, might be
 done, or is an idea that I want to think about
 
 BUGS
+
+	* plet bugs: scales.ly
 
 	* key at clef change.
 
@@ -56,6 +58,8 @@ SMALLISH PROJECTS
 	* fix Staff_elem::width() derivs to use offset_
 
 	* parshape
+
+	* a pure parser.
 
 	* bar numbers/repetition marks
 
@@ -134,6 +138,8 @@ FUTURE
 IDEAS
 
 	* create libmudela,  or liblily_frontend
+
+	* Horizontal_align_item, Vertical_align_item.
 
 	* move MIDI io to a ANSI C libmidi library.
 

@@ -9,11 +9,11 @@
 #define IDENTIFIER_HH
 #include "identparent.hh"
 #include "symtable.hh"
-#include "inputstaff.hh"
-#include "inputmusic.hh"
+#include "input-staff.hh"
+#include "input-music.hh"
 #include "notename.hh"
 #include "lookup.hh"
-#include "scriptdef.hh"
+#include "script-def.hh"
 
 #define make_id_class(Idclass, Class, accessor)	\
 struct Idclass : Identifier {\
@@ -26,6 +26,7 @@ struct Idclass : Identifier {\
 	    return (Class*) data;\
     }\
     ~Idclass() { delete accessor(false); }\
+    virtual void do_print()const; \
 }\
 
 make_id_class(Real_id, Real, real);

@@ -1,6 +1,11 @@
-//
-// binary-source-file.cc
-//
+/*
+  binary-source-file.cc -- implement Binary_source_file
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Jan Nieuwenhuizen
+*/
+
 
 #include <limits.h>		// INT_MAX
 #include <assert.h>
@@ -9,8 +14,9 @@
 #include "plist.hh"
 #include "string.hh"
 #include "debug.hh"
-#include "sourcefile.hh"
+#include "source-file.hh"
 #include "binary-source-file.hh"
+#include "string-convert.hh"
 
 Binary_source_file::Binary_source_file( String& filename_str )
 	: Source_file( filename_str )

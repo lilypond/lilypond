@@ -1,11 +1,11 @@
 #include "bar.hh"
 #include "string.hh"
 #include "molecule.hh"
-#include "paperdef.hh"
+#include "paper-def.hh"
 #include "lookup.hh"
 #include "debug.hh"
 
-NAME_METHOD(Bar);
+
 
 Bar::Bar( String t)
 {

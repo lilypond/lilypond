@@ -35,7 +35,7 @@ public:
     void add(const PointerList<Voice*> &s);
 
     void add_voice(Voice *v);
-    Paperdef*paper()const;
+    Paper_def*paper()const;
 
     void setup_staffcols();
 

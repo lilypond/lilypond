@@ -1,3 +1,13 @@
+pl 38
+
+Internal
+	- great filename renaming operation with - convention.
+	- printing methods for paper_def/lookup/symtab(s)
+	- untied all registers from complexwalker. Now registers are
+intrinsically hierarchical. All walker communication is done via a
+"top level" register.
+
+******
 pl 37
 
 
@@ -5,23 +15,22 @@ Documentation
 	- language.pod as starting point for mudela devel.
 
 	- Jan's patches:
-(jan's pl 36-3)
-
+Features
+	- m2m patchy --no-triplet option;
+	  lilypond accepts m2m's real midi output (hand-add red tape)
+	- m2m output only valid durations, resync option wip
 	- m2m produces .ly output
 Internal
 	- simpler and better naming for Duration*
 	- the great String renaming / index to base=0 change
 	- Track_column, Lily_stream
-Features
-	- m2m patchy --no-triplet option;
-	  lilypond accepts m2m's real midi output (hand-add red tape)
-	- m2m output only valid durations, resync option wip
+	- Duration, Plet, Duration_convert taking load off duration calc.
 Bugfix
 	- m2m duration calc
-Internal
-	- Duration, Plet, Duration_convert taking load off duration calc.
 
 
+
+******
 pl 36
 	- Jan's patches:
 	- do MIDI rests cleanly.

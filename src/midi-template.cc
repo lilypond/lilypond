@@ -14,7 +14,7 @@ class ostream;
 #include "plist.tcc"
 #include "pcursor.tcc"
 #include "string.hh"
-#include "sourcefile.hh"
+#include "source-file.hh"
 
 #include "moment.hh"
 #include "duration.hh"

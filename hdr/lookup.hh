@@ -14,7 +14,7 @@ struct Lookup {
     String texsetting;
     /* *************** */
     void add(String, Symtable*);
-
+    void print()const;
     Real internote();
 
     Symbol linestaff(int n, Real w);

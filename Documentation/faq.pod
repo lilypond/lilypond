@@ -6,6 +6,20 @@ FAQ - LilyPond FAQs
 
 Some questions that have been answered before.
 
+Q: Gee, I really like MPP, why would I want to switch to LilyPond?
+
+A: The design of MPP is broken beyond repair: it is very difficult to
+enhance MPP, and any working version is (probably) bug-ridden.
+
+Every once in a while, I have a major attack of hybris, and I go in to
+enhance MPP. I usually end up thoroughly frustated within an hour or
+so. I concur, it does work but extending MPP is a major pain.
+
+We will not sacrifice development time on something else than the most
+trivial bugfixes. If you insist on using MusiXTeX, then LilyPond is
+not for you, and you might try PMX which does also nice output.
+
+
 Q: Why are [] around the notes, and () inbetween?
 
 A: [] designate beams, a note can only be in one beam at the same
@@ -20,19 +34,20 @@ Q: I want a DOS/NT/W95 port.
 A0: Reconsider.  Try Linux.  It's fun!
 
 A1: Currently (patchlevel 27), LilyPond (and flowerLib) compiles, links
-and runs on windhoos-nt, using the cygnus gnu port (release b17.1). 
+and runs on Windhoos-NT, using the CYGNUS GNU port (release b17.1). 
 I (JCN) only had to make a minor workaround for missing library calls.  
 Have a look at http://www.cygnus.com/gnu-win32.  To make LilyPond type
-make $OS. (I am not promising to maintain this platform, it is just that
+C<make $OS>. (I am not promising to maintain this platform, it is just that
 when having to use doze, i-m sometimes too lazy to reboot.)
 
-A2: I haven't had time to find a GCC crosscompiler (*with* g++, mind you) to
+A2: I haven't had time to find a GCC crosscompiler (I<with> g++, mind you) to
 DOS/win (in rpm, please :).
 
 
 Q: Why GPL?
 
 A: Yes.
+
 
 Q: Why shouldn't I put all commands (\clef, \meter) inside the music?
 
@@ -53,8 +68,10 @@ simple front end to the complicated internals.
 Q: Why do I need g++ >= 2.7?
 
 A: By using g++ LilyPond is portable to all platforms which support
-g++ (there are quite a few). Not having to support other compilers
-saves us a *lot* of trouble. LilyPond & FlowerLib uses:
+g++ (there are quite a few, more than platforms which have AT&T CC or
+Micro$oft C++). Not having to support other compilers saves us a I<lot>
+of trouble. You need a version better than 2.7 because LilyPond &
+FlowerLib uses:
 
 =over 6
 
@@ -80,4 +97,27 @@ class Rational (libg++)
 named return values
 
 =back
+
+Q: Why do I have to tell LilyPond explictly that the lowest-line-note
+is "es" if I am using the key of "bes"?
+
+A: The goal of lilypond (and MPP) was to design a language which
+conveys the I<musical> message of a piece. That is the reason that it
+does not ask you to enter the line on which the note is is. (Or the
+"natural" note-name without any "es" or "is" postfix)
+
+We do realise it is a bit shortsighted of us to assume that any user could
+readily read the music he/she is entering. We might extend LilyPond to
+allow "programmable" intervals, keys and clefs (and thus give him a
+means to build his own scales, custom etc.).
+
+For now, you can program LilyPond to use custom notenames and do
+
+	notenames { ces_key_notenames }
+	music { $ % music in the key of ces
+		...
+	$}
+	notenames { dutch_notenames } % restore default
+
+as an ad-hoc solution.
 

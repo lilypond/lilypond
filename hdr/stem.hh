@@ -61,7 +61,8 @@ struct Stem : Item {
     
     /// ensure that this Stem also encompasses the Notehead #n#
     void add(Notehead*n);
-    const char * name() const;
+
+    NAME_MEMBERS(Stem);
 
     Real hindex()const;
     void do_print() const;

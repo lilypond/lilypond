@@ -7,7 +7,7 @@
 #ifndef SCRIPT_HH
 #define SCRIPT_HH
 
-#include "scriptdef.hh"
+#include "script-def.hh"
 #include "item.hh"
   
 struct Script : Item {
@@ -20,8 +20,8 @@ struct Script : Item {
     Array<Item *> support;
 
     /* *************** */
-    const char * name() const;    
-    Molecule*	brew_molecule_p()const;
+    NAME_MEMBERS(Script);
+    Molecule *brew_molecule_p()const;
     virtual void do_post_processing();
     virtual void do_pre_processing();
     Script(Script_req*, int staffsize);
@@ -30,9 +30,9 @@ struct Script : Item {
     Interval support_height()const;
     virtual Interval width() const;
 private:
-    void    	set_symdir();
-    void	set_default_dir();
-    void	set_default_index();
+    void set_symdir();
+    void set_default_dir();
+    void set_default_index();
     Symbol symbol()const;
 };
 

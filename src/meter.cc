@@ -1,9 +1,9 @@
 #include "scalar.hh"
 #include "molecule.hh"
 #include "meter.hh"
-#include "paperdef.hh"
+#include "paper-def.hh"
 #include "lookup.hh"
-NAME_METHOD(Meter);
+
 Meter::Meter(Array<Scalar>a)
     :args(a)
 {

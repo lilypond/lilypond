@@ -13,22 +13,25 @@
 #include "glob.hh"
 #include "string.hh"
 #include "moment.hh"
+#include "class-name.hh"
 
 /**
  a voice element wants something printed.
  Hungarian postfix: req
  @see lilygut manpage
  */
-struct Request {
+class Request {
+public:
     Voice_element*elt_l_;
     char const* defined_ch_c_l_;
     
     /* *************** */
+    Voice  * voice_l();
     Request();
     Request(Request const&);
     virtual ~Request(){}
 
-    virtual const char * name() const { return "Request";}
+    NAME_MEMBERS(Request);
     virtual Request* clone() const { return new Request(*this); }
     void print()const ;
     
@@ -63,7 +66,7 @@ protected:
 
 #define REQUESTMETHODS(T,accessor)	\
 virtual T * accessor() { return this;}\
-virtual const char* name() const { return #T; }\
+NAME_MEMBERS(T);\
 virtual Request *clone() const { return  new T(*this); } \
 virtual void do_print() const
 

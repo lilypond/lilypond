@@ -1,6 +1,6 @@
 #include "musicalrequest.hh"
 #include "voice.hh"
-#include "staffwalker.hh"
+#include "staff-walker.hh"
 #include "debug.hh"
 #include "staff.hh"
 #include "lyricstaff.hh"

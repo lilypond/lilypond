@@ -6,14 +6,14 @@
 #include "slur.hh"
 #include "scalar.hh"
 #include "lookup.hh"
-#include "paperdef.hh"
+#include "paper-def.hh"
 #include "notehead.hh"
 #include "pcol.hh"
 #include "molecule.hh"
 #include "debug.hh"
 #include "boxes.hh"
 
-NAME_METHOD(Slur);
+
 
 Slur::Slur()
 {
@@ -37,7 +37,7 @@ void
 Slur::add(Notehead*n)
 {
     encompass.push(n);
-    add_depedency(n);
+    add_dependency(n);
 }
 
 void

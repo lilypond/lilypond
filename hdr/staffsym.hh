@@ -20,7 +20,7 @@ public:
     /// this many lines.
     int no_lines_i_;
 
-    const char *name()const;
+    NAME_MEMBERS(Staff_symbol);
     Staff_symbol(int lines);
     virtual Molecule* brew_molecule_p() const;
     void set_extent(PCol* p1, PCol* p2);

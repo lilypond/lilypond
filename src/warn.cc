@@ -1,10 +1,10 @@
 #include "debug.hh"
 #include "lexer.hh"
 #include "moment.hh"
-#include "timedescription.hh"
+#include "time-description.hh"
 #include "proto.hh"
 #include "plist.hh"
-#include "sourcefile.hh"
+#include "source-file.hh"
 #include "source.hh"
 #include "main.hh"
 

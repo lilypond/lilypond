@@ -12,8 +12,8 @@
 #include "lyricstaff.hh"
 #include "lyricwalker.hh"
 #include "debug.hh"
-#include "lyricitem.hh"
-#include "staffcolumn.hh"
+#include "lyric-item.hh"
+#include "staff-column.hh"
 
 void
 Lyric_walker::process_requests()

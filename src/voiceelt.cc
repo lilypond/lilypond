@@ -8,6 +8,7 @@
 
 #include "debug.hh"
 #include "voice.hh"
+#include "voice-element.hh"
 #include "musicalrequest.hh"
 #include "commandrequest.hh"
 
@@ -59,8 +60,6 @@ Voice_element::find_plet_start_bo(char c, Moment& moment_r)
     assert( c == ']' );
     moment_r += duration;
     for ( PCursor<Request*> req_l_pcur( reqs.top() ); req_l_pcur.ok(); req_l_pcur++ ) {
-	if (req_l_pcur->melodic())
-	    mtor << (char)('c' + req_l_pcur->melodic()->height()) << "\n";
 	if (req_l_pcur->beam() && req_l_pcur->beam()->spantype == Span_req::START )
 	    return true;
     }
@@ -79,7 +78,8 @@ Voice_element::set_default_group(String s)
 }
 
 void
-Voice_element::set_plet_backwards(Moment& now_moment_r, Moment until_moment, int num_i, int den_i)
+Voice_element::set_plet_backwards(Moment& now_moment_r,
+				  Moment until_moment, int num_i, int den_i)
 {
     now_moment_r += duration;
     if ( now_moment_r > until_moment )
@@ -91,7 +91,5 @@ Voice_element::set_plet_backwards(Moment& now_moment_r, Moment until_moment, int
 	    req_l_pcur->rhythmic()->plet_factor = Moment(num_i, den_i);
 	if (req_l_pcur->stem())
 	    req_l_pcur->stem()->plet_factor = Moment(num_i, den_i);
-	if (req_l_pcur->melodic())
-	    mtor << (char)('c' + req_l_pcur->melodic()->height()) << "\n";
     }
 }

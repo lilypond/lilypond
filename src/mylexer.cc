@@ -1,16 +1,17 @@
 #include <strstream.h>
+
 #include "interval.hh"
 #include "identparent.hh"
-#include "associter.hh"
+#include "assoc-iter.hh"
 #include "lexer.hh"
-#include "inputfile.hh"
+#include "input-file.hh"
 #include "parser.hh"
 #include "keyword.hh"
 #include "assoc.hh"
 #include "lexer.hh"
 #include "debug.hh"
 #include "notename.hh"
-#include "sourcefile.hh"
+#include "source-file.hh"
 #include "parseconstruct.hh"
 
 static Keyword_ent the_key_tab[]={
@@ -25,7 +26,6 @@ static Keyword_ent the_key_tab[]={
     "goto", GOTO,
     "in", IN_T,
     "key", KEY,
-
     "meter", METER,
     "midi", MIDI,
     "mm", MM_T,
@@ -64,7 +64,8 @@ My_flex_lexer::ret_notename(int *p, String text, int octave_mod)
     char const* ch_c_l = here_ch_c_l();
     if ( ch_c_l ) {
 	ch_c_l--;
-	while ( ( *ch_c_l == ' ' ) || ( *ch_c_l == '\t' ) || ( *ch_c_l == '\n' ) )
+	while ( ( *ch_c_l == ' ' )
+		|| ( *ch_c_l == '\t' ) || ( *ch_c_l == '\n' ) )
 	    ch_c_l--;
 	ch_c_l++;
     }
@@ -126,6 +127,13 @@ My_flex_lexer::~My_flex_lexer()
 	delete ai.val();
     }
     delete the_id_tab;
+}
+void
+My_flex_lexer::print_declarations()const
+{
+    for (Assoc_iter<String,Identifier*> ai(*the_id_tab); ai.ok(); ai++) {
+	ai.val()->print();
+    }
 }
 
 String

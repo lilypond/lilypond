@@ -9,7 +9,7 @@
 #include "plist.hh"      // all for midi-main.hh
 #include "string.hh"
 #include "source.hh"
-#include "sourcefile.hh"
+#include "source-file.hh"
 #include "midi-main.hh"  // *tors
 #include "moment.hh"
 #include "duration.hh"

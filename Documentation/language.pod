@@ -22,6 +22,12 @@ A musical notation that is relatively easy to comprehend to both
 programmers and non programmers. The final aim is to be able to
 express what can be expressed in sheet music.
 
+This document is intended to summarise the plans for mudela 2 (mudela
+0 being mpp-input, and mudela-1 LilyPond input upto version 0.0.38).
+Ideas for any further extensions (mudela 3, read total vapourware)
+should be marked as such.
+
+
 =over 5
 
 =item *
@@ -129,6 +135,11 @@ voices on one staff?
 We might be able to do without the staff{} construct, but I doubt if
 it will make things easier.
 
+=head1 DECISIONS
+
+[none, yet]
+
+
 =head1 THOUGHTS
 
 =head2 Typing
@@ -197,7 +208,11 @@ As simple fix, we might do key declarations:
 
 	\key{\keybes}
 
+[LOOSE]
 
+We could be even more rabid, and use '\rab' as \bar terminator.
+
+Just kidding of course...
 
 [LOOSE THOUGHT]
 
@@ -298,7 +313,7 @@ Mats is an arduous fan of having the commands inside music. I am
 not. I see the Mudela music as something which can be plugged into
 different staffs, transposed, translated in time, copied, quoted,
 etc. Encouraging "inline" commands would be bad since they hinder this
-reuse of typed music.
+reuse of mudela-isated music.
 
 The way I figure it, the bad part is essentially counting
 bars/wholes. Maybe we can get rid of it, by reinstalling the "mark"
@@ -313,6 +328,7 @@ There is another complication: some symbols (bars) sometimes are
 linked across staffs. I should first think of a way to do this in
 LilyPond, before even considering a syntax.
 
+[see also: filtering]
 
 =head2 Volta
 
@@ -322,11 +338,14 @@ uhh?
 
 The syntax of /, * and : has to be settled, we have
 
-	- notes (1, 2, 4, 8 etc)
+	- notes (1, 2, 4, 8 etc), which also can take 1*2/3 to do plets.
 	- meter 2*4
 	- plet 2/3
 	- multiple notes: 3*4
 	- abbreviations (not implemented)  c4/4 or c4*4
+	- measure grouping, {2*4 3*4}
+	- skip 
+
 
 =head2 Filtering
 
@@ -384,7 +403,6 @@ I don't see the big win of this.
 	sc1.staff{<\b1 \b2>}
 	sc1.paper=mypaperdef;
 
-
 We're not doing a programming language. In this syntax the parser has
 to lookup what sc1 means, decide if it should copied shallow/deep,
 decide if has a staff block, switch the mode after it finds that staff
@@ -395,6 +413,9 @@ In a distant future there might be a need for programming (are you
 listening, Philip Glass?), but I think that would be something for
 Mudela version 3. And I think using m4 (or something alike) would be
 just as convenient.
+
+It might clear things up, if JCN told us what is so special about this
+syntax (without the C++ looks).
 
 =head2 Transposition
 

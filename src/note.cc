@@ -12,9 +12,10 @@
 #include "notename.hh"
 #include "identparent.hh"
 #include "varray.hh"
-#include "textdef.hh"
+#include "text-def.hh"
 #include "parseconstruct.hh"
-#include "inputmusic.hh"
+#include "input-music.hh"
+#include "voice-element.hh"
 
 int default_duration = 4, default_dots=0, default_octave=0;
 int default_plet_type = 1, default_plet_dur = 1;
