@@ -15,7 +15,6 @@
 #include "music-wrapper.hh"
 #include "music-wrapper-iterator.hh"
 #include "simple-music-iterator.hh"
-#include "context-specced-music.hh"
 
 #include "ly-smobs.icc"
 
@@ -131,25 +130,6 @@ Music_iterator::init_translator (Music *m, Translator_group *report)
 {
   music_ = m;
   assert (m);
-  if (Context_specced_music * csm =dynamic_cast<Context_specced_music *> (m))
-    {
-      SCM ct = csm->get_mus_property ("context-type");
-      String c_type;
-      if (gh_string_p (ct))
-	  c_type =  ly_scm2string (ct);
-      
-      String c_id;
-      SCM ci = csm->get_mus_property ("context-id");
-      if (gh_string_p (ci))
-	c_id = ly_scm2string (ci);
-      
-      Translator_group* a
-	=report->find_create_translator (c_type, c_id);
-
-      set_translator (a);
-      
-    }
-
   if (! report_to ())
     set_translator (report);
 }

@@ -1,5 +1,14 @@
 2002-09-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/context-specced-music-iterator.cc (class
+	Context_specced_music_iterator): new file. Obsoletes the
+	Context_specced_music type.
+
+	* scm/music-types.scm (make-repeated-music): put different kinds
+	of repeated music into music-type table.
+
+	* VERSION: 1.7.1 released.
+
 	* scm/to-xml.scm: new file.
 
 	* input/test/to-xml.ly (fooBar): demo of what is possible with the
