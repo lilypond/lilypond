@@ -14,7 +14,7 @@
 ;;;    * currently, in bracket matching one may need a non-bracket
 ;;;      chararacter between the bracket characters, like ( ( ) )
 
-(defcustom LilyPond-indent-level 4
+(defcustom LilyPond-indent-level 2
   "*Indentation of lilypond statements with respect to containing block."
   :group 'LilyPond
   :type 'integer)
