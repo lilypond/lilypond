@@ -1,7 +1,7 @@
 \version "1.7.18"
 
 \header{ texidoc = "@cindex Transposition
-Transposition Test file"
+Transposition test file."
 }
 
 

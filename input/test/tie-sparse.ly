@@ -1,7 +1,7 @@
 \version "1.7.18"
 
 \header { texidoc = "@cindex Tie Sparse
-setting sparseTies causes only one tie to be
+Setting sparseTies causes only one tie to be
 generated per chord pair. "
 }
 	

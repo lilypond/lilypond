@@ -2,7 +2,7 @@
 % more yummy regression goodness.  -gp
 \header {
 texidoc = "
-1. upon stretching: every note should stretch according to duration
+1. Upon stretching every note should stretch according to duration.
 
 2. 8th notes should be spaced equidistantly.
 "

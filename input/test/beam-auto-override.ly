@@ -14,7 +14,7 @@ The auto-beamer will only engrave beams that end when:
  there's a 'gap' in the beam note's durations
 @end itemize
 
-The beam will be ended also when now % beamAutoEnd = 0
+The beam will be ended also when now % beamAutoEnd = 0.
 
 "
 

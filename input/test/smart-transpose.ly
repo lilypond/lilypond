@@ -3,7 +3,7 @@
 \header {
 texidoc="@cindex Smart Transpose
 @example
-    Here's a copy of my feature request :
+	Here's a copy of my feature request :
 @quotation
         Your task, if you accept it is to implement a \smarttranspose
         command> that would translate such oddities into more natural
@@ -15,7 +15,7 @@ You mean like this. (Sorry 'bout the nuked indentation.)
 
 Modified to use the standard transpose mechanism. The question is
 how useful these enharmonic modifications are. Mats B.
-@end example
+@end example.
 "
 }
 
