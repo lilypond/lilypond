@@ -1,4 +1,20 @@
+2003-07-26  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scripts/ly2dvi.py (include_path): bugfix: use outbase
+	iso. outname.
+
+	* mf/feta-klef.mf: clef fixes, remove left/right spacing.  set
+	G-clef bbox to real char extents. This fixes the G-clef being
+	offset too much to the right.
+	document perc clef offset.
+
+	WARNING: FONT CHANGED.
+
+	* Documentation/user/tutorial.itely (Tutorial): move menu.
+
 2003-07-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* buildscripts/lilypond-profile.sh (Error): trim error message.
 
 	* Documentation/user/invoking.itexi (Invoking the lilypond
 	binary): add note about path.

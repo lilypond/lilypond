@@ -969,7 +969,7 @@ if 1:
 			ly.progress (_ ("%s output to %s...") % (i, names))
 			ly.progress ('\n')
 		elif verbose_p:
-			ly.warning (_ ("can't find file: `%s'") % outname)
+			ly.warning (_ ("can't find file: `%s.%s'") % (outbase, ext))
 
 	if html_p:
 		make_html_menu_file (os.path.join (outdir, outbase + ".html"),
