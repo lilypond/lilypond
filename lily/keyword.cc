@@ -4,10 +4,7 @@
 
 #include <stdlib.h>
 
-#include "glob.hh"
 #include "my-lily-lexer.hh"
-//#include "mudobs.hh"
-//#include "gram.hh"
 
 /* for the keyword table */
 struct Keyword_ent

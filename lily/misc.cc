@@ -1,27 +1,17 @@
+/*
+  misc.cc -- implement various stuff
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include <math.h>
 
 #include "item.hh"
 #include "misc.hh"
-#include "glob.hh"
 #include "moment.hh"
 
-
-// depreciated, see struct Duration*
-Moment
-wholes(int dur, int dots)
-{
-    if (!dur)
-	return 0;
-
-    Moment f = Rational(1)/Moment(dur);
-    Moment delta = f;
-
-    while (dots--) {
-	delta /= 2.0;
-	f += delta;
-    }
-    return f;    
-}
 int
 intlog2(int d) {
     int i=0;
@@ -38,6 +28,7 @@ log_2(double x) {
     return log(x)  /log(2.0);
 }
 
+#if 1
 Interval
 itemlist_width(const Array<Item*> &its)
 {
@@ -51,3 +42,4 @@ itemlist_width(const Array<Item*> &its)
     return iv;
 }
 
+#endif
