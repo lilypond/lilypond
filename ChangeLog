@@ -1,3 +1,8 @@
+2004-10-11  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* Documentation/user/notation.itely (Multi measure rests): Update
+	the docs corresponding to the implementation change from 2004-10-08.
+
 2004-10-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* VERSION (MY_PATCH_LEVEL): release 2.3.22
