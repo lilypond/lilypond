@@ -48,11 +48,10 @@ class Stem : public Item, public Staff_symbol_referencer {
     */
   Drul_array<Real> yextent_drul_;
 
-public:  // urg, autobeamer needs to know if there are (only) rests here?
+public:
   Link_array<Note_head> head_l_arr_;
   Link_array<Rest> rest_l_arr_;
     
-public:
   /// log of the duration. Eg. 4 -> 16th note -> 2 flags
   int flag_i_;
 
