@@ -1,3 +1,21 @@
+2004-01-25  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/define-grobs.scm (all-grob-descriptions): remove
+	enclose-bounds in OttavaBracket and PianoPedalBracket
+
+	* scm/new-markup.scm (def-markup-command) new macro, which takes
+	care of defining the COMMAND-markup and make-COMMAND-markup
+	procedures, setting markup-signature and keyword-signature object
+	properties, and pushing the markup command in
+	markup-function-list.
+
+	All markup commands are defined thanks to it.  Users may also use
+	it to define their own markup commands. (Nicolas Sceaux)
+
+	* scm/new-markup.scm:Little scheme style clean-up: there should be
+	no parenthese alone on a line; LET* should not be used where LET
+	is enough. (Nicolas Sceaux)
+
 2004-01-25  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/filter-lilypond-book.py: Add script.
@@ -7,6 +25,9 @@
 	* ly/engraver-init.ly: Set enclose_bounds to #1 (was: ##t).
 
 2004-01-24  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* Documentation/user/refman.itely (Fingering instructions): add
+	single note chords. 
 
 	* lily/multi-measure-rest-engraver.cc: use a single
 	MultiMeasureEvent for mm rests. This prevents problems with the
