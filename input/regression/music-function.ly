@@ -9,14 +9,10 @@ demonstrate a @code{\myBar} function, which works similar to
 }
 \version "2.4.0"
 
-#(define myBar
-  (ly:make-music-function
-   (list string?)
-   (lambda (where type)
-    (context-spec-music
-     (context-spec-music (make-property-set 'whichBar type) 'Timing)
-     'Score))
-    ))
+myBar = #(def-music-function (parser location bar-type) (string?)
+          (context-spec-music
+           (context-spec-music (make-property-set 'whichBar bar-type) 'Timing)
+           'Score))
 
 \layout { raggedright = ##t }
 
