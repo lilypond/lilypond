@@ -248,11 +248,18 @@ Note_head::brew_ez_stencil (SCM smob)
   SCM spitch = unsmob_music (cause)->get_property ("pitch");
   Pitch* pit =  unsmob_pitch (spitch);
 
-  char s[2] = "a";
-  s[0] = (pit->get_notename () + 2)%7 + 'a';
-  s[0] = toupper (s[0]);
-  
-  SCM charstr = scm_makfrom0str (s);
+  SCM idx = gh_int2scm (pit->get_notename ());
+  SCM names = me->get_property ("note-names");
+  SCM charstr = SCM_EOL;
+  if (gh_vector_p (names))
+    charstr = scm_vector_ref (names, idx);
+  else
+    {
+      char s[2] = "a";
+      s[0] = (pit->get_notename () + 2)%7 + 'a';
+      s[0] = toupper (s[0]);
+      charstr = scm_makfrom0str (s);
+    }
   
   SCM at = scm_list_n (ly_symbol2scm ("ez-ball"),
 		       charstr,
@@ -331,5 +338,5 @@ Note_head::get_balltype (Grob*me)
 
 ADD_INTERFACE (Note_head,"note-head-interface",
   "Note head",
-  "glyph-name-procedure accidental-grob style stem-attachment-function");
+  "note-names glyph-name-procedure accidental-grob style stem-attachment-function");
 

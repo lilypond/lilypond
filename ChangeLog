@@ -1,3 +1,11 @@
+2004-03-19  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/note-head.cc (brew_ez_stencil): read vector note-names to
+	determine ez-notation letter. 
+
+	* lily/system.cc (get_line): start with dumping layer 3. This
+	fixes ez notation.
+
 2004-03-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/paper-book.cc (pages): Bugfix: copy_height and tag_height
@@ -22,6 +30,9 @@
 	* ly/declarations-init.ly (paper): Define page-breaking.
 
 2004-03-18  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/note-head.cc (brew_ez_stencil): add note-names
+	property. Provides internationalization for note names.
 
 	* Documentation/user/changing-defaults.itely (Creating contexts):
 	new node.

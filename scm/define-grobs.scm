@@ -919,13 +919,12 @@
 	
     (Stem
      . (
-
 	;; this list is rather long. Trim --hwn
 	(before-line-breaking-callback . ,Stem::before_line_breaking)
 	(print-function . ,Stem::print)
 	(thickness . 1.3)
 
-	;; 3.5 (or 3 measured from note head) is standar length
+	;; 3.5 (or 3 measured from note head) is standard length
 	;; 32nd, 64th flagged stems should be longer
 	(lengths . (3.5 3.5 3.5 4.5 5.0))
 	

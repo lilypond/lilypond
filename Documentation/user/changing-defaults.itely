@@ -243,14 +243,15 @@ clef and time signature are added. LilyPond @emph{interprets} the
 input. During this step, the musical information is inspected in time
 order, similar to reading a score from left to right. While reading,
 the program remembers where measure boundaries are, and what pitches
-need explicit accidentals. 
+need explicit accidentals.
 
-This information can be present on several levels.  For example, the
-effect of an accidental is limited to a single stave, while a bar line
-must be synchronized across the entire score.  To match this
-hierarchy, LilyPond's interpretation step is hierarchical.  There are
-interpretation contexts, like @context{Voice}, Staff and Score, and each level
-can maintain its own properties.
+This is contextual information. and it can be present on several
+levels.  For example, the effect of an accidental is limited to a
+single stave, while a bar line must be synchronized across the entire
+score.  To match this hierarchy, LilyPond's interpretation step is
+hierarchical.  There are interpretation contexts, like
+@context{Voice}, Staff and Score, and each level can maintain its own
+properties.
 
 Full description of all available contexts is in the program
 reference, see
@@ -344,7 +345,7 @@ They are combined by sending both to the same @context{Voice} context,
 music = \notes { c4 c4 }
 arts = \notes  { s4-. s4-> }
 \score {
-  << \new Staff \context Voice = "A" \music
+       \notes \relative c''  << \new Staff \context Voice = "A" \music
      \context Voice = "A" \arts
   >>
 } 
@@ -450,7 +451,7 @@ easily with @code{\once}, for example in
   c4
 @end lilypond
 
-the property @code{fontSize} is unset automatically after the third
+the property @code{fontSize} is unset automatically after the second
 note.
 
 A full description of all available context properties is in the

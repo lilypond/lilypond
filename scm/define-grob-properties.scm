@@ -316,6 +316,8 @@ should move (after padding).")
 returning a @code{Stencil} object.")
      (new-accidentals ,list? "List of @code{(@var{pitch}
 . @var{accidental})} pairs.")
+     (note-names ,vector? "Vector of strings containing names for
+easy-notation note heads.")
      (no-spacing-rods ,boolean? "Items with this property do not cause
 spacing constraints.")
      (no-stem-extend ,boolean? "If set, notes with ledger lines do not
