@@ -257,7 +257,6 @@ FIXME: also pair? (cons LEFT RIGHT)
 (grob-property-description 'non-default boolean? "not set because of existence of a bar?.")
 (grob-property-description 'note-width number? "unit for horizontal translation, measured in staff-space.")
 (grob-property-description 'note-heads list? "List of note head grobs")
-(grob-property-description 'number-gap number? "size of the gap for tohe number in a tuplet.")
 (grob-property-description 'number-threshold number? "only put numbers bigger than this threshold over multi measuer rest.")
 (grob-property-description 'old-accidentals list? "list of (pitch, accidental) pairs.")
 (grob-property-description 'padding number? "add this much extra space between objects that are next to each other.")
@@ -447,3 +446,5 @@ columns.
  "ideal beam slope, without damping.")
 (grob-property-description 'stem-info pair? "caching of stem parameters")
 (grob-property-description 'note-columns pair? "list of NoteColumn grobs.")
+
+(grob-property-description 'if-text-padding number? "padding in case texts are there.")

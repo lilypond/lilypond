@@ -205,6 +205,9 @@ Text_spanner::setup_pedal_bracket(Spanner *me)
   Drul_array<bool> w, broken;
   Drul_array<Real> height, width, shorten, r;
 
+  /*
+    FIXME: too many new property names.
+   */
   SCM pa = me->get_grob_property ("if-text-padding");
   SCM ew = me->get_grob_property ("edge-width");
   SCM eh = me->get_grob_property ("edge-height");
@@ -302,5 +305,5 @@ ADD_INTERFACE (Pianopedal,"piano-pedal-interface",
 
 ADD_INTERFACE (Text_spanner,"text-spanner-interface",
   "generic text spanner",
-  "dash-period dash-length edge-height edge-width edge-text shorten-pair type");
+  "dash-period if-text-padding dash-length edge-height edge-width edge-text shorten-pair type");
 
