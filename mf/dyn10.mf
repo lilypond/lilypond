@@ -94,19 +94,32 @@ math_fitting:=false;    % should math-mode spacing be used?
 % "s", "m", and "z".  sometimes the "m" and "z" are a bit fatter than
 % "s".
 
-slant:=.62;      % tilt ratio $(\Delta x/\Delta y)$
+slant:=.68;      % tilt ratio $(\Delta x/\Delta y)$
 crisp#:=19/36pt#;    % diameter of serif corners
 tiny#:=19/36pt#;    % diameter of rounded corners
 fine#:=20/36pt#;    % diameter of sharply rounded corners
 thin_join#:=20/36pt#;    % width of extrafine details
-stem#:=57/36pt#;    % lowercase stem breadth
-curve#:=64/36pt#;    % lowercase curve breadth
-flare#:=64/36pt#;    % diameter of bulbs or breadth of terminals
+stem#:=72/36pt#;    % lowercase stem breadth
+%curve#:=64/36pt#;    % lowercase curve breadth
+flare#:=52/36pt#;    % diameter of bulbs or breadth of terminals
 
-mode_setup; font_setup;
+%  mode_setup; font_setup;
+mode_setup;
+font_setup;
+
+num=-1;
 input ital-f;
+
 slant:=.38;      % tilt ratio $(\Delta x/\Delta y)$
-mode_setup; font_setup;
+stem#:=58/36pt#;    % lowercase stem breadth
+font_setup;
+
+input ital-f;
+stem#:=54/36pt#;    % lowercase stem breadth
+
+% mode_setup; font_setup;
+font_setup;
+
 input ital-p;
 
 slant:=.28;      % tilt ratio $(\Delta x/\Delta y)$
@@ -119,11 +132,12 @@ fine#:=10/36pt#;    % diameter of sharply rounded corners
 thin_join#:=10/36pt#;    % width of extrafine details
 hair#:=20/36pt#;    % lowercase hairline breadth
 % stem#:=38/36pt#;    % lowercase stem breadth
-% curve#:=43/36pt#;    % lowercase curve breadth
+curve#:=43/36pt#;    % lowercase curve breadth
 flare#:=42/36pt#;    % diameter of bulbs or breadth of terminals
 % ess#:=35/36pt#;      % breadth in middle of lowercase s
 
-mode_setup; font_setup;
+% mode_setup; font_setup;
+font_setup;
 
 input ital-m;
 input ital-s;

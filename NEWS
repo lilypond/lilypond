@@ -30,6 +30,9 @@ by the parser (mudela 0.1.4)
 	- Molecule::add_XXXX -> Molecule::add_at_edge ()
 	- doco updeet: why no midi FAQ, index, CodingStyle hungarian
 
+pl 12.jcn4
+	- fixed dynamic f, magstep bug
+
 pl 12.jcn3
 	- try at better dynamic font, copied from cmbxti10: mf/*
 	- typesetting abbreviation beams; abbreviation-*
