@@ -283,7 +283,13 @@ Accidental_engraver::process_acknowledged_grobs ()
 
 	  if (num)
 	    {
-	      Grob * a = make_item ("Accidental");
+	      /*
+		We construct the accidentals at the originating Voice
+		level, so that we get the property settings for
+		Accidental from the respective Voice.
+	       */
+	      Grob * a = make_item_from_properties (origin,
+						    ly_symbol2scm ("Accidental"));
 	      a->set_parent (support, Y_AXIS);
 
 	      if (!accidental_placement_)
@@ -483,11 +489,14 @@ Accidental_engraver::process_music ()
 
 
 ENTER_DESCRIPTION (Accidental_engraver,
-"Make accidentals.  Catches note heads, ties and notices key-change "
-" events.  Due to interaction with ties (which don't come together "
-" with note heads), this needs to be in a context higher than Tie_engraver.",
-	       "Accidental",
-/* accepts */     "",
+		   "Make accidentals.  Catches note heads, ties and notices key-change "
+		   "events.  This engraver usually lives at Staff level, but "
+		   "reads the settings for Accidental at @code{Voice} level, " 
+		   "so you can @code{\\override} them at @code{Voice}. "
+		   ,
+		   
+		   "Accidental",
+		   "",
 	       "finger-interface rhythmic-head-interface tie-interface arpeggio-interface",
 	       "localKeySignature extraNatural autoAccidentals autoCautionaries",
 		   "localKeySignature");

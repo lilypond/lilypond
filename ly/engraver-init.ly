@@ -557,7 +557,7 @@ AncientRemoveEmptyStaffContext = \translator {
 	(Voice Beam position-callbacks (,Beam::least_squares
 					,Beam::check_concave
 					,Beam::slope_damping))
-	(Staff Accidental font-size -4)
+	(Voice Accidental font-size -4)
 	(Voice Slur direction -1)
     )
     
