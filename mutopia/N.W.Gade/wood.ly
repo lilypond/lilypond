@@ -80,7 +80,7 @@ R2*2 |
 r8 [g,-.^""^"solo" \p a-. b-. ] |
 c r r4 |
 R2*10 |
-\tiny d8 \fz *1/2 \normalsize f2 \> ( *7/8 |
+\grace d8 \fz f2 \> ( |
 \! b,4 [c8 b] |
 a2-> |
 ) gis |
@@ -88,15 +88,15 @@ a4 ( \p \< ) e' |
 e-. () \! e-. |
 e ( \> [ d8 \! c ] |
 ) b2 \p |
-\tiny e8*1/2 \normalsize g4 ( \> *3/4 dis |
+\grace e8 g4 ( \> dis |
 \! e ) b |
-\tiny e8*1/2 \normalsize g4 ( \> *3/4 dis |
+\grace e8 g4 ( \> dis |
 \! e_"dim." ) b |
-\tiny d!8 \fz *1/2 \normalsize f2 ( \> *7/8 |
+\grace d!8 \fz f2 ( \> |
 b,4 [ \! c8 b] |
 a2 \p |
 ) gis |
-\tiny a8*1/2 \normalsize d2( \> *7/8 |
+\grace a8 d2( \> |
 \! b4 [ c8 b ] |
 a2 \p |
 ) gis |
@@ -157,7 +157,7 @@ r4 r8 bes, ( |
 ) a8 r g4 ( |
 ) f8 r r4 |
 R2*7 |
-\tiny f8 \f *1/2 \normalsize a4 \> ( *3/4 e |
+\grace f8 \f a4 \> ( e |
 f \! b, |
 ) c r |
 R2*7 |
@@ -390,7 +390,7 @@ a4 \p ( [g8. a16 ] g4 |
 fis ) g8 r r4 |
 a4 ( [g8. a16 ] g4 |
 fis ) g8 r [d^""^"solo" \mf \< () \! b' ] |
-\tiny a8*1/2 \normalsize d2 ( \> *7/8 [b8. \! g16] |
+\grace a8 d2 ( \> [b8. \! g16] |
 ) d2 r4 |
 R2. |
 r4 r \times 2/3 { [b'8^""^"solo" ( \ff d, ) d' ] } |
@@ -428,8 +428,7 @@ b2 ~ |
 b4 a |
 b2 ~ |
 [b8_"dim." a g ) e ] |
-<{[cis ( a  ) b a-. ] | } 
-  \context Voice = x {s8.. \tiny cis8 } >
+[cis ( a  \grace cis ) b a-. ] | 
 [fis''-. f-. f-. e-. ] |
 [e-. \< dis-. dis-. \! d-. ] |
 d r b4 \f ( |
@@ -626,7 +625,7 @@ a4 \p ( [g8. a16 ] g4 |
 fis ) g8 r r4 |
 a4 ( [g8. a16 ] g4 |
 fis ) g8 r [d^""^"solo" \mf \< () \! b' ] |
-\tiny a8*1/2 \normalsize d2 ( \> *7/8 [b8. \! g16] |
+\grace a8 d2 ( \> [b8. \! g16] |
 ) d2 r4 |
 R2. |
 r4 r \times 2/3 { [b'8 ( \f d, ) d' ] } |
@@ -903,7 +902,7 @@ e2 \p \< ~ |
 \! e \> ~ |
 \! e \< ~ |
 \! e \> |
-\tiny \! d'8 \fz ( *1/2 \normalsize ) f2 \> ( *7/8 |
+\grace \! d'8 \fz ( ) f2 \> ( |
 ) \! e4. r8 |
 f,2 \> ( ( |
 [ ) \! e8 d c ) b ] | 
@@ -915,7 +914,7 @@ e2 \p ~
 e ~ |
 e ~ |
 e |
-\tiny d'8 \fz ( *1/2 \normalsize ) f2 \> ( *7/8 |
+\grace d'8 \fz ( ) f2 \> ( |
 ) \! e4. r8 |
 f,2 \p ( |
 ) e4 r |

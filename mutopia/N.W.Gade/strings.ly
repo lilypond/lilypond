@@ -66,8 +66,7 @@ f4 ( \< g |
 a4 \> ) g |
 \! a2 ( |
 [a8_"dim." g f d] |
-<{[b g ][a ) g ] |} 
-  \context Voice=x {s8.. \tiny b8}>
+[b g ] \grace b8 [a ) g ] |
 R2 |
 r4 r8 a'-. \mf |
 [a-. \< a-. a-. \! a-. ] |
@@ -85,9 +84,9 @@ b4. \f bes8 ( |
 [g-. \< f-. e-. \! d-. ] |
 [g, g'16 \f ( a ][ ) g8 g,, \p ] |
 g4^\trill ( a^\trill | % added longer slur and trills
-b^\trill \tiny [a16*1/2 b*1/2] \normalsize[c8*1/2 ) g ] |
+b^\trill \grace{[a16 b]} [c8 ) g ] |
 g4^\trill ( a^\trill |
-b^\trill \tiny [a16*1/2 b*1/2] \normalsize [) c8*1/2 bes' \f ( ] | 
+b^\trill \grace{[a16 b]} [) c8 bes' \f ( ] | 
 ) bes'4.-> a8 |
 [f-. e-. d-. f, ( ] |
 < ) d'4. \fz a'> g,8 ( |
@@ -112,11 +111,11 @@ a ( \< ) e' |
 e-. () \! e-. |
 e \fz \> [ d8 \! c ] |
 b2 \p | % \p added
-\tiny e8*1/2 \normalsize g4 ( \> *3/4 dis | 
+\grace e8 g4 ( \> dis | 
 \! e ) b |
-\tiny e8*1/2 \normalsize g4 ( \> *3/4 dis | 
+\grace e8 g4 ( \> dis | 
 \! e ) b |
-\tiny d8*1/2 \normalsize f2 \fz ( *7/8 |
+\grace d8 f2 \fz ( |
 b,4 [c8 ) b] |
 a2-> ( |
 ) gis4 e |
@@ -124,15 +123,15 @@ a ( ) e' |
 e-.  \< () \! e-. |
 e ( \fz \> [ d8 \! c ] |
 ) b2 \p |
-\tiny e8*1/2 \normalsize g4 ( \> *3/4 dis |
+\grace e8 g4 ( \> dis |
 \! e ) b |
-\tiny e8*1/2 \normalsize g4 ( \> *3/4 dis |
+\grace e8 g4 ( \> dis |
 \! e ) b |
-\tiny d8*1/2 \normalsize f2 \fz ( *7/8 |
+\grace d8 f2 \fz ( |
 b,4 [c8 ) b] |
 a2 \p ( |
 ) gis |
-\tiny a8*1/2 \normalsize d2 ( \> *7/8 |
+\grace a8 d2 ( \> |
 b4 [ c8 \! b ] |
 a2 \p |
 ) gis |
@@ -172,7 +171,7 @@ bes4 ( \< c |
 d4 \> c |
 \! d2 |
 [d8 c][bes g] |
-[e c] \tiny e8*1/4 \normalsize [d *3/4 ) c ] |
+[e c] \grace e8 [d ) c ] |
 R2 |
 r4 r8 d' \mf |
 d2:8 \< |
@@ -190,9 +189,9 @@ d2:8 \< |
 [c-. \< bes-. a-. \! g-. ] |
 [c, c'16 ( \f d] [) c8 c,, \p ] |
 c4^\trill ( d^\trill |
-e^\trill \tiny [d16*1/2 e*1/2] \normalsize [f8 *1/2 ) c ] |
+e^\trill \grace{[d16 e]} [f8 ) c ] |
 c4^\trill ( d^\trill |
-e^\trill \tiny [d16*1/2 e*1/2] \normalsize [f8 *1/2 ) es' \f ( ] |
+e^\trill \grace{[d16 e]} [f8 ) es' \f ( ] |
 ) es'4. d8 |
 [bes-. a-. g-. bes, ( ] |
 ) d'4. \fz c,8 ( |
@@ -215,7 +214,7 @@ f4 g |
 f ) e |
 es2 ( |
 ) d4 r |
-\tiny f'8*1/2 \normalsize a4 \fz ( *3/4 e |
+\grace f'8 a4 \fz ( e |
 f b, |
 ) c r |
 R2 |
@@ -351,9 +350,9 @@ f4. \f e8 ( |
 [cis-. \< d-. e-. \! f-. ] |
 [f \f g16 ( a][ ) g8 g, \p ] |
 g4^\trill ( \< \! a^\trill |
-b^\trill \> \tiny [a16*1/2 b*1/2] \normalsize [ ) c8 *1/2 \! g] |
+b^\trill \> \grace{[a16 b]} [ ) c8 \! g] |
 g4^\trill ( \< \! a^\trill |
-b^\trill \> \tiny [a16*1/2 b*1/2] \normalsize [ ) \! c8 *1/2 g' \f ( ] |
+b^\trill \> \grace{[a16 b]} [ ) \! c8 g' \f ( ] |
 < ) g4.-> bes> a8 |
 [a a a f ( ] |
 <d'4. \fz ) a'> g,8 ( |
@@ -392,7 +391,7 @@ b4:16 \p \< \! c4:16 \> |
 \! b2:16 |
 b4:16 \p \< \! c4:16 \> |
 \! b2:16 |
-\tiny d8*1/2 \normalsize f2 ( \> *7/8 | % grace note c8 corrected to d8
+\grace d8 f2 ( \> | % grace note c8 corrected to d8
 \! ) e |
 b-> ( |
 ) e4 r |
@@ -404,7 +403,7 @@ b4:16 \p \< \! c4:16 \> |
 \! b2:16 |
 b4:16 \p \< \! c4:16 \> |
 \! b2:16 |
-\tiny d8*1/2 \normalsize f2 ( \fz *7/8 |
+\grace d8 f2 ( \fz |
 ) e |
 [ a,16 ( \p d a d ][a d a d] |
 [ b16 d b d ][b d b ) d] |
@@ -477,9 +476,9 @@ bes4. a8 ( \f |
 [fis-. \< g-. a-. \! bes-.] |
 [bes \f c16 ( d][)c8 c, \p ] |
 c4^\trill ( d^\trill |
-e^\trill \tiny [d16*1/2 e*1/2] \normalsize [ f8 *1/2 ) c ] |
+e^\trill \grace{[d16 e]} [ f8 ) c ] |
 c4^\trill ( d^\trill |
-e^\trill \tiny [d16*1/2 e*1/2] \normalsize [ ) f8 *1/2 a ( \f ] |
+e^\trill \grace{[d16 e]} [ ) f8 a ( \f ] |
 <a4. ) c4.> d8 |
 [d d d bes \f (] |
 <bes4. ) g'4.> bes8 (|
