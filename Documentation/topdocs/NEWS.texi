@@ -5,6 +5,17 @@
 @node Top, , , 
 @top
 
+@chapter New features in 2.1 since 2.0
+
+@itemize
+@item The appearance of stem tips is now also engraved with rounded corners.
+
+@item
+The placement of accidentals on chords and ledgered notes is improved.
+
+@end itemize
+
+
 @chapter New features in 2.0 since 1.8
 
 @itemize
