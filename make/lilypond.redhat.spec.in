@@ -1,3 +1,5 @@
+# -*- rpm-spec-mode -*-
+
 %define info yes
 
 Name: lilypond
@@ -9,10 +11,10 @@ Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-@TOPLEVEL_VERSION@.
 Summary: Create and print music notation 
 URL: http://www.lilypond.org/
 BuildRoot: /tmp/lilypond-install
+
 # add lots of Buildreq: flex, bison, tetex, tetex-devel, tetex-latex, texinfo
 # better prereqs: tetex-latex, python, (mpost?) etc.
-Prereq: tetex
-
+Prereq: tetex t1utils bison flex pktrace texinfo tetex-latex gcc-c++ python 
 
 %description
 LilyPond lets you create music notation.  It produces
@@ -40,7 +42,7 @@ The documentation of LilyPond, both in HTML and PostScript.
 
 ./configure --disable-checking --prefix=%{_prefix} --enable-optimise
 
-make all
+make MAKE_PFA_FILES=1 all
 
 # make info
 make -C Documentation
@@ -55,7 +57,7 @@ rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/tmp/lilypond-rpm-doc
 
 strip lily/out/lilypond 
-make prefix="$RPM_BUILD_ROOT%{_prefix}" install
+make prefix="$RPM_BUILD_ROOT%{_prefix}" MAKE_PFA_FILES=1 install
 
 %if info=="yes"
 gzip -9fn $RPM_BUILD_ROOT%{_prefix}/info/*

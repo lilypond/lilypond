@@ -19,7 +19,9 @@ bugreport, following the guidelines in the section on bugreports below.
 
 @section Windows binary setup 
 
-All the software you need is installed by downloading and running
+If you run Windows NT, 2000 or XP, please become administrator first
+(currently, installing as an ordinary user will not work).  All the
+software you need is installed by downloading and running
 @uref{http://www.lilypond.org/gnu-windows/setup.exe, setup.exe}.  You
 will be asked some questions. If you are unsure just click "Next".  Do
 not change the default install directory @file{c:/cygwin}.

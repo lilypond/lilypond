@@ -5,7 +5,7 @@ save dot_radius;
 define_whole_blacker_pixels(dot_radius);
 
 fet_beginchar("duration dot","dot", "dot")
-	pickup pencircle scaled dot_radius;
+	pickup pencircle scaled 2 dot_radius;
 	drawdot (dot_radius,0);
 	set_char_box(0, 2*dot_radius#, dot_radius#, dot_radius#);
 fet_endchar;

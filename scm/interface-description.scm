@@ -231,7 +231,7 @@ object."
 (lily-interface
  'note-head-interface
  "Note head"
- '( style stem-attachment-function note-character ))
+ '( style stem-attachment-function ))
 
 
 (lily-interface

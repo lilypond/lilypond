@@ -417,7 +417,6 @@ OrchestralScoreContext= \translator {
 EasyNotation =  \translator {
 	\ScoreContext
 	NoteHead \override #'molecule-callback = #Note_head::brew_ez_molecule
-	easyPlay = ##t
 }
 
 % retain for compatibility reasons (FIXME: convert-ly)

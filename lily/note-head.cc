@@ -6,6 +6,7 @@
   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 #include <math.h>
+#include <ctype.h>
 
 #include "misc.hh"
 #include "dots.hh"
@@ -19,8 +20,6 @@
 /*
   Note_head contains the code for printing note heads.
 
-
-
   Ledger lines:
 
   It also contains the ledger lines, for historical reasons.  Ledger
@@ -32,7 +31,8 @@
   - when ledgered notes are juxtaposed: there should be some white
    space between the ledger lines.
 
-  - when accidentals are near: the accidentals should not be on the ledger lines
+  - when accidentals are near: the accidentals should not be on the
+  ledger lines
 
   [both tips by Heinz Stolba from Universal Edition].
 
@@ -40,7 +40,6 @@
 
   - for basically everything else, e.g. swapping ledgered notes on
    clustered chords, spacing between ledgered and unledgered notes.
-
   
   TODO: fix this. It is not feasible to have a special grob for
   ledgers, since you basically don't know if there will be ledgers,
@@ -52,8 +51,6 @@
 
   (Besides a separate ledger seems overkill. For what else would
   it be useful?)
-  
-
 
 */
 
@@ -199,10 +196,6 @@ Note_head::has_interface (Grob*m)
 
 MAKE_SCHEME_CALLBACK (Note_head,brew_ez_molecule,1);
 
-/*
-  TODO: ledger lines are causing  a mess again, now with accidentals and
-  ez-note heads.
- */ 
 SCM
 Note_head::brew_ez_molecule (SCM smob)
 {
@@ -210,11 +203,22 @@ Note_head::brew_ez_molecule (SCM smob)
   int l = Rhythmic_head::balltype_i (me);
 
   int b = (l >= 2);
+
+  SCM cause = me->get_grob_property ("cause");
+  SCM spitch = unsmob_music (cause)->get_mus_property ("pitch");
+  Pitch* pit =  unsmob_pitch (spitch);
+
+  char s[2] = "a";
+  s[0] = (pit->notename_i_ + 2)%7 + 'a';
+  s[0] = toupper (s[0]);
+  
+  SCM charstr = ly_str02scm (s);
+  
   SCM at = scm_list_n (ly_symbol2scm ("ez-ball"),
-		    me->get_grob_property ("note-character"),
-		    gh_int2scm (b),
-		    gh_int2scm (1-b),
-		    SCM_UNDEFINED);
+		       charstr,
+		       gh_int2scm (b),
+		       gh_int2scm (1-b),
+		       SCM_UNDEFINED);
   Box bx (Interval (0, 1.0), Interval (-0.5, 0.5));
   Molecule m (bx, at);
   int p = (int)  rint (Staff_symbol_referencer::position_f (me));

@@ -95,15 +95,6 @@ Note_heads_engraver::process_music ()
 	pos += gh_scm2int (c0);
 
       note_p->set_grob_property ("staff-position",   gh_int2scm (pos));
-      if (to_boolean (get_property ("easyPlay")))
-	{
-	  char s[2] = "a";
-	  s[0] = (pit->notename_i_ + 2)%7 + 'a';
-
-	  s[0] = toupper (s[0]);
-	  note_p->set_grob_property ("note-character", ly_str02scm (s));
-	}
-      
       announce_grob (note_p,req->self_scm());
       note_p_arr_.push (note_p);
     }
@@ -137,5 +128,5 @@ ENTER_DESCRIPTION(Note_heads_engraver,
 /* descr */       "Generate one or more noteheads from Music of type Note_req.",
 /* creats*/       "NoteHead Dots",
 /* acks  */       "",
-/* reads */       "easyPlay centralCPosition",
+/* reads */       "centralCPosition",
 /* write */       "");

@@ -130,10 +130,10 @@ Compilation
      2.95.2 or newer. Check out the gcc site
      (ftp://ftp.gnu.org/gnu/gcc/).
 
-   * Python (version 1.5 or newer; not 2.1.x) Check out the python
-     website (http://www.python.org).
+   * Python (version 1.5 or newer).  Check out the python website
+     (http://www.python.org).
 
-   * GUILE 1.4 or newer,  check out the GUILE webpage
+   * GUILE (version 1.4 or newer).  Check out the GUILE webpage
      (http://www.gnu.org/software/guile/guile.html).  Version 1.4 is
      recommended for better performance.
 

@@ -24,12 +24,10 @@ $(outdir)/cmr10.afm:
 	-$(GUILE) $(buildscript-dir)/tfm2oafm.scm `kpsewhich cmr10.tfm`
 	-mv $(@F) $@
 
-LOG_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.log))
-TEXTABLES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.tex))
-AFM_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.afm) $(AF_FILES:.af=.afm) $(addsuffix .afm, $(CM_AFM_FILES)))
+LOG_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.log) $(PARMESAN_FILES:.mf=.log))
+TEXTABLES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.tex) $(PARMESAN_FILES:.mf=.tex))
+AFM_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.afm) $(PARMESAN_FILES:.mf=.afm) $(AF_FILES:.af=.afm) $(addsuffix .afm, $(CM_AFM_FILES)))
 TFM_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.tfm))
-PFA_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.pfa))
-PFB_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.pfb))
 
 
 # Make tfm files first, log files last, 
@@ -51,10 +49,18 @@ INSTALLATION_OUT_FILES2=$(AFM_FILES)
 INSTALLATION_OUT_DIR3=$(datadir)/tfm
 INSTALLATION_OUT_FILES3=$(TFM_FILES)
 
-# comment these out if you don't want pfa's to be generated
-# or you don't have metapost.
+# comment this out if you don't want pfa's to be generated
+# making pfas takes a lot of CPU time. Let's skip it for now.
+#MAKE_PFA_FILES=1
+
+ifdef MAKE_PFA_FILES
+PFA_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.pfa))
+ALL_GEN_FILES += $(PFA_FILES)
 INSTALLATION_OUT_DIR4=$(datadir)/pfa
 INSTALLATION_OUT_FILES4=$(PFA_FILES)
+
+pfa: $(PFA_FILES) 
+endif
 
 export MFINPUTS:=.:$(MFINPUTS)
 
@@ -70,4 +76,3 @@ local-clean:
 	rm -f *.tfm *.log
 
 
-pfb: $(PFB_FILES) 

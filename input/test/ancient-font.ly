@@ -11,7 +11,8 @@
 global =  \notes {
     \property Score.timing = ##f
 %   \property Score.forceAccidental = ##t
-%   \property Staff.TimeSignature \override #'style = #'old
+    \property Staff.TimeSignature \set #'font-family = #'ancient
+%   \property Staff.TimeSignature \override #'style = #'mensural
 }
 
 upperVoice =  \context Staff = upperVoice <
@@ -23,9 +24,12 @@ upperVoice =  \context Staff = upperVoice <
       #'line-count = #4
 
     \notes \transpose c' {
+	\property Staff.Clef \set #'font-family = #'ancient
 	\property Staff.KeySignature \override #'style = #'vaticana
 	\property Staff.Accidentals \override #'style = #'vaticana
+	\property Staff.Custos \set #'font-family = #'ancient
 	\property Staff.Custos \override #'style = #'vaticana
+	\property Voice.NoteHead \set #'font-family = #'ancient
 	\property Voice.NoteHead \override #'style = #'vaticana_punctum
 	\property Voice.Porrectus \override #'style = #'vaticana
 	\property Voice.Porrectus \override #'solid = ##t
@@ -120,10 +124,15 @@ lowerVoice =  \context Staff = lowerNotes <
 
     \notes \transpose c' {
 	\property Voice.noAutoBeaming = ##t
+	\property Staff.Clef \set #'font-family = #'ancient
 	\property Staff.KeySignature \override #'style = #'mensural
 	\property Staff.Accidentals \override #'style = #'mensural
+	\property Staff.Custos \set #'font-family = #'ancient
 	\property Staff.Custos \override #'style = #'mensural
+	\property Voice.NoteHead \set #'font-family = #'ancient
 	\property Voice.NoteHead \override #'style = #'neo_mensural
+	\property Voice.Stem \set #'font-family = #'ancient % ancient flags
+	\property Voice.Rest \set #'font-family = #'music
 	\property Voice.Rest \override #'style = #'neo_mensural
 	\property Voice.Porrectus \override #'style = #'mensural
 	\property Voice.Porrectus \override #'solid = ##f
@@ -161,11 +170,12 @@ lowerVoice =  \context Staff = lowerNotes <
 	\clef "mensural_c2"
 	r\breve r1 r2
 	\clef "mensural_g"
-	r4 r8 r16 r32 r32 \bar "|"
+	r4 r8 r16 r16 \bar "|"
 
 	\property Voice.NoteHead \override #'style = #'mensural
 	\property Voice.Stem \override #'style = #'mensural
 	\property Voice.Stem \override #'thickness = #1.0
+	\property Voice.Rest \set #'font-family = #'ancient
 	\property Voice.Rest \override #'style = #'mensural
 	\clef "petrucci_f"
 	c8 b, c16 b, c32 b, c64 b, c b,

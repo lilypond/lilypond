@@ -1,23 +1,15 @@
-%  -*-Fundamental-*-
-% feta-bolletjes.mf --  implement noteheads
+% -*-Fundamental-*-
+% parmesan-heads.mf -- implement ancient note heads
 % 
 % source file of LilyPond's pretty-but-neat music font
 % 
-% (c) 1997--2002 Jan Nieuwenhuizen <janneke@gnu.org>
-% & Han-Wen Nienhuys <hanwen@cs.uu.nl>
-% & Juergen Reuter <reuter@ipd.uka.de>
+% (c) 2001--2002 Juergen Reuter <reuter@ipd.uka.de>
 % 
-
-
-% most beautiful noteheads are pronounced, not circular, 
-% and not even symmetric.
-% These examples are inspired by [Wanske], see literature list
-
 
 save black_notehead_width;
 numeric black_notehead_width;
 
-fet_begingroup("noteheads");
+fet_begingroup ("noteheads")
 
 noteheight#:=staff_space#+ (1 + overdone_heads) *stafflinethickness#;
 define_pixels(noteheight);
@@ -764,5 +756,4 @@ fet_beginchar("Hufnagel pes lower punctum", "0hufnagel_lpes", "huflpeshead")
 	draw -za .. za;
 fet_endchar;
 
-fet_endgroup("noteheads");
-define_pixels(black_notehead_width);
+fet_endgroup ("noteheads")
