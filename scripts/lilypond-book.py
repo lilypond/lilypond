@@ -499,7 +499,7 @@ def compose_full_body (body, opts):
 		is_fragment = 1
 	if 'fragment' in opts:
 		is_fragment = 1
-	if 'nonfragment' in opts:
+	if 'nofragment' in opts:
 		is_fragment = 0
 
 	if is_fragment and not 'multiline' in opts:

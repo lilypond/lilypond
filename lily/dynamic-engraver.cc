@@ -259,7 +259,10 @@ Dynamic_engraver::process_music ()
 	      daddy_trans_l_->set_property (start_type
 					    + "Spanner", SCM_UNDEFINED);
 	      s = get_property ((start_type + "Text").ch_C ());
-	      if (gh_string_p (s))
+	      /*
+		FIXME: use markup_p () to check type.
+	      */
+	      if (gh_string_p (s) || gh_pair_p (s))
 		{
 		  cresc_p_->set_grob_property ("edge-text",
 					       gh_cons (s, ly_str02scm ("")));

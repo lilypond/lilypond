@@ -7,12 +7,6 @@
 @c before saving changes
 
 
-@ignore
- TODO:
-
-@end ignore
-
-
 @macro refbugs
 @unnumberedsubsec Bugs
 
@@ -139,7 +133,7 @@ The verbose syntax for pitch specification is
 @example
   \pitch @var{scmpitch}
 @end example
-
+9
 @var{scmpitch} is a pitch scheme object, see @ref{Pitch data type}.
 
 In Note and Chord mode, pitches may be designated by names.  The default
@@ -659,7 +653,7 @@ settings.
 @cindex Polyphony
 
 [TODO: collisions, rest-collisinos, voiceX identifiers, how to
-which  contexts to instantiate.]
+which  contexts to instantiate.  some small examples? ]
 
 
 @table @code
@@ -701,6 +695,23 @@ Aand for ties use
 @code{\tieBoth}, 
 @code{\tieDown}, 
 @code{\tieUp}.
+
+@cindex @code{\voiceOne}
+@cindex @code{\voiceTwo}
+@cindex @code{\voiceThree}
+@cindex @code{\voiceFour}
+@cindex @code{\oneVoice}
+@cindex @code{\shiftOn}
+@cindex @code{\shiftOff}
+
+If two voices sharing one staff have the same stem directions, their
+note heads may collide.  You can shift the note heads of one voice by
+setting @code{\shiftOn}.  This can be undone by setting
+@code{\shiftOff}.
+
+For simple polyphonic music, shorthands are available that combine
+directions and shift settings: @code{\voiceOne}, @code{\voiceTwo},
+@code{\voiceThree}, @code{\voiceFour} and @code{\oneVoice}.
 
 
 @node Beaming
@@ -824,9 +835,31 @@ control the number of beams through the properties
 @end quotation
 @cindex @code{stemRightBeamCount}
 
+The beam symbol can be tweaked through @code{Voice.Beam}'s
+grob-properties @code{height} and @code{staff-position},
+in staff-spaces.
 
-[TODO: explain common tweaks.]
+Set @code{height} to zero, to get horizontal beams:
 
+@quotation
+@lilypond[fragment,relative,verbatim]
+  \property Voice.Beam \set #'direction = #1
+  \property Voice.Beam \set #'height = #0
+  [a''8 e' d c]
+@end lilypond
+@end quotation
+
+Here's how you'd specify a weird looking beam that instead of being
+horizontal, falls two staff spaces:
+
+@quotation
+@lilypond[fragment,relative,verbatim]
+  \property Voice.Beam \set #'staff-position = #2
+  \property Voice.Beam \set #'height = #-2
+  [c'8 c] 
+@end lilypond
+@end quotation
+@cindex @code{default-neutral-direction}
 
 @node Expressive marks
 @section Expressive marks
@@ -837,6 +870,7 @@ control the number of beams through the properties
 * Phrasing slur::               
 * Breath marks::                
 * Tempo::                       
+* Text spanner::                
 @end menu
 
 @node Slur 
@@ -886,45 +920,25 @@ stems might look better:
 Similarly, the curvature of a slur is adjusted to stay clear of note
 heads and stems.  When that would increase the curvature too much, the
 slur is reverted to its default shape.  The threshold for this decision
-is in @code{Voice.Slur}'s grob-property @code{beautiful}.  In some
-cases, you may prefer curved slurs to vertically moved ones.  You can
+is in @code{Voice.Slur}'s grob-property @code{beautiful}.  It is loosely
+related to the enclosed area between the slur and the notes.  Usually,
+the default setting works well, but in some cases you may prefer a
+curved slur when LilyPond decides for a vertically moved one.  You can
 express this by increasing the @code{beautiful} value:
 
-[hoe gedefd?? wat betekent beautiful = X?]
-
-[dit voorbeeld is te lang: junken, of inkorten]
-
-@quotation
-@lilypond[verbatim,singleline]
-\score {
-  \notes \context PianoStaff <
-    \time 6/4;
-    \context Staff=up { s1 * 6/4 }
-    \context Staff=down <
-      \clef bass;
-      \autochange Staff \context Voice
-        \notes \relative c {
-          d,8( a' d f a d f d a f d )a
-        }
-    >
-  >
-  \paper {
-    \translator {
-      \VoiceContext
-      Slur \override #'beautiful = #5.0
-      Slur \override #'direction = #1
-      Stem \override #'direction = #-1
-      autoBeamSettings \override #'(end * * * *)
-        = #(make-moment 1 2)
-    }
-    \translator {
-      \PianoStaffContext
-      VerticalAlignment \override #'threshold = #'(5 . 5)
-    }
-  }
-}
+@lilypond[verbatim,singleline,relative]
+  \property Voice.Beam \override #'direction = #-1
+  \property Voice.Slur \override #'direction = #1
+  c'16( a' f' a a f a, )c,
+  c( a' f' a a f d, )c
+  \property Voice.Slur \override #'beautiful = #5.0
+  c( a' f' a a f d, )c
 @end lilypond
-@end quotation
+
+@refbugs
+
+The definition for @code{beautiful} is vague, the default setting is
+experimental computer science.
 
 @cindex Adusting slurs
 
@@ -1565,11 +1579,6 @@ are squashed, and the  staff itself  looks has  a single staff line:
 @end lilypond
 
 
-
-[TODO: explain perc notation, if it's finished in time.] 
-
-
-
 @c . {Piano music}
 @node Piano music
 @section Piano music
@@ -1585,7 +1594,7 @@ other pianistic peculiarities.
 * Manual staff switches::       
 * Pedals::                      
 * Arpeggio::                    
-* Follow Thread::               
+* VoiceFollower::               
 @end menu 
 
 
@@ -1711,26 +1720,24 @@ This command creates @code{Arpeggio} grobs.
 connected arpeggios and unconnected arpeggios at the same time.
 
 
-@c .    {Follow Thread}
-@node  Follow Thread
-@subsection Follow Thread
+@c .    {VoiceFollower}
+@node  VoiceFollower
+@subsection VoiceFollower
 
-@cindex follow thread
+@cindex follow voice
 @cindex staff switching
 @cindex cross staff
 
-[todo: figure out different name, eg. voice line, switch indicator ? ]
-
-@cindex @code{followThread}
+@cindex @code{followVoice}
 
 Whenever a voice switches to another staff a line connecting the notes
 can be printed automatically. This is enabled if the property
-@code{PianoStaff.followThread} is set to true:
+@code{PianoStaff.followVoice} is set to true:
 
 @quotation
 @lilypond[fragment,relative,verbatim]
   \context PianoStaff <
-    \property PianoStaff.followThread = ##t
+    \property PianoStaff.followVoice = ##t
     \context Staff \context Voice {
       c'1
       \translator Staff=two
@@ -2338,7 +2345,7 @@ Automatic part combining is used to merge two parts of music onto on
 staff in an intelligent way.  It is aimed primarily at typesetting Hymns
 and orchestral scores.  When the two parts are identical for a period of
 time, only one is shown.  In places where the two parts differ, stem
-directions are set automatically.  Also, soli and @`{a} due parts can be
+directions are set automatically.  Also, soli and @emph{a due} parts can be
 identified and marke.
 
 The syntax for part combining is
@@ -2371,20 +2378,15 @@ one voice, as common for wind parts in orchestral scores:
 Notice that the first @code{g} appears only once, although it was
 specified twice (once in each Thread). Also note that stem, slur and tie
 directions are set automatically, depending whether there is a solo or
-unisono.
-
-There is actually a third engraver involved in part combining; the
-@code{Voice_devnull_engraver}.  This one takes care of removing
-redundant spanners such as beams, slurs, ties, crescendi, etc. Note that
-the Thread called one always gets up stems, and "solo", while @code{two}
-always gets down stems and "Solo II".
+unisono. The Thread called @code{one} always gets up stems, and "solo",
+while @code{two} always gets down stems and "Solo II".
 
 If you just want the splitting of Threads and setting of directions, and
 not the textual markings, you may set the property @var{soloADue} to
 false. There are a number of other properties that you can use to tweak
 the behavior of part combining, refer to the automatically generated
 documentation. Look for @code{Thread_devnull_engraver}
-@code{Voice_engraver} and @code{A2_engraver}. 
+@code{Voice_devnull_engraver} and @code{A2_engraver}. 
 
 @cindex @code{Thread_devnull_engraver}
 @cindex @code{Voice_engraver}
@@ -2394,7 +2396,9 @@ documentation. Look for @code{Thread_devnull_engraver}
 @subsection Hara-kiri staffs
 
 
-[TODO]@footnote{Harakiri, also called Seppuku, is the ritual suicide of
+[TODO]
+
+@footnote{Harakiri, also called Seppuku, is the ritual suicide of
 the Japanese Samourai warriors.}
 
 
@@ -3123,7 +3127,7 @@ To use it, you need the following software
 @itemize
 @item 
 @uref{ftp://ftp.math.berkeley.edu/pub/Software/TeX/xdvi.tar.gz,plain
-Xdvi} version 22.28 or better.
+Xdvi} version 22.36 or newer.
 
   Note that most @TeX{} distributions ship with xdvik, which is a
   different and less well maintained program. To find out which xdvi you
@@ -3148,29 +3152,30 @@ In the emacs startup file (usually @file{~/.emacs}), add the following
 
 If you want emacs to jump to the exact spot (and not just the line) on a
 click, you must enable column positioning. To do so, you need to patch
-emacsclient. Apply @uref{this patch,
-http://www.cs.uu.nl/~hanwen/public/software/emacsclient-column} to
-@file{emacsclient.c} and @file{server.el} from the emacs source
-code. Stick the compiled emacsclient into a bin directory, and put
-@file{server.el} into a elisp directory
+emacsclient. Apply @file{emacsclient.patch} (included with the source
+package) to @file{emacsclient.c} and @file{server.el} from the emacs
+source code. Recompile and stick the recompiled emacsclient into a bin
+directory, and put @file{server.el} into a elisp directory
 (eg. @file{~/usr/share/emacs/}). Add the following to your @file{.emacs}
-init file, before invoking server-start.
+init file, beifore invoking server-start.
 
 @example
- (setq load-path (cons (concat (getenv "HOME") "/usr/share/emacs")
-   load-path))
+ (setq load-path (cons "~/usr/share/emacs" load-path))
 @end example
 
 
 Xdvi must be configured to use the emacs editor.  Before starting, set
-the environment variable @code{XEDITOR} to @code{emacsclient --no-wait
-+%c:%l %f}. Xdvi also must be configured to find the fonts. Refer to the
+the environment variable @code{XEDITOR} to
+@example
+emacsclient --no-wait +%c:%l %f
+@end example
+Xdvi also must be configured to find the fonts. Refer to the
 xdvi documentation for more information.
 
-[TODO: is that so?]
+When viewing, control-mousebutton 1 will take you to the originating
+line and column. Control-mousebutton 2 will show all clickable boxes.
 
-When viewing, control-mousebutton 1 will take you to the correct
-line/column. Control-mousebutton 2 will show all clickable boxes.
+@refbugs
 
 When you convert the TeX file to PostScript using dvips, dvips
 will complain about not finding @code{src:X:Y} files. Those complaints are

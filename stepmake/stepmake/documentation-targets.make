@@ -13,8 +13,10 @@ footify:
 deep-footify:
 	$(deep-footify) $(sort $(wildcard $(outdir)/*/*.html))
 
+# why isn't this in texinfo-targets?
 INFO_INSTALL_FILES = $(wildcard $(addsuffix *, $(INFO_FILES)))
 
+# should we call install-info?
 INFOINSTALL=$(MAKE) INSTALLATION_OUT_DIR=$(infodir) depth=$(depth) INSTALLATION_OUT_FILES="$(INFO_INSTALL_FILES)" -f $(stepdir)/install-out.sub.make
 
 local-install: install-info

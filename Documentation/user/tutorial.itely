@@ -4,7 +4,7 @@
 @chapter Tutorial
 
 @menu
-* Introduction::                Introduction
+* Introduction::                
 * Running LilyPond::            Getting started
 * The first tune::              The first tune
 * Lyrics and chords::           Lyrics and chords
@@ -1482,6 +1482,7 @@ tromboII = \notes\relative c'' @{
 timpani = \notes\relative c, @{
   \times 2/3 @{ f4 f f @}
   \times 4/5 @{ as8 as as as as @}
+  R1
 @}
 corno = \notes\relative c' @{
    bes4 d f, bes d f, bes d
@@ -1560,10 +1561,14 @@ conductor's score.
     @}
     \translator@{
       \VoiceContext
-      \remove "Rest_engraver";    
+      \remove "Rest_engraver";
+      \consists "Multi_measure_rest_engraver";
+      \consists "Bar_engraver";
     @}
     \translator@{
       \HaraKiriStaffContext
+      \remove "Multi_measure_rest_engraver";
+      \remove "Bar_engraver";
     @}
     \translator @{
       \OrchestralScoreContext
@@ -1712,6 +1717,8 @@ need the @code{Rest_engraver} from Voice to Thread level.
     \translator@{
       \VoiceContext
       \remove "Rest_engraver";    
+      \consists "Multi_measure_rest_engraver";
+      \consists "Bar_engraver";
     @}
 @end example
 
@@ -1722,6 +1729,8 @@ the automatic removing of empty staffs.
 @example
     \translator@{
       \HaraKiriStaffContext
+      \remove "Multi_measure_rest_engraver";
+      \remove "Bar_engraver";
     @}
 @end example
 
@@ -1813,3 +1822,8 @@ bars.
          
 That's all folks.  From here, you can either try fiddling with input
 files, or you can read the reference manual.
+
+
+@c @lilypond[nofragment]
+@c #(set! point-and-click #f)
+@c @end lilypond 

@@ -2,29 +2,65 @@
 @node Preface
 @chapter Preface
 
-Some six years ago I was in the EJE (Eindhoven Youth Orchestra), and
-Jan, one of the cranked violists told me about the grand new project he
-was working on. It was an automated system for printing music (to be
-precise, it was MPP, a preprocessor for MusiXTeX). Accidentally, I also
-wanted to print out some parts from a score, so I started looking at his
-software, and quickly got hooked.  The rest is, as they say, history.
+
+It must have been during a rehearsal of the EJE (Eindhoven Youth
+Orchestra), somewhere in 1994 that Jan, one of the cranked violists
+told Han-Wen, one of the distorted french horn players, about the
+grand new project he was working on.  It was an automated system for
+printing music (to be precise, it was MPP, a preprocessor for
+MusiXTeX).  As it happened, Han-Wen accidentally wanted to print out
+some parts from a score, so he started looking at the software, and he
+quickly got hooked.  We soon realised that MPP was fundamentally
+broken by design and it slowly died during 1995.  We debated a lot
+about the requirements to an inputformat, but that didn't produce any
+new code.  In 1996, Han-Wen started LilyPond.  This time, Jan got
+sucked into Han-Wen's new project.  The rest is, as they say, history.
 
 You're reading the preface of the manual for LilyPond 1.4, which is in
 all honesty, the first release of LilyPond that combines stability,
-flexibility and good documentation. I hope you have as much fun in using
-LilyPond as I had when hacking it.
+flexibility and good documentation.  We hope you will have as much fun
+in using LilyPond as we have when hacking it.
 
-This manual was written to help you learn lily, but as you might
-imagine, I don't have anything learn about it. It's hard for me as a
-writer to judge whether the manual is clear for a newbie, but you can!
-So, should you find any part of the manual vague or outdated, please let
-us know: if you don't tell us, we'll never know.
+This manual was written to help you learn LilyPond, but as you might
+imagine, we don't have much to learn about it.  Therefore, we can't
+really judge whether the manual is clear for a newbie, but maybe you
+can!  So, should you find any part of the manual vague or outdated,
+please tell us your suggestions: if you don't, we'll never know.
 
+Han-Wen and Jan
 
-Han-Wen Nienhuys
-
-Utrecht, The Netherlands,  March 2001.
-
+Utrecht/Amsterdam, The Netherlands, March 2001.
 
 
-[preface jcn here? ]
+@ignore
+
+appendix?
+[details from lilypond-1.0.0]
+
+GNU LilyPond's roots lie in MPP, a preprocessor to the rather arcane
+MusiXTeX macro package for TeX.  A friend of mine, Jan Nieuwenhuizen
+wrote the first 44 versions (0.01 to 0.44), then his program caught my
+attention, and I was slowly sucked in to the interesting problem of
+easily producing beautifully printed music.  I contributed some
+code.  We soon realised that MPP's design was too fundamentally broken
+to be repaired, so it was decided to rewrite MPP.  We debated a lot about
+the requirements to an inputformat (fall 1995).  I sat down and started
+with a parser-first, bottom-up rewrite called mpp95 (which totally
+failed, obviously).
+
+After long and hard thinking, I came up with an algorithm for the
+horizontal spacing of multiple staffs (april 1996) I coded it (and did
+not test it).  After starting with this fundamental piece, I slowly
+added the stages which come before spacing, and after.  A half year
+later, I had a first working version, (october 1996).  I announced
+Patchlevel 0.0.7 (or 8) to the mutex list after asking some technical
+details on spacing; it was downloaded approximately 4 times.  Then I
+got the hang of it, and in the subsequent two months, I coded until it
+had doubled in size (pl 23).
+
+Most the other history is described in the NEWS file.  The first large
+scale release (0.1) was done after approximately 78 patchlevels on
+August 1, 1997.
+
+
+@end ignore

@@ -17,6 +17,7 @@ class  Rest
 public:
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM ));
   static bool has_interface (Grob*);
+  static String glyph_name (Grob*, int, String); 
   static SCM brew_internal_molecule (SCM);
   DECLARE_SCHEME_CALLBACK (extent_callback, (SCM,SCM));
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));

@@ -119,9 +119,9 @@ set, connect all arpeggios that are found.  In this way, you can make
 arpeggios that cross staffs.
 ")
 (translator-property-description 'createKeyOnClefChange boolean? "Print a key signature whenever the clef is changed.")
-(translator-property-description 'crescendoText string? "Text to print at start of non-hairpin crecscendo, ie: @samp{cresc.}")
+(translator-property-description 'crescendoText markup? "Text to print at start of non-hairpin crecscendo, ie: @samp{cresc.}")
 (translator-property-description 'crescendoSpanner symbol? "Type of spanner to be used for crescendi.  One of: @samp{hairpin}, @samp{line}, @samp{dashed-line}, @samp{dotted-line}.  If unset, hairpin type is used.")
-(translator-property-description 'decrescendoText string? "Text to print at start of non-hairpin decrecscendo, ie: @samp{dim.}")
+(translator-property-description 'decrescendoText markup? "Text to print at start of non-hairpin decrecscendo, ie: @samp{dim.}")
 (translator-property-description 'currentBarNumber integer? "Contains the current barnumber. This property is incremented at
 every barline.
 ")

@@ -28,6 +28,10 @@
 
 @macro c__ {word}
 \word\
+@menu
+* \word\::                      
+@end menu
+
 @node \word\
 @subsection \word\
 @end macro

@@ -68,32 +68,6 @@ extension can be controlled through @code{Voice.Stem}'s grob-property
 @end lilypond
 @end quotation
 
-The beam symbol can be tweaked through @code{Voice.Beam}'s
-grob-properties @code{height} and @code{staff-position},
-in staff-spaces.
-
-Set @code{height} to zero, to get horizontal beams:
-
-@quotation
-@lilypond[fragment,relative,verbatim]
-  \property Voice.Beam \set #'direction = #1
-  \property Voice.Beam \set #'height = #0
-  [a''8 e' d c]
-@end lilypond
-@end quotation
-
-Here's how you'd specify a weird looking beam that instead of being
-horizontal, falls two staff spaces:
-
-@quotation
-@lilypond[fragment,relative,verbatim]
-  \property Voice.Beam \set #'staff-position = #2
-  \property Voice.Beam \set #'height = #-2
-  [c'8 c] 
-@end lilypond
-@end quotation
-@cindex @code{default-neutral-direction}
-
 The direction of a perfectly centred beams can be
 controlled through @code{Voice.Beam}'s grob-property
 @code{default-neutral-direction}

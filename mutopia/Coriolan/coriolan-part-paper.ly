@@ -17,7 +17,7 @@
 		% Set value for engraver at thread level,
 		% to override the default that is set in ScoreContext
 		% for added engraver at Voice level
-		devNullThread = #'()
+		%%%devNullThread = #'()
 	}
 	\translator {
 		\VoiceContext
@@ -31,10 +31,10 @@
 		% The staff combine part switches it on.
 		
 		%% devNullThread = #'never
-		\consists "Thread_devnull_engraver";
+		%%%\consists "Thread_devnull_engraver";
 
-		%\consists "Multi_measure_rest_engraver";
-		%\consists "Bar_engraver";
+		\consists "Multi_measure_rest_engraver";
+		\consists "Bar_engraver";
 	}
 	% We need the HaraKiri staff for Staff Combining,
 	% but we better remove the Instrument_name_engraver.
@@ -44,8 +44,8 @@
 		\consists "Mark_engraver";
 		\remove "Instrument_name_engraver";
 		
-		%\remove "Multi_measure_rest_engraver";
-		%\remove "Bar_engraver";
+		\remove "Multi_measure_rest_engraver";
+		\remove "Bar_engraver";
 	}
 	\translator  {
 		\OrchestralScoreContext
@@ -55,7 +55,7 @@
 		soloIIText = #"II."
 		% By default, turn off the Thread_devnull_engraver
 		% at Voice level
-		devNullThread = #'never
+		%%%devNullThread = #'never
 		
 		TimeSignature \override #'style = #'C
 		BarNumber \override #'padding = #3

@@ -6,10 +6,11 @@
 @chapter Development
 
 @menu
-* CodingStyle::
-* Making patches::
-* Localisation::
-* Helping with development:: 
+* CodingStyle::                 
+* Making patches::              
+* Localisation::                
+* Helping with development::    
+* ETF format::                  
 @end menu
 
 @node CodingStyle

@@ -28,8 +28,8 @@ $(outdir)/%.nexi: %.tely
 
 # nfo: info from non-lily texi
 $(outdir)/%.info: $(outdir)/%.nexi
-	-$(MAKEINFO) --force --output=$(outdir)/$(*F).info $<
+	$(MAKEINFO) --output=$(outdir)/$(*F).info $<
 
 # nfo: info from non-lily texi
 #$(outdir)/%.nfo: $(outdir)/%.nexi
-#	-$(MAKEINFO) --force --output=$(outdir)/$(*F).info $<
+#	$(MAKEINFO) --output=$(outdir)/$(*F).info $<

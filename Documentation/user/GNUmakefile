@@ -5,7 +5,6 @@ depth=../..
 
 LATEX_FILES =$(wildcard *.latex)
 
-
 # todo: add latex.
 DVI_FILES = $(addprefix $(outdir)/, $(TELY_FILES:.tely=.dvi))
 
@@ -22,7 +21,17 @@ INFO_FILES = $(addprefix $(outdir)/, lilypond.info lilypond-internals.info)
 STEPMAKE_TEMPLATES=tex texinfo documentation
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
 
+# Hmm, what about?
+# local-dist: check-info
+
+info: check-info
+
 include $(depth)/make/stepmake.make 
+
+# Ugh,ugh.
+# emacs cannot fix the menu structure when @mbinclude is used
+# lilypond.tely uses mbinclude
+TEXINFO_SOURCES := $(filter-out lilypond.tely, $(TEXINFO_SOURCES))
 
 dvi: $(DVI_FILES)
 
@@ -37,7 +46,7 @@ $(outdir)/%.info: $(outdir)/%.texi
 default: 
 
 # Info is now built by default via texinfo-rules.
-# We must build them by default, otherwise they get built during make install
+# We must build them by defaulbt, otherwise they get built during make install
 info: $(INFO_FILES)
 
 
@@ -50,13 +59,13 @@ SPLITTING_MAKEINFO = $(shell makeinfo --version | egrep '4.0((.jcn[2,3])|a)')
 # Generic rule using % twice not possible?
 # $(outdir)/%/%.html: $(outdir)/%.texi
 $(outdir)/lilypond/lilypond.html: $(outdir)/lilypond.texi
-	-$(MAKEINFO) --force --output=$@ --html $<
+	$(MAKEINFO) --output=$@ --html $<
 	-cp -f $(outdir)/*.png $(outdir)/lilypond
 	-cp -f $(outdir)/lilypond/index.html $@
 	$(deep-footify) $(shell find $(outdir)/$(*F)/*.html)
 
 $(outdir)/lilypond-internals/lilypond-internals.html: $(outdir)/lilypond-internals.texi
-	-$(MAKEINFO) --force --output=$@ --html $<
+	$(MAKEINFO) --output=$@ --html $<
 	-cp -f $(outdir)/*.png $(outdir)/lilypond-internals
 	-cp -f $(outdir)/lilypond-internals/index.html $@
 	$(deep-footify) $(shell find $(outdir)/$(*F)/*.html)

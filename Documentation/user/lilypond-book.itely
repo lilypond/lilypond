@@ -203,7 +203,7 @@ There work just as expected. Look at @file{mb-latex.tex} for details.
 @item multiline
   linewidth = textwidth
 @item fragment
-@item nonfragment
+@item nofragment
     Override @command{lilypond-book} autodetection of what type of code is in the
     lilypond block, voice contents or complete code.
 @end table

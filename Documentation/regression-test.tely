@@ -21,6 +21,8 @@ and documenting bugfixes.
 
 @lilypondfile[printfilename]{rest.ly}
 
+@lilypondfile[printfilename]{rest-ledger.ly}
+
 @lilypondfile[printfilename]{noteheadstyle.ly}
 
 @lilypondfile[printfilename]{easy-notation.ly}

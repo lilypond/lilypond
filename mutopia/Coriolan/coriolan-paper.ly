@@ -18,7 +18,7 @@
 		% Set value for engraver at thread level,
 		% to override the default that is set in ScoreContext
 		% for added engraver at Voice level
-		devNullThread = #'()
+		%%% devNullThread = #'()
 	}
 	\translator {
 		\VoiceContext
@@ -32,22 +32,22 @@
 		% The staff combine part switches it on.
 		
 		%% devNullThread = #'never
-		\consists "Thread_devnull_engraver";
+		%%%\consists "Thread_devnull_engraver";
 
 		% While adds brings back rests of second voice,
 		% it prints some on the bar lines and it is messy
 		% because collisions don't work.  Also, it increases
 		% memory usage from 91M RSS, to 116M.
-		%\consists "Multi_measure_rest_engraver";
-		%\consists "Bar_engraver";
+		\consists "Multi_measure_rest_engraver";
+		\consists "Bar_engraver";
 	}
 	\translator {
 		\HaraKiriStaffContext
 
 		\consists "Mark_engraver";
 		MultiMeasureRest \override #'minimum-width = #6
-		%\remove "Multi_measure_rest_engraver";
-		%\remove "Bar_engraver";
+		\remove "Multi_measure_rest_engraver";
+		\remove "Bar_engraver";
 	}
 	\translator  {
 		\OrchestralScoreContext
@@ -57,7 +57,7 @@
 		soloIIText = #"II."
 		% By default, turn off the Thread_devnull_engraver
 		% at Voice level
-		devNullThread = #'never
+		%%%devNullThread = #'never
 		
 		TimeSignature \override #'style = #'C
 		BarNumber \override #'padding = #3

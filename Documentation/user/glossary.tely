@@ -4,8 +4,8 @@
 @c @pagesizes 10.3in
 
 @c @everyheading @| @thispage @|
-@evenheading @thispage @| @| 
-@oddheading @| @| @thispage @|
+@c @evenheading @thispage @| @| 
+@c @oddheading @| @| @thispage @|
 
 @itemize 
 

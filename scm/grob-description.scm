@@ -304,6 +304,7 @@
 	(MultiMeasureRest . (
 		(spacing-procedure . ,Multi_measure_rest::set_spacing_rods)
 		(molecule-callback . ,Multi_measure_rest::brew_molecule)
+		(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 		(staff-position . 0)
 		(expand-limit . 10)
 		(padding . 2.0) ; staffspace
@@ -344,14 +345,14 @@
 			 (meta . ,(grob-description "Glissando"
 						       line-spanner-interface))
 			 ))
-	(FollowThread . (
+	(VoiceFollower . (
 			 (type . line)
 			 (gap . 0.5)
 			 (breakable . #t)
 			 (X-extent-callback . #f)
 			 (Y-extent-callback . #f)			 
 			 (molecule-callback . ,Line_spanner::brew_molecule)
-			 (meta . ,(grob-description "FollowThread"
+			 (meta . ,(grob-description "VoiceFollower"
 						       line-spanner-interface))
 			 ))
 

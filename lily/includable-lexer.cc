@@ -21,7 +21,8 @@
 #endif
 
 #ifndef YY_START
-#define YY_START() ((yy_start - 1) / 2)
+#define YY_START\
+ ((yy_start - 1) / 2)
 #define YYSTATE YY_START
 #endif
 
