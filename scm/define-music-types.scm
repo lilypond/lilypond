@@ -790,7 +790,7 @@ Syntax: @code{\\\\}")
 	  (cons (car x) lst)))
       music-descriptions))
 
-(define-public (make-music name . music-properties)
+(define-safe-public (make-music name . music-properties)
   "Create a music object of given name, and set its properties
 according to `music-properties', a list of alterning property symbols
 and values. E.g:

@@ -216,14 +216,14 @@ centered, X==1 is at the right, X == -1 is at the left."
 (define-public (default-bar-number-visibility barnum) (> barnum 1))
 
 ;; See documentation of Item::visibility_lambda_
-(define-public (begin-of-line-visible d) (if (= d 1) '(#f . #f) '(#t . #t)))
-(define-public (end-of-line-visible d) (if (= d -1) '(#f . #f) '(#t . #t)))
-(define-public (spanbar-begin-of-line-invisible d) (if (= d -1) '(#t . #t) '(#f . #f)))
+(define-safe-public (begin-of-line-visible d) (if (= d 1) '(#f . #f) '(#t . #t)))
+(define-safe-public (end-of-line-visible d) (if (= d -1) '(#f . #f) '(#t . #t)))
+(define-safe-public (spanbar-begin-of-line-invisible d) (if (= d -1) '(#t . #t) '(#f . #f)))
 
-(define-public (all-visible d) '(#f . #f))
-(define-public (all-invisible d) '(#t . #t))
-(define-public (begin-of-line-invisible d) (if (= d 1) '(#t . #t) '(#f . #f)))
-(define-public (end-of-line-invisible d) (if (= d -1) '(#t . #t) '(#f . #f)))
+(define-safe-public (all-visible d) '(#f . #f))
+(define-safe-public (all-invisible d) '(#t . #t))
+(define-safe-public (begin-of-line-invisible d) (if (= d 1) '(#t . #t) '(#f . #f)))
+(define-safe-public (end-of-line-invisible d) (if (= d -1) '(#t . #t) '(#f . #f)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

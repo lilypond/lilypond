@@ -1,3 +1,9 @@
+2005-02-13  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* scm/lily.scm (define-safe-public): new macro for defining
+	variables that can be used in --safe mode. Use it in *.scm
+	instead of manually setting safe-objects in safe-lily.scm.
+
 2005-02-11  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 	
 	* Slur-dash patch by Bertalan.

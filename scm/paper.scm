@@ -50,7 +50,7 @@
     (module-define! m 'blotdiameter (* 0.35 pt))
     (module-define! m 'interscoreline (* 4 mm))))
 
-(define-public (set-global-staff-size sz)
+(define-safe-public (set-global-staff-size sz)
   "Set the default staff size, where SZ is thought to be in PT."
   (let* ((old-mod (current-module))
 	 (pap (eval '$defaultpaper old-mod))
@@ -126,7 +126,7 @@
      (else
       (ly:warn (string-append "Unknown papersize: " name))))))
 
-(define-public (set-default-paper-size name . rest)
+(define-safe-public (set-default-paper-size name . rest)
   (internal-set-paper-size
    (ly:output-def-scope (eval '$defaultpaper (current-module)))
    name

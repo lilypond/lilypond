@@ -39,7 +39,7 @@
      (vector-ref #("C" "D" "E" "F" "G" "A" "B") (ly:pitch-notename pitch)))
      (accidental->markup (ly:pitch-alteration pitch)))))
 
-(define-public ((chord-name->german-markup B-instead-of-Bb) pitch)
+(define-safe-public ((chord-name->german-markup B-instead-of-Bb) pitch)
   "Return pitch markup for PITCH, using german note names.
    If B-instead-of-Bb is set to #t real german names are returned.
    Otherwise semi-german names (with Bb and below keeping the british names)
@@ -56,7 +56,7 @@
       (make-normal-size-super-markup
        (accidental->markup (cdr n-a)))))))
 
-(define-public (note-name->german-markup pitch)
+(define-safe-public (note-name->german-markup pitch)
   (let* ((name (ly:pitch-notename pitch))
 	 (alt (ly:pitch-alteration pitch))
 	 (n-a (if (member (cons name alt) `((6 . ,FLAT) (6 . ,DOUBLE-FLAT)))
@@ -72,7 +72,7 @@
 
 ;; fixme we should standardize on omit-root (or the other one.)
 ;; perhaps the default should also be reversed --hwn
-(define-public (sequential-music-to-chord-exceptions seq . rest)
+(define-safe-public (sequential-music-to-chord-exceptions seq . rest)
   "Transform sequential music SEQ of type <<c d e>>-\\markup{ foobar }
 to (cons CDE-PITCHES FOOBAR-MARKUP), or to (cons DE-PITCHES
 FOOBAR-MARKUP) if OMIT-ROOT is given and non-false.
