@@ -24,13 +24,6 @@ void init_type_ ## CL () \
 } \
 ADD_SCM_INIT_FUNC (init_type_ ## CL, init_type_ ## CL)
 
-#ifndef SCM_CELL_TYPE
-#define SCM_CELL_TYPE(X) SCM_CAR (X)
-#endif
-
-#ifndef SCM_CELL_WORD_1
-#define SCM_CELL_WORD_1(X) SCM_CDR (X)
-#endif
 
 #define IMPLEMENT_BASE_SMOBS(CL) \
 scm_t_bits CL::smob_tag_; \
@@ -57,7 +50,7 @@ CL::init_smobs () \
 size_t \
 CL::free_smob (SCM ses) \
 { \
-  CL *s = (CL*) SCM_CDR (ses); \
+  CL *s = (CL*) SCM_CELL_WORD_1 (ses); \
   delete s; \
   scm_gc_unregister_collectable_memory (s, sizeof (CL), #CL " smob"); \
   return SMOB_FREE_RETURN_VAL(CL); \
