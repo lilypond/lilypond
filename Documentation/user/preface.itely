@@ -1,8 +1,36 @@
 @comment @c -*-texinfo-*-
 
+@node Preface to version 1.8
+@unnumbered Preface  to version 1.8
+
+The 1.8 release brings old thing, in new, flashier
+clothes. Previously, the program used to have half-baked solutions to
+various problems. In version 1.8, we took the good parts of the
+solutions, threw away the bad code, and rebuilt the rest of the
+formatting code. Version 1.8 has revamped support for
+
+@itemize
+@item Chord names
+@item Entering normal chords
+@item Formatting text
+@item Storing music expressions
+@item Manipulating identifiers and music
+@end itemize
+
+Version 1.8 is a preparation for version 2.0, which is expected to
+follow 1.8 shortly. Version 2.0 will have a number of significant,
+non-backwards-compatible changes in the input syntax.
+
+Special thanks for version  1.8 go out to Juergen  Reuter for lots of
+work on the ancient notation engine, and to Amy Zapf for pushing to
+rewrite chord name support
+
+[wie meer?]  
+
+@end ignore
+
 @node Preface
 @unnumbered Preface
-
 
 It must have been during a rehearsal of the EJE (Eindhoven Youth
 Orchestra), somewhere in 1995 that Jan, one of the cranked violists

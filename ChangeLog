@@ -1,3 +1,8 @@
+2003-04-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/tutorial.itely (Fine tuning a piece): editing
+	of tutorial
+
 2003-04-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scripts/ly2dvi.py (extra_init): add compat2 to latex options.
@@ -14,7 +19,7 @@
 	* lily/includable-lexer.cc: Bugfix: include config.h.
 
 	* stepmake/aclocal.m4: Check for $GUILE_CONFIG; allows
-	 circumvention of Debian packaging bug.
+	circumvention of Debian packaging bug.
 
 2003-04-13  Jan Nieuwenhuizen  <janneke@gnu.org>
 
