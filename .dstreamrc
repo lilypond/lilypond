@@ -3,17 +3,18 @@ Dstream			1
 
 File_path		1
 My_lily_lexer		1
-PCol			1
-Score_column		1
-Script_column		1
-# E l b e ment? search/replace typo
+PCol			0
+Score_column		0
+Script_column		0
+# E l b e ment? search/replace typo.
+# Yeah. kind of. Looks cute though
 Elbement_group		1
 Ineq_constrained_qp 	1
 Spacing_problem 	1
 Colinfo			1
 Mixed_qp		1
 PScore			1
-Idealspacing		1
+Idealspacing		0
 
 # yydebug
 InitParser		1
@@ -60,20 +61,17 @@ Slur			1
 Music			1
 Paper_def		1
 Lookup			1
-Input_translator	1
+Input_translator	0
 Score_elem		1
 Item			1
 Note_head		1
 Engraver		1
-Score_engraver		1
-Staff_engravers		1
+Rest_collision_engraver 1
+Score_engraver		0
 Engraver_group_engraver 1
-Input_cursor		1
-Commands_at		1
-Input_command		1
 Time_description	1
 Melodic_req		1
-Midi_walker		1
+Midi_def		1
 Note_performer		0
 Performer		0
 Stem_req		1
@@ -82,8 +80,10 @@ Script_req		1
 Colinfo			1
 Word_wrap		1
 Text_req		1
-Script_def		1
-Text_def		1
+Script_def		0
+Text_def		0
 Paperdef		1
 Symtable		1
 Symtables		1
+Beam			1
+Head_column		1
