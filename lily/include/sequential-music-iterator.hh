@@ -22,7 +22,6 @@ public:
   DECLARE_SCHEME_CALLBACK(constructor, ());
 private:
   virtual SCM get_music_list()const;
-  virtual void descend_to_child ();
 };
 
 #endif // SEQUENTIAL_MUSIC_ITERATOR_HH

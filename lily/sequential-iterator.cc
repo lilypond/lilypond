@@ -221,6 +221,17 @@ Sequential_iterator::next_element (bool)
 void
 Sequential_iterator::descend_to_child ()
 {
+  Translator_group  * child_report = child_report = iter_->report_to ();
+  Translator_group * me_report = report_to ();
+
+  Translator_group * c = child_report;
+  while (c && c != me_report)
+    {
+      c= c->daddy_trans_;
+    }
+  
+  if (c == me_report)
+    set_translator (child_report);
 }
 
 
