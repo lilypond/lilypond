@@ -1,7 +1,7 @@
 #ifndef TEXTDB_HH
 #define TEXTDB_HH
 
-#include "textstr.hh"
+#include "datafile.hh"
 
 /**a "const" Array. Contents can't be changed. do "#" comments, read quote enclosed  fields */
 

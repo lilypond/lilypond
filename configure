@@ -1,12 +1,26 @@
 #!/bin/sh
 
-PREFIX=${PREFIX:-.}
-echo using PREFIX=$PREFIX
+# script to setup library and auto generated files.
 
-NEEDFLOWERVER=1.0.27
+function setversion() {
+    eval `sed -n 's/^\([A-Z]*\)=\([p0-9].*\)$/\1=\2/p' Variables.make`
+    NEWVER=$MAJVER.$MINVER.$PATCHLEVEL
+    echo
+    echo "Current  version ("`pwd`") is $NEWVER"
+    echo
+}
+
+MAKE=${MAKE:-make}
+PREFIX=${PREFIX:-.}
+NEEDFLOWERVER=1.1.1
+
+echo using PREFIX=$PREFIX
+echo I need Flower version $NEEDFLOWERVER
+
 flowertar=flower-$NEEDFLOWERVER
 here=`pwd`
 cd ..
+
 if [ -x flower ]
 then
     echo Found flowerdir
@@ -19,14 +33,23 @@ else
     fi
     rm flower
     ln -s $flowertar flower
-
 fi
+
 echo Compiling Library
-(cd flower;make)
+{
+    cd flower;
+    setversion
+    if [ $NEWVER != $NEEDFLOWERVER ]; then
+	echo "You seem to be having an incorrect version of the Flower library"
+    else
+	echo "You got the correct Flower version."
+    fi
+    $MAKE
+}
 
 cd $here
 
 echo '#define LIBDIR "'$PREFIX'/"'> hdr/config.hh
 touch Site.make
-make -f Initial.make
+$MAKE -f Initial.make
 

@@ -1,8 +1,8 @@
-/*
-  lyricwalker.hh -- declare Lyric_walker
-
-  (c) 1996,97 Han-Wen Nienhuys, Jan Nieuwenhuizen <jan@digicash.nl>
-*/
+//
+//  lyricwalker.hh -- declare Lyric_walker
+//
+//  (c) 1996,97 Han-Wen Nienhuys, Jan Nieuwenhuizen <jan@digicash.com>
+//
 
 #ifndef LYRICWALKER_HH
 #define LYRICWALKER_HH

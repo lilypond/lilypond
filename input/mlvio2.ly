@@ -15,6 +15,7 @@ violin2 = music {
 	$
 \clef "violin"	\octave{}
 	\duration{4}
+	\key{fis}
 %1
 	d2 |
 %2
@@ -92,7 +93,7 @@ violin2 = music {
 %35
 	[ g8 e e ] [ e8 g g ] |
 %36
-	 b4 fis4 |
+	b4 fis4 |
 %37
 	[ a8 a a ] [ a8 a a ] |
 %38
@@ -126,21 +127,21 @@ violin2 = music {
 	\textstyle "italic"
 	r4_"arco"
 	\textstyle "roman"
-	\plet{ 2/3 } [ d8 d d ] \plet{ 1/1 } |
+	[ d8 d d ]2/3  |
 %50
-	r4 \plet{ 2/3 } [ g8 g g ] \plet{ 1/1 } |
+	r4  [ g8 g g ]2/3  |
 %51
 	d2 |
 %52
 	c2 |
 %53
-	r4 \plet{ 2/3 } [ d8 d d ] \plet{ 1/1 } |
+	r4  [ d8 d d ]2/3  |
 %54
-	 r4 \plet{ 2/3 } [ e e e ] \plet{ 1/1 } |
+	r4  [ e e e ]2/3  |
 %55
 	d2 |
 %56
-	f4 e4 |
+	f4 e4 \key{bes es as}|
 % \key\Es ||
 %57
 	d r `b r |
@@ -182,9 +183,9 @@ violin2 = music {
 %74
 	`g r es r |
 %75
-	 g r g r |
+	g r g r |
 %76
-	 g r es4 |
+	g r es4 |
 %77
 	\duration{2}
 	f |
@@ -210,7 +211,7 @@ violin2 = music {
 %	= g |
 %88
 	\textstyle "italic"
-	fis_"dacapo" |
+	fis_"dacapo" \key{fis}|
 	\textstyle "roman"
 % \key\G ||
 	$

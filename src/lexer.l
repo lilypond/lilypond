@@ -179,11 +179,11 @@ COMMENT		[%#].*\n
 <lyrics>{LYRICS} {
 	String s (YYText()); 
 	int i = 0;
-	while ((i=s.pos("_")) != 0)// ugh. Whats this.
-		*((char*)s.cptr() + i - 1) = ' ';
-	if ((i=s.pos("\\,")) !=0)
+	while ((i=s.pos("_")) != 0) // change word binding "_" to " "
+		*(s.ch_l() + i - 1) = ' ';
+	if ((i=s.pos("\\,")) !=0)   // change "\," to TeX's "\c "
 		{
-		*((char*)s.cptr() + i) = 'c';
+		*(s.ch_l() + i) = 'c';
 		s = s.left(i+1) + " " + s.right(s.len()-i-1);
 		}
 	yylval.string = new String(s);

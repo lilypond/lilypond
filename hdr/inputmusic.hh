@@ -29,11 +29,14 @@ struct Voice_list : public PointerList<Voice*> {
   */
 struct Input_music {
     virtual Voice_list convert()const=0;
+    void check_plet(Voice_element* velt_l);
     virtual Moment length()const=0;
     virtual void translate_time(Moment dt)=0;
     virtual ~Input_music(){}
     virtual void print() const =0;
     virtual void set_default_group(String)=0;
+    virtual bool find_plet_start_bo(char c, Moment& moment_r) = 0;
+    virtual void set_plet_backwards(Moment& now_moment_r, Moment until_moment, int num_i, int den_i) = 0;
     // virtual void transpose(...) const =0;
     
     
@@ -53,6 +56,8 @@ struct Simple_music : Input_music {
     virtual Voice_list convert()const;
     virtual void translate_time(Moment dt);
     virtual void print() const;
+    virtual bool find_plet_start_bo(char c, Moment& moment_r);
+    virtual void set_plet_backwards(Moment& now_moment_r, Moment until_moment, int num_i, int den_i);
     virtual Input_music *clone() const {
 	return new Simple_music(*this);
     }
@@ -69,6 +74,8 @@ struct Complex_music : Input_music {
     Complex_music(Complex_music const &);
     virtual void print() const ;
     void concatenate(Complex_music*);
+    virtual bool find_plet_start_bo(char c, Moment& moment_r);
+    virtual void set_plet_backwards(Moment& now_moment_r, Moment until_moment, int num_i, int den_i);
  
 };
 

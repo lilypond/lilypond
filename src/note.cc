@@ -14,6 +14,7 @@
 #include "varray.hh"
 #include "textdef.hh"
 #include "parseconstruct.hh"
+#include "inputmusic.hh"
 
 int default_duration = 4, default_dots=0, default_octave=0;
 int default_plet_type = 1, default_plet_dur = 1;
@@ -36,7 +37,8 @@ last_duration(int n)
 }
 
 /* triplet is '2/3' */
-void set_plet(int num,int den)
+void 
+set_plet(int num,int den)
 {
     assert(num >0&& den>0);
     default_plet_dur = num;
@@ -191,6 +193,16 @@ set_default_octave(String d)
     int i=0;
     default_octave=0;
     parse_octave(d, i, default_octave);
+}
+
+Request*
+get_plet_request( char c, int dur_i, int type_i )
+{
+    Plet_req* plet_req_p = new Plet_req;
+    plet_req_p->dur_i_ = dur_i;
+    plet_req_p->type_i_ = type_i;
+    plet_req_p->type_c_ = c;
+    return plet_req_p;
 }
 
 Request*

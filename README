@@ -1,11 +1,14 @@
-IMPORTANT: if you have downloaded a
+IMPORTANT:
+
+if you have downloaded a
 
 	*.pre*
 
 version, then this is version is *not* meant for producing nice output
-(but to keep your patchsets up to date)
+(but to keep your patchsets up to date). It might not even compile.
 
 ====================
+
 Please refer to the directory Documentation/, Documentation/README.*
 
 To generate the pretty-printed docs, do this:
@@ -21,8 +24,9 @@ NOTE:
 
 LilyPond is a long way from finished and polished. I do appreciate
 criticism, comments, bugreports, patches, etc. Please send e-mail to
+me,
 
-	hanwen@stack.urc.tue.nl
+	hanwen@stack.nl
 
 Have fun!
 

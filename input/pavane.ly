@@ -11,9 +11,8 @@
 %
 
 horn =
-staff {
-	melodic
-	music{ 	$
+music {
+ 	$
 	\octave { ' }
 	\key{  fis cis }
 	\duration { 8 }
@@ -68,13 +67,12 @@ staff {
 	r1^"1er mouvement"	
 	\duration {8}
 	| r2 [c-.( e-. c-. )`a-. ]	
-	\plet {2/3}\octave{}	|
-	|	[c e a ] \plet{1/1} b4-> () [b c-- e-- a--]	|
+	\octave{}	|
+	|	 [c e a ]2/3  b4-> () [b c-- e-- a--]	|
 	b4. b8()g2	|
 	r1	|
 	r2		[f a f d] 
-	\plet {2/3}
-	| [f a 'c] \plet{1/1} 'e4-^ () ['e f-> a-> 'c->]	|
+	|  [f a 'c]2/3  'e4-^ () ['e f-> a-> 'c->]	|
 	'e4._"sf" 'e8()'c4 r4 |
 	r1	|
 	\meter {2 *4}
@@ -96,11 +94,10 @@ staff {
 	)b [fis a b ] 'cis4 b4	|
 	fis2 r2	|
 	r1-\fermata	
-	$}
+	$
 }
 score {
-	staff {
-		horn
+	staff { melodic music { horn }
 	}
 	paper {
 		output "pavane.out"
@@ -110,11 +107,13 @@ score {
 	}
 	commands  {
 		meter {4 *4}
-		skip 39*1
+		skip {39*1}
 		bar "|:"
-		skip 10*1
+		skip {10*1}
 		bar ":|"
-		skip 13*1
+		skip {13*1}
 		bar "||"
 	}
+	midi { tempo 4:70 }
+	staff { midi   music { horn } }
 }

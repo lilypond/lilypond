@@ -16,6 +16,7 @@ alto = music {
 	\duration{16}
 	\clef\alto
 	\octave{}
+	\key{fis}
 %1
         [ `b8. `a ] [ `g8 `b c ] |
 %2
@@ -112,31 +113,31 @@ alto = music {
 %44
 	[ `b8. c32 `b32 ] `a4 |
 %45
-	\plet{ 4/6 } [ `g `a `g `a `g `a ] \plet{ 1/1 } \plet{ 4/6 } [ `g `b c d e fis ] \plet{ 1/1 } |
+	[ `g `a `g `a `g `a ]4/6   [ `g `b c d e fis ]4/6  |
 %46
-	\plet{ 4/6 } [ g fis e d `b `g ] \plet{ 1/1 } [ `a8 `g8 ] |
+	[ g fis e d `b `g ]4/6  [ `a8 `g8 ] |
 %47
-	\plet{ 4/6 } [ g fis e d c `b ] \plet{ 1/1 } \plet{ 4/6 } [ e d c `b `a `g ] \plet{ 1/1 } |
+	[ g fis e d c `b ]4/6   [ e d c `b `a `g ]4/6  |
 %48
-	\plet{ 4/6 } [ d e d d `b `g ] \plet{ 1/1 } [ `a8 `g8 ] |
+	[ d e d d `b `g ]4/6  [ `a8 `g8 ] |
 %theme 2
 	\duration{8}
 %49
-	\plet{ 2/3 } [ f e d ] \plet{ 1/1 } f4 |
+	[ f e d ]2/3  f4 |
 %50
-	\plet{ 2/3 } [ e d c ] \plet{ 1/1 } e4 |
+	[ e d c ]2/3  e4 |
 %51
-	\plet{ 2/3 } [ d g `g ] \plet{ 1/1 } \plet{ 2/3 } [ `g `a `b ] \plet{ 1/1 } |
+	[ d g `g ]2/3   [ `g `a `b ]2/3  |
 %52
         d4 e4 |
 %53
-	\plet{ 2/3 } [ f e d ] \plet{ 1/1 } f4 |
+	[ f e d ]2/3  f4 |
 %54
-	\plet{ 2/3 } [ e d c ] \plet{ 1/1 } e4 |
+	[ e d c ]2/3  e4 |
 %55
-	\plet{ 2/3 } [ d g `g ] \plet{ 1/1 } \plet{ 2/3 } [ `g `a `b ] \plet{ 1/1 } |
+	[ d g `g ]2/3   [ `g `a `b ]2/3  |
 %56
-        `b4 c4 | % || \key\Es
+        `b4 c4 \key{bes es as} | % || \key\Es
 %57
 	[ `b d ] [ `g `b ] |
 %58
@@ -205,7 +206,7 @@ alto = music {
         `b2 |
 %88
 	\textstyle "italic"
-        c2_"dacapo" |
+        c2_"dacapo" \key{fis} |
 	\textstyle "roman"
 %\scoreverb{\mulooseness=1}
 %	\key\G ||

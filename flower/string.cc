@@ -5,8 +5,7 @@
   Rehacked by HWN 3/nov/95
   removed String &
   introduced Class String_handle
-
-*/
+  */
 
 #include <string.h>
 #include <stdlib.h>
@@ -17,7 +16,8 @@
 #include "string.hh"
 
 
-static char* strlwr( char* s )
+static char* 
+strlwr( char* s )
 {
     char* p = s;
 
@@ -29,7 +29,8 @@ static char* strlwr( char* s )
     return s;
 }
 
-static char* strupr( char* s )
+static char* 
+strupr( char* s )
 {
     char* p = s;
 
@@ -56,41 +57,51 @@ String::String(Rational r)
 }
 
 // return array, alloced with new.
-char *
-String::copy_array() const
+Byte*
+String::copy_by_p() const
 {
-    const char *src = data;
-    char *dest = new char[data.len() + 1];
-    strcpy(dest, src);
+    Byte const* src = strh_.by_c_l();
+    Byte* dest = new Byte[strh_.length_i() + 1];
+    memmove( dest, src, strh_.length_i() + 1 );
     return dest;    
 }
 
 void
 String::printOn(ostream& os) const
 {
-    os << (const char*) data;
+    if ( length_i() == strlen( ch_c_l() ) )
+        os << ch_c_l();
+    else
+	for ( int i = 0; i < length_i(); i++ )
+	    os << (Byte)(*this)[ i ];
 }
 
 String::String (bool b)
 {
-    *this = (const char *) (b ? "true" : "false");
+    *this = (char const* ) (b ? "true" : "false");
 }
-String::String( const char* source )
+String::String( char const* source )
 {   
     assert(source);    
-    data = source;    
+    strh_ = source;    
+}
+
+String::String( Byte const* by_l, int length_i )
+{   
+    assert( !length_i || by_l );
+    strh_.set( by_l, length_i );    
 }
 
 void
 String::operator +=(String s)
 {
-    *this += (const char *) s;
+    strh_.append( s.by_c_l(), s.length_i() );
 }
 
 int
-String::len() const
+String::length_i() const
 {
-    return data.len();
+    return strh_.length_i();
 }
 
 String::String(char c,  int n)
@@ -101,18 +112,19 @@ String::String(char c,  int n)
     char s[81];
     memset(s, c, l);
     s[l] = 0;
-    data = s;
+//    strh_ = s;
+    strh_.set( (Byte*)s, n );
 }
 
 String::String(int i)
 {
-    char digits[ 81 ];             // who the FUCK is 80???
+    char digits[ 81 ];             // who the fuck is 80???
     digits[ 0 ] = '\0';
     sprintf(digits, "%d", i );     // assume radix 10
-    data = digits;
+    strh_ = digits;
 }
 
-String::String( const int i, const int n, const char c )
+String::String( const int i, const int n, char const c )
 {
     char fillChar = c;
     if ( fillChar)
@@ -120,39 +132,66 @@ String::String( const int i, const int n, const char c )
 
     String v( i );
     
-    data = String( fillChar, n - v.len() ) + String( v );
-    // String convd to const char *
+    String str = String( fillChar, n - v.length_i() ) + String( v );
+    strh_.set( str.by_c_l(), str.length_i() );
 }
 
-const char*
-String::cptr() const
+Byte const*
+String::by_c_l() const
 {
-    return data;
+    return strh_.by_c_l();
 }
 
+char const*
+String::ch_c_l() const
+{
+    return strh_.ch_c_l();
+}
 
+Byte*
+String::by_l()
+{
+    return strh_.by_l();
+}
 
-// signed comparison,  analogous to strcmp;
+char*
+String::ch_l()
+{
+    return strh_.ch_l();
+}
+
+// signed comparison,  analogous to memcmp;
 int
-String::compare(const String& s1,const  String &s2 ) 
+String::compare(String const& s1, String const& s2 ) 
 {
-    const char * p1=s1.cptr();
-    const char * p2 = s2.cptr();
-    if (p1 == p2)
+    Byte const* p1 = s1.by_c_l();
+    Byte const* p2 = s2.by_c_l();
+    if ( p1 == p2 )
 	return 0;
 
-    return strcmp(p1,p2);
+    int i1 = s1.length_i();
+    int i2 = s2.length_i();
+    int i = i1 <? i2;
+
+    if (! i ) 
+	return 0;
+	
+    int result =  memcmp( p1, p2, i );
+    
+    return (result)? result : i1 - i2;
 }
 
 
 int
-String::lastPos( const char c ) const
+String::lastPos( char const c ) const
 {
-    const char *me = data;
+    // not binary safe
+    assert( length_i() == strlen( ch_c_l() ) );
+    char const* me = strh_.ch_c_l();
     int pos = 0;
-    if ( len() )
+    if ( length_i() )
         {
-	const char* p = strrchr(me, c );
+	char const* p = strrchr(me, c );
         if ( p )
             pos = p - me + 1;
         }
@@ -160,17 +199,19 @@ String::lastPos( const char c ) const
 }
 
 int
-String::lastPos( const char* string ) const
+String::lastPos( char const* string ) const
 {
+    // not binary safe
+    assert( length_i() == strlen( ch_c_l() ) );
     int pos = 0;
     int length = strlen( string );
-    if ( len() && length )
+    if ( length_i() && length )
         {
         int nextpos = this->pos( string );
         while( nextpos )
             {
             pos += nextpos;
-            nextpos = right( len() - pos - length + 1 ).pos( string );
+            nextpos = right( length_i() - pos - length + 1 ).pos( string );
             }
         }
     return pos;
@@ -179,15 +220,17 @@ String::lastPos( const char* string ) const
 // find c
 // return 0 if not found. 
 
-// ? should return len()?, as in string.left(pos(delimiter))
+// ? should return length_i()?, as in string.left(pos(delimiter))
 int
 String::pos(char c ) const
 {
-    const char *me = data;
+    // not binary safe
+    assert( length_i() == strlen( ch_c_l() ) );
+    char const* me = strh_.ch_c_l();
     int pos = 0;
-    if ( len() )
+    if ( length_i() )
         {
-	const char* p = strchr( me, c );
+	char const* p = strchr( me, c );
         if ( p )
             pos = p - me + 1;
         }
@@ -196,13 +239,15 @@ String::pos(char c ) const
 
 // find searchfor. (what if this == "" && searchfor == "") ???
 int
-String::pos( const char* searchfor ) const
+String::pos( char const* searchfor ) const
 {
-    const char *me = data;
+    // not binary safe
+    assert( length_i() == strlen( ch_c_l() ) );
+    char const* me = strh_.ch_c_l();
     int pos = 0;
-    if ( len() && searchfor)
+    if ( length_i() && searchfor)
         {
-	const char* p = strstr(me, searchfor);
+	char const* p = strstr(me, searchfor);
         if ( p )
 	    pos = p - me + 1;
         }
@@ -211,13 +256,15 @@ String::pos( const char* searchfor ) const
 
 // find chars of a set.
 int
-String::posAny( const char* string ) const
+String::posAny( char const* string ) const
 {
+    // not binary safe
+    assert( length_i() == strlen( ch_c_l() ) );
     int pos = 0;
-    const char *s = (const char *)data;
-    if ( len() && string )
+    char const* s = (char const* )strh_.ch_c_l();
+    if ( length_i() && string )
         {
-	const char* p = strpbrk( s, string );
+	char const* p = strpbrk( s, string );
         if ( p )
 	    pos = p - s + 1;
         }
@@ -227,7 +274,7 @@ String::posAny( const char* string ) const
 String
 String::left( int n ) const
 {
-    if (n >= len())
+    if (n >= length_i())
 	return *this;
 
     String retval;    	
@@ -235,7 +282,7 @@ String::left( int n ) const
         return retval;
     
     retval = *this;
-    retval.data.trunc(n);
+    retval.strh_.trunc(n);
     return retval;
 }
 
@@ -244,17 +291,13 @@ String::left( int n ) const
 String
 String::right( int n ) const
 {
-    if (n > len())
+    if (n > length_i())
 	return *this;
     
-    String retval;
     if ( n < 1)
-        return retval;
+        String(); 
     
-    const char *src = (const char *)data + len() - n; 
-    retval += src;
-
-    return retval;
+    return String( strh_.by_c_l() + length_i() - n, n ); 
 }
 
 
@@ -265,29 +308,27 @@ String::nomid( const int pos, const int n ) const
         
     if ( pos < 1 )
         return String("");
-    if ( pos > len())
+    if ( pos > length_i())
 	return *this;
     
-    return String( String( left( pos - 1 ) ) + right( len() - pos - n + 1 ));
+    return String( String( left( pos - 1 ) ) + right( length_i() - pos - n + 1 ));
 }
 
 
 String
 String::mid( int pos, int n ) const
 {
-    String retval;
-
-    // HWN. This SUX:
-    // pos 1 == data->string[ 0 ];
+    // HWN. This SUX: JCN: yep, please change me + all my invocations
+    // pos 1 == strh_->string[ 0 ];
     // pos 0 allowed for convenience
-    if ( !len() || ( pos < 0 ) || ( pos > len() ) && ( n < 1 ) )
-        return retval;
+    if ( !length_i() || ( pos < 0 ) || ( pos > length_i() ) && ( n < 1 ) )
+        return String();
 
-    retval = ((const char *) data) + pos -1;
-    if (n > retval.len())
-	n =retval.len();
-    retval.data.trunc(n);
-    return retval;
+    // overflow...
+    if ( ( n > length_i() ) ||  ( pos + n - 1 > length_i() ) )
+	n = length_i() - pos + 1;
+
+    return String( by_c_l() + pos -1, n );
 }
 
 
@@ -295,24 +336,29 @@ String::mid( int pos, int n ) const
 String
 String::upper()
 {
-    char *s = data.array_for_modify();
-    strupr(s );
+    // not binary safe
+    assert( length_i() == strlen( ch_c_l() ) );
+    char *s = strh_.by_l();
+    strupr( s );
     return *this;
 }
 
 
 // to lowercase
-String String::lower()
+String 
+String::lower()
 {
-    char  *s = data.array_for_modify();
+    // not binary safe
+    assert( length_i() == strlen( ch_c_l() ) );
+    char* s = strh_.by_l();
     strlwr(s);
     return *this;
 }
 
-String::String (double f, const char *fmt)
+String::String (double f, char const* fmt)
 {
     /* worst case would be printing HUGE (or 1/HUGE), which is approx
-      2e318, this number would have approx 318 zero's in its string.
+       2e318, this number would have approx 318 zero's in its string.
 
       1024 is a safe length for the buffer
       */
@@ -329,8 +375,8 @@ long
 String::value() const
 {
     long l =0;
-    if (len()) {
-	int conv = sscanf(data, "%ld", &l);
+    if (length_i()) {
+	int conv = sscanf(strh_.ch_c_l(), "%ld", &l);
 	assert(conv);
     }
     return l;
@@ -340,8 +386,8 @@ double
 String::fvalue() const
 {
     double d =0;
-    if (len()) {
-	int conv = sscanf(data, "%lf", &d);
+    if (length_i()) {
+	int conv = sscanf(strh_.ch_c_l(), "%lf", &d);
 	assert(conv);
     }
     return d;
@@ -354,26 +400,26 @@ String quoteString( String msg, String quote)
 }
 
 
-char *strrev(char *s)
+Byte*
+strrev( Byte* by_l, int length_i )
 {
-  char c;
-  char *p = s;
-  char *q = s + strlen(s) - 1;
+  Byte by;
+  Byte* left_by_l = by_l;
+  Byte* right_by_l = by_l + length_i;
 
-  while (q > p) {
-    c = *p;
-    *p++ = *q;
-    *q-- = c;
+  while ( right_by_l > left_by_l ) {
+    by = *left_by_l;
+    *left_by_l++ = *right_by_l;
+    *right_by_l-- = by;
   }
-  return s;
+  return by_l;
 }
 
 
 String 
 String::reversed() const
 {
-    String retval=*this;
-    char  *s = retval.data.array_for_modify();
-    strrev(s);
-    return retval;    
+    String str = *this;
+    strrev( str.by_l(), str.length_i() );
+    return str;    
 }

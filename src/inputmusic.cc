@@ -4,6 +4,23 @@
 #include "musicalrequest.hh"
 
 void
+Input_music::check_plet(Voice_element* velt_l)
+{
+    for (iter_top(velt_l->reqs,i); i.ok(); i++)
+	if ( i->plet() ) {
+	    Moment start_moment = 0.0;
+	    if ( !find_plet_start_bo( i->plet()->type_c_, start_moment ) ) {
+		error( "begin of plet not found", i->defined_ch_c_l_ );
+	        break;
+	    }
+	    Moment moment = 0.0;
+	    set_plet_backwards( moment, start_moment, i->plet()->dur_i_, i->plet()->type_i_ );
+	    i.del();
+	    break;
+        }
+}
+
+void
 Simple_music::add(Voice_element*v)
 {
     voice_.add(v);
@@ -35,6 +52,16 @@ Simple_music::print() const
     mtor << "Simple_music {";
     voice_.print();
     mtor << "}\n";
+}
+bool
+Simple_music::find_plet_start_bo(char c, Moment& moment_r)
+{
+    return voice_.find_plet_start_bo(c, moment_r);
+}
+void 
+Simple_music::set_plet_backwards(Moment& now_moment_r, Moment until_moment, int num_i, int den_i)
+{
+    voice_.set_plet_backwards(now_moment_r, until_moment, num_i, den_i);
 }
 
 /* *************** */
@@ -74,6 +101,22 @@ Complex_music::set_default_group(String g)
     for (iter_top(elts,i); i.ok(); i++)
 	    i->set_default_group(g);
 }
+bool
+Complex_music::find_plet_start_bo(char c, Moment& moment_r)
+{
+    for (iter_bot(elts,i); i.ok(); i--) {
+        if ( i->find_plet_start_bo(c, moment_r) )
+	    return true;
+    }
+    return false;
+}
+void 
+Complex_music::set_plet_backwards(Moment& now_moment_r, Moment until_moment, int num_i, int den_i)
+{
+    for (iter_bot(elts,i); i.ok(); i--) {
+    	i->set_plet_backwards(now_moment_r, until_moment, num_i, den_i);
+    }
+}
 /* *************************************************************** */
 
 void
@@ -97,6 +140,8 @@ Music_voice::add_elt(Voice_element*v)
     c = elts.bottom();
     Simple_music *s = c->simple();
     s->add(v);    	    
+
+    check_plet(v);
 }
 
 Moment
@@ -142,6 +187,8 @@ Music_general_chord::add_elt(Voice_element*v)
     Simple_music*vs = new Simple_music;
     vs->add(v);
     elts.bottom().add(vs);
+
+    check_plet(v);
 }
 
 void

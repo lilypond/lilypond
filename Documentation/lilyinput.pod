@@ -70,7 +70,10 @@ Not really crystallized; you can use '#' or '%' as line comment
 LilyPond first reads 'symbol.ini', which contains declarations crucial
 to proper operation of LilyPond (symbol tables, note names).
 
-This language looks a lot like Rayce's which in turn owes a lot to the
-POVRay raytracer. Now, I know, musictypesetting and Raytracing do not
-necessarily require the same input format, but I was just to lazy to
-make up a new and/or better input format. Suggestions appreciated.
+This language looks a lot like Rayce's (Rayce is a raytracer that I've
+written as a hobby project. I used as a practice program for writing
+(among others) C++ and Yacc. It also gave me RSI :-( ) which in turn
+owes a lot to the POVRay raytracer. Now, I know, musictypesetting and
+Raytracing do not necessarily require the same input format, but I was
+just to lazy to make up a new and/or better input format. Suggestions
+appreciated.

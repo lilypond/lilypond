@@ -19,41 +19,54 @@
 
 #include "stringutil.hh"
 
-/**  the smart string class.  
-
+/** 
+ 
   Intuitive string class. provides 
-
+\begin{itemize}
+\item
   ref counting through #String_handle#
+\item
 
   conversion from bool, int, double, char *, char.
+\item
 
   conversion to int, upcase, downcase
 
+\item
 
   printable. 
 
+\item
   indexing (pos, posAny, lastPos)
 
+\item
   cutting (left, right, mid)
 
+\item
   concat (+=, +)
 
+\item
   signed comparison (<, >, ==, etc)
 
+\item
   No operator[] is provided, since this would be enormously  slow. If needed,
-  convert to const char *. 
+  convert to const char *.
+\end{itemize}
 */
 class String
 {
 protected:
-    String_handle data; // should derive String from String_handle?
+    String_handle strh_; // should derive String from String_handle?
 
 public:
-    /**  init to "".  needed because other constructors are provided.*/
+
+    /**   init to "". needed because other constructors are provided.*/
     String() {  }                  
     String(Rational);
     /// String s = "abc";
     String( const char* source ); 
+
+    String( Byte const* l_by_c, int length_i ); 
     
     /// "ccccc"
     String( char c, int n = 1 );
@@ -69,21 +82,23 @@ public:
     String(  int i,  int n,  char c = ' ' );
 
     ///  return a "new"-ed copy of contents
-    char *copy_array() const; //  return a "new"-ed copy of contents
+    Byte* copy_by_p() const; //  return a "new"-ed copy of contents
 
-    const char *cptr() const;
-    const char *ptr() { return ((const String *)this)->cptr(); }
+    char const* ch_c_l() const;
+    Byte const* by_c_l() const;
+    char* ch_l();
+    Byte* by_l();
 
-    /// return the data. Don't use for writing the data.
-    operator const char *() const { return cptr(); }
+    /// deprecated; use ch_c_l()
+    operator const char *() const { return ch_c_l(); }
     
-    String operator =( const String & source ) { data = source.data; return *this; }
+    String operator =( const String & source ) { strh_ = source.strh_; return *this; }
 
     /// concatenate s
-    void operator += (const char *s) { data += s; }
+    void operator += (char const* s) { strh_ += s; }
     void operator += (String s);
 
-    char operator []( int n ) const { return data[n]; }
+    char operator []( int n ) const { return strh_[n]; }
 
     /// return n leftmost chars
     String left( int n ) const;
@@ -101,13 +116,13 @@ public:
     String reversed() const;
 
 
-    /// return a piece starting at pos (first char = pos 1), length n
+    /// return a piece starting at pos (first char = pos 1), ength n
     String mid(int pos,  int n ) const;
 
     /// cut out a middle piece, return remainder
     String nomid(int pos, int n ) const;
 
-    /// signed comparison,  analogous to strcmp;
+    /// signed comparison,  analogous to memcmp;
     static int compare(const String& s1,const  String& s2);
 	
     /// index of rightmost c 
@@ -116,8 +131,10 @@ public:
     /// index of rightmost element of string 
     int lastPos( const char* string ) const;
 
-    /**  index of leftmost c. 
-    RETURN:
+    /**
+      index of leftmost c.
+      
+    @return
     0 if not found, else index + 1
     */
     int pos(char c ) const;
@@ -135,7 +152,12 @@ public:
     double fvalue() const;
     
     /// the length of the string
-    int len() const;
+    int length_i() const;
+
+    // deprecated 
+    int len() const {
+    	return length_i();
+    }
 
 };
 
@@ -175,5 +197,7 @@ operator << ( ostream& os, String d )
 
 
 String quoteString(String message, String quote);
+
+#include "stringconversion.hh"
 
 #endif

@@ -1,3 +1,4 @@
+#include <assert.h>
 #include <stdio.h>
 #include "scalar.hh"
 
@@ -26,7 +27,7 @@ Scalar::isnum()
     int conv = false;
     if (len()) {
 	long l =0;
-	conv = sscanf(data, "%ld", &l);
+	conv = sscanf(strh_.ch_c_l(), "%ld", &l);
     }
     return len() && conv;
 }

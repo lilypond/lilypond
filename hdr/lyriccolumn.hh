@@ -1,11 +1,11 @@
 //
 // lyriccolumn.hh -- declare Lyric_column
 //
-// copyright 1997 Jan Nieuwenhuizen <jan@digicash.nl>
+// copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 
 
-#ifndef LYRICCOLUMN_HH
-#define LYRICCOLUMN_HH
+#ifndef LYRIC_COLUMN_HH
+#define LYRIC_COLUMN_HH
 
 #include "key.hh"
 #include "stcol.hh"
@@ -23,7 +23,7 @@ struct Lyric_column : Staff_column {
     Lyric_column(Lyric_staff*rs);
 };
 
-#endif // LYRICSTAFF_HH
+#endif // LYRIC_COLUMN_HH
 
 
 

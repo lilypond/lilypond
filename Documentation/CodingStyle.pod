@@ -45,6 +45,7 @@ http://www.zib.de/Visual/software/doc++/index.html
 	/**
 		short description.
 		Long class documentation.
+		(Hungarian postfix)
 	*/
 	class Class {
 		/** short description.
@@ -89,9 +90,9 @@ Standard methods:
 	void print() const
 
 	/**
-	protected member. Usually invoked by non-virtual A_virtual_func()
+	protected member. Usually invoked by non-virtual XXXX()
 	*/
-	virtual do_A_virtual_func()
+	virtual do_XXXX()
 
 	/**add some data to *this.
 	Presence of these methods usually imply that it is not feasible to this
@@ -109,22 +110,17 @@ Notation>.
 
 =head2 Hungarian
 
-The Hungarian Notation was conceived by
-or at least got its name from,
-the hungarian programmer x. 
-It is a naming convention with the aim 
-to make code more readable (for fellow programmers)
-and more accessible for programmers 
-that are new to a project.
+The Hungarian Notation was conceived by or at least got its name from,
+the hungarian programmer x.  It is a naming convention with the aim to
+make code more readable (for fellow programmers) and more accessible
+for programmers that are new to a project.
 
-The essence of the Hungarian Notation 
-is that every identifier has a part
-which identifies its type 
-(for functions this is the result type).
-This is particularly useful in object oriented programming,
-where a particular object implies a specific interface
-(a set of member functions, perhaps some redefined operators),
-and for accounting heap allocated memory pointers and links.
+The essence of the Hungarian Notation is that every identifier has a
+part which identifies its type (for functions this is the result
+type).  This is particularly useful in object oriented programming,
+where a particular object implies a specific interface (a set of
+member functions, perhaps some redefined operators), and for
+accounting heap allocated memory pointers and links.
 
 =head2 Advantages
 
@@ -203,6 +199,9 @@ with the parts of the names separated by underscores.
 
 =over 5
 
+=item C<byte>
+unsigned cher. (The postfix _by is ambiguous)
+
 =item C<b>
 bool
 
@@ -276,7 +275,7 @@ Temporary variable: an unsigned integer
 =item C<test_ch>
 Variable Test: a character
 
-=item C<firstName_str>
+=item C<first_name_str>
 Variable first_name: a String class object
 
 =item C<first_name_ch_a>

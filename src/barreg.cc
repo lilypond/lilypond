@@ -37,7 +37,7 @@ Bar_register::process_request()
 {
 
     if (bar_req_l_ ) {
-	bar_p_ = new Bar(bar_req_l_->type);
+	bar_p_ = new Bar(bar_req_l_->type_str_);
     } else if (!walk_l_->time_.whole_in_measure_) {
 	bar_p_ = new Bar("|");
     }

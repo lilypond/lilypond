@@ -3,7 +3,7 @@
 # version info
 MAJVER=0
 MINVER=0
-PATCHLEVEL=32
+PATCHLEVEL=33
 
 
 
@@ -28,7 +28,7 @@ EXTRACXXFLAGS=-pipe -Wall -W   -Wmissing-prototypes
 # VM hardware to trap malloc/free errors.
 #
 
-EXTRALIB= #+=-lefence
+EXTRALIB+= #-lefence
 
 ####
 #### END USER CONFIGURABLE part.
@@ -110,6 +110,6 @@ DODEP=rm -f $(depfile); DEPENDENCIES_OUTPUT="$(depfile) $(OBJECTDIR)/$(notdir $@
 
 STRIPDEBUG=true #replace to do stripping of certain objects
 LINKER=$(CXX)
-
+include Site.make
 
 include Site.make

@@ -1,3 +1,18 @@
+
+1.1:
+		
+
+------------------
+1.0:
+
+pl 27-1,2 (not released)
+	patches by JCN
+	- stringutils.cc included again 
+	- bin2hex_str bugfix
+	- String class handles null bytes
+	- StringUtils inlined/outlined by #define
+	- StringConversion (only hex for now)
+
 pl 27
 	- (temporarily?) removed findcursor* t*mat*
 

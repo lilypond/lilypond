@@ -6,6 +6,7 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
+#include "plist.hh"
 #include "musicalrequest.hh"
 #include "voicegroup.hh"
 #include "register.hh"

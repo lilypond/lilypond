@@ -41,20 +41,39 @@ score {
 	} 
 	commands {
 		meter {2*4}
-		key $fis$
+%		key $fis$
 		skip 56*2
-		key $bes es as$
+%		key $bes es as$
 		skip 8*2
 		meter {6*8}
 		skip 48*8
 		meter {2*4}
 		skip 16*2
-		key $fis$
+%		key $fis$
 	}
 	paper {
 %		unitspace 16mm
 		unitspace 24mm
 		width 195mm
 		output "martien.out"
+	}
+	staff { 
+		midi_track 
+		music { alto }
+	}
+	staff { 
+		midi_track 
+		music { violin1 }
+	}
+	staff { 
+		midi_track 
+		music { violin2 }
+	} 
+	staff { 
+		midi_track 
+		music { cello }
+	} 
+	midi { 
+		tempo 4:80
 	}
 }

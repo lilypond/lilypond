@@ -1,7 +1,7 @@
 //
 //  source.hh -- part of LilyPond
 //
-//  copyright 1997 Jan Nieuwenhuizen <jan@digicash.nl>
+//  copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 
 #ifndef SOURCE_HH
 #define SOURCE_HH

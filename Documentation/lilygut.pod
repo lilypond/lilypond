@@ -25,8 +25,10 @@ No difficult algorithms. Associated datastructures have prefix Input
 
 =item 2. Processing:
 
-Requests are processed and granted. In this step data-structures for
-3. are created and filled with data: PScore, PCol, PStaff
+Requests are processed and granted. This is done by three cooperating
+structeres: Staff, Staff_walker and Staff_column.  In this step
+data-structures for 3. are created and filled with data: PScore, PCol,
+PStaff
 
 =item 3. Calculation:
 
@@ -140,11 +142,11 @@ should not be shared.
 
 The judge in this "allocation" problem is Staff (actually, it's child
 C<Complex_staff>). It uses the C<Request_register> to do most of the
-work class.  For each request C<Complex_staff> queries so-called
+work.  For each request C<Complex_staff> queries so-called
 C<Request_register>s if they want to accept a request eg, the
 C<Notehead_register> will accept C<Note_req>s, and turn down
-C<Slur_req>s. If C<Complex_staff> cannot find a register wants the
-request, it is junked (with a warning message).
+C<Slur_req>s. If C<Complex_staff> cannot find a register that wants
+the request, it is junked (with a warning message).
 
 After all requests have been either assigned, or junked, the Register
 will process the requests (which usually means creating an C<Item> or

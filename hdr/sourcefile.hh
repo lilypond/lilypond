@@ -1,7 +1,7 @@
 //
 //  sourcefile.hh -- declare Source_file
 //
-//  copyright 1997 Jan Nieuwenhuizen <jan@digicash.nl>
+//  copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 
 #ifndef SOURCE_FILE_HH
 #define SOURCE_FILE_HH

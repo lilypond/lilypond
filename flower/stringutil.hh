@@ -1,244 +1,150 @@
-#ifndef STRINGUTIL_HH
-#define STRINGUTIL_HH
-#include <assert.h>
-
+#ifndef __STRING_UTIL_HH
+#define __STRING_UTIL_HH
+#if 0
 #if !defined(NDEBUG)
 #define NDEBUG BLONDE
 #endif
-
+#endif
 const INITIALMAX=8;
 class String_handle;
 
-/**  Internal String struct. 
+
+typedef unsigned char Byte;
+
+#ifdef STRING_UTILS_INLINED
+#define INLINE inline
+#else
+#define INLINE
+#endif
+
+/**Internal String struct.
    the data itself. Handles simple tasks (resizing, resetting)
    */
-
 class StringData {
     // GNU malloc: storage overhead is 8 bytes anyway.
-
 
 friend class String_handle;
     int maxlen;	// maxlen is arraysize-1
     
-    int length;
-    char* string;
+    int length_i_;
+    Byte* data_by_p_;
     int references;
 
     /// init to ""
-    StringData() {
-	references=0;
-	maxlen = INITIALMAX;
-	string = new char[maxlen + 1];
-	string[0] = 0;
-	length = 0;
-    }
+    INLINE StringData();
 
     /// init from src. Conservative allocation.
-    StringData(StringData const &src) {
-	references=0;	
-	maxlen = length = src.length;		
-	string = new char[maxlen+1]; // should calc GNU 8byte overhead. 	
-	strcpy(string, src.string);	
-    }
+    INLINE StringData(StringData const &src); 
     
-    ~StringData() {
-	assert(references == 0);
-	delete[] string;
-    }
-
+    ~StringData();
 
     /** POST: maxlen >= j.
-      IN: j, maximum stringlength.    
+      IN: j, maximum stringlength_i_.    
       contents thrown away.
     */
-    void setmax(int j) {	
-	OKW();
-	if (j > maxlen) {
-	    delete string;
-	    maxlen = j;
-	    string = new char[maxlen + 1];
-	
-	    string[0] = 0;
-	    length = 0;
-	}
-    }
+    INLINE void setmax(int j);
     
     /** POST: maxlen >= j.
-      IN: j, maximum stringlength.
+      IN: j, maximum stringlength_i_.
       contents are kept if it grows.
       */
-    void remax(int j) {
-	OKW();
-	if (j > maxlen) {
-	    maxlen = j;
-	    char *p = new char[maxlen + 1];	    
-	    strcpy(p,string);	    
-	    delete[] string;
-	    string = p;
-	//    length = strlen(string);
-	}
-    }
+    INLINE void remax(int j);
+
     /// check if writeable.
-    void OKW() {
-
-	assert (references == 1);
-
-    }
+    INLINE void OKW();
 
     /// check state.
-    void OK() {
-	assert(strlen(string) == size_t(length));
-	assert(maxlen >= length);
-	assert(bool(string));
-	assert(references >= 1);
-    }
-
-    // needed?
-    void update() {
-	length  = strlen (string);
-    }
+    INLINE void OK();
 
     /// reduce memory usage.
-    void tighten() { // should be dec'd const
-	maxlen = length;
-	char *p = new char[maxlen + 1];	    
-	strcpy(p,string);	    
-	delete[] string;
-	string = p;		
-    }
+    INLINE void tighten();
 
     // assignment.
-    void set(const char *s) {
-	OKW();
+    INLINE void set( Byte const* by_c_l, int length_i );
 
-	assert(s);
-
-	length = strlen (s);
-	remax(length);
-	strcpy(string,s);
-    }
+    INLINE void set( char const* ch_c_l );
     
     /// concatenation.
-    void operator += (const char *s) {
-	OK();
-	OKW();
-	int old = length;
-	
-	length += strlen(s);
-	remax (length);
-	strcpy(string + old, s);	
-    }
+    INLINE void append( Byte const* by_c_l, int length_i );
 
-    /// the array itself
-    operator const char *() const { return string; }
+    INLINE void operator += ( char const* ch_c_l );
+
+    INLINE char const* ch_c_l() const; 
+
+    INLINE char* ch_l();
+
+    INLINE Byte const* by_c_l() const;
 
     // idem, non const
-    char *array_for_modify() {
-	OKW();
-	return string;
-    }
-    void trunc(int j) {
-	OKW(); 
-	assert(j >= 0 && j <= length);
-	string[j] = 0;
-	length = j;
-    }
+    INLINE Byte* by_l();
 
-    /** access a char. not really safe. Can alter length without
-      *StringData knowing it. */
-    char &operator [](int j) {
-	assert(j >= 0 && j <= length);
-	return string[j] ; 
-    }
+    INLINE void trunc(int j);
 
-    char operator [](int j) const {
-	assert(j >= 0 && j <= length);
-	return string[j]; 
-    }
+    /** not really safe. Can alter length_i_ without StringData knowing it.
+      */
+    INLINE Byte &operator [](int j);
+    INLINE Byte operator [](int j) const;
 };
 
 
 
-/**  ref. counting for strings. 
-   handles ref. counting, and provides a very thin
-   interface using char *
- */
+
+/**
+  Reference counting for strings.
+  
+   handles ref. counting, and provides a very thin interface using
+   Byte *
+
+   */
 class String_handle {
     StringData* data;
     
     /// decrease ref count. Named kind of like a Tanenbaum semafore 
-    void down() { if (!(--data->references)) delete data; data = 0; }
+    INLINE void down();
 
     /// increase ref count
-    void up(StringData *d) { data=d; data->references ++; }
+    INLINE void up(StringData *d);
     
     /** make sure data has only one reference.      
        POST: data->references == 1
       */
-    void copy() {
-	if (data->references !=1){
-	    StringData *newdata = new StringData(*data);
-	    down();
-	    up(newdata);
-	}
-    }
+    INLINE void copy();
     
 public:
+    INLINE String_handle();
+    INLINE ~String_handle();
+    INLINE String_handle(String_handle const & src);
 
-    String_handle() {
-	up(new StringData);
-    }
-    ~String_handle() {	
-	down();
-    }    
-    String_handle(String_handle const & src) {	
-	up(src.data);
-    }
+    INLINE Byte const* by_c_l() const;
+    INLINE char const* ch_c_l() const;
+    INLINE Byte* by_l();
+    INLINE char* ch_l();
 
-    /// retrieve the actual array.
-    operator const char *() const { return *data; }    
-    char *array_for_modify() {
-	copy();
-	return data->array_for_modify();
-    }
-    
-    void operator =(String_handle const &src) {
-	if (this == &src)
-	    return;
-	down();
-	up(src.data);
-    }
-    
-    void operator += (const char *s) {	
-	copy();
-	*data += s;
-    }    
+    INLINE void operator =(String_handle const &src);
+    INLINE void operator += (char const *s);
+    INLINE Byte operator[](int j) const;
 
-    
-    char operator[](int j) const { return (*data)[j]; }
-
-    // !NOT SAFE!
-    // don't use this for loops. Use array_for_modify()
-    char &operator[](int j) {
-	copy(); 	// hmm. Not efficient
-	return data->array_for_modify()[j];
-    }
-
-    void operator = (char const *p) {
-	copy();
-	data->set(p);
-    }
-			       
-    void trunc(int j) { copy(); data->trunc(j); }
-    int len() const { return data->length; }
+    /** Access elements. WARNING: NOT SAFE
+       don't use this for loops. Use by_c_l()
+       */
+    INLINE Byte &operator[](int j);
+    INLINE void append( Byte const* by_c_l, int length_i );
+    INLINE void set( Byte const* by_c_l, int length_i );
+    INLINE void operator = (char const *p);
+    INLINE void trunc(int j);
+    INLINE int length_i() const;
 };
 
+#if 0
 #ifdef NDEBUG
 #if (NDEBUG == BLONDE)
 #undef NDEBUG
 #endif
 #endif
+#endif
 
+#ifdef STRING_UTILS_INLINED
+#include "stringutil.cc"
+#endif
 
-
-#endif // STRINGUTIL_HH
+#endif // __STRING_UTIL_HH //

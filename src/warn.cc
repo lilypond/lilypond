@@ -72,5 +72,10 @@ void
 error( String message_str, char const* context_ch_c_l )
 {
     message( message_str, context_ch_c_l );
-    exit( 1 );
+    // since when exits error again?
+    // i-d say: error: errorlevel |= 1; -> no output upon error
+    //          warning: recovery -> output (possibly wrong)
+    if ( lexer )
+        lexer->errorlevel_i_ |= 1;
+//    exit( 1 );
 }

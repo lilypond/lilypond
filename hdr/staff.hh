@@ -44,6 +44,9 @@ public:
     /// when does the last *musical* element finish?
     Moment last() const;
 
+//    /// extract midi info
+//    Midi_track* midi_track_p();
+
     /// remove unused cols
     void clean_cols() ;
     Staff();

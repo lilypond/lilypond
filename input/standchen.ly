@@ -12,7 +12,7 @@
 % comments with # note missing stuff
 % heu, make that %#%
 %
-% thanks to \music "2" group changing, all notes 
+% thanks to \music group changing, all notes 
 % (except for grace notes) are printed
 %
 
@@ -36,6 +36,7 @@
 %#%\duration8
 %%1
 melodie = music { $ \clef\violin
+	\key{bes}
 	\duration{ 8 }
 	r_"\pp" { [ d `a-| } f-| { d `a-| } f-| { d `a-| ] } |
 %%2
@@ -48,30 +49,30 @@ melodie = music { $ \clef\violin
 	r { [ `a cis } e { `a cis } e { `a cis ] } |
 %#%:|
 %%5
-	\plet{ 2/3 } [ a()bes a ] \plet{ 1/1 } 'd4. a |
+	[ a()bes a ]2/3  'd4. a |
 %%6
-	\plet{ 2/3 } [ g()a g ] \plet{ 1/1 } 'd4 a r |
+	[ g()a g ]2/3  'd4 a r |
 %#%\tighten
 %#%\newline
 %%7
-	a4.^> g \plet{ 2/3 } [ g( f )e ] \plet{ 1/1 } |
+	a4.^> g  [ g( f )e ]2/3  |
 %%8
 	f2 r4 |
 %%9
-	{ \music{ 'a4.( )'g \plet{ 2/3 } [ 'g( 'f )'e ] \plet{ 1/1 } }
-	  \music{ 'cis4. 'e_"dolce" \plet{ 2/3 } 'e \plet{ 1/1 } } } |
+%	{ \music{ 'a4.( )'g  [ 'g( 'f )'e ]2/3  } \music{ 'cis4. 'e_"dolce"  [ 'e ] 2/3 } } |
+	{ \music{ 'a4.( )'g  [ 'g( 'f )'e ]2/3  } \music{ 'cis4. 'e_"dolce"  \plet{ 2/3 } 'e \plet{ 1/1 } } } |
 %%10
 	{ 'f2. 'd2. } |
 %%11
-	\plet { 2/3 } [ a_"\pp"( )bes a ] \plet { 1/1 } 'f4. a |
+	[ a_"\pp"( )bes a ]2/3  'f4. a |
 %%12
-	\plet { 2/3 } [ g( ) a g ] \plet { 1/1 } 'e4. 'd |
+	[ g( ) a g ]2/3  'e4. 'd |
 %%13
-	'c4. bes \plet { 2/3 } [ bes( ) a g ] \plet { 1/1 } |
+	'c4. bes  [ bes( ) a g ]2/3  |
 %%14
 	a2 r 
-	{ \music{ 'd( | )'c4. g \plet { 2/3 } [ bes a g ] \plet { 1/1 } }
-	  \music{ f_"\p"( | )e4._"dolce" bes \plet { 2/3 } [ g ] \plet { 1/1 } } } |
+%	{ \music{ 'd( | )'c4. g  [ bes a g ]2/3  } \music{ f_"\p"( | )e4._"dolce" bes  [ g ]2/3  } } |
+	{ \music{ 'd( | )'c4. g  [ bes a g ]2/3  } \music{ f_"\p"( | )e4._"dolce" bes  \plet{ 2/3 } g \plet{ 1/1 }  } } |
 %%16
 	{ a2. f2. } |
 %%17
@@ -82,12 +83,12 @@ melodie = music { $ \clef\violin
 	[ 'd8. a16 ] f4. d |
 %%19
 %#%	'c\grace\stemup
-	\plet { 2/3 } [ bes_"\pp"( ) a bes ] \plet { 1/1 } 'd4. bes |
+	[ bes_"\pp"( ) a bes ]2/3  'd4. bes |
 %%20
 	a2. |
 %%21
 %#%	a\grace
-	\plet { 2/3 } [ g( )fis g ] \plet { 1/1 } bes4.^> g |
+	[ g( )fis g ]2/3  bes4.^> g |
 %%22
 %#%	=f2. |
 	f2. |
@@ -97,12 +98,12 @@ melodie = music { $ \clef\violin
 	[ 'd8. a16 ] fis4. d |
 %%25
 %#%	'cis\grace\stemup
-	\plet { 2/3 } [ b_"\mf"( ) ais b ] \plet { 1/1 }	'd4. b |
+	[ b_"\mf"( ) ais b ]2/3 'd4. b |
 %%26
 	{ a2. fis2. } |
 %#%\tighten\newline
 %%27
-	\plet { 2/3 } [ 'e_"\f"( )'dis 'e ] \plet { 1/1 } 'g4. 'cis |
+	[ 'e_"\f"( )'dis 'e ]2/3 'g4. 'cis |
 %%28
 	{ 'd2. fis2. } |
 %#%\volta1
@@ -139,8 +140,8 @@ melodie = music { $ \clef\violin
 %%40
 	'cis2 r4 |
 %%41
-%#%	{ > 'fis4. 'cis4._f } 'e [ 'e( ) 'd >! 'cis ] \plet { 1/1 } |
-	{ 'fis4. 'cis4._"\f" } 'e \plet { 2/3 } [ 'e( )'d 'cis ] \plet { 1/1 } |
+%#%	{ > 'fis4. 'cis4._f } 'e [ 'e( ) 'd >! 'cis ]  |
+	{ 'fis4. 'cis4._"\f" } 'e  [ 'e( )'d 'cis ]2/3  |
 %%42
 	[ b8. 'cis16 ] 'd4^> b r |
 %%43
@@ -151,19 +152,19 @@ melodie = music { $ \clef\violin
 	[ b8. 'cis16 ] 'd4^> b r |
 %%45
 %#%	'cis\grace\stemup
-	\plet { 2/3 } [ b_"\p"( )ais b ] \plet { 1/1 } 'd4. b |
+	[ b_"\p"( )ais b ]2/3  'd4. b |
 %%46
 %#%	{ =a2. fis2. } |
 	{ a2. fis2. } |
 %%47
-	\plet { 2/3 } [ 'e_"\f"( )'dis 'e ] \plet { 1/1 } 'g4.^> 'cis |
+	[ 'e_"\f"( )'dis 'e ]2/3  'g4.^> 'cis |
 %%48
 %#%	{ fis2.(v ='d2.\stemup(^ }
 %	{ fis2. 'd2. } |
 %%49
 %#%	{ ) 'd4 ) =f2._> } { r4 s4_{decr} } 'd4\stemup
 	\textstyle "italic"
-	{ \multivoice \music{ \stem{ 1 } fis2.( | \stem{ -1 } )f2. } \music  { \stem{ 1 } 'd2.( | \stem{ 1 } )'d4 r4_"decresc." 'd4 } }
+	{ \multivoice \music{ \stem{ 1 } fis2.( | \stem{ -1 } )f2. } \music { \stem{ 1 } 'd2.( | \stem{ 1 } )'d4 r4_"decresc." 'd4 } }
 	\textstyle "roman" |
 %%50
 	{ bes2. e2. } |
@@ -194,73 +195,71 @@ melodie = music { $ \clef\violin
 $ }
 
 begeleiding = music { $
-\clef\bass
-\duration{2}
-	`d r4
+	\key{bes}
+	\clef\bass
+	\duration{2}
+	`d r4 |
 %%2
-	``bes r4
+	``bes r4 |
 
 %%3
-	``g r4
+	``g r4 |
 
 %%4
-	``a r4
+	``a r4 |
 %#%:|
 %%5
 %#%\stemlength2
 \duration{ 8 }
 %#%	{ =`f `d2 } `a d `a { d r4 } `a
- 	{ \multivoice \music{ \stem{1}[ `f `a d `a d `a ] } \music  { \stem{ -1 } `d2 r4 } } |
+ 	{ \multivoice \music{ \stem{ 1 } [ `f `a d `a d `a ] } \music { \stem{ -1 } `d2 r4 } } |
 %%6
- 	{ \multivoice \music{\stem{1} [ `d `e `g `e `g `e ] } \music { \stem{ -1 } ``bes2 r4 } } |
+ 	{ \multivoice \music{ \stem{ 1 } [ `d `e `g `e `g `e ] } \music { \stem{ -1 } ``bes2 r4 } } |
 %%7 
 % this (one note missing) fails with assertion:
-% lilypond: src/beam.cc:144: void Beam::set_grouping(struct Rhythmic_grouping,
-% struct Rhythmic_grouping): Assertion `cur.children.size() == stems.size()' failed.
-
-%% seems fixed now, HWN
-%	{ \multivoice \music{ \stem{1}[ `cis `e `g `e `g ] } \music { \stem{ -1 } ``a2 r4 } } |
-	{ \multivoice \music{\stem{1} [ `cis `e `g `e `g e ] } \music { \stem{ -1 } ``a2 r4 } } |
+% lilypond: src/beam.cc:144: void Beam::set_grouping(struct Rhythmic_grouping, struct Rhythmic_grouping): Assertion `cur.children.size() == stems.size()' failed.
+%	{ \multivoice \music{ \stem{ 1 } [ `cis `e `g `e `g ] } \music { \stem{ -1 } ``a2 r4 } } |
+	{ \multivoice \music{ \stem{ 1 } [ `cis `e `g `e `g e ] } \music { \stem{ -1 } ``a2 r4 } } |
 %%8
-	{ \multivoice \music{ \stem{1}[ `d `a d `a d `a ] } \music { \stem{ -1 } `d2 r4 } } |
+	{ \multivoice \music{ \stem{ 1 } [ `d `a d `a d `a ] } \music { \stem{ -1 } `d2 r4 } } |
 %%9
 	[ `a e f e f e ] |
 %%10
 	[ `d `a d `a d `a ] |
 %%11
-	{ \multivoice \music{ \stem{1} [ `f `a d `a d `a ] } \music  { \stem{ -1 } `d2 r4 } } |
+	{ \multivoice \music{ \stem{ 1 } [ `f `a d `a d `a ] } \music { \stem{ -1 } `d2 r4 } } |
 %%12 == 6
-	{ \multivoice \music{ \stem{1}[ `d `e `g `e `g `e ] } \music  { \stem{ -1 } ``bes2 r4 } } |
+	{ \multivoice \music{ \stem{ 1 } [ `d `e `g `e `g `e ] } \music { \stem{ -1 } ``bes2 r4 } } |
 %13
-	{ \multivoice \music{ \stem{1}[ `e `e `g `e `g `e ] } \music  { \stem{ -1 } ``bes2 r4 } } |
+	{ \multivoice \music{ [ `e `e `g `e `g `e ] } \music { \stem{ -1 } ``bes2 r4 } } |
 %%14
-	{ \multivoice \music{ \stem{1}[ `a c f c f c ] } \music  { \stem{ -1 } `f2 r4 } } |
+	{ \multivoice \music{ \stem{ 1 } [ `a c f c f c ] } \music { \stem{ -1 } `f2 r4 } } |
 %%15
 	[ `c `g `bes `g `bes `g ] |
 %%16
 	[ ``f `c `f `c `f `c ] |
 %%17
-	{ \multivoice \music{ \stem{1}[ ``a `e `g `e `g `e ] } \music  { \stem{ -1 } ``a2 r4 } } |
+	{ \multivoice \music{ \stem{ 1 } [ ``a `e `g `e `g `e ] } \music { \stem{ -1 } ``a2 r4 } } |
 %%18
-	{ \multivoice \music{ \stem{1}[ `d `a d `a d `a ] } \music  { \stem{ -1 } `d2 r4 } } |
+	{ \multivoice \music{ \stem{ 1 } [ `d `a d `a d `a ] } \music { \stem{ -1 } `d2 r4 } } |
 %%19
-	{ \multivoice \music{ \stem{1}[ ``bes `f `bes `f `bes `f ] } \music  { \stem{ -1 } ``bes2 r4 } } |
+	{ \multivoice \music{ \stem{ 1 } [ ``bes `f `bes `f `bes `f ] } \music { \stem{ -1 } ``bes2 r4 } } |
 %%20
-	{ \multivoice \music{ \stem{1}[ ``f `c `f `c `f `c ] } \music  { \stem{ -1 } ``f2 r4 } } |
+	{ \multivoice \music{ \stem{ 1 } [ ``f `c `f `c `f `c ] } \music { \stem{ -1 } ``f2 r4 } } |
 %%21
 %#%	s8		 % skip space of grace note
 	{ [ `e `c } `g c `g c `g ] |
 %%22
 	[ `f `a c `a `f `c ] |
 %%23
-	{ \multivoice \music{ \stem{1}[ ``a `e `g `e `g `e ] } \music  { \stem{ -1 } ``a2 r4 } } |
+	{ \multivoice \music{ \stem{ 1 } [ ``a `e `g `e `g `e ] } \music { \stem{ -1 } ``a2 r4 } } |
 %%24
-	{ \multivoice \music{ \stem{1}[ `d `fis `a `fis `a `fis ] } \music  { \stem{ -1 } `d2 r4 } } |
+	{ \multivoice \music{ \stem{ 1 } [ `d `fis `a `fis `a `fis ] } \music { \stem{ -1 } `d2 r4 } } |
 %%25
 %#%	s8		 % skip space of grace note
-	{ \multivoice \music{ \stem{1}[ ``g `d `b `d `b `d ] } \music  { \stem{ -1 } ``g2 r4 } } |
+	{ \multivoice \music{ \stem{ 1 } [ ``g `d `b `d `b `d ] } \music { \stem{ -1 } ``g2 r4 } } |
 %%26
-	{ \multivoice \music{ \stem{1}[ `d `a d `a d `a ] } \music  { \stem{ -1 } `d2 r4 } } |
+	{ \multivoice \music{ \stem{ 1 } [ `d `a d `a d `a ] } \music { \stem{ -1 } `d2 r4 } } |
 %%27
 	{ [ `cis ``a } `e `a `e `a `e ] |
 %%28
@@ -303,9 +302,9 @@ begeleiding = music { $
 	{ [ `d ``b } `fis `b `fis `b `fis ] |
 %%45
 %#%	s8		 % skip space of grace note
-	{ \multivoice \music{ [ ``g `d `b `d `b `d ] } \music  { \stem{ -1 } ``g2 r4 } } |
+	{ \multivoice \music{ \stem{ 1 } [ ``g `d `b `d `b `d ] } \music { \stem{ -1 } ``g2 r4 } } |
 %%46
-	{ \multivoice \music{ [ `d `a d `a d `a ] } \music  { \stem{ -1 } `d2 r4 } } |
+	{ \multivoice \music{ \stem{ 1 } [ `d `a d `a d `a ] } \music { \stem{ -1 } `d2 r4 } } |
 %%47
 	{ [ `cis ``a } `e `a `e `a `e ] |
 %%48
@@ -341,16 +340,16 @@ tekst1 = music {
 	_ _ _
 	_ _ _
 % 5
-	\plet{ 2/3 } Lei- se8 \plet{ 1/1 } fleh-4. en8 
-	\plet{ 2/3 } mei- ne8 \plet{ 1/1 } Lie- der8 _8
-	Durch4. die8 \plet{ 2/3 } Nacht zu8 \plet{ 1/1 } 
+	[ Lei- se8 ]2/3 fleh-4. en8 
+	[ mei- ne8 ]2/3 Lie- der8 _8
+	Durch4. die8 [ Nacht zu8 ]2/3 
 	dir;2 _        
 	_ _ _ 
 	_ _ _
 % 11
-	\plet{ 2/3 } In den8 \plet{ 1/1 } stil-4. len8 
-	\plet{ 2/3 } Hain her-8 \plet{ 1/1 } nie-4. der,8
-	Lieb4. chen,8 \plet{ 2/3 } komm zu8 \plet{ 1/1 } 
+	[ In den8 ]2/3 stil-4. len8 
+	[ Hain her-8 ]2/3 nie-4. der,8
+	Lieb4. chen,8 [ komm zu8 ]2/3 
 	mir!2 _
 	_ _ _ 
 	_ _ _
@@ -358,7 +357,7 @@ tekst1 = music {
 % 17
 	Fl\"us-8. ternd16 schlan-4. ke8 
 	Wip-8. fel16 rau-4. schen8
-	\plet{ 2/3 } In des8 \plet{ 1/1 } Mon-4. des8 
+	[ In des8 ]2/3 Mon-4. des8 
 	Licht;2.
 	_ _ _ 
 	_ _ _
@@ -366,7 +365,7 @@ tekst1 = music {
 % 23
 	Des8. Ver-16 r\"a-4. ters8 
 	feind-8. lich16 Lau-4. schen8
-	\plet{ 2/3 } F\"urch- te,8 \plet{ 1/1 } Hol-4. de,8 
+	[ F\"urch- te,8 ]2/3 Hol-4. de,8 
 	nicht.2.
 	_ _ _ 
 	_ _ _
@@ -386,7 +385,7 @@ tekst1 = music {
 	mich!2 _
 	Be-8. bend16 harr' ich8 _8
 	dir8. ent-16 ge- gen!8 _8
-	\plet{ 2/3 } Komm, be-8 \plet{ 1/1 } gl\"u4. cke8 
+	[ Komm, be-8 ]2/3 gl\"u4. cke8 
 	mich!2.
 	_ _ _ _ _ _
 % 47
@@ -408,17 +407,17 @@ tekst2 = music {
 	_ _ _
 	_ _ _
 % 5
-	\plet{ 2/3 } H\"orst die8 \plet{ 1/1 } Nach-4. ti-8 
-	\plet{ 2/3 } gal- len8 \plet{ 1/1 } schla- gen?8 _8
-	Ach!4. sie8 \plet{ 2/3 } fleh- en8 \plet{ 1/1 } 
+	[ H\"orst die8 ]2/3 Nach-4. ti-8 
+	[ gal- len8 ]2/3 schla- gen?8 _8
+	Ach!4. sie8 [ fleh- en8 ]2/3 
 	dich,2 _
 	_ _ _ 
 	_ _ _
 
 % 11
-	\plet{ 2/3 } Mit der8 \plet{ 1/1 } T\"o-4. ne8
-	\plet{ 2/3 } s\"u\ss- en8 \plet{ 1/1 } Kla-4. gen8
-	Fleh-4. en8 \plet{ 2/3 } sie f\"ur8 \plet{ 1/1 }
+	[ Mit der8 ]2/3 T\"o-4. ne8
+	[ s\"u\ss- en8 ]2/3 Kla-4. gen8
+	Fleh-4. en8 [ sie f\"ur8 ]2/3
 	mich.2 _
 	_ _ _ 
 	_ _ _
@@ -426,7 +425,7 @@ tekst2 = music {
 % 17
 	Sie-8. ver-16 stehn4. des8
 	Bus-8. ens16 Seh-4. nen,8
-	\plet{ 2/3 } Ken- nen8 \plet{ 1/1 } Lieb-4. es-8 
+	[ Ken- nen8 ]2/3 Lieb-4. es-8 
 	schmerz,2.
 	_ _ _ 
 	_ _ _
@@ -434,7 +433,7 @@ tekst2 = music {
 % 23
 	R\"uh-8. ren16 mit4. den8 
 	Sil-8. ber-16 t\"o-4. nen8
-	\plet{ 2/3 } Jed- es8 \plet{ 1/1 } wei-4. che8 
+	[ Jed- es8 ]2/3 wei-4. che8 
 	Herz.2.
 	_ _ _ 
 	_ _ _
@@ -465,35 +464,36 @@ tekst2 = music {
 }
 
 score {
-	staff { 
-		lyric 
-		music { tekst1 }
-		music { tekst2 }
-	}
-	staff { 
-	 	melodic 
-		music { melodie }
-	}
-	staff { 
-		melodic 
-		music { begeleiding }
-	}
+%	staff { 
+%		lyric 
+	%	music { tekst1 }
+	%	music { tekst2 }
+%	}
+%	staff { 
+%	 	melodic 
+%		music { melodie }
+%	}
+%	staff { 
+%		melodic 
+%		music { begeleiding }
+%	}
 	commands { 
-		meter { 3*4 }
-		key $bes$
-		skip 12*4
-		bar ":|"
-		skip 96*4
-		bar ":|"
-		skip 66*4
-		bar "||"
+		meter {3*4}
 	}
 	paper {
 		symboltables { table_sixteen }
 		width 195mm
-		unitspace 20mm
-%		unitspace 4.0 cm % leaves all text stand free
-%		geometric 1.4
+
+		% on two pages...
+%		unitspace 10mm
+%		geometric 1.2
+		unitspace 9mm
+		geometric 1.2
 		output "standchen.out"
+	}
+	staff { midi music { melodie } }
+	staff { midi music { begeleiding } }
+	midi {
+		tempo 4:50
 	}
 }

@@ -100,9 +100,9 @@ Dstream::Dstream(ostream *r, const char * cfg_nm )
 {
     os = r;
     silent = new Assoc<String,bool>;
+    indentlvl = 0;
     if (!os)
 	return;
-    indentlvl = 0;
     
     const char * fn =cfg_nm ? cfg_nm : ".dstreamrc";
     {

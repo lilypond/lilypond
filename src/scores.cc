@@ -17,6 +17,7 @@ do_scores()
 	s_p->print ();
 	s_p->process();
 	s_p->output(outfn);
+	s_p->midi();
 	delete s_p;
     }
     score_array_global.set_size(0);

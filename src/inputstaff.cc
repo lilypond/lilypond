@@ -1,11 +1,20 @@
+/*
+  inputstaff.cc -- implement Input_staff
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include "debug.hh"
 #include "score.hh"
 #include "inputmusic.hh"
 #include "inputstaff.hh"
 #include "staff.hh"
 #include "complexstaff.hh"
-#include "lexer.hh"
 #include "lyricstaff.hh"
+#include "midistaff.hh"
+#include "lexer.hh"
 
 
 Input_staff::Input_staff(String s)
@@ -29,8 +38,12 @@ Input_staff::parse(Score*score_l, Input_music *default_score_wide)
 	p = new Complex_staff;
     else if (type == "lyric")
     	p = new Lyric_staff;
-    else
-	error( "Unknown staff-type `" + type +"\'", defined_ch_c_l_);
+    else if (type == "midi")
+    	p = new Midi_staff;
+    else {
+ 	error( "Unknown staff-type `" + type +"\'", defined_ch_c_l_ );
+	exit( 1 );
+    }
 
     p->score_l_ = score_l;
     

@@ -29,15 +29,21 @@ ritme = staff {
 	
 	$ }
 
+	%
+	% The commands section takes the same stuff that music { } takes;
+	% the commands issued below could have been issued inside the above
+	% music block;
+	%
+
 	commands {	% override "commands" section of Score.
-		partial 1*8
+		partial {1*8}	% doesn't have to be here. 
 		meter{ 4*4}
 	}
 }
 another = staff {
 	melodic
 	music { $
-		c1 c1 c1 c4 c4 c4 c4  {\meter 4*4} c1 c1 c1
+		c1 c1 c1 c4 c4 c4 c4  \meter{ 4*4} c1 c1 c1
 	$ }
 }
 

@@ -15,6 +15,7 @@ cello = music {
 	$
 \clef"bass"	\octave{`}
 	\duration{4}
+	\key{fis}
 %%1
 	g `g |
 %%2
@@ -127,22 +128,22 @@ cello = music {
 %%49
 	\textstyle "italic"
 	r4_"arco"
-	\plet{ 2/3 } [ `g `g `g ] \plet{ 1/1 } |
+	 [ `g `g `g ]2/3  |
 	\textstyle "roman"
 %%50
-	r4 \plet{ 2/3 } [ c c c ] \plet{ 1/1 } |
+	r4  [ c c c ]2/3  |
 %%51
 	g2 |
 %%52
 	c2 |
 %%53
-	r4 \plet{ 2/3 } [ `g `g `g ] \plet{ 1/1 } |
+	r4  [ `g `g `g ]2/3  |
 %%54
-	r4 \plet{ 2/3 } [ c c c ] \plet{ 1/1 } |
+	r4  [ c c c ]2/3  |
 %%55
 	g2 |
 %%56
-	`g4 `c4 |
+	`g4 `c4 \key{bes es as}|
 % \key\`es ||
 %%57
 	g r g r |
@@ -212,7 +213,7 @@ cello = music {
 	d |
 %%88
 	\textstyle "italic"
-	d_"dacapo"
+	d_"dacapo" \key{fis} |
 	\textstyle "roman"
 % \key\`g ||
 	$

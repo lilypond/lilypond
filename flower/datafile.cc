@@ -1,34 +1,7 @@
 #include <fstream.h>
 #include <ctype.h>
 
-#include "textstr.hh"
-Text_stream::Text_stream(String fn)
-{	
-        if (fn == "") 
-	    {
-	    name = "<STDIN>";	    
-	    f = stdin;
-	    }
-	
-	else 
-	    {
-	    name = fn;	    
-	    f = fopen(fn, "r");
-	    }
-	
-	if (!f) {
-	    cerr <<__FUNCTION__<< ": can't open `" << fn << "'\n";
-	    exit(1);
-	}
-
-	line_no = 1;
-    }
-
-void
-Text_stream::message(String s)
-{
-    cerr << "\n"<<get_name() << ": " << line()<<": "<<s<<endl;
-}
+#include "datafile.hh"
 
 void 
 Data_file::gobble_white()

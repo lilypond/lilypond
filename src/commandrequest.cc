@@ -17,10 +17,21 @@ Cadenza_req::do_print()const
     mtor << on_b;
 }
 
+int
+Bar_req::compare(const Bar_req &c1)const
+{
+    return type_str_ == c1.type_str_;
+}
+
 void
 Bar_req::do_print() const
 {
-    mtor << type;
+    mtor << type_str_;
+}
+
+Bar_req::Bar_req(String s)
+{
+    type_str_ = s;
 }
 
 Partial_measure_req::Partial_measure_req(Moment m)
@@ -55,10 +66,6 @@ Nonmusical_req::do_print()const{}
 void
 Barcheck_req::do_print() const{}
 
-Bar_req::Bar_req(String s)
-{
-    type = s;
-}
 /* *************** */
 void
 Clef_change_req::do_print() const

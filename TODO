@@ -1,19 +1,19 @@
 
 before 0.1
 
-	* martien.ly, standchen.ly
+	* Register_groups as a baseclass.
+
+	* Junk Staff/Staff_col children.
 
 	* pushgroup, popgroup.
 
 	* basic dynamics
 
-	* triplet notation
-
-	* midi output
+	* MIDI syntax.
 
 	* decent TeX page layout
 	
-	* < .. > vs. { .. }
+	* < .. > vs. { .. } syntax? ! 
 
 This is an assorted collection of stuff that will be done, might be
 done, or is an idea that I want to think about
@@ -24,6 +24,10 @@ BUGS
 	* key print if clef change.
 
 	* $cis ( | ) cis$
+
+	* Group_feature at start of music. 
+
+	* size of Key_item
 
 SEVERELY LACKING:
 
@@ -45,7 +49,9 @@ INPUTLANGUAGE
 
 SMALLISH PROJECTS
 
-	* bar numbers
+	* parshape
+
+	* bar numbers/repetition marks
 
 	* read from mmap directly: study yy_scan_buffer
 
@@ -123,7 +129,7 @@ IDEAS
 
 	* enter Requests directly
 
-	* itemcolumns
+	* itemcolumns: Use dummy items.
 
 	* use an embedded language: scheme, lisp, S-lang, Perl, ?
 

@@ -22,6 +22,9 @@ ASCII script input, with identifiers (for music reuse),
 customizable notenames, customizable fontset
 
 =item *
+MIDI output lets you check if you have entered the correct notes.
+
+=item *
 Multiple staffs in one score. Each staff can have a different meters.
 
 =item *
@@ -33,7 +36,7 @@ triplets, general n-plet (triplet, quadruplets, etc.), lyrics
 
 =item *
 multiple voices within one staff; beams optionally shared
-between voices. (well, more than 2 voices won't look pretty)
+between voices. (well, more than 2 voices won't look pretty --yet.)
 
 =item *
 multiple scores within one input file. Each score is output to
@@ -95,8 +98,6 @@ LilyPond does not display notes directly, nor will it be rehacked to be
 used interactively. LilyPond writes output to a file.  It will not be
 extended to play music, or to recognize music.
 
-It will output MIDI, though (at some stage)
-
 =item *
 LilyPond is intended to run on Unix platforms, but it should
 be portable to any platform which can run TeX and the GNU tools
@@ -115,21 +116,21 @@ broken systems.
 
 =over 5
 
-=item 	B<-I,--include>=F<FILE>
+=item B<-I,--include>=F<FILE>,
 
 add F<FILE> to the search path for input files.
 
-=item 	B<-d,--debug>,
+=item B<-d,--debug>,
 
 Turn debugging info. LilyPond will read the file F<.dstreamrc>, which
 tells for what functions and classes may produce copious debugging
 output.
 
-=item 	B<-w,--warranty>,
+=item B<-w,--warranty>,
 
 Show the warranty with which LilyPond comes. (It comes with B<NO WARRANTY>!)
 
-=item  B<-o,--output=>F<FILE>,
+=item B<-o,--output=>F<FILE>,
 
 Set the default output file to F<FILE>.
 
@@ -139,10 +140,10 @@ Show a summary of usage
 
 =item 	B<-i,--init=>F<FILE>
 
-set init file (default: F<symbol.ini>)
+set init file to F<FILE> (default: F<symbol.ini>)
 
-=item B<--include, -I>
-add to file search path.
+=item B<--include, -I>=F<DIRECTORY>
+add F<DIRECTORY> to the search path for input files.
 
 =back
 
@@ -157,7 +158,7 @@ the GNU General Public License, which is in the file F<COPYING>
 
 =head1 PREREQUISITES
 
-Compilation:
+For compilation you need.
 
 =over 5
 
@@ -174,17 +175,18 @@ or better recommended. I doubt if it will compile with AT&T CC.
 GNU make.
 
 =item *
-flex (2.5.1 or better)
+Flex (2.5.1 or better)
 
 =item *
 Bison.
 
 =item *
 The "Flower" library, which should be available from the same
-source you got this from.
+source you got this from. The version of flower lib should match the
+one which is found in the F<configure> script.
 
 =item *
-perl.  The Makefile uses perl for trivial operations, and you
+Perl.  The Makefile uses Perl for trivial operations, and you
 could tinker with it to use sed or awk.
 
 =back
@@ -194,14 +196,16 @@ LilyPond does use a lot of resources. For operation you need the following:
 =over 5
 
 =item *
-a fast computer (well; full page of music typically takes 1
-minute on my 486/66, using the DEBUG compile)
+a fast computer (a full page of music typically takes 1 minute
+on my 486/66, using the DEBUG compile. It's lot slower than most
+MusiXTeX preprocessors)
 
 =item *
 TeX
 
 =item *
-The MusixTeX fonts. (I use version T.59)
+The MusixTeX fonts. (I use version those found in MusixTeX
+Taupin version T.59)
 
 =back
 
@@ -216,7 +220,7 @@ Do:
 	make
 
 You might want to edit Variables.make to tailor the compilation flags.
-why G++ >= 2.7? LilyPond & flower lib uses:
+why G++ >= 2.7? LilyPond & FlowerLib uses:
 
 =over 5
 
@@ -298,15 +302,15 @@ This is what the output looks like over here:
 	hw:~/musix/spacer$ xdvi test&
 	[1] 855
 
-Check out F<kortjakje.ly>, it has some comments
+Check out the input files, some of them have comments
 
 
 =head1 PROBLEMS
 
-If LilyPond bombs out, then please recompile using B<-g>, and send a
-copy of the input which causes the error and a gdb stacktrace of the
-crash. It also helps if you can print the values of the objects. So if
-your trace is
+If LilyPond bombs out, then please recompile using with debugging info
+turned on, and send a copy of the input which causes the error and a
+gdb stacktrace of the crash. It also helps if you can print the values
+of the objects. So if your trace is
 
 	(gdb) backtrace 12
 	#0  Interval::operator+= (this=0x11fffec60..)
@@ -345,7 +349,6 @@ among others: lilygut, lilyinput, error, faq,
 
 LilyPond has no connection with the music package RoseGarden, other
 than the names being similar :-)
-
 
 =head1 HISTORY
 

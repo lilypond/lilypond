@@ -24,6 +24,7 @@ struct Input_score {
     
     /// paper_, staffs_ and commands_ form the problem definition.
     Paperdef *paper_p_;
+    Mididef* midi_p_;
     IPointerList<Input_staff*> staffs_;
 
     Input_music * score_wide_music_p_;
@@ -36,6 +37,7 @@ struct Input_score {
     ~Input_score();
     /// construction
     void set(Paperdef*);
+    void set(Mididef* midi_p);
     void print() const;
     Score*parse();
     void set(Input_music*);
