@@ -34,7 +34,14 @@
 
 IMPLEMENT_IS_TYPE_B1 (Beam, Spanner);
 
-const int MINIMUM_STEMLEN = 5;
+const int MINIMUM_STEMLEN[6] = {
+  0, // just in case
+  5, 
+  4,
+  3,
+  2,
+  2,
+};
 
 Beam::Beam ()
 {
@@ -377,6 +384,7 @@ Beam::set_stemlens ()
   Real internote_f = interline_f / 2;
   Real staffline_thickness = paper ()->rule_thickness ();
   Real beam_thickness = 0.48 * (interline_f - staffline_thickness);
+  Real interbeam_f = paper ()->interbeam_f ();
   Real xspan_f = stems.top ()->hpos_f () - stems[0]->hpos_f ();
   /*
    ugh, y values are in "internote" dimension
@@ -401,7 +409,7 @@ Beam::set_stemlens ()
     left_pos = (Pos) (left_pos | INTER);
 
   if (stems[0]->beams_right_i_ > 1)
-    left_pos = (Pos)(left_pos & (STRADDLE | INTER));
+    left_pos = (Pos) (dir_ > 0 ? HANG : SIT);
 
   // ugh, rounding problems!
   const Real EPSILON = interline_f / 10;
@@ -417,8 +425,12 @@ Beam::set_stemlens ()
 	  Real x = s->hpos_f () - x0;
 	  s->set_stemend (left_y + slope_f * x);
 	  Real y = s->stem_length_f ();
-	  if (y < MINIMUM_STEMLEN)
-	    dy = dy >? (MINIMUM_STEMLEN - y);
+	  int mult = max (stems[j]->beams_left_i_, stems[j]->beams_right_i_);
+	  if (mult > 1)
+	      // dim(y) = internote
+	      y -= (mult - 1) * interbeam_f / internote_f;
+	  if (y < MINIMUM_STEMLEN[mult])
+	    dy = dy >? (MINIMUM_STEMLEN[mult] - y);
 	}
     } while (abs (dy) > EPSILON);
 }
