@@ -10,7 +10,7 @@
 #include "lily-proto.hh"
 #include "score-elem.hh"
 
-/** a symbol which is attached between two columns. A spanner is a
+/** A symbol which is attached between two columns. A spanner is a
   symbol which spans across several columns, so its final appearance
   can only be calculated after the breaking problem is solved.
 

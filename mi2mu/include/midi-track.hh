@@ -14,6 +14,7 @@ public:
 
 	void add_event( Moment mom, Midi_event* midi_event_p );
 	Moment end_mom();
+	String id_str();
 	String name_str();
 	void output_mudela( Lily_stream& lily_stream_r );
 	Moment next_begin_mom( Moment now_mom );

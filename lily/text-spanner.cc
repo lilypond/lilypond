@@ -69,7 +69,7 @@ Text_spanner::do_pre_processing()
 Interval
 Text_spanner::height()const
 {
-    return brew_molecule_p()->extent().y;
+    return brew_molecule_p()->extent().y();
 }
 
 void

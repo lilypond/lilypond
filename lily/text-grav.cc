@@ -23,9 +23,7 @@ Text_engraver::do_try_request(Request*req_l)
     Musical_req *m = req_l->musical();
     if (!m || ! m->text())
 	return false;
-    if (text_req_l_ &&
-	Text_req::compare(*m->text(), *text_req_l_))
-
+    if (text_req_l_ && text_req_l_->equal_b(m))
 	return false;
 
     text_req_l_ = m->text();

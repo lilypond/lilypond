@@ -31,8 +31,10 @@ Rest_collision_engraver::acknowledge_element(Score_elem_info i)
     } 
     else if (nC == Note_column::static_name()) {
 	// what should i do, what should _engraver do?
-	if (!rest_collision_p_)
+	if (!rest_collision_p_) {
 	    rest_collision_p_ = new Rest_collision;
+	    announce_element(Score_elem_info(rest_collision_p_, 0));
+	}
 	rest_collision_p_->add((Note_column*)i.elem_l_->item());
     }
     else if (nC == Rest_column::static_name()) {

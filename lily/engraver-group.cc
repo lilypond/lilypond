@@ -17,6 +17,12 @@
 
 Engraver* get_engraver_p(String);
 
+void
+Engraver_group_engraver::print()const
+{ 
+    Engraver::print(); 
+}
+
 Engraver_group_engraver::~Engraver_group_engraver()
 {
     assert(removable_b());
@@ -160,7 +166,7 @@ void
 Engraver_group_engraver::terminate_engraver(Engraver*r_l)
 {
     mtor << "Removing " << r_l->name() << " at " << get_staff_info().when() << "\n";
-    r_l->do_removal_processing();
+    r_l->removal_processing();
     Engraver * grav_p =remove_engraver_p(r_l);
     
     delete grav_p;
@@ -176,7 +182,8 @@ Engraver_group_engraver::do_print()const
 #ifndef NPRINT
     if ( !check_debug)
 	return ;
-    mtor << "ID: " << id_str_ << "\n";
+    mtor << "ID: " << id_str_ ;
+    mtor << " iterators: " << iterator_count_<< "\n";
     for (PCursor<Engraver*> i(grav_list_.top()); i.ok(); i++)
 	i->print();
 #endif
@@ -266,7 +273,7 @@ Engraver_group_engraver::do_announces()
 	       nongroup_l_arr_[i]->acknowledge_element(info);
        }
     }
-    announce_info_arr_.set_size(0);
+    announce_info_arr_.clear();
 }
 
 
@@ -274,7 +281,7 @@ void
 Engraver_group_engraver::do_removal_processing()
 {
     for (PCursor<Engraver*> i(grav_list_.top()); i.ok(); i++)
-	i->do_removal_processing();
+	i->removal_processing();
 }
 
 Staff_info
@@ -309,3 +316,16 @@ Engraver_group_engraver::is_bottom_engraver_b()const
 {
     return !itrans_l_->get_default_itrans_l();
 }
+
+Engraver*
+Engraver_group_engraver::get_simple_engraver(char const *type)const
+{
+    for (int i=0; i < nongroup_l_arr_.size(); i++) {
+	if (nongroup_l_arr_[i]->name() == type )
+	    return nongroup_l_arr_[i];
+    }
+    if ( daddy_grav_l_ )
+	return daddy_grav_l_->get_simple_engraver(type);
+    return 0;
+}
+

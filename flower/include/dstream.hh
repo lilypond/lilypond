@@ -16,7 +16,7 @@ const char eol= '\n';
 template<class K,class V>
 struct Assoc;
 
-/**  debug stream. 
+/**  Debug stream. 
    a class for providing debug output of nested structures,
    with indents according to \{\}()[].
 
@@ -47,11 +47,12 @@ public:
     /**
       if rcfile == 0, then do not read any rc file.
       */
-      
     Dstream(ostream *r, char const * rcfile);
     virtual ~Dstream();
     Dstream &identify_as(String s);
 
+/** Output a string via the Dstream. This is the only output
+ interface. It delegates all conversion to String class.  */
     Dstream &operator << (String s);
     /**
       Output memory locations.

@@ -10,6 +10,7 @@
 #include "head-column.hh"
 #include "note-head.hh"
 #include "stem.hh"
+#include "script.hh"
 
 Head_column::Head_column()
 {
@@ -36,9 +37,18 @@ void
 Head_column::set(Stem*stem_l)
 {
     stem_l_ = stem_l;
-    add_dependency(stem_l);
+    Score_elem::add_dependency(stem_l);
+    for (int i=0; script_l_arr_.size(); i++)
+	script_l_arr_[i]->set_stem( stem_l );
 }
 
+void
+Head_column::add(Script *script_l)
+{
+    Script_column::add(script_l) ;
+    if  (stem_l_ )
+	script_l->set_stem( stem_l_ );
+}
 void
 Head_column::add(Note_head *n_l)
 {

@@ -30,6 +30,7 @@ Chord::time_int()const
     MInterval m;
     for (iter(music_p_list_.top(), i); i.ok(); i++)
 	m.unite(i->time_int());
+
     return m;
 }
 
@@ -54,8 +55,15 @@ MInterval
 Voice::time_int() const
 {
     Moment last=0;
-    for (iter(music_p_list_.top(), i); i.ok(); i++)
-	last += i->time_int().length();
+    for (iter(music_p_list_.top(), i); i.ok(); i++) {
+	MInterval interval = i->time_int();
+	
+        /*
+	  c4 <> c4
+        */
+	if ( !interval.empty_b() )
+	    last += interval.length();
+    }
     return  offset_mom_ + MInterval(0,last);
 }
 

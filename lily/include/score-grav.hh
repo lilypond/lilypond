@@ -13,6 +13,9 @@
 #include "engraver-group.hh"
 #include "global-translator.hh"
 
+/**
+  Top level engraver. Puts elements into appropriate columns.
+ */
 class Score_engraver : 
     public Engraver_group_engraver, public Global_translator 
 {
@@ -28,7 +31,7 @@ class Score_engraver :
     Score_column* musical_column_l_;
     
     friend class Score;
-    void set_cols(Score_column*,Score_column*);
+    void set_columns(Score_column*,Score_column*);
     void typeset_all();
     
 public:
@@ -52,7 +55,6 @@ protected:
     virtual void do_creation_processing();
     virtual void do_removal_processing();
     virtual void announce_element(Score_elem_info);
-    virtual void typeset_breakable_item(Item * nobreak_p);
     virtual void do_announces();
     virtual void typeset_element(Score_elem*elem_p);
     virtual Paper_def * paper() const;

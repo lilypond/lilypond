@@ -11,7 +11,7 @@
 
 
 
-IMPLEMENT_IS_TYPE_B2(Spanner_elem_group,Spanner,Horizontal_vertical_group);
+IMPLEMENT_IS_TYPE_B2(Spanner_elem_group,Spanner,Horizontal_vertical_group_element);
 
 Interval
 Spanner_elem_group::do_width() const
@@ -24,7 +24,7 @@ Spanner_elem_group::do_print() const
 {
 #ifndef NPRINT
     Spanner::do_print();
-    Horizontal_vertical_group::do_print();
+    Horizontal_vertical_group_element::do_print();
 #endif
 }
 

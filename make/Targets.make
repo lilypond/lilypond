@@ -8,7 +8,7 @@
 #	Han-Wen Nienhuys <hanwen@stack.nl>
 
 .PHONY : all clean config default dist doc doc++ dummy exe help lib TAGS html\
-	check-flower-deps check-lily-deps check-doc-deps
+	check-flower-deps check-lib-deps check-doc-deps
 
 # target all:
 #
@@ -123,7 +123,7 @@ doc:
 
 # doc++ documentation of classes
 doc++: $(progdocs)	
-	doc++ -k -p -d $(DOCDIR) $^
+	$(docxx) $(docxx-opts) -d $(DOCDIR) $^
 
 # ugh. should generate in out/
 dist:
@@ -224,7 +224,7 @@ $(LIBFLOWER): check-flower-deps
 check-flower-deps:
 	$(MAKE)  -C $(depth)/flower/ default
 
-check-lily-deps: check-flower-deps
+check-lib-deps: check-flower-deps
 	$(MAKE)  -C $(depth)/lib
 
 check-doc-deps:

@@ -3,18 +3,19 @@
  filename: twinkle.ly
  title: twinkle twinkle little star
  description: 
+  traditional song in various languages.
   "Ah, vous dirais-je, maman" 
   "Altijd is Kortjakje ziek"
   "Twinkle twinkle little star"
 
- composers: ?
+ composers: Traditional
  entered-by: HWN & JCN
  copyright: public domain
 
  Tested Features: lyrics
 EndMudelaHeader
 %}
-\version "0.1.0";
+\version "0.1.1";
 
 melody = \melodic{
 	\clef violin;
@@ -32,7 +33,7 @@ melody = \melodic{
 
 accompany = \melodic {
 	\clef "bass";
-	\octave'c;
+	\octave 'c;
 	\duration 4;
 	c4 c' | e' c' | f' c' | e' c' | 
 	d' b | c' a | f g | c2 | 
@@ -60,6 +61,12 @@ tekst = \lyric{
 	midden4 in_de week maar s'_zon- dags niet.2
 }
 
+%{
+
+Ja inderdaad. Dit is geen educatieve danwel muzikaal verantwoorde
+tekst. Mogen wij ook af en toe ergens op afgeven?
+
+%}
 hegedraagjetekst = \lyric{ 
  	Al-4 tijd zuigt Bill Gates mijn piek,2
 	"\TeX"4 is slecht- ser dan mu- ziek.2
@@ -125,7 +132,7 @@ textiii = \lyric{
 		
 		% ugh
 		\lyric < \id "Lyric" "1"; 
-			\global \tekst \hegedraagjetekst >
+			\global \tekst >
 		\lyric < \id "Lyric" "2";  \global
 			\texte >
 		\lyric < \id "Lyric" "3"; \global
@@ -136,7 +143,7 @@ textiii = \lyric{
 		unitspace= 2.5\cm;
 	}
 	\midi{ 
-		\tempo 4:120 ;
+		\tempo 4 = 120 ;
 	}
 }
 

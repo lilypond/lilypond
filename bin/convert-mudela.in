@@ -1,4 +1,5 @@
 #!@PERL@ -w
+# -*-perl-*-
 
 =head1 TODO
 
@@ -105,6 +106,10 @@ sub convert_0_0_60_to_0_0_61
    
 }
 
+sub convert_0_1_0_to_0_1_1
+{
+    s/\\tempo (.*):(.*);/\\tempo $1 = $2;/g
+}
 ###############################################################
 
 sub    last_conversion
@@ -144,19 +149,22 @@ my %minor_conversions = ("0.0.50" => \&no_conv,
 			 "0.0.58" => \&convert_0_0_57_to_0_0_58,
 			 "0.0.59" => \&convert_0_0_58_to_0_0_59,
 			 "0.0.60" => \&convert_0_0_59_to_0_0_60,
-			 "0.0.61" => \&convert_0_0_60_to_0_0_61
+			 "0.0.61" => \&convert_0_0_60_to_0_0_61,
+			 "0.1.1" => \&convert_0_1_0_to_0_1_1
 			 );
  
 
 sub versions 
 {
-    return (sort keys %minor_conversions);
+    return (sort { cmpver; } (keys %minor_conversions));
 }
     
 
-sub    show_rules
+sub show_rules
 {
-    print "Rules: ", join(", ", sort keys %minor_conversions), "\n";
+    my (@v) = versions;
+
+    print "Rules: ", join(", ", @v), "\n";
     
 }
 
@@ -167,7 +175,6 @@ sub do_conversion
     my @applicable_conversion;
     my @mudela_levels;
     
-#    die "This is too old  to convert " if $from < 50;
     my @v = versions;
     foreach $ver (@v) {
 	if (version_compare($ver, $from) > 0 && version_compare($ver,$to) <= 0 ){ 

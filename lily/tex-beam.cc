@@ -24,8 +24,8 @@ Lookup::beam_element(int sidx, int widx, Real slope) const
     bs.tex = substitute_args(bs.tex,args);
     int w = 2 << widx;
     Real width = w PT;
-    bs.dim.x = Interval(0,width);
-    bs.dim.y = Interval(0,width*slope);
+    bs.dim.x() = Interval(0,width);
+    bs.dim.y() = Interval(0,width*slope);
     return bs;
 }
 
@@ -55,8 +55,8 @@ Lookup::rule_symbol(Real height, Real width) const
     args.push(print_dimen(height));
     args.push(print_dimen(width));
     bs.tex = substitute_args(bs.tex,args);
-    bs.dim.x = Interval(0,width);
-    bs.dim.y = Interval(0,height);
+    bs.dim.x() = Interval(0,width);
+    bs.dim.y() = Interval(0,height);
     return bs;
 }
 
@@ -97,8 +97,8 @@ Lookup::beam(Real &slope, Real width) const
     
     Symbol ret;
     ret.tex = m.TeX_string();
-    ret.dim.y = Interval(0,width*slope);
-    ret.dim.x = Interval(0,width);
+    ret.dim.y() = Interval(0,width*slope);
+    ret.dim.x() = Interval(0,width);
     
     return ret;
 }

@@ -80,6 +80,7 @@ Blank_req::do_print()const
     Spacing_req::do_print();
 }
 /* *************** */
+
 Melodic_req::Melodic_req()
 {
     notename_i_ = 0;
@@ -98,6 +99,7 @@ Melodic_req::transpose(Melodic_req const & delta)
 	notename_i_ -= 7;
 	octave_i_ ++;
     }
+
     int new_pitch = pitch();
     int delta_acc = new_pitch - old_pitch - delta_pitch;
     
@@ -107,18 +109,28 @@ Melodic_req::transpose(Melodic_req const & delta)
     }
 }
 
-
 IMPLEMENT_IS_TYPE_B1(Melodic_req,Musical_req);
 
-int
-Melodic_req::compare(Melodic_req const&m1, Melodic_req const&m2)
+bool
+Melodic_req::do_equal_b(Request*r)const
 {
-    if (m1.octave_i_ != m2.octave_i_)
-	return m1.octave_i_ -m2.octave_i_;
-    else if (m1.notename_i_ != m2.notename_i_)
-	return m1.notename_i_ - m2.notename_i_;
-    else  if (m1.accidental_i_ != m2.accidental_i_)
-	return m1.accidental_i_ - m2.accidental_i_;
+    Melodic_req* m= r->musical()->melodic();
+    return !compare( *m, *this);
+}
+
+int
+Melodic_req::compare(Melodic_req const &m1 , Melodic_req const&m2)
+{
+    int o=  m1.octave_i_ - m2.octave_i_;
+    int n = m1.notename_i_ - m2.notename_i_;
+    int a = m1.accidental_i_ - m2.accidental_i_;
+    
+    if (o)
+	return o;
+    if ( n)
+	return n;
+    if (a)
+	return a;
     return 0;
 }
 
@@ -126,7 +138,8 @@ void
 Melodic_req::do_print() const
 {
 #ifndef NPRINT
-    mtor << "notename: " << notename_i_ << " acc: " <<accidental_i_<<" oct: "<< octave_i_;
+    mtor << "notename: " << notename_i_ 
+	 << " acc: " <<accidental_i_<<" oct: "<< octave_i_;
 #endif
 }
 
@@ -137,9 +150,9 @@ Melodic_req::height() const
 }
 
 /*
- should be settable from input to allow "viola"-mode
+  should be settable from input to allow "viola"-mode
  */
-static Byte pitch_byte_a[ 7 ] = { 0, 2, 4, 5, 7, 9, 11 };	
+static Byte pitch_byte_a[  ] = { 0, 2, 4, 5, 7, 9, 11 };	
 
 int
 Melodic_req::pitch() const
@@ -151,7 +164,15 @@ Melodic_req::pitch() const
 int
 Rhythmic_req::compare(Rhythmic_req const &r1, Rhythmic_req const &r2)
 {
-    return sign(r1.duration() - r2.duration());
+    return (r1.duration() - r2.duration());
+}
+
+bool
+Rhythmic_req::do_equal_b(Request*r)const
+{
+    Rhythmic_req* rh = r->musical()->rhythmic();
+
+    return !compare(*this, *rh);
 }
 
 void
@@ -200,6 +221,13 @@ Lyric_req::do_print() const
 }
 
 /* *************** */
+bool
+Note_req::do_equal_b(Request*r)const
+{
+    return Rhythmic_req::do_equal_b(r) && Melodic_req::do_equal_b(r);
+}
+
+
 Note_req::Note_req()
 {
     forceacc_b_ = false;
@@ -243,10 +271,13 @@ IMPLEMENT_IS_TYPE_B1(Slur_req,Span_req);
 void
 Slur_req::do_print()const{}
 /* *************** */
-int
-Span_req:: compare(Span_req const &r1, Span_req const &r2)
+
+
+bool
+Span_req:: do_equal_b(Request*r)const
 {
-     return r1.spantype - r2.spantype;
+    Span_req * s = r->span();
+    return spantype - s->spantype;
 }
 
 Span_req::Span_req()
@@ -261,11 +292,17 @@ Script_req::Script_req(Script_req const&s)
     scriptdef_p_ = s.scriptdef_p_ ? s.scriptdef_p_->clone() : 0;
 }
 
-int
-Script_req::compare(Script_req const &d1, Script_req const &d2)
+/*
+  don't check dirs?
+  
+  (d1.dir_i_ == d2.dir_i_ )
+ */
+bool
+Script_req::do_equal_b(Request*r)const
 {
-    return !(d1.dir_i_ == d2.dir_i_ &&
-	d1.scriptdef_p_->equal_b(*d2.scriptdef_p_));
+    Script_req * s = r->script();
+    
+    return  scriptdef_p_->equal_b(*s->scriptdef_p_);
 }
 
 Script_req::Script_req()
@@ -301,13 +338,8 @@ Script_req::~Script_req()
     delete scriptdef_p_;
 }
 /* *************** */
-int
-Text_req:: compare(Text_req const &r1, Text_req const &r2)
-{
-    bool b1 = (r1.dir_i_ == r2.dir_i_);
-    bool b2 = (r1.tdef_p_ ->equal_b(*r2.tdef_p_));
-    return b1 && b2;
-}
+
+
 Text_req::~Text_req()
 {
     delete tdef_p_;
@@ -333,7 +365,6 @@ void
 Text_req::do_print() const
 {
 #ifndef NPRINT
-
     mtor << " dir " << dir_i_ ;
     tdef_p_->print();
 #endif

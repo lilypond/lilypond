@@ -13,9 +13,8 @@
 #include "score-elem.hh"
 #include "interval.hh"
 
-/** A symbol which sits along a staff
+/** A symbol which sits along a staff.
 
-  Should override translate_y() ?
   */
 class Staff_side : virtual Score_elem {
     Link_array<Score_elem> support_l_arr_;

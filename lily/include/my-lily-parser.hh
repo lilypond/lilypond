@@ -38,6 +38,8 @@ class My_lily_parser {
 public:
     int default_octave_i_;
     Duration default_duration_;
+    Plet plet_;
+    
     String textstyle_str_;
     bool first_b_;
     bool last_duration_mode_b_ ;

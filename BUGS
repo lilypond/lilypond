@@ -1,22 +1,11 @@
+Document reintroduced deficiencies.
 
-[document reintroduced deficiencies.]
+* placement of bar-numbers
 
-*******************
- '.' -> lilypond: lexer.l:258: int My_lily_lexer::yylex(): Assertion `cnv == 1' failed.
+*
 
-***********************
+hw:~/musix/spacer/Documentation/out$ LILYINCLUDE=../../input lilypond -o wohltemperirt ../../input/wohltemperirt.ly
 
-
-\score { < 
-	\melodic { \id "Staff" ""; c'4 g'4 }
-	\lyric { \id "Lyric" ""; hello4 bye4 < a chord > }
-	\lyric { \id "Lyric" ""; bye4 hello4 }
-	\melodic { \id "Staff" ""; c'4 g'4 }
-	> 
-} 
-
-*******************
-
-Stack frame overwrite in on Solaris 2.5.
-Engraver_group_engraver::Engraver_group_engraver() called from
-Score_engraver::Score_engraver()
+GNU LilyPond 0.1.7 #10/FlowerLib 1.1.26 #1
+Parsing ... [/home/hw/share/lilypond/init//symbol.ly[/home/hw/share/lilypond/init//dynamic.ly][/home/hw/share/lilypond/init//dutch.ly][/home/hw/share/lilypond/init//script.ly][/home/hw/share/lilypond/init//paper16.ly[/home/hw/share/lilypond/init//table16.ly^[[B][/home/hw/share/lilypond/init//engraver.ly]][/home/hw/share/lilypond/init//midi.lySegmentation fault (core dumped)
+hw:~/musix/spacer/Documentation/out$ 

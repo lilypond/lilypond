@@ -1,50 +1,40 @@
-//
-// source-file.cc
-//
+/*
+  source-file.cc -- implement 
 
-#include <sys/types.h>		// open, mmap
-#include <sys/stat.h>		// open
-#include <sys/mman.h>		// mmap
-#include <limits.h>		// INT_MAX
-#include <fcntl.h>		// open 
-#include <unistd.h>		// close, stat
-#include <stdio.h>		// fdopen
-#include <string.h>		// strerror
-#include <errno.h>		// errno
+  source file of the GNU LilyPond music typesetter
+
+  (c) 1997 Jan Nieuwenhuizen <jan@digicash.com> 
+  & Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
+
 #include <assert.h>
 #include <strstream.h>
 
 #include "string.hh"
 #include "proto.hh"
 #include "plist.hh"
-
-
 #include "warn.hh"
 #include "windhoos-suck-suck-suck-thank-you-cygnus.hh"
-
 #include "source-file.hh"
+#include "file-storage.hh"
 
 Source_file::Source_file( String filename_str )
 {
-    data_caddr_ = 0;
-    fildes_i_ = 0;
-    size_off_ = 0;
     name_str_ = filename_str;
     istream_p_ = 0;
-
-    open();
-    if ( fildes_i_ > 0 )
-	map();
+    storage_p_ = new Simple_file_storage(filename_str);
 }
 
 istream*
 Source_file::istream_l()
 {
-    if ( !fildes_i_ )
+    if ( !name_str_.length_i())
     	return &cin;
+    
     if ( !istream_p_ ) {
-	if ( size_off_ ) // can-t this be done without such a hack?
-	    istream_p_ = new istrstream( ch_C(), size_off_ );
+	if ( length_i() ) // can-t this be done without such a hack?
+	    istream_p_ = new istrstream( ch_C(), length_i() );
         else {
 	    istream_p_ = new istrstream( "", 0 );
 	    istream_p_->set(ios::eofbit);
@@ -53,35 +43,29 @@ Source_file::istream_l()
     return istream_p_;
 }
 
+String
+Source_file::file_line_no_str(char const *ch_C )const
+{
+    return name_str() + ": "
+	+ String( line_i( ch_C ) );
+}
+
+String
+Source_file::name_str()const
+{
+    return name_str_;
+}
 Source_file::~Source_file()
 {
     delete istream_p_;
     istream_p_ = 0;
-    unmap();
-    close();
+    delete storage_p_;
 }
-
-char const*
-Source_file::ch_C()
-{
-    assert( this );
-    return (char const*)data_caddr_;
-}
-
-void
-Source_file::close()
-{
-    if ( fildes_i_ ) {
-	::close( fildes_i_ );
-	fildes_i_ = 0;
-    }
-}
-
 String
-Source_file::error_str( char const* pos_ch_C )
+Source_file::error_str( char const* pos_ch_C )const
 {
     char const* data_ch_C = ch_C();
-    char const * eof_C_ = data_ch_C + size_off_;
+    char const * eof_C_ = data_ch_C + length_i();
     if ( !in_b( pos_ch_C ) )
 	return "(position unknown)";
 
@@ -121,19 +105,14 @@ Source_file::error_str( char const* pos_ch_C )
 }
 
 bool
-Source_file::in_b( char const* pos_ch_C )
+Source_file::in_b( char const* pos_ch_C )const
 {
-    return ( pos_ch_C && ( pos_ch_C >= ch_C() ) && ( pos_ch_C <= ch_C() + size_off_ ) );
+    return ( pos_ch_C && ( pos_ch_C >= ch_C() ) && ( pos_ch_C <= ch_C() + length_i() ) );
 }
 
-off_t
-Source_file::length_off()
-{
-    return size_off_;
-}
 
 int
-Source_file::line_i( char const* pos_ch_C )
+Source_file::line_i( char const* pos_ch_C )const
 {
     if ( !in_b( pos_ch_C ) )
     	return 0;
@@ -146,56 +125,14 @@ Source_file::line_i( char const* pos_ch_C )
     return i;
 }
 
-void
-Source_file::map()
+int
+Source_file::length_i()const
 {
-    if ( fildes_i_ == -1 )
-	return;
-
-    data_caddr_ = (caddr_t)mmap( (void*)0, size_off_, PROT_READ, MAP_SHARED, fildes_i_, 0 );
-
-    if ( (int)data_caddr_ == -1 )
-	warning( String( "can't map: " ) + name_str_ + String( ": " ) + strerror( errno ));
+    return storage_p_->length_i();
 }
 
-String
-Source_file::name_str()
+char const *
+Source_file::ch_C()const
 {
-    return name_str_;
-}
-
-void
-Source_file::open()
-{
-    if ( !name_str_.length_i() || ( name_str_ == "-" ) ) {
-    	fildes_i_ = 0;
-	return;
-    }
-
-    fildes_i_ = ::open( name_str_, O_RDONLY );	
-	    
-    if ( fildes_i_ == -1 ) {
-	warning( String( "can't open: " ) + name_str_ + String( ": " ) + strerror( errno )); 
-        return;
-    }
-
-    struct stat file_stat;
-    fstat( fildes_i_, &file_stat );
-    size_off_ = file_stat.st_size;
-}
-
-void
-Source_file::unmap()
-{
-    if ( data_caddr_ ) {
-	munmap( data_caddr_, size_off_ );
-    	data_caddr_ = 0;
-	size_off_ = 0;
-    }
-}
-String
-Source_file::file_line_no_str(char const *ch_C )
-{
-    return name_str() + ": "
-	+ String( line_i( ch_C ) );
+    return storage_p_->ch_C();
 }

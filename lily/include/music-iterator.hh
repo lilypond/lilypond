@@ -16,24 +16,23 @@
 #include "moment.hh"
 
 class Music_iterator {
+   Array<Translator *>report_to_l_arr_;
+   void push_translator(Translator*);
+    void pop_translator();
 protected:
     bool first_b_;
     virtual void do_print()const;
     
-public:
-    Music_iterator *daddy_iter_l_;
-    DECLARE_MY_RUNTIME_TYPEINFO;
-    Array<Translator *>report_to_l_arr_;
-
-    Translator *report_to_l()const;
-    
-    static Music_iterator* static_get_iterator_p(Music*,Translator*);
+    virtual Translator * get_req_translator_l();
     Music_iterator* get_iterator_p(Music*)const;
     void set_translator(Translator*);
-    void push_translator(Translator*);
-    void pop_translator();
-
+    Music_iterator *daddy_iter_l_;
     
+public:
+    Translator *report_to_l()const;
+    DECLARE_MY_RUNTIME_TYPEINFO;
+ 
+    static Music_iterator* static_get_iterator_p(Music*,Translator*);
     Music_iterator();
     
     virtual void process_and_next(Moment until);
@@ -42,16 +41,8 @@ public:
     virtual ~Music_iterator();
     virtual void construct_children();
     void print()const;
-    virtual Translator * get_req_translator_l();
 };
 
-class Change_iterator : public Music_iterator {
-    Change_reg * change_l_;
-public:
-     DECLARE_MY_RUNTIME_TYPEINFO;
-    virtual void process_and_next(Moment);
-    Change_iterator(Change_reg*);
-};
 
 class Chord_iterator : public Music_iterator
 {
@@ -91,7 +82,10 @@ class Voice_iterator :  private PCursor<Music*>, public Music_iterator
     Moment here_mom_;
     const Voice * voice_C_;
     Music_iterator * iter_p_;
-    void next_element();
+    void start_next_element();
+    void leave_element();
+    void set_voice_translator();
+    
 public:
     Voice_iterator(Voice const*);
     DECLARE_MY_RUNTIME_TYPEINFO;

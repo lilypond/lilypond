@@ -5,6 +5,7 @@ GNU LilyPond which converts music definition files into visual or
 audio output: it can typeset formatted sheet music in TeX and 
 and (mechanical) perfomances to MIDI files.
 
+
 1. VERSIONING
 
 if you have downloaded a
@@ -46,36 +47,38 @@ You can also simply read the .pod sources. They are ASCII text.
 
 LilyPond is a long way from finished and polished. I do appreciate
 criticism, comments, bugreports, patches, etc. Please send e-mail to
-the mailing lists 
+the mailing lists. See Documentation/links.pod for more info 
 
-
-	info-gnu-music@vuse.vanderbilt.edu
-	help-gnu-music@vuse.vanderbilt.edu
-	bug-gnu-music@vuse.vanderbilt.edu
-	gnu-music-discuss@vuse.vanderbilt.edu,
-
-See the man page on what to use for what.  Or you can send it directly
-to us: hanwen@stack.nl, jan@digicash.com.
-
-
-	
-
-Have fun!
 
 6. DOZE
 
 If you have received this file as part of a DOS/Window32 distribution
 (lilypond-*.zip ), then it is advisable to also download the source
-package, since it contains the complete documentation
+package, since it might contain more documentation
 
 	ftp://pcnov095.win.tue.nl/pub/lilypond/ (Europe)
-	ftp://alpha.gnu.ai.mit.edu/gnu/ (US)
+	ftp://alpha.gnu.ai.mit.edu/gnu/lilypond/ (US)
 
 The website also contains the complete documentation
 
 	http://www.stack.nl/~hanwen/lilypond/index.html
 
 
+
+7. CAVEATS
+
+Solaris
+
+Stack frame overwrite on Solaris 2.x (this will produce a seg
+fault, signal 11).  Stacktrace
+
+	Engraver_group_engraver::Engraver_group_engraver(int)
+	Score_engraver::Score_engraver( )
+	get_group_engraver_p()
+
+We don't know a fix or workaround, but compiling without optimisation
+might help (Without -O2 optimisation, my execs run fine on Solaris;
+without -O2, but with purify, it dumps core)
 
 
 

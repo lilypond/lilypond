@@ -5,7 +5,7 @@
  description: 
  composer(s): heu
  entered-by: jcn
- copyright: GPL
+ copyright: PD
 
  Tested Features: beams and beamflags
 EndMudelaHeader

@@ -52,8 +52,8 @@ Lookup::half_slur_middlepart(Real &dx, int dir) const
 
     Symbol s;
     
-    s.dim.y = Interval(min(0,0), max(0,0)); // todo
-    s.dim.x = Interval(0,dx);
+    s.dim.y() = Interval(min(0,0), max(0,0)); // todo
+    s.dim.x() = Interval(0,dx);
 
     String f =  String("\\hslurchar");
     f += direction_char(0);
@@ -67,7 +67,7 @@ Lookup::half_slur_middlepart(Real &dx, int dir) const
     f+=String( "{" ) + String( idx ) + "}";
     s.tex = f;
     Atom a(s);
-    a.translate_x(dx/2);
+    a.translate(dx/2, X_AXIS);
     s.tex = a.TeX_string();
 
     return s;
@@ -95,8 +95,8 @@ Lookup::half_slur(int dy, Real &dx, int dir, int xpart) const
     }
 	
     Symbol s;
-    s.dim.x = Interval(0,dx);
-    s.dim.y = Interval(min(0,dy), max(0,dy));
+    s.dim.x() = Interval(0,dx);
+    s.dim.y() = Interval(min(0,dy), max(0,dy));
 
 
     String f = String("\\hslurchar");
@@ -156,8 +156,8 @@ Lookup::slur (int dy , Real &dx, int dir) const
     }
     
     Symbol s;
-    s.dim.x = Interval(0,dx);
-    s.dim.y = Interval(min(0,dy), max(0,dy));
+    s.dim.x() = Interval(0,dx);
+    s.dim.y() = Interval(min(0,dy), max(0,dy));
 
     String f = String("\\slurchar") + String( direction_char(y_sign) );
 
@@ -182,7 +182,7 @@ Lookup::slur (int dy , Real &dx, int dir) const
     s.tex = f;
 
     Atom a(s);
-    a.translate_x(dx/2);
+    a.translate(dx/2, X_AXIS);
     s.dim = a.extent();
     s.tex = a.TeX_string();
     return s;    
@@ -209,10 +209,10 @@ Lookup::big_slur(int dy , Real &dx, int dir) const
     Molecule mol;
     mol.add(l);
     Atom a(m);
-    a.translate_y(slur_extra * internote_f);
+    a.translate(slur_extra * internote_f, Y_AXIS);
     mol.add_right(m);
     mol.add_right(r);
-    mol.translate_y( l_dy * internote_f);
+    mol.translate( l_dy * internote_f, Y_AXIS);
     Symbol s;
     s.tex = mol.TeX_string();
     s.dim = mol.extent();

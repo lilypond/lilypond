@@ -5,13 +5,13 @@
  description: 
  composer(s): HWN
  entered-by: HWN
- copyright: GPL
+ copyright: PD
 
  Tested Features: test slurs and ties
 EndMudelaHeader
 %}
 
-\version "0.1.0";
+\version "0.1.1";
 
 \score{
 	\melodic{\octave c';

@@ -157,9 +157,6 @@ RANLIB_COMMAND=$(RANLIB) $@
 
 DO_CXX_COMPILE=$(DODEP)\
 	$(CXX) -c $(CXXFLAGS) $(CXX_OUTPUT_OPTION) 
-# "CC = $(CC)"
-# "CXX = $(CXX)"
-#
 
 # linker:
 #
@@ -205,7 +202,8 @@ DOCDIR=$(depth)/$(outdir)
 
 # .hh should be first. Don't know why
 # take some trouble to auto ignore sources and obsolete stuff.
-progdocs=$(shell $(FIND) ./ -name '*.hh' |egrep -v '$(OUTDIR_NAME)') $(shell $(FIND) ./ -name '*.cc'|egrep -v '$(OUTDIR_NAME)')
+progdocs=$(shell $(FIND) ./ -name '*.hh' |egrep -v '$(OUTDIR_NAME)') \
+	$(shell $(FIND) ./ -name '*.cc' |egrep -v '$(OUTDIR_NAME)') \
 
 
 pod2html=pod2html
@@ -220,4 +218,8 @@ endif
 
 # substitute $(STRIP) in Site.make if you want stripping
 DO_STRIP=true
+
+
+docxx-opts=-S -k -p
+docxx=doc++
 

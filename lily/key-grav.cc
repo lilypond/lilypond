@@ -28,7 +28,11 @@ void
 Key_engraver::create_key()
 {
     if (!kit_p_) {
-	int c0_i= *get_staff_info().c0_position_i_l_;	
+	int c0_i=0;
+
+	Staff_info inf = get_staff_info();
+	if (inf.c0_position_i_l_)
+	    c0_i = *get_staff_info().c0_position_i_l_;	
 	
 	kit_p_ = new Key_item(c0_i);
 	announce_element(Score_elem_info(kit_p_,keyreq_l_));
@@ -67,9 +71,9 @@ Key_engraver::acknowledge_element(Score_elem_info info)
 void
 Key_engraver::do_process_requests()
 {
-    if (key_.multi_octave_b_)
+    if (key_.multi_octave_b_) {
 	assert(false); // TODO . 
-    else if (keyreq_l_) {
+    } else if (keyreq_l_) {
 	create_key();
     }
 }
@@ -79,7 +83,7 @@ Key_engraver::do_pre_move_processing()
 { 
     if (kit_p_) {
 	kit_p_->default_b_ = default_key_b_;
-	typeset_breakable_item( kit_p_);
+	typeset_element( kit_p_);
 	kit_p_ = 0;
     }
 }
@@ -90,7 +94,7 @@ void
 Key_engraver::read_req(Key_change_req * r)
 {
     key_.multi_octave_b_ = r->multi_octave_b_;
-    accidental_idx_arr_.set_size(0);
+    accidental_idx_arr_.clear();
     for (int i = 0; i < r->melodic_p_arr_.size(); i ++) {
 	Melodic_req *  m_l =r->melodic_p_arr_[i];
 	int n_i =m_l->notename_i_;

@@ -36,42 +36,32 @@ Midi_score::output_mudela( String filename_str )
 	for ( PCursor<Midi_track*> i( midi_track_p_list_.top() ); i.ok(); i++ ) {
 		tor( NORMAL_ver ) << "track " << track_i++ << ": " << flush;
 		i->output_mudela( lily_stream );
-		lily_stream.newline();
+		lily_stream << "\n";
 		tor( NORMAL_ver ) << endl;
 	}
 
-	lily_stream << "\\score{";
-	lily_stream.indent();
-		lily_stream << " < \\multi 3;";
-		lily_stream.indent();
-			for ( PCursor<Midi_track*> i( midi_track_p_list_.top() ); i.ok(); i++ ) {
-				if ( ( midi_track_p_list_.size() != 1 ) 
-					&& ( i == midi_track_p_list_.top() ) )
-					continue;
-				lily_stream << "\\melodic{ ";
-				lily_stream << "\\$" << i->name_str();
-				lily_stream << " }";
-				lily_stream.newline();
-			}
-			lily_stream.tnedni();
-			lily_stream << ">";
-		lily_stream.newline();
-		lily_stream << "\\paper{";
-			lily_stream.indent();
-			lily_stream << "unitspace = 20.0\\mm;";
-			lily_stream.tnedni();
-		lily_stream << "}";
-		lily_stream.newline();
-		lily_stream << "\\midi{";
-			lily_stream.indent();
-			// not use silly 0 track
-			midi_track_p_list_.bottom()->midi_tempo_p_->output_mudela( lily_stream, true );
-			lily_stream.tnedni();
-		lily_stream << "}";
-		lily_stream.tnedni();
+	lily_stream << "\\score{\n";
+	lily_stream << " < \\multi 3;\n";
+	for ( PCursor<Midi_track*> i( midi_track_p_list_.top() ); i.ok(); i++ ) {
+		if ( ( midi_track_p_list_.size() != 1 ) 
+			&& ( i == midi_track_p_list_.top() ) )
+			continue;
+		lily_stream << "\\melodic{ ";
+		lily_stream << "\\$" << i->id_str();
+		lily_stream << " }\n";
+	}
+	lily_stream << ">\n";
 
-	lily_stream << "}";
-	lily_stream.newline();
+	lily_stream << "\\paper{";
+	lily_stream << "unitspace = 20.0\\mm;";
+	lily_stream << "}\n";
+
+	lily_stream << "\\midi{";
+		// not use silly 0 track
+		midi_track_p_list_.bottom()->midi_tempo_p_->output_mudela( lily_stream, true );
+	lily_stream << "}\n";
+
+	lily_stream << "}\n";
 
 	return 0;
 }

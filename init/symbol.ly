@@ -1,4 +1,4 @@
-\version "0.1.0";
+\version "0.1.1";
 
 \include "dynamic.ly"
 \include "dutch.ly" 
@@ -8,6 +8,7 @@
 % ugh
 \include "midi.ly"
 
+% declarations for standard directions
 left = -1
 right = 1
 up = 1

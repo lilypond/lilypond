@@ -23,7 +23,7 @@
 class PCol { 
 public:
     Link_list<Item *> its;
-    Link_list<Spanner *> stoppers, starters;
+    Link_list<Spanner *> starters;
     
     /** prebreak is put before end of line.
     if broken here, then (*this) column is discarded, and prebreak
@@ -49,7 +49,7 @@ public:
     bool error_mark_b_;
     bool used_b_ ;		// manual override.. 
     
-    PScore * pscore_l_;
+    Paper_score * pscore_l_;
 
     /* *************** */
     /// which  one (left =0)
@@ -79,7 +79,7 @@ public:
     void set_rank(int);
 
     void OK() const;
- void set_breakable();
+    void set_breakable();
     virtual void do_set_breakable();
     void print()const;
 private:

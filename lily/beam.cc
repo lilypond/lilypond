@@ -312,7 +312,7 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 	a.translate(Offset (-w, -w * sl));
 	for (int j = 0; j  < lhalfs; j++) {
 	    Atom b(a);
-	    b.translate_y( -dir_i_ * dy * (lwholebeams+j));
+	    b.translate( -dir_i_ * dy * (lwholebeams+j), Y_AXIS);
 	    leftbeams.add( b );
 	}
     }
@@ -327,7 +327,7 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 	int j = 0;
 	for (; j  < rwholebeams; j++) {
 	    Atom b(a);
-	    b.translate_y( -dir_i_ * dy * j);
+	    b.translate( -dir_i_ * dy * j, Y_AXIS);
 	    rightbeams.add( b ); 
 	}
 
@@ -337,7 +337,7 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 	
 	for (; j  < rwholebeams + rhalfs; j++) {
 	    Atom b(a);
-	    b.translate_y( -dir_i_ * dy * j);
+	    b.translate( -dir_i_ * dy * j, Y_AXIS);
 	    rightbeams.add(b ); 
 	}
 	
@@ -366,7 +366,7 @@ Beam::brew_molecule_p() const
 	sb.translate(Offset(x, (x * slope  + left_pos)* inter_f));
 	mol_p->add(sb);
     }
-    mol_p->translate_x(x0 - left_col_l_->hpos_f_);
+    mol_p->translate(x0 - left_col_l_->hpos_f_, X_AXIS);
     return mol_p;
 }
 

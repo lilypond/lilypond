@@ -80,11 +80,11 @@ This is an overview of the features that Mi2mu supports.
 =head1
 DISCLAIMER & COPYING POLICY
 
-Mi2mu is copyright 1996,97 by its authors. Mi2mu is distributed 
+Mi2mu is copyright 1996, 1997 by its authors. Mi2mu is distributed 
 as part of GNU LilyPond, under the terms of the GNU General Public
 License.  Mi2mu is provided without any warranty what so ever.
 Mi2mu may be freely distributed.  For further information consult
-the GNU General Public License, which is in the file F<COPYING>.
+the GNU General Public License, from the file F<COPYING>.
 
 =head1 AUTHORS
 

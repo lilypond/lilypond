@@ -1,8 +1,9 @@
 %{MudelaHeader
- title:
- description:Cadenza to Mozart Horn concerto 3
- composer(s):unknown
- entered-by:HWN
+ filename: cadenza.ly
+ title: Cadenza ad libitum
+ description: Cadenza to Mozart Horn concerto 3
+ composer(s): unknown
+ entered-by: HWN
  copyright: public domain
 
  Tested Features: cadenza mode
@@ -10,7 +11,7 @@
 EndMudelaHeader
 %}
 
-\version "0.1.0";
+\version "0.1.1";
 
 
 cad = \melodic  {\id "Staff" "french horn";
@@ -42,7 +43,7 @@ cad = \melodic  {\id "Staff" "french horn";
 	r8 'a ['b cis]
 	\duration 16;	[d cis d e]
 	f4~ [f e d c]
-	'b4
+	'b4-\turn
 	\octave c'; [2/3 d'8 c'8 a8]1/1
 	g2
 		\bar "" ;
@@ -51,15 +52,15 @@ cad = \melodic  {\id "Staff" "french horn";
 		\bar "" ;
 	[g8.(_"a tempo" e g8. )e]
 	a4. g8 [f8 e8 d8 c8]
-	'g2 d2^"tr"
+	'g2 d2^"\tr"
 	c4
 	}
 \score {
 	\melodic { \cad }
 	\paper {
 	
-		unitspace= 14.0\mm;
+		unitspace= 16.0\mm;
 		geometric= 1.4;
 	}
-	\midi { \tempo 4:90; }
+	\midi { \tempo 4 = 90; }
 }

@@ -27,6 +27,7 @@ Clef_item::do_pre_processing()
 
 Clef_item::Clef_item()
 {
+    breakable_b_ =true;
     default_b_ = false;
     change_b_ = true;
     read("violin");
@@ -59,7 +60,7 @@ Clef_item::brew_molecule_p()const
 	t += "_change";
     Symbol s = paper()->lookup_l()->clef(t);
     Molecule*output = new Molecule(Atom(s));
-    output->translate_y( paper()->internote_f() * y_off);
+    output->translate( paper()->internote_f() * y_off, Y_AXIS);
     return output;
 }
 

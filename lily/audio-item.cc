@@ -9,12 +9,17 @@
 #include "audio-item.hh"
 #include "midi-item.hh"
 
-#if 0
 Audio_instrument::Audio_instrument( String instrument_str )
 	: Audio_item( 0 )
 {
+    str_ = instrument_str;
 }
-#endif
+
+Midi_item*
+Audio_instrument::midi_item_p()
+{
+    return new Midi_instrument( 0, str_ );
+}
                                       
 Audio_item::Audio_item( Request* req_l )
 {
@@ -34,10 +39,9 @@ Audio_key::midi_item_p()
 }
 
 
-Audio_note::Audio_note( Request* req_l, bool on_b )
+Audio_note::Audio_note( Request* req_l )
 	: Audio_item( req_l )
 {
-    on_b_ = on_b;
 }
 
 Midi_item*
@@ -82,3 +86,5 @@ Audio_text::midi_item_p()
     return new Midi_text( this );
 }
 
+
+IMPLEMENT_IS_TYPE_B1(Audio_item, Audio_element);

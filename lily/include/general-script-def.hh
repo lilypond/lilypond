@@ -30,7 +30,7 @@ public:
     virtual ~General_script_def() {}
     
 protected:
-    virtual bool do_equal_b(General_script_def const &)const;
+    virtual bool do_equal_b(General_script_def const *)const;
     virtual void do_print()const;
 };
 

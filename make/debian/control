@@ -1,0 +1,22 @@
+Source: lilypond
+Section: tex
+Priority: contrib/optional
+Maintainer: Anthony Fok <foka@gpu.srv.ualberta.ca>
+Standards-Version: 2.2.0.0
+
+Package: lilypond
+Architecture: any
+Depends: ${shlibs:Depends}
+Recommends: tetex-base, musixtex | musixtex-fonts
+Description: GNU LilyPond -- A preprocessor to make TeX typeset music.
+ GNU LilyPond is a program which converts a music-script (mudela) into TeX
+ output, or MIDI to produce multi-staff scores. Features include multiple
+ meters, clefs, keys, lyrics, versatile input-language, cadenzas beams,
+ slurs, triplets, multiple voices.
+ .
+ Note: LilyPond uses the fonts from MusiXTeX.  Please install the package
+       musixtex or musixtex-fonts when you install lilypond.  :)
+ .
+  URL: http://www.stack.nl/~hanwen/lilypond/
+  Authors: Han-Wen Nienhuys <hanwen@stack.nl>
+           Jan Nieuwenhuizen <jan@digicash.com>

@@ -11,7 +11,6 @@
 #include "command-request.hh"
 #include "bar.hh"
 #include "debug.hh"
-#include "staffline.hh"
 #include "line-group-grav.hh"
 
 Line_group_engraver::Line_group_engraver()
@@ -22,7 +21,7 @@ Line_group_engraver::Line_group_engraver()
 void
 Line_group_engraver::acknowledge_element(Score_elem_info  elem)
 {
-    if ( !elem.elem_l_->y_group_l_ )
+    if ( !elem.elem_l_->axis_group_l_a_[Y_AXIS] )
 	staffline_p_->add_element(elem.elem_l_);
 }
 

@@ -16,7 +16,7 @@
 #include "colhpos.hh"
 
 /** 
-  Determine positions of columns connected by springs and held apart by rods
+  Determine positions of columns connected by springs and held apart by rods.
   
   
     Generate a spacing which

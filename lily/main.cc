@@ -23,6 +23,7 @@
 Sources* source_l_g = 0;
 bool only_midi = false;
 bool version_ignore_b_ = false;
+int exit_status_i_;
 
 void destill_inname( String &name_str_r);
 
@@ -65,7 +66,10 @@ usage()
 #ifdef STRING_UTILS_INLINED
 	"STRING_UTILS_INLINED "
 #endif
-	"datadir= " DIR_DATADIR "\n" 
+	"datadir= " DIR_DATADIR 
+
+	"\n";
+	
 	;
     
     
@@ -76,13 +80,10 @@ notice()
 {
     cout <<
 	"\n"
-	"GNU LilyPond, a music typesetter.\n"
-	"Copyright (C) 1996,97 by\n"
+	"GNU LilyPond -- The GNU Project music typesetter.\n"
+	"Copyright 1996,97 by\n"
 	"  Han-Wen Nienhuys <hanwen@stack.nl>\n"
 	"  Jan Nieuwenhuizen <jan@digicash.com>\n"
-	"Contributors\n"
-	"  Mats Bengtsson <matsb@s3.kth.se>\n"
-	"  Werner Lemberg <xlwy01@uxp1.hrz.uni-dortmund.de>\n"
 	"\n"
 	"    This program is free software; you can redistribute it and/or\n"
 	"modify it under the terms of the GNU General Public License version 2\n"
@@ -106,7 +107,7 @@ void
 do_one_file(String init_str, String file_str)
 {
     if ( init_str != "" && "" == path.find( init_str ) ) {
-	error ( "Can not find `" + init_str +"'");
+	error ( "Can not find `" + init_str +"\'");
 	return ;
     }
     if ( file_str!= "" && path.find( file_str ) == "" ) {
@@ -146,20 +147,20 @@ main (int argc, char **argv)
     cout << get_version_str() << endl;
     String init_str("symbol.ly");
     
-    while (Long_option_init * opt = oparser()) {
+    while (Long_option_init const * opt = oparser()) {
 	switch ( opt->shortname){
 	case 'o':
-	    set_default_output(oparser.optarg);
+	    set_default_output(oparser.optional_argument_ch_C_);
 	    break;
 	case 'w':
 	    notice();
 	    exit(0);
 	    break;
 	case 'I':
-	    path.push(oparser.optarg);
+	    path.push(oparser.optional_argument_ch_C_);
 	    break;
 	case 'i':
-	    init_str = oparser.optarg;
+	    init_str = oparser.optional_argument_ch_C_;
 	    break;
 	case 'h':
 	    usage();
@@ -181,7 +182,7 @@ main (int argc, char **argv)
     }
 
     int p=0;
-    char *arg ;
+    const char *arg ;
     while ( (arg= oparser.get_next_arg()) ) {
 	String f(arg);
 	destill_inname(f);
@@ -192,7 +193,7 @@ main (int argc, char **argv)
 	do_one_file(init_str, "");	
     }
 
-    return 0;
+    return exit_status_i_;
 }
 
 /// make input file name: add default extension. "" is stdin.

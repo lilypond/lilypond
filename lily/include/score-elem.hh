@@ -15,6 +15,8 @@
 
 #define SCORE_ELEM_CLONE(T) VIRTUAL_COPY_CONS(T, Score_elem)
 
+
+
 /** Both Spanner and Item are Score_elem's. Most Score_elem's depend
   on other Score_elem's, eg, Beam needs to know and set direction of
   Stem. So the Beam has to be calculated *before* Stem. This is
@@ -29,11 +31,6 @@ class Score_elem : private Directed_graph_node {
     Molecule *output;		// should scrap, and use temp var?
 
 
-    /**
-      This is  needed, because #output# may still be
-      NULL.
-      */
-    Offset offset_;
 
     /**
       for administration of what was done already
@@ -56,12 +53,26 @@ class Score_elem : private Directed_graph_node {
     
     Status status_;
 
+    Score_elem* dependency(int) const;
+    Score_elem* dependent(int) const;
+    int dependent_size() const;
+    int dependency_size() const;
 public:
-    PScore *pscore_l_;    
-    Vertical_group  *y_group_l_;
-    Horizontal_group *x_group_l_;
+    /**
+      This is  needed, because #output# may still be
+      NULL.
+      */
+    Offset offset_;
+
+
+
+
+    Paper_score *pscore_l_;    
+    Axis_group_element * axis_group_l_a_[2];
+
     Score_elem(Score_elem const&);
     virtual String TeX_string () const ;
+    String TeX_string_without_offset(Offset)const;
     virtual void print() const;
     
     Paper_def *paper() const;
@@ -70,17 +81,24 @@ public:
     Score_elem();
     DECLARE_MY_RUNTIME_TYPEINFO;    
     
+    Interval extent(Axis)const;
     Interval width() const;
     Interval height() const;
-    virtual void translate_x(Real);
-    virtual void translate_y(Real);
     Status status() const;
     
      /**
       translate the symbol. The symbol does not have to be created yet. 
       */
     void translate(Offset);
-    Offset offset()const;
+    /**
+      translate in one direction
+     */
+    
+    void translate(Real, Axis);
+    Real relative_coordinate(Axis_group_element*, Axis)const;
+    Offset absolute_offset()const;
+    Real absolute_coordinate(Axis)const;
+    Axis_group_element*common_group(Score_elem const* s, Axis a)const;
 
     void add_processing();
     void OK() const;
@@ -91,6 +109,9 @@ public:
     void post_processing();
     void molecule_processing();
 
+    /**
+      Remove all  links (dependencies, dependents, Axis_group_elements.
+     */
     void unlink();
     void unlink_all();
     void substitute_dependency(Score_elem*,Score_elem*);
@@ -109,19 +130,12 @@ public:
     /*
       virtual accessors
      */
-    virtual Vertical_group * vertical_group() { return 0; }
-    virtual Horizontal_group * horizontal_group() { return 0; }
 
     virtual Spanner* spanner()  { return 0; }
-    virtual Horizontal_vertical_group* elem_group() { return 0; }
     virtual Item * item() { return 0; }
     virtual Line_of_score * line_l() const;
     SCORE_ELEM_CLONE(Score_elem);
-    Score_elem* dependency(int) const;
-    Score_elem* dependent(int) const;
-    int dependent_size() const;
-    int dependency_size() const;
-    
+ 
     /// no dimension, translation is noop
     bool empty_b_;
     /// do not print anything black
@@ -135,7 +149,7 @@ protected:
     virtual void do_print() const {}
     /// generate the molecule    
     virtual Molecule* brew_molecule_p()const;
-    ///executed directly after the item is added to the PScore
+    ///executed directly after the item is added to the Paper_score
     virtual void do_add_processing();
     /// do calculations before determining horizontal spacing
     virtual void do_pre_processing();
@@ -149,9 +163,8 @@ protected:
     virtual void do_break_processing();
     virtual void handle_broken_dependencies();
     virtual void handle_prebroken_dependencies();
-
-
-
+    virtual Link_array<Score_elem> get_extra_dependencies()const;
+    virtual void do_unlink();
 };
 
 

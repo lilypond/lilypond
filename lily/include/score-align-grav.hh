@@ -12,6 +12,9 @@
 
 #include "engraver.hh"
 
+/**
+  Group  a number of items across staffs
+ */
 class Score_align_engraver: public Engraver
 {
     Horizontal_group_item  * align_p_;

@@ -5,7 +5,6 @@
 staff_engraver = \requesttranslator {
 		  Engraver "Engraver_group_engraver"
 		  \alias "Staff";
-		  \consists "Line_group_engraver";
 		  \consists "Bar_engraver";
 		  \consists "Clef_engraver";
 		  \consists "Key_engraver";
@@ -14,6 +13,8 @@ staff_engraver = \requesttranslator {
 		  \consists "Staff_sym_engraver";
 		  \consists "Collision_engraver";
 		  \consists "Rest_collision_engraver";
+
+		  \consists "Line_group_engraver";
 		  \contains \requesttranslator {
 			  Engraver  "Voice_group_engravers"
 			  \alias "Voice_group";
@@ -37,8 +38,10 @@ piano_staff_engraver = \requesttranslator {
 	\alias "Hoenoemjedat";
 	\consists "Span_bar_engraver";
 	\consists "Vertical_align_engraver";
-	\consists "Line_group_engraver";
 	\consists "Piano_bar_engraver";
+
+	% This should come last
+	\consists "Line_group_engraver";
 	\contains\requesttranslator { \staff_engraver }
 }
 
@@ -50,6 +53,7 @@ staff_group_engraver = \requesttranslator {
 	\consists "Line_group_engraver";
 	\contains\requesttranslator { \staff_engraver }
 }
+
 lyric_engraver = \requesttranslator {
 	Engraver "Engraver_group_engraver"
 	\alias "Lyric";
@@ -68,6 +72,9 @@ orchestral_score_translator = \requesttranslator {
 	Engraver Score_engraver
 	\alias "Score";
 
+	\consists "Bar_column_engraver";
+	\consists "Bar_number_grav";
+
 	\consists "Bar_align_engraver";
 	\consists "Clef_align_engraver";
 	\consists "Key_align_engraver";
@@ -76,11 +83,10 @@ orchestral_score_translator = \requesttranslator {
 	\consists "Vertical_align_engraver";
 	\consists "Span_score_bar_engraver";
 
+
 	\contains \requesttranslator { \staff_group_engraver }
 	\contains \requesttranslator { \lyric_engraver }
 	\contains \requesttranslator { \piano_staff_engraver }
-
-	
 }
 
 

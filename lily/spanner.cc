@@ -36,6 +36,9 @@ Spanner::do_print()const
 void
 Spanner::break_into_pieces(bool copy_deps_b)
 {
+    if (  broken_into_l_arr_.size() )
+	return; 
+	 
     PCol * left = left_col_l_;
     PCol * right = right_col_l_;
     if(left->daddy_l_) left = left->daddy_l_;

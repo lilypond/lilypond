@@ -66,7 +66,7 @@ File_path::find(String nm)const
 	 path+= String(path.length_i()? "/":"")+nm;
 
 	 fdebug << path << "? ";
-	 FILE *f = fopen(path, "r"); // ugh!
+	 FILE *f = fopen(path.ch_C(), "r"); // ugh!
 	 if (f) {
 	     fdebug << "found\n";
 	     fclose(f);

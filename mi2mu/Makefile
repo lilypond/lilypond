@@ -13,11 +13,8 @@
 depth = ..
 #
 
-# identify module:
-#
 NAME = mi2mu
 MODULE_NAME = mi2mu
-#
 
 # generic variables:
 #
@@ -25,7 +22,7 @@ include ./$(depth)/make/Variables.make
 include ./$(depth)/make/Files.make 
 #
 
-# versioning
+# identify module:
 #
 include $(mi2mu-dir)/VERSION
 build = $(mi2mu-dir)/$(outdir)/.build
@@ -49,7 +46,7 @@ EXTRA_DISTFILES = VERSION TODO
 
 # list of custom libraries:
 #
-MODULE_LIBDEPS=check-flower-deps check-lily-deps
+MODULE_LIBDEPS=check-flower-deps check-lib-deps
 MODULE_LIBES=-llily -lflower
 #
 

@@ -9,26 +9,26 @@
 #define LILY_STREAM_HH
 
 /// Lily output
-struct Lily_stream {
-    ostream* os_p_;
-    String filename_str_;
-    int indent_i_;
-    int column_i_;
-    int wrap_column_i_;
-    bool comment_mode_bo_;
-    
+class Lily_stream {
+public:    
     Lily_stream( String filename_str );
     ~Lily_stream();
 
     Lily_stream& operator <<( String str );
     Lily_stream& operator <<( Midi_event& midi_event_r );
 
-    void check_comment( String str );
+private:
     void header();
-    void indent();
-    void newline();
     void open();
-    void tnedni();
+    void output( String str );
+    void output_wrapped( String str );
+
+    ostream* os_p_;
+    String filename_str_;
+    int indent_i_;
+    int column_i_;
+    int wrap_column_i_;
+    bool comment_mode_b_;
 };
 
 #endif // LILY_STREAM_HH

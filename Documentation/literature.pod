@@ -250,9 +250,6 @@ Kurt Stone. Music Notation in the Twentieth Century. New York: Norton,
 =head2 Other stuff
 
 
-More on GNU Music:
-http://dept-info.labri.u-bordeaux.fr/~strandh/Gsharp
-
 Peter S. Langston, ``Unix music tools at Bellcore''.  Software ---
 Practice and Experience, Vol. 20(S1), S1/47--S1/61, 1990.
 
@@ -272,8 +269,13 @@ http://www.jtauber.com/music/encoding/niff/
 
 [Specs for NIFF, a comprehensive but binary (yuk) format for notation HWN]
 
-SMDL, Standard Musical Description Language 
-ftp://ftp.ornl.gov/pub/sgml/wg8/smdl/10743.pdf
+SMDL, Standard Musical Description Language,
+ftp://ftp.ornl.gov/pub/sgml/wg8/smdl/10743.pdf. ISO/IEC DIS 10743. 
+
+[An ISO defined SGML language. A much more thorough treatment of music
+definition than Mudela  (but not suited for manual entry). It deals
+with notation and perfomance issues by (basically) saying "You can
+embed a MIDI or NIFF file" (sic) HWN]
 
 MPDL,
 

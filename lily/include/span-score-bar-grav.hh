@@ -12,6 +12,13 @@
 
 #include "span-bar-grav.hh"
 
+/** 
+
+  Make the bars that Span the entire score line (system). A
+  Span_bar_engraver which generates a special bar.
+
+  */
+
 class Span_score_bar_engraver : public Span_bar_engraver 
 {
 public:

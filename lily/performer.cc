@@ -29,22 +29,10 @@ Performer::do_print() const
 {
 }
 
-Moment
-Performer::get_mom() const
-{
-    return daddy_perf_l_->get_mom();
-}
-
 void 
-Performer::play( Audio_item* p ) 
+Performer::play( Audio_element* p ) 
 { 
     daddy_perf_l_->play( p ); 
-}
-
-void 
-Performer::play( Midi_item* l ) 
-{ 
-    daddy_perf_l_->play( l ); 
 }
 
 int
@@ -68,24 +56,6 @@ Performer::process_requests()
 {
 }
 
-void
-Performer::set( Moment )
-{
-} 
-
-//<ugh>
-int
-Performer::get_track_i() const
-{
-    return daddy_perf_l_->get_track_i();
-}
-
-void
-Performer::set_track( int& )
-{
-}
-//</ugh>
-
 bool 
 Performer::do_try_request( Request* req_l )
 {
@@ -105,17 +75,11 @@ void
 Performer::creation_processing()
 {
     if (!init_b_) { 
-/*	if ( daddy_perf_l_ ) {
-	    init_b_ = true;	// ugh. avoid recursion
-	    daddy_perf_l_->creation_processing();
-	    init_b_ = false;
-	}
-	
-	*/
 	do_creation_processing();
 	init_b_ = true;
     }
 }
+
 void
 Performer::do_creation_processing()
 {

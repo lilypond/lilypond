@@ -2,12 +2,11 @@
 % A tex file to help determine dims.
 %
 
-\font\musicfont=musixsps
-\font\slurfont=xhslu16
+\font\musicfont=musix16
+\font\slurfont=xslu16
 \font\specfont=musixspx
-% \def\thefont{\musicfont}
+\def\thefont{\musicfont}
 %\def\thefont{\specfont}
-\def\thefont{\slurfont}
 
 \def\mb#1{{\thefont\char#1}}
 
@@ -21,7 +20,7 @@
         \divide\wid by 2
         \here=-\wid
         \loop\ifdim\here<\wid\advance\here by\inc
-                \hbox to0pt{\kern\here\vrule width0.05pt height 4pt\hss}%
+                \hbox to0pt{\kern\here\vrule width0.05pt height 1pt depth 1pt\hss}%
         \repeat%
 }
 
@@ -32,18 +31,20 @@
         \divide\wid by 2
         \here=-\wid
         \loop\ifdim\here<\wid\advance\here by\inc
-                \vbox to0pt{\vskip\here\vrule width2pt height 0.05pt\vss}%
+                \hbox to0pt{\vbox to0pt{\vss\hrule width2pt height 0.05pt\kern\here}\hss}%
         \repeat%
 }
-\def\twhrul{\hbox to 0pt{\hbox{\hruler{20}\vrule
-        width0.1pt height 3ptdepth 1pt}}}
-\def\twvrul{\hbox{\vbox to 20pt{\vruler{20}\vrule
-        width3pt height 0.1pt}}}
+\def\twhrul{\hbox to 0pt{\hbox{\hruler{20}%
+	\vrule width0.1pt height 2pt depth 2pt}}}
+\def\twvrul{\vbox to0pt{\vss\hbox to0pt{\hss\vruler{12}}\vss}%
+	\kern-1pt\vrule width4pt height 0.1pt}%
+	
  
 \def\doitem#1{
-        #1 %
-         %\twvrul%doesn't work
-        \hbox to 50pt{\qquad\twhrul\mb{#1}\hss}\setbox0=\hbox{\mb{#1}} width \the\wd0\ depth \the\dp0 \ height \the\ht0}
+        #1%
+        \vbox to12pt{\vfill\hbox to0pt{\qquad\kern-1pt\twvrul\hss}}%
+        \hbox to50pt{\qquad\twhrul\mb{#1}\hss}%
+	\setbox0=\hbox{\mb{#1}} width \the\wd0\ depth \the\dp0 \ height \the\ht0}
 
 \newcount\n
 \def\charn{\n=-1

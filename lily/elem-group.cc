@@ -1,5 +1,5 @@
 /*
- elem-group.cc -- implement Horizontal_vertical_group
+  elem-group.cc -- implement Horizontal_vertical_group_element
 
   source file of the GNU LilyPond music typesetter
 
@@ -11,195 +11,107 @@
 #include "item.hh"
 #include "debug.hh"
 
+void
+Axis_group_element::do_unlink()
+{
+    remove_all();
+}
+
+
 bool
-Elbement_group::contains_b(Score_elem const*e)const
+Axis_group_element::contains_b(Score_elem const*e)const
 {
-    return elem_l_arr_.find_l(e);
+    return axis_admin_.contains_b(e);
 }
 
-Elbement_group::Elbement_group(Elbement_group const &s)
-    : Score_elem(s)
+Link_array<Score_elem>
+Axis_group_element::get_extra_dependencies()const
 {
+    return axis_admin_.elem_l_arr_;
 }
+
+void
+Axis_group_element::do_print()const
+{
+    axis_admin_.print();
+}
+
+// ****************
+
+
+void
+Vertical_group_element::add_element(Score_elem*e)
+{
+    axis_admin_.add_element(e, this, Y_AXIS, Y_AXIS);
+}
+
+void
+Vertical_group_element::remove_element(Score_elem*e)
+{
+    axis_admin_.remove_element(e, Y_AXIS, Y_AXIS);
+}
+
 
 Interval
-Vertical_group::do_height()const 
+Vertical_group_element::do_height() const
 {
-    Interval r;
-    for (int i=0; i < elem_l_arr_.size(); i++) 
-	r.unite(elem_l_arr_[i]->height());
-    return r;
+    return axis_admin_.extent(Y_AXIS);
 }
+void
+Vertical_group_element::remove_all()
+{
+    axis_admin_.remove_all(Y_AXIS,Y_AXIS);
+}
+// ****************
+
+void
+Horizontal_group_element::remove_all()
+{
+    axis_admin_.remove_all(X_AXIS,X_AXIS);
+}
+
+void
+Horizontal_group_element::add_element(Score_elem*e)
+{
+    axis_admin_.add_element(e,this, X_AXIS,X_AXIS);
+}
+
+void
+Horizontal_group_element::remove_element(Score_elem*e)
+{
+    axis_admin_.remove_element(e,X_AXIS,X_AXIS);
+}
+
 
 Interval
-Horizontal_group::do_width()const 
+Horizontal_group_element::do_width()const
 {
-    Interval r;
-    for (int i=0; i < elem_l_arr_.size(); i++) 
-	if (elem_l_arr_[i]->item()) // makes no at preprocessing for spanners. 
-	    r.unite(elem_l_arr_[i]->width());
-    return r;
+    return axis_admin_.extent(X_AXIS);
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Horizontal_group, Elbement_group);
-IMPLEMENT_IS_TYPE_B1(Vertical_group, Elbement_group);
-
+// ****************
 
 void
-Elbement_group::add_element(Score_elem*i_l)
+Horizontal_vertical_group_element::remove_all()
 {
-    assert(i_l!= this);
-    assert(! contains_b(i_l));
-
-    elem_l_arr_.push(i_l);
-    add_dependency(i_l);
+    axis_admin_.remove_all(X_AXIS,Y_AXIS);
+}
+void
+Horizontal_vertical_group_element::add_element(Score_elem *e)
+{
+    axis_admin_.add_element(e, this, X_AXIS, Y_AXIS);
 }
 
 void
-Horizontal_group::add_element(Score_elem*elt)
+Horizontal_vertical_group_element::remove_element(Score_elem*e)
 {
-    assert ( !elt->x_group_l_ );
-    elt->x_group_l_ = this;
-    Elbement_group::add_element(elt);
-}
-
-void
-Vertical_group::add_element(Score_elem*e)
-{
-    assert( ! e->y_group_l_ );
-    e->y_group_l_ = this;
-
-    Elbement_group::add_element(e);
-}
-
-
-void
-Horizontal_group::translate_x(Real x)
-{
-    for (int i=0; i < elem_l_arr_.size(); i++) 
-	elem_l_arr_[i]->translate_x(x);
-}
-
-void
-Vertical_group::translate_y(Real y)
-{
-    for (int i=0; i < elem_l_arr_.size(); i++) 
-	elem_l_arr_[i]->translate_y(y);
-}
-
-
-IMPLEMENT_IS_TYPE_B1(Elbement_group, Score_elem);
-
-void
-Elbement_group::do_print() const
-{
-#ifndef NPRINT
-    for (int i=0; i < elem_l_arr_.size(); i++) 
-	mtor << elem_l_arr_[i]->name() << ' ';
-#endif
-}
-
-void
-Horizontal_group::do_substitute_dependency(Score_elem* old, Score_elem *new_l)
-{
-    int i;
-
-    while ((i=elem_l_arr_.find_i(old))>=0) {
-	old->x_group_l_ =0;
-	
-	if (new_l){ 
-	    new_l->x_group_l_ = this;
-	    elem_l_arr_[i] = new_l;
-	}else {	    
-	    elem_l_arr_.unordered_del(i);
-	}
-    }
-}
-
-void
-Vertical_group::do_substitute_dependency(Score_elem* old, Score_elem *new_l)
-{
-    int i;
-
-    while ((i=elem_l_arr_.find_i(old))>=0) {
-	old->y_group_l_ =0;
-	
-	if (new_l){ 
-	    new_l->y_group_l_ =this;
-	    elem_l_arr_[i] = new_l;
-	}else {	    
-	    elem_l_arr_.unordered_del(i);
-	}
-    }
-}
-
-Vertical_group::Vertical_group(Vertical_group 
-			       const &s)
-    : Elbement_group(s)
-{
-}
-
-Horizontal_group::Horizontal_group(Horizontal_group 
-				   const &s)
-       : Elbement_group(s)
-{
-}
-
-Elbement_group::Elbement_group()
-{
-    transparent_b_ = true;
-}
-
-IMPLEMENT_IS_TYPE_B2(Horizontal_vertical_group, Horizontal_group, Vertical_group);
-
-
-Horizontal_vertical_group::Horizontal_vertical_group()
-{
-}
-
-void
-Horizontal_vertical_group::do_substitute_dependency(Score_elem*o,Score_elem*n)
-{
-    Vertical_group::do_substitute_dependency(o,n);
-    Horizontal_group::do_substitute_dependency(o,n);
-}
-
-void
-Horizontal_vertical_group::add_element(Score_elem*e)
-{
-    Vertical_group::add_element(e);
-    Horizontal_group::add_element(e);
-}
-
-void
-Horizontal_vertical_group::do_print()const
-{
-    Vertical_group::do_print();
-}
-
-void
-Vertical_group::do_print()const
-{
-    Elbement_group::do_print();
-}
-
-void
-Horizontal_group::do_print() const
-{
-    Elbement_group::do_print();
+    axis_admin_.remove_element(e, X_AXIS, Y_AXIS);
 }
 
 
 
-void
-Vertical_group::remove_element(Score_elem*s)
-{
-    remove_dependency( s );
-}
-
-void
-Horizontal_group::remove_element(Score_elem*s)
-{
-    remove_dependency( s );
-}
+IMPLEMENT_IS_TYPE_B1(Axis_group_element, Score_elem);
+IMPLEMENT_IS_TYPE_B1(Horizontal_group_element, Axis_group_element);
+IMPLEMENT_IS_TYPE_B1(Vertical_group_element, Axis_group_element);
+IMPLEMENT_IS_TYPE_B2(Horizontal_vertical_group_element, Horizontal_group_element, Vertical_group_element);

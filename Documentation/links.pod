@@ -16,6 +16,11 @@ of interest to LilyPond users.
 LilyPond is part of the GNU Project started by the Free Software
 Foundation to create a system of free software for the world-community
 
+=item http://www.zib.de/Visual/software/doc++/index.html
+
+The documentation system for C++ sources, which the LilyPond sources use.
+
+
 =back
 
 =head2 Ftp 
@@ -34,8 +39,8 @@ An ftp site which is in CTAN.
 
 =item ftp://ftp.redhat.com/pub/contrib/
 
-RedHat Software develops and markets a GNU/Linux distribution (of
-which we are avid users)
+The FTP site of RedHat Software.
+
 
 =back
 
@@ -45,7 +50,7 @@ Beta releases will also be at
 
 =item ftp://pcnov095.win.tue.nl/pub/lilypond
 
-=item ftp://alpha.gnu.ai.mit.edu/gnu/
+=item ftp://alpha.gnu.ai.mit.edu/gnu/lilypond/
 
 =back
 
@@ -73,8 +78,9 @@ mailing list have been setup:
 
 =item info-gnu-music@vuse.vanderbilt.edu
 
-For information on the GNU Music project, to subscribe: send mail with
-subject "subscribe" to info-gnu-music-request@vuse.vanderbilt.edu
+A moderated list for information on the GNU Music project, to
+subscribe: send mail with subject "subscribe" to
+info-gnu-music-request@vuse.vanderbilt.edu
 
 =item help-gnu-music@vuse.vanderbilt.edu
 
@@ -93,7 +99,7 @@ bug-gnu-music-request@vuse.vanderbilt.edu
 
 For discussions concerning the GNU Music project, to subscribe: send
 mail with subject "subscribe" to
-gnu-music-discuss-request@vuse.vanderbilt.edu,
+gnu-music-discuss-request@vuse.vanderbilt.edu
 
 =back
 
@@ -125,5 +131,11 @@ The Linux webwatcher.
 
 Transcriptions of the music of Thomas Ravenscroft, partly using
 LilyPond
+
+=item http://www.redhat.com/
+
+develops and markets a GNU/Linux distribution (of
+which we are avid users)
+
 
 =back

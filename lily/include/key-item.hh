@@ -19,7 +19,6 @@ struct Key_item : Item {
     bool default_b_;
 
     
-    /* *************** */
     DECLARE_MY_RUNTIME_TYPEINFO;
     SCORE_ELEM_CLONE(Key_item);
 
@@ -27,6 +26,7 @@ struct Key_item : Item {
     void add(int pitch, int acc);
     void read(const Key_engraver&);
     void set_c_position(int);
+protected:
     virtual void do_pre_processing();
     Molecule* brew_molecule_p()const;
 };

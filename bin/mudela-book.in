@@ -3,6 +3,7 @@
 my $mudcount = 0;
 my $mudela_b = 0;
 my $outname = "-";
+my $outdir;
 use Getopt::Long;
 
 sub gen_mufile
@@ -99,7 +100,7 @@ sub main
     if  (defined ($opt_outdir)) {
 	$outdir = $opt_outdir .  "/";
     } else {
-	$outdir = "";
+	$outdir = ".";
     }
    
     if (defined ($ARGV[0])) {
@@ -110,12 +111,17 @@ sub main
     if (defined ($opt_outname)) {
 	$outname = $opt_outname ;
     } else { 
-	die "Need to have an output name, use --outname" if ( $infile == "-");
+	die "Need to have an output name, use --outname" if ( $infile eq "-");
 	$outname = "$infile.tex";
     }
-    
+
+    my $openout ="$outdir$outname"; 
+    if  ( $infile eq $openout ) {
+	die "The input can't be the output\n";
+    }
+
     open INFILE, "<$infile";
-    open BOOK, ">$outdir$outname";
+    open BOOK, ">$openout";
     while (<INFILE>) {
 	if ($mudela_b) {
 	    if (end_b "mudela") {

@@ -126,6 +126,17 @@ Midi_track::get_free_midi_voice_l( Moment mom )
 }
 
 String
+Midi_track::id_str()
+{
+	String str = name_str();
+	for ( int i = 0; i < str.length_i(); i++ )
+		if ( ( !i && !isalpha( str[ i ] ) )
+			|| !isalnum( str[ i ] ) )
+			*( str.ch_l() + i ) = '_';
+	return str;
+}
+
+String
 Midi_track::name_str()
 {
 	if ( name_str_.length_i() )
@@ -223,17 +234,12 @@ Midi_track::process()
 	tor( DEBUG_ver ) << ":sdne" << endl;
 }
 
-
 void
 Midi_track::output_mudela( Lily_stream& lily_stream_r )
 {
-	lily_stream_r << name_str() << " = \\melodic{";
-	lily_stream_r.indent();
-	lily_stream_r << "% midi copyright:" << copyright_str_;
-	lily_stream_r.newline();
-	lily_stream_r << "% instrument:" << instrument_str_;
-	lily_stream_r.newline();
-
+	lily_stream_r << "$" << id_str() << " = \\melodic{\n";
+	lily_stream_r << "% midi copyright:" << copyright_str_ << "\n";
+	lily_stream_r << "% instrument:" << instrument_str_ << "\n";
 //	int bar_i = 1;
 	int bar_i = 0;
 
@@ -333,9 +339,7 @@ Midi_track::output_mudela( Lily_stream& lily_stream_r )
 //	bar_i++;
 //	tor( NORMAL_ver ) << '[' << bar_i << ']' << flush; 
 
-	lily_stream_r.tnedni();
-	lily_stream_r << "} % " << name_str();
-	lily_stream_r.newline();
+	lily_stream_r << "} % " << name_str() << "\n";
 }
 
 
@@ -346,13 +350,12 @@ Midi_track::output_mudela_begin_bar( Lily_stream& lily_stream_r, Moment now_mom,
 	Moment into_bar_mom = now_mom - Moment( bar_i - 1 ) * bar_mom;
 	if ( bar_i > 1 ) {
 		if ( !into_bar_mom )
-			lily_stream_r << "|";
-		lily_stream_r.newline();
+			lily_stream_r << "|\n";
 	}
 	lily_stream_r << "% " << String_convert::i2dec_str( bar_i, 0, ' ' );
 	if ( into_bar_mom )
 		lily_stream_r << ":" << Duration_convert::dur2_str( Duration_convert::mom2_dur( into_bar_mom ) );
-	lily_stream_r.newline();
+	lily_stream_r << "\n";
 }
 
 

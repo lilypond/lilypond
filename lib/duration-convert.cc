@@ -4,6 +4,7 @@
   source file of the LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+	   Jan Nieuwenhuizen <jan@digicash.com>
 */
 #include <assert.h>
 #include "duration-convert.hh"
@@ -115,9 +116,7 @@ Duration_convert::mom2standardised_dur( Moment mom )
 //	if ( !dur_array_s.length_i() )
 	if ( !dur_array_s.size() )
 		set_array();
-//	assert( dur_array_s.length_i() );
 	assert( dur_array_s.size() );
-//	for ( int i = 0; i < dur_array_s.length_i() - 1; i++ ) {
 	for ( int i = 0; i < dur_array_s.size() - 1; i++ ) {
   		Moment lower_mom = dur2_mom( dur_array_s[ i ] );
 		if ( mom <= lower_mom ) {
@@ -125,22 +124,18 @@ Duration_convert::mom2standardised_dur( Moment mom )
 			// kinda ok
 			if ( i || ( mom / lower_mom > Moment( 3, 4 ) ) )
 				return dur_array_s[ i ];
-			else
-				return Duration( 0 );
+			else {
+			    Duration d;
+			    d.type_i_ = 0;
+			    return d;
+			}
 		}
   		Moment upper_mom = dur2_mom( dur_array_s[ i + 1 ] );
-#if 0  // % deviation of upper/lower from mom, perhaps it's better to use
-		if ( ( mom < upper_mom )
-			 && ( ( mom - lower_mom ) / mom
-				< ( upper_mom - mom ) / mom ) )
-#else // % deviation of mom from lower/upper?
 		if ( ( mom < upper_mom )
 			 && ( ( mom - lower_mom ) / lower_mom
 				< ( upper_mom - mom ) / upper_mom ) )
-#endif
 			return dur_array_s[ i ];
 	}
-//	return dur_array_s[ dur_array_s.length_i() ];
 	return dur_array_s[ dur_array_s.size() - 1 ];
 }
 

@@ -27,7 +27,7 @@
 	eississ	= \melodic_request { -1 2 2 }
 	fessess	= \melodic_request { -1 3 -2 }
 	fess 	= \melodic_request { -1 3 -1 }
-	"f" 	= \melodic_request { -1 3 0 }
+	f 	= \melodic_request { -1 3 0 }
 	fiss 	= \melodic_request { -1 3 1 }
 	fississ	= \melodic_request { -1 3 2 }
 	gessess	= \melodic_request { -1 4 -2 }

@@ -20,6 +20,7 @@ void
 Collision::add(Note_column* ncol_l)
 {
     clash_l_arr_.push(ncol_l);
+    add_element( ncol_l );
     add_dependency(ncol_l);
 }
 /**
@@ -76,7 +77,7 @@ Collision::do_pre_processing()
     do {
 	if (!clash_group_arr_a[idx(d, false)].size()){
 	    clash_group_arr_a[idx(d,  false)] = clash_group_arr_a[idx(d, true)];
-	    clash_group_arr_a[idx(d, true)].set_size(0);
+	    clash_group_arr_a[idx(d, true)].clear();
 	}
     } while ((d *= -1) != 1);
 				  
@@ -133,10 +134,14 @@ Collision::do_pre_processing()
     Real inter_f = paper()->internote_f();
     Real wid_f = paper()->note_width();
     for (int j=0; j < 4; j++) {
-	if (col_l_a[j])
-	    col_l_a[j]->translate(Offset(x_off[j] * wid_f,
-					 y_off[j] * inter_f));
-	
+	if (col_l_a[j]) {
+	    /* collision.cc:138: request for method `translate' is ambiguous 
+	       
+	       (shaddup)
+	     */
+	    Offset o(x_off[j] * wid_f, y_off[j] * inter_f);
+	    ((Score_elem*)col_l_a[j])->translate(o);
+	}
     }
 }
 

@@ -1,5 +1,5 @@
 /*
-  p-score.cc -- implement PScore
+  p-score.cc -- implement Paper_score
 
   source file of the GNU LilyPond music typesetter
 
@@ -19,20 +19,20 @@
 #include "word-wrap.hh"
 #include "gourlay-breaking.hh"
 
-PScore::PScore(Paper_def*p)
+Paper_score::Paper_score(Paper_def*p)
 {
     paper_l_ = p;
     super_elem_l_   = new Super_elem;
     typeset_element(super_elem_l_);
 }
 
-PScore::~PScore()
+Paper_score::~Paper_score()
 {
     super_elem_l_->unlink_all();
 }
 
 void
-PScore::typeset_element(Score_elem * elem_p)
+Paper_score::typeset_element(Score_elem * elem_p)
 {
     elem_p_list_.bottom().add(elem_p);
     elem_p->pscore_l_ = this;
@@ -41,18 +41,15 @@ PScore::typeset_element(Score_elem * elem_p)
 }
 
 void
-PScore::typeset_item(Item *i, PCol *c, int breakstat)
+Paper_score::typeset_item(Item *i, PCol *c)
 {
     assert(c && i);
+    int breakstat = i->break_status_i_;
 
     if (breakstat == -1) {
-	typeset_item(i, c->prebreak_p_);
-	return;
-    }
-
-    if (breakstat == 1) {
-	typeset_item(i, c->postbreak_p_);
-	return;
+	c = c->prebreak_p_;
+    }else if (breakstat == 1) {
+	c = c->postbreak_p_;
     }
 
     c->add(i);
@@ -60,10 +57,9 @@ PScore::typeset_item(Item *i, PCol *c, int breakstat)
 }
 
 void
-PScore::typeset_broken_spanner(Spanner*span_p)
+Paper_score::typeset_broken_spanner(Spanner*span_p)
 {
     span_p->left_col_l_->starters.bottom().add (span_p);
-    span_p->right_col_l_->stoppers.bottom().add(span_p);
     assert(span_p->left_col_l_->line_l_ == span_p->right_col_l_->line_l_);
 
     typeset_element(span_p);
@@ -71,7 +67,7 @@ PScore::typeset_broken_spanner(Spanner*span_p)
 
 
 void
-PScore::typeset_unbroken_spanner(Spanner*span_p)
+Paper_score::typeset_unbroken_spanner(Spanner*span_p)
 {
     span_p_list_.bottom().add(span_p);
     span_p->pscore_l_=this;
@@ -87,7 +83,7 @@ PScore::typeset_unbroken_spanner(Spanner*span_p)
 
 
 void
-PScore::clean_cols()
+Paper_score::clean_cols()
 {
     int rank_i = 0;
     for (iter_top(col_p_list_,c); c.ok(); )
@@ -100,7 +96,7 @@ PScore::clean_cols()
 }
 
 void
-PScore::add(PCol *p)
+Paper_score::add(PCol *p)
 {
     p->pscore_l_ = this;
     if (p->breakable_b()){
@@ -111,7 +107,7 @@ PScore::add(PCol *p)
 }
 
 void
-PScore::output(Tex_stream &ts)
+Paper_score::output(Tex_stream &ts)
 {
     ts << "\n "<<  paper_l_->lookup_l()->texsetting << "%(Tex id)\n";
     ts<< super_elem_l_->TeX_string();
@@ -120,21 +116,23 @@ PScore::output(Tex_stream &ts)
 
 
 void
-PScore::OK()const
+Paper_score::OK()const
 {
 #ifndef NDEBUG
     for (iter_top(col_p_list_,cc); cc.ok(); cc++)
 	cc->OK();
+    for (PCursor<Score_elem*> i( elem_p_list_.top()); i.ok(); i++) 
+	i->OK();
 #endif
 }
 
 void
-PScore::print() const
+Paper_score::print() const
 {    
 #ifndef NPRINT
     if ( !check_debug)
 	return ;
-    mtor << "PScore { ";
+    mtor << "Paper_score { ";
     paper_l_->print();
     mtor << "\n elements: ";
     for (iter_top(elem_p_list_,cc); cc.ok(); cc++)	
@@ -151,21 +149,21 @@ PScore::print() const
 }
 
 void
-PScore::preprocess()
+Paper_score::preprocess()
 {
     super_elem_l_->breakable_col_processing();
     super_elem_l_->pre_processing();
 }
 
 void
-PScore::postprocess()
+Paper_score::postprocess()
 {
     super_elem_l_->post_processing();
     super_elem_l_->molecule_processing();
 }
 
 PCursor<PCol *>
-PScore::find_col(PCol const *c)const
+Paper_score::find_col(PCol const *c)const
 {
     PCol const *what = c;
     if (what->daddy_l_ )
@@ -176,7 +174,7 @@ PScore::find_col(PCol const *c)const
 
 
 void
-PScore::set_breaking(Array<Col_hpositions> const &breaking)
+Paper_score::set_breaking(Array<Col_hpositions> const &breaking)
 {
     super_elem_l_->line_of_score_l_->set_breaking( breaking);
     super_elem_l_->break_processing();
@@ -205,7 +203,7 @@ PScore::set_breaking(Array<Col_hpositions> const &breaking)
 }
 
 void
-PScore::calc_breaking()
+Paper_score::calc_breaking()
 {
     Break_algorithm *algorithm_p;
     Array<Col_hpositions> sol;
@@ -217,7 +215,7 @@ PScore::calc_breaking()
 	sol = algorithm_p->solve();
 	delete algorithm_p;
 	if ( ! sol.size()) { 
-	    error ( "Can not solve this casting problem exactly; revert to Word_wrap");
+	     warning( "Can not solve this casting problem exactly; revert to Word_wrap");
 	    try_wrap = true;
 	} 
     }
@@ -231,7 +229,7 @@ PScore::calc_breaking()
 }
 
 void
-PScore::process()
+Paper_score::process()
 {
     clean_cols();
     print();
@@ -241,11 +239,16 @@ PScore::process()
     calc_breaking();
     *mlog << "\nPostprocessing elements..." << endl;
     postprocess();
+    
+#ifndef NDEBUGA
+    for(PCursor<Score_elem*> i(elem_p_list_.top()); i.ok(); i++) 
+	assert (i->status() >= 9);
+#endif
 }
 
 /** Get all breakable columns between l and r, (not counting l and r).  */
 Link_array<PCol>
-PScore::breakable_col_range(PCol*l,PCol*r)const
+Paper_score::breakable_col_range(PCol*l,PCol*r)const
 {
     Link_array<PCol> ret;
 
@@ -264,7 +267,7 @@ PScore::breakable_col_range(PCol*l,PCol*r)const
     return ret;
 }
 Link_array<PCol>
-PScore::col_range(PCol*l,PCol*r)const
+Paper_score::col_range(PCol*l,PCol*r)const
 {
     Link_array<PCol> ret;
     
@@ -282,7 +285,7 @@ PScore::col_range(PCol*l,PCol*r)const
 }
 
 Link_array<PCol>
-PScore::broken_col_range(PCol*l,PCol*r)const
+Paper_score::broken_col_range(PCol*l,PCol*r)const
 {
     Link_array<PCol> ret;
 

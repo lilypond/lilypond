@@ -36,7 +36,7 @@ struct Col_stats
 class Break_algorithm {
 protected:
 
-    PScore *pscore_l_;
+    Paper_score *pscore_l_;
     Real linelength;
 
     /// search all pcols which are breakable.
@@ -69,7 +69,7 @@ public:
     Line_spacer* (*get_line_spacer)();
     
     Break_algorithm();
-    void set_pscore(PScore*);
+    void set_pscore(Paper_score*);
 
     /// check if the spacing/breaking problem is well-stated
     void problem_OK()const;

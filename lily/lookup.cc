@@ -109,7 +109,7 @@ Lookup::bar(String s, Real h) const
     a.push(print_dimen( h));
     Symbol ret=(*symtables_)("bars")->lookup(s);;
     ret.tex = substitute_args(ret.tex, a);
-    ret.dim.y = Interval( 0, h);
+    ret.dim.y() = Interval( 0, h);
     return ret;
 }
 
@@ -183,7 +183,7 @@ Lookup::hairpin(Real &wid, bool decresc) const
     Array<String> a;
     a.push(idx);
     ret.tex = substitute_args(ret.tex, a);
-    ret.dim.x = Interval(0,wid);
+    ret.dim.x() = Interval(0,wid);
     return ret;
 }
 
@@ -192,9 +192,8 @@ Lookup::linestaff(int lines, Real wid) const
 {
     Real internote_f = paper_l_ ->internote_f();
     Symbol s;
-    s.dim.x = Interval(0,wid);
     Real dy = (lines >0) ? (lines-1)*internote_f : 0;
-    s.dim.y = Interval(0,dy);
+    s.dim = Box(Interval(0,wid), Interval(0,dy));
 
     Array<String> a;
     a.push(lines);
@@ -211,8 +210,8 @@ Symbol
 Lookup::meter(Array<Scalar> a) const
 {
     Symbol s;
-    s.dim.x = Interval( 0 PT, 10 PT);
-    s.dim.y = Interval(0, 20 PT);	// todo
+    s.dim.x() = Interval( 0 PT, 10 PT);
+    s.dim.y() = Interval(0, 20 PT);	// todo
     String src = (*symtables_)("param")->lookup("meter").tex;
     s.tex = substitute_args(src,a);
     return s;    
@@ -229,8 +228,8 @@ Lookup::stem(Real y1,Real y2) const
     }
     Symbol s;
     
-    s.dim.x = Interval(0,0);
-    s.dim.y = Interval(y1,y2);
+    s.dim.x() = Interval(0,0);
+    s.dim.y() = Interval(y1,y2);
     
     Array<String> a;
     a.push(print_dimen(y1));
@@ -263,7 +262,7 @@ Lookup::vbrace(Real &y) const
 	Array<String> a;
 	a.push(idx);
 	s.tex = substitute_args(s.tex,a);
-	s.dim.y = Interval(0,y);
+	s.dim.y() = Interval(0,y);
     }
     {
 	Array<String> a;

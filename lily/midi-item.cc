@@ -18,6 +18,19 @@
 #include "midi-stream.hh"
 #include "audio-item.hh"
 
+IMPLEMENT_IS_TYPE_B(Midi_item);
+IMPLEMENT_IS_TYPE_B1(Midi_chunk, Midi_item);
+IMPLEMENT_IS_TYPE_B1(Midi_duration, Midi_item);
+IMPLEMENT_IS_TYPE_B1(Midi_header, Midi_chunk);
+IMPLEMENT_IS_TYPE_B1(Midi_instrument, Midi_item);
+IMPLEMENT_IS_TYPE_B1(Midi_key,Midi_item);
+IMPLEMENT_IS_TYPE_B1(Midi_meter, Midi_item);
+IMPLEMENT_IS_TYPE_B1(Midi_note, Midi_item);
+IMPLEMENT_IS_TYPE_B1(Midi_note_off, Midi_item);
+IMPLEMENT_IS_TYPE_B1(Midi_tempo, Midi_item);
+IMPLEMENT_IS_TYPE_B1(Midi_text, Midi_item);
+IMPLEMENT_IS_TYPE_B1(Midi_track, Midi_chunk);
+
 Midi_chunk::Midi_chunk()
     : Midi_item( 0 )
 {
@@ -256,20 +269,19 @@ Midi_instrument::Midi_instrument( int channel_i, String instrument_str )
 String
 Midi_instrument::str() const
 {
-    // ugh, does not work...
-    return String( "" );
     Byte program_byte = 0;
     for ( int i = 0; instrument_name_sz_a_[i]; i++ )
 	if ( instrument_str_ == String(instrument_name_sz_a_[ i ] )) { 
 	    program_byte = (Byte)i;
 	    break;
 	}
-    if ( program_byte ) {
-	String str = String( (char)( 0xc0 + channel_i_ ) );
-	str += String( (char)program_byte );
-	return str;
-    }
-    return String( "" );
+
+    if ( !program_byte )
+	return String( "" );
+
+    String str = String( (char)( 0xc0 + channel_i_ ) );
+    str += String( (char)program_byte );
+    return str;
 }
 
 Midi_item::Midi_item( Audio_item* audio_item_l )
@@ -329,32 +341,88 @@ Midi_key::str() const
     return String_convert::hex2bin_str( str );
 }
 
+Midi_meter::Midi_meter( Audio_item* audio_item_l )
+    : Midi_item( audio_item_l )
+{
+    clocks_per_1_i_ = 18;
+}
+
+String
+Midi_meter::str() const
+{
+    Meter_change_req* m = audio_item_l_->req_l_->command()->meterchange();
+    int num_i = m->beats_i_;
+    int den_i = m->one_beat_i_;
+
+    String str = "ff5804";
+    str += String_convert::i2hex_str( num_i, 2, '0' );
+    str += String_convert::i2hex_str( intlog2( den_i ) , 2, '0' );
+    str += String_convert::i2hex_str( clocks_per_1_i_, 2, '0' );
+    str += String_convert::i2hex_str( 8, 2, '0' );
+    return String_convert::hex2bin_str( str );
+}
+
 Midi_note::Midi_note( Audio_item* audio_item_l )
     : Midi_item( audio_item_l )
 {
-    // ugh
-    dynamic_byte_ = 0x64;
-    on_b_ = ( (Audio_note*)audio_item_l_ )->on_b_;
-    if ( on_b_ ) // poor man-s staff dynamics:
-	dynamic_byte_ -= 0x10 * channel_i_;
-    else
-    	dynamic_byte_ += 0x32; // 0x64 is supposed to be neutral, but let-s try
+    dynamic_byte_ = 0x7f;
+}
+
+Moment
+Midi_note::duration() const
+{
+    return audio_item_l_->req_l_->musical()->rhythmic()->duration();
+}
+
+int
+Midi_note::pitch_i() const
+{
+    return audio_item_l_->req_l_->musical()->melodic()->pitch();
 }
 
 String
 Midi_note::str() const
 {
-    Note_req* n = audio_item_l_->req_l_->musical()->melodic()->note();
-    int pitch_i = n->pitch() + c0_pitch_i_c_;
-    if ( pitch_i != INT_MAX ) {
-	Byte status_byte = ( on_b_ ? 0x90 : 0x80 ) + channel_i_;
-	String str = String( (char)status_byte );
-	str += (char)pitch_i;
-	// poor man-s staff dynamics:
-	str += (char)dynamic_byte_;
-	return str;
-    }
-    return String( "" );
+    if ( pitch_i() == INT_MAX )
+    	return String( "" );
+
+    Byte status_byte = (char)( 0x90 + channel_i_ );
+
+    String str = String( (char)status_byte );
+    str += (char)( pitch_i() + c0_pitch_i_c_ );
+
+    // poor man's staff dynamics:
+    str += (char)( dynamic_byte_ - 0x10 * channel_i_ );
+
+    return str;
+}
+
+Midi_note_off::Midi_note_off( Midi_note* midi_note_l )
+    : Midi_item( midi_note_l->audio_item_l_ )
+{
+    // 0x64 is supposed to be neutral, but let's try
+    aftertouch_byte_ = 0x64;
+    channel_i_ = midi_note_l->channel_i_;
+}
+
+int
+Midi_note_off::pitch_i() const
+{
+    return audio_item_l_->req_l_->musical()->melodic()->pitch();
+}
+
+String
+Midi_note_off::str() const
+{
+    if ( pitch_i() == INT_MAX )
+    	return String( "" );
+
+    Byte status_byte = (char)( 0x80 + channel_i_ );
+
+    String str = String( (char)status_byte );
+    str += (char)( pitch_i() + Midi_note::c0_pitch_i_c_ );
+    str += (char)aftertouch_byte_;
+    return str;
 }
 
 Midi_tempo::Midi_tempo( Audio_item* audio_item_l )
@@ -375,27 +443,6 @@ Midi_tempo::str() const
     int useconds_per_4_i = 60 * (int)1e6 / per_minute_4_i_;
     String str = "ff5103";
     str += String_convert::i2hex_str( useconds_per_4_i, 6, '0' );
-    return String_convert::hex2bin_str( str );
-}
-
-Midi_meter::Midi_meter( Audio_item* audio_item_l )
-    : Midi_item( audio_item_l )
-{
-    clocks_per_1_i_ = 18;
-}
-
-String
-Midi_meter::str() const
-{
-    Meter_change_req* m = audio_item_l_->req_l_->command()->meterchange();
-    int num_i = m->beats_i_;
-    int den_i = m->one_beat_i_;
-
-    String str = "ff5804";
-    str += String_convert::i2hex_str( num_i, 2, '0' );
-    str += String_convert::i2hex_str( intlog2( den_i ) , 2, '0' );
-    str += String_convert::i2hex_str( clocks_per_1_i_, 2, '0' );
-    str += String_convert::i2hex_str( 8, 2, '0' );
     return String_convert::hex2bin_str( str );
 }
 

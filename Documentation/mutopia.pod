@@ -1,0 +1,35 @@
+=head1 NAME 
+
+Mutopia project - manifesto
+
+=head1 DESCRIPTION
+
+Random ranting about the Mutopia project, aka "Music To the People." 
+[Not yet finished, so this is unpolished]
+
+=head1 WHY
+
+Music publishers make lots of money out of selling sheet music which
+is in the public domain (the composers died a long time ago). It is
+usually prohibited to xerox the sheet music.  Publishers have two
+arguments to justify this policy: the high prices are there to guarantee
+diversity (keeping lots of stock is expensive), and to encourage new
+work being composed.
+
+This is bad. Storing a Mudela file takes almost no space at all, and
+if sheet music could be had for free, then it would be much easier
+obtain less famous music.  These composers have died long ago, and not
+having their music available only discourages people from
+experimenting with it.  You deserve to get public domain music for
+free (zero cents)
+
+=head1 WHAT 
+
+For literature, the project Gutenberg has an archive of public domain
+literary works. For music, this does not exist yet.
+
+We also need an archive of public domain sheet music; this is what we
+call The Mutopia Project.
+
+
+

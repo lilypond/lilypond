@@ -18,7 +18,7 @@
 
 /** 
 
-  symbols, dimensions and constants
+  Symbols, dimensions and constants pertaining to visual output.
 
   This struct takes care of all kinds of symbols, dimensions and
   constants. Most of them are related to the point-size of the fonts,
@@ -68,7 +68,7 @@ public:
     /// height of the staff
     Real standard_height()const;
 
-    /// width of a quaver ball
+    /// width of a crotchet ball
     Real note_width() const;
     void print() const;
 

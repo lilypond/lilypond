@@ -1,5 +1,5 @@
 /*
-  command-request.hh -- declare Non musical requests
+  command-request.hh -- declare non-musical requests
 
   source file of the GNU LilyPond music typesetter
 
@@ -12,6 +12,7 @@
 
 #include "request.hh"
 #include "varray.hh"
+#include "duration.hh"
 
 /** Request which are  assumed to be "happening" before the
   musical requests. */
@@ -34,6 +35,8 @@ public:
 
 class Command_script_req : public Command_req,  public Script_req {
 public:
+    // huh? 
+    Command_script_req();
     REQUESTMETHODS(Command_script_req, commandscript);
 };
 
@@ -49,8 +52,21 @@ public:
 class Timing_req  : public Command_req  {
 public:
     REQUESTMETHODS(Timing_req, timing);
+    virtual Tempo_req * tempo(){return 0; }
+    Tempo_req();
 };
 
+
+class Tempo_req : public Timing_req
+{
+public:
+    Duration dur_;
+    int metronome_i_;
+
+    Tempo_req();
+    REQUESTMETHODS(Tempo_req, tempo);
+    bool do_equal_b(Request *)const;
+};
 
 class Partial_measure_req  : public Timing_req  {
 public:
@@ -58,6 +74,7 @@ public:
 
     Partial_measure_req(Moment);
     REQUESTMETHODS(Partial_measure_req, partial);
+    bool do_equal_b(Request*)const;
 };
 
 /**
@@ -67,9 +84,9 @@ class Meter_change_req  : public Timing_req  {
 public:
     int beats_i_, one_beat_i_;
 
-    int compare(Meter_change_req const&);
     Meter_change_req();
     void set(int,int);
+    bool do_equal_b(Request*)const;
     REQUESTMETHODS(Meter_change_req, meterchange);
 };
 
@@ -78,6 +95,7 @@ class Cadenza_req  : public Timing_req  {
 public:
     /// turn on?
     bool on_b_;
+    bool do_equal_b(Request*)const;
     Cadenza_req(bool);
     REQUESTMETHODS(Cadenza_req,cadenza);
 };
@@ -85,7 +103,7 @@ public:
 /// check if we're at start of a  measure.
 class Barcheck_req  : public Timing_req  {
 public:
-
+    bool do_equal_b(Request *)const;
     REQUESTMETHODS(Barcheck_req,barcheck);
 };
 
@@ -93,7 +111,7 @@ class Measure_grouping_req : public Timing_req  {
 public:
     Array<int> beat_i_arr_;
     Array<Moment> elt_length_arr_;
-
+    bool do_equal_b(Request *)const;
     REQUESTMETHODS(Measure_grouping_req, measuregrouping);
 };
 
@@ -103,7 +121,8 @@ class Bar_req  : public Command_req  {
 public:
     String type_str_;
     Bar_req(String);
-    int compare(const Bar_req&)const;
+    bool do_equal_b(Request*)const;
+
     REQUESTMETHODS(Bar_req,bar);
 };
 

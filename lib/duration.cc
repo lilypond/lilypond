@@ -3,9 +3,8 @@
 
   source file of the LilyPond music typesetter
 
-  copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
-
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1997 Jan Nieuwenhuizen <jan@digicash.com>
+           Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 #include "proto.hh"
@@ -21,12 +20,10 @@
 int Duration::division_1_i_s = 384 * 4;
 
 
-Duration::Duration( int type_i, int dots_i = 0)
+Duration::Duration()
 {
-// this breaks mi2mu quite effectively
-//    assert(duration_type_b(type_i));
-	type_i_ = type_i;
-	dots_i_ = dots_i;
+	type_i_ = 1;
+	dots_i_ = 0;
 	ticks_i_ = 0;
 }
 
@@ -83,12 +80,6 @@ Plet::Plet()
 {
     type_i_ = 1;
     iso_i_ = 1;
-}
-
-Plet::Plet( int iso_i, int type_i )
-{
-	iso_i_ = iso_i;
-	type_i_ = type_i;
 }
 
 Moment

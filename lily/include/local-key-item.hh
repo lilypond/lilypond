@@ -21,20 +21,26 @@ struct Local_acc {
 
   TODO:
   update item if Items are removed
+
+  TODO
+  
+  figure out private/public
+  
  */
-struct Local_key_item : Item {
+class Local_key_item : public Item {
+public:
     DECLARE_MY_RUNTIME_TYPEINFO;
     Array<Local_acc> accs;
     Link_array<Item> support_items_;
     int c0_position;
 
-    /* *************** */
+
     
     Local_key_item(int c0position);
     void add_support(Item*);
     void add(int oct, int pitch, int acc);
     void add(Melodic_req*);
-public:
+protected:
     virtual void do_pre_processing();    
     virtual void do_substitute_dependency(Score_elem*,Score_elem*);
     virtual Molecule* brew_molecule_p()const;

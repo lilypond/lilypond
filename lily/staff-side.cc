@@ -106,13 +106,7 @@ Staff_side::do_post_processing()
 void
 Staff_side::do_substitute_dependency(Score_elem*o, Score_elem*n)
 { 
-    int i;
-    while ((i=support_l_arr_.find_i(o) ) >=0)
-	if (n) 
-	    support_l_arr_[i] = n;
-	else
-	    support_l_arr_.del(i);
-
+    support_l_arr_.unordered_substitute(o,n);
     if (staff_sym_l_ == o)
 	staff_sym_l_ = n ? (Staff_symbol*) n->spanner():0;
 }

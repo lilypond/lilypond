@@ -18,7 +18,7 @@ Text_def::width(Paper_def * p) const
 {
     Atom a = get_atom(p,0);
 
-    Real guess_width_f = text_str_.length_i() * a.sym_.dim.x.length(); // ugh
+    Real guess_width_f = text_str_.length_i() * a.sym_.dim.x().length(); // ugh
     Interval i(0, guess_width_f);
     i += - (align_i_ + 1)* i.center();
     return i;
@@ -39,10 +39,11 @@ Text_def::Text_def()
 }
 
 bool
-Text_def::do_equal_b(Text_def const &def)const
+Text_def::do_equal_b(General_script_def const *gdef) const
 {
-    return align_i_ == def.align_i_ && text_str_ == def.text_str_
-	&& style_str_ == def.style_str_;
+    Text_def const *def= (Text_def*)gdef;
+    return align_i_ == def->align_i_ && text_str_ == def->text_str_
+	&& style_str_ == def->style_str_;
 }
 
 Atom

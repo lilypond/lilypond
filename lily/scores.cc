@@ -28,9 +28,8 @@ do_scores()
 	
 	if (is_p->errorlevel_i_) {
 	    is_p->warning("Score contains errors. Will not process it. ");
-	  
+	    exit_status_i_ |= 1;
 	} else { 
-	
 	    is_p->print ();
 	    is_p->process();
 	}
@@ -38,7 +37,7 @@ do_scores()
 	is_p =0;
 
     }
-    score_array_global.set_size(0);
+    score_array_global.clear();
 }
 
 void

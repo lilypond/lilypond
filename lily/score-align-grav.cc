@@ -22,7 +22,7 @@ void
 Score_align_engraver::do_pre_move_processing()
 {
     if (align_p_) {
-	typeset_breakable_item( align_p_);
+	typeset_element( align_p_);
 	align_p_ =0;
     }
 }
@@ -34,10 +34,13 @@ Score_align_engraver::acknowledge_element(Score_elem_info inf)
     
 	if (!align_p_ ) {
 	    align_p_ = new Horizontal_group_item;
+	    align_p_->breakable_b_ = true;
 	    announce_element(Score_elem_info(align_p_,0));
 	}
-	
-	align_p_->add_element(inf.elem_l_);
+	Score_elem * unbound_elem = inf.elem_l_;
+	while ( unbound_elem->axis_group_l_a_[X_AXIS] )
+	    unbound_elem = unbound_elem->axis_group_l_a_[X_AXIS];
+	align_p_->add_element(unbound_elem );
     }
     
 }

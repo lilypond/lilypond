@@ -70,7 +70,7 @@ TEX		{AA}|-|{PUNCT}|{ACCENT}|{NATIONAL}
 WORD		{A}{AN}*
 ALPHAWORD	{A}+
 INT		-?{N}+
-REAL		{INT}?\.{N}*
+REAL		({INT}\.{N}*)|(-?\.{N}+)
 KEYWORD		\\{WORD}
 WHITE		[ \n\t\f]
 BLACK		[^ \n\t\f]
@@ -179,9 +179,6 @@ LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
 		return INT;
 	}
 
-	\+\+		{
-		return CONCAT;
-	}
 	\" {
 		start_quote();
 	}
@@ -223,7 +220,7 @@ LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
 		/* ugr. This sux. */
 		String s (YYText()); 
 		int i = 0;
-		while ((i=s.index_i("_")) != -1) // change word binding "_" to " "
+               	while ((i=s.index_i("_")) != -1) // change word binding "_" to " "
 			*(s.ch_l() + i) = ' ';
 		if ((i=s.index_i("\\,")) != -1)   // change "\," to TeX's "\c "
 			{
@@ -335,6 +332,14 @@ My_lily_lexer::scan_escaped_word(String str)
 		yylval.id = id;
 		return id->token_code_i_;
 	}
+	if ( YYSTATE != notes ) {
+		Melodic_req * mel_l = lookup_melodic_req_l(str);
+		if (mel_l) {
+		    mtor << "(notename)\n";
+		    yylval.melreq = mel_l;
+		    return NOTENAME_ID;
+		}
+	}
 	LexerError( "Unknown escaped string: `" + str + "'");	
 	mtor << "(string)";
 	String *sp = new String( str);
@@ -354,17 +359,6 @@ My_lily_lexer::scan_bare_word(String str)
 		    return NOTENAME_ID;
 		}
 	}
-#if 0
-	if (YYSTATE != notes) {
-		// ugr. Should do this in note mode?
-	//		Identifier * id = lookup_identifier(str);
-		if (id) {
-			mtor << "(identifier)\n";
-			yylval.id = id;
-			return id->token_code_i_;
-		}
-	}
-#endif
 
 	yylval.string=new String( str );
 	return STRING;

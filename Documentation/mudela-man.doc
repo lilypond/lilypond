@@ -24,7 +24,8 @@ effective language for defining music.  We call this language (rather
 arrogantly) The Musical Definition Language or Mudela, for
 short.\footnote{If anybody comes up with a better name, we'd gladly
   take this. Gourlay already uses Musical Description Language,
-  G-Sharp Score Definition Language. We're not being original here}
+  G-Sharp Score Definition Language.  ISO standard 10743 defines a
+  Standard Music Description Language.  We're not being original here}
 
 The first aim of Mudela is to define a piece of music, being complete
 from both from a musical typesetting, as from a musical performing
@@ -218,10 +219,10 @@ meaning of \verb+_+ and the resolution of words
 You enter a note by giving the name and the reciprocal of the duration:
 
 \begin[fragment,verbatim]{mudela}
-a'4     % dutch names
+a'4     % Dutch names
 \end{mudela}
 
-is a A-1 pitched quaver. The ' signifies an octave change.  A-1 is 440
+is a A-1 pitched crotchet. The ' signifies an octave change.  A-1 is 440
 Hz concert-pitch. \verb+c'+ is also known as the central c. More examples:
 
 \begin[fragment,verbatim]{mudela}
@@ -235,11 +236,11 @@ a''     % 880
 
 The last one  is an A flat, (just below 110 Hz concert-pitch). The \verb+*2/3+
 signifies that this note is part of a triplet (3 in stead of 2). The
-duration is one and a half quaver (\verb+4.+) times 2/3.
+duration is one and a half quarter note (\verb+4.+) times 2/3.
 
 Notenames are just a special kind of identifiers, and can be declared
 for any language appropriate (see \file{init/dutch.ly}).  The default language
-for notenames is defined to be dutch. In dutch, the notenames are
+for notenames is defined to be Dutch. In Dutch, the notenames are
 a,b,c,d,e,f and g. Sharps are formed by adding the extension "is",
 flats by adding ``es''
 
@@ -334,7 +335,7 @@ a4 \dynamic { 0 } % 0 = fff, 7 = ppp
 Mudela defines the following dynamic identifiers:
 
 \begin{verbatim}
-ppp pp p mp mf df ff fff        % df iso f, f is a notename.
+ppp pp p mp mf f ff fff
 \end{verbatim}
 and the following abbreviations:
 \begin{verbatim}
@@ -492,7 +493,7 @@ You can set the voicegroup of a voice with the command \verb+\group+, e.g.,
 
 In this example, the two oboe voices share one staff and are initially
 in the voicegroup called "oboes". They will share beams, dynamics etc.
-After two quavers, oboeI "pushes" its group: a new voicegroup is
+After two quarter notes, oboeI "pushes" its group: a new voicegroup is
 created, called "oboes+solo". The \verb+\group "-"+ command makes the
 voice enter "oboes" again.
 
@@ -547,7 +548,7 @@ same syntax as grouping:
 \end{verbatim}
 
 Make the piece start with a partial measure [english translation?]
-lasting 1 3/4 quaver.
+lasting 1 3/4 quarter notes.
 
 These commands are also "voice elements", and constitute simple mudela
 (consisting of stuff with duration 0).

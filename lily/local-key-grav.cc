@@ -40,8 +40,15 @@ Local_key_engraver::do_pre_move_processing()
 		
 		
 
-	    if (!key_item_p)
-		key_item_p = new Local_key_item(*get_staff_info().c0_position_i_l_);
+	    if (!key_item_p) {
+		int c0_i=0;
+
+		Staff_info inf = get_staff_info();
+		if (inf.c0_position_i_l_)
+		    c0_i = *get_staff_info().c0_position_i_l_;	
+		
+		key_item_p = new Local_key_item(c0_i);
+	    }
 	    key_item_p->add(note_l);
 	    key_item_p->add_support(support_l);
 	    local_key_.oct(note_l->octave_i_)
@@ -57,12 +64,14 @@ Local_key_engraver::do_pre_move_processing()
 	typeset_element(key_item_p);
     }
     
-    mel_l_arr_.set_size(0);
-    tied_l_arr_.set_size(0);
-    support_l_arr_.set_size(0);
-    forced_l_arr_.set_size(0);	
+    mel_l_arr_.clear();
+    tied_l_arr_.clear();
+    support_l_arr_.clear();
+    forced_l_arr_.clear();	
 }
-
+/*
+  whoah .. this looks hairy!
+ */
 void
 Local_key_engraver::acknowledge_element(Score_elem_info info)
 {    
@@ -95,11 +104,9 @@ void
 Local_key_engraver::do_process_requests()
 {
     Time_description const * time_C_ = get_staff_info().time_C_;
-    if (! time_C_->whole_in_measure_){
+    if (time_C_ && !time_C_->whole_in_measure_){
 	if (key_C_)
 	    local_key_= *key_C_;
-	else if(0&& time_C_->when_ >Moment(0))
-	    warning ("Help me! can't figure out current key");
     }
 }
 

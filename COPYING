@@ -1,8 +1,11 @@
-This license applies to all files except:
 
-	- the included input files which explicitly state a different
-copyright policy
 
+*** NOTE
+
+	This license applies to all files except the included input files
+	(which are in the subdirectory input/
+
+*** END NOTE
 
 		    GNU GENERAL PUBLIC LICENSE
 		       Version 2, June 1991

@@ -10,12 +10,12 @@
 #include "plist.hh"
 #include "audio-column.hh"
 #include "audio-item.hh"
-#include "cursor.tcc"
-#include "list.tcc"
+#include "audio-staff.hh"
 #include "pcursor.tcc"
 #include "plist.tcc"
 
 
-IPL_instantiate(Audio_item);
+IPL_instantiate(Audio_element);
 IPL_instantiate(Audio_column);
+
 

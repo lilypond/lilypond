@@ -7,6 +7,7 @@
 Meter::Meter(Array<Scalar>a)
     :args(a)
 {
+    breakable_b_ = true;
 }
 
 Molecule*

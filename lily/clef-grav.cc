@@ -106,7 +106,7 @@ Clef_engraver::do_pre_move_processing()
 {
     if (!clef_p_)
 	return;
-    typeset_breakable_item(clef_p_);
+    typeset_element(clef_p_);
     clef_p_ = 0;
 }
     

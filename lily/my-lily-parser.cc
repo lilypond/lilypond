@@ -203,7 +203,7 @@ My_lily_parser::get_parens_request(char c)
     case ']':
     {
 	Beam_req*b = new Beam_req;
-	int p_i=default_duration_.plet_.type_i_ ; // ugh . Should junk?
+	int p_i=plet_.type_i_ ; // ugh . Should junk?
 	if (p_i!= 1)
 	    b->nplet = p_i;
 	req_p = b;
@@ -270,11 +270,11 @@ My_lily_parser::add_requests(Chord*v)
     for (int i = 0; i < pre_reqs.size(); i++) {
 	v->add(pre_reqs[i]);
     }
-    pre_reqs.set_size(0);
+    pre_reqs.clear();
     for (int i = 0; i <post_reqs.size(); i++) {
 	v->add(post_reqs[i]);
     }
-    post_reqs.set_size(0);
+    post_reqs.clear();
 }
 
 Input

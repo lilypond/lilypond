@@ -37,7 +37,7 @@ public:
     virtual Atom get_atom(Paper_def* p, int dir_i_)const;
     DECLARE_MY_RUNTIME_TYPEINFO;
 
-    virtual bool do_equal_b(General_script_def const &)const;
+    virtual bool do_equal_b(General_script_def const *)const;
     virtual void do_print() const;
     Script_def();
     void set_from_input(String, bool, int, int ,bool,int );

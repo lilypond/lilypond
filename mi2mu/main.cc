@@ -93,7 +93,7 @@ main( int argc_i, char* argv_sz_a[] )
 	Getopt_long getopt_long( argc_i, argv_sz_a, long_option_init_a );
 
 	String output_str;
-	while ( Long_option_init* long_option_init_p = getopt_long() )
+	while ( Long_option_init const* long_option_init_p = getopt_long() )
 		switch ( long_option_init_p->shortname ) {
 		case 'b':
 			Duration_convert::no_quantify_b_s = true;
@@ -115,7 +115,7 @@ main( int argc_i, char* argv_sz_a[] )
 			Duration_convert::no_smaller_than_i_s = 32;
 			break;
 		case 'o':
-			output_str = getopt_long.optarg;
+			output_str = getopt_long.optional_argument_ch_C_;
 			break;
 		case 'p':
 			Duration_convert::no_triplets_b_s = true;
@@ -124,7 +124,7 @@ main( int argc_i, char* argv_sz_a[] )
 			level_ver = QUIET_ver;
 			break;
 		case 's': {
-				int i = String_convert::dec2_i( getopt_long.optarg );
+				int i = String_convert::dec2_i( getopt_long.optional_argument_ch_C_ );
 				if ( !i ) {
 					identify();
 					usage();
@@ -152,7 +152,7 @@ main( int argc_i, char* argv_sz_a[] )
 	// flag -q must be checked first
 	identify();
 
-	char* arg_sz = 0;
+	char const* arg_sz = 0;
 	while ( ( arg_sz = getopt_long.get_next_arg() ) ) {
 		My_midi_parser midi_parser( arg_sz, & source );
 		midi_parser_l_g = &midi_parser;

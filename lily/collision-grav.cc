@@ -16,9 +16,10 @@ Collision_engraver::acknowledge_element(Score_elem_info i)
     if (!(i.elem_l_->name() == Note_column::static_name()))
 	return;
 
-    if (!col_p_)
+    if (!col_p_) {
 	col_p_ = new Collision;
-    
+	announce_element(Score_elem_info(col_p_,0));
+    }
     col_p_->add((Note_column*)i.elem_l_->item());
 }
 

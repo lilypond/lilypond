@@ -100,7 +100,7 @@ void
 Meter_engraver::do_pre_move_processing()
 {
     if (meter_p_) {
-	typeset_breakable_item(meter_p_);
+	typeset_element(meter_p_);
 	meter_p_ =0;
 	meter_req_l_ = 0;
     }

@@ -9,29 +9,30 @@
 
 #include "lily-proto.hh"
 #include "string.hh"
+#include "audio-element.hh"
 
 /**
   Any piece of audio information.
   We need virtual constructors, 
   let's try decentralised factory for specific audio implemenations.
+
+  TODO:
+
+  virtual Niff_item* niff_item_p() = 0;
+  
+  virtual CSound_item* score_item_p() = 0;
  */
-struct Audio_item {
+struct Audio_item : public Audio_element {
     Audio_item( Request* req_l );
 
     /// Create a midi-item from myself.
     virtual Midi_item* midi_item_p() = 0;
 
-#if 0
-    /// Not implemented. Anyone?
-    virtual Niff_item* niff_item_p() = 0;
-
-    /// Not implemented. Anyone?
-    virtual Cscore_item* score_item_p() = 0;
-#endif
-    
     Audio_column* audio_column_l_;
     Request* req_l_;
 
+    DECLARE_MY_RUNTIME_TYPEINFO;
+    
 private:
     Audio_item( Audio_item const& );
     Audio_item& operator=( Audio_item const& );
@@ -43,16 +44,15 @@ struct Audio_key : public Audio_item {
     virtual Midi_item* midi_item_p();
 };
 
-#if 0
 struct Audio_instrument : public Audio_item {
-    Audio_instrument( Request* req_l );
+    Audio_instrument( String instrument_str );
+    virtual Midi_item* midi_item_p();
+    String str_;
 };
-#endif
                                       
 struct Audio_note : public Audio_item {
-    Audio_note( Request* req_l, bool on_b );
+    Audio_note( Request* req_l );
     virtual Midi_item* midi_item_p();
-    bool on_b_;
 };
 
 struct Audio_text : Audio_item {

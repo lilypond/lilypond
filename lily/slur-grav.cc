@@ -85,13 +85,13 @@ Slur_engraver::do_pre_move_processing()
 	    end_slur_l_arr_[i]->dir_i_ = dir_i_;
 	typeset_element(end_slur_l_arr_[i]);
     }
-    end_slur_l_arr_.set_size(0);
+    end_slur_l_arr_.clear();
 }
 
 void
 Slur_engraver::do_post_move_processing()
 {
-    new_slur_req_l_arr_.set_size(0);
+    new_slur_req_l_arr_.clear();
 }
 Slur_engraver::~Slur_engraver()
 {

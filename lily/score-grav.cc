@@ -5,12 +5,12 @@
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
+
 #include "super-elem.hh"
 #include "scoreline.hh"
 #include "debug.hh"
 #include "score-elem.hh"
 #include "bar.hh"		// needed for Bar::static_name
-#include "staffline.hh"
 #include "score-grav.hh"
 #include "p-col.hh"
 #include "p-score.hh"
@@ -40,14 +40,9 @@ Score_engraver::Score_engraver()
 void
 Score_engraver::prepare(Moment w)
 {
-    command_column_l_ = new Score_column(w);
-    musical_column_l_ = new Score_column(w);
+    set_columns(new Score_column(w),  new Score_column(w));
     
-    command_column_l_->musical_b_ = false;
-    musical_column_l_->musical_b_ = true;
     
-    score_l_->pscore_p_->add(command_column_l_);
-    score_l_->pscore_p_->add(musical_column_l_);
     disallow_break_b_ = false;
     post_move_processing();
 }
@@ -59,7 +54,7 @@ Score_engraver::finish()
 	    *mlog << "[" << breaks_i_ << "]" << flush;
    
     check_removal();
-    do_removal_processing();
+    removal_processing();
 }
 
 void
@@ -77,6 +72,7 @@ Score_engraver::do_removal_processing()
     scoreline_l_->right_col_l_ = get_staff_info().command_pcol_l();
     scoreline_l_->right_col_l_ ->set_breakable();
     typeset_all();
+    set_columns(0,0);
 }
 
 void
@@ -125,28 +121,25 @@ Score_engraver::do_announces()
 void
 Score_engraver::typeset_element(Score_elem *elem_p)
 {
-    musical_item_p_arr_.push(elem_p);
-}
-
-void
-Score_engraver::typeset_breakable_item(Item * nobreak_p)
-{
-    if (nobreak_p) {
-	nobreak_item_p_arr_.push(nobreak_p);
-    }
+    if  ( elem_p->item() && elem_p->item()->breakable_b_ ) {
+	nobreak_item_p_arr_.push(elem_p->item());
+    } else
+	musical_item_p_arr_.push(elem_p);
 }
 
 void
 Score_engraver::typeset_all()
 {
     PCol * c= get_staff_info().command_pcol_l();
-    PScore *ps_l = score_l_->pscore_p_;
+    Paper_score *ps_l = score_l_->pscore_p_;
 
     for  (int i =0; i < nobreak_item_p_arr_.size(); i++) {
-	ps_l->typeset_item(nobreak_item_p_arr_[i], c, 0);
+	ps_l->typeset_item(nobreak_item_p_arr_[i], c);
+
+	// should get rid of this.. .
 	scoreline_l_->add_dependency(nobreak_item_p_arr_[i]);
     }
-    nobreak_item_p_arr_.set_size(0);
+    nobreak_item_p_arr_.clear();
     
     for (int i=0; i < musical_item_p_arr_.size(); i++) {
 	PCol* m = get_staff_info().musical_pcol_l();
@@ -156,11 +149,11 @@ Score_engraver::typeset_all()
 	if (elem_p->spanner()) {
 	    ps_l->typeset_unbroken_spanner(elem_p->spanner());
 	} else if (elem_p->item()) {
-	    ps_l->typeset_item(elem_p->item(), m, 0);
+	    ps_l->typeset_item(elem_p->item(), m);
 	} else
 	    assert(false);
     }
-    musical_item_p_arr_.set_size(0);
+    musical_item_p_arr_.clear();
 }
 
 
@@ -177,6 +170,33 @@ Score_engraver::do_pre_move_processing()
     Engraver_group_engraver::do_pre_move_processing();
     
     typeset_all();
+}
+
+void
+Score_engraver::set_columns(Score_column *new_command_l, 
+			    Score_column *new_musical_l)
+{
+    if ( command_column_l_ && command_column_l_->used_b() )
+	score_l_->pscore_p_->add(command_column_l_);
+    else {
+	delete command_column_l_ ;
+	command_column_l_ =0;
+    }
+    if (new_command_l) {
+	command_column_l_ = new_command_l;
+	command_column_l_->musical_b_ = false;
+    }
+    if ( musical_column_l_ && musical_column_l_->used_b())
+	score_l_->pscore_p_->add (musical_column_l_);
+    else {
+	delete musical_column_l_;
+	musical_column_l_ = 0;
+    }
+    
+    if (new_musical_l) {
+	musical_column_l_ = new_musical_l;
+	musical_column_l_->musical_b_ = true;
+    }
 }
 
 
@@ -208,6 +228,5 @@ Score_engraver::do_try_request(Request*r)
 }
 
 IMPLEMENT_IS_TYPE_B1(Score_engraver,Engraver_group_engraver);
-
 ADD_THIS_ENGRAVER(Score_engraver);
 

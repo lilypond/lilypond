@@ -8,7 +8,7 @@ if test x$srcdir != x.; then
   echo Please look in the INSTALL instructions for
   echo directions for multi-architecture building
     
-  AC_MSG_ERROR(This package does not support --srcdir.)
+  AC_LILY_WARN(This package does not support --srcdir!)
 fi
 
 # if given here, these vars are initted at the checking point.
@@ -23,7 +23,6 @@ checking_b=yes
 debug_b=yes
 optimise_b=no
 profile_b=no
-warn_b=no    
 
 AC_LANG_CPLUSPLUS
 
@@ -119,10 +118,9 @@ AC_CHECK_PROGS(TAR, tar, error)
 AC_CHECK_PROGS(FIND, find, error)
 
 dnl should check out -print
-if test FIND = error; then
-   AC_LILY_WARN(Couldn't find \`find'.  Please use --enable-tex-dir)
-fi
+AC_CHECK_SEARCH_RESULT($FIND, \`find\'. Please use --enable-tex-dir)
 
+    
 AC_SUBST(OUTDIR_NAME)
 AC_SUBST(CXXFLAGS)
 AC_SUBST(CPPFLAGS)
@@ -160,10 +158,11 @@ if test "x$TEXDIR" = xauto ; then
     AC_TEX_SUBDIR(TEXDIR)
 fi
 
-dnl if test "x$MFDIR" = xauto; then
-dnl     AC_MF_SUBDIR(MFDIR)
-dnl fi
-    
+
+AC_JUNK_ARGS( [if test "x$MFDIR" = xauto; then
+     AC_MF_SUBDIR(MFDIR)
+ fi]
+)
 
 AC_CHECK_SEARCH_RESULT($MAKE, GNU make,  You should install GNU make)
 AC_CHECK_SEARCH_RESULT( $BISON, bison,  Please install Bison, 1.25 or better)
@@ -197,7 +196,7 @@ fi
 AC_CHECK_HEADER(FlexLexer.h, true,
 	AC_LILY_WARN(can't find flex header. Please install Flex headers correctly))
 
-for a in `find -type d -and -not -name 'out*'`; do
+for a in `find . -type d -and -not -name 'out*' -print`; do
     if test ! -d  $a/$OUTDIR_NAME; then
 	mkdir $a/$OUTDIR_NAME
     fi
@@ -205,11 +204,8 @@ done
 
 AC_CONFIG_SUBDIRS(flower)
 
-# ugh
-eval "DIR_DATADIR=$datadir/lilypond"
     
 AC_OUTPUT(make/$OUTDIR_NAME/Configure_variables.make:make/Configure_variables.make.in
-    lib/$OUTDIR_NAME/config.hh:lib/config.hh.in
     Makefile:make/Toplevel.make.in)
 
 touch make/$OUTDIR_NAME/Site.make
@@ -229,7 +225,7 @@ If you want to make site-wide extensions to the makefiles, please use
     
 END
 
-if test $warn_b = "yes" ; then
+if test x$warn_b = "xyes" ; then
 cat <<EOF
     
     **************************************************

@@ -15,14 +15,11 @@
 #include "midi-stream.hh"
 #include "debug.hh"
 
-Midi_stream::Midi_stream( String filename_str, int tracks_i, int clocks_per_4_i ) 
+Midi_stream::Midi_stream( String filename_str )
 {
     filename_str_ = filename_str;
-    tracks_i_ = tracks_i;
-    clocks_per_4_i_ = clocks_per_4_i;
     os_p_ = 0;
     open();
-    header();
 }
 
 Midi_stream::~Midi_stream()
@@ -60,20 +57,6 @@ Midi_stream::operator <<( int i )
     // output binary string ourselves
     *this << Midi_item::i2varint_str( i );
     return *this;
-}
-
-void
-Midi_stream::header()
-{
-/*
-                4D 54 68 64     MThd
-    String str = "MThd";
-                00 00 00 06     chunk length
-                00 01   format 1
-                00 01   one track
-                00 60   96 per quarter-note
-*/
-      *this << Midi_header( 1, tracks_i_, clocks_per_4_i_ );
 }
 
 void

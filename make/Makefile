@@ -16,7 +16,7 @@ depth = ..
 # identify module:
 #
 NAME = make
-
+SUBDIRS = debian
 
 # list of distribution files:
 
@@ -24,6 +24,7 @@ NAME = make
 # configure and make.
 EXTRA_DISTFILES = Configure_variables.make.in lilypond.spec.in Toplevel.make.in \
 	lilypond.lsm.in $(outdir)/lilypond.spec $(outdir)/lilypond.lsm
+
 #
 
 # generic variables:

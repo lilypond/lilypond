@@ -114,12 +114,12 @@ Note_head::brew_molecule_p() const
 	s = p->lookup_l()->rest(balltype_i_, streepjes_b);
     }
     out = new Molecule(Atom(s));
-    out->translate_x( x_dir_i_ * s.dim.x.length() );
+    out->translate( x_dir_i_ * s.dim.x().length() , X_AXIS);
     if (dots_i_) {
 	Symbol d = p->lookup_l()->dots(dots_i_ );
 	Molecule dm;
 	dm.add(Atom(d));
-	dm.translate_y( inter_f * dot_delta_y_i_ );
+	dm.translate( inter_f * dot_delta_y_i_ , Y_AXIS);
 	out->add_right(dm);
     }
 
@@ -136,11 +136,11 @@ Note_head::brew_molecule_p() const
 	Molecule sm;
 	sm.add(Atom(str));
 	if (position_i_ % 2)
-	    sm.translate_y(-inter_f* dir);
+	    sm.translate(-inter_f* dir, Y_AXIS);
 	out->add(sm);	    
     }
     
-    out->translate_y(inter_f*position_i_);
+    out->translate(inter_f*position_i_, Y_AXIS);
     return out;
 }
 
