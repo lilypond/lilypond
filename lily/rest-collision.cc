@@ -5,13 +5,14 @@
 
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+
 #include <math.h>		// ceil.
 
 #include "debug.hh"
 #include "rest-collision.hh"
 #include "note-column.hh"
 #include "stem.hh"
-#include "note-head.hh"
+#include "rhythmic-head.hh"
 #include "paper-def.hh"
 #include "rest.hh"
 #include "group-interface.hh"

@@ -39,7 +39,7 @@ Text_item::brew_molecule (SCM sm)
       Molecule m;
       m.set_empty (false);
       mol.add_at_edge (X_AXIS, RIGHT, m, gh_scm2double (space)*
-		       staff_symbol_referencer  (s).staff_space ());
+		       Staff_symbol_referencer_interface (s).staff_space ());
     }
   return mol.create_scheme (); 
 }

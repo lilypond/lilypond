@@ -9,7 +9,7 @@
 
 #include "engraver.hh"
 #include "grace-align-item.hh"
-#include "note-head.hh"
+#include "rhythmic-head.hh"
 #include "local-key-item.hh"
 #include "paper-column.hh"
 #include "dimension-cache.hh"
@@ -46,10 +46,10 @@ Grace_position_engraver::acknowledge_element (Score_element_info i)
     {
       align_l_ = g;
     }
-  else if (Note_head * n = dynamic_cast <Note_head*> (i.elem_l_))
+  else if (to_boolean (i.elem_l_->get_elt_property ("note-head-interface")))
     {
-      if (!to_boolean (n->get_elt_property ("grace")))
-	support_.push (n);
+      if (!to_boolean (i.elem_l_->get_elt_property ("grace")))
+	support_.push (dynamic_cast<Item*> (i.elem_l_));
     }
   else if (Local_key_item*it = dynamic_cast<Local_key_item*>(i.elem_l_))
     {

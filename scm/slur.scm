@@ -1,12 +1,12 @@
 
 (define (attached-to-stem slur dir)
-  (let* ((note-columns (get-pointer slur 'note-columns))
+  (let* ((note-columns (ly-get-elt-pointer slur 'note-columns))
 	 (col (if (= dir 1) (car note-columns) (car (reverse note-columns))))
-	 (stem (get-pointer col 'stem)))
+	 (stem (ly-get-elt-pointer col 'stem)))
     (and
-     (eq? col (get-bound slur dir))
+     (eq? col (ly-get-spanner-bound slur dir))
      stem
-     (get-pointer stem 'heads))))
+     (ly-get-elt-pointer stem 'heads))))
 
 
 ;; Slur-extremity-rules is a list of rules.  Each rule is a pair 
@@ -25,38 +25,38 @@
 
 (define slur-extremity-rules
   (list
-    (cons (lambda (slur dir)
-       ;; urg, code dup
-       (let* ((note-columns (get-pointer slur 'note-columns))
-	 (col (if (= dir 1) (car note-columns) (car (reverse note-columns))))
-	 (stem (get-pointer col 'stem)))
-	 (and stem
-	      (not (= (get-property slur 'direction) 
-		      (get-property stem 'direction))))))  'head)
+   (cons (lambda (slur dir)
+	   ;; urg, code dup
+	   (let* ((note-columns (ly-get-elt-pointer slur 'note-columns))
+		  (col (if (= dir 1) (car note-columns) (car (reverse note-columns))))
+		  (stem (ly-get-elt-pointer col 'stem)))
+	     (and stem
+		  (not (= (ly-get-elt-property slur 'direction) 
+			  (ly-get-elt-property stem 'direction))))))  'head)
 
-    (cons (lambda (slur dir)
-	    ;; if attached-to-stem
-	    (and (attached-to-stem slur dir)
-		 ;; and got beam
-		 ;; urg, code dup
-		 (let* ((note-columns (get-pointer slur 'note-columns))
-			(col (if (= dir 1) (car note-columns) (car (reverse note-columns))))
-			(stem (get-pointer col 'stem)))
-		   (and stem
-			(get-pointer stem 'beam)
-			;; and beam on same side as slur
-			(let ((beaming (get-property stem 'beaming)))
-			  (if (pair? beaming)
-			      (<= 1
-				  (if (= dir -1) (car beaming) (cdr beaming)))
-			      #f))))))
-	  'stem)
+   (cons (lambda (slur dir)
+	   ;; if attached-to-stem
+	   (and (attached-to-stem slur dir)
+		;; and got beam
+		;; urg, code dup
+		(let* ((note-columns (ly-get-elt-pointer slur 'note-columns))
+		       (col (if (= dir 1) (car note-columns) (car (reverse note-columns))))
+		       (stem (ly-get-elt-pointer col 'stem)))
+		  (and stem
+		       (ly-get-elt-pointer stem 'beam)
+		       ;; and beam on same side as slur
+		       (let ((beaming (ly-get-elt-property stem 'beaming)))
+			 (if (pair? beaming)
+			     (<= 1
+				 (if (= dir -1) (car beaming) (cdr beaming)))
+			     #f))))))
+	 'stem)
 
-    (cons (lambda (slur dir) (not (attached-to-stem slur dir)))  'loose-end)
+   (cons (lambda (slur dir) (not (attached-to-stem slur dir)))  'loose-end)
 
-    ;; default case, attach to head
-    (cons (lambda (x y) #t)  'head)
-    ))
+   ;; default case, attach to head
+   (cons (lambda (x y) #t)  'head)
+   ))
 
 
 ;; This list defines the offsets for each type of attachment.

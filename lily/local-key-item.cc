@@ -11,7 +11,7 @@
 #include "lookup.hh"
 #include "paper-def.hh"
 #include "musical-request.hh"
-#include "note-head.hh"
+#include "rhythmic-head.hh"
 #include "misc.hh"
 
 void

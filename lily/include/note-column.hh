@@ -34,7 +34,7 @@ public:
   static Slice head_positions_interval(Score_element* me) ;
   static Direction static_dir (Score_element*);
   void translate_rests(int dy);
-  Note_head * first_head ()const;
+  Rhythmic_head * first_head ()const;
   Interval rest_dim ()const ;
   Note_column (SCM);
   void set_stem (Score_element*);

@@ -49,7 +49,7 @@ GLUE_SCORE_ELEMENT(Breathing_sign,after_line_breaking);
 SCM
 Breathing_sign::member_after_line_breaking ()
 {
-  Real space = staff_symbol_referencer (this).staff_space();
+  Real space = Staff_symbol_referencer_interface (this).staff_space();
   Direction d = Directional_element_interface (this). get ();
   if (!d)
     {

@@ -30,7 +30,7 @@ public:
   VIRTUAL_COPY_CONS(Rhythmic_head);
   int balltype_i () const;
 
-  void add_dots (Item *);
+  void set_dots (Item *);
   Stem * stem_l () const;
   Item * dots_l () const;
   int dot_count () const;

@@ -102,36 +102,24 @@ Slur::get_default_dir () const
   return d;
 }
 
-void
-Slur::do_add_processing ()
-{
-#if 0
-  Link_array<Note_column> encompass_arr =
-    Pointer_group_interface__extract_elements (this, (Note_column*)0, "note-columns");
 
-  if (encompass_arr.size ())
-    {
-      set_bound (LEFT, encompass_arr[0]);    
-      if (encompass_arr.size () > 1)
-	set_bound (RIGHT, encompass_arr.top ());
-    }
-#endif
-}
 
 
 
 Offset
-Slur::encompass_offset (Note_column const* col) const
+Slur::encompass_offset (Score_element* col,
+			Score_element **common) const
 {
   Offset o;
-  Stem* stem_l = col->stem_l ();
+  Score_element* stem_l = unsmob_element (col->get_elt_pointer ("stem"));
+  
   Direction dir = Directional_element_interface (this).get ();
   
   if (!stem_l)
     {
       warning (_ ("Slur over rest?"));
-      o[X_AXIS] = col->relative_coordinate (0, X_AXIS);
-      o[Y_AXIS] = col->relative_coordinate (0, Y_AXIS);
+      o[X_AXIS] = col->relative_coordinate (common[X_AXIS], X_AXIS);
+      o[Y_AXIS] = col->relative_coordinate (common[Y_AXIS], Y_AXIS);
       return o;  
     }
   Direction stem_dir = Directional_element_interface (stem_l).get ();
@@ -146,11 +134,11 @@ Slur::encompass_offset (Note_column const* col) const
   if ((stem_dir == dir)
       && !stem_l->extent (Y_AXIS).empty_b ())
     {
-      o[Y_AXIS] = stem_l->relative_coordinate (0, Y_AXIS);
+      o[Y_AXIS] = stem_l->relative_coordinate (common[Y_AXIS], Y_AXIS); // iuhg
     }
   else
     {
-      o[Y_AXIS] = col->relative_coordinate (0, Y_AXIS);
+      o[Y_AXIS] = col->relative_coordinate (common[Y_AXIS], Y_AXIS);	// ugh
     }
 
   /*
@@ -169,39 +157,6 @@ Slur::member_after_line_breaking ()
   set_control_points ();
   return SCM_UNDEFINED;
 } 
-
-SCM
-slur_get_bound (SCM slur, SCM dir)
-{
-  return ((Slur*)unsmob_element (slur))->get_bound (to_dir (dir))->self_scm_;
-}
-
-SCM
-score_element_get_pointer (SCM se, SCM name)
-{
-  SCM s = scm_assq (name, unsmob_element (se)->pointer_alist_);
-  return (s == SCM_BOOL_F) ? SCM_UNDEFINED : gh_cdr (s); 
-}
-
-SCM
-score_element_get_property (SCM se, SCM name)
-{
-  SCM s = scm_assq (name, unsmob_element (se)->property_alist_);
-  return (s == SCM_BOOL_F) ? SCM_UNDEFINED : gh_cdr (s); 
-}
-
-void
-init_score_elts ()
-{
-  scm_make_gsubr ("get-pointer", 2 , 0, 0,  
-		  (SCM(*)(...)) score_element_get_pointer);
-  scm_make_gsubr ("get-property", 2 , 0, 0,  
-		  (SCM(*)(...)) score_element_get_property);
-  scm_make_gsubr ("get-bound", 2 , 0, 0,  
-		  (SCM(*)(...)) slur_get_bound);
-}
-
-ADD_SCM_INIT_FUNC (score_elt, init_score_elts);
 
 void
 Slur::set_extremities ()
@@ -234,7 +189,8 @@ Slur::set_extremities ()
 }
 
 Offset
-Slur::get_attachment (Direction dir) const
+Slur::get_attachment (Direction dir,
+		      Score_element **common) const
 {
   SCM s = get_elt_property ("attachment");
   SCM a = dir == LEFT ? gh_car (s) : gh_cdr (s);
@@ -242,6 +198,8 @@ Slur::get_attachment (Direction dir) const
   Real ss = Staff_symbol_referencer_interface (this).staff_space ();
   Real hs = ss / 2.0;
   Offset o;
+
+  
   if (Note_column* n = dynamic_cast<Note_column*> (get_bound (dir)))
     {
       if (Stem* st = dynamic_cast<Stem*> (n->stem_l ()))
@@ -282,7 +240,7 @@ Slur::get_attachment (Direction dir) const
 	      SCM other_a = dir == LEFT ? gh_cdr (s) : gh_car (s);
 	      if (ly_symbol2string (other_a) != "loose-end")
 		{
-		  o = Offset (0, get_attachment (-dir)[Y_AXIS]);
+		  o = Offset (0, get_attachment (-dir, common)[Y_AXIS]);
 		}
 	    }
 
@@ -301,28 +259,48 @@ Slur::get_attachment (Direction dir) const
 	}
     }
 
-    if (str != "loose-end")
-      o += Offset (0, get_bound (dir)->relative_coordinate (0, Y_AXIS)
-		 - relative_coordinate (0, Y_AXIS));
-    
+
+  /*
+    What if get_bound () is not a note-column?
+   */
+  if (str != "loose-end"
+      && get_bound (dir)->common_refpoint (common[Y_AXIS], Y_AXIS) == common[Y_AXIS])
+    {      
+      o[Y_AXIS] += get_bound (dir)->relative_coordinate (common[Y_AXIS], Y_AXIS) 
+	- relative_coordinate (common[Y_AXIS], Y_AXIS);
+    }
   return o;
 }
 
 Array<Offset>
 Slur::get_encompass_offset_arr () const
 {
-  Link_array<Note_column> encompass_arr =
-    Pointer_group_interface__extract_elements (this, (Note_column*)0, "note-columns");
+  SCM eltlist = get_elt_pointer ("note-columns");
+  Score_element *common[] = {common_refpoint (eltlist,X_AXIS),
+			     common_refpoint (eltlist,Y_AXIS)};
+
+
+  common[X_AXIS] = common[X_AXIS]->common_refpoint (get_bound (RIGHT), X_AXIS);
+  common[X_AXIS] = common[X_AXIS]->common_refpoint (get_bound (LEFT), X_AXIS);
+  
+  Link_array<Score_element>  encompass_arr;
+  while (gh_pair_p (eltlist))
+    {
+      encompass_arr.push (unsmob_element (gh_car (eltlist)));      
+      eltlist =gh_cdr (eltlist);
+    }
+  encompass_arr.reverse ();
+
   
   Array<Offset> offset_arr;
 
-  Offset origin (relative_coordinate (0, X_AXIS),
-		 relative_coordinate (0, Y_AXIS));
+  Offset origin (relative_coordinate (common[X_AXIS], X_AXIS),
+		 relative_coordinate (common[Y_AXIS], Y_AXIS)); 
 
   int first = 1;
   int last = encompass_arr.size () - 2;
 
-  offset_arr.push (get_attachment (LEFT));
+  offset_arr.push (get_attachment (LEFT, common));
 
   /*
     left is broken edge
@@ -331,8 +309,11 @@ Slur::get_encompass_offset_arr () const
   if (encompass_arr[0] != get_bound (LEFT))
     {
       first--;
-      offset_arr[0][Y_AXIS] -= encompass_arr[0]->relative_coordinate (0, Y_AXIS)
-	- relative_coordinate (0, Y_AXIS);
+
+      // ?
+      offset_arr[0][Y_AXIS] -=
+	encompass_arr[0]->relative_coordinate (common[Y_AXIS], Y_AXIS) 
+	- relative_coordinate (common[Y_AXIS], Y_AXIS); 
     }
 
   /*
@@ -345,16 +326,16 @@ Slur::get_encompass_offset_arr () const
 
   for (int i = first; i <= last; i++)
     {
-      Offset o (encompass_offset (encompass_arr[i]));
+      Offset o (encompass_offset (encompass_arr[i], common));
       offset_arr.push (o - origin);
     }
 
-  offset_arr.push (Offset (spanner_length (), 0) + get_attachment (RIGHT));
+  offset_arr.push (Offset (spanner_length (), 0) + get_attachment (RIGHT,common));
 
   if (encompass_arr[0] != get_bound (LEFT))
     {
-      offset_arr.top ()[Y_AXIS] -= encompass_arr.top ()->relative_coordinate (0, Y_AXIS)
-	- relative_coordinate (0, Y_AXIS);
+      offset_arr.top ()[Y_AXIS] -= encompass_arr.top ()->relative_coordinate (common[Y_AXIS], Y_AXIS) 
+	- relative_coordinate (common[Y_AXIS], Y_AXIS);
     }
 
   return offset_arr;

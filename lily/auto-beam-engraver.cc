@@ -314,7 +314,7 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
 	{
 	  end_beam ();
 	}
-      else if (Rest* rest_l = dynamic_cast<Rest *> (info.elem_l_))
+      else if (to_boolean (info.elem_l_->get_elt_property ("rest-interface")))
 	{
 	  end_beam ();
 	}

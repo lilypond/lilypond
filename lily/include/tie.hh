@@ -23,16 +23,12 @@ public:
   void set_head (Direction, Item*head_l);
   VIRTUAL_COPY_CONS(Score_element);
 
-  Note_head* head (Direction) const;
+  Rhythmic_head* head (Direction) const;
   Real position_f () const;
-   static SCM brew_molecule (SCM);
-  
-
-  virtual Direction get_default_dir() const;
-
-
+  static SCM brew_molecule (SCM);
+  Direction get_default_dir() const;
   SCM member_brew_molecule () const;
-  virtual Array<Offset> get_encompass_offset_arr () const;
+  Array<Offset> get_encompass_offset_arr () const;
   Bezier get_curve () const;
 
   /*

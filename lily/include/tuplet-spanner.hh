@@ -34,8 +34,8 @@ public:
   SCM member_brew_molecule () const;
   VIRTUAL_COPY_CONS(Score_element);
 
-  virtual void do_add_processing ();
-  virtual Direction get_default_dir () const;
+
+  Direction get_default_dir () const;
 };
 
 #endif // Tuplet_spanner_HH

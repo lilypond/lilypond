@@ -26,7 +26,6 @@ public:
   SCM member_brew_molecule () const;
   VIRTUAL_COPY_CONS (Score_element);
 
-  virtual void do_add_processing ();
   SCM member_after_line_breaking ();
   static SCM after_line_breaking (SCM);
   virtual Array<Rod> get_rods () const;

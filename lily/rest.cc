@@ -15,23 +15,23 @@
 #include "staff-symbol-referencer.hh"
 
 // -> offset callback
-GLUE_SCORE_ELEMENT(Rest,after_line_breaking);
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Rest,after_line_breaking);
 SCM
-Rest::member_after_line_breaking ()
+Rest::after_line_breaking (SCM smob)
 {
-  if (balltype_i () == 0)
+  Score_element *me = unsmob_element (smob);
+  int bt = gh_scm2int (me->get_elt_property ("duration-log"));
+  if (bt == 0)
     {
-      Staff_symbol_referencer_interface si (this);
-      si.set_position (si.position_f () + 2);
+      Staff_symbol_referencer_interface si (me);
+      me->translate_axis (si.staff_space() , Y_AXIS);
     }
-  Item * d = dots_l ();
-  if (d && balltype_i () > 4) // UGH.
+
+  Score_element * d = unsmob_element (me->get_elt_pointer ("dot"));
+  if (d && bt > 4) // UGH.
     {
-      /*
-	UGH. 
-       */
-      staff_symbol_referencer (d)
-	.set_position ((balltype_i () == 7) ? 4 : 3);
+      d->set_elt_property ("staff-position",
+			   gh_int2scm ((bt == 7) ? 4 : 3));
     }
 
   return SCM_UNDEFINED;
@@ -39,7 +39,6 @@ Rest::member_after_line_breaking ()
 
 
 MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Rest,brew_molecule)
-
 SCM 
 Rest::brew_molecule (SCM smob) 
 {
@@ -67,12 +66,5 @@ Rest::brew_molecule (SCM smob)
     + (ledger_b ? "o" : "") + style;
 
   return sc-> lookup_l ()->afm_find (idx).create_scheme();
-}
-
-
-
-Rest::Rest (SCM s)
-  : Rhythmic_head (s)
-{
 }
 

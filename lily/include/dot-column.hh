@@ -18,15 +18,13 @@
  */
 class Dot_column : public Item
 {
-  static int compare (Item * const&,Item * const&);
-  void add_dots (Item*);
+  static int compare (Score_element * const&,Score_element * const&);
 public:
   VIRTUAL_COPY_CONS (Score_element);
   void add_head (Rhythmic_head*);
   Dot_column (SCM);
-
-
-  SCM member_after_line_breaking ();
-  static SCM after_line_breaking (SCM);
+  
+  static Real force_shift_callback (Score_element const* , Axis);
+  static SCM do_shifts (SCM dotlist);
 };
 #endif // DOT_COLUMN_HH

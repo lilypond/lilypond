@@ -11,7 +11,7 @@
 #include "group-interface.hh"
 #include "tie.hh"
 #include "directional-element-interface.hh"
-#include "note-head.hh"
+#include "rhythmic-head.hh"
 
 Tie_column::Tie_column (SCM s)
   : Spanner (s)

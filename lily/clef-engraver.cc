@@ -16,7 +16,7 @@
 #include "debug.hh"
 #include "command-request.hh"
 #include "timing-translator.hh"
-#include "note-head.hh"
+#include "rhythmic-head.hh"
 #include "key-item.hh"
 #include "local-key-item.hh"
 #include "array.hh"
@@ -133,7 +133,7 @@ Clef_engraver::acknowledge_element (Score_element_info info)
   Item * it_l =dynamic_cast <Item *> (info.elem_l_);
   if (it_l)
     {
-      if (dynamic_cast<Note_head*>(it_l)
+      if (to_boolean (it_l->get_elt_property("note-head-interface"))
 	  || dynamic_cast<Local_key_item*> (it_l))
 	{
 	  Staff_symbol_referencer_interface si (it_l);

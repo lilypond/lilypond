@@ -93,21 +93,7 @@ Volta_spanner::member_brew_molecule () const
   mol.translate_axis (left, X_AXIS);
   return mol.create_scheme();
 }
-  
-void
-Volta_spanner::do_add_processing ()
-{
-#if 0
-  Link_array<Bar> bar_arr
-    = Pointer_group_interface__extract_elements (this, (Bar*)0, "bars");
 
-  if (bar_arr.size ())
-    {
-      set_bound (LEFT, bar_arr[0]);
-      set_bound (RIGHT, bar_arr.top ());  
-    }
-#endif
-}
 
 GLUE_SCORE_ELEMENT(Volta_spanner,after_line_breaking);
 SCM

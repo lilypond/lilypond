@@ -12,7 +12,7 @@
 #include "item.hh"
 #include "lookup.hh"
 #include "lily-guile.hh"
-#include "note-head.hh"
+#include "rhythmic-head.hh"
 #include "stem.hh"
 #include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh"
@@ -111,7 +111,7 @@ Piano_pedal_engraver::acknowledge_element (Score_element_info info)
     {
       if (p->item_p_)
 	{
-	  if (Note_head* n = dynamic_cast<Note_head*> (info.elem_l_))
+	  if (Rhythmic_head* n = dynamic_cast<Rhythmic_head*> (info.elem_l_))
 	    {
 	      Side_position_interface st (p->item_p_);
 	      st.add_support (n);

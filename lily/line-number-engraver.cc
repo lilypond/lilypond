@@ -10,7 +10,7 @@
 #include "engraver.hh"
 #include "item.hh"
 #include "side-position-interface.hh"
-#include "note-head.hh"
+#include "rhythmic-head.hh"
 #include "stem.hh"
 
 /**
@@ -49,12 +49,12 @@ Line_number_engraver::process_acknowledged ()
 void
 Line_number_engraver::acknowledge_element (Score_element_info inf)
 {
-  if (dynamic_cast<Note_head*> (inf.elem_l_))
+  if (to_boolean (inf.elem_l_->get_elt_property ("note-head-interface")))
     {
       interesting_.push (inf);
       support_.push (inf.elem_l_);
     }
-  if (dynamic_cast<Stem*> (inf.elem_l_))
+  else if (to_boolean (inf.elem_l_->get_elt_property ("stem-interface")))
     {
       support_.push (inf.elem_l_);
     }

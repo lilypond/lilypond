@@ -9,7 +9,7 @@
 #include "dimension-cache.hh"
 #include "slur.hh"
 #include "engraver.hh"
-#include "note-head.hh"
+#include "rhythmic-head.hh"
 #include "stem.hh"
 #include "note-column.hh"
 #include "dot-column.hh"

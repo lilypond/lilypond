@@ -9,7 +9,7 @@
 
 #include "tie-engraver.hh"
 #include "command-request.hh"
-#include "note-head.hh"
+#include "rhythmic-head.hh"
 #include "musical-request.hh"
 #include "tie.hh"
 #include "translator-group.hh"
@@ -19,10 +19,10 @@
 
 struct CHead_melodic_tuple {
   Melodic_req *req_l_ ;
-  Note_head *head_l_;
+  Rhythmic_head *head_l_;
   Moment end_;
   CHead_melodic_tuple ();
-  CHead_melodic_tuple (Note_head*, Melodic_req*, Moment);
+  CHead_melodic_tuple (Rhythmic_head*, Melodic_req*, Moment);
   static int pitch_compare (CHead_melodic_tuple const &, CHead_melodic_tuple const &);
   static int time_compare (CHead_melodic_tuple const &, CHead_melodic_tuple const &);  
 };
@@ -100,7 +100,7 @@ Tie_engraver::set_melisma (bool m)
 void
 Tie_engraver::acknowledge_element (Score_element_info i)
 {
-  if (Note_head *nh = dynamic_cast<Note_head *> (i.elem_l_))
+  if (Rhythmic_head *nh = dynamic_cast<Rhythmic_head *> (i.elem_l_))
     {
       Note_req * m = dynamic_cast<Note_req* > (i.req_l_);
       if (!m)
@@ -250,7 +250,7 @@ CHead_melodic_tuple::CHead_melodic_tuple ()
   end_ = 0;
 }
 
-CHead_melodic_tuple::CHead_melodic_tuple (Note_head *h, Melodic_req*m, Moment mom)
+CHead_melodic_tuple::CHead_melodic_tuple (Rhythmic_head *h, Melodic_req*m, Moment mom)
 {
   head_l_ = h;
   req_l_ = m;

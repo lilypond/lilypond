@@ -114,21 +114,7 @@ Tuplet_spanner::member_brew_molecule () const
     }
   return mol.create_scheme();
 }
-  
-void
-Tuplet_spanner::do_add_processing ()
-{
-#if 0
-  if (gh_pair_p (get_elt_pointer ("columns")))
-    {
-      Link_array<Note_column> column_arr=
-	Pointer_group_interface__extract_elements (this, (Note_column*)0, "columns");
-      
-      set_bound (LEFT, column_arr[0]);
-      set_bound (RIGHT, column_arr.top ());  
-    }
-#endif
-}
+
 
 
 

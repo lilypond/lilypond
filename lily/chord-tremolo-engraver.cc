@@ -11,7 +11,7 @@
 #include "beam.hh"
 #include "repeated-music.hh"
 #include "stem.hh"
-#include "note-head.hh"
+#include "rhythmic-head.hh"
 #include "engraver-group-engraver.hh"
 #include "musical-request.hh"
 #include "warn.hh"
@@ -171,9 +171,9 @@ Chord_tremolo_engraver::acknowledge_element (Score_element_info info)
 		::warning (s);
 	    }
 	}
-      if (Note_head *nh = dynamic_cast<Note_head*> (info.elem_l_))
+      if (to_boolean (info.elem_l_->get_elt_property ("note-head-interface")))
 	{
-	  nh->set_elt_property ("duration-log", gh_int2scm (intlog2 (note_head_i_)));
+	  info.elem_l_->set_elt_property ("duration-log", gh_int2scm (intlog2 (note_head_i_)));
 	}
     }
 }

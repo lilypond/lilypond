@@ -9,7 +9,7 @@
 #include "local-key-item.hh"
 #include "key-item.hh"
 #include "tie.hh"
-#include "note-head.hh"
+#include "rhythmic-head.hh"
 #include "timing-translator.hh"
 #include "engraver-group-engraver.hh"
 #include "grace-align-item.hh"
@@ -100,7 +100,7 @@ Local_key_engraver::process_acknowledged ()
 		  key_item_p_ = new Local_key_item (get_property ("basicLocalKeyProperties"));
 		  Side_position_interface (key_item_p_).set_axis (X_AXIS);
 		  Side_position_interface (key_item_p_).set_direction (LEFT);
-		  staff_symbol_referencer(key_item_p_).set_interface ();
+		  Staff_symbol_referencer_interface (key_item_p_).set_interface ();
 			 
 		  announce_element (Score_element_info (key_item_p_, 0));
 		}
@@ -193,7 +193,7 @@ Local_key_engraver::acknowledge_element (Score_element_info info)
       grace_align_l_ = gai;
     }
   Note_req * note_l =  dynamic_cast <Note_req *> (info.req_l_);
-  Note_head * note_head = dynamic_cast<Note_head *> (info.elem_l_);
+  Rhythmic_head * note_head = dynamic_cast<Rhythmic_head *> (info.elem_l_);
 
   if (he_gr != selfgr)
     return;

@@ -16,16 +16,6 @@
 #include "axis-group-interface.hh"
 
 
-// todo: dots and elements duplicate each other.
-void
-Dot_column::add_dots (Item *d)
-{
-  Pointer_group_interface gi (this, "dots");
-  gi.add_element (d);
-
-  add_dependency (d);
-  Axis_group_interface (this).add_element (d);
-}
 
 void
 Dot_column::add_head (Rhythmic_head *r)
@@ -34,12 +24,20 @@ Dot_column::add_head (Rhythmic_head *r)
     return ;
 
   Side_position_interface (this).add_support (r);
-  add_dots (r->dots_l ());
+  Item * d = r->dots_l ();
+  if (d)
+    {
+      Pointer_group_interface gi (this, "dots");
+      gi.add_element (d);
+      
+      d->add_offset_callback (force_shift_callback , Y_AXIS);
+      Axis_group_interface (this).add_element (d);
+    }
 }
 
 
 int
-Dot_column::compare (Item * const &d1, Item * const &d2)
+Dot_column::compare (Score_element * const &d1, Score_element * const &d2)
 {
   Staff_symbol_referencer_interface s1(d1);
   Staff_symbol_referencer_interface s2(d2);  
@@ -51,8 +49,7 @@ Dot_column::compare (Item * const &d1, Item * const &d2)
 Dot_column::Dot_column (SCM s)
   : Item (s)
 {
-  Pointer_group_interface gi (this, "dots");
-  gi.set_interface ();
+  this->set_elt_pointer  ("dots", SCM_EOL);
   Directional_element_interface (this).set (RIGHT);
   
   Axis_group_interface (this).set_interface ();
@@ -75,11 +72,27 @@ Dot_column::Dot_column (SCM s)
    Should be smarter.
  */
 
-GLUE_SCORE_ELEMENT(Dot_column,after_line_breaking);
-SCM
-Dot_column::member_after_line_breaking ()
+
+Real
+Dot_column::force_shift_callback (Score_element const * dot, Axis a)
 {
-  Link_array<Item> dots = Pointer_group_interface__extract_elements (this, (Item*)0 , "dots"); 
+  assert (a == Y_AXIS);
+  Score_element * me = dot->parent_l (X_AXIS);
+  SCM dots = me->get_elt_pointer ("dots");
+  do_shifts (dots);
+  return 0.0;
+}
+
+SCM
+Dot_column::do_shifts (SCM l)
+{
+  Link_array<Score_element> dots;
+  while (gh_pair_p (l))
+    {
+      dots.push (unsmob_element (gh_car (l)));
+      l = gh_cdr (l);
+    }
+  
   dots.sort (Dot_column::compare);
   
   if (dots.size () < 2)
@@ -103,8 +116,7 @@ Dot_column::member_after_line_breaking ()
     }
 
   if (!conflicts)
-  return SCM_UNDEFINED;
-
+    return SCM_UNDEFINED;
   
   int  middle = s.center ();
   /*
@@ -116,7 +128,8 @@ Dot_column::member_after_line_breaking ()
 
   for (int i=0; i < dots.size (); pos += 2, i++)
     {
-      staff_symbol_referencer (dots[i]).set_position(pos);
+      Score_element * d = dots[i];
+      Staff_symbol_referencer_interface (d).set_position(pos);
     }
 
   return SCM_UNDEFINED;
