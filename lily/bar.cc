@@ -45,27 +45,22 @@ void
 Bar::do_pre_processing ()
 {
   SCM g = get_elt_property ("glyph");
-  SCM breakdir = gh_int2scm (break_status_dir ());
-  
+  Direction bsd = break_status_dir ();
   if (gh_string_p (g))
     {
-      g = scm_eval (gh_list (ly_symbol2scm ("break-barline"),
-			     g,
-			     breakdir,
-			     SCM_UNDEFINED));
+      if (bsd)
+	{
+	  SCM breakdir = gh_int2scm (bsd);
+	  g = scm_eval (gh_list (ly_symbol2scm ("break-barline"),
+				 g,
+				 breakdir,
+				 SCM_UNDEFINED));
+	}
     }
   else
     {
       g = SCM_UNDEFINED;
     }
-  
-#if 0  
-  if (remove_elt_property ("at-line-start") == SCM_BOOL_T	// UGR.
-      && (break_status_dir () == RIGHT) && (type_str_ == ""))
-    {
-      type_str_ = "|";
-    }
-#endif
   
   if (!gh_string_p (g))
     {

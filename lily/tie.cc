@@ -47,6 +47,14 @@ Tie::head (Direction d) const
   return dynamic_cast<Note_head*> (unsmob_element (c));  
 }
 
+Real
+Tie::position_f () const
+{
+  return head (LEFT)
+    ? staff_symbol_referencer (head (LEFT)).position_f ()
+    : staff_symbol_referencer (head (RIGHT)).position_f () ;  
+}
+
 
 /*
   ugh: direction of the Tie is more complicated.  See [Ross] p136 and further
@@ -80,8 +88,7 @@ Tie::do_add_processing()
   } while (flip(&d) != LEFT);
 
   index_set_cell (get_elt_property ("heads"), LEFT, new_head_drul[LEFT]->self_scm_ );
-  index_set_cell (get_elt_property ("heads"), RIGHT, new_head_drul[LEFT]->self_scm_ );
-
+  index_set_cell (get_elt_property ("heads"), RIGHT, new_head_drul[RIGHT]->self_scm_ );
 }
 
 void
@@ -141,9 +148,7 @@ Tie::do_post_processing()
    */
 
 
-  Real ypos = head (LEFT)
-    ? staff_symbol_referencer (head (LEFT)).position_f ()
-    : staff_symbol_referencer (head (RIGHT)).position_f () ;  
+  Real ypos = position_f ();
 
   Real y_f = half_staff_space * ypos; 
   int ypos_i = int (ypos);
@@ -242,7 +247,6 @@ Tie::get_curve () const
     programming_error ("Tie is nowhere horizontal");
   return c;
 }
-
 
 Array<Offset>
 Tie::get_encompass_offset_arr () const

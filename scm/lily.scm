@@ -93,7 +93,7 @@
 ;;
 ;;
 
-;; (Measured in interlines? -- jcn)
+;; (Measured in staff space)
 (define space-alist
  '(
    (("" "Clef_item") . (minimum-space 1.0))

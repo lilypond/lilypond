@@ -30,6 +30,8 @@
 #include "lyric-combine-music-iterator.hh"
 #include "auto-change-music.hh"
 #include "auto-change-iterator.hh"
+#include "request.hh"
+#include "request-iterator.hh"
 
 void
 Music_iterator::do_print() const
@@ -147,9 +149,12 @@ Music_iterator::static_get_iterator_p (Music const *m)
       else
 	p = new Unfolded_repeat_iterator;
     }
+  else if (Request const * r = dynamic_cast<Request const* > (m))
+    {
+      p = new Request_iterator ;
+    }
   else
     assert (0);
-
 
   p->music_l_ = m;
   return p;

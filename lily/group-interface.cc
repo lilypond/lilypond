@@ -56,6 +56,13 @@ Group_interface::set_interface ()
 }
 
 Group_interface
+group (Score_element*s,String n)
+{
+  Group_interface gi (s,n);
+  return gi;
+}
+
+Group_interface
 group (Score_element*s)
 {
   Group_interface gi (s);

@@ -23,13 +23,13 @@
 typedef void (Translator::*Method_pointer)(void);
 typedef void (Translator::*Const_method_pointer)(void) const; 
 
-/** Make some kind of #Element#s from Requests. Elements are made by
-  hierarchically grouped #Translator#s
+/** Make some kind of Elements from Requests. Elements are made by
+  hierarchically grouped Translators
   */
 class Translator_group : public virtual Translator {
   Array<String> consists_str_arr_;
-  Array<String> consists_end_str_arr_;
   Array<String> accepts_str_arr_;
+    Array<String> consists_end_str_arr_;
   Scheme_hash_table properties_dict_;
 
   int iterator_count_;
@@ -44,12 +44,12 @@ public:
   
 
   String id_str_;
+  void add_last_element (String s);
 
   VIRTUAL_COPY_CONS(Translator);
   
   void set_acceptor (String accepts, bool add);
   void set_element (String elt, bool add);  
-  void add_last_element (String elt);  
   
   Translator_group(Translator_group const &);
   Translator_group();

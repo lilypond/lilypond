@@ -24,6 +24,9 @@ public:
   VIRTUAL_COPY_CONS(Score_element);
 
   Note_head* head (Direction) const;
+  Real position_f () const;
+  
+  virtual Direction get_default_dir() const;
 
 protected:
   virtual Molecule* do_brew_molecule_p () const;
@@ -35,7 +38,6 @@ protected:
 
   virtual void do_add_processing ();
   virtual void do_post_processing ();
-  virtual Direction get_default_dir() const;
 
   virtual Array<Rod> get_rods () const;
 

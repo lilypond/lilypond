@@ -29,6 +29,7 @@ public:
 };
 
 Group_interface group (Score_element*);
+Group_interface group (Score_element*, String);
 
 /*
   template<class T>

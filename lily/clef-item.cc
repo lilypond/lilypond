@@ -16,6 +16,7 @@
 #include "paper-score.hh"
 #include "dimension-cache.hh"
 #include "side-position-interface.hh"
+#include "warn.hh"
 
 void
 Clef_item::do_pre_processing()
@@ -36,6 +37,10 @@ Clef_item::do_pre_processing()
 	}
       s = "clefs-" +  s;
       set_elt_property ("glyph", ly_str02scm (s.ch_C()));
+    }
+  else
+    {
+      set_elt_property ("transparent", SCM_BOOL_T);
     }
   
   if (style == "transparent")	// UGH. JUNKME
@@ -62,10 +67,16 @@ Clef_item::do_add_processing ()
 	  
 	  pscore_l_->typeset_element (g);
       
+	  spi.add_support (this);
 	  g->set_elt_property ("text", ly_str02scm ( "8"));
 	  g->set_elt_property ("style", gh_str02scm ("italic"));
 	  g->set_parent (this, Y_AXIS);
-	  g->set_parent (this, X_AXIS);	  
+	  g->set_parent (this, X_AXIS);
+	  
+	  g->set_elt_property ("self-alignment-X", gh_int2scm (0));
+	  g->dim_cache_[X_AXIS]->off_callbacks_.push (Side_position_interface::aligned_on_self);
+	  g->dim_cache_[X_AXIS]->off_callbacks_.push (Side_position_interface::centered_on_parent);
+	  
 	  g->set_elt_property ("direction", octave_dir);
 	  
 	  add_dependency (g);	// just to be sure.
