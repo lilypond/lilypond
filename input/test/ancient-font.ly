@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.29"
 % TODO: split ancient-font into seperate files; possibly in
 % different locations.
 \header {
@@ -221,13 +221,13 @@ lowerStaff = \context MensuralStaff = lowerStaff <<
 	textheight = 26.0\cm
 	linethickness = #(/ staffspace 5.0)
 	indent = 0.0
-	\translator {
+	\context {
 	    \ScoreContext
 	    \accepts MensuralStaff
 	    \accepts GregorianStaff
 %	    timing = ##f %%%%%%%% FIXME: this has no effect
 	}
-	\translator {
+	\context {
 	    \VoiceContext
 	    \name MensuralVoice
 	    \alias Voice
@@ -239,7 +239,7 @@ lowerStaff = \context MensuralStaff = lowerStaff <<
 	    \override Rest #'style = #'mensural
 	    autoBeaming = ##f
 	}
-	\translator {
+	\context {
 	    \VoiceContext
 	    \name GregorianVoice
 	    \alias Voice
@@ -248,7 +248,7 @@ lowerStaff = \context MensuralStaff = lowerStaff <<
 	    \override NoteHead #'style = #'vaticana_punctum
 	    autoBeaming = ##f
 	}
-	\translator {
+	\context {
 	    \StaffContext
 	    \name MensuralStaff
 	    \alias Staff
@@ -265,7 +265,7 @@ lowerStaff = \context MensuralStaff = lowerStaff <<
 	    clefPosition = #-2
 	    clefOctavation = #0 
 	}
-	\translator {
+	\context {
 	    \StaffContext
 	    \name GregorianStaff
 	    \alias Staff
@@ -284,7 +284,7 @@ lowerStaff = \context MensuralStaff = lowerStaff <<
 	    clefPosition = #1
 	    clefOctavation = #0 
 	}
-	\translator {
+	\context {
 	    \RemoveEmptyStaffContext
 	    \accepts MensuralVoice
 	    \accepts GregorianVoice

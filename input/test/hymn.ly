@@ -1,5 +1,5 @@
 
-\version "2.1.28"
+\version "2.1.29"
 
 \header { texidoc = "
 
@@ -26,7 +26,7 @@ texts, so they should be switched off.
 	>>
 	\paper{
 		linewidth=140.\mm
-		\translator {
+		\context {
 			\VoiceContext
 			soloADue = ##f
 		}

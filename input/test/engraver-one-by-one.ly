@@ -1,5 +1,5 @@
 
-\version "2.1.28"
+\version "2.1.29"
 \header {
     
 texidoc = "The notation problem, creating a certain symbol,
@@ -31,7 +31,7 @@ Staff context.
 % setup for Request->Element conversion. Guru-only
 %
 
-MyStaffContext=\translator {
+MyStaffContext=\context {
 	\type "Engraver_group_engraver"
 	\name Staff
 
@@ -72,7 +72,7 @@ MyStaffContext=\translator {
 }
 
 
-MyVoiceContext = \translator {
+MyVoiceContext = \context {
 	\type "Engraver_group_engraver"
 	\name Voice
 
@@ -129,13 +129,13 @@ MyVoiceContext = \translator {
 \score {
   \topVoice
   \paper {
-      \translator { \MyStaffContext }
-      \translator { \MyVoiceContext }
+      \context { \MyStaffContext }
+      \context { \MyVoiceContext }
       }
 }
 
 
-MyStaffContext = \translator {
+MyStaffContext = \context {
     \MyStaffContext
     \consists "Staff_symbol_engraver"
 }
@@ -143,12 +143,12 @@ MyStaffContext = \translator {
 \score {
   \topVoice
   \paper {
-      \translator { \MyStaffContext }
-      \translator { \MyVoiceContext }
+      \context { \MyStaffContext }
+      \context { \MyVoiceContext }
             }
 }
 
-MyStaffContext = \translator {
+MyStaffContext = \context {
     \MyStaffContext
       \consists "Clef_engraver"
     \remove "Pitch_squash_engraver"
@@ -157,12 +157,12 @@ MyStaffContext = \translator {
 \score {
   \topVoice
   \paper {
-      \translator { \MyStaffContext }
-      \translator { \MyVoiceContext }
+      \context { \MyStaffContext }
+      \context { \MyVoiceContext }
             }
 }
 
-MyVoiceContext = \translator {
+MyVoiceContext = \context {
     \MyVoiceContext
     \consists "Stem_engraver"
     }
@@ -170,12 +170,12 @@ MyVoiceContext = \translator {
 \score {
   \topVoice
   \paper {
-      \translator { \MyStaffContext }
-      \translator { \MyVoiceContext }
+      \context { \MyStaffContext }
+      \context { \MyVoiceContext }
             }
 }
 
-MyVoiceContext = \translator {
+MyVoiceContext = \context {
     \MyVoiceContext
     	\consists "Beam_engraver"
 }
@@ -183,12 +183,12 @@ MyVoiceContext = \translator {
 \score {
   \topVoice
   \paper {
-      \translator { \MyStaffContext }
-      \translator { \MyVoiceContext }
+      \context { \MyStaffContext }
+      \context { \MyVoiceContext }
             }
 }
 
-MyVoiceContext= \translator {
+MyVoiceContext= \context {
     \MyVoiceContext
     \consists "Phrasing_slur_engraver"
     \consists "Slur_engraver"
@@ -199,12 +199,12 @@ MyVoiceContext= \translator {
 \score {
   \topVoice
   \paper {
-      \translator { \MyStaffContext }
-      \translator { \MyVoiceContext }
+      \context { \MyStaffContext }
+      \context { \MyVoiceContext }
             }
 }
 
-MyStaffContext = \translator {
+MyStaffContext = \context {
     \MyStaffContext
  \consists "Bar_engraver"
     \consists "Time_signature_engraver"
@@ -214,12 +214,12 @@ MyStaffContext = \translator {
 \score {
   \topVoice
   \paper {
-      \translator { \MyStaffContext }
-      \translator { \MyVoiceContext }
+      \context { \MyStaffContext }
+      \context { \MyVoiceContext }
             }
 }
 
-MyStaffContext = \translator
+MyStaffContext = \context
  { \MyStaffContext
  \consists "Accidental_engraver"    
      \consists "Key_engraver"
@@ -227,7 +227,7 @@ MyStaffContext = \translator
 \score {
   \topVoice
   \paper {
-      \translator { \MyStaffContext }
-      \translator { \MyVoiceContext }
+      \context { \MyStaffContext }
+      \context { \MyVoiceContext }
             }
 }

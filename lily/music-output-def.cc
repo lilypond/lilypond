@@ -67,7 +67,7 @@ Music_output_def::mark_smob (SCM m)
 }
 
 void
-Music_output_def::assign_translator (SCM transdef)
+Music_output_def::assign_context_def (SCM transdef)
 {
   Context_def *tp = unsmob_context_def (transdef);
   assert (tp);

@@ -1,6 +1,6 @@
 #(ly:set-option 'old-relative)
 
-\version "2.1.28"
+\version "2.1.29"
 breve = #(ly:make-duration -1 0)
 longa = #(ly:make-duration -2 0 )
 maxima = #(ly:make-duration -3 0)
@@ -108,14 +108,14 @@ paperTwentysix = \paper {
 \paper { \paperTwenty }
 
 partCombineListener = \paper {
- \translator {
+ \context {
 	  \VoiceContext
 	  \consists Note_heads_engraver
 	  \consists Rest_engraver
 	  \type "Recording_group_engraver"
 	  recordEventSequence = #notice-the-events-for-pc
  }
- \translator { \ScoreContext skipTypesetting = ##t }
+ \context { \ScoreContext skipTypesetting = ##t }
 }
 
 #(set-part-combine-listener partCombineListener)

@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.29"
 % possible rename to staff-something.  -gp
 
 \header{ texidoc = "@cindex Staff Remove
@@ -11,7 +11,7 @@ corresponding engraver.
   \notes { c4 d4 e8 d8 }
   \paper {
     raggedright = ##t
-    \translator {
+    \context {
       \StaffContext
       \remove Staff_symbol_engraver
       \consists Pitch_squash_engraver

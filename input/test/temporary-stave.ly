@@ -1,5 +1,5 @@
 
-\version "2.1.28"
+\version "2.1.29"
 
 \header {
 
@@ -23,7 +23,7 @@ time and key signatures and clef at the beginning of the extra stave.
     }
   }
   \paper {
-    \translator {
+    \context {
       \ScoreContext
       \consists Span_bar_engraver
       % Avoid a vertical line at the beginning of the system:
@@ -31,7 +31,7 @@ time and key signatures and clef at the beginning of the extra stave.
       % Incorporate the new context in the hierarchy
       \accepts "TemporaryStaff"
     }
-    \translator {
+    \context {
       \StaffContext
       \name "TemporaryStaff"
       \alias "Staff"

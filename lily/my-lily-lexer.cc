@@ -83,7 +83,6 @@ static Keyword_ent the_key_tab[]={
   {"tempo", TEMPO},
   {"time", TIME_T},
   {"times", TIMES},
-  {"translator", TRANSLATOR},
   {"transpose", TRANSPOSE},
   {"transposition", TRANSPOSITION},
   {"type", TYPE},

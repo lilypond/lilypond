@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.29"
 \header {
   texidoc="@cindex Blank Paper
 
@@ -13,7 +13,7 @@ A blank music paper can be produced also by using invisible notes, and removing
     \repeat unfold 3 { c1 \break }
   }
   \paper {
-    \translator {
+    \context {
       \ScoreContext
       \override TimeSignature #'transparent = ##t
       \override NoteHead #'transparent = ##t

@@ -1,5 +1,5 @@
 
-\version "2.1.28"
+\version "2.1.29"
 
 \header {
 
@@ -22,7 +22,7 @@ be increased.
   }
   \paper {
     raggedright = ##t
-    \translator {
+    \context {
 	\ScoreContext
 	\override BarNumber #'break-visibility = #all-visible
     }

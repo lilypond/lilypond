@@ -492,7 +492,7 @@ individually. Syntax @code{\\outputproperty @var{predicate} @var{prop}
 	(types . (general-music span-event text-span-event))
 	))
     
-    (TranslatorChange
+    (ContextChange
      . (
 	(description .	"Change staffs in Piano staff. Syntax @code{\\translator Staff = @var{new-id}}.")
 	(internal-class-name . "Music")

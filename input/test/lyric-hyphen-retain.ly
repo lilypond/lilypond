@@ -1,5 +1,5 @@
 
-\version "2.1.28"
+\version "2.1.29"
 
 \header {
 
@@ -40,7 +40,7 @@ c16[ c c c]
 	indent = 0.0 \cm
 	linewidth = 3.4 \cm
 
-	\translator {
+	\context {
 	    \StaffContext \remove "Time_signature_engraver"
 	}
 	

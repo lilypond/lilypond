@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.29"
 \include "deutsch.ly"
 % possible rename to scheme- something.  -gp
 % TODO: ask if it needs to have so many empty bars in the middle.  -gp
@@ -62,7 +62,7 @@ using Scheme functions to avoid typing work. " }
 
 
 
-\version "2.1.28"
+\version "2.1.29"
 
 pat = \notes \transpose c c' \repeat unfold 2 {
   << { \context Staff=up {r8 e16 f g e f g } }
@@ -130,7 +130,7 @@ endc = \notes {\stemDown \tieDown c,,2~c,, c,,~c,, c,,1_\fermata }
     }
   >>
   \paper {
-    \translator {
+    \context {
       \PianoStaffContext
       \override VerticalAlignment #'forced-distance = #10
     }

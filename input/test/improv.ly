@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.29"
 \header {
 
     texidoc =
@@ -41,7 +41,7 @@ global = \notes { s1*3 \bar "|." }
 	>>
     >>
     \paper { 
-	\translator {
+	\context {
 	    \VoiceContext
 	    \consists Pitch_squash_engraver
 	}

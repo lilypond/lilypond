@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.29"
 \header { texidoc = "There are both long and short intstrument names.
 Engraving instrument names should not be confused by the
 multimeasure rests. " }
@@ -10,7 +10,7 @@ multimeasure rests. " }
 	      \notes{c''1 \break R1 }
 	    >>
 	 \paper {
-	    \translator { \StaffContext
+	    \context { \StaffContext
 	    \consists Instrument_name_engraver
 
 	    }

@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.29"
 \header {
     title = "Screech and boink"
     subtitle = "Random complex notation"
@@ -55,7 +55,7 @@
     \paper {
 	raggedright = ##t 
 
-	\translator {
+	\context {
 	    \StaffContext
 	    \consists Horizontal_bracket_engraver
 	}

@@ -32,7 +32,7 @@ public:
   VIRTUAL_COPY_CONSTRUCTOR (Music_output_def, Music_output_def);
 
   Context *get_group_translator (String type) const;
-  void assign_translator (SCM transdef);
+  void assign_context_def (SCM transdef);
   SCM find_context_def (SCM name) const;
   String outname_string () ;
   SCM get_scmvar (String id)const;

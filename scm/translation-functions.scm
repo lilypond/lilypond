@@ -5,10 +5,11 @@
   (number->string (ly:music-property mus 'denominator)))
 
 (define-public (fraction-tuplet-formatter mus)
-  (string-append (number->string (ly:music-property mus 'numerator))
-		 ":"
-		 (number->string (ly:music-property mus 'denominator))
-		 ))
+  (string-append
+   (number->string (ly:music-property mus 'denominator))
+   ":"
+   (number->string (ly:music-property mus 'numerator))
+   ))
 
 
 ;; metronome marks

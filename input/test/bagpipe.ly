@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.29"
 
 \header {
  texidoc = "@cindex Bagpipe Music
@@ -12,7 +12,7 @@ Bagpipe music may contain a lot of grace notes.
 \paper {
   linewidth = 14.0 \cm
   indent = 0.0 \cm
-  \translator { \StaffContext
+  \context { \StaffContext
   	\override TimeSignature #'style = #'C
 %  	\override TimeSignature #'visibility-function = #begin-of-line-visible
   	\override TimeSignature #'break-visibility = #begin-of-line-visible

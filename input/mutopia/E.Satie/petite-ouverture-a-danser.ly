@@ -7,7 +7,7 @@
   copyright = "Public Domain"
 }
 
-\version "2.1.28"
+\version "2.1.29"
 
 \include "nederlands.ly"
 
@@ -145,7 +145,7 @@ lower = \context Staff \notes \relative c{
     >>
 
   \paper {
-    \translator{
+    \context{
 	    \VoiceContext
     }
   }

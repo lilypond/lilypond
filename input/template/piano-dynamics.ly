@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.29"
 \header {
 texidoc ="
   Dynamics on a separate line, neatly centered between staffs.
@@ -33,7 +33,7 @@ pedal = \notes {
     \context Dynamics=pedal \pedal
   >>
   \paper {
-    \translator {
+    \context {
       \type "Engraver_group_engraver"
       \name Dynamics
       \alias Voice % So that \cresc works, for example.
@@ -57,21 +57,21 @@ pedal = \notes {
 
       \consistsend "Axis_group_engraver"
     }
-    \translator {
+    \context {
       \PianoStaffContext
       \accepts Dynamics
       \override VerticalAlignment #'forced-distance = #7
     }
   }
   \midi {
-    \translator {
+    \context {
       \type "Performer_group_performer"
       \name Dynamics
       \consists "Piano_pedal_performer"
       \consists "Span_dynamic_performer"
       \consists "Dynamic_performer"
     }
-    \translator {
+    \context {
       \PianoStaffContext
       \accepts Dynamics
     }

@@ -299,7 +299,6 @@ yylex (YYSTYPE *s,  void * v)
 %token TEMPO
 %token TIMES
 %token TIME_T
-%token TRANSLATOR
 %token TRANSPOSE
 %token TRANSPOSITION
 %token TYPE
@@ -335,7 +334,7 @@ yylex (YYSTYPE *s,  void * v)
 %token <scm>	MUSIC_OUTPUT_DEF_IDENTIFIER
 %token <scm>	NUMBER_IDENTIFIER
 %token <scm>	EVENT_IDENTIFIER
-%token <scm>	MUSIC_IDENTIFIER TRANSLATOR_IDENTIFIER
+%token <scm>	MUSIC_IDENTIFIER CONTEXT_DEF_IDENTIFIER
 %token <scm>	STRING_IDENTIFIER SCM_IDENTIFIER 
 %token <scm>	RESTNAME
 %token <scm>	STRING   
@@ -386,7 +385,7 @@ yylex (YYSTYPE *s,  void * v)
 %type <music>	music_property_def context_change
 %type <scm> context_prop_spec 
 %type <scm> Music_list 
-%type <scm> property_operation context_mod translator_mod optional_context_mod
+%type <scm> property_operation context_mod context_def_mod optional_context_mod
 %type <outputdef>  music_output_def_body music_output_def_head
 %type <music>	post_event tagged_post_event
 %type <music> command_req 
@@ -394,7 +393,7 @@ yylex (YYSTYPE *s,  void * v)
 %type <scm>	string bare_number number_expression number_term number_factor 
 %type <score>	score_block score_body
 
-%type <scm>	translator_spec_block translator_spec_body
+%type <scm>	context_def_spec_block context_def_spec_body
 %type <music> 	tempo_event
 %type <scm>	script_abbreviation
 
@@ -540,7 +539,7 @@ identifier_init:
 		$$ = $1->self_scm ();
 		scm_gc_unprotect_object ($$);
 	}
-	| translator_spec_block {
+	| context_def_spec_block {
 		$$ = $1;
 	}
 	| Music  {
@@ -562,23 +561,23 @@ identifier_init:
 	}
 	;
 
-translator_spec_block:
-	TRANSLATOR '{' translator_spec_body '}'
+context_def_spec_block:
+	CONTEXT '{' context_def_spec_body '}'
 		{
 		$$ = $3;
 	}
 	;
 
-translator_spec_body:
+context_def_spec_body:
 	/**/ {
 		$$ = Context_def::make_scm ();
 		unsmob_context_def ($$)->set_spot (THIS->here_input ());
 	}
-	| TRANSLATOR_IDENTIFIER	{
+	| CONTEXT_DEF_IDENTIFIER	{
 		$$ = $1;
 		unsmob_context_def ($$)->set_spot (THIS->here_input ());
 	}
-	| translator_spec_body GROBDESCRIPTIONS embedded_scm {
+	| context_def_spec_body GROBDESCRIPTIONS embedded_scm {
 		Context_def*td = unsmob_context_def($$);
 
 		for (SCM p = $3; gh_pair_p (p); p = ly_cdr (p)) {
@@ -589,7 +588,7 @@ translator_spec_body:
 							tag, gh_cons (ly_cdar (p), SCM_EOL)));
 		}
 	}
-	| translator_spec_body context_mod {
+	| context_def_spec_body context_mod {
 		unsmob_context_def ($$)->add_context_mod ($2);		
 	}
 	;
@@ -694,8 +693,8 @@ music_output_def_body:
 	| music_output_def_body assignment  {
 
 	}
-	| music_output_def_body translator_spec_block	{
-		$$->assign_translator ($2);
+	| music_output_def_body context_def_spec_block	{
+		$$->assign_context_def ($2);
 	}
 	| music_output_def_body tempo_event  {
 		/*
@@ -1121,7 +1120,7 @@ re_rhythmed_music:
 
 context_change:
 	CHANGE STRING '=' STRING  {
-		Music*t= MY_MAKE_MUSIC("TranslatorChange");
+		Music*t= MY_MAKE_MUSIC("ContextChange");
 		t-> set_property ("change-to-type", scm_string_to_symbol ($2));
 		t-> set_property ("change-to-id", $4);
 
@@ -1149,7 +1148,7 @@ property_operation:
 	}
 	;
 
-translator_mod:
+context_def_mod:
 	CONSISTSEND { $$ = ly_symbol2scm ("consists-end"); }
 	| CONSISTS { $$ = ly_symbol2scm ("consists"); }
 	| REMOVE { $$ = ly_symbol2scm ("remove"); }
@@ -1165,7 +1164,7 @@ translator_mod:
 
 context_mod:
 	property_operation { $$ = $1; }
-	| translator_mod STRING {
+	| context_def_mod STRING {
 		$$ = scm_list_2 ($1, $2);
 	}
 	;
@@ -2421,7 +2420,7 @@ My_lily_lexer::try_special_identifiers (SCM * destination, SCM sid)
 		return NUMBER_IDENTIFIER;
 	} else if (unsmob_context_def (sid)) {
 		*destination = unsmob_context_def (sid)->clone_scm();
-		return TRANSLATOR_IDENTIFIER;
+		return CONTEXT_DEF_IDENTIFIER;
 	} else if (unsmob_score (sid)) {
 		Score *sc =  new Score (*unsmob_score (sid));
 		*destination =sc->self_scm ();

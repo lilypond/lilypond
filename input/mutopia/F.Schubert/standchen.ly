@@ -42,7 +42,7 @@ instrument = "Piano"
  footer = "Mutopia-2001/04/27-xx"
 } 
 
-\version "2.1.28"
+\version "2.1.29"
 
 dynamicUp = \override DynamicLineSpanner  #'direction = #1
 dynamicRevert = \revert DynamicLineSpanner #'direction
@@ -451,7 +451,7 @@ bassStaff = \context Staff = bass<<
 	textheight = 270.0\mm
 	linewidth = 180.0\mm
 
-	\translator { \RemoveEmptyStaffContext }
+	\context { \RemoveEmptyStaffContext }
     }
     \midi{
 	\tempo 4 = 54

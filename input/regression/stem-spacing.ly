@@ -1,5 +1,5 @@
 
-\version "2.1.28"
+\version "2.1.29"
 
 \header{
 texidoc="
@@ -28,7 +28,7 @@ In this example, space for opposite pointed stems is adjusted.
   }
   \paper {
     raggedright = ##t
-    \translator { \ScoreContext
+    \context { \ScoreContext
     \override SpacingSpanner #'stem-spacing-correction = #0.0
   }  }
 }
