@@ -168,6 +168,7 @@ Porrectus_engraver::start_translation_timestep ()
 ENTER_DESCRIPTION(Porrectus_engraver,
 /* descr */       "Join adjacent notes to a porrectus ligature.",
 /* creats*/       "Porrectus",
-/* acks  */       "rhythmic-head-interface",
+/* accepts */     "general-music",
+/* acks  */      "rhythmic-head-interface",
 /* reads */       "",
 /* write */       "");

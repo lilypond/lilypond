@@ -41,7 +41,9 @@ private:
   Audio_tempo* tempo_;
 };
 
-ENTER_DESCRIPTION (Staff_performer, "","","","","" );
+ENTER_DESCRIPTION (Staff_performer, "", "",
+		   "general-music",
+		   "", "", "");
 
 Staff_performer::Staff_performer ()
 {

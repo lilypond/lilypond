@@ -244,6 +244,7 @@ Fingering_engraver::Fingering_engraver()
 ENTER_DESCRIPTION(Fingering_engraver,
 /* descr */       "Create fingering-scripts",
 /* creats*/       "Fingering",
-/* acks  */       "rhythmic-head-interface stem-interface",
+/* accepts */     "general-music",
+/* acks  */      "rhythmic-head-interface stem-interface",
 /* reads */       "scriptHorizontal",
 /* write */       "");

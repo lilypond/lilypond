@@ -34,6 +34,7 @@ struct TYPE ## _swallow_translator : public Type_swallow_translator {	\
 ENTER_DESCRIPTION(TYPE ## _swallow_translator,				\
 		  "Swallow requests of " #TYPE " type.",		\
 		  "",							\
+	"general-music",\
 		  "",							\
 		  "",							\
 		  "");

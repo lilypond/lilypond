@@ -135,4 +135,9 @@ Dynamic_performer::try_music (Music* r)
 }
 
 ENTER_DESCRIPTION(Dynamic_performer,
-		  "","","","dynamicAbsoluteVolumeFunction midiMaximumVolume midiMinimumVolume midiInstrument instrumentEqualizer","");
+		  /*descr*/		  "",
+		  /* creats*/ "",
+		  /* accepts */     "general-music",
+		  /* acks */ "",
+		  /*reads */"dynamicAbsoluteVolumeFunction midiMaximumVolume midiMinimumVolume midiInstrument instrumentEqualizer",
+		  /*writes*/"");

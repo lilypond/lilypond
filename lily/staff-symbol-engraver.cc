@@ -74,6 +74,7 @@ ENTER_DESCRIPTION(Staff_symbol_engraver,
 /* descr */       "create the constellation of five (default)
 staff lines.",
 /* creats*/       "StaffSymbol",
-/* acks  */       "grob-interface",
+/* accepts */     "general-music",
+/* acks  */      "grob-interface",
 /* reads */       "",
 /* write */       "");

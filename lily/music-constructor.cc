@@ -35,6 +35,9 @@ get_music_ctor (String s)
 Music* 
 make_music (String s)
 {
-  return (*get_music_ctor (s)) () ;
+  Music_ctor c = get_music_ctor (s);
+  assert (c);
+  
+  return (*c) ();
 }
 

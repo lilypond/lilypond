@@ -205,6 +205,7 @@ Slur_engraver::start_translation_timestep ()
 ENTER_DESCRIPTION (Slur_engraver,
 /* descr */       "Build slurs from Slur_reqs",
 /* creats*/       "Slur",
-/* acks  */       "note-column-interface",
+/* accepts */     "general-music",
+/* acks  */      "note-column-interface",
 /* reads */       "slurMelismaBusy",
 /* write */       "");

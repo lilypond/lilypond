@@ -181,6 +181,7 @@ ENTER_DESCRIPTION(Multi_measure_rest_engraver,
 measurePosition and currentBarNumber to determine what number to print over the MultiMeasureRest
 ",
 /* creats*/       "MultiMeasureRest",
-/* acks  */       "",
+/* accepts */     "general-music",
+/* acks  */      "",
 /* reads */       "currentBarNumber currentCommandColumn measurePosition",
 /* write */       "");

@@ -11,11 +11,8 @@
 #include "part-combine-music-iterator.hh"
 #include "pitch.hh"
 
-Part_combine_music::Part_combine_music (SCM l)
-  : Music (l)
+Part_combine_music::Part_combine_music ()
 {
-  set_mus_property ("iterator-ctor",
-		    Part_combine_music_iterator::constructor_proc);
 }
 
 void
@@ -65,12 +62,6 @@ Part_combine_music::get_second () const
   if (!gh_pair_p (l))
     return 0;
   return unsmob_music (gh_car (l));
-}
-
-
-Part_combine_music::Part_combine_music ()
-  : Music (SCM_EOL)
-{
 }
 
 ADD_MUSIC (Part_combine_music);

@@ -65,6 +65,7 @@ Rest_collision_engraver::stop_translation_timestep ()
 ENTER_DESCRIPTION(Rest_collision_engraver,
 /* descr */       "Handles collisions of rests.",
 /* creats*/       "RestCollision",
-/* acks  */       "note-column-interface",
+/* accepts */     "general-music",
+/* acks  */      "note-column-interface",
 /* reads */       "",
 /* write */       "");

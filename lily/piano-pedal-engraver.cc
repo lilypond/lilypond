@@ -509,6 +509,7 @@ Piano_pedal_engraver::start_translation_timestep ()
 ENTER_DESCRIPTION (Piano_pedal_engraver,
 /* descr */       "Engrave piano pedal symbols and brackets.",
 /* creats*/       "SostenutoPedal SustainPedal UnaCordaPedal SostenutoPedalLineSpanner SustainPedalLineSpanner UnaCordaPedalLineSpanner",
-/* acks  */       "note-column-interface",
+/* accepts */     "general-music",
+/* acks  */      "note-column-interface",
 /* reads */       "pedalSostenutoStrings pedalSustainStrings pedalUnaCordaStrings",
 /* write */       "");

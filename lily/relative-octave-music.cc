@@ -17,15 +17,8 @@ Relative_octave_music::to_relative_octave (Pitch)
 }
 
 
-Relative_octave_music::Relative_octave_music (SCM l)
-  : Music_wrapper (l)
-{
-  set_mus_property ("type", ly_symbol2scm ("relative-octave-music"));  
-}
-
 Relative_octave_music::Relative_octave_music ()
 {
-  set_mus_property ("type", ly_symbol2scm ("relative-octave-music"));
 }
 
 ADD_MUSIC (Relative_octave_music);

@@ -240,6 +240,7 @@ Percent_repeat_engraver::stop_translation_timestep ()
 ENTER_DESCRIPTION(Percent_repeat_engraver,
 /* descr */       "Make beat, whole bar and double bar repeats.",
 /* creats*/       "PercentRepeat RepeatSlash DoublePercentRepeat",
-/* acks  */       "",
+/* accepts */     "general-music",
+/* acks  */      "",
 /* reads */       "measureLength currentCommandColumn",
 /* write */       "");

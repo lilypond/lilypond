@@ -95,6 +95,7 @@ Normally in @code{Score}.  In order to create polyrhythmic music,
 this engraver should be removed from @code{Score} and placed in
 @code{Staff}.",
 /* creats*/       "",
-/* acks  */       "",
+/* accepts */     "general-music",
+/* acks  */      "",
 /* reads */       "timeSignatureFraction barNonAuto whichBar barAlways defaultBarType skipBars timing oneBeat measureLength measurePosition currentBarNumber",
 /* write */       "");

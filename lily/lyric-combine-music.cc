@@ -11,11 +11,9 @@
 #include "lyric-combine-music-iterator.hh"
 #include "pitch.hh"
 
-Lyric_combine_music::Lyric_combine_music (SCM l)
-  : Music (l)
+Lyric_combine_music::Lyric_combine_music ()
+  : Music ()
 {
-  set_mus_property ("iterator-ctor",
-		    Lyric_combine_music_iterator::constructor_proc);
 }
 
 
@@ -70,9 +68,5 @@ Lyric_combine_music::get_lyrics () const
   return unsmob_music (gh_car (l));
 }
 
-Lyric_combine_music::Lyric_combine_music ()
-  : Music (SCM_EOL)
-{
-}
 
 ADD_MUSIC (Lyric_combine_music);

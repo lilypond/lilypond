@@ -174,6 +174,7 @@ Phrasing_slur_engraver::start_translation_timestep ()
 ENTER_DESCRIPTION(Phrasing_slur_engraver,
 /* descr */       "Print phrasing slurs. Similar to Slur_engraver",
 /* creats*/       "PhrasingSlur",
-/* acks  */       "note-column-interface",
+/* accepts */     "general-music",
+/* acks  */      "note-column-interface",
 /* reads */       "slurMelismaBusy",
 /* write */       "");

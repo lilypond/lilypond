@@ -16,7 +16,8 @@
 ENTER_DESCRIPTION(Performer_group_performer,
 /* descr */       "",
 /* creats*/       "",
-/* acks  */       "",
+/* accepts */     "general-music",
+/* acks  */      "",
 /* reads */       "",
 /* write */       "");
 

@@ -147,6 +147,7 @@ Custos_engraver::finalize ()
 ENTER_DESCRIPTION(Custos_engraver,
 /* descr */       "",
 /* creats*/       "Custos",
-/* acks  */       "bar-line-interface note-head-interface",
+/* accepts */     "general-music",
+/* acks  */      "bar-line-interface note-head-interface",
 /* reads */       "",
 /* write */       "");

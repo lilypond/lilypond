@@ -125,7 +125,7 @@ Note_performer::try_music (Music* req)
   return false;
 }
 
-ENTER_DESCRIPTION(Note_performer,"","","","","");
+ENTER_DESCRIPTION(Note_performer,"","","general-music","","","");
 
 Note_performer::Note_performer()
 {

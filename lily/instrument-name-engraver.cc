@@ -127,6 +127,7 @@ ENTER_DESCRIPTION(Instrument_name_engraver,
 at the left of the
 staff.",
 /* creats*/       "InstrumentName",
-/* acks  */       "bar-line-interface axis-group-interface",
+/* accepts */     "general-music",
+/* acks  */      "bar-line-interface axis-group-interface",
 /* reads */       "instrument instr",
 /* write */       "");

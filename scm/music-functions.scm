@@ -161,8 +161,7 @@ Fingering_engraver."
 this is not an override 
 "
   
-   (let* ((m (ly-make-music  "Music")))
-     (ly-set-mus-property! m 'iterator-ctor Push_property_iterator::constructor)
+   (let* ((m (make-music-by-name  'OverrideProperty)))
      (ly-set-mus-property! m 'symbol grob)
      (ly-set-mus-property! m 'grob-property gprop)
      (ly-set-mus-property! m 'grob-value val)
@@ -175,8 +174,7 @@ this is not an override
 
 (define-public (make-grob-property-revert grob gprop)
   "Revert the grob property GPROP for GROB."
-   (let* ((m (ly-make-music  "Music")))
-     (ly-set-mus-property! m 'iterator-ctor Pop_property_iterator::constructor)
+   (let* ((m (make-music-by-name  'OverrideProperty)))
      (ly-set-mus-property! m 'symbol grob)
      (ly-set-mus-property! m 'grob-property gprop)
 		
@@ -326,7 +324,7 @@ this is not an override
      ))
 
 (define-public (empty-music)
-  (ly-id (ly-make-music "Music"))
+  (ly-id (make-music-by-name "Music"))
   )
 ;;;
 

@@ -351,6 +351,7 @@ that there are no beams or notes that prevent a breakpoint.)
 
 ",
 /* creats*/       "System PaperColumn NonMusicalPaperColumn",
-/* acks  */       "note-spacing-interface staff-spacing-interface",
+/* accepts */     "general-music",
+/* acks  */      "note-spacing-interface staff-spacing-interface",
 /* reads */       "currentMusicalColumn currentCommandColumn",
 /* write */       "");

@@ -433,6 +433,7 @@ which takes care of vertical positioning.
 ",
 		  
 /* creats*/       "DynamicLineSpanner DynamicText Hairpin TextSpanner",
-/* acks  */       "note-column-interface script-interface",
+/* accepts */     "general-music",
+/* acks  */      "note-column-interface script-interface",
 /* reads */       "",
 /* write */       "");

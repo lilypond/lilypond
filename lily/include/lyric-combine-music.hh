@@ -19,7 +19,6 @@ public:
   Music * get_lyrics () const;
   
   Lyric_combine_music ();
-  Lyric_combine_music (SCM);
   virtual void transpose (Pitch);
 
   VIRTUAL_COPY_CONS (Music);

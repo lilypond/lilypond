@@ -173,7 +173,8 @@ Tab_note_heads_engraver::start_translation_timestep ()
 ENTER_DESCRIPTION(Tab_note_heads_engraver,
 /* descr */       "Generate one or more tablature noteheads from Music of type Note_req.",
 /* creats*/       "TabNoteHead Dots",
-/* acks  */       "",
+/* accepts */     "general-music",
+/* acks  */      "",
 /* reads */       "centralCPosition stringTunings minimumFret tablatureFormat highStringOne stringOneTopmost",
 /* write */       "");
 

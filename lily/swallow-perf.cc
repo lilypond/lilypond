@@ -22,6 +22,7 @@ Swallow_performer::Swallow_performer()
 ENTER_DESCRIPTION(Swallow_performer,
 /* descr */       "",
 /* creats*/       "",
-/* acks  */       "",
+/* accepts */     "general-music",
+/* acks  */      "",
 /* reads */       "",
 /* write */       "");

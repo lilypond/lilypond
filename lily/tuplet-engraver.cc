@@ -155,6 +155,7 @@ Tuplet_engraver::Tuplet_engraver(){}
 ENTER_DESCRIPTION(Tuplet_engraver,
 /* descr */       "Catch Time_scaled_music and generate appropriate bracket  ",
 /* creats*/       "TupletBracket",
-/* acks  */       "note-column-interface",
+/* accepts */     "general-music",
+/* acks  */      "note-column-interface",
 /* reads */       "tupletNumberFormatFunction tupletSpannerDuration tupletInvisible",
 /* write */       "");

@@ -109,7 +109,7 @@ ADD_GLOBAL_CTOR (_ ## T ## _adder);
 
 
 
-#define ENTER_DESCRIPTION(classname,desc,grobs,acked,read,write)						\
+#define ENTER_DESCRIPTION(classname,desc,grobs,accepted,acked,read,write)						\
 ADD_THIS_TRANSLATOR (classname);\
 SCM												\
 classname::static_translator_description () const \
@@ -126,6 +126,8 @@ classname::static_translator_description () const \
 												\
   static_properties= scm_acons (ly_symbol2scm ("interfaces-acked"),				\
 			      parse_symbol_list (acked), static_properties);			\
+  static_properties= scm_acons (ly_symbol2scm ("events-accepted"),				\
+			      parse_symbol_list (accepted), static_properties);			\
   												\
   static_properties= scm_acons (ly_symbol2scm ("properties-read"),				\
 			      parse_symbol_list (read), static_properties);			\

@@ -154,6 +154,7 @@ ENTER_DESCRIPTION(Note_head_line_engraver,
 /* descr */       "Engrave a line between two note heads, for example a glissando.
 If followVoice is set, staff switches also generate a line.",
 /* creats*/       "Glissando VoiceFollower",
-/* acks  */       "rhythmic-head-interface",
+/* accepts */     "general-music",
+/* acks  */      "rhythmic-head-interface",
 /* reads */       "followVoice",
 /* write */       "");

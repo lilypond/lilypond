@@ -190,6 +190,7 @@ Mark_engraver::process_music ()
 ENTER_DESCRIPTION(Mark_engraver,
 /* descr */       "",
 /* creats*/       "RehearsalMark",
-/* acks  */       "bar-line-interface", 
+/* accepts */     "general-music",
+/* acks  */      "bar-line-interface",
 /* reads */       "rehearsalMark stavesFound",
 /* write */       "");

@@ -143,6 +143,7 @@ ENTER_DESCRIPTION(Grob_pq_engraver,
 engraver is a sort-of a failure, since it doesn't handle all sorts of borderline cases very well.
 ",
 /* creats*/       "",
-/* acks  */       "grob-interface",
+/* accepts */     "general-music",
+/* acks  */      "grob-interface",
 /* reads */       "busyGrobs",
 /* write */       "busyGrobs");

@@ -144,6 +144,7 @@ Text_engraver::Text_engraver(){}
 ENTER_DESCRIPTION(Text_engraver,
 /* descr */       "Create text-scripts",
 /* creats*/       "TextScript",
-/* acks  */       "rhythmic-head-interface stem-interface",
+/* accepts */     "general-music",
+/* acks  */      "rhythmic-head-interface stem-interface",
 /* reads */       "scriptHorizontal",
 /* write */       "");

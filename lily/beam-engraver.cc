@@ -305,7 +305,8 @@ ENTER_DESCRIPTION(Beam_engraver,
 /* descr */       "Handles Beam_requests by engraving Beams.    If omitted, then notes will be
 printed with flags instead of beams.",
 /* creats*/       "Beam",
-/* acks  */       "stem-interface rest-interface",
+/* accepts */     "general-music",
+/* acks  */      "stem-interface rest-interface",
 /* reads */       "beamMelismaBusy beatLength subdivideBeams",
 /* write */       "");
 
@@ -347,7 +348,8 @@ be printed with flags instead of beams. Only engraves beams when we
 are at grace points in time.
 ",
 /* creats*/       "Beam",
-/* acks  */       "stem-interface rest-interface",
+/* accepts */     "general-music",
+/* acks  */      "stem-interface rest-interface",
 /* reads */       "beamMelismaBusy beatLength subdivideBeams",
 /* write */       "");
 

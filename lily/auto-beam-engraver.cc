@@ -497,6 +497,7 @@ when to start and stop a beam.  Overriding beaming is done through
 stemRightBeamCount.
 ",
 /* creats*/       "Beam",
-/* acks  */       "stem-interface rest-interface beam-interface bar-line-interface",
+/* accepts */     "general-music",
+/* acks  */      "stem-interface rest-interface beam-interface bar-line-interface",
 /* reads */       "autoBeaming autoBeamSettings beatLength subdivideBeams",
 /* write */       "");

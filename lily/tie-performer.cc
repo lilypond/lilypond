@@ -64,7 +64,9 @@ Tie_performer::Tie_performer ()
   done_ = false;
 }
 
-ENTER_DESCRIPTION (Tie_performer, "", "", "", "", "");
+ENTER_DESCRIPTION (Tie_performer, "", "",
+		   "general-music",
+		   "", "", "");
 
 
 void

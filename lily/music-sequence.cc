@@ -28,8 +28,8 @@ Music_sequence::append_music (Music *m)
   scm_gc_unprotect_object (m->self_scm ());
 }
 
-Music_sequence::Music_sequence (SCM l)
-  : Music (l)
+Music_sequence::Music_sequence ( )
+  : Music ()
 {
 }
 
@@ -133,12 +133,6 @@ Music_sequence::compress_list (SCM l, Moment m)
 }
 
 ADD_MUSIC (Music_sequence);
-
-Music_sequence::Music_sequence ()
-  : Music (SCM_EOL)
-{
-  
-}
 
 Moment
 Music_sequence::minimum_start (SCM l)

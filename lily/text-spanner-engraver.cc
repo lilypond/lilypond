@@ -177,6 +177,7 @@ Text_spanner_engraver::finalize ()
 ENTER_DESCRIPTION(Text_spanner_engraver,
 /* descr */       "Create text spanner from a Span_req.",
 /* creats*/       "TextSpanner",
-/* acks  */       "note-column-interface",
+/* accepts */     "general-music",
+/* acks  */      "note-column-interface",
 /* reads */       "",
 /* write */       "");

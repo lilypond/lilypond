@@ -40,6 +40,7 @@ the locations of accidentals stay the same.
 Set the position field of all note heads to zero. This useful for
 making a single line staff that demonstrates the rhythm of a melody.",
 /* creats*/       "",
-/* acks  */       "note-head-interface",
+/* accepts */     "general-music",
+/* acks  */      "note-head-interface",
 /* reads */       "squashedPosition",
 /* write */       "");

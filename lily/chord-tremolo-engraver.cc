@@ -218,6 +218,7 @@ Chord_tremolo_engraver::stop_translation_timestep ()
 ENTER_DESCRIPTION(Chord_tremolo_engraver,
 /* descr */       "Generates beams for  tremolo repeats.",
 /* creats*/       "Beam",
-/* acks  */       "stem-interface note-head-interface",
+/* accepts */     "general-music",
+/* acks  */      "stem-interface note-head-interface",
 /* reads */       "",
 /* write */       "");

@@ -184,4 +184,7 @@ Span_dynamic_performer::try_music (Music* r)
     }
   return false;
 }
-ENTER_DESCRIPTION (Span_dynamic_performer, "","","","","" );
+ENTER_DESCRIPTION (Span_dynamic_performer,
+		   "", "",
+		   "general-music", 
+		   "", "", "");

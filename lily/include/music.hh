@@ -42,7 +42,9 @@ public:
 
   SCM internal_get_mus_property (SCM) const;
   void internal_set_mus_property (SCM , SCM val);
-
+  void add_music_type (SCM);
+  bool is_music_type (SCM) const;
+  
   virtual Pitch to_relative_octave (Pitch);
 
   /// The duration of this piece of music
@@ -57,11 +59,11 @@ public:
   VIRTUAL_COPY_CONS (Music);
   Music ();
   Music (Music const &m);
-  Music (SCM);
 protected:
   DECLARE_SMOBS (Music,);
   SCM immutable_property_alist_;
   SCM mutable_property_alist_;
+  friend SCM ly_extended_make_music(SCM,SCM);
 };
 
 

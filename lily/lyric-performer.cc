@@ -73,4 +73,4 @@ Lyric_performer::try_music (Music* req)
   return false;
 }
 
-ENTER_DESCRIPTION(Lyric_performer,"","","","","");
+ENTER_DESCRIPTION(Lyric_performer,"","","general-music","","","");
