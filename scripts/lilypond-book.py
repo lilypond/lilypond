@@ -333,7 +333,7 @@ def compose_ly (code, options):
 			override[key] = value
 		else:
 			key = i
-			if i not in override:
+			if i not in override.keys ():
 				override[i] = None
 
 		if key in ly_options[NOTES].keys ():
