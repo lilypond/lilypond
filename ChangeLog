@@ -1,3 +1,10 @@
+2004-06-20  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* configure.in (PKG_CONFIG_PATH): add --enable-gui flag, and
+	encapsulate gtk/pango tests.
+ 
+	* po/tr.po: Turkish translation.
+
 2004-06-20  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
 	* input/regression/lily-in-scheme.ly: regression test for #{

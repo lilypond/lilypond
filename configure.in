@@ -23,6 +23,12 @@ AC_CONFIG_HEADER([$CONFIGFILE.h:config.hh.in])
 
 # Uncomment the configuration options your package needs.
 
+
+gui_b=no
+AC_ARG_ENABLE(gui,
+    [  --enable-gui            compile with debugging info.  Default: off],
+    [gui_b=$enableval])
+
 # must come before any header checks
 STEPMAKE_COMPILE
 
@@ -66,8 +72,10 @@ PKG_CONFIG_PATH=$HOME/usr/pkg/gnome/lib/pkgconfig:$PKG_CONFIG_PATH
 PKG_CONFIG_PATH=$HOME/usr/pkg/pango/lib/pkgconfig:$PKG_CONFIG_PATH
 
 #STEPMAKE_FREETYPE2
-STEPMAKE_GTK2
-STEPMAKE_PANGO
+if test "$gui_b" = "yes"; then
+  STEPMAKE_GTK2
+  STEPMAKE_PANGO
+fi
 
 ## Optional tools for building documentation, website, extra fonts.
 
