@@ -10,6 +10,7 @@
 #ifndef LY_SMOBS_ICC
 #define LY_SMOBS_ICC
 
+#include "smobs.hh"
 
 
 #define IMPLEMENT_UNSMOB(CL, name)		\

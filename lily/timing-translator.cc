@@ -33,8 +33,8 @@ Timing_translator::do_try_music (Music*r)
 	    return true;
 	  if (String (classname (timing_req_l_arr_[i])) == classname (r))
 	    {
-	      r->warning (_ ("conflicting timing request"));
-	      timing_req_l_arr_[i]->warning (_("This is the other timing request")); 
+	      r->origin ()->warning (_ ("conflicting timing request"));
+	      timing_req_l_arr_[i]->origin ()->warning (_("This is the other timing request")); 
 	      return false;
 	    }
 	}
@@ -75,7 +75,7 @@ Timing_translator::do_process_music()
 	{
 	  if (measure_position ())
 	    {
-	      tr_l ->warning (_f ("barcheck failed at: %s", 
+	      tr_l ->origin ()->warning (_f ("barcheck failed at: %s", 
 				  measure_position ().str ()));
 	      // resync
 	      daddy_trans_l_->set_property("measurePosition",

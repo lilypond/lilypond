@@ -37,11 +37,9 @@ Input::set_spot (Input const &i)
 }
 
 /*
-  Produce almost GNU-compliant error message.  Lily used to be rather
-  GNU-compliant in this too, but correcting mudela is such a breeze if 
-  you('re edidor) know(s) the error column too (there's no GNU standard
-  on columns, is there?).
-
+  Produce GNU-compliant error message.  Correcting mudela is such a
+  breeze if you('re edidor) know(s) the error column too
+  
   Format:
 
     [file:line:column:][warning:]message
@@ -113,4 +111,34 @@ Input::line_number_str () const
     return to_str (source_file_l_->line_i (defined_ch_C_));
   else
     return "?";
+}
+
+String
+Input::file_str () const
+{
+  if (source_file_l_)
+    return source_file_l_->name_str ();
+  else
+    return "";
+}
+
+
+int
+Input::line_number () const
+{
+  if (source_file_l_)
+    return source_file_l_->line_i (defined_ch_C_);
+  else
+    return 0;
+
+}
+
+int
+Input::column_number () const
+{
+  if (source_file_l_)
+    return source_file_l_->column_i (defined_ch_C_);
+  else
+    return 0;
+
 }

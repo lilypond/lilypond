@@ -106,7 +106,7 @@ Tie_performer::process_acknowledged ()
       
       if (!tie_p_arr_.size ())
 	{
-	  req_l_->warning (_("No ties were created!"));
+	  req_l_->origin ()->warning (_("No ties were created!"));
 	}
       
     }

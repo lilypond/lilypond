@@ -66,7 +66,7 @@ Span_bar_engraver::acknowledge_element (Score_element_info i)
 	  spanbar_p_->set_parent (bar_l_arr_[0], Y_AXIS);
 	  spanbar_p_->set_parent (bar_l_arr_[0], X_AXIS);
 
-	  announce_element (Score_element_info (spanbar_p_,0));
+	  announce_element (spanbar_p_,0);
 	}
     }
 }

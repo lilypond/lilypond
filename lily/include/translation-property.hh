@@ -11,22 +11,19 @@
 #define TRANSLATION_PROPERTY_HH
 
 #include "music.hh"
-#include "protected-scm.hh"
 
 
 /**
-  Set a property of Translator 
- */
+  Set a property of Translator
+
+  value -- the value to set
+  symbol -- the symbol to set.
+
+*/
 class Translation_property : public Music
 {
 public:
-  String var_str_;
-  Protected_scm value_;
-  
   VIRTUAL_COPY_CONS(Music);
-  
-protected:
-  virtual void do_print () const;
 };
 
 #endif // PROPERTY_HH

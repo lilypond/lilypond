@@ -137,9 +137,9 @@ HYPHEN		--
 	String s (YYText ()+1);
 	s = s.left_str (s.index_last_i ('"'));
 	DEBUG_OUT << "#version `" << s << "'\n";
+	yy_pop_state ();
 	if (!valid_version_b (s))
 		return INVALID;
-	yy_pop_state ();
 }
 <version>. 	{
 	LexerError ("No quoted string found after \\version");
@@ -477,7 +477,12 @@ My_lily_lexer::scan_escaped_word (String str)
 	} else if (gh_number_p (sid)) {
 		yylval.scm = sid;
 		return NUMBER_IDENTIFIER;
+	} else if (Music * mus =unsmob_music (sid)) {
+		yylval.scm = sid;
+		
+		return dynamic_cast<Request*> (mus) ? REQUEST_IDENTIFIER : MUSIC_IDENTIFIER;
 	}
+
 
 
 	Identifier * id = unsmob_identifier (sid);

@@ -31,14 +31,15 @@ Score::Score()
   : Input()
 {
   header_p_ = 0;
-  music_p_ = 0;
+  music_ = SCM_EOL;
   errorlevel_i_ = 0;
 }
 
 Score::Score (Score const &s)
   : Input (s)
 {
-  music_p_ = (s.music_p_) ? s.music_p_->clone() : 0;
+  Music * m =unsmob_music (s.music_);
+  music_ =  m?m->clone()->self_scm_ : SCM_EOL;
   for (int i=0; i < s.def_p_arr_.size (); i++)
     def_p_arr_.push(s.def_p_arr_[i]->clone());
   errorlevel_i_ = s.errorlevel_i_;
@@ -49,7 +50,6 @@ Score::~Score()
 {
   delete header_p_;
   junk_pointer_array (def_p_arr_);
-  delete music_p_;
 }
 
 void
@@ -61,15 +61,17 @@ Score::run_translator (Music_output_def *odef_l)
   Global_translator * trans_p = odef_l->get_global_translator_p();
   if (!trans_p)
     {
-      non_fatal_error (_("no toplevel translator"));
+      programming_error ("no toplevel translator");
       return ;
     }
   progress_indication ("\n" + _("Interpreting music..."));
-  trans_p->final_mom_ = music_p_->length_mom ();
+  Music * music = unsmob_music (music_);
+  
+  trans_p->final_mom_ = music->length_mom ();
 
 
-  Music_iterator * iter = Music_iterator::static_get_iterator_p (music_p_);
-  iter->init_translator(music_p_, trans_p);
+  Music_iterator * iter = Music_iterator::static_get_iterator_p (music);
+  iter->init_translator(music, trans_p);
 
   iter->construct_children();
 
@@ -115,7 +117,7 @@ Score::run_translator (Music_output_def *odef_l)
 void
 Score::process()
 {
-  if (!music_p_)
+  if (!unsmob_music (music_))
     return;
 
   print();
@@ -135,7 +137,7 @@ Score::print() const
 {
 #ifndef NPRINT
   DEBUG_OUT << "score {\n";
-  music_p_ -> print ();
+  // music_p_ -> print ();
   for (int i=0; i < def_p_arr_.size (); i++)
     def_p_arr_[i]->print();
   DEBUG_OUT << "}\n";

@@ -40,6 +40,11 @@ Paper_score::typeset_line (Line_of_score *l)
     }
   main_smob_ = gh_cons (l->self_scm_, main_smob_);
   l->pscore_l_ = this;
+
+  /*
+    We don't unprotect l->self_scm_, we haven't got any place else to
+    protect it from collection.  */
+
 }
 
 Paper_score::Paper_score (Paper_score const &s)

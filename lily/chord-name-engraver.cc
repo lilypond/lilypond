@@ -113,7 +113,7 @@ Chord_name_engraver::do_process_music ()
   if (chord.bass_b_)
     chord_name_p_->set_elt_property ("bass", chord.bass_pitch_.to_scm ());
 
-  announce_element (Score_element_info (chord_name_p_, 0));
+  announce_element (chord_name_p_, 0);
 }
 
 void

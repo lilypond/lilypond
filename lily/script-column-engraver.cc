@@ -76,7 +76,7 @@ Script_column_engraver::process_acknowledged ()
       scol_p_ = new Item (get_property ("basicScriptColumnProperties"));
       scol_p_->set_elt_property ("scripts", SCM_EOL);  
 
-      announce_element (Score_element_info (scol_p_, 0));
+      announce_element (scol_p_, 0);
     }
 
   if (scol_p_)

@@ -11,6 +11,8 @@
 
 Output_property::Output_property(SCM pred, SCM sym, SCM val)
 {
-  pred_sym_val_list_ = gh_list (pred, sym, val, SCM_UNDEFINED);
+  set_mus_property ("predicate", pred);
+  set_mus_property ("symbol", sym);
+  set_mus_property ("value", val);
 }
 

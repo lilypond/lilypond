@@ -84,10 +84,10 @@ Rest_engraver::do_process_music ()
 	  dot_p_->add_offset_callback (Dots::quantised_position_callback, Y_AXIS);
 	  dot_p_->set_elt_property ("dot-count",
 				    gh_int2scm (rest_req_l_->duration_.dots_i_));
-	  announce_element (Score_element_info (dot_p_,0));
+	  announce_element (dot_p_,0);
 	}
 
-      announce_element (Score_element_info (rest_p_, rest_req_l_));
+      announce_element (rest_p_, rest_req_l_);
     }
 }
 

@@ -267,6 +267,8 @@ Score_engraver::do_add_processing ()
   pscore_p_ = new Paper_score;
   pscore_p_->paper_l_ = dynamic_cast<Paper_def*>(output_def_l_);
 
-  pscore_p_->typeset_line (new Line_of_score (get_property(ly_symbol2scm ("basicLineOfScoreProperties"))));
+  SCM props = get_property(ly_symbol2scm ("basicLineOfScoreProperties"));
+
+  pscore_p_->typeset_line (new Line_of_score (props));
 }
 

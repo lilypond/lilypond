@@ -49,7 +49,12 @@
 */
 class Repeated_music : public Music
 {
+  Music * repeat_body_p_;
+  Music_sequence * alternatives_p_;
 public:
+
+  Music * body () const;
+  Music_sequence * alternatives () const;
   String type_;
   
   bool fold_b_;
@@ -58,10 +63,6 @@ public:
 
   /// how often do we repeat?
   int repeats_i_;
-
-  Music * repeat_body_p_;
-  Music_sequence * alternatives_p_;
-
   virtual Musical_pitch to_relative_octave (Musical_pitch);
 
   /// The duration of this piece of music
@@ -79,7 +80,6 @@ public:
 
   Repeated_music (Music*, int , Music_sequence*);
   Repeated_music (Repeated_music const&);
-  ~Repeated_music ();
 protected:
   virtual void do_print() const;
 };

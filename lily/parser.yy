@@ -31,6 +31,7 @@
 #include "music-list.hh"
 #include "change-translator.hh"
 #include "file-results.hh"
+#include "input.hh"
 #include "scope.hh"
 #include "relative-music.hh"
 #include "lyric-combine-music.hh"
@@ -86,7 +87,6 @@ print_mudela_versions (ostream &os)
     Identifier *id;
     String * string;
     Music *music;
-    Music_list *music_list;
     Score *score;
     Scope *scope;
     Interval *interval;
@@ -194,14 +194,14 @@ yylex (YYSTYPE *s,  void * v_l)
 %token <pitch>	CHORDMODIFIER_PITCH
 %token <id>	DURATION_IDENTIFIER
 %token <id>	IDENTIFIER
-%token <id>	MUSIC_IDENTIFIER
-%token <id>	REQUEST_IDENTIFIER
 %token <id>	TRANS_IDENTIFIER
-%token <scm>	NUMBER_IDENTIFIER
 
 %token <id>	SCORE_IDENTIFIER
 %token <id>	MUSIC_OUTPUT_DEF_IDENTIFIER
 
+%token <scm>	NUMBER_IDENTIFIER
+%token <scm>	REQUEST_IDENTIFIER
+%token <scm>	MUSIC_IDENTIFIER
 %token <scm>	STRING_IDENTIFIER SCM_IDENTIFIER 
 %token <scm>	DURATION RESTNAME
 %token <scm>	STRING 
@@ -239,7 +239,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <music>	Music Sequential_music Simultaneous_music Music_sequence
 %type <music>	relative_music re_rhythmed_music
 %type <music>	property_def translator_change
-%type <music_list> Music_list
+%type <scm> Music_list
 %type <outputdef>  music_output_def_body
 %type <request> shorthand_command_req
 %type <request>	post_request 
@@ -378,11 +378,12 @@ identifier_init:
 		$$ = smobify (new Translator_group_identifier ($1, TRANS_IDENTIFIER));
 	}
 	| Music  {
-		$$ = smobify (new Music_identifier ($1, MUSIC_IDENTIFIER));
+		$$ = $1->self_scm_;
+		scm_unprotect_object ($$);
 	}
-
 	| post_request {
-		$$ = smobify (new Request_identifier ($1, REQUEST_IDENTIFIER));
+		$$ = $1->self_scm_;
+		scm_unprotect_object ($$);
 	}
 	| explicit_duration {
 		$$ = smobify (new Duration_identifier ($1, DURATION_IDENTIFIER));
@@ -474,8 +475,11 @@ score_block:
 score_body:
 	Music	{
 		$$ = new Score;
+
 		$$->set_spot (THIS->here_input ());
-		$$->music_p_ = $1;
+		SCM m = $1->self_scm_;
+		scm_unprotect_object (m);
+		$$->music_ = m;
 	}
 	| SCORE_IDENTIFIER {
 		$$ = $1->access_content_Score (true);
@@ -548,7 +552,6 @@ music_output_def_body:
 			music.
 		*/
 		dynamic_cast<Midi_def*> ($$)->set_tempo ($2->dur_.length_mom (), $2->metronome_i_);
-		delete $2;
 	}
 	| music_output_def_body bare_int '=' FONT STRING		{ // ugh, what a syntax
 		Lookup * l =unsmob_lookup (Lookup::make_lookup());
@@ -570,11 +573,19 @@ tempo_request:
 	;
 
 Music_list: /* empty */ {
-		$$ = new Music_list;
-		$$->set_spot (THIS->here_input ());
+		$$ = gh_cons (SCM_EOL, SCM_EOL);
 	}
 	| Music_list Music {
-		$$->add_music ($2);
+		SCM s = $$;
+		SCM c = gh_cons ($2->self_scm_, SCM_EOL);
+		scm_unprotect_object ($2->self_scm_); /* UGH */
+
+	
+		if (gh_pair_p (gh_cdr (s)))
+			gh_set_cdr_x (gh_cdr (s), c); /* append */
+		else
+			gh_set_car_x (s, c); /* set first cons */
+		gh_set_cdr_x (s, c) ;  /* remember last cell */ 
 	}
 	| Music_list error {
 	}
@@ -604,42 +615,37 @@ Repeated_music:
 	{
 		Music_sequence* m = dynamic_cast <Music_sequence*> ($5);
 		if (m && $3 < m->length_i ())
-			$5->warning (_ ("More alternatives than repeats.  Junking excess alternatives."));
+			$5->origin ()->warning (_ ("More alternatives than repeats.  Junking excess alternatives."));
 
 		Repeated_music * r = new Repeated_music ($4, $3 >? 1, m);
 		$$ = r;
 		r->type_ = ly_scm2string ($2);
 		r->fold_b_ = (r->type_ == "fold");
 		r->volta_fold_b_ =  (r->type_ == "volta");
-		r->set_spot ($4->spot  ());
+		r->set_spot (*$4->origin ());
 	}
 	;
 
 Music_sequence: '{' Music_list '}'	{
-		$$ = new Music_sequence ($2);
-		$$->set_spot ($2->spot ());
+		$$ = new Music_sequence (gh_car ($2));
 	}
 	;
 
 Sequential_music:
 	SEQUENTIAL '{' Music_list '}'		{
-		$$ = new Sequential_music ($3);
-		$$->set_spot ($3->spot ());
+		$$ = new Sequential_music (gh_car ($3));
 	}
 	| '{' Music_list '}'		{
-		$$ = new Sequential_music ($2);
-		$$->set_spot ($2->spot ());
+		$$ = new Sequential_music (gh_car ($2));
 	}
 	;
 
 Simultaneous_music:
 	SIMULTANEOUS '{' Music_list '}'{
-		$$ = new Simultaneous_music ($3);
-		$$->set_spot ($3->spot ());
+		$$ = new Simultaneous_music (gh_car ($3));
 	}
 	| '<' Music_list '>'	{
-		$$ = new Simultaneous_music ($2);
-		$$->set_spot ($2->spot ());
+		$$ = new Simultaneous_music (gh_car ($2));
 	}
 	;
 
@@ -659,7 +665,7 @@ Simple_music:
 	
 		$$ = new Output_property (pred,$3, $5);
 	}
-	| MUSIC_IDENTIFIER { $$ = $1->access_content_Music (true); }
+	| MUSIC_IDENTIFIER { $$ = unsmob_music ($1)->clone (); }
 	| property_def
 	| translator_change
 	| Simple_music '*' bare_unsigned '/' bare_unsigned 	{
@@ -687,7 +693,7 @@ Composite_music:
 		Auto_change_music * chm = new Auto_change_music (ly_scm2string ($2), $3);
 
 		$$ = chm;
-		chm->set_spot ($3->spot ());
+		chm->set_spot (*$3->origin ());
 	}
 	| GRACE Music {
 		$$ = new Grace_music ($2);
@@ -715,11 +721,11 @@ Composite_music:
 	| Sequential_music		{ $$ = $1; }
 	| TRANSPOSE musical_pitch Music {
 		$$ = new Transposed_music ($3, *$2);
-		delete $2;
+		delete $2; // ugh
 	}
 	| TRANSPOSE steno_tonic_pitch Music {
 		$$ = new Transposed_music ($3, *$2);
-		delete $2;
+		delete $2; // ugh
 	}
 	| NOTES
 		{ THIS->lexer_p_->push_note_state (); }
@@ -748,7 +754,7 @@ Composite_music:
 relative_music:
 	RELATIVE absolute_musical_pitch Music {
 		$$ = new Relative_octave_music ($3, *$2);
-		delete $2;
+		delete $2; // ugh
 	}
 	;
 
@@ -774,8 +780,8 @@ property_def:
 	PROPERTY STRING '.' STRING '='  scalar {
 		Translation_property *t = new Translation_property;
 
-		t->var_str_ = ly_scm2string ($4);
-		t->value_ = $6;
+		t->set_mus_property ("symbol", scm_string_to_symbol ($4));
+		t->set_mus_property ("value", $6);
 
 		Context_specced_music *csm = new Context_specced_music (t);
 		$$ = csm;
@@ -797,9 +803,9 @@ request_chord:
 		Music_sequence *l = dynamic_cast<Music_sequence*>($2);
 		if (l) {
 			for (int i=0; i < $1->size(); i++)
-				l->add_music ($1->elem(i));
+				l->append_music ($1->elem(i));
 			for (int i=0; i < $3->size(); i++)
-				l->add_music ($3->elem(i));
+				l->append_music ($3->elem(i));
 			}
 		else
 			programming_error ("Need Sequence to add music to");
@@ -811,16 +817,15 @@ request_chord:
 
 command_element:
 	command_req {
-		$$ = new Request_chord;
+		$$ = new Request_chord (gh_cons ($1->self_scm_, SCM_EOL));
 		$$-> set_spot (THIS->here_input ());
 		$1-> set_spot (THIS->here_input ());
-		((Simultaneous_music*)$$) ->add_music ($1);//ugh
 	}
 	| PARTIAL duration_length ';' 	{
 		Translation_property * p = new Translation_property;
-		p->var_str_ = "measurePosition";
-		p->value_ =  (new Moment (-$2->length_mom ()))->smobify_self ();
-		delete $2;
+		p->set_mus_property ("symbol", ly_symbol2scm ( "measurePosition"));
+		p->set_mus_property ("value", (new Moment (-$2->length_mom ()))->smobify_self ());
+		delete $2; // ugh
 		Context_specced_music * sp = new Context_specced_music (p);
 		$$ =sp ;
 		sp-> translator_type_str_ = "Score";
@@ -881,13 +886,13 @@ verbose_command_req:
 	}
 	| MARK STRING {
 		Mark_req *m = new Mark_req;
-		m->mark_label_ = $2;
+		m->set_mus_property ("label", $2);
 		$$ = m;
 
 	}
 	| MARK bare_unsigned {
 		Mark_req *m = new Mark_req;
-		m->mark_label_ =  gh_int2scm ($2);
+		m->set_mus_property ("label",  gh_int2scm ($2));
 		$$ = m;
 	}
 
@@ -906,7 +911,7 @@ verbose_command_req:
 	| SKIP duration_length {
 		Skip_req * skip_p = new Skip_req;
 		skip_p->duration_ = *$2;
-		delete $2;
+		delete $2; // ugh
 		$$ = skip_p;
 	}
 	| tempo_request {
@@ -923,7 +928,7 @@ verbose_command_req:
 	| KEY NOTENAME_PITCH SCM_IDENTIFIER 	{
 		Key_change_req *key_p= new Key_change_req;
 		
-		key_p->pitch_alist_ = $3;
+		key_p->set_mus_property ("pitch-alist", $3);
 		((Music* )key_p)->transpose (* $2);
 		$$ = key_p; 
 	}
@@ -964,14 +969,14 @@ request_with_dir:
 		if (Script_req * gs = dynamic_cast<Script_req*> ($2))
 			gs->dir_ = Direction ($1);
 		else if ($1)
-			$2->warning (_ ("Can't specify direction for this request"));
+			$2->origin ()->warning (_ ("Can't specify direction for this request"));
 		$$ = $2;
 	}
 	;
 	
 verbose_request:
 	REQUEST_IDENTIFIER	{
-		$$ = (Request*)$1->access_content_Request (true);
+		$$ = dynamic_cast<Request*> (unsmob_music ($1)->clone ());
 		$$->set_spot (THIS->here_input ());
 	}
 	| TEXTSCRIPT STRING STRING 	{
@@ -1268,77 +1273,68 @@ simple_element:
 		n->cautionary_b_ = $3 % 2;
 		n->forceacc_b_ = $2 % 2 || n->cautionary_b_;
 
-		Simultaneous_music*v = new Request_chord;
+
+		Simultaneous_music*v = new Request_chord (gh_list (n->self_scm_, SCM_UNDEFINED));
 		v->set_spot ($1->spot ());
 		n->set_spot ($1->spot ());
-
-		v->add_music (n);
-
 		$$ = v;
 
 		delete $1;
 		delete $4;
 	}
 	| RESTNAME optional_notemode_duration		{
-		  Simultaneous_music* velt_p = new Request_chord;
-		  velt_p->set_spot (THIS->here_input());
 
+		SCM e = SCM_UNDEFINED;
 		  if (ly_scm2string ($1) =="s")
 		    { /* Space */
 		      Skip_req * skip_p = new Skip_req;
 		      skip_p->duration_ = *$2;
 
 		      skip_p->set_spot (THIS->here_input());
-		      velt_p->add_music (skip_p);
+			e = skip_p->self_scm_;
 		    }
 		  else
 		    {
 		      Rest_req * rest_req_p = new Rest_req;
 		      rest_req_p->duration_ = *$2;
 		      rest_req_p->set_spot (THIS->here_input());
-
-		      velt_p->add_music (rest_req_p);
+			e = rest_req_p->self_scm_;
 		    }
+		  Simultaneous_music* velt_p = new Request_chord (gh_list (e,SCM_UNDEFINED));
+		  velt_p->set_spot (THIS->here_input());
 
-		  delete $2;
+		  delete $2; // ugh
 		  $$ = velt_p;
 	}
 	| MEASURES optional_notemode_duration  	{
 		Skip_req * sk = new Skip_req;
 		sk->duration_ = *$2;
-		Music_list * ms = new Music_list;
-		Request_chord * rqc1 = new Request_chord;
-		Request_chord * rqc2 = new Request_chord;
-		Request_chord * rqc3 = new Request_chord;
+		
 
 		Span_req *sp1 = new Span_req;
 		Span_req *sp2 = new Span_req;
 		sp1-> span_dir_ = START;
 		sp2-> span_dir_ = STOP;
 		sp1->span_type_str_ = sp2->span_type_str_ = "rest";
-		rqc1->add_music (sp1);
-		rqc2->add_music (sk);
-		rqc3->add_music (sp2);
-		
-		ms->add_music (rqc1);
-		ms->add_music (rqc2);
-		ms->add_music (rqc3);
+
+		Request_chord * rqc1 = new Request_chord (gh_list (sp1->self_scm_, SCM_UNDEFINED));
+		Request_chord * rqc2 = new Request_chord (gh_list (sk->self_scm_, SCM_UNDEFINED));;
+		Request_chord * rqc3 = new Request_chord(gh_list (sp2->self_scm_, SCM_UNDEFINED));;
+
+		SCM ms = gh_list (rqc1->self_scm_, rqc2->self_scm_, rqc3->self_scm_, SCM_UNDEFINED);
 
 		$$ = new Sequential_music (ms);
 	}
 	| STRING optional_notemode_duration 	{
 		if (!THIS->lexer_p_->lyric_state_b ())
 			THIS->parser_error (_ ("Have to be in Lyric mode for lyrics"));
-		Simultaneous_music* velt_p = new Request_chord;
-
 		Lyric_req* lreq_p = new Lyric_req;
 		lreq_p ->text_str_ = ly_scm2string ($1);
 		lreq_p->duration_ = *$2;
 		lreq_p->set_spot (THIS->here_input());
+		Simultaneous_music* velt_p = new Request_chord (gh_list (lreq_p->self_scm_, SCM_UNDEFINED));
 
-		velt_p->add_music (lreq_p);
-
-		delete  $2;
+		delete  $2; // ugh
 		$$= velt_p;
 
 	}

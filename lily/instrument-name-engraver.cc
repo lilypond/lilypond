@@ -64,7 +64,7 @@ Instrument_name_engraver::create_text (SCM txt)
       if (delim_)
 	text_->set_parent (delim_, Y_AXIS);
 
-      announce_element (Score_element_info (text_,0));
+      announce_element (text_,0);
     }
 }
 

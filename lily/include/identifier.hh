@@ -16,9 +16,7 @@
 
 
 class Translator_group_identifier;
-class Music_identifier;
 class Output_def_identifier;
-class Request_identifier;
 class Score_identifier;
 class Duration_identifier;
 
@@ -49,9 +47,7 @@ struct Identifier : public Input {
   void error (String) const;
   String str () const;
   IDACCESSOR(Translator_group)
-  IDACCESSOR(Music)
   IDACCESSOR(Music_output_def)
-  IDACCESSOR(Request)
   IDACCESSOR(Score)
   IDACCESSOR(Duration)
   VIRTUAL_COPY_CONS(Identifier);
@@ -77,9 +73,7 @@ struct Class ## _identifier : Identifier {\
 
 DECLARE_ID_CLASS(Translator_group);
 DECLARE_ID_CLASS(Duration);
-DECLARE_ID_CLASS(Music);
 DECLARE_ID_CLASS(Score);
-DECLARE_ID_CLASS(Request);
 DECLARE_ID_CLASS(Music_output_def);
 
 Identifier * unsmob_identifier (SCM);

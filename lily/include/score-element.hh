@@ -131,7 +131,7 @@ public:
   virtual void do_break_processing ();
   virtual Score_element *find_broken_piece (Line_of_score*) const;
   virtual void discretionary_processing ();
-  virtual void do_derived_mark ();
+  virtual SCM do_derived_mark ();
 
   Molecule get_molecule () const;
   void suicide ();

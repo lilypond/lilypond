@@ -105,16 +105,16 @@ bool
 Key_change_req::do_equal_b (Request const * req) const
 {
   Key_change_req const * k = dynamic_cast<Key_change_req const*> (req);
-  return k && scm_equal_p (pitch_alist_, k->pitch_alist_);
+  return k && scm_equal_p (get_mus_property ("pitch-alist"), k->get_mus_property ("pitch-alist"));
 }
-
 
 
 void
 Key_change_req::transpose (Musical_pitch p)
 {
   SCM newlist = SCM_EOL;
-  for (SCM s = pitch_alist_; gh_pair_p (s); s = gh_cdr (s))
+  SCM pa = get_mus_property ("pitch-alist");
+  for (SCM s = pa; gh_pair_p (s); s = gh_cdr (s))
     {
       SCM k = gh_caar (s);
 
@@ -141,7 +141,7 @@ Key_change_req::transpose (Musical_pitch p)
 	}
     }
 
-  pitch_alist_ = newlist;
+  set_mus_property ("pitch-alist", newlist);
 }
 
 Break_req::Break_req ()
@@ -149,10 +149,10 @@ Break_req::Break_req ()
 }
 
 
-
 bool
 Mark_req::do_equal_b (Request const * r) const
 {
   Mark_req const * other = dynamic_cast<Mark_req const*> (r);
-  return other && scm_equal_p (other->mark_label_,  mark_label_);
+  return other && scm_equal_p (other->get_mus_property ("mark-label"),
+			       get_mus_property ("mark-label"));
 }

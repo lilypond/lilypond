@@ -17,9 +17,10 @@
 void
 Property_iterator::do_process_and_next (Moment m)
 {
-  Translation_property const * prop = dynamic_cast<Translation_property const*> (music_l_);
-  if (prop->var_str_.length_i ())
-    report_to_l ()->set_property (prop->var_str_, prop->value_);
+  Translation_property * prop = dynamic_cast<Translation_property *> (music_l_);
+  SCM sym = prop->get_mus_property ("symbol");
+  if (gh_symbol_p(sym))
+    report_to_l ()->set_property (sym, prop->get_mus_property ("value"));
   Music_iterator::do_process_and_next (m);
 }
 

@@ -28,7 +28,7 @@ Change_iterator::error (String reason)
     + report_to_l ()->type_str_ + " = `"
     + report_to_l ()->id_str_ + "': ";
   warning (warn2);
-  t->warning (warn1);
+  t->origin ()->warning (warn1);
 }
 
 /*

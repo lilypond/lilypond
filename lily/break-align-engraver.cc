@@ -98,7 +98,7 @@ Break_align_engraver::acknowledge_element (Score_element_info inf)
 	{
 	  align_l_ = new Item (get_property ("basicBreakAlignProperties"));
 	  Break_align_item::set_interface (align_l_);
-	  announce_element (Score_element_info (align_l_,0));
+	  announce_element (align_l_,0);
 
 	  SCM edge_sym = ly_symbol2scm ("Left_edge_item");
 	  Item * edge = new Item (get_property ("leftEdgeBasicProperties"));
@@ -113,7 +113,7 @@ Break_align_engraver::acknowledge_element (Score_element_info inf)
 	  
 	  align_l_->set_elt_property ("group-center-element", edge->self_scm_);
 
-	  announce_element (Score_element_info(edge, 0));
+	  announce_element (edge, 0);
 	  column_alist_ = scm_assoc_set_x (column_alist_, edge_sym, edge->self_scm_);
 	}
 
@@ -135,7 +135,7 @@ Break_align_engraver::acknowledge_element (Score_element_info inf)
 
 	  group->set_elt_property ("break-align-symbol", align_name);
 	  group->set_parent (align_l_, Y_AXIS);
-	  announce_element (Score_element_info (group, 0));
+	  announce_element (group, 0);
 	  column_alist_ = scm_assoc_set_x (column_alist_, align_name, group->self_scm_);
 	}
       Axis_group_interface::add_element (group, item_l);

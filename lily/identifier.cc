@@ -16,7 +16,6 @@
 #include "identifier.hh"
 #include "my-lily-lexer.hh"
 #include "debug.hh"
-#include "request.hh"
 #include "translator-group.hh"
 #include "ly-smobs.icc"
 
@@ -83,8 +82,6 @@ Class ## _identifier::do_print () const { \
 
 
 DEFAULT_PRINT(Translator_group);
-DEFAULT_PRINT(Music);
-DEFAULT_PRINT(Request);
 DEFAULT_PRINT(Score);
 DEFAULT_PRINT(Music_output_def);
 
@@ -97,8 +94,6 @@ Class ## _identifier::do_str () const { \
 
 
 DUMMY_STR(Translator_group);
-DUMMY_STR(Music);
-DUMMY_STR(Request);
 DUMMY_STR(Score);
 DUMMY_STR(Music_output_def);
 DUMMY_STR(Duration);
@@ -156,12 +151,8 @@ Class ## _identifier::Class ## _identifier (Class ## _identifier const &s) \
 
 IMPLEMENT_ID_CLASS(Duration);
 IMPLEMENT_ID_CLASS(Translator_group);
-IMPLEMENT_ID_CLASS(Music);
 IMPLEMENT_ID_CLASS(Score);
-IMPLEMENT_ID_CLASS(Request);
 IMPLEMENT_ID_CLASS(Music_output_def);
-VIRTUAL_ACCESSOR(Music);
-VIRTUAL_ACCESSOR(Request);
 VIRTUAL_ACCESSOR(Translator_group);
 VIRTUAL_ACCESSOR(Music_output_def);
 DEFAULT_ACCESSOR(Duration);

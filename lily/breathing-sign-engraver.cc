@@ -18,7 +18,7 @@ TODO:
 #include "musical-request.hh"
 #include "command-request.hh"
 #include "engraver-group-engraver.hh"
-#include "local-key-item.hh"
+#include "item.hh"
 #include "engraver.hh"
 #include "command-request.hh"
 
@@ -67,7 +67,7 @@ Breathing_sign_engraver::do_process_music()
 
       Breathing_sign::set_interface (breathing_sign_p_);
 
-      announce_element (Score_element_info (breathing_sign_p_, breathing_sign_req_l_));
+      announce_element (breathing_sign_p_, breathing_sign_req_l_);
     }
 }
 

@@ -154,7 +154,7 @@ Piano_pedal_engraver::do_process_music ()
 	{
 	  if (!p->start_req_l_)
 	    {
-	      p->req_l_drul_[STOP]->warning (_f ("can't find start of piano pedal: %s",  p->name_ ));
+	      p->req_l_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: %s",  p->name_ ));
 	    }
 	  else
 	    {
@@ -166,7 +166,7 @@ Piano_pedal_engraver::do_process_music ()
 	{
 	  if (!p->start_req_l_)
 	    {
-	      p->req_l_drul_[STOP]->warning (_f ("can't find start of piano pedal: %s", p->name_ ));
+	      p->req_l_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: %s", p->name_ ));
 	    }
 	  else
 	    {
@@ -199,10 +199,10 @@ Piano_pedal_engraver::do_process_music ()
 	  // todo: init with basic props.
 	  p->item_p_->add_offset_callback (Side_position::aligned_on_self, X_AXIS);
 	  p->item_p_->add_offset_callback (Side_position::centered_on_parent, X_AXIS);
-	  announce_element (Score_element_info (p->item_p_,
+	  announce_element (p->item_p_,
 						p->req_l_drul_[START]
 						? p->req_l_drul_[START]
-						: p->req_l_drul_[STOP]));
+						: p->req_l_drul_[STOP]);
 	}
     }
 }

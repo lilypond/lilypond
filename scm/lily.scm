@@ -395,6 +395,17 @@
   (define (volta h w thick vert_start vert_end)
     (embedded-ps ((ps-scm 'volta) h w thick vert_start vert_end)))
 
+  (define (define-origin file line col)
+    ; use this for column positions
+     (string-append "\\special{src:" (number->string line) ":"
+        (number->string col) " " file "}")
+
+     ; line numbers only:
+    ;(string-append "\\special{src:" (number->string line) " " file "}")
+)
+  ; no-origin not yet supported by Xdvi
+  (define (no-origin) "")
+  
   ;; TeX
   ;; The procedures listed below form the public interface of TeX-scm.
   ;; (should merge the 2 lists)
@@ -427,6 +438,8 @@
 	    (define text ,text)
 	    (define tuplet ,tuplet)
 	    (define volta ,volta)
+	    (define define-origin ,define-origin)
+	    (define no-origin ,no-origin)
 	    ))
 
 	((eq? action-name 'beam) beam)
@@ -645,6 +658,9 @@
     "\n unknown\n")
 
 
+  (define (define-origin a b c ) "")
+  (define (no-origin) "")
+  
   ;; PS
   (cond ((eq? action-name 'all-definitions)
 	 `(begin
@@ -676,6 +692,8 @@
 	    (define stop-line ,stop-line)
 	    (define stop-last-line ,stop-line)
 	    (define text ,text)
+	    (define no-origin ,no-origin)
+	    (define define-origin ,define-origin)
 	    ))
 	((eq? action-name 'tuplet) tuplet)
 	((eq? action-name 'beam) beam)

@@ -26,8 +26,9 @@ protected:
 
 class Mark_req : public Request {
 public:
-  Protected_scm mark_label_;
-protected:
+  SCM mark_label ();
+
+
   virtual bool do_equal_b (Request const*) const;
   VIRTUAL_COPY_CONS(Music);
 };
@@ -102,8 +103,8 @@ class Breathing_sign_req : public Request {
 class Key_change_req  : public Request
 {
 public:
-  Protected_scm pitch_alist_;
-
+  SCM pitch_alist ();
+  
 protected:
   VIRTUAL_COPY_CONS(Music);
   void transpose (Musical_pitch  d);

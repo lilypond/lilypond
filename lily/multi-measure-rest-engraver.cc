@@ -115,7 +115,7 @@ Multi_measure_rest_engraver::do_process_music ()
       Multi_measure_rest::set_interface (mmrest_p_);
       Staff_symbol_referencer::set_interface (mmrest_p_);
 
-      announce_element (Score_element_info (mmrest_p_, busy_span_req_l_));
+      announce_element (mmrest_p_, busy_span_req_l_);
       start_measure_i_
 	= gh_scm2int (get_property ("currentBarNumber"));
     }

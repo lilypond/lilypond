@@ -62,7 +62,7 @@ Script_engraver::do_process_music()
       
       if (list == SCM_BOOL_F)
 	{
-	  l->warning (_f ("Don't know how to interpret articulation `%s'",
+	  l->origin ()->warning (_f ("Don't know how to interpret articulation `%s'",
 			l->articulation_str_.ch_C ()));
 	  continue;
 	}
@@ -109,7 +109,7 @@ Script_engraver::do_process_music()
   
       script_p_arr_.push (p);
       
-      announce_element (Score_element_info (p, l));
+      announce_element (p, l);
     }
 }
 

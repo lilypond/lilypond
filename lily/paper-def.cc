@@ -68,7 +68,7 @@ Paper_def::get_realvar (SCM s) const
     }
   else
     {
-      non_fatal_error (_("not a real variable"));
+      programming_error ("not a real variable");
       return 0.0;
     }
 }

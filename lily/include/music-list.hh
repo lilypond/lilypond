@@ -11,46 +11,7 @@
 #ifndef Music_sequence_HH
 #define Music_sequence_HH
 
-#include "music.hh"
-#include "cons.hh"
-
-
-class Music_list : public Cons_list<Music> , public Input
-{
-public:
-  Musical_pitch do_relative_octave (Musical_pitch, bool); 
-  void add_music (Music*);
-  Music_list (Music_list const&);
-  Music_list ();
-};
-
-
-/**
-  Music can be a list of other "Music" elements
- */
-class Music_sequence : public Music
-{
-public:
-  Music_list * music_p_list_p_;
-
-  Music_sequence (Music_sequence const&);
-  Music_sequence (Music_list *l_p);
-  
-  VIRTUAL_COPY_CONS(Music);
-
-  Musical_pitch do_relative_octave (Musical_pitch p, bool b);
-  virtual void transpose (Musical_pitch );
-  virtual void compress (Moment);
-  void add_music (Music *music_p);
-  int length_i () const;
-  Moment cumulative_length () const;
-  Moment maximum_length () const;
-  virtual ~Music_sequence ();
-  
-protected:
-  virtual Musical_pitch to_relative_octave (Musical_pitch);
-  virtual void do_print() const;
-};
+#include "music-sequence.hh"
 
 /**
   Simultaneous_music is a list of music-elements which happen simultaneously
@@ -58,14 +19,11 @@ protected:
 class Simultaneous_music : public Music_sequence
 {
 public:
-  
   VIRTUAL_COPY_CONS(Music);
-  
-  Simultaneous_music(Music_list *);
+  Simultaneous_music(SCM);
   virtual Musical_pitch to_relative_octave (Musical_pitch);
   virtual Moment length_mom () const;
 };
-
 
 /**
   The request is a collection of Requests. A note that you enter in mudela is 
@@ -75,11 +33,9 @@ class Request_chord : public Simultaneous_music
 {
 public:
   VIRTUAL_COPY_CONS(Music);
-  
   virtual Musical_pitch to_relative_octave (Musical_pitch);
-  Request_chord();
+  Request_chord(SCM list);
 };
-
 
 /**
   Sequential_music is a list of music-elements which are placed behind each other.
@@ -88,8 +44,8 @@ class Sequential_music : public Music_sequence
 {
 public:
   VIRTUAL_COPY_CONS(Music);
-
-  Sequential_music(Music_list*);
+  Sequential_music(SCM);
   virtual Moment length_mom () const;
 };
+
 #endif // Music_sequence_HH

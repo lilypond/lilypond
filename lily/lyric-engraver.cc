@@ -53,7 +53,7 @@ Lyric_engraver::do_process_music()
       */
       text_p_->translate_axis (paper_l()->get_var ("quartwidth")/2, X_AXIS);
       
-      announce_element (Score_element_info (text_p_, req_l_));
+      announce_element (text_p_, req_l_);
     }
 }
 

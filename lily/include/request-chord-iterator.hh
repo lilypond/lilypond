@@ -22,7 +22,6 @@ class Request_chord_iterator : public Music_iterator {
    */
   Moment elt_length_mom_;
   bool last_b_;
-  Cons<Music>* cursor_;
 
 public:
   Request_chord_iterator ();

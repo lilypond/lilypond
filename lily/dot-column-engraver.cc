@@ -56,7 +56,7 @@ Dot_column_engraver::acknowledge_element (Score_element_info info)
 	  Dot_column::set_interface (dotcol_p_);
 	  Side_position::set_axis (dotcol_p_, X_AXIS);
 	  Side_position::set_direction (dotcol_p_, RIGHT);      
-	  announce_element (Score_element_info (dotcol_p_, 0));
+	  announce_element (dotcol_p_, 0);
 	}
 
       Dot_column::add_head (dotcol_p_, info.elem_l_);

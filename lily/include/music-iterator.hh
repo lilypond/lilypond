@@ -28,7 +28,7 @@ class Music_iterator {
   Interpretation_context_handle handle_;
 
 protected:
-  Music const * music_l_;
+  Music  * music_l_;
 
   /// ugh. JUNKME
   bool first_b_;
@@ -47,7 +47,7 @@ protected:
   /**
     Get an iterator for MUS, inheriting the translation unit from THIS.
    */
-  Music_iterator* get_iterator_p (Music const*mus) const;
+  Music_iterator* get_iterator_p (Music *mus) const;
 
   /** Do the actual move.  This should be overriden in derived
     classes.  It is called by #process_and_next#, the public interface 
@@ -55,7 +55,7 @@ protected:
   virtual void do_process_and_next (Moment until);
 
 
-  virtual Music_iterator* try_music_in_children (Music const *) const;
+  virtual Music_iterator* try_music_in_children (Music  *) const;
   
 public:
 
@@ -63,7 +63,7 @@ public:
      Do the reporting.  Will try MUSIC_L_ in its own translator first,
      then its children. Returns the iterator that succeeded
   */
-  Music_iterator *  try_music (Music const *) const;
+  Music_iterator *  try_music (Music  *) const;
 
   /**
     The translation unit that we this iterator is reporting  to now.
@@ -75,8 +75,8 @@ public:
   /** Get an iterator matching the type of MUS, and use TRANS to find
     an accompanying translation unit
    */
-  static Music_iterator* static_get_iterator_p (Music const* mus);
-  void init_translator (Music const *, Translator_group *); 
+  static Music_iterator* static_get_iterator_p (Music * mus);
+  void init_translator (Music  *, Translator_group *); 
 
   Music_iterator();
     

@@ -122,33 +122,33 @@ Music_iterator::ok() const
 }
 
 Music_iterator*
-Music_iterator::static_get_iterator_p (Music const *m)
+Music_iterator::static_get_iterator_p (Music  *m)
 {
   Music_iterator * p =0;
 
   /* It would be nice to do this decentrally, but the order of this is
      significant.  */
-  if (dynamic_cast<Request_chord  const *> (m))
+  if (dynamic_cast<Request_chord   *> (m))
     p = new Request_chord_iterator;
-  else if (dynamic_cast<Lyric_combine_music const*> (m))
+  else if (dynamic_cast<Lyric_combine_music *> (m))
     p = new Lyric_combine_music_iterator;
-  else if (dynamic_cast<Simultaneous_music  const *> (m)) 
+  else if (dynamic_cast<Simultaneous_music   *> (m)) 
     p =  new Simultaneous_music_iterator;
-  else if (dynamic_cast<Sequential_music  const *> (m)) 
+  else if (dynamic_cast<Sequential_music   *> (m)) 
     p =  new Sequential_music_iterator;
-  else if (dynamic_cast<Translation_property  const *> (m))
+  else if (dynamic_cast<Translation_property   *> (m))
     p = new Property_iterator;
-  else if (dynamic_cast<Change_translator  const *> (m))
+  else if (dynamic_cast<Change_translator   *> (m))
     p = new Change_iterator;
-  else if (dynamic_cast<Time_scaled_music  const *> (m))
+  else if (dynamic_cast<Time_scaled_music   *> (m))
     p = new Time_scaled_music_iterator;
-  else if (dynamic_cast<Grace_music const*> (m))
+  else if (dynamic_cast<Grace_music *> (m))
     p = new Grace_iterator;
-  else if (dynamic_cast<Auto_change_music const*> (m))
+  else if (dynamic_cast<Auto_change_music *> (m))
     p = new Auto_change_iterator;
-  else if (dynamic_cast<Music_wrapper  const *> (m))
+  else if (dynamic_cast<Music_wrapper   *> (m))
     p = new Music_wrapper_iterator;
-  else if (Repeated_music const * n = dynamic_cast<Repeated_music const *> (m))
+  else if (Repeated_music  * n = dynamic_cast<Repeated_music  *> (m))
     {
       if (n->type_ == "tremolo")
 	p = new Chord_tremolo_iterator;
@@ -167,10 +167,10 @@ Music_iterator::static_get_iterator_p (Music const *m)
 }
 
 void
-Music_iterator::init_translator (Music const *m, Translator_group  *report_l)
+Music_iterator::init_translator (Music  *m, Translator_group  *report_l)
 {
   music_l_ = m;
-  if (Context_specced_music const * csm =dynamic_cast<Context_specced_music const*>(m))
+  if (Context_specced_music  * csm =dynamic_cast<Context_specced_music *>(m))
     {
       Translator_group* a =report_l->
 	find_create_translator_l (csm->translator_type_str_, csm->translator_id_str_);
@@ -185,7 +185,7 @@ Music_iterator::init_translator (Music const *m, Translator_group  *report_l)
 
 
 Music_iterator*
-Music_iterator::get_iterator_p (Music const*m) const
+Music_iterator::get_iterator_p (Music *m) const
 {
   Music_iterator*p = static_get_iterator_p (m);
   p->init_translator (m, report_to_l());
@@ -200,7 +200,7 @@ Music_iterator::Music_iterator()
 }
 
 Music_iterator*
-Music_iterator::try_music (Music const *m) const
+Music_iterator::try_music (Music  *m) const
 {
   bool b = report_to_l ()->try_music ((Music*)m); // ugh
   Music_iterator * it = b ? (Music_iterator*) this : 0;	// ugh
@@ -210,7 +210,7 @@ Music_iterator::try_music (Music const *m) const
 }
 
 Music_iterator*
-Music_iterator::try_music_in_children (Music const *  ) const
+Music_iterator::try_music_in_children (Music  *  ) const
 {
   return 0;
 }

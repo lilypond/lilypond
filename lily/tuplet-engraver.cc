@@ -44,7 +44,7 @@ Tuplet_engraver::do_try_music (Music *r)
 {
   if (Time_scaled_music * c = dynamic_cast<Time_scaled_music *> (r))
     {
-      Music *el = c->element_l ();
+      Music *el = c->element ();
       if (!dynamic_cast<Request_chord*> (el))
 	{
 	  time_scaled_music_arr_.push (c);
@@ -84,7 +84,7 @@ Tuplet_engraver::do_process_music ()
       glep->set_elt_property ("text",
 			      ly_str02scm (to_str (time_scaled_music_arr_[i]->den_i_).ch_C()));
       
-      announce_element (Score_element_info (glep, time_scaled_music_arr_ [i]));
+      announce_element (glep, time_scaled_music_arr_ [i]);
     }
 }
 

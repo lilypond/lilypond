@@ -12,6 +12,7 @@
 
 #include "input.hh"
 #include "lily-proto.hh"
+#include "protected-scm.hh"
 #include "parray.hh"
 
 /// the total music def of one movement
@@ -19,7 +20,7 @@ class Score: public Input {
 public:
   /// paper_, staffs_ and commands_ form the problem definition.
   Link_array<Music_output_def> def_p_arr_;
-  Music * music_p_;
+  Protected_scm music_;
   Scope * header_p_;
 
   int errorlevel_i_;

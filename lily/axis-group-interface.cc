@@ -126,5 +126,4 @@ Axis_group_interface::set_interface (Score_element*me)
     {
       me->set_interface (ly_symbol2scm ("axis-group-interface"));      
     }
-  me->set_elt_property ("elements", SCM_EOL);
 }

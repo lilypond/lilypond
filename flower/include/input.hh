@@ -28,6 +28,13 @@ public:
   Input spot () const;
   String location_str () const;
   String line_number_str () const;
+
+
+  String file_str ()const;
+  int line_number ()const;
+  int column_number ()const;
+
+  
   Input (Source_file*, char const*);
   Input ();
 };

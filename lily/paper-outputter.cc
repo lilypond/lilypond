@@ -126,6 +126,12 @@ Paper_outputter::output_scheme (SCM scm)
 }
 
 
+/*
+  UGH.
+
+  Should probably change interface to do less eval ( symbol ), and more
+  apply (procedure, args)
+ */
 void
 Paper_outputter::dump_scheme (SCM s)
 {

@@ -84,7 +84,7 @@ Piano_pedal_performer::do_process_music ()
 	{
 	  if (!p->start_req_l_)
 	    {
-	      p->req_l_drul_[STOP]->warning (_f ("can't find start of piano pedal: %s", String (p->name_)));
+	      p->req_l_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: %s", String (p->name_)));
 	    }
 	  else
 	    {

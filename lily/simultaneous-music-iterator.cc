@@ -28,10 +28,11 @@ Simultaneous_music_iterator::construct_children()
   int j = 0;
   Music_sequence const *sim = dynamic_cast<Music_sequence const*> (music_l_);
 
-  Cons<Music> *i = (sim->music_p_list_p_) ? sim->music_p_list_p_->head_ : 0;
-  for (; i;  i = i->next_, j++)
+  SCM i = sim->music_list ();
+  for (; gh_pair_p(i); i = gh_cdr(i), j++)
     {
-      Music_iterator * mi = static_get_iterator_p (i->car_);
+      Music *mus = unsmob_music (gh_car (i));
+      Music_iterator * mi = static_get_iterator_p (mus);
 
       /* if separate_contexts_b_ is set, create a new context with the
 	 number number as name */
@@ -44,7 +45,7 @@ Simultaneous_music_iterator::construct_children()
       if (!t)
 	t = report_to_l ();
 
-      mi->init_translator (i->car_, t);
+      mi->init_translator (mus, t);
       mi->construct_children ();
       
       if (mi->ok()) 
@@ -106,7 +107,7 @@ Simultaneous_music_iterator::ok() const
 }
 
 Music_iterator*
-Simultaneous_music_iterator::try_music_in_children (Music const*m) const
+Simultaneous_music_iterator::try_music_in_children (Music *m) const
 {
   Music_iterator * b=0;
   for (Cons<Music_iterator> *p = children_p_list_.head_; !b && p; p = p->next_)

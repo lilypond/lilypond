@@ -54,7 +54,7 @@ Rhythmic_column_engraver::process_acknowledged ()
 	{
 	  ncol_p_ = new Item (get_property("basicNoteColumnProperties"));
 	  Note_column::set_interface (ncol_p_);
-	  announce_element (Score_element_info (ncol_p_, 0));
+	  announce_element (ncol_p_, 0);
 	}
 
       for (int i=0; i < rhead_l_arr_.size (); i++)

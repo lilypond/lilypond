@@ -28,7 +28,7 @@ void
 Music_wrapper_iterator::construct_children ()
 {
   child_iter_p_ =
-    get_iterator_p (dynamic_cast<Music_wrapper const*> (music_l_)->element_l ());
+    get_iterator_p (dynamic_cast<Music_wrapper const*> (music_l_)->element ());
 }
 
 Music_wrapper_iterator::~Music_wrapper_iterator ()
@@ -59,7 +59,7 @@ Music_wrapper_iterator::next_moment () const
 
 
 Music_iterator*
-Music_wrapper_iterator::try_music_in_children (Music const *m) const
+Music_wrapper_iterator::try_music_in_children (Music *m) const
 {
   return child_iter_p_->try_music (m);
 }

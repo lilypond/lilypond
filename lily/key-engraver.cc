@@ -9,7 +9,7 @@
 #include "key-item.hh"
 #include "command-request.hh"
 #include "musical-request.hh"
-#include "local-key-item.hh"
+#include "item.hh"
 #include "bar.hh"
 #include "timing-translator.hh"
 #include "staff-symbol-referencer.hh"
@@ -65,6 +65,7 @@ Key_engraver::create_key (bool def)
       item_p_->set_elt_property ("new-accidentals", get_property ("keySignature"));
 
       Staff_symbol_referencer::set_interface (item_p_);
+      Key_item::set_interface (item_p_);
 
       SCM prop = get_property ("keyOctaviation");
       bool multi = to_boolean (prop);
@@ -72,7 +73,7 @@ Key_engraver::create_key (bool def)
       if (multi)
 	item_p_->set_elt_property ("multi-octave", gh_bool2scm (multi));
       
-      announce_element (Score_element_info (item_p_,keyreq_l_));
+      announce_element (item_p_,keyreq_l_);
     }
 
   if (!def)
@@ -137,10 +138,11 @@ Key_engraver::do_pre_move_processing ()
 void
 Key_engraver::read_req (Key_change_req const * r)
 {
-  if (r->pitch_alist_ == SCM_UNDEFINED)
+  SCM p = r->get_mus_property ("pitch-alist");
+  if (p == SCM_UNDEFINED)
     return;
 
-  SCM n = scm_list_copy (r->pitch_alist_);
+  SCM n = scm_list_copy (p);
   SCM accs = SCM_EOL;
   for (SCM s = get_property ("keyAccidentalOrder");
        gh_pair_p (s); s = gh_cdr (s))

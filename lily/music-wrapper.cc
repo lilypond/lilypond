@@ -10,61 +10,47 @@
 
 #include "music-wrapper.hh"
 
-Music_wrapper::~Music_wrapper ()
-{
-  delete element_p_;
-}
-
-Music_wrapper::Music_wrapper (Music_wrapper const&s)
-  : Music (s)
-{
-  element_p_ = (s.element_p_)?s.element_p_->clone ():0;
-}
-
 
 void
 Music_wrapper::do_print () const
 {
-  element_p_->print ();
+  element ()->print ();
 }
-
 
 void
 Music_wrapper::transpose (Musical_pitch p)
 {
-  if (element_p_)
-    element_p_-> transpose (p);
+  if (element ())
+    element ()-> transpose (p);
 }
 
 
 Music_wrapper::Music_wrapper(Music*p)
 {
-  element_p_ = p;
+  set_mus_property ("element", p->self_scm_);
 }
-
-
 
 Moment
 Music_wrapper::length_mom () const
 {
-  return element_p_->length_mom ();
+  return element ()->length_mom ();
 }
 
 Musical_pitch
 Music_wrapper::to_relative_octave (Musical_pitch p)
 {
-  return element_p_->to_relative_octave (p);
+  return element ()->to_relative_octave (p);
 }
 
 
 Music*
-Music_wrapper::element_l () const
+Music_wrapper::element () const
 {
-  return element_p_;
+  return unsmob_music (get_mus_property ("element"));
 }
 
 void
 Music_wrapper::compress (Moment m)
 {
-  element_l ()->compress (m);
+  element ()->compress (m);
 }
