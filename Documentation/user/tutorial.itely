@@ -636,13 +636,15 @@ you can make arbitrarily complex and large expressions.  For example,
 This is a sequence of expressions, where each expression is contained
 in the next one.  The simplest expressions are numbers, and larger
 ones are made by combining expressions with operators (like @samp{+},
-@samp{*} and @samp{/}) and parentheses.
+@samp{*} and @samp{/}) and parentheses.  Like mathematical expressions,
+music expressions can be nested arbitrarily deep, which is necessary
+for complex music like polyphonic scores.
 
-Like mathematical expressions, music expressions can be nested
-arbitrarily deep,@footnote{The reason for getting three staves in the
-previous example but just a single staff in the current one will be
-explained in TODO.}  which is necessary for complex music like
-polyphonic scores.
+Note that this example only has one staff, whereas
+the previous example had three seperate staves.  That is because this
+example begins with a single note.  To determine the number of staves,
+LilyPond looks at the first element.  If it's a single note, there's one
+staff; if there's a simultaneous expression, there's more than one staff.
 
 @lilypond[fragment,quote,verbatim,relative=2] 
 {
@@ -652,10 +654,10 @@ polyphonic scores.
 @end lilypond
 
 Music files with deep nesting can be confusing to enter and
-maintain. One convention that helps against this confusion, is
+maintain.  One convention that helps against this confusion is
 indenting.  When entering a file with deep nesting of braces and
 angles, it is customary to use an indent that indicates the nesting
-level.  Formatting music like this eases reading, and helps you insert
+level.  Formatting music like this eases reading and helps you insert
 the right number of closing braces at the end of an expression.  For
 example,
 
@@ -671,7 +673,7 @@ example,
 @end example
 
 Some editors have special support for entering LilyPond, and can help
-indenting source files.  See @ref{Editor support}, for more information.
+indenting source files.  See @ref{Editor support} for more information.
 
 @node More staves
 @section More staves
@@ -683,7 +685,7 @@ staff is marked by adding @code{\new Staff} before it.  These
 
 @lilypond[quote,fragment,verbatim]
 <<
-  \new Staff { \clef violin c'' }
+  \new Staff { \clef treble c'' }
   \new Staff { \clef bass c }
 >>
 @end lilypond
@@ -692,7 +694,7 @@ staff is marked by adding @code{\new Staff} before it.  These
 The command @code{\new} introduces a `notation context.'  A notation
 context is an environment in which musical events (like notes or
 @code{\clef} commands) are interpreted.  For simple pieces, such
-notation contexts are created implicitly.  For more complex pieces, it
+notation contexts are created automatically.  For more complex pieces, it
 is best to mark contexts explicitly.  This ensures that each fragment
 gets its own stave.
 
@@ -715,7 +717,7 @@ We can now typeset a melody with two staves
 \relative <<
   \new Staff {
     \time 3/4
-    \clef violin
+    \clef treble 
     
     e'2 d4 c2 b4 a8[ a]
     b[ b] g[ g] a2. 
@@ -755,6 +757,14 @@ Similarly, fingering indications can be added to a note using a dash
 c-3 e-5 b-2 a-1
 @end lilypond
 
+Articulations and fingerings are usually placed automatically, but you
+can specify a direction using @samp{^} (up) or @samp{_} (down).  You can
+also use multiple articulations on the same note.  In most cases, it's
+best to let LilyPond determine the articulation directions.
+
+@lilypond[fragment,quote,verbatim,relative=2]
+c_-^1 d^. f^4_2-> e^-_+
+@end lilypond
 
 Dynamic signs are made by adding the markings (with a backslash) to
 the note
