@@ -24,7 +24,10 @@
 ;;;    lilypond-devel)
 ;;;    - wait for/help with pango 1.6
 ;;;    - convert feta to OpenType (CFF) or TrueType (fontforge?)
-;;;    - hack feta20: use latin1 encoding for gnome backend
+;;;    - hack feta20/feta20.pfa?: use latin1 encoding for gnome backend
+;;;      Trying:
+;;;         mftrace --encoding=$(kpsewhich cork.enc) --autotrace --output-base=feta-cork-20 feta20.mf
+;;;      hmm --output-base broken?
 ;;;  * implement missing stencil functions
 ;;;  * implement missing commands (next, prev? page)
 ;;;  * user-interface, keybindings
@@ -270,7 +273,11 @@ guile -s ../src/gtk/examples/hello.scm
 
 (define (char font i)
   ;;(text font (make-string 1 (integer->char i))))
-  (text font "a"))
+  ;;(text font "a"))
+  ;; FIXME: utf8?
+  (if (< i 127)
+      (text font (make-string 1 (integer->char i)))
+      (text font "a")))
 
 (define (placebox x y expr)
   (let ((item expr))
@@ -329,13 +336,24 @@ guile -s ../src/gtk/examples/hello.scm
     (set! main-canvas canvas)
     (set! main-window window)))
 
+(define (pango-font-name font)
+  (cond
+   ((equal? (ly:font-name font) "GNU-LilyPond-feta-20")
+    "lilypond-feta, regular 32")
+   (else
+    (ly:font-filename font))))
+
 (define (text font string)
+  (stderr "font-name: ~S\n" (ly:font-name font))
+  ;; TODO s/filename/file-name/
+  (stderr "font-filename: ~S\n" (ly:font-filename font))
   (make <gnome-canvas-text>
     #:parent canvas-root
     #:x 0 #:y 0
     #:size-points 12
     #:size-set #t
-    #:font "new century schoolbook, i bold 20"
+    ;;    #:font "new century schoolbook, i bold 20"
+    #:font (pango-font-name font)
     #:fill-color "black"
     #:text string))
 
