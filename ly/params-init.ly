@@ -25,8 +25,9 @@ ledgerlinethickness = #(* 2.0 linethickness)
 
 
 
-% blotdiameter = 0.4 \pt
-blotdiameter = 0.04 \pt
+% 2/3 stafflinethickness in 20pt staffheight
+% this parameter is independent of the output size.
+blotdiameter = 0.33 \pt
 interscoreline = 4. \mm
 
 

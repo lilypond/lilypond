@@ -1,5 +1,10 @@
 2003-09-30  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* ly/params-init.ly (blotdiameter): set blotdiameter to 2/3 of
+	stafflinethickness (in the default)
+
+	* lily/stem.cc (brew_molecule): use round_filled_box for stem.
+
 	* lily/lily-guile.cc (parse_symbol_list): strip spaces at the end.
 
 	* Documentation/topdocs/INSTALL.texi (Top): reorder.

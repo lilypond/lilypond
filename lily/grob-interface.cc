@@ -59,7 +59,6 @@ check_interfaces_for_property (Grob const *me, SCM sym)
     }
   SCM ifs =  me->get_grob_property ("interfaces");
 
-
   bool found = false;
   for (; !found && gh_pair_p (ifs); ifs =gh_cdr (ifs))
     {

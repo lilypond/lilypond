@@ -735,9 +735,12 @@ Stem::brew_molecule (SCM smob)
       Real stem_width = gh_scm2double (me->get_grob_property ("thickness"))
 	// URG
 	* me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
-      
-      Molecule ss =Lookup::filledbox (Box (Interval (-stem_width/2, stem_width/2),
-					   Interval (stem_y[DOWN]*dy, stem_y[UP]*dy)));
+      Real blot = 
+	me->get_paper ()->get_realvar (ly_symbol2scm ("blotdiameter"));
+      Box b = Box (Interval (-stem_width/2, stem_width/2),
+		   Interval (stem_y[DOWN]*dy, stem_y[UP]*dy));
+
+      Molecule ss = Lookup::round_filled_box (b, blot);
       mol.add_molecule (ss);
     }
 
