@@ -32,6 +32,52 @@
   (string-append
    "\\def\\" prefix (symbol->tex-key key) "{" number "}%\n"))
 
+
+(define-public (digits->letters str)
+  (regexp-substitute/global
+   #f "[-\\._]"
+   (regexp-substitute/global
+    #f "([0-9])" str
+    'pre
+    (lambda (match)
+      (make-string
+       1
+       (integer->char
+	(+ (char->integer #\A)
+	   (- (char->integer #\0))
+	   (char->integer (string-ref (match:substring match 1) 0)))
+	)))
+    'post)
+   'pre ""
+   'post))
+
+(define (otf-font-load-command paper font)
+  (let*
+      ((sub-fonts (ly:font-sub-fonts font))
+       (base-name (tex-font-command font)))
+
+    (string-append
+     (apply string-append
+	    (map
+	     (lambda (sub-name)
+	       (string-append
+		"\\font\\" (string-append base-name (digits->letters sub-name)) "="
+		sub-name 
+		" scaled "
+		(ly:number->string (inexact->exact
+				    (round (* 1000
+					      (ly:font-magnification font)
+					      (ly:paper-outputscale paper)))))
+		"%\n"))
+	     sub-fonts)))
+
+    "\\def\\" (tex-font-command font) "{"
+    (apply string-append
+	   (map (lambda (name)
+		  "\\def\\" (string-append base-name (digits->letters name))
+		  )
+    ))))
+
 (define-public (tex-font-command font)
   (string-append
    "magfont"
@@ -41,7 +87,7 @@
    (string-encode-integer
     (inexact->exact (round (* 1000 (ly:font-magnification font)))))))
 
-(define (font-load-command paper font)
+(define (simple-font-load-command paper font)
   (let* ((coding-alist (ly:font-encoding-alist font))
 	 (font-encoding (assoc-get 'output-name coding-alist)))
     (string-append
@@ -65,6 +111,11 @@
 	 "  ")
      "\\lilypond" (tex-font-command font)
      "}%\n")))
+
+(define (font-load-command paper font)
+  (if (pair? (ly:font-sub-fonts font))
+      (otf-font-load-command paper font)
+      (simple-font-load-command paper font)))
 
 (define (define-fonts paper)
   (string-append
