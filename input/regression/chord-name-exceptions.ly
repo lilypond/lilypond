@@ -33,7 +33,7 @@ chExceptions = #(append
 
 theMusic = \chords {
       c:7sus4 c:dim7/+f
-      \set Current.chordNameExceptions = #chExceptions
+      \set chordNameExceptions = #chExceptions
       c:7sus4 c:dim7/+f }
 
   

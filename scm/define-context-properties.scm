@@ -270,8 +270,8 @@ r1 r1*3 R1*3  \\\\property Score.skipBars= ##t r1*3 R1*3
 @end example
 ")
      (skipTypesetting ,boolean?
-		      "When true, all no typesetting is done at
-this moment, causing  the interpretation phase to go a lot faster. This can
+		      "When true, all no typesetting is done at this
+moment, causing the interpretation phase to go a lot faster. This can
 help with debugging large scores.")
      (soloADue ,boolean? "set Solo/A due texts in the part combiner?")
      (soloIIText ,string? "text for begin of solo for voice ``two'' when part-combining.")
@@ -388,9 +388,7 @@ Valid values are described in @internalsref{bar-line-interface}.
 
      )
 
-   `(
-
-     (slurMelismaBusy ,boolean? "Signal if a slur is present.")
+   `((slurMelismaBusy ,boolean? "Signal if a slur is present.")
      (originalCentralCPosition
       ,integer?
       "Used for temporary overriding central C in octavation brackets. ")

@@ -1564,7 +1564,7 @@ individually for each voice.  Apart from that, the rule is similar to
       voices:
 @lilypond[raggedright,relative,fragment,verbatim,quote]
     \context Staff <<
-        \voiceAccidentals
+        #(set-accidental-style 'voice)
         <<
          { es g } \\
          { c, e }
@@ -1586,7 +1586,7 @@ instead.
       measure:
 
 @lilypond[raggedright,fragment,verbatim]
-      \modernAccidentals
+      #(set-accidental-style 'modern)
       cis' c'' cis'2 | c'' c'
 @end lilypond
 
@@ -1624,8 +1624,8 @@ some of them are typeset as cautionaries.
       @internalsref{PianoStaff}.
 
 @item piano-cautionary
-      @cindex @code{\pianoCautionaries}
-      As @code{\pianoAccidentals} but with the extra accidentals
+      @cindex @code{#(set-accidental-style 'piano-cautionary)}
+      As @code{#(set-accidental-style 'piano)' , str)} but with the extra accidentals
       typeset as cautionaries.
 
 @item no-reset
@@ -1633,7 +1633,7 @@ some of them are typeset as cautionaries.
       Same as @code{default} but with accidentals lasting
       ``forever'' and not only until the next measure:
 @lilypond[raggedright,fragment,verbatim,relative]
-      \noResetKey
+      #(set-accidental-style 'no-reset)
       c1 cis cis c
 @end lilypond
 
@@ -1644,7 +1644,7 @@ some of them are typeset as cautionaries.
       before in the music:
       
 @lilypond[raggedright,fragment,verbatim,relative]
-      \forgetAccidentals
+      #(set-accidental-style 'forget)
       \key d\major c4 c cis cis d d dis dis
 @end lilypond
 @end table
@@ -3415,7 +3415,7 @@ In addition, notes are considered a melisma if they are manually
 beamed, and automatic beaming (see @ref{Setting automatic beam
 behavior}) is switched off.  The criteria for deciding melismata
 can be tuned with the property @code{melismaBusyProperties}. See
-@internalsref{Melisma_engraver} for more information.
+@internalsref{Melisma_translator} for more information.
 
 When multiple stanzas are put on the same melody, it can happen that
 two stanzas have melismata in different locations. This can be
@@ -3440,7 +3440,7 @@ A complete example of a SATB score setup is in the file
 @seealso
 
 Internals: Music expressions: @internalsref{LyricCombineMusic},
-Contexts: @internalsref{Lyrics}, @internalsref{Melisma_engraver}.
+Contexts: @internalsref{Lyrics}, @internalsref{Melisma_translator}.
 
 Examples: @inputfileref{input/template,satb.ly},
 @inputfileref{input/regression,lyric-combine-new.ly}.

@@ -167,8 +167,12 @@ Context::find_create_context (SCM n, String id,
       return current;
     }
 
+  /*
+    Don't go up to Global_context, because global goes down to
+    Score_context
+   */
   Context *ret = 0;
-  if (daddy_context_)
+  if (daddy_context_ && !dynamic_cast<Global_context*> (daddy_context_))
     ret = daddy_context_->find_create_context (n, id, operations);
   else
     {

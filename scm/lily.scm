@@ -416,7 +416,7 @@ L1 is copied, L2 not.
        "auto-beam.scm"
        "chord-name.scm"
        
-       "define-translator-properties.scm"
+       "define-context-properties.scm"
        "translation-functions.scm"
        "script.scm"
        "midi.scm"
