@@ -1,3 +1,17 @@
+2002-11-16  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* GNUmakefile.in: config.h message fix.
+
+	* autogen.sh:
+	* aclocal.m4: Regenerate.
+
+	* configure.in: 
+	* config.make.in: 
+	* stepmake/config.make.in: 
+	* stepmake/configure.in: 
+	* stepmake/autogen.sh: 
+	* stepmake/aclocal.m4: Update for autoconf 2.56.
+
 2002-11-16  Heikki Junes <hjunes@cc.hut.fi>
 
 	* Documentation/topdocs/INSTALL.texi: instructions for an user how

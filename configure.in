@@ -1,12 +1,20 @@
 dnl configure.in   -*-shell-script-*-
 dnl Process this file with autoconf to produce a configure script. 
 
-# Bootstrap the init proces.  List a file identifies your package.
-AC_INIT(make/lilypond.lsm.in)
-AC_CONFIG_HEADER($CONFIGFILE.h:config.hh.in)
+# Bootstrap the init proces.
+AC_INIT
 
 # Bootstrap StepMake configure
+# For user package:
+AC_CONFIG_AUX_DIR([stepmake/bin])
+# For stepmake package:
+# AC_CONFIG_AUX_DIR(bin)
 STEPMAKE_INIT
+
+# List a file that identifies your package.
+AC_CONFIG_SRCDIR([make/lilypond.lsm.in])
+# Move to aclocal.m4?
+AC_CONFIG_HEADER([$CONFIGFILE.h:config.hh.in])
 
 # For all packages except the StepMake package itself
 AC_CONFIG_SUBDIRS(stepmake)
@@ -35,12 +43,12 @@ STEPMAKE_MAKEINFO(REQUIRED)
 STEPMAKE_PYTHON_DEVEL(REQUIRED)
 
 
-AC_HAVE_HEADERS(assert.h sys/stat.h sstream)
+AC_CHECK_HEADERS([assert.h sys/stat.h sstream])
 AC_HEADER_STAT
 
 AC_FUNC_MEMCMP
 AC_FUNC_VPRINTF
-AC_CHECK_FUNCS(memmem snprintf vsnprintf gettext isinf)
+AC_CHECK_FUNCS([memmem snprintf vsnprintf gettext isinf])
 
 
 ## Optional tools for building documentation, website, extra fonts.
@@ -77,5 +85,5 @@ Type:
     make$mc install   to install LilyPond
     make$mc help      to see all possible targets
 
-Do not worry if ./Documentation or ./mutopia should not build.
+Do not worry if ./Documentation should not build.
 EOF
