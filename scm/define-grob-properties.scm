@@ -420,6 +420,11 @@ expressed in global staffspace.")
 staff spaces, counted from the middle line.")
      (staffline-clearance ,ly:dimension? "How far away ties keep from
 staff lines.")
+     (stem-attachment-function ,procedure? "A function that calculates
+where a stem attaches to the note head? This is a fallback when this
+information is not specified in the font.  The function takes a grob
+and axis argument, and returns a (@var{x} . @var{y}) pair, specifying
+location in terms of note head bounding box.")
 
      (stem-end-position ,number? "Where does the stem end (the end is opposite to the support-head.")
 
