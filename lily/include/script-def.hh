@@ -7,10 +7,15 @@
 #ifndef SCRIPTDEF_HH
 #define SCRIPTDEF_HH
 #include "string.hh"
+#include "general-script-def.hh"
 
 /** The characteristics of a certain kind of accent. It is not the
   accent itself.  */
-struct Script_def {
+class Script_def : public General_script_def {
+    /// invert if below staff?
+    bool invertsym_b_;
+    String symidx;
+    
 
     /// on the other side of the stem?
     int rel_stem_dir_i_;
@@ -24,15 +29,25 @@ struct Script_def {
     /// follow the ball inside staff?
     bool inside_staff_b_;
 
-    /// invert if below staff?
-    bool invertsym_b_;
-    String symidx;
+public:
+    virtual int staff_dir_i()const;
+    virtual int rel_stem_dir_i()const;
+    virtual int priority_i()const;
+    virtual bool inside_b()const;
+    virtual Atom get_atom(Paper_def* p, int dir_i_)const;
+    NAME_MEMBERS();
 
-    /* *************** */
-    int compare(Script_def const &);
+    virtual bool do_equal_b(General_script_def const &)const;
     void print() const;
-    Script_def(String, bool, int, int ,bool);
+    Script_def();
+    void set_from_input(String, bool, int, int ,bool);
+protected:
+    VIRTUAL_COPY_CONS(Script_def,General_script_def)
+
 };
+
+
+
 
 
 #endif // SCRIPTDEF_HH

@@ -14,18 +14,12 @@
 #include "molecule.hh"
 #include "lookup.hh"
 
-Text_item::Text_item(Text_def *tdef_l, int d)
+Text_item::Text_item(General_script_def*tdef_l, int d)
 {
     dir_i_ = d;
     fat_b_ = false;
-    tdef_p_ = new Text_def(*tdef_l);
+    tdef_p_ = tdef_l->clone();
     pos_i_ =0;
-}
-
-Text_def*
-Text_item::tdef_l()
-{
-    return tdef_p_;
 }
 
 Text_item::~Text_item()
@@ -36,7 +30,8 @@ Text_item::~Text_item()
 void
 Text_item::set_default_index()
 {
-    pos_i_  = get_position_i(tdef_p_->create_atom().extent().y );
+    pos_i_  = get_position_i(
+	tdef_p_->get_atom(paper(), dir_i_).extent().y );
 }
 
 void
@@ -44,7 +39,6 @@ Text_item::do_pre_processing()
 {
     if (!dir_i_)
 	dir_i_ = -1;
-    tdef_p_->pdef_l_ = paper();
 }
 
 void
@@ -57,11 +51,12 @@ Text_item::do_post_processing()
 Molecule*
 Text_item::brew_molecule_p() const
 {
-    Atom a(tdef_p_->create_atom());
+    Atom a(tdef_p_->get_atom(paper(), dir_i_));
 
-    if ( fat_b_)
-	a.sym.dim.x = tdef_p_->width();
-
+/*
+  if ( fat_b_)
+	a.sym.dim.x = tdef_p_->width(paper());
+	*/
     Molecule* mol_p = new Molecule(a);
 
     if(dir_i_<0 )		// should do something better anyway.

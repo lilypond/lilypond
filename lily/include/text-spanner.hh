@@ -16,15 +16,15 @@
 class Text_spanner : public Spanner {
 public:
     Directional_spanner * support;
-    Text_def spec;
+    General_script_def * spec_p_;
     Offset text_off_;
-    NAME_MEMBERS(Text_spanner);
+    NAME_MEMBERS();
 
     void set_support(Directional_spanner*);
     Text_spanner();
 protected:
     SPANNER_CLONE(Text_spanner)
-
+    ~Text_spanner();
     virtual void do_substitute_dependency(Score_elem*,Score_elem*);
     virtual void do_pre_processing();
     virtual void do_post_processing();
