@@ -126,7 +126,7 @@ class Repeated_music;
 class Event;
 class Event_chord;
 class Event_chord_iterator;
-class Scaled_font_metric;
+class Modified_font_metric;
 class Scheme_hash_table;
 class Score;
 class Grob;

@@ -26,7 +26,6 @@ public:
   virtual Offset get_indexed_wxwy (int) const;
   virtual Box get_indexed_char (int index) const;
   virtual Box get_ascii_char (int ascii) const;
-  virtual Box text_dimension (String)  const;
   virtual int name_to_index (String) const;
   virtual Real design_size () const;
   virtual Stencil find_by_name (String) const;

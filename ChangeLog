@@ -1,5 +1,13 @@
 2004-04-06  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/scaled-font-metric.cc (text_dimension): move function from
+	Font_metric
+	(make_scaled_font_metric): init coding_scheme_ to TeX
+	(text_dimension): use get-coding-vector for non TeX coding_scheme_
+
+	* lily/include/scaled-font-metric.hh (struct
+	Modified_font_metric): rename from Scaled_font_metric
+
 	* scm/encoding.scm (read-encoding-file): split up large function,
 	leave caching to (delay)
 
