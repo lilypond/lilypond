@@ -62,9 +62,16 @@ Span_bar::brew_molecule (SCM smobbed_me)
       refp = staff_bar->common_refpoint (refp, Y_AXIS);
     }
 
-  // evaluate glyph
   Span_bar::evaluate_glyph(me);
   SCM glyph = me->get_grob_property (ly_symbol2scm ("glyph"));
+
+  /*
+    glyph may not be a string, when ME is killed by Hara Kiri in
+    between.
+  */
+  if (!gh_string_p (glyph))
+    return SCM_EOL;
+  
   String glyph_str = ly_scm2string (glyph);
 
   // compose span_bar_mol
