@@ -487,6 +487,6 @@ score {
 		output "standchen.out"
 	}
 	midi {
-		tempo 4:80
+		tempo 4:60
 	}
 }

@@ -5,6 +5,7 @@
 // copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 
 #include <iostream.h>
+#include <limits.h>
 #include "proto.hh"
 #include "plist.hh"
 #include "version.hh"
@@ -15,6 +16,7 @@
 #include "sourcefile.hh"
 #include "midi-main.hh"
 #include "moment.hh"
+#include "duration.hh"
 #include "midi-event.hh"
 #include "midi-track.hh"
 #include "my-midi-lexer.hh"
@@ -24,6 +26,9 @@ Source source;
 Source* source_l_g = &source;
 
 Verbose level_ver = NORMAL_ver;
+
+// ugh
+bool no_triplets_bo_g = false;
 
 //ugh
 char const* defined_ch_c_l = 0;
@@ -76,9 +81,10 @@ help()
 {
     btor <<
 	"--debug, -d		be really verbose\n"
-	"--help, -h		This help\n"
-        "--include, -I		add to file search path.\n"
-	"--output, -o		set default output\n"
+	"--help, -h		this help\n"
+        "--include=DIR, -I DIR	add DIR to search path\n"
+        "--no-triplets, -n	assume no triplets\n"
+	"--output=FILE, -o FILE	set FILE as default output\n"
 	"--quiet, -q		be quiet\n"
 	"--verbose, -v		be verbose\n"
 	"--warranty, -w		show warranty & copyright\n"
@@ -88,8 +94,7 @@ help()
 void
 identify()
 {
-	mtor << "This is m2m "  << VERSIONSTR << "/FlowerLib " << FVERSIONSTR
-		<< " of " << __DATE__ << " " << __TIME__ << endl;
+	mtor << version_str() << endl;
 }
     
 void 
@@ -119,6 +124,15 @@ notice()
 	"USA.\n";
 }
 
+// should simply have Root class...
+String
+version_str()
+{
+	return String ( "This is m2m " ) + VERSIONSTR 
+		+ "/FlowerLib " + FVERSIONSTR
+		+ " of " +  __DATE__ + " " + __TIME__;
+}
+
 int
 main( int argc_i, char* argv_sz_a[] )
 {
@@ -126,6 +140,7 @@ main( int argc_i, char* argv_sz_a[] )
 		0, "debug", 'd',
 		0, "help", 'h',
 //		1, "include", 'I',
+		0, "no-triplets", 'n',
 		1, "output", 'o',
 		0, "quiet", 'q',
 		0, "verbose", 'v',
@@ -148,6 +163,9 @@ main( int argc_i, char* argv_sz_a[] )
 //			case 'I':
 //				path->push( getopt_long.optarg );
 //				break;
+			case 'n':
+				no_triplets_bo_g = true;
+				break;
 			case 'o':
 				output_str = getopt_long.optarg;
 				break;
@@ -172,7 +190,14 @@ main( int argc_i, char* argv_sz_a[] )
 		int error_i = midi_parser.parse();
 		if ( error_i )
 			return error_i;
-		error_i = midi_parser.output( output_str );
+		if ( !output_str.length_i() ) {
+			output_str = String( arg_sz ) + ".ly";
+			// i-m sure there-s already some routine for this
+			int name_i; // too bad we can-t declare local to if
+			if ( ( name_i = output_str.index_last_i( '/' ) ) != -1 )
+				output_str = output_str.mid_str( name_i + 1, INT_MAX );
+		}
+		error_i = midi_parser.output_mudela( output_str );
 		if ( error_i )
 			return error_i;
 	}

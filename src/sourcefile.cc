@@ -104,10 +104,10 @@ Source_file::error_str( char const* pos_ch_c_l )
 	else
 	    error_col_i++;
 
-    String str = line_str.left( pos_ch_c_l - begin_ch_c_l ) 
+    String str = line_str.left_str( pos_ch_c_l - begin_ch_c_l ) 
     	+ String( '\n' )
     	+ String( ' ', error_col_i ) 
-	+ line_str.mid( pos_ch_c_l - begin_ch_c_l + 1, INT_MAX ); // String::mid should take 0 arg..
+	+ line_str.mid_str( pos_ch_c_l - begin_ch_c_l + 1, INT_MAX ); // String::mid should take 0 arg..
     return str;
 }
 

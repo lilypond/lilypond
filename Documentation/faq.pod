@@ -56,10 +56,13 @@ A: By using g++ LilyPond is portable to all platforms which support
 g++ (there are quite a few). Not having to support other compilers
 saves us a *lot* of trouble. LilyPond & FlowerLib uses:
 
-=over 5
+=over 6
 
 =item *
 builtin bool
+
+=item *
+64 bit integral type long long
 
 =item *
 typeof

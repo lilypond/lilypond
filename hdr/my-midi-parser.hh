@@ -6,9 +6,8 @@
 #ifndef MY_MIDI_PARSER_HH
 #define MY_MIDI_PARSER_HH
 
-#include "proto.hh"
-#include "varray.hh"
-#include "string.hh"
+// #include "proto.hh"
+// #include "string.hh"
 
 int yyparse();
 
@@ -20,25 +19,26 @@ public:
 	void add_score( Midi_score* midi_score_p );
 	void error( char const* sz_l );
 	int parse();
-	void forward( Real f );
+	void forward( int i );
+	Moment mom();
 	void note_begin( int channel_i, int pitch_i, int dyn_i );
 	Midi_event* note_end_midi_event_p( int channel_i, int pitch_i, int dyn_i );
-	int output( String filename_str );
-	void set_division( int clocks_per_4_i );
+	int output_mudela( String filename_str );
+	void reset();
+	void set_division_4( int division_4_i );
 	void set_key( int accidentals_i, int minor_i );
 	void set_tempo( int useconds_i );
 	void set_time( int num_i, int den_i, int clocks_i, int count_32_i );
 
 private:
-	Real now_f_;
-	Real step_f_;
+	Int64 now_i64_;	// 31 bits yields tipically about 1000 bars
 
 	static int const CHANNELS_i = 16;
 	static int const PITCHES_i = 128;
-	Real running_f_f_a_[ CHANNELS_i ][ PITCHES_i ];
+	Int64 running_i64_i64_a_[ CHANNELS_i ][ PITCHES_i ];
 
-	Array<Midi_score*> midi_score_p_array_;
-	int clocks_per_whole_i_;
+	Midi_score* midi_score_p_;
+	int division_1_i_;
 	Midi_key* midi_key_p_;
 	Midi_tempo* midi_tempo_p_;
 	Midi_time* midi_time_p_;

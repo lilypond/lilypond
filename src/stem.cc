@@ -186,7 +186,7 @@ Stem::brew_molecule_p()const return out;
 }
 
 Real
-Stem::hpos()const
+Stem::hindex()const
 {
     return pcol_l_->hpos + stem_xoffset; // hmm.  + offset_.x;
 }

@@ -29,6 +29,7 @@ struct Getopt_long ;
 struct Matrix ;
 struct String_data ;
 struct String_handle ;
+struct String_convert;
 struct String;
 struct virtual_smat ;
 struct Vector  ;

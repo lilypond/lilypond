@@ -16,8 +16,8 @@
 Walker_registers::Walker_registers(Complex_walker *w)
 {
     add( new Bar_register(w));
-    add( new Meter_register(w));
     add( new Clef_register(w));
     add( new Key_register(w));
+    add( new Meter_register(w));
     add( new Local_key_register(w));
 }

@@ -10,7 +10,7 @@
 
 struct Midi_item {
     /* *************** */
-    static String int2varlength_str( int i );
+    static String i2varint_str( int i );
     virtual void output_midi( Midi_stream& midi_stream_r );
     virtual String str() = 0;
 };

@@ -57,7 +57,7 @@ Script::support_height() const return r;
 }
 
 void
-Script::set_default_pos()
+Script::set_default_index()
 {
     Real inter_f= paper()->internote();
     Interval dy = symbol().dim.y;
@@ -115,7 +115,7 @@ Script::do_pre_processing()
 void
 Script::do_post_processing()
 {
-    set_default_pos();
+    set_default_index();
 }
 
 Molecule*

@@ -1,5 +1,5 @@
 PODS=README.pod CodingStyle.pod lilygut.pod lilyinput.pod error.pod\
-	faq.pod index.pod
+	faq.pod index.pod language.pod
 TXTS=$(PODS:.pod=.txt)
 MANS=$(PODS:.pod=.1)
 HTMLS=$(PODS:.pod=.html)

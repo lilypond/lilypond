@@ -18,6 +18,7 @@ Midi_stream::Midi_stream( String filename_str, int tracks_i, int clocks_per_4_i 
     filename_str_ = filename_str;
     tracks_i_ = tracks_i;
     clocks_per_4_i_ = clocks_per_4_i;
+    os_p_ = 0;
     open();
     header();
 }
@@ -32,7 +33,7 @@ Midi_stream::operator <<( String str )
 {
     // still debugging...
     if ( check_debug )
-	str = StringConversion::bin2hex_str( str );
+	str = String_convert::bin2hex_str( str );
     // string now 1.0.26-2 handles binary streaming
     *os_p_ << str;
     return *this;
@@ -51,7 +52,7 @@ Midi_stream&
 Midi_stream::operator <<( int i )
 {
     // output binary string ourselves
-    *this << Midi_item::int2varlength_str( i );
+    *this << Midi_item::i2varint_str( i );
     return *this;
 }
 
@@ -71,7 +72,7 @@ Midi_stream::header()
 //                00 60   96 per quarter-note
 
 //    char const ch_c_l = "0000" "0006" "0001" "0001" "0060";
-//    str += StringConversion::hex2bin_str( ch_c_l );
+//    str += String_convert::hex2bin_str( ch_c_l );
 //    *os_p_ << str;
 
 //      *this << Midi_header( 1, 1, tempo_i_ );

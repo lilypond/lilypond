@@ -89,14 +89,14 @@ SSME		[\0x7f][\x03]
 }
 {INT8}	{
 	error( String( "top level: illegal byte: " )
-		+ StringConversion::bin2hex_str( String( *YYText() ) ) );
+		+ String_convert::bin2hex_str( String( *YYText() ) ) );
 	exit( 1 );
 }
 <int32>{INT32}	{
 	dtor << "lex: int32" << endl;
 	assert( YYLeng() == 4 );
 	String str( (Byte const*)YYText(), YYLeng() );
-	yylval.i = StringConversion::bin2int_i( str );
+	yylval.i = String_convert::bin2_i( str );
 	yy_pop_state();
 	return INT32;
 }
@@ -104,7 +104,7 @@ SSME		[\0x7f][\x03]
 	dtor << "lex: int16" << endl;
 	assert( YYLeng() == 2 );
 	String str( (Byte const*)YYText(), YYLeng() );
-	yylval.i = StringConversion::bin2int_i( str );
+	yylval.i = String_convert::bin2_i( str );
 	yy_pop_state();
 	return INT16;
 }
@@ -119,16 +119,16 @@ SSME		[\0x7f][\x03]
 
 <track>{VARINT} {
 	String str( (Byte const*)YYText(), YYLeng() );
-	yylval.i = My_midi_lexer::varint2int_i( str );
+	yylval.i = My_midi_lexer::varint2_i( str );
 	dtor << String( "lex: track: varint(" ) 
 		+ String( yylval.i ) + "): "
-		+ StringConversion::bin2hex_str( str ) << endl;
+		+ String_convert::bin2hex_str( str ) << endl;
 	yy_push_state( event ); 
 	return VARINT;
 }
 <track>{INT8}	{
 	error( String( "track: illegal byte: " ) 
-		+ StringConversion::bin2hex_str( String( *YYText() ) ) );
+		+ String_convert::bin2hex_str( String( *YYText() ) ) );
 	exit( 1 );
 }
 <event>{RUNNING_STATUS}	{
@@ -240,7 +240,7 @@ SSME		[\0x7f][\x03]
 }
 <event>{INT8}	{
 	error( String( "event: illegal byte: " ) 
-		+ StringConversion::bin2hex_str( String( *YYText() ) ) );
+		+ String_convert::bin2hex_str( String( *YYText() ) ) );
 	exit( 1 );
 }
 <meta_event>{SEQUENCE}	{	// ssss sequence number
@@ -353,7 +353,7 @@ SSME		[\0x7f][\x03]
 }
 <meta_event>{INT8} {
 	warning( String( "meta_event: unimplemented event: " )
-		+ StringConversion::bin2hex_str( String( *YYText() ) ),
+		+ String_convert::bin2hex_str( String( *YYText() ) ),
 		*this->here_ch_c_l() );
 	yy_pop_state();
 	yy_pop_state();
@@ -365,7 +365,7 @@ SSME		[\0x7f][\x03]
 <data>{VARINT} {
 	dtor << "lex: data" << endl;
 	String str( (Byte const*)YYText(), YYLeng() );
-	int i = My_midi_lexer::varint2int_i( str );
+	int i = My_midi_lexer::varint2_i( str );
 	String* str_p = new String;
 	while ( i-- )
 		*str_p += (char)yyinput();
@@ -375,7 +375,7 @@ SSME		[\0x7f][\x03]
 }
 <data>{INT8}	{
 	error( String( "data: illegal byte: " )
-		+ StringConversion::bin2hex_str( String( *YYText() ) ) );
+		+ String_convert::bin2hex_str( String( *YYText() ) ) );
 	exit( 1 );
 }
 

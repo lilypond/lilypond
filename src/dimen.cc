@@ -6,13 +6,13 @@
 Real
 parse_dimen(String dim)
 {
-    int i=dim.len()-1;
+    int i=dim.length_i()-1;
     const char *s = dim;
     while  (i > 0 && (isspace(s[i]) || isalpha(s[i])) ){
 	i--;
     }
     String unit(s + i+1);
-    return convert_dimen(dim.fvalue(), unit); 
+    return convert_dimen(dim.value_f(), unit); 
 }
 
 

@@ -14,7 +14,10 @@ public:
 
 	void add_track( Midi_track* midi_track_p );
 
+	int output_mudela( String filename_str );
+
 private:
+	IPointerList<Midi_track*> midi_track_p_list_;
 	int format_i_;
 	int tracks_i_;
 	int tempo_i_;

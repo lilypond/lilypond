@@ -25,7 +25,7 @@ bool last_duration_mode = false;
 void
 set_duration_mode(String s)
 {
-    s.upper();
+    s = s.upper_str();
     last_duration_mode = (s== "LAST");
 }
 

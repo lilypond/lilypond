@@ -18,7 +18,7 @@ struct Text_item : Item {
     
     /* ***************/
     const char * name() const;    
-    virtual void set_default_pos();
+    virtual void set_default_index();
     Molecule* brew_molecule_p() const;
     void do_pre_processing();
     

@@ -13,16 +13,16 @@ const INDTAB = 3;
 static String
 strip_pretty(String pret)
 {
-    String cl(pret.left(pret.pos('(')-1));
-    int l = cl.lastPos(' ');
-    cl = cl.right(cl.len() -l);
+    String cl(pret.left_str(pret.index_i('(')));
+    int l = cl.index_last_i(' ');
+    cl = cl.right_str(cl.len() - l - 1);
     return cl;
 }
 
 static String
 strip_member(String pret)
 {
-    String cl(pret.left(pret.lastPos(':')-2));
+    String cl(pret.left_str(pret.index_last_i(':')-1));
     return cl;
 }
 

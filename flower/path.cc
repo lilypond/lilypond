@@ -17,30 +17,29 @@ split_path(String path,
 	   String &drive, String &dirs, String &filebase, String &extension)
 {
     // peel off components, one by one.
-    int di = path.pos(':');
-    if (di) 
+    int di = path.index_i(':');
+    if (di >= 0) 
 	{
-	drive = path.left(di);
-	path = path.right(path.len() - di);
+	drive = path.left_str(di + 1);
+	path = path.right_str(path.len() - di -1);
 	} 
     else
 	drive = "";
     
-    di = path.lastPos(PATHSEP);
-    if (di) 
+    di = path.index_last_i(PATHSEP);
+    if (di >=0) 
 	{
-	dirs = path.left(di);
-	path = path.right(path.len()-di);
+	dirs = path.left_str(di + 1);
+	path = path.right_str(path.len()-di -1);
 	}
     else
 	dirs = "";
     
-    di = path.lastPos('.');
-    if (di) 
+    di = path.index_last_i('.');
+    if (di >= 0) 
 	{
-	di --; // don't forget '.'
-	filebase = path.left(di);
-	extension =path.right(path.len()-di);	
+	filebase = path.left_str(di);
+	extension =path.right_str(path.len()-di);	
 	} 
     else 
 	{

@@ -1,0 +1,413 @@
+=head1 NAME
+
+language.pod -- state of the art mudela-vapourware.
+
+=head1 SYNOPSIS
+
+(damn pod)
+
+=head1 DESCRIPTION
+
+here are some thoughts on the language. Most of the examples are in
+pseudo current mudela.  Some stuff gratuitously taken from your mails.
+
+=head1 NOTE
+
+I dislike vapourware. That's why I oppose to concrete plans on how to
+do input for features we don't know how to produce on paper 
+
+=head1 AIM
+
+A musical notation that is relatively easy to comprehend to both
+programmers and non programmers. The final aim is to be able to
+express what can be expressed in sheet music.
+
+=over 5
+
+=item *
+play pieces
+
+=item *
+typeset the pieces
+
+=back
+
+further requirements:
+
+=over 5
+
+=item *
+Possible to edit the layout without danger of changing the
+original music. (fingerings, interpretation)
+
+=item *
+Simple music manipulations, such as transposing, creating a
+score for individual instruments as well as for the conductor,
+extracting short pieces from a longer one, glueing several shorter
+pieces into a single score.
+
+=back
+
+Pieces could be:
+
+
+=over 5
+
+=item *
+Mahlerian orchestral score
+
+=item *
+piano pieces
+
+=item *
+pop songs (lyrics + chords)
+
+=item *
+gregorian chant (?)
+
+=item *
+bach multivoice organ music.
+
+=item *
+short excerpts to be used in musicological publications.
+
+=back
+
+=head1 REQUIREMENTS
+
+=head2 Parser output 
+
+When I say LilyPond input, I mean the final output of the parsing
+step, which should be roughly the same as it is now: hierarchically,
+using pseudo syntax
+
+	Score {
+		Midi_def
+		Paper_def
+		Staff [multiple] {
+			Voices
+			Stafftype
+			(instrument)
+		}
+	}
+
+
+Voice should stay the same:
+
+	Voice {
+		Voice_elements 
+	}
+
+and
+
+	Voice_elements {
+		requests
+	}
+
+
+=head2 Staffs
+
+We definitely need the concept of staff in the parser output, because
+it is fundamental to LilyPond.  I think the input language should
+allow the user to do something like:
+
+	melody = { c d e f g }
+
+	%At this time I can't think of more than these stafftypes
+	staff { gregorian music { melody } }
+	staff { pianostaff music { melody } }
+	staff { melodic music { melody } }
+	staff { rhythmic music { melody } }
+	staff { lyric music { melody } }	% silly, i admit.
+
+The staff could also define what the instrument would be (both in
+print and in MIDI)
+
+Moreover, if music {} in score equals staff, then how do we do multiple
+voices on one staff?
+
+We might be able to do without the staff{} construct, but I doubt if
+it will make things easier.
+
+=head1 THOUGHTS
+
+=head2 Typing
+
+It is difficult to make mistakes with typing now because you have to
+tell LilyPond what it is dealing with
+
+	staff { identifier }
+
+versus
+
+	staff { music { identifier } }
+
+I'm not sure on dropping this, I'm afraid it will make the language
+less legible. Technically, dropping it is not very difficult (it will
+introduce slight parser-source bloat)
+
+What if the staff is extended to have some more blocks, all of which
+can be declared? Like the score now:
+
+	score {
+		a_staff_id
+		a_midi_id
+		a_paper_id
+		a_command_id
+	}
+
+This will only be readable if the Mudela-user rigidly uses hungarian,
+which he/she won't.
+
+=head2 Backslash
+
+I like it. Let's keep it in the language if we need it, it's a
+universally accepted escape sequence.
+
+=head2 Braces
+
+I like the idea of <> vs. {}. Not because I think it is more clear,
+but I dislike the word "music", I can't seem to find the proper word
+for what "music" currently does, so I'd like to flush it.
+
+I would like to point that both <> and {} are indicating a
+hierarchy. I think, we should continue to allow them to nest. I still
+have no preference what to use for what.
+
+=head2 Command syntax
+
+Braces on commands are here now, because the {} are the only nesting
+braces.  We need to avoid that, since the brace is overused as it
+is. We don't like lisp that much. (the key is the only commands which
+really needs {} now)
+
+How about
+
+	\bar "some args", "some more";
+
+(note the ; ), which is a mix of perl and TeX.
+
+Of course \key should take a \notename. In fact, I think we should
+program the note intervals (which are now hardcoded for midi purposes)
+To allow adaptation to other scales.
+
+As simple fix, we might do key declarations:
+
+	\keybes= \key { bes es }
+
+	\key{\keybes}
+
+
+
+[LOOSE THOUGHT]
+
+We might drop this {} argument altogether, by merely enforcing
+that each "statement" (music,score,staff,chord) takes a LIST as
+argument, and use the {} to group lists. This is admittedly perl. This
+is very sketchy.
+
+
+=head2 Requests
+
+I want to give the user some access to the internals. Technically,
+walkers/registers will happily typeset voices which mix lyrics and
+notes, which combine stem requests and lyricreqs. I want to have a
+
+	\request { melodic name = 5, acc = -10
+		rhythmic ball=4 dots 2, lyric = "foobar" }
+
+type of syntax. This is the most flexible input format possible, since
+any valid LilyPond input can be made. This strongly implies tying
+mudela to LilyPond. That I don't mind, but it hampers
+portability. Suppose some commercial systems want to read mudela
+too.
+
+=head2 Lexer modes
+
+the $ and @ were quick hacks, which suck badly. Replacing it by a
+mechanism that switches the lexer automatically would be better, but
+it is still error prone, and it hurts uniformity. What I would like
+best is unified syntax, but this seems impossible since lyrics could
+clash with notenames. If possible it would simplify the parser, the
+scanner, and the explanation of the language.
+
+What about:
+
+	bes c d e f	% notes
+	'bes- sen sap	% some lyric syllables
+
+We can make one of the ' ` " a lyric-indication, but then we would
+have to change the octave indication, eg.
+
+	_bes % lower
+	^bes % higher
+
+or
+
+	+bes % higher
+	-bes % lower
+
+And I am still not sure if it would be possible now, but I think this
+is worthwile to investigate. Or we could replace @ by a
+quote (take your pick) sign, which is a lot more intuitive. 
+
+The big question remaining is: do we want to add any more modes than
+lyric and note?
+
+
+[LOOSE THOUGHT]
+
+Even looser ideas: we can take a look at the perl wagon. It has numerous
+inputmodes. What about:
+
+	lyric << ENDLYRIC
+
+	bes- sen- sap
+
+	ENDLYRIC
+
+	music << ENDMUSIC
+
+	c d e f g
+
+	ENDMUSIC
+
+
+[LOOSE THOUGHT]
+
+If we free up $ @ from their current meaning, $ and @ could be used to
+signify other things.
+
+=head2 Concrete solution to lyric vs. note
+
+I think
+
+	"lyric"
+
+is a valid lyric too. This implies that any bare string is checked if
+it is a note. Now it prints an error if not, but I could change it to
+assume it is a STRING (and can be reduced to lyric). Heck! I could
+implement this tonight. We'd lose one mode!  (after checking lexer
+source) the only problem is preventing puctuation and the - and _ from
+clashing with script symbols.
+
+
+=head2 Command placement:
+
+Mats is an arduous fan of having the commands inside music. I am
+not. I see the Mudela music as something which can be plugged into
+different staffs, transposed, translated in time, copied, quoted,
+etc. Encouraging "inline" commands would be bad since they hinder this
+reuse of typed music.
+
+The way I figure it, the bad part is essentially counting
+bars/wholes. Maybe we can get rid of it, by reinstalling the "mark"
+commands.
+
+I definitely want  to avoid complicated logic  ("Hey there is  another
+bar request, should we merge this bar with another staff's", this kind
+of "smartness" makes a  lot M$ software inconsistent) inside LilyPond,
+by making the input unambiguous in this respect.
+
+There is another complication: some symbols (bars) sometimes are
+linked across staffs. I should first think of a way to do this in
+LilyPond, before even considering a syntax.
+
+
+=head2 Volta
+
+uhh?
+
+=head2 Numbers
+
+The syntax of /, * and : has to be settled, we have
+
+	- notes (1, 2, 4, 8 etc)
+	- meter 2*4
+	- plet 2/3
+	- multiple notes: 3*4
+	- abbreviations (not implemented)  c4/4 or c4*4
+
+=head2 Filtering
+
+This is a idea of mine: we could filter some request types from
+voices,
+
+eg:
+
+	\mel1 = \music { c-. d-. e-. f-. \meter {2*4} g-. a-. b.- c-. }
+
+	\m1 = \filter { "script_req" \mel1 }
+	\m2 = \filter { "command_req" \mel1 }
+	\m3 = \filter { "melodic_req" \mel1 }
+	\m3 = \filter { ("rhythmic_req") && (!"lyric_req") &&
+		("stem_req" || "beam_req") \mel1 }
+		% syntax needs change. Clash with () slur?
+
+	\mel2 = \music { c c g  g a a g2 }
+
+	\combined = \merge { \m1, \mel2  }
+
+This means m1 contains the scripts, of \mel, \m2 only the meter
+command surrounded by (essentially) some skips, and \m3 the notes
+without scripts or meters. This could be a solution to the "command in
+music vs. command with skip".
+
+Combined with merging of requests, this would be a powerful tool. In
+this example \combined is a combination of melody mel2 and the accents
+of \mel1.
+
+This idea is for advanced users, but it would come in handy in urtext
+editions:
+
+	include "mozart-horn.ly"
+
+	\m1 = \merge { \urmozart + \dennisbrain_interpretation }
+	\m2 = \merge { \urmozart + \barrytuckwell_interpretation }
+
+
+=head2 Proposed operators:
+
+Just ideas:
+
+	|| && !		filter syntax 
+	++		concatenation of voices
+	+		merging of voices
+
+
+=head2 C++ OOP like input.
+
+I don't see the big win of this.
+
+	score sc1= melody;
+	sc1.staff{\verse};
+	sc1.staff{<\b1 \b2>}
+	sc1.paper=mypaperdef;
+
+
+We're not doing a programming language. In this syntax the parser has
+to lookup what sc1 means, decide if it should copied shallow/deep,
+decide if has a staff block, switch the mode after it finds that staff
+takes music. May be I'm just ranting, but it looks hairy to
+me. Remember that at this stage we're just filling structs.
+
+In a distant future there might be a need for programming (are you
+listening, Philip Glass?), but I think that would be something for
+Mudela version 3. And I think using m4 (or something alike) would be
+just as convenient.
+
+=head2 Transposition
+
+Has to be done. How about:
+
+	\transpose { \from c \to g \music { ... }} 
+
+=head2 Quoting
+
+Difficult. Hmm...
+
+	\oboe = \music { ........................ }
+
+	\oboefragment = \extract { \from 5*2 \to 6*2 \music { \oboe } }
+
+

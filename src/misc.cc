@@ -6,6 +6,7 @@
 #include "moment.hh"
 
 
+// depreciated, see struct Duration*
 Moment
 wholes(int dur, int dots)
 {

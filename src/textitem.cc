@@ -17,7 +17,7 @@ Text_item::Text_item(Text_req* treq_l, int staffsize_i)
 }
 
 void
-Text_item::set_default_pos()
+Text_item::set_default_index()
 {
     pos_i_  = (dir_i_ > 0) ? staffsize_i_ + 2: -4;
 }
@@ -25,7 +25,7 @@ Text_item::set_default_pos()
 void
 Text_item::do_pre_processing()
 {
-    set_default_pos();
+    set_default_index();
 }
 
     

@@ -1,3 +1,12 @@
+pl 1.1.3-1
+	- great renaming of String and String_convert interfaces
+	- more conversions moved (copied actually) to String_convert
+	- String indexing now all base = 0, not found = -1
+	- renamed by to byte
+
+pl 1.1.3
+	- String::mid
+	- memmove test code
 
 pl 1.1.2 
 	- StringConversio::bin2int_i

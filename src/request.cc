@@ -101,12 +101,12 @@ Melodic_req::height() const
 /*
  should be settable from input to allow "viola"-mode
  */
-static Byte pitch_by_a[ 7 ] = { 0, 2, 4, 5, 7, 9, 11 };	
+static Byte pitch_byte_a[ 7 ] = { 0, 2, 4, 5, 7, 9, 11 };	
 
 int
 Melodic_req::pitch() const
 {
-    return  pitch_by_a[ notename_i_ % 7 ] + accidental_i_ + octave_i_ * 12;
+    return  pitch_byte_a[ notename_i_ % 7 ] + accidental_i_ + octave_i_ * 12;
 }
 
 Plet_req::Plet_req()

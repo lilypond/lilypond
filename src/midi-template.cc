@@ -16,4 +16,14 @@ class ostream;
 #include "string.hh"
 #include "sourcefile.hh"
 
+#include "moment.hh"
+#include "duration.hh"
+#include "midi-event.hh"
+#include "lily-stream.hh"
+#include "track-column.hh"
+#include "midi-track.hh"
+
+IPL_instantiate(Midi_event);
+IPL_instantiate(Midi_track);
 IPL_instantiate(Source_file);
+IPL_instantiate(Track_column);

@@ -15,11 +15,14 @@
 #include "stringdata.hh"
 const int INITIALMAX=8;
 
-#ifdef STRING_DEBUG 
-
-INLINE void* mymemmove( void* dest, void* src, size_t n )
+#include <sys/types.h>
+void* 
+mymemmove( void* dest, void const* src, size_t n );
+#if 0 // redef STRING_DEBUG 
+INLINE void* 
+mymemmove( void* dest, void const* src, size_t n )
 {
-	return memcpy( dest, src, n ); // wohltempererit: 69006
+	return memmove( dest, src, n ); // wohltempererit: 69006
 }
 #define memmove mymemmove
 #endif

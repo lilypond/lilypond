@@ -7,7 +7,8 @@ DISTFILES=Makefile  kortjakje.ly maartje.ly\
 	martien.ly mlalt.ly mlvio1.ly mlvio2.ly mlcello.ly\
 	coriolan-alto.ly rhythm.ly \
 	standchen.tex  scsii-menuetto.tex scsii-menuetto.ly\
-	martien.tex
+	martien.tex\
+	pre1.midi.ly fugue1.midi.ly
 
 
 dist:

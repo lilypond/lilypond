@@ -7,9 +7,12 @@
 */
 
 #ifdef STRING_DEBUG 
-void* mymemmove( void* dest, void* src, size_t n )
+#include <sys/types.h>
+#include <memory.h>
+void* 
+mymemmove( void* dest, void const* src, size_t n )
 {
-	return memmove( dest, src, n ); // wohltempererit: 69006
+	return memcpy( dest, src, n ); // wohltempererit: 69006
 }
 #define memmove mymemmove
 #endif

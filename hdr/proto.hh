@@ -10,6 +10,9 @@
 #include "fproto.hh"
 #include "real.hh"
 
+/// (i64)
+typedef long long Int64;
+
 struct Absdynamic_req;
 struct Accidental;
 struct Atom;
@@ -33,6 +36,8 @@ struct Complex_staff;
 struct Complex_walker;
 struct Cresc_req;
 struct Decresc_req;
+struct Duration;
+struct Duration_iterator;
 struct Durational_req;
 struct Dynamic;
 struct Group_change_req;
@@ -50,6 +55,7 @@ struct Key_change_req;
 struct Key_item;
 struct Keyword;
 struct Keyword_table;
+struct Lily_stream;
 struct Line_of_score;
 struct Line_of_staff;
 struct Linestaff;
@@ -98,6 +104,7 @@ struct Offset;
 struct Output;
 struct PCol;
 struct Plet_req;
+struct Plet;
 struct PScore;
 struct PStaff;
 struct Paperdef;
@@ -151,6 +158,7 @@ struct Text_register;
 struct Text_req;
 struct Timing_req;
 struct Time_description;
+struct Track_column;
 struct Voice;
 struct Voice_element;
 struct Voice_group_registers;
