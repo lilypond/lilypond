@@ -16,7 +16,7 @@
 #include "staff-symbol-referencer.hh"
 #include "side-position-interface.hh"
 #include "engraver.hh"
-
+#include "arpeggio.hh"
 
 /**
    Make accidentals.  Catches note heads, ties and notices key-change
@@ -44,6 +44,12 @@ public:
 
   // todo -> property
   SCM last_keysig_;
+
+  /*
+    Urgh. Since the accidentals depend on lots of variables, we have to
+    store all information before we can really create the accidentals.
+   */
+  Link_array<Score_element> arpeggios_;
   
   Link_array<Note_req> mel_l_arr_;
   Link_array<Score_element> support_l_arr_;
@@ -105,8 +111,8 @@ Local_key_engraver::process_acknowledged ()
 		{
 		  key_item_p_ = new Item(get_property ("Accidentals"));
 		  Local_key_item::set_interface (key_item_p_);
-		  Side_position::set_axis (key_item_p_, X_AXIS);
-		  Side_position::set_direction (key_item_p_, LEFT);
+
+
 		  Staff_symbol_referencer::set_interface (key_item_p_);
 			 
 		  announce_element (key_item_p_, 0);
@@ -155,7 +161,17 @@ Local_key_engraver::process_acknowledged ()
       Side_position::add_support (grace_align_l_,key_item_p_);
       grace_align_l_ =0;
     }
-  
+
+  if (key_item_p_)
+    {
+      /*
+	Hmm. Which one has to be on the left?
+       */
+      for (int i=0;  i < arpeggios_.size ();  i++)
+	Side_position::add_support (arpeggios_[i], key_item_p_);
+
+      arpeggios_.clear ();
+    }
 }
 
 void
@@ -178,6 +194,7 @@ Local_key_engraver::do_pre_move_processing()
 
   grace_align_l_ = 0;
   mel_l_arr_.clear();
+  arpeggios_.clear ();
   tied_l_arr_.clear();
   support_l_arr_.clear();
   forced_l_arr_.clear();	
@@ -210,6 +227,11 @@ Local_key_engraver::acknowledge_element (Score_element_info info)
     {
       tied_l_arr_.push (Tie::head (info.elem_l_, RIGHT));
     }
+  else if (Arpeggio::has_interface (info.elem_l_))
+    {
+      arpeggios_.push (info.elem_l_); 
+    }
+  
 }
 
 /*
