@@ -81,11 +81,5 @@ Script_register::post_move_processing()
     script_req_l_arr_.set_size(0);
 }
 
-void
-Script_register::set_feature(Features )
-{
-//    if (i.direction_i_|| i.initialiser_b_)
-    //dir_i_ = i.direction_i_;
-}
 IMPLEMENT_STATIC_NAME(Script_register);
 ADD_THIS_REGISTER(Script_register);

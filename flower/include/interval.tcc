@@ -20,6 +20,15 @@ _Interval__compare(const Interval_t<T>&a,Interval_t<T> const&b)
     return -2;
 }
 
+template<class T>
+bool 
+Interval_t<T>::contains_b(Interval_t<T> const& a)const
+{
+    int c_i= _Interval__compare( *this, a);
+    if (c_i == -2)
+	return false;
+    return c_i >= 0;
+}
 
 template<class T>
 int
@@ -31,18 +40,12 @@ Interval__compare(const Interval_t<T>&a,Interval_t<T> const&b)
     return i;
 }
 
-#ifdef AIX
-const Real INFTY = 1e8;	// ARGh. AIX sucks
-#else
-const Real INFTY = HUGE_VAL;
-#endif
-
 template<class T>
 void
 Interval_t<T>::set_empty()
 {
-    left = INFTY;
-    right = -INFTY;
+    left = (T) infinity();
+    right = (T) -infinity();
 }
 
 template<class T>

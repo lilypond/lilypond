@@ -12,15 +12,18 @@
 #include "real.hh"
 
 
-/**  a T interval. 
-  this represents the closed interval [left,right].
-  No invariants. T must be a totally ordered ring
+/** a T interval.  this represents the closed interval [left,right].
+  No invariants. T must be a totally ordered ring (with division, anyway ..)
+  At instantiation, the function infinity() has to be defined explicitely.
+  
   */
 template<class T>
 struct Interval_t {
     T left, right;
 
     /* ************** */
+    
+    static T infinity() ;
     
     T center() { return (left + right) / T(2);}
     void translate(T t) {
@@ -56,6 +59,7 @@ struct Interval_t {
     T length() const;
     void set_empty() ;
     bool empty_b() const { return left > right; }
+    bool contains_b(Interval_t<T> const&) const;
     Interval_t() {
 	set_empty();
     }

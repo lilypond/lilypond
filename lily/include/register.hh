@@ -80,9 +80,9 @@ protected:
       */
     virtual void announce_element(Staff_elem_info);
     /**
-      Set features of the register(s). Default: ignore features.
+      Set Feature of the register(s). Default: ignore Feature.
      */
-    virtual void set_feature(Features){}
+    virtual void set_feature(Feature){}
     /**
       Does this equal or contain a certain register?
      */
