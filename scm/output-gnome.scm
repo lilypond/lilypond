@@ -39,7 +39,7 @@
 ;;;   * Build LilyPond with gui support: configure --enable-gui
 ;;;
 ;;;   * Supposing that LilyPond was built in ~/cvs/savannah/lilypond,
-;;;     tell fontconfig about the feta fonts dir:
+;;;     tell fontconfig about the feta fonts dir and run fc-cache
 "
 cat > ~/.fonts.conf << EOF
 <fontconfig>
@@ -47,6 +47,7 @@ cat > ~/.fonts.conf << EOF
 <dir>/usr/share/texmf/fonts/type1/public/ec-fonts-mftraced</dir>
 </fontconfig>
 EOF
+fc-cache
 "
 ;;;     or copy all your .pfa/.pfb's to ~/.fonts if your fontconfig
 ;;;     already looks there for fonts.  Check if it works by doing:
@@ -177,12 +178,6 @@ lilypond -fgnome input/simple-song.ly
 (define (char->utf8-string char)
   (list->string (utf8 (char->integer char))))
 
-(define (draw-rectangle x1 y1 x2 y2 color width-units)
-  (make <gnome-canvas-rect>
-    #:parent (canvas-root) #:x1 x1 #:y1 y1 #:x2 x2 #:y2 y2
-    #:fill-color color #:width-units width-units))
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; stencil outputters
 ;;;
@@ -195,6 +190,56 @@ lilypond -fgnome input/simple-song.ly
       (ly:all-stencil-expressions)
       (ly:all-output-backend-commands)))
 
+(define (beam width slope thick blot)
+  (define cursor '(0 . 0))
+  (define (rmoveto def x y)
+    (set! cursor (cons (+ x (car cursor)) (+ y (cdr cursor))))
+    (moveto def (car cursor) (cdr cursor)))
+  (define (rlineto def x y)
+    (set! cursor (cons (+ x (car cursor)) (+ y (cdr cursor))))
+    (lineto def (car cursor) (cdr cursor)))
+  (let* ((def (make <gnome-canvas-path-def>))
+	 (bezier (make <gnome-canvas-bpath>
+		   #:parent (canvas-root)
+		   #:fill-color "black"
+		   #:outline-color "black"
+		   #:width-units blot
+		   #:join-style 'round))
+	 (t (- thick blot))
+	 (w (- width blot))
+	 (h (* w slope)))
+    
+    (reset def)
+    (rmoveto def (/ blot 2) (/ t 2))
+    (rlineto def w (- h))
+    (rlineto def 0 (- t))
+    (rlineto def (- w) h)
+    (rlineto def 0 t)
+    (closepath def)
+    (set-path-def bezier def)
+    bezier))
+
+(define (square-beam width slope thick blot)
+  (let*
+      ((def (make <gnome-canvas-path-def>))
+       (y (* (- width) slope))
+       (props (make <gnome-canvas-bpath>
+		   #:parent (canvas-root)
+		   #:fill-color "black"
+		   #:outline-color "black"
+		   #:width-units 0.0)))
+    
+    (reset def)
+    (moveto def 0 0)
+    (lineto def width y)
+    (lineto def width (- y thick))
+    (lineto def 0 (- thick))
+    (lineto def 0 0)
+    (closepath def)
+    (set-path-def props def)
+    props))
+    
+
 ;; two beziers
 (define (bezier-sandwich lst thick)
   (let* ((def (make <gnome-canvas-path-def>))
@@ -202,10 +247,12 @@ lilypond -fgnome input/simple-song.ly
 		   #:parent (canvas-root)
 		   #:fill-color "black"
 		   #:outline-color "black"
-		   #:width-units thick)))
+		   #:width-units thick
+		   #:join-style 'round)))
 
     (reset def)
-    
+
+    ;; FIXME: LST is pre-mangled for direct ps stack usage
     ;; cl cr r l  0 1 2 3 
     ;; cr cl l r  4 5 6 7
     
@@ -227,6 +274,21 @@ lilypond -fgnome input/simple-song.ly
 (define (char font i)
   (text font (utf8 i)))
 
+;; FIXME: naming
+(define (filledbox breapth width depth height)
+  (make <gnome-canvas-rect>
+    #:parent (canvas-root)
+    #:x1 (- breapth) #:y1 depth #:x2 width #:y2 (- height)
+    #:fill-color "black"
+    #:join-style 'miter))
+
+(define (grob-cause grob)
+  grob)
+
+;; WTF is this in every backend?
+(define (horizontal-line x1 x2 thickness)
+  (filledbox (- x1) (- x2 x1) (* .5 thickness) (* .5 thickness)))
+
 (define (placebox x y expr)
   (debugf "item: ~S\n" expr)
   (let ((item expr))
@@ -240,27 +302,6 @@ lilypond -fgnome input/simple-song.ly
 	  (affine-relative item output-scale 0 0 output-scale 0 0)
 	  item)
 	#f)))
-
-(define (beam width slope thick blot)
-  (let*
-      ((def (make <gnome-canvas-path-def>))
-       (y (* (- width) slope))
-       (props (make <gnome-canvas-bpath>
-		   #:parent (canvas-root)
-		   #:fill-color "black"
-		   #:outline-color "black"
-		   #:width-units 0.0)))
-    
-    (reset def)
-    (moveto def 0 0)
-    (lineto def width y)
-    (lineto def width (- y thick))
-    (lineto def 0 (- thick))
-    (lineto def 0 0)
-    (closepath def)
-    (set-path-def props def)
-    props))
-    
 
 (define (dashed-line thick on off dx dy)
   (draw-line thick 0 0 dx dy)) 
@@ -310,51 +351,57 @@ lilypond -fgnome input/simple-song.ly
     
 
 (define (round-filled-box breapth width depth height blot-diameter)
-  ;; FIXME: no rounded corners on rectangle...
-  ;; FIXME: blot?
-  (draw-rectangle (- breapth) depth width (- height) "black" blot-diameter))
-
-(define (pango-font-name font)
-  (let ((name (ly:font-name font)))
-    (if name
-	(regexp-substitute/global #f "^GNU-(.*)-[.0-9]*$" name 'pre 1 'post)
-	(begin
-	  (stderr "font-name: ~S\n" (ly:font-name font))
-	  ;; TODO s/filename/file-name/
-	  (stderr "font-filename: ~S\n" (ly:font-filename font))
-	  (stderr "pango-font-size: ~S\n" (pango-font-size font))
-	  "ecrm12"))))
-
-(define (pango-font-size font)
-  (let* ((designsize (ly:font-design-size font))
-	 (magnification (* (ly:font-magnification font)))
-	 
-	 ;; experimental sizing:
-	 ;; where does factor come from?
-	 ;;
-	 ;; 0.435 * (12 / 20) = 0.261
-	 ;; 2.8346456692913/ 0.261 = 10.86071137659501915708
-	 ;;(ops (* 0.435 (/ 12 20) (* output-scale pixels-per-unit)))
-	 ;; for size-points
-	 (ops 2.61)
-	 
-	 (scaling (* ops magnification designsize)))
-    (debugf "OPS:~S\n" ops)
-    (debugf "scaling:~S\n" scaling)
-    (debugf "magnification:~S\n" magnification)
-    (debugf "design:~S\n" designsize)
-    
-    scaling))
-
-;;font-name: "GNU-LilyPond-feta-20"
-;;font-filename: "feta20"
-;;pango-font-name: "lilypond-feta, regular 32"
-;;OPS:2.61
-;;scaling:29.7046771653543
-;;magnification:0.569055118110236
-;;design:20.0
+  (let ((r (/ blot-diameter 2)))
+    (make <gnome-canvas-rect>
+      #:parent (canvas-root)
+      #:x1 (- r breapth) #:y1 (- depth r) #:x2 (- width r) #:y2 (- r height)
+      #:fill-color "black"
+      #:outline-color "black"
+      #:width-units blot-diameter
+      #:join-style 'round)))
 
 (define (text font string)
+  (define (pango-font-name font)
+    (let ((name (ly:font-name font)))
+      (if name
+	  (regexp-substitute/global #f "^GNU-(.*)-[.0-9]*$" name 'pre 1 'post)
+	  (begin
+	    (stderr "font-name: ~S\n" (ly:font-name font))
+	    ;; TODO s/filename/file-name/
+	    (stderr "font-filename: ~S\n" (ly:font-filename font))
+	    (stderr "pango-font-size: ~S\n" (pango-font-size font))
+	    "ecrm12"))))
+  
+  (define (pango-font-size font)
+    (let* ((designsize (ly:font-design-size font))
+	   (magnification (* (ly:font-magnification font)))
+	   
+
+	   ;;font-name: "GNU-LilyPond-feta-20"
+	   ;;font-filename: "feta20"
+	   ;;pango-font-name: "lilypond-feta, regular 32"
+	   ;;OPS:2.61
+	   ;;scaling:29.7046771653543
+	   ;;magnification:0.569055118110236
+	   ;;design:20.0
+  
+	   ;; experimental sizing:
+	   ;; where does factor come from?
+	   ;;
+	   ;; 0.435 * (12 / 20) = 0.261
+	   ;; 2.8346456692913/ 0.261 = 10.86071137659501915708
+	   ;;(ops (* 0.435 (/ 12 20) (* output-scale pixels-per-unit)))
+	   ;; for size-points
+	   (ops 2.61)
+	   
+	   (scaling (* ops magnification designsize)))
+      (debugf "OPS:~S\n" ops)
+      (debugf "scaling:~S\n" scaling)
+      (debugf "magnification:~S\n" magnification)
+      (debugf "design:~S\n" designsize)
+      
+      scaling))
+
   (make <gnome-canvas-text>
     #:parent (canvas-root)
 
@@ -376,16 +423,3 @@ lilypond -fgnome input/simple-song.ly
 	       (string->utf8-string string)
 	       (char->utf8-string (car string)))))
 
-(define (filledbox a b c d)
-  (round-filled-box a b c d 0.001))
-
-;; WTF is this in every backend?
-(define (horizontal-line x1 x2 thickness)
-  (filledbox (- x1) (- x2 x1) (* .5 thickness) (* .5 thickness)))
-
-;;(define (define-origin file line col)
-;;  (if (procedure? point-and-click)
-;;      (list 'location line col file)))
-
-(define (grob-cause grob)
-  grob)

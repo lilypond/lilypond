@@ -1,3 +1,9 @@
+;;;; lily-library.scm -- utilities
+;;;;
+;;;;  source file of the GNU LilyPond music typesetter
+;;;; 
+;;;; (c)  1998--2004 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 
 (define-public X 0)
@@ -311,4 +317,10 @@ possibly turned off."
 (define-public (!= l r)
   (not (= l r)))
 
+
+(define-public scale-to-unit
+  (cond
+   ((equal? (ly:unit) "mm") (/ 72.0 25.4))
+   ((equal? (ly:unit) "pt") (/ 72.0 72.27))
+   (else (error "unknown unit" (ly:unit)))))
 

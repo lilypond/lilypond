@@ -1,3 +1,19 @@
+2004-11-16  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/framework-svg.scm:
+	* scm/output-svg.scm: New file.  TODO: figure out how to
+	do character by index in font.
+
+	* scm/output-sodipodi.scm: Remove.
+
+	* scm/output-ps.scm (stem): Remove.
+
+2004-11-15  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/output-gnome.scm (beam): New function.
+	(slur): Round corners.
+	(round-filled-box): Round corners.
+
 2004-11-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/output-gnome.scm (beam): add function.
