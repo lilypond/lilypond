@@ -1,5 +1,4 @@
 # title	   package specific rules
-# file	   make/Rules.lilymake.make
 
 #UGH
 

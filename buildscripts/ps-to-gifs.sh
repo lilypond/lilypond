@@ -11,6 +11,7 @@ Options:
   -c, --crop         crop output
   -o, --output=NAME  set output base
   -p, --png          convert to png
+  -s, --size=SIZE    set papersize
   -t, --transparent  change white to transparent
 EOF
 }
@@ -45,6 +46,11 @@ shift
 	GIF=png
 	PNMTOGIF=pnmtopng
 	;;
+    -s) SIZE="-sPAPERSIZE=$2"; shift
+        ;;
+    --s*=*)
+        SIZE="-sPAPERSIZE=`echo $opt | sed -e s/"^.*="//`"
+	;;
     -*)
         echo "ps-to-gifs: unknown option: \`$opt'"
 	exit 1
@@ -69,7 +75,7 @@ fi
 rm -f $BASE{.ppm,.$GIF} $BASE-page*{.ppm,.$GIF}
 
 # generate the pixmap at twice the size, then rescale (for antialiasing)
-cat $FILE | gs -sDEVICE=ppmraw -sOutputFile="$BASE-page%d.ppm" -r200 -dNOPAUSE - -c quit $FILE
+cat $FILE | gs -sDEVICE=ppmraw $SIZE -sOutputFile="$BASE-page%d.ppm" -r200 -dNOPAUSE - -c quit $FILE
 # quant is soo slow
 # cat $PPMFILE | ppmquant 2 | pnmscale 0.3333 | pnmcrop | $PNMTOGIF $color > $OUTFILE
 PPMS=`ls $BASE*ppm`

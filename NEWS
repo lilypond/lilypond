@@ -1,6 +1,8 @@
+pl 10.jcn1
+	- mf-to-xpms for Harmonia
 
+(png utils broken on i386; fine on ppc)
 (need to fix pictures. I know)
-
 
 pl 9.jcn1
 	- started gnuisation of website

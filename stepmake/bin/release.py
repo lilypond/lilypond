@@ -60,7 +60,7 @@ os.link(package.release_dir + barbaal, barbaal)
 
 # urg
 # os.system('@PYTHON@ ' + package.topdir + '/stepmake/bin/package-diff.py --package=' + topdir)
-os.system('python ' + package.topdir + '/stepmake/bin/package-diff.py --package=' + topdir)
+os.system(sys.executable + ' ' + package.topdir + '/stepmake/bin/package-diff.py --package=' + topdir)
 
 pn = package.name + '-%s' % version_tuple_to_str(cur_ver)
 pn = pn + '.diff'
