@@ -15,6 +15,7 @@ class Bar:public Item {
 public:
   VIRTUAL_COPY_CONS(Score_element);
   Bar();
+
 protected:
   virtual void do_pre_processing ();
   virtual Molecule* do_brew_molecule_p () const;

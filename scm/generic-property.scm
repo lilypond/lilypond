@@ -61,7 +61,9 @@
   
 (define generic-bar-properties
   (cons "Staff_bar" (list
-		     (list 'barSize number? 'bar-size))
+		     (list 'barSize number? 'bar-size)
+		     ;(list 'glyph symbol? 'glyph)
+		     )
 	)
   )	
 

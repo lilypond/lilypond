@@ -20,12 +20,11 @@ Span_bar*
 Span_score_bar_engraver::get_span_bar_p () const
 {
   Span_bar*s =  new Span_bar;
-  s->set_elt_property ("glyph",  gh_str02scm ("scorebar"));
+  s->set_elt_property ("default-glyph",  gh_str02scm ("scorebar"));
   s->set_elt_property ("break-aligned",SCM_BOOL_T);
 
   return s;
 }
-
 
 Span_score_bar_engraver::Span_score_bar_engraver ()
 {
@@ -37,7 +36,7 @@ Piano_bar_engraver::get_span_bar_p () const
 {
   Span_bar *s= new Span_bar;
   s->set_empty (X_AXIS);
-  s->set_elt_property ("glyph", gh_str02scm ("brace"));
+  s->set_elt_property ("default-glyph", gh_str02scm ("brace"));
   return s;
 }
 
@@ -46,7 +45,7 @@ Staff_group_bar_engraver::get_span_bar_p () const
 {
   Span_bar *s= new Span_bar;
   s->set_empty (X_AXIS);
-  s->set_elt_property ("glyph",  gh_str02scm ("bracket"));
+  s->set_elt_property ("default-glyph",  gh_str02scm ("bracket"));
   return s;
 }
 
