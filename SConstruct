@@ -741,7 +741,7 @@ txt_files = map (lambda x: x + '.txt', readme_files)
 #
 # speeds up build by +- 5% 
 # 
-if 0:
+if not env['fast']:
 	foo = map (lambda x: env.TXT (x + '.txt',
 				      os.path.join ('Documentation/topdocs', x)),
 		   readme_files)
@@ -771,39 +771,41 @@ if 0:
 	env.Alias ('release', patch)
 
 #### web
-web_base = os.path.join (outdir, 'web')
-web_ball = web_base + '.tar.gz'
-env['footify'] = 'MAILADDRESS=bug-lilypond@gnu.org $PYTHON stepmake/bin/add-html-footer.py --name=lilypond --version=$TOPLEVEL_VERSION'
-web_ext = ['.html', '.ly', '.midi', '.pdf', '.png', '.ps.gz', '.txt',]
-web_path = '-path "*/$out/*"' + string.join (web_ext, ' -or -path "*/$out/*"')
-env['web_path'] = web_path
-web_list = os.path.join (outdir, 'weblist')
-# compatible make heritits
-# fixme: generate in $outdir is cwd/builddir
-env.Command (web_list,
-	     ## this is correct, but takes > 5min if you have a peder :-)
-	     ##'doc',
-	     '#/VERSION',
-	     ['$PYTHON buildscripts/mutopia-index.py -o examples.html ./',
-	      'cd $absbuild && $footify $$(find . -name "*.html" -print)',
-	      'cd $absbuild && rm -f $$(find . -name "*.html~" -print)',
-	      'cd $absbuild && find Documentation input $web_path \
-	      > $TARGET',
-	      '''echo '<META HTTP-EQUIV="refresh" content="0;URL=Documentation/out-www/index.html">' > $absbuild/index.html''',
-	      '''echo '<html><body>Redirecting to the documentation index...</body></html>' >> $absbuild/index.html''',
-	      'cd $absbuild && ls *.html >> $TARGET',])
-env.Command (web_ball, web_list,
-	     ['cat $SOURCE | tar -C $absbuild -czf $TARGET -T -',])
-#env.Alias ('web', web_ball)
-www_base = os.path.join (outdir, 'www')
-www_ball = www_base + '.tar.gz'
-env.Command (www_ball, web_ball,
-	     ['rm -rf $out/tmp',
-	      'mkdir -p $absbuild/$out/tmp',
-	      'tar -C $absbuild/$out/tmp -xzf $SOURCE',
-	      'cd $absbuild/$out/tmp && for i in $$(find . -name "$out"); do mv $$i $$(dirname $$i)/out-www; done',
-	      'tar -C $absbuild/$out/tmp -czf $TARGET .'])
-env.Alias ('web', www_ball)
+if not env['fast']:
+	web_base = os.path.join (outdir, 'web')
+	web_ball = web_base + '.tar.gz'
+	env['footify'] = 'MAILADDRESS=bug-lilypond@gnu.org $PYTHON stepmake/bin/add-html-footer.py --name=lilypond --version=$TOPLEVEL_VERSION'
+	web_ext = ['.html', '.ly', '.midi', '.pdf', '.png', '.ps.gz', '.txt',]
+	web_path = '-path "*/$out/*"' + string.join (web_ext, ' -or -path "*/$out/*"')
+	env['web_path'] = web_path
+	web_list = os.path.join (outdir, 'weblist')
+	# compatible make heritits
+	# fixme: generate in $outdir is cwd/builddir
+	env.Command (web_list,
+		     ## this is correct, but takes > 5min if you have a peder :-)
+		     ##'doc',
+		     '#/VERSION',
+		     ['$PYTHON buildscripts/mutopia-index.py -o examples.html ./',
+		      'cd $absbuild && $footify $$(find . -name "*.html" -print)',
+		      'cd $absbuild && rm -f $$(find . -name "*.html~" -print)',
+		      'cd $absbuild && find Documentation input $web_path \
+		      > $TARGET',
+		      '''echo '<META HTTP-EQUIV="refresh" content="0;URL=Documentation/out-www/index.html">' > $absbuild/index.html''',
+		      '''echo '<html><body>Redirecting to the documentation index...</body></html>' >> $absbuild/index.html''',
+		      'cd $absbuild && ls *.html >> $TARGET',])
+	env.Command (web_ball, web_list,
+		     ['cat $SOURCE | tar -C $absbuild -czf $TARGET -T -',])
+	#env.Alias ('web', web_ball)
+	www_base = os.path.join (outdir, 'www')
+	www_ball = www_base + '.tar.gz'
+	env.Command (www_ball, web_ball,
+		     ['rm -rf $out/tmp',
+		      'mkdir -p $absbuild/$out/tmp',
+		      'tar -C $absbuild/$out/tmp -xzf $SOURCE',
+		      'cd $absbuild/$out/tmp && for i in $$(find . -name "$out"); '
+		      + ' do mv $$i $$(dirname $$i)/out-www; done',
+		      'tar -C $absbuild/$out/tmp -czf $TARGET .'])
+	env.Alias ('web', www_ball)
 
 #### tags
 env.Append (
