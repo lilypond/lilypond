@@ -13,6 +13,7 @@ source file of the GNU LilyPond music typesetter
 #include "note-head.hh"
 #include "lyric-extender.hh"
 #include "item.hh"
+#include "group-interface.hh"
 
 struct Phrasing_association
 {
@@ -190,7 +191,7 @@ Lyric_phrasing_engraver::process_acknowledged_grobs ()
 	}
 
       for (int j = a->past_extenders_.size(); j--;)
-	a->past_extenders_[j]->set_bound (RIGHT, dynamic_cast<Item*> (h));
+	Pointer_group_interface::add_grob (a->past_extenders_[j],ly_symbol2scm ("heads"), h);
     }
 }
 

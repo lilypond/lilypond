@@ -1,4 +1,3 @@
-#(ly:set-option 'old-relative)
 \version "1.9.8"
 \header{
 texidoc="
@@ -16,14 +15,15 @@ a column.  The dots go along as rests are shifted to avoid collisions.
   \context Voice \notes\relative c'' {
     \time 6/8
 	d4. g,,
-	<b'' c d e>4.  <f g a b>
-	<g b d> <c, g' d' a'>
+    \stemDown
+    <b'' c d e>4.  <f g a b>
+    <g b d> <c, g' d' a'>
 	
 	
-	\context Staff <<
-	     { f''  <b c> r4.  }\\
-	     { b, <a b> r4. }
-	>>
+    <<
+	{ f  <b c> r4.  }\\
+	{ b, <a b> r4. }
+    >>
 	
 	
   }

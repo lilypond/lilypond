@@ -245,7 +245,8 @@ name of character within font.")
 
 (grob-property-description 'grow-direction ly:dir? "crescendo or decrescendo?.")
 (grob-property-description 'hair-thickness number? "thickness, measured in stafflinethickness.")
-(grob-property-description 'heads pair? "Pair of grob pointers, pointing to the two heads of the  tie.")
+(grob-property-description 'head-pair pair? "Pair of grob pointers, pointing to the two heads of the tie.")
+(grob-property-description 'heads grob-list? "List of note heads.")
 (grob-property-description 'height ly:dimension? "in staffspace.")
 (grob-property-description 'height-limit ly:dimension? "Maximum slur height,
   long slurs approach this height.

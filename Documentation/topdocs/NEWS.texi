@@ -15,11 +15,11 @@ Spacing following barlines was improved for widely stretched lines.
 Lyric hyphens now conform to standard typesetting practice.
 
 @item
-Lyrics are now aligned under note heads conforming engraving
+Lyrics are now aligned under note heads conforming to engraving
 standards. The responsible code has been rewritten, and is drastically
 simpler from the previous version. To aid this rewrite, the syntactic
-function of the extender line ( __ ) is been changed: it is now attached
-to the lyric syllable.
+function of the extender line ( __ ) has been changed: it is now
+attached to the lyric syllable.
 
 @item
 When redefining a context, the associated identifier is also

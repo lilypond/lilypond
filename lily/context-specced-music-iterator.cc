@@ -30,7 +30,7 @@ Context_specced_music_iterator::construct_children ()
     c_id = ly_scm2string (ci);
   
   Translator_group* a
-    =report_to ()->find_create_translator (ct, c_id);
+    = report_to ()->find_create_translator (ct, c_id);
 
   if (a)
     set_translator (a);

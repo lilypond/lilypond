@@ -291,7 +291,7 @@
     (DotColumn
      . (
 	(axes . (0))
-	(direction . 1)
+	(direction . ,RIGHT)
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(X-offset-callbacks . (,Dot_column::side_position))
 	(meta . ((interfaces . (dot-column-interface axis-group-interface item-interface ))))
@@ -301,7 +301,6 @@
      . (
 	(molecule-callback . ,Dots::brew_molecule)
 	(dot-count . 1)
-	(Y-offset-callbacks  . (,Dots::quantised_position_callback ,Staff_symbol_referencer::callback))
 	(meta . ((interfaces . (font-interface staff-symbol-referencer-interface dots-interface item-interface ))))
 	))
 
@@ -469,12 +468,11 @@
 
     (LyricHyphen
      . (
-	(thickness . 1.0)
+	(thickness . 1.3)
 	(height . 0.42)
 	(dash-period . 10.0)
 	(length . 0.66)
 	(minimum-length .  0.5) 
-	(maximum-length .  100)
 	(molecule-callback . ,Hyphen_spanner::brew_molecule)
 	(Y-extent-callback . ,Grob::point_dimension_callback)
 	(meta . ((interfaces . (lyric-hyphen-interface spanner-interface))))
@@ -484,6 +482,7 @@
      . (
 	(molecule-callback . ,Lyric_extender::brew_molecule)
 	(thickness . 0.8) ; stafflinethickness;
+	(minimum-length . 1.5)
 	(Y-extent-callback . ,Grob::point_dimension_callback)
 	(meta . ((interfaces . (lyric-extender-interface spanner-interface))))
 	))
@@ -496,7 +495,7 @@
 	(font-family . roman)
 	(font-series . bold-narrow)
 	(font-shape . upright)
-	
+	(font-size . 1.0)
 	(meta . ((interfaces . (rhythmic-grob-interface lyric-syllable-interface self-alignment-interface text-interface font-interface item-interface ))))
 	))
 

@@ -172,10 +172,8 @@ def draw_bass_clef(expr exact_center, reduction) =
         save dot_diam;
         reduced_ss# = staff_space# * reduction;
 
-
         2.2 dot_diam = round reduction* (staff_space - stafflinethickness);
-	right_thickness = 0.48;
-        left_thick = .25;
+	right_thickness = 0.37 staff_space + 1.2 stafflinethickness ;
         swoosh_width# = 2.1 reduced_ss#;
 %	tip_protude := (-stafflinethickness, -.2 staff_space);
 	tip_protude := (0, 0);	
@@ -202,10 +200,9 @@ def draw_bass_clef(expr exact_center, reduction) =
 
 	y2l := vround_pixels (reduced_ss#  + 0.5 stafflinethickness#);
 	y2l - y2r = (1.0 + overshoot_top) * stafflinethickness;
-	y2 = .5 [y2l, y2r];
 
         x3l - x1 =  swoosh_width;
-        x3l - x3r = right_thickness * reduced_ss;
+        x3l - x3r = right_thickness;
 
 	% try to correct: the top dot seems farther away if y3l = 0.
         y3l = 0.05 staff_space;
@@ -277,7 +274,7 @@ def draw_gclef (expr reduction)=
 	define_pixels(reduced_ss);
 	pair downstroke_dir, center;
 
-	thinness = 0.1 staff_space + 0.4 stafflinethickness;
+	thinness = 0.08 staff_space + 0.7 stafflinethickness;
 	downstroke_dir = unitvector (14, -75);
 	downstroke_angle = angle downstroke_dir;
 
@@ -285,7 +282,7 @@ def draw_gclef (expr reduction)=
 	breapth_factor = 21.0 /14;
 	inner_thick_end = 45;
 	inner_start_angle = downstroke_angle - 43;
-	thickness = .3 reduced_ss + 1 stafflinethickness;
+	thickness = .32 reduced_ss + 1.1 stafflinethickness;
 
 	thinnib = thinness;
 

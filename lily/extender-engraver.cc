@@ -52,7 +52,7 @@ Extender_engraver::acknowledge_grob (Grob_info i)
       if (extender_)
 	extender_->set_bound (LEFT, item);
 
-      if (finished_extender_ && !finished_extender_->get_bound (RIGHT))
+      if (finished_extender_)
 	finished_extender_->set_bound (RIGHT, item);
     }
 }
@@ -77,6 +77,7 @@ Extender_engraver::finalize ()
       typeset_grob (extender_);
       extender_ = 0;
     }
+
   if (finished_extender_)
     {
       finished_extender_->warning (_("unterminated extender"));
