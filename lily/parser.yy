@@ -41,6 +41,7 @@
 #include "mudela-version.hh"
 #include "grace-music.hh"
 #include "auto-change-music.hh"
+#include "part-combine-music.hh"
 #include "output-property.hh"
 
 bool
@@ -168,6 +169,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token REMOVE
 %token REPEAT
 %token ADDLYRICS
+%token PARTCOMBINE
 %token SCM_T
 %token SCORE
 %token SCRIPT
@@ -237,7 +239,7 @@ yylex (YYSTYPE *s,  void * v_l)
 
 %type <scm>  embedded_scm scalar
 %type <music>	Music Sequential_music Simultaneous_music Music_sequence
-%type <music>	relative_music re_rhythmed_music
+%type <music>	relative_music re_rhythmed_music part_combined_music
 %type <music>	property_def translator_change
 %type <scm> Music_list
 %type <outputdef>  music_output_def_body
@@ -757,6 +759,7 @@ Composite_music:
 	}
 	| relative_music	{ $$ = $1; }
 	| re_rhythmed_music	{ $$ = $1; } 
+	| part_combined_music	{ $$ = $1; } 
 	;
 
 relative_music:
@@ -770,6 +773,13 @@ re_rhythmed_music:
 	ADDLYRICS Music Music {
 		Lyric_combine_music * l = new Lyric_combine_music ($2, $3);
 		$$ = l;
+	}
+	;
+
+part_combined_music:
+	PARTCOMBINE STRING Music Music {
+		Part_combine_music * p = new Part_combine_music (ly_scm2string ($2), $3, $4);
+		$$ = p;
 	}
 	;
 
