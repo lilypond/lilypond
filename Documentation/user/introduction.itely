@@ -747,10 +747,12 @@ documentation package for your platform:
 
 @itemize @bullet
 @item
+@iftex
 Program reference
-@ifhtml
-(available @uref{source/Documentation/user/out-www/lilypond-internals.html,here})
-@end ifhtml
+@end iftex
+@ifnottex
+@ref{Top,Program reference,,lilypond-internals}.
+@end ifnottex
 
 The program reference is a set of heavily cross linked HTML pages,
 which document the nit-gritty details of each and every LilyPond
