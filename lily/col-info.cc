@@ -18,7 +18,7 @@ Colinfo::print() const
   if (fixed())
     DOUT << "fixed at " << fixed_position()<<", ";
   assert (pcol_l_);
-  DOUT << "[" << minleft() << ", " << minright () << "]";
+  DOUT << width_.str();
   DOUT <<"}\n";
 #endif
 }
@@ -29,9 +29,9 @@ Colinfo::Colinfo (Paper_column *col_l, Real const *fixed_C)
     fixpos_p_.set_l (fixed_C);
   ugh_b_ = false;
   pcol_l_ = col_l;
-  width = pcol_l_->width();
-  if (width.empty_b())
-    width = Interval(0,0);
+  width_ = pcol_l_->width();
+  if (width_.empty_b())
+    width_ = Interval(0,0);
 }
 
 

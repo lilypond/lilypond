@@ -18,7 +18,7 @@
 struct Colinfo {
     Paper_column *pcol_l_;
     P<Real> fixpos_p_;
-    Interval width;
+    Interval width_;
     int rank_i_;
     /// did some tricks to make this column come out.
     bool ugh_b_;		
@@ -29,8 +29,6 @@ struct Colinfo {
     void print() const;
     bool fixed() const { return fixpos_p_.get_C();}
     Real fixed_position() const { return *fixpos_p_; }
-    Real minright() const { return width.right; }
-    Real minleft() const { return -width.left; }
 };
 
 #endif // COL_INFO_HH
