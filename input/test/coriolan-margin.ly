@@ -101,10 +101,10 @@ violoncello =  \relative c' {
 }
 
 
-% ugf, must be here?
 \paper {
     indent=10.0\mm
     linewidth=150.0\mm
+    raggedbottom = ##t 
 }
 
 #(set-global-staff-size 16)

@@ -32,6 +32,9 @@
 /* Write midi as formatted ascii stream? */
 bool midi_debug_global_b;
 
+int preview_resolution_global = 90;
+
+
 /* General purpose testing flag */
 int testing_level_global;
 
@@ -122,6 +125,8 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
       /*  Needs to be reset for each file that uses this option.  */
       lily_1_8_compatibility_used = false;
     }
+  else if (var == ly_symbol2scm ("resolution"))
+    preview_resolution_global = robust_scm2int (val, 90);
   else if (var == ly_symbol2scm ("new-relative"))
     lily_1_8_relative = false;
   else
@@ -143,6 +148,8 @@ LY_DEFINE (ly_get_option, "ly:get-option", 1, 0, 0, (SCM var),
 	   "Report whether old-relative compatibility mode is used\n"
 	   "@item verbose\n"
 	   "Report whether we are running in verbose mode\n"
+	   "@item resolution\n"
+	   "Resolution for the PNG output."
 	   "@end table\n"
 	   "\n")
 {
@@ -156,6 +163,8 @@ LY_DEFINE (ly_get_option, "ly:get-option", 1, 0, 0, (SCM var),
     o = ly_bool2scm (lily_1_8_relative);
   else if (var == ly_symbol2scm ("verbose"))
     o = ly_bool2scm (verbose_global_b);
+  else if ( var == ly_bool2scm ("resolution"))
+    o = scm_from_int (preview_resolution_global);
   else
     warning (_f ("No such internal option: %s", ly_scm2string (var)));
   return o;
