@@ -101,7 +101,7 @@ Scheme_hash_table::contains (SCM k) const
 void
 Scheme_hash_table::set (SCM k, SCM v)
 {
-  assert (is_symbol (k));
+  assert (ly_c_symbol_p (k));
   SCM handle = scm_hashq_create_handle_x (hash_tab_, k, SCM_UNDEFINED);
   if (ly_cdr (handle) == SCM_UNDEFINED)
     {

@@ -127,7 +127,7 @@ Rest::brew_internal_stencil (SCM smob)
   
   String style; 
   SCM style_scm = me->get_property ("style");
-  if (is_symbol (style_scm))
+  if (ly_c_symbol_p (style_scm))
     style = ly_scm2string (scm_symbol_to_string (style_scm));
 
   Font_metric *fm = Font_interface::get_default_font (me);

@@ -50,7 +50,7 @@ Script_engraver::try_music (Music *r)
 	This is necessary for part-combining.
        */
       for (int j = 0; j < scripts_.size (); j++)
-	if (is_equal (scripts_[j]. event_->get_property ("articulation-type"),
+	if (ly_c_equal_p (scripts_[j]. event_->get_property ("articulation-type"),
 			r->get_property ("articulation-type")
 			))
 	  return true;

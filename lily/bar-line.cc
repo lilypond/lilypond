@@ -30,7 +30,7 @@ Bar_line::print (SCM smob)
 
   SCM s = me->get_property ("glyph");
   SCM barsiz_proc = me->get_property ("bar-size-procedure");
-  if (ly_c_string_p (s) && is_procedure (barsiz_proc))
+  if (ly_c_string_p (s) && ly_c_procedure_p (barsiz_proc))
     {
       String str  =ly_scm2string (s);
       SCM siz = scm_call_1 (barsiz_proc, me->self_scm ());
@@ -170,7 +170,7 @@ Bar_line::before_line_breaking (SCM smob)
       // leave y_extent for spanbar? 
     }
 
-  if (! is_equal (g, orig))
+  if (! ly_c_equal_p (g, orig))
     me->set_property ("glyph", g);
 
   return SCM_UNSPECIFIED;

@@ -79,7 +79,7 @@ Key_engraver::create_key (bool def)
   if (!def)
     {
       SCM vis = get_property ("explicitKeySignatureVisibility"); 
-      if (is_procedure (vis))
+      if (ly_c_procedure_p (vis))
 	item_->set_property ("break-visibility",vis);
     }
 }      

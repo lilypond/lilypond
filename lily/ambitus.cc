@@ -149,7 +149,7 @@ Ambitus::print (SCM smob)
 
   SCM scm_note_head_style = me->get_property ("note-head-style");
   String note_head_style;
-  if (is_symbol (scm_note_head_style))
+  if (ly_c_symbol_p (scm_note_head_style))
     {
       String note_head_style =
 	ly_symbol2string (scm_note_head_style);
@@ -244,7 +244,7 @@ Ambitus::print (SCM smob)
   SCM key_signature = me->get_property ("key-signature");
   SCM scm_accidentals_style = me->get_property ("accidentals-style");
   String accidentals_style;
-  if (is_symbol (scm_accidentals_style))
+  if (ly_c_symbol_p (scm_accidentals_style))
     {
       accidentals_style =
 	ly_symbol2string (scm_accidentals_style);

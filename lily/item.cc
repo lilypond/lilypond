@@ -153,7 +153,7 @@ Item::handle_prebroken_dependencies ()
     more complicated things.
   */
   SCM vis = get_property ("break-visibility");
-  if (is_procedure (vis))
+  if (ly_c_procedure_p (vis))
     {
       SCM args = scm_list_n (scm_int2num (break_status_dir ()), SCM_UNDEFINED);
       SCM result = scm_apply_0 (vis, args);

@@ -79,7 +79,7 @@ Beam::get_beam_translation (Grob *me)
 {
   SCM func = me->get_property ("space-function");
 
-  if (is_procedure (func))
+  if (ly_c_procedure_p (func))
     {
       SCM s = scm_call_2 (func, me->self_scm (), scm_int2num (get_beam_count (me)));
       return ly_scm2double (s);
@@ -1525,7 +1525,7 @@ bool
 Beam::is_knee (Grob* me)
 {
   SCM k = me->get_property ("knee");
-  if (is_boolean (k))
+  if (ly_c_boolean_p (k))
     return ly_scm2bool (k);
 
   bool knee = false;

@@ -134,7 +134,7 @@ Tex_font_metric::name_to_index (String s) const
   SCM sym = ly_symbol2scm (s.to_str0 ());
 
   SCM idx = scm_hash_ref (encoding_table_, sym, SCM_BOOL_F);
-  if (is_char (idx))
+  if (ly_c_char_p (idx))
     {
       return (unsigned char) ly_scm2char (idx);
     }

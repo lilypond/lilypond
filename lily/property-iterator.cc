@@ -21,7 +21,7 @@ void
 Property_iterator::process (Moment m)
 {
   SCM sym = get_music ()->get_property ("symbol");
-  if (is_symbol (sym))
+  if (ly_c_symbol_p (sym))
     {
       SCM val = get_music ()->get_property ("value");
       bool ok= true;

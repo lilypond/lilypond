@@ -133,7 +133,7 @@ Tuplet_bracket::print (SCM smob)
     Fixme: the type of this prop is sucky.
    */
   SCM bracket = me->get_property ("bracket-visibility");
-  if (is_boolean (bracket))
+  if (ly_c_boolean_p (bracket))
     {
       bracket_visibility = ly_scm2bool (bracket);
     }
@@ -141,7 +141,7 @@ Tuplet_bracket::print (SCM smob)
     bracket_visibility = !par_beam;
 
   SCM numb = me->get_property ("number-visibility");  
-  if (is_boolean (numb))
+  if (ly_c_boolean_p (numb))
     {
       number_visibility = ly_scm2bool (numb);
     }

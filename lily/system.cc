@@ -288,7 +288,7 @@ System::pre_processing ()
     {
       Grob * e = unsmob_grob (ly_car (s));
       SCM proc = e->get_property ("spacing-procedure");
-      if (is_procedure (proc))
+      if (ly_c_procedure_p (proc))
 	scm_call_1 (proc, e->self_scm ());
     }
 }

@@ -39,7 +39,7 @@ Modified_font_metric::Modified_font_metric (String coding, Font_metric* m, Real 
       coding_vector_ = scm_call_1 (ly_scheme_function ("get-coding-vector"),
 				   scm_makfrom0str (coding_scheme_.to_str0 ()));
 
-      if (!is_vector (coding_vector_))
+      if (!ly_c_vector_p (coding_vector_))
 	{
 	  programming_error ("get-coding-vector  should return vector");
 	  coding_vector_ = scm_c_make_vector (256, ly_symbol2scm (".notdef"));
@@ -96,7 +96,7 @@ Modified_font_metric::make_scaled_font_metric (SCM coding, Font_metric *m, Real 
   /*
     UGOHR.
    */
-  if (is_symbol (coding))
+  if (ly_c_symbol_p (coding))
     coding = scm_symbol_to_string (coding);
   
   String scheme = ly_scm2string (coding);
@@ -268,7 +268,7 @@ Modified_font_metric::text_dimension (String text)
 
 	  Box char_box;
 
-	  if (!is_symbol (sym))
+	  if (!ly_c_symbol_p (sym))
 	    continue;
 
 	  char const * chars =  SCM_SYMBOL_CHARS(sym);

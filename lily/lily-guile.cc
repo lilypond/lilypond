@@ -73,7 +73,7 @@ ly_quote_scm (SCM s)
 String
 ly_symbol2string (SCM s)
 {
-  assert (is_symbol (s));
+  assert (ly_c_symbol_p (s));
   return String ((Byte*)SCM_STRING_CHARS (s), (int) SCM_STRING_LENGTH (s));
 }
 
@@ -292,7 +292,7 @@ ly_interval2scm (Drul_array<Real> i)
 bool
 to_boolean (SCM s)
 {
-  return is_boolean (s) && ly_scm2bool (s);
+  return ly_c_boolean_p (s) && ly_scm2bool (s);
 }
 
 /* Appendable list L: the cdr contains the list, the car the last cons
@@ -386,7 +386,7 @@ ly_deep_copy (SCM src)
 {
   if (ly_c_pair_p (src))
     return scm_cons (ly_deep_copy (ly_car (src)), ly_deep_copy (ly_cdr (src)));
-  else if (is_vector (src))
+  else if (ly_c_vector_p (src))
     {
       int len = SCM_VECTOR_LENGTH (src);
       SCM nv = scm_c_make_vector (len, SCM_UNDEFINED);
@@ -527,7 +527,7 @@ type_check_assignment (SCM sym, SCM val,  SCM type_symbol)
   if (val == SCM_EOL || val == SCM_BOOL_F)
     return ok;
 
-  if (!is_symbol (sym))
+  if (!ly_c_symbol_p (sym))
 #if 0
     return false;
 #else
@@ -544,7 +544,7 @@ type_check_assignment (SCM sym, SCM val,  SCM type_symbol)
   
   SCM type = scm_object_property (sym, type_symbol);
 
-  if (type != SCM_EOL && !is_procedure (type))
+  if (type != SCM_EOL && !ly_c_procedure_p (type))
       {
 	warning (_f ("Can't find property type-check for `%s' (%s).",
 		     ly_symbol2string (sym).to_str0 (),
@@ -560,7 +560,7 @@ type_check_assignment (SCM sym, SCM val,  SCM type_symbol)
   else
     {
       if (val != SCM_EOL
-	  && is_procedure (type)
+	  && ly_c_procedure_p (type)
 	  && scm_call_1 (type, val) == SCM_BOOL_F)
 	{
 	  SCM errport = scm_current_error_port ();
@@ -595,7 +595,7 @@ ly_unique (SCM list)
   for (SCM i = list; ly_c_pair_p (i); i = ly_cdr (i))
     {
       if (!ly_c_pair_p (ly_cdr (i))
-	  || !is_equal (ly_car (i), ly_cadr (i)))
+	  || !ly_c_equal_p (ly_car (i), ly_cadr (i)))
 	unique = scm_cons (ly_car (i), unique);
     }
   return scm_reverse_x (unique, SCM_EOL);
@@ -658,7 +658,7 @@ ly_split_list (SCM s, SCM list)
     {
       SCM i = ly_car (after);
       after = ly_cdr (after);
-      if (is_equal (i, s))
+      if (ly_c_equal_p (i, s))
 	break;
       before = scm_cons (i, before);
     }

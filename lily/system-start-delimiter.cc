@@ -75,7 +75,7 @@ System_start_delimiter::after_line_breaking (SCM smob)
 {
   Grob * me = unsmob_grob (smob);
   SCM   gl = me->get_property ("glyph");
-  if (is_equal (gl,scm_makfrom0str ("bar-line")))
+  if (ly_c_equal_p (gl,scm_makfrom0str ("bar-line")))
     {
       int count = 0;
 

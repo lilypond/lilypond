@@ -71,9 +71,9 @@ void
 tag_music (Music *m, SCM tag, Input ip)
 {
 	SCM tags = m->get_property ("tags");
-	if (is_symbol (tag))
+	if (ly_c_symbol_p (tag))
 		tags = scm_cons (tag, tags);
-	else if (is_list (tag))
+	else if (ly_c_list_p (tag))
 		tags = ly_append2 (tag, tags);
 	else
 		ip.warning (_ ("Tag must be symbol or list of symbols."));
@@ -106,7 +106,7 @@ SCM
 make_simple_markup (SCM encoding, SCM a)
 {
 	SCM simple = ly_scheme_function ("simple-markup");
-	if (is_symbol (encoding))
+	if (ly_c_symbol_p (encoding))
 		return scm_list_3 (ly_scheme_function ("encoded-simple-markup"),
 			   encoding, a);
 	return scm_list_2 (simple, a);
@@ -151,8 +151,8 @@ make_chord (SCM pitch, SCM dur, SCM modification_list)
 bool
 ly_input_procedure_p (SCM x)
 {
-	return is_procedure (x)
-		|| (ly_c_pair_p (x) && is_procedure (ly_car (x)));
+	return ly_c_procedure_p (x)
+		|| (ly_c_pair_p (x) && ly_c_procedure_p (ly_car (x)));
 }
 
 Music*
@@ -821,7 +821,7 @@ Repeated_music:
 		r->set_property ("repeat-count", scm_int2num (times >? 1));
 
 		r-> set_property ("elements",alts);
-		if (is_equal ($2, scm_makfrom0str ("tremolo"))) {
+		if (ly_c_equal_p ($2, scm_makfrom0str ("tremolo"))) {
 			/*
 			TODO: move this code to Scheme.
 			*/
@@ -1398,7 +1398,7 @@ command_element:
 			evs = scm_hash_ref (tab, key, SCM_BOOL_F);
 		}
 		Music *quote = 0;
-		if (is_vector (evs))
+		if (ly_c_vector_p (evs))
 		{
 			quote = MY_MAKE_MUSIC ("QuoteMusic");
 			quote->set_property ("duration", $3);
@@ -2507,7 +2507,7 @@ property_op_to_music (SCM op)
 		bool itc = internal_type_checking_global_b;
 		/* UGH.
 		*/
-		bool autobeam = is_equal (symbol, ly_symbol2scm ("autoBeamSettings"));
+		bool autobeam = ly_c_equal_p (symbol, ly_symbol2scm ("autoBeamSettings"));
 		if (autobeam)
 			internal_type_checking_global_b = false;
 		m->set_property ("grob-property", grob_sym);
@@ -2531,7 +2531,7 @@ context_spec_music (SCM type, SCM id, Music *m, SCM ops)
 	scm_gc_unprotect_object (m->self_scm ());
 
 	csm->set_property ("context-type",
-		is_symbol (type) ? type : scm_string_to_symbol (type));
+		ly_c_symbol_p (type) ? type : scm_string_to_symbol (type));
 	csm->set_property ("property-operations", ops);
 
 	if (ly_c_string_p (id))

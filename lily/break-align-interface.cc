@@ -76,7 +76,7 @@ Break_align_interface::ordered_elements (Grob *grob)
   Item *me  = dynamic_cast<Item*> (grob);
   SCM elts = me->get_property ("elements");
   SCM order_vec = me->get_property ("break-align-orders");
-  if (!is_vector (order_vec)
+  if (!ly_c_vector_p (order_vec)
       || ly_vector_length (order_vec) < 3)
     return  Pointer_group_interface__extract_grobs (me, (Grob*)0,
 						    "elements");
@@ -186,7 +186,7 @@ Break_align_interface::do_alignment (Grob *grob)
 	reason.
       */
       for (SCM s = r ? r->get_property ("elements") : SCM_EOL;
-	   !is_symbol (rsym) && ly_c_pair_p (s); s = ly_cdr (s))
+	   !ly_c_symbol_p (rsym) && ly_c_pair_p (s); s = ly_cdr (s))
 	{
 	  Grob * elt =unsmob_grob (ly_car (s));
 
@@ -197,14 +197,14 @@ Break_align_interface::do_alignment (Grob *grob)
 	edge_idx = next_idx;
 
       SCM entry = SCM_EOL;
-      if (is_symbol (rsym))
+      if (ly_c_symbol_p (rsym))
 	entry = scm_assq (rsym, alist);
 
       bool entry_found = ly_c_pair_p (entry);
       if (!entry_found)
 	{
 	  String sym_string;
-	  if (is_symbol (rsym))
+	  if (ly_c_symbol_p (rsym))
 	    sym_string = ly_symbol2string (rsym);
 
 	  String orig_string ;
