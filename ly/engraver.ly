@@ -539,6 +539,13 @@ ScoreContext = \translator {
 		(breakable . #t)
 		(name . "left edge")
 	)
+	basicFingeringProperties = #`(
+		(interfaces . (finger-interface text-script-interface text-item-interface side-position-interface))
+		(molecule-callback . ,Text_item::brew_molecule)
+		(padding . 	3.0)
+		(self-alignment-X . 0)
+		(name . "fingering script") 
+	)
 	basicGraceAlignItemProperties = #`(
 		(interfaces . (axis-group-interface align-interface))
 		(axes . (0))
