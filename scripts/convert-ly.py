@@ -840,6 +840,35 @@ if 1:
 	
 	conversions.append (((1,5,38), conv, 'SystemStartDelimiter -> systemStartDelimiter'))
 
+
+if 1:
+	def conv (str):
+	
+		def func(match):
+			break_dict = {
+			"Instrument_name": "instrument-name",
+			"Left_edge_item": "left-edge",
+			"Span_bar": "span-bar",
+			"Breathing_sign": "breathing-sign",
+			"Staff_bar": "staff-bar",
+			"Clef_item": "clef",
+			"Key_item": "key-signature",
+			"Time_signature": "time-signature",
+			"Custos": "custos"
+			}
+			props =  match.group (1)
+			for (k,v) in break_dict.items():
+				props = re.sub (k, v, props)
+			return  "breakAlignOrder = #'(%s)" % props
+
+		str = re.sub ("breakAlignOrder *= *#'\\(([a-z_\n\tA-Z ]+)\\)",
+			      func, str)
+		return str
+
+	# 40 ? 
+	conversions.append (((1,5,40), conv, 'breakAlignOrder property names'))
+	
+
 if 1:
 	def conv (str):
 		str = re.sub ('noAutoBeaming *= *##f', 'autoBeaming = ##t', str)
@@ -912,34 +941,6 @@ if 1:
 		return str
 	
 	conversions.append (((1,5,68), conv, 'ly-set-X-property -> ly-set-X-property!'))
-
-if 1:
-	def conv (str):
-	
-		def func(match):
-			break_dict = {
-			"Instrument_name": "instrument-name",
-			"Left_edge_item": "left-edge",
-			"Span_bar": "span-bar",
-			"Breathing_sign": "breathing-sign",
-			"Staff_bar": "staff-bar",
-			"Clef_item": "clef",
-			"Key_item": "key-signature",
-			"Time_signature": "time-signature",
-			"Custos": "custos"
-			}
-			props =  match.group (1)
-			for (k,v) in break_dict.items():
-				props = re.sub (k, v, props)
-			return  "breakAlignOrder = #'(%s)" % props
-
-		str = re.sub ("breakAlignOrder *= *#'\\(([a-z_\n\tA-Z ]+)\\)",
-			      func, str)
-		return str
-
-	# 40 ? 
-	conversions.append (((1,5,40), conv, 'breakAlignOrder property names'))
-	
 
 ################################
 #	END OF CONVERSIONS	
