@@ -14,7 +14,7 @@
 #if HAVE_SSTREAM
 #include <sstream>
 #else
-#include <strstream.h>
+#include <strstream>
 #define istringstream(x) istrstream(x, length ()) 
 #endif
 

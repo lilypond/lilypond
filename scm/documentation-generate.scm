@@ -63,7 +63,8 @@
 
 (display
  (string-append
-  (texi-file-head "LilyPond program-reference" outname "(lilypond-internals.info)")
+  (texi-file-head "LilyPond program-reference" file-name
+		  "(lilypond-internals.info)")
   "
 
 @ifhtml
