@@ -262,7 +262,7 @@ String_convert::char_str (char c, int n)
   char* ch_p = new char[ n ];
   memset (ch_p, c, n);
   String s ((Byte*)ch_p, n);
-  delete ch_p;
+  delete[] ch_p;
   return s;
 }
 
