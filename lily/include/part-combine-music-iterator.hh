@@ -32,7 +32,7 @@ protected:
   virtual bool ok () const;
 
 private:
-  void change_to (Music_iterator*, String, String);
+  void change_to (Music_iterator*, SCM,  String);
   int get_state (Moment m);
 
   Music_iterator * first_iter_;

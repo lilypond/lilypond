@@ -90,6 +90,7 @@ Translator_def::Translator_def (Translator_def const & s)
 void
 Translator_def::set_acceptor (SCM name, bool add)
 {
+  assert (gh_symbol_p (name));
   if (add)
     this->accepts_name_list_ = gh_cons (name, this->accepts_name_list_);
   else
@@ -159,9 +160,9 @@ Translator_def::add_pop_property (SCM props, SCM syms)
 
 
 Link_array<Translator_def>
-Translator_def::path_to_acceptable_translator (SCM type_string, Music_output_def* odef) const
+Translator_def::path_to_acceptable_translator (SCM type_sym, Music_output_def* odef) const
 {
-  assert (gh_string_p (type_string));
+  assert (gh_symbol_p (type_sym));
   
   Link_array<Translator_def> accepteds;
   for (SCM s = accepts_name_list_; gh_pair_p (s); s = ly_cdr (s))
@@ -179,7 +180,7 @@ Translator_def::path_to_acceptable_translator (SCM type_string, Music_output_def
       /*
 	don't check aliases, because \context Staff should not create RhythmicStaff.
       */
-      if (gh_equal_p (accepteds[i]->type_name_, type_string))
+      if (gh_equal_p (accepteds[i]->type_name_, type_sym))
 	{
 	  best_result.push (accepteds[i]);
 	  return best_result;
@@ -192,11 +193,17 @@ Translator_def::path_to_acceptable_translator (SCM type_string, Music_output_def
       Translator_def * g = accepteds[i];
 
       Link_array<Translator_def> result
-	= g->path_to_acceptable_translator (type_string, odef);
+	= g->path_to_acceptable_translator (type_sym, odef);
       if (result.size () && result.size () < best_depth)
 	{
 	  result.insert (g,0);
 	  best_result = result;
+
+	  /*
+	    this following line was added in 1.9.3, but hsould've been
+	    there all along... Let's hope it doesn't cause nightmares.
+	   */
+	  best_depth = result.size();
 	}
     }
 
@@ -241,7 +248,6 @@ Translator_def::instantiate (Music_output_def* md)
   Translator_group *tg = dynamic_cast<Translator_group*> (g);
   tg->output_def_ = md;
   tg->definition_ = self_scm ();
-  tg->type_string_ = ly_scm2string (type_name_);
 
   /*
     TODO: ugh. we're reversing CONSISTS_NAME_LIST_ here

@@ -354,7 +354,7 @@ and set OTTAVATION to `8va', or whatever appropriate."
 	      ))))
 
   (ly:set-mus-property! m 'procedure  ottava-modify)
-  (context-spec-music m "Staff")
+  (context-spec-music m 'Staff)
   ))
 
 (define-public (set-octavation ottavation)
@@ -379,7 +379,7 @@ Rest can contain a list of beat groupings
        (basic  (list set1 set2 set3 set4)))
 
     (context-spec-music
-     (make-sequential-music basic) "Timing")))
+     (make-sequential-music basic) 'Timing)))
 
 (define-public (set-time-signature num den . rest)
   (ly:export (apply make-time-signature-set `(,num ,den . ,rest))))
@@ -446,7 +446,7 @@ Rest can contain a list of beat groupings
 		(make-voice-props-set number)
 		(make-simultaneous-music (car lst))))
 
-	      "Voice"  (number->string number))
+	      'Voice  (number->string number))
 	      (voicify-list (cdr lst) (+ number 1))
        ))
    )
@@ -612,7 +612,7 @@ Rest can contain a list of beat groupings
 	 )
       (ly:set-context-property! where 'graceSettings new-settings)))
     
-    (ly:export (context-spec-music (make-apply-context set-prop) "Voice")))
+    (ly:export (context-spec-music (make-apply-context set-prop) 'Voice)))
 
 
 (define-public (set-start-grace-properties context)

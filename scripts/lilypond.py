@@ -1,6 +1,6 @@
 #!@PYTHON@
 #
-# ly2dvi.py -- Run LilyPond, add titles to bare score, generate printable
+# lilypond.py -- Run LilyPond, add titles to bare score, generate printable
 #              document
 #              Invokes: lilypond, latex (or pdflatex), dvips, ps2pdf, gs
 # 
@@ -9,7 +9,7 @@
 # (c)  1998--2003  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 #                 Jan Nieuwenhuizen <janneke@gnu.org>
 
-# This is the third incarnation of ly2dvi.
+# This is the third incarnation of ly2dvi, now renamed lilypond.
 #
 # Earlier incarnations of ly2dvi were written by
 # Jeffrey B. Reed<daboys@austin.rr.com> (Python version)
@@ -24,7 +24,7 @@
 '''
 TODO:
 
-  * figure out which set of command line options should make ly2dvi:
+  * figure out which set of command line options should make lilypond:
 
       na: create tex only?  
       na: create latex only? 
@@ -37,8 +37,6 @@ TODO:
 
      etc.
 
-  * for foo.ly, rename ly2dvi.dir to out-ly2dvi, foo.ly2dvi, foo.dir ?
-     
   * move versatile taglines, 
   
      \header {
@@ -106,7 +104,7 @@ global _;_=ly._
 global re;re = ly.re
 
 # lilylib globals
-program_name = 'ly2dvi'
+program_name = 'lilypond'
 program_version = '@TOPLEVEL_VERSION@'
 verbose_p = 0
 pseudo_filter_p = 0

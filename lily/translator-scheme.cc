@@ -109,13 +109,11 @@ LY_DEFINE(ly_translator_find,
   Translator_group* tr=   dynamic_cast<Translator_group*> ( unsmob_translator (context));
 
   SCM_ASSERT_TYPE(tr, context, SCM_ARG1, __FUNCTION__, "context");
-  SCM_ASSERT_TYPE(gh_string_p (name), name, SCM_ARG2, __FUNCTION__, "string");
-  
-  String s = ly_scm2string (name);
+  SCM_ASSERT_TYPE(gh_symbol_p (name), name, SCM_ARG2, __FUNCTION__, "symbol");
   
   while (tr)
     {
-      if (tr->is_alias_b (s))
+      if (tr->is_alias_b (name))
 	return tr->self_scm();
       tr =  tr->daddy_trans_ ;
     }

@@ -10,7 +10,7 @@
 #include "warn.hh"
 #include "simultaneous-music-iterator.hh"
 #include "music-list.hh"
-#include "killing-cons.tcc"
+#include "translator-def.hh"
 
 
 Simultaneous_music_iterator::Simultaneous_music_iterator ()
@@ -76,10 +76,10 @@ Simultaneous_music_iterator::construct_children ()
 
       /* if separate_contexts_b_ is set, create a new context with the
 	 number number as name */
-      
+
+      SCM name = unsmob_translator_def (report_to ()->definition_)->type_name_;
       Translator_group * t = (j && separate_contexts_b_)
-	? report_to ()->find_create_translator (report_to ()->type_string_,
-						    to_string (j))
+	? report_to ()->find_create_translator (name, to_string (j))
 	: report_to ();
 
       if (!t)

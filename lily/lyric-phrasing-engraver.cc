@@ -14,7 +14,7 @@
 #include "warn.hh"
 
 
-String get_context_id (Translator_group * ancestor, const char * type);
+String get_context_id (Translator_group * ancestor, SCM);
 String trim_suffix (String &id);
 
 
@@ -200,7 +200,7 @@ Lyric_phrasing_engraver::acknowledge_grob (Grob_info i)
       /* caught a note head ... do something with it */
 
       /* what's its Voice context name? */
-      String voice_context_id = get_context_id (i.origin_trans_->daddy_trans_, "Voice");
+      String voice_context_id = get_context_id (i.origin_trans_->daddy_trans_, ly_symbol2scm ("Voice"));
       record_notehead (voice_context_id, h);
 
       /* is it in a melisma ? */
@@ -224,7 +224,7 @@ Lyric_phrasing_engraver::acknowledge_grob (Grob_info i)
 	}
       else
 	{
-	  voice_context_id = get_context_id (i.origin_trans_->daddy_trans_, "LyricsVoice");
+	  voice_context_id = get_context_id (i.origin_trans_->daddy_trans_,ly_symbol2scm ( "LyricsVoice"));
 	  voice_context_id = trim_suffix (voice_context_id);
 	}
       record_lyric (voice_context_id, h);
@@ -246,16 +246,16 @@ Lyric_phrasing_engraver::acknowledge_grob (Grob_info i)
   */
   if (h->internal_has_interface (ly_symbol2scm ("lyric-extender-interface")))
     {
-      String voice_context_id = get_context_id (i.origin_trans_->daddy_trans_, "LyricsVoice");
+      String voice_context_id = get_context_id (i.origin_trans_->daddy_trans_, ly_symbol2scm ("LyricsVoice"));
       record_extender (trim_suffix (voice_context_id), h);
       return;
     }
 }
 
 String 
-get_context_id (Translator_group * ancestor, const char *type)
+get_context_id (Translator_group * ancestor, SCM  type)
 {
-  while (ancestor != 0 && ancestor->type_string_ != type)
+  while (ancestor != 0 && !ancestor->is_alias_b(type))
     {
       ancestor = ancestor->daddy_trans_;
     }

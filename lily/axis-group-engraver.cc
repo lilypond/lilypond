@@ -59,7 +59,7 @@ Axis_group_engraver::get_spanner () const
 void
 Axis_group_engraver::finalize ()
 {
-  String type = get_daddy_grav ()->type_string_ ;
+  String type = get_daddy_grav ()->context_name ();
   SCM dims = get_property ("verticalExtent");
   
   if (gh_pair_p (dims) && gh_number_p (ly_car (dims))

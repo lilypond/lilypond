@@ -21,11 +21,12 @@ Change_iterator::error (String reason)
 
   String warn1 = _f ("can't change `%s' to `%s'", to_type, to_id) 
     + ": " + reason;
+
   /*
     GUHG!
    */
   String warn2= "Change_iterator::process (): " 
-    + report_to ()->type_string_ + " = `"
+    + report_to ()->context_name () + " = `"
     + report_to ()->id_string_ + "': ";
   warning (warn2);
   get_music ()->origin ()->warning (warn1);
@@ -40,7 +41,7 @@ Change_iterator::process (Moment m)
   Translator_group * current = report_to ();
   Translator_group * last = 0;
 
-  String to_type = ly_scm2string (get_music ()->get_mus_property ("change-to-type"));
+  SCM to_type = get_music ()->get_mus_property ("change-to-type");
   String to_id =  ly_scm2string (get_music ()->get_mus_property ("change-to-id"));
 
 
@@ -48,7 +49,7 @@ Change_iterator::process (Moment m)
      
      If \translator Staff = bass, then look for Staff = *
    */
-  while (current && current->type_string_ != to_type)
+  while (current && !current->is_alias_b (to_type))
     {
       last = current;
       current = current->daddy_trans_;
