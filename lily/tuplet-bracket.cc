@@ -170,7 +170,7 @@ Tuplet_bracket::print (SCM smob)
 
   Output_def *pap = me->get_paper ();
   Stencil num;
- if (ly_c_string_p (number) && number_visibility)
+ if (scm_is_string (number) && number_visibility)
     {
       SCM properties = Font_interface::text_font_alist_chain (me);
       SCM snum = Text_item::interpret_markup (pap->self_scm (), properties, number);

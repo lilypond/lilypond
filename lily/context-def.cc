@@ -100,7 +100,7 @@ Context_def::add_context_mod (SCM mod)
     }
 
   SCM sym = ly_cadr (mod);
-  if (ly_c_string_p (sym))
+  if (scm_is_string (sym))
     sym = scm_string_to_symbol (sym);
   
   if (ly_symbol2scm ("consists") == tag
@@ -213,7 +213,7 @@ Context_def::get_translator_names (SCM user_mod) const
       SCM tag = ly_caar (s);
       SCM arg = ly_cadar (s);
 
-      if (ly_c_string_p (arg))
+      if (scm_is_string (arg))
 	arg = scm_string_to_symbol (arg);
       
       if (ly_symbol2scm ("consists") == tag)

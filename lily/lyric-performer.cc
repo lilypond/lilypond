@@ -40,7 +40,7 @@ Lyric_performer::create_audio_elements ()
 {
   // FIXME: won't work with fancy lyrics
   if (lreqs_.size ()
-      && ly_c_string_p (lreqs_[0]->get_property ("text"))
+      && scm_is_string (lreqs_[0]->get_property ("text"))
       && ly_scm2string (lreqs_[0]->get_property ("text")).length ())
     {
       audio_ = new Audio_text (Audio_text::LYRIC,

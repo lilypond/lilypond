@@ -113,7 +113,7 @@ Modified_font_metric::make_scaled_font_metric (SCM coding,
   if (ly_c_symbol_p (coding))
     coding = scm_symbol_to_string (coding);
   
-  String scheme = ly_c_string_p (coding) ? ly_scm2string (coding) : ""; 
+  String scheme = scm_is_string (coding) ? ly_scm2string (coding) : ""; 
   
   Modified_font_metric *sfm = new Modified_font_metric (scheme, m, s);
   

@@ -137,7 +137,7 @@ LY_DEFINE (ly_outputter_dump_string, "ly:outputter-dump-string",
 {
   Paper_outputter *po = unsmob_outputter (outputter);
   SCM_ASSERT_TYPE (po, outputter, SCM_ARG1, __FUNCTION__, "Paper_outputter");
-  SCM_ASSERT_TYPE (ly_c_string_p (str), str, SCM_ARG1, __FUNCTION__, "Paper_outputter");
+  SCM_ASSERT_TYPE (scm_is_string (str), str, SCM_ARG1, __FUNCTION__, "Paper_outputter");
   
   return po->dump_string (str);
 }

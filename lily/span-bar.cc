@@ -65,7 +65,7 @@ Span_bar::print (SCM smobbed_me)
 
   /* glyph may not be a string, when ME is killed by Hara Kiri in
     between. */
-  if (!ly_c_string_p (glyph))
+  if (!scm_is_string (glyph))
     return SCM_EOL;
   
   String glyph_string = ly_scm2string (glyph);
@@ -179,17 +179,17 @@ Span_bar::evaluate_glyph (Grob*me)
 {
   SCM gl = me->get_property ("glyph");
 
-  if (ly_c_string_p (gl))
+  if (scm_is_string (gl))
     return ;
   
   for (SCM s = me->get_property ("elements");
-       !ly_c_string_p (gl) && ly_c_pair_p (s); s = ly_cdr (s))
+       !scm_is_string (gl) && ly_c_pair_p (s); s = ly_cdr (s))
     {
       gl = unsmob_grob (ly_car (s))
 	->get_property ("glyph");
     }
 
-  if (!ly_c_string_p (gl))
+  if (!scm_is_string (gl))
     {
       me->suicide ();
       return;

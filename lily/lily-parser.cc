@@ -256,7 +256,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
 	   "Parse a single @code{.ly} file.  "
 	   "Upon failure, throw @code{ly-file-failed} key.")
 {
-  SCM_ASSERT_TYPE (ly_c_string_p (name), name, SCM_ARG1, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (scm_is_string (name), name, SCM_ARG1, __FUNCTION__, "string");
   char const *file = scm_i_string_chars (name);
   char const *extensions[] = {"ly", "", 0};
 
@@ -326,7 +326,7 @@ LY_DEFINE (ly_parse_string, "ly:parse-string",
 	   "Parse the string LY_CODE.  "
 	   "Upon failure, throw @code{ly-file-failed} key.")
 {
-  SCM_ASSERT_TYPE (ly_c_string_p (ly_code), ly_code, SCM_ARG1, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (scm_is_string (ly_code), ly_code, SCM_ARG1, __FUNCTION__, "string");
   
   Sources sources;
   sources.set_path (&global_path);
@@ -388,7 +388,7 @@ LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
   Lily_parser *parser = unsmob_my_lily_parser (parser_smob);
 
   SCM_ASSERT_TYPE (parser, parser_smob, SCM_ARG1, __FUNCTION__, "parser");
-  SCM_ASSERT_TYPE (ly_c_string_p (ly_code), ly_code, SCM_ARG2, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (scm_is_string (ly_code), ly_code, SCM_ARG2, __FUNCTION__, "string");
   
   parser->parse_string (ly_scm2string (ly_code));
   

@@ -209,7 +209,7 @@ void
 Lily_lexer::set_identifier (SCM name, SCM s)
 {
   SCM sym = name;
-  if (ly_c_string_p (name))
+  if (scm_is_string (name))
     sym =  scm_string_to_symbol (name);
   
   if (ly_c_symbol_p (sym))

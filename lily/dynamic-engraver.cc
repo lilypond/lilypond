@@ -248,7 +248,7 @@ Dynamic_engraver::process_music ()
 	      /*
 		FIXME: use get_markup () to check type.
 	      */
-	      if (ly_c_string_p (s) || ly_c_pair_p (s))
+	      if (scm_is_string (s) || ly_c_pair_p (s))
 		{
 		  cresc_->set_property ("edge-text",
 					scm_cons (s, scm_makfrom0str ("")));

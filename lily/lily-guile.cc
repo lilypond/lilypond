@@ -110,7 +110,7 @@ LY_DEFINE (ly_gulp_file, "ly:gulp-file",
 	   "Read the file @var{name}, and return its contents in a string.  "
 	   "The file is looked up using the search path.")
 {
-  SCM_ASSERT_TYPE (ly_c_string_p (name), name, SCM_ARG1, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (scm_is_string (name), name, SCM_ARG1, __FUNCTION__, "string");
   return scm_makfrom0str (gulp_file_to_string (ly_scm2string (name)).to_str0 ());
 }
 
@@ -135,7 +135,7 @@ ly_scm2string (SCM str)
 char *
 ly_scm2newstr (SCM str, size_t *lenp)
 {
-  SCM_ASSERT_TYPE (ly_c_string_p (str), str, SCM_ARG1, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (scm_is_string (str), str, SCM_ARG1, __FUNCTION__, "string");
 
   size_t len = SCM_STRING_LENGTH (str);
   if (char *new_str = (char *) malloc ((len + 1) * sizeof (char)))
@@ -174,7 +174,7 @@ LY_DEFINE (ly_warn, "ly:warn",
 	   "Scheme callable function to issue the warning @code{msg}. "
 	   "The message is formatted with @code{format} and @code{rest}.")
 {
-  SCM_ASSERT_TYPE (ly_c_string_p (str), str, SCM_ARG1, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (scm_is_string (str), str, SCM_ARG1, __FUNCTION__, "string");
   progress_indication ("\n");
 
   str = scm_simple_format (SCM_BOOL_F, str, rest);
@@ -187,7 +187,7 @@ LY_DEFINE (ly_programming_error, "ly:programming-error",
 	   "Scheme callable function to issue the warning @code{msg}. "
 	   "The message is formatted with @code{format} and @code{rest}.")
 {
-  SCM_ASSERT_TYPE (ly_c_string_p (str), str, SCM_ARG1, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (scm_is_string (str), str, SCM_ARG1, __FUNCTION__, "string");
   progress_indication ("\n");
 
   str = scm_simple_format (SCM_BOOL_F, str, rest);
@@ -806,7 +806,7 @@ LY_DEFINE (ly_pango_add_afm_decoder, "ly:pango-add-afm-decoder",
 	   1, 0, 0, (SCM font_family),
 	   "Add pango afm decoder for FONT-FAMILY.")
 {
-  SCM_ASSERT_TYPE (ly_c_string_p (font_family), font_family, SCM_ARG1,
+  SCM_ASSERT_TYPE (scm_is_string (font_family), font_family, SCM_ARG1,
 		   __FUNCTION__, "font_family");
   pango_fc_afm_add_decoder (ly_scm2newstr (font_family, 0));
   return SCM_UNSPECIFIED;
@@ -818,7 +818,7 @@ LY_DEFINE (ly_gettext, "ly:gettext",
 	   1, 0, 0, (SCM string),
 	   "Gettext wrapper.")
 {
-  SCM_ASSERT_TYPE (ly_c_string_p (string), string, SCM_ARG1,
+  SCM_ASSERT_TYPE (scm_is_string (string), string, SCM_ARG1,
 		   __FUNCTION__, "string");
   return scm_makfrom0str (gettext (scm_i_string_chars (string)));
 }

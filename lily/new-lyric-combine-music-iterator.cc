@@ -165,10 +165,10 @@ New_lyric_combine_music_iterator::find_voice ()
   SCM voice_name = lyricsto_voice_name_;
   SCM running = lyrics_context_ ? lyrics_context_->get_property ("associatedVoice") : SCM_EOL;
 
-  if (ly_c_string_p (running))
+  if (scm_is_string (running))
     voice_name = running;
 
-  if (ly_c_string_p (voice_name)
+  if (scm_is_string (voice_name)
       && (!music_context_ || ly_scm2string (voice_name) != music_context_->id_string ()))    
     {
       /*
@@ -239,7 +239,7 @@ New_lyric_combine_music_iterator::do_quit ()
       SCM voice_name = get_music ()->get_property ("associated-context");
 
       String name;
-      if (ly_c_string_p (voice_name))
+      if (scm_is_string (voice_name))
 	name = ly_scm2string (voice_name);
 
       get_music ()->origin ()->warning (_f ("cannot find Voice `%s'",

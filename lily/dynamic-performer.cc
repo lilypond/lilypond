@@ -75,10 +75,10 @@ Dynamic_performer::create_audio_elements ()
 	  */
 	  SCM s = get_property ("midiInstrument");
 	  
-	  if (!ly_c_string_p (s))
+	  if (!scm_is_string (s))
 	    s = get_property ("instrument");
 	  
-	  if (!ly_c_string_p (s))
+	  if (!scm_is_string (s))
 	    s = scm_makfrom0str ("piano");
 	  
 	  

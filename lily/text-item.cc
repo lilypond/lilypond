@@ -27,7 +27,7 @@ Text_item::interpret_string (SCM paper_smob,
   
   SCM_ASSERT_TYPE (paper, paper_smob, SCM_ARG1,
 		   __FUNCTION__, "Paper definition");
-  SCM_ASSERT_TYPE (ly_c_string_p (markup), markup, SCM_ARG3,
+  SCM_ASSERT_TYPE (scm_is_string (markup), markup, SCM_ARG3,
 		   __FUNCTION__, "string");
   SCM_ASSERT_TYPE (input_encoding == SCM_EOL || ly_c_symbol_p (input_encoding),
 		   input_encoding, SCM_ARG2, __FUNCTION__, "symbol");
@@ -36,7 +36,7 @@ Text_item::interpret_string (SCM paper_smob,
   if (!ly_c_symbol_p (input_encoding))
     {
       SCM enc = paper->lookup_variable (ly_symbol2scm ("inputencoding"));
-      if (ly_c_string_p (enc))
+      if (scm_is_string (enc))
 	input_encoding = scm_string_to_symbol (enc);
       else if (ly_c_symbol_p (enc))
 	input_encoding = enc;
@@ -69,7 +69,7 @@ MAKE_SCHEME_CALLBACK (Text_item, interpret_markup, 3)
 SCM
 Text_item::interpret_markup (SCM paper_smob, SCM props, SCM markup)
 {
-  if (ly_c_string_p (markup))
+  if (scm_is_string (markup))
     return interpret_string (paper_smob, props, SCM_EOL, markup);
   else if (ly_c_pair_p (markup))
     {
@@ -98,7 +98,7 @@ Text_item::print (SCM grob)
 bool
 Text_item::markup_p (SCM x)
 {
-  return (ly_c_string_p (x)
+  return (scm_is_string (x)
 	  || (ly_c_pair_p (x)
 	      && SCM_BOOL_F
 	      != scm_object_property (ly_car (x),

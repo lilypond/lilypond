@@ -575,7 +575,7 @@ Stem::flag (Grob *me)
     me->warning (_f ("flag `%s' not found", font_char));
 
   SCM stroke_style_scm = me->get_property ("stroke-style");
-  if (ly_c_string_p (stroke_style_scm))
+  if (scm_is_string (stroke_style_scm))
     {
       String stroke_style = ly_scm2string (stroke_style_scm);
       if (!stroke_style.is_empty ())

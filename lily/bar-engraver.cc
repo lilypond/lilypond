@@ -75,7 +75,7 @@ Bar_engraver::finalize ()
 void
 Bar_engraver::process_acknowledged_grobs ()
 {
-  if (!bar_ && ly_c_string_p (get_property ("whichBar")))
+  if (!bar_ && scm_is_string (get_property ("whichBar")))
     create_bar ();
 }
 

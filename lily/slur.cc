@@ -82,7 +82,7 @@ Slur::print (SCM smob)
 
   if (to_boolean (me->get_paper ()
 		  ->lookup_variable (ly_symbol2scm ("debug-slur-quanting")))
-      && ly_c_string_p (quant_score))
+      && scm_is_string (quant_score))
     {
       String str;
       SCM properties = Font_interface::text_font_alist_chain (me);

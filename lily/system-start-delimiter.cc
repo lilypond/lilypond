@@ -112,7 +112,7 @@ System_start_delimiter::print (SCM smob)
     return SCM_EOL;
   
   SCM s = me->get_property ("glyph");
-  if (!ly_c_string_p (s))
+  if (!scm_is_string (s))
     return SCM_EOL;
   SCM gsym = scm_string_to_symbol (s) ;
   

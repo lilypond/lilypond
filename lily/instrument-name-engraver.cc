@@ -121,7 +121,7 @@ Instrument_name_engraver::process_music ()
     Also create text if barlines in other groups. This allows
     a name to be attached to lyrics or chords. 
    */
-  if (ly_c_string_p (get_property ("whichBar")))
+  if (scm_is_string (get_property ("whichBar")))
     create_text ();
 }
 

@@ -22,7 +22,10 @@
 #define SCM_VECTOR_REF(v,i) (SCM_VELTS ((v))[(i)])
 #define scm_from_int(x) SCM_MAKINUM (x)
 #define scm_is_integer(x) SCM_INUMP (x)
+#define scm_is_string(x) SCM_STRINGP(x)
 #define scm_hash_table_p scm_vector_p
+#define scm_i_string_chars(x) SCM_STRING_CHARS(x)
+#define scm_i_string_length(x) SCM_STRING_LENGTH(x)
 #endif /* SCM_MINOR_VERSION < 7 */
 
 #ifndef SMOB_FREE_RETURN_VAL

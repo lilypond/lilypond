@@ -101,7 +101,7 @@ Drum_notes_engraver::process_music ()
 	  if (ly_c_symbol_p (style))
 	    note->set_property ("style", style);
 
-	  if (ly_c_string_p (script))
+	  if (scm_is_string (script))
 	    {
 	      Item *p  = make_item ("Script", ev->self_scm ());
 	      bool follow;

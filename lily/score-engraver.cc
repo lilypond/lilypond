@@ -104,7 +104,7 @@ Score_engraver::initialize ()
 	   + "\n" +_ ("Music font has not been installed properly.  Aborting"));
 
   SCM pfa_path = ly_kpathsea_expand_path (scm_makfrom0str ("ecrm10.pfa"));
-  if (!ly_c_string_p (pfa_path))
+  if (!scm_is_string (pfa_path))
     error (_f ("can't find `%s'", "ecrm10.pfa")
 	   + "\n" +_f ("Install the ec-mftraced package from %s. Aborting",
 		       "http://lilypond.org/download/fonts/"));
