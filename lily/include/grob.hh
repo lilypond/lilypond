@@ -64,7 +64,7 @@ public:
 
   Grob (SCM basic_props);
   Grob (Grob const&);
-  Grob *clone () const { return Grob (*this); } 
+  VIRTUAL_COPY_CONSTRUCTOR(Grob,Grob);
  
   String name () const;
   
