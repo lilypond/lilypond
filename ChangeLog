@@ -1,3 +1,7 @@
+2003-10-31  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* input/test/bar-lines.ly (TODO): dashed "|".
+
 2003-10-30  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* Documentation/user/refman.itely, input/regression/tie-accidental.ly,
