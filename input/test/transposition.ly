@@ -1,4 +1,10 @@
 \version "1.7.18"
+
+\header{ texidoc = "@cindex Transposition
+Transposition Test file"
+}
+
+
 %{
 Hi all,
 
@@ -20,11 +26,6 @@ Eric
 
   /Mats B, March 21, 2001
 %}
-
-
-\header{
-texidoc = 	 "Transposition Test file"
-}
 
 
 
@@ -65,7 +66,7 @@ vFour =  \notes \transpose c d \vThree
          \context Staff=vThree \vThree
          \context Staff=vFour \vFour
   >
-        \paper { linewidth= 130.\mm }
+        \paper { linewidth= 130.\mm raggedright = ##t }
 }
 
 

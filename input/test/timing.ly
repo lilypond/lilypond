@@ -1,4 +1,9 @@
 \version "1.7.18"
+% possible rename to bar-something.
+
+\header{ texidoc = "@cindex Bar Length
+You can alter the length of bars in a number of ways. "
+}
 
 \score { 
   \context Voice \notes\relative c {
@@ -20,7 +25,6 @@
 	c4 c1
 	
   }
-  \paper { }  
-  \midi { }
+  \paper { raggedright= ##t}  
 }
 %% new-chords-done %%

@@ -1,8 +1,7 @@
-% DOCUMENTME!
-
 \version "1.7.18"
-
-
+% DOCUMENT ME!
+% I think this is an old example of alternate repeats,
+% but that's covered in refman now.  candidate for delete.
 
 
 voiceE =  \notes {

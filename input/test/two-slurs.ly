@@ -1,9 +1,12 @@
 \version "1.7.18"
 
-%
+\header{ texidoc = "@cindex Two Slurs
+You can print a slur in each voice. "
+}
+
 % We'd want to combine the stems, but have two slurs too...
 % Looks like the a-due engraver
-%
+
 \score{
 	\context Staff <
 		\context Voice=v \notes\relative c''{

@@ -1,14 +1,12 @@
 \version "1.7.18"
 
-%{
-
+\header{ texidoc = "@cindex Tabulature
 A sample tablature, with both normal staff and tab.
 
 Tablature is done by overriding the note-head formatting function, and
 putting it on a 6-line staff. A special engraver takes care of going
-from string-number + pitch to number.
-
-%}
+from string-number + pitch to number. "
+}
 
 partition = \notes {
     \key e \major

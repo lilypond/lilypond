@@ -1,7 +1,8 @@
 \version "1.7.18"
+% TODO: check about other ottava functions.
 
-\header {
-texidoc = "ottava spanners."
+\header { texidoc = "@cindex Ottava Spanner
+You can make Lilypond print ottava spanners. "
 }
 
 \score{
@@ -32,7 +33,8 @@ texidoc = "ottava spanners."
         a #(ly:export (make-span-event 'TextSpanEvent START))
 	b c 
         a #(ly:export (make-span-event 'TextSpanEvent STOP))
-        \property Staff.centralCPosition = #-6
+        \property Staff.centralCPosition = #-6	
     }
+	\paper{ raggedright = ##t}
 }
 %% new-chords-done %%

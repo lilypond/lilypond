@@ -1,7 +1,7 @@
 \version "1.7.18"
-\header
-{
-    texidoc =  "
+% TODO: This file could be old.  Ask about it later.  -gp
+
+\header { texidoc =  "@cindex Time
 IMPORTANT NOTE: The current selection scheme for time signature
 symbols is not flexible enough for future extensions such as various
 flavours of early mensural notation or complex signatures as in

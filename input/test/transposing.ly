@@ -1,8 +1,9 @@
-\header {
-texidoc = " the transposing property leaves output invariant, but has effect on MIDI."
-
-}
 \version "1.7.18"
+% possible rename to midi-something.
+
+\header { texidoc = "@cindex Transposing
+The transposing property leaves output invariant, but has effect on MIDI. "
+}
 
 \score { 
   \context Voice \notes\relative c {
@@ -18,7 +19,7 @@ texidoc = " the transposing property leaves output invariant, but has effect on 
 	\property Staff.transposing = #12 c
 	
   }
-  \paper { }  
+  \paper { raggedright = ##t } 
   \midi { }
 }
 %% new-chords-done %%

@@ -1,6 +1,8 @@
 \version "1.7.19"
-\header {
-    texidoc	= "vaticana ligature test"
+% possible rename to ancient-something.
+
+\header { texidoc	= "Ancient Vaticana
+Vaticana ligature test. "
 }
 
 \include "gregorian-init.ly"
@@ -39,12 +41,14 @@ verba = \context Lyrics = verba \lyrics {
     stafflinethickness = \staffspace / 5.0
     linewidth = 15.0 \cm
     indent = 0.0
+	raggedright = ##t
 %
 % FIXME: ragged-right alignment is currently broken
+	% I don't think it is any more.  -gp
 %   width = 12.0 \cm
-%   raggedright = ##t
 %   gourlay_maxmeasures = 30.
 %
+
     \translator {
       \VoiceContext
       \name VaticanaVoice

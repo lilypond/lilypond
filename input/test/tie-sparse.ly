@@ -1,20 +1,15 @@
 \version "1.7.18"
-\header {
 
-texidoc = "setting sparseTies causes only one tie to be
-generated per chord pair."
-
+\header { texidoc = "@cindex Tie Sparse
+setting sparseTies causes only one tie to be
+generated per chord pair. "
 }
-
 	
 \score { 
   \context Voice \notes\relative c {
 	\property Voice.sparseTies = ##t
 	c''  <<c e g>> ~ <<c e g>> 
   }
-  \paper {
-    raggedright = ##t
-  }  
-  \midi { }
+  \paper { raggedright = ##t }  
 }
 %% new-chords-done %%

@@ -1,7 +1,7 @@
 \version "1.7.18"
-\header {
+% regression
 
-texidoc = "If you specify two different key sigs at one point, a
+\header { texidoc = "If you specify two different key sigs at one point, a
   warning is printed."
 
 }

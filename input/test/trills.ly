@@ -1,14 +1,13 @@
-\paper  {
-  linewidth = 433.619940\pt
-  
-} 
 \version "1.7.18"
+
 \header {
-  texidoc="Document trills, pralls and turns."
+  texidoc="@cindex Trills
+Document trills, pralls and turns."
   
-  title="Marques des agr\\'ements et leur signification"
-  composer="D'Anglebert"
-  year="1689"
+% TODO:  these don't get built, right?  check it, then delete.
+%  title="Marques des agr\\'ements et leur signification"
+%  composer="D'Anglebert"
+%  year="1689"
 }
 
 invisible = \property Voice.NoteHead \override #'transparent = ##t
@@ -107,5 +106,6 @@ endHorizScript = {
       }
     >
   >
+	\paper{ }
 }
 %% new-chords-done %%

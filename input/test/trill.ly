@@ -1,10 +1,9 @@
 \version "1.7.18"
 
-\header {
-texidoc="show trill line type"
+\header { texidoc="@cindex Trill
+Show trill line type. "
 }
 
-\paper { raggedright = ##t} 
 
 \score {
   \context RhythmicStaff \notes {
@@ -22,7 +21,7 @@ texidoc="show trill line type"
      = #(cons (make-musicglyph-markup "scripts-trill")  "")
     a#(ly:export (make-span-event 'TextSpanEvent START)) b c a #(ly:export (make-span-event 'TextSpanEvent STOP))
   }
-  \paper { }  
+	\paper { raggedright = ##t} 
 }
 
 %% new-chords-done %%

@@ -1,12 +1,9 @@
-
-\header {
-
-
-texidoc= "Double time signatures are not supported
-explicitly, but can be faked by overriding formatting routines. "
-
-}
 \version "1.7.18"
+
+\header { texidoc= "@cindex Time Signature Double
+Double time signatures are not supported
+explicitly, but can be faked by overriding formatting routines. "
+}
 
 
 #(define (brew-double-time-sig grob)
@@ -49,7 +46,6 @@ explicitly, but can be faked by overriding formatting routines. "
 	   \time 3/2
 	   c2 c c 
 	   
-	   }
-
-	  }
-	  
+   }
+	\paper{ raggedright = ##t}
+}	  
