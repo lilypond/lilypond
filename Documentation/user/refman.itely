@@ -1761,7 +1761,7 @@ c'4 \breathe d4
 @end lilypond
 
 The glyph of the breath mark can be tweaked by overriding the
-@code{text} property of the @code{BreathingSign} grob with the name of
+@code{text} property of the @code{BreathingSign} layout object with the name of
 any glyph of @ref{The Feta font}.  For example,
 @lilypond[fragment,verbatim,relative]
 c'4
@@ -2026,8 +2026,6 @@ commands will not work with direct PostScript output.
 @node Grace notes
 @subsection Grace notes
 
-
-
 @cindex @code{\grace}
 @cindex ornaments
 @cindex grace notes
@@ -2135,6 +2133,10 @@ second bars in this example:
 @refbugs
 
 Grace notes cannot be used in the smallest size (@file{paper11.ly}).
+
+A score that starts with an @code{\grace} section needs an explicit
+@code{\context Voice} declaration, otherwise the main note and grace
+note end up on different staffs.
 
 Grace note synchronization can also lead to surprises. Staff notation,
 such as key signatures, barlines, etc. are also synchronized. Take
@@ -2391,7 +2393,7 @@ With alternative endings:
 
 @refbugs
 
- If you do a nested repeat like
+If you do a nested repeat like
 
 @example 
 \repeat @dots{}
@@ -6538,7 +6540,7 @@ vertical spacing of the figures may be set with @code{baseline-skip}.
 
 @seealso
 
-@internalsref{BassFigureEvent} music, @internalsref{BassFigure} grob,
+@internalsref{BassFigureEvent} music, @internalsref{BassFigure} object,
 @internalsref{FiguredBass} context
 
 @refbugs
@@ -6712,7 +6714,7 @@ object, and set a object property in that object.
 
 The definition of an object is actually a list of default object
 properties. For example, the definition of the Stem object (available
-in @file{scm/grob-description.scm}), includes the following definitions for
+in @file{scm/define-grobs.scm}), includes the following definitions for
 @internalsref{Stem}
 
 @example
@@ -6734,11 +6736,11 @@ Changing a variable for only   one object is commonly achieved with
 @code{\once}:
 
 @example
-\once \property @var{context}.@var{grobname}
+\once \property @var{context}.@var{objectname}
   \override @var{symbol} = @var{value}
 @end example
 Here @var{symbol} is a Scheme expression of symbol type, @var{context}
-and @var{grobname} is a string and @var{value} is a Scheme expression.
+and @var{objectname} is a string and @var{value} is a Scheme expression.
 This command applies a setting only during one moment in the score.
 
 In the following example, only one @internalsref{Stem} object is
@@ -6755,16 +6757,16 @@ changed from its original setting:
 For changing more objects, the same command, without @code{\once} can
 be used.
 @example
-\property @var{context}.@var{grobname} \override @var{symbol} = @var{value}
+\property @var{context}.@var{objectname} \override @var{symbol} = @var{value}
 @end example
 This command adds @code{@var{symbol} = @var{value}} to the definition
-of @var{grobname} in the context @var{context}, and this definition
+of @var{objectname} in the context @var{context}, and this definition
 stays in place until it is removed.
 
 An existing definition may be removed by the following command
 @c
 @example
-\property @var{context}.@var{grobname} \revert @var{symbol}
+\property @var{context}.@var{objectname} \revert @var{symbol}
 @end example
 @c
 All @code{\override} and @code{\revert} commands should be balanced.
@@ -6772,7 +6774,7 @@ The @code{\set} shorthand, performs a revert followed by an override,
 and is often more convenient to use
 
 @example
-\property @var{context}.@var{grobname} \set @var{symbol} = @var{value}
+\property @var{context}.@var{objectname} \set @var{symbol} = @var{value}
 @end example
 
 Some examples: 
@@ -6924,7 +6926,12 @@ The @code{Fingering} object has a fixed size
 objects (@internalsref{side-position-interface}) vertically, and its
 placement is coordinated with other scripts
 (@internalsref{text-script-interface}).  It also has the standard
-@internalsref{grob-interface} with all the variables that come with
+@internalsref{grob-interface} (grob stands for Graphical object)
+@cindex grob
+@cindex graphical object
+@cindex layout object
+@cindex object, layout 
+with all the variables that come with
 it.  Finally, it denotes a fingering instruction, so it has
 @internalsref{finger-interface}.
 
@@ -7010,17 +7017,17 @@ syntax is
 @end example
 where @var{proc} is a Scheme function, taking four arguments.
 
-When interpreted, the function @var{proc} is called for every grob found
+When interpreted, the function @var{proc} is called for every layout object found
 in the context, with the following arguments:
 @itemize @bullet
-@item the grob itself
-@item the context where the grob was created
+@item the layout object itself
+@item the context where the layout object was created
 @item the context where @code{\applyoutput} is processed.
 @end itemize
 
-In addition, the cause of the grob, i.e.  the music expression or object
-that was responsible for creating the object, is in the object property
-@code{cause}.  For example, for a note head, this is a
+In addition, the cause of the layout object, i.e.  the music
+expression or object that was responsible for creating it, is in the
+object property @code{cause}.  For example, for a note head, this is a
 @internalsref{NoteHead} event, and for a @internalsref{Stem} object,
 this is a @internalsref{NoteHead} object.
 

@@ -1,3 +1,8 @@
+2003-07-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/refman.itely (Grace notes): note on explicit
+	contexts
+
 2003-07-16  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-font-lock.el: add a comment about LilyPond specific
