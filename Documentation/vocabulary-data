@@ -1,4 +1,5 @@
 Francais:US English:Deutsch:UK English:Nederlands:Italiaans
+:system:::systeem:
 accentuation:accentuation:::accent:
 accolade:brace::::
 accord:chord:::akkoord:
@@ -15,35 +16,35 @@ appogiature double:double appoggiatura::::
 appogiature longue:long appoggiatura::::
 appogiature simple:simple appoggiatura::::
 armature [de la clé]:key signature:::toonsoort (voortekens):
-armure [de la clé]:key signature::::
-arpège:arpeggio::::
-augmenté (intervalle):augmented (interval)::::
-bariton:baritone::::
-barre de mesure:bar line::::
+armure [de la clé]:key signature:::toonsoort:
+arpège:arpeggio:::gebroken akoord:
+augmenté (intervalle):augmented (interval):::overmatig interval:
+bariton:baritone:::bariton:
+barre de mesure:bar line:::maatstreep:
 :beam:Balk::waardestreep/balk:
-barre de reprise:repeat::::
-basse:bass::::
-blanche:half note::::
+barre de reprise:repeat:::herhaling:
+basse:bass:::bas:
+blanche:half note:::halve noot:
 bâton de pause:(arbitrary number of bars' rest)::::
 bâton de pause:four-bar rest::::
 bâton de pause:two-bar rest::::
 bécarre:natural sign:::herstellingsteken:
 bémol:flat:::mol:
-cadence:cadence::::
-cadence harmonique:harmonic cadence::::
-cadence mélodique:melodic cadence::::
+cadence:cadence:::cadens:
+cadence harmonique:harmonic cadence:::cadens:
+cadence mélodique:melodic cadence:::cadens:
 :cue-notes:Stichnoten::stichnoten:
 caractère:character::::
-chaîne de trilles:chain of trills::::
+chaîne de trilles:chain of trills:::triller:
 chevron:chevron::::
 chiffrage (chiffres indicateurs):time signature:::maatsoort:
 chiffre inférieur:lower number::::
 chiffre supérieur:upper number::::
 clé:clef:::sleutel:
 clé d'octave:octave line::::
-clé d'ut:middle C clef:::C sleutel:
-clé de fa:bass clef::::
-clé de sol:treble clef::::
+clé d'ut:middle C clef:::C sleutel, alt sleutel:
+clé de fa:bass clef:::F sleutel:
+clé de sol:treble clef:::G sleutel, viool sleutel:
 comma:comma::::
 comma enharmonique::::
 comma pythagoricien::::
@@ -55,31 +56,31 @@ contre-temps irrégulier:irregular contro-time::::
 contre-temps régulier:regular contro-time::::
 coulé:slur:::binding, bindingsboog:
 courbe rythmique:rythmic curve::::
-:opening angular bracket::::cresendo
-croche:eighth note::::
+:opening angular bracket::::crescendo
+croche:eighth note:::achtste noot:
 :closing angular bracket::::decrescendo
-degré [de la gamme]:degree [of the scale]::::
-demi-pause:half rest::::
+degré [de la gamme]:degree [of the scale]:::trap [van de toonladder]:
+demi-pause:half rest:::halve rust:
 demi-soupir:eighth rest:::achtste rust:
 demi-ton:semitone:::halve toon:
-demi-ton chromatique:chromatic semitone::::
-demi-ton diatonique:diatonic semitone::::
+demi-ton chromatique:chromatic semitone:::chromatische halve toon:
+demi-ton diatonique:diatonic semitone:::diatonische halve toon:
 diapason:pitch pipe; tuning fork:::stemfluitje; stemvork:
-diminué (intervalle):diminished (interval)::::
-dissonance:dissonant interval; dissonance::::
+diminué (intervalle):diminished (interval):::verminderd (interval):
+dissonance:dissonant interval; dissonance:::dissonant interval; dissonant:
 dièse:sharp:::kruis:
-do:C::::
-do central:middle C:::::
+do:C:::C:
+do central:middle C:::centrale C::
 doigté:::::
 doigté de pédale:::::
 dominante:dominant:::dominant:
-double barre:double bar line::::
+double barre:double bar line:::dubbele streep:
 double bémol:double flat:::dubbelmol:
-double croche:sixteenth note::::
+double croche:sixteenth note:::zestiende noot:
 double dièse:double sharp:::dubbelkruis:
-double triolet:double triplet::::
-duolet:duplet::::
-durée:duration::::
+double triolet:double triplet:::dubbele triool:
+duolet:duplet:::duool:
+durée:duration:::duur, lengte:
 échelle d'octave:octave line::::
 échelle musicale:Musical Ladder::::
 enharmonie:enharmony::::
@@ -103,25 +104,25 @@ genre diatonique:diatonic type::::
 genre enharmonique:enharmonic type::::
 groupe irrégulier:irregular group::::
 grupetto:turn; gruppetto:::dubbelslag:
-hauteur:pitch::::
-huitième de soupir:thirty-second rest::::
-incise:motive::::
+hauteur:pitch:::toonhoogte:
+huitième de soupir:thirty-second rest:::32e rust:
+incise:motive:::motief:
 indication de pédale::::
 indication métronomique:metronomic indication::::
-intervalle:interval::::
+intervalle:interval:::interval:
 intervalle ascendant:ascending interval::::
 intervalle composé:compound interval::::
-intervalle descendant:descending interval::::
+intervalle descendant:descending interval:::dalend interval:
 intervalle harmonique:harmonic interval::::
 intervalle simple:simple interval::::
 intervalles enharmoniques:enharmonic intervals::::
-juste (intervalle):perfect (interval)::::
+juste (intervalle):perfect (interval):::rein (interval):
 la:A::::
-liaison:tie::::
+liaison:tie:::overbinding:
 liaison rythmique:legato curve::::
 ligne:line::::
-ligne supplémentaire:ledger line::::
-majeur (intervalle):major (interval)::::
+ligne supplémentaire:ledger line:::hulplijntje:
+majeur (intervalle):major (interval):::groot (interval):
 membre de phrase:phrase member::::
 mesure:bar; measure:::maat, maatstreep:
 mesure artificielle:artificial measure::::
@@ -136,8 +137,8 @@ mode:mode::::
 mode ecclésiastique::::
 mode majeur:major mode::::
 mode mineur:minor mode::::
-modulation:modulation::::
-mordant:mordent::::
+modulation:modulation:::modulatie:
+mordant:mordent:::mordent:
 :::::
 mouvement:tempo; movement:::deel:
 mouvement conjoint:conjunct movement::::
@@ -146,16 +147,16 @@ mouvement lent:slow tempo::::
 mouvement modéré:moderate tempo::::
 mouvement rapide:fast tempo::::
 médiante:mediant::::
-métronome:metronome::::
-noire:quarter note::::
-note:note::::
+métronome:metronome:::metronoom:
+noire:quarter note:::kwartnoot:
+note:note:::noot:
 note doublement pointée:double dotted note::::
 note modale:modal note::::
 note pointée:dotted note::::
 note tonale:tonal note::::
-notes enharmoniques:enharmonic notes::::
+notes enharmoniques:enharmonic notes:::enharmonische noot:
 nuance:shading::::
-octave:octave::::
+octave:octave:::octaaf:
 ornement:embellishment; accessory::::
 :part:::partij:
 partition:score:::partituur:
@@ -172,12 +173,12 @@ portée:staff:::(noten)balk; partij:
 portées:staves::::
 quadruple croche:sixty-fourth note::::
 quart de soupir:sixteenth rest::::
-quarte:fourth::::
-quartolet:quadruplet::::
-quinte:fifth::::
-registre:register::::
-renversement d'intervalle:inversion of interval::::
-renvoi:return sign::::
+quarte:fourth:::kwart:
+quartolet:quadruplet:::kwartool:
+quinte:fifth:::kwint:
+registre:register:::register:
+renversement d'intervalle:inversion of interval:::inversie:
+renvoi:return sign:::herstellingsteken:
 respiration:artificial rest::::
 :double whole note::breve:brevis:breve
 ronde:whole note:::hele noot:
@@ -191,18 +192,18 @@ sextolet:sextuplet::::
 si:B::::
 signes indicateurs de nuance:shading signs::::
 silence:rest::::
-sixain:sextuplet::::
+sixain:sextuplet:::sextool:
 sixte:sixth::::
 sol:G::::
 soprano:soprano:::sopraan:
 soupir:quarter rest::::
 sous-dominante:subdominant::::
 sous-tonique:subtonic::::
-:dot over/below::::staccato
+:dot over/below:::staccato:staccato
 sus-dominante:superdominant::::
 sus-tonique:supertonic::::
 syncope:syncopation; upbeat:::syncope:
-syncope irrégulière:irregular syncopation::::
+syncope irrégulière:irregular syncopation:::onregelmatige syncope:
 syncope régulière:regular syncopation::::
 temps:beat:::tel:
 temps binaire:binary beat::::
@@ -210,10 +211,10 @@ temps faible:weak beat::::
 temps fort:strong beat::::
 temps ternaire:ternary beat::::
 tempérament mésotonique:meantone tuning::::
-tempérament égal:tempered tuning::::
-tierce:third::::
-ton:tone::::
-tonalité:tonality::::
+tempérament égal:tempered tuning:::getempereerde stemming:
+tierce:third:::terts:
+ton:tone:::toon:
+tonalité:tonality:::tonaliteit:
 tonique:tonic::::
 tons relatifs:relative scales::::
 tons voisins:adjacent keys::::
@@ -231,7 +232,7 @@ unisson:unison::::
 unité de mesure:unit of measure::::
 unité de temps:unit of beat::::
 ut:C::::
-voix:voice::::
+voix:voice:::stem:
 :quarter note::crotchet::
 :quarter rest::crotchet rest::
 :thirty-second note::demisemiquaver::

@@ -12,10 +12,10 @@
 (setq forms-format-list
       (list
        "*** Musical vocabulary ***\n"
-       "\nItalian:          " 6
-       "\nFrench:           " 1
+       "\nItaliano:          " 6
+       "\nFrancais:           " 1
        "\nUS English:       " 2
-       "\nGerman:           " 3
+       "\nDeutsch:           " 3
        "\nBritish English:  " 4
-       "\nDutch:            " 5
+       "\nNederlands:            " 5
 	))
