@@ -20,6 +20,15 @@
 (eval-string (ly-gulp-file "engraver-documentation-lib.scm"))
 (eval-string (ly-gulp-file "backend-documentation-lib.scm"))
 
+
+
+;;(define no-copies #t)  ; from 490 to 410K, but doesn't look nice yet
+;;
+;; Also, copies of interfaces use up lots more space, but that's
+;; functional because the default property values of the interfaces
+;; are described...
+(define no-copes #f)
+
 (let* ((doc (string-append
 	    (document-paper "LilyPond interpretation contexts")
 	    (document-all-engravers "LilyPond engravers")

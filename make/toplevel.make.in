@@ -61,8 +61,8 @@ examples:
 # use recursive make like we do everywhere else; leads to bugs that you
 # make a specific fix for.
 
-	$(PYTHON) $(buildscripts)/mutopia-index.py -o short-examples.html input/
-	$(PYTHON) $(buildscripts)/mutopia-index.py -o long-examples.html mutopia/
+	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o short-examples.html input/
+	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o long-examples.html mutopia/
 #$(footify-all-command)
 	$(footify) --index=./ `$(FIND) . -name '*.html' -print`
 	tar --exclude='*.dvi' --exclude='*.tex' --exclude='*.ps' --exclude='*.ppm' -czf $(outdir)/examples.tar.gz *-examples.html  `find input mutopia -type d -name 'out-www' -print`
@@ -78,5 +78,5 @@ ifeq ($(KPATHSEA),0)
 endif
 
 local-WWW-clean:
-	$(SHELL) $(depth)/buildscripts/clean-fonts.sh
+	$(SHELL) $(buildscript-dir)/clean-fonts.sh
 

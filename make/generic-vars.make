@@ -8,16 +8,21 @@
 # you do make dist 
 #
 
-buildscripts = $(depth)/buildscripts
+
+# using src-depth iso depth is only necessary for broken rules that do
+#     cd $(outdir) && foo $(depth) ...
+buildscript-dir = $(src-depth)/buildscripts
+script-dir = $(src-depth)/scripts
+input-dir = $(src-depth)/input
 
 
-flower-dir = $(depth)/flower
-lib-dir = $(depth)/lib
-lily-dir = $(depth)/lily
-mi2mu-dir = $(depth)/mi2mu
-make-dir = $(depth)/make
-include-lib = $(depth)/lib/include
-include-flower = $(depth)/flower/include
+flower-dir = $(src-depth)/flower
+lib-dir = $(src-depth)/lib
+lily-dir = $(src-depth)/lily
+mi2mu-dir = $(src-depth)/mi2mu
+make-dir = $(src-depth)/make
+include-lib = $(src-depth)/lib/include
+include-flower = $(src-depth)/flower/include
 
 
 

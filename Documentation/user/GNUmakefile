@@ -51,6 +51,10 @@ localclean:
 backdoc-WWW: $(outdir)/lilypond-internals.html
 
 #ugh. lily/OUT/lilypond hardcoded.
+# when cross-compiling, we don't have lilypond
 $(outdir)/lilypond-internals.texi:
-	(cd $(outdir); $(topdir)/lily/out/lilypond ../$(srcdir)/../ly/generate-documentation)
-
+	if [ -e $(depth)/$(builddir)/lily/out/lilypond ]; then \
+		cd $(outdir) && ../$(depth)/$(builddir)/lily/out/lilypond ../$(src-depth)/ly/generate-documentation; \
+	else \
+		touch $@; \
+	fi
