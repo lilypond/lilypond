@@ -42,6 +42,7 @@
 	(delete-file pdf-name))
 
     (format (current-error-port) (_ "Converting to `~a'...") pdf-name)
+    (newline (current-error-port))
     (ly:system cmd)))
 
 (define-public (postscript->png resolution papersizename name)
