@@ -94,6 +94,15 @@
   \lilypondnext
 }
 
+%% Allow overriding of pagebreak
+\lilypondifundefined{lilypondpagebreak}
+{
+  \lilypondifundefined{@nodocument}
+  {\gdef\lilypondpagebreak{\eject}}
+  {\gdef\lilypondpagebreak{\newpage}}
+  }
+  {}
+      
 %% Include \special only once.
 \gdef\lilypondspecial{
   \special{header=music-drawing-routines.ps}
@@ -126,6 +135,7 @@
   \kern#1\outputscale
   \vrule width #2\outputscale depth #3\outputscale height #4\outputscale}
 
+%% FIXME: 'interscoreline' and 'lilypondPAPERinterscoreline
 \lilypondifundefined{lilypondpaperinterscorelinefill}
   {\gdef\lilypondpaperinterscorelinefill{0}}
   {\gdef\lilypondpaperinterscorelinefill{1}}
