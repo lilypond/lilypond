@@ -6,7 +6,7 @@ breve = \duration { -1 0 }
 longa = \duration { -2 0 }
 
 \include "dynamic.ly"
-\include "dutch.ly" 
+\include "nederlands.ly"		% dutch
 \include "script.ly"
 
 

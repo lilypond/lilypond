@@ -14,6 +14,10 @@
 #include "mudela-staff.hh"
 #include "mudela-stream.hh"
 
+// ugh, cygnus' b19 gcc
+#include "list.tcc"
+#include "cursor.tcc"
+
 //static Mudela_key key_c (0, 0);
 static Mudela_meter meter_4 (4, 2, 24, 8);
 // useconds per 4: 250000 === 60 4 per minute
@@ -258,3 +262,4 @@ Mudela_score::settle_columns()
       start_i = end_i = 0;
     }
 }
+
