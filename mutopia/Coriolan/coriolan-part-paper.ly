@@ -1,7 +1,9 @@
 \paper {
+	% slurs are never beautiful (no steep slurs)
+	slur_beautiful = 0.0;
 	\translator { 
 		\OrchestralPartStaffContext 
-      		marginScriptPadding = #10  %% urg, this is in pt
+      		marginScriptPadding = #55  %% urg, this is in pt
 	}
 	\translator {
 		\VoiceContext
