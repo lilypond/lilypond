@@ -1,0 +1,113 @@
+=head1 NAME
+
+links - Links to other related websites
+
+=head1 DESCRIPTION
+
+This page contains links to organisations and ftp-sites, which may be
+of interest to LilyPond users.
+
+=head2 WWW
+
+=over 4
+
+=item http://www.gnu.ai.mit.edu/
+
+LilyPond is part of the GNU Project started by the Free Software
+Foundation to create a system of free software for the world-community
+
+=item http://www.ssc.com/linux/
+
+The Number One Free OS-Kernel: Linux 
+
+=item http:// /linux_soundapps.html
+
+Dave Philips' Linux sound applications page
+
+
+=back
+
+=head2 Ftp 
+
+We will upload major releases to the following sites:
+
+=over 4
+
+=item ftp://sunsite.unc.edu/pub/Linux/apps
+
+The GNU/Linux FTP site
+
+=item ftp://ftp.dante.de/tex-archive/support/lilypond
+
+An ftp site which is in CTAN.
+
+=item ftp://ftp.redhat.com/pub/contrib/
+
+RedHat Software develops and markets a GNU/Linux distribution (of
+which we are avid users)
+
+=back
+
+Beta releases will also be at
+
+=over 4
+
+=item ftp://pcnov095.win.tue.nl/pub/lilypond
+
+=item ftp://alpha.gnu.ai.mit.edu/
+
+=back
+
+=head2 News
+
+
+=over 4
+
+=item news:comp.music.research
+
+=item news:rec.music.compose
+
+=item news:gnu.announce
+
+=item news:comp.os.linux.announce
+
+=back
+
+=head2 Mailing lists
+
+For programs which are part of the GNU music project, the following
+mailing list have been setup:
+
+=over 4
+
+=item info-gnu-music@vuse.vanderbilt.edu
+
+For information on the GNU Music project, to subscribe: send mail with
+subject "subscribe" to info-gnu-music-request@vuse.vanderbilt.edu
+
+=item help-gnu-music@vuse.vanderbilt.edu
+
+For help with programs from the GNU music project. To subscribe: send
+mail with subject "subscribe" to
+help-gnu-music-request@vuse.vanderbilt.edu
+
+=item bug-gnu-music@vuse.vanderbilt.edu
+
+If you have bugreports, you should send them to this list. If you want
+to read all bugreports, you should subscribe to this list.  To
+subscribe: send mail with subject "subscribe" to
+bug-gnu-music-request@vuse.vanderbilt.edu
+	
+=item gnu-music-discuss@vuse.vanderbilt.edu,
+
+For discussions concerning the GNU Music project, to subscribe: send
+mail with subject "subscribe" to
+gnu-music-discuss-request@vuse.vanderbilt.edu,
+
+
+=back
+
+Announces of new versions will be sent to info-gnu-music and
+gnu-music-discuss.
+
+
