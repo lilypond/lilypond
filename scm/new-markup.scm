@@ -542,7 +542,7 @@ against SIGNATURE, reporting MAKE-NAME as the user-invoked function.
       )))
 
 ;; test make-foo-markup functions
-(if #t
+(if #f
     (begin
       (newline)
       (newline)

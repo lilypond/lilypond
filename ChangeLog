@@ -1,3 +1,10 @@
+2002-12-29  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/chord-name.scm: Junk "`(," constructs, use make-FOO-markup
+	throughout.
+
+	* scm/new-markup.scm: Turn-off error-triggering test code.
+
 2002-12-29  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/new-markup.scm (markup-thrower-typecheck) 
