@@ -445,7 +445,7 @@ echo > confdefs.h
 
 # A filename unique to this package, relative to the directory that
 # configure is in, which we can look for to find out if srcdir is correct.
-ac_unique_file=lib/choleski.cc
+ac_unique_file=choleski.cc
 
 # Find the source files, if location was not specified.
 if test -z "$srcdir"; then
@@ -916,7 +916,7 @@ done
 
 ac_given_srcdir=$srcdir
 
-trap 'rm -fr `echo " lib/out/config.hh:config.hh.in" | sed "s/:[^ ]*//g"` conftest*; exit 1' 1 2 15
+trap 'rm -fr `echo " out/config.hh:config.hh.in" | sed "s/:[^ ]*//g"` conftest*; exit 1' 1 2 15
 EOF
 cat >> $CONFIG_STATUS <<EOF
 
@@ -1023,7 +1023,7 @@ ac_eB='$%\1#\2define\3'
 ac_eC=' '
 ac_eD='%g'
 
-CONFIG_HEADERS=${CONFIG_HEADERS-"lib/out/config.hh:config.hh.in"}
+CONFIG_HEADERS=${CONFIG_HEADERS-"out/config.hh:config.hh.in"}
 for ac_file in .. $CONFIG_HEADERS; do if test "x$ac_file" != x..; then
   # Support "outfile[:infile]", defaulting infile="outfile.in".
   case "$ac_file" in
