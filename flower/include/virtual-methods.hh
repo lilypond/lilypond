@@ -21,5 +21,9 @@ int a_stupid_nonexistent_function_to_allow_the_semicolon_come_out()
 
 #define IMPLEMENT_STATIC_NAME(c)\
     char const *c::static_name() { return #c; } 
+
+#define VIRTUAL_COPY_CONS(T, R)\
+  virtual R *clone() const { return  new T(*this); } \
+
     
 #endif // CLASS-NAME_HH

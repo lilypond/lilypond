@@ -1,12 +1,12 @@
 /*
-  idealspacing.hh -- part of LilyPond
+  idealspacing.hh -- part of GNU LilyPond
 
   (c) 1996,97 Han-Wen Nienhuys
 */
 
 #ifndef IDEALSPACING_HH
 #define IDEALSPACING_HH
-#include "proto.hh"
+#include "lily-proto.hh"
 
 /// ideal spacing between two columns
 struct Idealspacing {

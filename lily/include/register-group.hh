@@ -1,7 +1,7 @@
 /*
-  registergroup.hh -- declare 
+  registergroup.hh -- declare Register_group_register
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -12,7 +12,7 @@
 
 
 #include "plist.hh"
-#include "staff-elem-info.hh"
+#include "score-elem-info.hh"
 #include "register.hh"
 
 /**

@@ -3,7 +3,7 @@
 
 #include "string.hh"
 #include "boxes.hh"
-#include "proto.hh"
+#include "lily-proto.hh"
 
 struct Symbol {
     String tex;

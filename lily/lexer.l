@@ -110,7 +110,12 @@ LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
 		yy_pop_state();
 	}
 }
-
+<longcomment><<EOF>> {
+	LexerError("EOF found inside a comment");
+	if (! close_input()) { 
+ 	  yyterminate(); // can't move this, since it actually rets a YY_NULL
+	}
+}
 <notes,INITIAL,lyrics>
 \\include           {
 	yy_push_state(incl);

@@ -1,7 +1,7 @@
 /*
   register.hh -- declare Request_register
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1996, 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -13,7 +13,7 @@
 #include "lily-proto.hh"
 #include "varray.hh"
 #include "request.hh"
-#include "staff-elem-info.hh"
+#include "score-elem-info.hh"
 #include "staff-info.hh"
 
 /**

@@ -1,3 +1,11 @@
+/*
+  text-spanner.cc -- implement Text_spanner
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include "molecule.hh"
 #include "boxes.hh"
 #include "text-spanner.hh"
@@ -10,7 +18,10 @@
 void
 Text_spanner::set_support(Directional_spanner*d)
 {
-    support = d;
+    if (support)
+	remove_dependency(support);
+    
+    support =d;
     add_dependency(d);
 }
 
@@ -33,7 +44,7 @@ Text_spanner::do_post_processing()
     switch(spec.align_i_) {
     case 0:
 	text_off_ = support->center() +
-	    Offset(0,support->dir_i_ * paper()->internote() * 4); // todo
+	    Offset(0,support->dir_i_ * paper()->internote_f() * 4); // todo
 	break;
     default:
 	assert(false);
@@ -67,8 +78,11 @@ Text_spanner::height()const
     return brew_molecule_p()->extent().y;
 }
 
-Spanner*
-Text_spanner::do_break_at(PCol*c1, PCol*c2)const
+void
+Text_spanner::do_substitute_dependency(Score_elem* o, Score_elem*n)
 {
-    return new Text_spanner(*this); // todo
+    Directional_spanner * old = (Directional_spanner*)o->spanner();
+    if (support == old)
+	support = (Directional_spanner*) n->spanner();
 }
+

@@ -1,31 +1,19 @@
 /*
   tie.cc -- implement Tie
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 #include "paper-def.hh"
 #include "tie.hh"
-#include "notehead.hh"
+#include "note-head.hh"
 #include "p-col.hh"
 
-Spanner*
-Tie::do_break_at(PCol*l, PCol*r) const
-{
-    Tie * tie_p = new Tie(*this);
-    Line_of_score const  *line_C=l->line_l_;
-    tie_p->left_head_l_ = (left_head_l_->line_l()== line_C) ?
-	left_head_l_ : 0;
-    tie_p->right_head_l_  = (right_head_l_->line_l() == line_C)?
-	right_head_l_ : 0;
-    
-    return tie_p;
-}
 
 void
-Tie::set_head(int x_pos, Notehead * head_l)
+Tie::set_head(int x_pos, Note_head * head_l)
 {
     if (x_pos >0) {
 	assert(!right_head_l_);
@@ -60,6 +48,9 @@ Tie::do_add_processing()
     right_col_l_ = right_head_l_ -> pcol_l_;
 }
 
+/**
+  This is already getting hairy. Should use Note_head *heads[2]
+ */
 void
 Tie::do_post_processing()
 {
@@ -80,6 +71,24 @@ Tie::do_post_processing()
 	left_dx_f_ += 0.25;
     } else
 	left_dx_f_ += 0.5;
+    
+    if (!right_head_l_)
+	right_pos_i_ = left_pos_i_;
+    if (! left_head_l_)
+	left_pos_i_ = right_pos_i_;
 }
 
 
+
+void
+Tie::do_substitute_dependency(Score_elem*o, Score_elem*n)
+{
+    Note_head *new_l =n?(Note_head*)n->item():0;
+    if (o->item() == left_head_l_)
+	left_head_l_ = new_l;
+    else if (o->item() == right_head_l_)
+	right_head_l_ = new_l;
+}
+
+
+IMPLEMENT_STATIC_NAME(Tie);

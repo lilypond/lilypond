@@ -13,7 +13,6 @@
     char c;
     int i;
     String* str_p;
-    Request* request_p;
     Midi_event* midi_event_p;	// Voice_element* ?
     Midi_score* midi_score_p; 	// Input_score* ?
     Midi_track* midi_track_p;	// Input_music* ?

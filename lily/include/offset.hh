@@ -1,5 +1,5 @@
 /*
-  offset.hh -- part of LilyPond
+  offset.hh -- part of GNU LilyPond
 
   (c) 1996,97 Han-Wen Nienhuys
 */

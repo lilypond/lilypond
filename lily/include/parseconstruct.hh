@@ -1,5 +1,5 @@
 /*
-  parseconstruct.hh -- part of LilyPond
+  parseconstruct.hh -- part of GNU LilyPond
 
   (c) 1996,97 Han-Wen Nienhuys
 */
@@ -7,7 +7,7 @@
 #ifndef PARSECONSTRUCT_HH
 #define PARSECONSTRUCT_HH
 
-#include "proto.hh"
+#include "lily-proto.hh"
 
 String * get_scriptdef(char c);
 Request* get_script_req(char);

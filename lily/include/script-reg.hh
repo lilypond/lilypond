@@ -1,5 +1,5 @@
 /*
-  script-reg.hh -- part of LilyPond
+  script-reg.hh -- part of GNU LilyPond
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */

@@ -1,7 +1,7 @@
 /*
   text-item.cc -- implement Text_item
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -15,7 +15,6 @@
 #include "lookup.hh"
 
 Text_item::Text_item(Text_def *tdef_l, int d)
-    : Staff_side(this)
 {
     dir_i_ = d;
     fat_b_ = false;
@@ -67,7 +66,7 @@ Text_item::brew_molecule_p() const
 
     if(dir_i_<0 )		// should do something better anyway.
 	mol_p->translate(Offset(0, -mol_p->extent().y.left ));
-    mol_p->translate(Offset(0, pos_i_ * paper()->internote()));
+    mol_p->translate(Offset(0, pos_i_ * paper()->internote_f()));
     
     return mol_p;
 }

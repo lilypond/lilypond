@@ -19,6 +19,7 @@
 #include <ctype.h>
 #include <time.h>
 
+#include "mi2mu-proto.hh"
 #include "proto.hh"
 #include "plist.hh"
 #include "warn.hh"

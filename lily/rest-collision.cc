@@ -1,7 +1,7 @@
 /*
   rest-collision.cc -- implement Rest_collision
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -56,3 +56,12 @@ Rest_collision::do_post_processing()
 #endif
 }
 IMPLEMENT_STATIC_NAME(Rest_collision);
+void
+Rest_collision::do_substitute_dependency(Score_elem*o,Score_elem*n)
+{
+    Item*o_l = o->item();
+    Item*n_l = n?n->item():0;
+    
+    rest_l_arr_.substitute((Rest_column*)o_l,(Rest_column*)n_l);
+    ncol_l_arr_.substitute((Note_column*)o_l,(Note_column*)n_l);
+}

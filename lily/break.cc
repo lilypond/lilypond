@@ -1,7 +1,7 @@
 /*
   break.cc -- implement Break_algorithm
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1996, 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -13,7 +13,7 @@
 #include "debug.hh"
 #include "scoreline.hh"
 #include "p-score.hh"
-
+#include "p-col.hh"
 
 ///  return all breakable columns
 Line_of_cols

@@ -1,10 +1,12 @@
 =head1 NAME
 
-AUTHORS - who did what on LilyPond?
+AUTHORS - who did what on GNU LilyPond?
 
 =head1 DESCRIPTION
 
-This file lists authors of LilyPond, and what they wrote.  
+This file lists authors of GNU LilyPond, and what they wrote.  
+
+=head1 AUTHORS
 
 =over 4
 
@@ -18,15 +20,26 @@ Main author, all files files except mentioned below
 
 Jan Nieuwenhuizen <jan@digicash.com>
 
-lily/midi-*, mi2mu/*, parts flower/string*.cc, make/*.make,
+lily/midi-*, mi2mu/*, parts flower/string*.cc, make/*.make, */Makefile
 parts of Documentation/mudela.pod, lib/*source-file*, lib/duration.cc,
 lib/source, flower/*{list,cursor}*,  
 
 and corresponding header files.
+
+=back
+
+=head1 CONTRIBUTORS
+
+=over 4
 
 =item *
 
 Mats Bengtsson <matsb@s3.kth.se>, parts of clef-reg.cc, clef-item.cc
 testing, general comments.
 
+=item *
+
+Werner Lemberg <xlwy01@uxp1.hrz.uni-dortmund.de>, misc bugfixes.
+
 =back
+

@@ -1,7 +1,7 @@
 /*
   pulk-voice.hh -- declare Pulk_voice
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -10,7 +10,7 @@
 #ifndef PULK_VOICE_HH
 #define PULK_VOICE_HH
 
-#include "proto.hh"
+#include "lily-proto.hh"
 #include "lily-proto.hh"
 #include "moment.hh"
 #include "priorities.hh"

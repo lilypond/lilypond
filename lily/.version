@@ -1,6 +1,6 @@
 MAJOR_VERSION = 0
 MINOR_VERSION = 0
-PATCH_LEVEL = 64
+PATCH_LEVEL = 65
 
 # use to send patches, always empty for released version:
 # include separator: ".postfix", "-pl" makes rpm barf

@@ -43,6 +43,9 @@ Midi_score::output_mudela( String filename_str )
 	lily_stream << "\\score{";
 	lily_stream.indent();
 		for ( PCursor<Midi_track*> i( midi_track_p_list_.top() ); i.ok(); i++ ) {
+			if ( ( midi_track_p_list_.size() != 1 ) 
+				&& ( i == midi_track_p_list_.top() ) )
+				continue;
 			lily_stream << "\\staff{ melodicregs ";
 			lily_stream << i->name_str();
 			lily_stream << " }";

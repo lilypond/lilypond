@@ -7,7 +7,7 @@
 #ifndef MIDIWALKER_HH
 #define MIDIWALKER_HH
 
-#include "proto.hh"
+#include "lily-proto.hh"
 #include "grouping.hh"
 #include "staff-walker.hh"
 #include "pcursor.hh"

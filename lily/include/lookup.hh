@@ -1,6 +1,11 @@
 /*
-  lilypond, (c) 1996,97 Han-Wen Nienhuys
+  lookup.hh -- declare Lookup
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
+
 #ifndef LOOKUPSYMS_HH
 #define LOOKUPSYMS_HH
 
@@ -15,7 +20,7 @@ struct Lookup {
     /* *************** */
     void add(String, Symtable*);
     void print()const;
-    Real internote()const;
+    Real internote_f()const;
 
     Symbol linestaff(int n, Real w)const;
     Symbol fill(Box b)const;

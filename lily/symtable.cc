@@ -1,7 +1,7 @@
 /*
   symtable.cc -- implement Symbol_table
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -39,10 +39,11 @@ Symtable::lookup(String s) const
     if (elt_b(s))
 	return (*this)[s];
     else {
-	error( "Symtable `" + id_str+ "\': unknown symbol `" +s+"'\n");
+	warning( "Symtable `" + id_str+ "\': unknown symbol `" +s+"'\n");
+	Symbol sy;			// unreachable
+	sy.tex = "";
+	return sy;
     }
-    Symbol sy;			// unreachable
-    return sy;
 }
 
 Symtable* 

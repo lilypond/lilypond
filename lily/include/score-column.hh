@@ -1,12 +1,12 @@
 /*
-  sccol.hh -- part of LilyPond
+  sccol.hh -- part of GNU LilyPond
 
   (c) 1996,97 Han-Wen Nienhuys
 */
 
 #ifndef SCCOL_HH
 #define SCCOL_HH
-#include "proto.hh"
+#include "lily-proto.hh"
 #include "varray.hh"
 #include "moment.hh"
 

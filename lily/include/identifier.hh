@@ -1,5 +1,5 @@
 /*
-  identifier.hh -- part of LilyPond
+  identifier.hh -- part of GNU LilyPond
 
   (c) 1996,97 Han-Wen Nienhuys
 */
@@ -7,7 +7,7 @@
 #ifndef IDENTIFIER_HH
 #define IDENTIFIER_HH
 
-#include "proto.hh"
+#include "lily-proto.hh"
 #include "string.hh"
 #include "input.hh"
 

@@ -1,3 +1,11 @@
+/*
+  template1.cc -- instantiate some List classes
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 1996,1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include "proto.hh"
 #include "idealspacing.hh"
 #include "plist.hh"
@@ -7,7 +15,6 @@
 #include "spanner.hh"
 #include "scoreline.hh" 
 #include "staffline.hh"
-#include "vertical-spanner.hh"
 
 #include "pcursor.tcc"
 #include "plist.tcc"
@@ -18,10 +25,8 @@
 
 IPLC_instantiate(Line_of_score);
 IPLC_instantiate(Line_of_staff);
-IPLC_instantiate(Item);
+IPLC_instantiate(Score_elem);
 IPLC_instantiate(Spanner);
-IPLC_instantiate(Vertical_spanner);
-IPLC_instantiate(PStaff);
 IPLC_instantiate(Idealspacing);
 IPLC_instantiate(PCol);
 

@@ -1,7 +1,7 @@
 /*
   score-walker.hh -- declare Score_walker
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 
@@ -12,7 +12,7 @@
 #ifndef SCOREWALKER_HH
 #define SCOREWALKER_HH
 #include "pcursor.hh"
-#include "proto.hh"
+#include "lily-proto.hh"
 #include "varray.hh"
 
 

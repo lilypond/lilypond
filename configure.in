@@ -255,6 +255,8 @@ sed 's/TOPLEVEL_//g' <  .version >  lily/.version
 (cd lily; CXX="$ac_cv_prog_CXX" ../bin/make_version > out/version.hh
 )
 
+$MAKE -f make/Toplevel.make.in Makefile
+
 cat << END
 Finished configuring. For making everything, do:
 
@@ -269,6 +271,10 @@ assuming that \`make' is GNU make, of course.
 If you want to make site-wide extensions to the makefiles, please use
 
     make/out/Site.make
+
+If you can't find a toplevel makefile, please execute
+
+    make -f make/Toplevel.make.in Makefile              # GNU make, of course
     
 END
 

@@ -1,14 +1,14 @@
 /*
   p-col.cc -- implement PCol
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 #include "p-col.hh"
 #include "p-score.hh"
-#include "p-staff.hh"
+
 #include "debug.hh"
 
 Interval
@@ -24,7 +24,7 @@ PCol::width() const
 }
 
 int
-PCol::rank() const
+PCol::rank_i() const
 {
     assert(rank_i_ != -1);
     return rank_i_;
@@ -66,7 +66,7 @@ PCol::print() const
 int
 PCol::compare(PCol const &c1, PCol const &c2)
 {
-    return c1.rank() - c2.rank();
+    return c1.rank_i() - c2.rank_i();
 }
 
 void

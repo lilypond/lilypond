@@ -1,17 +1,17 @@
 /*
   rest-column.cc -- implement Rest_column
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 #include "rest-column.hh"
-#include "notehead.hh"
+#include "note-head.hh"
 #include "rest-column.hh"
 
 void
-Rest_column::add(Notehead *n_l)
+Rest_column::add(Note_head *n_l)
 {
     add_support(n_l);
     head_l_arr_.push(n_l);
@@ -31,3 +31,13 @@ Rest_column::Rest_column()
     dir_i_ = 0;
 }
     
+
+void
+Rest_column::do_substitute_dependency(Score_elem*o,Score_elem*n)
+{
+    Script_column::do_substitute_dependency(o,n);
+    if (o->name() == Note_head::static_name()) {
+	head_l_arr_.substitute( (Note_head*)o->item(), 
+				(n)? (Note_head*)n->item() : 0);
+    }
+}

@@ -1,20 +1,21 @@
 /*
   walkregs.cc -- implement Walker_registers
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 #include "debug.hh"
 #include "walk-regs.hh"
 #include "staff-regs.hh"
-#include "staff-elem.hh"
+#include "score-elem.hh"
 #include "staff.hh"
 #include "complex-walker.hh"
 #include "staff-column.hh"
 #include "score-walker.hh"
 #include "bar.hh"		// needed for Bar::static_name
 #include "input-register.hh"
+#include "staffline.hh"
 
 Walker_registers::Walker_registers(Complex_walker *w)
 {
@@ -60,25 +61,25 @@ Walker_registers::do_announces()
 void
 Walker_registers::typeset_element(Score_elem *elem_p)
 {
-    typeset_musical_item(elem_p);
-}
-
-void
-Walker_registers::typeset_musical_item(Score_elem * elem_p)
-{
-    walk_l_->typeset_element(elem_p);
+    musical_item_p_arr_.push(elem_p);
 }
 
 void
 Walker_registers::typeset_breakable_item(Item * pre_p , Item * nobreak_p,
 				       Item * post_p)
 {
-    if (pre_p)
+    if (pre_p) {
 	prebreak_item_p_arr_.push(pre_p);
-    if (nobreak_p)
+	walk_l_->staff_l_->staff_line_l_->add_element(pre_p);
+    }
+    if (nobreak_p) {
 	nobreak_item_p_arr_.push(nobreak_p);
-    if (post_p)
+	walk_l_->staff_l_->staff_line_l_->add_element(nobreak_p);
+    }
+    if (post_p) {
 	postbreak_item_p_arr_.push(post_p);
+	walk_l_->staff_l_->staff_line_l_->add_element(post_p);
+    }
 }
 
 void
@@ -89,6 +90,9 @@ Walker_registers::pre_move_processing()
     walk_l_->ptr()->typeset_breakable_items(prebreak_item_p_arr_,
 					    nobreak_item_p_arr_,
 					    postbreak_item_p_arr_);
+    for (int i=0; i < musical_item_p_arr_.size(); i++)
+	    walk_l_->typeset_element(musical_item_p_arr_[i]);
+    musical_item_p_arr_.set_size(0);
 }
 void
 Walker_registers::post_move_processing()

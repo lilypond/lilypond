@@ -1,7 +1,7 @@
 /*
   local-key-item.cc -- implement Local_key_item, Local_acc
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -12,7 +12,7 @@
 #include "lookup.hh"
 #include "paper-def.hh"
 #include "musical-request.hh"
-#include "notehead.hh"
+#include "note-head.hh"
 #include "misc.hh"
 
 
@@ -65,7 +65,7 @@ Local_key_item::brew_molecule_p()const
 	// do one octave
 	if (accs[i].octave_i_ != lastoct) {
 	    if (octmol){
-		Real dy =lastoct*7*paper()->internote();
+		Real dy =lastoct*7*paper()->internote_f();
 		octmol->translate(Offset(0, dy));
 		output->add(*octmol);
 		delete octmol;
@@ -75,14 +75,14 @@ Local_key_item::brew_molecule_p()const
 	lastoct = accs[i].octave_i_;
 	Symbol s =paper()->lookup_l()->accidental(accs[i].accidental_i_);   
 	Atom a(s);
-	Real dy = (accs[i].name_i_ + c0_position) * paper()->internote();
+	Real dy = (accs[i].name_i_ + c0_position) * paper()->internote_f();
 	a.translate(Offset(0,dy));
 
 	octmol->add_right(a);
     }
 
     if (octmol){
-	Real dy =lastoct*7*paper()->internote();
+	Real dy =lastoct*7*paper()->internote_f();
 	octmol->translate(Offset(0, dy));
 	output->add(*octmol);
 	delete octmol;
@@ -105,3 +105,12 @@ Local_acc::compare(Local_acc&a, Local_acc&b)
     return a.accidental_i_ - b.accidental_i_;
 };
 IMPLEMENT_STATIC_NAME(Local_key_item);
+
+void
+Local_key_item::do_substitute_dependency(Score_elem*o,Score_elem*n)
+{
+    Item* o_l = o->item();
+    Item* n_l = n?n->item():0;
+
+    support_items_.substitute(o_l, n_l);
+}

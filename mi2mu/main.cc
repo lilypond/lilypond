@@ -5,6 +5,7 @@
 // copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 
 #include "mi2mu.hh"
+#include "path.hh"
 
 Sources source;
 Sources* source_l_g = &source;
@@ -141,7 +142,7 @@ main( int argc_i, char* argv_sz_a[] )
 			exit( 0 );
 			break;
 		case 'x':
-			Duration_convert::no_double_dots_b_s = false;
+			Duration_convert::no_double_dots_b_s = true;
 			break;
 		default:
 			assert( 0 );

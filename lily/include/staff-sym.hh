@@ -1,7 +1,7 @@
 /*
   staffsym.hh -- declare Staff_symbol
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -21,14 +21,15 @@ class Staff_symbol : public Spanner
     int no_lines_i_;
 public:
 
+
     void set_extent(PCol* p1, PCol* p2);
     NAME_MEMBERS(Staff_symbol);
     Staff_symbol(int lines);
     Real inter_note_f()const;
     int steps_i()const;
 protected:
+    SPANNER_CLONE(Staff_symbol)
     virtual Molecule* brew_molecule_p() const;
     virtual void do_print()const;
-    virtual Spanner *do_break_at( PCol *c1,  PCol *c2) const;
 };
 #endif // STAFFSYM_HH

@@ -1,14 +1,14 @@
 /*
   beam.cc -- implement Beam
 
-  source file of the LilyPond music typesetter
+  source file of the GNU GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 
   TODO
 
   Less hairy code. Better slope calculations.
-  knee ([\stem 1; c8 \stem -1; c8]
+  knee: ([\stem 1; c8 \stem -1; c8]
   
 */
 
@@ -50,15 +50,21 @@ Stem_info::Stem_info(Stem const *s)
     assert(miny <= idealy);
 }
 
+
 /* *************** */
+void
+Beam::do_break_at(PCol*l, PCol*r)
+{
+    assert (l->line_l_ == r->line_l_);
+}
+
+
 
 Offset
 Beam::center()const
 {
-    assert(status >= POSTCALCED);
-
     Real w=(paper()->note_width() + width().length())/2.0;
-    return Offset(w, (left_pos + w* slope)*paper()->internote());
+    return Offset(w, (left_pos + w* slope)*paper()->internote_f());
 }
 
 
@@ -71,7 +77,7 @@ Beam::Beam()
 void
 Beam::add(Stem*s)
 {
-    stems.bottom().add(s);
+    stems.push(s);
     s->add_dependency(this);
     s->print_flag_b_ = false;
 }
@@ -79,16 +85,21 @@ Beam::add(Stem*s)
 void
 Beam::set_default_dir()
 {
-    int dirs[2];
-    dirs[0]=0; dirs[1] =0;
-    for (iter_top(stems,i); i.ok(); i++) {
-	int d = i->get_default_dir();
-	dirs[(d+1)/2] ++;
+    int dirs_single = 0, dirs_chord = 0;
+    for (int i=0; i <stems.size(); i++) {
+	Stem *sl = stems[i];
+	if (sl->chord_b())
+	    dirs_chord += sl->get_default_dir();
+	else
+	    dirs_single += sl->get_center_distance();
     }
-    dir_i_ =  (dirs[0] > dirs[1]) ? -1 : 1;
-    for (iter_top(stems,i); i.ok(); i++) {
-	i->dir_i_ = dir_i_;
-    }
+    dirs_single = -sign(dirs_single);
+    dir_i_ = (dirs_single + dirs_chord > 0) ? 1 : -1;
+
+   for (int i=0; i <stems.size(); i++) {
+	Stem *sl = stems[i];
+	sl->dir_i_ = dir_i_;
+   }
 }
 
 /*
@@ -98,7 +109,9 @@ void
 Beam::solve_slope()
 {
     Array<Stem_info> sinfo;
-    for (iter_top(stems,i); i.ok(); i++) {
+  for (int j=0; j <stems.size(); j++) {
+	Stem *i = stems[j];
+
 	i->set_default_extents();
 	if (i->invisible_b())
 	    continue;
@@ -127,17 +140,18 @@ Beam::solve_slope()
     slope *= dir_i_;
 
 				// ugh
-    Real sl = slope*paper()->internote();
+    Real sl = slope*paper()->internote_f();
     paper()->lookup_l()->beam(sl, 20 PT);
-    slope = sl /paper()->internote();
+    slope = sl /paper()->internote_f();
 }
 
 void
 Beam::set_stemlens()
 {
-    iter_top(stems,s);
-    Real x0 = s->hpos_f();    
-    for (; s.ok() ; s++) {
+    Real x0 = stems[0]->hpos_f();    
+    for (int j=0; j <stems.size(); j++) {
+	Stem *s = stems[j];
+
 	Real x =  s->hpos_f()-x0;
 	s->set_stemend(left_pos + slope * x);	
     }
@@ -162,9 +176,10 @@ Beam::set_grouping(Rhythmic_grouping def, Rhythmic_grouping cur)
 
     Array<int> b;
     {
-	iter_top(stems,s);
 	Array<int> flags;
-	for (; s.ok(); s++) {
+	for (int j=0; j <stems.size(); j++) {
+	    Stem *s = stems[j];
+
 	    int f = intlog2(abs(s->flag_i_))-2;
 	    assert(f>0);
 	    flags.push(f);
@@ -176,28 +191,18 @@ Beam::set_grouping(Rhythmic_grouping def, Rhythmic_grouping cur)
 	assert(stems.size() == b.size()/2);
     }
 
-    iter_top(stems,s);
-    for (int i=0; i < b.size() && s.ok(); i+=2, s++) {
+    for (int j=0, i=0; i < b.size() && j <stems.size(); i+= 2, j++) {
+	Stem *s = stems[j];
 	s->beams_left_i_ = b[i];
 	s->beams_right_i_ = b[i+1];
     }
 }
 
-
-// todo.
-Spanner *
-Beam::do_break_at( PCol *, PCol *) const
-{
-    Beam *beam_p= new Beam(*this);
-    
-    return beam_p;
-}
-
 void
 Beam::do_pre_processing()
 {
-    left_col_l_ = (*stems.top())   ->pcol_l_;
-    right_col_l_ = (*stems.bottom())->pcol_l_;    
+    left_col_l_ = stems[0]   ->pcol_l_;
+    right_col_l_ = stems.top()->pcol_l_;    
     assert(stems.size()>1);
     if (!dir_i_)
 	set_default_dir();
@@ -208,9 +213,8 @@ Beam::do_pre_processing()
 Interval
 Beam::do_width() const
 {
-    Beam * me = (Beam*) this;	// ugh
-    return Interval( (*me->stems.top()) ->hpos_f(),
-		     (*me->stems.bottom()) ->hpos_f() );
+    return Interval( stems[0]->hpos_f(),
+		     stems.top()->hpos_f() );
 }
 
 /*
@@ -221,9 +225,9 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 {
     assert( !next || next->hpos_f() > here->hpos_f()  );
     assert( !prev || prev->hpos_f() < here->hpos_f()  );
-    Real dy=paper()->internote()*2;
+    Real dy=paper()->internote_f()*2;
     Real stemdx = paper()->rule_thickness();
-    Real sl = slope*paper()->internote();
+    Real sl = slope*paper()->internote_f();
     paper()->lookup_l()->beam(sl, 20 PT);
 
     Molecule leftbeams;
@@ -280,15 +284,13 @@ Molecule*
 Beam::brew_molecule_p() const 
 {
     Molecule *out=0;
-    Real inter=paper()->internote();
+    Real inter=paper()->internote_f();
     out = new Molecule;
-    Real x0 = stems.top()->hpos_f();
-    
-    for (iter_top(stems,i); i.ok(); i++) {
-	PCursor<Stem*> p(i-1);
-	PCursor<Stem*> n(i+1);
-	Stem * prev = p.ok() ? p.ptr() : 0;
-	Stem * next = n.ok() ? n.ptr() : 0;
+    Real x0 = stems[0]->hpos_f();
+    for (int j=0; j <stems.size(); j++) {
+	Stem *i = stems[j];
+	Stem * prev = (j > 0)? stems[j-1] : 0;
+	Stem * next = (j < stems.size()-1) ? stems[j+1] :0;
 
 	Molecule sb = stem_beams(i, next, prev);
 	Real  x = i->hpos_f()-x0;
@@ -310,7 +312,11 @@ Beam::do_print()const
 #endif
 }
 
-Beam::~Beam()
+void
+Beam::do_substitute_dependency(Score_elem*o,Score_elem*n)
 {
-
+    int i;
+    while ((i=stems.find_i((Stem*)o->item())) >=0) 
+	   if (n) stems[i] = (Stem*) n->item();
+	   else stems.del(i);
 }

@@ -1,7 +1,7 @@
 /*
   script-column.cc -- implement Script_column
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -9,7 +9,7 @@
 #include "script-column.hh"
 #include "debug.hh"
 #include "script.hh"
-#include "notehead.hh"
+#include "note-head.hh"
 #include "stem.hh"
 
 IMPLEMENT_STATIC_NAME(Script_column);
@@ -19,16 +19,7 @@ void
 Script_column::add(Script*s_l)
 {
     script_l_arr_.push(s_l);
-    add_dependency(s_l);
-}
-
-void
-Script_column::translate(Offset o)
-{
-    for (int i=0; i < script_l_arr_.size(); i++) 
-	script_l_arr_[i]->translate(o);
-    for (int i=0; i < support_l_arr_.size(); i++)
-    	support_l_arr_[i]->translate(o);
+    add_element(s_l);
 }
 
 
@@ -38,21 +29,6 @@ Script_column::do_print()const
     mtor << "scripts: " << script_l_arr_.size() << '\n'; 
 }
 
-Interval
-Script_column::do_height()const return r
-{
-    for (int i=0; i < script_l_arr_.size(); i++) 
-	r.unite(script_l_arr_[i]->height());
-}
-
-Interval
-Script_column::do_width()const 
-{
-    Interval r;
-    for (int i=0; i < script_l_arr_.size(); i++) 
-	r.unite(script_l_arr_[i]->width());
-    return r;
-}
 
 void
 Script_column::do_pre_processing()
@@ -104,5 +80,15 @@ void
 Script_column::add_support(Item*i_l)
 {
     support_l_arr_.push(i_l);
-    add_dependency(i_l);
+    add_element(i_l);
+}
+
+void
+Script_column::do_substitute_dependency(Score_elem*o,Score_elem*n)
+{
+    Element_group::do_substitute_dependency(o,n);
+    if (o->item()) {
+	script_l_arr_.substitute((Script*)o->item(),(Script*) (n?n->item():0));
+	support_l_arr_.substitute(o->item(), (n?n->item():0));
+    }
 }

@@ -1,9 +1,15 @@
 /*
   tex-stream.cc -- implement Tex_stream
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  
+  TODO
+
+  make an abstract interface to output, operations: 
+
+  move(x,y), put(symbol).
 */
 
 #include <fstream.h>
@@ -29,7 +35,7 @@ Tex_stream::Tex_stream(String filename)
 void
 Tex_stream::header()
 {
-    *os << "% Creator: " << get_version_str();
+    *os << "% Creator: " << get_version_str() << "\n";
     *os << "% Automatically generated, at ";
     time_t t(time(0));
     *os << ctime(&t)<<"\n";

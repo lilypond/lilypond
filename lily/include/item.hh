@@ -1,7 +1,7 @@
 /*
   item.hh -- declare Item
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -11,7 +11,7 @@
 #include "glob.hh"
 #include "boxes.hh"
 #include "string.hh"
-#include "staff-elem.hh"
+#include "score-elem.hh"
 
 /**
  a horizontally fixed size element of the score
@@ -28,21 +28,16 @@ public:
     /// indirection to the column it is in
     PCol * pcol_l_;
 
-    /* *************** */
     virtual Item *item() { return this; }
     Item();
-    void do_print()const;
     Real hpos_f() const;
     NAME_MEMBERS(Item);
-    /**
-      
-      @return the line where this is in; 
+    virtual Line_of_score * line_l() const;
+protected:
+    virtual void do_print()const;
 
-      PRE
-      Breaking calc has  to be finished
-     */
-    Line_of_score * line_l() const;
 };
+
 
 
 #endif

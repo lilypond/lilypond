@@ -1,7 +1,7 @@
 /*
   staff-side.hh -- declare Staff_side
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -10,18 +10,18 @@
 #ifndef STAFF_SIDE_HH
 #define STAFF_SIDE_HH
 
-#include "staff-elem.hh"
+#include "score-elem.hh"
 
 /// A symbol which sits along  the staff
-class Staff_side  {
-    Array<Score_elem*> support_l_arr_;
+class Staff_side : virtual Score_elem {
+    Link_array<Score_elem> support_l_arr_;
     int staff_size_i_;
-    Score_elem * elem_l_;
     Interval support_height()const;
     Staff_symbol* staff_sym_l_;
+
     void read_staff_sym();
 public:
-    Real inter_f_;
+
     /**
       Vertical dir of symbol relative to staff. -1 = below staff?
       */
@@ -30,12 +30,13 @@ public:
     /// follow the support inside the staff?
     bool inside_staff_b_;
 
-    void set_staffsym(Staff_symbol*);
+    void set_staffsym(Staff_symbol *  );
   
-    Staff_side(Score_elem*);
+    Staff_side();
     void add_support(Score_elem*);
     
 protected:
+    virtual void do_substitute_dependency(Score_elem *, Score_elem*);
     int get_position_i()const;
     int get_position_i(Interval)const;
 };

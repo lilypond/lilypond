@@ -1,5 +1,5 @@
 /*
-  stem-beam-reg.cc -- part of LilyPond
+  stem-beam-reg.cc -- part of GNU LilyPond
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -11,10 +11,9 @@
 #include "grouping.hh"
 #include "text-spanner.hh"
 #include "complex-walker.hh"
-#include "complex-staff.hh"
 #include "debug.hh"
 #include "grouping.hh"
-#include "notehead.hh"
+#include "note-head.hh"
 
 Stem_beam_register::Stem_beam_register()
 {
@@ -79,7 +78,7 @@ Stem_beam_register::process_requests()
     }
 
     if (stem_req_l_) {
-	stem_p_ = new Stem(10);
+	stem_p_ = new Stem(8);
 	if (current_grouping)
 	    current_grouping->add_child(
 		get_staff_info().time_C_->whole_in_measure_,
@@ -107,9 +106,9 @@ Stem_beam_register::acknowledge_element(Score_elem_info info)
     if (!stem_p_)
 	return;
 
-    if (info.elem_l_->name() == Notehead::static_name() &&
+    if (info.elem_l_->name() == Note_head::static_name() &&
 	stem_req_l_->duration() == info.req_l_->rhythmic()->duration()){
-	Notehead * n_l= (Notehead*)info.elem_l_->item();
+	Note_head * n_l= (Note_head*)info.elem_l_->item();
 	stem_p_->add(n_l);
     }
 }

@@ -148,36 +148,6 @@ coding C++
 
 =head1 EXAMPLES
 
-At this time, GNU LilyPond output looks nice, but is not of production
-quality. If you're not discouraged; this is what I type in my xterm:
-
-	lilypond someinput.ly
-	tex lelie.tex
-	xdvi test&
-
-This is what the output looks like over here:
-
-	hw:~/musix/spacer$ GNU LilyPond 0.0.60 #8/FlowerLib 1.1.14 #2
-	Parsing ... [./input/kortjakje.ly[lots of stuff]]
-	Setting up requests...Processing requests ...[8][16][24][25]
-	Preprocessing elements... 
-	Calculating column positions ... [3][7][12][16][20][25]
-	Postprocessing elements...
-	TeX output to lelie.tex ...
-
-	hw:~/musix/spacer$ tex lelie
-	This is TeX, Version 3.14159 (C version 6.1)
-	(lelie.tex
-	Hyphenation patterns for english, dutch, german, loaded.
-	(/home/hw/lib/texmf/tex/lilypond/lilyponddefs.tex) [1] )
-	Output written on lelie.dvi (1 page, 8944 bytes).
-	Transcript written on lelie.log.
-
-	hw:~/musix/spacer$ xdvi lelie&
-	[1] 855
-
-Check out the input files, some of them have comments
-
 
 =head1 PROBLEMS
 
@@ -212,14 +182,14 @@ trace is
 	  :
 
 Than it would help if you send a dump of the Interval and the Item
-(use: C<print *this> or use GNU LilyPond C<print()> methods).
+(use: C<print *this> or use LilyPond C<print()> methods).
 
 =back
 
-Bug reports should be directed to
+Bug reports should be directed to:
 bug-gnu-music@vuse.vanderbilt.edu. In any case, they should contain a
-description of the problem, an small input file which reproduces it
-(if applicable), lilypond version and a description of the platform.
+description of the problem, a small input file which reproduces it (if
+applicable), the lilypond version and a description of the platform.
 
 
 =head1 FILES
@@ -266,10 +236,9 @@ project. For more information on the GNU Music project,
 
 =item http://www.stack.nl/~hanwen/lilypond/index.html
 
-GNU LilyPond has her own webpage at
-This webpage contains
-the MIDI, GIF and PS files for some standard music files. It also has
-the complete LilyPond documentation
+GNU LilyPond has her own webpage.  This webpage contains the MIDI, GIF
+and PS files for some standard music files. It also has the complete
+LilyPond documentation
 
 
 =back
@@ -308,7 +277,11 @@ For discussions concerning the GNU Music project, to subscribe: send
 mail with subject "subscribe" to
 gnu-music-discuss-request@vuse.vanderbilt.edu,
 
+
 =back
+
+Announces of new versions will be sent to info-gnu-music and
+gnu-music-discuss.
 
 =head1  REMARKS
 

@@ -7,9 +7,9 @@
 #ifndef COMPLEXWALKER_HH
 #define COMPLEXWALKER_HH
 
-#include "proto.hh"
+#include "lily-proto.hh"
 #include "staff-walker.hh"
-#include "staff-elem-info.hh"
+#include "score-elem-info.hh"
 
 /**
   A staff walker which uses registers to decide what to print
@@ -33,10 +33,9 @@ public:
     virtual void do_post_move();
     virtual void do_pre_move();
 
-    Complex_walker(Complex_staff*);
+    Complex_walker(Staff*);
     ~Complex_walker();
 
-    Complex_staff *staff();
 private:
 };
 

@@ -1,7 +1,7 @@
 /*
   score.hh -- declare Score
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -11,7 +11,7 @@
 #define SCORE_HH
 
 #include "varray.hh"
-#include "proto.hh"
+#include "lily-proto.hh"
 #include "plist.hh"
 #include "moment.hh"
 #include "assoc.hh"

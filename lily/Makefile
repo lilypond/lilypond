@@ -16,7 +16,6 @@ depth = ..
 #
 include Stable.make
 include ./$(depth)/make/Variables.make
-include ./$(depth)/make/Files.make 
 include .version
 #
 
@@ -48,6 +47,7 @@ MODULE_LIBES= -llily -lflower
 #
 default: $(EXECUTABLE)
 #
+include ./$(depth)/make/Files.make 
 
 # generic targets and rules:
 #
@@ -59,16 +59,6 @@ include ./$(depth)/make/Rules.make
 my-lily-lexer.cc: $(outdir)/parser.hh
 $(outdir)/lexer.cc: $(outdir)/parser.hh
 
-#
-
-# list of depend files:
-#
-DEPFILES = $(wildcard $(depdir)/*.dep)
-#
-
-# auto dependencies:
-#
--include /dev/null $(DEPFILES)
 #
 
 

@@ -1,11 +1,12 @@
 /*
   staff-side.cc -- implement Staff_side
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
+#include "paper-def.hh"
 #include "dimen.hh"
 #include "staff-side.hh"
 #include "staff-sym.hh"
@@ -17,12 +18,10 @@ Staff_side::set_staffsym(Staff_symbol* s_l)
     staff_sym_l_ = s_l;
 }
 
-Staff_side::Staff_side(Score_elem * elem_l)
+Staff_side::Staff_side()
 {
-    inter_f_ = 2 PT;
     staff_size_i_ = 0;
     staff_sym_l_=0;
-    elem_l_ = elem_l;
     dir_i_ =0;
     inside_staff_b_ =false;
 }
@@ -32,7 +31,6 @@ Staff_side::read_staff_sym()
 {
     if (! staff_sym_l_)
 	return ;
-    inter_f_ = staff_sym_l_->inter_note_f();
     staff_size_i_ = staff_sym_l_->steps_i();
 }
 
@@ -54,13 +52,12 @@ void
 Staff_side::add_support(Score_elem*i)
 {
     support_l_arr_.push(i);
-    elem_l_->add_dependency(i);
+    add_dependency(i);
 }
 
 int
 Staff_side::get_position_i()const
 {
-    ((Staff_side*)this)->read_staff_sym();
     if (!dir_i_) {
 	warning("Staff_side::get_position_i(): " 
 		"somebody forgot to set my vertical direction, returning -20");
@@ -69,26 +66,42 @@ Staff_side::get_position_i()const
     
 
     Real y=0;
+    Real inter_f = paper()-> internote_f();
     if (!inside_staff_b_) {
-	y  = (dir_i_ > 0) ? staff_size_i_ + 2: -2; 
-	y *=inter_f_;
+	y  = (dir_i_ > 0 && staff_sym_l_) ? staff_sym_l_->steps_i() + 2: -2; 
+	y *=inter_f;
 	Interval v= support_height();
 
 	if (dir_i_ > 0) {
-	    y = y >? (v.max() + 2*inter_f_);
+	    y = y >? (v.max() + 2*inter_f);
 	} else if (dir_i_ < 0) {
-	    y = y <? (v.min() - 2*inter_f_);
+	    y = y <? (v.min() - 2*inter_f);
 	}
     } else {
 	Interval v= support_height();
-	y = v[dir_i_]  + 2*dir_i_*inter_f_;	// ugh
+	y = v[dir_i_]  + 2*dir_i_*inter_f;	// ugh
     }
-    return int(rint(Real(y)/inter_f_)); // should ret a float?
+    return int(rint(Real(y)/inter_f)); // should ret a float?
 }
 
 int
 Staff_side::get_position_i(Interval sym_dim) const
 { 
     int i= get_position_i();
-    return i+ int(rint(- sym_dim[-dir_i_] / inter_f_));
+    return i+ int(rint(- sym_dim[-dir_i_] / paper()->internote_f()));
+}
+
+
+void
+Staff_side::do_substitute_dependency(Score_elem*o, Score_elem*n )
+{ 
+    int i;
+    while ((i=support_l_arr_.find_i(o) ) >=0)
+	if (n) 
+	    support_l_arr_[i] = n;
+	else
+	    support_l_arr_.del(i);
+
+    if (staff_sym_l_ == o)
+	staff_sym_l_ = n ? (Staff_symbol*) n->spanner():0;
 }

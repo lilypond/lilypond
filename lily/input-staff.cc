@@ -1,7 +1,7 @@
 /*
   input-staff.cc -- implement Input_staff
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -11,7 +11,6 @@
 #include "input-music.hh"
 #include "input-staff.hh"
 #include "staff.hh"
-#include "complex-staff.hh"
 #include "my-lily-lexer.hh"
 #include "input-register.hh"
 
@@ -29,7 +28,7 @@ Input_staff::add(Input_music*m)
 Staff*
 Input_staff::parse(Score*score_l)
 {
-    Staff *p=new Complex_staff;
+    Staff *p=new Staff;
    
     p->score_l_ = score_l;
     p->ireg_p_ = (ireg_p_)? new Input_register(*ireg_p_):0;

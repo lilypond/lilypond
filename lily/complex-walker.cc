@@ -1,18 +1,20 @@
 /*
   complex-walker.cc -- implement Complex_walker
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
-
+#include "score.hh" 
 #include "staff-column.hh"
 #include "voice.hh"
 #include "p-score.hh"
-#include "complex-staff.hh"
 #include "debug.hh"
 #include "complex-walker.hh"
 #include "walk-regs.hh"
+#include "score-elem.hh"
+#include "staff.hh"
+#include "staffline.hh"
 
 void
 Complex_walker::do_post_move()
@@ -72,14 +74,15 @@ Complex_walker::typeset_element(Score_elem *elem_p)
 {
     if (!elem_p)
 	return;
+    staff_l_->staff_line_l_->add_element(elem_p);
     if (elem_p->spanner())
-	pscore_l_->typeset_spanner(elem_p->spanner(), staff()->pstaff_l_);
+	pscore_l_->typeset_unbroken_spanner(elem_p->spanner());
     else
 	ptr()->typeset_musical_item(elem_p->item()); 
 }
 
-Complex_walker::Complex_walker(Complex_staff*s)
-    : Staff_walker(s, s->pstaff_l_->pscore_l_)
+Complex_walker::Complex_walker(Staff*s)
+    : Staff_walker(s, s->score_l_->pscore_p_)
 {
     walk_regs_p_ = new Walker_registers(this);    
     do_post_move();
@@ -88,12 +91,7 @@ Complex_walker::Complex_walker(Complex_staff*s)
 
 Complex_walker::~Complex_walker()
 {
-}
-
-Complex_staff*
-Complex_walker::staff()
-{
-    return (Complex_staff*) staff_l_;
+    delete walk_regs_p_;
 }
 
 

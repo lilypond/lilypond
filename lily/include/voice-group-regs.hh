@@ -1,7 +1,7 @@
 /*
   voice-group-regs.hh -- declare Voice_group_registers
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */

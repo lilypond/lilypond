@@ -96,7 +96,7 @@ Lookup::beam(Real &slope, Real width) const
     m.add(a);
     
     Symbol ret;
-    ret.tex = m.TeXstring();
+    ret.tex = m.TeX_string();
     ret.dim.y = Interval(0,width*slope);
     ret.dim.x = Interval(0,width);
     

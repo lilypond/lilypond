@@ -24,7 +24,7 @@ configure --enable-checking --disable-debugging --enable-printing --prefix=/usr 
 make all
 %install
 rm -rf $RPM_BUILD_ROOT
-strip bin/lilypond bin/mi2mu
+strip lily/out/lilypond mi2mu/out/mi2mu
 make prefix="$RPM_BUILD_ROOT/usr" install
 %files
 %doc @TEXT_DOCS@ @EXAMPLE_LYS@ Documentation/lelie_logo.gif
@@ -32,6 +32,7 @@ make prefix="$RPM_BUILD_ROOT/usr" install
 /usr/bin/lilypond
 /usr/lib/libflower.so
 /usr/bin/mi2mu
+/usr/man/man1/mi2mu.1
 /usr/man/man1/lilypond.1
 /usr/man/man5/mudela.5
 /usr/man/man1/convert-mudela.1
@@ -40,7 +41,5 @@ make prefix="$RPM_BUILD_ROOT/usr" install
 /usr/share/lilypond/
 
 %post
-texhash
-%post
-texhash
+echo please run texhash to update TeX directory listings
 

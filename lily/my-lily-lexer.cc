@@ -1,7 +1,7 @@
 /*
   my-lily-lexer.cc -- implement My_lily_lexer
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */

@@ -1,16 +1,57 @@
+pl 65
+	- bf pathfind /root/file
+	- massive Score_elem rewrite:
+	  * group_element_i_ count
+	  * support for removing an individual Score_elem cleanly.
+	  * moved dep stuff into class Directed_graph_node
+	  * Score_elems can be copied and deleted freely.
+	  * junk PStaff
+	  * Spanner_elem_group
+	  * Line_of_{score,staff} now are Score_elems
+	  * clean dep handling upon deletion
+	  * delete unbroken spanners
+	  * added a break_processing round.
+	  * Super_elem
+	- junk Complex_staff, 
+	- clean {lily}?proto.hh
+	- Element_group
+	- Score_elem now as virtual base class everywhere
+	- naming: Staff_elem -> Score_elem
+	- bf: make in toplevel dir
+	- bf: broken tie y-pos
+	- bf: sharing 4th, 8th and 16th noteheads 
+	- bf: overlapping chords. <\multivoice c d >
+
+pl 64.wl
+	- new stem direction code
+	- bfs: wohltemperirt.ly (thanks, Werner)
+	- bf: stem direction
+
+pl 63.jcn2
+	- doze compile
+
+pl 63.jcn1
+	- bf: mi2mu mudela commands
+	- bf: mi2mu tracks
+	- mi2mu quantify tuning
+	- mi2mu TODO
+
+*********
+may 16
 pl 64
 	- exe's now built in out/
 	- toplevel Makefile dep from make/Toplevel.make.in
-	- make_website: add version fokoter
+	- make_website: add version footer
 	- make_website: bf dist *.txt
 	- bf: fix loose bars : 	\meter 4/4; c1.  
 	- Staff_elem -> Score_elem
 	- bf <cis cis>
 	- vbrace lookup
-	- stop if barchecks failed
 	- resync barcheck
 
 *******
+
+may 15
 pl 63
 	- bf: segfault during MIDI output  with mi2mu output.
 	- kludge: parse error beyond eof
@@ -23,6 +64,7 @@ pl 63
 
 pl 61.jcn4
 	- mi2mu -p -s16 fugua2.midi getting better!
+	  plus factor 2 mi2mu speedup (fugue2.midi 5.50user)
 	- bf: Duration_convert quantify threshold down
 	- bf: (on quantify): tcols quantified; no silly voices
 
@@ -39,6 +81,7 @@ pl 61.jcn2
 	- mi2mu parsing speedup: backup rules for midi-lexer.l
 	- bf: zero denominator
 **********
+may 14 
 pl 62
 	- make clean bf: remove lex & yacc files too 
 	- added kludge in case measure too long 
@@ -57,7 +100,6 @@ pl 60.jcn1
 
 	
 **********
-may 14 
 pl 61
 	- scales.ly bugfix: dimensions default to ((0,0), (0,0))
 	- naming: PointerList->Pointer_list

@@ -1,7 +1,7 @@
 /*
   bar-reg.cc -- implement Bar_register
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -9,7 +9,6 @@
 #include "bar-reg.hh"
 #include "bar.hh"
 #include "command-request.hh"
-//#include "score-column.hh"
 #include "time-description.hh"
 
 Bar_register::Bar_register()

@@ -1,12 +1,12 @@
 /*
-  staff-elem-info.cc -- implement Score_elem_info
+  score-elem-info.cc -- implement Score_elem_info
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
-#include "staff-elem-info.hh"
+#include "score-elem-info.hh"
 #include "request.hh"
 
 Score_elem_info::Score_elem_info(Score_elem*s_l, Request*r_l)

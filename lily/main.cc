@@ -1,7 +1,7 @@
 /*
   main.cc -- implement main: entrypoints
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -54,7 +54,7 @@ usage()
 	"  -M, --midi             produce midi output only\n"
 	"  -V, --ignore-version   ignore mudela version\n"
 	"\n"
-	"LilyPond was compiled with the following settings:\n"
+	"GNU LilyPond was compiled with the following settings:\n"
 #ifdef NDEBUG
 	"NDEBUG "	
 #endif
@@ -75,7 +75,7 @@ notice()
 {
     cout <<
 	"\n"
-	"LilyPond, a music typesetter.\n"
+	"GNU LilyPond, a music typesetter.\n"
 	"Copyright (C) 1996,97 by\n"
 	"  Han-Wen Nienhuys <hanwen@stack.nl>\n"
 	"  Jan Nieuwenhuizen <jan@digicash.com>\n"
@@ -119,16 +119,15 @@ main (int argc, char **argv)
 {    
     debug_init();		// should be first
 
-//    File_path path(String(DIR_DATADIR)+"/init/") ;
-    // silly File_path, now has two .:.
-    File_path path( "." );
+
+    File_path path;
     
     // must override (come before) "/usr/local/share/lilypond"!
     char const * env_l=getenv("LILYINCLUDE");
     if (env_l) {
 	path.add(env_l);
     }
-    
+    path.add( "" );
     path.add( String( DIR_DATADIR ) + "/init/" );
     
     path_l = & path;

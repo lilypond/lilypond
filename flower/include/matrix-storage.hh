@@ -12,7 +12,7 @@
 
 #include "varray.hh"
 #include "real.hh"
-#include "class-name.hh"
+#include "virtual-methods.hh"
 
 /** 
 

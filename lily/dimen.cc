@@ -33,7 +33,7 @@ convert_dimen(Real quant, String unit)
 String
 print_dimen(Real r)
 {
-    String s(r);
+    String s(r, "%.3f");
     s += "pt ";
     return s;
 }

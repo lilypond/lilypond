@@ -1,5 +1,5 @@
 /*
-  slur.hh -- part of LilyPond
+  slur.hh -- part of GNU LilyPond
 
   (c) 1996,97 Han-Wen Nienhuys
 */
@@ -9,20 +9,23 @@
 
 #include "directional-spanner.hh"
 #include "lily-proto.hh"
-#include "varray.hh"
+#include "parray.hh"
 #include "bow.hh"
 
+/**
+  A #Bow# which tries to drape itself around the stems too.
+ */
 class Slur : public Bow {
 public:
-    Array<Note_column*> encompass_arr_;
-
-    void do_post_processing();
-    void do_pre_processing();
+    Link_array<Note_column> encompass_arr_;
     void add(Note_column*);
-    void set_default_dir();
-
-    Spanner* do_break_at( PCol*, PCol*) const; 
-private:
+protected:
+    virtual void set_default_dir();
+    virtual void do_break_at( PCol*, PCol*) ; 
+    virtual void do_post_processing();
+    virtual void do_substitute_dependency(Score_elem*, Score_elem*);
+    virtual void do_pre_processing();
+    SPANNER_CLONE(Slur)
     NAME_MEMBERS(Slur);
 };
 

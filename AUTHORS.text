@@ -5,11 +5,13 @@ AUTHORS(1)            LilyPond documentation           AUTHORS(1)
 
 
 NNNNAAAAMMMMEEEE
-       AUTHORS - who did what on LilyPond?
+       AUTHORS - who did what on GNU LilyPond?
 
 DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
-       This file lists authors of LilyPond, and what they wrote.
+       This file lists authors of GNU LilyPond, and what they
+       wrote.
 
+AAAAUUUUTTTTHHHHOOOORRRRSSSS
        +o   Han-Wen Nienhuys <hanwen@stack.nl>
 
            Main author, all files files except mentioned below
@@ -17,15 +19,18 @@ DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
        +o   Jan Nieuwenhuizen <jan@digicash.com>
 
            lily/midi-*, mi2mu/*, parts flower/string*.cc,
-           make/*.make, parts of Documentation/mudela.pod,
-           lib/*source-file*, lib/duration.cc, lib/source,
-           flower/*{list,cursor}*,
+           make/*.make, */Makefile parts of
+           Documentation/mudela.pod, lib/*source-file*,
+           lib/duration.cc, lib/source, flower/*{list,cursor}*,
 
            and corresponding header files.
 
+CCCCOOOONNNNTTTTRRRRIIIIBBBBUUUUTTTTOOOORRRRSSSS
        +o   Mats Bengtsson <matsb@s3.kth.se>, parts of clef-
            reg.cc, clef-item.cc testing, general comments.
 
+       +o   Werner Lemberg <xlwy01@uxp1.hrz.uni-dortmund.de>, misc
+           bugfixes.
 
 
 
@@ -56,11 +61,6 @@ DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
 
 
 
-
-
-
-
-
-6/May/97                 LilyPond 0.0.62                        1
+19/May/97                LilyPond 0.0.65                        1
 
 

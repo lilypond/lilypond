@@ -1,5 +1,5 @@
 /*
-  moment.hh -- part of LilyPond
+  moment.hh -- part of GNU LilyPond
 
   (c) 1996,97 Han-Wen Nienhuys
 */

@@ -62,11 +62,12 @@ natural form for processing music.
 =item Processing:
 
 Requests are processed and used to create elements (like balls, stems,
-slurs etc). This is done by a hierarchy of brokers, which swallow
-requests, broadcast them and couple different elements.
+slurs etc). This is done by a hierarchy of "brokers" (called
+Register), which swallow requests, broadcast them and couple different
+elements.
 
 In this step data-structures for the next steps are created and filled
-with data: PScore, PCol, PStaff
+with data: PScore, PCol.
 
 =item Preprocessing
 
@@ -75,8 +76,15 @@ Some dependencies are resolved, such as the direction of stems, beams,
 =item Calculation:
 
 This step uses structures which have names starting with 'P'.
-linebreaks and horizontal positions of PCols are determined. Line_of_*
-generated.
+linebreaks and horizontal positions of PCols are determined. 
+
+Through some magical interactions with Line_of_score and Super_elem
+(check out the source) the "lines" are produced. 
+
+All other spanners can figure across which lines they are spread. If
+applicable, they break themselves into pieces. After this, each piece
+works (or, if there are no pieces) the spanner throws out any
+dependencies which are in the wrong line.
 
 =item Postprocesing:
 
@@ -321,9 +329,9 @@ In music symbols depend on each other: the stems of a beam should
 point in the same direction as the beam itself, so the stems of a beam
 depend on the beam. In the same way do scripts depend on the direction
 of the stem. To reflect this, LilyPond has the notion of dependency. 
-It works in the same fashion that make uses to build programs: before
+It works in the same fashion that C<make> uses to build programs: before
 a stem is calculated, its dependencies (the beam) should be
-calculated. Before a slur is calculated, its dependencies (stems)
+calculated. Before a slur is calculated, its dependencies (stems, noteheads)
 should be calculated.
 
 =head1 BREAKING

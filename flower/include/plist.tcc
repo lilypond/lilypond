@@ -6,7 +6,8 @@
 	template class Pointer_list<a*>
 	
 template<class T>
-Pointer_list<T>::~Pointer_list()
+void
+Pointer_list<T>::junk()
 {
     PCursor<T> c( *this );
     while (c.ok()) {

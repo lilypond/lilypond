@@ -1,13 +1,13 @@
 /*
   note-column-reg.cc -- implement Note_column_register
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 #include "note-column-reg.hh"
-#include "notehead.hh"
+#include "note-head.hh"
 #include "stem.hh"
 #include "note-column.hh"
 #include "script.hh"
@@ -17,7 +17,7 @@ bool
 Note_column_register::acceptable_elem_b(Score_elem const*elem_C)const
 {
     char const*nC = elem_C->name();
-    return (nC == Script::static_name() || nC == Notehead::static_name() 
+    return (nC == Script::static_name() || nC == Note_head::static_name() 
 	    || nC == Stem::static_name());
 }
 Note_column*
@@ -51,8 +51,8 @@ Note_column_register::acknowledge_element(Score_elem_info i)
 
     if (nC == Script::static_name()) {
 	script_l_arr_.push((Script*)i.elem_l_->item());
-    } else if (nC == Notehead::static_name()) {
-	Notehead * h_l = (Notehead*)i.elem_l_->item();
+    } else if (nC == Note_head::static_name()) {
+	Note_head * h_l = (Note_head*)i.elem_l_->item();
 	if (h_l->rest_b_)
 	    rest_col_l()->add(h_l);
 	else
@@ -104,7 +104,7 @@ Note_column_register::set_feature(Feature i)
      if (i.type_ == "vdir")	
 	dir_i_ = i.value_;
      if (i.type_ == "hshift")
-	 h_shift_b_ = i.value_;
+	 h_shift_b_ = (bool)(int)i.value_;
 }
 
 Note_column_register::Note_column_register()

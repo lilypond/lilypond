@@ -2,7 +2,7 @@
 #include "dimen.hh" 
 #include "debug.hh"
 #include "paper-def.hh"
-#include "notehead.hh"
+#include "note-head.hh"
 #include "lookup.hh"
 #include "molecule.hh"
 #include "p-col.hh"
@@ -73,6 +73,7 @@ Stem::stem_end_f() const
     return (dir_i_ < 0)? stem_bottom_f_ : stem_top_f_;
 }
 
+
 void
 Stem::set_stemend(Real se)
 {
@@ -86,7 +87,7 @@ Stem::set_stemend(Real se)
 }
 
 void
-Stem::add(Notehead *n)
+Stem::add(Note_head *n)
 {
     n->add_dependency(this);
     if (n->rest_b_) {
@@ -104,16 +105,34 @@ Stem::invisible_b()const
 {
     return !head_l_arr_.size();
 }
+bool
+Stem::chord_b() const
+{
+    return head_l_arr_.size() > 1;
+}
+
+// if dir_i_ is set we return a fake value.
+
+int
+Stem::get_center_distance()
+{
+    if (dir_i_)
+      return -dir_i_;
+
+    int staff_center = staff_size_i_ / 2;
+    int min = min_head_i() - staff_center;
+    int max = max_head_i() - staff_center;
+    return (abs(max) > abs(min)) ? max : min;
+}
 
 int
 Stem::get_default_dir()
 {
-    int staff_center = staff_size_i_ /2;
     if (dir_i_)
-	return dir_i_;
-    Real mean = (min_head_i() + max_head_i())/2;
-    return (mean > staff_center) ? -1: 1;
+        return dir_i_;
+    return -sign(get_center_distance());
 }
+
 
 void
 Stem::set_default_dir()
@@ -159,7 +178,7 @@ Stem::set_noteheads()
 {
     if(!head_l_arr_.size())
 	return;
-    head_l_arr_.sort(Notehead::compare);
+    head_l_arr_.sort(Note_head::compare);
     head_l_arr_[0]->extremal_i_ = -1;
     head_l_arr_.top()->extremal_i_ = 1;
     int parity=1;
@@ -212,7 +231,7 @@ Stem::brew_molecule_p()const
  
     Paper_def *p =paper();
 
-    Real dy = p->internote();
+    Real dy = p->internote_f();
     Symbol ss =p->lookup_l()->stem(bot*dy,top*dy);
 
     out = new Molecule(Atom(ss));
@@ -239,3 +258,12 @@ Stem::hpos_f()const
 }
 
 
+void
+Stem::do_substitute_dependency(Score_elem*o,Score_elem*n)
+{
+    Item * o_l = o->item();
+    Item * n_l = n? n->item():0;
+    whole_l_arr_.substitute((Note_head*)o_l, (Note_head*)n_l);
+    head_l_arr_.substitute((Note_head*)o_l, (Note_head*)n_l);
+    rest_l_arr_.substitute((Note_head*)o_l, (Note_head*)n_l);
+}

@@ -1,5 +1,5 @@
 /*
-  script-def.hh -- part of LilyPond
+  script-def.hh -- part of GNU LilyPond
 
   (c) 1996,97 Han-Wen Nienhuys
 */

@@ -49,13 +49,6 @@ split_path(String path,
 	}
 }
 
-File_path::File_path(String pref)
-{
-    add(".");
-    add(pref);
-}
-
-
 /** find a file. 
   It will search in the current dir, in the construction-arg, and
   in any other added path, in this order.
@@ -64,13 +57,13 @@ String
 File_path::find(String nm)const
 
 {
-    fdebug << "looking for " << nm ;
+    fdebug << "looking for " << nm << ": ";
     if ( !nm.length_i() || ( nm == "-" ) )
 	return nm;
     for (int i=0; i < size(); i++) {
 
 	 String path  = (*this)[i];
-	 path+= "/"+nm;
+	 path+= String(path.length_i()? "/":"")+nm;
 
 	 fdebug << path << "? ";
 	 FILE *f = fopen(path, "r"); // ugh!

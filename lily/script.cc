@@ -1,7 +1,7 @@
 /*
   script.cc -- implement Script
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -24,7 +24,6 @@ Script::set_stem(Stem*st_l)
 
 
 Script::Script(Script_req* rq)
-    :Staff_side(this)
 {    
     specs_l_ = rq->scriptdef_p_;
     inside_staff_b_ = specs_l_->inside_staff_b_;
@@ -88,7 +87,7 @@ Script::do_post_processing()
 Molecule*
 Script::brew_molecule_p() const
 {
-    Real dy = paper()->internote();
+    Real dy = paper()->internote_f();
     
     Molecule*out = new Molecule(Atom(symbol()));
     out->translate(Offset(0,dy * pos_i_));

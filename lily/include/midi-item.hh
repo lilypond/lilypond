@@ -1,12 +1,12 @@
 //
-//  midiitem.hh -- part of LilyPond
+//  midiitem.hh -- part of GNU LilyPond
 //
 //  copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 
 #ifndef MIDI_ITEM_HH
 #define MIDI_ITEM_HH
 #include "string.hh"
-#include "proto.hh"
+#include "lily-proto.hh"
 
 struct Midi_item {
     /* *************** */

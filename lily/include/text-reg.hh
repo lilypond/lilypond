@@ -1,5 +1,5 @@
 /*
-  text-reg.hh -- part of LilyPond
+  text-reg.hh -- part of GNU LilyPond
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */

@@ -1,5 +1,5 @@
 /*
-  input-music.hh -- part of LilyPond
+  input-music.hh -- part of GNU LilyPond
 
   (c) 1996,97 Han-Wen Nienhuys
 */
@@ -8,7 +8,7 @@
 #define INPUTMUSIC_HH
 
 #include "plist.hh"
-#include "proto.hh"
+#include "lily-proto.hh"
 #include "voice.hh"
 #include "moment.hh"
 

@@ -28,7 +28,7 @@ Atom::Atom(Symbol s)
 
 
 String
-Atom::TeXstring() const
+Atom::TeX_string() const
 {
     /* infinity checks. */
     assert( abs(off.x) < 100 CM);
@@ -46,11 +46,11 @@ Atom::TeXstring() const
 /* *************** */
 
 String
-Molecule::TeXstring() const
+Molecule::TeX_string() const
 {
     String s;
     for(iter_top(ats,c); c.ok(); c++)
-	s+=c->TeXstring();
+	s+=c->TeX_string();
     return s;
 }
 

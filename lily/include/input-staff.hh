@@ -10,7 +10,7 @@
 #include "string.hh"
 #include "plist.hh"
 #include "varray.hh"
-#include "proto.hh"
+#include "lily-proto.hh"
 #include "input.hh"
 
 class Input_staff:public Input {

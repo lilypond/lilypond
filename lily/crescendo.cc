@@ -1,10 +1,11 @@
 /*
   crescendo.cc -- implement Crescendo
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
+
 #include "dimen.hh"
 #include "crescendo.hh"
 #include "lookup.hh"
@@ -12,18 +13,12 @@
 #include "debug.hh"
 
 Crescendo::Crescendo()
-    : Staff_side(this)
 {
     grow_dir_i_ =0;
     dir_i_ = -1 ;
     left_dyn_b_ = right_dyn_b_ =false;
 }
 
-Spanner*
-Crescendo::do_break_at(PCol*, PCol*)const
-{
-    return new Crescendo(*this);
-}
 
 
 Molecule*
@@ -44,7 +39,7 @@ Crescendo::brew_molecule_p() const
     }
     
     if (w_dim < 0) {
-	error("Crescendo too small");
+	warning("Crescendo too small");
 	w_dim = 0;
     }
     Real lookup_wid = w_dim * 0.9; // make it slightly smaller.
@@ -53,7 +48,7 @@ Crescendo::brew_molecule_p() const
     m_p->add(Atom(s));
     int pos = get_position_i(s.dim.y);
     m_p->translate(Offset(x_off_dim + 0.05 * w_dim, 
-			  pos * paper()->internote()));
+			  pos * paper()->internote_f()));
     return m_p;
 }
 

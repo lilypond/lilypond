@@ -1,5 +1,5 @@
 /*
-  source.cc -- implement Source
+  source.cc -- implement Sources
 
   source file of the LilyPond music typesetter
 
@@ -15,6 +15,7 @@
 #include "plist.hh"
 #include "source-file.hh"
 #include "source.hh"
+#include "path.hh"
 
 void
 Sources::set_path(File_path *f_C)
@@ -54,7 +55,7 @@ Sources::Sources()
 void
 Sources::add( Source_file* sourcefile_p )
 {
-    sourcefile_p_iplist_.bottom().add( sourcefile_p );
+    sourcefile_p_list_.bottom().add( sourcefile_p );
 }
 
 /**
@@ -65,7 +66,7 @@ Sources::add( Source_file* sourcefile_p )
 Source_file*
 Sources::sourcefile_l( char const* ch_C )
 {
-    PCursor<Source_file*> sourcefile_l_pcur( sourcefile_p_iplist_.top() );
+    PCursor<Source_file*> sourcefile_l_pcur( sourcefile_p_list_.top() );
     for ( ; sourcefile_l_pcur.ok(); sourcefile_l_pcur++ )
 	if ( sourcefile_l_pcur->in_b( ch_C ) )	
 	    return *sourcefile_l_pcur;

@@ -1,5 +1,5 @@
 /*
-  clef.hh -- part of LilyPond
+  clef.hh -- part of GNU LilyPond
 
   (c) 1996,97 Han-Wen Nienhuys
 */

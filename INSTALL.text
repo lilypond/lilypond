@@ -61,7 +61,7 @@ CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG a
 
 
 
-16/May/97                LilyPond 0.0.64                        1
+26/May/97                LilyPond 0.0.65                        1
 
 
 
@@ -127,7 +127,7 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
 
 
 
-16/May/97                LilyPond 0.0.64                        2
+26/May/97                LilyPond 0.0.65                        2
 
 
 
@@ -193,7 +193,7 @@ RRRRUUUUNNNNNNNNIIIINNNNGGGG
 
 
 
-16/May/97                LilyPond 0.0.64                        3
+26/May/97                LilyPond 0.0.65                        3
 
 
 
@@ -215,6 +215,36 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
             T.59). Beware, the clef symbol has changed position
             in recent versions of MusixTeX)
 
+       At this time, GNU LilyPond output looks nice, but is not
+       of production quality. If you're not discouraged; this is
+       what I type in my xterm:
+
+               lilypond someinput.ly
+               tex lelie.tex
+               xdvi test&
+
+       This is what the output looks like over here:
+
+               hw:~/musix/spacer$ GNU LilyPond 0.0.60 #8/FlowerLib 1.1.14 #2
+               Parsing ... [./input/kortjakje.ly[lots of stuff]]
+               Setting up requests...Processing requests ...[8][16][24][25]
+               Preprocessing elements...
+               Calculating column positions ... [3][7][12][16][20][25]
+               Postprocessing elements...
+               TeX output to lelie.tex ...
+
+               hw:~/musix/spacer$ tex lelie
+               This is TeX, Version 3.14159 (C version 6.1)
+               (lelie.tex
+               Hyphenation patterns for english, dutch, german, loaded.
+               (/home/hw/lib/texmf/tex/lilypond/lilyponddefs.tex) [1] )
+               Output written on lelie.dvi (1 page, 8944 bytes).
+               Transcript written on lelie.log.
+
+               hw:~/musix/spacer$ xdvi lelie&
+               [1] 855
+
+       Check out the input files, some of them have comments
        Please refer to the man page for more information.
 
 RRRREEEEDDDDHHHHAAAATTTT LLLLIIIINNNNUUUUXXXX
@@ -225,6 +255,18 @@ RRRREEEEDDDDHHHHAAAATTTT LLLLIIIINNNNUUUUXXXX
 
 WWWWIIIINNNNDDDDOOOOZZZZEEEE
        Windows NT:
+
+
+
+
+26/May/97                LilyPond 0.0.65                        4
+
+
+
+
+
+INSTALL(1)            LilyPond documentation           INSTALL(1)
+
 
        you need the cygnus win32 gnu port development stuff; have
        a look at http://www.cygnus.com/gnu-win32.
@@ -259,6 +301,30 @@ AAAAUUUUTTTTHHHHOOOORRRRSSSS
 
 
 
-16/May/97                LilyPond 0.0.64                        4
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+26/May/97                LilyPond 0.0.65                        5
 
 

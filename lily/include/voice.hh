@@ -1,7 +1,7 @@
 #ifndef VOICE_HH
 #define VOICE_HH
 
-#include "proto.hh"
+#include "lily-proto.hh"
 #include "plist.hh"
 #include "moment.hh"
 

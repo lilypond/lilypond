@@ -1,7 +1,7 @@
 /*
   rest-collision.hh -- declare Rest_collision
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -14,13 +14,14 @@
 #include "item.hh"
 
 class Rest_collision : public Item {
-    Array<Rest_column *> rest_l_arr_;
-    Array<Note_column *> ncol_l_arr_;
+    Link_array<Rest_column> rest_l_arr_;
+    Link_array<Note_column> ncol_l_arr_;
 public:
     void add(Rest_column*);
     void add(Collision*);
     NAME_MEMBERS(Rest_collision);
 protected:
     virtual void do_post_processing();
+    virtual void do_substitute_dependency(Score_elem*,Score_elem*);
 };
 #endif // REST_COLLISION_HH

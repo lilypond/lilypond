@@ -1,5 +1,5 @@
 /*
-  notehead.hh -- part of LilyPond
+  note-head.hh -- part of GNU LilyPond
 
   (c) 1996,97 Han-Wen Nienhuys
 */
@@ -18,9 +18,9 @@
   
   */
 
-class Notehead : public Item {
+class Note_head : public Item {
 public:
-    NAME_MEMBERS(Notehead);
+    NAME_MEMBERS(Note_head);
 
     bool rest_b_;
     int position_i_;
@@ -41,8 +41,8 @@ public:
     /**
       position of top line (5 linestaff: 8)
       */
-    Notehead(int staff_size);
-    static int compare(Notehead * const &a, Notehead *const &b) ;
+    Note_head(int staff_size);
+    static int compare(Note_head * const &a, Note_head *const &b) ;
 protected:
     virtual    void do_print()const;
     virtual    Molecule* brew_molecule_p()const;

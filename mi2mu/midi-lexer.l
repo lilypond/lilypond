@@ -1,6 +1,15 @@
 %{//-*-Fundamental-*-
 // midi-lexer.l
 
+/* 
+  yes, i know that midi is not really a (n evolving?) language,
+  and that using lex/yacc to parse midi is overkill, as well as
+  a grand example of misuse and asking for performance loss.
+
+  it is, however, quite robust, simple, and very easy to extend
+  incrementally.
+ */
+
 /*
   backup rules
 

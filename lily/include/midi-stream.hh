@@ -1,5 +1,5 @@
 //
-//  midistream.hh -- part of LilyPond
+//  midistream.hh -- part of GNU LilyPond
 //
 //  copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 

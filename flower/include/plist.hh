@@ -33,23 +33,30 @@ class Link_list : public List<void *>
     Link_list() {}
 };
 
-/**   Link_list which deletes pointers given to it. 
+/**   
+  
+  Link_list which deletes pointers given to it. 
+
   NOTE:
   
   The copy constructor doesn't do what you'd want:
   Since T might have a virtual ctor, we don't try to do a
 
-    new T(*cursor)
+    new T(**cursor)
 
   You have to copy this yourself, or use the macro Link_list__copy
   
+  TODO
+  operator =()
   */
 template<class T>
 class Pointer_list : public Link_list<T> {
+    
 public:
+    void junk();
     Pointer_list(Pointer_list const &) { set_empty(); }
     Pointer_list() { }
-    ~Pointer_list();
+    ~Pointer_list() { junk(); }
 };
 
 #define Pointer_list__copy(T, to, from, op)   \

@@ -1,5 +1,11 @@
 version 1.1:
 
+pl 18
+	- Path::find("/usr/..") fix
+	- Directed_graph_node
+	- some Link_array extensions
+	- Pointer_list::junk()
+
 pl 17
 	- naming: Pointer->Link, IPointer->Pointer
 pl 16
