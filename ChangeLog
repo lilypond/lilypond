@@ -1,3 +1,6 @@
+2002-07-05  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/windows/lilypond.hint (requires): Add libintl2.
 
 2002-07-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
