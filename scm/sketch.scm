@@ -30,6 +30,12 @@
 ;;    ))
 
 
+;;
+;; All functions have the signature 
+;;
+;;  NAME X Y ARGUMENTS-PASSED-BY-LILYPOND
+;;
+
 ;; guile <= 1.4.x compatibility for eval
 (if (or (equal? (minor-version) "4.1")
 	(equal? (minor-version) "4")
@@ -63,9 +69,6 @@
 
 (define (dispatch-x-y x y expr)
   (apply (ly-eval (car expr) this-module) (append (list x y) (cdr expr))))
-
-
-
       
 (define (ascii->string i) (make-string 1 (integer->char i)))
 
@@ -95,6 +98,10 @@
    (sketch-numbers->string (map mul-scale (list width dy dx height x y)))
    ")\n"))
 
+
+(define (roundfilledbox x y dx dy w h b)
+  (filled-rectangle w 0 0 h x y))
+
 (define (sketch-bezier x y l)
   (let* ((c0 (car (list-tail l 3)))
 	 (c123 (list-head l 3))
@@ -105,6 +112,7 @@
      "bs(" (sketch-numbers->string (map mul-scale start)) ",0)\n"
      "bc(" (sketch-numbers->string (map mul-scale control)) ",2)\n")))
   
+
 
 (define (sketch-beziers x y l thick)
   (let* ((first (list-tail l 4))

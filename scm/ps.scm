@@ -175,10 +175,10 @@
   (string-append (numbers->string (list breapth width depth height))
 		 " draw_box" ))
 
-(define (roundfilledbox x width y height blotdiam)
+(define (roundfilledbox x y width height blotdiam)
    (string-append " "
       (numbers->string
-         (list x width y height blotdiam)) " draw_round_box"))
+         (list x y width height blotdiam)) " draw_round_box"))
 
 (define (dot x y radius)
     (string-append " "

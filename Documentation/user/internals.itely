@@ -133,7 +133,10 @@ section.
 @node Output formats
 @section Output formats
 
-LilyPond can output processed music in different output formats.  
+LilyPond can output processed music in different output formats.  They
+can be used by invoking lilypond directly, i.e. not through ly2dvi,
+and supplying the @code{-f} command line option.  See also
+@ref{Invoking LilyPond}.
 
 @menu
 * @TeX{} output::               
@@ -297,7 +300,8 @@ dropped in future versions.
 @subsection Sketch output
 
 @uref{http://sketch.sourceforge.net,Sketch} is a Free vector drawing
-program. LilyPond includes bare bones output for Sketch version 0.7.
+program. LilyPond includes bare bones output for Sketch version
+0.7.
 
 @cindex Sketch
 @cindex vector drawing
