@@ -340,10 +340,9 @@
       (10.0 . #(,(delay (ly:font-load "ecbi8"))
 		,(delay (ly:font-load "ecbi10"))
 		,(delay (ly:font-load "ecbi14")))))
-     ;; duplicate entry?
-     ;;(#(roman caps medium) .
-     ;; (10.0 . #(,(delay (ly:font-load "eccc10")))))
      (#(roman caps medium) .
+      (10.0 . #(,(delay (ly:font-load "eccc10")))))
+     (#(roman slanted-caps medium) .
       (10.0 . #(,(delay (ly:font-load "ecsc10")))))
      (#(roman upright bold-narrow ) .
       (10.0 . #(,(delay (ly:font-load "ecrb10")))))
