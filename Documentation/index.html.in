@@ -21,13 +21,12 @@
 	<div class="navigation">
 	<table align="center" width="100%" cellpadding="0" cellspacing="2">
 	<tr>
-	  <td align=center> LilyPond documentation</td>
+	  <td align=center><h1> LilyPond documentation</h1></td>
 	</tr>
 	</table>
         <hr>
 	</div>
     <div align="center" class="titlepage">
-      <h1>LilyPond Documentation</h1>
 
       <p>
 	<strong>Version @TOPLEVEL_VERSION@</strong>
