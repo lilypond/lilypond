@@ -1,5 +1,6 @@
 \version "1.7.18"
-% candidate for regression.  -gp
+% MERGE with title.ly -gp
+
 %{
   Test ly2dvi features.
 %}

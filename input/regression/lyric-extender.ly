@@ -1,6 +1,5 @@
 \version "1.7.18"
-% regression -gp
-\header { texidoc= "DELETE or REGRESSION. "}
+\header { texidoc= "Tests lyric extenders. "}
 \score{
 	<
 	\context Staff \notes { c (c-) (c-) c }
