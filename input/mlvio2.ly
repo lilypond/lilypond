@@ -208,7 +208,7 @@ violinII = \melodic  {
 %86
 	ges |
 %87
-%	= g |
+	g! |
 %88
 	\textstyle "italic";
 	fis_"dacapo" \key fis;|

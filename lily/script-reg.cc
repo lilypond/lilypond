@@ -75,6 +75,7 @@ Script_register::pre_move_processing()
     }
     script_p_arr_.set_size(0);
 }
+
 void
 Script_register::post_move_processing()
 {

@@ -83,7 +83,10 @@ ii_menuetto = \melodic{
 %%20
 	< { [ c'( bes a )bes g( )bes ] } { [ d ] } { [ g ] } > |
 %%21
-	< \multivoice  {\stem 1;  d'4(\stem 1; ) cis'4 d'4 }  { \stem -1; g2 f4 } > |
+	< \multivoice  
+		{\stem 1;  d'4(\stem 1; ) cis'4 d'4 }  
+		{ \stem -1; g2 f4 } 
+	> |
 %%22
 	< { [ g( )f g e ] } { [ cis ] } > < f4 d4 > |
 %%23

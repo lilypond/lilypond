@@ -92,8 +92,6 @@ abbrev: c4=16 (heu, =?),
 
 plet === midi-note: c4*2/3; c4*385/384,
 
-=back
-
 =item *
 
 drop \music,

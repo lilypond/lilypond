@@ -13,10 +13,10 @@
 #include "item.hh"
 
 class Collision : public Item {
-    Array<Note_column*> clash_l_arr_;
 protected:
     virtual void do_pre_processing();
 public:
+    Array<Note_column*> clash_l_arr_;
     NAME_MEMBERS(Collision);
     void add (Note_column*ncol_l);
     Collision();

@@ -1,11 +1,5 @@
 IMPORTANT
-	* resolve notehead/rest ambiguities and bugs. [HWN]
- 	eg, [c8 r8 c8] 
-
-
 	* mi2mu man page
-
-	* use Real for y positions.
 
 	* update 20 pt table
 
@@ -67,6 +61,8 @@ FURTHER FOR ORCHESTRAL SCORE:
 
 	* abbreviations c4=16
 
+	* doublebar "||", finishbar "|||" (or "||." ?)
+
 INPUTLANGUAGE
 
 	* relative mode for pitch entering
@@ -85,7 +81,9 @@ INPUTLANGUAGE
 
 SMALLISH PROJECTS
 
-	* use rest size in Collision
+	* write Rest_collision
+
+	* use Real for y positions.
 
 	* bugreport to doc++ devel: struct not in class hier; public
 	virtual baseclasses
@@ -107,6 +105,8 @@ SMALLISH PROJECTS
 	* key transposition
 	
 	* caching breakpoints / saving them. 
+
+	* hack ElectricFence to use with LD_PRELOAD
 
 	* use dstream feature in mi2mu
 
@@ -259,3 +259,10 @@ IDEAS
 	* breath marks 
 
 	* used fixedpoint arithmetic for min. energy.
+
+	* default convert mudela-file.ly -> mudela-file.tex
+	  - move test.tex: '\include lilyponddefs' -> 
+	    mudela-file.ly: '\texinclude "lilyponddefs";'
+	    (junking test.tex and latex.test)
+	  - rename {standchen,scsii-menuetto,...}.tex
+

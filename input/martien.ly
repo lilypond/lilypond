@@ -1,4 +1,3 @@
-%% BUG in MIDI!
 %
 % Viola Quartet
 % Martien Lohman (194x-????) 
@@ -13,17 +12,17 @@
 % \barnumbering5
 % \barnumberstyle\boxed
 
-globalmusic= \melodic{
-		\meter 2/4;
-%		\key fis
-		\skip 2*56;
-%		\key bes es as
-		\skip 2*8;
-		\meter 6/8;
-		\skip 8*48;
-		\meter 2/4;
-		\skip 2*16;
-%		\key fis
+commands = \melodic{
+	\meter 2/4;
+%	\key fis
+	\skip 2*56;
+%	\key bes es as
+	\skip 2*8;
+	\meter 6/8;
+	\skip 8*48;
+	\meter 2/4;
+	\skip 2*16;
+%	\key fis
 }
 
 \include "mlalt.ly"
@@ -32,10 +31,10 @@ globalmusic= \melodic{
 \include "mlcello.ly"
 
 \score{
-	\staff{ melodicregs globalmusic alto }
-	\staff{melodicregs  globalmusic violinI }
-	\staff{ melodicregs globalmusic violinII }
-	\staff{ melodicregs globalmusic cello }
+	\staff{ melodicregs commands alto }
+	\staff{ melodicregs commands violinI }
+	\staff{ melodicregs commands violinII }
+	\staff{ melodicregs commands cello }
 	\paper{
 		\unitspace 24\mm
 		\width 195\mm

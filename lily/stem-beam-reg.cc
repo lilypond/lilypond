@@ -85,17 +85,16 @@ Stem_beam_register::process_requests()
 		get_staff_info().time_C_->whole_in_measure_,
 		stem_req_l_->duration());
 
-	stem_p_->flag = stem_req_l_->duration_.type_i_;
+	stem_p_->flag_i_ = stem_req_l_->duration_.type_i_;
 
 	if (beam_p_) {
 	    if (stem_req_l_->duration_.type_i_<= 4)
-		
-			 stem_req_l_->warning( "stem doesn't fit in Beam");
+		stem_req_l_->warning( "stem doesn't fit in Beam");
 	    else
 		beam_p_->add(stem_p_);
-	    stem_p_->print_flag = false;
+	    stem_p_->print_flag_b_ = false;
 	} else {
-	    stem_p_->print_flag = true;
+	    stem_p_->print_flag_b_ = true;
 	}
 	
 	announce_element(Staff_elem_info(stem_p_, stem_req_l_));
@@ -111,8 +110,7 @@ Stem_beam_register::acknowledge_element(Staff_elem_info info)
     if (info.elem_l_->name() == Notehead::static_name() &&
 	stem_req_l_->duration() == info.req_l_->rhythmic()->duration()){
 	Notehead * n_l= (Notehead*)info.elem_l_;
-	if (!n_l->rest_b_)
-	    stem_p_->add((Notehead*)info.elem_l_);
+	stem_p_->add(n_l);
     }
 }
 void

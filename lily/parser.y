@@ -985,6 +985,7 @@ voice_elt:
 	steno_note_req notemode_duration 		{
 		if (!THIS->lexer_p_->note_state_b())
 			THIS->parser_error("have to be in Note mode for notes");
+		$1->set_duration (*$2);
 		$$ = THIS->get_note_element($1, $2);
 	}
 	| RESTNAME notemode_duration		{

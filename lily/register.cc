@@ -66,9 +66,9 @@ Request_register::contains_b(Request_register *reg_l)const
 }
 
 Staff_info
-Request_register::get_staff_info() return inf;
+Request_register::get_staff_info() 
 {
-    inf = daddy_reg_l_->get_staff_info();
+    return daddy_reg_l_->get_staff_info();
 }
 
 void

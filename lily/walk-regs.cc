@@ -98,13 +98,15 @@ Walker_registers::post_move_processing()
 
 
 Staff_info
-Walker_registers::get_staff_info() return inf;
+Walker_registers::get_staff_info()
 {
+    Staff_info inf;
     if (walk_l_->score_walk_l_)	// we get called ctors
 	inf.break_allowed_b_ = walk_l_->score_walk_l_->break_allowed_b();
     inf.walk_l_ = walk_l_;
     inf.time_C_ = &walk_l_->time_;
     inf.rhythmic_C_ = walk_l_->default_grouping;
+    return inf;
 }
 
 Paper_def*

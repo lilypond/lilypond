@@ -41,6 +41,7 @@ public:
 	POSTCALCING,		// busy calculating. This is used to trap cyclic deps.
 	POSTCALCED,		// after spacing calcs done
 	OUTPUT,			// molecule has been output
+	DELETED,		// to catch malloc mistakes.
     } status;
     
     ///  the pstaff it is in

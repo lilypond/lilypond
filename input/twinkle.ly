@@ -6,6 +6,7 @@
 
 melody = \melodic{
 	\clef\violin;
+	\octave c';
 	c4 c | g g | a a | g g |
 	f f | e e | d d8.( e16 | )c2 | % :|
 

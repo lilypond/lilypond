@@ -140,6 +140,11 @@ My_lily_parser::get_rest_element(String,  Duration * duration_p )
     rest_req_p->set_spot( here_input());
 
     velt_p->add(rest_req_p);
+    
+    Stem_req * stem_p = new Stem_req;
+    stem_p->duration_ = *duration_p;
+    stem_p->set_spot ( here_input ());
+    velt_p->add(stem_p);
     delete duration_p;
     return velt_p;
 }
@@ -149,6 +154,8 @@ My_lily_parser::get_note_element(Note_req *rq, Duration * duration_p )
 {
     Voice_element*v = new Voice_element;
     v->set_spot( here_input());
+
+    v->add(rq);
     
     if (duration_p->type_i_ >= 2) {
 	Stem_req * stem_req_p = new Stem_req();
@@ -160,9 +167,6 @@ My_lily_parser::get_note_element(Note_req *rq, Duration * duration_p )
 
     rq->set_duration(*duration_p);
     rq->set_spot( here_input());
-
-
-    v->add(rq);
     delete duration_p ;
     return v;
 }

@@ -40,7 +40,10 @@ Staff_elem::Staff_elem(Staff_elem const&s)
   */
 Staff_elem::~Staff_elem()
 {
-   delete output;
+    assert(status < DELETED);
+    delete output;
+    status = DELETED;
+    output = 0;
 }
 
 void
@@ -50,8 +53,9 @@ Staff_elem::translate(Offset O)
 }
 
 Interval
-Staff_elem::do_width() const return r;
+Staff_elem::do_width() const 
 {
+    Interval r;
     
     if (!output){
 	Molecule*m = brew_molecule_p();
@@ -59,7 +63,9 @@ Staff_elem::do_width() const return r;
 	delete m;
     } else
 	r = output->extent().x;
+    return r;
 }
+
 Interval
 Staff_elem::width() const
 {
@@ -71,14 +77,16 @@ Staff_elem::width() const
     return r;
 }
 Interval
-Staff_elem::do_height() const return r
+Staff_elem::do_height() const 
 {
+    Interval r;
     if (!output){
 	Molecule*m	= brew_molecule_p();
 	r = m->extent().y;
 	delete m;
     } else
 	r = output->extent().y;
+    return r;
 }
 
 Interval

@@ -29,12 +29,11 @@ struct Stem_info {
 
 Stem_info::Stem_info(Stem const *s)
 {
-    x = s->hindex();
+    x = s->hpos_f();
     int dir = s->dir_i_;
-    idealy  = max(dir*s->top, dir*s->bot);
-    miny = max(dir*s->minnote, dir*s-> maxnote);
+    idealy  = dir * s->stem_end_f();
+    miny = dir * s->stem_start_f();
     assert(miny <= idealy);
-
 }
 
 /* *************** */
@@ -60,7 +59,7 @@ Beam::add(Stem*s)
 {
     stems.bottom().add(s);
     s->add_dependency(this);
-    s->print_flag = false;
+    s->print_flag_b_ = false;
 }
 
 void
@@ -87,6 +86,9 @@ Beam::solve_slope()
     Array<Stem_info> sinfo;
     for (iter_top(stems,i); i.ok(); i++) {
 	i->set_default_extents();
+	if (i->invisible_b())
+	    continue;
+	
 	Stem_info info(i);
 	sinfo.push(info);
     }
@@ -120,9 +122,9 @@ void
 Beam::set_stemlens()
 {
     iter_top(stems,s);
-    Real x0 = s->hindex();    
+    Real x0 = s->hpos_f();    
     for (; s.ok() ; s++) {
-	Real x =  s->hindex()-x0;
+	Real x =  s->hpos_f()-x0;
 	s->set_stemend(left_pos + slope * x);	
     }
 }
@@ -149,7 +151,7 @@ Beam::set_grouping(Rhythmic_grouping def, Rhythmic_grouping cur)
 	iter_top(stems,s);
 	Array<int> flags;
 	for (; s.ok(); s++) {
-	    int f = intlog2(abs(s->flag))-2;
+	    int f = intlog2(abs(s->flag_i_))-2;
 	    assert(f>0);
 	    flags.push(f);
 	}
@@ -162,8 +164,8 @@ Beam::set_grouping(Rhythmic_grouping def, Rhythmic_grouping cur)
 
     iter_top(stems,s);
     for (int i=0; i < b.size() && s.ok(); i+=2, s++) {
-	s->beams_left = b[i];
-	s->beams_right = b[i+1];
+	s->beams_left_i_ = b[i];
+	s->beams_right_i_ = b[i+1];
     }
 }
 
@@ -193,8 +195,8 @@ Interval
 Beam::do_width() const
 {
     Beam * me = (Beam*) this;	// ugh
-    return Interval( (*me->stems.top()) ->hindex(),
-		     (*me->stems.bottom()) ->hindex() );
+    return Interval( (*me->stems.top()) ->hpos_f(),
+		     (*me->stems.bottom()) ->hpos_f() );
 }
 
 /*
@@ -203,8 +205,8 @@ Beam::do_width() const
 Molecule
 Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 {
-    assert( !next || next->hindex() > here->hindex()  );
-    assert( !prev || prev->hindex() < here->hindex()  );
+    assert( !next || next->hpos_f() > here->hpos_f()  );
+    assert( !prev || prev->hpos_f() < here->hpos_f()  );
     Real dy=paper()->internote()*2;
     Real stemdx = paper()->rule_thickness();
     Real sl = slope*paper()->internote();
@@ -215,9 +217,9 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 
     /* half beams extending to the left. */
     if (prev) {
-	int lhalfs= lhalfs = here->beams_left - prev->beams_right ;
-	int lwholebeams= here->beams_left <? prev->beams_right ;
-	Real w = (here->hindex() - prev->hindex())/4;
+	int lhalfs= lhalfs = here->beams_left_i_ - prev->beams_right_i_ ;
+	int lwholebeams= here->beams_left_i_ <? prev->beams_right_i_ ;
+	Real w = (here->hpos_f() - prev->hpos_f())/4;
 	Symbol dummy;
 	Atom a(dummy);
 	if (lhalfs)		// generates warnings if not
@@ -231,10 +233,10 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
     }
 	
     if (next){
-	int rhalfs = here->beams_right - next->beams_left;
-	int rwholebeams = here->beams_right <? next->beams_left; 
+	int rhalfs = here->beams_right_i_ - next->beams_left_i_;
+	int rwholebeams = here->beams_right_i_ <? next->beams_left_i_; 
 
-	Real w = next->hindex() - here->hindex();
+	Real w = next->hpos_f() - here->hpos_f();
 	Atom a = paper()->lookup_l()->beam(sl, w + stemdx);
 	
 	int j = 0;
@@ -261,11 +263,12 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 
 
 Molecule*
-Beam::brew_molecule_p() const return out;
+Beam::brew_molecule_p() const 
 {
+    Molecule *out=0;
     Real inter=paper()->internote();
     out = new Molecule;
-    Real x0 = stems.top()->hindex();
+    Real x0 = stems.top()->hpos_f();
     
     for (iter_top(stems,i); i.ok(); i++) {
 	PCursor<Stem*> p(i-1);
@@ -274,11 +277,12 @@ Beam::brew_molecule_p() const return out;
 	Stem * next = n.ok() ? n.ptr() : 0;
 
 	Molecule sb = stem_beams(i, next, prev);
-	Real  x = i->hindex()-x0;
+	Real  x = i->hpos_f()-x0;
 	sb.translate(Offset(x, (x * slope  + left_pos)* inter));
 	out->add(sb);
     }
     out->translate(Offset(x0 - left_col_l_->hpos,0));
+    return out;
 }
 
 IMPLEMENT_STATIC_NAME(Beam);

@@ -88,14 +88,14 @@ Midi_walker::process_requests()
 	Command_req *c_l = ptr()->commandreq_l_arr_[i]->command();
 	Meter_change_req* meter_l = c_l->meterchange();
 	if ( meter_l )
-	    output_event( Midi_time( meter_l->beats_i_, meter_l->one_beat_i_, 18 ),  0 );
+	    output_event( Midi_time( meter_l->beats_i_, meter_l->one_beat_i_, 18 ),  ptr()->when() );
 	Key_change_req* key_l = c_l->keychange();
 	if ( key_l ) {
 	    int sharps_i = key_l->sharps_i();
 	    int flats_i = key_l->flats_i();
 	    // midi cannot handle non-conventional keys
 	    if ( !( flats_i && sharps_i ) )
-		output_event( Midi_key( sharps_i - flats_i, key_l->minor_b() ), 0 );
+		output_event( Midi_key( sharps_i - flats_i, key_l->minor_b() ), ptr()->when() );
 	}
     }
 

@@ -42,11 +42,13 @@ Input_register::get_ireg_l(String nm)const
     return 0;
 }
 Array<Request_register*>
-Input_register::get_nongroup_p_arr() const return a;
+Input_register::get_nongroup_p_arr() const 
 {
+    Array <Request_register*>a;
     Array<String> sa(get_nongroups_str_arr());
     for (int i=0; i < sa.size(); i++)
 	a.push(get_nongroup_register_p(sa[i]));
+    return a;
 }
 
 void

@@ -38,7 +38,7 @@ Notehead_register::process_requests()
     n_p->set_rhythmic(note_req_l_->rhythmic());
 
     if (note_req_l_->note()) {
-	n_p->position = note_req_l_->note()->height() +
+	n_p->position_i_ = note_req_l_->note()->height() +
 	    *get_staff_info().c0_position_i_l_;
     } else if (note_req_l_->rest()) {
 	n_p->rest_b_ = true;

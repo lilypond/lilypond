@@ -1,12 +1,16 @@
 #!/usr/bin/perl -w
 
+#
+# version of "supporting" engine, not mudela conversions.
+# 
+
+$convert_mudela_version = "0.1";
 
 use Getopt::Long;
 
 
 
-sub 
-    version_string_conv
+sub version_string_conv
 {
     my ($from_version, $to_version) = @_;
     s/\version \"0.0.$from_version\"/\version \"0.0.$to_version\"/g;
@@ -14,41 +18,58 @@ sub
 
 ################################################################
 
-sub
-    conv_pl0_0_50_pl0_0_52
+sub no_conv
 {
- 
 }
-
-sub conv_pl52_pl53
+ 
+sub convert_0_0_52_to_0_0_53
 {
 
     s/include \"/$1\\include \"/g;
 }
 
-sub conv_pl53_pl54
+  
+sub convert_0_0_53_to_0_0_54
 {
     print STDERR "Not smart enough to convert \\transpose\n"    if (/\\transpose/) ;
 }
 
 ###############################################################
 
-
-
-
-
-sub usage
+sub    last_conversion
 {
-    print STDERR "Usage: convert-mudela\n";
-    print STDERR "other options: --edit --output=FILE --show-rules\n";
-    exit 2;
+    my @v = &versions;
+    return pop @v;
 }
+sub identify
+{
     
+    print STDERR "This is convert-mudela " . $convert_mudela_version . 
+	" (up to mudela version 0.0.", last_conversion,	")\n";
+}
+  
+  
+ sub usage
+  {
+     print STDERR "Usage: convert-mudela [options] [mudela-file]...\n"
+     . "Convert old mudela source from mudela-file or stdin\n\n"
+     . "Options:\n"
+     . "  -e, --edit             perform in-place conversion\n"
+     . "  -f, --from=PATHLEVEL   use source version 0.0.PATCHLEVEL\n"
+     . "  -h, --help             print this help\n"
+     . "  -o, --output=FILE      name output file\n"
+     . "  -s, --show-rules       print all known conversion rules\n"
+     . "  -t, --to=PATCHLEVEL    convert to version 0.0.PATCHLEVEL\n"
+  }
+      
+# beware of the year 2000
 my %minor_conversions = (50 => \&no_conv,
-			 52 => \&conv_pl0_0_50_pl0_0_52,
-			 53 => \&conv_pl52_pl53,
-			 54 => \&conv_pl53_pl54
-			 );
+ 			 52 => \&convert_0_0_50_to_0_0_52,
+  			 53 => \&convert_0_0_52_to_0_0_53,
+  			 54 => \&convert_0_0_53_to_0_0_54
+  			 );
+ 
+
 sub versions 
 {
     return  (sort keys %minor_conversions);
@@ -133,7 +154,7 @@ sub  set_files
 	$outfile = "$infile.NEW";
 	$infile = "$infile";
     }
-    print STDERR "Input $infile.. ";
+    print STDERR "Input ", (($infile eq "-") ?"STDIN" : $infile), " .. ";
 
 }
 
@@ -148,8 +169,7 @@ sub do_one_arg
     ($from_version = get_auto_from $infile) unless defined($opt_from);
     return if (!defined($from_version));
     
-    my @v = versions;
-    ($to_version =  pop @v) unless (defined($opt_to));
+    ($to_version =  last_conversion) unless (defined($opt_to));
 
 
     die "can't open \`$infile\'" unless open INLY,$infile ;
@@ -165,7 +185,17 @@ sub do_one_arg
     }
 }
 
-GetOptions ("output=s", "from=i", "to=i", "minor=i", "edit", "show-rules");
+## "main"
+
+identify;
+
+GetOptions ("help", "output=s", "from=i", "to=i", "minor=i", "edit", "show-rules");
+
+if ($opt_help) {
+    usage();
+    $opt_help = 0;	# to extinguish typo check.
+    exit 0;
+}
 
 if ($opt_show_rules) { 
     show_rules ;

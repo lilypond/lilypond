@@ -25,6 +25,7 @@ public:
     Moment duration_;
     Voice const *voice_C_;
     IPointerList<Request*> req_p_list_;
+    Request * principal_req_l_;
 
     /* *************** */
     void transpose(Melodic_req const &)const;

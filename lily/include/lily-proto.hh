@@ -62,5 +62,8 @@ struct Note_column_register;
 struct Note_column;
 struct Staff_side;
 struct Staff_symbol;
-
+struct Script_column;
+struct Rest_column;
+struct Rest_collision_register;
+struct Rest_collision;
 #endif // LILY_PROTO_HH

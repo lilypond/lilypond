@@ -19,52 +19,57 @@
   \item the flag
   \item up/down position.
   \end{itemize}
+
+  should move beam_{left, right} into Beam
   */
-
-struct Stem : Item {
-    /// heads that the stem encompasses (positions)
-    int minnote, maxnote;
-
-    /// false if in beam
-    bool print_flag;
+class Stem : public Item {
     
-    int beams_left;
-    int beams_right;
+    Real stem_bottom_f_, stem_top_f_;
+    
     
     /// needed for determining direction/length
-    int staff_center;
-
+    int staff_size_i_;
 
     /**extent of the stem (positions).
       fractional, since Beam has to adapt them.
       */
 
-    Real bot, top;
-    Real stemlen;
-    
-    /// flagtype? 4 none, 8 8th flag, 0 = beam.
-    int flag;
-
 
     /**
       geen gedonder, jij gaat onder.
-       -1 stem points down, +1: stem points up
-       */
-
-    int dir_i_;
-    Real stem_xoffset;
+      -1 stem points down, +1: stem points up
+      */
+    Real stem_xoffset_f_;
+    /**
+      store the wholes (for vapourware tremolo)
+     */
+    Array<Notehead*> whole_l_arr_;
+    Array<Notehead*> head_l_arr_;
+    Array<Notehead*> rest_l_arr_;
     
-    Array<Notehead*> heads;
+public:
+    /// flagtype? 4 none, 8 8th flag, 0 = beam.
+    int flag_i_;
 
+    int beams_left_i_;
+    int beams_right_i_;
+
+    /// false if in beam
+    bool print_flag_b_;
+    
+    int dir_i_;
+
+    
     /* *************** */
-    Stem(int center); //, Moment duration);
+    Stem(int staff_size_i);
     
     /// ensure that this Stem also encompasses the Notehead #n#
     void add(Notehead*n);
 
     NAME_MEMBERS(Stem);
 
-    Real hindex()const;
+    Real hpos_f()const;
+    
     void do_print() const;
     void set_stemend(Real);
     int get_default_dir();
@@ -72,10 +77,19 @@ struct Stem : Item {
     void set_default_stemlen();
     void set_default_extents();
     void set_noteheads();
+
+    Real stem_length_f()const;
+    Real stem_end_f()const;
+    Real stem_start_f() const;
+
+    bool invisible_b()const;
+    
+    /// heads that the stem encompasses (positions)
+    int max_head_i() const;
+    int min_head_i() const;
+protected:
     void do_pre_processing();
-
     virtual Interval do_width() const;
-
     Molecule* brew_molecule_p() const;
 };
 #endif
