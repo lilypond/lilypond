@@ -1,5 +1,5 @@
 
-\version "1.9.6"
+\version "2.1.25"
 
 \header {
 texidoc="@cindex Smart Transpose
@@ -26,13 +26,15 @@ how useful these enharmonic modifications are. Mats B.
          (n (ly:pitch-notename p)))
 
     (cond
-     ((and (> a 1) (or (eq? n 6) (eq? n 2)))
-      (set! a (- a 2)) (set! n (+ n 1)))
-     ((and (< a -1) (or (eq? n 0) (eq? n 3)))
-      (set! a (+ a 2)) (set! n (- n 1))))
+     ((and (> a 2) (or (eq? n 6) (eq? n 2)))
+      (set! a (- a 2))
+      (set! n (+ n 1)))
+     ((and (< a -2) (or (eq? n 0) (eq? n 3)))
+      (set! a (+ a 2))
+      (set! n (- n 1))))
 
     (cond
-     ((eq? a 4)  (set! a 0) (set! n (+ n 1)))
+     ((eq? a 4) (set! a 0) (set! n (+ n 1)))
      ((eq? a -4) (set! a 0) (set! n (- n 1))))
 
     (if (< n 0) (begin (set!  o (- o 1)) (set! n (+ n 7))))

@@ -11,7 +11,7 @@
 	 (col (if (= dir 1) (car note-columns) (car (last-pair note-columns))))
 	 (stem (ly:get-grob-property col 'stem)))
     (and
-     (eq? col (ly:get-spanner-bound slur dir))
+     (eq? col (ly:spanner-get-bound slur dir))
      (ly:grob? stem)
      (ly:get-grob-property stem 'heads))))
 

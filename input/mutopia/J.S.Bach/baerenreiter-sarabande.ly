@@ -1,4 +1,4 @@
-\version "2.1.23"
+\version "2.1.25"
 
 % #(ly:set-point-and-click 'line-column)
 
@@ -7,9 +7,9 @@ forcedLastBreak = \notes { \break }
 %% We want this to perfectly match the Baerenreiter spacing.
 %% If we're not using 6 systems, there's definately a problem.
 #(define (assert-system-count smob n)
-  (let ((systems (length (ly:get-broken-into
-			  (ly:get-original
-			   (ly:get-system smob))))))
+  (let ((systems (length (ly:spanner-broken-into
+			  (ly:grob-original
+			   (ly:grob-system smob))))))
     (if (not (equal? n systems))
 	(error
 	;;(warn
