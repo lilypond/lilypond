@@ -18,7 +18,7 @@ takes care of:
   */
 
 struct Notehead : Item {
-    const char * name() const;
+    NAME_MEMBERS(Notehead);
 
     int position;
     /// -1 = lowest, 0 = inside, 1 = top
@@ -38,7 +38,7 @@ struct Notehead : Item {
       */
     Notehead(int staff_size);
     void do_print()const;
-    static int compare(Notehead*&a, Notehead*&b) ;
+    static int compare(Notehead * const &a, Notehead *const &b) ;
     Molecule* brew_molecule_p()const;
 };
 #endif // NOTEHEAD_HH
