@@ -66,6 +66,8 @@ Cluster
 \\consists
 \\consistsend
 \\context
+\\context\ Staff\ = - % { _ } -
+\\context\ Voice\ = - % { _ } -
 \\contrabasso
 \\cr
 \\cresc
