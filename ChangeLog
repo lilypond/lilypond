@@ -1,3 +1,7 @@
+2002-04-22  Han-Wen  <hanwen@cs.uu.nl>
+
+	* mf/feta-nummer-code.mf (code): three fixes.
+
 2002-04-21  Han-Wen  <hanwen@cs.uu.nl>
 
 	* VERSION: 1.5.53 released
@@ -16,14 +20,15 @@
 	* lily/accidental-placement.cc (alignment_callback): position
 	accidentals in a better way.
 
-	* lily/skyline.cc: new file. Compute distances for collections  of boxes. 
+	* lily/skyline.cc: new file. Compute distances for collections of
+	boxes.
 
 	* lily/include/skyline.hh: new file
 
 2002-04-20  Han-Wen  <hanwen@cs.uu.nl>
 
-	* lily/accidental.cc (class Accidental_interface): grob for single
-	accidental.
+	* lily/accidental.cc (class Accidental_interface): grob for a
+	single accidental.
 
 	* lily/accidental-engraver.cc (number_accidentals): Cleanups. Lots
 	of reformatting
