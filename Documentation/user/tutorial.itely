@@ -773,7 +773,7 @@ of music is multiplied by the fraction.  Triplets make notes occupy
 Grace notes are also made by prefixing a note, or a set of notes with
 a keyword. In this case, the keyword is @code{\grace}. 
 @lilypond[relative 1, verbatim,fragment]
-  \grace b16-( c4-)
+  c4 \grace b16-( c4-)
   \grace { d16-( e } d4-)
 @end lilypond
 
