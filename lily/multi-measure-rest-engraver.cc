@@ -209,11 +209,11 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
 	{
 	  typeset_grob (last_rest_);
 
-	  /*
-	    huh ? add-staff-support ?
-	  */
 	  for (int i = 0; i < last_numbers_.size ();i++)
-	    typeset_grob (last_numbers_[i]);
+	    {
+	      typeset_grob (last_numbers_[i]);
+	      Side_position_interface::add_staff_support (last_numbers_[i]);
+	    }
 	}
       last_rest_ = 0;
       last_numbers_.clear();

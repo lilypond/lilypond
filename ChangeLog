@@ -1,3 +1,8 @@
+2003-04-11  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/multi-measure-rest-engraver.cc (stop_translation_timestep):
+	add staff support.
+
 2003-04-10  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* mf/parmesan-scripts.mf, Documentation/user/refman.itely,

@@ -76,7 +76,7 @@ if files:
 		s = r"""
 @ifhtml
 @html
-<NAME="%s">
+<A NAME="%s">
 @end html
 @end ifhtml
 """ % n
