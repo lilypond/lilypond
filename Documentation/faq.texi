@@ -308,6 +308,27 @@ tagline="Typeset by GNU LilyPond"
  
 @end example 
 
+@subsubsection Can I make blank manuscript paper with LilyPond?
+
+Theoretically, yes but it is easier to do with TeX:
+
+@example
+\def\foo{\hbox{\vrule width 15.0cm height 0.5pt depth 0.0pt}
+\nointerlineskip
+\vskip 5pt\nointerlineskip}
+\def\musicline{\vbox {
+     \foo\foo\foo\foo\foo
+}\par}
+
+\musicline
+\musicline
+\musicline
+\musicline
+\bye
+
+@end  example
+
+
 @node Development, Running, How do I -, FAQ - GNU LilyPond FAQs
 @section Development
 

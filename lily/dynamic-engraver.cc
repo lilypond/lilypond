@@ -322,6 +322,11 @@ Dynamic_engraver::do_process_music ()
 	    }
 
 	  s = get_property (span_req_l_drul_[START]->span_type_str_ + "Spanner");
+
+
+	  /*
+	    TODO: Use symbols.
+	   */
 	  if (gh_string_p (s)) //&& ly_scm2string (s) != "hairpin")
 	    {
 	      cresc_p_->set_elt_property ("spanner", s);
