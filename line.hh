@@ -47,6 +47,7 @@ struct Line_of_staff {
     
     String TeXstring() const;
     Line_of_staff(Line_of_score*, PStaff *);
+    Real maxheight()const;
 };
 
 #endif
