@@ -1,3 +1,24 @@
+2002-05-16  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* stepmake/bin/install-sh: Include latest from libtool.
+
+	* stepmake/configure: 
+	* configure: Regenerate.
+
+	* config.make.in: Remove dead variables.  Add OPTIONAL/REQUIRED lists.
+	(USER_CFLAGS): Bugfix, include CPPFLAGS.
+
+	* configure.in: Use new OPTIONAL/REQUIRED mechanism.
+
+	* stepmake/aclocal.m4: Add mechanism for checking OPTIONAL or
+	REQUIRED programs and version.  Try to continue configuring, list
+	missing programs at the end, but don't generate a GNUmakefile if
+	REQUIRED programs are missing.  Cleanups, junk obsolete stuff.
+	Fix Cygwin detection, drop '32' suffix.  Hoping this is not too
+	fancy for some older systems.
+
+	* config.make.in USER_CFLAGS: Include CPPFLAGS too.
+
 2002-05-16  Han-Wen  <hanwen@cs.uu.nl>
 
 	* lily/piano-pedal-engraver.cc (create_bracket_grobs): fix broken

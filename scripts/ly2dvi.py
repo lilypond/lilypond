@@ -50,9 +50,6 @@ TODO:
 '''
 
 
-
-
-
 import os
 import stat
 import string
@@ -65,6 +62,11 @@ import operator
 import tempfile
 import traceback
 
+
+################################################################
+# lilylib.py -- options and stuff
+# 
+# source file of the GNU LilyPond music typesetter
 
 # Handle bug in Python 1.6-2.1
 #
@@ -79,11 +81,14 @@ try:
 except ImportError:
 	import re
 
-
-################################################################
-# lilylib.py -- options and stuff
-# 
-# source file of the GNU LilyPond music typesetter
+# Attempt to fix problems with limited stack size set by Python!
+# Sets unlimited stack size. Note that the resource module only
+# is available on UNIX.
+try:
+       import resource
+       resource.setrlimit (resource.RLIMIT_STACK, (-1, -1))
+except:
+       pass
 
 try:
 	import gettext
@@ -96,7 +101,7 @@ except:
 
 program_version = '@TOPLEVEL_VERSION@'
 if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
-	program_version = '1.5.17'
+	program_version = '1.5.54'
 
 def identify ():
 	sys.stdout.write ('%s (GNU LilyPond) %s\n' % (program_name, program_version))
@@ -259,18 +264,40 @@ def strip_extension (f, ext):
 		e = ''
 	return p + e
 
-################################################################
-# END Library
+
+def cp_to_dir (pattern, dir):
+	"Copy files matching re PATTERN from cwd to DIR"
+	# Duh.  Python style portable: cp *.EXT OUTDIR
+	# system ('cp *.%s %s' % (ext, outdir), 1)
+	files = filter (lambda x, p=pattern: re.match (p, x), os.listdir ('.'))
+	map (lambda x, d=dir: shutil.copy2 (x, os.path.join (d, x)), files)
 
 
+# Python < 1.5.2 compatibility
+#
+# On most platforms, this is equivalent to
+#`normpath(join(os.getcwd()), PATH)'.  *Added in Python version 1.5.2*
+if os.path.__dict__.has_key ('abspath'):
+	abspath = os.path.abspath
+else:
+	def abspath (path):
+		return os.path.normpath (os.path.join (os.getcwd (), path))
+
+if os.__dict__.has_key ('makedirs'):
+	makedirs = os.makedirs
+else:
+	def makedirs (dir, mode=0777):
+		system ('mkdir -p %s' % dir)
 
 
+def mkdir_p (dir, mode=0777):
+	if not os.path.isdir (dir):
+		makedirs (dir, mode)
 
 
 # if set, LILYPONDPREFIX must take prevalence
 # if datadir is not set, we're doing a build and LILYPONDPREFIX 
 datadir = '@datadir@'
-
 
 if os.environ.has_key ('LILYPONDPREFIX') :
 	datadir = os.environ['LILYPONDPREFIX']
@@ -281,6 +308,12 @@ else:
 while datadir[-1] == os.sep:
 	datadir= datadir[:-1]
 
+sys.path.insert (0, os.path.join (datadir, 'python'))
+
+################################################################
+# END Library
+
+
 program_name = 'ly2dvi'
 
 original_dir = os.getcwd ()
@@ -289,24 +322,6 @@ errorport = sys.stderr
 keep_temp_dir_p = 0
 verbose_p = 0
 preview_p = 0
-
-try:
-	import gettext
-	gettext.bindtextdomain ('lilypond', '@localedir@')
-	gettext.textdomain ('lilypond')
-	_ = gettext.gettext
-except:
-	def _ (s):
-		return s
-
-# Attempt to fix problems with limited stack size set by Python!
-# Sets unlimited stack size. Note that the resource module only
-# is available on UNIX.
-try:
-       import resource
-       resource.setrlimit (resource.RLIMIT_STACK, (-1, -1))
-except:
-       pass
 
 help_summary = _ ("Generate .dvi with LaTeX for LilyPond")
 
@@ -840,34 +855,6 @@ for opt in options:
 			warranty ()
 
 		sys.exit (0)
-
-
-def cp_to_dir (pattern, dir):
-	"Copy files matching re PATTERN from cwd to DIR"
-	# Duh.  Python style portable: cp *.EXT OUTDIR
-	# system ('cp *.%s %s' % (ext, outdir), 1)
-	files = filter (lambda x, p=pattern: re.match (p, x), os.listdir ('.'))
-	map (lambda x, d=dir: shutil.copy2 (x, os.path.join (d, x)), files)
-
-# Python < 1.5.2 compatibility
-#
-# On most platforms, this is equivalent to
-#`normpath(join(os.getcwd()), PATH)'.  *Added in Python version 1.5.2*
-if os.path.__dict__.has_key ('abspath'):
-	abspath = os.path.abspath
-else:
-	def abspath (path):
-		return os.path.normpath (os.path.join (os.getcwd (), path))
-
-if os.__dict__.has_key ('makedirs'):
-	makedirs = os.makedirs
-else:
-	def makedirs (dir, mode=0777):
-		system ('mkdir -p %s' % dir)
-
-def mkdir_p (dir, mode=0777):
-	if not os.path.isdir (dir):
-		makedirs (dir, mode)
 
 include_path = map (abspath, include_path)
 

@@ -1,10 +1,76 @@
-dnl WARNING WARNING WARNING WARNING
-dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
 dnl aclocal.m4   -*-shell-script-*-
 dnl StepMake subroutines for configure.in
 
-AC_DEFUN(AC_STEPMAKE_BIBTEX2HTML, [
-    AC_CHECK_PROGS(BIBTEX2HTML, bibtex2html bib2html, error)
+
+### mostly interal macros
+
+# Get full path of executable ($1)
+AC_DEFUN(STEPMAKE_GET_EXECUTABLE, [
+    type -p "$1" 2>&1 | awk '{print $NF}'
+])
+
+
+# Get version string from executable ($1)
+AC_DEFUN(STEPMAKE_GET_VERSION, [
+    "$1" --version 2>&1 | grep -v '^$' | head -1 | awk '{print $NF}'
+])
+
+# Calculate numeric version from version string ($1)
+AC_DEFUN(STEPMAKE_NUMERIC_VERSION, [
+    echo "$1" | awk -F. '
+    {
+      if ([$]3) {last = [$]3}
+      else {last =0}
+    }
+    {printf "%s%s%s\n",[$]1*100, [$]2*10,last}'
+])
+
+
+# Add item ($2) to list ($1, one of 'OPTIONAL', 'REQUIRED')
+AC_DEFUN(STEPMAKE_ADD_ENTRY, [
+    eval "$1"=\"`eval echo \"'$'$1\" \"$2\"`\"
+])
+
+# Check if tested program ($2) was found ($1).
+# If not, add etry to missing-list ($3, one of 'OPTIONAL', 'REQUIRED').
+# We could abort here if a 'REQUIRED' program is not found
+AC_DEFUN(STEPMAKE_OPTIONAL_REQUIRED, [
+    #if test "`eval echo '$'"$1"`" = "no"; then
+    STEPMAKE_CHECK_SEARCH_RESULT($1)
+    if test $? -ne 0; then
+	STEPMAKE_ADD_ENTRY($3, $2)
+	if test "$3" = "REQUIRED"; then
+	    command="echo ERROR: $2 not found"
+	    # abort configure process here?
+	else
+	    command="- echo $2 not found"
+	fi
+	eval "$1"='$command'
+	false
+    else
+	true
+    fi
+])
+
+
+# Return if tested proram ($1) was found (true) or not (false).
+AC_DEFUN(STEPMAKE_CHECK_SEARCH_RESULT, [
+    r="`eval echo '$'"$1"`"
+    if test -n "$r" -a "$r" != "error" -a "$r" != "no" && ! expr '`eval echo '$'"$1"`' : '.*\(echo\)' > /dev/null; then
+	##STEPMAKE_WARN(cannot find $2. $3)
+	false
+    else
+	true
+    fi
+])
+
+
+
+### Macros to build configure.in
+
+
+AC_DEFUN(STEPMAKE_BIBTEX2HTML, [
+    STEPMAKE_PROGS(BIBTEX2HTML, bibtex2html bib2html, $1)
     if test "$BIBTEX2HTML" = "bib2html"; then
 	BIBTEX2HTML_FLAGS='$< $(@)'
     else
@@ -15,11 +81,34 @@ AC_DEFUN(AC_STEPMAKE_BIBTEX2HTML, [
 ])
 
 
-AC_DEFUN(AC_STEPMAKE_COMPILE, [
+AC_DEFUN(STEPMAKE_BISON, [
+    # ugh, automake: we want (and check for) bison
+    AC_PROG_YACC
+    
+    STEPMAKE_PROGS(BISON, bison, $1)
+    
+    # urg.  should test functionality rather than version.
+    if test "$BISON" = "bison" -a -n "$2"; then
+#    if test $? -eq 0 -a -n "$2"; then
+        AC_MSG_CHECKING("bison version")
+        exe=`STEPMAKE_GET_EXECUTABLE(bison)`
+	ver=`STEPMAKE_GET_VERSION($exe)`
+	num=`STEPMAKE_NUMERIC_VERSION($ver)`
+	req=`STEPMAKE_NUMERIC_VERSION($2)`
+	AC_MSG_RESULT("$ver")
+	if test "$num" -lt "$req"; then
+	    STEPMAKE_ADD_ENTRY($1, "bison $2 (installed: $ver)")
+	fi
+    fi
+])
+    
+
+
+AC_DEFUN(STEPMAKE_COMPILE, [
     # -O is necessary to get inlining
-    CFLAGS=${CFLAGS:-""}
-    CXXFLAGS=${CXXFLAGS:-$CFLAGS}
-    LDFLAGS=${LDFLAGS:-""}
+    CFLAGS=${CFLAGS-""}
+    CXXFLAGS=${CXXFLAGS-$CFLAGS}
+    LDFLAGS=${LDFLAGS-""}
     checking_b=yes
     optimise_b=yes
     profile_b=no
@@ -64,11 +153,12 @@ AC_DEFUN(AC_STEPMAKE_COMPILE, [
 
 
     AC_PROG_CC
+    STEPMAKE_OPTIONAL_REQUIRED(CC, cc, $1)
     LD='$(CC)'
     AC_SUBST(LD)
 
     CFLAGS="$CFLAGS $OPTIMIZE"
-    CPPFLAGS=${CPPFLAGS:-""}
+    CPPFLAGS=${CPPFLAGS-""}
 
     AC_MSG_CHECKING([for IEEE-conformance compiler flags])
     save_cflags="$CFLAGS"
@@ -92,12 +182,13 @@ AC_DEFUN(AC_STEPMAKE_COMPILE, [
     AC_SUBST(EXTRA_LIBES)
 ])
 
-AC_DEFUN(AC_STEPMAKE_CXX, [
+AC_DEFUN(STEPMAKE_CXX, [
     AC_LANG_CPLUSPLUS
     AC_PROG_CXX
+    STEPMAKE_OPTIONAL_REQUIRED(CXX, c++, $1)
 
     AC_CHECK_HEADER(FlexLexer.h, true,
-	AC_STEPMAKE_WARN(can"\'"t find flex header. Please install Flex headers correctly))
+	STEPMAKE_WARN(cannot find flex header.  Please install Flex headers correctly))
 
     CPPFLAGS="$CPPFLAGS $DEFINES"
     CXXFLAGS="$CXXFLAGS $OPTIMIZE"
@@ -109,7 +200,8 @@ AC_DEFUN(AC_STEPMAKE_CXX, [
     AC_SUBST(LD)
 ])
 
-AC_DEFUN(AC_STEPMAKE_CXXTEMPLATE, [
+
+AC_DEFUN(STEPMAKE_CXXTEMPLATE, [
     AC_CACHE_CHECK([whether explicit instantiation is needed],
 	lily_cv_need_explicit_instantiation,
 	AC_TRY_LINK([
@@ -123,7 +215,8 @@ AC_DEFUN(AC_STEPMAKE_CXXTEMPLATE, [
     fi
 ])
 
-AC_DEFUN(AC_STEPMAKE_DATADIR, [
+
+AC_DEFUN(STEPMAKE_DATADIR, [
     if test "$datadir" = "\${prefix}/share"; then
 	    datadir='${prefix}/share/'$package
     fi
@@ -146,8 +239,34 @@ AC_DEFUN(AC_STEPMAKE_DATADIR, [
     AC_DEFINE_UNQUOTED(DIR_DATADIR, "${DIR_DATADIR}")
 ])
 
-AC_DEFUN(AC_STEPMAKE_END, [
+
+AC_DEFUN(STEPMAKE_END, [
+    AC_SUBST(OPTIONAL)
+    AC_SUBST(REQUIRED)
+    
     AC_OUTPUT($CONFIGFILE.make:config.make.in)
+
+    
+    if test -n "$OPTIONAL"; then
+	echo
+        echo "WARNING: Please consider installing optional programs: $OPTIONAL"
+    fi
+
+    if test -n "$REQUIRED"; then
+	echo
+        echo "ERROR: Please install required programs: $REQUIRED"
+    fi
+    
+    if test -n "$OPTIONAL$REQUIRED"; then
+	echo
+	echo "See INSTALL.txt for more information on how to build $PACKAGE_NAME"
+	echo "Remove config.cache before rerunning ./configure"
+    fi
+    
+    if test -n "$REQUIRED"; then
+	rm -f $srcdir/GNUmakefile
+        exit 1
+    fi
 
     # regular in-place build
     # test for srcdir_build = yes ?
@@ -162,24 +281,75 @@ AC_DEFUN(AC_STEPMAKE_END, [
     fi
 ])
 
-AC_DEFUN(AC_STEPMAKE_GXX, [
-    AC_MSG_CHECKING("g++ version")
-    cxx_version=`$CXX --version`
-    AC_MSG_RESULT("$cxx_version")
-    changequote(<<, >>)dnl
-    # urg, egcs: how to check for egcs >= 1.1?
-    if expr "$cxx_version" : '.*2\.[89]' > /dev/null ||
-	expr "$cxx_version" : '.*egcs' > /dev/null ||
-	expr "$cxx_version" : '3\.0' > /dev/null
-    changequote([, ])dnl
-    then
-	    true
-    else
-	    AC_STEPMAKE_WARN(can\'t find g++ 2.8, 2.9, 3.0 or egcs 1.1)
-    fi
+
+AC_DEFUN(STEPMAKE_FLEX, [
+    # ugh, automake: we want (and check for) flex
+    # AC_PROG_LEX
+    # urg: automake 1.3: hope this doesn't break 1.2 ac_cv_pro_lex_root hack...
+
+    # AC_DECL_YYTEXT
+    # ugh, ugh
+    ac_cv_prog_lex_root=lex.yy
+    STEPMAKE_PROGS(FLEX, flex, $1)
 ])
 
-AC_DEFUN(AC_STEPMAKE_GUILE, [
+
+
+AC_DEFUN(STEPMAKE_GETTEXT, [
+    DIR_LOCALEDIR=${localedir}
+    presome=${prefix}
+    if test "$prefix" = "NONE"; then
+	    presome=${ac_default_prefix}
+    fi
+    DIR_LOCALEDIR=`echo ${DIR_LOCALEDIR} | sed "s!\\\${prefix}!$presome!"`
+    AC_SUBST(localedir)
+    AC_SUBST(DIR_LOCALEDIR)
+    AC_DEFINE_UNQUOTED(DIR_LOCALEDIR, "${DIR_LOCALEDIR}")
+
+    AC_CHECK_LIB(intl, gettext)
+    AC_CHECK_FUNCS(gettext)
+])
+
+
+AC_DEFUN(STEPMAKE_GUILE, [
+    STEPMAKE_PATH_PROG(GUILE, guile, $1)
+])
+
+
+#   STEPMAKE_GUILE_FLAGS --- set flags for compiling and linking with Guile
+#
+#   This macro runs the guile-config script, installed with Guile,
+#   to find out where Guile's header files and libraries are
+#   installed.  It sets two variables, marked for substitution, as
+#   by AC_SUBST.
+#   
+#     GUILE_CFLAGS --- flags to pass to a C or C++ compiler to build
+#             code that uses Guile header files.  This is almost
+#             always just a -I flag.
+#   
+#     GUILE_LDFLAGS --- flags to pass to the linker to link a
+#             program against Guile.  This includes -lguile for
+#             the Guile library itself, any libraries that Guile
+#             itself requires (like -lqthreads), and so on.  It may
+#             also include a -L flag to tell the compiler where to
+#             find the libraries.
+
+AC_DEFUN([STEPMAKE_GUILE_FLAGS], [
+    exe=`STEPMAKE_GET_EXECUTABLE($guile_config)`
+    if test -x $exe; then
+	AC_MSG_CHECKING("guile compile flags")
+	GUILE_CFLAGS="`$guile_config compile`"
+	AC_MSG_RESULT($GUILE_CFLAGS)
+	AC_MSG_CHECKING("guile link flags")
+	GUILE_LDFLAGS="`$guile_config link`"
+	AC_MSG_RESULT($GUILE_LDFLAGS)
+    fi
+    AC_SUBST(GUILE_CFLAGS)
+    AC_SUBST(GUILE_LDFLAGS)
+])
+
+
+AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
     ## First, let's just see if we can find Guile at all.
     AC_MSG_CHECKING("for guile-config")
     for guile_config in guile-config $target-guile-config $build-guile-config; do
@@ -187,40 +357,67 @@ AC_DEFUN(AC_STEPMAKE_GUILE, [
 	if ! $guile_config --version > /dev/null 2>&1 ; then
 	    AC_MSG_WARN("cannot execute $guile_config")
 	    AC_MSG_CHECKING("if we are cross compiling")
-	    guile_config=error
+	    GUILE_CONFIG='echo no guile-config'
 	else
+	    GUILE_CONFIG=$guile_config
 	    break
 	fi
     done
-    if test "$guile_config" = "error"; then
-	AC_MSG_ERROR("cannot find guile-config; is Guile installed?")
-	exit 1
+    STEPMAKE_OPTIONAL_REQUIRED(GUILE_CONFIG, $guile_config, $1)
+    #if expr "$GUILE_CONFIG" : '.*\(echo\)' >/dev/null; then
+    if test $? -ne 0; then
+        STEPMAKE_ADD_ENTRY($1, 'guile-config (guile-devel, guile-dev or libguile-dev package)')
+    fi 
+
+    STEPMAKE_CHECK_SEARCH_RESULT(GUILE_CONFIG)
+    # urg.  should test functionality rather than version.
+    if test $? -eq 0 -a -n "$2"; then
+	AC_MSG_CHECKING("guile-config version")
+        exe=`STEPMAKE_GET_EXECUTABLE($guile_config)`
+	ver=`STEPMAKE_GET_VERSION($exe)`
+	set --
+	num=`STEPMAKE_NUMERIC_VERSION($ver)`
+	req=`STEPMAKE_NUMERIC_VERSION($2)`
+	AC_MSG_RESULT("$ver")
+	if test "$num" -lt "$req"; then
+	    STEPMAKE_ADD_ENTRY($1, "guile-config $2 (installed: $ver)")
+	fi
     fi
-    AC_MSG_CHECKING("Guile version")
-    need_guile_version="1.3.4"
-    need_guile_version_numeric=100304
-    guile_version=`$guile_config --version 2>&1 | awk '{print $NF}'`
-    guile_version_numeric=`echo $guile_version | awk -F. '
-{if ([$]3) {last = [$]3}
-else {last =0}}
-{printf "%s%s%s\n",[$]1*100, [$]2*10,last}'`
-    AC_MSG_RESULT("$guile_version")
-    if test $guile_version_numeric -lt $need_guile_version_numeric
-    then
-        AC_STEPMAKE_WARN("Guile version "$need_guile_version" or newer is needed")
-    fi
+
+    AC_SUBST(GUILE_CONFIG)
+    
+    guile_version="$ver"
     changequote(<<, >>)dnl
     GUILE_MAJOR_VERSION=`expr $guile_version : '\([0-9]*\)'`
     GUILE_MINOR_VERSION=`expr $guile_version : '[0-9]*\.\([0-9]*\)'`
     changequote([, ])dnl
-    GUILE_FLAGS
-    AC_PATH_PROG(GUILE, guile, error)
-    AC_SUBST(GUILE)
+    STEPMAKE_GUILE_FLAGS
     AC_DEFINE_UNQUOTED(GUILE_MAJOR_VERSION, $GUILE_MAJOR_VERSION)
     AC_DEFINE_UNQUOTED(GUILE_MINOR_VERSION, $GUILE_MINOR_VERSION)
 ])
 
-AC_DEFUN(AC_STEPMAKE_INIT, [
+
+AC_DEFUN(STEPMAKE_GXX, [
+    AC_MSG_CHECKING("g++ version")
+    cxx_version=`$CXX --version`
+    AC_MSG_RESULT("$cxx_version")
+    changequote(<<, >>)dnl
+    # urg, egcs: how to check for egcs >= 1.1?
+    if expr "$cxx_version" : '.*2\.[89]' > /dev/null ||
+	expr "$cxx_version" : '.*egcs' > /dev/null ||
+	expr "$cxx_version" : '3\.[0-9]' > /dev/null
+    changequote([, ])dnl
+    then
+	    true
+    else
+	STEPMAKE_WARN(cannot find g++ 2.8, 2.9, 3.x or egcs 1.1)
+        STEPMAKE_ADD_ENTRY($1, 'g++ >= 2.95 (gcc package)')
+    fi
+])
+
+
+
+AC_DEFUN(STEPMAKE_INIT, [
 
     . $srcdir/VERSION
     FULL_VERSION=$MAJOR_VERSION.$MINOR_VERSION.$PATCH_LEVEL
@@ -286,7 +483,7 @@ AC_DEFUN(AC_STEPMAKE_INIT, [
 	AC_MSG_RESULT($builddir)
 	if expr "$srcdir" : '/' > /dev/null 2>&1; then
 	    absolute_srcdir=yes
-	    AC_STEPMAKE_WARN(Absolute --srcdir specified: $srcdir)
+	    STEPMAKE_WARN(Absolute --srcdir specified: $srcdir)
 	fi
 
 	AC_MSG_CHECKING(for stepmake)
@@ -341,25 +538,21 @@ AC_DEFUN(AC_STEPMAKE_INIT, [
                             do \`make conf=CONF' to get output in ./out-CONF],
     [CONFIGURATION=$enableval])
 
+    ##'
+
     test -n "$CONFIGURATION" && CONFIGSUFFIX="-$CONFIGURATION"
     CONFIGFILE=config$CONFIGSUFFIX
     AC_SUBST(CONFIGSUFFIX)
      
     AC_CANONICAL_HOST
-    AC_CHECK_PROGS(MAKE, gmake make, error)
-    AC_CHECK_PROGS(FIND, find, error)
+    STEPMAKE_PROGS(MAKE, gmake make, REQUIRED)
+    STEPMAKE_PROGS(FIND, find, REQUIRED)
 
-dnl system supplied INSTALL is unsafe; use our own install.
-dnl    AC_PROG_INSTALL
-dnl    if test "$INSTALL" = "bin/install-sh"; then
-dnl	export INSTALL="\$\(depth\)/bin/install-sh"
-dnl    fi
-
-    AC_CHECK_PROGS(TAR, tar, error)
+    STEPMAKE_PROGS(TAR, tar, REQUIRED)
 
     if test "x`uname`" = "xHP-UX"; then
 	AC_PATH_PROG(BASH, bash, /bin/sh)
-	AC_STEPMAKE_WARN(avoiding buggy /bin/sh)
+	STEPMAKE_WARN(avoiding buggy /bin/sh)
 	AC_PATH_PROG(SHELL, bash, /bin/ksh)
     else
 	AC_PATH_PROG(BASH, bash, /bin/sh)
@@ -367,49 +560,22 @@ dnl    fi
 	AC_SUBST(SHELL)
     fi
 
+    STEPMAKE_PATH_PROG(PYTHON, python, REQUIRED)
 
-    AC_PATH_PROG(PYTHON, ${PYTHON:-python}, -echo no python)
-    AC_SUBST(PYTHON)
-
-    if test $MAKE != "error" ; then
-	$MAKE -v 2> /dev/null | grep GNU > /dev/null
-	if test "$?" = 1
-	then
-		AC_STEPMAKE_WARN(Please install *GNU* make) 
-	fi
+    if expr "$MAKE" : '.*\(echo\)' >/dev/null; then
+ 	$MAKE -v 2> /dev/null | grep GNU > /dev/null
+	if test "$?" = 1; then
+	    warn='make (Please install *GNU* make)'
+	    STEPMAKE_WARN($warn)
+	    STEPMAKE_ADD_ENTRY(REQUIRED, $warn)
+        fi
     fi 
 
-    AC_CHECK_SEARCH_RESULT($PYTHON, python, You should install Python)
-
-    if test "x$OSTYPE" = "xcygwin32" || test "x$OSTYPE" = "xWindows_NT"; then
+    if test "$OSTYPE" = "cygwin" -o "$OSTYPE" = "Windows_NT"; then
 	LN=cp # hard link does not work under cygnus-nt
 	LN_S='cp -r' # symbolic link does not work for native nt
 	ZIP="zip -r -9" #
 	program_suffix=.exe
-	# urg
-	# ROOTSEP=':'
-        # DIRSEP='\\'
- 	# PATHSEP=';'
-	#
-	# cygwin fixes all these things.  
-	# it seems these were used because of dos-style TEXINPUTS and
-	# MFINPUTS needed for miktex.
-	# but this breaks parsing of all other cygwin/unix style paths.
-	#
-	# if your (mik)tex breaks, make a:
-	#    /usr/local/bin/tex:
-	#    #!/bin/sh
-	#    TEXINPUTS=`cygpath -pw $TEXINPUTS` /texmf/miktex/bin/tex $*
-	#
-	# and
-	#
-	#    /usr/local/bin/mf:
-	#    #!/bin/sh
-	#    MFINPUTS=`cygpath -pw $MFINPUTS` /texmf/miktex/bin/mf $*
-	#
-	# this way, you may have buildscripts/out/lilypond-profile 
-	# 'automatically' sourced from /usr/etc/profile.d/ too.
-	#
  	ROOTSEP=':'
         DIRSEP='/'
  	PATHSEP=':'
@@ -434,10 +600,11 @@ dnl    fi
     AC_SUBST(PATHSEP)
     AC_SUBST(DIRSEP)
   
-    AC_STEPMAKE_DATADIR
+    STEPMAKE_DATADIR
 ])
 
-AC_DEFUN(AC_STEPMAKE_KPATHSEA, [
+
+AC_DEFUN(STEPMAKE_KPATHSEA, [
 
     kpathsea_b=yes
     #FIXME --with-xxx is meant for specifying a PATH too,
@@ -465,44 +632,15 @@ AC_DEFUN(AC_STEPMAKE_KPATHSEA, [
     AC_DEFINE_UNQUOTED(KPATHSEA, $KPATHSEA)
 ])
 
-AC_DEFUN(AC_STEPMAKE_LEXYACC, [
-    # ugh, automake: we want (and check for) bison
-    AC_PROG_YACC
-    # ugh, automake: we want (and check for) flex
-    # AC_PROG_LEX
-    # urg: automake 1.3: hope this doesn't break 1.2 ac_cv_pro_lex_root hack...
 
-    # AC_DECL_YYTEXT
-    # ugh, ugh
-    ac_cv_prog_lex_root=lex.yy
-
-    AC_CHECK_PROGS(BISON, bison, error)
-    AC_CHECK_PROGS(FLEX, flex, error)
-    AC_CHECK_SEARCH_RESULT($BISON, bison,  Please install Bison, 1.25 or newer)
-    AC_CHECK_SEARCH_RESULT($FLEX,  flex, Please install Flex, 2.5 or newer)
-
-
-## Urg. We should fix this configure test. -- so clumsy
-    if test $BISON != "error"; then
-	bison_version=`$BISON --version | head -1 | sed 's/^.* 1\.//g'`
-	if test $bison_version -lt 25; then
-	    AC_STEPMAKE_WARN(The bison installed might be too old (1.$bison_version). You might have to install 1.25)
-	fi	
-    fi
-
-    AC_SUBST(BISON)
-    AC_SUBST(FLEX)
-])
-
-AC_DEFUN(AC_STEPMAKE_LIB, [
-    AC_CHECK_PROGS(AR, ar, error)
+AC_DEFUN(STEPMAKE_LIB, [
+    STEPMAKE_PROGS(AR, ar, $1)
     AC_PROG_RANLIB
-
-    AC_SUBST(AR)
-    AC_SUBST(RANLIB)
+    STEPMAKE_OPTIONAL_REQUIRED(RANLIB, ranlib, $1)
 ])
 
-AC_DEFUN(AC_STEPMAKE_LIBTOOL, [
+
+AC_DEFUN(STEPMAKE_LIBTOOL, [
     # libtool.info ...
     # **Never** try to set library version numbers so that they correspond
     # to the release number of your package.  This is an abuse that only
@@ -518,7 +656,8 @@ AC_DEFUN(AC_STEPMAKE_LIBTOOL, [
     AC_SUBST(AGE)
 ])
 
-AC_DEFUN(AC_STEPMAKE_LOCALE, [
+
+AC_DEFUN(STEPMAKE_LOCALE, [
     lang=English
     ALL_LINGUAS="en nl"
 
@@ -548,29 +687,15 @@ AC_DEFUN(AC_STEPMAKE_LOCALE, [
     AC_MSG_RESULT($lang)
 
     if test "$lang" = "unknown" ; then
-	AC_STEPMAKE_WARN($language not supported; available are: $ALL_LINGUAS)
+	STEPMAKE_WARN($language not supported; available are: $ALL_LINGUAS)
     fi
 
 ])
 
-AC_DEFUN(AC_STEPMAKE_GETTEXT, [
-    DIR_LOCALEDIR=${localedir}
-    presome=${prefix}
-    if test "$prefix" = "NONE"; then
-	    presome=${ac_default_prefix}
-    fi
-    DIR_LOCALEDIR=`echo ${DIR_LOCALEDIR} | sed "s!\\\${prefix}!$presome!"`
-    AC_SUBST(localedir)
-    AC_SUBST(DIR_LOCALEDIR)
-    AC_DEFINE_UNQUOTED(DIR_LOCALEDIR, "${DIR_LOCALEDIR}")
 
-    AC_CHECK_LIB(intl, gettext)
-    AC_CHECK_FUNCS(gettext)
-])
-
-AC_DEFUN(AC_STEPMAKE_MAKEINFO, [
-    AC_CHECK_PROGS(MAKEINFO, makeinfo, error)
-    if test "$MAKEINFO" != "error"; then
+AC_DEFUN(STEPMAKE_MAKEINFO, [
+    STEPMAKE_PROGS(MAKEINFO, makeinfo, $1)
+    if test "$MAKEINFO" = "makeinfo"; then
 	AC_MSG_CHECKING(whether makeinfo can split html by @node)
 	mkdir -p out
 	makeinfo --html --output=out/split <<EOF
@@ -586,7 +711,7 @@ EOF
 	    rm -rf out/split
 	else
 	    AC_MSG_RESULT(no)
-	    AC_STEPMAKE_WARN(your html documentation will be one large file)
+	    STEPMAKE_WARN(your html documentation will be one large file)
 	    rm -rf out/split
 	fi
     fi
@@ -594,74 +719,64 @@ EOF
 ])
 
 
-AC_DEFUN(AC_STEPMAKE_MAN, [
-    AC_CHECK_PROGS(GROFF, groff ditroff, -echo no groff)
-    AC_CHECK_PROGS(TROFF, troff, -echo no troff)
-    AC_CHECK_PROGS(TBL, tbl, cat)
+
+AC_DEFUN(STEPMAKE_MAN, [
+    STEPMAKE_PROGS(GROFF, groff ditroff, $1)
+    AC_SUBST(GROFF)
+    STEPMAKE_PROGS(TROFF, troff, $1)
+    AC_SUBST(TROFF)
+    STEPMAKE_PROGS(TBL, tbl, $1)
+    AC_SUBST(TBL)
 ])
 
-AC_DEFUN(AC_STEPMAKE_MSGFMT, [
-    # AC_CHECK_PROGS(MSGFMT, msgfmt, -echo no msgfmt)
-    AC_CHECK_PROGS(MSGFMT, msgfmt, \$(SHELL) \$(step-bindir)/fake-msgfmt.sh )
-    AC_MSG_CHECKING(whether msgfmt accepts -o)
-    msgfmt_output="`msgfmt -o bla 2>&1 | grep usage`"
-    if test "$msgfmt_output" = ""; then
-	AC_MSG_RESULT(yes)
-    else
-	# urg
-	MSGFMT="\$(SHELL) \$(step-bindir)/fake-msgfmt.sh"
-	AC_MSG_RESULT(no)
-	AC_STEPMAKE_WARN(please install msgfmt from GNU gettext)
-    fi
-    if test ! -n "$MSGFMT"; then
-	AC_STEPMAKE_WARN(please install msgfmt from GNU gettext)
+
+AC_DEFUN(STEPMAKE_MSGFMT, [
+    STEPMAKE_PROGS(MSGFMT, msgfmt, $1)
+])
+
+
+# Check for program ($2), set full path result to ($1).
+# If missing, add entry to missing-list ($3, one of 'OPTIONAL', 'REQUIRED')
+AC_DEFUN(STEPMAKE_PATH_PROG, [
+    AC_CHECK_PROGS($1, $2, no)
+    STEPMAKE_OPTIONAL_REQUIRED($1, $2, $3)
+#    if ! expr '`eval echo '$'"$1"`' : '.*\(echo\)' > /dev/null; then
+    if test $? -ne 0; then
+	AC_PATH_PROG($1, $2)
     fi
 ])
 
-#why has this been dropped?
-AC_DEFUN(XXAC_STEPMAKE_TEXMF_DIRS, [
-    AC_ARG_ENABLE(tex-prefix,
-    [  --enable-tex-prefix=DIR   set the tex-directory to find TeX
-                               subdirectories.  Default: PREFIX],
-    [TEXPREFIX=$enableval],
-    [TEXPREFIX=auto] )
-    
-    AC_ARG_ENABLE(tex-dir,
-    [  --enable-tex-dir=DIR      set the directory to put $PACKAGE_NAME TeX files in. ],
-    [TEXDIR=$enableval],
-    [TEXDIR=auto] )
 
-    AC_ARG_ENABLE(mf-dir,
-    [  --enable-mf-dir=DIR       set the directory to put $PACKAGE_NAME MetaFont files in. ],
-    [MFDIR=$enableval],
-    [MFDIR=auto])
-
-    if test "x$TEXPREFIX" = xauto ; then
-	AC_TEX_PREFIX(TEXPREFIX)
-    else
-     find_texprefix=$TEXPREFIX
-    fi
-
-    if test "x$MFDIR" = xauto; then
-	AC_MF_SUBDIR(MFDIR)
-    fi
-	
-    if test "x$TEXDIR" = xauto ; then
-	AC_TEX_SUBDIR(TEXDIR)
-    fi
-    AC_SUBST(TEXPREFIX)
-    AC_SUBST(TEXDIR)
-    AC_SUBST(MFDIR)
+# Check for program in set of names ($2), set result to ($1) .
+# If missing, add entry to missing-list ($3, one of 'OPTIONAL', 'REQUIRED')
+AC_DEFUN(STEPMAKE_PROGS, [
+    AC_CHECK_PROGS($1, $2, no)
+    STEPMAKE_OPTIONAL_REQUIRED($1, $2, $3)
 ])
 
-AC_DEFUN(AC_STEPMAKE_TEXMF_DIRS, [
+
+AC_DEFUN(STEPMAKE_PERL, [
+    STEPMAKE_PATH_PROG(PERL, perl, $1)
+])
+
+
+AC_DEFUN(STEPMAKE_PYTHON_DEVEL, [
+    AC_HAVE_HEADERS(python2.2/Python.h python2.1/Python.h python2.0/Python.h python2/Python.h python/Python.h python1.5/Python.h Python.h)
+    if test $? -ne 0; then
+	STEPMAKE_ADD_ENTRY($1, 'python.h (python-devel, python-dev or libpython-dev package)')
+    fi
+])
+
+
+AC_DEFUN(STEPMAKE_TEXMF_DIRS, [
     AC_ARG_ENABLE(tfm-path,
     [  --enable-tfm-path=PATH  set path of tex directories where tfm files live,
                             esp.: cmr10.tfm.  Default: use kpsewhich],
     [tfm_path=$enableval],
     [tfm_path=auto] )
 
-    AC_CHECK_PROGS(KPSEWHICH, kpsewhich, no)
+    # ugh
+    STEPMAKE_PROGS(KPSEWHICH, kpsewhich, OPTIONAL)
     AC_MSG_CHECKING(for tfm path)
 
     TFM_FONTS="cmr msam"
@@ -673,7 +788,7 @@ AC_DEFUN(AC_STEPMAKE_TEXMF_DIRS, [
 		TFM_PATH="$TFM_PATH `dirname $dir`"
 	    done
 	else
-	    AC_STEPMAKE_WARN(Please specify where cmr10.tfm lives:
+	    STEPMAKE_WARN(Please specify where cmr10.tfm lives:
     ./configure --enable-tfm-path=/usr/local/TeX/lib/tex/fonts)
 	fi
     else
@@ -685,20 +800,12 @@ AC_DEFUN(AC_STEPMAKE_TEXMF_DIRS, [
     AC_SUBST(TFM_PATH)
 ])
 
-AC_DEFUN(AC_STEPMAKE_TEXMF, [
+
+AC_DEFUN(STEPMAKE_TEXMF, [
     # urg, never know what names these teTeX guys will think up
 
-    AC_CHECK_PROGS(METAFONT, mf, no)
-    if test "x$METAFONT" = "xno"; then
-	AC_CHECK_PROGS(MFONT, mfont, -echo no mf or mfont)
-	METAFONT=$MFONT
-    fi
-
-    AC_CHECK_PROGS(INIMETAFONT, inimf, no)
-    if test "x$INIMETAFONT" = "xno"; then
-	AC_CHECK_PROGS(INIMFONT, inimfont, -echo no inimf or inimfont)
-	INIMETAFONT=$INIMFONT
-    fi
+    STEPMAKE_PROGS(METAFONT, mf mfont, $1)
+    STEPMAKE_PROGS(INIMETAFONT, inimf inimfont, $1)
 
     AC_MSG_CHECKING(for working metafont mode)
     modelist='ljfour lj4 lj3 lj2 ljet laserjet'
@@ -712,505 +819,13 @@ AC_DEFUN(AC_STEPMAKE_TEXMF, [
 
     rm -f mfput.*
 
-    AC_SUBST(METAFONT)
     AC_SUBST(MFMODE)
-    AC_SUBST(INIMETAFONT)
 ])
 
-AC_DEFUN(AC_STEPMAKE_WARN, [
+
+AC_DEFUN(STEPMAKE_WARN, [
     AC_MSG_WARN($1)
     warn_b=yes
 ])
 
-AC_DEFUN(AC_STEPMAKE_YODL, [
-    if test "x$YODL" = "x"; then 
-	AC_CHECK_PROGS(STRIPROFF, striproff, -echo no striproff)
-	AC_CHECK_PROGS(YODL, yodl, -echo no yodl)
-	AC_CHECK_PROGS(YODL2HTML, yodl2html, -echo no yodl)
-	AC_CHECK_PROGS(YODL2LATEX, yodl2latex, )
-	AC_CHECK_PROGS(YODL2MAN, yodl2man, -echo no yodl)
-	AC_CHECK_PROGS(YODL2MSLESS, yodl2msless, -echo no yodl)
-	AC_CHECK_PROGS(YODL2TEXINFO, yodl2texinfo, -echo no yodl)
-	AC_CHECK_PROGS(YODL2TXT, yodl2txt, -echo no yodl)
-	YODL2LESS_DIR='$(bindir)/'
-    else
-	AC_SUBST(STRIPROFF)
-	AC_SUBST(YODL)
-	AC_SUBST(YODL2HTML)
-	AC_SUBST(YODL2LATEX)
-	AC_SUBST(YODL2LESS_DIR)
-	AC_SUBST(YODL2MAN)
-	AC_SUBST(YODL2MSLESS)
-	AC_SUBST(YODL2TEXINFO)
-	AC_SUBST(YODL2TXT)
-	export STRIPROFF YODL YODL2HTML YODL2LATEX YODL2MAN YODL2MSLESS YODL2TEXINFO YODL2TXT
-    fi
-    if test "x$YODL" = "-echo no yodl"; then
-	AC_STEPMAKE_WARN(Did not find YODL (Yodl is Yet Oneother Document Language, see http://www.cs.uu.nl/~hanwen/yodl))
-    fi    
-])
 
-dnl should cache result.
-dnl should  look in $prefix first.
-dnl should probably assume TDS
-
-AC_DEFUN(AC_TEX_PREFIX, [
-    
-
-    AC_MSG_CHECKING(TeX/MF root dir directory)    
-
-    find_root_prefix="$prefix"
-    
-
-    test "x$find_root_prefix" = xNONE && find_root_prefix="$ac_default_prefix"
-    find_texpostfix="";
-    for postfix in "/lib/tex/" "/lib/texmf" "/lib" "/tex" "/texmf"; do
-	find_texprefix="$find_root_prefix$postfix"
-	if test -d $find_texprefix; then
-	    find_texpostfix=$postfix
-	    break;
-	fi
-    done
-    
-    if test "x$find_texpostfix" = x; then
-	find_texpostfix='/lib/texmf/tex'
-	AC_STEPMAKE_WARN(Cannot determine the TeX-directory.  Please use --enable-tex-prefix)
-    fi
-
-    find_texprefix="$find_root_prefix/$find_texpostfix"
-
-    # only assign if variablename not empty
-    if test x != "x[$]$1"; then
-    	$1='${prefix}'/"$find_texpostfix"
-    fi
-    AC_MSG_RESULT($find_texprefix)
-
-])
- 
-
-# find a directory inside a prefix, 
-# $1 the prefix (expanded version)
-# $2 variable to assign
-# $3 the directory name 
-# $4 description
-AC_DEFUN(AC_FIND_DIR_IN_PREFIX, [
-    
-    AC_MSG_CHECKING($4 directory)    
-    find_dirdir=`(cd $1; 
-      $FIND ./ -type d -a -name $3 -print |sort|head -1|sed 's#^\./##')`
-    
-
-    if test "x$find_dirdir" = x; then
-       find_dirdir="/$3";
-       AC_STEPMAKE_WARN(Cannot determine $4 subdirectory.  Please set from command-line)
-	true
-    fi
-    $2=$find_dirdir
-    AC_MSG_RESULT($1/$find_dirdir)
-])
-
-# ugh.  this is hopeless
-AC_DEFUN(AC_KPSE_TEX_DIR, [
-	kpse_paths=`(kpsepath -n latex tex; kpsepath -n tex tex) | sed 's/:/ /g' | tr ' ' '\012' |sort | uniq -d`
-	kpse_syspaths=`echo $kpse_paths | grep '!'| sed 's/!//g'`
-	echo $kpse_paths
-	if test -w "$kpse_syspaths";
-	then
-		dir=`echo $kpse_syspaths | head -1`
-	else
-		dir=`echo $kpse_paths | grep -v '!'| head -1`
-	fi
-	if test "$prefix" = "NONE"; then
-		local_prefix=$ac_default_prefix
-		local_prefix_quote='${prefix}'
-
-	else
-		local_prefix=$prefix
-		local_prefix_quote=$prefix
-	fi
-	echo $local_prefix_quote = $local_prefix
-	echo $dir
-	echo $dir  | sed 's!'$local_prefix'!\$local_prefix_quote!g'
-])
-
-AC_DEFUN(AC_TEX_SUBDIR, [
-dnl    AC_REQUIRE([AC_TEX_PREFIX])
-    AC_FIND_DIR_IN_PREFIX($find_texprefix, $1, tex,TeX input)
-    $1="$TEXPREFIX/$$1"
-])
-
-AC_DEFUN(AC_MF_SUBDIR, [
-dnl     AC_REQUIRE([AC_TEX_PREFIX])
-    AC_FIND_DIR_IN_PREFIX($find_texprefix, $1, source, MF input)
-    $1="$TEXPREFIX/$$1"
-])
-
-AC_DEFUN(AC_CHECK_SEARCH_RESULT, [
-	result="`echo \"$1\" | grep echo`"
-	if test "x$1" = "xerror" -o "x$result" != "x"; then
-		AC_STEPMAKE_WARN(can\'t find $2. $3)
-	fi
-])
-
-dnl   GUILE_FLAGS --- set flags for compiling and linking with Guile
-dnl
-dnl   This macro runs the `guile-config' script, installed with Guile,
-dnl   to find out where Guile's header files and libraries are
-dnl   installed.  It sets two variables, marked for substitution, as
-dnl   by AC_SUBST.
-dnl   
-dnl     GUILE_CFLAGS --- flags to pass to a C or C++ compiler to build
-dnl             code that uses Guile header files.  This is almost
-dnl             always just a -I flag.
-dnl   
-dnl     GUILE_LDFLAGS --- flags to pass to the linker to link a
-dnl             program against Guile.  This includes `-lguile' for
-dnl             the Guile library itself, any libraries that Guile
-dnl             itself requires (like -lqthreads), and so on.  It may
-dnl             also include a -L flag to tell the compiler where to
-dnl             find the libraries.
-
-AC_DEFUN([GUILE_FLAGS],[
-## The GUILE_FLAGS macro.
-  AC_MSG_CHECKING(for Guile)
-  if ! $guile_config link > /dev/null ; then
-      AC_MSG_RESULT("cannot execute $guile_config")
-      AC_MSG_ERROR("cannot find guile-config; is Guile installed?")
-      exit 1
-  fi
-  GUILE_CFLAGS="`$guile_config compile`"
-  GUILE_LDFLAGS="`$guile_config link`"
-  AC_SUBST(GUILE_CFLAGS)
-  AC_SUBST(GUILE_LDFLAGS)
-  AC_MSG_RESULT(yes)
-])
-
-
-# Configure paths for GTK+
-# Owen Taylor     97-11-3
-
-dnl AM_PATH_GTK([MINIMUM-VERSION, [ACTION-IF-FOUND [, ACTION-IF-NOT-FOUND]]])
-dnl Test for GTK, and define GTK_CFLAGS and GTK_LIBS
-dnl
-AC_DEFUN(AM_PATH_GTK,
-[dnl 
-dnl Get the cflags and libraries from the gtk-config script
-dnl
-  AC_PATH_PROG(GTK_CONFIG, gtk-config, no)
-  min_gtk_version=ifelse([$1], ,1.1.1,$1)
-  AC_MSG_CHECKING(for GTK - version >= $min_gtk_version)
-  no_gtk=""
-  if test "$GTK_CONFIG" != "no" ; then
-    GTK_CFLAGS=`$GTK_CONFIG --cflags`
-    GTK_LIBS=`$GTK_CONFIG --libs`
-    ac_save_CFLAGS="$CFLAGS"
-    ac_save_LIBS="$LIBS"
-    ac_save_CXXFLAGS="$CXXFLAGS"
-    CFLAGS="$CFLAGS $GTK_CFLAGS"
-    CXXFLAGS="$CXXFLAGS $GTK_CFLAGS"
-    LIBS="$LIBS $GTK_LIBS"
-dnl
-dnl Now check if the installed GTK is sufficiently new. (Also sanity
-dnl checks the results of gtk-config to some extent)
-dnl
-    AC_TRY_RUN([
-#include <gtk/gtk.h>
-#include <stdio.h>
-
-int 
-main ()
-{
-  int major, minor, micro;
-
-  if (sscanf("$min_gtk_version", "%d.%d.%d", &major, &minor, &micro) != 3) {
-     printf("%s, bad version string\n", "$min_gtk_version");
-     exit(1);
-   }
-
-   return !((gtk_major_version > major) ||
-   	    ((gtk_major_version == major) && (gtk_minor_version > minor)) ||
- 	    ((gtk_major_version == major) && (gtk_minor_version == minor) && (gtk_micro_version >= micro)));
-}
-],, no_gtk=yes,[echo $ac_n "cross compiling; assumed OK... $ac_c"])
-     CFLAGS="$ac_save_CFLAGS"
-     CXXFLAGS="$ac_save_CXXFLAGS"
-     LIBS="$ac_save_LIBS"
-  else
-     no_gtk=yes
-  fi
-  if test "x$no_gtk" = x ; then
-     AC_MSG_RESULT(yes)
-     ifelse([$2], , :, [$2])     
-  else
-     AC_MSG_RESULT(no)
-     GTK_CFLAGS=""
-     GTK_LIBS=""
-     ifelse([$3], , :, [$3])
-  fi
-  CXXFLAGS="$CXXFLAGS $GTK_CFLAGS"
-  AC_SUBST(CXXFLAGS)
-  AC_SUBST(GTK_CFLAGS)
-  AC_SUBST(GTK_LIBS)
-])
-
-
-# Configure paths for GTK--
-# Erik Andersen	30 May 1998
-# Modified by Tero Pulkkinen (added the compiler checks... I hope they work..)
-
-dnl Test for GTK__, and define GTK___CFLAGS and GTK___LIBS
-dnl   to be used as follows:
-dnl AM_PATH_GTKMM([MINIMUM-VERSION, [ACTION-IF-FOUND [, ACTION-IF-NOT-FOUND]]])
-dnl
-
-dnl Get the cflags and libraries from the gtkmm-config script
-dnl
-AC_ARG_WITH(gtkmm-prefix,[  --with-gtkmm-prefix=PREFIX
-                          Prefix where GTK-- is installed (optional)],
-            gtkmm_config_prefix="$withval", gtkmm_config_prefix="")
-AC_ARG_WITH(gtkmm-exec-prefix,[  --with-gtkmm-exec-prefix=PREFIX
-                          Exec prefix where GTK-- is installed (optional)],
-            gtkmm_config_exec_prefix="$withval", gtkmm_config_exec_prefix="")
-AC_ARG_ENABLE(gtkmmtest, [  --disable-gtkmmtest     Do not try to compile and run a test GTK-- program],
-		    , enable_gtkmmtest=yes)
-
-  if test x$gtkmm_config_exec_prefix != x ; then
-     gtkmm_config_args="$gtkmm_config_args --exec-prefix=$gtkmm_config_exec_prefix"
-     if test x${GTKMM_CONFIG+set} != xset ; then
-        GTKMM_CONFIG=$gtkmm_config_exec_prefix/bin/gtkmm-config
-     fi
-  fi
-  if test x$gtkmm_config_prefix != x ; then
-     gtkmm_config_args="$gtkmm_config_args --prefix=$gtkmm_config_prefix"
-     if test x${GTKMM_CONFIG+set} != xset ; then
-        GTKMM_CONFIG=$gtkmm_config_prefix/bin/gtkmm-config
-     fi
-  fi
-
-
-AC_DEFUN(AM_PATH_GTKMM,
-[dnl 
-
-dnl
-dnl Check if the installed GTK-- is sufficiently new.
-dnl
-  AC_PATH_PROG(GTKMM_CONFIG, gtkmm-config, no)
-  min_gtkmm_version=ifelse([$1], ,0.9.14,$1)
-
-  AC_MSG_CHECKING(for GTK-- - version >= $min_gtkmm_version)
-  no_gtkmm=""
-  if test "$GTKMM_CONFIG" = "no" ; then
-    no_gtkmm=yes
-  else
-    AC_LANG_SAVE
-    AC_LANG_CPLUSPLUS
-
-    GTK___CFLAGS=`$GTKMM_CONFIG $gtkmm_config_args --cflags`
-    GTK___LIBS=`$GTKMM_CONFIG $gtkmm_config_args --libs`
-    gtkmm_config_major_version=`$GTKMM_CONFIG $gtkmm_config_args --version | \
-           sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\1/'`
-    gtkmm_config_minor_version=`$GTKMM_CONFIG $gtkmm_config_args --version | \
-           sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\2/'`
-    gtkmm_config_micro_version=`$GTKMM_CONFIG $gtkmm_config_args --version | \
-           sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\3/'`
-    if test "x$enable_gtkmmtest" = "xyes" ; then
-      ac_save_CXXFLAGS="$CXXFLAGS"
-      ac_save_LIBS="$LIBS"
-      CXXFLAGS="$CXXFLAGS $GTK___CFLAGS"
-      LIBS="$LIBS $GTK___LIBS"
-dnl
-dnl Now check if the installed GTK-- is sufficiently new. (Also sanity
-dnl checks the results of gtkmm-config to some extent
-dnl
-      rm -f conf.gtkmmtest
-      AC_TRY_RUN([
-#include <gtk--.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-int 
-main ()
-{
-  int major, minor, micro;
-  char *tmp_version;
-
-  system ("touch conf.gtkmmtest");
-
-  /* HP/UX 0 (%@#!) writes to sscanf strings */
-  tmp_version = g_strdup("$min_gtkmm_version");
-  if (sscanf(tmp_version, "%d.%d.%d", &major, &minor, &micro) != 3) {
-     printf("%s, bad version string\n", "$min_gtkmm_version");
-     exit(1);
-   }
-
-  if ((gtkmm_major_version != $gtkmm_config_major_version) ||
-      (gtkmm_minor_version != $gtkmm_config_minor_version) ||
-      (gtkmm_micro_version != $gtkmm_config_micro_version))
-    {
-      printf("\n*** 'gtkmm-config --version' returned %d.%d.%d, but GTK-- (%d.%d.%d)\n", 
-             $gtkmm_config_major_version, $gtkmm_config_minor_version, $gtkmm_config_micro_version,
-             gtkmm_major_version, gtkmm_minor_version, gtkmm_micro_version);
-      printf ("*** was found! If gtkmm-config was correct, then it is best\n");
-      printf ("*** to remove the old version of GTK--. You may also be able to fix the error\n");
-      printf("*** by modifying your LD_LIBRARY_PATH enviroment variable, or by editing\n");
-      printf("*** /etc/ld.so.conf. Make sure you have run ldconfig if that is\n");
-      printf("*** required on your system.\n");
-      printf("*** If gtkmm-config was wrong, set the environment variable GTKMM_CONFIG\n");
-      printf("*** to point to the correct copy of gtkmm-config, and remove the file config.cache\n");
-      printf("*** before re-running configure\n");
-    } 
-/* GTK-- does not have the GTKMM_*_VERSION constants */
-/* 
-  else if ((gtkmm_major_version != GTKMM_MAJOR_VERSION) ||
-	   (gtkmm_minor_version != GTKMM_MINOR_VERSION) ||
-           (gtkmm_micro_version != GTKMM_MICRO_VERSION))
-    {
-      printf("*** GTK-- header files (version %d.%d.%d) do not match\n",
-	     GTKMM_MAJOR_VERSION, GTKMM_MINOR_VERSION, GTKMM_MICRO_VERSION);
-      printf("*** library (version %d.%d.%d)\n",
-	     gtkmm_major_version, gtkmm_minor_version, gtkmm_micro_version);
-    }
-*/
-  else
-    {
-      if ((gtkmm_major_version > major) ||
-        ((gtkmm_major_version == major) && (gtkmm_minor_version > minor)) ||
-        ((gtkmm_major_version == major) && (gtkmm_minor_version == minor) && (gtkmm_micro_version >= micro)))
-      {
-        return 0;
-       }
-     else
-      {
-        printf("\n*** An old version of GTK-- (%d.%d.%d) was found.\n",
-               gtkmm_major_version, gtkmm_minor_version, gtkmm_micro_version);
-        printf("*** You need a version of GTK-- newer than %d.%d.%d. The latest version of\n",
-	       major, minor, micro);
-        printf("*** GTK-- is always available from ftp://ftp.gtk.org.\n");
-        printf("***\n");
-        printf("*** If you have already installed a sufficiently new version, this error\n");
-        printf("*** probably means that the wrong copy of the gtkmm-config shell script is\n");
-        printf("*** being found. The easiest way to fix this is to remove the old version\n");
-        printf("*** of GTK--, but you can also set the GTKMM_CONFIG environment to point to the\n");
-        printf("*** correct copy of gtkmm-config. (In this case, you will have to\n");
-        printf("*** modify your LD_LIBRARY_PATH enviroment variable, or edit /etc/ld.so.conf\n");
-        printf("*** so that the correct libraries are found at run-time))\n");
-      }
-    }
-  return 1;
-}
-],, no_gtkmm=yes,[echo $ac_n "cross compiling; assumed OK... $ac_c"])
-       CXXFLAGS="$ac_save_CXXFLAGS"
-       LIBS="$ac_save_LIBS"
-     fi
-  fi
-  if test "x$no_gtkmm" = x ; then
-     AC_MSG_RESULT(yes)
-     ifelse([$2], , :, [$2])     
-  else
-     AC_MSG_RESULT(no)
-     if test "$GTKMM_CONFIG" = "no" ; then
-       echo "*** The gtkmm-config script installed by GTK-- could not be found"
-       echo "*** If GTK-- was installed in PREFIX, make sure PREFIX/bin is in"
-       echo "*** your path, or set the GTK_CONFIG environment variable to the"
-       echo "*** full path to gtk-config."
-       echo "*** The gtkmm-config script was not available in GTK-- versions"
-       echo "*** prior to 0.9.12. Perhaps you need to update your installed"
-       echo "*** version to 0.9.12 or newer"
-     else
-       if test -f conf.gtkmmtest ; then
-        :
-       else
-          echo "*** Could not run GTK-- test program, checking why..."
-          CXXFLAGS="$CFLAGS $GTKMM_CXXFLAGS"
-          LIBS="$LIBS $GTK___LIBS"
-          AC_TRY_LINK([
-#include <gtk--.h>
-#include <stdio.h>
-],      [ return ((gtkmm_major_version) || (gtkmm_minor_version) || (gtkmm_micro_version)); ],
-        [ echo "*** The test program compiled, but did not run. This usually means"
-          echo "*** that the run-time linker is not finding GTK-- or finding the wrong"
-          echo "*** version of GTK--. If it is not finding GTK--, you'll need to set your"
-          echo "*** LD_LIBRARY_PATH environment variable, or edit /etc/ld.so.conf to point"
-          echo "*** to the installed location  Also, make sure you have run ldconfig if that"
-          echo "*** is required on your system"
-	  echo "***"
-          echo "*** If you have an old version installed, it is best to remove it, although"
-          echo "*** you may also be able to get things to work by modifying LD_LIBRARY_PATH" ],
-        [ echo "*** The test program failed to compile or link. See the file config.log for the"
-          echo "*** exact error that occured. This usually means GTK-- was incorrectly installed"
-          echo "*** or that you have moved GTK-- since it was installed. In the latter case, you"
-          echo "*** may want to edit the gtkmm-config script: $GTKMM_CONFIG" ])
-          CXXFLAGS="$ac_save_CXXFLAGS"
-          LIBS="$ac_save_LIBS"
-       fi
-     fi
-     GTK___CFLAGS=""
-     GTK__LIBS=""
-     ifelse([$3], , :, [$3])
-     AC_LANG_RESTORE
-  fi
-  AC_SUBST(GTK___CFLAGS)
-  AC_SUBST(GTK___LIBS)
-  rm -f conf.gtkmmtest
-])
-
-# Configure paths for GTK--DRAW
-# Derek Quinn Wyatt   98-08-21  (adapted from Jan Nieuwenhuizen's code)
-
-dnl AM_PATH_GTK__DRAW([MINIMUM-VERSION, [ACTION-IF-FOUND [, ACTION-IF-NOT-FOUND]]])
-dnl Test for GTK--DRAW, and define GTK___CFLAGS and GTK___LIBS
-dnl
-AC_DEFUN(AM_PATH_GTK__DRAW,
-[dnl 
-dnl Get the cflags and libraries from the gtk__-config script
-dnl
-  AC_PATH_PROG(GTKMM_CONFIG, gtkmm-config, no)
-  min_gtk___version=ifelse([$1], ,0.0.5,$1)
-  AC_MSG_CHECKING(for GTK--DRAW - version >= $min_gtk___version)
-  no_gtk__=""
-  if test "$GTKMM_CONFIG" != "no" ; then
-    GTK___CFLAGS=`$GTKMM_CONFIG --cflags`
-    GTK___LIBS=`$GTKMM_CONFIG --libs`
-    GTK___DLIBS="$GTK___LIBS -lgtkmmdraw"
-    GTK___LIBS="$GTK___DLIBS"
-    ac_save_CFLAGS="$CFLAGS"
-    ac_save_LIBS="$LIBS"
-    ac_save_CXXFLAGS="$CXXFLAGS"
-    CFLAGS="$CFLAGS $GTK___CFLAGS"
-    CXXFLAGS="$CXXFLAGS $GTK___CFLAGS"
-    LIBS="$LIBS $GTK___LIBS"
-dnl
-dnl Now check if the installed GTK__ is sufficiently new. (Also sanity
-dnl checks the results of gtk__-config to some extent)
-dnl
-    AC_TRY_RUN([
-#include <gtk--.h>
-#include <stdio.h>
-
-int 
-main ()
-{
-  // urg
-  return 0;
-}
-],, no_gtk__=yes,[echo $ac_n "cross compiling; assumed OK... $ac_c"])
-     CFLAGS="$ac_save_CFLAGS"
-     CXXFLAGS="$ac_save_CXXFLAGS"
-     LIBS="$ac_save_LIBS"
-  else
-     no_gtk__=yes
-  fi
-  if test "x$no_gtk__" = x ; then
-     AC_MSG_RESULT(yes)
-     ifelse([$2], , :, [$2])     
-  else
-     AC_MSG_RESULT(no)
-     GTK___CFLAGS=""
-     GTK___LIBS=""
-     ifelse([$3], , :, [$3])
-  fi
-  CXXFLAGS="$CXXFLAGS $GTK___CFLAGS"
-  AC_SUBST(CXXFLAGS)
-  AC_SUBST(GTK___CFLAGS)
-  AC_SUBST(GTK___LIBS)
-])

@@ -1,51 +1,51 @@
 # -*-Makefile-*-
 
+MISSING_OPTIONAL = @OPTIONAL@
+MISSING_REQUIRED = @REQUIRED@
+
 # @configure_input@
 
 package-depth = @package_depth@
 
-USER_CFLAGS = @CFLAGS@
+USER_CFLAGS = @CFLAGS@ @CPPFLAGS@ @GUILE_CFLAGS@
 USER_CXXFLAGS = @CXXFLAGS@ @CPPFLAGS@ @GUILE_CFLAGS@
 USER_LDFLAGS = @LDFLAGS@ @GUILE_LDFLAGS@
+EXTRA_LIBES = @EXTRA_LIBES@ @LIBS@
+
+PACKAGE = @PACKAGE@
+package = @package@
+PACKAGE_NAME = @PACKAGE_NAME@
+
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+
+builddir = @builddir@
+bindir = @bindir@
+datadir = @datadir@
+includedir = @includedir@
+infodir = @infodir@
+libdir = @libdir@
+localedir = @localedir@
+mandir = @mandir@
+program_prefix = @program_prefix@
+program_suffix = @program_suffix@
+sharedstatedir = @sharedstatedir@
+srcdir = @srcdir@
+stepmake = @stepmake@
 
 CC = @CC@
 CROSS = @cross_compiling@
 CXX = @CXX@
-
 LD = @LD@
-PACKAGE = @PACKAGE@
-package = @package@
-PACKAGE_NAME = @PACKAGE_NAME@
-stepmake = @stepmake@
 CONFIGSUFFIX = @CONFIGSUFFIX@
 MAKEINFO = @MAKEINFO@
 SPLITTING_MAKEINFO = @SPLITTING_MAKEINFO@
 ICFLAGS = @ICFLAGS@
 ILDFLAGS = @ILDFLAGS@
-builddir = @builddir@
-libdir = @libdir@
-prefix = @prefix@
-srcdir = @srcdir@
-TEXPREFIX = @TEXPREFIX@
-TEXDIR = @TEXDIR@
-KPATHSEA = @KPATHSEA@
-MFDIR = @MFDIR@
-mandir = @mandir@
-infodir = @infodir@
-exec_prefix = @exec_prefix@
-bindir = @bindir@
-includedir = @includedir@
-datadir = @datadir@
-localedir = @localedir@
-sharedstatedir = @sharedstatedir@
-program_prefix = @program_prefix@
-program_suffix = @program_suffix@
-EXTRA_LIBES = @EXTRA_LIBES@ @LIBS@
 TFM_PATH = @TFM_PATH@
 RANLIB = @RANLIB@
 DEFS = @DEFS@
 DEFINES = @DEFS@ @DEFINES@
-COMPILEINFO = @COMPILEINFO@
 DOTEXE = @DOTEXE@
 INSTALL = @INSTALL@
 BASH = @BASH@
@@ -55,24 +55,22 @@ BISON = @BISON@
 FIND = @FIND@
 FLEX = @FLEX@
 GUILE = @GUILE@
+GUILE_CONFIG = @GUILE_CONFIG@
+GUILE_CONFIG = @GUILE_CONFIG@
+GUILE_CFLAGS = @GUILE_CFLAGS@
+GUILE_LDFLAGS = @GUILE_LDFLAGS@
 INIMETAFONT = @INIMETAFONT@
-INIMETAPOST = @INIMETAPOST@
-INIMETAPOST_FLAGS = @INIMETAPOST_FLAGS@
 LN = @LN@
 LN_S = @LN_S@
 METAFONT = @METAFONT@
 MFMODE = @MFMODE@
-METAPOST = @METAPOST@
-MFPLAIN_MP = @MFPLAIN_MP@
 MSGFMT = @MSGFMT@
 ROOTSEP = @ROOTSEP@
 PATHSEP = @PATHSEP@
 PERL = @PERL@
 PYTHON = @PYTHON@
 SHELL = @SHELL@
-STRIPROFF = @STRIPROFF@
 TAR= @TAR@
 TBL = @TBL@
 TROFF = @TROFF@
 ZIP = @ZIP@
-
