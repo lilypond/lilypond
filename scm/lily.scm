@@ -569,7 +569,9 @@ L1 is copied, L2 not.
 	   (if (number? resolution)
 	       (number->string resolution)
 	       "90")
-	   " "
+	   (if (ly:get-option 'verbose)
+	       "--verbose "
+	       " ")
 	   name)))
 
 (define-public (lilypond-main files)

@@ -699,7 +699,7 @@ Bar checks can also be used in lyrics, for example
 @end example
 
 
-@cindex skipTypesetting
+@cindex @code{skipTypesetting}
 
 Failed bar checks are caused by entering incorrect
 durations. Incorrect durations often completely garble up the score,
@@ -1180,9 +1180,9 @@ The command @code{\bar }@var{bartype} is a short cut for doing
 @code{\set Timing.whichBar = }@var{bartype}.  Whenever @code{whichBar}
 is set to a string, a bar line of that type is created.
 
-@cindex whichBar
+@cindex @code{whichBar}
 @cindex @code{repeatCommands}
-@cindex defaultBarType
+@cindex @code{defaultBarType}
 
 You are encouraged to use @code{\repeat} for repetitions.  See
 @ref{Repeats}.
@@ -1424,7 +1424,7 @@ c16[ c c c c c c c]
 \set Score.beatLength = #(ly:make-moment 1 8)
 c16[ c c c c c c c]
 @end lilypond
-@cindex subdivideBeams
+@cindex @code{subdivideBeams}
 
 Kneed beams are inserted automatically, when a large gap is detected
 between the note heads.  This behavior can be tuned through the object
@@ -3766,7 +3766,7 @@ are printed as tablature, by using @internalsref{TabStaff} and
 }
 @end lilypond
 
-@cindex minimumFret
+@cindex @code{minimumFret}
 @cindex fret
 
 When no string is specified, the first string that does not give a
@@ -4044,7 +4044,7 @@ Klaus Ignatzek (see @ref{Literature list}).  It can be tuned through the
 following properties
 
 @table @code
-@cindex chordNameExceptions
+@cindex @code{chordNameExceptions}
 @item chordNameExceptions
 This is a list that contains the chords that have special formatting.
 For an example, see
@@ -4052,14 +4052,14 @@ For an example, see
 @cindex exceptions, chord names.
 
 
-@cindex majorSevenSymbol
+@cindex @code{majorSevenSymbol}
 @item majorSevenSymbol
 This property contains the markup object used for the 7th step, when
 it is major. Predefined options are @code{whiteTriangleMarkup} and
 @code{blackTriangleMarkup}.  See
 @inputfileref{input/regression,chord-name-major7.ly} for an example.
 
-@cindex chordNameSeparator
+@cindex @code{chordNameSeparator}
 @item chordNameSeparator
 Different parts of a chord name are normally separated by a
 slash. By setting @code{chordNameSeparator}, you can specify other
@@ -4073,7 +4073,7 @@ separators, e.g.
 }
 @end lilypond
 
-@cindex chordRootNamer
+@cindex @code{chordRootNamer}
 @item chordRootNamer
 The root of a chord is usually printed as a letter with an optional
 alteration. The transformation from pitch to letter is done by this
@@ -4084,7 +4084,7 @@ The predefined variables @code{\germanChords},
 @code{\semiGermanChords} set these variables.
 
 
-@cindex chordNoteNamer
+@cindex @code{chordNoteNamer}
 @item chordNoteNamer
 The default is to print single pitch, e.g. the bass note, using the
 @code{chordRootNamer}.  The @code{chordNoteNamer} property can be set
@@ -4281,12 +4281,11 @@ Examples: @inputfileref{input/regression,rehearsal-mark-letter.ly},
 
 @cindex bar numbers
 @cindex measure numbers
-@cindex currentBarNumber
+@cindex @code{currentBarNumber}
 
 Bar numbers are printed by default at the start of the line.  The
-number itself is stored in the 
-@code{currentBarNumber} property,
-which is normally updated automatically for every measure.
+number itself is stored in the @code{currentBarNumber} property, which
+is normally updated automatically for every measure.
 
 Bar numbers can be typeset at regular intervals instead of at the
 beginning of each line. This is illustrated in the following example,
@@ -7545,7 +7544,7 @@ correct result.
 
 @refcommands
 
-@cindex \setEasyHeads
+@cindex @code{\setEasyHeads}
 @code{\setEasyHeads}
 
 @node Sound

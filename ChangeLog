@@ -1,3 +1,19 @@
+2004-07-25  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scripts/lilypond-book.py (Lilypond_file_snippet.ly): don't copy
+	file contents, rather \include them, so default linewidth is set.
+	(ly_options): make BOOKPAPER set of options. Move linewidth
+	settings there.
+
+	* Documentation/user/examples.itely: new file. Templates are to be
+	moved here.
+
+	* Documentation/user/programming-interface.itely: move chapter.
+
+	* scm/document-markup.scm (doc-markup-function): add @code
+
+	* stepmake/stepmake/texinfo-rules.make: remove chmod.
+
 2004-07-24  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scm/page-layout.scm (plain-header): add printpagenumber boolean

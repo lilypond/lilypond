@@ -30,7 +30,7 @@
    "\n\n@item @code{\\" c-name "} " signature-str
    
    "\n@findex " f-name "\n"
-   "\n@cindex " c-name "\n"
+   "\n@cindex @code{" c-name "}\n"
    
    (if (string? doc-str)
        doc-str

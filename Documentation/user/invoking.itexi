@@ -173,26 +173,10 @@ file tree. A typical setting would be
 @{/usr/share/lilypond/1.6.0,@{!!/usr/share/texmf@}@}
 @end example
 
-
-@item GS_LIB
-For processing PostScript output (obtained with
-@code{-f ps}) with Ghostscript you have to set @code{GS_LIB} to
-point to the directory containing library PS files.
-
-@item GS_FONTPATH
-For processing PostScript output (obtained with
-@code{-f ps}) with Ghostscript you have to set @code{GS_FONTPATH} to
-point to the directory containing  PFA files.
-
-When you print direct PS output, remember to send the PFA files to the
-printer as well.
 @end table
 
 
-@cindex ghostscript
 @cindex PostScript
-@cindex GS_FONTPATH
-@cindex GS_LIB
 @cindex TEXMF
 @cindex printing postscript
 

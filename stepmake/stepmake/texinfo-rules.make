@@ -30,7 +30,6 @@ $(outdir)/%.txt: $(outdir)/%.texi
 $(outdir)/%.texi: %.texi
 	rm -f $@
 	cp $< $@
-	chmod -w $@
 
 
 

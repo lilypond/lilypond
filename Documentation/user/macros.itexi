@@ -22,32 +22,27 @@
 
 
 @ifnottex
-@macro texisharp {word}
-#
-@end macro
+  @macro texisharp {word}
+  #
+  @end macro
+  @macro texiflat {word}
+  b
+  @end macro
 @end ifnottex
 
 @iftex
-@macro texisharp {word}
-@tex
-\\raise0.5ex\\fetachar\\fetasharp
-@end tex
-@end macro
+ @macro texiflat {word}
+ @tex
+ \\kern0.15em\\fetachar\\fetaflat
+ @end tex
+ @end macro
+ @macro texisharp {word}
+  @tex
+  \\raise0.5ex\\fetachar\\fetasharp
+  @end tex
+  @end macro
 @end iftex
 
-@ifnottex
-@macro texiflat {word}
-b
-@end macro
-@end ifnottex
-
-@iftex
-@macro texiflat {word}
-@tex
-\\kern0.15em\\fetachar\\fetaflat
-@end tex
-@end macro
-@end iftex
 
 @macro arrow{}
 @iftex
@@ -66,66 +61,91 @@ b
 
 
 @c dup?
+
 @ifhtml
-@macro internalsref{NAME}
-@uref{../lilypond-internals/\NAME\.html,\NAME\}@c
-@c should we do this? 
-@cindex @code{\NAME\}
-@end macro
 
+ @c ***** HTML *****
 
+ @macro internalsref{NAME}
+ @uref{../lilypond-internals/\NAME\.html,\NAME\}@c
+ @c should we do this? 
+ @cindex @code{\NAME\}
+ @end macro
 
-@macro inputfileref{DIR,NAME}
-@uref{../../../../\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
-@end macro
+ @macro hyphenatedinternalsref{NAME,NODENAME}
+ @uref{../lilypond-internals/\NODENAME\.html,\NAME\}@c
+ @c should we do this? 
+ @cindex @code{\NAME\}
+ @end macro
+
+ @macro inputfileref{DIR,NAME}
+ @uref{../../../../\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
+ @end macro
 
 @end ifhtml
 
 @ifinfo
+
+@c **** INFO ****
 @macro internalsref{NAME}
 @inforef{\NAME\,,lilypond/lilypond-internals}@c
 @cindex \NAME\@c
+@end macro
+
+@macro hyphenatedinternalsref{NAME,NODENAME}
+@inforef{\NODENAME\,,lilypond-internals}@c
+@c should we do this? 
+@cindex @code{\NAME\}
 @end macro
 
 @macro inputfileref{DIR,NAME}
 @file{\DIR\/\NAME\}
 @end macro
 
+
+@macro usermanref{NAME}
+@ref{\NAME\,,,lilypond/lilypond}@c
+@end macro
+
 @end ifinfo
 
 @iftex
+@c **** TEX ****
+
 @macro internalsref{NAME}@c
-@cindex \NAME\@c
+@cindex @code{\NAME\} @c
 @code{\NAME\}@c
 @end macro
+
 @macro inputfileref{DIR,NAME}@c
 @file{\DIR\/\NAME\}@c
 @end macro
-@end iftex
+
+@macro hyphenatedinternalsref{NAME,NODENAME}
+@code{\NAME\}@c
+@c should we do this? 
+@cindex @code{\NAME\} @c
+@end macro
 
 
-@iftex
+
 @macro seeinternals{NAME}
 internals document,  @internalsref{\NAME\}
 @end macro
 @end iftex
 
+@c **** not TEX ****
+
 @ifnottex
-@macro seeinternals{NAME}
-@internalsref{\NAME\}
-@end macro
+ @macro seeinternals{NAME}
+ @internalsref{\NAME\}
+ @end macro
 @end ifnottex
 
-@ifinfo
-@macro usermanref{NAME}
-@ref{\NAME\,,,lilypond/lilypond}@c
-@end macro
-@end ifinfo
-
 @ifnotinfo
-@macro usermanref{NAME}
-@ref{\NAME\}@c
-@end macro
+ @macro usermanref{NAME}
+ @ref{\NAME\}@c
+ @end macro
 @end ifnotinfo
 
 @macro refbugs
