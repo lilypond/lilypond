@@ -14,7 +14,7 @@
 #include "score-elem.hh"
 
 /**
- a horizontally fixed size element of the score
+  A horizontally fixed size element of the score.
 
   Item is the datastructure for printables whose width is known
   before the spacing is calculated
@@ -30,7 +30,10 @@ public:
     
     Item * broken_to_a_[2];
 
-    // nobreak = 0, pre =1, post = 2
+    /// should be put in a breakable col.
+    bool breakable_b_;
+    int break_status_i_;
+    /// nobreak = 0, pre = -1, post = 1
     int break_status_i()const;
     Item * find_prebroken_piece(PCol*)const;
     Item * find_prebroken_piece(Line_of_score*)const;    
@@ -47,7 +50,6 @@ protected:
     virtual void do_print()const;
 
     void copy_breakable_items();
-
 };
 
 
