@@ -118,12 +118,13 @@ Note_column::do_pre_processing()
 	top_head_l = bot_head_l;
     if (!bot_head_l) 
 	bot_head_l = top_head_l;
-    assert(bot_head_l && top_head_l);
+    //assert(bot_head_l && top_head_l);
     Item *support_l=top_head_l;
     int j;
     for (j = 0; j < 2; j++ ) {
 	for (int i=0; i < placed_l_arr_a[j].size(); i++) {
-	    placed_l_arr_a[j][i]->add_support(support_l);
+	    if (support_l)
+		placed_l_arr_a[j][i]->add_support(support_l);
 	    support_l = placed_l_arr_a[j][i];
 	}
     }
@@ -131,7 +132,8 @@ Note_column::do_pre_processing()
     support_l=bot_head_l;
     for (; j < 4; j++ ) {
 	for (int i=0; i < placed_l_arr_a[j].size(); i++) {
-	    placed_l_arr_a[j][i]->add_support(support_l);
+	    if (support_l)
+		placed_l_arr_a[j][i]->add_support(support_l);
 	    support_l = placed_l_arr_a[j][i];
 	}
     }
