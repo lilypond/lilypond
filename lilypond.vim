@@ -2,7 +2,7 @@
 " Language:	LilyPond
 " Maintainer:	Heikki Junes <hjunes@cc.hut.fi>
 " Created:      Oct 17, 2002
-" Last Change:	Sep 20, 2003
+" Last Change:	Sep 23, 2003
 " Version:	6.1-1
 " Latest:
 " http://savannah.gnu.org/cgi-bin/viewcvs/lilypond/lilypond/lilypond.vim
@@ -15,15 +15,26 @@ elseif exists("b:current_syntax")
   finish
 endif
 
+" Read the LilyPond syntax match groups: 
+"   lilyKeyword, lilyReservedWord, lilyNote
+if version < 600
+  so <sfile>:p:h/lilypond.words.vim
+else
+  runtime! syntax/lilypond.words.vim
+  if exists("b:current_syntax")
+    unlet b:current_syntax
+  endif
+endif
+
 " Match also parethesis of angle type
 set mps+=<:>
 
 " Case matters
 syn case match
 
-syn cluster lilyMatchGroup	contains=lilyMatcher,lilyString,lilyComment,lilyStatement,lilyNote,lilyNumber,lilyEquation,lilySlur,lilySpecial
+syn cluster lilyMatchGroup	contains=lilyMatcher,lilyString,lilyComment,lilyStatement,lilyNumber,lilyEquation,lilySlur,lilySpecial,lilyNote,lilyKeyword,lilyReservedWord
 
-syn region lilyMatcher	matchgroup=Delimiter start="{" skip="\\\\\|\\[{<>}]"	end="}"	contains=@lilyMatchGroup fold
+syn region lilyMatcher	matchgroup=Delimiter start="{" skip="\\\\\|\\[<>]"	end="}"	contains=@lilyMatchGroup fold
 syn region lilyMatcher	matchgroup=Delimiter start="\["		end="]"	contains=@lilyMatchGroup fold
 syn region lilyMatcher	matchgroup=Delimiter start="<" skip="\\\\\|\\[{<>}]" end=">"	contains=@lilyMatchGroup fold
 
@@ -31,9 +42,6 @@ syn region lilyString	start=/"/ end=/"/ skip=/\\"/
 syn region lilyComment	start="%{" skip="%$" end="%}"
 syn region lilyComment	start="%\([^{]\|$\)" end="$"
 
-syn match lilyStatement	"[-_^]\?\\\(\a[-]\?\)\+"
-syn match lilyNote	"\<\(\(\(bb\|as[ae]s\|[ae]s\|eses\|[a-h]\(\|is\|isis\|es\|eses\)\)\([,']\)\{,4}\([?!]\)\?\|[srR]\)\(\(128\|6\?4\|3\?2\|16\?\|8\|\\breve\|\\longa\|\\maxima\)[.]*\)\?\)\(\A\|\n\)"me=e-1
-syn match lilyNote	"\<\(\(\(bb\|as[ae]s\|[ae]s\|eses\|[a-h]\(\|is\|isis\|es\|eses\)\)\([,']\)\{,4}\([?!]\)\?\|[srR]\)\(\(128\|6\?4\|3\?2\|16\?\|8\|\\breve\|\\longa\|\\maxima\)[.]*\)\?\)$"
 syn match lilyNumber	"[-_^.]\?\d\+[.]\?"
 syn match lilyEquation	"\(#['`]\)\?\(\a*[-]\)*\a*\s*=\s*\(#[#'`]\?\)\?\a*"
 syn match lilySlur	"[(~)]"
@@ -59,8 +67,10 @@ if version >= 508 || !exists("did_lily_syn_inits")
   HiLink lilyComment	Comment
  
   HiLink lilyNote	Identifier
+  HiLink lilyKeyword	Keyword
+  HiLink lilyReservedWord	Type
+
   HiLink lilyNumber	Constant
-  HiLink lilyStatement	Statement
   HiLink lilySpecial	Special
   HiLink lilySlur	ModeMsg
 

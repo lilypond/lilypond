@@ -19,7 +19,7 @@
 (require 'easymenu)
 (require 'compile)
 
-(defconst LilyPond-version "1.8.0"
+(defconst LilyPond-version "1.9.9"
   "`LilyPond-mode' version number.")
 
 (defconst LilyPond-help-address "bug-lilypond@gnu.org"
@@ -115,8 +115,9 @@ Finds file lilypond-words.el from load-path."
 	(setq currword (car co))
 	(if (> (length currword) 1)
 	    (if (and (string-equal "\\" (substring currword 0 1))
-	             (progn (string-match "[a-z-]+" currword)
-	    	            (= (match-end 0) (length currword)))
+	             (string-match "[a-z-]+" currword)
+	    	     (= (match-beginning 0) 1)
+	    	     (= (match-end 0) (length currword))
 		     (not (string-equal "\\longa" currword))
 		     (not (string-equal "\\breve" currword))
 		     (not (string-equal "\\maxima" currword))
@@ -125,7 +126,7 @@ Finds file lilypond-words.el from load-path."
 	(if (string-equal "-" (car (setq co (cdr co))))
 	    (while (and (> (length co) 0)
 			(not (string-equal "-" (car (setq co (cdr co)))))))))
-      wordlist))
+      (reverse wordlist)))
   "LilyPond \\keywords")
 
 (defconst LilyPond-identifiers 
@@ -136,49 +137,52 @@ Finds file lilypond-words.el from load-path."
 	(setq currword (car co))
 	(if (> (length currword) 1)
 	    (if (and (string-equal "\\" (substring currword 0 1))
-	             (progn (string-match "[a-zA-Z-]+" currword)
-	    	            (= (match-end 0) (length currword)))
+	             (string-match "[a-zA-Z-]+" currword)
+	    	     (= (match-beginning 0) 1)
+	    	     (= (match-end 0) (length currword))
 		     (not (string-equal (downcase currword) currword)))
 		(add-to-list 'wordlist currword)))
 	(if (string-equal "-" (car (setq co (cdr co))))
 	    (while (and (> (length co) 0)
 			(not (string-equal "-" (car (setq co (cdr co)))))))))
-      wordlist))
+      (reverse wordlist)))
   "LilyPond \\Identifiers")
 
 (defconst LilyPond-Capitalized-Reserved-Words 
-  (let ((wordlist '("Staff"))
+  (let ((wordlist '("StaffContext"))
 	(co (all-completions "" (LilyPond-add-dictionary-word ()))))
     (progn
       (while (> (length co) 0)
 	(setq currword (car co))
 	(if (> (length currword) 0)
-	    (if (and (progn (string-match "[a-zA-Z_]+" currword)
-	    	            (= (match-end 0) (length currword)))
+	    (if (and (string-match "[a-zA-Z_]+" currword)
+	    	     (= (match-beginning 0) 0)
+	    	     (= (match-end 0) (length currword))
 		     (not (string-equal (downcase currword) currword)))
 		(add-to-list 'wordlist currword)))
 	(if (string-equal "-" (car (setq co (cdr co))))
 	    (while (and (> (length co) 0)
 			(not (string-equal "-" (car (setq co (cdr co)))))))))
-      wordlist))
+      (reverse wordlist)))
   "LilyPond ReservedWords")
 
 (defconst LilyPond-non-capitalized-reserved-words
-  (let ((wordlist '("c"))
+  (let ((wordlist '("cessess"))
 	(co (all-completions "" (LilyPond-add-dictionary-word ()))))
     (progn
       (while (> (length co) 0)
 	(setq currword (car co))
 	(if (> (length currword) 0)
-	    (if (and (progn (string-match "[a-z]+" currword)
-	    	            (= (match-end 0) (length currword)))
+	    (if (and (string-match "[a-z]+" currword)
+	    	     (= (match-beginning 0) 0)
+	    	     (= (match-end 0) (length currword))
 		     (string-equal (downcase currword) currword))
 		(add-to-list 'wordlist currword)))
 	(if (string-equal "-" (car (setq co (cdr co))))
 	    (while (and (> (length co) 0)
 			(not (string-equal "-" (car (setq co (cdr co)))))))))
-      wordlist))
-  "LilyPond ReservedWords")
+      (reverse wordlist)))
+  "LilyPond notenames")
 
 (defun LilyPond-check-files (derived originals extensions)
   "Check that DERIVED is newer than any of the ORIGINALS.
