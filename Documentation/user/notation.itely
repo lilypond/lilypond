@@ -107,6 +107,17 @@ cis
 cisis
 @end lilypond
 
+In accordance with standard typsetting rules, a natural sign is printed
+before a sharp or flat if a previous accidental needs to be
+cancelled.  To change this behaviour, use
+@code{\set Staff.extraNatural = ##f}
+
+@lilypond[fragment,quote,raggedright,verbatim,relative=2]
+ceses4 ces cis c
+\set Staff.extraNatural = ##f
+ceses4 ces cis c
+@end lilypond
+
 There are predefined sets of note names for various other languages.
 To use them, include the language specific init file.  For
 example: @code{\include "english.ly"}.  The available language files
@@ -3761,7 +3772,7 @@ More stanzas can be added by adding more
 
 The @code{\addlyrics} command is actually just a convienient way
 to write a more complicated LilyPond structure that sets up the
-lyrics.  You should use @code{\addlyrics} unless you need to
+lyrics.  You should use @code{\addlyrics} unless you need to do
 fancy things, in which case you should investigate
 @code{\lyricsto} or @code{\lyricmode}.
 
@@ -3805,7 +3816,7 @@ is that a word can end with @code{@}}.  The following example is
 usually a mistake in the input file.  The syllable includes a @code{@}}, so the
 opening brace is not balanced
 @example
-\lyricmode @{ twinkle @}
+\lyricmode @{ twinkle@}
 @end example
 
 @cindex @code{\property}, in @code{\lyricmode}
@@ -4327,9 +4338,12 @@ ambitus per staff rather than per each voice, add the
 rather than to the @internalsref{Voice} context.  Here is an example,
 
 @lilypond[verbatim,raggedright,quote]
-\new Staff <<
+\new Staff \with {
+  \consists "Ambitus_engraver"
+}
+<<
   \new Voice \with {
-    \consists "Ambitus_engraver"
+    \remove "Ambitus_engraver"
   } \relative c'' {
     \override Ambitus #'X-offset-callbacks
       = #(list (lambda (grob axis) -1.0))
@@ -4337,7 +4351,7 @@ rather than to the @internalsref{Voice} context.  Here is an example,
     c4 a d e f2
   }
   \new Voice \with {
-    \consists "Ambitus_engraver"
+    \remove "Ambitus_engraver"
   } \relative c' {
     \voiceTwo
     es4 f g as b2
