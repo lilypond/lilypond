@@ -2230,12 +2230,16 @@ The default layout responds to the following settings in the
 @item footsep
  Distance between bottom-most music system and the page footer
 @item raggedbottom
- If set to true, systems will not be spread across the page.  
-@item raggedlastbottom
- If set to true, systems will not be spread to fill the last page.
+ If set to true, systems will not be spread across the page.
 
- This is the default. Only pieces that amply fill two pages or more
-should have this set to true.
+ This should be set false for pieces that have only two or three
+systems per page, for example orchestral scores.
+ 
+@item raggedlastbottom
+ If set to false, systems will be spread to fill the last page.
+
+ Pieces that amply fill two pages or more should have this set to
+true.
 
 @item betweensystemspace
   This dimensions determines the distance between systems. It is the

@@ -789,8 +789,10 @@ enumerate_attachments (Grob *me, Grob *common[],
 		  && !Stem::is_invisible (extremes[d].stem_)
 		  && extremes[d].stem_dir_ == dir)
 		{
+		  Interval stem_y = extremes[d].stem_extent_[Y_AXIS];
+		  stem_y.widen (0.25 * staff_space);
 		  if (dir == -d
-		      && extremes[d].stem_extent_[Y_AXIS].contains (os[d][Y_AXIS]))
+		      && stem_y.contains (os[d][Y_AXIS]))
 		    {
 		      os[d][X_AXIS] =  extremes[d].slur_head_extent_[-d]
 			- d * 0.3;

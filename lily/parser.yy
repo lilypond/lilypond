@@ -386,7 +386,6 @@ or
 %type <music>	gen_text_def direction_less_event direction_reqd_event
 %type <music>	music_property_def context_change
 %type <music>	note_chord_element chord_body chord_body_element
-%type <music>	open_event close_event
 %type <music>	post_event tagged_post_event
 %type <music>	relative_music re_rhythmed_music
 %type <music>	simple_element event_chord command_element
@@ -1208,16 +1207,12 @@ new_lyrics:
 	/* Can also use Music at the expensive of two S/Rs similar to
            \repeat \alternative */
 		THIS->lexer_->pop_state ();
-#if 0
-		Music *music = MY_MAKE_MUSIC ("SimultaneousMusic");
-		music->set_property ("elements", scm_list_1 ($3->self_scm ()));
-		$$ = music;
-#else
+
 		$$ = scm_cons ($3->self_scm (), SCM_EOL);
-#endif
 	}
-	| new_lyrics ADDLYRICS { THIS->lexer_->push_lyric_state (); }
-	Grouped_music_list {
+	| new_lyrics ADDLYRICS {
+		THIS->lexer_->push_lyric_state ();
+	} Grouped_music_list {
 		THIS->lexer_->pop_state ();
 		$$ = scm_cons ($4->self_scm (), $1);
 	}
@@ -1226,7 +1221,6 @@ new_lyrics:
 re_rhythmed_music:
 	Grouped_music_list new_lyrics {
 
-		/* FIXME: should find out uniqueXXX name from music */
 		SCM name = $1->get_property ("context-id");
 		//if (name == SCM_EOL)
 		if (!scm_is_string (name))
@@ -1778,9 +1772,9 @@ direction_less_char:
 	;
 
 direction_less_event:
-	direction_less_char  {
+	direction_less_char {
 		SCM predefd = THIS->lexer_->lookup_identifier_symbol ($1);
-		Music * m = 0:
+		Music * m = 0;
 		if (unsmob_music (predefd))
 		{
 			m = unsmob_music (predefd)->clone ();
@@ -2648,6 +2642,9 @@ context_spec_music (SCM type, SCM id, Music *m, SCM ops)
 	return csm;
 }
 
+/*
+FIXME: this should be postponed until the music hits \Score
+*/
 SCM
 get_next_unique_context ()
 {
