@@ -19,6 +19,8 @@
 	* stepmake/bin/package-zip32.sh tex/lilyponddefs.tex tex/titledefs.tex
 	* vimrc: replace ly2dvi with lilypond and remove silly comments.
 
+	* Documentation/user/lilypond.tely: update version.
+
 2003-10-29  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* scripts/lilypond-book.py (output_dict): Add definition of
