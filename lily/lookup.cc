@@ -173,6 +173,26 @@ Lookup::roundfilledbox (Box b, Real blotdiameter)
   return Molecule (b,at);
 }
 
+LY_DEFINE(ly_round_filled_box, "ly:round-filled-box",
+	  2, 0,0,
+	  (SCM b, SCM blot),
+	  "Make a box with rounded corners. B is a pair of number-pairs, and BLOT a number")
+{
+  SCM_ASSERT_TYPE(gh_number_p (blot), blot, SCM_ARG2, __FUNCTION__, "number") ;
+  SCM_ASSERT_TYPE(gh_pair_p (b), b, SCM_ARG4, __FUNCTION__, "pair") ;
+
+  SCM_ASSERT_TYPE(ly_number_pair_p (gh_car (b)), gh_car (b), SCM_ARG1, __FUNCTION__, "number-pair") ;
+  SCM_ASSERT_TYPE(ly_number_pair_p (gh_cdr (b)), gh_cdr (b), SCM_ARG1, __FUNCTION__, "number-pair") ;
+
+  Interval x (ly_scm2interval (gh_car (b)));
+  Interval y (ly_scm2interval (gh_cdr (b)));
+  
+  return Lookup::roundfilledbox (Box (x,y),
+				 gh_scm2double (blot)).smobbed_copy();
+  
+}
+	  
+
 /*
  * Create Molecule that represents a filled polygon with round edges.
  *

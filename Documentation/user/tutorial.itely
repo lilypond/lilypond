@@ -1558,10 +1558,10 @@ modifications we discussed in this section:
 @end menu
 
 
-Our next two examples demonstrate one way to create an orchestral score
-in LilyPond.  When typesetting a piece for several instruments, you'll
-want to create a full score (for the conductor) along with several
-individual parts (for the players).
+Our next two examples demonstrate one way to create an orchestral
+score in LilyPond.  When typesetting a piece for several instruments,
+you will want to create a full score (for the conductor) along with
+several individual parts (for the players).
 
   We will declare the music for each instrument individually, giving
 the music of each instrument its own name.  These pieces of music are

@@ -195,6 +195,33 @@ for the reader.
 			      (car rest) Y)
   )
 
+
+(define-public (note-markup grob props . rest)
+  "Syntax: \\note #LOG #DOTS #DIR. "
+  (let*
+      (
+       (log (car rest))
+       (dots (cadr rest))
+       (dir (caddr rest))
+       (font (ly:get-font grob props))
+       (headgl
+	(ly:find-glyph-by-name font (string-append "noteheads-" (number->string log))))
+       (flaggl (if (> log 2)
+		   (ly:find-glyph-by-name
+		    font
+		    (string-append "flags-" (number->string log)
+				   (if (dir > 0) "u" "d"))) #f))
+       (stemth 0.13)
+       (stemgl (ly:round-filled-box (cons
+				     (cons 0.0 stemth)
+				     (cons 0.0 (+ 3.0 0.75)))))
+       )
+
+
+
+    #f
+  ))
+
 (define-public (normal-size-super-markup grob props . rest)
   (ly:molecule-translate-axis (interpret-markup
 			       grob
@@ -440,6 +467,7 @@ for the reader.
    (cons number-markup (list markup?))
    (cons hbracket-markup  (list markup?))
    (cons bracket-markup  (list markup?))
+   (cons note-markup (list integer? integer? ly:dir?))
    
    (cons column-markup (list markup-list?))
    (cons dir-column-markup (list markup-list?))
