@@ -129,7 +129,7 @@ sarabandeA =  \context Voice  \relative c {
 
 sarabandeCelloGlobal = {
   \time 3/4
-  \key f \major
+  \key d \minor
   \clef bass
   \repeat "volta" 2 {
     s2.*12

@@ -59,10 +59,16 @@ Key_performer::create_audio_elements ()
 
       /* MIDI keys are too limited for lilypond scales.
 	 We check for minor scale and assume major otherwise.  */
-      SCM minor = scm_c_eval_string ("minor");
-      audio_ = new Audio_key (scm_to_int (acc),
-			      SCM_BOOL_T != scm_equal_p (minor, c_pitchlist));
 
+      SCM third = scm_assoc (scm_from_int (2),
+			     c_pitchlist);
+      bool minor = (scm_is_pair (third)
+		    && scm_is_integer (scm_cdr (third))
+		    && scm_to_int (scm_cdr (third)) == FLAT);
+      
+      audio_ = new Audio_key (scm_to_int (acc),
+			      !minor);
+		    
       Audio_element_info info (audio_, key_ev_);
       announce_element (info);
       key_ev_ = 0;

@@ -428,7 +428,7 @@
 			(time-signature . (extra-space . 0.0))
 			(staff-bar . (extra-space . 0.0))
 			(breathing-sign . (minimum-space . 0.0))
-			(clef . (extra-space . 0.7))
+			(clef . (extra-space . 0.8))
 			(first-note . (fixed-space . 1.0))
 			(right-edge . (extra-space . 0.0))
 			(key-signature . (extra-space . 0.0))
@@ -1284,7 +1284,7 @@
 	(after-line-breaking-callback . ,Tuplet_bracket::after_line_breaking)
 	(print-function . ,Tuplet_bracket::print)
 	(font-shape . italic)
-	(font-series . bold)
+;	(font-series . bold)
 
 	(font-size . -2)
 	(meta . ((interfaces . (text-interface line-interface tuplet-bracket-interface font-interface spanner-interface))))
