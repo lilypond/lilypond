@@ -56,7 +56,15 @@ Engraver_group_engraver::acknowledge_grobs ()
 	nm = ly_cdr (nm);
       else
 	{
-	  assert (info.grob_l_->immutable_property_alist_ == SCM_EOL); 
+	  /*
+	    it's tempting to put an assert for
+	    immutable_property_alist_ == '(), but in fact, some
+	    engravers (clef-engraver) add some more information to the
+	    immutable_property_alist_ (after it has been '()-ed).
+
+	    We ignore the grob anyway. He who has no name, shall not
+	    be helped.  */
+	  
 	  continue;
 	}
  
