@@ -145,3 +145,7 @@ $(depth)/$(builddir)/share/lilypond/$(TOPLEVEL_VERSION)-force:
 		ln -s ../../../../mf/$(outconfbase) afm && \
 		ln -s ../../../../mf/$(outconfbase) tfm && \
 		ln -s ../../../../mf/$(outconfbase) type1
+
+local-clean: builddir-setup-clean
+builddir-setup-clean:
+	@cd $(depth)/$(builddir) && rm -rf share

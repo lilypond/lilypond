@@ -1,3 +1,7 @@
+2002-06-26  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* GNUmakefile.in (local-clean): Also remove builddir-setup's symlinks.
+
 2002-06-25  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* input/test/ambitus.ly, lily/ambitus-engraver.cc,
