@@ -1,10 +1,11 @@
 /*
   keyword.cc -- keywords and identifiers
  */
-#include <string.h>
-#include <stdlib.h>
+
 #include "keyword.hh"
 
+#include <cstring>
+#include <cstdlib>
 
 /* for qsort */
 int tabcmp (Keyword_ent  const &p1, Keyword_ent const &p2)

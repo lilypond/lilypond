@@ -7,7 +7,6 @@
   
  */
 
-
 #include "rhythmic-head.hh"
 #include "dot-column.hh"
 #include "side-position-interface.hh"

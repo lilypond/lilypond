@@ -8,6 +8,7 @@
  */
 
 #include "direction.hh"
+
 #include "string.hh"
 
 String

@@ -8,8 +8,8 @@
 */
 
 #include "pitch-interval.hh"
-#include "interval.tcc"
 
+#include "interval.tcc"
 
 Pitch_interval::Pitch_interval (Pitch p1, Pitch p2)
 {

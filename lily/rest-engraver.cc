@@ -5,13 +5,12 @@
 
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+
 #include "item.hh"
 #include "staff-symbol-referencer.hh"
-#include "event.hh"
 #include "dots.hh"
 #include "rhythmic-head.hh"
 #include "engraver.hh"
-
 
 class Rest_engraver : public Engraver
 {

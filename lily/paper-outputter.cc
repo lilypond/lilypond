@@ -7,29 +7,26 @@
                  Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include <math.h>
-#include <time.h>
+#include "paper-outputter.hh"
 
-#include "array.hh"
+#include <cmath>
+#include <ctime>
+
 #include "dimensions.hh"
 #include "file-name.hh"
 #include "font-metric.hh"
 #include "input-smob.hh"
-#include "lily-guile.hh"
 #include "lily-version.hh"
 #include "ly-module.hh"
 #include "main.hh"
 #include "output-def.hh"
 #include "paper-book.hh"
-#include "paper-outputter.hh"
 #include "paper-system.hh"
 #include "scm-hash.hh"
-#include "stencil.hh"
 #include "string-convert.hh"
 #include "warn.hh"
 
 #include "ly-smobs.icc"
-
 
 Paper_outputter::Paper_outputter (String file_name, String format)
 {

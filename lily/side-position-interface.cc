@@ -6,10 +6,12 @@
   (c) 1998--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
-#include <math.h>		// ceil.
+
+#include "side-position-interface.hh"
+
+#include <cmath>		// ceil.
 
 #include "note-head.hh"
-#include "side-position-interface.hh"
 #include "warn.hh"
 #include "warn.hh"
 #include "dimensions.hh"

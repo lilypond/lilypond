@@ -13,7 +13,6 @@
 #include "note-head.hh"
 #include "staff-symbol-referencer.hh"
 #include "warn.hh"
-#include "event.hh"
 
 /*
  * This class implements an engraver for custos symbols.

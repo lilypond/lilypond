@@ -12,6 +12,8 @@
 
 #include "lily-guile.hh"
 
+class Grob;
+
 class  Rest
 {
 public:

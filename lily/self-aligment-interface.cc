@@ -7,6 +7,7 @@
 */
 
 #include "self-alignment-interface.hh"
+
 #include "warn.hh"
 
 /* Position centered on parent.  */

@@ -7,15 +7,11 @@
 
 */
 
-
-#include <map>
-
-#include "ly-smobs.icc"
+#include "object-key-dumper.hh"
 
 #include "moment.hh"
-#include "object-key-dumper.hh"
-#include "object-key.hh"
 
+#include "ly-smobs.icc"
 
 SCM
 Object_key_dumper::mark_smob (SCM smob )

@@ -6,15 +6,11 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "context.hh"
-
-
-#include "warn.hh"
 #include "sequential-music-iterator.hh"
+
+#include "context.hh"
+#include "warn.hh"
 #include "music-list.hh"
-
-
-
 
 IMPLEMENT_CTOR_CALLBACK (Sequential_music_iterator);
 

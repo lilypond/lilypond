@@ -8,8 +8,8 @@
  */
 
 #include "midi-walker.hh"
+
 #include "audio-column.hh"
-#include "audio-item.hh"
 #include "audio-staff.hh"
 #include "midi-item.hh"
 #include "midi-stream.hh"

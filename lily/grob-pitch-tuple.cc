@@ -6,10 +6,10 @@ source file of the GNU LilyPond music typesetter
 (c) 2001--2004  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
  */
-#include "grob-pitch-tuple.hh"
-#include "pitch.hh"
-#include "event.hh"
 
+#include "grob-pitch-tuple.hh"
+
+#include "event.hh"
 
 int compare (Grob_pitch_tuple const &a, Grob_pitch_tuple const &b)
 {

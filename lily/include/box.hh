@@ -5,8 +5,6 @@
 #ifndef BOXES_HH
 #define BOXES_HH
 
-#include "flower-proto.hh"
-#include "real.hh"
 #include "interval.hh"
 #include "offset.hh"
 

@@ -4,13 +4,12 @@
 
 --*/
 
-#include <string.h>
-#include <stdio.h>
-#include <assert.h>
-#include <limits.h>
-#include "libc-extension.hh"
-#include "string.hh"
 #include "string-convert.hh"
+
+#include <cstring>
+#include <cstdio>
+
+#include "libc-extension.hh"
 #include "rational.hh"
 #include "array.hh"
 

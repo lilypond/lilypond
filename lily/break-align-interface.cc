@@ -6,20 +6,19 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "break-align-interface.hh"
 
-#include <math.h>
+#include <cmath>
+
 #include <libc-extension.hh>	// isinf
 
 #include "self-alignment-interface.hh"
 #include "side-position-interface.hh"
 #include "axis-group-interface.hh"
 #include "warn.hh"
-#include "lily-guile.hh"
-#include "break-align-interface.hh"
 #include "dimensions.hh"
 #include "output-def.hh"
 #include "paper-column.hh"
-#include "group-interface.hh"
 #include "align-interface.hh"
 
 MAKE_SCHEME_CALLBACK (Break_align_interface,alignment_callback,2);

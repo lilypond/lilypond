@@ -8,13 +8,11 @@
 
 #include "engraver.hh"
 #include "chord-name.hh"
-#include "event.hh"
 #include "output-def.hh"
 #include "font-interface.hh"
 #include "output-def.hh"
 #include "dimensions.hh"
 #include "item.hh"
-#include "pitch.hh"
 #include "protected-scm.hh"
 #include "context.hh"
 #include "warn.hh"

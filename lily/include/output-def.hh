@@ -11,7 +11,6 @@
 
 #include "string.hh"
 #include "lily-proto.hh"
-#include "lily-guile.hh"
 #include "virtual-methods.hh"
 #include "smobs.hh"
 #include "input.hh"

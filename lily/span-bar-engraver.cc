@@ -6,13 +6,10 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
-#include "lily-guile.hh"
 #include "bar-line.hh"
 #include "item.hh"
 #include "span-bar.hh"
 #include "engraver.hh"
-
 
 /** 
 

@@ -6,6 +6,7 @@
   (c) 2002--2004 Juergen Reuter <reuter@ipd.uka.de>
   
  */
+
 #include "ligature-engraver.hh"
 #include "note-column.hh"
 #include "tuplet-bracket.hh"

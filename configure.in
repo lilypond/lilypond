@@ -69,12 +69,18 @@ if test -n "$ecb10"; then
     AC_MSG_RESULT([$ecb10])
 else
     AC_MSG_RESULT(no)
-    STEPMAKE_ADD_ENTRY(REQUIRED, 'package ec-fonts-mftraced >= 1.0.5')
-    AC_MSG_CHECKING([for old version of ec-fonts-mftraced])
-    ecrm10=`kpsewhich ecrm10.pfa 2>/dev/null`
-    if test -n "$ecrm10"; then
-	AC_MSG_RESULT([$ecrm10])
-	AC_MSG_WARN([old version of ec-fonts-mftraced found, install 1.0.5 or newer])
+    AC_MSG_CHECKING([for lmodern])
+    lmr10=`kpsewhich lmr10.pfb 2>/dev/null`
+    if test -n "$lmr10"; then
+	AC_MSG_RESULT([$lmr10])
+    else
+	STEPMAKE_ADD_ENTRY(REQUIRED, 'package ec-fonts-mftraced >= 1.0.5')
+	AC_MSG_CHECKING([for old version of ec-fonts-mftraced])
+	ecrm10=`kpsewhich ecrm10.pfa 2>/dev/null`
+	if test -n "$ecrm10"; then
+	    AC_MSG_RESULT([$ecrm10])
+	    AC_MSG_WARN([old version of ec-fonts-mftraced found, install 1.0.5 or newer])
+	fi
     fi
 fi
 

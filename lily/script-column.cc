@@ -6,7 +6,9 @@
   (c) 1999--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
+
 #include "script-column.hh"
+
 #include "side-position-interface.hh"
 #include "warn.hh"
 #include "group-interface.hh"

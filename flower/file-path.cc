@@ -7,9 +7,10 @@
                  Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include <stdio.h>
-#include <errno.h>
-#include <limits.h>
+#include "file-path.hh"
+
+#include <cstdio>
+#include <cerrno>
 
 #include "config.hh"
 #if HAVE_SYS_STAT_H 
@@ -21,7 +22,6 @@
 #endif
 
 #include "file-name.hh"
-#include "file-path.hh"
 
 #ifndef PATHSEP
 #define PATHSEP ':'

@@ -7,9 +7,10 @@
   
  */
 
-#include "input.hh"
 #include "input-smob.hh"
+
 #include "string.hh"
+
 #include "ly-smobs.icc"
 
 /* Dummy input location for use if real one is missing.  */

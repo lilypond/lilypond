@@ -7,10 +7,11 @@
 */
 
 #include "pitch.hh"
+
 #include "warn.hh"
 #include "main.hh"
-#include "ly-smobs.icc"
 
+#include "ly-smobs.icc"
 
 Pitch::Pitch (int o, int n, int a)
 {

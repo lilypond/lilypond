@@ -7,7 +7,6 @@
  */
 
 #include "performer.hh"
-#include "event.hh"
 #include "audio-item.hh"
 #include "audio-column.hh"
 #include "global-context.hh"

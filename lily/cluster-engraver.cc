@@ -7,7 +7,6 @@
 */
 
 #include "engraver.hh"
-#include "item.hh"
 #include "spanner.hh"
 #include "note-head.hh"
 #include "note-column.hh"

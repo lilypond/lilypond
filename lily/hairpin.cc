@@ -6,10 +6,10 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "staff-symbol-referencer.hh"
-#include "stencil.hh"
-#include "line-interface.hh"
 #include "hairpin.hh"
+
+#include "staff-symbol-referencer.hh"
+#include "line-interface.hh"
 #include "spanner.hh"
 #include "font-interface.hh"
 #include "dimensions.hh"

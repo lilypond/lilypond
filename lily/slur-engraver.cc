@@ -4,7 +4,6 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "event.hh"
 #include "slur.hh"
 #include "note-column.hh"
 #include "context.hh"
@@ -12,7 +11,7 @@
 #include "engraver.hh"
 #include "spanner.hh"
 #include "tie.hh"
-#include "input.hh"
+
 /*
   It is possible that a slur starts and ends on the same note.  At
   least, it is for phrasing slurs: a note can be both beginning and

@@ -6,15 +6,13 @@
   (c) 2001--2004  Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
-#include <math.h>
 
-#include "grob.hh"
-#include "lookup.hh"
-#include "stencil.hh"
-#include "font-interface.hh"
-#include "font-metric.hh" 
 #include "percent-repeat-item.hh"
 
+#include <cmath>
+
+#include "lookup.hh"
+#include "font-interface.hh"
 
 Stencil
 Percent_repeat_item_interface::brew_slash ( Grob *me)

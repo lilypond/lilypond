@@ -6,7 +6,7 @@
 
 #ifndef ARRAY_H
 #define ARRAY_H
-#include <assert.h>
+#include <cassert>
 
 #ifndef INLINE
 #define INLINE inline

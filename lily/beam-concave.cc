@@ -1,14 +1,12 @@
 /*
    Determine whether a beam is concave.
  */
-#include <math.h>
 
+#include <cmath>
 
 #include "group-interface.hh"
 #include "array.hh"
-#include "grob.hh"
 #include "stem.hh"
-#include "interval.hh"
 #include "beam.hh"
 #include "staff-symbol-referencer.hh"
 

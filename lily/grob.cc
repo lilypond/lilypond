@@ -6,9 +6,10 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "grob.hh"
 
-#include <string.h>
-#include <math.h>
+#include <cstring>
+#include <cmath>
 
 #include "main.hh"
 #include "input-smob.hh"
@@ -17,9 +18,7 @@
 #include "misc.hh"
 #include "paper-score.hh"
 #include "stencil.hh"
-#include "grob.hh"
 #include "warn.hh"
-#include "spanner.hh"
 #include "system.hh"
 #include "item.hh"
 #include "stencil.hh"

@@ -9,7 +9,6 @@
 #include "grob.hh"
 #include "stencil.hh"
 #include "font-interface.hh"
-#include "string.hh"
 
 // update comment --hwn 
 /*

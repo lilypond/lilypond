@@ -15,7 +15,6 @@
  */
 
 #include "note-column.hh"
-#include "item.hh"
 #include "side-position-interface.hh"
 #include "engraver.hh"
 

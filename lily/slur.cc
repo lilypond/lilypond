@@ -7,26 +7,23 @@
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
+#include "slur.hh"
 
-#include <math.h>
+#include <cmath>
 
 #include "beam.hh"
 #include "bezier.hh"
 #include "directional-element-interface.hh"
 #include "font-interface.hh"
 #include "group-interface.hh"
-#include "lily-guile.hh"
 #include "lookup.hh"
 #include "main.hh"		// DEBUG_SLUR_SCORING
 #include "note-column.hh"
 #include "output-def.hh"
-#include "rod.hh"
-#include "slur.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol.hh"
 #include "stem.hh"
-#include "stencil.hh"
 #include "text-item.hh"
 #include "warn.hh"
 #include "slur-scoring.hh"

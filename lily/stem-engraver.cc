@@ -9,7 +9,6 @@
 #include "context.hh"
 #include "directional-element-interface.hh"
 #include "engraver.hh"
-#include "event.hh"
 #include "item.hh"
 #include "misc.hh"
 #include "rhythmic-head.hh"
@@ -17,7 +16,6 @@
 #include "staff-symbol-referencer.hh"
 #include "stem-tremolo.hh"
 #include "stem.hh"
-
 
 /**
   Make stems upon receiving noteheads.

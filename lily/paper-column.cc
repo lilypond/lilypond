@@ -6,20 +6,17 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "moment.hh"
 #include "paper-column.hh"
+
+#include "moment.hh"
 #include "paper-score.hh"
 #include "warn.hh"
 #include "axis-group-interface.hh"
 #include "spaceable-grob.hh"
-#include "stencil.hh"
 #include "text-item.hh"
 #include "lookup.hh"
 #include "font-interface.hh"
 #include "output-def.hh"
-
-
-
 
 Grob * 
 Paper_column::clone (int count) const

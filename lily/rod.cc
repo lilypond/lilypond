@@ -6,7 +6,9 @@
   (c) 1998--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
+
 #include "rod.hh"
+
 #include "paper-column.hh"
 #include "warn.hh"
 #include "dimensions.hh"

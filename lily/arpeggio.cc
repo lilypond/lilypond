@@ -6,10 +6,9 @@
   (c) 2000--2004 Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
-#include "stencil.hh"
-#include "output-def.hh"
 #include "arpeggio.hh"
-#include "grob.hh"
+
+#include "output-def.hh"
 #include "stem.hh"
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol.hh"

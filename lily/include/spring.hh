@@ -11,7 +11,6 @@
 #define SPRING_HH
 
 #include "lily-proto.hh"
-#include "drul-array.hh"
 #include "smobs.hh"
 
 struct Spring_smob

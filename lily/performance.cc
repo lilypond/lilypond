@@ -6,20 +6,19 @@
   (c) 1997--2004 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include <time.h>
+#include "performance.hh"
+
+#include <ctime>
 
 #include "audio-column.hh"
-#include "audio-item.hh"
 #include "audio-staff.hh"
 #include "file-name.hh"
 #include "lily-version.hh"
 #include "main.hh"
 #include "midi-item.hh"
 #include "midi-stream.hh"
-#include "performance.hh"
 #include "score.hh"
 #include "string-convert.hh"
-#include "string.hh"
 #include "warn.hh"
 
 #include "killing-cons.tcc"

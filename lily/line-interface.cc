@@ -8,12 +8,10 @@ source file of the GNU LilyPond music typesetter
  */
 
 #include "line-interface.hh"
-#include "stencil.hh"
-#include "grob.hh"
+
 #include "staff-symbol-referencer.hh"
 #include "lookup.hh"
 #include "output-def.hh"
-
 
 Stencil
 Line_interface::make_dashed_line (Real thick, Offset from, Offset to,

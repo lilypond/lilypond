@@ -6,15 +6,14 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "item.hh"
+
 #include "paper-score.hh"
 #include "warn.hh"
-#include "item.hh"
 #include "paper-column.hh"
-#include "spanner.hh"
 #include "lily-guile.hh"
 #include "system.hh"
 #include "group-interface.hh"
-
 
 Grob * 
 Item::clone (int count) const

@@ -12,7 +12,6 @@
 #include "lily-guile.hh"
 #include "warn.hh"
 #include "music-iterator.hh"
-#include "interpretation-context-handle.hh"
 
 class Part_combine_iterator : public Music_iterator
 {

@@ -5,8 +5,10 @@
 
   (c) 2003--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-#include "grob.hh"
+
 #include "gregorian-ligature.hh"
+
+#include "grob.hh"
 #include "string.hh"
 
 void check_prefix (String name, int mask, int prefix_set, String *str)

@@ -6,15 +6,13 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "flower-proto.hh"
 #include "engraver-group-engraver.hh"
-#include "engraver.hh"
+
+#include "flower-proto.hh"
 #include "warn.hh"
 #include "paper-score.hh"
 #include "grob.hh"
 #include "context.hh"
-
-
 
 void
 Engraver_group_engraver::announce_grob (Grob_info info)

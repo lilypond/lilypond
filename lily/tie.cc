@@ -5,20 +5,20 @@
 
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-#include <math.h>
 
+#include "tie.hh"
+
+#include <cmath>
 
 #include "spanner.hh"
 #include "lookup.hh"
 #include "output-def.hh"
-#include "tie.hh"
 #include "rhythmic-head.hh"
 #include "bezier.hh"
 #include "paper-column.hh"
 #include "warn.hh"
 #include "staff-symbol-referencer.hh"
 #include "directional-element-interface.hh"
-#include "stencil.hh"
 #include "bezier.hh"
 #include "stem.hh"
 #include "note-head.hh"

@@ -6,19 +6,15 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include <math.h>
+#include "bar-line.hh"
+
+#include <cmath>
 
 #include "lookup.hh"
 #include "paper-column.hh"
-#include "grob.hh"
-#include "bar-line.hh"
-#include "string.hh"
-#include "stencil.hh"
 #include "output-def.hh"
 #include "font-interface.hh"
-
 #include "all-font-metrics.hh"
-#include "item.hh"
 #include "staff-symbol-referencer.hh"
 
 MAKE_SCHEME_CALLBACK (Bar_line,print,1);

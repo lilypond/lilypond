@@ -4,7 +4,7 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include <ctype.h>
+#include <cctype>
 
 #include "rhythmic-head.hh"
 #include "output-def.hh"

@@ -6,11 +6,11 @@
   (c) 1999--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include <ctype.h>
+#include "modified-font-metric.hh"
+
+#include <cctype>
 
 #include "warn.hh"
-#include "modified-font-metric.hh"
-#include "string.hh"
 #include "stencil.hh"
 
 Modified_font_metric::Modified_font_metric (String input_encoding,
@@ -45,6 +45,9 @@ Modified_font_metric::Modified_font_metric (String input_encoding,
       && coding_scheme_ != "ASCII"
       && coding_scheme_ !=  orig_->coding_scheme ())
     {
+      /* FIXME: this is broken, cannot get font encoding from font/AFM file,
+	 should use encoding from font-tree in fonts.scm.  */
+
       coding_vector_
 	= scm_call_1 (ly_scheme_function ("get-coding-vector"),
 		      scm_makfrom0str (coding_scheme_.to_str0 ()));

@@ -1,6 +1,7 @@
 #ifndef GETOPT_LONG_HH
 #define GETOPT_LONG_HH
 
+#include <cstdio>
 
 #include "string.hh"
 

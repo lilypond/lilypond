@@ -8,9 +8,9 @@
   Revised over good by Han-Wen. 
 */
 
-#include "stencil.hh"
-#include "text-item.hh"
 #include "text-spanner.hh"
+
+#include "text-item.hh"
 #include "line-spanner.hh"
 #include "spanner.hh"
 #include "font-interface.hh"

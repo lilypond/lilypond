@@ -8,6 +8,7 @@
  */
 
 #include "time-scaled-music-iterator.hh"
+
 #include "time-scaled-music.hh"
 #include "event.hh"
 #include "context.hh"

@@ -8,15 +8,11 @@
 
 #include "engraver.hh"
 #include "group-interface.hh"
-#include "item.hh"
-#include "event.hh"
-#include "spanner.hh"
 #include "stem.hh"
 #include "rhythmic-head.hh"
 #include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "context.hh"
-
 
 /**
    Create line-spanner grobs for lines that connect note heads.

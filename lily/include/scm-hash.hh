@@ -11,7 +11,6 @@
 #define SCM_HASH_HH
 
 
-#include "lily-guile.hh"
 #include "smobs.hh"
 
 

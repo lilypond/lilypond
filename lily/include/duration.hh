@@ -10,9 +10,7 @@
 #ifndef DURATION_HH
 #define DURATION_HH
 
-#include "flower-proto.hh"
 #include "moment.hh"
-#include "smobs.hh"
 
 /**
    A musical duration.
@@ -43,7 +41,6 @@ private:
   Rational factor_;
 };
 
-#include "compare.hh"
 INSTANTIATE_COMPARE (Duration, Duration::compare);
 DECLARE_UNSMOB (Duration, duration);
 

@@ -10,11 +10,7 @@
 #ifndef LOOKUP_HH
 #define LOOKUP_HH
 
-#include "string.hh"
 #include "stencil.hh"
-#include "flower-proto.hh"
-#include "direction.hh"
-#include "box.hh"
 
 struct Lookup
 {

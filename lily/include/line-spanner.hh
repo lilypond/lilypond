@@ -12,6 +12,9 @@
 
 #include "lily-guile.hh"
 
+class Grob;
+class Stencil;
+
 class Line_spanner
 {
 public:

@@ -8,7 +8,7 @@
   Mats Bengtsson <matsb@s3.kth.se>
 */
 
-#include <ctype.h>
+#include <cctype>
 
 #include "context.hh"
 #include "bar-line.hh"
@@ -16,7 +16,6 @@
 #include "engraver.hh"
 #include "direction.hh"
 #include "side-position-interface.hh"
-#include "item.hh"
 
 class Clef_engraver : public  Engraver
 {

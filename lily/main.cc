@@ -6,11 +6,11 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <assert.h>
-#include <locale.h>
-#include <string.h>
+#include "main.hh"
+
+#include <cassert>
+#include <clocale>
+#include <cstring>
 
 #include "config.hh"
 
@@ -20,16 +20,13 @@
 
 #include "all-font-metrics.hh"
 #include "file-name.hh"
-#include "file-path.hh"
 #include "getopt-long.hh"
 #include "global-ctor.hh"
 #include "kpath.hh"
 #include "lily-guile.hh"
 #include "lily-version.hh"
-#include "main.hh"
 #include "misc.hh"
 #include "output-def.hh"
-#include "string.hh"
 #include "warn.hh"
 
 /*

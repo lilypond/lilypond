@@ -6,8 +6,9 @@
   (c) 2004 Han-Wen Nienhuys <hanwen@xs4all.nl>
   
 */
+
 #include "music-function.hh"
-#include "string.hh"
+
 #include "music.hh"
 
 static scm_t_bits music_function_tag;

@@ -9,11 +9,8 @@
 
 #include "bar-line.hh"
 #include "score-engraver.hh"
-#include "event.hh"
-#include "engraver-group-engraver.hh"
 #include "warn.hh"
 #include "item.hh"
-#include "engraver.hh"
 
 /*
   generate bars. Either user ("|:"), or default (new measure)

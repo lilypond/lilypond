@@ -8,7 +8,6 @@
 #define PERFORMANCE_HH
 
 #include "parray.hh"
-#include "lily-proto.hh"
 #include "cons.hh"
 #include "music-output.hh"
 

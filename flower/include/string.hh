@@ -14,14 +14,13 @@
 // too darn slow with gcc3
 #ifdef STREAM_SUPPORT
 #if ( __GNUC__ > 2 )
-#include <iostream.h>
+#include <iostream>
 #else
 class ostream;
 #endif
 #endif
 
 #include "arithmetic-operator.hh"
-#include "flower-proto.hh"
 #include "string-handle.hh"
 
 /** 

@@ -11,7 +11,6 @@
 
 #include "box.hh"
 #include "grob.hh"
-#include "drul-array.hh"
 
 
 /**

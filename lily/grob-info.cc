@@ -6,8 +6,9 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "grob.hh"
 #include "grob-info.hh"
+
+#include "grob.hh"
 #include "music.hh"
 #include "translator-group.hh"
 #include "context.hh"

@@ -6,14 +6,14 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "output-def.hh"
+
 #include "context-def.hh"
 #include "file-path.hh"
 #include "global-context.hh"
 #include "interval.hh"
-#include "lily-guile.hh"
 #include "ly-module.hh"
 #include "main.hh"
-#include "output-def.hh"
 #include "output-def.hh"
 #include "scm-hash.hh"
 #include "warn.hh"

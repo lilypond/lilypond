@@ -7,7 +7,6 @@ source file of the GNU LilyPond music typesetter
 (c) 2002--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #include "music.hh"
 #include "sequential-iterator.hh"
 #include "context.hh"

@@ -6,7 +6,6 @@
   (c) 2002--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
  */
 
-#include "spanner.hh"
 #include "warn.hh"
 #include "side-position-interface.hh"
 #include "global-context.hh"

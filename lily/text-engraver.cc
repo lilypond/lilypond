@@ -6,15 +6,13 @@
   (c) 1998--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
+
 #include "directional-element-interface.hh"
 #include "engraver.hh"
 #include "side-position-interface.hh"
-#include "item.hh"
-#include "event.hh"
 #include "stem.hh"
 #include "rhythmic-head.hh"
 #include "text-item.hh"
-
 
 /**
    typeset directions that are  plain text.

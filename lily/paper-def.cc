@@ -7,7 +7,6 @@
 */
 
 #include "dimensions.hh"
-#include "font-metric.hh"
 #include "ly-module.hh"
 #include "output-def.hh"
 #include "modified-font-metric.hh"

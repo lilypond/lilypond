@@ -8,16 +8,17 @@
     Mats Bengtsson <matsb@s3.kth.se> (the ugly TeX parsing in text_dimension)
 */
 
-#include <math.h>
-#include <ctype.h>
+#include "font-metric.hh"
+
+#include <cmath>
+#include <cctype>
 
 #include "modified-font-metric.hh"
 #include "virtual-methods.hh"
 #include "warn.hh"
 #include "stencil.hh"
+
 #include "ly-smobs.icc"
-#include "font-metric.hh"
-#include "string.hh"
 
 Real
 Font_metric::design_size () const

@@ -10,15 +10,15 @@
 #define _GNU_SOURCE
 #endif
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <assert.h>
-#include <string.h>
-#include <stdarg.h>
+#include "string.hh"
+
+#include <cstdlib>
+#include <cstdio>
+#include <cassert>
+#include <cstring>
 
 #include <iostream>
 
-#include "string.hh"
 #include "libc-extension.hh"
 #include "string-convert.hh"
 

@@ -6,10 +6,11 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "rest.hh"
+
 #include "stencil.hh"
 #include "output-def.hh"
 #include "font-interface.hh"
-#include "rest.hh"
 #include "dots.hh"
 #include "paper-score.hh"
 #include "staff-symbol-referencer.hh"

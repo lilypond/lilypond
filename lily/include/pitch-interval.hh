@@ -11,7 +11,6 @@
 #define PITCH_INTERVAL_HH
 
 #include "pitch.hh"
-#include "drul-array.hh"
 
 class Pitch_interval : public Drul_array<Pitch> 
 {

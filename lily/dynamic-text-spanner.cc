@@ -9,7 +9,6 @@
   Revised over good by Han-Wen. 
 */
 
-#include "stencil.hh"
 #include "text-item.hh"
 #include "text-spanner.hh"
 #include "line-spanner.hh"

@@ -10,7 +10,6 @@
 */
 
 #include "engraver.hh"
-#include "item.hh"
 #include "text-item.hh"
 #include "note-head.hh"
 #include "stem.hh"

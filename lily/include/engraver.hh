@@ -10,12 +10,9 @@
 #ifndef ENGRAVER_HH
 #define ENGRAVER_HH
 
-#include "lily-proto.hh"
-#include "array.hh"
 #include "event.hh"
 #include "grob-info.hh"
 #include "translator.hh"
-
 
 /**
   a struct which processes events, and creates the #Grob#s.

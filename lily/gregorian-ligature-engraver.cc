@@ -7,8 +7,8 @@
  */
 
 #include "gregorian-ligature-engraver.hh"
+
 #include "gregorian-ligature.hh"
-#include "item.hh"
 #include "warn.hh"
 #include "staff-symbol-referencer.hh"
 #include "spanner.hh"

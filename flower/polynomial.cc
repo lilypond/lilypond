@@ -4,9 +4,9 @@
   (c) 1993--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
  */
 
-#include <math.h>
-
 #include "polynomial.hh"
+
+#include <cmath>
 
 /*
    Een beter milieu begint bij uzelf. Hergebruik!

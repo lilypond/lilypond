@@ -7,8 +7,11 @@
 #ifndef MIDI_STREAM_HH
 #define MIDI_STREAM_HH
 
-#include <stdio.h>
+#include <cstdio>
+
 #include "string.hh"
+
+class Midi_item;
 
 /// Midi outputfile
 struct Midi_stream {

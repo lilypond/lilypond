@@ -6,9 +6,8 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #include "interval.hh"
-#include "real.hh"
+
 #include "interval.tcc"
 
 Real

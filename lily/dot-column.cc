@@ -6,14 +6,14 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include <stdio.h>
-#include <math.h>
+#include "dot-column.hh"
+
+#include <cstdio>
+#include <cmath>
 #include <map>
 
 #include "dots.hh"
-#include "dot-column.hh"
 #include "rhythmic-head.hh"
-#include "group-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "directional-element-interface.hh"
 #include "side-position-interface.hh"

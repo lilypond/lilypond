@@ -5,14 +5,15 @@
 
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-#include <math.h>		// ceil
+
+#include "note-column.hh"
+
+#include <cmath>		// ceil
 
 #include "axis-group-interface.hh"
-#include "note-column.hh"
 #include "stem.hh"
 #include "warn.hh"
 #include "output-def.hh"
-#include "group-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "rest.hh"
 #include "note-head.hh"

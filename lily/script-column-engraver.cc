@@ -9,7 +9,6 @@
 
 #include "engraver.hh"
 #include "script-column.hh"
-#include "item.hh"
 #include "side-position-interface.hh"
 
 /**

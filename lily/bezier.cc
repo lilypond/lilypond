@@ -6,13 +6,12 @@
   (c) 1998--2004 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include <math.h>
+#include "bezier.hh"
 
-#include "config.hh"
+#include <cmath>
+
 #include "warn.hh"
 #include "libc-extension.hh"
-#include "bezier.hh"
-#include "polynomial.hh"
 
 Real
 binomial_coefficient (Real over , int under)

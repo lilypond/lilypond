@@ -6,10 +6,10 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include <stdlib.h>
-#include <stdio.h>
-
 #include "warn.hh"
+
+#include <cstdlib>
+#include <cstdio>
 
 void
 message (String s)

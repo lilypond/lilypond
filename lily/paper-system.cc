@@ -7,8 +7,7 @@
 */
 
 #include "paper-system.hh"
-#include "stencil.hh"
-#include "string.hh"
+
 #include "virtual-methods.hh"
 
 #include "ly-smobs.icc"

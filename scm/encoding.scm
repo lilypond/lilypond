@@ -12,7 +12,7 @@
 
 (define-public (read-encoding-file file-name)
   "Read .enc file, return (COMMAND-NAME . VECTOR-OF-SYMBOLS)."
-  (let* ((path (ly:kpathsea-expand-path file-name))
+  (let* ((path (ly:kpathsea-find-file file-name))
 	 (unused (if (string? path) #t (ly:warn "can't find ~s" file-name)))
 	 (raw (ly:gulp-file path))
 	 (string (regexp-substitute/global #f "%[^\n]*" raw 'pre "" 'post))
@@ -88,7 +88,10 @@ vector of symbols."
 	 ("AdobeStandardEncoding" . "8a.enc")
 	 ("T1" . "tex256.enc")
 	 ("adobe" . "8a.enc")
+	 ;; EC-fonts-mftraced
 	 ("ec" . "EC.enc")
+	 ;; lmodern, encoding flavour latin1
+	 ("cork-lm" . "cork-lm.enc")
 	 
 	 ;; input encodings
 	 ("latin1" . "latin1.enc")
@@ -101,6 +104,8 @@ vector of symbols."
 	 ("parmesanMusic" . "parmesan20.enc"))
        ))
 
+;; FIXME: this is broken, cannot get font encoding from font/AFM file,
+;; should use encoding from font-tree in fonts.scm
 (define (get-coding coding-name)
   (let ((entry (assoc-get coding-name coding-alist)))
     (if entry

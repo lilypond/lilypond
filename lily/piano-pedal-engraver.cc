@@ -10,16 +10,11 @@
 */
 
 #include "engraver.hh"
-#include "event.hh"
-#include "grob.hh"
-#include "item.hh"
 #include "lily-guile.hh"
 #include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh"
-#include "item.hh"
 #include "axis-group-interface.hh"
 #include "context.hh"
-
 #include "directional-element-interface.hh"
 #include "note-column.hh"
 #include "warn.hh"

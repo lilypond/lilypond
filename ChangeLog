@@ -1,11 +1,43 @@
-2004-11-18  Heikki Junes  <hjunes@cc.hut.fi>
-
-	* input/test/script-abbreviations.ly: fix typos.
-
 2004-11-18  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Debian lmodern support.  Note that LilyPond will issue warnings
+	
+	    no such encoding: "FontSpecific"
+
+	  The font selection mechanism wants to get the encoding from the
+	  font itself, but the whole idea of lmodern is that it is usable
+	  with different encodings, ie, Lily should get the encoding from
+	  the font tree, rather than the font itself.  This would require
+	  some major brain surgery.
+	
+	* configure.in: Test for and accept lmodern if EC fonts not found.
+
+	* Debian lmodern support.
+	* scm/framework-tex.scm (font-load-command): TeX font name
+	mangling for latin1 encoded cork-lm fonts.
+	(convert-to-ps): Load lm.map if available.
+
+	* ly/paper-defaults.ly: Use cork-lm encoding if ec is not
+	available.
+
+	* scm/encoding.scm (coding-alist): Add cork-lm encoding.
+
+	* scm/font.scm: Add header.  Autoload cork-lm and ec fonts if
+	available.
+
+	* lily/kpath.cc (ly_kpathsea_find_file): Rename.  Do not use
+	path for absolute file name, that is silly.
+
+	* lily/score-engraver.cc (initialize): 
 
 	* Documentation/user/GNUmakefile (local-install-info): Invoke
 	install-info --remove first.
+
+	* #include cleanup (Andreas Scherer).
+
+2004-11-18  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* input/test/script-abbreviations.ly: fix typos.
 
 2004-11-17  Werner Lemberg  <wl@gnu.org>
 

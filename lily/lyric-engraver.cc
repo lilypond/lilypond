@@ -9,7 +9,6 @@
 
 #include "context.hh"
 #include "engraver.hh"
-#include "event.hh"
 #include "font-metric.hh"
 #include "item.hh"
 #include "multi-measure-rest.hh"

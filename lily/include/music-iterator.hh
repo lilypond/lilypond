@@ -10,12 +10,10 @@
 #ifndef MUSIC_ITERATOR_HH
 #define MUSIC_ITERATOR_HH
 
-#include "lily-proto.hh"
 #include "array.hh"
 #include "moment.hh"
 #include "virtual-methods.hh"
 #include "interpretation-context-handle.hh"
-#include "smobs.hh"
 
 /**
    ---

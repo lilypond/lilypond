@@ -7,6 +7,7 @@
 */
 
 #include "clef.hh"
+
 #include "string.hh"
 #include "stencil.hh"
 #include "item.hh"

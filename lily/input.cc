@@ -6,11 +6,10 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include <stdio.h>
-
-#include "flower-proto.hh"
 #include "input.hh"
-#include "string.hh"
+
+#include <cstdio>
+
 #include "source.hh"
 #include "source-file.hh"
 

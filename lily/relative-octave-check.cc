@@ -1,4 +1,5 @@
 #include "relative-octave-check.hh"
+
 #include "input.hh"
 #include "pitch.hh"
 

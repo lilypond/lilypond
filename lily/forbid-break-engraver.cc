@@ -1,5 +1,4 @@
 #include "rhythmic-head.hh"
-#include "engraver.hh"
 #include "grob.hh"
 #include "score-engraver.hh"
 

@@ -6,12 +6,13 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "music.hh"
+
 #include "duration.hh"
 #include "input-smob.hh"
 #include "ly-smobs.icc"
 #include "main.hh"
 #include "music-list.hh"
-#include "music.hh"
 #include "pitch.hh"
 #include "score.hh"
 #include "warn.hh"

@@ -9,10 +9,12 @@
 /*
   UGH. too many includes.
  */
-#include <stdio.h>
+
+#include "music-iterator.hh"
+
+#include <cstdio>
 
 #include "warn.hh"
-#include "music-iterator.hh"
 #include "context.hh"
 #include "music-wrapper.hh"
 #include "music-wrapper-iterator.hh"

@@ -10,7 +10,6 @@ source file of the GNU LilyPond music typesetter
 #ifndef GROB_PITCH_TUPLE_HH
 #define GROB_PITCH_TUPLE_HH
 
-#include "lily-proto.hh"
 #include "pitch.hh"
 #include "moment.hh"
 

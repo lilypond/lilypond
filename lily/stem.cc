@@ -13,24 +13,23 @@
   Stem-end, chord-start, etc. is all confusing naming.
 */
 
-#include <math.h>		// rint
+#include "stem.hh"
+
+#include <cmath>		// rint
 
 #include "lookup.hh"
 #include "directional-element-interface.hh"
 #include "note-head.hh"
-#include "stem.hh"
 #include "warn.hh"
 #include "output-def.hh"
 #include "rhythmic-head.hh"
 #include "font-interface.hh"
-#include "stencil.hh"
 #include "paper-column.hh"
 #include "misc.hh"
 #include "beam.hh"
 #include "rest.hh"
 #include "group-interface.hh"
 #include "staff-symbol-referencer.hh"
-#include "spanner.hh"
 #include "side-position-interface.hh"
 #include "dot-column.hh"
 #include "stem-tremolo.hh"

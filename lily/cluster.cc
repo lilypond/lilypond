@@ -9,16 +9,15 @@
 
 */
 
-#include <stdio.h>
-
 #include "cluster.hh"
+
+#include <cstdio>
+
 #include "spanner.hh"
 #include "item.hh"
 #include "pitch.hh"
 #include "staff-symbol-referencer.hh"
 #include "lookup.hh"
-#include "box.hh"
-#include "interval.hh"
 #include "output-def.hh"
 #include "warn.hh"
 

@@ -9,7 +9,6 @@
 #include "engraver.hh"
 #include "protected-scm.hh"
 #include "break-align-interface.hh"
-#include "item.hh"
 #include "align-interface.hh"
 #include "axis-group-interface.hh"
 #include "context.hh"

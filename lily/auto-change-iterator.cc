@@ -7,7 +7,6 @@
   
  */
 
-#include "music.hh"
 #include "context.hh"
 #include "event.hh"
 #include "music-wrapper-iterator.hh"

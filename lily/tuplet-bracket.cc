@@ -23,17 +23,16 @@
   
  */
 
-#include <math.h>
+#include "tuplet-bracket.hh"
+
+#include <cmath>
 
 #include "line-interface.hh"
 #include "beam.hh"
-#include "box.hh"
 #include "warn.hh"
 #include "font-interface.hh"
-#include "stencil.hh"
 #include "output-def.hh"
 #include "text-item.hh"
-#include "tuplet-bracket.hh"
 #include "stem.hh"
 #include "note-column.hh"
 #include "group-interface.hh"
@@ -41,7 +40,6 @@
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "lookup.hh"
-
 
 static Grob*
 get_x_bound_grob (Grob *g, Direction my_dir)

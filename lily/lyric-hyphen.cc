@@ -6,16 +6,13 @@
   (c) 2003--2004 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include <math.h>
+#include "lyric-hyphen.hh"
 
-#include "box.hh"
+#include <cmath>
+
 #include "lookup.hh"
-#include "stencil.hh"
 #include "output-def.hh"
 #include "paper-column.hh"
-#include "spanner.hh"
-#include "item.hh"
-#include "lyric-hyphen.hh"
 #include "moment.hh"
 
 MAKE_SCHEME_CALLBACK (Hyphen_spanner,print,1)

@@ -5,8 +5,8 @@
 
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+
 #include "context.hh"
-#include "grob-info.hh"
 #include "multi-measure-rest.hh"
 #include "timing-translator.hh"
 #include "engraver.hh"

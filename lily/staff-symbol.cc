@@ -6,17 +6,15 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "staff-symbol.hh"
+
 #include "lookup.hh"
 #include "dimensions.hh"
 #include "output-def.hh"
-#include "stencil.hh"
 #include "warn.hh"
 #include "item.hh"
-#include "staff-symbol.hh"
 #include "staff-symbol-referencer.hh"
 #include "spanner.hh"
-
-
 
 MAKE_SCHEME_CALLBACK (Staff_symbol,print,1);
 

@@ -6,10 +6,10 @@
   (c) 2002--2004 Juergen Reuter <reuter@ipd.uka.de>
 */
 
+#include "ambitus.hh"
+
 #include "staff-symbol-referencer.hh"
 #include "pitch.hh"
-#include "ambitus.hh"
-#include "stencil.hh"
 #include "note-head.hh"
 #include "item.hh"
 #include "font-interface.hh"

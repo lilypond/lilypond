@@ -11,6 +11,9 @@
 
 #include "lily-guile.hh"
 
+class Grob;
+class Stencil;
+
 struct Custos
 {
   DECLARE_SCHEME_CALLBACK (print, (SCM ));

@@ -7,15 +7,16 @@
                  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "lily-guile.hh"
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cmath>   /* isinf */
+#include <cstring> /* strdup, strchr */
+#include <cctype>
+
 #include <libintl.h> 		// gettext on macos x
-#include <math.h>   /* isinf */
-#include <string.h> /* strdup, strchr */
-#include <ctype.h>
 
-#include "lily-proto.hh"
 #include "version.hh"
 
 /* MacOS S fix:
@@ -26,15 +27,12 @@
 inline int my_isinf (Real r) { return isinf (r); }
 inline int my_isnan (Real r) { return isnan (r); }
 
-
 #include "libc-extension.hh"
-#include "lily-guile.hh"
 #include "main.hh"
 #include "file-path.hh"
 #include "warn.hh"
 #include "direction.hh"
 #include "offset.hh"
-#include "interval.hh"
 #include "pitch.hh"
 #include "dimensions.hh"
 #include "source-file.hh"

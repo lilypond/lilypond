@@ -6,10 +6,11 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include <math.h>		// ceil.
+#include "rest-collision.hh"
+
+#include <cmath>		// ceil.
 
 #include "warn.hh"
-#include "rest-collision.hh"
 #include "note-column.hh"
 #include "stem.hh"
 #include "rhythmic-head.hh"

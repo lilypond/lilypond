@@ -9,11 +9,7 @@
 #ifndef GROB_HH
 #define GROB_HH
 
-#include "parray.hh"
 #include "virtual-methods.hh"
-#include "lily-guile.hh"
-#include "lily-proto.hh"
-#include "smobs.hh"
 #include "dimension-cache.hh"
 #include "grob-interface.hh"
 #include "object-key.hh"

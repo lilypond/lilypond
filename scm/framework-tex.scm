@@ -12,8 +12,8 @@
 	     (ice-9 string-fun)
 	     (ice-9 format)
 	     (guile)
-	     (srfi srfi-13)
 	     (srfi srfi-1)
+	     (srfi srfi-13)
 	     (lily))
 
 (define-public (sanitize-tex-string s)
@@ -46,6 +46,10 @@
 	 (font-encoding (assoc-get 'output-name coding-alist)))
     (string-append
      "\\font\\lilypond" (tex-font-command font) "="
+     (if (or (equal? (ly:font-encoding font) "cork-lm")
+	     ;; FIXME: encoding: FontSpecific for cork-lm
+	     (string-prefix? "lm" (ly:font-file-name font)))
+	 "cork-" "")
      (ly:font-file-name font)
      " scaled "
      (ly:number->string (inexact->exact
@@ -283,19 +287,19 @@
 	 (base (basename name ".tex"))
 	 (cmd (string-append "dvips "
 			     (if preview?
-				 " -E "
+				 "-E "
 				 (string-append
-				  " -t "
-				  
+				  "-t"
 				  ;; careful: papersizename is user-set.
-				  (sanitize-command-option papersizename)))
-				 
-			     (if landscape?
-				 " -t landscape "
-				 " ")
-			     "  -u+ec-mftrace.map -u+lilypond.map -Ppdf "
+				  (sanitize-command-option papersizename)
+				  " "))
+			     (if landscape? "-t landscape " "")
+			     (if (ly:kpathsea-find-file "lm.map")
+				 "-u+lm.map " "")
+			     (if (ly:kpathsea-find-file "ecrm10.pfa")
+				 "-u+ec-mftrace.map " "")
+			     "-u+lilypond.map -Ppdf " ""
 			     base)))
-    
     (let ((ps-name (string-append base ".ps")))
       (if (access? ps-name W_OK)
 	  (delete-file ps-name)))

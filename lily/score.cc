@@ -6,7 +6,9 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include <stdio.h>
+#include "score.hh"
+
+#include <cstdio>
 
 #include "lilypond-key.hh"
 #include "lily-parser.hh"
@@ -18,13 +20,11 @@
 #include "main.hh"
 #include "music-iterator.hh"
 #include "output-def.hh"
-#include "music-output.hh"
 #include "music.hh"
 #include "paper-book.hh"
 #include "output-def.hh"
 #include "paper-score.hh"
 #include "scm-hash.hh"
-#include "score.hh"
 #include "warn.hh"
 
 Score::Score ()

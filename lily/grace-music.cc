@@ -8,6 +8,7 @@
 */
 
 #include "grace-music.hh"
+
 #include "grace-iterator.hh"
 
 Moment

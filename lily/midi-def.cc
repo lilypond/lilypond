@@ -6,15 +6,14 @@
   (c) 1997--2004 Jan Nieuwenhuizen <janneke@gnu.org>
 
 */
-#include <math.h>
+
+#include <cmath>
 
 #include "misc.hh"
 #include "output-def.hh"
 #include "moment.hh"
 #include "warn.hh"
 #include "scm-hash.hh"
-
-
 
 int
 get_tempo (Output_def * def,

@@ -7,6 +7,7 @@
        Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
+#include "lily-parser.hh"
 
 #include "book.hh"
 #include "lilypond-key.hh"
@@ -16,14 +17,12 @@
 #include "ly-module.hh"
 #include "main.hh"
 #include "lily-lexer.hh"
-#include "lily-parser.hh"
 #include "output-def.hh"
 #include "paper-book.hh"
 #include "parser.hh"
 #include "score.hh"
 #include "source.hh"
 #include "warn.hh"
-
 
 Lily_parser::Lily_parser (Sources *sources)
 {

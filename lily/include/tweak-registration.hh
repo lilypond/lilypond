@@ -13,8 +13,7 @@
 #include  <map>
 
 #include "lily-proto.hh"
-#include "smobs.hh"
-#include "lily-guile.hh"
+#include "object-key.hh"
 
 typedef std::map<Object_key const*, SCM, Object_key_less> Tweak_map ;
 

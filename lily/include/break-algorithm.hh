@@ -10,9 +10,7 @@
 #ifndef BREAK_HH
 #define BREAK_HH
 
-#include "array.hh"
 #include "interval.hh"
-#include "lily-proto.hh"
 #include "column-x-positions.hh"
 
 

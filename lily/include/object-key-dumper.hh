@@ -12,9 +12,7 @@
 
 #include <map>
 
-#include "lily-guile.hh"
 #include "object-key.hh"
-#include "smobs.hh"
 
 typedef std::map<Object_key const*, Object_key const*, Object_key_less> Key_to_key_map;
 typedef std::map<Object_key const*, int> Pointer_to_int_map;

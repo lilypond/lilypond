@@ -6,11 +6,12 @@
   (c) 2003--2004 Juergen Reuter <reuter@ipd.uka.de>
 */
 
-#include <math.h>
-#include "item.hh"
 #include "vaticana-ligature.hh"
+
+#include <cmath>
+
+#include "item.hh"
 #include "font-interface.hh"
-#include "stencil.hh"
 #include "lookup.hh"
 #include "staff-symbol-referencer.hh"
 #include "note-head.hh"

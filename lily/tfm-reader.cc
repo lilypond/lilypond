@@ -10,8 +10,8 @@
  */
 
 #include "tfm-reader.hh"
+
 #include "string-convert.hh"
-#include "warn.hh"
 #include "warn.hh"
 
 #define format_string String_convert::form_string

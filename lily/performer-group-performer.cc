@@ -8,10 +8,10 @@
  */
 
 #include "performer-group-performer.hh"
+
 #include "context.hh"
 #include "audio-element.hh"
 #include "warn.hh"
-
 
 ENTER_DESCRIPTION (Performer_group_performer,
 /* descr */       "",

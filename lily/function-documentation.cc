@@ -7,9 +7,8 @@
 
 */
 
-#include <string.h>
+#include <cstring>
 
-#include "lily-guile.hh"
 #include "protected-scm.hh"
 #include "string.hh"
 

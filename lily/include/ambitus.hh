@@ -11,6 +11,8 @@
 
 #include "lily-guile.hh"
 
+class Grob;
+
 struct Ambitus
 {
   DECLARE_SCHEME_CALLBACK (print, (SCM smob));

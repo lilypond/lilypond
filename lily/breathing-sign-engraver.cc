@@ -15,11 +15,8 @@ TODO:
 
 #include "staff-symbol-referencer.hh"
 #include "breathing-sign.hh"
-#include "event.hh"
-
 #include "engraver-group-engraver.hh"
 #include "item.hh"
-#include "engraver.hh"
 
 
 class Breathing_sign_engraver : public Engraver {

@@ -11,9 +11,7 @@
 
 #include <iostream>
 
-#include "flower-proto.hh"
 #include "string.hh"
-#include "interval.hh"
 #include "protected-scm.hh"
 #include "parray.hh"
 

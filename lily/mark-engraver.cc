@@ -6,12 +6,11 @@
   (c) 1998--2004 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include <ctype.h>
+#include <cctype>
 
 #include "bar-line.hh"
 #include "context.hh"
 #include "engraver-group-engraver.hh"
-#include "engraver.hh"
 #include "item.hh"
 #include "warn.hh"
 #include "text-item.hh"

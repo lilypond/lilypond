@@ -6,9 +6,10 @@
   (c) 1999--2004 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
+#include "lily-version.hh"
+
 #include "config.hh"
 #include "version.hh"
-#include "lily-version.hh"
 
 String
 version_string ()

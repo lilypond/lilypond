@@ -12,7 +12,6 @@
 #include "grob.hh"
 #include "music-iterator.hh"
 
-
 class New_lyric_combine_music_iterator : public Music_iterator
 {
 public:

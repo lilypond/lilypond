@@ -6,12 +6,12 @@
   (c) 2001--2004  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
  */
-#include <stdio.h>
+
+#include "scm-option.hh"
+
+#include <cstdio>
 
 #include "parse-scm.hh"
-#include "string.hh"
-#include "lily-guile.hh"
-#include "scm-option.hh"
 #include "warn.hh"
 #include "main.hh"
 

@@ -10,10 +10,7 @@
 */
 
 #include "engraver.hh"
-#include "item.hh"
 #include "note-head.hh"
-#include "event.hh"
-#include "pitch.hh"
 #include "pitch-interval.hh"
 #include "protected-scm.hh"
 #include "staff-symbol-referencer.hh"

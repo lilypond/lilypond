@@ -6,9 +6,9 @@
   (c) 2002--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "protected-scm.hh"
 #include "grob-interface.hh"
-#include "lily-guile.hh"
+
+#include "protected-scm.hh"
 #include "grob.hh"
 #include "warn.hh"
 

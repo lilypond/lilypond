@@ -6,9 +6,10 @@
   (c) 1999--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include <stdio.h>
-
 #include "scm-hash.hh"
+
+#include <cstdio>
+
 #include "ly-smobs.icc"
 
 /*

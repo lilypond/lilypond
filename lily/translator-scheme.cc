@@ -7,11 +7,8 @@
 
  */
 
-#include "translator.hh"
 #include "context-def.hh"
 #include "translator-group.hh"
-#include "lily-guile.hh"
-
 
 LY_DEFINE (ly_translator_name, "ly:translator-name",
 	   1, 0, 0, (SCM trans),

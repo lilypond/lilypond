@@ -8,6 +8,7 @@
  */
 
 #include "lyric-combine-music.hh"
+
 #include "pitch.hh"
 
 Lyric_combine_music::Lyric_combine_music ()

@@ -9,7 +9,6 @@
 #include "gregorian-ligature-engraver.hh"
 #include "gregorian-ligature.hh"
 #include "vaticana-ligature.hh"
-#include "item.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "font-interface.hh"

@@ -7,7 +7,6 @@
  */
 
 #include "warn.hh"
-#include "event.hh"
 #include "spanner.hh"
 #include "rhythmic-head.hh"
 #include "engraver.hh"

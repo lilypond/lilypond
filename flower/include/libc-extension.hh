@@ -10,7 +10,7 @@
 #define LIBC_EXTENSION_HH
 
 #include <cstddef>
-#include <stdarg.h>
+#include <cstdarg>
 
 #include "config.hh"
 #include "flower-proto.hh"

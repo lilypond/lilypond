@@ -8,15 +8,12 @@
 
 */
 
-#include <assert.h>
+#include "duration.hh"
 
 #include "misc.hh"
 #include "lily-proto.hh"
-#include "string.hh"
-#include "moment.hh"
-#include "duration.hh"
-#include "ly-smobs.icc"
 
+#include "ly-smobs.icc"
 
 int
 Duration::compare (Duration const &left, Duration const &right)

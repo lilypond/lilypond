@@ -8,6 +8,7 @@
  */
 
 #include "percent-repeat-iterator.hh"
+
 #include "repeated-music.hh"
 #include "input.hh"
 

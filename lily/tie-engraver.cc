@@ -7,10 +7,8 @@
   
  */
 
-#include "event.hh"
 #include "tie.hh"
 #include "context.hh"
-
 #include "protected-scm.hh"
 #include "spanner.hh"
 #include "tie-column.hh"

@@ -11,8 +11,6 @@
 #define TEXT_ITEM
 
 
-#include "lily-proto.hh"
-#include "lily-guile.hh"
 #include "stencil.hh"
 
 class Text_interface

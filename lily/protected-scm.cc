@@ -6,8 +6,8 @@
   (c) 1998--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
+
 #include "protected-scm.hh"
-#include "lily-guile.hh"
 
 Protected_scm::Protected_scm ()
 {

@@ -6,13 +6,9 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
-#include "lily-guile.hh"
 #include "paper-column.hh"
 #include "output-def.hh"
 #include "side-position-interface.hh"
-#include "item.hh"
-#include "moment.hh"
 #include "engraver.hh"
 #include "context.hh"
 

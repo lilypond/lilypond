@@ -6,14 +6,15 @@
   (c) 2002--2004 Juergen Reuter <reuter@ipd.uka.de>
   
  */
+
 #include "ligature-engraver.hh"
+
 #include "spanner.hh"
 #include "score-engraver.hh"
 #include "note-head.hh"
 #include "rest.hh"
 #include "warn.hh"
 #include "context.hh"
-
 
 /*
  * This abstract class provides the general framework for ligatures of

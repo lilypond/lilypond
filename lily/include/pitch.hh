@@ -81,7 +81,6 @@ SCM ly_pitch_diff (SCM pitch, SCM  root);
 SCM ly_pitch_transpose (SCM p, SCM delta);
 DECLARE_UNSMOB(Pitch,pitch);
 
-#include "compare.hh"
 INSTANTIATE_COMPARE (Pitch, Pitch::compare);
 
 int compare (Array<Pitch>*, Array<Pitch>*);

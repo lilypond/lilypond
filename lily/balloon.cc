@@ -11,7 +11,6 @@
 #include "line-interface.hh"
 #include "lookup.hh"
 #include "font-interface.hh"
-#include "stencil.hh"
 #include "lily-guile.hh"
 #include "output-def.hh"
 #include "misc.hh"

@@ -7,6 +7,7 @@
 */
 
 #include "score-context.hh"
+
 #include "score-translator.hh"
 
 void

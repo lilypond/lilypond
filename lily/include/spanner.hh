@@ -7,9 +7,7 @@
 #ifndef SPANNER_HH
 #define SPANNER_HH
 
-#include "lily-proto.hh"
 #include "grob.hh"
-#include "drul-array.hh"
 #include "rod.hh"
 
 /** A symbol which is attached between two columns. A spanner is a

@@ -11,7 +11,6 @@
 #define ALL_FONTS_HH
 
 #include "file-path.hh"
-#include "lily-proto.hh"
 #include "font-metric.hh"
 
 /**

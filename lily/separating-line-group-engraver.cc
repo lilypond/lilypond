@@ -14,11 +14,8 @@
 #include "engraver.hh"
 #include "axis-group-interface.hh"
 #include "note-spacing.hh"
-#include "group-interface.hh"
 #include "accidental-placement.hh"
 #include "context.hh"
-
-
 
 struct Spacings
 {

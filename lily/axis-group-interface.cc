@@ -6,9 +6,10 @@
   (c) 2000--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
-#include "hara-kiri-group-spanner.hh"
+
 #include "axis-group-interface.hh"
-#include "grob.hh"
+
+#include "hara-kiri-group-spanner.hh"
 
 void
 Axis_group_interface::add_element (Grob*me,Grob *e)

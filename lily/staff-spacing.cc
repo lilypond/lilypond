@@ -6,13 +6,13 @@
      (c) 2001--2004  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 */
-#include <stdio.h>
+
+#include "staff-spacing.hh"
+
+#include <cstdio>
 
 #include "paper-column.hh" 
 #include "separation-item.hh"
-#include "item.hh"
-#include "staff-spacing.hh"
-#include "grob.hh"
 #include "warn.hh"
 #include "bar-line.hh"
 #include "staff-symbol-referencer.hh"

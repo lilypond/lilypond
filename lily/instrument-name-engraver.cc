@@ -8,7 +8,6 @@
  */
 
 #include "engraver.hh"
-#include "item.hh"
 #include "bar-line.hh"
 #include "system-start-delimiter.hh"
 #include "side-position-interface.hh"

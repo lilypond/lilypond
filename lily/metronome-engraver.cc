@@ -6,14 +6,12 @@
   (c) 1998--2004 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include <ctype.h>
+#include <cctype>
 
 #include "note-column.hh"
 #include "bar-line.hh"
 #include "time-signature.hh"
-#include "engraver.hh"
 #include "engraver-group-engraver.hh"
-#include "item.hh"
 #include "context.hh"
 
 /**

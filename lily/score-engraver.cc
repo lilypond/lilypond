@@ -11,7 +11,6 @@
 #include "warn.hh"
 #include "main.hh"
 #include "system.hh"
-#include "item.hh"
 #include "score-engraver.hh"
 #include "paper-score.hh"
 #include "paper-column.hh"
@@ -20,11 +19,7 @@
 #include "context-def.hh"
 #include "staff-spacing.hh"
 #include "note-spacing.hh"
-#include "context.hh"
 #include "global-context.hh"
-
-
-
 
 /*
   TODO: the column creation logic is rather hairy. Revise it.
@@ -107,16 +102,22 @@ Score_engraver::initialize ()
 {
   Font_metric *fm = all_fonts_global->find_afm ("feta20");
   if (!fm)
-    error (_f ("can't find `%s'", "feta20.afm")
-	   + "\n" +_ ("Music font has not been installed properly.  Aborting"));
+    error (_f ("cannot find `%s'", "feta20.afm")
+	   + "\n"
+	   + _ ("Music font has not been installed properly.")
+	   + _ ("Aborting"));
 
-  SCM pfa_path = ly_kpathsea_expand_path (scm_makfrom0str ("ecrm10.pfa"));
-  if (!scm_is_string (pfa_path))
-    error (_f ("can't find `%s'", "ecrm10.pfa")
-	   + "\n" +_f ("Install the ec-mftraced package from %s. Aborting",
-		       "http://lilypond.org/download/fonts/"));
-   
-
+  if (!scm_is_string (ly_kpathsea_find_file (scm_makfrom0str ("ecrm10.pfa")))
+      && (!scm_is_string (ly_kpathsea_find_file (scm_makfrom0str ("lmr10.pfb")))))
+      error (_f ("cannot find `%s'", "ecrm10.pfa")
+	     + "\n"
+	     + _f ("cannot find `%s'", "lmr10.pfb")
+	     + "\n"
+	     + _f ("Install the ec-fonts-mftraced package from: %s.",
+		   "http://lilypond.org/download/fonts/")
+	     + "\n"
+	     + _ ("Aborting."));
+      
   pscore_ = new Paper_score;
   pscore_->layout_ = dynamic_cast<Output_def*> (get_output_def ());
 

@@ -7,8 +7,9 @@
     Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include <math.h>
 #include "misc.hh"
+
+#include <cmath>
 
 /*
   Return the 2-log, rounded down 

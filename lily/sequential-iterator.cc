@@ -6,9 +6,10 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "sequential-iterator.hh"
+
 #include "translator-group.hh"
 #include "context.hh"
-#include "sequential-iterator.hh"
 #include "music-list.hh"
 #include "grace-fixup.hh"
 

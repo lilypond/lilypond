@@ -8,9 +8,6 @@
 #ifndef PAPER_SYSTEM_HH
 #define PAPER_SYSTEM_HH
 
-#include "lily-proto.hh"
-#include "smobs.hh"
-#include "offset.hh"
 #include "stencil.hh"
 
 /*

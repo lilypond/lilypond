@@ -12,10 +12,7 @@
 #include "music-sequence.hh"
 #include "lily-guile.hh"
 #include "music-wrapper-iterator.hh"
-#include "music.hh"
-#include "input.hh"
 #include "warn.hh"
-#include "interpretation-context-handle.hh"
 
 class Quote_iterator : public Music_wrapper_iterator
 {

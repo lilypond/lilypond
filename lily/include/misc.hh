@@ -1,9 +1,8 @@
 #ifndef MISC_HH
 #define MISC_HH
 
-#include <stdlib.h>
+#include <cstdlib>
 
-#include "real.hh"
 #include "array.hh"
 #include "interval.hh"
 

@@ -7,13 +7,11 @@
   
 */
 
-#include "engraver.hh"
 #include "beam.hh"
 #include "repeated-music.hh"
 #include "stem.hh"
 #include "rhythmic-head.hh"
 #include "engraver-group-engraver.hh"
-#include "event.hh"
 #include "warn.hh"
 #include "misc.hh"
 #include "note-head.hh"

@@ -8,7 +8,6 @@
 
 #include "skyline.hh" 
 
-
 /*
   A skyline is a shape of the form:
 

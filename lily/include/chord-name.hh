@@ -9,7 +9,6 @@
 #ifndef CHORD_NAME_HH
 #define CHORD_NAME_HH
 
-#include "lily-guile.hh"
 #include "stencil.hh"
 
 

@@ -8,6 +8,7 @@
  */
 
 #include "time-scaled-music.hh"
+
 #include "time-scaled-music-iterator.hh"
 
 Time_scaled_music::Time_scaled_music ()

@@ -6,14 +6,14 @@
   (c) 1996--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "paper-column.hh"
 #include "break-algorithm.hh"
+
+#include "paper-column.hh"
 #include "output-def.hh"
 #include "system.hh"
 #include "paper-score.hh"
 #include "paper-column.hh"
 #include "cpu-timer.hh"
-
 #include "simple-spacer.hh"
 #include "group-interface.hh"
 

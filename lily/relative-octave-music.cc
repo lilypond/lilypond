@@ -6,10 +6,10 @@
   (c) 1998--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
+
 #include "relative-music.hh"
 #include "warn.hh"
 #include "scm-option.hh"
-
 
 Pitch
 Relative_octave_music::to_relative_octave (Pitch p)

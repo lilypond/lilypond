@@ -3,11 +3,11 @@
 
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-#include <ctype.h>
+
+#include <cctype>
 
 #include "rhythmic-head.hh"
 #include "output-def.hh"
-#include "event.hh"
 #include "dots.hh"
 #include "dot-column.hh"
 #include "staff-symbol-referencer.hh"

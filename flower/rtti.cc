@@ -1,7 +1,6 @@
-#include <typeinfo>
-#include <ctype.h>
-#include "virtual-methods.hh"
+#include <cctype>
 
+#include "virtual-methods.hh"
 
 const char *
 demangle_classname (std::type_info const &t)

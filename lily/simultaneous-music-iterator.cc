@@ -6,12 +6,12 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "simultaneous-music-iterator.hh"
+
 #include "context.hh"
 #include "warn.hh"
-#include "simultaneous-music-iterator.hh"
 #include "music-list.hh"
 #include "context-def.hh"
-
 
 Simultaneous_music_iterator::Simultaneous_music_iterator ()
 {

@@ -7,9 +7,9 @@
 
 */
 
-#include "object-key.hh"
-#include "context-def.hh"
 #include "context.hh"
+
+#include "context-def.hh"
 #include "ly-smobs.icc"
 #include "main.hh"
 #include "output-def.hh"

@@ -10,11 +10,10 @@
 /*
   duplicated in melisma-performer
  */
+
 #include "engraver.hh"
-#include "event.hh"
 #include "grob.hh"
 #include "context.hh"
-
 
 /**
    Signal existence of melismas.

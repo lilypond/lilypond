@@ -13,8 +13,6 @@
 
 #include <map>
 
-#include "string.hh"
-#include "box.hh"
 #include "array.hh"
 #include "font-metric.hh"
 #include "parse-afm.hh"

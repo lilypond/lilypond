@@ -8,8 +8,6 @@
 #ifndef PERFORMER_GROUP_PERFORMER_HH
 #define PERFORMER_GROUP_PERFORMER_HH
 
-#include "lily-proto.hh"
-#include "parray.hh"
 #include "performer.hh"
 #include "translator-group.hh"
 

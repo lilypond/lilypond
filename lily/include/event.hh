@@ -10,9 +10,6 @@
 #define EVENT_HH
 
 
-#include "string.hh"
-#include "moment.hh"
-#include "virtual-methods.hh"
 #include "input.hh"
 #include "music.hh"
 #include "duration.hh"

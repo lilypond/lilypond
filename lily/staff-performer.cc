@@ -6,7 +6,6 @@
   (c) 1997--2004 Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
-#include "translator-group.hh"
 #include "warn.hh"
 #include "audio-column.hh"
 #include "audio-item.hh"

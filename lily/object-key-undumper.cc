@@ -7,11 +7,6 @@
 
 */
 
-#include <map>
-
-
-#include "smobs.hh"
-#include "object-key.hh"
 #include "object-key-undumper.hh"
 
 #include "ly-smobs.icc"

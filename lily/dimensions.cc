@@ -1,8 +1,8 @@
 // dimensions.cc
 
 #include "dimensions.hh"
+
 #include "warn.hh"
-#include "string.hh"
 
 String
 print_dimen (Real r)

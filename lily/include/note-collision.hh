@@ -12,8 +12,6 @@
 
 #include "lily-proto.hh"
 #include "lily-guile.hh"
-
-#include "drul-array.hh"
 #include "parray.hh"
 
 /**

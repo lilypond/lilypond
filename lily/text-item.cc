@@ -7,11 +7,12 @@
                  Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include <math.h>
+#include "text-item.hh"
+
+#include <cmath>
 
 #include "warn.hh"
 #include "grob.hh"
-#include "text-item.hh"
 #include "font-interface.hh"
 #include "virtual-font-metric.hh"
 #include "output-def.hh"
@@ -21,7 +22,7 @@
 MAKE_SCHEME_CALLBACK (Text_interface, interpret_string, 4)
 SCM
 Text_interface::interpret_string (SCM layout_smob,
-			     SCM props, SCM input_encoding, SCM markup)
+				  SCM props, SCM input_encoding, SCM markup)
 {
   Output_def *layout = unsmob_output_def (layout_smob);
   

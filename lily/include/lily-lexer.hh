@@ -12,13 +12,8 @@
 #include "includable-lexer.hh"
 
 #include "input.hh"
-#include "lily-proto.hh"
-#include "flower-proto.hh"
-#include "array.hh"
-#include "string.hh"
 #include "duration.hh"
 #include "pitch.hh"
-#include "smobs.hh"
 
 bool busy_parsing ();
 void kill_lexer ();

@@ -5,12 +5,14 @@
 
   (c) 1996--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-#include <math.h>
+
+#include "spanner.hh"
+
+#include <cmath>
+
 #include <libc-extension.hh>
 
-
 #include "warn.hh"
-#include "spanner.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"
 #include "stencil.hh"

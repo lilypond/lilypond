@@ -6,12 +6,11 @@
   (c) 2000--2004 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include <math.h>
-
-#include "stencil.hh"
-#include "item.hh"
-#include "spanner.hh"
 #include "line-spanner.hh"
+
+#include <cmath>
+
+#include "spanner.hh"
 #include "output-def.hh"
 #include "paper-column.hh"
 #include "staff-symbol-referencer.hh"

@@ -6,12 +6,9 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include <limits.h>
-#include "string.hh"
 #include "moment.hh"
-#include "real.hh"
+
 #include "interval.tcc"
-#include "compare.hh"
 
 Rational
 Interval_t<Rational>::infinity ()
