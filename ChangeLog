@@ -1,3 +1,17 @@
+2003-05-27  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scripts/as2text.scm: Use rdelim module.
+	(start-system): Rename from start-line.
+	(stop-system): Rename from stop-line.
+	(af-gulp-file): Use string iso symbol for getenv.
+
+	* scm/output-ascii-script.scm: Add guile and lily modules.
+	(font-name-alist): New variable.
+	(draw-line): New function.
+
+	* scm/output-lib.scm (func, arg->string): Re-add from archive.
+	(Were these silently removed, without ChangeLog entry?)
+
 2003-05-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/music-functions.scm (make-ottava-set): bugfixes: also
