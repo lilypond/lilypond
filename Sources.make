@@ -12,7 +12,7 @@ hdr=   bar.hh beam.hh boxes.hh break.hh clef.hh clefitem.hh\
 	localkeyitem.hh localkeyreg.hh lookup.hh \
 	lyriccolumn.hh  lyricitem.hh lyricstaff.hh lyricwalker.hh\
 	main.hh  meter.hh misc.hh\
-	molecule.hh moment.hh notehead.hh notename.hh offset.hh paper.hh\
+	molecule.hh moment.hh notehead.hh notename.hh offset.hh paperdef.hh\
 	parseconstruct.hh pcol.hh proto.hh pscore.hh pstaff.hh qlp.hh\
 	qlpsolve.hh register.hh request.hh rest.hh \
 	sccol.hh score.hh\
@@ -40,7 +40,7 @@ mycc=bar.cc beam.cc boxes.cc break.cc calcideal.cc clef.cc\
 	lyriccolumn.cc lyricitem.cc lyricstaff.cc lyricwalker.cc\
 	main.cc  meter.cc\
 	misc.cc molecule.cc mylexer.cc note.cc notehead.cc  notename.cc\
-	paper.cc pcol.cc pscore.cc pstaff.cc qlp.cc qlpsolve.cc\
+	paperdef.cc pcol.cc pscore.cc pstaff.cc qlp.cc qlpsolve.cc\
 	register.cc request.cc rest.cc  sccol.cc score.cc\
 	scoreline.cc scores.cc script.cc scriptdef.cc scriptreg.cc \
 	 slur.cc\
@@ -60,7 +60,7 @@ mycc=bar.cc beam.cc boxes.cc break.cc calcideal.cc clef.cc\
 stablecc=request.cc bar.cc boxes.cc break.cc  clef.cc getcommands.cc grouping.cc\
 	item.cc keyword.cc leastsquares.cc \
 	linepstaff.cc linespace.cc lookup.cc molecule.cc meter.cc\
-	paper.cc parser.cc lexer.cc pstaff.cc qlp.cc qlpsolve.cc\
+	paperdef.cc parser.cc lexer.cc pstaff.cc qlp.cc qlpsolve.cc\
 	template1.cc template2.cc template3.cc template4.cc\
 	template5.cc template6.cc version.cc tstream.cc  tex.cc\
 	voice.cc wordwrap.cc spanner.cc 
