@@ -8,11 +8,11 @@
 
 #include "proto.hh"
 #include "plist.hh"
-#include "plist.tcc"
 #include "pcursor.tcc"
+#include "plist.tcc"
 
 #include "music-list.hh"
 #include "music-iterator.hh"
 
-template POINTERLIST_INSTANTIATE(Music);
-template POINTERLIST_INSTANTIATE(Music_iterator);
+POINTERLIST_INSTANTIATE(Music);
+POINTERLIST_INSTANTIATE(Music_iterator);

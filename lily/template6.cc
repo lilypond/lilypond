@@ -2,6 +2,5 @@
 #include "plist.tcc"
 #include "translator.hh"
 
-
-template POINTERLIST_INSTANTIATE(Translator);
+POINTERLIST_INSTANTIATE(Translator);
 

@@ -1,3 +1,24 @@
+**********
+march 27
+pl 51
+	- changed dutch -> nederlands, german -> deutsch etc.
+	- norwegian (AG)
+
+pl 50.jcn4
+	- fixes for cygnus' gnu-windows32  beta19
+	  be sure to compile with -fno-rtti
+	- proof of concept for automated updating of Makefile.am
+	  see mi2mu/GNUmakefile (still somewhat clumsy)
+	- mv'd both config.hh.in to acconfig.h
+	- copied printing/debugging/optimising options to flower conf
+	- (some modified) fixes from AO
+	- beginnetje los-toros-oboe
+	- bf: DIR_DATADIR
+	- bf: trills
+
+
+		
+************
 pl 50
 	- deprecate autowild
 	- --srcdir fixes
@@ -7,8 +28,6 @@ pl 49jcn2
 	- static (default) and/or shared libs flower and lily
 	- patch from AO 'libtool 1.1.1'
 	- mf: trill-symbols: feta-slag.mf
-
-pl 49.jcn1
 	- shared libs (ugh: hardcoded switch in configure set to static)
 	- some fixes: denneboom.ly, standje.ly/standchen.ly
 	

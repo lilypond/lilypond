@@ -43,15 +43,12 @@ Full_storage::~Full_storage()
 }
 
 void
-
 Full_storage::resize (int rows, int cols)
 {
   OK();
   resize_cols (rows);
   resize_rows (cols);
 }
-
-
 
 bool
 Full_storage::mult_ok (int i, int) const
@@ -212,5 +209,8 @@ Full_storage::resize_rows (int neww)
 #undef INLINE
 #endif
 #define INLINE
+
+INLINE
+IMPLEMENT_VIRTUAL_COPY_CONS(Full_storage,Matrix_storage);
 
 #include "full-storage.icc"

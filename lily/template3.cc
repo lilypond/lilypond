@@ -8,7 +8,7 @@
 
 #include "atom.hh"
 #include "molecule.hh"
-#include "plist.tcc"
 #include "pcursor.tcc"
+#include "plist.tcc"
 
-template POINTERLIST_INSTANTIATE(Atom);
+POINTERLIST_INSTANTIATE(Atom);

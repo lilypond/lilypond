@@ -7,7 +7,7 @@
 */
 
 #include "line-spacer.hh"
-#include "plist.tcc"
 #include "pcursor.tcc"
+#include "plist.tcc"
 
-template POINTERLIST_INSTANTIATE(Line_spacer);
+POINTERLIST_INSTANTIATE(Line_spacer);

@@ -9,10 +9,6 @@
 #define LIST_CC
 
 
-// instantiate a template:  explicit instantiation.
-#define LIST_INSTANTIATE(a)   class List<a>; template class Cursor<a>; \
-  template class Link<a>
-
 #include "list.hh"
 
 template<class T>
@@ -134,4 +130,22 @@ List<T>::concatenate (List<T> const&s)
 	b++;
     }
 }
+
+#ifndef __CYGWIN32__ // ugh should check for some gcc/egcs version
+
+// instantiate a template:  explicit instantiation.
+#define LIST_INSTANTIATE(a)  template class List<a>; \
+  template class Cursor<a>; template class Link<a>
+
+#else
+
+#define LIST_INSTANTIATE(T)\
+    static void force_list_members ()\
+    {\
+    List<T> bla;\
+    bla.top().add ((void*)0);\
+    }
 #endif
+
+#endif
+

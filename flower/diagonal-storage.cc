@@ -14,9 +14,9 @@
 #undef INLINE
 #endif
 
-#define INLINE inline
+//#define INLINE inline
 
-#include "full-storage.icc"
+// #include "full-storage.icc"
 
 int
 Diagonal_storage::dim() const

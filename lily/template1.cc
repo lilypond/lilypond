@@ -19,8 +19,6 @@
 
 #define IPLC_INSTANTIATE(a) POINTERLIST_INSTANTIATE(a)
 
-
-template IPLC_INSTANTIATE(Score_elem);
-template IPLC_INSTANTIATE(Spanner);
-template IPLC_INSTANTIATE(Idealspacing);
-
+IPLC_INSTANTIATE(Score_elem);
+IPLC_INSTANTIATE(Spanner);
+IPLC_INSTANTIATE(Idealspacing);
