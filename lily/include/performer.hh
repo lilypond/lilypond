@@ -27,29 +27,20 @@ public:
     Performer();
     virtual ~Performer();
 
-    
     void print() const;
     virtual void process_requests();
-
-    virtual void set( Moment mom );
-    // <ugh>
-    virtual void set_track( int& track_i_r );
-    virtual int get_track_i() const;
-    // </ugh>
 
     virtual bool try_request( Request* req_l );
 
     virtual void do_removal_processing();
     void creation_processing();
+
 protected:
     virtual void do_creation_processing();
-
     virtual bool do_try_request(Request*);
     virtual int get_tempo_i() const;
     virtual void do_print() const;
-    virtual Moment get_mom() const;
-    virtual void play_event( Midi_item* l );
-
+    virtual void play( Audio_element * elem_p  );
 };
 
 #include "global-performers.hh"

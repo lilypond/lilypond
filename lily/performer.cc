@@ -1,5 +1,7 @@
 /*
-  performer.cc -- declare Performer
+  performer.cc -- implement Performer
+
+  source file of the GNU LilyPond music typesetter
 
   (c) 1996, 1997 Han-Wen Nienhuys <hanwen@stack.nl>
                  Jan Nieuwenhuizen <jan@digicash.com>
@@ -27,16 +29,10 @@ Performer::do_print() const
 {
 }
 
-Moment
-Performer::get_mom() const
-{
-    return daddy_perf_l_->get_mom();
-}
-
 void 
-Performer::play_event( Midi_item* l ) 
+Performer::play( Audio_element* p ) 
 { 
-    daddy_perf_l_->play_event( l ); 
+    daddy_perf_l_->play( p ); 
 }
 
 int
@@ -60,24 +56,6 @@ Performer::process_requests()
 {
 }
 
-void
-Performer::set( Moment )
-{
-} 
-
-//<ugh>
-int
-Performer::get_track_i() const
-{
-    return daddy_perf_l_->get_track_i();
-}
-
-void
-Performer::set_track( int& )
-{
-}
-//</ugh>
-
 bool 
 Performer::do_try_request( Request* req_l )
 {
@@ -97,17 +75,11 @@ void
 Performer::creation_processing()
 {
     if (!init_b_) { 
-/*	if ( daddy_perf_l_ ) {
-	    init_b_ = true;	// ugh. avoid recursion
-	    daddy_perf_l_->creation_processing();
-	    init_b_ = false;
-	}
-	
-	*/
 	do_creation_processing();
 	init_b_ = true;
     }
 }
+
 void
 Performer::do_creation_processing()
 {
