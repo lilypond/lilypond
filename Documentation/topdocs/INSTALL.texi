@@ -253,7 +253,7 @@ and appending the following to @file{~/.vim/filetype.vim}:
 	endif
 	augroup filetypedetect
 	  au! BufRead,BufNewFile  *.ly          setfiletype lilypond
-	augroup
+	augroup END
 @end example
 @end quotation
 
