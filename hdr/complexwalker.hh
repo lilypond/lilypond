@@ -8,7 +8,6 @@
 #define COMPLEXWALKER_HH
 
 #include "proto.hh"
-#include "voicegroup.hh"
 #include "assoc.hh"
 #include "staffwalker.hh"
 #include "staffeleminfo.hh"
@@ -18,7 +17,7 @@
   A staff walker which uses registers to decide what to print
  */
 class Complex_walker: public Staff_walker {
-    bool try_command_request(Nonmusical_req *req_l);
+    bool try_command_request(Command_req *req_l);
     void do_change_group( Voice * v, String group_id_str);
     void do_announces();
     void try_request(Request*req);    
@@ -33,14 +32,9 @@ public:
     IPointerList<Voice_registers *> voice_reg_list_;
     IPointerList<Voice_group_registers*> group_reg_list_;
     Assoc<Voice *, Voice_group_registers *> voice_group_map_;
-
-    Clef_register *clef_reg_p_;
-    Local_key_register *local_key_reg_p_;
-    Key_register *key_reg_p_;
-    Bar_register *bar_reg_p_;
-    Meter_register *meter_reg_p_;
     
     Array<Staff_elem_info> announce_info_arr_;
+    Walker_registers *walk_regs_p_;
     
     /* *************** */
 
