@@ -499,7 +499,7 @@ HYPHEN		--
 		String str (YYText () + 1);
 		SCM s = lookup_markup_command (str);
 
-		if (ly_c_pair_p (s) && scm_is_symbol (scm_cdr (s)) ) {
+		if (scm_is_pair (s) && scm_is_symbol (scm_cdr (s)) ) {
 			yylval.scm = scm_car(s);
 			SCM tag = scm_cdr(s);
 			if (tag == ly_symbol2scm("markup0"))
@@ -727,10 +727,10 @@ Lily_lexer::scan_bare_word (String str)
 	SCM sym = ly_symbol2scm (str.to_str0 ());
 	if ((YYSTATE == notes) || (YYSTATE == chords)) {
 		SCM handle = SCM_BOOL_F;
-		if (ly_c_pair_p (pitchname_tab_stack_))
+		if (scm_is_pair (pitchname_tab_stack_))
 			handle = scm_hashq_get_handle (scm_car (pitchname_tab_stack_), sym);
 		
-		if (ly_c_pair_p (handle)) {
+		if (scm_is_pair (handle)) {
 			yylval.scm = scm_cdr (handle);
 			if (unsmob_pitch (yylval.scm)) 
 	                    return (YYSTATE == notes) ? NOTENAME_PITCH : TONICNAME_PITCH;

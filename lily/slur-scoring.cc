@@ -1444,7 +1444,6 @@ get_bezier (Grob *me,
 
   Real a1 = sqr (len) / 3.0;
   Real a2 = 0.75 * sqr (indent + len / 3.0);
-  Real debug_h = sqrt (a1 - a2);
   Real max_h;
   if (a1 >= a2)
     max_h = sqrt (a1 - a2);
