@@ -1,3 +1,6 @@
+pl 24.jcn2
+	- feta-nummertjes: 0 1 2 4 7
+
 pl 24
 	- internationalization preps (FP)
 	- rewrote make-patch in python
