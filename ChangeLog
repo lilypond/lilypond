@@ -1,3 +1,10 @@
+2004-11-06  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/paper.scm (paper-alist): public.
+	* scm/framework-tex.scm (convert-to-ps):
+	* scm/lily.scm (postscript->pdf): Do not leak papersizename into
+	command line.  (backportme)
+
 2004-11-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/lily.scm (ly:system): add > /dev/null 2>&1 
