@@ -1180,12 +1180,12 @@ steno_musical_pitch:
 		$$ = $1;
 	}
 	| NOTENAME_PITCH sup_quotes 	{
-		Musical_pitch p = *unsmob_pitch ($1);
+		Pitch p = *unsmob_pitch ($1);
 		p.octave_i_ +=  $2;
 		$$ = p.smobbed_copy ();
 	}
 	| NOTENAME_PITCH sub_quotes	 {
-		Musical_pitch p =* unsmob_pitch ($1);
+		Pitch p =* unsmob_pitch ($1);
 
 		p.octave_i_ +=  -$2;
 		$$ = p.smobbed_copy ();
@@ -1202,12 +1202,12 @@ steno_tonic_pitch:
 		$$ = $1;
 	}
 	| TONICNAME_PITCH sup_quotes 	{
-		Musical_pitch p = *unsmob_pitch ($1);
+		Pitch p = *unsmob_pitch ($1);
 		p.octave_i_ +=  $2;
 		$$ = p.smobbed_copy ();
 	}
 	| TONICNAME_PITCH sub_quotes	 {
-		Musical_pitch p =* unsmob_pitch ($1);
+		Pitch p =* unsmob_pitch ($1);
 
 		p.octave_i_ +=  -$2;
 		$$ = p.smobbed_copy ();
@@ -1222,7 +1222,7 @@ musical_pitch:
 	| MUSICAL_PITCH embedded_scm {
 		if (!unsmob_pitch ($2))
 			THIS->parser_error (_f ("Expecting musical-pitch value", 3));
-		 Musical_pitch m;
+		 Pitch m;
 		$$ = m.smobbed_copy ();
 	}
 	;
@@ -1533,7 +1533,7 @@ FIXME
 
 chord:
 	steno_tonic_pitch optional_notemode_duration chord_additions chord_subtractions chord_inversion chord_bass {
-                $$ = get_chord ($1, $3, $4, $5, $6, $2);
+                $$ = Chord::get_chord ($1, $3, $4, $5, $6, $2);
 		$$->set_spot (THIS->here_input ());
         };
 
@@ -1597,7 +1597,7 @@ chord_step:
 
 chord_note:
 	bare_unsigned {
-		 Musical_pitch m;
+		 Pitch m;
 		m.notename_i_ = ($1 - 1) % 7;
 		m.octave_i_ = $1 > 7 ? 1 : 0;
 		m.alteration_i_ = 0;
@@ -1605,7 +1605,7 @@ chord_note:
 		$$ = m.smobbed_copy ();
         } 
 	| bare_unsigned '+' {
-		Musical_pitch m;
+		Pitch m;
 		m.notename_i_ = ($1 - 1) % 7;
 		m.octave_i_ = $1 > 7 ? 1 : 0;
 		m.alteration_i_ = 1;
@@ -1614,7 +1614,7 @@ chord_note:
 		$$ = m.smobbed_copy ();
 	}
 	| bare_unsigned CHORD_MINUS {
-		Musical_pitch m;
+		Pitch m;
 		m.notename_i_ = ($1 - 1) % 7;
 		m.octave_i_ = $1 > 7 ? 1 : 0;
 		m.alteration_i_ = -1;
