@@ -336,7 +336,8 @@ predicates. Print a message at LOCATION if any predicate failed."
   (if (member "pdf" formats)
       (set! formats (cons "ps" formats)))
 
-  formats)
+  (uniq-list formats))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (lilypond-main files)

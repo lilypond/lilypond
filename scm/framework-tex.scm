@@ -24,7 +24,7 @@
   (if (member "dvi" formats)
       (set! formats (cons "tex" formats)))
 
-  formats)
+  (uniq-list formats))
 
 (define framework-tex-module (current-module))
 (define-public (sanitize-tex-string s)
