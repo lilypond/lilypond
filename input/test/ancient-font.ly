@@ -39,8 +39,8 @@ upperVoice =  \context Staff = upperVoice <
 	\property Voice.Porrectus \override #'style = #'vaticana
 	\property Voice.Porrectus \override #'solid = ##t
 	\property Voice.Porrectus \override #'add-stem = ##t
-	\property Voice.Porrectus \override #'stem-direction = #-1
-	\property Voice.Porrectus \override #'line-thickness = #0.5
+	\property Voice.Porrectus \override #'direction = #-1
+	\property Voice.Porrectus \override #'thickness = #0.5
 	\key es \major
 	\clef "vaticana_fa2"
 	c!1 des! e! f! ges!
@@ -148,9 +148,9 @@ lowerVoice =  \context Staff = lowerNotes <
 	\property Voice.Porrectus \override #'solid = ##f
 	\property Voice.Porrectus \override #'add-stem = ##t
 	\property Voice.Porrectus \override #'stem-direction = #1
-	\property Voice.Porrectus \override #'line-thickness = #0.7
+	\property Voice.Porrectus \override #'thickness = #0.7
 %	\property Voice.Porrectus \override #'auto-properties = ##t
-%	\property Voice.Porrectus \override #'porrectus-width = #3.0
+%	\property Voice.Porrectus \override #'width = #3.0
 	\key a \major
 
 	% IMPORTANT NOTE:
