@@ -95,25 +95,48 @@
 ;; silly, use alist? 
 (define (find-notehead-symbol duration style)
   (case style
-   ((xcircle) "2xcircle")
-   ((harmonic) "0neo_mensural")
+   ((xcircle) (cons "2xcircle" "music"))
+   ((harmonic) (cons "0neo_mensural" "music"))
    ((baroque) 
-    (string-append (number->string duration)
-		   (if (< duration 0) "neo_mensural" "")))
-   ((mensural) (string-append (number->string duration) (symbol->string style)))
-   ((neo_mensural) (string-append (number->string duration) (symbol->string style)))
-   ((default) (number->string duration))
+    ;; Oops, I actually would not call this "baroque", but, for
+    ;; backwards compatibility to 1.4, this is supposed to take
+    ;; brevis, longa and maxima from the neo-mensural font and all
+    ;; other note heads from the default font.  -- jr
+    (if (< duration 0)
+	(cons (string-append (number->string duration) "neo_mensural") "ancient")
+	(cons (number->string duration) "music")))
+   ((mensural)
+    (cons (string-append (number->string duration) (symbol->string style))
+     "ancient"))
+   ((neo_mensural)
+    (cons (string-append (number->string duration) (symbol->string style))
+     "ancient"))
+   ((default)
+    ;; The default font in mf/feta-bolletjes.mf defines a brevis, but
+    ;; neither a longa nor a maxima.  Hence let us, for the moment,
+    ;; take these from the neo-mensural font.  TODO: mf/feta-bolletjes
+    ;; should define at least a longa for the default font.  The longa
+    ;; should look exactly like the brevis of the default font, but
+    ;; with a stem exactly like that of the quarter note. -- jr
+    (if (< duration -1)
+	(cons (string-append (number->string duration) "neo_mensural") "ancient")
+	(cons (number->string duration) "music")))
    (else
-    (string-append (number->string (max 0 duration)) (symbol->string style)))))
+    (cons (string-append (number->string (max 0 duration)) (symbol->string style))
+     "music"))))
 
 
-(define (note-head-style->attachment-coordinates style)
+(define (note-head-style->attachment-coordinates style duration)
   "Return pair (X . Y), containing multipliers for the note head
 bounding box, where to attach the stem. e.g.: X==0 means horizontally
 centered, X==1 is at the right, X == -1 is at the left."
 
   (case style
-    ((default) '(1.0 . 0.5))
+    ((default)
+     (if (< duration -1)
+	 '(0.0 . 0.6) ;; neo-mensural
+	 '(1.0 . 0.5) ;; default
+	 ))
     ((cross) '(1.0 . 0.75))
     ((mensural) '(0.0 . 0.6))
     ((neo_mensural) '(0.0 . 0.6))
@@ -122,6 +145,11 @@ centered, X==1 is at the right, X == -1 is at the left."
     ((slash) '(1.0 . 1.0))
     ((harmonic) '(1.0 0.0))
     ((triangle) '(0.75 . 0.15))
+    ((baroque)
+     (if (< duration 0)
+	 '(0.0 . 0.6) ;; neo-mensural
+	 '(1.0 . 0.5) ;; default
+	 ))
     (else
 
      ;; this also works for easy notation.
