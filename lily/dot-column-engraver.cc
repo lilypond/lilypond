@@ -41,8 +41,8 @@ Dot_column_engraver::acknowledge_element (Score_element_info info)
   if (!dotcol_p_)
     {
       dotcol_p_ = new Dot_column;
-      side_position (dotcol_p_).set_axis (X_AXIS);
-      side_position (dotcol_p_).set_direction (RIGHT);      
+      Side_position_interface (dotcol_p_).set_axis (X_AXIS);
+      Side_position_interface (dotcol_p_).set_direction (RIGHT);      
       announce_element (Score_element_info (dotcol_p_, 0));
     }
 

@@ -25,7 +25,7 @@
 Volta_spanner::Volta_spanner ()
 {
   set_elt_property ("bars", SCM_EOL);
-  side_position (this).set_axis (Y_AXIS);
+  Side_position_interface (this).set_axis (Y_AXIS);
   directional_element (this).set (UP);
 }
 
@@ -112,7 +112,7 @@ Volta_spanner::do_add_processing ()
 void
 Volta_spanner::after_line_breaking ()
 {
-  side_position (this).add_staff_support ();
+  Side_position_interface (this).add_staff_support ();
 }
   
 void
@@ -121,13 +121,13 @@ Volta_spanner::add_bar  (Bar* b)
   Group_interface gi(this, "bars");
   gi.add_element (b);
 
-  side_position (this).add_support (b);
+  Side_position_interface (this).add_support (b);
   add_dependency (b);
 }
 
 void
 Volta_spanner::add_column (Note_column* c)
 {
-  side_position (this).add_support (c);
+  Side_position_interface (this).add_support (c);
   add_dependency (c);
 }

@@ -38,9 +38,9 @@ Stem_tremolo::stem_l ()const
 }
 
 Interval
-Stem_tremolo::dim_callback (Dimension_cache const *c) 
+Stem_tremolo::dim_callback (Score_element * se, Axis a)
 {
-  Stem_tremolo * s = dynamic_cast<Stem_tremolo*> (c->element_l ());
+  Stem_tremolo * s = dynamic_cast<Stem_tremolo*> (se);
   Real space = Staff_symbol_referencer_interface (s->stem_l ())
     .staff_space ();
   return Interval (-space, space);

@@ -110,7 +110,7 @@ Break_align_engraver::acknowledge_element (Score_element_info inf)
 
 	    TODO: switch off ignoring empty stuff?
 	  */
-	  edge->dim_cache_[X_AXIS]->set_extent_callback (Dimension_cache::point_dimension_callback);
+	  edge->set_extent_callback (Score_element::point_dimension_callback,X_AXIS);
 	  
 	  align_l_->set_elt_property ("group-center-element", edge->self_scm_);
 

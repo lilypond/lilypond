@@ -46,7 +46,7 @@ Axis_group_interface::add_element (Score_element *e)
 bool
 Axis_group_interface::axis_b (Axis a )const
 {
-  return elt_l_->dim_cache_[a]->extent_callback_l_ == group_extent_callback;
+  return elt_l_->has_extent_callback_b (group_extent_callback, a);
 }
 
 Interval
@@ -64,11 +64,9 @@ Axis_group_interface::relative_group_extent (Axis a, Score_element *common, SCM 
 }
 
 Interval
-Axis_group_interface::group_extent_callback (Dimension_cache const *c) 
+Axis_group_interface::group_extent_callback (Score_element const*me, Axis a)
 {
-  Axis a = c->axis ();
-  Score_element * me = c->element_l ();
-  Score_element * common = me;
+  Score_element * common =(Score_element*) me;
 
   for (SCM s = me->get_elt_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
     {
@@ -111,8 +109,8 @@ Axis_group_interface::set_axes (Axis a1, Axis a2)
   if (a1 != Y_AXIS && a2 != Y_AXIS)
     elt_l_->set_extent_callback (0, Y_AXIS);
   
-  elt_l_->dim_cache_[a1]->set_extent_callback (Axis_group_interface::group_extent_callback);
-  elt_l_->dim_cache_[a2]->set_extent_callback (Axis_group_interface::group_extent_callback);
+  elt_l_->set_extent_callback (Axis_group_interface::group_extent_callback,a1);
+  elt_l_->set_extent_callback (Axis_group_interface::group_extent_callback,a2);
 }
 
 Link_array<Score_element> 

@@ -10,9 +10,9 @@
 #ifndef DIMENSION_CACHE_CALLBACK_HH
 #define DIMENSION_CACHE_CALLBACK_HH
 
-class Dimension_cache;
-typedef Interval (*Dim_cache_callback)(Dimension_cache const *);
-typedef Real (*Offset_cache_callback)(Dimension_cache const *);
+
+typedef Interval (*Dim_cache_callback)(Score_element const *,Axis);
+typedef Real (*Offset_callback)(Score_element const *,Axis);
 
 #endif /* DIMENSION_CACHE_CALLBACK_HH */
 

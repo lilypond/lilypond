@@ -8,7 +8,9 @@
 
 
 #include <string.h>
+#include <math.h>
 
+#include "libc-extension.hh"
 #include "group-interface.hh"
 #include "misc.hh"
 #include "paper-score.hh"
@@ -37,15 +39,11 @@ remove dynamic_cast<Spanner,Item> and put this code into respective
 
 Score_element::Score_element()
 {
-  dim_cache_[X_AXIS] = new Dimension_cache;
-  dim_cache_[Y_AXIS] = new Dimension_cache;
-  dim_cache_[X_AXIS]->elt_l_ = dim_cache_[Y_AXIS]->elt_l_ = this;
-
   // junkme.
   used_b_ = false;
+  set_extent_callback (molecule_extent, X_AXIS);
+  set_extent_callback (molecule_extent, Y_AXIS);    
 
-  dim_cache_[X_AXIS]->set_extent_callback (molecule_extent);
-  dim_cache_[Y_AXIS]->set_extent_callback (molecule_extent); 
   used_b_ = false;
   pscore_l_=0;
   lookup_l_ =0;
@@ -55,19 +53,14 @@ Score_element::Score_element()
   element_property_alist_ = SCM_EOL;
 
   smobify_self ();
-
-
   set_elt_property ("dependencies", SCM_EOL);
   set_elt_property ("interfaces", SCM_EOL);
 }
 
 
 Score_element::Score_element (Score_element const&s)
+   : dim_cache_ (s.dim_cache_)
 {
-  dim_cache_[X_AXIS] = new Dimension_cache (*s.dim_cache_[X_AXIS]);
-  dim_cache_[Y_AXIS] = new Dimension_cache (*s.dim_cache_[Y_AXIS]);
-  dim_cache_[X_AXIS]->elt_l_ = dim_cache_[Y_AXIS]->elt_l_ = this;
-  
   self_scm_ = SCM_EOL;
   used_b_ = true;
   original_l_ =(Score_element*) &s;
@@ -82,8 +75,6 @@ Score_element::Score_element (Score_element const&s)
 
 Score_element::~Score_element()
 {
-  delete dim_cache_[X_AXIS];
-  delete dim_cache_[Y_AXIS];  
 }
 
 // should also have one that takes SCM arg. 
@@ -132,18 +123,16 @@ Score_element::set_elt_property (String k, SCM v)
 }
 
 Interval
-Score_element::molecule_extent (Dimension_cache const *c)
+Score_element::molecule_extent (Score_element const *s, Axis a )
 {
-  Score_element *s = dynamic_cast<Score_element*>(c->element_l());
   Molecule m = s->do_brew_molecule();
-  return m.extent(c->axis ());
+  return m.extent(a);
 }
 
 Interval
-Score_element::preset_extent (Dimension_cache const *c)
+Score_element::preset_extent (Score_element const *s , Axis a )
 {
-  Score_element *s = dynamic_cast<Score_element*>(c->element_l());
-  SCM ext = s->get_elt_property ((c->axis () == X_AXIS)
+  SCM ext = s->get_elt_property ((a == X_AXIS)
 				 ? "extent-X"
 				 : "extent-Y");
   
@@ -160,22 +149,6 @@ Score_element::preset_extent (Dimension_cache const *c)
 }
 
 
-void
-Score_element::print() const
-{
-#ifndef NPRINT
-  DEBUG_OUT << classname(this) << "{\n";
-    
-  if (flower_dstream && !flower_dstream->silent_b ("Score_element"))
-    ly_display_scm (element_property_alist_);
-
-  if (original_l_)
-    DEBUG_OUT << "Copy ";
-  do_print();
-  
-  DEBUG_OUT <<  "}\n";
-#endif
-}
 
 Paper_def*
 Score_element::paper_l ()  const
@@ -472,11 +445,6 @@ Score_element::linked_b() const
   return used_b_;
 }
 
-void
-Score_element::do_print () const
-{
-}
-
 Score_element*
 Score_element::find_broken_piece (Line_of_score*) const
 {
@@ -486,31 +454,79 @@ Score_element::find_broken_piece (Line_of_score*) const
 void
 Score_element::translate_axis (Real y, Axis a)
 {
-  dim_cache_[a]->translate (y);
+  dim_cache_[a].offset_ += y;
 }  
 
 Real
-Score_element::relative_coordinate (Score_element const*e, Axis a) const
+Score_element::relative_coordinate (Score_element const*refp, Axis a) const
 {
-  return dim_cache_[a]->relative_coordinate (e ? e->dim_cache_[a] : 0);
+  if (refp == this)
+    return 0.0;
+
+  /*
+    We catch PARENT_L_ == nil case with this, but we crash if we did
+    not ask for the absolute coordinate (ie. REFP == nil.)
+    
+   */
+  if (refp == dim_cache_[a].parent_l_)
+    return get_offset (a);
+  else
+    return get_offset (a) + dim_cache_[a].parent_l_->relative_coordinate (refp, a);
+}
+
+Real
+Score_element::get_offset (Axis a) const
+{
+  Score_element *me = (Score_element*) this;
+  while (dim_cache_[a].off_callbacks_.size ())
+    {
+      Offset_callback c = dim_cache_[a].off_callbacks_[0];
+      me->dim_cache_[a].off_callbacks_.del (0);
+      Real r =  (*c) (me,a );
+      if (isinf (r) || isnan (r))
+	{
+	  r = 0.0;
+	  programming_error ("Infinity or NaN encountered");
+	}
+      me->dim_cache_[a].offset_ +=r;
+    }
+  return dim_cache_[a].offset_;
+}
+
+
+Interval
+Score_element::point_dimension_callback (Score_element const* , Axis)
+{
+  return Interval (0,0);
 }
 
 bool
 Score_element::empty_b (Axis a)const
 {
-  return !dim_cache_[a]->extent_callback_l_;
+  return !dim_cache_[a].extent_callback_l_;
 }
 
 Interval
 Score_element::extent (Axis a) const
 {
-  Dimension_cache const * d = dim_cache_[a];
-  Interval ext = d->get_dim ();
+  Dimension_cache * d = (Dimension_cache *)&dim_cache_[a];
+  if (!d->extent_callback_l_)
+    {
+      d->dim_.set_empty ();
+    }
+  else if (!d->valid_b_)
+    {
+      d->dim_= (*d->extent_callback_l_ ) (this, a);
+      d->valid_b_ = true;
+    }
 
+  Interval ext = d->dim_;
+  
   if (empty_b (a)) 
     return ext;
 
-  SCM extra = get_elt_property (a == X_AXIS ? "extra-extent-X"
+  SCM extra = get_elt_property (a == X_AXIS
+				? "extra-extent-X"
 				: "extra-extent-Y");
 
   /*
@@ -539,15 +555,22 @@ Score_element::extent (Axis a) const
 Score_element*
 Score_element::parent_l (Axis a) const
 {
-  Dimension_cache*d= dim_cache_[a]->parent_l_;
-  return d ? d->elt_l_ : 0;
+  return  dim_cache_[a].parent_l_;
 }
 
 Score_element * 
 Score_element::common_refpoint (Score_element const* s, Axis a) const
 {
-  Dimension_cache *dim = dim_cache_[a]->common_refpoint (s->dim_cache_[a]);
-  return dim ? dim->element_l () : 0;
+  /*
+    I don't like the quadratic aspect of this code. Maybe this should
+    be rewritten some time, but the largest chain of parents might be
+    10 high or so, so it shouldn't be a real issue. */
+  for (Score_element const *c = this; c; c = c->dim_cache_[a].parent_l_)
+    for (Score_element const * d = s; d; d = d->dim_cache_[a].parent_l_)
+      if (d == c)
+	return (Score_element*)d;
+
+  return 0;
 }
 
 
@@ -572,17 +595,23 @@ Score_element::name () const
 }
 
 void
-Score_element::add_offset_callback (Offset_cache_callback cb, Axis a)
+Score_element::add_offset_callback (Offset_callback cb, Axis a)
 {
-  dim_cache_[a]->off_callbacks_.push (cb);
+  dim_cache_[a].off_callbacks_.push (cb);
 }
 
 bool
-Score_element::has_offset_callback_b (Offset_cache_callback cb, Axis a)const
+Score_element::has_extent_callback_b (Extent_callback cb, Axis a)const
 {
-  for (int i= dim_cache_[a]->off_callbacks_.size (); i--;)
+  return cb == dim_cache_[a].extent_callback_l_;
+}
+
+bool
+Score_element::has_offset_callback_b (Offset_callback cb, Axis a)const
+{
+  for (int i= dim_cache_[a].off_callbacks_.size (); i--;)
     {
-      if (dim_cache_[a]->off_callbacks_[i] == cb)
+      if (dim_cache_[a].off_callbacks_[i] == cb)
 	return true;
     }
   return false;
@@ -591,14 +620,14 @@ Score_element::has_offset_callback_b (Offset_cache_callback cb, Axis a)const
 void
 Score_element::set_extent_callback (Dim_cache_callback dc, Axis a)
 {
-  dim_cache_[a]->extent_callback_l_ = dc ;
+  dim_cache_[a].extent_callback_l_ = dc ;
 }
 
 				    
 void
 Score_element::set_parent (Score_element *g, Axis a)
 {
-  dim_cache_[a]->parent_l_ = g ? g->dim_cache_[a]: 0;
+  dim_cache_[a].parent_l_ = g;
 }
 
 void
@@ -744,6 +773,6 @@ init_functions ()
 ADD_SCM_INIT_FUNC(scoreelt, init_functions);
 
 void
-Score_element::do_breakable_col_processing ()
+Score_element::discretionary_processing()
 {
 }

@@ -89,9 +89,12 @@ Text_engraver::do_process_music ()
 	}
       else
 	stafy.set_axis (Y_AXIS);
-      
+
+      /*
+	make sure they're in order by adding i to the priority field.
+	*/
       text->set_elt_property ("script-priority",
-			    gh_int2scm (200));
+			    gh_int2scm (200 + i));
 
       if (r->get_direction ())
 	stafy.set_direction (r->get_direction ());
@@ -118,8 +121,9 @@ Text_engraver::do_pre_move_processing ()
 {
   for (int i=0; i < texts_.size (); i++)
     {
-      side_position (texts_[i]).add_staff_support ();
-      typeset_element (texts_[i]);
+      Text_item *ti = texts_[i];
+      Side_position_interface (ti).add_staff_support ();
+      typeset_element (ti);
     }
   texts_.clear ();
 }

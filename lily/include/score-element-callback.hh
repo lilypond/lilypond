@@ -1,5 +1,5 @@
 /*   
-  score-element-callback.hh -- declare  Score_element callbacks
+  score-element-callback.hh -- declare Score_element callbacks
   
   source file of the GNU LilyPond music typesetter
   

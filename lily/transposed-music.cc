@@ -27,9 +27,7 @@ Transposed_music::do_print () const
 Musical_pitch
 Transposed_music::to_relative_octave (Musical_pitch p)
 {
-#if 0				// Mats?
-    warning (_ ("Will ignore \\relative for transposed music"));
-#endif
+
   return p;
 }
 

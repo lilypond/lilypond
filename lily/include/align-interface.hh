@@ -38,7 +38,7 @@ struct Align_interface  {
   Score_element * elt_l_;
   
   Align_interface (Score_element const*);
-  static Real alignment_callback (Dimension_cache const *);
+  static Real alignment_callback (Score_element const*,Axis);
   void do_side_processing (Axis a);
   void set_axis (Axis);
   Axis axis () const;
@@ -46,7 +46,7 @@ struct Align_interface  {
   int get_count (Score_element*)const;
   void set_interface ();
   bool has_interface_b ();
-  static Real center_on_element (Dimension_cache const *c);
+  static Real center_on_element (Score_element const *c, Axis);
 };
 
 #endif /* ALIGN_INTERFACE_HH */

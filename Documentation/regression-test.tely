@@ -222,7 +222,8 @@ Folded.  This doesn't make sense without alternatives, but it works.
 
 @mudelafile{repeat-fold.ly}
 
-Across linebreaks, first and second bracket should be equal
+Across linebreaks, the left edge of a first and second alternative
+bracket should be equal
 
 @mudelafile{repeat-line-break.ly}
 
@@ -379,7 +380,8 @@ signatures.
 
 @section Hacks and Features
 
-As a last resort, the placement of items can be adjusted manually.
+As a last resort, the placement of items can be adjusted manually, by
+setting the @code{extra-offset} of an output object.
 
 @mudelafile{generic-output-property.ly}
 

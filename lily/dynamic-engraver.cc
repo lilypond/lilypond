@@ -48,7 +48,7 @@ public:
 Dynamic_line_spanner::Dynamic_line_spanner ()
 {
   set_elt_property ("transparent", SCM_BOOL_T);
-  side_position (this).set_axis (Y_AXIS);
+  Side_position_interface (this).set_axis (Y_AXIS);
   Axis_group_interface (this).set_interface ();
   Axis_group_interface (this).set_axes (X_AXIS, Y_AXIS);
 }
@@ -222,8 +222,8 @@ Dynamic_engraver::do_process_music ()
 	  for (int i = 0; i < pending_element_arr_.size (); i++)
 	    {
 	      Score_element* e = pending_element_arr_[i];
-	      side_position (e).set_axis (Y_AXIS);
-	      side_position (e).add_staff_support ();
+	      Side_position_interface (e).set_axis (Y_AXIS);
+	      Side_position_interface (e).add_staff_support ();
 
 	      /*
 		UGH UGH 
@@ -388,7 +388,7 @@ Dynamic_engraver::do_removal_processing ()
   typeset_all ();
   if (line_spanner_)
     {
-      side_position (line_spanner_).add_staff_support ();
+      Side_position_interface (line_spanner_).add_staff_support ();
       typeset_element (line_spanner_);
       line_spanner_ = 0;
     }
@@ -410,7 +410,7 @@ Dynamic_engraver::typeset_all ()
     }
   if (finished_line_spanner_)
     {
-      side_position (finished_line_spanner_).add_staff_support ();
+      Side_position_interface (finished_line_spanner_).add_staff_support ();
       typeset_element (finished_line_spanner_);
       finished_line_spanner_ = 0;
     }
@@ -423,7 +423,7 @@ Dynamic_engraver::acknowledge_element (Score_element_info i)
     {
       if (line_spanner_)
 	{
-	  side_position (line_spanner_).add_support (n);
+	  Side_position_interface (line_spanner_).add_support (n);
 	  line_spanner_->add_column (n);
 	}
       else

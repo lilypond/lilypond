@@ -66,7 +66,7 @@ Grace_position_engraver::process_acknowledged ()
   if (align_l_)
     {
       for (int i=0; i < support_.size (); i++)
-	side_position  (align_l_).add_support (support_[i]);
+	Side_position_interface  (align_l_).add_support (support_[i]);
       support_.clear ();
     }
 }
@@ -74,7 +74,7 @@ Grace_position_engraver::process_acknowledged ()
 void
 Grace_position_engraver::do_pre_move_processing ()
 {
-  if (align_l_ && !side_position (align_l_).supported_b ())
+  if (align_l_ && !Side_position_interface (align_l_).supported_b ())
     {
   /*
      We don't have support. Either some moron tried attaching us to a rest,

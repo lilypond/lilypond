@@ -67,7 +67,7 @@ System_start_delimiter::after_line_breaking ()
 Molecule
 System_start_delimiter::do_brew_molecule ()const
 {
-  Interval ext = Axis_group_interface::group_extent_callback (dim_cache_[Y_AXIS]);
+  Interval ext = Axis_group_interface::group_extent_callback (this, Y_AXIS);
   Real l = ext.length (); 
   Molecule m;
 

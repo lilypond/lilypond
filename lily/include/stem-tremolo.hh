@@ -18,7 +18,7 @@ protected:
   Stem * stem_l () const;
   virtual Molecule do_brew_molecule () const;
 
-  static Interval dim_callback (Dimension_cache const*);
+  static Interval dim_callback (Score_element*, Axis);
 public:
   Stem_tremolo ();
   void set_stem (Stem *);

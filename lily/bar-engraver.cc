@@ -32,26 +32,15 @@ Bar_engraver::create_bar ()
       bar_p_->set_elt_property ("break-align-symbol", ly_symbol2scm ("Staff_bar"));
 
       // urg: "" != empty...
+      /*
+	TODO: use symbol.
+       */
       SCM default_type = get_property ("defaultBarType");
       if (gh_string_p (default_type))
 	{
 	  bar_p_->set_elt_property ("glyph", default_type); // ugh
 	}
 
-#if 0
-      /*
-	urg.  Why did I implement this? And did I implement this so
-	clumsily?
-
-	input/test/just-friends.ly
-	Maybe a staffgroup of just one staff would be a better solution.
-      */
-      SCM prop = get_property ("barAtLineStart");
-      if (to_boolean (prop))
-	{
-	  bar_p_->set_elt_property ("at-line-start", SCM_BOOL_T);
-	}
-#endif
       announce_element (Score_element_info (bar_p_, 0));
     }
 }

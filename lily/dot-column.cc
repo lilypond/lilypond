@@ -33,7 +33,7 @@ Dot_column::add_head (Rhythmic_head *r)
   if (!r->dots_l ())
     return ;
 
-  side_position (this).add_support (r);
+  Side_position_interface (this).add_support (r);
   add_dots (r->dots_l ());
 }
 
