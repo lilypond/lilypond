@@ -16,6 +16,10 @@
 #include "lily-guile.hh"
 #include "tfm-reader.hh"
 
+extern "C" {
+#include <kpathsea/kpathsea.h>
+}
+
 const char * default_font_sz_ = "cmr10";
 
 All_font_metrics::All_font_metrics (String path)
@@ -32,8 +36,11 @@ All_font_metrics::find_afm (String name)
       String path = name  + ".afm";
       path = search_path_.find (path);
       if (path.empty_b ())
-	return 0;
-
+        { 
+	  path = kpse_find_file(name.ch_C(), kpse_afm_format, true);
+	  if (path.empty_b())
+	    return 0;
+        }
       if (verbose_global_b)
 	progress_indication ("[" + path);
       Adobe_font_metric * afm_p = read_afm_file (path);
@@ -78,8 +85,13 @@ All_font_metrics::find_tfm (String name)
     {
       String path = name  + ".tfm";
       path = search_path_.find (path);
+      path = search_path_.find (path);
       if (path.empty_b ())
-	return 0;
+        { 
+	  path = kpse_find_tfm(name.ch_C());
+	  if (path.empty_b())
+	    return 0;
+        }
       if (verbose_global_b)
 	progress_indication ("[" + path);
       Tex_font_metric	* tfm_p = Tex_font_metric_reader::read_file (path);
