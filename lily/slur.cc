@@ -208,16 +208,17 @@ Slur::get_attachment (Score_element*me,Direction dir,
   Real ss = Staff_symbol_referencer::staff_space ((Score_element*)me);
   Real hs = ss / 2.0;
   Offset o;
-
+  
+  Score_element *stem = 0;
   if (Note_column::has_interface (sp->get_bound (dir)))
     {
       Score_element * n =sp->get_bound (dir);
-      if (Score_element*st = Note_column::stem_l (n))
+      if (Score_element *stem = Note_column::stem_l (n))
 	{
 
 	  if (str == "head")
 	    {
-	      o = Offset (0, Stem::chord_start_f (st ));
+	      o = Offset (0, Stem::chord_start_f (stem));
 	      /*
 		Default position is centered in X, on outer side of head Y
 	       */
@@ -226,55 +227,48 @@ Slur::get_attachment (Score_element*me,Direction dir,
 	    }
 	  else if (str == "alongside-stem")
 	    {
-	      o = Offset (0, Stem::chord_start_f (st ));
+	      o = Offset (0, Stem::chord_start_f (stem));
 	      /*
 		Default position is on stem X, on outer side of head Y
 	       */
 	      o += Offset (n->extent (X_AXIS).length ()
-			   * (1 + Stem::get_direction (st )),
+			   * (1 + Stem::get_direction (stem)),
 			   0.5 * ss * Directional_element_interface (me).get ());
 	    }
 	  else if (str == "stem")
 	    {
-	      o = Offset (0, Stem::stem_end_position (st ) * hs);
+	      o = Offset (0, Stem::stem_end_position (stem) * hs);
 	      /*
 		Default position is on stem X, at stem end Y
 	       */
 	      o += Offset (0.5 *
 			   (n->extent (X_AXIS).length ()
-			    - st->extent (X_AXIS).length ())
-			    * (1 + Stem::get_direction (st )),
+			    - stem->extent (X_AXIS).length ())
+			    * (1 + Stem::get_direction (stem)),
 			    0);
-	    }
-	  else if (str == "loose-end")
-	    {
-	      SCM other_a = dir == LEFT ? gh_cdr (s) : gh_car (s);
-	      if (ly_symbol2string (other_a) != "loose-end")
-		{
-		  o = Offset (0, get_attachment (me, -dir, common)[Y_AXIS]);
-		}
-	      else if (dir == RIGHT)
-		{
-		  o[X_AXIS] = (sp->get_bound (dir)->relative_coordinate (common[X_AXIS], X_AXIS) 
-			       - me->relative_coordinate (common[X_AXIS], X_AXIS));
-		}
-	    }
-
-	  
-	  SCM l = scm_assoc
-	    (scm_listify (a,
-			  gh_int2scm (Stem::get_direction (st ) * dir),
-			  gh_int2scm (Directional_element_interface (me).get () * dir),
-			  SCM_UNDEFINED),
-	     scm_eval (ly_symbol2scm ("slur-extremity-offset-alist")));
-	  
-	  if (l != SCM_BOOL_F)
-	    {
-	      o += ly_scm2offset (gh_cdr (l)) * ss * dir;
 	    }
 	}
     }
-
+  else if (str == "loose-end")
+    {
+      SCM other_a = dir == LEFT ? gh_cdr (s) : gh_car (s);
+      if (ly_symbol2string (other_a) != "loose-end")
+	{
+	  o = Offset (0, get_attachment (me, -dir, common)[Y_AXIS]);
+	}
+    }
+	  
+  SCM l = scm_assoc
+    (scm_listify (a,
+		  gh_int2scm (stem ? Stem::get_direction (stem) : 1 * dir),
+		  gh_int2scm (Directional_element_interface (me).get () * dir),
+		  SCM_UNDEFINED),
+     scm_eval (ly_symbol2scm ("slur-extremity-offset-alist")));
+  
+  if (l != SCM_BOOL_F)
+    {
+      o += ly_scm2offset (gh_cdr (l)) * ss * dir;
+    }
 
   /*
     What if get_bound () is not a note-column?

@@ -1,3 +1,10 @@
+1.3.79.jcn3
+===========
+
+* Made various fixes for (line-)broken slurs.
+
+* Fixed slur_height (), which fixes most ugly slurs (Yeah!).
+
 1.3.79.jcn2
 ===========
 
