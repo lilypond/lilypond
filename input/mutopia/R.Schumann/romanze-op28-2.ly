@@ -21,7 +21,11 @@
 
 u = { \change Staff = up  \stemDown }
 m = { \change Staff = mid  \stemUp  }
-d = { \change Staff = down  \stemUp }
+
+%
+% d = .. complains about note names.
+% 
+#(define d  #{ \change Staff = down  \stemUp #})
 
 forcedBreak = \break
 

@@ -17,16 +17,14 @@ Relative_octave_music::to_relative_octave (Pitch p)
   if (lily_1_8_relative)
     {
       lily_1_8_compatibility_used = true;
-      /* ugh: last-pitch should  be junked.
-
-         Change this for lilypond 2.0.
-
-	 FIXME: change WHAT?  We're at 2.3 already -- jcn
+      /*  last-pitch should be junked some time, when
+	  we ditch 1.8 compat too.
 
 	 When you do, B should start where A left off.
 
 	\relative { A \relative { ...} B }  */
-      return *unsmob_pitch (get_property ("last-pitch"));
+      Pitch *ptr = unsmob_pitch (get_property ("last-pitch"));
+      return (ptr) ?  *ptr : p;
     }
   else
     return p;

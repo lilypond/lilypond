@@ -1387,7 +1387,7 @@ later by preceding the name with a backslash, i.e., @code{\namedMusic}.
 In the next example, a two-note motive is repeated two times by using
 variable substitution
 
-@lilypond[quote,raggedright,verbatim]
+@lilypond[quote,raggedright,verbatim,nofragment]
 seufzer = \notes {
   e'4( dis'4)
 }
