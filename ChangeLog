@@ -1,3 +1,9 @@
+2003-07-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* mf/feta-macros.mf: whoops: only draw lines for test situations.
+
+	* mf/feta-toevallig.mf: lowres fixes.
+
 2003-07-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* NEWS: Typo and fill-paragraph fixes.
