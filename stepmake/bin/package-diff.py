@@ -135,8 +135,6 @@ def remove_automatic (dirnames):
 			sys.stderr.write ("can't remove: `" + f + "'\n'")
 
 def dirname (v):
-	# urg, again?
-	from packagepython import *
 	return flags.package.name + '-' + version_tuple_to_str (v)
 
 def tarball(v):
@@ -181,9 +179,6 @@ i.e., you should run
 
 
 def makediff (fromdir, todir, patch_name):
-	# urg, again?
-	from packagepython import *
-
 	remove_automatic ([fromdir, todir])
 	
 	# ugh

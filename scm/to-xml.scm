@@ -1,4 +1,8 @@
 (use-modules (ice-9 regex))
+
+
+;; should make module?
+
 "
 
 
@@ -185,11 +189,15 @@ is then separated.
 	 (begin
 	   (music-to-xml-helper e port)))
      (display (close-tag 'music) port)
-   ))
+     ))
 
 (define-public (music-to-xml music port)
   "Dump XML-ish stuff to PORT."
-  (display (dtd-header) port)
+
+  ;; dtd contains # -- This confuses tex during make web.
+  ;;
+  ;;  (display (dtd-header) port)
+  
   (display (open-tag 'music '((type . score)) '()) port)
   (music-to-xml-helper music port)
   (display (close-tag 'music) port))

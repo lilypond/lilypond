@@ -7,15 +7,13 @@
  }
 
 #(define (make-note-req p d)
-   ;; huh? lily-guile: Could not find music type `Note_req' 
-   ;;(let* ((ml (make-music-by-name "Note_req")))
    (let* ((ml (make-music-by-name 'NoteEvent)))
    (ly-set-mus-property! ml 'duration d)
    (ly-set-mus-property! ml 'pitch p)
    ml))
 
 #(define (make-note elts)
-   (let* ((ml (make-music-by-name 'RequestChord)))
+   (let* ((ml (make-music-by-name 'EventChord)))
    (ly-set-mus-property! ml 'elements elts)
    ml))
 
