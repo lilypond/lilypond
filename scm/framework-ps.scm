@@ -200,14 +200,14 @@
 		 (supplies-or-needs paper load-fonts?)
 		 "%%EndComments\n"))
 
-(define (procset name)
+(define (procset file-name)
   (string-append
    (format
     "%%BeginResource: procset (~a) 1 0
 ~a
 %%EndResource
 "
-    name (ly:gulp-file name))))
+    file-name (ly:gulp-file file-name))))
 
 (define (setup paper)
   (string-append
@@ -259,7 +259,9 @@
    (procset "music-drawing-routines.ps")
    (procset "lilyponddefs.ps")
    (if load-fonts?
-       (load-fonts paper))
+       (load-fonts paper)
+       "")
+   
    (setup paper)))
 
 (define-public (output-framework basename book scopes fields)

@@ -5,6 +5,7 @@
   
   (c) 2001--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+
 #include "font-interface.hh"
 #include "item.hh"
 #include "stencil.hh"
@@ -13,6 +14,7 @@
 #include "pitch.hh"
 
 /*
+  
   TODO: insert support for smaller cautionaries, tie-break-reminders.
   Either here or in new-accidental-engraver.
 
