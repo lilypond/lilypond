@@ -85,6 +85,7 @@
    ((Key_item begin-of-note) . (extra-space 2.5))
    ((Staff_bar begin-of-note) . (extra-space 1.0))
    ((Clef_item begin-of-note) . (minimum-space 5.0))
+   ((Left_edge_item Breathing_sign) . (minimum-space 0.0))   
    ((none Breathing_sign) . (minimum-space 0.0))
    ((Breathing_sign Key_item) . (minimum-space 1.5))
    ((Breathing_sign begin-of-note) . (minimum-space 1.0))
