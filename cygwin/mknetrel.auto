@@ -1,0 +1,21 @@
+# -*- shell-script -*-
+
+#
+# mknetrel.split -- autotools
+#
+
+autoupdate () {
+    for i in bootstrap autogen.sh; do
+	if [ -x ./$i ]; then
+	    ./$i || exit 1
+	    return 0
+	fi
+    done
+    
+    aclocal
+    rm -rf libltdl
+    libtoolize --force --copy --automake --ltdl
+    autoheader
+    autoconf
+    automake --add-missing
+}

@@ -1,0 +1,125 @@
+# -*- shell-script -*-
+
+#
+# mknetrel.split -- split subpackages
+#
+
+presplit () { true; }
+
+lib_name () {
+    echo lib$base$sover
+}
+
+devel_name () {
+    echo $base-devel
+}
+
+doc_name () {
+    echo $base-doc
+}
+
+lib_split () {
+    mkdir -p ./$prefix/bin || exit 1
+    mv $inst/$prefix/bin/*.dll ./$prefix/bin
+    # dlopen-able .la files go in BIN dir, lib package
+    mkdir -p ./$prefix/bin || exit 1
+    mv $inst/$prefix/lib/lib*[0-9]*.la ./$prefix/bin
+    mkdir -p ./$prefix/share || exit 1
+    mv $inst/$prefix/share/$base ./$prefix/share
+    true
+}
+   
+devel_split () {
+    mkdir -p ./$prefix/bin || exit 1
+    mv $inst/$prefix/include ./$prefix/include
+    mkdir -p ./$prefix/lib || exit 1
+    mv $inst/$prefix/lib/*.a ./$prefix/lib
+    # link time .la files go in LIB dir devel package
+    mkdir -p ./$prefix/lib || exit 1
+    mv $inst/$prefix/lib/*.la ./$prefix/lib
+    mkdir -p ./$prefix/share || exit 1
+    mv $inst/$prefix/share/aclocal ./$prefix/share
+    true
+}
+
+doc_split () {
+    mkdir -p ./$docprefix || exit 1
+    mv $inst/$infodir ./$infodir
+    true
+}
+
+prebuild () {
+    for i in $sub_packages; do
+	rm -rf $inst-$i
+	mkdir -p $inst-$i || exit 1
+    done
+}
+    
+domkdist() {
+    #
+    # Fix up installation slightly
+    #
+    cd $inst || exit 1
+    chmod -R u+w,og-w,a+rX .
+    cd usr 2>/dev/null && dousrstuff
+
+    # Split off any sub-packages.  The actual splitting is handled by
+    # a package's specific code in extra/.
+
+    # To package `foo' in foo, foo-doc and foo-devel, set
+    # sub_packages='doc devel'.
+
+    # Then provide functions doc_name and devel_name, that return the
+    # full name of the sub-package.  Also provide functions doc_split
+    # and devel_split, that mv part of foo's installation in $inst to
+    # the sub-packages' installation roots $inst-doc and $inst-devel.
+
+    cd $inst || exit 1
+    presplit
+
+    for i in $sub_packages; do
+	subname=$(${i}_name)
+  	cd $inst-$i || exit 1
+	${i}_split || exit 1
+    done
+    
+    cd $inst || exit 1
+    prepackage
+
+    cd $inst || exit 1
+    hard2soft
+
+    #
+    # Make tar balls
+    #
+
+    # The base package
+    echo creating $tarstem.tar.bz2
+    cd $inst || exit 1
+
+    f=$src/cygwin/setup.hint && test -r $f && cp $f $uploads
+    f=$src/cygwin/$base.hint && test -r $f && cp $f $uploads/setup.hint
+    find * -print | sort | tar -T - --no-recursion --owner=0 --group=0 -cjf $tarstem.tar.bz2
+
+    # Any sub-packages
+    for i in $sub_packages; do
+	subname=$(${i}_name)
+	subload=$uploads/$subname
+	subtarstem=$subload/$subname-$ver
+	mkdir -p $subload || exit 1
+	echo creating $subtarstem.tar.bz2
+	f=$src/cygwin/$subname.hint && test -r $f && cp $f $subload/setup.hint
+  	cd $inst-$i
+	hard2soft
+	find * -print | sort | tar -T - --no-recursion --owner=0 --group=0 -cjf $subtarstem.tar.bz2
+    done
+
+    # The source package
+    cd $src/.. || exit 1
+    echo creating "$tarstem"-src.tar.bz2
+    find $package_src/* -print -follow | egrep -v '\.cvsignore|\.bak$|\.orig$|\.o$|~$|^.#|CVS|%redact|/tags$' | egrep -v "$src_exclude" | sort | tar -T - --no-recursion --owner=0 --group=0 -cjf "$tarstem"-src.tar.bz2
+    postpackage
+}
+
+
+

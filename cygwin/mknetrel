@@ -37,12 +37,6 @@ if !iscygwin; then
     tarstem=$uploads/$package
 fi
 
-# the files mknetrel.doc, mknetrel.patch, etc. can be had from the
-# latest cygwin source, currently:
-#
-#   http://lilypond.org/cygwin/uploads/lilypond/lilyond-1.8.2-1-src.tar.bz2
-#
-
 # copy and include extra mknetrel stuff
 extras="doc patch auto cross split"
 for i in $extras; do
