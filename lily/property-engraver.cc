@@ -70,9 +70,7 @@ Property_engraver::do_creation_processing ()
 void
 Property_engraver::acknowledge_grob (Grob_info i)
 {
-  /////////
-  return;
-  SCM ifs = i.elem_l_->get_grob_property ("interfaces");
+ SCM ifs = i.elem_l_->get_grob_property ("interfaces");
   SCM props;
   for (; gh_pair_p (ifs); ifs = gh_cdr (ifs))
     {      

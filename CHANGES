@@ -1,3 +1,12 @@
+1.3.109.jcn2
+============
+
+* Fixed a mysterious typo in toplevel index.
+
+* Enabled property-engraver.
+
+* Cleanup in Auto-beam-engraver (still broken, because timings are off?)
+
 1.3.109.jcn1
 ============
 
