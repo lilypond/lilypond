@@ -18,6 +18,7 @@ changes)}
 changes)}
 @item @uref{ANNOUNCE-1.2.txt, Announcement of 1.2 (includes summary of changes)}
 
-@item @uref{AIMS.txt}
+@item @uref{AIMS.txt} Why LilyPond?
+@item @uref{interview.txt} Answers to the Brave GNU world standard questions
 @end itemize
 
