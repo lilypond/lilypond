@@ -585,7 +585,7 @@ Using bitmap fonts instead. This will look bad.'''))
 	if preview_p:
 		for score in find_tex_files (files, extra):
 			preview_base = ly.strip_extension (score[0], '.tex')
-			cmd = 'dvips -E -o%s %s' \
+			cmd = 'dvips -E -Ppdf -u+lilypond.map -o%s %s' \
 			      % (preview_base + '.preview.ps',
 				 preview_base + '.preview.dvi')
 			ly.system (cmd)
