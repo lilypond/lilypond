@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 1.3.18\n"
-"POT-Creation-Date: 2001-05-18 15:48+0200\n"
+"POT-Creation-Date: 2001-06-14 13:22+0200\n"
 "PO-Revision-Date: 1999-12-28 00:32 +1\n"
 "Last-Translator: Laurent Martelli <laurent@linuxfan.com>\n"
 "Language-Team: \n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "warning: "
 msgstr "avertissement: "
 
-#: input.cc:90 ly2dvi.py:205 ly2dvi.py:830 mup2ly.py:98 mup2ly.py:188
+#: input.cc:90 ly2dvi.py:205 ly2dvi.py:804 mup2ly.py:98 mup2ly.py:188
 #: update-lily.py:123 update-lily.py:211 warn.cc:9 warn.cc:17
 msgid "error: "
 msgstr "erreur: "
@@ -132,7 +132,7 @@ msgstr "afficher le numro de version"
 msgid "show warranty and copyright"
 msgstr ""
 
-#: ly2dvi.py:383 ly2dvi.py:604 ly2dvi.py:629
+#: ly2dvi.py:383 ly2dvi.py:578 ly2dvi.py:603
 #, fuzzy, c-format
 msgid "Running %s..."
 msgstr "Cration des voix..."
@@ -152,23 +152,23 @@ msgstr ""
 msgid "invalid value: %s"
 msgstr "caractres illgal: `%c'"
 
-#: ly2dvi.py:807 scores.cc:44
+#: ly2dvi.py:781 scores.cc:44
 #, fuzzy, c-format
 msgid "dependencies output to `%s'..."
 msgstr "Sortie papier vers %s..."
 
-#: ly2dvi.py:817
+#: ly2dvi.py:791
 #, fuzzy, c-format
 msgid "%s output to `%s'..."
 msgstr "Sortie de Lily vers %s..."
 
-#: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:819
+#: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:793
 #: midi-score-parser.cc:24 scores.cc:136 scores.cc:142
 #, c-format
 msgid "can't find file: `%s'"
 msgstr "ne peut pas trouver le fichier: `%s'"
 
-#: ly2dvi.py:830
+#: ly2dvi.py:804
 msgid "no files specified on command line."
 msgstr ""
 
@@ -489,7 +489,7 @@ msgstr "soustraction invalide: ne fait pas partie de l'accord: %s"
 msgid "invalid inversion pitch: not part of chord: %s"
 msgstr "renversement invalide: ne fait pas partie de l'accord: %s"
 
-#: chord-tremolo-engraver.cc:141 percent-repeat-engraver.cc:193
+#: chord-tremolo-engraver.cc:141 percent-repeat-engraver.cc:192
 msgid "unterminated chord tremolo"
 msgstr ""
 
@@ -660,8 +660,8 @@ msgstr ""
 #. No version number or newline here. It confuses help2man
 #.
 #: main.cc:136
-#, c-format
-msgid "Usage: %s [OPTION]... [FILE]..."
+#, fuzzy, c-format
+msgid "Usage: %s [OPTION]... FILE..."
 msgstr "Usage: %s [OPTION]... [FICHIER]..."
 
 #: main.cc:138
@@ -833,7 +833,7 @@ msgstr ""
 msgid "none of these in my family: `%s'"
 msgstr ""
 
-#: percent-repeat-engraver.cc:118
+#: percent-repeat-engraver.cc:117
 #, fuzzy
 msgid "Don't know how to handle a percent repeat of this length."
 msgstr "ne sait pas traiter les cls vides"

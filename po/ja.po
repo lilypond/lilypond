@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 1.2.17\n"
-"POT-Creation-Date: 2001-05-18 15:48+0200\n"
+"POT-Creation-Date: 2001-06-14 13:22+0200\n"
 "PO-Revision-Date: 2000-03-29 20:50+0900\n"
 "Last-Translator: Daisuke Yamashita <yamad@mb.infoweb.ne.jp>\n"
 "Language-Team: Japanese <ja@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "warning: "
 msgstr "警告: "
 
-#: input.cc:90 ly2dvi.py:205 ly2dvi.py:830 mup2ly.py:98 mup2ly.py:188
+#: input.cc:90 ly2dvi.py:205 ly2dvi.py:804 mup2ly.py:98 mup2ly.py:188
 #: update-lily.py:123 update-lily.py:211 warn.cc:9 warn.cc:17
 msgid "error: "
 msgstr "エラー: "
@@ -135,7 +135,7 @@ msgstr "バージョン番号を表示"
 msgid "show warranty and copyright"
 msgstr "保証と著作権について表示する"
 
-#: ly2dvi.py:383 ly2dvi.py:604 ly2dvi.py:629
+#: ly2dvi.py:383 ly2dvi.py:578 ly2dvi.py:603
 #, fuzzy, c-format
 msgid "Running %s..."
 msgstr "要求を捨てます: `%s'"
@@ -155,23 +155,23 @@ msgstr ""
 msgid "invalid value: %s"
 msgstr "無効な文字: `%c'"
 
-#: ly2dvi.py:807 scores.cc:44
+#: ly2dvi.py:781 scores.cc:44
 #, fuzzy, c-format
 msgid "dependencies output to `%s'..."
 msgstr "%s へ paper 出力..."
 
-#: ly2dvi.py:817
+#: ly2dvi.py:791
 #, fuzzy, c-format
 msgid "%s output to `%s'..."
 msgstr "%s への MIDI 出力"
 
-#: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:819
+#: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:793
 #: midi-score-parser.cc:24 scores.cc:136 scores.cc:142
 #, fuzzy, c-format
 msgid "can't find file: `%s'"
 msgstr "ファイルが見つかりません: `%s'"
 
-#: ly2dvi.py:830
+#: ly2dvi.py:804
 msgid "no files specified on command line."
 msgstr ""
 
@@ -491,7 +491,7 @@ msgstr "無効な引き算: コードの一部ではありません: %s"
 msgid "invalid inversion pitch: not part of chord: %s"
 msgstr "無効な転回ピッチ: コードの一部ではありません: %s"
 
-#: chord-tremolo-engraver.cc:141 percent-repeat-engraver.cc:193
+#: chord-tremolo-engraver.cc:141 percent-repeat-engraver.cc:192
 #, fuzzy
 msgid "unterminated chord tremolo"
 msgstr "終端のないハイフン"
@@ -661,8 +661,8 @@ msgstr "名前付けとエクスポートの出力ファイルを抑制する"
 #. No version number or newline here. It confuses help2man
 #.
 #: main.cc:136
-#, c-format
-msgid "Usage: %s [OPTION]... [FILE]..."
+#, fuzzy, c-format
+msgid "Usage: %s [OPTION]... FILE..."
 msgstr "使い方: %s [オプション]... [ファイル]..."
 
 #: main.cc:138
@@ -869,7 +869,7 @@ msgstr "トランスレータそのものです"
 msgid "none of these in my family: `%s'"
 msgstr "ファミリの中にありません"
 
-#: percent-repeat-engraver.cc:118
+#: percent-repeat-engraver.cc:117
 #, fuzzy
 msgid "Don't know how to handle a percent repeat of this length."
 msgstr "空のキーの扱い方が判りません"

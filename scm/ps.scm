@@ -52,9 +52,10 @@
        "lilypondpaperoutputscale div scalefont setfont } bind def "
        "\n"))
 
+
   (define (beam width slope thick)
     (string-append
-     (numbers->string (list slope width thick)) " draw_beam" ))
+     (numbers->string (list width slope thick)) " draw_beam" ))
 
   (define (comment s)
     (string-append "% " s))
@@ -107,7 +108,7 @@
   
   (define (filledbox breapth width depth height) 
     (string-append (numbers->string (list breapth width depth height))
-		   " draw_box" ))
+		   " draw-box" ))
 
   ;; obsolete?
   (define (font-def i s)
@@ -170,7 +171,7 @@ lilypondpaperoutputscale lilypondpaperoutputscale scale
   
   (define (stem breapth width depth height) 
     (string-append (numbers->string (list breapth width depth height))
-		   " draw_box" ))
+		   " draw-box" ))
 
   (define (stop-line)
       "}\nstop-line\n")

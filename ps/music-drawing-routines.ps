@@ -10,82 +10,17 @@
 	1 copy mul exch 1 copy mul add sqrt 
 } bind def 
 
-/simpledraw_box % breapth width depth height
-{
-	/h exch def
-	/d exch def
-	/w exch def
-	/b exch def
-
-	0.01 setlinewidth
-	1 setlinejoin
-	0 0 moveto
-	b neg d neg rmoveto
-	b w add 0 rlineto
-	0 d h add rlineto
-	b w add neg 0 rlineto
-	%closepath gsave stroke grestore fill
-	closepath fill
-} bind def
-
-
-% FIXME.  translate to middle of box.
-% Nice rectangle with rounded corners
-/draw_box % breapth width depth height
-{
-	1 setlinejoin
-	/l 0.05 def
-	l setlinewidth
-	1 setlinejoin
-
-	l 2 div sub /h exch def
-	l 2 div sub /d exch def
-	l 2 div sub /w exch def
-	l 2 div sub /b exch def
-
-	b neg d neg moveto
-	b w add 0 rlineto
-	0 d h add rlineto
-	b w add neg 0 rlineto
-	0 d h add neg rlineto
-	closepath gsave stroke grestore fill
-} bind def
-
-% ugh, see rectfill
-/simpledraw_beam % slope width thick 
-{
-	/t exch def
-	/w exch def
-	w mul /h exch def
-	1 setlinejoin
-	% ugh?
-	0.05 setlinewidth
-
-	0 t 2 div neg moveto
-	w h rlineto
-	0 t rlineto
-	w neg h neg rlineto
-	0 t neg rlineto
-	closepath gsave stroke grestore fill
-} bind def 
-
-% Nice beam with rounded corners
-/draw_beam % slope width thick 
-{
-	% ugh?
-	/l 0.1 def
-	l 2 div setlinewidth
-	1 setlinejoin
-	l sub /t exch def
-	l sub /w exch def
-	w mul /h exch def
-
-	l 2 div t 2 div neg moveto
-	w h rlineto
-	0 t rlineto
-	w neg h neg rlineto
-	0 t neg rlineto
-	closepath gsave stroke grestore fill
+/draw_beam % width slope thick 
+{ 
+        2 div /beam_thick exch def 
+        /beam_slope exch def 
+        /beam_wd exch def 
+        beam_slope beam_wd mul /beam_ht exch def 
+        0 beam_thick neg moveto  
+        beam_wd beam_ht rlineto  
+        0 beam_thick 2 mul rlineto 
+        0 beam_thick lineto 
+        closepath fill 
 } bind def 
 
 /draw_repeat_slash % width slope thick

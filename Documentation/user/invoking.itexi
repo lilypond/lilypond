@@ -9,8 +9,10 @@
 Usage:
 
 @example
-        lilypond [@var{OPTION}@dots{} [@var{FILE}]@dots{}
+        lilypond [@var{OPTION}@dots{} @var{FILE}@dots{}
 @end example
+
+To have LilyPond read from stdin, use a dash @code{-} for @var{FILE}.
 
 @unnumberedsec Options
 

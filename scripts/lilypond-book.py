@@ -986,9 +986,13 @@ def compile_all_files (chunks):
 		if do_deps:
 			depfiles=map (lambda x: re.sub ('(.*)\.ly', '\\1.dep', x), tex)
 			for i in depfiles:
-				text=open (i).read ()
+				f =open (i)
+				text=f.read ()
+				f.close ()
 				text=re.sub ('\n([^:\n]*):', '\n' + foutn + ':', text)
-				open (i, 'w').write (text)
+				f = open (i, 'w')
+				f.write (text)
+				f.close ()
 
 	for e in eps:
 		system(r"tex '\nonstopmode \input %s'" % e)

@@ -63,6 +63,19 @@ AC_DEFUN(AC_STEPMAKE_COMPILE, [
 
     CFLAGS="$CFLAGS $OPTIMIZE"
     CPPFLAGS=${CPPFLAGS:-""}
+
+    AC_MSG_CHECKING([for IEEE-conformance compiler flags])
+    save_cflags="$CFLAGS"
+    case "$host" in
+        alpha*-*-*)
+	    dnl should do compile test?
+	    AC_MSG_RESULT(-mieee)
+	    CFLAGS="-mieee $CFLAGS"
+	    ;;
+	*)
+	    AC_MSG_RESULT([none])
+	    ;;
+    esac
     AC_SUBST(cross_compiling)
     AC_SUBST(CFLAGS)
     AC_SUBST(CPPFLAGS)

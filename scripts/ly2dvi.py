@@ -65,7 +65,6 @@ import shutil
 import __main__
 import operator
 import tempfile
-import traceback
 
 datadir = '@datadir@'
 sys.path.append (datadir + '/python')
@@ -703,10 +702,8 @@ include_path = map (abspath, include_path)
 
 original_output = output_name
 
-
 if files and files[0] != '-':
 
-	# Ugh, maybe make a setup () function
 	files = map (lambda x: strip_extension (x, '.ly'), files)
 
 	(outdir, outbase) = ('','')
@@ -741,44 +738,40 @@ if files and files[0] != '-':
 
 	os.chdir (tmpdir)
 	
+	extra = extra_init
+	
 	if lily_p:
-		try:
+##		try:
 			run_lilypond (files, outbase, dep_prefix)
-		except:
- 			# TODO: friendly message about LilyPond setup/failing?
- 			#
- 			# TODO: lilypond should fail with different
- 			# error codes for:
- 			#   - guile setup/startup failure
- 			#   - font setup failure
- 			#   - init.ly setup failure
- 			#   - parse error in .ly
- 			#   - unexpected: assert/core dump
-			targets = {}
-			traceback.print_exc ()
+## #		except:
+## 			# TODO: friendly message about LilyPond setup/failing?
+## 			#
+## 			# TODO: lilypond should fail with different
+## 			# error codes for:
+## 			#   - guile setup/startup failure
+## 			#   - font setup failure
+## 			#   - init.ly setup failure
+## 			#   - parse error in .ly
+## 			#   - unexpected: assert/core dump
+## #			targets = {}
 
 	if targets.has_key ('DVI') or targets.has_key ('PS'):
-		try:
-			run_latex (files, outbase, extra_init)
+#		try:
+			run_latex (files, outbase, extra)
 			# unless: add --tex, or --latex?
 			del targets['TEX']
 			del targets['LATEX']
-		except:
-			# TODO: friendly message about TeX/LaTeX setup,
-			# trying to run tex/latex by hand
-			if targets.has_key ('DVI'):
-				del targets['DVI']
-			if targets.has_key ('PS'):
-				del targets['PS']
-			traceback.print_exc ()
+#		except Foobar:
+#			# TODO: friendly message about TeX/LaTeX setup,
+#			# trying to run tex/latex by hand
+#			if targets.has_key ('DVI'):
+#				del targets['DVI']
+#			if targets.has_key ('PS'):
+#				del targets['PS']
 
+	# TODO: does dvips ever fail?
 	if targets.has_key ('PS'):
-		try:
-			run_dvips (outbase, extra_init)
-		except: 
-			if targets.has_key ('PS'):
-				del targets['PS']
-			traceback.print_exc ()
+		run_dvips (outbase, extra)
 
 	# add DEP to targets?
 	if track_dependencies_p:
@@ -787,7 +780,6 @@ if files and files[0] != '-':
 		if os.path.isfile (depfile):
 			progress (_ ("dependencies output to `%s'...") % depfile)
 
-	# Hmm, if this were a function, we could call it the except: clauses
 	for i in targets.keys ():
 		ext = string.lower (i)
 		cp_to_dir ('.*\.%s$' % ext, outdir)
@@ -807,7 +799,7 @@ if files and files[0] != '-':
 	cleanup_temp ()
 	
 else:
-	# FIXME: read from stdin when files[0] = '-'
+	# FIXME
 	help ()
 	errorport.write ("ly2dvi: " + _ ("error: ") + _ ("no files specified on command line.") + '\n')
 	sys.exit (2)
