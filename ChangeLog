@@ -1,3 +1,11 @@
+2002-12-08  Heikki Junes <hjunes@cc.hut.fi>
+
+	* lilypond-mode.el: Use LilyPond-command-alist for Midi and MidiAll.
+	Allow only one type of midi process; launching Midi either stops
+	midis or plays the current midi and launching MidiAll stops midis
+	and starts timidity with "-ia", i.e., XAW-interface. Bind C-c C-return 
+	to MidiAll. Choose "timidity-[1-9].ly" etc. files to MidiAll.
+
 2002-12-07  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/text-engraver.cc (process_acknowledged_grobs): use new
