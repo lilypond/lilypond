@@ -33,11 +33,11 @@ oboes = \notes \relative c'' \context Voice = oboe {
 }
 
 hoomPah = \repeat unfold 8 \notes
-    \transpose c' { c8 \stemDown c'8 \stemUp }
+    \transpose c' { c8 \stemDown g'8 \stemUp }
 
 bassvoices = \notes \relative c' {
     c4 g8. b,16
-    \autochange Staff \hoomPah
+    \autochange Staff \context Voice \hoomPah
     \translator Staff = down
     \stemDown [c8 c'8] r4
     <g d'> r4

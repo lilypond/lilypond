@@ -1019,6 +1019,10 @@ The following piece of music is played twice.  The first argument
 indicates the type of repeat.  In this case, @code{"volta"} means that
 prima volta/secunda volta brackets are used for the alternative
 endings---if there were any.
+
+A special notation for repeats allows you to get correct repeats in
+MIDI output. However, some extra trickery is needed to get this
+working, See @ref{Repeats and MIDI}.  
 @separate
 @example 
 
@@ -1822,10 +1826,10 @@ will be at the left.
 @node A piano excerpt
 @section A piano excerpt
 
-Our fourth subject is a piece of piano music.  The fragment in the input
-file is a piano reduction of the G major Sinfonia by Giovanni Battista
-Sammartini.  It was composed around 1740.  It's in the source package
-under  the name @file{sammartini.ly}.
+Our fourth subject is a piece of piano music.  The fragment in the
+input file is a piano reduction of the G major Sinfonia by Giovanni
+Battista Sammartini.  It was composed around 1740.  It's in the source
+package under the name @file{sammartini.ly}.
 
 @lilypond[verbatim]
 \include "paper16.ly"
@@ -1864,11 +1868,11 @@ oboes = \notes \relative c'' \context Voice = oboe {
 }
 
 hoomPah = \repeat unfold 8 \notes
-    \transpose c' { \stemUp c8 \stemBoth \stemDown c'8 \stemBoth }
+    \transpose c' { \stemUp c8 \stemBoth \stemDown g'8 \stemBoth }
 
 bassvoices = \notes \relative c' {
     c4 g8. b,16
-    \autochange Staff \hoomPah
+    \autochange Staff \context Voice \hoomPah
     \translator Staff = down
     \stemDown [c8 c'8] r4
     <g d'> r4
@@ -2135,7 +2139,7 @@ having to worry about getting the motive in a wrong octave.
 @example 
 bassvoices = \notes \relative c' @{
 c4 g8. b,16
-\autochange Staff \hoomPah 
+\autochange Staff \hoomPah \context Voice
 @end example
 @cindex staff switch, automatic
 @cindex cross staff voice, automatic

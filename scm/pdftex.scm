@@ -12,6 +12,13 @@
 
 (define-module (scm pdftex))
 
+(use-modules (scm pdf)
+	     (guile)
+	     (ice-9 regex)
+	     (ice-9 string-fun)	  
+	     )
+
+(define this-module (current-module))
 (define (unknown) 
   "%\n\\unknown%\n")
 
@@ -40,19 +47,19 @@
     ))
 
 (define (beam width slope thick)
-  (embedded-pdf ((pdf-scm 'beam) width slope thick)))
+  (embedded-pdf (list 'beam  width slope thick)))
 
 (define (bracket arch_angle arch_width arch_height height arch_thick thick)
-  (embedded-pdf ((pdf-scm 'bracket) arch_angle arch_width arch_height height arch_thick thick)))
+  (embedded-pdf (list 'bracket  arch_angle arch_width arch_height height arch_thick thick)))
 
 (define (dashed-slur thick dash l)
-  (embedded-pdf ((pdf-scm 'dashed-slur)  thick dash l)))
+  (embedded-pdf (list 'dashed-slur   thick dash l)))
 
 (define (char i)
   (string-append "\\char" (inexact->string i 10) " "))
 
 (define (dashed-line thick on off dx dy)
-  (embedded-pdf ((pdf-scm 'dashed-line) thick on off dx dy)))
+  (embedded-pdf (list 'dashed-line  thick on off dx dy)))
 
 (define (font-load-command name-mag command)
   (string-append
@@ -63,13 +70,26 @@
    "\n"))
 
 (define (ez-ball c l b)
-  (embedded-pdf ((pdf-scm 'ez-ball) c  l b)))
+  (embedded-pdf (list 'ez-ball  c  l b)))
 
-(define (embedded-pdf s)
-  (string-append "\\embeddedpdf{ " s "}"))
+
+
+(if (or (equal? (minor-version) "4")
+	(equal? (minor-version) "3.4"))
+    (define (embedded-pdf expr)
+      (let ((ps-string
+	     (with-output-to-string
+	       (lambda () (pdf-output-expression expr (current-output-port))))))
+	(string-append "\\embeddedpdf{" ps-string "}")))
+    (define (embedded-pdf expr)
+      (let
+	  ((os (open-output-string)))
+	(pdf-output-expression expr os)
+	(string-append "\\embeddedpdf{" (get-output-string os) "}"))))
+
 
 (define (comment s)
-  (string-append "% " s))
+  (simple-format #f "% ~a\n" s))
 
 (define (end-output) 
   (begin
@@ -83,7 +103,31 @@
   "")
 
 (define (repeat-slash w a t)
-  (embedded-pdf ((pdf-scm 'repeat-slash) w a t)))
+  (embedded-pdf (list 'repeat-slash w a t)))
+(define (fontify name-mag-pair exp)
+  (string-append (select-font name-mag-pair)
+		 exp))
+
+
+(define (tex-encoded-fontswitch name-mag)
+  (let* ((iname-mag (car name-mag))
+	 (ename-mag (cdr name-mag)))
+    (cons iname-mag
+	  (cons ename-mag
+		(string-append  "magfont"
+			  (string-encode-integer
+			   (hashq (car ename-mag) 1000000))
+			  "m"
+			  (string-encode-integer
+			   (inexact->exact (* 1000 (cdr ename-mag)))))))))
+(define (define-fonts internal-external-name-mag-pairs)
+  (set! font-name-alist (map tex-encoded-fontswitch
+			     internal-external-name-mag-pairs))
+  (apply string-append
+	 (map (lambda (x)
+		(font-load-command (car x) (cdr x)))
+	      (map cdr font-name-alist))))
+
 
 (define (font-switch i)
   (string-append
@@ -140,7 +184,7 @@
    (number->dim y) "}{" (number->dim x) "}{" s "}\n"))
 
 (define (bezier-sandwich l thick)
-  (embedded-pdf ((pdf-scm 'bezier-sandwich) l thick)))
+  (embedded-pdf (list 'bezier-sandwich  `(quote ,l) thick)))
 
 (define (start-system ht)
   (string-append"\\vbox to " (number->dim ht) "{\\hbox{%\n"))
@@ -157,7 +201,7 @@
    "height " (number->dim height) " "))
 
 (define (roundfilledbox x width y height blotdiam)
-  (embedded-pdf ((pdf-scm 'roundfilledbox) x width y height blotdiam)))
+  (embedded-pdf (list 'roundfilledbox  x width y height blotdiam)))
 
 (define (text s)
   (string-append "\\hbox{" (output-tex-string s) "}"))
@@ -175,5 +219,15 @@
 (define (no-origin) "")
 
 
-(define (scm-pdftex-output)
-  (primitive-eval (pdftex-scm 'all-definitions)))
+
+(define my-eval-in-module eval)
+
+(if (or (equal? (minor-version) "4")
+	(equal? (minor-version) "3.4"))
+    (begin
+      (set! my-eval-in-module eval-in-module)
+
+    ))
+
+(define-public (pdftex-output-expression expr port)
+  (display (my-eval-in-module expr this-module) port) )
