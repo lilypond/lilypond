@@ -32,7 +32,9 @@ paper_sixteen = \paper {
 	% ( beam_thickness = 0.48 interline for now...)
 	% interbeam = interline - (beam_thickness + staffline_thickness) / 2
 	% interbeam = 2.84;
-	% ugh: interline *in fact* is rule_thickness + "interline"?
+	% ugh: interline *in fact* is rule_thickness + "interline"? --jcn
+
+	% No --hwn
 	interbeam = 3.14;
 
 	gourlay_energybound = 100000.;
