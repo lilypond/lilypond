@@ -345,7 +345,7 @@ You can also print from the command line by executing:
 
 To run LilyPond, input a text file, then run the command @code{ly2dvi} on
 that file.  The resulting files are either DVI or PostScript, and can
-be viewed with @code{xdvi} (unix) and ghostview (unix and windows)
+be viewed with @code{xdvi} (Unix) and ghostview (Unix and Windows)
 respectively.  The following table summarizes the constructs that were
 discussed in the previous two sections.
 
@@ -456,9 +456,14 @@ g'4-~ g' a'2-~ a'4
 @end lilypond
 @end quotation
 @separate
-A tilde is different from a tie. A tie simply makes the first note
+A tie is different from a slur. A tie simply makes the first note
 sound longer, and can only be used on pairs of notes with the same
-pitch.
+pitch. Slurs indicate the articulations of notes, and can be used on
+larger groups of notes. Slurs and ties are also nested in practice:
+@lilypond[fragment, relative=1]
+c2-~-( c8 fis fis4 ~ fis2 g2-)
+@end lilypond
+
 
 The key signature is set with the command ``@code{\key}''.  One
 caution word of caution: you need to specify whether the key is
@@ -861,7 +866,7 @@ r4 <<c e g>>8-\>-( <<c e g>> <<c e g>>  <<c f a>>8-\!-\)
 \property Staff.TimeSignature = \turnOff
 \property Staff.autoBeaming = ##f
 \property Staff.Clef = \turnOff
-c( d )e
+c-( d e-)
 @end lilypond
 
 
@@ -873,7 +878,7 @@ c( d )e
 \property Staff.TimeSignature = \turnOff
 \property Staff.autoBeaming = ##f
 \property Staff.Clef = \turnOff
-c\(  c() d \)e
+c-\(  c-( d-) e-\)
 @end lilypond
 
 
@@ -885,7 +890,7 @@ c\(  c() d \)e
 \property Staff.TimeSignature = \turnOff
 \property Staff.autoBeaming = ##f
 \property Staff.Clef = \turnOff
-[a8 b]
+a8-[ b-]
 @end lilypond
 
 
@@ -937,15 +942,15 @@ a\< a \!a
 \property Staff.TimeSignature = \turnOff
 \property Staff.autoBeaming = ##f
 \property Staff.Clef = \turnOff
-a\> a \!a
+a-\> a a-\!
 @end lilypond
 
 
-@item @code{< >}
+@item @code{<< >>}
 @tab chord
 @tab
 @lilypond[fragment, relative 1]
-\context Voice <c e> 
+<<c e>> 
 @end lilypond
 
 @end multitable
@@ -1097,8 +1102,8 @@ melody = \notes \relative c' @{
         \partial 8
         \key c \minor
         g8 |
-        c4 c8 d [es () d] c4 | f4 f8 g [es() d] c g |
-        c4 c8 d [es () d] c4 | d4 es8 d c4.
+        c4 c8 d es-[ -( d-]-) c4 | f4 f8 g es-[-( d-)-] c g |
+        c4 c8 d es-[ -( d-]-) c4 | d4 es8 d c4.
         \bar "|."
 @}
 
@@ -1130,8 +1135,8 @@ melody = \notes \relative c' {
         \partial 8
         \key c \minor
         g8 |
-        c4 c8 d [es () d] c4 | f4 f8 g [es() d] c g |
-        c4 c8 d [es () d] c4 | d4 es8 d c4.
+        c4 c8 d es-[ -( d-)-] c4 | f4 f8 g es-(-[  d-)-] c g |
+        c4 c8 d es-(-[ d-]-) c4 | d4 es8 d c4.
         \bar "|."
 }
 
