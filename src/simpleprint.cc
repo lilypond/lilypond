@@ -26,7 +26,6 @@ Simple_staff::get_TYPESET_item(Command *com)
 	c->change = (type == "CLEF");	
     }else{
 	WARN << "ignoring TYPESET command for " << type << '\n';
-
     }
     return s;
 }
@@ -35,9 +34,13 @@ Simple_staff::get_TYPESET_item(Command *com)
 Interval
 itemlist_width(const svec<Item*> &its)
 {
-    Interval iv;
-    for (int j =0; j < its.sz(); j++)
-	iv.unite(its[j]->width());
+    Interval iv ;
+    iv.set_empty();
+     
+    for (int j =0; j < its.sz(); j++){
+	iv.unite (its[j]->width());
+
+    }
     return iv;
 }
 
@@ -58,7 +61,7 @@ Simple_column::typeset_item(Item *i, int breakst)
 	assert(!column_wid.empty());
 
 	for (int j=0; j < to_move.sz(); j++) {
-	    to_move[j]->translate(Offset(-column_wid.max, 0));
+	    to_move[j]->translate(Offset(-column_wid.right, 0));
 	}
     }
 }    
@@ -102,6 +105,6 @@ Simple_staff::get_rest(Rest_req*rq)
 Local_key_item*
 Simple_staff::get_local_key_item()
 {
-    return   0;
+    return 0;
 }
 
