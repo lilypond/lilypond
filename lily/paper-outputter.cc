@@ -10,7 +10,6 @@
 #include <math.h>
 #include <time.h>
 
-
 #include "array.hh"
 #include "dimensions.hh"
 #include "font-metric.hh"
@@ -30,10 +29,8 @@
 #include "string-convert.hh"
 #include "warn.hh"
 
-#include "ly-smobs.icc"
-
 // JUNKME
-extern SCM stencil2line (Stencil* stil, bool is_title = false);
+extern SCM stencil2line (Stencil *stil, bool is_title = false);
 
 Paper_outputter::Paper_outputter (String filename, String format)
 {
@@ -53,10 +50,15 @@ Paper_outputter::~Paper_outputter ()
 {
 }
 
+#include "ly-smobs.icc"
+
+IMPLEMENT_SMOBS (Paper_outputter);
+IMPLEMENT_DEFAULT_EQUAL_P (Paper_outputter);
+
 SCM
 Paper_outputter::mark_smob (SCM x)
 {
-  Paper_outputter * p = (Paper_outputter*) SCM_CELL_WORD_1(x);
+  Paper_outputter *p = (Paper_outputter*) SCM_CELL_WORD_1(x);
   scm_gc_mark (p->output_module_);
   return p->file_;
 }
@@ -68,12 +70,10 @@ Paper_outputter::print_smob (SCM x, SCM p, scm_print_state*)
   return 1;
 }
 
-
-
 SCM
 Paper_outputter::dump_string (SCM scm)
 {
-  return scm_display (scm,file_);
+  return scm_display (scm, file_);
 }
 
 SCM
@@ -89,12 +89,11 @@ Paper_outputter::output_scheme (SCM scm)
 }
 
 void
-paper_outputter_dump (void * po, SCM x)
+paper_outputter_dump (void *po, SCM x)
 {
-  Paper_outputter * me = (Paper_outputter*) po;
+  Paper_outputter *me = (Paper_outputter*) po;
   me->output_scheme (x);
 }
-
 
 void
 Paper_outputter::output_stencil (Stencil stil)
@@ -103,7 +102,7 @@ Paper_outputter::output_stencil (Stencil stil)
 				(void*) this, Offset (0,0));
 }
 
-Paper_outputter*
+Paper_outputter *
 get_paper_outputter (String outname, String f) 
 {
   progress_indication (_f ("paper output to `%s'...",
@@ -112,34 +111,29 @@ get_paper_outputter (String outname, String f)
 
 }
 
-IMPLEMENT_SMOBS(Paper_outputter);
-IMPLEMENT_DEFAULT_EQUAL_P(Paper_outputter);
-
-LY_DEFINE(ly_outputter_dump_stencil, "ly:outputter-dump-stencil",
-	  2, 0,0, (SCM outputter, SCM stencil),
-	  "Dump stencil @var{expr} onto @var{outputter}."
-	  )
+/* FIXME: why is output_* wrapper called dump?  */
+LY_DEFINE (ly_outputter_dump_stencil, "ly:outputter-dump-stencil",
+	   2, 0, 0, (SCM outputter, SCM stencil),
+	   "Dump stencil @var{expr} onto @var{outputter}.")
 {
-  Paper_outputter* po = unsmob_outputter  (outputter);
+  Paper_outputter *po = unsmob_outputter  (outputter);
   Stencil *st = unsmob_stencil (stencil);
   
-  SCM_ASSERT_TYPE(po, outputter, SCM_ARG1, __FUNCTION__, "Paper_outputter");
-  SCM_ASSERT_TYPE(st, stencil, SCM_ARG1, __FUNCTION__, "Paper_outputter");
+  SCM_ASSERT_TYPE (po, outputter, SCM_ARG1, __FUNCTION__, "Paper_outputter");
+  SCM_ASSERT_TYPE (st, stencil, SCM_ARG1, __FUNCTION__, "Paper_outputter");
 
   po->output_stencil (*st);
 
   return SCM_UNSPECIFIED;
 }
 
-
-LY_DEFINE(ly_outputter_dump_string, "ly:outputter-dump-string",
-	  2, 0, 0, (SCM outputter, SCM str),
-	  "Dump @var{str} onto @var{outputter}.")
+LY_DEFINE (ly_outputter_dump_string, "ly:outputter-dump-string",
+	   2, 0, 0, (SCM outputter, SCM str),
+	   "Dump @var{str} onto @var{outputter}.")
 {
-  Paper_outputter* po = unsmob_outputter  (outputter);
-  SCM_ASSERT_TYPE(po, outputter, SCM_ARG1, __FUNCTION__, "Paper_outputter");
-  SCM_ASSERT_TYPE(ly_c_string_p (str), str, SCM_ARG1, __FUNCTION__, "Paper_outputter");
-
+  Paper_outputter *po = unsmob_outputter  (outputter);
+  SCM_ASSERT_TYPE (po, outputter, SCM_ARG1, __FUNCTION__, "Paper_outputter");
+  SCM_ASSERT_TYPE (ly_c_string_p (str), str, SCM_ARG1, __FUNCTION__, "Paper_outputter");
+  
   return po->dump_string (str);
-  return SCM_UNSPECIFIED;
 }

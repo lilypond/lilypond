@@ -380,11 +380,10 @@ L1 is copied, L2 not.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  output
-(use-modules (scm framework-tex)
-	     (scm framework-ps)
-	     )
-
-
+(use-modules
+ (scm framework-gnome)
+ (scm framework-tex)
+ (scm framework-ps))
 
 (define output-tex-module
   (make-module 1021 (list (resolve-interface '(scm output-tex)))))
