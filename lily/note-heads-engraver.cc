@@ -30,8 +30,8 @@ public:
 protected:
   virtual void start_translation_timestep ();
   virtual bool try_music (Music *req_l) ;
-  virtual void create_grobs ();
-  virtual void acknowledge_grob (Grob_info) ;
+  virtual void process_music ();
+
   virtual void stop_translation_timestep ();
 };
 
@@ -53,18 +53,10 @@ Note_heads_engraver::try_music (Music *m)
   
 }
 
-void
-Note_heads_engraver::acknowledge_grob (Grob_info)
-{
-  //create_grobs ();
-}
 
 void
-Note_heads_engraver::create_grobs ()
+Note_heads_engraver::process_music ()
 {
-  if (note_p_arr_.size ())
-    return ;
-  
   for (int i=0; i < note_req_l_arr_.size (); i++)
     {
       Item *note_p  = new Item (get_property ("NoteHead"));
@@ -94,8 +86,13 @@ Note_heads_engraver::create_grobs ()
 	}
 
       Pitch *pit =unsmob_pitch (req->get_mus_property ("pitch"));
-      note_p->set_grob_property ("staff-position",  gh_int2scm (pit->steps ()));
 
+      int pos = pit->steps ();
+      SCM c0 = get_property ("centralCPosition");
+      if (gh_number_p (c0))
+	pos += gh_scm2int (c0);
+
+      note_p->set_grob_property ("staff-position",   gh_int2scm (pos));
       if (to_boolean (get_property ("easyPlay")))
 	{
 	  char s[2] = "a";
@@ -147,8 +144,6 @@ Note_heads_engraver::start_translation_timestep ()
       else
 	e->forbid_breaks ();	// guh. Use properties!
     }
-
-  
 }
 
 

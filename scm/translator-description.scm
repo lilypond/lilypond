@@ -52,7 +52,7 @@ the beam engraver for overriding beaming."
      "Axis_group_engraver"
      "Group all objects created in this context in a VerticalAxisGroup spanner."
      '(VerticalAxisGroup)
-     '(CONTEXTNAMEVerticalExtent CONTEXTNAMEMinimumVerticalExtent CONTEXTNAMExtraVerticalExtent)
+     '(VerticalExtent MinimumVerticalExtent ExtraVerticalExtent)
      ))
 
    (cons
@@ -348,15 +348,7 @@ If omitted, then dots appear on top of the notes.
      ""
      '(KeySignature
        )
-     '(
-      
-      keySignature
-      keyOctaviation
-      explicitKeySignatureVisibility
-      createKeyOnClefChange
-      keyAccidentalOrder
-      keySignature
-      )))
+     '( keySignature explicitKeySignatureVisibility createKeyOnClefChange keyAccidentalOrder keySignature )))
 
    (cons 'Lyric_engraver
 	 (engraver-description
@@ -416,7 +408,7 @@ If omitted, then dots appear on top of the notes.
 measurePosition and currentBarNumber to determine what number to print over the MultiMeasureRest
    "
      '(MultiMeasureRest)
-     '(
+     '(currentBarNumber currentCommandColumn measurePosition
       )))
 
    (cons

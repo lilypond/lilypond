@@ -1,5 +1,89 @@
-1.3.143.jcn3
+1.3.144.jcn4
 ============
+
+* Build fixes for icon, this fixes 'rpm' target.  Tried to reinclude
+in rpm using (.png and) .xpm, but latest LinuxPPC release's rpm
+(3.0.6) Icon: tag handling is broken.
+
+* Fixes for update-lily script.
+
+* Bugfixes: refman, changed Ascii to ASCII.
+
+* Fixed ascii art output.  Started some doco on different output formats.
+
+* Fixed scheme font lookup to handle new font lists with wildcards.
+
+* Fixes to point-and-click doco (Thanks, Laura Conrad).
+
+* Bugfixes: changed several (eval to (ly-eval for guile 1.4/1.4.x
+compatibility.
+
+* Fixes to buildscripts/clean-fonts.sh.
+
+1.3.144.hwn1
+============
+
+* Tutorial updates
+
+* Change interaction between clef-engraver and positioned items: do
+not use acknowledge/announce () to get position relative to c0, but
+use centralCPosition directly after grob creation.
+
+Side-effect: Pitch_squash_engraver now puts notes on position in
+staff, not on specific pitch.
+
+* Bugfixes: yet more create_grobs () -> process_music() reverts.
+
+* Tutorial updates
+
+* Don't give unbound spanner warnings for isolated dynamics on space
+rests.
+
+* cleaned up debug stuff.
+
+* cleaned up INSTALL document.
+
+* Key_change_req::do_equal_b(), keychange merge.
+
+* per octave key signatures. See
+input/regression/key-signature-scordatura.ly
+
+* moved tricks/ directory into test/.
+
+* Rename {Staff,Lyrics,etc}VerticalExtent and friends into
+VerticalExtent. Use predefined props to prevent inheritance.
+
+* Multi_measure_rest_engraver now uses whichBar property to detect
+barlines.  Hence, no need to keep Bar_engraver and
+Multi_measure_rest_engraver together.
+
+* Revised syntax for multiplied durations. Multiplied durations must
+now directly follow the number +dots. example:
+
+	c4*3/4 -\f ( 			% valid
+	c4-\f ( *3/4 			% invalid
+
+* Halt configure if kpathsea not found. 
+
+* Small refman fixes.
+
+* Prevent tie - dot collisions.
+
+* Bugfix: don't crash if hyphen spanner bounds are empty.
+
+* Spanish glossary, courtesy David Gonzalez.
+
+* Bugfix: all-font-metrics.cc: only lookup .tfm and check checksum if
+the AFM file has a CheckSum field.
+
+
+1.3.144.mb1
+============
+
+* Fix ps specials to work together with \usepackage[french]{babel}
+
+1.3.144
+=======
 
 * LilyPond-mode: show what's going on (font building) in *view* buffer.
 

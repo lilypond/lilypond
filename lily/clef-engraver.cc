@@ -12,16 +12,13 @@
 
 #include "translator-group.hh"
 #include "key-item.hh"
-#include "local-key-item.hh"
 #include "bar.hh"
-#include "note-head.hh"
 #include "staff-symbol-referencer.hh"
 #include "debug.hh"
 #include "engraver.hh"
 #include "direction.hh"
 #include "side-position-interface.hh"
 #include "item.hh"
-#include "custos.hh"
 
 /// where is c-0 in the staff?
 class Clef_engraver : public  Engraver
@@ -35,7 +32,7 @@ public:
 protected:
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
-  virtual void create_grobs ();
+  virtual void process_music ();
   virtual void acknowledge_grob (Grob_info);
 
 private:
@@ -112,25 +109,14 @@ Clef_engraver::set_glyph ()
 void
 Clef_engraver::acknowledge_grob (Grob_info info)
 {
-  create_grobs ();
   Item * item =dynamic_cast <Item *> (info.elem_l_);
   if (item)
     {
       if (Bar::has_interface (info.elem_l_)
 	  && gh_string_p (get_property ("clefGlyph")))
 	create_clef ();
-      
 
-      if (Note_head::has_interface (item)
-	  || Local_key_item::has_interface (item)
-	  || Custos::has_interface (item)
-	  )
-	{
-	  int p = int (Staff_symbol_referencer::position_f (item))
-	    + gh_scm2int (get_property ("centralCPosition"));
-	  Staff_symbol_referencer::set_position (item, p);
-	}
-      else if (Key_item::has_interface (item))
+      if (Key_item::has_interface (item))
 	{
 	  /*
 	    Key_item adapts its formatting to make sure that the
@@ -175,7 +161,7 @@ Clef_engraver::create_clef ()
 }
 
 void
-Clef_engraver::create_grobs ()
+Clef_engraver::process_music ()
 {
   SCM glyph = get_property ("clefGlyph");
   SCM clefpos = get_property ("clefPosition");

@@ -3,22 +3,6 @@
 @node Tutorial
 @chapter Tutorial
 
-@menu
-* Introduction::                
-* Running LilyPond::            Getting started
-* The first tune::              The first tune
-* Lyrics and chords::           Lyrics and chords
-* More movements ::             
-* A piano excerpt::             Piano music
-* An orchestral score::         
-* Part extraction::             
-* Latex and texinfo integration::  
-* end of tutorial::             The end
-* Pre-cooked makefile::         
-@end menu
-
-@node Introduction
-@section Introduction
 
   
 LilyPond prints music from a specification that you, the user, supply.
@@ -33,16 +17,31 @@ consult the glossary that is distributed with LilyPond.
 @cindex examples, tutorial
 
 The examples discussed are included in the distribution, in the
-subdirectory @file{input/tutorial/}.@footnote{When we refer
+subdirectory @file{input/tutorial/}@footnote{When we refer
 to filenames, they are relative to the top directory of the source
 package.
 @cindex file names
 }. We recommend that you experiment with writing Lilypond input
 yourself, to get a feel for how the program behaves.
 
+@menu
+* Running LilyPond::            Getting started
+* The first tune::              The first tune
+* Lyrics and chords::           Lyrics and chords
+* More movements ::             
+* A piano excerpt::             Piano music
+* An orchestral score::         
+* Part extraction::             
+* Latex and texinfo integration::  
+* end of tutorial::             The end
+@end menu
+
 
 @node Running LilyPond
 @section Running LilyPond
+
+
+[describe all programs involved in one list.]
 
 Before we dive into describing the input language of LilyPond, we first
 show you through the procedure for getting notes on your screen and out
@@ -175,16 +174,17 @@ You have to set some environment variables to view or print this
 output. More information can be found in the @ref{Invoking
 LilyPond}.
 
-Finally, there is a script called lilypond-book, that allows you to
-freely mix LilyPond input with Texinfo or LaTeX input. For example, this
-manual was written using lilypond-book. lilypond-book is discussed in
+Finally, there is a script called @code{lilypond-book}, that allows you
+to freely mix LilyPond input with Texinfo or LaTeX input. For example,
+this manual was written using @code{lilypond-book}. It is discussed in
 @ref{lilypond-book}.
 
 @unnumberedsubsec Windows
 
-[TODO]
+@strong{[TODO]}
 
 * setting of env vars (TFMINPUTS,MFINPUTS,TEXINPUTS)
+
 * dvi viewer doesn't display postscript
 
 
@@ -252,8 +252,8 @@ by @code{%@{} and @code{%@}}
 @cindex point, printer's
 @cindex staff size setting 
 By default, LilyPond will use definitions for a staff that is 20
-point@footnote {A point is the standard measure of length for printing;
-one point is 1/72.27 inch. [TODO: mm vs. pt]} high.  We want smaller
+point@footnote{A point is the standard measure of length for printing;
+one point is 1/72.27 inch.} high.  We want smaller
 output (16 point staff height), so we must import the settings for that
 size, which is done here.
 @example 
@@ -261,9 +261,8 @@ size, which is done here.
         \score @{
  
 @end example 
-A lilypond file combines music with directions for outputting that
-music.  The music is combined with the output directions by putting
-them into a @code{\score} block.
+Music is printed by combining a chunk of music with directions for
+outputting it.  This combination is formed in the @code{\score} block.
 @example 
 
         \notes                
@@ -290,7 +289,7 @@ For pitches in a long piece you might have to type many quotes. It is
 easy to make typing errors with this, so LilyPond has a special entry
 mode to remedy this.  In this ``relative'' octave mode, octaves of notes
 without quotes are chosen such that a note is as close as possible
-(graphically, on the staff) to the the preceding note.  If you add a
+(graphically, on the staff) to the preceding note.  If you add a
 high-quote an extra octave is added.  The lowered quote (a comma) will
 subtract an extra octave.  Because the first note has no predecessor,
 you have to give the (absolute) pitch of the note to start with.
@@ -310,8 +309,8 @@ notes that are to be played and printed after each other.
 @cindex time signature, setting
 @cindex @code{\time}
   This command changes the time signature of the current piece: a 3/4
-sign is printed.  This command is also used to generate bar lines in
-the right spots.
+sign is printed.  The time signature setting is also used to generate
+bar lines in the right spots.
 @example 
 
         \key g \major;
@@ -347,8 +346,8 @@ just leave off @code{\sequential}, and the result is the same.
 @end example 
  This is a note with pitch @code{d} (determined up to octaves).  The
 relative music was started with a @code{c''}, so the real pitch of this
-note is @code{d''}.  The @code{4} designates the duration of the note
-(it is a quarter note).
+note is @code{d''}.  A number designates the duration of the note, so
+the @code{4} here represents a quarter note.
 @example 
 
         a b
@@ -356,7 +355,7 @@ note is @code{d''}.  The @code{4} designates the duration of the note
 @end example 
 These are notes with pitch @code{a} and @code{b}.  Because their
 duration is the same as the @code{g}, there is no need to enter the
-duration (You may enter it anyway, e.g. @code{a4 b4})
+duration, but you may enter it anyway, i.e., @code{a4 b4}
 @example 
 
         d4 g, g |
@@ -406,8 +405,7 @@ Automatic beaming can be overridden by inserting beam marks
 @end example
 @cindex augmentation dot
 @cindex dot
-A duration with augmentation dot  is notated
-with the duration number followed by a period.
+A period adds an augmentation dot to the note.
 @example 
 
         @}
@@ -446,10 +444,10 @@ Rests are denoted by the special notename @code{r}.
  
 @end example 
  All articulations have a verbose form, like @code{\fermata}.  The
-command @code{\fermata} is not part of the core of the language (most
-of the other discussed elements are), but it is a shorthand for a more
-complicated description of a fermata.  @code{\fermata} names that
-description and is therefore called an identifier.
+command @code{\fermata} is not part of the core of the language, but it
+is a shorthand for a more complicated description of a fermata symbol.
+@code{\fermata} names that description and is therefore called an
+identifier.
 @cindex identifier
 @cindex @code{\fermata}
 @example 
@@ -490,7 +488,7 @@ included as @file{flowing.ly}.
 @example 
 \header @{
         title = "The river is flowing";
-        composer = "Traditional (?)";
+        composer = "Traditional";
 @}
 \include "paper16.ly"
 melody = \notes \relative c' @{
@@ -533,7 +531,7 @@ accompaniment =\chords @{
 
 The result would look this.@footnote{The titling and font size shown
 may differ, since the titling in this document is not generated by
-@file{ly2dvi}.}
+@code{ly2dvi}.}
 
 @center @strong{The river is flowing}
 @center Traditional 
@@ -541,7 +539,7 @@ may differ, since the titling in this document is not generated by
 @lilypond[center]
 \header {
         title = "The river is flowing";
-        composer = "Traditional (?)";
+        composer = "Traditional";
 }
 \include "paper16.ly"
 melody = \notes \relative c' {
@@ -643,7 +641,7 @@ The key is C minor: we have three flats.
 
 @cindex manual beaming
 @cindex automatic beaming, turning off
-We use explicit beaming.  Since this is a song,  we will turn automatic
+We use explicit beaming.  Since this is a song,  we turn automatic
 beams off, and use explicit beaming where needed.
 @example 
 
@@ -676,9 +674,9 @@ is a shorthand for @code{\sequential @{}.
 @cindex hyphens, lyric 
 The syllables  themselves are  separated by spaces.  You can get syllable
 extenders by entering @code{__}, and centered hyphens with
-`@code{-}@code{-}'.  We enter the syllables as if they are all quarter notes
+@code{-}@code{-}.  We enter the syllables as if they are all quarter notes
 in length (hence the @code{4}), and use a feature to align the
-syllables to the music (which obviously isn't all quarter notes.)
+syllables to the music, which obviously isn't all quarter notes.
 @example 
 
         accompaniment =\chords @{
@@ -686,10 +684,10 @@ syllables to the music (which obviously isn't all quarter notes.)
 @end example
 @cindex chords
 @cindex mode, chords
-We'll put chords over the music, to enter them, there is a special mode,
-called @code{\chords}.  There is a special mode (analogous
-to @code{\lyrics} and @code{\notes} mode) where you can give the names
-of the chords you want, instead of the notes comprising the chord.
+We'll put chords over the music.  To enter them, there is a special mode
+analogous to @code{\lyrics} and @code{\notes} mode, where you can give
+the names of the chords you want, instead of the notes comprising the
+chord.
 @example 
 
         r8
@@ -749,7 +747,8 @@ accompaniment have to sound at the same time, so they should be
 Chord mode generates notes grouped in @code{\simultaneous} music.  If
 you remove the comment sign, you can see the chords in normal
 notation: they will be printed as note heads on a separate
-staff.
+staff. To print them as chords names, they have to be interpreted as
+being chords, not notes. This is done with the following command:  
 @example 
 
         \context ChordNames \accompaniment
@@ -758,26 +757,22 @@ staff.
 @cindex context
 @cindex interpretation context
 @cindex notation context
-Normally, the notes that you enter are transformed into note heads.
-The note heads alone make no sense, they need surrounding information:
-a key signature, a clef, staff lines, etc.  They need @emph{context}.  In
-LilyPond, these symbols are created by objects called `interpretation
-contexts'.  Interpretation contexts only exist during a run of
-LilyPond.  Interpretation contexts that are for printing music (as
-opposed to playing music) are called `notation contexts'.
 
-By default, LilyPond will create a Staff context for you.  If you
-removed the @code{%} sign in the previous line, you would see that
+
+Normally, the notes that you enter are transformed into note heads.
+Note heads alone make no sense, they need surrounding information: a key
+signature, a clef, staff lines, etc.  They need @emph{context}.  In
+LilyPond, these symbols are created by objects called `interpretation
+contexts'.  Interpretation contexts (or `Notation contexts') only exist
+during a run of LilyPond.
+
+By default, LilyPond will create a Staff context for you.  If you would
+remove the @code{%} sign in the previous line, you would see that
 mechanism in action.
 
-We don't want that default here, because we want chord names, not note heads.
-An interpretation context can also created upon explicit request. The
-keyword for such a request is @code{\context}.  It takes two arguments.
-The first is the name of an interpretation context.  The name is a
-string, it can be quoted with double quotes).  The second argument is
-the music that should be interpreted in this context.  For the previous
-line, we could have written @code{\context Staff \accompaniment}, and
-get the same effect.
+We don't want that default here, because we want chord names.  The
+command above explicitly creates an interpretation context of 
+@code{ChordNames} type to interpret the music @code{\accompaniment}. 
 @example 
 
         \addlyrics
@@ -792,8 +787,8 @@ combining both with @code{\addlyrics}.  @code{\addlyrics} takes two
 pieces of music (usually a melody and lyrics, in that order) and
 aligns the syllables of the second piece under the notes of the
 first piece.  If you would reverse the order, the notes would be
-aligned on the lyrics, which is not very useful. (Besides, it looks
-silly.)
+aligned on the lyrics, which is not very useful, and looks
+silly.
 @example 
 
         \context Staff = mel @{
@@ -825,13 +820,18 @@ on the current staff.
 @cindex evaluating Scheme
 @cindex LISP
 
-LilyPond internally uses GUILE, a Scheme-interpreter@footnote{Scheme is
-a language from the LISP family. You can learn more about Scheme at
-@uref{http://www.scheme.org}.} to represent data throughout the whole
-program. The hash-sign (@code{#}) accesses GUILE directly: the code
-following the hash-sign is evaluated as Scheme.  The boolean value
+LilyPond internally uses GUILE, a Scheme-interpreter. Scheme is a
+language from the LISP family. You can learn more about Scheme at
+@uref{http://www.scheme.org}. It is used to represent data throughout
+the whole program. The hash-sign (@code{#}) accesses GUILE directly: the
+code following the hash-sign is evaluated as Scheme.  The boolean value
 @var{true} is @code{#t} in Scheme, so for LilyPond @var{true} looks like
-@code{##t}
+@code{##t}.
+
+If Scheme scares you, don't worry. You don't need to know Scheme to
+create beautiful sheet music.
+
+
 
 @example 
 
@@ -874,11 +874,15 @@ This ends @code{\simultaneous}.
         \midi  @{ \tempo 4=72;@}
  
 @end example 
-This makes the music go to a MIDI file.  MIDI is great for checking
-music you enter.  You listen to the MIDI file: if you hear something
-unexpected, it's probably a typing error.  @code{\midi} starts an output
-definition, a declaration that specifies how to output music analogous
-to @code{\paper @{ @}}. You can specify the tempo using the
+MIDI (Musical Instrument Digitial Interface) is a standard for
+connecting and recording digital instruments. So a MIDI file is like a
+tape recording of an instrument. The @code{\midi} block causes makes the
+music go to a MIDI file, so you can listen to the music you entered.  It
+is great for checking the music.  Whenever you hear something weird, you
+probably hear a typing error.
+
+Syntactally, @code{\midi} is similar to @code{\paper @{ @}}, since it
+also specifies an output method. You can specify the tempo using the
 @code{\tempo} command, in this case the tempo of quarter notes is set to
 72 beats per minute.
 @example 
@@ -888,12 +892,6 @@ to @code{\paper @{ @}}. You can specify the tempo using the
 @end example 
 We also want notation output.  The linewidth is short so the piece
 will be set in two lines.
-@example 
-
-        @}
- 
-@end example 
-End the score block.
 
 @node More movements 
 @section More movements
@@ -909,7 +907,7 @@ The first thing it does, is running LilyPond on the input file. After
 some calculations, a @file{.tex} is produced. The contents
 of this file are very  low-level instructions.
 
-For example,  the following file (@file{layout.ly}) 
+For example,  the following file (@file{minatures.ly}) 
 
 @example
   \version "1.3.124";
@@ -933,8 +931,9 @@ For example,  the following file (@file{layout.ly})
         piece = "Down"; @}
   @}
 @end example
- results in something like this@footnote{The titling in this manual was
-not generated by ly2dvi, so details will differ.}
+
+The titling in this manual was not generated by ly2dvi, so we can't
+exactly show it would look, but the result should resemble this:
 
 @center @strong{Two miniatures}
 @flushright
@@ -965,8 +964,8 @@ Opus 2.
 @end lilypond
 
 This file is produced by ly2dvi in a few stages, with the help of text
-formatting tools. LilyPond produces two output files, @file{layout.tex}
-and @file{layout-1.tex}.  They both look like this:
+formatting tools. LilyPond produces two output files, @file{miniatures.tex}
+and @file{miniatures-1.tex}.  They both look like this:
 
 @example
         ...
@@ -979,18 +978,17 @@ and @file{layout-1.tex}.  They both look like this:
         ...
 @end example
 
-@file{ly2dvi} analyses the progress indication that LilyPond spews out,
-and generates a file called @file{layout_ly1.tex}. This file contains
-formatting instructions for the title and page layout.  A fragment might
-look like
+@file{ly2dvi} looks at what output LilyPond produces, and generates a
+file called @file{ly2dvi.out.tex}. This file contains formatting
+instructions for the title and page layout.  A fragment might look like
+
 @example
 
-        \geometry@{width=540.602362pt,headheight=2mm, ...
-        \renewcommand@{\@@oddfoot@}@{\parbox@{\textwidth@}@{\mbox@{@}   ...
-        \begin@{document@}
-        \lilypondtitle@{foo@}%
-        \makelilytitle
-        \input@{ly2dvi.tex@}
+        \def\lilypondopus@{Opus 1.@}
+        \def\lilypondpiece@{Up@}
+        \def\mustmakelilypondtitle@{@}
+        \input miniatures.tex
+        \def\lilypondtitle@{Two miniatures@}
 
 @end example
 
@@ -998,7 +996,7 @@ look like
 built on top of @TeX{}. It's very popular in the academic world. If LaTeX
 is successful, this will produce a @file{.dvi} file, containing both the
 titling and notes.  @code{ly2dvi} completes its task by deleting the two
-temporary files, leaving only @file{layout.dvi}.
+temporary files, leaving only @file{miniatures.dvi}.
 
 Next, now we'll look at the examples line by line to explain new things.
 
@@ -1025,20 +1023,15 @@ This sets the titling information for the entire file.
 @end example
 
 This is Scheme code. It sets the variable @code{point-and-click} to the
-value @var{true}. 
+value @var{line-column-location} (which itself is a Scheme procedure). 
 
 Editing input files can be quite complicated if you're working with
 large files: if you're digitizing existing music, you have to
 synchronize the .ly file, the sheet music on your lap and the sheet
 music on the screen.  The point-and-click mechanism makes it easy to
-find the origin of an error in the .ly file: @footnote{This feature is
-presently only available on X-windows using patched versions of Xdvi and
-emacs} when you view the file with Xdvi and click on a note using
-control-mousebutton 1@footnote{If you're using a patched xdvik, the
-command is control-mousebutton-2}, your editor will jump to the spot
-where that note was entered.
-
-More information is in in @ref{Point and click} 
+find the origin of an error in the .ly file: when you view the file with
+Xdvi and click on a note , your editor will jump to the spot where that
+note was entered. More information is in in @ref{Point and click}
 
 @example
   \paper @{ 
@@ -1069,9 +1062,10 @@ little space, a longer phrase more space.
 In previous examples, notes were specified in relative octaves,
 i.e. each note was put in the octave that would put it closest to its
 predecessor. Besides relative, there is also absolute octave
-specification, and it is turned on by default. In this input mode, the
-central C is denoted by @code{c'}. Going down, you get @code{c}
-@code{c,} @code{c,,} etc.  Going up, you get @code{c''} @code{c'''} etc.
+specification, which you get when you don't specify @code{\relative}. In
+this input mode, the central C is denoted by @code{c'}. Going down, you
+get @code{c} @code{c,} @code{c,,} etc.  Going up, you get @code{c''}
+@code{c'''} etc.
 
 When you're copying music from existing sheet music, relative octaves
 are probably the easiest to use: it's less typing work and errors are
@@ -1086,10 +1080,10 @@ easily spotted. However, if you write LilyPond input, either by hand
 The @code{\header} is normally at the top of the file, where it sets
 values for the rest of the file. If you want to typeset different pieces
 from one file (for example, if there are multiple movements, or if
-you're making a etude-book), you can put different @code{\score} blocks
-into the input file. ly2dvi will assemble all LilyPond output files into
-a big document. The contents of \header blocks specified within each
-score, are used for the titling of each movement.
+you're making a excercise book), you can put different @code{\score}
+blocks into the input file. ly2dvi will assemble all LilyPond output
+files into a big document. The contents of \header blocks specified
+within each score, are used for the titling of each movement.
 @example
         opus = "Opus 1.";
         piece = "Up"; @}
@@ -1115,57 +1109,57 @@ stemUp = \property Voice.Stem \override #'direction = #1
 stemBoth = \property Voice.Stem \revert #'direction  
 
 viola = \notes \relative c' \context Voice = viola {
-	<c4-\f-\arpeggio g' c>
-	\stemDown g'8. b,16
-	s1 s2. r4
-	g
+        <c4-\f-\arpeggio g' c>
+        \stemDown g'8. b,16
+        s1 s2. r4
+        g
 }
 
 oboes = \notes \relative c'' \context Voice = oboe {
-	\stemUp s4  g8. b,16 c8 r <e'8.^\p g> <f16 a>
-	\grace <e8( g> <d4 f> <c2 e> \times 2/3 { <d8 \< f> <e g> <f a> }
-	<
-	  { \times 2/3 { a8 g c } \! c2 }
-	  \context Voice = oboeTwo {
-		\stemDown
-		\grace {
-		  \property Grace.Stem \override #'direction = #-1
-		  [f,16 g] }
-		f8 e e2
-	} >
-	\stemBoth
-	\grace <c,8( e> <)b8. d8.-\trill> <c16 e> | 
-	[<d ( f> < )f8. a>] <)b,8 d> r [<d16( f> <f8. )a>] <b,8 d> r  |
-	[<c16( e>  < )e8. g>] <c8 e,>
+        \stemUp s4  g8. b,16 c8 r <e'8.^\p g> <f16 a>
+        \grace <e8( g> <d4 f> <c2 e> \times 2/3 { <d8 \< f> <e g> <f a> }
+        <
+          { \times 2/3 { a8 g c } \! c2 }
+          \context Voice = oboeTwo {
+               \stemDown
+               \grace {
+                 \property Grace.Stem \override #'direction = #-1
+                 [f,16 g] }
+               f8 e e2
+        } >
+        \stemBoth
+        \grace <c,8( e> <)b8. d8.-\trill> <c16 e> | 
+        [<d ( f> < )f8. a>] <)b,8 d> r [<d16( f> <f8. )a>] <b,8 d> r  |
+        [<c16( e>  < )e8. g>] <c8 e,>
 }
 
 hoomPah  =  \repeat unfold 8
   \notes  \transpose c' { \stemUp c8 \stemBoth \stemDown c'8  \stemBoth  }
 
 bassvoices = \notes \relative c' {
-	c4 g8. b,16
-	\autochange Staff \hoomPah
-	\translator Staff = down
-	\stemDown [c8 c'8] r4
-	<g d'> r4
-	< {\stemUp r2 <e4 c'> <c8 g'> }
-	  \context Voice = reallyLow  {\stemDown g2 ~ | g4 c8 } >
+        c4 g8. b,16
+        \autochange Staff \hoomPah
+        \translator Staff = down
+        \stemDown [c8 c'8] r4
+        <g d'> r4
+        < {\stemUp r2 <e4 c'> <c8 g'> }
+          \context Voice = reallyLow  {\stemDown g2 ~ | g4 c8 } >
 }
 
 \score {
-	\context PianoStaff \notes <
-		\context Staff = up < \time 2/2;
-			\viola
-			\oboes
-		>
-		\context Staff = down < \time 2/2; \clef bass;
-			\bassvoices
-		>
-	>
-	\midi { }
-	\paper {
-	  indent = 0.0;
-	  linewidth = 15.0 \cm; }
+        \context PianoStaff \notes <
+               \context Staff = up < \time 2/2;
+               	\viola
+               	\oboes
+               >
+               \context Staff = down < \time 2/2; \clef bass;
+               	\bassvoices
+               >
+        >
+        \midi { }
+        \paper {
+          indent = 0.0;
+          linewidth = 15.0 \cm; }
 }
 @end lilypond
 
@@ -1180,12 +1174,12 @@ As you can see, this example features more voices on one staff. To make
 room for those voices, their notes have to be stemmed in opposite
 directions. These are the commands to make that happen.
 
-The symbols that are printed, are internally represented by so-called
-Graphical Objects (or more colloquially: Grobs).  These statements
-concern the grob called `Stem'. Each grob is described by a bunch of
-settings. These setting determine the fonts, offsets, sub-routines to be
-called on the grob, etc.  The initial values of these settings are set
-in the Scheme file @file{scm/grob-description.scm}.
+Printed symbols are internally represented by so-called Graphical
+Objects (more colloquially: Grobs).  These statements concern the
+grob called `Stem'. Each grob is described by a bunch of settings. These
+setting determine the fonts, offsets, sub-routines to be called on the
+grob, etc.  The initial values of these settings are set in the Scheme
+file @file{scm/grob-description.scm}.
 
 This statement adds a the setting for all Stem grobs in the current
 Voice: @code{direction} is set to @code{-1}, which encodes down. The
@@ -1195,12 +1189,9 @@ setting remains in effect until it is reverted.
  \property Voice.Stem \revert #'direction  
 @end example
 
-This statement reverts the old setting. If you do this, the effect of a
-@code{\stemDown} or @code{\stemUp} is neutralised.
+This statement reverts the old setting. If you do this, the effect of
+precisely one @code{\stemDown} or @code{\stemUp} is neutralised.
 
-@code{\override} and @code{\revert} function like a stack: you can push
-values onto the grob-setting-stack with @code{\override} and you pop
-them with @code{\revert}.
 
 LilyPond includes the identifiers @code{\stemUp}, @code{\stemDown} along
 with some more often used formatting instructions, but to explain how it
@@ -1270,7 +1261,7 @@ these notes are indeed processed by precisely one context with
 \stemUp s4  g8. b,16 c8 r <e'8.-\p g> <f16 a> 
 @end example 
 @code{\stemUp} is a reference to the @code{\property \override} command
-defined above.   .
+defined above. 
 @example 
 \grace <e8 g> < d4 f> <c2 e> 
 @end example
@@ -1372,7 +1363,8 @@ between staffs.  Since it is repetitive, we use repeats:
 hoomPah  =  \repeat unfold 8
 @end example
 @cindex unfolded @code{\repeat}
-This repeat print the following sequence notes eight times.
+The unfolded repeat prints the notes in its argument as if they were
+written out in full.
 @example
 \notes \transpose c' @{
 @end example
@@ -1382,7 +1374,7 @@ This repeat print the following sequence notes eight times.
 Transposing can be done with @code{\transpose}.  It takes two arguments;
 the first specifies what central C should be transposed to.  The second
 is the to-be-transposed music.  As you can see, in this case, the
-transposition is a no-op, as central C stay at central C.
+transposition has no effect, as central C stay at central C.
 
 The purpose of this no-op is circumventing relative mode.  Relative mode
 can not be used together with transposition, so @code{\relative} will
@@ -1415,7 +1407,11 @@ staff switch here.
 @end example
 @cindex tie
 @cindex @code{~}
-After skipping some lines, we see @code{~}.  This mark makes ties.
+After skipping some lines, we see @code{~}.  This mark makes ties.  Note
+that ties and slurs are different things.  A tie can only connect two
+note heads of the same pitch, whereas a slur can connect many chords
+with one curve.
+
 @example 
 \context PianoStaff 
 @end example 
@@ -1444,14 +1440,15 @@ to the page layout of this document.
 @node An orchestral score
 @section An orchestral score
 
-If you've come this far, you should have seen enough LilyPond source to
-feel comfortable with an orchestral score.  We will not go through the
+[explain why declarative nature of lily makes making scores rel. easy]
+
+We will not go through the
 input line by line, but only indicate and explain the new elements.
 
 This orchestral score example consists of three input files.  In the
 first file, @file{os-music.ly}, we define the music for all instruments.
-This file is to be used by the other two files, as you will see below.
-If you run lilypond on this file, no output will be produced.
+This file will be used both for producing the score and the separate
+parts.  If you run lilypond on this file, no output will be produced.
 
 
 @example
@@ -1492,8 +1489,9 @@ corno = \notes\relative c' @{
 @end example
 
 Things to note here are the definition of @code{\global} where we define
-meter, and set the end bar.  And the separate definition of @code{\Key}
-that we will use all staffs except staffs for transposing instruments. 
+the time signature, and set the end bar.  And the separate definition of
+@code{\Key} that we will use all staffs except staffs for transposing
+instruments.
 
 The second file, @file{os-score.ly} reads the definitions of the first
 (@file{os-music.ly}), and defines the @code{\score} block for the full
@@ -1513,43 +1511,43 @@ conductor's score.
     \global
     \context StaffGroup = woodwind <
       \context Staff = flauti <
-	\property Staff.midiInstrument = #"flute"
-	\property Staff.instrument = "2 Flauti"
-	\property Staff.instr = "Fl."
+        \property Staff.midiInstrument = #"flute"
+        \property Staff.instrument = "2 Flauti"
+        \property Staff.instr = "Fl."
         \Key
-	\context Voice=one @{ \voiceOne \flautoI @}
-	\context Voice=two @{ \voiceTwo \flautoII @}
+        \context Voice=one @{ \voiceOne \flautoI @}
+        \context Voice=two @{ \voiceTwo \flautoII @}
       >
     >
     \context StaffGroup = timpani <
       \context Staff = timpani <
-	\property Staff.midiInstrument = #"timpani"
-	\property Staff.instrument = #'(lines "Timpani" "(C-G)")
-	\property Staff.instr = #"Timp."
-	\clef bass;
+        \property Staff.midiInstrument = #"timpani"
+        \property Staff.instrument = #'(lines "Timpani" "(C-G)")
+        \property Staff.instr = #"Timp."
+        \clef bass;
         \Key
-	\timpani
+        \timpani
       >
     >
     \context StaffGroup = brass <
       \context Staff = trombe <
   	\property Staff.midiInstrument = #"trumpet"
-	\property Staff.instrument = #`(lines "2 Trombe" "(C)")
-	\property Staff.instr = #`(lines "Tbe." "(C)")
+        \property Staff.instrument = #`(lines "2 Trombe" "(C)")
+        \property Staff.instr = #`(lines "Tbe." "(C)")
         \Key
-	\context Voice=one \partcombine Voice
-	  \context Thread=one \tromboI
-	  \context Thread=two \tromboII
+        \context Voice=one \partcombine Voice
+          \context Thread=one \tromboI
+          \context Thread=two \tromboII
       >
       \context Staff = corni <
         \property Staff.midiInstrument = #"french horn"
-	\property Staff.instrument = #`(lines "Corno"
+        \property Staff.instrument = #`(lines "Corno"
           (rows "(E" ,text-flat ")"))
-	\property Staff.instr = #`(lines "Cor."
+        \property Staff.instr = #`(lines "Cor."
           (rows "(E" ,text-flat ")"))
-	\property Staff.transposing = #3
-	\notes \key bes \major;
-	\context Voice=one \corno
+        \property Staff.transposing = #3
+        \notes \key bes \major;
+        \context Voice=one \corno
       >
     >
   >
@@ -1608,6 +1606,8 @@ editing.
 #(set! point-and-click line-column-location)
 @end example
 
+[what is markup text?] 
+
 We need a flat sign in text to name the tuning of the french horn, so we
 predefine it with bit of scheme markup text (See @ref{Text markup}).
 @example
@@ -1632,15 +1632,15 @@ the two flutes, that also play simultaneously.
 We specify the intrument for MIDI output (see @ref{MIDI instrument
 names}).
 @example
-	\property Staff.midiInstrument = #"flute"
+        \property Staff.midiInstrument = #"flute"
 @end example
 
 And define the intrument names to be printed in the margin,
 @code{instrument} for the first line of the score, @code{instr} for the
 rest of the score.
 @example
-	\property Staff.instrument = "2 Flauti"
-	\property Staff.instr = "Fl."
+        \property Staff.instrument = "2 Flauti"
+        \property Staff.instr = "Fl."
 @end example
 
 The flutes play in the default key.
@@ -1655,8 +1655,8 @@ we specify manually which voice is which: @code{\voiceOne} forces the
 direction of stems, beams, slurs and ties up, @code{\voiceTwo} sets
 directions down.
 @example
-	\context Voice=one @{ \voiceOne \flautoI @}
-	\context Voice=two @{ \voiceTwo \flautoII @}
+        \context Voice=one @{ \voiceOne \flautoI @}
+        \context Voice=two @{ \voiceTwo \flautoII @}
 @end example
 
 We close the flutes staff and woodwind staff group.
@@ -1668,19 +1668,21 @@ We close the flutes staff and woodwind staff group.
 The timpani staff only shows a new piece of scheme markup, it sets two
 lines of text.
 @example
-	\property Staff.instrument = #'(lines "Timpani" "(C-G)")
+        \property Staff.instrument = #'(lines "Timpani" "(C-G)")
 @end example
 
-For the trumpets we use the automatic part combiner (see @ref{Automatic
+[what is thread, why is distinction thread/voice necessary?] 
+
+for the trumpets we use the automatic part combiner (see @ref{Automatic
 part combining}) to combine the two simultaneous trumpet parts onto the
 trumpet staff.  Each trumpet gets its own Thread context, which must be
 named @code{one} and @code{two}).  The part combiner makes these two
 threads share a Voice when they're similar, and splits the threads up
 when they're different.
 @example
-	\context Voice=one \partcombine Voice
-	  \context Thread=one \tromboI
-	  \context Thread=two \tromboII
+        \context Voice=one \partcombine Voice
+          \context Thread=one \tromboI
+          \context Thread=two \tromboII
 @end example
 
 The french horn has the most complex scheme markup name, made up of two
@@ -1693,13 +1695,17 @@ and the flat sign @code{text-flat} that we defined before.
 
 The french horn is to be tuned in E-flat, so we tell the MIDI backend to
 transpose this staff by three steps.
+
+[note how we can choose different tuning for entering, printing and
+playing, using \transpose and transposing.]
+
 @example
-	\property Staff.transposing = #3
+        \property Staff.transposing = #3
 @end example
 
 Therefore, it has a different key.
 @example
-	\notes \key bes \major;
+        \notes \key bes \major;
 @end example
 
 We specify a big indent for the first line and a small linewith for this
@@ -1709,9 +1715,15 @@ tuturial.
     linewidth = 60 * \staffspace;
 @end example
 
+[explain about overriding contexts.]
+
 Because we have a Thread representing one instrument, we need to move
 the @code{Rest_engraver} from Voice to Thread level.  Similarly, we need
-to move the @code{Multi_measure_rest_engraver} from Staff to Voice level.
+to move the @code{Multi_measure_rest_engraver} from Staff to Voice
+level.
+
+[todo: should put Rest_engraver in threadcontext by default.]
+
 @example
     \translator@{
       \ThreadContext
@@ -1739,6 +1751,22 @@ the automatic removing of empty staffs.
 
 We want bar numbering at score level and want to move the bar number a
 few staff spaces up.
+
+@ignore
+[note how you can use \override in \translator]
+[explain what padding is.]
+
+[note that : (ly/engraver.ly) OrchestralScoreContext is for compatibility.
+
+OrchestralScoreContext= \translator {
+	\ScoreContext
+}
+
+]
+
+@end ignore
+
+
 @example
     \translator @{
       \OrchestralScoreContext
@@ -1771,7 +1799,7 @@ second flute part.
     linewidth = 80 * \staffspace;
     textheight = 200 * \staffspace;
     \translator @{
-      \OrchestralScoreContext
+      \OrchestralScoreContext %%%%junkme
       skipBars = ##t
     @}
   @}
@@ -1820,9 +1848,15 @@ bars.
       skipBars = ##t
 @end example
 
+[Waarom moet  skipBars in \translator, waarom niet \property Score.skipBars]
+
+
+
 @node Latex and texinfo integration
 @section Latex and texinfo integration
 
+
+[TODO: rewrite completely.]
 
 @menu
 * Songs with additional verses::  
@@ -2063,6 +2097,11 @@ environment when you don't want La@TeX{} to do any linebreaking)
 With lilypond-book, you can typeset songs with additional verses.  To
 make lilypond-book print titles like ly2dvi, add
 
+[TODO: merge with lilypond-book tutorial]
+
+
+
+
 @example
 \input titledefs.tex
 \def\preLilypondExample@{\def\mustmakelilypondtitle@{@}@}
@@ -2112,11 +2151,14 @@ Music (TM), have a look at the @ref{Mutopia project}.
 
 
 
-[TODO figure out what to do with this: ]
+@ignore
 
+[TODO
 
-@node Pre-cooked makefile
-@section Pre-cooked makefile
+this should be on mutopia website.
+
+]
+
 
 @c waar deze info?  is uiteindelijk wel handig, schat ik.
 [TODO: cut blabla]
@@ -2144,4 +2186,6 @@ Type @samp{make help} to see possible targets.
 
 [TODO]
 @file{/usr/share/lilypond/doc/lilypond/examples/input/mutopia-header.ly}
+
+@end ignore
 

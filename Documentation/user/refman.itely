@@ -19,7 +19,7 @@
 @chapter Reference Manual
 
 This document describes GNU LilyPond and its input format. The last
-revision of this document was for LilyPond 1.3.141.
+revision of this document was made for LilyPond 1.3.145.
 
 
 @menu
@@ -39,6 +39,7 @@ revision of this document was for LilyPond 1.3.141.
 * Custodes::                    
 * Tuning output::               
 * Page layout::                 
+* Output formats::              
 * Sound::                       
 * Music entry::                 
 * Skipping corrected music::    
@@ -61,7 +62,7 @@ by `music compiler' or `music to notation compiler'.
 
 LilyPond is linked to GUILE, GNU's Scheme library for extension. The
 Scheme library provides the glue that holds together the low-level
-routines and separate modules general, which are C++.
+routines and separate modules which are written in C++.
 
 When lilypond is run to typeset sheet music, the following happens:
 @itemize @bullet
@@ -70,13 +71,14 @@ When lilypond is run to typeset sheet music, the following happens:
 then the user @file{ly} file is read.
 @item interpretation: the music in the file is processed ``in playing
 order'', i.e. the order that  you  use to read sheet music, or the
-order in which notes are played.
+order in which notes are played. The result of this step is a typesetting
+specification.
 
 @item typesetting:
-in this step, the results of the interpretation, a typesetting
-specification, is solved.
+The typesetting specification is solved: positions and formatting is
+calculated.
 
-@item the visible results ("virtual ink") is written to the output file.
+@item the visible results ("virtual ink") are written to the output file.
 @end itemize
 
 During these stages different types of data play the the main role:
@@ -116,7 +118,6 @@ brevity we omit obligotary lint such as @code{\score} blocks and
 * Tuplets::                     
 * Rests::                       
 * Skip::                        
-* Note mode::                   
 @end menu
 
 @c .  {Pitches}
@@ -215,18 +216,16 @@ The syntax for a verbose duration specification is
 @example
  \duration @var{scmduration}
 @end example
-Here, @var{scmduration} is a Scheme object of type Duration. See
+Here, @var{scmduration} is a Scheme object of type @code{Duration}. See
 @ref{Duration} for more information.
 
 
 In Note, Chord, and Lyrics mode, durations may be designated by numbers
 and dots: durations are entered as their reciprocal values.  For notes
-longer than a whole note, use identifiers.
-
-@quotation
+longer than a whole note you must use identifiers.
 
 @example 
-c'\longa c'\breve  
+ c'\breve  
 c'1 c'2 c'4 c'8 c'16 c'32 c'64 c'64 
 r\longa r\breve  
 r1 r2 r4 r8 r16 r32 r64 r64 
@@ -236,7 +235,7 @@ r1 r2 r4 r8 r16 r32 r64 r64
 @lilypond[]
 \score {
   \notes \relative c'' {
-    a\longa a\breve  \autoBeamOff
+  \breve  \autoBeamOff
     a1 a2 a4 a8 a16 a32 a64 a64 
     r\longa r\breve  
     r1 r2 r4 r8 r16 r32 r64 r64 
@@ -252,11 +251,15 @@ r1 r2 r4 r8 r16 r32 r64 r64
   }
 }
 @end lilypond
-@end quotation
 
-As you can see, the longa is not printed. To get a longa note head, you
-have to use a mensural note heads. This is done accomplished by setting
-the @code{style} property of the NoteHead grob to @code{mensural}.
+ To get a longa note head, you have to use a mensural note heads. This
+is done accomplished by setting the @code{style} property of the
+NoteHead grob to @code{mensural}.
+
+@lilypond[fragment,singleline,verbatim]
+ \property Voice.NoteHead \set #'style = #'mensural
+ a'\longa
+@end lilypond
 
 If the duration is omitted then it is set to the previous duration
 entered.  At the start of parsing a quarter note is assumed.  The
@@ -281,12 +284,12 @@ notes or rests produced.
 A note specification has the form
 
 @example
-  @var{pitch}[@var{octavespec}][!][?][@var{duration}]
+  @var{pitch}[!][?][@var{duration}]
 @end example
 
-LilyPond will determine what accidentals to typeset depending on the key
-and context. The alteration refers to what note is heard, not to whether
-an accidental is printed.  A reminder accidental
+The alteration refers to what note is heard, not to whether an
+accidental is printed. This is done depending on the key and context.
+A reminder accidental
 @cindex reminder accidental
 @cindex @code{?}
 can be forced by adding an exclamation mark @code{!} after the pitch.  A
@@ -311,7 +314,7 @@ note head that includes a note name.  It is used in some publications by
 Hal-Leonard Inc.  music publishers.
 
 @lilypond[singleline,verbatim]
-\include "paper26.ly"
+\include "paper23.ly"
 \score {
         \notes { c'2 e'4 f' | g'1 }
         \paper { \translator { \EasyNotation } } 
@@ -339,9 +342,9 @@ the @code{-f ps} option of lilypond will produce the desired result.
 
 A tie connects two adjacent note heads of the same pitch.  When used
 with chords, it connects all of the note heads whose pitches match.
-Ties are indicated using the tilde symbol `@code{~}'.
-If you try to tie together chords which have no common pitches, a
-warning message will appear and no ties will be created.
+Ties are indicated using the tilde symbol `@code{~}'.  If you try to tie
+together chords which have no common pitches then no ties will be
+created.
 
 @lilypond[fragment,verbatim,center]
   e' ~ e' <c' e' g'> ~ <c' e' g'>
@@ -356,11 +359,15 @@ ties:
 @end lilypond
 
 In its meaning a tie is just a way of extending a note duration, similar
-to the augmentation dot: the following example are three ways of notating
+to the augmentation dot: the following example are two ways of notating
 exactly the same concept.
+@c
 @lilypond[fragment, singleline]
 c'2 c'4 ~ c'4
 @end lilypond
+
+
+Ties are printed through the @code{Tie} grob.
 
 @refbugs
 
@@ -370,7 +377,7 @@ between tied notes, dotted notes and plain notes.
 
 Tieing only a subset of the note heads of a chord is not supported in a
 simple way.  It can be achieved by moving the tie-engraver into Thread
-context and turning off ties per Thread.
+context and turning on an off ties per Thread.
 
 
 @node Tuplets
@@ -408,12 +415,24 @@ of tuplets.
 \times 2/3 { c''8 c c c c c }
 @end lilypond
 
+The format of the number is determined by the property
+@code{tupletNumberFormatFunction}. The default prints only the
+denominator, but if you set it to the Scheme function
+@code{fraction-tuplet-formatter} will print @var{num}:@var{den} instead.
+
+@cindex @code{tupletNumberFormatFunction}
+@cindex tuplet formatting 
+
+Tuplet brackets are printed as @code{TupletBracket} grobs
+
+
 @c .  {Rests}
 @node  Rests
 @subsection Rests
 @cindex Rests
 
-Rests are entered like notes, with note name `@code{r}'.
+Rests are entered like notes, with note name `@code{r}'. The grob is
+@code{Rest}.
 
 
 @c .  {Skip}
@@ -432,29 +451,6 @@ Skips the amount of time specified by @var{duration}.  If no other music
 is played, a gap will be left for the skipped time with no notes
 printed.  The shorthand is only available in Note and Chord mode.
 
-
-
-@node Note mode
-@subsection Note mode
-
-
-
-@cindex note mode
-@cindex @code{\notes}
-
-Note mode is the lexical mode generally used for inputting notes. The
-syntax is
-@example
-\notes @var{expr}
-@end example
-
-This instructs the tokenizer to interpret @var{expr} in note mode.  If a
-a sequence of alfabetical characters, like @code{foobar}, LilyPond first
-checks if @code{foobar} is a pitch name.  If it is not a pitch name,
-then it is treated as a string.
-
-Numbers and dots indicate durations, so you can enter floating point
-numbers in this mode.
 
 
 @node Staff notation
@@ -505,6 +501,8 @@ semitones that should be added to the pitch given in the subsequent
 
 This command sets context property @code{Staff.keySignature}.
 
+The printed signature is a @code{KeySignature} grob.
+
 @cindex @code{keySignature}
 
 @c .  {Clef}
@@ -522,6 +520,8 @@ Shortcut for
   \property Staff.clefPosition = @var{clef Y-position for clefname}
   \property Staff.clefOctavation = @var{extra pitch of clefname}
 @end example
+
+Any change in these properties creates a clef (a @code{Clef} grob).
 
 Supported clef-names include 
 
@@ -587,7 +587,9 @@ Internally, this is a shortcut for doing
      \property Score.timeSignatureFraction = #'(@var{numerator} . @var{denominator})
 @end example
 
-[TODO: discuss options for layout]
+The grob is @code{TimeSignature}.  There are many options for the layout
+of this grob. They are selected through the @code{style} grob
+property. See @file{input/test/time.ly} for examples.
 
 @c .   {Partial}
 @subsection Partial
@@ -660,7 +662,7 @@ documentation.
 @cindex repeatCommands
 @cindex defaultBarType
 
-Bar lines are created by the @code{Bar_line_engraver}. That engraver examines
+Bar lines are created by the @code{Bar_engraver}. That engraver examines
 @code{whichBar} at every moment. Whenever it is set to a string, it will
 create a bar with that type.  @code{whichBar} is usually set
 automatically: at the start of a measure it is set to
@@ -671,6 +673,7 @@ override default measure bars.
 @code{\bar ; }.  These settings take precedence over automatic @code{whichBar}
 settings. 
 
+@code{Bar_engraver} creates @code{BarLine} grobs.
 
 @c .   {Polyphony}
 @node Polyphony
@@ -704,7 +707,7 @@ in @code{NoteColumn}).
          \shiftOnn \stemUp ais
        }
        \context Voice=four {
-	  \shiftOnnn \stemUp fis-2
+	  \shiftOnnn \stemUp fis
        }
   >
 @end lilypond
@@ -719,7 +722,6 @@ correct manner.
   \context Voice = VB { \voiceThree b4 ais ~ ais4 gis4 } 
   \context Voice = VC { \voiceTwo fis4~  fis4 f ~ f  } >
 @end lilypond
-
 
 LilyPond also vertically shifts rests that are opposite of a stem. 
 
@@ -744,8 +746,6 @@ Resolving collisions is a very intricate subject, and LilyPond only
 handles a few situations. When it can not cope, you are advised to use
 @code{force-hshift} of the NoteColumn grob and @code{staff-position} of
 the Rest grob to override typesetting decisions.
-
-[TODO: doc merge-differently-dotted]
 
 @node Beaming
 @section Beaming
@@ -884,9 +884,11 @@ control the number of beams through the properties
 @end lilypond
 @cindex @code{stemRightBeamCount}
 
-The beam symbol can be tweaked through @code{Voice.Beam}'s
-grob-properties @code{height} and @code{staff-position},
-in staff-spaces.
+The beam symbol (grob @code{Voice.Beam}, both for automatic and manual
+beams) can be tweaked through grob-properties @code{height} and
+@code{staff-position}, which are both measured  staff-spaces.
+
+[TODO: check: halfspaces?]
 
 Set @code{height} to zero, to get horizontal beams:
 
@@ -933,9 +935,6 @@ Slurs avoid crossing stems, and are attached to note heads whenever
 possible.  In some instances involving beams slurs may be attached to a
 stem end.  If you want to override this layout you can do this through
 @code{Voice.Slur}'s grob-property @code{attachment}:
-
-Maybe reinclude other slur features and move back to tricks?  Esp. the
-second example, how to fix, can be very helpful.
 
 @lilypond[fragment,relative,verbatim]
   \property Voice.Slur \set #'direction = #1
@@ -1037,7 +1036,8 @@ output with 76 quarter notes per minute.
 @refbugs
   
 The tempo setting is not printed, but is currently only used in the MIDI
-output.
+output. You can trick lily into producing a metronome mark,
+though. Details   are in @ref{Text markup}.
   
 
 
@@ -1169,6 +1169,7 @@ helpful identifier definitions appear in @file{script.ly}.
 
 For information on how to add scripts, consult @file{scm/script.scm}.
 
+Grobs for these objects are @code{Script} and @code{Fingering}.
 
 @refbugs
 
@@ -1297,8 +1298,8 @@ also be implemented.
 
 @cindex @code{\glissando}
 
-A glissando line can be requested by attaching a @code{\glissando} to a
-note:
+A glissando line (grob @code{Voice.Glissando}) can be requested by attaching a
+@code{\glissando} to a note:
 
 @lilypond[fragment,relative,verbatim]
   c'' \glissando c'
@@ -1385,6 +1386,10 @@ is an example how to do it:
 @end lilypond
 
 
+Dynamics are grobs of @code{Voice.DynamicText} and
+@code{Voice.Hairpin}. They are put together on
+@code{Voice.DynamicLineSpanner} to align them vertically.
+
 
 @c .  {Repeats}
 @node Repeats
@@ -1459,10 +1464,8 @@ With alternative endings:
   \alternative { {d'2 d'} {f' f} }
 @end lilypond
 
-Folded repeats look like this:@footnote{Folded repeats offer little
-more over simultaneous music.  However, it is to be expected that
-more functionality -- especially for the MIDI backend -- will be
-implemented at some point in the future.}
+Folded repeats look like this:
+
 
 @lilypond[fragment,verbatim]
   c'1
@@ -1496,6 +1499,10 @@ after 1.4.
 It is possible to nest @code{\repeat}, although it probably is only
 meaningful for unfolded repeats.
 
+Folded repeats offer little more over simultaneous music.  However, it
+is to be expected that more functionality -- especially for the MIDI
+backend -- will be implemented at some point in the future.
+
 @node Manual repeat commands
 @subsection Manual repeat commands
 
@@ -1525,6 +1532,8 @@ command can be
 @end lilypond
 
 
+Repeats brackets are @code{Staff.VoltaBracket} grobs.
+
 @node Tremolo repeats
 @subsection Tremolo repeats
 @cindex tremolo beams
@@ -1541,6 +1550,9 @@ style.
   }
 }
 @end lilypond
+
+Tremolo beams are @code{Voice.Beam} grobs. Single stem tremolos are
+@code{Voice.StemTremolo}.
 
 @refbugs
 
@@ -1586,9 +1598,12 @@ printed once, and then the pattern is replaced with a special sign.
 }
 @end lilypond
 
+The signs are represented by these grobs: @code{Voice.RepeatSlash} and
+@code{Voice.PercentRepeat} and @code{Voice.DoublePercentRepeat}.
+
 @refbugs
 
-You can not nest percent repeats, filling in the first measure with
+You can not nest percent repeats, e.g. filling in the first measure with
 slashes, and repeating that measure with percents.
 
 @node Rhythmic music
@@ -1743,12 +1758,13 @@ to the chords in both staffs, and set
   >  
 @end lilypond
 
-This command creates @code{Arpeggio} grobs. 
+This command creates @code{Voice.Arpeggio} grobs.  Cross staff arpeggios
+are @code{PianoStaff.Arpeggio}.
 
 @refbugs
 
- It is not possible to mix
-connected arpeggios and unconnected arpeggios at the same time.
+It is not possible to mix connected arpeggios and unconnected arpeggios
+at the same time.
 
 
 @c .    {VoiceFollower}
@@ -1777,6 +1793,7 @@ can be printed automatically. This is enabled if the property
   >  
 @end lilypond
 
+The associated grob is @code{Voice.VoiceFollower}.
 
 @c . {Lyrics}
 @node Lyrics
@@ -1846,6 +1863,8 @@ interpreted as melismata. Lyric syllables must be interpreted within a
        share the so -- ftware; }
 @end lilypond
 
+The Lyric syllables are @code{LyricsVoice.LyricSyllable} grobs.
+
 @cindex extender
 @cindex lyric extender
 @cindex melisma
@@ -1854,6 +1873,8 @@ As you can see, extender lines are entered as @code{__}.  This will
 create an extender, a line that extends over the entire duration of the
 lyric.  This line will run all the way to the start of the next lyric,
 so you may want to shorten it by using a blank lyric (using @code{_}).
+The grob for this symbol is @code{LyricsVoice.LyricExtender}.
+
 
 @cindex hyphen
 
@@ -1862,6 +1883,7 @@ attached to the end of the first syllable) you can use the special
 `@code{-}@code{-}' lyric as a separate word between syllables.  This
 will result in a hyphen which length varies depending on the space
 between syllables, and which will be centered between the syllables. 
+The grob for this symbol is @code{LyricsVoice.LyricHyphen}.
 
 @cindex Lyric hyphen
 
@@ -2595,7 +2617,8 @@ grob property.
 * What to tune?::               
 * Font selection::              
 * Text markup::                 
-* Embedded @TeX{}::             
+* Invisible grobs::             
+* Embedded TeX::                
 @end menu
 
 @node Tuning groups of grobs 
@@ -2616,6 +2639,8 @@ the Stem object. One of the effects is that property specifying how it
 should be printed is erased, with the effect of rendering it invisible.
 The above assignment is available as a standard identifier, lest you
 find this useful:
+
+@c FIXME: doesn't work well for eg StaffSymbol
 @example
   \property Voice.Stem = \turnOff
 @end example
@@ -2948,7 +2973,8 @@ horizontal mode: set all text on one line (default)
 It is possible to use @TeX{} commands in the strings, but this should be
 avoided because this makes it impossible for LilyPond to compute the
 exact length of the string, which may lead to collisions.  Also, @TeX{}
-commands won't work with direct postscript output.
+commands won't work with direct PostScript output (see @ref{PostScript
+output}).
 
 @cindex metronome mark
 
@@ -2977,15 +3003,95 @@ marking:
 }
 @end lilypond
 
-@node Embedded @TeX{}
-@subsection Embeded @TeX{}
+@node Invisible grobs
+@subsection Invisible grobs
+@cindex invisible grobs
+
+You can imagine a number of situtations where you would want to make
+certain grobs not show up in the output.  There may be aesthetic
+reasons, to make the output resemble an (old) manuscript as close as
+possible, or to make lessons or exercises for students.
+
+Grobs can be made invisible in a number of ways:
+
+@ignore
+FIXME
+
+Move \turnOff feature here and explain why it doesn't work for eg
+StaffSymbol
+
+Show molecule-callback override
+   StaffSymbol \override #'molecule-callback = #(lambda (x) '())
+
+Show visibility-lambda and explain why it doesn't work for eg
+StaffSymbol
+@end ignore
+
+Here's an example with blanked-out notes and stems:
+@lilypond[singleline,verbatim]
+blanknotes = {
+  \property Voice.NoteHead \override
+    #'molecule-callback = #(lambda (x) '())
+  \property Voice.Stem \override
+    #'molecule-callback = #(lambda (x) '()) }
+  
+unblanknotes = {
+  \property Voice.NoteHead \revert #'molecule-callback
+  \property Voice.Stem \revert #'molecule-callback }
+
+\score {
+  \notes\relative c'' {
+    \time 6/4;
+    a b c b \blanknotes c \unblanknotes d
+  }
+}
+@end lilypond                
+
+Some grobs require a special treatment.
+
+Rhythm exercise: make staff invisible and squash pitches:
+@lilypond[singleline,verbatim]
+\score {
+  \notes { \time 3/4; c4 c c8 c | c4 c c8 c }
+  \paper {
+    \translator {
+      \StaffContext
+      \remove Staff_symbol_engraver;
+      \consists Pitch_squash_engraver;
+      \remove Clef_engraver;
+    }
+  }
+}
+@end lilypond
+
+Some modern music does not show bar lines:
+@lilypond[singleline,verbatim]
+\score {
+  \notes \relative c'' {
+    a b c d
+    d c b a
+  }
+  \paper {
+    \translator {
+      \StaffContext
+      whichBar = #""
+      \remove "Time_signature_engraver";
+    }
+  }
+}
+@end lilypond
+
+
+@node Embedded TeX
+@subsection Embeded TeX
 @cindex embedded tex
 @cindex embedded tex
 
 You can use @TeX{} commands in text scripts, but this should be avoided
 because this makes it impossible for LilyPond to compute the exact
 length of the string, which may lead to collisions.  Also, @TeX{}
-commands won't work with direct PostScript output.
+commands won't work with direct PostScript output (see @ref{PostScript
+output}).
 
 @lilypond[fragment,relative,verbatim]
   a''^"3 $\\times$ \\`a deux"
@@ -3231,8 +3337,159 @@ direct control of LilyPond.  However, you can insert a commands into the
 details, see the example file @file{input/test/between-systems.ly}
 
 
+@c . {Output formats}
+@node Output formats
+@section Output formats
+
+LilyPond can output processed music in different output formats.  
+
+@menu
+* TeX output::                  
+* PostScript output::           
+* Scheme output::               
+* ASCIIScript output::          
+@end menu
+
+@node TeX output
+@subsection TeX output
+@cindex TeX output
+
+LilyPond will use @TeX{} by default.  Even if you want to produce
+PostScript output for viewing or printing, you should normally have
+LilyPond produce @TeX{} first.  The .tex output must be processed by
+@TeX{} (@strong{not} La@TeX{}) to generate a .dvi.  Then, @file{Dvips}
+is used to generate PostScript.  Alternatively, @file{ly2dvi} can be
+used to generate the .dvi for you.
 
 
+@node PostScript output
+@subsection PostScript output
+@cindex PostScript output
+@cindex direct PostScript output
+
+LilyPond can produce PostScript directly, without going through @TeX{}.
+Currently, this is mainly useful if you cannot use TeX, because direct
+PostScript output has some problems; see Bugs below.
+
+@example
+$ lilypond -fps foo.ly
+GNU LilyPond 1.3.144
+Now processing: `foo.ly'
+Parsing...
+Interpreting music...[3]
+Preprocessing elements... 
+Calculating column positions... 
+paper output to foo.ps...
+
+$ cat /usr/share/lilypond/pfa/feta20.pfa foo.ps | lpr
+@end example
+
+
+@refbugs
+
+Text font selection is broken.
+
+The .ps file does not contain the .pfa font files.  To print a .ps
+created through direct postscript output, you should prepend the
+necessary .pfa files to LilyPond's .ps output, or upload them to the
+printer before printing.
+
+Titling is not generated.  FIXME: adding titling should not be too
+difficult.
+
+
+@node Scheme output
+@subsection Scheme output
+@cindex Scheme output
+
+[TODO]
+
+@example
+$ lilypond -fscm foo.ly
+GNU LilyPond 1.3.144
+Now processing: `foo.ly'
+Parsing...
+Interpreting music...[3]
+Preprocessing elements... 
+Calculating column positions... 
+paper output to foo.scm...
+
+$ head -4 foo.scm 
+;;; Usage: guile -s x.scm > x.tex
+ (primitive-load-path 'standalone.scm)
+; (scm-tex-output)
+ (scm-ps-output)
+
+$ guile -s foo.scm > foo.tex
+@end example
+
+
+@node ASCIIScript output
+@subsection ASCIIScript output
+@cindex ASCIIScript output
+@cindex ascii script
+@cindex ascii art
+
+LilyPond can output ASCII Art.  This is a two step process, LilyPond
+produces an ASCII description file, dubbed ASCIIScript (extension
+@file{.as}).  ASCIIScript has a small and simple command set that
+includes font selection, character and string printing and line drawing
+commands.  The program @file{as2text} is used to translate an .as file
+to text.
+
+To produce ASCII Art, you must include an ASCII Art paper definition
+file in your .ly, one of:
+@example
+\include "paper-as5.ly"
+\include "paper-as9.ly"
+@end example
+
+Here's an example use for ASCII Art output (the example file
+@file{as-email.ly} is included in the LilyPond distribution), the staff
+symbol has been made invisible:
+
+@example
+To: bug-gnu-music@@gnu.org
+Subject: LilyPond-1.3.144 beaming broken in 5/8 time
+Gcc: nnml:sent
+--------
+Hi List,
+
+Subject says it all.
+
+$ lilypond -fas as-email.ly
+GNU LilyPond 1.3.144
+Now processing: `as-email.ly'
+Parsing...
+Interpreting music...[3]
+Preprocessing elements... 
+Calculating column positions... [2]
+paper output to as-email.as...
+
+$ as2text as-email.as 2>/dev/null
+          |\
+          |/     |##|##|      |  |  |  |  |
+         /|      |  |  | |    |\ |\ |\ |\ |\ |
+        / |_  3  |  |  | | 5  | )| )| )| )| )|
+       | /| \ 8 *  *  *  | 8 *  *  *  *  *   |
+        \_|_/            |                   |
+        *_|
+
+                                               lily
+@end example
+
+
+@refbugs
+
+The ASCII Art fonts are far from complete and not very well designed.
+It's easy to change the glyphs, though; if you think you can do better,
+have a look at @file{mf/*.af}.
+
+Lots of resizable symbols such as slurs, ties, tuplets are missing.
+
+The poor looks of most ASCII Art output and its limited general
+usefulness make that ASCII Art output has a low priority; it may be
+dropped in future versions.
 
 @c . {Sound}
 @node Sound
@@ -3441,9 +3698,9 @@ Xdvi} version 22.36 or newer.
 @item emacs
 @end itemize
 
-Add one these lines to the top of your .ly file. The first one is for
+Add one of these lines to the top of your .ly file. The first one is for
 line location only. The second one is more convenient, but requires
-patching @code{emacsclient}.
+patching @code{emacsclient} and @code{server.el}.
 
 @example
 #(set! point-and-click line-location)
@@ -3470,9 +3727,13 @@ init file, before invoking server-start.
 
 
 Xdvi must be configured to use the emacs editor.  Before starting, set
-the environment variable @code{XEDITOR} to
+the environment variable @code{XEDITOR} to one of these strings.  The
+second one, that also specifies the column, only works if you have
+patched your emacsclient and server, and have compiled your @code{.ly}
+file using the @code{line-column-location} setting (see above).
 @example
-emacsclient --no-wait +%c:%l %f
+emacsclient --no-wait +%l %f
+emacsclient --no-wait +%l:%c %f
 @end example
 Xdvi also must be configured to find the fonts. Refer to the
 xdvi documentation for more information.
@@ -3486,6 +3747,9 @@ When you convert the TeX file to PostScript using dvips, dvips
 will complain about not finding @code{src:X:Y} files. Those complaints are
 harmless, and can be ignored.
 
+When using @code{line-colum-location}, the cursor will be one off; it
+will not jump to the exact note that you clicked, but to the next one.
+We hope to fix this before 1.4.
 
 @node Skipping corrected music
 @section Skipping corrected music
@@ -4203,8 +4467,7 @@ A mode switch is entered as a compound music expressions
 In each of these cases, these expressions do not add anything to the
 meaning of their arguments.  They are just a way to indicate that the
 arguments should be parsed in indicated mode.  The modes are treated in
-more detail in the @ref{Note entry}, @ref{Lyrics} and
-@ref{Chords}.
+more detail in @ref{Lyrics} and @ref{Chords}.
 
 You may nest different input modes.
 

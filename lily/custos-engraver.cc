@@ -103,9 +103,15 @@ Custos_engraver::create_grobs ()
       for (int i = pitches_.size (); i--;)
 	{
 	  Item *c = create_custos ();
+
+	  int p = pitches_[i].steps ();
+	  SCM c0 = get_property ("centralCPosition");
+	  if (gh_number_p (c0))
+	    p += gh_scm2int (c0);
+
 	  
 	  c->set_grob_property ("staff-position",
-			       gh_int2scm (pitches_[i].steps ()));
+				gh_int2scm (p));
 	  
 	}
 
