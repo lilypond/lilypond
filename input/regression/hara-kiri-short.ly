@@ -8,27 +8,34 @@ therefore removed.  Also, any staff brackets and braces are removed.
 }
 
 
+
+
+
 zager =  \context Staff = zager \notes \relative c'' {
 	\clef treble
-	c1
+	c1	c1
+}
+
+zeuger =  \context Staff = zeuger \notes \relative c'' {
+	\clef treble
+	c1	c1
 }
 
 zoger =  \context Staff = zoger \notes \relative c'' {
 	\clef treble
-	\skip 1* 1
+	\skip 2* 1
 }
 
-zagers =  \context GrandStaff <
+zagers =  \context StaffGroup <
 	\zager
 	\zoger
+	\zeuger
 >
  
 \score{
-	<
-		\context StaffGroup = zagers <
+	< \context StaffGroup = zagers <
 			\zagers
-		>
-	>
+	> >
 	\paper{
 		linewidth = 80.0\mm
 

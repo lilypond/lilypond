@@ -2,7 +2,7 @@
 % see ly/drumpitch.ly for list of instruments and paper-kits.
 %     scm/midi.scm for list of midi-drumkits.
 
-\include "drumpitch.ly"
+\include "drumpitch-init.ly"
 
 \version "1.3.146"
 

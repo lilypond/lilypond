@@ -76,22 +76,27 @@ Span_bar::brew_molecule (SCM smobbed_me)
 
   // compose span_bar_mol
   Molecule span_bar_mol;
-  Grob *prev_staff_bar = 0;
+
+  Interval prev_extent;
   for (SCM elts = first_elt; gh_pair_p (elts); elts = gh_cdr (elts))
     {
       SCM smobbed_staff_bar = gh_car (elts);
       Grob *staff_bar = unsmob_grob (smobbed_staff_bar);
-      if (prev_staff_bar)
+      Interval ext = staff_bar->extent (refp, Y_AXIS);
+      if (ext.empty_b ())
+	continue; 
+      
+      if (!prev_extent.empty_b ())
 	{
-	  Interval l(prev_staff_bar->extent (refp, Y_AXIS)[UP],
-		     staff_bar->extent (refp, Y_AXIS)[DOWN]);
+	  Interval l(prev_extent [UP],
+		     ext[DOWN]);
 
 	  Molecule interbar
 	    = Bar::compound_barline (staff_bar, glyph_str, l.length());
 	  interbar.translate_axis (l.center (), Y_AXIS);
 	  span_bar_mol.add_molecule (interbar);
 	}
-      prev_staff_bar = staff_bar;
+      prev_extent = ext;
     }
 
   span_bar_mol.translate_axis (- me->relative_coordinate (refp, Y_AXIS), Y_AXIS);
