@@ -128,7 +128,7 @@ text = \lyricmode {
 
 @subsection Notes and chords
 
-Want to prepare a lead sheet with a melody and chords?  Look no farther!
+Want to prepare a lead sheet with a melody and chords?  Look no further!
 
 @lilypond[verbatim,raggedright]
 
