@@ -341,7 +341,7 @@ class TeXOutput:
         this.write(r"""
 %% \vfill\hfill{\mudelatagline}
 \makeatletter
-\renewcommand{\@oddfoot}{\thefooter\hfill{\mudelatagline}}%
+\renewcommand{\@oddfoot}{\mudelatagline}%
 \makeatother
 \end{document}
 """)
