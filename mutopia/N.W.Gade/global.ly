@@ -15,11 +15,12 @@ global=\notes {
 \globalNoKey
 }
 
-marks=\notes {
+marks= \notes {
 \time 3/4;
-\property Voice.textStyle = "Large"
-\skip 2.*31;
-s2 s8 s^"\\Allegromoltovivace"
+%\property Thread.textStyle = "Large"
+s2.^"\\raisebox{4mm}{\\bfseries\Large Andante con moto}"
+\skip 2.*30;
+s2 s8 s^"\\raisebox{4mm}{\\bfseries\Large Allegro molto vivace}"
 \time 2/4;
 \skip 2*12;
 \mark "A";

@@ -9,7 +9,7 @@
 #include "moment.hh"
 #include "source-file.hh"
 #include "source.hh"
-#include "mi2mu-global.hh"
+#include "midi2ly-global.hh"
 #include "midi-score-parser.hh"
 #include "midi-track-parser.hh"
 #include "mudela-item.hh"

@@ -5,6 +5,8 @@
 c''1^"timeSignatureStyle = \"C\"" 
 \time 2/2; 
 c1 
+\time 2/4; 
+c2 
 \time 3/4; 
 c2. 
 \time 4/4; 
@@ -27,6 +29,8 @@ c2. c2. c2.
 c1^"timeSignatureStyle = \"old\"" 
 \time 2/2; 
 c1 
+\time 2/4; 
+c2 
 \time 3/4; 
 c2. 
 \time 4/4; 
@@ -53,6 +57,8 @@ c4. c4. c4.
 c1^"timeSignatureStyle = \"\"" 
 \time 2/2; 
 c1
+\time 2/4; 
+c2 
 \time 3/4; 
 c2.
 \time 4/4; 
@@ -75,6 +81,8 @@ c2. c2. c2.
 c1^"timeSignatureStyle = \"1\""
 \time 2/2; 
 c1
+\time 2/4; 
+c2 
 \time 3/4; 
 c2.
 \time 4/4; 
@@ -99,6 +107,9 @@ c1^"old9/8"
 \property Staff.timeSignatureStyle = "old6/8" 
 \time 1/1; 
 c1^"old6/8" 
+\property Staff.timeSignatureStyle = "old6/8alt" 
+\time 1/1; 
+c1^"old6/8alt" 
 \property Staff.timeSignatureStyle = "old9/4"
 \time 1/1; 
 c1^"old9/4" 
@@ -114,6 +125,12 @@ c1^"old4/4"
 \property Staff.timeSignatureStyle = "old2/2"
 \time 1/1; 
 c1^"old2/2"
+\property Staff.timeSignatureStyle = "old2/4"
+\time 1/1; 
+c1^"old2/4" 
+\property Staff.timeSignatureStyle = "old4/8"
+\time 1/1; 
+c1^"old4/8"
 \property Staff.timeSignatureStyle = "C4/4"
 \time 1/1; 
 c1^"C4/4" 

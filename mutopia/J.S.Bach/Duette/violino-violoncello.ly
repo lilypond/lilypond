@@ -10,6 +10,7 @@ copyright =	 "Public Domain";
 
 \version "1.1.52";
 
+% {
 \include "violino-i.ly";
 \include "violoncello-i.ly";
 
@@ -30,6 +31,8 @@ copyright =	 "Public Domain";
   }
 }
 
+% }
+
 \include "violino-ii.ly";
 \include "violoncello-ii.ly";
 
@@ -44,7 +47,8 @@ copyright =	 "Public Domain";
     }
   }
   \midi{
-    \tempo 2 = 96;
+%    \tempo 2 = 96;
+    \tempo 2 = 75;
   }
 }
 

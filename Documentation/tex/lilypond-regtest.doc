@@ -49,7 +49,8 @@ point) are mixed.
 Grace notes are typeset as an encapsulated piece of music. You can
 have beams, notes, chords, stems etc. within a \verb|\grace|
 section. Slurs that start within a grace section, but aren't ended are
-attached to the next normal note.  Grace notes have zero duration 
+attached to the next normal note.  Grace notes have zero duration.  If
+there are tuplets, the grace notes won't be under the brace.
 
 
 

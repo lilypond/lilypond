@@ -8,6 +8,8 @@ enteredby =	"jcn";
 copyright =	"Public Domain";
 }
 
+\version "1.1.52";
+
 $violino_ii = \notes\relative c''{
   R1*8 |
   r2 e | 

@@ -36,14 +36,30 @@ Auto_beam_engraver::do_creation_processing ()
   timer_l_ = dynamic_cast<Timing_engraver*> (t);
 }
 
+bool
+Auto_beam_engraver::do_try_music (Music* m) 
+{
+  /*
+    Mag dit?  Nu word-i toch maar geswallowed, en
+    komt er dus ook geen announce...
+   */
+  if (Skip_req* s = dynamic_cast <Skip_req*> (m))
+    {
+      if (stem_l_arr_p_)
+	end_beam ();
+      return true;
+    }
+  return false;
+} 
+
 void
 Auto_beam_engraver::do_process_requests ()
 {
-  consider_end_and_begin ();
+  consider_end_and_begin (shortest_mom_);
 }
 
 void
-Auto_beam_engraver::consider_end_and_begin ()
+Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
 {
   if (!timer_l_)
       return;
@@ -52,11 +68,12 @@ Auto_beam_engraver::consider_end_and_begin ()
   int num = time->whole_per_measure_ / time->one_beat_;
   int den = time->one_beat_.den_i ();
   String time_str = String ("time") + to_str (num) + "_" + to_str (den);
+
   String type_str;
-  if (shortest_mom_.num () != 1)
-    type_str = to_str (shortest_mom_.num ());
-  if (shortest_mom_.den () != 1)
-    type_str = type_str + "_" + to_str (shortest_mom_.den ());
+  if (test_mom.num () != 1)
+    type_str = to_str (test_mom.num ());
+  if (test_mom.den () != 1)
+    type_str = type_str + "_" + to_str (test_mom.den ());
 
   /*
     Determine end moment for auto beaming (and begin, mostly 0==anywhere) 
@@ -305,12 +322,15 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
 		reconsider ending/starting beam first.
 	      */
 	      Moment mom = rhythmic_req->duration_.length_mom ();
+	      consider_end_and_begin (mom);
+	      if (!stem_l_arr_p_)
+		return;
 	      if (mom < shortest_mom_)
 		{
 		  if (stem_l_arr_p_->size ())
 		    {
 		      shortest_mom_ = mom;
-		      consider_end_and_begin ();
+		      consider_end_and_begin (shortest_mom_);
 		      if (!stem_l_arr_p_)
 			return;
 		    }

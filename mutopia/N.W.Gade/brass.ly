@@ -22,8 +22,8 @@ r4 r c \p ( |
 ) g r r |
 g [g8. ( a16 ] ) g4 |
 R2. |
-r4 r [g8^""^"solo" \mf \< () \! e' ] |
-\grace d8 g2 \> ( [ \! e8. c16 ] |
+r4 r [g8^""^"solo" \mf \< () e' ] |
+\grace d8 \! g2 \> ( [ \! e8. c16 ] |
 ) g2 r4 |
 R2. |
 r4 r \times 2/3 {[e'8 \f ( g, ) g'] } |

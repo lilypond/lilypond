@@ -8,7 +8,7 @@
 #include <assert.h>
 #include <time.h>
 #include <fstream.h>
-#include "mi2mu-global.hh"
+#include "midi2ly-global.hh"
 #include "mudela-item.hh"
 #include "mudela-stream.hh"
 #include "string-convert.hh"
@@ -76,7 +76,7 @@ Mudela_stream::header()
   if (no_timestamps_b_g)
     *os_p_ << "GNU LilyPond\n"; 
   else
-    *os_p_ << mi2mu_version_str() << '\n';
+    *os_p_ << midi2ly_version_str() << '\n';
   *os_p_ << _ ("% Automatically generated");
   if (no_timestamps_b_g)
     *os_p_ << ".\n";

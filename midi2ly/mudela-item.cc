@@ -4,7 +4,7 @@
 // copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #include <assert.h>
-#include "mi2mu-global.hh"
+#include "midi2ly-global.hh"
 #include "string-convert.hh"
 #include "duration-convert.hh"
 #include "mudela-column.hh"

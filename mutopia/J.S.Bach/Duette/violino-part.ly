@@ -10,10 +10,11 @@ copyright =	 "Public Domain";
 
 \version "1.1.52";
 
+% {
+
 \include "global-i.ly"
 \include "violino-i.ly"
 
-%{
 \score{
   \$violino_i_staff
   \paper{
@@ -24,7 +25,8 @@ copyright =	 "Public Domain";
     \tempo 4 . = 50;
   }
 }
-%}
+
+% }
 
 \include "global-ii.ly"
 \include "violino-ii.ly"
@@ -33,11 +35,11 @@ copyright =	 "Public Domain";
   \$violino_ii_staff
   \paper{
     \translator { \BarNumberingStaffContext }
-    castingalgorith=0;
+%    castingalgorith=0;
   }
   \midi{
-%    \tempo 4. = 69;
-    \tempo 4 . = 50;
+%    \tempo 2 = 96;
+    \tempo 2 = 75;
   }
 }
 

@@ -624,9 +624,11 @@ Note that code(\!) must go before the last note of the dynamic mark whereas
 code(\rc) and code(\rced) go after the last note.  Because these marks are
 bound to notes, if you want to get several marks during one note, you must use
 spacer notes. 
-mudela(fragment,verbatim,center)(
+COMMENT(Broken
+m udela(fragment,verbatim,center)(
 c'' \< \! c''   d'' \decr e'' \rced 
 < f''1 {s4 \< \! s4 \> \! s2 } >)
+)
 
 
 COMMENT(Broken!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!)
@@ -752,9 +754,7 @@ sect(Chords)
 
 Chords can be entered either by name or by listing the notes in angle brackets.
 Chords can be displayed either as notes or by name.  To enter chords by name,
-either place them inside the code(\chords) keyword, or use
-code(\notes) and surround them with
-code(@) characters. 
+either place them inside the code(\chords) keyword.
 Chord names have the form
 var(tonic)[var(duration)][code(-)var(modifier)][code(^)var(subtractions)][code(/)var(inversion)]
 The var(tonic) should be the tonic note of the chord, and the var(duration) is
@@ -764,15 +764,14 @@ by dots.  An interval is written by its number with an optional code(+) or
 code(-) to indicate raising or lowering by half a step.  A chord additions has
 two effects:  it adds the specified interval and all lower odd numbered
 intervals to the chord, and it may lower or raise the specified interval.
-Intervals can be separated by a dot (code(.)) if you need to list
-several unmodified intervals.
+Intervals must be separated by a dot (code(.)).
 Repeating a code(-) character will remove a half step from the preceeding
 interval.  
 mudela(fragment,verbatim,center)(
 \transpose c''{ 
 \chords{
   c1 c-3- c-7 c-8 c-9  
-  c-9-5+7+ c-3-5- c-4.6.8
+  c-9-.5+.7+ c-3-.5- c-4.6.8
 }}) 
 The second type of modifier that may appear after the code(-) is 
 a named modifier. 
@@ -801,7 +800,7 @@ an octave so it becomes the lowest note in the chord.  If the
 specified note is not in the chord then a warning will be printed.  
 mudela(fragment,verbatim,center)(
 \transpose c'''{ 
- @c1@ @c/e@ @c/g@ @c-7/e@
+  \chords { c1 c/e c/g c-7/e }
 }) 
 Throughout these examples, chords have been shifted around the staff
 using code(\transpose).  The code(\relative) keyword has odd effects
@@ -1675,15 +1674,16 @@ dit(code(timeSignatureStyle)) Changes the default two-digit layout
    description(
       dit(code(C)) 4/4 and 2/2 are typeset as C and struck C,
       respectively. All other time signatures are written with two digits.
-      dit(code(old)) 2/2, 3/2, 3/4, 4/4, 6/4, 9/4, 6/8 and 9/8 are typeset 
-      with old-style mensuration marks. All other time signatures are 
-      written with two digits.
+      dit(code(old)) 2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8 and
+      9/8 are typeset with old-style mensuration marks. All other time
+      signatures are written with two digits.
       dit(code(1)) All time signatures are typeset with a single
       digit, e.g. 3/2 is written as 3.
       dit(code(C2/2), code(C4/4), code(old2/2), code(old3/2),
-      code(old3/4), code(old4/4), code(old6/4), code(old9/4), 
-      code(old6/8) or code(old9/8))Tells Lilypond to use a 
-      specific symbol as time signature.
+      code(old2/4), code(old3/4), code(old4/4), code(old6/4), 
+      code(old9/4), code(old4/8), code(old6/8), code(old6/8alt)
+      or code(old9/8))Tells Lilypond to use a specific symbol as 
+      time signature.
    )
 The different time signature characters are shown below with
 their names:
@@ -1699,14 +1699,20 @@ mudela(center)(
 \time 2/2; a2^"old2/2" a2 
 \property Staff.timeSignatureStyle = "old3/2"
 \time 2/2; a2^"old3/2" a2 
+\property Staff.timeSignatureStyle = "old2/4"
+\time 2/2; a2^"old2/4" a2 
 \property Staff.timeSignatureStyle = "old4/4"
 \time 2/2; a2^"old4/4" a2 
 \property Staff.timeSignatureStyle = "old6/4"
 \time 2/2; a2^"old6/4" a2 
 \property Staff.timeSignatureStyle = "old9/4"
 \time 2/2; a2^"old9/4" a2 
+\property Staff.timeSignatureStyle = "old4/8"
+\time 2/2; a2^"old4/8" a2 
 \property Staff.timeSignatureStyle = "old6/8"
 \time 2/2; a2^"old6/8" a2 
+\property Staff.timeSignatureStyle = "old6/8alt"
+\time 2/2; a2^"old6/8alt" a2 
 \property Staff.timeSignatureStyle = "old9/8"
 \time 2/2; a2^"old9/8" a2 
 }

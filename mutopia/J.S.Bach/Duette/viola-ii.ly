@@ -8,6 +8,8 @@ enteredby =	 "jcn";
 copyright =	 "Public Domain";
 }
 
+\version "1.1.52";
+
 \include "global-ii.ly"
 \include "violoncello-ii.ly";
 
@@ -18,4 +20,3 @@ $viola_ii_staff = \context Staff = viola <
   \$global_ii
   \notes\transpose c'' \$violoncello_ii
 >
-\version "1.1.52";

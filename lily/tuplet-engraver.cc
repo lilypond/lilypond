@@ -60,6 +60,10 @@ Tuplet_engraver::do_process_requests ()
 void
 Tuplet_engraver::acknowledge_element (Score_element_info i)
 {
+  bool grace= (i.elem_l_->get_elt_property (grace_scm_sym) != SCM_BOOL_F);
+  if (grace != get_property ("weAreGraceContext",0).to_bool ())
+    return;
+  
   if (Note_column *nc = dynamic_cast<Note_column *> (i.elem_l_))
     {
       for (int j =0; j  <started_span_p_arr_.size (); j++)

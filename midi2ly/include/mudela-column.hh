@@ -7,7 +7,7 @@
 #define MUDELA_COLUMN_HH
 
 #include "proto.hh"
-#include "mi2mu-proto.hh"
+#include "midi2ly-proto.hh"
 #include "moment.hh"
 #include "cons.hh"
 

@@ -1,5 +1,5 @@
 \header{
-title =	 "Konzert Nr. 3 Es dur"
+title =	 "Konzert Nr. 3 Es dur";
 subtitle = "f\\\"ur Horn und Orchester";
 description =	 "Third horn concerto, for horn in Es";
 composer =	 "W. A. Mozart (1756-1792)";
@@ -22,7 +22,7 @@ allegro =
 	c, r
 	R1*1
 	r8 [g' g g] [g g e c]
-	g4 g, r2
+	g'4 g, r2
 	R1*18
 	r2 r4 g'4 |
 	e'4. () c8 [f (d c )b ]
@@ -42,11 +42,11 @@ allegro =
 	[g'()d ] d4-- r4 d
 	[d8 () c] c4.( [d16 e] [d8 )c]
 	[c8(-\trill )b] b4 r2 |
-	d2~(  [d8 e16 d] [c8 )b] |
+	d2( ~  [d8 e16 d] [c8 )b] |
 	[b()a-.] a4-> r8 [a-. a-. a-.]
 	a4 cis e g
-	[g16( fis e )d] d4-. r2 |  %  The g16 really is a grace note.
-	% mark B
+	[ \grace g16( fis8 e16 )d] d4-. r2 | 
+	\mark "B";
 	R1*3
 	r2 r4 [d8 (b ]
 	[a )g d'( b] [a )g e'( c ]
@@ -59,13 +59,13 @@ allegro =
 	r1
 	c,2\p e4 g c e g4. e8 |
 	d4. [e16 fis] [g () fis e d] [c() b a g]
-	a1(-\trill % \grace{g a}
+	a1(-\trill \grace{ g16 a}
 	)g4 r r2
 	R1*15
-	% mark D
+	\mark "D";
 	bes2 d4 f
 	g,2~ [g8 g'( es )c]|
-	bes4()a. [c8 d es]
+	bes4( )a4. [c8 d es]
 	cis4()d r8 [bes (c )d]
 	es2 () d4 r
 	es2\p () d4 r
@@ -87,7 +87,7 @@ allegro =
 	r8 [fis, b dis] fis4 r
 	r8 [gis, b d] f4 r
 	r8 [g, b d] f4 r
-	%mark E
+	\mark  "E";
 	R1*8
 	r2 r8 [g,-. g-. g-.]
 	e'4.() c8 [f( d c )b]
@@ -97,10 +97,10 @@ allegro =
 	c4.( [d16 e] f4 )e
 	a, ( d g, )c
 	d d [
-	   % \grace {e}
+	    \grace { e8 }
 	   d8. c16 d8. e16] 
 	c4 r r2
-	% mark F
+	\mark "F";
 	R1*3
 	c,2~[c8( e g )c]
 	[c8()b] b4 r2
@@ -113,7 +113,7 @@ allegro =
 	r2 r4 [g'8()e]
 	[d()c g'()e] [d()c a'()f]
 	[e()d] d4 r [d8 d]
-	d4~( [d16 e d )e] [g8() f e d] |
+	d4(~ [d16 e d )e] [g8() f e d] |
 	c4 r r2
 	r1
 	c1 ~
@@ -128,7 +128,7 @@ allegro =
 	d1-\trill  % \grace { c d}
 	c4 r r2
 	r1 |
-	% mark H
+	\mark "H";
 	\times 2/3 { [ c8 ()b a ] }	\times 2/3 { [ g a b] } \times 2/3 { [ c d e] } \times 2/3 { [ f()e d] } |
 	\times 2/3 { [ c () b a ] } \times 2/3 { [ g a b] } \times 2/3 { [ c d e] } \times 2/3 { [ f()e d] }|
 	c4 \times 2/3 {  r8 [g'()e]} c4 \times 2/3 {  r8 [e () c]} |
@@ -154,12 +154,12 @@ romanze = \notes \relative c' {
 	c'4.() f8 a,4 a
 	[bes8( c d bes] )g4 r8 g
 	a r bes r c r [d()bes]
-	a2()[g8 a( bes )b]
+	a2( [)g8 a( bes )b]
 	c4. () f8 a,4 a |
 	[bes8 (c d) bes] g4 r8 c,-.
 	[c8( e g )bes] [a( c f ) d]
 	c r e r f r r4
-	% mark A
+	\mark "A";
 	R1*8
 	g4. f8  [e d c bes]
 	[bes( a d )c] c4 r
@@ -170,7 +170,7 @@ romanze = \notes \relative c' {
 	[c16\mf () d c-. d-.] [e () f e-. f-.] [g()e c-. c-.] [f()d b-. b-.]
 	[c16\p () d c-. d-.] [e () f e-. f-.] [g()e c-. c-.] [f()d b-. b-.]
 	[c8 c, c c] [c c c c]
-	% mark B
+	\mark "B";
 	c1\f
 	R1*9
 	f'4.(\p )d8 b4 r8 g
@@ -183,7 +183,7 @@ romanze = \notes \relative c' {
 	[c ()e g g] [g( f e )d]
 	c4( % \grace { e}
 	[d8. )c16] [c8 c--( c-- )c--]
-	% mark C
+	\mark "C";
 	des1\sf %\sfp
 	g,1\sf %\sfp
 	c\sf   %\sfp
@@ -192,7 +192,7 @@ romanze = \notes \relative c' {
 	r8 [c c c] c2~
 	[c8 c' c c] c2~
 	[c8 e( g f] [e d c bes]
-	% mark D
+	\mark "D";
 	)a4 r r2
 	R1*3
 	c4. () f8 a,4 a |
@@ -247,7 +247,7 @@ rondo = \notes 	\relative c'
 	[g()e c-.] [d()e d-.]
 	c4 r8 r4 r8 |
 	R2.*7
-	% mark A
+	\mark  "A";
 	c4.\p [d8 c d]
 	c4 r8 r4 r8
 	e4. [f8 e f]
@@ -262,7 +262,7 @@ rondo = \notes 	\relative c'
 	d2.~
 	[d8 c b] [b a g]
 	g'4()e8 b4()cis8
-	%mark B
+	\mark "B";
 	d4 r8 r4 r8
 	R2.*3 |
 	r8 [d-. d-.] [d()g d---.]
@@ -278,7 +278,7 @@ rondo = \notes 	\relative c'
 	d4()g8 [c, d e]
 	[d()g fis] [e d c]
 	[b () e d] [c b a]
-	% mark C
+	\mark "C";
 	g4 r8 r4 r8
 	r2. |
 	%
@@ -289,7 +289,7 @@ rondo = \notes 	\relative c'
 	\rondotheme
 	R2.*12
 	r4 r8 r4 c8
-	% mark D
+	\mark "D";
 	c4 f8 c4 a8
 	a4.~a4 a8
 	bes4 c8 d4 bes8
@@ -306,7 +306,7 @@ rondo = \notes 	\relative c'
 	bes4. ~ bes4 g8
 	a4 c8 [f () d b]
 	d4. () c8 r r
-	% mark E
+	\mark "E";
 	R2.*9  |
 	\lipbreaker 
 	[c8 c' c] c4.~
@@ -320,7 +320,7 @@ rondo = \notes 	\relative c'
 	r8 [g g] [g g g]
 	es4.\f~ [es8 d c]
 	b4. c4. d4. e4.
-	% mark F
+	\mark "F";
 	f2.\f ~ |
 	f4 r8 r4 r8
 	r8 [g\> g] [g g g]
@@ -328,7 +328,7 @@ rondo = \notes 	\relative c'
 		 [a bes \! b]
 	 \rondotheme
 	R2.*7
-	% mark G
+	\mark "G";
 	R2.*4
 	c,4.\mf c4 c8
 	c4. e4 c8
@@ -338,7 +338,7 @@ rondo = \notes 	\relative c'
 	r4 r8 r4 g'8
 	[c ()e g,-.] 	[c ()e g,-.]
 	[c ()e g,-.] 	[c ()e g,-.]
-	% mark H
+	\mark "H";
 	g'2._"cresc." bes,2.
 	a4. [b16 c d e f g]
 	a4. f4 d8
@@ -359,8 +359,16 @@ rondo = \notes 	\relative c'
 	c4 r8 r4 r8
 }
 
- \include "part-paper.ly"
 
+\paper{
+ casting_algorithm = \Wordwrap;
+ \translator { \StaffContext \consists Mark_engraver;  }
+ \translator { \ScoreContext
+    	skipBars = 1;
+  }
+
+}
+ 
 \score
 {
 	\allegro
@@ -370,18 +378,17 @@ rondo = \notes 	\relative c'
 
 \score
 {
-	{ 	\property Score.skipBars = 1
-		\romanze
+	{		\romanze
 	}
-		\paper{ \tempo 4 = 70; }	
-	\midi{}
+	\midi{ \tempo 4 = 70;  }
+	\paper{}
 }
 \score
 {
 	\rondo
 
 	\paper{
-		\tempo 4 = 100;
 	}
-	\midi{}
+	\midi{		\tempo 4 = 100;
+}
 }

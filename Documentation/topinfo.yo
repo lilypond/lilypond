@@ -34,7 +34,7 @@ COMMENT(yodl2texinfo should be able to cope now, although ugly...)
 redef(article)(3)(chapter(ARG1))
 
 redef(includefile)(1)(INCLUDEFILE(tex/ARG1))
-includefile(refman.yo)
+includefile(reference-manual.yo)
 
 redef(article)(3)(nodeprefix()chapter(ARG1)nodeprefix(Mutopia ))
 COMMENT(yodl2texinfo should be able to cope now, although ugly...)

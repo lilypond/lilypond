@@ -79,9 +79,10 @@
 	stroke
 } bind def
 
-/draw_volta % h w thick last
+/draw_volta % h w thick vert_start vert_end
 {
-	/last exch def
+	/vert_end exch def
+	/vert_start exch def
 	setlinewidth
 	/volta_w exch def
  	/volta_h exch def
@@ -89,10 +90,13 @@
 %	true setstrokeadjust
 	1 setlinecap
 	1 setlinejoin
-	0 0 moveto
-	0 volta_h lineto
+	vert_start 0 eq {
+		0 0 moveto
+		0 volta_h lineto
+	} if
+	0 volta_h moveto
 	volta_w volta_h lineto
-	last 0 eq {
+	vert_end 0 eq {
 		volta_w 0 lineto
 	} if
 	stroke

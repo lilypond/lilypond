@@ -8,7 +8,7 @@
 
 #include <assert.h>
 #include "string-convert.hh"
-#include "mi2mu-global.hh"
+#include "midi2ly-global.hh"
 #include "midi-track-parser.hh"
 #include "mudela-column.hh"
 #include "mudela-item.hh"

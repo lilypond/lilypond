@@ -744,13 +744,13 @@ def main():
             do_deps = 1
         elif o == '--default-mudela-fontsize':
             if not fontsize_pt2i.has_key(a):
-                sys.stderr.write("Error: illegal fontsize: %s" % a)
+                sys.stderr.write("Error: invalid fontsize: %s" % a)
                 sys.stderr.write("  accepted fontsizes are: 11pt, 13pt, 16pt, 20pt, 26pt")
                 sys.exit()
             Props.setMudelaFontsize(fontsize_pt2i[a], 'init')
 	elif o == '--force-mudela-fontsize':
             if not fontsize_pt2i.has_key(a):
-                sys.stderr.write("Error: illegal fontsize: %s" % a)
+                sys.stderr.write("Error: invalid fontsize: %s" % a)
                 sys.stderr.write("  accepted fontsizes are: 11pt, 13pt, 16pt, 20pt, 26pt")
                 sys.exit()
             Props.force_mudela_fontsize = fontsize_pt2i[a]

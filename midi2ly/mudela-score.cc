@@ -7,7 +7,7 @@
 #include "moment.hh"
 #include "duration.hh"
 #include "duration-convert.hh"
-#include "mi2mu-global.hh"
+#include "midi2ly-global.hh"
 #include "mudela-column.hh"
 #include "mudela-item.hh"
 #include "mudela-score.hh"

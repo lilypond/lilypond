@@ -6,7 +6,7 @@
 #ifndef MUDELA_VOICE_HH
 #define MUDELA_VOICE_HH
 
-#include "mi2mu-proto.hh"
+#include "midi2ly-proto.hh"
 #include "cons.hh"
 
 /// (mudela_voice)

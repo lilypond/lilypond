@@ -299,7 +299,11 @@ Stem::flag () const
     }
 
   char c = (dir_ == UP) ? 'u' : 'd';
-  return lookup_l ()->afm_find (String ("flags-") + to_str (c) + to_str (flag_i_) + style);
+  Molecule m = lookup_l ()->afm_find (String ("flags-") + to_str (c) + 
+				      to_str (flag_i_));
+  if (!style.empty_b ())
+    m.add_molecule(lookup_l ()->afm_find (String ("flags-") + to_str (c) + style));
+  return m;
 }
 
 Interval
