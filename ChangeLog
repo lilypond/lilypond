@@ -1,5 +1,8 @@
 2004-09-22  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/phrasing-slur-engraver.cc (acknowledge_grob): avoid more
+	objects.
+
 	* lily/beam-concave.cc (calc_concaveness): take absolute value of
 	dy for scaling. This fixes various downbeams.
 	

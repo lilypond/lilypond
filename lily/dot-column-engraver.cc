@@ -30,22 +30,22 @@ protected:
 
 Dot_column_engraver::Dot_column_engraver ()
 {
-  dotcol_ =0;
+  dotcol_ = 0;
   stem_ = 0;
 }
 
 void
 Dot_column_engraver::stop_translation_timestep ()
 {
-      /*
-	Add the stem to the support so dots stay clear of flags.
+  /*
+    Add the stem to the support so dots stay clear of flags.
 
-	See [Ross, p 171]
-       */
-      if (stem_ && dotcol_)
-	dotcol_->set_property ("stem", stem_->self_scm ());
+    See [Ross, p 171]
+  */
+  if (stem_ && dotcol_)
+    dotcol_->set_property ("stem", stem_->self_scm ());
       
-      dotcol_ =0;
+  dotcol_ =0;
   heads_.clear ();
   stem_ =0;
 }

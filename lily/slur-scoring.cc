@@ -1195,7 +1195,6 @@ score_extra_encompass (Grob *me, Grob *common[],
 
 	  if (!found)
 	    {
-	      
 	      Real x = collision_infos[j].extents_[X_AXIS]
 		.linear_combination (collision_infos[j].idx_);
  
