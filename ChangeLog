@@ -1,5 +1,7 @@
 2002-08-31  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scripts/lilypond-book.py: use old re's for python 2.2 as well
+
 	* debian/control: Debian patches by Anthony Fok
 
 	* input/regression/lyric-combine-polyphonic.ly: new file.

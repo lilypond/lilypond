@@ -44,12 +44,12 @@ import getopt
 import sys
 import __main__
 
-# Handle bug in Python 1.6-2.1
+# Handle bug in Python 1.6-2.2
 #
-# there are recursion limits for some patterns in Python 1.6 til 2.1. 
+# there are recursion limits for some patterns in Python 1.6 til 2.2.
 # fix this by importing the 1.5.2 implementation pre instead. Fix by Mats.
 
-if float (sys.version[0:3]) < 2.2:
+if float (sys.version[0:3]) <= 2.2:
 	try:
 		import pre
 		re = pre
