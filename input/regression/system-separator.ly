@@ -1,3 +1,5 @@
+\version "2.4.0"
+
 \header {
 
   texidoc = "System separators maybe defined as markups in the
