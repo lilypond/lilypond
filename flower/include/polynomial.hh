@@ -39,7 +39,6 @@ struct Polynomial
 
   /// eliminate #x#  close to  zero
   void real_clean ();
-  static Polynomial add (const Polynomial & p1, const Polynomial & p2);
   void scalarmultiply (Real fact);
   void operator *= (Real f) { scalarmultiply (f); }
   void operator /= (Real f) { scalarmultiply (1/f); }
@@ -48,7 +47,6 @@ struct Polynomial
   void operator -= (Polynomial const &p2);
   Polynomial (Real a, Real b =0.0);
   Polynomial (){}
-  static Polynomial subtract (const Polynomial & p1, const Polynomial & p2);
   void set_negate (const Polynomial & src);
     
   /// take the derivative

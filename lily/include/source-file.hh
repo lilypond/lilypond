@@ -8,6 +8,7 @@
 #include "string.hh"
 #include "interval.hh"
 #include "protected-scm.hh"
+#include "parray.hh"
 
 /**
   class for reading and mapping a file. 
@@ -50,13 +51,16 @@ public:
   int get_char (char const* pos_str0) const;
 
   /*
-    DOCUMENT-ME
+    JUNKME.
+
+    This thing doubles as a file-storage/file-iterator object.
    */
   char const* pos_str0_;
 
   SCM get_port()const { return str_port_; }
 private:
   String name_string_;
+  Link_array<char> newline_locations_; 
   std::istream* istream_;
   char  * contents_str0_;
   int length_;

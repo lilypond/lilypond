@@ -112,10 +112,9 @@ Bezier::polynomial (Axis a)const
   Polynomial p (0.0);
   for (int j=0; j <= 3; j++)
     {
-      p += control_[j][a]
+      p += (control_[j][a] * 	binomial_coefficient (3, j))
 	* Polynomial::power (j , Polynomial (0,1))*
-	Polynomial::power (3 - j, Polynomial (1,-1))*
-	binomial_coefficient (3, j);
+	Polynomial::power (3 - j, Polynomial (1,-1));
     }
 
   return p;

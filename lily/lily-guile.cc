@@ -319,11 +319,6 @@ ly_scm2offset (SCM s)
 		 gh_scm2double (ly_cdr (s)));
 }
 
-
-/*
-  convert without too many decimals, and leave  a space at the end.
- */
-   
    
 LY_DEFINE(ly_number2string,  "ly-number->string", 1, 0,0,
 	  (SCM s),
@@ -359,7 +354,7 @@ leaves a space at the end.
   Undef this to see if GUILE GC is causing too many swaps.
  */
 
-// #define TEST_GC
+//#define TEST_GC
 
 #ifdef TEST_GC
 #include <libguile/gc.h>

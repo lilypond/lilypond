@@ -1,3 +1,15 @@
+2002-08-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* flower/polynomial.cc (operator +): optimize += operator. No
+	copying.
+
+	* lily/source-file.cc (get_line): use binary search to determine
+	line number. This kills another quadratic time-complexity term.
+
+	* lily/include/source-file.hh (class Source_file): add newline_locations
+
+	* flower/include/array.icc (binary_search_bounds): new function.
+
 2002-08-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/regression/tuplet-properties.ly (texidoc): bugfix
