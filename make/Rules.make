@@ -12,7 +12,7 @@
 
 # so why does make still consider xx.y : RCS/xx.y,v ?
 # there is no suffix ,v anymore!
-.SUFFIXES: .cc .o .hh .y .l .pod .txt .1 .dep .html
+.SUFFIXES: .cc .o .hh .y .l .pod .text .1 .dep .html
 
 
 # compile rules:

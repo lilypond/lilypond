@@ -111,12 +111,38 @@ Since GNU LilyPond currently is beta, you are advised to also use
 
 other options include:
 
-	--enable-shared
-	--enable-printing
-	--enable-optimise
-	--enable-profiling
-	--enable-tex-prefix
-	--enable-tex-dir
+=over 4
+
+=item --enable-shared
+
+Make a shared library (linux, solaris (?) only ) 
+
+=item 	--enable-printing
+
+Enable debugging print routines (B<-d> option)
+
+=item 	--enable-optimise
+
+Set maximum optimisation
+
+=item 	--enable-profiling
+
+Compile with support for profiling
+
+=item	--enable-tex-prefix
+
+Set the directory where texmf lives
+
+
+=item --enable-tex-dir
+
+Set then directory tex input is in
+
+=item --enable-mf-dir
+
+Set then directory tex input is in
+
+=back
 
 All options are documented in the F<configure> help
 The option B<--enable-optimise> is recommended for Real Life usage.

@@ -18,7 +18,7 @@ Pulk_voices::Pulk_voices(PointerList<Staff*> const& l)
 {
     int staff_i = 0;
     last_= 0;
-    Moment min_staff_last_mom=1e8; // UGH
+    Moment min_staff_last_mom=1e8; // ugh
     for (iter_top(l, i); i.ok(); i++,	staff_i++) {
 	Moment staff_last=0;
 	for (iter_top(i->voice_list_,j); j.ok(); j++) {

@@ -1,9 +1,14 @@
+% title:
+% description:Cadenza to Mozart Horn concerto 3
+% composer(s):unknown
+% entered-by:HWN
+% copyright: public domain
 %
-% Cadenza to Mozart Horn/3
-%
-% author: unknown. Copyright: none
-%
+% Tested Features: cadenza mode
+
+
 \version "0.0.54";
+
 
 cad = \melodic  {
 		\cadenza 1;

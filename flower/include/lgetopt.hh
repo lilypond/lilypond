@@ -20,7 +20,13 @@ struct Long_option_init {
 
 /** C++ for version of long_getopt.  For processing GNU style command
   line arguments.  No pointer (return values, arguments) contents are
-  copied.  */
+  copied.
+  
+  TODO: handle 
+  command  - , and command --
+  
+  argument reordering
+  */
 class Getopt_long {
 public:
     /** errorcodes: no error, argument expected, no argument expected,

@@ -1,5 +1,5 @@
 /*
-  textitem.cc -- implement Text_item
+  text-item.cc -- implement Text_item
 
   source file of the LilyPond music typesetter
 
@@ -14,11 +14,13 @@
 #include "molecule.hh"
 #include "lookup.hh"
 
-Text_item::Text_item(Text_def *tdef_l)
+Text_item::Text_item(Text_def *tdef_l, int d)
     : Staff_side(this)
 {
-    dir_i_ =-1;
-    init(tdef_l);  
+    dir_i_ = d;
+    fat_b_ = false;
+    tdef_p_ = new Text_def(*tdef_l);
+    pos_i_ =0;
 }
 
 Text_def*
@@ -33,24 +35,9 @@ Text_item::~Text_item()
 }
 
 void
-Text_item::init(Text_def *tdef_l)
-{
-    tdef_p_ = new Text_def (*tdef_l);
-}
-
-Text_item::Text_item(Text_req* treq_l)
-    : Staff_side(this)
-{
-    init(treq_l->tdef_p_);
-    dir_i_ = treq_l->dir_i_;
-    if (!dir_i_)
-	dir_i_ = -1;
-}
-
-void
 Text_item::set_default_index()
 {
-    pos_i_  = get_position_i(tdef_p_->create_atom(paper()).extent().y );
+    pos_i_  = get_position_i(tdef_p_->create_atom().extent().y );
 }
 
 void
@@ -58,6 +45,7 @@ Text_item::do_pre_processing()
 {
     if (!dir_i_)
 	dir_i_ = -1;
+    tdef_p_->pdef_l_ = paper();
 }
 
 void
@@ -70,7 +58,12 @@ Text_item::do_post_processing()
 Molecule*
 Text_item::brew_molecule_p() const
 {
-    Molecule* mol_p = new Molecule(tdef_p_->create_atom(paper()));
+    Atom a(tdef_p_->create_atom());
+
+    if ( fat_b_)
+	a.sym.dim.x = tdef_p_->width();
+
+    Molecule* mol_p = new Molecule(a);
 
     if(dir_i_<0 )		// should do something better anyway.
 	mol_p->translate(Offset(0, -mol_p->extent().y.left ));

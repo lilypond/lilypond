@@ -1,7 +1,10 @@
 /*
 
   TODO:
+  
   think about crossing stems.
+  Begin and end should be treated as a Script.
+  
  */
 #include "slur.hh"
 #include "scalar.hh"

@@ -4,6 +4,12 @@
   source file of the LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>, Jan Nieuwenhuizen <jan@digicash.com>
+  
+  TODO
+
+  Ideally this should also use a register system, to process slurs,
+  dynamics, etc.
+  
 */
 
 #include "command-request.hh"

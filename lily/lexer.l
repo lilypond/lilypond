@@ -54,7 +54,7 @@ REAL		{INT}?(\.{N}+)?
 KEYWORD		\\{WORD}
 WHITE		[ \n\t\f]
 BLACK		[^ \n\t\f]
-RESTNAME	r
+RESTNAME	[rs]
 NOTECOMMAND	\\{WORD}
 DOTS		\.+
 LYRICS		{AA}[^0-9 \t\n\f]*

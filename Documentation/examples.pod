@@ -15,14 +15,6 @@ each file:
 Most music distributed with GNU LilyPond was composed a long time ago, and
 do not have copyrights. Any exceptions are mentioned here.
 
-=head2 F<cadenza.ly>
-
-A cadenza to Mozart Horn concerto no. 3. 
-
-Features: cadenza mode.
-
-Copyright: public domain
-
 =head2 F<collisions.ly>
 
 Random counterpoint to demonstrate features.
@@ -55,25 +47,9 @@ Features: example with lots of newbie comment.
 
 Copyright: public domain
 
-=head2 F<maartje.ly>
-
-Features: partial measure.
-
-=head2 F<martien.ly>, F<ml*.ly>
-
-Martien Lohman, Viola Quartet. 
-
-Features: n-plets, multi-staff scores.
-
-Copyright:  copyright Martien Lohman 1997. 
-
 =head2 F<midi.ly>
 
 Features: midi output.
-
-=head2 F<plet.ly>
-
-Features: plets.
 
 =head2 F<rhythm.ly>
 
@@ -107,6 +83,6 @@ Features: lyrics
 
 JS Bach, Das Wohltemperirtes Clavier I, Fuga II (c-minor), BWV ?
 
-Features: stem direction, multivoice.
+Features: 
 
 Copyright: public domain

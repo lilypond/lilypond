@@ -61,7 +61,7 @@ CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG a
 
 
 
-22/Apr/97                LilyPond 0.0.56                        1
+28/Apr/97                LilyPond 0.0.57                        1
 
 
 
@@ -112,22 +112,22 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
 
        other options include:
 
-               --enable-shared
-               --enable-printing
-               --enable-optimise
-               --enable-profiling
-               --enable-tex-prefix
-               --enable-tex-dir
+       --enable-shared
+           Make a shared library (linux, solaris (?) only )
 
-       All options are documented in the _c_o_n_f_i_g_u_r_e help The
-       option --------eeeennnnaaaabbbblllleeee----ooooppppttttiiiimmmmiiiisssseeee is recommended for Real Life
-       usage.
+       --enable-printing
+           Enable debugging print routines (----dddd option)
 
-       If you do
+       --enable-optimise
+           Set maximum optimisation
 
+       --enable-profiling
+           Compile with support for profiling
 
 
-22/Apr/97                LilyPond 0.0.56                        2
+
+
+28/Apr/97                LilyPond 0.0.57                        2
 
 
 
@@ -135,6 +135,21 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
 
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
+
+       --enable-tex-prefix
+           Set the directory where texmf lives
+
+       --enable-tex-dir
+           Set then directory tex input is in
+
+       --enable-mf-dir
+           Set then directory tex input is in
+
+       All options are documented in the _c_o_n_f_i_g_u_r_e help The
+       option --------eeeennnnaaaabbbblllleeee----ooooppppttttiiiimmmmiiiisssseeee is recommended for Real Life
+       usage.
+
+       If you do
 
                make all
 
@@ -175,6 +190,18 @@ RRRRUUUUNNNNNNNNIIIINNNNGGGG
        +o    A fast computer (a full page of music typically takes
             1 minute on my 486/66, using the --------eeeennnnaaaabbbblllleeee----cccchhhheeeecccckkkkiiiinnnngggg
             compile. It's lot slower than most MusiXTeX
+
+
+
+28/Apr/97                LilyPond 0.0.57                        3
+
+
+
+
+
+INSTALL(1)            LilyPond documentation           INSTALL(1)
+
+
             preprocessors)
 
        +o    TeX
@@ -190,17 +217,6 @@ RRRREEEEDDDDHHHHAAAATTTT LLLLIIIINNNNUUUUXXXX
        file is in _m_a_k_e_/_l_i_l_y_p_o_n_d_._s_p_e_c. You should be able to
        create an rpm as a normal user. Be sure you have a
        ~/.rpmrc, and edit the RPM-dir in _V_a_r_i_a_b_l_e_s_._m_a_k_e
-
-
-
-22/Apr/97                LilyPond 0.0.56                        3
-
-
-
-
-
-INSTALL(1)            LilyPond documentation           INSTALL(1)
-
 
 WWWWIIIINNNNDDDDOOOOZZZZEEEE
        Windows NT:
@@ -243,22 +259,6 @@ AAAAUUUUTTTTHHHHOOOORRRRSSSS
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-22/Apr/97                LilyPond 0.0.56                        4
+28/Apr/97                LilyPond 0.0.57                        4
 
 

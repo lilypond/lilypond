@@ -52,10 +52,15 @@ Collision::do_pre_processing()
     
     for (int i=0; i < clash_l_arr_.size(); i++) {
 	Note_column* c_l = clash_l_arr_[i];
+	if (! c_l->dir_i_) {
+	    warning ("No stem direction set. Ignoring column in clash. ");
+	    continue;
+	}
 	int d = (c_l->dir_i_);
 	
 	clash_group_arr_a[idx(d, c_l->h_shift_b_)].push(c_l);
     }
+    
     
     for (int j=0; j < 4; j++) {
 	if (clash_group_arr_a[j].size() > 1) {

@@ -14,10 +14,10 @@
 
 IMPLEMENT_STATIC_NAME(Note_column);
 
-
 void
 Note_column::add(Stem*stem_l)
 {
+    stem_l_ = stem_l;
     add_support(stem_l);
 }
 
@@ -31,6 +31,7 @@ Note_column::add(Notehead* n_l)
 
 Note_column::Note_column()
 {
+    stem_l_ = 0;
     h_shift_b_ =false;
     dir_i_ =0;
 }
@@ -48,4 +49,12 @@ Note_column::head_positions_interval()const
     return Interval_t<int> ( head_l_arr_[0]->position_i_, 
 			     head_l_arr_.top()->position_i_);
 
+}
+
+
+void
+Note_column::do_pre_processing()
+{
+    if (!dir_i_)
+	dir_i_ = stem_l_->dir_i_;
 }

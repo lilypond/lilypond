@@ -9,7 +9,12 @@
 #define STEMBEAMREG_HH
 #include "register.hh"
 
-struct Stem_beam_register : Request_register {
+/**
+  TODO:
+  override default_grouping if setting a n-plet
+  
+ */
+class Stem_beam_register : public Request_register {
     Stem * stem_p_;
     Beam * beam_p_;
     Beam_req * beam_req_l_;
@@ -18,9 +23,12 @@ struct Stem_beam_register : Request_register {
     bool end_beam_b_;
     Rhythmic_grouping *current_grouping;
     int default_dir_i_;
-    
+public:
     /* *************** */
+    NAME_MEMBERS(Stem_beam_register);
     Stem_beam_register();
+
+protected:
     ~Stem_beam_register();
     virtual void set_feature(Feature dir_i_);
     virtual bool try_request(Request*);
@@ -28,6 +36,5 @@ struct Stem_beam_register : Request_register {
     virtual void acknowledge_element(Staff_elem_info);
     virtual void pre_move_processing();
     virtual void post_move_processing();
-    NAME_MEMBERS(Stem_beam_register);
 };
 #endif // STEMBEAMREG_HH

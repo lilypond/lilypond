@@ -44,7 +44,7 @@ Text_spanner::do_post_processing()
 Molecule*
 Text_spanner::brew_molecule_p() const
 {
-    Atom tsym (spec.create_atom(paper()));
+    Atom tsym (spec.create_atom());
     tsym.translate(text_off_);
 
     Molecule*output = new Molecule;
@@ -58,6 +58,7 @@ Text_spanner::do_pre_processing()
     right_col_l_ = support->right_col_l_;
     left_col_l_ = support->left_col_l_;
     assert(left_col_l_ && right_col_l_);
+    spec.pdef_l_ = paper();
 }
 
 Interval

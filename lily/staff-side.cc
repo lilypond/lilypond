@@ -90,5 +90,5 @@ int
 Staff_side::get_position_i(Interval sym_dim) const
 { 
     int i= get_position_i();
-    return i+ int(rint(- sym_dim[dir_i_] / inter_f_));
+    return i+ int(rint(- sym_dim[-dir_i_] / inter_f_));
 }

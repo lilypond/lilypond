@@ -22,6 +22,8 @@ struct Assoc;
    
    Init for the class names which should be silent can be given in a rc file. 
    
+   TODO:
+   make a baseclass for indentable streams.
   */
 class Dstream
 {

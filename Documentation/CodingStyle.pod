@@ -63,9 +63,11 @@ If you like using font-lock, you can also add this to your F<.emacs>:
 
 	(setq font-lock-maximum-decoration t)
 	(setq c++-font-lock-keywords-3 
-	      (cons
-	       '("\\b\\([a-zA-Z_]+_\\)\\b" 1 font-lock-variable-name-face)
-	       c++-font-lock-keywords-3))
+	      (append
+	       c++-font-lock-keywords-3
+	       '(("\\b\\([a-zA-Z_]+_\\)\\b" 1 font-lock-variable-name-face)
+	       ("\\b\\([A-Z]+[a-z_]+\\)\\b" 1 font-lock-type-face))
+	       ))
 
 =head2 CLASSES and TYPES:
 
@@ -79,6 +81,12 @@ If you like using font-lock, you can also add this to your F<.emacs>:
 
 the C<type> is a Hungarian notation postfix for C<Type>. See below
 
+
+=head2 BROKEN CODE
+
+Broken code (hardwired dependencies, hardwired constants, slow
+algorithms and obvious limitations) should be marked as such:
+either with a verbose TODO, or with a short "ugh" comment.
 
 =head2 COMMENTS
 
@@ -96,6 +104,8 @@ http://www.zib.de/Visual/software/doc++/index.html
 		short description.
 		Long class documentation.
 		(Hungarian postfix)
+
+		TODO Fix boring_member()
 	*/
 	class Class {
 		/**
@@ -114,9 +124,13 @@ http://www.zib.de/Visual/software/doc++/index.html
 		Rettype member(Argtype);
 
 		/// memo only
-		boring_member();
+		boring_member() {
+			data_member_ = 121; // ugh
+		}
 	};
 
+
+	
 Unfortunately most of the code isn't really documented that good.
 
 
@@ -226,8 +240,7 @@ not very useful if not used consistently
 
 =item *
 
-usefullness in I<very large> 
-(but how many classes is very large?)
+usefullness in I<very large> (but how many classes is very large?)
 remains an issue.
 
 =back

@@ -60,9 +60,6 @@ Staff::OK() const
     iter_top(cols_, i);
     iter_top(cols_, j);
     i++;
-    for (; i.ok(); j++,i++) {
-	assert(j->when () < i->when() );
-    }
     assert(score_l_);
 #endif    
 }

@@ -72,6 +72,16 @@ struct Interval_t {
 	right +=r;
 	return *this;
     }
+    Interval_t<T> &operator *=(T r) {
+	left *= r;
+	right *= r;
+	if (r <0) {
+	    T t = left;
+	    left = right;
+	    right = t;
+	}
+	return *this;
+    }
     String str() const;    
     bool elt_b(T r);
 };
@@ -101,7 +111,6 @@ intersection(Interval_t<T> a, Interval_t<T> const&b)
     
 }
 
-
 template<class T>
 inline
 Interval_t<T> operator +(T a,Interval_t<T> i )
@@ -114,6 +123,20 @@ template<class T>
 inline
 Interval_t<T> operator +(Interval_t<T> i,T a ){
     return a+i;
+}
+
+template<class T>
+inline
+Interval_t<T> operator *(T a,Interval_t<T> i )
+{
+    i *= a;
+    return i;
+}
+
+template<class T>
+inline
+Interval_t<T> operator *(Interval_t<T> i,T a ){
+    return a*i;
 }
 
 typedef Interval_t<Real> Interval;

@@ -207,9 +207,10 @@ down:
 	A'	% 220
 	Cisis
 
-The rest is named 
+Rests are named r or s
 
-	r
+	r	% print a rest
+	s	% a "space" rest, nothing is printed.
 
 These notenames along with duration are enough material to construct
 simple melodies:
@@ -373,13 +374,15 @@ You can transpose horizontal music in the following way:
 
 	
 	\melodic {
-		c4 ++ \transpose { 
+		\meter 2/4;
+		++
+		\transpose { 
 			d		% from c to the d that's one octave down 
 			{ e4 f4 }	% the horizontal music
 		} ++ g4
 	}
 
-The result is, as you can see, simple horizontal music again
+The result is, as you can see, again simple horizontal music.
 
 =head2 Rhythms
 
@@ -410,6 +413,9 @@ same syntax as grouping:
 
 Make the piece start with a partial measure [transl?]  lasting 1 3/4
 quaver.
+
+These commands are also "voice elements", and constitute simple mudela
+(consisting of stuff with duration 0).
 
 =head1 STRUCTURE
 

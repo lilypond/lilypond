@@ -23,7 +23,7 @@ sub all_refs
 }
 
 local $base="lilypond/";
-local @examples=("wohltemperirt" ,"standchen", "scsii-menuetto", "rhythm", "martien", "collisions");
+local @examples=("wohltemperirt" ,"standchen", "scsii-menuetto", "rhythm", "collisions");
 
 
 sub gen_html
@@ -38,7 +38,7 @@ sub gen_examples
     foreach $a (@examples) {
 	$texfile="test";
 	$tex = "tex $texfile";
-	if ($a eq "standchen" || $a eq "scsii-menuetto" || $a eq "martien") {
+	if ($a eq "standchen" || $a eq "scsii-menuetto" ) {
 	    $tex = "latex $a";
 	    $texfile = "$a";
 	}

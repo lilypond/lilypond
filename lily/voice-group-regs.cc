@@ -24,7 +24,7 @@ Voice_group_registers::Voice_group_registers(String id,
 {
     ireg_C_ =ireg_C;
     Register_group_register::add(ireg_C->get_nongroup_p_arr());
-    if (id=="")			// UGH
+    if (id=="")			// ugh
 	id = __FUNCTION__ + String(temp_id_count++);
     group_id_str_ = id;
     termination_mom_ = 0; 
@@ -33,8 +33,8 @@ Voice_group_registers::Voice_group_registers(String id,
 bool
 Voice_group_registers::try_request(Request*r_l)
 {
-    for (int i=0; i < voice_regs_l_.size(); i++) {	
-	if (voice_regs_l_[i]->voice_l_ == r_l->voice_l())
+    for (int i=0; i < voice_reg_l_arr_.size(); i++) {	
+	if (voice_reg_l_arr_[i]->voice_l_ == r_l->voice_l())
 	    goto gotcha;	// yeah, yeah, I know
     }
     return false;
@@ -68,12 +68,13 @@ Voice_group_registers::add(Request_register*r_l)
     Register_group_register::add(r_l);
     if (r_l->name() == Voice_registers::static_name()) {
 	Voice_registers * vregs_l = (Voice_registers*)r_l;
-	voice_regs_l_.push( vregs_l );
+	voice_reg_l_arr_.push( vregs_l );
 	Voice *v_l = vregs_l->voice_l_;
 	termination_mom_ = termination_mom_ >? v_l -> last();
 	mtor << "adding Voice_registers, now terminating at " << 
 	    termination_mom_<< "\n";
     }
+    OK();
 }
 
 void
@@ -82,6 +83,7 @@ Voice_group_registers::post_move_processing()
     if ( get_staff_info().time_C_ ->when_ > termination_mom_ ){
 	mtor << "Terminating voice_group\n";
 	daddy_reg_l_->terminate_register(this);
+	return ;
     }
     Register_group_register::post_move_processing();
 }
@@ -90,10 +92,24 @@ Request_register *
 Voice_group_registers::get_register_p(Request_register *reg_l)
 {
      if (reg_l->name() == Voice_registers::static_name()) {
-	for (int i=0; i <voice_regs_l_.size(); i++) {
-	    if (reg_l == voice_regs_l_[i])
-		voice_regs_l_.del(i);
+	for (int i=0; i <voice_reg_l_arr_.size(); i++) {
+	    if (reg_l == voice_reg_l_arr_[i])
+		voice_reg_l_arr_.del(i);
 	}
      }
-     return Register_group_register::get_register_p(reg_l);
+     Request_register*reg_p =Register_group_register::get_register_p(reg_l);
+     OK();
+
+     return reg_p;
 }
+
+void
+Voice_group_registers::OK() const
+{
+    for (int i=0; i < voice_reg_l_arr_.size(); i++) {
+	iter(reg_list_.find(voice_reg_l_arr_[i]), j);
+	assert(j.ok());
+    }
+}
+	     
+	     

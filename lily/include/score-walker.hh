@@ -4,6 +4,8 @@
   source file of the LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+
+    
 */
 
 
@@ -16,6 +18,9 @@
 
 /**
   walk through the score_columns, and while doing so, walk all staffs in a score.
+
+  TODO
+  support for vertical spanners.
   */
 class Score_walker : public PCursor<Score_column *>
 {

@@ -1,3 +1,14 @@
+/*
+  qlpsolve.cc -- implement Active_constraints, Inactive_iter
+
+  source file of the LilyPond music typesetter
+
+  (c) 1996, 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+
+  TODO:
+  try fixed point arithmetic, to speed up lily.
+  */
+
 #include "qlpsolve.hh"
 #include "const.hh"
 #include "debug.hh"

@@ -12,6 +12,11 @@
 #include "lily-proto.hh"
 #include "item.hh"
 
+/** TODO 
+
+  multistaff support (see Chlapik: equal noteheads should be on the
+  same hpos.)  
+*/
 class Collision : public Item {
 protected:
     virtual void do_pre_processing();

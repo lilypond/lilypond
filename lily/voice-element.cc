@@ -63,6 +63,7 @@ Voice_element::Voice_element()
 Voice_element::Voice_element(Voice_element const&src)
     : Input(src)
 {
+    principal_req_l_ = 0;
     voice_C_=0;
     for (iter_top(src.req_p_list_, i); i.ok(); i++)
 	add(i->clone());

@@ -24,23 +24,34 @@ Register_group_register::acceptable_request_b(Request* r)const
 void
 Register_group_register::set_feature(Feature d)
 {
-    for (iter_top(reg_list_, i); i.ok(); i++) {
-	i->set_feature(d);
+    iter_top(reg_list_, i);
+    while (i.ok()) {
+	// this construction to ensure clean deletion
+	Request_register *reg_l = i++; 
+	reg_l->set_feature(d);
     }
 }
 
 void
 Register_group_register::pre_move_processing()
 {
-    for (iter_top(reg_list_, i); i.ok(); i++) 
-	i->pre_move_processing();
+    iter_top(reg_list_, i);
+    while (i.ok()) {
+	// this construction to ensure clean deletion
+	Request_register *reg_l = i++; 
+	reg_l->pre_move_processing();
+    }
 }
 
 void
 Register_group_register::process_requests()
 {
-    for (iter_top(reg_list_, i); i.ok(); i++) 
-	i->process_requests();
+    iter_top(reg_list_, i);
+    while (i.ok()) {
+	// this construction to ensure clean deletion
+	Request_register *reg_l = i++; 
+	reg_l->process_requests();
+    }
 }
 
 void

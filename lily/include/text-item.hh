@@ -1,5 +1,5 @@
 /*
-  text.hh -- part of LilyPond
+  text-item.hh -- part of LilyPond
 
   (c) 1996,97 Han-Wen Nienhuys
 */
@@ -16,21 +16,26 @@
  */
 class Text_item : public Item ,public Staff_side{
     void init(Text_def* tdef_l); 
-    Text_def* tdef_p_;
-
+ 
 public:
     Text_def * tdef_l();
+    Text_def const* tdef_c_l();
     int pos_i_;
-        
+
+    /// do I have width?
+    bool fat_b_;
+    
     /* ***************/
 
-    Text_item(Text_def*);
-    Text_item(Text_req*);
-    ~Text_item();
+    Text_item(Text_def*,int dir=0);
+    virtual ~Text_item();
     NAME_MEMBERS(Text_item);
+
 protected:
+    Text_def* tdef_p_;
+
     virtual void set_default_index();
-    Molecule* brew_molecule_p() const;
+    virtual Molecule* brew_molecule_p() const;
     virtual void do_post_processing();
     virtual void do_pre_processing();
 };

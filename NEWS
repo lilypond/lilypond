@@ -1,3 +1,23 @@
+pl 57
+	- lots of TODO doco
+	- text alignment bugfix
+	- bugfix Voice_group_regs::get_register_p() now is actually called too
+	- bugfix init  of Text_item::pos_i_
+
+pl 55.jcn1
+	- mi2mu man page
+	- make doc fixlet
+	- \[lr]heel \[lr]toe scripts (happy pedal studies, pa)
+	- lyric with width
+	- removal of some example files
+
+pl 56.mb:
+	- last duration fix
+	- makefile fixes
+	- space rest
+	- swedish note name update
+
+******
 pl 56
 	- Massive Rest/Stem/Collision/Note_column rewrite: resolve
 notehead/rest ambiguities and bugs. eg, [c8 r8 c8] 

@@ -915,7 +915,7 @@ voice_command:
 		delete $2;
 	}
 	| DURATIONCOMMAND notemode_duration {
-		THIS->default_duration_ = *$2;
+		THIS->set_default_duration($2);
 		delete $2;
 	}
 	| OCTAVECOMMAND { 

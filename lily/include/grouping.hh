@@ -14,6 +14,8 @@
 typedef Interval_t<Moment> MInterval;
 
 /** data structure which represents rhythmic units   this is a tree. It groupes notes according to rules
+
+  TODO Documentation. Unhairing
  */
 struct Rhythmic_grouping {
     Array<Rhythmic_grouping*> children;

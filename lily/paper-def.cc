@@ -1,3 +1,11 @@
+/*
+  paper-def.cc -- implement Paper_def
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include <math.h>
 #include "misc.hh"
 #include "paper-def.hh"
