@@ -158,7 +158,9 @@ guile -s ../src/libgnomecanvas/examples/canvas.scm
  (lily)
  (gnome gtk)
  (gnome gtk gdk-event)
+ ;; the name of the module will change to canvas rsn
  (gnome gw libgnomecanvas))
+ ;;(gnome gw canvas))
 
 
 ;;; Lily output interface --- fix silly names and docme
