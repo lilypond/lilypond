@@ -8,23 +8,21 @@
 
 */
 
-
 /*
   [TODO]
     * center beam symbol
     * less hairy code
+    * move paper vars to scm
 
     */
 
-#include <math.h>
+//#include <math.h>
 
 #include "beaming.hh"
-#include "proto.hh"
 #include "dimensions.hh"
 #include "beam.hh"
 #include "misc.hh"
 #include "debug.hh"
-#include "molecule.hh"
 #include "leastsquares.hh"
 #include "stem.hh"
 #include "paper-def.hh"
@@ -37,75 +35,6 @@ Beam::Beam ()
 {
   Group_interface g (this, "stems");
   g.set_interface ();
-  
-  slope_f_ = 0;
-  left_y_ = 0;
-  multiplicity_i_ = 0;
-}
-
-/*
-  TODO: Fix this class. This is wildly inefficient.
- */
-Stem *
-Beam::stem (int i)const
-{
-  return Group_interface__extract_elements ((Beam*) this, (Stem*) 0, "stems")[i];
-}
-
-int
-Beam::stem_count ()const
-{
-  Group_interface gi (this, "stems");
-  return gi.count ();
-}
-
-Stem*
-Beam::stem_top ()const
-{
-  return Group_interface__extract_elements ((Beam*) this, (Stem*) 0, "stems")[stem_count () - 1];
-}
-
-/* burp */
-int
-Beam::visible_stem_count () const
-{
-  int c = 0;
-  for (int i = 0; i < stem_count (); i++)
-    {
-      if (!stem (i)->invisible_b ())
-        c++;
-    }
-  return c;
-}
-
-Stem*
-Beam::first_visible_stem () const
-{
-  for (int i = 0; i < stem_count (); i++)
-    {
-      Stem* s = stem (i);
-      if (!s->invisible_b ())
-        return s;
-    }
-
-  assert (0);
-  // sigh
-  return 0;
-}
-
-Stem*
-Beam::last_visible_stem () const
-{
-  for (int i = stem_count (); i > 0; i--)
-    {
-      Stem* s = stem (i - 1);
-      if (!s->invisible_b ())
-        return s;
-    }
-
-  assert (0);
-  // sigh
-  return 0;
 }
 
 void
@@ -125,152 +54,52 @@ Beam::add_stem (Stem*s)
     set_bounds (RIGHT,s);
 }
 
-Molecule*
-Beam::do_brew_molecule_p () const
+int
+Beam::get_multiplicity () const
 {
-  Molecule *mol_p = new Molecule;
-  if (!stem_count ())
-    return mol_p;
-  
-  Real x0 = first_visible_stem ()->hpos_f ();
-  for (int j=0; j <stem_count (); j++)
+  int m = 0;
+  for (SCM s = get_elt_property ("stems"); gh_pair_p (s); s = gh_cdr (s))
     {
-      Stem *i = stem (j);
-      Stem * prev = (j > 0)? stem (j-1) : 0;
-      Stem * next = (j < stem_count ()-1) ? stem (j+1) :0;
+      Score_element * sc = unsmob_element (gh_car (s));
 
-      Molecule sb = stem_beams (i, next, prev);
-      Real  x = i->hpos_f ()-x0;
-      sb.translate (Offset (x, x * slope_f_ + left_y_));
-      mol_p->add_molecule (sb);
+      if (Stem * st = dynamic_cast<Stem*> (sc))
+	m = m >? st->beam_count (LEFT) >? st->beam_count (RIGHT);
     }
-  mol_p->translate_axis (x0 
-    - spanned_drul_[LEFT]->relative_coordinate (0, X_AXIS), X_AXIS);
-
-  return mol_p;
-}
-
-Offset
-Beam::center () const
-{
-  Real w = (first_visible_stem ()->note_delta_f () + extent (X_AXIS).length ())/2.0;
-  return Offset (w, w * slope_f_);
+  return m;
 }
 
 /*
-  Simplistic auto-knees; only consider vertical gap between two
-  adjacent chords
+  After pre-processing all directions should be set.
+  Several post-processing routines (stem, slur, script) need stem/beam
+  direction.
+  Currenly, this means that beam has set all stem's directions.
+  [Alternatively, stems could set its own directions, according to
+   their beam, during 'final-pre-processing'.]
  */
-bool
-Beam::auto_knee (SCM gap, bool interstaff_b)
-{
-  bool knee = false;
-  int knee_y = 0;
-  if (gap != SCM_UNDEFINED)
-    {
-      int auto_gap_i = gh_scm2int (gap);
-      for (int i=1; i < stem_count (); i++)
-        {
-	  bool is_b = (bool)(calc_interstaff_dist (stem (i), this) 
-	    - calc_interstaff_dist (stem (i-1), this));
-	  int l_y = (int)(stem (i-1)->chord_start_f ())
-	    + (int)calc_interstaff_dist (stem (i-1), this);
-	  int r_y = (int)(stem (i)->chord_start_f ())
-	    + (int)calc_interstaff_dist (stem (i), this);
-	  int gap_i = r_y - l_y;
-
-	  /*
-	    Forced stem directions are ignored.  If you don't want auto-knees,
-	    don't set, or unset autoKneeGap/autoInterstaffKneeGap.
-	   */
-	  if ((abs (gap_i) >= auto_gap_i) && (!interstaff_b || is_b))
-	    {
-	      knee_y = (r_y + l_y) / 2;
-	      knee = true;
-	      break;
-	    }
-	}
-    }
-  if (knee)
-    {
-      for (int i=0; i < stem_count (); i++)
-        {
-	  int y = (int)(stem (i)->chord_start_f ())
-	    + (int)calc_interstaff_dist (stem (i), this);
-	  stem (i)->set_direction ( y < knee_y ? UP : DOWN);
-	  stem (i)->set_elt_property ("dir-forced", SCM_BOOL_T);
-	}
-    }
-  return knee;
-}
-
-bool
-Beam::auto_knees ()
-{
-  if (auto_knee (get_elt_property ("auto-interstaff-knee-gap"), true))
-    return true;
-  
-  return auto_knee (get_elt_property ("auto-knee-gap"), false);
-}
-
-
 void
 Beam::do_pre_processing ()
 {
-  /*
-    urg: it seems that info on whether beam (voice) dir was forced
-         is being junked here?
-  */
-  if (!get_direction ())
-    set_direction ( get_default_dir ());
-  
-  set_direction (get_direction ());
-}
-
-void
-Beam::do_print () const
-{
-#ifndef NPRINT
-  DEBUG_OUT << "slope_f_ " << slope_f_ << "left ypos " << left_y_;
-  Spanner::do_print ();
-#endif
-}
-
-void
-Beam::do_post_processing ()
-{
+  // Why?
   if (visible_stem_count () < 2)
     {
-      warning (_ ("beam with less than two stems"));
+      warning (_ ("beam has less than two stems"));
       set_elt_property ("transparent", SCM_BOOL_T);
-      return;
     }
-  set_stem_shorten ();
-  if (auto_knees ())
-    {
-      /*
-	if auto-knee did its work, most probably stem directions
-	have changed, so we must recalculate all.
-       */
-      set_direction (get_default_dir ());
-      set_direction (get_direction ());
 
-      /* auto-knees used to only work for slope = 0
-	 anyway, should be able to set slope per beam
-         set_elt_property ("damping", gh_int2scm(1000));
-      */
+  if (!get_direction ())
+    set_direction (calc_default_dir ());
 
-      set_stem_shorten ();
-    }
-  calculate_slope ();
-  set_stemlens ();
+  auto_knees ();
+  set_stem_directions ();
+
+  set_stem_shorten (); 
 }
 
-
-
-
+/*
+ FIXME
+ */
 Direction
-Beam::get_default_dir () const
+Beam::calc_default_dir () const
 {
   Drul_array<int> total;
   total[UP]  = total[DOWN] = 0;
@@ -279,7 +108,7 @@ Beam::get_default_dir () const
   Direction d = DOWN;
 
   for (int i=0; i <stem_count (); i++)
-    do {
+    do { // HUH -- waar slaat dit op?
       Stem *s = stem (i);
       int current = s->get_direction () 
 	? (1 + d * s->get_direction ())/2
@@ -335,221 +164,359 @@ Beam::get_default_dir () const
   return beam_dir;
 }
 
+
+/*
+  Set all stems with non-forced direction to beam direction.
+  Urg: non-forced should become `without/with unforced' direction,
+       once stem gets cleaned-up.
+ */
 void
-Beam::set_direction (Direction d)
+Beam::set_stem_directions ()
 {
-  Directional_spanner::set_direction (d);
+  Direction d = get_direction ();
   for (int i=0; i <stem_count (); i++)
     {
       Stem *s = stem (i);
-      s->set_elt_property ("beam-dir", gh_int2scm (d));
-
-      SCM force = s->get_elt_property ("dir-forced"); // remove_prop?
+      SCM force = s->remove_elt_property ("dir-forced");
       if (force == SCM_UNDEFINED)
-	s->set_direction ( d);
+	s->set_direction (d);
+    }
+} 
+
+void
+Beam::auto_knees ()
+{
+  if (!auto_knee ("auto-interstaff-knee-gap", true))
+    auto_knee ("auto-knee-gap", false);
+}
+
+/*
+  Simplistic auto-knees; only consider vertical gap between two
+  adjacent chords.
+
+  `Forced' stem directions are ignored.  If you don't want auto-knees,
+  don't set, or unset autoKneeGap/autoInterstaffKneeGap.
+ */
+bool
+Beam::auto_knee (String gap_str, bool interstaff_b)
+{
+  bool knee_b = false;
+  int knee_y = 0;
+  SCM gap = get_elt_property (gap_str);
+  if (gap != SCM_UNDEFINED)
+    {
+      int auto_gap_i = gh_scm2int (gap);
+      for (int i=1; i < stem_count (); i++)
+        {
+	  bool is_b = (bool)(calc_interstaff_dist (stem (i), this) 
+	    - calc_interstaff_dist (stem (i-1), this));
+	  int l_y = (int)(stem (i-1)->chord_start_f ())
+	    + (int)calc_interstaff_dist (stem (i-1), this);
+	  int r_y = (int)(stem (i)->chord_start_f ())
+	    + (int)calc_interstaff_dist (stem (i), this);
+	  int gap_i = r_y - l_y;
+
+	  if ((abs (gap_i) >= auto_gap_i) && (!interstaff_b || is_b))
+	    {
+	      knee_y = (r_y + l_y) / 2;
+	      knee_b = true;
+	      break;
+	    }
+	}
+    }
+  if (knee_b)
+    {
+      for (int i=0; i < stem_count (); i++)
+        {
+	  int y = (int)(stem (i)->chord_start_f ())
+	    + (int)calc_interstaff_dist (stem (i), this);
+	  stem (i)->set_direction (y < knee_y ? UP : DOWN);
+	  stem (i)->set_elt_property ("dir-forced", SCM_BOOL_T);
+	}
+    }
+  return knee_b;
+}
+
+/*
+ Set stem's shorten property if unset.
+ TODO: take some y-position (nearest?) into account
+ */
+void
+Beam::set_stem_shorten ()
+{
+  if (!visible_stem_count ())
+    return;
+
+  Real forced_fraction = forced_stem_count () / visible_stem_count ();
+  if (forced_fraction < 0.5)
+    return;
+
+  int multiplicity = get_multiplicity ();
+  SCM shorten = scm_eval (scm_listify (
+    ly_symbol2scm ("beamed-stem-shorten"),
+    gh_int2scm (multiplicity), 
+    SCM_UNDEFINED));
+  Real shorten_f = gh_scm2double (shorten) 
+    * Staff_symbol_referencer_interface (this).staff_line_leading_f ();
+
+  /* cute, but who invented this -- how to customise ? */
+  if (forced_fraction < 1)
+    shorten_f /= 2;
+
+  for (int i=0; i < stem_count (); i++)
+    {
+      Stem* s = stem (i);
+      if (s->invisible_b ())
+        continue;
+      if (s->get_elt_property ("shorten") == SCM_UNDEFINED)
+	s->set_elt_property ("shorten", gh_double2scm (shorten_f));
+    }
+}
+/*
+  Set elt properties height and y-position if not set.
+  Adjust stem lengths to reach beam.
+ */
+void
+Beam::do_post_processing ()
+{
+  /* first, calculate y, dy */
+  Real y, dy;
+  calc_position_and_height (&y, &dy);
+  if (suspect_slope_b (y, dy))
+    dy = 0;
+
+  Real damped_dy = calc_slope_damping_f (dy);
+  Real quantised_dy = quantise_dy_f (damped_dy);
+
+  y += (dy - quantised_dy) / 2;
+  dy = quantised_dy;
+  
+  /*
+    until here, we used only stem_info, which acts as if dir=up
+   */
+  y *= get_direction ();
+  dy *= get_direction ();
+
+  /* set or read dy as necessary */
+  SCM s = get_elt_property ("height");
+  if (s != SCM_UNDEFINED)
+    dy = gh_scm2double (s);
+  else
+    set_elt_property ("height", gh_double2scm (dy));
+
+  /* set or read y as necessary */
+  s = get_elt_property ("y-position");
+  if (s != SCM_UNDEFINED)
+    {
+      y = gh_scm2double (s);
+      set_stem_length (y, dy);
+    }
+  else
+    { 
+      /* we can modify y, so we should quantise y */
+      Real y_shift = check_stem_length_f (y, dy);
+      y += y_shift;
+      y = quantise_y_f (y, dy, 0);
+      set_stem_length (y, dy);
+      y_shift = check_stem_length_f (y, dy);
+
+      Real internote_f = paper_l ()->get_var ("interline") / 2;
+      if (y_shift > internote_f / 4)
+	{
+	  y += y_shift;
+
+	  /*
+	    for significantly lengthened or shortened stems,
+	    request quanting the other way.
+	  */
+	  int quant_dir = 0;
+	  if (abs (y_shift) > internote_f / 2)
+	    quant_dir = sign (y_shift) * get_direction ();
+	  y = quantise_y_f (y, dy, quant_dir);
+	  set_stem_length (y, dy);
+	}
+
+      set_elt_property ("y-position", gh_double2scm (y));
     }
 }
 
 /*
   See Documentation/tex/fonts.doc
  */
-
 void
-Beam::solve_slope ()
+Beam::calc_position_and_height (Real* y, Real* dy) const
 {
-  assert (visible_stem_count () > 1);
+  *y = *dy = 0;
+  if (visible_stem_count () <= 1)
+    return;
 
-  Least_squares l;
+  Real first_ideal = first_visible_stem ()->calc_stem_info ().idealy_f_;
+  if (first_ideal == last_visible_stem ()->calc_stem_info ().idealy_f_)
+    {
+      *dy = 0;
+      *y = first_ideal;
+      return;
+    }
+
+  Least_squares ls;
   Real x0 = first_visible_stem ()->hpos_f ();
   for (int i=0; i < stem_count (); i++)
     {
       Stem* s = stem (i);
       if (s->invisible_b ())
         continue;
-      l.input.push (Offset (s->hpos_f () - x0, s->calc_stem_info ().idealy_f_));
+      ls.input.push (Offset (s->hpos_f () - x0, 
+        s->calc_stem_info ().idealy_f_));
     }
-  l.minimise (slope_f_, left_y_);
+  Real dydx;
+  ls.minimise (dydx, *y); // duh, takes references
+
+  Real dx = last_visible_stem ()->hpos_f () - x0;
+  *dy = dydx * dx;
+}
+
+bool
+Beam::suspect_slope_b (Real y, Real dy) const
+{
+  /*
+    steep slope running against lengthened stem is suspect
+  */
+  Real first_ideal = first_visible_stem ()->calc_stem_info ().idealy_f_;
+  Real last_ideal = last_visible_stem ()->calc_stem_info ().idealy_f_;
+  Real lengthened = paper_l ()->get_var ("beam_lengthened");
+  Real steep = paper_l ()->get_var ("beam_steep_slope");
+
+  Real dx = last_visible_stem ()->hpos_f () - first_visible_stem ()->hpos_f ();
+  Real dydx = dy/dx;
+
+  if (((y - first_ideal > lengthened) && (dydx > steep))
+      || ((y + dy - last_ideal > lengthened) && (dydx < -steep)))
+    {
+      return true;
+    }
+  return false;
 }
 
 /*
-  ugh. Naming: this doesn't check, but sets as well.
- */
+  This neat trick is by Werner Lemberg,
+  damped = tanh (slope)
+  corresponds with some tables in [Wanske]
+*/
 Real
-Beam::check_stemlengths_f (bool set_b)
+Beam::calc_slope_damping_f (Real dy) const
 {
-  Real interbeam_f = paper_l ()->interbeam_f (multiplicity_i_);
+  SCM damp = get_elt_property ("damping"); // remove?
+  int damping = 1;		// ugh.
+  if (damp != SCM_UNDEFINED)
+    damping = gh_scm2int (damp);
 
+  if (damping)
+    {
+      Real dx = last_visible_stem ()->hpos_f ()
+	- first_visible_stem ()->hpos_f ();
+      Real dydx = dy/dx;
+      dydx = 0.6 * tanh (dydx) / damping;
+      return dydx * dx;
+    }
+  return dy;
+}
+
+Real
+Beam::calc_stem_y_f (Stem* s, Real y, Real dy) const
+{
   Real beam_f = gh_scm2double (get_elt_property ("beam-thickness"));
-  Real staffline_f = paper_l ()-> get_var ("stafflinethickness");
-  Real epsilon_f = staffline_f / 8;
-  Real dy_f = 0.0;
+  int   multiplicity = get_multiplicity ();
+
+
+  Real interbeam_f = paper_l ()->interbeam_f (multiplicity);
   Real x0 = first_visible_stem ()->hpos_f ();
-  Real internote_f = paper_l ()->get_var ("interline");
+  Real dx = last_visible_stem ()->hpos_f () - x0;
+  Real stem_y = (s->hpos_f () - x0) / dx * dy + y;
+
+  /* knee */
+  if (get_direction () != s->get_direction ())
+    {
+      stem_y -= get_direction () * (beam_f / 2
+	+ (multiplicity - 1) * interbeam_f);
+
+      Staff_symbol_referencer_interface me (s);
+      Staff_symbol_referencer_interface last (last_visible_stem ());
+      
+      if ((s != first_visible_stem ())
+	  && me.staff_symbol_l () != last.staff_symbol_l ())
+	stem_y += get_direction () 
+	          * (multiplicity - (s->flag_i () - 2) >? 0) * interbeam_f;
+    }
+  return stem_y;
+}
+
+Real
+Beam::check_stem_length_f (Real y, Real dy) const
+{
+  Real shorten = 0;
+  Real lengthen = 0;
   for (int i=0; i < stem_count (); i++)
     {
       Stem* s = stem (i);
       if (s->invisible_b ())
 	continue;
-      Real y = (s->hpos_f () - x0) * slope_f_ + left_y_;
+
+      Real stem_y = calc_stem_y_f (s, y, dy);
+	
+      stem_y *= get_direction ();
       Stem_info info = s->calc_stem_info ();
 
-      // correct for knee
-      if (get_direction () != s->get_direction ())
-	{
-	  y -= get_direction () * (beam_f / 2
-	    + (multiplicity_i_ - 1) * interbeam_f);
+      if (stem_y > info.maxy_f_)
+	shorten = shorten <? info.maxy_f_ - stem_y;
 
-
-	  Staff_symbol_referencer_interface s1 (s);
-	  Staff_symbol_referencer_interface s2 (stem_top ());
-	  
-	  if (!i
-	    && s1.staff_symbol_l () != s2.staff_symbol_l ())
-	    y += get_direction () * (multiplicity_i_ - (s->flag_i () - 2) >? 0)
-	      * interbeam_f;
-	}
-
-      /* caution: stem measures in staff-positions */
-      if (set_b)
-	s->set_stemend ((y - calc_interstaff_dist (s, this))
-			       / internote_f);
-	
-      y *= get_direction ();
-      if (y > info.maxy_f_)
-	dy_f = dy_f <? info.maxy_f_ - y;
-      if (y < info.miny_f_)
-	{ 
-	  // when all too short, normal stems win..
-	  if (dy_f < -epsilon_f)
-	    warning (_ ("weird beam vertical offset"));
-	  dy_f = dy_f >? info.miny_f_ - y; 
-	}
+      if (stem_y < info.miny_f_)
+        lengthen = lengthen >? info.miny_f_ - stem_y; 
     }
-  return dy_f;
+
+  if (lengthen && shorten)
+    warning (_ ("weird beam vertical offset"));
+
+  /* when all stems are too short, normal stems win */
+  if (shorten)
+    return shorten * get_direction ();
+  else
+    return lengthen * get_direction ();
 }
 
 void
-Beam::set_stem_shorten ()
+Beam::set_stem_length (Real y, Real dy)
 {
-  if(!stem_count ())
-    return;
-  
-  assert (multiplicity_i_);
-
-  int total_count_i = 0;
-  int forced_count_i = 0;
+  Real internote_f = paper_l ()->get_var ("interline") / 2;
   for (int i=0; i < stem_count (); i++)
     {
-      Stem *s = stem (i);
-
-      s->set_default_extents ();
+      Stem* s = stem (i);
       if (s->invisible_b ())
 	continue;
-      if (((int)s->chord_start_f ()) && (s->get_direction () != s->get_default_dir ()))
-        forced_count_i++;
-      total_count_i++;
-    }
 
-  Real internote_f = paper_l ()->get_var ("interline");
-  bool grace_b = get_elt_property ("grace") == SCM_BOOL_T;
-  String type_str = grace_b ? "grace_" : "";
-  int stem_max = (int)rint(paper_l ()->get_var ("stem_max"));
-  Real shorten_f = paper_l ()->get_var (type_str + "forced_stem_shorten"
-    + to_str (multiplicity_i_ <? stem_max)) * internote_f;
-    
-  for (int i=0; i < stem_count (); i++)
-    {
-      Stem *s = stem (i);
-      /*
-	Chord tremolo needs to beam over invisible stems of wholes
-      */
-      SCM trem = get_elt_property ("chord-tremolo");
-      if (gh_boolean_p (trem) && gh_scm2bool (trem))
-	{
-	  if (s->invisible_b ())
-	    continue;
-	}
+      Real stem_y = calc_stem_y_f (s, y, dy);
 
-      if (s->get_direction () == get_direction ())
-        {
-	  if (forced_count_i == total_count_i)
-	    s->set_real ("shorten", shorten_f);
-	  else if (forced_count_i > total_count_i / 2)
-	    s->set_real ("shorten", shorten_f/2);
-	}
+      /* caution: stem measures in staff-positions */
+      s->set_stemend ((stem_y - calc_interstaff_dist (s, this)) / internote_f);
     }
 }
 
-void
-Beam::calculate_slope ()
+/*
+  [Ross] (simplification of)
+  Try to set dy complying with:
+    - zero
+    - beam_f / 2 + staffline_f / 2
+    - beam_f + staffline_f
+  + n * interline
+
+  TODO: get allowed-positions as scm list (aarg: from paper block)
+*/
+Real
+Beam::quantise_dy_f (Real dy) const
 {
-  if (!stem_count ())
-    slope_f_ = left_y_ = 0;
-  else if (first_visible_stem ()->calc_stem_info ().idealy_f_ == last_visible_stem ()->calc_stem_info ().idealy_f_)
-    {
-      slope_f_ = 0;
-      left_y_ = first_visible_stem ()->calc_stem_info ().idealy_f_;
-      left_y_ *= get_direction ();
-    }
-  else
-    {
-      solve_slope ();
-      Real solved_slope_f = slope_f_;
-
-      /*
-	steep slope running against lengthened stem is suspect
-      */
-      Real dx_f = stem (stem_count () -1)->hpos_f () - first_visible_stem ()->hpos_f ();
-
-      Real lengthened = paper_l ()->get_var ("beam_lengthened");
-      Real steep = paper_l ()->get_var ("beam_steep_slope");
-      if (((left_y_ - first_visible_stem ()->calc_stem_info ().idealy_f_ > lengthened)
-	   && (slope_f_ > steep))
-	  || ((left_y_ + slope_f_ * dx_f - last_visible_stem ()->calc_stem_info ().idealy_f_ > lengthened)
-	      && (slope_f_ < -steep)))
-	{
-	  slope_f_ = 0;
-	}
-
-      /*
-	This neat trick is by Werner Lemberg,
-	damped = tanh (slope_f_)
-	corresponds with some tables in [Wanske]
-      */
-      SCM damp = remove_elt_property ("damping");
-      int damping = 1;		// ugh.
-      if (damp!= SCM_UNDEFINED)
-	damping = gh_int2scm (damp);
-
-      if (damping)
-	slope_f_ = 0.6 * tanh (slope_f_) / damping;
-      
-      quantise_dy ();
-
-      Real damped_slope_dy_f = (solved_slope_f - slope_f_) * dx_f / 2;
-      left_y_ += damped_slope_dy_f;
-
-      left_y_ *= get_direction ();
-      slope_f_ *= get_direction ();
-    }
-}
-
-void
-Beam::quantise_dy ()
-{
-  /*
-    [Ross] (simplification of)
-    Try to set slope_f_ complying with y-span of:
-      - zero
-      - beam_f / 2 + staffline_f / 2
-      - beam_f + staffline_f
-    + n * interline
-    */
-
-  SCM q = get_elt_property ("slope-quantisation");
+  SCM s = get_elt_property ("slope-quantisation");
   
-  if (q == ly_symbol2scm ("none"))
-    return;
+  if (s == ly_symbol2scm ("none"))
+    return dy;
 
   Staff_symbol_referencer_interface st (this);
   Real interline_f = st.staff_line_leading_f ();
@@ -557,39 +524,36 @@ Beam::quantise_dy ()
   Real staffline_f = paper_l ()->get_var ("stafflinethickness");
   Real beam_f = gh_scm2double (get_elt_property ("beam-thickness"));;
 
-  Real dx_f = stem (stem_count () -1 )->hpos_f () - first_visible_stem ()->hpos_f ();
-
-  Real dy_f = dx_f * abs (slope_f_);
-  
-  Real quanty_f = 0.0;
-
   Array<Real> allowed_fraction (3);
   allowed_fraction[0] = 0;
   allowed_fraction[1] = (beam_f / 2 + staffline_f / 2);
   allowed_fraction[2] = (beam_f + staffline_f);
 
-  Interval iv = quantise_iv (allowed_fraction, interline_f, dy_f);
-  quanty_f = (dy_f - iv[SMALLER] <= iv[BIGGER] - dy_f)
+  Interval iv = quantise_iv (allowed_fraction, interline_f, abs (dy));
+  Real q = (abs (dy) - iv[SMALLER] <= iv[BIGGER] - abs (dy))
     ? iv[SMALLER]
     : iv[BIGGER];
 
-  slope_f_ = (quanty_f / dx_f) * sign (slope_f_);
+  return q * sign (dy);
 }
 
 /*
-  
-  Prevent interference from stafflines and beams.  See Documentation/tex/fonts.doc
-  
+  Prevent interference from stafflines and beams.
+  See Documentation/tex/fonts.doc
+
+  TODO: get allowed-positions as scm list (aarg: from paper block)
  */
-void
-Beam::quantise_left_y (bool extend_b)
+Real
+Beam::quantise_y_f (Real y, Real dy, int quant_dir)
 {
    /*
-    we only need to quantise the start of the beam as dy is quantised too
-   if extend_b then stems must *not* get shorter
+    We only need to quantise the (left) y-position of the beam,
+    since dy is quantised too.
+    if extend_b then stems must *not* get shorter
    */
-  SCM q = get_elt_property ("slope-quantisation");
-
+  SCM s = get_elt_property ("slope-quantisation");
+  if (s == ly_symbol2scm ("none"))
+    return y;
 
   /*
     ----------------------------------------------------------
@@ -607,12 +571,6 @@ Beam::quantise_left_y (bool extend_b)
   Real staffline_f = paper_l ()->get_var ("stafflinethickness");
   Real beam_f = gh_scm2double (get_elt_property ("beam-thickness"));;
 
-  /*
-    [TODO]
-    it would be nice to have all allowed positions in a runtime matrix:
-    (multiplicity, minimum_beam_dy, maximum_beam_dy)
-   */
-
   Real straddle = 0;
   Real sit = beam_f / 2 - staffline_f / 2;
   Real hang = space - beam_f / 2 + staffline_f / 2;
@@ -625,63 +583,39 @@ Beam::quantise_left_y (bool extend_b)
     For simplicity, we'll assume dir = UP and correct if 
     dir = DOWN afterwards.
    */
-  // isn't this asymmetric ? --hwn
   
-  Real dy_f = get_direction () * left_y_;
+  int multiplicity = get_multiplicity ();
 
-  Real beamdx_f = stem (stem_count () -1)->hpos_f () - first_visible_stem ()->hpos_f ();
-  Real beamdy_f = beamdx_f * slope_f_;
 
   Array<Real> allowed_position;
-  if (q == ly_symbol2scm ("normal"))
+  if (s == ly_symbol2scm ("normal"))
     {
-      if ((multiplicity_i_ <= 2) || (abs (beamdy_f) >= staffline_f / 2))
+      if ((multiplicity <= 2) || (abs (dy) >= staffline_f / 2))
 	allowed_position.push (straddle);
-      if ((multiplicity_i_ <= 1) || (abs (beamdy_f) >= staffline_f / 2))
+      if ((multiplicity <= 1) || (abs (dy) >= staffline_f / 2))
 	allowed_position.push (sit);
       allowed_position.push (hang);
     }
-  else if (q == ly_symbol2scm ("traditional"))
+  else if (s == ly_symbol2scm ("traditional"))
     {
       // TODO: check and fix TRADITIONAL
-      if ((multiplicity_i_ <= 2) || (abs (beamdy_f) >= staffline_f / 2))
+      if ((multiplicity <= 2) || (abs (dy) >= staffline_f / 2))
 	allowed_position.push (straddle);
-      if ((multiplicity_i_ <= 1) && (beamdy_f <= staffline_f / 2))
+      if ((multiplicity <= 1) && (dy <= staffline_f / 2))
 	allowed_position.push (sit);
-      if (beamdy_f >= -staffline_f / 2)
+      if (dy >= -staffline_f / 2)
 	allowed_position.push (hang);
     }
 
+  Real up_y = get_direction () * y;
+  Interval iv = quantise_iv (allowed_position, space, up_y);
 
-  Interval iv = quantise_iv (allowed_position, space, dy_f);
+  Real q = up_y - iv[SMALLER] <= iv[BIGGER] - up_y 
+    ? iv[SMALLER] : iv[BIGGER];
+  if (quant_dir)
+    q = iv[(Direction)quant_dir];
 
-  Real quanty_f = dy_f - iv[SMALLER] <= iv[BIGGER] - dy_f ? iv[SMALLER] : iv[BIGGER];
-  if (extend_b)
-    quanty_f = iv[BIGGER];
-
-  left_y_ = get_direction () * quanty_f;
-}
-
-void
-Beam::set_stemlens ()
-{
-  Real staffline_f = paper_l ()->get_var ("stafflinethickness");
-  // enge floots
-  Real epsilon_f = staffline_f / 8;
-
-
-  // je bent zelf eng --hwn.
-  Real dy_f = check_stemlengths_f (false);
-  for (int i = 0; i < 2; i++)	// 2 ?
-    { 
-      left_y_ += dy_f * get_direction ();
-      quantise_left_y (dy_f);
-      dy_f = check_stemlengths_f (true);
-      if (abs (dy_f) <= epsilon_f)
-        {
-	  break;
-	}
-    }
+  return q * get_direction ();
 }
 
 void
@@ -692,25 +626,11 @@ Beam::set_beaming (Beaming_info_list *beaming)
     {
       do
 	{
-	  if (stem (i)->beams_i_drul_[d] < 0)
-	    stem (i)->beams_i_drul_[d] = beaming->infos_.elem (i).beams_i_drul_[d];
+	  if (stem (i)->beam_count (d) == 0)
+	    stem (i)->set_beaming ( beaming->infos_.elem (i).beams_i_drul_[d],d);
 	}
       while (flip (&d) != LEFT);
     }
-}
-
-
-void
-Beam::do_add_processing ()
-{
-  for (int i=0; i < stem_count () ; i++) 
-    {
-      Direction d = LEFT;
-      do {
-	multiplicity_i_ = multiplicity_i_ >? stem (i)->beams_i_drul_[d];
-      } while ((flip (&d)) != LEFT);
-    }
-
 }
 
 
@@ -718,6 +638,7 @@ Beam::do_add_processing ()
 /*
   beams to go with one stem.
 
+  BURP
   clean  me up.
   */
 Molecule
@@ -728,12 +649,17 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       programming_error ("Beams are not left-to-right");
 
   Real staffline_f = paper_l ()->get_var ("stafflinethickness");
-  Real interbeam_f = paper_l ()->interbeam_f (multiplicity_i_);
+  int   multiplicity = get_multiplicity ();
+
+
+  Real interbeam_f = paper_l ()->interbeam_f (multiplicity);
   Real beam_f = gh_scm2double (get_elt_property ("beam-thickness"));;
 
   Real dy = interbeam_f;
   Real stemdx = staffline_f;
-  Real sl = slope_f_;
+
+  Real dx = last_visible_stem ()->hpos_f () - first_visible_stem ()->hpos_f ();
+  Real dydx = get_real ("height")/dx;
 
   Molecule leftbeams;
   Molecule rightbeams;
@@ -752,8 +678,8 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
   /* half beams extending to the left. */
   if (prev)
     {
-      int lhalfs= lhalfs = here->beams_i_drul_[LEFT] - prev->beams_i_drul_[RIGHT] ;
-      int lwholebeams= here->beams_i_drul_[LEFT] <? prev->beams_i_drul_[RIGHT] ;
+      int lhalfs= lhalfs = here->beam_count (LEFT) - prev->beam_count (RIGHT);
+      int lwholebeams= here->beam_count (LEFT) <? prev->beam_count (RIGHT) ;
       /*
        Half beam should be one note-width, 
        but let's make sure two half-beams never touch
@@ -762,8 +688,8 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       w = w/2 <? nw_f;
       Molecule a;
       if (lhalfs)		// generates warnings if not
-	a =  lookup_l ()->beam (sl, w, beam_f);
-      a.translate (Offset (-w, -w * sl));
+	a =  lookup_l ()->beam (dydx, w, beam_f);
+      a.translate (Offset (-w, -w * dydx));
       for (int j = 0; j  < lhalfs; j++)
 	{
 	  Molecule b (a);
@@ -774,11 +700,11 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 
   if (next)
     {
-      int rhalfs = here->beams_i_drul_[RIGHT] - next->beams_i_drul_[LEFT];
-      int rwholebeams = here->beams_i_drul_[RIGHT] <? next->beams_i_drul_[LEFT];
+      int rhalfs  = here->beam_count (RIGHT) - next->beam_count (LEFT);
+      int rwholebeams= here->beam_count (RIGHT) <? next->beam_count (LEFT) ;
 
       Real w = next->hpos_f () - here->hpos_f ();
-      Molecule a = lookup_l ()->beam (sl, w + stemdx, beam_f);
+      Molecule a = lookup_l ()->beam (dydx, w + stemdx, beam_f);
       a.translate_axis( - stemdx/2, X_AXIS);
       int j = 0;
       Real gap_f = 0;
@@ -798,7 +724,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 	  // TODO: notehead widths differ for different types
 	  gap_f = nw_f / 2;
 	  w -= 2 * gap_f;
-	  a = lookup_l ()->beam (sl, w + stemdx, beam_f);
+	  a = lookup_l ()->beam (dydx, w + stemdx, beam_f);
 	}
 
       for (; j  < rwholebeams; j++)
@@ -813,7 +739,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 
       w = w/2 <? nw_f;
       if (rhalfs)
-	a = lookup_l ()->beam (sl, w, beam_f);
+	a = lookup_l ()->beam (dydx, w, beam_f);
 
       for (; j  < rwholebeams + rhalfs; j++)
 	{
@@ -833,3 +759,120 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 }
 
 
+Molecule*
+Beam::do_brew_molecule_p () const
+{
+  Molecule *mol_p = new Molecule;
+  if (!stem_count ())
+    return mol_p;
+  
+  Real x0 = first_visible_stem ()->hpos_f ();
+  Real dx = last_visible_stem ()->hpos_f () - x0;
+  Real dydx = get_real ("height")/dx;
+  Real y = get_real ("y-position");
+  for (int j=0; j <stem_count (); j++)
+    {
+      Stem *i = stem (j);
+      Stem * prev = (j > 0)? stem (j-1) : 0;
+      Stem * next = (j < stem_count ()-1) ? stem (j+1) :0;
+
+      Molecule sb = stem_beams (i, next, prev);
+      Real x = i->hpos_f ()-x0;
+      sb.translate (Offset (x, x * dydx + y));
+      mol_p->add_molecule (sb);
+    }
+  mol_p->translate_axis (x0 
+    - spanned_drul_[LEFT]->relative_coordinate (0, X_AXIS), X_AXIS);
+
+  return mol_p;
+}
+
+int
+Beam::forced_stem_count () const
+{
+  int f = 0;
+  for (int i=0; i < stem_count (); i++)
+    {
+      Stem *s = stem (i);
+
+      if (s->invisible_b ())
+	continue;
+
+      if (((int)s->chord_start_f ()) 
+        && (s->get_direction () != s->get_default_dir ()))
+        f++;
+    }
+  return f;
+}
+
+
+
+/*
+  TODO: Fix this class. This is wildly inefficient.
+  And it sux.  Yet another array/list 'interface'.
+ */
+Stem *
+Beam::stem (int i) const
+{
+  return Group_interface__extract_elements ((Beam*) this, (Stem*) 0, "stems")[i];
+}
+
+int
+Beam::stem_count () const
+{
+  Group_interface gi (this, "stems");
+  return gi.count ();
+}
+
+Stem*
+Beam::stem_top () const
+{
+  SCM s = get_elt_property ("stems");
+  
+  return gh_pair_p (s) ? dynamic_cast<Stem*> (unsmob_element (gh_car (s))) : 0;
+    
+  //Group_interface__extract_elements ((Beam*) this, (Stem*) 0, "stems")[stem_count () - 1];
+}
+
+/* burp */
+int
+Beam::visible_stem_count () const
+{
+  int c = 0;
+  for (int i = 0; i < stem_count (); i++)
+    {
+      if (!stem (i)->invisible_b ())
+        c++;
+    }
+  return c;
+}
+
+Stem*
+Beam::first_visible_stem () const
+{
+  for (int i = 0; i < stem_count (); i++)
+    {
+      Stem* s = stem (i);
+      if (!s->invisible_b ())
+        return s;
+    }
+
+  assert (0);
+
+  return 0;
+}
+
+Stem*
+Beam::last_visible_stem () const
+{
+  for (int i = stem_count (); i > 0; i--)
+    {
+      Stem* s = stem (i - 1);
+      if (!s->invisible_b ())
+        return s;
+    }
+
+  assert (0);
+  // sigh
+  return 0;
+}

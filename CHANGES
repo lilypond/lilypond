@@ -1,4 +1,18 @@
+pl 11.jcn3
+	- small beam fixes (interstaff knees still broken)
 
+pl 11.hwn1
+	- bf: dots
+	- bf: harmonic note heads
+	- revise stem, notehead, rest
+
+pl 11.jcn2
+ 	- included missing scm,ly updates
+	- bf: urg to_dir () takes scm..
+	- bf's: if (Foo b = bar != 1)
+	- beam cleanup
+
+************
 pl 10.uu1
 	- various small bfs
 	- bf: alignment reversed
