@@ -696,10 +696,12 @@ dit(code(\clef) var(clefname)) This command sets the current clef for notation,
     \clef "treble"; c'4
     \clef "alto"; c'4    
   )
-dit(code(\key) var(pitch)) This command changes the current key signature.  The
-  key signature is printed at the start of every line.  The argument
-  is the name of the corresponding major key.  The key of C-minor can 
-  thus be specified as `code(\key es)'.
+dit(code(\key) var(pitch) var(type)) This command changes the current
+  key signature.  The key signature is printed at the start of every
+  line. The var(type) argument is set to code(\major) or code(\minor)
+  to get major or minor keys, respectively. Omitting the second
+  argument gives major keys. The key of C-minor can thus be specified
+  as `code(\key es)' or `code(\key \c minor)'. 
   
 dit(code(\keysignature) var(pitchlist))
 

@@ -43,9 +43,9 @@ Ps_lookup::~Ps_lookup ()
 }
 
 Atom
-Ps_lookup::afm_find (String s) const
+Ps_lookup::afm_find (String s, bool warn) const
 {
-  return Lookup::afm_find (s, String ("(\\%03o) show "));
+  return Lookup::afm_find (s, String ("(\\%03o) show "), warn);
 }
 
 Atom*

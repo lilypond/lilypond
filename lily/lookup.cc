@@ -65,7 +65,7 @@ Lookup::add (String s, Symtable*p)
 }
 
 Atom
-Lookup::afm_find (String s, String str) const
+Lookup::afm_find (String s, String str, bool warn) const
 {
   if (!afm_p_)
     {
@@ -74,7 +74,7 @@ Lookup::afm_find (String s, String str) const
       *mlog << "]" << flush ;
       DOUT << this->afm_p_->str ();
     }
-  Adobe_font_char_metric m = afm_p_->find_char (s);
+  Adobe_font_char_metric m = afm_p_->find_char (s, warn);
 
   Atom a;
   if (m.code () < 0)
@@ -229,11 +229,11 @@ Atom
 Lookup::special_time_signature (String s, Array<Scalar> arr) const
 {
   String symbolname = "timesig-"+s+"%/%";
-  Atom a (afm_find (substitute_args (symbolname, arr)));
+  Atom a (afm_find (substitute_args (symbolname, arr), false));
   if (!a.empty ()) 
     return a;
   // Try if the full name was given
-  a = afm_find ("timesig-"+s);
+  a = afm_find ("timesig-"+s, false);
   if (!a.empty ()) 
     return a;
   // Resort to default layout with numbers
