@@ -4,14 +4,14 @@
 
 #include "string.hh"
 #include "string-convert.hh"
-#include "lexer.hh"
+#include "my-lily-lexer.hh"
 #include "varray.hh"
 #include "parser.hh"
 #include "debug.hh"
 #include "input-score.hh"
 #include "parseconstruct.hh"
 #include "main.hh"
-#include "identparent.hh"
+#include "identifier.hh"
 
 #define start_quote()	\
 	yy_push_state(quote);\
@@ -25,13 +25,13 @@
 %option nodefault
 %option yylineno
 %option debug
-%option yyclass="My_flex_lexer"
+%option yyclass="My_lily_lexer"
 %option stack
 
-%x notes
 %x incl
-%x quote
 %x lyrics
+%x notes
+%x quote
 
 
 
@@ -48,23 +48,32 @@ WORD		{A}{AN}*
 ALPHAWORD	{A}+
 INT		-?{N}+
 REAL		{INT}?(\.{N}*)?
-
-OPTSIGN		!?
-PITCHMOD	['`]*{OPTSIGN}
-RESTNAME	r|s|p
+KEYWORD		\\{WORD}
+WHITE		[ \n\t\f]
+BLACK		[^ \n\t\f]
+RESTNAME	r
 NOTECOMMAND	\\{WORD}
 DOTS		\.+
-LYRICS		{TEX}+
-COMMENT		[%#].*\n
+LYRICS		{AA}[^0-9 \t\n\f]*
+COMMENT		%.*\n
 
 %%
 
-\$		{
-	yy_push_state(notes); 
+<lyrics,INITIAL,notes>{COMMENT}	{
 }
 
-\@		{
-	yy_push_state(lyrics); 
+
+
+^include           {
+	yy_push_state(incl);
+}
+<incl>{WHITE}*      { /* eat the whitespace */ }
+<incl>\"[^"]*\"   { /* got the include file name */
+   String s (YYText()+1);
+   s = s.left_str(s.length_i()-1);
+   defined_ch_c_l = here_ch_c_l() - String( YYText() ).length_i() - 1;
+   new_input(s);
+   yy_pop_state();
 }
 
 <notes>{RESTNAME} 	{
@@ -73,32 +82,23 @@ COMMENT		[%#].*\n
 	mtor << "rest:"<< yylval.string;
 	return RESTNAME;
 }
-<notes>{ALPHAWORD}	{
-	String str = YYText();
-	mtor << "word: " << str<< eol;
-	Identifier * id = lookup_identifier(str);
-	if (id) {		
-		yylval.id = id;
-		return id->token_code_i_;
-	}
-
-	yylval.string=new String( str );
-	return STRING;
+<INITIAL,lyrics,notes>\$\\{BLACK}*{WHITE}	{
+	String s=YYText() + 2;
+	s=s.left_str(s.length_i() - 1);
+	return scan_escaped_word(s);
 }
+<INITIAL,lyrics,notes>\${BLACK}*{WHITE}		{
+	String s=YYText() + 1;
+	s=s.left_str(s.length_i() - 1);
+	return scan_bare_word(s);
+}
+<notes>{ALPHAWORD}	{
+	return scan_bare_word(YYText());
+
+}
+
 <notes>{NOTECOMMAND}	{
-	String c = YYText() +1;
-	mtor << "\\word: " << YYText()+1<<eol;
-	int l = lookup_keyword(c);
-	if (l != -1)
-		return l;
-	Identifier * id = lookup_identifier(c);
-	if (id) {		
-		yylval.id = id;
-		return id->token_code_i_;
-	}
-	String *sp = new String( c);
-	yylval.string=sp;
-	return STRING;
+	return scan_escaped_word(YYText()+1);
 }
 
 <notes>{DOTS}		{
@@ -109,13 +109,11 @@ COMMENT		[%#].*\n
 	yylval.i = String_convert::dec2_i( String( YYText() ) );
 	return INT;
 }
-<notes>{COMMENT}	{
-}
 <notes>[ \t\n]+		{
 
 }
-<notes>\$	{
-	yy_pop_state();
+<notes>\+\+		{
+	return CONCAT;
 }
 <notes>\" {
 	start_quote();
@@ -127,6 +125,9 @@ COMMENT		[%#].*\n
 
 \"		{
 	start_quote();
+}
+<quote>\\\"	{
+	*yylval.string +='\"';
 }
 <quote>[^"]+	{
 	*yylval.string += YYText();
@@ -149,30 +150,7 @@ COMMENT		[%#].*\n
 	return INT;
 }
 <lyrics>{NOTECOMMAND}	{
-	String c = YYText() +1;
-	mtor << "\\word: " << YYText()+1<<eol;
-	int l = lookup_keyword(c);
-	if (l != -1)
-		return l;
-
-/* let's try passing tex's typesetting macros like \ss \alpha \c */
-	String* str_p = new String(YYText());
-	yylval.string=str_p;
-	mtor << "\\word: `" << *str_p << "'\n";
-	return STRING;	
-
-/* and skip identifiers...
-	Identifier * id = lookup_identifier(c);
-	if (id) {		
-		yylval.id = id;
-		return IDENTIFIER;
-	}
-	String *sp = new String( c);
-
-	yylval.string=sp;
-
-	return STRING;
-*/
+	return scan_escaped_word(YYText()+1);
 }
 <lyrics>{LYRICS} {
 	/* ugr. This sux. */
@@ -192,9 +170,6 @@ COMMENT		[%#].*\n
 <lyrics>\|	{
 	return YYText()[0];
 }
-<lyrics>{COMMENT}		{ 
-
-}
 <lyrics>[{}]	{
 	return YYText()[0];
 }
@@ -203,9 +178,6 @@ COMMENT		[%#].*\n
 }
 <lyrics>[ \t\n]+		{
 }
-<lyrics>@	{
-	yy_pop_state();
-}
 
 <<EOF>> {
 	mtor << "<<EOF>>";
@@ -213,38 +185,12 @@ COMMENT		[%#].*\n
 	if (! close_input())
  	  yyterminate(); // can't move this, since it actually rets a YY_NULL
 }
-
-
-include           {
-	yy_push_state(incl);
+{WORD}	{
+	return scan_bare_word(YYText());
 }
-<incl>[ \t]*      { /* eat the whitespace */ }
-<incl>\"[^"]*\"+   { /* got the include file name */
-   String s (YYText()+1);
-   s = s.left_str(s.length_i()-1);
-   defined_ch_c_l = here_ch_c_l() - String( YYText() ).length_i() - 1;
-   new_input(s);
-   yy_pop_state();
+{KEYWORD}	{
+	return scan_escaped_word(YYText()+1);
 }
-
-
-{WORD}		{
-	mtor << "word: " << YYText()<<eol;
-	String c = YYText();
-	int l = lookup_keyword(c);
-	if (l != -1)
-		return l;
-	Identifier * id = lookup_identifier(c);
-	if (id) {		
-		yylval.id = id;
-		return IDENTIFIER;
-	}
-	String *sp = new String( c);
-	mtor << "new id: " << *sp << eol;
-	yylval.string=sp;
-	return STRING;
-}
-
 {REAL}		{
 	Real r;
 	int cnv=sscanf (YYText(), "%lf", &r);
@@ -278,3 +224,59 @@ include           {
 
 %%
 
+void
+My_lily_lexer::push_note_state()
+{
+	yy_push_state(notes);
+}
+
+void
+My_lily_lexer::push_lyric_state()
+{
+	yy_push_state(lyrics);
+}
+void
+My_lily_lexer::pop_state()
+{
+	yy_pop_state();
+}
+
+int
+My_lily_lexer::scan_escaped_word(String str)
+{	
+	mtor << "\\word: `" << str<<"'\n";
+	int l = lookup_keyword(str);
+	if (l != -1) {
+		mtor << "(keyword)\n";
+		return l;
+	}
+	String *sp = new String( str);
+	yylval.string=sp;
+	return STRING;
+}
+int
+My_lily_lexer::scan_bare_word(String str)
+{
+	mtor << "word: `" << str<< "'\n";	
+	Identifier * id = lookup_identifier(str);
+	if (id) {
+		mtor << "(identifier)\n";
+		yylval.id = id;
+		return id->token_code_i_;
+	}
+
+	yylval.string=new String( str );
+	return STRING;
+}
+
+bool
+My_lily_lexer::note_state_b() const
+{
+	return YY_START == notes;
+}
+
+bool
+My_lily_lexer::lyric_state_b() const
+{
+	return YY_START == lyrics;
+}

@@ -1,13 +1,16 @@
 %{ // -*-Fundamental-*-
 #include <iostream.h>
-
+#include "script-def.hh"
+#include "symtable.hh"
 #include "lookup.hh"
 #include "misc.hh"
-#include "lexer.hh"
+#include "my-lily-lexer.hh"
 #include "paper-def.hh"
 #include "midi-def.hh"
-#include "input-score.hh"
 #include "main.hh"
+#include "input-score.hh"
+#include "input-staff.hh"
+#include "input-music.hh"
 #include "keyword.hh"
 #include "debug.hh"
 #include "parseconstruct.hh"
@@ -27,7 +30,7 @@ Paper_def*default_paper();
 char const* defined_ch_c_l;
 char const* req_defined_ch_c_l;
 int fatal_error_i = 0;
-
+bool init_parse_b;
 %}
 
 
@@ -69,15 +72,14 @@ int fatal_error_i = 0;
 %token CADENZA
 %token CLEF
 %token CM_T
-%token COMMAND
-%token COMMANDS
+%token CONCAT
 %token DURATIONCOMMAND
 %token DYNAMIC
 %token END
 %token GEOMETRIC
-%token GOTO
 %token GROUPING
 %token IN_T
+%token LYRICS
 %token KEY
 %token MELODIC
 %token METER
@@ -99,22 +101,25 @@ int fatal_error_i = 0;
 %token STEM
 %token SYMBOLTABLES
 %token TABLE
-%token TABLE
+%token TRANSPOSE
 %token TEMPO
 %token TEXID
 %token TEXTSTYLE
 %token TITLE
 %token UNITSPACE
-%token VOICE
-%token VOICES
 %token WIDTH
 
 %token <i>	DOTS
 %token <i>	INT
 %token <id>	IDENTIFIER
 %token <id>	MELODIC_REQUEST_IDENTIFIER 
+%token <id>	CHORD_IDENTIFIER
+%token <id>	VOICE_IDENTIFIER
 %token <id>	POST_REQUEST_IDENTIFIER
+%token <id>	SCRIPT_IDENTIFIER
+%token <id>	STAFF_IDENTIFIER
 %token <id>	REAL_IDENTIFIER
+%token <id>	SCORE_IDENTIFIER
 %token <id>	REQUEST_IDENTIFIER
 %token <real>	REAL 
 %token <string>	DURATION RESTNAME
@@ -122,7 +127,7 @@ int fatal_error_i = 0;
 
 %type <box>	box
 %type <c>	open_request_parens close_request_parens close_plet_parens
-%type <chord>	music_chord music_chord_body
+%type <chord>	music_chord music_chord_body  init_music_chord
 %type <el>	voice_elt full_element lyrics_elt command_elt
 %type <i>	int
 %type <i>	octave_quotes octave_quote
@@ -133,14 +138,14 @@ int fatal_error_i = 0;
 %type <interval>	dinterval
 %type <intvec>	intastint_list
 %type <lookup>	symtables symtables_body
-%type <melreq>	melodic_request
+%type <melreq>	melodic_request steno_melodic_req
 %type <notereq>	steno_note_req
 %type <melreqvec>	pitch_list 
 %type <midi>	midi_block midi_body
 %type <moment>	duration_length
-%type <music>	music 
-%type <mvoice>	 music_voice_body music_voice 
-
+%type <music>	init_music
+%type <mvoice>	 transposed_music_voice init_lyrics_voice
+%type <mvoice>	music_voice_body music_voice  init_music_voice 
 %type <paper>	paper_block paper_body
 %type <real>	dim real
 %type <real>	unit
@@ -153,6 +158,11 @@ int fatal_error_i = 0;
 %type <symbol>	symboldef
 %type <symtable>	symtable symtable_body
 %type <textdef>	mudela_text
+
+
+%left PRIORITY
+
+%expect 1	/* have to fix this. */
 
 %%
 
@@ -169,33 +179,48 @@ mudela:	/* empty */
 */
 add_declaration: declaration	{
 		lexer->add_identifier($1);
+		$1->init_b_ = init_parse_b;
+		$1->defined_ch_C_ = define_spots.pop();
 	}
 	;
 
 declarable_identifier:
-	STRING { $$ = $1;
-	   if (lexer->lookup_identifier(*$1))
+	STRING {
+		define_spots.push(lexer->here_ch_c_l());
+	    $$ = $1;
+	    if (lexer->lookup_identifier(*$1))
 		warning("redeclaration of `" + *$1 + "'",
 			lexer->here_ch_c_l());
 	}
-	| IDENTIFIER { $$ = new String($1->name); }
+	| IDENTIFIER { 
+		define_spots.push(lexer->here_ch_c_l());
+		$$ = new String($1->name); 
+	}
 	;
 
 declaration:
-	declarable_identifier '=' staff_block  {
-		$$ = new Staff_id(*$1, $3, IDENTIFIER);
+	declarable_identifier '=' score_block {
+		$$ = new Score_id(*$1, $3, SCORE_IDENTIFIER);
+		delete $1;
+	}
+	| declarable_identifier '=' staff_block  {
+		$$ = new Staff_id(*$1, $3, STAFF_IDENTIFIER);
 		delete $1; 
 	}
-	| declarable_identifier '=' music_voice {
-		$$ = new M_voice_id(*$1, $3, IDENTIFIER);
+	| declarable_identifier '=' init_music_voice {
+		$$ = new M_voice_id(*$1, $3, VOICE_IDENTIFIER);
+		delete $1;
+	}
+	| declarable_identifier '=' init_lyrics_voice {
+		$$ = new M_voice_id(*$1, $3, VOICE_IDENTIFIER);
 		delete $1;
 	}
 	| declarable_identifier '=' script_definition {
-		$$ = new Script_id(*$1, $3, IDENTIFIER);
+		$$ = new Script_id(*$1, $3, SCRIPT_IDENTIFIER);
 		delete $1;
 	}
-	| declarable_identifier '=' music_chord  {
-		$$ = new M_chord_id(*$1, $3, IDENTIFIER);
+	| declarable_identifier '=' init_music_chord  {
+		$$ = new M_chord_id(*$1, $3, CHORD_IDENTIFIER);
 		delete $1;
 	}
 	| declarable_identifier '=' symtables {
@@ -234,21 +259,16 @@ score_block:
 		/* handle error levels. */
 		$$->errorlevel_i_ = lexer->errorlevel_i_;
 		lexer->errorlevel_i_ = 0;
-
-		/* unbarf score without global music. */
-		if (!$$-> score_wide_music_p_) {
-			$$-> score_wide_music_p_ = new Music_voice; 
-		}
 	}
 	;
 
 score_body:		{ 
 		$$ = new Input_score; 
 	}
-	| score_body staff_block	{ $$->add($2); }
-	| score_body COMMANDS '{' music_voice_body '}'		{
-		$$->set($4);
+	| SCORE_IDENTIFIER {
+		$$ = $1->score(true);
 	}
+	| score_body staff_block	{ $$->add($2); }
 	| score_body paper_block		{ $$->set($2);	}
 	| score_body midi_block		{ $$->set($2);	}
 	| score_body error {
@@ -269,7 +289,6 @@ intastint_list:
 */
 paper_block:
 	PAPER
-
 	'{' paper_body '}' 	{ $$ = $3; }
 	;
 
@@ -327,7 +346,7 @@ staff_block:
 
 
 staff_init:
-	IDENTIFIER		{ $$ = $1->staff(true); }
+	STAFF_IDENTIFIER		{ $$ = $1->staff(true); }
 	| STRING		{
 		$$ = new Input_staff(*$1);
 		delete $1;
@@ -339,10 +358,7 @@ staff_init:
 
 staff_body:
 	staff_init
-	| staff_body COMMANDS '{' music_voice_body '}'	{
-		$$->set_score_wide($4);
-	}
-	| staff_body music	{
+	| staff_body init_music	{
 		$2->set_default_group( "staff_music" + String($$->music_.size()));
 		$$->add($2);
 	}
@@ -351,43 +367,79 @@ staff_body:
 	;
 
 /*
-	MUSIC
+	let the lexer switch mode.
 */
-music:
-	music_voice	{ $$ = $1; }
-	| music_chord	{ $$ = $1; }
+init_music:
+	init_music_voice	{ $$ = $1; }
+	| init_music_chord	{ $$ = $1; }
+	| init_lyrics_voice	{ $$ = $1; }
 	;
 
-music_voice:  MUSIC '{' music_voice_body '}'	{ $$ = $3; }
+init_lyrics_voice:
+	LYRICS { lexer->push_lyric_state(); } 
+	music_voice { $$ = $3; lexer->pop_state(); }
+	;
+
+init_music_voice:
+	MUSIC { lexer->push_note_state(); } 
+	/* cont*/ music_voice
+		{ $$=$3; lexer->pop_state(); }
+	;
+init_music_chord:
+	MUSIC { lexer->push_note_state(); } 
+	/* cont*/ music_chord
+		  { $$=$3; lexer->pop_state(); }
+	;
+/*
+	MUSIC
+*/
+
+
+
+transposed_music_voice:
+	steno_melodic_req music_voice { 
+		$$ = $2;
+		$$->transpose(*$1);
+		delete $1;
+	}
+	;
+
+music_voice:  '{' music_voice_body '}'	{ $$ = $2; }
+	| TRANSPOSE '{' transposed_music_voice '}' {
+		$$ = $3;
+	}
 	;
 
 music_voice_body:
-	IDENTIFIER {
+	VOICE_IDENTIFIER {
 		$$ = $1->mvoice(true);
 	}
 	| /* */ 	{
 		$$ = new Music_voice;
-	}
-	| music_voice_body '+' IDENTIFIER {
-		$$->concatenate($3->mvoice(true));
 	}
 	| music_voice_body full_element {
 		$$->add_elt($2);
 	}
 	| music_voice_body voice_command {
 	}
-	| music_voice_body music	{
+	| music_voice_body music_chord	{
 		$$->add($2);
+	}
+	| music_voice_body CONCAT music_voice	{
+		$$->add($3);/* niet echt */
 	}
 	| music_voice_body error {
 	}
-	;
+	| music_voice_body '>' {
+		fatal_error_i = 1;
+		yyerror("Confused by errors: bailing out");
+	};
 
-music_chord:  '{' music_chord_body '}'	{ $$ = $2; }
+music_chord:  '<' music_chord_body '>'	{ $$ = $2; }
 	;
 
 music_chord_body:
-	IDENTIFIER {
+	CHORD_IDENTIFIER {
 		$$=$1->mchord(true);
 	}
 	| /* */	{
@@ -396,14 +448,15 @@ music_chord_body:
 	| MULTIVOICE {
 		$$ = new Multi_voice_chord;
 	}
-	| music_chord_body '+' IDENTIFIER {
-		$$->concatenate($3->mchord(true));
-	}
-	| music_chord_body music {
+	| music_chord_body music_voice {
 		$$->add($2);
 	}
 	| music_chord_body full_element {
 		$$ ->add_elt($2);
+	}
+	| music_chord_body '}' {
+		fatal_error_i = 1;
+		yyerror("Confused by errors: bailing out");
 	}
 	| music_chord_body error {
 	}
@@ -446,11 +499,13 @@ command_req:
 		$$ = new Bar_req(*$2);
 		delete $2;
 	}
-	| METER '{' int '*' int '}'	{
+	| METER '{' int '/' int '}'	{
 		Meter_change_req *m = new Meter_change_req;
 		m->set($3,$5);
 		// sorry hw, i need meter at output of track,
 		// but don-t know where to get it... statics should go.
+		// HW : default: 4/4, meterchange reqs may change it.
+		
 		Midi_def::num_i_s = $3;
 		Midi_def::den_i_s = $5;
 		$$ = m;
@@ -520,7 +575,7 @@ pure_post_request:
 
 octave_quote:
 	'\''	 	{ $$ = 1; }
-	| '`'		{ $$ = -1; }
+	| '`'		{ $$ = -1 ; }
 	;
 
 octave_quotes:
@@ -531,36 +586,45 @@ octave_quotes:
 /*
 	URG!!
 */
-steno_note_req:
+steno_melodic_req:
 	MELODIC_REQUEST_IDENTIFIER	{
-		$$ = new Note_req;
-		* (Melodic_req *) $$ = *$1->request(false)->melodic();
+		$$ = $1->request(false)->clone()->melodic();
 		$$->octave_i_ += lexer->prefs.default_octave_i_;
 	}
-	| octave_quote steno_note_req	{  
-		$2-> octave_i_ += $1;
-		$$ = $2; //ugh!!
+	| steno_melodic_req '\'' 	{  
+		$$-> octave_i_ ++;
 	}
-	| '!' steno_note_req   		{
+	| '`' steno_melodic_req	 {  
 		$$ = $2;
-		$2->forceacc_b_ = ! $2->forceacc_b_;
+		$2-> octave_i_ --;
+	}
+	;
+
+steno_note_req:
+	steno_melodic_req	{
+		$$ = new Note_req;
+		* (Melodic_req *) $$ = *$1;
+		delete $1;
+	}
+	| steno_note_req   '!' 		{
+		$$->forceacc_b_ = ! $$->forceacc_b_;
 	} 
+	/* have to duration here. */
 	;
 
 melodic_request:
-	MELODIC '{' int int int int '}'	{/* ugh */
+	MELODIC '{' int int int '}'	{/* ugh */
 		$$ = new Melodic_req;
 		$$->octave_i_ = $3;
 		$$->notename_i_ = $4;
 		$$->accidental_i_ = $5;
-		$$->forceacc_b_ = $6;
 	}
 	;
 
 dynamic_req:
 	DYNAMIC '{' int '}'	{
 		Absolute_dynamic_req *ad_p = new Absolute_dynamic_req;
-		ad_p ->loudness_ = $3;
+		ad_p ->loudness_ = (Dynamic_req::Loudness)$3;
 		$$ =ad_p;
 	}
 	;
@@ -620,7 +684,7 @@ script_req:
 	;
 
 mudela_script:
-	IDENTIFIER		{ $$ = $1->script(true); }
+	SCRIPT_IDENTIFIER		{ $$ = $1->script(true); }
 	| script_definition		{ $$ = $1; }
 	| '^'		{ $$ = get_scriptdef('^'); }
 	| '+'		{ $$ = get_scriptdef('+'); }
@@ -739,6 +803,8 @@ default_duration:
 
 voice_elt:
 	steno_note_req notemode_duration 		{
+		if (!lexer->note_state_b())
+			yyerror("have to be in Note mode for notes");
 		$$ = get_note_element($1, $2);
 	}
 	| RESTNAME notemode_duration		{
@@ -749,7 +815,10 @@ voice_elt:
 
 lyrics_elt:
 	mudela_text notemode_duration 			{
+		if (!lexer->lyric_state_b())
+			yyerror("Have to be in Lyric mode for lyrics");
 		$$ = get_word_element($1, $2);
+
 	};
 
 /*
@@ -767,7 +836,7 @@ int:
 	real			{
 		$$ = int($1);
 		if ( distance($1,Real(int($$)) ) > 1e-8)
-			error( "integer expected", lexer->here_ch_c_l() );
+			yyerror( "integer expected" );
 	}
 	;
 
@@ -874,29 +943,30 @@ void
 parse_file(String init, String s)
 {
    *mlog << "Parsing ... ";
-   lexer = new My_flex_lexer;
+   lexer = new My_lily_lexer;
 
 #ifndef NPRINT
    yydebug = !monitor->silence("InitParser") && check_debug;
    lexer->set_debug( !monitor->silence("InitLexer") && check_debug);
 #endif
-
+	init_parse_b = true;
    lexer->new_input(init);
    yyparse();
 
 #ifndef NPRINT
    if (!monitor->silence("InitDeclarations") && check_debug)
-	lexer->print_declarations();
+	lexer->print_init_declarations();
 
    yydebug = !monitor->silence("Parser") && check_debug;
    lexer->set_debug( !monitor->silence("Lexer") && check_debug);
 #endif
-
+	init_parse_b = false;
    lexer->new_input(s);
    yyparse();
+
 #ifdef NPRINT
    if (!monitor->silence("Declarations") && check_debug)
-	lexer->print_declarations();
+	lexer->print_user_declarations();
 #endif
    delete lexer;
    lexer = 0;
