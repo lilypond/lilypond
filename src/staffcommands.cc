@@ -11,7 +11,7 @@ void
 Staff_commands_at::print() const
 {
 #ifndef NPRINT
-    PCursor<Command*> i (*this);
+    iter_top(*this,i);
     mtor << "Commands at: " ;
     tdescription_.print();
     
@@ -22,7 +22,7 @@ Staff_commands_at::print() const
 void
 Staff_commands_at::OK()const
 {
-    PCursor<Command*> i (*this);
+    iter_top(*this,i);
     for (; i.ok() && (i+1).ok(); i++)
 	if (!i->isbreak() && !(i+1)->isbreak())
 	    assert(i->priority >= (i+1)->priority);
@@ -37,7 +37,7 @@ Staff_commands_at::Staff_commands_at(Time_description m)
 bool
 Staff_commands_at::is_breakable()
 {
-    PCursor<Command*> i(*this);
+    iter_top(*this,i);
     for (; i.ok(); i++) {
 	if (i->isbreak())
 	    return true;
@@ -82,7 +82,7 @@ void
 Staff_commands_at::add_command_to_break(Command pre, Command mid,Command post)
 {
     assert(is_breakable());
-    PCursor<Command*> c ( *this), f(c), l(c);
+    iter_top(*this,c), f(c), l(c);
 
     while (!c->isbreak())
 	c++;
@@ -120,28 +120,19 @@ Staff_commands_at::add(Command c)
 
     if (c.code == INTERPRET)
     {				// UGH
+	Command typeset;	// kut met peren
+	typeset.code = TYPESET;
+	typeset.args = c.args;
 	if (c.args[0] == "BAR") {
-	    Command typeset;	// kut met peren
-	    typeset.code = TYPESET;
-	    typeset.args = c.args;
 	    typeset.priority = 100;
 	    add(typeset);
 	} else if (c.args[0] == "KEY") {
-	    Command typeset;
-	    typeset.code = TYPESET;
-	    typeset.args.add("KEY");
 	    typeset.priority = 70;
 	    add(typeset);
 	} else if (c.args[0] == "CLEF") {
-	    Command typeset;
-	    typeset.code = TYPESET;
-	    typeset.args=c.args;
 	    typeset.priority = 90;
 	    add(typeset);
 	} else if (c.args[0] == "METER") {
-	    Command typeset;
-	    typeset.code = TYPESET;
-	    typeset.args=c.args;
 	    typeset.priority = 40;
 	    add(typeset);
 	    return;
@@ -170,36 +161,40 @@ Staff_commands_at::add(Command c)
 		kc.priority = 80;
 		add(kc);
 	    }
-	}else if (c.args[0] == "METER" && is_breakable()) {
-	    mid = c;
-	    pre = c;
-	    post =c;
-	}else
-	if( c.args[0] == "KEY" && is_breakable()) {
+	}
+	if (is_breakable()) {
+	    if (c.args[0] == "METER") {
+		mid = c;
+		pre = c;
+		post =c;
+	    }else if( c.args[0] == "KEY") {
 
-	    mid = c;
-	    pre = c;
-	    post = c;
-	}else if (c.args[0] == "CURRENTKEY" && is_breakable() ){
-	    post = c;
+		mid = c;
+		pre = c;
+		post = c;
+	    }else if (c.args[0] == "CURRENTKEY" ){
+		post = c;
 
-	}else
-	if (c.args[0] == "CURRENTCLEF" && is_breakable() ){
-	    post = c;
+	    }else
+		if (c.args[0] == "CURRENTCLEF" ){
+		    post = c;
 
-	}else
-	if (c.args[0] == "CLEF" && is_breakable()) {
+		}else if (c.args[0] == "CLEF") {
 
-	    post = c;
-	    pre = c;
-	    mid = c;		       
+		    post = c;
+		    pre = c;
+		    mid = c;		       
+		}
 	}
     }
     
     if (encapsulate)
 	add_command_to_break(pre, mid, post);
     else {
-	bottom().add(new Command(c));
+	if (c.priority>0)
+	    top().insert(new Command(c));
+	else
+	    bottom().add(new Command(c));
     }
 }
 
@@ -210,7 +205,7 @@ void
 Staff_commands::OK() const
 {
 #ifndef NDEBUG
-    for (PCursor<Staff_commands_at*> i(*this); i.ok() && (i+1).ok(); i++) {
+    for (iter_top(*this,i); i.ok() && (i+1).ok(); i++) {
 	assert(i->tdescription_.when <= (i+1)->tdescription_.when);
 	i->OK();
     }
@@ -221,7 +216,7 @@ void
 Staff_commands::print() const
 {
 #ifndef NPRINT
-    for (PCursor<Staff_commands_at*> i(*this); i.ok() ; i++) {
+    for (iter_top(*this,i); i.ok() ; i++) {
 	i->print();
     }
 #endif
