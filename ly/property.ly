@@ -8,7 +8,7 @@ SEE THE REFERENCE MANUAL FOR EXPLANATIONS.
 
 %}
 
-\version "1.2.0";
+\version "1.2.16";
 
 %hmm, (these) abbrevs suck, imo
 % i guess they're meant as some form of doco
@@ -17,51 +17,27 @@ stemup =        \property Voice.verticalDirection = \up
 stemboth= 	\property Voice.verticalDirection = \center
 stemdown = 	\property Voice.verticalDirection = \down
 
-slurup = \notes {
-	s1*0
-	\property Voice.slurVerticalDirection = \up 
-	}
-slurboth= \notes {
-	s1*0
-	\property Voice.slurVerticalDirection = \center
-}
-slurdown = \notes { 	
-	s1*0
-	\property Voice.slurVerticalDirection = \down
-}
-
-shifton = \property Voice.horizontalNoteShift = 1
-shiftoff = \property Voice.horizontalNoteShift = 0
+slurup   = \property Voice.slurVerticalDirection = \up 
+slurboth = \property Voice.slurVerticalDirection = \center
+slurdown = \property Voice.slurVerticalDirection = \down
+shifton  = \property Voice.horizontalNoteShift = #1
+shiftoff = \property Voice.horizontalNoteShift = #0
 
 onevoice = { 	
 	\stemboth \shiftoff	
 }
 
-%{ THESE ARE DEPRECATED  %}
-voiceone = 
-	\context Voice = one  {
+voiceone = \stemup
+voicetwo = \stemdown
+voicethree = {
 	\stemup
-}
-
-voicetwo = 
-	\context Voice = two {
-	\stemdown
-}
-
-voicethree = 
-	\context Voice = three {
-	\stemup
-
-}
-
-voicefour = 
-	\context Voice = four {
-	\stemdown
 	\shifton
 }
 
-%{ END OF DEPRECATED %}
-
+voicefour = {
+	\stemdown
+	\shifton
+}
 
 % ugh, cluttering global namespace...
 
@@ -97,26 +73,26 @@ slurnormal =
 	\property Voice.slurDash = ""
 
 
-slurdotted = 
+slurdotted =				
 	\property Voice.slurDash = 1
 
 
-tupletoff = {
+tupletoff =
 	\property Voice.tupletVisibility = 0
-}
-tupleton = {
-	\property Voice.tupletVisibility = 3
-}
-tiny  = {
-	\property Voice.fontSize= "-2"
-}
 
-small  = {
-	\property Voice.fontSize= "-1"
-}
+tupleton = 
+	\property Voice.tupletVisibility = 3
+
+tiny  = 
+	\property Voice.fontSize= -2
+
+
+small  = 
+	\property Voice.fontSize= -1
+
 
 normalsize = {
-	\property Voice.fontSize= "0"
+	\property Voice.fontSize= 0
 }
 
 normalkey = {
@@ -130,13 +106,13 @@ specialkey = {
 % End the incipit and print a ``normal line start''.
 endincipit = \notes{
     \partial 16; s16  % Hack to handle e.g. \bar ".|"; \endincipit
-    \property Staff.clefStyle = "fullSizeChanges" 
+    \property Staff.clefStyle = #"fullSizeChanges" 
     \nobreak \bar "";
 }
 
-autoBeamOff = \property Voice.noAutoBeaming = "1"
-autoBeamOn = \property Voice.noAutoBeaming = ""
+autoBeamOff = \property Voice.noAutoBeaming = #t
+autoBeamOn = \property Voice.noAutoBeaming = ##f
 
 
-emptyText = \property Voice.textEmptyDimension = "1"
-fatText = \property Voice.textEmptyDimension = ""
+emptyText = \property Voice.textEmptyDimension = ##t
+fatText = \property Voice.textEmptyDimension = ##f

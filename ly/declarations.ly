@@ -34,8 +34,8 @@ lydian = 7
 phrygian = 8
 dorian = 10
 
-melisma = \property Staff.melismaBusy = "1"
-melismaEnd = \property Staff.melismaBusy = "0"
+melisma = \property Staff.melismaBusy = ##t
+melismaEnd = \property Staff.melismaBusy = ##f
 
 
 
