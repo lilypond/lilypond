@@ -26,10 +26,10 @@ const double WHOLE_SPACE = 5.0; // should be settable from input
 
   
 Real
-duration_to_idealspace(Mtime d)
+duration_to_idealspace(Mtime d, Real w)
 {
     // see  Roelofs, p. 57
-    return WHOLE_SPACE * pow(ENGRAVERS_SPACE, log2(d));
+    return w * pow(ENGRAVERS_SPACE, log2(d));
 }
 
 
