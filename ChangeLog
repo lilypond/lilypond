@@ -1,3 +1,8 @@
+2004-10-23  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/framework-tex.scm (convert-to-ps): add -E if filename
+	contains .preview.
+
 2004-10-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/lyric-extender.cc (print): only run to right-bound if
