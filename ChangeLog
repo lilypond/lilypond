@@ -1,5 +1,10 @@
 2004-12-26  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scm/output-gnome.scm (FIXME-glyph-string): New function.  Cannot
+	implement fully, need FONT to get to charcode.
+
+	* scm/lily.scm (ly:all-stencil-expressions): Add glyph-string.
+
 	* scm: Cleanups.
 
 	* Documentation/user/changing-defaults.itely: Fix internalsrefs

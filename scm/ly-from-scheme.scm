@@ -68,7 +68,8 @@ character."
                              (format out "\\~a" (create-binding! (read port))))
                             ;; just a $ character
                             ((and (char=? c #\$) (char=? (peek-char port) #\$))
-                             (display (read-char port) out))  ;; pop the second $
+			     ;; pop the second $
+                             (display (read-char port) out))
                             ;; a #scheme expression
                             ((char=? c #\#)
                              (let ((expr (read port)))

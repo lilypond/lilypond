@@ -18,7 +18,7 @@
   ;; spanner-state is an alist
   ;; of (SYMBOL . RESULT-INDEX), which indicates where
   ;; said spanner was started.
-  (spanner-state #:init-value '() #:accessor span-state) )
+  (spanner-state #:init-value '() #:accessor span-state))
   
 (define-method (write (x <Voice-state> ) file)
   (display (when x) file)
@@ -110,7 +110,6 @@ Voice-state objects
 	  ss-list)))
   (list->vector (reverse! (helper 0 '() 0  0) '())))
 
-
 (define (analyse-spanner-states voice-state-vec)
 
   (define (helper index active)
@@ -183,8 +182,6 @@ Voice-state objects
   
   (helper 0 '()))
 
-
-	
 (define noticed '())
 (define part-combine-listener '())
 
@@ -244,16 +241,16 @@ Only set if not set previously.
 	(let* ((vs1 (car (voice-states now-state)))
 	       (vs2 (cdr (voice-states now-state)))
 	       (notes1 (note-events vs1))
-	       (durs1	 (sort (map (lambda (x) (ly:music-property x 'duration))
-				    notes1)
-			       ly:duration<?))
+	       (durs1 (sort (map (lambda (x) (ly:music-property x 'duration))
+				 notes1)
+			    ly:duration<?))
 	       (pitches1 (sort (map (lambda (x) (ly:music-property x 'pitch))
 				    notes1)
 			       ly:pitch<?))
-	       (notes2	 (note-events vs2))
-	       (durs2	 (sort (map (lambda (x) (ly:music-property x 'duration))
-				    notes2)
-			       ly:duration<?))
+	       (notes2 (note-events vs2))
+	       (durs2 (sort (map (lambda (x) (ly:music-property x 'duration))
+				 notes2)
+			    ly:duration<?))
 	       (pitches2 (sort (map (lambda (x) (ly:music-property x 'pitch))
 				    notes2)
 			       ly:pitch<?)))
@@ -391,7 +388,8 @@ the mark when there are no spanners active."
 		     (try-solo type (1+ current-idx) (1+  current-idx)))
 		    (else
 		     (try-solo type start-idx (1+ current-idx)))))
-	    start-idx)) ; try-solo
+	    ;; try-solo
+	    start-idx))
       
       (define (analyse-moment result-idx)
 	"Analyse 'apart starting at RESULT-IDX. Return next index. "
@@ -405,8 +403,8 @@ the mark when there are no spanners active."
 	       (n1 (length notes1))
 	       (n2 (length notes2)))
 	  ;; (display (list "analyzing step " result-idx "  moment " (when now-state) vs1 vs2  "\n"))
-	  (max				; we should always increase.
-	   
+	  (max
+	   ;; we should always increase.
 	   (cond ((and (= n1 0) (= n2 0))
 		  (put 'apart-silence)
 		  (1+ result-idx))
@@ -420,7 +418,8 @@ the mark when there are no spanners active."
 		  (try-solo 'solo2 result-idx result-idx))
 		 
 		 (else (1+ result-idx)))
-	   (1+ result-idx)))) ; analyse-moment
+	   ;; analyse-moment
+	   (1+ result-idx))))
       
       (if (< result-idx (vector-length result))
 	  (if (equal? (configuration (vector-ref result result-idx)) 'apart)

@@ -3,7 +3,7 @@
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
 ;;;; (c)  1998--2004  Han-Wen Nienhuys <hanwen@cs.uu.nl>
-;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;;                  Jan Nieuwenhuizen <janneke@gnu.org>
 
 
 (define-public all-translation-properties '())
@@ -12,14 +12,12 @@
  (if (not (equal? #f (object-property symbol 'translation-doc)))
       (begin
 	(ly:warn  "Redefining ~S " symbol)
-	(exit 2)
-      ))
+	(exit 2)))
   
   (set-object-property! symbol 'translation-type? type?)
   (set-object-property! symbol 'translation-doc description)
   (set! all-translation-properties (cons symbol all-translation-properties))
-  symbol
-  )
+  symbol)
 
 (define-public all-user-translation-properties
   (map
@@ -497,8 +495,7 @@ to.")
      (tieMelismaBusy ,boolean? "Signal whether a tie is present.")
      (tweakCount ,number? "Number of otherwise unique Contexts.")
      (tweakRank ,number? "Identify otherwise unique Contexts.")
-     )
-   ))
+     )))
 
 (define-public all-translation-properties
   (append all-user-translation-properties

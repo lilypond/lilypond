@@ -3,7 +3,7 @@
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
 ;;;; (c)  1998--2004 Jan Nieuwenhuizen <janneke@gnu.org>
-;;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;;                 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 ;;; Note: this file can't be used without LilyPond executable
 
@@ -13,9 +13,9 @@
 (define-public (number-pair?  x)
   (and (pair? x)
        (number? (car x)) (number? (cdr x))))
+
 (define-public (number-or-grob? x)
-  (or (ly:grob? x) (number? x))
-  )
+  (or (ly:grob? x) (number? x)))
 
 (define-public (grob-list? x)
   (list? x))
@@ -33,11 +33,6 @@
 (define-public (scheme? x) #t)
 
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-
-
 ;; moved list to end of lily.scm: then all type-predicates are
 ;; defined.
 (define type-p-name-alist '()) 
@@ -47,9 +42,7 @@
       "Unknown type"
       (if (apply (caar alist) obj)
 	  (cdar alist)
-	  (match-predicate obj (cdr alist))
-	  )
-      ))
+	  (match-predicate obj (cdr alist)))))
 
 (define-public (object-type obj)
   (match-predicate obj type-p-name-alist))
@@ -57,5 +50,4 @@
 (define-public (type-name  predicate)
   (let ((entry (assoc predicate type-p-name-alist)))
     (if (pair? entry) (cdr entry)
-	"unknown"
-	)))
+	"unknown")))

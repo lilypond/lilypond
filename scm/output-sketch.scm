@@ -1,10 +1,9 @@
-
-;;; sketch.scm -- implement Scheme output routines for Sketch
-;;;
-;;;  source file of the GNU LilyPond music typesetter
-;;; 
-;;; (c)  1998--2004 Jan Nieuwenhuizen <janneke@gnu.org>
-;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;; sketch.scm -- implement Scheme output routines for Sketch
+;;;;
+;;;;  source file of the GNU LilyPond music typesetter
+;;;; 
+;;;; (c)  1998--2004 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;;                 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 
 ;; def dispats (out,x,y,expr):

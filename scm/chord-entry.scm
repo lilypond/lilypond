@@ -1,7 +1,8 @@
-;;;
-;;; Generate chord names for the parser.
-;;;
-;;;
+;;;; chord-entry.scm -- Generate chord names for the parser.
+;;;;
+;;;; source file of the GNU LilyPond music typesetter
+;;;; 
+;;;; (c) 2004 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 (define-public (construct-chord root duration modifications)
   " Build a chord on root using modifiers in MODIFICATIONS. NoteEvent
@@ -22,8 +23,8 @@ Entry point for the parser.
 	 (start-additions #t))
 
     (define (interpret-inversion chord mods)
-      "Read /FOO   part. Side effect: INVERSION is set."
-      (if (and (>  (length mods) 1) (eq? (car mods) 'chord-slash))
+      "Read /FOO part. Side effect: INVERSION is set."
+      (if (and (> (length mods) 1) (eq? (car mods) 'chord-slash))
 	  (begin
 	    (set! inversion (cadr mods))
 	    (set! mods (cddr mods))))
@@ -116,7 +117,7 @@ the bass specified.
 	     (ly:pitch?	 (car flat-mods))
 	     (not (eq? lead-mod sus-modifier)))
 	(begin
-	  (if (=  (pitch-step (car flat-mods)) 11)
+	  (if (= (pitch-step (car flat-mods)) 11)
 	      (set! explicit-11 #t))
 	  (set! base-chord
 		(stack-thirds (car flat-mods) the-canonical-chord))
@@ -185,24 +186,24 @@ DURATION, and INVERSION."
 ;;;;;;;;;;;;;;;;
 ; chord modifiers change the pitch list.
 
-(define (aug-modifier  pitches)
-  (set! pitches	 (replace-step (ly:make-pitch 0 4 SHARP) pitches))
+(define (aug-modifier pitches)
+  (set! pitches (replace-step (ly:make-pitch 0 4 SHARP) pitches))
   (replace-step (ly:make-pitch 0 2 0) pitches))
 
-(define (minor-modifier	 pitches)
+(define (minor-modifier pitches)
   (replace-step (ly:make-pitch 0 2 FLAT) pitches))
 
-(define (maj7-modifier	pitches)
+(define (maj7-modifier pitches)
   (set! pitches (remove-step 7 pitches))
   (cons (ly:make-pitch 0 6 0) pitches))
 
-(define (dim-modifier  pitches)
+(define (dim-modifier pitches)
   (set! pitches (replace-step (ly:make-pitch 0 2 FLAT) pitches))
   (set! pitches (replace-step (ly:make-pitch 0 4 FLAT) pitches))
   (set! pitches (replace-step (ly:make-pitch 0 6 DOUBLE-FLAT) pitches))
   pitches)
 
-(define (sus-modifier  pitches)
+(define (sus-modifier pitches)
   (remove-step (pitch-step (ly:make-pitch 0 2 0)) pitches))
 
 (define-public default-chord-modifier-list

@@ -1,9 +1,8 @@
-;;;
-;;; chord-ignatzek-names.scm --  chord name utility functions
-;;;
-;;; source file of the GNU LilyPond music typesetter
-;;; 
-;;; (c)  2000--2004  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;; chord-ignatzek-names.scm --  chord name utility functions
+;;;;
+;;;; source file of the GNU LilyPond music typesetter
+;;;; 
+;;;; (c)  2000--2004  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 
 
@@ -72,7 +71,7 @@
   (define name-note 
     (let ((nn (ly:context-property context 'chordNoteNamer)))
       (if (eq? nn '())
-					; replacing the next line with name-root gives guile-error...? -rz
+	  ;; replacing the next line with name-root gives guile-error...? -rz
 
 	  ;; apparently sequence of defines is equivalent to let, not let* ? -hwn
 	  (ly:context-property context 'chordRootNamer)	  
@@ -81,7 +80,6 @@
 
   (define (is-natural-alteration? p)
     (= (natural-chord-alteration p)  (ly:pitch-alteration p)))
-  
   
   (define (ignatzek-format-chord-name
 	   root
@@ -157,27 +155,24 @@ work than classifying the pitches."
 	
 	(make-line-markup total)))
 
-    (let*
-	(
-	 (sep (ly:context-property context 'chordNameSeparator))
-	 (root-markup (name-root root))
-	 (add-markups (map (lambda (x)
-			     (glue-word-to-step "add" x))
-			   addition-pitches))
-	 (filtered-alterations (filter-alterations alteration-pitches))
-	 (alterations (map name-step filtered-alterations))
-	 (suffixes (map suffix-modifier->markup suffix-modifiers))
-	 (prefixes (map prefix-modifier->markup prefix-modifiers))
-	 (main-markups (filter-main-name main-name))
-	 (to-be-raised-stuff (markup-join
-			      (append
-			       main-markups
-			       alterations
-			       suffixes
-			       add-markups) sep))
-	 (base-stuff (if (ly:pitch? bass-pitch)
-			 (list sep (name-note bass-pitch))
-			 '())))
+    (let* ((sep (ly:context-property context 'chordNameSeparator))
+	   (root-markup (name-root root))
+	   (add-markups (map (lambda (x) (glue-word-to-step "add" x))
+			     addition-pitches))
+	   (filtered-alterations (filter-alterations alteration-pitches))
+	   (alterations (map name-step filtered-alterations))
+	   (suffixes (map suffix-modifier->markup suffix-modifiers))
+	   (prefixes (map prefix-modifier->markup prefix-modifiers))
+	   (main-markups (filter-main-name main-name))
+	   (to-be-raised-stuff (markup-join
+				(append
+				 main-markups
+				 alterations
+				 suffixes
+				 add-markups) sep))
+	   (base-stuff (if (ly:pitch? bass-pitch)
+			   (list sep (name-note bass-pitch))
+			   '())))
 
       (set! base-stuff
 	    (append
@@ -219,10 +214,10 @@ work than classifying the pitches."
     (if exception
 	(ignatzek-format-exception  root exception bass-note)
 	
-	(begin				; no exception.
-	  
-					; handle sus4 and sus2 suffix: if there is a 3 together with
-					; sus2 or sus4, then we explicitly say  add3.
+	(begin
+	  ;; no exception.
+	  ;; handle sus4 and sus2 suffix: if there is a 3 together with
+	  ;; sus2 or sus4, then we explicitly say  add3.
 	  (map
 	   (lambda (j)
 	     (if (get-step j pitches)
@@ -231,8 +226,8 @@ work than classifying the pitches."
 		       (begin
 			 (set! add-steps (cons (get-step 3 pitches) add-steps))
 			 (set! pitches (remove-step 3 pitches))))
-		   (set! suffixes  (cons (get-step j pitches) suffixes))))
-	     ) '(2 4) )
+		   (set! suffixes  (cons (get-step j pitches) suffixes)))))
+	   '(2 4))
 
 	  ;; do minor-3rd modifier.
 	  (if (and (get-step 3 pitches)

@@ -44,7 +44,6 @@
                        (- (car yext)) (cdr yext))
       xext yext))
 
-
 (define-public (box-grob-stencil grob)
   "Make a box of exactly the extents of the grob.  The box precisely
 encloses the contents.
@@ -77,12 +76,14 @@ encloses the contents.
 
 (define-public (fontify-text font-metric text)
   "Set TEXT with font FONT-METRIC, returning a stencil."
-  (let* ((b  (ly:text-dimension font-metric text)))
+  (let* ((b (ly:text-dimension font-metric text)))
     (ly:make-stencil
      `(text ,font-metric ,text) (car b) (cdr b))))
      
 (define-public (fontify-text-white scale font-metric text)
   "Set TEXT with scale factor s"
-  (let* ((b  (ly:text-dimension font-metric text))
-         (c  `(white-text ,(* 2 scale) ,text))) ;urg -- workaround for using ps font
-    (ly:make-stencil c  (car b) (cdr b))))  ;urg -- extent is not from ps font, but we hope it's close
+  (let* ((b (ly:text-dimension font-metric text))
+	 ;;urg -- workaround for using ps font
+         (c `(white-text ,(* 2 scale) ,text)))
+    ;;urg -- extent is not from ps font, but we hope it's close
+    (ly:make-stencil c (car b) (cdr b))))
