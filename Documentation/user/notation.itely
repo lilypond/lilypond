@@ -3403,7 +3403,7 @@ automatically.  In this case, it is no longer necessary to enter the
 correct duration for each syllable.  This is achieved by combining the
 melody and the lyrics with the @code{\lyricsto} expression
 @example
-\lyricsto @var{name} \new Lyrics @dots{} 
+\lyricsto @var{name} \new Lyrics \lyrics @dots{} 
 @end example
 
 This aligns the lyrics to the

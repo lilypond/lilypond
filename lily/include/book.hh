@@ -28,6 +28,6 @@ public:
   void process (String outname, Music_output_def*, SCM header);
   SCM to_stencil (Music_output_def*, SCM header);
 };
-DECLARE_UNSMOB (Book,book); 
+DECLARE_UNSMOB (Book, book);
 
 #endif /* BOOK_HH */

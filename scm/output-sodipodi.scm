@@ -373,13 +373,14 @@
 ;;   (tagify "text" (dispatch expr) (cons 'style (get-font font)))))
    (tagify "text" expr (cons 'style (get-font font)))))
 
-(define (utext font s)
-  (tagify "tspan"
-	  (apply string-appendb
-		 (map (lambda (x) (ascii->upm-string (char->integer x)))
-		      (string->list s)))))
-
 (define (text font s)
+  (tagify "tspan"
+	  (apply string-append
+		 (map (lambda (x) (ascii->upm-string (char->integer x)))
+		      (string->list s)))
+	  (cons 'style (get-font font))))
+
+(define (ntext font s)
   ;;  (fontify font
   ;; to unicode or not?
   (tagify "tspan" (dispatch `(fontify ,font ,s))))

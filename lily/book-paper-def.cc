@@ -18,13 +18,31 @@
 IMPLEMENT_SMOBS (Book_paper_def);
 IMPLEMENT_DEFAULT_EQUAL_P (Book_paper_def);
 
+Book_paper_def::Book_paper_def ()
+{
+  output_scale_ = 1.0;
+  scaled_fonts_ = SCM_EOL;
+  smobify_self ();
+  scaled_fonts_ = scm_c_make_hash_table (11);
+}
+
+Book_paper_def::~Book_paper_def ()
+{
+}
 
 SCM
 Book_paper_def::mark_smob (SCM m)
 {
-  Book_paper_def * mo = (Book_paper_def*) SCM_CELL_WORD_1 (m);
-
+  Book_paper_def *mo = (Book_paper_def*) SCM_CELL_WORD_1 (m);
   return mo->scaled_fonts_;
+}
+
+int
+Book_paper_def::print_smob (SCM s, SCM p, scm_print_state*)
+{
+  (void) s;
+  scm_puts ("#<Book_paper>", p);
+  return 1;
 }
 
 Font_metric*
@@ -32,9 +50,7 @@ Book_paper_def::find_scaled_font (Font_metric *f, Real m, SCM input_enc_name)
 {
   Real lookup_mag = m;
   if (!dynamic_cast<Virtual_font_metric*> (f))
-    {
-      lookup_mag /= output_scale_;
-    }
+    lookup_mag /= output_scale_;
   
   SCM sizes = scm_hashq_ref (scaled_fonts_, f->self_scm (), SCM_BOOL_F);
   if (sizes != SCM_BOOL_F)
@@ -70,7 +86,7 @@ Book_paper_def::find_scaled_font (Font_metric *f, Real m, SCM input_enc_name)
 	  Font_metric *scaled = find_scaled_font (unsmob_metrics (ly_car (s)),
 						  m, input_enc_name);
 	  *t = scm_cons (scaled->self_scm (), SCM_EOL);
-	  t = SCM_CDRLOC(*t);
+	  t = SCM_CDRLOC (*t);
 	}
 
       vf = new Virtual_font_metric (lst);
@@ -99,98 +115,69 @@ Book_paper_def::find_scaled_font (Font_metric *f, Real m, SCM input_enc_name)
   return unsmob_metrics (val);
 }
 
-
-
-Book_paper_def::Book_paper_def ()
-{
-  output_scale_ = 1.0;
-  scaled_fonts_ = SCM_EOL;
-  smobify_self ();
-  scaled_fonts_ = scm_c_make_hash_table (11);
-}
-
-Book_paper_def::~Book_paper_def ()
-{
-}
-
-
-
-
-LY_DEFINE(ly_make_bookpaper, "ly:make-bookpaper",
-	  1,0,0,
-	  (SCM size),
-	  "Make a paperbook, for staff space SIZE, which is in INTERNAL_UNIT.") 
-{
-  Book_paper_def * bp = new Book_paper_def ;
-
-  SCM_ASSERT_TYPE(ly_c_number_p (size), size,
-		  SCM_ARG1, __FUNCTION__, "number");
-
-  
-  bp->output_scale_ = (ly_scm2double (size)) MM;
-  
-  return scm_gc_unprotect_object (bp->self_scm ());
-}
-
-
-LY_DEFINE(ly_bookpaper_fonts, "ly:bookpaper-fonts",
-	  1,0,0,
-	  (SCM bp),
-	  "Return fonts scaled up BP")
-{
-  Book_paper_def * b = unsmob_bookpaper (bp);
-
-  SCM_ASSERT_TYPE(b, bp,
-		  SCM_ARG1, __FUNCTION__, "bookpaper");
-
-  SCM func = ly_scheme_function ("hash-table->alist");
-
-  SCM l = SCM_EOL;
-  for (SCM s = scm_call_1 (func, b->scaled_fonts_); ly_c_pair_p (s); s = ly_cdr (s))
-    {
-      SCM entry = ly_car (s);
-      for (SCM t = ly_cdr (entry); ly_c_pair_p (t); t  = ly_cdr (t))
-	{
-	  Font_metric *fm= unsmob_metrics (ly_cdar (t));
-
-	  if (dynamic_cast<Modified_font_metric*> (fm))
-	    l = scm_cons (fm->self_scm (), l);
-	}
-    }
-  return l;
-}
-
-
-LY_DEFINE(ly_bookpaper_outputscale, "ly:bookpaper-outputscale",
-	  1,0,0,
-	  (SCM bp),
-	  "Get outputscale for BP.")
-{
-  Book_paper_def * b = unsmob_bookpaper (bp);
-
-  SCM_ASSERT_TYPE(b, bp,
-		  SCM_ARG1, __FUNCTION__, "bookpaper");
-  return scm_make_real (b->output_scale_);
-}
-
-int
-Book_paper_def::print_smob (SCM s, SCM p, scm_print_state*)
-{
-  scm_puts ("#<Book_paper>", p);
-  return 1;
-}
-
-
 Paper_def * 
-Book_paper_def::scale_paper (Paper_def* pd) const
+Book_paper_def::scale_paper (Paper_def *pd) const
 {
   SCM proc = ly_scheme_function ("scale-paper");
   SCM new_pap = scm_call_2 (proc, pd->self_scm (), self_scm ());
 
   scm_gc_protect_object (new_pap);
 
-  Paper_def* p = unsmob_paper (new_pap);
+  Paper_def *p = unsmob_paper (new_pap);
   
   p->bookpaper_ = (Book_paper_def*) this;
   return p;
+}
+
+LY_DEFINE (ly_make_bookpaper, "ly:make-bookpaper",
+	   1, 0, 0,
+	   (SCM size),
+	   "Make a paperbook, for staff space SIZE, which is in INTERNAL_UNIT.") 
+{
+  Book_paper_def *bp = new Book_paper_def ;
+
+  SCM_ASSERT_TYPE (ly_c_number_p (size), size,
+		   SCM_ARG1, __FUNCTION__, "number");
+  
+  bp->output_scale_ = (ly_scm2double (size)) MM;
+
+  return scm_gc_unprotect_object (bp->self_scm ());
+}
+
+LY_DEFINE (ly_bookpaper_fonts, "ly:bookpaper-fonts",
+	   1, 0, 0,
+	   (SCM bp),
+	   "Return fonts scaled up BP")
+{
+  Book_paper_def *b = unsmob_book_paper_def (bp);
+  
+  SCM_ASSERT_TYPE (b, bp, SCM_ARG1, __FUNCTION__, "bookpaper");
+
+  SCM func = ly_scheme_function ("hash-table->alist");
+
+  SCM ell = SCM_EOL;
+  for (SCM s = scm_call_1 (func, b->scaled_fonts_); ly_c_pair_p (s);
+       s = ly_cdr (s))
+    {
+      SCM entry = ly_car (s);
+      for (SCM t = ly_cdr (entry); ly_c_pair_p (t); t  = ly_cdr (t))
+	{
+	  Font_metric *fm = unsmob_metrics (ly_cdar (t));
+
+	  if (dynamic_cast<Modified_font_metric*> (fm))
+	    ell = scm_cons (fm->self_scm (), ell);
+	}
+    }
+  return ell;
+}
+
+
+LY_DEFINE (ly_bookpaper_outputscale, "ly:bookpaper-outputscale",
+	  1, 0, 0,
+	  (SCM bp),
+	  "Get outputscale for BP.")
+{
+  Book_paper_def *b = unsmob_book_paper_def (bp);
+  SCM_ASSERT_TYPE (b, bp, SCM_ARG1, __FUNCTION__, "bookpaper");
+  return scm_make_real (b->output_scale_);
 }

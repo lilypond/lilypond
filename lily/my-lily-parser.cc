@@ -381,8 +381,8 @@ Book_paper_def*
 get_bookpaper (My_lily_parser *parser)
 {
   SCM id = parser->lexer_->lookup_identifier ("$defaultbookpaper");
-  Book_paper_def *paper = unsmob_bookpaper (id);
-  return  paper->clone ();
+  Book_paper_def *paper = unsmob_book_paper_def (id);
+  return paper->clone ();
 }
 
 
@@ -434,12 +434,13 @@ LY_DEFINE (ly_parser_print_book, "ly:parser-print-book",
 {
   My_lily_parser *parser = unsmob_my_lily_parser (parser_smob);
   Book *book = unsmob_book (book_smob);
-  Book_paper_def *bp = unsmob_bookpaper (parser->lexer_->lookup_identifier ("$defaultbookpaper"));
+  Book_paper_def *bp = unsmob_book_paper_def (parser->lexer_->lookup_identifier ("$defaultbookpaper"));
   
   SCM_ASSERT_TYPE (parser, parser_smob, SCM_ARG1, __FUNCTION__, "Lilypond parser");
   SCM_ASSERT_TYPE (book, book_smob, SCM_ARG2, __FUNCTION__, "Book");
   
-  book->bookpaper_ = bp;	// ugh. changing argument. 
+  /*  ugh. changing argument.*/
+  book->bookpaper_ = bp;
   
   SCM header = parser->header_;
   File_name outname (parser->output_basename_);

@@ -162,13 +162,10 @@ default_rendering (SCM music, SCM outdef,
 {
   SCM context = ly_run_translator (music, outdef);
 
-  Book_paper_def * bpd = unsmob_bookpaper (book_outputdef);
-  if (bpd &&
-      unsmob_paper (outdef))
-    {
-      outdef = bpd->scale_paper (unsmob_paper (outdef))->self_scm (); // mem
-								      // leak.
-    }
+  Book_paper_def *bpd = unsmob_book_paper_def (book_outputdef);
+  if (bpd && unsmob_paper (outdef))
+    /* FIXME:  memory leak */
+    outdef = bpd->scale_paper (unsmob_paper (outdef))->self_scm ();
   
   if (Global_context *g = dynamic_cast<Global_context*>
       (unsmob_context (context)))
