@@ -238,9 +238,10 @@ Paper_book::systems ()
       scm_gc_unprotect_object (ps->self_scm ());
     }
 
-  SCM page_properties = scm_call_1 (ly_lily_module_constant ("page-properties"),
-				    paper_->self_scm ());
-  
+  SCM page_properties
+    = scm_call_1 (ly_lily_module_constant ("layout-extract-page-properties"),
+		  paper_->self_scm ());
+
   int score_count = score_systems_.size ();
   for (int i = 0; i < score_count; i++)
     {
