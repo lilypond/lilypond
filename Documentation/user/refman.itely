@@ -2924,13 +2924,7 @@ is given though the fingering mechanism, e.g. @code{c4-3} for a C
 quarter on the third string. The string 1 is the lowest one, and the
 tuning defaults to the standard guitar tuning (with 6 strings).
 
-<<<<<<< refman.itely
 @lilypond[fragment,verbatim]
-=======
-@c FIXME  TabStaff is broken
-@lily pond[fragment,verbatim]
-@example
->>>>>>> 1.152
   \context TabStaff <
     \notes @{
       \property Staff.Stem \override #'direction = #1
@@ -2939,12 +2933,7 @@ tuning defaults to the standard guitar tuning (with 6 strings).
       e-3 c'-5 a-4 e'-6
     @}
   >  
-<<<<<<< refman.itely
 @end lilypond
-=======
-@end example
-@c @end lilypond
->>>>>>> 1.152
 
 @node Non-guitar tablatures
 @subsection Non-guitar tablatures
