@@ -1,5 +1,9 @@
 2004-02-13  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/test/ac-extra-voice.ly (accompany): remove file.
+
+	* input/test/maximum-rest-count.ly: remove file.
+
 	* scripts/convert-ly.py (FatalConversionError.subst_in_trans):
 	conversion rule for \translator{}. Apply everywhere.  
 

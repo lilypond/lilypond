@@ -195,10 +195,20 @@ Rest_collision::do_shift (Grob *me)
 	{
 	  warning (_ ("too many colliding rests"));
 	}
-      Grob * rcol = rests[0];
-      Grob *common = common_refpoint_of_array (notes, rcol, Y_AXIS);
+      Grob * rcol = 0;
+      Direction dir = CENTER;
+
+      for (int i= rests.size (); !rcol && i--;)
+	if (Note_column::dir (rests[i]))
+	  {
+	    dir = Note_column::dir (rests[i]);
+	    rcol = rests[i];
+	  }
+
+      if (!rcol)
+	return SCM_UNSPECIFIED;
       
-      Direction dir = Note_column::dir (rests[0]);
+      Grob *common = common_refpoint_of_array (notes, rcol, Y_AXIS);
       
       Interval restdim = rcol->extent (common, Y_AXIS);
       if (restdim.is_empty ())

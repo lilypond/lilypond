@@ -25,6 +25,7 @@ The beam will be ended also when now % beamAutoEnd = 0.
 
 \score{
     \notes \relative c''{
+        #(override-auto-beam-setting '(end * * * *)  1 2)
     	\time 2/4
 	% one beam per measure
       	c8 c c c
@@ -42,13 +43,7 @@ The beam will be ended also when now % beamAutoEnd = 0.
 	\set autoBeaming = ##f
       	c8 c c c
     }
-    \paper{
-      	\translator{
-	    \VoiceContext
-	    \override autoBeamSettings #'(end * * * *) = #(ly:make-moment 1 2)
-	}
-    }
-\paper{raggedright = ##t}
+    \paper{raggedright = ##t}
 }
 
 
