@@ -1,5 +1,9 @@
-1.4.9.jcn1
+1.4.9.jcn2
 ==========
+
+* Included Han-Wen's uu1 windows fixes.
+
+* Bugfix: lilypond-profile.sh: append to GS_FONTPATH, GS_LIB.
 
 * Added Cygwin setup.hint
 
