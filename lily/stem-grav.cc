@@ -12,11 +12,13 @@
 #include "musical-request.hh"
 #include "duration-convert.hh"
 #include "misc.hh"
+#include "abbrev.hh"
 
 Stem_engraver::Stem_engraver()
 {
   abbrev_req_l_ = 0;
   stem_p_ = 0;
+  abbrev_p_ = 0;
   default_abbrev_i_ = 16;
   dir_ = CENTER;
 }
@@ -52,7 +54,10 @@ Stem_engraver::acknowledge_element(Score_elem_info i)
 		t = default_abbrev_i_;
 	      else
 		default_abbrev_i_ = t;
-	      stem_p_->abbrev_flag_i_ =intlog2 (t) - (durlog_i>? 2);
+
+	      abbrev_p_ = new Abbreviation;
+	      announce_element (Score_elem_info (abbrev_p_, abbrev_req_l_));
+	      abbrev_p_->abbrev_flags_i_ =intlog2 (t) - (durlog_i>? 2);
 	    }
 	  announce_element (Score_elem_info (stem_p_, r));
 	}
@@ -63,6 +68,12 @@ Stem_engraver::acknowledge_element(Score_elem_info i)
 void
 Stem_engraver::do_pre_move_processing()
 {
+  if (abbrev_p_)
+    {
+      abbrev_p_->set_stem (stem_p_);
+      typeset_element (abbrev_p_);
+      abbrev_p_ = 0;
+    }
   if (stem_p_)
     {
       Scalar prop = get_property ("ydirection");
