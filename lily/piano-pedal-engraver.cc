@@ -21,6 +21,7 @@
 #include "translator-group.hh"
 #include "directional-element-interface.hh"
 #include "note-column.hh"
+#include "warn.hh"
 
 struct Pedal_info
 {
@@ -229,9 +230,9 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, SCM pedaltype)
 
       String msg = _ ("Need 3 strings for piano pedals. No pedal made. ");
       if (m)
-	m->origin().warning (msg);
+	m->origin()->warning (msg);
       else
-	warning (msg)
+	warning (msg);
       
       return ;
     }
