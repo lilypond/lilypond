@@ -1,78 +1,59 @@
 \version "1.7.18"
-%
-% TODO: what's this?
-%
-% I don't know what this example is supposed to do.  delete it?
-\header { texidoc="DELETE ME
-"}
 
-global =  \notes {
-	\key a \minor
-	\time 6/4
-%	\skip 1.*34
-%	\bar ".|"
+%% I don't know what this example is supposed to do.  delete it?
+%% It shows how to use the autochange feature together with an extra
+%% voice.  When I needed to typeset this example, I found it not trivial
+%% and dumped a piece of it here.  Move to refman?
+
+\header{
+    texidoc="When using automatic staff changes for the one voice, the
+other voice must be given a name explicitely."
 }
 
-melody =  \notes\relative c''{
-	r2 r r 
-	r2 r r
-	r4 a'8-- \< a--	a-- a-- c-- \!b-- a--\> gis f \!e 
-	es8 \grace b c r4 r2 r
+global = \notes{
+    \key a \minor
+    \time 6/4
 }
 
-basloopje =  \notes\relative c{
-	d,8(	a' d f a d f d a f d	a-)
+melody = \notes\relative c''{
+    r2 r r 
+    r2 r r
+    r4 a'8-- \< a-- a-- a-- c-- \!b-- a--\> gis f \!e 
+    es8 \grace b c r4 r2 r
 }
 
-accompany =  \notes \relative c{
-	\notes\relative c \basloopje
-	\notes\relative c \basloopje
-	\notes\relative c \basloopje
-	\notes\relative c \basloopje
+basloopje = \notes\relative c{
+    d,8( a' d f a d f d a f d a-)
 }
+
+accompany = \repeat unfold 4 \notes \relative c \basloopje
 
 \score{
-	\notes \context PianoStaff <
-		\context Staff=up < 
-			\global
-			\context Voice=foo {
-			\stemUp\slurUp\tieUp
-			\scriptUp
-			\melody 
-			}
-		>
-		\context Staff=down <
-			\global
-			\clef bass
-			\autochange Staff \context Voice \accompany
-		>
+    \notes \context PianoStaff<
+	\context Staff=up <
+	    \global
+	    \context Voice=foo{
+		\voiceOne
+		\melody 
+	    }
 	>
+	\context Staff=down<
+	    \global
+	    \clef bass
+	    \autochange Staff \context Voice \accompany
+	>
+    >
 
-	\paper {
-		indent = 8.\mm
-		textheight = 295.\mm
-
-		\translator{ 
-			\PianoStaffContext
-			defaultBarType = #"" 
-		}
-		\translator{ 
-			\StaffContext
-			% don't auto-generate bars: not a good idea: -> no breakpoints
-			% barAuto = "0"
-			% urg defaultBarType = #""
-			defaultBarType = #"" 
-			\remove "Time_signature_engraver"
-
-			Slur \override #'direction = #1
-
-			
-			autoBeamSettings \override #'(end * * * *)  = #(ly:make-moment 1 2)
-		}
+    \paper {
+	\translator{ 
+	    \StaffContext
+	    autoBeamSettings \override #'(end * * * *)
+	    = #(ly:make-moment 1 2)
 	}
-	\midi {
-		\tempo 4 = 54
-	}
+    }
+    \midi {
+	\tempo 4 = 54
+    }
 }
 
 %% new-chords-done %%
