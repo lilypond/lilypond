@@ -58,7 +58,7 @@ The following options can be given:
     Set the goal version of the conversion. It defaults to the latest
     available version.
 @item -h, --help
-    Print usage help
+    Print usage help.
 @end table
 
 
@@ -104,30 +104,30 @@ The following options are supported by midi2ly:
 
 @table @code
 @item -a, --absolute-pitches
-    Print absolute pitches
+    Print absolute pitches.
 @item -d, --duration-quant=@var{DUR}
-    Quantise note durations on @var{DUR}
+    Quantise note durations on @var{DUR}.
 @item -e, --explicit-durations
-    Print explicit durations
+    Print explicit durations.
 @item -h,--help
-    Show summary of usage
+    Show summary of usage.
 @item -k, --key=@var{acc}[:@var{minor}]
     Set default key.  @var{acc} > 0 sets number of sharps; @var{acc} < 0
-    sets number of flats.  A minor key is indicated by ":1"
+    sets number of flats.  A minor key is indicated by ":1".
 @item -o, --output=@var{file}
-    Write output to @var{file}
+    Write output to @var{file}.
 @item -s, --start-quant=@var{DUR}
-    Quantise note starts on DUR
+    Quantise note starts on DUR.
 @item -t, --allow-tuplet=@var{DUR}*@var{NUM}/@var{DEN}
-    Allow tuplet durations @var{DUR}*@var{NUM}/@var{DEN}
+    Allow tuplet durations @var{DUR}*@var{NUM}/@var{DEN}.
 @item -V, --verbose
-    Be verbose
+    Be verbose.
 @item -v, --version
-    Print version number
+    Print version number.
 @item -w, --warranty
-    Show warranty and copyright
+    Show warranty and copyright.
 @item -x, --text-lyrics
-    Treat every text as a lyric
+    Treat every text as a lyric.
 @end table
 
 
@@ -148,7 +148,7 @@ It is invoked as follows:
         etf2ly [@var{option}]@dots{} @var{etf-file}
 @end example
 
-The following options are supported by etf2ly.
+The following options are supported by etf2ly:
 @table @code
 @item   -h,--help
 this help
@@ -172,7 +172,7 @@ etf2ly. Sequences of grace notes are ended improperly sometimes.
 
 ABC is a fairly simple ASCII based format. It is described at the abc site:
 @quotation
-@uref{http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt}
+@uref{http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt}.
 @end quotation
 abc2ly translates from ABC to LilyPond. It is invoked as follows:
 
@@ -201,7 +201,7 @@ source file.  If you say:
 This will cause the text following the keyword ``voices'' to be inserted 
 into the current voice of the LilyPond output file.
 
-Similarly:
+Similarly,
 
 @example
         %%LY slyrics more words
