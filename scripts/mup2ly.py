@@ -1290,7 +1290,7 @@ if not files:
 	files = ['-']
 	
 for f in files:
-
+	h = None
 	if f == '-':
 		h = sys.stdin
 	elif f and not os.path.isfile (f):
