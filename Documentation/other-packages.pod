@@ -88,7 +88,6 @@ Schofer & Andrea Steinbach. With some fonts
 
 A NeXT package by William F. Clocksin. Requires Adobe fonts.
 
-
 =back
 
 =head2 Proprietary
@@ -142,6 +141,10 @@ A shareware windows package
 =item Encore
 
 =item Musicator
+
+=item Noteworthy, http://www.ntworthy.com
+
+Shareware.
 
 =item WolfGang, http://www.unige.ch/lettres/armus/music/wolfgang.html
 
