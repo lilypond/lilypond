@@ -12,10 +12,7 @@ input feta-macros;
 
 % copied from 10; will it work?
 height#:=designsize;
-%thick#:=height#/4;
-thick#:=8/30height#;
-%norm#:=3/4thick#;
-norm#:=7/8thick#;
+thick#:=7/30height#;
 thin#:=thick#/4;
 hair#:=thin#/2;
 kuulleke#:=hair#;

@@ -28,12 +28,13 @@
         {\vetfont\char\count0}}}
 
 % stacked numbers; overrules def in lilyponddefs
+% widest num should be .4 balkheight
 % oeps: \meter 12/8;
 \def\generalmeter#1#2{%
         \vbox to 0pt{\vss%
-        \hbox to0.42\balkheight{\hss\fetanummer #1\hss}%
+        \hbox to0.45\balkheight{\hfill\fetanummer #1\hfill}%
         \nointerlineskip%
-        \hbox to0.42\balkheight{\hss\fetanummer #2\hss}%
+        \hbox to0.45\balkheight{\hfill\fetanummer #2\hfill}%
         \vss}}
 
 \newcount\embedcount\embedcount=0
@@ -57,7 +58,43 @@
         \immediate\write\embedfile{\embedcount=\the\embedcount}
         \immediate\closeout\embedfile
 }
+
+
+
 \def\turnOnExperimentalFeatures{
+
+%
+% WARNING: don't leave blank lines in the PS-code; they are
+% transformed into \par 
+%
+
+
+\special{ps:
+/draw_decresc
+        {
+                /ht exch def
+                /wd exch def
+%
+                0 ht moveto
+                wd ht neg rlineto
+                wd neg ht neg rlineto 
+                stroke
+        }
+        def
+        /draw_cresc
+        {
+                /ht exch def
+                /wd exch def
+%
+                0 0 moveto
+                wd ht rmoveto
+                wd neg ht neg rlineto 
+                wd ht neg rlineto
+                stroke
+        }
+        def
+}
+
 
 % draw a slur in embedded postscript
 \special{ps:
@@ -123,6 +160,9 @@
 
 \def\embeddedtex#1{#1}
 \def\embeddedps#1{
+        %
+        % This sets CTM so that you get to the currentpoint
+        % by executing a 0 0 moveto
         \special{ps: @beginspecial @setspecial #1 @endspecial}       
 }
 \def\embeddedmf#1{
@@ -148,7 +188,7 @@
 
 % dat heb je handig gedaan, lieverd!
 \nometafont
-\nopostscript
+%\nopostscript
 %\notex
 
 \def\EndLilyPondOutput{

@@ -1,5 +1,5 @@
 % generated automatically by mf-to-table.py version 0.4
-% on Mon Nov 24 00:16:56 1997
+% on Wed Dec  3 11:10:44 1997
 % Do not edit
 % input from out/feta16.log
 % name=\symboltables {
@@ -68,8 +68,8 @@
         "d6"	"\\dsixtyfourthflag"	-0.20\pt	4.54\pt	-0.20\pt	17.66\pt	
         }
     "clefs"	 = \table {
-        "alto"	"\\altoclef"	-0.00\pt	10.00\pt	-8.00\pt	8.00\pt	
-        "alto_change"	"\\caltoclef"	-0.00\pt	8.00\pt	-6.40\pt	6.40\pt	
+        "alto"	"\\altoclef"	-0.00\pt	10.89\pt	-8.00\pt	8.00\pt	
+        "alto_change"	"\\caltoclef"	-0.00\pt	8.71\pt	-6.40\pt	6.40\pt	
         "bass"	"\\bassclef"	1.20\pt	12.80\pt	-10.00\pt	4.00\pt	
         "bass_change"	"\\cbassclef"	0.96\pt	10.24\pt	-8.00\pt	3.20\pt	
         "violin"	"\\violinclef"	-0.11\pt	10.95\pt	-12.00\pt	20.00\pt	

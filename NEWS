@@ -1,3 +1,16 @@
+
+pl 34
+	- bf: mf: numbers and alto clef
+	- bf: scsi-menuet
+	- PS crescendos
+	- ly2dvi diffs (JAF)
+	- debian diffs (AF)
+	- w32 doco fix (JCN)
+
+
+********
+nov 24
+
 pl 33
 	- added abbrev.ly to font.ly; rm'd abbrev.ly
 	- don't process scores on parse errors.
@@ -6,7 +19,7 @@ pl 33
 	- lytodvi script (JAF)
 	- output Paper_def settings to TeX file. (eg: linewidth)
 
-*********
+********
 nov 19
 pl 32
 	- change type checks (ughugh) to derivation checks (ugh)

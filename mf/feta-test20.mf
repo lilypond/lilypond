@@ -1,0 +1,24 @@
+% feta-test20
+% part of LilyPond's pretty-but-neat music font
+
+% font_identifier:="font-en-tja20";
+% font_size 20pt#;
+
+input autometric;
+fet_beginfont("feta-test", 20);
+staffsize#:=20pt#;
+test:=1;
+
+% smoked cheese
+% test := -1;
+
+
+% dem piksels.
+%test := 1;
+
+input feta-generic;
+
+fet_endfont("font-en-tja");
+
+end.
+
