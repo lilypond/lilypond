@@ -1,5 +1,5 @@
 % generated automatically by mf-to-table.py version 0.4
-% on Mon Oct 20 01:50:55 1997
+% on Mon Oct 20 23:14:08 1997
 % Do not edit
 % input from out/font-en-tja20.log
 % name=\symboltables {
@@ -51,10 +51,14 @@
         "pedalheel"	"\\pedalheel"	-2.50\pt	2.50\pt	-2.50\pt	3.33\pt	
         "pedaltoe"	"\\pedaltoe"	-2.50\pt	2.50\pt	-0.00\pt	7.50\pt	
         }
-    "floogbars"	 = \table {
-        "3u"	"\\eighthflag"	-0.25\pt	5.20\pt	-16.04\pt	0.25\pt	
-        "3d"	"\\deighthflag"	-0.25\pt	5.75\pt	-0.25\pt	16.04\pt	
-        "4u"	"\\sixteenthflag"	-0.25\pt	5.20\pt	-16.25\pt	0.25\pt	
-        "4d"	"\\dsixteenthflag"	-0.25\pt	5.75\pt	-0.25\pt	15.00\pt	
+    "flags"	 = \table {
+        "u3"	"\\eighthflag"	-0.25\pt	5.20\pt	-15.33\pt	0.25\pt	
+        "d3"	"\\deighthflag"	-0.25\pt	5.75\pt	-0.25\pt	14.58\pt	
+        "u4"	"\\sixteenthflag"	-0.25\pt	5.20\pt	-17.50\pt	0.25\pt	
+        "d4"	"\\dsixteenthflag"	-0.25\pt	5.75\pt	-0.25\pt	15.00\pt	
+        "u5"	"\\thirtysecondflag"	-0.25\pt	5.20\pt	-21.25\pt	0.25\pt	
+        "d5"	"\\dthirtysecondflag"	-0.25\pt	5.20\pt	-0.25\pt	19.25\pt	
+        "u6"	"\\sixtyfourthflag"	-0.25\pt	5.20\pt	-26.25\pt	0.25\pt	
+        "d6"	"\\dsixtyfourthflag"	-0.25\pt	5.20\pt	-0.25\pt	21.75\pt	
         }
     %  } % $name

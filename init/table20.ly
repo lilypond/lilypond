@@ -90,20 +90,7 @@ table_twenty =
 	 "decrescendosym" "\decrescendosym{%}"	0.0\pt	0.0\pt	-3.0\pt	3.0\pt
      }
 
-    "flags" = \table {
-	"u3"	"\eighthflag"		0.0\pt	5.0\pt	0.0\pt	0.0\pt	
-	"u4"	"\sixteenthflag"		0.0\pt	5.0\pt	0.0\pt	0.0\pt
-	"u5"	"\\thirtysecondflag"	0.0\pt	5.0\pt	0.0\pt	0.0\pt
-	"u6"	"\sixtyfourthflag"	0.0\pt	5.0\pt	0.0\pt	0.0\pt
-	"u7"	"\hundredtwentyeighthflag"	0.0\pt	5.0\pt	0.0\pt	0.0\pt
-	"d3"	"\deighthflag"		0.0\pt	5.0\pt	0.0\pt	0.0\pt
-	"d4"	"\dsixteenthflag"		0.0\pt	5.0\pt	0.0\pt	0.0\pt
-	"d5"	"\dthirtysecondflag"	0.0\pt	5.0\pt	0.0\pt	0.0\pt
-	"d6"	"\dsixtyfourthflag"	0.0\pt	5.0\pt	0.0\pt	0.0\pt
-	"d7"	"\dhundredtwentyeighthflag"	0.0\pt	5.0\pt	0.0\pt	0.0\pt
-     }
-
-  "beamslopes" = \table {
+     "beamslopes" = \table {
 	"slope"		"\beamslope{%}{%}"  2.0\pt 64.0\pt 0.0\pt 0.0\pt	
 	"horizontal"	"\rulesym{%}{%}"	
      }

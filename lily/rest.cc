@@ -19,6 +19,8 @@ Rest::do_add_processing ()
 {
   if (balltype_i_ != 0 && balltype_i_ != 1)
     position_i_ -= 4;
+  else if (balltype_i_ == 0)
+    position_i_ += 2;
 
   Rhythmic_head::do_add_processing ();
   if (dots_l_)
@@ -34,7 +36,8 @@ Molecule *
 Rest::brew_molecule_p () const
 {
   int staff_size_i_ = 8;
-  bool streepjes_b = abs(position_i_) > staff_size_i_ /2 &&  (balltype_i_ == 0 || balltype_i_ == 1);
+  bool streepjes_b = abs(position_i_) > staff_size_i_ /2 &&  
+    (balltype_i_ == 0 || balltype_i_ == 1);
   
   Atom s(paper ()->lookup_l()->rest (balltype_i_, streepjes_b));
   Molecule * m = new Molecule ( Atom (s));

@@ -1,0 +1,14 @@
+% feta-orator20.mf
+% part of LilyPond's pretty-but-neat music font
+
+input autometric;
+fet_beginfont("feta-orator", 10);
+
+mode_setup;
+
+input feta-orator;
+
+fet_endfont("feta-orator");
+
+end.
+

@@ -1,0 +1,121 @@
+% feta-orator.mf
+% part of LilyPond's pretty-but-neat music font
+
+fet_begingroup("orator")
+
+height#:=designsize;
+thick#:=height#/4;
+thin#:=thick#/4;
+hair#:=thin#/2;
+kuulleke#:=thin#;
+
+define_pixels(height,thick,thin,hair);
+foot_top#:=2thin#;
+foot_width#:=2thick#+thin#;
+define_pixels(foot_top,foot_width);
+define_pixels(kuulleke);
+
+def draw_foot(expr xpos) = 
+	begingroup;
+	clearxy;
+	penpos1(thick,0);
+	z1=(xpos,foot_top);
+	penpos2(foot_width,0);
+	z2=(x1,0);
+	penpos3(hair,-90);
+	z3r=z2r;
+	penpos4(hair,90);
+	z4l=z2l;
+	z5=(x1,hair/2);
+	fill z1..{right}z1r{down}..{right}z3l..z3r{left}..z5..{left}z4l..z4r{right}..{up}z1l{right}..z1..cycle;
+	endgroup;
+enddef;
+
+fet_beginchar("Numeral 0", "0", "zero")
+	set_char_box(0, 3thick#, 0, height#);
+	penpos1(thin,90);
+	z1r=(w/2,h);
+	penpos2(thick,0);
+	z2r=(w,h/2);
+	penpos3(thin,-90);
+	z3r=(w/2,0);
+	penpos4(thick,180);
+	z4r=(0,h/2);
+	fill z1r..z2r..z3r..z4r..cycle;
+	unfill z1l..tension1.2..z2l..tension1.2..z3l..tension1.2..z4l..tension1.2..cycle;
+fet_endchar;
+	
+fet_beginchar("Numeral 1", "1", "one")
+	set_char_box(0, 5/2thick#+thin#, 0, height#);
+	penpos1(thick,0);
+	z1=(thick+thick/2,height);
+	penpos2(hair,45);
+	z2=z1l+(1/4sqrt(2)*hair)*(1,-1);
+	penpos3(hair,-45);
+	z3=z1r+(1/4sqrt(2)*hair)*(-1,-1);
+	x4=x1; y4=y1-kuulleke;
+
+	penpos5(thick,0);
+	z5=(x1,foot_top);
+	
+	z6=(0,h/2);
+	save alpha; alpha=angle(z1l-z6);
+	penpos7(thin,alpha-90);
+	z7l=z6;
+	penpos8(thin/cosd(alpha),-90);
+	z8l=z1l;
+	penpos9(hair,alpha-90);
+	z9r=z8r+(hair/cosd(alpha))*(0,-1);
+	fill z2r{(1,-1)}..z4..{(1,1)}z3l..z3r{down}..{down}z5r{left}..z5..{left}z5l{up}..{up}z2l..cycle;
+%	fill z7l{dir(alpha)}..{dir(alpha)}z2l{down}..z9r{up}..z9l{dir(180+alpha)}..{dir(180+alpha)}z7r..cycle;
+	fill z7l{dir(alpha)}..{dir(alpha)}z1l..z2r..z9r{up}..z9l{dir(180+alpha)}..{dir(180+alpha)}z7r..cycle;
+	penlabels(7,8,9);
+
+	draw_foot(x1);
+fet_endchar;
+
+fet_beginchar("Numeral 4", "4", "four")
+	set_char_box(0, 5/2thick#+3thin#, 0, height#);
+	penpos1(3/2thick,0);
+	z1r=(w-3thin,height);
+	z2=(thin,1/4height+thin);
+	penpos3(hair,45);
+	z3=z1l+(1/4sqrt(2)*hair)*(1,-1);
+	penpos4(hair,-45);
+	z4=z1r+(1/4sqrt(2)*hair)*(-1,-1);
+	x5=x1; y5=y1-kuulleke;
+	save alpha; alpha=angle(z4r-z2);
+	penpos6(thin,-90);
+	z6l=z2;
+	penpos7(thin,-90);
+	y7=y6; x7=w-1/2thin;
+	penpos8(thin,-alpha);
+	z8r=z2;
+	fill z3r{(1,-1)}..z5..{(1,1)}z4l..z4r{dir(180+alpha)}..{dir(180+alpha)}z8r{right}..{right}z7l..z7r{left}..{left}z6r..z8l{dir(alpha)}..{up}z3l..cycle;
+	penlabels(1,2,3,4,5,6,7);
+
+	clearxy;
+	penpos1(thick/cosd(alpha),alpha);
+	% ugh, must be just > foot_width/2!
+	z1r=(w-3thin,height-(thin+hair)/cosd(alpha));
+	penpos2(hair,alpha+45);
+	z2=z1l+(1/4sqrt(2)*hair)*dir(alpha-45);
+	penpos3(hair,alpha-45);
+	z3=z1r+(1/4sqrt(2)*hair)*dir(alpha-135);
+	z4=z1+kuulleke*dir(alpha-90);
+
+	% ugh
+	% the angle alpha may just let the hair penposes 3 and 4
+	% stick-out to the right of the vertical...
+%	penpos5(thick,0);
+%	z5=(x1,foot_top);
+	penpos5(whatever,0);
+	x5r-x5l=x3r-x2l; x5r=x3r; y5=foot_top;
+	
+	fill z2r{dir(alpha-45)}..z4..{dir(alpha+45)}z3l..z3r{down}..{down}z5r{left}..z5..{left}z5l{up}..{up}z2l..cycle;
+	penlabels(1,2,3,4,5);
+
+	draw_foot(x5);
+fet_endchar;
+
+fet_endgroup("orator")

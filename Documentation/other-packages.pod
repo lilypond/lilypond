@@ -117,9 +117,11 @@ Notation editor for W95 and Mac
 Notation editor on Acorn machines.  Their developers call it ``best
 notation program available''.
 
-=item Ikarus,
+=item ? [``EDV-Notensatz'']
 
-URW's music-engraving system described by [Wanske]
+URW's music-engraving system described by [Wanske].  (Although URW
+used ~DM 1.000.000 while developing this, it didn't buy them a cute
+name.)
 
 =item Logic,
 
@@ -165,6 +167,7 @@ A project at Ohio State university, which was discontinued in 1987.
 
 =item Berlioz, http://www.?.fr/
 
-Dominique Montel (a professional music typesetter) is now working together with
-computer scientists on his own software for music publishing, called "Berlioz".
+Dominique Montel (a professional music typesetter) is now working
+together with computer scientists on his own software for music
+publishing, called "Berlioz".
 

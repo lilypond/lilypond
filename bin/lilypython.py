@@ -56,6 +56,15 @@ def prev_version(tup):
 	return (tup[0], tup[1], tup[2] - 1, '');
 
 
+def dirname(v):
+    return 'lilypond-' + version_tuple_to_str(v)
+
+def tarball(v):
+    return dirname(v)  + '.tar.gz'
+
+def released_tarball(v):
+    return lilydirs.release_dir + tarball(v)
+
 def tuple_to_list(tup):
     l=[]
     for x in tup:

@@ -20,8 +20,10 @@ grep for TODO and ugh/ugr
 
 	* Make general "spanning"-elements and "placer"-elements
 
-	- naming Mozarella, Madeira, Muella, Feta?
+	- naming Mozarella, Madeira, Muella?
+
 	- bf: abbrevs over whole note
+
 	- scoping for properties
 
 	{	c4
@@ -76,6 +78,7 @@ PROJECTS
 	* \header
 	- write perl script for handling it into databases
 	- write TeX macros to generate titles
+	- adapt make-website to use \header info.
 
 	* Makefile stuff:
 	- have make dist produce tarball in out/ directory.
