@@ -210,7 +210,7 @@
 \gdef\leftalign#1{\hbox to 0pt{#1\hss}}
 
 \gdef\lyitem#1#2#3{
-  \topalign{\raise#2\outputscale\leftalign{\kern#1\outputscale#3}}}
+  \raise#2\outputscale \leftalign{\kern#1\outputscale#3}}
 
 \gdef\lybox#1#2#3#4#5{
   \lytempdim\baselineskip
