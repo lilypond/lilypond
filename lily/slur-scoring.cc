@@ -63,17 +63,12 @@ Slur_score_state::Slur_score_state()
   slur_ = 0;
   common_[X_AXIS] = 0;
   common_[Y_AXIS] = 0;
-  scores_ = 0;
 }
 
 Slur_score_state::~Slur_score_state ()
 {
-  delete scores_;
+  junk_pointers (configurations_);
 }
-
-
-
-
 
 Real
 get_detail (SCM alist, SCM sym)
@@ -86,49 +81,49 @@ get_detail (SCM alist, SCM sym)
 }
 
 void
-init_score_param (Grob *me,
-                  Slur_score_parameters *score_param)
+Slur_score_parameters::fill (Grob *me)
 {
   SCM details = me->get_property ("slur-details");
 
-  score_param->region_size_
+  region_size_
     = (int) get_detail (details, ly_symbol2scm ("region-size"));
-  score_param->head_encompass_penalty_
+  head_encompass_penalty_
     = get_detail (details, ly_symbol2scm ("head-encompass-penalty"));
-  score_param->stem_encompass_penalty_
+  stem_encompass_penalty_
     = get_detail (details, ly_symbol2scm ("stem-encompass-penalty"));
-  score_param->closeness_factor_
+  closeness_factor_
     = get_detail (details, ly_symbol2scm ("closeness-factor"));
-  score_param->edge_attraction_factor_
+  edge_attraction_factor_
     = get_detail (details, ly_symbol2scm ("edge-attraction-factor"));
-  score_param->same_slope_penalty_
+  same_slope_penalty_
     = get_detail (details, ly_symbol2scm ("same-slope-penalty"));
-  score_param->steeper_slope_factor_
+  steeper_slope_factor_
     = get_detail (details, ly_symbol2scm ("steeper-slope-factor"));
-  score_param->non_horizontal_penalty_
+  non_horizontal_penalty_
     = get_detail (details, ly_symbol2scm ("non-horizontal-penalty"));
-  score_param->max_slope_
+  max_slope_
     = get_detail (details, ly_symbol2scm ("max-slope"));
-  score_param->max_slope_factor_
+  max_slope_factor_
     = get_detail (details, ly_symbol2scm ("max-slope-factor"));
-  score_param->free_head_distance_
+  free_head_distance_
     = get_detail (details, ly_symbol2scm ("free-head-distance"));
-  score_param->extra_object_collision_
+  absolute_closeness_measure_
+    = get_detail (details, ly_symbol2scm ("absolute-closeness-measure"));
+  extra_object_collision_
     = get_detail (details, ly_symbol2scm ("extra-object-collision"));
-  score_param->accidental_collision_
+  accidental_collision_
     = get_detail (details, ly_symbol2scm ("accidental-collision"));
-  score_param->extra_encompass_free_distance_
+  extra_encompass_free_distance_
     = get_detail (details, ly_symbol2scm ("extra-encompass-free-distance"));
-  score_param->head_slur_distance_factor_
+  head_slur_distance_factor_
     = get_detail (details, ly_symbol2scm ("head-slur-distance-factor"));
-  score_param->head_slur_distance_max_ratio_
+  head_slur_distance_max_ratio_
     = get_detail (details, ly_symbol2scm ("head-slur-distance-max-ratio"));
-  score_param->free_slur_distance_
+  free_slur_distance_
     = get_detail (details, ly_symbol2scm ("free-slur-distance"));
-  score_param->edge_slope_exponent_
+  edge_slope_exponent_
     = get_detail (details, ly_symbol2scm ("edge-slope-exponent"));
 }
-
 Real
 broken_trend_y (Slur_score_state const &state, Direction hdir)
 {
@@ -295,7 +290,7 @@ Slur_score_state::fill (Grob *me)
   thickness_ = robust_scm2double (me->get_property ("thickness"), 1.0) *  lt;
   
   dir_ = get_grob_direction (me);
-  init_score_param (me, &parameters_);
+  parameters_.fill (me);
   
   SCM eltlist = me->get_property ("note-columns");
   SCM extra_list = me->get_property ("encompass-objects");
@@ -316,7 +311,7 @@ Slur_score_state::fill (Grob *me)
 
   extremes_ = get_bound_info ();
   is_broken_ = (!extremes_[LEFT].note_column_
-		      || !extremes_[RIGHT].note_column_); 
+		|| !extremes_[RIGHT].note_column_); 
 
   
   base_attachments_ = get_base_attachments ();
@@ -324,7 +319,7 @@ Slur_score_state::fill (Grob *me)
   Drul_array<Real> end_ys
     = get_y_attachment_range ();
 
-  scores_ = enumerate_attachments ( end_ys);
+  configurations_ = enumerate_attachments ( end_ys);
   for (int i = 0; i < columns_.size (); i++)
     encompass_infos_.push (get_encompass_info ( columns_[i]));
 
@@ -385,18 +380,18 @@ set_slur_control_points (Grob *me)
 Bezier
 Slur_score_state::get_best_curve ()
 {
-  for (int i = 0; i < scores_->size (); i++)
+  for (int i = 0; i < configurations_.size (); i++)
     {
-      scores_->elem (i).score (*this);
+      configurations_[i]->score (*this);
     }
   
   Real opt = 1e6;
   int opt_idx = -1;
-  for (int i = 0; i < scores_->size (); i++)
+  for (int i = 0; i < configurations_.size (); i++)
     {
-      if ((*scores_)[i].score_ < opt)
+      if (configurations_[i]->score_ < opt)
 	{
-	  opt = (*scores_)[i].score_;
+	  opt = configurations_[i]->score_;
 	  opt_idx = i;
 	}
     }
@@ -409,10 +404,10 @@ Slur_score_state::get_best_curve ()
     {
       Drul_array<Real> ins = ly_scm2interval (inspect_quants);
       Real mindist = 1e6;
-      for (int i = 0; i < scores_->size (); i ++)
+      for (int i = 0; i < configurations_.size (); i ++)
 	{
-	  Real d =fabs ((*scores_)[i].attachment_[LEFT][Y_AXIS] - ins[LEFT])
-	    + fabs ((*scores_)[i].attachment_[RIGHT][Y_AXIS] - ins[RIGHT]);
+	  Real d =fabs (configurations_[i]->attachment_[LEFT][Y_AXIS] - ins[LEFT])
+	    + fabs (configurations_[i]->attachment_[RIGHT][Y_AXIS] - ins[RIGHT]);
 	  if (d < mindist)
 	    {
 	      opt_idx = i;
@@ -422,14 +417,17 @@ Slur_score_state::get_best_curve ()
       if (mindist > 1e5)
 	programming_error ("Could not find quant.");
     }
-  (*scores_)[opt_idx].score_card_ += to_string ("i%d", opt_idx);
+
+  configurations_[opt_idx]->score_card_ += to_string ("=%.2f", opt);  
+  configurations_[opt_idx]->score_card_ += to_string ("i%d", opt_idx);
 
   // debug quanting
   slur_->set_property ("quant-score",
-		    scm_makfrom0str ((*scores_)[opt_idx].score_card_.to_str0 ()));
+		    scm_makfrom0str (configurations_[opt_idx]->score_card_.to_str0 ()));
+
 #endif
 
-  return scores_->elem (opt_idx).curve_;
+  return configurations_[opt_idx]->curve_;
 }
 
 /*
@@ -564,18 +562,18 @@ Slur_score_state::generate_curves () const
 {
   Real r_0 = robust_scm2double (slur_->get_property ("ratio"), 0.33);
   Real h_inf = staff_space_ *scm_to_double (slur_->get_property ("height-limit"));
-  for (int i = 0; i < scores_->size (); i++)
-    scores_->elem(i).generate_curve (*this, r_0, h_inf);
+  for (int i = 0; i < configurations_.size (); i++)
+    configurations_[i]->generate_curve (*this, r_0, h_inf);
 }
 
 
 
 
-Array<Slur_configuration> *
+Link_array<Slur_configuration> 
 Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
 {
   /*ugh.   */
-  Array<Slur_configuration> scores;
+  Link_array<Slur_configuration> scores;
 
 
   Drul_array<Offset> os;
@@ -652,8 +650,10 @@ Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
 	  while (flip (&d) != LEFT);
 	
 	  s.attachment_ = os;
-	  scores.push (s);
-	
+	  s.index_ = scores.size ();
+
+	  scores.push (new Slur_configuration (s));
+	  
 	  os[RIGHT][Y_AXIS] += dir_ * staff_space_ / 2;
 	}
 
@@ -661,12 +661,12 @@ Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
     }
 
   assert (scores.size () > 0);
-  return new Array<Slur_configuration> (scores);
+  return scores;
 }
 
 
 Array<Extra_collision_info>
-Slur_score_state::get_extra_encompass_infos ( ) const
+Slur_score_state::get_extra_encompass_infos () const
 {
   Link_array<Grob> encompasses
     = Pointer_group_interface__extract_grobs (slur_, (Grob *)0,
@@ -693,8 +693,7 @@ Slur_score_state::get_extra_encompass_infos ( ) const
 	      if (hdir && small_slur->get_bound (hdir) != slur_->get_bound (hdir))
 		continue;
 	
-
-	      Offset z = b.curve_point ( k / 2.0);
+	      Offset z = b.curve_point (k / 2.0);
 	      z += relative;
 
 	      Interval yext;

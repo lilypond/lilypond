@@ -31,9 +31,12 @@ struct Slur_score_parameters
   Real free_slur_distance_;
   Real free_head_distance_;
   Real extra_encompass_free_distance_;
+  Real absolute_closeness_measure_;
   Real edge_slope_exponent_;
   Real head_slur_distance_max_ratio_;
   Real head_slur_distance_factor_;
+
+  void fill (Grob *him);
 };
 
 
@@ -122,7 +125,7 @@ struct Slur_score_state
   Slur_score_parameters parameters_;
   Drul_array<Bound_info> extremes_;
   Drul_array<Offset> base_attachments_;
-  Array<Slur_configuration> *scores_;
+  Link_array<Slur_configuration> configurations_;
   Real staff_space_;
   Real thickness_;
   
@@ -135,7 +138,7 @@ struct Slur_score_state
   
   Drul_array<Bound_info> get_bound_info () const;
   void generate_curves () const; 
-  Array<Slur_configuration> *enumerate_attachments (Drul_array<Real> end_ys) const;
+  Link_array<Slur_configuration> enumerate_attachments (Drul_array<Real> end_ys) const;
   Drul_array<Offset> get_base_attachments() const;
   Drul_array<Real> get_y_attachment_range() const;
   Encompass_info get_encompass_info (Grob *col) const;

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-08 17:12+0200\n"
+"POT-Creation-Date: 2004-10-09 03:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -126,6 +126,8 @@ msgid ""
 "\n"
 msgstr ""
 
+#. Bug in option parser: --output=foe is taken as an abbreviation
+#. for --output-format.
 #. Bug in option parser: --output=foe is taken as an abbreviation
 #. for --output-format.
 #. Bug in option parser: --output=foe is taken as an abbreviation
@@ -640,6 +642,7 @@ msgstr ""
 #. FIXME: broken sentence
 #. FIXME: broken sentence
 #. FIXME: broken sentence
+#. FIXME: broken sentence
 #: all-font-metrics.cc:95 lily/all-font-metrics.cc:95
 #, c-format
 msgid "checksum mismatch for font file: `%s'"
@@ -729,15 +732,16 @@ msgstr ""
 msgid "beam was started here"
 msgstr ""
 
-#: beam.cc:149 lily/beam.cc:149
+#: beam.cc:149 lily/beam.cc:149 lily/beam.cc:150
 msgid "beam has less than two visible stems"
 msgstr ""
 
-#: beam.cc:154 lily/beam.cc:154
+#: beam.cc:154 lily/beam.cc:154 lily/beam.cc:155
 msgid "removing beam with less than two stems"
 msgstr ""
 
 #: beam.cc:1038 lily/beam.cc:1038 lily/beam.cc:1063 lily/beam.cc:1065
+#: lily/beam.cc:1007
 msgid "no viable initial configuration found: may not find good beam slope"
 msgstr ""
 
@@ -751,6 +755,12 @@ msgstr ""
 msgid "can't change `%s' to `%s'"
 msgstr ""
 
+#.
+#. We could change the current translator's id, but that would make
+#. errors hard to catch
+#.
+#. last->translator_id_string ()  = get_change ()->change_to_id_string ();
+#.
 #.
 #. We could change the current translator's id, but that would make
 #. errors hard to catch
@@ -1184,6 +1194,7 @@ msgstr ""
 #. No version number or newline here.  It confuses help2man.
 #. No version number or newline here.  It confuses help2man.
 #. No version number or newline here.  It confuses help2man.
+#. No version number or newline here.  It confuses help2man.
 #: main.cc:192 lily/main.cc:192
 #, c-format
 msgid "Usage: %s [OPTIONS]... FILE..."
@@ -1263,6 +1274,9 @@ msgstr ""
 msgid "could not write file: `%s'"
 msgstr ""
 
+#.
+#. music for the softenon children?
+#.
 #.
 #. music for the softenon children?
 #.
@@ -1489,6 +1503,7 @@ msgstr ""
 #. FIXME:
 #. FIXME:
 #. FIXME:
+#. FIXME:
 #: script-engraver.cc:102 lily/script-engraver.cc:102
 msgid "Do not know how to interpret articulation: "
 msgstr ""
@@ -1497,6 +1512,7 @@ msgstr ""
 msgid "Scheme encoding: "
 msgstr ""
 
+#. this shouldn't happen, but let's continue anyway.
 #. this shouldn't happen, but let's continue anyway.
 #. this shouldn't happen, but let's continue anyway.
 #. this shouldn't happen, but let's continue anyway.
@@ -1537,6 +1553,7 @@ msgstr ""
 msgid "tremolo duration is too long"
 msgstr ""
 
+#. FIXME:
 #. FIXME:
 #. FIXME:
 #. FIXME:
@@ -1593,6 +1610,8 @@ msgstr ""
 msgid "unterminated text spanner"
 msgstr ""
 
+#. Not using ngettext's plural feature here, as this message is
+#. more of a programming error.
 #. Not using ngettext's plural feature here, as this message is
 #. more of a programming error.
 #. Not using ngettext's plural feature here, as this message is
@@ -1665,11 +1684,18 @@ msgstr ""
 #.
 #. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
 #.
+#.
+#. Todo: should make typecheck?
+#.
+#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+#.
 #: time-signature-engraver.cc:57 lily/time-signature-engraver.cc:57
 #, c-format
 msgid "Found strange time signature %d/%d."
 msgstr ""
 
+#. If there is no such symbol, we default to the numbered style.
+#. (Here really with a warning!)
 #. If there is no such symbol, we default to the numbered style.
 #. (Here really with a warning!)
 #. If there is no such symbol, we default to the numbered style.
