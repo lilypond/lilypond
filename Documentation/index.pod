@@ -143,6 +143,13 @@ The coding standards of the lilypond project.
 >
 
 =item *
+<a href=gnu-music.html
+>
+The GNU Music project
+</a
+>
+
+=item *
 <a href=docxx/index.html
 >
 The DOC++ documentation of the C++ sources.
@@ -154,12 +161,14 @@ The DOC++ documentation of the C++ sources.
 Get it at ftp://pcnov095.win.tue.nl/pub/lilypond !
 
 
-=head1 AUTHOR
-
-Han-Wen Nienhuys <hanwen@stack.nl>, for this page
-
+=item *
 <a href=sconstat/stats.html
 >
 Stats on this page.
 </a
 >
+
+
+=back
+
+

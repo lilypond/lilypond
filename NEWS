@@ -1,3 +1,16 @@
+pl 64
+	- exe's now built in out/
+	- toplevel Makefile dep from make/Toplevel.make.in
+	- make_website: add version fokoter
+	- make_website: bf dist *.txt
+	- bf: fix loose bars : 	\meter 4/4; c1.  
+	- Staff_elem -> Score_elem
+	- bf <cis cis>
+	- vbrace lookup
+	- stop if barchecks failed
+	- resync barcheck
+
+*******
 pl 63
 	- bf: segfault during MIDI output  with mi2mu output.
 	- kludge: parse error beyond eof

@@ -132,6 +132,8 @@ A noninteractive typesetter, suited for batch jobs, and
 typesetting existing music. This would couple the  ASCII language, the
 printing engine and the typesetting engine
 
+LilyPond is currently representing this section.
+
 =item *
 
 A GUI for composing. This would combine the display engine, the
