@@ -828,6 +828,29 @@ The key signature indicates the scale in which a piece is played. It
 is denoted by a set of alterations (flats or sharps) at the start of
 the staff.
 
+WARNING!  The key signature only changes the output, not the music
+itself.  An F-sharp in the key of D major is still an F-sharp, not
+an F -- you must type @code{fis}, not @code{f}.  If you don't modify
+a pitch with @code{-is} or @code{-es}, LilyPond will assume that
+you want a natural note.  See this example:
+
+@quotation
+@example
+\key d \major
+fis4 f fes fis
+g2 fis
+@end example
+@end quotation
+
+@lilypond[noindent]
+\score{ \notes { \relative c'{
+\key d \major
+fis4 f fes fis
+g2 fis
+}}}
+@end lilypond
+
+
 @syntax
 
 Setting or changing the key signature is done with the @code{\key}

@@ -1,3 +1,8 @@
+2003-09-14  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/ tutorial.itely, refman.itely: add warning
+	about \key and accidentals.
+
 2003-09-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* Documentation/user/*.itely: manual tweaks
