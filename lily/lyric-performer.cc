@@ -36,7 +36,7 @@ Lyric_performer::do_print() const
 void
 Lyric_performer::process_requests()
 {
-    if ( lreq_arr_.size() )
+    if ( lreq_arr_.size() && lreq_arr_[ 0 ]->tdef_p_->text_str_.length_i() )
 	play( new Audio_text( Audio_text::LYRIC, lreq_arr_[ 0 ]->tdef_p_->text_str_ ) );
     lreq_arr_.clear();
 }

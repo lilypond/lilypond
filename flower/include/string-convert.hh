@@ -7,6 +7,8 @@
 #ifndef STRING_CONVERT_HH
 #define STRING_CONVERT_HH
 
+#include "string.hh"
+
 /*
   ///a class which only has functions.
 //#define functor class // cute. docxx fucks up

@@ -27,6 +27,13 @@ Duration::Duration()
 	ticks_i_ = 0;
 }
 
+Duration::Duration( int type_i, int dots_i = 0 )
+{
+	type_i_ = type_i;
+	dots_i_ = dots_i;
+	ticks_i_ = 0;
+}
+
 bool
 Duration::duration_type_b(int t)
 {

@@ -32,17 +32,19 @@ Staff_performer::do_creation_processing()
 {
     audio_staff_p_ = new Audio_staff;
 
-    // staff name
-    play(new Audio_text( Audio_text::TRACK_NAME, instrument_str()));
-
-    // instrument description
-    play(new Audio_text( Audio_text::INSTRUMENT_NAME, instrument_str()));
+    if (instrument_str().length_i()) {
+	// staff name
+	play (new Audio_text ( Audio_text::TRACK_NAME, instrument_str ()));
+	// instrument description
+	play (new Audio_text (Audio_text::INSTRUMENT_NAME, instrument_str ()));
+    }
 
     // tempo
     play(new Audio_tempo(get_tempo_i()));
 
-    // instrument
-    play(new Audio_instrument(instrument_str()));
+    if (instrument_str ().length_i ())
+	// instrument
+	play (new Audio_instrument (instrument_str ()));
 }
 
 void
