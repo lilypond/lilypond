@@ -7,7 +7,7 @@
 DIST_FILES := $(EXTRA_DIST_FILES) 
 #
 
-localdist: configure 
+local-dist: configure 
 
 local-distclean: 
 	rm -f config.hh config.make Makefile config.cache \
@@ -46,8 +46,7 @@ WWW-clean:
 
 dist:	check-state-vector
 	rm -rf $(distdir)
-	-mkdir $(distdir)
-	$(MAKE) localdist $(distdir)
+	$(MAKE) local-dist $(distdir)
 	chmod -R a+r $(distdir)
 	chmod  a+x `find $(distdir) -type d -print` 
 	(cd ./$(depth)/$(outdir); $(TAR) cf - $(DIST_NAME) | gzip -9 > $(DIST_NAME).tar.gz)

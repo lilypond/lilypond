@@ -43,8 +43,8 @@ doc-dir = $(depth)/Documentation
 make-dir = $(depth)/make
 po-dir = $(depth)/po
 
-# -c is for copying
-INSTALL = $(stepdir)/../bin/install-sh -c
+# -c is for copying (now set in config.make)
+# INSTALL = $(stepdir)/../bin/install-sh -c
 
 # user settings:
 #

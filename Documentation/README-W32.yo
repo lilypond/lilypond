@@ -380,7 +380,7 @@ spaces.  And then place it in the bash shell path by editing
 $CYGFS/cygnus.bat.
 
 subsubsect(Yodl Document Language) 
-lurl(http://www.digicash.com/~jan/yodl/)
+lurl(http://www.xs4all.nl/~jantien/yodl/)
 
 Yodl for documentation in Lilypond.  It is currently being updated by
 Jan Nieuwenhuizen.  The development methodology of em(Yodl) as well as
@@ -413,7 +413,7 @@ em(lilypond).
                                    
 itemize(
 it() download the package from
-lurl(http://www.digicash.com/~jan/yodl/) to
+lurl(http://www.xs4all.nl/~jantien/yodl/) to
 file($HOME/usr/src/releases).
 it() From a bash shell, cd file($HOME/usr/src).
 it() tar zxf releases/yodl-em(<version>).tar.gz 

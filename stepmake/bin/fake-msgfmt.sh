@@ -1,6 +1,6 @@
 #!/bin/sh
 
-IDENTIFICATION=fake-yodl.sh
+IDENTIFICATION=fake-msgfmt.sh
 
 OUTPUT='/dev/null'
 
@@ -27,8 +27,7 @@ then
   exit 1
 fi
 
-echo Faking Yodl: copying $1 to $OUTPUT
+echo Faking msgfmt: copying $1 to $OUTPUT
 
 
-echo THIS IS A SURROGATE. Please install YODL for a formatted document  > $OUTPUT
-cat $1 >> $OUTPUT
+cp $1 $OUTPUT

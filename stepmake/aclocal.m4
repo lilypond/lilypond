@@ -234,13 +234,16 @@ dnl    fi
 	LN=cp # hard link does not work under cygnus-nt (yet?)
 	ZIP="zip -r -9" #
 	DOTEXE=.exe
+        INSTALL="\$(stepdir)/../bin/install-dot-exe.sh -c"
     else
 	LN=ln
 	ZIP="zip -r -9"
+        INSTALL="\$(stepdir)/../bin/install-sh -c"
     fi
     AC_SUBST(DOTEXE)
     AC_SUBST(ZIP)
     AC_SUBST(LN)
+    AC_SUBST(INSTALL)
 
     AC_STEPMAKE_DATADIR
 ])
@@ -350,15 +353,19 @@ AC_DEFUN(AC_STEPMAKE_MAN, [
 ])
 
 AC_DEFUN(AC_STEPMAKE_MSGFMT, [
-    AC_CHECK_PROGS(MSGFMT, msgfmt, -echo no msgfmt)
+    # AC_CHECK_PROGS(MSGFMT, msgfmt, -echo no msgfmt)
+    AC_CHECK_PROGS(MSGFMT, msgfmt, \$(SHELL) \$(step-bindir)/fake-msgfmt.sh)
     AC_MSG_CHECKING(whether msgfmt accepts -o)
     msgfmt_output="`msgfmt -o bla 2>&1 | grep usage`"
     if test "$msgfmt_output" = ""; then
 	AC_MSG_RESULT(yes)
     else
 	# urg
-	MSGFMT="touch $@; echo "
+	MSGFMT="\$(SHELL) \$(step-bindir)/fake-msgfmt.sh)"
 	AC_MSG_RESULT(no)
+	AC_STEPMAKE_WARN(please install msgfmt from GNU gettext)
+    fi
+    if test ! -n "$MSGFMT"; then
 	AC_STEPMAKE_WARN(please install msgfmt from GNU gettext)
     fi
 ])
@@ -420,6 +427,9 @@ AC_DEFUN(AC_STEPMAKE_YODL, [
 	AC_SUBST(YODL2TXT)
 	export YODL YODL2HTML YODL2LATEX YODL2MAN YODL2TEXINFO YODL2TXT
     fi
+    if test "x$YODL" = "-echo no yodl"; then
+	AC_STEPMAKE_WARN(Did not find YODL (Yodl is Yet Oneother Document Language, see http://www.cs.uu.nl/~hanwen/yodl))
+    fi    
 ])
 
 dnl should cache result.

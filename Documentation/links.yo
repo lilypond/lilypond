@@ -12,7 +12,7 @@ nsubsect(LilyPond)
 
 description(
 dit(lurl(http://www.cs.uu.nl/people/hanwen/lilypond/))Han-Wen's site.
-dit(lurl(http://www.digicash.com/~jan/lilypond/))Jan's site.
+dit(lurl(http://www.xs4all.nl/~jantien/lilypond/))Jan's site.
 dit(lurl(http://sca.uwaterloo.ca/lilypond/))The canadian mirror
 (thanks, Eric!)
 )
@@ -26,7 +26,7 @@ dit(lurl(http://www.gnu.org/))
 dit(lurl(http://www.zib.de/Visual/software/doc++/index.html))
     The documentation system for C++ sources, which is used for the
     LilyPond sources.
-dit(lurl(http://www.digicash.com/~jan/yodl/index.html))
+dit(lurl(http://www.xs4all.nl/~jantien/yodl/index.html))
     LilyPond documentation is in Yodl.  You'll need a recent
     development version from 
     lurl(ftp://pcnov095.win.tue.nl/pub/yodl/development).

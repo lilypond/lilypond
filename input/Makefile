@@ -12,3 +12,6 @@ flexamples=example-1 example-2
 
 include $(stepdir)/WWW.make
 
+
+local-check: $(addsuffix .dvi, $(addprefix $(outdir)/, $(examples)))
+

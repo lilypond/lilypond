@@ -27,6 +27,6 @@ localinstall: $(MO_FILES)
 localuninstall:
 	for i in $(CATALOGS); do \
 	  rm -f $(localedir)/$$i/LC_MESSAGES/$(package).mo; \
-	  rmdir $(localedir)/$$i/LC_MESSAGES; \
+	  rmdir $(localedir)/$$i/LC_MESSAGES || true; \
 	done
 

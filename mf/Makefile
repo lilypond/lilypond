@@ -14,7 +14,11 @@ LYTABLES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.ly))
 LOG_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.log))
 TEXTABLES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.tex))
 AFM_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.afm))
+
 ALL_GEN_FILES=$(LYTABLES) $(TEXTABLES) $(LOG_FILES) $(AFM_FILES)
+
+OUT_DIST_FILES += $(AFM_FILES)
+
 default: $(ALL_GEN_FILES)
 
 

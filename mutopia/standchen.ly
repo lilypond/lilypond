@@ -1,10 +1,10 @@
 \header{
 filename =	 "standchen.ly";
-title    = "St\"andchen";
-subtitle = "(Serenade)\\\``Leise flehen meine Lieder";
+title    = "St\\\"andchen";
+subtitle = "(Serenade)\\\\``Leise flehen meine Lieder''";
 opus =	 "D. 957 No. 4";
-composer =	 "Franz Schubert (1797-1828)"
-	 "Text by Ludwig Rellstab (1799-1860)";
+composer =	 "Franz Schubert (1797-1828)";
+poet=	 "Text by Ludwig Rellstab (1799-1860)";
 enteredby =	 "JCN";
 copyright =	 "public domain";
 } 
@@ -20,9 +20,9 @@ $vocal_verse1 = \melodic\relative c{
 	% ugh: treble/bass
 %	\clef treble;
 %	\clef violin;
-	[/3 g''8( )as] g \] c4. g8 |
-	[/3 f8( )g] f \] c'4 f,8 r |
-	g4.-> f8 [/3 f( )es] d \] |
+	[/3 g''8( )as] g \]/1 c4. g8 |
+	[/3 f8( )g] f \]/1 c'4 f,8 r |
+	g4.-> f8 [/3 f( )es] d \]/1 |
 	es2 r4 |
 	% ugh: a whole should be a measure
 	%r1 |
@@ -84,7 +84,7 @@ $lyric_verse1 = \lyric{
 	_ _ _ |
 % 11
 	\[/3 In4 den8 \] stil-4. len8 |
-	\[/3 Hainr4 her-8 \] nie-4. der8 |
+	\[/3 Hain4 her-8 \] nie-4. der8 |
 	Lieb4. chen8 \[/3 komm4 zu8 \] |
 	mir!2 _4 |
 	_4 _ _ |
@@ -94,8 +94,8 @@ $lyric_verse1 = \lyric{
 	Wip-8. fel16 rau-4. schen8 |
 	\[/3 In4 des8 \] Mon-4. des8 |
 	Licht;2. |
-	_4 _ _ |
-	_4 _ _ |
+	\[/3 In4 des8 \] Mon-4. des8 |
+	Licht;2. |
 % 23 
 	Des8. Ver-16 r\"a-4. ters8 |
 	feind-8. lich16 Lau-4. schen8 |
@@ -143,10 +143,12 @@ $lyric_through = \lyric{
 % 37
 	La\ss8. auch16 dir8. die16 Brust8. be-16 |
 	we-4 gen _ |
-	Lieb-4. chen8 h\"o-8. re16 |
+	Lieb-4. chen,8 h\"o-8. re16 |
 	mich!2 _4 |
-	Be-8. bend16 harr4 ich8 _8 |
+	Be-4. bend8 \[/3 harr'4 ich8\]/1 |
 	dir8. ent-16 ge-4 gen!8 _8 |
+	_2. |
+	_2. |
 	\[/3 Komm4 be-8 \] gl\"u4. cke8 |
 	mich!2. |
 	\[/3 Komm4 be-8 \] gl\"u4. cke8 |
@@ -198,7 +200,7 @@ $treble_verse1 = \melodic\relative c{
 	r8 <[e g> <g c> <e g> <g c> <e g]> |
 	r8 <[f a c> <a c f> <f a c> <a c f> <f a c]> |
 	r8 <[e g c> <g c e> <e g c> <g c e> <e g c]> |
-	<{[/3 f8\f( e f]1/1 a4. )f8 } {\[/3 f' e f \] a4. f8 } > |
+	<{[/3 f8\f( e f]1/1 a4. )f8 } {\[/3 f' e f \]/1 a4. f8 } > |
 	<e2 e'> r4 |
 }
 
@@ -243,7 +245,7 @@ $treble_through = \melodic\relative c{
 	r8 <[f,\p a c> <a c f> <f a c> <a c f> <f a c]> |
 	%70
 	r8 <[e g c> <g c e> <e g c> <g c e> <e g c]> |
-	<{[/3 f8\f( e f]1/1 a4. )f8 } {\[/3 f' e f \] a4. f8 } > |
+	<{[/3 f8\f( e f]1/1 a4. )f8 } {\[/3 f' e f \]/1 a4. f8 } > |
 	<e'2 e'> r4 |
 	<es2 es'> r4 |
 	<d2 d'> r4 |
@@ -328,8 +330,8 @@ $bass_through = \melodic\relative c{
 	<g8 g'> <[d'' g> <g b> <d g> <g b> <d g]> |
 	c,8 <[c' e g> <e g c> <c e g> <e g c> <c e g]> |
 
-	<c,8 c'> <[c' es! g> <es g c> <c es! g> <es g c> <c es! g]> |
-	<f,,8 f'> <[d'' f> <f as!> <d f> <f as!> <d f]> |
+	<c,8 c'> <[c' es! g> <es g c> <c es g> <es g c> <c es g]> |
+	<f,,8 f'> <[d'' f> <f as!> <d f> <f as> <d f]> |
 	%75
 	<g,,8 g'> <[d'' f> <f g> <d f> <f g> <d f]> |
 	c,8 <[c' e> <e g> <c e> <e g> <c e]> |
@@ -422,10 +424,13 @@ $grand_staff = \type GrandStaff<
 >
 
 \score{
+	% Transpose as you like for your voice
+	% Range untransposed is c' to f'' (for tenors and sopranos)
+	% \transpose a gives a' to d''
 	<
-		\$vocal_staff
+		{ \melodic \transpose a { \$vocal_staff } }
 		\$lyric_staff
-		\$grand_staff
+		{ \melodic \transpose a { \$grand_staff } }
 	>
 	\include "score-paper.ly";
 	\midi{

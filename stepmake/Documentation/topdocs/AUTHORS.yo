@@ -9,7 +9,7 @@ This file lists authors of StepMake, and what they wrote.
 nsect(AUTHORS)
 itemize(
 it()nemail(Jan Nieuwenhuizen)(janneke@gnu.org),
-    lurl(http://www.digicash.com/~jan)
+    lurl(http://www.xs4all.nl/~jantien)
     nl()
     Main author.
 it()nemail(Han-Wen Nienhuys)(hanwen@cs.uu.nl), 

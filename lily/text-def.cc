@@ -26,6 +26,9 @@ Text_def::width (Paper_def * p) const
 {
   Atom a = get_atom (p,CENTER);
 
+  /* TODO: check string for \texcommand
+   */
+
   Real guess_width_f = text_str_.length_i() * a.dim_.x ().length (); // ugh
   Interval i (0, guess_width_f);
   i += - (align_dir_ + 1)* i.center();

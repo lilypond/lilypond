@@ -2,7 +2,7 @@
 
 \paper { 
 	% for simple testing only!
-	castingalgorithm = \Wordwrap; % lots faster on my 486 -- jcn
+%	castingalgorithm = \Wordwrap; % lots faster on my 486 -- jcn
 Staff = \translator {
 	\type "Hara_kiri_line_group_engraver";
 
