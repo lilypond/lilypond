@@ -117,10 +117,12 @@ afm: $(AFM_FILES)
 pfa: afm $(PFA_FILES) fontdir
 pfb: afm $(PFB_FILES) fontdir
 
-# needed for web documentation
-$(SAUTER_FONTS:%=$(outdir)/%.pfa):
-	$(foreach i, $(SAUTER_FONTS), \
-		$(MFTRACE) -I $(outdir)/ --pfa --simplify --keep-trying $(i) && mv $(i).pfa $(outdir)/ && ) true
-$(SAUTER_FONTS:%=$(outdir)/%.pfb):
-	$(foreach i, $(SAUTER_FONTS), \
-		$(MFTRACE) -I $(outdir)/ --pfa --pfb --simplify --keep-trying $(i) && mv $(i).pfb $(i).pfa $(outdir)/ && ) true
+
+# stupid trick to have separate rules for each PFA font ;
+# otherwise building PFAs is all-or-nothing.
+$(SAUTER_FONTS:%=$(outdir)/%.bla):
+	$(foreach i, $@, touch $i && ) true
+
+$(outdir)/%.pfa: $(outdir)/%.bla
+	$(MFTRACE) -I $(outdir)/ --pfa --simplify --keep-trying $(notdir $(basename $@))  && mv $(notdir $@) $(outdir)/
+

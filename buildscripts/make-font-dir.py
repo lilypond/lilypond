@@ -51,6 +51,7 @@ def read_afm_file (filename):
 
 class Font_info:
 	cm = {
+		'ss' : ('regular', 'sans'),
 		'bx': ('bold', 'roman'),
 		'bxti' : ('bold', 'italic'),
 		'csc' : ('smallcaps', 'roman'),

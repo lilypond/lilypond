@@ -7,6 +7,7 @@
 # If run by hand or from you .profile, run as follows
 #   . /PATH/TO/lilypond-profile
 
+echo $0
 # workaround for ZSH posix $0-problem
 [ -n "$ZSH_NAME" ] && setopt nofunctionargzero
 

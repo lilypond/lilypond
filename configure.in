@@ -11,16 +11,8 @@ AC_CONFIG_AUX_DIR([stepmake/bin])
 # AC_CONFIG_AUX_DIR(bin)
 
 
-
-. $srcdir/VERSION 
-
 STEPMAKE_INIT
 
-AC_SUBST(PACKAGE_NAME)
-AC_SUBST(MAJOR_VERSION)
-AC_SUBST(MINOR_VERSION)
-AC_SUBST(PATCH_LEVEL)
-AC_SUBST(MY_PATCH_LEVEL)
 
 
 # List a file that identifies your package.
