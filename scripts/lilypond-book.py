@@ -1092,7 +1092,7 @@ def find_toplevel_snippets (s, types):
 				while (line_starts[line_number] < index):
 					line_number += 1
 
-				line_number ++
+				line_number += 1
 				snip = cl (type, m, format, line_number)
 				start = index + m.start ('match')
 				found[type] = (start, snip)
@@ -1260,7 +1260,7 @@ def write_file_map (lys, name):
 	snippet_map = open ('snippet-map.ly', 'w')
 	snippet_map.write ("\n#(ly:add-file-name-alist '(")
 	for ly in lys:
-		snippet_map.write ('("%s" . "%s:%d (%s.ly)")\n' % (ly.basename(),
+		snippet_map.write ('("%s.ly" . "%s:%d (%s.ly)")\n' % (ly.basename(),
 					   name,
 					   ly.line_number,
 					   ly.basename()))
