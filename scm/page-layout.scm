@@ -343,7 +343,15 @@ CURRENT-BEST is the best result sofar, or #f."
 			  satisfied-constraints)
 		      10000))
 	   (positions (cdr vertical-spacing))
-           (user-penalty (ly:paper-system-break-penalty (car current-lines)))
+	   (user-nobreak-penalties
+	    (-
+	     (apply + (filter negative?
+			      (map ly:paper-system-break-before-penalty
+				   (cdr current-lines))))))
+           (user-penalty
+	    (+
+	     (max (ly:paper-system-break-before-penalty (car current-lines)) 0.0)
+	       user-nobreak-penalties))
            (total-penalty (combine-penalties
                            force user-penalty
 			   best-paths))
@@ -364,7 +372,7 @@ CURRENT-BEST is the best result sofar, or #f."
 			   #:penalty total-penalty)
                          current-best)))
       
-      (if #f ;; debug
+      (if #t ;; debug
           (display
            (list
             "\nuser pen " user-penalty

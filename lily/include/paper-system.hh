@@ -25,7 +25,7 @@ class Paper_system
   bool is_title_;
 public:
   Interval staff_refpoints_;
-  Real penalty_;
+  Real break_before_penalty_;
   int number_;
 
   Paper_system (Stencil, bool);
@@ -33,7 +33,7 @@ public:
   Stencil to_stencil () const;
   SCM stencils () const;
   bool is_title () const;
-  Real penalty () const;
+  Real break_before_penalty () const;
 };
 
 DECLARE_UNSMOB (Paper_system, paper_system);

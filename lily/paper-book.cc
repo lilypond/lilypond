@@ -343,7 +343,23 @@ Paper_book::score_title (int i)
   
   return title;
 }
-  
+
+void
+set_system_penalty (Paper_system * ps, SCM header)
+{
+  if (ly_c_module_p (header))
+    {
+      SCM force = ly_module_lookup (header, ly_symbol2scm ("breakbefore"));
+      if (SCM_VARIABLEP(force)
+	  && scm_is_bool (SCM_VARIABLE_REF(force)))
+	{
+	  ps->break_before_penalty_ = to_boolean (SCM_VARIABLE_REF(force))
+	    ? -10000
+	    : 10000;
+	}
+    }
+}
+	    
 SCM
 Paper_book::systems ()
 {
@@ -356,6 +372,8 @@ Paper_book::systems ()
   if (!title.is_empty ())
     {
       Paper_system *ps = new Paper_system (title, true);
+      set_system_penalty (ps, header_);
+      
       systems_ = scm_cons (ps->self_scm (), systems_);
       scm_gc_unprotect_object (ps->self_scm ());
     }
@@ -369,6 +387,9 @@ Paper_book::systems ()
 	  Paper_system *ps = new Paper_system (title, true);
 	  systems_ = scm_cons (ps->self_scm (), systems_);
 	  scm_gc_unprotect_object (ps->self_scm ());
+
+	  set_system_penalty (ps, score_systems_[i].header_);
+	  
   	}
       
       if (scm_vector_p (score_systems_[i].systems_) == SCM_BOOL_T)
@@ -390,9 +411,10 @@ Paper_book::systems ()
       Paper_system *ps = unsmob_paper_system (scm_car (s));
       ps->number_ = ++i;
 
-      if (last && last->is_title ())
-	// ugh, hardcoded.	
-	ps->penalty_ = 10000;
+      if (last
+	  && last->is_title ()
+	  && !ps->break_before_penalty_)
+	ps->break_before_penalty_ = 10000;
       last = ps;
     }
   
