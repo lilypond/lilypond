@@ -16,14 +16,21 @@ Span_bar_engraver::Span_bar_engraver()
     valign_l_ =0;
 }
 
+Span_bar*
+Span_bar_engraver::get_span_bar_p()const
+{
+    return  new Span_bar;
+}
+
 void
 Span_bar_engraver::acknowledge_element(Score_elem_info i)
 {
-    if ( i.elem_l_->is_type_b( Bar::static_name() ) ) {
+    if ( i.origin_grav_l_arr_.size() > 1 && 
+	 i.elem_l_->is_type_b( Bar::static_name() ) ) {
 	bar_l_arr_.push( (Bar*)i.elem_l_->item() );
 	
 	if (bar_l_arr_.size() >= 2 && !spanbar_p_) {
-	    spanbar_p_ = new Span_bar;
+	    spanbar_p_ = get_span_bar_p();
 	    announce_element( Score_elem_info(spanbar_p_,0) );
 	}
     } else if  (i.elem_l_->is_type_b( Vertical_align_spanner::static_name() ) 
