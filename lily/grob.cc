@@ -660,6 +660,13 @@ Grob::internal_has_interface (SCM k)
   return scm_c_memq (k, ifs) != SCM_BOOL_F;
 }
 
+Grob*
+Grob::get_parent (Axis a) const
+{
+  return  dim_cache_[a].parent_;
+}
+
+
 /** Return Array of Grobs in SCM list LST */
 Link_array<Grob>
 ly_scm2grobs (SCM lst)
@@ -731,8 +738,11 @@ ADD_INTERFACE (Grob, "grob-interface",
 	       "Y-extent-callback print-function extra-offset spacing-procedure "
 	       "context staff-symbol interfaces dependencies X-extent Y-extent extra-X-extent "
 	       "meta layer before-line-breaking-callback "
+	       "axis-group-parent-X "
+	       "axis-group-parent-Y "
 	       "after-line-breaking-callback extra-Y-extent minimum-X-extent "
 	       "minimum-Y-extent transparent tweak-count tweak-rank"
 	       );
+
 
 

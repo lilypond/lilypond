@@ -8,7 +8,6 @@
  */
 
 #include "axis-group-interface.hh"
-
 #include "hara-kiri-group-spanner.hh"
 
 void
@@ -20,8 +19,14 @@ Axis_group_interface::add_element (Grob*me,Grob *e)
       
       if (!e->get_parent (a))
 	e->set_parent (me, a);
-    }
 
+      e->internal_set_property ((a == X_AXIS)
+				? ly_symbol2scm ("axis-group-parent-X")
+				: ly_symbol2scm ("axis-group-parent-Y"),
+				me->self_scm ()
+				);
+    }
+    
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("elements"), e);
   me->add_dependency (e);
 }

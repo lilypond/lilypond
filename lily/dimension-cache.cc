@@ -6,10 +6,10 @@
   (c) 1998--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
  */
 
-#include "dimension-cache.hh"
 
 #include <cmath>
 
+#include "dimension-cache.hh"
 #include "warn.hh"
 #include "grob.hh"
 

@@ -1,5 +1,27 @@
 2004-11-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/regression/spacing-stick-out.ly: new file.
+
+	* lily/simple-spacer.cc (add_columns): use binary search for
+	setting column rods. Changes O(n^2) to O(n log(n)) for
+	constructing spacing problem from columns.
+	(add_columns): read allow-outside-line to make sure no texts stick
+	out.
+	(solve): Simple_spacer::is_active() only determines
+	satisfies_constraints_ for non-ragged typesetting.
+
+	* lily/simultaneous-music.cc (to_relative_octave): only set
+	old_relative_used if return pitch actually changed.
+
+	* scm/define-context-properties.scm
+	(all-user-translation-properties): change to match implementation.
+
+	* python/lilylib.py: Replace re.match by re.search and adds "-c
+	showpage" to the gs command line (Johannes Schindelin)
+
+	* scm/framework-ps.scm (output-preview-framework): sanitize bbox
+	before processing. Prevents crash when inf is in the extent.
+
 	* scm/define-markup-commands.scm (note-by-number): add "s" to
 	"noteheads-" glyphname.
  

@@ -32,10 +32,17 @@ Simultaneous_music::Simultaneous_music ()
 Pitch
 Simultaneous_music::to_relative_octave (Pitch p)
 {
+  Pitch retval = music_list_to_relative (music_list (), p, false);
   if (lily_1_8_relative)
-    lily_1_8_compatibility_used = true;
-  
-  return music_list_to_relative (music_list (), p, lily_1_8_relative);
+    {
+      Pitch retval_1_8 = music_list_to_relative (music_list (), p, true);
+      if (retval_1_8 != retval)
+	lily_1_8_compatibility_used = true;
+
+      retval = retval_1_8;
+    }
+
+  return retval;
 }
 
 ADD_MUSIC (Simultaneous_music);

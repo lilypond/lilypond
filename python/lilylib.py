@@ -447,7 +447,7 @@ BOUNDING_BOX_RE = '^%%BoundingBox: (-?[0-9]+) (-?[0-9]+) (-?[0-9]+) (-?[0-9]+)'
 def get_bbox (filename):
 	bbox = filename + '.bbox'
 	## -sOutputFile does not work with bbox?
-	cmd = 'gs -sDEVICE=bbox -q -dNOPAUSE %s -c quit 2>%s' % \
+	cmd = 'gs -sDEVICE=bbox -q -dNOPAUSE %s -c showpage -c quit 2>%s' % \
 	      (filename, bbox)
 	system (cmd, progress_p = 1)
 	box = open (bbox).read ()
@@ -467,7 +467,7 @@ def make_ps_images (ps_name, resolution = 90):
 	
 	header = open (ps_name).read (1024)
 
-	match = re.match (BOUNDING_BOX_RE, header)
+	match = re.search (BOUNDING_BOX_RE, header, re.MULTILINE)
 	bbox = []
 	if match:
 		bbox = map (string.atoi, match.groups ())
@@ -501,7 +501,7 @@ def make_ps_images (ps_name, resolution = 90):
 		if y == 0:
 			y = 1
 
-		cmd = r'''gs -g%dx%d -sDEVICE=pnggray  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=%s -r%d -dNOPAUSE %s %s -c quit ''' % \
+		cmd = r'''gs -g%dx%d -sDEVICE=pnggray  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=%s -r%d -dNOPAUSE %s %s -c showpage -c quit ''' % \
 		      (x, y, output_file, resolution, trans_ps, ps_name)
 
 		rms = glob.glob (base + '-page*.png')
@@ -513,7 +513,7 @@ def make_ps_images (ps_name, resolution = 90):
 		if os.path.isfile (rmfile):
 			os.unlink (rmfile)
 		
-		cmd = r'''gs -s  -sDEVICE=pnggray  -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -q -sOutputFile=%s -dNOPAUSE -r%d %s -c quit''' % (output_file,
+		cmd = r'''gs -s  -sDEVICE=pnggray  -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -q -sOutputFile=%s -dNOPAUSE -r%d %s -c showpage -c quit''' % (output_file,
 																      resolution, ps_name)
 
 	status = system (cmd)

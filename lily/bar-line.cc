@@ -6,10 +6,10 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "bar-line.hh"
 
 #include <cmath>
 
+#include "bar-line.hh"
 #include "lookup.hh"
 #include "paper-column.hh"
 #include "output-def.hh"

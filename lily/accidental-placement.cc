@@ -7,10 +7,10 @@
 
 */
 
-#include "accidental-placement.hh"
-
 #include <cmath>
 
+
+#include "accidental-placement.hh"
 #include "libc-extension.hh" 	// isinf
 #include "skyline.hh"
 #include "music.hh"

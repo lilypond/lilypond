@@ -14,11 +14,10 @@
 
 */
 
-#include "custos.hh"
-
 #include <cstdio>
 #include <cmath> // rint
 
+#include "custos.hh"
 #include "direction.hh"
 #include "staff-symbol-referencer.hh"
 #include "warn.hh"

@@ -6,10 +6,10 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "break-align-interface.hh"
 
 #include <cmath>
 
+#include "break-align-interface.hh"
 #include <libc-extension.hh>	// isinf
 
 #include "self-alignment-interface.hh"

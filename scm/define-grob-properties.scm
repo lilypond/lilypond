@@ -268,7 +268,9 @@ slur. If set to false, the script places itself around the slur. If
 unset, script and slur ignore each other ")
      (inspect-quants ,number-pair? "If debugging is set,
 set beam quant to this position, and print the respective scores.")
-     
+
+     (allow-outside-line ,boolean? "If set, allow this column to
+things sticking into the margin.")
      (kern ,ly:dimension? "Amount of extra white space to add. For
 bar line, this is the amount of space after a thick line.")
      (knee ,boolean? "Is this beam kneed?")
@@ -516,7 +518,8 @@ sizes (like the dynamic @b{p} and @b{f}) on their baselines.")
      (apply define-internal-grob-property x))
    
    `(
-     
+     (axis-group-parent-X ,ly:grob? "Containing X axis group")
+     (axis-group-parent-Y ,ly:grob? "Containing Y axis group")
      (accidental-grobs ,list? "Alist with (NOTENAME . GROBLIST) entries")
      (adjacent-hairpins ,grob-list? "List of directly neighboring hairpins")
      (after-line-breaking-callback ,procedure? "This procedure is called after line breaking. Its return value is ignored.")     

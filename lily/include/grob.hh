@@ -125,11 +125,7 @@ public:
   void set_parent (Grob* e, Axis);
 
   // URG
-  Grob *get_parent (Axis a) const
-  {
-    return  dim_cache_[a].parent_;
-  }
-
+  Grob *get_parent (Axis a) const;
   DECLARE_SCHEME_CALLBACK (fixup_refpoint, (SCM));
 };
 

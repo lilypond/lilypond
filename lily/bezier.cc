@@ -6,10 +6,10 @@
   (c) 1998--2004 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "bezier.hh"
 
 #include <cmath>
 
+#include "bezier.hh"
 #include "warn.hh"
 #include "libc-extension.hh"
 
