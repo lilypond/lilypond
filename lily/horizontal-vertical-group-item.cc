@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -17,3 +17,9 @@ Horizontal_vertical_group_item::do_print() const
 }
 
 IMPLEMENT_IS_TYPE_B2(Horizontal_vertical_group_item,Horizontal_vertical_group_element,Item);
+
+Horizontal_vertical_group_item::Horizontal_vertical_group_item ()
+{
+  axis1_ = X_AXIS;
+  axis2_ = Y_AXIS;    
+}
