@@ -208,35 +208,14 @@
      (else fontname)))
 			 
   (define (font-load-command paper font)
-
-;; fontname "feta20"
-;; command "magfontGNMWomXVo"
-;; mangled "GNU-LilyPond-feta-20"
-;; designsize 0.569055118110236
-;; foo-design 20
-;; magnification 0.569055118110236
-;; ops 1.75729901757299
-;; scaling 20.0
-
-;; fontname "cmr8"
-;; command "magfontUIJQomTVo"
-;; mangled "cmr8.pfb"
-;; designsize 0.564574183197548
-;; foo-design 8
-;; magnification 0.564574183197548
-;; ops 1.75729901757299
-;; scaling 7.87450656184296
-    
     (let* ((command (font-command font))
 	   (fontname (ly:font-name font))
 	   (mangled (possibly-mangle-fontname fontname))
 	   (encoding (assoc-get fontname font-encoding-alist))
 	   (designsize (ly:font-design-size font))
 	   (magnification (* (ly:font-magnification font)))
-	   (foo-design (fontname->designsize fontname))
 	   (ops (ly:paper-lookup paper 'outputscale))
-	   ;; FIXME this magic is about right ...
-	   (scaling (* ops ops magnification designsize foo-design)))
+	   (scaling (* ops magnification designsize)) )
 
       (if
        #f

@@ -1,3 +1,12 @@
+2004-04-05  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/output-ps.scm (define-fonts): fix scaling.
+
+	* lily/scaled-font-metric.cc (design_size): add function.
+
+	* lily/font-metric.cc (LY_DEFINE): opps ly:font-design-size is only
+	partial cut&paste of ly:font-magnification.
+
 2004-04-05  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/output-ps.scm (define-fonts):
@@ -7,7 +16,7 @@
 
 	* po/fr.po: update.
 
-	* po/nl.po: new po file.
+	* po/nl.po: update
 
 	* mf/feta-beugel.mf: document why design size is not fixed.
 

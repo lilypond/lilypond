@@ -31,6 +31,12 @@ Scaled_font_metric::make_scaled_font_metric (Font_metric*m, Real s)
   return sfm->self_scm ();
 }
 
+Real
+Scaled_font_metric::design_size () const
+{
+  return orig_->design_size ();
+}
+
 Stencil
 Scaled_font_metric::find_by_name (String s) const
 {
