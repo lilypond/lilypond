@@ -324,18 +324,19 @@ An Emacs mode for entering music and running LilyPond is contained in
 the source archive as @file{lilypond-mode.el},
 @file{lilypond-indent.el} and @file{lilypond-font-lock.el}. 
 You should install these files to a directory included in your 
-@var{load-path}. As a user, you may want add your source path or
-@file{~/site-lisp/} to your @var{load-path}. Append the following line 
-(modified) to your @file{~/.emacs} or @file{~/.emacs.el}:
+@var{load-path}. File @file{lilypond-init.el} should be placed to 
+@var{load-path}@file{/site-start.d/} or appended to your @file{~/.emacs}
+or @file{~/.emacs.el}. If you have installed a precompiled LilyPond 
+package, these files can be found in @file{/usr/share/doc/lilypond-x.y.z/}. 
+
+As a user, you may want add your source path or, e.g., @file{~/site-lisp/} 
+to your @var{load-path}. Append the following line (modified) to your 
+@file{~/.emacs}:
 @quotation
 @example
 (setq load-path (append (list (expand-file-name "~/site-lisp")) load-path))
 @end example
 @end quotation
-File @file{lilypond-init.el} should be placed to 
-@var{load-path}@file{/site-start.d/} or appended to your @file{~/.emacs}.
-If you have installed a precompiled LilyPond package, these files can be
-found in @file{/usr/share/doc/lilypond-x.y.z/}. 
 
 If you have the latest LilyPond-1.4.x Debian package, LilyPond-mode is
 automatically loaded, you not even need to modify your @code{~/.emacs}
