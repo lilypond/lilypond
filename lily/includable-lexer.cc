@@ -26,9 +26,17 @@
 #define YYSTATE YY_START
 #endif
 
+/* Flex >= 2.5.29 has include stack; but we don't use that yet.  */
+#ifndef HAVE_FLEXLEXER_YY_CURRENT_BUFFER
+#define yy_current_buffer \
+  (yy_buffer_stack != 0 ? yy_buffer_stack[yy_buffer_stack_top] : 0)
+#endif
+
 Includable_lexer::Includable_lexer ()
 {
+#ifdef HAVE_FLEXLEXER_YY_CURRENT_BUFFER
   yy_current_buffer = 0;
+#endif
   allow_includes_b_ = true;
 }
 
@@ -106,10 +114,14 @@ Includable_lexer::close_input ()
   if (verbose_global_b)
     progress_indication ("]");
   yy_delete_buffer (yy_current_buffer);
+#ifdef HAVE_FLEXLEXER_YY_CURRENT_BUFFER  
   yy_current_buffer = 0;
+#endif  
   if (state_stack_.empty ())
     {
+#ifdef HAVE_FLEXLEXER_YY_CURRENT_BUFFER  
       yy_current_buffer = 0;
+#endif  
       return false;
     }
   else

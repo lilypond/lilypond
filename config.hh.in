@@ -27,6 +27,9 @@
 /* define if you have vsnprintf */
 #define HAVE_VSNPRINTF 0
 
+/* define if you have yyFlexLexer.yy_current_buffer */
+#undef HAVE_FLEXLEXER_YY_CURRENT_BUFFER
+
 /* define if you have gettext */
 #define HAVE_GETTEXT 0
 

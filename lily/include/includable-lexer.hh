@@ -6,12 +6,13 @@
   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #ifndef INCLUDABLE_LEXER_HH
 #define INCLUDABLE_LEXER_HH
 
+#ifndef LEXER_CC
 using namespace std;
 #include <FlexLexer.h>
+#endif
 
 #include "string.hh"
 #include "parray.hh"

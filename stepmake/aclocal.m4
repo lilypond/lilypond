@@ -331,6 +331,28 @@ AC_DEFUN(STEPMAKE_FLEXLEXER, [
 	warn='FlexLexer.h (flex package)'
 	STEPMAKE_ADD_ENTRY($1, $warn)
     fi
+    # check for yyFlexLexer.yy_current_buffer,
+    # in 2.5.4 <= flex < 2.5.29
+    AC_LANG_PUSH(C++)
+    AC_CACHE_CHECK([for yyFlexLexer.yy_current_buffer],
+	[stepmake_flexlexer_yy_current_buffer],
+	AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+#include <FlexLexer.h>
+class yy_flex_lexer: public yyFlexLexer
+{
+  public:
+    yy_flex_lexer ()
+    {
+      yy_current_buffer = 0;
+    }
+};
+]])],
+	    [stepmake_flexlexer_yy_current_buffer=yes],
+	    [stepmake_flexlexer_yy_current_buffer=no]))
+    if test $stepmake_flexlexer_yy_current_buffer = yes; then
+	AC_DEFINE(HAVE_FLEXLEXER_YY_CURRENT_BUFFER, 1, [Define to 1 if yyFlexLexer has yy_current_buffer.])
+    fi
+    AC_LANG_POP(C++)
 ])
 
 
