@@ -11,7 +11,7 @@ interline#:=staffsize#/(stafflines-1);
 stafflinethickness#:=0.1 interline#;
 
 stemthickness# := stafflinethickness#;
-ledgerlinethickness# := 1.5 stafflinethickness#;
+ledgerlinethickness# := 2 stafflinethickness#;
 
 define_pixels(interline, stemthickness);
 define_pixels(stafflinethickness,ledgerlinethickness);
@@ -31,6 +31,8 @@ overdone_heads = 0.0;
 % The following variable controls the amount of "roundness"
 %
 % this is not a meta variable: it is related to absolute sizes.
+%
+% According to [Wanske], only outside corners should be round
 %
 numeric blot_diameter;
 blot_diameter# = .4pt#;

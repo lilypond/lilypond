@@ -3,7 +3,7 @@
 
 % most beautiful noteheads are pronounced, not circular, 
 % and not even symmetric.
-% These examples are inspired by [Wanske] [see literature list]
+% These examples are inspired by [Wanske], see literature list
 
 
 fet_begingroup("balls");
@@ -17,7 +17,7 @@ define_pixels(noteheight);
 def draw_brevis =
 	save beamheight, head_width;
 	save holeheight, stem_width;
-	save serif_size;
+	save serif_size, serif_protrude;
 
 	head_width# = 2 interline#;
 	holeheight = 3 stafflinethickness;
@@ -29,7 +29,7 @@ def draw_brevis =
 	
 	2 beamheight + holeheight = noteheight;
 	serif_size = (holeheight - stafflinethickness)/2;
-
+	serif_protrude = 1.5 serif_size;
 	penpos1(stem_width, 0);
 	penpos2(stem_width, 0);
 	penpos3(beamheight, 90);
@@ -41,7 +41,7 @@ def draw_brevis =
 	z3r = z2r + serif_size *(1,-1);
 	y4r = y3r;
 	x4r = head_width/2;
-	z5l = z3l + serif_size * (-1,-1);
+	z5l = z3l + (-serif_size, -serif_protrude);
 
 	penlabels(1,2,3,4, 5);
 	fill z1r -- z1l -- z5r{down} .. z5l{up} .. z3l{right}
