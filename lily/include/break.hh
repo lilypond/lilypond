@@ -14,6 +14,7 @@
 #include "colhpos.hh"
 
 
+
 /**
   Statistics for the number of columns calced.
  */

@@ -17,12 +17,19 @@
 
 #include "string-handle.hh"
 
-/**
+/*
   technically incorrect, but lets keep it here: this is a
   catch all place for this stuff.
   */
   
 #include "international.hh"
+
+/* Libg++ also has a String class.  Programming errors can lead to
+  confusion about which String is in use.  Uncomment the following if you have 
+  unexplained crashes after mucking with String
+  */
+
+//  #define String FlowerString
 
 /** 
  
@@ -62,13 +69,13 @@ class String
 protected:
   String_handle strh_; 
 
-  bool null_terminated();
+  bool null_terminated ();
     
 public:
 
   /** init to empty string. This is needed because other
     constructors are provided.*/
-  String() {  }                  
+  String  ();
   String (Rational);
 
   /// String s = "abc";
@@ -84,12 +91,12 @@ public:
   String (bool);
 
   ///  return a "new"-ed copy of contents
-  Byte* copy_byte_p() const; //  return a "new"-ed copy of contents
+  Byte* copy_byte_p () const; //  return a "new"-ed copy of contents
 
-  char const* ch_C() const;
-  Byte const* byte_C() const;
-  char* ch_l();
-  Byte* byte_l();
+  char const* ch_C () const;
+  Byte const* byte_C () const;
+  char* ch_l ();
+  Byte* byte_l ();
 
   String &operator =(String const & source);
 
@@ -97,21 +104,25 @@ public:
   void operator += (char const* s) { strh_ += s; }
   void operator += (String s);
 
-  bool empty_b () const;
+  bool empty_b  () const;
 #if 0
   /** is the string empty?
 
     Ugh-ugh-thank-you-cygnus.  W32 barfs on this
    */
-  operator bool () const;
+  operator bool  () const;
   {
-    return length_i (); 
+    return length_i  (); 
   }
 #endif
   void append (String);
   void prepend (String);
 
-  char operator [](int n) const { return strh_[n]; }
+  /**
+    Return a char.  UNSAFE because it may change strlen () result
+   */
+  char &operator [](int n);
+  char operator [](int n) const;
 
   /// return n leftmost chars
   String left_str (int n) const;
@@ -120,13 +131,13 @@ public:
   String right_str (int n) const;
 
   /// return uppercase of *this
-  String upper_str() const;
+  String upper_str () const;
 
   /// return lowercase of *this
-  String lower_str() const;
+  String lower_str () const;
 
   /// return the "esrever" of *this
-  String reversed_str() const;
+  String reversed_str () const;
 
 
   /// return a piece starting at index_i (first char = index_i 0), length n
@@ -152,32 +163,41 @@ public:
   int index_i (String) const;
   int index_any_i (String) const;
 
-  void to_upper();
-  void to_lower();
+  void to_upper ();
+  void to_lower ();
   /// provide Stream output
   void print_on (ostream& os) const;
 
   /// the length of the string
-  int length_i() const;
+  int length_i () const;
 
   // ***** depreciated
-  int len() const {
-    return length_i();
+  int len () const {
+    return length_i ();
   }
 
   /// convert to an integer
-  int value_i() const;
+  int value_i () const;
 
   /// convert to a double
-  double value_f() const;
+  double value_f () const;
 };
 
 #include "compare.hh"
-
 INSTANTIATE_COMPARE(String const &, String::compare_i);
 
+#ifdef STRING_UTILS_INLINED
+#ifndef INLINE
+#define INLINE inline
+#endif
+#include "string.icc"
+/* we should be resetting INLINE. oh well. */
+#endif
+
+
 // because char const* also has an operator ==, this is for safety:
-inline bool operator==(String s1, char const* s2){
+inline bool operator==(String s1, char const* s2)
+{
   return s1 == String (s2);
 }
 inline bool operator==(char const* s1, String s2)
@@ -205,5 +225,7 @@ operator << (ostream& os, String d)
   d.print_on (os);
   return os;
 }
+
+
 
 #endif

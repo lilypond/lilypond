@@ -6,9 +6,11 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
+
 #include "interval.hh"
 #include "real.hh"
 #include "interval.tcc"
+
 
 template INTERVAL__INSTANTIATE(Real);
 

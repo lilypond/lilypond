@@ -26,49 +26,49 @@
   */
 
 class Active_constraints {
-    friend class Inactive_iter;
+  friend class Inactive_iter;
     
 
-    Matrix A,H;
-    Array<int> active;
-    Array<int> inactive;		// actually this is a set, not an array.
-    Ineq_constrained_qp const *opt;
+  Matrix A,H;
+  Array<int> active;
+  Array<int> inactive;		// actually this is a set, not an array.
+  Ineq_constrained_qp const *opt;
 
 public:
-    String status() const;
+  String status() const;
     
-    Vector vec (int k) const { return opt->cons[k]; }
-    Real rhs (int k) const { return opt->consrhs[k]; }
+  Vector vec (int k) const { return opt->cons[k]; }
+  Real rhs (int k) const { return opt->consrhs[k]; }
     
 
-    /** drop constraint. drop constraint k from the active set. k is the index of the
+  /** drop constraint. drop constraint k from the active set. k is the index of the
     constraint in #active#
     
     */
-    void drop (int k);
+  void drop (int k);
     
 
-    /** add constraint j.
+  /** add constraint j.
     add constraint j to the active set j is the index of the
     constraint in #inactive#   
     */
-    void add (int j);
+  void add (int j);
 
-    /// exchange in and out.
-    void exchange (int in, int out) { add (in); drop (out); }
+  /// exchange in and out.
+  void exchange (int in, int out) { add (in); drop (out); }
     
 
-    Vector find_active_optimum (Vector g);
+  Vector find_active_optimum (Vector g);
 
-    /// get lagrange multipliers.
-    Vector get_lagrange (Vector v);
+  /// get lagrange multipliers.
+  Vector get_lagrange (Vector v);
 
-    Active_constraints (Ineq_constrained_qp const *op);
-    /** construct: no constraints active, n vars. Put the equalities
-     into the constraints.  */
+  Active_constraints (Ineq_constrained_qp const *op);
+  /** construct: no constraints active, n vars. Put the equalities
+    into the constraints.  */
 
-    /// check invariants
-    void OK();
+  /// check invariants
+  void OK();
 };
 
 
@@ -76,16 +76,16 @@ public:
     loop through the inactive constraints.
   */
 class Inactive_iter {
-    int j;
-    Active_constraints const* ac;
+  int j;
+  Active_constraints const* ac;
 public:
-    Inactive_iter (Active_constraints const &c) { ac=&c; j=0; }
-    int idx() const { return j; }
-    void operator ++(int) { j++; }
-    int constraint_id() const { return ac->inactive[j]; }
-    Vector vec() const { return ac->vec (constraint_id ()); }
-    Real rhs() const { return ac->rhs (constraint_id ()); }
-    bool ok() const { return j < ac->inactive.size (); }
+  Inactive_iter (Active_constraints const &c) { ac=&c; j=0; }
+  int idx() const { return j; }
+  void operator ++(int) { j++; }
+  int constraint_id() const { return ac->inactive[j]; }
+  Vector vec() const { return ac->vec (constraint_id ()); }
+  Real rhs() const { return ac->rhs (constraint_id ()); }
+  bool ok() const { return j < ac->inactive.size (); }
 };
 
 #endif // QLPSOLVE_HH
