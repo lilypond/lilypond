@@ -5,6 +5,14 @@
    export GS_LIB=$(pwd)/mf/out:/usr/share/texmf/fonts/type1/bluesky/cm
    lilypond-bin -fps input/title/title-markup.ly
 
+
+for utopia font,
+
+   cp /usr/share/fonts/afms/adobe/putb8a.afm  -> mf/out/
+   cp /usr/share/fonts/afms/adobe/put8a.afm  -> mf/out/
+   cp /usr/share/fonts/default/ghostscript/put.pfa mf/out/put8a.pfa
+   cp /usr/share/fonts/default/ghostscript/putb.pfa mf/out/putb8a.pfa
+
 %}
 
 \paper{

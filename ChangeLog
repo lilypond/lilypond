@@ -1,5 +1,9 @@
 2004-04-09  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/font-metric.cc (LY_DEFINE): new function, return fontName.
+
+	* scm/output-ps.scm (define-fonts): remove hack for feta/parmesan.
+
 	* lily/font-metric.cc (LY_DEFINE): change to ly:font-filename
 
 	* scm/encoding.scm (coding-alist): add AdobeStandardEncoding

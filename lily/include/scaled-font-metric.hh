@@ -25,6 +25,7 @@ public:
   virtual int name_to_index (String) const;
   virtual String coding_scheme () const;
 
+  virtual Font_metric * original_font () const;  
 
 protected:
   
@@ -32,7 +33,7 @@ protected:
   SCM coding_table_;
   SCM coding_mapping_;
   SCM coding_description_;
-  friend SCM ly_font_encoding(SCM);
+  friend SCM ly_font_encoding_alist (SCM);
     
   virtual Real design_size () const;
   virtual void derived_mark () const; 
