@@ -353,13 +353,6 @@ main_prog (void *, int, char **)
   
   int p=0;
   const char *arg  = oparser_p_static->get_next_arg ();
-
-  if (!arg)
-    {
-      usage ();
-      /* No FILE arguments is now a usage error */
-      exit (2);
-    }
   
   do
     {
@@ -408,7 +401,11 @@ static int
 sane_putenv (char const* key, char const* value, bool overwrite)
 {
   if (overwrite || !getenv (key))
-    return putenv ((char*)((String (key) + "=" + value).to_str0 ()));
+    {
+      String combine = String (key) + "=" + String (value);
+      char * s = strdup(combine.to_str0 ());
+      //      return putenv (s);
+    }
   return -1;
 }
 
@@ -509,6 +506,14 @@ main (int argc, char **argv)
       if (verbose_global_b)
 	dirinfo (stdout);
       exit (0);
+    }
+
+
+  if (!oparser_p_static->current_arg () )
+    {
+      usage ();
+      /* No FILE arguments is now a usage error */
+      exit (2);
     }
 
 #ifdef WINNT
