@@ -717,7 +717,7 @@ AC_DEFUN(AC_STEPMAKE_TEXMF, [
     #
     # For now let people define these in their environments
     #
-    : ${MFPLAIN_MP=`kpsewhich mp mfplain.mp`}
+    : ${MFPLAIN_MP=`kpsewhich --format mp mfplain.mp`}
     AC_MSG_RESULT($MFPLAIN_MP)
 
     AC_MSG_CHECKING(for inimetapost flags)

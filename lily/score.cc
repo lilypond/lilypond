@@ -35,13 +35,24 @@ Score::Score ()
   smobify_self ();
 }
 
+/*
+  store point & click locations.
+  Global to save some time. (Sue us!)
+ */
+bool store_locations_global_b;
+
 Score::Score (Score const &s)
   : Input (s)
 {
   music_ = SCM_EOL;
   header_p_ = 0;
   smobify_self ();
-  
+
+  /*
+    TODO: this is not very elegant.... 
+   */
+  store_locations_global_b = (gh_eval_str ("point-and-click") !=  SCM_BOOL_F);
+
   Music * m =unsmob_music (s.music_);
   music_ =  m?m->clone ()->self_scm () : SCM_EOL;
   scm_gc_unprotect_object (music_);
@@ -50,12 +61,11 @@ Score::Score (Score const &s)
     def_p_arr_.push (s.def_p_arr_[i]->clone ());
   errorlevel_i_ = s.errorlevel_i_;
   if (s.header_p_)
- 	{
-	  header_p_ = (s.header_p_) ? new Scheme_hash_table (*s.header_p_): 0;
+    {
+      header_p_ = (s.header_p_) ? new Scheme_hash_table (*s.header_p_): 0;
 
-	  scm_gc_unprotect_object (header_p_->self_scm ());
-	}
- 
+      scm_gc_unprotect_object (header_p_->self_scm ());
+    }
 }
 
 Score::~Score ()

@@ -15,6 +15,14 @@
     -
  */
 
+/*
+
+the rules for who is protecting what are very shady. TODO: uniformise
+this.
+
+
+*/
+
 #include <ctype.h>
 #include <iostream.h>
 
@@ -45,7 +53,7 @@
 #include "transposed-music.hh"
 #include "time-scaled-music.hh"
 #include "repeated-music.hh"
-
+#include "untransposable-music.hh"
 #include "lilypond-input-version.hh"
 #include "grace-music.hh"
 #include "part-combine-music.hh"
@@ -186,9 +194,9 @@ yylex (YYSTYPE *s,  void * v_l)
 %token DENIES
 %token DURATION
 %token EXTENDER
-%token FONT
+%token FIGURES FIGURE_OPEN FIGURE_CLOSE
 %token GLISSANDO
-%token GRACE NGRACE
+%token GRACE 
 %token HEADER
 %token HYPHEN
 %token IN_T
@@ -207,6 +215,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token PAPER
 %token PARTIAL
 %token PENALTY
+%token PORRECTUS
 %token PROPERTY
 %token OVERRIDE SET REVERT 
 %token PT_T
@@ -237,6 +246,8 @@ yylex (YYSTYPE *s,  void * v_l)
 %token CHORD_BASS CHORD_COLON CHORD_MINUS CHORD_CARET 
 
 %type <i>	exclamations questions dots
+%type <i>  	bass_number bass_mod
+%type <scm> 	bass_figure figure_list figure_spec
 %token <i>	DIGIT
 %token <scm>	NOTENAME_PITCH
 %token <scm>	TONICNAME_PITCH
@@ -912,6 +923,16 @@ Composite_music:
 		{ $$ = $3;
 		  THIS->lexer_p_->pop_state ();
 		}
+	| FIGURES
+		{ THIS->lexer_p_->push_figuredbass_state (); }
+	Music
+		{
+		  Music * chm = new Untransposable_music () ;
+		  chm->set_mus_property ("element", $3->self_scm ());
+		  $$ = chm;
+
+		  THIS->lexer_p_->pop_state ();
+	}
 	| CHORDS
 		{ THIS->lexer_p_->push_chord_state (); }
 	Music
@@ -1214,6 +1235,9 @@ shorthand_command_req:
 	}
 	| BREATHE {
 		$$ = new Breathing_sign_req;
+	}
+	| PORRECTUS {
+		$$ = new Porrectus_req;
 	}
 	;
 
@@ -1674,6 +1698,56 @@ tremolo_type:
 	;
 
 
+bass_number:
+	DIGIT
+	| UNSIGNED 
+	;
+
+bass_mod:
+	'-' 	{ $$ = -1; }
+	| '+'	{ $$ = 1; } 
+	| '!'	{ $$ = 0; }
+	;
+
+bass_figure:
+	bass_number  {
+		Pitch p ;
+		p .notename_i_ = $1 - 1;
+		p.normalise();
+		
+		Note_req * nr = new Note_req;
+		$$ = nr->self_scm ();
+		nr->set_mus_property ("pitch", p.smobbed_copy ());
+		scm_unprotect_object ($$);
+	}
+	| bass_figure bass_mod {
+		if ($2) { 
+			SCM sp = unsmob_music ($1)->get_mus_property ("pitch");
+			unsmob_pitch (sp)->alteration_i_ += $2;
+		} else {
+			unsmob_music ($1)->set_mus_property ("force-accidental", SCM_BOOL_T);
+		}
+	}
+	;
+
+figure_list:
+	/**/		{
+		$$ = SCM_EOL;
+	}
+	| figure_list bass_figure {
+		$$ = gh_cons ($2, $1); 
+	}
+	;
+
+figure_spec:
+	FIGURE_OPEN figure_list FIGURE_CLOSE {
+		Music * m = new Request_chord (SCM_EOL);
+		$2 = scm_reverse_x ($2, SCM_EOL);
+		m->set_mus_property ("elements",  $2);
+		$$ = m->self_scm ();
+	}
+	;
+
 simple_element:
 	pitch exclamations questions optional_notemode_duration {
 
@@ -1698,7 +1772,17 @@ simple_element:
 		n->set_spot (i);
 		$$ = v;
 	}
-	| RESTNAME optional_notemode_duration		{
+	| figure_spec optional_notemode_duration {
+		Music * m = unsmob_music ($1);
+		Input i = THIS->pop_spot (); 
+		m->set_spot (i);
+		for (SCM s = m->get_mus_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
+			{
+				unsmob_music (gh_car (s))->set_mus_property ("duration", $2);
+			}
+		$$ = m;
+	}	
+ 	| RESTNAME optional_notemode_duration		{
 
 		Input i = THIS->pop_spot ();
  		SCM e = SCM_UNDEFINED;

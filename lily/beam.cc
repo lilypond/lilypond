@@ -761,7 +761,7 @@ Beam::set_beaming (Grob*me,Beaming_info_list *beaming)
   */
 Molecule
 Beam::stem_beams (Grob*me,Item *here, Item *next, Item *prev,
-		  Real dy, Real dydx
+		  Real /* dy */ , Real dydx
 		  ) 
 {
   // ugh -> use commonx

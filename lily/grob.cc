@@ -351,6 +351,8 @@ Grob::add_dependency (Grob*e)
       Do break substitution in S, using CRITERION. Return new value.
       CRITERION is either a SMOB pointer to the desired line, or a number
       representing the break direction. Do not modify SRC.
+
+      It is rather tightly coded, since it takes a lot of time.
 */
 SCM
 Grob::handle_broken_grobs (SCM src, SCM criterion)
