@@ -26,17 +26,14 @@ public:
   Simultaneous_music ();
 };
 
-/**
-  The event is a collection of Events. A note that you enter in lilypond is 
-  one Event_chord, one syllable of lyrics is one Event_chord
+/*
+  A chord.
  */
 class Event_chord : public Simultaneous_music
 {
 public:
   VIRTUAL_COPY_CONS (Music);
-  virtual Moment start_mom () const;
-
-  Event_chord ();
+  virtual Pitch to_relative_octave (Pitch);
 };
 
 /**

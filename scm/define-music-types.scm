@@ -484,8 +484,7 @@ For example, transposed music.")
     (EventChord
      . (
 	(description .  "Internally used to group a set of events.")
-
-	(internal-class-name . "Simultaneous_music")
+	(internal-class-name . "Event_chord")
 	(iterator-ctor . ,Event_chord_iterator::constructor)
 	(types . (general-music event-chord simultaneous-music))
 	)
