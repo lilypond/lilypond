@@ -45,4 +45,4 @@ texidoc = "This file tests ly2dvi titling. It should be processed with ly2dvi. "
 	copyright = "localcopyright"
 	}
 }
-%% new-chords-done %%
+

@@ -15,4 +15,4 @@ Test font selection and scm text markup. "
   }
 	\paper{ }
 }
-%% new-chords-done %%
+

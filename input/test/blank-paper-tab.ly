@@ -21,4 +21,4 @@ emptymusic = \notes { \repeat unfold 4  { s1\break }  \bar "|." }
     }
   }
 }
-%% new-chords-done %%
+

@@ -19,4 +19,4 @@ The horizontal middle should not overlap with a staffline.
 		linewidth=0.
 	}
 }
-%% new-chords-done %%
+

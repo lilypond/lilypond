@@ -43,4 +43,4 @@ usually not restored explicitly.
    eis'4 fis'4
  }
  \paper { raggedright = ##t}
-}%% new-chords-done %%
+}

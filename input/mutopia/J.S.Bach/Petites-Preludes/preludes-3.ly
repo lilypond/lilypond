@@ -156,4 +156,4 @@ global  = \notes{
 		piece = \piece
 	}
 }
-%% new-chords-done %%
+

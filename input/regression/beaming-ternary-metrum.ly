@@ -10,4 +10,4 @@ texidoc = "automatic beaming also works in ternary time sigs."
 }
 \paper { raggedright = ##t}
 }
-%% new-chords-done %%
+

@@ -21,4 +21,4 @@ shiftV = \property Voice.NoteColumn \override #'horizontal-shift = #4
   }
   \paper { raggedright = ##t }  
 }
-%% new-chords-done %%
+

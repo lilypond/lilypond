@@ -22,4 +22,4 @@ the two grace beams should be the same here.
   }  
   \midi { }
 }
-%% new-chords-done %%
+

@@ -30,4 +30,4 @@ unblanknotes = { \property Voice.NoteHead
 \paper{raggedright = ##t}
 }
 
-%% new-chords-done %%
+

@@ -16,4 +16,4 @@ scheme = \notes {
   >
   \paper { raggedright = ##t}
 }
-%% new-chords-done %%
+

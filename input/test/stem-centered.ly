@@ -15,4 +15,4 @@ Mensural note heads. "
 	}
 	\paper{raggedright=##t}
 }
-%% new-chords-done %%
+

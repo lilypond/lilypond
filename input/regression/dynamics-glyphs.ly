@@ -18,4 +18,4 @@ closer to the note head (staccato, accent) are reckoned with.
 		      
 }
 }
-%% new-chords-done %%
+

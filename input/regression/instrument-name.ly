@@ -22,4 +22,4 @@ be on normal staves, but also on compound staves, like the PianoStaff
 raggedright = ##t
 }}
 
-%% new-chords-done %%
+

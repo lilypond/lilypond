@@ -16,4 +16,4 @@ Beams over rests.
         raggedright = ##t
     }
 }
-%% new-chords-done %%
+

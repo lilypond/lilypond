@@ -18,4 +18,4 @@ texidoc = "Stripped version of trip.ly.  Staffs should be of correct length."
   > 
   \paper { }
 }
-%% new-chords-done %%
+

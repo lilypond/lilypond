@@ -17,4 +17,4 @@ StaffSymbol \override #'line-count = #3
 }  }
   \midi { }
 }
-%% new-chords-done %%
+

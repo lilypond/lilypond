@@ -25,4 +25,4 @@ also created on a clef change.
 	e2
   }
 }
-%% new-chords-done %%
+

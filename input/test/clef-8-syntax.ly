@@ -17,4 +17,4 @@ name needs to be in quotes (such as \"treble^8\").
   \midi { }
 }
 
-%% new-chords-done %%
+

@@ -54,4 +54,4 @@ two = \notes \relative c'' {
       RestCollision \override #'maximum-rest-count = #1
     }
   }
-}%% new-chords-done %%
+}

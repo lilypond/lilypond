@@ -40,4 +40,4 @@ Control the number of rests in a collision with maximum-rest-count."
 	>
 	\paper{ raggedright = ##t }
 }
-%% new-chords-done %%
+

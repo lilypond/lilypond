@@ -14,4 +14,4 @@ TODO: show all common combinations to check for spacing anomalies.
 }
 \paper  { raggedright = ##t}
 }
-%% new-chords-done %%
+

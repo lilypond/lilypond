@@ -52,4 +52,4 @@ hairyChord =  \context Staff \notes \relative c''
 	
 %	\midi { \tempo 4:80 }
 }
-%% new-chords-done %%
+

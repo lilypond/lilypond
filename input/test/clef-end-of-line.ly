@@ -31,4 +31,4 @@ Scales, but with clef and key signature at the end of the line.
 	\break
 	\time 4/4    
 } }
-%% new-chords-done %%
+

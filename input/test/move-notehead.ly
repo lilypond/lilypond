@@ -16,4 +16,4 @@ fragment = \notes {
   \notes\relative c \fragment
   \paper { }  
 }
-%% new-chords-done %%
+

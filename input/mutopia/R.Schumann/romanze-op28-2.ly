@@ -282,4 +282,4 @@ leftb = \notes \transpose c cis {
   \midi { \tempo 8=100 }
 }
 
-%% new-chords-done %%
+

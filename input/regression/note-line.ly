@@ -26,4 +26,4 @@ sd = \notes{ \translator Staff = down}
 }
 }
 
-%% new-chords-done %%
+

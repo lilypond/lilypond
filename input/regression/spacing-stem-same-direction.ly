@@ -12,4 +12,4 @@ two chords have no common head-positions range."
 }
 \paper { raggedright = ##t}
 }
-%% new-chords-done %%
+

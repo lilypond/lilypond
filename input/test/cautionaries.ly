@@ -17,4 +17,4 @@ Lilypond can display cautionary accidentals in different ways.
 \paper{raggedright = ##t}
 }
 
-%% new-chords-done %%
+

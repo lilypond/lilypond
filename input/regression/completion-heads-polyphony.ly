@@ -22,4 +22,3 @@ Completion heads are not fooled by polyphony with a different rhythm.
 		}
 	}
 }
-%% new-chords-done %%

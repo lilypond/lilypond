@@ -12,4 +12,3 @@ beams should look the same
 			c c
   }
 }
-%% new-chords-done %%

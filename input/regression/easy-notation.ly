@@ -11,4 +11,4 @@ You also get ledger lines, of course."
 		 raggedright = ##t
 	     } 
 }
-%% new-chords-done %%
+

@@ -20,4 +20,4 @@ by overriding script-priority. "
     }
 	\paper { raggedright = ##t} 
 }
-%% new-chords-done %%
+

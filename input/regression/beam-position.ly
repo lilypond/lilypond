@@ -26,4 +26,3 @@ Override with @code{noStemExtend}.
   }  
   \midi { }
 }
-%% new-chords-done %%

@@ -5,4 +5,4 @@ texidoc = "Scripts may be stacked."
 }
 
 \score { \notes { c'''->-. } }
-%% new-chords-done %%
+

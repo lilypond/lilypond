@@ -19,4 +19,4 @@ width of the note heads and the thickness of the stem.
 \paper { raggedright = ##t}
      }
 
-%% new-chords-done %%
+

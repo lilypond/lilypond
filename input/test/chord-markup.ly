@@ -21,4 +21,4 @@ chord/markup test.
    >
 \paper{raggedright = ##t}
 }
-%% new-chords-done %%
+

@@ -18,4 +18,4 @@ You can stop Lilypond from printing the staff by removing the engraver. "
   }
 }
 
-%% new-chords-done %%
+

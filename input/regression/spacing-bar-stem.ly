@@ -22,4 +22,4 @@ su = \property Voice.Stem \set #'direction = #1
 }
 \paper { raggedright = ##t}
 }
-%% new-chords-done %%
+

@@ -23,4 +23,4 @@ notes, and up for low notes.
   }  
   \midi { }
 }
-%% new-chords-done %%
+

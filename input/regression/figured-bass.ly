@@ -31,4 +31,4 @@ numbers, like @code{<4 6+>}.
 	\paper  { raggedright = ##t }  
  }
 
-%% new-chords-done %%
+

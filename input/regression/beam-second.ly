@@ -16,4 +16,4 @@ seconds, you'll spot something fishy very quickly.
     \paper{
 	raggedright = ##t
     }
-}%% new-chords-done %%
+}

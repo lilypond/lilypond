@@ -11,4 +11,4 @@ You can stack text and articulations. "
 	 }
 	\paper { raggedright = ##t}
 }
-%% new-chords-done %%
+

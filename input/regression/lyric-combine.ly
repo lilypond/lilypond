@@ -44,4 +44,4 @@ textII = \context LyricsVoice = "middle-1" \lyrics { da -- da __ da -- da da da 
     >
 }
 
-%% new-chords-done %%
+

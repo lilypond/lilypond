@@ -11,4 +11,4 @@ You can alter the length of stems. "
   }
   \paper { raggedright = ##t }  
 }
-%% new-chords-done %%
+

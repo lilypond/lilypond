@@ -59,4 +59,4 @@ The auto-beam engraver has presets for common time signatures. " }
     \paper{
     }
 }
-%% new-chords-done %%
+

@@ -12,4 +12,4 @@ generated per chord pair. "
   }
   \paper { raggedright = ##t }  
 }
-%% new-chords-done %%
+

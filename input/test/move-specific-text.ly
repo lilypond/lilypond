@@ -16,4 +16,4 @@ move text around. " }
   }
   \paper { raggedright = ##t}
 }
-%% new-chords-done %%
+

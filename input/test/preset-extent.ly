@@ -15,4 +15,4 @@ requires Grob::preset_extent () function. "
     \paper { raggedright = ##t}
 }
     
-%% new-chords-done %%
+

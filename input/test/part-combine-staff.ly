@@ -109,4 +109,4 @@ You can combine parts on two staffs, as well as two voices. "
 		}
 	}
 }
-%% new-chords-done %%
+

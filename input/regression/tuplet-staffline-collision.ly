@@ -12,4 +12,4 @@ to avoid staff line collisions."
 \times 2/3 { g4 g g }
 \times 2/3 { a4 a a }
 }}
-%% new-chords-done %%
+

@@ -37,4 +37,4 @@ specified number of lines.
 		raggedright = ##t
 	}
 }
-%% new-chords-done %%
+

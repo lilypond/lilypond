@@ -12,4 +12,4 @@ shapeSC   = \property Lyrics.LyricText \override #'font-shape = #'caps
   what4 is4 \shapeSC Bud8 -- dha?8 }>
 \paper { raggedright = ##t}
   }
-%% new-chords-done %%
+

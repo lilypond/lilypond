@@ -22,4 +22,4 @@ The transposing property leaves output invariant, but has effect on MIDI. "
   \paper { raggedright = ##t } 
   \midi { }
 }
-%% new-chords-done %%
+

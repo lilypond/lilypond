@@ -51,4 +51,4 @@ global = \notes { s1*3 \bar "|." }
     raggedright = ##t
   }
 }
-%% new-chords-done %%
+

@@ -114,4 +114,4 @@ endHorizScript = {
   >
 	\paper{ }
 }
-%% new-chords-done %%
+

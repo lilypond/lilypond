@@ -33,4 +33,4 @@ create, then write a function that will build the structure for you.
 	\paper{ raggedright = ##t }
 }
 
-%% new-chords-done %%
+

@@ -24,4 +24,4 @@ textFlat = \markup {\smaller \musicglyph #"accidentals--1"}
   \paper { linewidth= 8.0\cm }
 }
 
-%% new-chords-done %%
+

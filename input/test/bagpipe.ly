@@ -82,4 +82,4 @@ e8-) d4 \gg d4 e8 |
 d4.-) \gdcg d4.
   }
 }
-%% new-chords-done %%
+

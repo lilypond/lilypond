@@ -25,4 +25,4 @@ Unfolded behavior:
 \repeat unfold 2 { c^"2x 3a" d } \alternative { e f g } 
 }}
 
-%% new-chords-done %%
+

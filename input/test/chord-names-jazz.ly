@@ -71,5 +71,5 @@ scheme = \chords {
     \context Staff \transpose c c' \scheme
   >
 }
-%% new-chords-done %%
+
 %}

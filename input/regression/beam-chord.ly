@@ -23,4 +23,4 @@ the beam should be be horizontal.  "
 	    raggedright = ##t 
 	}
 }
-%% new-chords-done %%
+

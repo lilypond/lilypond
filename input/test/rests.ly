@@ -43,4 +43,4 @@ Rests in various styles."
 	}
     }
 }
-%% new-chords-done %%
+

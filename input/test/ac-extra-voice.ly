@@ -56,4 +56,4 @@ accompany = \repeat unfold 4 \notes \relative c \basloopje
     }
 }
 
-%% new-chords-done %%
+

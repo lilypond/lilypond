@@ -13,4 +13,4 @@ into them."
 \notes \relative c'' { c4 \> c4 \! c4 c4_\ff \> c4 \! c4 -\p }
 \paper { raggedright = ##t} 
 }
-%% new-chords-done %%
+

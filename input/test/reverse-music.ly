@@ -34,4 +34,4 @@ music = \notes \relative c'' { c4 d4( e4 f4 }
   \paper { raggedright = ##t}
 }
 
-%% new-chords-done %%
+

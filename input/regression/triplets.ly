@@ -25,4 +25,4 @@ ex = \notes \relative c' {
 }
 
 \score { \context Staff { \notes { \ex } } }
-%% new-chords-done %%
+

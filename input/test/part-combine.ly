@@ -36,4 +36,4 @@ voices according to actual rhythm and pitch.  User-defined texts such as
   }
 }
 
-%% new-chords-done %%
+

@@ -28,4 +28,4 @@ associated context finishes, so using it in \property works.
     \translator{\StaffContext minimumVerticalExtent = #'(-2.0 . 2.0)}
   }
 }
-%% new-chords-done %%
+

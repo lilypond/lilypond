@@ -20,4 +20,4 @@ gisis'4 gis gisis ges |
 	}
 	>
 }
-%% new-chords-done %%
+

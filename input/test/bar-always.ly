@@ -14,4 +14,4 @@ automatically insert barlines everywhere.
 		c4 c4 c4 c4 }
 	\paper{raggedright = ##t}
 }
-%% new-chords-done %%
+

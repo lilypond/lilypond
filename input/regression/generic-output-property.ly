@@ -26,4 +26,4 @@ setting the @code{extra-offset} of a grob.
 	raggedright = ##t
 }
 }
-%% new-chords-done %%
+

@@ -29,4 +29,4 @@ a column.  The dots go along as rests are shifted to avoid collisions.
   \paper { }  
   \midi { }
 }
-%% new-chords-done %%
+

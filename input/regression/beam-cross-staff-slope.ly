@@ -31,4 +31,3 @@ don't cause extreme slopes"
     \paper { raggedright = ##t}
 }
 
-%% new-chords-done %%

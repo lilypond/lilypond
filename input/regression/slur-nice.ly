@@ -22,4 +22,4 @@ run through noteheads or stems.
 		linewidth = 120.\mm
 	}
 }
-%% new-chords-done %%
+

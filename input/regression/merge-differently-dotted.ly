@@ -15,4 +15,4 @@ heads that have differing dot counts may be merged anyway."
   \context Voice = VB { \voiceTwo  g'8.-[ f16]  g'8.-[ f'16] } 
   >
 }}
-%% new-chords-done %%
+

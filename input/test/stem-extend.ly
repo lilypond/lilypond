@@ -22,4 +22,4 @@ You can stop Lilypond from extending stems to the center line. "
   }
   \paper { raggedright = ##t}  
 }
-%% new-chords-done %%
+

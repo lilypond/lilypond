@@ -24,4 +24,4 @@ texidoc="The partcombiner should not combine two small slurs into a big one."
 }
 
 
-%% new-chords-done %%
+

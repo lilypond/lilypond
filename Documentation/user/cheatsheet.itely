@@ -212,7 +212,7 @@ a-\> a a-\!
 @item @code{\partial 8}
 @tab upstep
 @tab
-@lilypond[fragment]
+@lilypond[fragment,relative 1]
   \partial 8
   f8 c2 d e
 @end lilypond 
@@ -230,7 +230,7 @@ a-\> a a-\!
 @tab grace notes
 @tab
 @lilypond[relative 1,fragment]
-  \grace b16 c4
+\context Voice {  \grace b16 c4 }
 @end lilypond
 
 @item @code{\lyrics @{ @dots{} @}}

@@ -98,4 +98,4 @@ global =  \notes{
 	}
 }
 
-%% new-chords-done %%
+

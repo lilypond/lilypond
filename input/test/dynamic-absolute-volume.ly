@@ -24,4 +24,4 @@ a\sf
 \tempo 1 = 60
 }
 }
-%% new-chords-done %%
+

@@ -21,4 +21,4 @@ Setting staff space on a staff. "
       }
 	raggedright=##t }
 }
-%% new-chords-done %%
+

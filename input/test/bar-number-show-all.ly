@@ -15,4 +15,4 @@ Second line has bar numbers on start of every measure.
 	\paper{ raggedright = ##t }
 }
 
-%% new-chords-done %%
+

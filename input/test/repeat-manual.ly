@@ -21,4 +21,4 @@ unusual output. "
 }
 	\paper{raggedright=##t}
 }
-%% new-chords-done %%
+

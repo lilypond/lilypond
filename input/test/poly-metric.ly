@@ -31,4 +31,4 @@ by moving the timing engraver to staff context. "
 	raggedright= ##t
 	}
 }
-%% new-chords-done %%
+

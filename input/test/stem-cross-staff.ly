@@ -28,4 +28,4 @@ noFlag = \once \property Voice.Stem \override #'flag-style = #'no-flag
 
     \paper { raggedright = ##t}
 }
-%% new-chords-done %%
+

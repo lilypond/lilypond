@@ -40,4 +40,4 @@ Lilypond can print nested groups of staffs. "
 
  \paper { raggedright = ##t}
 }
-%% new-chords-done %%
+

@@ -48,4 +48,4 @@ The beam will be ended also when now % beamAutoEnd = 0
 \paper{raggedright = ##t}
 }
 
-%% new-chords-done %%
+

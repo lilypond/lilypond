@@ -25,4 +25,4 @@ one =  \notes \relative c {
 \score{
 \context Staff	< \global \one >
 }
-%% new-chords-done %%
+

@@ -196,4 +196,4 @@ bass = \context Voice = bassvoice
 
 	\midi { \tempo 4 = 84 }
 }
-%% new-chords-done %%
+

@@ -22,4 +22,4 @@ show where columns are in the score."
 	}
 	}}
 
-%% new-chords-done %%
+

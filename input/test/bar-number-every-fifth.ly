@@ -16,4 +16,4 @@ Bar numbers can also be printed at regular intervals.
     }
 }
 
-%% new-chords-done %%
+

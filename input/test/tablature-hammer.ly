@@ -13,4 +13,4 @@ You can fake a hammer in tablature with slurs. "
   >
 	\paper{ raggedright = ##t}
 }
-%% new-chords-done %%
+

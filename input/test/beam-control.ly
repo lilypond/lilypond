@@ -21,4 +21,4 @@ Controlling beam positions.
   }
 \paper{raggedright = ##t}
 }
-%% new-chords-done %%
+

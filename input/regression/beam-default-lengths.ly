@@ -14,4 +14,4 @@
         f4  f8-[ f]  f16-[ f]  f32-[ f]  f64-[ f]  f128-[ f] 
     }
     \paper{ raggedright = ##t}
-}          %% new-chords-done %%
+}          

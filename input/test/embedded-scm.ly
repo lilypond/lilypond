@@ -9,4 +9,4 @@ You can embed scm functions in your scores.
 \paper{raggedright = ##t}
 }
 
-%% new-chords-done %%
+

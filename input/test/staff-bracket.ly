@@ -28,4 +28,4 @@ Here's an example of staff brackets. "
 	raggedright=##t
   }
 }
-%% new-chords-done %%
+

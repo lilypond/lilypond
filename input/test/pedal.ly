@@ -29,4 +29,4 @@ Text style, bracket style, and a mixture of both are supported.  "
 
     }
 }
-%% new-chords-done %%
+

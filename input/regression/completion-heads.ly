@@ -21,4 +21,4 @@ notes that cross bar lines are split into tied notes.
       \consists "Completion_heads_engraver"
     }
   }
-}%% new-chords-done %%
+}

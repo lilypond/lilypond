@@ -13,4 +13,4 @@ follow the same vertical direction it would have had in unbroken state."
     linewidth=40*\staffspace
   }
 }
-%% new-chords-done %%
+

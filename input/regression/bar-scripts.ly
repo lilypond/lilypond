@@ -53,4 +53,3 @@ stscore =  \score { \onestaff \paper {
 \score{\notes c''}
 \score {\scscore}
 
-%% new-chords-done %%

@@ -10,4 +10,4 @@ texidoc = "Measure  repeats are supported, and may be nested with beat repeats."
    \repeat "percent" 2 { \repeat "percent" 4 { c8 es } }   
   }
 }
-%% new-chords-done %%
+

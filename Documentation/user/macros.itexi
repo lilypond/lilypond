@@ -162,7 +162,7 @@ internals document,  @internalsref{\NAME\}
 
 @macro refcommand{WHAT}
 @cindex @code{\WHAT\}
-@code{\WHAT\}
+@code{\WHAT\}, 
 @end macro
 
 @macro syntax

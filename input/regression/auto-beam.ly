@@ -23,4 +23,4 @@ texidoc="Test automatic beamer: the last measure should have a single beam."
     }
   }
 }
-%% new-chords-done %%
+

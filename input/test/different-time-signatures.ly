@@ -41,4 +41,4 @@ You can have multiple time signatures occuring at the same time.
 	}
     }
 }
-%% new-chords-done %%
+
