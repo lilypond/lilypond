@@ -1,11 +1,11 @@
 %define info yes
 
 Name: lilypond
-Version: 1.3.122
+Version: 1.3.123
 Release: 1
 License: GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.3.122.tar.gz
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.3.123.tar.gz
 Summary: A program for printing sheet music.
 URL: http://www.cs.uu.nl/~hanwen/lilypond
 # Icon: lilypond-icon.gif

@@ -79,8 +79,8 @@ LILYPOND_LINKS=Reference-Manual.html Features.html Ly2dvi.html Midi2ly.html
 deep-symlinks:
 	cd $(outdir) && rm -f lilypond && ln -s . lilypond
 	cd $(outdir) && rm -f lilypond-internals && ln -s . lilypond-internals
-	cd $(outdir) && $(foreach i, $(LILYPOND_LINKS),
-		rm -f $(i) && ln -s $(i) lilypond.html &&) && :
+	cd $(outdir) && $(foreach i, $(LILYPOND_LINKS),\
+		rm -f $(i) && ln -s $(i) lilypond.html &&) true
 endif
 
 

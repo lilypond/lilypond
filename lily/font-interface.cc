@@ -203,7 +203,7 @@ Font_interface::properties_to_font_name (SCM fonts, SCM alist_chain)
   warning (_("couldn't find any font satisfying ") );
   scm_write (gh_list (name, point_sz, shape, series , family, rel_sz, SCM_UNDEFINED), scm_current_error_port ());
   scm_flush(scm_current_error_port ());
-
+ 
   return ly_str02scm ("cmr10");
   
 }

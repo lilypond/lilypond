@@ -143,13 +143,13 @@ class Input:
         varTable = [
             #   regexp              set method
             #   ------              ----------
-            ( 'language',        Props.setLanguage ),
-            ( 'latexheaders',    Props.setHeader ),
-            ( 'orientation',     Props.setOrientation ),
-            ( 'paperpapersize',  Props.setPaperZize ),
-            ( 'papertextheight', Props.setTextHeight ),
-            ( 'paperlinewidth',  Props.setLineWidth ),
-            ( 'filename',        Props.setFilename ),
+            ( 'language',         Props.setLanguage ),
+            ( 'latexheaders',     Props.setHeader ),
+            ( 'paperorientation', Props.setOrientation ),
+            ( 'paperpapersize',   Props.setPaperZize ),
+            ( 'papertextheight',  Props.setTextHeight ),
+            ( 'paperlinewidth',   Props.setLineWidth ),
+            ( 'filename',         Props.setFilename ),
             ]
 
         titles={}

@@ -19,7 +19,6 @@
 	  ("bass" . ("clefs-F" 2  0))
 	  ("F" . ( "clefs-F" 2 0))
 	  ("subbass" . ("clefs-F" 4 0))
-	  ("none" . ("" 0 0))
 
 	  ;; should move mensural stuff to separate file? 
 	  ("vaticana_do1" . ("clefs-vaticana_do" -1 0))

@@ -1,3 +1,4 @@
+\version "1.3.122"
 \header {
   filename =  "pa.ly";
   title =    "Wachet auf, ruft uns die Stimme";
@@ -11,8 +12,8 @@
 
 commands = \notes {
   \time 4/4;
-  \property Staff.timeSignatureStyle = "C"
-  \key es;
+  \property Staff.TimeSignature \override #'style = #'C
+  \key es \major;
   \partial 8;
 }
 
@@ -24,7 +25,7 @@ right = \notes \relative c' {
 
 %if stable
 %  \property Voice."beamAutoEnd_8" = "1/4"
-  \property Voice."beamAutoEnd_8" = #(make-moment 1 4)
+  \property Voice.autoBeamSettings \override #'(end 1 8 * *) = #(make-moment 1 4)
   bes8 |
   es16 f g8 g f as g bes, as |
   \repeat "volta" 2 {
@@ -34,7 +35,7 @@ right = \notes \relative c' {
   bes4 as16 g f es f es d c bes8 c16 d |
   es f g f  as g f es g8 f r bes, |
   g' a4 bes8 \grace f8()es16 d es8 r c |
-  a'8 bes4 c8 \grace f,()es16 d es8 r \grace{\slurdown [c'16( d ]}\stemboth)es8 |
+  a'8 bes4 c8 \grace f,()es16 d es8 r \grace{\slurDown [c'16( d ]}\stemBoth)es8 |
   d16 c bes8 bes16\prall a bes8 ~bes16 a g f es d c bes|
   c d es8 \grace f()es16 d es8~es16 a bes c bes a g f |
   bes8 f d\trill c16 bes bes es d c d8 bes|
@@ -50,11 +51,11 @@ right = \notes \relative c' {
   }
   \alternative { 
   { g8 f r4 r r8 bes,| es16 f g8 g f as g bes, as }
-  { g'8 f r4 r r8 bes | } }
-  bes4 as16 g f es f es d c bes8 c16 d |
+  { g8 f r4 r r8 bes | } }
+  bes'4 as16 g f es f es d c bes8 c16 d |
   es f g f as g f es g8 f r bes, |
-  g' a4 bes8 \grace f() es16 d es8 r c |
-  a' bes4 c8 \grace f,()es16 d es8 r es' |
+  g' a4 bes8 \grace {f(}) es16 d es8 r c |
+  a' bes4 c8 \grace {f,(})es16 d es8 r es' |
   d16 c bes8 bes16\prall a bes8~bes16 a g f es d c bes|
   c d es8 es16\prall d es8~es16 a bes c bes a g f|
   bes8 f d\trill c16 bes bes es d c d8 bes|
@@ -116,8 +117,9 @@ left = \notes \relative c {
 %if stable
 %  \property Staff.noVoltaBraces = 1 
 %  \property Voice."beamAutoEnd_8" = "1/4"
-  \property Voice."beamAutoEnd_8" = #(make-moment 1 4)
-  \property Staff.noVoltaBraces = ##t
+  \property Voice.autoBeamSettings \override #'(end 1 8 * *) = #(make-moment 1 4)
+%  \property Staff.noVoltaBraces = ##t
+  \property Staff.VoltaBracket = \turnOff
   r8 
   R1
   \repeat "volta" 2 {
@@ -133,8 +135,8 @@ left = \notes \relative c {
   }
   \alternative {
   { c g8. as32 bes as8 g f4\trill| es2 r | }
-  { c'4 g8. as32 bes as8 g f4\trill |} }
-  es2 r |
+  { c4 g8. as32 bes as8 g f4\trill |} }
+  es,2 r |
   R1*6 |
   r2 r4 bes'4|
   bes as g f\trill |
@@ -161,7 +163,8 @@ pedal = \notes \relative c, {
   \commands 
 %if stable
 %  \property Staff.noVoltaBraces = 1
-  \property Staff.noVoltaBraces = ##t
+%  \property Staff.noVoltaBraces = ##t
+  \property Staff.VoltaBracket = \turnOff
   \clef "bass";
   r8 |
   es4 es es g
@@ -187,7 +190,7 @@ pedal = \notes \relative c, {
   bes as! g es |}
   \alternative {
   { as8 bes c4 f, bes8 as| g4 es' d es |}
-  { as,8 bes c4 f, bes8 as}}
+  { as8 bes c4 f, bes8 as}}
   g4 c bes as |
   g es bes' d|
   es d c es|
@@ -248,8 +251,9 @@ pedal = \notes \relative c, {
 \paper {
   %textheight = 280.0 \mm;
   % landscape:
-  textheight = 160.0 \mm;
-  linewidth = 290.0 \mm;
+%  textheight = 160.0 \mm;
+  orientation = "landscape";
+  linewidth = 280.0 \mm;
 %{
   \translator { 
     \OrchestralScoreContext 
