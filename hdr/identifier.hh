@@ -13,6 +13,7 @@
 #include "inputmusic.hh"
 #include "notename.hh"
 #include "lookup.hh"
+#include "scriptdef.hh"
 
 #define make_id_class(Idclass, Class, accessor)	\
 struct Idclass : Identifier {\
@@ -28,7 +29,7 @@ struct Idclass : Identifier {\
 }\
 
 
-
+make_id_class(Script_id, Script_def, script);
 make_id_class(Lookup_id, Lookup, lookup);
 make_id_class(Symtables_id, Symtables, symtables);
 make_id_class(Staff_id, Input_staff, staff);
