@@ -34,3 +34,8 @@
 (define-public (format-mark-numbers mark context)
   (make-bold-markup (number->string mark)))
 
+(define-public (format-mark-box-letters mark context)
+  (make-bold-markup (make-box-markup (make-markletter-markup (1- mark)))))
+
+(define-public (format-mark-box-numbers mark context)
+  (make-bold-markup (make-box-markup (make-markletter-markup (1- mark)))))

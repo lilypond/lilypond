@@ -1,3 +1,10 @@
+2005-01-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/include/main.hh: rename format to backend.
+
+	* scm/translation-functions.scm (format-mark-box-numbers): add.
+	patch by Erlend Aasland
+
 2005-01-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/pango-font.cc (text_stencil): dump string as (utf-8-string

@@ -46,7 +46,7 @@ bool no_layout_global_b = false;
 /* Selected output format.
    One of tex, ps, scm, as.
 */
-String output_format_global = "ps";
+String output_backend_global = "ps";
 
 /* Current output name. */
 String output_name_global;
@@ -254,9 +254,9 @@ prepend_load_path (String dir)
 static void
 determine_output_options ()
 {
-  bool found_gnome = (output_format_global == "gnome");
-  bool found_svg = (output_format_global == "svg");
-  bool found_tex = (output_format_global == "tex");
+  bool found_gnome = (output_backend_global == "gnome");
+  bool found_svg = (output_backend_global == "svg");
+  bool found_tex = (output_backend_global == "tex");
 
 
   if (make_pdf || make_png)
@@ -416,7 +416,7 @@ parse_argv (int argc, char **argv)
 	      printf (_ ("Read the sources for more information.").to_str0 ());
 	      exit (0);
 	    }
-	  output_format_global = option_parser->optional_argument_str0_;
+	  output_backend_global = option_parser->optional_argument_str0_;
 	  break;
 	case 'H':
 	  dump_header_fieldnames_global
