@@ -1,4 +1,4 @@
-% ascii art output
+% ASCII Art output
 %
 % Process as:
 %

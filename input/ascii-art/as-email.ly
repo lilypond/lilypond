@@ -1,5 +1,9 @@
-
-% ascii art
+% ASCII Art output
+%
+% Process as:
+%
+%     lilypond -fas foo.ly
+%     as2text foo.as
 
 \include "paper-as5.ly"
 

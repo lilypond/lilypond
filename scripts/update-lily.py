@@ -47,6 +47,7 @@ help_summary = _("Fetch and rebuild from latest source package")
 obuild_command = '(./configure --prefix=$HOME/usr && make all web) >> log.txt 2>&1'
 build_command = '''
 cd $HOME/usr/src &&
+[ -d %n-%v ] && exit 1;
 (
 tar xzf %t &&
 rm -f building &&

@@ -1,5 +1,5 @@
-% ascii art output
-%
+% ASCII Art output
+
 % Process as:
 %
 %     lilypond -fas foo.ly
