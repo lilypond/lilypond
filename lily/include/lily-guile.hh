@@ -37,25 +37,6 @@
 
 #include "drul-array.hh"
 
-
-/* Guile 1.3.4 compatibility */
-#if GUILE_MINOR_VERSION < 4
-
-
-#ifndef SCM_CELL_TYPE
-#define SCM_CELL_TYPE(X) SCM_CAR (X)
-#endif
-
-#ifndef SCM_CELL_WORD_1
-#define SCM_CELL_WORD_1(X) SCM_CDR (X)
-#endif
-
-#define scm_bits_t SCM
-
-#define fix_guile_1_3_4_scm_puts(scm_data, port) scm_puts ((char*)scm_data, port)
-#define scm_puts(scm_data, port) fix_guile_1_3_4_scm_puts (scm_data, port)
-#endif
-
 /* Guile 1.4.x compatibility */
 #if GUILE_MINOR_VERSION < 5
 
@@ -71,6 +52,9 @@
 #define scm_set_current_module(x) (void)x
 #define scm_c_resolve_module(x) (SCM)0
 
+inline scm_c_make_vector  (int k, SCM val) {
+  return scm_make_vector (SCM_MAKINUM (k), val);
+}
 #define scm_c_define_gsubr scm_make_gsubr
 #define scm_c_eval_string(str) gh_eval_str ((char*)str)
 #define scm_c_memq scm_sloppy_memq
@@ -81,6 +65,8 @@
 #define SCM_STRING_LENGTH SCM_LENGTH
 #define SCM_SYMBOL_CHARS SCM_CHARS
 #define SCM_SYMBOL_LENGTH SCM_LENGTH
+#define SCM_VECTOR_LENGTH SCM_LENGTH
+
 #endif
 
 
