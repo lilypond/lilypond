@@ -12,7 +12,7 @@ gmsus=\notes\relative c \chords{
 	g1:3-.4.7
 
 	% another hard way:
-	\notes<< g' bes c d f >>1
+	\notes { << g' bes c d f >>1 }
 
 	% bit easier:
 	g1:m.4.7

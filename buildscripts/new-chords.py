@@ -10,11 +10,15 @@ import os
 def sub_chord (m):
 	str = m.group(1)
 
+	origstr =  '<%s>' % str
 	if re.search (r'\\\\', str):
-		return '<%s>' % str
+		return origstr
+
+	if re.search (r'\\property', str):
+		return origstr
 
 	if re.match (r'^\s*\)?\s*\\[a-zA-Z]+', str):
-		return '<%s>' % str
+		return origstr
 
 	durs = []
 	def sub_durs (m):
