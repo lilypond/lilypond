@@ -102,7 +102,7 @@ for setting the tempo for dotted notes, an extra space should be
 inserted, for example
 
 @example
-  \midi @{ \tempo 4 . = 120 @} 
+\midi @{ \tempo 4 . = 120 @} 
 @end example
 
 
@@ -124,8 +124,8 @@ property.  The instrument name should be chosen from the list in
 @ref{MIDI instruments}.
 
 @example
-  \set Staff.midiInstrument = "glockenspiel"
-  @var{...notes...}
+\set Staff.midiInstrument = "glockenspiel"
+@var{...notes...}
 @end example
 
 If the selected instrument does not exactly match an instrument from
