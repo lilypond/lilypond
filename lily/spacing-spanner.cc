@@ -608,8 +608,18 @@ Spacing_spanner::standard_breakable_column_spacing (Grob * me, Item*l, Item*r,
 				   Real * fixed, Real * space,
 				   Moment shortest)
 {
-  *fixed = l->extent (l, X_AXIS)[RIGHT] - r->extent (r, X_AXIS)[LEFT];
-      
+  *fixed = 0.0;
+  Direction d = LEFT;
+  Drul_array<Item*> cols(l,r);
+  
+  do
+    {
+      Interval lext = cols[d]->extent (cols [d], X_AXIS);
+
+      *fixed += -d * lext[-d];
+    }
+  while (flip (&d) != LEFT);
+  
   if (l->breakable_b (l) && r->breakable_b(r))
     {
       Moment *dt = unsmob_moment (l->get_grob_property ("measure-length"));
