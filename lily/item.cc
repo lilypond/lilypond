@@ -155,9 +155,10 @@ Item::do_junk_links()
 void
 Item::do_unlink()
 {
-  for (int i=0; i < attached_span_l_arr_.size (); i++)
+  Link_array<Spanner> attached=attached_span_l_arr_;
+  for (int i=0; i < attached.size (); i++)
     {
-      Spanner *&s= attached_span_l_arr_[i];
+      Spanner *s= attached[i];
 
       Direction d= LEFT;
       do {
@@ -168,7 +169,7 @@ Item::do_unlink()
 	  unbroken_original_l_->broken_to_drul_[d] = 0;
       } while (flip (&d) != LEFT);
     }
-  attached_span_l_arr_.set_size (0);
+  assert (!attached_span_l_arr_.size ());
   unbroken_original_l_ =0;
 }
 

@@ -2,15 +2,19 @@
   filename =    "praeludium-fuga-E.ly";
   title =       "praeludium and fuga in E-major";
   opus =        "BWV 566";
-  description = "Praeludium 3 bar excerpt, "
-                "2nd fuga transposed subject -- 4 bar excerpt.  "
-                "We try to imitate the Griepenkerl/Keller edition which "
-                "gives the best approximation to Bach's original layout.";
   composer =    "Johann Sebastian Bach (1685-1750)";
   enteredby =   "JCN";
   copyright =   "public domain";
 }
+%{
+  description
 
+  Praeludium 3 bar excerpt,
+	2nd fuga transposed subject -- 4 bar excerpt. 
+        We try to imitate the Griepenkerl/Keller edition which
+	gives the best approximation to Bach's original layout
+
+%}
 %{
  Tested Features:
  purpose of this file is testing: 
@@ -19,7 +23,7 @@
    * organ staff...
 %}
 
-\version "1.0.1";
+\version "1.0.2";
 
 
 

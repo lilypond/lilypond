@@ -1,0 +1,26 @@
+
+% debugging stuff
+\def\vruler#1{{%
+        \def\wid{\dimen0}%
+        \def\inc{\dimen1}%
+        \wid=#1pt
+        \inc=\wid
+        \divide\inc by #1
+        \divide\wid by 2
+        \here=-\wid
+        \loop\ifdim\here<\wid\advance\here by\inc
+                \hbox to0pt{\vbox to0pt{\vss\hrule width2pt height 0.05pt\kern\here}\hss}%
+        \repeat%
+}}
+\def\hruler#1#2{\hbox{%
+        \def\wid{\dimen0}%
+        \def\here{\dimen3}%
+        \wid=#1pt
+        \divide\wid by 2
+        \here=-\wid
+        \loop\ifdim\here<\wid\advance\here by #2
+                \hbox to0pt{\kern\here\vrule width0.05pt height 1pt depth 1pt\hss}%
+        \repeat%
+}}
+
+

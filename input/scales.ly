@@ -12,7 +12,7 @@ copyright =	 "public domain";
 % scales with accents.
 %
 
-\version "1.0.1";
+\version "1.0.2";
 blah = 	\melodic {
 		\time 6/8;	
 \transpose c {

@@ -131,10 +131,10 @@ Music_iterator::static_get_iterator_p (Music *m,
   Music_iterator * p =0;
   if (m->is_type_b (Request_chord::static_name()))
     p = new Request_chord_iterator ((Request_chord*) m);
-  else if (m->is_type_b (Chord::static_name())) 
-    p =  new Chord_iterator ((Chord*) m);
-  else if (m->is_type_b (Voice::static_name())) 
-    p =  new Voice_iterator ((Voice*) m);
+  else if (m->is_type_b (Simultaneous_music::static_name())) 
+    p =  new Simultaneous_music_iterator ((Simultaneous_music*) m);
+  else if (m->is_type_b (Sequential_music::static_name())) 
+    p =  new Sequential_music_iterator ((Sequential_music*) m);
   else if (m->is_type_b (Translation_property::static_name ()))
     p = new Property_iterator((Translation_property *) m);
   else if (m->is_type_b (Change_translator::static_name ()))

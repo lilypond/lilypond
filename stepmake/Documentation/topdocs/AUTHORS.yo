@@ -4,23 +4,19 @@ AUTHORS - who did what on StepMake?
 
 nsect(DESCRIPTION)
 
-This file lists authors of StepMake, and what they wrote.
+This file lists authors of StepMake, and what they did.
 
 nsect(AUTHORS)
 itemize(
-it()nemail(Jan Nieuwenhuizen)(janneke@gnu.org),
-    lurl(http://www.xs4all.nl/~jantien)
-    nl()
-    Main author.
 it()nemail(Han-Wen Nienhuys)(hanwen@cs.uu.nl), 
     lurl(http://www.cs.uu.nl/people/hanwen)
     nl()
     Main author.
-)
 
-nsect(CONTRIBUTORS)
-
-itemize(
+it()nemail(Jan Nieuwenhuizen)(janneke@gnu.org),
+    lurl(http://www.xs4all.nl/~jantien)
+    nl()
+    Main author.
 it()nemail(Jeffrey B. Reed)(daboys@bga.com),
     Windows-nt fixes.
 )

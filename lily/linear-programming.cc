@@ -13,12 +13,14 @@
 Linear_programming::Linear_programming (int n)
   : cost_vec_ (n)
 {
+  dim_ = n;  
 }
 int
 Linear_programming::dim () const
 {
-  return cost_vec_.dim ();
+  return dim_;
 }
+
 
 void
 Linear_programming::add_constraint (Vector c, double r)
@@ -31,6 +33,7 @@ Linear_programming::add_constraint (Vector c, double r)
 void
 Linear_programming::set_cost (Vector c)
 {
+  assert (dim_ == c.dim ());
   cost_vec_ = c;
 }
 
@@ -57,6 +60,8 @@ bool
 Linear_programming::check_constraints (Vector v) const
 {
   bool is_cool = true;
+  assert (v.dim () == dim_);
+  
   for (int i=0; is_cool && i < v.dim (); i++)
     is_cool = is_cool && v[i] >= 0;
   for (int i=0; is_cool && i < constraints_.size (); i++)  
@@ -68,8 +73,28 @@ Linear_programming::check_constraints (Vector v) const
 }
 
 Vector
-Linear_programming::solve (Vector initial) const
+Linear_programming::solve (Vector initial_basic_solution) const
 {
+  assert (check_constraints (initial_basic_solution));
+  
+  Array<bool> basis; 
+  for (int i=0; i < dim_; i++)
+    basis.push (bool(initial_basic_solution[i]));
+
+  Vector x = initial_basic_solution;
+  Real current_cost = x * cost_vec_;
+  while (iter < MAXITER)
+    {
+      // select pivot
+      
+
+      iter ++;
+    }
+
+
+
+      
+  
   Array<int> binding, nonbinding;
   
   assert (check_constraints (initial));

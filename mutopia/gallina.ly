@@ -2,12 +2,12 @@
 title =	 "La Gallina à 2 violini";
 date =	 "1637";
 source =	 "the manuscript of Canzoni overo Sonate Concertate "
-	 "libro terzo, opera duodecima ";
+	+ "libro terzo, opera duodecima ";
 composer =	 "Tarquinio Merula (1594/95-1665)";
 enteredby =	 "Mats Bengtsson";
 copyright =	 "Public Domain ";
 subtitle = "from Canzoni overo Sonate Concertate libro terzo, "
-	"opera duodecima 1637";
+	+ "opera duodecima 1637";
 }
 
 
@@ -45,7 +45,7 @@ Voice engraver by uncommenting the lines in the paper
 definition below. --MB
 %} 
 
-\version "1.0.1";
+\version "1.0.2";
 
 vi1=\melodic \relative c'' {
   \time 4/4;
@@ -232,25 +232,27 @@ bc=\melodic\transpose c'{
     \bc
   >
   \paper{
-    %linewidth=18.\cm;
-     %\output "gallina.out";
     gourlay_maxmeasures=7.;
-%%%% Uncomment to get the original layout without beams.
+
+%{
+%% Uncomment to get the original layout without beams.
 %%%% Compare to the definition in init/engraver.ly.
-%    Voice = \translator {
-%       \type "Engraver_group_engraver";
-%       \consists "Dynamic_engraver";
-%       \consists "Rest_engraver";
-%       \consists "Stem_engraver";
-%       \consists "Plet_engraver";
-% %     \consists "Beam_engraver";
-%       \consists "Beam_req_swallow_translator";
-%       \consists "Abbreviation_beam_engraver";
-%       \consists "Script_engraver";
-%       \consists "Rhythmic_column_engraver";
-%       \consists "Slur_engraver";
-%       \accepts "Thread";
-%    }
+    Voice = \translator {
+       \type "Engraver_group_engraver";
+       \consists "Dynamic_engraver";
+       \consists "Rest_engraver";
+       \consists "Stem_engraver";
+       \consists "Plet_engraver";
+ %     \consists "Beam_engraver";
+       \consists "Beam_req_swallow_translator";
+       \consists "Abbreviation_beam_engraver";
+       \consists "Script_engraver";
+       \consists "Rhythmic_column_engraver";
+       \consists "Slur_engraver";
+       \accepts "Thread";
+    }
+%}
+    
   }
   \midi{ 
         \tempo 4=80;

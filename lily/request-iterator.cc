@@ -59,7 +59,7 @@ Request_chord_iterator::process_and_next (Moment mom)
 {
   if (first_b_)
     {
-      for (PCursor<Music*> i (elt_l_->music_p_list_); i.ok(); i++)
+      for (PCursor<Music*> i (elt_l_->music_p_list_p_->top ()); i.ok(); i++)
 	{
 	  assert (i->is_type_b (Request::static_name()));
 	  Request * req_l = (Request*)i.ptr();

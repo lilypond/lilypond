@@ -39,7 +39,7 @@ nsubsect(Documentation: manuals)
 
 
 itemize(
-it()url(Mudela)(../tex/DOEXPAND(outdir)/mudela.html)
+it()url(Mudela)(../tex/DOEXPAND(outdir)/tutorial.html)
 it()url(TeX documents about LilyPond)(../tex/DOEXPAND(outdir)/index.html)
 it()url(Manual pages)(../man/DOEXPAND(outdir)/index.html)
 it()url(Musical vocabulary)(../tex/DOEXPAND(outdir)/vocabulary.html)

@@ -3,10 +3,10 @@
 ; Neil Jerram <nj104@cus.cam.ac.uk>.
 ; Forms by Han-Wen Nienhuys
 
-(setq forms-file "vocabulary.data")
+(setq forms-file "glossary-table.data")
 (setq forms-number-of-fields 7)
 (setq forms-read-only nil)                 ; to make sure
-(setq forms-field-sep ":")
+(setq forms-field-sep "@")
 (setq forms-multi-line nil)
 
 (setq forms-format-list

@@ -7,20 +7,20 @@
 */
 
 
-#ifndef CHORD_ITER_HH
-#define CHORD_ITER_HH
+#ifndef Simultaneous_music_ITER_HH
+#define Simultaneous_music_ITER_HH
 
 
 #include "music-iterator.hh"
 #include "plist.hh"
 
-class Chord_iterator : public Music_iterator
+class Simultaneous_music_iterator : public Music_iterator
 {
-  const Chord *chord_C_;
+  const Simultaneous_music *simultaneous_music_C_;
   Pointer_list<Music_iterator*> children_p_list_;
 public:
-  ~Chord_iterator();
-  Chord_iterator (Chord const*);
+  ~Simultaneous_music_iterator();
+  Simultaneous_music_iterator (Simultaneous_music const*);
   DECLARE_MY_RUNTIME_TYPEINFO;
 protected:
   virtual void do_print() const;
@@ -30,4 +30,4 @@ protected:
   virtual bool ok() const;
 };
 
-#endif // CHORD_ITER_HH
+#endif // Simultaneous_music_ITER_HH

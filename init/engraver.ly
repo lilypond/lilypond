@@ -93,11 +93,6 @@ Voice = \translator {
 	%\accepts "Thread";
 }
 
-Thread = \translator {
-	\type "Engraver_group_engraver";
-%	\consists "Note_head_engraver" ;
-%	\consists "Tie_engraver";
-}
 
 GrandStaff = \translator {
 	\type "Line_group_engraver_group";
@@ -105,6 +100,7 @@ GrandStaff = \translator {
 	\consists "Span_bar_engraver";
 	\consists "Vertical_align_engraver";
 	\consists "Piano_bar_engraver";
+	minVerticalAlign = 1.5*\staffheight;
 
 	% This should come last
 	\accepts "Staff";

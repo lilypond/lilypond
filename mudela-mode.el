@@ -38,7 +38,7 @@
 		     "musical_pitch" "meter" "midi" "mm" "multi" "header"
 		     "notenames" "octave" "output" "partial" "paper" "plet"
 		     "property" "pt" "shape" "relative" "include" "score"
-		     "script" "skip" "staff" "table" "spandynamic" "symboltables"
+		     "script" "skip"  "table" "spandynamic" "symboltables"
 		     "tempo" "texid" "textstyle" "transpose" "version" "grouping"
 		     ))
        (kwregex (mapconcat (lambda (x) (concat "\\\\" x))  keywords "\\|")))

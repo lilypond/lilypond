@@ -1,6 +1,7 @@
 \header {
   filename =    "";
   title =       "Partita II";
+  piece =       "Sinfonia";
   description = "6 Partite per il clavicembalo, Partita II (c-minor)";
   opus =        "BWV 826";
   source =      "Editio Musica Budapest (Urtext)";
@@ -9,8 +10,8 @@
   copyright =   "Public Domain";
 }
 
-\version "1.0.1";
-\include "a4.ly";
+\version "1.0.2";
+
 global = \melodic {
 	\time 4/4;
 	\key es;
@@ -22,9 +23,9 @@ global = \melodic {
 	\bar "|.";
 }
   
-hoyreOpp = \melodic \relative c''  {
+hoyreOpp = \melodic\relative c''  {
 	\stemup
-	es4 r16 [es d. es32] f4 r16 [f16 f. g32] |
+	es4^"Grave adagio" r16 [es d. es32] f4 r16 [f16 f. g32] |
 	[as8. as16] [as16 g32 f g16. d32] es4 r16 [g g. as32] |
 %3
 	bes4 r16 [bes,16 bes. c32] [des8. des16] 
@@ -43,7 +44,7 @@ hoyreOpp = \melodic \relative c''  {
 	> g2
 }
 
-hoyreNed = \melodic \relative c'' {
+hoyreNed = \melodic\relative c'' {
 	\clef violin;
 	\stemdown
 	<c4 g> r16 [c b. c32] d4 r16 [d d. es32] |
@@ -56,7 +57,7 @@ hoyreNed = \melodic \relative c'' {
 	g4 <c8 a> r <d2 b>
 }
 
-venstreOpp = \melodic \relative c' {
+venstreOpp = \melodic\relative c' {
 	\clef bass;
 	\stemup
 	<c4 g es> r <b as f d> r |
@@ -65,29 +66,28 @@ venstreOpp = \melodic \relative c' {
 	<c as f> r r16 <[as d,><as. d,><g32 d]> <g4 d> |
 %5
 	r16 <[g c,><g. c,><f32 c]> 
-%{	\type Voice <
-		{f4() f}
-		{c4 d}
-	>
-%}
-        <f4-"ikke bue c-d" ~ c><f  d> r16 [f f. g32] |
+	\type Staff <
+		{\stemup f4~ f}
+		{\stemup c4 d}
+	> r16 [f f. g32] |
+%6
 	[as8. as16]~ [as g32 f g16 d] <es4 c> r |
 	r <a es c> <g2 d>
 }
 
-venstreNed = \melodic{ \relative c{
+venstreNed = \melodic\relative c{
 	\stemdown
 	c4 r c r | r c c r | c r r c | c r r16 [c c. bes32] bes4 |
-	r16 [bes bes. as32] as4 g r16 [d' d. es32] |
+	r16 [bes bes. as32] as4_"tr" g r16 [d' d. es32] |
 	\type Staff <
 		{ \stemdown \property Voice.hshift = 1 [f8. f16] [b,8. b16] g4 r | }
-		{ \stemdown r4 g}
+		{ \stemdown s4 g}
 	>
 	r g g2	
-}}
+}
 
-andanteEn = \melodic \relative c''{
-	[g16 c32 d es8~] [es16 d32 c es d c b] [c16 g as f] [g c g f] |
+andanteEn = \melodic\relative c''{
+	[g16^"andante" c32 d es8~] [es16 d32 c es d c b] [c16 g as f] [g c g f] |
 	[es16 c'32 d es d c16] [g' c, as' c,] [b c d b] g16 r16 r8 |
 %10
 	\stemup [g'32 f es d c16 bes~] [bes des8 c16] 
@@ -131,7 +131,7 @@ andanteEn = \melodic \relative c''{
 	as4~ [as32 as g as bes as g as] es'4~ [es32 c b c d c b c] |
 	[fis16 es8 d16] [g16 d8 c16] [a'16 c,8 bes16~] [bes32 d c bes g' bes, a g]
 %28
-	[bes'8-\fermata~ bes32 a g f] [g bes a g fis e d c] [bes d c es d g fis e]
+	[bes'8-\fermata~ bes32 a g fis] [g bes a g fis e d c] [bes d c es d g fis e]
 	[d c bes a bes d bes g] |
 	r16 [e'32 fis fis16.-\prall \[2/3 e64 fis g\]1/1 ] 
 	\type Staff <
@@ -139,17 +139,18 @@ andanteEn = \melodic \relative c''{
 			[bes,32 a g fis g32 bes16.~] [bes16 c32 bes a bes c a] [fis8. g16] }
 		{	\stemdown s8 g8 ~ g4 d}
    >
-}        
-andanteTo = \melodic \relative c{
+}
+
+andanteTo = \melodic\relative c{
 %8
-	\clef "bass";
 	[c8 c'] [f, g] [es c] [es g] |
 	[c as] [es f] [g g,]
 	\stemdown \translator Staff = treble r16 [f''16 es d] |
 %10
-	[es8 g] [e c] [f as] [f c] | [d f] [d bes] [es g] [es c] |
-	\stemboth \translator Staff = bass
-	[as c] [f as,] [g c] [es g,] | [f as] [g f] [es g] [f es] |
+	[es8 g] [e c] [f as] [f c] | 
+	[d f] [d bes] [es g] [es c] |
+	\stemboth \translator Staff = bass [as c] [f as,] [g c] [es g,] | 
+	[f as] [g f] [es g] [f es] |
 %14
 	[d f] [as c,] [b d] [g d] | 
 	[es as,] [f g] c,4~ [c16 d32 es f g a b] |
@@ -178,9 +179,9 @@ andanteTo = \melodic \relative c{
 	>
 }
 
-allegroEn = \melodic \relative c''{
+allegroEn = \melodic\relative c''{
 %30
-	[g8 g16 a] [b8 c d es] |
+	[g8^"allegro" g16 a] [b8 c d es] |
 	[f16 es d es] [f8 g as d,] |
 	[f b, d g,] [g'16 f es d] |
 	es8 c'4 [bes16 as] [g f es d] |
@@ -197,7 +198,7 @@ allegroEn = \melodic \relative c''{
 %43
 	[bes16 c d bes] [g8 bes] [es, d'] |
 	[a16 bes c a] [fis8 a] [d, c'] |
-	[g16 a b g] [es g d g] [cis, bes' a g] |
+	[g16 a bes g] [es g d g] [cis, bes' a g] |
 	[fis e d e] [fis8 g a bes] |
 	[c16 bes a bes] [c8 d] [es a,] |
 	[c fis,] [a d,] [d'16 c bes a]
@@ -252,7 +253,7 @@ allegroEn = \melodic \relative c''{
 		{ \stemdown r8 r16 <a16 es> <g2 d> | <g es> }
 	>
 }
-allegroTo = \melodic \relative c'{
+allegroTo = \melodic\relative c'{
 	\clef bass;
 %30
 	\type Staff <
@@ -317,28 +318,7 @@ allegroTo = \melodic \relative c'{
 	[g f es d][c bes as g][f f' e f] | [as f e f][b, f' es d][es g c, es] |
 	[fis,8. fis'16] g4 g, | c,2-\fermata
 }
-a4 = \paper{
-%	linewidth= 80.\mm;
-	Staff = \translator {
-		\type "Engraver_group_engraver";
-		defaultclef = violin;
-		\consists "Bar_engraver";
-		\consists "Clef_engraver";
-		\consists "Key_engraver";
-%		\consists "Meter_engraver";
-		\consists "Local_key_engraver";
-		\consists "Staff_sym_engraver";
-		\consists "Collision_engraver";
-		\consists "Rest_collision_engraver";
-		\consists "Bar_column_engraver";
-		\consists "Bar_number_engraver";
-		\consists "Separating_line_group_engraver";
-%		\consists "Line_group_engraver";
-		\accepts "Voice";
-		\accepts "Staff";
-		\accepts "GrandStaff";
-	}
-}
+
 \score {
      \type GrandStaff < 
       \type Staff = treble < 
@@ -352,13 +332,10 @@ a4 = \paper{
 	\venstreNed
       >
     >
-
-  \paper {
-%	\a4
-%    gourlay_maxmeasures =5.;
-%    castingalgorithm = \Wordwrap;
-
-  }
+  \paper {}
 }
 
 % EOF
+
+
+

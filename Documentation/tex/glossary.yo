@@ -17,7 +17,7 @@ in stead <-> instead
 htmlbodyopt(bgcolor)(white)
 htmlcommand(<font color=black>)
 
-latexpackage()(a4wide)
+latexpackage()(a4wide) COMMENT(UGH)
 latexlayoutcmds(
 %\usepackage[latin1]{inputenc}
 \input mudela-book
@@ -69,12 +69,12 @@ whenlatex(latexcommand(
       \inlanguage{Fran\c cais}{#2}
        \inlanguage{British}{#4}  \inlanguage{Deutsch}{#3}
        \inlanguage{Nederlands}{#5}\inlanguage{Italiano}{#6}}
-      \input{vocabulary}
+      \input glossary-table
     }
 ))
 
 whenhtml(
-    includeverbatim(DOEXPAND(outdir)/vocabulary.html)
+    includeverbatim(DOEXPAND(outdir)/glossary-table.html)
 )
 
 whenlatex(latexcommand(

@@ -263,8 +263,12 @@ for opt in options:
 		do_deps = 1
 
 def write_deps (fn, out,  deps):
-	f = open (outdir + fn, 'w')
-	f.write ('%s: %s\n'% (outdir + out + '.dvi', reduce (lambda x,y: x + ' '+ y, deps)))
+	out_fn = outdir + '/' + fn
+	print '\`writing \`%s\'\n\'' % out_fn
+	
+	f = open (out_fn, 'w')
+	f.write ('%s: %s\n'% (outdir + '/' + out + '.dvi',
+			      reduce (lambda x,y: x + ' '+ y, deps)))
 	f.close ()
 
 

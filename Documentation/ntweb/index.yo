@@ -115,11 +115,11 @@ subsect(Running LilyPond) label(running)
 
 itemize(
   it()Take a look at url(angels.ly)(angels.ly)
-  it()Save angles.ly to your local disk
+  it()Save angels.ly to your local disk
   it()From a Command Prompt run: nl()
-  bf(ly2dvi.py angles.ly) nl()
-  bf(dvips angles.dvi) nl()
-  bf(cmd /c angles.ps) nl()
+  bf(ly2dvi.py angels.ly) nl()
+  bf(dvips angels.dvi) nl()
+  bf(cmd /c angels.ps) nl()
 )
 
 link(Back to top)(contents)

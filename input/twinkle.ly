@@ -1,10 +1,6 @@
 \header{
 filename =	 "twinkle.ly";
 title =	 "Twinkle Twinkle Little Star";
-description =	 "traditional song in various languages."
-  "Ah, vous dirais-je, maman" 
-  "Altijd is Kortjakje ziek"
-  "Twinkle twinkle little star";
 
 composer =	 "Traditional";
 enteredby =	 "HWN & JCN";
@@ -12,10 +8,19 @@ copyright =	 "public domain";
 }
 
 %{
+DESCRIPTION
+
+traditional song in various languages.
+  "Ah, vous dirais-je, maman" 
+  "Altijd is Kortjakje ziek"
+  "Twinkle twinkle little star"
+%}
+
+%{
 Tested Features: lyrics, interleaving lyrics and staffs
 %}
 
-\version "1.0.1";
+\version "1.0.2";
 
 melody = \melodic \relative c'' {
 	\clef violin;
@@ -81,12 +86,12 @@ hegedraagjetekst = \lyric{
 texte = \lyric{ 
 	\property Lyrics . textstyle" =  "italic" 
 %	\property Lyrics . textstyle" =  "roman" 
- 	Ah!4 vous dir- ai_- je ma man2
+ 	Ah!4 vous dir- ai_- je ma- man2
 	Ce4 qui cau- se mon tour- ment2
-	Pa-4 pa veut que je rai- sonne2
-	Comme4 un- e grand- e per- sonne2
-	Moi4 je dis que les bon- bons2
-	Val-4 ent mieux que la rai- son2
+	Pa-4 pa veut que je rai- son- ne
+	Comm' u- ne gran- de per- son- ne
+	Moi je dis que les bon- bons2
+	Va-4 lent mieux que la rai- son2
 }
 
 texti = \lyric{

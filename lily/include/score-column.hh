@@ -48,8 +48,6 @@ public:
   void preprocess();
   bool musical_b() { return musical_b_; }
   void do_print() const;
-
-
 };
 
 #endif // SCORE_COLUMN_HH

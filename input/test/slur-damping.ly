@@ -1,5 +1,5 @@
 % test damping
-\version "1.0.1";
+\version "1.0.2";
 
 \score{
 	\melodic\relative c'{

@@ -25,16 +25,15 @@
 
   Music is hierarchical: 
 
-  @see Music_list
+  @see Music_sequence
 
   */
 class Music:public Input {
 public:
-  Music_list * parent_music_l_;
     
   /** The kind of iterator needed to walk this music.  This doesn't
     make sense for simple (ie non-list) music, but it does no harm
-    here. Yes, it did harm Music_list: you can forget to copy it.
+    here. Yes, it did harm Music_sequence: you can forget to copy it.
       
     */
   String translator_type_str_;

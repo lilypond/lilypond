@@ -24,11 +24,11 @@ class My_lily_parser {
   Array<Input> define_spot_array_;
   String init_str_;
 
-  void add_requests (Chord*v);
+  void add_requests (Simultaneous_music*v);
 
-  Chord * get_note_element (Note_req * ,Duration *);
-  Chord* get_rest_element (String, Duration *);
-  Chord* get_word_element (String, Duration*);
+  Simultaneous_music * get_note_element (Note_req * ,Duration *);
+  Simultaneous_music* get_rest_element (String, Duration *);
+  Simultaneous_music* get_word_element (String, Duration*);
   Melodic_req* get_melodic_req (Melodic_req* melodic, int quotes);
   String notename_str (Melodic_req* melodic);
   void set_last_duration (Duration const *);

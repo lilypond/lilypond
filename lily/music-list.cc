@@ -1,5 +1,5 @@
 /*
-  music-list.cc -- implement Music_list, Chord, Voice
+  music-list.cc -- implement Music_sequence, Simultaneous_music, Sequential_music
 
   source file of the GNU LilyPond music typesetter
 
@@ -7,58 +7,50 @@
 */
 
 
-#include <limits.h>
-#include "music.hh"
-#include "debug.hh"
+
 #include "music-list.hh"
 #include "musical-pitch.hh"
 #include "request.hh"
 #include "musical-request.hh"
 
-Music_list::Music_list (Music_list const&s)
-  : Music (s)
-{
-  multi_level_i_ = s.multi_level_i_;   
-  for (iter (s.music_p_list_.top(), i); i.ok (); i++)
-    add (i->clone());
-}
 
-IMPLEMENT_IS_TYPE_B1(Music_list, Music);
-IMPLEMENT_IS_TYPE_B1(Voice,Music_list);
-IMPLEMENT_IS_TYPE_B1(Chord,Music_list);
+IMPLEMENT_IS_TYPE_B1(Sequential_music,Music_sequence);
+IMPLEMENT_IS_TYPE_B1(Simultaneous_music,Music_sequence);
 
 MInterval
-Chord::time_int() const
+Simultaneous_music::time_int() const
 {
   MInterval m;
-  for (iter (music_p_list_.top(), i); i.ok (); i++)
+  for (iter (music_p_list_p_->top(), i); i.ok (); i++)
     m.unite (i->time_int());
 
   return m;
 }
 
 void
-Chord::translate (Moment m)
+Simultaneous_music::translate (Moment m)
 {
-  for (iter (music_p_list_.top(), i); i.ok (); i++)
+  for (iter (music_p_list_p_->top(), i); i.ok (); i++)
     i->translate (m); 
 }
 
-Chord::Chord()
+Simultaneous_music::Simultaneous_music(Music_list *p)
+  : Music_sequence (p)
 {
 
 }
 
-Voice::Voice()
+Sequential_music::Sequential_music(Music_list *p)
+  : Music_sequence (p)
 {
   offset_mom_ =0;
 }
 
 MInterval
-Voice::time_int() const
+Sequential_music::time_int() const
 {
   Moment last=0;
-  for (iter (music_p_list_.top(), i); i.ok (); i++) 
+  for (iter (music_p_list_p_->top(), i); i.ok (); i++) 
     {
       MInterval interval = i->time_int();
 	
@@ -72,71 +64,32 @@ Voice::time_int() const
 }
 
 Musical_pitch
-Voice::to_relative_octave (Musical_pitch p)
+Sequential_music::to_relative_octave (Musical_pitch p)
 {
-  return do_relative_octave (p, false);
+  return music_p_list_p_->do_relative_octave (p, false);
 }
 
 Musical_pitch
-Chord::to_relative_octave (Musical_pitch p)
+Simultaneous_music::to_relative_octave (Musical_pitch p)
 {
-  return do_relative_octave (p, true);
+  return music_p_list_p_->do_relative_octave (p, true);
 }
 
 void
-Voice::translate (Moment dt)
+Sequential_music::translate (Moment dt)
 {
   offset_mom_ += dt;
 }
 
 
-Music_list::Music_list()
-{
-  multi_level_i_ = 0;
-}
-
-void
-Music_list::add (Music*m_p)
-{
-  if (!m_p)
-    return;
-
-  m_p->parent_music_l_ = this;
-  music_p_list_.bottom().add (m_p);
-}
-
-void
-Music_list::transpose (Musical_pitch rq)
-{
-  for (iter (music_p_list_.top(),i); i.ok (); i++)
-    i->transpose (rq);    
-}
-
-void
-Music_list::do_print() const
-{
-#ifndef NPRINT
-  for (iter (music_p_list_.top(),i); i.ok (); i++)
-    i->print();
-#endif 
-}
-
-IMPLEMENT_IS_TYPE_B1(Request_chord, Chord);
-
-
-Request_chord::Request_chord()
-{
-  multi_level_i_ =0;
-}
 
 
 Musical_pitch 
 Music_list::do_relative_octave (Musical_pitch last, bool ret_first)
 {
-
   Musical_pitch retval;
   int count=0;
-  for (iter (music_p_list_.top(),i); i.ok (); i++)
+  for (PCursor<Music*> i (top ()); i.ok (); i++)
     {
       last = i->to_relative_octave (last);
       if (!count ++ )
@@ -147,10 +100,38 @@ Music_list::do_relative_octave (Musical_pitch last, bool ret_first)
   return retval;
 }
 
+
+Music_list::Music_list (Music_list const &s)
+  : Pointer_list<Music*> (s)
+{
+  for (PCursor<Music*> i(s.top()); i.ok (); i++)
+    add_music (i->clone());
+}
+
+void
+Music_list::add_music (Music*m_p)
+{
+  if (!m_p)
+    return;
+
+  bottom().add (m_p);
+}
+
+
+IMPLEMENT_IS_TYPE_B1(Request_chord, Simultaneous_music);
+
+
+Request_chord::Request_chord()
+  : Simultaneous_music (new Music_list)
+{
+  multi_level_i_ =0;
+}
+
+
 Musical_pitch
 Request_chord::to_relative_octave (Musical_pitch last)
 {
-  for (iter (music_p_list_.top(),i); i.ok (); i++)
+  for (iter (music_p_list_p_->top(),i); i.ok (); i++)
     {
       Musical_req *m =((Request*)i.ptr ())->access_Musical_req ();
       if (m && m->access_Melodic_req ())
@@ -164,3 +145,6 @@ Request_chord::to_relative_octave (Musical_pitch last)
 }
 
 
+Music_list::Music_list ()
+{
+}

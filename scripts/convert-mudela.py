@@ -168,6 +168,18 @@ if 1:					# need new a namespace
 		((1,0,1), conv, '\\accidentals -> \\keysignature, ' +
 		 'specialaccidentals -> keyoctaviation\n'))
 
+if 1:
+	def conv(lines):
+		found = 0
+		for x in lines:
+			if regex.search ('\\\\header', x) <> -1:
+				found = 1
+				break
+		if found:
+			sys.stderr.write ('\nNot smart enough to convert to new \\header format\n')
+		return lines
+	
+	conversions.append ((1,0,2), conv, '\header { key = concat + with + operator }\n')
 
 ############################
 
