@@ -21,7 +21,7 @@ Measure_grouping::brew_molecule (SCM grob)
   /*
     TODO: robustify.
    */
-  SCM which = me->get_grob_property ("type");
+  SCM which = me->get_grob_property ("style");
   SCM thick = me->get_grob_property ("thickness");
   SCM height = me->get_grob_property ("height");
 
@@ -55,6 +55,6 @@ Measure_grouping::brew_molecule (SCM grob)
 
 ADD_INTERFACE (Measure_grouping,"measure-grouping-interface",
 	       "indicate groups of beats. Valid choices for 'type are 'bracket and 'triangle.",
-	       "thickness type height");
+	       "thickness style height");
 
   

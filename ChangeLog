@@ -1,5 +1,12 @@
 2003-06-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/define-grob-properties.scm: remove 'type
+
+	* scripts/convert-ly.py (FatalConversionError.conv): type -> style
+	conversion
+
+	* lily/text-spanner.cc: change 'type grob prop to 'style 
+
 	* lily/unfolded-repeat-iterator.cc (process): bugfix: use a
 	"first" flag to decide whether to make a start-repeat
 
