@@ -14,16 +14,13 @@ input-dir = $(src-depth)/input
 
 
 flower-dir = $(src-depth)/flower
-lib-dir = $(src-depth)/lib
 lily-dir = $(src-depth)/lily
 mi2mu-dir = $(src-depth)/mi2mu
 make-dir = $(src-depth)/make
-include-lib = $(src-depth)/lib/include
 include-flower = $(src-depth)/flower/include
 
 
-
-LILYPOND_INCLUDES = $(include-lib) $(depth)/lib/$(outdir) $(include-flower) $(depth)/flower/$(outdir) 
+LILYPOND_INCLUDES = $(include-flower) $(depth)/flower/$(outdir) 
 
 
 # should use to create .spec ?
