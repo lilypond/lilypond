@@ -81,13 +81,13 @@ def draw_vaticana_do_clef(expr exact_center, reduction) =
 enddef;
 
 
-fet_beginchar("Ed. Vat. do clef", "vaticana-do")
+fet_beginchar("Ed. Vat. do clef", "vaticana.do")
 	if test = 1:
 		draw_staff(-1,3, 0.0);
 	fi;
 	draw_vaticana_do_clef((0,0), 1.0);
 fet_endchar;
-fet_beginchar("Ed. Vat. do clef", "vaticana-do_change")
+fet_beginchar("Ed. Vat. do clef", "vaticana.do_change")
 	draw_vaticana_do_clef((0,0), 1.0); % no reduction
 fet_endchar;
 
@@ -129,13 +129,13 @@ def draw_vaticana_fa_clef(expr exact_center, reduction) =
 enddef;
 
 
-fet_beginchar("Ed. Vat. fa clef", "vaticana-fa")
+fet_beginchar("Ed. Vat. fa clef", "vaticana.fa")
 	if test = 1:
 		draw_staff(-1,3, 0.0);
 	fi;
 	draw_vaticana_fa_clef((0,0), 1.0);
 fet_endchar;
-fet_beginchar("Ed. Vat. fa clef", "vaticana-fa_change")
+fet_beginchar("Ed. Vat. fa clef", "vaticana.fa_change")
 	draw_vaticana_fa_clef((0,0), 1.0); % no reduction
 fet_endchar;
 
@@ -196,13 +196,13 @@ def draw_medicaea_do_clef(expr exact_center, reduction) =
 enddef;
 
 
-fet_beginchar("Ed. Med. do clef", "medicaea-do")
+fet_beginchar("Ed. Med. do clef", "medicaea.do")
 	if test = 1:
 		draw_staff(-1,3, 0.0);
 	fi;
 	draw_medicaea_do_clef((0,0), 1.0);
 fet_endchar;
-fet_beginchar("Ed. Med. do clef", "medicaea-do_change")
+fet_beginchar("Ed. Med. do clef", "medicaea.do_change")
 	draw_medicaea_do_clef((0,0), .8);
 fet_endchar;
 
@@ -247,13 +247,13 @@ def draw_medicaea_fa_clef(expr exact_center, reduction) =
 enddef;
 
 
-fet_beginchar("Ed. Med. fa clef", "medicaea-fa")
+fet_beginchar("Ed. Med. fa clef", "medicaea.fa")
 	if test = 1:
 		draw_staff(-1,3, 0.0);
 	fi;
 	draw_medicaea_fa_clef((0,0), 1.0);
 fet_endchar;
-fet_beginchar("Ed. Med. fa clef", "medicaea-fa_change")
+fet_beginchar("Ed. Med. fa clef", "medicaea.fa_change")
 	draw_medicaea_fa_clef((0,0), .8);
 fet_endchar;
 
@@ -357,13 +357,13 @@ def draw_neomensural_c_clef(expr exact_center, reduction) =
 enddef;
 
 
-fet_beginchar("neo-mensural c clef", "neomensural-c")
+fet_beginchar("neo-mensural c clef", "neomensural.c")
 	if test = 1:
 		draw_staff(-1,3, 0.0);
 	fi;
 	draw_neomensural_c_clef((0,0), 1.0);
 fet_endchar;
-fet_beginchar("neo-mensural c clef", "neomensural-c_change")
+fet_beginchar("neo-mensural c clef", "neomensural.c_change")
 	draw_neomensural_c_clef((0,0), .8);
 fet_endchar;
 
@@ -415,53 +415,53 @@ def draw_petrucci_c_clef(expr exact_center, flare_align, reduction) =
 enddef;
 
 
-fet_beginchar("petrucci c1 clef", "petrucci-c1")
+fet_beginchar("petrucci c1 clef", "petrucci.c1")
 	if test = 1:
 		draw_staff(-1,3, 0.0);
 	fi;
 	draw_petrucci_c_clef((0,0), +2, 1.0);
 fet_endchar;
-fet_beginchar("petrucci c1 clef", "petrucci-c1_change")
+fet_beginchar("petrucci c1 clef", "petrucci.c1_change")
 	draw_petrucci_c_clef((0,0), +2, .8);
 fet_endchar;
 
-fet_beginchar("petrucci c2 clef", "petrucci-c2")
+fet_beginchar("petrucci c2 clef", "petrucci.c2")
 	if test = 1:
 		draw_staff(-1,3, 0.0);
 	fi;
 	draw_petrucci_c_clef((0,0), +1, 1.0);
 fet_endchar;
-fet_beginchar("petrucci c2 clef", "petrucci-c2_change")
+fet_beginchar("petrucci c2 clef", "petrucci.c2_change")
 	draw_petrucci_c_clef((0,0), +1, .8);
 fet_endchar;
 
-fet_beginchar("petrucci c3 clef", "petrucci-c3")
+fet_beginchar("petrucci c3 clef", "petrucci.c3")
 	if test = 1:
 		draw_staff(-1,3, 0.0);
 	fi;
 	draw_petrucci_c_clef((0,0), 0, 1.0);
 fet_endchar;
-fet_beginchar("petrucci c3 clef", "petrucci-c3_change")
+fet_beginchar("petrucci c3 clef", "petrucci.c3_change")
 	draw_petrucci_c_clef((0,0), 0, .8);
 fet_endchar;
 
-fet_beginchar("petrucci c4 clef", "petrucci-c4")
+fet_beginchar("petrucci c4 clef", "petrucci.c4")
 	if test = 1:
 		draw_staff(-1,3, 0.0);
 	fi;
 	draw_petrucci_c_clef((0,0), -1, 1.0);
 fet_endchar;
-fet_beginchar("petrucci c4 clef", "petrucci-c4_change")
+fet_beginchar("petrucci c4 clef", "petrucci.c4_change")
 	draw_petrucci_c_clef((0,0), -1, .8);
 fet_endchar;
 
-fet_beginchar("petrucci c5 clef", "petrucci-c5")
+fet_beginchar("petrucci c5 clef", "petrucci.c5")
 	if test = 1:
 		draw_staff(-1,3, 0.0);
 	fi;
 	draw_petrucci_c_clef((0,0), -2, 1.0);
 fet_endchar;
-fet_beginchar("petrucci c5 clef", "petrucci-c5_change")
+fet_beginchar("petrucci c5 clef", "petrucci.c5_change")
 	draw_petrucci_c_clef((0,0), -2, .8);
 fet_endchar;
 
@@ -505,13 +505,13 @@ def draw_mensural_c_clef(expr exact_center, reduction) =
 enddef;
 
 
-fet_beginchar("mensural c clef", "mensural-c")
+fet_beginchar("mensural c clef", "mensural.c")
 	if test = 1:
 		draw_staff(-1,3, 0.0);
 	fi;
 	draw_mensural_c_clef((0,0), 1.0);
 fet_endchar;
-fet_beginchar("mensural c clef", "mensural-c_change")
+fet_beginchar("mensural c clef", "mensural.c_change")
 	draw_mensural_c_clef((0,0), .8);
 fet_endchar;
 
@@ -615,13 +615,13 @@ def draw_petrucci_f_clef(expr exact_center, reduction) =
 enddef;
 
 
-fet_beginchar("petrucci f clef", "petrucci-f")
+fet_beginchar("petrucci f clef", "petrucci.f")
 	if test = 1:
 		draw_staff(-1,3, 0.0);
 	fi;
 	draw_petrucci_f_clef((0,0), 1.0);
 fet_endchar;
-fet_beginchar("petrucci f clef", "petrucci-f_change")
+fet_beginchar("petrucci f clef", "petrucci.f_change")
 	draw_petrucci_f_clef((0,0), .8);
 fet_endchar;
 
@@ -675,13 +675,13 @@ def draw_mensural_f_clef(expr exact_center, reduction) =
 		     0.5width# + ypart exact_center);
 enddef;
 
-fet_beginchar("mensural f clef", "mensural-f")
+fet_beginchar("mensural f clef", "mensural.f")
 	if test = 1:
 		draw_staff(-1,3, 0.0);
 	fi;
 	draw_mensural_f_clef((0,0), 1.0);
 fet_endchar;
-fet_beginchar("mensural f clef", "mensural-f_change")
+fet_beginchar("mensural f clef", "mensural.f_change")
 	draw_mensural_f_clef((0,0), .8);
 fet_endchar;
 
@@ -746,13 +746,13 @@ def draw_petrucci_g_clef(expr exact_center, reduction) =
 enddef;
 
 
-fet_beginchar("petrucci g clef", "petrucci-g")
+fet_beginchar("petrucci g clef", "petrucci.g")
 	if test = 1:
 		draw_staff(-1,3, 0.0);
 	fi;
 	draw_petrucci_g_clef((0,0), 1.0);
 fet_endchar;
-fet_beginchar("petrucci g clef", "petrucci-g_change")
+fet_beginchar("petrucci g clef", "petrucci.g_change")
 	draw_petrucci_g_clef((0,0), .8);
 fet_endchar;
 
@@ -777,13 +777,13 @@ enddef;
 % FIXME: This clef is preliminarily mapped to the petrucci g clef
 % until the code for the mensural g clef will be rewritten.
 %
-fet_beginchar("mensural g clef", "mensural-g")
+fet_beginchar("mensural g clef", "mensural.g")
 	if test = 1:
 		draw_staff(-1,3, 0.0);
 	fi;
 	draw_petrucci_g_clef((0,0), 1.0);
 fet_endchar;
-fet_beginchar("mensural g clef", "mensural-g_change")
+fet_beginchar("mensural g clef", "mensural.g_change")
 	draw_petrucci_g_clef((0,0), .8);
 fet_endchar;
 
@@ -835,13 +835,13 @@ def draw_hufnagel_do_clef(expr exact_center, reduction) =
 enddef;
 
 
-fet_beginchar("Hufnagel do clef", "hufnagel-do")
+fet_beginchar("Hufnagel do clef", "hufnagel.do")
 	if test = 1:
 		draw_staff(-1,3, 0.0);
 	fi;
 	draw_hufnagel_do_clef((0,0), 1.0);
 fet_endchar;
-fet_beginchar("Hufnagel do clef", "hufnagel-do_change")
+fet_beginchar("Hufnagel do clef", "hufnagel.do_change")
 	draw_hufnagel_do_clef((0,0), .8);
 fet_endchar;
 
@@ -892,13 +892,13 @@ def draw_hufnagel_fa_clef(expr exact_center, reduction) =
 enddef;
 
 
-fet_beginchar("Hufnagel fa clef", "hufnagel-fa")
+fet_beginchar("Hufnagel fa clef", "hufnagel.fa")
 	if test = 1:
 		draw_staff(-1,3, 0.0);
 	fi;
 	draw_hufnagel_fa_clef((0,0), 1.0);
 fet_endchar;
-fet_beginchar("Hufnagel fa clef", "hufnagel-fa_change")
+fet_beginchar("Hufnagel fa clef", "hufnagel.fa_change")
 	draw_hufnagel_fa_clef((0,0), .8);
 fet_endchar;
 
@@ -913,13 +913,13 @@ def draw_hufnagel_do_fa_clef(expr exact_center, reduction) =
 enddef;
 
 
-fet_beginchar("Hufnagel do/fa clef", "hufnagel-do-fa")
+fet_beginchar("Hufnagel do/fa clef", "hufnagel.do.fa")
 	if test = 1:
 		draw_staff(-1,3, 0.0);
 	fi;
 	draw_hufnagel_do_fa_clef((0,0), 1.0);
 fet_endchar;
-fet_beginchar("Hufnagel do/fa clef", "hufnagel-do-fa_change")
+fet_beginchar("Hufnagel do/fa clef", "hufnagel.do.fa_change")
 	draw_hufnagel_do_fa_clef((0,0), .8);
 fet_endchar;
 
