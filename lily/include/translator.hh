@@ -70,8 +70,8 @@ private:
 
 protected:			// should be private.
   SCM simple_trans_list_;
-
-  // ugr.
+  friend class Context_def;
+  // ugir.
   //   friend SCM Translator_group::get_simple_trans_list ();
 
 
