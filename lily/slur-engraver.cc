@@ -132,15 +132,15 @@ Slur_engraver::process_music ()
 	  set_grob_direction (slur, UP);
 	  slurs_.push (slur); 
 	}
-}
-set_melisma (slurs_.size ());
+    }
+  set_melisma (slurs_.size ());
 }
 
 void
 Slur_engraver::stop_translation_timestep ()
 {
-end_slurs_.clear ();
-events_[START] = events_[STOP] = 0;
+  end_slurs_.clear ();
+  events_[START] = events_[STOP] = 0;
 }
 
 ENTER_DESCRIPTION (Slur_engraver,
