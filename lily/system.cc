@@ -60,6 +60,48 @@ System::spanner_count () const
 }
   
 
+int
+scm_default_compare (const void * a, const void *b)
+{
+  SCM pa = *(SCM *)a;
+  SCM pb = *(SCM *)b;
+
+  if (pa < pb) return -1 ;
+  else if (pa > pb) return 1;
+  else return 0;
+}
+
+/*
+  modify L in place: sort it 
+*/
+
+SCM
+uniquify_list (SCM l)
+{
+  int len = scm_ilength (l);
+  SCM  * arr = new SCM[len];
+  int k = 0;
+  for (SCM s =l ; SCM_NNULLP (s); s = SCM_CDR(s))
+    arr[k++] = SCM_CAR(s);
+
+  assert (k == len);
+  qsort (arr, len, sizeof (SCM), &scm_default_compare);
+
+  k = 0;
+  SCM s =l;
+  for (int i = 0; i < len ; i++)
+    {
+      if (i && arr[i] == arr[i-1])
+	continue;
+
+      SCM_SETCAR(s, arr[i]);      
+      s = SCM_CDR(s);
+    }
+
+  SCM_SETCDR(s, SCM_EOL);
+  
+  return l; 
+}
 
 void
 System::typeset_grob (Grob * elem)
@@ -124,6 +166,21 @@ System::output_lines ()
     }
   handle_broken_dependencies ();
 
+  /*
+    Because the this->get_grob_property (all-elements) contains items
+    in 3 versions, handle_broken_dependencies () will leave duplicated
+    items in all-elements. Strictly speaking this is harmless, but it
+    leads to duplicated symbols in the output. uniquify_list() makes
+    sure that no duplicates are in the list.
+   */
+  for (int i=0; i < broken_intos_.size (); i++)
+    {
+      SCM al = broken_intos_[i]->get_grob_property ("all-elements");
+      al  = uniquify_list (al); 
+    }
+  
+
+  
   if (verbose_global_b)
     progress_indication (_f ("Element count %d.",  count + element_count ()));
 
