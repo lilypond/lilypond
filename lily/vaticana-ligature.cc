@@ -248,21 +248,30 @@ vaticana_brew_primitive (Grob *me, bool ledger_take_space)
       out.add_molecule (mol);
     }
 
-  SCM join_left_scm = me->get_grob_property ("join-left");
-  if (join_left_scm != SCM_EOL)
+  if (to_boolean (me->get_grob_property ("join-left")))
     {
-      int join_left = gh_scm2int (join_left_scm);
-      if (!join_left)
-	programming_error (_f ("Vaticana_ligature: (join_left == 0)"));
-      Real blotdiameter = (me->get_paper ()->get_var ("blotdiameter"));
-      Interval x_extent = Interval (0, thickness);
-      Interval y_extent = (join_left > 0) ?
-	Interval (-join_left * 0.5 * staff_space, 0) : // ascending join
-	Interval (0, -join_left * 0.5 * staff_space); // descending join
-      Box stem_box (x_extent, y_extent);
+      SCM delta_pitch_scm = me->get_grob_property ("delta-pitch");
+      if (delta_pitch_scm != SCM_EOL)
+	{
+	  int delta_pitch = gh_scm2int (delta_pitch_scm);
+	  if (!delta_pitch)
+	    programming_error (_f ("Vaticana_ligature: (delta_pitch == 0)"));
+	  Real blotdiameter = (me->get_paper ()->get_var ("blotdiameter"));
+	  Interval x_extent = Interval (0, thickness);
+	  Interval y_extent = (delta_pitch > 0) ?
+	    Interval (-delta_pitch * 0.5 * staff_space, 0) : // ascending join
+	    Interval (0, -delta_pitch * 0.5 * staff_space); // descending join
+	  Box stem_box (x_extent, y_extent);
 
-      Molecule stem = Lookup::roundfilledbox (stem_box, blotdiameter);
-      out.add_molecule (stem);
+	  Molecule stem = Lookup::roundfilledbox (stem_box, blotdiameter);
+	  out.add_molecule (stem);
+	}
+      else
+	{
+	  programming_error (_f ("Vaticana_ligature:"
+				 "delta-pitch -> ignoring join",
+				 me));
+	}
     }
 
   int pos = (int)rint (Staff_symbol_referencer::get_position (me));
@@ -295,4 +304,4 @@ Vaticana_ligature::brew_molecule (SCM)
 ADD_INTERFACE (Vaticana_ligature, "vaticana-ligature-interface",
 	       "A vaticana style gregorian ligature",
 	       "glyph-name flexa-height flexa-width thickness join-left "
-	       "add-stem x-offset ligature-primitive-callback");
+	       "delta-pitch add-stem x-offset ligature-primitive-callback");

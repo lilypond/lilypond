@@ -6136,7 +6136,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @tab
 
 @item
-@code{16. Trigomus}
+@code{16. Trigonus}
 @tab
 @lilypond[noindent, 26pt, nofragment, linewidth=1.0cm]
 \include "gregorian-init.ly"
