@@ -236,8 +236,8 @@ this is not an override
 
 (define-public (music-separator? m)
   "Is M a separator."
-  (let* ((n (ly-get-mus-property m 'name )))
-    (and (symbol? n) (equal? 'separator n))
+  (let* ((ts (ly-get-mus-property m 'types )))
+    (memq 'separator ts)
   ))
 
 (define (split-one sep?  l acc)
@@ -324,7 +324,7 @@ this is not an override
      ))
 
 (define-public (empty-music)
-  (ly-id (make-music-by-name "Music"))
+  (ly-id (make-music-by-name 'Music))
   )
 ;;;
 

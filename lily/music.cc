@@ -285,6 +285,8 @@ future.
 
 Music is the data type that music expressions are stored in. The data
 type does not yet offer many manipulations.
+
+WARNING: deprecated; use make-music-by-name. 
 ")
 {
   SCM_ASSERT_TYPE(gh_string_p (type), type, SCM_ARG1, __FUNCTION__, "string");
