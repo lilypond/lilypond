@@ -340,7 +340,7 @@ Beam::print (SCM grob)
   scale_drul (&pos,  Staff_symbol_referencer::staff_space (me));
   
   Real dy = pos[RIGHT] - pos[LEFT];
-  Real dydx = (dy && dx) ? dy/dx : 0;
+  Real slope = (dy && dx) ? dy/dx : 0;
   
   Real thick = get_thickness (me);
   Real bdy = get_beam_translation (me);
@@ -415,14 +415,14 @@ Beam::print (SCM grob)
       
 
       Real blot = me->get_paper ()->get_dimension (ly_symbol2scm ("blotdiameter"));
-      Stencil whole = Lookup::beam (dydx, w, thick, blot);
+      Stencil whole = Lookup::beam (slope, w, thick, blot);
       Stencil gapped;
 
       int gap_count = 0;
       if (scm_is_number (me->get_property ("gap-count")))
 	{
 	  gap_count = scm_to_int (me->get_property ("gap-count"));
-	  gapped = Lookup::beam (dydx, w - 2 * gap_length, thick, blot);
+	  gapped = Lookup::beam (slope, w - 2 * gap_length, thick, blot);
 
 	  full_beams.sort (default_compare);
 	  if (stem_dir == UP)
@@ -440,7 +440,7 @@ Beam::print (SCM grob)
 	      b.translate_axis (gap_length, X_AXIS);
 	    }
 	  b.translate_axis (last_xposn -  x0 + stem_offset, X_AXIS);
-	  b.translate_axis (dydx * (last_xposn - x0) + bdy * full_beams[j], Y_AXIS);
+	  b.translate_axis (slope * (last_xposn - x0) + bdy * full_beams[j], Y_AXIS);
 
 	  the_beam.add_stencil (b);	      
 	}
@@ -479,20 +479,20 @@ Beam::print (SCM grob)
 	    lw = me->get_bound (RIGHT)->relative_coordinate (xcommon, X_AXIS)
 	      - last_xposn;
 
-	  Stencil rhalf = Lookup::beam (dydx, rw, thick, blot);
-	  Stencil lhalf = Lookup::beam (dydx, lw, thick, blot);
+	  Stencil rhalf = Lookup::beam (slope, rw, thick, blot);
+	  Stencil lhalf = Lookup::beam (slope, lw, thick, blot);
 	  for (int j = lfliebertjes.size (); j--;)
 	    {
 	      Stencil b (lhalf);
 	      b.translate_axis (last_xposn -  x0, X_AXIS);
-	      b.translate_axis (dydx * (last_xposn-x0) + bdy * lfliebertjes[j], Y_AXIS);
+	      b.translate_axis (slope * (last_xposn-x0) + bdy * lfliebertjes[j], Y_AXIS);
 	      the_beam.add_stencil (b);	      
 	    }
 	  for (int j = rfliebertjes.size (); j--;)
 	    {
 	      Stencil b (rhalf);
 	      b.translate_axis (xposn -  x0 - rw , X_AXIS);
-	      b.translate_axis (dydx * (xposn-x0 -rw) + bdy * rfliebertjes[j], Y_AXIS);
+	      b.translate_axis (slope * (xposn-x0 -rw) + bdy * rfliebertjes[j], Y_AXIS);
 	      the_beam.add_stencil (b);	      
 	    }
 	}
@@ -883,7 +883,7 @@ Beam::least_squares (SCM smob)
 
   
   Real y =0;  
-  Real dydx = 0;
+  Real slope = 0;
   Real dy = 0;
   
   if (!ideal.delta ())
@@ -932,9 +932,9 @@ Beam::least_squares (SCM smob)
 			       - my_y));
 	}
       
-      minimise_least_squares (&dydx, &y, ideals);
+      minimise_least_squares (&slope, &y, ideals);
 
-      dy = dydx * dx;
+      dy = slope * dx;
       me->set_property ("least-squares-dy", scm_make_real (dy));
       pos = Interval (y, (y+dy));
     }
@@ -998,7 +998,7 @@ Beam::shift_region_to_valid (SCM grob)
   
   Real dy = pos[RIGHT] - pos[LEFT];
   Real y = pos[LEFT];
-  Real dydx =dy/dx;
+  Real slope =dy/dx;
 
   
   /*
@@ -1017,7 +1017,7 @@ Beam::shift_region_to_valid (SCM grob)
 
       Real left_y =
 	Stem::get_stem_info (s).shortest_y_
-	- dydx * x_posns [i];
+	- slope * x_posns [i];
 
       /*
 	left_y is now relative to the stem S. We want relative to
@@ -1053,121 +1053,6 @@ Beam::shift_region_to_valid (SCM grob)
   return SCM_UNSPECIFIED;
 }
 
-MAKE_SCHEME_CALLBACK (Beam, check_concave, 1);
-SCM
-Beam::check_concave (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-
-  Link_array<Grob> stems = 
-    Pointer_group_interface__extract_grobs (me, (Grob*) 0, "stems");
-
-  Direction beam_dir = CENTER;
-  for (int i = 0; i < stems.size ();)
-    {
-      if (Stem::is_invisible (stems[i]))
-	stems.del (i);
-      else
-	{
-	  if (Direction sd = Stem::get_direction (stems[i]))
-	    {
-	      /*
-		Don't do knee beams.
-	       */
-	      if (beam_dir && sd && sd != beam_dir)
-		return SCM_UNSPECIFIED;
-	      
-	      beam_dir = sd;
-	    }
-	  i++;
-	}
-    }
-  
-  if (stems.size () < 3)
-    return SCM_UNSPECIFIED;
-
-
-  /* Concaveness #1: If distance of an inner notehead to line between
-     two outer noteheads is bigger than CONCAVENESS-GAP (2.0ss),
-     beam is concave (Heinz Stolba).
-
-     In the case of knees, the line connecting outer heads is often
-     not related to the beam slope (it may even go in the other
-     direction). Skip the check when the outer stems point in
-     different directions. --hwn
-     
-  */
-  bool is_concave1 = false;
-  SCM gap = me->get_property ("concaveness-gap");
-  if (scm_is_number (gap))
-    {
-      Real r1 = scm_to_double (gap);
-      Real dy = Stem::chord_start_y (stems.top ())
-	- Stem::chord_start_y (stems[0]);
-
-      
-      Real slope = dy / (stems.size () - 1);
-      
-      Real y0 = Stem::chord_start_y (stems[0]);
-      for (int i = 1; i < stems.size () - 1; i++)
-	{
-	  Real c =
-	    beam_dir *((Stem::chord_start_y (stems[i]) - y0) - i * slope);
-	  if (c - r1 > 0)
-	    {
-	      is_concave1 = true;
-	      break;
-	    }
-	}
-    }
-
-    
-  /* Concaveness #2: Sum distances of inner noteheads that fall
-     outside the interval of the two outer noteheads.
-
-     We only do this for beams where first and last stem have the same
-     direction. --hwn.
-
-
-     Note that "convex" stems compensate for "concave" stems.
-     (is that intentional?) --hwn.
-  */
-  
-  Real concaveness2 = 0;
-  SCM thresh = me->get_property ("concaveness-threshold");
-  Real r2 = infinity_f;
-  if (!is_concave1 && scm_is_number (thresh))
-    {
-      r2 = scm_to_double (thresh);
-      
-      Interval iv;
-      iv.add_point (Stem::chord_start_y (stems[0]));
-      iv.add_point (Stem::chord_start_y (stems.top ()));
-      
-      for (int i = 1; i < stems.size () - 1; i++)
-	{
-	  Real f = Stem::chord_start_y (stems[i]);
-	  concaveness2 += ( (f - iv[MAX] ) >? 0) +
-	    ( (f - iv[MIN] ) <? 0);
-	}
-      
-      concaveness2 *= beam_dir / (stems.size () - 2);
-    }
-  
-  /* TODO: some sort of damping iso -> plain horizontal */
-  if (is_concave1 || concaveness2 > r2)
-    {
-      Drul_array<Real> pos = ly_scm2interval (me->get_property ("positions"));
-      Real r = linear_combination (pos, 0.0);
-
-      r /= Staff_symbol_referencer::staff_space (me);
-      me->set_property ("positions", ly_interval2scm (Drul_array<Real> (r, r)));
-      me->set_property ("least-squares-dy", scm_make_real (0));
-    }
-
-  return SCM_UNSPECIFIED;
-}
-
 /* This neat trick is by Werner Lemberg,
    damped = tanh (slope)
    corresponds with some tables in [Wanske] CHECKME */
@@ -1181,11 +1066,11 @@ Beam::slope_damping (SCM smob)
     return SCM_UNSPECIFIED;
 
   SCM s = me->get_property ("damping"); 
-  int damping = scm_to_int (s);
+  Real damping = scm_to_double (s);
 
   if (damping)
     {
-      Drul_array<Real>  pos = ly_scm2interval (me->get_property ("positions"));
+      Drul_array<Real> pos = ly_scm2interval (me->get_property ("positions"));
       scale_drul (&pos,  Staff_symbol_referencer::staff_space (me));
       
       Real dy = pos[RIGHT] - pos[LEFT];
@@ -1198,10 +1083,14 @@ Beam::slope_damping (SCM smob)
 
       Real dx = last_visible_stem (me)->relative_coordinate (commonx, X_AXIS)
 	- first_visible_stem (me)->relative_coordinate (commonx, X_AXIS);
-      Real dydx = dy && dx ? dy/dx : 0;
-      dydx = 0.6 * tanh (dydx) / damping;
 
-      Real damped_dy = dydx * dx;
+      Real slope = dy && dx ? dy/dx : 0;
+
+      Real concaveness = robust_scm2double (me->get_property ("concaveness"), 0.0);
+      
+      slope = 0.6 * tanh (slope) / (damping + concaveness);
+
+      Real damped_dy = slope * dx;
       pos[LEFT] += (dy - damped_dy) / 2;
       pos[RIGHT] -= (dy - damped_dy) / 2;
 
@@ -1482,10 +1371,10 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
   // ugh -> use commonx
   Real x0 = first_visible_stem (beam)->relative_coordinate (0, X_AXIS);
   Real dx = last_visible_stem (beam)->relative_coordinate (0, X_AXIS) - x0;
-  Real dydx = dy && dx ? dy/dx : 0;
+  Real slope = dy && dx ? dy/dx : 0;
   
   Direction d = Stem::get_direction (stem);
-  Real stem_y = pos[LEFT] + (stem->relative_coordinate (0, X_AXIS) - x0) * dydx;
+  Real stem_y = pos[LEFT] + (stem->relative_coordinate (0, X_AXIS) - x0) * slope;
   
   Real beam_translation = get_beam_translation (beam);
   Real beam_thickness = Beam::get_thickness (beam);
@@ -1569,8 +1458,8 @@ ADD_INTERFACE (Beam, "beam-interface",
 	       "The @code{thickness} property is the weight of beams, and is measured "
 	       "in  staffspace"
 	       ,
-	       "knee positioning-done position-callbacks concaveness-gap "
-	       "concaveness-threshold dir-function quant-score auto-knee-gap gap "
+	       "knee positioning-done position-callbacks "
+	       "concaveness dir-function quant-score auto-knee-gap gap "
 	       "gap-count chord-tremolo beamed-stem-shorten shorten least-squares-dy "
 	       "damping inspect-quants flag-width-function neutral-direction positions space-function "
 	       "thickness");

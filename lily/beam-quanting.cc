@@ -38,7 +38,6 @@ const int DAMPING_DIRECTION_PENALTY = 800;
 const int MUSICAL_DIRECTION_FACTOR = 400;
 const int IDEAL_SLOPE_FACTOR = 10;
 const Real ROUND_TO_ZERO_SLOPE = 0.02;
-const int ROUND_TO_ZERO_POINTS = 4;
 
 static Real
 shrink_extra_weight (Real x, Real fac)
@@ -408,22 +407,9 @@ Beam::score_slopes_dy (Real yl, Real yr,
    dem += shrink_extra_weight (fabs (dy_damp) - fabs (dy), 1.5)
      * slope_penalty;
 
-#if 0
-   /*
-     almost zero slopes look like errors in horizontal beams. 
-    */
-   /*
-     This causes too much problems, because horizontal depends on
-     horizontal spacing details.  These errors should be dealt with
-     through concaveness. --hwn.
-    */
-   if (fabs (dy) > 1e-3
-       && fabs (dy / dx) < ROUND_TO_ZERO_SLOPE)
-     dem += ROUND_TO_ZERO_POINTS;
-#endif
-   
    return dem;
 }
+
 
 static Real
 my_modf (Real x)

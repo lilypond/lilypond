@@ -1,5 +1,14 @@
 2004-09-12  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/regression/beam-concave-damped.ly: new file.
+
+	* lily/beam-concave.cc: new file, with new routines for concave
+	decisions. There are now two types of concaveness: 1. a sharp
+	logic decision forcing a beam horizontal, and 2. a number that
+	measures how concave beams are that are not caught by 1.
+
+	This fixes: morgenlied.ly and input/regression/beam-concave.ly
+	
 	* lily/new-fingering-engraver.cc (stop_translation_timestep): new
 	property: add-stem-support
 
