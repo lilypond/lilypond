@@ -94,7 +94,7 @@ Rest_engraver::process_music ()
 	{
 	  int pos= p->steps ();
 	  SCM c0 = get_property ("middleCPosition");
-	  if (is_number (c0))
+	  if (ly_c_number_p (c0))
 	    pos += ly_scm2int (c0);
 	  
 	  rest_->set_property ("staff-position", scm_int2num (pos));

@@ -133,7 +133,7 @@ Timing_translator::start_translation_timestep ()
   
   SCM barn = get_property ("currentBarNumber");
   int b = 0;
-  if (is_number (barn))
+  if (ly_c_number_p (barn))
     {
       b = ly_scm2int (barn);
     }

@@ -155,7 +155,7 @@ LY_DEFINE (ly_get_glyph, "ly:get-glyph",
 {
   Font_metric *fm = unsmob_metrics (font);
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
-  SCM_ASSERT_TYPE (is_number (index), index, SCM_ARG2, __FUNCTION__, "number");
+  SCM_ASSERT_TYPE (ly_c_number_p (index), index, SCM_ARG2, __FUNCTION__, "number");
 
   return fm->get_ascii_char_stencil (ly_scm2int (index)).smobbed_copy ();
 }

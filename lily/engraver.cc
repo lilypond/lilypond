@@ -61,7 +61,6 @@ Engraver::typeset_grob (Grob*p)
 }
 
 
-
 Engraver::Engraver ()
 {
 }
@@ -70,8 +69,7 @@ Engraver::Engraver ()
 Score_engraver* 
 Engraver::get_score_engraver () const
 {
-  SCM t = get_score_context ()->implementation_;
-  return dynamic_cast<Score_engraver*> (unsmob_translator (t));
+  return dynamic_cast<Score_engraver*> (get_score_context ()->implementation ());
 }
 
 

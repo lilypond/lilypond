@@ -83,7 +83,7 @@ Stem::stem_end_position (Grob*me)
 {
   SCM p =me->get_property ("stem-end-position");
   Real pos;
-  if (!is_number (p))
+  if (!ly_c_number_p (p))
     {
       pos = get_default_stem_end_position (me);
       me->set_property ("stem-end-position", scm_make_real (pos));
@@ -289,7 +289,7 @@ Stem::get_default_stem_end_position (Grob*me)
   
   Real length = 7;		// WARNING: IN HALF SPACES
   SCM scm_len = me->get_property ("length");
-  if (is_number (scm_len))
+  if (ly_c_number_p (scm_len))
     {
       length = ly_scm2double (scm_len);
     }
@@ -429,7 +429,7 @@ int
 Stem::duration_log (Grob*me) 
 {
   SCM s = me->get_property ("duration-log");
-  return (is_number (s)) ? ly_scm2int (s) : 2;
+  return (ly_c_number_p (s)) ? ly_scm2int (s) : 2;
 }
 
 void

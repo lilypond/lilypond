@@ -369,7 +369,7 @@ Simple_spacer::solve (Column_x_positions *positions, bool ragged)
   for (int i = sz; i--; )
     {
       SCM p = positions->cols_[i]->get_property ( "penalty");
-      if (is_number (p))
+      if (ly_c_number_p (p))
 	{
 	  if (ly_scm2double (p) < -9999)
 	    break_satisfy = break_satisfy && (i == 0 || i == sz -1);

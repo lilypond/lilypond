@@ -172,7 +172,7 @@ LY_DEFINE (make_duration, "ly:make-duration",
   bool compress = false;
   if (num != SCM_UNDEFINED)
     {
-      SCM_ASSERT_TYPE (is_number (num), length, SCM_ARG3, __FUNCTION__, "integer");
+      SCM_ASSERT_TYPE (ly_c_number_p (num), length, SCM_ARG3, __FUNCTION__, "integer");
       compress = true;
     }
   else
@@ -180,7 +180,7 @@ LY_DEFINE (make_duration, "ly:make-duration",
 
   if (den != SCM_UNDEFINED)
     {
-      SCM_ASSERT_TYPE (is_number (den), length, SCM_ARG4, __FUNCTION__, "integer");
+      SCM_ASSERT_TYPE (ly_c_number_p (den), length, SCM_ARG4, __FUNCTION__, "integer");
       compress = true;
     }
   else
@@ -214,7 +214,7 @@ LY_DEFINE (ly_intlog2, "ly:intlog2",
 	   1, 0, 0, (SCM d),
 	  "The 2-logarithm of 1/@var{d}.")
 {
-  SCM_ASSERT_TYPE (is_number (d), d, SCM_ARG1, __FUNCTION__, "integer");
+  SCM_ASSERT_TYPE (ly_c_number_p (d), d, SCM_ARG1, __FUNCTION__, "integer");
   int log = intlog2 (ly_scm2int (d));
   return scm_int2num (log);
 }

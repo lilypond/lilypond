@@ -133,7 +133,7 @@ Slur::check_slope (Grob *me)
     Avoid too steep slurs.
    */
   SCM s = me->get_property ("slope-limit");
-  if (is_number (s))
+  if (ly_c_number_p (s))
     {
       Array<Offset> encompass = get_encompass_offsets (me);
       Drul_array<Offset> attachment;
@@ -565,7 +565,7 @@ Slur::print (SCM smob)
     TODO: replace dashed with generic property.
    */
   SCM d =  me->get_property ("dashed");
-  if (is_number (d))
+  if (ly_c_number_p (d))
     a = Lookup::dashed_slur (one, thick, thick * robust_scm2double (d, 0));
   else
     a = Lookup::slur (one, get_grob_direction (me) * base_thick * ss / 10.0,
@@ -598,13 +598,13 @@ Slur::set_control_points (Grob*me)
 
       SCM ssb = me->get_property ("beautiful");
       Real sb = 0;
-      if (is_number (ssb))
+      if (ly_c_number_p (ssb))
 	sb = ly_scm2double (ssb);
 
       bb.minimise_enclosed_area (sb, details);
       SCM sbf = scm_assq (ly_symbol2scm ("force-blowfit"), details);
       Real bff = 1.0;
-      if (ly_c_pair_p (sbf) && is_number (ly_cdr (sbf)))
+      if (ly_c_pair_p (sbf) && ly_c_number_p (ly_cdr (sbf)))
 	  bff = ly_scm2double (ly_cdr (sbf));
 
       bb.curve_.control_[1][Y_AXIS] *= bff;

@@ -35,8 +35,8 @@ Note_column::shift_compare (Grob *const &p1, Grob *const&p2)
   SCM s1 = p1->get_property ("horizontal-shift");
   SCM s2 = p2->get_property ("horizontal-shift");
 
-  int h1 = (is_number (s1))?  ly_scm2int (s1) :0;
-  int h2 = (is_number (s2)) ? ly_scm2int (s2):0;
+  int h1 = (ly_c_number_p (s1))?  ly_scm2int (s1) :0;
+  int h2 = (ly_c_number_p (s2)) ? ly_scm2int (s2):0;
   return h1 - h2;
 }
 
@@ -126,7 +126,7 @@ void
 Note_column::translate_rests (Grob*me, int dy)
 {
   Grob * r = unsmob_grob (me->get_property ("rest"));
-  if (r && !is_number (r->get_property ("staff-position")))
+  if (r && !ly_c_number_p (r->get_property ("staff-position")))
     {
       r->translate_axis (dy * Staff_symbol_referencer::staff_space (r)/2.0, Y_AXIS);
     }

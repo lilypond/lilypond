@@ -100,7 +100,7 @@ number_accidentals (SCM key_signature, Pitch *pitch,
     prev = scm_assoc (scm_int2num (notename), key_signature);
 
   SCM prev_acc = (prev == SCM_BOOL_F) ? scm_int2num (0) : ly_cdr (prev);
-  int sig_alteration = is_number (prev_acc) ? ly_scm2int (prev_acc) : 0;
+  int sig_alteration = ly_c_number_p (prev_acc) ? ly_scm2int (prev_acc) : 0;
 
   if (alteration == sig_alteration) // no accidental at all needed
     return 0;
@@ -195,7 +195,7 @@ Ambitus::print (SCM smob)
     }
 
   SCM c0 = me->get_property ("c0-position");
-  if (is_number (c0))
+  if (ly_c_number_p (c0))
     {
       p_min += ly_scm2int (c0);
       p_max += ly_scm2int (c0);

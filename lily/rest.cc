@@ -120,7 +120,7 @@ Rest::brew_internal_stencil (SCM smob)
   Grob* me = unsmob_grob (smob);
 
   SCM balltype_scm = me->get_property ("duration-log");
-  if (!is_number (balltype_scm))
+  if (!ly_c_number_p (balltype_scm))
     return Stencil ().smobbed_copy ();
 
   int balltype = ly_scm2int (balltype_scm);
@@ -161,7 +161,7 @@ SCM
 Rest::polyphonic_offset_callback (SCM smob, SCM)
 {
   Grob* me = unsmob_grob (smob);
-  if (is_number (me->get_property ("staff-position")))
+  if (ly_c_number_p (me->get_property ("staff-position")))
     return scm_make_real (0);
 
   Direction d = get_grob_direction (me);

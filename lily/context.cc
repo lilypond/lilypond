@@ -412,7 +412,7 @@ IMPLEMENT_TYPE_P (Context,"ly:context?");
 bool
 Context::try_music (Music* m)
 {
-  Translator*  t = unsmob_translator (implementation_);
+  Translator*  t = implementation ();
   if (!t)
     return false;
   
@@ -441,4 +441,10 @@ Context*
 Context::get_parent_context () const
 {
   return daddy_context_;
+}
+
+Translator_group*
+Context::implementation () const
+{
+  return dynamic_cast<Translator_group*> (unsmob_translator (implementation_));
 }

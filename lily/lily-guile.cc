@@ -187,7 +187,7 @@ LY_DEFINE (ly_dir_p,  "ly:dir?", 1,0, 0,  (SCM s),
 	   "@code{1}, where @code{-1} represents "
 	  "left or down and @code{1} represents right or up.")
 {
-  if (is_number (s))
+  if (ly_c_number_p (s))
     {
       int i = ly_scm2int (s);
       return (i>= -1 && i <= 1)  ? SCM_BOOL_T : SCM_BOOL_F; 
@@ -198,7 +198,7 @@ LY_DEFINE (ly_dir_p,  "ly:dir?", 1,0, 0,  (SCM s),
 bool
 is_number_pair (SCM p)
 {
-  return ly_c_pair_p (p) && is_number (ly_car (p)) && is_number (ly_cdr (p));
+  return ly_c_pair_p (p) && ly_c_number_p (ly_car (p)) && ly_c_number_p (ly_cdr (p));
 }
 
 typedef void (*Void_fptr) ();
@@ -244,7 +244,7 @@ unsigned int ly_scm_hash (SCM s)
 bool
 is_direction (SCM s)
 {
-  if (is_number (s))
+  if (ly_c_number_p (s))
     {
       int i = ly_scm2int (s);
       return i>= -1 && i <= 1; 
@@ -256,7 +256,7 @@ is_direction (SCM s)
 bool
 is_axis (SCM s)
 {
-  if (is_number (s))
+  if (ly_c_number_p (s))
     {
       int i = ly_scm2int (s);
       return i== 0 || i == 1;
@@ -334,7 +334,7 @@ LY_DEFINE (ly_number2string, "ly:number->string",
 	   1, 0, 0, (SCM s),
 	   "Convert @var{num} to a string without generating many decimals.")
 {
-  SCM_ASSERT_TYPE (is_number (s), s, SCM_ARG1, __FUNCTION__, "number");
+  SCM_ASSERT_TYPE (ly_c_number_p (s), s, SCM_ARG1, __FUNCTION__, "number");
 
   char str[400];			// ugh.
 
@@ -699,7 +699,7 @@ int_list_to_slice (SCM l)
   Slice s;
   s.set_empty ();
   for (; ly_c_pair_p (l); l = ly_cdr (l))
-    if (is_number (ly_car (l)))
+    if (ly_c_number_p (ly_car (l)))
       s.add_point (ly_scm2int (ly_car (l))); 
   return s;
 }
@@ -719,7 +719,7 @@ robust_list_ref (int i, SCM l)
 Real
 robust_scm2double (SCM k, double x)
 {
-  if (is_number (k))
+  if (ly_c_number_p (k))
     x = ly_scm2double (k);
   return x;
 }

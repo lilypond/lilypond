@@ -22,6 +22,11 @@ class Context
 
   void terminate ();
 
+private:
+  friend class Interpretation_context_handle;
+  int iterator_count_;
+  bool init_;
+  
 protected:
   Context * daddy_context_;
   SCM definition_;
@@ -29,12 +34,14 @@ protected:
   SCM context_list_;
   SCM accepts_list_;
   SCM aliases_;
+  SCM implementation_;
 
   friend class Context_def;
 public:
   SCM children_contexts () const { return context_list_; }
   SCM default_child_context_name () const;
-
+  Translator_group* implementation () const;
+  
   Context * get_parent_context () const;
   
   Context ();
@@ -68,12 +75,6 @@ public:
 						  Music_output_def*) const;
   virtual Context *get_default_interpreter ();
   String id_string_;
-
-  SCM implementation_;
-private:
-  friend class Interpretation_context_handle;
-  int iterator_count_;
-  bool init_;
 };
 
 /*

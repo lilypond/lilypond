@@ -63,7 +63,7 @@ Event::to_relative_octave (Pitch last)
       new_pit = new_pit.to_relative_octave (last);
 
       SCM check = get_property ("absolute-octave");
-      if (is_number (check) &&
+      if (ly_c_number_p (check) &&
 	  new_pit.get_octave () != ly_scm2int (check))
 	{
 	  Pitch expected_pit (ly_scm2int (check),
@@ -160,7 +160,7 @@ LY_DEFINE (ly_transpose_key_alist, "ly:transpose-key-alist",
 	  newlist = scm_cons (scm_cons (key, scm_int2num (orig.get_alteration ())),
 			     newlist);
 	}
-      else if (is_number (key))
+      else if (ly_c_number_p (key))
 	{
 	  Pitch orig (0, ly_scm2int (key), ly_scm2int (alter));
 	  orig = orig.transposed (*p);
