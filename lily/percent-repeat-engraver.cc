@@ -115,9 +115,16 @@ Percent_repeat_engraver::try_music (Music * m)
 
       
       Global_context *global = get_global_context ();
-      for (int i = 0; i < count; i++)  
-	global->add_moment_to_process (next_moment_ + Moment (i) * body_length_);
+      for (int i = 0; i < count; i++)
+	{
+	  global->add_moment_to_process (next_moment_ + Moment (i) * body_length_);
   
+	  /*
+	    bars between % too.
+	  */
+	  if (repeat_sign_type_ == DOUBLE_MEASURE)
+	    global->add_moment_to_process (next_moment_ + meas_len + Moment (i) * body_length_);
+	}
       return true;
     }
 
