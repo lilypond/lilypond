@@ -39,8 +39,6 @@ typedef void (Grob::*Grob_method_pointer) (void);
 class Grob  {
 public:
   SCM immutable_property_alist_;
-
-  // rename me to ``property_alist_''
   SCM mutable_property_alist_;
   
   Grob *original_l_;
@@ -52,7 +50,7 @@ public:
     0 means ORPHAN,
    */
   char status_c_;
-  String name () const;
+
 
   /*
     IDEA: make this a global variable. This is the same for all
@@ -60,21 +58,18 @@ public:
     scores being formatted multithreadedly.
    */
   Paper_score *pscore_l_;
+  Dimension_cache dim_cache_[NO_AXES];
 
   Grob (SCM basic_props);
   Grob (Grob const&);
-
+  String name () const;
+  
   /*
     properties
    */
   SCM internal_get_grob_property (SCM) const;
   void internal_set_grob_property (SCM, SCM val);
   
-#if 0
-  void set_immutable_grob_property (const char * , SCM val);
-  void set_immutable_grob_property (SCM key, SCM val);
-#endif
-
   void warning (String);
   
   void set_elt_pointer (const char*, SCM val);
@@ -136,7 +131,6 @@ public:
 
   void init ();
 
-  Dimension_cache dim_cache_[NO_AXES];
 
 public:
   

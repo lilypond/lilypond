@@ -39,8 +39,8 @@ Text_spanner::brew_molecule (SCM smob)
 {
   Grob *me= unsmob_grob (smob);
   Spanner *spanner = dynamic_cast<Spanner*> (me);
-
-  if (spanner->internal_has_interface (ly_symbol2scm ("piano-pedal-interface")) ) 
+  
+  if (spanner->internal_has_interface (ly_symbol2scm ("piano-pedal-interface")))
     {
       setup_pedal_bracket(spanner);
     }

@@ -1,3 +1,8 @@
+2002-05-16  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/piano-pedal-engraver.cc (create_bracket_grobs): fix broken
+	pedal spanners.
+
 2002-05-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/*.cc: remove as many iostream use as possible. 

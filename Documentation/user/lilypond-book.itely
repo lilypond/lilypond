@@ -327,6 +327,9 @@ right margin.
 
 Almost all La@TeX{} commands that change margins and line widths are ignored.
 
+There is no way to automatically apply convert-ly to fragments inside a
+lilypond-book file.
+
 Since there is no finder's fee which doubles every year, there is no
 need to wait for the prize money to grow. So send a bug report today if
 you need this one of these options.
