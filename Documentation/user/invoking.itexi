@@ -27,9 +27,8 @@ format.
         @code{lilypond} [@var{option}]@dots{} @var{file}@dots{}
 @end example
 
-To have @code{lilypond} read from stdin, use a dash @code{-} for @var{file}.
-
-The @code{lilypond} program supports the following options:
+To have @code{lilypond} read from stdin, use a dash @code{-} for
+@var{file}.  The program supports the following options.
 
 @table @code
 @item -k,--keep
@@ -205,12 +204,12 @@ positive integer, start with this value as the first page number.
 @cindex switches
 
 
-The LilyPond system consists of two parts: a binary executable, which
-is responsible for the formatting functionality, and support scripts,
-which post-process the resulting output. Normally, the support scripts
-are called, which in turn invoke the @code{lilypond-bin}
-binary. However, @code{lilypond-bin} may be called directly as
-follows.
+The formatting system consists of two parts: a binary executable
+(@file{lilypond-bin}), which is responsible for the formatting
+functionality, and support scripts, which post-process the resulting
+output. Normally, the support scripts are called, which in turn invoke
+the @code{lilypond-bin} binary. However, @code{lilypond-bin} may be
+called directly as follows.
 
 @example
         lilypond-bin [@var{option}]@dots{} @var{file}@dots{}
@@ -255,7 +254,7 @@ The following options are supported:
 Evaluate the Scheme @var{expr} before parsing any @file{.ly} files.
 Multiple @code{-e} options may be given, they will be evaluated
 sequentially.  The function @code{ly:set-option} allows for access to
-some internal variables.  Use @code{-e '(ly:option-usage')} for more
+some internal variables.  Use @code{-e '(ly:option-usage)'} for more
 information.
 
 @item -f,--format=@var{format}
@@ -438,7 +437,7 @@ function call.
 There was some internal inconsistency. These error messages are
 intended to help the programmers and debuggers. Usually, they can be
 ignored. Sometimes, they come in such big quantities that they obscure
-other output. In this case, a bug-report should be filed.
+other output. In this case, file a bug-report.
 
 @end table
 
@@ -489,31 +488,38 @@ platform you run it.  Send the report to
 
 There is support from different editors  for LilyPond.
 
-Emacs has a @file{lilypond-mode}, which provides keyword
+@table @asis
+@item Emacs
+ Emacs has a @file{lilypond-mode}, which provides keyword
 autocompletion, indentation, LilyPond specific parenthesis matching
 and syntax coloring, handy compile short-cuts and reading LilyPond
 manuals using Info.  If lilypond-mode is not installed on your
 platform, then refer to the installation instructions for more
 information.
 
+@item VIM
+
 For @uref{http://www.vim.org,VIM}, a vimrc is supplied, along with
 syntax coloring tools. For more information, refer to the
 @ifhtml
 @uref{../../../topdocs/out-www/INSTALL.html,installation instructions}.
 @end ifhtml
-
 @ifnothtml
 installation instructions.
 @end ifnothtml
+
 
 For both editors, there is also a facility to jump in the input file
 to the source of errors in the graphical output. See @ref{Point and
 click}.
 
+@item JEdit
+
 There exists a plugin for @uref{http://www.jedit.org/,jEdit}. Refer to
 the @uref{http://lily4jedit.sourceforge.net,plugin website} for more
 information.
 
+@end table
 
 @node Point and click
 @section Point and click
@@ -638,14 +644,5 @@ with the following line:
 @cindex line-colomn-location
 and set @code{XEDITOR} to @code{emacsclient --no-wait +%l:%c %f}.  Vim
 users can set @var{XEDITOR} to @code{gvim --remote +:%l:norm%c| %f}.
-
-
-
-@refbugs
-
-When you convert the @TeX{} file to PostScript using @code{dvips}, it
-will complain about not finding @code{src:X:Y} files. These complaints
-are harmless, and can be ignored.
-
 
 

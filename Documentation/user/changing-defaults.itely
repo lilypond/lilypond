@@ -1574,12 +1574,6 @@ through La@TeX{}.  Using the option @option{-f}
 (or @option{--format}) other output formats can be selected also, but
  none of them work reliably.
 
-At the beginning of the output file, various global parameters are
-defined.  Then the file @file{lilyponddefs.tex} is loaded to define
-the macros used in the code which follows.  @file{lilyponddefs.tex}
-includes various other files, partially depending on the global
-parameters.
-
 Now the music is output system by system (a `system' consists of all
 staves belonging together).  From @TeX{}'s point of view, a system is an
 @code{\hbox} which contains a lowered @code{\vbox} so that it is centered
