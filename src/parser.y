@@ -5,6 +5,7 @@
 #include "misc.hh"
 #include "lexer.hh"
 #include "paperdef.hh"
+#include "mididef.hh"
 #include "inputscore.hh"
 #include "main.hh"
 #include "keyword.hh"
@@ -38,6 +39,7 @@ int fatal_error_i = 0;
     String *string;
     const char *consstr;
     Paperdef *paper;
+    Mididef* midi;
     Input_music *music;
     Music_general_chord *chord;
     Music_voice *mvoice; 
@@ -69,6 +71,7 @@ int fatal_error_i = 0;
 %token PARTIAL MUSIC GROUPING CADENZA
 %token END SYMBOLTABLES TEXID TABLE NOTENAMES SCRIPT TEXTSTYLE PLET
 %token  GOTO
+%token MIDI TEMPO
 
 %token <id>  IDENTIFIER
 %token <string> PITCHMOD DURATION RESTNAME
@@ -79,10 +82,11 @@ int fatal_error_i = 0;
 %token <i> DOTS INT
 %type <real> unit
 %type <melreqvec> pitch_list 
-%type <c> open_request_parens close_request_parens
+%type <c> open_request_parens close_request_parens close_plet_parens
 %type <id> declaration
 %type <string> declarable_identifier
 %type <paper> paper_block paper_body
+%type <midi> midi_block midi_body
 %type <real> dim real
 %type <ii>  default_duration explicit_duration notemode_duration mudela_duration
 %type <ii> notename
@@ -214,6 +218,7 @@ score_body:		{
 		$$->set($4);
 	}
 	| score_body paper_block		{ $$->set($2);	}
+	| score_body midi_block		{ $$->set($2);	}
 	| score_body error {
 
 	}
@@ -253,6 +258,30 @@ paper_body:
 	;
 
 /*
+	MIDI
+*/
+midi_block:
+	MIDI
+
+	'{' midi_body '}' 	{ $$ = $3; }
+	;
+
+midi_body: { 
+		$$ = new Mididef; 
+	}
+	| midi_body OUTPUT STRING	{ 
+		$$->outfile_str_ = *$3; 
+		delete $3; 
+	}
+	| midi_body TEMPO mudela_duration ':' int {
+		$$->set_tempo( wholes( $3[0], $3[1] ), $5 );
+	}
+	| midi_body error {
+
+	}
+	;
+
+/*
 	STAFFs
 */
 staff_block:
@@ -270,6 +299,9 @@ staff_init:
 	| STRING		{
 		$$ = new Input_staff(*$1);
 		delete $1;
+	}
+	| MIDI		{
+		$$ = new Input_staff("midi");
 	}
 	;
 
@@ -340,7 +372,6 @@ music_chord_body:
 	;
 
 
-
 /*
 	VOICE ELEMENTS
 */
@@ -349,26 +380,32 @@ full_element:	pre_requests voice_elt post_requests {
 		add_requests($2, post_reqs);
 		$$ = $2;
 	}
-	| lyrics_elt
+ 	| pre_requests lyrics_elt post_requests {
+ 		add_requests($2, pre_reqs);
+ 		add_requests($2, post_reqs);
+ 		$$ = $2;
+        }
 	| command_elt
 	;
 
 command_elt:
-	command_req	{
+/* empty */ 	{
 		$$ = new Voice_element;
-		$$->add($1);
-		$1-> defined_ch_c_l_ = lexer->here_ch_c_l();
+		$$-> defined_ch_c_l_ = lexer->here_ch_c_l();
 	}
-/* can't do this, since "| |" has  shift/reduce conflict. :
-	command_elt command_req { .. }
-*/
+/* cont: */
+	command_req	{
+		$2-> defined_ch_c_l_ = $$->defined_ch_c_l_;
+		$$->add($2);
+
+	}
 	;
 
 command_req:
 	 '|'				{ 
 		$$ = new Barcheck_req;
 	}
-	| BAR STRING			{
+	| BAR STRING 			{
 		$$ = new Bar_req(*$2);
 		delete $2;
 	}
@@ -377,18 +414,18 @@ command_req:
 		m->set($3,$5);
 		$$ = m;
 	}
-	| SKIP duration_length {
+	| SKIP '{' duration_length '}' {
 		Skip_req * skip_p = new Skip_req;
-		skip_p->duration_ = *$2;
-		delete $2;
+		skip_p->duration_ = *$3;
+		delete $3;
 		$$ = skip_p;
 	}
-	| CADENZA int	{
-		$$ = new Cadenza_req($2);
+	| CADENZA '{' int '}'	{
+		$$ = new Cadenza_req($3);
 	}
-	| PARTIAL duration_length	{
-		$$ = new Partial_measure_req(*$2);
-		delete $2;
+	| PARTIAL '{' duration_length '}'	{
+		$$ = new Partial_measure_req(*$3);
+		delete $3;
 	}
 	| STEM '{' int '}'		{
 		$$ = get_stemdir_req($3);
@@ -416,6 +453,11 @@ post_requests:
 		$2->defined_ch_c_l_ = lexer->here_ch_c_l();
 		post_reqs.push($2);
 	}
+	| post_requests close_plet_parens INT '/' INT { 
+		post_reqs.push( get_request($2) ); 
+		req_defined_ch_c_l = lexer->here_ch_c_l();
+		post_reqs.push( get_plet_request( $2, $3, $5 ) ); 
+	}
 	;
 
 post_request:
@@ -424,6 +466,13 @@ post_request:
 	}
 	| script_req
 	| textscript_req
+	;
+
+close_plet_parens:
+	']' {
+		req_defined_ch_c_l = lexer->here_ch_c_l();
+		$$ = ']';
+	}
 	;
 
 close_request_parens:
@@ -529,7 +578,7 @@ voice_command:
 		set_default_octave(*$3);
 		delete $3;
 	}
-	| TEXTSTYLE STRING	{
+	| TEXTSTYLE STRING 	{
 		set_text_style(*$2);
 		delete $2;
 	}
@@ -743,16 +792,16 @@ parse_file(String init, String s)
    lexer = new My_flex_lexer;
 
 #ifdef YYDEBUG
-   yydebug = !monitor.silence("InitParser") && check_debug;
-   lexer->set_debug( !monitor.silence("InitLexer") && check_debug);
+   yydebug = !monitor->silence("InitParser") && check_debug;
+   lexer->set_debug( !monitor->silence("InitLexer") && check_debug);
 #endif
 
    lexer->new_input(init);
    yyparse();
 
 #ifdef YYDEBUG
-   yydebug = !monitor.silence("Parser") && check_debug;
-   lexer->set_debug( !monitor.silence("Lexer") && check_debug);
+   yydebug = !monitor->silence("Parser") && check_debug;
+   lexer->set_debug( !monitor->silence("Lexer") && check_debug);
 #endif
 
    lexer->new_input(s);

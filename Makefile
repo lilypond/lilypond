@@ -23,7 +23,8 @@ distclean: clean
 
 all: kompijl doc
 
-win32: # value of $(OSTYPE) on windhoos; "make $OSTYPE" if u use bash :-)
+# value of $(OSTYPE) on windhoos; "make $OSTYPE" if u use bash :-)
+win32: 
 	$(MAKE) -C . CXX=g++ 
 
 doc:
