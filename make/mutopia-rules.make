@@ -1,12 +1,8 @@
 
 
-$(outdir)/%.gif: $(outdir)/%.ps
-	sh $(PS_TO_GIFS) $<
-	-mv $(name-stem)-page*.gif $(outdir)/
-	ln -s $(name-stem)-page1.gif $@
-
 $(outdir)/%.png: $(outdir)/%.ps
-	sh $(PS_TO_PNGS) $<
+	gs -sDEVICE=pnggray -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -sOutputFile="$(name-stem)-page%d.png" -r90 -dNOPAUSE $< -c quit
+
 	-mv $(name-stem)-page*.png $(outdir)/
 	ln -s $(name-stem)-page1.png $@
 

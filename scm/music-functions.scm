@@ -10,38 +10,39 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(define (shift-duration-log music shift )
-  "Recurse through music, adding SHIFT to duration-log to any note
-encountered. This scales the music up by a factor 2^k."
+(define (shift-duration-log music shift dot)
+  "Recurse through music, adding SHIFT to duration-log and optionally 
+  a dot to any note encountered. This scales the music up by a factor 
+  2^shift * (2 - (1/2)^dot)"
   (let* ((es (ly-get-mus-property music 'elements))
          (e (ly-get-mus-property music 'element))
          (n  (ly-music-name music))
-	 (f  (lambda (x)  (shift-duration-log x shift)))
+	 (f  (lambda (x)  (shift-duration-log x shift dot)))
 	 )
     (if (or (equal? n "Note_req")
 	    (equal? n "Rest_req"))
 	(let* (
-	      (d (ly-get-mus-property music 'duration))
-	      (cp (duration-factor d))
-	      (nd (make-duration (+ shift (duration-log d))
-				 (duration-dot-count d)
-				 (car cp)
-				 (cdr cp)))
-	  
-	      )
+	       (d (ly-get-mus-property music 'duration))
+	       (cp (duration-factor d))
+	       (nd (make-duration (+ shift (duration-log d))
+				  (+ dot (duration-dot-count d))
+				  (car cp)
+				  (cdr cp)))
+	       
+	       )
 	  (ly-set-mus-property! music 'duration nd)
-	))
-
+	  ))
+    
     (if (pair? es)
         (ly-set-mus-property!
          music 'elements
          (map f es)))
-
+    
     (if (music? e)
         (ly-set-mus-property!
          music 'element
          (f e)))
-
+    
     music))
 
 
@@ -59,7 +60,7 @@ written by Rune Zedeler. "
 	  (if (equal?
 	       (ly-get-mus-property music 'iterator-ctor)
 	       Chord_tremolo_iterator::constructor)
-	      (shift-duration-log music  (intlog2 (ly-get-mus-property music 'repeat-count)))
+	      (shift-duration-log music  (intlog2 (ly-get-mus-property music 'repeat-count)) 0)
 	      )
           (ly-set-mus-property!
            music 'length Repeated_music::unfolded_music_length)
@@ -325,4 +326,16 @@ this is not an override
      )
 
 
-(define toplevel-music-functions (list check-start-chords voicify-music))
+;; switch it on here, so parsing and init isn't checked (too slow!)
+
+(define (switch-on-debugging m)
+  (set-debug-cell-accesses! 15000)
+  m
+  )
+
+(define toplevel-music-functions
+  (list check-start-chords
+	voicify-music
+
+; switch-on-debugging
+	))

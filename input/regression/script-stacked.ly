@@ -1,6 +1,7 @@
 \version "1.5.68"
 
 \header { 
-texidoc = "Scripts may b4e stacked."
+texidoc = "Scripts may be stacked."
 }
-\score { \notes { c''->-. } }
+
+\score { \notes { c'''->-. } }

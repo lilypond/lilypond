@@ -105,8 +105,8 @@ Text_engraver::process_acknowledged_grobs ()
       if (gh_number_p (s))
 	priority = gh_scm2int (s);
       
-      /* Make sure they're in order of user input by adding index i. */
-      priority += i * (r->get_direction () ? r->get_direction () : 1);
+      /* see script-engraver.cc */
+      priority += i;
       
       text->set_grob_property ("script-priority", gh_int2scm (priority));
 

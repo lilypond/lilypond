@@ -127,6 +127,7 @@ using barchecks in polyphonic music.")
     still counted.  Bar generation will resume according to that
     count if this property is set to zero.
 ")
+(translator-property-description 'barNumberVisibility procedure? "Procedure that takes an int and returns whether the corresponding bar number should be printed")
 (translator-property-description 'beamMelismaBusy boolean? "Signal if a beam is set when automaticMelismata is set")
 (translator-property-description 'beatLength moment? "The length of one beat in this time signature.")
 (translator-property-description 'breakAlignOrder list? "Defines the order in which
@@ -213,6 +214,8 @@ procedure? "visibility-lambda function for explicit Key changes;
 extra natural sign before accidentals changing from a non-natural to 
 another non-natural.
 ")
+
+(translator-property-description 'finalizations list? "List of expressions to evaluate before proceeding to next time step. Internal variable.")
 (translator-property-description 'followVoice boolean?
 				 "if set, note heads are tracked  across staff switches by a thin line")
 (translator-property-description 'fontSize integer?
@@ -222,6 +225,8 @@ in a context. This is done using the @code{Font_size_engraver}.")
 (translator-property-description 'forceClef boolean? "Show clef symbol, even if it hasn't changed. Only active for the first clef after the property is set, not for the full staff.")
 (translator-property-description 'graceAccidentalSpace number? "amount space to alot for an accidental")
 (translator-property-description 'graceAlignPosition dir? "put the grace note before or after the main note?")
+(translator-property-description 'highStringOne boolean? "Whether the 1st string is the string with
+highest pitch on the instrument (used by the automatic string selector).")
 (translator-property-description 'instr markup? "see @code{instrument}")
 (translator-property-description 'instrument markup? " If @code{Instrument_name_engraver}
 @cindex Instrument_name_engraver
@@ -322,6 +327,8 @@ help with debugging large scores.")
 (translator-property-description 'split-interval boolean? "set if part-combiner separated voices based on splitInterval.")
 (translator-property-description 'squashedPosition integer? " Vertical position of
 squashing for Pitch_squash_engraver.")
+(translator-property-description 'stringOneTopmost boolean? "Whether the 1st string is printed on the
+top line of the tablature.")
 (translator-property-description 'stavesFound list? "list of all staff-symbols found.")
 (translator-property-description 'stanza markup? "Stanza `number' to print at start of a verse. Use in LyricsVoice context.")
 

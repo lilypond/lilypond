@@ -95,16 +95,22 @@ fet_endchar;
 
 define_pixels(breve_rest_y, breve_rest_x, multi_rest_x, multi_beam_height);
 
+fet_beginchar("maxima rest", "-3", "maximarest");
+	set_char_box(0, 3 breve_rest_x#, breve_rest_y#, breve_rest_y#);
+	draw_block ((0,-floor (breve_rest_y)), (breve_rest_x, floor (breve_rest_y)));
+	addto currentpicture also currentpicture shifted (2 breve_rest_x, 0);
+fet_endchar;
 
 fet_beginchar("longa rest", "-2", "longarest");
-       set_char_box(0, breve_rest_x#, breve_rest_y#, breve_rest_y#);
-       draw_block ((0,-floor (breve_rest_y)), (breve_rest_x, floor (breve_rest_y)));
+	set_char_box(0, breve_rest_x#, breve_rest_y#, breve_rest_y#);
+	draw_block ((0,-floor (breve_rest_y)), (breve_rest_x, floor (breve_rest_y)));
 fet_endchar;
 
 fet_beginchar("breve rest", "-1", "breverest");
-       set_char_box(0, breve_rest_x#, 0, breve_rest_y#);
-       draw_block ((0,0), (breve_rest_x, floor (breve_rest_y)));
+	set_char_box(0, breve_rest_x#, 0, breve_rest_y#);
+	draw_block ((0,0), (breve_rest_x, floor (breve_rest_y)));
 fet_endchar;
+
 
 tracingvariables := 1;
 

@@ -9,6 +9,7 @@
 ;;;; staffspace (distances)
 
 ;;;; WARNING: the meta field should be the last one.
+;;;; WARNING: don't use anonymous functions for initialization. 
 
 ;; TODO: junk the meta field in favor of something more compact?
 (define all-grob-descriptions
@@ -321,7 +322,6 @@
     (LeftEdge
      . (
 	(break-align-symbol . left-edge)
-	(X-offset-callbacks . (,Break_align_interface::alignment_callback))
 	(X-extent-callback . ,Grob::point_dimension_callback)
 	(breakable . #t)
 	(space-alist . (
@@ -331,7 +331,7 @@
 			(staff-bar . (extra-space . 0.0))
 			(breathing-sign . (minimum-space  . 0.0))
 			(clef . (extra-space . 1.0))
-			(first-note . (extra-space . 0.0))
+			(first-note . (extra-space . 1.0))
 			(key-signature . (extra-space . 0.0))
 			))
 	(meta . ((interfaces . (break-aligned-interface item-interface ))))
@@ -1026,6 +1026,7 @@
 	(style . default)
 	(molecule-callback . ,tablature-molecule-callback)
 	(Y-offset-callbacks  . (,Staff_symbol_referencer::callback))
+	(extra-offset . (0 . -0.65)) ;; UGH! TODO: Clean this up!
 	(stem-attachment-function . ,tablature-stem-attachment-function)
 	(meta . ((interfaces
 		  . (rhythmic-head-interface

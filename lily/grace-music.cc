@@ -36,14 +36,14 @@ Grace_music::start_mom () const
 Grace_music::Grace_music ()
 {
   set_mus_property ("iterator-ctor",
-		    Grace_iterator::constructor_cxx_function);
+		    Grace_iterator::constructor_proc);
 }
 
 Grace_music::Grace_music (SCM p)
   : Music_wrapper (p)
 {
   set_mus_property ("iterator-ctor",
-		    Grace_iterator::constructor_cxx_function);
+		    Grace_iterator::constructor_proc);
 }
 
 ADD_MUSIC (Grace_music);

@@ -75,6 +75,12 @@ protected:
   virtual bool do_equal_b (Request const*) const;
 };
 
+class String_number_req : public Script_req
+{
+protected:
+  VIRTUAL_COPY_CONS (Music);
+  virtual bool do_equal_b (Request const*) const;
+};
 
 /// request which has some kind of pitch
 struct Melodic_req :virtual Request

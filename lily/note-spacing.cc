@@ -66,6 +66,10 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
 	      if (!g)
 		g =  Note_column::first_head (it);
 
+	      /*
+		Ugh. If Stem is switched off, we don't know what the
+		first note head will be.
+	       */
 	      if (g)
 		left_head_wid = g->extent(it_col, X_AXIS);
 	    }
@@ -102,7 +106,8 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
   */
   *fixed = left_head_wid.empty_b () ? increment : left_head_wid[RIGHT];
   *space = (base_space - increment) + *fixed +
-    (extents[LEFT][RIGHT] - left_head_wid[RIGHT])/ 2;
+    (extents[LEFT][RIGHT]
+     - (left_head_wid.empty_b () ? 0.0 : left_head_wid[RIGHT]))/ 2;
     ;
 
   if (*space - *fixed < 2 * ((- extents[RIGHT][LEFT]) >? 0))
@@ -233,7 +238,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	  
 	  Grob *stem = Note_column::get_stem (it);
 
-	  if (!stem)
+	  if (!stem || !stem->live ())
 	    {
 	      if (d == RIGHT && Separation_item::has_interface (it))
 		{

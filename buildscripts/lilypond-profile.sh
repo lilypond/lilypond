@@ -23,12 +23,12 @@ TEXMF="{$datadir,"`kpsexpand  \\$TEXMF`"}"
 export TEXMF
 
 # For direct ps output: ps/lilyponddefs.ps
-GS_LIB="$datadir/ps:"${GS_LIB:=""}
-export GS_LIB
+## GS_LIB="$datadir/ps:"${GS_LIB:=""}
+## export GS_LIB
 
 # For direct ps output fonts. Add all available TeX Type1 fonts
-GS_FONTPATH=`kpsewhich -expand-path=\\$T1FONTS`:${GS_FONTPATH:=""}
-export GS_FONTPATH
+## GS_FONTPATH=`kpsewhich -expand-path=\\$T1FONTS`:${GS_FONTPATH:=""}
+## export GS_FONTPATH
 
  	
 

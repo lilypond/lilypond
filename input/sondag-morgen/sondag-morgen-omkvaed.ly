@@ -121,39 +121,41 @@ piar = \notes {
 }
 U = \sustainUp
 D = \sustainDown
+Su = { \su \stemDown }
+Sd = { \sd \stemUp }
 pial = \notes {
     \pial
     \key e \minor
     \clef "F_8"
-    e,,8 e, \su <g h d' e' g'> \sd g, g,, \su <g a h d' fis'> \sd e, a, |
-    a,, \su <g a h d' e' > \sd e, h, h,, \su <a h cis' e'> \sd d, e, |
-    e,,8 e, \su <g h d' e' g'> \sd g, g,, \su <g a h d' fis'> \sd e, a, |
-    a,, a, e, <h,,8 h,> r <d,,4 d,> e,8 | 
+    e,,8 e, \Su <g h d' e' g'> \Sd g, g,, \Su <g a h d' fis'> \Sd e, a, |
+    a,, \Su <g a h d' e' > \Sd e, h, h,, \Su <a h cis' e'> \Sd d, e, |
+    e,,8 e, \Su <g h d' e' g'> \Sd g, g,, \Su <g a h d' fis'> \Sd e, a, |
+    \stemBoth a,, a, e, <h,,8 h,> r <d,,4 d,> e,8 | 
 
-    e,,8 e, \su <g h d' e' g'> \sd g, g,, \su <g a h d' fis'> \sd e, <a,, a,>~
+    e,,8 e, \Su <g h d' e' g'> \Sd g, g,, \Su <g a h d' fis'> \Sd e, <a,, a,>~
     <a,,4. a,> <h,,8 h,>~<h,,4. h,> e,8 |
-    e,,8 e, \su <g h d' e' g'> \sd g, g,, \su <g a h d' fis'> \sd e, a,
-    a,, a, a,, <d,, d,> r <dis,,4 dis,> <e,,8 e,> |
+    e,,8 e, \Su <g h d' e' g'> \Sd g, g,, \Su <g a h d' fis'> \Sd e, a,
+    \stemBoth a,, a, a,, <d,, d,> r <dis,,4 dis,> <e,,8 e,> |
 
-    e,,8 e, \su <g h d' e' g'> \sd g, g,, \su <g a h d' fis'> \sd e, a,
-    a,, \su <g a h d' e'> \sd e, h, h,, \su <a h cis' e'> \sd d, e, |
-    e,,8 e, \su <g h d' e' g'> \sd g, g,, \su <g a h d' fis'> \sd e, a,
+    e,,8 e, \Su <g h d' e' g'> \Sd g, g,, \Su <g a h d' fis'> \Sd e, a,
+    a,, \Su <g a h d' e'> \Sd e, h, h,, \Su <a h cis' e'> \Sd d, e, |
+    e,,8 e, \Su <g h d' e' g'> \Sd g, g,, \Su <g a h d' fis'> \Sd e, a,
 }
 guitar = \notes {
     \guitar
     \key e \minor
     \time 4/4
-    e8-2 < d'-4 g'-5> e-2 e-2 < e'-4 a'-5> e-2 < d'-4 g'-5> e-2  |
-    e-2 e-2 < a-3 d'-4> e-2 e-2 e-2 < h-3 e'-4> e-2 |
-    e8-2 < d'-4 g'-5> e-2 e-2 < e'-4 a'-5> e-2 < d'-4 g'-5> e-2  |
-    e-2 e-2 < a-3 d'-4> e-2 e-2 < a-3 d'-4> e-2 < h-3 e'-4> |
-    e8-2 < d'-4 g'-5> e-2 e-2 < e'8-4 a'-5> e-2 r8 <g-3_\ned h-4 d'-5 g'-6> ~  |
-    <g4.-3 h-4 d'-5 g'-6> <a8-3_\ned cis'-4 e'-5 a'-6> ~<a2-3 cis'-4 e'-5 a'-6> |
-    e8-2 < d'-4 g'-5> e-2 e-2 < e'-4 a'-5> e-2 < d'-4 g'-5> e-2  |
-    e-2 e-2 e-2 < a-3 d'-4> e-2 < ais-3 dis'-4> e-2 < h-3 e'-4> |
-     e8-2 < d'-4 g'-5> e-2 e-2 < e'-4 a'-5> e-2 < d'-4 g'-5> e-2  |
-    e-2 e-2 < a-3 d'-4> e-2 e-2 e-2 < h-3 e'-4> e-2 |
-    e8-2 < d'-4 g'-5> e-2 e-2 < e'-4 a'-5> e-2 < d'-4 g'-5> e-2  |
+    e8\2 < d'\4 g'\5> e\2 e\2 < e'\4 a'\5> e\2 < d'\4 g'\5> e\2  |
+    e\2 e\2 < a\3 d'\4> e\2 e\2 e\2 < h\3 e'\4> e\2 |
+    e8\2 < d'\4 g'\5> e\2 e\2 < e'\4 a'\5> e\2 < d'\4 g'\5> e\2  |
+    e\2 e\2 < a\3 d'\4> e\2 e\2 < a\3 d'\4> e\2 < h\3 e'\4> |
+    e8\2 < d'\4 g'\5> e\2 e\2 < e'8\4 a'\5> e\2 r8 <g\3_\ned h\4 d'\5 g'\6> ~  |
+    <g4.\3 h\4 d'\5 g'\6> <a8\3_\ned cis'\4 e'\5 a'\6> ~<a2\3 cis'\4 e'\5 a'\6> |
+    e8\2 < d'\4 g'\5> e\2 e\2 < e'\4 a'\5> e\2 < d'\4 g'\5> e\2  |
+    e\2 e\2 e\2 < a\3 d'\4> e\2 < ais\3 dis'\4> e\2 < h\3 e'\4> |
+     e8\2 < d'\4 g'\5> e\2 e\2 < e'\4 a'\5> e\2 < d'\4 g'\5> e\2  |
+    e\2 e\2 < a\3 d'\4> e\2 e\2 e\2 < h\3 e'\4> e\2 |
+    e8\2 < d'\4 g'\5> e\2 e\2 < e'\4 a'\5> e\2 < d'\4 g'\5> e\2  |
 }
 
 cello = \notes {

@@ -123,18 +123,18 @@ guitar = \notes \transpose c' {
     \time 2/2
     \key e \minor
     \property Staff.Arpeggio \override #'arpeggio-direction = #1
-	g'8-5_"FLANGE" fis'4-5 d'8-4 r8 h4.-3 |
-	a8-3( d'-4 a'-5 a-3 d'-4 a'-5 a-3 )d'-4 |
-	<e1-\arpeggio-2 a-3 d'-4 g'-5 h'-6>
-	g'8-5 fis'4-5 d'8-4 r8 h4.-3 |
-	a8-3( d'-4 a'-5 a-3 d'-4 a'-5 a-3 )d'-4 |
-	<e1-\arpeggio-2 a-3 d'-4 fis'-5 h'-6>
-	g'8-5 fis'4-5 d'8-4 r8 h4.-3 |
-	a8-3( d'-4 a'-5 a-3 d'-4 a'-5 a-3 )d'-4 |
-	<e1-\arpeggio-2 a-3 d'-4 g'-5 h'-6>
-	g'8-5 fis'4-5 d'8-4 r8 h4.-3 |
-	a8-3( d'-4 a'-5 a-3 d'-4 a'-5 a-3 )d'-4 |
-	<e1-\arpeggio-2 a-3 d'-4 fis'-5 h'-6>
+	g'8\5_"FLANGE" fis'4\5 d'8\4 r8 h4.\3 |
+	a8\3( d'\4 a'\5 a\3 d'\4 a'\5 a\3 )d'\4 |
+	<e1-\arpeggio\2 a\3 d'\4 g'\5 h'\6>
+	g'8\5 fis'4\5 d'8\4 r8 h4.\3 |
+	a8\3( d'\4 a'\5 a\3 d'\4 a'\5 a\3 )d'\4 |
+	<e1-\arpeggio\2 a\3 d'\4 fis'\5 h'\6>
+	g'8\5 fis'4\5 d'8\4 r8 h4.\3 |
+	a8\3( d'\4 a'\5 a\3 d'\4 a'\5 a\3 )d'\4 |
+	<e1-\arpeggio\2 a\3 d'\4 g'\5 h'\6>
+	g'8\5 fis'4\5 d'8\4 r8 h4.\3 |
+	a8\3( d'\4 a'\5 a\3 d'\4 a'\5 a\3 )d'\4 |
+	<e1-\arpeggio\2 a\3 d'\4 fis'\5 h'\6>
 
 }
 

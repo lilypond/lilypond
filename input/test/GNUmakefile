@@ -15,4 +15,4 @@ EXTRA_DISTFILES=features.abc
 
 include $(depth)/make/stepmake.make 
 
-TITLE=LilyPond Feature Tests
+TITLE=LilyPond Tips and Tricks

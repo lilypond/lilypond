@@ -40,19 +40,22 @@
       )
 
 (define paper-style-sheet-alist
-  '(
-    ((8 * * braces 8) . "feta-braces8")
-    ((7 * * braces 7) . "feta-braces7")
-    ((6 * * braces 6) . "feta-braces6")
-    ((5 * * braces 5) . "feta-braces5")
-    ((4 * * braces 4) . "feta-braces4")
-    ((3 * * braces 3) . "feta-braces3")
-    ((2 * * braces 2) . "feta-braces2")
-    ((1 * * braces 1) . "feta-braces1")
-    ((0 * * braces 0) . "feta-braces0")
-    ))
+  `(
+    ((* * * braces *) . ("feta-braces0"
+			 "feta-braces1"
+			 "feta-braces2"
+			 "feta-braces3"
+			 "feta-braces4"
+			 "feta-braces5"
+			 "feta-braces6"
+			 "feta-braces7"
+			 "feta-braces8") )))
 
 ;; FIXME: what about this comment?:
+
+;; font-lookup seems a  little inefficient -- walking this entire list
+;; for a single font.
+;;
 ;;   should really have name/pt size at the front of the list.
 ;;   (also tried to vary the order of this list, with little effect)
 ;;
@@ -136,21 +139,21 @@
     ((-4 * * dynamic 7) . "feta-din7")
     ((-5 * * dynamic 6) . "feta-din6")
 
-    ((2 * * music 26) . "feta26")
-    ((1 * * music 23) . "feta23")
-    ((0 * * music 20) . "feta20")
-    ((-1 * * music 16) . "feta16")
-    ((-2 * * music 13) . "feta13")
-    ((-3 * * music 11) . "feta11")
-    ((-4 * * music 11) . "feta11")
-
-    ((2 * * ancient 26) . "parmesan26")
-    ((1 * * ancient 23) . "parmesan23")
-    ((0 * * ancient 20) . "parmesan20")
-    ((-1 * * ancient 16) . "parmesan16")
-    ((-2 * * ancient 13) . "parmesan13")
-    ((-3 * * ancient 11) . "parmesan11")
-    ((-4 * * ancient 11) . "parmesan11")
+    ((2 * * music 26) . ("feta26" "parmesan26"))
+    ((1 * * music 23) . ("feta23" "parmesan23"))
+    ((0 * * music 20) . ("feta20" "parmesan20"))
+    ((-1 * * music 16) . ("feta16" "parmesan16"))
+    ((-2 * * music 13) . ("feta13" "parmesan13"))
+    ((-3 * * music 11) . ("feta11" "parmesan11"))
+    ((-4 * * music 11) . ("feta11" "parmesan11"))
+    
+    ((2 * * ancient 26) . ("feta26" "parmesan26"))
+    ((1 * * ancient 23) . ("feta23" "parmesan23"))
+    ((0 * * ancient 20) . ("feta20" "parmesan20"))
+    ((-1 * * ancient 16) . ("feta16" "parmesan16"))
+    ((-2 * * ancient 13) . ("feta13" "parmesan13"))
+    ((-3 * * ancient 11) . ("feta11" "parmesan11"))
+    ((-4 * * ancient 11) . ("feta11" "parmesan11"))
 
     ((0 * * math 10) . "msam10")
     ((-1 * * math 10) . "msam10")
@@ -161,7 +164,10 @@
 ;; 
 (define (change-relative-size font-desc decrement)
   "return a FONT-DESCR with relative size decremented by DECREMENT"
-  (cons (- (car font-desc) decrement) (cdr font-desc))
+
+  (if (number? (car font-desc))
+      (cons (- (car font-desc) decrement) (cdr font-desc))
+      font-desc)
   )
 
 (define (change-rhs-size font-desc from to )
@@ -169,7 +175,6 @@
 	(regexp-substitute/global #f from (cdr font-desc) 'pre to 'post))
 
   )
-
   
 ;; 
 (define (map-alist-keys func list)
@@ -207,13 +212,17 @@
 		    ))
   )
 
-(set! font-list-alist
+;;
+;; make a kludged up paper-19 style sheet. Broken by virtual fonts.
+;;
+(if #f
+    (set! font-list-alist
       (cons
        (cons
 	'paper19
 	(map (lambda (x) (change-rhs-size x "20" "19"))
 	     paper20-style-sheet-alist))
-       font-list-alist))
+       font-list-alist)))
 
 (define (make-style-sheet sym)
   `((fonts . ,(append paper-style-sheet-alist

@@ -71,28 +71,10 @@ Score::~Score ()
 }
 
 
-/*
-  should enable  this to find weird mistakes? 
-*/
-#define PARANOIA
-
-#ifdef PARANOIA
-#include <sys/resource.h>
-#endif
 
 void
 Score::run_translator (Music_output_def *odef)
 {
-#ifdef PARANOIA
-  if (verbose_global_b)
-    {
-      struct rlimit rls;
-
-      getrlimit (RLIMIT_STACK, &rls);
-      progress_indication (_f("stack size cur %d, max %d\n" ,rls.rlim_cur, rls.rlim_max));
-    }
-#endif
-  
   /*
     We want to know if we want to store locations, since they take a
     lot of overhead.
@@ -110,15 +92,14 @@ Score::run_translator (Music_output_def *odef)
   Music * music = unsmob_music (music_);
   
   trans->final_mom_ = music->length_mom ();
-
-  Music_iterator * iter = Music_iterator::get_static_get_iterator (music);
+  SCM protected_iter =  Music_iterator::get_static_get_iterator (music);
+  Music_iterator * iter = unsmob_iterator (protected_iter);
   iter->init_translator (music, trans);
 
   iter->construct_children ();
 
   if (! iter->ok ())
     {
-      delete iter;
       warning (_ ("Need music in a score"));
       errorlevel_ =1;
       return ;
@@ -126,7 +107,8 @@ Score::run_translator (Music_output_def *odef)
 
   trans->start ();
   trans->run_iterator_on_me (iter);
-  delete iter;
+  iter->quit();
+  scm_remember_upto_here_1 (protected_iter);
   trans->finish ();
 
   if (errorlevel_)

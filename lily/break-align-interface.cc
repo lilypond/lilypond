@@ -71,7 +71,7 @@ void
 Break_align_interface::do_alignment (Grob *me)
 {
   Item * item = dynamic_cast<Item*> (me);
-
+  int rank = Paper_column::get_rank (item->get_column ());
   Link_array<Grob> elems
     = Pointer_group_interface__extract_grobs (me, (Grob*)0,
 						 "elements");
@@ -95,14 +95,13 @@ Break_align_interface::do_alignment (Grob *me)
 
 
   int edge_idx = -1;
-  while (idx < elems.size())
+  while (idx < elems.size() - 1)
     {
       int next_idx = idx+1;
-      while ( next_idx < elems.size() && extents[next_idx].empty_b())
+      while (next_idx < elems.size() &&
+	     extents[next_idx].empty_b()
+	     && next_idx != elems.size() -1 )
 	next_idx++;
-
-      if (next_idx == elems.size())
-	break;
       
       Grob *l = elems[idx];
       Grob *r = elems[next_idx];
@@ -133,18 +132,18 @@ Break_align_interface::do_alignment (Grob *me)
 	table, but that gets icky when that grob is suicided for some
 	reason.
       */
-      for (SCM s = r->get_grob_property ("elements");
-	   gh_pair_p (s); s = gh_cdr (s))
-	{
-	  Grob * elt =unsmob_grob(gh_car (s));
+	for (SCM s = r->get_grob_property ("elements");
+	     gh_pair_p (s); s = gh_cdr (s))
+	  {
+	    Grob * elt =unsmob_grob(gh_car (s));
 
-	  SCM sym = elt->get_grob_property ("break-align-symbol");
-	  if (gh_symbol_p (sym))
-	    {
-	      rsym = sym;
-	      break;
-	    }
-	}
+	    SCM sym = elt->get_grob_property ("break-align-symbol");
+	    if (gh_symbol_p (sym))
+	      {
+		rsym = sym;
+		break;
+	      }
+	  }
       if (rsym  == ly_symbol2scm("left-edge"))
 	edge_idx = next_idx;
 
@@ -183,7 +182,7 @@ Break_align_interface::do_alignment (Grob *me)
 	offsets[next_idx] = extents[idx][RIGHT] + distance;
       else if (type == ly_symbol2scm("minimum-space"))
 	offsets[next_idx] = extents[idx][RIGHT] >? distance;
-
+      
       idx = next_idx;
     }
 

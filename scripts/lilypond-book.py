@@ -46,10 +46,17 @@ import __main__
 
 # Handle bug in Python 1.6-2.1
 #
-# there are recursion limits for some patterns in Python 1.6 til 2.1. 
+# there are recursion limits for some patterns in Python 1.6 til 2.1.
 # fix this by importing the 1.5.2 implementation pre instead. Fix by Mats.
 
-if float (sys.version[0:3]) < 2.2:
+
+## We would like to do this for python 2.2 as well, unfortunately
+## python 2.2 has another bug, see Sf.net bugtracker
+##
+## https://sourceforge.net/tracker/?func=detail&aid=604803&group_id=5470&atid=105470
+## 
+
+if float (sys.version[0:3]) <= 2.1:
 	try:
 		import pre
 		re = pre
@@ -106,6 +113,8 @@ kpse = os.popen ('kpsexpand \$TEXMF').read()
 kpse = re.sub('[ \t\n]+$','', kpse)
 type1_paths = os.popen ('kpsewhich -expand-path=\$T1FONTS').read ()
 
+binary = 'lilypond'
+#binary = 'valgrind --suppressions=/home/hanwen/usr/src/guile-1.6.supp  --num-callers=10 /home/hanwen/usr/src/lilypond/lily/out/lilypond'
 environment = {
 	# TODO: * prevent multiple addition.
 	#       * clean TEXINPUTS, MFINPUTS, TFMFONTS,
@@ -190,22 +199,48 @@ class LatexPaper:
 
 		cmd = "latex '\\nonstopmode \input %s'" % fname
 		if verbose_p:
-			sys.stderr.write ("Invoking `%s' as pipe" % cmd) 
-		p = os.popen(cmd)
-		ln = p.readline()
-		while ln:
+			sys.stderr.write ("Invoking `%s' as pipe" % cmd)
+		try:
+			status = quiet_system (cmd, "Latex for finding dimensions")
+		except:
+			sys.stderr.write (_("Invoking LaTeX failed.") + '\n' )
+			sys.stderr.write (_("This is the error log:\n") + '\n')
+
+			lns = open ('lily-tmp.log').readlines()
+
+			countdown = -3
+			for ln in lns:
+				sys.stderr.write (ln)
+				if re.match('^!', ln):
+					countdown = 3
+
+				if countdown == 0:
+					break
+				
+				if countdown > 0:
+					countdown = countdown -1
+
+			sys.stderr.write ("  ... (further messages elided)...\n")
+			sys.exit (1)
+			
+		lns = open ('lily-tmp.log').readlines()
+		for ln in lns:
 			ln = string.strip(ln)
 			m = re_dim.match(ln)
 			if m:
 				if m.groups()[0] in ('textwidth', 'columnsep'):
 					self.__dict__['m_%s' % m.groups()[0]] = float(m.groups()[1])
-			ln = p.readline()
+					
 		try:
 			os.remove (fname)
 			os.remove (os.path.splitext(fname)[0]+".aux")
 			os.remove (os.path.splitext(fname)[0]+".log")
 		except:
 			pass
+
+		if not self.__dict__.has_key ('m_textwidth'):
+			raise 'foo!'
+		
 	def get_linewidth(self):
 		if self.m_num_cols == 1:
 			w = self.m_textwidth
@@ -417,7 +452,7 @@ output_dict= {
 <p>
 <a href="%(fn)s.png">
 <img border=0 src="%(fn)s.png" alt="[picture of music]">
-</a>
+</a><p>
 @end html
 ''',
 		}
@@ -430,7 +465,11 @@ def output_verbatim (body, small):
 		body = re.sub ('>', '&gt;', body)
 		body = re.sub ('<', '&lt;', body)
 	elif __main__.format == 'texi':
-		body = re.sub ('([@{}])', '@\\1', body)
+		
+		# clumsy workaround for python 2.2 pre bug.
+		body = re.sub ('@', '@@', body)
+		body = re.sub ('{', '@{', body)
+		body = re.sub ('}', '@}', body)
 
 	if small:
 		key = 'output-small-verbatim'
@@ -1035,7 +1074,9 @@ def quiet_system (cmd, name):
 	return system (cmd)
 
 def get_bbox (filename):
-	system ('gs -sDEVICE=bbox -q  -sOutputFile=- -dNOPAUSE %s -c quit > %s.bbox 2>&1 ' % (filename, filename))
+
+	# gs bbox device is ugh, it always prints of stderr.
+	system ('gs -sDEVICE=bbox -q  -sOutputFile=- -dNOPAUSE %s -c quit > %s.bbox 2>&1' % (filename, filename))
 
 	box = open (filename + '.bbox').read()
 	m = re.match ('^%%BoundingBox: ([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)', box)
@@ -1057,9 +1098,9 @@ def make_pixmap (name):
 	x = (2* margin + bbox[2] - bbox[0]) * res / 72.
 	y = (2* margin + bbox[3] - bbox[1]) * res / 72.
 
-	cmd = r'''gs -g%dx%d -sDEVICE=pnggray  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=- -r%d -dNOPAUSE %s %s -c quit  > %s'''
+	cmd = r'''gs -g%dx%d -sDEVICE=pnggray  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=%s -r%d -dNOPAUSE %s %s -c quit '''
 	
-	cmd = cmd % (x, y, res, name + '.trans.eps', name + '.eps',name + '.png')
+	cmd = cmd % (x, y, name + '.png', res, name + '.trans.eps', name + '.eps')
 	status = 0
 	try:
 		status = system (cmd)
@@ -1107,8 +1148,8 @@ def compile_all_files (chunks):
 			if g_outdir:
 				lilyopts = lilyopts + '--dep-prefix=' + g_outdir + '/'
 		texfiles = string.join (tex, ' ')
-		cmd = 'lilypond --header=texidoc %s %s %s' \
-		      % (lilyopts, g_extra_opts, texfiles)
+		cmd = '%s --header=texidoc %s %s %s' \
+		      % (binary, lilyopts, g_extra_opts, texfiles)
 
 		system (cmd)
 

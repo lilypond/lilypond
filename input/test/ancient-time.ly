@@ -5,8 +5,7 @@ texidoc="Should use old style."
 
 \score {
   \notes { 
-    \property Staff.TimeSignature \override #'style = #'oldC4/4
-    \property Staff.TimeSignature \override #'font-family = #'ancient
+    \property Staff.TimeSignature \override #'style = #'neo_mensural
     s1 
   }
 }

@@ -31,9 +31,9 @@ Lyric_combine_music_iterator::Lyric_combine_music_iterator ()
       melisma_playing_req = new Melisma_playing_req;
       melisma_stop_req = new Melisma_req;
       melisma_start_req = new Melisma_req;      
+      melisma_start_req->set_span_dir (START);
+      melisma_stop_req->set_span_dir (STOP);
     }
-  melisma_start_req->set_span_dir (START);
-  melisma_stop_req->set_span_dir (STOP);
   
   music_iter_ =0;
   lyric_iter_ =0;
@@ -52,14 +52,22 @@ Lyric_combine_music_iterator::ok () const
   return music_iter_->ok ();
 }
 
+void
+Lyric_combine_music_iterator::derived_mark()const
+{
+  if (music_iter_)
+    scm_gc_mark (music_iter_->self_scm());
+  if (lyric_iter_)
+    scm_gc_mark (lyric_iter_->self_scm());
+}
 
 void
 Lyric_combine_music_iterator::construct_children ()
 {
   Lyric_combine_music const * m = dynamic_cast<Lyric_combine_music const*> (get_music ());
   
-  music_iter_ = get_iterator (m->get_music ());
-  lyric_iter_ = get_iterator (m->get_lyrics ());
+  music_iter_ = unsmob_iterator (get_iterator (m->get_music ()));
+  lyric_iter_ = unsmob_iterator (get_iterator (m->get_lyrics ()));
 }
 
 bool
@@ -102,21 +110,13 @@ Lyric_combine_music_iterator::process (Moment m)
   
   music_iter_->process (m);
 
-  if ( get_busy_status ())
+  if (get_busy_status ())
     {
       bool melisma_b = try_music (melisma_playing_req);
       if (!melisma_b)
 	{
 	  if (lyric_iter_->ok ())
 	    {
-	      // FIXME
-#if 0				// devise a new way for this
-	      if (melisma_b && !melisma_started_b_)
-		lyric_iter_->try_music (melisma_start_req);
-	      else if (melisma_started_b_)
-		lyric_iter_->try_music (melisma_stop_req);
-#endif
-	      
 	      Moment m= lyric_iter_->pending_moment ();
 	      lyric_iter_->process (m);
 	    }
@@ -124,18 +124,25 @@ Lyric_combine_music_iterator::process (Moment m)
     }
   
 }
-
-Lyric_combine_music_iterator::~Lyric_combine_music_iterator ()
+void
+Lyric_combine_music_iterator::do_quit ()
 {
-  delete lyric_iter_;
-  delete music_iter_;
+  if (music_iter_)
+    music_iter_->quit();
+  if (lyric_iter_)
+    lyric_iter_->quit();
+  
 }
-
 Lyric_combine_music_iterator::Lyric_combine_music_iterator (Lyric_combine_music_iterator const & src)
     : Music_iterator (src)
 {
   lyric_iter_ = src.lyric_iter_ ? src.lyric_iter_->clone () : 0;
   music_iter_ = src.music_iter_ ? src.music_iter_->clone () : 0;  
+
+  if (lyric_iter_)
+    scm_gc_unprotect_object (lyric_iter_->self_scm());
+  if (music_iter_)
+    scm_gc_unprotect_object (music_iter_->self_scm());
 }
 
 Music_iterator*

@@ -210,18 +210,18 @@ guitar = \notes {
 	\time 7/8
 	s1*0_"NO FLANGE"
 	\repeat percent 3 {
-	    [<f8-4_\ned b-5\mu d-6> <f-4_\op b-5\ac d-6> <f-4_\ned b-5\mu d-6>] [<f-4_\op a-5\ac d-6> <f-4_\ned a-5\mu d-6>] [<f-4_\op a-5\mu d-6><f-4_\ned a-5\ac d-6>]|
-	    [<es-4_\op g-5\mu c-6> <es-4_\ned g-5\ac c-6> <es-4_\op g-5\mu c-6>] [<es-4_\ned g-5\ac c-6> <es-4_\op g-5\mu c-6>][<f-4_\ned a-5\ac d-6> <f-4_\op a-5\mu d-6>] |
+	    [<f8\4_\ned b\5\mu d\6> <f\4_\op b\5\ac d\6> <f\4_\ned b\5\mu d\6>] [<f\4_\op a\5\ac d\6> <f\4_\ned a\5\mu d\6>] [<f\4_\op a\5\mu d\6><f\4_\ned a\5\ac d\6>]|
+	    [<es\4_\op g\5\mu c\6> <es\4_\ned g\5\ac c\6> <es\4_\op g\5\mu c\6>] [<es\4_\ned g\5\ac c\6> <es\4_\op g\5\mu c\6>][<f\4_\ned a\5\ac d\6> <f\4_\op a\5\mu d\6>] |
 	}
-	[<f8-4_\ned b-5\mu d-6> <f-4_\op b-5\ac d-6> <f-4_\ned b-5\mu d-6>] [<f-4_\op a-5\ac d-6> <f-4_\ned a-5\mu d-6>] [<f-4_\op a-5\mu d-6><f-4_\ned a-5\ac d-6>]|
+	[<f8\4_\ned b\5\mu d\6> <f\4_\op b\5\ac d\6> <f\4_\ned b\5\mu d\6>] [<f\4_\op a\5\ac d\6> <f\4_\ned a\5\mu d\6>] [<f\4_\op a\5\mu d\6><f\4_\ned a\5\ac d\6>]|
 	\time 9/8
 
-	<d,4.-2 g-3 h-4 e-5 a-6> r4 [<fis'8-4_\ned a-5\ac d-6> <fis8-4_\op a-5\mu d-6>] [<fis8-4_\ned a-5\ac d-6> <fis8-4_\op a-5\mu d-6>] |
+	<d,4.\2 g\3 h\4 e\5 a\6> r4 [<fis'8\4_\ned a\5\ac d\6> <fis8\4_\op a\5\mu d\6>] [<fis8\4_\ned a\5\ac d\6> <fis8\4_\op a\5\mu d\6>] |
 	\time 7/8
 	\key g \major
 	\repeat percent 3 {
-	    [<g8-4_\ned h-5\mu d-6> <g-4_\op h-5\ac d-6> <g-4_\ned h-5\mu d-6>] [<fis-4_\op a-5\ac d-6> <fis-4_\ned a-5\mu d-6>] [<fis-4_\op a-5\mu d-6><fis-4_\ned a-5\ac d-6>]|
-	    [<e-4_\op g-5\mu c-6> <e-4_\ned g-5\ac c-6> <e-4_\op g-5\mu c-6>] [<e-4_\ned g-5\ac c-6> <e-4_\op g-5\mu c-6>][<fis-4_\ned a-5\ac d-6> <fis-4_\op a-5\mu d-6>] |
+	    [<g8\4_\ned h\5\mu d\6> <g\4_\op h\5\ac d\6> <g\4_\ned h\5\mu d\6>] [<fis\4_\op a\5\ac d\6> <fis\4_\ned a\5\mu d\6>] [<fis\4_\op a\5\mu d\6><fis\4_\ned a\5\ac d\6>]|
+	    [<e\4_\op g\5\mu c\6> <e\4_\ned g\5\ac c\6> <e\4_\op g\5\mu c\6>] [<e\4_\ned g\5\ac c\6> <e\4_\op g\5\mu c\6>][<fis\4_\ned a\5\ac d\6> <fis\4_\op a\5\mu d\6>] |
 	}
 	\time 4/4
 	s1*0-\mf \repeat unfold 2 <c2-3 e-4 g-5 h-6>

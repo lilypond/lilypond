@@ -9,7 +9,7 @@ Beam. The note head is also rather naive, since the extent of the
 parens are also not seen by accidentals.
 "
 	
-	 }
+}
 
 #(define (parenthesize-callback callback)
    "Construct a function that will do CALLBACK and add parentheses.
@@ -34,8 +34,9 @@ GROB.  The dimensions of the molecule is not affected.
 	    (subject (callback grob))
 
 	    ; remember old size
-	    (subject-dims (ly-get-molecule-extent subject 0))
-	    )
+	    (subject-dim-x (ly-get-molecule-extent subject 0))
+	    (subject-dim-y (ly-get-molecule-extent subject 1))
+	)
 
         ; add parens
         (set! subject
@@ -44,7 +45,8 @@ GROB.  The dimensions of the molecule is not affected.
 	      0 -1 popen  0.2))
 
 	; revert old size.
-       (ly-set-molecule-extent! subject 0 subject-dims)
+       (ly-set-molecule-extent! subject 0 subject-dim-x)
+       (ly-set-molecule-extent! subject 1 subject-dim-y)
        subject
     )
      )

@@ -56,7 +56,9 @@ INSTALLATION_OUT_FILES3=$(TFM_FILES)
 # making pfas takes a lot of CPU time. Let's skip it for now.
 #MAKE_PFA_FILES=1
 
-PFA_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.pfa)) $(outdir)/cmbxti8.pfa
+
+SAUTER_FONT_FILES=cmbxti7 cmbxti8 cmbxti12  cmbxti14 cmcsc7 cmcsc12 cmtt17 cmbx14 cmbx17
+PFA_FILES= $(addprefix $(outdir)/, $(addsuffix .pfa, $(SAUTER_FONT_FILES)) $(FONT_FILES:.mf=.pfa)) 
 
 ifdef MAKE_PFA_FILES
 ALL_GEN_FILES += $(PFA_FILES) $(outdir)/lilypond.map $(outdir)/fonts.scale
@@ -69,7 +71,7 @@ INSTALLATION_OUT_FILES5=$(outdir)/lilypond.map
 endif
 
 $(outdir)/lilypond.map: 
-	echo $(FONT_FILES:.mf=) | tr ' ' '\n' | \
+	echo $(notdir $(PFA_FILES:.pfa=)) | tr ' ' '\n' | \
 		sed 's/\(.*\)/\1 \1 <\1.pfa/' > $@
 
 $(outdir)/fonts.scale:
@@ -89,9 +91,9 @@ local-clean:
 	rm -f mfplain.mem mfplain.log 
 	rm -f *.tfm *.log
 
-pfa: $(PFA_FILES)  
+pfa: $(PFA_FILES)   $(outdir)/lilypond.map $(outdir)/fonts.scale
 
 # needed for web documentation
-$(outdir)/cmbxti8.pfa:
-	$(MFTRACE)  -I $(outdir)/ --pfa --simplify --keep-trying cmbxti8
-	mv cmbxti8.pfa $(outdir)/
+$(addprefix $(outdir)/, $(SAUTER_FONT_FILES:=.pfa)):
+	$(foreach i, $(SAUTER_FONT_FILES), \
+		$(MFTRACE) -I $(outdir)/ --pfa --simplify --keep-trying $(i) && mv $(i).pfa $(outdir)/ && ) true

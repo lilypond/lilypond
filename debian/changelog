@@ -1,3 +1,20 @@
+lilypond (1.6.2-1) unstable; urgency=low
+
+  * New upstream release.
+  * Check g++ version and run lexer-gcc-3.1.sh if necessary.
+
+ -- Anthony Fok <foka@debian.org>  Tue, 10 Sep 2002 23:37:27 +0800
+
+lilypond (1.6.0-1) unstable; urgency=medium
+
+  * New upstream release.
+  * binary-arch: Changed "DH_OPTIONS=-a" to "DH_OPTIONS=-s" so that
+    dpkg-gencontrol would not 't choke on lilypond1.3 for unlisted
+    architectures.  Thanks to Ryan Murray for the report and suggested
+    fix.  (Closes: Bug#157766)
+
+ -- Anthony Fok <foka@debian.org>  Sun, 25 Aug 2002 11:59:01 +0800
+
 lilypond (1.5.68-2) unstable; urgency=low
 
   * Oops, I was missing Build-Depends on python-dev.  Thanks to LaMont

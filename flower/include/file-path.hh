@@ -39,6 +39,7 @@ public:
   String find (String nm) const;
 
   Array<String>::push;
+  void prepend (String str) { Array<String>::insert (str, 0); }
   String string ()const;
   bool try_add (String str);
   void add (String);

@@ -46,8 +46,7 @@ LILYPOND_BOOK = $(script-dir)/lilypond-book.py
 LILYPOND_BOOK_INCLUDES = -I $(pwd) -I $(outdir) -I$(input-dir) -I $(input-dir)/tricks/ -I $(input-dir)/regression/ -I $(input-dir)/test/ -I $(input-dir)/tutorial/ -I $(builddir)/mf/$(outconfbase)/  -I $(builddir)/mf/out/
 LY2DVI = $(script-dir)/ly2dvi.py
 LYS_TO_TELY = $(buildscript-dir)/lys-to-tely.py
-PS_TO_GIFS = $(buildscript-dir)/ps-to-gifs.sh
-PS_TO_PNGS = $(buildscript-dir)/ps-to-pngs.sh
+
 
 else
 ### some versions apparently choke on $(message)
@@ -60,8 +59,6 @@ LILYPOND_BOOK = $(shell $(SHELL) -c 'type -p lilypond-book')
 LILYPOND_BOOK_INCLUDES = -I. -I.. -I$(outdir)
 LY2DVI = $(shell $(SHELL) -c 'type -p ly2dvi')
 LYS_TO_TELY = $(shell $(SHELL) -c 'type -p lys-to-tely')
-PS_TO_GIFS = $(shell $(SHELL) -c 'type -p ps-to-gifs')
-PS_TO_PNGS = $(shell $(SHELL) -c 'type -p ps-to-pngs')
 
 endif
 

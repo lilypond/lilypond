@@ -82,7 +82,7 @@ Font_metric::~Font_metric ()
 Font_metric::Font_metric ()
 {
   description_ = SCM_EOL;
-
+  self_scm_ = SCM_EOL;
   smobify_self ();
 }
 
@@ -103,10 +103,20 @@ Font_metric::get_char (int)const
 }
 
 
+void
+Font_metric::derived_mark ()const
+{
+  
+}
+
+  
+
 SCM
 Font_metric::mark_smob (SCM s)
 {
   Font_metric * m = (Font_metric*) SCM_CELL_WORD_1 (s);
+
+  m->derived_mark();
   return m->description_;
 }
 
@@ -164,3 +174,16 @@ number-pairs.")
 }
 
 
+
+
+  
+Molecule
+Font_metric::get_char_molecule (int code)  const
+{
+  Molecule  m ;
+  SCM at = scm_list_n (ly_symbol2scm ("char"), gh_int2scm (code),
+		       SCM_UNDEFINED);
+  at = fontify_atom (this, at);
+  Box b = get_char (code);
+  return Molecule (b, at);
+}

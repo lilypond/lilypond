@@ -23,6 +23,7 @@ public:
   Interpretation_context_handle (Interpretation_context_handle const&);
   Translator_group * report_to () const;
 
+  void quit ();
 private:
   Translator_group * report_to_;
   void down ();

@@ -57,30 +57,39 @@ Time_signature::brew_molecule (SCM smob)
 }
 
 Molecule
-Time_signature::special_time_signature (Grob *me, SCM style, int n, int d)
+Time_signature::special_time_signature (Grob *me, SCM scm_style, int n, int d)
 {
-  String st = ly_scm2string (scm_symbol_to_string (style));
-  SCM scm_n = gh_int2scm (n);
-  SCM scm_d = gh_int2scm (d);
-  SCM exp = scm_list_n (ly_symbol2scm ("find-timesig-symbol"),
-			scm_n, scm_d, ly_quote_scm (style),
-			SCM_UNDEFINED);
-  SCM scm_pair = scm_primitive_eval (exp);
-  SCM scm_font_char = ly_car (scm_pair);
-  SCM scm_font_family = ly_cdr (scm_pair);
-  String font_char = ly_scm2string (scm_font_char);
-  String font_family = ly_scm2string (scm_font_family);
-  me->set_grob_property("font-family", ly_symbol2scm (font_family.to_str0 ()));
+  String style = ly_scm2string (scm_symbol_to_string (scm_style));
 
-  Molecule m =
-    Font_interface::get_default_font (me)->find_by_name ("timesig-" + font_char);
-  if (!m.empty_b ())
-    return m;
+  if (style == "numbered")
+    return numbered_time_signature (me, n, d);
+
+  if ((style == "default") || (style == ""))
+    style = to_string ("C");
+
+  if (style == "C")
+    {
+      if /* neither C2/2 nor C4/4 */
+	(((n != 2) || (d != 2)) && 
+	 ((n != 4) || (d != 4)))
+	{
+	  return numbered_time_signature (me, n, d);
+	}
+    }
+
+  String char_name = style + to_string (n) + "/" + to_string (d);
+  me->set_grob_property ("font-family", ly_symbol2scm ("music"));
+  Molecule out =
+    Font_interface::get_default_font (me)->find_by_name ("timesig-" + char_name);
+  if (!out.empty_b ())
+    return out;
 
   /*
-    If there is no such symbol, we default without warning to the
-    numbered style.
-   */
+    If there is no such symbol, we default to the numbered style.
+    (Here really with a warning!)
+  */
+  me->warning (_f ("time signature symbol `%s' not found; "
+		   "reverting to numbered style", char_name));
   return numbered_time_signature (me, n, d);
 }
 
@@ -124,21 +133,20 @@ ADD_INTERFACE (Time_signature,"time-signature-interface",
         4/4 and 2/2 are typeset as C and struck C, respectively.  All
         other time signatures are written with two digits.
 
-      @item @code{old}
+      @item @code{neo_mensural}
         2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8 and 9/8 are
-        typeset with old-style mensuration marks.  All other time
+        typeset with neo-mensural style mensuration marks.  All other time
+        signatures are written with two digits.
+
+      @item @code{mensural}
+        2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8 and 9/8 are
+        typeset with mensural style mensuration marks.  All other time
         signatures are written with two digits.
 
       @item @code{1xxx}
         All time signatures are typeset with a single
         digit, e.g. 3/2 is written as 3. (Any symbol starting
 	with the digit @code{1} will do.)
-
-      @item @code{C}@var{M}@code{/}@var{N}, 
-@code{old}@var{M}@code{/}@var{N} or
-      @code{old6/8alt}
-        Tells LilyPond to use a specific symbol as time signature, 
-	regardless of the actual time signature.
     @end table
 
 See also the test-file @file{input/test/time.ly}.

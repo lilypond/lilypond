@@ -9,7 +9,6 @@
 
 @macro refbugs
 @strong{BUGS}
-
 @end macro
 
 
@@ -55,9 +54,9 @@ encouraged to study the tutorial first.
 @section Note entry
 @cindex Note entry
 
-The most basic forms of music are notes.  Notes on their own don't
-form valid input, but for the sake of brevity we omit @code{\score}
-blocks and @code{\paper} declarations.
+Notes constitute the most basic form of music, but they do not form
+valid input on their own. Yet for the sake of brevity and simplicity,
+we'll generally omit @code{\score} blocks and @code{\paper} declarations.
 
 
 @menu
@@ -118,7 +117,7 @@ both forms are accepted.
 LilyPond has predefined sets of note names for various other languages.
 To use them, simply include the language specific init file.  For
 example: @code{\include "english.ly"}.  The available language files and
-the names they define are:
+the note names they define are:
 
 @example 
                         Note Names               sharp       flat
@@ -150,8 +149,8 @@ octave; each @code{,} lowers the pitch by an octave.
 @node Chromatic alterations
 @subsection Chromatic alterations
 
-Normally, accidentals are printed automatically, but you may force
-accidentals in the following ways: A reminder accidental
+Normally, accidentals are automatically printed, but you may force
+them in the following ways: a reminder accidental
 @cindex reminder accidental
 @cindex @code{?}
 can be forced by adding an exclamation mark @code{!} after the pitch.  A
@@ -162,25 +161,25 @@ i.e., an accidental within parentheses can be obtained by adding the
 question mark `@code{?}' after the pitch.
 
 The automatic production of accidentals can be tuned in many
-ways. Refer to @ref{Accidentals} for more information.
+ways. For more information, refer to @ref{Accidentals}.
 
 @c .  {Rests}
 @node  Rests
 @subsection Rests
 @cindex Rests
 
-A rest is entered like a note, with note name `@code{r}':
+Rests are entered like notes, with an `@code{r}' note name:
 
 @lilypond[singleline,verbatim]
 r1 r2 r4 r8
 @end lilypond
 
-Whole bar rests centered in the bar are specified using @code{R}, see
+Whole bar rests, centered in the bar, are specified using @code{R}, see
 @ref{Multi measure rests}. See also @seeinternals{Rest}.
 
-For polyphonic music, it can be convenient to specify the rest position
-directly. You can do that by entering a note, with the keyword
-@code{\rest} appended, e.g. Rest collisions will leave these rests alone.
+For polyphonic music, it can be convenient to explicitly specify the rest's
+vertical position. This can be achieved by entering a note, with the @code{\rest}
+keyword appended. Rest collision testing will leave these rests alone.
 
 @lilypond[singleline,verbatim]
 a'4\rest d'4\rest
@@ -202,13 +201,10 @@ An invisible rest, or skip, can be entered like a note with note name
 a2 s4 a4 \skip 1 a4 
 @end lilypond
 
-The @code{s} syntax  is only available in Note mode and Chord mode. 
-In other situations, you should use the @code{\skip} command, and it is
-only available in Note mode and Chord mode.
+@c FIXME: in Lyrics mode, we have " " and _
 
-@c FIXME: in lyrics mode, we have " " and _
-
-In Lyrics mode, you can use `@code{" "}' and `@code{_}':
+In Lyrics mode, invisible rests are entered using either `@code{" "}' 
+or `@code{_}':
 @lilypond[singleline,verbatim]
 <
   \context Lyrics \lyrics { lah2 di4 " " dah2 _4 di }
@@ -216,8 +212,9 @@ In Lyrics mode, you can use `@code{" "}' and `@code{_}':
 >
 @end lilypond
 
-The unabbreviated `@code{\skip} @var{duration}' also works outside of
-note mode:
+Note that the @code{s} syntax  is only available in Note mode and Chord
+mode. In other situations, you should use the @code{\skip} command, which
+also works outside of those two modes:
 
 @lilypond[singleline,verbatim]
 \score {
@@ -228,8 +225,9 @@ note mode:
 }
 @end lilypond
 
-The skip command is merely a empty musical placeholder. It does not
+The skip command is merely an empty musical placeholder. It doesn't
 produce any output, not even transparent output.
+
 
 
 @c .  {Durations}
@@ -241,7 +239,7 @@ produce any output, not even transparent output.
 @cindex @code{\duration}
 
 
-In Note, Chord, and Lyrics mode, durations may be designated by numbers
+In Note, Chord, and Lyrics mode, durations are designated by numbers
 and dots: durations are entered as their reciprocal values.  For notes
 longer than a whole you must use identifiers.
 
@@ -274,10 +272,10 @@ r1 r2 r4 r8 r16 r32 r64 r64
 @end lilypond
 
 
-If the duration is omitted then it is set to the previous duration
-entered.  At the start of parsing a quarter note is assumed.  The
-duration can be followed by dots (`@code{.}')  to obtain dotted note
-lengths.
+If the duration is omitted then it is set to the previously entered
+duration.  At the start of parsing, a quarter note is assumed.  The
+duration can be followed by dots (`@code{.}') in order to obtain dotted
+note lengths:
 @cindex @code{.}
 
 @lilypond[fragment,verbatim,center]
@@ -286,9 +284,9 @@ lengths.
 @cindex @code{r}
 @cindex @code{s}
 
-You can alter the length of duration by a fraction @var{N/M} by
+You can alter the length of duration by a fraction @var{N/M}
 appending `@code{*}@var{N/M}' (or `@code{*}@var{N}' if @var{M=1}). This
-will not affect the appearance of the notes or rests produced.
+won't affect the appearance of the notes or rests produced.
 
 Durations can also be produced through GUILE extension mechanism. 
 @lilypond[verbatim,fragment]
@@ -312,19 +310,20 @@ Dot placement for chords is not perfect.  In some cases, dots overlap:
 @cindex @code{~}
 
 A tie connects two adjacent note heads of the same pitch.  The tie in
-effect extends the length of a note. A tie is entered with @code{~}.
+effect extends the length of a note. Ties should not be confused with
+slurs, which indicate articulation, and phrasing slurs, which indicate
+musical phrasing. A tie is entered using the tilde symbol `@code{~}'.
 
 @lilypond[fragment,verbatim,center]
   e' ~ e' <c' e' g'> ~ <c' e' g'>
 @end lilypond
 
-When ties are used with chords, all note heads whose pitches match are
-connected.  Ties are indicated using the tilde symbol `@code{~}'.  If
-you try to tie together chords which have no common pitches then no
-ties will be created.
+When a tie is applied to a chord, all note heads, whose pitches match, are
+connected.  If you try to tie together chords that have no common pitches,
+no ties will be created.
 
-If you want less  ties created for a chord, you can  set
-@code{Voice.sparseTies} to true. In this case, a single tie is used
+If you want less ties created for a chord, you can set
+@code{Voice.sparseTies} to true.  In this case, a single tie is used
 for every tied chord.
 @lilypond[fragment,verbatim,center]
   \property Voice.sparseTies = ##t
@@ -338,8 +337,8 @@ exactly the same concept.
 @lilypond[fragment, singleline]
 \time 3/4 c'2. c'2 ~ c'4
 @end lilypond
-Ties should not be confused with slurs, which indicate articulation,
-and phrasing slurs, which indicate musical phrasing.
+And if you need to tie notes over bars, it may be easier to use
+@ref{Automatic note splitting}.
 
 See also  @seeinternals{Tie}.
 
@@ -347,18 +346,18 @@ See also  @seeinternals{Tie}.
 @refbugs
 
 At present, the tie is represented as a separate event, temporally
-located in between the notes.  Tieing only a subset of the note heads
+located in between the notes.  Tying only a subset of the note heads
 of a chord is not supported in a simple way.  It can be achieved by
 moving the tie-engraver into the Thread context and turning on and off
 ties per Thread.
 
-Switching staffs when a tie is active will not work.
+Switching staves when a tie is active will not work.
 
 @node Automatic note splitting 
 @subsection Automatic note splitting
 @c FIXME: This subsection doesn't belong in @ref{Note entry}.
 
-There is a facility for automatically converting long notes to  tied
+There is a facility for automatically converting long notes to tied
 notes. This is done by replacing the @code{Note_heads_engraver} by the
 @code{Completion_heads_engraver}. 
 
@@ -391,7 +390,7 @@ represented exactly; the engraver will not insert tuplets.
 @cindex triplets
 @cindex @code{\times}
 
-Tuplets are made out of a music expression by multiplying all duration
+Tuplets are made out of a music expression by multiplying all durations
 with a fraction.
 
 @cindex @code{\times}
@@ -797,7 +796,7 @@ such as keys, clefs and time signatures.
 
 
 The lines of the staff symbol are formed by the
-@internalsref{StaffSymbol} grob.  This grob is created at the moment
+@internalsref{StaffSymbol} object.  This object is created at the moment
 that their context is created.  You can not change the appearance of
 the staff symbol by using @code{\override} or @code{\set}.  At the
 moment that @code{\property Staff} is interpreted, a Staff context is
@@ -846,7 +845,7 @@ This command sets the context property @code{Staff.keySignature}.
 Non-standard key signatures can be specified by setting this property
 directly.
 
-The printed signature is a @internalsref{KeySignature} grob, typically
+The printed signature is a @internalsref{KeySignature} object, typically
 created in @internalsref{Staff} context.
 
 @cindex @code{keySignature}
@@ -896,7 +895,7 @@ name. For example,
 	\clef "G_8"
 @end example
 
-The grob for this symbol is @internalsref{Clef}. 
+The object for this symbol is @internalsref{Clef}. 
 
 
 This command is equivalent to setting @code{clefGlyph},
@@ -923,13 +922,14 @@ property. Setting it to @code{#'()} uses fraction style for 4/4 and
 2/2 time.
 
 
-The grob for this symbol is @internalsref{TimeSignature}.  There are
+The object for this symbol is @internalsref{TimeSignature}.  There are
 many more options for its layout. They are selected through the
-@code{style} grob property. See @file{input/test/time.ly} for more
+@code{style} object property. See @file{input/test/time.ly} for more
 examples.
 
 This command sets the property @code{timeSignatureFraction},
-@code{beatLength} and @code{measureLength}.  The property
+@code{beatLength} and @code{measureLength} in the @code{Timing}
+context, which is normally aliased to @internalsref{Score}.  The property
 @code{timeSignatureFraction} determine where bar lines should be
 inserted, and how automatic beams should be generated.  Changing the
 value of @code{timeSignatureFraction} also causes a time signature
@@ -957,7 +957,7 @@ The syntax for this command is
 @end example
 This is  internally translated into
 @example
-  \property Score.measurePosition = -@var{length of duration}
+  \property Timing.measurePosition = -@var{length of duration}
 @end example
 @cindex @code{|}
 The property @code{measurePosition} contains a rational number
@@ -1013,8 +1013,8 @@ c4
 You are encouraged to use @code{\repeat} for repetitions.  See
 @ref{Repeats}.
 
-In scores with many staffs, the barlines are automatically placed at
-top level, and they are connected between different staffs of a
+In scores with many staves, the barlines are automatically placed at
+top level, and they are connected between different staves of a
 @internalsref{StaffGroup}:
 @lilypond[fragment, verbatim]
 < \context StaffGroup <
@@ -1025,7 +1025,7 @@ top level, and they are connected between different staffs of a
 \context Staff = pedal { \clef bass c2 c2 } >
 @end lilypond
 
-The grobs that are created at @internalsref{Staff} level. The name is
+The objects that are created at @internalsref{Staff} level. The name is
 @internalsref{BarLine}.
 
 The command @code{\bar @var{bartype}} is a short cut for
@@ -1103,7 +1103,7 @@ horizontal shifts and stem directions, as is shown  in the following example:
 
 
 Normally, note heads with a different number of dots are not merged, but
-if you set the grob property @code{merge-differently-dotted}, they are:
+if you set the object property @code{merge-differently-dotted}, they are:
 @lilypond[verbatim,fragment,singleline]
 \context Voice < {
      g'8 g'8 
@@ -1136,7 +1136,7 @@ See also @internalsref{NoteCollision} and @internalsref{RestCollision}
 
 Resolving collisions is a very intricate subject, and LilyPond only
 handles a few situations. When it can not cope, you are advised to use
-@code{force-hshift} of the @internalsref{NoteColumn} grob and pitched
+@code{force-hshift} of the @internalsref{NoteColumn} object and pitched
 rests to override typesetting decisions.
 
 @node Beaming
@@ -1221,7 +1221,7 @@ same effect as twiddling with @code{stemLeftBeamCount} and
 
 Kneed beams are inserted automatically, when a large gap between two
 adjacent beamed notes is detected. This behavior can be tuned through
-the grob property @code{auto-knee-gap}.
+the object property @code{auto-knee-gap}.
 
 @cindex beams, kneed
 @cindex kneed beams
@@ -1234,7 +1234,7 @@ the grob property @code{auto-knee-gap}.
 
 @refbugs
 
-Auto knee beams can not be used together with hara kiri staffs.
+Auto knee beams can not be used together with hara kiri staves.
 
 [TODO from bugs]
 
@@ -1615,7 +1615,7 @@ See also @seeinternals{Slur}.
 Slurs avoid crossing stems, and are generally attached to note heads.
 However, in some situations with beams, slurs may be attached to stem
 ends.  If you want to override this layout you can do this through the
-grob-property @code{attachment} of @internalsref{Slur} in
+object property @code{attachment} of @internalsref{Slur} in
 @internalsref{Voice} context It's value is a pair of symbols, specifying
 the attachment type of the left and right end points.
 
@@ -1642,7 +1642,7 @@ stems might look better:
 Similarly, the curvature of a slur is adjusted to stay clear of note
 heads and stems.  When that would increase the curvature too much, the
 slur is reverted to its default shape.  The threshold for this
-decision is in @internalsref{Slur}'s grob-property @code{beautiful}.
+decision is in @internalsref{Slur}'s object property @code{beautiful}.
 It is loosely related to the enclosed area between the slur and the
 notes.  Usually, the default setting works well, but in some cases you
 may prefer a curved slur when LilyPond decides for a vertically moved
@@ -1688,8 +1688,15 @@ respectively.
 @end lilypond
 
 Typographically, the phrasing slur behaves almost exactly like a normal
-slur. See also  @seeinternals{PhrasingSlur}.
+slur.  See also @seeinternals{PhrasingSlur}.  But although they behave
+similarily to normal slurs, phrasing slurs count as different objects.
+A @code{\slurUp} will have no effect on a phrasing slur; instead, you
+should use @code{\phrasingSlurUp}, @code{\phrasingSlurDown}, and
+@code{\phrasingSlurBoth}.
 
+Note that the commands
+@code{\slurUp}, @code{\slurDown}, and @code{\slurBoth} will only affect
+normal slurs and not phrasing slurs.
 
 @node Breath marks
 @subsection Breath marks
@@ -1739,9 +1746,9 @@ is as follows:
 \spanrequest \start "text"
 \spanrequest \stop "text"
 @end example
-LilyPond will respond by creating a @internalsref{TextSpanner} grob (typically
+LilyPond will respond by creating a @internalsref{TextSpanner} object (typically
 in @internalsref{Voice} context).  The string to be printed, as well as the
-style is set through grob properties.
+style is set through object properties.
 
 An application---or rather, a hack---is to fake octavation indications.
 @lilypond[fragment,relative,verbatim]
@@ -1922,7 +1929,7 @@ exact length of the string, which may lead to collisions.  Also, @TeX{}
 commands won't work with direct PostScript output.
 @c (see @ref{PostScript output}).
 
-Text scripts are created in form of @internalsref{TextScript} grobs, in
+Text scripts are created in form of @internalsref{TextScript} objects, in
 @internalsref{Voice} context. 
 
 @ref{Text markup} describes how to change the font or access
@@ -1939,9 +1946,9 @@ special symbols in text scripts.
 @cindex ornaments
 @cindex grace notes
 
-Grace notes are ornaments  are written out ornaments
-@lilypond[relative=2,verbatim,ifragment] 
-  c4  \grace c16  c4 \grace { [c16 d16] } c4 
+Grace notes are ornaments that are written out
+@lilypond[relative=2,verbatim,ifragment] c4 \grace c16 c4 \grace {
+[c16 d16] } c4
 @end lilypond
 
 In normal notation, grace notes are supposed to take up no logical
@@ -1972,7 +1979,7 @@ changes may appear halfway in between grace notes:
 @end lilypond
 
 The placement of these grace notes is synchronized between different
-staffs, using this grace timing.
+staves, using this grace timing.
 
 @lilypond[relative=2,verbatim,fragment] 
 < \context Staff = SA { e4 \grace { c16 d e f } e4 }
@@ -1981,13 +1988,17 @@ staffs, using this grace timing.
 
 
 Unbeamed eighth notes and shorter by default have a slash through the
-stem. This can be controlled with grob property @code{flag-style} of
+stem. This can be controlled with object property @code{flag-style} of
 @internalsref{Stem}. The change in formatting is accomplished by
 inserting @code{\startGraceMusic} before handling the grace notes, and
 @code{\stopGraceMusic} after finishing the grace notes. You can add to
 these definitions to globally change grace note formatting. The
 standard definitions are in @file{ly/grace-init.ly}.
 
+Notice how the @code{\override} is carefully matched with a @code{\revert}.
+
+@cindex slash
+@cindex grace slash
 
 @lilypond[fragment,verbatim]
 \relative c'' \context Voice {
@@ -2000,6 +2011,8 @@ standard definitions are in @file{ly/grace-init.ly}.
 }
 @end lilypond
 
+
+
 If you want to end a note with a grace note, then the standard trick
 is to put the grace notes before a phantom ``space note'', e.g.
 @lilypond[fragment,verbatim, relative=2]
@@ -2010,12 +2023,39 @@ is to put the grace notes before a phantom ``space note'', e.g.
 }
 @end lilypond
 
+A @code{\grace} section has some default values, and LilyPond will
+use those default values unless you specify otherwise inside the
+@code{\grace} section.  For example, if you specify \slurUp
+@emph{before} your @code{\grace} section, a slur which starts inside
+the @code{\grace} won't be forced up, even if the slur ends outside
+of the @code{\grace}.  Note the difference between the first and
+second bars in this example:
+
+@lilypond[fragment,verbatim]
+\relative c'' \context Voice {
+    \slurUp
+    \grace {
+        a4 ( }
+    ) a4 a4 () a2
+    \slurBoth
+
+    \grace {
+        \slurUp
+        a4 ( }
+    ) a4 a4 () a2
+    \slurBoth
+
+}
+@end lilypond
+
 
 @refbugs
 
+Grace notes can not be used in the smallest size (@file{paper11.ly}).
+
 Grace note synchronization can also lead to surprises. Staff notation,
 such as key signatures, barlines, etc. are also synchronized. Take
-care when you mix staffs with grace notes and staffs without.
+care when you mix staves with grace notes and staves without.
 
 @lilypond[relative=2,verbatim,fragment]
 < \context Staff = SA { e4 \bar "|:" \grace c16 d4 }
@@ -2027,14 +2067,7 @@ expressions.  Nesting, juxtaposing, or ending sequential music with a
 grace section is not supported, and might produce crashes or other
 errors.
 
-@menu
-* Glissando ::                  
-* Dynamics::                    
-@end menu
 
-
-
-@c .   {Glissando}
 @node Glissando 
 @subsection Glissando
 @cindex Glissando 
@@ -2137,11 +2170,11 @@ You can also supply your own texts:
 
 @cindex diminuendo
 
-Dynamics are grobs of @internalsref{DynamicText} and
+Dynamics are objects of @internalsref{DynamicText} and
 @internalsref{Hairpin}. Vertical positioning of these symbols is
-handled by the @internalsref{DynamicLineSpanner} grob.  If you want to
+handled by the @internalsref{DynamicLineSpanner} object.  If you want to
 adjust padding or vertical direction of the dynamics, you must set
-properties for the @internalsref{DynamicLineSpanner} grob. Predefined
+properties for the @internalsref{DynamicLineSpanner} object. Predefined
 identifiers to set the vertical direction are \dynamicUp and
 \dynamicDown.
 
@@ -2285,9 +2318,9 @@ command can be
 @item 'end-repeat
  Print a :| bar line
 @item (volta . @var{text})
-  Print a volta bracket saying @var{text}.
+ Print a volta bracket saying @var{text}.
 @item (volta . #f)
-  Stop a running volta bracket
+ Stop a running volta bracket
 @end table
 
 @lilypond[verbatim, fragment]
@@ -2299,7 +2332,7 @@ command can be
 @end lilypond
 
 
-Repeats brackets are @internalsref{VoltaBracket} grobs.
+Repeats brackets are @internalsref{VoltaBracket} objects.
 
 @node Tremolo repeats
 @subsection Tremolo repeats
@@ -2318,7 +2351,7 @@ style.
 }
 @end lilypond
 
-Tremolo beams are @internalsref{Beam} grobs. Single stem tremolos are
+Tremolo beams are @internalsref{Beam} objects. Single stem tremolos are
 @internalsref{StemTremolo}. The single stem tremolo @emph{must} be
 entered without @code{@{} and @code{@}}.  
 
@@ -2364,7 +2397,7 @@ patterns that divide the measure length are replaced by slashes.
 }
 @end lilypond   
 
-The signs are represented by these grobs: @internalsref{RepeatSlash} and
+The signs are represented by these objects: @internalsref{RepeatSlash} and
 @internalsref{PercentRepeat} and @internalsref{DoublePercentRepeat}.
 
 @refbugs
@@ -2769,7 +2802,7 @@ Sustain, Sostenuto or UnaCorda.  Refer to the generated documentation of
 @rgrob{SustainPedal}, for example, for more information.
 
 Pedals can also be indicated by a sequence of brackets, by setting the 
-@code{pedal-type} property of SustainPedal grobs: 
+@code{pedal-type} property of SustainPedal objects: 
 
 @lilypond[fragment,verbatim]
 \property Staff.SustainPedal \override #'pedal-type = #'bracket
@@ -2798,7 +2831,7 @@ c''4 \sostenutoDown d''4 e''4 c'4 f'4 g'4 a'4 \sostenutoUp
 
 For fine-tuning of the appearance of a pedal bracket, the properties
 @code{edge-width}, @code{edge-height}, and @code{shorten-pair} of
-@code{PianoPedalBracket} grobs (see the detailed documentation of
+@code{PianoPedalBracket} objects (see the detailed documentation of
 @rgrob{PianoPedalBracket}) can be modified.  For example, the bracket
 may be extended to the end of the note head.
 
@@ -2839,11 +2872,11 @@ to the chords in both staves, and set
   >  
 @end lilypond
 
-This command creates @internalsref{Arpeggio} grobs.  Cross staff arpeggios
+This command creates @internalsref{Arpeggio} objects.  Cross staff arpeggios
 are @code{PianoStaff.Arpeggio}.
 
 To add an arrow head to explicitly specify the direction of the
-arpeggio, you should set the arpeggio grob property
+arpeggio, you should set the arpeggio object property
 @code{arpeggio-direction}.
 
 @lilypond[fragment,relative,verbatim]
@@ -2858,7 +2891,7 @@ arpeggio, you should set the arpeggio grob property
 A square bracket on the left indicates that the player should not
 arpeggiate the chord. To draw these brackets, set the
 @code{molecule-callback} property of @code{Arpeggio} or
-@code{PianoStaff.Arpeggio} grobs to @code{\arpeggioBracket}, and use
+@code{PianoStaff.Arpeggio} objects to @code{\arpeggioBracket}, and use
 @code{\arpeggio} statements within the chords as before.
 
 @lilypond[fragment,relative,verbatim]
@@ -2904,16 +2937,16 @@ can be printed automatically. This is enabled if the property
   >  
 @end lilypond
 
-The associated grob is @internalsref{VoiceFollower}.
+The associated object is @internalsref{VoiceFollower}.
 
 
 @node Tablatures
 @section Tablatures
 
-Tablature notation is used music for plucked string instruments.  It
-notates pitches not by using note heads, but by indicating on which
-string and fret a note must be played.  LilyPond offers limited
-support for tablature, by abusing the fingering system.
+Tablature notation is used for notating music for plucked string
+instruments.  It notates pitches not by using note heads, but by
+indicating on which string and fret a note must be played.  LilyPond
+offers limited support for tablature.
 
 @menu
 * Tablatures basic::            
@@ -2928,22 +2961,48 @@ support for tablature, by abusing the fingering system.
 Tablature can be typeset with Lilypond by using the
 @internalsref{TabStaff} and @internalsref{TabVoice} contexts. As
 tablature is a recent feature in Lilypond, most of the guitar special
-effects such as hammer, pull, bend are not yet supported.
+effects such as bend are not yet supported.
 
 With the @internalsref{TabStaff}, the string number associated to a note
-is given though the fingering mechanism, e.g. @code{c4-3} for a C
-quarter on the third string. The string 1 is the lowest one, and the
+is given as a backslash followed by the string number, e.g. @code{c4\3} for a C
+quarter on the third string. By default, string 1 is the highest one, and the
 tuning defaults to the standard guitar tuning (with 6 strings).
 
 @lilypond[fragment,verbatim]
   \context TabStaff <
     \notes {
-      \property Staff.Stem \override #'direction = #1
-      
-      a,4-2 c'-5 a-4 e'-6
-      e-3 c'-5 a-4 e'-6
+      a,4\5 c'\2 a\3 e'\1
+      e\4 c'\2 a\3 e'\1
     }
   >  
+@end lilypond
+
+If you do not specify a string number then lilypond automatically selects one.
+The selection is controlled by the translator property @code{minimumFret}. -- LilyPond
+simply selects the first string that does not give a fret number less than
+@code{minimumFret}. Default is 0.
+
+Notice that LilyPond does not handle chords in any special way, and hence
+the automatic string selector may easily select the same string to two notes in a chord.
+
+@example
+e8 fis gis a b cis' dis' e'
+\property TabStaff.minimumFret = #8
+e8 fis gis a b cis' dis' e'
+@end example
+@lilypond
+frag = \notes {
+    \key e \major
+    e8 fis gis a b cis' dis' e'
+    \property TabStaff.minimumFret = #8
+    e8 fis gis a b cis' dis' e'
+}
+\score {
+  \context StaffGroup <
+    \context Staff { \clef "G_8" \frag }
+    \context TabStaff { \frag }
+  >
+}
 @end lilypond
 
 @node Non-guitar tablatures
@@ -2953,9 +3012,29 @@ tuning defaults to the standard guitar tuning (with 6 strings).
 There are many ways to customize Lilypond tablatures.
 
 First you can change the number of strings, by setting the number of
-lines in the @internalsref{TabStaff}.  You can change the strings
+lines in the @internalsref{TabStaff} (the @code{line-count} property
+of TabStaff can only be changed using @code{\outputproperty}, for more
+information, see @ref{Tuning per object}.  You can change the strings
 tuning. A string tuning is given as a Scheme list with one integer
 number for each string, the number being the pitch of an open string.
+
+(The numbers specified for stringTuning are the numbers of semitons
+to subtract --- or add --- starting the specified pitch by default
+middle C, in string order: thus the notes are e, a, d & g)
+
+@lilypond[fragment,verbatim]
+  \context TabStaff <
+
+    \outputproperty #(make-type-checker 'staff-symbol-interface)
+                    #'line-count = #4
+    \property TabStaff.stringTunings =  #'(-5 -10 -15 -20)
+    
+    \notes {
+      a,4 c' a e' e c' a e'
+    }
+
+  > 
+@end lilypond
 
 Finally, it is possible to change the Scheme function to format the
 tablature note text. The default is @var{fret-number-tablature-format},
@@ -3214,7 +3293,7 @@ scheme = \notes {
 By default, a chord name system proposed by Harald Banter (See
 @ref{Literature}) is used. The system is very regular and predictable.
 Typical American style chord names may be selected by setting the
-@code{style} property of the @code{ChordNames.ChordName} grob to
+@code{style} property of the @code{ChordNames.ChordName} object to
 @code{'american}. Similarly @code{'jazz} selects Jazz chordnames.
 
 Routines that determine the names to be printed are written in Scheme,
@@ -3288,7 +3367,7 @@ To print a  rehearsal mark, use the @code{\mark} command.
 
 As you can see, the mark is incremented automatically if you use
 @code{\mark \default}. The value to use is stored in the property
-@code{rehearsalMark} is used and automatically incremented.  The grob
+@code{rehearsalMark} is used and automatically incremented.  The object
 is @internalsref{RehearsalMark} in @internalsref{Score} context. See
 @code{input/test/boxed-molecule.ly} if you need boxes around the
 marks.
@@ -3330,14 +3409,36 @@ number itself is a property that can be set by modifying the
   \property Score.currentBarNumber = #217
 @end example
 
-If you want boxed bar numbers, see the example file
-@code{input/test/boxed-molecule.ly}.
+To typeset Bar Numbers at regular intervals instead of at the beginning of each line,
+you need to change the grob property @code{break-visibility} as well as the translator
+property @code{barNumberVisibility}, as illustrated in the following example which also
+adds a box around the bar numbers:
+@example
+\property Score.BarNumber \override #'break-visibility =
+  #end-of-line-invisible
+\property Score.barNumberVisibility = #(every-nth-bar-number-visible 5)
+\property Score.BarNumber \override #'molecule-callback =
+  #(make-molecule-boxer 0.1 0.25 0.25 Text_item::brew_molecule)
+\property Score.BarNumber \override #'font-relative-size = #0
+@end example
+@lilypond
+\score {
+    \context Staff \notes \transpose c''' {
+	\property Score.BarNumber \override #'break-visibility = #end-of-line-invisible
+	\property Score.barNumberVisibility = #(every-nth-bar-number-visible 5)
+	\property Score.BarNumber \override #'molecule-callback =
+	#(make-molecule-boxer 0.1 0.25 0.25 Text_item::brew_molecule)
+	\property Score.BarNumber \override #'font-relative-size = #0
+	
+	\repeat unfold 16 c1 \bar "|."
+    }
+}
+@end lilypond
 
 See also @seeinternals{BarNumber}.
 
 @refbugs
 
-Printing bar numbers at regular intervals is not implemented.
 Barnumbers can collide with the StaffGroup, if there is one at the
 top. To solve this, You have to twiddle with the
 @internalsref{padding} property of @internalsref{BarNumber} if your
@@ -3437,7 +3538,7 @@ measure.
 
 @cindex whole rests for a full measure 
 
-The grob for this object is @internalsref{MultiMeasureRest}.
+The object for this object is @internalsref{MultiMeasureRest}.
 
 @refbugs
 
@@ -3603,13 +3704,12 @@ output.
 
  To get a longa note head, you have to use mensural note heads. This
 is accomplished by setting the @code{style} property of the
-NoteHead grob to @code{mensural}. There is also a note head style
+NoteHead object to @code{mensural}. There is also a note head style
 @code{baroque} which gives mensural note heads for @code{\longa} and
 @code{\breve} but standard note heads for shorter notes.
 
 @lilypond[fragment,singleline,verbatim]
  \property Voice.NoteHead \set #'style = #'mensural
- \property Voice.NoteHead \set #'font-family = #'ancient
  a'\longa
 @end lilypond
 
@@ -3676,8 +3776,8 @@ block:
 @subsection Ancient clefs
 
 LilyPond supports a variety of clefs, many of them ancient. These can
-be selected from the @code{ancient} font family, by setting
-@code{Staff.clefGlyph}) to one of the following values
+be selected by setting @code{Staff.clefGlyph}) to one of the following
+values
 
 @table @code
 @item clefs-C
@@ -3747,7 +3847,7 @@ LilyPond has limited support for figured bass:
 The support for figured bass consists of two parts: there is an input
 mode, introduced by @code{\figures}, where you can enter bass figures
 as numbers, and there is a context called @internalsref{FiguredBass}
-that takes care of making @internalsref{BassFigure} grobs.
+that takes care of making @internalsref{BassFigure} objects.
 
 In figures input mode, a group of bass figures is delimited by
 @code{<} and @code{>}. The duration is entered after the @code{>}.
@@ -3797,34 +3897,34 @@ hands. Nevertheless, there are situations where it needs some help, or
 where you want to override its decisions. In this section we discuss
 ways to do just that.
 
-Formatting is internally done by manipulating so called grobs (graphic
-objects). Each grob carries with it a set of properties (grob
-properties) specific to that object.  For example, a stem grob has
+Formatting is internally done by manipulating so called objects (graphic
+objects). Each object carries with it a set of properties (object
+properties) specific to that object.  For example, a stem object has
 properties that specify its direction, length and thickness.
 
 The most direct way of tuning the output is by altering the values of
 these properties. There are two ways of doing that: first, you can
-temporarily change the definition of a certain type of grob, thus
+temporarily change the definition of a certain type of object, thus
 affecting a whole set of objects.  Second, you can select one specific
-object, and set a grob property in that object.
+object, and set a object property in that object.
 
 @menu
-* Tuning groups of grobs ::     
-* Tuning per grob ::            
+* Tuning groups of objects ::     
+* Tuning per object ::            
 * Font selection::              
 * Text markup::                 
 @end menu
 
-@node Tuning groups of grobs 
-@subsection Tuning groups of grobs 
+@node Tuning groups of objects 
+@subsection Tuning groups of objects 
 
-@cindex grob description
+@cindex object description
 
 
 
-A grob definition is a Scheme association list, that is stored in a
+A object definition is a Scheme association list, that is stored in a
 context property.  By assigning to that property (using plain
-@code{\property}), you can change the resulting grobs.
+@code{\property}), you can change the resulting objects.
 
 @lilypond[verbatim, fragment]
 c'4 \property Voice.Stem  = #'()
@@ -3845,11 +3945,11 @@ find this useful:
 @cindex \set
 
 This mechanism is fairly crude, since you can only set, but not modify,
-the definition of a grob. For this reason, there is a more advanced
+the definition of a object. For this reason, there is a more advanced
 mechanism.
 
-The definition of a grob is actually a list of default grob
-properties. For example, the definition of the Stem grob (available in
+The definition of a object is actually a list of default object
+properties. For example, the definition of the Stem object (available in
 @file{scm/grob-description.scm}), defines the following values for
 @internalsref{Stem}
 
@@ -3914,13 +4014,13 @@ default value:
   \set \set \set \set @var{to default value}
 @end example
 
-If there is no default (i.e. by default, the grob property is unset),
+If there is no default (i.e. by default, the object property is unset),
 then you can use
 @example
   \set \set \set \revert
 @end example
 
-For the digirati, the grob description is an Scheme association
+For the digirati, the object description is an Scheme association
 list. Since a Scheme list is a singly linked list, we can treat it as a
 stack, and @code{\override} and @code{\revert} are just push and pop
 operations. This pushing and popping is also used for overriding
@@ -3929,34 +4029,52 @@ automatic beaming settings.
 @refbugs
 
 LilyPond will hang or crash if @var{value} contains cyclic references.
-The backend is not very strict in type-checking grob properties. If you
+The backend is not very strict in type-checking object properties. If you
 @code{\revert} properties that are expected to be set by default,
 LilyPond may crash.
 
 
 
 
-@node Tuning per grob 
-@subsection Tuning per grob 
+@node Tuning per object 
+@subsection Tuning per object 
 
+Tuning a single object is most often done with @code{\property}. The
+form,
+@example
+        \once \property @dots{}
+@end example
+@c
+applies a setting only during one moment in the score: notice how the
+original setting for stem thickness is restored automatically in the
+following example
+@c
+@lilypond[verbatim, fragment, relative=1]
+  c4 
+  \once \property Voice.Stem \set #'thickness = #4
+  c4
+  c4
+@end lilypond
+
+@cindex \once
 @cindex \outputproperty
 
-A second way of tuning grobs is the more arcane @code{\outputproperty}
+A second way of tuning objects is the more arcane @code{\outputproperty}
 feature.  The syntax is as follows:
 @example
 \outputproperty @var{predicate} @var{symbol} = @var{value}
 @end example
-Here @code{predicate} is a Scheme function taking a grob argument, and
+Here @code{predicate} is a Scheme function taking a object argument, and
 returning a boolean.  This statement is processed by the
 @code{Output_property_engraver}.  It instructs the engraver to feed all
-grobs that it sees to @var{predicate}. Whenever the predicate returns
-true, the grob property @var{symbol} will be set to @var{value}.
+objects that it sees to @var{predicate}. Whenever the predicate returns
+true, the object property @var{symbol} will be set to @var{value}.
+
+This command is only single shot, in contrast to @code{\override} and
+@code{\set}.
 
 You will need to combine this statement with @code{\context} to select
 the appropriate context to apply this to.
-
-Here are some random examples. 
-
 
 In the following example, all note heads occurring at current staff
 level, are shifted up and right by setting their @code{extra-offset}
@@ -3972,7 +4090,7 @@ property.
 
 @cindex @code{extra-offset}
 
-In this example, the predicate checks the @code{text} grob property, to
+In this example, the predicate checks the @code{text} object property, to
 shift only the `m.d.' text,  but not the fingering instruction "2".
 @lilypond[verbatim,singleline]
 #(define (make-text-checker text)
@@ -4016,7 +4134,7 @@ example of those is in @file{input/test/cue-notes.ly}.
 @cindex font size
 @cindex size
 
-The font used for printing a grob can be selected by setting
+The font used for printing a object can be selected by setting
 @code{font-name}, e.g.
 @example
   \property Staff.TimeSignature
@@ -4026,8 +4144,8 @@ You may use any font which is available to @TeX{}, such as foreign
 fonts or fonts that do not belong to the Computer Modern font family.
 Font selection for the standard fonts, @TeX{}'s Computer Modern fonts,
 can also be adjusted with a more fine-grained mechanism.  By setting
-the grob properties described below, you can select a different font.
-All three mechanisms work for every grob that supports
+the object properties described below, you can select a different font.
+All three mechanisms work for every object that supports
 @code{font-interface}.
 
 @table @code
@@ -4065,15 +4183,15 @@ For any of these properties, the value @code{*} (i.e. the @emph{symbol},
 @code{*}, entered as @code{#'*}), acts as a wildcard. This can be used
 to override default setting, which are always present. For example:
 @example
-  \property Lyrics . LyricText \override #'font-series = #'bold
-  \property Lyrics . LyricText \override #'font-family = #'typewriter
-  \property Lyrics . LyricText \override #'font-shape = #'*
+  \property Lyrics.LyricText \override #'font-series = #'bold
+  \property Lyrics.LyricText \override #'font-family = #'typewriter
+  \property Lyrics.LyricText \override #'font-shape  = #'*
 @end example
 
 @cindex @code{font-style}
 
 There are also pre-cooked font selection qualifiers. These are
-selected through the grob property @code{font-style}.  For example,
+selected through the object property @code{font-style}.  For example,
 the style @code{finger} selects family @code{number} and relative size
 @code{-3}.  Styles available include @code{volta}, @code{finger},
 @code{tuplet}, @code{timesig}, @code{mmrest}, @code{script},
@@ -4083,7 +4201,7 @@ to this file for more information.
 
 @cindex magnification
 
-The size of the font may be scaled with the grob property
+The size of the font may be scaled with the object property
 @code{font-magnification}.  For example, @code{2.0} blows up all
 letters by a factor 2 in both directions.
 
@@ -4122,7 +4240,7 @@ in the following way.
 @end lilypond
 
 Normally, the Scheme markup text is stored in the @code{text} property
-of a grob.  Formally, it is defined as follows:
+of a object.  Formally, it is defined as follows:
 
 @example
 text: string | (head? text+)
@@ -4134,9 +4252,9 @@ abbrev: @code{columns lines roman music bold italic named super sub}
         @code{large Large dynamic}
 @end example
 
-The markup is broken down and converted into a list of grob properties,
+The markup is broken down and converted into a list of object properties,
 which are prepended to the property list.  The @var{key}-@var{value}
-pair is a grob property. A list of properties available is included in
+pair is a object property. A list of properties available is included in
 the generated documentation for @internalsref{text-interface}.
 
 The following abbreviations are defined:
@@ -4228,9 +4346,9 @@ slightly too wide.
 @section Global layout
 
 The global layout determined by three factors: the page layout, the
-iline breaks and the spacing. These all influence each other: The
+line breaks and the spacing. These all influence each other: The
 choice of spacing determines how densely each system of music is set,
-whree line breaks breaks are chosen, and thus ultimately how many
+where line breaks breaks are chosen, and thus ultimately how many
 pages a piece of music takes. In this section we will explain how the
 lilypond spacing engine works, and how you can tune its results.
 
@@ -4255,13 +4373,13 @@ are chosen whenever the page gets full.
 @subsection Vertical spacing
 
 @cindex vertical spacing
-@cindex distance between staffs
+@cindex distance between staves
 @cindex staff distance
 @cindex between staves, distance
 
 The height of each system is determined automatically by lilypond, to
 keep systems from bumping into each other, some minimum distances are
-set.  By changing these, you can put staffs closer together, and thus
+set.  By changing these, you can put staves closer together, and thus
 put more  systems onto one page.
 
 Normally staves are stacked vertically. To make
@@ -4280,14 +4398,14 @@ could also make the staff larger at the bottom by setting it to
 @code{(-6 . 4)}. The default value is @code{(-6 . 6)}.
 
 Vertical aligment of staves is handled by the
-@internalsref{VerticalAlignment} grob, which lives at
+@internalsref{VerticalAlignment} object, which lives at
 @internalsref{Score} level.
 
-The piano staffs are handled a little differently: to make cross-staff
+The piano staves are handled a little differently: to make cross-staff
 beaming work correctly, it necessary that the distance between staves
 is fixed.  This is also done with a @internalsref{VerticalAlignment}
-grob, created in @internalsref{PianoStaff}, but a forced distance is
-set. This is done with the grob property #'forced-distance. If you
+object, created in @internalsref{PianoStaff}, but a forced distance is
+set. This is done with the object property #'forced-distance. If you
 want to override this, use a @code{\translator} block as follows:
 @example
   \translator @{
@@ -4295,7 +4413,7 @@ want to override this, use a @code{\translator} block as follows:
     VerticalAlignment \override #'forced-distance = #9
   @}
 @end example
-This would bring the staffs together at a distance of 9 staff spaces,
+This would bring the staves together at a distance of 9 staff spaces,
 and again this is measured from the center line of each staff.
 
 
@@ -4318,7 +4436,7 @@ quarter note is followed by 2 NHW, the half by 3 NHW, etc.
 @end lilypond
 
 These two amounts of space are @code{shortest-duration-space}
-@code{spacing-increment}, grob properties of
+@code{spacing-increment}, object properties of
 @internalsref{SpacingSpanner}. Normally @code{spacing-increment} is
 set to 1.2, which is the width of a note head, and
 @code{shortest-duration-space} is set to 2.0, meaning that the
@@ -4359,7 +4477,7 @@ through @code{base-shortest-duration}.
 
 In the introduction it was explained that stem directions influence
 spacing. This is controlled with @code{stem-spacing-correction} in
-@internalsref{NoteSpacing}. The @code{StaffSpacing} grob contains the
+@internalsref{NoteSpacing}. The @code{StaffSpacing} object contains the
 same property for controlling the stem/barline spacing. In the
 following example shows these corrections, once with default settings,
 and once with exaggerated corrections.  

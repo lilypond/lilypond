@@ -24,13 +24,15 @@ public:
   
   virtual int count () const;
   virtual Box get_char (int ascii) const;
+  virtual Molecule get_char_molecule (int ascii) const;
   virtual Box text_dimension (String)  const;
   virtual Molecule find_by_name (String) const;
-
   DECLARE_SMOBS (Font_metric,);
 private:
   Font_metric (Font_metric const&); // no copy.
 protected:
+  virtual void derived_mark () const;
+
   Font_metric ();
 };
 

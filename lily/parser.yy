@@ -23,6 +23,7 @@ this.
 
 */
 
+#include <iostream.h>
 #include <ctype.h>
 
 #include "translator-def.hh"
@@ -82,7 +83,7 @@ set_property_music (SCM sym, SCM value)
 	Music * p = new Music (SCM_EOL);
 	p->set_mus_property ("symbol", sym);
 	p->set_mus_property ("iterator-ctor",
-	Property_iterator::constructor_cxx_function);
+	Property_iterator::constructor_proc);
 
 	p->set_mus_property ("value", value);
 	return p;
@@ -111,7 +112,7 @@ set_music_properties (Music *p, SCM a)
 
 // needed for bison.simple's malloc () and free ()
 
-#include <malloc.h>
+// #include <malloc.h>
 #include <stdlib.h>
 
 
@@ -209,6 +210,7 @@ yylex (YYSTYPE *s,  void * v)
 %token NAME
 %token PITCHNAMES
 %token NOTES
+%token ONCE
 %token PAPER
 %token PARTIAL
 %token PENALTY
@@ -242,9 +244,9 @@ yylex (YYSTYPE *s,  void * v)
 %token E_CHAR E_EXCLAMATION E_SMALLER E_BIGGER E_OPEN E_CLOSE
 %token E_LEFTSQUARE E_RIGHTSQUARE E_TILDE
 %token E_BACKSLASH
-%token CHORD_BASS CHORD_COLON CHORD_MINUS CHORD_CARET
+%token <i> E_UNSIGNED
+%token CHORD_BASS CHORD_COLON CHORD_MINUS CHORD_CARET  CHORD_SLASH
 %token FIGURE_SPACE
-
 
 %type <i>	exclamations questions dots optional_rest
 %type <i>  	bass_number bass_mod
@@ -282,7 +284,6 @@ yylex (YYSTYPE *s,  void * v)
 %type <i>	tremolo_type
 %type <i>	bare_int  bare_unsigned
 %type <i>	script_dir
-
 %type <scm>	identifier_init 
 
 %type <scm> steno_duration optional_notemode_duration multiplied_duration
@@ -301,7 +302,7 @@ yylex (YYSTYPE *s,  void * v)
 %type <scm>  embedded_scm scalar
 %type <music>	Music Sequential_music Simultaneous_music 
 %type <music>	relative_music re_rhythmed_music part_combined_music
-%type <music>	property_def translator_change
+%type <music>	property_def translator_change  simple_property_def
 %type <scm> Music_list
 %type <outputdef>  music_output_def_body
 %type <request> shorthand_command_req
@@ -309,6 +310,7 @@ yylex (YYSTYPE *s,  void * v)
 %type <music> command_req verbose_command_req
 %type <request>	extender_req
 %type <request> hyphen_req
+%type <request> string_request
 %type <scm>	string bare_number number_expression number_term number_factor 
 
 %type <score>	score_block score_body
@@ -523,7 +525,7 @@ translator_spec_body:
 	}
 	| translator_spec_body ALIAS STRING  {
 		Translator_def*td = unsmob_translator_def ($$);
-		td->type_aliases_ = gh_cons ($3, td->type_aliases_);
+		td->type_aliases_ = scm_cons ($3, td->type_aliases_);
 	}
 	| translator_spec_body GROBDESCRIPTIONS embedded_scm {
 		Translator_def*td = unsmob_translator_def($$);
@@ -686,11 +688,11 @@ The representation of a  list is the
  to have  efficient append.
 */
 Music_list: /* empty */ {
-		$$ = gh_cons (SCM_EOL, SCM_EOL);
+		$$ = scm_cons (SCM_EOL, SCM_EOL);
 	}
 	| Music_list Music {
 		SCM s = $$;
-		SCM c = gh_cons ($2->self_scm (), SCM_EOL);
+		SCM c = scm_cons ($2->self_scm (), SCM_EOL);
 		scm_gc_unprotect_object ($2->self_scm ()); /* UGH */
 		if (gh_pair_p (ly_cdr (s)))
 			gh_set_cdr_x (ly_cdr (s), c); /* append */
@@ -747,11 +749,12 @@ Repeated_music:
 		/*
 		we can not get durations and other stuff correct down the line, so we have to
 		add to the duration log here.
-
-		TODO: do dots.
 		*/
 			SCM func = scm_primitive_eval (ly_symbol2scm ("shift-duration-log"));
-			gh_call2 (func, r->self_scm (), gh_int2scm(-intlog2 ($3)));
+			if (($3 % 3) == 0)
+			  gh_call3 (func, r->self_scm (), gh_int2scm(-intlog2 ($3*2/3)),gh_int2scm(1));
+			else
+			  gh_call3 (func, r->self_scm (), gh_int2scm(-intlog2 ($3)), gh_int2scm(0));
 		}
 
 		set_music_properties (r, result);
@@ -808,7 +811,7 @@ Simple_music:
 		m->set_mus_property ("grob-property", $3);
 		m->set_mus_property ("grob-value",  $5);
 		m->set_mus_property ("iterator-ctor",
-		Output_property_music_iterator::constructor_cxx_function);
+		Output_property_music_iterator::constructor_proc);
 
 		$$ = m;
 	}
@@ -836,7 +839,7 @@ Composite_music:
 	| AUTOCHANGE STRING Music	{
 		Music * chm = new Music_wrapper (SCM_EOL);
 		chm->set_mus_property ("element", $3->self_scm ());
-		chm->set_mus_property ("iterator-ctor", Auto_change_iterator::constructor_cxx_function);
+		chm->set_mus_property ("iterator-ctor", Auto_change_iterator::constructor_proc);
 
 		scm_gc_unprotect_object ($3->self_scm ());
 		chm->set_mus_property ("what", $2); 
@@ -859,14 +862,14 @@ Composite_music:
 		SCM ms = SCM_EOL;
 		if (stopm) {
 			stopm = stopm->clone ();
-			ms = gh_cons (stopm->self_scm (), ms);
+			ms = scm_cons (stopm->self_scm (), ms);
 			scm_gc_unprotect_object (stopm->self_scm ());
 		}
-		ms = gh_cons ($2->self_scm (), ms);
+		ms = scm_cons ($2->self_scm (), ms);
 		scm_gc_unprotect_object ($2->self_scm());
 		if (startm) {
 			startm = startm->clone ();
-			ms = gh_cons (startm->self_scm () , ms);
+			ms = scm_cons (startm->self_scm () , ms);
 			scm_gc_unprotect_object (startm->self_scm ());
 		}
 
@@ -1025,7 +1028,7 @@ translator_change:
 	TRANSLATOR STRING '=' STRING  {
 		Music * t = new Music (SCM_EOL);
 		t->set_mus_property ("iterator-ctor",
-			Change_iterator::constructor_cxx_function);
+			Change_iterator::constructor_proc);
 		t-> set_mus_property ("change-to-type", $2);
 		t-> set_mus_property ("change-to-id", $4);
 
@@ -1035,6 +1038,15 @@ translator_change:
 	;
 
 property_def:
+	simple_property_def
+	| ONCE simple_property_def {
+		$$ = $2;
+		SCM e = $2->get_mus_property ("element");
+		unsmob_music (e)->set_mus_property ("once", SCM_BOOL_T);
+	}
+	;
+
+simple_property_def:
 	PROPERTY STRING '.' STRING '='  scalar {
 		
 		Music *t = set_property_music (scm_string_to_symbol ($4), $6);
@@ -1052,7 +1064,7 @@ property_def:
 		Music *t = new Music (SCM_EOL);
 
 		t->set_mus_property ("iterator-ctor",
-			Property_unset_iterator::constructor_cxx_function);
+			Property_unset_iterator::constructor_proc);
 		t->set_mus_property ("symbol", scm_string_to_symbol ($4));
 
 		Context_specced_music *csm = new Context_specced_music (SCM_EOL);
@@ -1070,7 +1082,7 @@ property_def:
 		bool itc = internal_type_checking_global_b;
 		Music *t = new Music (SCM_EOL);
 		t->set_mus_property ("iterator-ctor",
-			Push_property_iterator::constructor_cxx_function);
+			Push_property_iterator::constructor_proc);
 		t->set_mus_property ("symbol", scm_string_to_symbol ($4));
 		t->set_mus_property ("pop-first", SCM_BOOL_T);
 		if (autobeam)
@@ -1087,7 +1099,9 @@ property_def:
 
 		csm-> set_mus_property ("context-type", $2);
 	}
-	| PROPERTY STRING '.' STRING OVERRIDE embedded_scm '=' embedded_scm {
+	| PROPERTY STRING '.' STRING OVERRIDE
+		embedded_scm '=' embedded_scm
+	{
 		/*
 			UGH UGH UGH UGH.
 		*/
@@ -1097,7 +1111,7 @@ property_def:
 
 		Music *t = new Music (SCM_EOL);
 		t->set_mus_property ("iterator-ctor",
-			Push_property_iterator::constructor_cxx_function);
+			Push_property_iterator::constructor_proc);
 		t->set_mus_property ("symbol", scm_string_to_symbol ($4));
 
 		if (autobeam)
@@ -1115,6 +1129,7 @@ property_def:
 		$$->set_spot (THIS->here_input ());
 
 		csm-> set_mus_property ("context-type", $2);
+
 	}
 	| PROPERTY STRING '.' STRING REVERT embedded_scm {
 		Music *t = new Music (SCM_EOL);
@@ -1123,7 +1138,7 @@ property_def:
 		bool itc = internal_type_checking_global_b;
 
 		t->set_mus_property ("iterator-ctor",
-			Pop_property_iterator::constructor_cxx_function);
+			Pop_property_iterator::constructor_proc);
 		t->set_mus_property ("symbol", scm_string_to_symbol ($4));
 		if (autobeam)
 			internal_type_checking_global_b = false;
@@ -1172,7 +1187,7 @@ request_chord:
 command_element:
 	command_req {
 		$$ = new Request_chord (SCM_EOL);
-		$$->set_mus_property ("elements", gh_cons ($1->self_scm (), SCM_EOL));
+		$$->set_mus_property ("elements", scm_cons ($1->self_scm (), SCM_EOL));
   	  scm_gc_unprotect_object ($1->self_scm());
 
 		$$-> set_spot (THIS->here_input ());
@@ -1185,7 +1200,7 @@ command_element:
 		l->set_spot (THIS->here_input ());
 
 		$$ = new Request_chord (SCM_EOL);
-		$$->set_mus_property ("elements", gh_cons (l->self_scm (), SCM_EOL));
+		$$->set_mus_property ("elements", scm_cons (l->self_scm (), SCM_EOL));
   	  scm_gc_unprotect_object (l->self_scm());
 		$$->set_spot (THIS->here_input ());
 	}
@@ -1196,13 +1211,13 @@ command_element:
 		l->set_spot (THIS->here_input ());
 
 		$$ = new Request_chord (SCM_EOL);
-		$$->set_mus_property ("elements", gh_cons (l->self_scm (), SCM_EOL));
+		$$->set_mus_property ("elements", scm_cons (l->self_scm (), SCM_EOL));
 		$$->set_spot (THIS->here_input ());
 	  scm_gc_unprotect_object (l->self_scm());
 
 	}
 	| E_BACKSLASH {
-		$$ = new Music (gh_list (gh_cons (ly_symbol2scm ("name"), ly_symbol2scm ("separator")), SCM_UNDEFINED));
+		$$ = new Music (gh_list (scm_cons (ly_symbol2scm ("name"), ly_symbol2scm ("separator")), SCM_UNDEFINED));
 		$$->set_spot (THIS->here_input ());
 	}
 	| '|'      {
@@ -1221,7 +1236,7 @@ command_element:
 		$$ = csm;
 		$$->set_spot (THIS->here_input ());
 
-		csm->set_mus_property ("context-type", scm_makfrom0str ("Score"));
+		csm->set_mus_property ("context-type", scm_makfrom0str ("Timing"));
 	}
 	| PARTIAL duration_length  	{
 		Moment m = - unsmob_duration ($2)->length_mom ();
@@ -1232,7 +1247,7 @@ command_element:
 		scm_gc_unprotect_object (p->self_scm ());
 
 		$$ =sp ;
-		sp-> set_mus_property ("context-type", scm_makfrom0str ( "Score"));
+		sp-> set_mus_property ("context-type", scm_makfrom0str ("Timing"));
 	}
 	| CLEF STRING  {
 		SCM func = scm_primitive_eval (ly_symbol2scm ("clef-name-to-properties"));
@@ -1242,7 +1257,7 @@ command_element:
 		for (SCM s = result ; gh_pair_p (s); s = ly_cdr (s)) {
 			Music * p = new Music (SCM_EOL);
 			set_music_properties (p, ly_car (s));
-			l = gh_cons (p->self_scm (), l);
+			l = scm_cons (p->self_scm (), l);
 			scm_gc_unprotect_object (p->self_scm ());
 		}
 		Sequential_music * seq = new Sequential_music (SCM_EOL);
@@ -1276,8 +1291,6 @@ command_element:
 		Context_specced_music * sp = new Context_specced_music (SCM_EOL);
 		sp->set_mus_property ("element", seq->self_scm ());
 
-		
-
 		scm_gc_unprotect_object (p3->self_scm ());
 		scm_gc_unprotect_object (p2->self_scm ());
 		scm_gc_unprotect_object (p1->self_scm ());
@@ -1285,11 +1298,7 @@ command_element:
 
 		$$ = sp;
 
-/*
- TODO: should make alias TimingContext for Score
-*/
-
-		sp-> set_mus_property ("context-type", scm_makfrom0str ( "Score"));
+		sp-> set_mus_property ("context-type", scm_makfrom0str ( "Timing"));
 	}
 	;
 
@@ -1394,6 +1403,17 @@ post_request:
 	verbose_request
 	| request_with_dir
 	| close_request
+	| string_request
+	;
+
+
+string_request:
+	E_UNSIGNED {
+		String_number_req* s = new String_number_req;
+		s->set_mus_property ("string-number",  gh_int2scm($1));
+		s->set_spot (THIS->here_input ());
+		$$ = s;
+	}
 	;
 
 
@@ -1773,7 +1793,7 @@ multiplied_duration:
 fraction:
 	FRACTION { $$ = $1; }
 	| UNSIGNED '/' UNSIGNED {
-		$$ = gh_cons (gh_int2scm ($1), gh_int2scm ($3));
+		$$ = scm_cons (gh_int2scm ($1), gh_int2scm ($3));
 	}
 	;
 
@@ -1856,7 +1876,7 @@ figure_list:
 		$$ = SCM_EOL;
 	}
 	| figure_list br_bass_figure {
-		$$ = gh_cons ($2, $1); 
+		$$ = scm_cons ($2, $1); 
 	}
 	;
 
@@ -2023,7 +2043,7 @@ chord_inversion:
 	{
 		$$ = SCM_EOL;
 	}
-	| '/' steno_tonic_pitch {
+	| CHORD_SLASH steno_tonic_pitch {
 		$$ = $2;
 	}
 	;
@@ -2039,10 +2059,10 @@ chord_bass:
 
 chord_step:
 	chord_note {
-		$$ = gh_cons ($1, SCM_EOL);
+		$$ = scm_cons ($1, SCM_EOL);
 	}
 	| CHORDMODIFIER_PITCH {
-		$$ = gh_cons (unsmob_pitch ($1)->smobbed_copy (), SCM_EOL);
+		$$ = scm_cons (unsmob_pitch ($1)->smobbed_copy (), SCM_EOL);
 	}
 	| CHORDMODIFIER_PITCH chord_note { /* Ugh. */
 		$$ = scm_list_n (unsmob_pitch ($1)->smobbed_copy (),

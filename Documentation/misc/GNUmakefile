@@ -4,7 +4,7 @@ NAME = documentation
 
 STEPMAKE_TEMPLATES=documentation  texinfo
 
-TEXTS =AIMS $(wildcard CHANGES-*[0-9])  $(wildcard ANNOUNCE-*[0-9]) $(wildcard NEWS-*[0-9]) interview fontinstallation
+TEXTS =AIMS $(wildcard CHANGES-*[0-9])  $(wildcard ANNOUNCE-*[0-9]) $(wildcard NEWS-*[0-9]) interview fontinstallation $(wildcard ChangeLog*[0-9])
 EXTRA_DIST_FILES = $(TEXTS)
 
 include $(depth)/make/stepmake.make 

@@ -15,7 +15,7 @@ source file of the GNU LilyPond music typesetter
 class Unfolded_repeat_iterator : public Sequential_iterator
 {
 public:
-  static  SCM constructor_cxx_function;
+  DECLARE_SCHEME_CALLBACK(constructor, ());
   VIRTUAL_COPY_CONS (Music_iterator);
 protected:
   virtual SCM get_music_list () const;
@@ -56,7 +56,7 @@ Unfolded_repeat_iterator::get_music_list () const
 class Volta_repeat_iterator : public Sequential_iterator
 {
 public:
-  static  SCM constructor_cxx_function;
+  DECLARE_SCHEME_CALLBACK(constructor, ());
   VIRTUAL_COPY_CONS (Music_iterator);
   Volta_repeat_iterator();
 

@@ -8,7 +8,8 @@
 	  
 \score { \notes
 \context Voice
-{\slurDown c4 ( g4 ) c''4
+{ \property Staff.minimumVerticalExtent \unset
+    \slurDown c4 ( g4 ) c''4
 
 }
 

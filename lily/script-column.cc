@@ -23,55 +23,59 @@ Script_column::add_staff_sided (Grob *me, Item *i)
   me->add_dependency (i);
 }
 
-static int
-staff_side_compare (Grob * const &i1,
-		    Grob * const &i2)
+LY_DEFINE(grob_script_priority_less,
+	  "ly-grob-script-priority-less", 2, 0, 0, 
+	  (SCM a, SCM b),
+	  "Compare two grobs by script priority. For internal use.")
 {
+  Grob * i1 = unsmob_grob (a);
+  Grob* i2 = unsmob_grob (b);
+
   SCM p1 = i1->get_grob_property ("script-priority");
   SCM p2 = i2->get_grob_property ("script-priority");
 
-  return gh_scm2int (p1) - gh_scm2int (p2);
+  return gh_scm2int (p1) < gh_scm2int (p2) ? SCM_BOOL_T : SCM_BOOL_F;
 }
 
-MAKE_SCHEME_CALLBACK (Script_column,before_line_breaking,1);
 
+
+MAKE_SCHEME_CALLBACK (Script_column,before_line_breaking,1);
 SCM
 Script_column::before_line_breaking (SCM smob)
 {
   Grob* me = unsmob_grob (smob);
-  Drul_array<Link_array<Grob> > arrs;
+  Drul_array<SCM> scripts (SCM_EOL, SCM_EOL);
   Link_array<Grob> staff_sided 
     = Pointer_group_interface__extract_grobs (me, (Grob*)0, "scripts");
 				     
   for (int i=0; i < staff_sided.size (); i++)
     {
-      Direction d = Side_position_interface::get_direction (staff_sided[i]);
+      Grob* g = staff_sided[i];
+      Direction d = Side_position_interface::get_direction (g);
       if (!d)
 	{
 	  programming_error ( "No direction for script?");
 	  d = DOWN;
-	  staff_sided[i]->set_grob_property ("direction", gh_int2scm (d));
+	  g->set_grob_property ("direction", gh_int2scm (d));
 	}
       
-      arrs[d].push (staff_sided[i]);
+      scripts[d] = scm_cons (g->self_scm(), scripts[d]);
     }
 
   Direction d = DOWN;
   do {
-    Link_array<Grob> &arr
-      (arrs[d]);
+    SCM ss = scm_reverse_x (scripts[d], SCM_EOL);
     
-    arr.sort (staff_side_compare);
+    ss = scm_stable_sort_x (ss,  grob_script_priority_less_proc);
 
     Grob * last = 0;
-    for (int i=0; i < arr.size (); i++)
+    for (SCM s = ss; gh_pair_p (s); s = gh_cdr (s))
       {
-
+	Grob* g = unsmob_grob (gh_car (s));
 	if (last)
-	  Side_position_interface::add_support (arr[i],last);
-	    
-	arr[i]->set_grob_property ("script-priority", SCM_EOL);
-	last = arr[i];
+	  Side_position_interface::add_support (g,last);
+
+	last = g;
       }
     
   } while (flip (&d) != DOWN);

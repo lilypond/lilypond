@@ -1,60 +1,36 @@
 \version "1.5.68"
 \header {
     title	= "ancient font test"
-    date	= "2000"
+    date	= "2002"
 }
-
-
 
 \include "paper26.ly"
 
-global =  \notes {
+upperStaff =  \context GregorianStaff = upperStaff <
+  \context GregorianVoice <
     \property Score.timing = ##f
-%   \property Score.forceAccidental = ##t
-    \property Staff.TimeSignature \set #'font-family = #'ancient
-%   \property Staff.TimeSignature \override #'style = #'mensural
-}
+%   \property Score.forceAccidental = ##t %%%%%%%% FIXME: what happened to this property?
 
-upperVoice =  \context Staff = upperVoice <
-    \global
-    
     % this is broken until further notice -- see refman
     % \property Staff.StaffSymbol \override #'line-count = #4
     \context Staff \outputproperty #(make-type-checker 'staff-symbol-interface)
       #'line-count = #4
 
     \notes \transpose c' {
-	\property Staff.Clef \set #'font-family = #'ancient
-	\property Staff.KeySignature \set #'font-family = #'ancient
 	\property Staff.KeySignature \override #'style = #'vaticana
-	\property Staff.Accidental \set #'font-family = #'ancient
 	\property Staff.Accidental \override #'style = #'vaticana
-	\property Staff.Custos \set #'font-family = #'ancient
-	\property Staff.Custos \override #'style = #'vaticana
-	\property Staff.Custos \override #'neutral-position = #4
-	\property Staff.Custos \override #'neutral-direction = #-1
-	\property Staff.Custos \override #'adjust-if-on-staffline = ##t
-	\property Voice.NoteHead \set #'font-family = #'ancient
 	\property Voice.NoteHead \override #'style = #'vaticana_punctum
-	\property Voice.Porrectus \override #'style = #'vaticana
-	\property Voice.Porrectus \override #'solid = ##t
-	\property Voice.Porrectus \override #'add-stem = ##t
-	\property Voice.Porrectus \override #'direction = #-1
-	\property Voice.Porrectus \override #'thickness = #0.5
 	\key es \major
 	\clef "vaticana_fa2"
 	c!1 des! e! f! ges!
 
-%	\property Staff.clefGlyph = #"clefs-vaticana_do"
-%	\property Staff.clefPosition = #1
-%	\property Staff.clefOctavation = #0 
-	\clef "vaticana_do2"
-
 	\property Voice.NoteHead \override #'style = #'vaticana_inclinatum
-	a! b!
+	a! b! ces'
 	\property Staff.BarLine \override #'bar-size = #3.0 \bar "|"
+%	\break % 1 (8*1)
+
 	\property Voice.NoteHead \override #'style = #'vaticana_virga
-	ces' b! des'! \~ ges! \~ fes!
+	b! des'! ges! fes!
 	\breathe
 	\clef "vaticana_fa1"
 	\property Voice.NoteHead \override #'style = #'vaticana_quilisma
@@ -62,6 +38,8 @@ upperVoice =  \context Staff = upperVoice <
 	\property Voice.NoteHead \override #'style = #'vaticana_rvirga
 	c d
 	\property Staff.BarLine \override #'bar-size = #3.0 \bar "|"
+%	\break %2 (8*1)
+
 	\property Voice.NoteHead \override #'style = #'vaticana_rvirga
 	es f
 	\property Voice.NoteHead \override #'style = #'vaticana_lpes
@@ -72,6 +50,8 @@ upperVoice =  \context Staff = upperVoice <
 	g f
 	\property Voice.NoteHead \override #'style = #'vaticana_plica
 	\property Staff.BarLine \override #'bar-size = #2.0 \bar "|"
+%	\break % 3 (8*1)
+
 	es d
 	\property Voice.NoteHead \override #'style = #'vaticana_epiphonus
 	c d
@@ -85,13 +65,17 @@ upperVoice =  \context Staff = upperVoice <
 	\clef "medicaea_fa2"
 	ces! des!
 	\property Staff.BarLine \override #'bar-size = #3.0 \bar "|"
+%	\break % 4 (8*1)
+
 	e! f! ges!
 	\clef "medicaea_do2"
-	\property Voice.NoteHead \override #'style = #'medicaea_subbipunctum
+	\property Voice.NoteHead \override #'style = #'medicaea_inclinatum
 	a! b! ces'!
 	\property Voice.NoteHead \override #'style = #'medicaea_virga
 	b! a!
 	\property Staff.BarLine \override #'bar-size = #3.0 \bar "|"
+%	\break % 5 (8*1)
+
 	ges! fes!
 	\clef "medicaea_fa1"
 	\property Voice.NoteHead \override #'style = #'medicaea_rvirga
@@ -104,6 +88,8 @@ upperVoice =  \context Staff = upperVoice <
 	\clef "hufnagel_fa2"
 	ces! des! es!
 	\property Staff.BarLine \override #'bar-size = #3.0 \bar "|"
+%	\break % 6 (8*1)
+
 	fes! ges!
 	\clef "hufnagel_do2"
 	\property Voice.NoteHead \override #'style = #'hufnagel_lpes
@@ -111,16 +97,23 @@ upperVoice =  \context Staff = upperVoice <
 	\property Voice.NoteHead \override #'style = #'hufnagel_virga
 	bes! as!
 	\property Staff.BarLine \override #'bar-size = #3.0 \bar "|"
+%	\break % 7 (8*1)
+
 	ges! fes!
 	\clef "hufnagel_do_fa"
 	\property Voice.NoteHead \override #'style = #'hufnagel_punctum
 	es! des! ces! des! es! fes!
 	\bar "||"
+%	\break % 8 (8*1)
+
+	s32*1
+%	\break % 12 (32*1)
     }
+  >
 >
 
-lowerVoice =  \context Staff = lowerNotes <
-    \global
+lowerStaff =  \context MensuralStaff = lowerStaff <
+  \context MensuralVoice <
     
     % this is broken until further notice -- see refman
     % \property Staff.StaffSymbol \override #'line-count = #5
@@ -129,130 +122,171 @@ lowerVoice =  \context Staff = lowerNotes <
 
     \notes \transpose c' {
 	\property Voice.autoBeaming = ##f
-	\property Staff.Clef \set #'font-family = #'ancient
-	\property Staff.KeySignature \set #'font-family = #'ancient
-	\property Staff.KeySignature \override #'style = #'mensural
-	\property Staff.Accidental \set #'font-family = #'ancient
-	\property Staff.Accidental \override #'style = #'mensural
-	\property Staff.Custos \set #'font-family = #'ancient
-	\property Staff.Custos \override #'style = #'mensural
-	\property Staff.Custos \override #'neutral-position = #3
-	\property Staff.Custos \override #'neutral-direction = #-1
-	\property Staff.Custos \override #'adjust-if-on-staffline = ##t
-	\property Voice.NoteHead \set #'font-family = #'ancient
 	\property Voice.NoteHead \override #'style = #'neo_mensural
-	\property Voice.Stem \set #'font-family = #'ancient % ancient flags
-	\property Voice.Rest \set #'font-family = #'music
 	\property Voice.Rest \override #'style = #'neo_mensural
-	\property Voice.Porrectus \override #'style = #'mensural
-	\property Voice.Porrectus \override #'solid = ##f
-	\property Voice.Porrectus \override #'add-stem = ##t
-	\property Voice.Porrectus \override #'thickness = #0.7
-%	\property Voice.Porrectus \override #'auto-properties = ##t
-%	\property Voice.Porrectus \override #'width = #3.0
 	\key a \major
 
-	% IMPORTANT NOTE:
-	%
-	% The porrectus syntax is definitely subject to change.  For
-	% proper use, it may eventually change into something like this:
-	%
-	% \startLigature e \~ c \endLigature
-	%
-	% The reason is that there needs to be some enclosing instance
-	% for correct handling of line breaking, alignment with
-	% adjacent note heads, and placement of accidentals.
+% FIXME: lily crashes on some (invalid?) ligatures with:
+%   ERROR: In procedure gh_scm2int:
+%   ERROR: Wrong type argument in position 1: ()
 
-	\clef "neo_mensural_c2"
-	cis' e' \~ d' gis' \~ e'
+% FIXME: lily emits "Programming error: Infinity or NaN encountered"
+% on many ligatures such as BB.
+
+	cis'1 d'\breve gis'\breve e'\breve \[ e'\longa fis'\longa \]
 	\property Staff.forceClef = ##t
 	\clef "neo_mensural_c2"
+	cis1
+	\bar "|"
+%	\break % 2 (16*1)
 
-	fis' \~ b cis''
-	b \~ a a \~ fis
+	\[ g\breve dis''\longa \]
+	b\breve \[ a\longa d\longa \]
 	\clef "petrucci_c2"
-	cis \~ fis ces1 % \bar "|"
+%	\break % 4 (16*1)
 
+	fis1 ces1
 	\clef "petrucci_c2"
 	r\longa
 	\property Staff.forceClef = ##t
 	\clef "mensural_c2"
-	r\breve r1 r2
-	\clef "mensural_g"
-	r4 r8 r16 r16 \bar "|"
+	r\breve
+	\bar "|"
+%	\break % 5 (8*1)
 
+	r2
+	\clef "mensural_g"
+	r4 r8 r16 r16
 	\property Voice.NoteHead \override #'style = #'mensural
 	\property Voice.Stem \override #'style = #'mensural
 	\property Voice.Stem \override #'thickness = #1.0
-	\property Voice.Rest \set #'font-family = #'ancient
 	\property Voice.Rest \override #'style = #'mensural
 	\clef "petrucci_f"
-	c8 b, c16 b, c32 b, c64 b, c b,
-	d8 e  d16 e  d32 e  d64 e  d e
+	c8 b, c16 b, c32 b, c64 b, c64 b,
+	d8 e  d16 e  d32 e  d64 e  d64 e
 	r\longa
 	\property Staff.forceClef = ##t
 	\clef "petrucci_f"
-	r\breve r1 % \bar "|"
-	\clef "mensural_f"
+	r\breve
+	\bar "|"
+%	\break % 6 (8*1)
 
+	r\breve 
+	\clef "mensural_f"
 	% FIXME: must set Voice.Stem style to #'neo_mensural to avoid
 	% segmentation fault on r8/r16/r32.  (Strange: what has
 	% Voice.Stem style to do with mensural rests?)
 	\property Voice.Stem \override #'style = #'neo_mensural
-	r2 r4 r8 r16 r32 r32
+	r2 r4 r8 r16 r16
 	\property Voice.Stem \override #'style = #'mensural
-
 	\property Staff.forceClef = ##t
 	\clef "mensural_f"
-	e2 f g
+	e\breve f g a1
 	\clef "mensural_g"
+%	\break % 7 (8*1)
 
-	bes'! \~ as'! \~ cis''!
-	bes'! \~ fis'! as'! \~ ges'!
+	\[ bes'!\longa a'!\longa c''!\longa \]
+	e'1 d' c' d' \bar "|"
+	\bar "|"
+%	\break % 9 (16*1)
+
+	bes'!\longa fis'!1 as'!1 ges'!\longa % lig
 	\property Staff.forceClef = ##t
 	\clef "mensural_g"
-	e' d' c'1 \bar "|"
+	e'2 d' c' \bar "|"
+%	\break % 11 (16*1)
 
 	\property Staff.forceClef = ##t
 	\clef "petrucci_g"
-	c'2 d' e' f' g'
+	c'2 d' e' f'
 	\clef "petrucci_g"
-	as'! bes'! cis''!
+	g' as'! bes'! cis''!
 	bes'! as'! gis'! fis'!
 	\property Staff.forceClef = ##t
 	\clef "mensural_g"
 	es'! des'! cis'!1 \bar "||"
+%	\break % 12 (8*1)
     }
+  >
 >
 
 \score {
-    \context ChoirStaff <
-	\upperVoice
-	\lowerVoice
+    \context Score <
+	\upperStaff
+	\lowerStaff
     >
     \paper {
-%	\paperTwentysix
 	linewidth = 17.25\cm
 	textheight = 26.0\cm
 	stafflinethickness = \staffspace / 5.0
 	indent = 0.0
 	\translator {
-	    \StaffContext
-	    \consists Custos_engraver
-%	    Custos \override #'style = #'mensural
-	    \remove Time_signature_engraver
-%	    StaffSymbol \override #'thickness = #2.0
-%	    StaffSymbol \override #'line-count = #4
-	}
-	\translator {
 	    \ScoreContext
-%	    \remove System_start_delimiter_engraver
-%	    systemStartDelimiter \override #'glyph = #'brace
+	    \accepts MensuralStaff
+	    \accepts GregorianStaff
+%	    timing = ##f %%%%%%%% FIXME: this has no effect
 	}
 	\translator {
-	    \ChoirStaffContext
-	    \remove System_start_delimiter_engraver
-%	    systemStartDelimiter \override #'glyph = #'empty
+	    \VoiceContext
+	    \name MensuralVoice
+	    \alias Voice
+	    \remove Ligature_bracket_engraver
+	    \consists Mensural_ligature_engraver
+	    NoteHead \set #'style = #'mensural
+%	    Stem \set #'style = #'mensural %%%%%%%% FIXME: this core dumps
+	    Stem \set #'thickness = #1.0
+	    Rest \set #'style = #'mensural
+	    autoBeaming = ##f
 	}
+	\translator {
+	    \VoiceContext
+	    \name GregorianVoice
+	    \alias Voice
+	    \remove Ligature_bracket_engraver
+%	    \consists Gregorian_ligature_engraver %%%%%%%% TODO: not yet implemented
+	    NoteHead \set #'style = #'vaticana_punctum
+	    autoBeaming = ##f
+	}
+	\translator {
+	    \StaffContext
+	    \name MensuralStaff
+	    \alias Staff
+	    \accepts MensuralVoice
+	    \consists Custos_engraver
+	    TimeSignature \set #'style = #'mensural
+	    KeySignature \set #'style = #'mensural
+	    Accidental \set #'style = #'mensural
+	    Custos \set #'style = #'mensural
+	    Custos \set #'neutral-position = #3
+	    Custos \set #'neutral-direction = #-1
+	    Custos \set #'adjust-if-on-staffline = ##t
+	    clefGlyph = #"clefs-petrucci_c2"
+	    clefPosition = #-2
+	    clefOctavation = #0 
+	}
+	\translator {
+	    \StaffContext
+	    \name GregorianStaff
+	    \alias Staff
+	    \accepts GregorianVoice
+	    \consists Custos_engraver
+	    \remove Time_signature_engraver
+	    StaffSymbol \set #'thickness = #2.0
+	    StaffSymbol \set #'line-count = #4
+	    KeySignature \set #'style = #'vaticana
+	    Accidental \set #'style = #'vaticana
+	    Custos \set #'style = #'vaticana
+	    Custos \set #'neutral-position = #4
+	    Custos \set #'neutral-direction = #-1
+	    Custos \set #'adjust-if-on-staffline = ##t
+	    clefGlyph = #"clefs-vaticana_do"
+	    clefPosition = #1
+	    clefOctavation = #0 
+	}
+	\translator {
+	    \HaraKiriStaffContext
+	    \accepts MensuralVoice
+	    \accepts GregorianVoice
+        }
     }
 }

@@ -8,6 +8,13 @@
 %%    makes LaTeX break on the \\ in:
 %%        \ifx\lilypondfoo\undefined\else{\lilypondfoo\\}\fi
 %%
+% The feta characters for use in titles
+\input feta20.tex
+%
+\font\fetasixteen=feta16
+\def\fetafont{\fetasixteen}
+\def\fetachar#1{\hbox{\fetasixteen#1}}
+%
 \def\makelilypondtitle
 {
   \begin{center}

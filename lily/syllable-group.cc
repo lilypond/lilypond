@@ -100,12 +100,12 @@ Syllable_group::add_extender (Grob * extender)
 bool 
 Syllable_group::set_lyric_align (const char *punc, Grob *default_notehead)
 {
-  if (lyrics_.size ()<=1)
+  if (lyrics_.size () <= 0)
     {
-      // No lyrics or single line: nothing to do.
+      // No lyrics: nothing to do.
       return true;
     }
-
+  
   Grob * lyric;
   alignment_ = appropriate_alignment (punc);
   

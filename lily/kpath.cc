@@ -9,6 +9,18 @@
 #include <stdio.h>
 #include <string.h>
 
+/*
+
+The problem, as far as I can tell, is that MacOS X has its getopt
+prototype in <unistd.h>, while I think other operating systems have it
+in other places. <unistd.h> is included by kpathsea.h, so you end up
+renaming both conflicting prototypes to YAKLUDGE.
+
+I found a somewhat more elegant patch for this: Just #include
+<unistd.h> before defining YAKLUDGE.
+
+*/
+#include <unistd.h>	
 #include "config.h"
 
 #define popen REALLYUGLYKLUDGE

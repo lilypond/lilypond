@@ -7,13 +7,13 @@ Request_chord::Request_chord (SCM s)
   : Simultaneous_music (s)
 {
   set_mus_property ("iterator-ctor",
-		    Request_chord_iterator::constructor_cxx_function);
+		    Request_chord_iterator::constructor_proc);
 }
 
 Request_chord::Request_chord ()
 {
   set_mus_property ("iterator-ctor",
-		    Request_chord_iterator::constructor_cxx_function);
+		    Request_chord_iterator::constructor_proc);
 }
 
 Pitch

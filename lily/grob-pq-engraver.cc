@@ -28,6 +28,7 @@ int compare  (Grob_mom const &a, Grob_mom const &b)
   return Moment::compare (a.end_, b.end_);
 }
 
+
 class Grob_pq_engraver: public Engraver
 {
 public:
@@ -76,59 +77,41 @@ Grob_pq_engraver::acknowledge_grob (Grob_info gi)
     }
 }
 
+LY_DEFINE(ly_grob_pq_less_p, 
+	  "ly-grob-pq-less?", 2 , 0 ,0, (SCM a, SCM b), 
+	  "Compare 2 Grob PQ entries. Internal")
+{
+  if ( Moment::compare (*unsmob_moment (gh_car (a)),
+				      *unsmob_moment (gh_car (b))) < 0)
+    return SCM_BOOL_T;
+  else
+    return SCM_BOOL_F;
+}
+	  
+
 void
 Grob_pq_engraver::stop_translation_timestep ()
 {
   Moment now = now_mom();
 
   current_grobs_.sort (&compare);
+  SCM current_list = SCM_EOL;
+  for (int i = current_grobs_.size(); i--;)
+    current_list = scm_cons (scm_cons (current_grobs_[i].end_.smobbed_copy(), 
+				       current_grobs_[i].grob_->self_scm ()), current_list);
 
+  /*
+    We generate some garbage here.
+   */
   SCM busy = get_property ("busyGrobs");
   while (gh_pair_p (busy) && *unsmob_moment (gh_caar (busy)) == now)
     {
       busy = gh_cdr (busy);
     }
   
-  SCM start = busy;
-  SCM * current_cell = &start;
-
-  int  i = 0; 
-  while (i  < current_grobs_.size ())
-    {
-      Moment stop;
-      stop.set_infinite (1);
-      
-      if (gh_pair_p (busy))
-	{
-	  SCM h = gh_car (busy);
-	  stop = *unsmob_moment (gh_car (h));
-	}
-
-      Moment current_stop = current_grobs_[i].end_;
-      if (current_stop <= stop)
-	{
-	  SCM new_entry = gh_cons (current_stop.smobbed_copy(),
-				   current_grobs_[i].grob_->self_scm ());
-
-	  /*
-	    Insert before BUSY.
-	   */
-	  i ++;
-	  *current_cell = gh_cons (new_entry, busy);
-	  current_cell = SCM_CDRLOC(*current_cell);
-	}
-      else
-	{
-	  /*
-	    if current_stop > stop, then stop != infty, and we
-	    apparently have a next entry */
-	  busy = gh_cdr (busy);
-	  current_cell = SCM_CDRLOC(*current_cell);
-	}
-    }
-
+  busy = scm_merge_x (current_list, busy, ly_grob_pq_less_p_proc);
   current_grobs_.clear ();
-  daddy_trans_->set_property ("busyGrobs", start);
+  daddy_trans_->set_property ("busyGrobs", busy);
 }
 
 void
@@ -140,7 +123,11 @@ Grob_pq_engraver::start_translation_timestep ()
   SCM busy = start_busy;
   while (gh_pair_p (busy) && *unsmob_moment (gh_caar (busy)) < now)
     {
-      programming_error ("Skipped something ?!");
+      /*
+	Todo: do something sensible. The grob-pq-engraver is not water
+	tight, and stuff like tupletSpannerDuration confuses it.
+       */
+      programming_error (_f("Skipped something?\nGrob %s ended before I expected it to end.", unsmob_grob (gh_cdar (busy))->name().to_str0()));
       
       busy = gh_cdr (busy);
     }
@@ -152,7 +139,8 @@ Grob_pq_engraver::start_translation_timestep ()
 
 
 ENTER_DESCRIPTION(Grob_pq_engraver,
-/* descr */       "Administrate when certain grobs (eg. note heads) stop playing.
+/* descr */       "Administrate when certain grobs (eg. note heads) stop playing; this
+engraver is a sort-of a failure, since it doesn't handle all sorts of borderline cases very well.
 ",
 /* creats*/       "",
 /* acks  */       "grob-interface",

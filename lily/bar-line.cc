@@ -148,7 +148,6 @@ Bar_line::before_line_breaking (SCM smob)
       SCM proc = me->get_grob_property ("break-glyph-function");
       g = gh_call2 (proc, g, scm_int2num (bsd));
     }
-
   
   if (!gh_string_p (g))
     {

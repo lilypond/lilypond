@@ -22,20 +22,6 @@ Grace_fixup *get_grace_fixups (SCM cursor);
 */
 
 /*
-
-  TODO: the grace note handling hasn't been done for skip() and
-  get_pending_events(), meaning that staff-switching and partcombining will be
-  broken with grace notes.
-  
- */
-/*
-
-  TODO: the grace note handling hasn't been done for skip() and
-  get_pending_events(), meaning that staff-switching and partcombining will be
-  broken with grace notes.
-  
- */
-/*
   Invariant for the data structure.
 
 
@@ -53,6 +39,8 @@ Grace_fixup *get_grace_fixups (SCM cursor);
 Sequential_iterator::Sequential_iterator ()
 {
   here_mom_ = Moment (0);
+  list_ = SCM_EOL;
+  cursor_ = SCM_EOL; 
   grace_fixups_ = 0;
   iter_ =0;
 }
@@ -63,6 +51,14 @@ Sequential_iterator::get_music_list () const
   return SCM_EOL;
 }
 
+void
+Sequential_iterator::do_quit ()
+{
+  if (iter_)
+    iter_->quit();
+}
+
+
 Sequential_iterator::Sequential_iterator (Sequential_iterator const &src)
   : Music_iterator (src)
 {
@@ -70,15 +66,19 @@ Sequential_iterator::Sequential_iterator (Sequential_iterator const &src)
   cursor_ = src.cursor_;
   list_ = src.cursor_;
   here_mom_ = src.here_mom_;
-  if (src.iter_)
-    iter_ = src.iter_->clone ();
-  else
-    iter_ = 0;
+  iter_ = (src.iter_) ? src.iter_->clone () : 0;
+
+  if (iter_)
+    scm_gc_unprotect_object (iter_->self_scm());
 }
 
-Sequential_iterator::~Sequential_iterator ()
+void
+Sequential_iterator::derived_mark ()const
 {
-  delete iter_;
+  if (iter_)
+    scm_gc_mark (iter_->self_scm());
+  scm_gc_mark (list_);
+  scm_gc_mark (cursor_);
 }
 
 
@@ -143,7 +143,13 @@ Sequential_iterator::construct_children ()
   list_ = get_music_list ();
   cursor_ = list_; 
 
-  iter_ = gh_pair_p (cursor_) ?  get_iterator (unsmob_music (ly_car (cursor_))) : 0;
+  iter_ = 0;
+  if (gh_pair_p (cursor_))
+    {
+      Music *m  =unsmob_music (ly_car (cursor_));
+      iter_ = unsmob_iterator (get_iterator (m));
+    }
+  
   while (iter_ && !iter_->ok ())
     {
       next_element (true);
@@ -196,11 +202,11 @@ Sequential_iterator::next_element (bool side_effect)
       here_mom_ += len;
     }
   
-  delete iter_;
   cursor_ = ly_cdr (cursor_);
 
+  iter_->quit();
   if (gh_pair_p (cursor_))
-    iter_ = get_iterator (unsmob_music (ly_car (cursor_)));
+    iter_ = unsmob_iterator (get_iterator (unsmob_music (ly_car (cursor_))));
   else
     iter_ = 0;
 }
@@ -256,8 +262,8 @@ Sequential_iterator::get_pending_events (Moment until)const
       else
 	me->next_element (false);
     }
-  delete me;
-  
+
+  scm_gc_unprotect_object (me->self_scm());
   return s;
 }
 
@@ -266,8 +272,6 @@ Sequential_iterator::get_pending_events (Moment until)const
   Skip events till UNTIL. We don't do any other side effects such as
   descending to child iterator contexts, because they might depend on
   \context specs and \translator changes being executed
-
-  TODO: check support for grace notes here.
  */
 void
 Sequential_iterator::skip (Moment until)

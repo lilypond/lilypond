@@ -31,8 +31,14 @@ Interpretation_context_handle::clone () const
 
 Interpretation_context_handle::~Interpretation_context_handle ()
 {
-  if (report_to_)
-    down ();
+  /*
+    Don't do
+
+    if (report_to_)
+      down ();
+
+    with GC, this is asynchronous.
+   */
 }
 
 void
@@ -49,10 +55,20 @@ Interpretation_context_handle::down ()
   report_to_ = 0;
 }
 
+void
+Interpretation_context_handle::quit ()
+{
+  if (report_to_)
+    {
+      report_to_->iterator_count_ --;
+      report_to_ = 0;
+    }
+}
+
 bool
 Interpretation_context_handle::try_music (Music *m)
 {
-  return  report_to_->try_music (m);
+  return report_to_->try_music (m);
 }
 
 void
@@ -75,6 +91,7 @@ Interpretation_context_handle::set_translator (Translator_group*trans)
 Translator_group*
 Interpretation_context_handle::report_to ()const
 {
+  
   return report_to_;
 }
 

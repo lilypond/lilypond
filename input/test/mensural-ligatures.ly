@@ -6,15 +6,13 @@
 
 \include "paper26.ly"
 
-% Note the horizontal alignment of the fermatas that obeys to the
+% Note that the horizontal alignment of the fermatas obeys to the
 % graphical width of the ligatures rather to the musical moment in time.
 % This is intended behaviour.
 
 voice = \notes \transpose c'' {
   \property Score.timing = ##f
   \property Score.defaultBarType = "empty"
-  \property Voice.NoteHead \set #'font-family = #'ancient
-  \property Voice.NoteHead \override #'style = #'mensural
   g\longa c\breve a\breve f\breve d'\longa^\fermata
   \bar "|"
   \[
@@ -31,22 +29,18 @@ voice = \notes \transpose c'' {
   \bar "||"
 }
 
-upperStaff = \context Staff = upperStaff <
-  \context MensuralVoice <
-    \voice
-  >
->
-
-lowerStaff = \context Staff = lowerStaff <
-  \context TranscribedVoice <
-    \voice
-  >
->
-
 \score {
     \context ChoirStaff <
-	\upperStaff
-	\lowerStaff
+	\context MensuralStaff = upperStaff <
+	    \context MensuralVoice <
+		\voice
+	    >
+	>
+	\context Staff = lowerStaff <
+	    \context Voice <
+		\voice
+	    >
+	>
     >
     \paper {
 	stafflinethickness = \staffspace / 5.0
@@ -56,23 +50,32 @@ lowerStaff = \context Staff = lowerStaff <
 	    \alias Voice
 	    \remove Ligature_bracket_engraver
 	    \consists Mensural_ligature_engraver
-	}
-	\translator {
-	    \VoiceContext
-	    \name TranscribedVoice
-	    \alias Voice
-	    \remove Mensural_ligature_engraver
-	    \consists Ligature_bracket_engraver
+	    NoteHead \set #'style = #'mensural
 	}
 	\translator {
 	    \StaffContext
+	    \name MensuralStaff
+	    \alias Staff
 	    \accepts MensuralVoice
-	    \accepts TranscribedVoice
-        }
+	    \consists Custos_engraver
+	    TimeSignature \set #'style = #'mensural
+	    KeySignature \set #'style = #'mensural
+	    Accidental \set #'style = #'mensural
+	    Custos \set #'style = #'mensural
+	    Custos \set #'neutral-position = #3
+	    Custos \set #'neutral-direction = #-1
+	    Custos \set #'adjust-if-on-staffline = ##t
+	    clefGlyph = #"clefs-petrucci_g"
+	    clefPosition = #-2
+	    clefOctavation = #-0
+	}
 	\translator {
 	    \HaraKiriStaffContext
 	    \accepts MensuralVoice
-	    \accepts TranscribedVoice
         }
+	\translator {
+	    \ScoreContext
+	    \accepts MensuralStaff
+	}
     }
 }

@@ -27,11 +27,17 @@
   (string-append "@code{" (texify (scm->string x)) "}")
   )
 
+
+;;
+;; don't confuse users with #<procedure .. > syntax. 
+;; 
 (define (scm->string val)
-  (string-append
-   (if (self-evaluating? val) "" "'")
-   (call-with-output-string (lambda (port) (display val port)))
-  ))
+  (if (and (procedure? val) (symbol? (procedure-name val)))
+      (symbol->string (procedure-name val))
+      (string-append
+       (if (self-evaluating? val) "" "'")
+       (call-with-output-string (lambda (port) (display val port)))
+       )))
 
 (define (node name)
   (string-append

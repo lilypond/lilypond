@@ -22,15 +22,15 @@ public:
   VIRTUAL_COPY_CONS(Bar_check_iterator);
   virtual void process (Moment);
   Bar_check_iterator( );
-  static SCM constructor_cxx_function;
+  DECLARE_SCHEME_CALLBACK(constructor, ());
 };
 
-IMPLEMENT_CTOR_CALLBACK (Bar_check_iterator);
+IMPLEMENT_CTOR_CALLBACK(Bar_check_iterator);
 
 Music * get_barcheck ()
 {
   Music *bc = new Music;
-  bc->set_mus_property ("iterator-ctor", Bar_check_iterator::constructor_cxx_function);
+  bc->set_mus_property ("iterator-ctor", Bar_check_iterator::constructor_proc);
   return bc;
 }
 

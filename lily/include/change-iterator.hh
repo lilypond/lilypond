@@ -19,7 +19,8 @@ public:
   VIRTUAL_COPY_CONS (Music_iterator);
   /* constructor is public */
   virtual void process (Moment);
-  static SCM constructor_cxx_function;
+  DECLARE_SCHEME_CALLBACK(constructor, ());
+
 private:
   void  error (String);
 };

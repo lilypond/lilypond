@@ -11,8 +11,7 @@
 
 %\paper { linewidth = -1. }
 \score {
-  \addlyrics
-    \context Voice = "v" \notes  \relative c'' {
+< \context Voice = "v" \notes  \relative c'' {
       \property Staff.automaticMelismata = ##t
       \cadenzaOn
       a\breve  \bar "||" a1 \bar "|"  a \bar "|"  a \bar "||" \break a \bar "|" a \bar "|" a  \bar "|" a \bar "||" \break a \bar "|" a \bar "|."
@@ -24,11 +23,10 @@
 	\property Lyrics . LyricText \override #'alignment = #-1
 	\property Lyrics . LyricText \override #'begin-alignment = #8
 
-	"Particularly useful for reciting notes  "
-	left
+	"Particularly useful for reciting notes  "\breve
+	left1
 
 	\property Lyrics . LyricText \override #'alignment = #0
-
 	centered
 
 	\property Lyrics . LyricText \override #'alignment = #1        
@@ -67,7 +65,13 @@
       }
       \context LyricsVoice = "v-2" \lyrics {
 %        \property LyricsVoice . stanza = "2:"
-        " with many syllables under them." l c r l l l x x x  note' true'
+        " with many syllables under them."\breve
+	  l1 c r1 l
+	  l1 l x x x
+
+				% note' true'
+				%% ? what are the last 2 for? 
       }
+   >
    >
 }

@@ -31,7 +31,7 @@ class Request_chord_iterator : public Simple_music_iterator
   enum { NONE_DONE, START_DONE, END_DONE }  status_;
 public:
   VIRTUAL_COPY_CONS (Music_iterator);
-  static SCM constructor_cxx_function;
+  DECLARE_SCHEME_CALLBACK(constructor, ());
   Request_chord_iterator ();
   Request_chord_iterator (Request_chord_iterator const&);
 
