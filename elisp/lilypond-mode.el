@@ -647,7 +647,7 @@ the extension to use on the file.
 
 Use the information in LilyPond-command-alist to determine how to run the
 command."
-  
+
   (let ((entry (assoc name LilyPond-command-alist)))
     (if entry
 	(let ((command (LilyPond-command-expand (cadr entry)
@@ -657,6 +657,9 @@ command."
 	  (if (member name (list "View" "ViewPS"))
 	      ;; is USR1 a right signal for viewps?
 	      (let ((buffer-xdvi (get-buffer-create (concat "*" name "*"))))
+		;; what if XEDITOR is set to gedit or so, should we steal it?
+		(if (not (getenv "XEDITOR"))
+		    (setenv "XEDITOR" "emacsclient --no-wait +%l:%c %f"))
 		(if LilyPond-kick-xdvi
 		  (let ((process-xdvi (get-buffer-process buffer-xdvi)))
 		    (if process-xdvi
