@@ -1,3 +1,10 @@
+2004-05-06  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/parser.yy (Generic_prefix_music_scm): add more
+	music_function symbols.
+
+	* lily/include/music-function.hh: rename to music-function
+
 2004-05-05  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/music-head.cc (LY_DEFINE): change order of args.

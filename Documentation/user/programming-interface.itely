@@ -133,6 +133,33 @@ and @internalsref{GraceMusic} has its single argument in
 @code{element}. The body of a repeat is in @code{element} property of
 @internalsref{RepeatedMusic}, and the alternatives in @code{elements}.
 
+
+
+
+@node Extending music syntax
+@appendixsubsec Extending music syntax
+
+The syntax of composite music expressions, like
+@code{\repeat}, @code{\transpose} and @code{\context}
+follows the general form of
+
+@example
+  \@code{keyword} @var{non-music-arguments} @var{music-arguments}
+@end example
+
+Such syntax can also be defined as user code. To do this, it is
+necessary to create a @em{music function}. This is a specially marked
+Scheme function. For example, the music function @code{\apply} applies
+a user-defined function to a music expression.  Its syntax is
+
+@example
+\apply #@var{func} @var{music}
+@end example
+
+A music function is created with @code{ly:make-music-function}.
+
+
+
 @node Manipulating music expressions
 @appendixsubsec Manipulating music expressions
 

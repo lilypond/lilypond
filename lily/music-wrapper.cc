@@ -8,9 +8,8 @@
  */
 
 
+
 #include "music-wrapper.hh"
-
-
 
 
 Music_wrapper::Music_wrapper ()
