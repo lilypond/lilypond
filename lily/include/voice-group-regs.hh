@@ -22,7 +22,6 @@ class Voice_group_registers  : public Register_group_register {
 protected:
     virtual void do_print() const;
     virtual Scalar get_feature(String);
-    virtual void do_post_move_processing();
     virtual bool do_try_request(Request*);
 public:
     
