@@ -139,6 +139,9 @@ Local_key_engraver::process_acknowledged ()
         }
     }
 
+  
+  
+  daddy_trans_l_->set_property ("localKeySignature",  localsig);
   /*
     UGH ! 
    */
