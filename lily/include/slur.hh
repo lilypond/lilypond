@@ -25,7 +25,7 @@ public:
 
   DECLARE_SCHEME_CALLBACK (height, (SCM,SCM));
 private:  
-  static Real get_first_notecolumn_y (Grob *me, Direction dir);
+  static Real get_boundary_notecolumn_y (Grob *me, Direction dir);
   static Offset broken_trend_offset (Grob *me, Direction dir);
   static Offset get_attachment (Grob *me,Direction dir, Grob **common);
   static void de_uglyfy (Grob *me,Slur_bezier_bow* bb, Real default_height);
