@@ -73,6 +73,6 @@ Engraver::top_engraver () const
 
 ENTER_DESCRIPTION(Engraver,
 		   "", "",
-		  "general-music",
+		  "",
 		  "", "", "");
 

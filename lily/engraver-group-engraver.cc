@@ -180,7 +180,7 @@ Engraver_group_engraver::Engraver_group_engraver() {}
 ENTER_DESCRIPTION(Engraver_group_engraver,
 /* descr */       "A group of engravers taken together",
 /* creats*/       "",
-/* accepts */     "general-music",
+/* accepts */     "",
 /* acks  */      "",
 /* reads */       "",
 /* write */       "");
