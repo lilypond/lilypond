@@ -49,6 +49,7 @@ class Tie_engraver : public Engraver
   
 protected:
   virtual void stop_translation_timestep ();
+  virtual void start_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music*);
   virtual void process_acknowledged_grobs ();
@@ -75,15 +76,6 @@ Tie_engraver::try_music (Music *mus)
       event_ = mus;
     }
   
-  if (event_)
-    {
-      SCM m = get_property ("automaticMelismata");
-      bool am = gh_boolean_p (m) &&gh_scm2bool (m);
-      if (am)
-	{
-  daddy_trans_->set_property ("tieMelismaBusy", m ? SCM_BOOL_T : SCM_BOOL_F);
-	}
-    }
   return true;
 }
 
@@ -128,6 +120,14 @@ Tie_engraver::process_acknowledged_grobs ()
     }
 }
 
+void
+Tie_engraver::start_translation_timestep ()
+{
+  if (to_boolean (get_property ("automaticMelismata")))
+      daddy_trans_->set_property ("tieMelismaBusy",
+				  gh_bool2scm (heads_to_tie_.size ()));
+      
+}
 
 void
 Tie_engraver::stop_translation_timestep ()
