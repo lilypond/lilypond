@@ -42,6 +42,7 @@
 # Block comments generate error and are ignored
 # Postscript commands are ignored
 # lyrics not resynchronized by line breaks (lyrics must fully match notes)
+# %%LY slyrics can't be directly before a w: line.
 # ???
 
 
@@ -84,6 +85,7 @@ nobarlines = 0
 global_key = [0] * 7			# UGH
 names = ["One", "Two", "Three"]
 DIGITS='0123456789'
+alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"	
 HSPACE=' \t'
 
 	
@@ -173,7 +175,8 @@ def dump_slyrics (outf):
 	ks.sort ()
 	for k in ks:
 		for i in range (len(slyrics[voice_idx_dict[k]])):
-			outf.write ("\nwords%sV%d = \\lyrics  {" % (k, i))
+			l=alphabet[i]
+			outf.write ("\nwords%sV%s = \\lyrics  {" % (k, l))
 			outf.write ("\n" + slyrics [voice_idx_dict[k]][i])
 			outf.write ("\n}")
 
@@ -193,7 +196,7 @@ def dump_voices (outf):
 			if in_repeat[voice_idx_dict[k]]:
 				outf.write("}")
 		outf.write ("\n}")
-	
+
 def dump_score (outf):
 	outf.write (r"""\score{
         \notes <
@@ -208,13 +211,14 @@ def dump_score (outf):
 			outf.write ("\n        \\addlyrics")
 		outf.write ("\n\t\\context Staff=\"%s\"\n\t{\n" %k ) 
 		if k != 'default':
-			outf.write ("\t    \\$voicedefault\n")
-		outf.write ("\t    \\$voice%s " % k)
+			outf.write ("\t    \\voicedefault\n")
+		outf.write ("\t    \\voice%s " % k)
 		outf.write ("\n\t}\n")
 		if len ( slyrics [voice_idx_dict[k]] ):
 			outf.write ("\n\t\\context Lyrics=\"%s\" \n\t<\t" % k)
 			for i in range (len(slyrics[voice_idx_dict[k]])):
-				outf.write("\n\t  { \\$words%sV%d }" % ( k, i) )
+				l=alphabet[i]
+				outf.write("\n\t  { \\words%sV%s }" % ( k, l) )
 			outf.write ( "\n\t>\n" )
 	outf.write ("\n    >")
 	outf.write ("\n\t\\paper {\n")
@@ -370,14 +374,23 @@ def shift_key (note, acc , shift):
 key_shift = { # semitone shifts for key mode names
 	'm'   : 3,
 	'min' : 3,
+	'minor' : 3,
 	'maj' : 0,
+	'major' : 0,	
 	'phr' : -4,
+	'phrygian' : -4,
 	'ion' : 0,
+	'ionian' : 0,
 	'loc' : 1,
+	'locrian' : 1,	
 	'aeo' : 3,
+	'aeolian' : 3,
 	'mix' : 5,
+	'mixolydian' : 5,	
 	'lyd' : -5,
-	'dor' :	-2
+	'lydian' : -5,	
+	'dor' :	-2,
+	'dorian' :	-2	
 }
 def compute_key (k):
 	k = string.lower (k)
