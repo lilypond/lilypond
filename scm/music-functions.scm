@@ -204,9 +204,7 @@ i.e.  this is not an override"
 
 (define-public (make-apply-context func)
   (let*
-      (
-       (m (make-music-by-name 'ApplyContext))
-       )
+      ((m (make-music-by-name 'ApplyContext)))
 
     (ly:set-mus-property! m 'procedure func)
     m
@@ -320,9 +318,7 @@ a property set for MultiMeasureRestNumber."
 
 (define-public (make-ottava-set octavation)
   (let*
-      (
-       (m (make-music-by-name 'ApplyContext))
-       )
+      ((m (make-music-by-name 'ApplyContext)))
     
   
   (define (ottava-modify context)
@@ -569,15 +565,90 @@ Rest can contain a list of beat groupings
      music
      )
 
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; setting stuff for grace context.
+;;
+
+(define (vector-extend v x)
+  "Make a new vector consisting of V, with X added to the end."
+  (let*
+      ((n (vector-length v))
+       (nv (make-vector (+ n 1) '())))
+
+    
+    (vector-move-left! v 0 n nv 0)
+    (vector-set! nv n x)
+    nv))
+
+
+(define (vector-map f v)
+  "Map  F over V. This function returns nothing."
+  (do
+      ((n (vector-length v))
+       (i 0 (+ i 1)))
+      ((>= i n))
+  
+    (f (vector-ref v i))))
+
+(define (vector-reverse-map f v)
+  "Map  F over V, N to 0 order. This function returns nothing."
+  (do
+      ((i (- (vector-length v) 1) (- i 1)))
+      ((< i 0))
+  
+    (f (vector-ref v i))))
+
+;; TODO:  make a remove-grace-property too.
+(define-public (add-grace-property context-name grob sym val)
+  "Set SYM=VAL for GROB in CONTEXT-NAME. "
+  (define (set-prop context)
+    (let*
+	((where (ly:context-property-where-defined context 'graceSettings))
+	 (current (ly:get-context-property where 'graceSettings))
+	 (new-settings (vector-extend current (list context-name grob sym val)))
+	 )
+      (ly:set-context-property! where 'graceSettings new-settings)))
+    
+    (ly:export (context-spec-music (make-apply-context set-prop) "Voice")))
+
+
+(define-public (set-start-grace-properties context)
+  (define (execute-1 x)
+    (let*
+	((tr (ly:translator-find context (car x))))
+
+      (if (ly:context? tr)
+	  (ly:context-pushpop-property tr (cadr x) (caddr x) (cadddr x))
+	  )))
+  
+  (let*
+      ((props (ly:get-context-property context 'graceSettings)))
+    (vector-map execute-1 props)))
+
+(define-public (set-stop-grace-properties context)
+  (define (execute-1 x)
+    (let*
+	((tr (ly:translator-find context (car x))))
+      (if (ly:context? tr)
+	  (ly:context-pushpop-property tr (cadr x) (caddr x))
+	  )))
+  
+  (let*
+      ((props (ly:get-context-property context 'graceSettings)))
+    
+    (vector-reverse-map execute-1 props)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; switch it on here, so parsing and init isn't checked (too slow!)
-
+;;
 ;; automatic music transformations.
 
 (define (switch-on-debugging m)
   (set-debug-cell-accesses! 15000)
-  m
-  )
+  m)
 
 (define-public toplevel-music-functions
   (list check-start-chords

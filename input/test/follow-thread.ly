@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.2"
 % MERGED: stuff from follow-break.ly to follow-thread.ly
 
 % followVoice: connect note heads with line when thread switches staff 
@@ -10,7 +10,7 @@ property @code{followVoice}. " }
 
 \score {
 	\notes\relative c {
-	\context PianoStaff=ps <
+	\new PianoStaff <
 		\property PianoStaff.followVoice = ##t
 		\context Staff=one \context Voice {
 			\property Voice.VoiceFollower \set #'style = #'dashed-line

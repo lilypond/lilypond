@@ -8,7 +8,7 @@ of Steve Martland's Dance Works. "
 
 }
 
-\version "1.9.1"
+\version "1.9.2"
 
 
 %% TODO: should have 2/4 + 5/8 time sig style.

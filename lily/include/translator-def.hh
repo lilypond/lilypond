@@ -53,7 +53,6 @@ public:
   SCM to_alist () const;
 
   static SCM make_scm () ;
-  static void apply_pushpop_property (Translator_group*, SCM syms, SCM eprop, SCM val);
 
   SCM clone_scm ()const;
   void apply_property_operations (Translator_group*);

@@ -3,7 +3,6 @@
 \header{
 filename = 	 "twinkle-pop.ly"
 xtitle = 	 "Ah, vous dirais-je, maman "
-description = 	 "twinkle twinkle in pop-song-settings"
 composer = 	 "traditional"
 enteredby = 	 "HWN, chords by Johan Vromans"
 copyright = 	 "public domain"
@@ -35,7 +34,7 @@ acc =  \chords {
 }
 
 text =  \lyrics{ 
-        \property Lyrics . LyricText \set #'font-style = #'italic
+        \property Lyrics . LyricText \set #'font-shape = #'italic
 
         Ah!4 vous dir -- ai -- je ma man2
         Ce4 qui cau -- se mon tour -- ment2

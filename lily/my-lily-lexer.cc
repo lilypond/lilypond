@@ -26,6 +26,7 @@
 
 
 static Keyword_ent the_key_tab[]={
+  {"accacciatura", ACCACCIATURA},
   {"accepts", ACCEPTS},
   {"addlyrics", ADDLYRICS},
   {"alias", ALIAS},
@@ -33,6 +34,7 @@ static Keyword_ent the_key_tab[]={
   {"apply", APPLY},
   {"applycontext", APPLYCONTEXT},
   {"applyoutput", APPLYOUTPUT},
+  {"appoggiatura", APPOGGIATURA},
   {"autochange", AUTOCHANGE},
   {"bar", BAR},
   {"breathe", BREATHE},
@@ -56,7 +58,7 @@ static Keyword_ent the_key_tab[]={
   {"markup", MARKUP},
   {"midi", MIDI},
   {"name", NAME},
-  {"newcontext", NEWCONTEXT},
+  {"new", NEWCONTEXT},
   {"notes", NOTES},
   {"octave", OCTAVE},
   {"once", ONCE},

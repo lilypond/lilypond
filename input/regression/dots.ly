@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.2"
 \header{
 texidoc="
 Noteheads can have dots, and rests can too.  Augmentation dots should
@@ -21,8 +21,8 @@ a column.  The dots go along as rests are shifted to avoid collisions.
 	
 	
 	\context Staff <
-		\context Voice = VA {  \stemUp   f''  <<b c>> r4.  }
-		\context Voice = VB {  \stemDown b, <<a b>> r4. }
+	     { f''  <<b c>> r4.  }\\
+	     { b, <<a b>> r4. }
 	>
 	
 	

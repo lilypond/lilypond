@@ -7,13 +7,13 @@
   piece = "Piece"
   composer = 	 "Composer"
   enteredby = 	 "JCN"
-  instrument = \instrument
+  instrument = "Instrument printed over the score"
 
   % mutopia headers.
   mutopiatitle = ""
   mutopiacomposer = ""
   mutopiaopus = ""
-  mutopiainstrument = \instrument
+  mutopiainstrument = "File under these instruments at mutopia."
   date = "1807"
 
   source = "Urtext edition"
@@ -21,7 +21,7 @@
   style = "Classical"
   copyright = "Public Domain"
   maintainer = "Jan Nieuwenhuizen"
-  maintainer_email = "janneke@gnu.org"
+  maintainerEmail = "janneke@gnu.org"
   lastupdated =	 "2001/Mar/19"
   mutopiapublicdomain = "\\parbox{\hsize}{\\thefooter\\quad\\small
     \\\\This music is part of the Mutopia project,

@@ -1,4 +1,4 @@
-\version "1.9.1"
+\version "1.9.2"
 
 \header { texidoc =
 
@@ -23,9 +23,9 @@ alignment; this should not confuse the mechanism.
 	
 \score { \notes \transpose c c''
  \context PianoStaff <
-   \context Staff = up {  c4 c c c \break  s1 \break c4 c c c \break c c c c}
-   \context Staff = mid {  d4 d d d s1 s1 s1 s1 }
-   \context Staff = down {  e4 e e e s1 e4 e e e s1 }
+   \new Staff {  c4 c c c \break  s1 \break c4 c c c \break c c c c}
+   \new Staff {  d4 d d d s1 s1 s1 s1 }
+   \new Staff {  e4 e e e s1 e4 e e e s1 }
  >
  \paper {
   \translator {

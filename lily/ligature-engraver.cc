@@ -125,7 +125,7 @@ Ligature_engraver::override_molecule_callback ()
   SCM source_callback = ly_symbol2scm ("ligature-primitive-callback");
   SCM noteHeadProperties = daddy_trans_->get_property ("NoteHead");
   SCM value = ly_cdr (scm_sloppy_assq (source_callback, noteHeadProperties));
-  daddy_trans_->execute_single_pushpop_property (symbol, target_callback, value);
+  daddy_trans_->execute_pushpop_property (symbol, target_callback, value);
 }
 
 /*
@@ -146,7 +146,7 @@ Ligature_engraver::revert_molecule_callback ()
 {
   SCM symbol = ly_symbol2scm ("NoteHead");
   SCM key = ly_symbol2scm ("molecule-callback");
-  daddy_trans_->execute_single_pushpop_property (symbol, key, SCM_UNDEFINED);
+  daddy_trans_->execute_pushpop_property (symbol, key, SCM_UNDEFINED);
 }
 
 void

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.2"
 
 \header{ texidoc ="@cindex Staff Space
 Setting staff space on a staff. "
@@ -7,8 +7,8 @@ Setting staff space on a staff. "
 
 \score { 
   \notes \relative c'' \context GrandStaff <
-	\context Staff = up { c4 c4  }
-	\context Staff = down {
+	\new Staff { c4 c4  }
+	\new Staff {
 	    c4
 
 	    <<c d f g>>8[

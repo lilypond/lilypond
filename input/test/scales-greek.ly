@@ -1,4 +1,4 @@
-\version "1.9.1"
+\version "1.9.2"
 \header {
   texidoc = "@cindex Scales Greek
 Show different scales."
@@ -46,14 +46,7 @@ voicedefault = \notes {
 }
 
 \score{
-        \notes <
-
-	\context Staff="default"
-	{
 	    \voicedefault 
-	}
-
-    >
 	\paper { }
 	\midi {}
 }

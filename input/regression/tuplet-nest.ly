@@ -1,5 +1,5 @@
 
-\version "1.9.1"
+\version "1.9.2"
 \header {
   texidoc="Manual hack for nested tuplets, move outer tuplet up."
 }

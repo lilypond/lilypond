@@ -1,5 +1,5 @@
 
-\version "1.9.1"
+\version "1.9.2"
 
 \header {
 
@@ -9,7 +9,6 @@
 }
 
 \score {
-  \context Staff = up {
    \notes\relative c'{
     \property Voice.Beam \override #'auto-knee-gap = ##f
     \property Voice.Beam \override #'positions = #'(-10 . 10)
@@ -17,7 +16,6 @@
    c16[ c'' a f]
 
    }
-  }
   \paper{
     raggedright = ##t
   }

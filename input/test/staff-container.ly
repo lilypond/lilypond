@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.2"
 
 \header {
 
@@ -26,15 +26,15 @@ quarterSkip = #(make-nonevent-skip (ly:make-duration 2 0))
 
 \score  {
  \notes \relative c'' <
- 	\context StaffContainer = SA {
+ 	\new StaffContainer {
 
 	    %% need < >, otherwise we descend to the voice inside SA  
-	    < \context Staff = SA { c4 c4 } >
+	    < \new Staff { c4 c4 } >
 	    \quarterSkip
 	    
-	    < \context Staff = SB { b4 b4 } > 
+	    < \new Staff { b4 b4 } > 
 	}
- 	\context StaffContainer =SB {
+ 	\new StaffContainer {
 	    \quarterSkip
 	    < \context Staff { e d f } >
 	    \quarterSkip

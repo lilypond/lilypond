@@ -157,17 +157,6 @@ Translator_def::add_pop_property (SCM props, SCM syms)
 
 
 
-/*
-  Do it. SYM is single symbol. VAL is SCM_UNDEFINED in case of a pop
-*/
-void
-Translator_def::apply_pushpop_property (Translator_group* me,SCM sym, SCM eprop, SCM val)
-{
-  dynamic_cast<Translator_group*> (me)
-    ->execute_single_pushpop_property (sym, eprop, val);
-}
-
-
 
 Link_array<Translator_def>
 Translator_def::path_to_acceptable_translator (SCM type_string, Music_output_def* odef) const
@@ -282,7 +271,7 @@ Translator_def::apply_property_operations (Translator_group*tg)
 	  SCM val = ly_cddr (entry);
 	  val = gh_pair_p (val) ? ly_car (val) : SCM_UNDEFINED;
 
-	  apply_pushpop_property (tg, ly_car (entry), ly_cadr (entry), val);
+	  tg->execute_pushpop_property (ly_car (entry), ly_cadr (entry), val);
 	}
       else if (type == ly_symbol2scm ("assign"))
 	{

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.2"
 \header{
 texidoc = "Stripped version of trip.ly.  Staffs should be of correct length."
 }
@@ -8,12 +8,12 @@ texidoc = "Stripped version of trip.ly.  Staffs should be of correct length."
 
 \score{
   \context PianoStaff \notes \relative c'' <
-    \context Staff = treble {
+    \new Staff {
        r1
        r1
        \bar "|."
     }
-    \context Staff = bass {
+    \new Staff {
       r1
       \context Staff {
 	\grace { c16 } c1

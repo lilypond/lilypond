@@ -38,7 +38,7 @@ class Translator_group : public virtual Translator {
 protected:
   ~Translator_group ();
 public:
-  void execute_single_pushpop_property (SCM prop, SCM sym, SCM val);
+  void execute_pushpop_property (SCM prop, SCM sym, SCM val);
   SCM internal_get_property (SCM name_sym) const;
   SCM properties_as_alist () const;
   

@@ -1,5 +1,5 @@
 
-\version "1.9.1"
+\version "1.9.2"
 % possible rename to ancient- something.
 \header {
     texidoc ="@cindex Ancient Mensural Note Heads

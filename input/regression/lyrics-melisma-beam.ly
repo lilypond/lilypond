@@ -1,5 +1,5 @@
 
-\version "1.9.1"
+\version "1.9.2"
 \header
 {
     texidoc = "Melismata are triggered by manual beams." 
@@ -9,7 +9,7 @@
 \score {
         \simultaneous {
           \addlyrics
-             \context Staff = mel
+             \new Staff
              \notes \relative c'' {
 		 \property Staff.autoBeaming = ##f
 		 c8 c8[ c8 c8]  c8    }

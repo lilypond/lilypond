@@ -1,12 +1,12 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.2"
 
 \header { 
 texidoc = "Accidentals in different staffs don't effect the
 spacing of the quarter notes here."
 }
 
-\score { \notes \relative c'' < \context Staff = SA { \time 4/4
+\score { \notes \relative c'' < \new Staff { \time 4/4
 
  c8[ c8 cis8 cis8]
  cis8[ cis8 cis8 cis]

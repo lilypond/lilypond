@@ -1,4 +1,4 @@
-\version "1.9.1"
+\version "1.9.2"
 \header { texidoc = "This combines instrument names and multimeasure rests (there was an
 interesting bug in 1.3.98). " }
 

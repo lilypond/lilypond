@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.2"
 % definately wil be renamed to something.
 %{
 (Message vers:9)
@@ -31,11 +31,11 @@ You can add an extra staff after the beginning of a piece. "}
 
 \score {
 	<
-		\context Staff=i \notes\relative c''{ c1 c c c c }
-		\context StaffGroup=ii \notes\relative c''{ 
-			\context Staff=ii
+		\new Staff \notes\relative c''{ c1 c c c c }
+		\new StaffGroup \notes\relative c''{ 
+			\new Staff 
 			c1 c
-			< \context Staff=ii { c1 } \context Staff=iii { c1 } >
+			< \new Staff { c1 } \new Staff { c1 } >
 			c
 		}
 	>

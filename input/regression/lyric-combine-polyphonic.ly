@@ -1,4 +1,4 @@
-\version "1.9.1"
+\version "1.9.2"
 \header {
 
 texidoc ="Polyphonic rhythms and rests don't disturb

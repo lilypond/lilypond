@@ -1,4 +1,4 @@
-\version "1.9.1"
+\version "1.9.2"
 
 \header{
 texidoc="
@@ -13,7 +13,7 @@ Different text styles are used for various purposes.
 		 \alternative {
 		 	{
 			    d-4_\markup { \italic "cantabile"  } }
-		 	{  e }  } \grace { c16 }
+		 	{  e }  } \accacciatura { c16 }
 			 
 			 f4\ff^""^\markup  { \large "Largo" } \mark "B" g 
 	}

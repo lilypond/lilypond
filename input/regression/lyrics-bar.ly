@@ -1,4 +1,4 @@
-\version "1.9.1"
+\version "1.9.2"
 
 \header{
 texidoc="
@@ -21,7 +21,7 @@ lyrics don't collide with barlines.
 		        this4 one has no BarEngraverAddedToContext1
 		}
 	>
-	\notes \context Staff = SB { b1 b1 }
+	\notes \new Staff { b1 b1 }
 	>
 	\paper {
 		raggedright = ##t

@@ -52,7 +52,7 @@ paper block:
 
 
  %}
-\version "1.9.1"
+\version "1.9.2"
 
 upper = \notes \relative c {
 	\clef "treble"
@@ -72,8 +72,8 @@ lower = \notes \relative c {
 
 \score { \context ChoirStaff {
 	<
-		\context Staff = one { \upper }
-		\context Staff = three { \lower }
+		\new Staff { \upper }
+		\new Staff { \lower }
 	> }
 	\paper {
 	       \translator {

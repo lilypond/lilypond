@@ -1,4 +1,4 @@
-\version "1.9.1"
+\version "1.9.2"
 % TODO:
 % check with ancient- stuff.  rename, merge, something.  -gp
 
@@ -33,12 +33,12 @@ voice = \notes \transpose c c' {
 
 \score {
     \context ChoirStaff <
-	\context MensuralStaff = upperStaff <
+	\new MensuralStaff <
 	    \context MensuralVoice <
 		\voice
 	    >
 	>
-	\context Staff = lowerStaff <
+	\new Staff <
 	    \context Voice <
 		\voice
 	    >

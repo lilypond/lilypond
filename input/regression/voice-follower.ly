@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.2"
 
 
 \header { texidoc= "
@@ -18,7 +18,7 @@ can be printed automatically. This is enabled if the property
       \translator Staff=two
       b2 a
     }
-    \context Staff=two {\clef bass \skip 1*2 }
+    \new Staff {\clef bass \skip 1*2 }
   >\paper{ 
 linewidth =-1.
 }}

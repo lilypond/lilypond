@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.2"
 \header{
 texidoc="
 Breathing signs, also used for phrasing, do normally not influence
@@ -25,21 +25,21 @@ finalis, the latter three looking similar to bar glyphs.
     \key es \major \time 3/4
 
 % this bar contains no \breathe
-    < \context Voice = two { \stemDown es4 bes es }
-      \context Voice = one { \stemUp g4 as g }
+    <         {  g4 as g }
+\\{  es4 bes es }
     > |
 
 % by default, \breathe uses the rcomma, just as if saying:
 % \property Voice.BreathingSign \set #'text = #"scripts-rcomma"
-    < \context Voice = two { \stemDown es4 \breathe bes es }
-      \context Voice = one { \stemUp g4 as g }
+    <  
+       { g4 as g }\\{  es4 \breathe bes es }
     > |
 
 % rvarcomma and lvarcomma are variations of the default rcomma and lcomma
     % N.B.: must use Staff context here, since we start a Voice below
     \property Staff.BreathingSign \override #'text = #"scripts-rvarcomma"
-    < \context Voice = two { \stemDown es4 \breathe bes es }
-      \context Voice = one { \stemUp g4 as g }
+    <       { g4 as g }\\
+	    { es4 \breathe bes es }
     > |
 
 % wedge

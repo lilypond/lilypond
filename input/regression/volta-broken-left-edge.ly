@@ -1,4 +1,4 @@
-\version "1.9.1"
+\version "1.9.2"
 
 \header {
 texidoc ="Broken volta spanners behave correctly at left edge in all cases."
@@ -108,7 +108,7 @@ f f\break
         \notes <
 
 
-	\context Staff="4"
+	\new Staff
 	{
 	    \voiceB 
 	    \voiceC

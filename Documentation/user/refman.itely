@@ -1103,11 +1103,11 @@ connected between different staves of a @internalsref{StaffGroup}:
 @c
 @lilypond[fragment, verbatim]
 < \context StaffGroup <
-  \newcontext Staff { e'4 d'
+  \new Staff { e'4 d'
      \bar "||"
      f' e' }
-  \newcontext Staff { \clef bass c4 g e g } >
-\newcontext Staff { \clef bass c2 c2 } >
+  \new Staff { \clef bass c4 g e g } >
+\new Staff { \clef bass c2 c2 } >
 @end lilypond
 
 
@@ -1176,9 +1176,9 @@ a stem directions and horizontal shift for each part:
 
 @lilypond[singleline, verbatim]
 \relative c''
-\context Staff < \newcontext Voice { \voiceOne cis2 b  }
-  \newcontext Voice { \voiceThree b4 ais ~ ais4 gis4 } 
-  \newcontext Voice { \voiceTwo fis4~  fis4 f ~ f  } >
+\context Staff < \new Voice { \voiceOne cis2 b  }
+  \new Voice { \voiceThree b4 ais ~ ais4 gis4 } 
+  \new Voice { \voiceTwo fis4~  fis4 f ~ f  } >
 @end lilypond
 
 Normally, note heads with a different number of dots are not merged, but
@@ -1517,26 +1517,26 @@ creation of the piano staff:
 @example
 \score @{
     \notes \relative c'' <
-        \newcontext Staff @{ cis4 d e2 @}
+        \new Staff @{ cis4 d e2 @}
         \context GrandStaff <
             \pianoAccidentals
-            \newcontext Staff @{ cis4 d e2 @}
-            \newcontext Staff @{ es2 c @}
+            \new Staff @{ cis4 d e2 @}
+            \new Staff @{ es2 c @}
         >
-        \newcontext Staff @{ es2 c @}
+        \new Staff @{ es2 c @}
     >
 @}
 @end example
 @lilypond[singleline]
 \score {
     \notes \relative c'' <
-        \newcontext Staff { cis4 d e2 }
+        \new Staff { cis4 d e2 }
         \context GrandStaff <
             \pianoAccidentals
-            \newcontext Staff { cis4 d e2 }
-            \newcontext Staff { es2 c }
+            \new Staff { cis4 d e2 }
+            \new Staff { es2 c }
         >
-        \newcontext Staff { es2 c }
+        \new Staff { es2 c }
     >
     \paper {
         \translator {
@@ -2182,8 +2182,8 @@ In the following example, there are two sixteenth graces notes for
 every eighth grace note:
 
 @lilypond[relative=2,verbatim,fragment] 
-< \newcontext Staff { e4 \grace { c16[ d e f] } e4 }
-  \newcontext Staff { c'4 \grace { g8[ b] } c4 } >
+< \new Staff { e4 \grace { c16[ d e f] } e4 }
+  \new Staff { c'4 \grace { g8[ b] } c4 } >
 @end lilypond
 
 
@@ -2193,17 +2193,7 @@ played as short as possible. An appogiatura takes a fixed fraction of
 the main note, is and denoted without a slash. 
 
 Such slashless notes are obtained by setting the object property
-@code{stroke-style} of the @internalsref{Stem} object. For proper
-matching of override and reverts of such properties, it is necessary
-to use a Scheme function.
-
-The following fragment overrides the default formatting Grace style stems:
-@example
-  #(add-to-grace-init "Voice" 'Stem  'stroke-style '())
-@end example
-
-The @code{\override} is carefully matched with a @code{\revert}:
-
+@code{stroke-style} of the @internalsref{Stem} object:
 @cindex slash
 @cindex grace slash
 
@@ -2217,6 +2207,8 @@ The @code{\override} is carefully matched with a @code{\revert}:
   } c4
 }
 @end lilypond
+The @code{\override} is carefully matched with a @code{\revert}:
+
 
 If you want to end a note with a grace note, then the standard trick
 is to put the grace notes before a phantom ``space note'', e.g.
@@ -2274,8 +2266,8 @@ such as key signatures, barlines, etc. are also synchronized. Take
 care when you mix staves with grace notes and staves without, for example,
 
 @lilypond[relative=2,verbatim,fragment]
-< \newcontext Staff { e4 \bar "|:" \grace c16 d4 }
-  \newcontext Staff { c4 \bar "|:"  d4 } >
+< \new Staff { e4 \bar "|:" \grace c16 d4 }
+  \new Staff { c4 \bar "|:"  d4 } >
 @end lilypond
 
 Grace sections should only be used within sequential music
@@ -2720,8 +2712,8 @@ down = \notes { bassdrum4 snare8 bd r bd sn4 }
 \score {
     \apply #(drums->paper 'drums) \context Staff <
         \clef percussion
-        \newcontext Voice { \voiceOne \up }
-        \newcontext Voice { \voiceTwo \down }
+        \new Voice { \voiceOne \up }
+        \new Voice { \voiceTwo \down }
     >
 }
 
@@ -2911,8 +2903,8 @@ down = \notes { bd4 sn bd toml8 toml }
 \score {    
     \apply #(drums->paper 'mydrums) \context Staff <
         \clef percussion
-        \newcontext Voice { \voiceOne \up }
-        \newcontext Voice { \voiceTwo \down }
+        \new Voice { \voiceOne \up }
+        \new Voice { \voiceTwo \down }
     >
 }
 @end lilypond
@@ -2940,12 +2932,12 @@ down = \notes { bassdrum4 snare8 bd r bd sn4 }
 bass = \notes \transpose c c,, { a4. e8 r e g e }
 \score {
     <
-        \apply #(drums->paper 'drums) \newcontext Staff <
+        \apply #(drums->paper 'drums) \new Staff <
             \clef percussion
-            \newcontext Voice { \voiceOne \up }
-            \newcontext Voice { \voiceTwo \down }
+            \new Voice { \voiceOne \up }
+            \new Voice { \voiceTwo \down }
         >
-        \newcontext Staff { \clef "F_8" \bass }
+        \new Staff { \clef "F_8" \bass }
     >
 }
 @end lilypond
@@ -3169,8 +3161,8 @@ in both staves, and set
 @lilypond[fragment,relative,verbatim]
   \context PianoStaff <
     \property PianoStaff.connectArpeggios = ##t
-    \newcontext Staff  { <<c' e g c>>-\arpeggio }
-    \newcontext Staff { \clef bass  <<c,, e g>>-\arpeggio }
+    \new Staff  { <<c' e g c>>-\arpeggio }
+    \new Staff { \clef bass  <<c,, e g>>-\arpeggio }
   >
 @end lilypond
 
@@ -3377,24 +3369,24 @@ more complex orderings, the best way is to setup the hierarchy of
 staves and lyrics first, e.g.
 @example
 \context ChoirStaff \notes <
-  \newcontext Lyrics @{ s1 @}
-  \newcontext Staff @{ s1 @}
-  \newcontext Lyrics @{ s1 @}
-  \newcontext Staff @{ s1 @}
+  \new Lyrics @{ s1 @}
+  \new Staff @{ s1 @}
+  \new Lyrics @{ s1 @}
+  \new Staff @{ s1 @}
 >
 @end example
 and then combine the appropriate melodies and lyric lines:
 @example
   \addlyrics
-    \newcontext Staff @emph{the music}
-    \newcontext Lyrics @emph{the lyrics}
+    \new Staff @emph{the music}
+    \new Lyrics @emph{the lyrics}
 @end example
 
 putting both together, you would get
 @example
 \context ChoirStaff \notes <
-  \newcontext Lyrics @dots{}
-  \newcontext Staff @dots{}
+  \new Lyrics @dots{}
+  \new Staff @dots{}
   \addlyrics @dots{}
 >
 @end example
@@ -3551,8 +3543,8 @@ lower = \notes \relative c {
 \score {
   \context ChoirStaff {
     <
-      \newcontext Staff { \upper }
-      \newcontext Staff { \lower }
+      \new Staff { \upper }
+      \new Staff { \lower }
     >
   }
   \paper {
@@ -4392,8 +4384,8 @@ in this example disappears in the second line:
 @lilypond[verbatim]
 \score  {
   \notes \relative c' <
-    \newcontext Staff { e4 f g a \break c1 }
-    \newcontext Staff { c4 d e f \break R1 }
+    \new Staff { e4 f g a \break c1 }
+    \new Staff { c4 d e f \break R1 }
   >
   \paper {
     linewidth = 6.\cm 

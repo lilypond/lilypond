@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.2"
 
 \header{ texidoc="@cindex Time Signature Multiple
 
@@ -16,16 +16,16 @@ command work correctly. Barlines distort the regular spacing, though.
 
 \score{
     \notes \relative c'  <
-    	\context Staff= AS {
+    	\new Staff {
 	    \time 3/4
 	    c4 c c | c c c |
 	}
 
-    	\context Staff=BS {
+    	\new Staff {
 	    \time 2/4
 	    c4 c | c c | c c
 	}
-    	\context Staff =CS {
+    	\new Staff {
 	    \time 3/8
 	    c4. c8 c c   c4. c8 c c
 	}

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.2"
 \header {
 texidoc ="
   Template that puts dynamics on a separate line, so it is neatly

@@ -1,4 +1,4 @@
-\version "1.9.1"
+\version "1.9.2"
 \header{
 texidoc="
 Note head shapes are settable.  The stem endings should be adjusted
@@ -17,12 +17,12 @@ either up or down stems.
 
     \property Staff.NoteHead \set #'style = #'default
     <
-      \context Voice = up {
+      \new Voice {
         \property Voice.Stem \set #'direction = #1 %up
         e'16^\markup { "NoteHead \#'style = \#'default" }
         e'16 e'8 e'4 e'2 e'1 e'\breve e'\longa
       }
-      \context Voice = down {
+      \new Voice {
         \property Voice.Stem \set #'direction = #-1 %down
         a16 a16 a8 a4 a2 a1 a\breve a\longa
       }
@@ -31,12 +31,12 @@ either up or down stems.
 
     \property Staff.NoteHead \set #'style = #'baroque
     <
-      \context Voice = up {
+      \new Voice {
         \property Voice.Stem \set #'direction = #1 %up
         e'16^\markup { "NoteHead \#'style = \#'baroque" }
         e'16 e'8 e'4 e'2 e'1 e'\breve e'\longa
       }
-      \context Voice = down {
+      \new Voice {
         \property Voice.Stem \set #'direction = #-1 %down
         a16 a16 a8 a4 a2 a1 a\breve a\longa
       }
@@ -45,12 +45,12 @@ either up or down stems.
 
     \property Staff.NoteHead \set #'style = #'neo_mensural
     <
-      \context Voice = up {
+      \new Voice {
         \property Voice.Stem \set #'direction = #1 %up
         e'16^\markup { "NoteHead \#'style = \#'neo\_mensural" }
         e'16 e'8 e'4 e'2 e'1 e'\breve e'\longa
       }
-      \context Voice = down {
+      \new Voice {
         \property Voice.Stem \set #'direction = #-1 %down
         a16 a16 a8 a4 a2 a1 a\breve a\longa
       }
@@ -59,12 +59,12 @@ either up or down stems.
 
     \property Staff.NoteHead \set #'style = #'mensural
     <
-      \context Voice = up {
+      \new Voice {
         \property Voice.Stem \set #'direction = #1 %up
         e'16^\markup { "NoteHead \#'style = \#'mensural" }
         e'16 e'8 e'4 e'2 e'1 e'\breve e'\longa
       }
-      \context Voice = down {
+      \new Voice {
         \property Voice.Stem \set #'direction = #-1 %down
         a16 a16 a8 a4 a2 a1 a\breve a\longa
       }
@@ -73,12 +73,12 @@ either up or down stems.
 
     \property Staff.NoteHead \set #'style = #'harmonic
     <
-      \context Voice = up {
+      \new Voice {
         \property Voice.Stem \set #'direction = #1 %up
         e'16^\markup { "NoteHead \#'style = \#'harmonic" }
         e'16 e'8 e'4 e'2 e'1 e'\breve e'\longa
       }
-      \context Voice = down {
+      \new Voice {
         \property Voice.Stem \set #'direction = #-1 %down
         a16 a16 a8 a4 a2 a1 a\breve a\longa
       }
@@ -87,12 +87,12 @@ either up or down stems.
 
     \property Staff.NoteHead \set #'style = #'diamond
     <
-      \context Voice = up {
+      \new Voice {
         \property Voice.Stem \set #'direction = #1 %up
         e'16^\markup { "NoteHead \#'style = \#'diamond" }
         e'16 e'8 e'4 e'2 e'1 e'\breve e'\longa
       }
-      \context Voice = down {
+      \new Voice {
         \property Voice.Stem \set #'direction = #-1 %down
         a16 a16 a8 a4 a2 a1 a\breve a\longa
       }
@@ -101,12 +101,12 @@ either up or down stems.
 
     \property Staff.NoteHead \set #'style = #'cross
     <
-      \context Voice = up {
+      \new Voice {
         \property Voice.Stem \set #'direction = #1 %up
         e'16^\markup { "NoteHead \#'style = \#'cross" }
         e'16 e'8 e'4 e'2 e'1 e'\breve e'\longa
       }
-      \context Voice = down {
+      \new Voice {
         \property Voice.Stem \set #'direction = #-1 %down
         a16 a16 a8 a4 a2 a1 a\breve a\longa
       }
@@ -115,12 +115,12 @@ either up or down stems.
 
     \property Staff.NoteHead \set #'style = #'xcircle
     <
-      \context Voice = up {
+      \new Voice {
         \property Voice.Stem \set #'direction = #1 %up
         e'16^\markup { "NoteHead \#'style = \#'xcircle" }
         e'16 e'8 e'4 e'2 e'1 e'\breve e'\longa
       }
-      \context Voice = down {
+      \new Voice {
         \property Voice.Stem \set #'direction = #-1 %down
         a16 a16 a8 a4 a2 a1 a\breve a\longa
       }
@@ -129,12 +129,12 @@ either up or down stems.
 
     \property Staff.NoteHead \set #'style = #'triangle
     <
-      \context Voice = up {
+      \new Voice {
         \property Voice.Stem \set #'direction = #1 %up
         e'16^\markup { "NoteHead \#'style = \#'triangle" }
         e'16 e'8 e'4 e'2 e'1 e'\breve e'\longa
       }
-      \context Voice = down {
+      \new Voice {
         \property Voice.Stem \set #'direction = #-1 %down
         a16 a16 a8 a4 a2 a1 a\breve a\longa
       }
@@ -143,12 +143,12 @@ either up or down stems.
 
     \property Staff.NoteHead \set #'style = #'slash
     <
-      \context Voice = up {
+      \new Voice {
         \property Voice.Stem \set #'direction = #1 %up
         e'16^\markup { "NoteHead \#'style = \#'slash" }
         e'16 e'8 e'4 e'2 e'1 e'\breve e'\longa
       }
-      \context Voice = down {
+      \new Voice {
         \property Voice.Stem \set #'direction = #-1 %down
         a16 a16 a8 a4 a2 a1 a\breve a\longa
       }
@@ -157,12 +157,12 @@ either up or down stems.
 
     \property Staff.NoteHead \override #'transparent = ##t
     <
-      \context Voice = up {
+      \new Voice {
         \property Voice.Stem \set #'direction = #1 %up
         e'16^\markup { "NoteHead \#'transparent = \#\#t" }
         e'16 e'8 e'4 e'2 e'1 e'\breve e'\longa
       }
-      \context Voice = down {
+      \new Voice {
         \property Voice.Stem \set #'direction = #-1 %down
         a16 a16 a8 a4 a2 a1 a\breve a\longa
       }
@@ -170,26 +170,26 @@ either up or down stems.
     \property Staff.NoteHead \revert #'transparent
     \break
 
-    \context Voice = another <
-      \context Thread = TA {
+    \new Voice <
+      \new Thread {
         \property Thread.NoteHead \set #'style = #'cross
         \property Voice.Stem \set #'direction = #1
         c'16
       }
-      \context Thread = TB {
+      \new Thread {
         \property Thread.NoteHead \set #'style = #'default a16
       }
-      \context Thread = TC {
+      \new Thread {
         \property Thread.NoteHead \set #'style = #'mensural d'16
       }
     >
 
     \context Voice <
-      \context Thread = TA {
+      \new Thread {
         \property Thread.NoteHead \set #'style = #'cross
         c'4 c'4 c'4 c'4
       }
-      \context Thread = TB {
+      \new Thread {
         \property Thread.NoteHead \set #'style = #'mensural
         c''4 \stemDown c''
         \property Thread.NoteHead \set #'style = #'slash

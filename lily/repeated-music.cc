@@ -34,15 +34,17 @@ Repeated_music::to_relative_octave (Pitch p)
 {
   if (lily_1_8_relative)
     {
-      lily_1_8_compatibility_used = true; 
       if (body ())
 	p = body ()->to_relative_octave (p);
 
       Pitch last = p ; 
       if (alternatives ())
-	for (SCM s = alternatives (); gh_pair_p (s);  s = ly_cdr (s))
-	  unsmob_music (ly_car (s))->to_relative_octave (p);
-     
+	{
+	  lily_1_8_compatibility_used = true; 
+
+	  for (SCM s = alternatives (); gh_pair_p (s);  s = ly_cdr (s))
+	    unsmob_music (ly_car (s))->to_relative_octave (p);
+	}     
 
       return last;
     }

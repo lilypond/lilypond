@@ -1,5 +1,5 @@
 
-\version "1.9.1"
+\version "1.9.2"
 \header { texidoc="@cindex Octave Doubling
 Octave doubling parts of music. "
 }
