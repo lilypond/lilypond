@@ -225,7 +225,7 @@ The syntax for @code{\applymusic} is
 @end example
 
 @noindent
-This means that the scheme function @var{func} is called with
+This means that the Scheme function @var{func} is called with
 @var{music} as its argument.  The return value of @var{func} is the
 result of the entire expression.  @var{func} may read and write music
 properties using the functions @code{ly:music-property} and
@@ -309,10 +309,10 @@ exporting LilyPond input to other formats
 @node Using LilyPond syntax inside Scheme
 @subsection Using LilyPond syntax inside Scheme
 
-Creating music expressions in scheme can be tedious, as they are
-heavily nested and the resulting scheme code is large. For some
+Creating music expressions in Scheme can be tedious, as they are
+heavily nested and the resulting Scheme code is large. For some
 simple tasks, this can be avoided, using LilyPond usual syntax inside
-scheme, with the dedicated @code{#@{ ... #@}} syntax.
+Scheme, with the dedicated @code{#@{ ... #@}} syntax.
 
 The following two expressions give equivalent music expressions:
 @example
@@ -325,9 +325,9 @@ The following two expressions give equivalent music expressions:
 
 The content of @code{#@{ ... #@}} is enclosed in an implicit @code{@{
 ... @}} block, which is parsed. The resulting music expression, a
-@code{SequentialMusic} music object, is then returned and usable in scheme.
+@code{SequentialMusic} music object, is then returned and usable in Scheme.
 
-Arbitrary scheme forms, including variables, can be used in @code{#@{ ... #@}}
+Arbitrary Scheme forms, including variables, can be used in @code{#@{ ... #@}}
 expressions with the @code{$} character (@code{$$} can be used to
 produce a single $ character). This makes the creation of simple
 functions straightforward. In the following example, a function
@@ -414,13 +414,13 @@ and a list of properties and other arguments, produce a Stencil
 object.
 
 @menu
-* Markup construction in scheme::  
+* Markup construction in Scheme::  
 * How markups work internally ::  
 * Markup command definition::   
 @end menu
 
-@node Markup construction in scheme
-@subsection Markup construction in scheme
+@node Markup construction in Scheme
+@subsection Markup construction in Scheme
 
 @cindex defining markup commands 
 
@@ -440,7 +440,7 @@ is equivalent to:
 
 @noindent
 This example exposes the main translation rules between regular
-LilyPond markup syntax and scheme markup syntax, which are summed up
+LilyPond markup syntax and Scheme markup syntax, which are summed up
 is this table:
 @multitable @columnfractions .5 .5
 @item @b{LilyPond} @tab @b{Scheme}
