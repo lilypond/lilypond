@@ -17,7 +17,9 @@ $(outdir)/%/%.html: $(outdir)/%.texi
 	$(deep-footify) $(sort $(wildcard $(outdir)/$(*F)/*.html))
 
 $(outdir)/%.dvi: $(outdir)/%.texi
-	cd $(outdir); texi2dvi --batch --clean ../$< 
+# ugh, --clean removes .. from TEXINPUTS?
+#	cd $(outdir); texi2dvi --batch --clean ../$< 
+	cd $(outdir); texi2dvi --batch ../$< 
 
 $(outdir)/%.txt: $(outdir)/%.texi
 	$(MAKEINFO) -I../ -I $(outdir) --no-split --no-headers --output $@ $<
