@@ -26,17 +26,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % macros to shorten other definitions
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\def\musicdef#1#2{\def#1{\musicchar{#2}}}
-\def\musicchar#1{\musicfnt\char#1}
-\def\rationalmultiply#1*#2/#3{\multiply #1 by #2 \divide #1 by #3}
-
-
-\def\maccentraise#1#2{\dimen0=\noteheight
-        \rationalmultiply\dimen0*#2%
-        \raise\dimen0\hbox{#1}}
-\def\maccentdef#1#2#3{\def#1{\maccentraise{\musicchar{#2}}{#3}}}
-\def\vertcenter#1{\vbox to 0pt{\vss #1\vss}}
-
 \def\musicmathdef#1#2{\def#1{\musicmathchar{#2}}}
 \def\musicmathchar#1{\musicmathfont\char#1}
 
@@ -53,8 +42,9 @@
 \parindent=0pt
 \newdimen\smallspace
 \newdimen\interlinedist
+
 \newdimen\stemthickness
-\newcount\n
+\newcount\n                     %duh. meaningful identifiers.
 \newdimen\staffheight
 \newdimen\notewidth
 \newdimen\noteheight
@@ -72,7 +62,7 @@
 
   \def\cmrtwenty{
           \font\smalltextfont=cmr8
-        \font\meterfont=cmbx15
+        \font\meterfont=cmbx12 at 15pt
           \font\textmusic=cmmi12
 %        \font\musicmathfont=cmsy10 %%Not used?? /MB
         \ifundefined{documentclass}
@@ -80,13 +70,16 @@
                 \font\italicfont=cmti10 scaled \magstep1
                 \font\boldfont=cmbx10
                 \font\largefont=cmbx12
-                \font\Largefont=cmbx14
-                \font\hugefont=cmbx15 scaled \magstep 2
+                \font\typewriterfont=cmtt10
+                %\font\Largefont=cmbx14
+                \font\Largefont=cmbx12 scaled \magstep 2
+                \font\hugefont=cmbx12 scaled \magstep 3
         \else
 %                \def\settext##1{{\normalfont\normalsize ##1}}
                 \def\settext##1{{\normalfont ##1}}
                 \def\setitalic##1{\textit{\normalsize ##1}}
                 \def\setbold##1{\textbf{\normalsize ##1}}
+                \def\settypewriter##1{\texttt{\normalsize ##1}}
                 \def\setlarge##1{\textbf{\large ##1}}
                 \def\setLarge##1{\textbf{\Large ##1}}
                 \def\sethuge##1{\textbf{\huge ##1}}
@@ -100,6 +93,7 @@
                 \font\normaltextfont=cmr8 %\textfont is a primitive
                 \font\italicfont=cmti9
                 \font\boldfont=cmbx8
+                \font\typewriterfont=cmtt9
                 \font\largefont=cmbx10
                 \font\Largefont=cmbx12
                 \font\hugefont=cmbx12 scaled \magstep 2
@@ -107,6 +101,7 @@
                 \def\settext##1{{\normalfont\footnotesize ##1}}
                 \def\setitalic##1{\textit{\small ##1}}
                 \def\setbold##1{\textbf{\footnotesize ##1}}
+                \def\settypewriter##1{\texttt{\normalsize ##1}}
                 \def\setlarge##1{\textbf{\normalsize ##1}}
                 \def\setLarge##1{\textbf{\large ##1}}
                 \def\sethuge##1{\textbf{\Large ##1}}
@@ -121,6 +116,7 @@
                 \font\italicfont=cmti7
                 \font\boldfont=cmbx7
                 \font\largefont=cmbx9
+                \font\typewriterfont=cmtt7
                 \font\Largefont=cmbx10
                 \font\hugefont=cmbx12
         \else
@@ -140,6 +136,7 @@
                 \font\normaltextfont=cmr6
                 \font\italicfont=cmti6
                 \font\boldfont=cmbx6
+                \font\typewriterfont=cmtt6
                 \font\largefont=cmbx8
                 \font\Largefont=cmbx9
                 \font\hugefont=cmbx10
@@ -200,6 +197,18 @@
 
 % stacked horizontal lines 
 
+\def\interscoreline{\vskip 16pt}
+\def\setdynamic#1{\dynfont #1}
+\def\setfinger#1{\fingerfont #1}
+\def\setnumber#1{\fetanummer #1}
+\def\setmark#1{\markfont #1}
+
+% big fat marks, if errors are detected.
+\def\columnerrormark{\placebox{-5pt}{0pt}{\bf C!}}
+\def\scorelineerrormark{\placebox{0pt}{-10pt}{\bf L!}}
+\def\errormark{{\bf E!}}
+\def\unknown{{\bf u}}
+
 \input dyndefs
 \input fetdefs
 
@@ -210,11 +219,13 @@
 \def\defaultthinbar{\thinbar{\staffheight}}
 \def\defaultthickbar{\thickbar{\staffheight}}
 %? what-s wrong with rightalign?
-\def\repeatstopbar{\hss\rightalign{\repeatcolon\hskip2\smallspace\defaultthinbar\hskip\smallspace\defaultthickbar}}
+\def\repeatstopbar{\rightalign{\repeatcolon\kern2\smallspace\defaultthinbar\kern\smallspace\defaultthickbar}}
 \def\repeatstartbar{\hbox{\defaultthickbar\kern\smallspace\defaultthinbar\kern2\smallspace\repeatcolon}}
 \def\repeatstopstart{\hbox{\repeatcolon\kern2\smallspace\defaultthickbar\kern\smallspace\defaultthickbar\kern2\smallspace\repeatcolon}}
 
 %compatibility
+%urg
+\fetdef\repeatcolon{18}
 \def\repeatbar{\repeatstopbar}
 \def\startrepeat{\repeatstartbar}
 \def\repeatbarstartrepeat{\repeatstopstart}
@@ -255,31 +266,51 @@
 \def\maatstreep#1{\thinbar{#1}}
 \def\startbar#1{\leftalign{\thickbar{#1}\kern\smallspace\thinbar{#1}}}
 \def\finishbar#1{\rightalign{\thinbar{#1}\kern\smallspace\thickbar{#1}}}
+\def\fatdoublebar#1{\hbox{\phantom{\repeatcolon\kern2\smallspace}\thickbar{#1}\kern\smallspace\thickbar{#1}}}
 
 
 \def\stem#1#2{\hbox{\kern -.5\stemthickness
         \vrule width\stemthickness height#2 depth-#1}}
 
-\def\placebox#1#2#3{%
-        \botalign{\hbox{\raise #1\leftalign{\kern #2{}#3}}}%
-}
 
-
+% ugh
+% see e.g. input/test/beam-pos.ly
+%
+% something's wrong with the aligment; sometimes all symbols
+% look to be placed a bit too high (there's an ugly fix for
+% the staccato-dot in script.cc)
+% but this varies from line to line: it seems that xdvi
+% does some rounding; i can't really check this from screen on i
+% 600x600 res.
+%
 \def\rulesym#1#2{\dimen0=#1%
         \vrule height .5\dimen0 depth .5\dimen0 width #2}
+\def\shiftedrulesym#1#2{\dimen0=#1%
+        \vrule height .7\dimen0 depth .3\dimen0 width #2}
+\def\tinyrulesym#1#2{\dimen0=#1%
+        \vrule height .1\dimen0 depth .1\dimen0 width #2}
+%would be nice for checking alignment
+\def\openrulesym#1#2{\dimen0=#1%
+        \vbox to \dimen0{\vss%
+        \hbox{\vrule height .1\dimen0 width #2}%
+        \hbox{\vrule height .2\dimen0 width 0pt}%
+        \hbox{\vrule height .4\dimen0 width #2}%
+        \hbox{\vrule height .2\dimen0 width 0pt}%
+        \hbox{\vrule height .1\dimen0 width #2}%
+        \vss}}
+%\let\rulesym\shiftedrulesym
+%\let\rulesym\tinyrulesym
+%\let\rulesym\openrulesym
+
 \ifundefined{documentclass}
         \def\settext#1{\normaltextfont #1}
         \def\setitalic#1{\italicfont #1}
         \def\setbold#1{\boldfont #1}
+        \def\settypewriter#1{\typewriterfont #1}
         \def\setlarge#1{\largefont #1}
         \def\setLarge#1{\Largefont #1}
         \def\sethuge#1{\hugefont #1}
 \fi
-
-\def\setdynamic#1{\dynfont #1}
-\def\setfinger#1{\fingerfont #1}
-\def\setnumber#1{\fetanummer #1}
-
 % the interline symbol. Redefine to remove it.
 \def\defaultlineseparator{\vbox{\mussepline\vskip -5pt\mussepline}}
 \def\lineseparator{\defaultlineseparator}
@@ -290,38 +321,41 @@
 }
 
 
-\def\interscoreline{\vskip 16pt}
-        
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% big fat marks, if errors are detected.
-\def\columnerrormark{\placebox{-5pt}{0pt}{\bf C!}}
-\def\scorelineerrormark{\placebox{0pt}{-10pt}{\bf L!}}
-\def\errormark{{\bf E!}}
-\def\unknown{{\bf u}}
-
 \def\postheader{}
-\ifundefined{documentclass}
-        \footline={\ifnum\pageno=1
-        {\smalltextfont\mudelacopyright\hfil \LilyIdString
-        }\else{\hfil\the\pageno\hfil}\fi
-}\else
+
+
+
+
+\ifundefined{documentclass}%
+%        \ifundefined{nolilyfooter}
+% Can't nest \ifundefined ??
+        \footline={\ifnum\pageno=1\smalltextfont\mudelacopyright\hfil \LilyIdString
+                \else\hfil\the\pageno\hfil\fi}%
+        \advance\hoffset by -.6in
+ %       \fi%
+\else
+\let\nopagenumbers\relax
         %% FIXME
         \def\ps@plain{
                 \renewcommand{\@oddhead}{}%
                 \renewcommand{\@evenfoot}{}%
                 \renewcommand{\@evenhead}{}%
-                \renewcommand{\@oddfoot}{\ifnum\thepage=1
-        {\hfil \LilyIdString
-        }\else{foo\hfil\the\pageno\hfil}\fi}}
+                \renewcommand{\@oddfoot}{%
+                        \ifnum\thepage=1{\hfil \LilyIdString}%
+                        \else{%
+                                foo\hfil\the\pageno\hfil}%
+                        \fi}}
         \def\ps@empty{
                 \renewcommand{\@oddhead}{}%
                 \renewcommand{\@evenfoot}{}%
                 \renewcommand{\@evenhead}{}%
-                \renewcommand{\@oddfoot}{\ifnum\thepage=1
-        {\hfil \LilyIdString
-        }\else{foo\hfil\the\pageno\hfil}\fi}}
+                \renewcommand{\@oddfoot}{%
+                        \ifnum\thepage=1{\hfil \LilyIdString}%
+                        \else{foo\hfil\the\pageno\hfil}%
+                        \fi}}%
 \fi
-
+\nopagenumbers
 
 % debugging stuff:
 % \vbox to 0pt{\vskip .5cm \hruler{48}{3pt}\vss}
