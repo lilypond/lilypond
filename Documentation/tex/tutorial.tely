@@ -1,19 +1,6 @@
-\input texinfo @c -*-texinfo-*- vim:textwidth=72:expandtab
+\input texinfo @c -*-texinfo-*-
 @setfilename tutorial.info
 @settitle Typesetting music with LilyPond
-
-@ignore
-macros don't work (yet?) --jcn
-@macro explain{line,explanation}
-@multitable @columnfractions .60 .39
-@item
-@noindent
-@exdent @code{\line\}
-@tab
-\explanation\
-@end multitable
-@end macro
-@end ignore
 
 @ifinfo
 

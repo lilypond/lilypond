@@ -1,0 +1,401 @@
+\input texinfo @c -*-texinfo-*-
+@setfilename CodingStyle.info
+@settitle CodingStyle - standards while programming for GNU
+LilyPond
+
+@node Top, , , (dir)
+@top
+
+
+
+
+@chapter CodingStyle - standards while programming for GNU
+LilyPond
+
+()
+
+@unnumberedsec DESCRIPTION
+    
+
+We use these standards while doing programming for GNU LilyPond.  If
+you do some hacking, we appreciate it if you would follow this rules,
+but if you don't, we still like you.
+
+Functions and methods do not return errorcodes.
+
+@quotation
+
+A program should be light and agile, its subroutines
+connected like a string of pearls.  The spirit and intent of
+the program should be retained throughout.  There should be
+neither too little nor too much, neither needless loops nor
+useless variables, neither lack of structure nor overwhelming
+rigidity.
+
+A program should follow the 'Law of Least
+Astonishment'.  What is this law?  It is simply that the
+program should always respond to the user in the way that
+astonishes him least.
+
+A program, no matter how complex, should act as a
+single unit.  The program should be directed by the logic
+within rather than by outward appearances.
+
+If the program fails in these requirements, it will be
+in a state of disorder and confusion.  The only way to correct
+this is to rewrite the program.
+
+-- Geoffrey James, "The Tao of Programming"
+@end quotation
+
+
+@unnumberedsubsec LANGUAGES
+
+C++, /bin/sh and Python are preferred.  Perl is not.
+Python code should use an indent of 8, using TAB characters.
+
+@unnumberedsubsec FILES
+
+Definitions of classes that are only accessed via pointers
+(*) or references (&) shall not be included as include files.
+
+filenames
+
+@example 
+
+	".hh"	Include files
+	".cc"	Implementation files
+	".icc"	Inline definition files
+	".tcc"	non inline Template defs
+ 
+@end example 
+
+in emacs:
+
+@example 
+
+	(setq auto-mode-alist
+	      (append '(("\\.make$" . makefile-mode)
+			("\\.cc$" . c++-mode)
+			("\\.icc$" . c++-mode)
+			("\\.tcc$" . c++-mode)
+			("\\.hh$" . c++-mode)
+			("\\.pod$" . text-mode)		
+			)
+		      auto-mode-alist))
+ 
+@end example 
+
+
+The class Class_name_abbreviation is coded in @file{class-name-abbr.*}
+
+@unnumberedsubsec INDENTATION
+
+in emacs:
+
+@example 
+
+	(add-hook 'c++-mode-hook
+		  '(lambda() (c-set-style "gnu")
+		     )
+		  )
+ 
+@end example 
+
+If you like using font-lock, you can also add this to your @file{.emacs}:
+
+@example 
+
+	(setq font-lock-maximum-decoration t)
+	(setq c++-font-lock-keywords-3 
+	      (append
+	       c++-font-lock-keywords-3
+	       '(("\\b\\([a-zA-Z_]+_\\)\\b" 1 font-lock-variable-name-face)
+	       ("\\b\\([A-Z]+[a-z_]+\\)\\b" 1 font-lock-type-face))
+	       ))
+ 
+@end example 
+
+@unnumberedsubsec CLASSES and TYPES:
+
+@example 
+
+	This_is_a_class
+ 
+@end example 
+
+@unnumberedsubsec MEMBERS
+
+@example 
+
+	Class::member ()
+	Type Class::member_type_
+	Type Class::member_type ()
+ 
+@end example 
+
+the @code{type} is a Hungarian notation postfix for @code{Type}. See below
+
+@unnumberedsubsec MACROS
+
+Macros should be written completely in uppercase
+
+The code should not be compilable if proper macro declarations are not
+included. 
+
+Don't laugh. It took us a whole evening/night to figure out one of
+these bugs, because we had a macro that looked like
+@code{DECLARE_VIRTUAL_FUNCTIONS ()}. 
+
+@unnumberedsubsec BROKEN CODE
+
+Broken code (hardwired dependencies, hardwired constants, slow
+algorithms and obvious limitations) should be marked as such: either
+with a verbose TODO, or with a short "ugh" comment.
+
+@unnumberedsubsec COMMENTS
+
+The source is commented in the DOC++ style.  Check out doc++ at
+@uref{http://www.zib.de/Visual/software/doc++/index.html}
+
+@example 
+
+	/*
+		C style comments for multiline comments.
+		They come before the thing to document.
+		[...]
+	*/
+
+	/**
+		short description.
+		Long class documentation.
+		(Hungarian postfix)
+
+		TODO Fix boring_member ()
+	*/
+	class Class @{
+		/**
+		  short description.
+		  long description
+		*/
+
+		Data data_member_;
+
+		/**
+			short memo. long doco of member ()
+			@@param description of arguments
+			@@return Rettype
+		*/
+		Rettype member (Argtype);
+
+		/// memo only
+		boring_member () @{
+			data_member_ = 121; // ugh
+		@}
+	@};
+ 
+@end example 
+
+	
+Unfortunately most of the code isn't really documented that good.
+
+@unnumberedsubsec MEMBERS (2)
+
+Standard methods:
+
+@example 
+
+	///check that *this satisfies its invariants, abort if not.
+	void OK () const
+
+	/// print *this (and substructures) to debugging log
+	void print () const
+
+	/**
+	protected member. Usually invoked by non-virtual XXXX ()
+	*/
+	virtual do_XXXX ()
+
+	/**add some data to *this.
+	Presence of these methods usually imply that it is not feasible to this
+	via  a constructor
+	*/
+	add (..)
+
+	/// replace some data of *this
+	set (..)
+ 
+@end example 
+
+@unnumberedsubsec Constructor
+
+Every class should have a default constructor.  
+
+Don't use non-default constructors if this can be avoided:
+
+@example 
+
+	Foo f(1)
+ 
+@end example 
+
+is less readable than
+
+@example 
+
+	Foo f;
+	f.x = 1
+ 
+@end example 
+
+or 
+
+@example 
+
+	Foo f(Foo_convert::int_to_foo (1))
+ 
+@end example 
+
+@unnumberedsec HUNGARIAN NOTATION NAMING CONVENTION
+    
+
+Proposed is a naming convention derived from the so-called
+@emph{Hungarian Notation}.  Macros, @code{enum}s and @code{const}s are all
+uppercase, with the parts of the names separated by underscores.
+
+@unnumberedsubsec Types
+
+@table @samp
+@item @code{byte}
+    unsigned char. (The postfix _by is ambiguous)
+@item @code{b}
+    bool
+@item @code{bi}
+    bit
+@item @code{ch}
+    char
+@item @code{f}
+    float
+@item @code{i}
+    signed integer
+@item @code{str}
+    string class
+@item @code{sz}
+    Zero terminated c string
+@item @code{u}
+    unsigned integer
+@end table
+
+@unnumberedsubsec User defined types
+
+@example 
+
+	/** Slur blah. blah.
+	(slur)
+	*/
+	class Slur @{@};
+	Slur* slur_p = new Slur;
+ 
+@end example 
+
+@unnumberedsubsec Modifiers
+
+The following types modify the meaning of the prefix. 
+These are preceded by the prefixes:
+
+@table @samp
+@item @code{a}
+    array
+@item @code{array}
+    user built array.
+@item @code{c}
+    const. Note that the proper order is @code{Type const}
+    i.s.o. @code{const Type}
+@item @code{C}
+    A const pointer. This would be equivalent to @code{_c_l}, but since any
+    "const" pointer has to be a link (you can't delete a const pointer),
+    it is superfluous.
+@item @code{l}
+    temporary pointer to object (link)
+@item @code{p}
+    pointer to newed object
+@item @code{r}
+    reference
+@end table
+
+@unnumberedsubsec Adjective
+
+Adjectives such as global and static should be spelled out in full.
+They come before the noun that they refer to, just as in normal english.
+
+@example 
+
+foo_global_i: a global variable of type int commonly called "foo".
+ 
+@end example 
+
+static class members do not need the static_ prefix in the name (the
+Class::var notation usually makes it clear that it is static)
+
+@table @samp
+@item @code{loop_i}
+    Variable loop: an integer
+@item @code{u}
+    Temporary variable: an unsigned integer
+@item @code{test_ch}
+    Variable test: a character
+@item @code{first_name_str}
+    Variable first_name: a String class object
+@item @code{last_name_ch_a}
+    Variable last_name: a @code{char} array
+@item @code{foo_i_p}
+    Variable foo: an @code{Int*} that you must delete
+@item @code{bar_i_l}
+    Variable bar: an @code{Int*} that you must not delete
+@end table
+
+Generally default arguments are taboo, except for nil pointers.
+
+The naming convention can be quite conveniently memorised, by
+expressing the type in english, and abbreviating it
+
+@example 
+
+	static Array<int*> foo
+ 
+@end example 
+
+@code{foo} can be described as "the static int-pointer user-array", so you get
+
+@example 
+
+	foo_static_l_arr
+ 
+@end example 
+
+
+@unnumberedsec MISCELLANEOUS
+    
+
+For some tasks, some scripts are supplied, notably creating patches, a
+mirror of the website, generating the header to put over cc and hh
+files, doing a release.
+
+Use them.
+
+The following generic identifications are used:
+
+@example 
+
+	up == 1
+	left == -1
+	right == 1
+	down == -1
+ 
+@end example 
+
+Intervals are pictured lying on a horizontal numberline (Interval[-1]
+is the minimum). The 2D plane has +x on the right, +y pointing up.
+
+
+@bye

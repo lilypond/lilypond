@@ -9,10 +9,9 @@ SUBDIRS = include
 MODULE_LIBS=$(depth)/lib $(depth)/flower 
 MODULE_INCLUDES=$(depth)/lib/include $(depth)/flower/include 
 MODULE_CXXFLAGS=
+HELP2MAN_EXECS = lilypond
 
-
-
-STEPMAKE_TEMPLATES= c++ executable po
+STEPMAKE_TEMPLATES= c++ executable po help2man
 
 include $(depth)/make/stepmake.make 
 

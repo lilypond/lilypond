@@ -46,7 +46,6 @@ LilyPond handling real music.  MIDI, view PNG, PostScript, and Source.
 
 @itemize @bullet
 @item @uref{Documentation/tex/out-www/tutorial.html,Tutorial}
-@item @uref{Documentation/tex/out-www/reference-manual.html,Tutorial}
 @item @uref{Documentation/out-www/faq.html,FAQ}
 @item @uref{Documentation/out-www/mail.html,Mailing Lists}
 @item @uref{Documentation/out-www/index.html,All of the LilyPond documentation}

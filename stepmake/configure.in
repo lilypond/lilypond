@@ -26,13 +26,10 @@ AC_STEPMAKE_LOCALE
 # AC_STEPMAKE_MSGFMT
 # AC_STEPMAKE_TEXMF
 # AC_STEPMAKE_TEXMF_DIRS
-AC_STEPMAKE_YODL
 
 # AM_PATH_GTK(1.0.0,,AC_MSG_ERROR([please install proper version of gtk]))
 # AM_PATH_GTK__(0.9.4,,AC_MSG_ERROR([please install proper version of gtk--]))
 
 AC_CHECK_PROGS(MAKEINFO, makeinfo, error)
-# AC_CHECK_SEARCH_RESULT($YODL2TEXINFO, yodl,  
-#    You should install Yodl 1.30.pre6 or better)
 
 AC_STEPMAKE_END

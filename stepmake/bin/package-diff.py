@@ -144,25 +144,6 @@ def makediff (fromdir, todir, patch_name):
 		(mailaddress (), program_id (),  fromname, toname, 
 		 flags.package.name, os.path.basename (patch_name)))
 
-	# write state vector
-	f.write ('--state\n')
-	state_vec = gulp_file ('make/STATE-VECTOR')
-	from_str = version_tuple_to_str (flags.from_version)
-	to_str = version_tuple_to_str (flags.to_version)
-	i = regex.search (from_str, state_vec)
-	if i == -1:
-		f.write (from_str + '\n')
-	else:
-		state_vec = state_vec[i:]
-	i = regex.search (to_str, state_vec)
-	if i == -1:
-		f.write (to_str + '\n')
-	else:
-		i = i + len (version_tuple_to_str (flags.to_version))
-		state_vec = state_vec[:i]
-		f.write (state_vec)
-		f.write ('\n')
-	f.write ('++state\n')
 	f.close ()
 			
 	sys.stderr.write ('diffing to %s... ' % patch_name)

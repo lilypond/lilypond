@@ -109,8 +109,7 @@ you'll need Python for other LilyPond scripts anyway.
     RedHat/SPECS
     releases/                    # .tar.gz releases
     test/                        # tarballs and diffs from current version
-    yodl -> yodl-1.30.17
-    yodl-1.30.17
+
  
 @end example 
 

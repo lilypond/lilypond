@@ -1,0 +1,112 @@
+\input texinfo @c -*-texinfo-*-
+@setfilename gnu-music.info
+@settitle GNU Music project - manifesto
+
+@node Top, , Programs, (dir)
+@top
+@menu
+* GNU Music project - manifesto:: GNU Music project - manifesto
+@end menu
+
+
+
+@node GNU Music project - manifesto, Goal, , Top
+@menu
+* Goal::                          Goal
+* Requirements::                  Requirements
+* Components::                    Components
+* Programs::                      Programs
+@end menu
+@chapter GNU Music project - manifesto
+
+
+@node Goal, Requirements, GNU Music project - manifesto, GNU Music project - manifesto
+@section Goal
+
+
+The public deserves free tools for composing and printing.
+
+@node Requirements, Components, Goal, GNU Music project - manifesto
+@section Requirements
+
+Emacs and TeX serve as useful examples of what programs by the GMP
+should be.
+
+@table @samp
+@item high-quality
+    The software should be of high-quality from the application view.
+For example, the notation should be high-quality from an engraving
+point of view, like TeX
+
+@item high-quality The software should be of high-quality point of
+    view, like all GNU software, it should have no limits, be fast,
+    etc.
+
+@item tweakable
+    Printed music has a lot of styles, and special symbols. It may be
+    unfeasible to provide and maintain  lots of code that is hardwired
+    into the system. The tools should be extensible/programmable like
+    Emacs and TeX.
+
+@item easy to use.
+    That is, for technical users (that can read a manual). The learning
+    curve should be as flat as possible but not at the expense of comfort
+    of use and power.
+@end table
+
+@node Components, Programs, Requirements, GNU Music project - manifesto
+@section Components
+
+@table @samp
+@item A set of music fonts
+    In development, the Feta font.  
+@item A typesetting engine
+    In development, included in LilyPond.
+    A system with rules on how to set properties of items to be printed
+    (up/down directions, breaking, dimensions, etc)
+    It should be suited to interactive typesetting (so, incremental
+    algorithms are needed)
+@item A display engine
+    which can display clear notewriting in (say) an X-window
+    Ideally the system should cooperate with the typesetting engine
+@item An ASCII language
+    In development, LilyPond has a language. 
+    Having an ASCII format which enables urtext, and easy sharing (via
+    mail and news forums) encourages cooperation and exchange of music.
+@item A printing engine
+    In development, included in LilyPond.
+@item An input system
+    The natural way to enter composed music is singing or playing it. The
+    GMP should have module which can take keyboard input or microphone
+    input and convert it to computer data. (microphone input would be
+    difficult)
+@item sequencing
+    (have no clue about this)
+@item A scanning system
+    Having a system which can produce mudela from printed scores,  greatly
+    simplifies creating a collection of music
+@item A music-understanding system
+    (difficult) A system to generate accompaniments, figured bass,
+    automatic accompaniment, etc.
+@item A performing system
+    A system which can play credible performances of abstract music
+    representations.  LilyPond has a bare bones system, but it cannot
+    (yet) be described as "credible". 
+@end table
+
+@node Programs, Top, Components, GNU Music project - manifesto
+@section Programs
+
+@itemize @bullet
+@item A noninteractive typesetter, suited for batch jobs, and typesetting
+    existing music. This would couple the ASCII language, the printing
+    engine and the typesetting engine
+    LilyPond is currently representing this section.
+@item A GUI for composing. This would combine the display engine, the input
+    system and the typesetting engine.
+@item Libraries for reading and writing various audio/music/notation
+    formats.
+@end itemize
+
+
+@bye

@@ -9,7 +9,8 @@ MODULE_NAME = midi2ly
 SUBDIRS = include
 EXTRA_DIST_FILES += TODO
 MODULE_LIBS=$(depth)/lib $(depth)/flower
-STEPMAKE_TEMPLATES=c++ executable po
+HELP2MAN_EXECS = midi2ly
+STEPMAKE_TEMPLATES=c++ executable po help2man
 
 include $(depth)/make/stepmake.make 
 

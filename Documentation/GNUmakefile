@@ -3,15 +3,15 @@
 depth = ..
 
 NAME = documentation
-SUBDIRS=man tex metadoc bibliography pictures topdocs ntweb
-STEPMAKE_TEMPLATES=documentation  
+SUBDIRS= tex metadoc bibliography pictures topdocs ntweb
+STEPMAKE_TEMPLATES=documentation  texinfo
 README_TOP_FILES=NEWS DEDICATION TODO  AIMS
 INFO_FILES = $(wildcard $(outdir)/$(package).info*)
-EXTRA_DIST_FILES = COPYRIGHT
+EXTRA_DIST_FILES = COPYRIGHT 
 
 
 
-BLURBS=BLURB COPERTINA FLAPTEKST
+BLURBS=BLURB 
 
 include $(depth)/make/stepmake.make 
 

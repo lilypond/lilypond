@@ -482,7 +482,8 @@ for opt in options:
 	o = opt[0]
 	a = opt[1]
 	if o== '--help' or o == '-h':
-		help ()
+		usage ()
+		sys.exit (0)
 	if o == '--version' or o == '-v':
 		print_version ()
 		sys.exit (0)

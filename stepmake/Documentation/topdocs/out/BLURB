@@ -1,6 +1,0 @@
-StepMake is a drop-in package that takes care of generic Makefile and
-packaging/distribution issues.  It enables you to write only the simplest of
-Makefile snippets, while providing a series powerful make targets.  Features
-include speed, wildcarding, out/ dir build, stateless Makefiles and package
-clustering.  It includes some handy scripts for making (package-)diffs and
-patches, making binary distributions etc.

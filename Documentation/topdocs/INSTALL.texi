@@ -2,7 +2,7 @@
 @setfilename INSTALL.info
 @settitle INSTALL - compiling and installing GNU LilyPond
 
-@node Top, , AUTHORS, (dir)
+@node Top, , , (dir)
 @top
 @menu
 * INSTALL - compiling and installing GNU LilyPond::INSTALL - compiling and installing GNU LilyPond
@@ -88,9 +88,6 @@ Check out @url{ftp://ftp.gnu.org/bison/}.
 @item Texinfo. Check out @url{ftp://ftp.gnu.org/pub/texinfo/}.
 Most documentation is in texinfo.
 
-@item Yodl.  Needed for obsolete docs (1.31.17)
-@url{ftp://ftp.lilypond.org/pub/yodl}.
-
 @item The geometry package for LaTeX is needed to use ly2dvi.  
 Available at 
 @url{ftp://ftp.ctan.org/tex-archive/macros/latex/contrib/supported/geometry}
@@ -150,8 +147,6 @@ If you want to auto-generate Lily's website, you'll need some additional
 conversion tools.
 
 @itemize @bullet
-@item YODL 1.31.15 or later.
-
 @item xpmtoppm (from the Portable Bitmap Utilities) (For RedHat Linux
 	     users: it is included within the package libgr-progs).
 	the original is at

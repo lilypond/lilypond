@@ -1,9 +1,9 @@
 Name: lilypond
-Version: 1.2.5
+Version: 1.2.6
 Release: 1
 Copyright: GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.2.5.tar.gz
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.2.6.tar.gz
 Summary: A program for printing sheet music.
 URL: http://www.cs.uu.nl/~hanwen/lilypond
 Packager: Han-Wen Nienhuys <hanwen@cs.uu.nl>
@@ -16,7 +16,6 @@ Prereq: tetex
 LilyPond is a music typesetter.  It produces beautiful sheet music
 using a high level description file as input.  LilyPond is part of 
 the GNU Project.
-
 
 %prep
 %setup
