@@ -29,7 +29,11 @@ font size definitions for the music are adjusted to match the layout
 of your document.
 
 It can work on La@TeX{}, @code{html} or texinfo documents.  A tutorial
-on using lilypond-book is in @ref{Integrating text and music}.
+on using lilypond-book is in @ref{Integrating text and music}.  In
+case that you do not know La@TeX{}, then
+@uref{http://www.ctan.org/tex-archive/info/lshort/english/,The not so
+Short Introduction to LaTeX} provides a introction to using La@TeX{}.
+
 
 @menu
 * Integrating Texinfo and music::

@@ -1,5 +1,7 @@
 2003-03-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION (MY_PATCH_LEVEL): 1.7.14 released
+
 	* input/mutopia/W.A.Mozart/*.ly (romanze): markup syntax updates. 
 
 	* buildscripts/mf-to-table.py: add .pfa, .pfb target dependency.
