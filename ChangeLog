@@ -1,5 +1,8 @@
 2004-02-10  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* Documentation/user/tutorial.itely (Fine tuning layout): Add lost
+	relative.
+
 	* scripts/lilypond-book.py: Fixes for make web.  Default to stdout
 	only when filtering, default to input_base otherwise.  Coding
 	style fixes.
