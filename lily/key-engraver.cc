@@ -76,7 +76,7 @@ Key_engraver::create_key (bool def)
     {
       SCM vis = get_property ("explicitKeySignatureVisibility"); 
       if (gh_procedure_p (vis))
-	item_p_->set_grob_property ("visibility-lambda",vis);
+	item_p_->set_grob_property ("break-visibility",vis);
     }
 }      
 

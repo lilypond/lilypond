@@ -205,7 +205,7 @@ Do nothing.
 
 (translator-property-description 'explicitKeySignatureVisibility
 procedure? "visibility-lambda function for explicit Key changes;
-\override of #'visibility-lambda will set the visibility for normal
+\override of #'break-visibility will set the visibility for normal
 (ie. at the start of the line) key signatures.")
 
 (translator-property-description 'extraNatural boolean? "Whether to typeset an
