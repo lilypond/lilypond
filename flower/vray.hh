@@ -120,7 +120,7 @@ public:
     }
     void del(int i) {
 	assert(i >=0&& i < size);
-	arrcpy(thearray+i, thearray+i+1, size-i);
+	arrcpy(thearray+i, thearray+i+1, size-i-1);
 	size--;
     }
     // quicksort.
