@@ -12,12 +12,16 @@
 	\property Staff.timeSignatureFraction = #'(4 . 4)
 	\property Staff.measureLength = #(make-moment 1 1)
 	\property Staff.beatLength = #(make-moment 1 4)
-	c1 c1 c1  }
+	c1 c1 c1
+	\property Staff.whichBar = #"|."
+    }
 	\context Staff= SB {
 	\property Staff.timeSignatureFraction = #'(3 . 4)
 	\property Staff.measureLength = #(make-moment 3 4)
 	\property Staff.beatLength = #(make-moment 1 4)
-	c2. c2.  c2. c2.  }
+	c2. c2.  c2. c2.
+	\property Staff.whichBar = #"|."
+    }
 
     >		 
 

@@ -1,5 +1,12 @@
-2002-09-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+2002-09-06  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/test/empty-staffs.ly: new file.
+
+	* Documentation/topdocs/INSTALL.texi: adds a bit of information
+	about compiling in OpenBSD. (Graham Percival)
+
+2002-09-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+	
 	* scm/documentation-lib.scm (scm->string): don't crash if a
 	procedure doesn't have a name.
 
