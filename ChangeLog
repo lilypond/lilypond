@@ -4,7 +4,7 @@
 
 	* aclocal.m4: Regenerate.
 	
-	* stepmake/aclocal.m4: Append $FULLVERSION to datadir.
+	* stepmake/aclocal.m4: Append $FULL_VERSION to datadir.
 
 2002-05-25  Heikki Junes  <heikki.junes@hut.fi>
 
