@@ -143,12 +143,12 @@ def write_tex_defs (file, global_info, charmetrics):
 		file.write (r'''\gdef\%s%s{\char%d}%%%s''' % (nm, m['tex'], m['code'],'\n'))
 	file.write ('\\endinput\n')
 
-def write_ps_encoding (file, global_info, charmetrics):
+def write_ps_encoding (name, file, global_info, charmetrics):
 	encs = ['.notdef'] * 256
 	for m in charmetrics:
 		encs[m['code']] = m['tex']
-		
-	file.write ('/FetaEncoding [\n')
+
+	file.write ('/%s [\n' % name)
 	for m in range(0,256):
 		file.write ('  /%s %% %d\n' % (encs[m], m))
 	file.write ('] def\n')
@@ -281,7 +281,14 @@ for filenm in files:
 	write_afm_metric (afm, g, m)
 	
 	write_tex_defs (open (texfile_nm, 'w'), g, m)
-	write_ps_encoding (open (enc_nm, 'w'), g, m)
+	enc_name = 'FetaEncoding'
+	if re.search ('parmesan', filenm) :
+		enc_name = 'ParmesanEncoding'
+	elif re.search ('feta-brace', filenm) :
+		enc_name = 'FetaBraceEncoding'
+
+		
+	write_ps_encoding (enc_name, open (enc_nm, 'w'), g, m)
 
 	write_deps (open (depfile_nm, 'wb'), deps, [base + '.dvi', base + '.pfa', base + '.pfb',  texfile_nm, afmfile_nm])
 	if lyfile_nm != '':

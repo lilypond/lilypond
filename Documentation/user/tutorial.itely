@@ -54,8 +54,11 @@ your first sheets of music.
 * First steps::                 
 * Running LilyPond::            
 * More about pitches::          
+* Entering ties::               
+* Automatic and manual beams::  
 * Octave entry::                
-* Combining music into compound expressions::  
+* Music expressions explained::  
+* More staves::                 
 * Adding articulation marks to notes::  
 * Combining notes into chords::  
 * Basic rhythmical commands::   
@@ -75,22 +78,22 @@ your first sheets of music.
 @node First steps
 @section First steps
 
-We start off by showing how very simple music is entered in LilyPond:
-you get a note simply by typing its note name, from @samp{a}
-through @samp{g}.  So if you enter
+We start off by showing how very simple music is entered in LilyPond.
+A note is entered by typing its name, from @samp{a} through @samp{g},
+and a number.  So, if you enter
 
 @example
-c d e f g a b
+c4 d4 e4 f4
 @end example
 
 @noindent
 then the result looks like this:
 
 @lilypond[notime,relative]
-c d e f g a b
+c4 d4 e4 f4
 @end lilypond
 
-The length of a note is specified by adding a number, @samp{1} for a
+The number specifies the length of the note, @samp{1} for a
 @rglos{whole note}, @samp{2} for a @rglos{half note}, and so on:
 
 @example
@@ -103,7 +106,8 @@ a1 a2 a4 a16 a32
 \transpose c c' { a1 a2 a4 a16 a32 s16_" " }
 @end lilypond
 
-If you do not specify a @rglos{duration}, the previous one is used: 
+If you do not specify a @rglos{duration}, the the first note is a
+quarter, and for others, the last entered duration is used.
 
 @example
 a4 a a2 a
@@ -191,9 +195,20 @@ s4_" "
 s16_" "
 @end lilypond
 
-Notes and commands like @code{\clef} and @code{\time}, are enclosed
-in @code{\notes @{@dots{}@}}.  This indicates that music (as opposed
-to @rglos{lyrics}) follows:
+To recognize names like @code{c} and @code{d} as pitches, they have to
+be entered inside a so-called @code{\notes} block.  This block is
+formed by enclosing notes and commands are enclosed in curly braces,
+
+@example
+@{
+  \time 3/4
+  \clef bass
+  c2 e4 g2.
+  f4 e d c2 r4
+@}
+@end example
+and adding the keyword @code{\notes} before the opening brace
+@code{@{}, for example,
 
 @example
 \notes @{
@@ -203,9 +218,10 @@ to @rglos{lyrics}) follows:
   f4 e d c2 r4
 @}
 @end example
-Now the piece of music is almost ready to be printed.  Enclosing the
-music in a @code{\score} processes them to printed output,
-so the following is a complete and valid input file:
+
+Now the piece of music is almost ready to be printed.  When this
+enclosed a @code{\score} block, i.e. braces @code{@{ @dots{} @}} with 
+keyword @code{\score} in front, like 
 
 @example
 \score @{
@@ -217,6 +233,8 @@ so the following is a complete and valid input file:
   @}
 @}
 @end example
+
+then the music will be converted to printable output:
 
 @lilypond[noindent]
 \score {
@@ -232,18 +250,20 @@ so the following is a complete and valid input file:
 }
 @end lilypond
 
-In many examples in this manual, @code{\score} is left out for
-clarity. However, it must be present when feeding the file to
-LilyPond.
+In many examples in this manual, both @code{\score} and @code{\notes}
+and accompanying braces are left out for brevity. However, they must
+be present when feeding the file to LilyPond.
 
 For more elaborate information on
 
 @table @asis
-@item  entering pitches and durations
+@item  Entering pitches and durations
 see 
 @ref{Pitches} and @ref{Durations}.
 @item Clefs
 see @ref{Clef}
+@item Rests
+see @ref{Rests}. 
 @item Time signatures and other timing commands
 see  @ref{Time signature}.
 @end table 
@@ -300,7 +320,7 @@ DVI output to `test.dvi'...
 @cindex Viewing music
 @cindex xdvi
 
-The result is the file @file{test.pdf}.@footnote{For @TeX{}
+The result is the file @file{test.pdf}@footnote{For @TeX{}
 afficionados: there is also a @file{test.dvi} file. It can be viewed
 with @code{xdvi}. The DVI uses a lot of PostScript specials, which do
 not show up in the magnifying glass. The specials also mean that the
@@ -309,50 +329,29 @@ printing.
 @cindex dvips
 @cindex dvilj
 @cindex DVI driver
-}  One of the following commands should put the PDF on your
-screen:
+} which you can print or with the standard facilities of your
+operating system.@footnote{If your system does not have any tools
+installed, you can try @uref{Ghostscript,
+http://www.cs.wisc.edu/~ghost/}, a freely available package for
+viewing and printing PDF and PostScript files.}
+
+On Windows, start up a text-editor@footnote{Any programmer-oriented
+editor will do, for example NotePad. Do not use word processor.  Its
+formatting codes will confuse LilyPond} and enter
+
+
 @quotation
 @example
-  gv test.pdf
-  ghostview test.pdf
-  ggv test.pdf
-  kghostview test.pdf
-  xpdf test.pdf
-  gpdf test.pdf
-  acroread test.pdf
-  gsview32 test.pdf
+\score @{
+  \notes @{ c'4 e' g' @}
+@} 
 @end example
 @end quotation
 
-@noindent
-If the music on your screen looks good, you can print it by clicking
-File/Print inside your viewing program.
+Save it on the desktop as @file{test.ly} and make sure that it is not
+called @file{test.ly.TXT}. Double clicking @file{test.ly} will process
+the file and show the resulting PDF file.
 
-@cindex Ghostscript
-@cindex @code{lpr}
-@cindex Printing output
-@cindex PostScript
-@cindex PDF
-
-
-On Windows, the same procedure should work.  The terminal is started by
-clicking on the LilyPond or Cygwin icon.  Any text editor (such as
-Notepad, Emacs or Vim) may be used to edit the LilyPond file.
-
-To view the PDF file, try the following:
-@itemize
-@item
-If your system has a PDF viewer installed, open
-@file{C:\Cygwin\home\@var{your-name}} in the explorer and double-click
-@file{test.pdf}.
-@item
-If you prefer the keyboard, you can try to enter one of the commands
-from the list shown before in the terminal. If none work, go to
-@uref{http://www.cs.wisc.edu/~ghost/} to install the proper software.
-@end itemize
-
-The commands for formatting and printing music on all platforms are
-detailed in @ref{Invoking LilyPond}.
 
 @node More about pitches
 @section More about pitches 
@@ -411,7 +410,8 @@ follows rules, so accidentals are printed automatically according to
 those rules.  The pitches in your music are works of art, so they will
 not be added automatically, and you must enter what you want to hear.
 
-For example, in this example:
+In this example
+
 @lilypond[fragment]
 \set Staff.TimeSignature = \turnOff
 \key d \major
@@ -428,7 +428,7 @@ d cis fis
 
 The code @code{d} does not mean ``print a black dot just below the
 staff.'' Rather, it means: ``a note with pitch D-natural.'' In the key
-of A-flat, it gets an accidental:
+of A-flat, it does get an accidental:
 
 @lilypond[fragment]
 \set Staff.TimeSignature = \turnOff
@@ -442,12 +442,25 @@ d'
 d
 @end example
 
-Adding all alterations explicitly might require some more effort when
-typing, but the advantage is that transposing is easier, and music can
-be printed according to different conventions.  See @ref{Accidentals}
-for some examples how accidentals can be printed according to
-different rules.
+Adding all alterations explicitly might require a little more effort
+when typing, but the advantage is that transposing is easier, and
+music can be printed according to different conventions.  See
+@ref{Accidentals} for some examples how accidentals can be printed
+according to different rules.
 
+
+For more information on
+ 
+@table @asis
+@item Accidentals
+see @ref{Accidentals}
+
+@item Key signature
+see @ref{Key signature}
+@end table
+
+@node Entering ties
+@section Entering ties
 
 @cindex tie
 A tie is created by adding a tilde ``@code{~}'' to the first note
@@ -459,7 +472,41 @@ g4~ g a2~ a4
 @end quotation
 @separate
 
-This example shows the key signature, accidentals and ties in action:
+
+For more information on Ties, see @ref{Ties}.
+
+
+
+@node Automatic and manual beams
+@section Automatic and manual beams
+
+@cindex beams, by hand 
+Beams are drawn automatically
+
+
+@quotation
+@lilypond[fragment,relative=1,verbatim]
+  a8 ais d es r d
+@end lilypond
+@end quotation
+@separate
+
+If you do not like where beams are put, they can be entered by
+hand. Mark the first note to be beamed with @code{[} and the last one
+with @code{]}.
+
+
+@quotation
+@lilypond[fragment,relative=1,verbatim]
+  a8[ ais] d[ es r d]
+@end lilypond
+@end quotation
+@separate
+
+For more information on beams, see @ref{Beaming}.
+
+
+Here are key signatures, accidentals and ties in action:
 
 @quotation
 @example
@@ -483,7 +530,7 @@ This example shows the key signature, accidentals and ties in action:
     \key g \minor
     \clef violin
     r4 r8 a8 gis4 b
-    g8 d4.~ d e8
+    a8 d4.~ d e8
     fis4 fis8 fis8 eis4  a8 gis~
     gis2 r2
   }}
@@ -496,39 +543,10 @@ This example shows the key signature, accidentals and ties in action:
 There are some interesting points to note in this example.  Bar lines
 and beams are drawn automatically.  Line breaks are calculated
 automatically; it does not matter where the line breaks are in the
-source file. Finally, the order in which time, key and clef changes are entered is not
-relevant: in the printout, these are ordered according to standard
-notation conventions.
+source file. Finally, the order in which time, key and clef changes
+are entered is not relevant: in the printout, these are ordered
+according to standard notation conventions.
 
-
-@cindex beams, by hand 
-Beams are drawn automatically, but if you do not like where they are
-put, they can be entered by hand. Mark the first note to be beamed
-with @code{[} and the last one with @code{]}:
-@quotation
-@lilypond[fragment,relative=1,verbatim]
-a8[ ais] d[ es r d]
-@end lilypond
-@end quotation
-@separate
-
-For more information on
-@table @asis
-@item Rests
-see @ref{Rests}. 
-
-@item Ties
-see  @ref{Ties}.
-
-@item Accidentals
-see @ref{Accidentals}
-
-@item Key signature
-see @ref{Key signature}
-
-@item Beams
-see @ref{Beaming}
-@end table
 
 
 @node Octave entry
@@ -630,131 +648,61 @@ Larger intervals are made by adding octavation quotes.
 @end quotation
 @separate
 
-Quotes or commas do not determine the absolute height of a note; the
-height of a note is relative to the previous one.
-@c do not use commas or quotes in this sentence
-For example: @code{c f,} goes down; @code{f, f} are both the same;
-@code{c' c} are the same; and @code{c g'} goes up:
-
-
-
-Here is an example of the difference between relative mode and
-``normal'' (non-relative) mode:
-
-@quotation
-@example
-\relative a @{
-\clef bass
-  a d a e d c' d'
-@}
-@end example
-
-@lilypond[fragment]
-\set Score.timing = ##f
-\set Staff.TimeSignature = \turnOff
-\relative a {
-\clef bass
-  a d a e d c' d'
-}
-@end lilypond
-@end quotation
-@separate
-
-@quotation
-@example
-\clef bass
-  a d a e d c' d'
-@end example
-
-@lilypond[fragment]
-\set Score.timing = ##f
-\set Staff.TimeSignature = \turnOff
-\clef bass
-  a d a e d c' d'
-@end lilypond
-@end quotation
-@separate
-
+In @code{\relative} mode, quotes or commas no longer determine the
+absolute height of a note. Rather, the height of a note is relative to
+the previous one, and changing the octave of a single note shifts all
+following notes an octave up or down.
 
 For more information on Relative octaves see @ref{Relative octaves}
 and @ref{Octave check}.
 
 
+@node Music expressions explained
+@section Music expressions explained
 
 
+In input files, music is represent by so-called @emph{music
+expression}. We have already seen in the previous examples; 
+a single note is a music expression:
 
-
-@node Combining music into compound expressions
-@section Combining music into compound expressions
-
-To print more than one staff, each piece of music that makes up a
-staff is marked by adding @code{\context Staff} before it.  These
-@code{Staff}'s are then grouped inside @code{\simultaneous @{} and
-@code{@}}, as is demonstrated here:
-
-@quotation
-@lilypond[fragment,verbatim]
-\simultaneous {
-  \new Staff { \clef violin c'' }
-  \new Staff { \clef bass c }
-}
+@lilypond[verbatim,relative=2]
+a4
 @end lilypond
-@end quotation
 
+Enclosing group of notes in braces creates a new music
+expression: 
+ 
+@lilypond[verbatim,relative=2]
+  { a4 g4 }
+@end lilypond
 
-In this example, @code{\simultaneous } indicates that both music
-fragments happen at the same time, and must be printed stacked
-vertically.  The notation @code{<< .. >>} can also be used as a
-shorthand for @code{\simultaneous @{ .. @}}.
+Putting a bunch of music expressions (notes) in braces, means that
+they should be played in sequence. The result again is a music
+expression, which can be grouped with other expressions sequentially.
+Here, the expression from the previous example is combined with two
+notes:
 
-The command @code{\new} introduces a ``notation context''.  To
-understand this concept, imagine that you are performing a piece of
-music. When you are playing, you combine the symbols printed at a
-certain point with contextual information. For example, without
-knowing the current clef, and the accidentals in the last measure, it
-would be impossible to determine the pitch of a note. In other words,
-this information forms a context that helps you decipher a
-score. LilyPond produces notation from music, so in effect, it does
-the inverse of reading scores. Therefore, it also needs to keep track
-of contextual information. This information is maintained in
-``notation contexts.''  There are several types of contexts,
-e.g. @code{Staff}, @code{Voice} and @code{Score}, but also
-@code{Lyrics} and @code{ChordNames}. Prepending @code{\new} to a chunk
-of music indicates what kind of context to use for interpreting it,
-and ensures that the argument is interpreted with a fresh instance of
-the context indicated.
+@lilypond[verbatim,relative=2]
+ { { a4 g } f g } 
+@end lilypond
 
-
-@separate
-
-We can now typeset a melody with two staves:
-
-@quotation
-@lilypond[verbatim,raggedright]
-\score {
-  \notes 
-  << \new Staff {
-      \time 3/4
-      \clef violin
-      \relative c'' {
-        e2( d4 c2 b4 a8[ a]
-        b[ b] g[ g] a2.) }  
-    }
-    \new Staff {
-       \clef bass
-       c2 e4  g2.
-       f4 e d c2.
-    }
+This technique becomes useful for non-monophonic music. To enter music
+with more voices or more staves, we also combine expressions in
+parallel. Two voices that should play at the same time, are entered as
+a simultaneous combination of two sequences.  A ``simultaneous'' music
+expression is formed by enclosing expressions in @code{<<} and
+@code{>>}.  In the following example, three sequences (all contaning
+two notes) are combined simultaneously:
+ 
+@lilypond[verbatim,relative=2]
+  <<
+     { a4 g }
+     { f e }
+     { d b }
   >>
-}
 @end lilypond
-@end quotation
 
-The example shows how small chunks of music, for example, the notes
-@code{c2}, @code{e4}, etc. of the second staff, are combined to form a
-larger chunk by enclosing it in braces. Again, a larger chunk is
-formed by prefix @code{\new Staff} to it, and that chunk is combined
-with @code{<< >>}. This mechanism is similar to mathematical
+This mechanism is similar to mathematical
 formulas: a big formula is created by composing small formulas.  Such
 formulas are called expressions, and their definition is recursive, so
 you can make arbitrarily complex and large expressions.  For example,
@@ -773,11 +721,7 @@ you can make arbitrarily complex and large expressions.  For example,
 This example shows a sequence of expressions, where each expression is
 contained in the next one.  The simplest expressions are numbers and
 operators (like +, * and /). Parentheses are used to group
-expressions.  In LilyPond input, a similar mechanism is used. Here,
-the simplest expressions are notes and rests.  By enclosing
-expressions in @code{<< >>} and @code{@{ @}}, more complex music is
-formed. The @code{\new} command also forms new expressions; prepending
-it to a music expression yields a new expression.
+expressions.
 
 Like mathematical expressions, music expressions can be nested
 arbitrarily deep, e.g.
@@ -789,11 +733,13 @@ arbitrarily deep, e.g.
 @end lilypond 
 
 
+
 @cindex indent
 When spreading expressions over multiple lines, it is customary to use
 an indent that indicates the nesting level. Formatting music like this
 eases reading, and helps you  insert the right number of closing
 braces at the end of an expression. For example,
+
 @example
 \score @{
   \notes <<
@@ -807,6 +753,72 @@ braces at the end of an expression. For example,
 @}
 @end example
 
+Some editors have special support for entering LilyPond, and can help
+indenting source files. See @ref{Editor support} for more information.
+
+
+
+@node More staves
+@section More staves
+
+To print more than one staff, each piece of music that makes up a
+staff is marked by adding @code{\new Staff} before it.  These
+@code{Staff}'s are then combined parallel with @code{<<} and
+@code{>>}, as demonstrated here:
+
+@quotation
+@lilypond[fragment,verbatim]
+<<
+  \new Staff { \clef violin c'' }
+  \new Staff { \clef bass c }
+>>
+@end lilypond
+@end quotation
+
+
+The command @code{\new} introduces a ``notation context.'' A notation
+context is an environment in which musical events (like notes or
+@code{\clef} commands) are interpreted.  For simple pieces, such
+notation contexts are created implicitly.  For more complex pieces, it
+is best to mark contexts explicitly. This ensures that each fragment
+gets its own stave.
+
+There are several types of contexts: @code{Staff}, @code{Voice} and
+@code{Score} handle normal music notation. Other staves are also
+@code{Lyrics} (for setting lyric texts) and @code{ChordNames} (for
+printing chord names).
+
+
+In terms of syntax, prepending @code{\new} to a music expression
+creates a bigger music expression. In this way it resembles the minus
+sign in mathematics. The formula (4+5) is an expression, so -(4+5) is a bigger
+expression.
+
+We can now typeset a melody with two staves:
+
+@c TODO: (c) status of this Paul McCartney (?) song (let's all stand together)
+
+
+@quotation
+@lilypond[verbatim,raggedright]
+\score {
+  \notes 
+  << \new Staff {
+      \time 3/4
+      \clef violin
+      \relative c'' {
+        e2 d4 c2 b4 a8[ a]
+        b[ b] g[ g] a2. }  
+    }
+    \new Staff {
+       \clef bass
+       c2 e4  g2.
+       f4 e d c2.
+    }
+  >>
+}
+@end lilypond
+@end quotation
 
 For more information on context see the description in
 @ref{Interpretation context}.
@@ -838,7 +850,8 @@ Similarly, fingering indications can be added to a note using a dash
 @end lilypond
 
 
-Dynamic signs are made by adding the markings to the note:
+Dynamic signs are made by adding the markings (with a backslash) to
+the note:
 @quotation
 @lilypond[verbatim,relative=1]
 c\ff c\mf
@@ -851,11 +864,11 @@ c\ff c\mf
 @cindex crescendo
 
 Crescendi and decrescendi are started with the commands @code{\<} and
-@code{\>}. The command @code{\!} finishes a crescendo on the note it
-is attached to:
+@code{\>}. An ending dynamic, for example @code{\f}, will finish the
+crescendo, or the command @code{\!} can be used:
 @quotation
 @lilypond[verbatim,relative=1]
-c2\<  c2\!\ff\>  c2  c2\!
+c2\<  c2\ff\>  c2  c2\!
 @end lilypond
 @end quotation
 @separate
@@ -864,8 +877,8 @@ c2\<  c2\!\ff\>  c2  c2\!
 
 @cindex slur
 
-A slur is drawn across many notes, and indicates bound articulation
-(legato).  The starting note and ending note are marked with a
+A slur is a curve drawn across many notes, and indicates legato
+articulation.  The starting note and ending note are marked with a
 ``@code{(}'' and a ``@code{)}'' respectively:
 
 @quotation
@@ -880,15 +893,15 @@ makes the first note sound longer, and can only be used on pairs of
 notes with the same pitch. Slurs indicate the articulations of notes,
 and can be used on larger groups of notes. Slurs and ties are also
 nested in practice:
-@c
+
 @lilypond[fragment,relative=1]
 c2~( c8 fis fis4 ~ fis2 g2)
 @end lilypond
 
 @cindex phrasing slurs
-If you need two slurs at the same time (one for articulation, one for
-phrasing), you can also make a phrasing slur with @code{\(} and
-@code{\)}.
+Slurs to indicate phrasing can be entered with @code{\(} and
+@code{\)}, so you can have both legato slurs and phrasing slurs at the
+same time.
 
 @quotation
 @lilypond[fragment,relative=1,verbatim]
@@ -899,25 +912,26 @@ a8(\( ais b  c) cis2 b'2 a4 cis,  c\)
 
 For more information on
 @table @asis
-@item fingering
+@item Fingering
   see @ref{Fingering instructions}
-@item articulations
+@item Articulations
   see @ref{Articulations}
-@item slurs
+@item Slurs
   see @ref{Slurs}
-@item phrasing slurs
+@item Phrasing slurs
   see  @ref{Phrasing slurs}
-@item dynamics
+@item Dynamics
   see  @ref{Dynamics}
-@item fingering
+@item Fingering
 @end table
 
 @node Combining notes into chords
 @section Combining notes into chords
 
 @cindex chords
-Chords can be made by
-surrounding pitches with @code{<} and @code{>}:
+Chords can be made by surrounding pitches with angled brackets.
+Angled brackets are the symbols @code{<} and @code{>}.
+
 @quotation
 @lilypond[relative,fragment,verbatim]
 r4 <c e g>4 <c f a>8
@@ -926,8 +940,8 @@ r4 <c e g>4 <c f a>8
 @separate
 
 
-You can combine beams and ties with chords.  Beam and tie markings
-must be placed outside the chord markers:
+You can combine markings like beams and ties with chords.  They must
+be placed outside the angled brackets:
 @quotation
 @lilypond[relative,fragment,verbatim]
 r4 <c e g>8[ <c f a>]~ <c f a>
@@ -953,9 +967,8 @@ r4 <c e g>8\>( <c e g> <c e g>  <c f a>8\!)
 
 @cindex pickup
 @cindex anacruse
-@cindex upstep
 @cindex partial measure
-A pickup (or upstep) is entered with the keyword @code{\partial}. It
+A pickup is entered with the keyword @code{\partial}. It
 is followed by a duration: @code{\partial 4} is a quarter note upstep
 and @code{\partial 8} an eighth note:
 @lilypond[relative=1,verbatim,fragment]
@@ -977,9 +990,8 @@ of music is multiplied by the fraction.  Triplets make notes occupy
 
 @cindex grace notes
 @cindex accacciatura
-Grace notes are also made by prefixing a note, or a set of notes with
-a keyword. In this case, the keywords are @code{\appoggiatura}
-and @code{\acciaccatura}
+Grace notes are also made by prefixing a music expression with the
+keyword @code{\appoggiatura} or @code{\acciaccatura}
 @cindex appoggiatura
 @cindex acciaccatura
       
@@ -1009,8 +1021,8 @@ see @ref{Partial measures}.
 @cindex line comment
 @cindex block comment
 Comments are pieces of the input that are ignored.  There are two
-types of comments. A line comment is introduced by @code{%}: after
-that, the rest of that line is ignored.  Block comments span larger
+types of comments. The percent symbol @code{%} introduces a line
+comment; the rest of the line is ignored.  Block comments span larger
 sections of input.  Anything that is enclosed in @code{%@{} and
 @code{%@}} is ignored too. The following fragment shows possible uses
 for comments:
@@ -1035,6 +1047,8 @@ for comments:
 @node Printing lyrics
 @section Printing lyrics
 @cindex lyrics
+
+@c TODO: (c) status of the Queen fragment.
 
 @cindex Lyrics
 @cindex Songs
@@ -1153,11 +1167,11 @@ following example shows a few common modifiers:
   \chords { c2 f4:m g4:maj7 gis1:dim7 }
 @end lilypond
 
-Printing chords is done by adding @code{\context ChordNames}
+Printing chords is done by adding @code{\new ChordNames}
 before the chords thus entered:
 @c
 @lilypond[verbatim]
- \context ChordNames \chords { c2 f4.:m g4.:maj7 gis8:dim7 }
+ \new ChordNames \chords { c2 f4.:m g4.:maj7 gis8:dim7 }
 @end lilypond
 
 @cindex lead sheet
@@ -1168,7 +1182,7 @@ a lead sheet, for example,
 @example
 \score @{
   <<
-    \context ChordNames \chords @{ @emph{chords} @}
+    \new ChordNames \chords @{ @emph{chords} @}
     \notes @emph{the melody}
     \lyricsto "" \new Lyrics \lyrics @{ @emph{the text} @}
   >>
@@ -1177,7 +1191,7 @@ a lead sheet, for example,
 @lilypond[]
 \score  {
   << 
-   \context ChordNames \chords { r8 c2:sus4 f } 
+   \new ChordNames \chords { r8 c2:sus4 f } 
     \notes \relative c' {
      \partial 8
      c8
@@ -1313,7 +1327,7 @@ voices with @code{\\}:
     @{ r4 g4 f2 f4 @} >>
 @end example
 @lilypond[relative=1]
-\context Staff   << { a4 g2 f4~ f4 } \\
+\new Staff << { a4 g2 f4~ f4 } \\
     { r4 g4 f2 f4 } >>
 @end lilypond
 
@@ -1325,7 +1339,7 @@ temporarily do not play:
     @{ s4 g4 f2 f4 @} >>
 @end example
 @lilypond[relative=1]
-\context Staff  << { a4 g2 f4~ f4 } \\
+\new Staff  << { a4 g2 f4~ f4 } \\
     { s4 g4 f2 f4 } >>
 @end lilypond
 
@@ -1357,7 +1371,7 @@ in @ref{Polyphony}.
 
 Piano music is always typeset in two staves connected by a brace.
 Printing such a staff is similar to the polyphonic example in
-@ref{Combining music into compound expressions}:
+@ref{More staves}:
 @example
  << \new Staff @{ @dots{} @}
    \new Staff @{ @dots{} @}

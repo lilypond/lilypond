@@ -3011,7 +3011,7 @@ staff. The syntax for this is
 @example
   \autochange \context Voice @{ @dots{}@var{music}@dots{} @}
 @end example
-The two staffs of the piano staff must be named @code{up} and
+The two staves of the piano staff must be named @code{up} and
 @code{down}.
 
 The autochanger switches on basis of pitch (middle C is the turning
@@ -4546,7 +4546,7 @@ in this example disappears in the second line:
 }
 @end lilypond
 
-The first page shows all staffs in full. If they should be  removed
+The first page shows all staves in full. If they should be  removed
 from  the first page too, set @code{remove-first} to false
 in @internalsref{RemoveEmptyVerticalGroup}.
 
