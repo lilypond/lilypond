@@ -93,7 +93,23 @@ AC_DEFUN(STEPMAKE_CHECK_VERSION, [
     req=`STEPMAKE_NUMERIC_VERSION($3)`
     AC_MSG_RESULT("$ver")
     if test "$num" -lt "$req"; then
-	STEPMAKE_ADD_ENTRY($2, "$r $3 (installed: $ver)")
+	STEPMAKE_ADD_ENTRY($2, "$r >= $3 (installed: $ver)")
+    fi
+])
+
+# Check version of program ($1)
+# If version is greater than or equals unsupported ($3),
+# add entry to unsupported list ($2, 'UNSUPPORTED')
+AC_DEFUN(STEPMAKE_CHECK_VERSION_UNSUPPORTED, [
+    r="`eval echo '$'"$1"`"
+    AC_MSG_CHECKING("$r version")
+    exe=`STEPMAKE_GET_EXECUTABLE($r)`
+    ver=`STEPMAKE_GET_VERSION($exe)`
+    num=`STEPMAKE_NUMERIC_VERSION($ver)`
+    sup=`STEPMAKE_NUMERIC_VERSION($3)`
+    AC_MSG_RESULT("$ver")
+    if test "$num" -ge "$sup"; then
+	STEPMAKE_ADD_ENTRY($2, "$r < $3 (installed: $ver)")
     fi
 ])
 
@@ -280,13 +296,18 @@ AC_DEFUN(STEPMAKE_END, [
         echo "ERROR: Please install required programs: $REQUIRED"
     fi
     
-    if test -n "$OPTIONAL$REQUIRED"; then
+    if test -n "$UNSUPPORTED"; then
+	echo
+        echo "ERROR: Please use older version of programs: $UNSUPPORTED"
+    fi
+    
+    if test -n "$OPTIONAL$REQUIRED$UNSUPPORTED"; then
 	echo
 	echo "See INSTALL.txt for more information on how to build $PACKAGE_NAME"
 	echo "Remove config.cache before rerunning ./configure"
     fi
     
-    if test -n "$REQUIRED"; then
+    if test -n "$REQUIRED$UNSUPPORTED"; then
 	rm -f $srcdir/GNUmakefile
         exit 1
     fi
@@ -676,9 +697,10 @@ AC_DEFUN(STEPMAKE_KPATHSEA, [
 	AC_CHECK_LIB(kpathsea, kpse_find_file)
 	AC_CHECK_FUNCS(kpse_find_file,,kpathsea_b=no)
 	if test "$kpathsea_b" = "no"; then
-	    warn='kpathsea (libkpathsea-dev or kpathsea-devel package)
+	    warn='kpathsea (libkpathsea-dev, kpathsea-devel or tetex-devel
+   package).
    Else, please specify the location of your kpathsea using
-   --with-kpathea-include and --with-kpathsea-lib options.  You should
+   --with-kpathsea-include and --with-kpathsea-lib options.  You should
    install kpathsea; see INSTALL.txt.  Rerun ./configure
    --without-kpathsea only if kpathsea is not available for your
    platform.'
