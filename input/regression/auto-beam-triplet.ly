@@ -4,7 +4,7 @@
 texidoc = "Automatic beaming is also done on tuplets."
 }
 
-\version "2.3.16"
+\version "2.3.17"
 
 \score{
 	\relative c''{

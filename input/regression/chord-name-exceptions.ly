@@ -1,4 +1,4 @@
-\version "2.3.16"
+\version "2.3.17"
 \header { texidoc = "The property @code{chordNameExceptions} can used
     to store a list of special notations for specific chords.
 
@@ -22,23 +22,21 @@ adds the new exceptions to the default ones, which are defined in
 " }
 
 
-% 7sus4 denoted with ^7 wahh
+				% 7sus4 denoted with ^7 wahh
 chExceptionMusic =  {
-  <c f g bes>1-\markup { \super "7" "wahh" }}
+    <c f g bes>1-\markup { \super "7" "wahh" }}
 
-% add to existing exceptions.
+				% add to existing exceptions.
 chExceptions = #(append
-  (sequential-music-to-chord-exceptions chExceptionMusic #t)
-  ignatzekExceptions)
+		 (sequential-music-to-chord-exceptions chExceptionMusic #t)
+		 ignatzekExceptions)
 
 theMusic = \chordmode {
-      c:7sus4 c:dim7/+f
-      \set chordNameExceptions = #chExceptions
-      c:7sus4 c:dim7/+f }
+    c:7sus4 c:dim7/+f
+    \set chordNameExceptions = #chExceptions
+    c:7sus4 c:dim7/+f
+}
 
-  
-\score {
-  << \context ChordNames \theMusic
-    \context Voice \theMusic
-  >>  
-  }
+<< \context ChordNames \theMusic
+   \context Voice \theMusic
+>>  

@@ -1,5 +1,5 @@
 
-\version "2.3.16"
+\version "2.3.17"
 \header{
   texidoc="
 Engraving second intervals is tricky.  We used to have problems with seconds 

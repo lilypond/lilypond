@@ -1,4 +1,4 @@
-\version "2.3.16"
+\version "2.3.17"
 \header {
   texidoc = "Span bars are drawn only between staff bar lines. By setting 
 bar lines to transparent, they are shown only between systems.

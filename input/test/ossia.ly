@@ -4,7 +4,7 @@
     @code{RemoveEmptyStaffContext} take out the unused parts.
 " }
 
-\version "2.3.16"
+\version "2.3.17"
 
 \score {
     \relative c''

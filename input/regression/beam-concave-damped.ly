@@ -2,7 +2,7 @@
     texidoc = "Beams that are not strictly concave are damped
  according to their concaveness. "
 }
-\version "2.3.16"
+\version "2.3.17"
 \paper {
     raggedright = ##t
 }

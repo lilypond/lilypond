@@ -2,7 +2,7 @@
     texidoc = "Ledger lines are shortened when they are very close. This ensures
 that  ledgers lines stay separate."
 }
-\version "2.3.16"
+\version "2.3.17"
 
 \paper {
     raggedright = ##t

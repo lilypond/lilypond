@@ -2,7 +2,7 @@
     texidoc = "Trill spanner"
 }
 
-\version "2.3.16"
+\version "2.3.17"
 \paper {
     raggedright = ##T
 }

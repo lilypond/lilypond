@@ -4,7 +4,7 @@
     also over other staves than the topmost one in a score."
 
 }
-\version "2.3.16"
+\version "2.3.17"
 
 
 vmus =  { \repeat volta 2 c1 \alternative { d e } } 
