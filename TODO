@@ -8,11 +8,54 @@ m
 Most of the items are marked in the code as well
 Grep -i for TODO, FIXME and ugh/ugr/urg.  
 
-.* TODO 
+.* TODO
+. * don't take Dimension_cache::offset in Dimension_cache::extent
 . * Break_req handling is silly (break_forbid () + \break fucks up.)
 . * redo all --help  messages.
 . * HaraKiriStaffContext removes bar lines and doesn't remove
     staff margin text on removed staff lines.
+. * Mondrup:
+
+- I would like to avoid that ties across line breaks run _through_ the
+clef on the new line
+
+- I would like the possibility of forcing clef- and key- changes to be
+printed _after_ the new bar line
+
+- I would like an option to define the number of systems on which the
+score must be distributed. As it is now it seems that I may only
+influence that indirectly through the gourlay_maxmeasures property.
+
+- if I change the property minVerticalAlign in a multi staff score with
+lyrics the change affects the lyrics too. I would like the change to
+_only_ affect staves.
+
+- I would like to be able to influence the sloping of xtuplet brackets
+
+- for one of my test scores containing a modern edition of an early
+17'th century composition I have a leading measure containing the
+orginal clefs and note values of the original composition. I use the
+"harmonic" and "diamond" note head styles for that measure and would
+like to have the stems of these notes _centered_ on the notehead as in
+the mensural music notation.
+
+- after the leading measure in the above mentioned score I want a double
+bar line fully drawn across the staves and after that keep to the
+ChoirStaff bar line types in the rest of the scores
+
+- I would like to be able to define invisible melismatic slurs in order
+to avoid printing slurs conflicting with an original ms of printing. Of
+course I can achieve that by just inserting empty syllables in the
+lyrics. But this facility implemented in the MusiXTeX preprocessor M-tx
+is nice so ...
+
+- if I explicitly beam notes in a staff with auto beaming disabled I
+would like to have these beams also to be melismatic.
+
+- do I need to get warnings on 'No one to print a repeat brace' when I
+issue a '\repeat fold 2 \alternative' statement with an empty leading
+text item in a \lyrics context in order to achieve multiple lyrics lines
+in a _section_ of a score ?
 . * make all Feta (including dynamics) available to the user in
     textual scripts. Examples: "D.S. al \coda", "\mf espress.".
  
@@ -55,19 +98,7 @@ abc2ly, midi2ly?
 .* BUGS
 . * [c8. c16 c16 c16] in 6/8 timesig. 
 . * staffside spanner (crescendo!) along with staffswitch.
-. * --- 1, sometimes broken slurs start too early in the next line:
-
-\score {
-  \context Staff {
-    \clef "bass";
-    \notes \relative c' {
-      \time 4/4; \key g;
-      a4 g8 fis a d c d ~ \break | d e d b a b a fis \break
-    }
-  }
-}
-
---- 2, margin notes don't work correctly for the pianostaff (in the
+. * --- 2, margin notes don't work correctly for the pianostaff (in the
 following example, i expect the "piano" string to be centered
 vertically between the two staves):
 

@@ -429,11 +429,15 @@ def parse_duration (str, parser_state):
 	
 	current_dots = parser_state.next_dots
 	parser_state.next_dots = 0
+
+	while str[0] == ' ':
+	    str = str [1:]
+	
 	while str[0] == '>':
 		str = str [1:]
 		current_dots = current_dots + 1;
 		parser_state.next_den = parser_state.next_den * 2
-	
+
 	while str[0] == '<':
 		str = str [1:]
 		den = den * 2
@@ -474,6 +478,10 @@ def try_parse_articulation (str, state):
 		state.next_articulation = state.next_articulation + '-\\trill'
 		str = str[1:]
 		
+	if str[:1] =='H':
+		state.next_articulation = state.next_articulation + '-\\fermata'
+		str = str[1:]
+
 	# s7m2 input doesnt care about spaces
 	if re.match('[ \t]*\(', str):
 		str = string.lstrip (str)

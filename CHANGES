@@ -1,3 +1,22 @@
+pl 2.mk1
+	- bf, tie.cc: handle postbreak left align correctly
+pl 2.lec1
+	- abc2ly fixes.
+
+pl 2.hwn1
+       - rewrite of mudela-book.  Now uses chunks, and you can put
+\input, \include and \mudelagraphics  in verbatim sections. 
+
+
+pl 2.jcn2
+	- bf: auto-beamer: don't junk beam if manual beam shows up
+
+pl 2.jcn1
+	- add-html-footer.py, ls-latex.py .tely updates and fixes
+	- tely (texinfo-lily) rules and test Documentation/metadoc/foo.tely
+
+*************
+
 pl 1.uu2
 	- complete rewrite of mudela-book. Much cleaner now.
 Support for texinfo.
