@@ -45,6 +45,7 @@ inline double ly_scm2double (SCM x) { return scm_num2dbl (x, "ly_scm2double"); }
 #define scm_from_double(x) (scm_make_real(x))
 
 
+
 #endif /* SCM_MINOR_VERSION < 7 */
 
 #ifndef SMOB_FREE_RETURN_VAL
