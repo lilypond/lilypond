@@ -2,12 +2,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% UGH UGH UGH UGHUGH FIXME
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -> duplication!
 
-
-breve = \duration { -1 0 }
-longa = \duration { -2 0 }
-maxima = \duration { -3 0 }
+breve = \duration #'( -1 0)
+longa = \duration #'( -2 0 )
+maxima = \duration #'( -3 0 )
 
 #(eval-string (ly-gulp-file "generic-property.scm"))
+
+% urg, move to basic property?
+#(eval-string (ly-gulp-file "slur.scm"))
 
 \include "nederlands.ly"		% dutch
 \include "chord-modifiers.ly"
@@ -28,7 +30,7 @@ center=0
 
 break =  \penalty  -1000000; 
 nobreak =  \penalty 1000000; 
-\include "scales.ly"
+\include "scale-definitions.ly"
 
 
 melisma = \property Staff.melismaBusy = ##t

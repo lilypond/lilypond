@@ -33,7 +33,7 @@
     \paper_as_nine
     %linewidth=-1.0;
     %indent = 0.0;
-    \translator { \StaffContext barSize = #'staff-height }
+    \translator { \StaffContext barSize = \staffheight; }
 
     % no beam-slope
     %\translator { \VoiceContext beamHeight = #0; }
