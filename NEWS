@@ -5,6 +5,8 @@ New features in 1.4
 DESIGN
 
 
+cocentric
+
 * More pervasive GUILE integration resulting in improved design and
 implementation.  LilyPond is smaller, cleaner, more flexible, etc.
 
@@ -56,21 +58,21 @@ shapes, Medieval clefs, custodes.
 
 * Easy-play note heads
 
-
-MIDI
-
-* dynamics, tempo changes in the MIDI output
-
-
-MISC
-
-* Finale (.etf), PMX, Musedata and Mup import tools.
-
-* Mutopia ports collection: easy accessible music archive.
-
 * ASCIIScript: ASCII-art output 
 
 * Improved standalone postscript layout.
+
+
+IMPORT/EXPORT
+
+* dynamics, tempo changes in the MIDI output
+
+* Finale (.etf), PMX, Musedata and Mup import tools.
+
+
+MISCELLANEOUS
+
+* Mutopia ports collection: easily accessible music archive.
 
 * Translations into Japanese, French and Russian
 
