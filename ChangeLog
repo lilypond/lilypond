@@ -1,3 +1,7 @@
+2003-07-07  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/template/jazz-combo.ly: new file.
+
 2003-07-06  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* mf/feta-toevallig.mf: tweak for bottom of flat sign. 

@@ -6684,7 +6684,7 @@ in @file{scm/grob-description.scm}), includes the following definitions for
 
 
 By adding variables on top of these existing definitions, the system
-defaults is overriden, and the appearance of a layout objects is
+default is overriden, and the appearance of a layout objects is
 altered.
 
 @syntax
