@@ -1,7 +1,7 @@
 sdesc: "A program for printing sheet music"
 category: Publishing
 requires: ash bash guile gsview python tetex-beta texmf-tiny
-#suggests: rxvt xdvi texmf-base
+#suggests: lilypond-doc rxvt xdvi texmf-base
 ldesc: "A program for printing sheet music.
 LilyPond is a music typesetter.  It produces beautiful sheet music
 using a high level description file as input.  LilyPond is part of
