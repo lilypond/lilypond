@@ -1,3 +1,10 @@
+/*
+  item.hh -- declare Item
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
 #ifndef ITEM_HH
 #define ITEM_HH
 
@@ -27,6 +34,14 @@ public:
     void do_print()const;
     Real hpos_f() const;
     NAME_MEMBERS(Item);
+    /**
+      
+      @return the line where this is in; 
+
+      PRE
+      Breaking calc has  to be finished
+     */
+    Line_of_score * line_l() const;
 };
 
 
