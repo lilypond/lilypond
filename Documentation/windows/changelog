@@ -1,0 +1,9 @@
+lilypond (1.5.64.jcn1-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Jan Nieuwenhuizen <janneke@gnu.org>  Thu,  4 Jul 2002 12:54:08 +0200
+
+Local variables:
+mode: debian-changelog
+End:
