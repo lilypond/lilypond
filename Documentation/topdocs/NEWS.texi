@@ -18,6 +18,9 @@ Version 2.1.13
 
 @itemize @bullet
 
+@item Tweaks  made with @code{\override} and @code{\revert} no longer
+hide tweaks at higher context levels.
+
 @item Melismata in lyrics are also properly handled  in the MIDI output.
 
 @item The lilypond-book script has been rewritten.
