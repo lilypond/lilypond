@@ -26,6 +26,7 @@ import re
 import operator
 import os
 import tempfile
+import shutil
 import stat
 import string
 import sys
@@ -386,13 +387,44 @@ def version_str_to_tuple (s):
 	return (string.atoi (t[0]), string.atoi (t[1]), string.atoi (t[2]),
 		my_name, my_number)
 
+def next_version (t):
+	l = list (t)
+	if len (l) >= 4:
+		if l[4]:
+			l[4] += 1
+		else:
+			l[3] = l[4] = ''
+			l[2] += 1
+	else:
+		l[2] += 1
+
+	return tuple (l)
+
+def prev_version(t):
+	l = list (t)
+	if len (l) >= 4:
+		if l[4]:
+			l[4] += 1
+		else:
+			l[3] = l[4] = ''
+			l[2] -= 1
+	else:
+		l[2] -= 1
+		
+	return tuple (l)
+
 def split_package (p):
-	m = re.match ('(.*)-([0-9]*.*).tar.gz', p)
+	m = re.match ('(.*)-([0-9]*.*?)(.tar.gz)?$', p)
 	return (m.group (1), version_str_to_tuple (m.group (2)))
 
 def join_package (t):
 	return t[0] + '-' + version_tuple_to_str (t[1])
 
+def diff_name (p):
+	t = split_package (p)
+	return '%s-%s-%s' % (t[0], version_tuple_to_str (prev_version (t[1])),
+			     version_tuple_to_str (t[1]))
+	
 def find_latest (url):
 	progress (_ ("Listing `%s'...") % url)
 	list = map (split_package, list_url (url))
@@ -469,8 +501,9 @@ if 1:
 	get_base = url[:string.rindex (url, '/')] + '/'
 	if os.path.isdir (patch_dir):
 		os.chdir (patch_dir)
-		if not os.path.isfile (latest + '.diff.gz'):
-			get = get_base + latest + '.diff.gz'
+		latest_diff = diff_name (latest)
+		if not os.path.isfile (latest_diff + '.diff.gz'):
+			get = get_base + latest_diff + '.diff.gz'
 			progress (_ ("Fetching `%s'...") % get)
 			copy_url (get, '.')
 
