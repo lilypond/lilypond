@@ -617,9 +617,7 @@ any sort of property supported by @internalsref{font-interface} and
          (entry (cons 'font-size (+ fs 1))))
     (interpret-markup layout (cons (list entry) props) arg)))
 
-(def-markup-command larger (markup?)
-  "Increase the font size relative to current setting"
-  bigger-markup)
+(def-markup-command larger (markup?) bigger-markup)
 
 (def-markup-command (box layout props arg) (markup?)
   "Draw a box round @var{arg}.  Looks at @code{thickness} and
