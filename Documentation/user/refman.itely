@@ -2985,7 +2985,9 @@ A common trick for that is to put the notes in a variables, and to hide
 the fingering information (which correspond to the string number) for
 the standard staff.
 
-@lilypond[verbatim]
+@c FIXME
+@ignore
+@lily pond[verbatim]
   part = \notes {
     a,4-2 c'-5 a-4 e'-6
     e-3 c'-5 a-4 e'-6
@@ -3006,7 +3008,7 @@ the standard staff.
     >
   }
 @end lilypond
-
+@end ignore
 
 @c . {Chords}
 @node Chords
