@@ -7,8 +7,8 @@
 
 ;;; Library functions
 
-;(if (defined? 'set-debug-cell-accesses!)
-;    (set-debug-cell-accesses! #t))
+(if (defined? 'set-debug-cell-accesses!)
+    (set-debug-cell-accesses! #f))
 
 (use-modules (ice-9 regex)
 	     (ice-9 safe)

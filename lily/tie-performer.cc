@@ -38,6 +38,7 @@ Tie_performer::Tie_performer ()
 {
   event_ = 0;
   last_event_  = 0;
+  ties_created_ = false;
 }
 
 
@@ -77,6 +78,7 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
 			     left_mus->get_property ("pitch")))
 	    {
 	      an->tie_to (th);
+	      ties_created_ = true;  
 	    }
 	}
     }
