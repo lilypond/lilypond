@@ -203,6 +203,7 @@
     \consists "Slur_engraver"
     \consists "Tie_engraver"
     \consists "Tuplet_engraver"
+    \consists "Grace_engraver"
 
     \consists "Skip_event_swallow_translator"
 }
@@ -533,7 +534,7 @@ AncientRemoveEmptyStaffContext = \context {
     %%
     bassFigureFormatFunction = #format-bass-figure
     metronomeMarkFormatter = #format-metronome-markup
-    graceSettings = #`#(
+    graceSettings = #`(
 	(Voice Stem direction 1)
 	;; TODO: should take from existing definition.
 	;; c&p from define-grobs.scm

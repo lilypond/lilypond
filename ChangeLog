@@ -1,5 +1,20 @@
 2004-11-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/define-context-properties.scm (Module): change definition of
+	graceSettings
+
+	* lily/context-property.cc (Module): rename from
+	translator-property.cc
+
+	* lily/context.cc (context_name_symbol): new function
+
+	* lily/grace-engraver.cc: new file. Set properties for grobs based
+	on the grace-ness of now_moment().
+
+	* scm/music-functions.scm (add-grace-property): use list
+	iso. vector for graceSettings
+	remove set-{start,stop}-grace-properties. 
+
 	* lily/new-quote-iterator.cc (construct_children): set
 	quote_outlet_ if no quoted-context-{id,type} specified.
 

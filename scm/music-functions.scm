@@ -547,30 +547,10 @@ without context specification. Called  from parser."
   (define (set-prop context)
     (let* ((where (ly:context-property-where-defined context 'graceSettings))
 	   (current (ly:context-property where 'graceSettings))
-	   (new-settings (vector-extend current (list context-name grob sym val))))
+	   (new-settings (append current
+				 (list (list context-name grob sym val)))))
       (ly:context-set-property! where 'graceSettings new-settings)))
   (ly:export (context-spec-music (make-apply-context set-prop) 'Voice)))
-
-
-(define-public (set-start-grace-properties context)
-  (define (execute-1 x)
-    (let ((tr (ly:context-find context (car x))))
-      (if (ly:context? tr)
-	  (ly:context-pushpop-property tr (cadr x) (caddr x) (cadddr x)))))
-  
-  (let ((props (ly:context-property context 'graceSettings)))
-    (if (vector? props)
-	(vector-map execute-1 props))))
-
-(define-public (set-stop-grace-properties context)
-  (define (execute-1 x)
-    (let ((tr (ly:context-find context (car x))))
-      (if (ly:context? tr)
-	  (ly:context-pushpop-property tr (cadr x) (caddr x)))))
-  
-  (let ((props (ly:context-property context 'graceSettings)))
-    (if (vector? props)
-	(vector-reverse-map execute-1 props))))
 
 
 

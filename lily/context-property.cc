@@ -1,7 +1,6 @@
 /*   
-   translator-property.cc --  implement manipulation of
-
-   immutable Grob property lists. 
+   translator-property.cc -- implement manipulation of immutable Grob
+   property lists.
 
    source file of the GNU LilyPond music typesetter
 

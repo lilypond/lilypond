@@ -444,7 +444,7 @@ Valid values are described in @internalsref{bar-line-interface}.
      (melismaBusy ,boolean? "Signifies
 whether a melisma is active. This can be used to signal melismas on
 top of those automatically detected. ")
-     (graceSettings ,vector?
+     (graceSettings ,list?
 		    "Overrides for grace notes. This property should
 be manipulated through the @code{add-grace-property} function.")
      (currentCommandColumn ,ly:grob? "Grob that is X-parent to all

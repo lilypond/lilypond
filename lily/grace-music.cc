@@ -10,15 +10,12 @@
 #include "grace-music.hh"
 #include "grace-iterator.hh"
 
-
-
 Moment
 Grace_music::get_length () const
 {
   Moment m;
   return m;
 }
-
 
 Moment
 Grace_music::start_mom () const
@@ -34,6 +31,5 @@ Grace_music::Grace_music ()
   set_property ("iterator-ctor",
 		    Grace_iterator::constructor_proc);
 }
-
 
 ADD_MUSIC (Grace_music);

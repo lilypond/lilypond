@@ -24,14 +24,16 @@
  */
 class Stem_engraver : public Engraver
 {
-  Grob  *stem_;
+  Grob *stem_;
   Grob *tremolo_;
   Music *rhythmic_ev_;
-  Music* tremolo_ev_;
+  Music *tremolo_ev_;
+  
   TRANSLATOR_DECLARATIONS (Stem_engraver);
 
 protected:
   void make_stem (Grob_info);
+  
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
   virtual bool try_music (Music *);
