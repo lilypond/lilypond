@@ -95,14 +95,25 @@ Multi_measure_rest::do_post_processing ()
 void
 Multi_measure_rest::do_substitute_element_pointer (Score_element* o, Score_element* n)
 {
-  if (Bar* c = dynamic_cast <Bar*> (o))
-    column_arr_.substitute (c, dynamic_cast<Bar*> (n));
+  if (Item* c = dynamic_cast <Item*> (o))
+    column_arr_.substitute (c, dynamic_cast<Item*> (n));
 }
   
 void
-Multi_measure_rest::add_column (Bar* c)
+Multi_measure_rest::add_column (Item* c)
 {
   column_arr_.push (c);
   add_dependency (c);
 }
 
+
+Array<Rod>
+Multi_measure_rest::get_rods () const
+{
+  Array<Rod> a;
+  Rod r;
+  r.item_l_drul_ = spanned_drul_;
+  r.distance_f_ = paper ()->get_var ("mmrest_x_minimum");
+  a.push (r);
+  return a;
+}
