@@ -125,7 +125,7 @@ Dynamic_engraver::do_process_requests()
 					   
 	  staff_side_p_->set_victim (text_p_);
 	  staff_side_p_->axis_ = Y_AXIS;
-	  
+	  staff_side_p_->dir_ = DOWN;
 
 	  
 	  prop = get_property ("verticalDirection", 0);
