@@ -15,10 +15,10 @@
 
 
   
-  \property Voice .tupletBracketVisibility = #'if-no-beam  
+  \property Voice.TupletBracket \set #'tuplet-bracket-visibility = #'if-no-beam  
   \times 2/3 { [c8 c c]  }
-  \property Voice .tupletDirection = #1
-  \property Voice .tupletNumberVisibility = ##f
+  \property Voice.TupletBracket \set #'direction = #1
+  \property Voice.TupletBracket \set #'tuplet-number-visibility = ##f
   \times 2/3 { c8 [c c]  }
     
 

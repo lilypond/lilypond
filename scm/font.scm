@@ -89,6 +89,17 @@
     ((-1 bold upright roman cmbx 8) . "cmbx8")
     ((-2 bold upright roman cmbx 7) . "cmbx7")
     
+    ((4 medium upright typewriter cmtt 20) . "cmtt20")
+    ((3 medium upright typewriter cmtt 16) . "cmtt16")
+    ((2 medium upright typewriter cmtt 14) . "cmtt14")
+    ((1 medium upright typewriter cmtt 12) . "cmtt12")
+    ((0 medium upright typewriter cmtt 10) . "cmtt10")
+    ((-1 medium upright typewriter cmtt 8) . "cmtt8" )
+    ((-2 medium upright typewriter cmtt 7) . "cmtt7" )
+    ((-3 medium upright typewriter cmtt 6) . "cmtt6" )
+    ((-4 medium upright typewriter cmtt 5) . "cmtt5" )
+    ((-5 medium upright typewriter cmtt 4) . "cmtt4" )
+
     ;; should use the same brace font every where and fix C++ code.
     ((2 medium upright braces feta-braces 26) . "feta-braces26")
     ((1 medium upright braces feta-braces 23) . "feta-braces23")
