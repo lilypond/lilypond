@@ -50,8 +50,9 @@ fet_beginchar("Sharp" , "1", "sharp");
 		+  vspan -- -hspan -vspan -- hspan - vspan -- cycle )
 		shifted center;
 
-	draw_rounded_path((beam shifted (0,-interbeam/2)), roundness);
-	draw_rounded_path((beam shifted (0,interbeam/2)), roundness);
+	pickup pencircle scaled roundness;
+	filldraw (beam shifted (0,-interbeam/2));
+	filldraw (beam shifted (0,interbeam/2));
 
 	pickup pencircle scaled stemwidth;
 	x3 = x4 = xpart center;
@@ -219,9 +220,11 @@ fet_beginchar("Double sharp", "2", "sharpsharp")
 	z5 = z1 reflectedabout((0,0), (1,1));
 
 	labels(1,2,3,4,5);
-	draw_rounded_path(  
-		z1{dir 45} .. {right}z2 -- z3 -- z4{down} .. {dir 225}z5 .. cycle,
-	1/20 interline);
+	pickup pencircle scaled 1/20 interline;
+	filldraw  
+		z1{dir 45} .. {right}z2 -- z3 -- 
+		z4{down} .. {dir 225}z5 .. cycle;
+	
 
 	addto currentpicture also currentpicture yscaled (-d/h);
 	addto currentpicture also currentpicture xscaled (-1);
