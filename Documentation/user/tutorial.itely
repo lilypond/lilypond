@@ -937,7 +937,7 @@ hoomPahHoomPah = @{ [\hoomPah \hoomPah] @}
 Put two of these fragments in sequence, and beam them.@example 
 bassvoices = \notes \relative c' @{
 c4 g8. b,16
-\repeat unfold 4 {\hoomPahHoomPah} 
+\repeat unfold 4 @{\hoomPahHoomPah @} 
 @end example 
 Entering the bass part is easy: the hoomPahHoomPah variable is
 repeated four times; @code{unfold} means that all four repetitions
