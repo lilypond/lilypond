@@ -31,11 +31,14 @@ Chord_name::ly_word2molecule (SCM scm) const
   String style;
   if (gh_pair_p (scm))
     {
-      style = ly_scm2string (gh_car (scm));
+      SCM s = gh_car (scm);
+      if (gh_string_p (s))
+	style = ly_scm2string (s);
       scm = gh_cdr (scm);
     }
-  String text = ly_scm2string (scm);
-  return lookup_l ()->text (style, text, paper_l ());
+  if (gh_string_p (scm))
+    return lookup_l ()->text (style, ly_scm2string (scm), paper_l ());
+  return Molecule ();
 }
 
 /*
@@ -51,12 +54,16 @@ Chord_name::ly_text2molecule (SCM scm) const
     {
       while (gh_cdr (scm) != SCM_EOL)
         {
-	  mol.add_at_edge (X_AXIS, RIGHT, ly_word2molecule (gh_car (scm)), 0);
+	  Molecule m = ly_word2molecule (gh_car (scm));
+	  if (!m.empty_b ())
+	    mol.add_at_edge (X_AXIS, RIGHT, m, 0);
 	  scm = gh_cdr (scm);
 	}
       scm = gh_car (scm);
     }  
-  mol.add_at_edge (X_AXIS, RIGHT, ly_word2molecule (scm), 0);
+  Molecule m = ly_word2molecule (scm);
+  if (!m.empty_b ())
+    mol.add_at_edge (X_AXIS, RIGHT, m, 0);
   return mol;
 }
 
