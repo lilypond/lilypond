@@ -197,7 +197,7 @@ New_fingering_engraver::position_scripts ()
     {
       if (!up.size())
 	up.push (fingerings_.pop());
-      if (!down.size())
+      if (!down.size() && fingerings_.size ())
 	{
 	  down.push (fingerings_[0]);
 	  fingerings_.del(0);
