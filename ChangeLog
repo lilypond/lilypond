@@ -1,7 +1,9 @@
 2004-08-28  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
-	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): set
-	bassStaffProperties to \clef bass.
+	* input/regression/slur-extreme.ly: new file.
+
+	* ly/engraver-init.ly (Score): set bassStaffProperties to \clef
+	bass. Obviates \clef bass in the bass staff, when using \autochange 
 
 	* lily/auto-change-iterator.cc (construct_children): instantiate
 	up/down Staff, create Voice on up staff initially. Obviates
