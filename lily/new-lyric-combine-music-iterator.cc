@@ -71,6 +71,7 @@ New_lyric_combine_music_iterator::start_new_syllable ()
   if (!b)
     return false;
 
+  /* FIXME: this is wrong use of construct_children () */
   if (!lyrics_context_)
     construct_children ();
   
@@ -135,7 +136,7 @@ Translator_group *
 find_context_below (Translator_group * where,
 		    String type, String id)
 {
-  if (where->context_name () == type)
+  if (where->is_alias (ly_symbol2scm (type.to_str0 ())))
     {
       if (id == "" || where->id_string_ == id)
 	return where;
@@ -147,7 +148,6 @@ find_context_below (Translator_group * where,
     {
       Translator_group * tr = dynamic_cast<Translator_group*> (unsmob_translator (gh_car (s)));
 
-      
       found = find_context_below (tr, type, id);
     }
 

@@ -390,7 +390,6 @@ yylex (YYSTYPE *s,  void * v)
 %type <music> shorthand_command_req
 %type <music>	post_event tagged_post_event
 %type <music> command_req verbose_command_req
-%type <music> hyphen_req
 %type <music> string_number_event
 %type <scm>	string bare_number number_expression number_term number_factor 
 %type <score>	score_block score_body
@@ -1425,10 +1424,7 @@ command_req:
 	;
 
 shorthand_command_req:
-	hyphen_req {
-		$$ = $1;
-	}
-	| BREATHE {
+	BREATHE {
 		$$ = MY_MAKE_MUSIC("BreathingSignEvent");
 	}
 	| E_TILDE {
@@ -1498,6 +1494,11 @@ tagged_post_event:
 post_event:
 	direction_less_event {
 		$$ = $1;
+	}
+	| HYPHEN {
+		if (!THIS->lexer_->lyric_state_b ())
+			THIS->parser_error (_ ("Have to be in Lyric mode for lyrics"));
+		$$ = MY_MAKE_MUSIC("HyphenEvent");
 	}
 	| EXTENDER {
 		if (!THIS->lexer_->lyric_state_b ())
@@ -1664,13 +1665,6 @@ pitch_also_in_chords:
 	| steno_tonic_pitch
 	;
 
-hyphen_req:
-	HYPHEN {
-		if (!THIS->lexer_->lyric_state_b ())
-			THIS->parser_error (_ ("Have to be in Lyric mode for lyrics"));
-		$$ = MY_MAKE_MUSIC("HyphenEvent");
-	}
-	;
 
 close_event:
 	'('	{

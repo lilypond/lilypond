@@ -21,6 +21,7 @@
 	(cautionary-style . parentheses)
 	(after-line-breaking-callback . ,Accidental_interface::after_line_breaking)		(meta . ((interfaces . (item-interface accidental-interface font-interface))))
 	))
+    
     (AccidentalPlacement
      . (
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
@@ -28,7 +29,7 @@
 
 	;; this is quite small, but it is very ugly to have
 	;; accs closer to the previous note than to the next one.
-	(right-padding . 0.2)
+	(right-padding . 0.25)
 	(meta . ((interfaces . (item-interface accidental-placement-interface))))
 	))
 
