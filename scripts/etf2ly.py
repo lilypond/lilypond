@@ -501,14 +501,17 @@ class Staff:
 			gap = (0,1)
 			for m in self.measures[1:]:
 				if not m or not m.valid:
+					sys.stderr.write ("Skipping non-existant measure")
 					continue
 
 				fr = None
 				try:
 					fr = m.frames[x]
 				except IndexError:
-					pass
-				
+					
+					sys.stderr.write ("Skipping nonexistent frame")
+					laystr = laystr + "% FOOBAR ! \n"
+					print laystr
 				if fr:
 					first_frame = fr
 					if gap <> (0,1):
@@ -1043,6 +1046,7 @@ for opt in options:
 
 identify()
 
+e = None
 for f in files:
 	if f == '-':
 		f = ''

@@ -26,8 +26,8 @@
 ;
 (define (default-beam-flag-width-function type)
   (cond
-   ((eq? type 1) 1.98)
-   ((eq? type 1) 1.65)
+   ((eq? type 1) 1.98) 
+   ((eq? type 1) 1.65) ;; FIXME: check what this should be and why
    (else 1.32)
    ))
 
@@ -142,7 +142,6 @@
 ; 
 (define basic-beam-properties
   `(
-    (interfaces . (beam-interface))
     (molecule-callback . ,Beam::brew_molecule)
     (thickness . 0.42) ; in staff-space, should use stafflinethick?
     (before-line-breaking-callback . ,Beam::before_line_breaking)
@@ -157,7 +156,7 @@
     (flag-width-function . ,default-beam-flag-width-function)
     (space-function . ,default-beam-space-function)
     (damping . 1)
-    (name . "beam")
+    (meta . ,(element-description "Beam" general-element-interface beam-interface))
     )
   )
 

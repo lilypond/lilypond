@@ -11,7 +11,6 @@
   [TODO]
     * fix broken interstaff slurs
     * begin and end should be treated as a/acknowledge Scripts.
-    * broken slur should have uniform trend
     * smart changing of endings
     * smart changing of (Y-?)offsets to avoid ugly beziers
        (along-side-stem)
@@ -122,11 +121,53 @@ Slur::after_line_breaking (SCM smob)
   return SCM_UNSPECIFIED;
 } 
 
+
 void
-Slur::set_extremities (Score_element*me)
+Slur::check_slope (Score_element *me)
+{
+  /*
+    Avoid too steep slurs.
+   */
+  SCM s = me->get_elt_property ("slope-limit");
+  if (gh_number_p (s))
+    {
+      Array<Offset> encompass = get_encompass_offset_arr (me);
+      Drul_array<Offset> attachment;
+      attachment[LEFT] = encompass[0];
+      attachment[RIGHT] = encompass.top ();
+
+      Real dx = attachment[RIGHT][X_AXIS] - attachment[LEFT][X_AXIS];
+      Real dy = attachment[RIGHT][Y_AXIS] - attachment[LEFT][Y_AXIS];
+      if (!dx)
+	return;
+      
+      Real slope = slope = abs (dy / dx);
+
+      Real limit = gh_scm2double (s);
+
+      if (slope > limit)
+	{
+	  Real staff_space = Staff_symbol_referencer::staff_space ((Score_element*)me);
+	  Direction dir = (Direction)gh_scm2int (me->get_elt_property ("direction"));
+	  Direction d = (Direction)(- dir * (sign (dy)));
+	  SCM a = me->get_elt_property ("attachment-offset");
+	  Drul_array<Offset> o;
+	  o[LEFT] = ly_scm2offset (index_cell (a, LEFT));
+	  o[RIGHT] = ly_scm2offset (index_cell (a, RIGHT));
+	  o[d][Y_AXIS] -= (limit - slope) * dx * dir / staff_space;
+	  //o[d][Y_AXIS] = attachment[-d][Y_AXIS] + (dx * limit * dir / staff_space);
+	  me->set_elt_property ("attachment-offset",
+				gh_cons (ly_offset2scm (o[LEFT]),
+					 ly_offset2scm (o[RIGHT])));
+	}
+    }
+}
+
+void
+Slur::set_extremities (Score_element *me)
 {
   if (!Directional_element_interface::get (me))
-    Directional_element_interface ::set (me,get_default_dir (me));
+    Directional_element_interface::set (me, get_default_dir (me));
 
   Direction dir = LEFT;
   do 
@@ -148,7 +189,10 @@ Slur::set_extremities (Score_element*me)
 	}
     }
   while (flip (&dir) != LEFT);
+
+  check_slope (me);
 }
+
 
 Real
 Slur::get_first_notecolumn_y (Score_element *me, Direction dir)
@@ -199,7 +243,10 @@ Slur::broken_trend_offset (Score_element *me, Direction dir)
 					     me->get_elt_property ("direction"));
 	      Real neighbour_y = get_first_notecolumn_y (neighbour, dir);
 	      Real y = get_first_notecolumn_y (me, -dir);
-	      o = Offset (0, (y + neighbour_y) / 2);
+	      int neighbour_cols = scm_ilength (neighbour->get_elt_property ("note-columns"));
+	      int cols = scm_ilength (me->get_elt_property ("note-columns"));
+	      o = Offset (0, (y*neighbour_cols + neighbour_y*cols) /
+			  (cols + neighbour_cols));
 	      break;
 	    }
 	}
@@ -208,7 +255,7 @@ Slur::broken_trend_offset (Score_element *me, Direction dir)
 }
 
 Offset
-Slur::get_attachment (Score_element*me,Direction dir,
+Slur::get_attachment (Score_element *me, Direction dir,
 		      Score_element **common) 
 {
   SCM s = me->get_elt_property ("attachment");
@@ -220,8 +267,8 @@ Slur::get_attachment (Score_element*me,Direction dir,
   SCM a = dir == LEFT ? gh_car (s) : gh_cdr (s);
   Spanner*sp = dynamic_cast<Spanner*>(me);
   String str = ly_symbol2string (a);
-  Real ss = Staff_symbol_referencer::staff_space ((Score_element*)me);
-  Real hs = ss / 2.0;
+  Real staff_space = Staff_symbol_referencer::staff_space ((Score_element*)me);
+  Real hs = staff_space / 2.0;
   Offset o;
   
   Score_element *stem = 0;
@@ -239,7 +286,8 @@ Slur::get_attachment (Score_element*me,Direction dir,
 		Default position is centered in X, on outer side of head Y
 	       */
 	      o += Offset (0.5 * n->extent (n,X_AXIS).length (),
-			   0.5 * ss * Directional_element_interface::get (me));
+			   0.5 * staff_space
+			   * Directional_element_interface::get (me));
 	    }
 	  else if (str == "alongside-stem")
 	    {
@@ -249,7 +297,8 @@ Slur::get_attachment (Score_element*me,Direction dir,
 	       */
 	      o += Offset (n->extent (n,X_AXIS).length ()
 			   * (1 + Stem::get_direction (stem)),
-			   0.5 * ss * Directional_element_interface::get (me));
+			   0.5 * staff_space
+			   * Directional_element_interface::get (me));
 	    }
 	  else if (str == "stem")
 	    {
@@ -295,7 +344,7 @@ int stemdir = stem ? Stem::get_direction (stem) : 1;
 
   if (l != SCM_BOOL_F)
     {
-      o += ly_scm2offset (gh_cdr (l)) * ss * dir;
+      o += ly_scm2offset (gh_cdr (l)) * staff_space * dir;
     }
 
   /*
@@ -308,6 +357,8 @@ int stemdir = stem ? Stem::get_direction (stem) : 1;
 	- me->relative_coordinate (common[Y_AXIS], Y_AXIS);
     }
 
+  o += ly_scm2offset (index_cell (me->get_elt_property ("attachment-offset"),
+				  dir)) * staff_space;
   return o;
 }
 
@@ -356,12 +407,12 @@ Slur::encompass_offset (Score_element*me,
 }
 
 Array<Offset>
-Slur::get_encompass_offset_arr (Score_element*me) 
+Slur::get_encompass_offset_arr (Score_element *me)
 {
   Spanner*sp = dynamic_cast<Spanner*>(me);
   SCM eltlist = me->get_elt_property ("note-columns");
-  Score_element *common[] = {me->common_refpoint (eltlist,X_AXIS),
-			     me->common_refpoint (eltlist,Y_AXIS)};
+  Score_element *common[] = {me->common_refpoint (eltlist, X_AXIS),
+			     me->common_refpoint (eltlist, Y_AXIS)};
 
 
   common[X_AXIS] = common[X_AXIS]->common_refpoint (sp->get_bound (RIGHT), X_AXIS);
@@ -498,8 +549,10 @@ Slur::set_control_points (Score_element*me)
       Real length = bb.curve_.control_[3][X_AXIS]; 
       Real default_height = slur_height (length, h_inf, r_0);
 
-      SCM ssb = scm_assq (ly_symbol2scm ("beautiful"), details);
-      Real sb =gh_scm2double (gh_cdr (ssb));
+      SCM ssb = me->get_elt_property ("beautiful");
+      Real sb = 0;
+      if (gh_number_p (ssb))
+	sb = gh_scm2double (ssb);
 
       bb.minimise_enclosed_area (me->paper_l(), sb);
       SCM sbf = scm_assq (ly_symbol2scm ("force-blowfit"), details);

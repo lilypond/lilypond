@@ -19,6 +19,15 @@ cpp -P -traditional -o l-fake.ly  -DFAKE_GRACE les-nereides.ly
  #(define (grace-beam-space-function multiplicity)
          (* (if (<= multiplicity 3) 0.816 0.844) 0.8))
 
+%% cpp: don't start on first column
+ #(define (make-text-checker text)
+  (lambda (elt)
+     ;; huh, string-match undefined?
+     ;; (string-match text (ly-get-elt-property elt 'text))
+     (equal? text (ly-get-elt-property elt 'text))
+    ))
+
+
 global = \notes{
     \partial 2;
     \key a \major;
@@ -40,26 +49,51 @@ treble = \context Voice=treble \notes\relative c''{
     \property Voice.NoteColumn \push #'horizontal-shift = #0
     \outputproperty #(make-type-checker 'text-item-interface) 
 	    #'extra-offset = #'(-6 . 2)
+    %% *Style* = Large??
+    \property Voice.TextScript \push #'style = #"Large"
     r2^"Allegretto scherzando"
+    \property Voice.TextScript \pop #'style
     %2
     \property Voice.Stem \pop #'direction
     \property Voice.Stem \push #'direction = #1
     r4 <cis\arpeggio eis a cis> r2
     %3
     r4 <cis\arpeggio fis a cis> r8.
+    % Huh, urg?  Implicit \context Staff lifts us up to Staff context???
     \translator Staff=bass
+    % Get back
+    \context Voice 
+    \outputproperty #(make-text-checker "m.d.")
+	    #'extra-offset = #'(-3 . -4)
+    % currently, this can't be (small) italic, because in the paperblock
+    % we set italic_magnifictation to get large italics.
     cis,16^2^"m.d."( <fis8 fis,> <e! e,!>
     %4
     <)dis,4 a' dis>
+    % Urg, this lifts us up to staff context
     \translator Staff=treble
+    % Get back
+    \context Voice 
     \property Voice.Slur \pop #'direction
     \property Voice.Slur \push #'direction = #1
     \property PianoStaff.connectArpeggios = ##t
     \property Voice.TextSpanner \pop #'type
+
+    %% Ghostview is ok, but xdvi shows a solid line
+    \property Voice.TextSpanner \push #'line-thickness = #2
+    \property Voice.TextSpanner \push #'dash-period = #0.5
+
     \property Voice.TextSpanner \push #'type = #"dotted-line"
     \property Voice.TextSpanner \push #'edge-height = #'(0 . 1.5)
-    \property Voice.TextSpanner \push #'edge-text = #'("8va " . "")
+    \property Voice.TextSpanner \push #'edge-text = #'("8 " . "")
+    % Huh, urg?  Implicit \context Staff lifts us up to Staff context???
     \property Staff."c0-position" = #-13
+    % Get back
+    \context Voice 
+    \outputproperty #(make-text-checker "m.g.")
+	    #'extra-offset = #'(-3 . -2)
+    % currently, this can't be (small) italic, because in the paperblock
+    % we set italic_magnifictation to get large italics.
     cis''''4^"m.g."\arpeggio \spanrequest \start "text"  (
 
 #ifndef FAKE_GRACE
@@ -84,12 +118,21 @@ treble = \context Voice=treble \notes\relative c''{
 
 #else % FAKE_GRACE 
 
+    \property Score.PaperColumn  \push #'space-factor = #0.6
+    \property Score.PaperColumn  \push #'to-musical-spacing-factor = #0.04
     \property Voice.NoteHead \push #'font-size = #-1
     \property Voice.Stem \push #'font-size = #-1
+    \property Voice.Stem \push #'length = #6
+    \property Voice.Stem \push #'beamed-lengths =
+        #(map (lambda (x) (* 1.25 x)) '(0.0 2.5 2.0 1.5))
+    \property Voice.Stem \push #'beamed-minimum-lengths =
+        #(map (lambda (x) (* 1.25 x)) '(0.0 1.5 1.25 1.0))
+
     \property Voice.Beam \push #'font-size = #-1
     \property Voice.TextScript \push #'font-size = #-1
+    \property Voice.Fingering \push #'font-size = #-1
     \property Voice.Slur \push #'font-size = #-1
-    \property Voice.LocalKey \push #'font-size = #-1
+    \property Staff.Accidentals \push #'font-size = #-1
     \property Voice.Beam \push #'space-function = #grace-beam-space-function
 
     )cis16
@@ -103,12 +146,17 @@ treble = \context Voice=treble \notes\relative c''{
 
     \property Voice.NoteHead \pop #'font-size
     \property Voice.Stem \pop #'font-size
+    \property Voice.Stem \pop #'length
+    \property Voice.Stem \pop #'beamed-lengths
+    \property Voice.Stem \pop #'beamed-minimum-lengths
     \property Voice.Beam \pop #'font-size
     \property Voice.TextScript \pop #'font-size
+    \property Voice.Fingering \pop #'font-size
     \property Voice.Slur \pop #'font-size
-    \property Voice.LocalKey \pop #'font-size
+    \property Staff.Accidentals \pop #'font-size
     \property Voice.Beam \pop #'space-function
-
+    \property Score.PaperColumn  \pop #'space-factor
+    \property Score.PaperColumn \pop #'to-musical-spacing-factor
 #endif % FAKE_GRACE
     
 
@@ -121,23 +169,23 @@ treble = \context Voice=treble \notes\relative c''{
 }
 
 trebleTwo = \context Voice=trebleTwo \notes\relative c''{
-    % Broken?
     \property Voice.NoteColumn \push #'horizontal-shift = #1
     s2
     s1*2
     s4
     \property Voice.Stem \pop #'direction
     \property Voice.Stem \push #'direction = #-1
-    <cis4\arpeggio a fis dis>
+    <cis'4\arpeggio a fis dis>
 
 #ifdef FAKE_GRACE
     s32*16
 #endif
 
     \property Voice.NoteColumn \push #'force-hshift = #-0.2
-    <e2 gis, e d>
-    %r8 cis4. d4 [<cis8-5-4( e,-1> <b-3 d,-1> |
-    r8 cis4. d4
+    <e,2 gis, e d!>
+    % Hmm s/r?
+    %r8 cis4. d4
+    s8 cis4. d4
     \property Voice.NoteColumn \pop #'force-hshift
     [<cis8( e,> <b-3 d,-1> |
     \property Voice.NoteColumn \push #'force-hshift = #-0.2
@@ -148,47 +196,55 @@ trebleTwo = \context Voice=trebleTwo \notes\relative c''{
 }
 
 bass = \context Voice=bass \notes\relative c{
-    \property Voice.Slur \pop #'details
-    \property Voice.Slur \push #'details =
-%        #'((height-limit . 2.0) (ratio . 0.333) (force-blowfit . 0.5) (beautiful . 1.0))
-        #'((height-limit . 6.0) (ratio . 0.333) (force-blowfit . 1.0) (beautiful . 0.1))
-    \property Voice.Slur \pop #'de-uglify-parameters
-    \property Voice.Slur \push #'de-uglify-parameters =
-%    #'(1.5  0.8  -2.0)
-    #'(2.4  0.8  4.0)
+    % Allow ugly slurs
+    \property Voice.Slur \push #'beautiful = #5.0
+    \property Voice.Slur \push #'attachment-offset = #'((0 . -3) . (0 . -6))
     \property Voice.Stem \pop #'direction
     \property Voice.Slur \push #'direction = #-1
     % huh, auto-beamer?
     r8. e,16-2( [<a8 a,> <b b,>] <cis4 cis,> |
     %2
+    % Huh, urg?  Implicit \context Staff lifts us up to Staff context???
     \translator Staff=treble
+    % Get back
+    \context Voice 
     \property Voice.Stem \pop #'direction
     \property Voice.Stem \push #'direction = #-1
     \property Voice.slurEndAttachment = #'stem
     <)a''4\arpeggio eis cis> 
     %\stemboth
     \property Voice.slurEndAttachment = ##f
+    % Huh, urg?  Implicit \context Staff lifts us up to Staff context???
     \translator Staff=bass
+    % Get back
+    \context Voice 
     \property Voice.Stem \pop #'direction
     \property Voice.Slur \pop #'y-free
     \property Voice.Slur \push #'y-free = #0.1
+    \property Voice.Slur \pop #'attachment-offset
+    \property Voice.Slur \push #'attachment-offset = #'((0 . -3) . (0 . -8))
     r8. cis,,16( <fis8 fis,> <gis gis,>
     %3
     \property Voice.Stem \pop #'length
     \property Voice.Stem \push #'length = #5
     <a4 a,>
+    % Huh, urg?  Implicit \context Staff lifts us up to Staff context???
     \translator Staff=treble
+    % Get back
+    \context Voice 
     \property Voice.Stem \pop #'length
     \property Voice.Stem \pop #'direction
     \property Voice.Stem \push #'direction = #-1
     <)a'\arpeggio fis cis>
+    % Huh, urg?  Implicit \context Staff lifts us up to Staff context???
     \translator Staff=bass
+    % Get back
+    \context Voice 
     \property Voice.Stem \pop #'direction
     r2
     %4
-    \property Voice.Slur \pop #'details
-    \property Voice.Slur \push #'details =
-        #'((height-limit . 2.0) (ratio . 0.333) (force-blowfit . 0.5) (beautiful . 0.5))
+    \property Voice.Slur \pop #'beautiful
+    \property Voice.Slur \pop #'attachment-offset
     \property Voice.Stem \pop #'direction
     \property Voice.Stem \push #'direction = #-1
     <b,,4 b,>
@@ -205,12 +261,28 @@ bass = \context Voice=bass \notes\relative c{
     %Hmm
     %\grace { s16 s s s s32 s s s s \clef bass; s }
     \clef bass;
-#else
-    s4 s8 s32 s  s \clef bass; s
-#endif
-
     \grace { <e,,,32( e,> } <)gis'2 e>
-    %5%
+#else
+    s4 s8 s32 s  s \clef bass;
+    \property Score.PaperColumn  \push #'space-factor = #0.6
+    \property Score.PaperColumn  \push #'to-musical-spacing-factor = #0.1
+    \property Voice.NoteHead \push #'font-size = #-1
+    \property Voice.Stem \push #'font-size = #-1
+    \property Voice.Stem \push #'length = #6
+    \property Voice.Slur \push #'font-size = #-1
+    \property Voice.Slur \push #'attachment-offset = #'((-0.5 . 0) . (0.5 . 0))
+    <e,,,32( e,>
+
+    \property Voice.NoteHead \pop #'font-size
+    \property Voice.Stem \pop #'font-size
+    \property Voice.Stem \pop #'length
+    \property Voice.Slur \pop #'font-size
+    \property Score.PaperColumn  \pop #'space-factor
+    \property Score.PaperColumn \pop #'to-musical-spacing-factor
+     <)gis'2 e>
+    \property Voice.Slur \pop #'attachment-offset
+#endif
+    %5
     \property Voice.Slur \pop #'direction
     \property Voice.Slur \push #'direction = #1
     a,8 [e'-5(<)a-2 cis-3>]
@@ -266,11 +338,14 @@ middleDynamics = \context Dynamics=middle \notes{
     s8 s4
 
     \outputproperty #(make-type-checker 'dynamic-interface) 
-	    #'extra-offset = #'(0 . 3.5)
-    s1\mf-"a tempo"
-    s8
+	    #'extra-offset = #'(0 . 4)
+    %s1\mf-"a tempo"
+    s2\mf-"a tempo" s4
+    \outputproperty #(make-type-checker 'crescendo-interface) 
+	    #'extra-offset = #'(0.5 . -1)
+    s\> \!s8
     \outputproperty #(make-type-checker 'dynamic-interface) 
-	    #'extra-offset = #'(-1 . 3.5)
+	    #'extra-offset = #'(-1 . 4)
     s8\mf s4 s4 s8\> s32 s s \!s
 }
 
@@ -335,20 +410,22 @@ lowerDynamics = \context Dynamics=lower \notes{
 	>
     >
     \paper {
+	%%BURP
+	magnification_italic = 1.;
 	\translator {
 	    \ScoreContext
 	    TimeSignature \push #'style = #"C"
+	    SpacingSpanner \push #'maximum-duration-for-spacing = #(make-moment 1 4)
+
+	    \remove Bar_number_engraver;
         }
 	\translator {
 	    \type "Engraver_group_engraver";
 	    \name Dynamics;
 	    \consists "Output_property_engraver";
 	    Generic_property_list = #generic-voice-properties
-	    %Generic_property_list = #generic-lyrics-properties
 	    \consists "Property_engraver";
 	    DynamicsMinimumVerticalExtent = #(cons -3 -3)
-	    %VerticalAlignment \push #'threshold = #'(8 . 8) 
-	    %VerticalAlignment \push #'threshold = #'(10 . 10) 
 	    VerticalAlignment \push #'threshold = #'(9 . 9) 
 
 	    startSustain = #"Ped."
@@ -356,7 +433,6 @@ lowerDynamics = \context Dynamics=lower \notes{
 	    stopStartSustain = #"*Ped."
 	    startUnaChorda = #"una chorda"
 	    stopUnaChorda = #"tre chorde"
-	    % should make separate lists for stopsustain and startsustain 
 	    
 	    \consists "Piano_pedal_engraver";
 	    \consists "Script_engraver";
@@ -364,7 +440,7 @@ lowerDynamics = \context Dynamics=lower \notes{
 	    \consists "Text_engraver";
 	    %GURGURGU, text is initialised using TextScript
 	    TextScript \push #'style = #"italic"
-	    TextScript \push #'font-size = #2
+	    %%% TextScript \push #'font-size = #2
 
 	    \consists "Skip_req_swallow_translator";
 
@@ -372,17 +448,8 @@ lowerDynamics = \context Dynamics=lower \notes{
     	}
 
 	\translator {
-	    \VoiceContext
-	    %TextScript \push #'style = #"italic"
-	    %TextScript \push #'font-size = #3
-	    TextScript \push #'size = #"Large"
-	    TextScript \push #'font-size = #"Large"
-        }
-	\translator {
 	    \PianoStaffContext
 	    \accepts Dynamics;
-	    %VerticalAlignment \push #'threshold = #'(8 . 8) 
-	    %VerticalAlignment \push #'threshold = #'(6 . 6)
 	    VerticalAlignment \push #'threshold = #'(7 . 7)
         }
 	\translator {

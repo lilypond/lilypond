@@ -111,6 +111,7 @@ private:\
 public: \
 	static SCM equal_p (SCM a, SCM b);\
 	static CL * unsmob (SCM);\
+	static SCM smob_p (SCM);\
 	static void init_smobs();				\
 private:
 

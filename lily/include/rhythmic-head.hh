@@ -13,18 +13,6 @@
 #include "lily-guile.hh"
 #include "lily-proto.hh"
 
-/*
-  Properties
-  
-  dot -- reference to Dots object.
-
-  stem -- pointer to Stem object
-
-  Read-only
-
-  duration-log -- 2-log of the notehead duration
-
-*/
 class Rhythmic_head
 {
 public:

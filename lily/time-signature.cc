@@ -9,6 +9,7 @@
 
 
 #include "molecule.hh"
+#include "text-item.hh"
 #include "time-signature.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
@@ -69,13 +70,18 @@ Time_signature::special_time_signature (Score_element*me, String s, int n, int d
 Molecule
 Time_signature::time_signature (Score_element*me,int num, int den)
 {
-  String sty = "timesig";
-
   /*
     UGH: need to look at fontsize.
+    TODO: specify using scm markup.
    */
-  Molecule n (me->lookup_l ()->text (sty, to_str (num), me->paper_l ()));
-  Molecule d (me->lookup_l ()->text (sty, to_str (den), me->paper_l ()));
+  SCM properties = gh_append2 (me->immutable_property_alist_,
+			       me->mutable_property_alist_);
+  Molecule n = Text_item::text2molecule (me,
+					 ly_str02scm (to_str (num).ch_C ()),
+					 properties);
+  Molecule d = Text_item::text2molecule (me,
+					 ly_str02scm (to_str (den).ch_C ()),
+					 properties);
   n.align_to (X_AXIS, CENTER);
   d.align_to (X_AXIS, CENTER);
   Molecule m;

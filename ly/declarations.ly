@@ -2,18 +2,9 @@ breve = \duration #'( -1 0)
 longa = \duration #'( -2 0 )
 maxima = \duration #'( -3 0 )
 
-
-#(begin
-  (eval-string (ly-gulp-file "slur.scm"))
-  (eval-string (ly-gulp-file "generic-property.scm"))
-  (eval-string (ly-gulp-file "basic-properties.scm"))
- )
-
 \include "nederlands.ly"		% dutch
 \include "chord-modifiers.ly"
 \include "script.ly"
-
-
 
 % declarations for standard directions
 left = -1
@@ -24,7 +15,6 @@ start = -1
 stop = 1
 smaller = -1
 bigger = 1
-
 center=0
 
 break =  \penalty  -1000000; 
@@ -33,10 +23,8 @@ nobreak =  \penalty 1000000;
 
 melisma = \property Staff.melismaBusy = ##t
 melismaEnd = \property Staff.melismaBusy = ##f
-
-
-
 papersize = "a4"
+
 \include "engraver.ly"
 \include "generic-paper.ly"
 \include "paper20.ly"
@@ -44,11 +32,10 @@ papersize = "a4"
 % ugh
 \include "midi.ly"
 
-\include "textscripts.ly"
+\include "dynamic-scripts.ly"
 \include "spanners.ly"
 
 \include "property.ly"
-
 
 
 unusedEntry = \notes { c4 }		% reset default duration

@@ -11,6 +11,9 @@
 ;
 
 
+; We should repartition the entire scm side of lily in a
+; more sane way, using namesspaces/modules?
+
 ;(debug-enable 'backtrace)
 
 ;;; library funtions
@@ -71,14 +74,11 @@
   (string-append (number->string (car c)) " "
 		 (number->string (cdr c)) " "))
 
-
 (define (font i)
   (string-append
    "font"
    (make-string 1 (integer->char (+ (char->integer #\A) i)))
    ))
-
-
 
 (define (scm-scm action-name)
   1)
@@ -349,8 +349,8 @@
      (string-append "\\special{src:" (number->string line) ":"
         (number->string col) " " file "}"
 	 ;; arg, the clueless take over the mailing list...
-	 "\\special{-****-These-warnings-are-harmless-***}"
-	 "\\special{-****-PLEASE-read-http://appel.lilypond.org/wiki/index.php3?PostProcessing-****}"
+;	 "\\special{-****-These-warnings-are-harmless-***}"
+;	 "\\special{-****-PLEASE-read-http://appel.lilypond.org/wiki/index.php3?PostProcessing-****}"
 	)
 
      ; line numbers only:
@@ -926,3 +926,13 @@
     (6 . 0)
     )
   )
+
+(begin
+  (eval-string (ly-gulp-file "interface.scm"))
+  (eval-string (ly-gulp-file "slur.scm"))
+  (eval-string (ly-gulp-file "font.scm"))  
+  (eval-string (ly-gulp-file "generic-property.scm"))
+  (eval-string (ly-gulp-file "basic-properties.scm"))
+  (eval-string (ly-gulp-file "chord-names.scm"))
+  (eval-string (ly-gulp-file "element-descriptions.scm"))  
+ )

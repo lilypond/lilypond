@@ -10,11 +10,7 @@
 
 #include "spanner.hh"
 
-/** 
-  simple extender line 
-
-  The extender is a simple line at the baseline of the lyric
-  that helps show the length of a melissima (tied/slurred note).
+/*
 
   Extenders must be entered manually for now.
 
@@ -28,16 +24,10 @@
   extend beond, lasting the whole duration of the melissima
   (as in MUP, urg).
 
-  Properties:
-  
-  word-space --
 
-  height -- in stafflinethickness
+ */
 
-  right-trim-amount --
-  
-  */
-class Lyric_extender // interface
+class Lyric_extender
 {
 public:
   Spanner*elt_l_;

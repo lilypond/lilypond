@@ -13,6 +13,7 @@
 #include "molecule.hh"
 #include "paper-column.hh"
 #include "paper-def.hh"
+#include "text-item.hh"
 #include "volta-spanner.hh"
 #include "group-interface.hh"
 #include "side-position-interface.hh"
@@ -88,10 +89,11 @@ Volta_spanner::brew_molecule (SCM smob)
 		     SCM_UNDEFINED));
 
   Box b (Interval (0, w), Interval (0, h));
-  Molecule  mol (b, at);
-  Molecule num (me->lookup_l ()->text ("volta",
-				       ly_scm2string (me->get_elt_property("text")),
-				       me->paper_l ()));
+  Molecule mol (b, at);
+  SCM text = me->get_elt_property("text");
+  SCM properties = gh_append2 (me->immutable_property_alist_,
+			       me->mutable_property_alist_);
+  Molecule num = Text_item::text2molecule (me, text, properties);
 
   mol.add_at_edge (X_AXIS, LEFT, num, - num.extent (X_AXIS).length ()
 		   - staff_space);

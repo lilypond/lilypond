@@ -28,12 +28,14 @@ dvi: $(DVI_FILES)
 ps: $(PS_FILES)
 
 # urg
-default:
+default: 
 
-local-WWW: $(HTML_FILES)   $(datafiles) $(PS_GZ_FILES)
-	$(PYTHON) $(step-bindir)/ls-latex.py --title 'User documentation' \
-	   $(DOC_FILES) $(TEX_FILES) $(TELY_FILES) \
-	  | sed "s!$(outdir)/!!g" > $(outdir)/index.html
+local-WWW: $(HTML_FILES)   $(datafiles) $(PS_GZ_FILES) backdoc
+	true
+
+#	$(PYTHON) $(step-bindir)/ls-latex.py --title 'User documentation' \
+#	   $(DOC_FILES) $(TEX_FILES) $(TELY_FILES) \
+#	  | sed "s!$(outdir)/!!g" > $(outdir)/index.html
 
 $(outdir)/%.bib: %.bib
 	ln -f $< $@
@@ -42,3 +44,7 @@ $(outdir)/%.bib: %.bib
 
 localclean:
 	rm -f fonts.aux fonts.log feta*.tfm feta*.*pk 
+
+#ugh. out/ hardcoded.
+backdoc:
+	(cd $(outdir); $(topdir)/lily/out/lilypond $(depth)/../ly/generate-documentation)

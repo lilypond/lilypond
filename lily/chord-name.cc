@@ -13,117 +13,8 @@
 #include "score-element.hh"
 #include "paper-column.hh"
 #include "line-of-score.hh"
-
-/*
-  TODO: move text lookup out of Chord_name
- */
-
-/*
-  word is roman text or property-styled text:
-   "text"
-   ("text" . property-alist)
- */
-Molecule
-Chord_name::ly_word2molecule (Score_element * me, SCM word, Real* x) 
-{
-  *x = 0;
-
-  SCM options_alist = SCM_EOL;
-  if (gh_pair_p (word))
-    {
-      options_alist = gh_cdr (word);
-      word = gh_car (word);
-    }
-
-  if (gh_string_p (word))
-    {
-      /*
-	UGH. Should read from font metric structure.
-      */
-      Real ex = me->lookup_l ()->text ("", "x",
-				   me->paper_l ()).extent (Y_AXIS).length ();
-      Real em = me->lookup_l ()->text ("", "m",
-				   me->paper_l ()).extent (X_AXIS).length ();
-
-      String w = ly_scm2string (word);
-
-      String style;
-      SCM s = scm_assoc (ly_symbol2scm ("style"), options_alist);
-      if (s != SCM_BOOL_F)
-	{
-	  style = ly_scm2string (gh_cdr (s));
-	}
-
-      Offset offset;
-      int size = 0;
-      /*
-	urg, `type'
-      */
-      s = scm_assoc (ly_symbol2scm ("type"), options_alist);
-      if (s != SCM_BOOL_F && ly_scm2string (gh_cdr (s)) == "super")
-	{
-	  Real super_y = ex / 2;
-	  offset = Offset (0, super_y);
-	  if (!size)
-	    size = -2;
-	}
-
-      s = scm_assoc (ly_symbol2scm ("size"), options_alist);
-      if (s != SCM_BOOL_F)
-	{
-	  size = gh_scm2int (gh_cdr (s));
-	}
-
-      s = scm_assoc (ly_symbol2scm ("offset"), options_alist);
-      if (s != SCM_BOOL_F)
-	{
-	  // hmm
-	  SCM o = gh_cdr (s);
-	  if (gh_pair_p (o))
-	    offset = Offset (0, gh_scm2double (gh_cdr (o))) * ex;
-	  *x = gh_scm2double (gh_car (o)) * em;
-	}
-
-      Molecule mol;
-      s = scm_assoc (ly_symbol2scm ("font"), options_alist);
-      if (s != SCM_BOOL_F && ly_scm2string (gh_cdr (s)) == "feta")
-        mol = me->paper_l ()->lookup_l (size)->afm_find (w);
-      else
-	mol = me->paper_l ()->lookup_l (size)->text (style, w, me->paper_l ());
-
-      mol.translate (offset);
-      return mol;
-    }
-  return Molecule ();
-}
-
-/*
-  ;; text: list of word
-  ;; word: string + optional list of property
-  ;; property: align, kern, font (?), size
- */
-Molecule
-Chord_name::ly_text2molecule (Score_element * me, SCM text) 
-{
-  Molecule mol;
-  if (gh_list_p (text))
-    {
-      while (gh_cdr (text) != SCM_EOL)
-        {
-	  Real x;
-	  Molecule m = ly_word2molecule (me, gh_car (text), &x);
-	  if (!m.empty_b ())
-	    mol.add_at_edge (X_AXIS, RIGHT, m, x);
-	  text = gh_cdr (text);
-	}
-      text = gh_car (text);
-    }  
-  Real x;
-  Molecule m = ly_word2molecule (me,text, &x);
-  if (!m.empty_b ())
-    mol.add_at_edge (X_AXIS, RIGHT, m, x);
-  return mol;
-}
+#include "staff-symbol-referencer.hh"
+#include "text-item.hh"
 
 MAKE_SCHEME_CALLBACK (Chord_name,after_line_breaking,1);
 SCM
@@ -169,5 +60,18 @@ Chord_name::brew_molecule (SCM smob)
   SCM func = me->get_elt_property (ly_symbol2scm ("chord-name-function"));
   SCM text = gh_call3 (func, style, pitches, gh_cons (inversion, bass));
 
-  return ly_text2molecule (me, text).create_scheme ();
+  SCM properties = gh_append2 (me->immutable_property_alist_,
+			       me->mutable_property_alist_);
+  Molecule mol = Text_item::text2molecule (me, text, properties);
+
+  SCM space =  me->get_elt_property ("word-space");
+  if (gh_number_p (space))
+    {
+      Molecule m;
+      m.set_empty (false);
+      mol.add_at_edge (X_AXIS, RIGHT, m, gh_scm2double (space)*
+		       Staff_symbol_referencer::staff_space (me));
+    }
+
+  return mol.create_scheme ();
 }

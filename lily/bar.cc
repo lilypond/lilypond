@@ -178,13 +178,13 @@ Bar::before_line_breaking  (SCM smob)
 void
 Bar::set_interface (Score_element*me)
 {
-  me->set_interface (ly_symbol2scm ("bar-interface"));
+  me->set_interface (ly_symbol2scm ("bar-line-interface"));
 }
 
 bool
 Bar::has_interface (Score_element*m)
 {
-  return m && m->has_interface (ly_symbol2scm ("bar-interface"));
+  return m && m->has_interface (ly_symbol2scm ("bar-line-interface"));
 }
 
 

@@ -11,15 +11,11 @@
 #include "lily-proto.hh"
 
 /**
-  A group of  accidentals.
+
 
   Properties:
 
-  c0-position -- integer indicating the position of central C?
 
-  old-accidentals -- list of (pitch, accidental) pairs
-
-  new-accidentals -- list of (pitch, accidental) pairs
  */
 struct Key_item
 {

@@ -75,6 +75,18 @@ Spacing_spanner::do_measure (Score_element*me, Link_array<Score_element> cols)
 
       Item* combinations[4][2]={{l,r}, {lb,r}, {l,rb},{lb,rb}};
 
+
+      /*
+	left refers to the space that is associated with items of the left column, so you have
+
+	  LC  <- left_space -><- right_space -> RC
+              <-    total space              ->
+	      
+
+        typically, right_space is non-zero when there are
+        accidentals in RC
+	  
+       */
       for (int j=0; j < 4; j++)
 	{
 	  Paper_column * lc = dynamic_cast<Paper_column*> (combinations[j][0]);
@@ -115,10 +127,11 @@ Spacing_spanner::do_measure (Score_element*me, Link_array<Score_element> cols)
 	    We want the space before barline to be like the note
 	    spacing in the measure.
 	  */
+	  SCM sfac =lc->get_elt_property ("space-factor");
 	  if (Item::breakable_b (lc) || lc->original_l_)
-	    s.strength_f_ = non_musical_space_strength;
-	  else if (!lc->musical_b ())
-	    left_distance *= me->paper_l ()->get_var ("decrease_nonmus_spacing_factor");
+	    s.strength_f_ =  non_musical_space_strength;
+	  else if (gh_number_p (sfac))
+	    left_distance *= gh_scm2double (sfac);
 
 	  
 	  Real right_dist = 0.0;
@@ -135,15 +148,14 @@ Spacing_spanner::do_measure (Score_element*me, Link_array<Score_element> cols)
 	  /*
 	    don't want to create too much extra space for accidentals
 	  */
-	  if (lc->musical_b () && rc->musical_b ())
-	    {
-	      if (!to_boolean (rc->get_elt_property ("contains-grace")))
-		right_dist *= me->paper_l ()->get_var ("musical_to_musical_left_spacing_factor");
-	    }
+	  if (rc->musical_b ())
+	   {
+	      if (to_boolean (rc->get_elt_property ("contains-grace")))
+		right_dist *= me->paper_l ()->get_var ("before_grace_spacing_factor"); // fixme.
+	      else
+		right_dist *= gh_scm2double (lc->get_elt_property ("before-musical-spacing-factor"));
+	   }
 
-	  if (rc->musical_b () && to_boolean (rc->get_elt_property ("contains-grace")))
-	    right_dist *= me->paper_l ()->get_var ("before_grace_spacing_factor");
- 
  	  s.distance_f_ = left_distance + right_dist;
 	    
 	  Real stretch_dist = 0.;

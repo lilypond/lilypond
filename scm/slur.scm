@@ -102,7 +102,6 @@
 
 (define default-basic-slur-properties
   `(
-   (interfaces . (slur-interface))
    (molecule-callback . ,Slur::brew_molecule)
    (thickness . 1.2)		
    (spacing-procedure . ,Slur::set_spacing_rods)		
@@ -111,8 +110,11 @@
    (extremity-rules . ,default-slur-extremity-rules)
    (extremity-offset-alist . ,default-slur-extremity-offset-alist)
    (de-uglify-parameters . ( 1.5  0.8  -2.0))
-   (details . ((height-limit . 2.0) (ratio . 0.333) (force-blowfit . 0.5) (beautiful . 0.5)))
+   (details . ((height-limit . 2.0) (ratio . 0.333) (force-blowfit . 0.5)))
+   (beautiful . 0.5)
    (y-free . 0.75)
-   (name . "Slur")
+   (attachment-offset . ((0 . 0) . (0 . 0)))
+   (slope-limit . 0.8)
+   (meta . ,(element-description "Slur" general-element-interface slur-interface))
    )
   )

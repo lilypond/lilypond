@@ -35,7 +35,8 @@ Midi_item::midi_p (Audio_item* a)
   else if (Audio_time_signature* i = dynamic_cast<Audio_time_signature*> (a))
     return new Midi_time_signature (i);
   else if (Audio_text* i = dynamic_cast<Audio_text*> (a))
-    return i->text_str_.length_i () ? new Midi_text (i) : 0;
+    //return i->text_str_.length_i () ? new Midi_text (i) : 0;
+    return new Midi_text (i);
   else
     assert (0);
 
@@ -534,15 +535,6 @@ Midi_text::Midi_text (Audio_text* a)
 {
   audio_l_ = a;
 }
-
-#if 0
-Midi_text::Midi_text (Midi_text::Type type, String text_str)
-  : Audio_text ()
-{
-  text_str_ = text_str;
-  type_ = type;
-}
-#endif
 
 String
 Midi_text::str () const

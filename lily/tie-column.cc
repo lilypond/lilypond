@@ -19,7 +19,7 @@
 void
 Tie_column::set_interface (Score_element*me)
 {
-  me->set_interface (ly_symbol2scm ("tie-column"));
+  me->set_interface (ly_symbol2scm ("tie-column-interface"));
   me->set_extent_callback (SCM_EOL, X_AXIS);
   me->set_extent_callback (SCM_EOL, Y_AXIS) ; 
 }
@@ -27,7 +27,7 @@ Tie_column::set_interface (Score_element*me)
 bool
 Tie_column::has_interface (Score_element*me)
 {
-  return  me->has_interface (ly_symbol2scm ("tie-column"));
+  return  me->has_interface (ly_symbol2scm ("tie-column-interface"));
 }
 
 void

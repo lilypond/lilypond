@@ -17,14 +17,6 @@
    added to ELT_L_ to ELT_L_.
 
    Properties:
-
-   axes -- list of axis (number) in which this group works
-
-   transparent -- an Axis_group is transparent by default
-
-   elements -- contains list of pointers to other elements
-
-   interfaces -- Axis_group is added to this list.
 */
 struct Axis_group_interface 
 {
