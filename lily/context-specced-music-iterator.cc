@@ -1,11 +1,12 @@
 /*   
-context-specced-music-iterator.cc --  implement 
+  context-specced-music-iterator.cc -- implement
+    Context_specced_music_iterator
 
-source file of the GNU LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
-(c) 2002--2003 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 2002--2003 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
- */
+*/
 
 #include "music-wrapper-iterator.hh"
 #include "translator-group.hh"

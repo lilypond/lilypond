@@ -16,7 +16,7 @@ class Line_spanner
 {
 public:
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM));
-  
+  DECLARE_SCHEME_CALLBACK(after_line_breaking, (SCM));  
   static Molecule line_molecule (Grob* me, Real thick, Real dx, Real dy);
   static bool has_interface (Grob*);
 

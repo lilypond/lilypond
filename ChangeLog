@@ -1,3 +1,16 @@
+2003-06-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/align-interface.cc (find_fixed_alignment_parent): new function.
+
+	* lily/line-spanner.cc (broken_trend_offset): remove function.
+	(get_broken_offset): idem.
+	(brew_molecule): rewrite the line-break case.
+
+	* input/regression/follow-voice-break.ly:  new file.
+
+	* lily/line-spanner.cc (after_line_breaking): remove lines at the
+	start of a system.
+
 2003-06-20  Graham Percival  <gperlist@shaw.ca>
 
 	* input/test/tuplet-rest.ly: moved to regression.
@@ -15,7 +28,6 @@
 	* ly/engraver-init.ly (ScoreContext): put key-signature after
 	staff-bar
 	
-
 2003-06-20  Graham Percival  <gperlist@shaw.ca>
 
 	* input/test/ broken.ly lyric-phrasing.ly: deleted.

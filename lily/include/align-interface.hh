@@ -27,5 +27,8 @@ struct Align_interface {
   static bool has_interface (Grob*);
 };
 
+Grob *find_fixed_alignment_parent  (Grob *g);
+
+
 #endif /* ALIGN_INTERFACE_HH */
 

@@ -18,11 +18,9 @@ property @code{followVoice}. " }
 			b2 a
 % these lines from follow-break.ly:
 			\translator Staff=one
-			a1 \break
-	      \translator Staff=two
-			a,
+			a1
 		    }
-		\context Staff=two {\clef bass \skip 1*4}
+		\context Staff=two {\clef bass \skip 1*3 }
 		>
 	}
 
