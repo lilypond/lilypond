@@ -812,7 +812,7 @@ Repeated_music:
 				if (list_len != 2)
 					seq->origin ()->warning ("Chord tremolo must have 2 elements.");
 				shift -= 1;
-				r->compress (Moment (Rational (1,list_len)));
+				r->compress (Moment (Rational (1, list_len)));
 				}
 			gh_call3 (func, r->self_scm (), gh_int2scm (shift),gh_int2scm (dots));
 
