@@ -255,7 +255,7 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 
 
 Molecule*
-Beam::brew_molecule() const return out;
+Beam::brew_molecule_p() const return out;
 {
     Real inter=paper()->internote();
     out = new Molecule;

@@ -10,7 +10,7 @@ Meter::Meter(Array<Scalar>a)
 }
 
 Molecule*
-Meter::brew_molecule()const
+Meter::brew_molecule_p()const
 {
     Symbol s = paper()->lookup_p_->meter(args);
 return new Molecule(Atom(s));

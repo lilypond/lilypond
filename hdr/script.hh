@@ -25,7 +25,7 @@ struct Script : Item{
     void	set_default_dir();
     void	set_default_pos();
     Symbol symbol()const;
-    Molecule*	brew_molecule()const;
+    Molecule*	brew_molecule_p()const;
     virtual void do_post_processing();
     virtual void do_pre_processing();
     Script(Script_req*, Item*,int,Stem*p=0);

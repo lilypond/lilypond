@@ -38,7 +38,7 @@ struct Beam:  public Directional_spanner {
 private:
     Molecule stem_beams(Stem *here, Stem *next, Stem *prev)const;
     void solve_slope();
-    Molecule*brew_molecule()const;
+    Molecule*brew_molecule_p()const;
 };
 /** Beam adjusts the stems its owns to make sure that they reach the
   beam and that point in the correct direction */

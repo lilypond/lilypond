@@ -21,7 +21,7 @@ struct Clef_item : Item {
     Clef_item();
     void read(Clef);
     void read(String);
-    Molecule* brew_molecule()const;
+    Molecule* brew_molecule_p()const;
 };
 
 #endif // CLEFITEM_HH

@@ -36,11 +36,10 @@ Staff_elem::translate(Offset O)
 Interval
 Staff_elem::width() const
 {
-    Molecule*m= brew_molecule();
     Interval r;
 
     if (!output){
-	Molecule*m	= brew_molecule();
+	Molecule*m	= brew_molecule_p();
 	r = m->extent().x;
 	delete m;
     } else
@@ -57,7 +56,7 @@ Staff_elem::height() const
     Interval r;
 
     if (!output){
-	Molecule*m	= brew_molecule();
+	Molecule*m	= brew_molecule_p();
 	r = m->extent().y;
 	delete m;
     } else
@@ -140,7 +139,7 @@ Staff_elem::molecule_processing()
 	if (dependencies[i])
 	    dependencies[i]->molecule_processing();
     if (!calc_children)
-	output= brew_molecule();
+	output= brew_molecule_p();
     status = OUTPUT;    
 }
 

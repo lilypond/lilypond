@@ -31,7 +31,7 @@ Keyitem::add(int p, int a)
 
 
 Molecule*
-Keyitem::brew_molecule()const
+Keyitem::brew_molecule_p()const
 {
     Molecule*output = new Molecule;
     Real inter = paper()->interline()/2;

@@ -99,7 +99,7 @@ Script::do_post_processing()
 }
 
 Molecule*
-Script::brew_molecule() const
+Script::brew_molecule_p() const
 {
     Real dy = paper()->internote();
     

@@ -10,9 +10,10 @@
 
 static String
 make_vbox(Interval i)
-{    
+{
+    Real r = (i.empty()) ? 0.0 : i.length();
     String s("\\vbox to ");
-    s += print_dimen(i.length());
+    s += print_dimen(r);
     s += "{\\vskip "+print_dimen(i.right)+" ";
     return s;
 }
@@ -27,7 +28,7 @@ Line_of_staff::TeXstring() const
     s += "\\hbox{";
     {				
 	((PStaff*)pstaff_l_)->
-	    brew_molecule(line_of_score_l_->pscore_l_->paper_l_->linewidth);
+	    brew_molecule_p(line_of_score_l_->pscore_l_->paper_l_->linewidth);
 
 	s+=pstaff_l_->stafsym_p_->TeXstring();
 	iter_top(line_of_score_l_->cols,cc);
@@ -43,7 +44,6 @@ Line_of_staff::TeXstring() const
 		s +=String( "\\kern ") + print_dimen(delta);
 
 	    // now output the items.
-
 	    for (iter_top(cc->its,i); i.ok(); i++) {
 		if (i->pstaff_l_ == pstaff_l_)
 		    s += i->TeXstring();
@@ -106,6 +106,6 @@ void
 Line_of_staff::process()
 {
     if (!pstaff_l_->stafsym_p_)
-	pstaff_l_->brew_molecule(line_of_score_l_->pscore_l_->
-			       paper_l_->linewidth);
+	pstaff_l_->brew_molecule_p(line_of_score_l_->pscore_l_->
+				 paper_l_->linewidth);
 }

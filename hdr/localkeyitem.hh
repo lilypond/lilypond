@@ -25,7 +25,7 @@ struct Local_key_item : Item {
     void add(int oct, int pitch, int acc, Notehead*);
 
     void do_pre_processing();    
-    Molecule* brew_molecule()const;
+    Molecule* brew_molecule_p()const;
 };
 #endif // LOCALKEYITEM_HH
 

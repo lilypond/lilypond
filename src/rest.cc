@@ -20,7 +20,7 @@ Rest::print()const
 }
 
 Molecule*
-Rest::brew_molecule()const
+Rest::brew_molecule_p()const
 {
     Paperdef *p =paper();
 

@@ -19,7 +19,7 @@ struct Text_spanner : Spanner {
     /****************/
     virtual    void do_pre_processing();
     virtual    void do_post_processing();
-    Molecule* brew_molecule()const;
+    Molecule* brew_molecule_p()const;
     virtual    Interval height() const ;
     void print() const;
     virtual Spanner* do_break_at(PCol*,PCol*)const;

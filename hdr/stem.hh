@@ -67,7 +67,7 @@ struct Stem : public Item {
 
     Interval width() const;
 
-    Molecule* brew_molecule() const;
+    Molecule* brew_molecule_p() const;
 };
 /**
   takes care of:

@@ -13,7 +13,7 @@ struct Bar: Item {
     
     Bar(String type);
 
-    Molecule*brew_molecule()const;
+    Molecule*brew_molecule_p()const;
 };
 #endif // BAR_HH
 

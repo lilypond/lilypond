@@ -14,7 +14,7 @@ struct Meter: Item {
     /****************/
     
     Meter(Array<Scalar> args) ;
-    Molecule*brew_molecule() const;
+    Molecule*brew_molecule_p() const;
 };
 #endif // METER_HH
 

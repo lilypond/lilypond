@@ -30,7 +30,7 @@ struct Notehead : public Item
 
     void print()const;
     static int compare(Notehead*&a, Notehead*&b) ;
-    Molecule* brew_molecule()const;
+    Molecule* brew_molecule_p()const;
 };
 /**
   takes care of:
