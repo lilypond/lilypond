@@ -1,4 +1,4 @@
-#include "request.hh"
+#include "musicalrequest.hh"
 #include "paperdef.hh"
 #include "lyricitem.hh"
 #include "stem.hh"
@@ -24,5 +24,5 @@ Lyric_item::do_pre_processing()
 
     // test context-error
     if ( tdef_l_->text_str_.pos( "Gates" ) )// :-)
-    	warning( "foul word", tdef_l_->defined_ch_c_l_m );
+    	warning( "foul word", tdef_l_->defined_ch_c_l_ );
 }

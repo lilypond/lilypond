@@ -23,7 +23,10 @@ Staff_elem::Staff_elem(Staff_elem const&s)
     pstaff_l_ = s.pstaff_l_;
     offset_ = Offset(0,0);
 }
-
+/**
+  TODO:
+  If deleted, then remove dependants depency!
+  */
 Staff_elem::~Staff_elem()
 {
    delete output;

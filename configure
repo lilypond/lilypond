@@ -3,7 +3,7 @@
 PREFIX=${PREFIX:-.}
 echo using PREFIX=$PREFIX
 
-NEEDFLOWERVER=1.0.26
+NEEDFLOWERVER=1.0.27
 flowertar=flower-$NEEDFLOWERVER
 here=`pwd`
 cd ..
@@ -29,3 +29,4 @@ cd $here
 echo '#define LIBDIR "'$PREFIX'/"'> hdr/config.hh
 touch Site.make
 make -f Initial.make
+

@@ -28,7 +28,8 @@
 %		% because piece is set very tightly
 %%1		% double comments are included in .tex file
 ii_menuetto = music {
-	$
+	$\clef"alto"
+	\key {bes}
 	\octave{}
 	\duration{8}
 	{ a2 f2 d2_"\f" } bes4-.  |
@@ -59,7 +60,7 @@ ii_menuetto = music {
 %	{ 'cis2.-\upbow e2. `a2.\stemdown } :||:
 	{ 'cis2.-\upbow e2. `a2. } | % :||:
 %%9
-%	\clef "violin"
+	\clef "violin"
 %	{ 'e2 a2_f\stemdown }
 	{ 'e2 a2_"\f" }
 	[ 'd( 'e16 )'f16 ] |
@@ -76,7 +77,8 @@ ii_menuetto = music {
 % %13
 %	{ bes2\stemup g4\stemdown } ( )  f4
 %	{ 'c4\stemup e4\stemdown }
-%	{ bes2 g4 } f4 { 'c4 e4 } | % \clef "alto" |
+%	{ bes2 g4 } f4 { 'c4 e4 } |
+	\clef "alto"% 
 	{ \multivoice
 		\music { \stem{1} bes2 'c4 }
 		\music { \stem{-1} g4(\stem{-1}) f4 e4 }% ugh
@@ -125,24 +127,15 @@ ii_menuetto = music {
 score {
 	staff { 
 		melodic music { ii_menuetto }
-		commands {
-			key $bes$
-			clef "alto"	
-			skip 8:0
-			clef "violin"
-			skip 5:0
-			clef "alto"
-			skip 12:0
-		}
 	}
 	commands {
-		meter 3*4
-		skip 8:0
+		meter {3 * 4}
+		skip {24 * 4}% 8 measures
 		bar ":|:"
-%		clef "violin"
-		skip 5:0
-%		\clef "alto" 
-		skip 12:0
+
+		skip {15 * 4} % 5 meas.
+
+		skip {36*4}
 		bar ":||"
 	}
 	paper {
@@ -153,4 +146,4 @@ score {
 		geometric 1.4
 		output "scsii-menuetto.out"
 	}
-}
+o}

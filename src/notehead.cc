@@ -5,7 +5,7 @@
 #include "paperdef.hh"
 #include "lookup.hh"
 #include "molecule.hh"
-#include "request.hh"
+#include "musicalrequest.hh"
 
 NAME_METHOD(Notehead);
 

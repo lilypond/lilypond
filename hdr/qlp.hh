@@ -30,7 +30,9 @@ public:
     /// solve the problem using a projected gradient method
     Vector solve(Vector start) const;
     
-    /** return the number of variables in the problem */
+    /**
+      @return the number of variables in the problem
+      */
     int dim() const{
 	return lin.dim();
     }
@@ -61,8 +63,9 @@ public:
 
 };
 
-/// Quadratic programming with mixed linear constraints
+
 /**
+   Quadratic programming with mixed linear constraints.
   problem definition of a quadratic optimisation problem with linear
   inequality and equality constraints
 

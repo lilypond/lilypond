@@ -43,6 +43,18 @@ List<T>::~List()
 	c.del();
 }
 
+/** 
+
+  add after after_me.
+
+  Procedure:
+  \begin{itemize}
+  \item if #after_me# is #ok()#, add after #after_me#, else
+  \item if list !empty simply add to bottom, else
+  \item list is empty: create first \Ref{Link} and initialize 
+  #bottom_# and #top_#.
+  \end{itemize}
+*/
 template<class T>
 void
 List<T>::add( const T& thing, Cursor<T> &after_me )
@@ -62,16 +74,6 @@ List<T>::add( const T& thing, Cursor<T> &after_me )
 
     size_++;
 }
-/** 
-
-  Procedure:
-  \begin{itemize}
-  \item if #after_me# is #ok()#, add after #after_me#, else
-  \item if list !empty simply add to bottom, else
-  \item list is empty: create first \Ref{Link} and initialize 
-  #bottom_# and #top_#.
-  \end{itemize}
-*/
 
 template<class T>
 void

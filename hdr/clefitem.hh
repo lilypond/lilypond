@@ -1,6 +1,6 @@
 
 /*
-  clefitem.hh -- part of LilyPond
+  clefitem.hh -- declare Clef_item
 
   (c) 1996,97 Han-Wen Nienhuys
 */
@@ -11,16 +11,17 @@
 
 
 struct Clef_item : Item {
-    const char * name() const;
     String type;
     int y_off;
+
+    /// is this a change clef (smaller size)?
     bool change;
 
 
     /* *************** */
-
+    const char * name() const;
     Clef_item();
-    void read(Clef);
+    void read(Clef_register const&);
     void read(String);
     Molecule* brew_molecule_p()const;
 };

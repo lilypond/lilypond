@@ -4,7 +4,8 @@ LilyInput -  LilyPond input format
 
 =head1 DESCRIPTION
 
-This page documents the the LilyPond input format, mudela.
+This page globally documents the the LilyPond input format, mudela.
+To get a better impression, please study some examples.
 
 =head2 Overview
 

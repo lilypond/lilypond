@@ -78,8 +78,7 @@ Data_file::get_word()
     return s;	      
 }
 
-/// get a char.
-/**
+/**  get a char 
    Only class member who uses text_file::get
    */
 char

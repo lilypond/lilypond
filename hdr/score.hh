@@ -1,5 +1,15 @@
+/*
+  score.hh -- declare Score
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
+
 #ifndef SCORE_HH
 #define SCORE_HH
+
 #include "varray.hh"
 #include "proto.hh"
 #include "plist.hh"
@@ -20,8 +30,6 @@ struct Score {
     const char *defined_ch_c_l_;
     int errorlevel_i_;
     
-    Assoc<String, Moment> markers_assoc_;
-
     /* *************************************************************** */
 
     /// construction
@@ -29,7 +37,6 @@ struct Score {
     ~Score();    
     void add(Staff*);
 
-    void add_marks(Array<String>, Array<Moment>);
     /// do everything except outputting to file
     void process();
     
@@ -40,16 +47,18 @@ struct Score {
     void OK() const;
     void print() const;
 
-    // utils:
-    PCursor<Score_column*> create_cols(Moment);
-
-    /// find a column. The cursor is given to try a little efficiency.
+    /// find a column.
     PCursor<Score_column *> find_col(Moment,bool);
     
     /// when does the last *musical* element finish?
     Moment last() const;
 
 private:
+    void setup_music();
+    void process_music();
+    // utils:
+    PCursor<Score_column*> create_cols(Moment);
+
     Score(Score const&){}
 
     /**

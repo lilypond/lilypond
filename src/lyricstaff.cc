@@ -1,12 +1,10 @@
-#include "request.hh"
+#include "musicalrequest.hh"
 #include "voice.hh"
 #include "staffwalker.hh"
 #include "debug.hh"
 #include "staff.hh"
-#include "command.hh"
 #include "lyricstaff.hh"
 #include "lyriccolumn.hh"
-#include "sccol.hh" 
 #include "lyricwalker.hh"
 #include "pscore.hh"
 
@@ -16,9 +14,9 @@ Lyric_staff::Lyric_staff()
 }
 
 Staff_column*
-Lyric_staff::create_col(Score_column*s)
+Lyric_staff::create_col()
 {
-    return new Lyric_column(s,this);
+    return new Lyric_column(this);
 }
 
 void
@@ -29,11 +27,8 @@ Lyric_staff::set_output(PScore*pscore_l)
     pscore_l_->add(pstaff_l_);
 }
 
-void
-Lyric_staff::walk()
+Staff_walker*
+Lyric_staff::get_walker_p()
 {
-    for (Lyric_walker lcols(this); lcols.ok(); lcols++) {
-	lcols.lcol_l()->setup_requests();
-	lcols.process();
-    }
+    return new Lyric_walker(this);
 }

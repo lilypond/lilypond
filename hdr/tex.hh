@@ -5,8 +5,7 @@
 #include "boxes.hh"
 #include "scalar.hh"
 
-/// parameter substitution in TeXstrings
-/**
+/** parameter substitution in TeXstrings.
   this function provides a simple macro mechanism:
 
   if source == "tex%bla%", then

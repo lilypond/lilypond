@@ -20,7 +20,7 @@ Score::calc_idealspacing()
     for (; i.ok(); i++) {
 	assert(i->used());
 	PCursor<Score_column*> j(i+1);
-	if (i->musical_) {
+	if (i->musical_b()) {
 	    assert(j.ok());
 	    for (int n=0; n < i->durations.size(); n++) {
 		Moment d = i->durations[n];

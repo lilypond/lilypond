@@ -5,9 +5,8 @@ class ostream;
 template<class T> class Cursor;
 template<class T> class Link;
 
-/// all-purpose doubly linked list
-/**
-  a doubly linked list; 
+/**  all-purpose doubly linked list. 
+
   List can be seen as all items written down on paper,
   from top to bottom
 
@@ -39,7 +38,7 @@ class List
 	
     int size() const;
 
-    Cursor<T> bottom() const;	// const sucks..
+    Cursor<T> bottom() const;	// const sucks.
     Cursor<T> top() const;
 
     void OK() const;		// check list
@@ -50,8 +49,7 @@ class List
 
     void concatenate(List<T> const &s);
     
-    /// make *this empty
-     /**
+    /**  make *this empty. 
 
       POST:
       size == 0
@@ -61,12 +59,12 @@ class List
       */
      void set_empty();
   
-    /// add after after_me
     void add( const T& thing, Cursor<T> &after_me );
 
     /// put thing before #before_me#
     void insert( const T& thing, Cursor<T> &before_me );
-     /** Remove link pointed to by me. Destructor of contents called
+
+    /** Remove link pointed to by me. Destructor of contents called
       (nop for pointers)
 
       POST

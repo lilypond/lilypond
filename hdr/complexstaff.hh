@@ -21,12 +21,9 @@ struct Complex_staff : Staff {
     PStaff *pstaff_l_;
 
     /* *************** */
-    Staff_column*create_col(Score_column*);    
-    virtual Item *get_TYPESET_item(Command*);
+    Staff_column*create_col();    
     virtual void set_output(PScore *);
-    void process_commands( PCursor<Command*> &where);
-    virtual void walk();
-
+    virtual Staff_walker *get_walker_p();
     Complex_staff();
 };
 

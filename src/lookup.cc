@@ -140,7 +140,7 @@ Lookup::streepjes(int i)
 Symbol
 Lookup::hairpin(Real &wid, bool decresc)
 {
-    int idx = rint(wid / 6 PT);
+    int idx = int(rint(wid / 6 PT));
     if(!idx) idx ++;
     wid = idx*6 PT;
     String idxstr = (decresc)? "decrescendosym" : "crescendosym";

@@ -2,7 +2,16 @@
 #define UNIONFIND_HH
 #include "varray.hh"
 
-/// which points of a graph are connected?
+/*
+    which points of a graph are connected?.
+    Union find, a standard algorithm:
+
+    Union_find represents an undirected graph of N points. You can
+    connect two points using #connect()#. #find(i)# finds a uniquely
+    determined representant of the equivalence class of points
+    connected to #i#.
+    
+    */
 struct Union_find {    
     void connect(int i, int j);
     int find(int i);
@@ -13,13 +22,4 @@ private:
     Array<int> classes;
 
 };
-/*
-    Union find, a standard algorithm:
-
-    Union_find represents an undirected graph of N points. You can
-    connect two points using #connect()#. #find(i)# finds a uniquely
-    determined representant of the equivalence class of points
-    connected to #i#.
-    
-    */
 #endif

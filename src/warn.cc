@@ -40,7 +40,7 @@ error_t(const String& s, const Moment& r)
 void
 error_t(const String& s, Time_description const &t_tdes)
 {
-    String e=s+ " (at t=" + String(t_tdes.bars) + ": " + String(t_tdes.whole_in_measure) + ")\n";
+    String e=s+ " (at t=" + String(t_tdes.bars_i_) + ": " + String(t_tdes.whole_in_measure_) + ")\n";
     error(e);
 }
 

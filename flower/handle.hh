@@ -1,5 +1,6 @@
 #ifndef HANDLE_HH
 #define HANDLE_HH
+
 /// reference counting handle
 template<class T>
 class Handle {

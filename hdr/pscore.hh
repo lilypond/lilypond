@@ -8,11 +8,13 @@
 #include "pcol.hh"
 #include "pstaff.hh"
 
-/// all stuff which goes onto paper
-/** notes, signs, symbols in a score can be grouped in two ways:
+
+/** all stuff which goes onto paper. notes, signs, symbols in a score can be grouped in two ways:
     horizontally (staffwise), and vertically (columns). #PScore#
     contains the items, the columns and the staffs.
- */struct PScore {
+ */
+
+struct PScore {
     Paperdef *paper_l_;
     
     /// the columns, ordered left to right
@@ -45,8 +47,8 @@
 
     void add(PStaff *);
     
-     /// add an item
-    /**
+
+    /** add an item.
        add the item in specified containers. If breakstatus is set
        properly, add it to the {pre,post}break of the pcol.
        */
@@ -62,7 +64,9 @@
     /* INSPECTION */
     Array<Item*> select_items(PStaff*, PCol*);
 
-    /// return argument as a cursor.
+     /**
+       @return argument as a cursor of the list
+       */
     PCursor<PCol *> find_col(const PCol *)const;
 
     /* MAIN ROUTINES */

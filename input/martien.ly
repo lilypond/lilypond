@@ -1,3 +1,6 @@
+%%%%%%%%% HAS TO BE ADJUSTED to pl32
+
+
 % martien.ly
 %
 % Viola Quartet
@@ -23,83 +26,30 @@ score {
 	staff { 
 		melodic 
 		music { alto }
-		commands {
-%			meter 2*4
-			clef "alto"
-			key $fis$
-			skip 56:0
-			key $bes es as$
-			skip 8:0
-%			meter 6*8
-			skip 8:0
-%			meter 2*4
-			skip 16:0
-			key $fis$
-		}
 	}
 	staff { 
 		melodic 
 		music { violin1 }
-		commands {
-%			meter 2*4
-			clef "violin"
-			key $fis$
-			skip 56:0
-			key $bes es as$
-			skip 8:0
-%			meter 6*8
-			skip 8:0
-%			meter 2*4
-			skip 16:0
-			key $fis$
-		}
 	}
 	staff { 
 		melodic 
 		music { violin2 }
-		commands {
-%			meter 2*4
-			clef "violin"
-			key $fis$
-			skip 56:0
-			key $bes es as$
-			skip 8:0
-%			meter 6*8
-			skip 8:0
-%			meter 2*4
-			skip 16:0
-			key $fis$
-		}
 	} 
 	staff { 
 		melodic 
 		music { cello }
-		commands {
-%			meter 2*4
-			clef "bass"
-			key $fis$
-			skip 56:0
-			key $bes es as$
-			skip 8:0
-%			meter 6*8
-			skip 8:0
-%			meter 2*4
-			skip 16:0
-			key $fis$
-		}
 	} 
 	commands {
-		meter 2*4
-		skip 56:0
-		bar "||"
-		skip 8:0
-		meter 6*8
-		bar "||"
-		skip 8:0
-		meter 2*4
-		bar "||"
-		skip 16:0
-		bar "||"
+		meter {2*4}
+		key $fis$
+		skip 56*2
+		key $bes es as$
+		skip 8*2
+		meter {6*8}
+		skip 48*8
+		meter {2*4}
+		skip 16*2
+		key $fis$
 	}
 	paper {
 %		unitspace 16mm

@@ -52,4 +52,9 @@ private:
     void junk();
     void copy(Rhythmic_grouping const&);
 };
+
+
+Rhythmic_grouping parse_grouping(Array<int> beat_i_arr, Array<Moment> elt_length_arr);
+
+
 #endif

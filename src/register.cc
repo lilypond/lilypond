@@ -7,7 +7,7 @@
 */
 
 #include "voice.hh"
-#include "request.hh"
+#include "musicalrequest.hh"
 #include "register.hh"
 #include "notehead.hh"
 #include "complexwalker.hh"
@@ -18,7 +18,7 @@ Staff_elem_info::Staff_elem_info(Staff_elem*s_l, Request*r_l,
 				 Request_register *reg_l)
 {
     elem_p_ = s_l;
-    voice_l_ = r_l->elt_l_->voice_l_;
+    voice_l_ =  (r_l)?r_l->elt_l_->voice_l_:0;
     req_l_ = r_l;
     group_regs_l_ = 0;
     origin_reg_l_ = reg_l;
@@ -35,6 +35,11 @@ Staff_elem_info::Staff_elem_info()
 }
 
 /* *************** */
+bool
+Request_register::try_request(Request*)
+{
+    return false;
+}
 
 Request_register::Request_register()
 {
@@ -80,3 +85,11 @@ Request_register::paper()const
 {
     return walk_l_->staff()->paper();
 }
+
+void
+Request_register::typeset_breakable_item(Item * pre_p , Item * nobreak_p,
+					 Item * post_p)
+{
+    walk_l_->typeset_breakable_item(pre_p,  nobreak_p,post_p);
+}
+

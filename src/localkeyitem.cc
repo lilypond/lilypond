@@ -3,24 +3,28 @@
 #include "scalar.hh"
 #include "lookup.hh"
 #include "paperdef.hh"
-#include "request.hh"
+#include "musicalrequest.hh"
 #include "notehead.hh"
+#include "misc.hh"
 
 NAME_METHOD(Local_key_item);
+
 Local_key_item::Local_key_item(int i)
 {
     c0_position  = i;
 }
+
 void
 Local_key_item::add(Item*head_l)
 {
-    group.push(head_l);
+    support_items_.push(head_l);
     add_depedency(head_l);
 }
+
 void
 Local_key_item::add(Melodic_req*m_l)
 {
-    add(m_l->octave, m_l->notename, m_l->accidental);
+    add(m_l->octave_i_, m_l->notename_i_, m_l->accidental_i_);
 }
 void
 Local_key_item::add (int o, int p , int a)
@@ -71,10 +75,7 @@ Local_key_item::brew_molecule_p()const
 	delete octmol;
     }
 
-    Interval head_width;
-    for (int i = 0; i  < group.size(); i++) {
-	head_width.unite(group[i]->width());
-    }
+    Interval head_width=itemlist_width(support_items_);
     output->translate(Offset(-output->extent().x.right + head_width.left ,0));
     
     return output;

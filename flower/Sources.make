@@ -1,18 +1,13 @@
 
-cc=lgetopt.cc 	 string.cc dataf.cc textdb.cc unionfind.cc  \
-	smat.cc matrix.cc choleski.cc vector.cc dstream.cc\
-	matdebug.cc  scalar.cc path.cc
+cc=choleski.cc dataf.cc dstream.cc lgetopt.cc matdebug.cc matrix.cc\
+path.cc scalar.cc smat.cc string.cc textdb.cc unionfind.cc vector.cc
 
-templatecc=cursor.tcc list.tcc tsmat.tcc plist.tcc interval.tcc\
+templatecc=cursor.tcc list.tcc plist.tcc interval.tcc\
 	pcursor.tcc
 
-inl=findcurs.inl link.inl list.inl  cursor.inl plist.inl
-hh=cursor.hh pcursor.hh lgetopt.hh link.hh list.hh dstream.hh \
-	string.hh stringutil.hh varray.hh textdb.hh textstr.hh  assoc.hh\
-	findcurs.hh unionfind.hh compare.hh handle.hh matrix.hh\
-	smat.hh vsmat.hh  vector.hh  real.hh choleski.hh\
-	tsmat.hh tvsmat.hh plist.hh associter.hh fproto.hh\
-	interval.hh scalar.hh rational.hh iterate.hh\
-	path.hh
-	
-
+inl=link.inl list.inl  cursor.inl plist.inl
+hh=assoc.hh associter.hh choleski.hh compare.hh cursor.hh dstream.hh\
+fproto.hh handle.hh interval.hh iterate.hh lgetopt.hh link.hh list.hh\
+matrix.hh path.hh pcursor.hh plist.hh rational.hh real.hh scalar.hh\
+smat.hh string.hh stringutil.hh textdb.hh textstr.hh unionfind.hh\
+varray.hh vector.hh vsmat.hh

@@ -8,7 +8,7 @@ Text_def::Text_def()
 {   
     align_i_ = 1;			// right
     style_str_ = "roman";
-    defined_ch_c_l_m = 0;
+    defined_ch_c_l_ = 0;
 }
 bool
 Text_def::compare(const Text_def&def)

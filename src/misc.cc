@@ -1,16 +1,17 @@
+#include <math.h>
+
+#include "item.hh"
 #include "misc.hh"
 #include "glob.hh"
 #include "moment.hh"
 
-#include <math.h>
 
 Moment
 wholes(int dur, int dots)
 {
     if (!dur)
-	return 0.0;
+	return 0;
 
-    // stupid Intel: doesn't crash if !dur
     Moment f = Rational(1)/Moment(dur);
     Moment delta = f;
 
@@ -34,5 +35,18 @@ intlog2(int d) {
 double
 log_2(double x) {
     return log(x)  /log(2.0);
+}
+
+Interval
+itemlist_width(const Array<Item*> &its)
+{
+    Interval iv ;
+    iv.set_empty();
+     
+    for (int j =0; j < its.size(); j++){
+	iv.unite (its[j]->width());
+
+    }
+    return iv;
 }
 

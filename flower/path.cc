@@ -9,8 +9,8 @@
 #endif
 
 /**
-   INPUT: path the original full filename
-   OUTPUT: 4 components of the path. They can be empty
+   @param path the original full filename
+   @return 4 components of the path. They can be empty
 */
 void
 split_path(String path, 
@@ -56,8 +56,7 @@ File_path::File_path(String pref)
 }
 
 
-///find a file
-/**
+/** find a file. 
   It will search in the current dir, in the construction-arg, and
   in any other added path, in this order.
   */

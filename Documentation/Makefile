@@ -1,9 +1,9 @@
 PODS=README.pod CodingStyle.pod lilygut.pod lilyinput.pod error.pod\
-	faq.pod
+	faq.pod index.pod
 TXTS=$(PODS:.pod=.txt)
 MANS=$(PODS:.pod=.1)
 HTMLS=$(PODS:.pod=.html)
-DISTFILES=$(PODS) Makefile lelie_logo.png make_website #lelieblond.gif 
+DISTFILES=$(PODS) Makefile lelie_logo.png make_website
 
 
 default:

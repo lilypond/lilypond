@@ -40,15 +40,15 @@ public:
     Vector vec(int k) const { return opt->cons[k]; }
     Real rhs(int k) const { return opt->consrhs[k]; }
     
-    /// drop constraint
-    /** drop constraint k from the active set. k is the index of the
+
+    /** drop constraint. drop constraint k from the active set. k is the index of the
     constraint in #active#
     
     */
     void drop (int k);
     
-    ///     add constraint j
-    /**
+
+    /** add constraint j.
     add constraint j to the active set j is the index of the
     constraint in #inactive#   
     */

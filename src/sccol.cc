@@ -1,3 +1,11 @@
+/*
+  sccol.cc -- implement Score_column
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include "debug.hh"
 #include "pcol.hh"
 #include "sccol.hh"
@@ -18,7 +26,7 @@ Score_column::Score_column(Moment w)
 {
     when_ = w;
     pcol_l_ = new PCol(0);
-    musical_ = false;
+    musical_b_ = false;
 }
 
 bool
@@ -30,7 +38,7 @@ void
 Score_column::print() const
 {
 #ifndef NPRINT
-    mtor << "Score_column { mus "<< musical_ <<" at " <<  when_<<'\n';
+    mtor << "Score_column { mus "<< musical_b_ <<" at " <<  when_<<'\n';
     mtor << "durations: [";
     for (int i=0; i < durations.size(); i++)
 	mtor << durations[i] << " ";
@@ -41,7 +49,7 @@ Score_column::print() const
 }
 
 int
-Tdescription_compare(Moment &a , Moment& b)
+Moment_compare(Moment &a , Moment& b)
 {
     return sign(a-b);
 }
@@ -49,7 +57,7 @@ Tdescription_compare(Moment &a , Moment& b)
 void
 Score_column::preprocess()
 {
-    durations.sort(Tdescription_compare);
+    durations.sort(Moment_compare);
 }
 void
 Score_column::add_duration(Moment d)
@@ -60,4 +68,10 @@ Score_column::add_duration(Moment d)
 	    return ;
     }
     durations.push(d);
+}
+
+bool
+Score_column::breakable_b()
+{
+    return pcol_l_->breakable_b();
 }

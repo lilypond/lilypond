@@ -1,9 +1,17 @@
+/*
+  clefitem.cc -- implement Clef_item
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include "clefitem.hh"
 #include "string.hh"
 #include "molecule.hh"
 #include "paperdef.hh"
 #include "lookup.hh"
-#include "clef.hh"
+#include "clefreg.hh"
 
 NAME_METHOD(Clef_item);
 
@@ -27,7 +35,7 @@ Clef_item::read(String t)
 	y_off = 6;
 }
 void
-Clef_item::read(Clef k)
+Clef_item::read(Clef_register const &k)
 {
     read(k.clef_type_str_);
 }

@@ -1,4 +1,3 @@
-// debug_stream
 
 #ifndef DSTREAM_HH
 #define DSTREAM_HH
@@ -10,8 +9,7 @@ const char eol= '\n';
 template<class K,class V>
 struct Assoc;
 
-/// debug stream
- /**
+/**  debug stream. 
    a class for providing debug output of nested structures,
    with indents according to \{\}()[].
 
@@ -38,7 +36,7 @@ public:
     bool silence(String);
     
     /**
-      if rcfile == 0, then do not read any rc file
+      if rcfile == 0, then do not read any rc file.
       */
       
     Dstream(ostream *r, const char  * rcfile);

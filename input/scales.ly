@@ -41,9 +41,8 @@ c1
 	|['c b a g][f e d c]
 			
 		$}
-	commands {	
-	}
 }
+
 score {
 	staff {
 	blah
@@ -54,11 +53,8 @@ score {
 		geometric 1.4
 	}
 	commands  {
-                meter 6*8
-                skip 6:0
-		meter 4*4
-		skip 2:0
-		skip 11:0
-
+                meter {6*8}
+                skip 36*8
+		meter {4*4}
 	}
 }

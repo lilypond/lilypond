@@ -4,6 +4,7 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
+#include "musicalrequest.hh"
 #include "stembeamreg.hh"
 #include "beam.hh"
 #include "stem.hh"
@@ -12,7 +13,7 @@
 #include "complexwalker.hh"
 #include "complexstaff.hh"
 #include "debug.hh"
-
+#include "grouping.hh"
 Stem_beam_register::Stem_beam_register(Complex_walker*w)
     :Request_register(w)
 {
@@ -39,7 +40,7 @@ Stem_beam_register::try_request(Request*req_l)
     
     if ( req_l->stem() ) {
 	if (current_grouping && !current_grouping->child_fit_query(
-	    walk_l_->col()->tdescription_->whole_in_measure))
+	    walk_l_->time_.whole_in_measure_))
 	    return false;
 
 	if (stem_req_l_ && Stem_req::compare(*stem_req_l_, *req_l->stem()))
@@ -68,6 +69,7 @@ Stem_beam_register::process_request()
 		t->set_support(beam_p_);
 		t->spec.align_i_ = 0;
 		t->spec.text_str_ = beam_req_l_->nplet;
+		t->spec.style_str_="italic";
 		typeset_element(t);
 	    }
 	     
@@ -78,7 +80,7 @@ Stem_beam_register::process_request()
 	stem_p_ = new Stem(4);
 	if (current_grouping)
 	    current_grouping->add_child(
-		walk_l_->col()->tdescription_->whole_in_measure,
+		walk_l_->time_.whole_in_measure_,
 		stem_req_l_->duration());
 
 	stem_p_->flag = stem_req_l_->balltype;
@@ -86,7 +88,7 @@ Stem_beam_register::process_request()
 	if (beam_p_) {
 	    if (stem_req_l_->balltype<= 4)
 		warning( "stem doesn't fit in Beam",
-			 stem_req_l_->defined_ch_c_l_m);
+			 stem_req_l_->defined_ch_c_l_);
 	    else
 		beam_p_->add(stem_p_);
 	    stem_p_->print_flag = false;
@@ -122,8 +124,8 @@ Stem_beam_register::do_pre_move_process()
 	stem_p_ = 0;
     }
     if (beam_p_ && end_beam_b_) {
-	walk_l_->default_grouping.extend(current_grouping->interval());
-	beam_p_->set_grouping(walk_l_->default_grouping, *current_grouping);
+	walk_l_->default_grouping->extend(current_grouping->interval());
+	beam_p_->set_grouping(*walk_l_->default_grouping, *current_grouping);
 	typeset_element(beam_p_);
 	delete current_grouping;
 	current_grouping = 0;
@@ -143,7 +145,7 @@ Stem_beam_register::do_post_move_process()
 Stem_beam_register::~Stem_beam_register()
 {
     if (beam_p_)
-	warning("unterminated beam", start_req_l_->defined_ch_c_l_m);
+	warning("unterminated beam", start_req_l_->defined_ch_c_l_);
 }
 
 void

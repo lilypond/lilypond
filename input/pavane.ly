@@ -15,6 +15,7 @@ staff {
 	melodic
 	music{ 	$
 	\octave { ' }
+	\key{  fis cis }
 	\duration { 8 }
 
 % 1
@@ -39,8 +40,8 @@ staff {
 	e4( fis4 () [fis e fis gis]	|
 	cis4 `b4())`b8 r8 r4^"tr\`es soutenu"	|
 
-	\command { \meter 2 *4 } r4 r4	|
-	\command { \meter 4 *4 }
+ \meter {2 *4} r4 r4	|
+ \meter {4 *4}
 	'cis4_"\dyn ppp"( 'd4 () ['d 'cis 'd 'e] |
 	a4 )gis2.	|
 	a4 (b4()[b a b 'cis]	|
@@ -76,8 +77,9 @@ staff {
 	| [f a 'c] \plet{1/1} 'e4-^ () ['e f-> a-> 'c->]	|
 	'e4._"sf" 'e8()'c4 r4 |
 	r1	|
-	\command { \meter 2 *4 } r4 r4-\fermata
-	\command { \meter 4 *4 }
+	\meter {2 *4}
+	r4 r4-\fermata
+	\meter {4 *4}
 
 	\octave { ' }
 	|d2(( [)d e cis `b]	|
@@ -94,10 +96,7 @@ staff {
 	)b [fis a b ] 'cis4 b4	|
 	fis2 r2	|
 	r1-\fermata	
-		$}
-	commands {	
-		key  $fis cis $
-	}
+	$}
 }
 score {
 	staff {
@@ -110,14 +109,12 @@ score {
 		width 12cm
 	}
 	commands  {
-		meter 4 *4
-		skip 18:0
-		skip 1:0
-		skip 20:0
+		meter {4 *4}
+		skip 39*1
 		bar "|:"
-		skip 10:0
+		skip 10*1
 		bar ":|"
-		skip 13:0
+		skip 13*1
 		bar "||"
 	}
 }

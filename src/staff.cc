@@ -4,59 +4,19 @@
 #include "staffwalker.hh"
 #include "stcol.hh"
 #include "sccol.hh"
-#include "staffcommands.hh"
+
 #include "debug.hh"
-#include "inputcommands.hh"
-#include "inputcommand.hh"
-#include "request.hh"
+#include "musicalrequest.hh"
+#include "commandrequest.hh" // todo
 
 void
-Staff::do_commands(PointerList<Input_command*> score_wide,
-		   PointerList<Input_command*> staff_wide)
-{
-    Input_commands commands;
-
-    // bring in commands from voices.
-    for (iter_top(voices, i); i.ok(); i++) {
-	Moment here = i->start;
-	for (iter_top(i->elts, j); j.ok(); j++) {
-	    for (iter_top(j->reqs, k); k.ok(); k++) {
-		if (k->command()){
-		    commands.find_moment(here);
-		    commands.add(*k->command()->com_p_,
-				 score_l_->markers_assoc_);
-		}
-	    }
-	    here += j->duration;
-	}
-    }
-    for (iter_top(score_wide,i); i.ok(); i++) 
-	commands.add(**i, score_l_->markers_assoc_);
-    for (iter_top(staff_wide,i); i.ok(); i++) 
-	commands.add(**i, score_l_->markers_assoc_);
-
-    commands.parse(this);
-}
-
-void
-Staff::add(PointerList<Voice*> &l)
+Staff::add(PointerList<Voice*> const &l)
 {
     for (iter_top(l,i); i.ok(); i++)
-	voices.bottom().add(i);
+	voice_list_.bottom().add(i);
 }
 
-void
-Staff::truncate_cols(Moment l)
-{
-    iter_bot(cols, i);
-    for (; i->when() > l; i=cols.bottom()) {
-	Staff_column * col_p = i.get();
-	assert(col_p->when() > l);
-	delete col_p;
-    }
-}
-
-Paperdef*
+Paperdef *
 Staff::paper() const
 {
     return score_l_->paper_p_;
@@ -67,7 +27,12 @@ Staff::clean_cols()
 {
     iter_top(cols,i);
     for(; i.ok(); ){
-	if (!i->score_column_l_->used())
+	if (!i->musical_column_l_->used())
+	    i->musical_column_l_ = 0;
+	if (!i->command_column_l_->used())
+	    i->command_column_l_ =0;
+	
+	if (!i->command_column_l_&& !i->musical_column_l_)
 	    delete i.get();
 	else
 	    i++;
@@ -75,109 +40,60 @@ Staff::clean_cols()
 }
 
 Staff_column *
-Staff::get_col(Moment w, bool mus)
-{
-    iter_top(cols,i);    
+Staff::get_col(Moment w, PCursor<Staff_column*> *last)
+{    
+    iter_top(cols,i);
+    if (last && last->ok() && (*last)->when() <= w)
+	i = *last;
+    
     for (; i.ok(); i++) {
 	if (i->when() == w) {
-	    if (i->musical_b() == mus) {
-		assert( score_l_->find_col(w,mus).ptr() == i->score_column_l_);
-		return i;
-	    }
-	    else if (!mus)
-		break;
+	    if (last)
+		*last = i;
+	    return i;
 	} else if (i->when() > w)
 	    break;
     }
-    /* post: *sc > *->score_column_l_ || !i.ok() */
 
-    Score_column* sccol_l = score_l_->find_col(w,mus);
-    Staff_column* newst = create_col(sccol_l);
 
+    PCursor<Score_column*> sccols(score_l_->find_col(w, false));
+    Staff_column* stcol_p = create_col();
+
+    Score_column* comcol_l  = sccols++;
+    stcol_p->set_cols(comcol_l, sccols);
+    
     if (!i.ok()) {
-	cols.bottom().add(newst);
-	return cols.bottom();
-    }
-    
-    if (mus) {
-	i.insert(newst);
-	
-	return newst;
-    }
-
-    
-    // making a fix at 2:30 am, with several beers drunk.
-    // but it works :-)
-    if ((i-1).ok()&& (i-1)->when() == newst->when()) {
+	cols.bottom().add(    stcol_p);
+	i = cols.bottom();
+    } else {
+	i.insert(stcol_p);
 	i--;
     }
-
-    i.insert(newst);
-    
-    return newst;
+    if (last)
+	*last = i;
+    return i;
 }
 
-void
-Staff::get_marks(Array<String>&s_arr, Array<Moment>&m_arr)
-{
-     for (iter_top(voices,i); i.ok(); i++) {
-	Moment now = i->start;
-	for (iter_top(i->elts,j); j.ok(); j++) {
-	    for (iter_top(j->reqs, k); k.ok(); k++) {
-		if (k->mark()) { // ugh. 4 levels
-		    s_arr.push(k->mark()->mark_str_);
-		    m_arr.push(now);
-		}
-	    }
-	    now += j->duration;	    
-	}
-     }
-}
-/*
-    put all stuff grouped vertically in the Staff_cols
+/**
+  put all stuff grouped vertically in the Staff_cols.
+  Do the preprarations for walking the cols. not virtual
     */
 void
 Staff::setup_staffcols()
 {    
-    for (iter_top(voices,i); i.ok(); i++) {
-
+    for (iter_top(voice_list_,i); i.ok(); i++) {
+	PCursor<Staff_column*> last(cols);
 	Moment now = i->start;
 	for (iter_top(i->elts,j); j.ok(); j++) {
 	    
-	    Staff_column *s_l= get_col(now, true);
+	    Staff_column *s_l= get_col(now, &last);
 	    assert(now == s_l->when());
 	    s_l->add(j);
 	    now += j->duration;	    
 	}
-	get_col(now, false);
+//	get_col(now,last);
     }
     OK();
-    set_time_descriptions();
-}
-
-
-
-void
-Staff::set_time_descriptions()
-{
-    Time_description t(0,0);
-    for (iter_top(cols,i); i.ok(); i++) {
-	if (i->staff_commands_p_)
-	    t = i->staff_commands_p_->tdescription_;
-	else if (i->tdescription_)
-	    t = *i->tdescription_;
-	if(!i->tdescription_) {
-	    i->tdescription_ = new Time_description(i->when() - t.when ,&t);
-	}
-    }
-
-}
-void
-Staff::process()
-{
-    setup_staffcols();
-    OK();
-    walk();
 }
 
 void
@@ -185,15 +101,12 @@ Staff::OK() const
 {
 #ifndef NDEBUG
     cols.OK();
-    voices.OK();
+    voice_list_.OK();
     iter_top(cols, i);
     iter_top(cols, j);
     i++;
     for (; i.ok(); j++,i++) {
-	if ( j->when() == i->when())
-	    assert(!j->musical_b() && i->musical_b());
-	else
-	    assert(j->when () < i->when() );
+	assert(j->when () < i->when() );
     }
     assert(score_l_);
 #endif    
@@ -204,7 +117,7 @@ Moment
 Staff::last() const
 {
     Moment l = 0.0;
-    for (iter_top(voices,i); i.ok(); i++) {
+    for (iter_top(voice_list_,i); i.ok(); i++) {
 	l = l >? i->last();
     }
     return l;
@@ -216,7 +129,7 @@ Staff::print() const
 {
 #ifndef NPRINT
     mtor << "Staff {\n";
-    for (iter_top(voices,i); i.ok(); i++) {
+    for (iter_top(voice_list_,i); i.ok(); i++) {
 	i->print();	
     }
     mtor <<"}\n";

@@ -17,7 +17,7 @@ Break_algorithm::find_breaks() const
 {
     Line_of_cols retval;
     for (iter_top(pscore_.cols,c); c.ok(); c++)
-	if (c->breakable())
+	if (c->breakable_b())
 	    retval.push(c);
     assert(retval.top() == pscore_.cols.bottom().ptr());
     return retval;
@@ -71,7 +71,7 @@ Break_algorithm::problem_OK() const
     iter_top(pscore_.cols,start);
     PCursor<PCol *> end (pscore_.cols.bottom());
     
-    assert(start->breakable());    
-    assert(end->breakable());
+    assert(start->breakable_b());    
+    assert(end->breakable_b());
 #endif
 }

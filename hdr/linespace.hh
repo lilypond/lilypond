@@ -70,13 +70,15 @@ class Spacing_problem {
 
 public:
     /** solve the spacing problem
-          return the column positions, and the energy (last element)
-	  */
+      
+      @return the column positions, and the energy (last element)
+
+      */
     Array<Real> solve() const;
 
-    /// add a idealspacing to the problem.
+    
     /**
-      
+       add a idealspacing to the problem.
       
     One pair of columns can have no, one or more idealspacings,
     since they can be "summed" if the columns to which #i# refers are
@@ -85,8 +87,7 @@ public:
     void add_ideal(const Idealspacing *i);
     
     
-    /// add a col to the problem
-       /** columns have to be added left to right. The column contains
+    /** add a col to the problem. columns have to be added left to right. The column contains
       info on it's minimum width.
     */
     void add_column(const PCol *, bool fixed=false, Real fixpos=0.0);

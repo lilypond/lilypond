@@ -46,6 +46,14 @@ Ineq_constrained_qp::eval (Vector v)
 {
     return v * quad * v + lin * v + const_term;
 }
+
+/**
+    eliminate appropriate variables, until we have a Ineq_constrained_qp
+    then solve that.
+
+    PRE
+    cons should be ascending
+    */
 Vector
 Mixed_qp::solve(Vector start) const 
 {
@@ -65,6 +73,8 @@ Mixed_qp::solve(Vector start) const
 
 /*
     assume x(idx) == value, and adjust constraints, lin and quad accordingly
+
+    TODO: add const_term
     */
 void
 Ineq_constrained_qp::eliminate_var(int idx, Real value)
@@ -117,15 +127,6 @@ Ineq_constrained_qp::print() const
 }
 
 /* *************** */
-
-/*
-    eliminate appropriate variables, until we have a Ineq_constrained_qp
-    then solve that.
-
-    PRE
-    cons should be ascending
-    */
-
 
 Mixed_qp::Mixed_qp(int n)
     : Ineq_constrained_qp(n)

@@ -22,7 +22,7 @@ ASCII script input, with identifiers (for music reuse),
 customizable notenames, customizable fontset
 
 =item *
-multiple staffs in one score
+Multiple staffs in one score. Each staff can have a different meters.
 
 =item *
 multiple stafftypes (melodic, rhythmic) [broken from  pl28 on]
@@ -33,15 +33,14 @@ triplets, general n-plet (triplet, quadruplets, etc.), lyrics
 
 =item *
 multiple voices within one staff; beams optionally shared
-between voices.
+between voices. (well, more than 2 voices won't look pretty)
 
 =item *
 multiple scores within one input file. Each score is output to
 a different file.
 
 =item *
-clef changes, meter changes, cadenza-mode, declaring markings
-in the music, repeat bars
+clef changes, meter changes, cadenza-mode, key changes, repeat bars
 
 =back
 
@@ -96,7 +95,7 @@ LilyPond does not display notes directly, nor will it be rehacked to be
 used interactively. LilyPond writes output to a file.  It will not be
 extended to play music, or to recognize music.
 
-We're thinking about adding MIDI output, though
+It will output MIDI, though (at some stage)
 
 =item *
 LilyPond is intended to run on Unix platforms, but it should
@@ -112,8 +111,6 @@ broken systems.
 
 =back
 
-
-
 =head1 OPTIONS
 
 =over 5
@@ -124,7 +121,9 @@ add F<FILE> to the search path for input files.
 
 =item 	B<-d,--debug>,
 
-debugging. LilyPond will read the file F<.dstreamrc>, which tells for what functions to produce copious debugging output. 
+Turn debugging info. LilyPond will read the file F<.dstreamrc>, which
+tells for what functions and classes may produce copious debugging
+output.
 
 =item 	B<-w,--warranty>,
 
@@ -138,9 +137,9 @@ Set the default output file to F<FILE>.
 
 Show a summary of usage
 
-=item 	B<--init, -i>
+=item 	B<-i,--init=>F<FILE>
 
-set init file (default: symbol.ini)
+set init file (default: F<symbol.ini>)
 
 =item B<--include, -I>
 add to file search path.
@@ -163,11 +162,13 @@ Compilation:
 =over 5
 
 =item *
- Unix. Any decent Linux distribution is fine. LilyPond is known to run
-on Linux, AIX, Digital Unix and Solaris
+Unix. LilyPond is known to run on Linux, AIX, Digital Unix and
+Solaris (if you have the Cygnus WIN32 port of the GNU utils, it will
+even work in Lose NT/95)
 
 =item *
-GNU C++ v2.7  or better, with libg++. Version 2.7.2 or better recommended.
+GNU C++ v2.7 or better, with libg++ installed.  Version 2.7.2
+or better recommended. I doubt if it will compile with AT&T CC.
 
 =item *
 GNU make.
@@ -176,7 +177,7 @@ GNU make.
 flex (2.5.1 or better)
 
 =item *
-Bison or YACC.
+Bison.
 
 =item *
 The "Flower" library, which should be available from the same
@@ -191,6 +192,10 @@ could tinker with it to use sed or awk.
 LilyPond does use a lot of resources. For operation you need the following:
 
 =over 5
+
+=item *
+a fast computer (well; full page of music typically takes 1
+minute on my 486/66, using the DEBUG compile)
 
 =item *
 TeX
@@ -266,10 +271,20 @@ quality. If you're not discouraged; this is what I type in my xterm:
 
 This is what the output looks like over here:
 
-	hw:~/musix/spacer$ lilypond input/maartje.ly
-	LilyPond 0.0.27/FlowerLib 1.0.23. Compile: Feb  5 1997, 00:28:13 (g++ 2.7.2)
-	Parsing ... [./init//symbol.ini[./init/dutch.ini][./init/script.ini][./init/table_sixteen.ini]][./input/maartje.ly]
-	Processing music ... Preprocessing ... Calculating ... Postprocessing ... 
+	LilyPond 0.0.pre32-3/FlowerLib 1.0.27. Compile: Feb 18 1997, 11:21:57 (g++ 2.7.2)
+	Parsing ... [./init//symbol.ini[./init//dutch.ini][./init//script.ini][./init//table_sixteen.ini]][./input/wohltemperirt.ly]
+	Setting up music ...Processing music ............
+	Preprocessing ... 
+	Calculating column positions ... [3][6][9]
+	Postprocessing ...
+	warning: slope_index(): beam steeper than 0.5 (-0.555556)
+	warning: slope_index(): beam steeper than 0.5 (-0.588346)
+	warning: slope_index(): beam steeper than 0.5 (-0.523166)
+	warning: slope_index(): beam steeper than 0.5 (0.571915)
+	warning: slope_index(): beam steeper than 0.5 (-0.555556)
+	warning: slope_index(): beam steeper than 0.5 (-0.588346)
+	warning: slope_index(): beam steeper than 0.5 (-0.523166)
+	warning: slope_index(): beam steeper than 0.5 (0.571915)
 	output to lelie.out...
 
 	hw:~/musix/spacer$ tex test
@@ -329,7 +344,7 @@ among others: lilygut, lilyinput, error, faq,
 =head1  REMARKS
 
 LilyPond has no connection with the music package RoseGarden, other
-than the names being similar.
+than the names being similar :-)
 
 
 =head1 HISTORY

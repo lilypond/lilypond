@@ -4,6 +4,7 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
+#include "musicalrequest.hh"
 #include "textreg.hh"
 #include "textitem.hh"
 

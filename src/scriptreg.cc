@@ -6,7 +6,7 @@
 
 #include "scriptreg.hh"
 #include "script.hh"
-#include "request.hh"
+#include "musicalrequest.hh"
 #include "complexwalker.hh"
 
 Script_register::Script_register(Complex_walker*w)

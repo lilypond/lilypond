@@ -103,7 +103,7 @@ void
 PScore::add(PCol *p)
 {
     p->pscore_l_ = this;
-    if (p->breakable()){
+    if (p->breakable_b()){
 	p->prebreak_p_->pscore_l_ = this;
 	p->postbreak_p_->pscore_l_ = this;
     }

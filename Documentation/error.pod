@@ -10,22 +10,4 @@ A correctly parsed F<input.ly> does not guarantuee output. A lot
 (most) of the checking is done B<after> parsing (some checks even are
 done after the break calc!); I'm sorry.
 
-[outdated]
-
-The parser's job is to construct appropriate objects. It will B<only>
-detect parse errors.
-
-	 can't find slur to end
-
-Eg. with:
-
-	{d g ( } ) g8
-
-The {} part generates two one-note C<Voice>s, the C<g8> another, which
-is translated to start right after the chord.  Slurs are contained
-within voices.  LilyPond can't find a slur which started in this
-C<g8>'s voice. (what should C<{ d( g ( } )g8 )g8 }> look like?  Use
-
-	{ \music { d } \music { g()g8 } }
-
-
+[yep.. has to be written..]

@@ -13,7 +13,7 @@
 %
 violin2 = music { 
 	$
-	\octave{}
+\clef "violin"	\octave{}
 	\duration{4}
 %1
 	d2 |

@@ -14,7 +14,9 @@
 alto = music { 
 	$
 	\duration{ 8 }
-
+	\key {$bes es as$}
+		
+	}			\clef "alto"
 	% these are chords (i.e. non-divisi)
 	% that-s why i-d rather type chords, 
 	% but how to type slurs?
@@ -68,15 +70,10 @@ alto = music {
 }
 
 score {
-	staff { melodic music { alto }
-		commands {
-			clef "alto"
-			key $c es as$ % c ??? 
-		}
-	}
+	staff { melodic music { alto }}
+
 	commands { 
-		meter 4*4
-		skip 5:0
+		meter {4*4} grouping {4*4}
 	}
 	paper { 
 		unitspace 14mm

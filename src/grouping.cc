@@ -1,3 +1,11 @@
+/*
+  grouping.cc -- implement Rhythmic_grouping
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include "debug.hh"
 #include "grouping.hh"
 #include "interval.hh"
@@ -74,6 +82,7 @@ Rhythmic_grouping::intervals()
     }
     return r;
 }
+
 void
 Rhythmic_grouping::intersect(MInterval t)
 {
@@ -100,7 +109,11 @@ Rhythmic_grouping::intersect(MInterval t)
 
 }
 
-/* I really should be documenting what is happening here, but I find
+/**
+  Put our children in branches of #this#.
+  The min and max time intervals coincide with elements of #splitpoints#
+
+  I really should be documenting what is happening here, but I find
   that difficult, since I don't really understand what's going on here.
 
   */
@@ -248,7 +261,6 @@ min_elt(Array<int> v)
 Array<int>
 Rhythmic_grouping::generate_beams(Array<int> flags, int &flagidx)
 {
-    
     assert (!interval_) ;
     
     Array< Array<int> > children_beams;
@@ -318,3 +330,21 @@ Rhythmic_grouping::extend(MInterval m)
     assert(m.right <= interval().right);
     OK();
 }
+
+Rhythmic_grouping
+parse_grouping(Array<int> beat_i_arr, Array<Moment> elt_length_arr)
+{
+    Moment here =0;
+    assert(beat_i_arr.size() == elt_length_arr.size());
+    
+    Array<Rhythmic_grouping*> children;
+    for (int i=0; i < beat_i_arr.size(); i++) {
+	Moment last = here;
+	here += elt_length_arr[i] * Moment(beat_i_arr[i]);
+	children.push(
+	    new Rhythmic_grouping(MInterval(last, here),
+				  beat_i_arr[i] ));
+    }
+    return Rhythmic_grouping(children);
+}
+

@@ -1,11 +1,12 @@
-/****************************************************************************
+/*
   PROJECT: FlowerSoft C++ library
   FILE   : string.cc
 
   Rehacked by HWN 3/nov/95
   removed String &
   introduced Class String_handle
---*/
+
+*/
 
 #include <string.h>
 #include <stdlib.h>

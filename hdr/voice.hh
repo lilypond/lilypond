@@ -5,8 +5,7 @@
 #include "plist.hh"
 #include "moment.hh"
 
-/// class for  horizontal stuff.
-/**
+/** class for  horizontal stuff.
 
     Voice is a ordered row of Voice_elements. It is strictly horizontal:
     you cannot have two rhythmic elements running parallel in a Voice
@@ -26,12 +25,12 @@ struct Voice {
     void print() const;
     void set_default_group(String id);
 };
-/// one horizontal bit. 
-/** Apart from being a container for the requests, Voice_element is nothing
+
+/** one horizontal bit.  Apart from being a container for the requests, Voice_element is nothing
     */
 struct Voice_element {
     Moment duration;
-    char const* defined_ch_c_l_m;
+    char const* defined_ch_c_l_;
     const Voice *voice_l_;
     IPointerList<Request*> reqs;
 

@@ -9,6 +9,10 @@
 #include "varray.hh"
 #include "offset.hh"
 
+
+/**
+  Least squares minimisation in 2 variables.
+  */
 struct Least_squares {
     Array<Offset> input;
     void minimise(Real &coef, Real &offset);

@@ -25,9 +25,13 @@ foreach $a (<*.html>)
 
 foreach $a (@examples) {
     $texfile="test";
-    system "cd ..; lilypond input/$a; tex $texfile; dvips $texfile;";    
-    system "mv ../$texfile.ps $a.ps";
-    system "gs -q -sDEVICE=ppmraw -sOutputFile=- -r200 -dNOPAUSE  $a.ps -c quit |pnmscale 0.5| ppmtogif > $a.gif"
+    system "cd ..; lilypond input/$a; tex $texfile;";
+    system "dvips -o $texfile.ps $texfile;";    
+    system "mv ../$texfile.ps $a.ps;".
+	"gs -q -sDEVICE=ppmraw -sOutputFile=- -r200 -dNOPAUSE  $a.ps -c quit |pnmscale 0.5| ppmtogif > $a.gif"
 }
 
-system "tar cfz website.tgz *.html *.gif *.png *.ps " 
+system "mkdir docxx; make -C.. docxx; ln ../docxx/* ./docxx/;"
+
+system "tar cf website.tar *.html *.gif *.png *.ps docxx/;" .
+"gzip -9 website.tar;"

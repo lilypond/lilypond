@@ -1,7 +1,7 @@
 #include "debug.hh"
 #include "inputmusic.hh"
 #include "voice.hh"
-#include "request.hh"
+#include "musicalrequest.hh"
 
 void
 Simple_music::add(Voice_element*v)

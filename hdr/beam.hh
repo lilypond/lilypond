@@ -11,11 +11,14 @@
 #include "plist.hh"
 
 /** a beam connects multiple stems Beam adjusts the stems its owns to
-make sure that they reach the beam and that point in the correct
-direction */
+  make sure that they reach the beam and that point in the correct
+  direction */
 struct Beam:  public Directional_spanner {
     PointerList<Stem*> stems;
+    /// the slope of the beam in posns / point (dimension)   
     Real slope;
+
+    /// position of leftmost end of beam  
     Real left_pos;
    
 

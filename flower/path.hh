@@ -4,8 +4,7 @@
 #include "varray.hh"
 
 
-///   searching directory for file.
-/**
+/**    searching directory for file.
 
    Abstraction of PATH variable. An interface for searching input files.
    Search a number of dirs for a file.

@@ -11,6 +11,7 @@
 
 melodie = music {
 	$ 			% switch Lilypond in note-mode
+	\clef\violin
 	\octave {} 		% set the default octave
 	% the default note duratino is 4
 	%%% theme
@@ -32,7 +33,7 @@ $}
 
 				% more of this.
 begeleiding =
-$
+$	\clef "bass"		% bass-clef
 	\music { 		% as you can see, the $ sign obliges 
 				% you to precede keyword by a backslash: \
 	\octave { ` } 		% default octave: 1 below the first octave.
@@ -53,16 +54,12 @@ $
 bstaf = staff {
 	melodic
 	music { begeleiding }	% use the declared music
-		commands {	% commands with Staff-wide impact.
-			clef "bass"	% bass-clef
-		}
 	}
 
 % another one
 vstaf = staff {
 	melodic
 		music { melodie }
-		commands { clef "violin" }
 				% default clef is violin clef
 	}
 
@@ -74,9 +71,7 @@ score {
 		unitspace 2.5cm	% a whole note takes 2.5 cm ideally.
 	}
 	commands {
-		meter 2* 4 	% a 2/4 meter.
-		skip 33:0	% skip 32 measures, and generate the bars
-%		meter 6 8 	% another meter
+		meter {2* 4} 	% a 2/4 meter.
 	}
 }
 

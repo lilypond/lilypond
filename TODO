@@ -1,12 +1,29 @@
+
+before 0.1
+
+	* martien.ly, standchen.ly
+
+	* pushgroup, popgroup.
+
+	* basic dynamics
+
+	* triplet notation
+
+	* midi output
+
+	* decent TeX page layout
+	
+	* < .. > vs. { .. }
+
 This is an assorted collection of stuff that will be done, might be
 done, or is an idea that I want to think about
 
 BUGS
-	* first clef isn't printed
-
 	* key undo
 
-	* key print if 
+	* key print if clef change.
+
+	* $cis ( | ) cis$
 
 SEVERELY LACKING:
 
@@ -24,11 +41,15 @@ INPUTLANGUAGE
 
 	* rest name configurable
 
+	* '*' vs. '/'
+
 SMALLISH PROJECTS
+
+	* bar numbers
 
 	* read from mmap directly: study yy_scan_buffer
 
-	* binsearch for notenames
+	* binsearch/hash for notenames
 
 	* stafftypes: voice names/ instrument names.
 
@@ -56,10 +77,9 @@ SMALLISH PROJECTS
 
 	* fix linking: `Warning: size of symbol'
 
-BIGGISH PROJECT
+	* collision Request_register.
 
-	* merge musical & non-musical column. Scrap Commands in favour
-	of Requests, and do multiparallel meters
+	* LilyPond .rpm and .deb
 
 DOC
 
@@ -69,11 +89,13 @@ DOC
 
 	* a decent webpage
 
+	* a test suite
+
 FUTURE
 
-	* warning: beam(): Beam too narrow: beam gen not per stem
+	* Register_container baseclass
 
-	* put scripts on barcommands 
+	* put scripts on bars
 
 	* glissando
 
@@ -85,13 +107,17 @@ FUTURE
 
 	* Implement all requests
 
-	* merge key{item} & localkey{item}
+	* merge key{item} & localkey{item}?
 
 	* QLP for beams?
 
 	* revise calcideal
 
 	* eentje/tweetje
+
+	* piano staff
+	
+	* abbreviations a4*8
 
 IDEAS
 
@@ -108,8 +134,6 @@ IDEAS
 
 	* merge Atom and Symbol?
 
-	* merge Command/Input_command.
-	
 	* merge common code of Item, Atom/Molecule
 
 	* Spacing_request for manually adjusting spacing
@@ -126,3 +150,5 @@ IDEAS
 	* PostScript output (esp. Beams, Slurs, etc)
 
 	* caching breakpoints
+
+	* use exceptions?

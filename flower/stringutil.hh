@@ -9,8 +9,7 @@
 const INITIALMAX=8;
 class String_handle;
 
-/// Internal String struct
-/**
+/**  Internal String struct. 
    the data itself. Handles simple tasks (resizing, resetting)
    */
 
@@ -145,8 +144,8 @@ friend class String_handle;
 	length = j;
     }
 
-    /** not really safe. Can alter length without StringData knowing it.
-      */
+    /** access a char. not really safe. Can alter length without
+      *StringData knowing it. */
     char &operator [](int j) {
 	assert(j >= 0 && j <= length);
 	return string[j] ; 
@@ -160,8 +159,7 @@ friend class String_handle;
 
 
 
-/// ref. counting for strings
-/**
+/**  ref. counting for strings. 
    handles ref. counting, and provides a very thin
    interface using char *
  */

@@ -5,10 +5,9 @@
 #include "real.hh"
 #include "moment.hh"
 #include "scalar.hh"
+#include "grouping.hh"
 
 Moment wholes(int dur, int dots);
-
-Rhythmic_grouping parse_grouping(const Array<Scalar> &a);    
 double log_2(double x) ;
 int intlog2(int d);
 inline int
@@ -22,5 +21,6 @@ sign(int i) {
     else return 0;
 }
 
+Interval itemlist_width(const Array<Item*> &its);
 
 #endif

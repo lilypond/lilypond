@@ -11,8 +11,8 @@ struct Assoc_ent_ {
     V val;
 };
 
-/// hungarian: map
-/** mindblowingly stupid Associative array implementation
+
+/** mindblowingly stupid Associative array implementation.Hungarian: map
  */
 template<class K, class V>
 struct Assoc {

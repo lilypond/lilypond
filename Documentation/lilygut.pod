@@ -8,6 +8,10 @@ This page documents some aspects of the internals of LilyPond. Some of
 this stuff comes from e-mail I wrote, some from e-mail others wrote,
 some are large comments taken away from the headers
 
+You should use doc++ to take a peek at the sources.
+
+[have to do more doco; see TODO]
+
 =head1 OVERVIEW
 
 LilyPond is a "5-pass" system:
@@ -170,6 +174,10 @@ registers. There are a few groups:
 =item *
 Staff wide, contains
 	Local_key_register
+	Bar_register
+	Key_register
+	Meter_register
+	Clef_register
 
 =item *
 Voice group, contains
@@ -184,36 +192,6 @@ Voice, contains
 
 
 =item 1
-
-
-=head1 COMMANDS
-
-
-This table decribes the proper order for the different commands:
-
-
-=head2 interpret
-
-	which		priority
-	========================
-	
-	key		200
-	clef		190
-	meter		180		
-	bar		170
-
-=head2 typeset
-
-	which		priority
-	========================
-
-	bar		100
-	clef		90
-	currentclef	80
-	key	 	70
-	currentkey	60
-	meter		40
-
 
 
 =head1 BREAKING
@@ -317,39 +295,6 @@ concept of pre- and post-breaks.
 minimum distance to other columns, to prevent symbols from running
 into symbols of other columns.)
 
-=head1 POINTERS
-
-This describes the ownership of certain classes in LilyPond. +
-signifies a "list of". (This is not complete)
-
-	Score:
-		Paperdef
-		Staff+
-		Score_commands
-		Score_columns+
-		PScore
-
-	Staff:
-		Voice
-		Staff_column+
-		Command+
-
-
-	Voice:
-		Voice_element
-
-	Voice_element:
-		Request+
-
-
-	PScore:
-		PStaff+
-		PCol+
-		Idealspacing+
-		Item+
-		Spanner+
-		Spanner+ (broken)
-
 =head1 SEE ALSO
 
 =head2 References
@@ -401,7 +346,8 @@ Muziek'' afstudeerscriptie Bestuurlijke informatica, no 45327, Erasmus
 universiteit Rotterdam, 1991.  (``An automated system for printing
 music'' Master's Thesis Management and Computer Science.)
 
-C. Roemer,  The Art of Music Copying. Roerick music co., Sherman Oaks (CA), 1973.
+C. Roemer, The Art of Music Copying. Roerick music co., Sherman Oaks
+(CA), 1973.
 
 Rosecrans, Glen. Music Notation Primer. New York: Passantino, 1979.
  

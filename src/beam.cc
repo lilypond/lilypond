@@ -217,7 +217,10 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 	int lhalfs= lhalfs = here->beams_left - prev->beams_right ;
 	int lwholebeams= here->beams_left <? prev->beams_right ;
 	Real w = (here->hpos() - prev->hpos())/4;
-	Atom a =  paper()->lookup_p_->beam(sl, w);
+	Symbol dummy;
+	Atom a(dummy);
+	if (lhalfs)		// generates warnings if not
+	    a =  paper()->lookup_p_->beam(sl, w);
 	a.translate(Offset (-w, -w * sl));
 	for (int j = 0; j  < lhalfs; j++) {
 	    Atom b(a);
@@ -239,8 +242,10 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 	    b.translate(Offset(0, -dir_i_ * dy * j));
 	    rightbeams.add( b ); 
 	}
+
 	w /= 4;
-	a = paper()->lookup_p_->beam(sl, w);
+	if (rhalfs)
+	    a = paper()->lookup_p_->beam(sl, w);
 	
 	for (; j  < rwholebeams + rhalfs; j++) {
 	    Atom b(a);

@@ -11,34 +11,27 @@
 #include "moment.hh"
 
 /// store simultaneous requests
-struct Staff_column {
+class Staff_column {
+    Staff_column(Staff_column const&);
+public:
+    /// fields to collect timing data vertically.
+    Array<Timing_req*> timing_req_l_arr_;
+    Score_column *musical_column_l_, *command_column_l_;
 
-    Score_column *score_column_l_;
-
-    /// fields to collect data vertically.
-    Array<Voice_element *> v_elts;
-
-    /// idem
-    Staff_commands_at *staff_commands_p_;
-
-    Time_description *tdescription_;
-    
     /* *************** */
     
-    Staff_column(Score_column*); 
-    bool musical_b() const;
+    Staff_column();
+
     Moment when() const;
+    void set_cols(Score_column *c1, Score_column *c2);
     void add(Voice_element*ve);
     void OK() const;
-    /*
-      VIRTUAL
-    */
-
-    virtual void setup_requests()=0;
-
     virtual ~Staff_column();
-private:
-    Staff_column(Staff_column const&);
+
+
+protected:
+    virtual void setup_one_request(Request*)=0;
+
 };
 
 

@@ -1,0 +1,76 @@
+=head1 NAME
+
+LilyPond -- the Webpage
+
+=head1 DESCRIPTION
+
+Excuse me for this poor page. I don't really have time for doing this..
+
+[and yes, i write webpages in POD :-]
+
+=head1 DOCUMENTATION
+
+=item *
+<a href=README.html
+>
+README
+</a
+>
+
+=item *
+<a href=lilygut.html
+>
+internal structures.
+</a
+>
+
+=item *
+<a href=lilyinput.html
+>
+notes on the input format
+</a
+>
+
+=item *
+<a href=faq.html
+>
+FAQ
+</a
+>
+
+=item *
+<a href=error.html
+>
+errors
+</a
+>
+
+=item *
+<a href=lelie_logo.png
+>
+The lilypond logo (in PNG format)
+</a
+>
+
+
+=item *
+<a href=wohltemperirt.ly
+>
+An example inputfile: from Bach's WTK: c-minor fugue
+</a
+>
+
+=item *
+<a href=wohltemperirt.gif
+>
+A Gif file of the example
+</a
+>
+
+=item *
+<a href=wohltemperirt.ps
+>
+PS output
+</a
+>
+

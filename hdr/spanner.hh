@@ -10,8 +10,8 @@
 #include "proto.hh"
 #include "staffelem.hh"
 
-/// a symbol which is attached between two columns.
-/** A spanner is a symbol which spans across several columns, so its
+
+/** a symbol which is attached between two columns. A spanner is a symbol which spans across several columns, so its
   final appearance can only be calculated after the breaking problem
   is solved.
 
@@ -42,9 +42,9 @@ struct Spanner:Staff_elem {
     Spanner *broken_at(PCol *c1,  PCol *c2) const;
     virtual Spanner* spanner() { return this; }
 protected:
-    /// clone a piece of  this spanner.
+
     /**
- 
+  clone a piece of  this spanner.
     PRE
     c1 >= start, c2  <= stop
     */

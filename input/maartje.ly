@@ -26,7 +26,7 @@ melody=
 staff {
 	melodic
 	music{$
-	c8
+	c8\key{fis cis gis}
 	|r4 r4 r4 r4
 	|'cis2..	r8
 	| r4 r8 r16 r32 r32 
@@ -45,19 +45,11 @@ staff {
 	|''fis2
 	| a8 b8 'c8 'd8 |''c8 ```c8 c4 |c4  c4 |c4
 	\duration{ 16 } `b `a `g `f \duration{ 4}
-	
+	\clef\bass	
 
 	|c `b `a `g `f `e `d `c ``b ``a ``g ``f ``e ``d ``c
 	$}
 
-	commands {
-		skip 3:0
-		key $ fis cis gis $
-		skip 2:0
-		key 
-		skip 5:0
-		clef bass
-	}
 }
 
 score {
@@ -68,13 +60,13 @@ score {
 %	staff { ritme }%broken for now
 	staff { melody }
 	commands {
-		meter 4* 4
+		meter {4* 4}
 		partial 8
-		skip 1:2
+		skip 3*2
 		bar ":|:"
-		skip 2:0
-		meter 2* 4
-		skip 19:0
+		skip 2*1
+		meter {2*4}
+
 	}
 }
 

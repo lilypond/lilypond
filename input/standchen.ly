@@ -35,7 +35,7 @@
 %#%%
 %#%\duration8
 %%1
-melodie = music { $ 
+melodie = music { $ \clef\violin
 	\duration{ 8 }
 	r_"\pp" { [ d `a-| } f-| { d `a-| } f-| { d `a-| ] } |
 %%2
@@ -194,7 +194,8 @@ melodie = music { $
 $ }
 
 begeleiding = music { $
-	\duration{2}
+\clef\bass
+\duration{2}
 	`d r4
 %%2
 	``bes r4
@@ -472,26 +473,19 @@ score {
 	staff { 
 	 	melodic 
 		music { melodie }
-		commands {
-			key $bes$
-			clef "violin"
-		}
 	}
 	staff { 
 		melodic 
 		music { begeleiding }
-		commands {
-			key $bes$
-			clef "bass"
-		}
 	}
 	commands { 
-		meter 3*4 
-		skip 4:0
+		meter { 3*4 }
+		key $bes$
+		skip 12*4
 		bar ":|"
-		skip 32:0
+		skip 96*4
 		bar ":|"
-		skip 22:0
+		skip 66*4
 		bar "||"
 	}
 	paper {

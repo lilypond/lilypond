@@ -4,8 +4,8 @@
 #include <iostream.h>
 #include "string.hh"
 
-/// TeX output
-/**
+
+/** TeX output.
   Use this class for writing to a TeX file.
   It counts braces to prevent nesting errors, and
   it will add a comment sign before each newline.
