@@ -32,7 +32,9 @@ For century schoolbook font:
     inputencoding = #"latin1"
 }
 
-latinTest = \markup { \latin-i "Hellö" }
+latinTest = \markup {
+    "Hellö"
+}
     
 sizeTest = \markup {
 	\column <
@@ -56,6 +58,8 @@ sizeTest = \markup {
        >
 }
 
+\encoding "latin1"
+
 spaceTest = \markup { "two space chars" }
 \header {
     texidoc = "Make titles using markup.  Only in direct PostScript output."
@@ -67,7 +71,7 @@ spaceTest = \markup { "two space chars" }
     % ugh: encoding char-size
     %dedication = "For my öòóôõø so dear Lily"
     dedication = \markup { "For my "
-			   \latin-i { "öòóôõø" }
+			   "öòóôõø"
 			   " so dear Lily" }
     title = "Title"
     subtitle = "(and (the) subtitle)"
@@ -84,9 +88,6 @@ spaceTest = \markup { "two space chars" }
     %% Override automatic book title
     %% bookTitle = \markup { \fill-line < \huge\bold \title > > }
 }
-
-%% suggest harder :-)
-%% noPagebreak = #(make-event-chord (list (make-penalty-music 0 1e9)))
 
 \book {
     
@@ -108,7 +109,7 @@ spaceTest = \markup { "two space chars" }
 	    
 	    %% FIXME: TODO factor \pagebreak \noPagebreak into regtest
 	    %% Without this, page breaks are better, after measure: 12
-	    \noPagebreak
+	    \noPageBreak
 	    \repeat unfold 30 { a b c d \break }
 	    c1
 	}

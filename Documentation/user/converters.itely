@@ -17,6 +17,7 @@ sequencers and XML converters. Refer to the
 * Invoking etf2ly::             Importing Finale.
 * Invoking abc2ly::             Importing ABC.          
 * Invoking mup2ly::             Importing MUP. 
+* Other formats::               
 @end menu
 
 
@@ -98,12 +99,13 @@ this. It is therefore not recommended to use midi2ly for
 human-generated midi files.
 
 
-It is invoked as follows:
+It is invoked from the command-line as follows,
 @example
-        midi2ly [@var{option}]@dots{} @var{midi-file}
+midi2ly [@var{option}]@dots{} @var{midi-file}
 @end example
 
-The following options are supported by midi2ly:
+
+The following options are supported by midi2ly.
 
 @table @code
 @item -a, --absolute-pitches
@@ -153,7 +155,7 @@ ETF (Enigma Transport Format) is a format used by Coda Music
 Technology's Finale product. etf2ly will convert part of an ETF
 file to a ready-to-use LilyPond file.
 
-It is invoked as follows:
+It is invoked from the command-line as follows.
 @example
         etf2ly [@var{option}]@dots{} @var{etf-file}
 @end example
@@ -245,6 +247,7 @@ format. It is invoked as follows:
 @cindex Mup
 @cindex Arkkra
 
+It is invoked from the command-line as follows.
 @example
         mup2ly [@var{option}]@dots{} @var{mup-file}
 @end example
@@ -275,4 +278,21 @@ Only plain notes (pitches, durations), voices, and staves are
 converted.
 
 
+@node Other formats
+@section Other formats
 
+LilyPond itself does not come with support for other formats, but
+there are also external tools that generate LilyPond files.
+
+These tools include
+http://denemo.sourceforge.net/
+
+@itemize @bullet
+@item @uref{http://www.nongnu.org/xml2ly/, xml2ly}, that imports
+@uref{http://www.musicxml.com/,MusicXML}
+@item
+@uref{http://rnvs.informatik.tu-chemnitz.de/~jan/noteedit/noteedit.html,NoteEdit}
+which imports MusicXML
+@item @uref{http://www.all-day-breakfast.com/rosegarden/,Rosegarden},
+which imports MIDI
+@end itemize
