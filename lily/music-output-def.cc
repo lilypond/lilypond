@@ -45,10 +45,22 @@ Music_output_def::Music_output_def (Music_output_def const &s)
 IMPLEMENT_SMOBS (Music_output_def);
 IMPLEMENT_DEFAULT_EQUAL_P (Music_output_def);
 
+#include "paper-def.hh"
+#include "book-paper-def.hh"
+
 SCM
 Music_output_def::mark_smob (SCM m)
 {
   Music_output_def * mo = (Music_output_def*) SCM_CELL_WORD_1 (m);
+
+  /*
+    FIXME: why is this necessary?
+    all bookpaper_ should be protected by themselves.
+  */
+  Paper_def *pd  = dynamic_cast<Paper_def*>(mo);
+  if (pd && pd->bookpaper_)
+    scm_gc_mark (pd->bookpaper_->self_scm ());
+  
   return mo->scope_;
 }
 
@@ -63,9 +75,6 @@ Music_output_def::assign_context_def (SCM transdef)
       SCM sym = tp->get_context_name ();
       scm_module_define (scope_, sym, transdef);
     }  
-  
-  String nm = ly_symbol2string (tp->get_context_name ()) + "Context";
-  scm_module_define (scope_, ly_symbol2scm (nm.to_str0 ()), transdef);
 }
 
 /*
