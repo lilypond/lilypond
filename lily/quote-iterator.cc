@@ -56,6 +56,7 @@ Quote_iterator::accept_music_type (Music *mus) const
 void
 Quote_iterator::derived_mark () const
 {
+  Music_wrapper_iterator::derived_mark ();
   scm_gc_mark (transposed_musics_);
 }
 
