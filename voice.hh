@@ -14,6 +14,7 @@ struct Voice {
     Real when(const Voice_element*)const;
     Real last() const;
     Voice();
+        Voice(    Voice const&);
     void add(Voice_element*);
     void print() const;
 };
@@ -42,7 +43,7 @@ struct Voice_element {
     
     void add(Request*);
     Voice_element();
-
+    Voice_element(Voice_element const & src );
     void print ()const;
 };
 /** Apart from being a container for the requests, Voice_element is

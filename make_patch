@@ -2,27 +2,30 @@
 old=$1
 new=$2
 nm=$3-
+
 newarc=$nm$new.tar.gz
 oldarc=$nm$old.tar.gz
-if [ ! -f $newarc ]
-then
-	echo cant find $newarc
-	exit
-fi
-if [ ! -f $oldarc ]
-then
-	echo cant find oldarc
-	exit
-fi
+
+
 if [ ! -x  $nm$new ]
 then
    echo untarring ..
   tar zfxv $nm$new.tar.gz
+  if [ ! -f $newarc ]
+  then
+	echo cant find $newarc
+	exit
+  fi
 fi
 if [ ! -x  $nm$old ]
 then
    echo untarring
    tar zfxv $nm$old.tar.gz
+  if [ ! -f $oldarc ]
+  then
+	echo cant find oldarc
+	exit
+  fi
 fi
 
 #(cd $nm$old; touch depend; make clean)

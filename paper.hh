@@ -15,6 +15,7 @@ struct Paperdef {
     ~Paperdef();
     Real interline()const;
     Real standard_height()const;
+    Real note_width() const;
     void print() const;
 };
 

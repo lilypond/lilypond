@@ -29,11 +29,12 @@ String
 Atom::TeXstring() const
 {
     // whugh.. Hard coded...
-    String s("\\raise");
-    s+= print_dimen(off.y) +"\\hbox to 0pt{\\kern ";
-    s+= print_dimen(off.x);
-    s+= sym.tex + "\\hss}";
-    return s;
+    String s("\\placebox{%}{%}{%}");
+    svec<String> a;
+    a.add(print_dimen(off.y));
+    a.add(print_dimen(off.x));
+    a.add(sym.tex);
+    return substitute_args(s, a);
 }
 
 

@@ -32,6 +32,7 @@ parse_duration(const char *a, int &j, int &intdur, int &dots)
 }
 
 
+
 void 
 parse_pitch( const char *a, int &j, int &oct, bool & overide_acc,
 	     int & large, int & small)
@@ -94,6 +95,11 @@ get_note_element(String pitch, String durstr)
 
     Note_req * rq = new Note_req( v);
 
+    if (dur >= 2) {
+	Stem_req * st = new Stem_req(v, dur);
+	v->add(st);
+    }
+    
     int oct, pit, acc;
     bool forceacc;
     parse_pitch(pitch, i, oct, forceacc, pit, acc);
@@ -111,6 +117,7 @@ get_note_element(String pitch, String durstr)
     rq->print();
 
     v->add(rq);
+
     return v;
 }
 

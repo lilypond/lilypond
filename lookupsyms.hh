@@ -14,7 +14,9 @@ struct Lookup {
     void parse (Text_db&t);
     Parametric_symbol *linestaff(int n);
     Parametric_symbol *meter(String);
+    Parametric_symbol *stem();
     Symbol ball(int);
+    Symbol flag(int);
     Symbol rest(int);
     Symbol bar(String);
     Symbol dots(int);

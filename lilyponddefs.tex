@@ -12,20 +12,20 @@
 
 \def\musixtwentydefs{
 	\font\musicfnt=musix20
-	\interlinedist=5pt
 	\balkhoog=20pt
 	\staffrulethickness=0.4pt
+}
+
+\def\musixcalc{
 	\interstaffrule=\balkhoog
 	\advance\interstaffrule by-\staffrulethickness
 	\divide\interstaffrule by 4
-	\advance\interstaffrule by -\staffrulethickness		
+	\advance\interstaffrule by -\staffrulethickness
 }
 
-\def\interstaffline{
-	\vskip 20pt%
-}
 
 \musixtwentydefs
+\musixcalc
 
 \mdef\quartball{'007}
 \mdef\halfball{'010}
@@ -43,32 +43,52 @@
 \mdef\doubledot{'01}
 \mdef\tripledot{'02}
 \mdef\mussepline{155}
+\mdef\ieigthflag{45}
+\mdef\isixteenthflag{46}
+\mdef\ithirtysecondflag{47}
+\mdef\ueigthflag{40}
+\mdef\usixteenthflag{41}
+\mdef\uthirtysecondflag{42}
 
 \def\maatstreep{\vrule height\balkhoog}
 \def\finishbar{\vrule height\balkhoog  width 1pt}
 \def\generalmeter#1#2{\vbox to 0pt{\vss\rm\hbox{#1}\hbox{#2}}}
-
 \def\lineseparator{\vbox{\mussepline\vskip -5pt\mussepline}}
-\def\interscoreline{
+
+\def\beauty{
 	\par\vskip 10pt\par
 	\hskip -5pt\lineseparator% \hbox to 1cm{\kern -5mm\hrulefill}
 	\vskip 10pt
 }
 
+\def\interstaffline{%
+	\vskip 10pt
+%	\nointerlineskip
+%	\vbox{\hbox to 0pt{\vrule width20pt height1pt\hss}}
+}
+\def\ugly{\nointerlineskip\par
+\vskip 40pt\par\vbox{\hbox to 0pt{\vrule width30pt height1pt\hss}}\par\vskip 40pt
+}
+\def\interscoreline{\beauty}
 %
 % a staffsymbol with #1 lines, width #2
 % bottom at baseline
-\def\linestafsym#1#2{\hbox to 0pt%
+\def\linestafsym#1#2{\vbox to 0pt{\hbox to 0pt%
   {\vbox to 0pt{\vss%
-	\vskip-\interlinedist
-	\n=0%
+	\kern-\interstaffrule
+	\n=0\nointerlineskip%
 	\loop\ifnum\n<#1\advance\n by1%
-		\vskip\interstaffrule \hrule height \staffrulethickness	width#2
+		\kern\interstaffrule \hrule height \staffrulethickness	width#2
 		\repeat
 	}%
-\hss}}
+\hss}}}
 
 \def\vcenter#1{\vbox to 0pt{\vss #1\vss}}
+\def\topalign#1{\vbox to 0pt{#1\vss}}
+
+\def\eigthflag{\topalign{\ueigthflag}}
+\def\sixteenthflag{\topalign{\usixteenthflag}}
+\def\thirtysecondflag{\topalign{\uthirtysecondflag}}
 
 \def\cquartrest{\vcenter\quartrest}
 \def\ceighthrest{\vcenter\eighthrest}
@@ -78,5 +98,11 @@
 \def\lsingledot{\kern-6pt\singledot}
 \def\ldoubledot{\kern-6pt\doubledot}
 \def\ltripledot{\kern-6pt\tripledot}
+
+\def\stem#1#2{\vrule height#2 depth-#1}
+
+\def\placebox#1#2#3{%
+	\vbox to 0pt{\vss\hbox{\raise #1\hbox to 0pt{\kern #2{}#3\hss}}}%
+}
 
 

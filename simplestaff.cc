@@ -12,6 +12,7 @@ Simple_column::Simple_column(Score_column*s, Simple_staff *rs)
     : Staff_column(s)
 {
     the_note = 0;
+    stem_ = 0;    
     staff_ = rs;
 }
 
@@ -20,7 +21,6 @@ Simple_staff::Simple_staff()
     theline = 0;
 }
 
-// should integrate handling of BREAK commands into Staff_column
 void
 Simple_column::process_commands( )
 {
@@ -50,7 +50,7 @@ Simple_column::process_commands( )
  accept:
 
     BREAK: all
-    TYPESET: bar, meter
+    TYPESET: bar, meter,
 
     */
 
@@ -64,12 +64,15 @@ Simple_column::process_requests()
 	    Request *rq= rqc;
 	    if (rq->rhythmic()){
 		if (the_note){
-		    WARN << "too many notes.\n";
-		    return;
+		    WARN << "too many notes.\n";		    
 		}
 		the_note = rq;
+		
 	    }
-	    break;
+	    if (rq->stem()) {
+		stem_ = rq->stem();
+	    }
+
 	}
 }
 
@@ -80,6 +83,8 @@ Simple_staff::grant_requests()
 	Simple_column *rp = (Simple_column*)*cc;
 	if (rp->the_note)
 	    rp->typeset_req( rp->the_note);
+	if (rp->stem_)
+	    rp->typeset_stem(rp->stem_->stem());
     }
 }
 

@@ -6,6 +6,8 @@ static svec<Score*> sv;
 
 static String outfn="lelie.uit";
 
+// todo: check we don't overwrite default output.
+
 void
 do_scores()
 {

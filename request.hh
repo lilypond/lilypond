@@ -1,4 +1,4 @@
-// mpp96's second egg of columbus!
+// LilyPond's second egg of columbus!
 #ifndef REQUEST_HH
 #define REQUEST_HH
 
@@ -7,17 +7,19 @@
 
 /// a voice element wants something printed
 struct Request {
-    Voice_element*elt;
+    Voice_element*elt;		// indirection.
     
     /****************/
 
     virtual void print()const ;
     virtual Note_req *note() {return 0;}
+    virtual Stem_req *stem() {return 0;}
     virtual Rest_req *rest() {return 0;}
     virtual  Rhythmic_req*rhythmic() { return 0;}
     Request(Voice_element*);
     Request();
     virtual Real duration() const { return 0.0; }
+    virtual Request* clone() const =0;
 };
 
 /**
@@ -45,7 +47,7 @@ struct Request {
     that voice.
 
     After #Staff# made up her mind (Would #Staff# be a smart
-    name? How about #struct Lily {}# :-), the resultant items and
+    name? How about #struct Susan {}# :-), the resultant items and
     spanners are put on the PScore, and pointers to these items are
     stored in the #Voice_element#. This construction enables the
     beams/stems to look up the balls it has to connect to.  */
@@ -62,6 +64,7 @@ struct Rhythmic_req : Request {
     Rhythmic_req(Voice_element*);
     Rhythmic_req*rhythmic() { return this;}
     void print ()const;
+    Request*clone() const;
 };
 
 /// Put a note of specified type, height, and with accidental on the staff.
@@ -78,6 +81,7 @@ struct Note_req : Rhythmic_req {
     Note_req(Voice_element*v);
     Note_req*note() { return this;}
     virtual void print() const;
+    Request*clone() const;
 };
 /**
 Staff has to decide if the ball should be hanging left or right. This
@@ -95,10 +99,21 @@ struct Rest_req : Rhythmic_req {
     void print()const;
     Rest_req(Voice_element*v) : Rhythmic_req(v) {  }
     Rest_req * rest() { return this;}
+    Request*clone() const ;
 };
 /**
 Why a request? It might be a good idea to not typeset the rest, if the paper is too crowded.
 */
+
+/// attach a stem to the noteball
+struct Stem_req : Request {
+    /// 4,8,16, ..
+    int stem_number;
+    virtual Stem_req *stem() {return this;}
+    Stem_req(Voice_element*v, int s) : Request(v) { stem_number = s; }
+    Request*clone() const;
+};
+
 
 #if 0
 
@@ -136,11 +151,6 @@ enum Loudness {
     FFF, FF, F, MF, MP, P, PP, PPP
 } ;
 
-/// attach a stem to the noteball
-struct Stem_req : Request {
-    /// 4,8,16, ..
-    int stem_number ;
-};
 /// requests to start or stop something.
 struct Span_req : Request {
     /// should the spanner start or stop, or is it unwanted?

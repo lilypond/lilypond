@@ -128,7 +128,7 @@ public:
 	       int lower = -1, int upper = -1 ) {
 	if (lower < 0) {
 	    lower = 0 ;
-	    upper = sz();
+	    upper = sz()-1;
 	}
 	if (lower >= upper)
 	    return;

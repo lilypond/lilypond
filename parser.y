@@ -130,7 +130,7 @@ staff_block:
 	| melodicstaff_block
 	;
 
-staffdecl: STAFF '{' IDENTIFIER '}' { $$ = $3->staff(); }
+staffdecl: STAFF '{' IDENTIFIER '}' { $$ = $3->staff()->clone(); }
 	;
 
 rhythmstaff_block:

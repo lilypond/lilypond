@@ -11,21 +11,25 @@
 
 /// Use for list of pointers, e.g. PointerList<AbstractType*>.
 template<class T>
-class PointerList : public List<T>
+class PointerList : public List<void *>
 {
  public:
-    PointerList(PointerList&) { set_empty(); }
-    PointerList( const T& thing ) : List<T>( thing ) { }
+    PCursor<T> top() {  return PCursor<T> (List<void*>::top()); }
+    PCursor<T> bottom() { return PCursor<T> (List<void*>::bottom()); }
+    
+    PointerList( const T& thing ) : List<void*>( thing ) { }
     PointerList() {}
-    ///
-    virtual ~PointerList();
-    /**
-      This function deletes deletes the allocated pointers of all links. 
-      #\Ref{~List}# is used to delete the links themselves.
-      */ 
+};
 
- protected:
-    virtual void remove( Cursor<T> me );
+
+/// intrusive pl. deletes pointers given to it.
+template<class T>
+struct IPointerList : public PointerList<T> {
+    IPointerList(IPointerList&) { set_empty(); }
+    IPointerList() { }
+protected:
+    virtual void remove( Cursor<void*> me ) { remove (PCursor<T>(me)); }
+    virtual void remove( PCursor<T> me );
 };
 /**
   NOTE:
@@ -37,16 +41,18 @@ class PointerList : public List<T>
   You have to copy this yourself, or use the macro PointerList__copy
   
   */
-#define PointerList__copy(T, to, from, op)   \
+#define IPointerList__copy(T, to, from, op)   \
   for (PCursor<T> _pc_(from); _pc_.ok(); _pc_++)\
       to.bottom().add(_pc_->op)\
   \
 
 
 template<class T>
-void PL_copy(PointerList<T*> &dst,PointerList<T*> const&src);
+void PL_copy(IPointerList<T*> &dst,IPointerList<T*> const&src);
+
 
 #define PL_instantiate(a) L_instantiate(a *); template class PointerList<a*>
+#define IPL_instantiate(a) PL_instantiate(a); template class IPointerList<a*>
 
 #include "plist.inl"
 

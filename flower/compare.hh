@@ -1,13 +1,23 @@
+/*
+  flowerlib
+
+  (c) 1996 Han-Wen Nienhuys
+  */
 #ifndef COMPARE_HH
 #define COMPARE_HH
 
+
+#define one_operator(type, function, op)        \
+inline bool operator op (type t1, type t2) { return function(t1, t2) op 0; }	
+
 /// handy notations for a signed comparison
 #define template_instantiate_compare(type, function, prefix)				\
-prefix inline bool operator>(type t1, type t2) { return function(t1, t2) > 0; }	\
-prefix inline bool operator>=(type t1, type t2) { return function(t1, t2) >= 0; }	\
-prefix inline bool operator==(type t1, type t2) { return function(t1, t2) == 0; }	\
-prefix inline bool operator<=(type t1, type t2) { return function(t1, t2) <= 0; }	\
-prefix inline bool operator<(type t1, type t2) { return function(t1, t2) < 0; } \
+prefix one_operator(type, function, >)\
+prefix one_operator(type, function, >=)\
+prefix one_operator(type, function, ==)\
+prefix one_operator(type, function, !=)\
+prefix one_operator(type, function, <)\
+prefix one_operator(type, function, <=)\
 prefix inline type MAX(type t1, type t2) {  return (t1 > t2 )? t1 : t2; }\
 prefix inline type MIN(type t1, type t2) {  return (t1 < t2 )? t1 : t2; }\
   \

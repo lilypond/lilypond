@@ -9,28 +9,46 @@
 #define PCURSOR_HH
 
 
-/// cursor which feels like a pointer
+/// cursor to go with PointerList
 template<class T>
-struct PCursor : public Cursor<T> {
+struct PCursor : public Cursor<void *> {
 
     /// make cursor with #no# items back
     PCursor<T> operator -( int no) const {
-	return PCursor<T> (Cursor<T>::operator-(no));
+	return PCursor<T> (Cursor<void*>::operator-(no));
     }
 
     /// make cursor with #no# items further
     PCursor<T> operator +( int no) const {
-	return PCursor<T> (Cursor<T>::operator+(no));
+	return PCursor<T> (Cursor<void*>::operator+(no));
     }
-    PCursor(const List<T> & l) : Cursor<T> (l) {}
+    PCursor(const PointerList<T> & l) : Cursor<void*> (l) {}
 
-    PCursor( const Cursor<T>& cursor ) : Cursor<T>(cursor) { }
-    T operator ->() const { return  *(*(Cursor<T> *)this); }
+    PCursor( const Cursor<void*>& cursor ) : Cursor<void*>(cursor) { }
+    void* vptr() const { return  * ((Cursor<void*> &) *this); }
 
+    // should return T& ?
+    T ptr() const { return (T) vptr(); }
+    T operator ->() const { return  ptr(); }
+    operator T() { return ptr(); }
+    T operator *() { return ptr(); }
+
+private:
+//    Cursor<void*>::operator void*;
+    // sigh
 };
 /**
- I like  operator->(), so here it is.
-
- Cursor to go with pointer list.
+don't create PointerList<void*>'s
  */
+
+
+template<class T>
+inline  int pcursor_compare(PCursor<T> a,PCursor<T>b)
+{
+    return cursor_compare(Cursor<void*>(b),Cursor<void*> (a));
+}
+
+#include "compare.hh"
+template_instantiate_compare(PCursor<T>, pcursor_compare, template<class T>);
+
 #endif

@@ -1,6 +1,13 @@
-fonttables -> fontdims
-clear IDENTIFIERs
-Paperdef -> fontsize .
-beam + stem
+	* clefs
 
+	* beam
 
+	* fonttables -> fontdims
+
+	* clear IDENTIFIERs
+
+	* Paperdef -> fontsize .
+
+	* merge Paper, Lookup, Outputfile, and Symtable.
+
+	* all places in the code marked TODO! and ugh/ARGH
