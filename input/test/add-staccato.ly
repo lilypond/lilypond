@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.0"  %% or actually: 1.7.1 ...
 \header {
 
 texidoc= "Using make-music, you can add various stuff to notes. Here
@@ -8,12 +8,12 @@ one would not use scm constructs.  See separate-staccato.ly first."
 } 
 
 #(define (make-script x)
-   (let ((m (ly-make-music "Articulation_req")))
+   (let ((m (make-music-by-name "Articulation_req")))
      (ly-set-mus-property! m 'articulation-type x)
      m))
     
 #(define (add-script m x)
-   (if (equal? (ly-music-name m) "Request_chord")
+   (if (equal? (make-music-by-name m) "Request_chord")
        (ly-set-mus-property! m 'elements
 			    (cons (make-script x)
 				  (ly-get-mus-property m 'elements)))
