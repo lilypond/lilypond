@@ -18,16 +18,18 @@ center(mudela(fragment)(
 	\relative c'' { \key es; r8 [c16 b] [c8 g] [as c16 b] [c8 d] | g,4 }
 ))
 
-
-
-
-
 nsect(Free Software)
 
 Of course LilyPond, being part of the GNU project, is url(free
 software)(http://www.fsf.org/copyleft/copyleft.html).  For more
 url(information)(http://www.fsf.org/philosophy/philosophy.html), see
 the url(Free Software Foundation)(http://www.fsf.org/).
+
+LilyPond comes in two variants, a stable one, and a development
+snapshots.  The webpages matching the stable versions are at
+lurl(http://www.gnu.org/software/...), the development pages are at
+lurl(http://www.cs.uu.nl/~hanwen/lilypond/).
+
 
 nsect(Preview)
 

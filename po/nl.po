@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"POT-Creation-Date: 1999-08-15 23:58+0200\n"
+"POT-Creation-Date: 1999-08-20 18:48+0200\n"
 "Content-Type: text/plain; charset=\n"
 "Date: 1998-05-26 11:26:28+0200\n"
 "From:  <janneke@gnu.org>\n"
@@ -28,27 +28,27 @@ msgstr "Onvoldoende velden in Dstream init."
 msgid "Debug output disabled.  Compiled with NPRINT."
 msgstr "Ontluis berichten zijn uitgeschakeld.  Vertaald met NPRINT."
 
-#: getopt-long.cc:103
+#: getopt-long.cc:141
 #, c-format
 msgid "option `%s' requires an argument"
 msgstr "optie `%s' vereist een argument"
 
-#: getopt-long.cc:107
+#: getopt-long.cc:145
 #, c-format
 msgid "option `%s' doesn't allow an argument"
 msgstr "optie `%s' staat geen argument toe"
 
-#: getopt-long.cc:111
+#: getopt-long.cc:149
 #, c-format
 msgid "unrecognized option: `%s'"
 msgstr "onbekende optie: `%s'"
 
-#: getopt-long.cc:113
+#: getopt-long.cc:151
 #, c-format
 msgid "%c"
 msgstr ""
 
-#: getopt-long.cc:117
+#: getopt-long.cc:155
 #, c-format
 msgid "invalid argument `%s' to option `%s'"
 msgstr "onjuist argument: `%s' voor optie `%s'"
@@ -368,117 +368,127 @@ msgstr ""
 msgid "Aborting"
 msgstr ""
 
-#: lookup.cc:434
+#: lookup.cc:436
 #, c-format
 msgid "Non-matching braces in text `%s', adding braces."
 msgstr ""
 
-#: main.cc:85
+#: main.cc:68
+msgid "BASENAME"
+msgstr "BASISNAAM"
+
+#: main.cc:68
+msgid "write output to BASENAME[-x].extension"
+msgstr "schrijf uitvoer naar BASISNAME[-x].extensie"
+
+#: main.cc:69 main.cc:101
+msgid "show warranty and copyright"
+msgstr "toon garantie en copyright"
+
+#: main.cc:70 main.cc:92
+msgid "this help"
+msgstr "deze hulp"
+
+#: main.cc:71
+msgid "switch on experimental features"
+msgstr "doe experimentele kunstjes"
+
+#: main.cc:72 main.cc:91
+msgid "enable debugging output"
+msgstr "toon ontluis berichten"
+
+#: main.cc:73 main.cc:95
+msgid "FILE"
+msgstr "BESTAND"
+
+#: main.cc:73
+msgid "use FILE as init file"
+msgstr "gebruik BESTAND als initialisatiebestand"
+
+#: main.cc:74
+msgid "DIR"
+msgstr "DIR"
+
+#: main.cc:74
+msgid "add DIR to search path"
+msgstr "voeg DIR toe aan zoekpad"
+
+#: main.cc:75
+msgid "produce midi output only"
+msgstr "produceer alleen midi uitvoer"
+
+#: main.cc:76
+msgid "write Makefile dependencies for every input file"
+msgstr "schrijf Makefile afhankelijkheden voor elk invoerbestand"
+
+#: main.cc:77 main.cc:99
+msgid "don't timestamp the output"
+msgstr "geen tijdstempel in de uitvoer"
+
+#: main.cc:78
+msgid "show all changes in relative syntax"
+msgstr "toon veranderingen voor relatieve mode"
+
+#: main.cc:79
+msgid "ignore mudela version"
+msgstr "verkeerde mudela versie: %s (%s, %s)"
+
+#: main.cc:80 main.cc:103
+msgid "print version number"
+msgstr "toon versienummer"
+
+#: main.cc:81
+msgid "EXT"
+msgstr "EXT"
+
+#: main.cc:81
+msgid "use output format EXT"
+msgstr "gebruik uitvoer formaat EXT"
+
+#: main.cc:82
+msgid "inhibit file output naming and exporting"
+msgstr "verbiedt naamgeving van uitvoer bestand en TeX macro's"
+
+#: main.cc:89
 #, c-format
 msgid "Usage: %s [OPTION]... [FILE]..."
 msgstr "Gebruik: %s [OPTIE]... [BESTAND]..."
 
-#: main.cc:86
-msgid "Typeset music and or play MIDI from FILE or <stdin>"
+#: main.cc:91
+msgid "Typeset music and or play MIDI from FILE."
 msgstr "Zet muziek en of speel MIDI van FILE of <stdin>"
 
-#: main.cc:47 main.cc:89
+#: main.cc:97 main.cc:115
 msgid "Options:"
 msgstr "Opties:"
 
-#: main.cc:92
-msgid "  -a, --about            about LilyPond\n"
-msgstr "  -a, --about            over LilyPond\n"
+#: main.cc:101
+msgid "This binary was compiled with the following options:"
+msgstr "Dit programma is vertaald met de volgende instellingen:"
 
-#: main.cc:95
-msgid "  -d, --debug            enable debugging output\n"
-msgstr "  -D, --debug            toon ontluis berichten\n"
+#: main.cc:118 main.cc:119
+msgid "Report bugs to"
+msgstr "Rapporteer bugs naar"
 
-#: main.cc:98
+#: main.cc:52 main.cc:134
+#, c-format
 msgid ""
-"  -M, --dependencies     write Makefile dependencies for every input file\n"
+"This is free software.  It is covered by the GNU General Public License,and "
+"you are welcome to change it and/or distribute copies of it undercertain "
+"conditions.  Invoke as `%s --warranty' for more information.\n"
 msgstr ""
-"  -d, --dependencies     schrijf Makefile afhankelijkheden voor elk\n"
-"                           invoerbestand\n"
 
-#: main.cc:56 main.cc:101
-msgid "  -h, --help             this help\n"
-msgstr "  -h, --help             deze hulp\n"
-
-#: main.cc:104
-msgid "  -f, --output-format=X  use output format X\n"
-msgstr "  -f, --output-format=X  gebruik uitvoer formaat X\n"
-
-#: main.cc:59 main.cc:107
-msgid "  -I, --include=DIR      add DIR to search path\n"
-msgstr "  -I, --include=INDEX    voeg INDEX toe aan zoekpad\n"
-
-#: main.cc:110
-msgid "  -i, --init=FILE        use FILE as init file\n"
-msgstr "  -i, --init=BESTAND     gebruik BESTAND als initialisatiebestand\n"
-
-#: main.cc:113
-msgid "  -m, --no-paper         produce midi output only\n"
-msgstr "  -M, --no-paper         produceer alleen midi uitvoer\n"
-
-#: main.cc:116
-msgid "  -o, --output=FILE      set FILE as default output base\n"
-msgstr "  -o, --output=BESTAND   zet BESTAND als uitvoer basis\n"
-
-#: main.cc:119
-msgid "  -Q, --find-old-relative show all changes in relative syntax\n"
-msgstr "  -Q, --find-old-relative toon veranderingen voor relatieve mode\n"
-
-#: main.cc:122
-msgid ""
-"  -s, --safe             inhibit file output naming and exporting TeX  "
-"macros\n"
-msgstr ""
-"  -s, --safe             verbiedt naamgeving van uitvoer bestand en TeX "
-"macro's\n"
-
-#: main.cc:124
-msgid "  -t, --test             switch on experimental features\n"
-msgstr "  -t, --test             doe experimentele kunstjes\n"
-
-#: main.cc:77 main.cc:127
-msgid "  -T, --no-timestamps    don't timestamp the output\n"
-msgstr "  -T, --no-timestamps    zet geen tijdstempel in de uitvoer\n"
-
-#: main.cc:130
-msgid "  -V, --ignore-version   ignore mudela version\n"
-msgstr "  -V, --ignore-version   negeer mudela versie\n"
-
-#: main.cc:86 main.cc:133
-msgid "  -w, --warranty         show warranty and copyright\n"
-msgstr "  -w, --warranty         toon garantie en copyright\n"
-
-#: main.cc:136
-msgid "GNU LilyPond was compiled with the following settings:"
-msgstr "GNU LilyPond is vertaald met de volgende instellingen:"
-
-#: main.cc:166
-msgid "GNU LilyPond is Free software, see --warranty"
-msgstr "GNU LilyPond is Vrij bedenksel, zie --warranty"
-
-#: main.cc:106 main.cc:169 main.cc:182
+#: main.cc:59 main.cc:141 main.cc:153
 #, c-format
 msgid "Copyright (c) %s by"
 msgstr "Copyright (c) %s "
 
-#: main.cc:108 main.cc:171 main.cc:184
-msgid "Han-Wen Nienhuys <hanwen@cs.uu.nl>"
-msgstr ""
-
-#: main.cc:109 main.cc:172 main.cc:185
-msgid "Jan Nieuwenhuizen <janneke@gnu.org>"
-msgstr ""
-
-#: main.cc:180
+#. GNU GNU?
+#: main.cc:151
 msgid "GNU LilyPond -- The GNU Project music typesetter"
 msgstr "GNU LilyPond -- De Muziekzetter van het GNU Project"
 
-#: main.cc:112 main.cc:188
+#: main.cc:68 main.cc:159
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License version 2\n"
@@ -872,7 +882,7 @@ msgstr "Ik ben te dik."
 #: parser.yy:55
 #, c-format
 msgid "Oldest supported input version: %s"
-msgstr ""
+msgstr "Oudst ondersteunde invoer versie: %s"
 
 #: parser.yy:313
 msgid "Cannot evaluate Scheme in safe mode"
@@ -955,8 +965,11 @@ msgid ""
 "using a high level description file as input.  LilyPond is part of \n"
 "the GNU Project.\n"
 "\n"
-"\n"
 msgstr ""
+"LilyPond is een muziekzetter.  Zij maakt prachtige bladmuziek\n"
+"uitgaande van een hoog niveau beschrijving bestand.  LilyPond \n"
+"maakt deel uit van het GNU Project.\n"
+"\n"
 
 #: out/COPERTINA.hh:2
 msgid ""
@@ -974,70 +987,63 @@ msgstr ""
 
 #: out/FLAPTEKST.hh:2
 msgid ""
-"LilyPond is de muziekzetter van het GNU Project.  Dit programma drukt\n"
-"prachtige bladmuziek volgens een muzikaal definitie bestand.  Ook kan\n"
-"het een mechanische uitvoering afspelen naar een MIDI bestand.\n"
-"Bijzondere kunstjes zijn verscheidene notenbalken, maatsoorten, sleutels, \n"
-"toonaarden, zangteksten, krachtige invoer taal, cadensa, balken, boogjes, \n"
-"triolen, accoordnamen, transponeren, partituren, en uittreksels voor \n"
-"individuele partijen.  Een fraaie set muziektekens is inbegrepen.\n"
+"LilyPond is een muziekzetter.  Zij maakt prachtige bladmuziek\n"
+"uitgaande van een hoog niveau beschrijving bestand.  LilyPond \n"
+"maakt deel uit van het GNU Project.\n"
 msgstr ""
 
-#: main.cc:42
+#: main.cc:90
+msgid "write exact durations, e.g.: a4*385/384"
+msgstr "schrijf exacte duren, bijv.: a4*385/384"
+
+#: main.cc:93
+msgid "ACC[:MINOR]"
+msgstr "ACC[:MINEUR]"
+
+#: main.cc:93
+msgid "set key: ACC +sharps/-flats; :1 minor"
+msgstr "zet toonsoort: ACC +kruizen/-mollen; :1 mineur"
+
+#: main.cc:94
+msgid "assume no tuplets or double dots, smallest is 32"
+msgstr "ga niet uit van tuplets of dubbel gepunkteerd, kortste is 32"
+
+#: main.cc:95
+msgid "set FILE as default output"
+msgstr "zet BESTAND als verval uitvoer"
+
+#: main.cc:96
+msgid "assume no tuplets"
+msgstr "ga niet uit van tuplets"
+
+#: main.cc:97
+msgid "be quiet"
+msgstr "wees stil"
+
+#: main.cc:98
+msgid "DUR"
+msgstr "DUUR"
+
+#: main.cc:98
+msgid "Set smallest duration (?)"
+msgstr "Zet kortste duur (?)"
+
+#: main.cc:100
+msgid "be verbose"
+msgstr "wees breedsprakig"
+
+#: main.cc:102
+msgid "assume no double dotted notes"
+msgstr "ga niet uit van dubbel gepunkteerde noten"
+
+#: main.cc:110
 #, c-format
 msgid "Usage: %s [OPTION]... [FILE]"
 msgstr "Gebruik: %s [OPTIE]... [BESTAND]"
 
-#: main.cc:44
+#: main.cc:112
 msgid "Translate midi-file to mudela"
 msgstr "Vertaal midi-bestand naar mudela"
-
-#: main.cc:50
-msgid "  -b, --no-quantify      write exact durations, e.g.: a4*385/384\n"
-msgstr "  -b, --no-quantify      schrijf exacte duren, bijv.: a4*385/384\n"
-
-#: main.cc:53
-msgid "  -D, --debug            enable debugging output\n"
-msgstr "  -D, --debug            toon ontluis berichten\n"
-
-#: main.cc:62
-msgid "  -k, --key=ACC[:MINOR]  set key: ACC +sharps/-flats; :1 minor\n"
-msgstr "  -k, --key=ACC[:MINEUR] zet toonsoort: ACC +kruizen/-mollen; :1 mineur\n"
-
-#: main.cc:65
-msgid ""
-"  -n, --no-silly         assume no tuplets or double dots, smallest is 32\n"
-msgstr "  -n, --no-silly         ga niet uit van tuplets of dubbel gepunteerd,       "
-"                              kortste is 32\n"
-
-#: main.cc:68
-msgid "  -o, --output=FILE      set FILE as default output\n"
-msgstr "  -o, --output=BESTAND   zet BESTAND als verval uitvoer\n"
-
-#: main.cc:71
-msgid "  -p, --no-tuplets       assume no tuplets\n"
-msgstr "  -p, --no-tuplets       ga uit van geen tuplets\n"
-
-#: main.cc:74
-msgid "  -q, --quiet            be quiet\n"
-msgstr "  -q, --quiet            wees stil\n"
-
-#: main.cc:80
-msgid ""
-"  -s, --smallest=N       assume no shorter (reciprocal) durations than N\n"
-msgstr "  -s, --smallest=N       ga niet uit van kortere (reciproke) duren dan N\n"
-
-#: main.cc:83
-msgid "  -v, --verbose          be verbose\n"
-msgstr "  -v, --verbose          wees breedsprakig\n"
-
-#: main.cc:89
-msgid "  -x, --no-double-dots   assume no double dotted notes\n"
-msgstr "  -x, --no-double-dots   ga niet uit van dubbel gepunkteerde noten\n"
-
-#: main.cc:104
-msgid "Midi2ly, translate midi to mudela"
-msgstr "Midi2ly, vertaal midi naar mudela"
 
 #: midi-parser.cc:64
 msgid "zero length string encountered"
@@ -1163,9 +1169,17 @@ msgstr ""
 msgid "% from input file: "
 msgstr ""
 
-#: version.cc:11
-msgid "of"
-msgstr "van"
+#~ msgid "this help "
+#~ msgstr "deze hulp"
+
+#~ msgid "GNU LilyPond is Free Software, see --warranty"
+#~ msgstr "GNU LilyPond is Vrij bedenksel, zie --warranty"
+
+#~ msgid "Midi2ly, translate midi to mudela"
+#~ msgstr "Midi2ly, vertaal midi naar mudela"
+
+#~ msgid "of"
+#~ msgstr "van"
 
 #~ msgid "please fix me"
 #~ msgstr "repareer mij alsjeblieft"

@@ -16,12 +16,8 @@ datadir = ''
 import find
 import os
 import sys
-
 import getopt
 from string import *
-import regsub
-
-# todo, port: see http://starship.skyport.net/crew/amk/regex/regex-to-re.html
 import re
 import time
 

@@ -353,6 +353,10 @@ class TeXOutput:
 
 
 
+
+# ARG! THIS CODE IS BLOATED:
+# FIXME: Junk all set/get methods.
+
 class Properties:
     """
     This class handles all ly2dvi.py property manipulation

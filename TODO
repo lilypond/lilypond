@@ -8,8 +8,9 @@ m
 Most of the items are marked in the code as well
 Grep -i for TODO, FIXME and ugh/ugr/urg.  
 
-.* TODO after 1.2
+.* TODO 
 . * Break_req handling is silly (break_forbid () + \break fucks up.)
+. * redo all --help  messages.
 . * HaraKiriStaffContext removes bar lines and doesn't remove
     staff margin text on removed staff lines.
 . * make all Feta (including dynamics) available to the user in
@@ -24,7 +25,19 @@ abc2ly, midi2ly?
 . * Junk ghost positioning objects eg, Script leans on  Staffside
     leans on Staff.
 . * bracket ps code.
-. * mudela-book.
+. * mudela-book
+.  * center option (??)
+.  * make mudela-book understand usepackage{geometry}
+.  * check that linewidth set in \paper is not wider than actual linewidth?
+.  * the following fails because mudelabook doesn't care that the
+  last } after \end{mudela} finishes the marginpar:
+    \marginpar{
+    \begin{mudela}
+       c d e f g
+    \end{mudela}}
+.  * force-verbatim is maybe not that useful since latex fails with footnotes,
+  marginpars and others
+"""
 . * Key_engraver, Local_key_item
 . * Think of comprehensive solution for "if (grace_b == self_grace_b_)"
 . * String[String.length] doesn't trap.

@@ -1,3 +1,25 @@
+pl 1.uu2
+	- complete rewrite of mudela-book. Much cleaner now.
+Support for texinfo.
+	- convert-mudela now per file, add \version if not present.
+
+pl 1.uu1.jcn1
+	- internationalization fixes for getopt-long help
+
+pl 1.uu1
+	- rewrite --help messages for help2man:
+	* lilypond
+	* mi2mu
+	* mudela-book
+	* convert-mudela
+	- cleanup: mf-to-table.py
+	- Getopt_long: support for --help msg.
+
+pl 1.mb1
+ 	- bf, scalar.cc: ".3" now detected as numerical
+
+********
+	
 pl 0.uu1
 	- refman updates by Werner & Mats
 	- now use ChangeLog for changes.

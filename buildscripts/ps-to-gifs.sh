@@ -74,7 +74,6 @@ fi
 # urg, pipe breaks
 rm -f $BASE{.ppm,.$GIF} $BASE-page*{.ppm,.$GIF}
 
-# generate the pixmap at twice the size, then rescale (for antialiasing)
 cat $FILE | gs -sDEVICE=pgm $SIZE -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -sOutputFile="$BASE-page%d.ppm" -r90 -dNOPAUSE - -c quit $FILE
 # quant is soo slow
 # cat $PPMFILE | ppmquant 2 | pnmscale 0.3333 | pnmcrop | $PNMTOGIF $color > $OUTFILE

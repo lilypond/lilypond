@@ -1,7 +1,3 @@
-LilyPond is de muziekzetter van het GNU Project.  Dit programma drukt
-prachtige bladmuziek volgens een muzikaal definitie bestand.  Ook kan
-het een mechanische uitvoering afspelen naar een MIDI bestand.
-Bijzondere kunstjes zijn verscheidene notenbalken, maatsoorten, sleutels, 
-toonaarden, zangteksten, krachtige invoer taal, cadensa, balken, boogjes, 
-triolen, accoordnamen, transponeren, partituren, en uittreksels voor 
-individuele partijen.  Een fraaie set muziektekens is inbegrepen.
+LilyPond is een muziekzetter.  Zij maakt prachtige bladmuziek
+uitgaande van een hoog niveau beschrijving bestand.  LilyPond 
+maakt deel uit van het GNU Project.

@@ -32,7 +32,7 @@ This document assumes you have basic knowledge of GNU LilyPond and
 send a patch.
 
 So what does this look like? Well, here is an example:
-\begin{mudela}[veryverbatim, intertext="produces this music:"]
+\begin[veryverbatim, intertext="produces this music:"]{mudela}
 \score{
   \notes\relative c'{
     \time 5/8;
@@ -67,7 +67,7 @@ music, another file than \verb|paper16.ly| will be included.
 If you want to make the music not so wide, you can insert a
 \verb|\paper| statement that set the linewidth:
 
-\begin{mudela}[veryverbatim, intertext="produces this music:"]
+\begin[veryverbatim, intertext="produces this music:"]{mudela}
 \score{
   \notes\relative c'{
     \time 5/8;
@@ -88,12 +88,12 @@ If you only write voice-contents in the mudela block, mudela-book
 will set the \verb|linewidth| variable to -1, so Lilypond
 will make the music as short as possible but without breaking the
 line. Here is a well know harmonic progression:
-\begin{mudela}[veryverbatim, intertext="produce a well known harmonic progression:"]
+\begin[veryverbatim, intertext="produce a well known harmonic progression:"]{mudela}
   <c' e g> <b d g> <c2 e g>
 \end{mudela}
 
 If you want to place music examples in the text,
-\begin{mudela}[eps]
+\begin[eps]{mudela}
   <c' e g> <b d g> <c2 e g>
 \end{mudela}
 , you can use the \verb|eps| option. This will create the music as
@@ -102,14 +102,14 @@ eps graphics and include it into the document with the
 
 The code used look like this:
 \begin{verbatim}
-\begin{mudela}[eps]
+\begin[eps]{mudela}
   <c' e g> <b d g> <c2 e g>
 \end{mudela}
 \end{verbatim}
 
 You can also use the \verb|eps| option if the block is a complete
 mudela source. This 5 cm long empty line, 
-\begin{mudela}[eps]
+\begin[eps]{mudela}
 \score{
   \notes{s}
   \paper{ linewidth = 5.\cm;}
@@ -117,7 +117,7 @@ mudela source. This 5 cm long empty line,
 \end{mudela}
 was created with this code:
 \begin{verbatim}
-\begin{mudela}[eps]
+\begin[eps]{mudela}
 \score{
   \notes{s}
   \paper{ linewidth = 5.\cm;}
@@ -140,7 +140,7 @@ You can use all lilypond fontsizes in mudela-book.
 The default 16pt fontsize, \mudela{<c' e g>}, is probably to big to be included in the middle of the text. 11pt, \mudela[11pt]{<c' e g>} or 13pt, \mudela[13pt]{<c' e g>} is probably better.
 The code can look like this:
 \begin{verbatim}
-\begin{mudela}[13pt, eps]
+\begin[13pt, eps]{mudela}
 <c' e g>
 \end{mudela}
 \end{verbatim}
@@ -148,35 +148,35 @@ The code can look like this:
 The following options set the fontsize:
 \begin{itemize}
 \item \verb|11pt|
-\begin{mudela}[11pt, eps]
+\begin[11pt, eps]{mudela}
   \relative c'{
     r16 [c d e][f d e c] [g'8 c][b-\prall c] |
     [d16 g, a b][c a b g][d'8 g f-\prall g]
   }
 \end{mudela}
 \item \verb|13pt|
-\begin{mudela}[13pt, eps]
+\begin[13pt, eps]{mudela}
   \relative c'{
     r16 [c d e][f d e c] [g'8 c][b-\prall c] |
     [d16 g, a b][c a b g][d'8 g f-\prall g]
   }
 \end{mudela}
 \item \verb|16pt|
-\begin{mudela}[16pt, eps]
+\begin[16pt, eps]{mudela}
   \relative c'{
     r16 [c d e][f d e c] [g'8 c][b-\prall c] |
     [d16 g, a b][c a b g][d'8 g f-\prall g]
   }
 \end{mudela}
 \item \verb|20pt|
-\begin{mudela}[20pt, eps]
+\begin[20pt, eps]{mudela}
   \relative c'{
     r16 [c d e][f d e c] [g'8 c][b-\prall c] |
     [d16 g, a b][c a b g][d'8 g f-\prall g]
   }
 \end{mudela}
 \item \verb|26pt|
-\begin{mudela}[26pt, eps]
+\begin[26pt, eps]{mudela}
   \relative c'{
     r16 [c d e][f d e c] [g'8 c][b-\prall c] |
     [d16 g, a b][c a b g][d'8 g f-\prall g]
@@ -196,12 +196,12 @@ file is a definition of a python dictionary:
 
 \begin{verbatim}
 {    'mudela': r"""
-\begin{mudela}[eps \fontoptions]
+\begin[eps \fontoptions]{mudela}
     \maininput
 \end{mudela}
 """,
     'mudelaRhythm': r"""
-\begin{mudela}[eps \fontoptions]
+\begin[eps \fontoptions]{mudela}
 \score{
     \context RhythmicStaff{
         \notes{\stemup \maininput}
@@ -216,7 +216,7 @@ The above code show how \verb|\mudela| could have been defined, and
 also defines a new command \verb|mudelaRhythm|. Notice that you can
 send fontsize options to the defined commands. 
 \verb|\mudelaRhythm[11pt]{c4 c8 [c16 c] c4 c}| produce this music:
-\begin{mudela}[eps, 11pt]
+\begin[eps, 11pt]{mudela}
 \score{
   \context RhythmicStaff{
     \notes{ \stemup c4 r8 [c16 c] c4 c }
@@ -244,18 +244,18 @@ need to wait for the price money to grow. So send a bug report today
 if you need this one of these options.
 
 \section{Examples}
-This was all options to \verb|\begin{mudela}|. The rest of the
+This was all options to \verb|\begin|. The rest of the{mudela}
 document will show some ways you can use mudela in
 \LaTeX~documents. It will also act as a simple test-suite for
 mudela-book. You 
 \marginpar{
 marginpar!
-\begin{mudela}[eps, 11pt]
+\begin[eps, 11pt]{mudela}
  \relative c'' {\key c \minor; r4 [g8 g g] es2}
 \end{mudela}
 }can place \verb|eps| mudela in footnotes\footnote{
 footnote!
-\begin{mudela}[eps, 11pt]
+\begin[eps, 11pt]{mudela}
  \relative c'' {\key c \minor;r4 [g8 g g] es2}
 \end{mudela}
 }
@@ -284,7 +284,7 @@ the right marging if you set floatingfigure width and mudela linewidth
 to the same value. The code looks like this:
 
 \verb|\begin{floatingfigure}{7cm}|
-\begin{mudela}[verbatim]
+\begin[verbatim]{mudela}
 \score{
   \notes\relative c'{ 
     \time 12/8;  
@@ -310,22 +310,22 @@ names of some triads:
 \hline
 
 dur &
-\begin{mudela}[eps, fragment]
+\begin[eps, fragment]{mudela}
 <c' e g>
-\end{mudela} 
+\end{mudela}
 \\
 \hline moll &
-\begin{mudela}[eps]
+\begin[eps]{mudela}
 <c' es g>
 \end{mudela}
 \\
 \hline forminsket &
-\begin{mudela}[eps]
+\begin[eps]{mudela}
 <c' es ges>
 \end{mudela}
 \\
 \hline forstørret &
-\begin{mudela}[eps]
+\begin[eps]{mudela}
 <c' e gis>
 \end{mudela}
 \\
@@ -347,11 +347,11 @@ line. The following code will probably break:
 \begin{verbatim}
 \footnote{\begin{mudela}
 \relative c''{ \key es; r8 [g g g] es2}
-\end{mudela}}
+\end}{mudela}
 \end{verbatim}
 Mudela-book does know about \verb|\onecolumn| and \verb|\twocolumn|. 
 So the music will be adjusted to the new linewith:
-\begin{mudela}[veryverbatim, intertext="produces"]
+\begin[veryverbatim, intertext="produces"]{mudela}
 \score{
     \notes\relative c'{c d e f | g2 g | a4 a a a | g1 |
          f4 f f f | e2 e | d4 d d d | c1}

@@ -14,7 +14,7 @@
 #  - rewrite in python
 
 program_name = 'convert-mudela'
-version = '0.4'
+version = '@TOPLEVEL_VERSION@'
 
 import os
 import sys
@@ -28,11 +28,43 @@ mudela_version_re_str = '\\\\version *\"(.*)\"'
 mudela_version_re = re.compile(mudela_version_re_str)
 
 def program_id ():
-	return '%s version %s' %(program_name,  version);
+	return '%s (GNU LilyPond) %s' %(program_name,  version);
 
 def identify ():
 	sys.stderr.write (program_id () + '\n')
 
+def usage ():
+	sys.stdout.write (
+		r"""Usage: %s [OPTION]... [FILE]... 
+Try to convert to newer mudela-versions.  The version number of the
+input is guessed by default from \version directive
+
+Options:
+  -h, --help             print this help
+  -e, --edit             in place edit
+  -f, --from=VERSION     start from version
+  -s, --show-rules       print all rules.
+  -t, --to=VERSION       target version
+      --version          print program version
+
+Report bugs to bugs-gnu-music@gnu.org
+
+""" % program_name)
+	
+	
+	sys.exit (0)
+
+def print_version ():
+	
+	sys.stdout.write (r"""%s
+
+This is free software.  It is covered by the GNU General Public
+License, and you are welcome to change it and/or distribute copies of
+it under certain conditions.  invoke as `%s --warranty' for more
+information.
+
+""" % (program_id() , program_name))
+	
 def gulp_file(f):
 	try:
 		i = open(f)
@@ -59,7 +91,6 @@ def version_cmp (t1, t2):
 		if t1[x] - t2[x]:
 			return t1[x] - t2[x]
 	return 0
-		
 
 def guess_mudela_version(filename):
 	s = gulp_file (filename)
@@ -68,18 +99,6 @@ def guess_mudela_version(filename):
 		return m.group(1)
 	else:
 		return ''
-
-def help ():
-	sys.stdout.write (
-		("Usage: %s [OPTION]... [FILE]...\n" 
-		+ "Try to convert to newer mudela-versions\n"
-		+ "Options:\n"
-		+ "  -h, --help             print this help\n"
-		+ '  -e, --edit             in place edit\n'
-		+ '  -f, --from=VERSION     start from version\n'
-		+ '  -s, --show-rules       print out all rules.\n'
-		+ '  -t, --to=VERSION       target version\n') % program_name)
-	sys.exit (0)
 
 class FatalConversionError:
 	pass
@@ -94,16 +113,11 @@ def show_rules (file):
 		
 if 1:					# need new a namespace
 	def conv (lines):
-		found =0
-		for x in lines:
-			if re.search ('\\\\octave', x):
-				found = 1
-				break
-		if found:
+		if re.search ('\\\\octave', str):
 			sys.stderr.write ('\nNot smart enough to convert \\octave')
 			raise FatalConversionError()
-		return lines
 		
+		return lines
 
 	conversions.append (
 		((0,1,19), conv, 'deprecated \\octave; can\'t convert automatically'))
@@ -111,14 +125,11 @@ if 1:					# need new a namespace
 
 if 1:					# need new a namespace
 	def conv (lines):
-		newlines = []
-		for x in lines:
-			x = re.sub ('\\\\textstyle([^;]+);',
-					 '\\\\property Lyrics . textstyle = \\1', x)
-			x = re.sub ('\\\\key([^;]+);', '\\\\accidentals \\1;', x)
-			newlines.append (x)
-		return newlines
-		
+		x = re.sub ('\\\\textstyle([^;]+);',
+					 '\\\\property Lyrics . textstyle = \\1', str)
+		x = re.sub ('\\\\key([^;]+);', '\\\\accidentals \\1;', str)
+			
+		return str
 
 	conversions.append (
 		((0,1,20), conv, 'deprecated \\textstyle, new \key syntax'))
@@ -126,15 +137,10 @@ if 1:					# need new a namespace
 
 if 1:
 	def conv (lines):
-		newlines = []
-		for x in lines:
-			x = re.sub ('\\\\musical_pitch',
-					 '\\\\musicalpitch',x)
-			x = re.sub ('\\\\meter',
-					 '\\\\time',x)
-			newlines.append (x)
-		return newlines
-		
+		x = re.sub ('\\\\musical_pitch', '\\\\musicalpitch',str)
+		x = re.sub ('\\\\meter', '\\\\time',str)
+			
+		return str
 
 	conversions.append (
 		((0,1,21), conv, '\\musical_pitch -> \\musicalpitch, '+
@@ -150,17 +156,11 @@ if 1:
 
 if 1:
 	def conv (lines):
-		newlines = []
-		for x in lines:
-			x = re.sub ('\\\\accidentals',
-				    '\\\\keysignature',x)
-			x = re.sub ('specialaccidentals *= *1',
-					 'keyoctaviation = 0',x)
-			x = re.sub ('specialaccidentals *= *0',
-					 'keyoctaviation = 1',x)
-			newlines.append (x)
-		return newlines
-		
+		x = re.sub ('\\\\accidentals', '\\\\keysignature',str)
+		x = re.sub ('specialaccidentals *= *1', 'keyoctaviation = 0',str)
+		x = re.sub ('specialaccidentals *= *0', 'keyoctaviation = 1',str)
+			
+		return str
 
 	conversions.append (
 		((1,0,1), conv, '\\accidentals -> \\keysignature, ' +
@@ -168,12 +168,7 @@ if 1:
 
 if 1:
 	def conv(lines):
-		found = 0
-		for x in lines:
-			if re.search ('\\\\header', x):
-				found = 1
-				break
-		if found:
+		if re.search ('\\\\header', lines):
 			sys.stderr.write ('\nNot smart enough to convert to new \\header format')
 		return lines
 	
@@ -181,76 +176,58 @@ if 1:
 
 if 1:
 	def conv(lines):
-		newlines =[]
-		for x in lines:
-			x =  re.sub ('\\\\melodic', '\\\\notes',x)
-			newlines.append (x)
-		return newlines
+		x =  re.sub ('\\\\melodic', '\\\\notes',str)
+			
+		return str
 	
 	conversions.append ((1,0,3), conv, '\\melodic -> \\notes')
 
 if 1:
 	def conv(lines):
-		newlines =[]
-		for x in lines:
-			x =  re.sub ('default_paper *=', '',x)
-			x =  re.sub ('default_midi *=', '',x)			
-			newlines.append (x)
-		return newlines
+		x =  re.sub ('default_paper *=', '',str)
+		x =  re.sub ('default_midi *=', '',x)			
+			
+		return str
 	
 	conversions.append ((1,0,4), conv, 'default_{paper,midi}')
 
 if 1:
 	def conv(lines):
-		newlines =[]
-		for x in lines:
-			x =  re.sub ('ChoireStaff', 'ChoirStaff',x)
-			x =  re.sub ('\\output', 'output = ',x)
-			newlines.append (x)
-		return newlines
+		x =  re.sub ('ChoireStaff', 'ChoirStaff',str)
+		x =  re.sub ('\\output', 'output = ',str)
+			
+		return str
 	
 	conversions.append ((1,0,5), conv, 'ChoireStaff -> ChoirStaff')
 
 if 1:
 	def conv(lines):
-		newlines =[]
-		found = None
-		for x in lines:
-			found = re.search ('[a-zA-Z]+ = *\\translator',x)
-			newlines.append (x)
-			if found: break
-		if found:
-			sys.stderr.write ('\nNot smart enough to \\translator syntax')
+		if re.search ('[a-zA-Z]+ = *\\translator',str):
+			sys.stderr.write ('\nNot smart enough to change \\translator syntax')
 			raise FatalConversionError()
-		return newlines
+		return str
 	
 	conversions.append ((1,0,6), conv, 'foo = \\translator {\\type .. } ->\\translator {\\type ..; foo; }')
 
 
 if 1:
 	def conv(lines):
-		newlines =[]
-		for x in lines:
-			x =  re.sub ('\\\\lyric', '\\\\lyrics',x)
-			newlines.append (x)
-		return newlines
+		x =  re.sub ('\\\\lyric', '\\\\lyrics',str)
+			
+		return str
 	
 	conversions.append ((1,0,7), conv, '\\lyric -> \\lyrics')
 
 if 1:
 	def conv(lines):
-		newlines =[]
-		for x in lines:
-			x =  re.sub ('\\\\\\[/3+', '\\\\times 2/3 { ',x)
-			x =  re.sub ('\\[/3+', '\\\\times 2/3 { [',x)
-			x =  re.sub ('\\\\\\[([0-9/]+)', '\\\\times \\1 {',x)
-			x =  re.sub ('\\[([0-9/]+)', '\\\\times \\1 { [',x)
-			x =  re.sub ('\\\\\\]([0-9/]+)', '}', x)
-			x =  re.sub ('\\\\\\]', '}',x)
-			x =  re.sub ('\\]([0-9/]+)', '] }', x)
-
-			newlines.append (x)
-		return newlines
+		x =  re.sub ('\\\\\\[/3+', '\\\\times 2/3 { ',str)
+		x =  re.sub ('\\[/3+', '\\\\times 2/3 { [',str)
+		x =  re.sub ('\\\\\\[([0-9/]+)', '\\\\times \\1 {',str)
+		x =  re.sub ('\\[([0-9/]+)', '\\\\times \\1 { [',str)
+		x =  re.sub ('\\\\\\]([0-9/]+)', '}', str)
+		x =  re.sub ('\\\\\\]', '}',str)
+		x =  re.sub ('\\]([0-9/]+)', '] }', str)
+		return str
 	
 	conversions.append ((1,0,10), conv, '[2/3 ]1/1 -> \\times 2/3 ')
 
@@ -262,63 +239,51 @@ if 1:
 
 if 1:
 	def conv(lines):
-		newlines =[]
-		for x in lines:
-			x =  re.sub ('<([^>~]+)~([^>]*)>','<\\1 \\2> ~', x)
-			newlines.append (x)
-		return newlines
+		
+		
+		x =  re.sub ('<([^>~]+)~([^>]*)>','<\\1 \\2> ~', str)
+			
+		return str
 	
 	conversions.append ((1,0,13), conv, '<a ~ b> c -> <a b> ~ c')
 
 if 1:
 	def conv(lines):
-		newlines =[]
-		for x in lines:
-			x =  re.sub ('<\\[','[<', x)
-			x =  re.sub ('\\]>','>]', x)
-			newlines.append (x)
-		return newlines
+		x =  re.sub ('<\\[','[<', str)
+		x =  re.sub ('\\]>','>]', str)
+			
+		return str
 	
 	conversions.append ((1,0,14), conv, '<[a b> <a b]>c -> [<a b> <a b>]')
 
 
 if 1:
 	def conv(lines):
-		newlines =[]
-		for x in lines:
-			x =  re.sub ('\\\\type','\\\\context', x)
-			x =  re.sub ('textstyle','textStyle', x)
-			newlines.append (x)
-		return newlines
+		x =  re.sub ('\\\\type','\\\\context', str)
+		x =  re.sub ('textstyle','textStyle', str)
+			
+		return str
 	
 	conversions.append ((1,0,16), conv, '\\type -> \\context, textstyle -> textStyle')
 
 
 if 1:
 	def conv(lines):
-		newlines =[]
-		found = None
-		for x in lines:
-			found = re.search ('\\\\repeat',x)
-			newlines.append (x)
-			if found: break
-		if found:
+		if re.search ('\\\\repeat',str):
 			sys.stderr.write ('\nNot smart enough to convert \\repeat')
 			raise FatalConversionError()
-		return newlines
+		return str
 	
 	conversions.append ((1,0,18), conv,
 			    '\\repeat NUM Music Alternative -> \\repeat FOLDSTR Music Alternative')
 
 if 1:
 	def conv(lines):
-		newlines =[]
-		for x in lines:
-			x =  re.sub ('SkipBars','skipBars', x)
-			x =  re.sub ('fontsize','fontSize', x)
-			x =  re.sub ('midi_instrument','midiInstrument', x)			
-			newlines.append (x)
-		return newlines
+		x =  re.sub ('SkipBars','skipBars', str)
+		x =  re.sub ('fontsize','fontSize', str)
+		x =  re.sub ('midi_instrument','midiInstrument', x)			
+			
+		return str
 
 	conversions.append ((1,0,19), conv,
 			    'fontsize -> fontSize, midi_instrument -> midiInstrument, SkipBars -> skipBars')
@@ -326,13 +291,11 @@ if 1:
 
 if 1:
 	def conv(lines):
-		newlines =[]
-		for x in lines:
-			x =  re.sub ('tieydirection','tieVerticalDirection', x)
-			x =  re.sub ('slurydirection','slurVerticalDirection', x)
-			x =  re.sub ('ydirection','verticalDirection', x)			
-			newlines.append (x)
-		return newlines
+		x =  re.sub ('tieydirection','tieVerticalDirection', str)
+		x =  re.sub ('slurydirection','slurVerticalDirection', str)
+		x =  re.sub ('ydirection','verticalDirection', x)			
+			
+		return str
 
 	conversions.append ((1,0,20), conv,
 			    '{,tie,slur}ydirection -> {v,tieV,slurV}erticalDirection')
@@ -340,11 +303,9 @@ if 1:
 
 if 1:
 	def conv(lines):
-		newlines =[]
-		for x in lines:
-			x =  re.sub ('hshift','horizontalNoteShift', x)
-			newlines.append (x)
-		return newlines
+		x =  re.sub ('hshift','horizontalNoteShift', str)
+			
+		return str
 
 	conversions.append ((1,0,21), conv,
 			    'hshift -> horizontalNoteShift')
@@ -352,11 +313,9 @@ if 1:
 
 if 1:
 	def conv(lines):
-		newlines =[]
-		for x in lines:
-			x =  re.sub ('\\\\grouping[^;]*;','', x)
-			newlines.append (x)
-		return newlines
+		x =  re.sub ('\\\\grouping[^;]*;','', str)
+			
+		return str
 
 	conversions.append ((1,1,52), conv,
 			    'deprecate \\grouping')
@@ -364,34 +323,28 @@ if 1:
 
 if 1:
 	def conv(lines):
-		newlines =[]
-		for x in lines:
-			x =  re.sub ('\\\\wheel','\\\\coda', x)
-			newlines.append (x)
-		return newlines
+		x =  re.sub ('\\\\wheel','\\\\coda', str)
+			
+		return str
 
 	conversions.append ((1,1,55), conv,
 			    '\\wheel -> \\coda')
 
 if 1:
 	def conv(lines):
-		newlines =[]
-		for x in lines:
-			x =  re.sub ('keyoctaviation','keyOctaviation', x)
-			x =  re.sub ('slurdash','slurDash', x)
-			newlines.append (x)
-		return newlines
+		x =  re.sub ('keyoctaviation','keyOctaviation', str)
+		x =  re.sub ('slurdash','slurDash', str)
+			
+		return str
 
 	conversions.append ((1,1,65), conv,
 			    'slurdash -> slurDash, keyoctaviation -> keyOctaviation')
 
 if 1:
 	def conv(lines):
-		newlines =[]
-		for x in lines:
-			x =  re.sub ('\\\\repeat *\"?semi\"?','\\\\repeat "volta"', x)
-			newlines.append (x)
-		return newlines
+		x =  re.sub ('\\\\repeat *\"?semi\"?','\\\\repeat "volta"', str)
+			
+		return str
 
 	conversions.append ((1,1,66), conv,
 			    'semi -> volta')
@@ -399,33 +352,27 @@ if 1:
 
 if 1:
 	def conv(lines):
-		newlines =[]
-		for x in lines:
-			x =  re.sub ('\"?beamAuto\"? *= *\"?0?\"?','noAutoBeaming = "1"', x)
-			newlines.append (x)
-		return newlines
+		x =  re.sub ('\"?beamAuto\"? *= *\"?0?\"?','noAutoBeaming = "1"', str)
+			
+		return str
 
 	conversions.append ((1,1,67), conv,
 			    'beamAuto -> noAutoBeaming')
 
 if 1:
 	def conv(lines):
-		newlines =[]
-		for x in lines:
-			x =  re.sub ('automaticMelismas', 'automaticMelismata', x)
-			newlines.append (x)
-		return newlines
+		x =  re.sub ('automaticMelismas', 'automaticMelismata', str)
+			
+		return str
 
 	conversions.append ((1,2,0), conv,
 			    'automaticMelismas -> automaticMelismata')
 
 if 1:
 	def conv(lines):
-		newlines =[]
-		for x in lines:
-			x =  re.sub ('dynamicDir', 'dynamicDirection', x)
-			newlines.append (x)
-		return newlines
+		x =  re.sub ('dynamicDir', 'dynamicDirection', str)
+			
+		return str
 
 	conversions.append ((1,2,1), conv,
 			    'dynamicDir -> dynamicDirection')
@@ -447,22 +394,26 @@ def do_conversion (infile, from_version, outfile, to_version):
 	conv_list = get_conversions (from_version, to_version)
 
 	sys.stderr.write ('Applying conversions: ')
-	lines = infile.readlines();
+	str = infile.read (-1)
 	last_conversion = ()
 	try:
 		for x in conv_list:
 			sys.stderr.write (tup_to_str (x[0])  + ', ')
-			lines = x[1] (lines)
+			str = x[1] (str)
 			last_conversion = x[0]
-			
 
 	except FatalConversionError:
 		sys.stderr.write ('Error while converting; I won\'t convert any further')
 
-	for x in lines:
-		if last_conversion:
-			x = re.sub (mudela_version_re_str, '\\\\version \"%s\"' % tup_to_str (last_conversion), x)
-		outfile.write(x)
+	if last_conversion:
+		sys.stderr.write ('\n')
+		new_ver =  '\\\\version \"%s\"' % tup_to_str (last_conversion)
+		if re.search (mudela_version_re_str):
+			str = re.sub (mudela_version_re_str,new_ver , str)
+		else:
+			str = new_ver + '\n' + str
+
+		outfile.write(str)
 
 class UnknownVersion:
 	pass
@@ -524,15 +475,17 @@ to_version = ()
 from_version = ()
 outfile_name = ''
 
-identify ()
 (options, files) = getopt.getopt (
-	sys.argv[1:], 'o:f:t:seh', ['output', 'show-rules', 'help', 'edit', 'from', 'to'])
+	sys.argv[1:], 'o:f:t:seh', ['version', 'output', 'show-rules', 'help', 'edit', 'from=', 'to'])
 
 for opt in options:
 	o = opt[0]
 	a = opt[1]
 	if o== '--help' or o == '-h':
 		help ()
+	if o == '--version' or o == '-v':
+		print_version ()
+		sys.exit (0)
 	elif o== '--from' or o=='-f':
 		from_version = str_to_tuple (a)
 	elif o== '--to' or o=='-t':
@@ -548,7 +501,7 @@ for opt in options:
 		print o
 		raise getopt.error
 
-
+identify ()
 for f in files:
 	if f == '-':
 		f = ''
