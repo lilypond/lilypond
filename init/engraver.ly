@@ -69,6 +69,7 @@ Staff_group = \translator {
 	\type "Engraver_group_engraver";
 	\consists "Span_bar_engraver";
 	\consists "Vertical_align_engraver";
+	\consists "Staff_group_bar_engraver";
 	\consists "Line_group_engraver";
 	\accepts "Staff";
 	\accepts "Rhythmic_staff";

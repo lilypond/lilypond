@@ -15,7 +15,7 @@ table_twenty =
 		"bold"	"\setbold{%}"	0.0\pt	7.50\pt	0.0\pt	8.0\pt
 		"dynamic"	"\setdynamic{%}"	0.0\pt	0.0\pt	0.0\pt	10.0\pt
 		"finger"	"\setfinger{%}"	0.0\pt	0.0\pt	0.0\pt	5.0\pt
-		"italic"	"\setitalic{%}"	0.0\pt	0.0\pt	0.0\pt	10.0\pt
+		"italic"	"\setitalic{%}"	0.0\pt	7.5\pt	0.0\pt	10.0\pt
 		"large"	"\setlarge{%}"	0.0\pt	9.50\pt	0.0\pt	12.0\pt
 		"roman"	"\settext{%}"	0.0\pt	7.5\pt	0.0\pt	10.0\pt
      }
@@ -67,14 +67,15 @@ table_twenty =
     % dims ignored for this table
     "param" = \table {
 %	 "brace"    "\pianobrace{%}"	0.0\pt	0.0\pt	0.0\pt	0.0\pt
+	"bracket"	"\staffbracket{%}"	0.0\pt	0.0\pt	20.0\pt	160.0\pt
 	"rule" "\rulesym{%}{%}"
 	"brace"    "\pianobrace{%}"	0.0\pt	0.0\pt	40.0\pt	100.0\pt	 
 	 "meter"	"\generalmeter{%}{%}"	0.0\pt	10.0\pt	-5.0\pt	5.0\pt
 	 "stem"	"\stem{%}{%}"
 	 "fill"	"\hbox{}"
 	% ugh. 8\pt
-	 "crescendosym" "\crescendosym{%}"	0.0\pt	0.0\pt	-3.0\pt	3.0\pt
-	 "decrescendosym" "\decrescendosym{%}"	0.0\pt	0.0\pt	-3.0\pt	3.0\pt
+	 "crescendosym" "\crescendosym{%}"	0.0\pt	0.0\pt	-6.25\pt	6.25\pt
+	 "decrescendosym" "\decrescendosym{%}"	0.0\pt	0.0\pt	-6.25\pt	6.25\pt
      }
 
      "beamslopes" = \table {

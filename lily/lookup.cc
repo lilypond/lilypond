@@ -162,9 +162,9 @@ Lookup::hairpin (Real &wid, bool decresc, bool continued) const
   bool embedded_b = postscript_global_b;
   String embed;
   Atom ret;  
+  Real height = paper_l_->get_var ("barsize") / 6;
   if (embedded_b)
     {
-      Real height = paper_l_->get_var ("barsize") / 6;
       embed = "\\embeddedps{\n" ;
       embed += String (wid) + " " 
 	+ String (height) + " " 
@@ -191,8 +191,9 @@ Lookup::hairpin (Real &wid, bool decresc, bool continued) const
       ret.tex_ = substitute_args (ret.tex_, a);
     }
   
-  ret.dim_.x() = Interval (0,wid);
-  // ret.translate_axis (-ret.dim_[Y_AXIS][DOWN], Y_AXIS);
+  ret.dim_.x () = Interval (0,wid);
+  ret.dim_.y () = Interval (-2*height,2*height);
+//  ret.translate_axis (ret.dim_[Y_AXIS][DOWN], Y_AXIS);
   return ret;
 }
 
@@ -263,3 +264,38 @@ Lookup::vbrace (Real &y) const
 
   return brace;
 }
+
+Atom
+Lookup::vbracket (Real &y) const
+{
+  Atom bracket = (*symtables_p_)("param")->lookup ("bracket");
+  Interval ydims = bracket.dim_[Y_AXIS];
+  Real min_y = ydims[LEFT];
+  Real max_y = ydims[RIGHT];
+  Real step = 1.0 PT;
+ 
+  if (y < min_y)
+    {
+      warning (_("bracket too small (") + print_dimen (y)+ ")");
+      y = min_y;
+    }
+  if (y > max_y)
+    {
+      warning (_("bracket too big (") + print_dimen (y)+ ")");
+      y = max_y;
+    }
+
+  
+  int idx = int (rint ((y- min_y)/step)) + 1;
+  
+  {
+    Array<String> a;
+    a.push (idx);
+    bracket.tex_ = substitute_args (bracket.tex_,a);
+    bracket.dim_[Y_AXIS] = Interval (-y/2,y/2);
+  }
+
+  return bracket;
+}
+
+

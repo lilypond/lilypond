@@ -48,8 +48,21 @@ Piano_brace::do_width() const
   return Interval (0,0);
 }
 
+Atom
+Staff_bracket::get_bar_sym (Real dy) const
+{
+  return paper()->lookup_l ()->vbracket (dy);
+}
+
+Interval
+Staff_bracket::do_width() const
+{
+  return Interval (0,0);
+}
+
 
 IMPLEMENT_IS_TYPE_B2(Span_score_bar, Span_bar, Score_bar);
 IMPLEMENT_IS_TYPE_B1(Piano_brace, Span_score_bar);
+IMPLEMENT_IS_TYPE_B1(Staff_bracket, Span_score_bar);
 
   

@@ -503,8 +503,8 @@ themusic = <
 		% 20pt music uses whole pagewidth
 		% ja Vette Pech.  Koop maar een A3 printer
 		% huh? [jcn]
-		linewidth= 195.\mm;
-		arithmetic_multiplier = 7.\pt;
+		linewidth= 193.\mm;
+%		arithmetic_multiplier = 7.\pt;
 		
 		gourlay_maxmeasures = 9.;
 		\output "standchen-20.out";
@@ -512,8 +512,8 @@ themusic = <
 	\paper{
 		% 16pt mustn't use whole page width
 		linewidth= 160.\mm;
-		arithmetic_multiplier = 6.\pt;
-		gourlay_maxmeasures = 9.;
+%		arithmetic_multiplier = 6.\pt;
+%		gourlay_maxmeasures = 9.;
 		\output "standchen-16.out";
 	}
 }

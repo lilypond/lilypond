@@ -56,7 +56,7 @@ $melodic_staff = \type Staff = mel <
 		\$melodic_staff
 		\$somewhat_long_lyrics_staff	
 %		\$rather_long_lyrics_staff	
-%		\$quite_long_lyrics_staff	
+		\$quite_long_lyrics_staff	
 	>
 	\paper{
 %		castingalgorithm = \Wordwrap;	

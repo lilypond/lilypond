@@ -39,6 +39,7 @@ struct Lookup {
   Atom streepje (int type) const;
 
   Atom vbrace (Real &dy) const;
+  Atom vbracket (Real &dy) const;
   Atom meter (Array<Scalar>) const;
   Atom stem (Real y1_pos, Real y2_pos) const;
   Atom rule_symbol (Real height, Real width) const;
