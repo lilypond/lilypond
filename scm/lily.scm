@@ -82,33 +82,46 @@
 
 ;; Spacing constants for prefatory matter.
 ;;
-;; rules for this spacing are much more complicated than this. See [Wanske] page 126 -- 134
+;; rules for this spacing are much more complicated than this. See [Wanske] page 126 -- 134, [Ross] pg 143 -- 147
 ;;
 ;;
+
 (define space-alist
  '(
-   (("Clef_item" "Key_item") .  2.5)
-   (("Key_item" "Time_signature") . 2.5)
-   (("Clef_item"  "Time_signature") . 2.75)
-   (("Staff_bar" "Clef_item") .  1.0)
-   (("Clef_item"  "Staff_bar") . 3.7)
-   (("Time_signature" "Staff_bar") . 2.0)
-   (("Key_item"  "Staff_bar") . 2.5)
-   (("Span_bar" "Clef_item") .  1.0)
-   (("Clef_item"  "Span_bar") . 3.7)
-   (("Time_signature" "Span_bar") . 2.0)
-   (("Key_item"  "Span_bar") . 2.5)
-   (("Staff_bar" "Time_signature") . 1.0)
+   (("" "Clef_item") . (minimum_space 1.0))
+   (("" "Staff_bar") . (minimum_space 0.0))
+   (("" "Clef_item") . (minimum_space 1.0))
+   (("" "Key_item") . (minimum_space 0.5))
+   (("" "Span_bar") . (extra_space 0.0))
+   (("" "Time_signature") . (extra_space 0.0))
+   (("" "begin-of-note") . (minimum_space 1.5))
+   (("Clef_item" "Key_item") . (minimum_space 3.5))
+   (("Key_item" "Time_signature") . (extra_space 2.0))
+   (("Clef_item"  "Time_signature") . (minimum_space 3.5))
+   (("Staff_bar" "Clef_item") .   (minimum_space 1.0))
+   (("Clef_item"  "Staff_bar") .  (minimum_space 3.7))
+   (("Time_signature" "Staff_bar") .  (minimum_space 2.0))
+   (("Key_item"  "Staff_bar") .  (extra_space 1.0))
+   (("Span_bar" "Clef_item") .   (extra_space 1.0))
+   (("Clef_item"  "Span_bar") . (minimum_space 3.7))
+   (("Time_signature" "Span_bar") . (minimum_space 2.0))
+   (("Key_item"  "Span_bar") . (minimum_space 2.5))
+   (("Staff_bar" "Time_signature") . (minimum_space 1.0))
+   (("Time_signature" "begin-of-note") . (extra_space 1.0))	; Huh? see twinkle.ly
+   (("Key_item" "begin-of-note") . (extra_space 3.0))
+   (("Staff_bar" "begin-of-note") . (extra_space 1.0))
+   (("Clef_item" "begin-of-note") . (minimum_space 5.0))
    )
+)
  
- )
+ 
 
 (define (break-align-spacer this next)
   (let ((entry (assoc `(,this ,next) space-alist)))
     (if entry
 	(cdr entry)
-	(begin (ly-warn (string-append "Unknown spacing pair " this ", " next))
-	       0.0))))
+	(begin (ly-warn (string-append "Unknown spacing pair `" this "', `" next "'"))
+	       '(minimum_space 0.0)))))
   
 	
 

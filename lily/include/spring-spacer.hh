@@ -65,7 +65,7 @@ class Spring_spacer : public Line_spacer {
 
   /// make the energy function
   void make_matrices (Matrix &quad, Vector &lin,Real&) const;
-  void get_ruling_durations(Array<Moment>&);
+
 
   /// generate the LP constraints
   void make_constraints (Mixed_qp& lp) const;
@@ -75,7 +75,7 @@ class Spring_spacer : public Line_spacer {
   void position_loose_cols (Vector &) const;
   bool try_initial_solution_and_tell (Vector&)const;
   Vector try_initial_solution() const;
-  void calc_idealspacing();
+
   void set_fixed_cols (Mixed_qp&) const;
 
   Score_column* scol_l (int);
@@ -89,7 +89,6 @@ public:
   virtual void solve (Column_x_positions*) const;
   virtual void lower_bound_solution (Column_x_positions*) const;
   virtual void add_column (Paper_column  *, bool fixed=false, Real fixpos=0.0);
- 
 
   virtual Vector default_solution() const;
   virtual bool check_constraints (Vector v) const;

@@ -1076,7 +1076,7 @@ verbose_request:
 		$$ = sp_p;
 	}
 	| abbrev_type	{
-		Abbreviation_req* a = new Abbreviation_req;
+		Tremolo_req* a = new Tremolo_req;
 		a->set_spot (THIS->here_input ());
 		a->type_i_ = $1;
 		$$ = a;

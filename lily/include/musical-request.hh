@@ -37,9 +37,9 @@ public:
 };
 
 
-struct Abbreviation_req : public Request {
-  VIRTUAL_COPY_CONS (Abbreviation_req);
-  Abbreviation_req ();
+struct Tremolo_req : public Request {
+  VIRTUAL_COPY_CONS (Music);
+  Tremolo_req ();
   int type_i_;
   virtual void do_print () const;
 };

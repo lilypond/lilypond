@@ -94,18 +94,28 @@ Align_element::do_side_processing ()
       Interval y = elem_l_arr_[i]->extent(axis ());
       if (!y.empty_b())
 	{
-	  dims.push (y);
+
 	  Score_element *e =dynamic_cast<Score_element*>(elem_l_arr_[i]);
 
-	  SCM extra_dims = e->get_elt_property (extra_space_scm_sym);
+	  // todo: fucks up if item both in Halign & Valign. 
+	  SCM min_dims = e->remove_elt_property (minimum_space_scm_sym);
+	  if (min_dims != SCM_BOOL_F)
+	    {
+	      min_dims = SCM_CDR (min_dims);
+	      y.unite (Interval (gh_scm2double (SCM_CAR (min_dims)),
+				 gh_scm2double (SCM_CDR (min_dims))));
+	    }
+	  
+	  SCM extra_dims = e->remove_elt_property (extra_space_scm_sym);
 	  if (extra_dims != SCM_BOOL_F)
 	    {
 	      extra_dims = SCM_CDR (extra_dims);
-	      dims.top ()[LEFT] -= gh_scm2double (SCM_CAR (extra_dims));
-	      dims.top ()[RIGHT] += gh_scm2double (SCM_CDR (extra_dims));
+	      y[LEFT] += gh_scm2double (SCM_CAR (extra_dims));
+	      y[RIGHT] += gh_scm2double (SCM_CDR (extra_dims));
 	    }
 
 	  elems.push (e);
+	  dims.push (y);	  
 	}
     }
 

@@ -63,9 +63,8 @@ I understand your point.  It should be changed.
 . * fix MIDI
 . * \shape 1st dim skipped? 
 . * turn slope-damping on/off
-. * tremolo stuff
+. * tremolo stuff: tremolo over whole note.
 . * We need feta-din*.mf files for more sizes than 10.
-. * feta-accordeon has some 'strange turning paths' on 300dpi
 . * fix dynamics decently, ie. use kerning & ligatures.  
 . * dots & rest collisions?
 . * mudela-book.py
@@ -147,7 +146,6 @@ specify the third.  Should there be?
 .  * make wide_spanner_engraver (line_group_spanner, staff_symbol)
 . * remove Interval dim_ from Dimension_cache and rename the struct.
 . * do scaled fonts generally 
-. * Spacing.
 . * The Lilypond accidental symbols are available through the TeX macros, 
 \textflat, \textsharp and \textnatural defined in the init file
 lilyponddefs.tex. All the symbols are defined in the files fetaXX.tex
@@ -193,7 +191,6 @@ compilation.
 . * add new glyphs to font.ly
 . * formatting of input stuff. 
 . * \notes{ a \< b \cr } vs \notes{ a \< b \! }
-. * space after bars?
 . * 'hinterfleisch' before bar (e.g. wtk1-fugue2)?
 . * Summary of minor spelling irregularities:
 .  *  capitalization/use of underscores in property names
