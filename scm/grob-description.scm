@@ -741,7 +741,7 @@
      . (
 	(before-line-breaking-callback . ,Stem::before_line_breaking)
 	(molecule-callback . ,Stem::brew_molecule)
-	(thickness . 0.8)
+	(thickness . 1.3)
 	(beamed-lengths . (0.0 2.5 2.0 1.5))
 	(beamed-minimum-lengths . (0.0 1.5 1.25 1.0))
 
