@@ -13,6 +13,16 @@
 Pitch
 Relative_octave_music::to_relative_octave (Pitch)
 {
+	/*
+		ugh: last-pitch should  be junked.
+
+ 		Change this for lilypond 2.0. When you do,
+		then B should start where A left off.
+
+		\relative { A \relative { ...} B }
+
+		*/
+
   return * unsmob_pitch (get_mus_property ("last-pitch"));
 }
 

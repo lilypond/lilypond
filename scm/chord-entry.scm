@@ -244,7 +244,10 @@ DURATION, and INVERSION."
     (if inv-note
 	(begin
 	  (ly:set-mus-property! inv-note 'inversion #t)
-	  (ly:set-mus-property! inv-note 'original-pitch original-inv-pitch)
+	  (ly:set-mus-property! inv-note 'octavation
+				(- (ly:pitch-octave inversion)
+				   (ly:pitch-octave original-inv-pitch))
+				)
 	  (set! nots (cons inv-note nots))))
     
     (make-event-chord nots)
