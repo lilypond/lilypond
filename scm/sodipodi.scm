@@ -80,7 +80,9 @@
 
 (define output-scale 1)
 (define system-y 0)
-(define line-thickness 0.1)
+;; huh?
+(define urg-line-thickness 0)
+(define line-thickness 0.001)
 (define half-lt (/ line-thickness 2))
 
 
@@ -186,22 +188,42 @@
 (define (sqr x)
   (* x x))
 
+;; transform=scale and stroke don't play nice together...
+(define (XXXbeam width slope thick)
+  (let* ((x width)
+	 (y (* slope width))
+	 (z (sqrt (+ (sqr x) (sqr y)))))
+    (tagify "rect" ""
+	    ;; '(style . "fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:0.1;stroke-linejoin:miter;stroke-linecap:butt;")
+	    ;;'(style . "fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-opacity:1;stroke-width:0.000001;stroke-linejoin:miter;stroke-linecap:butt;")
+	    `(style . ,(format "fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-opacity:1;stroke-width:~f;stroke-linejoin:miter;stroke-linecap:butt;" line-thickness))
+	    ;;`(x . ,(number->string half-lt))
+	    `(x . "0")
+	    ;;`(y . ,(number->string (- half-lt (/ thick 2))))
+	    `(y . ,(number->string (- 0 (/ thick 2))))
+	    `(width . ,(number->string width))
+	    `(height . ,(number->string thick))
+	    `(ry . ,(number->string half-lt))
+	    `(transform . ,(format #f "matrix(~f,~f,0,1,0,0) scale (~f,~f)"
+				   (/ x z)
+				   (* -1 (/ y z))
+				   output-scale output-scale)))))
+
 (define (beam width slope thick)
   (let* ((x width)
 	 (y (* slope width))
 	 (z (sqrt (+ (sqr x) (sqr y)))))
     (tagify "rect" ""
-
-	  '(style . "fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;")
-	  `(x . ,(number->string half-lt))
-	  `(y . ,(number->string (- half-lt (/ thick 2))))
-	  `(width . ,(number->string width))
-	  `(height . ,(number->string thick))
-	  `(ry . ,(number->string line-thickness))
-	  `(transform . ,(format #f "matrix(~f,~f,0,1,0,0) scale (~f,~f)"
-				 (/ x z)
-				 (* -1 (/ y z))
-				 output-scale output-scale)))))
+	    `(style . ,(format "fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-opacity:1;stroke-width:~f;stroke-linejoin:miter;stroke-linecap:butt;" line-thickness))
+	    `(x . "0")
+	    `(y . ,(number->string (* output-scale (- 0 (/ thick 2)))))
+	    `(width . ,(number->string (* output-scale width)))
+	    `(height . ,(number->string (* output-scale thick)))
+	    `(ry . ,(number->string (* output-scale half-lt)))
+	    `(transform . ,(format #f "matrix(~f,~f,0,1,0,0) scale (~f,~f)"
+				   (/ x z)
+				   (* -1 (/ y z))
+				   1 1)))))
 
 ;; TODO: bezier-ending, see ps.scm
 (define (bezier-bow urg-l thick)
@@ -308,12 +330,15 @@
   
 
 (define (lily-def key val)
-  (if (equal? key "lilypondpaperoutputscale")
-      ;; ugr
-      ;; If we just use transform scale (output-scale),
-      ;; all fonts come out scaled too (ie, much too big)
-      ;; So, we manually scale all other stuff.
-      (set! output-scale (* scale-to-unit (string->number val))))
+  (cond
+   ((equal? key "lilypondpaperoutputscale")
+    ;; ugr
+    ;; If we just use transform scale (output-scale),
+    ;; all fonts come out scaled too (ie, much too big)
+    ;; So, we manually scale all other stuff.
+    (set! output-scale (* scale-to-unit (string->number val))))
+   ((equal? key "lilypondpaperlinethickness")
+    (set! urg-line-thickness (* scale-to-unit (string->number val)))))
   "")
 
 (define (no-origin)
@@ -333,14 +358,14 @@
 
 (define (roundfilledbox breapth width depth height blot-diameter)
   (tagify "rect" ""
-
-	  '(style . "fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;")
+	  ;;'(style . "fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;")
+	    `(style . ,(format "fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-opacity:1;stroke-width:~f;stroke-linejoin:miter;stroke-linecap:butt;" line-thickness))
 	  `(x . ,(number->string (* output-scale (- 0 breapth))))
 	  `(y . ,(number->string (* output-scale (- 0 height))))
 	  `(width . ,(number->string (* output-scale (+ breapth width))))
 	  `(height . ,(number->string (* output-scale (+ depth height))))
 	  ;;`(ry . ,(number->string (* output-scale half-lt)))
-	  `(ry . ,(number->string blot-diameter))))
+	  `(ry . ,(number->string (/ blot-diameter 2)))))
 
 
   
