@@ -6,6 +6,8 @@
 
 	* input/test/bar-lines.ly: improve output, fix bug.
 
+	* Documentation/user/changing-defaults.itely: small fixes.
+
 2004-10-01  Werner Lemberg  <wl@gnu.org>
 
 	* tex/lilyponddefs.tex (\lilypondECencoding): New command to handle
