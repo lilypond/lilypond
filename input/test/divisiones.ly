@@ -14,8 +14,8 @@ Choices are @code{divisioMinima}, @code{divisioMaior}
 \score {
  <<
 	\context Voice \notes \transpose c c' {
-	    \set Score.timing =  ##f
-	    \set Score.barAlways =  ##t
+	    \set Score.timing = ##f
+	    \set Score.barAlways = ##t
 	    \override TextScript  #'padding = #3
 	    \override Staff.BarLine  #'transparent = ##t
 	    \override Stem  #'transparent = ##t

@@ -5,7 +5,7 @@
 }
 
 \score {
-  \notes \relative c'' { \set Staff.instrument =  "foo" \partial 4 c4 c1 }
+  \notes \relative c'' { \set Staff.instrument = "foo" \partial 4 c4 c1 }
   \paper { raggedright = ##t }
 }
 

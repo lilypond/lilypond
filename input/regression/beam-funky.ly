@@ -13,7 +13,7 @@ beam. This is in disagreement with the current algorithm."
 \relative c'
 	 {
 	     \override Beam  #'auto-knee-gap = #7
-	     \set subdivideBeams =  ##t	     
+	     \set subdivideBeams = ##t	     
 	     \time 8/8
 	      c,16[  g'''16  
 	     c,,,16  g'''16 

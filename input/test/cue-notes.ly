@@ -10,8 +10,8 @@ Cue notes should be set in smaller type. "
 \score {
   \notes
    {
-       \set Staff.instrument =  #"Horn in F"
-       \set Score.skipBars =  ##t
+       \set Staff.instrument = #"Horn in F"
+       \set Score.skipBars = ##t
        R1*21
     <<
 	{
@@ -23,7 +23,7 @@ Cue notes should be set in smaller type. "
        \clef tenor
 
 	%% this should probably be put into an identifier.
-       \set Staff.fontSize =  #-1
+       \set Staff.fontSize = #-1
 	\override Stem  #'length = #5.5
 	\override Beam  #'thickness = #0.384
 	\override Beam  #'space-function =
@@ -35,7 +35,7 @@ Cue notes should be set in smaller type. "
 %  this is under debate; I don't think it should.  - Graham
 
 % if you want to cancel it in the main part, uncomment the following:
-%       \set Staff.Clef =  \turnOff
+%       \set Staff.Clef = \turnOff
 			    
        \unset Staff.fontSize 
 

@@ -15,7 +15,7 @@ melody = \notes \relative c' {
 \score {
   \notes <<
     \context ChordNames {
-        \set chordChanges =  ##t
+        \set chordChanges = ##t
         \harmonies
     }
     \context Staff = one \melody

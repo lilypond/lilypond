@@ -23,7 +23,7 @@ The extended trill is a TextSpanner in @code{trill} style.
     \override TextSpanner  #'style = #'trill
     \override TextSpanner  #'edge-height = #'(0 . 0)
     \override TextSpanner  #'edge-text
-     = #(cons (make-musicglyph-markup "scripts-trill")  "")
+  = #(cons (make-musicglyph-markup "scripts-trill")  "")
     a\startTextSpan b c a\stopTextSpan
   }
 	\paper { raggedright = ##t} 

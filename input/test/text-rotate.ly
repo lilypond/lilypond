@@ -20,10 +20,10 @@ the lilypond.py script, and a line must be uncommented.
 
 \score {
 \new Staff \notes \relative c'' {
-    \set Staff.instrument =  #"rotatebox{90}{Chor}"
+    \set Staff.instrument = #"rotatebox{90}{Chor}"
 
 %%  uncomment this for rotation
-%    \set Staff.instrument =  #"\\rotatebox{90}{Chor}"
+%    \set Staff.instrument = #"\\rotatebox{90}{Chor}"
 
     c4 c4 }
 

@@ -10,7 +10,7 @@ Beams over rests.
     \notes\relative c''{
 	  r4  r8[ g a]
 	   bes8[ r16 f g a]
-	   bes8[ r16 \set stemLeftBeamCount =  #1 f g a]
+	   bes8[ r16 \set stemLeftBeamCount = #1 f g a]
     }
 
     \paper{

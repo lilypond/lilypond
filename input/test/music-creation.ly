@@ -22,7 +22,7 @@ mechanism for this is rather clumsy to use, so avoid it if possible. "
    ml))
 
 
-fooMusic  = #(seq-music-list
+fooMusic = #(seq-music-list
   (list (make-note (list (make-note-req (ly:make-pitch 1 0 0) (ly:make-duration 2 0))))
      (make-note (list (make-note-req (ly:make-pitch 1 1 0) (ly:make-duration 2 0)))))
      )

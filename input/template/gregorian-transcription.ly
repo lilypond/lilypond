@@ -18,7 +18,7 @@ barTwo = \notes { \once \override Staff.BarLine  #'extra-offset = #'(0 . 2)
 \score {
 
 \notes \relative c' {
-	\set Score.timing =  ##f
+	\set Score.timing = ##f
 	\override Staff.Stem  #'transparent = ##t
 	f4 a2 \barTwo g4 a2  f2 \barOne g4( f) f(
 	\bar "empty" 

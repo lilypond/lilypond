@@ -22,7 +22,7 @@ r c16[ c c]
        }>>
     \paper   {
 	indent = 0.0 \cm
-	linewidth =  3.4 \cm
+	linewidth = 3.4 \cm
 
 	\translator {
 	    \StaffContext \remove "Time_signature_engraver"

@@ -31,9 +31,9 @@ chExceptions = #(append
   (sequential-music-to-chord-exceptions chExceptionMusic #t)
   ignatzekExceptions)
 
-theMusic =    \chords {
+theMusic = \chords {
       c:7sus4 c:dim7/+f
-      \set Current.chordNameExceptions =  #chExceptions
+      \set Current.chordNameExceptions = #chExceptions
       c:7sus4 c:dim7/+f }
 
   

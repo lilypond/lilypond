@@ -9,10 +9,10 @@ included in LilyPond's support of ancient notation.
 }
 
 
-upperStaff =  \context GregorianStaff = upperStaff <<
+upperStaff = \context GregorianStaff = upperStaff <<
   \context GregorianVoice <<
-    \set Score.timing =  ##f
-%   \set Score.forceAccidental =  ##t %%%%%%%% FIXME: what happened to this property?
+    \set Score.timing = ##f
+%   \set Score.forceAccidental = ##t %%%%%%%% FIXME: what happened to this property?
 
     \override Staff.StaffSymbol  #'line-count = #4
 
@@ -112,7 +112,7 @@ upperStaff =  \context GregorianStaff = upperStaff <<
   >>
 >>
 
-lowerStaff =  \context MensuralStaff = lowerStaff <<
+lowerStaff = \context MensuralStaff = lowerStaff <<
   \context MensuralVoice <<
     
     % this is broken until further notice -- see refman
@@ -120,7 +120,7 @@ lowerStaff =  \context MensuralStaff = lowerStaff <<
     \context Staff \applyoutput #(outputproperty-compatibility (make-type-checker 'staff-symbol-interface) 'line-count 5)
 
     \notes \transpose c c {
-	\set autoBeaming =  ##f
+	\set autoBeaming = ##f
 	\override NoteHead  #'style = #'neo_mensural
 	\override Rest  #'style = #'neo_mensural
 	\key a \major
@@ -133,7 +133,7 @@ lowerStaff =  \context MensuralStaff = lowerStaff <<
 % on many ligatures such as BB.
 
 	cis'1 d'\breve gis'\breve e'\breve \[ e'\longa fis'\longa \]
-	\set Staff.forceClef =  ##t
+	\set Staff.forceClef = ##t
 	\clef "neo_mensural_c2"
 	cis1
 	\bar "|"
@@ -147,7 +147,7 @@ lowerStaff =  \context MensuralStaff = lowerStaff <<
 	fis1 ces1
 	\clef "petrucci_c2"
 	r\longa
-	\set Staff.forceClef =  ##t
+	\set Staff.forceClef = ##t
 	\clef "mensural_c2"
 	r\breve
 	\bar "|"
@@ -164,7 +164,7 @@ lowerStaff =  \context MensuralStaff = lowerStaff <<
 	c8 b, c16 b, c32 b, c64 b, c64 b,
 	d8 e  d16 e  d32 e  d64 e  d64 e
 	r\longa
-	\set Staff.forceClef =  ##t
+	\set Staff.forceClef = ##t
 	\clef "petrucci_f"
 	r\breve
 	\bar "|"
@@ -179,7 +179,7 @@ lowerStaff =  \context MensuralStaff = lowerStaff <<
 	% FIXME: produces warnings about "flag `neo_mensurald4' (or 3) not found".
 	r2 r4 r8 r16 r16
 	\override Stem  #'flag-style = #'mensural
-	\set Staff.forceClef =  ##t
+	\set Staff.forceClef = ##t
 	\clef "mensural_f"
 	e\breve f g a1
 	\clef "mensural_g"
@@ -191,18 +191,18 @@ lowerStaff =  \context MensuralStaff = lowerStaff <<
 %	\break % 9 (16*1)
 
 	bes'!\longa fis'!1 as'!1 ges'!\longa % lig
-	\set Staff.forceClef =  ##t
+	\set Staff.forceClef = ##t
 	\clef "mensural_g"
 	e'2 d' c' \bar "|"
 %	\break % 11 (16*1)
 
-	\set Staff.forceClef =  ##t
+	\set Staff.forceClef = ##t
 	\clef "petrucci_g"
 	c'2 d' e' f'
 	\clef "petrucci_g"
 	g' as'! bes'! cis''!
 	bes'! as'! gis'! fis'!
-	\set Staff.forceClef =  ##t
+	\set Staff.forceClef = ##t
 	\clef "mensural_g"
 	es'! des'! cis'!1 \bar "||"
 %	\break % 12 (8*1)

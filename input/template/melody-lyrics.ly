@@ -15,7 +15,7 @@ text = \lyrics {
 \score {
   <<
       \context Voice = one {
-	  \set Staff.autoBeaming =  ##f
+	  \set Staff.autoBeaming = ##f
 	  \melody
       }
       \lyricsto "one" \new Lyrics \text

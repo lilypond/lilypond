@@ -2,12 +2,12 @@
 \version "2.1.22"
 
 \header {
-    composer =   "ARTHUR GRAY"
-    title =      "LES NÉRÉIDES"
-    subtitle =   "THE NEREIDS"
-    enteredby =  "JCN"
-    piece =      "Allegretto scherzando"
-    copyright =  "public domain"
+    composer = "ARTHUR GRAY"
+    title = "LES NÉRÉIDES"
+    subtitle = "THE NEREIDS"
+    enteredby = "JCN"
+    piece = "Allegretto scherzando"
+    copyright = "public domain"
 }
 
 %{
@@ -53,7 +53,7 @@ treble = \new Voice \notes\relative c''{
     \change Staff=treble
     
     \slurUp
-    \set PianoStaff.connectArpeggios =  ##t
+    \set PianoStaff.connectArpeggios = ##t
 
     #(set-octavation 1)
 
@@ -102,7 +102,7 @@ treble = \new Voice \notes\relative c''{
     \bar "||"
 }
 
-trebleTwo =  \new Voice \notes\relative c''{
+trebleTwo = \new Voice \notes\relative c''{
     \stemDown
     \slurDown
     % \fingerDown
@@ -127,7 +127,7 @@ trebleTwo =  \new Voice \notes\relative c''{
     <a cis,>)]
 }
 
-bass =  \new Voice \notes\relative c{
+bass = \new Voice \notes\relative c{
     \partial 2
     \key a \major
     
@@ -221,7 +221,7 @@ bass =  \new Voice \notes\relative c{
     a)]
 }
 
-bassTwo =  \new Voice \notes\relative c{
+bassTwo = \new Voice \notes\relative c{
     \skip 2
     \skip 1*2
     \skip 2
@@ -270,7 +270,7 @@ lowerDynamics = \notes{
     s2\sustainDown s8. s16\sustainUp s4
     | %4
     s4\sustainDown
-    \set Dynamics.pedalSustainStrings =  #'("Ped." "*Ped." "*")
+    \set Dynamics.pedalSustainStrings = #'("Ped." "*Ped." "*")
     
     % grace destroys pedal-line-spanner?
     % let's do manual tweak:
@@ -300,19 +300,19 @@ lowerDynamics = \notes{
     %
     % that's what gray wants, anyway.
     
-    \set Dynamics.pedalSustainStyle =  #'mixed
+    \set Dynamics.pedalSustainStyle = #'mixed
     s8\sustainDown s s
     s s\sustainUp\sustainDown s
     s
-    \once \set Dynamics.pedalSustainStyle =  #'text
+    \once \set Dynamics.pedalSustainStyle = #'text
     s\sustainUp
 
     | %6
-    \set Dynamics.pedalSustainStyle =  #'mixed
+    \set Dynamics.pedalSustainStyle = #'mixed
     s8\sustainDown s s
     s s\sustainUp\sustainDown s
     s
-    \once \set Dynamics.pedalSustainStyle =  #'text
+    \once \set Dynamics.pedalSustainStyle = #'text
     s\sustainUp
     | %7
 }

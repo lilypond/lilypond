@@ -8,11 +8,11 @@ By setting @code{markFormatter} we may choose a different style of mark printing
 \version "2.1.22"
 \score {
   \notes \relative c''{
-    \set Score.markFormatter =  #format-mark-numbers 
+    \set Score.markFormatter = #format-mark-numbers 
   c1 | \mark \markup { \musicglyph #"scripts-coda" }
   c1 | \mark \default
   c1 | \mark \default
-    \set Score.markFormatter =  #(lambda (mark  context)
+    \set Score.markFormatter = #(lambda (mark  context)
 	(make-bold-markup (make-box-markup (number->string mark))))
 	
     c1 | \mark \default

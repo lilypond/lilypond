@@ -127,8 +127,8 @@ r2 r4 r8 r16
 
 @lilypond[fragment]
 \set Score.timing = ##f
-\set Staff.Clef =  \turnOff
-\set Staff.TimeSignature =  \turnOff
+\set Staff.Clef = \turnOff
+\set Staff.TimeSignature = \turnOff
 r2 r4 r8 r16
 s16_" "
 @end lilypond
@@ -401,7 +401,7 @@ g
 @end example
 
 @lilypond[fragment]
-\set Staff.TimeSignature =  \turnOff
+\set Staff.TimeSignature = \turnOff
 \key d \major
 g'1
 \key c \minor
@@ -427,7 +427,7 @@ not be added automatically, and you must enter what you want to hear.
 
 For example, in this example:
 @lilypond[fragment]
-\set Staff.TimeSignature =  \turnOff
+\set Staff.TimeSignature = \turnOff
 \key d \major
 d' cis' fis'
 @end lilypond
@@ -567,7 +567,7 @@ c'4 c'' c''' \clef bass c c,
 
 @lilypond[fragment]
 \set Score.timing = ##f
-\set Staff.TimeSignature =  \turnOff
+\set Staff.TimeSignature = \turnOff
 c'4 c'' c''' \clef bass c c,
 @end lilypond
 @end quotation
@@ -600,7 +600,7 @@ one.  For example, @code{c f} goes up while @code{c g} goes down:
 
 @lilypond[fragment]
 \set Score.timing = ##f
-\set Staff.TimeSignature =  \turnOff
+\set Staff.TimeSignature = \turnOff
 \relative c'' {
   c f c g c
 }
@@ -637,7 +637,7 @@ Larger intervals are made by adding octavation quotes.
 
 @lilypond[fragment]
 \set Score.timing = ##f
-\set Staff.TimeSignature =  \turnOff
+\set Staff.TimeSignature = \turnOff
 \relative c'' {
   c f, f c' c g' c,
 }
@@ -666,7 +666,7 @@ Here is an example of the difference between relative mode and
 
 @lilypond[fragment]
 \set Score.timing = ##f
-\set Staff.TimeSignature =  \turnOff
+\set Staff.TimeSignature = \turnOff
 \relative a {
 \clef bass
   a d a e d c' d'
@@ -683,7 +683,7 @@ Here is an example of the difference between relative mode and
 
 @lilypond[fragment]
 \set Score.timing = ##f
-\set Staff.TimeSignature =  \turnOff
+\set Staff.TimeSignature = \turnOff
 \clef bass
   a d a e d c' d'
 @end lilypond
@@ -1617,7 +1617,7 @@ In the next example, a two note motive is repeated two times by using
 variable substitution:
 
 @lilypond[raggedright,verbatim]
-seufzer  = \notes {
+seufzer = \notes {
   dis'8 e'8
 }
 \score { \notes {

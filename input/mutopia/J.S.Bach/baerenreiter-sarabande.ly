@@ -1,4 +1,4 @@
-\version "2.1.21"
+\version "2.1.22"
 
 % #(ly:set-point-and-click 'line-column)
 
@@ -46,8 +46,8 @@ half way in measure 13 has been forgotten.
 }
 
 
-sarabandeA =  \context Voice \notes \relative c {
-  \property Staff.NoteCollision \set #'merge-differently-dotted = ##t
+sarabandeA = \context Voice \notes \relative c {
+  \override Staff.NoteCollision   #'merge-differently-dotted = ##t
 
   
   << { d8. e16 e4.\trill d16 e } \\
@@ -121,14 +121,14 @@ sarabandeA =  \context Voice \notes \relative c {
   d'[ cis] |
   %%  d4 d,,2 |
   d4
-  \property Voice.NoteHead
-  \override #'after-line-breaking-callback
-  = #(lambda (smob) (assert-system-count smob 6))
+  \override NoteHead
+    #'after-line-breaking-callback
+ = #(lambda (smob) (assert-system-count smob 6))
   d,,2 |
 }
 
 
-sarabandeCelloGlobal =  \notes{
+sarabandeCelloGlobal = \notes{
   \time 3/4
   \key f \major
   \clef bass
@@ -139,10 +139,10 @@ sarabandeCelloGlobal =  \notes{
   }
 }
 
-sarabandeCelloScripts =  \notes{
+sarabandeCelloScripts = \notes{
 }
 
-sarabandeCelloStaff =  \context Staff <<
+sarabandeCelloStaff = \context Staff <<
   \sarabandeA
   \sarabandeCelloGlobal
   \sarabandeCelloScripts
@@ -168,7 +168,7 @@ baerPaper = \paper {
     interscoreline=4.0\mm
     \translator {
 	     \ScoreContext
-%	     System \override #'print-function = #box-grob-molecule
+%	     System \override #'print-function = #box-grob-stencil
     }
 }
 

@@ -10,13 +10,13 @@ natural sign.
 
 
 
-thenotes =  \notes \relative cis' { \time 4/4
+thenotes = \notes \relative cis' { \time 4/4
 gisis'4 gis gisis ges |
 }
 
 \score { << \context Staff \thenotes
 	\context NoteNames  {
-		\override NoteNames.NoteName   #'no-spacing-rods  = ##f 
+		\override NoteNames.NoteName   #'no-spacing-rods = ##f 
 		\thenotes
 	}
 	>>

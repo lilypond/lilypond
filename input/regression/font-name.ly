@@ -21,7 +21,7 @@ available through (La)TeX.
 \score {
     \notes {
 	\override Staff.TimeSignature  #'font-name = #"cmr17"
-	\set Score.skipBars =  ##t
+	\set Score.skipBars = ##t
 
 	% use font-name putri8r for Utopia Italic :
 	

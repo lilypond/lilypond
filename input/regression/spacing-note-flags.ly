@@ -8,7 +8,7 @@ texidoc = "The flags of 8th notes take some space, but not
 }
 
 \score { \notes \relative c'' \context Staff {
-    \set autoBeaming =  ##f
+    \set autoBeaming = ##f
     a8[ a8 a8 a8]
     a8 a8 a8 a8
 }

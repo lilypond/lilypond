@@ -14,8 +14,8 @@ textFlat = \markup {\smaller \semiflat}
 
 \score {
   \notes \new Staff {
-    \set Staff.instrument =  \markup { \column < "Clarinetti" { "in B" \textFlat } > }
-    \set Staff.instr =  \markup { \smaller  { "Cl(B" \textFlat ")" } }
+    \set Staff.instrument = \markup { \column < "Clarinetti" { "in B" \textFlat } > }
+    \set Staff.instr = \markup { \smaller  { "Cl(B" \textFlat ")" } }
 
     { c''1 \break c'' }
 

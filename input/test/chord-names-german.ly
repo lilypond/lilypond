@@ -23,7 +23,7 @@ scm = \chords {
 \notes <<
     \context ChordNames { \scm }
     \new ChordNames {
-	\set instrument =  #"german"
+	\set instrument = #"german"
 	\germanChords \scm }
     \new ChordNames {
 	\set instrument = #"semi-german"

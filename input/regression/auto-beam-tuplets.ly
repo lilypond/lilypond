@@ -7,7 +7,7 @@ beams even if they're auto generated."
 }
 
 \score { \notes \relative c' {
-  \set tupletSpannerDuration =  #(ly:make-moment 1 4)
+  \set tupletSpannerDuration = #(ly:make-moment 1 4)
   \override TupletBracket  #'bracket-visibility = #'if-no-beam
   \times 2/3 {
 	 f8[ f f ] f8[ f f ] f f f f f f 

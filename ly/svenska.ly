@@ -41,5 +41,5 @@ pitchnamesSvenska = #`(
 	(hississ . ,(ly:make-pitch -1 6 DOUBLE-SHARP))
 )
 
-pitchnames =  \pitchnamesSvenska
+pitchnames = \pitchnamesSvenska
 \version "2.1.22"

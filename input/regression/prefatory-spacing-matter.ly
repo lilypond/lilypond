@@ -9,7 +9,7 @@
 }
 
 \score { \notes \relative c'' {
-	\set Staff.instrument =  "fobar"
+	\set Staff.instrument = "fobar"
 	\bar "||:"
 	\key cis \major
 	cis4 cis4 cis4 cis4 \clef bass  cis,1

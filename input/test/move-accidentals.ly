@@ -17,7 +17,7 @@ involves some scheme code. " }
   \context Voice \notes \relative c'' {
     c2.
     <<
-\set Staff.AccidentalPlacement =  \turnOff
+\set Staff.AccidentalPlacement = \turnOff
 \context Staff \applyoutput #(outputproperty-compatibility (make-acc-position-checker 9)
                                'extra-offset  '(-1 . 0))
 \context Staff \applyoutput #(outputproperty-compatibility (make-acc-position-checker 5)

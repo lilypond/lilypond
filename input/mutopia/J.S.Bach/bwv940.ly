@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.1.7"
+\version "2.1.22"
 
 %{
  Header for Petites Preludes.
@@ -41,7 +41,7 @@
  footer = "Mutopia-2003/08/22-nr"
 }
 
-one =   \notes\relative c{
+one = \notes\relative c{
 	\skip 1 |
 	\stemUp
 	r4 d''2 cis4 |
@@ -62,7 +62,7 @@ one =   \notes\relative c{
 	\bar "|."
 }
 
-two =   \notes\relative c{
+two = \notes\relative c{
 	r16 d'' c bes  a bes f g 
 	a8.\mordent bes16  g8.\prall f16 |
 	\stemDown
@@ -95,7 +95,7 @@ three = \notes\relative c{
 	\stemDown	\tieDown
 
 	e4 ~ e16 f e d  cis a b cis  d e f d |
-	\property Voice.TextScript \set #'font-style = #'finger
+	\override TextScript   #'font-style = #'finger
 	bes2 a ~ |
 	a a |
 	d, cis' |
@@ -104,19 +104,19 @@ three = \notes\relative c{
 	\bar "|."
 }
 
-four =   \notes\relative c{
+four = \notes\relative c{
 	\stemDown 
 	d2 cis |
 	\skip 1*2 |
 	\skip 4*3
 	\change Staff=upper \stemUp
-	\property Voice.NoteColumn \override #'horizontal-shift = #1
+	\override NoteColumn   #'horizontal-shift = #1
 	c''4 |
 	%5
 	a gis ~ gis16 gis fis e 
 	\skip 4*1
 	\change Staff=lower \stemDown
-	\property Voice.NoteColumn \override #'horizontal-shift = #0
+	\override NoteColumn   #'horizontal-shift = #0
 	\stemUp\tieUp
 	b2 a |
 	g a4. gis16 a |
@@ -129,7 +129,7 @@ four =   \notes\relative c{
 	     >>
 }
 
-global =  \notes{
+global = \notes{
 	\time 4/4
 	\key f \major
 }

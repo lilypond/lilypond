@@ -13,8 +13,8 @@ fragment = \notes {
   f32 g a b b a g f
 
   f32 g a b 
-  \set stemRightBeamCount =  #1  b
-  \set stemLeftBeamCount =  #1 a
+  \set stemRightBeamCount = #1  b
+  \set stemLeftBeamCount = #1 a
    g f
 }
 

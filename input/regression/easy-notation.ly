@@ -1,7 +1,7 @@
 \version "2.1.22"
 
 \header {
-texidoc  = " Ez-notation prints names in note heads.
+texidoc = " Ez-notation prints names in note heads.
 You also get ledger lines, of course."
 }
 

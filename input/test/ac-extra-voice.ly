@@ -48,7 +48,7 @@ accompany = \repeat unfold 4  \basloopje
 	\translator{ 
 	    \StaffContext
 	    autoBeamSettings \override #'(end * * * *)
-	    = #(ly:make-moment 1 2)
+	 = #(ly:make-moment 1 2)
 	}
     }
     \midi {

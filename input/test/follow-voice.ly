@@ -10,7 +10,7 @@ property @code{followVoice}. " }
 \score {
 	\notes\relative c {
 	\new PianoStaff <<
-		\set PianoStaff.followVoice =  ##t
+		\set PianoStaff.followVoice = ##t
 		\context Staff=one \context Voice {
 			\override VoiceFollower  #'style = #'dashed-line
 			c'1

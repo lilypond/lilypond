@@ -1,11 +1,11 @@
 
 \version "2.1.22"
 \header {
-texidoc =  "@cindex Capital Letters
+texidoc = "@cindex Capital Letters
 You can set the font to use small caps.
 " }
 
-shapeSC   = \override LyricText  #'font-shape = #'caps
+shapeSC = \override LyricText  #'font-shape = #'caps
 shapeNorm = \revert LyricText #'font-shape
 
 \score { <<

@@ -16,7 +16,7 @@
 \score {
   \notes\relative c'' {
 
-    \set tupletNumberFormatFunction =  #fraction-tuplet-formatter
+    \set tupletNumberFormatFunction = #fraction-tuplet-formatter
 
     \applyoutput #(outputproperty-compatibility (make-text-checker-once "2:3")
 		   'extra-offset '(0 . 1.5))

@@ -11,7 +11,7 @@ The number of bars will be written above the sign.
 }
 
 thenotes = \notes \relative cis' {
-\set Score.skipBars =  ##t
+\set Score.skipBars = ##t
 \time 4/4
 R1 |
 R1*1 |

@@ -1,9 +1,9 @@
 \header {
-  title =       "Fuga a 3 voci"
-  opus =        "BWV 847-Fuga"
-  source =      "Henle's Urtext"
-  composer =    "Johann Sebastian Bach (1685-1750)"
-  enteredby =   "hwn, wl, jcn"
+  title = "Fuga a 3 voci"
+  opus = "BWV 847-Fuga"
+  source = "Henle's Urtext"
+  composer = "Johann Sebastian Bach (1685-1750)"
+  enteredby = "hwn, wl, jcn"
 
   % mutopia headers.
   mutopiatitle = "Das Wohltemperierte Clavier I, Fuga II (c-minor)"
@@ -36,12 +36,12 @@
 %}
 
 
-\version "2.1.7"
+\version "2.1.22"
 
 
 
 
-dux =  \context Voice=two \notes \relative c''{
+dux = \context Voice=two \notes \relative c''{
   \voiceTwo
   \clef violin
 
@@ -103,9 +103,9 @@ dux =  \context Voice=two \notes \relative c''{
 }
 
 
-comes =  \context Voice=one \notes \relative c'' {
+comes = \context Voice=one \notes \relative c'' {
   \voiceOne
-  \property Voice.MultiMeasureRest \override #'staff-position = #6 
+  \override MultiMeasureRest   #'staff-position = #6 
   R1 |
   R1 |
   r8 g'16 fis g8 c, es g16 fis g8 a |
@@ -145,7 +145,7 @@ comes =  \context Voice=one \notes \relative c'' {
   f,16 g as4 g16 f e2 |
 }
 
-bassdux =  \context Voice=three \notes \relative c' {
+bassdux = \context Voice=three \notes \relative c' {
   \clef bass
   R1 |
   R |
@@ -192,7 +192,7 @@ bassdux =  \context Voice=three \notes \relative c' {
 \score {
  
     \notes \context PianoStaff << 
-        \property Score.TimeSignature \override #'style = #'C
+        \override Score.TimeSignature   #'style = #'C
 	\context Staff = treble <<
 	    \key c \minor
 	    \dux

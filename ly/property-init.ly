@@ -6,7 +6,7 @@ stemUp = \override Stem  #'direction = #1
 stemDown = \override Stem  #'direction = #-1 
 stemBoth= \revert Stem #'direction
 
-slurUp   = \override Slur  #'direction = #1
+slurUp = \override Slur  #'direction = #1
 slurDown = \override Slur  #'direction = #-1
 slurBoth = \revert Slur #'direction 
 
@@ -15,14 +15,14 @@ slurDotted = \override Slur  #'dashed = #1
 slurSolid = \revert Slur #'dashed
 
 
-phrasingSlurUp   = \override PhrasingSlur  #'direction = #1
+phrasingSlurUp = \override PhrasingSlur  #'direction = #1
 phrasingSlurDown = \override PhrasingSlur  #'direction = #-1
 phrasingSlurBoth = \revert PhrasingSlur #'direction 
 
-shiftOn  = \override NoteColumn  #'horizontal-shift = #1
-shiftOnn  = \override NoteColumn  #'horizontal-shift = #2
-shiftOnnn  = \override NoteColumn  #'horizontal-shift = #3
-shiftOff  = \revert NoteColumn #'horizontal-shift 
+shiftOn = \override NoteColumn  #'horizontal-shift = #1
+shiftOnn = \override NoteColumn  #'horizontal-shift = #2
+shiftOnnn = \override NoteColumn  #'horizontal-shift = #3
+shiftOff = \revert NoteColumn #'horizontal-shift 
 
 tieUp = \override Tie  #'direction = #1
 tieDown = \override Tie  #'direction = #-1
@@ -32,7 +32,7 @@ tieDotted = \override Tie  #'dashed = #1
 tieSolid = \revert Tie #'dashed
 
 
-dynamicUp  = {
+dynamicUp = {
   \override DynamicText  #'direction = #1
   \override DynamicLineSpanner  #'direction = #1
 }
@@ -45,7 +45,7 @@ dynamicBoth = {
   \revert DynamicLineSpanner #'direction
 }
 
-scriptUp  = {
+scriptUp = {
   \override TextScript  #'direction = #1
   \override Script  #'direction = #1
 }
@@ -62,14 +62,14 @@ dotsUp = \override Dots  #'direction = #1
 dotsDown = \override Dots  #'direction = #-1
 dotsBoth = \revert Dots #'direction 
 
-tupletUp  =   \override TupletBracket  #'direction = #1
-tupletDown =   \override TupletBracket  #'direction = #-1
-tupletBoth =   \revert TupletBracket #'direction
+tupletUp = \override TupletBracket  #'direction = #1
+tupletDown = \override TupletBracket  #'direction = #-1
+tupletBoth = \revert TupletBracket #'direction
 
-cadenzaOn = \set Timing.timing =  ##f
+cadenzaOn = \set Timing.timing = ##f
 cadenzaOff = {
-  \set Timing.timing =  ##t
-  \set Timing.measurePosition =  #(ly:make-moment 0 1)
+  \set Timing.timing = ##t
+  \set Timing.measurePosition = #(ly:make-moment 0 1)
 }
 
 newpage = \notes
@@ -89,14 +89,14 @@ voiceThree =#(context-spec-music (make-voice-props-set 2) 'Voice)
 voiceFour = #(context-spec-music (make-voice-props-set 3) 'Voice)
 
 	
-tiny  = 
-	\set fontSize =  #-2
+tiny = 
+	\set fontSize = #-2
 
-small  = 
-	\set fontSize =  #-1
+small = 
+	\set fontSize = #-1
 
 normalsize = {
-	\set fontSize =  #0
+	\set fontSize = #0
 }
 
 
@@ -108,28 +108,28 @@ endincipit = \notes \context Staff {
     \bar ""
 }
 
-autoBeamOff = \set autoBeaming =  ##f
-autoBeamOn = \set autoBeaming =  ##t
+autoBeamOff = \set autoBeaming = ##f
+autoBeamOn = \set autoBeaming = ##t
 
 fatText = \override TextScript  #'no-spacing-rods = ##f
-emptyText = \override TextScript  #'no-spacing-rods  = ##t
+emptyText = \override TextScript  #'no-spacing-rods = ##t
 
-showStaffSwitch = \set followVoice =  ##t
-hideStaffSwitch = \set followVoice =  ##f
+showStaffSwitch = \set followVoice = ##t
+hideStaffSwitch = \set followVoice = ##f
 
 % accidentals as they were common in the 18th century.
 defaultAccidentals = {
-  \set Current.extraNatural =  ##t
-  \set Current.autoAccidentals =  #'(Staff (same-octave . 0))
-  \set Current.autoCautionaries =  #'()
+  \set Current.extraNatural = ##t
+  \set Current.autoAccidentals = #'(Staff (same-octave . 0))
+  \set Current.autoCautionaries = #'()
 }
 
 % accidentals in voices instead of staves.
 % Notice that accidentals from one voice do NOT get cancelled in other voices
 voiceAccidentals = {
-  \set Current.extraNatural =  ##t
-  \set Current.autoAccidentals =  #'(Voice (same-octave . 0))
-  \set Current.autoCautionaries =  #'()
+  \set Current.extraNatural = ##t
+  \set Current.autoAccidentals = #'(Voice (same-octave . 0))
+  \set Current.autoCautionaries = #'()
   
 }
 
@@ -137,38 +137,38 @@ voiceAccidentals = {
 % This includes all the default accidentals, but accidentals also needs cancelling
 % in other octaves and in the next measure.
 modernAccidentals = {
-  \set Current.extraNatural =  ##f
-  \set Current.autoAccidentals =  #'(Staff (same-octave . 0) (any-octave . 0) (same-octave . 1))
-  \set Current.autoCautionaries =  #'()  
+  \set Current.extraNatural = ##f
+  \set Current.autoAccidentals = #'(Staff (same-octave . 0) (any-octave . 0) (same-octave . 1))
+  \set Current.autoCautionaries = #'()  
 }
 
 % the accidentals that Stone adds to the old standard as cautionaries
 modernCautionaries = {
-  \set Current.extraNatural =  ##f
-  \set Current.autoAccidentals =  #'(Staff (same-octave . 0))
-  \set Current.autoCautionaries =  #'(Staff (any-octave . 0) (same-octave . 1))  
+  \set Current.extraNatural = ##f
+  \set Current.autoAccidentals = #'(Staff (same-octave . 0))
+  \set Current.autoCautionaries = #'(Staff (any-octave . 0) (same-octave . 1))  
 }
 
 % Multivoice accidentals to be read both by musicians playing one voice
 % and musicians playing all voices.
 % Accidentals are typeset for each voice, but they ARE cancelled across voices.
 modernVoiceAccidentals = {
-  \set Current.extraNatural =  ##f
-  \set Current.autoAccidentals =  #'(
+  \set Current.extraNatural = ##f
+  \set Current.autoAccidentals = #'(
     Voice (same-octave . 0) (any-octave . 0) (same-octave . 1)
     Staff (same-octave . 0) (any-octave . 0) (same-octave . 1)
   )
-  \set Current.autoCautionaries =  #'()  
+  \set Current.autoCautionaries = #'()  
 }
 
 % same as modernVoiceAccidental eccept that all special accidentals are typeset
 % as cautionaries
 modernVoiceCautionaries = {
-  \set Current.extraNatural =  ##f
-  \set Current.autoAccidentals =  #'(
+  \set Current.extraNatural = ##f
+  \set Current.autoAccidentals = #'(
     Voice (same-octave . 0) 
   )
-  \set Current.autoCautionaries =  #'(
+  \set Current.autoCautionaries = #'(
     Voice (any-octave . 0) (same-octave . 1)
     Staff (same-octave . 0) (any-octave . 0) (same-octave . 1)
   )  
@@ -177,18 +177,18 @@ modernVoiceCautionaries = {
 % stone's suggestions for accidentals on grand staff.
 % Accidentals are cancelled across the staves in the same grand staff as well
 pianoAccidentals = {
-  \set Current.autoAccidentals =  #'(
+  \set Current.autoAccidentals = #'(
     Staff (same-octave . 0) (any-octave . 0) (same-octave . 1)
     GrandStaff (any-octave . 0) (same-octave . 1)
   )
-  \set Current.autoCautionaries =  #'()  
+  \set Current.autoCautionaries = #'()  
 }
 
 pianoCautionaries = {
-  \set Current.autoAccidentals =  #'(
+  \set Current.autoAccidentals = #'(
     Staff (same-octave . 0)
   )
-  \set Current.autoCautionaries =  #'(
+  \set Current.autoCautionaries = #'(
     Staff (any-octave . 0) (same-octave . 1)
     GrandStaff (any-octave . 0) (same-octave . 1)
   )  
@@ -199,8 +199,8 @@ pianoCautionaries = {
 % printed only once and are in effect until overridden, possibly many
 % measures later.
 noResetKey = {
-  \set Current.autoAccidentals =  #'(Staff (same-octave . #t))
-  \set Current.autoCautionaries =  #'()
+  \set Current.autoAccidentals = #'(Staff (same-octave . #t))
+  \set Current.autoCautionaries = #'()
 }
 
 % do not set localKeySignature when a note alterated differently from
@@ -209,13 +209,13 @@ noResetKey = {
 % remembered for the duration of a measure.
 % accidentals not being remembered, causing accidentals always to be typeset relative to the time signature
 forgetAccidentals = {
-  \set Current.autoAccidentals =  #'(Staff (same-octave . -1))
-  \set Current.autoCautionaries =  #'()  
+  \set Current.autoAccidentals = #'(Staff (same-octave . -1))
+  \set Current.autoCautionaries = #'()  
 }
 
 
 % To remove a Volta bracket or some other graphical object,
-% set it to turnOff. Example: \set Staff.VoltaBracket =  \turnOff
+% set it to turnOff. Example: \set Staff.VoltaBracket = \turnOff
 
 %%
 %% DO NOT USE THIS. IT CAN LEAD TO CRASHES.
@@ -247,7 +247,7 @@ hideNotes =\sequential {
 }
 
 
-unHideNotes =  \sequential {
+unHideNotes = \sequential {
   \revert Staff.Accidental #'transparent
   \revert Beam #'transparent
   \revert Stem #'transparent
@@ -256,10 +256,10 @@ unHideNotes =  \sequential {
 }
 
 germanChords = {
-    \set chordRootNamer =  #(chord-name->german-markup #t)
-    \set chordNoteNamer =  #note-name->german-markup
+    \set chordRootNamer = #(chord-name->german-markup #t)
+    \set chordNoteNamer = #note-name->german-markup
 }
 semiGermanChords = {
-    \set chordRootNamer =  #(chord-name->german-markup #f)
-    \set chordNoteNamer =  #note-name->german-markup
+    \set chordRootNamer = #(chord-name->german-markup #f)
+    \set chordNoteNamer = #note-name->german-markup
 }

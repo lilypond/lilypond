@@ -3,7 +3,7 @@
   title =	"Title"
   subtitle =	"Subtitle"
   subsubtitle =	"Subsubtitle"
-  opus =  "Opus 1"
+  opus = "Opus 1"
   piece = "Piece"
   composer = 	 "Composer"
   enteredby = 	 "JCN"

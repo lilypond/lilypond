@@ -18,8 +18,8 @@ stopTextSpan = #(make-span-event 'TextSpanEvent STOP)
 
 cresc = \notes {
   #(ly:export (make-event-chord (list cr)))
-  \set crescendoText =  \markup { \italic "cresc." }
-  \set crescendoSpanner =  #'dashed-line
+  \set crescendoText = \markup { \italic "cresc." }
+  \set crescendoSpanner = #'dashed-line
 }
 
 % ah, this is handy: maybe drop resetting of properties in
@@ -33,8 +33,8 @@ endcresc = \notes {
 dim = \notes {
   #(ly:export (make-event-chord (list decr)))
 
-  \set decrescendoText =  \markup { \italic "dim." }
-  \set decrescendoSpanner =  #'dashed-line
+  \set decrescendoText = \markup { \italic "dim." }
+  \set decrescendoSpanner = #'dashed-line
 }
 
 enddim = \notes {
@@ -60,6 +60,6 @@ treCorde = #(make-span-event 'UnaCordaEvent STOP)
 sostenutoDown = #(make-span-event 'SostenutoEvent START)
 sostenutoUp = #(make-span-event 'SostenutoEvent STOP)
 
-%crescpoco = \set crescendoText =  "cresc. poco a poco"
-%decresc = \set crescendoText =  "decr."
-%dim = \set crescendoText =  "dim."
+%crescpoco = \set crescendoText = "cresc. poco a poco"
+%decresc = \set crescendoText = "decr."
+%dim = \set crescendoText = "dim."

@@ -7,7 +7,7 @@
 %            added asas and marked ases as `unusual'
 
 
-pitchnamesDeutsch =  #`(
+pitchnamesDeutsch = #`(
 	(ceses . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
 	(ces . ,(ly:make-pitch -1 0 FLAT))
 	(c . ,(ly:make-pitch -1 0 NATURAL))

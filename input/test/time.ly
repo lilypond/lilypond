@@ -2,7 +2,7 @@
 \version "2.1.22"
 % TODO: This file could be old.  Ask about it later.  -gp
 
-\header { texidoc =  "@cindex Time
+\header { texidoc = "@cindex Time
 
 Old time signatures. For further information, consult the file. 
     

@@ -1846,9 +1846,9 @@ Grob::preset_extent removed.
 
 
 def conv (str):
-	str = re.sub (r'\\property\s+([^.]+)\s*\.\s*([^\\=]+)\s*\\(set|override)',
+	str = re.sub (r'\\property\s+([^. ]+)\s*\.\s*([^\\=]+)\s*\\(set|override)',
 		      r"\\overrid@ \1.\2 ", str)
-	str = re.sub (r'\\property\s+([^. ]+)\s*\.\s*([^\\= ]+)\s*=',
+	str = re.sub (r'\\property\s+([^. ]+)\s*\.\s*([^\\= ]+)\s*=\s*',
 		      r'\\s@t \1.\2 = ', str)
 	str = re.sub (r'\\property\s+([^. ]+)\s*\.\s*([^\\= ]+)\s*\\unset',
 		      r'\\uns@t \1.\2 ', str)

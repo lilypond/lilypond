@@ -15,12 +15,12 @@ voices according to actual rhythm and pitch.  User-defined texts such as
     \relative c'' {
       c4 d e f | b,4 d c d | r2 e4 f | c4 d e f |
       c4 r e f | c4 r e f | c4 r a r | a a r a |
-      a2 \set soloADue =  ##f a |
+      a2 \set soloADue = ##f a |
     }
     \relative c'' {
       g4 b d f | r2 c4 d | a c c d | a4. b8 c4 d
       c r e r | r2 s2 | a,4 r a r | a r r a |
-      a2 \set soloADue =  ##f a |
+      a2 \set soloADue = ##f a |
     }
   >>
   \paper{

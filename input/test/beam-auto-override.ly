@@ -39,7 +39,7 @@ The beam will be ended also when now % beamAutoEnd = 0.
       	c8 c c4
       	r8 c c c
 	% no autobeaming
-	\set autoBeaming =  ##f
+	\set autoBeaming = ##f
       	c8 c c c
     }
     \paper{

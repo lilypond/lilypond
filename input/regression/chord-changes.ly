@@ -13,7 +13,7 @@ scheme = \chords {
 }
 
 settings = {
-  \set chordChanges =  ##t
+  \set chordChanges = ##t
 }
 
 \score {

@@ -10,7 +10,7 @@ vone = \notes \relative a' { R1*2 g2 r2 g2 r2 a4 r4 g
 vtwo = \notes \relative a' { R1*2 g2 r2 g2 r2 f4 r4 g }
 
 \score {
-    << \set Score.skipBars =  ##t 
+    << \set Score.skipBars = ##t 
    \partcombine \vone \vtwo
        >>
 }

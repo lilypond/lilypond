@@ -10,18 +10,18 @@ example are central C."
 }
 
 \score { \notes {
-  \set Staff.clefGlyph =  #"clefs-F"
-  \set Staff.clefPosition =  #2
+  \set Staff.clefGlyph = #"clefs-F"
+  \set Staff.clefPosition = #2
   c'4
-  \set Staff.clefGlyph =  #"clefs-G"
+  \set Staff.clefGlyph = #"clefs-G"
   c'4
-  \set Staff.clefGlyph =  #"clefs-C"
+  \set Staff.clefGlyph = #"clefs-C"
 
   c'4
-	\set Staff.clefOctavation =  #7 
+	\set Staff.clefOctavation = #7 
   c'4
-	\set Staff.clefOctavation =  #0 
-	\set Staff.clefPosition =  #0
+	\set Staff.clefOctavation = #0 
+	\set Staff.clefPosition = #0
   c'4
 	\clef "bass"
   c'4

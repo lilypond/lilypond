@@ -17,7 +17,7 @@ parens are also not seen by accidentals.
 Example usage:
 
   \\property NoteHead \\override #'print-function
-		      =
+		   =
 		      #(parenthesize-callback Note_head::print)
 		    
 "
@@ -60,12 +60,12 @@ GROB.  The dimensions of the stencil is not affected.
 	\notes \relative c' { c4 e
 
 		    \override NoteHead  #'print-function
-		      =
+		   =
 		      #(parenthesize-callback Note_head::print)
 		    g bes
 		    \revert NoteHead #'print-function
 		    \override Beam  #'print-function
-		      =
+		   =
 		      #(parenthesize-callback Beam::print)
 
 		    a8 gis8 a2.

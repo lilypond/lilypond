@@ -13,8 +13,8 @@ LilyPond can print mensural ligatures."
 % This is intended behaviour.
 
 voice = \notes \transpose c c' {
-  \set Score.timing =  ##f
-  \set Score.defaultBarType =  "empty"
+  \set Score.timing = ##f
+  \set Score.defaultBarType = "empty"
   g\longa c\breve a\breve f\breve d'\longa^\fermata
   \bar "|"
   \[

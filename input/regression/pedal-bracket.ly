@@ -1,3 +1,4 @@
+\version "2.1.22"
 
 \header {
 
@@ -9,13 +10,13 @@ There are no vertical endings at a line-break.  " }
 
 \score {
     \notes \relative c'' {
-        \property Staff.pedalSustainStyle = #'bracket
+        \set Staff.pedalSustainStyle = #'bracket
 
         c4 d e \sustainDown b c c, \sustainUp \sustainDown  d8[ c]  e8[ 
 	    e \sustainUp \sustainDown] f4 d
         \sustainUp g \sustainDown b b, \sustainUp c'
 
-        \property Staff.pedalUnaCordaStyle = #'mixed
+        \set Staff.pedalUnaCordaStyle = #'mixed
 
         c4 d \unaCorda e f g
         b  | \break c b c \treCorde c

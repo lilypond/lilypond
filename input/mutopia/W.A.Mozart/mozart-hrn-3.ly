@@ -19,7 +19,7 @@
   source = "Edition Breitkopf 2563"
   footer = "Mutopia-2002/05/21-25"
 
-  tagline =  "\\parbox{\hsize}{\\thefooter\\quad\\small This music is part of the Mutopia project, \\texttt{http://sca.uwaterloo.ca/Mutopia/}. It has been typeset and placed in the public domain by " + \maintainer + ". Unrestricted modification and redistribution is permitted and encouraged---copy this music and share it!}"
+  tagline = "\\parbox{\hsize}{\\thefooter\\quad\\small This music is part of the Mutopia project, \\texttt{http://sca.uwaterloo.ca/Mutopia/}. It has been typeset and placed in the public domain by " + \maintainer + ". Unrestricted modification and redistribution is permitted and encouraged---copy this music and share it!}"
 
 }
 %{

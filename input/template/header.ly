@@ -12,7 +12,7 @@
   poet = "Poet"
   texttranslator = "Translator"
   copyright = "public domain"
-  source =  "urtext "
+  source = "urtext "
   enteredby = "your name here"
   maintainerEmail = "your email here"
   texidoc = "The standard header that ought to be in top of a file."

@@ -26,7 +26,7 @@ baseWalk = \notes \relative c {
       Slur \override #'direction = #1
       Stem \override #'direction = #-1
       autoBeamSettings \override #'(end * * * *)
-        = #(ly:make-moment 1 2)
+     = #(ly:make-moment 1 2)
     }
     \translator {
       \PianoStaffContext
