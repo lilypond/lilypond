@@ -40,8 +40,7 @@ Symtable::lookup(String s) const
 	return (*this)[s];
     else {
 	warning( "Symtable `" + id_str+ "\': unknown symbol `" +s+"'\n");
-	Symbol sy;			// unreachable
-	sy.tex = "";
+	Symbol sy;	
 	return sy;
     }
 }

@@ -32,6 +32,7 @@ public:
     int staff_size_i_;
     int dots_i_;
     int balltype_i_;
+    int dot_delta_y_i_;
     int x_dir_i_;
     
     /* *************** */
@@ -42,6 +43,7 @@ public:
       position of top line (5 linestaff: 8)
       */
     Note_head(int staff_size);
+    void set_dots();
     static int compare(Note_head * const &a, Note_head *const &b) ;
 protected:
     virtual    void do_print()const;
