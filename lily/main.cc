@@ -125,7 +125,7 @@ static Getopt_long *option_parser = 0;
 static Long_option_init options_static[] =
   {
     {_i ("EXPR"), "evaluate", 'e',
-     _i ("set options, use -e '(ly:option-usage)' for help")},
+     _i ("set option, use -e '(ly:option-usage)' for help")},
     /* Bug in option parser: --output=foe is taken as an abbreviation
        for --output-format.  */
     {_i ("EXT"), "format", 'f', _i ("select back-end to use")},
@@ -191,7 +191,7 @@ static void
 usage ()
 {
   /* No version number or newline here.  It confuses help2man.  */
-  printf (_f ("Usage: %s [OPTIONS]... FILE...", PROGRAM_NAME).to_str0 ());
+  printf (_f ("Usage: %s [OPTION]... FILE...", PROGRAM_NAME).to_str0 ());
   printf ("\n\n");
   printf (_ ("Typeset music and/or produce MIDI from FILE.").to_str0 ());
   printf ("\n\n");

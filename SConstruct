@@ -367,6 +367,8 @@ def configure (target, source, env):
 		cpppath = []
 		if env.has_key ('CPPPATH'):
 			cpppath = env['CPPPATH']
+
+	## FIXME: linkage, check for libguile.h and scm_boot_guile
 	#this could happen after flower...
 	env.ParseConfig ('guile-config compile')
 
@@ -674,7 +676,8 @@ def symlink_tree (target, source, env):
 	      ('mf',         'share/lilypond/fonts/tfm'),
 	      ('mf',         'share/lilypond/fonts/type1'),
 	      ('#tex',       'share/lilypond/tex/source'),
-	      ('mf',         'share/lilypond/tex/generate'),
+	      ('tex',        'share/lilypond/tex/tex-out'),
+	      ('mf',         'share/lilypond/tex/mf-out'),
 	      ('#ly',        'share/lilypond/ly'),
 	      ('#scm',       'share/lilypond/scm'),
 	      ('#ps',        'share/lilypond/ps'),
