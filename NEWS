@@ -1,48 +1,68 @@
 New features in 1.7 since 1.6
 
-* Deeper integration of the input language and Scheme. You can now use
+* INPUT
+
+** Text entry is now done in a separate mode, and is more ergonomic
+than the previous Scheme texts.
+
+** Deeper integration of the input language and Scheme. You can now use
 LilyPond identifiers in Scheme, and use Scheme expressions instead of
 LilyPond identifiers.
 
-* Music types cleaned up and Schemified.  
+** Music types cleaned up and Schemified.  
 
-* New syntax for chords:
+** New syntax for chords:
 
 	<< PITCHES >>
 
-This is in addition to the < MUSICS > syntax for simultaneous music. Combined with this: uniform postfix syntax for articulations:
+This is in addition to the < MUSICS > syntax for simultaneous
+music. Combined with this: uniform postfix syntax for articulations:
 
 	c8-[-( d8-]-) 
 
 for a beamed slurred pair of eighth notes.
 
-* Texts on multimeasure rests can be set by the user.
+** User code evaluation during interpreting. Syntax
 
-* Zigzagged glissandi
+	\applycontext #SCHEME-FUNCTION
 
-* XML music output.
+** XML music output.
 
-* Preliminary Sodipodi/SVG output
 
-* Cluster support. Syntax:
+
+* OUTPUT
+
+** Preliminary Sodipodi/SVG output
+
+
+
+* NOTATION
+
+* Completely rewritten text formatting support. It is implemented in a
+completely modular way.
+
+** Texts on multimeasure rests can be set by the user.
+
+** Zigzagged glissandi
+
+** Cluster support. Syntax:
 
 	NOTE-\openCluster
 	..
 	NOTE-\closeCluster
 
-* Beat grouping indications. Syntax:
+** Beat grouping indications. Syntax:
 
 	#(set-time-signature 7 8 '(3 2 2))
 
-* User code evaluation during interpreting. Syntax
-
-	\applycontext #SCHEME-FUNCTION
-
-* Nested horizontal brackets for music analysis.
+** Nested horizontal brackets for music analysis.
 
 	NOTE-\groupOpen
 		..
 	NOTE-\groupClose
+
+
+
 
 New features in 1.6 since 1.4
 

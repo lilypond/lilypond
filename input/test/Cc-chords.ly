@@ -1,13 +1,32 @@
 \version "1.7.6"
 \header {
-  texidoc="Jazz chord names, but with lower case names for minor chords"
+  texidoc="Jazz chord names, but with lower case names for minor chords
+
+BROKEN. FIXME.
+"
 }
 
-#(assoc-set! chord::names-alist-jazz
-  '((0 . 0) (2 . -1)) '(""))
 
-#(assoc-set! chord::names-alist-jazz
-   '((0 . 0) (2 . -1) (4 . 0) (6 . -1)) '("7"))
+%%%
+%%  UGH UH GUG UHGUHGHGH GHG
+% -- this is fucking up global name space.
+%
+% imagine doing
+% 
+%   lilypond Cc-chords.ly ..other-files-testing-chords...
+%
+% then the other files will get messed up.
+%%
+
+%{
+
+FIXME:
+
+%#(assoc-set! chord::names-alist-jazz
+%  '((0 . 0) (2 . -1)) '(""))
+
+%#(assoc-set! chord::names-alist-jazz
+%   '((0 . 0) (2 . -1) (4 . 0) (6 . -1)) '("7"))
 
 #(define (pitch->chord-name-text-banter pitch additions)
   (let ((name (pitch->text-banter pitch)))
@@ -17,6 +36,8 @@
 	       (substring (car name) 1))
 	       (cdr name))
 	name)))
+%}
+
 
 \score {
   <

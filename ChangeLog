@@ -1,5 +1,13 @@
 2002-12-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/chord-name.scm: don't export anything from chord module.
+
+	* input/test/american-chords.ly: idem
+
+	* input/test/banter-chords.ly (texidoc): idem
+
+	* input/test/Cc-chords.ly: add breakage notes.
+
 	* Documentation/user/refman.itely (Text markup): rewrite manual section.
 
 	* lily/parser.yy (scalar): allow \markup { } as property value. 

@@ -2,9 +2,12 @@
 
 
 \header{
-enteredby = 	 "jcn"
-copyright = 	 "public domain"
-TestedFeatures = 	 "Banter named chords"
+texidoc =  "banter  chords
+
+
+FIXME
+
+"
 }
 
 % test German (Banter) naming
@@ -16,7 +19,10 @@ TestedFeatures = 	 "Banter named chords"
 % eachother.  These guile lists are fixed in the guile environment
 % when this file has been parsed...
 
-% {
+%{
+
+
+%% FIXME: 
 
 #;(define chord::names-alist-banter '())
 #(set! chord::names-alist-banter
@@ -45,7 +51,7 @@ TestedFeatures = 	 "Banter named chords"
 				      (number->string (caddr pitch)))
 		       '(font . "feta")))))))
 
-% }
+%}
 
 chord =  \notes\transpose c' c''\chords{
 	% dim modifier means: lower all implicit additions
