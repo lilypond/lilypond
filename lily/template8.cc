@@ -11,6 +11,7 @@
 #include "audio-item.hh"
 #include "audio-column.hh"
 #include "midi-item.hh"
+#include "cursor.tcc"
 #include "pcursor.tcc"
 #include "plist.tcc"
 

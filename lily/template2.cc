@@ -7,6 +7,7 @@
 */
 
 #include "line-spacer.hh"
+#include "cursor.tcc"
 #include "pcursor.tcc"
 #include "plist.tcc"
 

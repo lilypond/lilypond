@@ -13,6 +13,7 @@
 #include "item.hh"
 #include "musical-request.hh"
 #include "spanner.hh"
+#include "cursor.tcc"
 #include "pcursor.tcc"
 #include "plist.tcc"
 
