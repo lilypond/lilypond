@@ -54,16 +54,19 @@
 @c using @ref without punctuation is OK without for formats other than info
 
 @macro internalsref{NAME}@c
+@c annoying parentheses stripped by add-html-footer.py
 @ref{\NAME\,,,lilypond-internals}@c
 @findex \NAME\
 @end macro
 
+@c usage: @inputfileref{input@/regression,FILE@/-NAME.ly}
 @macro inputfileref{DIR,NAME}
-@uref{../../../../\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
+@c @uref{../../../../\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
+@uref{\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
 @end macro
 
 @macro rglos{NAME}@c
-@c annoying parentheses
+@c annoying parentheses stripped by add-html-footer.py
 @ref{\NAME\,,,music-glossary}@c
 @findex \NAME\
 @end macro
@@ -80,7 +83,7 @@
 @end macro
  
 @macro inputfileref{DIR,NAME}
-@uref{../../../../\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
+@uref{source/\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
 @end macro
 
 @macro rglos{NAME}@c

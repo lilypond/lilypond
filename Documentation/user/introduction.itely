@@ -716,7 +716,7 @@ available in
 a big HTML page,
 @end iftex
 @ifhtml
-@uref{../lilypond.html, a big HTML page}
+@uref{source/Documentation/user/out-www/lilypond.html, one big page},
 @end ifhtml
 which can be searched easily using the search facility of a web
 browser.
@@ -777,7 +777,9 @@ have clickable links.
 Various input examples.
 @end ifnothtml
 @ifhtml
-@uref{../../../../input/test/out-www/collated-files.html,Various input examples}.
+@c Works, but link name is not so nice; so write-out macro
+@c @inputfileref{input/test,Various input examples}.
+@uref{source/input/test/out-www/collated-files.html,Various input examples}.
 @end ifhtml
 @cindex snippets
 
@@ -790,7 +792,9 @@ included.
 The regression tests.
 @end ifnothtml
 @ifhtml
-@uref{../../../../input/regression/out-www/collated-files.html,The regression tests}.
+@c Works, but link name is not so nice; so write-out macro
+@c @inputfileref{input/regression,The regression tests}.
+@uref{source/input/regression/out-www/collated-files.html,The regression tests}.
 @end ifhtml
 
 This collection of files tests each notation and engraving feature of
