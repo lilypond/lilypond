@@ -50,6 +50,9 @@ Paper_score::typeset_element (Score_element * elem_p)
 
   SCM_CDR(element_smob_list_) = gh_cons (elem_p->self_scm_,
 					 SCM_CDR (element_smob_list_));
+  elem_p->set_elt_property (ly_symbol ("full-name"),
+			    gh_str02scm((char*)elem_p->name()));
+  
   scm_unprotect_object (elem_p->self_scm_);
 }
 
