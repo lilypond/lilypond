@@ -43,7 +43,7 @@ elispdir = $(datadir)/emacs/site-lisp
 # forced instead of $(datadir)/vim
 
 # move out of config.make.in?
-package_suffix = $(package)$(MAJOR_VERSION).$(MINOR_VERSION)
+package_suffix = $(package)/$(TOPLEVEL_VERSION)
 package_datadir = $(datadir)/$(package_suffix)
 package_infodir = $(infodir)/$(package_suffix)
 package_libdir = $(libdir)/$(package_suffix)

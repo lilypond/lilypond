@@ -12,8 +12,7 @@
 #include "config.hh"
 #include "guile-compatibility.hh"
 
-#if KPATHSEA && HAVE_KPATHSEA_KPATHSEA_H
-
+#include <dlfcn.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -42,7 +41,16 @@ I found a somewhat more elegant patch for this: Just #include
 
 
 #if KPATHSEA
-/* FIXME: this should be part of kpathsea */
+
+
+#if HAVE_KPATHSEA_KPATHSEA_H
+static  void *kpathsea_handle = 0;
+static  char *(*dl_kpse_find_file) (char const*, kpse_file_format_type, boolean) = 0;
+static  void (*dl_kpse_maketex_option) (char const*, boolean) = 0;
+static  void (*dl_kpse_set_program_name) (char const*) = 0;
+static  char const *(*dl_kpse_init_format) (kpse_file_format_type) = 0;
+static  char *(*dl_kpse_var_expand) (char const*) = 0;
+static  kpse_format_info_type (*dl_kpse_format_info)[kpse_last_format] = 0;
 
 kpse_file_format_type
 kpathsea_find_format (const char* name)
@@ -51,12 +59,12 @@ kpathsea_find_format (const char* name)
   int len = strlen (name);
   for (i = 0; i < kpse_last_format; i++)
     {
-      if (!kpse_format_info[i].type)
-        kpse_init_format ((kpse_file_format_type) i);
+       if (!(*dl_kpse_format_info)[i].type)
+        (*dl_kpse_init_format) ((kpse_file_format_type) i);
 
-      char const **suffixes[] = { kpse_format_info[i].suffix,
-				  kpse_format_info[i].alt_suffix };
-      for (int j = 0; j < 2; j++)
+       char const **suffixes[] = { (*dl_kpse_format_info)[i].suffix,
+				   (*dl_kpse_format_info)[i].alt_suffix };
+       for (int j = 0; j < 2; j++)
 	for (char const **p = suffixes[j]; p && *p; p++)
 	  {
 	    int suflen = strlen (*p);
@@ -69,11 +77,6 @@ kpathsea_find_format (const char* name)
 }
 #endif
 
-
-
-
-
-
 //	   "Return the absolute file name of @var{name}, "
 //	   "or @code{#f} if not found.")
 SCM
@@ -82,8 +85,8 @@ ly_kpathsea_find_file(SCM name)
   SCM_ASSERT_TYPE (scm_is_string (name), name, SCM_ARG1, __FUNCTION__, "string");
 
   char const * nm = scm_i_string_chars (name);
-  char *p = kpse_find_file (nm, kpathsea_find_format (nm),
-			    true);
+  char *p = (*dl_kpse_find_file) (nm, kpathsea_find_format (nm),
+				  true);
   if (p)
     return scm_makfrom0str (p);
   return SCM_BOOL_F;
@@ -103,16 +106,71 @@ SCM ly_kpathsea_expand_variable(SCM var)
 }
 
 
+static char const* LIBKPATHSEA = "libkpathsea.so";
+
+int
+open_library ()
+{
+#if KPATHSEA && HAVE_KPATHSEA_KPATHSEA_H
+  struct
+  {
+    void **func_pointer;
+    char const *name; 
+  } symbols[] = {
+    {(void*)&dl_kpse_find_file, "kpse_find_file"},
+    {(void*)&dl_kpse_set_program_name, "kpse_set_program_name"},
+    {(void*)&dl_kpse_format_info, "kpse_format_info"},
+    {(void*)&dl_kpse_init_format, "kpse_init_format"},
+    {(void*)&dl_kpse_maketex_option, "kpse_maketex_option"},
+    {(void*)&dl_kpse_var_expand, "kpse_var_expand"},
+    {0,0}
+  };
+
+
+  dlerror ();
+  kpathsea_handle = dlopen (LIBKPATHSEA, RTLD_LAZY);
+  if (!kpathsea_handle)
+    {
+      /*
+	todo i18n.
+       */
+      fprintf (stderr, "can't dlopen: %s: %s", LIBKPATHSEA, dlerror ());
+      fprintf (stderr,"install package: %s or %s",
+	       "libkpathsea3 (teTeX 2.x)",
+	       "libkpathsea4 (teTeX 3.x)");
+
+      return 1;
+    }
+
+  for (int i = 0; symbols[i].func_pointer; i++)
+    {
+      dlerror ();
+      *symbols[i].func_pointer = dlsym (kpathsea_handle, symbols[i].name);
+      if (!symbols[i].func_pointer)
+	{
+	  fprintf(stderr, "no such symbol: %s: %s",
+		  symbols[i].name,
+		  dlerror ());
+	  return 1;
+	}
+    }
+
+  return 0;
+#endif
+}
 
 void
 initialize_kpathsea ()
 {
-  /*
-   initialize kpathsea
-   */
-  kpse_set_program_name ("lilypond", NULL);
-  kpse_maketex_option ("tfm", TRUE);
+  if (open_library ())
+    {
+      fprintf (stderr, "Error opening kpathsea library. Aborting");
+      exit (1);
+    }
 
+  (*dl_kpse_set_program_name) ("lilypond");
+  (*dl_kpse_maketex_option) ("tfm", TRUE);
+  
   SCM find = scm_c_define_gsubr ("ly:kpathsea-find-file", 1, 0, 0, ly_kpathsea_find_file);
   scm_c_export ("ly:kpathsea-find-file", NULL);
   SCM expand = scm_c_define_gsubr ("ly:kpathsea-expand-variable", 1, 0, 0, ly_kpathsea_find_file);
