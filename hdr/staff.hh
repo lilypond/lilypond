@@ -1,45 +1,41 @@
+/*
+  staff.hh -- declare Staff
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #ifndef STAFF_HH
 #define STAFF_HH
 
-#include "staffcommands.hh"
-
+#include "plist.hh"
+#include "proto.hh"
+#include "moment.hh"
 
 /// base class for a collection of voices.
-struct Staff {
+class Staff {
+    Staff_column *get_col(Moment, PCursor<Staff_column*> * last= 0);
+    Staff(const Staff&src);
+    
     /// synchronous horizontal stuff
-    IPointerList<Voice*> voices;
+    IPointerList<Voice*> voice_list_;
+
+public:
 
     /// runtime field
     IPointerList<Staff_column*> cols;
 
     Score *score_l_;
     PScore *pscore_l_;
-    String define_spot_str_;
 
     /* *************************************************************** */
 
-    void add(PointerList<Voice*> &s);
-    void do_commands(PointerList<Input_command*> score_wide,
-		     PointerList<Input_command*> staff_wide);
+    void add(const PointerList<Voice*> &s);
 
-    void get_marks(Array<String>&, Array<Moment>&);
-    
-    /// throw away cols later the #l#
-    void truncate_cols(Moment l);
-
-    Staff(const Staff&src);
     void add_voice(Voice *v);
-    void add_staff_column(Staff_column *sp);
-
     Paperdef*paper()const;
-    
-    /// interpret all requests and add items to #destination#.
-    /**
-    This routines calls virtual functions from Staff, to delegate the
-    interpretation of requests to a derived class of Staff */
-    void process();
 
-    
     void setup_staffcols();
 
     void OK() const;
@@ -50,22 +46,12 @@ struct Staff {
 
     /// remove unused cols
     void clean_cols() ;
-    
-    Staff_column *get_col(Moment,bool); // ugh
-
     Staff();
-
-    /* 
-      VIRTUALS
-      */
-
+    
     virtual void set_output(PScore * destination)=0;
-    virtual void walk()=0;    
-    virtual Staff_column * create_col(Score_column * )=0;
+    virtual Staff_walker *get_walker_p()=0;    
     virtual ~Staff() { }
-private:
-    void set_time_descriptions();
+protected:
+    virtual Staff_column * create_col()=0;
 };
 #endif
-
-
