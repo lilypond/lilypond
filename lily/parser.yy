@@ -436,7 +436,6 @@ or
 %type <scm>     Alternative_music
 %type <scm>	full_markup lyric_markup
 %type <scm>	markup_list markup_composed_list markup_braced_list markup_braced_list_body 
-%type <scm>	optional_text
 %type <scm>	markup_head_1_item markup_head_1_list markup simple_markup markup_top
 %type <scm> 	mode_changing_head
 %type <scm> 	mode_changing_head_with_context
@@ -492,11 +491,15 @@ toplevel_expression:
 		scm_call_2 (proc, THIS->self_scm (), score->self_scm ());
  		scm_gc_unprotect_object (score->self_scm ());
 	}
-	| toplevel_music optional_text {
+	| toplevel_music {
 		Music *music = $1;
 		SCM proc = THIS->lexer_->lookup_identifier ("toplevel-music-handler");
-		scm_call_3 (proc, THIS->self_scm (), music->self_scm (), $2);
+		scm_call_2 (proc, THIS->self_scm (), music->self_scm ());
  		scm_gc_unprotect_object (music->self_scm ());
+	}
+	| full_markup {
+		SCM proc = THIS->lexer_->lookup_identifier ("toplevel-text-handler");
+		scm_call_2 (proc, THIS->self_scm (), $1);
 	}
 	| output_def {
 		SCM id = SCM_EOL;
@@ -538,15 +541,6 @@ lilypond_header_body:
 lilypond_header:
 	HEADER '{' lilypond_header_body '}'	{
 		$$ = THIS->lexer_->remove_scope ();
-	}
-	;
-
-optional_text:
-	/* empty */ {
-		$$ = SCM_EOL
-	}
-	| optional_text full_markup {
-	  	$$ = ly_snoc ($2, $1);
 	}
 	;
 
@@ -671,25 +665,17 @@ book_body:
 		$$->paper_ = $2;
 		scm_gc_unprotect_object ($2->self_scm ());
 	}
-	| book_body score_block optional_text {
-		Score *score = $2;
-		score->texts_ = $3;
-		$$->add_score (score);
+	| book_body score_block {
+		SCM s = $2->self_scm ();
+		$$->add_score (s);
+		scm_gc_unprotect_object (s);
 	}
-	/* let's do optional
-	| book_body full_markup {
-	  	if (!$$->scores_.size ())
-			THIS->parser_error (@2, _("\\markup cannot be used before \\score."));
-		Score *score = $$->scores_.top ();
-		score->texts_ = ly_snoc ($2, score->texts_);
-	}
-	*/
 	| book_body lilypond_header {
 		$$->header_ = $2;
 	}
 	| book_body error {
 		$$->paper_ = 0;
-		$$->scores_.clear();
+		$$->scores_ = SCM_EOL;
 	}
 	| book_body object_id_setting {
 		$$->user_key_ = ly_scm2string ($2);

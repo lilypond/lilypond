@@ -116,3 +116,4 @@ setDefaultDurationToQuarter = { c4 }
 #(define toplevel-book-handler ly:parser-print-book)
 #(define toplevel-music-handler collect-music-for-book)
 #(define toplevel-score-handler collect-scores-for-book)
+#(define toplevel-text-handler collect-scores-for-book)

@@ -19,9 +19,10 @@
 
 Paper_book::Paper_book ()
 {
-  pages_ = SCM_BOOL_F;
-  systems_ = SCM_BOOL_F;
   header_ = SCM_EOL;
+  pages_ = SCM_BOOL_F;
+  scores_ = SCM_EOL;
+  systems_ = SCM_BOOL_F;
   
   paper_ = 0;
   smobify_self ();
@@ -39,13 +40,11 @@ SCM
 Paper_book::mark_smob (SCM smob)
 {
   Paper_book *b = (Paper_book*) SCM_CELL_WORD_1 (smob);
-  for (int i = 0; i < b->score_systems_.size (); i++)
-    b->score_systems_[i].gc_mark ();
-
   if (b->paper_)
     scm_gc_mark (b->paper_->self_scm ());
   scm_gc_mark (b->header_);
   scm_gc_mark (b->pages_);
+  scm_gc_mark (b->scores_);
   return b->systems_;
 }
 
@@ -73,9 +72,15 @@ dump_fields ()
 }
 
 void
+Paper_book::add_score (SCM s)
+{
+  scores_ = scm_cons (s, scores_);
+}
+
+void
 Paper_book::output (String outname)
 {
-  if (!score_systems_.size ())
+  if (scores_ == SCM_EOL)
     return;
 
   /* Generate all stencils to trigger font loads.  */
@@ -124,8 +129,10 @@ Paper_book::classic_output (String outname)
   if (ly_c_module_p (header_))
     scopes = scm_cons (header_, scopes);
 
-  if (ly_c_module_p (score_systems_[0].header_))
-    scopes = scm_cons (score_systems_[0].header_, scopes);
+#if 0
+  if (ly_c_module_p (scores_[0].header_))
+    scopes = scm_cons (scores_[0].header_, scopes);
+#endif  
   //end ugh
 
   String format = output_backend_global;
@@ -174,20 +181,18 @@ Paper_book::book_title ()
 }
 
 Stencil
-Paper_book::score_title (int i)
+Paper_book::score_title (SCM header)
 {
   SCM title_func = paper_->lookup_variable (ly_symbol2scm ("score-title"));
 
   Stencil title;
 
-  // ugh code dup
   SCM scopes = SCM_EOL;
   if (ly_c_module_p (header_))
     scopes = scm_cons (header_, scopes);
 
-  if (ly_c_module_p (score_systems_[i].header_))
-    scopes = scm_cons (score_systems_[i].header_, scopes);
-  //end ugh
+  if (ly_c_module_p (header))
+    scopes = scm_cons (header, scopes);
 
   SCM tit = SCM_EOL;
   if (ly_c_procedure_p (title_func))
@@ -242,30 +247,28 @@ Paper_book::systems ()
     = scm_call_1 (ly_lily_module_constant ("layout-extract-page-properties"),
 		  paper_->self_scm ());
 
-  int score_count = score_systems_.size ();
-  for (int i = 0; i < score_count; i++)
+  SCM header = SCM_EOL;
+  for (SCM s = scm_reverse (scores_); s != SCM_EOL; s = scm_cdr (s))
     {
-      Stencil title = score_title (i);      
-      if (!title.is_empty ())
+      if (ly_c_module_p (scm_car (s)))
+	header = scm_car (s);
+      else if (scm_is_vector (scm_car (s)))
 	{
-	  Paper_system *ps = new Paper_system (title, true);
-	  systems_ = scm_cons (ps->self_scm (), systems_);
-	  scm_gc_unprotect_object (ps->self_scm ());
-
-	  set_system_penalty (ps, score_systems_[i].header_);
-	  
-  	}
+	  Stencil title = score_title (header);
+	  if (!title.is_empty ())
+	    {
+	      Paper_system *ps = new Paper_system (title, true);
+	      systems_ = scm_cons (ps->self_scm (), systems_);
+	      scm_gc_unprotect_object (ps->self_scm ());
+	      set_system_penalty (ps, header);
+	    }
+	  header = SCM_EOL;
       
-      if (scm_vector_p (score_systems_[i].systems_) == SCM_BOOL_T)
-	{
-	  // guh.	  
-	  SCM system_list = scm_vector_to_list (score_systems_[i].systems_);
-
+	  SCM system_list = scm_vector_to_list (scm_car (s));
 	  system_list = scm_reverse (system_list);
 	  systems_ = scm_append (scm_list_2 (system_list, systems_));
 	}
-
-      for (SCM s = score_systems_[i].texts_; s != SCM_EOL; s = scm_cdr (s))
+      else if (Text_interface::markup_p (scm_car (s)))
 	{
 	  SCM t = Text_interface::interpret_markup (paper_->self_scm (),
 						    page_properties,
@@ -275,8 +278,10 @@ Paper_book::systems ()
 	  systems_ = scm_cons (ps->self_scm (), systems_);
 	  scm_gc_unprotect_object (ps->self_scm ());
 	  // FIXME: figure out penalty.
-	  //set_system_penalty (ps, score_systems_[i].header_);
+	  //set_system_penalty (ps, scores_[i].header_);
 	}
+      else
+	assert (0);
     }
   
   systems_ = scm_reverse (systems_);
@@ -309,22 +314,3 @@ Paper_book::pages ()
   pages_ = scm_apply_0 (proc, scm_list_2 (systems (), self_scm ()));
   return pages_;
 }
-
-
-/****************************************************************/
-
-Score_systems::Score_systems ()
-{
-  systems_ = SCM_EOL;
-  header_ = SCM_EOL;
-  texts_ = SCM_EOL;
-}
-
-void
-Score_systems::gc_mark ()
-{
-  scm_gc_mark (systems_);
-  scm_gc_mark (header_);
-  scm_gc_mark (texts_);
-}
-

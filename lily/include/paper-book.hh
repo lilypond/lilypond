@@ -15,40 +15,29 @@
 class Output_def;
 class Stencil;
 
-struct Score_systems
-{
-  SCM systems_;
-  SCM header_;
-  SCM texts_;
+/** Paper_book collects headers, systems (Paper_system) and texts, and
+    exports them to the output backend, either as systems or as
+    completely formatted pages.  */
 
-  Score_systems () ;
-  void gc_mark ();
-};
-
-/*
-  
-This class is rather empty. It collects systems (Paper_system), and
-exports them to the output backend, either as systems or as completely
-formatted pages.
-  
-*/
 class Paper_book
 {
   DECLARE_SMOBS (Paper_book, );
 
   SCM systems_;
   SCM pages_;
+
 public:
   SCM header_;
-  Array<Score_systems> score_systems_;
+  SCM scores_;
   Output_def *paper_;
   
   Paper_book ();
 
+  void add_score (SCM);
   SCM systems ();
   SCM pages ();
   Stencil book_title ();
-  Stencil score_title (int);
+  Stencil score_title (SCM);
   void classic_output (String);
   void output (String);
   void post_processing (SCM, SCM);
@@ -57,4 +46,3 @@ public:
 DECLARE_UNSMOB (Paper_book, paper_book)
 
 #endif /* PAPER_BOOK_HH */
-

@@ -91,7 +91,7 @@ Score::Score (Score const &s)
 void
 default_rendering (SCM music, SCM outdef,
 		   SCM book_outputdef,
-		   SCM header, SCM texts,
+		   SCM header,
 		   SCM outname,
 		   SCM key)
 {
@@ -128,14 +128,11 @@ default_rendering (SCM music, SCM outdef,
 	  Paper_book *paper_book = new Paper_book ();
 	  paper_book->header_ = header;
 	  paper_book->paper_ = unsmob_output_def (scaled_bookdef);
-	  
-	  Score_systems sc;
-	  sc.systems_ = systems;
-	  sc.header_ = header;
-	  sc.texts_ = texts;
 
-	  paper_book->score_systems_.push (sc);
-	  
+	  if (ly_c_module_p (header))
+	    paper_book->add_score (header);
+	  paper_book->add_score (systems);
+
 	  paper_book->classic_output (ly_scm2string (outname));
 	  scm_gc_unprotect_object (paper_book->self_scm ());
 	}

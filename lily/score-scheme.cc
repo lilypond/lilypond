@@ -14,18 +14,15 @@
 #include "global-context.hh"
 
 LY_DEFINE (ly_music_scorify, "ly:music-scorify",
-	   3, 0, 0,
-	   (SCM music, SCM texts, SCM parser),
+	   2, 0, 0,
+	   (SCM music, SCM parser),
 	   "Return MUSIC with TEXTS encapsulated in SCORE.")
 {
 #if 0
   SCM_ASSERT_TYPE (ly_c_music_p (music), music, SCM_ARG1, __FUNCTION__, "music");
 #endif
   Score *score = new Score;
-
   score->set_music (music, parser);
-  score->texts_ = texts;
-
   scm_gc_unprotect_object (score->self_scm ());
   return score->self_scm ();
 }
@@ -42,9 +39,7 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
   Output_def *od = unsmob_output_def (layout);
 
   if (sc->error_found_)
-    {
-      return SCM_EOL;
-    }
+    return SCM_EOL;
   
   SCM_ASSERT_TYPE (sc, score, SCM_ARG1, __FUNCTION__, "Score");
   SCM_ASSERT_TYPE (od, layout, SCM_ARG2, __FUNCTION__, "Output_def");
