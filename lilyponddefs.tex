@@ -1,5 +1,6 @@
 %%
 %% include file for LilyPond
+
 \def\mdef#1#2{\def#1{{\musicfnt\char#2}}}
 
 %% musix defs
@@ -11,6 +12,12 @@
 	\newdimen\interstaffrule
 
 \def\musixtwentydefs{
+	\font\slurufont=xslu20
+	\font\slurdfont=xsld20
+	\font\slurhfont=xslz20
+	\font\hslurufont=xslhu20
+	\font\hslurdfont=xslhd20
+	\font\hslurhfont=xslhz20
 	\font\musicfnt=musix20
 	\balkhoog=20pt
 	\staffrulethickness=0.4pt
@@ -26,6 +33,12 @@
 
 \musixtwentydefs
 \musixcalc
+\def\slurcharh#1{{\slurhfont\char#1}}
+\def\slurcharu#1{{\slurufont\char#1}}
+\def\slurchard#1{{\slurdfont\char#1}}
+\def\hslurcharh#1{{\hslurhfont\char#1}}
+\def\hslurcharu#1{{\hslurufont\char#1}}
+\def\hslurchard#1{{\hslurdfont\char#1}}
 
 \mdef\quartball{'007}
 \mdef\halfball{'010}
