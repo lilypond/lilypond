@@ -351,3 +351,7 @@ lowerDynamics =  \context Dynamics=lower \notes{
         }
     }
 }
+
+%%% Local variables:
+%%% LilyPond-indent-level:4
+%%% End:
