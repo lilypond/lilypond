@@ -43,23 +43,17 @@ Stem::Stem ()
   beam_gap_i_ = 0;
 }
 
-int
-Stem::min_head_i () const
+Interval_t<int>
+Stem::head_positions () const
 {
-  int m = 1000;
+  Interval_t<int> r;
   for (int i =0; i < head_l_arr_.size (); i++)
-    m = m <? head_l_arr_[i]->position_i_;
-  return m;
-}
-
-int
-Stem::max_head_i () const
-{
-  int m = -1000;
-  for (int i =0; i < head_l_arr_.size (); i++)
-    m = m >? head_l_arr_[i]->position_i_;
-  return m;
-
+    {
+      int p = head_l_arr_[i]->position_i_;
+      r[BIGGER] = r[BIGGER] >? p;
+      r[SMALLER] = r[SMALLER] <? p;
+    }
+  return r;
 }
 
 void
@@ -81,13 +75,13 @@ Stem::stem_length_f () const
 Real
 Stem::stem_start_f () const
 {
-  return (dir_ < 0)? yextent_drul_[UP] : yextent_drul_[DOWN];
+  return yextent_drul_[Direction(-dir_)];
 }
 
 Real
 Stem::stem_end_f () const
 {
-  return (dir_ < 0)? yextent_drul_[DOWN] : yextent_drul_[UP];
+  return yextent_drul_[dir_];
 }
 
 
@@ -95,12 +89,12 @@ void
 Stem::set_stemend (Real se)
 {
   // todo: margins
-  if (!  ((dir_ > 0 && se >= max_head_i ()) ||
-	  (se <= min_head_i () && dir_ <0)))
+  if (dir_ && dir_ * head_positions()[dir_] >= se*dir_)
     warning (_("Weird stem size; check for narrow beams"));
 
-  yextent_drul_[UP]  = (dir_ < 0) ? max_head_i () : se;
-  yextent_drul_[DOWN]  = (dir_ < 0) ? se  : min_head_i ();
+  
+  yextent_drul_[dir_]  =  se;
+  yextent_drul_[Direction(-dir_)] = head_positions()[-dir_];
 }
 
 int
@@ -126,44 +120,25 @@ Stem::add (Rhythmic_head *n)
 bool
 Stem::invisible_b () const
 {
-
   return (!head_l_arr_.size () ||
     head_l_arr_[0]->balltype_i_ <= 0);
-
 }
 
-// if dir_ is set we return fake values.
 int
-Stem::get_center_distance_from_top ()
+Stem::get_center_distance (Direction d)
 {
-  if (dir_)
-    return (dir_ > 0) ? 0 : 1;
-
   int staff_center = 0;
-  int max = max_head_i () - staff_center;
-  return max >? 0;
-}
-
-// if dir_ is set we return fake values.
-int
-Stem::get_center_distance_from_bottom ()
-{
-  if (dir_)
-    return (dir_ > 0) ? 1 : 0;
-
-  int staff_center = 0;
-  int min = staff_center - min_head_i ();
-  return min >? 0;
+  int distance = d*(head_positions()[d] - staff_center);
+  return distance >? 0;
 }
 
 Direction
 Stem::get_default_dir ()
 {
-  if (dir_)
-    return dir_;
-  return (get_center_distance_from_top () >=
-	  get_center_distance_from_bottom ()) ?
-    (Direction)-1 : (Direction)1;
+  return (get_center_distance (UP) >=
+	  get_center_distance (DOWN)) 
+    ? DOWN 
+    : UP;
 }
 
 
@@ -176,25 +151,37 @@ Stem::set_default_dir ()
 void
 Stem::set_default_stemlen ()
 {
-  if (!dir_)
-    set_default_dir ();
-
-
-  Real dy = paper ()->interbeam_f ();
   Real len = STEMLEN;
+  Real dy = paper ()->interbeam_f ();
+
   // ugh, should get nice *rule* for this
   if (abbrev_flag_i_ > 1)
     len += (abbrev_flag_i_ - 1)* dy / 2;
-  set_stemend ((dir_ > 0) ? max_head_i () + len :
-	       min_head_i () - len);
+
+
+  if (!dir_)
+    set_default_dir ();
+
+  /* If the stem points in the "wrong" direction, it should be
+     shortened, according to [Roush & Gourlay].  Their suggestion to knock off
+     a whole staffspace is a bit drastical though.
+     */
+  else if (dir_ != get_default_dir ())
+    len  -= 1.0;
+
+  if (flag_i_ >= 5)
+    len += 2.0;
+  if (flag_i_ >= 6)
+    len += 1.0;
+  
+  set_stemend ((dir_ > 0) ? head_positions()[BIGGER] + len :
+	       head_positions()[SMALLER] - len);
 
 
   if (dir_ * stem_end_f () < 0)
     {
       set_stemend (0);
     }
-
-
 }
 
 void
@@ -203,9 +190,10 @@ Stem::set_default_extents ()
   if (!stem_length_f ())
     set_default_stemlen ();
 
-  set_stemend ((dir_< 0) ?
-	       max_head_i ()-stem_length_f (): min_head_i () + stem_length_f ());
-
+  /*  set_stemend ((dir_< 0) ?
+	       head_positions()[BIGGER]-stem_length_f (): 
+	       head_positions()[SMALLER] + stem_length_f ());
+	       */
   if (dir_ == UP)
     stem_xdir_ = RIGHT;
   if (invisible_b ())
@@ -302,10 +290,10 @@ Stem::abbrev_mol () const
   Atom a (paper ()->lookup_l ()->beam (slope, w));
   a.translate (Offset(- w / 2, stem_end_f () - (w / 2 * slope)));
   // ugh
-    if (!beams_i)
-      a.translate_axis (dy + beamdy - dir_ * dy, Y_AXIS);
-    else
-      a.translate_axis (2 * beamdy - dir_ * (beamdy - dy), Y_AXIS);
+  if (!beams_i)
+    a.translate_axis (dy + beamdy - dir_ * dy, Y_AXIS);
+  else
+    a.translate_axis (2 * beamdy - dir_ * (beamdy - dy), Y_AXIS);
 
   for (int i = 0; i < abbrev_flag_i_; i++)
     {
@@ -317,29 +305,34 @@ Stem::abbrev_mol () const
   return beams;
 }
 
+const Real ANGLE = 20* (2.0*M_PI/360.0);
+
 Molecule*
 Stem::brew_molecule_p () const
 {
   Molecule *mol_p =new Molecule;
-
-  Real bot  = yextent_drul_[DOWN];
-  Real top = yextent_drul_[UP];
-
-  assert (bot!=top);
-
   Paper_def *p =paper ();
-
+  Drul_array<Real> stem_y = yextent_drul_;
   Real dy = p->internote_f ();
+  
+
+  Real head_wid = 0;
+  if (head_l_arr_.size ())
+    head_wid = head_l_arr_[0]->width ().length ();
+  stem_y[Direction(-dir_)] += dir_ * head_wid * tan(ANGLE)/(2*dy);
+  
   if (!invisible_b ())
     {
-      Atom ss =p->lookup_l ()->stem (bot*dy,top*dy);
+      Atom ss =p->lookup_l ()->stem (stem_y[DOWN]*dy,
+				     stem_y[UP]*dy);
       mol_p->add (Atom (ss));
     }
 
   if (!beam_l_ &&abs (flag_i_) > 2)
     {
       Atom fl = p->lookup_l ()->flag (flag_i_, dir_);
-      mol_p->add_at_edge (Y_AXIS, dir_, Molecule (Atom (fl)));
+      fl.translate_axis(stem_y[dir_]*dy, Y_AXIS);
+      mol_p->add(fl);
       assert (!abbrev_flag_i_);
     }
 
@@ -373,7 +366,7 @@ Stem::hpos_f () const
 }
 
 /*
-TODO:  head_l_arr_/rest_l_arr_ in  do_substitute_dependent ()
+  TODO:  head_l_arr_/rest_l_arr_ in  do_substitute_dependent ()
  */
 void
  Stem::do_substitute_dependency (Score_elem*o,Score_elem*n)
