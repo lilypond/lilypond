@@ -106,7 +106,7 @@ LY_DEFINE(ly_font_interface_get_font,"ly:get-font", 2, 0, 0,
 Font_metric *
 Font_interface::get_font (Grob *me, SCM chain)
 {
-  SCM name = me->get_grob_property ("font-name");
+  SCM name = ly_assoc_chain (ly_symbol2scm  ("font-name"), chain);
   
   if (!gh_string_p (name))
     {

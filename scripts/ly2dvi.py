@@ -920,7 +920,9 @@ if 1:
 				ly.warning (_("Running LaTeX failed. Rerun with --verbose for a trace."))
 				
 	if page_images_p:
-		ly.make_ps_images (outbase + '.ps' )
+		ly.make_ps_images (outbase + '.ps' ,
+				   resolution = preview_resolution
+				   )
 
 	# add DEP to targets?
 	if track_dependencies_p:
