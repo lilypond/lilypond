@@ -317,9 +317,10 @@ void
 Simple_spacer::solve (Column_x_positions *positions) const
 {
   positions->force_f_ = force_f_;
-  if (compression_penalty_b_ &&  (force_f_ < 0))
+  if ((force_f_ < 0))
     {
-
+      positions->force_f_ *= 1.3; 
+      if (compression_penalty_b_)
 	positions->force_f_ *= 2; //  hmm.
     }
   

@@ -35,7 +35,12 @@ public:
   DECLARE_SCHEME_CALLBACK (check_concave, (SCM));
   DECLARE_SCHEME_CALLBACK (slope_damping, (SCM));
   DECLARE_SCHEME_CALLBACK (quantise_position, (SCM));
-
+  DECLARE_SCHEME_CALLBACK (new_quanting, (SCM));
+  DECLARE_SCHEME_CALLBACK (score_slopes_dy, (SCM, SCM,SCM));
+  DECLARE_SCHEME_CALLBACK (score_stem_lengths, (SCM, SCM,SCM));
+  DECLARE_SCHEME_CALLBACK (score_forbidden_quants, (SCM, SCM,SCM));
+  
+  
   static Molecule stem_beams (Grob*,Item *here, Item *next, Item *prev,
 			      Real dydx);
 

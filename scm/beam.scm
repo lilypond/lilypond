@@ -59,7 +59,7 @@
 
 (define (default-left-beam-pos-quants beam multiplicity dir dy staff-line)
   (default-beam-pos-quants beam multiplicity 1 staff-line))
-    
+;;
 (define (foo beam multiplicity dir dy staff-line)
   (let* ((beam-straddle 0)
 	 (thick (ly-get-grob-property beam 'thickness))
@@ -83,7 +83,7 @@
 
 (define (default-right-beam-pos-quants beam multiplicity dir dy staff-line)
   (default-beam-pos-quants beam multiplicity 1 staff-line))
-
+;;
 (define (foo beam multiplicity dir dy staff-line)
   (let* ((beam-straddle 0)
 	 (thick (ly-get-grob-property beam 'thickness))

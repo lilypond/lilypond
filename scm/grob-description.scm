@@ -103,7 +103,8 @@
 	(position-callbacks . (,Beam::least_squares
 			       ,Beam::check_concave
 			       ,Beam::slope_damping
-			       ,Beam::quantise_position))
+			       ,Beam::new_quanting
+			       ))
 	
 	(thickness . 0.48) ; in staff-space
 	(before-line-breaking-callback . ,Beam::before_line_breaking)
@@ -120,6 +121,11 @@
 	(space-function . ,default-beam-space-function)
 	(damping . 1)
 	(auto-knee-gap . 7)
+	(font-name . "cmr10")
+	(quant-score-functions . (,Beam::score_forbidden_quants
+				  ,Beam::score_slopes_dy
+				  ,Beam::score_stem_lengths
+				  ))
 	(meta . ,(grob-description beam-interface))
 	))
 
@@ -707,7 +713,7 @@
      . (
 	(molecule-callback . ,Staff_symbol::brew_molecule)
 	(staff-space . 1.0)
-	(line-count . 15)
+	(line-count . 5)
 	(layer . 0)
 	(meta . ,(grob-description staff-symbol-interface ))
 	))

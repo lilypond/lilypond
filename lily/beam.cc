@@ -41,6 +41,17 @@
 #include "item.hh"
 #include "spanner.hh"
 #include "warn.hh"
+#include "text-item.hh"  // debug output.
+#include "font-interface.hh"  // debug output.
+
+
+
+Real
+shrink_extra_weight(Real x)
+{
+  return fabs(x) * ((x < 0) ? 1.5 : 1.0);
+}
+
 
 void
 Beam::add_stem (Grob *me, Grob *s)
@@ -146,7 +157,6 @@ Beam::get_default_dir (Grob *me)
 	  total[d] += current;
 	  count[d] ++;
 	}
-
     } while (flip (&d) != DOWN);
   
   SCM func = me->get_grob_property ("dir-function");
@@ -309,6 +319,207 @@ Beam::after_line_breaking (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
+struct Quant_score
+{
+  Real yl;
+  Real yr;
+  Real demerits;
+};
+
+
+MAKE_SCHEME_CALLBACK (Beam, new_quanting, 1);
+SCM
+Beam::new_quanting (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+
+  SCM s = me->get_grob_property ("positions");
+  Real yl = gh_scm2double (gh_car(s));
+  Real yr = gh_scm2double (gh_cdr(s));
+
+  Real thick = gh_scm2double (me->get_grob_property ("thickness"));
+  //    Staff_symbol_referencer::staff_space (me);
+  Real sthick = me->paper_l()->get_var ("stafflinethickness");
+    //  * Staff_symbol_referencer::staff_space (me);
+
+  Real quants [] = {0.0, thick/2 - sthick / 2, 0.5, 1.0 - thick/2 + sthick/2};
+  int num_quants = int(sizeof(quants)/sizeof (Real));
+  Array<Real> quantsl;
+  Array<Real> quantsr;
+
+  const int REGION_SIZE = 3;
+  
+  for (int i  = -REGION_SIZE ; i < REGION_SIZE; i++)
+    for (int j = 0; j < num_quants; j++)
+      {
+	quantsl.push (i + quants[j] + int (yl));
+	quantsr.push (i + quants[j] + int (yr));
+      }
+
+  Array<Quant_score> qscores;
+  
+  for(int l =0; l < quantsl.size(); l++)  
+    for(int r =0; r < quantsr.size(); r++)
+      {
+	Quant_score qs;
+	qs.yl = quantsl[l];
+	qs.yr = quantsr[r];
+	qs.demerits = 0.0;
+	
+	qscores.push (qs);
+      }
+
+
+  SCM score_funcs = me->get_grob_property("quant-score-functions");
+  for (SCM s = score_funcs; gh_pair_p (s); s = gh_cdr (s))
+    {
+      SCM f = gh_car (s);
+      for (int i = qscores.size(); i--;)
+	{
+	  if (qscores[i].demerits < 1000)
+	    {
+	      SCM score = gh_call3 (f,
+				    me->self_scm(),
+				    gh_double2scm (qscores[i].yl),
+				    gh_double2scm (qscores[i].yr));
+	      
+	      qscores[i].demerits += gh_scm2double (score); 
+	    }
+	}
+    }
+  
+  Real best = 1e6;
+  int best_idx = -1;
+  for (int i = qscores.size(); i--;)
+    {
+      if (qscores[i].demerits < best)
+	{
+	  best = qscores [i].demerits ;
+	  best_idx = i;
+	}
+    }
+
+  
+  me->set_grob_property ("positions",
+			 gh_cons (gh_double2scm (qscores[best_idx].yl),
+				  gh_double2scm (qscores[best_idx].yr))
+			 );
+  me->set_grob_property ("quant-score",gh_double2scm (qscores[best_idx].demerits));
+
+  return SCM_UNSPECIFIED;
+}
+
+MAKE_SCHEME_CALLBACK (Beam, score_slopes_dy, 3);
+SCM
+Beam::score_slopes_dy (SCM smob, SCM syl, SCM syr)
+{
+  Grob*me = unsmob_grob(smob);
+  Real yl = gh_scm2double (syl);
+  Real yr = gh_scm2double (syr);
+  Real dy = yr - yl;
+
+  SCM sdy = me->get_grob_property("least-squares-dy");
+  SCM posns = me->get_grob_property ("positions");
+
+  Real dy_mus = gh_number_p (sdy) ? gh_scm2double (sdy) : 0.0;
+  Real dy_damp = - gh_scm2double (gh_car(posns)) + gh_scm2double (gh_cdr (posns));
+
+  Real dem = 0.0;
+  if (sign (dy_damp) != sign (dy))
+    {
+      dem += 800;
+    }
+  
+   dem += 400* (0 >? (fabs(dy) - fabs(dy_mus)));
+  
+
+   dem += shrink_extra_weight (fabs (dy_damp) - fabs(dy))* 10;
+   return gh_double2scm  (dem);
+}
+
+MAKE_SCHEME_CALLBACK (Beam, score_stem_lengths, 3);
+SCM
+Beam::score_stem_lengths (SCM smob, SCM syl, SCM syr)
+{
+  Grob*me = unsmob_grob(smob);
+  Real yl = gh_scm2double (syl);
+  Real yr = gh_scm2double (syr);
+
+  Link_array<Item> stems=
+    Pointer_group_interface__extract_grobs (me, (Item*)0, "stems");
+
+  Real demerit_score = 0.0 ;
+  
+  for (int i=0; i < stems.size (); i++)
+    {
+      Item* s = stems[i];
+      if (Stem::invisible_b (s))
+	continue;
+
+      Real current_y = calc_stem_y_f (me, s, Interval(yl,yr));
+      Stem_info info = Stem::calc_stem_info (s);
+      Direction d = Directional_element_interface::get (s);
+      
+      demerit_score += 500 * ( 0 >? (info.miny_f_ - d*current_y));
+      demerit_score += 500 * ( 0 >? (d * current_y  - info.maxy_f_));
+
+      demerit_score += 5 * shrink_extra_weight (d * current_y  - info.idealy_f_);
+    }
+
+  demerit_score *= 2.0  /stems.size(); 
+
+  return gh_double2scm (demerit_score);
+}
+Real
+my_modf(Real x)
+{
+  return x - floor(x);
+}
+
+
+
+MAKE_SCHEME_CALLBACK (Beam, score_forbidden_quants, 3);
+SCM
+Beam::score_forbidden_quants (SCM smob, SCM syl, SCM syr)
+{
+  Grob*me = unsmob_grob(smob);
+  Real yl = gh_scm2double (syl);
+  Real yr = gh_scm2double (syr);
+  Real rad = Staff_symbol_referencer::staff_radius (me);
+  Real dem = 0.0;
+  if (fabs (yl) <  2*rad && fabs( my_modf(yl) - 0.5) < 1e-3)
+    dem += 1000;
+  if (fabs (yr) <  2*rad && fabs( my_modf(yr) - 0.5) < 1e-3)
+    dem += 1000;
+
+
+  int multiplicity = get_multiplicity (me);
+  // todo: use multiplicity of outer stems.
+  if (multiplicity >= 2)
+    {
+      Real slt = me->paper_l()->get_var("stafflinethickness");
+      Real ss = Staff_symbol_referencer::staff_space(me);
+      Real thickness = gh_scm2double (me->get_grob_property ("thickness")) * ss;
+
+      Real beam_space= (2*ss + slt  - 3 *thickness) / 2.0;
+      if (multiplicity >= 4)
+	{
+	  beam_space = (3*ss + slt - 4 * thickness) /3.0;
+	}
+
+      Direction d = Directional_element_interface::get (me);
+      yl += d * (beam_space + thickness);
+      yr += d * (beam_space + thickness);
+      if (fabs (yl) <  rad && fabs( my_modf(yl) - 0.5) < 0.1)
+	dem += 15;
+      if (fabs (yr) <  rad && fabs( my_modf(yr) - 0.5) < 0.1)
+	dem += 15;
+    }
+  
+  return gh_double2scm ( dem);
+}
+
+  
 
 MAKE_SCHEME_CALLBACK (Beam, least_squares, 1);
 SCM
@@ -329,11 +540,20 @@ Beam::least_squares (SCM smob)
 
   Interval ideal (Stem::calc_stem_info (first_visible_stem (me)).idealy_f_,
 		  Stem::calc_stem_info (last_visible_stem (me)).idealy_f_);
+  
   if (!ideal.delta ())
     {
       Interval chord (Stem::chord_start_f (first_visible_stem (me)),
 		      Stem::chord_start_f (last_visible_stem (me)));
-      
+
+
+      /*
+	TODO  : use scoring for this.
+
+	complicated, because we take stem-info.ideal for determining
+	beam slopes.
+	
+       */
       /* Make simple beam on middle line have small tilt */
       if (!ideal[LEFT] && chord.delta () && count == 2)
 	{
@@ -343,7 +563,11 @@ Beam::least_squares (SCM smob)
 	  pos[-d] = - pos[d];
 	}
       else
-	pos = ideal;
+	{
+	  pos = ideal;
+	  pos[LEFT] *= dir ;
+	  pos[RIGHT] *= dir ;
+	}
     }
   else
     {
@@ -415,7 +639,9 @@ Beam::check_concave (SCM smob)
       else if ((c = f - iv[MIN]) < 0)
 	concave += c;
     }
-  concave *= Directional_element_interface::get (me);
+
+  Direction dir = Directional_element_interface::get (me);
+  concave *= dir;
       
   Real concaveness = concave / (stems.size () - 2);
   /* ugh: this is the a kludge to get input/regression/beam-concave.ly
@@ -430,7 +656,7 @@ Beam::check_concave (SCM smob)
       Interval pos = ly_scm2interval (me->get_grob_property ("positions"));
       Real r = pos.linear_combination (0);
       me->set_grob_property ("positions", ly_interval2scm (Interval (r, r)));
-      me->remove_grob_property ("least-squares-dy");
+      me->set_grob_property ("least-squares-dy", gh_double2scm (0));
     }
 
   return SCM_UNSPECIFIED;
@@ -470,7 +696,6 @@ Beam::slope_damping (SCM smob)
     }
     return SCM_UNSPECIFIED;
 }
-
 
 /* Prevent interference from stafflines. */
 Interval
@@ -624,6 +849,10 @@ Beam::end_after_line_breaking (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
+/*
+  Calculate the Y position of the stem-end, given the Y-left, Y-right
+  in POS, and for stem S.
+ */
 Real
 Beam::calc_stem_y_f (Grob *me, Item* s, Interval pos)
 {
@@ -959,6 +1188,7 @@ Beam::stem_beams (Grob *me, Item *here, Item *next, Item *prev, Real dydx)
   return leftbeams;
 }
 
+
 MAKE_SCHEME_CALLBACK (Beam, brew_molecule, 1);
 SCM
 Beam::brew_molecule (SCM smob)
@@ -1004,6 +1234,23 @@ Beam::brew_molecule (SCM smob)
 		      ->get_bound (LEFT)->relative_coordinate (0, X_AXIS),
 		      X_AXIS);
 
+  if (0)
+    {
+      /*
+	This code prints the demerits for each beam. Perhaps this
+	should be switchable for those who want to twiddle with the
+	parameters.
+      */
+      SCM dem = me->get_grob_property ("quant-score");
+      Real s = gh_scm2double (dem);
+      String str = to_str (s);
+
+      SCM properties = Font_interface::font_alist_chain (me);
+  
+      Molecule tm = Text_item::text2molecule (me, gh_str02scm (str.ch_C()), properties);
+      mol.add_at_edge (Y_AXIS, UP, tm, 5.0);
+    }
+  
   return mol.smobbed_copy ();
 }
 

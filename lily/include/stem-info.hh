@@ -12,6 +12,11 @@
 
 #include "real.hh"
 
+/*
+  Parameters for a stem, (multiply with stemdirection, to get real values
+  for a downstem.)
+  
+ */
 struct Stem_info 
 {
   Real idealy_f_;
