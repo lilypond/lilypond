@@ -1753,36 +1753,23 @@ f( g)( a) a8 b( a4 g2 f4)
 <c e>2( <b d>2)
 @end lilypond
 
+The direction of a slur can be set with the
+generic commands
 
-@c TODO: should explain that ^( and _( set directions
-@c should set attachments with ^ and _ ?  
+@example
+  \override Slur #'direction = #UP
+  \slurUp     % shortcut for the previous line 
+@end example
 
-Slurs avoid crossing stems, and are generally attached to note heads.
-However, in some situations with beams, slurs may be attached to stem
-ends.  If you want to override this layout you can do this through the
-object property @code{attachment} of @internalsref{Slur}.  Its value
-is a pair of symbols, specifying the attachment type of the left and
-right end points
+@noindent
+However, there is a convenient shorthand for forcing slur
+directions. By adding @code{_} or @code{^} before the opening
+parentheses, the direction is also set. For example,  
 
-@lilypond[quote,fragment,relative=1,verbatim]
-\slurUp
-\override Stem #'length = #5.5
-g'8(g g4)
-\override Slur #'attachment = #'(stem . stem)
-g8( g g4)
+@lilypond[relative=2,fragment]
+   c4_( c)   c^( c)
 @end lilypond
-
-If a slur would strike through a stem or beam, the slur will be moved
-away upward or downward. If this happens, attaching the slur to the
-stems might look better
-
-@lilypond[quote,fragment,relative=1,verbatim]
-\stemUp \slurUp
-d32( d'4 d8..)
-\override Slur #'attachment = #'(stem . stem)
-d,32( d'4 d8..)
-@end lilypond
-
+ 
 @refcommands
 
 
@@ -1801,12 +1788,6 @@ d,32( d'4 d8..)
 
 Program reference: @seeinternals{Slur}, and @internalsref{SlurEvent}.
 
-
-@refbugs
-
-Producing nice slurs is a difficult problem, and LilyPond 
-uses a simple, empiric method to produce slurs. In some cases, its
-results are ugly.
 
 
 @cindex Adjusting slurs
@@ -1850,8 +1831,7 @@ Program reference: see also @internalsref{PhrasingSlur}, and
 
 @refbugs
 
-Phrasing slurs have the same limitations in their formatting as normal
-slurs. Putting phrasing slurs over rests leads to spurious warnings.
+Putting phrasing slurs over rests leads to spurious warnings.
 
 @node Breath marks
 @subsection Breath marks

@@ -559,6 +559,8 @@ column as start/begin point. Only columns that have grobs or act as bounds are s
 paper-columns or note-column objects.")
      (conditional-elements ,grob-list? "Internal use only")
      (dependencies ,grob-list? "list of score-grob pointers that indicate who to compute first for certain global passes.")
+     (encompass-objects ,grob-list? "Objects that a slur should avoid
+in addition to notes and stems.")
      (elements ,grob-list? "list of grobs, type depending on the Grob where this is set in.")
      (heads ,grob-list? "List of note heads.")
      (items-worth-living ,grob-list? "A list of interesting items. If
