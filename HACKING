@@ -31,7 +31,13 @@ TEXINPUTS=:
 MFINPUTS=:
 TFMFONTS=:
 
-datadir=$(pwd)/share/lilypond
+. VERSION
+FULL_VERSION=$MAJOR_VERSION.$MINOR_VERSION.$PATCH_LEVEL
+if [ -n "$MY_PATCH_LEVEL" ]; then
+   FULL_VERSION=$FULL_VERSION.$MY_PATCH_LEVEL
+fi
+
+datadir=$(pwd)/share/lilypond/$FULL_VERSION
 export TEXMF="{$datadir,"`kpsexpand  \\$TEXMF`"}"
 
 export GS_FONTPATH="$datadir/fonts/type1:/usr/share/texmf/fonts/type1/bluesky/cm:/usr/share/texmf/fonts/type1/public/ec-fonts-mftraced"

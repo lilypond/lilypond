@@ -1,3 +1,12 @@
+2005-03-16  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	Builddir run fixes.
+
+	* HACKING (datadir): Add VERSION.
+
+	* GNUmakefile.in (linktree): Bugfix: outconfdirs are one dir
+	higher up.
+
 2005-03-15  Werner Lemberg  <wl@gnu.org>
 
 	* mf/feta-klef.mf (draw_gclef): Move z10' slightly so that the
