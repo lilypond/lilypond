@@ -18,37 +18,42 @@ String default_out_fn = "lelie";
 void
 do_scores()
 {
-    for (int i=0; i < score_array_global.size(); i++) {
+  for (int i=0; i < score_array_global.size(); i++) 
+    {
 	Score *&is_p = score_array_global[i];
 	
-	if (only_midi) {
+	if (only_midi) 
+	  {
 	    delete is_p->paper_p_;
 	    is_p->paper_p_ = 0;
-	}
+	  }
 	
-	if (is_p->errorlevel_i_) {
+	if (is_p->errorlevel_i_) 
+	  {
 	    is_p->warning ("Score contains errors. Will not process it. ");
 	    exit_status_i_ |= 1;
-	} else { 
+	  }
+	else 
+	  {
 	    is_p->print();
 	    is_p->process();
-	}
+	  }
 	delete is_p;
 	is_p =0;
 
     }
-    score_array_global.clear();
+  score_array_global.clear();
 }
 
 void
 add_score (Score * s)
 {
-    score_array_global.push (s);
+  score_array_global.push (s);
 }
 
 void
 set_default_output (String s)
 {
-    default_out_fn = s;
+  default_out_fn = s;
 }
 

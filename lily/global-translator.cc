@@ -13,45 +13,45 @@
 
 Global_translator::Global_translator()
 {
-    score_l_ = 0;
-    last_mom_ = 0;
+  score_l_ = 0;
+  last_mom_ = 0;
 }
 
 Translator*
 Global_translator::ancestor_l (int)
 {
-    return this;
+  return this;
 }
 
 void
 Global_translator::add_moment_to_process (Moment m)
 {
-    if (m  > last_mom_)
+  if (m  > last_mom_)
 	return;
-    
-    for (int i=0; i <  extra_mom_pq_.size(); i++)
+  
+  for (int i=0; i <  extra_mom_pq_.size(); i++)
 	if (extra_mom_pq_[i] == m)
 	    return;
-    extra_mom_pq_.insert (m);
+  extra_mom_pq_.insert (m);
 }
 
 int
 Global_translator::depth_i()const
 {
-    return 0;
+  return 0;
 }
 
 void
 Global_translator::set_score (Score *s)
 {
-    score_l_ = s;
-    last_mom_ = score_l_->music_p_->time_int().max ();
+  score_l_ = s;
+  last_mom_ = score_l_->music_p_->time_int().max ();
 }
 
 void
 Global_translator::modify_next (Moment &w)
 {
-    while (extra_mom_pq_.size() && 
+  while (extra_mom_pq_.size() && 
 	extra_mom_pq_.front() <= w)
 	
 	w =extra_mom_pq_.get();
@@ -60,7 +60,7 @@ Global_translator::modify_next (Moment &w)
 int
 Global_translator::moments_left_i()const
 {
-    return extra_mom_pq_.size();
+  return extra_mom_pq_.size();
 }
 
 void

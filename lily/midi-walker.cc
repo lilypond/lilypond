@@ -4,7 +4,7 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
-           Jan Nieuwenhuizen <jan@digicash.com>
+         Jan Nieuwenhuizen <jan@digicash.com>
  */
 
 #include "midi-walker.hh"
@@ -17,26 +17,26 @@
 
 Midi_note_event::Midi_note_event() 
 { 
-    ignore_b_ = false;
+  ignore_b_ = false;
 }
 
 int
 compare (Midi_note_event const& left, Midi_note_event const& right)
 {
-    return sign (left.key - right.key);
+  return sign (left.key - right.key);
 }
 
 Midi_walker::Midi_walker (Audio_staff* audio_staff_l, Midi_track* track_l)
-    : PCursor<Audio_item*>( audio_staff_l->audio_item_l_list_)
+  : PCursor<Audio_item*>( audio_staff_l->audio_item_l_list_)
 {
-    track_l_ = track_l;
-    last_mom_ = 0;
+  track_l_ = track_l;
+  last_mom_ = 0;
 }
 
 Midi_walker::~Midi_walker()
 { 
-    // ugh
-    do_stop_notes (last_mom_ + Moment (10, 1) );
+  // ugh
+  do_stop_notes (last_mom_ + Moment (10, 1) );
 }
 
 /**
@@ -45,22 +45,24 @@ Midi_walker::~Midi_walker()
 void 
 Midi_walker::do_start_note (Midi_note* note_l)
 {
-    Moment stop_mom = note_l->duration() + ptr ()->audio_column_l_->at_mom ();
-    for ( int i=0; i < stop_note_queue.size(); i++) {
-	if ( stop_note_queue[ i ].val->pitch_i() == note_l->pitch_i ()) {
+  Moment stop_mom = note_l->duration() + ptr ()->audio_column_l_->at_mom ();
+  for ( int i=0; i < stop_note_queue.size(); i++) 
+    {
+	if ( stop_note_queue[ i ].val->pitch_i() == note_l->pitch_i ()) 
+	  {
 	    if ( stop_note_queue[ i ].key < stop_mom)
 		stop_note_queue[ i ].ignore_b_ = true;
 	    else // skip the stopnote 
 		return; 
-	}
+	  }
     }
 
-    Midi_note_event e;
-    e.val = new Midi_note_off (note_l);
-    e.key = stop_mom;
-    stop_note_queue.insert (e);
-    
-    output_event (ptr()->audio_column_l_->at_mom (), note_l);
+  Midi_note_event e;
+  e.val = new Midi_note_off (note_l);
+  e.key = stop_mom;
+  stop_note_queue.insert (e);
+  
+  output_event (ptr()->audio_column_l_->at_mom (), note_l);
 }
 
 /**
@@ -69,7 +71,8 @@ Midi_walker::do_start_note (Midi_note* note_l)
 void
 Midi_walker::do_stop_notes (Moment max_mom)
 {
-    while ( stop_note_queue.size() && stop_note_queue.front ().key <= max_mom) {
+  while ( stop_note_queue.size() && stop_note_queue.front ().key <= max_mom) 
+    {
 	Midi_note_event e = stop_note_queue.get();
 	if ( e.ignore_b_) 
 	    continue;
@@ -87,24 +90,26 @@ Midi_walker::do_stop_notes (Moment max_mom)
 void
 Midi_walker::output_event (Moment now_mom, Midi_item* l)
 {
-    Moment delta_t = now_mom - last_mom_ ;
-    last_mom_ += delta_t;
-    track_l_->add (delta_t, l);
+  Moment delta_t = now_mom - last_mom_ ;
+  last_mom_ += delta_t;
+  track_l_->add (delta_t, l);
 }
 
 void
 Midi_walker::process()
 {
-    do_stop_notes (ptr()->audio_column_l_->at_mom ());
+  do_stop_notes (ptr()->audio_column_l_->at_mom ());
 
-    Midi_item* p = ptr()->midi_item_p ();
-    p->channel_i_ = track_l_->number_i_;
-    
-    if ( p->name() != Midi_note::static_name ())
+  Midi_item* p = ptr()->midi_item_p ();
+  if ( !p )
+	return;
+  p->channel_i_ = track_l_->number_i_;
+  
+  if ( p->name() != Midi_note::static_name ())
 	output_event (ptr()->audio_column_l_->at_mom (), p);
-    else
+  else
 	do_start_note ((Midi_note*)p);
 	
-    delete p;
+  delete p;
 }
 

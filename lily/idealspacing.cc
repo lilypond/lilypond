@@ -15,22 +15,22 @@ void
 Idealspacing::print() const
 {
 #ifndef NPRINT
-    DOUT << "idealspacing {" ;
-    DOUT << "distance "<<space_f_<< " strength " << hooke_f_ ;
-    DOUT << "left " << left_i_ << " right " << right_i_ << "}\n";
+  DOUT << "idealspacing {" ;
+  DOUT << "distance "<<space_f_<< " strength " << hooke_f_ ;
+  DOUT << "left " << left_i_ << " right " << right_i_ << "}\n";
 #endif
 }
 
 Idealspacing::Idealspacing()
 {
-    space_f_ = 0.0;
-    hooke_f_ = 0.0;
-    left_i_ = -1;
-    right_i_ = -1;
+  space_f_ = 0.0;
+  hooke_f_ = 0.0;
+  left_i_ = -1;
+  right_i_ = -1;
 }
 
 void
 Idealspacing::OK() const
 {
-    assert (hooke_f_ >= 0);
+  assert (hooke_f_ >= 0);
 }

@@ -11,10 +11,10 @@
 
 Line_spacer::Line_spacer()
 {
-    paper_l_ =0;
+  paper_l_ =0;
 }
 Paper_def*
 Line_spacer::paper_l()const
 { 
-    return paper_l_ ;
+  return paper_l_ ;
 }

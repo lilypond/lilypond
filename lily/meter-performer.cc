@@ -15,7 +15,7 @@ ADD_THIS_PERFORMER(Meter_performer);
 
 Meter_performer::Meter_performer()
 {
-    meter_req_l_ = 0;
+  meter_req_l_ = 0;
 }
 
 Meter_performer::~Meter_performer()
@@ -26,31 +26,31 @@ void
 Meter_performer::do_print() const
 {
 #ifndef NPRINT
-    if ( meter_req_l_)
-    	meter_req_l_->print();
+  if ( meter_req_l_)
+  	meter_req_l_->print();
 #endif
 }
 
 void
 Meter_performer::process_requests()
 {
-    if ( meter_req_l_)
+  if ( meter_req_l_)
 	play (new Audio_meter (meter_req_l_) );
-    meter_req_l_ = 0;
+  meter_req_l_ = 0;
 }
 
 bool
 Meter_performer::do_try_request (Request* req_l)
 {
-    if ( meter_req_l_)
+  if ( meter_req_l_)
 	return false;
 
-    if ( req_l->command())
+  if ( req_l->command())
 	meter_req_l_ = req_l->command()->meterchange ();
 
-    if ( meter_req_l_)
+  if ( meter_req_l_)
 	return true;
 
-    return false;
+  return false;
 }
 

@@ -12,29 +12,31 @@
 
 Script_engraver::Script_engraver()
 {
-    do_post_move_processing();
+  do_post_move_processing();
 }
 
 bool
 Script_engraver::do_try_request (Request *r_l)
 {
-    if (!r_l->musical() || ! r_l->musical ()->musicalscript ())
+  if (!r_l->musical() || ! r_l->musical ()->musicalscript ())
 	return false ;
-    
-    for (int i=0; i < script_req_l_arr_.size(); i++) {
+  
+  for (int i=0; i < script_req_l_arr_.size(); i++) 
+    {
 	if ( r_l->equal_b (script_req_l_arr_[i]))
 	    return true;
 	
     }
-    script_req_l_arr_.push (r_l->script());
-    
-    return true;
+  script_req_l_arr_.push (r_l->script());
+  
+  return true;
 }
 
 void
 Script_engraver::do_process_requests()
 {
-    for (int i=0; i < script_req_l_arr_.size(); i++){
+  for (int i=0; i < script_req_l_arr_.size(); i++)
+    {
 	Script_req* l=script_req_l_arr_[i];
 	Script *p =new Script;
 	p->dir_i_ = l->dir_i_;
@@ -47,19 +49,20 @@ Script_engraver::do_process_requests()
 void
 Script_engraver::do_pre_move_processing()
 {
-    Staff_symbol* s_l = get_staff_info().staff_sym_l_;
-    for (int i=0; i < script_p_arr_.size(); i++) {
+  Staff_symbol* s_l = get_staff_info().staff_sym_l_;
+  for (int i=0; i < script_p_arr_.size(); i++) 
+    {
 	Script*script_p = script_p_arr_[i];
 	script_p->set_staffsym (s_l);
 	typeset_element (script_p);
     }
-    script_p_arr_.clear();
+  script_p_arr_.clear();
 }
 
 void
 Script_engraver::do_post_move_processing()
 {
-    script_req_l_arr_.clear();
+  script_req_l_arr_.clear();
 }
 
 

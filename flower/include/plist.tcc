@@ -9,8 +9,9 @@ template<class T>
 void
 Pointer_list<T>::junk()
 {
-    PCursor<T> c (*this);
-    while (c.ok()) {
+  PCursor<T> c (*this);
+  while (c.ok()) 
+    {
 	delete c.remove_p();
     }
 }
@@ -19,9 +20,9 @@ template<class T>
 PCursor<T> 
 Link_list<T>::find (T what) const
 {
-    PCursor<T> i (*this);
-    for (; i.ok(); i++)
+  PCursor<T> i (*this);
+  for (; i.ok(); i++)
 	if (i.ptr() == what)
 	   break;
-    return i;    
+  return i;    
 }

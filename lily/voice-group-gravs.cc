@@ -16,21 +16,22 @@
 
 Voice_group_engravers::Voice_group_engravers()
 {
-    dir_i_ =0;
+  dir_i_ =0;
 }
 
 bool
 Voice_group_engravers::do_try_request (Request*r_l)
 {
-    Command_req* c_l = r_l->command();
-    if (c_l&& c_l->groupfeature()) {
+  Command_req* c_l = r_l->command();
+  if (c_l&& c_l->groupfeature()) 
+    {
 	Feature f;
 	f.type_ = c_l->groupfeature()->type_str_;
 	f.value_ = c_l->groupfeature()->value_str_;
 	set_feature (f);
 	return true;
     }
-    return Engraver_group_engraver::do_try_request (r_l);
+  return Engraver_group_engraver::do_try_request (r_l);
 }
 
 
@@ -41,7 +42,7 @@ void
 Voice_group_engravers::do_print() const
 {
 #ifndef NPRINT
-    Engraver_group_engraver::do_print();
+  Engraver_group_engraver::do_print();
 #endif
 }
 
@@ -50,9 +51,9 @@ Voice_group_engravers::do_print() const
 Scalar
 Voice_group_engravers::get_feature (String f)
 {
-    if (f == "vdir")
+  if (f == "vdir")
 	return dir_i_;
-    Engraver_group_engraver::get_feature (f);
+  Engraver_group_engraver::get_feature (f);
 }
 
 ADD_THIS_ENGRAVER(Voice_group_engravers);

@@ -15,5 +15,5 @@ template INTERVAL__INSTANTIATE(Real);
 Real
 Interval_t<Real>::infinity() 
 {
-    return HUGE_VAL;
+  return HUGE_VAL;
 }

@@ -16,8 +16,8 @@ static const int build=
 const char * 
 mi2mu_version_sz()
 {
-    static char v[1024];
-    sprintf(v, s, build);
-    return v;
+  static char v[1024];
+  sprintf(v, s, build);
+  return v;
 }
 

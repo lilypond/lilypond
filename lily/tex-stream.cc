@@ -24,42 +24,45 @@ const int MAXLINELEN = 200;
 
 Tex_stream::Tex_stream (String filename) 
 {
-    os = new ofstream (filename);
-    if (!*os)
+  os = new ofstream (filename);
+  if (!*os)
 	error ("can't open `" + filename+"\'");
-    nest_level = 0;
-    line_len_i_ = 0;
-    outputting_comment=false;
-    header();
+  nest_level = 0;
+  line_len_i_ = 0;
+  outputting_comment=false;
+  header();
 }
 void
 Tex_stream::header()
 {
-    *os << "% Creator: " << get_version_str() << "\n";
-    *os << "% Automatically generated, at ";
-    time_t t (time (0));
-    *os << ctime (&t)<<"\n";
+  *os << "% Creator: " << get_version_str() << "\n";
+  *os << "% Automatically generated, at ";
+  time_t t (time (0));
+  *os << ctime (&t)<<"\n";
 }
 Tex_stream::~Tex_stream()
 {
-    delete os;
-    assert (nest_level == 0);
+  delete os;
+  assert (nest_level == 0);
 }
 
 // print string. don't forget indent.
 Tex_stream &
 Tex_stream::operator<<(String s)
 {
-    
-    for (char const *cp = s; *cp; cp++) {
-	if (outputting_comment) {
+  
+  for (char const *cp = s; *cp; cp++) 
+    {
+	if (outputting_comment) 
+	  {
 	    *os << *cp;
-	    if (*cp == '\n') {
+	    if (*cp == '\n') 
+	      {
 		outputting_comment=false;
 
-	    }
+	      }
 	    continue;
-	}
+	  }
 	line_len_i_ ++;
 	switch (*cp) 
 	    {
@@ -75,10 +78,11 @@ Tex_stream::operator<<(String s)
 		nest_level--;		
 		*os << *cp;
 		
-		if (nest_level < 0) {
+		if (nest_level < 0) 
+		  {
 		    delete os;	// we want to see the remains.
 		    assert (nest_level>=0);
-		}
+		  }
 		/* FALLTHROUGH */
 		
 	    case '\n':
@@ -93,17 +97,17 @@ Tex_stream::operator<<(String s)
 	    default:
 		*os << *cp;
 		break;
-	    }
+	      }
     }
-    return *this;
+  return *this;
 }
 
 void
 Tex_stream::break_line()
 {
-    *os << "%\n";
-    *os << String (' ', nest_level);
-    line_len_i_ = 0;
+  *os << "%\n";
+  *os << String (' ', nest_level);
+  line_len_i_ = 0;
 }
 
 /* *************************************************************** */

@@ -12,7 +12,7 @@
 void
 print_rat (Rational const &m)
 {
-    cout << String (m) << flush;
+  cout << String (m) << flush;
 }
-    
+  
 

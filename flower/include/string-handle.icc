@@ -19,20 +19,21 @@
 INLINE void 
 String_handle::down() 
 { 
-    if (!(--data->references)) delete data; data = 0; 
+  if (!(--data->references)) delete data; data = 0; 
 }
 
 /// increase ref count
 INLINE void 
 String_handle::up (String_data *d) 
 { 
-    data=d; data->references ++; 
+  data=d; data->references ++; 
 }
 
 INLINE void 
 String_handle::copy() 
 {
-    if (data->references !=1){
+  if (data->references !=1)
+    {
 	String_data *newdata = new String_data (*data);
 	down();
 	up (newdata);
@@ -42,68 +43,68 @@ String_handle::copy()
 INLINE
 String_handle::String_handle() 
 {
-    up (new String_data);
+  up (new String_data);
 }
 
 INLINE
 String_handle::~String_handle() 
 {	
-    down();
+  down();
 }    
 
 INLINE
 String_handle::String_handle (String_handle const & src) 
 {	
-    up (src.data);
+  up (src.data);
 }
 
 INLINE Byte* 
 String_handle::byte_l() 
 {
-    copy();
-    return data->byte_l();
+  copy();
+  return data->byte_l();
 }
 
 INLINE char* 
 String_handle::ch_l() 
 {
-    copy();
-    return (char*)data->byte_l();
+  copy();
+  return (char*)data->byte_l();
 }
 
 INLINE Byte 
 const* String_handle::byte_C() const 
 {
-    return data->byte_C();
+  return data->byte_C();
 }
 
 INLINE char const* 
 String_handle::ch_C() const 
 {
-    return (char const*)data->byte_C();
+  return (char const*)data->byte_C();
 }
 
 INLINE void 
 String_handle::operator =(String_handle const &src) 
 {
-    if (this == &src)
+  if (this == &src)
 	return;
-    down();
-    up (src.data);
+  down();
+  up (src.data);
 }
 
 INLINE void 
 String_handle::operator += (char const *s) 
 {	
-    copy();
-    *data += s;
+  copy();
+  *data += s;
 }    
 
 
 INLINE Byte 
 String_handle::operator[](int j) const 
 { 
-    return (*data)[j]; 
+  return (*data)[j]; 
 }
 
 // !NOT SAFE!
@@ -111,46 +112,46 @@ String_handle::operator[](int j) const
 INLINE Byte &
 String_handle::operator[](int j) 
 {
-    copy(); 	// hmm. Not efficient
-    return data->byte_l()[j];
+  copy(); 	// hmm. Not efficient
+  return data->byte_l()[j];
 }
 
 INLINE void 
 String_handle::append (Byte const* byte_C, int length_i) 
 {
-    copy();
-    data->append (byte_C, length_i);
+  copy();
+  data->append (byte_C, length_i);
 }
 			   
 INLINE void 
 String_handle::set (Byte const* byte_C, int length_i) 
 {
-    copy();
-    data->set (byte_C, length_i);
+  copy();
+  data->set (byte_C, length_i);
 }
 			   
 INLINE void 
 String_handle::operator = (char const *p) 
 {
-    copy();
-    data->set (p);
+  copy();
+  data->set (p);
 }
 			   
 INLINE void 
 String_handle::trunc (int j) 
 {
-    copy(); data->trunc (j); 
+  copy(); data->trunc (j); 
 }
 
 INLINE int 
 String_handle::length_i() const 
 { 
-    return data->length_i_; 
+  return data->length_i_; 
 }
 
 INLINE bool
 String_handle::is_binary_bo() const {
-    return data->is_binary_bo();
+  return data->is_binary_bo();
 }
 
 #endif

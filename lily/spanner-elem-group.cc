@@ -16,15 +16,15 @@ IMPLEMENT_IS_TYPE_B2(Spanner_elem_group,Spanner,Horizontal_vertical_group_elemen
 Interval
 Spanner_elem_group::do_width() const
 {
-    return Spanner::do_width();
+  return Spanner::do_width();
 }
 
 void
 Spanner_elem_group::do_print() const
 {
 #ifndef NPRINT
-    Spanner::do_print();
-    Horizontal_vertical_group_element::do_print();
+  Spanner::do_print();
+  Horizontal_vertical_group_element::do_print();
 #endif
 }
 

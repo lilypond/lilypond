@@ -11,7 +11,8 @@ template<class T>
 void
 PL_copy (Pointer_list<T*> &to, Pointer_list<T*> const&src)
 {
-    for (PCursor<T*> pc (src); pc.ok(); pc++) {
+  for (PCursor<T*> pc (src); pc.ok(); pc++) 
+    {
 	T *q = pc;
 	T *p=new T(*q) ; 
 	to.bottom().add (p);

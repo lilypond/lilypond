@@ -17,52 +17,52 @@
 
 Midi_stream::Midi_stream (String filename_str)
 {
-    filename_str_ = filename_str;
-    os_p_ = 0;
-    open();
+  filename_str_ = filename_str;
+  os_p_ = 0;
+  open();
 }
 
 Midi_stream::~Midi_stream()
 {
-    delete os_p_;
+  delete os_p_;
 }
 
 Midi_stream&
 Midi_stream::operator <<( String str)
 {
-    if ( check_debug)
+  if ( check_debug)
 	str = String_convert::bin2hex_str (str);
-    
-    *os_p_ << str;
+  
+  *os_p_ << str;
 
-    if ( check_debug)
-        *os_p_ << "\n";
+  if ( check_debug)
+      *os_p_ << "\n";
 
-    return *this;
+  return *this;
 }
 
 Midi_stream&
 Midi_stream::operator <<( Midi_item const& mitem_c_r)
 {
 //    *this << mitem_c_r.str();
-    mitem_c_r.output (this);
-    if ( check_debug)
-        *os_p_ << "\n";
-    return *this;
+  mitem_c_r.output (this);
+  if ( check_debug)
+      *os_p_ << "\n";
+  return *this;
 }
 
 Midi_stream&
 Midi_stream::operator <<( int i)
 {
-    // output binary string ourselves
-    *this << Midi_item::i2varint_str (i);
-    return *this;
+  // output binary string ourselves
+  *this << Midi_item::i2varint_str (i);
+  return *this;
 }
 
 void
 Midi_stream::open()
 {
-    os_p_ = new ofstream (filename_str_);
-    if ( !*os_p_)
+  os_p_ = new ofstream (filename_str_);
+  if ( !*os_p_)
 	error ("can't open `" + filename_str_ + "\'");
 }

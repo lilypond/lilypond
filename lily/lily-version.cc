@@ -10,7 +10,7 @@ static const int build=
 char const * 
 lily_version_sz()
 {
-    static char v[1024];	// ugh
-    sprintf (v, s, build);
-    return v;
+  static char v[1024];	// ugh
+  sprintf (v, s, build);
+  return v;
 }

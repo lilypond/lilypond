@@ -15,5 +15,5 @@ ADD_THIS_ENGRAVER(Swallow_engraver);
 bool
 Swallow_engraver::do_try_request (Request*) 
 {
-    return true;
+  return true;
 }
