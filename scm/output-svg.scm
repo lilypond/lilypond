@@ -41,16 +41,25 @@
 	    ""))))))
   
 ;; Helper functions
-(define (tagify tag string . attribute-alist)
-  (string-append
-   "<"
-   tag
-   (apply string-append
-	  (map (lambda (x)
-		 (string-append " " (symbol->string (car x)) "='" (cdr x) "'"))
-	       attribute-alist))
-   ">"
-   string "</" tag ">\n"))
+(define-public (attributes attributes-alist)
+  (apply string-append
+	 (map (lambda (x) (format #f " ~s=\"~a\"" (car x) (cdr x)))
+	      attributes-alist)))
+
+(define-public (eo entity . attributes-alist)
+  (format #f "<~S~a>\n" entity (attributes attributes-alist)))
+
+(define-public (eoc entity . attributes-alist)
+  (format #f "<~S~a/>\n" entity (attributes attributes-alist)))
+
+(define-public (ec entity)
+  (format #f "</~S>\n" entity))
+
+(define-public (entity entity string . attributes-alist)
+  (if (equal? string "")
+      (apply eoc entity attributes-alist)
+      (string-append
+       (apply eo (cons entity attributes-alist)) string (ec entity))))
 
 (define (control->list c)
   (list (car c) (cdr c)))
@@ -114,7 +123,7 @@
 	   (font-size font) anchor)))
 
 (define (fontify font expr)
-   (tagify "text" expr (cons 'style (svg-font font))))
+   (entity 'text expr (cons 'style (svg-font font))))
 
 ;; FIXME
 (define-public (otf-name-mangling font family)
@@ -149,7 +158,7 @@
   (let* ((x width)
 	 (y (* slope width))
 	 (z (sqrt (+ (sqr x) (sqr y)))))
-    (tagify "rect" ""
+    (entity 'rect ""
 	    `(style . ,(format "stroke-linejoin:round;stroke-linecap:round;stroke-width:~f;" blot))
 	    `(x . "0")
 	    `(y . ,(number->string (* output-scale (- 0 (/ thick 2)))))
@@ -166,7 +175,7 @@
   (let* ((first (list-tail lst 4))
 	 (first-c0 (car (list-tail first 3)))
 	 (second (list-head lst 4)))
-    (tagify "path" ""
+    (entity 'path ""
 	    `(style . ,(format "stroke-linejoin:round;stroke-linecap:round;stroke-width:~f;" thick))
 	    `(transform . ,(format #f "scale (~f, ~f)"
 				   output-scale output-scale))
@@ -175,9 +184,9 @@
 
 (define (char font i)
   (dispatch
-   `(fontify ,font ,(tagify "tspan" (char->entity (integer->char i))))))
+   `(fontify ,font ,(entity 'tspan (char->entity (integer->char i))))))
 
-(define (comment s)
+(define-public (comment s)
   (string-append "<!-- " s " !-->\n"))
 
 (define (filledbox breapth width depth height)
@@ -185,12 +194,12 @@
 
 (define (named-glyph font name)
   (dispatch
-   `(fontify ,font ,(tagify "tspan"
+   `(fontify ,font ,(entity 'tspan
 			    (integer->entity
 			     (ly:font-glyph-name-to-charcode font name))))))
 
 (define (placebox x y expr)
-  (tagify "g"
+  (entity 'g
 	  ;; FIXME -- JCN
 	  ;;(dispatch expr)
 	  expr
@@ -199,7 +208,7 @@
 				 (- 0 (* output-scale y))))))
 
 (define (round-filled-box breapth width depth height blot-diameter)
-  (tagify "rect" ""
+  (entity 'rect ""
 	  `(style . ,(format "stroke-linejoin:round;stroke-linecap:round;stroke-width:~f;" blot-diameter))
 	  `(x . ,(number->string (* output-scale (- 0 breapth))))
 	  `(y . ,(number->string (* output-scale (- 0 height))))
@@ -208,7 +217,7 @@
 	  `(ry . ,(number->string (/ blot-diameter 2)))))
 
 (define (text font string)
-  (dispatch `(fontify ,font ,(tagify "tspan" (string->entities string)))))
+  (dispatch `(fontify ,font ,(entity 'tspan (string->entities string)))))
 
 ;; WTF is this in every backend?
 (define (horizontal-line x1 x2 th)

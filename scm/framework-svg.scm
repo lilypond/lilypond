@@ -6,7 +6,7 @@
 
 (define-module (scm framework-svg))
 
-(use-modules (guile) (lily))
+(use-modules (guile) (lily) (scm output-svg))
 (use-modules (srfi srfi-2) (ice-9 regex))
 
 ;; FIXME: 0.62 to get paper size right
@@ -21,55 +21,42 @@
 	 (hsize (ly:output-def-lookup paper 'hsize))
 	 (vsize (ly:output-def-lookup paper 'vsize))
 	 (page-width (inexact->exact (ceiling (* output-scale hsize))))
-	 (page-height (inexact->exact (ceiling (* output-scale vsize)))))
-
-    (ly:outputter-dump-string outputter xml-header)
-    (ly:outputter-dump-string
-     outputter
-     (comment "Created with GNU LilyPond (http://lilypond.org)"))
-    (ly:outputter-dump-string
-     outputter (format #f "<svg id='svg1' width='~smm' height='~smm'>\n"
-		       page-width page-height))
-    (ly:outputter-dump-string
-     outputter "<g transform='translate (10, 10) scale (1)'>\n")
-      
-;   (for-each
-;    (lambda (x)
-;      (ly:outputter-dump-string outputter x))
-;    (cons
-;     (page-header paper page-count)
-;     (preamble paper)))
-  
+	 (page-height (inexact->exact (ceiling (* output-scale vsize))))
+	 (page-set? (> page-count 1)))
+    
+   (ly:outputter-dump-string
+    outputter
+    (string-append
+     (eo 'svg
+	 '(xmlns . "http://www.w3.org/2000/svg")
+	 '(version . "1.2")
+	 `(width . ,(format #f "~smm" page-width))
+	 `(height . ,(format #f "~smm" page-height)))
+     ;; FIXME: only use pages if there are more than one, pageSet is
+     ;; not supported by all SVG applications yet.
+     (if page-set? (eo 'pageSet) "")
+     (eo 'g)))
+       
   (for-each
    (lambda (page)
      (set! page-number (1+ page-number))
-     (dump-page outputter page page-number page-count landscape?))
+     (dump-page outputter page page-number page-count landscape? page-set?))
    pages)
-  (ly:outputter-dump-string outputter "\n</g>\n</svg>\n")))
-
-(define (comment s)
-  (string-append "<!-- " s " !-->\n"))
-
-;; FIXME: gulp from file
-(define xml-header
-  "<?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 20010904//EN'
-'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
-")
-
-(define (dump-page outputter page page-number page-count landscape?) 
+  
+  (if page-set? (eo 'pageSet) "")
   (ly:outputter-dump-string
    outputter
    (string-append
-    (comment (format #f "Page: ~S/~S" page-number page-count))
-    ;;(format #f "<g transform='translate (0, ~f)'>\n" (* output-scale y))))
-    "<g>\n"))
+    (ec 'g)
+    (if page-set? (ec 'pageSet) "")
+    (ec 'svg)))))
 
+(define (dump-page outputter page page-number page-count landscape? page-set?)
   ;; FIXME:landscape
-  (ly:outputter-dump-stencil outputter page)
-
   (ly:outputter-dump-string
-   outputter
-   (string-append
-    (comment (format #f "End Page ~S/~S" page-number page-count))
-    "</g>\n")))
+   outputter (comment (format #f "Page: ~S/~S" page-number page-count)))
+  (if page-set? (ly:outputter-dump-string outputter (eo 'page)))
+  (ly:outputter-dump-string outputter (string-append (eo 'g)))
+  (ly:outputter-dump-stencil outputter page)
+  (ly:outputter-dump-string outputter (string-append (ec 'g)))
+  (if page-set? (ly:outputter-dump-string outputter (ec 'page))))

@@ -42,3 +42,4 @@ LoadTableFromFile("LILY", "aybabtu.otf-gtable")
 
 Generate("aybabtu.otf");
 Generate("aybabtu.cff");
+Generate("aybabtu.svg");
