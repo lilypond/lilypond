@@ -58,6 +58,8 @@
 	* vim/GNUmakefile: try to remove empty dirs during uninstalling, put
 	vimrc in EXTRA_DIST_FILES.
 
+	* vim/GNUmakefile: ignore errors due to rmdir of non-empty directories.
+
 2004-03-22  Heikki Junes  <hjunes@cc.hut.fi>
 
         * config.make.in: add vimdir.
