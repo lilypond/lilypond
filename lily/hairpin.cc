@@ -1,5 +1,5 @@
 /*
-  crescendo.cc -- implement Hairpin
+  hairpin.cc -- implement Hairpin
 
   source file of the GNU LilyPond music typesetter
 
@@ -7,7 +7,7 @@
 */
 
 #include "molecule.hh"
-#include "crescendo.hh"
+#include "hairpin.hh"
 #include "spanner.hh"
 #include "font-interface.hh"
 #include "dimensions.hh"
@@ -21,12 +21,10 @@ SCM
 Hairpin::brew_molecule (SCM smob) 
 {
   Grob *me= unsmob_grob (smob);
-  Spanner *span = dynamic_cast<Spanner*>(me);
+  Spanner *spanner = dynamic_cast<Spanner*>(me);
 
   Real line = me->paper_l ()->get_var ("stafflinethickness");  
   
-  Real broken_left =  span->get_broken_left_end_align ();
-
   SCM s = me->get_grob_property("grow-direction");
   if (!isdir_b (s))
     {
@@ -35,23 +33,20 @@ Hairpin::brew_molecule (SCM smob)
     }
   
   Direction grow_dir = to_dir (s);
-  Real padding = gh_scm2double (me->get_grob_property ("padding"));
-  Real width = span->spanner_length ();
-  width -= span->get_broken_left_end_align ();
 
-  if (width < 0)
-    {
-      warning (_ ((grow_dir < 0) ? "decrescendo too small"
-		  : "crescendo too small"));
-      width = 0;
-    }
+
+  /* Ugh, must be same as Text_spanner::brew_molecule.  */  
+  Real padding = gh_scm2double (me->get_grob_property ("padding"));
+  Real broken_left =  spanner->get_broken_left_end_align ();
+  Real width = spanner->spanner_length ();
+  width -= broken_left;
 
   Drul_array<bool> broken;
   Drul_array<Real> extra_off;
   Direction d = LEFT;
   do
     {
-      Item *b = span->get_bound (d);
+      Item *b = spanner->get_bound (d);
       broken[d] = b->break_status_dir () != CENTER;
 
       if (!broken [d])
@@ -66,7 +61,22 @@ Hairpin::brew_molecule (SCM smob)
 	}
     }
   while (flip (&d) != LEFT);
+
+  // FIXME: ecs tells us
+  width += gh_scm2double (me->get_grob_property ("width-correct"));
+  /* /Ugh */
+
+
+
+
   
+  if (width < 0)
+    {
+      warning (_ ((grow_dir < 0) ? "decrescendo too small"
+		  : "crescendo too small"));
+      width = 0;
+    }
+
   bool continued = broken[Direction (-grow_dir)];
   Real height = gh_scm2double (me->get_grob_property ("height"));
   Real thick = line * gh_scm2double (me->get_grob_property ("thickness"));

@@ -87,6 +87,8 @@ and documenting bugfixes.
 
 @lilypondfile{auto-beam-bar.ly}
 
+@lilypondfile{beam-rest.ly}
+
 @lilypondfile{slur-nice.ly}
 @lilypondfile{slur-symmetry.ly}
 @lilypondfile{slur-symmetry-1.ly}

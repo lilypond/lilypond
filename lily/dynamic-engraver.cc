@@ -7,7 +7,7 @@
 */
 #include "debug.hh"
 #include "dimensions.hh"
-#include "crescendo.hh"
+#include "hairpin.hh"
 #include "musical-request.hh"
 #include "paper-column.hh"
 #include "note-column.hh"
@@ -163,16 +163,7 @@ Dynamic_engraver::create_grobs ()
 	and a line-spanner will always be created, as \< \! are already
 	two requests.
 
-	Maybe always creating a line-spanner for a (de)crescendo (see
-	below) is not a good idea:
-
-	    a\< b\p \!c
-
-	the \p will be centred on the line-spanner, and thus clash
-	with the hairpin.  When axis-group code is in place, the \p
-	should move below the hairpin, which is probably better?
-
-	Urg, but line-spanner must always have at least same duration
+	Note: line-spanner must always have at least same duration
 	as (de)crecsendo, b.o. line-breaking.
 	*/
 
@@ -187,6 +178,10 @@ Dynamic_engraver::create_grobs ()
       script_p_ = new Item (get_property ("DynamicText"));
       script_p_->set_grob_property ("text",
 				   script_req_l_->get_mus_property ("text"));
+      
+      Side_position::set_direction (script_p_, LEFT);
+      Side_position::set_axis (script_p_, X_AXIS);
+      
       if (Direction d = script_req_l_->get_direction ())
 	Directional_element_interface::set (line_spanner_, d);
 
@@ -205,9 +200,10 @@ Dynamic_engraver::create_grobs ()
       else
 	{
 	  assert (!finished_cresc_p_);
-	  Grob* cc = unsmob_grob (get_property ("currentMusicalColumn"));
-	  
-	  cresc_p_->set_bound (RIGHT, cc);
+
+	  cresc_p_->set_bound (RIGHT, script_p_
+			   ? script_p_
+			   : unsmob_grob (get_property ("currentMusicalColumn")));
 
 	  finished_cresc_p_ = cresc_p_;
 	  cresc_p_ = 0;
@@ -240,7 +236,7 @@ Dynamic_engraver::create_grobs ()
 	  SCM s = get_property ((start_type + "Spanner").ch_C());
 	  if (!gh_symbol_p (s) || s == ly_symbol2scm ("hairpin"))
 	    {
-	      cresc_p_  = new Spanner (get_property ("Crescendo"));
+	      cresc_p_  = new Spanner (get_property ("Hairpin"));
 	      cresc_p_->set_grob_property ("grow-direction",
 					  gh_int2scm ((start_type == "crescendo")
 						      ? BIGGER : SMALLER));
@@ -255,6 +251,11 @@ Dynamic_engraver::create_grobs ()
 	    {
 	      cresc_p_  = new Spanner (get_property ("TextSpanner"));
 	      cresc_p_->set_grob_property ("type", s);
+	      
+	      // urg.  Can't set this into Text_spanner, because we
+	      // only want this for (de)crescendi spanners.
+	      cresc_p_->set_grob_property ("padding", gh_double2scm (1));
+	      
 	      daddy_trans_l_->set_property (start_type
 					    + "Spanner", SCM_UNDEFINED);
 	      s = get_property ((start_type + "Text").ch_C());
@@ -266,10 +267,11 @@ Dynamic_engraver::create_grobs ()
 						SCM_UNDEFINED);
 		}
 	    }
+
 	  cresc_p_->set_bound (LEFT, script_p_
 			       ? script_p_
 			       : unsmob_grob (get_property ("currentMusicalColumn")));
-	  
+
 	  Axis_group_interface::add_element (line_spanner_, cresc_p_);
 	  announce_grob (cresc_p_, accepted_spanreqs_drul_[START]);
 	}
@@ -308,10 +310,11 @@ Dynamic_engraver::typeset_all ()
 {  
   if (finished_cresc_p_)
     {
+#if 1
       finished_cresc_p_->set_bound (RIGHT, script_p_
 			   ? script_p_
 			   : unsmob_grob (get_property ("currentMusicalColumn")));
-	        
+#endif	        
       typeset_grob (finished_cresc_p_);
       finished_cresc_p_ =0;
     }

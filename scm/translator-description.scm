@@ -285,7 +285,7 @@ If omitted, then dots appear on top of the notes.
      "Dynamic_engraver"
      ""
      '(DynamicLineSpanner
-       DynamicText Crescendo
+       DynamicText Hairpin
        TextSpanner)
      '(
       )))

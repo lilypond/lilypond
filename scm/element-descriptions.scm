@@ -123,16 +123,17 @@
                (meta . ,(element-description "Custos" custos-interface staff-symbol-interface break-aligned-interface) )
        ))
 	
-	(Crescendo . (
+	(Hairpin . (
 		(molecule-callback . ,Hairpin::brew_molecule)
 		(thickness . 1.0)
-		(padding . 1.0)
+		(padding . 1.0) 
+		(width-correct . -1) ;ughr
 		(height . 0.6666)
 		(dash-thickness . 1.2)
 		(dash-length . 4.0)
 		(self-alignment-Y . 0)
 		(Y-offset-callbacks . (,Side_position::aligned_on_self))
-		(meta . ,(element-description "Crescendo" hairpin-interface))
+		(meta . ,(element-description "Hairpin" hairpin-interface))
 	))
 
 	(DotColumn . (
@@ -552,6 +553,9 @@
 		(molecule-callback . ,Text_spanner::brew_molecule)
                 (font-shape . italic)
 		(type . "line")
+		;;; urg
+		;;;(padding . 1.0)
+		(width-correct . -1) ;ughr
 		(direction . 1)
 		(meta . ,(element-description "TextSpanner" text-spanner-interface  font-interface))		
 	))

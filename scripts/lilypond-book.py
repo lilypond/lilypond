@@ -348,7 +348,6 @@ output_dict= {
 # should also support fragment in
 		  
 		  'output-all': r"""
-@include %(fn)s.texidoc
 @tex
 \catcode`\@=12
 \input lilyponddefs
@@ -776,7 +775,7 @@ def schedule_lilypond_block (chunk):
 		needed_filetypes.append('png')
 	if 'eps' in opts and not ('eps' in needed_filetypes):
 		needed_filetypes.append('eps')
-	outname = os.path.join(g_outdir, basename)
+	pathbase = os.path.join (g_outdir, basename)
 	def f(base, ext1, ext2):
 		a = os.path.isfile(base + ext2)
 		if (os.path.isfile(base + ext1) and
@@ -786,11 +785,11 @@ def schedule_lilypond_block (chunk):
 				not os.path.isfile(base + ext2):
 			return 1
 	todo = []
-	if 'tex' in needed_filetypes and f(outname, '.ly', '.tex'):
+	if 'tex' in needed_filetypes and f(pathbase, '.ly', '.tex'):
 		todo.append('tex')
-	if 'eps' in needed_filetypes and f(outname, '.tex', '.eps'):
+	if 'eps' in needed_filetypes and f(pathbase, '.tex', '.eps'):
 		todo.append('eps')
-	if 'png' in needed_filetypes and f(outname, '.eps', '.png'):
+	if 'png' in needed_filetypes and f(pathbase, '.eps', '.png'):
 		todo.append('png')
 	newbody = ''
 	if 'verbatim' in opts:
@@ -806,8 +805,10 @@ def schedule_lilypond_block (chunk):
 		else:
 			s = 'output-tex'
 	else: # format == 'texi'
-		s = 'output-all'
-	newbody = newbody + get_output(s) % {'fn': basename }
+		if os.path.isfile (pathbase + '.texidoc'):
+			newbody = newbody + '\n@include %s.texidoc' % basename
+ 		s = 'output-all'
+	newbody = newbody + get_output (s) % {'fn': basename }
 	return ('lilypond', newbody, opts, todo, basename)
 
 def process_lilypond_blocks(outname, chunks):#ugh rename

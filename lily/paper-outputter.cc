@@ -273,12 +273,15 @@ Paper_outputter::output_score_header_fields (Paper_def *paper)
       for (int i = 0; i < global_score_header_fields.size (); i++)
 	{
 	  String key = global_score_header_fields[i];
-	  //	  SCM val = gh_assoc (ly_str02scm (key.ch_C ()), fields);
 	  SCM val = gh_assoc (ly_symbol2scm (key.ch_C ()), fields);
 	  String s;
+	  /* Only write header field to file if it exists */
 	  if (gh_pair_p (val))
-	    s = ly_scm2string (gh_cdr (val));
-	  output_score_header_field (base, key, s);
+	    {
+	      s = ly_scm2string (gh_cdr (val));
+	      /* Always write header field file, even if string is empty ... */
+	      output_score_header_field (base, key, s);
+	    }
 	}
     }
 }

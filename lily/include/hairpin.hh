@@ -1,5 +1,5 @@
 /*
-  crescendo.hh -- declare Hairpin
+  hairpin.hh -- declare Hairpin
 
   source file of the GNU LilyPond music typesetter
 
@@ -7,8 +7,8 @@
 */
 
 
-#ifndef CRESCENDO_HH
-#define CRESCENDO_HH
+#ifndef HAIRPIN_HH
+#define HAIRPIN_HH
 
 #include "lily-guile.hh"
 /**
@@ -21,4 +21,4 @@ public:
   static bool has_interface (Grob*);
 };
 
-#endif // CRESCENDO_HH
+#endif // HAIRPIN_HH

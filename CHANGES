@@ -1,4 +1,22 @@
---- ../lilypond-1.3.115/CHANGES	Mon Dec  4 17:42:18 2000
+--- ../lilypond-1.3.115.jcn1/CHANGES	Thu Dec  7 22:22:26 2000
+++ b/CHANGES	Fri Dec  8 14:26:00 2000
+@@ -1,3 +1,16 @@
+1.3.115.jcn2
+============
+
+* Bugfix: lilypond-book.py: only include exisisting .texidoc files.
+
+* Lilypond: don't write empty header field file if header field does
+not exist (ie, empty .texidoc files).
+
+* Turn on info generation.
+
+* Fixes to dynamic placement and crescendo spanners.  Incomprehensible
+``width-correct'' hack remains.
+
+ 1.3.115.jcn1
+ ============
+ --- ../lilypond-1.3.115/CHANGES	Mon Dec  4 17:42:18 2000
 ++ b/CHANGES	Thu Dec  7 22:22:26 2000
 @@ -1,3 +1,9 @@
 1.3.115.jcn1
