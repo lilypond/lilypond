@@ -201,7 +201,7 @@ i.e.  this is not an override"
 	      'grob-property gprop))
 
 (define direction-polyphonic-grobs
-  '(Stem Tie Rest Slur Script TextScript Dots DotColumn
+  '(Stem Tie Rest Slur Script TextScript Dots DotColumn Fingering
 	 ))
 
 (define-public (make-voice-props-set n)
