@@ -8,7 +8,8 @@ include $(depth)/make/Include.make
 
 SCRIPTS = clearlily cpgento genheader make_patch \
 	lily.efence\
-	make_version make_website release convert-mudela show-latest
+	make_version make_website release convert-mudela show-latest \
+	conflily
 EXTRA_DISTFILES = $(SCRIPTS)
 #
 

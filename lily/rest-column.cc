@@ -6,23 +6,11 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
+#include "debug.hh"
 #include "rest-column.hh"
 #include "note-head.hh"
 #include "rest-column.hh"
-
-void
-Rest_column::add(Note_head *n_l)
-{
-    add_support(n_l);
-    head_l_arr_.push(n_l);
-}
-
-void
-Rest_column::translate_y(Real dy_f)
-{
-    for (int i=0; i < head_l_arr_.size(); i++)
-	head_l_arr_[i]->translate_y(dy_f);
-}
+#include "stem.hh"
 
 IMPLEMENT_STATIC_NAME(Rest_column);
 IMPLEMENT_IS_TYPE_B1(Rest_column,Item);
@@ -32,6 +20,27 @@ Rest_column::Rest_column()
     dir_i_ = 0;
 }
     
+void
+Rest_column::add(Note_head *n_l)
+{
+    add_support(n_l);
+    head_l_arr_.push(n_l);
+}
+
+void
+Rest_column::add(Stem*stem_l)
+{
+    stem_l_ = stem_l;
+//    add_support(stem_l);
+}
+
+void
+Rest_column::do_print() const
+{
+#ifndef NPRINT
+    mtor << "heads: " << head_l_arr_.size();
+#endif
+}
 
 void
 Rest_column::do_substitute_dependency(Score_elem*o,Score_elem*n)
@@ -41,4 +50,11 @@ Rest_column::do_substitute_dependency(Score_elem*o,Score_elem*n)
 	head_l_arr_.substitute( (Note_head*)o->item(), 
 				(n)? (Note_head*)n->item() : 0);
     }
+}
+
+void
+Rest_column::translate_y(Real dy_f)
+{
+    for (int i=0; i < head_l_arr_.size(); i++)
+	head_l_arr_[i]->translate_y(dy_f);
 }

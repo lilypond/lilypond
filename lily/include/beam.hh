@@ -27,7 +27,6 @@ public:
     NAME_MEMBERS();
     Beam();
     void add(Stem*);
-    
 
     void set_grouping(Rhythmic_grouping def, Rhythmic_grouping current);
     void set_stemlens();

@@ -67,6 +67,11 @@ Paper_def::interline_f() const
 }
 
 Real
+Paper_def::interbeam_f() const
+{
+    return lookup_p_->interbeam_f();
+}
+Real
 Paper_def::internote_f() const
 {
     return lookup_p_->internote_f();

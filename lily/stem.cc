@@ -59,7 +59,6 @@ Stem::do_print() const
 {
 #ifndef NPRINT
     mtor << "flag "<< flag_i_ << " print_flag_b_ " << print_flag_b_;
-
 #endif
 }
 

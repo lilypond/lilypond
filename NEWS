@@ -1,3 +1,15 @@
+pl 67.jcn3
+	- rests under beam [c8 r c]
+
+pl 67.jcn2
+	- first attempt at rest collisions
+	- rests.ly
+
+pl 67.jcn1
+	- beam stem length: beams.ly
+	- bf: mingw configure
+	- re: conflily
+
 pl 68
 	- doco: other-packages.pod, lots of lilyliterature.pod
 	- last duration mode now is default.
@@ -28,6 +40,10 @@ pl 68
 
 ******
 june 3
+
+pl 67.wl1
+	- damped beamslope after wanske
+
 pl 67
 	- sketch of Music classes
 	- General_script_def as baseclass for Text_def and Script_def

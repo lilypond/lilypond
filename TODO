@@ -140,6 +140,8 @@ BUGS
 
 	* lilypond - -> crash
 
+	* scales.ly
+
 	* standchen triool beam up/down
 	
 	* (where are the) gcc compile warnings on linux

@@ -27,7 +27,10 @@
 #undef mtor
 #endif
 
-#define MVOICE_LIST
+// arrays are 20% faster, but we have no Pointer_array yet
+#define MVOICE_LIST  // does this work?
+#define MEVENT_LIST
+#define TCOL_LIST
 
 #include "string.hh"
 #include "string-convert.hh"

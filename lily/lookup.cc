@@ -72,6 +72,23 @@ Lookup::internote_f() const
     return ball(4).dim.y.length()/2;
 }
 
+Real
+Lookup::interbeam_f() const
+{
+    /* 
+      [todo]
+         * runtime
+
+      "french" style: interbeam = intenote;
+      "german" style: interbeam = 2/3 * interline
+
+      as lily's style is currently german, we'll hardcode german style
+     */
+     // it seems that "interline" means _between_ lines
+//   return  ball(4).dim.y.length() * 2 / 3; 
+     return  ball(4).dim.y.length() * 2 / 3 + 0.4;  //ugh
+}
+
 Symbol
 Lookup::ball(int j) const
 {

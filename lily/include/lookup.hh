@@ -21,6 +21,7 @@ struct Lookup {
     void add(String, Symtable*);
     void print()const;
     Real internote_f()const;
+    Real interbeam_f()const;
 
     Symbol linestaff(int n, Real w)const;
     Symbol fill(Box b)const;
