@@ -69,7 +69,7 @@
 
      <br>(everything about LilyPond)
      
-	    <li><a class="title" href="../../input/template/out-www/collated-files.html">Templates</a>,
+	    <li><a class="title" href="../../input/template/out-www/collated-files.html">Templates</a>
 
      <br>(get started with typesetting)
 <li><a class="title"href="../../examples.html">Examples</a>
@@ -89,7 +89,7 @@
           &nbsp;
 	  <ul>
 	    <li>
- <a  class="title" href="../user/out-www/lilypond-internals/index.html">Program reference</a>,
+ <a  class="title" href="../user/out-www/lilypond-internals/index.html">Program reference</a>
 
      <br>(for LilyPond hackers)
 
@@ -99,12 +99,12 @@
      <br>(for developers)
 
 
-	    <li><a  class="title" href="../bibliography/out-www/index.html">Bibliography</a>.
+	    <li><a  class="title" href="../bibliography/out-www/index.html">Bibliography</a>
 
      <br>(background information)
-<li><a class="title"  href="DEDICATION.html">Dedication</a>.
+<li><a class="title"  href="DEDICATION.html">Dedication</a>
 
-     <br>(for Jan and Han-Wen)
+     <br>(by Jan and Han-Wen)
 
 	  </ul>
 	  </td>

@@ -21,6 +21,8 @@
 	* input/test/smart-transpose.ly: fix cases fes->e and similar.
 	handle also quarter tones (not shown as tests). test also flats.
 
+	* Documentation/index.html.in: small fixes.
+
 2004-03-03  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* input/regression/new-markup-scheme.ly: Typo.
