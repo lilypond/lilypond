@@ -6,6 +6,9 @@
 
 2005-02-20  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* input/mutopia/E.Satie/petite-ouverture-a-danser.ly: recode
+	latin1..utf-8.
+
 	* input/regression/stanza-number.ly:
 	* input/regression/utf8.ly (hebrew): Use addlyrics.  Update.
 

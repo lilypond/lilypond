@@ -1,5 +1,5 @@
 \header {
-  title = "Petite Ouverture à danser"
+  title = "Petite Ouverture Ã  danser"
   subtitle =	"4"
   source = ""
   composer = "Erik Satie (1866-1925)"
