@@ -45,8 +45,6 @@ public:
   DECLARE_SCHEME_CALLBACK (dim_callback, (SCM smob, SCM axis));
   DECLARE_SCHEME_CALLBACK (height, (SCM,SCM));
   static bool has_interface (Grob*);
-  static void set_interface (Grob*);
-
   static void set_spacing_hints (Grob*me) ;
 };
 #endif

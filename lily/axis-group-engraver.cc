@@ -42,8 +42,6 @@ void
 Axis_group_engraver::initialize ()
 {
   staffline_p_ = get_spanner_p ();
-  Axis_group_interface::set_interface (staffline_p_);
-  Axis_group_interface::set_axes (staffline_p_, Y_AXIS, Y_AXIS);
 
   Grob *  it = unsmob_grob (get_property ("currentCommandColumn"));
 
@@ -148,7 +146,7 @@ Spanner*
 Hara_kiri_engraver::get_spanner_p () const
 {
   Spanner * sp = new Spanner (get_property ("HaraKiriVerticalGroup"));
-  Hara_kiri_group_spanner::set_interface (sp);
+
   return sp;
 }
 

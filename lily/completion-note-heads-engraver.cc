@@ -195,8 +195,6 @@ Completion_heads_engraver::process_music ()
     {
       Item *note_p  = new Item (get_property ("NoteHead"));
       
-      Staff_symbol_referencer::set_interface (note_p);
-      
       Music * req =  note_req_l_arr_[i];
       if (scratch_note_reqs_.size())
 	{

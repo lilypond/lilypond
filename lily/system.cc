@@ -36,9 +36,6 @@ System::System (SCM s)
   : Spanner (s)
 {
   rank_i_ = 0;
-
-  Axis_group_interface::set_interface (this);
-  Axis_group_interface::set_axes (this, Y_AXIS,X_AXIS);
 }
 
 int
@@ -538,3 +535,15 @@ System::column_l_arr ()const
   return acs;
 }
   
+
+
+
+ADD_INTERFACE (System,"system-interface",
+  "Super grob, parent of all:
+
+The columns of a score that form one line.  The toplevel grob.  Any
+grob has a Line_of_score as both X and Y reference point. The
+Paper_score contains one grob of this type. Control enters the
+Grob dependency calculation from this single Line_of_score
+object.",
+  "between-system-string spacing-procedure before-line-breaking-callback after-line-breaking-callback all-elements columns");

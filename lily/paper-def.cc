@@ -15,7 +15,7 @@
 #include "debug.hh"
 #include "scaled-font-metric.hh"
 #include "main.hh"
-#include "scope.hh"
+#include "scm-hash.hh"
 #include "file-results.hh" // urg? header_global_p
 #include "paper-outputter.hh"
 
@@ -48,7 +48,7 @@ Paper_def::get_var (String s) const
 SCM
 Paper_def::get_scmvar (String s) const
 {
-  return  scope_p_->scm_elem (ly_symbol2scm (s.ch_C ()));
+  return variable_tab_->get (ly_symbol2scm (s.ch_C ()));
 }
 
 
@@ -62,7 +62,7 @@ Real
 Paper_def::get_realvar (SCM s) const
 {
   SCM val ;
-  if (!scope_p_->try_retrieve (s, &val))
+  if (!variable_tab_->try_retrieve (s, &val))
     {
       programming_error ("unknown paper variable: " +  ly_symbol2string (s));
       return 0.0;
@@ -70,7 +70,7 @@ Paper_def::get_realvar (SCM s) const
 
   Real sc = 1.0;
   SCM ssc;
-  if (scope_p_->try_retrieve (ly_symbol2scm ("outputscale"), &ssc))
+  if (variable_tab_->try_retrieve (ly_symbol2scm ("outputscale"), &ssc))
     {
       sc = gh_scm2double (ssc);
     }
@@ -144,7 +144,7 @@ Paper_def::find_font (SCM fn, Real m)
     return unsmob_metrics (ly_cdr (met));
 
   SCM ssc;
-  if (scope_p_->try_retrieve (ly_symbol2scm ("outputscale"), &ssc))
+  if (variable_tab_->try_retrieve (ly_symbol2scm ("outputscale"), &ssc))
     {
       m /= gh_scm2double (ssc);
     }

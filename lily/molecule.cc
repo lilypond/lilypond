@@ -202,11 +202,11 @@ ly_add_molecule (SCM first, SCM second)
 
 
 SCM
-make_molecule (SCM expr, SCM xext, SCM yext)
+ly_make_molecule (SCM expr, SCM xext, SCM yext)
 {
-  /*
-    TODO: typechecking. 
-   */
+  SCM_ASSERT_TYPE (ly_number_pair_p (xext), xext, SCM_ARG2, __FUNCTION__, "number pair");
+  SCM_ASSERT_TYPE (ly_number_pair_p (yext), yext, SCM_ARG3, __FUNCTION__, "number pair");  
+
   Box b (ly_scm2interval (xext), ly_scm2interval(yext));
   Molecule m (b, expr);
   return m.smobbed_copy ();
@@ -246,7 +246,7 @@ ly_align_to_x (SCM mol, SCM axis, SCM dir)
 static void
 molecule_init ()
 {
-  scm_c_define_gsubr ("ly-make-molecule", 3, 0, 0, (Scheme_function_unknown) make_molecule);
+  scm_c_define_gsubr ("ly-make-molecule", 3, 0, 0, (Scheme_function_unknown) ly_make_molecule);
   scm_c_define_gsubr ("ly-fontify-atom", 2, 0, 0, (Scheme_function_unknown) ly_fontify_atom);
   scm_c_define_gsubr ("ly-align-to!", 3, 0, 0, (Scheme_function_unknown) ly_align_to_x);
   scm_c_define_gsubr ("ly-add-molecule", 2, 0,0,(Scheme_function_unknown) ly_add_molecule);

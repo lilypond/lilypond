@@ -14,7 +14,7 @@
 
 /*
   
-  TODO: handling of grace notes is excuisite pain.  This handling
+  TODO: handling of grace notes is exquisite pain.  This handling
   should be formally specified and then the implementation verified.
 
 */
@@ -263,6 +263,7 @@ Sequential_music_iterator::get_music (Moment until)const
   Skip events till UNTIL. We don't do any other side effects such as
   descending to child iterator contexts, because they might depend on
   \context specs and \translator changes being executed
+
   TODO: build support for grace notes here.
  */
 void

@@ -49,14 +49,15 @@ Rhythmic_head::set_dots (Grob*me,Item *dot_l)
 }
 
 
-void
-Rhythmic_head::set_interface (Grob*me)
-{
-  me->set_interface (ly_symbol2scm ("rhythmic-head-interface"));
-}
 
 bool
 Rhythmic_head::has_interface (Grob*me)
 {
   return me &&  me->has_interface (ly_symbol2scm ("rhythmic-head-interface"));
 }
+
+
+ADD_INTERFACE (Rhythmic_head,"rhythmic-head-interface",
+  "Note head or rest",
+  "dot stem duration-log");
+

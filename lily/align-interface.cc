@@ -270,15 +270,6 @@ Align_interface::add_element (Grob*me,Grob* s, SCM cb)
   Axis_group_interface::add_element (me, s);
 }
 
-
-void
-Align_interface::set_interface (Grob*me)
-{
-  me->set_interface (ly_symbol2scm ("align-interface"));
-
-  Axis_group_interface::set_interface (me);
-}
-
 void
 Align_interface::set_axis (Grob*me,Axis a)
 {
@@ -291,3 +282,13 @@ Align_interface::has_interface (Grob*me)
   return me && me->has_interface (ly_symbol2scm ("align-interface"));
 }
 
+
+ADD_INTERFACE (Align_interface, "align-interface",
+  " Order grobs top to bottom/left to right/right to left etc.",
+  "forced-distance stacking-dir align-dir threshold alignment-done center-element elements axes");
+
+
+
+ADD_INTERFACE (Foobar, "aligned-interface",
+  "read by align-interface",
+  "minimum-space-pair extra-space");

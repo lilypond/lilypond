@@ -130,11 +130,7 @@ Axis_group_interface::has_interface (Grob*me)
   return me && me->has_interface (ly_symbol2scm ("axis-group-interface"));
 }
 
-void
-Axis_group_interface::set_interface (Grob*me)
-{
-  if (!has_interface (me))
-    {
-      me->set_interface (ly_symbol2scm ("axis-group-interface"));      
-    }
-}
+
+ADD_INTERFACE (Axis_group_interface, "axis-group-interface",
+  "a group of coupled grobs",
+  "axes");

@@ -180,12 +180,31 @@ Spacing_spanner::prune_loose_colunms (Grob*me,Link_array<Grob> *cols, Rational s
 
 		  Real space, fixed;
 		  fixed = 0.0;
-		  bool expand_only;
-		  Real base = note_spacing (me, lc, rc, shortest, &expand_only);
-		  Note_spacing::get_spacing (sp, rc, base, increment, &space, &fixed);
-		  space -=base; 
+		  bool dummy;
+
+		  if (d == LEFT)
+		    {
+		      /*
+			The note spacing should be taken from the musical
+			columns.
+		    
+		      */
+		      Real base = note_spacing (me, lc, rc, shortest, &dummy);
+		      Note_spacing::get_spacing (sp, rc, base, increment, &space, &fixed);
+
+		      space -= increment; 
 		  
-		  dists[d] = dists[d] >? space;
+		      dists[d] = dists[d] >? space;
+		    }
+		  else
+		    {
+		      Real space, fixed_space;
+		      Staff_spacing::get_spacing_params (sp,
+							 &space, &fixed_space);
+
+		      dists[d] = dists[d] >? fixed_space;
+		    }
+		  
 		}
 	    }
 	  while (flip (&d) != LEFT);
@@ -536,7 +555,7 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real inc
 
 
 /*
-  Read hints from L (todo: R) and generate springs.
+  Read hints from L and generate springs.
  */
 void
 Spacing_spanner::breakable_column_spacing (Item* l, Item *r)
@@ -669,4 +688,51 @@ Spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
   
   return dist;
 }
+
+
+
+ADD_INTERFACE (Spacing_spanner,"spacing-spanner-interface",
+  " SPACE = arithmetic_multiplier * ( C + log2 (TIME) ))
+The space taken by a note is determined by the formula 
+
+
+
+where TIME is the amount of time a note occupies.  The value of C is
+chosen such that the smallest space within a measure is
+arithmetic_basicspace:
+
+C = arithmetic_basicspace - log2 (mininum (SHORTEST, 1/8)) 
+
+The smallest space is the one following the shortest note in the
+measure, or the space following a hypothetical 1/8 note.  Typically
+arithmetic_basicspace is set to a value so that the shortest note
+takes about two noteheads of space (ie, is followed by a notehead of
+space):
+
+@example
+2*quartwidth = arithmetic_multiplier * ( C + log2 (SHORTEST) ))
+
+@{ using: C = arithmetic_basicspace - log2 (mininum (SHORTEST, 1/8)) @}
+@{ assuming: SHORTEST <= 1/8 @}
+
+= arithmetic_multiplier *
+( arithmetic_basicspace - log2 (SHORTEST) + log2 (SHORTEST) )
+
+= arithmetic_multiplier * arithmetic_basicspace
+
+@{ choose: arithmetic_multiplier = 1.0*quartwidth (why?) @}
+
+= quartwidth * arithmetic_basicspace
+
+=>	       
+
+arithmetic_basicspace = 2/1 = 2
+
+
+If you want to space your music wider, use something like:
+
+arithmetic_basicspace = 4.;
+
+@end example",
+  "spacing-increment shortest-duration-space");
 

@@ -54,3 +54,9 @@ Lyric_extender::set_textitem (Spanner*sp, Direction d, Grob*s)
 }
 
 
+
+
+ADD_INTERFACE (Lyric_extender,"lyric-extender-interface",
+  "The extender is a simple line at the baseline of the lyric
+that helps show the length of a melissima (tied/slurred note).",
+  "word-space height right-trim-amount");

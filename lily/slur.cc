@@ -9,11 +9,16 @@
 
 /*
   [TODO]
+  
     * should avoid stafflines with horizontal part.
+
     * begin and end should be treated as a/acknowledge Scripts.
+
     * smart changing of endings
+
     * smart changing of (Y-?)offsets to avoid ugly beziers
  (along-side-stem)
+ 
  */
 
 #include "directional-element-interface.hh"
@@ -682,4 +687,8 @@ Slur::has_interface (Grob*me)
   return me->has_interface (ly_symbol2scm ("slur-interface"));
 }
 
+
+ADD_INTERFACE (Slur,"slur-interface",
+  "A slur",
+  "slope-limit de-uglify-parameters details attachment direction attachment-offset beautiful y-free control-points extremity-rules extremity-offset-alist thickness dashed");
 

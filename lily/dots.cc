@@ -70,3 +70,11 @@ Dots::brew_molecule (SCM d)
 
 
 
+
+ADD_INTERFACE (Dots, "dots-interface",
+  "The dots to go with a notehead/rest.  A separate interface, since they
+are a party in collision resolution.
+#'direction is the Direction to handle staff-line collisions in.",
+  "direction dot-count");
+
+

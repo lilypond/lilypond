@@ -29,8 +29,8 @@ GROB.  The dimensions of the molecule is not affected.
      
      (let* (
 	    (fn (ly-get-default-font grob))
-	    (pclose (ly-find-glyph-by-name fn "accidentals-)"))
-	    (popen (ly-find-glyph-by-name fn "accidentals-("))
+	    (pclose (ly-find-glyph-by-name fn "accidentals-rightparen"))
+	    (popen (ly-find-glyph-by-name fn "accidentals-leftparen"))
 	    (subject (callback grob))
 
 	    ; remember old size

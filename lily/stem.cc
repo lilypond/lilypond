@@ -231,7 +231,12 @@ Stem::add_head (Grob*me, Grob *n)
     }
   else
     {
-      n->set_grob_property ("rest", n->self_scm ());
+      /*
+	Apparently, this is never used.
+       */
+#if 0
+      me->set_grob_property ("rest", n->self_scm ());
+#endif
     }
 }
 
@@ -356,8 +361,8 @@ Stem::get_default_stem_end_position (Grob*me)
 
 
   bool no_extend_b = to_boolean (me->get_grob_property ("no-stem-extend"));
-   if (!grace_b && !no_extend_b && dir * st < 0) // junkme?
-      st = 0.0;
+  if (!grace_b && !no_extend_b && dir * st < 0) // junkme?
+    st = 0.0;
 
   return st;
 }
@@ -795,8 +800,7 @@ Stem::has_interface (Grob*m)
   return m && m->has_interface (ly_symbol2scm ("stem-interface"));
 }
 
-void
-Stem::set_interface (Grob*me)
-{    
-  me->set_interface (ly_symbol2scm ("stem-interface"));
-}
+ADD_INTERFACE (Stem,"stem-interface",
+  "A stem",
+  "thickness stem-info beamed-lengths beamed-minimum-lengths lengths beam stem-shorten duration-log beaming neutral-direction stem-end-position support-head heads direction length style no-stem-extend flag-style dir-forced");
+

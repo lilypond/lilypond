@@ -1,4 +1,65 @@
+2002-03-24  Han-Wen  <hanwen@cs.uu.nl>
+
+	* VERSION: 1.5.47 released
+
+	* lily/line-spanner.cc (line_atom): change line-thickness to thickness
+
+	* lily/porrectus.cc:  change line-thickness to thickness, change
+	stem-direction to direction.
+
+	* scm/backend-documentation-lib.scm (check-dangling-properties):
+	Automatically detect doc'ed properties that are not in an interface
+
+	* scm/grob-property-description.scm: property cleanup. Remove many
+	paper-column props that are non-existent.
+
+	* lily/grob.cc (Grob): only use molecule_extent_proc as default if
+	the grob has a molecule-callback.
+
+	* lily/*.cc: remove many set_interface() calls, and their
+	implementations.
+
+	* input/regression/spacing-knee.ly: new file
+
+	* input/regression/spacing-clef-first-note.ly: new file
+
+	* lily/staff-spacing.cc (get_spacing_params): different spacing
+	for pref matter to note at start of line, halfway during line.
+
+	* lily/note-spacing.cc (stem_dir_correction): apply 2nd stem direction
+	correction only if stems have same direction (i.e. not for
+	stem-clef combination).
+	(stem_dir_correction): maximal correction for knees.
+
+	* lily/*.cc: many updates to interface descriptions.
+	
+	* lily/grob.cc (internal_set_grob_property): add interface check
+	for every set_grob_property call
+
+	* lily/*.cc: document interface stuff in C++
+	
+	* lily/grob-interface.cc: new file. Add grob interfaces from C++. 
+
+	* lily/volta-bracket.cc: naming: change volta spanner to
+	volta-bracket.
+
+	* input/bugs/*.ly: cleanup, remove lots of files.
+	
+	* buildscripts/mf-to-table.py (write_ps_encoding): generate
+	.encoding file. WARNING: upgrade to pktrace 1.0.3
+
+	* mf/feta-toevallig.mf: change PS name for parentheses.
+
+2002-03-23  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
+
+       * scripts/ly2dvi.py (ly_paper_to_latexpaper): Use the correct unit
+       also for textheight
+
 2002-03-23  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/scope.cc: remove file .
+
+	* lily/include/scope.hh: remove file. Remove Scope class
 
 	* VERSION: 1.5.46
 
@@ -6,6 +67,8 @@
 	score_forbidden_quants): ): take out of SCM, pass parameters so
 	grob props are read only once. (wtk1-fugue2 from 31 sec to 14
 	secs).
+	(calc_stem_y): robustness: take care of last_visible_stem == 0.
+
 
 	* lily/lily-guile.cc (ly_unit): return internal unit.
 
@@ -47,6 +110,8 @@
 
 	* buildscripts/clean-fonts.sh: added search paths /var/cache/fonts
 	and /usr/share/texmf/fonts
+
+	* scripts/ly2dvi.py: Read unit from paper vars (43.jcn3).
 
 2002-03-22  Han-Wen  <hanwen@cs.uu.nl>
 

@@ -445,10 +445,6 @@ Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
   return m;  
 }
 
-/*
-  TODO: should use slope instead?  Angle gives nasty rad <-> degree
-  conversions.
-*/
 Molecule
 Lookup::repeat_slash (Real w, Real s, Real t)
 {

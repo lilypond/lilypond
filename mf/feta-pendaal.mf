@@ -59,7 +59,7 @@ def draw_asterisk_bulb (expr w, h, i) =
 	endgroup;
 	enddef;
 
-fet_beginchar("Pedal asterisk", "*", "pedal-asterisk")
+fet_beginchar("Pedal asterisk", "*", "pedalasterisk")
 	set_char_box(0, 7/9pedalh#, 0, pedalh#);
 	z0 = (1/2w, h - 1/2w);
 	for i = 0 upto 7:
@@ -73,7 +73,7 @@ fet_endchar;
 
 % code := 44;  % - = 45
 
-fet_beginchar("Pedal dash", "-", "pedal-dash")
+fet_beginchar("Pedal dash", "-", "pedaldash")
 	set_char_box(0, 3penw#, 0, pedalbh#);
 	pickup pencircle scaled penh;
 
@@ -85,7 +85,7 @@ fet_beginchar("Pedal dash", "-", "pedal-dash")
 	penstroke z1e{dir 40}..tension 1.2 ..z2e{dir 40};
 fet_endchar;
 
-fet_beginchar("Pedal dot", ".", "pedal-dot")
+fet_beginchar("Pedal dot", ".", "pedaldot")
 	set_char_box(0, penw#, 0, penw#);
 	pickup pencircle scaled penw;
 	draw (1/2penw,1/2penw);
@@ -232,19 +232,19 @@ def draw_pedal_e =
 
 % code := 79;  % P = 80
 
-fet_beginchar("Pedal P", "P", "pedal-P")
+fet_beginchar("Pedal P", "P", "pedalP")
 	set_char_box(0, 5/6pedalh#, 0, pedalh#);
 	draw_pedal_P;
 fet_endchar;
 
 % code := 99;  % d = 100
 
-fet_beginchar("Pedal d", "d", "pedal-d")
+fet_beginchar("Pedal d", "d", "pedald")
 	set_char_box(0, 2/3pedalh#, 0, 7/8pedalh#);
 	draw_pedal_d;
 fet_endchar;
 
-fet_beginchar("Pedal e", "e", "pedal-e")
+fet_beginchar("Pedal e", "e", "pedale")
 	set_char_box(0, 2/5pedalh#, 0, pedalbh#);
 	draw_pedal_e;
 fet_endchar;
@@ -254,7 +254,7 @@ fet_endchar;
 % The pre 1.3.59 user-scm kerning sucks, but I'm not struck by
 % the looks of this either.
 %
-fet_beginchar("Pedal Ped", "Ped", "pedal-Ped")
+fet_beginchar("Pedal Ped", "Ped", "pedalPed")
 	P_width# = 5/6pedalh#;
 	e_width# = 2/5pedalh#;
 	d_width# = 2/3pedalh#;

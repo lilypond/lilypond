@@ -7,8 +7,10 @@
   
   Chris Jackson <chris@fluffhouse.org.uk> - extended to support
   bracketed pedals.
+
   TODO: support for __| |__ or __| Ped  instead of  ___/\__ for pedal up-down
- */
+
+*/
 
 #include "engraver.hh"
 #include "musical-request.hh"
@@ -172,8 +174,6 @@ Piano_pedal_engraver::create_grobs ()
 	    {
 	      p->line_spanner_ = new Spanner (get_property ( ( String (p->name_) + "PedalLineSpanner").ch_C() ));
 	      Side_position_interface::set_axis (p->line_spanner_, Y_AXIS);
-	      Axis_group_interface::set_interface (p->line_spanner_);
-	      Axis_group_interface::set_axes (p->line_spanner_, Y_AXIS, Y_AXIS);
 	      Music * rq = (p->req_l_drul_[START]  ?  p->req_l_drul_[START]  :  p->req_l_drul_[STOP]);
 	      announce_grob (p->line_spanner_, rq->self_scm ());
 	    }
@@ -307,7 +307,6 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, SCM pedaltype)
       p->current_bracket_req_ = p->req_l_drul_[START];
 
       p->bracket_p_  = new Spanner (get_property ("PianoPedalBracket"));
-      p->bracket_p_->set_interface (ly_symbol2scm ("piano-pedal-interface"));
 
       // Set a property so that the molecule-creating function will know whether the left edge should be flared \___
       p->bracket_p_->set_grob_property("left-widen", gh_bool2scm((bool) p->req_l_drul_[STOP]) );

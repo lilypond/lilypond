@@ -246,7 +246,7 @@ Line_spanner::brew_molecule (SCM smob)
 
   Real thick = me->paper_l ()->get_var ("stafflinethickness");  
 
-  SCM s = me->get_grob_property ("line-thickness");
+  SCM s = me->get_grob_property ("thickness");
   if (gh_number_p (s))
     thick *= gh_scm2double (s);
 
@@ -257,5 +257,12 @@ Line_spanner::brew_molecule (SCM smob)
   line.translate (ofxy - my_off + his_off);
   return line.smobbed_copy ();
 }
+
+
+
+ADD_INTERFACE (Line_spanner, "line-spanner-interface",
+  "Generic line drawn between two objects, eg. for use with glissandi.
+gap is measured in staff-spaces.   ",
+  "gap dash-period dash-length thickness type");
 
 

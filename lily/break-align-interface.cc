@@ -68,13 +68,6 @@ Break_align_interface::add_element (Grob*me, Grob *toadd)
 }
 
 void
-Break_align_interface::set_interface (Grob*me)
-{
-  Align_interface::set_interface (me); 
-  Align_interface::set_axis (me,X_AXIS);
-}
-
-void
 Break_align_interface::do_alignment (Grob *me)
 {
   Item * item = dynamic_cast<Item*> (me);
@@ -92,7 +85,7 @@ Break_align_interface::do_alignment (Grob *me)
 
 
   int idx  = 0;
-  while (extents[idx].empty_b ())
+  while (idx < extents.size  () && extents[idx].empty_b ())
     idx++;
   
   Array<Real> offsets;
@@ -220,5 +213,28 @@ Break_align_interface::do_alignment (Grob *me)
       elems[i]->translate_axis (here, X_AXIS);
     }
 }
+
+
+
+ADD_INTERFACE (Break_aligned_interface, "break-aligned-interface",
+  "Items that are aligned in prefatory matter.
+
+The spacing of these items is controlled by the space-alist
+property. It contains a list break-align-symbols with a specification
+of the associated space. The space definition is either (extra-space
+. @var{number}), which adds space after the symbol, (minimum-space
+. @var{ms}), which pads the space until it it is @var{ms}.
+
+
+Special keys for the alist are 'first-note and 'next-note, signifyign
+the first note on a line, and the next note halfway a line.
+
+",
+  "break-align-symbol break-alignment-done space-alist");
+
+ADD_INTERFACE (Break_align_interface, "break-alignment-interface",
+  "See @ref{break-aligned-interface}.",
+  "break-alignment-done");
+
 
 

@@ -9,7 +9,7 @@
 
 
 #include "command-request.hh"
-#include "tuplet-spanner.hh"
+#include "tuplet-bracket.hh"
 #include "note-column.hh"
 #include "time-scaled-music.hh"
 #include "beam.hh"
@@ -75,7 +75,7 @@ Tuplet_engraver::create_grobs ()
 	continue;
 
       Spanner* glep = new Spanner (get_property ("TupletBracket"));
-      Tuplet_bracket::set_interface (glep);
+
       if (i >= started_span_p_arr_.size ())
 	started_span_p_arr_.push (glep);
       else

@@ -20,7 +20,6 @@
 #include "debug.hh"
 #include "source-file.hh"
 #include "main.hh"
-#include "scope.hh"
 #include "input.hh"
 #include "moment.hh"
 
@@ -97,9 +96,7 @@ My_lily_lexer::My_lily_lexer ()
 {
   keytable_p_ = new Keyword_table (the_key_tab);
   toplevel_variable_tab_ = new Scheme_hash_table ;
-  scope_p_ = new Scope (toplevel_variable_tab_);
-  
-  scope_l_arr_.push (scope_p_);
+  scope_l_arr_.push (toplevel_variable_tab_);
   
   errorlevel_i_ = 0;
   main_input_b_ = false;
@@ -133,21 +130,25 @@ My_lily_lexer::start_main_input ()
 }
 
 void
-My_lily_lexer::set_identifier (String name_str, SCM s)
+My_lily_lexer::set_identifier (SCM name, SCM s)
 {
-  if (lookup_keyword (name_str) >= 0)
+  assert (gh_string_p (name));
+  
+  if (lookup_keyword (ly_scm2string (name)) >= 0)
     {
-      warning (_f ("Identifier name is a keyword: `%s'", name_str));
+      size_t sz;
+      char * str = gh_scm2newstr (name, &sz) ;
+      warning (_f ("Identifier name is a keyword: `%s'", str));
+      free  (str);
     }
   
-  scope_l_arr_.top ()->set (name_str, s);
+  scope_l_arr_.top ()->set (scm_string_to_symbol (name), s);
 }
 
 My_lily_lexer::~My_lily_lexer ()
 {
   delete keytable_p_;
   scm_gc_unprotect_object (toplevel_variable_tab_->self_scm ());
-  delete scope_p_ ;
 }
 
 

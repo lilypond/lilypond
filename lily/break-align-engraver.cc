@@ -100,7 +100,7 @@ Break_align_engraver::acknowledge_grob (Grob_info inf)
       if (!align_l_)
 	{
 	  align_l_ = new Item (get_property ("BreakAlignment"));
-	  Break_align_interface::set_interface (align_l_);
+
 	  announce_grob (align_l_, SCM_EOL);
 
 	  Item * edge = new Item (get_property ("LeftEdge"));
@@ -126,9 +126,6 @@ Break_align_engraver::add_to_group(SCM align_name, Item*item_l)
   else
     {
       group = new Item (get_property ("BreakAlignGroup"));
-
-      Axis_group_interface::set_interface (group);
-      Axis_group_interface::set_axes (group, X_AXIS,X_AXIS);
 
       group->set_grob_property ("break-align-symbol", align_name);
       group->set_parent (align_l_, Y_AXIS);

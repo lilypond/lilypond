@@ -12,11 +12,8 @@
 
 #include "lily-proto.hh"
 
-/**  
-*/
 struct Separation_item
 {
-
   static bool has_interface (Grob*);
   static Interval my_width (Grob*) ;
   static void add_item (Grob*,Item*);

@@ -81,7 +81,6 @@ head_characteristic (Grob * col)
 
   TODO: look at horizontal-shift to determine ordering between rests
   for more than two voices.
-  
  */
 SCM
 Rest_collision::do_shift (Grob *me, SCM elts)
@@ -245,12 +244,9 @@ Rest_collision::do_shift (Grob *me, SCM elts)
   return SCM_UNSPECIFIED;
 }
 
-void
-Rest_collision::set_interface (Grob*me)
-{
-  me->set_extent_callback (SCM_EOL, X_AXIS);
-  me->set_extent_callback (SCM_EOL, Y_AXIS);
-}
 
-
+ADD_INTERFACE (Rest_collision,"rest-collision-interface",
+  "Move around ordinary rests (not multi-measure-rests) to avoid
+conflicts.",
+  "maximum-rest-count minimum-distance elements");
 

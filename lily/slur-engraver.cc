@@ -156,7 +156,7 @@ Slur_engraver::create_grobs ()
 	  // push a new slur onto stack.
 	  // (use temp. array to wait for all slur STOPs)
 	  Grob* slur = new Spanner (get_property ("Slur"));
-	  Slur::set_interface (slur);
+	  Slur::set_interface (slur); // cannot remove yet!
 	  SCM s = get_property ("slurBeginAttachment");
 	  if (gh_symbol_p (s))
 	    {

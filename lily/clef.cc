@@ -53,11 +53,6 @@ Clef::has_interface (Grob* me)
 }
 
 
-void
-Clef::set_interface (Grob* me)
-{
-  me->set_interface (ly_symbol2scm ("clef-interface"));
-}
 
 MAKE_SCHEME_CALLBACK (Clef,brew_molecule,1)
 SCM
@@ -74,3 +69,9 @@ Clef::brew_molecule (SCM smob)
       return SCM_EOL;
     }
 }
+
+
+ADD_INTERFACE (Clef, "clef-interface",
+  "A clef sign",
+  "non-default full-size-change glyph-name");
+

@@ -29,11 +29,11 @@ $(outdir)/%.$(XPM_RESOLUTION)pk: $(outdir)/%.$(XPM_RESOLUTION)gf
 
 
 $(outdir)/%.pfa: %.mf
-	pktrace --simplify --keep-trying $(basename $(@F))
+	pktrace -I $(outdir)/ --pfa --simplify --keep-trying $(basename $(@F))
 	mv $(basename $(@F)).pfa $(outdir)
 
 $(outdir)/%.pfb: %.mf
-	pktrace --simplify --keep-trying  $(basename $(@F))
+	pktrace  -I $(outdir)/ --pfb --simplify --keep-trying  $(basename $(@F))
 	mv $(basename $(@F)).pfb $(outdir)
 
 #%.afm:

@@ -94,8 +94,6 @@ Clef_engraver::create_clef ()
       Item *c= new Item (get_property ("Clef"));
       announce_grob(c, SCM_EOL);
 
-      Staff_symbol_referencer::set_interface (c);
-      
       clef_p_ = c;
     }
   SCM cpos = get_property ("clefPosition");

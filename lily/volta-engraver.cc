@@ -9,7 +9,7 @@
 
 #include "engraver.hh"
 #include "translator-group.hh"
-#include "volta-spanner.hh"
+#include "volta-bracket.hh"
 #include "item.hh"
 #include "note-column.hh"
 #include "bar-line.hh"
@@ -140,7 +140,7 @@ Volta_engraver::create_grobs ()
       started_mom_ = now_mom () ;
 
       volta_span_p_ = new Spanner (get_property ("VoltaBracket"));
-      Volta_spanner::set_interface (volta_span_p_);
+
       announce_grob (volta_span_p_, SCM_EOL);
       volta_span_p_->set_grob_property ("text", start_str_);
     }
@@ -154,14 +154,14 @@ Volta_engraver::acknowledge_grob (Grob_info i)
       if (Note_column::has_interface (item))
 	{
 	  if (volta_span_p_)
-	    Volta_spanner::add_column (volta_span_p_,item);
+	    Volta_bracket_interface::add_column (volta_span_p_,item);
 	}
       if (Bar_line::has_interface (item))
 	{
 	  if (volta_span_p_)
-	    Volta_spanner::add_bar (volta_span_p_, item);
+	    Volta_bracket_interface::add_bar (volta_span_p_, item);
 	  if (end_volta_span_p_)
-	    Volta_spanner::add_bar (end_volta_span_p_ , item);
+	    Volta_bracket_interface::add_bar (end_volta_span_p_ , item);
 	}
     }
   else if (Staff_symbol::has_interface (i.grob_l_))

@@ -27,20 +27,22 @@ Span_bar::add_bar (Grob*me, Grob*b)
 
 MAKE_SCHEME_CALLBACK (Span_bar,brew_molecule,1);
 
-/**
- * Limitations/Bugs:
- *
- * (1) Elements from 'me->get_grob_property ("elements")' must be
- * ordered according to their y coordinates relative to their common
- * axis group parent.  Otherwise, the computation goes mad.  (TODO:
- * apply a sort algorithm that ensures this precondition.)  However,
- * until now, I have seen no case where lily has not fulfilled this
- * precondition.
- *
- * (2) This method depends on bar_engraver not being removed from
- * staff context.  If bar_engraver is removed, the size of the staff
- * lines is evaluated as 0, which results in a solid span bar line
- * with faulty y coordinate.
+/*
+  Limitations/Bugs:
+
+   (1) Elements from 'me->get_grob_property ("elements")' must be
+   ordered according to their y coordinates relative to their common
+   axis group parent.  Otherwise, the computation goes mad.
+
+   (TODO:
+   apply a sort algorithm that ensures this precondition.)  However,
+   until now, I have seen no case where lily has not fulfilled this
+   precondition.
+
+   (2) This method depends on bar_engraver not being removed from
+   staff context.  If bar_engraver is removed, the size of the staff
+   lines is evaluated as 0, which results in a solid span bar line
+   with faulty y coordinate.
  */
 
 /*
@@ -245,17 +247,15 @@ Span_bar::get_bar_size (SCM smob)
   return gh_double2scm (iv.length ());
 }
 
-void
-Span_bar::set_interface (Grob *me)
-{
-  Bar_line::set_interface (me);
-  
-  me->set_interface (ly_symbol2scm ("span-bar-interface"));
-  me->set_extent_callback (SCM_EOL, Y_AXIS);
-}
 
 bool
 Span_bar::has_interface (Grob*m)
 {
   return m && m->has_interface (ly_symbol2scm ("span-bar-interface"));
 }
+
+ADD_INTERFACE (Span_bar,"span-bar-interface",
+  "A bar line that spans other barlines (typically used to get cross-staff barlines.",
+  "");
+
+

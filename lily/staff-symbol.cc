@@ -83,3 +83,11 @@ Staff_symbol::has_interface (Grob*m)
 {
   return m && m->has_interface (ly_symbol2scm ("staff-symbol-interface"));
 }
+
+
+
+ADD_INTERFACE (Staff_symbol,"staff-symbol-interface",
+  "This spanner draws the lines of a staff.  The middle line is
+position 0.",
+  "staff-space line-count invisible-staff");
+

@@ -43,7 +43,7 @@ public:
   void output_int_def (String k, int v);
   void output_Real_def (String k, Real v);
   void output_String_def (String k, String v);
-  void output_scope (Scope*, String prefix);
+  void output_scope (Scheme_hash_table*, String prefix);
   void output_version ();
   void output_font_def (int i, String str);
   void output_font_switch (int i);
@@ -53,7 +53,7 @@ public:
   void output_scheme (SCM scm);
 
   void write_header_field_to_file (String filename, SCM, SCM);
-  void write_header_fields_to_file (Scope *);
+  void write_header_fields_to_file (Scheme_hash_table *);
 };
 
 #endif // PAPER_OUTPUTTER_HH

@@ -135,13 +135,14 @@ Separating_group_spanner::add_spacing_unit (Grob* me ,Item*i)
 }
 
 
-void
-Separating_group_spanner::set_interface (Grob*)
-{
-}
-
 bool
 Separating_group_spanner::has_interface (Grob*)
 {//todo
   assert (false);
 }
+
+
+
+ADD_INTERFACE (Separating_group_spanner,"separation-spanner-interface",
+  "Spanner that containing @code{separation-item-interface} grobs to calculate rods",
+  "");

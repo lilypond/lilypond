@@ -8,7 +8,6 @@
 
 #include "ly-smobs.icc"
 
-#include "scm-hash.hh"
 #include "score.hh"
 #include "debug.hh"
 #include "music-output-def.hh"
@@ -16,7 +15,7 @@
 #include "music-iterator.hh"
 #include "music.hh"
 #include "global-translator.hh"
-#include "scope.hh"
+#include "scm-hash.hh"
 #include "cpu-timer.hh"
 #include "main.hh"
 #include "paper-def.hh"
@@ -73,7 +72,9 @@ void
 Score::run_translator (Music_output_def *odef_l)
 {
   /*
-    TODO: this is not very elegant.... 
+    We want to know if we want to store locations, since they take a
+    lot of overhead.
+    
    */
   store_locations_global_b = (gh_eval_str ("point-and-click") !=  SCM_BOOL_F);
 
@@ -125,8 +126,8 @@ Score::run_translator (Music_output_def *odef_l)
 
   if (!header_p_)
     header_p_ = new Scheme_hash_table; // ugh
-  Scope bla (header_p_);
-  output->header_l_ = &bla;
+
+  output->header_l_ = header_p_;
   output->origin_str_ =  location_str ();
 
   progress_indication ("\n");

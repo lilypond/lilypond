@@ -120,3 +120,9 @@ Rest::has_interface (Grob*m)
 {
   return m && m->has_interface (ly_symbol2scm ("rest-interface"));
 }
+
+
+ADD_INTERFACE (Rest,"rest-interface",
+  "a rest",
+  "style");
+

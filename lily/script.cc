@@ -84,9 +84,12 @@ Script::has_interface (Grob*me)
   return me->has_interface (ly_symbol2scm ("script-interface"));
 }
 
-void
-Script::set_interface (Grob*me)
-{
-  return me->set_interface (ly_symbol2scm ("script-interface"));
-}
+
+ADD_INTERFACE (Text_script,"text-script-interface",
+  "Any text script",
+  "script-priority");
+
+ADD_INTERFACE (Skript, "script-interface",
+  "",
+  "script-priority script-molecule staff-support");
 

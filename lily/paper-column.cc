@@ -60,10 +60,6 @@ Paper_column::column_l () const
 Paper_column::Paper_column (SCM l)
   : Item (l)		// guh.?
 {
-  Axis_group_interface::set_interface (this);
-  Axis_group_interface::set_axes (this, X_AXIS, X_AXIS);
-  Spaceable_grob::set_interface (this);
-
   line_l_=0;
   rank_i_ = -1;
 }
@@ -127,3 +123,9 @@ Paper_column::brew_molecule (SCM p)
   return t.smobbed_copy ();						
 }
 
+
+
+
+ADD_INTERFACE (Paper_column, "paper-column-interface",
+  "",
+  "between-cols when bounded-by-me shortest-playing-duration shortest-starter-duration");

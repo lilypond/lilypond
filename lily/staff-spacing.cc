@@ -179,7 +179,8 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
   *fixed = 1.0;
 
   Grob * separation_item=0;
-  
+  Item * me_item  = dynamic_cast<Item*> (me);
+    
   for (SCM s = me->get_grob_property ("left-items");
        gh_pair_p (s); s = gh_cdr(s))
     {
@@ -212,7 +213,15 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
   if (!scm_list_p (alist))
     return ;
 
-  SCM space_def = scm_sloppy_assq (ly_symbol2scm ("begin-of-note"), alist);
+  
+  SCM space_def = scm_sloppy_assq (ly_symbol2scm ("first-note"), alist);
+  if (me_item->break_status_dir () == CENTER)
+    {
+      SCM nndef = scm_sloppy_assq (ly_symbol2scm ("next-note"), alist);
+      if (gh_pair_p (nndef ))
+	space_def = nndef;
+    }
+
   if (!gh_pair_p (space_def))
     {
       programming_error ("Unknown prefatory spacing. "); 
@@ -232,3 +241,8 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
 
   *space += next_notes_correction (me, last_grob);
 }
+
+
+ADD_INTERFACE (Staff_spacing,"staff-spacing-interface",
+  "",
+  "left-items right-items");

@@ -156,7 +156,7 @@ Tie_engraver::create_grobs ()
 	  
 	  Spanner * p = new Spanner (basic);
 
-	  Tie::set_interface (p);
+	  Tie::set_interface (p); // cannot remove.
 	  Tie::set_head (p,LEFT, dynamic_cast<Item*> (unsmob_grob (ly_car (pair))));
 	  Tie::set_head (p,RIGHT, dynamic_cast<Item*> (unsmob_grob (ly_cdr (pair))));
 	  
@@ -166,7 +166,7 @@ Tie_engraver::create_grobs ()
       else for (SCM s = head_list; gh_pair_p (s); s = ly_cdr (s))
 	{
 	  Grob * p = new Spanner (basic);
-	  Tie::set_interface (p);
+	  Tie::set_interface (p); // cannot remove yet!
 	  
 	  Tie::set_head (p, LEFT, dynamic_cast<Item*> (unsmob_grob (ly_caar (s))));
 	  Tie::set_head (p, RIGHT, dynamic_cast<Item*> (unsmob_grob (ly_cdar (s))));
@@ -178,7 +178,7 @@ Tie_engraver::create_grobs ()
       if (tie_p_arr_.size () > 1 && !tie_column_p_)
 	{
 	  tie_column_p_ = new Spanner (get_property ("TieColumn"));
-	  Tie_column::set_interface (tie_column_p_);
+
 	  for (int i = tie_p_arr_.size (); i--;)
 	    Tie_column::add_tie (tie_column_p_,tie_p_arr_ [i]);
 	  announce_grob(tie_column_p_, SCM_EOL);

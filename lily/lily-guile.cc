@@ -557,7 +557,9 @@ ly_assoc_cdr (SCM key, SCM alist)
 }
 
 /*
-  LIST has the form "sym1 sym2 sym3" 
+  LIST has the form "sym1 sym2 sym3\nsym4\nsym5"
+
+  i.e. \n and ' ' can be used interchangeably as separators.
  */
 SCM
 parse_symbol_list (const char * list)
@@ -565,9 +567,18 @@ parse_symbol_list (const char * list)
   char * s = strdup (list);
   char *orig = s;
   SCM create_list = SCM_EOL;
+
+  for (char * p = s; *p; p++)
+    {
+      if (*p == '\n')
+	*p = ' ' ;
+    }
+  
   if (!s[0] )
     s = 0;
 
+
+  
   while (s)
     {
       char *next = strchr (s, ' ');

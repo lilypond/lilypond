@@ -109,3 +109,9 @@ Arpeggio::width_callback (SCM smob, SCM axis)
 
   return ly_interval2scm (arpeggio.extent (X_AXIS) * 1.5);
 }
+
+
+ADD_INTERFACE (Arpeggio, "arpeggio-interface",
+  "Functions and settings for drawing an arpeggio symbol (a wavy line left to noteheads.",
+  "stems arpeggio-direction");
+

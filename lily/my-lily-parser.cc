@@ -13,7 +13,7 @@
 #include "main.hh"
 #include "parser.hh"
 #include "file-results.hh"
-#include "scope.hh"
+#include "scm-hash.hh"
 
 My_lily_parser::My_lily_parser (Sources * source_l)
 {
@@ -29,7 +29,8 @@ My_lily_parser::My_lily_parser (Sources * source_l)
 My_lily_parser::~My_lily_parser ()
 {
   delete lexer_p_;
-  delete default_header_p_;
+  if (default_header_p_)
+    scm_gc_unprotect_object (default_header_p_->self_scm());
 }
 
 void
@@ -113,7 +114,7 @@ My_lily_parser::paper_description ()
   Music_output_def *id = unsmob_music_output_def (me->lexer_p_->lookup_identifier ("$defaultpaper"));
   Paper_def *p = dynamic_cast<Paper_def*> (id->clone ());
 
-  SCM al = p->translator_p_dict_p_->to_alist ();
+  SCM al = p->translator_tab_->to_alist ();
   SCM l = SCM_EOL;
   for (SCM s = al ; gh_pair_p (s); s = ly_cdr (s))
     {
