@@ -23,5 +23,7 @@ texidoc="Test super/sub, raise and overstrike."
     c^#'(columns "foe" ((bold roman overstrike) "o") "/")
     c^#'(columns "foe" ((extent . (0 . 0)) "o") "/")
     c^#'(columns "foo" (super "bar" (super "baz")))
+    c
+    c^#`(columns (lines "" ";" "") (lines "1" ((bold) "2") "3"))
   }
 }

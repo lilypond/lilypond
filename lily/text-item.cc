@@ -217,9 +217,14 @@ Text_item::markup_text2molecule (Grob *me, SCM markup_text,
       if (!m.empty_b ())
 	{
 	  m.translate (o);
-	  if (axis == Y_AXIS && baseline_skip)
-	    next_kern += baseline_skip - m.extent (Y_AXIS)[UP];
-	  mol.add_at_edge (axis, axis == X_AXIS ? RIGHT : DOWN, m, next_kern);
+	  if (mol.empty_b ())
+	    mol = m;
+	  else
+	    {
+	      if (axis == Y_AXIS && baseline_skip)
+		next_kern += baseline_skip - m.extent (Y_AXIS)[UP];
+	      mol.add_at_edge (axis, axis == X_AXIS ? RIGHT : DOWN, m, next_kern);
+	    }
 	}
       text = gh_cdr (text);
     }
