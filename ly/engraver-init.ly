@@ -436,7 +436,7 @@ AncientRemoveEmptyStaffContext = \context {
     soloText = #"Solo"
     soloIIText = #"Solo II"
     aDueText = #"a2"
-    soloADue = ##t
+    printPartCombineTexts = ##t
     systemStartDelimiter =#'SystemStartBar
 
     drumStyleTable = #drums-style

@@ -290,11 +290,11 @@ with magnification @varr{mag} of the string @var{text}."
 	  (number-type (chain-assoc-get 'number-type props 'roman-lower))
           (fret-count (+ (- (cadr fret-range) (car fret-range)) 1))
            (label-text 
-              (case number-type 
-                  ('roman-lower (format #f "~(~:@r~)" base-fret))
-                  ('roman-upper (format #f "~:@r" base-fret))
-                  ('arabic  (format #f "~d" base-fret))
-                  (else (format #f  "~(~:@r~)" base-fret)))))
+              (cond
+	       ((equal?   number-type  'roman-lower) (format #f "~(~:@r~)" base-fret))
+	       ((equal?  number-type 'roman-upper) (format #f "~:@r" base-fret))
+	       ((equal? 'arabic number-type)  (format #f "~d" base-fret))
+	       (else (format #f  "~(~:@r~)" base-fret)))))
        (ly:stencil-translate-axis 
            (sans-serif-stencil paper props (* size label-font-mag) label-text) 
                        (* size (+ fret-count label-vertical-offset)) Y)))
