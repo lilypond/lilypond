@@ -217,7 +217,7 @@ internal_brew_primitive (Grob *me, bool ledger_take_space)
 	return Molecule ();
     }
 
-  SCM join_left_scm = me->get_grob_property ("join-left");
+  SCM join_left_scm = me->get_grob_property ("join-left-amount");
   if (join_left_scm != SCM_EOL)
     {
       int join_left = gh_scm2int (join_left_scm);

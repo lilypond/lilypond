@@ -1,6 +1,7 @@
 \version "1.7.18"
-
-% text spanners should not repeat start text when broken
+\header {
+texidoc= "Text spanners should not repeat start text when broken"
+}
 
 \score {
   \notes \relative c'' {
