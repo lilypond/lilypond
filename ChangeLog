@@ -1,4 +1,9 @@
-2004-11-05  Heikki Junes <hjunes@cc.hut.fi>
+2004-11-05  Werner Lemberg  <wl@gnu.org>
+
+	* Documentation/user/lilypond.tely: Add more guidelines for writing
+	lilypond texinfo documents.
+
+2004-11-05  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* Documentation/index.html.in: remove <hr>.
 
