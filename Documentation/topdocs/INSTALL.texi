@@ -103,8 +103,7 @@ There are two options for upgrading sources:
 @item If you have an unpacked source tree of a previous version, you
 may the patches.
 
-@emph{If you upgrade by patching do remember to rerun autoconf after
-applying the patch}.
+@emph{If you upgrade by patching do remember to rerun autoconf after makefilesapplying the patch}.
 
 @item If you have the @code{.tar.gz} file of a previous release, you can
 use
@@ -150,11 +149,11 @@ that generates gcc-3.1.x compliant C++ code.
 @item Python (version 2.1 or newer).
 Check out @uref{http://www.python.org, the python website}.
 
-@item GUILE (version 1.6 or newer).
+@item GUILE (version 1.6.4 or newer).
 Check out
 @uref{http://www.gnu.org/software/guile/guile.html,the GUILE webpage}.
 
-@item GNU Make. 
+@item GNU Make (version 3.78 or newer).  
 Check out
 @uref{ftp://ftp.gnu.org/gnu/make/, the GNU
 make FTP directory}.
