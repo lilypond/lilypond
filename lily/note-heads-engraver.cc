@@ -1,7 +1,7 @@
 /*
   note-heads-engraver.cc -- part of GNU LilyPond
 
-  (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include <cctype>

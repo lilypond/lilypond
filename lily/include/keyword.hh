@@ -1,7 +1,7 @@
 /*
   keyword.hh -- part of GNU LilyPond
 
-  (c) 1996--2004 Han-Wen Nienhuys
+  (c) 1996--2005 Han-Wen Nienhuys
 */
 
 #ifndef KEYWORD_HH

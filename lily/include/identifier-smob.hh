@@ -3,7 +3,7 @@ identifier-smob.hh -- declare identifier smob.
 
 source file of the GNU LilyPond music typesetter
 
-(c) 2002--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+(c) 2002--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
  */
 

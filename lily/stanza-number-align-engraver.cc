@@ -4,7 +4,7 @@ stanza-number-align-engraver.cc --  implement
 
 source file of the GNU LilyPond music typesetter
 
-(c) 2004 Han-Wen Nienhuys <hanwen@xs4all.nl>
+(c) 2004--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
  */
 

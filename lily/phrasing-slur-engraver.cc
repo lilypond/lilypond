@@ -1,7 +1,7 @@
 /*
   phrasing-slur-engraver.cc -- implement Phrasing_slur_engraver
 
-  (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "context.hh"
