@@ -271,6 +271,7 @@ as a real penalty.")
 
 (grob-property-description 'pitches list? "list of musical-pitch.")
 (grob-property-description 'positions pair? "cons of staff positions (LEFT . RIGHT")
+(grob-property-description 'ragged-right boolean? "In ragged alignment mode (i.e. if paper variable @code{raggedright} is set), rag staff symbols only if this staff symbol grob property is also set.")
 (grob-property-description 'raise number? "height for text to be raised (a negative value lowers the text.")
 (grob-property-description 'right-padding number? "space right of accs.")
 (grob-property-description 'right-trim-amount number? "shortening of the lyric extender on the right.")

@@ -509,6 +509,7 @@ command."
   (define-key LilyPond-mode-map "\C-c\C-v" 'LilyPond-command-view)
   (define-key LilyPond-mode-map "\C-c\C-p" 'LilyPond-command-viewps)
   (define-key LilyPond-mode-map "\C-c\C-m" 'LilyPond-command-next-midi)
+  (define-key LilyPond-mode-map "\C-cf" 'font-lock-fontify-buffer)
   (define-key LilyPond-mode-map "\C-cn" 'LilyPond-insert-tag-notes)
   (define-key LilyPond-mode-map "\C-cs" 'LilyPond-insert-tag-score)
   (define-key LilyPond-mode-map "\C-c:" 'LilyPond-un-comment-region)
@@ -604,7 +605,8 @@ command."
 	  '(("Miscellaneous"
 	     ["Uncomment Region" LilyPond-un-comment-region t]
 	     ["Comment Region" comment-region t]
-	     ))
+	     ["Refontify buffer" font-lock-fontify-buffer t]
+ 	     ))
 	  ))
 
 (defconst LilyPond-imenu-generic-re "^\\([a-zA-Z_][a-zA-Z0-9_]*\\) *="

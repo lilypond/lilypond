@@ -244,7 +244,8 @@ yylex (YYSTYPE *s,  void * v_l)
 %token REST
 
 /* escaped */
-%token E_CHAR E_EXCLAMATION E_SMALLER E_BIGGER E_OPEN E_CLOSE E_TILDE
+%token E_CHAR E_EXCLAMATION E_SMALLER E_BIGGER E_OPEN E_CLOSE
+%token E_LEFTSQUARE E_RIGHTSQUARE E_TILDE
 %token E_BACKSLASH
 %token CHORD_BASS CHORD_COLON CHORD_MINUS CHORD_CARET
 %token FIGURE_SPACE
@@ -1236,6 +1237,19 @@ shorthand_command_req:
 		Span_req*b= new Span_req;
 		b->set_span_dir ( STOP);
 		b->set_mus_property ("span-type", ly_str02scm ("beam"));
+		$$ = b;
+	}
+	| E_LEFTSQUARE {
+		Span_req *b = new Span_req;
+		b->set_span_dir (START);
+		b->set_mus_property ("span-type", ly_str02scm ("ligature-bracket"));
+		$$ = b;
+		THIS->last_ligature_start_ = b->self_scm ();
+	}
+	| E_RIGHTSQUARE {
+		Span_req *b = new Span_req;
+		b->set_span_dir (STOP);
+		b->set_mus_property ("span-type", ly_str02scm ("ligature-bracket"));
 		$$ = b;
 	}
 	| BREATHE {

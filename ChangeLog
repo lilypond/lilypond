@@ -1,3 +1,19 @@
+2002-04-16  Heikki Junes <hjunes@cc.hut.fi>
+
+	* lilypond-mode.el: "C-c f" does font-lock-fontify-buffer.
+
+2002-04-15  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* scm/grob-description.scm, lily/staff-symbol.cc: added properties
+	to control width of staff symbol in ragged-right mode (by request
+	of Han-Wen)
+
+	* ly/engraver-init.ly, lily/include/my-lily-parser.hh,
+	lily/include/ligature-bracket.hh, lily/lexer.ll, lily/parser.yy,
+	lily/ligature-bracket.cc, lily/ligature-bracket-engraver.cc:
+	added support for ligature brackets (needed when transcribing
+	mensural music)
+
 2002-04-15  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lilypond-font-lock.el: Handle scheme-slurs up to seventh level.
