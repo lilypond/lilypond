@@ -1,4 +1,5 @@
 # -*-Makefile-*-
+# @configure_input@
 ########################################################
 # project  LilyPond -- the musical typesetter
 # title	   top level makefile for LilyPond  
@@ -32,9 +33,10 @@ SUBDIRS = flower lib lily mi2mu \
 
 # list of distribution files:
 #
-SCRIPTS = configure configure.in install-sh
-README_FILES = BUGS DEDICATION ANNOUNCE COPYING NEWS README TODO INSTALL.text AUTHORS.text
-EXTRA_DISTFILES=  .dstreamrc VERSION $(README_FILES) $(SCRIPTS) $(SYMLINKS)
+SCRIPTS = configure configure.in install-sh aclocal.m4
+README_FILES = BUGS DEDICATION ANNOUNCE COPYING ONEWS NEWS README TODO \
+	INSTALL.text AUTHORS.text
+EXTRA_DISTFILES = .dstreamrc VERSION $(README_FILES) $(SCRIPTS) $(SYMLINKS)
 
 # do not dist ./Makefile (is copied from make/Toplevel.make)
 DISTFILES:=$(EXTRA_DISTFILES)# Makefile $(ALL_SOURCES)
