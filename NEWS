@@ -1,3 +1,10 @@
+pl 60
+	- Request_register::get_feature(), tie direction, Slur direction
+	- lilypond output is now directly texable. 
+	- make_website checks return status
+
+*******
+may 5
 pl 59
 	- Slur now into voicegroups, and take stems into account.
 	- bf: rest size in table.

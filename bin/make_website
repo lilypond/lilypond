@@ -1,5 +1,20 @@
 #!/usr/bin/perl -w
-# stuff should be generated in out directory.
+
+# TODO check ret status of various stuff
+
+use FileHandle;
+
+sub my_system
+{
+    my (@cmds) = @_;
+    foreach $cmd (@cmds) {
+	my 	$ret =  ( system ($cmd))/256;
+	if ($ret) {
+	    print STDERR "\nmake_website: failed on command \`$cmd\' (status $ret)\n";
+	    exit 2;
+	}
+    }
+}
 
 sub set_hrefs
 {
@@ -29,14 +44,14 @@ local @examples=("wohltemperirt" ,"standchen", "scsii-menuetto", "rhythm", "coll
 sub gen_html
 {
     print "generating HTML\n";
-    system "make -kC .. html";
+    my_system "make -kC .. html";
 }
 
 sub gen_examples
 {
     print "generating examples: \n";
     foreach $a (@examples) {
-	$texfile="test";
+	$texfile="lelie";
 	$tex = "tex $texfile";
 	if ($a eq "standchen" || $a eq "scsii-menuetto" ) {
 	    $tex = "latex $a";
@@ -44,18 +59,19 @@ sub gen_examples
 	}
 	
 	if ( ! -f "$a.ly.txt" ) {
-	    system "ln $depth/input/$a.ly ./$a.ly.txt";
+	    my_system "ln $depth/input/$a.ly ./$a.ly.txt";
 	}
 	if ( ! -f "$a.ps.gz" ) {
-	    system "lilypond $a;$tex;".
-		"dvips -o $a.ps $texfile;";
+	    my_system "lilypond $a;",
+	    "$tex",
+	    "dvips -o $a.ps $texfile;";
 
 	}
 	# generate the pixmap at twice the size, then rescale (for antialiasing)
 	if ( ! -f "$a.gif" ) {
-	    system "mv lelie.midi $a.midi; ";
-	    system "gs -q -sDEVICE=ppmraw -sOutputFile=- -r200 -dNOPAUSE  $a.ps -c quit |pnmscale 0.5| ppmtogif > $a.gif";
-	    system "gzip $a.ps";
+	    my_system "mv lelie.midi $a.midi; ",
+	     "gs -q -sDEVICE=ppmraw -sOutputFile=- -r200 -dNOPAUSE  $a.ps -c quit |pnmscale 0.5| ppmtogif > $a.gif",
+	     "gzip $a.ps";
 	}   
     }
 }
@@ -69,8 +85,13 @@ sub gen_list
     foreach $a (@examples) {
 	$name=$a;
 	print HTMLLIST "<h1>example file: $name</h1>\n<XMP>\n";
-	$cmd= "head $depth/input/$a.ly | grep \^% \| sed \"s/^%/	/\"";
-	$desc = `$cmd`;
+
+	open IF, "$depth/input/$a.ly";
+	input_record_separator IF "%}";
+	
+	$desc = <IF>;
+	close IF;
+	
 	print HTMLLIST "$desc\n</XMP>";
 
 	$inputf="$a.ly.txt";
@@ -93,22 +114,23 @@ sub copy_files
 {  
     print "copying files\n";
     print `ln -s $depth/out ./docxx` if ( ! -x "docxx" ) ;
-    system "cp $depth/TODO ./TODO.txt";
-    system "cp $depth/NEWS ./NEWS.txt";
-    system "cp ../lelie*gif .";
+    my_system "cp $depth/TODO ./TODO.txt",
+    "cp $depth/NEWS ./NEWS.txt",
+    "cp ../lelie*gif .";
 }
 
 sub docxx_update
 {
-    system "make -C $depth doc++";
+    my_system "make -C $depth doc++";
 }
 
 sub
     do_tar
 {
      print "tarring.\n";
-     system " tar vhcf website.tar *.html *.gif *.ps.gz *.ly.txt *.midi docxx/*;";
-system	"gzip -f9 website.tar;";
+     my_system
+	 " tar vhcf website.tar *.html *.gif *.ps.gz *.ly.txt *.midi docxx/*;",
+	 "gzip -f9 website.tar;";
 }
 
 $depth = "../../";

@@ -22,8 +22,6 @@ IMPORTANT
 
 	* use own fonts/update musixtex fonts
 
-	* check return status in make_website
-
 	* a Hands on tutorial [HKN]
 
 
@@ -36,6 +34,18 @@ PROJECT:
 	- quiet/ignore-version options
 	- logfile output
 
+
+	* elaborate Staff_side baseclass:
+	 - scripts
+	 - text
+	 - slur start/end
+
+	* Output an output format independent (ofi) typeset file; and 
+	  make ofi2 TeX, MusixTex, PostScript, Ascii... interpreters.
+	- poor man's ascii output possible?
+	- MusixTeX output possible?
+	- PostScript output (esp. Beams, Slurs, etc)
+
 PARSER
 	* Duration-> Musical_duration, typedef Rational Duration?
 
@@ -45,8 +55,6 @@ HKN buglist:
 ruimte van een hele maat erachter (bij unmatching staffs)
 
 Hele rusten ook in andere maatsoort dan 4/4 (en centreren in de maat)
-
-
 
 ------------------------\
 barcheck failed in lyric mode -> assert (zie barcheck.ly) (0.0.57)
@@ -249,8 +257,6 @@ FUTURE
 
 	* bring Collision::do_pre_processing to haircutter
 
-	* slurs per voicegroup.
-
 	* slur parts as a script
 	
 	* mixed fontsizes
@@ -285,9 +291,6 @@ FUTURE
 
 IDEAS
 
-	* output an intermediate format, move backend/output routines into 
-	interpreter
-
 	* scoping in Lexer: do general id- assignments in mudela.
 
 	ID '=' EXPR;
@@ -311,22 +314,12 @@ IDEAS
 	* merge Atom and Symbol?
 
 	* merge common code of Item, Atom/Molecule
-
 	* Spacing_request for manually adjusting spacing
 
 	* Staff_group, Score_request_register.
 
 	* SHIT: meters/bars should be aligned, which is difficult if
 	we get different keychanges in different staffs.
-
-	* MusixTeX output possible?
-
-	* PostScript output (esp. Beams, Slurs, etc)
-
-	* poor man's ascii output possible?
-
-	* Output an output format independent (ofi) typeset file; and 
-	  make ofi2 TeX, MusixTex, PostScript, Ascii... interpreters.
 
 	* caching breakpoints
 
@@ -337,9 +330,6 @@ IDEAS
 	* used fixedpoint arithmetic for min. energy.
 
 	* default convert mudela-file.ly -> mudela-file.tex
-	  - move test.tex: '\include lilyponddefs' -> 
-	    mudela-file.ly: '\texinclude "lilyponddefs";'
-	    (junking test.tex and latex.test)
 	  - rename {standchen,scsii-menuetto,...}.tex
 
 	* (related with above) --simple-mudela option for lily,
