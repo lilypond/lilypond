@@ -694,28 +694,32 @@ env.Alias ('release', patch)
 
 #### web
 web_base = os.path.join (outdir, 'web')
-web_ball = os.path.join (web_base, '.tar.gz')
+web_ball = web_base + '.tar.gz'
 env['footify'] = 'MAILADDRESS=bug-lilypond@gnu.org $PYTHON stepmake/bin/add-html-footer.py --name=lilypond --version=$TOPLEVEL_VERSION'
 web_ext = ['.html', '.ly', '.midi', '.pdf', '.png', '.ps.gz', '.txt',]
 web_path = '-path "*/$out/*"' + string.join (web_ext, ' -or -path "*/$out/*"')
 env['web_path'] = web_path
-
+web_list = os.path.join (outdir, 'weblist')
 # compatible make heritits
 # fixme: generate in $outdir is cwd/builddir
-env.Command (web_ball, 'doc',
+env.Command (web_list,
+	     ## this is correct, but takes > 5min if you have a peder :-)
+	     ## 'doc',
+	     '#/VERSION',
 	     ['$PYTHON buildscripts/mutopia-index.py -o examples.html ./',
 	      'cd $absbuild && $footify $$(find . -name "*.html" -print)',
 	      # uhg?
 	      'cd $absbuild && rm -f $$(find . -name "*.html~" -print)',
 	      'cd $absbuild && find Documentation input $web_path \
-	      > $out/weblist',
+	      > $TARGET',
 	      '''echo '<META HTTP-EQUIV="refresh" content="0;URL=Documentation/out-www/index.html">' > $absbuild/index.html''',
 	      '''echo '<html><body>Redirecting to the documentation index...</body></html>' >> $absbuild/index.html''',
 	      # UGHR?  all .html cruft in cwd goes into the web ball?
-	      'cd $absbuild && ls *.html >> $out/weblist',
-	      'cat $out/weblist | (cd $absbuild; \
-	      GZIP=-9v tar -czf ${TARGET.file}  -T -)',])
+	      'cd $absbuild && ls *.html >> $TARGET',])
+env.Command (web_ball, web_list,
+	     ['cat $SOURCE | tar -C $absbuild -czf $TARGET -T -',])
 env.Alias ('web', web_ball)
+env.Alias ('roll-web', web_ball)
 
 #### tags
 env.Append (
