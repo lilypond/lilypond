@@ -105,4 +105,4 @@ pitchnamesNorsk = #`(
 
 pitchnames =\pitchnamesNorsk
 
-\version "2.1.36"
+\version "2.2.0"

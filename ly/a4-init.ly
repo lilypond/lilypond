@@ -1,4 +1,4 @@
-\version "2.1.36"
+\version "2.2.0"
 % a4.ly
 
 hsize = 210.0 \mm

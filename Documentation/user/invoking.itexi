@@ -34,8 +34,6 @@ To have @code{lilypond} read from stdin, use a dash @code{-} for
 @item -k,--keep
     Keep the temporary directory with all output
 files. The temporary directory is created in the current directory as @code{@code{lilypond}.dir}.
-@item -d,--dependencies
-    Write @code{Makefile} dependencies for every input file.
 @item -h,--help
     Print usage help.
 @item -I,--include=@var{dir}
@@ -289,20 +287,12 @@ Set init file to @var{file} (default: @file{init.ly}).
 @cindex MIDI
 Disable @TeX{} output. If you have a @code{\midi} definition MIDI output
 will be generated.
-@item -M,--dependencies
-Output rules to be included in Makefile.
 @item -o,--output=@var{FILE}
 Set the default output file to @var{FILE}.
 
-@ignore
 @item -s,--safe
 Disallow untrusted @code{\include} directives, in-line
 Scheme evaluation, backslashes in @TeX{}, code.
-
-@strong{WARNING}: the @code{--safe} option has not been reviewed for a
-long time. Do not rely on it for automatic invocation (e.g. over the
-web). Volunteers are welcome to do a new audit.
-@end ignore
 
 @item -v,--version
 Show version information.
