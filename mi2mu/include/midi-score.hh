@@ -18,7 +18,7 @@ public:
 	void process();
 
 private:
-	IPointer_list<Midi_track*> midi_track_p_list_;
+	Pointer_list<Midi_track*> midi_track_p_list_;
 	int format_i_;
 	int tracks_i_;
 	int tempo_i_;

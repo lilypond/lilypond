@@ -16,7 +16,7 @@
 #include "input.hh"
 
 struct Input_register : Input { 
-    IPointer_list<Input_register*> ireg_list_;
+    Pointer_list<Input_register*> ireg_list_;
     String name_str_;
     
     void add(Input_register*);

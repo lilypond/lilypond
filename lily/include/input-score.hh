@@ -24,7 +24,7 @@ public:
     /// paper_, staffs_ and commands_ form the problem definition.
     Paper_def *paper_p_;
     Midi_def* midi_p_;
-    IPointer_list<Input_staff*> staffs_;
+    Pointer_list<Input_staff*> staffs_;
 
     
     /* *************************************************************** */

@@ -24,12 +24,12 @@ struct Score {
     /// paper_, staffs_ and commands_ form the problem definition.
     Paper_def *paper_p_;
     Midi_def *midi_p_;
-    IPointer_list<Staff*> staffs_;
+    Pointer_list<Staff*> staffs_;
     
     /// "runtime" fields for setting up spacing    
-    IPointer_list<Request_column*> rcols_;
+    Pointer_list<Request_column*> rcols_;
     
-    IPointer_list<Score_column*> cols_;
+    Pointer_list<Score_column*> cols_;
     PScore *pscore_p_;
 
     Input input_;

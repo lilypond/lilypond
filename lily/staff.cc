@@ -19,7 +19,7 @@
 
 
 void
-Staff::add(Pointer_list<Voice*> const &l)
+Staff::add(Link_list<Voice*> const &l)
 {
     for (iter_top(l,i); i.ok(); i++)
 	voice_list_.bottom().add(i);
