@@ -95,7 +95,10 @@
  @c should we do this? 
  @findex @code{\NAME\}
  @end macro
-
+ 
+ @macro usermanref{NAME}
+ @inforef{\NAME\,,lilypond}@c
+ @end macro
 
  @macro inputfileref{DIR,NAME}
  @uref{../../../../\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
@@ -111,11 +114,9 @@
 @findex \NAME\@c
 @end macro
 
-
 @macro inputfileref{DIR,NAME}
 @file{\DIR\/\NAME\}
 @end macro
-
 
 @macro usermanref{NAME}
 @ref{\NAME\,,,lilypond/lilypond}@c
@@ -123,8 +124,8 @@
 
 @end ifinfo
 
-@iftex
 @c **** TEX ****
+@iftex
 
 @macro internalsref{NAME}@c
 @findex \NAME\ @c
@@ -135,12 +136,15 @@
 @file{\DIR\/@/\NAME\}@c
 @end macro
 
-
 @macro seeinternals{NAME}
 internals document, @internalsref{\NAME\}
 @end macro
-@end iftex
 
+@macro usermanref{NAME}
+user manual, @internalsref{\NAME\}
+@end macro
+
+@end iftex
 @c **** not TEX ****
 
 @ifnottex
@@ -149,11 +153,11 @@ internals document, @internalsref{\NAME\}
  @end macro
 @end ifnottex
 
-@ifnotinfo
+@ifnottex
  @macro usermanref{NAME}
  @ref{\NAME\}@c
  @end macro
-@end ifnotinfo
+@end ifnottex
 
 @macro refbugs
 @noindent
