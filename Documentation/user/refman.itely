@@ -1,4 +1,4 @@
-@c Note: -*-texinfo-*-
+@C Note: -*-texinfo-*-
 @c
 @c A menu is needed before every deeper *section nesting of @node's; run
 @c     M-x texinfo-all-menus-update
@@ -23,7 +23,7 @@
 * Beaming::                     
 * Accidentals::                 
 * Expressive marks::            
-* Articulations::                   
+* Articulations::               
 * Fingering instructions::      
 * Repeats::                     
 * Rhythmic music::              
@@ -1749,7 +1749,7 @@ Bracket endings should be angled/slanted. (TODO)
 
 A variety of symbols can appear above and below notes to indicate
 different characteristics of the performance. They are added to a note
-by adding a dash and the the character signifying the
+by adding a dash and  the character signifying the
 articulation. They are demonstrated here.
 
 @lilypondfile[notexidoc]{script-abbreviations.ly}
@@ -2396,9 +2396,9 @@ Single measure and double measure percent-repeats cannot be nested.
 @node Rhythmic music
 @section Rhythmic music
 
-Sometimes you might want to show only the rhythm of a melody.  This can
-be done with the rhythmic staff. All pitches of notes on such a staff
-are squashed, and the  staff itself  looks has  a single staff line:
+Sometimes you might want to show only the rhythm of a melody.  This
+can be done with the rhythmic staff. All pitches of notes on such a
+staff are squashed, and the staff itself has a single line:
 
 @lilypond[fragment,relative,verbatim]
   \context RhythmicStaff {
@@ -2423,14 +2423,13 @@ position refers to a specific piece of percussion.
 
 @syntax
 
-LilyPond is has a set of Scheme functions that can be used to typeset
-percussion staves. The system is based on the general MIDI
-drum-pitches.  Include @file{ly/drumpitch-init.ly} to use drum
-pitches. This file defines the pitches from the Scheme variable
-@code{drum-pitch-names}, the definition of which can be read in
-@file{scm/drums.scm}.  Each piece of percussion has a full name and an
-abbreviated name, and both the full name or the abbreviation may be
-used in input files.
+Percussion staves are typeset with help of a set of Scheme
+functions. The system is based on the general MIDI drum-pitches.
+Include @file{ly/drumpitch-init.ly} to use drum pitches. This file
+defines the pitches from the Scheme variable @code{drum-pitch-names},
+the definition of which can be read in @file{scm/drums.scm}.  Each
+piece of percussion has a full name and an abbreviated name, and both
+the full name or the abbreviation may be used in input files.
 
 To typeset the music on a staff apply the function @code{drums->paper}
 to the percussion music. This function takes a list of percussion
@@ -2488,7 +2487,7 @@ mus = \notes  { cymc cyms cymr hh hhc hho hhho hhp cb hc
 }
 @end lilypond
 
-Scheme supports six different toms.  When there fewer toms, simply
+The drum scheme supports six different toms.  When there fewer toms, simply
 select the toms that produce the desired result, i.e., to get toms on
 the three middle lines you use @code{tommh}, @code{tomml} and
 @code{tomfh}.
@@ -2497,6 +2496,7 @@ Because general MIDI does not contain rimshots the sidestick is used
 for this purpose instead.
 @item 'timbales
 To typeset timbales on a two line staff.
+
 @lilypond[singleline]
 \include "drumpitch-init.ly"
 nam = \lyrics { timh ssh timl ssl cb }
@@ -2528,6 +2528,7 @@ mus = \notes  { timh ssh timl ssl cb s16 }
 @end lilypond
 @item 'congas
 To typeset congas on a two line staff.
+
 @lilypond[singleline]
 \include "drumpitch-init.ly"
 nam = \lyrics { cgh cgho cghm ssh cgl cglo cglm ssl }
@@ -2558,6 +2559,7 @@ mus = \notes  { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
 @end lilypond
 @item 'bongos
 To typeset bongos on a two line staff.
+
 @lilypond[singleline]
 \include "drumpitch-init.ly"
 nam = \lyrics { boh boho bohm ssh bol bolo bolm ssl }
@@ -2721,7 +2723,7 @@ handle this cross-staffing behavior.  In this section we discuss the
 * Manual staff switches::       
 * Pedals::                      
 * Arpeggio::                    
-* Voice follower lines::        
+* Staff switch lines::          
 @end menu 
 
 @refbugs
@@ -2833,7 +2835,7 @@ c'4-\sustainUp-\sustainDown
  f'4 g'4 a'4-\sustainUp
 @end lilypond
 
-The default '*Ped' style for sustain and damper pedals corresponds to
+The default `*Ped' style for sustain and damper pedals corresponds to
 @code{\pedal-type = #'text}. However, @code{mixed} is the default style
 for a sostenuto pedal:
 
@@ -2915,11 +2917,9 @@ arpeggiate the chord. To draw these brackets, set the
 It is not possible to mix connected arpeggios and unconnected
 arpeggios in one @internalsref{PianoStaff} at the same time.
 
-@node  Voice follower lines
-@subsection Voice follower lines
+@node  Staff switch lines
+@subsection Staff switch lines
 
-
-[TODO: invent better name]
 
 @cindex follow voice
 @cindex staff switching
@@ -3037,8 +3037,8 @@ See also the sections on @ref{Slurs} and @ref{Breath marks}.
 [TODO: Write subsection upon usage of ChoirStaff.]
 
 @menu
-* More stanzas::
-* Ambitus::
+* More stanzas::                
+* Ambitus::                     
 @end menu
 
 
@@ -3302,12 +3302,12 @@ g.
   > 
 @end lilypond
 
-Finally, it is possible to change the Scheme function to format the
-tablature note text. The default is
-@var{fret-number-tablature-format}, which uses the fret number. For
-some instruments that do not use this notation, you can create a
-special tablature formatting function. This function takes three
-argument: the string number, the string tuning and the note pitch.
+It is possible to change the Scheme function to format the tablature
+note text. The default is @code{fret-number-tablature-format}, which
+uses the fret number. For instruments that do not use this notation,
+you can create a special tablature formatting function. This function
+takes three argument: the string number, the string tuning and the
+note pitch.
 
 @refbugs
 
@@ -3319,7 +3319,13 @@ such as bend are not yet supported.
 @section Chord namess
 @cindex Chords
 
-LilyPond has support for both entering and printing chords. 
+LilyPond has support for both entering and printing named chords.
+These chords are internally represented as a set of pitches. Therefore
+they can be entered by name and printed as notes, entered as notes and
+printed as chord names, or (the most common case) entered them by
+name, and print them as name. The following fragment shows these
+options:
+
 @lilypond[verbatim,singleline]
 twoWays = \notes \transpose c c' {
   \chords {
@@ -3336,14 +3342,9 @@ twoWays = \notes \transpose c c' {
 @end lilypond
 
 This example also shows that the chord printing routines do not try to
-be intelligent. If you enter @code{f bes d}, it does not interpret
-this as an inversion.
+be intelligent. The chord @code{f bes d}, is not interpreted as an
+inversion.
 
-Chords are represented as a set of pitches. They are internally
-stored as simultaneous music expressions. This means you can enter
-chords by name and print them as notes, enter them as notes and print
-them as chord names, or (the most common case) enter them by name, and
-print them as name.
 
 @menu
 * Chords mode::                 
@@ -3480,18 +3481,18 @@ and subtractions, so articulation scripts cannot be entered.
 @cindex chord names
 @cindex chords
 
-For displaying printed chord names, use the @internalsref{ChordNames} context.
-The chords may be entered either using the notation described above, or
-directly using simultaneous music.
+For displaying printed chord names, use the @internalsref{ChordNames}
+context.  The chords may be entered either using the notation
+described above, or directly using @code{<<} and @code{>>}.
 
 @lilypond[verbatim,singleline]
 scheme = \notes {
-  \chords {a1 b c} <<d f g>>  <<e g b>>
+  \chords {a1 b c} <<d' f' g'>>  <<e' g' b'>>
 }
 \score {
   \notes<
     \context ChordNames \scheme
-    \context Staff \transpose c c' \scheme
+    \context Staff \scheme
   >
 }
 @end lilypond
@@ -3519,22 +3520,26 @@ scheme = \chords {
 The default chord name layout is a system for Jazz music, proposed by
 Klaus Ignatzek (See @ref{Literature}).
 
-[TODO: add description for banter other jazz.]
-
 The Ignatzek chord name formatting can be tuned in a number of ways
 through the following properties:
 @table @code
+
+@cindex chordNameExceptions
 @item chordNameExceptions
 This is a list that contains the chords that have special formatting.
 For an example, see
 @inputfileref{input/regression,chord-name-exceptions.ly}.
+@cindex exceptions, chord names.
 
+
+@cindex majorSevenSymbol
 @item majorSevenSymbol
 This property contains the markup object used for the 7th step, when
-it is major. Predefined options are @code{whiteTriangleMarkup},
+it is major. Predefined options are @code{whiteTriangleMarkup} and
 @code{blackTriangleMarkup}.  See
 @inputfileref{input/regression,chord-name-major7.ly} for an example.
 
+@cindex chordNameSeparator
 @item chordNameSeparator
 Different parts of a chord name are normally separated by a
 slash. By setting @code{chordNameSeparator}, you can specify other
@@ -3547,15 +3552,17 @@ separators, e.g.
       c:7sus4 }
 @end lilypond
 
+@cindex chordRootNamer
 @item chordRootNamer
 The root of a chord is usually printed as a letter with an optional
 alteration. The transformation from pitch to letter is done by this
-function.  An application of setting this function, is providing chord
-names with german notation for the root.
+function.  Special note names (for example, the German ``H'' for a
+B-chord) can be produced by storing a new function in this property.
 
+@cindex chordNoteNamer
 @item chordNoteNamer
 The default is to print single notes (as for instance the bass note)
-using the chordRootNamer. However, by setting this function to a non-null
+using the @code{chordRootNamer}. However, by setting this function to a non-null
 value you can specify a different function. I.e. you could use letters
 in lower case for the base note.
 
@@ -3582,9 +3589,9 @@ may result in strange chord names when chords are entered with the
 @node Writing parts
 @section Writing parts
 
-Orchestral music involves some special notation, both in the full score,
-as in the individual parts. This section explains how to tackle common
-problems in orchestral music.
+Orchestral music involves some special notation, both in the full
+score and the individual parts. This section explains how to tackle
+some common problems in orchestral music.
 
 
 
@@ -3595,7 +3602,7 @@ problems in orchestral music.
 * Transpose::                   
 * Multi measure rests::         
 * Automatic part combining::    
-* Hara kiri staves::            
+* Frenched scores::             
 * Sound output for transposing instruments::  
 @end menu
 
@@ -3860,8 +3867,9 @@ Be careful when entering multimeasure rests followed by whole notes,
 @example
  R1*4 cis cis 
 @end example
-will enter two notes lasting four measures each. The result will look
-ok, but the bar numbering will be off.
+will enter two notes lasting four measures each. When @code{skipBars}
+is set, then the result will look OK6, but the bar numbering will be
+off.
 
 @node Automatic part combining
 @subsection Automatic part combining
@@ -3960,26 +3968,24 @@ The part combiner is slated to be rewritten [TODO: explain why] .
 @cindex @code{Voice_engraver}
 @cindex @code{A2_engraver}
 
-@node Hara kiri staves
-@subsection Hara kiri staves
+@node Frenched scores
+@subsection Frenched scores
 
 In orchestral scores, staff lines that only have rests are usually removed.
 This saves some space. This style is called `French Score'. 
 
 @syntax
 
-This is supported through the hara kiri@footnote{Hara kiri is the
-vulgar name for Seppuku, is the ritual suicide of the Japanese
-Samourai warriors.} staff. This staff commits suicide when it finds
-itself to be empty after the line-breaking process.  It will not
-disappear when it contains normal rests, you must use multi measure
-rests.
+This is supported through the @code{FrenchStaff}. This staff is
+removed when it turns out empty (or containing multimeasure rests)
+after the line-breaking process.
+
 
 For @internalsref{Lyrics}, @internalsref{LyricsVoice},
-@internalsref{ChordNames} and @internalsref{FiguredBass}, hara-kiri is
-switched on by default. For normal staffs, hara kiri is available as a
+@internalsref{ChordNames} and @internalsref{FiguredBass}, this is
+switched on by default. For normal staffs, it is available as a
 specialized @internalsref{Staff} context, with the name variable
-@code{\HaraKiriStaffContext}.  Observe how the second staff in this
+@code{\FrenchStaffContext}.  Observe how the second staff in this
 example disappears in the second line.
 
 @lilypond[verbatim]
@@ -3990,7 +3996,7 @@ example disappears in the second line.
   >
   \paper {
     linewidth = 6.\cm 
-    \translator { \HaraKiriStaffContext }
+    \translator { \FrenchStaffContext }
   }
 }
 @end lilypond
@@ -4108,48 +4114,27 @@ modern style mensural C clef @tab
 @end lilypond
 
 @item
-@code{clefs-petrucci_c1} @tab
-petrucci style mensural C clef (specifically for use on 1st staffline) @tab
-@code{petrucci_c1} @tab
-@lilypond[relative 0, notime]
-\property Staff.TimeSignature \set #'transparent = ##t
-\clef "petrucci_c1" c
-@end lilypond
+@code{clefs-petrucci_c1}
+@code{clefs-petrucci_c2}
+@code{clefs-petrucci_c3}
+@code{clefs-petrucci_c4}
+@code{clefs-petrucci_c5}
 
-@item
-@code{clefs-petrucci_c2} @tab
-petrucci style mensural C clef (specifically for use on 2nd staffline) @tab
-@code{petrucci_c2} @tab
+@tab
+petrucci style mensural C clefs, for use  on different  stafflines
+(the examples shows the 2nd staffline C clef).
+
+@tab
+@code{petrucci_c1}
+@code{petrucci_c2}
+@code{petrucci_c3}
+@code{petrucci_c4}
+@code{petrucci_c5}
+
+@tab
 @lilypond[relative 0, notime]
 \property Staff.TimeSignature \set #'transparent = ##t
 \clef "petrucci_c2" c
-@end lilypond
-
-@item
-@code{clefs-petrucci_c3} @tab
-petrucci style mensural C clef (specifically for use on 3rd staffline) @tab
-@code{petrucci_c3} @tab
-@lilypond[relative 0, notime]
-\property Staff.TimeSignature \set #'transparent = ##t
-\clef "petrucci_c3" c
-@end lilypond
-
-@item
-@code{clefs-petrucci_c4} @tab
-petrucci style mensural C clef (specifically for use on 4th staffline) @tab
-@code{petrucci_c4} @tab
-@lilypond[relative 0, notime]
-\property Staff.TimeSignature \set #'transparent = ##t
-\clef "petrucci_c4" c
-@end lilypond
-
-@item
-@code{clefs-petrucci_c5} @tab
-petrucci style mensural C clef (specifically for use on 5th staffline) @tab
-@code{petrucci_c5} @tab
-@lilypond[relative 0, notime]
-\property Staff.TimeSignature \set #'transparent = ##t
-\clef "petrucci_c5" c
 @end lilypond
 
 @item
@@ -4407,13 +4392,12 @@ supported are @code{vaticana}, @code{medicaea}, @code{hufnagel} and
 If the boolean property @code{adjust-if-on-staffline} is set to
 @code{#t} (which it is by default), lily typesets slightly different
 variants of the custos glyph, depending on whether the custos, is
-typeset on or between stafflines.  The idea is that the glyph will
+typeset on or between stafflines.   The glyph will
 optically fit well into the staff, with the appendage on the right of
 the custos always ending at the same vertical position between two
 stafflines regardless of the pitch.  If you set
-@code{adjust-if-on-staffline} to @code{#f}, then lily takes regardless
-of the pitch always a glyph that is a compromise of the former two
-variants.
+@code{adjust-if-on-staffline} to @code{#f}, then
+a compromise between both forms is  used.
 
 Just like stems can be attached to noteheads in two directions
 @emph{up} and @emph{down}, each custos glyph is available with its
@@ -4516,15 +4500,15 @@ square bracket above the ligature.
 }
 @end lilypond
 
-To select a specific style of ligatures, a proper ligature engraver has
-to be added to the @internalsref{Voice} context, as explained in the
-following subsections.  Currently, Lilypond only supports white mensural
-ligatures with certain limitations.  Support for Editio Vaticana will be
-added in the future.
+To select a specific style of ligatures, a proper ligature engraver
+has to be added to the @internalsref{Voice} context, as explained in
+the following subsections.  Currently, only white mensural ligatures
+are supported with certain limitations.  Support for Editio Vaticana
+will be added in the future.
 
 @menu
-* White mensural ligatures::
-* Gregorian square neumes ligatures::
+* White mensural ligatures::    
+* Gregorian square neumes ligatures::  
 @end menu
 
 @node White mensural ligatures
@@ -4538,19 +4522,40 @@ implementation is still experimental; it currently may output strange
 warnings or even crash in some cases or produce weird results on more
 complex ligatures.  To engrave white mensural ligatures, in the paper
 block the @internalsref{Mensural_ligature_engraver} has to be put into
-the @internalsref{Voice} context (and you probably want to remove the
-@internalsref{Ligature_bracket_engraver}).  There is no additional
-input language to describe the shape of a white mensural ligature.
-The shape is rather determined solely from the pitch and duration of
-the enclosed notes.  While this approach may take a new user a while
-to get accustomed, it has the great advantage that the full musical
-information of the ligature is known internally.  This is not only
-required for correct MIDI output, but also allows for automatic
-transcription of the ligatures.
+the @internalsref{Voice} context, and remove the
+@internalsref{Ligature_bracket_engraver}:
+
+@example
+    \paper @{
+	\translator @{
+	    \VoiceContext
+	    \remove Ligature_bracket_engraver
+	    \consists Mensural_ligature_engraver
+	@}
+    @}
+@end example
+
+There is no additional input language to describe the shape of a
+white mensural ligature.  The shape is rather determined solely from
+the pitch and duration of the enclosed notes.  While this approach may
+take a new user a while to get accustomed, it has the great advantage
+that the full musical information of the ligature is known internally.
+This is not only required for correct MIDI output, but also allows for
+automatic transcription of the ligatures.
 
 Example:
 
-@lilypond[singleline,verbatim]
+@example
+	\property Score.timing = ##f
+	\property Score.defaultBarType = "empty"
+	\property Voice.NoteHead \set #'style = #'neo_mensural
+	\property Staff.TimeSignature \set #'style = #'neo_mensural
+	\clef "petrucci_g"
+	\[ g\longa c\breve a\breve f\breve d'\longa \]
+	s4
+	\[ e1 f1 a\breve g\longa \]
+@end example
+@lilypond[singleline]
 \score {
     \notes \transpose c c' {
 	\property Score.timing = ##f
@@ -6088,10 +6093,9 @@ such as fermatas to a @code{\notes@{@}} block.
 @node Tuning output
 @section Tuning output
 
-As much formatting as possible is performed
-automatically. Nevertheless, there are situations where LilyPond needs
-some help, or where you want to override its decisions. In this
-section we discuss ways to do just that.
+There are situations where default layout decisions are not
+sufficient.  In this section we discuss ways to override these
+defaults.
 
 Formatting is internally done by manipulating so called objects (graphic
 objects). Each object carries with it a set of properties (object
@@ -6123,7 +6127,7 @@ in @file{scm/grob-description.scm}), includes the following definitions for
 @internalsref{Stem}
 
 @example
-        (thickness . 0.8)
+        (thickness . 1.3)
         (beamed-lengths . (0.0 2.5 2.0 1.5))
         (Y-extent-callback . ,Stem::height)
         @var{...}
@@ -6191,20 +6195,20 @@ c'4
 @end lilypond
 
 The following example gives exactly the same result as the previous
-one (assuming the system default for stem thickness is 0.8).
+one (assuming the system default for stem thickness is 1.3).
 @c
 @lilypond[verbatim,quote]
   c'4 \property Voice.Stem \set #'thickness = #4.0
   c'4
-  c'4 \property Voice.Stem \set #'thickness = #0.8
+  c'4 \property Voice.Stem \set #'thickness = #1.3
   c'4
 @end lilypond
 
-If you revert a setting which was not set in the first place, then it
-has no effect. However, if the setting was set as a system default, it
-may remove the default value, and this may give surprising results,
+Reverting a setting which was not set in the first place has no
+effect. However, if the setting was set as a system default, this may
+remove the default value, and this may give surprising results,
 including crashes.  In other words, @code{\override} and
-@code{\revert}, must be carefully balanced.
+@code{\revert} must be carefully balanced.
 
 These are examples of correct nesting of @code{\override}, @code{\set},
 @code{\revert}. 
@@ -6252,10 +6256,10 @@ work, and may cause crashes or other anomalous behavior.
 
 @refbugs
 
-LilyPond will hang or crash if @var{value} contains cyclic references.
-The backend is not very strict in type-checking object properties. If you
-@code{\revert} properties that are expected to be set by default,
-LilyPond may crash.
+The backend is not very strict in type-checking object properties.
+Cyclic references in @var{value} cause hangs and/or crashes.
+Similarly, reverting properties that are system defaults may also lead
+to crashes.
 
 
 @node Applyoutput
@@ -6359,9 +6363,8 @@ All three mechanisms work for every object that supports
 @item font-family
  A symbol indicating the general class of the typeface.  Supported are
 @code{roman} (Computer Modern), @code{braces} (for piano staff
-braces), @code{music} (the standard music font), @code{ancient} (the
-ancient notation font) @code{dynamic} (font for dynamic signs) and
-@code{typewriter}. 
+braces), @code{music} (the standard music font, including ancient
+glyphs), @code{dynamic} (for dynamic signs) and @code{typewriter}.
   
 @item font-shape
   A symbol indicating the shape of the font, there are typically several
@@ -6379,8 +6382,8 @@ and @code{bold}.
   height, and relative size +1 corresponds to 23 pt staff height.
 
    There are small differences in design between fonts designed for
-different sizes, hence font-relative-size is the preferred way to
-change a font size.
+different sizes, hence @code{font-relative-size} is preferred over
+@code{font-magnification} for changing font sizes.
 
 
 @item font-design-size
@@ -6594,7 +6597,7 @@ their center lines.
  c1^\markup { \line << a b c >> }
 @end lilypond
 
-The markup mechanism is very flexible and extensible.  Refer to
+The markup mechanism is extensible.  Refer to
 @file{scm/new-markup.scm} for more information on extending the markup
 mode.
 
@@ -6623,16 +6626,16 @@ The global layout determined by three factors: the page layout, the
 line breaks and the spacing. These all influence each other. The
 choice of spacing determines how densely each system of music is set,
 which influences where line breaks breaks are chosen, and thus
-ultimately how many pages a piece of music takes. In this section we
-will explain how the lilypond spacing engine works, and how you can
-tune its results.
+ultimately how many pages a piece of music takes. In this section, the
+algorithm for spacing music is explained, and how spacing can be
+tuned.
 
 Globally spoken, this procedure happens in three steps: first,
 flexible distances (``springs'') are chosen, based on durations. All
 possible line breaking combination are tried, and the one with the
 best results---a layout that has uniform density and requires as
 little stretching or cramping as possible---is chosen. When the score
-is processed by @TeX{}, page are filled with systems, and page breaks
+is processed by @TeX{}, each page is filled with systems, and page breaks
 are chosen whenever the page gets full.
 
 
@@ -6678,11 +6681,11 @@ staff can be made larger at the bottom by setting it to @code{(-6
 
 The piano staves are handled a little differently: to make cross-staff
 beaming work correctly, it necessary that the distance between staves
-is fixed.  This is also done with a @internalsref{VerticalAlignment}
-object, created in @internalsref{PianoStaff}. In this object the
-distance between the staves is fixed by setting
-@code{forced-distance}. If you want to override this, use a
-@code{\translator} block as follows:
+is fixed beforehand.  This is also done with a
+@internalsref{VerticalAlignment} object, created in
+@internalsref{PianoStaff}. In this object the distance between the
+staves is fixed by setting @code{forced-distance}. If you want to
+override this, use a @code{\translator} block as follows:
 @example
   \translator @{
     \PianoStaffContext
@@ -6712,7 +6715,7 @@ duration adds a fixed amount (this amount is controlled by
 @code{spacing-increment}) of space to the note.
 
 For example, the following piece contains lots of half, quarter and
-8th notes, the eighth note is followed by 1 note head width (NHW). The
+8th notes, the eighth note is followed by 1 note head width (NHW). 
 The quarter note is followed by 2 NHW, the half by 3 NHW, etc.
 @lilypond[fragment, verbatim, relative=1] c2 c4. c8 c4. c8 c4. c8 c8
 c8 c4 c4 c4
@@ -6761,7 +6764,7 @@ spacing. This is controlled with @code{stem-spacing-correction}
 property in @internalsref{NoteSpacing}, which are generated for every
 @internalsref{Voice} context. The @code{StaffSpacing} object
 (generated at @internalsref{Staff} context) contains the same property
-for controlling the stem/barline spacing. In the following example
+for controlling the stem/barline spacing. The following example
 shows these corrections, once with default settings, and once with
 exaggerated corrections.
 
@@ -6816,14 +6819,14 @@ There is no convenient mechanism to manually override spacing.
 @cindex @code{paper} file
 
 The Feta font provides musical symbols at seven different sizes.
-These fonts are 11 point, 13 point, 16 point, 19 pt, 20 point, 23
-point, and 26 point.  The point size of a font is the height of the
-five lines in a staff when displayed in the font.
+These fonts are 11 point, 13 point, 16 point, 20 point, 23 point, and
+26 point.  The point size of a font is the height of the corresponding
+staff (excluding line thicknesses).
 
 Definitions for these sizes are the files @file{paperSZ.ly}, where
-@code{SZ} is one of 11, 13, 16, 19, 20, 23 and 26.  If you include any
+@code{SZ} is one of 11, 13, 16, 20, 23 and 26.  If you include any
 of these files, the variables @code{paperEleven},
-@code{paperThirteen}, @code{paperSixteen}, @code{paperNineteen},
+@code{paperThirteen}, @code{paperSixteen}, 
 @code{paperTwenty}, @code{paperTwentythree}, and @code{paperTwentysix}
 are defined respectively.  The default @code{\paper} block is also
 set. These files should be imported at toplevel, i.e.
@@ -6895,15 +6898,16 @@ spacing is.
 @cindex page layout
 @cindex vertical spacing
 
-The page layout process happens outside lilypond: variables
-controlling page layout are passed to the output, and are further
-interpreted by @code{ly2dvi}. @code{ly2dvi} responds to the following
-variables in the @code{\paper} block.  The variable @code{textheight}
-sets the total height of the music on each page.  The spacing between
-systems is controlled with @code{interscoreline}, its default is 16pt.
-The distance between the score lines will stretch in order to fill the
-full page @code{interscorelinefill} is set to a positive number.  In
-that case @code{interscoreline} specifies the minimum spacing.
+The page layout process happens outside the LilyPond formatting
+engine: variables controlling page layout are passed to the output,
+and are further interpreted by @code{ly2dvi}. @code{ly2dvi} responds
+to the following variables in the @code{\paper} block.  The variable
+@code{textheight} sets the total height of the music on each page.
+The spacing between systems is controlled with @code{interscoreline},
+its default is 16pt.  The distance between the score lines will
+stretch in order to fill the full page @code{interscorelinefill} is
+set to a positive number.  In that case @code{interscoreline}
+specifies the minimum spacing.
 
 @cindex @code{textheight}
 @cindex @code{interscoreline}
@@ -6971,7 +6975,7 @@ is good enough for proof-hearing the music for errors.
 Ties, dynamics and tempo changes are interpreted.  Dynamic marks,
 crescendi and decrescendi translate into MIDI volume levels.  Dynamic
 marks translate to a fixed fraction of the available MIDI volume
-range, crescendi and decrescendi make the the volume vary linearly
+range, crescendi and decrescendi make the volume vary linearly
 between their two extremities.  The fractions be adjusted by
 @code{dynamicAbsoluteVolumeFunction} in @internalsref{Voice} context.
 
