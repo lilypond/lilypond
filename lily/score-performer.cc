@@ -92,9 +92,9 @@ Score_performer::get_output_p ()
 }
 
 void
-Score_performer::add_processing ()
+Score_performer::do_add_processing ()
 {
-  Translator_group::add_processing ();
+  Translator_group::do_add_processing ();
   assert (output_def_l_->is_type_b (Midi_def::static_name ()));
   performance_p_ = new Performance;
   performance_p_->midi_l_ = (Midi_def*) output_def_l_;  
