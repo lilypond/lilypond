@@ -27,7 +27,7 @@ StaffContext=\translator {
 	\consists "Staff_symbol_engraver"
 	\consists "Collision_engraver"
 	\consists "Rest_collision_engraver"
-	\consists "Local_key_engraver"
+	\consists "Accidental_engraver"
 	\consists "Piano_pedal_engraver"
 	\consists "Instrument_name_engraver"
 
@@ -379,6 +379,8 @@ ScoreContext = \translator {
 
 	tupletNumberFormatFunction = #denominator-tuplet-formatter
 	
+	subdivideBeams = ##f
+
        keyAccidentalOrder = #'(
          (6 . -1) (2  . -1) (5 . -1 ) (1  . -1) (4  . -1) (0  . -1) (3  . -1)
 	 (3  . 1) (0 . 1) (4 . 1) (1 . 1) (5 . 1) (2 . 1) (6 . 1)

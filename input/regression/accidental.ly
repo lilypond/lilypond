@@ -7,10 +7,9 @@ fourth show forced and courtesy accidentals.
 "
 }
 
-foo = \notes\relative c''   {   \key as \major dis4 dis dis! dis? }
+foo = \notes\relative c''   {   \key as \major dis4 dis dis!^"force" dis? }
 
 \score {
-
   < \foo 
    \context NoteNames \foo
   >

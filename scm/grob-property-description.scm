@@ -29,6 +29,9 @@
 (grob-property-description 'X-offset-callbacks list? "list of functions, each taking an grob and axis argument. The function determine the position relative to this grob's parent. The last one in the list is called first.")
 (grob-property-description 'Y-extent-callback procedure? "see @code{X-extent-callback}.")
 (grob-property-description 'Y-offset-callbacks list? "see @code{X-offset-callbacks}.")
+(grob-property-description 'accidentals list? "Alist with (PITCH
+. OPTION-LIST) entries. OPTION-LIST can contain 'cautionary, 'natural
+and 'tie-break-reminder ")
 (grob-property-description 'add-stem boolean? "Add stem to porrectus?.")
 (grob-property-description 'after-line-breaking-callback procedure? "Procedure taking a grob as argument.
 This procedure is called (using dependency resolution) after line breaking. Return value is ignored.")

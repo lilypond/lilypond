@@ -28,7 +28,7 @@ static SCM pitch_less_proc;
 void
 init_pitch_funcs ()
 {
-  pitch_less_proc = gh_new_procedure2_0 ("pits-less", &pitch_less);
+  pitch_less_proc = gh_new_procedure2_0 ("pitch-less", &pitch_less);
 }
 
 ADD_SCM_INIT_FUNC (lkpitch,init_pitch_funcs);
@@ -40,7 +40,10 @@ Local_key_item::add_pitch (Grob*me, Pitch p, bool cautionary, bool natural,
 {
   SCM acs = me->get_grob_property ("accidentals");
   SCM pitch = p.smobbed_copy ();
-  SCM opts = SCM_EOL;
+  SCM opts = scm_assoc (pitch, acs);
+  bool new_pitch = !gh_pair_p (opts);
+  opts= new_pitch ? SCM_EOL : gh_cdr (opts);
+  
   if (cautionary)
     opts = gh_cons (ly_symbol2scm ("cautionary"), opts);
   if (natural)
@@ -52,8 +55,13 @@ Local_key_item::add_pitch (Grob*me, Pitch p, bool cautionary, bool natural,
       opts = gh_cons (ly_symbol2scm ("tie-break-reminder"), opts);
     }
 
-  pitch = gh_cons (pitch, opts);
-  acs = scm_merge_x (acs, gh_cons (pitch, SCM_EOL), pitch_less_proc);
+  if (new_pitch)
+    {
+      pitch = gh_cons (pitch, opts);
+      acs = scm_merge_x (acs, gh_cons (pitch, SCM_EOL), pitch_less_proc);
+    }
+  else
+    scm_assoc_set_x (acs, pitch, opts);
 
   me->set_grob_property ("accidentals", acs);
 }
