@@ -730,7 +730,7 @@ if GO_FAST_BUTTON\
    and 'web' not in COMMAND_LINE_TARGETS\
    and 'install' not in COMMAND_LINE_TARGETS\
    and 'clean' not in COMMAND_LINE_TARGETS:
-	subdirs = ['lily','flower', 'mf']
+	subdirs = ['lily', 'lily/include', 'flower', 'flower/include', 'mf']
 else:
 	subdirs = flatten (cvs_dirs ('.'), [])
 readme_files = ['AUTHORS', 'README', 'INSTALL', 'NEWS']
@@ -801,11 +801,12 @@ env.Alias ('web', www_ball)
 
 #### tags
 env.Append (
-	ETAGSFLAGS = ["""--regex='{c++}/^LY_DEFINE *(\([^,]+\)/\1/'""",
-		      """--regex='{c++}/^LY_DEFINE *([^"]*"\([^"]+\)"/\1/'"""])
-# filter-out some files?
-env.Command ('TAGS', src_files, 'etags $ETAGSFLAGS $SOURCES')
-
+	ETAGSFLAGS = """--regex='{c++}/^LY_DEFINE *(\([^,]+\)/\\1/' \
+	--regex='{c++}/^LY_DEFINE *([^"]*"\([^"]+\)"/\\1/'""")
+code_ext = ['.cc', '.hh', '.scm', '.tcc',]
+env.Command ('TAGS', filter (lambda x: os.path.splitext (x)[1] in code_ext,
+			     src_files),
+	     'etags $ETAGSFLAGS $SOURCES')
 
 # Note: SConscripts are only needed in directories where something needs
 # to be done, building or installing
