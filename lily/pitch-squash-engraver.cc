@@ -8,7 +8,6 @@
  */
 #include "staff-symbol-referencer.hh"
 #include "note-head.hh"
-#include "pitch-squash-engraver.hh"
 #include "rhythmic-head.hh"
 #include "engraver.hh"
 

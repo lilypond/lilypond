@@ -8,7 +8,7 @@
 ;;; Inspired on auctex
 
 
-(load-file "lilypond-font-lock.el")
+(load-library "lilypond-font-lock")
 
 (require 'easymenu)
 (require 'compile)

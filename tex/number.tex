@@ -1,0 +1,33 @@
+% number.tex
+
+\font\fetaelevenfont=feta-nummer11
+\font\fetathirteenfont=feta-nummer13
+\font\fetasixteenfont=feta-nummer16
+\font\fetatwentyfont=feta-nummer20
+\font\fetatwentythreefont=feta-nummer23
+\font\fetatwentysixfont=feta-nummer26
+
+\def\fetafont{\fetasixteenfont}
+
+\def\test#1{%
+        \hbox {%
+                \vrule height #1pt width 5pt
+                \vbox{44}
+                \vrule height #1pt width 5pt
+                \hfill
+        }
+
+}
+
+\parindent0mm
+\magnification \magstep 2
+\baselineskip 10mm
+
+\fetaelevenfont \test{11}
+\fetathirteenfont \test{13}
+\fetasixteenfont \test{16}
+\fetatwentyfont \test{20}
+\fetatwentythreefont \test{23}
+\fetatwentysixfont \test{26}
+
+\end

@@ -1,0 +1,50 @@
+% dyn.tex
+
+\font\fetaelevenfont=feta-din11
+\font\fetathirteenfont=feta-din13
+\font\fetasixteenfont=feta-din16
+\font\fetatwentyfont=feta-din20
+\font\fetatwentythreefont=feta-din23
+\font\fetatwentysixfont=feta-din26
+
+\def\fetafont{\fetasixteenfont}
+
+\def\test#1{%
+        \hbox {%
+                \vrule height #1pt width 5pt
+                \hbox { pp p mp mf f ff }
+                \vrule height #1pt width 5pt
+        }
+
+}
+
+\def\testa#1{%
+        \hbox{
+               \vrule height #1pt width 5pt
+               \hbox { sf sp sfz rfz }
+               \vrule height #1pt width 5pt
+       }
+
+}
+
+\parindent0mm
+\magnification \magstep 2
+\baselineskip 10mm
+
+\fetaelevenfont \test{11}
+\fetathirteenfont \test{13}
+\fetasixteenfont \test{16}
+\fetatwentyfont \test{20}
+\fetatwentythreefont \test{23}
+\fetatwentysixfont \test{26}
+
+
+\let\test\testa
+\fetaelevenfont \test{11}
+\fetathirteenfont \test{13}
+\fetasixteenfont \test{16}
+\fetatwentyfont \test{20}
+\fetatwentythreefont \test{23}
+\fetatwentysixfont \test{26}
+
+\end

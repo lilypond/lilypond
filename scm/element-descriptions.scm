@@ -11,8 +11,10 @@
 	       (staff-position . 0.0)
 	       (meta . ,(element-description "Arpeggio" arpeggio-interface side-position-interface font-interface))
 	       ))
-  
-	(BarLine . (
+
+    (AutoBeam . ,auto-beam-settings)
+
+    (BarLine . (
 		(break-align-symbol . Staff_bar)
 		(glyph . "|")
 		(break-glyph-function . ,default-break-barline)

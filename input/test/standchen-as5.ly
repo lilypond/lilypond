@@ -27,7 +27,7 @@
 		\translator { 
 			\VoiceContext 
 			beamHeight = ##f 
-			beamAutoBegin= #(make-moment 0 1)
+			AutoBeam \push (begin * * * *) = #(make-moment 0 1)
 			textEmptyDimension = ##t
 		}
 	}

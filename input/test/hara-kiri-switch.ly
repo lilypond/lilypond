@@ -43,7 +43,7 @@ grandstaff = \context GrandStaff = one <
 	\paper{
 		linewidth=80.0\mm;
 
-		\translator { \VoiceContext noAutoBeaming = "1"; }
+		\translator { \VoiceContext noAutoBeaming = ##t; }
 		\translator { \HaraKiriStaffContext }
 		\translator { \OrchestralScoreContext skipBars = 1; }
 	}
