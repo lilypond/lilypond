@@ -76,7 +76,7 @@ public:
    */
   Context * get_outlet () const;
 
-  void set_translator (Context *);
+  void set_context (Context *);
   
   /** Get an iterator matching the type of MUS, and use TRANS to find
     an accompanying translation unit

@@ -1,5 +1,5 @@
 /*   
-  quote-iterator.cc --  implement Quote_iterator
+  quote-iterator.cc --  implement New_quote_iterator
 
   source file of the GNU LilyPond music typesetter
 
@@ -11,18 +11,19 @@
 #include "event.hh"
 #include "music-sequence.hh"
 #include "lily-guile.hh"
-#include "music-iterator.hh"
+#include "music-wrapper-iterator.hh"
 #include "music.hh"
 #include "input.hh"
 #include "warn.hh"
+#include "interpretation-context-handle.hh"
 
-
-class Quote_iterator : public Music_iterator
+class New_quote_iterator : public Music_wrapper_iterator
 {
 public:
-  Quote_iterator ();
+  New_quote_iterator ();
   Moment vector_moment (int idx) const;
-  
+  Interpretation_context_handle quote_outlet_;
+
   Moment start_moment_;
   SCM event_vector_;
   int event_idx_;
@@ -42,7 +43,7 @@ protected:
 };
 
 bool
-Quote_iterator::accept_music_type (Music *mus) const
+New_quote_iterator::accept_music_type (Music *mus) const
 {
   SCM accept = get_outlet()->get_property ("quotedEventTypes");
   for (SCM s =  mus->get_property ("types");
@@ -57,12 +58,12 @@ Quote_iterator::accept_music_type (Music *mus) const
 
 
 void
-Quote_iterator::derived_mark () const
+New_quote_iterator::derived_mark () const
 {
   scm_gc_mark (transposed_musics_ );
 }
 
-Quote_iterator::Quote_iterator ()
+New_quote_iterator::New_quote_iterator ()
 {
   transposed_musics_ = SCM_EOL;
   event_vector_ = SCM_EOL;
@@ -70,21 +71,45 @@ Quote_iterator::Quote_iterator ()
   end_idx_ = 0;
 }
 
+
 int
-binsearch_scm_vector (SCM vec, SCM key, bool (*is_less)(SCM a,SCM b));
+binsearch_scm_vector (SCM vec, SCM key, bool (*is_less)(SCM a,SCM b))
+{
+  int lo = 0;
+  int hi = SCM_VECTOR_LENGTH (vec);
+
+  /* binary search */
+  do
+  {
+    int cmp = (lo + hi) / 2;
+
+      SCM when = scm_caar (SCM_VECTOR_REF (vec, cmp));
+      bool result =  (*is_less) (key, when);
+      if (result)
+          hi = cmp;
+      else
+          lo = cmp;
+    }
+  while (hi - lo > 1);
+
+  return lo;
+}
 
 
 void
-Quote_iterator::construct_children ()
+New_quote_iterator::construct_children ()
 {
-  SCM dur = get_music ()->get_property ("duration");
-  if (!unsmob_duration (dur))
-    return ;
+  Music_wrapper_iterator::construct_children ();
 
-  set_context (get_outlet ()->get_default_interpreter ());
+  SCM name = get_music ()->get_property ("quoted-context-type");
+  SCM id = get_music ()->get_property ("quoted-context-id");
+
+  Context *cue_context = get_outlet()->find_create_context (name,
+							    ly_scm2string (id), SCM_EOL);
+  quote_outlet_.set_context (cue_context);
   
   Moment now = get_outlet ()->now_mom ();
-  Moment stop = now + unsmob_duration (dur)->get_length ();
+  Moment stop = now + get_music()->get_length ();
 
   start_moment_ = now;
   event_vector_ = get_music ()->get_property ("quoted-events");
@@ -102,19 +127,24 @@ Quote_iterator::construct_children ()
 
 
 bool
-Quote_iterator::ok () const
+New_quote_iterator::ok () const
 {
-  return ly_c_vector_p (event_vector_) && (event_idx_ <= end_idx_);
+  return
+    Music_wrapper_iterator::ok()
+    && ly_c_vector_p (event_vector_) && (event_idx_ <= end_idx_);
 }
 
 Moment
-Quote_iterator::pending_moment () const
+New_quote_iterator::pending_moment () const
 {
-  return vector_moment (event_idx_) - start_moment_;
+  return
+    Music_wrapper_iterator::pending_moment()
+    <? 
+    vector_moment (event_idx_) - start_moment_;
 }
 
 Moment
-Quote_iterator::vector_moment (int idx) const
+New_quote_iterator::vector_moment (int idx) const
 {
   SCM entry = SCM_VECTOR_REF (event_vector_, idx);
   return *unsmob_moment (scm_caar (entry));
@@ -122,8 +152,10 @@ Quote_iterator::vector_moment (int idx) const
   
 
 void
-Quote_iterator::process (Moment m)
+New_quote_iterator::process (Moment m)
 {
+  Music_wrapper_iterator::process (m);
+  
   m += start_moment_;
   while (event_idx_ <= end_idx_)
     {
@@ -168,15 +200,12 @@ Quote_iterator::process (Moment m)
 
 		  SCM copy = ly_deep_mus_copy (mus->self_scm ());
 		  mus = unsmob_music (copy);
-		  transposed_musics_ = scm_cons (copy, transposed_musics_);
-
 		  
+		  transposed_musics_ = scm_cons (copy, transposed_musics_);
 		  mus->transpose (diff);
 		}
-
 	      
-	      bool b = get_outlet ()->try_music (mus);
-      
+	      bool b = quote_outlet_.get_outlet ()->try_music (mus);
 	      if (!b)
 		mus->origin ()->warning (_f ("In quotation: junking event %s", mus->name ()));
 	    }
@@ -185,4 +214,4 @@ Quote_iterator::process (Moment m)
   event_idx_ ++; 
 }
 
-IMPLEMENT_CTOR_CALLBACK (Quote_iterator);
+IMPLEMENT_CTOR_CALLBACK (New_quote_iterator);

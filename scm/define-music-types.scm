@@ -412,7 +412,7 @@ goes down).")
     (NewQuoteMusic
      . (
 	(description . "Quote preprocessed snippets of music. ")
-	(internal-class-name . "Music") ;;  so we get Event::get_length ().
+	(internal-class-name . "Music_wrapper") ;;  so we get Event::get_length ().
 	(iterator-ctor . ,New_quote_iterator::constructor)
 	(types . (general-music))
 	))
@@ -426,7 +426,6 @@ goes down).")
     (RepeatedMusic
      . (
 	(description .	"Repeat music in different ways")
-
 	(type .	 repeated-music)
 	(types . (general-music repeated-music))
 	))

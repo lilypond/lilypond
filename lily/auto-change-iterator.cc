@@ -136,12 +136,12 @@ Auto_change_iterator::construct_children ()
   Context *down = get_outlet()->find_create_context (ly_symbol2scm ("Staff"),
 						   "down", props);
   
-  up_.set_translator (up);
-  down_.set_translator (down);
+  up_.set_context (up);
+  down_.set_context (down);
 
   Context *voice = up->find_create_context (ly_symbol2scm ("Voice"),
 					   "", SCM_EOL);
-  set_translator (voice);
+  set_context (voice);
   Music_wrapper_iterator::construct_children ();
 
 }
@@ -149,8 +149,8 @@ Auto_change_iterator::construct_children ()
 void
 Auto_change_iterator::do_quit()
 {
-  up_.set_translator (0);
-  down_.set_translator (0);
+  up_.set_context (0);
+  down_.set_context (0);
   
 }
 IMPLEMENT_CTOR_CALLBACK (Auto_change_iterator);

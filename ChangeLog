@@ -1,5 +1,20 @@
 2004-11-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/define-music-properties.scm (all-music-properties): add
+	quoted-context-type, quoted-context-id.
+
+	* scm/lily.scm (type-check-list): new function.
+	
+	* scm/lily-library.scm: new file. Generic library routines.
+
+	* lily/parser.yy (Generic_prefix_music): move typechecking out of
+	parser.
+
+	* ly/music-functions-init.ly: add quoteDuring function.
+
+	* lily/include/music-iterator.hh (class Music_iterator): rename
+	set_translator -> set_context
+
 	* lily/parser.yy (Generic_prefix_music_scm): add
 	MUSIC_FUNCTION_SCM_SCM_MUSIC
 

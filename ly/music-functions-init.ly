@@ -73,18 +73,45 @@ keepWithTag =
    music))
 
 
+%% Todo:
+%% doing
+%% def-music-function in a .scm causes crash.
 
-quoteDuring =
-#(def-music-function
-  (location what dir music) (string? ly:dir? ly:music?)
+quoteDuring = #
+(def-music-function
+  (location what dir main-music)
+  (string? ly:dir? ly:music?)
   (let*
-   ((quote-music (make-music 'NewQuoteMusic
-		  	     'quoted-music-name what
-		             'element music
-	                     'origin location)
-	      ))
+      ((quote-music
+	(make-music 'NewQuoteMusic
+		    'quoted-context-type 'Voice
+		    'quoted-context-id "cue"
+		    'quoted-music-name what
+		    'origin location))
+       (main-voice (if (= 1 dir) 2 1))
+       (cue-voice (if (= 1 dir) 1 2))
+       (return-value quote-music)
+       )
 
-   quote-music))
+    (if (not (= dir 0))
+	(begin
+	  (set! return-value
+		(make-sequential-music
+		 (list
+		  (context-spec-music (make-voice-props-set cue-voice) 'Voice "cue")
+		  quote-music
+		  (context-spec-music (make-voice-props-revert)  'Voice "cue"))
+		 ))
+
+	  (set! main-music
+		(make-sequential-music
+		 (list
+		  (make-voice-props-set main-voice)
+		  main-music
+		  (make-voice-props-revert)))
+		)))
+    (set! (ly:music-property quote-music 'element) main-music)
+    return-value))
 
 %{
 

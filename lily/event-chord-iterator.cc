@@ -23,7 +23,7 @@ Event_chord_iterator::get_req_translator ()
   if (get_outlet ()->is_bottom_context ())
     return get_outlet ();
 
-  set_translator (get_outlet ()->get_default_interpreter ());
+  set_context (get_outlet ()->get_default_interpreter ());
   return get_outlet ();
 }
 

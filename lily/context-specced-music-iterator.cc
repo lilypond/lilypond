@@ -38,7 +38,7 @@ Context_specced_music_iterator::construct_children ()
     a = 0;
   
   if (a)
-    set_translator (a);
+    set_context (a);
 
   Music_wrapper_iterator::construct_children ();
 }
