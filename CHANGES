@@ -1,22 +1,28 @@
---- ../lilypond-1.3.49/CHANGES	Thu May 11 15:31:37 2000
-++ b/CHANGES	Thu May 11 22:01:01 2000
-@@ -1,3 +1,13 @@
-1.3.49.hwn1
+
+1.3.49.hwn2
 ===========
 
+* Junked Shift_tuple from collision; Now it uses SCM.
+
+* Bugfix of documentation and test-file of tuplet.
+
+* Bugfix type string of repeated music is copied. This fixes declared
+tremolos.
+
+* Junked various cruft from lily.scm
+
+* Use interfaces symbols instead of C++ class-name for assigning generic
+element properties.
+
 * Junked Dictionary from Piano_pedal_engraver and
-Piano_pedal_performer.  Marked kerning as TODO.
+Piano_pedal_performer.
 
 * Introduced boolean element property no-spacing-rods: ignore this
 item for hard constraints.
 
+* Bugfix: added sanitised TeX fragment in faq.texi
 
- 1.3.48.uu1
- ==========
- 1.3.49.jcn1
-==========
-
-* Made silly faq.texi fixes (time to get my verbatim patch in :-)
+* Bugfix: merge equal Bar_reqs
 
 1.3.48.uu1
 ==========
@@ -136,7 +142,7 @@ puts alignment in function again
 
 * Fixed StaffGroup + GrandStaff combination.
 
-* Music is now mandatory as the first tihng in a \score{} block
+* Music is now mandatory as the first thing in a \score{} block
 
 1.3.45
 ======

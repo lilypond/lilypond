@@ -44,6 +44,7 @@ Note_column::Note_column()
   set_elt_property ("note-heads", SCM_EOL);  
   Axis_group_interface (this).set_interface ();
   Axis_group_interface (this).set_axes (X_AXIS, Y_AXIS);
+  Group_interface (this, "interfaces").add_thing (ly_symbol2scm ("Note_column"));
 }
 
 Stem *

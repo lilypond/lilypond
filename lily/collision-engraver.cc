@@ -7,16 +7,29 @@
 */
 
 #include "note-column.hh"
-#include "collision-engraver.hh"
 #include "collision.hh"
 #include "dimension-cache.hh"
+#include "engraver.hh"
+
+class Collision_engraver : public Engraver {
+  Collision* col_p_;
+  Link_array<Note_column> note_column_l_arr_;
+
+protected:
+  virtual void acknowledge_element (Score_element_info);
+  virtual void process_acknowledged ();
+  virtual void do_pre_move_processing();
+public:
+  VIRTUAL_COPY_CONS(Translator);
+  Collision_engraver();
+};
+
 
 void
 Collision_engraver::process_acknowledged ()
 {
-   
   if (col_p_ || note_column_l_arr_.size () < 2)
-      return ;
+    return ;
   if (!col_p_) 
     {
       col_p_ = new Collision;

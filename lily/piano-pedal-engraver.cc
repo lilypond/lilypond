@@ -18,6 +18,7 @@
 #include "staff-symbol-referencer.hh"
 #include "text-item.hh"
 #include "sustain-pedal.hh"
+
 /*
    TODO:
      * it would be really cool if an engraver could be initialised with a
@@ -27,13 +28,12 @@
           Piano_pedal_engraver::"sustain"
           Piano_pedal_engraver::"una-chorda"
 
-
-
  */
 
 /*
   Would it? The semantics are unclear, and real benefits are muddy
-  too.  --hwn */
+  too.  --hwn
+*/
 
 
 
@@ -199,11 +199,6 @@ Piano_pedal_engraver::do_process_music ()
 	  Side_position_interface si (p->item_p_);
 	  si.set_axis (Y_AXIS);
 
-	  /* Hmm,
-	     If set to empty, it can't be centred
-	     Howto centre non-fat text?
-	     p->item_p_->set_empty (X_AXIS);
-	  */
 	  p->item_p_->set_elt_property ("no-spacing-rods"  , SCM_BOOL_T);
 	  p->item_p_->set_elt_property ("self-alignment-X", gh_int2scm (0));
 	  p->item_p_->add_offset_callback (Side_position_interface::aligned_on_self, X_AXIS);

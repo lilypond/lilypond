@@ -26,28 +26,29 @@ Collision::add_column (Note_column* ncol_l)
   add_dependency (ncol_l);
 }
 
-/*
-  UGH.  junk Shift_tup .
- */
-
 void
 Collision::before_line_breaking ()
 {
-  Array<Shift_tup> autos (automatic_shift ());
-  Array<Shift_tup> hand (forced_shift ());
+  SCM autos (automatic_shift ());
+  SCM hand (forced_shift ());
   Link_array<Score_element> done;
   
   Real wid = paper_l ()->get_var ("collision_note_width");
-  for (int i=0; i < hand.size (); i++)
+  for (; gh_pair_p (hand); hand =gh_cdr (hand))
     {
-      hand[i].e1_->translate_axis (hand[i].e2_ *wid, X_AXIS);
-      done.push (hand[i].e1_);
+      Score_element * s = unsmob_element (gh_caar (hand));
+      Real amount = gh_scm2double (gh_cdar (hand));
+      
+      s->translate_axis (amount *wid, X_AXIS);
+      done.push (s);
     }
-
-  for (int i=0; i < autos.size (); i++)
+  for (; gh_pair_p (autos); autos =gh_cdr (autos))
     {
-      if (!done.find_l (autos[i].e1_))
-	autos[i].e1_->translate_axis (autos[i].e2_ * wid, X_AXIS);
+      Score_element * s = unsmob_element (gh_caar (autos));
+      Real amount = gh_scm2double (gh_cdar (autos));
+      
+      if (!done.find_l (s))
+	s->translate_axis (amount * wid, X_AXIS);
     }
 }
 
@@ -57,13 +58,12 @@ Collision::before_line_breaking ()
   This should be done better, probably.
 
   */
-Array< Shift_tup >
+SCM
 Collision::automatic_shift ()
 {
   Drul_array<Link_array<Note_column> > clash_groups;
   Drul_array<Array<int> > shifts;
-  Array<Shift_tup>  tups;
-
+  SCM  tups = SCM_EOL;
 
   SCM s = get_elt_property ("elements");
   for (; gh_pair_p (s); s = gh_cdr (s))
@@ -151,8 +151,8 @@ Collision::automatic_shift ()
       Note_head * nu_l= cu_l->first_head();
       Note_head * nd_l = cd_l->first_head();
       
-      int downpos = 	cd_l->head_positions_interval ()[BIGGER];
-      int uppos = 	cu_l->head_positions_interval ()[SMALLER];      
+      int downpos = cd_l->head_positions_interval ()[BIGGER];
+      int uppos = cu_l->head_positions_interval ()[SMALLER];      
       
       bool merge  =
 	downpos == uppos
@@ -179,17 +179,18 @@ Collision::automatic_shift ()
   do
     {
       for (int i=0; i < clash_groups[d].size (); i++)
-	tups.push (Shift_tup (clash_groups[d][i], offsets[d][i]));
+	tups = gh_cons (gh_cons (clash_groups[d][i]->self_scm_, gh_double2scm (offsets[d][i])),
+				 tups);
     }
   while (flip (&d) != UP);
   return tups;
 }
 
 
-Array <Shift_tup>
+SCM
 Collision::forced_shift ()
 {
-  Array<Shift_tup> tups;
+  SCM tups = SCM_EOL;
   
   SCM s = get_elt_property ("elements");
   for (; gh_pair_p (s); s = gh_cdr (s))
@@ -199,7 +200,8 @@ Collision::forced_shift ()
       SCM force =  se->remove_elt_property ("force-hshift");
       if (gh_number_p (force))
 	{
-	  tups. push (Shift_tup (se, gh_scm2double (force)));
+	  tups = gh_cons (gh_cons (se->self_scm_, force),
+			  tups);
 	}
     }
   return tups;

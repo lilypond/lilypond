@@ -11,10 +11,7 @@
 #define COLLISION_HH
 #include "lily-proto.hh"
 #include "item.hh"
-#include "tuple.hh"
 
-//junkme, use SCM conses.
-typedef Tuple<Score_element*, Real> Shift_tup;
 
 /**
   Resolve conflicts between various Note_columns (chords).
@@ -27,8 +24,8 @@ typedef Tuple<Score_element*, Real> Shift_tup;
 class Collision : public Item
 {
 protected:
-  Array<Shift_tup> automatic_shift ();
-  Array<Shift_tup> forced_shift ();
+  SCM automatic_shift ();
+  SCM forced_shift ();
   
   virtual void before_line_breaking ();
 public:

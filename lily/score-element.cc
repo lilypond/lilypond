@@ -209,24 +209,6 @@ Score_element::add_processing()
     return;
   status_i_ ++;
 
-#if 0
-    /*
-    UGH. UGH. UGH.
-   */
-  if (get_elt_property ("self-alignment-X") != SCM_UNDEFINED
-      && !dim_cache_[X_AXIS]->off_callback_l_)
-    {
-      add_offset_callback (Side_position_interface::aligned_on_self,X_AXIS);
-    }
-  
-  if (get_elt_property ("self-alignment-Y") != SCM_UNDEFINED
-      && !dim_cache_[X_AXIS]->off_callback_l_)
-      
-    {
-      add_offset_callback (Side_position_interface::aligned_on_self, Y_AXIS);
-    }
-#endif
-  
   do_add_processing();
 }
 

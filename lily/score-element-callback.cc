@@ -43,7 +43,8 @@ void start_callback_smobs()
 }
 
 
-SCM smobify_callback (Score_element_callback cb )
+SCM
+smobify_callback (Score_element_callback cb )
 {
   SCM z;
   

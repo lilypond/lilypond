@@ -25,8 +25,9 @@
    "text"
    ("style" . "text")
  */
+
 /*
-  UGH. remove Dictionary< >
+  UGH. remove Dictionary< > and use Scheme_hash_table
  */
 Molecule
 Chord_name::ly_word2molecule (SCM word) const

@@ -8,9 +8,9 @@
   TODO: --> see breathing-sign-engraver.cc
 
 */
+
 #include "staff-symbol-referencer.hh"
 #include "directional-element-interface.hh"
-
 #include "breathing-sign.hh"
 #include "string.hh"
 #include "molecule.hh"
@@ -32,6 +32,8 @@ Breathing_sign::do_brew_molecule () const
   Staff_symbol_referencer_interface si (this);
   
   Real space = si.staff_space();
+
+  // todo: cfg'able.
   Interval i1(0, space / 6), i2(-space / 2, space / 2);
   Box b(i1, i2);
 
