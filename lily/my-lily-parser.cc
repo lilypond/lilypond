@@ -225,79 +225,101 @@ My_lily_parser::get_note_element (Note_req *rq, Duration * duration_p)
   return v;
 }
 
-Request*
-My_lily_parser::get_parens_request (char c)
+Array<Request*>*
+My_lily_parser::get_parens_request (int t)
 {
-  Request* req_p=0;
-  switch (c)
+  Array<Request*>& reqs = *new Array<Request*>;
+  switch (t)
     {
-
     case '~':
-      req_p = new Tie_req;
+      reqs.push (new Tie_req);
       break;
+    case BEAMPLET:
+    case MAEBTELP:
+      {
+	Plet_req* p = new Plet_req;
+	p->plet_i_ = plet_.type_i_;
+	reqs.push (p);
+      }
+      /* fall through */
     case '[':
     case ']':
       {
 	if (!abbrev_beam_type_i_)
 	  {
-	    Beam_req*b = new Beam_req;
-	    int p_i=plet_.type_i_ ; // ugh . Should junk?
-	    if (p_i!= 1)
-	      b->nplet = p_i;
-	    req_p = b;
+	    reqs.push (new Beam_req);
 	  }
 	else
 	  {
 	    Abbreviation_beam_req* a = new Abbreviation_beam_req;
 	    a->type_i_ = abbrev_beam_type_i_;
-	    if (c==']')
+	    if (t==']')
 	      abbrev_beam_type_i_ = 0;
-	    req_p = a;
+	    reqs.push (a);
 	  }
       }
-    break;
+      break;
 
     case '>':
     case '!':
     case '<':
-      req_p = new Span_dynamic_req;
+      reqs.push (new Span_dynamic_req);
       break;
 
+    case PLET:  
+    case TELP:
+      {
+	Plet_req* p = new Plet_req;
+	p->plet_i_ = plet_.type_i_;
+	reqs.push (p);
+      }
+      break;
     case ')':
     case '(':
-      req_p = new Slur_req;
+      {
+	reqs.push (new Slur_req);
+      }
       break;
     default:
       assert (false);
       break;
     }
 
-  switch (c)
+  switch (t)
     {
+    case BEAMPLET:
+      reqs.top ()->span()->spantype = Span_req::START;
+      /* fall through */
     case '<':
     case '>':
     case '(':
     case '[':
-      req_p->span()->spantype = Span_req::START;
+    case PLET:
+      reqs[0]->span ()->spantype = Span_req::START;
       break;
+    case MAEBTELP:
+      reqs.top ()->span()->spantype = Span_req::STOP;
+      /* fall through */
     case '!':
     case ')':
     case ']':
-      req_p->span()->spantype = Span_req::STOP;
+      reqs[0]->span ()->spantype = Span_req::STOP;
       break;
 
     default:
       break;
     }
 
-  if (req_p->musical()->span_dynamic ())
-    {
-      Span_dynamic_req* s_l= (req_p->musical()->span_dynamic ()) ;
-      s_l->dynamic_dir_ = (c == '<') ? UP:DOWN;
-    }
+  for (int i = 0; i < reqs.size (); i++)
+    if (reqs[i]->musical ()->span_dynamic ())
+      {
+	Span_dynamic_req* s_l= (reqs[i]->musical ()->span_dynamic ()) ;
+	s_l->dynamic_dir_ = (t == '<') ? UP:DOWN;
+      }
 
-  req_p->set_spot (here_input());
-  return req_p;
+  // ugh? don't we do this in the parser too?
+  reqs[0]->set_spot (here_input());
+  return &reqs;
 }
 
 void

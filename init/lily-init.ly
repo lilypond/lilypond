@@ -1,6 +1,6 @@
 % Toplevel initialisation file. 
 	
-\version "0.1.7";
+\version "0.1.8";
   
 breve = \duration { -1 0 }
 longa = \duration { -2 0 }
