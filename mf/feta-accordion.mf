@@ -1,5 +1,7 @@
 % -*- Fundamental -*-
 
+fet_begingroup("accordion")
+
 accreg_dot_size# := .5staff_space#;
 accreg_linethickness# := 1.3stafflinethickness#;
 
@@ -150,16 +152,28 @@ def def_some_vars =
 enddef;
 
 def print_penpos (suffix $)=
-	message str $ &": ("&decimal x.$.l&", "&decimal y.$.l&"); ("&decimal x.$.r&", "&decimal y.$.r&");";
+	message "z"&str $ &"l = ("&decimal x.$.l&", "&decimal y.$.l&"); z"&str $ &"r = ("&decimal x.$.r&", "&decimal y.$.r&");";
 enddef;
+
+%fet_beginchar("accTEST", "accTEST", "accTEST")
+%	set_char_box(.4staffsize#, .4staffsize#, 0, 2.4staff_space#);
+%	def_some_vars;
+%	penlabels(10, 11, 12, 13, 14);
+%	penstroke z10e--z11e{right}..z12e..z13e{left}--z14e;
+%fet_endchar;
 
 fet_beginchar("accSB", "accSB", "accSB")
 	set_char_box(.4staffsize#, .4staffsize#, 0, 2.4staff_space#);
 	def_some_vars;
 	def_B(.35width, .7height);
 
-	penstroke z10e--z11e{right}..z12e..z13e{left}--z14e;
+	%print_penpos (10);
+	%print_penpos (11);
+	%print_penpos (12);
+	%print_penpos (13);
+	%print_penpos (14);
 	penlabels(10, 11, 12, 13, 14);
+	penstroke z10e--z11e{right}..z12e..z13e{left}--z14e;
 
 	penstroke z13e{right}..z15e{up}..z16e{left}--z17e;
 	penstroke z18e--z19e;
@@ -283,3 +297,5 @@ fet_beginchar("accOldEES", "accOldEES", "accOldEES")
 	currentpicture := currentpicture shifted (-w/2, -shy*h);
 	currentpicture := currentpicture shifted (0, r);
 fet_endchar;
+
+fet_endgroup("accordion")

@@ -5,14 +5,16 @@ test:=0;
 
 input feta-autometric;
 input feta-macros;
+input feta-params;
 
-blot_diameter# = .4pt#;
+%blot_diameter# = .4pt#;
 
 fet_beginfont("feta-nummer", size);
 mode_setup;
 
 height#:=designsize;
 
+font_x_height height#;
 
 save b,h; 4h+b=1.15; 10h+b=1;
 fatten:=designsize*h+b;

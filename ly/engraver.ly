@@ -144,6 +144,7 @@ VoiceContext = \translator {
 	\consists "Melisma_engraver";
 	textScriptPadding = #3.0
 	\consists "Text_engraver";
+	\consists "Piano_pedal_engraver";
 	\consists "Script_engraver";
 	\consists "Script_column_engraver";
 	\consists "Rhythmic_column_engraver";
