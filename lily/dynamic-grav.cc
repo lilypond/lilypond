@@ -35,8 +35,16 @@ bool
 Dynamic_engraver::do_try_request (Request * r)
 {
   Musical_req * m = r->musical();
-  if (!m || !m->dynamic())
+  if (!m)
     return false;
+  Dynamic_req * d = m->dynamic ();
+  if (!d)
+    return false;
+
+  if (cresc_p_ && d->span_dynamic ()
+      && d->span_dynamic ()->spantype == Span_req::START)
+    return false;
+  
   dynamic_req_l_arr_.push (m->dynamic());
   return true;
 }
