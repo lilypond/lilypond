@@ -96,21 +96,17 @@ String
 Staff_performer::new_instrument_str () 
 { 
   // mustn't ask Score for instrument: it will return piano!
-  String str = get_property ("midiInstrument", 0);
-  if (!str.length_i ())
-    str = get_property ("instrument", 0);
-  if (str == instrument_str_)
+  SCM minstr = get_property ("midiInstrument", 0);
+
+  if (!gh_string_p(minstr))
+    minstr = get_property ("instrument", 0);
+
+  if (ly_scm2string (minstr) == instrument_str_)
     return "";
 
-  instrument_str_ = str;
+  instrument_str_ = ly_scm2string (minstr);
 
   return instrument_str_;
-
-/* ugh, but can 't
-  if (properties_dict_.elem_b ("instrument"))
-    return properties_dict_["instrument"];
-  return "";
-*/
 }
 
 void 

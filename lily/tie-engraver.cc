@@ -26,7 +26,9 @@ Tie_engraver::do_try_music (Music *m)
   if (Tie_req * c = dynamic_cast<Tie_req*> (m))
     {
       req_l_ = c;
-      if (get_property ("automaticMelismata",0).to_bool ())
+      SCM m = get_property ("automaticMelismata",0);
+      bool am = gh_boolean_p (m) &&gh_scm2bool (m);
+      if (am)
 	{
 	  set_melisma (true);
 	}
@@ -43,7 +45,7 @@ Tie_engraver::set_melisma (bool m)
   if (!where)
     where = daddy_trans_l_;
     
-  daddy_trans_l_->set_property ("tieMelismaBusy", m ? "1" :"0");
+  daddy_trans_l_->set_property ("tieMelismaBusy", m ? SCM_BOOL_T : SCM_BOOL_F);
 }
 
 void
@@ -76,88 +78,54 @@ Tie_engraver::do_process_requests ()
 void
 Tie_engraver::process_acknowledged ()
 {
-  bool old_behavior = get_property ("oldTieBehavior", 0).to_bool ();
-  
   if (req_l_)
     {
-
-      /*
-	JUNKME!
-       */
-      if (old_behavior)
+      now_heads_.sort (CHead_melodic_tuple::pitch_compare);
+      stopped_heads_.sort(CHead_melodic_tuple::pitch_compare);
+      int i=0;
+      int j=0;
+      int tie_count=0;
+      while  ( i < now_heads_.size () && j < stopped_heads_.size ())
 	{
-	  if (now_heads_.size () != stopped_heads_.size ())
+	  int comp
+	    = Musical_pitch::compare (now_heads_[i].req_l_->pitch_ ,
+				      stopped_heads_[j].req_l_->pitch_);
+
+	  if (comp)
 	    {
-	      req_l_->warning (_ ("unequal number of note heads for tie"));
+	      (comp < 0) ? i ++ : j++;
+	      continue;
 	    }
-	  int sz = now_heads_.size () <? stopped_heads_.size ();
-
-	  /* hmm. Should do something more sensible.
-       because, we assume no more noteheads come along after the 1st pass.
-	  */
-	  if (sz <= tie_p_arr_.size ())
-	    return;
-
-	  now_heads_.sort (CHead_melodic_tuple::pitch_compare);
-	  stopped_heads_.sort(CHead_melodic_tuple::pitch_compare);
-
-	  for (int i=0; i < sz; i++)
+	  else
 	    {
-	      Tie * p = new Tie;
-	      p->set_head (LEFT, stopped_heads_[i].head_l_);
-	      p->set_head (RIGHT, now_heads_[i].head_l_);
-	      tie_p_arr_.push (p);
-	      announce_element (Score_element_info (p, req_l_));
+	      tie_count ++;
+
+	      /* don't go around recreating ties that were already
+		 made. Not infallible. Due to reordering in sort (),
+		 we will make the wrong ties when noteheads are
+		 added.  */
+	      if (tie_count > tie_p_arr_.size ())
+		{
+		  Tie * p = new Tie;
+		  p->set_head (LEFT, stopped_heads_[j].head_l_);
+		  p->set_head (RIGHT, now_heads_[i].head_l_);
+		  tie_p_arr_.push (p);
+		  announce_element (Score_element_info (p, req_l_));
+		}
+	      i++;
+	      j++;
+
 	    }
 	}
-      else
+
+      if (!tie_p_arr_.size ())
 	{
-	  now_heads_.sort (CHead_melodic_tuple::pitch_compare);
-	  stopped_heads_.sort(CHead_melodic_tuple::pitch_compare);
-	  int i=0;
-	  int j=0;
-	  int tie_count=0;
-	  while  ( i < now_heads_.size () && j < stopped_heads_.size ())
-	    {
-	      int comp
-		= Musical_pitch::compare (now_heads_[i].req_l_->pitch_ ,
-					  stopped_heads_[j].req_l_->pitch_);
-
-	      if (comp)
-		{
-		  (comp < 0) ? i ++ : j++;
-		  continue;
-		}
-	      else
-		{
-		  tie_count ++;
-
-		  /* don't go around recreating ties that were already
-		  made. Not infallible. Due to reordering in sort (),
-		  we will make the wrong ties when noteheads are
-		  added.  */
-		  if (tie_count > tie_p_arr_.size ())
-		    {
-		      Tie * p = new Tie;
-		      p->set_head (LEFT, stopped_heads_[j].head_l_);
-		      p->set_head (RIGHT, now_heads_[i].head_l_);
-		      tie_p_arr_.push (p);
-		      announce_element (Score_element_info (p, req_l_));
-		    }
-		  i++;
-		  j++;
-
-		}
-	    }
-
-	  if (!tie_p_arr_.size ())
-	    {
-	      req_l_->warning (_ ("No ties were created!"));
-	    }
+	  req_l_->warning (_ ("No ties were created!"));
+	}
 	  
-	}
     }
 }
+
 
 void
 Tie_engraver::do_pre_move_processing ()
@@ -168,14 +136,14 @@ Tie_engraver::do_pre_move_processing ()
     }
   now_heads_.clear ();
 
-  Scalar dir (get_property ("tieVerticalDirection", 0));
-  Scalar dir2 (get_property ("verticalDirection", 0));
+  SCM dir (get_property ("tieVerticalDirection", 0));
+  SCM dir2 (get_property ("verticalDirection", 0));
 
   Direction tie_dir = CENTER;
-  if (dir.length_i () && dir.isnum_b ())
-    tie_dir = (Direction) sign (int(dir));
-  else if (dir2.length_i () && dir2.isnum_b ())
-    tie_dir = (Direction) sign (int (dir2));
+  if (SCM_NUMBERP(dir))
+    tie_dir = to_dir (dir);
+  else if (isdir_b (dir2))
+    tie_dir = to_dir (dir2);
   
   for (int i=0; i<  tie_p_arr_.size (); i++)
    {
@@ -188,7 +156,8 @@ Tie_engraver::do_pre_move_processing ()
 void
 Tie_engraver::do_post_move_processing ()
 {
-  if (get_property ("automaticMelismata",0).to_bool ())
+  SCM m = get_property ("automaticMelismata",0);
+  if (gh_boolean_p (m) && gh_scm2bool (m))
     {
       set_melisma (false);
     }

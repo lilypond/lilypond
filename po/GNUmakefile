@@ -15,7 +15,6 @@ EXTRA_DIST_FILES = TODO $(PO_FILES) $(POT_FILES)
 STEPMAKE_TEMPLATES=podir
 
 include $(depth)/make/stepmake.make 
-include $(stepdir)/po-rules.make
 
 default: $(MO_FILES)
 
