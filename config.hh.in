@@ -10,7 +10,7 @@
 #define LILYPOND_DATADIR PACKAGE_DATADIR
 
 /* LilyPond specific init and input directory */
-#define LOCAL_PACKAGE_DATADIR "@local_package_datadir@"
+#define LOCAL_PACKAGE_DATADIR "@LOCAL_PACKAGE_DATADIR@"
 #define LOCAL_LILYPOND_DATADIR LOCAL_PACKAGE_DATADIR
 
 /* default lilypond locale dir */
