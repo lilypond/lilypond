@@ -112,10 +112,9 @@
     ((loose-end -1 1) . (-4 . 0))
     ))
 
-
 ; this is put into the slur-details property of Slur and PhrasingSlur
 (define default-slur-details
-  '((slur-region-size . 5)
+  '((region-size . 4)
     (head-encompass-penalty . 1000.0)
     (stem-encompass-penalty . 30.0)
     (closeness-factor . 10)
@@ -123,7 +122,6 @@
     (same-slope-penalty . 20)
     (steeper-slope-factor . 50)
     (non-horizontal-penalty . 15)
-    (head-strict-free-space . 0.2)
     (max-slope . 1.1)
     (max-slope-factor . 10)
     (free-head-distance . 0.3)

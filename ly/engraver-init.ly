@@ -515,6 +515,10 @@ AncientRemoveEmptyStaffContext = \context {
     chordNameExceptionsFull = #fullJazzExceptions
     chordNameExceptionsPartial = #partialJazzExceptions
     
+
+    bassStaffProperties = #'((assign clefGlyph "clefs-F")
+      (assign clefPosition 2)
+      (assign middleCPosition 6))
     %% tablature:
     stringOneTopmost = ##t
     highStringOne = ##t

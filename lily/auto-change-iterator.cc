@@ -21,6 +21,7 @@ public:
   Auto_change_iterator ();
 
 protected:
+  virtual void do_quit ();
   virtual void construct_children ();
   virtual void process (Moment);  
   Array<Pitch> pending_pitch (Moment)const;
@@ -29,6 +30,10 @@ private:
   Direction where_dir_;
   void change_to (Music_iterator* , SCM, String);
   Moment start_moment_;
+
+  Interpretation_context_handle up_;
+  Interpretation_context_handle down_;
+
 };
 
 
@@ -120,9 +125,32 @@ Auto_change_iterator::Auto_change_iterator ()
 void
 Auto_change_iterator::construct_children ()
 {
-  Music_wrapper_iterator::construct_children ();
   split_list_ =  get_music ()->get_property ("split-list");
   start_moment_ = get_outlet ()->now_mom ();
+
+  SCM props = get_outlet()->get_property ("trebleStaffProperties");
+  Context *up = get_outlet()->find_create_context (ly_symbol2scm ("Staff"),
+						   "up", props);
+
+  props = get_outlet()->get_property ("bassStaffProperties");
+  Context *down = get_outlet()->find_create_context (ly_symbol2scm ("Staff"),
+						   "down", props);
+  
+  up_.set_translator (up);
+  down_.set_translator (down);
+
+  Context *voice = up->find_create_context (ly_symbol2scm ("Voice"),
+					   "", SCM_EOL);
+  set_translator (voice);
+  Music_wrapper_iterator::construct_children ();
+
 }
 
+void
+Auto_change_iterator::do_quit()
+{
+  up_.set_translator (0);
+  down_.set_translator (0);
+  
+}
 IMPLEMENT_CTOR_CALLBACK (Auto_change_iterator);
