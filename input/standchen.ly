@@ -9,7 +9,7 @@
 % The purpose of this file is to demonstrate features of LilyPond.
 % (there is an accompanying LaTeX file, standchen.tex)
 %
-\version "0.0.53";
+\version "0.0.54";
 
 melodie = \melodic{  
 	\meter  3/4 ;

@@ -2,7 +2,7 @@
 %
 %	Public Domain -- typed by by HWN
 %
-\version "0.0.53";
+\version "0.0.54";
 
 global = \melodic{
  	\meter 4/4 ;
