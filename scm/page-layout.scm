@@ -286,10 +286,13 @@
 		 (list ""
 		       (markup #:fill-line (#:large #:bigger (get 'instrument))))
 		 '())
-	     (if (has 'piece)
-		 (list ""
-		       (markup #:fill-line (#:large #:bigger #:caps (get 'piece) "")))
-		 '())
+
+	     ;; piece is done in the score-title  
+;	     (if (has 'piece)
+;		 (list ""
+;		       (markup #:fill-line (#:large #:bigger #:caps (get 'piece) "")))
+;		 '())
+	     
 	     )))))))
      )))
 	     
