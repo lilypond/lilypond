@@ -24,7 +24,7 @@ Atom
 Lookup::beam_element (int sidx, int widx, Real slope) const
 {
   String name = String("slope");
-  Atom bs=(*symtables_)("beamslopes")->lookup (name);
+  Atom bs=(*symtables_p_)("beamslopes")->lookup (name);
 
   Array<String> args;
   args.push (sidx);
@@ -41,7 +41,7 @@ Lookup::beam_element (int sidx, int widx, Real slope) const
 Atom
 Lookup::rule_symbol (Real height, Real width) const
 {
-  Atom bs=(*symtables_)("beamslopes")->lookup ("horizontal");
+  Atom bs=(*symtables_p_)("beamslopes")->lookup ("horizontal");
   Array<String> args;
   args.push (print_dimen (height));
   args.push (print_dimen (width));
@@ -64,7 +64,7 @@ Lookup::beam (Real &slope, Real width) const
   sidx = int (rint (slope *  20.0));
   slope = sidx / 20.0;
 
-  Interval xdims = (*symtables_)("beamslopes")->lookup ("slope").dim_[X_AXIS];
+  Interval xdims = (*symtables_p_)("beamslopes")->lookup ("slope").dim_[X_AXIS];
   Real min_wid = xdims[LEFT];
   Real max_wid = xdims[RIGHT];
   assert(max_wid > 0);

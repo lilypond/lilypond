@@ -51,7 +51,6 @@
 \parindent=0pt
 \newdimen\smallspace
 \newdimen\interlinedist
-\newdimen\ledgerlinethickness
 \newdimen\stemthickness
 \newcount\n
 \newdimen\balkheight
@@ -106,7 +105,6 @@
         % We know better
         \staffrulethickness=0.1\interlinedist
         \stemthickness=\staffrulethickness
-        \ledgerlinethickness=2\staffrulethickness
 }
 
 % stacked numbers; may be overruled in fetdefs
@@ -121,29 +119,6 @@
 \input taupindefs
 %\input eglerdefs
 
-\musicmathdef\cup{91} % \cup
-\musicmathdef\wedge{94} % \wedge
-\musicmathdef\striepke{0} % heu?
-
-%% custom characters --- this should go: add to (meta!) font
-% \def\myheel{\kern-.5ex\vbox{\cup}\kern-.5ex}
-% \def\mytoe{\kern-.5ex\vbox{\wedge}\kern-.5ex}
-\def\myheel{\vbox{\cup}}
-\def\mytoe{\vbox{\wedge}}
-% \def\mystriepke{\kern-1.1ex\vbox{\hbox{\kern-.05em\striepke}}\kern-1.1ex}
-\def\mystriepke{\kern-1.8ex\vbox{\hbox{\kern-.05em\striepke}}\kern-1.8ex}
-
-\def\heel{\vbox{\myheel}}
-\def\toe{\vbox{\mytoe}}
-\def\backorfront{\mystriepke}
-
-\def\bheel{\vbox{\myheel\mystriepke}}
-\def\btoe{\vbox{\mytoe\mystriepke}}
-\def\fheel{\vbox{\mystriepke\myheel}}
-\def\ftoe{\vbox{\mystriepke\mytoe}}
-\def\heeltoe{\vbox{\myheel\mytoe}}
-\def\toeheel{\vbox{\mytoe\myheel}}
-%%
 
 \def\emptybar{}
 
@@ -201,31 +176,6 @@
 \def\hslurcharh#1{{\hslurhfont\char#1}}
 \def\hslurcharu#1{{\hslurufont\char#1}}
 \def\hslurchard#1{{\hslurdfont\char#1}}
-
-\def\lines#1#2#3{%
- \vbox{\kern-\interstaffrule
-        \n=0\nointerlineskip%
-        \loop\ifnum\n<#1\advance\n by1%
-                \kern\interstaffrule
-                \nointerlineskip
-                \vbox to 0pt{\hrule height .5#3 depth .5#3 width#2%
-                        \vss}\nointerlineskip
-                \repeat
-        }}
-
-%%
-% Ugh. Need to redo this. Wish we had PS.
-%
-\def\topledgerlines#1#2{\dist#1
-        \topalign{\hbox{\kern-.25\dist\lines{#2}{1.5\dist}{\ledgerlinethickness}}}}
-
-\def\botledgerlines#1#2{\dist#1
-        \botalign{\hbox{\kern-.25\dist\lines{#2}{1.5\dist}{\ledgerlinethickness}}}}
-
-%
-% a staffsymbol with #1 lines, width #2
-% bottom at baseline
-\def\linestafsym#1#2{\leftalign{\botalign{\lines{#1}{#2}{\staffrulethickness}}}}
 
 \def\stem#1#2{\hbox{\kern -.5\stemthickness
         \vrule width\stemthickness height#2 depth-#1}}

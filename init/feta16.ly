@@ -35,7 +35,7 @@
         "1"	"\\halfball"	-0.00\pt	5.51\pt	-2.20\pt	2.20\pt	
         "1l"	"\\halfledger"	-1.38\pt	6.89\pt	-0.40\pt	0.40\pt	
         "2"	"\\quartball"	-0.00\pt	5.28\pt	-2.20\pt	2.20\pt	
-        "2l"	"\\quartledger"	-1.32\pt	6.61\pt	-0.40\pt	0.40\pt	
+        "2l"	"\\quartledger"	0.\pt	0.\pt	-0.40\pt	0.40\pt	
         }
     "scripts"	 = \table {
         "ufermata"	"\\ufermata"	-5.30\pt	5.30\pt	-0.30\pt	5.80\pt	

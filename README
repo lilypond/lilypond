@@ -66,5 +66,10 @@ The website also contains the complete documentation
 
 7. CAVEATS
 
-Please read the file BUGS for some ugly bugs.  This especially applies
+* Please read the file BUGS for some ugly bugs.  This especially applies
 Linux-Intel unix users.
+
+* If you have installed a previous version, be sure to remove old font
+files, eg
+
+	rm `find /var/lib/texmf/fonts -name 'feta*'`

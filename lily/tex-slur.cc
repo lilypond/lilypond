@@ -157,17 +157,17 @@ Lookup::slur (int dy , Real &dx, Direction dir) const
       Real fdx = dx;
       String ps = "\\embeddedps{\n";
       // ugh, how bout " /draw_slur { ... } def "
-      ps += String_convert::int_str (fdx) + " " 
-      	+ String_convert::int_str (fdy) + " "
-	+ String_convert::int_str (dir) +
+      ps += String_convert::double_str (fdx) + " " 
+      	+ String_convert::double_str (fdy) + " "
+	+ String_convert::double_str (dir) +
 	" draw_slur}";
 
       String mf = "\\embeddedmf{\n";
       mf += "input feta-sleur;\n";
       mf += "draw_slur((0,0),";
-      mf += "(" + String_convert::int_str (fdx) + "," 
-      	+ String_convert::int_str (fdy) + "),";
-      mf += String_convert::int_str (dir) + ");\n";
+      mf += "(" + String_convert::double_str (fdx) + "," 
+      	+ String_convert::double_str (fdy) + "),";
+      mf += String_convert::double_str (dir) + ");\n";
       mf += "end.\n";
       mf += "}\n";
 

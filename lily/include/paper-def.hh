@@ -42,7 +42,13 @@ public:
   virtual ~Paper_def();
   DECLARE_MY_RUNTIME_TYPEINFO;
 
+  /**
+    Set or overwrite a variable
+   */
   void set_var (String, Real);
+  /**
+    Read a variable.  Crash if it doesn't exist.
+   */
   Real get_var (String) const;
   void reinit();
   Paper_def();
