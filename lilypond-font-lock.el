@@ -91,9 +91,9 @@
       '("\\(\\(-.\\)+\\|[^-^_]\\)\\([<>]+\\(\\(128\\|6?4\\|3?2\\|16?\\|8\\|\\\\\\(breve\\|longa\\)\\)[.]*\\([ \t]*[*][ \t]*[0-9]+\\(/[1-9][0-9]*\\)?\\)?\\)?\\|\\\\\\\\\\)" 3 font-lock-function-name-face t)
 
 ;; "on top", ... expressional grouping:
-;;               - slurs ( ), \( \), -( -)
+;;               - slurs ( ), \( \), [-^_][()]
 ;;               - hairpins \<, \>, \! 
-      '("\\(\\\\[(<!>)]\\|-?[()]\\)" 0 font-lock-builtin-face t)
+      '("\\(\\\\[(<!>)]\\|[-^_]?[()]\\)" 0 font-lock-builtin-face t)
 
 ;; "on top", ... lyrics-mode: fontify everything between '{' and '}'
       '("\\(\\\\lyrics[^{]*{\\)\\([^}]*\\)" 2 font-lock-string-face t)
