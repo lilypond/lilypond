@@ -199,7 +199,102 @@ reported and discussed on the
 @uref{http://mail.gnu.org/pipermail/lilypond-user, lilypond-user
 (archives)} mailing list.
 
-@section Requirements and DLLs
+@subsection Setup.exe does not run at all
+
+Make sure that you run @uref{http://cygwin.com/setup.exe, this latest
+setup.exe}.
+This will also work if  you were using a setup.exe you donwloaded
+before from lilypond.org before.
+
+If you're sure that you have the very latest version, and it doesn't
+work, and the @uref{http://cygwin.com/ml/cygwin, cygwin-user archives}
+do not mention the problem, write to @email{cygwin@@cygwin.com}.
+Setup is under heavy development, so you may have been unlucky and
+have dowloaded a buggy version.
+
+@subsection ly2dvi:error: filename should not contain spaces
+
+@quotation
+@emph{I don't seem to be able to either change this "default" or to point
+Lilypond to another directory which does not have the space.}
+@quotation
+@example
+ly2dvi:error: filename should not contain spaces: `/usr/bin/Ralph Whedon/foo'
+@end example
+@end quotation
+@emph{Any ideas what I should do?}
+@end quotation
+Best is to create a new home directory.  Start the Cygwin or LilyPond
+shell, and do:
+@quotation
+@example
+HOME=/home/ralph
+mkdir -p $HOME
+cd
+@end example
+@end quotation
+To go there automatically, each time you log in, edit the file
+@quotation
+@example
+/etc/passwd   # windows name: c:\cygwin\etc\passwd
+@end example
+@end quotation
+
+using vim or wordpad, and change the `/usr/bin/Ralph Whedon/' to
+`/home/ralph'.
+
+@subsection What's this Bash/Cygwin shell?
+
+The bash shell is a basic UNIX-like console that we use for the
+Windows release.  Using such an intercompatible shell makes it easier
+to maintain the Windows release reasonably, notably because it works
+the same as the normal UNIX setup.  Keep in mind that none of the
+developers are using Windows.
+
+Also it is possible to build LilyPond from source with a complete
+Cygwin install, see @uref{compiling.html,Compiling LilyPond on Windows}.
+
+Bash is not very different from the MS-DOS shell, you'll just have to
+(re-)learn a few commands needed to browse through your hard-drive.
+Here are some commands you'll definitely be needing.
+
+To change folders, the usual @code{cd}
+
+@quotation
+@example
+cd ../..    # If you type this at startup, you should be in the root
+            # directory.  Better do:
+cd /            
+@end example
+@end quotation
+
+You'll notice that file names in Bash are written with the slash (/),
+and not the backslash (\) bar as in MS-DOS and Windows.
+
+@quotation
+@example
+C:\Win98\Bureau\  ---> /cygdrive/c/Win98/Bureau
+@end example
+@end quotation
+The equivalent of the MS-DOS dir command is ls -l :
+@quotation
+@example
+ls -l       #You'll get the listing of the current folder.
+@end example
+@end quotation
+To copy a file, use the cp command:
+@quotation
+@example
+cp srcfile destfile
+@end example
+@end quotation
+For more information, see the
+@uref{http://www.linuxdoc.org/HOWTO/DOS-Win-to-Linux-HOWTO.html,DOS/Windows
+to Linux HOWTO}.
+
+
+
+@subsection Requirements and DLLs
 
 TeTeX and LilyPond depend on a number of library packages, but as it
 seems, they sometimes do not get selected automagically.
@@ -231,7 +326,47 @@ Also, the more general info on missing DLLs may be helpful:
     @uref{http://cygwin.com/ml/cygwin/2002-01/msg01619.html}
 @end example
 
-@section Bugreports
+@subsection Why don't you fix this?
+
+Well, we've tried several times, but we can't reproduce the problem
+('It works for me').  If you're experiencing DLL problems, you're much
+invited to help us find the bug and fix it.  You can install the
+binutils package, and use objdump to find which executable depends on
+the missing dll.
+@quotation
+@example
+objdump -x <path to download dir>/setup.exe | grep -i dll
+objdump -x /usr/bin/awk.exe | grep -i dll
+objdump -x /usr/bin/python.exe | grep -i dll
+@end example
+@end quotation
+Of course, you should check what version of the offending package you
+have installed (see @file{/var/log/setup.log} and
+@file{/var/log/setup.log.full)}.
+
+@subsection Check your TeX installation
+
+Start a LilyPond shell and run
+@quotation
+@example
+latex sample2e
+@end example
+@end quotation
+This should print a few lines of information and produce a file
+@file{sample2e.dvi}. Then run
+@quotation
+@example
+dvips sample2e
+@end example
+@end quotation
+
+which produces a sample2e.ps, which you can view using @code{gsview32}.
+
+When this works correctly, you could resume your attempts with
+LilyPond.
+
+
+@subsection Bugreports
 
 So you have checked by running @uref{http://cygwin.com/setup.exe,
 Update Lily now} that you run the latest version, and
