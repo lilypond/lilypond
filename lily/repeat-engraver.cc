@@ -6,7 +6,8 @@
   (c) 1998--2000 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "repeat-engraver.hh"
+#include "engraver.hh"
+#include "cons.hh"
 #include "bar.hh"
 #include "bar-engraver.hh"
 #include "musical-request.hh"
@@ -20,6 +21,56 @@
 #include "note-column.hh"
 #include "paper-def.hh"
 #include "music-list.hh"
+#include "side-position-interface.hh"
+
+struct Bar_create_event
+{
+  Moment when_;
+  bool bar_b_;
+  bool last_b_;
+  String type_;
+  Bar_create_event();
+  Bar_create_event (Moment w, String s);
+  Bar_create_event (Moment w, int i, int j);
+};
+
+int compare (Bar_create_event const & c1, Bar_create_event const &c2)
+{
+  return (c1.when_ - c2.when_).sign();
+}
+
+/**
+  Generate repeat-bars |: :| for repeated-music
+  */
+class Repeat_engraver : public Engraver 
+{
+public:
+  VIRTUAL_COPY_CONS(Translator);
+  Repeat_engraver ();
+protected:
+  virtual void acknowledge_element (Score_element_info i);
+  virtual void do_removal_processing ();
+  virtual bool do_try_music (Music *req_l);
+  virtual void do_process_music();
+  virtual void do_pre_move_processing();
+  virtual void do_post_move_processing ();
+  void queue_events ();
+
+private:
+  Repeated_music *repeated_music_l_;
+  bool done_this_one_b_;
+
+  /*
+    Royal_brackla_create_queue is only two Whiskies away. :-)
+   */
+  Cons<Bar_create_event> *create_barmoments_queue_;
+
+  Spanner * volta_span_p_;
+  Spanner* end_volta_span_p_;
+};
+
+
+
 
 ADD_THIS_TRANSLATOR (Repeat_engraver);
 
@@ -180,7 +231,8 @@ Repeat_engraver::do_process_music ()
 	  else
 	    {
 	      assert (!volta_span_p_);
-	      volta_span_p_ = new Volta_spanner (get_property ("basicVoltaSpannerProperties"));
+	      volta_span_p_ = new Spanner (get_property ("basicVoltaSpannerProperties"));
+	      Volta_spanner::set_interface (volta_span_p_);
 	      announce_element (Score_element_info (volta_span_p_,0));
 	      volta_span_p_->set_elt_property ("text",
 					       ly_str02scm (t.ch_C()));
@@ -212,16 +264,16 @@ Repeat_engraver::acknowledge_element (Score_element_info i)
   if (Note_column *c = dynamic_cast<Note_column *> (i.elem_l_))
     {
       if (volta_span_p_)
-	volta_span_p_->add_column (c);
+	Volta_spanner::add_column (volta_span_p_,c);
       if (end_volta_span_p_)
-	end_volta_span_p_->add_column (c);      
+	Volta_spanner::add_column (end_volta_span_p_,c);      
     }
   if (Bar *c = dynamic_cast<Bar*> (i.elem_l_))
     {
       if (volta_span_p_)
-	volta_span_p_->add_bar (c);
+	Volta_spanner::add_bar (volta_span_p_,c);
       if (end_volta_span_p_)
-	end_volta_span_p_ ->add_bar(c);
+	Volta_spanner::add_bar(end_volta_span_p_ , c);
     }
 }
 
@@ -257,6 +309,8 @@ Repeat_engraver::do_pre_move_processing ()
 {
   if (end_volta_span_p_)
     {
+      Side_position_interface (end_volta_span_p_).add_staff_support ();
+      
       typeset_element (end_volta_span_p_ );
       end_volta_span_p_ =0;
     }

@@ -19,32 +19,34 @@
 #include "group-interface.hh"
 #include "stem.hh"
 #include "staff-symbol-referencer.hh"
-
-Multi_measure_rest::Multi_measure_rest (SCM s)
-  : Spanner (s)
+void
+Multi_measure_rest::set_interface (Score_element*me)
 {
-  set_elt_pointer ("columns", SCM_EOL);
+  me->set_elt_pointer ("columns", SCM_EOL);
 }
 
+Multi_measure_rest::Multi_measure_rest (SCM s)
+  : Spanner(s)
+{}
 
 /*
    [TODO]                                      17
  * variable-sized multi-measure rest symbol: |====| ??
 */
-
-GLUE_SCORE_ELEMENT(Multi_measure_rest,brew_molecule);
-
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Multi_measure_rest,brew_molecule);
 SCM
-Multi_measure_rest::member_brew_molecule () const
+Multi_measure_rest::brew_molecule (SCM smob) 
 {
+  Score_element *me = unsmob_element (smob);
+  Spanner * sp = dynamic_cast<Spanner*> (me);
   Real staff_space
-    = Staff_symbol_referencer_interface (this).staff_space ();
+    = Staff_symbol_referencer_interface (me).staff_space ();
 
   Interval sp_iv;
   Direction d = LEFT;
   do
     {
-      Item * col = get_bound (d)->column_l ();
+      Item * col = sp->get_bound (d)->column_l ();
 
       Interval coldim = col->extent (X_AXIS)
 	+ col->relative_coordinate (0, X_AXIS);
@@ -55,7 +57,7 @@ Multi_measure_rest::member_brew_molecule () const
   Molecule mol;
   Real x_off = 0.0;
 
-  Real rx  = get_bound (LEFT)->relative_coordinate (0, X_AXIS);
+  Real rx  = sp->get_bound (LEFT)->relative_coordinate (0, X_AXIS);
   /*
     we gotta stay clear of sp_iv, so move a bit to the right if
     needed.
@@ -71,14 +73,14 @@ Multi_measure_rest::member_brew_molecule () const
   Molecule s;
 
   int measures = 1;
-  SCM m (get_elt_property ("measure-count"));
+  SCM m (me->get_elt_property ("measure-count"));
   if (gh_number_p (m))
     {
       measures = gh_scm2int (m);
     }
   
 
-  if (measures <= paper_l() ->get_var ("multi_measure_rest_expand_limit"))
+  if (measures <= me->paper_l() ->get_var ("multi_measure_rest_expand_limit"))
     {
       /*
 	Build a rest from smaller parts. Distances inbetween are
@@ -105,9 +107,9 @@ Multi_measure_rest::member_brew_molecule () const
 	    }
 
 	  Real pad = s.empty_b ()
-	    ? 0.0 : paper_l ()->get_var ("multi_measure_rest_padding");
+	    ? 0.0 : me->paper_l ()->get_var ("multi_measure_rest_padding");
       
-	  Molecule r (lookup_l ()->afm_find ("rests-" + to_str (k)));
+	  Molecule r (me->lookup_l ()->afm_find ("rests-" + to_str (k)));
 	  if (k == 0)
 	    r.translate_axis (staff_space, Y_AXIS);
 	  
@@ -120,14 +122,14 @@ Multi_measure_rest::member_brew_molecule () const
   else 
     {
       String idx =  ("rests-") + to_str (-4);
-      s = lookup_l ()->afm_find (idx);
+      s = me->lookup_l ()->afm_find (idx);
     }
   
   mol.add_molecule (s);
 
   if (measures > 1)
     {
-      Molecule s (lookup_l ()->text ("number", to_str (measures), paper_l ()));
+      Molecule s (me->lookup_l ()->text ("number", to_str (measures), me->paper_l ()));
       s.align_to (X_AXIS, CENTER);
       s.translate_axis (3.0 * staff_space, Y_AXIS);
       mol.add_molecule (s);
@@ -139,19 +141,13 @@ Multi_measure_rest::member_brew_molecule () const
 /*
   UGH. JUNKME elt prop "columns" isn't really needed. 
  */
-
-
-
- 
 void
-Multi_measure_rest::add_column (Item* c)
+Multi_measure_rest::add_column (Score_element*me,Item* c)
 {
-  Pointer_group_interface gi (this, "columns");
+  Pointer_group_interface gi (me, "columns");
   gi.add_element (c);
 
-  add_bound_item (this, c);
-  
-  add_dependency (c);
+  add_bound_item (dynamic_cast<Spanner*> (me),c);
 }
 
 

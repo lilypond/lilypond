@@ -20,29 +20,24 @@ class Tie : public Spanner
 {
 public:
   Tie (SCM);
-  void set_head (Direction, Item*head_l);
+  static void set_head (Score_element*,Direction, Item*head_l);
+  static void set_interface (Score_element*);
   VIRTUAL_COPY_CONS(Score_element);
-
-  Rhythmic_head* head (Direction) const;
-  Real position_f () const;
+  static Rhythmic_head* head (Score_element*,Direction) ;
+  static Real position_f (Score_element*) ;
   static SCM brew_molecule (SCM);
-  Direction get_default_dir() const;
-  SCM member_brew_molecule () const;
-  Array<Offset> get_encompass_offset_arr () const;
-  Bezier get_curve () const;
+  static Direction get_default_dir(Score_element*) ;
+  static SCM after_line_breaking (SCM);
+
 
   /*
     JUNKME
    */
+  Array<Offset> get_encompass_offset_arr () const;
+  Bezier get_curve () const;
   Drul_array<Real> dy_f_drul_;
   Drul_array<Real> dx_f_drul_;
-
-  virtual void do_add_processing ();
-  SCM member_after_line_breaking ();
-  static SCM after_line_breaking (SCM);
-
   virtual Array<Rod> get_rods () const;
-
   Array<Offset> get_controls () const;
 };
 

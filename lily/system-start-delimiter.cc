@@ -55,18 +55,27 @@ System_start_delimiter::simple_bar (Real h) const
   return lookup_l ()->filledbox (Box (Interval(0,w), Interval(-h/2, h/2)));
 }
 
-GLUE_SCORE_ELEMENT(System_start_delimiter,after_line_breaking);
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(System_start_delimiter,after_line_breaking);
+
 SCM
-System_start_delimiter::member_after_line_breaking ()
+System_start_delimiter::after_line_breaking (SCM smob)
 {
-  SCM   gl = get_elt_property ("glyph");
-  
-  if (scm_ilength (get_elt_pointer ("elements")) <=  1 && gl == ly_symbol2scm ("bar-line"))
-    {
-      suicide ();
-    }
+  try_collapse (unsmob_element (smob));
   return SCM_UNDEFINED;
 }
+
+void
+System_start_delimiter::try_collapse (Score_element*me)
+{
+  SCM   gl = me->get_elt_property ("glyph");
+  
+  if (scm_ilength (me->get_elt_pointer ("elements")) <=  1 && gl == ly_symbol2scm ("bar-line"))
+    {
+      me->suicide ();
+    }
+  
+}
+
 
 MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(System_start_delimiter,brew_molecule);
 

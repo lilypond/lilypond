@@ -11,7 +11,8 @@
 /**
   A vertical bar.
  */
-class Bar:public Item {
+class Bar:public Item
+{
 public:
   VIRTUAL_COPY_CONS(Score_element);
   Bar(SCM);

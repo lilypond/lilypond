@@ -16,13 +16,13 @@
 class Tie_column : public Spanner
 {
 public:
-  VIRTUAL_COPY_CONS (Score_element);
-  void add_tie (Tie*);
   Tie_column (SCM s);
+  VIRTUAL_COPY_CONS (Score_element);
+  static void set_interface (Score_element*me);
+  static void add_tie (Score_element*me,Tie*);
 
-  SCM member_after_line_breaking ();
   static SCM after_line_breaking (SCM);
-  void set_directions ();
+  static void set_directions (Score_element*me);
 };
 
 #endif /* TIE_COLUMN_HH */

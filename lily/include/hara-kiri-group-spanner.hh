@@ -10,7 +10,8 @@
 #ifndef HARA_KIRI_VERTICAL_GROUP_SPANNER_HH
 #define HARA_KIRI_VERTICAL_GROUP_SPANNER_HH
 
-#include "spanner.hh"
+#include "lily-guile.hh"
+#include "lily-proto.hh"
 
 /** 
   As Vertical_group_spanner, but keep track of interesting items.  If
@@ -24,17 +25,13 @@
     clear this line
 
 */
-class Hara_kiri_group_spanner : public Spanner
+class Hara_kiri_group_spanner 
 {
 public:
-  static Real force_hara_kiri_callback (Score_element const* , Axis);
-  Hara_kiri_group_spanner (SCM);
-  SCM member_after_line_breaking ();
-  static SCM after_line_breaking (SCM);
-  
-  void add_interesting_item (Item* n);
-
-  VIRTUAL_COPY_CONS(Score_element);
+  static Real force_hara_kiri_callback (Score_element * , Axis);
+  static void set_interface (Score_element*me);
+  static void consider_suicide (Score_element*me);
+  static void add_interesting_item (Score_element * me , Item* n);
 };
 
 

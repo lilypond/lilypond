@@ -8,49 +8,41 @@
 */
 
 #include "axis-group-interface.hh"
+#include "spanner.hh"
 #include "hara-kiri-group-spanner.hh"
 #include "debug.hh"
 #include "item.hh"
 
-/*
- */
-Hara_kiri_group_spanner::Hara_kiri_group_spanner(SCM s)
-  : Spanner (s)
+void
+Hara_kiri_group_spanner::set_interface (Score_element*me)
 {
-  set_elt_pointer ("items-worth-living", SCM_EOL);
+  me->set_elt_pointer ("items-worth-living", SCM_EOL);
 }
 
 void 
-Hara_kiri_group_spanner::add_interesting_item (Item* n)
+Hara_kiri_group_spanner::add_interesting_item (Score_element* me,Item* n)
 {
-  add_dependency (n);
-  Pointer_group_interface (this, "items-worth-living").add_element (n);
+  me->add_dependency (n);
+  Pointer_group_interface (me, "items-worth-living").add_element (n);
 
 }
 
-GLUE_SCORE_ELEMENT(Hara_kiri_group_spanner,after_line_breaking);
-SCM 
-Hara_kiri_group_spanner::member_after_line_breaking ()
+void
+Hara_kiri_group_spanner::consider_suicide(Score_element*me)
 {
-  SCM worth = get_elt_pointer ("items-worth-living");
+  SCM worth = me->get_elt_pointer ("items-worth-living");
   if (gh_pair_p (worth))
-    return SCM_UNDEFINED;
+    return ;
 
-  Link_array<Score_element> childs = Axis_group_interface (this).get_children ();
+  Link_array<Score_element> childs = Axis_group_interface (me).get_children ();
   for (int i = 0; i < childs.size (); i++)
-    {
-      Score_element* s = childs[i];
+    childs[i]->suicide ();
 
-      if ( line_l () != s->line_l ())
-	programming_error ("Killing other children too");
-      s->suicide ();
-    }
 
   /*
     very appropriate name here :-)
    */
-  suicide ();
-  return SCM_UNDEFINED;
+  me->suicide ();
 }
 
 
@@ -60,18 +52,16 @@ Hara_kiri_group_spanner::member_after_line_breaking ()
   group. Use a callback to make sure that hara-kiri has been done
   before asking for offsets.  */
 Real
-Hara_kiri_group_spanner::force_hara_kiri_callback (Score_element const  *elt, Axis a)
+Hara_kiri_group_spanner::force_hara_kiri_callback (Score_element *elt, Axis a)
 {
-  while (elt && !dynamic_cast<Hara_kiri_group_spanner const*> (elt))
+  while (elt
+	 && to_boolean (elt->get_elt_property ("hara-kiri-interface")))
     elt = elt->parent_l(a);
 
   if (elt)
     {
-      Hara_kiri_group_spanner const  * seppuku = dynamic_cast<Hara_kiri_group_spanner const*> (elt);
-
-      ((Hara_kiri_group_spanner*)seppuku)->member_after_line_breaking ();
+      Hara_kiri_group_spanner::consider_suicide (elt);
     }
-  
 
   return 0.0;
 }

@@ -9,11 +9,14 @@
 #include "hara-kiri-group-spanner.hh"
 #include "hara-kiri-engraver.hh"
 #include "rhythmic-head.hh"
+#include "spanner.hh"
 
 Spanner*
 Hara_kiri_engraver::get_spanner_p () const
 {
-  return new Hara_kiri_group_spanner (get_property ("basicHaraKiriVerticalGroupspannerProperties"));
+  Spanner * sp = new Spanner (get_property ("basicHaraKiriVerticalGroupspannerProperties"));
+  Hara_kiri_group_spanner::set_interface (sp);
+  return sp;
 }
 
 void
@@ -25,9 +28,7 @@ Hara_kiri_engraver::acknowledge_element (Score_element_info i)
   
   if (Rhythmic_head *h = dynamic_cast<Rhythmic_head *> (i.elem_l_))
     {
-      dynamic_cast<Hara_kiri_group_spanner*> (staffline_p_)
-	->add_interesting_item (h);
+      Hara_kiri_group_spanner::add_interesting_item (staffline_p_, h);
     }
-  
 }
 ADD_THIS_TRANSLATOR(Hara_kiri_engraver);

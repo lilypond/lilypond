@@ -57,9 +57,9 @@ Multi_measure_rest_engraver::acknowledge_element (Score_element_info i)
   if (Bar *c = dynamic_cast<Bar*> (i.elem_l_))
     {
       if (mmrest_p_)
-	mmrest_p_->add_column (c);
+	Multi_measure_rest::add_column (mmrest_p_,c);
       if (lastrest_p_)
-	lastrest_p_->add_column (c);
+	Multi_measure_rest::add_column (mmrest_p_,c);
     }
 }
 
@@ -110,8 +110,8 @@ Multi_measure_rest_engraver::do_process_music ()
   if (busy_span_req_l_ && !mmrest_p_)
     {
       mmrest_p_ = new Multi_measure_rest (get_property ("basicMultiMeasureRestProperties"));
-      Staff_symbol_referencer_interface si (mmrest_p_);
-      si.set_interface ();
+      Multi_measure_rest::set_interface (mmrest_p_);
+      Staff_symbol_referencer_interface::set_interface (mmrest_p_);
 
       announce_element (Score_element_info (mmrest_p_, busy_span_req_l_));
       start_measure_i_

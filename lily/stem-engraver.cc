@@ -35,7 +35,7 @@ protected:
 private:
   int default_tremolo_type_i_;
   Stem *stem_p_;
-  Stem_tremolo *tremolo_p_;
+  Score_element *tremolo_p_;
   Rhythmic_req *rhythmic_req_l_;
   Tremolo_req* tremolo_req_l_;
 };
@@ -77,8 +77,8 @@ Stem_engraver::acknowledge_element(Score_element_info i)
       if (!stem_p_) 
 	{
 	  stem_p_ = new Stem (get_property ("basicStemProperties"));
-	  Staff_symbol_referencer_interface st(stem_p_);
-	  st.set_interface ();
+	  Staff_symbol_referencer_interface::set_interface(stem_p_);
+
 	  
 	  stem_p_->set_elt_property ("duration-log", gh_int2scm (duration_log));
 
@@ -101,7 +101,9 @@ Stem_engraver::acknowledge_element(Score_element_info i)
 
 	      if (requested_type)
 		{
-		  tremolo_p_ = new Stem_tremolo (get_property ("basicStemTremoloProperties"));
+		  tremolo_p_ = new Item (get_property ("basicStemTremoloProperties"));
+		  Stem_tremolo::set_interface (tremolo_p_);
+
 		  announce_element (Score_element_info (tremolo_p_, tremolo_req_l_));
 		  /*
 		    The number of tremolo flags is the number of flags of
@@ -133,7 +135,7 @@ Stem_engraver::do_pre_move_processing()
 {
   if (tremolo_p_)
     {
-      tremolo_p_->set_stem (stem_p_);
+      Stem_tremolo::set_stem (tremolo_p_, stem_p_);
       typeset_element (tremolo_p_);
       tremolo_p_ = 0;
     }

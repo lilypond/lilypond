@@ -21,39 +21,42 @@
 #include "stem.hh"
 
 void
-Tie::set_head (Direction d, Item * head_l)
+Tie::set_head (Score_element*me,Direction d, Item * head_l)
 {
-  assert (!head (d));
-  index_set_cell (get_elt_pointer ("heads"), d, head_l->self_scm_);
+  assert (!head (me,d));
+  index_set_cell (me->get_elt_pointer ("heads"), d, head_l->self_scm_);
   
-  set_bound (d, head_l);
-  add_dependency (head_l);
+  dynamic_cast<Spanner*> (me)->set_bound (d, head_l);
+  me->add_dependency (head_l);
 }
 
 Tie::Tie(SCM s)
   : Spanner (s)
 {
-  set_elt_pointer ("heads", gh_cons (SCM_EOL, SCM_EOL));
   dy_f_drul_[LEFT] = dy_f_drul_[RIGHT] = 0.0;
   dx_f_drul_[LEFT] = dx_f_drul_[RIGHT] = 0.0;
-
+}
+void
+Tie::set_interface (Score_element*me)
+{
+  me->set_elt_pointer ("heads", gh_cons (SCM_EOL, SCM_EOL));
 }
 
 Rhythmic_head* 
-Tie::head (Direction d) const
+Tie::head (Score_element*me, Direction d) 
 {
-  SCM c = get_elt_pointer ("heads");
+  SCM c = me->get_elt_pointer ("heads");
   c = index_cell (c, d);
 
   return dynamic_cast<Rhythmic_head*> (unsmob_element (c));  
 }
 
 Real
-Tie::position_f () const
+Tie::position_f (Score_element*me) 
 {
-  return head (LEFT)
-    ? Staff_symbol_referencer_interface (head (LEFT)).position_f ()
-    : Staff_symbol_referencer_interface (head (RIGHT)).position_f () ;  
+  return head (me,LEFT)
+    ? Staff_symbol_referencer_interface (head (me,LEFT)).position_f ()
+    : Staff_symbol_referencer_interface (head (me,RIGHT)).position_f () ;  
 }
 
 
@@ -61,10 +64,10 @@ Tie::position_f () const
   ugh: direction of the Tie is more complicated.  See [Ross] p136 and further
  */
 Direction
-Tie::get_default_dir () const
+Tie::get_default_dir (Score_element*me) 
 {
-  Stem * sl =  head(LEFT) ? head (LEFT)->stem_l () :0;
-  Stem * sr =  head(RIGHT) ? head (RIGHT)->stem_l () :0;  
+  Stem * sl =  head(me,LEFT) ? head (me,LEFT)->stem_l () :0;
+  Stem * sr =  head(me,RIGHT) ? head (me,RIGHT)->stem_l () :0;  
 
   if (sl && Directional_element_interface (sl).get () == UP
       && sr && Directional_element_interface (sr).get () == UP)
@@ -73,47 +76,28 @@ Tie::get_default_dir () const
     return UP;
 }
 
-/*
-  fixme  must  use spanned drul from heads elt property
- */
 
-void
-Tie::do_add_processing()
-{
-  if (!(head (LEFT) && head (RIGHT)))
-    warning (_ ("lonely tie"));
 
-  Direction d = LEFT;
-  Drul_array<Rhythmic_head *> new_head_drul;
-  new_head_drul[LEFT] = head(LEFT);
-  new_head_drul[RIGHT] = head(RIGHT);  
-  do {
-    if (!head (d))
-      new_head_drul[d] = head((Direction)-d);
-  } while (flip(&d) != LEFT);
-
-  index_set_cell (get_elt_pointer ("heads"), LEFT, new_head_drul[LEFT]->self_scm_ );
-  index_set_cell (get_elt_pointer ("heads"), RIGHT, new_head_drul[RIGHT]->self_scm_ );
-}
-
-GLUE_SCORE_ELEMENT(Tie,after_line_breaking);
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Tie,after_line_breaking);
 SCM
-Tie::member_after_line_breaking ()
+Tie::after_line_breaking (SCM smob)
 {
-  if (!head (LEFT) && !head (RIGHT))
+  Tie*me = dynamic_cast<Tie*> (unsmob_element (smob));
+  
+  if (!head (me,LEFT) && !head (me,RIGHT))
     {
       programming_error ("Tie without heads.");
-      suicide ();
+      me->suicide ();
       return SCM_UNDEFINED;
     }
 
-  if (!Directional_element_interface (this).get ())
-    Directional_element_interface (this).set (get_default_dir ());
+  if (!Directional_element_interface (me).get ())
+    Directional_element_interface (me).set (Tie::get_default_dir (me));
   
-  Real staff_space = Staff_symbol_referencer_interface (this).staff_space ();
+  Real staff_space = Staff_symbol_referencer_interface (me).staff_space ();
   Real half_space = staff_space / 2;
-  Real x_gap_f = paper_l ()->get_var ("tie_x_gap");
-  Real y_gap_f = paper_l ()->get_var ("tie_y_gap");
+  Real x_gap_f = me->paper_l ()->get_var ("tie_x_gap");
+  Real y_gap_f = me->paper_l ()->get_var ("tie_y_gap");
 
   /* 
    Slur and tie placement [OSU]
@@ -126,18 +110,18 @@ Tie::member_after_line_breaking ()
 
 
   /*
-    OSU: not different for outer notes, so why all this code?
-    ie,  can we drop this, or should it be made switchable.
+    OSU: not different for outer notes, so why all me code?
+    ie,  can we drop me, or should it be made switchable.
    */
-  if (head (LEFT))
-    dx_f_drul_[LEFT] = head (LEFT)->extent (X_AXIS).length ();
+  if (head (me,LEFT))
+    me->dx_f_drul_[LEFT] = Tie::head (me,LEFT)->extent (X_AXIS).length ();
   else
-    dx_f_drul_[LEFT] = get_broken_left_end_align ();
-  dx_f_drul_[LEFT] += x_gap_f;
-  dx_f_drul_[RIGHT] -= x_gap_f;
+    me->dx_f_drul_[LEFT] = dynamic_cast<Spanner*>(me)->get_broken_left_end_align ();
+  me->dx_f_drul_[LEFT] += x_gap_f;
+  me->dx_f_drul_[RIGHT] -= x_gap_f;
 
   /* 
-   Slur and tie placement [OSU]  -- check this
+   Slur and tie placement [OSU]  -- check me
 
    Ties:
 
@@ -152,14 +136,14 @@ Tie::member_after_line_breaking ()
    */
 
 
-  Real ypos = position_f ();
+  Real ypos = Tie::position_f (me);
 
   Real y_f = half_space * ypos; 
   int ypos_i = int (ypos);
  
-  Real dx_f = extent (X_AXIS).length () + dx_f_drul_[RIGHT] - dx_f_drul_[LEFT];
-  Direction dir = Directional_element_interface (this).get();
-  if (dx_f < paper_l ()->get_var ("tie_staffspace_length"))
+  Real dx_f = me->extent (X_AXIS).length () + me->dx_f_drul_[RIGHT] - me->dx_f_drul_[LEFT];
+  Direction dir = Directional_element_interface (me).get();
+  if (dx_f < me->paper_l ()->get_var ("tie_staffspace_length"))
     {
       if (abs (ypos_i) % 2)
 	y_f += dir * half_space;
@@ -173,7 +157,7 @@ Tie::member_after_line_breaking ()
       y_f -= dir * y_gap_f;
     }
   
-  dy_f_drul_[LEFT] = dy_f_drul_[RIGHT] = y_f;
+  me->dy_f_drul_[LEFT] = me->dy_f_drul_[RIGHT] = y_f;
 
   return SCM_UNDEFINED;
 }
@@ -194,20 +178,21 @@ Tie::get_rods () const
   return a;
 }
 
-GLUE_SCORE_ELEMENT(Tie,brew_molecule);
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Tie,brew_molecule);
 
 SCM
-Tie::member_brew_molecule () const
+Tie::brew_molecule (SCM smob) 
 {
-  Real thick = paper_l ()->get_var ("tie_thickness");
-  Bezier one = get_curve ();
+  Score_element*me = unsmob_element (smob);
+  Real thick = me->paper_l ()->get_var ("tie_thickness");
+  Bezier one = dynamic_cast<Tie*> (me)->get_curve ();
 
   Molecule a;
-  SCM d =  get_elt_property ("dashed");
+  SCM d =  me->get_elt_property ("dashed");
   if (gh_number_p (d))
-    a = lookup_l ()->dashed_slur (one, thick, gh_scm2int (d));
+    a = me->lookup_l ()->dashed_slur (one, thick, gh_scm2int (d));
   else
-    a = lookup_l ()->slur (one, Directional_element_interface (this).get () * thick, thick);
+    a = me->lookup_l ()->slur (one, Directional_element_interface (me).get () * thick, thick);
   
   return a.create_scheme(); 
 }
@@ -217,17 +202,18 @@ Tie::member_brew_molecule () const
 Bezier
 Tie::get_curve () const
 {
-  Direction d (Directional_element_interface (this).get ());
+  Score_element*me = (Score_element*)this;
+  Direction d (Directional_element_interface (me).get ());
   Bezier_bow b (get_encompass_offset_arr (), d);
 
-  Real staff_space = Staff_symbol_referencer_interface (this).staff_space ();
+  Real staff_space = Staff_symbol_referencer_interface (me).staff_space ();
   Real h_inf = paper_l ()->get_var ("tie_height_limit_factor") * staff_space;
   Real r_0 = paper_l ()->get_var ("tie_ratio");
 
   b.set_default_bezier (h_inf, r_0);
   Bezier c = b.get_bezier ();
 
-  /* should do this for slurs as well. */
+  /* should do me for slurs as well. */
   Array<Real> horizontal (c.solve_derivative (Offset (1,0)));
 
   if (horizontal.size ())

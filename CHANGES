@@ -1,5 +1,25 @@
-1.3.66.hwn1
-===========
+1.3.68
+======
+
+* ly2dvi: changed back to original semantics of latexheaders.
+
+* Stem_tremolo, Crescendo, Hara_kiri_group_spanner, Tuplet_spanner,
+Volta_spanner changed into interface.
+
+* Related cleanups for Tie, Tie_column cleanups.
+
+* Made Time_signature, Single_malt_grouping_item, Script_column,
+Chord_name, Dot_column, Breathing_sign, Key_item type into interface.
+
+* Removed const declaration from callback arguments.
+
+* Pagebreak support. See input/test/between-systems.ly
+
+* Fixed a problem with accidentals in combination with
+non-nil key signatures.
+
+1.3.67
+======
 
 * Use callbacks for augmentation dot positioning.
 

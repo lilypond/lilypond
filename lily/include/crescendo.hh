@@ -10,23 +10,17 @@
 #ifndef CRESCENDO_HH
 #define CRESCENDO_HH
 
-#include "spanner.hh"
+#include "lily-guile.hh"
 /**
   The hairpin symbol. (cresc)
 
   (normal spanner?)
  */
-class Crescendo : public Spanner {
+struct Crescendo
+{
 public:
-   static SCM brew_molecule (SCM);
-  
-  Crescendo(SCM);
-
-  VIRTUAL_COPY_CONS(Score_element);
-  SCM member_brew_molecule() const;
-    
-private:
-  Molecule get_symbol() const;
+  static SCM brew_molecule (SCM);
+  static void set_interface(Score_element*);
 };
 
 #endif // CRESCENDO_HH
