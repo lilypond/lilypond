@@ -110,6 +110,7 @@ rx-1.5
 zlib-1.1.3
 db-2.7.7
 guile-1.3.4
+bash-2.03
 rpm-3.0.4
 lilypond-$lilypond_version
 "
@@ -278,13 +279,48 @@ ncs=`eval echo $native_config_site`
 rm -f $ncs
 mkdir -p `dirname $ncs`
 cat > $ncs <<EOF
+ac_cv_c_bigendian=no
+ac_cv_sizeof_char_p=4
 ac_cv_sizeof_int=4
 ac_cv_sizeof_long=4
-ac_cv_sys_restartable_syscalls=yes
+ac_cv_sizeof_float=4
+ac_cv_sizeof_double=8
+ac_cv_sys_restartable_syscalls=no
 ac_cv_sprintf_count=yes
 ac_cv_spinlocks=no
 db_cv_sprintf_count=yes
 db_cv_spinlocks=no
+ac_cv_func_getpgrp_void=yes
+ac_cv_func_setvbuf_reversed=no
+ac_cv_lib_intl=no
+# urg, lots of stuff goes wrong when configuring bash??
+ac_cv_exeext=.exe
+ac_cv_header_libintl_h=no
+ac_cv_header_termcap_h=no
+ac_cv_func_mkfifo=yes
+bash_cv_dup2_broken=no
+bash_cv_opendir_not_robust=no
+bash_cv_pgrp_pipe=no
+bash_cv_printf_declared=yes
+bash_cv_sbrk_declared=yes
+bash_cv_signal_vintage=posix
+bash_cv_speed_t_in_sys_types=no
+bash_cv_struct_timeval=yes
+bash_cv_struct_winsize_header=ioctl_h
+bash_cv_sys_errlist=yes
+bash_cv_sys_named_pipes=missing
+bash_cv_func_strcoll_broken=no
+bash_cv_must_reinstall_sighandlers=no
+bash_cv_getcwd_calls_popen=no
+bash_cv_func_sigsetjmp=missing
+bash_cv_job_control_missing=present
+bash_cv_sys_restartable_syscalls=no
+bash_cv_getenv_redef=yes
+bash_cv_sys_siglist=no
+bash_cv_type_rlimit=long
+bash_cv_ulimit_maxfds=no
+bash_cv_decl_under_sys_siglist=no
+bash_cv_under_sys_siglist=no
 EOF
 
 #URG, stupid RPM
@@ -508,12 +544,6 @@ done
 PATH=$OLDPATH
 
 mkdir -p $distdir
-rm -f $distdir/$CYGWIN_DLL.gz
-cd $distdir && cp -f $PREFIX/bin/$CYGWIN_DLL . && gzip -f $CYGWIN_DLL
-
-rm -f $distdir/rpm.gz
-cd $distdir && cp -f `/bin/ls -d1 $ROOT/bin/rpm* |head -1` rpm && gzip -f rpm
-
 
 cat > $distdir/setup.sh <<EOF
 #!/bin/bash
@@ -532,7 +562,8 @@ gunzip rpm.gz || exit 1
 echo > rpmrc
 mkdir -p \$ROOT/var/lib
 mkdir -p \$ROOT/bin
-touch \$ROOT/bin/rpm \$ROOT/bin/rpm.exe
+rem # touch \$ROOT/bin/rpm \$ROOT/bin/rpm.exe
+echo > \$ROOT/bin/rpm; echo > \$ROOT/bin/rpm.exe
 ./rpm --root \$ROOT --rcfile rpmrc --initdb
 ./rpm --root \$ROOT --rcfile rpmrc --nodeps --ignorearch --ignoreos -Uhv \\
 	RPMS/$tp/rpm-*.$tp.rpm \\
@@ -543,16 +574,17 @@ EOF
 cat > $distdir/setup.bat <<EOF
 del dll olddll
 rem # old_dll=\`which cygwin1.dll\`
+rem # urg, should dist bash too, then we don't need usertools!
+rem #	cp -f \`which bash\` /bin;
 bash -c 'mkdir -p /bin;
-	cp -f \`which bash\` /bin;
+	cp -f bash /bin/bash.exe;
 	cp -f /bin/bash /bin/sh.exe;
 	dll=\`which cygwin1.dll\`;
-	wdll=\`cygpath -w \$dll\`;
+	wdll=\`./cygpath -w \$dll\`;
 	echo cygwin1.dll \$wdll > newdll; echo \$wdll \$wdll.orig\$\$ > olddll'
 if not errorlevel 0 goto nobash
 rem # mv -f \$old_dll \$old_dll.orig\$\$
 rem # gunzip cygwin1.dll.gz
-gunzip cygwin1.dll.gz
 rem # cp -f cygwin1.dll \$old_dll
 copy < olddll 
 copy < newdll 
@@ -561,8 +593,8 @@ if not errorlevel 0 goto nobash
 goto :exit
 :nobash
 @echo "setup.bat: can't find bash"
-@echo "setup.bat: please install usertools from"
-@echo "setup.bat: http://sourceware.cygnus.com/cygwin/"
+rem # @echo "setup.bat: please install usertools from"
+rem # @echo "setup.bat: http://sourceware.cygnus.com/cygwin/"
 :exit
 EOF
 
@@ -588,21 +620,31 @@ cat > $distdir/midi2ly.bat <<EOF
 bash midi2ly.sh %1 %2 %3 %4 %5 %6 %7 %8 %9
 EOF
 
-distbase=`basename $distdir`
 cd $distdir
+rm -f $CYGWIN_DLL.gz
+cp -f $PREFIX/bin/$CYGWIN_DLL
+rm -f rpm.gz
+cp -f `/bin/ls -d1 $ROOT/bin/rpm* |head -1` rpm
+
+rm -f bash.gz
+cp -f `/bin/ls -d1 $ROOT/bin/bash* |head -1` bash
+
+rm -f cygpath.gz
+cp -f `/bin/ls -d1 $ROOT/bin/cygpath* |head -1` cygpath
+
+distbase=`basename $distdir`
 rm -f RPMS
 ln -s ../redhat/RPMS .
 
 www=`dirname $distdir`
 cd $www
-for i in guile-1 rpm lilypond; do
+for i in bash-2 guile-1 rpm-3 lilypond; do
 	rpm=`find_path $i*.rpm $distbase/RPMS/$tp`
 	dist_rpms="$dist_rpms $rpm"
 done
 
 rm -f $www/setup.zip
 cd $www && zip setup.zip lily-w32 $distbase/* $dist_rpms
-
 
 # make small zip dist available
 #
@@ -612,7 +654,7 @@ mkdir -p $zipdir
 rm -f $zipdir/$CYGWIN_DLL.zip
 cd $ROOT/bin && zip $zipdir/$CYGWIN_DLL.zip $CYGWIN_DLL
 
-for i in guile-1 rpm lilypond; do
+for i in bash-2 guile-1 rpm-3 lilypond; do
 	found=`find_path $i*.rpm $distdir/RPMS/$tp`
 	if [ "$found" = "" ]; then
 		echo "$i: no such .rpm"
@@ -628,3 +670,10 @@ for i in guile-1 rpm lilypond; do
 		rm -rf $dir
 	fi
 done
+
+cd $distdir
+gzip -f $CYGWIN_DLL
+gzip -f rpm
+gzip -f bash
+gzip -f cygpath
+

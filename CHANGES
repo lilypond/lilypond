@@ -1,4 +1,14 @@
---- ../lilypond-1.3.41/CHANGES	Thu Mar 30 11:05:01 2000
+--- ../lilypond-1.3.41.jcn3/CHANGES	Sat Apr  1 16:51:17 2000
+++ b/CHANGES	Mon Apr  3 10:06:40 2000
+@@ -1,3 +1,8 @@
+1.3.41.jcn4
+===========
+
+* Windows distribution does not longer require Cygnus' usertools.
+
+ 1.3.41.jcn3
+ ===========
+ --- ../lilypond-1.3.41/CHANGES	Thu Mar 30 11:05:01 2000
 ++ b/CHANGES	Sat Apr  1 20:35:51 2000
 @@ -1,3 +1,8 @@
 1.3.41.mb1
