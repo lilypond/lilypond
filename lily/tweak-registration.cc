@@ -116,6 +116,7 @@ Tweak_registry::mark_smob (SCM smob)
 int
 Tweak_registry::print_smob (SCM smob, SCM port, scm_print_state*)
 {
+  (void) smob;			// smother warning.
   scm_puts ("#<Tweak_registry>", port); 
   return 1;
 }
