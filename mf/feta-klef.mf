@@ -5,7 +5,8 @@
 % source file of the Feta (not the Font-En-Tja) music font
 % 
 % (c) 1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>,
-% Jan Nieuwenhuizen <janneke@gnu.org>
+% Jan Nieuwenhuizen <janneke@gnu.org>,
+% Juergen Reuter <reuterj@ira.uka.de>
 
 
 fet_begingroup("clefs");
@@ -629,7 +630,7 @@ fet_endchar;
 
 
 def draw_mensural_ii_c_clef(expr exact_center, reduction) = 
-	draw_brevis(exact_center, reduction, false, true);
+	draw_brevis(exact_center, reduction, true, true);
 
 	save reduced_il, reduced_slt;
 	save stem_width, interline;
@@ -727,7 +728,7 @@ def draw_diamond(expr exact_center, reduction) =
 		cycle;
 enddef;
 
-def draw_mensural_f_clef(expr exact_center, reduction) =
+def draw_mensural_i_f_clef(expr exact_center, reduction) =
 	%
 	% inspired by Gaspar van Weerbeke, "Virgo Maria" (1502), in:
 	% MGG, volume 9, col. 653 ("Motette"), fig. 3.; also by
@@ -782,15 +783,156 @@ def draw_mensural_f_clef(expr exact_center, reduction) =
 enddef;
 
 
-fet_beginchar("mensural f clef", "mensural_f", "mensfclef")
+fet_beginchar("mensural f clef", "mensural1_f", "mens1fclef")
 	if test = 1:
 		draw_staff(-1,3, 0.0);
 	fi;
-	draw_mensural_f_clef((0,0), 1.0);
+	draw_mensural_i_f_clef((0,0), 1.0);
 fet_endchar;
-fet_beginchar("mensural f clef", "mensural_f_change", "cmensfclef")
-	draw_mensural_f_clef((0,0), .8);
+fet_beginchar("mensural f clef", "mensural1_f_change", "cmens1fclef")
+	draw_mensural_i_f_clef((0,0), .8);
 fet_endchar;
+
+
+def draw_mensural_ii_f_clef(expr exact_center, reduction) =
+	%
+	% inspired by Philippe le Duc, "Dite Signori" (1590), in: MGG,
+	% volume 3, col. 848 ("Duc"); also by John Dowland, "The First
+	% Booke of Songes" (1597), in: MGG, volume 3, col. 721
+	% ("Dowland"), fig. 3.
+
+	save reduced_slt, stem_width, reduced_nht, holeheight, beamheight;
+
+	reduced_slt# = stafflinethickness# * reduction;
+	stem_width# = 1.4 reduced_slt#;
+	reduced_nht# = noteheight# * reduction;
+	holeheight# = 3 reduced_slt#;
+	beamheight# = 0.4(reduced_nht# - holeheight#);
+
+	define_pixels(beamheight, stem_width, staff_space);
+
+	pickup pencircle
+		xscaled beamheight
+		yscaled stem_width
+		rotated 45;
+
+	draw
+		exact_center + (1.0 staff_space, 0.6 staff_space) --
+		exact_center + (1.25 staff_space, 0.4 staff_space);
+
+	draw
+		exact_center + (1.0 staff_space, -0.4 staff_space) --
+		exact_center + (1.25 staff_space, -0.6 staff_space);
+
+	draw	halfcircle scaled 1.2 staff_space rotated -90
+		shifted (-exact_center + (+0.1 staff_space, 0));
+
+	set_char_box(0, 3staff_space#, 3staff_space#, 0);
+enddef;
+
+fet_beginchar("mensural f clef", "mensural2_f", "mens2fclef")
+	if test = 1:
+		draw_staff(-1,3, 0.0);
+	fi;
+	draw_mensural_ii_f_clef((0,0), 1.0);
+fet_endchar;
+fet_beginchar("mensural f clef", "mensural2_f_change", "cmens2fclef")
+	draw_mensural_ii_f_clef((0,0), .8);
+fet_endchar;
+
+
+def draw_mensural_g_clef(expr exact_center, reduction) =
+	%
+	% inspired by Francisco Guerrero, "Lib. 1.  Missarum" (1566),
+	% in: MGG, volume 3, col. 858 ("Ducis"); also by Stefano
+	% Fabri, "Quam speciosa veteranis" (1611), in: MGG, volume 3,
+	% col. 1698 ("Fabri"); also by Philippus Dulichius,
+	% "Fasciculus novus ..." (1598), in: MGG, volume 3, col. 919
+	% ("Dulichius"), fig. 1; also by Noe Faignient, "Ic sal de
+	% Heer myn God gebenedye" (1568), in: MGG, volume 3, col. 1735
+	% ("Faignient").
+	%
+	% Metafont code partially inspired by Schwabacher 'G' of yswab
+	% font.
+
+	save reduced_il, stem_width, height, width, apex_o, hair;
+
+	reduced_il#=staff_space#*reduction;
+
+	set_char_box(0.5reduced_il#, 1.5reduced_il#,
+		     1.5reduced_il#, 1.5reduced_il#);
+
+	stem_width# = 0.17 reduced_il#;
+	height# = 1.5 reduced_il#;
+	width# = 1.13 reduced_il#;
+	apex_o# = 0.02 reduced_il#;
+	hair# =  3 stafflinethickness#;
+	define_pixels(reduced_il, stem_width, height, width, apex_o, hair);
+
+	penpos1(2 stem_width, -142);
+	z1l = (0.715 width, 0.742 height);
+	penpos1'(hair, -90);
+	z1'l = z1r;
+	penpos2(1.179 stem_width, -142);
+	z2l = (width, 0.466 height);
+	penpos3(hair, 77);
+	z3 = (0.764 width, 0.067 height); 
+	z4 = (0.59 width, -apex_o);
+	penpos5(1.179 stem_width, 32);
+	z5l=(0, 0.457 height);
+	penpos6(hair, -56.5);
+	z7 = (x4 - 0.843 stem_width, height + apex_o);
+	z7 - z6l = whatever * dir33.5;
+	penpos8(1.286 stem_width, -130);
+	z8r = (0.715 width, 0.742 height) + (-apex_o, apex_o);
+	z6r - z8r = whatever * (z7 - z8l);
+	filldraw
+		z1'r{dir45} .. z2r{down} .. z3r{dir207} .. z5r{up} ..
+		z6r{z7-z6l} & z6r -- z8r -- z8l -- z7 --- z6l ...
+		z5l{down} .. z4{right} .. z3l{dir27} .. z2l{up} ..
+		z1l{1/3[z6l,z7]-z1l} & z1l -- z1r -- z1'r & cycle
+		shifted (-exact_center + (0, -0.75reduced_il));
+
+	penpos9(stem_width, 0);
+	x9r = x4; y9 = 0.3 height;
+
+	pickup pencircle
+		scaled stem_width
+		rotated 45;
+	draw	z9 -- (z9 + (0, -0.4reduced_il))
+		shifted (-exact_center + (0, -0.75reduced_il));
+
+	pickup pencircle
+		xscaled stem_width
+		yscaled hair
+		rotated 30;
+
+	draw halfcircle
+		scaled 0.5 reduced_il
+		rotated -90
+		shifted z8
+		shifted (0, 0.25reduced_il)
+		shifted (-exact_center + (0, -0.75reduced_il));
+
+	draw halfcircle
+		scaled 0.4 reduced_il
+		rotated 90
+		shifted (z8 + (0, 0.45 reduced_il))
+		shifted (0, 0.25reduced_il)
+		shifted (-exact_center + (0, -0.75reduced_il));
+enddef;
+
+
+fet_beginchar("mensural g clef", "mensural_g", "mensgclef")
+	if test = 1:
+		draw_staff(-1,3, 0.0);
+	fi;
+	draw_mensural_g_clef((0,0), 1.0);
+fet_endchar;
+fet_beginchar("mensural g clef", "mensural_g_change", "cmensgclef")
+	draw_mensural_g_clef((0,0), .8);
+fet_endchar;
+
 
 
 %%%%%%%%
