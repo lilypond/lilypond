@@ -1,3 +1,9 @@
+2004-10-04  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* buildscripts/texi2omf.py: Add hashbang.  Starting the script in
+	bash without that is quite interesting.  Add xml and some omf
+	keys.
+
 2004-10-03  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/user/macros.itexi: Add xml macros.

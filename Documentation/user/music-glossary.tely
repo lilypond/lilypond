@@ -1,4 +1,4 @@
-                   \input texinfo  @c -*-texinfo-*-
+\input texinfo  @c -*-texinfo-*-
 @settitle Music Glossary
 @setfilename music-glosssary.info
 
