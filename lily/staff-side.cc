@@ -158,7 +158,7 @@ Staff_side_element::do_print () const
     DOUT << "positioning " << to_position_l_->name();
 
   DOUT << "axis == " << axis_name_str (axis_)
-       << ", dir == " << to_str (dir_ );
+       << ", dir == " << to_str ((int)dir_ );
 #endif
 }
 

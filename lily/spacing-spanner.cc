@@ -165,6 +165,9 @@ Spacing_spanner::do_measure (int col1, int col2) const
 	  else
 	    stretch_dist += right_dist;
 
+	  if (s.distance_f_ <0)
+	    programming_error("negative dist");
+	  
 	  if (stretch_dist == 0.0)
 	    {
 	      /*

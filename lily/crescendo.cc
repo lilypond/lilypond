@@ -26,7 +26,7 @@ Crescendo::Crescendo ()
 Molecule
 Crescendo::get_symbol () const
 {
-  Real w_dim = extent (X_AXIS).length ();
+  Real w_dim = extent (X_AXIS).length () - get_broken_left_end_align ();
   Real absdyn_dim = paper_l ()-> get_realvar (ly_symbol ("crescendo_shorten"));
   if (dyn_b_drul_[LEFT])
     {
@@ -63,7 +63,8 @@ Crescendo::do_brew_molecule_p () const
 {
   Molecule* m_p =0;
   Real absdyn_dim = paper_l ()-> get_realvar (ly_symbol ("crescendo_shorten"));
-  Real x_off_dim=0.0;
+  Real x_off_dim =  get_broken_left_end_align ();
+
   if (dyn_b_drul_[LEFT])
     x_off_dim += absdyn_dim;
 

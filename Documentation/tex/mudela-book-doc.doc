@@ -16,6 +16,8 @@
 
 \section{Introduction}
 
+[TODO: THIS MANUAL IS OUTDATED. FIXME.]
+
 Mudela-book is a script that process your \LaTeX~file and with great
 help from GNU LilyPond it translates blocks of mudela code it finds
 inside \verb|mudela| environments to tex or eps graphics. It then

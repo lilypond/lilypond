@@ -27,7 +27,6 @@
 #include "encompass-info.hh"
 #include "main.hh"
 
-
 Slur::Slur ()
 {
 }
@@ -186,11 +185,7 @@ Slur::do_post_processing ()
       */
       else
 	{
-	  /*
-	    need break-align too.  what about other spanners?
-	   */
-	  if (d == LEFT)
-	    dx_f_drul_[d] = spanned_drul_[LEFT]->extent (X_AXIS).length ();
+	  dx_f_drul_[d] = get_broken_left_end_align ();
 	  	
 	  /*
 	    broken: should get y from other piece, so that slur

@@ -15,37 +15,6 @@
 % the code faster, and more reliable (less flexible)
 
 
-%
-% TODO : use GUILE for this kind of muckery.
-%
-
-{%
-   \def\par{ }%         %Ugh.  Don't try this at home, kids!
-   % neat file-include trick by Piet van Oostrum <piet@cs.uu.nl>
-   \newread\defin 
-   \newtoks\toksfiledefi\newtoks\toksfiledefii 
-   \def\ifnot#1{#1\else\expandafter\expandafter\fi\iffalse\iftrue\fi} 
-   \def\filedef#1#2{%#1=command name, #2=file name 
-           \openin\defin=#2\relax\def#1{} 
-           \ifeof\defin
-                   \message{***************** CAN NOT OPEN #2 ********************}
-                   \end
-           \fi 
-           \loop\ifnot{\ifeof\defin}\read\defin to\tempfiledef
-           \toksfiledefi=\expandafter{#1}% 
-           \toksfiledefii=\expandafter{\tempfiledef}% 
-   %        \expandafter\special\expandafter{!\the\toksfiledefi\the\toksfiledefii}\repeat%
-          \global\edef#1{\the\toksfiledefi\the\toksfiledefii}\repeat%
-   }
-   %
-   % This seems a little backwards, but we don't want to include the PS
-   % stuff too early
-   %
-   \filedef\includelilyps{lily.ps}%
-   \expandafter\special{! \includelilyps }
-}
-
-
 \def\turnOnPostScript{%
         % This sets CTM so that you get to the currentpoint
         % by executing a 0 0 moveto
@@ -53,7 +22,6 @@
                 \special{ps: @beginspecial @setspecial ##1 @endspecial}       
         }
         %
-
         \special{! 
 /stafflinethickness \mudelapaperstaffline\space def
 /interline \mudelapaperinterline\space def

@@ -9,8 +9,8 @@
 
 import regex
 import regsub
-from string import *
-# from flower import *
+import string
+
 import sys
 import os
 import getopt
@@ -37,7 +37,7 @@ class Package:
 		dict = read_makefile (dirname + '/VERSION')
 		version_list = []
 		for x in [ 'MAJOR_VERSION', 'MINOR_VERSION',   'PATCH_LEVEL']:
-			version_list.append (atoi (dict[x]))
+			version_list.append (string.atoi (dict[x]))
 		version_list.append (dict['MY_PATCH_LEVEL'])
 		self.topdir = dirname
 		self.groupdir = self.topdir + '/..'
@@ -46,12 +46,12 @@ class Package:
 		self.test_dir = self.groupdir + '/test/'
 		self.version =  tuple(version_list)
 		self.Name = dict['PACKAGE_NAME']
-		self.name = lower (self.Name)
+		self.name = string.lower (self.Name)
 		if self.name == 'lilypond':
 			self.nickname = 'lelie'
 		else:
 			self.nickname = self.name
-		self.NAME = upper (self.Name)
+		self.NAME = string.upper (self.Name)
 
 
 class Packager:
@@ -79,7 +79,7 @@ def full_version_tup(tup):
 
 def split_my_patchlevel(str):
 	return (regsub.sub('[0-9]*$', '', str),
-	        atoi(regsub.sub('[^0-9]*', '', str)))
+	        string.atoi(regsub.sub('[^0-9]*', '', str)))
 	
 
 def next_version(tup):
@@ -120,12 +120,12 @@ def version_tuple_to_str(tup):
 	return ('%d.%d.%d' % tup[0:3]) + my
 
 def version_str_to_tuple(str):
-	t = split(str, '.')
+	t = string.split(str, '.')
 	try:
 		mypatch = t[3]
 	except IndexError:
 		mypatch = ''
-	return (atoi(t[0]), atoi(t[1]), atoi(t[2]), mypatch)
+	return (string.atoi(t[0]), string.atoi(t[1]), string.atoi(t[2]), mypatch)
 
 def version_compare (tupl, tupr):
 	tupl = full_version_tup (tupl)
@@ -134,9 +134,9 @@ def version_compare (tupl, tupr):
 		if tupl[i] - tupr[i]: return tupl[i] - tupr[i]
 	if tupl[3] and tupr[3]:
 		lname = regsub.sub('[0-9]*$', '', tupl[3])
-		lnum = atoi(regsub.sub('[^0-9]*', '', tupl[3]))
+		lnum = string.atoi(regsub.sub('[^0-9]*', '', tupl[3]))
 		rname = regsub.sub('[0-9]*$', '', tupr[3])
-		rnum = atoi(regsub.sub('[^0-9]*', '', tupr[3]))
+		rnum = string.atoi(regsub.sub('[^0-9]*', '', tupr[3]))
 		if lname != rname:
 			raise 'ambiguous'
 		return sign (lnum - rnum)
@@ -160,19 +160,4 @@ def dump_file(f, s):
 	i = open(f, 'w')
 	i.write(s)
 	i.close ()
-
-def gulp_file(f):
-	try:
-		i = open(f)
-		i.seek (0, 2)
-		n = i.tell ()
-		i.seek (0,0)
-	except:
-		sys.stderr.write( 'can\'t open file %s\n ' % f)
-		return ''
-	s = i.read (n)
-	if len (s) <= 0:
-		sys.stderr.write( 'gulped empty file: %s\n'% f)
-	return s
-
 

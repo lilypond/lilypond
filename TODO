@@ -10,6 +10,10 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 
 .* TODO
 . * use Rhythmic_head::position_i () for all Staff_referenced 
+. * bug: dots.
+. * mmrests
+. * web: download link.
+. * guile detection.
 . * Break_req handling is silly (break_forbid () + \break fucks up.)
 . * script engraver
 
@@ -41,7 +45,7 @@ the mensural music notation.
 bar line fully drawn across the staves and after that keep to the
 ChoirStaff bar line types in the rest of the scores
 
-. * autoBeamMelisma: if I explicitly beam notes in a staff with auto beaming disabled I
+- autoBeamMelisma: if I explicitly beam notes in a staff with auto beaming disabled I
 would like to have these beams also to be melismatic.
 
 . * make all Feta (including dynamics) available to the user in
@@ -59,16 +63,6 @@ abc2ly, midi2ly?
 . * mudela-book
 .  * center option (??)
 .  * make mudela-book understand usepackage{geometry}
-.  * check that linewidth set in \paper is not wider than actual linewidth?
-.  * the following fails because mudelabook doesn't care that the
-  last } after \end{mudela} finishes the marginpar:
-    \marginpar{
-    \begin{mudela}
-       c d e f g
-    \end{mudela}}
-.  * force-verbatim is maybe not that useful since latex fails with footnotes,
-  marginpars and others
-"""
 . * Key_engraver, Local_key_item
 . * Think of comprehensive solution for "if (grace_b == self_grace_b_)"
 . * String[String.length] doesn't trap.
@@ -126,7 +120,7 @@ vertically between the two staves):
 
 - The stemLength property should affect also beamed stems.
 
-. * align left edge of broken (de)cresc/slur/tie/tuplet/volta
+. * align left edge of broken tuplet-spanner (have a test case?)
 . * fix dynamics decently, ie. use kerning & ligatures.
 . * key restorations & repeats
 . * paperXX.ly \quartwidth, font setting not up to date. (Should read from AFM?)
@@ -150,7 +144,6 @@ one of the spacing bugs mentioned in the TODO.
 . * rhythmic staff & accidentals.
 . * use melismaBusy in Lyric context to typeset melismata correctly.  
 . * ly2dvi/lilypond logfile.
-. * def stem dir.
 . * hang Item on Spanner
 . * do --safe for PS output?
 . * msgfmt -o check?
@@ -219,7 +212,6 @@ able to vertically align the chorus midway between the staves.
 
 6. It would be nice to be able to put vertical brackets either side of a
 repeated section with different words for each repeat.
-
 . * Give # lines in linebreaking.  
 . * arrows on slurs.
 . * rewrite context defs using Scheme
@@ -231,7 +223,7 @@ repeated section with different words for each repeat.
 . * Align_element::padding  ?
 . * typo checks on property names?
 . * use streambufs and iostream
-	to provide IO handling for TeX stream, mudela stream, data-file.
+to provide IO handling for TeX stream, mudela stream, data-file.
 . * seriously buffer TeX output (do profile of writing .5 mb TeX file.)
 . * strip EXEs before installing
 . * zip target for binary windows dist (JBR)
@@ -251,7 +243,6 @@ repeated section with different words for each repeat.
 .  * kpathsea?
 . * fix vertical alignment and stafflines
 . * declaring Performers
-. * *.yo: fix pod manpage layout legacy
 . * text-items clash with stems/beams
 . * --include, -I option for ly2dvi (pass on to lily)
 . * fix placement of beam-less abbrev

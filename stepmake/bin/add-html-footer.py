@@ -10,7 +10,7 @@ version = '0.1'
 import sys
 import os
 import time
-from string import *
+import string 
 import getopt
 import __main__
 
@@ -29,13 +29,17 @@ This page was built from %s-%s by\
 
 (options, files) = getopt.getopt(sys.argv[1:], 'hp:', ['help', 'news=', 'index=', 'package=']) 
 
+def gulp_file (fn):
+	f = open (fn)
+	return f.read ()
+
 def help ():
-    sys.stdout.write ("Usage: add-html-footer [OPTION]... HTML-FILE\n"
-		 "Add a nice footer, add the top of the NEWS file (up to the ********)\n\n"
-		 + "Options:\n"
-		 + "  -h, --help             print this help\n"
-		 + "  -p, --package=DIR      specify package\n"
-		      )
+    sys.stdout.write (r"""Usage: add-html-footer [OPTION]... HTML-FILE
+Add a nice footer, add the top of the NEWS file (up to the ********)
+Options:
+  -h, --help             print this help
+  -p, --package          package name (ugh. Junkme.)
+  """)
     sys.exit (0)
 
 for opt in options:
@@ -93,8 +97,8 @@ if news_file:
     news = news[:i]
     
 def check_tag (tag, sub, s, bottom):
-    tag = lower (tag)
-    TAG = upper (tag)
+    tag = string.lower (tag)
+    TAG = string.upper (tag)
     s = regsub.sub (tag, TAG, s)
     i = regex.search (TAG, s)
     if i < 0:
@@ -129,16 +133,6 @@ for f in files:
     if regex.search ('<HTML', s) == -1:
 	s = '<HTML>\n' + s
     s = check_tag ('</html>', '</HTML>', s, 1)
-
-    #urg
-    if regex.search ('@COUNTER_REF@', s) != -1:
-	counter = ''
-	try:
-	    counter = os.environ[package.NAME + '_COUNTERPATH']
-	    counter = '<hr><img src="' + counter + '">\n'
-	except:
-	    pass
-	s = regsub.gsub ('@COUNTER_REF@', counter, s)
 
     dump_file (f, s)
 

@@ -1,3 +1,12 @@
+pl 4.hwn1
+	- bf: repeats.
+	- bf: mmrests
+	- bf: simpler guile detection.
+	- use texinfo for reference manual.
+	- inline lily.ps from lilypond.
+	- texi for doco: converted directory Documentation/tex/
+
+
 pl 3.hwn1
 	- mudela-book tweaks for surviving texinfo
 	- include feta  command seqs. in .tex 
@@ -12,8 +21,6 @@ extent () is given relative to this.
  	- bf: Rhythmic_head::do_substitute_element_pointer ()
 	- Direct access to dim_cache_ replaced by methods in
 Graphical_element.
-3.mk1
-	- left endings of various spanners adjusted
 
 **********
 

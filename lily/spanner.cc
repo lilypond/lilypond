@@ -12,6 +12,8 @@
 #include "paper-score.hh"
 #include "molecule.hh"
 #include "paper-outputter.hh"
+#include "score-column.hh"
+#include "line-of-score.hh"
 
 void
 Spanner::do_print() const
@@ -33,7 +35,7 @@ Spanner::break_into_pieces ()
 	 
   Item * left = spanned_drul_[LEFT];
   Item * right = spanned_drul_[RIGHT];
-  
+
   if  (left == right)
     {
       warning (_ ("left spanpoint is right spanpoint\n"));
@@ -70,7 +72,7 @@ Spanner::break_into_pieces ()
       span_p->set_bounds(LEFT,info.bounds_[LEFT]);
       span_p->set_bounds(RIGHT,info.bounds_[RIGHT]);
       pscore_l_->typeset_element (span_p);
-	      
+
       info.broken_spanner_l_ = span_p;
       span_p->handle_broken_dependencies();
 
@@ -222,4 +224,32 @@ Spanner::handle_broken_dependents ()
       else
 	programming_error ("Spanner y -refpoint lost.");
     }
+}
+
+// If this is a broken spanner, return the amount the left end is to
+// be shifted horizontally so that the spanner starts after the
+// initial clef and key on the staves. This is necessary for ties,
+// slurs, crescendo and decrescendo signs, for example.
+Real
+Spanner::get_broken_left_end_align () const
+{
+  int i;
+  Line_of_score *l;
+  Score_column *sc = dynamic_cast<Score_column*> (spanned_drul_[LEFT]->column_l());
+
+  // Relevant only if left span point is first column in line
+  if(sc != NULL && sc->line_l ()->cols_.find_i (sc) == 0)
+    {
+      // We could possibly return the right edge of the whole Score_column here,
+      // but we do a full search for the Break_align_item.
+      for(i = 0; i < sc->elem_l_arr_.size (); i++)
+	{
+	  if(0 == strcmp (classname (sc->elem_l_arr_[i]), "Break_align_item"))
+	    {
+	      return sc->elem_l_arr_[i]->extent (X_AXIS) [RIGHT];
+	    }
+	}
+    }
+
+  return 0.0;
 }

@@ -104,7 +104,8 @@ Repeated_music::alternatives_length_mom () const
     {
       m = m + p->car_->length_mom ();
       done ++;
-      if (repeats_i_ - done < alternatives_p_->length_i ())
+      if (volta_fold_b_
+	  || repeats_i_ - done < alternatives_p_->length_i ())
 	p = p->next_;
     }
   return m;

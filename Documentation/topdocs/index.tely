@@ -1,0 +1,108 @@
+\input texinfo @c -*-texinfo-*-
+@setfilename index.info
+@settitle index
+
+@node Top, , , (dir)
+@top
+
+
+
+@unnumbered LilyPond -- The @uref{http://www.fsf.org/gnu/gnu-history.html,GNU Project} Music Typesetter
+
+@quotation
+@mudela[fragment]
+	\relative c'' { \key es; r8 [c16 b] [c8 g] [as c16 b] [c8 d] | g,4 }
+@end mudela 
+@end quotation
+
+@c include BLURB?
+
+LilyPond is a music typesetter.  It produces beautiful sheet music
+using a high level description file as input.  LilyPond is part of 
+the GNU Project.
+
+@c include screenshot
+
+
+
+@unnumberedsec View sheet music
+    
+
+@itemize @bullet
+
+@item @uref{./input/out-www/index.html,Examples}:
+
+simple pieces, tests and bugs.  MIDI, PNG, PostScript, and Source.
+
+@item @uref{./mutopia/out-www/index.html,Music in Mutopia}:
+
+LilyPond handling real music.  MIDI, view PNG, PostScript, and Source.
+@end itemize
+
+@unnumberedsec Documentation
+    
+
+@itemize @bullet
+@item @uref{Documentation/tex/out-www/tutorial.html,Tutorial}
+@item @uref{Documentation/out-www/faq.html,FAQ}
+@item @uref{Documentation/out-www/mail.html,Mailing Lists}
+@item @uref{Documentation/out-www/index.html,All of the LilyPond documentation}
+@item @uref{./docxx/index.html,The DOC++ documentation of the C++ sources.}
+@item @uref{Documentation/topdocs/out-www/INSTALL.html,The installation instructions}
+@end itemize
+
+@unnumberedsec Sites
+    
+
+@itemize @bullet
+@item @uref{http://www.gnu.org/software/...}  LilyPond is part of the GNU
+project.  The webpages for the stable version reside at GNU.
+
+@item @uref{http://www.cs.uu.nl/people/hanwen/lilypond/} Han-Wen's site
+has the development pages.
+@item @uref{http://sca.uwaterloo.ca/lilypond/} Eric's mirror
+@item @uref{http://home.austin.rr.com/jbr/jeff/lilypond/} Jeff's Windows NT Distribution site
+@end itemize
+
+@unnumberedsec NEWS
+    
+
+This is what the latest version brings:
+@example 
+
+top_of_NEWS
+ 
+@end example 
+
+@unnumberedsec Download
+
+@itemize @bullet
+@item @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/}
+@item @uref{http://sca.uwaterloo.ca/lilypond/}
+    Eric Praetzel was kind enough to provide a mirror of both the website
+    and the ftp site.
+@item  @uref{ftp://ftp.lilypond.org/pub/LilyPond/}
+	A mirror of the FTP site.  Updated at 0:00 MET daily. 
+@item @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/RPMS/} RedHat binary
+@item @uref{ftp://ftp.debian.org/pub/debian/dists/unstable/main/binary-i386/tex} Debian binary
+@item @uref{http://home.austin.rr.com/jbr/jeff/lilypond/} Windows NT binary
+@item @uref{http://linux.umbc.edu/software/lilypond/rpms/} i386 RPM.
+@item @uref{ftp://freshmeat.net/pub/rpms/lilypond/} i386 RPM.
+@end itemize
+
+@unnumberedsubsec Webmaster's Disclaimer
+
+These pages were entirely created from the LilyPond package-sources.
+Sorry for poor look they have: we want to be hacking at LilyPond, and
+not at the webpages.  If you want to volunteer for making shazzy
+webpages, then please mail us!
+
+Note: These pages are created from the latest @strong{development snapshots}
+of LilyPond, specifically, this page was made from LilyPond
+(fixme-version).tar.gz
+
+Note: the pages may have been created from an unreleased development
+version.  Please have patience, all changes will appear in the
+official version.
+
+@bye
