@@ -20,12 +20,13 @@ Stem_info::Stem_info ()
 {
 }
 
-Stem_info::Stem_info (Stem const *s)
+Stem_info::Stem_info (Stem*s)
 {
-  x_ = s->hpos_f ();
-  dir_ = s->dir_;
-  beam_dir_ = s->beam_dir_;
-  mult_i_ = s->mult_i_;
+  stem_l_ = s;
+  x_ = stem_l_->hpos_f ();
+  dir_ = stem_l_->dir_;
+  beam_dir_ = stem_l_->beam_dir_;
+  mult_i_ = stem_l_->mult_i_;
 
   /*
     [TODO]
@@ -43,33 +44,34 @@ Stem_info::Stem_info (Stem const *s)
        
     */
 
-  Real internote_f = s->paper ()->internote_f ();
-  Real interbeam_f = s->paper ()->interbeam_f (mult_i_);
-  Real beam_f = s->paper ()->beam_thickness_f ();
+  Real internote_f = stem_l_->paper ()->internote_f ();
+  Real interbeam_f = stem_l_->paper ()->interbeam_f (mult_i_);
+  Real beam_f = stem_l_->paper ()->beam_thickness_f ();
          
 
   {
       static int i = 1;
       DOUT << "******" << i++ << "******\n" 
-	   << "begin_f: " << s->stem_begin_f () * dir_ 
-	   << "\nchord_f/i: " << s->chord_start_f () * dir_ / internote_f << '\n';
+	   << "begin_f: " << stem_l_->stem_begin_f () * dir_ 
+	   << "\nchord_f/i: " << stem_l_->chord_start_f () * dir_ / internote_f << '\n';
   }
 
   /*
     For simplicity, we'll assume dir = UP and correct if 
     dir = DOWN afterwards.
    */
-  idealy_f_ = s->chord_start_f () * beam_dir_ / internote_f;
+  idealy_f_ = stem_l_->chord_start_f () * beam_dir_ / internote_f;
   idealy_f_ *= internote_f;
 
-  Real break_i = (int)rint (s->paper ()->get_var ("beam_multiple_break"));
-  Real min_stem1_f = s->paper ()->get_var ("beam_minimum_stem1");
-  Real min_stem2_f = s->paper ()->get_var ("beam_minimum_stem2");
-  Real ideal_stem1_f = s->paper ()->get_var ("beam_ideal_stem1");
-  Real ideal_stem2_f = s->paper ()->get_var ("beam_ideal_stem2");
-  Real shorten_f = s->paper ()->get_var ("forced_stem_shorten");
+  Real break_i = (int)rint (stem_l_->paper ()->get_var ("beam_multiple_break"));
+  Real min_stem1_f = stem_l_->paper ()->get_var ("beam_minimum_stem1");
+  Real min_stem2_f = stem_l_->paper ()->get_var ("beam_minimum_stem2");
+  Real ideal_stem1_f = stem_l_->paper ()->get_var ("beam_ideal_stem1");
+  Real ideal_stem2_f = stem_l_->paper ()->get_var ("beam_ideal_stem2");
+  Real shorten_f = stem_l_->paper ()->get_var ("forced_stem_shorten");
 
   if (!beam_dir_ || (beam_dir_ == dir_))
+    /* normal (beamed) stem */
     {
       idealy_f_ += interbeam_f * mult_i_;
       miny_f_ = idealy_f_;
@@ -87,13 +89,13 @@ Stem_info::Stem_info (Stem const *s)
 	}
 
       /*
-        stems in unnatural (forced) direction are shortened
-        central line is never 'forced'
+        stems in unnatural (forced) direction are shortened but
+        - central line is never 'forced'
+        - beamed stems are shortened only by beam itself
        */
-      if (((int)s->chord_start_f ()) && (s->dir_ != s->get_default_dir ()))
+      if (!mult_i_ && ((int)stem_l_->chord_start_f ()) && (stem_l_->dir_ != stem_l_->get_default_dir ()))
  	{
 	  idealy_f_ -= shorten_f;
-//	  miny_f_ = miny_f_ <? idealy_f_ + internote_f;
 	}
 
       // lowest beam of (UP) beam must never be lower than second staffline
@@ -101,12 +103,12 @@ Stem_info::Stem_info (Stem const *s)
 	+ (mult_i_ > 0) * beam_f + interbeam_f * (mult_i_ - 1));
     }
   else
+    /* knee */
     {
       idealy_f_ -= beam_f;
       maxy_f_ = idealy_f_;
       miny_f_ = -INT_MAX;
 
-      // B"arenreiter
       if (mult_i_ < break_i)
         {
 	  idealy_f_ -= ideal_stem1_f;

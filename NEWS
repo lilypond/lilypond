@@ -1,4 +1,19 @@
+--- ../lilypond-1.1.19.jcn2/NEWS	Fri Jan  8 18:01:10 1999
+++ b/NEWS	Sat Jan  9 16:03:22 1999
+@@ -1,4 +1,12 @@
+-pl 19.jcn1
+pl 19.jcn3
+	- dehairification of beam code; cleanup and bugfixes
+	  * stemlength
+	  * forced stem shorten
+	  * slope calculation
+	  * damping and correction
+	  * catch for silly beams: input/test/beam-suspect.ly
+
 pl 19.jcn2
+ 	- multi-measure-rest is now spanner SkipBars=0 is broken
+ 
+ pl 19.jcn1pl 19.jcn2
 	- multi-measure-rest is now spanner SkipBars=0 is broken
 
 pl 19.jcn1

@@ -50,6 +50,7 @@ beam_dir_algorithm = \MAJORITY;
 %
 % some beam-stemlength settings...
 %
+% poor man's array
 %    beam_*1 : multiplicity < beam_multiple_break
 %    beam_*2 : multiplicity >= beam_multiple_break
 %
@@ -58,9 +59,16 @@ beam_minimum_stem1 = 0.75 * \interline;
 beam_ideal_stem1 = 1.75 * \interline;
 beam_minimum_stem2 = 0.75 * \interline;
 beam_ideal_stem2 = 1.25 * \interline;
+% same here
+beam_forced_multiple_break = 2.0;
+beam_forced_stem_shorten1 = 0.65 * \interline;
+beam_forced_stem_shorten2 = 0.50 * \interline;
 
-% beam_slope_damp_correct_factor = 2.0;
-beam_slope_damp_correct_factor = 0.0;
+% catch suspect beam slopes, set slope to zero if
+% outer stem is lengthened more than
+beam_lengthened = 0.2 * \interline;
+% and slope is running away steeper than
+beam_steep_slope = 0.2 / 1.0;
 
 % OSU: suggested gap = ss / 5;
 slur_x_gap = \interline / 5.0;
