@@ -45,11 +45,20 @@ ifeq ($(out),www)
 #info: $(INFO_FILES)
     # Cancel the special, non-image info generation rule that skips images:
     $(outdir)/%.info: $(outdir)/%.nexi
-local-install-info: install-info info
+local-install-info: #install-info info
 	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
-
-## ugh: can not have absolute symlinks because of buildroot.
-#	(cd $(package_infodir) && ln -sf $(local_package_docdir)/Documentation/user/out-www/*png .)
+ifneq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
+## Can not have absolute symlinks because some binary packages build schemes
+## install files in nonstandard root.  Best we can do is to notify the
+## builder or packager.
+	@echo "***"
+	@echo "For images in the INFO docs to work, do: "
+	@echo "    (cd $(package_infodir) && ln -sf ../../doc/lilypond/$(TOPLEVEL_VERSION)/Documentation/user/out-www/*png .)"
+	@echo "or add something like that to the postinstall script."
+	@echo "***"
+else
+	@echo "    (cd $(package_infodir) && ln -sf $(local_package_docdir)/Documentation/user/out-www/*png .)"
+endif
 
 local-uninstall-WWW:
 	rm -f $(package_infodir)/*.png
