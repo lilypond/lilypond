@@ -1,5 +1,8 @@
 2004-07-04  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scripts/lilypond-book.py (Lilypond_snippet.output_texinfo): add
+	\n to texidoc.
+
 	* input/test/volta-chord-names.ly: new file.
 
 	* lily/volta-bracket.cc (print): handle no bars situation. 

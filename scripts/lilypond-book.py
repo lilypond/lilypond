@@ -652,7 +652,7 @@ class Lilypond_snippet (Snippet):
 		if TEXIDOC in self.options:
 			texidoc = base + '.texidoc'
 			if os.path.exists (texidoc):
-				str += '@include %(texidoc)s\n' % vars ()
+				str += '@include %(texidoc)s\n\n' % vars ()
 
 		if VERBATIM in self.options:
 			verb = verbatim_texinfo (self.substring ('code'))
