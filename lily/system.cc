@@ -45,6 +45,22 @@ System::element_count () const
   return scm_ilength (get_grob_property ("all-elements"));
 }
 
+int
+System::spanner_count () const
+{
+  int k =0;
+  for (SCM s = get_grob_property ("all-elements");
+       gh_pair_p (s); s = ly_cdr (s))
+    {
+      if (dynamic_cast<Spanner*> (unsmob_grob (gh_car(s))))
+	k++;
+    }
+
+  return k;
+}
+  
+
+
 void
 System::typeset_grob (Grob * elem)
 {

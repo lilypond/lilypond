@@ -29,6 +29,8 @@ public:
   /// is #c# contained in #*this#?
   bool contains_b (Paper_column const *c) const;
   int element_count () const;
+  int spanner_count () const;
+
 
   void break_into_pieces (Array<Column_x_positions> const&);
   void output_lines ();

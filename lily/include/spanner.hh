@@ -31,15 +31,17 @@
   */
 class Spanner : public  Grob {
   Drul_array<Item*> spanned_drul_;
-
+  
 public:
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));
   
   Link_array<Spanner> broken_intos_;
 
+  int break_index_;
   // todo: move to somewhere else.
   Real get_broken_left_end_align () const;
-  
+  void substitute_one_mutable_property (SCM sym, SCM val)  ;
+  bool fast_fubstitute_grob_list (SCM sym, SCM grob_list);
   // TODO: make virtual and do this for Items as well.
   Interval_t<int> spanned_rank_iv ();
   void set_bound (Direction d, Grob*);
@@ -55,14 +57,13 @@ public:
   virtual Grob* find_broken_piece (System*) const;
   virtual SCM do_derived_mark ();
   static bool has_interface (Grob*);
+  virtual System *get_system () const;
 protected:
   void set_my_columns ();
 
   VIRTUAL_COPY_CONS (Grob);
   virtual void do_break_processing ();
-  virtual System *get_system () const;
 };
-
 
 void add_bound_item (Spanner*, Grob*);
 ///DECLARE_UNSMOB (Spanner, spanner);

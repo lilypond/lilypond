@@ -37,7 +37,6 @@ public:
   
   Item *find_prebroken_piece (Direction) const;
   Grob *find_broken_piece (System *) const;    
-
   virtual System *get_system () const;
   virtual Paper_column *get_column () const;
   virtual void handle_prebroken_dependencies ();
