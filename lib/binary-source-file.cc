@@ -34,7 +34,7 @@ Binary_source_file::error_str( char const* pos_ch_c_l )
 	return "";
 
     char const* begin_ch_c_l = pos_ch_c_l - 8 >? ch_C();
-    char const* end_ch_c_l = pos_ch_c_l + 7 <? ch_C() + length_off();
+    char const* end_ch_c_l = pos_ch_c_l + 7 <? ch_C() + length_i();
 
     String pre_str( (Byte const*)begin_ch_c_l, pos_ch_c_l - begin_ch_c_l );
     pre_str = String_convert::bin2hex_str( pre_str );
