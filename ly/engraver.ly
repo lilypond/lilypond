@@ -428,6 +428,7 @@ ScoreContext = \translator {
 	)
 	basicStemTremoloProperties = #'(
 		(beam-width . 4.0) ; interline!
+		(beam-thickness . 0.42) ; interline!
 	)
 
    	basicBreathingSignProperties = #'(
