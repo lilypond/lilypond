@@ -58,13 +58,13 @@ virtuoso that taught in Geneva.
     \score {
 	{ \transpose c' bes \allegro }
 	\layout { }
-	\header { piece = "allegro" opus = "" }	
+	\header { piece = "Allegro" opus = "" }	
 	\midi { \tempo 4=90 }
     }
 
     \score {
 	{ \transpose c' bes \romanze }
-	\header { piece = "romanze" opus = "" }	
+	\header { piece = "Romanze" opus = "" }	
 	\midi { \tempo 4 = 70  }
 	\layout {}
     }
@@ -72,7 +72,7 @@ virtuoso that taught in Geneva.
     \score
     {
 	{ \transpose c' bes \rondo }
-	\header { piece = "rondo" opus = "" }
+	\header { piece = "Rondo" opus = "" }
 	\midi { \tempo 4 = 100 }
 	\layout { }
     }

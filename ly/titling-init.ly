@@ -79,9 +79,11 @@ scoreTitleMarkup = \markup {
    empty-stencil))
 
 oddHeaderMarkup = \markup
-\on-the-fly #not-single-page
+ % \on-the-fly #not-single-page
 \fill-line {
-  ""
+  %% force the header to take some space, otherwise the
+  %% page layout becomes a complete mess. 
+  " "
   \on-the-fly #not-first-page \fromproperty #'header:instrument
   \on-the-fly #not-first-page \fromproperty #'page:page-number-string
 }

@@ -146,11 +146,14 @@ create offsets.
 		  "leftmargin " leftmargin "rightmargin " rightmargin
 		  )))
 
-    (if (and
-	 (ly:stencil? head)
-	 (not (ly:stencil-empty? head)))
-	(set! page-stencil (ly:stencil-combine-at-edge
-			    page-stencil Y DOWN head 0. 0.)))
+    (set! page-stencil (ly:stencil-combine-at-edge
+			page-stencil Y DOWN
+			(if (and
+			     (ly:stencil? head)
+			     (not (ly:stencil-empty? head)))
+			    head
+			    (ly:make-stencil "" (cons 0 0) (cons 0 0)))
+			    0. 0.))
 
     (map add-system (zip lines offsets))
     (if (and (ly:stencil? foot)
