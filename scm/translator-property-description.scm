@@ -114,7 +114,7 @@ file @file{lyrics-multi-stanza.ly}.
 ")
 
 (translator-property-description 'automaticMelismata boolean? " If
-set, \addlyrics will assume that beams, slurs and ties signal
+set, \\addlyrics will assume that beams, slurs and ties signal
 melismata, and align lyrics accordingly.
 ")
 
@@ -188,7 +188,7 @@ Staff.defaultBarType will have no effect.
 @table @samp
 @item (), or unset
 Behave in normal way: remove one set of grobs when in unisolo.
-@item allways:
+@item always:
 Remove any grob that comes along.
 @item never:
 Do nothing.
@@ -198,7 +198,7 @@ Do nothing.
 @table @samp
 @item (), or unset
 Behave in normal way: remove spanners when in unisolo.
-@item allways:
+@item always:
 Remove any spanners that come along.
 @item never:
 Do nothing.

@@ -76,13 +76,15 @@ Break_align_interface::do_alignment (Grob *me)
     = Pointer_group_interface__extract_grobs (me, (Grob*)0,
 						 "elements");
   Array<Interval> extents;
-  
+
+  int last_nonempty = -1; 
   for (int i=0; i < elems.size (); i++) 
     {
       Interval y = elems[i]->extent (elems[i], X_AXIS);
       extents.push (y);
+      if (!y.empty_b())
+	last_nonempty = i; 
     }
-
 
   int idx  = 0;
   while (idx < extents.size  () && extents[idx].empty_b ())
@@ -94,27 +96,36 @@ Break_align_interface::do_alignment (Grob *me)
     offsets[i] = 0.0;
 
 
+  Real extra_right_space = 0.0;
   int edge_idx = -1;
-  while (idx < elems.size() - 1)
+  while (idx < elems.size())
     {
       int next_idx = idx+1;
       while (next_idx < elems.size() &&
 	     extents[next_idx].empty_b()
-	     && next_idx != elems.size() -1 )
+	    )
 	next_idx++;
       
       Grob *l = elems[idx];
-      Grob *r = elems[next_idx];
+      Grob *r = 0;
+
+      if (next_idx < elems.size())
+	r = elems[next_idx];
 
       SCM alist = SCM_EOL;
 
+
+      /*
+	Find the first grob with a space-alist entry.
+       */
       for (SCM s= l->get_grob_property ("elements");
 	   gh_pair_p (s) ; s = gh_cdr (s))
 	  {
 	    Grob *elt = unsmob_grob (gh_car (s));
 
 	    if (edge_idx < 0
-		&& elt->get_grob_property ("break-align-symbol") == ly_symbol2scm( "left-edge"))
+		&& elt->get_grob_property ("break-align-symbol")
+		== ly_symbol2scm( "left-edge"))
 	      edge_idx = idx;
 	    
 	    SCM l =elt->get_grob_property ("space-alist");
@@ -125,25 +136,21 @@ Break_align_interface::do_alignment (Grob *me)
 	      }
 	  }
 
-      SCM rsym = SCM_EOL;
+      SCM rsym = r ? SCM_EOL : ly_symbol2scm ("right-edge");
 
       /*
 	We used to use #'cause to find out the symbol and the spacing
 	table, but that gets icky when that grob is suicided for some
 	reason.
       */
-	for (SCM s = r->get_grob_property ("elements");
-	     gh_pair_p (s); s = gh_cdr (s))
-	  {
-	    Grob * elt =unsmob_grob(gh_car (s));
+      for (SCM s = r ? r->get_grob_property ("elements") : SCM_EOL;
+	   !gh_symbol_p (rsym) && gh_pair_p (s); s = gh_cdr (s))
+	{
+	  Grob * elt =unsmob_grob(gh_car (s));
 
-	    SCM sym = elt->get_grob_property ("break-align-symbol");
-	    if (gh_symbol_p (sym))
-	      {
-		rsym = sym;
-		break;
-	      }
-	  }
+	  rsym = elt->get_grob_property ("break-align-symbol");
+	}
+	
       if (rsym  == ly_symbol2scm("left-edge"))
 	edge_idx = next_idx;
 
@@ -178,14 +185,20 @@ Break_align_interface::do_alignment (Grob *me)
 	  type = gh_car (entry) ;
 	}
 
-      if (type == ly_symbol2scm ("extra-space"))
-	offsets[next_idx] = extents[idx][RIGHT] + distance;
-      else if (type == ly_symbol2scm("minimum-space"))
-	offsets[next_idx] = extents[idx][RIGHT] >? distance;
+      if (r)
+	{
+	  if (type == ly_symbol2scm ("extra-space"))
+	    offsets[next_idx] = extents[idx][RIGHT] + distance;
+	  else if (type == ly_symbol2scm("minimum-space"))
+	    offsets[next_idx] = extents[idx][RIGHT] >? distance;
+	}
+      else
+	{
+	  extra_right_space = distance;	  
+	}
       
       idx = next_idx;
     }
-
 
   Real here = 0.0;
   Interval total_extent;
@@ -201,7 +214,9 @@ Break_align_interface::do_alignment (Grob *me)
 
 
   if (item->break_status_dir () == LEFT)
-    alignment_off = -total_extent[RIGHT];
+    {
+      alignment_off = - total_extent[RIGHT] - extra_right_space;
+    }
   else if (edge_idx < 0)
     alignment_off = -total_extent[LEFT];
 

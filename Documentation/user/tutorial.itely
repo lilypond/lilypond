@@ -1691,6 +1691,16 @@ will be at the left.
 @}
 @end example
 
+TODO:
+@example
+
+scoreA = \score @{ \deelA  @}
+scoreB = \score @{ \deelA  @}
+
+% \score @{ \scoreA @}
+\score @{ \scoreB @}
+
+@end example
 
 @separate
 @example 

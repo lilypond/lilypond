@@ -4472,6 +4472,8 @@ example of those is in @file{input/test/cue-notes.ly}.
 @cindex cue notes
 @cindex font size
 @cindex size
+@cindex symbol size
+@cindex glyph size
 
 The font used for printing a object can be selected by setting
 @code{font-name}, e.g.
@@ -4715,6 +4717,8 @@ are chosen whenever the page gets full.
 @cindex distance between staves
 @cindex staff distance
 @cindex between staves, distance
+@cindex staffs per page
+
 
 The height of each system is determined automatically by lilypond, to
 keep systems from bumping into each other, some minimum distances are

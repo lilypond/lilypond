@@ -1436,10 +1436,10 @@ verbose_event:
 	;
 
 sup_quotes:
-	"'" {
+	'\'' {
 		$$ = 1;
 	}
-	| sup_quotes "'" {
+	| sup_quotes '\'' {
 		$$ ++;
 	}
 	;
@@ -2146,7 +2146,7 @@ void
 My_lily_parser::set_yydebug (bool )
 {
 #if 0
-	yydebug = b;
+	yydebug = 1;
 #endif
 }
 
@@ -2155,7 +2155,6 @@ extern My_lily_parser * current_parser;
 void
 My_lily_parser::do_yyparse ()
 {
-
 	current_parser = this;;
 	yyparse ((void*)this);
 }
