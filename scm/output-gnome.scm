@@ -21,15 +21,15 @@
 
 ;;; You need:
 ;;;
-;;;   * Rotty's g-wrap--tng TLA, possibly Janneke's if you have libffi-3.4.
-;;;   * guile-gnome TLA
-;;;   * pango CVS (ie, > 2004-06-12)
+;;;   * Rotty's g-wrap >= 1.9.1 (or TLA)
+;;;   * guile-gnome-platform >= 2.5.990 (or TLA)
+;;;   * pango >= 1.5.1 (or CVS)
 ;;;
 ;;; See also: guile-gtk-general@gnu.org
 
 ;;; Try it
 ;;;
-;;;   * Get cvs and tla
+;;;   [* Get cvs and tla]
 ;;;
 ;;;   * Install gnome/gtk and libffi development stuff
 ;;;
