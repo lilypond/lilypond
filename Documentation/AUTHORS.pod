@@ -47,6 +47,10 @@ Beam and Stem code.
 
 =item *
 
+Donald Ervin Knuth, mf/ital-*.mf (these were taken from the CM fonts)
+
+=item *
+
 Alexandre Oliva <oliva@dcc.unicamp.br>, testing
 
 =item *
