@@ -1,5 +1,15 @@
 2004-03-18  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* Documentation/user/changing-defaults.itely (Creating contexts):
+	new node.
+
+	* lily/grace-iterator.cc (process): descend to child for \grace.
+
+	* lily/timing-translator.cc (initialize): Timing_translator adds
+	Timing alias by itself.
+
+	* lily/context.cc (add_alias): new function.
+
 	* scm/lily.scm (tex-output-expression): new function, eval within
 	drawing API. Guards against eval vulnerabilities.
 

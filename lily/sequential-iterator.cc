@@ -142,7 +142,7 @@ Sequential_iterator::construct_children ()
     iter_->ok () is tautology, but what the heck.
    */
   if (iter_ && iter_->ok ()) 
-    descend_to_child ();
+    descend_to_child (iter_->get_outlet ());
 }
 
 
@@ -194,25 +194,7 @@ Sequential_iterator::next_element (bool)
     iter_ = 0;
 }
 
-/*
-  move to context of child iterator if it is deeper down in the
-  hierarchy.
-  */
-void
-Sequential_iterator::descend_to_child ()
-{
-  Context * child_report = child_report = iter_->get_outlet ();
-  Context * me_report = get_outlet ();
 
-  Context * c = child_report;
-  while (c && c != me_report)
-    {
-      c = c->daddy_context_;
-    }
-  
-  if (c == me_report)
-    set_translator (child_report);
-}
 
 void
 Sequential_iterator::process (Moment until)
@@ -244,7 +226,7 @@ Sequential_iterator::process (Moment until)
       if (iter_->ok ())
 	return ;
 
-      descend_to_child ();
+      descend_to_child (iter_->get_outlet ());
       next_element (true);
     }
 }

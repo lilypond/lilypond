@@ -89,7 +89,10 @@ ENTER_DESCRIPTION (Timing_engraver,
 /* descr */       " Responsible for synchronizing timing information from staves.  "
 "Normally in @code{Score}.  In order to create polyrhythmic music, "
 "this engraver should be removed from @code{Score} and placed in "
-"@code{Staff}.",
+"@code{Staff}. "
+"\n\nThis engraver adds the alias @code{Timing} to its containing context."
+
+		   ,
 /* creats*/       "",
 /* accepts */     "",
 /* acks  */      "",

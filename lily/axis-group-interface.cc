@@ -76,8 +76,8 @@ Axis_group_interface::set_axes (Grob*me,Axis a1, Axis a2)
   SCM axes = me->get_property ("axes");
   
   if (!gh_pair_p (axes)
-      || scm_memq (sa1, axes) == SCM_BOOL_F
-      || scm_memq (sa2, axes) == SCM_BOOL_F)
+      || scm_c_memq (sa1, axes) == SCM_BOOL_F
+      || scm_c_memq (sa2, axes) == SCM_BOOL_F)
     {
       SCM ax = gh_cons (sa1, SCM_EOL);
       if (a1 != a2)

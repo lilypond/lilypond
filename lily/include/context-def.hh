@@ -45,7 +45,6 @@ public:
   Context * instantiate (SCM extra_ops);
 
   SCM to_alist () const;
-  bool is_alias (SCM) const;
   static SCM make_scm () ;
 
   SCM clone_scm ()const;

@@ -200,10 +200,10 @@ New_fingering_engraver::position_scripts ()
   fingerings_.sort (&Finger_tuple::compare);
   SCM orientations = get_property ("fingeringOrientations");
 
-  bool up_p = scm_memq (ly_symbol2scm ("up"), orientations) != SCM_BOOL_F;
-  bool down_p = scm_memq (ly_symbol2scm ("down"), orientations) != SCM_BOOL_F;
-  bool left_p = scm_memq (ly_symbol2scm ("left"), orientations) != SCM_BOOL_F;
-  bool right_p = scm_memq (ly_symbol2scm ("right"), orientations) != SCM_BOOL_F;
+  bool up_p = scm_c_memq (ly_symbol2scm ("up"), orientations) != SCM_BOOL_F;
+  bool down_p = scm_c_memq (ly_symbol2scm ("down"), orientations) != SCM_BOOL_F;
+  bool left_p = scm_c_memq (ly_symbol2scm ("left"), orientations) != SCM_BOOL_F;
+  bool right_p = scm_c_memq (ly_symbol2scm ("right"), orientations) != SCM_BOOL_F;
   Direction hordir = (right_p) ? RIGHT : LEFT;
   if (left_p || right_p)
     {

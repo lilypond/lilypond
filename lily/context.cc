@@ -81,6 +81,7 @@ Context::Context ()
 {
   daddy_context_ = 0;
   init_ = false;
+  aliases_ = SCM_EOL;
   iterator_count_  = 0;
   implementation_ = SCM_EOL;
   properties_scm_ = SCM_EOL;
@@ -262,8 +263,19 @@ Context::is_alias (SCM sym) const
   if (sym == ly_symbol2scm ("Bottom")
       && !gh_pair_p (accepts_list_))
     return true;
-  return unsmob_context_def (definition_)->is_alias (sym);
+  if (sym == unsmob_context_def (definition_)->get_context_name ())
+    return true;
+  
+  return scm_c_memq (sym, aliases_) != SCM_BOOL_F;
 }
+
+void
+Context::add_alias (SCM sym)
+{
+  aliases_ = scm_cons (sym, aliases_);
+}
+
+
 
 void
 Context::internal_set_property (SCM sym, SCM val)
@@ -400,6 +412,7 @@ Context::mark_smob (SCM sm)
   Context * me = (Context*) SCM_CELL_WORD_1 (sm);
   
   scm_gc_mark (me->context_list_);
+  scm_gc_mark (me->aliases_);
   scm_gc_mark (me->definition_);  
   scm_gc_mark (me->properties_scm_);  
   scm_gc_mark (me->accepts_list_);

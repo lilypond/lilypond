@@ -269,7 +269,6 @@ Context_def::instantiate (SCM ops)
   else
     tg = new Context ();
 
-  
   tg->definition_ = self_scm ();
 
   SCM trans_names = get_translator_names (ops); 
@@ -280,6 +279,7 @@ Context_def::instantiate (SCM ops)
   g->simple_trans_list_ = names_to_translators (trans_names, tg);
   tg->implementation_ = g->self_scm ();
   g->daddy_context_ = tg;
+  tg->aliases_ = context_aliases_ ;
   
   scm_gc_unprotect_object (g->self_scm ());
   
@@ -334,13 +334,3 @@ Context_def::to_alist () const
   return l;  
 }
 
-bool
-Context_def::is_alias (SCM sym) const
-{
-  bool b  = sym == context_name_;
-
-  for (SCM a = context_aliases_; !b && gh_pair_p (a); a = ly_cdr (a))
-    b = b || sym == ly_car (a);
-
-  return b;
-}
