@@ -154,8 +154,6 @@ public:
   
   Grob *get_parent (Axis a) const {   return  dim_cache_[a].parent_l_; }
   DECLARE_SCHEME_CALLBACK (fixup_refpoint, (SCM));
-  DECLARE_SCHEME_CALLBACK (original_scm, (SCM smob));
-  DECLARE_SCHEME_CALLBACK (line_scm, (SCM smob));
 };
 
 DECLARE_UNSMOB(Grob,grob);
@@ -168,35 +166,8 @@ Grob*common_refpoint_of_array (Link_array<Grob> const&, Grob * , Axis a);
 void set_break_subsititution (SCM criterion);
 SCM substitute_mutable_property_alist (SCM alist);
 
-
-/** Return Array of Grobs in SCM list L */
-inline Link_array<Grob>
-ly_scm2grob_array (SCM l)
-{
-  Link_array<Grob> arr;
-
-  for (SCM s = l; gh_pair_p (s); s = gh_cdr (s))
-    {
-      SCM e = gh_car (s);
-      arr.push (unsmob_grob (e));
-    }
-
-  arr.reverse ();
-  return arr;
-}
-
-#if 0
-/** Return SCM list of Grob array A */
-inline SCM
-ly_grob_array2scm (Link_array<Grob> a)
-{
-  SCM s = SCM_EOL;
-  for (int i = a.size (); i; i--)
-    s = gh_cons (a[i-1]->self_scm (), s);
-
-  return s;
-}
-#endif
+Link_array<Grob> ly_scm2grob_array (SCM l);
+SCM ly_grob_array2scm (Link_array<Grob> a);
 
 #endif // STAFFELEM_HH
 

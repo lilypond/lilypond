@@ -1,10 +1,24 @@
 
 #(set! point-and-click line-column-location)
 
-forcedBreak = \notes { }
-%%forcedBreak = \notes { \break }
+%%forcedBreak = \notes { }
+forcedBreak = \notes { \break }
 forcedLastBreak = \notes { \break }
 %%forcedLastBreak = \notes { }
+
+%% We want this to perfectly match the Baerenreiter spacing.
+%% If we're not using 6 systems, there's definately a problem.
+#(define (assert-system-count smob n)
+  (let ((systems (length (get-broken-into
+			  (get-original
+			   (get-line smob))))))
+    (if (not (equal? n systems))
+	;; Can't use error yet, as we know that we're not using 6...
+	;;(error
+	(warn
+	(string-append "Got " (number->string systems)
+			     " systems (expecting " (number->string n))))))
+            
 
 \header {
   title = "Solo Cello Suite II"
@@ -112,7 +126,12 @@ sarabandeA =  \context Voice \notes \relative c {
   [a,8 e']
   \oneVoice
   [d' cis] |
-  d4 d,,2 |
+  %%  d4 d,,2 |
+  d4
+  \property Thread.NoteHead
+  \override #'after-line-breaking-callback
+  = #(lambda (smob) (assert-system-count smob 6.1))
+  d,,2 |
 }
 
 

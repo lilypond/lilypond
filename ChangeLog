@@ -5,6 +5,17 @@
 
 2002-07-24  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* input/mutopia/J.S.Bach/baerenreiter-sarabande.ly: *
+	input/test/count-systems.ly: Update to new system-count function
+	names.
+
+	* lily/grob.cc (get_line, get_original): Use LY_DEFINE.
+
+	* lily/spanner.cc (get_broken_into): Use LY_DEFINE.
+
+	* lily/include/spanner.hh:
+	* lily/include/grob.hh: Remove DECLARE_SCHEME_CALLBACKs.
+
 	* input/mutopia/J.S.Bach/baerenreiter-sarabande.ly: Add
 	forcedBreak options and fix measure count comments.
 

@@ -34,7 +34,6 @@ class Spanner : public  Grob {
 
 public:
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));
-  DECLARE_SCHEME_CALLBACK (get_broken_into, (SCM));
   
   Link_array<Spanner> broken_into_l_arr_;
 
@@ -66,6 +65,6 @@ protected:
 
 
 void add_bound_item (Spanner*, Grob*);
-
+///DECLARE_UNSMOB (Spanner, spanner);
 
 #endif
