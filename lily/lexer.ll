@@ -161,7 +161,7 @@ HYPHEN		--
   }
 }
 
-<INITIAL>\\encoding{WHITE}*	{
+<INITIAL,notes>\\encoding{WHITE}* {
 	yy_push_state (encoding);
 }
 <INITIAL,chords,lyrics,notes,figures>\\version{WHITE}*	{
