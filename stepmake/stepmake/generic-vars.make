@@ -96,9 +96,8 @@ STRIP=strip --strip-debug
 DO_STRIP=true
 LOOP=$(foreach i,  $(SUBDIRS), $(MAKE) PACKAGE=$(PACKAGE) package=$(package) -C $(i) $@ &&) true
 
-# different redhat releases need different flags for etags. Just use defaults.
-ETAGS_FLAGS= # -CT
-CTAGS_FLAGS=-h
+ETAGS_FLAGS =
+CTAGS_FLAGS = 
 
 makeflags=$(patsubst %==, %, $(patsubst ---%,,$(patsubst ----%,,$(MAKEFLAGS:%=--%))))
 

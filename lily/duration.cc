@@ -1,10 +1,10 @@
 /*
   duration.cc -- implement Duration
-  
+
   source file of the LilyPond music typesetter
 
   (c) 1997--2004 Jan Nieuwenhuizen <janneke@gnu.org>
-           Han-Wen Nienhuys <hanwen@cs.uu.nl>
+                 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 */
 
@@ -18,7 +18,6 @@
 #include "ly-smobs.icc"
 
 
-
 int
 Duration::compare (Duration const &left, Duration const &right)
 {
@@ -29,14 +28,14 @@ Duration::Duration ()
 {
   durlog_ = 0;
   dots_ = 0;
-  factor_ = Rational (1,1);
+  factor_ = Rational (1, 1);
 }
 
-Duration::Duration (int l, int d)
+Duration::Duration (int log, int d)
 {
-  durlog_ = l;
+  durlog_ = log;
   dots_ = d;
-  factor_ = Rational (1,1);
+  factor_ = Rational (1, 1);
 }
 
 Duration
@@ -53,11 +52,10 @@ Duration::get_length () const
   Rational mom (1 << abs (durlog_));
 
   if (durlog_> 0)
-    mom = Rational (1)/mom;
+    mom = Rational (1) / mom;
 
   Rational delta = mom;
-
-  for (int d = dots_; d; d--)
+  for (int i = 0; i < dots_; i++)
     {
       delta /= Rational (2);
       mom += delta;
@@ -65,8 +63,6 @@ Duration::get_length () const
 
   return mom * factor_;
 }
-
-
 
 String
 Duration::to_string () const
@@ -77,12 +73,10 @@ Duration::to_string () const
     s = "log = "  + ::to_string (durlog_);
   else
     s = ::to_string (1 << durlog_);
-  
+
   s += ::to_string ('.', dots_);
-  if (factor_ != Moment (Rational (1,1)))
-    {
-      s += "*" + factor_.to_string ();
-    }
+  if (factor_ != Moment (Rational (1, 1)))
+    s += "*" + factor_.to_string ();
   return s;
 }
 
@@ -100,11 +94,11 @@ int
 Duration::print_smob (SCM s, SCM port, scm_print_state *)
 {
   Duration  *r = (Duration *) ly_cdr (s);
-     
+
   scm_puts ("#<Duration ", port);
   scm_display (scm_makfrom0str (r->to_string ().to_str0 ()), port);
   scm_puts (" >", port);
-  
+
   return 1;
 }
 
@@ -112,7 +106,7 @@ SCM
 Duration::equal_p (SCM a , SCM b)
 {
   Duration  *p = (Duration *) ly_cdr (a);
-  Duration  *q = (Duration *) ly_cdr (b);  
+  Duration  *q = (Duration *) ly_cdr (b);
 
   bool eq = p->dots_ == q->dots_
     && p->durlog_ == q->durlog_
@@ -120,7 +114,7 @@ Duration::equal_p (SCM a , SCM b)
 
   return eq ? SCM_BOOL_T : SCM_BOOL_F;
 }
-  
+
 MAKE_SCHEME_CALLBACK (Duration, less_p, 2);
 SCM
 Duration::less_p (SCM p1, SCM p2)
@@ -134,14 +128,15 @@ Duration::less_p (SCM p1, SCM p2)
     return SCM_BOOL_F;
 }
 
-LY_DEFINE(duration_less, "ly:duration<?", 2,0,0, (SCM p1, SCM p2),
+LY_DEFINE (duration_less, "ly:duration<?",
+	   2, 0, 0, (SCM p1, SCM p2),
 	  "Is @var{p1} shorter than @var{p2}?")
 {
   Duration *a = unsmob_duration (p1);
   Duration *b = unsmob_duration (p2);
 
-  SCM_ASSERT_TYPE(a, p1, SCM_ARG1, __FUNCTION__, "Duration");
-  SCM_ASSERT_TYPE(b, p2, SCM_ARG2, __FUNCTION__, "Duration");
+  SCM_ASSERT_TYPE (a, p1, SCM_ARG1, __FUNCTION__, "Duration");
+  SCM_ASSERT_TYPE (b, p2, SCM_ARG2, __FUNCTION__, "Duration");
 
   if (Duration::compare (*a, *b) < 0)
     return SCM_BOOL_T;
@@ -149,44 +144,40 @@ LY_DEFINE(duration_less, "ly:duration<?", 2,0,0, (SCM p1, SCM p2),
     return SCM_BOOL_F;
 }
 
-
-LY_DEFINE(make_duration,
-	  "ly:make-duration", 2, 2, 0, (SCM length, SCM dotcount,
-				     SCM num, SCM den),
-"	  \n"
-"@var{length} is the negative logarithm (base 2) of the duration:\n"
-"1 is a half note, 2 is a quarter note, 3 is an eighth\n"
-"note, etc.  The number of dots after the note is given by\n"
-"@var{dotcount}.\n"
-"\n"
-"The duration factor is optionally given by @var{num} and @var{den}.\n"
-"\n"
-"A duration is a musical duration, i.e. a length of time described by a\n"
-"power of two (whole, half, quarter, etc.) and a number of augmentation\n"
-"dots. \n"
-"\n"
-"")
+LY_DEFINE (make_duration, "ly:make-duration",
+	   2, 2, 0, (SCM length, SCM dotcount, SCM num, SCM den),
+	   "@var{length} is the negative logarithm (base 2) of the duration:\n"
+	   "1 is a half note, 2 is a quarter note, 3 is an eighth\n"
+	   "note, etc.  The number of dots after the note is given by\n"
+	   "@var{dotcount}.\n"
+	   "\n"
+	   "The duration factor is optionally given by @var{num}\n"
+	   "and @var{den}.\n\n"
+	   "A duration is a musical duration, "
+	   "i.e. a length of time described by a power of two "
+	   "(whole, half, quarter, etc.) and a number of augmentation\n"
+	   "dots. \n")
 {
-  SCM_ASSERT_TYPE(gh_number_p (length), length, SCM_ARG1, __FUNCTION__, "integer");
-  SCM_ASSERT_TYPE(gh_number_p (dotcount), dotcount, SCM_ARG2, __FUNCTION__, "integer");
+  SCM_ASSERT_TYPE (gh_number_p (length), length, SCM_ARG1, __FUNCTION__, "integer");
+  SCM_ASSERT_TYPE (gh_number_p (dotcount), dotcount, SCM_ARG2, __FUNCTION__, "integer");
 
   bool compress = false;
   if (num != SCM_UNDEFINED)
     {
-      SCM_ASSERT_TYPE(gh_number_p (num), length, SCM_ARG3, __FUNCTION__, "integer");
+      SCM_ASSERT_TYPE (gh_number_p (num), length, SCM_ARG3, __FUNCTION__, "integer");
       compress = true;
     }
   else
     num = gh_int2scm (1);
-  
+
   if (den != SCM_UNDEFINED)
     {
-      SCM_ASSERT_TYPE(gh_number_p (den), length, SCM_ARG4, __FUNCTION__, "integer");
+      SCM_ASSERT_TYPE (gh_number_p (den), length, SCM_ARG4, __FUNCTION__, "integer");
       compress = true;
     }
   else
     den = gh_int2scm (1);
-  
+
   Duration p (gh_scm2int (length), gh_scm2int (dotcount));
   if (compress)
     p = p.compressed (Rational (gh_scm2int (num), gh_scm2int (den)));
@@ -194,57 +185,45 @@ LY_DEFINE(make_duration,
   return p.smobbed_copy ();
 }
 
-
-
-LY_DEFINE(duration_log,
-	  "ly:duration-log", 1, 0, 0, (SCM dur),
-	  "Extract the duration log from @var{dur}"
-)
+LY_DEFINE (duration_log, "ly:duration-log",
+	   1, 0, 0, (SCM dur),
+	  "Extract the duration log from @var{dur}")
 {
-  SCM_ASSERT_TYPE(unsmob_duration(dur), dur, SCM_ARG1, __FUNCTION__, "duration");
-
+  SCM_ASSERT_TYPE (unsmob_duration (dur), dur, SCM_ARG1, __FUNCTION__, "duration");
   return gh_int2scm (unsmob_duration (dur)->duration_log ());
 }
 
-
-LY_DEFINE(dot_count_log,
-	  "ly:duration-dot-count", 1, 0, 0, (SCM dur),
+LY_DEFINE (dot_count_log, "ly:duration-dot-count", 1, 0, 0, (SCM dur),
 	  "Extract the dot count from @var{dur}"
 )
 {
-  SCM_ASSERT_TYPE(unsmob_duration(dur), dur, SCM_ARG1, __FUNCTION__, "duration");
-
+  SCM_ASSERT_TYPE (unsmob_duration (dur), dur, SCM_ARG1, __FUNCTION__, "duration");
   return gh_int2scm (unsmob_duration (dur)->dot_count ());
 }
 
 
-LY_DEFINE(ly_intlog2,
-	  "ly:intlog2", 1, 0, 0, (SCM d),
-	  "The 2-logarithm of 1/@var{d}."
-)
+LY_DEFINE (ly_intlog2, "ly:intlog2",
+	   1, 0, 0, (SCM d),
+	  "The 2-logarithm of 1/@var{d}.")
 {
-  SCM_ASSERT_TYPE(gh_number_p (d), d, SCM_ARG1, __FUNCTION__, "integer");
-
-  int l = intlog2 (gh_scm2int (d));
-
-  return gh_int2scm (l);
+  SCM_ASSERT_TYPE (gh_number_p (d), d, SCM_ARG1, __FUNCTION__, "integer");
+  int log = intlog2 (gh_scm2int (d));
+  return gh_int2scm (log);
 }
 
-LY_DEFINE(compression_factor,
-	  "ly:duration-factor", 1, 0, 0, (SCM dur),
-	  "Extract the compression factor from @var{dur}. Return as a pair."
-)
+LY_DEFINE (compression_factor, "ly:duration-factor",
+	   1, 0, 0, (SCM dur),
+	  "Extract the compression factor from @var{dur}. Return as a pair.")
 {
-  SCM_ASSERT_TYPE(unsmob_duration(dur), dur, SCM_ARG1, __FUNCTION__, "duration");
-  Rational r =unsmob_duration (dur)->factor ();
-
-  return gh_cons(gh_int2scm (r.num()),gh_int2scm (r.den ())); 
+  SCM_ASSERT_TYPE (unsmob_duration (dur), dur, SCM_ARG1, __FUNCTION__, "duration");
+  Rational r = unsmob_duration (dur)->factor ();
+  return gh_cons (gh_int2scm (r.num ()), gh_int2scm (r.den ()));
 }
 
 SCM
-Duration::smobbed_copy ()const
+Duration::smobbed_copy () const
 {
-  Duration *  p = new Duration (*this);
+  Duration *p = new Duration (*this);
   return p->smobbed_self ();
 }
 
@@ -259,4 +238,3 @@ Duration::dot_count () const
 {
   return dots_;
 }
-

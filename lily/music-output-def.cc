@@ -27,7 +27,7 @@ Music_output_def::Music_output_def ()
   smobify_self ();
 
   scm_gc_unprotect_object (translator_tab_->self_scm ());
-  scope_ = ly_make_anonymous_module();
+  scope_ = ly_make_anonymous_module ();
 }
 
 Music_output_def::~Music_output_def ()
@@ -77,12 +77,12 @@ Music_output_def::assign_translator (SCM transdef)
   String nm = ly_symbol2string (tp->get_context_name ()) + "Context";
 
 
-  scm_module_define (scope_, ly_symbol2scm (nm.to_str0()), transdef);
+  scm_module_define (scope_, ly_symbol2scm (nm.to_str0 ()), transdef);
 }
 
 /*
   find the translator for NAME. NAME must be a symbol.
- */
+*/
 SCM
 Music_output_def::find_context_def (SCM name) const
 {  
@@ -90,7 +90,6 @@ Music_output_def::find_context_def (SCM name) const
   translator_tab_->try_retrieve (name, &val);
   return val;
 }
-
 
 int
 Music_output_def::print_smob (SCM s, SCM p, scm_print_state *)
@@ -104,13 +103,11 @@ Music_output_def::print_smob (SCM s, SCM p, scm_print_state *)
   return 1;
 }
 
-
 SCM
 Music_output_def::get_scmvar (String s) const
 {
   return lookup_variable (ly_symbol2scm (s.to_str0 ()));
 }
-
 
 void
 Music_output_def::set_variable (SCM sym, SCM val)
@@ -126,13 +123,10 @@ Music_output_def::lookup_variable (SCM sym) const
   return scm_variable_ref (var);
 }
 
-LY_DEFINE(ly_paper_lookup,
-	  "ly:paper-lookup",
-	  2, 0,0,
-	  (SCM pap, SCM sym),
-	  "Lookup @var{sym} in @var{pap}. Return the value "
-	  " or '() if undefined.  "
-	  )
+LY_DEFINE (ly_paper_lookup, "ly:paper-lookup",
+	   2, 0,0, (SCM pap, SCM sym),
+	   "Lookup @var{sym} in @var{pap}. "
+	   "Return the value or ' () if undefined.")
 {
   Music_output_def *op = unsmob_music_output_def (pap);
   SCM_ASSERT_TYPE (op, pap, SCM_ARG1, __FUNCTION__, "Paper");
@@ -145,30 +139,21 @@ LY_DEFINE(ly_paper_lookup,
     return SCM_EOL;
 }
 
-LY_DEFINE(ly_output_def_scope,
-	  "ly:output-def-scope",
-	  1, 0,0,
-	  (SCM def),
-	  "Get the scope inside @var{def}."
-	  )
+LY_DEFINE (ly_output_def_scope, "ly:output-def-scope",
+	   1, 0,0, (SCM def),
+	   "Get the scope inside @var{def}.")
 {
   Music_output_def *op = unsmob_music_output_def (def);
   SCM_ASSERT_TYPE (op, def, SCM_ARG1, __FUNCTION__, "Output definition");
-
   return op->scope_;
 }
 
-
-LY_DEFINE(ly_output_def_clone,
-	  "ly:output-def-clone",
-	  1, 0,0,
-	  (SCM def),
-	  "Clone @var{def}."
-	  )
+LY_DEFINE (ly_output_def_clone, "ly:output-def-clone",
+	   1, 0, 0, (SCM def),
+	   "Clone @var{def}.")
 {
   Music_output_def *op = unsmob_music_output_def (def);
   SCM_ASSERT_TYPE (op, def, SCM_ARG1, __FUNCTION__, "Output definition");
-
   SCM s = op->clone ()->self_scm ();
   scm_gc_unprotect_object (s);
   return s;

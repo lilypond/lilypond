@@ -9,7 +9,8 @@ SOURCE_FILES+=$(Y_FILES) $(C_FILES) $(L_FILES) $(H_FILES)
 
 O_FILES+=$(addprefix $(outdir)/, $(Y_FILES:.y=.o) $(C_FILES:.c=.o) $(L_FILES:.l=.o))
 
-TAGS_FILES += $(C_FILES) $(H_FILES)
+TAGS_SOURCES += $(C_FILES)
+TAGS_HEADERS += $(H_FILES)
 
 ALL_C_SOURCES += $(H_FILES) $(C_FILES) $(Y_FILES) $(L_FILES)
 
