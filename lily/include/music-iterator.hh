@@ -60,7 +60,7 @@ protected:
 public:
   
   Moment music_get_length () const;
-  virtual Moment music_start_mom () const;
+  Moment music_start_mom () const;
   Music_iterator ();
 
   /**

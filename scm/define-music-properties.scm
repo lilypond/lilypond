@@ -98,7 +98,7 @@ processed.")
      (repeat-count  ,integer? "do a @code{\repeat} how ofen?")
      (span-direction ,ly:dir? "Does this start or stop a spanner?")
      (split-list ,list? "splitting moments for part combiner.")
-     (start-moment-function ,procedure? "Function to compute the negative length of
+     (start-callback ,procedure? "Function to compute the negative length of
 starting grace notes.")
      (string-number ,integer? "The number of the string in a String_number_req")
      (symbol ,symbol? "Grob name to perform an override/revert on.")

@@ -8,8 +8,6 @@
  */
 
 #include "grace-iterator.hh"
-
-#include "grace-music.hh"
 #include "global-context.hh"
 #include "warn.hh"
 

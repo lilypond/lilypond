@@ -19,6 +19,8 @@ public:
   VIRTUAL_COPY_CONSTRUCTOR (Music, Music_sequence);
   DECLARE_SCHEME_CALLBACK(cumulative_length_callback, (SCM));
   DECLARE_SCHEME_CALLBACK(maximum_length_callback, (SCM));
+  DECLARE_SCHEME_CALLBACK(minimum_start_callback, (SCM));
+  DECLARE_SCHEME_CALLBACK(first_start_callback, (SCM));
   SCM music_list () const;
   
   Pitch do_relative_octave (Pitch p, bool b);

@@ -47,6 +47,7 @@ Music::Music (SCM init)
   smobify_self ();
 
   length_callback_ = get_property ("length-callback");
+  start_callback_ = get_property ("start-callback");
 }
 
 Music::Music (Music const &m)
@@ -61,6 +62,7 @@ Music::Music (Music const &m)
   smobify_self ();
   mutable_property_alist_ = ly_music_deep_copy (m.mutable_property_alist_);
   length_callback_ = m.length_callback_;
+  start_callback_ = m.start_callback_;
   set_spot (*m.origin ());
 }
 
@@ -104,7 +106,7 @@ Music::get_length () const
 Moment
 Music::start_mom () const
 {
-  SCM lst = get_property ("start-moment-function");
+  SCM lst = get_property ("start-callback");
   if (ly_c_procedure_p (lst))
     {
       SCM res = scm_call_1 (lst, self_scm ());
