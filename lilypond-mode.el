@@ -25,7 +25,7 @@
 (require 'easymenu)
 (require 'compile)
 
-(defconst LilyPond-version "1.5.52"
+(defconst LilyPond-version "1.5.58"
   "`LilyPond-mode' version number.")
 
 (defconst LilyPond-help-address "bug-lilypond@gnu.org"
@@ -510,6 +510,7 @@ command."
   (define-key LilyPond-mode-map "\C-c\C-p" 'LilyPond-command-viewps)
   (define-key LilyPond-mode-map "\C-c\C-m" 'LilyPond-command-next-midi)
   (define-key LilyPond-mode-map "\C-cf" 'font-lock-fontify-buffer)
+  (define-key LilyPond-mode-map "\C-ci" 'LilyPond-quick-note-insert)
   (define-key LilyPond-mode-map "\C-cn" 'LilyPond-insert-tag-notes)
   (define-key LilyPond-mode-map "\C-cs" 'LilyPond-insert-tag-score)
   (define-key LilyPond-mode-map "\C-c:" 'LilyPond-un-comment-region)
@@ -520,6 +521,73 @@ command."
   )
 
 ;;; Menu Support
+
+(defun LilyPond-quick-note-insert()
+  "Insert notes with fewer key strokes by using a simple keyboard piano."
+  (interactive)
+  (setq dutch-notes
+	'(("k" "a") ("l" "b") ("a" "c") ("s" "d") 
+	  ("d" "e") ("f" "f") ("j" "g") ("r" "r")))
+  (setq dutch-note-ends '("eses" "es" "" "is" "isis"))
+  (setq dutch-note-replacements '("" ""))
+  (setq finnish-note-replacements
+	'(("eeses" "eses") ("ees" "es") ("aeses" "asas") ("aes" "as")
+	 ("beses" "bb") ("bes" "b") ("b" "h") ("bis" "his") ("bisis" "hisis")))
+			      ; add more translations of the note names
+  (setq other-keys "()<>~")
+  (setq accid 0) (setq octav 0) (setq durat "") (setq dots 0)
+
+  (message "Press h for help.") (sit-for 0 750 1)
+
+  (setq note-replacements dutch-note-replacements)
+  (while (not (= 27 ; esc to quit
+    (setq x (read-char 
+	     (format " | a[_]s[_]d | f[_]j[_]k[_]l | r with ie ,' 12345678 . 0 (<~>)\\b\\n Esc \n | c | d | e | f | g | a | b | r with %s%s%s%s"
+		     (nth (+ accid 2) dutch-note-ends)
+		     (make-string (abs octav) (if (> octav 0) ?' ?,)) 
+		     durat 
+		     (if (string= durat "") "" (make-string dots ?.)))))))
+;    (insert (number-to-string x)) ; test numbers for characters
+    (setq note (cdr (assoc (char-to-string x) dutch-notes)))
+    (cond
+     ((= x 127) (backward-kill-word 1)) ; backspace
+     ((= x 13) (progn (insert "\n") (LilyPond-indent-line)))) ; return
+    (setq x (char-to-string x))
+    (cond
+     ((and (string< x "9") (string< "0" x))
+      (progn (setq durat (int-to-string (expt 2 (string-to-int x))))
+	     (setq dots 0)))
+     ((string= x " ") (insert " "))
+     ((string= x "0") (progn (setq accid 0) (setq octav 0) 
+			     (setq durat "") (setq dots 0)))
+     ((string= x "i") (setq accid (if (= accid 2) 0 (max (+ accid 1) 1))))
+     ((string= x "e") (setq accid (if (= accid -2) 0 (min (+ accid -1) -1))))
+     ((string= x "'") (setq octav (if (= octav 4) 0 (max (+ octav 1) 1))))
+     ((string= x ",") (setq octav (if (= octav -4) 0 (min (+ octav -1) -1))))
+     ((string= x ".") (setq dots (if (= dots 4) 0 (+ dots 1))))
+     ((not (null (member x (split-string other-keys ""))))
+      (insert (format "%s " x)))
+     ((not (null note))
+      (progn
+	(setq note 
+	      (format "%s%s" (car note) (if (string= "r" (car note)) "" 
+					  (nth (+ accid 2) dutch-note-ends))))
+	(setq notetwo (car (cdr (assoc note note-replacements))))
+	(if (not (null notetwo)) (setq note notetwo))
+	(insert
+	 (format "%s%s%s%s " 
+		 note
+		 (if (string= "r" note) ""
+		     (make-string (abs octav) (if (> octav 0) ?' ?,)))
+		 durat
+		 (if (string= durat "") "" (make-string dots ?.))))
+	(setq accid 0) (setq octav 0) (setq durat "") (setq dots 0)))
+     ((string= x "t") (setq note-replacements dutch-note-replacements)) ; t
+     ((string= x "n") (setq note-replacements finnish-note-replacements)) ; n
+			      ; add more translations of the note names
+     ((string= x "h") 
+      (progn (message "Insert notes with fewer key strokes. For example \"i,5.f\" produces \"fis,32. \".") (sit-for 5 0 1) (message "Add also \"a ~ a\"-ties, \"a ( ) b\"-slurs and \"< a b >\"-chords.") (sit-for 5 0 1) (message "Note names are in Du(t)ch by default. Hit 'n' for Fin(n)ish note names.") (sit-for 5 0 1) (message "Backspace deletes last note, return starts a new indented line and Esc quits.") (sit-for 5 0 1) (message "Backspace deletes last note, return starts a new indented line and Esc quits.") (sit-for 5 0 1) (message "Remember to add all more other details as well.") (sit-for 5 0 1)))
+    )))
 
 (define-skeleton LilyPond-insert-tag-notes
   "LilyPond notes tag."
@@ -601,6 +669,7 @@ command."
 	  '(("Insert"
 	     [ "\\notes..."  LilyPond-insert-tag-notes t]
 	     [ "\\score..."  LilyPond-insert-tag-score t]
+	     ["Quick Notes"  LilyPond-quick-note-insert t]
 	     ))
 	  '(("Miscellaneous"
 	     ["Uncomment Region" LilyPond-un-comment-region t]
