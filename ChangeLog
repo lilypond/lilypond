@@ -1,5 +1,8 @@
 2003-09-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/slur.cc (after_line_breaking): only set control points if
+	none supplied yet.
+
 	* input/test/slur-manual.ly: new file.
 
 	* scripts/convert-ly.py (FatalConversionError.sub_chords): convert
