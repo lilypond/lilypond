@@ -1,7 +1,0 @@
-/*
-  bass-figure.cc 
- */
-
-
-
-

@@ -119,5 +119,5 @@ Rest::extent_callback (SCM smob, SCM ax)
 
 ADD_INTERFACE (Rest,"rest-interface",
   "a rest",
-  "style");
+  "style minimum-beam-collision-distance");
 

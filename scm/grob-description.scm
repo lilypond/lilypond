@@ -94,7 +94,7 @@
 	(padding . 0.1)
 	(kern . 0.2)
 	(thickness . 1.0)
-	(meta . ((interfaces . (text-interface self-alignment-interface font-interface))))
+	(meta . ((interfaces . (text-interface bass-figure-interface self-alignment-interface font-interface))))
 	))
     (Beam
      . (
@@ -384,7 +384,6 @@
 	(molecule-callback . ,Text_item::brew_molecule)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(self-alignment-X . 0)
-	(non-rhythmic . #t)
 	(word-space . 0.6)
 	(ignore-length-mismatch . #f)
 	(begin-alignment . 4)
@@ -574,7 +573,7 @@
 	(edge-height . (1.0 . 1.0))
 	(shorten-pair . (0.0 . 0.0))
 	(thickness .  1.0)
-	(meta . ((interfaces . (piano-pedal-interface))))
+	(meta . ((interfaces . (text-spanner-interface piano-pedal-interface))))
 	))
 
     (RepeatSlash

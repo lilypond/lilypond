@@ -1109,11 +1109,17 @@ Set @code{height} to zero, to get horizontal beams:
 Here's how you'd specify a weird looking beam that instead of being
 horizontal, falls two staff spaces:
 
+
+[FIXME]
+
+
 @lilypond[fragment,relative,verbatim]
   \property Voice.Beam \set #'staff-position = #4
   \property Voice.Beam \set #'height = #-4
   [c8 c] 
 @end lilypond
+
+[TODO: doc autokneeing ? ]
 
 @c TODO -> why this ref? Document? 
 @cindex @code{neutral-direction}

@@ -98,7 +98,7 @@ Spacing_engraver::acknowledge_grob (Grob_info i)
       Pointer_group_interface::add_grob (spacing_p_, ly_symbol2scm  ("wishes"), i.grob_l_);
     }
   
-  if (to_boolean (i.grob_l_->get_grob_property ("non-rhythmic")))
+  if (i.grob_l_->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
     return;
 
   /*

@@ -453,3 +453,6 @@ columns.
 (grob-property-description 'grace-space-factor number? "space grace at this fraction of the increment.")
 (grob-property-description 'position-callbacks list? "list of
 functions set spanner positions.")
+(grob-property-description 'chord-name-function procedure? "DOCME")
+(grob-property-description 'minimum-beam-collision-distance number?
+"Minimum distance to beam for a rest collision.")
