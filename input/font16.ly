@@ -8,20 +8,15 @@ description = "This file tests the Feta music font";
 }
 
 \version "0.1.7";
+\include "font-body.ly"
 
-\include "font-body.ly";
 \score{
+	\FontBody
 	\paper{ 
 	    % don't change this.
 	    % otherwise 16pt and 20pt layouts differ.
 	    linewidth = 12.5 \cm;
 	    gourlay_maxmeasures =5.;
-	}
-	\paper{
-	    \paper_twenty
-	    linewidth = 17.5 \cm;
-	    gourlay_maxmeasures =5.;
-	    \output "font20.tex";
 	}
 }
 

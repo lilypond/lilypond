@@ -67,7 +67,8 @@ table_twenty =
     % dims ignored for this table
     "param" = \table {
 %	 "brace"    "\pianobrace{%}"	0.0\pt	0.0\pt	0.0\pt	0.0\pt
-	 "brace"    "\pianobrace{%}"	0.0\pt	0.0\pt	40.0\pt	100.0\pt	 
+	"rule" "\rulesym{%}{%}"
+	"brace"    "\pianobrace{%}"	0.0\pt	0.0\pt	40.0\pt	100.0\pt	 
 	 "meter"	"\generalmeter{%}{%}"	0.0\pt	10.0\pt	-5.0\pt	5.0\pt
 	 "stem"	"\stem{%}{%}"
 	 "fill"	"\hbox{}"

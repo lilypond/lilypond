@@ -19,6 +19,8 @@
 #include "debug.hh"
 #include "lookup.hh"
 #include "misc.hh"
+#include "paper-def.hh"
+#include "string-convert.hh"
 #include "main.hh"
 
 Atom
@@ -42,7 +44,7 @@ Lookup::beam_element (int sidx, int widx, Real slope) const
 Atom
 Lookup::rule_symbol (Real height, Real width) const
 {
-  Atom bs=(*symtables_p_)("beamslopes")->lookup ("horizontal");
+  Atom bs=(*symtables_p_)("param")->lookup ("rule");
   Array<String> args;
   args.push (print_dimen (height));
   args.push (print_dimen (width));
@@ -55,24 +57,51 @@ Lookup::rule_symbol (Real height, Real width) const
 Atom 
 Lookup::beam(Real &slope, Real width, Real y_thick) const
 {
-  if (postscript_global_b)
-    {
-      return ps_beam (slope, width, y_thick);
-    }
-  else
-    return tex_beam(slope, width);
+  Atom a( postscript_global_b
+	  ? ps_beam (slope, width, y_thick)
+	  : tex_beam (slope, width));
+  
+  Real slope_y =slope * width; 
+  Real min_y = (0 <? slope_y )- y_thick/2;
+  Real max_y = (0 >? slope_y) + y_thick/2;
+  
+  a.dim_[X_AXIS] = Interval(0, width);
+  a.dim_[Y_AXIS] = Interval(min_y, max_y);
+  return a;
 }
 
 Atom
-Lookup::ps_beam (Real  slope, Real width, Real y_thickness)const
+Lookup::ps_beam (Real slope, Real width, Real y_thickness)const
 {
-  Atom ret;
-  String ps(String (width) + " "+ String(slope) 
-	    + " " + String(y_thickness) + " draw_beam");
-  ret.tex_ = String("\\embeddedps{" + ps + "}");
-  ret.dim_[X_AXIS] = Interval(0, width);
-  ret.dim_[Y_AXIS] = Interval(0, slope * width + y_thickness);
-  return ret;
+  String ps = "\\embeddedps{\n";
+  ps += String (width) + " "+ String (slope) + " " + String (y_thickness)
+    + " draw_beam}";
+
+  /* 
+   beam parts are rarely wider than 100pt: 
+   precision of 4 yields maximum (half beam spanning half a page)
+   error of: 1%% * 3*72pt === 0.2pt = 0.07mm
+   */
+  String width_str = String_convert::precision_str (width, 4);
+  String slope_str = String_convert::precision_str (slope, 4);
+  String thick_str = String_convert::precision_str (y_thickness, 3);
+  String name = "feta-beum-" + width_str + "-" + slope_str + "-" + thick_str;
+
+  int i;
+  while ((i = name.index_i ('.')) != -1)
+    name[i]=  'x';
+
+
+  String mf = "\\embeddedmf{" + name + "}{\n";
+  mf += "input feta-beum;\n";
+  mf += "drawbeam(" + width_str + "," + slope_str + "," + thick_str + ");\n";
+  mf += "end.\n";
+  mf += "}\n";
+
+  Atom s;
+  s.tex_ = ps + mf;
+  
+  return s;
 }
 
 Atom
@@ -129,8 +158,6 @@ Lookup::tex_beam (Real &slope, Real width) const
 
   Atom ret;
   ret.tex_ = m.TeX_string();
-  ret.dim_.y() = Interval (0,width*slope);
-  ret.dim_.x() = Interval (0,width);
 
   return ret;
 }
