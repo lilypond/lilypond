@@ -20,9 +20,10 @@ public:
   TRANSLATOR_DECLARATIONS(Score_performer);
   ~Score_performer ();
   Performance *performance_;
-
+  
 protected:
   virtual void prepare (Moment mom);
+  virtual void finish ();
   virtual void one_time_step ();
   virtual void initialize ();
   virtual void announce_element (Audio_element_info);

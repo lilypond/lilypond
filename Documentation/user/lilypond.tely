@@ -149,7 +149,7 @@ this and other documentation.
 * Tutorial::                       A tutorial introduction.
 * Notation manual::                All notation supported, and how to
                                    produce it.
-* Literature list::                Books about notation and engraving.
+* Using LilyPond::               How it all works.
 * Technical manual::               How it all works.
 * Invoking LilyPond::              Operation.
 * Converting from other formats::  Converting to lilypond source format.
@@ -169,7 +169,7 @@ this and other documentation.
 @include introduction.itely 
 @include tutorial.itely
 @include refman.itely
-@include literature.itely
+@include running.itely
 @include internals.itely
 @include invoking.itexi
 @include lilypond-book.itely

@@ -11,11 +11,14 @@
 
 Audio_element::Audio_element ()
 {
-  grace_b_ = false;
 }
 
 Audio_element::~Audio_element ()
 {
 }
 
-
+char const * 
+Audio_element::name () const
+{
+  return classname (this);
+}
