@@ -35,7 +35,7 @@ Score::Score (Score const &s)
   music_p_ = (s.music_p_) ? s.music_p_->clone() : 0;
   for (int i=0; i < s.def_p_arr_.size (); i++)
     def_p_arr_.push(s.def_p_arr_[i]->clone());
-
+  errorlevel_i_ = s.errorlevel_i_;
   header_p_ =  (s.header_p_) ? new Header (*s.header_p_): 0;
 }
 

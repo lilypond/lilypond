@@ -522,7 +522,7 @@ mudela(fragment,verbatim,center)(
 )
 Some more elaborate constructions:
 mudela(fragment,verbatim,center)(
-[a'16 <a' c''> c'' <a' c''>] 
+[a'16 <a' c''> c'' <a' c''>]
 \times 2/3 { [e'8 f' g'] }
 )
 
@@ -1474,6 +1474,12 @@ note.  Set to \center to align the center of the text with the note.
 
 dit(code(textstyle)) Set the text style for superscripts and
 subscripts.  See above for list of text styles.
+
+dit(code(textScriptPadding)) Determines the extra space added between
+super-/subscripted text and the closest staff line or note.
+
+dit(code(textScriptPadding)) Determines the extra space added between
+super-/subscripted text and the closest staff line or note.
 
 dit(code(fontsize)) Can be used to select smaller font sizes for
 music.  The normal font size is 0, and the two smaller sizes are -1

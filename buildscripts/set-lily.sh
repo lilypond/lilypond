@@ -49,7 +49,10 @@ chmod 755 $LILYPOND_SOURCEDIR/buildscripts/ps-to-gifs.sh
 ln -sf $LILYPOND_SOURCEDIR/buildscripts/ps-to-gifs.sh $prefix/bin/ps-to-gifs
 ln -sf $LILYPOND_SOURCEDIR/mf/out/ afm
 TFMDIR=`kpsewhich tfm cmr10.tfm`
-ln -sf `dirname $TFMDIR` tfm
+ln -sf `dirname $TFMDIR` cmtfm
+rm -f tfm;
+ln -s mf/out tfm
+
 mkdir -p $prefix/share/
 if [ ! -x $prefix/share/lilypond ]; then
     echo ln -sf  $sources/lilypond $prefix/share

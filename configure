@@ -1756,8 +1756,8 @@ test -n "$FLEX" || FLEX="error"
 
 
     if test $BISON != "error"; then
-	bison_version=`$BISON --version| sed 's/^.*version 1.//g' `
-	if test $bison_version -lt 25; then
+	bison_version=`$BISON --version | sed 's/^.*version 1.//g'`
+	if test `echo $bison_version | sed 's/\..*$//g'` -lt 25; then
 	    
     echo "configure: warning: Your bison is a bit old (1.$bison_version). You might have to install 1.25" 1>&2
     warn_b=yes
@@ -2565,7 +2565,7 @@ LIBS="$ac_save_LIBS"
 fi
 if eval "test \"`echo '$ac_cv_lib_'$ac_lib_var`\" = yes"; then
   echo "$ac_t""yes" 1>&6
-  LIBS="`echo $GUILE_LDFLAGS | sed -e 's/-L[/-_a-zA-Z0-9]\+ //g'` $LIBS";
+  LIBS="`echo $GUILE_LDFLAGS | sed -e 's/-L[/-_a-zA-Z0-9]\+ //g'` $LIBS"
       cat >> confdefs.h <<\EOF
 #define HAVE_LIBGUILE 1
 EOF
@@ -3041,8 +3041,6 @@ s%@YODL2MSLESS@%$YODL2MSLESS%g
 s%@YODL2TEXINFO@%$YODL2TEXINFO%g
 s%@YODL2TXT@%$YODL2TXT%g
 s%@YODL2LESS_DIR@%$YODL2LESS_DIR%g
-s%@GUILE_CFLAGS@%$GUILE_CFLAGS%g
-s%@GUILE_LDFLAGS@%$GUILE_LDFLAGS%g
 s%@LIBOBJS@%$LIBOBJS%g
 s%@MAKEINFO@%$MAKEINFO%g
 s%@TEX_TFMDIR@%$TEX_TFMDIR%g

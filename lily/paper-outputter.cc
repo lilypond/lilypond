@@ -10,6 +10,7 @@
 #include <time.h>
 #include <fstream.h>
 
+#include "dimensions.hh"
 #include "dictionary-iter.hh"
 #include "virtual-methods.hh"
 #include "paper-outputter.hh"
@@ -105,16 +106,23 @@ Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
       output_comment (nm);
     }
       
-
+#ifdef ATOM_SMOB
+  for (SCM ptr = m->atom_list_; ptr != SCM_EOL; ptr = SCM_CDR(ptr))
+    {
+      Atom *i = Atom::atom_l (SCM_CAR(ptr));
+#else
   for (Cons<Atom> *ptr = m->atom_list_; ptr; ptr = ptr->next_)
     {
       Atom * i = ptr->car_;
+#endif
       Offset a_off = i->off_;
       a_off += o;
 
       if (!i->func_)
 	continue; 
 
+      assert (a_off.length () < 100 CM);
+	
       if (i->font_)
 	{
 	  output_scheme (gh_list (ly_symbol ("select-font"),
@@ -125,8 +133,8 @@ Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
       SCM box_scm
 	= gh_list (ly_symbol ("placebox"),
 		   gh_double2scm (a_off.x ()),
-		   gh_double2scm (a_off.y ()), 
-		   i->func_.to_SCM(),
+		   gh_double2scm (a_off.y ()),
+		   SCM(i->func_),
 		   SCM_UNDEFINED);
       
       output_scheme (box_scm);
@@ -279,6 +287,6 @@ Paper_outputter::output_int_def (String k, int v)
 void
 Paper_outputter::stop_line ()
 {
-  SCM scm =    gh_list (ly_symbol ("stop-line"), SCM_UNDEFINED);
+  SCM scm = gh_list (ly_symbol ("stop-line"), SCM_UNDEFINED);
   output_scheme (scm);
 }

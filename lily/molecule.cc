@@ -14,6 +14,24 @@
 
 #include "killing-cons.tcc"
 
+#ifdef ATOM_SMOB
+#define MOL_EOL SCM_EOL
+#define NEXT_CELL(a) SCM_CDR(a)
+#define CELLTYPE SCM
+#define UNBOX_ATOM(a) Atom::atom_l (a)
+#define BOX_ATOM(a) a->make_smob ()
+#define NEWCELL(a,b) gh_cons (a,b)
+#define UNBOX_PTR(a) SCM_CAR(a)
+#else
+#define MOL_EOL 0
+#define NEXT_CELL(a) ptr->next_
+#define CELLTYPE Cons<Atom>*
+#define UNBOX_ATOM(a) a
+#define UNBOX_PTR(a) a->car_
+#define BOX_ATOM(a) a
+#define NEWCELL(a,b) new Killing_cons<Atom>(a,b)
+#endif
+
 Box
 Molecule::extent() const
 {
@@ -29,9 +47,9 @@ Molecule::extent(Axis a) const
 void
 Molecule::translate (Offset o)
 {
-  for (Cons<Atom> *  ptr = atom_list_; ptr; ptr = ptr->next_)
+  for (CELLTYPE ptr = atom_list_; ptr != MOL_EOL; ptr = NEXT_CELL(ptr))
     {
-      ptr->car_->off_ += o;
+      UNBOX_ATOM(UNBOX_PTR(ptr))->off_ += o;
     }
   dim_.translate (o);
 }
@@ -39,8 +57,8 @@ Molecule::translate (Offset o)
 void
 Molecule::translate_axis (Real x,Axis a)
 {
-  for (Cons<Atom> *  ptr = atom_list_; ptr; ptr = ptr->next_)
-      ptr->car_->off_[a] += x;
+  for (CELLTYPE  ptr = atom_list_; ptr != MOL_EOL; ptr = NEXT_CELL(ptr))
+    UNBOX_ATOM (UNBOX_PTR(ptr))->off_[a] += x;
 
   dim_[a] += x;
 }
@@ -48,15 +66,9 @@ Molecule::translate_axis (Real x,Axis a)
 void
 Molecule::add_molecule (Molecule const &m)
 {
-  Cons_list<Atom> al;
-  copy_killing_cons_list (al, m.atom_list_);
-
-  if (al.head_)
-    {
-      *al.tail_ = atom_list_;
-      atom_list_ = al.head_;
-      al.head_ =0;
-    }
+  for (CELLTYPE  ptr = m.atom_list_; ptr != MOL_EOL; ptr = NEXT_CELL(ptr))
+    add_atom(UNBOX_ATOM (UNBOX_PTR(ptr)));
+  
   dim_.unite (m.dim_);
 }
 
@@ -65,28 +77,40 @@ Molecule::add_atom (Atom const *al)
 {
   Atom *a = new Atom(*al);
 
-  atom_list_ = new Killing_cons<Atom> (a, atom_list_);
+  atom_list_ = NEWCELL(BOX_ATOM(a), atom_list_);
 }
+
+
+
 
 void
 Molecule::operator=(Molecule const & src)
 {
-  if (&src == this) return;
+  if (&src == this)
+  return;
+
+
+
+#ifndef ATOM_SMOB
   delete atom_list_;
-  atom_list_ = 0;
+#endif
+
+  atom_list_ = MOL_EOL;
   dim_= src.dim_;
   add_molecule (src);
 }
 
 Molecule::Molecule (Molecule const &s)
 {
-  atom_list_ = 0;
+  atom_list_ = MOL_EOL;
   add_molecule (s);
 }
 
 Molecule::~Molecule ()
 {
+#ifndef ATOM_SMOB
   delete atom_list_;
+#endif
 }
 
 void
@@ -111,7 +135,7 @@ Molecule::do_center (Axis a)
 Molecule::Molecule ()
 {
   dim_ = Box (Interval(0,0),Interval( 0,0  ));
-  atom_list_ = 0;
+  atom_list_ = MOL_EOL;
 }
 
 

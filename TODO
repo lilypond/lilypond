@@ -14,20 +14,6 @@ Grep for TODO and ugh/ugr/urg.
 .  * mutopia/J.S.Bach/wtk1-fugue2.ly
 .  * input/test/grace
 .  * fix: text on rests: ridiculous dims
-. * m=\notes\relative c''{
-
-c1 | \break
-R1*5 |
-r2 r4 \bar "||"; \break r |
-c2 c |
-}
-
-\score{
-  \type StaffGroup <
-      \type Staff = staffi {\m}
-      \type Staff = staffii {\m}
-    >
-}
 . * m=\notes\relative c'''{
   \time 2/4;
 
@@ -71,7 +57,6 @@ c2 c |
 . * fix dynamics decently, ie. use kerning & ligatures.  
 . * support_l_arr_ empty in staff-margin's G_staff_side_item
 . * minVerticalAlign for StaffGroups.
-. * declaring \score	
 . * fix OrchestralScore and Hara-kiri (i.e., fix Coriolan)
 . * Phrasing:  Indicating the textual underlay of a piece, or
 otherwise dividing a piece into phrases.
@@ -81,7 +66,61 @@ present, they're not properly distinguished) but no distinct way to
 specify the third.  Should there be?
 
 .* TODO before 1.2
+. * Gade score
+.  * In the score, the staff lines extend too far to the left. 
+  This is also illustrated in the second score of span-bars.ly
+  as I've pointed out earlier.
+.  *m=\notes\relative c''{
+  \property Staff.instr = "Instr   "
+    \key f;
+    f4 \p \< g a bes | 
+    c d e \f \! f |
+    f e d c |
+    bes \mf a g f \pp
+  }
+
+n=\notes\relative c'{
+  \property Staff.instr = "Instr   "
+    \key f;
+    f4 \mp g a \< bes | 
+    c d e \ff \! f |
+    f e d c |
+    bes \mp a g f \ppp
+  }
+
+\score{
+  \type StaffGroup <
+    \type Staff = a <{\stemup \property Voice.dynamicDir = \down \m}
+                     {\stemdown \property Voice.dynamicDir = \up \n}>
+  >
+}
+.  * The minimum distance between different staffs works only within 
+  StaffGroups, not between StaffGroups. The Gade Score looks quite
+  strange on the pages where the Timpani and/or Brass sections don't
+  play. I've set the minimum distance with:
+    \translator {
+       \OrchestralScoreContext
+        minVerticalAlign = 2.5*\staffheight;
+    }
+
+ I sent a copy of the score to the conductor and his reaction was
+  that it would be easy to fix some "spacing problems" with Finale,
+  if we could convert the score to Finale. I'm not sure what he
+  meant, since we just have had mail conversations so far. Maybe
+  it's the staff distances I mentioned above.
+
+.  * For the trumpet and horn parts, I wrote two parts on the same
+  staff line in the score. I haven't managed to get different
+  directions of the dynamics for the two parts. 
+  Voice.dynamicDir seems to set the direction for the full staff.
+. *  hangOnClef with non-breakable clefs.
+. * use an alist for Score_elem "properties".
 . * Check gcc 2.8.1 compatibility
+. * Document source code.
+. * limit memory usage; the full coriolan takes up too much resources.
+.  * Sort items after breaking in order of linenumber.  Then be more
+     eficient with finding 
+.  * Do Mark & sweep GC for Score_elems, junk backlinks.
 . * make "in-between" engraver (Tie, Extender)
 . * use Drul_array for Interval.
 . * compulsory hshift
@@ -103,6 +142,7 @@ of property.
 . * fix partial measures in meaningful way.
 . * fix AFM for BlueSky AFM files.
 . * working notehead style.
+. * remove links to non-free SW.
 . * add scripts to bars eg.  |^"bla" 
 . * relative mode for mi2mu
 . * uniformise recent feta contributions.

@@ -7,7 +7,7 @@
 \include "paper16.ly"
 
  \paper { 
-  \paper_sixteen;
+  \paper_sixteen
 %  linewidth = 7.\cm;
   linewidth = 11.\cm;
 }

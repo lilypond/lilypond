@@ -22,7 +22,7 @@ Atom::Atom(SCM s)
 }
 
 
-#if ATOM_SMOB
+#ifdef ATOM_SMOB
 int
 Atom::smob_display (SCM smob, SCM port, scm_print_state*)
 {

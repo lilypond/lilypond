@@ -17,9 +17,9 @@ class Multi_measure_rest : public Spanner
 public:
   Multi_measure_rest ();
   int measures_i_;
-  void add_column (Bar*);
+  void add_column (Item*);
 
-  Link_array<Bar> column_arr_;
+  Link_array<Item> column_arr_;
 
 protected:
   virtual Molecule *do_brew_molecule_p () const;
@@ -28,6 +28,7 @@ protected:
   virtual void do_add_processing ();
   virtual void do_post_processing ();
   virtual void do_print () const;
+  virtual Array<Rod> get_rods () const;
   virtual void do_substitute_element_pointer (Score_element*,Score_element*);
 };
 
