@@ -198,13 +198,14 @@ yylex (YYSTYPE *s,  void * v_l)
 %token <id>	MUSIC_IDENTIFIER
 %token <id>	REQUEST_IDENTIFIER
 %token <id>	REAL_IDENTIFIER
-%token <id>	STRING_IDENTIFIER
 %token <id>	TRANS_IDENTIFIER
 %token <id>	INT_IDENTIFIER
 %token <id>	SCORE_IDENTIFIER
 %token <id>	MIDI_IDENTIFIER
 %token <id>	PAPER_IDENTIFIER
 %token <real>	REAL
+
+%token <scm>	STRING_IDENTIFIER SCM_IDENTIFIER
 %token <scm>	DURATION RESTNAME
 %token <scm>	STRING
 %token <scm>	SCM_T
@@ -222,7 +223,8 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <i>	int unsigned
 %type <i>	script_dir
 
-%type <id>	identifier_init  
+%type <scm>	identifier_init
+
 %type <duration> steno_duration optional_notemode_duration
 %type <duration> entered_notemode_duration explicit_duration
 %type <intvec>	 int_list
@@ -291,12 +293,12 @@ toplevel_expression:
 	| paper_block {
 		Identifier * id = new
 			Paper_def_identifier ($1, PAPER_IDENTIFIER);
-		THIS->lexer_p_->set_identifier ("$defaultpaper", id)
+		THIS->lexer_p_->set_identifier ("$defaultpaper", smobify (id))
 	}
 	| midi_block {
 		Identifier * id = new
 			Midi_def_identifier ($1, MIDI_IDENTIFIER);
-		THIS->lexer_p_->set_identifier ("$defaultmidi", id)
+		THIS->lexer_p_->set_identifier ("$defaultmidi", smobify (id))
 	}
 	| embedded_scm {
 		// junk value
@@ -305,6 +307,7 @@ toplevel_expression:
 
 embedded_scm:
 	SCM_T
+	| SCM_IDENTIFIER 
 	;
 
 
@@ -363,7 +366,9 @@ assignment:
 	/* cont */ '=' identifier_init  {
 	    THIS->lexer_p_->set_identifier (ly_scm2string ($1), $4);
 
-	    $4->set_spot (THIS->pop_spot ());
+		Identifier * id =unsmob_identifier ($4);
+		Input spot = THIS->pop_spot ();
+		if (id) id->set_spot (spot);
 	}
 	;
 
@@ -371,37 +376,40 @@ assignment:
 
 identifier_init:
 	score_block {
-		$$ = new Score_identifier ($1, SCORE_IDENTIFIER);
-
+		$$ = smobify (new Score_identifier ($1, SCORE_IDENTIFIER));
+		
 	}
 	| paper_block {
-		$$ = new Paper_def_identifier ($1, PAPER_IDENTIFIER);
+		$$ = smobify (new Paper_def_identifier ($1, PAPER_IDENTIFIER));
 	}
 	| midi_block {
-		$$ = new Midi_def_identifier ($1, MIDI_IDENTIFIER);
+		$$ = smobify (new Midi_def_identifier ($1, MIDI_IDENTIFIER));
 
 	}
 	| translator_spec_block {
-		$$ = new Translator_group_identifier ($1, TRANS_IDENTIFIER);
+		$$ = smobify (new Translator_group_identifier ($1, TRANS_IDENTIFIER));
 	}
 	| Music  {
-		$$ = new Music_identifier ($1, MUSIC_IDENTIFIER);
+		$$ = smobify (new Music_identifier ($1, MUSIC_IDENTIFIER));
 	}
 
 	| post_request {
-		$$ = new Request_identifier ($1, REQUEST_IDENTIFIER);
+		$$ = smobify (new Request_identifier ($1, REQUEST_IDENTIFIER));
 	}
 	| explicit_duration {
-		$$ = new Duration_identifier ($1, DURATION_IDENTIFIER);
+		$$ = smobify (new Duration_identifier ($1, DURATION_IDENTIFIER));
 	}
 	| real {
-		$$ = new Real_identifier (new Real ($1), REAL_IDENTIFIER);
+		$$ = smobify (new Real_identifier (new Real ($1), REAL_IDENTIFIER));
 	}
 	| string {
-		$$ = new String_identifier (new String (ly_scm2string ($1)), STRING_IDENTIFIER);
+		$$ = $1;
 	}
 	| int	{
-		$$ = new int_identifier (new int ($1), INT_IDENTIFIER);
+		$$ = smobify (new int_identifier (new int ($1), INT_IDENTIFIER));
+	}
+	| embedded_scm	{
+		$$ = $1;
 	}
 	;
 
@@ -433,19 +441,21 @@ translator_spec_body:
 		tg->set_property (ly_scm2string ($2), $4);
 	}
 	| translator_spec_body STRING '=' identifier_init semicolon	{ 
-		Identifier* id = $4;
-		String_identifier *s = dynamic_cast<String_identifier*> (id);
+		Identifier* id = unsmob_identifier ($4);
+
 		Real_identifier *r= dynamic_cast<Real_identifier*>(id);
 		int_identifier *i = dynamic_cast<int_identifier*> (id);
-	
+
 		SCM v;
-		if (s) v = ly_str02scm (s->access_content_String (false)->ch_C());
-		if (i) v = gh_int2scm (*i->access_content_int (false));
-		if (r) v = gh_double2scm (*r->access_content_Real (false));
-		if (!s && !i && !r)
+		if (gh_string_p ($4))
+			v = $4;
+		else if (i) v = gh_int2scm (*i->access_content_int (false));
+		else if (r) v = gh_double2scm (*r->access_content_Real (false));
+		else 
 			THIS->parser_error (_("Wrong type for property value"));
 
-		delete $4;
+		if (id)
+			delete id;
 		/* ugh*/
 		Translator_group* tg = dynamic_cast<Translator_group*> ($$);
 		
@@ -479,7 +489,7 @@ score_block:
 		if (!$$->def_p_arr_.size ())
 		{
 		  Identifier *id =
-			THIS->lexer_p_->lookup_identifier ("$defaultpaper");
+			unsmob_identifier (THIS->lexer_p_->lookup_identifier ("$defaultpaper"));
 		  $$->add_output (id ? id->access_content_Paper_def (true) : new Paper_def );
 		}
 	}
@@ -528,7 +538,7 @@ paper_block:
 
 paper_def_body:
 	/* empty */		 	{
-		  Identifier *id = THIS->lexer_p_->lookup_identifier ("$defaultpaper");
+		  Identifier *id = unsmob_identifier (THIS->lexer_p_->lookup_identifier ("$defaultpaper"));
 		  Paper_def *p = id ? id->access_content_Paper_def (true) : new Paper_def;
 		THIS-> lexer_p_-> scope_l_arr_.push (p->scope_p_);
 		$$ = p;
@@ -614,7 +624,7 @@ midi_block:
 	;
 
 midi_body: /* empty */ 		{
-	 Identifier *id = THIS->lexer_p_->lookup_identifier ("$defaultmidi");
+	 Identifier *id = unsmob_identifier (THIS->lexer_p_->lookup_identifier ("$defaultmidi"));
 	 Midi_def* p = id
 		? id->access_content_Midi_def (true) : new Midi_def ;
 
@@ -1003,18 +1013,26 @@ verbose_command_req:
 	}
 	| KEY {
 		Key_change_req *key_p= new Key_change_req;
-		key_p->key_ = 0;
 		$$ = key_p;
 	}
 /*
 TODO: Support for minor/major keys; make `major-scale' settable.
+
+FIXME: force modality.
 */
+/*
 	| KEY NOTENAME_PITCH 	{
 		Key_change_req *key_p= new Key_change_req;
-		key_p->key_ = new Newkey_def;
 		
-		key_p->key_->pitch_alist_ = scm_eval (ly_symbol2scm ("major-scale"));
-		key_p->key_->transpose (* $2);
+		key_p->pitch_alist_ = scm_eval (ly_symbol2scm ("major-scale"));
+		$$ = key_p; 
+	}
+*/
+	| KEY NOTENAME_PITCH SCM_IDENTIFIER 	{
+		Key_change_req *key_p= new Key_change_req;
+		
+		key_p->pitch_alist_ = $3;
+		((Music* )key_p)->transpose (* $2);
 		$$ = key_p; 
 	}
 	;
@@ -1040,9 +1058,11 @@ request_that_take_dir:
 	gen_text_def
 	| verbose_request
 	| script_abbreviation {
-		Identifier*i = THIS->lexer_p_->lookup_identifier ("dash-" + ly_scm2string ($1));
+		SCM s = THIS->lexer_p_->lookup_identifier ("dash-" + ly_scm2string ($1));
 		Articulation_req *a = new Articulation_req;
-		a->articulation_str_ = *i->access_content_String (false);
+		if (gh_string_p (s))
+			a->articulation_str_ = ly_scm2string (s);
+		else THIS->parser_error (_ ("Expecting string as script definition"));
 		$$ = a;
 	}
 	;
@@ -1583,7 +1603,7 @@ string:
 		$$ = $1;
 	}
 	| STRING_IDENTIFIER	{
-		$$ = ly_str02scm ($1->access_content_String (true)->ch_C ());
+		$$ = $1;
 	}
 	| string '+' string {
 		$$ = scm_string_append (scm_listify ($1, $3, SCM_UNDEFINED));
