@@ -16,9 +16,6 @@ COMMENT(
      for rests.fly)
 
 TODO:
-   thread
-   paper size?
-   paper variables
    the explanation of how lyrics mode parses words seems ridiculous.  
       Is there a simple way to explain this, or is the behavior
       too complicated for a reasonable explanation?
@@ -49,14 +46,6 @@ article(Mudela 1.0.21 / LilyPond 1.1.49 Reference Manual)
       (Adrian Mariano, Han-Wen Nienhuys and Jan Nieuwenhuizen)
       (nop()PIPETHROUGH(date "+%B %d, %Y")()()nop())
 
-COMMENT(
-
-* The [ ] look weird
-
-* paragraphs have too much space.
-
-)
-
 
 latexcommand(\def\interexample{})
 latexcommand(\def\preexample{\par})
@@ -72,20 +61,16 @@ whenhtml(
 includefile(html-disclaimer.yo-urg)
 )
 
-bf(This document is not up to date).  All rendered examples of course
-are current, but the rest probably isn't.  Adjusting the tutorial was
-considered more important than writing the reference manual.  We
-apologize for the inconvenience.  For a complete and up-to-date
-definition, see file(lily/parser.yy), file(lily/lexer.ll), and the
-init files.
 
-This document describes the the GNU LilyPond input format, which is an
-effective language for defining music.  We call this language (rather
+This document describes the the GNU LilyPond input format, which is a
+language for defining music.  We call this language (rather
 arrogantly) The Musical Definition Language or Mudela, for
 short.footnote(If anybody comes up with a better name, we'd gladly
-  take this. Gourlay already uses Musical Description Language,
-  G-Sharp Score Definition Language.  ISO standard 10743 defines a
-  Standard Music Description Language.  We're not being original here.)
+take this. Gourlay already uses Musical Description Language, G-Sharp
+Score Definition Language.  ISO standard 10743 defines a Standard
+Music Description Language.  We're not being original here.)
+
+This document was revised for LilyPond 1.2. 
 
 The first aim of Mudela is to define a piece of music, being complete
 from both from a musical typesetting, as from a musical performing
@@ -99,13 +84,14 @@ with the LilyPond sources for reasons and design considerations.
 
 sect(Running LilyPond)
 
-When invoked with a filename that has no extension, LilyPond will try adding
-a file(.fly) extension first, and a file(.ly) extension second.  
-If the filename ends with 
-file(.fly),  LilyPond processes  the file as music using
-file(init.fly).  In this case, LilyPond does something
-like:
-verb(\score {
+
+When invoked with a filename that has no extension, LilyPond will try
+adding a file(.ly) extension first, then a file(.sly) and then a
+file(.ly) extension second.  If the filename ends with file(.fly),
+LilyPond processes the file as music using file(init.fly).  In this
+case, LilyPond does something like: COMMENT(
+
+)verb(\score {
   \notes\relative c {
     \input "yourfile.fly"
   }
@@ -118,19 +104,29 @@ file(init.)var(ext) and process this file.  The file
 file(init.)var(ext) must contain the code(\maininput) keyword or LilyPond
 will not read the user specified file.
 
-When LilyPond processes file(filename.ly) it will produce file(filename.tex) as
-output.  If file(filename.ly) contains a second code(\paper) keyword, then
-LilyPond will produce file(filename-1.tex) as well.  Subsequent code(\paper)
-keywords will produces sequentially numbered file names.  Several files can be
-specified; they will each be processed independently.
+When LilyPond processes file(filename.ly) it will produce
+file(filename.tex) as output.  If file(filename.ly) contains a second
+code(\paper) keyword, then LilyPond will produce file(filename-1.tex)
+as well.  Subsequent code(\paper) keywords will produces sequentially
+numbered file names.  Several files can be specified; they will each
+be processed independently.footnote(Not entirely true: the status of
+GUILE is kept).
+
+
 
 sect(Syntax)
 
+
+
 subsect(Basic Mudela)
+
+Mudela is a declarative input format: in a file you can declare items
+with identifiers, and instruct LilyPond to typeset music 
+
 
 A Mudela file consists of keywords with arguments and identifier
 assignments separated by spaces, tabs or newlines.  Semicolons are
-used by some keywords and are inconsistantly required in other
+used by some keywords and are inconsistently required in other
 circumstances.  A one line comment is introduced by a code(%)
 character.  Block comments are started by code(%{) and ended by
 code(%}).  They cannot be nested.
@@ -289,7 +285,10 @@ notename of code(word).  If no notename is found, then code(word) is
 treated as a string.  If you mistype a notename, the parser will most
 likely complain that you should be in code(\lyrics) mode to do lyrics. 
 
-dit(Chord mode) Chord mode is instroduced by the keyword code(\chords).
+Since the dot has special meaning in  Note  mode, it is not possible
+to enter real numbers in this mode.
+
+dit(Chord mode) Chord mode is introduced by the keyword code(\chords).
 Very similar to Note mode.  
 COMMENT(I'm not sure how it differs)
 
@@ -325,10 +324,9 @@ extends until the next white space character.  Such words can contain numbers
 (even in Note mode), or other forbidden characters.  The dollar sign can be
 used to create and access identifiers that could not otherwise be used.  
 
-COMMENT(
 These modes are of a lexical nature. Normal and Note mode largely
 resemble each other, save the possibility of entering Reals, 
-meaning of code(_) and the resolution of words
+the meaning of code(_) and the resolution of words.  
 
 What's this about reals?  When can you enter them or not enter them?)
 
@@ -418,6 +416,24 @@ mudela(fragment,verbatim,center)(
 c'\breve gis'\longa
 )
 
+You can alter the length of duration by writing code(*)var(fraction) after a
+it.  This shorthand is convenient for long rests.   The shape of notes
+and normal restse will be unchanged.  When used in this whole-measure
+rest code(R) will fill measures with rest symbols.  
+COMMENT(
+
+)mudela(fragment,verbatim,center)(
+r1 r1*3 R1*3
+)
+If you set the code(Score.skipBars) property, then only one measure will be
+printed; with code(R), a number indicating the length of the rest will be
+displayed.  
+mudela(fragment,verbatim,center)(
+\property Score.skipBars=1
+r1 r1*3 R1*3
+)
+
+
 In order to get triplets and other tuplets, you must use the
 code(\times) keyword which multiplies the duration by a fraction.  The
 syntax is code(\times) var(fraction) var(music).  The length of all of
@@ -432,32 +448,9 @@ This happens because the Tuplet-engraver is in Voice and no Voice has
 been created yet.  You must explicitly specify the Voice context in
 this situation 
 mudela(fragment,verbatim,center)( 
-\context Voice { \times 2/3 {c'4 d' e'}} 
-)
-
-A shorthand for code(\times) is to write code(*)var(fraction) after a
-duration.  This shorthand will not label triplets correctly, but
-it is convenient for long rests.  
-For long rests with durations equal to an integer number of whole notes,
-LilyPond produces output that indicates the duration of the rest.  If you use
-code(r) then one rest symbol will be printed and several measures left blank.
-If you use code(R) then all of the measure will be filled with whole rests.
-mudela(fragment,verbatim,center)(
-r1 r1*3 R1*3
-)
-If you set the code(Score.skipBars) property, then only one measure will be
-printed; with code(R), a number indicating the length of the rest will be
-displayed.  
-mudela(fragment,verbatim,center)(
-\property Score.skipBars=1
-r1 r1*3 R1*3
-)
-Even though the code(\times) command is not explicit, it is still
-necessary to specify a code(Voice) context if the music begins with
-rests lengthened using code(*).  
-Otherwise, the following will result:
-mudela(fragment,verbatim,center)(
-R1*3 c'1 d'
+\context Voice { \times 2/3 {c'4 d' e'}
+	 % [..]
+}
 )
 
 
@@ -520,8 +513,7 @@ Ties are indicated using the tilde symbol
 code(~) by analogy with TeX()'s tie which connects words.  
 Note that if you try to tie together chords which have no common
 pitches, then a warning message will appear and no tie will be created.
-(Note that ties between different pitches can be enabled using the
-property Voice.oldTieBehavior.)
+
 
 mudela(fragment,verbatim,center)(
 e' ~ e' <c' e' g'> ~ <c' e' g'>
@@ -582,9 +574,11 @@ TeX() above or below notes by using a string instead of an identifier:
 All of these note ornaments appear in the printed output but have no
 effect on the MIDI rendering of the music.
 
-To save typing,  a few common symbols  can  be  abbreviated  with
-single characters:
-mudela()(
+To save typing, fingering instructions (digits 0 to 9 are supported)
+and a few common symbols can be abbreviated with single characters:
+COMMENT(
+
+)mudela()(
 \score{ \notes {
         \property Voice.textStyle = typewriter
         c''4-._"c-." s4
@@ -592,8 +586,14 @@ mudela()(
         c''4-+_"c-+" s4
         c''4-|_"c-|" s4
         c''4->_"c->"  s4
-        c''4-^_"c-\\^{ }"  s4 }
-        \paper { linewidth = 12.\cm; }})
+        c''4-^_"c-\\^{ }"  s4
+	c''4-1
+	c''4-2	
+	c''4-3
+	c''4-4	
+	}
+%        \paper { linewidth = 12.\cm; }
+})
 
 Dynamic marks are specified by using an identifier after a note without a dash:
 code(c4 \ff).  Note that this syntax is inconsistent with the syntax for other
@@ -618,35 +618,16 @@ c'' \< \! c''   d'' \decr e'' \rced
 < f''1 {s4 \< \! s4 \> \! s2 } >)
 )
 
-
-COMMENT(Broken!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!)
-
 Tremolo marks can be printed by a note by adding code(:)[var(length)]
 after the note.  The length must be at least 8.  A var(length) value
 of 8 gives one line across the note stem.  
 If the length is omitted,
 then the last value is used, or the value of the code(Abbrev)
-property if there was no last value.  To place tremolo marks in
-between two notes, begin with code([:)var(length) and end with code(]).
-The tremolo marks will appear instead of beams.  Putting more than two
-notes in such a construction will produce odd effects. 
+property if there was no last value.  
 
-[TREMOLO BEAMS TEMPORARILY OUT OF ORDER]
-
-COMMENT(mudela (fragment,verbatim,center)(
-c'2:8 c':32 [:16 e'1 g'] [:8 e'4 f']
+mudela(fragment,verbatim,center)(
+c'2:8 c':32 c'
 ))
-
-COMMENT(
-Is the last paragraph correct?  Is it called "tremolo"?  Why is
-"abbreviation" used?  (What is the unabreviated form?)
-
-COMMENT(
-mudela (fragment,verbatim,center)(
-c'4:32 [:16 c'8 d'8]
-))
-
-)
 
 
 sect(Other Ways to Enter Pitches)
@@ -687,24 +668,25 @@ mudela(fragment,verbatim,center)(
                 b c,, d b }
 )
 
-When the preceeding item is a chord, the first note of the chord is used to
+When the preceding item is a chord, the first note of the chord is used to
 determine the first note of the next chord.  But other notes within the second
-chord are determined by looking at the immediately preceeding note.  
+chord are determined by looking at the immediately preceding note.  
 
 mudela(fragment,verbatim,center)(
 \relative c' { c <c e g> 
     <c' e g> <c, e' g> }
 ) 
 
-The code(\relative) keyword can only appear in music, so there must be a
-surrounding code(\notes) keyword which does not appear in the fragments shown
-above.  Also note that if the music passed to a code(\relative) keyword 
-contains a code(\transpose) keyword, the tranposed music will not be
-processed in relative mode.  An additional code(\relative) must be placed
-inside the code(\transpose).  If code(\relative) will be used several
-times, or if it will be used in the same music with code(\transpose),
-then you may get bizarre effects.  This can be fixed by using an
-explicit code(Staff) context.   
+The pitch after the code(\relative) is a notename. To parse the pitch
+as a notename, you have to be in note mode, so there must be a
+surrounding code(\notes) keyword (which is not shown here).  Also
+note that if the music passed to a code(\relative) keyword contains a
+code(\transpose) keyword, the tranposed music will not be processed in
+relative mode.  An additional code(\relative) must be placed inside
+the code(\transpose).  If code(\relative) will be used several times,
+or if it will be used in the same music with code(\transpose), then
+you may get bizarre effects.  This can be fixed by using an explicit
+code(Staff) context.
 
 
 subsect(Tranposition of Pitches)
@@ -742,7 +724,7 @@ sect(Chords)
 
 Chords can be entered either by name or by listing the notes in angle brackets.
 Chords can be displayed either as notes or by name.  To enter chords by name,
-either place them inside the code(\chords) keyword.
+place them inside the code(\chords) keyword.
 Chord names have the form
 var(tonic)[var(duration)][code(-)var(modifier)][code(^)var(subtractions)][code(/)var(inversion)]
 The var(tonic) should be the tonic note of the chord, and the var(duration) is
@@ -753,7 +735,7 @@ code(-) to indicate raising or lowering by half a step.  A chord additions has
 two effects:  it adds the specified interval and all lower odd numbered
 intervals to the chord, and it may lower or raise the specified interval.
 Intervals must be separated by a dot (code(.)).
-Repeating a code(-) character will remove a half step from the preceeding
+Repeating a code(-) character will remove a half step from the preceding
 interval.  
 mudela(fragment,verbatim,center)(
 \transpose c''{ 
@@ -843,17 +825,11 @@ mudela(verbatim)(\score{
   <  \notes \transpose c'' {c d e c | c d e c | e f g'2 | 
                               e'4 f g'2 \bar "|."; }
      \context Lyrics \lyrics { 
-              DOEXPAND(Fr\)`e-4 re Ja- que DOEXPAND(Fr\)`e- re Ja- que
+              Fre-4 re Ja- que Frere- re Ja- que
               Dor- mez vous?2 Dor-4 mez vous?2  }
   >
 })
 
-COMMENT(
-URG
-                        Fr\`e-4 re Ja- que
-                        Fr\`e- re Ja- que
-Why does this warrant an URG?
-)
 
 When one word is attached to many notes, you may 
 want a  continuous line after the lyric to show  this.   To achieve
@@ -870,21 +846,45 @@ mudela(verbatim)(\score{
      foo1 __  bar2. __ _4 baz1 __ }
 > })
      
-If you want to have hyphens centred between syllables (rather than attached
+If you want to have hyphens centered between syllables (rather than attached
 to the end of the first syllable) you can use the special code(--) lyric as
 separate word between syllables. This will result in a hyphen whose length
-varies depending on the space between syllables, and centred between the
+varies depending on the space between syllables, and centered between the
 syllables. For example: 
 mudela(verbatim)(\score{
   <  \notes \transpose c'' {c d e c | c d e c | e f g'2 | 
                               e'4 f g'2 \bar "|."; }
      \context Lyrics \lyrics { 
-              DOEXPAND(Fr\)`e4 -- re Ja -- que DOEXPAND(Fr\)`e -- re Ja -- que
+              Fre4 -- re Ja -- que Fre -- re Ja -- que
               Dor -- mez vous?2 Dor4 -- mez vous?2  }
   >
 })
-
+COMMENT(should use dutch lyrics.  No accent hassles.)
  
+sect(Automatic lyric durations)
+
+Often, lyrics are accompanied by a melody, and the rhythm of the
+melody is the same as the rhythm of the text.  In this case, you can
+overlay the durations of the notes on the text, using code(\addlyrics)
+COMMENT(
+
+)mudela(verbatim,fragment)(
+	\addlyrics
+		\transpose c'' { c4 d8. e16 f2 }
+		\context Lyrics \lyrics { do4 re mi fa }
+)
+
+You should use a single rhythm melody, and single rhythm lyrics (a
+constant duration is the obvious choice).  If you do not, you will get
+undesired effects when using multiple stanzas: COMMENT(
+
+)mudela(verbatim,fragment)(
+	\addlyrics
+		\transpose c'' { c4 d8. e16 f2 }
+		\context Lyrics \lyrics < { do4 re mi fa }
+					  { do8 re mi fa } >
+)
+
 
 
 sect(Time)  
@@ -910,7 +910,8 @@ starting measure lasting two eighth notes.
 In order to help with error checking, you can insert bar markers in
 your music by typing code(|).  Whenever LilyPond encounters a code(|)
 that doesn't fall at a measure boundary, she prints a warning message.
-
+The beginning of the measure will also be relocated, so you can also
+use this to shorten measures. 
 
 COMMENT(
 sect(Composition: forming bigger structures)
@@ -981,35 +982,53 @@ END OF COMMENT  )
 
 sect(Repeats)
 
-In order to specify repeats, use the code(\repeat) keyword.  By
-default, repeats are printed with repeat symbols.  
+In order to specify repeats, use the code(\repeat) keyword.  Since
+repeats look differently when played and when printed, there are a few
+different variants of repeats.
+
+description(
+dit(unfolded) repeated music is fully written (played) out.  Useful
+for  MIDI output.
+dit(semi)  "semifolded". This is the normal notation: repeats are not
+written out, but alternative endings (voltas), are printed, one after
+the other.
+dit(folded) alternative endings are written stacked, which is useful
+for lyrics.
+)  
+
+The syntax for repeats is code(\repeat )var(variant)var(
+repeatcount)\var(repeatbody).  If you have alternative endings, you
+may add code(\alternative {)var(alternative1) var(alternative2)
+var(alternative3) .. code(}), where each var(alternative) is of type Music.
+
+Notation semifolded repeats are used like this:
 mudela(fragment,verbatim,center)(
 c'1
 \repeat semi 2 { c'4 d' e' f' }
 \repeat semi 2 { f' e' d' c' })
-In order to specify alternate endings, use the code(\alternative)
-keyword.  
+
+With alternative endings:
 mudela(fragment,verbatim,center)(
 c'1
 \repeat semi 2 {c'4 d' e' f'} 
 \alternative { {d'2 d'} {f' f} })
-The code(semi) specifies that normal repeats will be printed.  If
-code(fold) is used instead then the alternatives will be stacked:
+
+Folded repeats look like this:footnote(Folded repeats offer little
+more over simultaneous music.  However, it is to be expected that more
+functionality --especially for the MIDI backend-- will be implemented) 
+
+
 mudela(fragment,verbatim,center)(
 c'1
 \repeat fold 2 {c'4 d' e' f'} 
 \alternative { {d'2 d'} {f' f} })
-When the repeats involve partial measures, it will be necessary to use
-code(\partial) keywords in a somewhat unexpected way 
-to indicate some measure lengths.
+
 mudela(fragment,verbatim)(
 \context Staff { \relative c'{
-  \repeat semi 2 { \partial 4; e | c2 d2 | e2 f2 | }
-  \alternative { { g4 g g } {\partial 1; a a a a | b1 } }
+  \partial 4; \repeat semi 2 {  e | c2 d2 | e2 f2 | }
+  \alternative { { g4 g g } {  \partial 4; a a a a  b1 } }
 }})
-Repeats can be unfolded by setting the property Staff.unfoldRepeats.
-Note also that if your music begins with code(\repeat), you must place
-it in an explicit code(Staff) context or you will get bizarre results. 
+Repeats can be unfolded by setting the property code(Staff.unfoldRepeats).
 
 If you don't give enough alternatives for all of the repeats, then the
 first alternative is assumed to be repeated enough to equal to
@@ -1020,6 +1039,10 @@ mudela(fragment,verbatim)(
   \alternative { { g4 g g } {\partial 1; e4 e e } 
                  {\partial 1; a a a a | b1 } }
 }})
+
+note: The syntax of repeats is not entirely crystallised. You can expect
+more variants,  better MIDI integration, better time handling.
+
 
 
 
@@ -1077,15 +1100,6 @@ get the message ``parse error'' from LilyPond.
 
 description(
 
-dit(code(\absdynamic) code({) var(code) code(})) Internal keyword for
-printing dynamic marks such as $f$ under music.  The parameter
-var(code) is unsigned and specifies the dynamic mark to print.
-Normally you should use the more user friendly abbreviations defined
-in the init file file(dynamic.ly).
-
-FIXME: Changed to code(\textscript) var(text) var(style).  Defines
-a text-request.
-
 dit(code(\accepts) var(string)code(;)) This keyword can appear only within a
 code(\translator) block.  It specifies what contexts are allowed with the
 context that is being defined.  See Section ref(translators).  
@@ -1093,7 +1107,8 @@ context that is being defined.  See Section ref(translators).
 dit(code(\alternative) code({) var(music1) var(music2) ... code(}))
 Specifies alternative endings.  Must come after a code(\repeat) keyword.  
 
-dit(code(\bar) var(bartype)code(;)) Prints a special bar symbol, or at
+dit(code(\bar) var(bartype)code(;)) Music expression that requests
+LilyPond to prints a special bar symbol, or at
 measure boundaries, replaces the regular bar symbol with a special
 symbol.  The argument var(bartype) is a string which specifies the
 kind of bar to print.  Options are code(":|"), code("|:"),
@@ -1104,13 +1119,16 @@ If var(bartype) is set to code("empty") then nothing is printed, but a
 line break is allowed at that spot.  Note that the printing of special bars
 has no effect on the MIDI output.
 
-dit(code(\cadenza) var(togglevalue)code(;)) Toggles the automatic generation
-of bar lines.  If var(togglevalue) is 0 then bar line generation is
-turned off.   If var(togglevalue) is  1  then a bar is  immediately
-printed and bar generation is turned on.
+Note that you are encouraged to use code(\repeat) for repetitions
 
-dit(code(\clef) var(clefname)code(;)) Allowed only in music.  
-Sets the current clef.  The argument is
+
+dit(code(\cadenza) var(togglevalue)code(;)) Music expression that
+toggles the automatic generation of bar lines.  If var(togglevalue) is
+0 then bar line generation is turned off.  If var(togglevalue) is 1
+then a bar is immediately printed and bar generation is turned on.
+
+dit(code(\clef) var(clefname)code(;)) Music expression that
+sets the current clef.  The argument is
 a string which specifies the name of the clef.  Several clef names are
 supported.  If code(_8) or code(^8) is added to the end of a clef
 name then the clef lowered or raised an octave will be generated.  
@@ -1143,28 +1161,31 @@ mudela(center)(
 The treble  clef  can also  be obtained using  the  names code(G) or
 code(violin).  The bass clef is also available by code(\clef  F). 
 
-dit(code(\chord) var(chordlist)) Parse var(chordlist) in chords mode.
+dit(code(\chord) var(musicexpr)) Music expression that switches to
+chord mode for parsing var(chordmusic).
 
 dit(code(\chordmodifiers) var(modifierlist)) Specify the text chord
 modifiers that may appear after chord names.  These are specified in
 the file file(chord-modifiers.ly).  
 
-dit(code(\cm)) Specify a dimension in centimeters. 
+dit(code(\cm)) Specify a dimension in centimeters.  Should come after
+a floating point constant.
 
 dit(code(\consists) var(string)code(;)) This keyword can appear only within a
 code(\translator) block.  It specifies that an engraver or performer named
 var(string) should be added to the translator.  See Section
 ref(translators).
 
-dit(code(\consistsend) var(string)code(;)) Unknown function.  
+dit(code(\consistsend) var(string)code(;)) This keyword can appear
+only within a code(\translator) block. Add an engraver to the context
+being specified.  Some engraver types need to be at the end of the
+list; this insures they are put there.  Usually not needed for end-users.
 
 dit(code(\context) var(contexttype) [code(=) var(contextname)]
-var(music) or code(\context) var(translatortype)code(;)) The first
-variant is used only within music to create an instance of a
-context.  The new context can optionally be given a name.  The
-specified var(music) is processed in the new context. The second
-variant appears within a code(\translator) block and specifies the
-type of translator being created.
+var(musicexpr)) Interpret var(musicexpr) within a context of type
+var(contexttype).  If the context does not exist, it will be created.
+context.  The new context can optionally be given a name.
+This is a Music expression itself.
 
 dit(code(\duration) code({) var(length) var(dotcount) code(})) Specify note
 duration.  The parameter var(length) is the negative logarithm (base
@@ -1175,6 +1196,8 @@ var(dotcount).
 dit(code(\font) var(string)) Internal keyword.  Used within
 code(\paper) to specify the font.
 
+dit(code(\grace) var(musicexpr)) A musicexpression that indicates that
+var(musicexpr) consists of grace notes.
 
 dit(code(\header) code({) var(key1) = var(val1); var(key2) = var(val2); ... code(}))
 Specifies information about the music.  A header should appear at the
@@ -1207,21 +1230,23 @@ dit(code(\keysignature) var(pitchseq)code(;))
 Specify an arbitrary key signature.  The pitches from var(pitch) will
 be printed in the key signature in the order that they appear on the list.
 
-dit(code(\lyrics) var(lyriclist)) Parse var(lyriclist) in lyrics mode.
+dit(code(\lyrics) var(music)) Parse var(music) in lyrics mode.
 
 dit(code(\maininput)) Internal command.  This command is used for creating init
 files like file(init.fly) that read the user file into the middle of another
 file.  It is illegal to use this command in a user file.  
         
-dit(code(\mark) var(unsigned)code(;) or code(\mark) var(string)code(;)) 
-Allowed in music only.  Prints a mark over or under (depending on the
-code(markDirection) property) the staff.
-You must add code(Mark_engraver) to the Score context.
+dit(code(\mark) var(unsigned)code(;) or code(\mark)
+var(string)code(;)) A music expression.  Prints a mark over or under
+(depending on the code(markDirection) property) the staff.  You must
+add code(Mark_engraver) to the either Score or Staff context for this
+to work.
 
-dit(code(\midi) var(statementlist)) Appears in a score block to
-indicate that musical output should be produced and to set output
-parameters.  Can also appear at the top level to set default output
-parameters.  See code(\tempo).
+
+dit(code(\midi) var(statementlist)) An output definition (appears in a
+ code(\score) block) to indicate that musical output should be
+ produced and to set output parameters.  Can also appear at the top
+ level to set default output parameters.  See code(\tempo).
 
 dit(code(\mm)) Specify a dimension in millimeters. 
 
@@ -1242,20 +1267,18 @@ The argument is a list of definitions of  the form
 var(name) = var(pitch),  where var(pitch) is specified with the
 code(\musicalpitch) keyword.  
 
-dit(code(\notes) var(music)) Enter note mode and process the
-specified music. 
+dit(code(\notes) var(musicexp)) Enter note mode and process the
+specified musicexp.  This is a music expression.
 
-dit(code(\paper) var(statmentlist)) 
-Appears in a score block to indicate that the music should be printed
-or to set output parameters.  Can also appear at the top level to set
-default output parameters for all of the score blocks.  
-The var(statmentlist) contains statements that change features of the
-output.  See Section ref(paper).  
+dit(code(\paper) var(statmentlist)) An output definition, (appears in
+a code(\score) block) to indicate that the music should be printed or
+to set output parameters.  Can also appear at the top level to set
+default output parameters for all of the score blocks.  The
+var(statmentlist) contains statements that change features of the
+output.  See Section ref(paper).
 
-dit(code(\partial) var(duration)code(;)) Specify that the first measure of
-the music lasts only for the specified duration.  Use also to specify
-the duration of the first measure of the argument to
-code(\alternative).  
+dit(code(\partial) var(duration)code(;)) Music expression that makes
+the first measure of the music last for the specified duration.  
 
 dit(code(\penalty) var(int)code(;)) Allowed only in music.
 Discourage or encourage line breaks.  See identifiers code(\break) and
@@ -1269,34 +1292,31 @@ on both sides of the dot.
 
 dit(code(\pt)) Specify a dimension in points. 
 
-dit(code(\relative) var(pitch) var(music)) Processes the specified
-var(music) in relative pitch
-mode.  In this mode, the octave of a pitch is chosen so that the
-pitch is closest to the preceeding pitch.  
-The argument var(pitch) is
-the starting pitch for this comparision.  In the case of chords, the
-first note of a chord is used as the base for the first pitches in the next
-chord.  See Section ref(relative).
+dit(code(\relative) var(pitch) var(music)) Add octave indications such
+that so that the pitch is closest to the preceding pitch.  The
+argument var(pitch) is the starting pitch for this comparison.  In the
+case of chords, the first note of a chord is used as the base for the
+first pitches in the next chord.  See Section ref(relative).
 
 dit(code(\remove) var(string)code(;)) Can appear only in a
 code(\translator) block.  Specifies that a performer or engraver named
 var(string) should be removed.  See Section ref(translators).  
 
 dit(code(\repeat) var(style) var(count) code({) var(music) code(}))
-Repeats the specified
-music var(count) times.  Alternative endings can be specified by adding a
-code(\alternative) keyword after the code(\repeat).  The var(style)
-parameter should be either code(semi), for regular repeats,  or
-code(fold) for repeats displayed vertically. 
+Repeats the specified music var(count) times.  Alternative endings can
+be specified by adding a code(\alternative) keyword after the
+code(\repeat).  The var(style) parameter should be either code(semi),
+for regular repeats, or code(fold) for repeats displayed vertically,
+or code(unfold) for repeats fully written out.
 
-dit(code(\scm) var(scheme)code(;)) Embeds specified Scheme code.  
+dit(code(\scm) var(scheme)code(;)) Evaluates the specified Scheme
+code.  The result is discarded.
 
-dit(code(\scmfile) var(filename)code(;)) Reads Scheme code from the specified
-file.  
+dit(code(\scmfile) var(filename)code(;)) Reads Scheme code from the
+specified file.  The result is discarded.
 
-dit(code(\score) var(statementlist)) Create a Score context.  This
-is the top level notation context.  
-COMMENT(this still needs work)
+dit(code(\score) var(statementlist))  Combine one music expression and
+multiple output definitions
 
 dit(code(\script) var(alias)) Prints a symbol above or below a note.
 The argument is a string which points into the script-alias table
@@ -1307,7 +1327,7 @@ symbols over one note.  Usually the code(\script) keyword is not used
 directly.  Various helpful identifier definitions appear in
 file(script.ly).
 
-dit(code(\shape) code(=) var(indent1) var(width1) var(indent2)
+dit(code(\shape) var(indent1)code(,) var(width1)code(,) var(indent2)code(,)
 var(width2) ... code(;)) Allowed only within code(\paper).  Each pair
 of var(indent) and var(width) values is a dimension specifying how far
 to indent and how wide to make the line.  The indentation and width of
@@ -1315,84 +1335,174 @@ successive lines are specified by the successive pairs of dimensions.
 The last pair of dimensions will define the characeristics of all
 lines beyond those explicitly specified.
 
-COMMENT(First pair of dimensions seems to be skipped.  At least it is
-in the example file denneboom.ly.)
-
-dit(code(\skip) var(duration)code(;)) Skips the amount of time specified by
-var(duration).  A gap will be left for the skipped time with no notes
-printed.  It works in Note Mode or Lyrics Mode (but generates a
-mysterious error in lyrics).
+dit(code(\skip) var(duration)code(;)) Skips the amount of time
+specified by var(duration).  If no other music is played, a gap will
+be left for the skipped time with no notes printed.  It works in Note
+Mode or Lyrics Mode.
 
 dit(code(\spanrequest) var(startstop) var(type)).  Define a spanning request
 var(startstop) is either -1 (code(\start)) or 1 (code(\stop)). The var(type)
 parameter is a string that describes what should be started.  Supported types
 are "crescendo", "decrescendo", "beam", "slur".  This is an internal command.
 Users should use the abbreviations  which are defined in the
-initialization file file(dynamic.ly).
+initialization file file(spanners.ly).
 
 dit(code(\tempo) var(duration) = var(perminute)code(;)) Used within
 code(\midi) or within music to specify the tempo.  For example, 
 `code(\midi { \tempo 4 = 76;})' requests output with 76 quarter notes
-per minute.  Note that if the music contains several tempo commands,
-only the last one is used to set the tempo for the entire MIDI output. 
-COMMENT(Is this true?)
+per minute.
 
-dit(code(\textscript) var(text) var(style)) Print the specified text as a
-script in the specified style.  
+dit(code(\textscript)) var(text) var(style).  Defines a text to be
+printed over or under a note.  var(style) may be one offinger, roman,
+italic, dynamic, large.  Normally you should use the stable and more
+user friendly abbreviations defined in the init file file(textscript.ly).
 
 dit(code(\time) var(numerator)code(/)var(denominator)code(;)) Change the time
 signature.  The default time signature is 4/4.  
 
 dit(code(\times) var(numerator)code(/)var(denominator) var(music))
-Multiply the duration of var(music) by the specified fraction.
+Music expression that results from multiplying the duration of
+var(music) by the specified fraction.  In the output a brace is
+printed over the music.
 
-dit(code(\translator) var(statements) or code(\translator)
-var(context) = var(name)) The first variant appears only within
-code(\paper) and specifies a translator for
-converting music to notation.  The translator is specified with a
-single code(\context) statement and a series of code(\accepts), and
-code(\consists) statements.  See Section ref(translators). 
-The second variant appears in 
-music.  It specifies that the current the contexts
-contained within the specified context should be shifted to the
-context with the specified name.  
+dit(code(\translator) var(statements))
+ This keyword is overloaded, it means something different within
+music expressions.
 
-COMMENT( \translator seems like a strange name for the second
-operation, and is the overloading desireable? )
+This variant appears only within code(\paper) and specifies a
+translator for converting music to notation.  The translator is
+specified with a single code(\context) statement and a series of
+code(\accepts), and code(\consists) statements.  See Section
+ref(translators).
 
-dit(code(\transpose) var(pitch) var(music)) Transposes the specified
-music.  Middle C is tranposed to var(pitch).  This is allowed in music only,
-and if it appears inside code(\relative), then any notes specified for
-transposition should be specified inside another code(\relative).  See Section
-ref(transpose).  
+dit(code(\translator) var(contexttype) = var(name))
+A music expression that the context which is a direct child of the 
+a  context of type var(contexttype) should be shifted to a context of
+type var(contexttype) and  the specified name.  
+
+dit(code(\transpose) var(pitch) var(musicexpr))
+Music expression
+obtained by transposing var(musicexpr).  Middle C is tranposed to
+var(pitch).   If it appears inside
+code(\relative), then any notes specified for transposition should be
+specified inside another code(\relative).  See Section ref(transpose).
 
 dit(code(\type) var(string)code(;)) Use inside code(\translator) to
 specify the type of the translator.  
 
-dit(code(\version) var(string)) Specify the version of Mudela that a
-file was written for.  The argument is the version number, for example
-code("1.0.1").  Note that the Mudela version is different from the
-LilyPond version.
+dit(code(\version) var(string)) Specify the version of LilyPond that a
+file was written for.  The argument is the version number, for qexample
+code("1.0.1").  This is used to detect invalid input, and to aid
+code(convert-mudela), a tool that automatically upgrades input files.
 
 )  
 
 
 sect(Notation Contexts)
 
-Notation contexts provide information that appears in printed music
-but not in the music itself.  A new musical context is created using
-the code(\context) keyword: `code(\context) var(contexttype) [code(=)
-var(contextname)] var(music)'.  The following context types are
-allowed.
+Notation contexts are objects that only exist during a run of
+LilyPond.  During the interpretation phase of LilyPond, the Music
+expression contained in a code(\score) block is interpreted in time
+order.  This is the order in which humans read, play and write music.
 
+A  context is an object that holds the reading state of the expression:
+it contains information like
+itemize(
+it() What notes are playing at this point?
+it() What symbols will be printed at this point?
+it() In what style will they printed?
+it() What is the current key signature, time signature, point within
+the measure, etc.
+)
+
+Contexts are grouped hierarchically: a Voice context is contained in a
+Staff context (because a staff can contain multiple voices at any
+point), a Staff context is contained in a Score, StaffGroup,
+ChoirStaff context (because these can all contain multiple Staffs.)
+
+The Contexts associated with sheet music output are called notation
+contexts, those with associated with sound output are called playing
+contexts.
+
+Context are created either automatically, or manually.
+Initially, the top level music expression is reported to the top level
+context (the Score context). 
+When a atomic music expression (a note, a rest, a code(\bar),
+code(\time) command), a nested set of context is created that can process these
+atomic expressions, so in this example,COMMENT(
+
+)verb(\score { \notes < c4 > })COMMENT(
+
+)the sequential music, code({ c4 }) is interpreted by Score context.
+When the note code(c4) itself is interpreted, a set of contexts is needed
+that will accept notes. The default for this is a Voice context,
+contained in a Staff context.
+
+
+
+You can also create contexts manually, and you probably have to do so
+if you want to typeset complicated multiple voice/multiple staff
+material.  If a code(\context )var(name musicexpr) expression is
+encountered during the interpretation phase, the var(musicexpr)
+argument will be interpreted with a context of type var(name).  If you
+specify a name, the specific context with that name is searched.
+
+If a context of the specified type and name can not be found, a new
+one is created.  For example,
+COMMENT(
+
+)verb(\score { \notes \relative c'' { c4 <d4 \context Staff = "another" e4> f} })COMMENT(
+
+) in this example, the code(c) and code(d) are
+printed on the default staff.  For the code(e), a context Staff called
+code(another) is specified; since that does not exist, a new context is
+created.  Within code(another) a (default) Voice context is created
+for the code(e4).   When all music referring to a context is finished, the
+context is ended as well.  So after the third quarter, the
+code(another) is removed.
+
+Almost all music expressions inherit their interpretation context from
+their parent. In other words, suppose that  the syntax for a music expression is
+code(code(\keyword) var(musicexpr1) var(musicexpr2) dots()).
+When the interpretation of this music expression starts, 
+the context for var(musicexpr1), var(musicexpr2), etc. that of
+the total expression.
+
+Lastly, you may wonder, why doesn't this:
+verb(\score { \notes \relative c'' { c4 d4 e4 }})
+result in this?
+mudela()(\score { \notes \relative c'' { <c4> <d4> <e4> }})
+
+For code(c4) a default Staff (with contained Voice) context is
+created.  After the code(c4), ends no music refers to this default
+staff, so it would be ended, with the result shown.  To prevent this
+inconvenient behavior, the context to which the sequential music
+refers is adjusted during the interpretation.  So after the code(c4)
+ends, the context of the sequential music is also the default Voice
+context.  The code(d4) gets interpreted in the same context as code(c4)
+
+These are the contexts that come presupplied with LilyPond.
 description(
+
+dit(code(Grace)) The context for handling grace notes, it is
+  instantiated automatically when you use code(\grace).  It is a
+  "embedded" miniature of the Score context.  Since this context needs
+  special interaction with the rest of LilyPond, you should not
+  explicitly instantiate it.
 
 dit(code(LyricVoice)) Corresponds to a voice with lyrics.  Handles the printing
 of a single line of lyrics.  
 
-dit(code(Voice)) Corresponds to a voice on a staff.
-  This context handles the conversion of noteheads,
-  dynamic signs, stems, beams, super- and subscripts, slurs, ties and rests.
+dit(code(Thread)) Handles note heads, and is contained in the Voice
+  context.  You have to instantiate these explicitly if you want to
+  adjust the style of individual noteheads.
+
+dit(code(Voice)) Corresponds to a voice on a staff.  This context
+  handles the conversion of dynamic signs, stems, beams, super- and
+  subscripts, slurs, ties and rests.
+
+  You have to instantiate these explicitly if you want to have
+  multiple voices on the same staff.
 
 dit(code(ChordNamesVoice)) A voice with chord names.  Handles printing
 of a line of chord names.  
@@ -1426,8 +1536,7 @@ It can contain code(Staff), code(RhythmicStaff), code(GrandStaff) or code(Lyrics
 dit(code(ChoirStaff)) Identical to code(StaffGroup) except that the
 contained staffs are not connected vertically.  
 
-dit(code(Score)) This is the top level notation context.  It is specified with
-the code(\score) keyword rather than the code(\context) command.  No
+dit(code(Score)) This is the top level notation context.    No
 other context can contain a code(Score) context.  This context handles
 the administration of time signatures.  It also makes sure that items
 such as clefs, time signatures, and key-signatures are aligned across
@@ -1435,27 +1544,46 @@ staffs.  It can contain code(Lyrics), code(Staff),
 code(RhythmicStaff), code(GrandStaff), code(StaffGroup), and
 code(ChoirStaff) contexts.
 
+You can not explicitly instantiate a Score context (since it is not
+contained in any other context.).  It is instantiated automatically
+when an output definition (a code(\score) or code(\paper) block) is
+processed.
 )
 
 The various contexts have properties associated with them.  These
 properties can be changed using the code(\property) command:
 `code(\property) var(context)code(.)var(propname) code(=) var(value)'.
-Properties can also be set within the code(\translator) block
-corresponding to the appropriate context.  In this case, they are
-assigned by `var(propname) code(=) var(value)'.  The settings made with
-code(\property) are processed after settings made in the code(\translator)
-block, so the code(\property) settings will override code(\translator)
-settings.  
 
-The code(\property) keyword will create any property you specify.
-There is no guarantee that a property will actually be used.  If you
-spell a property name wrong, there will be no error message.  In order to find
-out what properties are used, you must search the source code 
-for code(get_property).  
+
 Properties that are set in one context are inherited by all of the
 contained contexts.  This means that a property valid for the Voice
 context can be set in the Score context (for example) and thus take
-effect in all Voice contexts.  
+effect in all Voice contexts.
+
+Properties can be preset within the code(\translator) block
+corresponding to the appropriate context.  In this case, the syntax is
+`var(propname) code(=) var(value)'.  This assignment happens before
+interpretation starts, so a code(\property) expression will override
+any pre defined settings.
+
+The code(\property) expression will create any property you specify.
+There is no guarantee that a property will be used.  So if you spell a
+property name wrong, there will be no error message.
+
+The property settings are used during the interpretation phase. They
+are read by the LilyPond modules where interpretation contexts are
+built of.  These modules are called em(translators). Translators for
+notation are called em(engravers) and translators for sound are called
+em(performers).
+
+The precise result of a property is determined by the implementation
+of the translator that reads them.  Therefore, the result of a
+property can vary, since it is implementation and configuration
+dependent.
+
+In order to fully find out what properties are used, you must search
+the source code for calls to code(get_property).  The rest of the
+section is devoted to an (incomplete) overview of available properties.
 
 subsubsubsect(Lyrics properties)
 
@@ -1472,29 +1600,9 @@ or be sure to leave a space on both sides of the dot.
 
 )
 
-subsubsubsect(Voice properties)
+subsubsubsect(Thread properties)
 
-description(  
-
-dit(code(stemLeftBeamCount)) Specify the number of beams to draw on
-the left side of the next note.  
-
-dit(code(stemRightBeamCount)) Specify the number of beams to draw on
-the right side of the next note.  
-
-dit(code(beamAuto)) If set to 1 then beams are generated
-automatically.  If set to zero then no beams will be automatically
-generated.  The default value is 1.  
-
-dit(code(beamAutoEnd)) Specifies when automatically generated beams
-can end.  See Section ref(autobeam).
-
-dit(code(beamAutoBegin)) Specifies when automatically generated beams
-can start.  See Section ref(autobeam). 
-
-dit(code(textEmptyDimension)) If set to 1 then text placed above or
-below the staff is assumed to have zero width.  
-
+description(
 dit(code(noteheadStyle)) Selects type of note head.  Choices are
 code(cross), code(diamond), code(harmonic), code(transparent), and
 code("").  They are shown in that order below.  
@@ -1516,13 +1624,51 @@ mudela(center)(
  \paper{ linewidth = -1.;}
 }
 )
+)
 
+
+subsubsubsect(Voice properties)
+
+description(  
+
+dit(code(stemLeftBeamCount)) Specify the number of beams to draw on
+the left side of the next note.   Overrides automatic beaming.  The
+value is only used once, and then it is erased.
+
+dit(code(stemRightBeamCount)) Specify the number of beams to draw on
+the right side of the next note.   Overrides automatic beaming.  The
+value is only used once, and then it is erased.
+
+dit(code(beamAuto)) If set to 1 then beams are generated
+automatically.  If set to zero then no beams will be automatically
+generated.  The default value is 1.  
+
+dit(code(beamAutoEnd)) Specifies when automatically generated beams
+can end.  See Section ref(autobeam).
+
+dit(code(beamAutoBegin)) Specifies when automatically generated beams
+can start.  See Section ref(autobeam). 
+
+dit(code(textEmptyDimension)) If set to 1 then text placed above or
+below the staff is assumed to have zero width.  
+
+dit(code(beamquantisation)) Set to code(\none) for no quantization.
+Set to code(\normal) to quantize position and slope.  Set to
+code(\traditional) to avoid wedges.  These three settings are
+available via code(\beamposfree), code(\beamposnormal), and
+code(\beampostraditional).
+
+dit(code(beamslopedamping)) Set to code(\none) for undamped beams.
+Set to code(\normal) for damped beams.  Set to code(\infinity) for
+beams with zero slope.  The identifiers code(\beamslopeproportional),
+code(\beamslopedamped), and code(\beamslopezero) each set the
+corresponding value.
 
 dit(code(restStyle)) Change the layout of rests shorter than quarter notes. 
 Currently, the standard layout code(restStyle="") and mensural notation
 code(restStyle="mensural") are available.
 
-dit(code("midiInstrument")) Sets the instrument for MIDI output.  This
+dit(code(midiInstrument)) Sets the instrument for MIDI output.  This
 property name must be quoted because of the embedded underscore.  If
 this property is not set then LilyPond will use the code(instrument)
 property.  This must be set to one of the strings on the list of MIDI
@@ -1533,7 +1679,8 @@ dit(code(transposing)) Tranpose the MIDI output.  Set this property to
 the number of half-steps to transpose by.
 
 dit(code(oldTieBehavior)) Set to 1 in order to get old tie behavior
-where ties would connect unequal pitches.  
+where ties would connect unequal pitches.  This property is
+deprecated, and use is not recommended.
 
 dit(code(verticalDirection)) Determines the direction of stems, subscripts,
 beams, slurs, and ties.  Set to code(\down) to force them down,
@@ -1552,7 +1699,7 @@ dit(code(tieVerticalDirection)) Set to code(\free) for free choice of tie
 direction, set to code(\up) to force ties up, set to code(\down) to
 force ties down.  
 
-dit(code(slurdash)) Set to 0 for normal slurs, 1 for dotted slurs, and
+dit(code(slurDash)) Set to 0 for normal slurs, 1 for dotted slurs, and
 a larger value for dashed slurs.  Identifiers code(\slurnormal) and
 code(\slurdotted) are predefined to set the first two settings.
 
@@ -1561,6 +1708,12 @@ horizontally if they collide with other notes.  This is useful when
 typesetting many voices on one staff.  The identifier code(\shift) is
 defined to enable this.  If there are several voices, every voice must
 have a distinct value of this property or no shifting will occur.
+
+dit(code(forceHorizontalShift)) Force horizontal shift for collision
+resolution.  It overrides automatic collision resolution.
+This will only work if the context also has its stem direction and
+horizontalNoteShift property set. The value is the shift amount
+expressed in code(note_width), as set in the paper section.
 
 dit(code(dynamicDir)) Determines location of dynamic marks.  Set to
 code(\up) to print marks above the staff; set to code(\down) to print
@@ -1632,7 +1785,7 @@ dit(code(barSize)) Specify the height of the bar lines if it should be
 different than the staff height.
 
 dit(code(markHangOnClef)) Set to 1 to cause marks to appear by clefs
-instead of by bar lines.
+instead of by bar lines.  Deprecated, use is not recommended.
 
 dit(code(marginDirection)) Set to code(\left) or code(\right) to
 specify location of marginal scripts.  
@@ -1659,7 +1812,7 @@ dit(code(barAtLineStart)) Set to 1 to produce a bar line after the
 clef at the start of each line (but not at the beginning of the
 music).  
 
-dit(code(voltaVisibility)) Set to 0 to suppress the printing
+dit(code(noVoltaBraces)) Set to true to suppress the printing
 of brackets over alternate endings specified by code(\alternative).
 
 dit(code(voltaSpannerDuration)) Set to an integer to control the size
@@ -1668,7 +1821,8 @@ the number of whole notes duration to use for the brackets.  It seems
 to be rounded to the nearest measure.  This can be used to shrink the
 length of brackets in the situation where one alternative is very
 large.  It may have odd effects if the specified duration is longer
-than the music given in an code(\alternative).  
+than the music given in an code(\alternative).   [FIXME: This was
+broken in 1.1.53]
 
 dit(code(barNonAuto)) If set to 1 then bar lines will not be printed
 automatically; they must be explicitly created with code(\bar) keywords.
@@ -1679,14 +1833,14 @@ zero.
 dit(code(defaultClef)) Determines the default clef.  See code(\clef)
 keyword.
 
-dit(code(nuberOfStaffLines)) Sets the number of lines that the staff has.
+dit(code(numberOfStaffLines)) Sets the number of lines that the staff has.
  
 dit(code(barAlways)) If set to 1 a bar line is drawn after each note.
 
 dit(code(defaultBarType)) Sets the default type of bar line.  See
 code(\bar) keyword.
 
-dit(code(keyoctaviation)) If set to 1, then keys are the same in all
+dit(code(keyOctaviation)) If set to 1, then keys are the same in all
 octaves.  If set to 0 then the key signature for different octaves can
 be different and is specified independently: code(\keysignature bes
 fis').  The default value is 1.  Can be set to zero with
@@ -1698,12 +1852,10 @@ is used to label the first line of the staff and the code(instr)
 property is used to label subsequent lines.  If the
 code(midiInstrument) property is not set then code(instrument) is
 used to determine the instrument for MIDI output.
-COMMENT(This prints the instrument name on top of the staff lines.)
 
 dit(code(createKeyOnClefChange)) Set to a nonempty string if you want key
 signatures to be printed when the clef changes.  Set to the empty string (the
 default) if you do not want key signatures printed.
-
 
 dit(code(timeSignatureStyle)) Changes the default two-digit layout
    for time signatures. The following values are recognized:
@@ -1791,23 +1943,14 @@ notes and rests into their full length, printing the appropriate
 number of empty bars so that synrchonization with other voices is
 preserved.  COMMENT(meaning of "skip" here seems to be different from
 the meaning used for the keyword \skip.)
+)
 
-dit(code(beamquantisation)) Set to code(\none) for no quantization.
-Set to code(\normal) to quantize position and slope.  Set to
-code(\traditional) to avoid wedges.  These three settings are
-available via code(\beamposfree), code(\beamposnormal), and
-code(\beampostraditional).
+subsubsubsect(ChordNamesVoice properties)
 
-dit(code(beamslopedamping)) Set to code(\none) for undamped beams.
-Set to code(\normal) for damped beams.  Set to code(\infinity) for
-beams with zero slope.  The identifiers code(\beamslopeproportional),
-code(\beamslopedamped), and code(\beamslopezero) each set the
-corresponding value.
-
+description(
 dit(code(chordInversion)) Determines whether LilyPond should look for
 chord inversions when translating from notes to chord names.  Set to 1
 to find inversions.  The default is 0 which does not look for inversions.
-
 )
 
 
@@ -1830,13 +1973,13 @@ dit(code(\dorian)) Used as the second argument of the code(\key)
 keyword to get a dorian mode.
 dit(code(\down)) Used for setting direction setting properties.  Is
 equal to -1.  
-dit(code(\f)) Print forte symbol on the preceeding note.
-dit(code(\ff)) Print fortissimo symbol on the preceeding note. 
-dit(code(\fff)) Print fortississimo symbol on preceeding note. 
-dit(code(\ffff)) Print fortissississimo symbol on preceeding note.
-dit(code(\fffff)) Print fffff symbol on preceeding note.
-dit(code(\ffffff)) Print ffffff symbol on preceeding note.
-dit(code(\fp)) Print fortepiano symbol on preceeding note. 
+dit(code(\f)) Print forte symbol on the preceding note.
+dit(code(\ff)) Print fortissimo symbol on the preceding note. 
+dit(code(\fff)) Print fortississimo symbol on preceding note. 
+dit(code(\ffff)) Print fortissississimo symbol on preceding note.
+dit(code(\fffff)) Print fffff symbol on preceding note.
+dit(code(\ffffff)) Print ffffff symbol on preceding note.
+dit(code(\fp)) Print fortepiano symbol on preceding note. 
 dit(code(\free)) Used for setting direction setting properties.  Is
 equal to 0.  
 dit(code(\Gourlay)) Used for setting the paper variable
@@ -1856,8 +1999,8 @@ dit(code(\minor)) Used as the second argument of the code(\key)
 keyword to get a minor key.
 dit(code(\mixolydian)) Used as the second argument of the code(\key)
 keyword to get a mixolydian mode.
-dit(code(\mf)) Print mezzoforte symbol on preceeding note. 
-dit(code(\mp)) Print mezzopiano symbol on preceeding note. 
+dit(code(\mf)) Print mezzoforte symbol on preceding note. 
+dit(code(\mp)) Print mezzopiano symbol on preceding note. 
 dit(code(\nobreak)) Prevent a line break in music by using a large
 negative argument for the keyword code(\penalty). 
 dit(code(\none)) Used for setting Score.beamslopedamping and
@@ -1866,21 +2009,21 @@ dit(code(\normal)) Used for setting Score.beamslopedamping and
 Score.beamquantisation properties.  Is equal to 1.
 dit(code(\normalkey)) Select normal key signatures where each octave
 has the same key signature.  This sets the Staff.keyoctaviation property.
-dit(code(\p)) Print a piano symbol on preceeding note. 
+dit(code(\p)) Print a piano symbol on preceding note. 
 dit(code(\phrygian)) Used as the second argument of the code(\key)
 keyword to get a phrygian mode.
-dit(code(\pp)) Print pianissimo symbol on preceeding note. 
-dit(code(\ppp)) Print pianississimo symbol on preceeding note. 
-dit(code(\pppp)) Print pianissississimo symbol on preceeding note.
-dit(code(\ppppp)) Print ppppp symbol on preceeding note.
-dir(code(\pppppp)) Print pppppp symbol on preceeding note.
+dit(code(\pp)) Print pianissimo symbol on preceding note. 
+dit(code(\ppp)) Print pianississimo symbol on preceding note. 
+dit(code(\pppp)) Print pianissississimo symbol on preceding note.
+dit(code(\ppppp)) Print ppppp symbol on preceding note.
+dir(code(\pppppp)) Print pppppp symbol on preceding note.
 dit(code(\rc)) Terminate a crescendo. 
 dit(code(\rced)) Terminate a decrescendo
-dit(code(\rfz)) Print a rinforzato symbol on preceeding note.
+dit(code(\rfz)) Print a rinforzato symbol on preceding note.
 dit(code(\right)) Used for setting textalignment property.  Is set to 1.
-dit(code(\sf)) Print a subito-forte symbol on preceeding note. 
-dit(code(\sff)) Print a subito-fortissimo symbol on preceeding note.
-dit(code(\sfz)) Print a sforzato symbol on preceeding note. 
+dit(code(\sf)) Print a subito-forte symbol on preceding note. 
+dit(code(\sff)) Print a subito-fortissimo symbol on preceding note.
+dit(code(\sfz)) Print a sforzato symbol on preceding note. 
 dit(code(\shiftoff)) Disable horizontal shifting of note heads that collide.  
 Sets the Voice.horizontalNoteShift property.
 dit(code(\shifton)) Enable note heads that collide with other note heads
@@ -1891,8 +2034,8 @@ dit(code(\slurdown)) Force slurs to be below notes. This sets the
 Voice.slurVerticalDirection property. 
 dit(code(\slurup)) Force slurs to be above notes.  This sets the
 Voice.slurVerticalDirection property.  
-dit(code(\sp)) Print a subito-piano symbol on preceeding note.
-dit(code(\spp)) Print a subito-forte symbol on preceeding note.
+dit(code(\sp)) Print a subito-piano symbol on preceding note.
+dit(code(\spp)) Print a subito-forte symbol on preceding note.
 dit(code(\specialkey)) Allow keys signatures do differ in different
 octaves.  This sets the Staff.keyoctaviation property.  
 dit(code(\stemboth)) Allow stems, beams, and slurs to point either
@@ -1980,9 +2123,31 @@ Warning: this section is outdated and inaccurate.
 There are a large number of paper variables that are used to control
 details of the layout.  Usually you will not want to change these
 variables; they are set by default to vaules that depend on the font
-size in use.  The only way to find out what variables are supported is
-to search the source code for code(get_var).  Two variables that you
-may want to change are code(linewidth) and code(indent).
+size in use.   The values are used by the graphic objects while
+formatting the score; they are therefore implementation dependent.
+Most variables are accompanied by documentation in the
+initalization file file(params.ly) or file(paperSZ.ly), where code(SZ)
+is the staff height in points.
+
+
+Nevertheless, here are some variables  you may want to use or change:
+
+description(
+dit(code(indent)) Sets the indentation of the first line of music.
+
+dit(code(interline)) The distance between two staff lines, calculated
+from the center of the lines.  You should use either this or
+code(rulethickness) as a unit for distances you modify.
+  
+dit(code(linewidth))  Sets the width of the lines.  If it is set to
+-1.0, then a single unjustified line is produced.  
+
+dit(code(output)) Specifies an alternate
+name for the TeX() output.  A file(.tex) extension will be added to
+the string you specify.
+
+dit(code(rulethickness)) Determines thickness of staff lines and bars. 
+)
 
 In order to change the font size used for the output, many variables
 need to be changed.  Some identifiers and initialization files can
@@ -1996,74 +2161,6 @@ identifiers: code(\paper_eleven), code(\paper_thirteen),
 code(\paper_sixteen), code(\paper_twenty) or code(\paper_twentysix)
 inside a code(\paper) block.
 
-
-description(
-  dit(var(integer)) If an integer appears on the left side of an
-assignment then a code(\font) keyword must appear on the right
-side.  This defines a music font at a particular size.  See Voice
-property code(fontSize).
-
-dit(code(arithmetic_basicspace) and code(arithmetic_multiplier))
-The space taken by a note is determined by the formula 
-COMMENT(
-
-)verb(arithmetic_multiplier * ( c + log2 (time) ))COMMENT(
-
-) where code(time) is the amount of time a note occupies.  The value
-of code(c) is chosen such that the smallest space within a measure is
-arithmetic_basicspace.  The smallest space is the one following the
-shortest note in the measure.  Typically arithmetic_basicspace is set
-to the width of a quarter note head.
-
-dit(code(beam_dir_algorithm)) Specify algorithm for determining
-whether beams go up or down.  It is real valued.  If set to 2.0 then
-majority selection is used.  If set to 3.0, then mean selection is
-used based on the mean center distance.  If set to 4.0 then median
-selection is used, based on the median center distance.  
-dit(code(castingalgorithm)) 
-dit(code(crescendo_shorten))
-dit(code(forced_stem_shorten)) Stems that have been forced to go the
-unnatural direction are shortened by this amount.  Equal to
-dit(code(forced_stem_shorten0))
-dit(code(gourlay_energybound))
-dit(code(gourlay_maxmeasures)) Maximum number of measures per line
-when using Gourlay method.
-Decreasing this greatly reduces computation time.  Default value: 10.  
-dit(code(indent)) Sets the indentation of the first line of music.  
-dit(code(interbeam))
-dit(code(interbeam4))
-dit(code(interline))  The distance between two staff
-lines, calculated from the center of the lines.  
-dit(code(linewidth))  Sets the width of the lines.  If it is set to
--1.0, then a single unjustified line is produced.  
-dit(code(notewidth)) Width of an average note head.  
-dit(code(output)) Specifies an alternate
-name for the TeX() output.  A file(.tex) extension will be added to
-the string you specify.
-dit(code(rulethickness)) Determines thickness of staff lines and bars. 
-dit(code(slur_clip_angle))
-dit(code(slur_clip_height))
-dit(code(slur_clip_ratio))
-dit(code(slur_height_limit)) Specifies the maximum height of slurs.
-Normally equal to staff_height.
-dit(code(slur_ratio)) Specifes the ratio of slur hight to slur width
-to aim for.  Default value is 0.3.  
-dit(code(slur_rc_factor))
-dit(code(slur_slope_damping)) Allows slurs to start and end at
-different heights ????  Default value is 0.5.
-dit(code(slur_thickness)) Specify slur thickness.  Equal to code(1.4 *
-\staffline) by default.  
-dit(code(slur_x_gap)) Horizontal space between note and slur.  Set to
-code(\interline / 5) by default.  
-dit(code(slur_x_minimum))
-dit(code(staffheight)) The height of the staff from the center of the
-bottom line to the center of the top line.  Equal to to code(4 * \interline).
-dit(code(stem_length)) Specify length of stems for notes in the staff
-that don't have beams.  
-dit(code(stemthickness)) Specifies the thickness of the stem lines.  
-dit(code(tie_slope_damping))
-dit(code(tie_x_minimum))
-)
 
 
 subsect(MIDI Instrument Names)
@@ -2156,19 +2253,24 @@ In the code(\paper) block, it is also possible to define translator
 identifiers.  Like other block identifiers, the identifier can only
 be used as the very first item of a translator.  In order to define
 such an identifier outside of code(\score), you must do
-verb(\paper{ foo=\translator{ ... }
+verb(
+\paper{ foo=\translator{ ... } }
 \score{
   \notes{ ... }
   \paper{ \translator{ \foo ... } }
 })
 
-Some All of the standard translators have predefined identifiers,  making
-it easy to redefine these contexts by adding or removing items. 
-The predefined identifiers are:  code(StaffContext),
-code(RhythmicStaffContext),  code(VoiceContext),  code(ScoreContext), code(ScoreWithNumbers)
+Some of the standard translators have predefined identifiers, making
+it easy to redefine these contexts by adding or removing items.  The
+predefined identifiers are: code(StaffContext),
+code(RhythmicStaffContext), code(VoiceContext), code(ScoreContext),
+code(ScoreWithNumbers)
 
 
 subsubsect(Paper Types and Engravers and Pre-defined Translators)
+
+Notation contexts are built from LilyPond modules called Engravers and
+Performers. 
 
 Some pre-defined identifiers can simplify modification of translators.
 The pre-defined identifiers are:  
@@ -2181,7 +2283,9 @@ dit(code(ScoreWithNumbers)) Score  context with numbering at  the
 Score level.   
 dit(code(BarNumberingStaffContext)) Staff context with numbering  at
 the Staff level.  
-dit(code(HaraKiriStaffContext))  
+dit(code(HaraKiriStaffContext))
+  Staff context that does not print if it only contains rests.  Useful for
+  orchestral scores.footnote(Hara kiri is the ritual suicide of the Samourai)
 dit(code(OrchestralPartStaffContext))
 dit(code(OrchestralScoreContext))
 )
@@ -2197,14 +2301,15 @@ description(
   dit(code(Engraver_group_engraver))
   dit(code(Hara_kiri_line_group_engraver))
   dit(code(Line_group_engraver_group))
-  dit(code(Score_engraver))  
+  dit(code(Score_engraver))
+  dit(code(Grace_group_engraver_group))
 )
 COMMENT( The names of these types seem somewhat confusing. )
 
 The engravers for paper output are:
 
 description(
-dit(code(Abbreviation_beam_engraver))
+dit(code(Abbreviation_beam_engraver)) [FIXME. Broken as of 1.0.?]
 dit(code(Bar_engraver)) Engraves bar lines.  Normally in code(Staff) and
 code(RhythmicStaff).  
 dit(code(Bar_number_engraver)) Engrave bar numbers.  These numbers
@@ -2287,3 +2392,4 @@ dit(code(Lyric_performer))
 dit(code(Swallow_performer))
 )
 
+)
