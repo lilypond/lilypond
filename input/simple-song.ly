@@ -6,7 +6,7 @@
 	c2 c d4 f g2
     }
 
-    \addlyrics {
+    \newlyrics {
 	My first Li -- ly song,
 	Not much can go wrong!
     }

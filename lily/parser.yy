@@ -302,6 +302,7 @@ or
 %token SCM_T
 %token SCORE
 %token SEQUENTIAL
+%token NEWLYRICS
 %token SIMULTANEOUS
 %token SKIP
 %token SPANREQUEST
@@ -375,6 +376,7 @@ or
 %type <music>	Composite_music Simple_music
 %type <music>	Repeated_music
 %type <scm>     Alternative_music
+%type <scm>     Composite_music_list
 %type <i>	tremolo_type
 %type <i>	bare_int  bare_unsigned
 %type <i>	script_dir
@@ -845,6 +847,17 @@ Alternative_music:
 	}
 	;
 
+Composite_music_list: {};
+/* Too many s/r r/r problems
+	Composite_music {
+		$$ = scm_cons ($1, SCM_EOL);
+	}
+	| '{' Music_list '}' {
+		$$ = $2;
+	}
+	;
+*/
+
 Repeated_music:
 	REPEAT string bare_unsigned Music Alternative_music
 	{
@@ -1181,8 +1194,23 @@ relative_music:
 	;
 
 re_rhythmed_music:
-	ADDLYRICS { THIS->lexer_->push_lyric_state (); }
+	ADDLYRICS Music Music {
+		Music *m = MY_MAKE_MUSIC ("LyricCombineMusic");
+		m->set_property ("elements", scm_listify ($2->self_scm (),
+			$3->self_scm (), SCM_UNDEFINED));
+		scm_gc_unprotect_object ($3->self_scm ());
+		scm_gc_unprotect_object ($2->self_scm ());
+		$$ = m;
+	}
+	|
+/* Too many s/r r/r problems
+	Music
+*/
+	NEWLYRICS { THIS->lexer_->push_lyric_state (); }
 	/* cont */
+/* Too many s/r r/r problems
+	Composite_music_list
+*/
 	Music {
 		THIS->lexer_->pop_state ();
 
