@@ -6,6 +6,10 @@
 
 2005-03-10  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* Documentation/user/global.itely (File structure): Add markup blocks
+	to toplevel expressions.
+	(Multiple movements, Creating titles): Add markup blocks.
+
 	* lily/stencil-scheme.cc: Use "libc-extention.hh" (WAS:
 	<libc-extention.hh>).
 
