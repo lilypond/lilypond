@@ -1,6 +1,10 @@
 2004-10-24  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
-	* mf/feta-schrift.mf: include size of thumb appendix in bbox.
+	* input/mutopia/F.Schubert/morgenlied.ly (pianoLH): tune
+	minimumVerticalExtent tweaks. 
+ 
+	* mf/feta-schrift.mf: include size of thumb appendix in
+	bbox. Fixes: c-thumb-notehead.ly  
 
 	* THANKS: add Meisters to the Development team.
 
