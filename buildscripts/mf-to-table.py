@@ -188,7 +188,7 @@ def write_fontlist (file, global_info, charmetrics):
 ## prevent TeX from interpreting "--" as long dash:
 		tex_string=re.sub('--','-{}-', tex_string)
 
-		file.write ('  \\markup { \\raise #0.75 \\vcenter \\musicglyph #"%s" " %s" } 4 \n' % (scm_string, tex_string))
+		file.write ('  \\markup { \\raise #0.75 \\vcenter \\musicglyph #"%s" \\typewriter " %s" } 4 \n' % (scm_string, tex_string))
 
 		if (count % 3) ==0:
 			file.write ('\skip 8  \\break\n')

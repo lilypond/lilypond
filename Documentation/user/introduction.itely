@@ -672,7 +672,7 @@ explains how to fine tune layout.
 @ifhtml
 The chapter
 @end ifhtml
-@emph{@ref{Invoking LilyPond}} shows how to run LilyPond and its helper
+@emph{@ref{Running LilyPond}} shows how to run LilyPond and its helper
 programs.
 
 @item

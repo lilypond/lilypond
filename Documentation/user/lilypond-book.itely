@@ -27,10 +27,7 @@ music.  The line width and font size definitions for the music are
 adjusted to match the layout of your document.
 
 This procedure may be applied to La@TeX{}, @code{html} or Texinfo
-documents.  A tutorial on using lilypond-book is in @ref{Integrating
-text and music}.  For more information about La@TeX{}
-@uref{http://www.ctan.org/tex-archive/info/lshort/english/,The not so
-Short Introduction to LaTeX} provides a introduction to using La@TeX{}.
+documents.
 
 
 
@@ -157,53 +154,18 @@ Larger examples can be put in a separate file, and introduced with
 @cindex documents, adding music to
 
 
-@node Integrating Texinfo and music
-@section Integrating Texinfo and music
-
-Music is specified like this:
-
-@example
-@@lilypond[options,go,here]
-  YOUR LILYPOND CODE
-@@end lilypond
-@@lilypond[options,go,here]@{ YOUR LILYPOND CODE @}
-@@lilypondfile[options,go,here]@{@var{filename}@}
-@end example
-
-When lilypond-book is run on it, this results in a texinfo file. We
-show two simple examples here.  First a complete block:
-
-@example
-@@lilypond[staffsize=26]
-  c' d' e' f' g'2 g'
-@@end lilypond
-@end example
-
-@noindent
-produces
-
-@lilypond[fragment]
-  c' d' e' f' g'2 g'
-@end lilypond
-
-Then the short version:
-
-@example
-@@lilypond[staffsize=11]@{<c' e' g'>@}
-@end example
-
-@noindent
-produces
-
-@lilypond[fragment,staffsize=11]{ <c' e' g'> }
-
-When producing texinfo, lilypond-book also generates bitmaps of the
-music, so you can make a HTML document with embedded music.
-
 @c @TeX{} in node name seems to barf
 @node Integrating LaTeX and music
 @section Integrating LaTeX and music
 
+La@TeX{} is the de facto standard for publishing papers in the exact
+sciences. It is built on top of the @TeX{} typesetting engine, so it
+provides the best typography available anywhere.
+ 
+For more information about La@TeX{}
+@uref{http://www.ctan.org/tex-archive/info/lshort/english/,The not so
+Short Introduction to La@TeX{}} provides a introduction to using
+La@TeX{}.
 
 For La@TeX{}, music is entered using
 
@@ -256,9 +218,9 @@ produces
 
 The linewidth of the music will be adjust by examining the commands in
 the document preamble, the part of the document before
-@code{\begin@{document@}}: @command{lilypond-book} sends these to
-La@TeX{} to find out how wide the text is. The line width variable for
-the music fragments are adjusted to the text width.
+@code{\begin@{document@}}. The @command{lilypond-book} command sends
+these to La@TeX{} to find out how wide the text is. The line width
+for the music fragments is then adjusted to the text width.
 
 After @code{\begin@{document@}}, the column changing commands
 @code{\onecolumn}, @code{\twocolumn} commands
@@ -280,7 +242,7 @@ The music will be surrounded by @code{\preLilyPondExample} and
 @cindex dvips
 @cindex invoking dvips
 
-For printing the LaTeX document, you will need to use dvips. For
+For printing the La@TeX{} document, you will need to use dvips. For
 producing PostScript with scalable fonts, add the following options to
 the dvips command line:
 @example
@@ -293,15 +255,69 @@ PDF can then be produced with @code{ps2pdf}.
 @cindex international characters
 @cindex latin1
 
-LilyPond does not use the LaTeX font handling scheme for lyrics and text
+LilyPond does not use the La@TeX{} font handling scheme for lyrics and text
 markups, so if you use characters in your lilypond-book
 documents that are not included in the standard US-ASCII character set,
 include @code{\usepackage[latin1]@{inputenc@}} in the file 
-header but do not include @code{\usepackage[[T1]@{fontenc@}}. Character
+header but do not include @code{\usepackage[T1]@{fontenc@}}. Character
 sets other than latin1 are not supported directly but may be handled by
 explicitly specifying the @code{font-name} property in LilyPond and
-using the corresponding LaTeX packages. Please consult the mailing list
+using the corresponding La@TeX{} packages. Please consult the mailing list
 for more details.
+
+
+
+
+@node Integrating Texinfo and music
+@section Integrating Texinfo and music
+
+Texinfo is the standard format for documentation at the GNU
+project. An example of a texinfo document is this manual. The HTML,
+PDF and Info versions of the manual are made from the document.
+
+When run on a lilypond-book, produces a @file{.texi} file containing
+@code{@@image} tags for HTML and info. For the printed edition, the
+raw @TeX{} output of LilyPond is included into the main document.
+
+In the input file, music is specified like
+
+@example
+@@lilypond[options,go,here]
+  YOUR LILYPOND CODE
+@@end lilypond
+@@lilypond[options,go,here]@{ YOUR LILYPOND CODE @}
+@@lilypondfile[options,go,here]@{@var{filename}@}
+@end example
+
+When lilypond-book is run on it, this results in a texinfo file. We
+show two simple examples here.  First a complete block:
+
+@example
+@@lilypond[staffsize=26]
+  c' d' e' f' g'2 g'
+@@end lilypond
+@end example
+
+@noindent
+produces
+
+@lilypond[fragment]
+  c' d' e' f' g'2 g'
+@end lilypond
+
+Then the short version:
+
+@example
+@@lilypond[staffsize=11]@{<c' e' g'>@}
+@end example
+
+@noindent
+produces
+
+@lilypond[fragment,staffsize=11]{ <c' e' g'> }
+
+When producing texinfo, lilypond-book also generates bitmaps of the
+music, so you can make a HTML document with embedded music.
 
 
 
@@ -385,9 +401,14 @@ This option affects LilyPond output, not the text layout.
 prevents printing time signature.
 
 @item fragment
-@item nofragment
-overrides @command{lilypond-book} auto detection of what type of code is
-in the LilyPond block, voice contents, or complete code.
+adds some boilerplate code, so you can enter like
+
+@example
+  c'4
+@end example 
+
+@noindent
+without @code{\paper}, @code{\score} or other red tape.
 
 @item indent=@var{size}\@var{unit}
 sets indentation of the first music system to @var{size},
@@ -466,7 +487,7 @@ Pipe snippets through @var{filter}.
 
 For example:
 @example
-    lilypond-book --filter='convert-ly --from=2.0.0' my-book.tely
+  lilypond-book --filter='convert-ly --from=2.0.0' my-book.tely
 @end example
 
 @item @option{--help}
@@ -496,8 +517,6 @@ For La@TeX{} input, the file to give to La@TeX{} has extension
 
 
 @section Bugs
-
-The La@TeX{} @code{\includeonly@{...@}} command is ignored.
 
 The Texinfo command @code{pagesize} is not interpreted. Almost all
 La@TeX{} commands that change margins and line widths are ignored.

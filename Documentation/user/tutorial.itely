@@ -39,7 +39,7 @@ reference.
 
 @menu
 * First steps::                 
-* Running LilyPond::            
+* Running LilyPond for the first time::  
 * More about pitches::          
 * Entering ties::               
 * Automatic and manual beams::  
@@ -204,8 +204,10 @@ see @ref{Time signature}.
 @end quotation
 
 
-@node Running LilyPond
-@section Running LilyPond
+@node Running LilyPond for the first time
+@section Running LilyPond for the first time
+
+@c cheesy title to avoid clash with chapter name.
 
 @c FIXME: let's not be so casual about Emacs and VIM, but rather
 @c instruct (how) to use them; let advanced user figure-out what
@@ -1115,7 +1117,8 @@ the top of the file.  For example,
 
 
 When the file is processed the title and composer are printed above
-the music.  More information on titling can be found in @ref{Titling}.
+the music.  More information on titling can be found in @ref{Creating
+titles}.
 
 
 @node Single staff polyphony

@@ -17,10 +17,16 @@
 @node Chord name chart
 @appendixsec Chord name chart
 
+The following charts shows two standard systems for printing chord
+names, along with the pitches they represent.
+
 @lilypondfile{chord-names-jazz.ly}
 
 @node MIDI instruments
 @appendixsec MIDI instruments
+
+The following is a list of names that can be used for the
+@code{midiInstrument} property.
 
 @example 
 "acoustic grand"            "contrabass"           "lead 7 (fifths)"
@@ -41,7 +47,7 @@
 "dulcimer"                  "tuba"                 "fx 6 (goblins)"
 "drawbar organ"             "muted trumpet"        "fx 7 (echoes)"
 "percussive organ"          "french horn"          "fx 8 (sci-fi)"
-"rock organ"                "brass appendixsection"        "sitar"
+"rock organ"                "brass section"        "sitar"
 "church organ"              "synthbrass 1"         "banjo"
 "reed organ"                "synthbrass 2"         "shamisen"
 "accordion"                 "soprano sax"          "koto"

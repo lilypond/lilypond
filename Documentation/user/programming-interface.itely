@@ -17,8 +17,8 @@
 * Input variables and Scheme::  
 * Internal music representation::  
 * Extending music syntax::      
-* Manipulating music expressions:: 
-* Using LilyPond syntax inside Scheme::   
+* Manipulating music expressions::  
+* Using LilyPond syntax inside Scheme::  
 @end menu
 
 @node Input variables and Scheme
@@ -78,7 +78,7 @@ imported in a @code{\score} by means of a second variable
 In the above example, music expressions can be `exported' from the
 input to the Scheme interpreter. The opposite is also possible. By
 wrapping a Scheme value in the function @code{ly:export}, a Scheme
-value is interpreted as if it were entered in LilyPond syntax: instead
+value is interpreted as if it were entered in LilyPond syntax.  Instead
 of defining @code{\twice}, the example above could also have been
 written as
 @example
@@ -88,7 +88,8 @@ written as
 
 @refbugs
 
-Mixing Scheme and lily identifiers is not possible with @code{--safe}.
+Mixing Scheme and LilyPond identifiers is not possible with the
+@code{--safe} option.
 
 @node Internal music representation
 @subsection Internal music representation
@@ -137,8 +138,9 @@ the @code{elements} property of a music object, or a single `child'
 music object in the @code{element} object. For example,
 @internalsref{SequentialMusic} has its children in @code{elements},
 and @internalsref{GraceMusic} has its single argument in
-@code{element}. The body of a repeat is in @code{element} property of
-@internalsref{RepeatedMusic}, and the alternatives in @code{elements}.
+@code{element}. The body of a repeat is stored in the @code{element}
+property of @internalsref{RepeatedMusic}, and the alternatives in
+@code{elements}.
 
 
 
@@ -202,7 +204,8 @@ A @code{def-music-function} macro is introduced on top of
 functions:
 
 @example
-  applymusic = #(def-music-function (location func music) (procedure? ly:music?)
+  applymusic = #(def-music-function (location func music)
+                  (procedure? ly:music?)
                   (func music))
 @end example
 
@@ -229,7 +232,7 @@ properties using the functions @code{ly:music-property} and
 @code{ly:music-set-property!}.
 
 An example is a function that reverses the order of elements in
-its argument:
+its argument,
 @lilypond[verbatim,raggedright]
   #(define (rev-music-1 m)
      (ly:music-set-property! m 'elements (reverse
@@ -240,7 +243,7 @@ its argument:
 
 The use of such a function is very limited. The effect of this
 function is void when applied to an argument which is does not have
-multiple children.  The following function application has no effect:
+multiple children.  The following function application has no effect
 
 @example
   \applymusic #rev-music-1 \grace @{ c4 d4 @}
@@ -249,7 +252,7 @@ multiple children.  The following function application has no effect:
 @noindent
 In this case, @code{\grace} is stored as @internalsref{GraceMusic}, which has no
 @code{elements}, only a single @code{element}. Every generally
-applicable function for @code{\applymusic} must -- like music expressions
+applicable function for @code{\applymusic} must---like music expressions
 themselves -- be recursive.
 
 The following example is such a recursive function: It first extracts
@@ -405,9 +408,14 @@ This function may also be defined as a music function:
 @node Markup programmer interface
 @section Markup programmer interface
 
+Markups implemented as special Scheme functions. When applied with as
+arguments an output definition (@code{\paper} or @code{\bookpaper}),
+and a list of properties and other arguments, produce a Stencil
+object.
 
 @menu
 * Markup construction in scheme::  
+* How markups work internally ::  
 * Markup command definition::   
 @end menu
 
@@ -460,10 +468,47 @@ call. E.g.:
 @end lisp
 is illegal. One should use the @code{make-line-markup} (resp
 @code{make-center-markup}, @code{make-column-markup}) function
-instead:
+instead,
 @lisp
 (markup (make-line-markup (fun-that-returns-markups)))
 @end lisp
+
+@node How markups work internally 
+@subsection How markups work internally 
+
+In a markup like
+
+@example
+  \raise #0.5 "foo"
+@end example
+
+@noindent
+@code{\raise} is actually represented by the @code{raise-markup}
+function. The markup expression is stored as
+
+@example
+  (list raise-markup 0.5 (list simple-markup 'latin1 "foo"))
+@end example
+
+@noindent
+In this case, @code{latin1} is the input encoding, which is set with
+the @code{\encoding} command.
+
+When the markup is converted to printable objects (Stencils), the
+raise markup is called as
+
+@example
+  (apply raise-markup
+         @var{\paper object}
+         @var{list of property alists}
+         0.5
+         @var{the "foo" markup})
+@end example
+
+The @code{raise-markup} first creates the stencil for the @code{foo}
+string, and then it raises that Stencil by 0.5 staff space. This is a
+rather simple example; more complex examples are in the rest of this
+section, and in @file{scm/define-markup-commands.scm}.
 
 @node Markup command definition
 @subsection Markup command definition

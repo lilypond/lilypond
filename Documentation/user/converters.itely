@@ -16,7 +16,6 @@ sequencers and XML converters. Refer to the
 * Invoking midi2ly::            Importing MIDI.
 * Invoking etf2ly::             Importing Finale.
 * Invoking abc2ly::             Importing ABC.          
-* Invoking musedata2ly::        Importing Musedata.
 * Invoking mup2ly::             Importing MUP. 
 @end menu
 
@@ -24,10 +23,16 @@ sequencers and XML converters. Refer to the
 @node Invoking convert-ly
 @section Invoking convert-ly
 
-Convert-ly sequentially applies different conversions to upgrade a
-LilyPond input file.  It uses @code{\version} statements in the file to
-detect the old version number.  For example, to upgrade all LilyPond
-files in the current directory and its subdirectories, use
+The syntax is regularly changed to simplify it or improve it in
+different ways. A side effect of this, is that LilyPond often is not
+compatible with older files. To remedy this, the program convert-ly
+can be used to deal with most of the syntax changes.
+
+It uses @code{\version} statements in the file to detect the old
+version number.  For example, to upgrade all LilyPond files in the
+current directory and its subdirectories, enter the following on the
+command line.
+
 @example
         convert-ly -e --to=1.3.150 `find . -name '*.ly' -print`
 @end example
@@ -77,8 +82,8 @@ MIDI (Music Instrument Digital Interface) is a standard for digital
 instruments: it specifies cabling, a serial protocol and a file
 format.  The MIDI file format is a de facto standard format for
 exporting music from other programs, so this capability may come in
-useful when you want to import files from a program that has no
-converter for its native format.
+useful when importing files from a program that has convertor for a
+direct format.
 
 Midi2ly will convert tracks into @internalsref{Staff} and
 channels into @internalsref{Voice} contexts.  Relative mode is used
@@ -87,13 +92,11 @@ for pitches, durations are only written when necessary.
 It is possible to record a MIDI file using a digital keyboard, and
 then convert it to @file{.ly}. However, human players are not
 rhythmically exact enough to make a MIDI to LY conversion trivial.
-midi2ly tries to compensate for these timing errors, but is not very
-good at this. It is therefore not recommended to use midi2ly for
+When invoked with quantizing (@code{-s} and @code{-d} options) midi2ly
+tries to compensate for these timing errors, but is not very good at
+this. It is therefore not recommended to use midi2ly for
 human-generated midi files.
 
-Hackers who know about signal processing are invited to write a more
-robust midi2ly.  midi2ly is written in Python, using a module written in
-C to parse the MIDI files.
 
 It is invoked as follows:
 @example
@@ -133,16 +136,9 @@ The following options are supported by midi2ly:
 
 @refbugs
 
-
-Quantizing start-times and durations should be recommended. 
-This relates to the notes regarding the transcription of a MIDI 
-recording of a performance. I realize it can be done via the utility, 
-but a sequencer gives better visual feedback.
-
-Overlapping notes in an arpeggio will not be correctly 
-rendered. The first note will be read and the others will be ignored. 
-Set them all to a single duration and add phrase markings or pedal 
-indicators.
+Overlapping notes in an arpeggio will not be correctly rendered. The
+first note will be read and the others will be ignored.  Set them all
+to a single duration and add phrase markings or pedal indicators.
 
 
 @node Invoking etf2ly
@@ -175,8 +171,8 @@ version information
 
 @refbugs
 
-The list of articulation scripts is incomplete.  Empty measures confuse
-etf2ly. Sequences of grace notes are ended improperly sometimes. 
+The list of articulation scripts is incomplete.  Empty measures
+confuse etf2ly. Sequences of grace notes are ended improperly.
 
 
 @node Invoking abc2ly
@@ -237,40 +233,6 @@ not.
 
 abc2ly ignores the ABC beaming.
 
-@node Invoking musedata2ly
-@section Invoking musedata2ly
-
-@cindex MuseData
-@cindex CCARH
-
-@uref{http://www.musedata.org/,MuseData} is an electronic library of
-classical music scores, comprising at the time of writing about 800
-composition dating from 1700 to 1825.  The music is encoded in
-so-called MuseData format.  musedata2ly converts a set of MuseData
-files to one .ly file, and will include a @code{\header} field if a
-@file{.ref} file is supplied. It is invoked as follows:
-
-@example
-        musedata2ly [@var{option}]@dots{} @var{musedata-files}
-@end example
-
-The following options are supported by musedata2ly:
-
-@table @code
-@item   -h,--help
-print help
-@item  -o,--output=@var{file}
-set output filename to @var{file}
-@item  -v,--version
-version information
-@item  -r,--ref=@var{reffile}
- read background information from ref-file
-@var{reffile}
-@end table
-
-@refbugs
-
-@file{musedata2ly} converts only a small subset of MuseData. 
 
 @node Invoking mup2ly
 @section Invoking mup2ly

@@ -71,7 +71,7 @@ voices in the same staff share accidentals, but staves do not.
 @item laziness
 
 Over how many bar lines the accidental lasts.
-If @var{laziness} is @code{-1} then the accidental is forget
+If @var{laziness} is @code{-1} then the accidental is forgotten
 immediately, and if @var{laziness} is @code{#t} then the accidental
 lasts forever.
 @end table
@@ -120,14 +120,14 @@ staffspaces.  Usually determined by looking at @code{clefPosition} and
      (chordRootNamer ,procedure?
 		     "Function that converts from a pitch object to a text markup. Used for chords.")
      (chordNameExceptions ,list?
-			  "Alist of chord exceptions.
+			  "An alist of chord exceptions.
 Contains (@var{chord} . @var{markup}) entries.")
      (chordNameExceptionsFull ,list?
-			      "Alist of chord exceptions.
+			      "An alist of chord exceptions.
 Contains (@var{chord} . @var{markup}) entries.")
      (chordNameExceptionsPartial
       ,list?
-      "Alist of partial chord exceptions. Contains (@var{chord} . (@var{prefix-markup} @var{suffix-markup})) entries.")
+      "An alist of partial chord exceptions. Contains (@var{chord} . (@var{prefix-markup} @var{suffix-markup})) entries.")
      
      (chordNameSeparator ,markup?
 			 "The markup object used to separate
@@ -143,7 +143,8 @@ symbol go, measured in half staff spaces from the center of the staff.")
      (connectArpeggios ,boolean? " If set, connect arpeggios across
 piano staff.")
      (createKeyOnClefChange ,boolean? "Print a key signature whenever the clef is changed.")
-     (createSpacing ,boolean? "Create StaffSpacing objects? Should be set for staves.")
+     (createSpacing ,boolean? "Create @code{StaffSpacing} objects?
+Should be set for staves.")
      (crescendoText ,markup? "Text to print at start of non-hairpin crescendo, i.e.: @samp{cresc.}")
      (crescendoSpanner ,symbol? "Type of spanner to be used for crescendi.
 One of: @samp{hairpin}, @samp{line}, @samp{dashed-line},
@@ -180,7 +181,7 @@ note, one above and one below the chord.")
 
      (explicitKeySignatureVisibility ,procedure?
 "@samp{break-visibility} function for explicit key
-changes. @samp{\\override} of @samp{#'break-visibility} will set the
+changes. @samp{\\override} of the @code{break-visibility} property will set the
 visibility for normal (i.e. at the start of the line) key signatures.")
 
      (extraNatural ,boolean? "Whether to typeset an
@@ -191,7 +192,7 @@ another non-natural.")
 			  "extra vertical extent, same format as @var{minimumVerticalExtent}")
 
 
-     (followVoice ,boolean? "if set, note heads are tracked across staff
+     (followVoice ,boolean? "If set, note heads are tracked across staff
 switches by a thin line")
 
      (fontSize ,number?
@@ -226,7 +227,8 @@ Function taking a string (instrument name), and returning a (@var{min} . @var{ma
 
      (keyAccidentalOrder ,list? " Alist that defines in what order
 alterations should be printed.  The format is (@var{name}
-. @var{alter}), where @var{name} is from 0 .. 6 and @var{alter} from -1, 1.
+. @var{alter}), where @var{name} is from 0 .. 6 and @var{alter} from
+-2 (sharp) and 2 (flat).
 ")
 
      (keySignature ,list? "The current key signature. This is an alist
@@ -263,7 +265,7 @@ markup.  Called with 2 arguments, event and context.")
      (midiMinimumVolume ,number? "Sets the minimum loudness for MIDI. Ranges from 0 to 1.")
      (midiMaximumVolume ,number? "Analogous to @code{midiMinimumVolume}.")
      (minimumFret ,number? "The tablature auto string-selecting mechanism
-selects the highest string with a fret at least @var{minimumFret}")
+selects the highest string with a fret at least @code{minimumFret}")
      (minimumVerticalExtent ,number-pair? "minimum vertical extent, same
 format as @var{verticalExtent}")
      (ottavation ,string? "If set, the text for an ottava spanner. Changing
