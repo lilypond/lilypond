@@ -22,7 +22,7 @@ endif
 
 HELP2MAN_COMMAND = $(PERL) $(builddir)/buildscripts/$(outbase)/help2man $< > $@
 
-ifeq ($(cross),))
+ifeq ($(cross),)
 $(outdir)/%.1: $(outdir)/%
 	$(HELP2MAN_COMMAND)
 else
