@@ -1,0 +1,34 @@
+# -*- perl -*-
+##! @PERL@
+
+@ignorestuff = ();
+
+sub ignore_query
+{
+    my ($testfile) = @_;
+    return !grep(/$testfile/, @ignorestuff);
+}
+
+while (<>) {
+	$line = $_;
+	if ($line =~ /^ *nowildcard: *(.*)$/) {
+	    $ignore = $1;
+	    @ignorelist = split (/ +/, $ignore);
+	    foreach $i (@ignorelist) {
+		print "# ignoring wildcards for \`$i\'\n";
+		push @ignorestuff, $i; # concat ? uh?
+	    }
+
+	    
+	} elsif ($line =~ /(.*)\$\(wildcard(.*)\)(.*)/) {
+	    $wild = $2;
+	    
+	    @expanded = glob ($wild);
+
+	    @expanded = grep {ignore_query($_);}  @expanded;
+	    
+	    print $1 . join (' ', @expanded) . $3 . "\n";
+	} else {
+	    print $line;
+	}
+}
