@@ -160,8 +160,9 @@ def write_fontlist (file, global_info, charmetrics):
 \score{\notes{\fatText
 """)
 	for m in charmetrics:
-		escapedname=re.sub('_','\\\\\\\\_', m['name'])
-		file.write ('  s^\\markup { \\char #%d "%s" }\n' % (m['code'], escapedname))
+		escapedname=re.sub('_','\\\\_', m['name'])
+		doubleescapedname=re.sub('_','\\\\_', escapedname)
+		file.write ('  s^\\markup { \\musicglyph #"%s" "%s" }\n' % (escapedname, doubleescapedname))
 	file.write (r"""
 }
   \paper{
