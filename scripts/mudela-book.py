@@ -1,5 +1,4 @@
-
-# python version of mudela-book.  WIP.
+#!@PYTHON@
 
 #  TODO: center option
 

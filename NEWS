@@ -1,4 +1,33 @@
+pl 2
+	- bf mudela-book.py
+	- scalar compile stuff
+	- bf install directory
+	- YODL note
+	- GUI faq update
+	- bf ly2dvi
+	- stepmake split:  Po.make
+	- make check target
+	- dist AFMs and manpages
+	- split up mudela.yo in glossary.yo, tutorial.yo and refman.yo
 
+pl 1.jcn2
+	- renamed -alto -> viola
+	- bf: avant-gardish six preludes
+	- bf: ly2dvi warnings
+
+pl 1.jcn1
+	- www.digicash.com www.xs4all.nl
+	- fake msgfmt
+	- make uninstall fixes
+
+pl 1.jbr2 - aclocal.m4,stepmake/aclocal.m4,stepmake/stepmake/Variables.make:
+            Support install target for unix, unix cross compile, and 
+            Windows NT
+
+pl 1.jbr1 - stepmake/stepmake/Executable.make: DOTEXE was missplaced
+          - scripts/convert-mudela.py: program_id should write to stderr
+
+**************
 pl 1
 	- mi2mu fix: \key "D"
 	- \hoffset
