@@ -839,3 +839,10 @@ EasyNotation = \context {	% TODO: why \context override?
   % Score.timing = ##f
   % Score.barAlways = ##t
 }
+
+
+RemoveEmptyRhythmicStaffContext= \context {
+     \RhythmicStaff
+     \remove "Axis_group_engraver"
+     \consists "Hara_kiri_engraver"
+}

@@ -17,7 +17,6 @@ void
 create_type42 (const char *infile, FILE * out)
 {
   int fd, i;
-  FILE *afm = NULL;
   struct OffsetTable ot;
   struct HeadTable *ht;
   struct PostTable *pt;
@@ -117,14 +116,6 @@ create_type42 (const char *infile, FILE * out)
     fprintf (stderr, "Generating PS file\n");
   printPSFont (out, ht, strings, nglyphs, postType, pt, gnt, fd);
   fclose (out);
-  if (afm)
-    {
-      if (verbosity >= 1)
-	fprintf (stderr, "Generating AFM file\n");
-      printAFM (afm, ht, strings, nglyphs, postType, pt, gnt,
-		bbox, hhea, hmtx, nkern, nke, ke);
-      fclose (afm);
-    }
   if (verbosity >= 1)
     fprintf (stderr, "Done.\n");
   close (fd);
