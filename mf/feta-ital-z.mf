@@ -12,7 +12,7 @@
 % cmchar "Italic letter z";
 % beginchar("z",5.5u#+max(1.5u#,stem#),x_height#,0);
 \"Dynamic letter z";
-beginchar(incr num,5.5u#+max(1.5u#,stem#),x_height#,0);
+beginchar(122,5.5u#+max(1.5u#,stem#),x_height#,0);
 italcorr x_height#*slant+.5hair#;
 adjust_fit(if monospace:.5u#,.5u# else: 0,0 fi); pickup fine.nib;
 pos1(hair,0); pos2(stem,-90); pos3(vair,-90); pos4(hair,0);

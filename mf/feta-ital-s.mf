@@ -12,7 +12,7 @@
 % cmchar "Italic letter s";
 % beginchar("s",5.25u#+max(1.75u#,flare#),x_height#,0);
 \"Dynamic letter s";
-beginchar(incr num,5.25u#+max(1.75u#,flare#),x_height#,0);
+beginchar(115 ,5.25u#+max(1.75u#,flare#),x_height#,0);
 italcorr x_height#*slant-.5u#;
 adjust_fit(0,0); pickup fine.nib;
 numeric theta; theta=90-angle(40u,h); slope:=-h/40u;  % angle at middle

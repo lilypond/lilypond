@@ -12,7 +12,8 @@
 % cmchar "Italic letter r";
 % beginchar("r",5.5u#+max(1.75u#,flare#),x_height#,0);
 \"Dynamic letter r";
-beginchar(incr num,5.5u#+max(1.75u#,flare#),x_height#,0);
+beginchar( 114 ,5.5u#+max(1.75u#,flare#),x_height#,0);
+
 italcorr x_height#*slant;
 adjust_fit(if monospace:.25u#,.5u# else: 0,0 fi); pickup fine.nib;
 x0=0; x2=x3; pos3(stem,0); lft x3l=hround(2.5u-.5stem); y3-.5stem=-oo;
