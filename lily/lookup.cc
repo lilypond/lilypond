@@ -66,13 +66,13 @@ Lookup::afm_find (String s, bool warn) const
       return m;
     }
   
-  Atom* at = new Atom (gh_list (ly_symbol2scm ("char"),
+  SCM at =  (gh_list (ly_symbol2scm ("char"),
 		    gh_int2scm (cm->code),
 		    SCM_UNDEFINED));
 
-  at->fontify (afm_l_);
+  at= fontify_atom (afm_l_,at);
   m.dim_ = afm_bbox_to_box (cm->charBBox);
-  m.add_atom (at->self_scm_);
+  m.add_atom (at);
   return m;
 }
 
@@ -182,14 +182,13 @@ Lookup::beam (Real slope, Real width, Real thick)
   m.dim_[Y_AXIS] = Interval (min_y, max_y);
 
   
-  Atom *at = new Atom
-    (gh_list (ly_symbol2scm ("beam"),
+  SCM at = (gh_list (ly_symbol2scm ("beam"),
 	      gh_double2scm (width),
 	      gh_double2scm (slope),
 	      gh_double2scm (thick),
 	      SCM_UNDEFINED));
 
-  m.add_atom (at->self_scm_);
+  m.add_atom (at);
   return m;
 }
 
@@ -204,13 +203,13 @@ Lookup::dashed_slur (Bezier b, Real thick, Real dash)
       l = gh_cons (ly_offset2scm (b.control_[i]), l);
     }
 
-  Atom *at = new Atom(gh_list (ly_symbol2scm ("dashed-slur"),
+  SCM at = (gh_list (ly_symbol2scm ("dashed-slur"),
 			       gh_double2scm (thick), 
 			       gh_double2scm (dash),
 			       ly_quote_scm (l),
 			       SCM_UNDEFINED));
   Molecule m;
-  m.add_atom (at->self_scm_);
+  m.add_atom (at);
   return m;
 }
 
@@ -231,7 +230,7 @@ Lookup::filledbox (Box b )
 {
   Molecule m;
   
-  Atom* at  = new Atom(gh_list (ly_symbol2scm ("filledbox"),
+  SCM  at  = (gh_list (ly_symbol2scm ("filledbox"),
 		     gh_double2scm (-b[X_AXIS][LEFT]),
 		     gh_double2scm (b[X_AXIS][RIGHT]),		       
 		     gh_double2scm (-b[Y_AXIS][DOWN]),
@@ -239,7 +238,7 @@ Lookup::filledbox (Box b )
 		     SCM_UNDEFINED));
 
   m.dim_ = b;
-  m.add_atom (at->self_scm_);
+  m.add_atom (at);
   return m;
 }
 
@@ -364,12 +363,12 @@ Lookup::text (String style, String text, Paper_def *paper_l)
     
   m.dim_ = metric_l->text_dimension (text);
   
-  Atom *at = new Atom (gh_list (ly_symbol2scm ("text"),
+  SCM at = (gh_list (ly_symbol2scm ("text"),
 		     ly_str02scm (text.ch_C()),
 		     SCM_UNDEFINED));
-  at->fontify (metric_l);
+  at = fontify_atom (metric_l,at);
   
-  m.add_atom (at->self_scm_);
+  m.add_atom (at);
   return m;
 }
   
@@ -393,13 +392,13 @@ Lookup::staff_brace (Real y, int staff_size)
     nm = ly_scm2string (gh_cdr (l));
   nm += to_str (staff_size);
   SCM e =gh_list (ly_symbol2scm ("char"), gh_int2scm (idx), SCM_UNDEFINED);
-  Atom *at = new Atom (e);
+  SCM at = (e);
 
-  at->fontify (all_fonts_global_p->find_font (nm));
+  at = fontify_atom (all_fonts_global_p->find_font (nm), at);
   
   m.dim_[Y_AXIS] = Interval (-y/2,y/2);
   m.dim_[X_AXIS] = Interval (0,0);
-  m.add_atom (at->self_scm_);
+  m.add_atom (at);
   return m;
 }
  
@@ -434,7 +433,7 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick)
     }
   
   
-  Atom *at = new Atom (gh_list (ly_symbol2scm ("bezier-sandwich"),
+  SCM at = (gh_list (ly_symbol2scm ("bezier-sandwich"),
 		     ly_quote_scm (list),
 		     gh_double2scm (linethick),
 		     SCM_UNDEFINED));
@@ -442,7 +441,7 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick)
   Molecule m; 
   m.dim_[X_AXIS] = curve.extent (X_AXIS);
   m.dim_[Y_AXIS] = curve.extent (Y_AXIS);
-  m.add_atom (at->self_scm_);
+  m.add_atom (at);
   return m;
 }
 
@@ -450,7 +449,7 @@ Molecule
 Lookup::staff_bracket (Real height, Paper_def* paper_l)
 {
   Molecule m;
-  Atom *at = new Atom  ( gh_list (ly_symbol2scm ("bracket"),
+  SCM at = ( gh_list (ly_symbol2scm ("bracket"),
 		      gh_double2scm (paper_l->get_var("bracket_arch_angle")),
 		      gh_double2scm (paper_l->get_var("bracket_arch_width")),
 		      gh_double2scm (paper_l->get_var("bracket_arch_height")),
@@ -460,7 +459,7 @@ Lookup::staff_bracket (Real height, Paper_def* paper_l)
 		      gh_double2scm (paper_l->get_var("bracket_thick")),
   		      SCM_UNDEFINED));
   
-  m.add_atom (at->self_scm_);				 
+  m.add_atom (at);				 
   m.dim_[Y_AXIS] = Interval (-height/2,height/2);
   m.dim_[X_AXIS] = Interval (0,4 PT);
 

@@ -70,7 +70,7 @@ Volta_spanner::do_brew_molecule_p () const
 
   Molecule volta; 
 
-  Atom *at = new Atom(gh_list (ly_symbol2scm ("volta"),
+  SCM at = (gh_list (ly_symbol2scm ("volta"),
 		     gh_double2scm (h),
 		     gh_double2scm (w),
 		     gh_double2scm (t),
@@ -80,7 +80,7 @@ Volta_spanner::do_brew_molecule_p () const
 
   volta.dim_[Y_AXIS] = Interval (- h/2, h/2);
   volta.dim_[X_AXIS] = Interval (0, w);
-  volta.add_atom (at->self_scm_);
+  volta.add_atom (at);
   
   Molecule num (lookup_l ()->text ("volta",
 				   ly_scm2string (get_elt_property("text")),

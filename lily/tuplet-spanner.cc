@@ -90,16 +90,16 @@ Tuplet_spanner::do_brew_molecule_p () const
 	{
 	  Real gap = paper_l () -> get_var ("tuplet_spanner_gap");
 	  Real height = staff_space;
-	  Atom *at = new Atom (gh_list(ly_symbol2scm ("tuplet"),
+	  SCM at =gh_list(ly_symbol2scm ("tuplet"),
 				       gh_double2scm (height),
 				       gh_double2scm (gap),
 				       gh_double2scm (w),
 				       gh_double2scm (dy),
 				       gh_double2scm (thick),
 				       gh_int2scm (dir),
-				       SCM_UNDEFINED));
+				       SCM_UNDEFINED);
 
-	  mol_p->add_atom (at->self_scm_);
+	  mol_p->add_atom (at);
 	}
 
       mol_p->translate_axis (dir * staff_space, Y_AXIS);
@@ -120,6 +120,8 @@ Tuplet_spanner::do_add_processing ()
     }
 }
 
+
+
 /*
   use first -> last note for slope, and then correct for disturbing
   notes in between.  */
@@ -131,8 +133,26 @@ Tuplet_spanner::calc_position_and_height (Real *offset, Real * dy) const
 
  
   Direction d = directional_element (this).get ();
-  *dy = column_arr.top ()->extent (Y_AXIS) [d]
-    - column_arr[0]->extent (Y_AXIS) [d];
+
+  /*
+    Use outer non-rest columns to determine slope
+   */
+  int l = 0;
+  while (l <column_arr.size() && column_arr[l]->rest_b())
+    l ++;
+
+  int r = column_arr.size ()- 1;
+  while (r >= l && column_arr[r]->rest_b())
+    r--;
+  
+  if (l < r)
+    {
+      *dy = column_arr[r]->extent (Y_AXIS) [d]
+	- column_arr[l]->extent (Y_AXIS) [d];
+    }
+  else
+    * dy = 0;
+
 
   *offset = - d * infinity_f;
   
@@ -150,6 +170,21 @@ Tuplet_spanner::calc_position_and_height (Real *offset, Real * dy) const
       if (notey * d > (*offset + tuplety) * d)
 	*offset = notey - tuplety; 
     }
+}
+
+/*
+  use first -> last note for slope,
+*/
+void
+Tuplet_spanner::calc_dy (Real * dy) const
+{
+  Link_array<Note_column> column_arr=
+    Group_interface__extract_elements (this, (Note_column*)0, "columns");
+
+ 
+  Direction d = directional_element (this).get ();
+  *dy = column_arr.top ()->extent (Y_AXIS) [d]
+    - column_arr[0]->extent (Y_AXIS) [d];
 }
 
 void
@@ -174,7 +209,9 @@ Tuplet_spanner::do_post_processing ()
     }
   Real dy, offset;
 
-  calc_position_and_height (&offset, &dy);
+calc_position_and_height  (&offset,&dy);
+  // calc_position (&offset, dy);
+  
   set_elt_property ("delta-y", gh_double2scm (dy));
 
   translate_axis (offset, Y_AXIS);

@@ -110,7 +110,6 @@ Paper_score::calc_breaking ()
 void
 Paper_score::process ()
 {
-
   print ();
   progress_indication (_ ("Preprocessing elements...") + " ");
   line_l_->breakable_col_processing ();
@@ -133,7 +132,7 @@ Paper_score::process ()
       Score_element *sc = unsmob_element (gh_car (s));
       sc->handle_broken_dependencies ();
     }
-
+  
   outputter_l_ = new Paper_outputter ;
   outputter_l_->output_header ();
 

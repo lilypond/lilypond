@@ -83,14 +83,14 @@ Crescendo * me = (Crescendo*)this;
   m->dim_.x () = Interval (0, width);
   m->dim_.y () = Interval (-2*height, 2*height);
 
-  Atom *a = new Atom(gh_list (ly_symbol2scm (hairpin),
+  SCM at = gh_list (ly_symbol2scm (hairpin),
 		     gh_double2scm (thick),
 		     gh_double2scm (width),
 		     gh_double2scm (height),
 		     gh_double2scm (continued ? height/2 : 0.0),
-		     SCM_UNDEFINED));
+		     SCM_UNDEFINED);
 
-  m->add_atom (a->self_scm_);
+  m->add_atom (at);
   m->translate_axis (extra_left, X_AXIS);
   return m;
 }

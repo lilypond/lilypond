@@ -36,6 +36,10 @@ examples:
 	$(MAKE) CONFIGSUFFIX='www' -C input WWW
 	$(MAKE) CONFIGSUFFIX='www' -C mutopia WWW
 	$(footify-all-command)
+	$(PYTHON) $(buildscripts)/mutopia-index.py -o short-examples.html input/
+	$(PYTHON) $(buildscripts)/mutopia-index.py -o long-examples.html mutopia/
+
+
 	tar --exclude='*.dvi' --exclude='*.tex' --exclude='*.ps' --exclude='*.ppm' -czf $(outdir)/examples.tar.gz  `find input mutopia -type d -name 'out-www' -print`
 
 localinstall:

@@ -1,8 +1,8 @@
 \header{
+title = "sleur";
+subtitle = "test slurs.";
 enteredby =	 "jcn";
 copyright =	 "public domain";
-TestedFeatures =	 "This file tests Feta embedded slurs" +
-	 "(Feta definitively is not an abbreviation of Font-En-TjA)";
 }
 
 \version "1.3.5";

@@ -46,7 +46,7 @@ yourself."""
 # FIXME breaks on multiple strings.
 #
 def read_mudela_header (fn):
-	s = gulp_file(fn)
+	s = open(fn).read ()
 	s = re.sub('%.*$', '', s)
 	s = re.sub('\n', ' ', s)		
 
@@ -77,47 +77,36 @@ def help ():
 	sys.stdout.write (r"""Usage: mutopia-index [options] INFILE OUTFILE
 Generate index for mutopia\n
 Options:
-  -h, --help			     print this help
-  --prefix=PRE			 specify prefix
+  -h, --help                 print this help
+  -o,-output=FILE            write output to file.
   -s, --subdirs=DIR	     add subdir
   --suffix=SUF			 specify suffix"""
 					  )
 	sys.exit (0)
 
 # ugh.
-def gen_list(inputs, subdir, filename):
-	(pre, subdirs, post)=subdir
+def gen_list(inputs, filename):
 	print "generating HTML list %s\n" % filename
-	list = open(filename, 'w')
+	if filename:
+		list = open(filename, 'w')
+	else:
+		list = sys.stdout
 	list.write ('<html><TITLE>Rendered Examples</TITLE>\n')
 	list.write ('<body bgcolor=white>')
-	if subdirs:
-		list.write  ('<h2>subdirectories</h2>')
-		list.write  ('<ul>')		    
-		for ex in subdirs:
-			print 'subdir %s ' % ex
-			list.write ('<li><a href=%s/index.html>Subdirectory: %s</a></li>\n' % (pre + ex + post , ex))
-
-		list.write ('</ul>')
-
-
-
+	
 	if inputs:
-			list.write('<h2>Contents of this directory</h2>\n');
-
 			list.write (headertext)
 	else:
 			list.write (headertext_nopics)
 
 
 	for ex in inputs:
-		ex_ext = '.ly'
+		(base, ext) = os.path.splitext (ex)
+		(base, ext2) = os.path.splitext (base)		
+		ext = ext2 + ext
+		
 		print '%s, ' % ex
-		try:
-			header = read_mudela_header(ex + ex_ext + '.txt')
-		except:
-			ex_ext = '.fly'
-			header = read_mudela_header(ex + ex_ext + '.txt')
+		header = read_mudela_header(ex)
 		
 		def read_dict(s, default, h =header):
 				try:
@@ -125,7 +114,7 @@ def gen_list(inputs, subdir, filename):
 				except KeyError:
 					ret = default
 				return ret
-		head = read_dict('title', ex)
+		head = read_dict('title', os.path.basename (base))
 		composer = read_dict('composer', '')
 		desc = read_dict('description', '')
 		list.write('<hr>')
@@ -142,14 +131,15 @@ def gen_list(inputs, subdir, filename):
 				l.write (' (%s %dk)' % (type, (size + 512) / 1024))
 				pictures = ['jpeg', 'png', 'xpm']
 				l.write ('\n')
-		list_item(ex + ex_ext + '.txt', 'The input', 'ASCII')
+
+		list_item(base + ext, 'The input', 'ASCII')
 		for pageno in range(1,100):
-			f  = ex + '-page%d.png' % pageno
+			f  = base + '-page%d.png' % pageno
 			if not file_exist_b (f):
 				break
 			list_item(f, 'The output, page %d' % pageno, 'png')
-		list_item(ex + '.ps.gz', 'The output', 'gzipped PostScript')
-		list_item(ex + '.midi', 'The output', 'MIDI')
+		list_item(base + '.ps.gz', 'The output', 'gzipped PostScript')
+		list_item(base + '.midi', 'The output', 'MIDI')
 		list.write ("</ul>");
 
 	list.write( "</BODY></HTML>");
@@ -158,23 +148,31 @@ def gen_list(inputs, subdir, filename):
 import getopt
 
 (options, files) = getopt.getopt(sys.argv[1:], 
-  'hp:s:', ['help', 'subdirs=', 'suffix=',  'prefix='])
-subdir_pre=''
-subdir_suf =''
+  'ho:', ['help', 'output='])
+outfile = 'examples.html'
 
 subdirs =[]
 for opt in options:
 	o = opt[0]
 	a = opt[1]
-	if o == '--subdirs' or o == '-s':
-		subdirs.append (a)
-	elif o == '--prefix':
-		subdir_pre = a
-	elif o == '--suffix':
-		subdir_suf = a
+	if o == '--help' or o == '-h':
+		help()
+	elif o == '--output' or o == '-o':
+		outfile = a
 
-		
-allfiles = find.find ('*.ly') + find.find ('*.ly.txt')
+dirs  = []
+for f in files:
+	dirs = dirs + find.find ('out-www', f);
 
-gen_list (files, (subdir_pre, subdirs, subdir_suf), 'index.html')
+if not dirs:
+	dirs = ['.']
+
+allfiles = []
+
+for d in dirs:
+	allfiles = allfiles + find.find ('*.ly.txt', d)
+
+print allfiles
+
+gen_list (allfiles, outfile)
 

@@ -12,10 +12,10 @@
 
 This document explains what you need to install LilyPond, and what you
 should do.  If you are going to compile and install LilyPond often,
-e.g. when doing development, you might want to check out the 
-@file{buildscripts/set-lily.sh} script.  It sets some environment 
-variables and symlinks, which comes in handly when you have to compile 
-LilyPond more often.  
+e.g. when doing development, you might want to check out the
+@file{buildscripts/set-lily.sh} script.  It sets some environment
+variables and symlinks, which comes in handy when you have to compile
+LilyPond more often.
 
 @section Obtaining
 

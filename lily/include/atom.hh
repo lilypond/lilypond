@@ -9,35 +9,12 @@
 #ifndef ATOM_HH
 #define ATOM_HH
 
-#include "protected-scm.hh"
-#include "string.hh"
-#include "box.hh"
 #include "lily-proto.hh"
+#include "box.hh"
 #include "lily-guile.hh"
-#include "smobs.hh"
 
-/**
-   Atoms should only be created on the heap, ie. with
-   "new Atom"
- */
-class Atom {
-  Offset off_;
-
-  friend class Molecule;
-  friend class Paper_outputter;
-public:
-  Atom (SCM s);
-  Atom (Atom const&);
-  
-  DECLARE_SMOBS;
-
-  /*
-    SCM expression that (when evaluated) gives a TeX string
-representing a musical notation symbol.  */
-  SCM func_;
-  void fontify (Font_metric*);
-};
-
-Atom* unsmob_atom (SCM);
+SCM translate_atom (Offset, SCM);
+SCM translate_atom_axis (Real, Axis,SCM); 
+SCM fontify_atom (Font_metric*, SCM atom);
 
 #endif
