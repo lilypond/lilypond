@@ -53,7 +53,8 @@
     e4( dis4)
     e4( dis4) 
     g='16( b d fis)
-    \clef bass a=8[ e16(f] g[ a bes d,)]  s4 | \break
+    \clef bass a=8[ e16(f] g[ a b d,)]  s4 | \break
+    e=8( f] g[ a b d,)]  s4 | \break
     
     \clef treble
     \new Voice \relative c'' {
