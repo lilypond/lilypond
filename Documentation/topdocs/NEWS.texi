@@ -9,6 +9,26 @@
 
 @itemize
 @item
+Lyrics are now aligned under note heads conforming engraving
+standards. The responsible code has been rewritten, and is drastically
+simpler from the previous version. To aid this rewrite, the syntactic
+function of the extender line ( __ ) is been changed: it is now attached
+to the lyric syllable.
+
+@item
+When redefining a context, the associated identifier is also
+updated. For example, after reading following the snippet,
+@example
+ \translator @{
+        \ScoreContext
+        autoBeaming = ##f
+ @}
+@end example
+the definition of @code{ScoreContext} is updated to include the changed
+setting.
+
+
+@item
 The weight of the stafflines is now heavier at smaller staff sizes.
 The font has been modified to match this look: at smaller sizes, the
 font is heavier and the note heads are more rounded.

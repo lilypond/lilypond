@@ -481,8 +481,7 @@
     (LyricExtender
      . (
 	(molecule-callback . ,Lyric_extender::brew_molecule)
-	(height . 0.8) ; stafflinethickness;
-	(right-trim-amount . 0.5)
+	(thickness . 0.8) ; stafflinethickness;
 	(Y-extent-callback . ,Grob::point_dimension_callback)
 	(meta . ((interfaces . (lyric-extender-interface spanner-interface))))
 	))

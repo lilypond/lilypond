@@ -31,7 +31,7 @@ protected:
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
   virtual void finalize ();
-  virtual void process_acknowledged_grobs ();
+  virtual void process_music ();
 
 public:
   TRANSLATOR_DECLARATIONS (Slur_engraver);
@@ -79,7 +79,6 @@ Slur_engraver::try_music (Music *ev)
 	  */
 	      
 	  return true;
-
 	}
       else if (d == STOP)
 	{
@@ -139,7 +138,7 @@ Slur_engraver::finalize ()
 }
 
 void
-Slur_engraver::process_acknowledged_grobs ()
+Slur_engraver::process_music ()
 {
   Link_array<Grob> start_slurs;
   for (int i=0; i< new_slur_evs_.size (); i++)
@@ -179,8 +178,11 @@ Slur_engraver::process_acknowledged_grobs ()
 	  announce_grob (slur, slur_ev->self_scm ());
 	}
     }
-  for (int i=0; i < start_slurs.size (); i++)
-    slur_stack_.push (start_slurs[i]);
+
+  slur_stack_.concat  (start_slurs);
+
+  set_melisma (slur_stack_.size ());
+
   new_slur_evs_.clear ();
 }
 
@@ -198,11 +200,6 @@ void
 Slur_engraver::start_translation_timestep ()
 {
   new_slur_evs_.clear ();
-  SCM m = get_property ("automaticMelismata");
-  if (to_boolean (m))
-    {
-      set_melisma (slur_stack_.size ());
-    }
 }
 
 

@@ -11,12 +11,6 @@
 #include "music.hh"
 #include "translator-group.hh"
 
-Grob_info::Grob_info (Grob*s)
-{
-  grob_ = s;
-  origin_trans_ = 0;  
-}
-
 
 Grob_info::Grob_info ()
 {
@@ -26,7 +20,6 @@ Grob_info::Grob_info ()
 
 Music*
 Grob_info::music_cause ()
-  
 {
   SCM cause = grob_->get_grob_property ("cause"); 
   return unsmob_music (cause);

@@ -112,11 +112,6 @@ X-<something>. This feature is turned on by default. See the example
 file @file{lyrics-multi-stanza.ly}.
 ")
 
-(translator-property-description 'automaticMelismata boolean? " If
-set, \\addlyrics will assume that beams, slurs and ties signal
-melismata, and align lyrics accordingly.
-")
-
 
 (translator-property-description 'barAlways boolean? "If set to true a bar line is drawn after each note.
 ")

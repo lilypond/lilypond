@@ -1,4 +1,30 @@
-2004-01-01  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
+2004-01-02  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
+
+	* lily/lyric-phrasing-engraver.cc: move from
+	new-phrasing-engraver.cc, remove old cruft (syllable-group,
+	lyric-phrasing-engraver.hh)
+	
+	* lyric-align.ly: remove file
+	
+	* scripts/convert-ly.py (FatalConversionError.func): add removal
+	rule for automaticMelismata
+
+	* ly/engraver-init.ly (ScoreContext): switch on
+	New_phrasing_engraver by default.
+
+	* lily/slur-engraver.cc (class Slur_engraver):
+	process_acknowledged_grobs -> process_music.
+	(try_music): signal melismata correctly.
+
+	* lily/lyric-extender.cc (brew_molecule): cleanup. Junk
+	word-space, right-trim-amount, and extend past right bound only
+	for note heads.
+
+	* lily/new-phrasing-engraver.cc (acknowledge_grob): add
+	lyric-extender support: add note-heads to the extender
+	automatically.
+
+	* lily/parser.yy: extender is now post_event. 
 
 	* lily/accidental-engraver.cc (number_accidentals): remove
 	spurious warning about non-parent contexts.

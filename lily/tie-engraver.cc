@@ -83,7 +83,7 @@ Tie_engraver::try_music (Music *mus)
 void
 Tie_engraver::process_music ()
 {
-  if (event_ && to_boolean (get_property ("automaticMelismata")))
+  if (event_)
     daddy_trans_->set_property ("tieMelismaBusy", SCM_BOOL_T);
 }
 
@@ -137,9 +137,8 @@ Tie_engraver::process_acknowledged_grobs ()
 void
 Tie_engraver::start_translation_timestep ()
 {
-  if (to_boolean (get_property ("automaticMelismata")))
-    daddy_trans_->set_property ("tieMelismaBusy",
-				gh_bool2scm (heads_to_tie_.size ()));
+  daddy_trans_->set_property ("tieMelismaBusy",
+			      gh_bool2scm (heads_to_tie_.size ()));
       
 }
 

@@ -127,10 +127,8 @@ Beam_engraver::try_music (Music *m)
 void
 Beam_engraver::set_melisma (bool ml)
 {
-  SCM m = get_property ("automaticMelismata");
   SCM b = get_property ("autoBeaming");
-  
-  if (to_boolean (m) && !to_boolean (b))
+  if (!to_boolean (b))
     daddy_trans_->set_property ("beamMelismaBusy", ml ? SCM_BOOL_T :SCM_BOOL_F);
 }
 

@@ -31,30 +31,6 @@ blotdiameter = 0.35 \pt
 interscoreline = 4. \mm
 
 
-\translator { \NoteNamesContext }
-\translator { \ScoreContext }
-\translator { \ChoirStaffContext}
-\translator { \InnerChoirStaffContext}
-
-\translator { \RhythmicStaffContext}
-\translator { \StaffContext }
-\translator { \VoiceContext}
-\translator { \StaffGroupContext }
-\translator { \InnerStaffGroupContext }
-\translator { \ChordNamesContext }
-\translator { \GrandStaffContext}
-\translator { \LyricsContext }
-\translator { \ThreadContext}
-\translator { \PianoStaffContext}
-\translator { \LyricsVoiceContext }
-\translator { \StaffContainerContext }
-\translator { \FiguredBassContext }
-\translator { \TabStaffContext }
-\translator { \TabVoiceContext }
-\translator { \VaticanaStaffContext }
-\translator { \VaticanaVoiceContext }
-\translator { \GregorianTranscriptionStaffContext }
-\translator { \GregorianTranscriptionVoiceContext }
 
 
 %%
@@ -69,3 +45,5 @@ interscoreline = 4. \mm
 	))
 
 
+
+\include "engraver-init.ly"

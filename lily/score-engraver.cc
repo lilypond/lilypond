@@ -49,13 +49,16 @@ Score_engraver::make_columns ()
       command_column_->set_grob_property ("breakable", SCM_BOOL_T);
 
 
-      Grob_info i1 (command_column_);
+      Grob_info i1;
+      i1.grob_ = command_column_;
       i1.origin_trans_ = this;
   
-      Grob_info i2 (musical_column_);
+      announce_grob (i1);
+
+      Grob_info i2;
+      i2.grob_ = musical_column_;
       i2.origin_trans_ = this;
 
-      announce_grob (i1);
       announce_grob (i2);
     }
 }

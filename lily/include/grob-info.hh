@@ -26,7 +26,6 @@ struct Grob_info {
 public:
   Music * music_cause ();
   Link_array<Translator> origin_transes (Translator*) const;
-  Grob_info (Grob*);
   Grob_info ();
 };
 

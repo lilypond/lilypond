@@ -20,7 +20,6 @@ bassWords = \lyrics { ho4 ho ho ho }
 
 \score { \notes
 	  \context StaffGroup <<
-	      \property Score.automaticMelismata = ##t
 	  \context Lyrics = sopLyrs { s1 }
 	  \context Staff = women { s1 }
 	  \context Lyrics = altoLyrs { s1 }
