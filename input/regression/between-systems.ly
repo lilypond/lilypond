@@ -11,15 +11,22 @@ of course.
 }
 
 
-% 
+#(define (set-page-break grob grob-c context)
+  (let*
+   ((meta (ly:get-grob-property grob 'meta))
+    (name (cdr (assoc 'name meta))))
+   
+   (if (equal? 'NonMusicalPaperColumn name)
+    (ly:set-grob-property! grob 'between-system-string "(pagebreak)\n\n"))
+))
 
 \score {
-\notes \relative c' { c1
-
-	\context Score \applyoutput #(outputproperty-compatibility (make-type-checker 'paper-column-interface) 'between-system-string "(pagebreak)\n\n")
+    \notes \relative c' {
+	c1
+	\context Score \applyoutput #set-page-break
 	\break
-
-c1 }
-
+	
+	c1
+    }
 }
 

@@ -102,7 +102,7 @@ Score_engraver::initialize ()
     error (_f ("can't find `%s'", "feta20.afm")
 	   + "\n" +_ ("Fonts have not been installed properly.  Aborting"));
    
-  unsmob_translator_def (definition_)->apply_property_operations (this);
+  unsmob_translator_def (definition_)->apply_default_property_operations (this);
 
   assert (dynamic_cast<Paper_def *> (output_def_));
   assert (!daddy_trans_);

@@ -46,10 +46,8 @@ public:
   void add_element (SCM name);
   void remove_element (SCM name);
   void add_last_element (SCM name);
+  void add_property_operation (SCM);
 
-  void add_push_property (SCM,SCM,SCM);
-  void add_pop_property (SCM,SCM);
-  void add_property_assign (SCM, SCM);
   Link_array<Translator_def> path_to_acceptable_translator (SCM type_string, Music_output_def* odef) const;
   Translator_group * instantiate (Music_output_def*);
 
@@ -58,7 +56,7 @@ public:
   static SCM make_scm () ;
 
   SCM clone_scm ()const;
-  void apply_property_operations (Translator_group*);
+  void apply_default_property_operations (Translator_group*);
 
 private:
   DECLARE_SMOBS (Translator_def,foo);

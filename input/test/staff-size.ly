@@ -1,36 +1,38 @@
 #(ly:set-option 'old-relative)
-\version "1.9.8"
+\version "2.1.6"
 
 \header { texidoc = "@cindex Staff Size
 
 Setting staff sizes is a little clumsy.  There are two options: using
 @code{StaffContainer} and override/revert, or
-@code{\applyoutput}. Both methods are shown in this example. "
+@code{\applyoutput}. Both methods are shown in this example."
 
 }
 
 \score {
-  \notes \relative c' << \new StaffContainer {
-     \property StaffContainer.StaffSymbol \set #'staff-space = #(/ 16 20)
-
-	\property Staff.fontSize = #-1
-	\property Voice.fontSize = #-1
+  \notes \relative c' <<
+      \new StaffContainer {
+	  \property StaffContainer.StaffSymbol \set #'staff-space = #(/ (* magstep magstep))
+	  \property Staff.fontSize = #-2
 	
-	\dynamicUp\stemDown
+	  \dynamicUp\stemDown
+	  
+				%\key gis \major
+	  c8 d  e[ f g a] b c \ff
+      }
 
-	%\key gis \major
-	c8 d  e[ f g a] b c \ff
-  }
-
-\new Staff \relative c'' { \dynamicDown c,,4 \ff c c c  }
-\new Staff {
-  \context Staff \applyoutput #(outputproperty-compatibility (make-type-checker 'staff-symbol-interface) 'staff-space 0.8)
-  \property Staff.fontSize = #-1
-  \clef bass
-  c8 c c c  c c c c
-}
->>
-\paper { raggedright = ##t}
+      \new Staff \relative c'' {
+	  \dynamicDown c,,4 \ff c c c
+      }
+      \new Staff \with {
+	  fontSize = #-1
+	  StaffSymbol \set #'staff-space = #(/ magstep)
+      } {
+	  \clef bass
+	  c8 c c c  c c c c
+      }
+  >>
+  \paper { raggedright = ##t}
 }
 
 

@@ -8,6 +8,20 @@
 @chapter New features in 2.1 since 2.0
 
 @itemize
+@item  Features of spanner contexts, like Staff, can now be changed easily:
+
+@example
+  \new Staff \with {
+     StaffSymbol \set #'line-count = #4
+  }
+        { c'4 }
+@end example
+
+@noindent
+puts a quarter note C on a staff with 4 lines.  
+
+
+
 @item Multi measure rests are now truly centered between the
 clefs/barlines of the staff, independent of symbols on the other staffs.
 

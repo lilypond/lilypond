@@ -406,7 +406,7 @@ is erased.
 (translator-property-description 'stringTunings list? "The tablature strings tuning. Must be a list of the different semitons pitch of each string (starting by the lower one).")
 (translator-property-description 'subdivideBeams boolean? "If set, multiple beams will be subdivided at beat
 positions - by only drawing one beam over the beat.")
-(translator-property-description 'systemStartDelimiter symbol? "Which grob to make for the start of the system/staff?")
+(translator-property-description 'systemStartDelimiter symbol? "Which grob to make for the start of the system/staff? Set to @code{SystemStartBrace}, @code{SystemStartBracket} or @code{SystemStartBar}.")
 (translator-property-description 'tablatureFormat procedure?
 				 "Function formatting a tab notehead; it takes
 a string number, a list of string tunings and Pitch object. It returns the text as a string.")

@@ -47,7 +47,7 @@ Auto_change_iterator::change_to (Music_iterator *it, SCM to_type_sym,
     if (last)
       {
 	Translator_group * dest = 
-	  it->report_to ()->find_create_translator (to_type_sym, to_id);
+	  it->report_to ()->find_create_translator (to_type_sym, to_id, SCM_EOL);
 	current->remove_translator (last);
 	dest->add_used_group_translator (last);
       }

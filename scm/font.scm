@@ -29,6 +29,8 @@ or
 
 "
 
+(define-public magstep (exp (* (/ 1 6) (log 2))))
+
 
 (define-public paper20-font-vector
   '((#(medium upright number) .
