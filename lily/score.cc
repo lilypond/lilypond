@@ -16,6 +16,7 @@
 #include "music.hh"
 #include "global-translator.hh"
 #include "header.hh"
+#include "cpu-timer.hh"
 
 extern String default_out_fn;
 
@@ -45,6 +46,7 @@ Score::~Score()
 void
 Score::run_translator (Music_output_def *odef_l)
 {
+  Cpu_timer timer;
   Global_translator * trans_p = odef_l->get_global_translator_p();
   if (!trans_p)
     return ;
@@ -94,7 +96,9 @@ Score::run_translator (Music_output_def *odef_l)
     
   Music_output * output = trans_p->get_output_p();
   delete trans_p;
+  *mlog << " (time: " << String(timer.read (), "%.2f") << " seconds)";
 
+  
   output->header_l_ = header_p_;
   output->default_out_str_ = default_out_fn;
   output->origin_str_ =  location_str();
