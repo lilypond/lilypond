@@ -1,8 +1,6 @@
 % params-as.ly
 % generic paper parameters
 
-#'staff-height = \staffheight;
-
 %%paperfile = \papersize + ".ly";
 %%% paperfile = "a4.ly";
 %%\include \paperfile;
@@ -22,9 +20,6 @@ interline = \staffspace;
 
 % urg, need grace_ versions of these too?
 beam_thickness = 0.52 * (\staffspace - \stafflinethickness);
-
-#'beam-thickness = \beam_thickness;  %% UGR
-
 
 interbeam = (2.0 * \staffspace + \stafflinethickness - \beam_thickness) / 2.0;
 interbeam4 = (3.0 * \staffspace - \beam_thickness) / 3.0;
@@ -117,7 +112,7 @@ tie_thickness = 1.2 * \stafflinethickness;
 %{
  Specifies the maximum height of slurs.
 %}
-slur_height_limit = \staffheight;
+slur_height_limit_factor = \staffheight;
 
 
 %{
@@ -143,21 +138,9 @@ method.
 %}
 gourlay_maxmeasures = 10.;
 
-bar_kern = 1.0\char;
-bar_thinkern = 1.0\char;
-barthick_thick = 2.0\char;
-barthick_score = 1.0\char;
-barthick_thin = 1.0\char;
+% vertical space between lines.
+line_kern = \staffspace;
 
-bracket_arch_thick = \staffspace / 3.0;
-bracket_width = 2.0 * \staffspace;
-bracket_thick = 2.0 * \stafflinethickness;
-bracket_arch_height = 1.5 * \staffspace;
-bracket_arch_width = \bracket_arch_height;
-bracket_arch_angle = 50.0;
-
-tuplet_spanner_gap = 2.0 * \staffspace;
-tuplet_thick = 1.0\char;
 volta_thick = 1.0\char;
 volta_spanner_height = 1.0\char;
 
@@ -242,15 +225,4 @@ Gourlay = 0.0;
 Wordwrap =0.0;
 
 \include "engraver.ly";
-
-
-#'margin-shape = #'()
-
-
-% 
-#'Local_key_item::left-padding = #'0.2
-#'Local_key_item::right-padding = #'0.4
-
-#'Staff_symbol::staff-space = \staffspace ;
-#'Staff_symbol::line-count = #5
 
