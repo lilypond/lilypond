@@ -18,7 +18,7 @@ Version 2.1.13
 
 @itemize @bullet
 
-@item Property functions can now be used as arguments of @code{set!},
+@item Property functions may be used as an argument to @code{set!},
 for example
 
 @example

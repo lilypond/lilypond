@@ -25,7 +25,9 @@ Text_item::interpret_markup (SCM paper, SCM props, SCM markup)
       if (str.index_any (" \t\n\r") != -1)
 	{
 	  /* Multi word string to line markup.  */
-	  SCM proc = scm_c_eval_string ("make-simple-markup");
+	  static SCM proc;
+	  if (!proc)
+	    proc = scm_c_eval_string ("make-simple-markup");
 	  return interpret_markup (paper, props, scm_call_1 (proc, markup));
 	}
 

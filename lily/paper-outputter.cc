@@ -61,7 +61,7 @@ void
 Paper_outputter::output_metadata (SCM scopes, Paper_def *paper)
 {
   SCM fields = SCM_EOL;
-  for (int i = dump_header_fieldnames_global.size (); i--;)
+  for (int i = dump_header_fieldnames_global.size (); i--; )
     fields = gh_cons (ly_symbol2scm (dump_header_fieldnames_global[i].to_str0 ()),
 				     fields);
   
