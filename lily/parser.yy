@@ -1092,7 +1092,7 @@ Prefix_composite_music:
 		scm_gc_unprotect_object (p->self_scm ());
 	}
 	| mode_changing_head Grouped_music_list {
-		if ($1 == ly_symbol2scm ("figures"))
+		if ($1 == ly_symbol2scm ("chords"))
 		{
 		  Music *chm = MY_MAKE_MUSIC ("UntransposableMusic");
 		  chm->set_property ("element", $2->self_scm ());
