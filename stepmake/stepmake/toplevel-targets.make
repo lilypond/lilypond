@@ -17,6 +17,10 @@ GNUmakefile: GNUmakefile.in
 ifneq ($(PACKAGE),STEPMAKE)
 aclocal.m4: $(stepmake)/aclocal.m4
 	$(MAKE) INFILE=$< OUTFILE=$@ LINECOMMENT=dnl -f $(stepdir)/automatically-generated.sub.make
+
+autogen.sh: $(stepmake)/autogen.sh
+	$(MAKE) INFILE=$< OUTFILE=$@ LINECOMMENT=\# -f $(stepdir)/automatically-generated.sub.make
+	chmod +x autogen.sh
 endif
 
 

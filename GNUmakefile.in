@@ -16,7 +16,7 @@ SUBDIRS = buildscripts scripts flower lily \
 	mutopia 
 #
 
-SCRIPTS = configure aclocal.m4
+SCRIPTS = configure aclocal.m4 autogen.sh
 README_FILES =  ChangeLog CHANGES COPYING DEDICATION NEWS README.mandrake ROADMAP
 README_TXT_FILES = AUTHORS.txt README.txt INSTALL.txt FAQ.txt
 IN_FILES := $(wildcard *.in)

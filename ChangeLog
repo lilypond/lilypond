@@ -1,5 +1,28 @@
 2002-05-17  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* autogen.sh: Generate.
+
+	* stepmake/configure:
+	* configure: Regenerate.
+	
+	* stepmake/stepmake/automatically-generated.sub.make: Keep
+	original first line.
+
+	* stepmake/stepmake/toplevel-targets.make (autogen.sh): Add rule.
+
+	* stepmake/stepmake/generic-targets.make (configure): Generate
+	using autogen.sh.
+
+	* GNUmakefile.in (SCRIPTS):
+	* stepmake/GNUmakefile.in (SCRIPTS): Add autogen.sh
+
+	* stepmake/autogen.sh: New file.
+
+	* configure: Check for g++ >= 2.95.
+
+	* stepmake/aclocal.m4: Fixes for FlexLexer.h, Python headers.  GNU
+	c/c++ version checking.
+
 	* flower/include/string.hh: Typo fix.
 
 	* lily/include/midi-item.hh: Remove stray i.
