@@ -6,7 +6,7 @@ $(staticlib): $(obs) fversion.hh
 include depend
 
 depend: Sources.make
-	$(CXX) -MM $(cc) > depend
+	$(CXX) $(CXXFLAGS) -MM $(cc) > depend
 
 clean:
 	rm -f $(obs) $(staticlib) fversion.hh
