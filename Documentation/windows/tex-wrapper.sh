@@ -7,4 +7,5 @@ TFMFONTS="$WINDOWS_TFMFONTS"
 
 export MFINPUTS TEXINPUTS TFMFONTS
 
-@name@.exe "$*"
+@name@.exe $*
+

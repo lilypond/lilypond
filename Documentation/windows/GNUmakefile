@@ -37,7 +37,7 @@ PYTHON_WRAPPERS=\
 
 OUT_PYTHON_WRAPPERS=$(PYTHON_WRAPPERS:%=$(outdir)/%)
 
-TEX_WRAPPERS=tex latex
+TEX_WRAPPERS=dvips latex tex
 OUT_TEX_WRAPPERS=$(TEX_WRAPPERS:%=$(outdir)/%)
 
 # profiles
