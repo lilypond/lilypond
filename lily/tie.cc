@@ -137,8 +137,8 @@ Tie::do_post_processing()
 
   Real ratio_f = abs (d_off.y () / d_off.x ());
   if (ratio_f > damp_f)
-    dy_f_drul_[(Direction)(- dir_ * sign (d_off.y ()))] -=
-      dir_ * (damp_f - ratio_f) * d_off.x ();
+    dy_f_drul_[(Direction)(- dir_ * sign (d_off.y ()))] +=
+      dir_ * (ratio_f - damp_f) * d_off.x ();
 }
 
 void
@@ -163,9 +163,9 @@ Array<Rod>
 Tie::get_rods () const
 {
   Array<Rod> a;
-  Rod r ((Single_malt_grouping_item*)head_l_drul_[LEFT],
-	 (Single_malt_grouping_item*)head_l_drul_[RIGHT]);
-  r.distance_f_ += do_width ().length ();
+  Rod r;
+  r.item_l_drul_ = spanned_drul_;
+  r.distance_f_ = do_width ().length ();
   a.push (r);
   return a;
 }

@@ -204,8 +204,8 @@ Slur::do_post_processing ()
 
   Real ratio_f = abs (d_off.y () / d_off.x ());
   if (ratio_f > damp_f)
-    dy_f_drul_[(Direction)(- dir_ * sign (d_off.y ()))] -=
-      dir_ * (damp_f - ratio_f) * d_off.x ();
+    dy_f_drul_[(Direction)(- dir_ * sign (d_off.y ()))] +=
+      dir_ * (ratio_f - damp_f) * d_off.x ();
 }
 
 Array<Offset>
@@ -294,9 +294,9 @@ Array<Rod>
 Slur::get_rods () const
 {
   Array<Rod> a;
-  Rod r ((Single_malt_grouping_item*)encompass_arr_[0]->stem_l_->head_l_arr_[0],
-	 (Single_malt_grouping_item*)encompass_arr_.top ()->stem_l_->head_l_arr_[0]);
-  r.distance_f_ += do_width ().length ();
+  Rod r;
+  r.item_l_drul_ = spanned_drul_;
+  r.distance_f_ = do_width ().length ();
   a.push (r);
   return a;
 }

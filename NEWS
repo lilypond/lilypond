@@ -1,4 +1,14 @@
---- ../lilypond-1.1.26.jcn1/NEWS	Mon Feb  1 17:49:32 1999
+--- ../lilypond-1.1.26.jcn2/NEWS	Mon Feb  1 20:58:27 1999
+++ b/NEWS	Tue Feb  2 21:06:00 1999
+@@ -1,3 +1,8 @@
+pl 26.jcn3
+	- bf's: spring spacer end of measure
+	- bf: tie/slur rods (dankje, lieverd)
+	- bf's: intl/ compile, install, uninstall
+
+ pl 26.jcn2
+ 	- enforce {slur,tie}_x_minimum (urg, paper vars?)
+ 	- tie listens to tieydirection/ydirection--- ../lilypond-1.1.26.jcn1/NEWS	Mon Feb  1 17:49:32 1999
 ++ b/NEWS	Mon Feb  1 20:58:27 1999
 @@ -1,3 +1,8 @@
 pl 26.jcn2

@@ -668,8 +668,11 @@ Spring_spacer::calc_idealspacing()
 	  */
 	  if (i && scol_l (i - 1)->breakable_b_)
 	    {
-	      // fixed: probably should set minimum (rod/spring)?
-	      cols_[i-1].width_[RIGHT] += interline_f;
+	      // one interline minimum at start of bar
+
+	      // cols_[i].width_[RIGHT] += interline_f;
+	      cols_[i].width_[RIGHT] = cols_[i].width_[RIGHT] >? interline_f;
+
 	      // should adjust dist too?
 	      ideal_arr[i-1] = ideal_arr[i-1] >? (2 * interline_f);
 	    }
@@ -679,17 +682,28 @@ Spring_spacer::calc_idealspacing()
 	  */
 	  if (i + 1 < cols_.size () && scol_l(i+1)->breakable_b_)
 	    {
-	      // hmm, how bout?
+	      // one interline minimum seems ok for last column too?
 	      dist = dist >? interline_f;
 
-	      /*
-	        uhuh, this code looks fine, already?
-		someone was junking this last "hinterfleisch" whitespace?!
-
-		but this seems to be fixed now :-)
-	      */
 	      // set minimum rod 
-	      cols_[i].width_[RIGHT] += interline_f;
+	      /*
+		urg: simply *adding* an interline leaves big gaps at
+		end of measure in star-spangled-banner (after lyrics
+		at eom).
+
+	           cols_[i].width_[RIGHT] += interline_f; // before
+
+		having a minimum of one interline solves this problem
+		in most (but not all??) cases.
+
+		for music without lyrics (esp. when set very tightly),
+		adding an interline looks good: probably because this
+		hides a bug that allows the last note's "hinterfleish"
+		to be removed (e.g., see wtk1-fugue2: that's ugly now).
+		-- jcn
+	       */
+
+	      cols_[i].width_[RIGHT] = cols_[i].width_[RIGHT] >? interline_f;
 	    }
 
 	  // ugh, do we need this?
