@@ -1,7 +1,7 @@
 # make/Stepmake.make
 
-# If not m (make m=m), reroute to scons if user is using that.
-ifndef m
+# If usescons=something then reroute to scons if user is using that.
+ifdef usescons
 
 SCONS_USER = $(wildcard $(depth)/.sconsign)
 ifeq ($(SCONS_USER),)
