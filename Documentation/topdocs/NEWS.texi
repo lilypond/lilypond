@@ -18,8 +18,7 @@ Version 2.1.13
 
 @itemize @bullet
 
-@item Info documentation with images.
-In eager anticipation of Emacs 21.4 or 22.1, the info docs contain
+@item In anticipation of Emacs 21.4 or 22.1, the info documentation contains
 images.
 
 @item Cue notes can be quoted directly from the parts that

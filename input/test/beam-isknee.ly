@@ -2,8 +2,12 @@
 \version "2.1.26"
 \header{
 	texidoc="@cindex Beam Isknee
-Beams can be placed across a \code{PianoStaff}.
-" }
+
+Beams can be placed across a @code{PianoStaff}.
+
+"
+
+}
 \score{
 	\context PianoStaff <<
 	\context Staff=one \notes\relative c'{
