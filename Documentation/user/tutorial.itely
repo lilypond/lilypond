@@ -1,4 +1,4 @@
-@c -*-texinfo-*-
+ @c -*-texinfo-*-
 
 @c TODO: LilyPond LilyPond LilyPond
 
@@ -2923,15 +2923,13 @@ if you get stuck!
 
 Don't forget to check out the 
 @ifhtml
-@uref{../../templates/out-www/templates.html,templates},
-@uref{../../test/out-www/test.html,example} and 
-@uref{../../regression/out-www/regression.html,feature test}
-snippets.
+@uref{../../../../input/template/out-www/template.html,templates},
+@uref{../../../../input/test/out-www/test.html,examples} and 
+@uref{../../../../input/regression/out-www/regression.html,feature tests}.
 @end ifhtml
 @ifnothtml
-templates, example and feature test snippets.
+templates, examples and feature tests.
 @end ifnothtml
-If you want to see real action lilypond then head over to
+If you want to see real action LilyPond, head over to
 @uref{http://www.mutopiaproject.org}, which has many examples of
 classical music typeset with LilyPond.
-
