@@ -6,7 +6,7 @@
 " 
 }
 
-sopMusic = \notes  \relative c'' { c4 c [c8( )b] c4 }
+sopMusic = \notes  \relative c'' { c4 c c8-[-( b-)-] c4 }
 sopWords = \lyrics { hi4 hi hi hi  }
 
 altoMusic = \notes  \relative c' { e4 f d e }

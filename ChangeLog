@@ -1,5 +1,7 @@
 2003-08-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/template/gregorian-transcription.ly (barTwo): syntax update.
+
 	* Documentation/user/refman.itely (Hiding staffs): rename node.
 
 2003-08-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
