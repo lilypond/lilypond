@@ -1,3 +1,17 @@
+2001-12-16  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/topdocs/INSTALL.texi: Added note about broken
+	python-2.1.  Updated note for Debian's broken (well, broken for
+	our use anyway) tex configuration.
+
+	* scripts/lilypond-book.py (re_dict): python2.2 fix.
+
+	* stepmake/stepmake/c++-rules.make ($(outdir)/%.hh): 
+	($(outdir)/%.cc): Adapted to bison-1.30; added bison < 1.30 fix.
+
+	* scripts/lilypond-book.py (bounding_box_dimensions): Bugfix.
+	(But left margin of png's still misses a few pixels.  Arg.)
+
 2001-12-14  Han-Wen  <hanwen@cs.uu.nl>
 
 	* scripts/lilypond-book.py (LatexPaper.set_geo_option):
