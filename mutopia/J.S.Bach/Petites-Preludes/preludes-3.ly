@@ -36,7 +36,7 @@ TODO: this file needs additional layouting: the upper voice should
 switch staffs to avoid leger lines.
 
 %}
-\version "1.2.13";
+\version "1.3.4";
 
 
 upper =  \notes \transpose c'' {

@@ -4,7 +4,7 @@ depth = ..
 
 SUBDIRS=test bugs tutorial
 
-examples=praeludium-fuga-E  star-spangled-banner just-friends paddy
+examples=praeludium-fuga-E  star-spangled-banner paddy
 flexamples=
 
 LOCALSTEPMAKE_TEMPLATES=mutopia

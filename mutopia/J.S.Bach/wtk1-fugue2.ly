@@ -20,7 +20,7 @@
 % It would be nice to squeeze this onto two pages, but I am not sure
 % if it would work with US paper.
 
-\version "1.2.13";
+\version "1.3.4";
 
 global = \notes {
   \key c \minor;

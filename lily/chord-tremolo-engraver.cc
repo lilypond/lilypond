@@ -8,7 +8,7 @@
 */
 
 #include "duration-convert.hh"
-#include "time-description.hh"
+#include "timing-translator.hh"
 #include "chord-tremolo-engraver.hh"
 #include "stem.hh"
 #include "beam.hh"

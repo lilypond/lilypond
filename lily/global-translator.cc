@@ -12,13 +12,12 @@
 
 Global_translator::Global_translator()
 {
-  last_mom_ = 0;
 }
 
 void
 Global_translator::add_moment_to_process (Moment m)
 {
-  if (m  > last_mom_)
+  if (m  > final_mom_)
     return;
   
   for (int i=0; i <  extra_mom_pq_.size(); i++)
@@ -45,6 +44,7 @@ Global_translator::moments_left_i() const
 void
 Global_translator::prepare (Moment m)
 {
+  prev_mom_  = now_mom_;
   now_mom_ = m;
 }
 

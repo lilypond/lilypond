@@ -7,7 +7,7 @@
   metre = "8 7 8 7 D";
 }
 
-\version "1.2.0";
+\version "1.3.4";
 
 sop=\notes \relative c'' {
 	b4 b c d | d c b a | g g a b | b4. a8 a2 |

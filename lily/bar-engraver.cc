@@ -32,7 +32,7 @@ Bar_engraver::create_bar ()
   if (!bar_p_)
     {
       bar_p_ = new Staff_bar;
-      bar_p_->set_elt_property ("break-priority", gh_int2scm (0));
+      bar_p_->set_elt_property ("break-aligned", SCM_BOOL_T);
 
       // urg: "" != empty...
       SCM default_type = get_property ("defaultBarType", 0);

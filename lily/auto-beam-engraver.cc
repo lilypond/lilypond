@@ -54,9 +54,10 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
   if (!timer_l_)
       return;
   
-  Time_description const *time = &timer_l_->time_;
-  int num = time->whole_per_measure_ / time->one_beat_;
-  int den = time->one_beat_.den_i ();
+  int num;
+  int den;
+  timer_l_->get_time_signature (&num, &den);
+  
   String time_str = String ("time") + to_str (num) + "_" + to_str (den);
 
   String type_str;
@@ -104,7 +105,7 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
   /*
     first guess: end beam at end of beat
   */
-  Moment end_mom = time->one_beat_;
+  Moment end_mom = timer_l_->one_beat_;
 
   /*
     second guess: property generic time exception
@@ -160,7 +161,7 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
 
   Rational r;
   if (end_mom)
-    r = time->whole_in_measure_.mod_rat (end_mom);
+    r = timer_l_->measure_position ().mod_rat (end_mom);
   else
     r = Moment (1);
 
@@ -175,7 +176,7 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
     return;
 
   if (begin_mom)
-    r = time->whole_in_measure_.mod_rat (begin_mom);
+    r = timer_l_->measure_position ().mod_rat (begin_mom);
   if (!stem_l_arr_p_ && (!begin_mom || !r))
     begin_beam ();
 }
@@ -189,7 +190,7 @@ Auto_beam_engraver::begin_beam ()
   assert (!grouping_p_);
   grouping_p_ = new Beaming_info_list;
   beam_start_moment_ = now_mom ();
-  beam_start_location_ = timer_l_->time_.whole_in_measure_;
+  beam_start_location_ = timer_l_->measure_position ();
 }
 
 Beam*

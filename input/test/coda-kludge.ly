@@ -31,7 +31,7 @@ Hi,
 		\context Staff \notes\relative c''{
 			c c c c
 			% coda-klugde: let volta span only one bar
-			\property Staff.voltaSpannerDuration = "1"
+			\property Staff.voltaSpannerDuration = #(make-moment 1 1)
 			\repeat semi 5 { d d d d }
 				\alternative { { e e e e f f f f }
 			{ g g g g } }

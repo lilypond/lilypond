@@ -45,7 +45,7 @@ Voice engraver by uncommenting the lines in the paper
 definition below. --MB
 %} 
 
-\version "1.2.0";
+\version "1.3.4";
 
 global = \notes {
   \property StaffGroup.timeSignatureStyle = "old"
@@ -130,7 +130,7 @@ vi1=\context Staff = vi1 <
   e2 r8 d d d16 e |
   fis a g fis  e d c b a8 d  d d16 e |
   fis4 g2 fis!4 |
-  \cadenza 1;
+  \cadenzaOn
   g\breve
   }
 }>
@@ -201,7 +201,7 @@ vi2=\context Staff = vi2 <
   c8 g  g g16 a b d c b  a g fis e |
   d8 d'  d d16 e fis16 a g fis  e d c b |
   a d c b  a g fis e d4 d' |
-  \cadenza 1;
+  \cadenzaOn
   b\breve
   }
 }>
@@ -251,7 +251,7 @@ bc=\context Staff = bc <
   d1^"3 4 3" | G^"3 4 3" |
   c2 G | d1^"\\textsharp" ( |
   ) d^"3 4 3" | 
-  \cadenza 1;
+  \cadenzaOn
   G\breve 
   }
 }>

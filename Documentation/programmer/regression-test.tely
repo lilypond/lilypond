@@ -129,12 +129,13 @@ The horizontal middle should not overlap with a staffline.
 
 @mudelafile{tie.ly}
 
-When tieing notes with accidentals across a bar boundary, the
-accidental must not be drawn on the note in the new bar.
-Instead, the next note of the same pitch in this bar should always show the
-accidental (even if it's natural).
-Well, and slurring a accidentaled note to a natural one across bar
-boundaries should be explicit...
+When tieing notes with accidentals across a bar boundary, the accidental
+must not be drawn on the note in the new bar.  Instead, the next note of
+the same pitch in this bar should always show the accidental (even if
+it's natural).  Slurring a accidentaled note to a natural one across bar
+boundaries should be explicit.
+
+Pitches can be verified by printing them  with the @code{NoteNames} context.
 
 @mudelafile{tie-accidental.ly}
 

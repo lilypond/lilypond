@@ -16,7 +16,6 @@ Base_span_bar_engraver::Base_span_bar_engraver()
 {
   spanbar_p_ =0;
   use_priority_b_ = true;
-  break_priority_i_ = 0;
 }
 
 Span_bar*
@@ -59,8 +58,7 @@ Base_span_bar_engraver::acknowledge_element (Score_element_info i)
 
 	  if (use_priority_b_)
 	    {
-	      spanbar_p_->set_elt_property ("break-priority",
-					    gh_int2scm (break_priority_i_));
+	      spanbar_p_->set_elt_property ("break-aligned", SCM_BOOL_T);
 	    }
 	  else
 	    {

@@ -183,7 +183,6 @@ alphabetic characters.  These are all the keywords.
   \alternative
   \bar
   \breathe
-  \cadenza
   \chordmodifiers
   \chords
   \clef
@@ -872,14 +871,6 @@ See section XREF-sec-repeats [FIXME].
 
  
 
-@example
-  \cadenza@keyindex{cadenza} @var{togglevalue} @code{;}
-@end example
-
-Music expression that toggles the automatic generation of bar lines. 
-If @var{togglevalue} is 1, bar line generation is turned off.  If
-@var{togglevalue} is 0, a bar line is immediately printed and 
-automatic bar generation is turned on.
 
 @example
 
@@ -954,7 +945,7 @@ clef:
 @mudela[]
 \score {
   \notes {
-    \cadenza 1;
+    \cadenzaOn
     %\property Voice.textStyle = typewriter
     \clef subbass;     c'4-"\kern -5mm subbass" 
     \clef bass;        c'4^"\kern -2mm bass"
@@ -975,7 +966,7 @@ clef:
 @mudela[]
 \score {
   \notes {
-    \cadenza 1;
+	\cadenzaOn
     \clef alto;         c'4_"\kern -2mm alto"
     \clef mezzosoprano; c'4^"\kern -9mm mezzosoprano"
     \clef soprano;      c'4_"\kern -6mm soprano"
@@ -1294,7 +1285,7 @@ chords can be expressed in two different ways:
 
 @mudela[fragment,verbatim,center]
   \notes \context Staff {
-    \cadenza 1;
+    \cadenzaOn
     <a c'> <b  d' > <c' e'>
     < { a b  c' } { c' d' e' } >
   }

@@ -7,13 +7,13 @@ enteredby =	 "HWN, chords by Johan Vromans";
 copyright =	 "public domain";
 }
 
-\version "1.2.0";
+\version "1.3.4";
 
 m =\notes  \relative c'' {
-	\property Staff.automaticMelismata = "1"
+	\property Staff.automaticMelismata = ##t
 	\autoBeamOff
 	g4  r8 \times 2/3 { g'8( f )e } r8 \grace { [d16 c b] } e4
-	\property Staff.textEmptyDimension = "1"
+	\emptyText
 	d8.^"melisma" 	\melisma c16
 	\melismaEnd
 	b }

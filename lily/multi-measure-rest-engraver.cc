@@ -10,7 +10,8 @@
 #include "multi-measure-rest.hh"
 #include "multi-measure-rest-engraver.hh"
 #include "score-column.hh"
-#include "time-description.hh"
+#include "engraver-group-engraver.hh"
+#include "timing-translator.hh"
 #include "bar.hh"
 
 
@@ -71,13 +72,16 @@ Multi_measure_rest_engraver::do_process_requests ()
 {
   if (multi_measure_req_l_ && !mmrest_p_)
     {
-      Time_description const *time = get_staff_info().time_C_;
+
+      Translator * tr = daddy_grav_l()->get_simple_translator ("Timing_engraver");	// ugh
+      Timing_translator * time = dynamic_cast<Timing_translator*> (tr);
+
       mmrest_p_ = new Multi_measure_rest;
       if(dynamic_cast<Repetitions_req *> (multi_measure_req_l_))
 	mmrest_p_->set_elt_property ("alt-symbol", 
 				     ly_str02scm ("scripts-repeatsign"));
       announce_element (Score_element_info (mmrest_p_, multi_measure_req_l_));
-      start_measure_i_ = time->bars_i_;
+      start_measure_i_ = time->bars_i ();
     }
 }
 
@@ -85,9 +89,12 @@ void
 Multi_measure_rest_engraver::do_pre_move_processing ()
 {
   Moment now (now_mom ());
-  Time_description const *time = get_staff_info().time_C_;
+  Translator * tr = daddy_grav_l()->get_simple_translator ("Timing_engraver");	// ugh
+  Timing_translator * time  = dynamic_cast<Timing_translator*> (tr);
+
+
   if (mmrest_p_ && (now >= rest_moments_[START]) 
-    && !time->whole_in_measure_
+    && !time->measure_position ()
     && (mmrest_p_->column_arr_.size () >= 2))
     {
       typeset_element (mmrest_p_);
@@ -105,13 +112,15 @@ Multi_measure_rest_engraver::do_pre_move_processing ()
 void
 Multi_measure_rest_engraver::do_post_move_processing ()
 {
-  Time_description const *time = get_staff_info().time_C_;
+  Translator * tr = daddy_grav_l()->get_simple_translator ("Timing_engraver");	// ugh
+  Timing_translator * time  = dynamic_cast<Timing_translator*> (tr);
+
   Moment now (now_mom ());
 
-  if (mmrest_p_ && !time->whole_in_measure_)
+  if (mmrest_p_ && !time->measure_position ())
     {
       lastrest_p_ = mmrest_p_;
-      lastrest_p_->measures_i_ = time->bars_i_ - start_measure_i_;
+      lastrest_p_->measures_i_ = time->bars_i () - start_measure_i_;
       mmrest_p_ = 0;
     }
 

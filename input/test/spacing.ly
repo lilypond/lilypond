@@ -6,7 +6,7 @@ copyright =	 "public domain";
 TestedFeatures =	 "This file tests various spacings";
 }
 
-\version "1.2.0";
+\version "1.3.4";
 
 multipart = \notes \relative c'{ 
     \context StaffGroup < 

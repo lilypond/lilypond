@@ -1,30 +1,56 @@
+%{
+
+ Six Petits Preludes,
+ Collection Johann Peter Kellner
+ ca 1703 - 1707
+
+
+
+ Kellner was a student of Bach's.  
+ 
+%}
+
 \header{
-filename =	 "preludes-2.ly";
-%
-% page 10
-% 
-% Six Petits Preludes
-% Collection Johann Peter Kellner
-% ca 1703- 1707
-composer =	 "Johann Sebastian Bach (1685-1750)";
-enteredby =	 "jcn";
-copyright =	 "public domain";
+  copyright =	 "public domain";
+  source = "Ed. Henry Lemoine Urtext";
+
+
+  composer =	 "Johann Sebastian Bach (1685-1750)";
+  enteredby =	 "jcn,hwn";
+  copyright =	 "public domain";
+
+  % mutopia headers.
+  mutopiatitle = "Prelude";
+  mutopiacomposer = "J.S.Bach";
+  mutopiainstrument = "Piano";
+  style = "baroque";
+  copyright = "Public Domain";
+  tagline =    "\\\\This music is part of the Mutopia project, http://sca.uwaterloo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by Jan Nieuwenhuizen.\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!";
+  maintainer = "janneke@gnu.org";
+  lastupdated = "1999/Nov/8";
 }
 
-\version "1.2.0";
+%{
+Old versions of LilyPond include this prelude with dynamics and fingerings.
+
+%}
+
+
+
+\version "1.3.4";
 upper = \context Staff \notes\relative c{
 	\context Voice=i
 	\property Voice . textStyle = "italic"
-	r8\mf c'-1( e-2 g-4  e-2 c-1 bes'-5 g-3 |
-	)a-4\< c,-1( f-2 a-4  f c c'-5 a-3 |
-	)b-4 g-1( b-2 d-4  b-2 g f'-5 \!d-3 |
+	r8 c'( e g  e c bes' g |
+	)a c,( f a  f c c' a |
+	)b g( b d  b g f' d |
 	<
-		{\stemup )e2-4\f r4 e-5 }
+		{\stemup )e2 r4 e }
 		\context Voice = ii {\stemdown <c2 g > r4 <c g > }
 	>
 	\stemboth |
 	< 
-		 { \stemup d2-4 r4 d-4 }
+		 { \stemup d2 r4 d }
 		 \context Voice = ii { \stemdown <c2 a > r4 <c a > }
 	>
 	\stemboth |
@@ -33,34 +59,34 @@ upper = \context Staff \notes\relative c{
 		 \context Voice = ii { \stemdown <b 8 g > }
 	>
 	\stemboth 
-	g, 8-1\mf( b-2 d-4 
+	g, 8( b d 
 	<
-		{ \stemup )b 4 e-5 }
+		{ \stemup )b 4 e }
 		\context Voice = ii { \stemdown g, 4 b }
 	>
 	\stemboth |
 	<
-		{ \stemup c2 r4 < {c-5 ~ c8} {a 4 ~ a 8} > }
+		{ \stemup c2 r4 < {c ~ c8} {a 4 ~ a 8} > }
 		\context Voice=ii { \stemdown c2 r4 e, 4 ~ e 8 }
 	>
 	\stemboth 
-	d,-1\p( fis-2 a-4  fis-2 d-1 c'-5 a-3 |
-	)b-4\< g-1( b-2 d-4  b-2 g-1 f'!-5 d-3 |
-	)e-4 g,-1( c-2 e-4  c-2 g g'-5 e-3 |
-	)fis-4 a,-1( c-2 fis-4  c a a'-5 \!fis-3 |
+	d,( fis a  fis d c' a |
+	)b g( b d  b g f'! d |
+	)e g,( c e  c g g' e |
+	)fis a,( c fis  c a a' fis |
 	<
-		{ \stemup )g2-5\f }
+		{ \stemup )g2 }
 		\context Voice = ii { \stemdown <d2 b > }
 	>
 	\stemboth 
-	r4 b4-2( |
-	c,8-1 e-2 g c  g-2 e-1 bes'-4 g-2 |
-	)a16->-3 g-2 f-1 e-3  d c b !-3 a-2 
-	b-3\< g-1 a b  c-1 d e \!f |
-	g4-5\ff
+	r4 b4( |
+	c,8 e g c  g e bes' g |
+	)a16-> g f e  d c b ! a 
+	b g a b  c d e f |
+	g4
 	<
-		{ \stemup c,2-5 b 4-4 }
-		\context Voice=ii { \stemdown g 2-2 d 4-1 }
+		{ \stemup c,2 b 4 }
+		\context Voice=ii { \stemdown g 2 d 4 }
 	>
 	\stemboth 
 	<
@@ -78,20 +104,20 @@ lower = \context Staff \notes\relative c{
 		\context Voice=ii { \stemdown c,1 ~ | c ~ | c }
 	>
 	\stemboth |
-	r8 c-5( e-3 g-1  e-3 c-5 c' e,-4 |
-	)fis-3 d-5( fis-3 a-1  fis-3 d-5 d' fis,-4 |
-	)g2-3 r4 g-2( |
-	)a8 a,-5( c-4 e-2  c-4 a-5 g' e-3 |
-	)fis2 r4 d-4 |
+	r8 c( e g  e c c' e, |
+	)fis d( fis a  fis d d' fis, |
+	)g2 r4 g( |
+	)a8 a,( c e  c a g' e |
+	)fis2 r4 d |
 	g-\mordent-"(\\textsharp)" g, 4 g'-\mordent g, |
 	% mordents in brackets...
 	g'-\mordent g, g'-\mordent g, |
 	g'-\mordent g, g'-\mordent g, |
-	g'8 g,-5( b-4 d-2  b-4 g-5 f'!-1 d-3 |
-	)e-2 c-4 e-2 g-1  e-3 c-5 c' e,-4 |
+	g'8 g,( b d  b g f'! d |
+	)e c e g  e c c' e, |
 	\property Voice . textStyle = "finger"
 	f1^"3\\_1" ~ |
-	f8 d-3 e-2 c-4 g'4-1 g,^"5\\_2" |
+	f8 d e c g'4 g,^"5\\_2" |
 	<c1 c,1>
 	\bar "|.";
 }

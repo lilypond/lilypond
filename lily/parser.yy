@@ -45,7 +45,7 @@
 #include "auto-change-music.hh"
 
 // mmm
-Mudela_version oldest_version ("1.1.52");
+Mudela_version oldest_version ("1.3.4");
 
 
 
@@ -184,7 +184,6 @@ yylex (YYSTYPE *s,  void * v_l)
 %token TRANSPOSE
 %token TYPE
 %token CONTEXT
-%token VERSION
 
 /* escaped */
 %token E_CHAR E_EXCLAMATION E_SMALLER E_BIGGER 
@@ -920,6 +919,15 @@ command_element:
 		$1-> set_spot (THIS->here_input ());
 		((Simultaneous_music*)$$) ->add_music ($1);//ugh
 	}
+	| PARTIAL duration_length ';' 	{
+		Translation_property * p = new Translation_property;
+		p->var_str_ = "measurePosition";
+		p->value_ =  (new Moment (-$2->length_mom ()))->smobify_self ();
+		delete $2;
+		Context_specced_music * sp = new Context_specced_music (p);
+		$$ =sp ;
+		sp-> translator_type_str_ = "Score";
+	}
 	;
 
 command_req:
@@ -1013,13 +1021,6 @@ verbose_command_req:
 	}
 	| tempo_request {
 		$$ = $1;
-	}
-	| CADENZA unsigned	{
-		$$ = new Cadenza_req ($2);
-	}
-	| PARTIAL duration_length 	{
-		$$ = new Partial_measure_req ($2->length_mom ());
-		delete $2;
 	}
 	| CLEF STRING {
 		$$ = new Clef_change_req (ly_scm2string ($2));

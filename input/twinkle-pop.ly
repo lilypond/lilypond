@@ -7,7 +7,7 @@ enteredby =	 "HWN, chords by Johan Vromans";
 copyright =	 "public domain";
 }
 
-\version "1.2.0";
+\version "1.3.4";
 
 melodie = \notes\relative c'' {
         \clef "violin";

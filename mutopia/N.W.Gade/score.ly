@@ -8,7 +8,7 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
 		"Statens Musikbibliotek, Stockholm, Sweden";
 }
 
-\version "1.2.0";
+\version "1.3.4";
 
 \include "global.ly"
 \include "wood.ly"
@@ -56,12 +56,12 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
       \property Staff.instr = "Cor."
       \context Voice = corI <
 	\globalNoKey
-	\stemup \property Voice.dynamicDirection = \up 
+	\stemup \property Voice.dynamicDirectionection = \up 
 	 \property Voice.articulationScriptVerticalDirection = \up 
 	\corI 
       >
       \context Voice = corII { 
-	\stemdown \property Voice.dynamicDirection = \down 
+	\stemdown \property Voice.dynamicDirectionection = \down 
 	 \property Voice.articulationScriptVerticalDirection = \down
 	\corII 
       }
@@ -71,12 +71,12 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
       \property Staff.instr = "Trp."
       \context Voice = trpI <
 	\globalNoKey
-	\stemup \property Voice.dynamicDirection = \up 
+	\stemup \property Voice.dynamicDirectionection = \up 
 	 \property Voice.articulationScriptVerticalDirection = \up 
 	\trpI
       >
       \context Voice = trpII { 
-	\stemdown \property Voice.dynamicDirection = \down 
+	\stemdown \property Voice.dynamicDirectionection = \down 
 	 \property Voice.articulationScriptVerticalDirection = \down
 	\trpII
       }

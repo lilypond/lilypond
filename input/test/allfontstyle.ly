@@ -3,7 +3,7 @@
 
 \score {  \notes
 	\relative c'' \context Staff {
-		\property Staff.textEmptyDimension = "1"
+		\emptyText
 		\repeat "semi" 2 { \time 4/4; c4^"cuivr\\'e"_\fermata }
 		 \alternative {
 		 	{ \property Voice.textStyle = "italic" d-4_"cantabile" }

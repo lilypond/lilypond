@@ -9,8 +9,8 @@
 
 #ifndef TIME_SIG_ENGRAVER_HH
 #define TIME_SIG_ENGRAVER_HH
+
 #include "engraver.hh"
-#include "time-description.hh"
 
 /**
   generate time_signatures. 
@@ -24,6 +24,5 @@ public:
   Time_signature * time_signature_p_;
 
   Time_signature_engraver();
-  
 };
 #endif // TIME_SIG_ENGRAVER_HH

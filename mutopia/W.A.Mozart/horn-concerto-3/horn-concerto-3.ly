@@ -38,7 +38,7 @@ longgrace = \property Grace.stemStyle = ""
 aftergrace = \property Grace.graceAlignPosition = \right
 
 
-\version "1.2.13";
+\version "1.3.4";
 
 \include "allegro.ly"
 \include "romanze.ly"

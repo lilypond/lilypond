@@ -8,7 +8,7 @@ enteredby =	"jcn";
 copyright =	"Public Domain";
 }
 
-\version "1.2.0";
+\version "1.3.4";
 
 $violino_i = \notes\relative c'' {
   \property Voice.beamAutoEnd = "3/8"

@@ -31,7 +31,6 @@ static Keyword_ent the_key_tab[]={
   {"alternative", ALTERNATIVE},
   {"bar", BAR},
   {"breathe", BREATHE},
-  {"cadenza", CADENZA},
   {"chordmodifiers", CHORDMODIFIERS},
   {"chords", CHORDS},
   {"clef", CLEF},
@@ -75,7 +74,6 @@ static Keyword_ent the_key_tab[]={
   {"translator", TRANSLATOR},
   {"transpose", TRANSPOSE},
   {"type", TYPE},
-  {"version", VERSION},
   {0,0}
 };
 

@@ -17,8 +17,7 @@ Span_score_bar_engraver::get_span_bar_p () const
 {
   Span_bar*s =  new Span_bar;
   s->type_str_ = "scorebar";
-  s->set_elt_property ("break-priority",
-		       gh_int2scm (-4));
+  s->set_elt_property ("break-aligned",SCM_BOOL_T);
 
   return s;
 }
@@ -27,7 +26,6 @@ Span_score_bar_engraver::get_span_bar_p () const
 Span_score_bar_engraver::Span_score_bar_engraver ()
 {
   use_priority_b_ = true;
-  break_priority_i_ = -4;
 }
 
 Span_bar*

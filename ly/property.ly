@@ -8,7 +8,7 @@ SEE THE REFERENCE MANUAL FOR EXPLANATIONS.
 
 %}
 
-\version "1.2.16";
+\version "1.3.4";
 
 %hmm, (these) abbrevs suck, imo
 % i guess they're meant as some form of doco
@@ -24,6 +24,12 @@ slurdown = \property Voice.slurVerticalDirection = \down
 shifton  = \property Voice.horizontalNoteShift = #1
 shiftoff = \property Voice.horizontalNoteShift = #0
 
+cadenzaOn = \property Score.timing = ##f
+cadenzaOff = { \property Score.timing = ##t
+	\property Score.measurePosition = #(make-moment 0 1)
+	}
+
+	
 onevoice = { 	
 	\stemboth \shiftoff	
 }

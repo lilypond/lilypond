@@ -12,7 +12,7 @@
 		%\stemdown \shifton
 		\property Voice.verticalDirection=-1 
        		\property Voice.horizontalNoteShift=1
-		\property Voice.forceHorizontalShift = "-0.1"
+		\property Voice.forceHorizontalShift = #-0.1
 		<bes f'>
 	}
 >

@@ -22,7 +22,8 @@ class Global_translator : public virtual Translator_group{
   PQueue<Moment> extra_mom_pq_;
 public:
   VIRTUAL_COPY_CONS(Translator);
-  Moment last_mom_;
+  Moment final_mom_;
+  Moment prev_mom_;
   Moment now_mom_;
   Global_translator();
 

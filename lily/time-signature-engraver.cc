@@ -39,9 +39,9 @@ Time_signature_engraver::do_process_requests()
       args.push (req->beats_i_);
       args.push (req->one_beat_i_);
 	
-      time_signature_p_ = new Time_signature ();
+      time_signature_p_ = new Time_signature;
       time_signature_p_->args_ = args;
-      time_signature_p_->set_elt_property ("break-priority", gh_int2scm (1)); // 1
+      time_signature_p_->set_elt_property ("break-aligned", SCM_BOOL_T);
     }
 
   
@@ -54,7 +54,6 @@ Time_signature_engraver::do_pre_move_processing()
 {
   if (time_signature_p_) 
     {
-
       typeset_element (time_signature_p_);
       time_signature_p_ =0;
     }

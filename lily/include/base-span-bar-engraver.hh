@@ -37,7 +37,6 @@ protected:
     horizontal alignment priority, otherwise, hang the spanbar on the
     acknowledged bar.  */
   bool use_priority_b_;
-  int break_priority_i_;
   
   virtual void acknowledge_element (Score_element_info);
   virtual void do_pre_move_processing();

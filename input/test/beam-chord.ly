@@ -1,8 +1,8 @@
-\version "1.2.0";
+\version "1.3.4";
 
 \score{
 	\notes\transpose c'{
-		\property Score.beamquantisation = \none
+		\property Score.beamQuantisation = #'none
 
 		[a'8 <a' g''>]
 		[c <c e,>]

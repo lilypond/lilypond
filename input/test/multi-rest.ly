@@ -1,10 +1,10 @@
-\version "1.2.0";
+\version "1.3.4";
 
 voice_one = \notes\transpose c''{  \stemup
 	R1 * 2 | f'4-. r r2 | R1 * 3 |
 	f'4-. r r2 | R1 * 3 |
 	es'4-. r r2 | r1 |
-	\property Score.skipBars = 1
+	\property Score.skipBars = ##t6
 	g4-. r r2 | g4-. r r2 |
 	R1 * 5 |
 	r2 r4 g4-. |
@@ -15,7 +15,7 @@ voice_two = \notes
 	R1 * 2 | f'4-. r r2 | R1 * 3 |
 	f'4-. r r2 | R1 * 3 |
 	es'4-. r r2 | r1 |
-	\property Score.skipBars = 1
+	\property Score.skipBars = ##t6
 	g4-. r r2 | g4-. r r2 |
 	R1 * 5 |
 	r2 r4 g4-. |

@@ -24,6 +24,11 @@
   document usage of this.
  */
 class Align_element : public virtual Axis_group_element {
+
+  /*
+   ugh. JUNKME
+
+  */
   Hash_table<Score_element*,int> priority_i_hash_;
 public:
   Interval threshold_interval_ ;

@@ -309,7 +309,16 @@ ScoreContext = \translator {
 	\consists "Timing_engraver";
 
 	\consists "Span_score_bar_engraver";
-	\consists "Score_priority_engraver";
+%	\consists "Score_priority_engraver";
+	\consists "Break_align_engraver";
+	breakAlignOrder = #'(
+	  "Span_bar"
+	  "Breathing_sign"
+	  "Clef_item"
+	  "Key_item"
+	  "Staff_bar"
+	  "Time_signature"
+	)
 	\consists "Spacing_engraver";
 	\consists "Vertical_align_engraver";
 	alignmentReference = \down;
@@ -323,6 +332,7 @@ ScoreContext = \translator {
 	\accepts "GrandStaff";
 	\accepts "ChoirStaff";
 	\accepts "PianoStaff";
+	\accepts "NoteNames";
 
 	clefBreakPriority = #-2
 	breathingSignBreakPriority = #-4
@@ -341,3 +351,10 @@ OrchestralScoreContext= \translator {
 
 	\accepts "HaraKiriStaff";
 };
+
+\translator {
+	\type "Engraver_group_engraver";
+	\name NoteNames;
+	\consistsend "Axis_group_engraver";
+	\consists "Note_name_engraver";
+}

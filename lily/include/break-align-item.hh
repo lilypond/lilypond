@@ -19,10 +19,7 @@ class Break_align_item : public Axis_align_item {
 protected:
   virtual void do_pre_processing();
 public:
-  void add_breakable_item (Item *it);
-
   Break_align_item ();
   VIRTUAL_COPY_CONS(Score_element);
-	
 };
 #endif // BREAK_ALIGN_ITEM_HH
