@@ -303,7 +303,7 @@
   ;;; ugh
   (ps-string-def
    "lilypond" 'tagline
-   (string-append "Engraved by LilyPond (" (lilpond-version) ")")))
+   (string-append "Engraved by LilyPond (" (lilypond-version) ")")))
 
 (define (output-paper-def pd)
   (apply
