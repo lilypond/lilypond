@@ -12,11 +12,6 @@ grep for TODO and ugh/ugr
 
 	* collision.cc: 138, g++ errors
 
-	* bugreport to doc++ devel: struct not in class hier; public
-	virtual baseclasses
-
-	* DOC++ bugs/newer version?
-
 	* Rational infty(HUGE_VAL) on glibc / w32
 
 	* Fix profiling. gprof bugreport?
@@ -34,12 +29,8 @@ PROJECTS
 	-used fixed fp
 
 	* \header
-	- Generate TeX titles from \header: 
-
-		title = XXX
-		-> \def\title{XXXX}
 	- revise lexer mode
-	- write perl script for handling it
+	- write perl script for handling it into databases
 
 	* emacs-mode for mudela
 
@@ -48,9 +39,16 @@ PROJECTS
 	- Use Automake
 	- shared lib on Solaris too.
 	- check libtool, automake
-
 	- generate stuff in out/default, out/sun5-irix etc iso out/ 
 	and out-sun5/
+
+
+	* Add mudela to Rosegarden.
+
+	* a musical dictionary. See Documentation/Vocab*
+	- other languages
+	- emacs forms mode for editing it.
+	
 
 	* chords
 	- guitar chords
@@ -105,7 +103,9 @@ PROJECTS
 	- slur start/end
 
 	* Output an output format independent (ofi) typeset file; and 
-	  make ofi2 TeX, MusixTex, PostScript, Ascii... interpreters. (difficult)
+	  make ofi2 TeX, MusixTex, Display PostScript, PostScript,
+	  Ascii... interpreters. (difficult)
+
 	- poor man's ascii output possible?
 	- MusixTeX output possible? (would have to be done before break calc.)
 	- NIFF ?
@@ -150,7 +150,6 @@ PROJECTS
 	* Font support:
 	- update 20 pt table
 	- mixed fontsizes
-
 
 	* lines:
 	- Ledger lines, should be separate item: Ledger_lines, Ledger_lines

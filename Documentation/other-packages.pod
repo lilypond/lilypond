@@ -69,7 +69,7 @@ A NeXT package by William F. Clocksin. Requires Adobe fonts.
 
 =head2 Proprietary
 
-=item Scribe, http://
+=item Scribe, http://adu1.adu.lattrobe.edu.au/Music/Scribe.html
 
 A formatter for medieval scores.
 

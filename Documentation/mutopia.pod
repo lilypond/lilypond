@@ -5,7 +5,10 @@ Mutopia project - manifesto
 =head1 DESCRIPTION
 
 Random ranting about the Mutopia project, aka "Music To the People." 
-[Not yet finished, so this is unpolished]
+
+This is the ultimate goal which I want to accomplish using LilyPond
+and mudela. This project is still vapourware, so don't ask questions
+unless you want to put in effort into The GNU Music project,
 
 =head1 WHY
 
