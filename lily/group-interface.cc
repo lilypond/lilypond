@@ -16,16 +16,10 @@ Group_interface::add_thing (Grob*me, SCM sym, SCM thing)
 }
 
 
-void
-Group_interface::add_thing (Grob*me, String name, SCM thing)
-{
-  add_thing (me, ly_symbol2scm (name.to_str0 ()), thing);
-}
-
 int
-Group_interface::count (Grob *me, String name)
+Group_interface::count (Grob *me, SCM sym)
 {
-  return scm_ilength (me->get_property (name.to_str0 ()));
+  return scm_ilength (me->internal_get_property (sym));
 }
 
 

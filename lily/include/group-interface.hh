@@ -23,9 +23,8 @@
 struct Group_interface
 {
 public:
-  static int count (Grob*  , String);
+  static int count (Grob*, SCM);
   static void add_thing (Grob*, SCM, SCM);
-  static void add_thing (Grob*, String nm, SCM);
 };
 
 struct Pointer_group_interface : public Group_interface {

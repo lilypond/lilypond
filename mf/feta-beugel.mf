@@ -77,9 +77,6 @@ linethickness := 0.5pt#;
 increment := 0.5pt#;
 y := 10pt#;
 
-
-
-
 for i := 0 step 1 until font_count:
 
   %% We can't store more than 64 (65?) height dimensions in a TFM
