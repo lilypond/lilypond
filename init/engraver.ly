@@ -3,14 +3,22 @@
 %
 
 Staff = \translator {
-	\type "Engraver_group_engraver";
+	\type "Line_group_engraver_group";
+%{
+	The Hara_kiri_line_group_engraver is a Line_group_engraver 
+	that will not typeset an empty line of staff, i.e., a line 
+	of staff with only rests in it.  This is needed for orchestral
+	scores.  Comment-out Line_group_engraver_group, and uncomment 
+	Hara_kiri_line_group_engraver.
+%}
+%	\type "Hara_kiri_line_group_engraver";
 	defaultclef = violin;
 
 	\consists "Bar_engraver";
 	\consists "Clef_engraver";
 	\consists "Key_engraver";
-	\consists "Meter_engraver";
 	\consists "Local_key_engraver";
+	\consists "Time_signature_engraver";
 	\consists "Staff_sym_engraver";
 	\consists "Collision_engraver";
 	\consists "Rest_collision_engraver";
@@ -30,23 +38,38 @@ Staff = \translator {
 	\consists "Bar_column_engraver";
 	\consists "Bar_number_engraver";
 %}
+%{
+	The Staff_margin_engraver puts the name of the instrument
+	(\property Staff.instrument; Staff.instr for subsequent lines)
+	to the left of a staff.
+%}
+%{
+	\consists "Staff_margin_engraver";
+%}
 	\consists "Separating_line_group_engraver";
-	\consists "Line_group_engraver";
-%	\consists "Hara_kiri_line_group_engraver";
 	  
 	\accepts "Voice";
 }
+ChoireStaff = \translator {
+	\type "Line_group_engraver_group";
+	\consists "Vertical_align_engraver";
+	\consists "Staff_group_bar_engraver";
+	\accepts "Staff";
+	\accepts "RhythmicStaff";
+	\accepts "GrandStaff";
+	\accepts "Lyrics";
+}
 
-Rhythmic_staff = \translator
+
+RhythmicStaff = \translator
 {
-	\type "Engraver_group_engraver";
+	\type "Line_group_engraver_group";
 	nolines  = "1";
 	\consists "Pitch_squash_engraver";
 
 	\consists "Bar_engraver";
-	\consists "Meter_engraver";
+	\consists "Time_signature_engraver";
 	\consists "Staff_sym_engraver";
-	\consists "Line_group_engraver";
 	\accepts "Voice";
 }
 
@@ -54,6 +77,7 @@ Voice = \translator {
 	\type "Engraver_group_engraver";
 	\consists "Dynamic_engraver";
  	\consists "Rest_engraver";
+	\consists "Dot_column_engraver";
 	\consists "Stem_engraver";
 	\consists "Plet_engraver";
 	\consists "Beam_engraver";
@@ -61,58 +85,58 @@ Voice = \translator {
 	\consists "Multi_measure_rest_engraver";
 	\consists "Script_engraver";
 	\consists "Rhythmic_column_engraver";
+	\consists "Font_size_engraver";
 	\consists "Slur_engraver";
-	\accepts "Thread";
+	\consists "Ties_engraver";
+	\consists "Note_heads_engraver" ;	
+	\consists "Skip_req_swallow_translator";
+	%\accepts "Thread";
 }
 
 Thread = \translator {
 	\type "Engraver_group_engraver";
-	\consists "Skip_req_swallow_translator";
-	\consists "Note_head_engraver" ;
-	\consists "Tie_engraver";
+%	\consists "Note_head_engraver" ;
+%	\consists "Tie_engraver";
 }
 
-Grand_staff = \translator {
-	\type "Engraver_group_engraver";
+GrandStaff = \translator {
+	\type "Line_group_engraver_group";
 
 	\consists "Span_bar_engraver";
 	\consists "Vertical_align_engraver";
 	\consists "Piano_bar_engraver";
 
 	% This should come last
-	\consists "Line_group_engraver";
 	\accepts "Staff";
 }
 
-Staff_group = \translator {
-	\type "Engraver_group_engraver";
+StaffGroup = \translator {
+	\type "Line_group_engraver_group";
+%	\type "Hara_kiri_line_group_engraver";
 	\consists "Span_bar_engraver";
 	\consists "Vertical_align_engraver";
 	\consists "Staff_group_bar_engraver";
-	\consists "Line_group_engraver";
-%	\consists "Hara_kiri_line_group_engraver";
+
 	\accepts "Staff";
-	\accepts "Rhythmic_staff";
-	\accepts "Grand_staff";
+	\accepts "RhythmicStaff";
+	\accepts "GrandStaff";
 	\accepts "Lyrics";
 }
 
-Lyric_voice = 
+LyricVoice = 
 \translator{
-	\type "Engraver_group_engraver";
+	\type "Line_group_engraver_group";
 
 	\consists "Separating_line_group_engraver";
 	\consists "Lyric_engraver";
-	\consists "Line_group_engraver";
 	\consists "Beam_req_swallow_translator";
 	\consists "Plet_swallow_engraver";
 }
 
 Lyrics = \translator {
-	\type "Engraver_group_engraver";
+	\type "Line_group_engraver_group";
 	\consists "Vertical_align_engraver";
-	\consists "Line_group_engraver";
-	\accepts "Lyric_voice";
+	\accepts "LyricVoice";
 }
 
 Score = \translator {
@@ -124,20 +148,22 @@ Score = \translator {
 	\consists "Bar_column_engraver";
 	\consists "Bar_number_engraver";
 %}
+	\consists "Bar_column_engraver";
 	\consists "Span_score_bar_engraver";
 	\consists "Score_priority_engraver";
 	\consists "Priority_horizontal_align_engraver";
 	\consists "Vertical_align_engraver";
 
 
-	\accepts "Staff_group";
+	\accepts "StaffGroup";
 	\accepts "Staff";
-	\accepts "Rhythmic_staff";	
+	\accepts "RhythmicStaff";	
 	\accepts "Lyrics";
-	\accepts "Grand_staff";
+	\accepts "GrandStaff";
+	\accepts "ChoireStaff";
 }
 
-Stupid_score = \translator {
+StupidScore = \translator {
 	\type Score_engraver;
 	\consists "Staff_sym_engraver";
 }

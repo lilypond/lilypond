@@ -1,9 +1,9 @@
 /*
-  rhythmic-head.hh -- declare 
+  rhythmic-head.hh -- declare Rhythmic_head
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -21,12 +21,12 @@ public:
   int dots_i_;
   Dots * dots_l_;
 
-  void add (Dots *);
+  void add_dots (Dots *);
   Rhythmic_head ();
 protected:
   virtual void do_add_processing ();
   virtual void do_print () const;
-  virtual void do_substitute_dependent (Score_elem*,Score_elem*);
+  virtual void do_substitute_dependent (Score_element*,Score_element*);
 };
 
 #endif // RHYTHMIC_HEAD_HH
