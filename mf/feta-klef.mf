@@ -22,7 +22,7 @@ def draw_c_clef (expr reduction) =
 	save hair, norm, reduced_ss, right_edge;
 	reduced_ss#=staff_space#*reduction;
 	norm#:=2/3reduced_ss#;
-	hair#:=0.06 reduced_ss# + 0.5 stafflinethickness# ;
+	hair#:=0.06 reduced_ss# + 0.5 linethickness# ;
 
 	right_edge# = 15/4norm#+2hair#;
 
@@ -48,7 +48,7 @@ def draw_c_clef (expr reduction) =
 	z3=(((right_edge -xoff)/2)+xoff,2hair);
 
 	penpos4(hair,0);
-	z4=(xoff+1/2norm+1/2hair, reduced_ss - stafflinethickness - .2 hair);
+	z4=(xoff+1/2norm+1/2hair, reduced_ss - linethickness - .2 hair);
 
 	penpos6(norm-hair,90);
 	z6=(xoff+3/4norm,0);
@@ -173,9 +173,9 @@ def draw_bass_clef(expr exact_center, reduction) =
         reduced_ss# = staff_space# * reduction;
 
         2.2 dot_diam = round reduction* (staff_space - stafflinethickness);
-	right_thickness = 0.37 staff_space + 1.2 stafflinethickness ;
+	right_thickness = 0.37 staff_space + 1.2 linethickness ;
         swoosh_width# = 2.1 reduced_ss#;
-%	tip_protude := (-stafflinethickness, -.2 staff_space);
+%	tip_protude := (-linethickness, -.2 staff_space);
 	tip_protude := (0, 0);	
 	bulb_y_offset := 0.15 staff_space;
 	overshoot_top := 0.0;
@@ -198,8 +198,8 @@ def draw_bass_clef(expr exact_center, reduction) =
         x2 = .5 [x1,x3];
 	x2l = x2r = x2;
 
-	y2l := vround_pixels (reduced_ss#  + 0.5 stafflinethickness#);
-	y2l - y2r = (1.0 + overshoot_top) * stafflinethickness;
+	y2l := vround_pixels (reduced_ss#  + 0.5 linethickness#);
+	y2l - y2r = (1.0 + overshoot_top) * linethickness;
 
         x3l - x1 =  swoosh_width;
         x3l - x3r = right_thickness;
@@ -212,12 +212,12 @@ def draw_bass_clef(expr exact_center, reduction) =
         z5 = (x3l +  1/3 reduced_ss, .5 reduced_ss);
 
         penpos3(whatever,  185);
-        penpos4(stafflinethickness, 135);
+        penpos4(linethickness, 135);
 
 	pickup pencircle scaled 1; 
 %	draw
 	fill
-           new_bulb (z1, 0.45 reduced_ss, 0.4 reduced_ss, 2.5 stafflinethickness,  1, 1)
+           new_bulb (z1, 0.45 reduced_ss, 0.4 reduced_ss, 2.5 linethickness,  1, 1)
 
 {dir (90)}
 	        .. z2r{right} .. tension 1.0 .. z3r{down}  .. {curl 0} 
@@ -274,7 +274,7 @@ def draw_gclef (expr reduction)=
 	define_pixels(reduced_ss);
 	pair downstroke_dir, center;
 
-	thinness = 0.08 staff_space + 0.7 stafflinethickness;
+	thinness = 0.08 staff_space + 0.7 linethickness;
 	downstroke_dir = unitvector (14, -75);
 	downstroke_angle = angle downstroke_dir;
 
@@ -282,7 +282,7 @@ def draw_gclef (expr reduction)=
 	breapth_factor = 21.0 /14;
 	inner_thick_end = 45;
 	inner_start_angle = downstroke_angle - 43;
-	thickness = .32 reduced_ss + 1.1 stafflinethickness;
+	thickness = .32 reduced_ss + 1.1 linethickness;
 
 	thinnib = thinness;
 

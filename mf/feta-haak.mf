@@ -14,7 +14,7 @@ def draw_bracket( expr height_sharp, width_sharp) =
 	beginchar(incr code, width#, height#/2, height#/2);
  
 	define_pixels (height, width);
-	thin = 2 stafflinethickness;
+	thin = 2 linethickness;
 	thick = .5 staff_space;
 	
 	pickup pencircle scaled thin;

@@ -15,8 +15,8 @@ threequartercircle = halfcircle & quartercircle rotated 180;
 
 save Cdiameter, Cthickness, Chairpin;
 Cdiameter# := 3/2 staff_space#;
-Cthickness# := 2 stafflinethickness#;
-Chairpin# := 0.5 stafflinethickness#;
+Cthickness# := 2 linethickness#;
+Chairpin# := 0.5 linethickness#;
 define_pixels(Cdiameter, Cthickness, Chairpin);
 
 %%%%%%%%
@@ -85,7 +85,7 @@ def mens_timesig (expr verbose_name, internal_name, ly_name,
 			draw threequartercircle rotated 45 scaled Cdiameter;
 		fi;
 		if dotted:
-			pickup pencircle scaled 4 stafflinethickness;
+			pickup pencircle scaled 4 linethickness;
 			draw (0,0);
 		fi;
 		currentpicture := currentpicture shifted 0.5(Cdiameter + Cthickness, 0);
@@ -147,7 +147,7 @@ mens_timesig ("Mensural 2/4 meter", "mensural2/4", "mensuraltwofourmeter",
 
 save neo_Cdiameter, neo_Cthickness;
 neo_Cdiameter# := 3/2 staff_space#;
-neo_Cthickness# := 2 stafflinethickness#;
+neo_Cthickness# := 2 linethickness#;
 define_pixels(neo_Cdiameter, neo_Cthickness);
 
 def neo_mens_timesig (expr verbose_name, internal_name, ly_name,
@@ -179,7 +179,7 @@ def neo_mens_timesig (expr verbose_name, internal_name, ly_name,
 			draw threequartercircle rotated 45 scaled neo_Cdiameter;
 		fi;
 		if dotted:
-			pickup pencircle scaled 4 stafflinethickness;
+			pickup pencircle scaled 4 linethickness;
 			draw (0,0);
 		fi;
 		currentpicture := currentpicture shifted 0.5(neo_Cdiameter + neo_Cthickness, 0);

@@ -333,7 +333,7 @@
 	(font-family . dynamic)
 	(font-shape . italic)
 	(self-alignment-Y . 0)
-	(meta . ((interfaces . (font-interface text-interface self-alignment-interface  dynamic-interface script-interface item-interface ))))
+	(meta . ((interfaces . (font-interface text-interface self-alignment-interface  dynamic-interface script-interface item-interface))))
 	))
 
     (DynamicLineSpanner

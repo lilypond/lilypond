@@ -73,7 +73,7 @@ def custos_hufnagel(expr verbose_name, internal_name, ly_name,
 
 		define_pixels(ht, wd, pen_size, stem_ht);
 		pickup pencircle
-		  xscaled stafflinethickness
+		  xscaled linethickness
 		  yscaled pen_size
 		  rotated -dalpha#;
 
@@ -149,14 +149,14 @@ def custos_medicaea(expr verbose_name, internal_name, ly_name,
 
 		define_pixels(ht, wd, stem_ht);
 
-		pickup pencircle xscaled 0.6stafflinethickness yscaled ht;
+		pickup pencircle xscaled 0.6linethickness yscaled ht;
 		lft x1 = 0;
 		y1 = 0;
 		rt x2 = wd;
 		y2 = y1;
 		draw z1 -- z2;
 
-		pickup pencircle scaled 0.6stafflinethickness;
+		pickup pencircle scaled 0.6linethickness;
 		rt x3 = wd;
 		y3 = 0;
 		x4 = x3;
@@ -228,7 +228,7 @@ def custos_vaticana(expr verbose_name, internal_name, ly_name,
 
 		define_pixels(u_offs, l_offs, stem_end, ht, wd, pen_ht);
 
-		pickup pencircle scaled 0.6stafflinethickness;
+		pickup pencircle scaled 0.6linethickness;
 		z1 = (0, u_offs);
 		z2 = (0.7wd, l_offs);
 		z3 = (wd, l_offs);
@@ -303,7 +303,7 @@ def custos_mensural(expr verbose_name, internal_name, ly_name,
 
 		define_pixels(ht, wd, stem_ht);
 		pickup pencircle
-		  xscaled stafflinethickness
+		  xscaled linethickness
 		  yscaled 0.4ht
 		  rotated -dalpha#;
 

@@ -75,7 +75,7 @@ enddef;
 save stafflinethickness;
 save increment;
 
-stafflinethickness := 0.5pt#;
+linethickness := 0.5pt#;
 increment := 0.5pt#;
 y := 10pt#;
 
@@ -98,9 +98,9 @@ for i := 0 step 1 until font_count:
     x := y / 15;
 
     increment := x / 10;
-    stafflinethickness :=  min (0.5pt#, y/150);
+    linethickness :=  min (0.5pt#, y/150);
     if i = font_count:
-      draw_brace (y, x, stafflinethickness);
+      draw_brace (y, x, linethickness);
     fi
   endfor;
 endfor

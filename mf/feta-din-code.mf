@@ -7,9 +7,9 @@
 
 
 save serif_thick;
-serif_thick# = 1.1 stafflinethickness#;
+serif_thick# = 1.1 linethickness#;
 define_blacker_pixels (serif_thick);
-med_thick = round (1.5 stafflinethickness);
+med_thick = round (1.5 linethickness);
 bottom_blot = 1.3 serif_thick;
 
 

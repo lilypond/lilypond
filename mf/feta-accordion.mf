@@ -76,7 +76,7 @@ fet_endchar;
 def def_B(expr w, h) = 
 	% huh?
 	% pickup pencircle scaled 0.1pt;
-	pickup pencircle scaled 0.15stafflinethickness;
+	pickup pencircle scaled 0.15linethickness;
 	penpos10(thin, -90);
 	penpos11(thin, -90);
 	penpos12(thick, 0);
@@ -103,7 +103,7 @@ enddef;
 def def_S(expr w, h) =
 	% huh?
 	%pickup pencircle scaled 0.02pt;
-	pickup pencircle scaled 0.03stafflinethickness;
+	pickup pencircle scaled 0.03linethickness;
 	penpos1(thin, 180);
 	penpos2(thin, -90);
 	penpos3(thick, 0);
@@ -162,13 +162,13 @@ fet_beginchar("accOldEE", "accOldEE", "accOldEE")
 	show w;
 	show h;
 	r = staff_space;
-	lr = .4 staff_space - stafflinethickness;
+	lr = .4 staff_space - linethickness;
 	ir = .6 staff_space;
 
 	z1 = (0,0);
 	z2 = (0, ir);
 	penpos1 (0,0);
-	penpos2 ( .05 staff_space + .5 stafflinethickness,0);
+	penpos2 ( .05 staff_space + .5 linethickness,0);
 
 	penlabels(1,2,3);
 

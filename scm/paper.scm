@@ -1,4 +1,4 @@
-; paper.scm - manipulate the paper block.
+					; paper.scm - manipulate the paper block.
 ;
 ; (C) 2004 Han-Wen Nienhuys
 
@@ -18,7 +18,10 @@
     (module-define! m 'staffheight sz)
     (module-define! m 'staff-space ss)
     (module-define! m 'staffspace ss)
-    (module-define! m 'linethickness (* 0.5 pt))
+
+
+    ;; !! synchronize with feta-params.mf
+    (module-define! m 'linethickness (+ (* 0.3 pt) (* 0.04 ss)))
     (module-define! m 'outputscale ss)
     (module-define! m 'ledgerlinethickness (+ (* 0.5 pt) (/ ss 10)))
     (module-define! m 'blotdiameter (* 0.35 pt))

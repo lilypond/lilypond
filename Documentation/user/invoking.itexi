@@ -499,6 +499,9 @@ For both editors, there is also a facility to jump in the input file
 to the source of errors in the graphical output. See @ref{Point and
 click}.
 
+There exists a plugin jEdit. Refer to the
+@uref{website,lily4jedit.sourceforget.net} for more information.
+
 
 @node Point and click
 @section Point and click

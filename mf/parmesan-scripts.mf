@@ -11,7 +11,7 @@ fet_begingroup ("scripts")
 fet_beginchar("ictus", "ictus", "ictus")
 	save ht, wd;
 	ht# = .35 staff_space#;
-	wd# = stafflinethickness#;
+	wd# = linethickness#;
 	define_pixels(wd, ht);
 	pickup pencircle
 		xscaled wd
@@ -25,8 +25,8 @@ fet_endchar;
 
 def draw_accentus =
 	save thick, thin, ht, wd;
-	thin# = 1 stafflinethickness#;
-	thick# = 1.2 stafflinethickness#;
+	thin# = 1 linethickness#;
+	thick# = 1.2 linethickness#;
 	ht# = .35 staff_space#;
 	wd# = .25 staff_space#;
 	define_pixels(wd, ht, thin, thick);
@@ -56,7 +56,7 @@ def draw_half_ellipse(expr ellips_width, ellips_height) =
 	height# = ellips_height;
 	define_pixels(width, height);
 
-	thin = thick = 0.6 stafflinethickness;
+	thin = thick = 0.6 linethickness;
 	penpos1(thick, 0);
 	penpos2(thin, -90);
 	z1r = (width/2, 0);
@@ -100,14 +100,14 @@ def draw_signum_congruentiae =
 	save za, zb, zc, zd, ze, zf, zg, zh;
 	pair za, zb, zc, zd, ze, zf, zg, zh;
 
-	set_char_box(0.50 staff_space# + 1.5 stafflinethickness#,
-		     0.50 staff_space# + 1.5 stafflinethickness#,
-		     2.5 stafflinethickness#,
-		     2.00 staff_space# + 3.5 stafflinethickness#);
+	set_char_box(0.50 staff_space# + 1.5 linethickness#,
+		     0.50 staff_space# + 1.5 linethickness#,
+		     2.5 linethickness#,
+		     2.00 staff_space# + 3.5 linethickness#);
 
 	pickup pencircle
-		xscaled 1.0 stafflinethickness
-		yscaled 5.0 stafflinethickness
+		xscaled 1.0 linethickness
+		yscaled 5.0 linethickness
 		rotated -35;
 	za = (+0.50staff_space, +2.00staff_space);
 	zb = (+0.00staff_space, +2.00staff_space);
@@ -117,7 +117,7 @@ def draw_signum_congruentiae =
 	zf = (+0.00staff_space, +0.00staff_space);
 	draw za{-1,+1} .. zb .. zc .. zd .. ze .. zf;
 
-	pickup pencircle scaled 3.0 stafflinethickness;
+	pickup pencircle scaled 3.0 linethickness;
 	zg = (-0.5staff_space, +0.0staff_space);
 	zh = (+0.5staff_space, +0.0staff_space);
 	drawdot zg;

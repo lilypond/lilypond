@@ -22,7 +22,7 @@ fet_beginchar("Ed. Med. Flat" , "medicaea-1", "medicaeaflat");
 		     0.6 staff_space#, 1.0 staff_space#);
 
 	pickup pencircle
-		xscaled 0.50 stafflinethickness
+		xscaled 0.50 linethickness
 		yscaled 0.22 staff_space;
 
 	save za, zb;
@@ -33,7 +33,7 @@ fet_beginchar("Ed. Med. Flat" , "medicaea-1", "medicaeaflat");
 	draw za -- zb;
 
 	pickup pencircle
-		xscaled 0.50 stafflinethickness
+		xscaled 0.50 linethickness
 		yscaled 0.22 staff_space
 		rotated -63;
 
@@ -68,12 +68,12 @@ fet_beginchar("Ed. Vat. Flat" , "vaticana-1", "vaticanaflat");
         zg = (0.15 staff_space, +0.26 staff_space);
 
         pickup pencircle
-                xscaled 0.50 stafflinethickness
+                xscaled 0.50 linethickness
                 yscaled 0.22 staff_space;
         draw za{down} .. {down}zb .. zc .. zd{up} .. {up}ze .. zf .. zg;
 
-        set_char_box(0.00 staff_space# + 0.25 stafflinethickness#,
-		     0.50 staff_space# + 0.25 stafflinethickness#,
+        set_char_box(0.00 staff_space# + 0.25 linethickness#,
+		     0.50 staff_space# + 0.25 linethickness#,
 		     0.23 staff_space# + 0.11 staff_space#,
 		     0.80 staff_space# + 0.11 staff_space#);
         fet_endchar;
@@ -82,7 +82,7 @@ fet_beginchar("Ed. Vat. Natural" , "vaticana0", "vaticananatural");
 	save za, zb, zc, zd;
 	pair za, zb, zc, zd;
 	pickup pencircle
-		xscaled 0.80 stafflinethickness
+		xscaled 0.80 linethickness
 		yscaled 0.22 staff_space;
 	za = (0.00 staff_space, +0.65 staff_space);
 	zb = (0.00 staff_space, -0.35 staff_space);
@@ -96,8 +96,8 @@ fet_beginchar("Ed. Vat. Natural" , "vaticana0", "vaticananatural");
 		yscaled -1
 		shifted (0.40 staff_space, 0.0 staff_space);
 
-	set_char_box(0.00 staff_space# + 0.40 stafflinethickness#,
-		     0.40 staff_space# + 0.40 stafflinethickness#,
+	set_char_box(0.00 staff_space# + 0.40 linethickness#,
+		     0.40 staff_space# + 0.40 linethickness#,
 		     0.65 staff_space# + 0.11 staff_space#,
 		     0.65 staff_space# + 0.11 staff_space#);
 
@@ -114,7 +114,7 @@ fet_beginchar("Ed. Vat. Natural" , "vaticana0", "vaticananatural");
 fet_beginchar("Mensural Sharp" , "mensural1", "mensuralsharp");
 	save stemthick;
 	define_pixels (stemthick);
-	stemthick# = stafflinethickness#;
+	stemthick# = linethickness#;
 
 	save za, zb;
 	pair za, zb;
@@ -136,7 +136,7 @@ fet_beginchar("Mensural Sharp" , "mensural1", "mensuralsharp");
 fet_beginchar("Mensural Flat" , "mensural-1", "mensuralflat");
 	save stemthick;
 	define_pixels (stemthick);
-	stemthick# = stafflinethickness#;
+	stemthick# = linethickness#;
 
 	save za, zb, zc, zd, ze;
 	pair za, zb, zc, zd, ze;
@@ -162,7 +162,7 @@ fet_beginchar("Mensural Flat" , "mensural-1", "mensuralflat");
 fet_beginchar("Hufnagel Flat" , "hufnagel-1", "hufnagelflat");
 	save stemthick;
 	define_pixels (stemthick);
-	stemthick# = stafflinethickness#;
+	stemthick# = linethickness#;
 
 	save za, zb, zc, zd, ze, zf;
 	pair za, zb, zc, zd, ze, zf;

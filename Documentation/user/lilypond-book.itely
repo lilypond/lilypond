@@ -279,9 +279,9 @@ works like @code{verbatim}, but in a smaller font.
 is used in conjunction with @code{verbatim} option: This puts
 @var{text} between the code and the music (without indentation).
 
-@item filename="@var{filename}"
-saves the LilyPond code to @var{filename}.  By default, a hash value
-of the code is used.
+@item filename=@var{filename}
+name the file (for @code{printfilename} option). The argument should
+be unquoted. 
 
 @item 11pt
 @lilypond[11pt]
