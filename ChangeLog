@@ -1,8 +1,19 @@
+2003-07-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/invoking.itexi (Invoking the lilypond
+	binary): add note about path.
+
+	* Documentation/user/macros.itexi: add @c at EOL, hopefully
+	suppresses superfluous spaces.
+
 2003-07-25  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* make/srcdir.make.in (web-install): Use SRCMAKE, set outdir.
 
 2003-07-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scripts/lilypond-book.py: HTML fixes (by Michael Ossmann
+	<mike@ossmann.com>)
 
 	* Documentation/bibliography/computer-notation.bib (pages): prune
 	unscientific language.

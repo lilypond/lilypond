@@ -140,14 +140,17 @@ run it yourself.
 If you use sh, bash, or a similar shell, then add the following to
 your @file{.profile}
 @example
-	. lilypond-profile
+	. @var{/the/path/to/}lilypond-profile
 @end example
 
 If you use csh, tcsh or a similar shell, then add the following to
 your @file{~/.login}
 @example
-	source lilypond-login
+	source @var{/the/path/to/}lilypond-login
 @end example
+
+Of course, in both cases, you should substitute the proper location of
+either script.
 
 These scripts set the following variables
 @table @code
