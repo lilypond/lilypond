@@ -1,3 +1,9 @@
+2002-09-06  Jérémie Lumbroso  <jeremie@lumbroso.fr>
+
+	* Documentation/user/refman.itely: minor corrections (replacing
+	`grob' by `object'), addition of an example in the tablature
+	section.
+
 2002-09-06  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* VERSION: 1.6.2 released  
