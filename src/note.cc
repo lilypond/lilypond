@@ -42,7 +42,7 @@ parse_pitchmod( const char *a, int &j, int &oct, bool & overide_acc)
 	}
 
     mtor << "oct " << oct;
-    mtor << "override: " << overide_acc;        
+    mtor << "override: " << overide_acc<<'\n';
 }
 
 
