@@ -1,3 +1,8 @@
+2004-06-17  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* Documentation/user/tutorial.itely (Integrating text and music):
+	fix grammar & punctuation.
+
 2004-06-16  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/: Stray janitorial cleanups.
