@@ -25,6 +25,8 @@ protected:
   virtual void after_line_breaking ();
   virtual Molecule do_brew_molecule () const;
 public:
-  Rest (SCM s);
+   static SCM scheme_molecule (SCM);
+  
+Rest (SCM s);
 };
 #endif // REST_HH

@@ -59,12 +59,11 @@ System_start_delimiter::after_line_breaking ()
   
   if (scm_ilength (get_elt_pointer ("elements")) <=  1 && gl == ly_symbol2scm ("bar-line"))
     {
-      set_elt_property ("transparent", SCM_BOOL_T);
-      set_extent_callback (0, X_AXIS);
-      set_extent_callback (0, Y_AXIS);
+      suicide ();
     }
 }
 
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(System_start_delimiter);
 Molecule
 System_start_delimiter::do_brew_molecule ()const
 {
@@ -76,9 +75,7 @@ System_start_delimiter::do_brew_molecule ()const
   if (gh_number_p (s) && l < gh_scm2double (s))
     {
       System_start_delimiter * me = (System_start_delimiter*)this;
-      me->set_elt_property ("transparent", SCM_BOOL_T);
-      me->set_extent_callback (0, X_AXIS);
-      me->set_extent_callback (0, Y_AXIS);
+      me->suicide ();
       return m;
     }
 

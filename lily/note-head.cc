@@ -71,6 +71,7 @@ Note_head::before_line_breaking ()
 
 
 
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Note_head);
 
 Molecule 
 Note_head::do_brew_molecule() const 

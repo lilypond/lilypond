@@ -88,7 +88,7 @@ Beam::before_line_breaking ()
   if (visible_stem_count () < 2)
     {
       warning (_ ("beam has less than two stems"));
-      //      set_elt_property ("transparent", SCM_BOOL_T);
+
     }
 
   if (!directional_element (this).get ())
@@ -719,6 +719,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
   return leftbeams;
 }
 
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS (Beam);
 
 Molecule 
 Beam::do_brew_molecule () const

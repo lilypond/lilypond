@@ -10,6 +10,7 @@
 #include "musical-request.hh"
 #include "dots.hh"
 #include "rest.hh"
+
 /*
   Should merge with Note_head_engraver
  */
@@ -46,7 +47,7 @@ Rest_engraver::do_process_music ()
 {
   if (rest_req_l_ && !rest_p_) 
     {
-      rest_p_ = new Rest (SCM_EOL);
+      rest_p_ = new Rest (get_property ("basicRestProperties"));
       Staff_symbol_referencer_interface si (rest_p_);
       si.set_interface ();
       
@@ -55,7 +56,7 @@ Rest_engraver::do_process_music ()
       
       if (rest_req_l_->duration_.dots_i_)
 	{
-	  dot_p_ = new Dots (SCM_EOL);
+	  dot_p_ = new Dots (get_property ("basicDotsProperties"));
 
 	  Staff_symbol_referencer_interface si (dot_p_);
 	  si.set_interface ();

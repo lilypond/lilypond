@@ -20,13 +20,13 @@
 class Breathing_sign : public Item
 {
 public:
+  static SCM scheme_molecule (SCM);
+  
   VIRTUAL_COPY_CONS(Score_element);
   Breathing_sign (SCM s);
 protected:
   virtual void after_line_breaking ();
   virtual Molecule do_brew_molecule () const;
 };
-
-
 
 #endif // BREATHING_SIGN_HH

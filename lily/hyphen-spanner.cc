@@ -30,6 +30,7 @@ Hyphen_spanner::Hyphen_spanner (SCM s)
   set_extent_callback (Score_element::point_dimension_callback,Y_AXIS);
 }
 
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Hyphen_spanner)
 Molecule 
 Hyphen_spanner::do_brew_molecule () const
 {

@@ -15,8 +15,9 @@
 
 
 
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Staff_symbol)
 Molecule 
-Staff_symbol::do_brew_molecule() const
+Staff_symbol::do_brew_molecule () const
 {
   Score_element * common
     = get_bound (LEFT)->common_refpoint (get_bound (RIGHT), X_AXIS);

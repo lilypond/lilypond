@@ -48,6 +48,7 @@ Stem_tremolo::dim_callback (Score_element * se, Axis )
 }
 
 
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Stem_tremolo)
 Molecule 
 Stem_tremolo::do_brew_molecule () const
 {

@@ -153,6 +153,9 @@ Bezier::solve_point (Axis ax, Real coordinate) const
   return filter_solutions (sol);
 }
 
+/**
+   Compute the bounding box dimensions in direction of A.
+ */
 Interval
 Bezier::extent (Axis a)const
 {
@@ -170,6 +173,10 @@ Bezier::extent (Axis a)const
     }
   return iv;
 }
+
+/**
+   Flip around axis A
+ */
 
 void
 Bezier::flip (Axis a)

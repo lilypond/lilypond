@@ -31,6 +31,8 @@ public:
   Key_item (SCM);
   void add (int pitch, int acc);
   void add_old (int pitch, int acc);
+ static SCM scheme_molecule (SCM);
+  
 
 protected:
   virtual Molecule do_brew_molecule() const;

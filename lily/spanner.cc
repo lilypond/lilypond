@@ -142,7 +142,7 @@ Spanner::spanned_rank_iv ()
     {
       iv[LEFT] = spanned_drul_[LEFT]->column_l ()->rank_i ();
     }
-  if ( spanned_drul_[RIGHT])
+  if (spanned_drul_[RIGHT])
     {
       iv[RIGHT] = spanned_drul_[RIGHT]->column_l ()->rank_i ();
     }
@@ -295,3 +295,14 @@ Spanner::get_broken_left_end_align () const
 
   return 0.0;
 }
+
+void
+Spanner::do_derived_mark ()
+{
+  Direction d = LEFT;
+  do
+    if (spanned_drul_[d])
+      scm_gc_mark (spanned_drul_[d]->self_scm_);
+  while (flip (&d) != LEFT);
+}
+

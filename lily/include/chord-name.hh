@@ -22,7 +22,9 @@
 class Chord_name : public Item
 {
 public:
-  VIRTUAL_COPY_CONS (Score_element);
+   static SCM scheme_molecule (SCM);
+  
+VIRTUAL_COPY_CONS (Score_element);
   Molecule ly_word2molecule (SCM scm) const;
   Molecule ly_text2molecule (SCM scm) const;
   Chord_name(SCM s);

@@ -153,7 +153,6 @@ Score_element::set_elt_property (String k, SCM val)
   property_alist_ = gh_cons (gh_cons (sym, val), property_alist_);
 }
 
-
 void
 Score_element::set_elt_pointer (const char* k, SCM v)
 {
@@ -165,7 +164,7 @@ Score_element::set_elt_pointer (const char* k, SCM v)
 Interval
 Score_element::molecule_extent (Score_element const *s, Axis a )
 {
-  Molecule m = s->do_brew_molecule();
+  Molecule m = s->get_molecule ();
   return m.extent(a);
 }
 
@@ -253,10 +252,11 @@ Score_element::calculate_dependencies (int final, int busy,
 Molecule
 Score_element::get_molecule ()  const
 {
-  if (to_boolean (get_elt_property ("transparent")))
-    return Molecule ();
+  SCM proc = get_elt_property ("molecule-callback");
+  if (gh_procedure_p (proc)) 
+    return create_molecule (gh_apply (proc, gh_list (this->self_scm_, SCM_UNDEFINED)));
 
-  return do_brew_molecule ();
+  return Molecule ();
 }
 
 
@@ -292,17 +292,19 @@ Score_element::do_add_processing()
 }
 
 
-/*
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Score_element)
+
+  /*
   ugh.
  */  
+
 Molecule 
-Score_element::do_brew_molecule() const
+Score_element::do_brew_molecule () const
 {
   SCM glyph = get_elt_property ("glyph");
   if (gh_string_p (glyph))
     {
       return lookup_l ()->afm_find (String (ly_scm2string (glyph)));
-      
     }
   else
     {
@@ -471,14 +473,17 @@ Score_element::suicide ()
   pointer_alist_ = SCM_EOL;
   set_extent_callback (0, Y_AXIS);
   set_extent_callback (0, X_AXIS);
-}
 
+  for (int a= X_AXIS; a <= Y_AXIS; a++)
+    {
+      dim_cache_[a].off_callbacks_.clear ();
+    }
+}
 
 void
 Score_element::handle_prebroken_dependencies()
 {
 }
-
 
 Score_element*
 Score_element::find_broken_piece (Line_of_score*) const
@@ -720,6 +725,13 @@ Score_element::mark_smob (SCM ses)
       return SCM_EOL;
     }
   scm_gc_mark (s->pointer_alist_);
+
+  s->do_derived_mark ();
+  if (s->parent_l (Y_AXIS))
+    scm_gc_mark (s->parent_l (Y_AXIS)->self_scm_);
+  if (s->parent_l (X_AXIS))
+    scm_gc_mark (s->parent_l (X_AXIS)->self_scm_);
+
   return s->property_alist_;
 }
 
@@ -736,6 +748,11 @@ Score_element::print_smob (SCM s, SCM port, scm_print_state *)
    */
   scm_puts (" >", port);
   return 1;
+}
+
+void
+Score_element::do_derived_mark ()
+{
 }
 
 void

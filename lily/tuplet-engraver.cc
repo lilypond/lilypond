@@ -73,7 +73,7 @@ Tuplet_engraver::do_process_music ()
       if (i < started_span_p_arr_.size () && started_span_p_arr_[i])
 	continue;
 
-      Tuplet_spanner* glep = new Tuplet_spanner (SCM_EOL);
+      Tuplet_spanner* glep = new Tuplet_spanner (get_property ("basicTupletSpannerProperties"));
       if (i >= started_span_p_arr_.size ())
 	started_span_p_arr_.push (glep);
       else

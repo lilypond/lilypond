@@ -23,7 +23,9 @@ class Script : public Item
   Molecule get_molecule (Direction d) const;
 public:
   Script (SCM);
+   static SCM scheme_molecule (SCM);
   
+
 protected:
   virtual void before_line_breaking ();
   virtual void after_line_breaking ();

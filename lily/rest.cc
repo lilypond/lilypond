@@ -36,6 +36,7 @@ Rest::after_line_breaking ()
 }
 
 
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Rest)
 Molecule 
 Rest::do_brew_molecule () const
 {

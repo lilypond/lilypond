@@ -30,8 +30,6 @@
 #include "group-interface.hh"
 #include "staff-symbol-referencer.hh"
 
-
-
 class Slur_bezier_bow : public Bezier_bow
 {
 public:
@@ -362,9 +360,7 @@ Slur::set_extremities ()
 
   if (!encompass_arr.size ())
     {
-      set_elt_property ("transparent", SCM_BOOL_T);
-      set_extent_callback (0, X_AXIS);
-      set_extent_callback (0, Y_AXIS);
+      suicide();
       return;
     }
 
@@ -606,6 +602,8 @@ Slur::get_rods () const
 }
 
 
+
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Slur);
 
 /*
   Ugh should have dash-length + dash-period

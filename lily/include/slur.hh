@@ -20,6 +20,8 @@ public:
   VIRTUAL_COPY_CONS(Score_element);
 
   void add_column (Note_column*);
+ static SCM scheme_molecule (SCM);
+  
 
 
 protected:

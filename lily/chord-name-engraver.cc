@@ -73,7 +73,7 @@ Chord_name_engraver::do_process_music ()
   if (gh_boolean_p (chord_inversion))
     find_inversion_b = gh_scm2bool (chord_inversion);
 
-  chord_name_p_ = new Chord_name (SCM_EOL);
+  chord_name_p_ = new Chord_name (get_property ("basicChordNameProperties"));
   Chord chord = to_chord (pitch_arr_, tonic_req_, inversion_req_, bass_req_,
 			  find_inversion_b);
 

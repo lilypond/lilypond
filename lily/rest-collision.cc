@@ -48,6 +48,9 @@ rhythmic_head2mom (Rhythmic_head* r)
   return to_duration (r->balltype_i (), r->dot_count ()).length_mom ();
 }
 
+/*
+  ugh
+ */
 static Rhythmic_head*
 col2rhythmic_head (Note_column* c)
 {
@@ -109,7 +112,7 @@ Rest_collision::before_line_breaking ()
 	  display_count = gh_scm2int (s);
 	  for (; i > display_count; i--)
 	    col2rhythmic_head (rest_l_arr[i-1])
-	      ->set_elt_property ("transparent", SCM_BOOL_T);
+	      ->set_elt_property ("molecule-callback", SCM_BOOL_T);
 	}
       else
 	display_count = rest_l_arr.size ();

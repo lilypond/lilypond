@@ -76,7 +76,7 @@ Stem_engraver::acknowledge_element(Score_element_info i)
       int duration_log = r->duration_.durlog_i_;      
       if (!stem_p_) 
 	{
-	  stem_p_ = new Stem (SCM_EOL);
+	  stem_p_ = new Stem (get_property ("basicStemProperties"));
 	  Staff_symbol_referencer_interface st(stem_p_);
 	  st.set_interface ();
 	  

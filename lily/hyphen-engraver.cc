@@ -10,7 +10,6 @@
 #include "hyphen-spanner.hh"
 #include "paper-column.hh"
 #include "text-item.hh"
-#include "extender-engraver.hh"
 
 ADD_THIS_TRANSLATOR (Hyphen_engraver);
 
@@ -73,7 +72,7 @@ Hyphen_engraver::do_process_music ()
 	  return;
 	}
       
-      hyphen_spanner_p_ = new Hyphen_spanner (SCM_EOL);
+      hyphen_spanner_p_ = new Hyphen_spanner (get_property ("basicHyphenSpannerProperties"));
       hyphen_spanner_p_->set_textitem  (LEFT, last_lyric_l_);
       announce_element (Score_element_info (hyphen_spanner_p_, req_l_));
     }

@@ -44,6 +44,7 @@ Bar::do_brew_molecule () const
   return Molecule ();
 }
 
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Bar);
 
 Molecule
 Bar::compound_barline (String str, Real h) const
@@ -144,8 +145,9 @@ Bar::before_line_breaking ()
   
   if (!gh_string_p (g))
     {
-      set_elt_property ("transparent", SCM_BOOL_T);
-      set_extent_callback (0, X_AXIS);      
+      set_elt_property ("molecule-callback", SCM_BOOL_T);
+      set_extent_callback (0, X_AXIS);
+      // leave y_extent for spanbar? 
     }
   else if (! gh_equal_p  (g, orig))
     set_elt_property ("glyph", g);

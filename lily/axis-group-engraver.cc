@@ -31,7 +31,7 @@ Axis_group_engraver::do_creation_processing ()
 Spanner*
 Axis_group_engraver::get_spanner_p () const
 {
-  return new Spanner (SCM_EOL);
+  return new Spanner (get_property ("basicVerticalAxisGroupProperties"));
 }
 
 void

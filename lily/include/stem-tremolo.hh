@@ -20,7 +20,9 @@ protected:
 
   static Interval dim_callback (Score_element*, Axis);
 public:
-  Stem_tremolo (SCM);
+   static SCM scheme_molecule (SCM);
+  
+Stem_tremolo (SCM);
   void set_stem (Stem *);
 };
 

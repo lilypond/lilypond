@@ -20,6 +20,8 @@ Text_item::Text_item (SCM s)
   
 }
 
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Text_item)
+
 Molecule 
 Text_item::do_brew_molecule () const
 {

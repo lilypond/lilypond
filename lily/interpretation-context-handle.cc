@@ -1,4 +1,5 @@
 /*   
+
   interpretation-context-handle.cc --  implement Interpretation_context_handle
   
   source file of the GNU LilyPond music typesetter

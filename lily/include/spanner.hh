@@ -49,6 +49,7 @@ public:
   virtual Array<Rod> get_rods () const;
   virtual Array<Spring> get_springs () const;  
   virtual Score_element* find_broken_piece (Line_of_score*) const;
+  virtual void do_derived_mark ();
 protected:
   void set_my_columns ();
   VIRTUAL_COPY_CONS(Score_element);

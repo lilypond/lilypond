@@ -27,6 +27,8 @@ protected:
   virtual Molecule do_brew_molecule() const;
 public:
   Time_signature (SCM);
+ static SCM scheme_molecule (SCM);
+  
 
   /*
     TODO: make this SCM!

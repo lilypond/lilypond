@@ -133,3 +133,29 @@ Molecule::get_expr () const
 {
   return expr_;
 }
+
+Molecule
+create_molecule (SCM scm_mol)
+{
+  if (!gh_pair_p (scm_mol))
+    return Molecule ();
+
+  SCM exp = gh_car (scm_mol);
+  scm_mol = gh_cdr (scm_mol);
+  Box b ;
+  if (gh_pair_p (scm_mol))
+    {
+      Interval i1 = ly_scm2interval (gh_car (scm_mol));
+      Interval i2 = ly_scm2interval (gh_cdr (scm_mol));  
+      b = Box (i1,i2);
+    }
+  return Molecule (b, exp);
+}
+
+SCM
+Molecule::create_scheme () const
+{
+  return gh_cons (expr_,
+		  gh_cons (ly_interval2scm (dim_[X_AXIS]),
+			   ly_interval2scm (dim_[Y_AXIS])));
+}

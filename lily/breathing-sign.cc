@@ -26,6 +26,10 @@ Breathing_sign::Breathing_sign (SCM  s)
 {
 }
 
+
+
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Breathing_sign);
+
 Molecule 
 Breathing_sign::do_brew_molecule () const
 {

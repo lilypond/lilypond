@@ -35,6 +35,7 @@ Tuplet_spanner::Tuplet_spanner (SCM s)
 /*
   TODO. 
  */
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Tuplet_spanner)
 Molecule 
 Tuplet_spanner::do_brew_molecule () const
 {
@@ -207,9 +208,7 @@ Tuplet_spanner::after_line_breaking ()
 
   if (!column_arr.size ())
     {
-      set_elt_property ("transparent", SCM_BOOL_T);
-      set_extent_callback (0, X_AXIS);
-      set_extent_callback (0, Y_AXIS);
+      suicide ();
     }
 
   Direction d = directional_element (this).get ();

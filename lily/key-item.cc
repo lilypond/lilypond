@@ -86,8 +86,9 @@ Key_item::calculate_position(SCM pair) const
 
  */
 
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Key_item)
 Molecule 
-Key_item::do_brew_molecule() const
+Key_item::do_brew_molecule () const
 {
   Molecule mol;
 

@@ -180,7 +180,7 @@ Repeat_engraver::do_process_music ()
 	  else
 	    {
 	      assert (!volta_span_p_);
-	      volta_span_p_ = new Volta_spanner (SCM_EOL);
+	      volta_span_p_ = new Volta_spanner (get_property ("basicVoltaSpannerProperties"));
 	      announce_element (Score_element_info (volta_span_p_,0));
 	      volta_span_p_->set_elt_property ("text",
 					       ly_str02scm (t.ch_C()));

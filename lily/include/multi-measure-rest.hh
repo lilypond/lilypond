@@ -17,6 +17,8 @@ class Multi_measure_rest : public Spanner
 {
 public:
   Multi_measure_rest (SCM);
+ static SCM scheme_molecule (SCM);
+  
 
   void add_column (Item*);
   Molecule compound_rest (int)const;

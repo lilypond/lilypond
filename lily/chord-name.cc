@@ -137,6 +137,8 @@ Chord_name::ly_text2molecule (SCM text) const
   return mol;
 }
 
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Chord_name);
+
 Molecule 
 Chord_name::do_brew_molecule () const
 {
