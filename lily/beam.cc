@@ -548,7 +548,7 @@ Beam::get_default_dir (Grob *me)
   Link_array<Grob> stems=
 	Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
 
-  for (int i=0; i <stems.size (); i++)
+  for (int i=0; i < stems.size (); i++)
     do {
       Grob *s = stems[i];
       Direction sd = get_grob_direction (s);

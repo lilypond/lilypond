@@ -26,7 +26,6 @@
 #include "score.hh"
 #include "warn.hh"
 
-/*  TODO: junkme.  */
 Score::Score ()
   : Input ()
 {
@@ -205,7 +204,13 @@ default_rendering (SCM music, SCM outdef,
   scm_remember_upto_here_1 (scaled_bookdef);
 }
 
-/*  PAPERBOOK should be scaled already.  */
+/*
+Format score, return systems. OUTNAME is still passed to create a midi
+file.
+
+PAPERBOOK should be scaled already.
+
+*/
 SCM
 Score::book_rendering (String outname,
 		       Output_def *paperbook,
@@ -254,7 +259,8 @@ LY_DEFINE (ly_score_bookify, "ly:score-bookify",
 	   "Return @var{score_smob} encapsulated in a Book object. Set "
 	   "@var{header} as book level header.")
 {
-  SCM_ASSERT_TYPE (unsmob_score (score_smob), score_smob, SCM_ARG1, __FUNCTION__, "score_smob");
+  SCM_ASSERT_TYPE (unsmob_score (score_smob), score_smob,
+		   SCM_ARG1, __FUNCTION__, "score_smob");
   
   Score *score = unsmob_score (score_smob);
   Book *book = new Book;
