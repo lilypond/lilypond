@@ -154,10 +154,12 @@ AC_DEFUN(AC_STEPMAKE_GXX, [
 ])
 
 AC_DEFUN(AC_STEPMAKE_GUILE, [
+    # on some systems, -lguile succeeds for guile-1.3
+    # others need readline, dl (or even more)
     # urg, must check for different functions in libguile
     # to force new check iso reading from cache
     AC_CHECK_LIB(guile, scm_shell, \
-      LIBS="-lguile $LIBS" AC_DEFINE(HAVE_LIBGUILE), \
+      LIBS="-lguile $LIBS"; AC_DEFINE(HAVE_LIBGUILE), \
       AC_CHECK_LIB(readline, readline) \
       AC_CHECK_LIB(dl, dlopen) \
       AC_CHECK_LIB(socket, socket)\
@@ -165,6 +167,10 @@ AC_DEFUN(AC_STEPMAKE_GUILE, [
       AC_CHECK_LIB(m, fabs)\
       AC_CHECK_LIB(guile, scm_boot_guile)\
     )
+    if test "$ac_cv_lib_guile_scm_shell" != yes -a \
+      "$ac_cv_lib_scm_boot_guile" != yes ; then
+	    AC_STEPMAKE_WARN(You should install guile 1.3 or newer)
+    fi
 ])
 
 AC_DEFUN(AC_STEPMAKE_INIT, [
@@ -323,8 +329,8 @@ AC_DEFUN(AC_STEPMAKE_LEXYACC, [
 
     AC_CHECK_PROGS(BISON, bison, error)
     AC_CHECK_PROGS(FLEX, flex, error)
-    AC_CHECK_SEARCH_RESULT($BISON, bison,  Please install Bison, 1.25 or better)
-    AC_CHECK_SEARCH_RESULT($FLEX,  flex, Please install Flex, 2.5 or better)
+    AC_CHECK_SEARCH_RESULT($BISON, bison,  Please install Bison, 1.25 or newer)
+    AC_CHECK_SEARCH_RESULT($FLEX,  flex, Please install Flex, 2.5 or newer)
 
     if test $BISON != "error"; then
 	bison_version=`$BISON --version| sed 's/^.*version 1.//g' `
@@ -849,7 +855,7 @@ main ()
        echo "*** full path to gtk-config."
        echo "*** The gtkmm-config script was not available in GTK-- versions"
        echo "*** prior to 0.9.12. Perhaps you need to update your installed"
-       echo "*** version to 0.9.12 or later"
+       echo "*** version to 0.9.12 or newer"
      else
        if test -f conf.gtkmmtest ; then
         :

@@ -46,7 +46,7 @@ ln -sf $LILYPOND_SOURCEDIR/scripts/out/ly2dvi $prefix/bin/ly2dvi
 ln -sf $LILYPOND_SOURCEDIR/scripts/out/mudela-book $prefix/bin/mudela-book
 chmod 755 $LILYPOND_SOURCEDIR/buildscripts/ps-to-gifs.sh
 ln -sf $LILYPOND_SOURCEDIR/buildscripts/ps-to-gifs.sh $prefix/bin/ps-to-gifs
-
+ln -sf $LILYPOND_SOURCEDIR/mf/out/ afm
 if [ -f ../.gdbinit ];
 then
     ln ../.gdbinit .

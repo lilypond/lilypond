@@ -21,6 +21,7 @@ table_twenty =
 		"Large"	"setLarge"	1	0.0\pt	6.50\pt	0.0\pt	12.0\pt
 		"mark" 	"setmark"	1	0.0\pt	6.50\pt	0.0\pt	12.0\pt
 		"number"	"setnumber"	1	0.0\pt	8.0\pt	0.0\pt	10.0\pt
+		"number-1"	"setnumber-1"	1	0.0\pt	6.0\pt	0.0\pt	8.0\pt
 		"roman"	"settext"	1	0.0\pt	5.6\pt	0.0\pt	10.0\pt
      }
 

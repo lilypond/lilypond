@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 }
 
-\version "1.0.7";
+\version "1.0.10";
 
 violoncello = \notes \relative c {
 	c1\ff ~ | c | f,4-. r r2 | r1 | c'1\ff ~ | c | f,4-. r r2 |
@@ -290,7 +290,7 @@ violoncello = \notes \relative c {
 	es4-. e-. r2 | f,4-. g-. r2 | as4-"dim." r b r | R1 | c4 r r2 R1 |
 	g4-"pizz." r r2 | R1 | c4 r r2 | 
 	[c8-.-"arco" es-.][es()d][d-. as'-.][as()g] | R1
-	\[/3 c,4-"sempre pi\\`u piano" ( es c ~ \] \[/3 c as' )g \] |
+	\times 2/3 {  c,4-"sempre pi\\`u piano" ( es c ~ } \times 2/3 {  c as' )g } |
 	r2 r4 c,( | es2. ) d4 | r2 r4 d( | as'2. )g4 ~ | g1 ( |
 	%305
 	es | )d( | )as'\> ~ | as ~ | as2.()\!g4 | c,\pp r r2 | R1 |

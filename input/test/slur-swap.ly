@@ -1,4 +1,4 @@
-\version "1.0.7";
+\version "1.0.10";
 
 % urg, the direction of the slur gets swapped!
 \score{

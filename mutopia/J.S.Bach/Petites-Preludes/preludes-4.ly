@@ -8,7 +8,7 @@ composer =	 "Johann Sebastian Bach (1685-1750)";
 enteredby =	 "jcn";
 copyright =	 "public domain";
 }
-\version "1.0.7";
+\version "1.0.10";
 
 one = \notes\relative c{
 	\property Voice . textstyle =  "italic"

@@ -29,7 +29,7 @@ Repeated_music::Repeated_music (Repeated_music const& s)
 {
   repeat_p_ = (s.repeat_p_) ? s.repeat_p_->clone () : 0;
   // urg?
-//  alternative_p_ = (Sequential_music*)(s.alternative_p_) ? s.alternative_p_->clone () : 0;
+  alternative_p_ = (s.alternative_p_) ? dynamic_cast <Sequential_music*> (s.alternative_p_->clone ()) : 0;
 }
 
 void

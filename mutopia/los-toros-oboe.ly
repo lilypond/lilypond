@@ -8,13 +8,13 @@ enteredby =	 "jcn";
 copyright =	 "public domain";
 latexheaders=    "headers";
 } 
-\version "1.0.7";
+\version "1.0.10";
 
 %{
 Silly latex file dropped; use ly2dvi
 
 Converted to relative octave from los-toros-oboe.ly:
-    :s/[^\\]'/'x/g
+    :s/[^\}'/'x/g
     :s/'x//g
     (511 substitutions on 155 lines)
 
@@ -125,11 +125,11 @@ hoboonemid = \notes	\relative c'{
 	[fis16( e a, )c] e4 ~ |
 	[e16 d( e, c'] [)b8-. a-.] |
 	g2 ~ |
-	[g8 \[/3 d16( e fis ]1/1 [)g8 d'-.] |
+	[g8 \times 2/3 {  d16( e fis ] } [)g8 d'-.] |
 	b2-> ~ |
-	[b8 \[/3 d,16( e fis ]1/1 [)g8-"cresc. poco" e'-.] |
+	[b8 \times 2/3 {  d,16( e fis ] } [)g8-"cresc. poco" e'-.] |
 	e2-> ~ |
-	[e8 \[/3 d,,16( e fis ]1/1 [)g8\f d'-.] |
+	[e8 \times 2/3 {  d,,16( e fis ] } [)g8\f d'-.] |
 	[d8.-> b'16-.] [g16-. d-. b-. c-.] |
 	[d-. e-. fis-. a-.] [g8-. e-.] |
 	fis2-> ~ |
@@ -141,11 +141,11 @@ hoboonemid = \notes	\relative c'{
 	[fis8.->( g16] )g4 ~ |
 
 	% (only notes! of) five measures copied from 14 measures above
-	[g8 \[/3 d16( e fis ]1/1 [)g8 d'-.] |
+	[g8 \times 2/3 {  d16( e fis ] } [)g8 d'-.] |
 	b2->-"cresc." ~ |
-	[b8 \[/3 d,16( e fis ]1/1 [)g8 e'-.] |
+	[b8 \times 2/3 {  d,16( e fis ] } [)g8 e'-.] |
 	e2-> ~ |
-	[e8 \[/3 d,,16(_"h\\^atez" e fis ]1/1 [)g8\f d'-.] |
+	[e8 \times 2/3 {  d,,16(_"h\\^atez" e fis ] } [)g8\f d'-.] |
 	[d8.-> b16-.] [g16-.-"cresc." d'-. b-. c-.] |
 	[d16\f\< e-. fis-. g-.] [a-. b,-. c-. \!d-.] 
 }

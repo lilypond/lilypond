@@ -1,5 +1,5 @@
 
-\version "1.0.7";
+\version "1.0.10";
 
 \include "table13.ly";
 \include "table16.ly";
@@ -15,8 +15,8 @@
 		{\tiny g''16*1/16 b16*1/16 \normalsize a4*31/32 g fis2 | a1 }
 	>
 	\type Staff = c \notes\relative c <
-%		{\grace [2/48 g''16 b g]/1 \graceat a4 \ecarg g fis2 | a1 }
-		{\tiny [2/48 g''16 b g]/1 \normalsize a4*31/32 g fis2 | a1 }
+%		{\grace \times 2/48 { [ g''16 b g] } \graceat a4 \ecarg g fis2 | a1 }
+		{\tiny \times 2/48 { [ g''16 b g] } \normalsize a4*31/32 g fis2 | a1 }
 	>
 	>
 	\paper {
