@@ -76,5 +76,8 @@ Slur::do_post_processing()
     Real inter_f = paper()->internote();
     left_pos_i_ = encompass_arr_[0]->stem_l_->height()[dir_i_]/inter_f;
     right_pos_i_ = encompass_arr_.top()->stem_l_->height()[dir_i_]/inter_f;
+
+    left_pos_i_ += dir_i_;
+    right_pos_i_ += dir_i_;
 }
 IMPLEMENT_STATIC_NAME(Slur);
