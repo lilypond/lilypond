@@ -17,9 +17,9 @@ d = { \slurdotted }
 % 
 
 % urg, Thread is gone, try Voice
-% gigue_notes = \type Thread = gigue \melodic \relative c {
+% gigue_notes = \type Thread = gigue \notes \relative c {
 
-gigue_notes = \type Voice = gigue \melodic \relative c {
+gigue_notes = \type Voice = gigue \notes \relative c {
 	a'8 |
 	d,4 bes'8 | cis,4 g'8 | f16 e f g a8 |
 	d,4 d'8 | e,16(f)g8 bes | c,16(d)e8 c' | a16 g a bes c a |
@@ -74,7 +74,7 @@ gigue_notes = \type Voice = gigue \melodic \relative c {
 	d4
 }
 
-gigue_b = \melodic \relative c {
+gigue_b = \notes \relative c {
 	\voicetwo 
 	s8
 	s4.*14
@@ -98,11 +98,11 @@ gigue_b = \melodic \relative c {
 	<g4 e'>
 }
 
-gb = \melodic { [s16 s s s s s] }
+gb = \notes { [s16 s s s s s] }
 
 % urg, Thread is gone, try Voice
-% gigue_beams = \type Thread = gigue \melodic{
-gigue_beams = \type Voice = gigue \melodic{
+% gigue_beams = \type Thread = gigue \notes{
+gigue_beams = \type Voice = gigue \notes{
 	s8 |
 	s4. s4. \gb 
 	s4. \gb \gb \gb 
@@ -133,12 +133,12 @@ gigue_beams = \type Voice = gigue \melodic{
 	\gb \gb \gb 
 }
 
-gigue_a = \type Voice \melodic<
+gigue_a = \type Voice \notes<
 	\$gigue_notes
 	\$gigue_beams
 >
 
-gigue = \melodic<
+gigue = \notes<
 	\$gigue_a
 	\$gigue_b
 >

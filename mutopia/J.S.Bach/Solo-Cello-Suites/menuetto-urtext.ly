@@ -7,7 +7,7 @@ Well, there are still some scripts in this "urtext".
 But merging melodic and scripts doen't work too well yet (see viola_scripts).
 %}
 
-menuetto_i_a = \melodic \relative c {
+menuetto_i_a = \notes \relative c {
 	<d2\f f a> bes'4  |
 	[bes8 a bes g] a4 |
 	<d,4 bes> g [f8 e] |
@@ -40,7 +40,7 @@ menuetto_i_a = \melodic \relative c {
 	<d2. a d,> |
 }
 
-menuetto_i_b = \melodic \relative c {
+menuetto_i_b = \notes \relative c {
 	\slurdotted
 	\skip 2.*1; |
 	<e8 c> \skip 8*5; |
@@ -66,7 +66,7 @@ menuetto_i_b = \melodic \relative c {
 }
 
 % UGH, fix this like in sarabande
-menuetto_i_a_voice_urg = \melodic{
+menuetto_i_a_voice_urg = \notes{
 	\skip 2.*1; \voiceone
 	\skip 2.*1; \onevoice
 	\skip 2.*1; \voiceone
@@ -89,28 +89,28 @@ menuetto_i_a_voice_urg = \melodic{
 %	\bar "|.";
 }
 
-menuetto_i_a_voice_urg_urg = \melodic<
+menuetto_i_a_voice_urg_urg = \notes<
 	\$menuetto_i_a_voice_urg
 	\$menuetto_i_a
 >
 
-menuetto_i_b_voice_urg = \melodic{
+menuetto_i_b_voice_urg = \notes{
 	\voicetwo
 	% urg urg, huh?
 	\skip 2.*8; \voicetwo
 }
 
-menuetto_i_b_voice_urg_urg = \melodic<
+menuetto_i_b_voice_urg_urg = \notes<
 	\$menuetto_i_b_voice_urg
 	\$menuetto_i_b
 >
 
-menuetto_i = \type Staff \melodic<
+menuetto_i = \type Staff \notes<
 	{ \$menuetto_i_a_voice_urg_urg }
 	{ \$menuetto_i_b_voice_urg_urg }
 >
 
-menuetto_ii = \melodic \relative c {
+menuetto_ii = \notes \relative c {
 	\slurdotted
 	fis4^\trill [d8( e fis )g] |
 	a4 fis, a' |

@@ -13,7 +13,7 @@ d = { \slurdotted }
 %
 % ugh, the non-shortened beamstems of voice in forced direction
 % look ugly here!
-sarabande_a = \melodic \relative c {
+sarabande_a = \notes \relative c {
 	\voiceone \d[d8.()e16] e4.-\trill([d16 )e] |
 	f4. \onevoice [e8(d)c] |
 	[bes g']\n[f e16(f][g a bes)d,] |
@@ -51,7 +51,7 @@ sarabande_a = \melodic \relative c {
 	d4 d,,2 |
 }
 
-sarabande_b = \melodic \relative c {
+sarabande_b = \notes \relative c {
 	\voicetwo
 % dispute
 %	d4 a2 |
@@ -87,7 +87,7 @@ sarabande_b = \melodic \relative c {
 }
 
 
-sarabande = \type Staff \melodic<
+sarabande = \type Staff \notes<
 	\$sarabande_a
 	\$sarabande_b
 >

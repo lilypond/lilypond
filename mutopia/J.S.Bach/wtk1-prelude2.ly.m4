@@ -12,7 +12,7 @@ define(handymeasure, `intromeasure(translit($*,` ', `,'))')
 
 
 
-trebleIntro=\melodic \transpose c'' {
+trebleIntro=\notes \transpose c'' {
 handymeasure(c' es d c)
 handymeasure(as f e c)
 handymeasure(b f es d)
@@ -38,7 +38,7 @@ handymeasure(g c B d)
 handymeasure(as c B d)
 }
 
-bassIntro = \melodic {
+bassIntro = \notes {
 handymeasure(c g f es)
 handymeasure(c as g f)
 handymeasure(c as g f)
@@ -67,7 +67,7 @@ handymeasure(G es d f)
 }
 
 
-middlepiece = \melodic
+middlepiece = \notes
 {
 	\stemdown
 	[G B d] 

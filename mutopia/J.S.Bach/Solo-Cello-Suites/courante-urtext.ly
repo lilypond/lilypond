@@ -10,7 +10,7 @@ But merging melodic and scripts doen't work too well yet (see viola_scripts).
 n = { \slurnormal }
 d = { \slurdotted }
 
-courante_a = \melodic \relative c {
+courante_a = \notes \relative c {
 	d'16 |
 	[d a f a] [d, f g a]\d[bes()a bes()g] |
 	\voiceone <g4 a> s4 \onevoice \d[g16()f g()e] |
@@ -59,7 +59,7 @@ courante_a = \melodic \relative c {
 	d,8.
 }
 
-courante_b = \melodic \relative c {
+courante_b = \notes \relative c {
 	\voicetwo
 	\stemdown
 	s16 |
@@ -78,7 +78,7 @@ courante_b = \melodic \relative c {
 	bes4 s s
 }
 
-courante =  \type Staff \melodic<
+courante =  \type Staff \notes<
  \$courante_a
  \$courante_b
 >
