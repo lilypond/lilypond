@@ -1,11 +1,10 @@
 2005-03-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* buildscripts/lys-to-tely.py (strip_extension): add utf-8
+	documentencoding
+
 	* scm/documentation-lib.scm (texi-file-head): set utf-8
 	documentencoding.
-
-	* Documentation/user/music-glossary.tely: set utf-8 encoding.
-
-	* Documentation/user/lilypond.tely: set utf-8 encoding
 
 	* ly/chord-modifiers-init.ly (whiteTriangleMarkup): use the greek
 	Delta, not the Symbol one. 
