@@ -31,7 +31,7 @@ protected:
   virtual void process_acknowledged_grobs ();
 
 public:
-  TRANSLATOR_DECLARATIONS(Slur_engraver);
+  TRANSLATOR_DECLARATIONS (Slur_engraver);
 };
 
 Slur_engraver::Slur_engraver ()
@@ -164,7 +164,7 @@ Slur_engraver::process_acknowledged_grobs ()
 	    }
 	  start_slur_l_arr.push (slur);
 	  requests_arr_.push (slur_req_l);
-	  announce_grob(slur, slur_req_l->self_scm());
+	  announce_grob (slur, slur_req_l->self_scm ());
 	}
     }
   for (int i=0; i < start_slur_l_arr.size (); i++)
@@ -195,7 +195,7 @@ Slur_engraver::start_translation_timestep ()
 
 
 
-ENTER_DESCRIPTION(Slur_engraver,
+ENTER_DESCRIPTION (Slur_engraver,
 /* descr */       "Build slurs from Slur_reqs",
 /* creats*/       "Slur",
 /* acks  */       "note-column-interface",
