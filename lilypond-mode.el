@@ -340,10 +340,10 @@ command."
 (if LilyPond-mode-map
     ()
   (setq LilyPond-mode-map (make-sparse-keymap))
-  (define-key LilyPond-mode-map "\C-c\C-c" 'LilyPond-command-master)
   (define-key LilyPond-mode-map "\C-c\C-r" 'LilyPond-command-region)
   (define-key LilyPond-mode-map "\C-c\C-b" 'LilyPond-command-buffer)
   (define-key LilyPond-mode-map "\C-c\C-k" 'LilyPond-kill-job)
+  (define-key LilyPond-mode-map "\C-c\C-c" 'LilyPond-command-master)
   )
 
 ;;; Menu Support
@@ -408,7 +408,18 @@ command."
     (funcall LilyPond-command-current)))
 
 (defun LilyPond-mode ()
-  "Major mode for editing LilyPond music files."
+  "Major mode for editing LilyPond music files.
+
+This mode knows about LilyPond keywords and line comments, not about
+indentation or block comments.  It features easy compilation, error
+finding and viewing of a LilyPond source buffer or region.
+
+COMMANDS
+\\{LilyPond-mode-map}
+VARIABLES
+
+LilyPond-command-alist\t\talist from name to command
+LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
   (interactive)
   ;; set up local variables
   (kill-all-local-variables)
