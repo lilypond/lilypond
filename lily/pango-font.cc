@@ -46,7 +46,10 @@ Pango_font::Pango_font (PangoFT2FontMap *fontmap,
     --hwn
    */
   scale_ = INCH_TO_BP / (Real (PANGO_SCALE) * Real (PANGO_RESOLUTION) * output_scale);
-  
+
+  /*
+    ugh. Should make this configurable.
+  */
   pango_context_set_language (context_, pango_language_from_string ("en_US"));
   pango_context_set_base_dir (context_, pango_dir);
   pango_context_set_font_description (context_, description);

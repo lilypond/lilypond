@@ -255,6 +255,9 @@ PDF can then be produced with a PostScript to PDF translator like
 @cindex international characters
 @cindex latin1
 
+
+[THE FOLLOWING IS OUT OF DATE. ]
+
 LilyPond does not use the La@TeX{} font handling scheme for lyrics and
 text markups; it uses the EC font family and has limited support for
 selecting an input encoding with the @code{\encoding} keyword if the
@@ -279,6 +282,8 @@ the real string length.
 
 As a corrolary of the last paragraphs the following two lines should be
 present in the La@TeX{} document preamble
+
+[END OUT OF DATE]
 
 @example
 \usepackage[latin1]@{inputenc@}
