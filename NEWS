@@ -1,3 +1,9 @@
+pl 20:
+	- Rational for time measurement
+	- updated doco to .pod
+	- directionalspanner/textspanner
+	- include files
+
 pl 19:
 	- struct Moment
 	- grouping code: LilyPond can set advanced multibeams.
