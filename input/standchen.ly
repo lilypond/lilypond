@@ -44,30 +44,30 @@ melodie = \melodic{
 %%4
 	r < [ 'a cis > e < 'a cis > e < 'a cis ] > |
 %%5
-	[2/3 a~ bes a ]1/1 d'4. a |
+	[2/3 a() bes a ]1/1 d'4. a |
 %%6
-	[2/3 g~ a g ]1/1 d'4 g r |
+	[2/3 g() a g ]1/1 d'4 g r |
 
 %%7
-	a4.^> g [2/3 g~ f e ]1/1 |
+	a4.^> g [2/3 g() f e ]1/1 |
 %%8
 	f2 r4 |
 %%9
 
-	< { a'4.~  g' [2/3 g'( f' )e' ]1/1 }
+	< { a'4.()  g' [2/3 g'( f' )e' ]1/1 }
 	{ cis'4. e'_"dolce" \plet 2/3; e' \plet 1/1; } > |
 %%10
 	< f'2. d'2. > |
 %%11
-	[2/3 a ~  bes a ]1/1 f'4. a |
+	[2/3 a ()  bes a ]1/1 f'4. a |
 %%12
-	[2/3 g~   a g ]1/1 e'4. d' |
+	[2/3 g()   a g ]1/1 e'4. d' |
 %%13
-	c'4. bes [2/3 bes~   a g ]1/1 |
+	c'4. bes [2/3 bes()   a g ]1/1 |
 %%14
 	a2 r 
-	< { d'~  c'4. g [2/3 bes a g ]1/1 }
-	{ f \p ~  e4._"dolce" bes 
+	< { d'()  c'4. g [2/3 bes a g ]1/1 }
+	{ f \p ()  e4._"dolce" bes 
 		\plet 2/3; g
 		\plet 1/1; 
 	} > |
@@ -81,12 +81,12 @@ melodie = \melodic{
 	[ d'8. a16 ] f4. d |
 %%19
 %#%	c'\grace\stemup
-	[2/3 bes ~   a bes ]1/1 d'4. bes |
+	[2/3 bes ()   a bes ]1/1 d'4. bes |
 %%20
 	a2. |
 %%21
 %#%	a\grace
-	[2/3 g~  fis g ]1/1 bes4.^> g |
+	[2/3 g()  fis g ]1/1 bes4.^> g |
 %%22
 	f!2. |
 %%23
@@ -94,16 +94,16 @@ melodie = \melodic{
 %%24
 	[ d'8. a16 ] fis4. d |
 %%25
-	[2/3 b \mf~   ais b ]1/1 d'4. b |
+	[2/3 b \mf()   ais b ]1/1 d'4. b |
 %%26
 	< a2. fis2. > |
 %%27
-	[2/3 e' \f~  dis' e' ]1/1 g'4. cis' |
+	[2/3 e' \f()  dis' e' ]1/1 g'4. cis' |
 %%28
 	< d'2. fis2. > |
 %#%\volta1
 %%29
-	< { bes2( [ d'8.~ )bes16 ] }
+	< { bes2( [ d'8.() )bes16 ] }
 	{ g2 \mf [ bes8. g16 ] } > |
 %%30
 	< { a4. [ a-. a-. a-. ] }
@@ -114,7 +114,7 @@ melodie = \melodic{
 %%32
 	< a2 fis2 \pp > < a4 fis4 > |
 %%33
-	< { b2( [ d'8.~ )b16 ] }
+	< { b2( [ d'8.() )b16 ] }
 	{ g2 [ b8. g16 ] } > |
 %%34
 	< { a4. [ a-. a-. a-. ] }
@@ -128,14 +128,14 @@ melodie = \melodic{
 %%37
 	[ a8. a16 ] [ cis'8. cis'16 ] [ e'8. e'16 ] |
 %%38
-	d'4~  cis'4 r4 |
+	d'4()  cis'4 r4 |
 %%39
 %#%	> a4. [ cis' e'8. >! d'16 ] |
 	a4. \> [ cis' e'8. \! d'16 ] |
 %%40
 	cis'2 r4 |
 %%41
-	< fis'4. \> cis'4. \f > e' [2/3 e'~  d' \! cis' ]1/1 |
+	< fis'4. \> cis'4. \f > e' [2/3 e'()  d' \! cis' ]1/1 |
 %%42
 	[ b8. cis'16 ] d'4^> b r |
 %%43
@@ -144,19 +144,19 @@ melodie = \melodic{
 %%44
 	[ b8. \> cis'16 ] d'4^> b \! r |
 %%45
-	[2/3 b \p ~  ais b ]1/1 d'4. b |
+	[2/3 b \p ()  ais b ]1/1 d'4. b |
 %%46
 	<a!2. fis2. > |
 %%47
-	[2/3 e' \f~  dis' e' ]1/1 g'4.^> cis' |
+	[2/3 e' \f()  dis' e' ]1/1 g'4.^> cis' |
 %%48
 	\textstyle "italic";
 	< 
-	{ fis2.~
+	{ fis2.(
 	%\group "+1"; 
-		\stemdown f2. }
-	{ d'2. ~ \stemup
-		d'4 r4_"decresc." d'4 } 
+		\stemdown )f2. }
+	{ d'2. ( \stemup
+		) d'4 r4_"decresc." d'4 } 
 	>
 	\textstyle "roman"; |
 %%50
