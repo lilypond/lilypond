@@ -145,7 +145,7 @@ Dynamic_engraver::process_music ()
 	  Music * rq = accepted_spanreqs_drul_[START];
 	  if (script_req_l_)
 	    rq =  script_req_l_ ;
-	  announce_grob(line_spanner_, rq->self_scm());
+	  announce_grob(line_spanner_, rq ? rq->self_scm(): SCM_EOL);
 			 
 
 	}
