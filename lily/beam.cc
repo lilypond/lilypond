@@ -274,15 +274,18 @@ Beam::connect_beams (Grob *me)
 	      gh_set_car_x (s, gh_int2scm (np));
 	      last_int.add_point (np);
 	    }
-	  
 	}
 
       if (i == stems.size () -1)
 	{
-	  gh_set_cdr_x ( this_beaming, SCM_EOL);
+	  gh_set_cdr_x (this_beaming, SCM_EOL);
 	}
-      last_beaming = this_beaming;
-      last_dir = this_dir;
+
+      if (scm_ilength (gh_cdr (this_beaming)) > 0)
+	{
+	  last_beaming = this_beaming;
+	  last_dir = this_dir;
+	}
     }
  }
 

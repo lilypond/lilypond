@@ -1,3 +1,9 @@
+2002-08-02  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/beam.cc (connect_beams): fix quarter note beams.
+
+	* input/regression/beam-quarter.ly: new file.
+
 2002-08-02  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
 
 	* buildscripts/mf-to-table.py (postfixes): Reduce the line spacing
