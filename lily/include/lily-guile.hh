@@ -21,6 +21,7 @@
 #define scm_gc_register_collectable_memory(a, b, c) scm_done_malloc (b)
 #define SCM_VECTOR_REF(v,i) (SCM_VELTS ((v))[(i)])
 #define scm_from_int(x) SCM_MAKINUM (x)
+#define scm_is_int(x) SCM_INUMP (x)
 #define scm_hash_table_p scm_vector_p
 #endif /* SCM_MINOR_VERSION < 7 */
 
