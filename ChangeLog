@@ -1,3 +1,8 @@
+2005-02-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/font.scm (make-century-schoolbook-tree): add NCS as
+	font-family=roman. Add Luxi Sans as sans
+
 2005-02-07  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/notation.itely: add warning about
