@@ -320,7 +320,8 @@ recommend font for this is bold and italic"
 
 
 (def-markup-command (column layout props args) (markup-list?)
-  "Stack the markups in @var{args} vertically."
+  "Stack the markups in @var{args} vertically.  The property
+@code{baseline-skip} determines the space between each markup in @var{args}."
   (stack-lines
    -1 0.0 (chain-assoc-get 'baseline-skip props)
    (remove ly:stencil-empty?
