@@ -91,7 +91,7 @@
 	    <li>
  <a  class="title" href="../user/out-www/lilypond-internals/index.html">Program reference</a>
 
-     <br>(for LilyPond hackers)
+     <br>(definitions for tweaking)
 
 	    <li>
      <a  class="title" href="../../input/regression/out-www/collated-files.html">Regression tests</a> (in <a  class="title" href="../../input/regression/out-www/collated-files.pdf">PDF</a>)

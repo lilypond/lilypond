@@ -193,10 +193,13 @@
 				(instrument-name left-edge ambitus breathing-sign
 						 clef  staff-bar key-signature
 						 time-signature custos)
+
+				; unbroken
 				(instrument-name left-edge ambitus breathing-sign
 						 clef  staff-bar key-signature
 						 staff
 						 time-signature custos)
+				; begin of line
 				(instrument-name left-edge ambitus breathing-sign
 						 clef key-signature staff-bar
 						 time-signature custos)
