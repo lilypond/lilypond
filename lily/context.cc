@@ -116,7 +116,7 @@ Context::find_create_context (SCM n, String id,
   if (n == ly_symbol2scm ("Bottom"))
     {
       Context* tg = get_default_interpreter ();
-      tg->id_string () = id;
+      tg->id_string_ = id;
       return tg;
     }
 
@@ -140,7 +140,7 @@ Context::find_create_context (SCM n, String id,
 
 	  if (i == path.size () -1)
 	    {
-	      new_group->id_string () = id;
+	      new_group->id_string_ = id;
 	    }
 
 	  current->add_context (new_group);
