@@ -1,3 +1,14 @@
+\header{
+texidoc="
+Note head shapes are settable.  The stem endings should be adjusted
+per note head.  If you want different note head styles on one stem,
+you must create a special context called Thread.
+
+Harmonic notes have a different shape and different
+dimensions. Nevertheless, noteheads in both styles can be combined, on
+either up or down stems.
+";
+}
 
 \version "1.3.110";
 

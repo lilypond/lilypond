@@ -1,3 +1,14 @@
+\header{
+texidoc="
+Noteheads can have dots, and rests can too.  Augmentation dots should
+never be printed on a staff line, but rather be shifted vertically. They
+should go up, but in case of multiple parts, the down stems have down
+shifted dots.  (Wanske p. 186) In case of chords, all dots should be in
+a column.  The dots go along as rests are shifted to avoid collisions.
+";
+}
+
+
 \version "1.3.110";
 \score { 
   \context Voice \notes\relative c'' {

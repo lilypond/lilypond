@@ -1,3 +1,17 @@
+\header{
+texidoc="
+LilyPond has three modes for repeats: folded, unfolded and
+semi-unfolded.  Unfolded repeats are fully written out. Semi unfolded
+repeats have the body written and all alternatives sequentially.
+Folded repeats have the body written and all alternatives
+simultaneo.ly.  If the number of alternatives is larger than the
+repeat count, the excess alternatives are ignored.  If the number of
+alternatives is smaller, the first alternative is multiplied to get to
+the number of repeats.
+
+Unfolded behavior:
+";
+}
 
 \score {
 

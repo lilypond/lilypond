@@ -1,3 +1,9 @@
+\header{
+texidoc="
+Across linebreaks, the left edge of a first and second alternative
+bracket should be equal
+";
+}
 
 \score  {
 \notes

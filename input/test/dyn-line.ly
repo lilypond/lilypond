@@ -1,3 +1,9 @@
+\header{
+texidoc="
+Dynamics appear below or above the staff.  If multiple dynamics are
+linked with (de)crescendi, they should be on the same line.
+";
+}
 \score{
 \notes\relative c''{
 a1\fff\> \!c,,\pp a'' a\p

@@ -1,4 +1,9 @@
-
+\header{
+texidoc="
+Breaks can be encouraged and discouraged using @code{\break} and
+@code{\nobreak}.  They are abbrevs for @code{\penalty} commands.
+";
+}
 
 
 \score{

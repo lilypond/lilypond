@@ -1,3 +1,9 @@
+\header{
+texidoc="
+Ties are strictly horizontal.  They are placed in between note heads.
+The horizontal middle should not overlap with a staffline.
+";
+}
 \score{
 	\notes\relative c''{
 		%b2~b4~b8~b16~b32~b64 r64\break

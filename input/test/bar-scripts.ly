@@ -1,3 +1,10 @@
+\header{
+texidoc="
+Markings that are attached to (invisible) barlines are 
+delicate: the are attached to the rest of the score without the score
+knowing it.  Consequently, they fall over  often.
+";
+}
 
 \version "1.3.110";
 

@@ -1,3 +1,12 @@
+\header{
+texidoc="
+Key signatures appear on key  changes. They may also
+appear without barlines.  The restoration accidentals are not printed at
+the start of the line. If @code{createKeyOnClefChange} is set, they're
+also created on a clef change.
+";
+}
+
 \version "1.3.110";
 
 \score {

@@ -1,4 +1,10 @@
-
+\header{
+texidoc="
+A sharp sign after a double sharp sign, as well as a flat sign
+after a double flat sign is automatically prepended with a
+natural sign.
+";
+}
 \version "1.3.110";
 
 

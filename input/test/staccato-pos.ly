@@ -1,3 +1,9 @@
+\header{
+texidoc="
+The staccato dot (and all scripts with follow-into-staff set), must
+not be on staff lines.
+";
+}
 \score { 
   \context Voice \notes\relative c {
     

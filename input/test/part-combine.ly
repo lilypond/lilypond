@@ -1,3 +1,12 @@
+\header{
+texidoc="
+In orchestral scores and hymns, voices are traditionally combined onto
+one staff.  LilyPond has a part combiner, that combines or separates two
+voices according to actual rhythm and pitch.  User-defined texts such as
+``solo'' and ``@`a2'' are typeset automagically, as appropriate.
+";
+}
+
 \score{
 	\context Staff = flauti <
 		\time 4/4;

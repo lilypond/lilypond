@@ -1,3 +1,8 @@
+\header{
+texidoc="
+Natural:
+";
+}
 
 \score {
 	\notes { \time 2/2; c'2 c'2 \time 2/2; }

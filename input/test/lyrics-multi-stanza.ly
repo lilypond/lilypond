@@ -1,12 +1,18 @@
-% Tests a number of features:
-% * Lyric_phrasing_engraver
-% * Stanza_number_engraver
-% * Automatic melismata on beamed notes
 
 \version "1.3.110";
 \include "english.ly"
 
 \header{
+texidoc="
+Multiple stanzas
+
+ Tests a number of features:
+ * Lyric_phrasing_engraver
+ * Stanza_number_engraver
+ * Automatic melismata on beamed notes
+
+";
+
     title = "Crowned with Honour";
     composer = "Oliver Holden (1765-1844)";
     poet = "Thomas Kelly (1769-1855)";
@@ -70,9 +76,9 @@ Bass = \notes \relative c{
 
 TheLyrics =  \lyrics <
         {
-	    \context LyricVoice = "Soprano-1"
-	    \property LyricVoice .stanza = "1:"
-	    \property LyricVoice .stz = "(1)"
+	    \context LyricsVoice = "Soprano-1"
+	    \property LyricsVoice .stanza = "1:"
+	    \property LyricsVoice .stz = "(1)"
 	         The4 head    that once was crowned with thorns
 	         Is   crowned with glo -- ry  now;
 		 A roy -- al di -- a -- dem a -- dorns
@@ -81,9 +87,9 @@ TheLyrics =  \lyrics <
 		 The might -- y Vic -- tor's  brow.
         }
         {
-	    \context LyricVoice = "Soprano-2"
-	    \property LyricVoice .stanza = "2:"
-	    \property LyricVoice .stz = "(2)"
+	    \context LyricsVoice = "Soprano-2"
+	    \property LyricsVoice .stanza = "2:"
+	    \property LyricsVoice .stz = "(2)"
 	         The4 high -- est place that heav'n af -- fords
 	         Is His by sov -- 'reign  right;
 		 The King of kings, the Lord of lords,
@@ -92,9 +98,9 @@ TheLyrics =  \lyrics <
  		 He reigns in glo -- ry  bright.
         }
         {
-	    \context LyricVoice = "Soprano-3"
-	    \property LyricVoice .stanza = "3:"
-	    \property LyricVoice .stz = "(3)"
+	    \context LyricsVoice = "Soprano-3"
+	    \property LyricsVoice .stanza = "3:"
+	    \property LyricsVoice .stz = "(3)"
 	         The joy of all who dwell a -- bove,
 	         The joy of saints be --  low,
 		 To4 whom He man -- i -- fests His love,
