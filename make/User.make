@@ -26,8 +26,7 @@ DEBUGFLAG=-g
 
 # turn off -pipe if linker doesn't support it
 # 
-USER_CXXFLAGS=-pipe -Wall -W   -Wmissing-prototypes -DSTRING_UTILS_INLINED
-#
+USER_CXXFLAGS=-pipe -Wall -W   -Wmissing-prototypes
 
 #
 # -lefence = ElectricFence.

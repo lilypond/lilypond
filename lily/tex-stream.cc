@@ -26,7 +26,7 @@ Tex_stream::Tex_stream(String filename)
 void
 Tex_stream::header()
 {
-    *os << "% Creator: " << get_version();
+    *os << "% Creator: " << get_version_str();
     *os << "% Automatically generated, at ";
     time_t t(time(0));
     *os << ctime(&t);

@@ -7,14 +7,15 @@
 #ifndef FPROTO_HH
 #define FPROTO_HH
 
+
+const char * flower_version_sz();
+
 // what the F*** is "int" ?
 // depreciate int, long, etc., use i32, i64, remember: linux-16/linux-64 ?
 /// (i32)
 typedef int i32;
 /// (i64)
 typedef long long I64;
-
-#include "flower-config.hh"
 
 template<class T> struct Array;
 template<class T> struct sstack;

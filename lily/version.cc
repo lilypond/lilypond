@@ -1,11 +1,14 @@
-#include "version.hh"
-#include "fversion.hh"
+#include "main.hh"
 
-static char *s = "LilyPond " VERSIONSTR    "/FlowerLib " FVERSIONSTR
-". Compile: "   __DATE__ ", " __TIME__ " (" COMPILER ")\n";
+#include "string.hh"
 
-const char *
-get_version()
+extern const char* lily_version_sz();
+
+String 
+get_version_str()
 {
+    String s = lily_version_sz();
+    s+="/";
+    s+=flower_version_sz();
    return s;
 }

@@ -1,0 +1,8 @@
+/* define if you have memmem */
+#define HAVE_MEMMEM 0
+
+/* define if you have snprintf */
+#define HAVE_SNPRINTF 0
+
+/* just testing */
+#define HAVE_FOOBAR 0

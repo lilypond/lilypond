@@ -57,6 +57,9 @@ Ineq_constrained_qp::eval (Vector v)
 Vector
 Mixed_qp::solve(Vector start) const 
 {
+    if (!dim())
+	return Vector(0);
+    
     print();
     Ineq_constrained_qp pure(*this);
     

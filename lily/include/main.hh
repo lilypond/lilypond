@@ -9,7 +9,7 @@ void add_score(Input_score * s);
 void set_default_output(String s);
 Input_score* current_iscore_l();
 String find_file(String);
-const char *get_version();
+String get_version_str();
 extern String infile_str_g;
 extern Source* source_l_g;
 extern bool only_midi;
