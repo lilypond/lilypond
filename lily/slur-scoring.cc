@@ -413,7 +413,8 @@ Drul_array<Bound_info>
 get_bound_info (Spanner* me, Grob **common)
 {
   Drul_array<Bound_info> extremes;
-  Direction d = LEFT;
+
+  Direction d = RIGHT;
   Direction dir = get_grob_direction (me);
 
   do
@@ -450,15 +451,8 @@ get_bound_info (Spanner* me, Grob **common)
 	  right side anticipates on the next note.
 	*/
 	extremes[d].neighbor_y_ = broken_trend_y (me, common, d);
-
-      else
-	{
-	  Link_array<Grob> columns
-	    = Pointer_group_interface__extract_grobs (me, (Grob *) 0, "note-columns");
-	  extremes[d].neighbor_y_ = columns[0]->extent (common[Y_AXIS], Y_AXIS)[dir];
-	}
     }
-  while (flip (&d) != LEFT);
+  while (flip (&d) != RIGHT);
   return extremes;
 }
 
@@ -617,7 +611,7 @@ get_base_attachments (Spanner *me,
   Drul_array<Offset> base_attachment;
   Real staff_space = Staff_symbol_referencer::staff_space ((Grob *) me);
   Direction dir = get_grob_direction (me);
-  Direction d = LEFT;
+  Direction d = RIGHT;
   do
     {
       Grob *stem = extremes[d].stem_;
@@ -626,11 +620,23 @@ get_base_attachments (Spanner *me,
       Real x, y;
       if (!extremes[d].note_column_)
 	{
-	  y = extremes[d].neighbor_y_;
-	  if (d== RIGHT)
-	    x = extremes[d].bound_->extent (common[X_AXIS], X_AXIS)[d];
+	  if (d == RIGHT)
+	    {
+	      y = extremes[d].neighbor_y_;
+	      x = extremes[d].bound_->extent (common[X_AXIS], X_AXIS)[d];
+	    }
 	  else
-	    x = me->get_broken_left_end_align ();
+	    {
+	      x = me->get_broken_left_end_align ();
+	      if (extremes[RIGHT].bound_ == columns[0])
+		{
+		  y = base_attachment[RIGHT][Y_AXIS];
+		}
+	      else
+		{
+		  y = columns[0]->extent (common[Y_AXIS], Y_AXIS)[dir]; 
+		}
+	    }
 	}
       else
 	{
@@ -672,7 +678,7 @@ get_base_attachments (Spanner *me,
 	}
       base_attachment[d] = Offset (x, y);
 
-    } while (flip (&d) != LEFT);
+    } while (flip (&d) != RIGHT);
 
   return base_attachment;
 }
