@@ -20,6 +20,7 @@
 ;;; for installing instructions.
 
 ;;; TODO:
+;;;    * sensible error if lilypond.words not found. 
 ;;;    * XEmacs, broken ?
 ;;;    * parenthesis matching
 

@@ -1,3 +1,9 @@
+2003-03-31  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/music-functions.scm (make-multi-measure-rest): set input
+	locations for multimeasure rests.
+	
+
 2003-03-31  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* input/regression/breathing-sign.ly: updated to for ancient

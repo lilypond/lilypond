@@ -228,6 +228,8 @@ i.e.  this is not an override"
        (seq  (make-music-by-name 'MultiMeasureRestMusicGroup))
        )
 
+    (map (lambda (x) (ly:set-mus-property! x 'origin location))
+	 (list start stop skip ch ch2 seq))
     (ly:set-mus-property! start 'span-direction START)
     (ly:set-mus-property! stop 'span-direction STOP)    
     (ly:set-mus-property! skip 'duration duration)
