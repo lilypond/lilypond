@@ -1,7 +1,11 @@
+2002-08-06  Heikki Junes <hjunes@cc.hut.fi>
+
+	* lilypond-mode.el: Also "C-xC-s" sets default command to LilyPond.
+
 2002-08-05  Rune Zedeler <rune@zedeler.dk>
 
 	* mf/feta-eindelijk.mf: Fix silly typo in 16th and shorter rests.
-	
+
 2002-08-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* stepmake/bin/make-version.py: robustify.
