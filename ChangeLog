@@ -3,6 +3,8 @@
 	* po/fi.po: do "make po && make -C po po-update" at top-level,
 	then "cp po/out/fi.po po/fi.po" and update fields.
 
+	* po/fi.po: remove all designations of `fuzzy'; shows those elements.
+
 2004-04-15  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/user/introduction.itely (About this manual): Fix
