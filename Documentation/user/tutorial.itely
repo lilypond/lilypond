@@ -1544,7 +1544,7 @@ Setting run-time variables (`properties') is discussed in ref-TODO.
 @cindex La@TeX{}, music in
 @cindex HTML, music in
 @cindex Texinfo, music in
-Some texts include music examples.  Examples are musicological
+Some texts contain music examples.  These texts are musicological
 treatises, songbooks or manuals like this.  Such texts can be made by
 hand, simply by importing a PostScript figure into the word processor.
 However, there is an automated procedure to reduce the amount of work
