@@ -1,3 +1,7 @@
+2003-08-31  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lily/parser.yy, lily/my-lily-lexer.cc: spell it acciaccatura.
+
 2003-08-31  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scripts/convert-ly.py (FatalConversionError.figures_replace):

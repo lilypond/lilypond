@@ -260,7 +260,7 @@ yylex (YYSTYPE *s,  void * v)
 %token FIGURES FIGURE_OPEN FIGURE_CLOSE
 %token FIGURE_BRACKET_CLOSE FIGURE_BRACKET_OPEN
 %token GRACE 
-%token ACCIACATURA
+%token ACCIACCATURA
 %token APPOGGIATURA 
 %token GROBDESCRIPTIONS
 %token HEADER
@@ -922,7 +922,7 @@ Simple_music:
 
 grace_head:
 	GRACE  { $$ = scm_makfrom0str ("Grace"); } 
-	| ACCIACATURA { $$ = scm_makfrom0str ("Acciaccatura"); }
+	| ACCIACCATURA { $$ = scm_makfrom0str ("Acciaccatura"); }
 	| APPOGGIATURA { $$ = scm_makfrom0str ("Appoggiatura"); }
 	;
 	
