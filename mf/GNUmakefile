@@ -3,20 +3,29 @@
 depth = ..
 
 STEPMAKE_TEMPLATES=metafont metapost asciifont install install-out
+include $(depth)/make/stepmake.make 
 
 AF_FILES = $(wildcard *.af) 
 
 EXTRA_DIST_FILES += README feta.tex
 
-FET_FILES = $(wildcard feta[0-9]*.mf)
-FONT_FILES = $(wildcard feta*[0-9].mf)
-XPM_FONTS = feta20
+# don't try to make fonts from test files
+TEST_FILES = $(wildcard *test*.mf)
+FET_FILES = $(filter-out $(TEST_FILES),$(wildcard feta[0-9]*.mf))
+FONT_FILES = $(filter-out $(TEST_FILES),$(wildcard feta*[0-9].mf))
+
+XPM_FONTS = feta20 feta-nummer10 feta-braces20
 
 LOG_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.log))
 TEXTABLES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.tex))
 AFM_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.afm) $(AF_FILES:.af=.afm))
 TFM_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.tfm))
 PFA_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.pfa)) 
+
+foo:
+	@echo fof: $(FONT_FILES)
+	@echo fef: $(FET_FILES)
+	@echo tfm: $(TFM_FILES)
 
 # Make tfm files first, log files last, 
 # so that normally log files aren't made twice
@@ -42,9 +51,7 @@ INSTALLATION_OUT_FILES3=$(TFM_FILES)
 INSTALLATION_OUT_DIR4=$(datadir)/pfa
 INSTALLATION_OUT_FILES4=$(PFA_FILES)
 
-
 export MFINPUTS:=.:$(MFINPUTS)
-include $(depth)/make/stepmake.make 
 
 default: $(ALL_GEN_FILES)
 

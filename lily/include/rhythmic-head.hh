@@ -12,6 +12,12 @@
 
 #include "item.hh"
 
+/*
+  Why don't I have a 
+  VIRTUAL_COPY_CONS (Score_element);
+  see also note-head, rest.
+  ?
+*/
 
 class Rhythmic_head : public Item
 {

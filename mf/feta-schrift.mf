@@ -699,7 +699,6 @@ fet_beginchar("Coda", "coda", "coda")
 fet_endchar;
 
 input feta-slag;
-input feta-accordion;
 
 fet_endgroup("scripts");
 

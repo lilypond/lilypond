@@ -365,11 +365,11 @@ Lookup::accordion (SCM s, Real staff_space) const
 
   if (sym == "Discant")
     {
-      Molecule r = afm_find("scripts-accDiscant");
+      Molecule r = afm_find("accordion-accDiscant");
       m.add_molecule(r);
       if (reg.left_str(1) == "F")
 	{
-	  Molecule d = afm_find("scripts-accDot");
+	  Molecule d = afm_find("accordion-accDot");
 	  d.translate_axis(staff_space * 2.5 PT, Y_AXIS);
 	  m.add_molecule(d);
 	  reg = reg.right_str(reg.length_i()-1);
@@ -397,27 +397,27 @@ Lookup::accordion (SCM s, Real staff_space) const
 	}
       if (eflag & 0x02)
 	{
-	  Molecule d = afm_find("scripts-accDot");
+	  Molecule d = afm_find("accordion-accDot");
 	  d.translate_axis(staff_space * 1.5 PT, Y_AXIS);
 	  m.add_molecule(d);
 	}
       if (eflag & 0x04)
 	{
-	  Molecule d = afm_find("scripts-accDot");
+	  Molecule d = afm_find("accordion-accDot");
 	  d.translate_axis(staff_space * 1.5 PT, Y_AXIS);
 	  d.translate_axis(0.8 * staff_space PT, X_AXIS);
 	  m.add_molecule(d);
 	}
       if (eflag & 0x01)
 	{
-	  Molecule d = afm_find("scripts-accDot");
+	  Molecule d = afm_find("accordion-accDot");
 	  d.translate_axis(staff_space * 1.5 PT, Y_AXIS);
 	  d.translate_axis(-0.8 * staff_space PT, X_AXIS);
 	  m.add_molecule(d);
 	}
       if (reg.left_str(2) == "SS")
 	{
-	  Molecule d = afm_find("scripts-accDot");
+	  Molecule d = afm_find("accordion-accDot");
 	  d.translate_axis(0.5 * staff_space PT, Y_AXIS);
 	  d.translate_axis(0.4 * staff_space PT, X_AXIS);
 	  m.add_molecule(d);
@@ -427,7 +427,7 @@ Lookup::accordion (SCM s, Real staff_space) const
 	}
       if (reg.left_str(1) == "S")
 	{
-	  Molecule d = afm_find("scripts-accDot");
+	  Molecule d = afm_find("accordion-accDot");
 	  d.translate_axis(0.5 * staff_space PT, Y_AXIS);
 	  m.add_molecule(d);
 	  reg = reg.right_str(reg.length_i()-1);
@@ -435,29 +435,29 @@ Lookup::accordion (SCM s, Real staff_space) const
     }
   else if (sym == "Freebase")
     {
-      Molecule r = afm_find("scripts-accFreebase");
+      Molecule r = afm_find("accordion-accFreebase");
       m.add_molecule(r);
       if (reg.left_str(1) == "F")
 	{
-	  Molecule d = afm_find("scripts-accDot");
+	  Molecule d = afm_find("accordion-accDot");
 	  d.translate_axis(staff_space * 1.5 PT, Y_AXIS);
 	  m.add_molecule(d);
 	  reg = reg.right_str(reg.length_i()-1);
 	}
       if (reg == "E")
 	{
-	  Molecule d = afm_find("scripts-accDot");
+	  Molecule d = afm_find("accordion-accDot");
 	  d.translate_axis(staff_space * 0.5 PT, Y_AXIS);
 	  m.add_molecule(d);
 	}
     }
   else if (sym == "Bayanbase")
     {
-      Molecule r = afm_find("scripts-accBayanbase");
+      Molecule r = afm_find("accordion-accBayanbase");
       m.add_molecule(r);
       if (reg.left_str(1) == "T")
 	{
-	  Molecule d = afm_find("scripts-accDot");
+	  Molecule d = afm_find("accordion-accDot");
 	  d.translate_axis(staff_space * 2.5 PT, Y_AXIS);
 	  m.add_molecule(d);
 	  reg = reg.right_str(reg.length_i()-1);
@@ -465,14 +465,14 @@ Lookup::accordion (SCM s, Real staff_space) const
       /* include 4' reed just for completeness. You don't want to use this. */
       if (reg.left_str(1) == "F")
 	{
-	  Molecule d = afm_find("scripts-accDot");
+	  Molecule d = afm_find("accordion-accDot");
 	  d.translate_axis(staff_space * 1.5 PT, Y_AXIS);
 	  m.add_molecule(d);
 	  reg = reg.right_str(reg.length_i()-1);
 	}
       if (reg.left_str(2) == "EE")
 	{
-	  Molecule d = afm_find("scripts-accDot");
+	  Molecule d = afm_find("accordion-accDot");
 	  d.translate_axis(staff_space * 0.5 PT, Y_AXIS);
 	  d.translate_axis(0.4 * staff_space PT, X_AXIS);
 	  m.add_molecule(d);
@@ -482,7 +482,7 @@ Lookup::accordion (SCM s, Real staff_space) const
 	}
       if (reg.left_str(1) == "E")
 	{
-	  Molecule d = afm_find("scripts-accDot");
+	  Molecule d = afm_find("accordion-accDot");
 	  d.translate_axis(staff_space * 0.5 PT, Y_AXIS);
 	  m.add_molecule(d);
 	  reg = reg.right_str(reg.length_i()-1);
@@ -490,25 +490,25 @@ Lookup::accordion (SCM s, Real staff_space) const
     }
   else if (sym == "Stdbase")
     {
-      Molecule r = afm_find("scripts-accStdbase");
+      Molecule r = afm_find("accordion-accStdbase");
       m.add_molecule(r);
       if (reg.left_str(1) == "T")
 	{
-	  Molecule d = afm_find("scripts-accDot");
+	  Molecule d = afm_find("accordion-accDot");
 	  d.translate_axis(staff_space * 3.5 PT, Y_AXIS);
 	  m.add_molecule(d);
 	  reg = reg.right_str(reg.length_i()-1);
 	}
       if (reg.left_str(1) == "F")
 	{
-	  Molecule d = afm_find("scripts-accDot");
+	  Molecule d = afm_find("accordion-accDot");
 	  d.translate_axis(staff_space * 2.5 PT, Y_AXIS);
 	  m.add_molecule(d);
 	  reg = reg.right_str(reg.length_i()-1);
 	}
       if (reg.left_str(1) == "M")
 	{
-	  Molecule d = afm_find("scripts-accDot");
+	  Molecule d = afm_find("accordion-accDot");
 	  d.translate_axis(staff_space * 2 PT, Y_AXIS);
 	  d.translate_axis(staff_space PT, X_AXIS);
 	  m.add_molecule(d);
@@ -516,14 +516,14 @@ Lookup::accordion (SCM s, Real staff_space) const
 	}
       if (reg.left_str(1) == "E")
 	{
-	  Molecule d = afm_find("scripts-accDot");
+	  Molecule d = afm_find("accordion-accDot");
 	  d.translate_axis(staff_space * 1.5 PT, Y_AXIS);
 	  m.add_molecule(d);
 	  reg = reg.right_str(reg.length_i()-1);
 	}
       if (reg.left_str(1) == "S")
 	{
-	  Molecule d = afm_find("scripts-accDot");
+	  Molecule d = afm_find("accordion-accDot");
 	  d.translate_axis(staff_space * 0.5 PT, Y_AXIS);
 	  m.add_molecule(d);
 	  reg = reg.right_str(reg.length_i()-1);
@@ -533,22 +533,22 @@ Lookup::accordion (SCM s, Real staff_space) const
      for the rectangle */
   else if (sym == "SB")
     {
-      Molecule r = afm_find("scripts-accSB");
+      Molecule r = afm_find("accordion-accSB");
       m.add_molecule(r);
     }
   else if (sym == "BB")
     {
-      Molecule r = afm_find("scripts-accBB");
+      Molecule r = afm_find("accordion-accBB");
       m.add_molecule(r);
     }
   else if (sym == "OldEE")
     {
-      Molecule r = afm_find("scripts-accOldEE");
+      Molecule r = afm_find("accordion-accOldEE");
       m.add_molecule(r);
     }
   else if (sym == "OldEES")
     {
-      Molecule r = afm_find("scripts-accOldEES");
+      Molecule r = afm_find("accordion-accOldEES");
       m.add_molecule(r);
     }
   return m;  
