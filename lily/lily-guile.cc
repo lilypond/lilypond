@@ -265,6 +265,22 @@ is_direction (SCM s)
   return false;
 }
 
+LY_DEFINE(ly_assoc_get, "ly:assoc-get",
+	  2, 1, 0,
+	  (SCM key, SCM alist, SCM default_value),
+	  "Return value if KEY in ALIST, else DEFAULT-VALUE (or #f if not specified).")
+{
+  SCM handle = scm_assoc (key, alist);
+
+  if (default_value == SCM_UNDEFINED)
+    default_value = SCM_BOOL_F;
+  
+  if (ly_c_pair_p (handle))
+    return ly_cdr (handle);
+  else
+    return default_value;
+}
+
 bool
 is_axis (SCM s)
 {
@@ -822,3 +838,4 @@ LY_DEFINE (ly_gettext, "ly:gettext",
 		   __FUNCTION__, "string");
   return scm_makfrom0str (gettext (scm_i_string_chars (string)));
 }
+

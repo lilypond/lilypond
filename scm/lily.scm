@@ -134,12 +134,7 @@
   
 ;;;;;;;;;;;;;;;;
 ; alist
-(define-public (assoc-get key alist . default)
-  "Return value if KEY in ALIST, else DEFAULT (or #f if not specified)."
-  (let ((entry (assoc key alist)))
-    (if (pair? entry)
-	(cdr entry)
-	(if (pair? default) (car default) #f))))
+(define-public assoc-get ly:assoc-get)
 
 (define-public (uniqued-alist alist acc)
   (if (null? alist) acc
