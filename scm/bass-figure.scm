@@ -1,34 +1,36 @@
-;;;; figured bass support ...
+;;;; bass-figure.scm -- implement Scheme output routines for TeX
+;;;;
+;;;;  source file of the GNU LilyPond music typesetter
+;;;; 
+;;;; (c)  1998--2004 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;;                 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+
 
 (ly:add-interface
-'bass-figure-interface
+ 'bass-figure-interface
  "A bass figure, including bracket"
  '())
-
-
 
 (define-public (format-bass-figure figures context grob)
   ;; TODO: support slashed numerals here.
   (define (fig-to-markup fig-music)
-    (let*
-	((align-accs (eq? #t (ly:context-property context 'alignBassFigureAccidentals)))
-	 (fig  (ly:music-property fig-music 'figure))
-	 (acc  (ly:music-property fig-music 'alteration))
-	 (acc-markup #f)
-	 (fig-markup
-	  (if (markup? fig)
-	      fig
-	      (if align-accs (make-simple-markup " ")
-		  (if (not (eq? acc '()))
-		      (make-simple-markup "")
-		      (make-strut-markup)))
-	      )))
+    (let* ((align-accs
+	    (eq? #t (ly:context-property context 'alignBassFigureAccidentals)))
+	   (fig  (ly:music-property fig-music 'figure))
+	   (acc  (ly:music-property fig-music 'alteration))
+	   (acc-markup #f)
+	   (fig-markup
+	    (if (markup? fig)
+		fig
+		(if align-accs (make-simple-markup " ")
+		    (if (not (eq? acc '()))
+			(make-simple-markup "")
+			(make-strut-markup))))))
 
       (if (number? acc)
 	  (make-line-markup (list fig-markup
 				  (alteration->text-accidental-markup acc)))
-	  fig-markup)
-      ))
+	  fig-markup)))
 
   (define (filter-brackets i figs acc)
     (cond
@@ -49,5 +51,4 @@
   (set! (ly:grob-property grob 'text)
 	(make-bracketed-y-column-markup
 	 (sort (filter-brackets 0 figures '()) <)
-	 (map fig-to-markup figures)
-	 )))
+	 (map fig-to-markup figures))))

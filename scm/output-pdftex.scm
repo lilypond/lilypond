@@ -24,12 +24,8 @@
 (define (unknown) 
   "%\n\\unknown\n")
 
-
 (define (select-font name-mag-pair)
-  (let*
-      (
-       (c (assoc name-mag-pair font-name-alist))
-       )
+  (let* ((c (assoc name-mag-pair font-name-alist)))
 
     (if (eq? c #f)
 	(begin
@@ -38,14 +34,10 @@
 	  (display (object-type (caaar font-name-alist)))
 
 	  (ly:warn "Programming error: No such font known ~S ~S"
-		    (car name-mag-pair) 
-		    (ly:number->string (cdr name-mag-pair))
-		    )
+		   (car name-mag-pair) 
+		   (ly:number->string (cdr name-mag-pair)))
 	  "") ; issue no command
-	(string-append "\\" (cddr c)))
-    
-    
-    ))
+	(string-append "\\" (cddr c)))))
 
 (define (beam width slope thick blot)
   (embedded-pdf (list 'beam  width slope thick blot)))
@@ -76,29 +68,22 @@
 (define (header-to-file fn key val)
   (set! key (symbol->string key))
   (if (not (equal? "-" fn))
-      (set! fn (string-append fn "." key))
-      )
+      (set! fn (string-append fn "." key)))
   (display
    (format "writing header field `~a' to `~a'..."
  	   key
- 	   (if (equal? "-" fn) "<stdout>" fn)
- 	   )
+ 	   (if (equal? "-" fn) "<stdout>" fn))
    (current-error-port))
   (if (equal? fn "-")
       (display val)
-      (display val (open-file fn "w"))
-      )
+      (display val (open-file fn "w")))
   (display "\n" (current-error-port))
-  ""
-  )
+  "")
 
 (define (embedded-pdf expr)
-  (let
-      ((os (open-output-string)))
+  (let ((os (open-output-string)))
     (pdf-output-expression expr os)
     (string-append "\\embeddedpdf{" (get-output-string os) "}")))
-
-
 
 (define (experimental-on)
   "")
@@ -106,18 +91,17 @@
 (define (repeat-slash w a t)
   (embedded-pdf (list 'repeat-slash w a t)))
 
-
 (define (tex-encoded-fontswitch name-mag)
   (let* ((iname-mag (car name-mag))
 	 (ename-mag (cdr name-mag)))
     (cons iname-mag
 	  (cons ename-mag
 		(string-append  "magfont"
-			  (string-encode-integer
-			   (hashq (car ename-mag) 1000000))
-			  "m"
-			  (string-encode-integer
-			   (inexact->exact (* 1000 (cdr ename-mag)))))))))
+				(string-encode-integer
+				 (hashq (car ename-mag) 1000000))
+				"m"
+				(string-encode-integer
+				 (inexact->exact (* 1000 (cdr ename-mag)))))))))
 (define (define-fonts internal-external-name-mag-pairs)
   (set! font-name-alist (map tex-encoded-fontswitch
 			     internal-external-name-mag-pairs))
@@ -125,7 +109,6 @@
 	 (map (lambda (x)
 		(font-load-command (car x) (cdr x)))
 	      (map cdr font-name-alist))))
-
 
 (define (font-switch i)
   (string-append
@@ -141,8 +124,7 @@
    (number->string (cond
 		    ((equal? (ly:unit) "mm") (/ 72.0  25.4))
 		    ((equal? (ly:unit) "pt") (/ 72.0  72.27))
-		    (else (error "unknown unit" (ly:unit)))
-		    ))
+		    (else (error "unknown unit" (ly:unit)))))
    "}%\n"
    "\\ifx\\lilypondstart\\undefined\n"
    "  \\input lilyponddefs\n"
@@ -163,16 +145,16 @@
 ;; FIXME: explain ploblem: need to do something to make this really safe.  
 (define (output-tex-string s)
   (if (ly:get-option 'safe)
-      (regexp-substitute/global #f "\\\\"
-				(regexp-substitute/global #f "\\([{}]\\)" s 'pre "\\1" 'post)
-				 'pre "$\\backslash$" 'post)
-      
+      (regexp-substitute/global
+       #f "\\\\"
+       (regexp-substitute/global #f "\\([{}]\\)" s 'pre "\\1" 'post)
+       'pre "$\\backslash$" 'post)
       s))
 
 (define (lily-def key val)
   (let ((tex-key
 	 (regexp-substitute/global 
-	      #f "_" (output-tex-string key) 'pre "X" 'post))
+	  #f "_" (output-tex-string key) 'pre "X" 'post))
 	(tex-val (output-tex-string val)))
     (if (equal? (sans-surrounding-whitespace tex-val) "")
 	(string-append "\\let\\" tex-key "\\undefined\n")
@@ -228,14 +210,10 @@
       (string-append "\\special{src:\\string:"
 		     (point-and-click line col file)
 		     "}" )
-      "")
-  )
+      ""))
 
-					; no-origin not supported in PDFTeX
+;; no-origin not supported in PDFTeX
 (define (no-origin) "")
-
-
-
 
 (define-public (pdftex-output-expression expr port)
   (display (eval expr this-module) port) )

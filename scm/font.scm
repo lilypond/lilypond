@@ -80,8 +80,7 @@
   (define (make-node fprops size-family)
     (if (null? fprops)
 	(make-font-tree-leaf (car size-family) (cdr size-family))
-	(let*
-	    ((qual (next-qualifier default-qualifier-order fprops)))
+	(let* ((qual (next-qualifier default-qualifier-order fprops)))
 	  (make-font-tree-node qual
 			       (assoc-get qual fprops)))))
 
@@ -96,14 +95,12 @@
 	  (car order)
 	  (next-qualifier (cdr order) props)))))
 
-
-  (let*
-      ((q (font-qualifier node))
-       (d (font-default node))
-       (v (assoc-get q fprops d))
-       (new-fprops (assoc-delete q fprops))
-       (child (hashq-ref (slot-ref node 'children)
-			 v #f)))
+  (let* ((q (font-qualifier node))
+	 (d (font-default node))
+	 (v (assoc-get q fprops d))
+	 (new-fprops (assoc-delete q fprops))
+	 (child (hashq-ref (slot-ref node 'children)
+			   v #f)))
 
 
     (if (not child)
@@ -119,11 +116,10 @@
 
 
 (define-method (g-lookup-font (node <Font-tree-node>) alist-chain)
-  (let*
-      ((qual (font-qualifier node))
-       (def (font-default node))
-       (val (chain-assoc-get qual alist-chain def))
-       (desired-child (hashq-ref (font-children node) val)))
+  (let* ((qual (font-qualifier node))
+	 (def (font-default node))
+	 (val (chain-assoc-get qual alist-chain def))
+	 (desired-child (hashq-ref (font-children node) val)))
 
     (if desired-child
 	(g-lookup-font desired-child alist-chain)
@@ -152,25 +148,25 @@
    `(
      (fetaNumber 20
 		 #(
-		  ,(delay  (ly:font-load "feta-alphabet11"))
-		  ,(delay  (ly:font-load "feta-alphabet13"))
-		  ,(delay  (ly:font-load "feta-alphabet14"))
-		  ,(delay  (ly:font-load "feta-alphabet16"))		  
-		  ,(delay  (ly:font-load "feta-alphabet18"))
-		  ,(delay  (ly:font-load "feta-alphabet20"))		  
-		  ,(delay  (ly:font-load "feta-alphabet23"))		  
-		  ,(delay  (ly:font-load "feta-alphabet26"))))
+		   ,(delay  (ly:font-load "feta-alphabet11"))
+		   ,(delay  (ly:font-load "feta-alphabet13"))
+		   ,(delay  (ly:font-load "feta-alphabet14"))
+		   ,(delay  (ly:font-load "feta-alphabet16"))		  
+		   ,(delay  (ly:font-load "feta-alphabet18"))
+		   ,(delay  (ly:font-load "feta-alphabet20"))		  
+		   ,(delay  (ly:font-load "feta-alphabet23"))		  
+		   ,(delay  (ly:font-load "feta-alphabet26"))))
      
      (fetaDynamic 20.0  #(
-		  ,(delay  (ly:font-load "feta-alphabet11"))
-		  ,(delay  (ly:font-load "feta-alphabet13"))		  
-		  ,(delay  (ly:font-load "feta-alphabet14"))
-		  ,(delay  (ly:font-load "feta-alphabet16"))		  
-		  ,(delay  (ly:font-load "feta-alphabet18"))
-		  ,(delay  (ly:font-load "feta-alphabet20"))		  
-		  ,(delay  (ly:font-load "feta-alphabet23"))		  
-		  ,(delay  (ly:font-load "feta-alphabet26"))))
-			  
+			  ,(delay  (ly:font-load "feta-alphabet11"))
+			  ,(delay  (ly:font-load "feta-alphabet13"))		  
+			  ,(delay  (ly:font-load "feta-alphabet14"))
+			  ,(delay  (ly:font-load "feta-alphabet16"))		  
+			  ,(delay  (ly:font-load "feta-alphabet18"))
+			  ,(delay  (ly:font-load "feta-alphabet20"))		  
+			  ,(delay  (ly:font-load "feta-alphabet23"))		  
+			  ,(delay  (ly:font-load "feta-alphabet26"))))
+     
      (fetaMusic 20.0
 		#(
 		  ,(delay  (ly:font-load "bigcheese11"))
@@ -183,7 +179,7 @@
 		  ,(delay  (ly:font-load "bigcheese26"))))
 
      (fetaBraces 100.0 #(,(delay
-			  (ly:font-load "aybabtu")))))))
+			    (ly:font-load "aybabtu")))))))
 
 (define-public (add-cmr-fonts node factor)
   (add-font node '((font-encoding . TeX-math))

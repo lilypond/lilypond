@@ -8,21 +8,18 @@
 
 (use-modules (oop goops)
 	     (srfi srfi-13)
-	     (srfi srfi-1)
-	     )
+	     (srfi srfi-1))
 
 (define-class <texi-node> ()
   (children #:init-value '() #:accessor node-children #:init-keyword #:children)
   (text #:init-value "" #:accessor node-text #:init-keyword #:text)
   (name #:init-value "" #:accessor node-name #:init-keyword #:name)
-  (description #:init-value "" #:accessor node-desc #:init-keyword #:desc)
-  )
+  (description #:init-value "" #:accessor node-desc #:init-keyword #:desc))
 
 (define (menu-entry x)
   (cons
    (node-name x)
-   (node-desc x))
-  )
+   (node-desc x)))
 
 (define (dump-node node port level)
   (display
@@ -37,13 +34,12 @@
     "\n\n"
     (if (pair? (node-children node))
 	(texi-menu
-	 (map (lambda (x) (menu-entry x) )
+	 (map (lambda (x) (menu-entry x))
 	      (node-children node)))
-	 ""))
+	""))
    port)
   (map (lambda (x) (dump-node x port (+ 1 level)))
-        (node-children node))
-  )
+       (node-children node)))
 
 (define (processing name)
   (display (string-append "\nProcessing " name " ... ") (current-error-port)))
@@ -55,8 +51,7 @@
   x)
 
 (define (scm->texi x)
-  (string-append "@code{" (texify (scm->string x)) "}")
-  )
+  (string-append "@code{" (texify (scm->string x)) "}"))
 
 
 ;;
@@ -67,28 +62,25 @@
       (symbol->string (procedure-name val))
       (string-append
        (if (self-evaluating? val) "" "'")
-       (call-with-output-string (lambda (port) (display val port)))
-       )))
+       (call-with-output-string (lambda (port) (display val port))))))
 
 
 (define (texi-section-command level)
   (cdr (assoc level '(
-    ;; Hmm, texinfo doesn't have ``part''
-    (0 . "@top")
-    (1 . "@unnumbered")
-    (2 . "@unnumberedsec")
-    (3 . "@unnumberedsubsec")
-    (4 . "@unnumberedsubsubsec")
-    (5 . "@unnumberedsubsubsec")
-    ))))
+		      ;; Hmm, texinfo doesn't have ``part''
+		      (0 . "@top")
+		      (1 . "@unnumbered")
+		      (2 . "@unnumberedsec")
+		      (3 . "@unnumberedsubsec")
+		      (4 . "@unnumberedsubsubsec")
+		      (5 . "@unnumberedsubsubsec")))))
 
 (define (one-item->texi label-desc-pair)
   "Document one (LABEL . DESC); return empty string if LABEL is empty string. 
 "
   (if (eq? (car label-desc-pair) "")
       ""
-      (string-append "\n@item " (car label-desc-pair) "\n" (cdr label-desc-pair))
-  ))
+      (string-append "\n@item " (car label-desc-pair) "\n" (cdr label-desc-pair))))
 
 
 (define (description-list->texi items-alist)
@@ -102,37 +94,27 @@
 
 (define (texi-menu items-alist)
   "Generate what is between @menu and @end menu."
-  (let
-      (
-       (maxwid (apply max (map (lambda (x) (string-length (car x)))
-			       items-alist)))
-       )
+  (let ((maxwid
+	 (apply max (map (lambda (x) (string-length (car x))) items-alist))))
     
-
-    
-  (string-append
-  "\n@menu"
-  (apply string-append
-	 (map (lambda (x)
-		(string-append
-		(string-pad-right 
-		 (string-append "\n* " (car x) ":: ")
-		 (+ maxwid 8)
-		 )
-		(cdr x))
-		)
-	      items-alist))
-  "\n@end menu\n"
-  ;; Menus don't appear in html, so we make a list ourselves
-  "\n@ignore\n"
-  "\n@ifhtml\n"
-  (description-list->texi (map (lambda (x) (cons (ref-ify (car x)) (cdr x)))
-			 items-alist))
-  "\n@end ifhtml\n"
-  "\n@end ignore\n")))
-
-  
-
+    (string-append
+     "\n@menu"
+     (apply string-append
+	    (map (lambda (x)
+		   (string-append
+		    (string-pad-right 
+		     (string-append "\n* " (car x) ":: ")
+		     (+ maxwid 8))
+		    (cdr x)))
+		 items-alist))
+     "\n@end menu\n"
+     ;; Menus don't appear in html, so we make a list ourselves
+     "\n@ignore\n"
+     "\n@ifhtml\n"
+     (description-list->texi (map (lambda (x) (cons (ref-ify (car x)) (cdr x)))
+				  items-alist))
+     "\n@end ifhtml\n"
+     "\n@end ignore\n")))
 
 (define (texi-file-head name file-name top)
   (string-append
@@ -145,10 +127,7 @@
    "\n* GNU " name ": (" file-name ").          " name "."
    "\n@end direntry\n"
    "@documentlanguage en\n"
-   "@documentencoding ISO-8859-1\n"
-
-   ))
-
+   "@documentencoding ISO-8859-1\n"))
 
 (define (context-name name)
   name)
@@ -175,8 +154,7 @@
    ((null? l) "none")
    ((null? (cdr l)) (car l))
    ((null? (cddr l)) (string-append (car l) " and " (cadr l)))
-   (else (string-append (car l) ", " (human-listify (cdr l))))
-   ))
+   (else (string-append (car l) ", " (human-listify (cdr l))))))
 
 (define (writing-wip x)
   (display (string-append "\nWriting " x " ... ") (current-error-port)))
@@ -198,12 +176,11 @@ with init values from ALIST (1st optional argument)
 	 (type (object-property sym type?-name))
 	 (typename (type-name type))
 	 (desc (object-property sym doc-name))
-	 (handle (assoc sym alist))
-	 )
+	 (handle (assoc sym alist)))
 
     (if (eq? desc #f)
 	(error "No description for property ~S" sym))
-	
+    
     (cons
      (string-append "@code{" name "} "
 		    "(" typename ")"
@@ -212,11 +189,6 @@ with init values from ALIST (1st optional argument)
 			 ":\n\n"
 			 (scm->texi (cdr handle))
 			 "\n\n")
-			"")
-				    
-
-		    )
-     desc)
-     
-    ))
+			""))
+     desc)))
 

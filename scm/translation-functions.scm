@@ -1,5 +1,9 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; tuplets.
+;;;; translation-functions.scm --
+;;;;
+;;;;  source file of the GNU LilyPond music typesetter
+;;;; 
+;;;; (c)  1998--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;;		     Jan Nieuwenhuizen <janneke@gnu.org>
 
 (define-public (denominator-tuplet-formatter mus)
   (number->string (ly:music-property mus 'denominator)))
@@ -8,14 +12,11 @@
   (string-append
    (number->string (ly:music-property mus 'denominator))
    ":"
-   (number->string (ly:music-property mus 'numerator))
-   ))
-
+   (number->string (ly:music-property mus 'numerator))))
 
 ;; metronome marks
 (define-public (format-metronome-markup event context)
-  (let*
-      ((dur  (ly:music-property event 'tempo-unit))
+  (let* ((dur (ly:music-property event 'tempo-unit))
        (count (ly:music-property event 'metronome-count))
        (note-mark (make-smaller-markup
 		   (make-note-by-number-markup (ly:duration-log dur)
@@ -25,11 +26,7 @@
      (list
       (make-general-align-markup Y DOWN note-mark)
       (make-simple-markup  "=")
-      (make-simple-markup (number->string count))
-      
-  ))))
-
-
+      (make-simple-markup (number->string count))))))
 
 (define-public (format-mark-letters mark context)
   (make-bold-markup (make-markletter-markup (1- mark))))

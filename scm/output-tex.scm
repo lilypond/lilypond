@@ -23,30 +23,29 @@
 
   ;; JUNK this -- see lily.scm: ly:all-output-backend-commands
   #:export (unknown
-	     blank
-	     dot
-	     white-dot
-	     beam
-	     bracket
-	     dashed-slur
-	     named-glyph
-	     dashed-line
-	     zigzag-line
-	     ez-ball
-	     comment
-	     repeat-slash
-	     placebox
-	     bezier-sandwich
-	     horizontal-line
-	     filledbox
-	     round-filled-box
-	     text
-	     white-text
-	     polygon
-	     draw-line
-	     no-origin
-	     grob-cause
-	     ))
+	    blank
+	    dot
+	    white-dot
+	    beam
+	    bracket
+	    dashed-slur
+	    named-glyph
+	    dashed-line
+	    zigzag-line
+	    ez-ball
+	    comment
+	    repeat-slash
+	    placebox
+	    bezier-sandwich
+	    horizontal-line
+	    filledbox
+	    round-filled-box
+	    text
+	    white-text
+	    polygon
+	    draw-line
+	    no-origin
+	    grob-cause))
 
 (use-modules (ice-9 regex)
 	     (ice-9 string-fun)
@@ -109,8 +108,7 @@
 
 	(begin
 	  (ly:warn "Can't find ~a in ~a" name font)
-	  ""))
-	))
+	  ""))))
 
 (define (dashed-line thick on off dx dy)
   (embedded-ps (list 'dashed-line  thick on off dx dy)))
@@ -161,16 +159,16 @@
   (embedded-ps (list 'round-filled-box  x y width height blotdiam)))
 
 (define (text font s)
-  (let*
-      ((mapping #f)       ;; (assoc-get  'char-mapping (ly:font-encoding-alist font))))
+  ;; (assoc-get 'char-mapping (ly:font-encoding-alist font))))  
+  (let* ((mapping #f)
 
-
-       ;; TODO: we'd better do this for PS only
-       ;; LaTeX gets in the way, and we need to remap
-       ;; nonprintable chars.
-       
-       (input-enc-name #f) ;; (assoc-get 'input-name (ly:font-encoding-alist font) ))
-       )
+	 ;; TODO: we'd better do this for PS only
+	 ;; LaTeX gets in the way, and we need to remap
+	 ;; nonprintable chars.
+	 
+	 ;; (assoc-get 'input-name (ly:font-encoding-alist font)))
+	 
+	 (input-enc-name #f))
 
     (string-append "\\hbox{\\" (tex-font-command font)
 		   (if (string? input-enc-name)
@@ -183,8 +181,8 @@
 		   "}")))
 
 (define (white-text scale s)
-   (embedded-ps (list 'white-text scale s)))
-   
+  (embedded-ps (list 'white-text scale s)))
+
 (define (polygon points blotdiameter)
   (embedded-ps (list 'polygon `(quote ,points) blotdiameter)))
 

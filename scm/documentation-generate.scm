@@ -1,29 +1,27 @@
-;;; generate-documentation.scm -- Generate documentation
-;;;
-;;; source file of the GNU LilyPond music typesetter
-;;; 
-;;; (c)  2000--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-;;; Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; generate-documentation.scm -- Generate documentation
+;;;;
+;;;; source file of the GNU LilyPond music typesetter
+;;;; 
+;;;; (c)  2000--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;; Jan Nieuwenhuizen <janneke@gnu.org>
 
 ;;; File entry point for generated documentation
-
 ;;; Running LilyPond on this file generates the documentation
 
-;(set-debug-cell-accesses! 5000)
+;;(set-debug-cell-accesses! 5000)
 
 ;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;; TODO : make modules of these!
 ;;;;;;;;;;;;;;;;
 
-; todo: naming: grob vs. layout property
+;; todo: naming: grob vs. layout property
 
 (map ly:load '("documentation-lib.scm"
 	       "document-functions.scm"
 	       "document-translation.scm"
 	       "document-music.scm"
 	       "document-backend.scm"
-	       "document-markup.scm"
-	       ))
+	       "document-markup.scm"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -43,20 +41,15 @@
 (display
  (translation-properties-doc-string all-user-translation-properties)
  (open-output-file "context-properties.tely") )
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define file-name "lilypond-internals")
 (define outname (string-append file-name ".texi"))
 
-
 (define out-port (open-output-file outname))
 
 (writing-wip outname)
-
-
-
-
 
 (display
  (string-append
@@ -137,10 +130,8 @@
 @end ignore
 
 
-"
-
-
-  ) out-port)
+")
+ out-port)
 
 (define top-node
   (make <texi-node>
@@ -169,12 +160,7 @@
 
 @printindex fn
 
-\n@bye"
-
-       
-     )
-    )))
-
+\n@bye"))))
 
 (dump-node top-node out-port 0)
 (newline (current-error-port))

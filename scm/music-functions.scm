@@ -60,7 +60,6 @@
       music
       (make-music 'Music)))	  ;must return music.
 
-
 (define-public (display-music music)
   "Display music, not done with music-map for clarity of presentation."
   (display music)
@@ -78,7 +77,6 @@
 	  (display-music e))))
   (display " }\n")
   music)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -101,7 +99,6 @@
 (define-public (shift-duration-log music shift dot)
   (music-map (lambda (x) (shift-one-duration-log x shift dot))
 	     music))
-  
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; clusters.
@@ -132,13 +129,11 @@ This function replaces all repeats  with unfold repeats. "
 	  
 	  (if (equal? (ly:music-property music 'iterator-ctor)
 		      Chord_tremolo_iterator::constructor)
-	      (let*
-		  ((seq-arg? (memq 'sequential-music
-				   (ly:music-property e 'types)))
-		   (count  (ly:music-property music 'repeat-count))
-		   (dot-shift (if (= 0 (remainder count 3))
-				  -1 0))
-		   )
+	      (let* ((seq-arg? (memq 'sequential-music
+				     (ly:music-property e 'types)))
+		     (count  (ly:music-property music 'repeat-count))
+		     (dot-shift (if (= 0 (remainder count 3))
+				    -1 0)))
 
 		(if (= 0 -1)
 		    (set! count (* 2 (quotient count 3))))
@@ -147,8 +142,7 @@ This function replaces all repeats  with unfold repeats. "
 					     (ly:intlog2 count)) dot-shift)
 		
 		(if seq-arg?
-		    (ly:music-compress e (ly:make-moment (length (ly:music-property e 'elements)) 1)))
-		))
+		    (ly:music-compress e (ly:make-moment (length (ly:music-property e 'elements)) 1)))))
 	  
 	  (set! (ly:music-property music 'length)
 		Repeated_music::unfolded_music_length)
@@ -164,7 +158,6 @@ This function replaces all repeats  with unfold repeats. "
 	(set! (ly:music-property music 'element)
 	      (unfold-repeats e)))
     music))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; property setting music objs.
@@ -193,8 +186,7 @@ i.e.  this is not an override"
 	      'grob-property gprop))
 
 (define direction-polyphonic-grobs
-  '(Stem Tie Rest Slur Script TextScript Dots DotColumn Fingering
-	 ))
+  '(Stem Tie Rest Slur Script TextScript Dots DotColumn Fingering))
 
 (define-public (make-voice-props-set n)
   (make-sequential-music
@@ -204,10 +196,7 @@ i.e.  this is not an override"
 	 direction-polyphonic-grobs)
     (list
      (make-grob-property-set 'NoteColumn 'horizontal-shift (quotient n 2))
-     (make-grob-property-set 'MultiMeasureRest 'staff-position (if (odd? n) -4 4))
-     
-     )))) 
-
+     (make-grob-property-set 'MultiMeasureRest 'staff-position (if (odd? n) -4 4)))))) 
 
 (define-public (make-voice-props-revert)
   (make-sequential-music
@@ -227,7 +216,6 @@ i.e.  this is not an override"
 	(set! (ly:music-property cm 'context-id) id))
     cm))
 
-
 (define-public (descend-to-context m context)
   "Like context-spec-music, but only descending. "
   (let ((cm (context-spec-music m context)))
@@ -236,8 +224,7 @@ i.e.  this is not an override"
 
 (define-public (make-non-relative-music mus)
   (make-music 'UnrelativableMusic
-	      'element mus
-  ))
+	      'element mus))
 
 (define-public (make-apply-context func)
   (make-music 'ApplyContext
@@ -399,21 +386,21 @@ of beat groupings "
 
 ;;; splitting chords into voices.
 (define (voicify-list lst number)
-   "Make a list of Musics.
+  "Make a list of Musics.
 
    voicify-list :: [ [Music ] ] -> number -> [Music]
    LST is a list music-lists.
 
    NUMBER is 0-base, i.e. Voice=1 (upstems) has number 0.
 "
-   (if (null? lst)
-       '()
-       (cons (context-spec-music
-	      (make-sequential-music
-	       (list (make-voice-props-set number)
-		     (make-simultaneous-music (car lst))))
-	      'Voice  (number->string (1+ number)))
-	     (voicify-list (cdr lst) (1+ number)))))
+  (if (null? lst)
+      '()
+      (cons (context-spec-music
+	     (make-sequential-music
+	      (list (make-voice-props-set number)
+		    (make-simultaneous-music (car lst))))
+	     'Voice  (number->string (1+ number)))
+	    (voicify-list (cdr lst) (1+ number)))))
 
 (define (voicify-chord ch)
   "Split the parts of a chord into different Voices using separator"
@@ -442,7 +429,7 @@ of beat groupings "
   (ly:export (make-music 'Music)))
 ;;;
 
-; Make a function that checks score element for being of a specific type. 
+					; Make a function that checks score element for being of a specific type. 
 (define-public (make-type-checker symbol)
   (lambda (elt)
     ;;(display	symbol)
@@ -455,14 +442,14 @@ of beat groupings "
 
 
 (define-public ((set-output-property grob-name symbol val)  grob grob-c context)
-   "Usage:
+  "Usage:
 
 \\applyoutput #(set-output-property 'Clef 'extra-offset '(0 . 1))
 
 "
-   (let ((meta (ly:grob-property grob 'meta)))
-     (if (equal?  (cdr (assoc 'name meta)) grob-name)
-	 (set! (ly:grob-property grob symbol) val))))
+  (let ((meta (ly:grob-property grob 'meta)))
+    (if (equal?  (cdr (assoc 'name meta)) grob-name)
+	(set! (ly:grob-property grob symbol) val))))
 
 
 ;;
@@ -494,7 +481,7 @@ of beat groupings "
     (if (ly:input-location? ip)
 	(ly:input-message ip msg)
 	(ly:warn msg))))
-  
+
 (define (check-start-chords music)
   "Check music expression for a Simultaneous_music containing notes\n(ie. Request_chords),
 without context specification. Called  from parser."
@@ -521,9 +508,8 @@ without context specification. Called  from parser."
 
 (define (vector-extend v x)
   "Make a new vector consisting of V, with X added to the end."
-  (let*
-      ((n (vector-length v))
-       (nv (make-vector (+ n 1) '())))
+  (let* ((n (vector-length v))
+	 (nv (make-vector (+ n 1) '())))
     (vector-move-left! v 0 n nv 0)
     (vector-set! nv n x)
     nv))
@@ -580,13 +566,11 @@ Syntax:
   "Must happen after quote-substitute."
   
   (if (vector? (ly:music-property quote-music 'quoted-events))
-      (let*
-	  ((dir (ly:music-property quote-music 'quoted-voice-direction))
-	   (main-voice (if (eq? 1 dir) 1 0))
-	   (cue-voice (if (eq? 1 dir) 0 1))
-	   (main-music (ly:music-property quote-music 'element))
-	   (return-value quote-music)
-	   )
+      (let* ((dir (ly:music-property quote-music 'quoted-voice-direction))
+	     (main-voice (if (eq? 1 dir) 1 0))
+	     (cue-voice (if (eq? 1 dir) 0 1))
+	     (main-music (ly:music-property quote-music 'element))
+	     (return-value quote-music))
 	
 	(if (or (eq? 1 dir) (eq? -1 dir))
 	    
@@ -601,28 +585,23 @@ Syntax:
 		     (list
 		      (context-spec-music (make-voice-props-set cue-voice) 'Voice "cue")
 		      quote-music
-		      (context-spec-music (make-voice-props-revert)  'Voice "cue"))
-		     ))
+		      (context-spec-music (make-voice-props-revert)  'Voice "cue"))))
 	      (set! main-music
 		    (make-sequential-music
 		     (list
 		      (make-voice-props-set main-voice)
 		      main-music
-		      (make-voice-props-revert)
-		      )))
-	      (set! (ly:music-property quote-music 'element) main-music)
-	      ))
+		      (make-voice-props-revert))))
+	      (set! (ly:music-property quote-music 'element) main-music)))
 
 	return-value)
       quote-music))
 
 (define-public ((quote-substitute quote-tab) music)
-  (let*
-      ((quoted-name (ly:music-property music 'quoted-music-name))
-       (quoted-vector (if (string? quoted-name)
-			  (hash-ref quote-tab quoted-name #f)
-			  #f
-			  )))
+  (let* ((quoted-name (ly:music-property music 'quoted-music-name))
+	 (quoted-vector (if (string? quoted-name)
+			    (hash-ref quote-tab quoted-name #f)
+			    #f)))
     
     (if (string? quoted-name)
 	(if  (vector? quoted-vector)
@@ -630,7 +609,7 @@ Syntax:
 	     (ly:warn "Cannot find quoted music `~S'" quoted-name)))
 
     music))
-    
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; switch it on here, so parsing and init isn't checked (too slow!)
@@ -666,9 +645,7 @@ Syntax:
 
      (music-map (quote-substitute (ly:parser-lookup parser 'musicQuotes))  music))
    ;; switch-on-debugging
-   (lambda (x parser) (music-map cue-substitute x))
-   
-   ))
+   (lambda (x parser) (music-map cue-substitute x))))
 
 ;;;;;;;;;;;;;;;;;
 ;; lyrics
@@ -688,7 +665,7 @@ Syntax:
 ;;
 
 (define-public ((add-balloon-text object-name text off) grob orig-context cur-context)
-   "Usage: see input/regression/balloon.ly "
+  "Usage: see input/regression/balloon.ly "
   (let* ((meta (ly:grob-property grob 'meta))
 	 (nm (if (pair? meta) (cdr (assoc 'name meta)) "nonexistant"))
 	 (cb (ly:grob-property grob 'print-function)))
@@ -801,24 +778,18 @@ use GrandStaff as a context. "
 
 (define-public (skip-of-length mus)
   "Create a skip of exactly the same length as MUS."
-  (let*
-   ((skip
-     (make-music
-      'SkipEvent
-      'duration (ly:make-duration 0 0))))
+  (let* ((skip
+	  (make-music
+	   'SkipEvent
+	   'duration (ly:make-duration 0 0))))
 
-   (make-event-chord (list (ly:music-compress skip (ly:music-length mus))))
-))
-
+    (make-event-chord (list (ly:music-compress skip (ly:music-length mus))))))
 
 (define-public (mmrest-of-length mus)
   "Create a mmrest of exactly the same length as MUS."
   
-  (let*
-   ((skip
-     (make-multi-measure-rest
-      (ly:make-duration 0 0) '() )))
-   (ly:music-compress skip (ly:music-length mus))
-   skip
-))
-
+  (let* ((skip
+	  (make-multi-measure-rest
+	   (ly:make-duration 0 0) '() )))
+    (ly:music-compress skip (ly:music-length mus))
+    skip))
