@@ -82,7 +82,7 @@ Grob_pq_engraver::stop_translation_timestep ()
   Moment now = now_mom ();
   SCM start_busy = get_property ("busyGrobs");
   SCM busy = start_busy;
-  while (ly_pair_p (busy) && *unsmob_moment (ly_caar (busy)) == now)
+  while (is_pair (busy) && *unsmob_moment (ly_caar (busy)) == now)
     {
       busy = ly_cdr (busy);
     }
@@ -98,7 +98,7 @@ Grob_pq_engraver::start_translation_timestep ()
 
   SCM start_busy = get_property ("busyGrobs");
   SCM busy = start_busy;
-  while (ly_pair_p (busy) && *unsmob_moment (ly_caar (busy)) < now)
+  while (is_pair (busy) && *unsmob_moment (ly_caar (busy)) < now)
     {
       /*
 	The grob-pq-engraver is not water tight, and stuff like

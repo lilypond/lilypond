@@ -45,7 +45,7 @@ Bar_number_engraver::process_music ()
 
   SCM wb = get_property ("whichBar");
   
-  if (ly_string_p (wb))
+  if (is_string (wb))
     {
       SCM smp = get_property ("measurePosition");
       
@@ -54,7 +54,7 @@ Bar_number_engraver::process_music ()
 	{
 	  SCM bn = get_property ("currentBarNumber");
 	  SCM proc = get_property ("barNumberVisibility");
-	  if (ly_number_p (bn) && ly_procedure_p (proc)
+	  if (is_number (bn) && is_procedure (proc)
 	      && to_boolean (scm_call_1(proc, bn)))
 	    {
 	      create_items ();

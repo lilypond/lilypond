@@ -33,7 +33,7 @@ LY_DEFINE (ly_context_name, "ly:context-name",
   return unsmob_context_def (tr->definition_)->get_context_name (); 
 }
 
-LY_DEFINE (ly_context_pushpop_property, "ly:context-pushpop-property",
+LY_DEFINE (is_contextushpop_property, "ly:context-pushpop-property",
 	   3, 1, 0, (SCM context, SCM grob, SCM eltprop, SCM val),
 	   "Do a single @code{\\override} or @code{\\revert} operation "
 	   "in @var{context}.  The grob definition @code{grob} is extended "
@@ -42,22 +42,22 @@ LY_DEFINE (ly_context_pushpop_property, "ly:context-pushpop-property",
 {
   Context *tg = unsmob_context (context);
   SCM_ASSERT_TYPE (tg, context, SCM_ARG1, __FUNCTION__, "context");
-  SCM_ASSERT_TYPE (ly_symbol_p (grob), grob, SCM_ARG2, __FUNCTION__, "symbol");
-  SCM_ASSERT_TYPE (ly_symbol_p (eltprop), eltprop, SCM_ARG3, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (is_symbol (grob), grob, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (is_symbol (eltprop), eltprop, SCM_ARG3, __FUNCTION__, "symbol");
 
   execute_pushpop_property (tg, grob, eltprop, val);
 
   return SCM_UNDEFINED;
 }
 
-LY_DEFINE (ly_context_property, "ly:context-property",
+LY_DEFINE (is_contextroperty, "ly:context-property",
 	   2, 0, 0, (SCM c, SCM name),
 	  "Return the value of @var{name} from context @var{c}")
 {
   Context *t = unsmob_context (c);
   Context * tr= (t);
   SCM_ASSERT_TYPE (tr, c, SCM_ARG1, __FUNCTION__, "Translator group");
-  SCM_ASSERT_TYPE (ly_symbol_p (name), name, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (is_symbol (name), name, SCM_ARG2, __FUNCTION__, "symbol");
 
   return tr->internal_get_property (name);
 }
@@ -69,21 +69,21 @@ LY_DEFINE (ly_context_set_property, "ly:context-set-property!",
 {
   Context *tr = unsmob_context (context);
   SCM_ASSERT_TYPE (tr, context, SCM_ARG1, __FUNCTION__, "Context");
-  SCM_ASSERT_TYPE (ly_symbol_p (name), name, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (is_symbol (name), name, SCM_ARG2, __FUNCTION__, "symbol");
 
   tr->internal_set_property (name, val);
 
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_context_property_where_defined, "ly:context-property-where-defined",
+LY_DEFINE (is_contextroperty_where_defined, "ly:context-property-where-defined",
 	   2, 0, 0, (SCM context, SCM name),
 	   "Return the context above @var{context} "
 	   "where @var{name} is defined.")
 {
   Context *tr = unsmob_context (context);
   SCM_ASSERT_TYPE (tr, context, SCM_ARG1, __FUNCTION__, "Context");
-  SCM_ASSERT_TYPE (ly_symbol_p (name), name, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (is_symbol (name), name, SCM_ARG2, __FUNCTION__, "symbol");
 
   tr = tr->where_defined (name);
   if (tr)
@@ -98,13 +98,13 @@ LY_DEFINE (ly_unset_context_property, "ly:context-unset-property", 2, 0, 0,
 {
   Context *tr = unsmob_context (context);
   SCM_ASSERT_TYPE (tr, context, SCM_ARG1, __FUNCTION__, "Context");
-  SCM_ASSERT_TYPE (ly_symbol_p (name), name, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (is_symbol (name), name, SCM_ARG2, __FUNCTION__, "symbol");
 
   tr->unset_property (name);
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_context_parent, "ly:context-parent",
+LY_DEFINE (is_contextarent, "ly:context-parent",
 	   1, 0, 0, (SCM context),
 	   "Return the parent of @var{context}, @code{#f} if none.")
 {
@@ -126,7 +126,7 @@ LY_DEFINE (ly_context_find, "ly:context-find",
 {
   Context *tr = unsmob_context (context);
   SCM_ASSERT_TYPE (tr, context, SCM_ARG1, __FUNCTION__, "context");
-  SCM_ASSERT_TYPE (ly_symbol_p (name), name, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (is_symbol (name), name, SCM_ARG2, __FUNCTION__, "symbol");
   
   while (tr)
     {
@@ -142,7 +142,7 @@ LY_DEFINE (ly_context_find, "ly:context-find",
 /*
   What is this used for? Should remove? --hwn
  */
-LY_DEFINE (ly_context_properties, "ly:context-properties",
+LY_DEFINE (is_contextroperties, "ly:context-properties",
 	   1, 0, 0, (SCM context),
 	   "Return all properties  of @var{context} in an alist.")
 {

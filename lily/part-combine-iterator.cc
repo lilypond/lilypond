@@ -370,7 +370,7 @@ Part_combine_iterator::process (Moment m)
   Moment now = get_outlet ()->now_mom ();
   Moment *splitm = 0;
   
-  for (; ly_pair_p (split_list_); split_list_ = ly_cdr (split_list_))
+  for (; is_pair (split_list_); split_list_ = ly_cdr (split_list_))
     {
       splitm = unsmob_moment (ly_caar (split_list_));
       if (splitm && *splitm + start_moment_ > now)
@@ -392,10 +392,10 @@ Part_combine_iterator::process (Moment m)
 	solo1 ();
       else if (tag == ly_symbol2scm ("solo2"))
 	solo2 ();
-      else if (ly_symbol_p (tag))
+      else if (is_symbol (tag))
 	{
 	  String s =  "Unknown split directive: "
-	    + (ly_symbol_p (tag) ? ly_symbol2string (tag) : String ("not a symbol")); 
+	    + (is_symbol (tag) ? ly_symbol2string (tag) : String ("not a symbol")); 
 	  programming_error (s);
 	}
     }

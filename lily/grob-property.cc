@@ -92,7 +92,7 @@ Grob::internal_get_property (SCM sym) const
 
   s = scm_sloppy_assq (sym, immutable_property_alist_);
   
-  if (internal_type_checking_global_b && ly_pair_p (s))
+  if (internal_type_checking_global_b && is_pair (s))
     {
       if (!type_check_assignment (sym, ly_cdr (s),
 				  ly_symbol2scm ("backend-type?")))

@@ -45,7 +45,7 @@ melisma_busy (Context* tr)
   SCM melisma_properties = tr->get_property ("melismaBusyProperties");
   bool busy = false;
 
-  for (; ly_pair_p (melisma_properties);
+  for (; is_pair (melisma_properties);
        melisma_properties = ly_cdr (melisma_properties))
     busy = busy || to_boolean (tr->internal_get_property (ly_car (melisma_properties)));
 
@@ -128,7 +128,7 @@ Lyric_combine_music_iterator::get_busy_status () const
 
   SCM grobs = tr->get_property ("busyGrobs");
   Moment now = tr->now_mom ();
-  for (; ly_pair_p (grobs); grobs = ly_cdr (grobs))
+  for (; is_pair (grobs); grobs = ly_cdr (grobs))
     {
       SCM grob = ly_cdar (grobs);
       Moment end  =*unsmob_moment (ly_caar (grobs));

@@ -100,7 +100,7 @@ Quote_iterator::construct_children ()
   start_moment_ = now;
   event_vector_ = get_music ()->get_property ("quoted-events");
 
-  if (ly_vector_p (event_vector_))
+  if (is_vector (event_vector_))
     {
       event_idx_ = binsearch_scm_vector (event_vector_, now.smobbed_copy (), &moment_less);
       end_idx_ = binsearch_scm_vector (event_vector_, stop.smobbed_copy (), &moment_less);
@@ -144,12 +144,12 @@ Quote_iterator::process (Moment m)
       event_idx_++;
     }
 
-  if (ly_pair_p (entry))
+  if (is_pair (entry))
     {
       Pitch * quote_pitch = unsmob_pitch (ly_cdar (entry));
       Pitch * me_pitch = unsmob_pitch (get_outlet ()->get_property ("instrumentTransposition"));
       
-      for (SCM s = ly_cdr (entry); ly_pair_p (s); s = ly_cdr (s))
+      for (SCM s = ly_cdr (entry); is_pair (s); s = ly_cdr (s))
 	{
 	  SCM ev_acc = ly_car (s);
 

@@ -16,35 +16,48 @@
 #include "paper-def.hh"
 #include "scaled-font-metric.hh"
 
+MAKE_SCHEME_CALLBACK (Text_item, interpret_string, 4)
+SCM
+Text_item::interpret_string (SCM paper, SCM props, SCM encoding, SCM markup)
+{
+  Paper_def *pap = unsmob_paper (paper);
+  
+  SCM_ASSERT_TYPE(pap, paper, SCM_ARG1, __FUNCTION__, "Paper definition");
+  SCM_ASSERT_TYPE(is_string (markup), markup, SCM_ARG3, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE(encoding == SCM_EOL
+		  || is_symbol (encoding), encoding, SCM_ARG2, __FUNCTION__, "symbol");
+  
+  String str = ly_scm2string (markup);
+  Font_metric *fm = select_encoded_font (pap, props, encoding);
+  SCM lst = SCM_EOL;      
+  Box b;
+  if (Modified_font_metric* mf = dynamic_cast<Modified_font_metric*> (fm))
+    {
+      lst = scm_list_3 (ly_symbol2scm ("text"),
+			mf->self_scm (),
+			markup);
+	
+      b = mf->text_dimension (str);
+    }
+  else
+    {
+      /* ARGH. */
+      programming_error ("Must have Modified_font_metric for text.");
+    }
+      
+  return Stencil (b, lst).smobbed_copy ();
+}
+
+
 MAKE_SCHEME_CALLBACK (Text_item, interpret_markup, 3)
 SCM
 Text_item::interpret_markup (SCM paper, SCM props, SCM markup)
 {
-  if (ly_string_p (markup))
+  if (is_string (markup))
     {
-      String str = ly_scm2string (markup);
-      
-      Paper_def *pap = unsmob_paper (paper);
-      Font_metric *fm = select_font (pap, props);
-      SCM lst = SCM_EOL;      
-      Box b;
-      if (Modified_font_metric* mf = dynamic_cast<Modified_font_metric*> (fm))
-	{
-	  lst = scm_list_3 (ly_symbol2scm ("text"),
-			    mf->self_scm (),
-			    markup);
-	
-	  b = mf->text_dimension (str);
-	}
-      else
-	{
-	  /* ARGH. */
-	  programming_error ("Must have Modified_font_metric for text.");
-	}
-      
-      return Stencil (b, lst).smobbed_copy ();
+      return interpret_string (paper, props, markup, SCM_EOL);
     }
-  else if (ly_pair_p (markup))
+  else if (is_pair (markup))
     {
       SCM func = ly_car (markup);
       SCM args = ly_cdr (markup);
@@ -75,8 +88,8 @@ bool
 Text_item::markup_p (SCM x)
 {
   return
-    ly_string_p (x) ||
-    (ly_pair_p (x)
+    is_string (x) ||
+    (is_pair (x)
      && SCM_BOOL_F != scm_object_property (ly_car (x), ly_symbol2scm ("markup-signature")));
 }
 

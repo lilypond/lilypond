@@ -127,7 +127,7 @@ Coherent_ligature_engraver::get_set_column (Item *item, Paper_column *column)
       // also for all associated grobs (NoteSpacing, SeparationItem).
       Grob *sl = Staff_symbol_referencer::get_staff_symbol (item);
       for (SCM tail = parent->get_property ("elements");
-	   ly_pair_p (tail);
+	   is_pair (tail);
 	   tail = ly_cdr (tail))
 	{
 	  Item *sibling = unsmob_item (ly_car (tail));

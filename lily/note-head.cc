@@ -122,7 +122,7 @@ Stencil
 internal_print (Grob *me, bool with_ledgers)
 {
   SCM style  = me->get_property ("style");
-  if (!ly_symbol_p (style))
+  if (!is_symbol (style))
     {
       return Stencil ();
     }
@@ -251,7 +251,7 @@ Note_head::brew_ez_stencil (SCM smob)
   SCM idx = scm_int2num (pit->get_notename ());
   SCM names = me->get_property ("note-names");
   SCM charstr = SCM_EOL;
-  if (ly_vector_p (names))
+  if (is_vector (names))
     charstr = scm_vector_ref (names, idx);
   else
     {
@@ -291,7 +291,7 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
   if (brewer == Note_head::print_proc)
     {
       SCM style  = me->get_property ("style");
-      if (!ly_symbol_p (style))
+      if (!is_symbol (style))
 	{
 	  return 0.0;
 	}
@@ -317,11 +317,11 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
     Fallback
    */
   SCM v = me->get_property ("stem-attachment-function");
-  if (!ly_procedure_p (v))
+  if (!is_procedure (v))
     return 0.0;
   
   SCM result = scm_call_2 (v, me->self_scm (), scm_int2num (a));
-  if (!ly_pair_p (result))
+  if (!is_pair (result))
     return 0.0;
 
   result = (a == X_AXIS) ? ly_car (result) : ly_cdr (result);
@@ -333,7 +333,7 @@ int
 Note_head::get_balltype (Grob*me) 
 {
   SCM s = me->get_property ("duration-log");
-  return ly_number_p (s) ? ly_scm2int (s) <? 2 : 0;
+  return is_number (s) ? ly_scm2int (s) <? 2 : 0;
 }
 
 ADD_INTERFACE (Note_head,"note-head-interface",

@@ -73,7 +73,7 @@ Line_interface::line (Grob *me, Offset from, Offset to)
   SCM type = me->get_property ("style");
 
   SCM dash_fraction = me->get_property ("dash-fraction");
-  if (ly_number_p (dash_fraction) || type == ly_symbol2scm ("dotted-line"))
+  if (is_number (dash_fraction) || type == ly_symbol2scm ("dotted-line"))
     {
       
       Real fraction

@@ -29,7 +29,7 @@ Balloon_interface::print (SCM smob)
   SCM cb = me->get_property ("balloon-original-callback");
   SCM scm_mol  =  SCM_EOL;
 
-  if (ly_procedure_p (cb))
+  if (is_procedure (cb))
     {
       scm_mol = scm_call_1 (cb, smob);
     }

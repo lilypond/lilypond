@@ -59,7 +59,7 @@ Tie::head (Grob*me, Direction d)
 {
   SCM c = me->get_property ("head-pair");
 
-  if (ly_pair_p (c))
+  if (is_pair (c))
     return unsmob_grob (index_get_cell (c, d));
   else
     return 0;
@@ -326,13 +326,13 @@ Tie::print (SCM smob)
   Grob*me = unsmob_grob (smob);
 
   SCM cp = me->get_property ("control-points");
-  if (!ly_pair_p (cp))		// list is more accurate
+  if (!is_pair (cp))		// list is more accurate
     {
       cp = get_control_points (smob);
       me->set_property ("control-points", cp);
     }
 
-  if (!ly_pair_p (cp))
+  if (!is_pair (cp))
     return Stencil ().smobbed_copy ();
   
   Real thick

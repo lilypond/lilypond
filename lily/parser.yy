@@ -71,9 +71,9 @@ void
 tag_music (Music *m, SCM tag, Input ip)
 {
 	SCM tags = m->get_property ("tags");
-	if (ly_symbol_p (tag))
+	if (is_symbol (tag))
 		tags = scm_cons (tag, tags);
-	else if (ly_list_p (tag))
+	else if (is_list (tag))
 		tags = ly_append2 (tag, tags);
 	else
 		ip.warning (_ ("Tag must be symbol or list of symbols."));
@@ -106,7 +106,6 @@ SCM
 make_simple_markup (SCM encoding, SCM a)
 {
 	SCM simple = ly_scheme_function ("simple-markup");
-	SCM markup = 
 	if (gh_symbol_p (encoding))
 	{
 		return scm_list_3 (ly_scheme_function ("encoded-simple-markup"),
@@ -127,7 +126,7 @@ is_is_duration (int t)
 void
 set_music_properties (Music *p, SCM a)
 {
-  for (SCM k = a; ly_pair_p (k); k = ly_cdr (k))
+  for (SCM k = a; is_pair (k); k = ly_cdr (k))
  	p->internal_set_property (ly_caar (k), ly_cdar (k));
 }
 
@@ -157,8 +156,8 @@ make_chord (SCM pitch, SCM dur, SCM modification_list)
 bool
 ly_input_procedure_p (SCM x)
 {
-	return ly_procedure_p (x)
-		|| (ly_pair_p (x) && ly_procedure_p (ly_car (x)));
+	return is_procedure (x)
+		|| (is_pair (x) && is_procedure (ly_car (x)));
 }
 
 Music*
@@ -431,7 +430,7 @@ toplevel_expression:
 	| score_block {
 		Score *sc = $1;
 
-		SCM head = ly_module_p (sc->header_) ? sc->header_ : THIS->input_file_->header_.to_SCM ();
+		SCM head = is_module (sc->header_) ? sc->header_ : THIS->input_file_->header_.to_SCM ();
 
 		Path p = split_path (THIS->output_basename_);
 		int *c = &THIS->input_file_->score_count_;
@@ -580,7 +579,7 @@ context_def_spec_body:
 	| context_def_spec_body GROBDESCRIPTIONS embedded_scm {
 		Context_def*td = unsmob_context_def ($$);
 
-		for (SCM p = $3; ly_pair_p (p); p = ly_cdr (p)) {
+		for (SCM p = $3; is_pair (p); p = ly_cdr (p)) {
 			SCM tag = ly_caar (p);
 
 			/* TODO: should make new tag "grob-definition" ? */
@@ -619,7 +618,7 @@ score_body:
 			guh.
 		*/
 		SCM check_funcs = ly_scheme_function ("toplevel-music-functions");
-		for (; ly_pair_p (check_funcs); check_funcs = ly_cdr (check_funcs))
+		for (; is_pair (check_funcs); check_funcs = ly_cdr (check_funcs))
 			m = scm_call_1 (ly_car (check_funcs), m);
 		$$->music_ = m;
 
@@ -739,7 +738,7 @@ Music_list:
 		SCM s = $$;
  		SCM c = scm_cons ($2->self_scm (), SCM_EOL);
 		scm_gc_unprotect_object ($2->self_scm ()); /* UGH */
-		if (ly_pair_p (ly_cdr (s)))
+		if (is_pair (ly_cdr (s)))
 			scm_set_cdr_x (ly_cdr (s), c); /* append */
 		else
 			scm_set_car_x (s, c); /* set first cons */
@@ -769,7 +768,7 @@ Repeated_music:
 	{
 		Music *beg = $4;
 		int times = $3;
-		SCM alts = ly_pair_p ($5) ? ly_car ($5) : SCM_EOL;
+		SCM alts = is_pair ($5) ? ly_car ($5) : SCM_EOL;
 		if (times < scm_ilength (alts)) {
 		  unsmob_music (ly_car (alts))
 		    ->origin ()->warning (
@@ -791,7 +790,7 @@ Repeated_music:
 		r->set_property ("repeat-count", scm_int2num (times >? 1));
 
 		r-> set_property ("elements",alts);
-		if (ly_equal_p ($2, scm_makfrom0str ("tremolo"))) {
+		if (is_equal ($2, scm_makfrom0str ("tremolo"))) {
 			/*
 			TODO: move this code to Scheme.
 			*/
@@ -1267,7 +1266,7 @@ note_chord_element:
 		SCM es = $1->get_property ("elements");
 		SCM postevs = scm_reverse_x ($3, SCM_EOL);
 
-		for (SCM s = es; ly_pair_p (s); s = ly_cdr (s))
+		for (SCM s = es; is_pair (s); s = ly_cdr (s))
 		  unsmob_music (ly_car (s))->set_property ("duration", dur);
 		es = ly_append2 (es, postevs);
 
@@ -1315,7 +1314,7 @@ chord_body_element:
 		if ($2 % 2 || $3 % 2)
 			n->set_property ("force-accidental", SCM_BOOL_T);
 
-		if (ly_pair_p ($4)) {
+		if (is_pair ($4)) {
 			SCM arts = scm_reverse_x ($4, SCM_EOL);
 			n->set_property ("articulations", arts);
 		}
@@ -1327,7 +1326,7 @@ chord_body_element:
 		n->set_property ("drum-type", $1);
 		n->set_spot (THIS->here_input ());
 
-		if (ly_pair_p ($2)) {
+		if (is_pair ($2)) {
 			SCM arts = scm_reverse_x ($2, SCM_EOL);
 			n->set_property ("articulations", arts);
 		}
@@ -1368,7 +1367,7 @@ command_element:
 			evs = scm_hash_ref (tab, key, SCM_BOOL_F);
 		}
 		Music *quote = 0;
-		if (ly_vector_p (evs))
+		if (is_vector (evs))
 		{
 			quote = MY_MAKE_MUSIC ("QuoteMusic");
 			quote->set_property ("duration", $3);
@@ -1622,7 +1621,7 @@ direction_reqd_event:
 	| script_abbreviation {
 		SCM s = THIS->lexer_->lookup_identifier ("dash" + ly_scm2string ($1));
 		Music *a = MY_MAKE_MUSIC ("ArticulationEvent");
-		if (ly_string_p (s))
+		if (is_string (s))
 			a->set_property ("articulation-type", s);
 		else THIS->parser_error (_ ("Expecting string as script definition"));
 		$$ = a;
@@ -1929,7 +1928,7 @@ bass_figure:
 		Music *m = unsmob_music ($1);
 		if ($2) {
 			SCM salter = m->get_property ("alteration");
-			int alter = ly_number_p (salter) ? ly_scm2int (salter) : 0;
+			int alter = is_number (salter) ? ly_scm2int (salter) : 0;
 			m->set_property ("alteration",
 				scm_int2num (alter + $2));
 		} else {
@@ -1992,7 +1991,7 @@ simple_element:
 		n->set_property ("pitch", $1);
 		n->set_property ("duration", $5);
 
-		if (ly_number_p ($4))
+		if (is_number ($4))
 		{
 			int q = ly_scm2int ($4);
 			n->set_property ("absolute-octave", scm_int2num (q-1));
@@ -2030,7 +2029,7 @@ simple_element:
 		Music *m = unsmob_music ($1);
 		Input i = THIS->pop_spot ();
 		m->set_spot (i);
-		for (SCM s = m->get_property ("elements"); ly_pair_p (s); s = ly_cdr (s))
+		for (SCM s = m->get_property ("elements"); is_pair (s); s = ly_cdr (s))
 		{
 			unsmob_music (ly_car (s))->set_property ("duration", $2);
 		}
@@ -2401,10 +2400,10 @@ otherwise, we have to import music classes into the lexer.
 int
 My_lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 {
-	if (ly_string_p (sid)) {
+	if (is_string (sid)) {
 		*destination = sid;
 		return STRING_IDENTIFIER;
-	} else if (ly_number_p (sid)) {
+	} else if (is_number (sid)) {
 		*destination = sid;
 		return NUMBER_IDENTIFIER;
 	} else if (unsmob_context_def (sid)) {
@@ -2480,7 +2479,7 @@ property_op_to_music (SCM op)
 		bool itc = internal_type_checking_global_b;
 		/* UGH.
 		*/
-		bool autobeam = ly_equal_p (symbol, ly_symbol2scm ("autoBeamSettings"));
+		bool autobeam = is_equal (symbol, ly_symbol2scm ("autoBeamSettings"));
 		if (autobeam)
 			internal_type_checking_global_b = false;
 		m->set_property ("grob-property", grob_sym);
@@ -2504,10 +2503,10 @@ context_spec_music (SCM type, SCM id, Music *m, SCM ops)
 	scm_gc_unprotect_object (m->self_scm ());
 
 	csm->set_property ("context-type",
-		ly_symbol_p (type) ? type : scm_string_to_symbol (type));
+		is_symbol (type) ? type : scm_string_to_symbol (type));
 	csm->set_property ("property-operations", ops);
 
-	if (ly_string_p (id))
+	if (is_string (id))
 		csm->set_property ("context-id", id);
 	return csm;
 }

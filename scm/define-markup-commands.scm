@@ -11,15 +11,15 @@
 ;;     syntax, description and example. 
 
 
-(def-markup-command (word paper props str) (string?)
-  "A single word."
-  (interpret-markup paper props str))
   
 (def-markup-command (simple paper props str) (string?)
-  "A simple text-string; @code{\\markup @{ foo @}} is equivalent with
+  "A simple text string; @code{\\markup @{ foo @}} is equivalent with
 @code{\\markup @{ \\simple #\"foo\" @}}."
-    (interpret-markup paper props
-		      (make-word-markup str)))
+    (interpret-markup paper props str))
+
+(def-markup-command (encoded-simple paper props sym str) (symbol? string?)
+  "A text string, encoded with encoding @var{sym}."
+  (Text_item::interpret_string paper props sym str))
 
 ;; TODO: use font recoding.
 ;;		      (make-line-markup

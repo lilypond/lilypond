@@ -101,7 +101,7 @@ Staff_spacing::bar_y_positions (Grob *bar_grob)
     {
       SCM glyph = bar_grob->get_property ("glyph");
       
-      String glyph_string = ly_string_p (glyph) ? ly_scm2string (glyph) : "";
+      String glyph_string = is_string (glyph) ? ly_scm2string (glyph) : "";
       if (glyph_string.left_string (1) == "|" || glyph_string.left_string (1) == ".")
 	{
 	  SCM sz = Bar_line::get_staff_bar_size (bar_grob->self_scm ());
@@ -128,13 +128,13 @@ Staff_spacing::next_notes_correction (Grob *me, Grob * last_grob)
   Real max_corr =0.0;
 
   for (SCM s = me->get_property ("right-items");
-       ly_pair_p (s);  s = ly_cdr (s))
+       is_pair (s);  s = ly_cdr (s))
     {
       Grob * g = unsmob_grob (ly_car (s));
 
       max_corr = max_corr >?  next_note_correction (me, g,  bar_size);
       for (SCM t = g->get_property ("elements");
-	   ly_pair_p (t); t  = ly_cdr (t))
+	   is_pair (t); t  = ly_cdr (t))
 	max_corr = max_corr >? next_note_correction (me, unsmob_grob (ly_car (t)), bar_size);
       
     }
@@ -152,7 +152,7 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
   Item * me_item  = dynamic_cast<Item*> (me);
     
   for (SCM s = me->get_property ("left-items");
-       ly_pair_p (s); s = ly_cdr (s))
+       is_pair (s); s = ly_cdr (s))
     {
       Grob * cand = unsmob_grob (ly_car (s));
       if (cand && Separation_item::has_interface (cand))
@@ -197,12 +197,12 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
   if (me_item->break_status_dir () == CENTER)
     {
       SCM nndef = scm_sloppy_assq (ly_symbol2scm ("next-note"), alist);
-      if (ly_pair_p (nndef))
+      if (is_pair (nndef))
 	space_def = nndef;
     }
   
   
-  if (!ly_pair_p (space_def))
+  if (!is_pair (space_def))
     {
       programming_error ("Unknown prefatory spacing. "); 
       return; 

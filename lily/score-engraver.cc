@@ -268,12 +268,12 @@ Score_engraver::try_music (Music*r)
       gotcha = true;
 
       SCM pen = command_column_->get_property ("penalty");
-      Real total_penalty = ly_number_p (pen)
+      Real total_penalty = is_number (pen)
 	? ly_scm2double (pen)
 	: 0.0;
 
       SCM rpen = r->get_property ("penalty");
-      if (ly_number_p (rpen))
+      if (is_number (rpen))
 	total_penalty +=  ly_scm2double (rpen);
 	  
       if (total_penalty > 10000.0) //  ugh. arbitrary.

@@ -45,7 +45,7 @@ Stanza_number_engraver::process_music ()
 {
   SCM stanza = get_property ("stanza");
   
-  if (ly_string_p (stanza) && stanza != last_stanza_)
+  if (is_string (stanza) && stanza != last_stanza_)
     {
       last_stanza_ = stanza;
       

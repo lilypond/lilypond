@@ -113,9 +113,9 @@ Mark_engraver::process_music ()
       SCM m = mark_ev_->get_property ("label");
       SCM proc = get_property ("markFormatter");
       if (!Text_item::markup_p (m) &&
-	  ly_procedure_p (proc))
+	  is_procedure (proc))
 	{
-	  if (!ly_number_p (m)) 
+	  if (!is_number (m)) 
 	    m =  get_property ("rehearsalMark");
 
 	  if (scm_integer_p (m) == SCM_BOOL_T
@@ -127,7 +127,7 @@ Mark_engraver::process_music ()
 					    scm_int2num (mark_count));
 	    }
 
-	  if (ly_number_p (m))
+	  if (is_number (m))
 	    m = scm_call_2 (proc, m, daddy_context_->self_scm ());
 	  else
 	    warning ("rehearsalMark does not have integer value.");

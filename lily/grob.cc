@@ -65,7 +65,7 @@ Grob::Grob (SCM basicprops)
 #endif
   
   SCM meta = get_property ("meta");
-  if (ly_pair_p (meta))
+  if (is_pair (meta))
     {
       SCM ifs = scm_assoc (ly_symbol2scm ("interfaces"), meta);
 
@@ -112,8 +112,8 @@ Grob::Grob (SCM basicprops)
       if (is_number_pair (xt))
 	cb = xt;
       else if (cb != SCM_BOOL_F
-	  && !ly_procedure_p (cb) && !ly_pair_p (cb)
-	  && ly_procedure_p (get_property ("print-function")))
+	  && !is_procedure (cb) && !is_pair (cb)
+	  && is_procedure (get_property ("print-function")))
 	cb = stencil_extent_proc;
     
       dim_cache_[a].dimension_ = cb;
@@ -186,7 +186,7 @@ Grob::calculate_dependencies (int final, int busy, SCM funcname)
   
   status_= busy;
 
-  for (SCM d = get_property ("dependencies"); ly_pair_p (d);
+  for (SCM d = get_property ("dependencies"); is_pair (d);
        d = ly_cdr (d))
     {
       unsmob_grob (ly_car (d))
@@ -195,7 +195,7 @@ Grob::calculate_dependencies (int final, int busy, SCM funcname)
 
   
   SCM proc = internal_get_property (funcname);
-  if (ly_procedure_p (proc))
+  if (is_procedure (proc))
     scm_call_1 (proc, this->self_scm ());
  
   status_= final;
@@ -230,7 +230,7 @@ Grob::get_uncached_stencil ()const
   SCM proc = get_property ("print-function");
 
   SCM  mol = SCM_EOL;
-  if (ly_procedure_p (proc)) 
+  if (is_procedure (proc)) 
     mol = scm_apply_0 (proc, scm_list_n (this->self_scm (), SCM_UNDEFINED));
   
   Stencil *m = unsmob_stencil (mol);
@@ -310,7 +310,7 @@ Grob::handle_broken_dependencies ()
 	because some Spanners have enormously long lists in their
 	properties.
        */
-      for (SCM s = mutable_property_alist_; ly_pair_p (s);
+      for (SCM s = mutable_property_alist_; is_pair (s);
 	   s = ly_cdr (s))
 	{
 	  sp->substitute_one_mutable_property (ly_caar (s),
@@ -475,8 +475,8 @@ Grob::get_offset (Axis a) const
 bool
 Grob::is_empty (Axis a)const
 {
-  return ! (ly_pair_p (dim_cache_[a].dimension_) ||
-	    ly_procedure_p (dim_cache_[a].dimension_));
+  return ! (is_pair (dim_cache_[a].dimension_) ||
+	    is_procedure (dim_cache_[a].dimension_));
 }
 
 Interval
@@ -487,9 +487,9 @@ Grob::extent (Grob * refp, Axis a) const
   
   Dimension_cache * d = (Dimension_cache *)&dim_cache_[a];
   Interval ext ;   
-  if (ly_pair_p (d->dimension_))
+  if (is_pair (d->dimension_))
     ;
-  else if (ly_procedure_p (d->dimension_))
+  else if (is_procedure (d->dimension_))
     {
       /*
 	FIXME: add doco on types, and should typecheck maybe? 
@@ -499,7 +499,7 @@ Grob::extent (Grob * refp, Axis a) const
   else
     return ext;
 
-  if (!ly_pair_p (d->dimension_))
+  if (!is_pair (d->dimension_))
     return ext;
   
   ext = ly_scm2interval (d->dimension_);
@@ -511,7 +511,7 @@ Grob::extent (Grob * refp, Axis a) const
   /*
     signs ?
    */
-  if (ly_pair_p (extra))
+  if (is_pair (extra))
     {
       ext[BIGGER] +=  ly_scm2double (ly_cdr (extra));
       ext[SMALLER] +=   ly_scm2double (ly_car (extra));
@@ -520,7 +520,7 @@ Grob::extent (Grob * refp, Axis a) const
   extra = get_property (a == X_AXIS
 				? "minimum-X-extent"
 				: "minimum-Y-extent");
-  if (ly_pair_p (extra))
+  if (is_pair (extra))
     {
       ext.unite (Interval (ly_scm2double (ly_car (extra)),
 			   ly_scm2double (ly_cdr (extra))));
@@ -553,7 +553,7 @@ Grob::common_refpoint (Grob const* s, Axis a) const
 Grob *
 common_refpoint_of_list (SCM elist, Grob *common, Axis a) 
 {
-  for (; ly_pair_p (elist); elist = ly_cdr (elist))
+  for (; is_pair (elist); elist = ly_cdr (elist))
     {
       Grob * s = unsmob_grob (ly_car (elist));
       if (!s)
@@ -592,8 +592,8 @@ Grob::name () const
 {
   SCM meta = get_property ("meta");
   SCM nm = scm_assoc (ly_symbol2scm ("name"), meta);
-  nm = (ly_pair_p (nm)) ? ly_cdr (nm) : SCM_EOL;
-  return  ly_symbol_p (nm) ? ly_symbol2string (nm) :  classname (this);  
+  nm = (is_pair (nm)) ? ly_cdr (nm) : SCM_EOL;
+  return  is_symbol (nm) ? ly_symbol2string (nm) :  classname (this);  
 }
 
 void
@@ -773,7 +773,7 @@ ly_scm2grobs (SCM l)
 {
   Link_array<Grob> arr;
 
-  for (SCM s = l; ly_pair_p (s); s = ly_cdr (s))
+  for (SCM s = l; is_pair (s); s = ly_cdr (s))
     {
       SCM e = ly_car (s);
       arr.push (unsmob_grob (e));

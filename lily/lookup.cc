@@ -710,8 +710,8 @@ LY_DEFINE (ly_bracket ,"ly:bracket",
 {
   SCM_ASSERT_TYPE (is_axis (a), a, SCM_ARG1, __FUNCTION__, "axis") ;
   SCM_ASSERT_TYPE (is_number_pair (iv), iv, SCM_ARG2, __FUNCTION__, "number pair") ;
-  SCM_ASSERT_TYPE (ly_number_p (t), a, SCM_ARG3, __FUNCTION__, "number") ;
-  SCM_ASSERT_TYPE (ly_number_p (p), a, SCM_ARG4, __FUNCTION__, "number") ;
+  SCM_ASSERT_TYPE (is_number (t), a, SCM_ARG3, __FUNCTION__, "number") ;
+  SCM_ASSERT_TYPE (is_number (p), a, SCM_ARG4, __FUNCTION__, "number") ;
 
 
   return Lookup::bracket ((Axis)ly_scm2int (a), ly_scm2interval (iv),
@@ -732,7 +732,7 @@ LY_DEFINE (ly_filled_box ,"ly:round-filled-box",
 {
   SCM_ASSERT_TYPE (is_number_pair (xext), xext, SCM_ARG1, __FUNCTION__, "number pair") ;
   SCM_ASSERT_TYPE (is_number_pair (yext), yext, SCM_ARG2, __FUNCTION__, "number pair") ;
-  SCM_ASSERT_TYPE (ly_number_p (blot), blot, SCM_ARG3, __FUNCTION__, "number") ;
+  SCM_ASSERT_TYPE (is_number (blot), blot, SCM_ARG3, __FUNCTION__, "number") ;
 
   return Lookup::round_filled_box (Box (ly_scm2interval (xext), ly_scm2interval (yext)),
 				   ly_scm2double (blot)).smobbed_copy ();

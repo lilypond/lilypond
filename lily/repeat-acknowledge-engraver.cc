@@ -71,14 +71,14 @@ Repeat_acknowledge_engraver::process_music ()
   bool start = false;
   bool end = false;
   bool volta_found = false;
-  while (ly_pair_p (cs))
+  while (is_pair (cs))
     {
       SCM command = ly_car (cs);
       if (command == ly_symbol2scm ("start-repeat"))
 	start = true;
       else if (command == ly_symbol2scm ("end-repeat"))
 	end = true;
-      else if (ly_pair_p (command) && ly_car (command) == ly_symbol2scm ("volta"))
+      else if (is_pair (command) && ly_car (command) == ly_symbol2scm ("volta"))
 	volta_found = true;
       cs = ly_cdr (cs);      
     }
@@ -100,9 +100,9 @@ Repeat_acknowledge_engraver::process_music ()
    */
   SCM wb = get_property ("whichBar");
   SCM db  = get_property ("defaultBarType");
-  if (!ly_string_p (wb) || ly_equal_p (db, wb))
+  if (!is_string (wb) || is_equal (db, wb))
     {
-      if (s != "" || (volta_found && !ly_string_p (wb)))
+      if (s != "" || (volta_found && !is_string (wb)))
 	{
 	  daddy_context_->set_property ("whichBar", scm_makfrom0str (s.to_str0 ()));
 	}

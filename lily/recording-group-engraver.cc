@@ -52,9 +52,9 @@ Recording_group_engraver::start_translation_timestep ()
 void
 Recording_group_engraver::start ()
 {
-  if (!ly_pair_p (accumulator_))
+  if (!is_pair (accumulator_))
     accumulator_ = scm_cons (SCM_EOL, SCM_EOL);
-  if (!ly_pair_p (ly_car (accumulator_)))
+  if (!is_pair (ly_car (accumulator_)))
     {
       /*
 	Need to store transposition for every moment; transposition changes during pieces.
@@ -80,7 +80,7 @@ Recording_group_engraver::finalize ()
   Engraver_group_engraver::finalize ();
   SCM proc = get_property ("recordEventSequence");
 
-  if (ly_procedure_p (proc))
+  if (is_procedure (proc))
     scm_call_2  (proc, daddy_context_->self_scm (), ly_cdr (accumulator_));
 
   accumulator_ = SCM_EOL;

@@ -90,7 +90,7 @@ number_accidentals (SCM key_signature, Pitch *pitch,
 		     key_signature);
 
   /* should really be true unless prev == SCM_BOOL_F */
-  if (ly_pair_p (prev) && ly_pair_p (ly_cdr (prev)))
+  if (is_pair (prev) && is_pair (ly_cdr (prev)))
     {
       prev = scm_cons (ly_car (prev), ly_cadr (prev));
     }
@@ -100,7 +100,7 @@ number_accidentals (SCM key_signature, Pitch *pitch,
     prev = scm_assoc (scm_int2num (notename), key_signature);
 
   SCM prev_acc = (prev == SCM_BOOL_F) ? scm_int2num (0) : ly_cdr (prev);
-  int sig_alteration = ly_number_p (prev_acc) ? ly_scm2int (prev_acc) : 0;
+  int sig_alteration = is_number (prev_acc) ? ly_scm2int (prev_acc) : 0;
 
   if (alteration == sig_alteration) // no accidental at all needed
     return 0;
@@ -149,7 +149,7 @@ Ambitus::print (SCM smob)
 
   SCM scm_note_head_style = me->get_property ("note-head-style");
   String note_head_style;
-  if (ly_symbol_p (scm_note_head_style))
+  if (is_symbol (scm_note_head_style))
     {
       String note_head_style =
 	ly_symbol2string (scm_note_head_style);
@@ -195,7 +195,7 @@ Ambitus::print (SCM smob)
     }
 
   SCM c0 = me->get_property ("c0-position");
-  if (ly_number_p (c0))
+  if (is_number (c0))
     {
       p_min += ly_scm2int (c0);
       p_max += ly_scm2int (c0);
@@ -244,7 +244,7 @@ Ambitus::print (SCM smob)
   SCM key_signature = me->get_property ("key-signature");
   SCM scm_accidentals_style = me->get_property ("accidentals-style");
   String accidentals_style;
-  if (ly_symbol_p (scm_accidentals_style))
+  if (is_symbol (scm_accidentals_style))
     {
       accidentals_style =
 	ly_symbol2string (scm_accidentals_style);

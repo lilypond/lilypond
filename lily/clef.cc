@@ -23,7 +23,7 @@ Clef::before_line_breaking (SCM smob)
 
   SCM glyph = s->get_property ("glyph-name");
   
-  if (ly_string_p (glyph))
+  if (is_string (glyph))
     {
       String str = ly_scm2string (glyph);
 
@@ -53,7 +53,7 @@ Clef::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   SCM glyph_scm = me->get_property ("glyph-name");
-  if (!ly_string_p (glyph_scm))
+  if (!is_string (glyph_scm))
     return SCM_EOL;
 
   String glyph = String (ly_scm2string (glyph_scm));

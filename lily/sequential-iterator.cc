@@ -23,7 +23,7 @@
   Invariant for the data structure.
 
 
-  if (ly_pair_p (cursor_))
+  if (is_pair (cursor_))
     iter_->music_ == unsmob_music (ly_car (cursor_))
   else
     iter_ == 0;
@@ -85,7 +85,7 @@ create_grace_fixup_list (SCM cursor)
   Grace_fixup *head = 0;
   Grace_fixup **tail = &head;
 
-  for (; ly_pair_p (cursor); cursor = ly_cdr (cursor))
+  for (; is_pair (cursor); cursor = ly_cdr (cursor))
     {
       Music *mus = unsmob_music (ly_car (cursor));
       Moment s = mus->start_mom ();
@@ -123,7 +123,7 @@ Sequential_iterator::construct_children ()
   cursor_ = get_music_list ();
 
   iter_ = 0;
-  if (ly_pair_p (cursor_))
+  if (is_pair (cursor_))
     {
       Music *m = unsmob_music (ly_car (cursor_));
       iter_ = unsmob_iterator (get_iterator (m));
@@ -188,7 +188,7 @@ Sequential_iterator::next_element (bool)
   cursor_ = ly_cdr (cursor_);
 
   iter_->quit ();
-  if (ly_pair_p (cursor_))
+  if (is_pair (cursor_))
     iter_ = unsmob_iterator (get_iterator (unsmob_music (ly_car (cursor_))));
   else
     iter_ = 0;

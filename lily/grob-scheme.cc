@@ -21,7 +21,7 @@ LY_DEFINE (ly_grob_set_property,"ly:grob-set-property!", 3, 0, 0,
 {
   Grob * sc = unsmob_grob (grob);
   SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE (ly_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
 
   if (!type_check_assignment (sym, val, ly_symbol2scm ("backend-type?")))
     error ("typecheck failed");
@@ -40,7 +40,7 @@ LY_DEFINE (ly_get_property, "ly:grob-property",
 {
   Grob *sc = unsmob_grob (grob);
   SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE (ly_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
 
   return sc->internal_get_property (sym);
 }
@@ -169,14 +169,14 @@ LY_DEFINE (ly_grob_translate_axis_x, "ly:grob-translate-axis!",
 {
   Grob *me = unsmob_grob (g);
   SCM_ASSERT_TYPE (me, g, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE (ly_number_p (d), d, SCM_ARG2, __FUNCTION__, "dimension");
+  SCM_ASSERT_TYPE (is_number (d), d, SCM_ARG2, __FUNCTION__, "dimension");
   SCM_ASSERT_TYPE (is_axis (a), a, SCM_ARG3, __FUNCTION__, "axis");
 
   me->translate_axis (ly_scm2double (d), Axis (ly_scm2int (a)));
   return SCM_UNDEFINED;
 }
 
-LY_DEFINE (ly_spanner_p, "ly:spanner?",
+LY_DEFINE (is_spanner, "ly:spanner?",
 	   1, 0, 0, (SCM g),
 	   "Is  @var{g} a spanner object?")
 {
@@ -186,7 +186,7 @@ LY_DEFINE (ly_spanner_p, "ly:spanner?",
   return ly_bool2scm (b);
 }
 
-LY_DEFINE (ly_item_p, "ly:item?",
+LY_DEFINE (is_item, "ly:item?",
 	   1, 0, 0, (SCM g),
 	   "Is @var{g} an @code{Item} object?")
 {

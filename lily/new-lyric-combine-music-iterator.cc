@@ -160,7 +160,7 @@ New_lyric_combine_music_iterator::find_voice ()
     {
       SCM voice_name = get_music ()->get_property ("associated-context");
   
-      if (ly_string_p (voice_name))
+      if (is_string (voice_name))
 	{
 	  Context *t = get_outlet ();
 	  while (t && t->daddy_context_)

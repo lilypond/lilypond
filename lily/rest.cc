@@ -120,14 +120,14 @@ Rest::brew_internal_stencil (SCM smob)
   Grob* me = unsmob_grob (smob);
 
   SCM balltype_scm = me->get_property ("duration-log");
-  if (!ly_number_p (balltype_scm))
+  if (!is_number (balltype_scm))
     return Stencil ().smobbed_copy ();
 
   int balltype = ly_scm2int (balltype_scm);
   
   String style; 
   SCM style_scm = me->get_property ("style");
-  if (ly_symbol_p (style_scm))
+  if (is_symbol (style_scm))
     style = ly_scm2string (scm_symbol_to_string (style_scm));
 
   Font_metric *fm = Font_interface::get_default_font (me);
@@ -161,7 +161,7 @@ SCM
 Rest::polyphonic_offset_callback (SCM smob, SCM)
 {
   Grob* me = unsmob_grob (smob);
-  if (ly_number_p (me->get_property ("staff-position")))
+  if (is_number (me->get_property ("staff-position")))
     return scm_make_real (0);
 
   Direction d = get_grob_direction (me);

@@ -479,10 +479,10 @@ LY_DEFINE (ly_ragged_page_breaks, "ly:ragged-page-breaks",
 	   "Return a vector with line numbers of page breaks.")
 {
   SCM_ASSERT_TYPE (scm_pair_p (lines), lines, SCM_ARG1, __FUNCTION__, "list");
-  SCM_ASSERT_TYPE (ly_number_p (book), book, SCM_ARG2, __FUNCTION__, "real");
-  SCM_ASSERT_TYPE (ly_number_p (text), text, SCM_ARG2, __FUNCTION__, "real");
-  SCM_ASSERT_TYPE (ly_number_p (first), first, SCM_ARG2, __FUNCTION__, "real");
-  SCM_ASSERT_TYPE (ly_number_p (last), last, SCM_ARG2, __FUNCTION__, "real");
+  SCM_ASSERT_TYPE (is_number (book), book, SCM_ARG2, __FUNCTION__, "real");
+  SCM_ASSERT_TYPE (is_number (text), text, SCM_ARG2, __FUNCTION__, "real");
+  SCM_ASSERT_TYPE (is_number (first), first, SCM_ARG2, __FUNCTION__, "real");
+  SCM_ASSERT_TYPE (is_number (last), last, SCM_ARG2, __FUNCTION__, "real");
 
   return c_ragged_page_breaks (lines,
 			       ly_scm2double (book), ly_scm2double (text),

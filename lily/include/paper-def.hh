@@ -62,13 +62,14 @@ public:
   void reinit ();
   Interval line_dimensions_int (int) const;
   void output_settings (Paper_outputter*) const;
-  Font_metric *find_scaled_font (Font_metric *fm, Real mag);
+  Font_metric *find_scaled_font (Font_metric *fm, Real mag, SCM enc_name);
   Real get_dimension (SCM symbol) const;
   
   friend int yyparse (void*);
 };
 
 Paper_def * unsmob_paper (SCM x);
+Font_metric *select_encoded_font (Paper_def *paper, SCM input_encoding, SCM chain);
 Font_metric *select_font (Paper_def *paper, SCM chain);
 
 #endif /* PAPER_DEF_HH */

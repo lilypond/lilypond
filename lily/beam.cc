@@ -79,7 +79,7 @@ Beam::get_beam_translation (Grob *me)
 {
   SCM func = me->get_property ("space-function");
 
-  if (ly_procedure_p (func))
+  if (is_procedure (func))
     {
       SCM s = scm_call_2 (func, me->self_scm (), scm_int2num (get_beam_count (me)));
       return ly_scm2double (s);
@@ -95,7 +95,7 @@ int
 Beam::get_beam_count (Grob *me) 
 {
   int m = 0;
-  for (SCM s = me->get_property ("stems"); ly_pair_p (s); s = ly_cdr (s))
+  for (SCM s = me->get_property ("stems"); is_pair (s); s = ly_cdr (s))
     {
       Grob *stem = unsmob_grob (ly_car (s));
       m = m >? (Stem::beam_multiplicity (stem).length () + 1);
@@ -209,7 +209,7 @@ position_with_maximal_common_beams (SCM left_beaming, SCM right_beaming,
        (i - lslice[left_dir])* left_dir <= 0 ; i+= left_dir) 
     {
       int count =0;
-      for ( SCM s = ly_car (right_beaming); ly_pair_p (s); s = ly_cdr (s))
+      for ( SCM s = ly_car (right_beaming); is_pair (s); s = ly_cdr (s))
 	{
 	  int k = - right_dir * ly_scm2int (ly_car (s)) + i;
 	  if (scm_c_memq (scm_int2num (k), left_beaming) != SCM_BOOL_F)
@@ -242,7 +242,7 @@ Beam::connect_beams (Grob *me)
       SCM this_beaming = this_stem->get_property ("beaming");
 
       Direction this_dir = get_grob_direction (this_stem);
-      if (ly_pair_p (last_beaming) && ly_pair_p (this_beaming))
+      if (is_pair (last_beaming) && is_pair (this_beaming))
 	{
 	  int start_point = position_with_maximal_common_beams
 	    (last_beaming, this_beaming,
@@ -257,7 +257,7 @@ Beam::connect_beams (Grob *me)
 	      
 	      new_slice.set_empty ();
 	      SCM s = index_get_cell (this_beaming, d);
-	      for (; ly_pair_p (s); s = ly_cdr (s))
+	      for (; is_pair (s); s = ly_cdr (s))
 		{
 		  int new_beam_pos =
 		    start_point - this_dir * ly_scm2int (ly_car (s));
@@ -277,7 +277,7 @@ Beam::connect_beams (Grob *me)
 	{
 	  scm_set_car_x ( this_beaming, SCM_EOL);
 	  SCM s = ly_cdr (this_beaming);
-	  for (; ly_pair_p (s); s = ly_cdr (s))
+	  for (; is_pair (s); s = ly_cdr (s))
 	    {
 	      int np = - this_dir * ly_scm2int (ly_car (s));
 	      scm_set_car_x (s, scm_int2num (np));
@@ -377,7 +377,7 @@ Beam::print (SCM grob)
       Array<int> rfliebertjes;	  
 
       for (SCM s = left;
-	   ly_pair_p (s); s =ly_cdr (s))
+	   is_pair (s); s =ly_cdr (s))
 	{
 	  int b = ly_scm2int (ly_car (s));
 	  if (scm_c_memq (ly_car (s), right) != SCM_BOOL_F)
@@ -390,7 +390,7 @@ Beam::print (SCM grob)
 	    }
 	}
       for (SCM s = right;
-	   ly_pair_p (s); s =ly_cdr (s))
+	   is_pair (s); s =ly_cdr (s))
 	{
 	  int b = ly_scm2int (ly_car (s));
 	  if (scm_c_memq (ly_car (s), left) == SCM_BOOL_F)
@@ -421,7 +421,7 @@ Beam::print (SCM grob)
       Stencil gapped;
 
       int gap_count = 0;
-      if (ly_number_p (me->get_property ("gap-count")))
+      if (is_number (me->get_property ("gap-count")))
 	{
 	  gap_count = ly_scm2int (me->get_property ("gap-count"));
 	  gapped = Lookup::beam (dydx, w - 2 * gap_length, thick, blot);
@@ -511,7 +511,7 @@ Beam::print (SCM grob)
 #if (DEBUG_QUANTING)
   SCM quant_score = me->get_property ("quant-score");
   if (debug_beam_quanting_flag
-      && ly_string_p (quant_score))
+      && is_string (quant_score))
     {
       
       /*
@@ -570,7 +570,7 @@ Beam::get_default_dir (Grob *me)
 		    scm_cons (scm_int2num (total[UP]),
 			     scm_int2num (total[DOWN])));
 
-  if (ly_number_p (s) && ly_scm2int (s))
+  if (is_number (s) && ly_scm2int (s))
     return to_dir (s);
   
   /* If dir is not determined: get default */
@@ -666,7 +666,7 @@ void
 Beam::consider_auto_knees (Grob* me)
 {
   SCM scm = me->get_property ("auto-knee-gap");
-  if (!ly_number_p (scm))
+  if (!is_number (scm))
     return ;
 
   Real threshold = ly_scm2double (scm);
@@ -830,7 +830,7 @@ Beam::position_beam (Grob *me)
     {
       // one wonders if such genericity is necessary  --hwn.
       SCM callbacks = me->get_property ("position-callbacks");
-      for (SCM i = callbacks; ly_pair_p (i); i = ly_cdr (i))
+      for (SCM i = callbacks; is_pair (i); i = ly_cdr (i))
 	scm_call_1 (ly_car (i), me->self_scm ());
     }
 
@@ -1101,7 +1101,7 @@ Beam::check_concave (SCM smob)
   */
   bool is_concave1 = false;
   SCM gap = me->get_property ("concaveness-gap");
-  if (ly_number_p (gap))
+  if (is_number (gap))
     {
       Real r1 = ly_scm2double (gap);
       Real dy = Stem::chord_start_y (stems.top ())
@@ -1138,7 +1138,7 @@ Beam::check_concave (SCM smob)
   Real concaveness2 = 0;
   SCM thresh = me->get_property ("concaveness-threshold");
   Real r2 = infinity_f;
-  if (!is_concave1 && ly_number_p (thresh))
+  if (!is_concave1 && is_number (thresh))
     {
       r2 = ly_scm2double (thresh);
       
@@ -1223,7 +1223,7 @@ where_are_the_whole_beams (SCM beaming)
 {
   Slice l; 
   
-  for ( SCM s = ly_car (beaming); ly_pair_p (s) ; s = ly_cdr (s))
+  for ( SCM s = ly_car (beaming); is_pair (s) ; s = ly_cdr (s))
     {
       if (scm_c_memq (ly_car (s), ly_cdr (beaming)) != SCM_BOOL_F)
 	
@@ -1297,7 +1297,7 @@ Beam::set_stem_lengths (Grob *me)
 
   bool gap = false;
   Real thick =0.0;
-  if (ly_number_p (me->get_property ("gap-count"))
+  if (is_number (me->get_property ("gap-count"))
       &&ly_scm2int (me->get_property ("gap-count")))
     {
       gap = true;
@@ -1455,7 +1455,7 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
   Grob *rest = unsmob_grob (element_smob);
   Axis a = (Axis) ly_scm2int (axis);
 
-  if (ly_number_p (rest->get_property ("staff-position")))
+  if (is_number (rest->get_property ("staff-position")))
     return scm_int2num (0);
   
   assert (a == Y_AXIS);
@@ -1472,7 +1472,7 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
 
   Drul_array<Real> pos (0, 0);
   SCM s = beam->get_property ("positions");
-  if (ly_pair_p (s) && ly_number_p (ly_car (s)))
+  if (is_pair (s) && is_number (ly_car (s)))
     pos = ly_scm2interval (s);
   Real staff_space = Staff_symbol_referencer::staff_space (rest);
 
@@ -1525,12 +1525,12 @@ bool
 Beam::is_knee (Grob* me)
 {
   SCM k = me->get_property ("knee");
-  if (ly_boolean_p (k))
+  if (is_boolean (k))
     return ly_scm2bool (k);
 
   bool knee = false;
   int d = 0;
-  for (SCM s = me->get_property ("stems"); ly_pair_p (s); s = ly_cdr (s))
+  for (SCM s = me->get_property ("stems"); is_pair (s); s = ly_cdr (s))
     {
       Direction dir = get_grob_direction (unsmob_grob (ly_car (s)));
       if (d && d != dir)

@@ -73,7 +73,7 @@ Side_position_interface::general_side_position (Grob * me, Axis a, bool use_exte
   Grob * st = Staff_symbol_referencer::get_staff_symbol (me);
   bool include_staff = (st
 			&& a == Y_AXIS
-			&& ly_number_p (me->get_property ("staff-padding")));
+			&& is_number (me->get_property ("staff-padding")));
 
   Interval dim;
   if (include_staff)
@@ -222,7 +222,7 @@ Side_position_interface::aligned_side (SCM element_smob, SCM axis)
  */
   Grob * st = Staff_symbol_referencer::get_staff_symbol (me);
   if (st && a == Y_AXIS
-      && ly_number_p (me->get_property ("staff-padding")))
+      && is_number (me->get_property ("staff-padding")))
     {
       Real padding=
       Staff_symbol_referencer::staff_space (me)

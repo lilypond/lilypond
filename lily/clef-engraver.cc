@@ -76,7 +76,7 @@ Clef_engraver::acknowledge_grob (Grob_info info)
   if (item)
     {
       if (Bar_line::has_interface (info.grob_)
-	  && ly_string_p (get_property ("clefGlyph")))
+	  && is_string (get_property ("clefGlyph")))
 	create_clef ();
     } 
 }
@@ -92,11 +92,11 @@ Clef_engraver::create_clef ()
       clef_ = c;
       SCM cpos = get_property ("clefPosition");
 
-      if (ly_number_p (cpos))
+      if (is_number (cpos))
 	Staff_symbol_referencer::set_position (clef_, ly_scm2int (cpos));
 
       SCM oct =  get_property ("clefOctavation");
-      if (ly_number_p (oct) && ly_scm2int (oct))
+      if (is_number (oct) && ly_scm2int (oct))
 	{
 	  Item * g = make_item ("OctavateEight");
 

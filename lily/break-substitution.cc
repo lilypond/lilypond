@@ -91,7 +91,7 @@ do_break_substitution (SCM src)
  
   if (unsmob_grob (src))
     return substitute_grob (unsmob_grob (src));
-  else if (ly_vector_p (src))
+  else if (is_vector (src))
     {
       int len = SCM_VECTOR_LENGTH (src);
       SCM nv = scm_c_make_vector (len, SCM_UNDEFINED);
@@ -102,7 +102,7 @@ do_break_substitution (SCM src)
 			    do_break_substitution (scm_vector_ref (src, si))); 
 	}
     }
-  else if (ly_pair_p (src)) 
+  else if (is_pair (src)) 
     {
       /*
 	UGH! breaks on circular lists.
@@ -111,7 +111,7 @@ do_break_substitution (SCM src)
       SCM oldcdr = ly_cdr (src);
       
       if (newcar == SCM_UNDEFINED
-	  && (ly_pair_p (oldcdr) || oldcdr == SCM_EOL))
+	  && (is_pair (oldcdr) || oldcdr == SCM_EOL))
 	{
 	  /*
 	    This is tail-recursion, ie. 
@@ -142,7 +142,7 @@ substitute_grob_list (SCM grob_list)
   SCM l = SCM_EOL;
   SCM * tail = &l;
 
-  for (SCM s = grob_list; ly_pair_p (s); s =  ly_cdr (s))
+  for (SCM s = grob_list; is_pair (s); s =  ly_cdr (s))
     {
       SCM n= substitute_grob (unsmob_grob (ly_car (s)));
 
@@ -350,7 +350,7 @@ Spanner::fast_fubstitute_grob_list (SCM sym,
   
   int sp_index = len;
   int it_index = 0;
-  for (SCM s = grob_list; ly_pair_p (s); s = ly_cdr (s))
+  for (SCM s = grob_list; is_pair (s); s = ly_cdr (s))
     {
       Grob * g = unsmob_grob (ly_car (s));
 
@@ -467,7 +467,7 @@ substitute_mutable_property_alist (SCM alist)
 
   SCM l = SCM_EOL;
   SCM *tail = &l;
-  for (SCM s = alist; ly_pair_p (s); s = ly_cdr (s))
+  for (SCM s = alist; is_pair (s); s = ly_cdr (s))
     {
       SCM sym = ly_caar (s);
       SCM val = ly_cdar (s);

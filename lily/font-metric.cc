@@ -139,7 +139,7 @@ LY_DEFINE (ly_find_glyph_by_name, "ly:find-glyph-by-name",
 {
   Font_metric *fm = unsmob_metrics (font);
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
-  SCM_ASSERT_TYPE (ly_string_p (name), name, SCM_ARG2, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (is_string (name), name, SCM_ARG2, __FUNCTION__, "string");
 
   Stencil m = fm->find_by_name (ly_scm2string (name));
 
@@ -155,7 +155,7 @@ LY_DEFINE (ly_get_glyph, "ly:get-glyph",
 {
   Font_metric *fm = unsmob_metrics (font);
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
-  SCM_ASSERT_TYPE (ly_number_p (index), index, SCM_ARG2, __FUNCTION__, "number");
+  SCM_ASSERT_TYPE (is_number (index), index, SCM_ARG2, __FUNCTION__, "number");
 
   return fm->get_ascii_char_stencil (ly_scm2int (index)).smobbed_copy ();
 }
@@ -171,7 +171,7 @@ LY_DEFINE (ly_text_dimension,"ly:text-dimension",
   Modified_font_metric*fm = dynamic_cast<Modified_font_metric*>
     (unsmob_metrics (font));
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "modified font metric");
-  SCM_ASSERT_TYPE (ly_string_p (text), text, SCM_ARG2, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (is_string (text), text, SCM_ARG2, __FUNCTION__, "string");
   
   b = fm->text_dimension (ly_scm2string (text));
   

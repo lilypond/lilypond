@@ -32,7 +32,7 @@ void
 execute_pushpop_property (Context * trg,
 			  SCM prop, SCM eltprop, SCM val)
 {
-  if (ly_symbol_p (prop) && ly_symbol_p (eltprop))
+  if (is_symbol (prop) && is_symbol (eltprop))
     {
       if (val != SCM_UNDEFINED)
 	{
@@ -54,7 +54,7 @@ execute_pushpop_property (Context * trg,
 	  else
 	    prev = trg->internal_get_property (prop);
 	  
-	  if (!ly_pair_p (prev))
+	  if (!is_pair (prev))
 	    {
 	      programming_error ("Grob definition should be cons.");
 	      return ;
@@ -62,7 +62,7 @@ execute_pushpop_property (Context * trg,
 
 	  SCM prev_alist = ly_car (prev);
 	  
-	  if (ly_pair_p (prev_alist) || prev_alist == SCM_EOL)
+	  if (is_pair (prev_alist) || prev_alist == SCM_EOL)
 	    {
 	      bool ok = type_check_assignment (eltprop, val, ly_symbol2scm ("backend-type?"));
 
@@ -88,7 +88,7 @@ execute_pushpop_property (Context * trg,
 
 	  while (prev_alist != daddy)
 	    {
-	      if (ly_equal_p (ly_caar (prev_alist), eltprop))
+	      if (is_equal (ly_caar (prev_alist), eltprop))
 		{
 		  prev_alist = ly_cdr (prev_alist);
 		  break ;
@@ -124,7 +124,7 @@ void
 apply_property_operations (Context *tg, SCM pre_init_ops)
 {
   SCM correct_order = scm_reverse (pre_init_ops);
-  for (SCM s = correct_order; ly_pair_p (s); s = ly_cdr (s))
+  for (SCM s = correct_order; is_pair (s); s = ly_cdr (s))
     {
       SCM entry = ly_car (s);
       SCM type = ly_car (entry);
@@ -133,7 +133,7 @@ apply_property_operations (Context *tg, SCM pre_init_ops)
       if (type == ly_symbol2scm ("push") || type == ly_symbol2scm ("poppush"))
 	{
 	  SCM val = ly_cddr (entry);
-	  val = ly_pair_p (val) ? ly_car (val) : SCM_UNDEFINED;
+	  val = is_pair (val) ? ly_car (val) : SCM_UNDEFINED;
 
 	  execute_pushpop_property (tg, ly_car (entry), ly_cadr (entry), val);
 	}
@@ -151,7 +151,7 @@ apply_property_operations (Context *tg, SCM pre_init_ops)
 SCM
 updated_grob_properties (Context * tg, SCM sym)
 {
-  assert (ly_symbol_p (sym));
+  assert (is_symbol (sym));
   
   tg = tg->where_defined (sym);
   if (!tg)
@@ -164,7 +164,7 @@ updated_grob_properties (Context * tg, SCM sym)
   
   SCM props  = tg->internal_get_property (sym);
 
-  if (!ly_pair_p (props))
+  if (!is_pair (props))
     {
       programming_error ("grob props not a pair?");
       return SCM_EOL;

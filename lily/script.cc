@@ -23,14 +23,14 @@ Stencil
 Script_interface::get_stencil (Grob * me, Direction d)
 {
   SCM s = me->get_property ("script-stencil");
-  assert (ly_pair_p (s));
+  assert (is_pair (s));
 
   SCM key = ly_car (s);
   if (key == ly_symbol2scm ("feta"))
     {
       SCM name_entry = ly_cdr (s);
 
-      SCM str = (ly_pair_p (name_entry)) ? index_get_cell (name_entry, d) :  name_entry;
+      SCM str = (is_pair (name_entry)) ? index_get_cell (name_entry, d) :  name_entry;
       return Font_interface::get_default_font (me)->find_by_name ("scripts-" +
 								  ly_scm2string (str));
     }

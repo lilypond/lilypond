@@ -30,7 +30,7 @@ Bar_line::print (SCM smob)
 
   SCM s = me->get_property ("glyph");
   SCM barsiz_proc = me->get_property ("bar-size-procedure");
-  if (ly_string_p (s) && ly_procedure_p (barsiz_proc))
+  if (is_string (s) && is_procedure (barsiz_proc))
     {
       String str  =ly_scm2string (s);
       SCM siz = scm_call_1 (barsiz_proc, me->self_scm ());
@@ -157,20 +157,20 @@ Bar_line::before_line_breaking (SCM smob)
   SCM g = me->get_property ("glyph");
   SCM orig = g;
   Direction bsd = item->break_status_dir ();
-  if (ly_string_p (g) && bsd)
+  if (is_string (g) && bsd)
     {
       SCM proc = me->get_property ("break-glyph-function");
       g = scm_call_2 (proc, g, scm_int2num (bsd));
     }
   
-  if (!ly_string_p (g))
+  if (!is_string (g))
     {
       me->set_property ("print-function", SCM_EOL);
       me->set_extent (SCM_EOL, X_AXIS);
       // leave y_extent for spanbar? 
     }
 
-  if (! ly_equal_p (g, orig))
+  if (! is_equal (g, orig))
     me->set_property ("glyph", g);
 
   return SCM_UNSPECIFIED;
@@ -186,7 +186,7 @@ Bar_line::get_staff_bar_size (SCM smob)
   Grob*me = unsmob_grob (smob);
   Real ss = Staff_symbol_referencer::staff_space (me);
   SCM size = me->get_property ("bar-size");
-  if (ly_number_p (size))
+  if (is_number (size))
     return scm_make_real (ly_scm2double (size)*ss);
   else if (Staff_symbol_referencer::get_staff_symbol (me))
     {

@@ -40,7 +40,7 @@ System::spanner_count () const
 {
   int k =0;
   for (SCM s = get_property ("all-elements");
-       ly_pair_p (s); s = ly_cdr (s))
+       is_pair (s); s = ly_cdr (s))
     {
       if (dynamic_cast<Spanner*> (unsmob_grob (ly_car (s))))
 	k++;
@@ -112,7 +112,7 @@ System::typeset_grob (Grob * elem)
 static void
 fixup_refpoints (SCM s)
 {
-  for (; ly_pair_p (s); s = ly_cdr (s))
+  for (; is_pair (s); s = ly_cdr (s))
     {
       Grob::fixup_refpoint (ly_car (s));
     }
@@ -121,7 +121,7 @@ fixup_refpoints (SCM s)
 SCM
 System::get_lines ()
 {
-  for (SCM s = get_property ("all-elements"); ly_pair_p (s); s = ly_cdr (s))
+  for (SCM s = get_property ("all-elements"); is_pair (s); s = ly_cdr (s))
     {
       Grob *g = unsmob_grob (ly_car (s));
       if (g->internal_has_interface (ly_symbol2scm ("only-prebreak-interface")))
@@ -149,7 +149,7 @@ System::get_lines ()
     {
       Grob *se = broken_intos_[i];
       SCM all = se->get_property ("all-elements");
-      for (SCM s = all; ly_pair_p (s); s = ly_cdr (s))
+      for (SCM s = all; is_pair (s); s = ly_cdr (s))
 	fixup_refpoint (ly_car (s));
       count += scm_ilength (all);
     }
@@ -159,7 +159,7 @@ System::get_lines ()
    */
   fixup_refpoints (get_property ("all-elements"));
 
-  for (SCM s = get_property ("all-elements"); ly_pair_p (s); s = ly_cdr (s))
+  for (SCM s = get_property ("all-elements"); is_pair (s); s = ly_cdr (s))
     unsmob_grob (ly_car (s))->handle_broken_dependencies ();
   handle_broken_dependencies ();
 
@@ -221,7 +221,7 @@ set_loose_columns (System* which, Column_x_positions const *posns)
       do
 	{
 	  SCM between = loose->get_property ("between-cols");
-	  if (!ly_pair_p (between))
+	  if (!is_pair (between))
 	    break;
 
 
@@ -316,7 +316,7 @@ System::add_column (Paper_column*p)
 {
   Grob *me = this;
   SCM cs = me->get_property ("columns");
-  Grob * prev =  ly_pair_p (cs) ? unsmob_grob (ly_car (cs)) : 0;
+  Grob * prev =  is_pair (cs) ? unsmob_grob (ly_car (cs)) : 0;
 
   p->rank_ = prev ? Paper_column::get_rank (prev) + 1 : 0; 
 
@@ -328,30 +328,30 @@ System::add_column (Paper_column*p)
 void
 System::pre_processing ()
 {
-  for (SCM s = get_property ("all-elements"); ly_pair_p (s); s = ly_cdr (s))
+  for (SCM s = get_property ("all-elements"); is_pair (s); s = ly_cdr (s))
     unsmob_grob (ly_car (s))->discretionary_processing ();
 
   if (verbose_global_b)
     progress_indication (_f ("Grob count %d",  element_count ()));
 
   
-  for (SCM s = get_property ("all-elements"); ly_pair_p (s); s = ly_cdr (s))
+  for (SCM s = get_property ("all-elements"); is_pair (s); s = ly_cdr (s))
     unsmob_grob (ly_car (s))->handle_prebroken_dependencies ();
   
   fixup_refpoints (get_property ("all-elements"));
   
-  for (SCM s = get_property ("all-elements"); ly_pair_p (s); s = ly_cdr (s))
+  for (SCM s = get_property ("all-elements"); is_pair (s); s = ly_cdr (s))
     {
       Grob* sc = unsmob_grob (ly_car (s));
       sc->calculate_dependencies (PRECALCED, PRECALCING, ly_symbol2scm ("before-line-breaking-callback"));
     }
   
   progress_indication ("\n" + _ ("Calculating line breaks...") + " ");
-  for (SCM s = get_property ("all-elements"); ly_pair_p (s); s = ly_cdr (s))
+  for (SCM s = get_property ("all-elements"); is_pair (s); s = ly_cdr (s))
     {
       Grob * e = unsmob_grob (ly_car (s));
       SCM proc = e->get_property ("spacing-procedure");
-      if (ly_procedure_p (proc))
+      if (is_procedure (proc))
 	scm_call_1 (proc, e->self_scm ());
     }
 }
@@ -359,7 +359,7 @@ System::pre_processing ()
 void
 System::post_processing ()
 {
-  for (SCM s = get_property ("all-elements"); ly_pair_p (s); s = ly_cdr (s))
+  for (SCM s = get_property ("all-elements"); is_pair (s); s = ly_cdr (s))
     {
       Grob *g = unsmob_grob (ly_car (s));
       g->calculate_dependencies (POSTCALCED, POSTCALCING,
@@ -379,7 +379,7 @@ System::post_processing ()
   all = uniquify_list (all);
 
   this->get_stencil ();
-  for (SCM s = all; ly_pair_p (s); s = ly_cdr (s))
+  for (SCM s = all; is_pair (s); s = ly_cdr (s))
     {
       Grob *g = unsmob_grob (ly_car (s));
       g->get_stencil ();
@@ -404,7 +404,7 @@ System::get_line ()
   SCM all = get_property ("all-elements");
   
   for (int i = LAYER_COUNT; i--;)
-    for (SCM s = all; ly_pair_p (s); s = ly_cdr (s))
+    for (SCM s = all; is_pair (s); s = ly_cdr (s))
       {
 	Grob *g = unsmob_grob (ly_car (s));
 	Stencil *stil = g->get_stencil ();
@@ -437,7 +437,7 @@ System::get_line ()
       
       SCM between = ly_symbol2scm ("between-system-string");
       SCM inter = g->internal_get_property (between);
-      if (ly_string_p (inter))
+      if (is_string (inter))
 	stencils = scm_cons (scm_cons (between, inter), stencils);
     }
 
@@ -459,13 +459,13 @@ System::broken_col_range (Item const*l, Item const*r) const
   r = r->get_column ();
   SCM s = get_property ("columns");
 
-  while (ly_pair_p (s) && ly_car (s) != r->self_scm ())
+  while (is_pair (s) && ly_car (s) != r->self_scm ())
     s = ly_cdr (s);
 
-  if (ly_pair_p (s))
+  if (is_pair (s))
     s = ly_cdr (s);
 
-  while (ly_pair_p (s) && ly_car (s) != l->self_scm ())
+  while (is_pair (s) && ly_car (s) != l->self_scm ())
     {
       Paper_column*c = dynamic_cast<Paper_column*> (unsmob_grob (ly_car (s)));
       if (Item::is_breakable (c) && !c->system_)

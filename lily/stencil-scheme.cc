@@ -40,7 +40,7 @@ LY_DEFINE (ly_translate_stencil_axis, "ly:stencil-translate-axis",
 {
   Stencil *s = unsmob_stencil (stil);
   SCM_ASSERT_TYPE (s, stil, SCM_ARG1, __FUNCTION__, "stencil");
-  SCM_ASSERT_TYPE (ly_number_p (amount), amount, SCM_ARG2, __FUNCTION__, "number pair");
+  SCM_ASSERT_TYPE (is_number (amount), amount, SCM_ARG2, __FUNCTION__, "number pair");
   SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
 
   SCM new_s = s->smobbed_copy ();
@@ -106,13 +106,13 @@ LY_DEFINE (ly_stencil_moved_to_edge, "ly:stencil-moved-to-edge",
   Real p = 0.0;
   if (padding != SCM_UNDEFINED)
     {
-      SCM_ASSERT_TYPE (ly_number_p (padding), padding, SCM_ARG5, __FUNCTION__, "number");
+      SCM_ASSERT_TYPE (is_number (padding), padding, SCM_ARG5, __FUNCTION__, "number");
       p = ly_scm2double (padding);
     }
   Real m = 0.0;
   if (minimum != SCM_UNDEFINED)
     {
-      SCM_ASSERT_TYPE (ly_number_p (minimum), minimum, SCM_ARG6, __FUNCTION__, "number");
+      SCM_ASSERT_TYPE (is_number (minimum), minimum, SCM_ARG6, __FUNCTION__, "number");
       m = ly_scm2double (minimum);
     }
 
@@ -151,13 +151,13 @@ LY_DEFINE (ly_stencil_combine_at_edge, "ly:stencil-combine-at-edge",
   Real p = 0.0;
   if (padding != SCM_UNDEFINED)
     {
-      SCM_ASSERT_TYPE (ly_number_p (padding), padding, SCM_ARG5, __FUNCTION__, "number");
+      SCM_ASSERT_TYPE (is_number (padding), padding, SCM_ARG5, __FUNCTION__, "number");
       p = ly_scm2double (padding);
     }
   Real m = 0.0;
   if (minimum != SCM_UNDEFINED)
     {
-      SCM_ASSERT_TYPE (ly_number_p (minimum), minimum, SCM_ARG6, __FUNCTION__, "number");
+      SCM_ASSERT_TYPE (is_number (minimum), minimum, SCM_ARG6, __FUNCTION__, "number");
       m = ly_scm2double (minimum);
     }
 
@@ -219,7 +219,7 @@ LY_DEFINE (ly_align_to_x, "ly:stencil-align-to!",
 {
   SCM_ASSERT_TYPE (unsmob_stencil (stil), stil, SCM_ARG1, __FUNCTION__, "stencil");
   SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
-  SCM_ASSERT_TYPE (ly_number_p (dir), dir, SCM_ARG3, __FUNCTION__, "number");
+  SCM_ASSERT_TYPE (is_number (dir), dir, SCM_ARG3, __FUNCTION__, "number");
 
   unsmob_stencil (stil)->align_to ((Axis)ly_scm2int (axis),
 				   ly_scm2double (dir));

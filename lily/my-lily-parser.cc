@@ -132,7 +132,7 @@ My_lily_parser::paper_description ()
 
   SCM al = p->translator_tab_->to_alist ();
   SCM l = SCM_EOL;
-  for (SCM s = al ; ly_pair_p (s); s = ly_cdr (s))
+  for (SCM s = al ; is_pair (s); s = ly_cdr (s))
     {
       Context_def * td = unsmob_context_def (ly_cdar (s));
       l = scm_cons (scm_cons (ly_caar (s), td->to_alist ()),  l);

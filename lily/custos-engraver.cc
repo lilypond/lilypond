@@ -97,7 +97,7 @@ Custos_engraver::acknowledge_grob (Grob_info info)
 void
 Custos_engraver::process_acknowledged_grobs ()
 {
-  if (ly_string_p (get_property ("whichBar")))
+  if (is_string (get_property ("whichBar")))
     custos_permitted = true;
   
   if (custos_permitted)
@@ -108,7 +108,7 @@ Custos_engraver::process_acknowledged_grobs ()
 
 	  int p = pitches_[i].steps ();
 	  SCM c0 = get_property ("middleCPosition");
-	  if (ly_number_p (c0))
+	  if (is_number (c0))
 	    p += ly_scm2int (c0);
 
 	  
