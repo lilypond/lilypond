@@ -73,7 +73,7 @@ $\\flat$
 @macro separate
 
 @tex
-\\hbox to\\hsize{\\hfill\\smallrm*\\textrm*\\smallrm*\\hfill}
+\medskip
 @end tex
 
 @end macro
@@ -87,17 +87,6 @@ $\\flat$
 @macro separate
 
 @quotation
-@quotation
-@quotation
-@quotation
-@quotation
-@quotation
-***
-@end quotation
-@end quotation
-@end quotation
-@end quotation
-@end quotation
 @end quotation
 @end macro
 @end ifinfo
@@ -105,7 +94,7 @@ $\\flat$
 @ifhtml
 @macro separate
 @html
-<p></p><center>*<font size="+1">*</font>*</center><br>
+<p></p><br><br>
 @end html
 @end macro
 @end ifhtml

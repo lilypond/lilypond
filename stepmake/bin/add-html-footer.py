@@ -235,7 +235,7 @@ def do_file (f):
 
 
 	versiontup = string.split(package_version, '.')
-	branch_str = 'stable-branch' 
+	branch_str = 'stable-branch'
 	if string.atoi ( versiontup[1]) %  2:
 		branch_str = 'development-branch'
 		

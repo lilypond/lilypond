@@ -25,6 +25,9 @@
 #include "pitch.hh"
 #include "dimensions.hh"
 
+
+// #define TEST_GC
+
 #ifdef PARANOID
 #include <libguile/gc.h>
 #undef gh_pair_p

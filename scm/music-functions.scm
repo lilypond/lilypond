@@ -35,7 +35,6 @@ written by Rune Zedeler. "
          music 'element
          (unfold-repeats e)))
 
-
     music))
 
 
@@ -223,20 +222,17 @@ this is not an override
        ((es (ly-get-mus-property m 'elements))
 	(e (ly-get-mus-property m 'element))
 	)
-	
+     (if (pair? es)
+	 (ly-set-mus-property m 'elements (map voicify-music es)))
+     (if (music? e)
+	 (ly-set-mus-property m 'element  (voicify-music e)))
      (if
       (and (equal? (ly-music-name m) "Simultaneous_music")
 	   (reduce (lambda (x y ) (or x y)) 	(map music-separator? es)))
       (voicify-chord m)
-      (begin
-	(if (pair? es)
-	    (ly-set-mus-property m 'elements (map voicify-music es)))
-	(if (music? e)
-	    (ly-set-mus-property m 'element  (voicify-music e)))
-	    
-	m)
-      
       )
+
+     m
      ))
 
 ;;;
@@ -260,8 +256,8 @@ this is not an override
   ))
   
 (define (check-start-chords music)
-  "Check music expression for a Simultaneous_music containing notes
-(ie. Request_chords), without context specification. Called  from parser."
+  "Check music expression for a Simultaneous_music containing notes\n(ie. Request_chords), without context specification. Called  from parser."
+  
      (let*
        ((es (ly-get-mus-property music 'elements))
 	(e (ly-get-mus-property music 'element))
@@ -273,8 +269,7 @@ this is not an override
 	 ((equal? name "Simultaneous_music")
 
 	  (if (has-request-chord es)
-	      (ly-music-message music "Starting score with a chord.
-Please insert an explicit \\context before chord")
+	      (ly-music-message music "Starting score with a chord.\nPlease insert an explicit \\context before chord")
 	      (map check-start-chords es)))
 	 
 	 ((equal? name "Sequential_music")
@@ -283,6 +278,8 @@ Please insert an explicit \\context before chord")
 	  (else (if (music? e) (check-start-chords e )))
        
        ))
-
      music
      )
+
+
+(define toplevel-music-functions (list check-start-chords voicify-music))
