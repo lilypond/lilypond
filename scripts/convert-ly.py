@@ -439,7 +439,7 @@ if 1:
 		if re.search ('\\\\repetitions',str):
 			sys.stderr.write ('\n')
 			sys.stderr.write (NOT_SMART % "\\repetitions")
-		#	raise FatalConversionError()
+		#	raise FatalConversionError ()
 		return str
 
 	conversions.append (((1,3,23), conv,
@@ -939,7 +939,7 @@ if 1:
 		       and re.search ('automaticMelismata', str)  == None:
 			sys.stderr.write ('\n')
 			sys.stderr.write (NOT_SMART % "automaticMelismata; turned on by default since 1.5.67.")
-			raise FatalConversionError()
+			raise FatalConversionError ()
 		return str
 
 	conversions.append (((1,5,67), conv,
@@ -1204,7 +1204,7 @@ if 1:
 			sys.stderr.write ('\n')
 			sys.stderr.write (UPDATE_MANUALLY)
 			sys.stderr.write ('\n')
-			raise FatalConversionError()
+			raise FatalConversionError ()
 
 		str = re.sub ('HaraKiriStaffContext', 'RemoveEmptyStaffContext', str)
 		return str
@@ -1247,7 +1247,7 @@ if 1:
 			sys.stderr.write (UPDATE_MANUALLY)
 			sys.stderr.write ('\n')
 
-			raise FatalConversionError()
+			raise FatalConversionError ()
 
 		return str
 
@@ -1472,7 +1472,7 @@ if 1:
 			sys.stderr.write (UPDATE_MANUALLY)
 			sys.stderr.write ('\n')
 
-			raise FatalConversionError()
+			raise FatalConversionError ()
 
 		str = re.sub (r'-\\markup', r'@\\markup', str)
 		str = re.sub (r'-\\', r'\\', str)
@@ -1515,7 +1515,7 @@ if 1:
 			sys.stderr.write (UPDATE_MANUALLY)
 			sys.stderr.write ('\n')
 
-			raise FatalConversionError()
+			raise FatalConversionError ()
 
 		str = re.sub ('fingerHorizontalDirection *= *#(LEFT|-1)',
 			      "fingeringOrientations = #'(up down left)", str)
@@ -1579,7 +1579,7 @@ def conv (str):
 				     "(ly:paper-get-font (ly:grob-get-paper foo) .. )"))
 		sys.stderr.write (UPDATE_MANUALLY)
 		sys.stderr.write ('\n')
-		raise FatalConversionError()
+		raise FatalConversionError ()
 
 	if re.search ("\\pitch *#", str) :
 		sys.stderr.write ('\n')
@@ -1587,7 +1587,7 @@ def conv (str):
 		sys.stderr.write ('\n')
 		sys.stderr.write ("Use Scheme code to construct arbitrary note events.")
 
-		raise FatalConversionError()
+		raise FatalConversionError ()
 
 	return str
 
@@ -1654,7 +1654,7 @@ def conv (str):
 		sys.stderr.write ('\n')
 		sys.stderr.write (UPDATE_MANUALLY)
 		sys.stderr.write ('\n')
-		raise FatalConversionError()
+		raise FatalConversionError ()
 	return str
 
 conversions.append (((1,9,8), conv, """dash-length -> dash-fraction"""))
@@ -1804,7 +1804,7 @@ def conv (str):
 		sys.stderr.write ('\n')
 		sys.stderr.write (UPDATE_MANUALLY)
 		sys.stderr.write ('\n')
-		raise FatalConversionError()
+		raise FatalConversionError ()
 
 	# this rule doesn't really work,
 	# too lazy to figure out why.
@@ -1982,7 +1982,7 @@ def conv (str):
 		sys.stderr.write (NOT_SMART % "ly:paper-get-variable")
 		sys.stderr.write ('\n')
 		sys.stderr.write ('use (ly:paper-lookup (ly:grob-paper ))')
-		raise FatalConversionError()
+		raise FatalConversionError ()
 
 	str = re.sub (r'\\defaultAccidentals', "#(set-accidental-style 'default)", str)
 	str = re.sub (r'\\voiceAccidentals', "#(set-accidental-style 'voice)", str)
@@ -2423,11 +2423,14 @@ def conv (str):
 	en_utf_8 = codecs.getencoder ('utf_8')
 	try:
 		de_ascii (str)
-	except UnicodeDecodeError:
+	# only in python >= 2.3
+	# except UnicodeDecodeError:
+	except UnicodeError:
 		# do not re-recode UTF-8 input
 		try:
 			de_utf_8 (str)
-		except UnicodeDecodeError:
+		#except UnicodeDecodeError:
+		except UnicodeError:
 			str = en_utf_8 (de_input (str)[0])[0]
 
 
