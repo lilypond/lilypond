@@ -157,6 +157,8 @@ norsk.ly       c   d   e   f   g   a   b   h   -iss/-is    -ess/-es
 svenska.ly     c   d   e   f   g   a   b   h   -iss        -ess
 italiano.ly    do  re  mi  fa  sol la  sib si  -d          -b
 catalan.ly     do  re  mi  fa  sol la  sib si  -d/-s       -b 
+espanol.ly     do  re  mi  fa  sol la  sib si  -s          -b 
+
 @end example 
 
 @cindex @code{'}
