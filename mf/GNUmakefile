@@ -20,6 +20,8 @@ BRACES = a b c d e f g h i
 
 OTF_FILES = $(addsuffix .otf, $(addprefix $(outdir)/emmentaler-, $(STAFF_SIZES)))\
  $(outdir)/aybabtu.otf
+PFA_OTF_FILES = $(addsuffix .pfa, $(addprefix $(outdir)/PFAemmentaler-, $(STAFF_SIZES)))\
+ $(outdir)/PFAaybabtu.pfa
 PE_SCRIPTS = $(addsuffix .pe, $(addprefix $(outdir)/emmentaler-, $(STAFF_SIZES))) \
   $(addsuffix .dep, $(addprefix $(outdir)/emmentaler-, $(STAFF_SIZES))) 
 OTF_TABLES = $(addsuffix .otf-table, $(addprefix $(outdir)/feta, $(STAFF_SIZES))) \
@@ -76,7 +78,7 @@ $(PE_SCRIPTS): $(buildscript-dir)/gen-emmentaler-scripts.py
 
 
 ALL_FONTS = $(FETA_FONTS) $(SAUTER_FONTS)
-PFA_FILES = $(ALL_FONTS:%=$(outdir)/%.pfa)
+PFA_FILES = $(ALL_FONTS:%=$(outdir)/%.pfa) $(PFA_OTF_FILES)
 
 # Make tfm files first, log files last, 
 # so that normally log files aren't made twice
@@ -183,9 +185,10 @@ $(outdir)/Fontmap.lily:
 	for i in $(FETA_FONTS); do echo "/$$i ($$i.pfa);" ; done > $@
 	for i in $(STAFF_SIZES); \
 		do echo "/Emmentaler-$$i (emmentaler-$$i.cff.ps);" ; done \
+		do echo "/PFAEmmentaler-$$i (PFAemmentaler-$$i.pfa);" ; done \
 	>> $@
 	echo "/Aybabtu (aybabtu.cff.ps);" >> $@
-
+	echo "/PFAAybabtu (PFAaybabtu.pfa);" >> $@
 
 local-clean:
 	rm -f mfplain.mem mfplain.log 

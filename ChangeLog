@@ -1,5 +1,18 @@
 2005-04-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* mf/aybabtu.pe.in (i): generate PFAAybabtu.pfa
+
+	* buildscripts/gen-emmentaler-scripts.py (i): generate
+	PFAEmmentaler as well.
+
+	* scm/framework-ps.scm (munge-lily-font-name): new function
+	(write-preamble): hack: insert PFA equivalent of CFF into
+	.PS. This makes LilyPond output printable on normal PS printers
+	again.
+
+	* buildscripts/gen-emmentaler-scripts.py (i): generate
+	PFAEmmentaler.pfa aswell.
+
 	* scripts/lilypond-book.py: refactor the compose_ly procedure.
 	Patch by John Williams.
 	

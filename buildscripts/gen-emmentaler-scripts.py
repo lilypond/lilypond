@@ -68,6 +68,10 @@ LoadTableFromFile("LILY", "feta%(design_size)d.otf-gtable")
 Generate("%(filename)s-%(design_size)d.otf");
 Generate("%(filename)s-%(design_size)d.cff");
 Generate("%(filename)s-%(design_size)d.svg");
+SetFontNames("PFA%(name)s-%(design_size)d", "PFA%(name)s", "PFA%(name)s %(design_size)d", "%(design_size)d", "GNU GPL", "@TOPLEVEL_VERSION@");
+
+# different name to prevent conflict with OTF
+Generate("PFA%(filename)s-%(design_size)d.pfa");
 ''' % vars()
 
 	basename = '%s-%d' % (filename, design_size)
