@@ -91,13 +91,13 @@
  @macro internalsref{NAME}
  @c makeinfo-4.7 encodes html names
  @c @uref{../lilypond-internals/\NAME\.html,\NAME\}@c
- @inforef{\NAME\,,lilypond-internals}@c
+ @ref{\NAME\,,,lilypond-internals}@c
  @c should we do this? 
  @findex @code{\NAME\}
  @end macro
  
  @macro usermanref{NAME}
- @inforef{\NAME\,,lilypond}@c
+ @ref{\NAME\,,,lilypond}@c
  @end macro
 
  @macro inputfileref{DIR,NAME}
@@ -110,7 +110,7 @@
 
 @c **** INFO ****
 @macro internalsref{NAME}
-@inforef{\NAME\,,lilypond/lilypond-internals}@c
+@inforef{\NAME\,,lilypond-internals}@c
 @findex \NAME\@c
 @end macro
 
@@ -119,7 +119,7 @@
 @end macro
 
 @macro usermanref{NAME}
-@ref{\NAME\,,,lilypond/lilypond}@c
+@inforef{\NAME\,,lilypond}@c
 @end macro
 
 @end ifinfo
