@@ -109,7 +109,7 @@ Clef changes, meter changes, cadenza-mode, key changes, repeat bars.
 
 =back
 
-=head1 DISCLAIMER & COPYING POLICY
+=head1 DISCLAIMER AND COPYING POLICY
 
 GNU LilyPond is copyright 1996, 1997 by its authors.  GNU LilyPond is
 distributed under the terms of the GNU General Public License.  GNU LilyPond 
@@ -209,6 +209,8 @@ includes files from the directory F<init/>.
 B<LILYINCLUDE> an (one) additional directory for finding lilypond data.
 
 =head1 BUGS
+
+Lots of them.  See F<TODO> and F<BUGS>
 
 =head1 SEE ALSO
 
