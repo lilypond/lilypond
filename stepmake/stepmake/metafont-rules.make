@@ -29,9 +29,10 @@ $(outdir)/%.$(XPM_RESOLUTION)pk: $(outdir)/%.$(XPM_RESOLUTION)gf
 	gftopk $< $@
 
 
+MFTRACE_FORMATS = pfa pfb svg
 $(outdir)/%.pfb $(outdir)/%.svg $(outdir)/%.pfa: %.mf
 	$(MFTRACE) $(MFTRACE_FLAGS) -I $(outdir)/ --formats=pfa,pfb,svg $(basename $(@F))
-	mv $(basename $(@F)).{pfa,pfb,svg} $(outdir)
+	-mv $(MFTRACE_FORMATS:%=$(basename $(@F).%)) $(outdir)
 
 #%.afm:
 #	$(SHELL) $(depth)/buildscripts/tfmtoafm.sh $(shell basename $@ .afm)
