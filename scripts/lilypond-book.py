@@ -341,9 +341,6 @@ output_dict= {
 
 	'html' : {
 
-		'output-lilypond': '''<lilypond%s>
-%s
-</lilypond>''',
 		'output-filename' : r'''
 <!-- %s >
 <a href="%s">
@@ -388,10 +385,7 @@ output_dict= {
 %% %s
 %% %s
 ''',
-		'output-lilypond': r'''\begin[%s]{lilypond}
-%s
-\end{lilypond}
-''',
+
 		# verbatim text is always finished with \n
 		'output-verbatim': r'''\begin{verbatim}
 %s\end{verbatim}
@@ -420,10 +414,7 @@ output_dict= {
 
 	'texi' : {
 
-		'output-lilypond': '''@lilypond[%s]
-%s
-@end lilypond
-''',
+
 		'output-filename' : r'''@ifnothtml
 @file{%s}:@*
 @end ifnothtml
@@ -567,7 +558,7 @@ re_dict = {
 		'verb': r'''(?P<code>@code{.*?})''',
 		'lilypond-file': '(?m)^(?P<match>@lilypondfile(\[(?P<options>[^]]*)\])?{(?P<filename>[^}]+)})',
 		'lilypond' : '(?m)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?{(?P<code>.*?)})',
-		'lilypond-block': r'''(?ms)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?\s(?P<code>.*?)@end +lilypond)\s''',
+		'lilypond-block': r'''(?ms)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?\s(?P<code>.*?)@end lilypond)\s''',
 		'option-sep' : ',\s*',
 		'intertext': r',?\s*intertext=\".*?\"',
 		'multiline-comment': r"(?sm)^\s*(?!@c\s+)(?P<code>@ignore\s.*?@end ignore)\s",
@@ -897,14 +888,13 @@ def make_lilypond_file (m):
 	'''
 
 	if m.group ('options'):
-		options = m.group ('options')
+		options = get_re ('option-sep').split (m.group ('options'))
 	else:
-		options = ''
+		options = []
 	(content, nm) = find_file (m.group ('filename'))
-	options = "filename=%s," % nm + options
+	options.append ("filename=%s" % nm)
 
-	return [('input', get_output ('output-lilypond') %
-			(options, content))]
+	return [('lilypond', content, options)]
 
 def make_ly2dvi_block (m):
 	'''
