@@ -92,7 +92,7 @@ SCM (* scm_parse_error_handler) (void *);
 %option noyywrap
 %option nodefault
 %option debug
-%option yyclass="My_lily_lexer"
+%option yyclass="Lily_lexer"
 %option stack
 %option never-interactive 
 %option warn
@@ -635,45 +635,45 @@ HYPHEN		--
 %%
 
 void
-My_lily_lexer::push_chord_state (SCM tab)
+Lily_lexer::push_chord_state (SCM tab)
 {
 	pitchname_tab_stack_ = scm_cons (tab, pitchname_tab_stack_);
 	yy_push_state (chords);
 }
 
 void
-My_lily_lexer::push_figuredbass_state ()
+Lily_lexer::push_figuredbass_state ()
 {
 	yy_push_state (figures);
 }
 
 void
-My_lily_lexer::push_initial_state ()
+Lily_lexer::push_initial_state ()
 {
 	yy_push_state (INITIAL);
 }
 
 void
-My_lily_lexer::push_lyric_state ()
+Lily_lexer::push_lyric_state ()
 {
 	yy_push_state (lyrics);
 }
 
 void
-My_lily_lexer::push_markup_state ()
+Lily_lexer::push_markup_state ()
 {
 	yy_push_state (markup);
 }
 
 void
-My_lily_lexer::push_note_state (SCM tab)
+Lily_lexer::push_note_state (SCM tab)
 {
 	pitchname_tab_stack_ = scm_cons (tab, pitchname_tab_stack_);
 	yy_push_state (notes);
 }
 
 void
-My_lily_lexer::pop_state ()
+Lily_lexer::pop_state ()
 {
 	if (YYSTATE == notes || YYSTATE == chords)
 		pitchname_tab_stack_ = ly_cdr (pitchname_tab_stack_);
@@ -681,7 +681,7 @@ My_lily_lexer::pop_state ()
 }
 
 int
-My_lily_lexer::identifier_type (SCM sid)
+Lily_lexer::identifier_type (SCM sid)
 {
 	int k = try_special_identifiers (&yylval.scm , sid);
 	return k >= 0  ? k : SCM_IDENTIFIER;
@@ -689,7 +689,7 @@ My_lily_lexer::identifier_type (SCM sid)
 
 
 int
-My_lily_lexer::scan_escaped_word (String str)
+Lily_lexer::scan_escaped_word (String str)
 {
 	// use more SCM for this.
 
@@ -722,7 +722,7 @@ My_lily_lexer::scan_escaped_word (String str)
 }
 
 int
-My_lily_lexer::scan_bare_word (String str)
+Lily_lexer::scan_bare_word (String str)
 {
 	SCM sym = ly_symbol2scm (str.to_str0 ());
 	if ((YYSTATE == notes) || (YYSTATE == chords)) {
@@ -749,25 +749,25 @@ My_lily_lexer::scan_bare_word (String str)
 }
 
 bool
-My_lily_lexer::is_note_state () const
+Lily_lexer::is_note_state () const
 {
 	return YY_START == notes;
 }
 
 bool
-My_lily_lexer::is_chord_state () const
+Lily_lexer::is_chord_state () const
 {
 	return YY_START == chords;
 }
 
 bool
-My_lily_lexer::is_lyric_state () const
+Lily_lexer::is_lyric_state () const
 {
 	return YY_START == lyrics;
 }
 
 bool
-My_lily_lexer::is_figure_state () const
+Lily_lexer::is_figure_state () const
 {
 	return YY_START == figures;
 }

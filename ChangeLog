@@ -1,5 +1,12 @@
 2004-08-01  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/include/my-lily-parser.hh: rename My_lily -> Lily
+
+	* make/mutopia-targets.make (local-WWW): don't make ps.gz
+	examples. They take huge amounts of space.
+
+	* Documentation/user/GNUmakefile: fix symlinks.
+
 	* input/test/lyrics-skip-notes.ly: remove
 
 	* input/test/stem-cross-staff.ly (noFlag): fold into manual
