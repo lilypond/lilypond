@@ -15,6 +15,22 @@ endif
 
 include $(depth)/$(configuration).make
 
+ifdef CONFIGSUFFIX
+outdir=out-$(CONFIGSUFFIX)
+else
+outdir=out
+endif
+
+
 stepdir = $(depth)/$(stepmake)/stepmake
 -include $(stepdir)/Include.make
+MAKEFILES := Generic $(MAKEFILES) 
+
+include $(addprefix $(stepdir)/,$(addsuffix _vars.make, $(MAKEFILES))) 
+include $(addprefix $(depth)/make/,$(addsuffix _vars.make, $(LOCALMAKEFILES))) 
+include $(addprefix $(stepdir)/,$(addsuffix _rules.make, $(MAKEFILES))) 
+include $(addprefix $(depth)/make/,$(addsuffix _rules.make, $(LOCALMAKEFILES))) 
+include $(addprefix $(stepdir)/,$(addsuffix _targets.make, $(MAKEFILES))) 
+include $(addprefix $(depth)/make/,$(addsuffix _targets.make, $(LOCALMAKEFILES))) 
+
 

@@ -2,17 +2,20 @@
 
 depth = ../..
 
-SUBDIRS=
+MAKEFILES=Documentation
+LOCALMAKEFILES=Lilypond
+BLURBS=BLURB COPERTINA FLAPTEKST
+
+TO_TOP_FILES=$(addprefix $(outdir)/, $(README_TOP_FILES))
+
 
 include $(depth)/make/Stepmake.make 
-include $(depth)/make/Lilypond.make
 
 default: do-doc 
 
-BLURBS=BLURB COPERTINA FLAPTEKST
+
 # INFO_FILES = $(outdir)/$(package).info
 
-include $(stepdir)/Documentation.shared.make
 
 # urg
 $(outdir)/%.html: %.yo
@@ -25,7 +28,6 @@ local-WWW:
 	-cp $(outdir)/*gif $(outdir)/index.html $(depth)  # don't fail if not making website
 
 
-TO_TOP_FILES=$(addprefix $(outdir)/, $(README_TOP_FILES))
 copy-to-top: 
 	$(foreach i, $(TO_TOP_FILES), \
 	  cp $(i) $(depth)/ && ) true

@@ -38,7 +38,8 @@ this is to rewrite the program.
 
 nsubsect(LANGUAGES)
 
-C++, /bin/sh and python are preferred.  Perl is not.
+C++, /bin/sh and Python are preferred.  Perl is not.
+Python code should use an indent of 8, using TAB characters.
 
 nsubsect(FILES)
 

@@ -10,9 +10,9 @@ SUBDIRS = include
 EXTRA_DIST_FILES += TODO
 MODULE_LIBS=$(depth)/lib $(depth)/flower
 
+MAKEFILES=C++ Executable
+
 include $(depth)/make/Stepmake.make 
-include $(stepdir)/C++.make
-include $(stepdir)/Executable.make
 
 # explicit dependencies: (how to do auto?)
 #

@@ -1,12 +1,13 @@
 depth = ../..
 
-include $(depth)/make/Stepmake.make
-include $(stepdir)/Documentation_rules.make
-
+MAKEFILES=Documentation
 XPM_FILES=$(wildcard *.xpm)
 OUTGIF_FILES = $(addprefix $(outdir)/,$(XPM_FILES:.xpm=.gif))
 
 EXTRA_DIST_FILES= $(XPM_FILES)
+
+include $(depth)/make/Stepmake.make
+
 gifs: $(OUTGIF_FILES)
 
 local-WWW: $(OUTGIF_FILES)

@@ -32,7 +32,7 @@ Key_item::read (Key_engraver const & key_grav_r)
 {
   multi_octave_b_ = key_grav_r.key_.multi_octave_b_;
   const Array<Musical_pitch> &idx_arr = key_grav_r.accidental_idx_arr_; 
-  for (int i = 0 ; i< idx_arr.size(); i++) 
+  for (int i = 0; i < idx_arr.size(); i++) 
     {
       Musical_pitch m_l =idx_arr[i];
       if (multi_octave_b_)

@@ -27,7 +27,10 @@ htmldoc:
 	$(MAKE) CONFIGSUFFIX='www' local-WWW
 	$(MAKE) CONFIGSUFFIX='www' -C Documentation WWW
 	rm -f `find . -name \*.html~ -print`
-	tar cfz $(outdir)/htmldoc.tar.gz  `find Documentation -type d -name 'out-www' -print` index.html $(shell ls *.gif $(ERRORLOG))
+	find `find Documentation -type d -name 'out-www'` -not -name '*dvi' -not -name '*ly' -not -name '*tex' -not -name '*.ps' -not -name 'out-www' > wwwlist
+
+	tar cfz $(outdir)/htmldoc.tar.gz  `cat wwwlist` $(shell ls *.gif $(ERRORLOG))
+
 
 
 # if you fix this, please fix yodl too!

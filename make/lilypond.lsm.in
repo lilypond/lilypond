@@ -8,8 +8,8 @@ Author: hanwen@cs.ruu.nl (Han-Wen Nienhuys)
 	janneke@gnu.org (Jan Nieuwenhuizen)
 Maintained-by: hanwen@stack.nl (Han-Wen Nienhuys)
 Primary-site: sunsite.unc.edu /pub/Linux/apps/sound/convert
-	730k @package@-@TOPLEVEL_VERSION@.tar.gz 
-Original-site: pcnov095.win.tue.nl /pub/lilypond/development/
-	730k @package@-@TOPLEVEL_VERSION@.tar.gz 
+	770k @package@-@TOPLEVEL_VERSION@.tar.gz 
+Original-site: ftp.cs.uu.nl /pub/GNU/LilyPond/development/
+	770k @package@-@TOPLEVEL_VERSION@.tar.gz 
 Copying-policy: GPL
 End

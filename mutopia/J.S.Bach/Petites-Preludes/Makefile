@@ -2,11 +2,9 @@
 
 depth = ../../..
 
-include $(depth)/make/Stepmake.make
-include $(make-dir)/Mutopia.make
-
 EXTRA_DIST_FILES=
 
 examples=preludes-2
+LOCALMAKEFILES=Mutopia
 
-include $(stepdir)/WWW.make
+include $(depth)/make/Stepmake.make

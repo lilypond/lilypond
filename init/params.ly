@@ -76,6 +76,7 @@ notewidth = (\quartwidth + \wholewidth) / 2.0;
 % ugh
 barsize = \staffheight;
 rulethickness = \staffline;
+stemthickness = \staffline;
 
 % uhm
 unitspace = 22.\pt;

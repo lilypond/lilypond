@@ -1,9 +1,10 @@
 # file	   make/Makefile 
 
 depth = ..
-
-include $(depth)/make/Stepmake.make 
+MAKEFILES=Makedir
 BLURBS=BLURB # COPERTINA FLAPTEKST
 
-include $(stepdir)/Makedir.shared.make
+include $(depth)/make/Stepmake.make 
+
+
 

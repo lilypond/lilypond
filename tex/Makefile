@@ -2,13 +2,13 @@
 
 depth = ..
 
-include $(depth)/make/Stepmake.make
 
 TEX_FILES = $(wildcard *.tex)
-DIST_FILES = Makefile $(TEX_FILES)
+EXTRA_DIST_FILES =  $(TEX_FILES)
 
 INSTALLATION_DIR=$(TEXDIR)/lilypond
 INSTALLATION_FILES=$(TEX_FILES)
 
+include $(depth)/make/Stepmake.make
 include $(stepdir)/Installfiles.make
 

@@ -308,10 +308,15 @@ Lookup::stem (Real y1,Real y2) const
   s.dim_.y() = Interval (y1,y2);
 
   Array<String> a;
-  a.push (print_dimen (y1));
-  a.push (print_dimen (y2));
 
-  String src = (*symtables_p_)("param")->lookup ("stem").tex_;
+  
+  Real stem_width = paper_l_->get_var ("stemthickness");
+  a.push (print_dimen (-stem_width /2));
+  a.push (print_dimen (stem_width));
+  a.push (print_dimen (y2));
+  a.push (print_dimen (-y1));
+
+  String src = "\\kern %\\vrule width % height % depth %";
   s.tex_ = substitute_args (src,a);
   s.font_ = font_;
   return s;

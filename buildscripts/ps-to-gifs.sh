@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # ps-to-gifs, convert PS to multiple gifs
   
 usage()

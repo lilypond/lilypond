@@ -75,12 +75,17 @@ Mudela_staff::eat_voice (Link_list<Mudela_item*>& items)
 String
 Mudela_staff::id_str()
 {
-  String str = name_str();
-  for  (int i = 0; i < str.length_i(); i++)
-    if  ( (!i && !isalpha (str[ i ]))
-	  || !isalnum (str[ i ]))
-      * (str.ch_l() + i) = '_';
-  return str;
+  String id (name_str ());
+  char *cp = id.ch_l ();
+  char *end = cp + id.length_i();
+  for (;cp < end; cp++)
+    {
+      if (!isalpha (*cp))
+	{
+	  *cp = 'X';
+	}
+    }
+  return id;
 }
 
 String
@@ -88,13 +93,15 @@ Mudela_staff::name_str()
 {
   if  (name_str_.length_i())
     return name_str_;
-  return String ("track") + to_str (number_i_);
+  return String ("track") + to_str (char ('A' - 1 + number_i_));
 }
+
+
 
 void
 Mudela_staff::output (Mudela_stream& mudela_stream_r)
 {
-  mudela_stream_r << "$" << id_str() << " = \\melodic";
+  mudela_stream_r << id_str() << " = \\melodic";
   mudela_stream_r <<  (mudela_voice_p_list_.size() > 1 ? "<" : "{");
   mudela_stream_r << '\n';
   mudela_stream_r << _ ("% midi copyright:") << copyright_str_ << '\n';

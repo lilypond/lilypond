@@ -2,9 +2,9 @@
 
 depth = ../..
 
-include $(depth)/make/Stepmake.make
-include $(make-dir)/Mutopia.make
-
 examples=cadenza
+LOCALMAKEFILES=Mutopia
 
-include $(stepdir)/WWW.make
+include $(depth)/make/Stepmake.make
+
+

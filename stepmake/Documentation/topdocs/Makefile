@@ -7,16 +7,17 @@ BLURBS=BLURB #COPERTINA FLAPTEKST
 AT_FILES = $(BLURBS) # 
 at-dir = $(doc-dir)/
 at-ext = .in
+BLURBS=BLURB COPERTINA FLAPTEKST
+
+TO_TOP_FILES=$(addprefix $(outdir)/, $(README_TOP_FILES))
+
+
+MAKEFILES=Documentation
 
 include $(depth)/make/Stepmake.make 
 
 
 default: do-doc 
-
-BLURBS=BLURB COPERTINA FLAPTEKST
-# INFO_FILES = $(outdir)/$(package).info
-
-include $(stepdir)/Documentation.shared.make
 
 # urg
 $(outdir)/%.html: %.yo
@@ -28,8 +29,6 @@ $(outdir)/%.html: %.yo
 local-WWW:
 	-cp $(outdir)/*gif $(outdir)/index.html $(depth)  # don't fail if not making website
 
-
-TO_TOP_FILES=$(addprefix $(outdir)/, $(README_TOP_FILES))
 copy-to-top: 
 	$(foreach i, $(TO_TOP_FILES), \
 	  cp $(i) $(depth)/ && ) true
