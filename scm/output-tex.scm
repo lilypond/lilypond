@@ -32,7 +32,6 @@
 	     char
 	     dashed-line
 	     zigzag-line
-	     symmetric-x-triangle
 	     ez-ball
 	     comment
 	     repeat-slash
@@ -100,10 +99,6 @@
 
 (define (zigzag-line centre? zzw zzh thick dx dy)
   (embedded-ps (list 'zigzag-line centre? zzw zzh thick dx dy)))
-
-(define (symmetric-x-triangle t w h)
-  (embedded-ps (list 'symmetric-x-triangle t w h)))
-
 
 (define (ez-ball c l b)
   (embedded-ps (list 'ez-ball  c  l b)))

@@ -690,14 +690,16 @@ Lookup::triangle (Interval iv, Real thick, Real protude)
   b[X_AXIS] = Interval (0, iv.length());
   b[Y_AXIS] = Interval (0 <? protude , 0 >? protude);
 
-  SCM s = scm_list_n (ly_symbol2scm ("symmetric-x-triangle"),
-		      scm_make_real (thick),
-		      scm_make_real (iv.length ()), 
-		      scm_make_real (protude), SCM_UNDEFINED);
 
-  Stencil stc (b, s);
-  stc.translate_axis (iv[LEFT], X_AXIS);
-  return stc;  
+  Offset z1(iv[LEFT], 0);
+  Offset z2(iv[RIGHT], 0);
+  Offset z3(z2[X_AXIS]/2, protude);
+   
+  Stencil tri = make_line (z1, z2);
+  tri.add_stencil (make_line (z2, z3));
+  tri.add_stencil (make_line (z3, z1));
+
+  return tri;
 }
 
 

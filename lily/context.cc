@@ -148,18 +148,11 @@ Context::find_create_context (SCM n, String id, SCM operations)
 	    {
 	      this_id = id;
 	    }
-	  
-	  Object_key const *key = get_context_key (ly_symbol2string (path[i]->get_context_name()), this_id);
-							
-	  Context * new_group
-	    = path[i]->instantiate (ops, key);
-	  scm_gc_unprotect_object (key->self_scm ());
-	  
-	  new_group->id_string_ = this_id;
-	  current->add_context (new_group);
-	  apply_property_operations (new_group, ops);
-	  
-	  current = new_group;
+
+
+	  current = create_context (path[i],
+				    this_id,
+				    ops); 
 	}
 
       return current;
@@ -179,6 +172,25 @@ Context::find_create_context (SCM n, String id, SCM operations)
       ret =0;
     }
   return ret;
+}
+
+
+Context*
+Context::create_context (Context_def * cdef,
+			 String id,
+			 SCM ops)
+{
+  String type = ly_symbol2string (cdef->get_context_name());
+  Object_key const *key = get_context_key (type, id);
+  Context * new_group
+    = cdef->instantiate (ops, key);
+  scm_gc_unprotect_object (key->self_scm ());
+	  
+  new_group->id_string_ = this_id;
+  add_context (new_group);
+  apply_property_operations (new_group, ops);
+
+  return new_group;
 }
 
 Object_key const*
@@ -256,10 +268,7 @@ Context::get_default_interpreter ()
 	  t = unsmob_context_def (this->definition_);
 	}
 
-      Object_key const *key = get_context_key (name, "");
-      
-      Context *tg = t->instantiate (SCM_EOL, key);
-      add_context (tg);
+      Context *tg = create_context (t, "", SCM_EOL)
       if (!tg->is_bottom_context ())
 	return tg->get_default_interpreter ();
       else

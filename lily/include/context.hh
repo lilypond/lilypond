@@ -51,6 +51,7 @@ public:
   Object_key const *get_grob_key (String);
   Object_key const *get_context_key (String, String);
 
+  Context *create_context (Context_def*, String, SCM); 
   String id_string () const { return id_string_; } 
   SCM children_contexts () const { return context_list_; }
   SCM default_child_context_name () const;
