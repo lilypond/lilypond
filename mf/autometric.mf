@@ -40,6 +40,9 @@ def autometric_output_char=
 	message "@{char@:"&charnamestr&"@:"&decimal charcode&"@:"&decimal charbp&"@:"&decimal charwd&"@:"&decimal chardp&"@:"&decimal charht&"@:"&idstr&"@:"&texstr&"@}";
 enddef;
 
+def tand(expr alpha) = 
+	(sind alpha/cosd alpha)
+	enddef;
 
 %breapth, width, depth, height
 %     breapth	x-depth
