@@ -36,7 +36,7 @@
 #include "stem-tremolo.hh"
 
 void
-Stem::set_beaming (Grob*me, int beam_count,  Direction d)
+Stem::set_beaming (Grob *me, int beam_count, Direction d)
 {
   SCM pair = me->get_property ("beaming");
 
@@ -46,39 +46,32 @@ Stem::set_beaming (Grob*me, int beam_count,  Direction d)
       me->set_property ("beaming", pair);
     }
 
-  SCM l = index_get_cell (pair, d);
-  for (int i = 0; i<  beam_count; i++)
-    {
-      l = scm_cons (scm_int2num (i), l);
-    }
-  index_set_cell (pair, d, l);		
+  SCM lst = index_get_cell (pair, d);
+  for (int i = 0; i < beam_count; i++)
+    lst = scm_cons (scm_int2num (i), lst);
+  index_set_cell (pair, d, lst);
 }
-
 
 Interval
-Stem::head_positions (Grob*me)
+Stem::head_positions (Grob *me)
 {
-  if (!head_count (me))
+  if (head_count (me))
     {
-      Interval iv;
-      return iv;
+      Drul_array<Grob*> e (extremal_heads (me));
+      return Interval (Staff_symbol_referencer::get_position (e[DOWN]),
+		       Staff_symbol_referencer::get_position (e[UP]));
     }
-
-  Drul_array<Grob*> e (extremal_heads (me));
-
-  return Interval (Staff_symbol_referencer::get_position (e[DOWN]),
-		   Staff_symbol_referencer::get_position (e[UP]));
+  return Interval ();
 }
-
 
 Real
 Stem::chord_start_y (Grob *me)
 {
   Interval hp = head_positions (me);
-  if (hp.is_empty ())
-    return 0;
-  return hp[get_direction (me)] * Staff_symbol_referencer::staff_space (me)
-    * 0.5;
+  if (!hp.is_empty ())
+    return hp[get_direction (me)] * Staff_symbol_referencer::staff_space (me)
+      * 0.5;
+  return 0;
 }
 
 Real
@@ -104,9 +97,9 @@ Stem::get_direction (Grob *me)
 
   if (!d)
     {
-       d = get_default_dir (me);
-       // urg, AAARGH!
-       set_grob_direction (me, d);
+      d = get_default_dir (me);
+      // urg, AAARGH!
+      set_grob_direction (me, d);
     }
   return d;
 }
@@ -115,7 +108,7 @@ void
 Stem::set_stemend (Grob *me, Real se)
 {
   // todo: margins
-  Direction d= get_direction (me);
+  Direction d = get_direction (me);
 
   if (d && d * head_positions (me)[get_direction (me)] >= se*d)
     me->warning (_ ("Weird stem size; check for narrow beams"));
@@ -125,7 +118,7 @@ Stem::set_stemend (Grob *me, Real se)
 
 /* Note head that determines hshift for upstems
    WARNING: triggers direction  */
-Grob*
+Grob *
 Stem::support_head (Grob *me)
 {
   if (head_count (me) == 1)
@@ -135,30 +128,30 @@ Stem::support_head (Grob *me)
 }
 
 int
-Stem::head_count (Grob*me)
+Stem::head_count (Grob *me)
 {
-  return  Pointer_group_interface::count (me, "note-heads");
+  return Pointer_group_interface::count (me, "note-heads");
 }
 
 /* The note head which forms one end of the stem.
    WARNING: triggers direction  */
-Grob*
+Grob *
 Stem::first_head (Grob *me)
 {
   Direction d = get_direction (me);
-  if (!d)
-    return 0;
-  return extremal_heads (me)[-d];
+  if (d)
+    return extremal_heads (me)[-d];
+  return 0;
 }
 
 /* The note head opposite to the first head.  */
-Grob*
+Grob *
 Stem::last_head (Grob *me)
 {
   Direction d = get_direction (me);
-  if (!d)
-    return 0;
-  return extremal_heads (me)[d];
+  if (d)
+    return extremal_heads (me)[d];
+  return 0;  
 }
 
 /* START is part where stem reaches `last' head.  */
@@ -173,7 +166,8 @@ Stem::extremal_heads (Grob *me)
   Drul_array<Grob *> exthead;
   exthead[LEFT] = exthead[RIGHT] =0;
 
-  for (SCM s = me->get_property ("note-heads"); ly_c_pair_p (s); s = ly_cdr (s))
+  for (SCM s = me->get_property ("note-heads"); ly_c_pair_p (s);
+       s = ly_cdr (s))
     {
       Grob *n = unsmob_grob (ly_car (s));
       int p = Staff_symbol_referencer::get_rounded_position (n);
@@ -181,7 +175,7 @@ Stem::extremal_heads (Grob *me)
       Direction d = LEFT;
       do
 	{
-	  if (d* p > d* extpos[d])
+	  if (d * p > d * extpos[d])
 	    {
 	      exthead[d] = n;
 	      extpos[d] = p;
@@ -202,9 +196,10 @@ Array<int>
 Stem::note_head_positions (Grob *me)
 {
   Array<int> ps ;
-  for (SCM s = me->get_property ("note-heads"); ly_c_pair_p (s); s = ly_cdr (s))
+  for (SCM s = me->get_property ("note-heads"); ly_c_pair_p (s);
+       s = ly_cdr (s))
     {
-      Grob * n = unsmob_grob (ly_car (s));
+      Grob *n = unsmob_grob (ly_car (s));
       int p = Staff_symbol_referencer::get_rounded_position (n);
 
       ps.push (p);
@@ -250,7 +245,7 @@ Stem::get_default_dir (Grob *me)
 }
 
 Real
-Stem::get_default_stem_end_position (Grob*me)
+Stem::get_default_stem_end_position (Grob *me)
 {
   Real ss = Staff_symbol_referencer::staff_space (me);
   int durlog = duration_log (me);
@@ -266,7 +261,7 @@ Stem::get_default_stem_end_position (Grob*me)
     {
       s = me->get_property ("lengths");
       if (ly_c_pair_p (s))
-	length = 2* ly_scm2double (robust_list_ref (durlog -2, s));
+	length = 2 * ly_scm2double (robust_list_ref (durlog - 2, s));
     }
 
   /* URGURGURG
@@ -310,9 +305,9 @@ Stem::get_default_stem_end_position (Grob*me)
 
       if (durlog >= 3)
 	{
-	  Interval flag_ext = flag (me).extent (Y_AXIS) ;
+	  Interval flag_ext = flag (me).extent (Y_AXIS);
 	  if (!flag_ext.is_empty ())
-	    minlen += 2 * flag_ext.length () / ss ;
+	    minlen += 2 * flag_ext.length () / ss;
 
 	  /* The clash is smaller for down stems (since the tremolo is
 	     angled up.) */
@@ -342,8 +337,7 @@ Stem::get_default_stem_end_position (Grob*me)
       if (dots)
 	{
 	  Real dp = Staff_symbol_referencer::get_position (dots);
-	  Real flagy =  flag (me).extent (Y_AXIS)[-dir] * 2
-	    / ss;
+	  Real flagy = flag (me).extent (Y_AXIS)[-dir] * 2 / ss;
 
 	  /* Very gory: add myself to the X-support of the parent,
 	     which should be a dot-column. */
@@ -365,27 +359,22 @@ Stem::get_default_stem_end_position (Grob*me)
   return st;
 }
 
-
-
-/*
-
-  the log of the duration (Number of hooks on the flag minus two)
- */
+/* The log of the duration (Number of hooks on the flag minus two)  */
 int
-Stem::duration_log (Grob*me)
+Stem::duration_log (Grob *me)
 {
   SCM s = me->get_property ("duration-log");
   return (ly_c_number_p (s)) ? ly_scm2int (s) : 2;
 }
 
 void
-Stem::position_noteheads (Grob*me)
+Stem::position_noteheads (Grob *me)
 {
   if (!head_count (me))
     return;
 
   Link_array<Grob> heads =
-    Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-heads");
+    Pointer_group_interface__extract_grobs (me, (Grob*) 0, "note-heads");
 
   heads.sort (compare_position);
   Direction dir =get_direction (me);
@@ -393,20 +382,18 @@ Stem::position_noteheads (Grob*me)
   if (dir < 0)
     heads.reverse ();
 
-
   Real thick = thickness (me);
 
   Grob *hed = support_head (me);
   Real w = Note_head::head_extent (hed,X_AXIS)[dir];
-  for (int i=0; i < heads.size (); i++)
-    {
-      heads[i]->translate_axis (w - Note_head::head_extent (heads[i], X_AXIS)[dir],
-				X_AXIS);
-    }
+  for (int i = 0; i < heads.size (); i++)
+    heads[i]->translate_axis (w - Note_head::head_extent (heads[i],
+							  X_AXIS)[dir],
+			      X_AXIS);
 
-  bool parity= true;
+  bool parity = true;
   Real lastpos = Real (Staff_symbol_referencer::get_position (heads[0]));
-  for (int i=1; i < heads.size (); i ++)
+  for (int i = 1; i < heads.size (); i ++)
     {
       Real p = Staff_symbol_referencer::get_position (heads[i]);
       Real dy =fabs (lastpos- p);
@@ -419,26 +406,26 @@ Stem::position_noteheads (Grob*me)
 	{
 	  if (parity)
 	    {
-	      Real l = Note_head::head_extent (heads[i], X_AXIS).length ();
+	      Real ell = Note_head::head_extent (heads[i], X_AXIS).length ();
 
 	      Direction d = get_direction (me);
 	      /*
-		Reversed head should be shifted l-thickness, but this
-		looks too crowded, so we only shift l-0.5*thickness.
+		Reversed head should be shifted ell-thickness, but this
+		looks too crowded, so we only shift ell-0.5*thickness.
 
 		This leads to assymetry: Normal heads overlap the
 		stem 100% whereas reversed heads only overlaps the
 		stem 50%
-
 	      */
 
-	      Real reverse_overlap =0.5;
-	      heads[i]->translate_axis ((l-thick*reverse_overlap) * d, X_AXIS);
+	      Real reverse_overlap = 0.5;
+	      heads[i]->translate_axis ((ell - thick * reverse_overlap) * d,
+					X_AXIS);
 
 	      if (is_invisible (me))
-		heads[i]->translate_axis (-thick*(2 - reverse_overlap) * d , X_AXIS);
+		heads[i]->translate_axis (-thick * (2 - reverse_overlap) * d,
+					  X_AXIS);
 
-	
 	     /* TODO:
 		
 	      For some cases we should kern some more: when the
@@ -466,8 +453,7 @@ MAKE_SCHEME_CALLBACK (Stem,before_line_breaking,1);
 SCM
 Stem::before_line_breaking (SCM smob)
 {
-  Grob*me = unsmob_grob (smob);
-
+  Grob *me = unsmob_grob (smob);
 
   /*
     Do the calculations for visible stems, but also for invisible stems
@@ -479,10 +465,8 @@ Stem::before_line_breaking (SCM smob)
       position_noteheads (me);
     }
   else
-    {
-      me->set_property ("print-function", SCM_EOL);
-    }
-
+    me->set_property ("print-function", SCM_EOL);
+  
   return SCM_UNSPECIFIED;
 }
 
@@ -496,7 +480,7 @@ SCM
 Stem::height (SCM smob, SCM ax)
 {
   Axis a = (Axis)ly_scm2int (ax);
-  Grob * me = unsmob_grob (smob);
+  Grob *me = unsmob_grob (smob);
   assert (a == Y_AXIS);
 
   SCM mol = me->get_uncached_stencil ();
@@ -514,7 +498,7 @@ Stem::height (SCM smob, SCM ax)
 
 
 Stencil
-Stem::flag (Grob*me)
+Stem::flag (Grob *me)
 {
   /* TODO: maybe property stroke-style should take different values,
      e.g. "" (i.e. no stroke), "single" and "double" (currently, it's
@@ -523,14 +507,10 @@ Stem::flag (Grob*me)
 
   SCM flag_style_scm = me->get_property ("flag-style");
   if (ly_c_symbol_p (flag_style_scm))
-    {
-      flag_style = ly_symbol2string (flag_style_scm);
-    }
-
+    flag_style = ly_symbol2string (flag_style_scm);
+  
   if (flag_style == "no-flag")
-    {
-      return Stencil ();
-    }
+    return Stencil ();
 
   bool adjust = true;
 
@@ -571,8 +551,8 @@ Stem::flag (Grob*me)
 	    --hwn.
 	  */
 	  int p = Staff_symbol_referencer::get_rounded_position (me);
-	  staffline_offs = Staff_symbol_referencer::on_staffline (me, p) ?
-	    "1" : "0";
+	  staffline_offs = Staff_symbol_referencer::on_staffline (me, p)
+	    ? "1" : "0";
 	}
       else
         {
@@ -585,14 +565,12 @@ Stem::flag (Grob*me)
     }
 
   char dir = (get_direction (me) == UP) ? 'u' : 'd';
-  String font_char =
-    flag_style + to_string (dir) + staffline_offs + to_string (duration_log (me));
+  String font_char = flag_style
+    + to_string (dir) + staffline_offs + to_string (duration_log (me));
   Font_metric *fm = Font_interface::get_default_font (me);
   Stencil flag = fm->find_by_name ("flags-" + font_char);
   if (flag.is_empty ())
-    {
-      me->warning (_f ("flag `%s' not found", font_char));
-    }
+    me->warning (_f ("flag `%s' not found", font_char));
 
   SCM stroke_style_scm = me->get_property ("stroke-style");
   if (ly_c_string_p (stroke_style_scm))
@@ -603,13 +581,9 @@ Stem::flag (Grob*me)
 	  String font_char = to_string (dir) + stroke_style;
 	  Stencil stroke = fm->find_by_name ("flags-" + font_char);
 	  if (stroke.is_empty ())
-	    {
-	      me->warning (_f ("flag stroke `%s' not found", font_char));
-	    }
+	    me->warning (_f ("flag stroke `%s' not found", font_char));
 	  else
-	    {
-	      flag.add_stencil (stroke);
-	    }
+	    flag.add_stencil (stroke);
 	}
     }
 
@@ -627,34 +601,28 @@ Stem::dim_callback (SCM e, SCM ax)
   if (unsmob_grob (me->get_property ("beam")) || abs (duration_log (me)) <= 2)
     ;	// TODO!
   else
-    {
-      r = flag (me).extent (X_AXIS)
-	+ thickness (me)/2;
-    }
+    r = flag (me).extent (X_AXIS)
+      + thickness (me)/2;
   return ly_interval2scm (r);
 }
 
 Real
-Stem::thickness (Grob* me)
+Stem::thickness (Grob *me)
 {
   return ly_scm2double (me->get_property ("thickness"))
     * Staff_symbol_referencer::line_thickness (me);
 }
 
-MAKE_SCHEME_CALLBACK (Stem,print,1);
-
+MAKE_SCHEME_CALLBACK (Stem, print, 1);
 SCM
 Stem::print (SCM smob)
 {
-  Grob*me = unsmob_grob (smob);
+  Grob *me = unsmob_grob (smob);
   Stencil mol;
   Direction d = get_direction (me);
 
-  /*
-    TODO: make the stem start a direction ?
-
-    This is required to avoid stems passing in tablature chords...
-  */
+  /* TODO: make the stem start a direction ?
+     This is required to avoid stems passing in tablature chords.  */
   Grob *lh = to_boolean (me->get_property ("avoid-note-head"))
     ? last_head (me) :  lh = first_head (me);
 
@@ -668,7 +636,6 @@ Stem::print (SCM smob)
   Real y2 = stem_end_position (me);
 
   Interval stem_y (y1 <? y2,y2 >? y1);
-
 
   // dy?
   Real dy = Staff_symbol_referencer::staff_space (me) * 0.5;
@@ -711,57 +678,42 @@ Stem::print (SCM smob)
 /*
   move the stem to right of the notehead if it is up.
  */
-MAKE_SCHEME_CALLBACK (Stem,off_callback,2);
+MAKE_SCHEME_CALLBACK (Stem, off_callback, 2);
 SCM
 Stem::off_callback (SCM element_smob, SCM)
 {
   Grob *me = unsmob_grob (element_smob);
-
-  Real r=0;
-
-  if (head_count (me) == 0)
-    {
-      return scm_make_real (0.0);
-    }
-
-  if (Grob * f = first_head (me))
-    {
-      Interval head_wid = Note_head::head_extent (f, X_AXIS);
-
-      Real attach =0.0;
-
-      if (is_invisible (me))
-	{
-	  attach = 0.0;
-	}
-      else
-	attach = Note_head::stem_attachment_coordinate (f, X_AXIS);
-
-      Direction d = get_direction (me);
-
-      Real real_attach = head_wid.linear_combination (d * attach);
-
-      r = real_attach;
-
-      /*
-	If not centered: correct for stem thickness.
-       */
-      if (attach)
-	{
-	  Real rule_thick
-	    = thickness (me);
+  Real r = 0.0;
+  
+  if (head_count (me))
+    if (Grob *f = first_head (me))
+      {
+	Interval head_wid = Note_head::head_extent (f, X_AXIS);
+	Real attach = 0.0;
 	
-	  r += - d * rule_thick * 0.5;
-	}
-    }
+	if (is_invisible (me))
+	  attach = 0.0;
+	else
+	attach = Note_head::stem_attachment_coordinate (f, X_AXIS);
+	
+	Direction d = get_direction (me);
+	Real real_attach = head_wid.linear_combination (d * attach);
+	r = real_attach;
+	
+	/* If not centered: correct for stem thickness.  */
+	if (attach)
+	  {
+	    Real rule_thick = thickness (me);
+	    r += - d * rule_thick * 0.5;
+	  }
+      }
   return scm_make_real (r);
 }
 
-
-Grob*
-Stem::get_beam (Grob*me)
+Grob *
+Stem::get_beam (Grob *me)
 {
-  SCM b=  me->get_property ("beam");
+  SCM b = me->get_property ("beam");
   return unsmob_grob (b);
 }
 
@@ -907,10 +859,11 @@ Stem::beam_multiplicity (Grob *stem)
 
 
 /* FIXME:  Too many properties  */
-ADD_INTERFACE (Stem,"stem-interface",
-	       "The stem represent the graphical  stem. "
-	       "  In addition, it internally connects note heads, beams, tremolos. Rests "
-	       " and whole notes have invisible stems.",
+ADD_INTERFACE (Stem, "stem-interface",
+	       "The stem represent the graphical stem.  "
+	       "In addition, it internally connects note heads, beams and"
+	       "tremolos. "
+	       "Rests and whole notes have invisible stems.",
 	       "tremolo-flag french-beaming "
 	       "avoid-note-head thickness "
 	       "stem-info beamed-lengths beamed-minimum-free-lengths "
@@ -919,13 +872,11 @@ ADD_INTERFACE (Stem,"stem-interface",
 	       "note-heads direction length flag-style "
 	       "no-stem-extend stroke-style");
 
-
-
 /****************************************************************/
 
 Stem_info::Stem_info ()
 {
-  ideal_y_ = shortest_y_ =0;
+  ideal_y_ = shortest_y_ = 0;
   dir_ = CENTER;
 }
 

@@ -1,6 +1,3 @@
-% remove-me
-#(ly:set-point-and-click 'line-column)
-
 %% A simple song in LilyPond
 <<
     \relative {
@@ -16,3 +13,7 @@
 
 %% Optional helper for automatic updating by convert-ly.  May be omitted.
 \version "2.3.4"
+    
+%% Optional helper for quick click and edit mode.  May be omitted
+#(ly:set-point-and-click 'line-column)
+

@@ -76,15 +76,13 @@ void
 Bar_engraver::process_acknowledged_grobs ()
 {
   if (!bar_ && ly_c_string_p (get_property ("whichBar")))
-    {
-      create_bar ();
-    }
+    create_bar ();
 }
 
 void
 Bar_engraver::typeset_bar ()
 {
-      bar_ =0;
+  bar_ = 0;
 }
 
 /*
@@ -94,9 +92,8 @@ void
 Bar_engraver::stop_translation_timestep ()
 {
   if (!bar_)
-    {
-      get_score_engraver ()->forbid_breaks ();	// guh. Use properties!
-    }
+    /* guh. Use properties! */
+    get_score_engraver ()->forbid_breaks ();
   else
     typeset_bar ();
 }

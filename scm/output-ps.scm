@@ -17,6 +17,13 @@
 
 (define-module (scm output-ps)
   #:re-export (quote)
+
+  ;; FIXME
+  ;;; <unnamed port>: Wrong type argument in position 2 (expecting SYMBOLP): (append (ly:all-stencil-expressions) (ly:all-output-backend-commands))
+  ;;#:export ,(append (ly:all-stencil-expressions)
+  ;;  (ly:all-output-backend-commands)))
+
+;   ;; UGHXr 
   #:export (unknown
 	     blank
 	     dot
@@ -43,12 +50,22 @@
 	     no-origin
 	     ))
 
+
 (use-modules (guile)
 	     (ice-9 regex)
 	     (srfi srfi-1)
 	     (srfi srfi-13)
 	     (scm framework-ps)
 	     (lily))
+
+
+;;(map export
+;;   (append (ly:all-stencil-expressions) (ly:all-output-backend-commands)))
+
+;; huh?
+;;(write (ly:all-output-backend-commands))
+;;(write (ly:all-stencil-expressions))
+
 
 ;;; helper functions, not part of output interface
 (define (escape-parentheses s)

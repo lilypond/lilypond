@@ -15,10 +15,10 @@
 SCM
 internal_ly_parse_scm (Parse_start * ps)
 {
-  Source_file* sf =ps->start_location_.source_file_;
+  Source_file *sf =ps->start_location_.source_file_;
   SCM port = sf->get_port ();
 
-  int off = ps->start_location_.defined_str0_ - sf->to_str0();
+  int off = ps->start_location_.defined_str0_ - sf->to_str0 ();
   
   scm_seek (port, scm_long2num (off), scm_long2num (SEEK_SET));
   SCM from = scm_ftell (port);
@@ -26,12 +26,12 @@ internal_ly_parse_scm (Parse_start * ps)
   SCM form;
   SCM answer = SCM_UNSPECIFIED;
 
-  /* Read expression from port */
+  /* Read expression from port.  */
   if (!SCM_EOF_OBJECT_P (form = scm_read (port)))
     {
+      SCM function = ly_scheme_function ("make-safe-lilypond-module");
       if (ps->safe_)
-	answer = scm_eval  (form,
-			    scm_call_0 (ly_scheme_function ("make-safe-lilypond-module")));
+	answer = scm_eval (form, function);
       else
 	answer = scm_primitive_eval (form);
     }
@@ -60,10 +60,10 @@ catch_protected_parse_body (void *p)
 }
 
 SCM 
-parse_handler (void * data, SCM tag, SCM args)
+parse_handler (void *data, SCM tag, SCM args)
 {
-  Parse_start* ps = (Parse_start*) data;
-  (void) tag;			// prevent warning
+  Parse_start* ps = (Parse_start *) data;
+  (void) tag;
   
   ps->start_location_.error (_("GUILE signaled an error for the expression beginning here"));
 
@@ -102,11 +102,12 @@ protected_ly_parse_scm (Parse_start *ps)
 
 bool parse_protect_global = true; 
 
-/* Try parsing.  Upon failure return SCM_UNDEFINED. */
+/* Try parsing.  Upon failure return SCM_UNDEFINED.
+   FIXME: shouldn't we return SCM_UNSCPECIFIED -- jcn  */
 SCM
-ly_parse_scm (char const* s, int *n, Input i, bool safe)
+ly_parse_scm (char const *s, int *n, Input i, bool safe)
 {
-  Parse_start ps ;
+  Parse_start ps;
   ps.str = s;
   ps.start_location_ = i;
   ps.safe_ = safe;
