@@ -15,6 +15,7 @@
 
 Bar::Bar()
 {
+    breakable_b_ = true;
     type_str_ = "|";
     spanned_i_ = 0;
 }
@@ -40,13 +41,15 @@ Bar::brew_molecule_p()const
 }
 
 /**
+  Prescriptions for splitting bars.
   TODO: parametrise this (input-settable)
  */
-char const *bar_breaks[][3] ={
+static char const *bar_breaks[][3] ={
     {":|", ":|:", "|:"},
     {"|", "|", ""},
     {"", "|:", "|:"},
     {"||.", "||.", ""},
+    {":|", ":|", ""},
     {0,0,0}
 };
 
@@ -58,7 +61,11 @@ Bar::do_pre_processing()
 	    type_str_ = bar_breaks[i][break_status_i()+1];
     }
   
-    // span_score_bar needs dims.
-//    transparent_b_ = empty_b_ = (type_str_ == "");
+    /*
+      span_score_bar needs dims, so don't do
+    
+      transparent_b_ = empty_b_ = (type_str_ == "");
+      
+      */
 }
     
