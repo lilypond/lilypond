@@ -2,7 +2,7 @@ shortlong = \melodic{
 	c4()c( c c  |
 	c c c c |
 	c c c c |
-	\break;
+	\break
 	c c c )c |
 	c c c c |
 	c c c c |
