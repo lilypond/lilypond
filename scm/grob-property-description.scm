@@ -112,8 +112,6 @@ square of the inner notes involved.")
 
 (grob-property-description 'neutral-direction dir? "Where to go if we're on the neutral position of the staff (by default, the middle of the staff; see also grob-property neutral-position).  [Ross] has the following to say about this: Some engravers consider the middle line neutral, and take the option of using either up- or down-stems for notes that fall on it. However, more up-to-date engraving no longer permits an option; now a down-stem is always appropriate.")
 (grob-property-description 'neutral-position number? "Position (in half staff spaces) where to flip the direction of stems: by default, custodes above this position get their stems downwards; custodes below this position get their stems upwards.  A value of 0 designates the center of the staff.  Use property neutral-direction to control the behaviour of stems on the neutral position itself.  (Note: currently, neutral-position is supported only for custodes; for stems of note heads, neutral-position is currently fixed to 0, i.e. the middle of the staff.)")
-
-(grob-property-description 'delta-y number? "amount of ascension.")
 (grob-property-description 'dependencies list? "list of score-grob pointers that indicate who to compute first for certain global passes.")
 (grob-property-description 'details list? "alist of parameters for detailed grob behavior.")
 (grob-property-description 'dir-forced boolean? "set if direction has been forced; read by Beam.")

@@ -1,5 +1,11 @@
 2002-04-01  Han-Wen  <hanwen@cs.uu.nl>
 
+	* lily/multi-measure-rest.cc (set_spacing_rods): tune rods to the
+	extent of the mm rest. 
+
+	* lily/spacing-spanner.cc (get_duration_space): better spacing for
+	really short notes.
+
 	* lily/tuplet-bracket.cc (make_bracket): new function
 	(get_x_offset): new function; make tuplet brackets align on stems
 	if stem has same direction.

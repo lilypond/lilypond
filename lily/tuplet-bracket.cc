@@ -41,15 +41,15 @@
 #include "lookup.hh"
 
 
-static Real
-get_x_offset (Grob *g, Grob *common, Direction my_dir)
+static Grob*
+get_x_bound_grob (Grob *g, Direction my_dir)
 {
   if (Note_column::stem_l (g)
       && Note_column::dir (g) == my_dir)
     {
       g = Note_column::stem_l (g);
     }
-  return g->relative_coordinate (common, X_AXIS);
+  return g;
 }
 
 
@@ -129,9 +129,12 @@ Tuplet_bracket::brew_molecule (SCM smob)
 	
   Grob * commonx = column_arr[0]->common_refpoint (column_arr.top (),X_AXIS);
   Direction dir = Directional_element_interface::get (me);
-      
-  Real x0 = get_x_offset (column_arr[0], commonx, dir);
-  Real x1 = get_x_offset (column_arr.top(), commonx, dir);
+
+  Grob * lgr = get_x_bound_grob (column_arr[0], dir);
+  Grob * rgr = get_x_bound_grob (column_arr.top(), dir);  
+  Real x0 = lgr->extent (commonx,X_AXIS)[LEFT];
+  Real x1 = rgr->extent (commonx,X_AXIS)[RIGHT];
+
   Real w = x1 -x0;
 
   Real ly = gh_scm2double (me->get_grob_property ("left-position"));
@@ -230,7 +233,7 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
   Grob * commony = me->common_refpoint (me->get_grob_property ("note-columns"), Y_AXIS);
   Grob * commonx = me->common_refpoint (me->get_grob_property ("note-columns"), X_AXIS);  
   
-  Direction d = Directional_element_interface::get (me);
+  Direction dir = Directional_element_interface::get (me);
 
   /*
     Use outer non-rest columns to determine slope
@@ -245,22 +248,25 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
   
   if (l < r)
     {
-      *dy = column_arr[r]->extent (commony, Y_AXIS) [d]
-	- column_arr[l]->extent (commony, Y_AXIS) [d] ;
+      *dy = column_arr[r]->extent (commony, Y_AXIS) [dir]
+	- column_arr[l]->extent (commony, Y_AXIS) [dir] ;
     }
   else
     * dy = 0;
 
 
-  *offset = - d * infinity_f;
+  *offset = - dir * infinity_f;
 
   if (!column_arr.size ())
     return;
 
 
   
-  Real x0 = get_x_offset (column_arr[0], commonx, d);
-  Real x1 = get_x_offset (column_arr.top(), commonx, d);
+  Grob * lgr = get_x_bound_grob (column_arr[0], dir);
+  Grob * rgr = get_x_bound_grob (column_arr.top(), dir);  
+  Real x0 = lgr->extent (commonx,X_AXIS)[LEFT];
+  Real x1 = rgr->extent (commonx,X_AXIS)[RIGHT];
+
 
     /*
       Slope.
@@ -269,18 +275,18 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
   
   for (int i = 0; i < column_arr.size ();  i++)
     {
-      Real notey = column_arr[i]->extent (commony, Y_AXIS)[d] 
+      Real notey = column_arr[i]->extent (commony, Y_AXIS)[dir] 
 	- me->relative_coordinate (commony, Y_AXIS);
 
       Real x = column_arr[i]->relative_coordinate (commonx, X_AXIS) - x0;
       Real tuplety =  *dy * x * factor;
 
-      if (notey * d > (*offset + tuplety) * d)
+      if (notey * dir > (*offset + tuplety) * dir)
 	*offset = notey - tuplety; 
     }
 
   // padding
-  *offset +=  gh_scm2double (me->get_grob_property ("padding")) *d;
+  *offset +=  gh_scm2double (me->get_grob_property ("padding")) *dir;
 
   
   /*
@@ -294,7 +300,7 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
       
       *offset = rint (*offset);
       if (Staff_symbol_referencer::on_staffline (me, (int) rint (*offset)))
-	*offset += d;
+	*offset += dir;
 
       *offset *= 0.5 * ss;
     }

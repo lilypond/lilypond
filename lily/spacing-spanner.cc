@@ -441,7 +441,7 @@ Spacing_spanner::find_shortest (Link_array<Grob> const &cols)
 	  max_count = counts[i];
 	}
 
-      //      printf ("Den %d/%d, c %d\n", durations[i].num (), durations[i].den (), counts[i]);
+      printf ("duration %d/%d, count %d\n", durations[i].num (), durations[i].den (), counts[i]);
     }
 
   /*
@@ -546,7 +546,6 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real inc
 	  max_note_space = max_note_space >? space;
 	  max_fixed_note_space = max_fixed_note_space >? fixed;
 	}
-
     }
 
   if (max_note_space < 0)
@@ -667,28 +666,44 @@ Real
 Spacing_spanner::get_duration_space (Grob*me, Moment d, Rational shortest, bool * expand_only) 
 {
   Real k = gh_scm2double (me->get_grob_property ("shortest-duration-space"));
-    
+  Real incr = gh_scm2double (me->get_grob_property ("spacing-increment"));
+  
   if (d < shortest)
     {
+      /*
+	We don't space really short notes using the log of the
+	duration, since it would disproportionally stretches the long
+	notes in a piece. In stead, we use geometric spacing with constant 0.5
+	(i.e. linear.)
+
+	This should probably be tunable, to use other base numbers.
+
+	In Mozart hrn3 by EB., we have 8th note = 3.9 mm (total), 16th note =
+	3.6 mm (total).  head-width = 2.4, so we 1.2mm for 16th, 1.5
+	mm for 8th. (white space), suggesting that we use
+
+	(1.2 / 1.5)^{-log2(duration ratio)}
+	
+
+       */
       Rational ratio = d.main_part_ / shortest;
       
       *expand_only = true;
-      return (0.5 + 0.5 * double (ratio)) * k ;
+      return ((k-1) + double (ratio)) * incr;
     }
   else
     {
       /*
-	  @see
-  John S. Gourlay. ``Spacing a Line of Music,'' Technical Report
-  OSU-CISRC-10/87-TR35, Department of Computer and Information Science,
-  The Ohio State University, 1987.
+	  John S. Gourlay. ``Spacing a Line of Music,'' Technical
+	  Report OSU-CISRC-10/87-TR35, Department of Computer and
+	  Information Science, The Ohio State University, 1987.
        */
       Real log =  log_2 (shortest);
       k -= log;
       Rational compdur = d.main_part_ + d.grace_part_ /Rational (3);
       *expand_only = false;      
    
-      return (log_2 (compdur) + k) * gh_scm2double (me->get_grob_property ("spacing-increment"));
+      return (log_2 (compdur) + k) * incr;
     }
 }
 
@@ -741,47 +756,17 @@ Spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
 
 
 ADD_INTERFACE (Spacing_spanner,"spacing-spanner-interface",
-  " SPACE = arithmetic_multiplier * ( C + log2 (TIME) ))
-The space taken by a note is determined by the formula 
+  "
+The space taken by a note is dependent on its duration. Doubling a
+duration adds spacing-increment to the space. The most common shortest
+note gets shortest-duration-space. Notes that are even shorter are
+spaced proportonial to their duration.
 
-
-
-where TIME is the amount of time a note occupies.  The value of C is
-chosen such that the smallest space within a measure is
-arithmetic_basicspace:
-
-C = arithmetic_basicspace - log2 (mininum (SHORTEST, 1/8)) 
-
-The smallest space is the one following the shortest note in the
-measure, or the space following a hypothetical 1/8 note.  Typically
-arithmetic_basicspace is set to a value so that the shortest note
-takes about two noteheads of space (ie, is followed by a notehead of
-space):
-
-@example
-2*quartwidth = arithmetic_multiplier * ( C + log2 (SHORTEST) ))
-
-@{ using: C = arithmetic_basicspace - log2 (mininum (SHORTEST, 1/8)) @}
-@{ assuming: SHORTEST <= 1/8 @}
-
-= arithmetic_multiplier *
-( arithmetic_basicspace - log2 (SHORTEST) + log2 (SHORTEST) )
-
-= arithmetic_multiplier * arithmetic_basicspace
-
-@{ choose: arithmetic_multiplier = 1.0*quartwidth (why?) @}
-
-= quartwidth * arithmetic_basicspace
-
-=>	       
-
-arithmetic_basicspace = 2/1 = 2
-
-
-If you want to space your music wider, use something like:
-
-arithmetic_basicspace = 4.;
-
-@end example",
+Typically, the increment is the width of a black note head.  In a
+piece with lots of 8th notes, and some 16th notes, the eighth note
+gets 2 note heads width (i.e. the space following a note is 1 note
+head width) A 16th note is followed by 0.5 note head width. The
+quarter note is followed by  3 NHW, the half by 4 NHW, etc.
+",
   "spacing-increment shortest-duration-space");
 

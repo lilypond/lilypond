@@ -260,6 +260,8 @@ Grace note do weird things with timing. Fragile.
 
 @lilypondfile[printfilename]{spacing-rest.ly}
 
+@lilypondfile[printfilename]{spacing-short-notes.ly}
+
 @lilypondfile[printfilename]{lyrics-bar.ly}
 
 @lilypondfile[printfilename]{spacing-knee.ly}

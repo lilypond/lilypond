@@ -257,10 +257,15 @@ Multi_measure_rest::church_rest (Grob*me, Font_metric *musfont, int measures,
       count ++;
     }
 
+  
 
   Real outer_padding_factor = 1.5; //     make outer padding this much bigger.
   Real inner_padding = (space - symbols_width) / (2 * outer_padding_factor + (count-1)); 
-
+  if (inner_padding < 0)
+    {
+      inner_padding = 1.0;
+    }
+  
   Molecule mol; 
   for (SCM  s = mols; gh_pair_p (s); s = gh_cdr(s))
     {
@@ -302,6 +307,8 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
   
   Item* combinations[4][2]={{l,r}, {lb,r}, {l,rb},{lb,rb}};
 
+  Real sym_width = symbol_molecule (me, 0.0).extent (X_AXIS).length ();
+  
   for (int i=0; i < 4; i++)
     {
       Item * l =  combinations[i][0];
@@ -313,8 +320,10 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
       Rod rod;
       rod.item_l_drul_[LEFT] = l;
       rod.item_l_drul_[RIGHT] = r;
+
+      
       rod.distance_f_ = l->extent (l, X_AXIS)[BIGGER] - r->extent (r, X_AXIS)[SMALLER]
-	+ 5.0;			// magic!
+	+ sym_width  + 2.0;			// 2.0 = magic!
   
       rod.add_to_cols ();
     }
