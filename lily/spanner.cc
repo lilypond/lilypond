@@ -41,7 +41,6 @@ Spanner::break_into_pieces ()
     }
   
   Link_array<Item> break_points = pscore_l_->broken_col_range (left,right);
-  Link_array<Spanner> broken_into_l_arr;
 
   break_points.insert (left,0);
   break_points.push (right);

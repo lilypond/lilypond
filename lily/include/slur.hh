@@ -15,10 +15,6 @@
  */
 class Slur : public Bow
 {
-  bool broken_edge_b ( Direction dir) const;
-  bool normal_edge_b ( Direction dir) const;
-  Drul_array<Note_column*> extrema () const; 
-
 public:
   Slur ();
   VIRTUAL_COPY_CONS(Score_element);
