@@ -24,6 +24,6 @@ public:
   static int line_count (Grob*);
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
   static bool has_interface (Grob*);
-  static void set_interface (Grob*);
+  
 };
 #endif // STAFF_SYMBOL_HH

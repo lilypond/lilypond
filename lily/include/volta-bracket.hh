@@ -14,9 +14,7 @@
 class Volta_bracket_interface
 {
 public:
-  static void set_interface (Grob*);
   static bool has_interface (Grob*);
-  
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
   static void add_column (Grob*, Grob*col);
   static void add_bar (Grob*me, Item*bar);

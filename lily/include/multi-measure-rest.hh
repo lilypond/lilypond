@@ -17,7 +17,7 @@
 class Multi_measure_rest
 {
 public:
-  static void set_interface (Grob*);
+  
   static bool has_interface (Grob*);
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
   DECLARE_SCHEME_CALLBACK (percent, (SCM));

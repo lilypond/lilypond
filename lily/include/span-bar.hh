@@ -21,7 +21,7 @@
 class Span_bar
 {
 public:
-  static void set_interface (Grob*);
+  
   static bool has_interface (Grob*);  
   static Interval get_spanned_interval (Grob*);
   static void add_bar (Grob*,Grob*);

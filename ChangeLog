@@ -1,4 +1,26 @@
+2002-04-21  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/include/accidental-placement.hh: new file.
+
+	* lily/accidental-placement.cc (alignment_callback): position
+	accidentals in a better way.
+
+	* lily/skyline.cc: new file. Compute distances for collections  of boxes. 
+
+	* lily/include/skyline.hh: new file
+
 2002-04-20  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/accidental.cc (class Accidental_interface): grob for single
+	accidental.
+
+	* lily/accidental-engraver.cc (number_accidentals): Cleanups. Lots
+	of reformatting
+
+	* lily/new-accidental-engraver.cc (acknowledge_grob): Work
+	together with new accidental-interface. 
+
+	* lily/include/*.hh: remove spurious set_interface() decls.
 
 	* lily/key-signature-interface.cc (brew_molecule): add padding for
 	natural signs. Make natural typesetting like the sharp.

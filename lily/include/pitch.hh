@@ -78,6 +78,7 @@ DECLARE_UNSMOB(Pitch,pitch);
 INSTANTIATE_COMPARE (Pitch, Pitch::compare);
 
 int compare (Array<Pitch>*, Array<Pitch>*);
+extern SCM pitch_less_proc;
 
 #endif /* MUSICAL_PITCH_HH */
 

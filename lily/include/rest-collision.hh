@@ -20,7 +20,7 @@ class Rest_collision
 {
 public:
   static void add_column (Grob*me,Grob*);
-  static void set_interface (Grob*me);
+  
   static bool has_interface (Grob*);
   DECLARE_SCHEME_CALLBACK (force_shift_callback, (SCM element, SCM axis));
   static SCM do_shift (Grob*,SCM);

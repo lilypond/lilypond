@@ -12,8 +12,7 @@
 #include "tie.hh"
 #include "rhythmic-head.hh"
 #include "engraver-group-engraver.hh"
-
-#include "staff-symbol-referencer.hh"
+#include "accidental-placement.hh"
 #include "side-position-interface.hh"
 #include "engraver.hh"
 #include "arpeggio.hh"
@@ -32,11 +31,27 @@ tweakable.
 
 */
 
+struct Accidental_entry {
+  bool done_;
+  Note_req * melodic_;
+  Grob * accidental_;
+  Translator_group *origin_;
+  Grob*  head_;
+  Accidental_entry();
+};
 
-struct Accidental_engraver : Engraver {
-  Item *key_item_p_;
+Accidental_entry::Accidental_entry()
+{
+  done_ = false;
+  melodic_ =0;
+  accidental_ = 0;
+  origin_ = 0;
+  head_ = 0;
+}
+
+struct New_accidental_engraver : Engraver {
 protected:
-  TRANSLATOR_DECLARATIONS (Accidental_engraver);
+  TRANSLATOR_DECLARATIONS (New_accidental_engraver);
   virtual void process_music ();
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
@@ -60,24 +75,29 @@ public:
     store all information before we can really create the accidentals.
   */
   Link_array<Grob> arpeggios_;
+
+  Grob * accidental_placement_;
   
-  Link_array<Note_req> mel_l_arr_;
-  Link_array<Grob> head_l_arr_;
-  Link_array<Item> forced_l_arr_;
-  Link_array<Grob> tie_l_arr_;
-  Link_array<Translator_group> origin_l_arr_;
+
+  /*
+    The next 
+   */
+  Array<Accidental_entry> accidental_arr_;
+  
+  Link_array<Grob> tie_arr_;
+
 
 };
 
 
-Accidental_engraver::Accidental_engraver ()
+New_accidental_engraver::New_accidental_engraver ()
 {
-  key_item_p_ = 0;
+  accidental_placement_ = 0;
   last_keysig_ = SCM_EOL;
 }
 
 void
-Accidental_engraver::initialize ()
+New_accidental_engraver::initialize ()
 {
   last_keysig_ = get_property ("keySignature");
 
@@ -99,10 +119,9 @@ calculates the number of accidentals on basis of the current local key sig
 
 */
 static int
-number_accidentals (SCM sig, Note_req * note_l, SCM curbarnum, SCM lazyness, 
+number_accidentals (SCM sig, Note_req * note_l, Pitch *pitch, SCM curbarnum, SCM lazyness, 
 		    bool ignore_octave_b)
 {
-  Pitch *pitch = unsmob_pitch (note_l->get_mus_property ("pitch"));
   int n = pitch->notename_i_;
   int o = pitch->octave_i_;
   int a = pitch->alteration_i_;
@@ -146,7 +165,7 @@ number_accidentals (SCM sig, Note_req * note_l, SCM curbarnum, SCM lazyness,
 }
 
 static int
-number_accidentals (Note_req * note_l, Translator_group * origin_l, 
+number_accidentals (Note_req * note_l, Pitch *pitch, Translator_group * origin_l, 
 		    SCM accidentals, SCM curbarnum)
 {
   int number = 0;
@@ -173,7 +192,7 @@ number_accidentals (Note_req * note_l, Translator_group * origin_l,
 	  if (same_octave_b || any_octave_b)
 	    {
 	      int n = number_accidentals
-		(localsig, note_l, curbarnum, lazyness, any_octave_b);
+		(localsig, note_l, pitch, curbarnum, lazyness, any_octave_b);
 	      diff = diff || (n < 0);
 	      number = max (number, abs (n));     
 	    }
@@ -206,9 +225,9 @@ number_accidentals (Note_req * note_l, Translator_group * origin_l,
 }
 
 void
-Accidental_engraver::create_grobs ()
+New_accidental_engraver::create_grobs ()
 {
-  if (!key_item_p_ && mel_l_arr_.size ()) 
+  if (accidental_arr_.size () && !accidental_arr_.top().done_)
     {
       //SCM localsig = get_property ("localKeySignature");
       SCM accidentals =  get_property ("autoAccidentals");
@@ -216,17 +235,21 @@ Accidental_engraver::create_grobs ()
       SCM barnum = get_property ("currentBarNumber");
 
       bool extra_natural_b = get_property ("extraNatural") == SCM_BOOL_T;
-      for (int i = 0; i  < mel_l_arr_.size (); i++) 
+      for (int i = 0; i  < accidental_arr_.size (); i++) 
 	{
-	  Grob * support_l = head_l_arr_[i];
-	  Note_req * note_l = mel_l_arr_[i];
-	  Translator_group * origin_l = origin_l_arr_[i];
+	  if (accidental_arr_[i].done_ )
+	    continue;
+	  accidental_arr_[i].done_  = true;
+	  Grob * support_l = accidental_arr_[i].head_;
+	  Note_req * note_l = accidental_arr_[i].melodic_;
+	  Translator_group * origin_l = accidental_arr_[i].origin_;
 
-	  int num = number_accidentals (note_l, origin_l, accidentals, barnum);
-	  int num_caut = number_accidentals (note_l, origin_l, cautionaries, barnum);
+	  Pitch * pitch = unsmob_pitch (note_l->get_mus_property ("pitch"));
+	  int num = number_accidentals (note_l, pitch, origin_l, accidentals, barnum);
+	  int num_caut = number_accidentals (note_l, pitch, origin_l, cautionaries, barnum);
 	  bool cautionary = to_boolean (note_l->get_mus_property ("cautionary"));
 	  
-	  if (abs (num_caut)>abs (num))
+	  if (abs (num_caut) > abs (num))
 	    {
 	      num = num_caut;
 	      cautionary = true;
@@ -241,8 +264,8 @@ Accidental_engraver::create_grobs ()
 
 	  Grob *tie_break_reminder = 0;
 	  bool tie_changes = false;
-	  for (int j = 0; j < tie_l_arr_.size (); j++)
-	    if (support_l == Tie::head (tie_l_arr_[j], RIGHT))
+	  for (int j = 0; j < tie_arr_.size (); j++)
+	    if (support_l == Tie::head (tie_arr_[j], RIGHT))
 	      {
 		tie_changes = different;
 
@@ -253,31 +276,44 @@ Accidental_engraver::create_grobs ()
 		   
 		Maybe check property noTieBreakForceAccidental? */
 		if (different)
-		  tie_break_reminder = tie_l_arr_[j];
+		  tie_break_reminder = tie_arr_[j];
 		break;
 	      }
 
 	  if (num)
 	    {
-	      if (!key_item_p_) 
+	      Grob * a = new Item (get_property ("Accidental"));
+	      a->set_parent (support_l, Y_AXIS);
+
+	      if (!accidental_placement_)
 		{
-		  key_item_p_ = new Item (get_property ("Accidentals"));
-
-		  SCM c0 = get_property ("centralCPosition");
-		  if (gh_number_p (c0))
-		    Staff_symbol_referencer::set_position (key_item_p_, gh_scm2int (c0));
-			 
-		  announce_grob (key_item_p_, SCM_EOL);
+		  accidental_placement_ = new Item (get_property ("AccidentalPlacement"));
+		  announce_grob (accidental_placement_, a->self_scm());
 		}
+	      
+	      Accidental_placement::add_accidental (accidental_placement_, a);
+	      
+	      Side_position_interface::add_support (a, support_l);
+	      announce_grob (a, SCM_EOL);
 
-	      
-	      Local_key_item::add_pitch (key_item_p_, *unsmob_pitch (note_l->get_mus_property ("pitch")), 
-					 cautionary, 
-					 num == 2 && extra_natural_b, 
-					 tie_break_reminder);
-	      Side_position_interface::add_support (key_item_p_, support_l);
-	      
-	      support_l->set_grob_property ("accidentals-grob", key_item_p_->self_scm ());
+	      // todo: add cautionary option
+	      SCM accs = gh_cons (gh_int2scm (pitch->alteration_i_), SCM_EOL);
+	      if (num == 2 && extra_natural_b)
+		accs = gh_cons (gh_int2scm (0), accs);
+
+	      if (tie_break_reminder)
+		;		// TODO.
+	      support_l->set_grob_property ("accidentals-grob", a->self_scm ());
+
+	      a->set_grob_property ("accidentals", accs);
+	      accidental_arr_[i].accidental_ = a;
+ /*
+	We add the accidentals to the support of the arpeggio, so it is put left of the
+	accidentals. 
+	
+      */
+	      for (int i = 0;  i < arpeggios_.size ();  i++)
+		Side_position_interface::add_support (arpeggios_[i], a);
 	    }
 	  
 
@@ -289,7 +325,7 @@ Accidental_engraver::create_grobs ()
 	    always do the correct thing?
 	  */
 	  
-	  Pitch *pitch = unsmob_pitch (note_l->get_mus_property ("pitch"));
+
 	  int n = pitch->notename_i_;
 	  int o = pitch->octave_i_;
 	  int a = pitch->alteration_i_;
@@ -312,10 +348,10 @@ Accidental_engraver::create_grobs ()
 	    
 	    
 	  */
-	  Translator_group * trans_ = origin_l_arr_[i];
-	  while (trans_)
+
+	  while (origin_l)
 	    {
-	      SCM localsig = trans_->get_property ("localKeySignature");
+	      SCM localsig = origin_l->get_property ("localKeySignature");
 	      if (tie_changes)
 		{
 		  /*
@@ -334,68 +370,57 @@ Accidental_engraver::create_grobs ()
 		  localsig = ly_assoc_front_x
 		    (localsig, on_s, gh_cons (gh_int2scm (a), barnum)); 
 		}
-	      trans_->set_property ("localKeySignature",  localsig);
-	      trans_ = trans_->daddy_trans_l_;
+	      origin_l->set_property ("localKeySignature",  localsig);
+	      origin_l = origin_l->daddy_trans_l_;
 	    }
 	}
     }
+}
 
+void
+New_accidental_engraver::finalize ()
+{
+
+}
+
+void
+New_accidental_engraver::stop_translation_timestep ()
+{
+  for (int i = 0; i < accidental_arr_.size(); i++)
+    {
+      Grob *a = accidental_arr_[i].accidental_;
+      if (a)
+	{
+	  typeset_grob (a);
+	}
+    }
+
+  if (accidental_placement_)
+    typeset_grob(accidental_placement_);
+  accidental_placement_ = 00;
   
-  if (key_item_p_)
-    {
-      /*
-	We add the accidentals to the support of the arpeggio, so it is put left of the
-	accidentals. 
-	
-      */
-      for (int i = 0;  i < arpeggios_.size ();  i++)
-	Side_position_interface::add_support (arpeggios_[i], key_item_p_);
-
-      arpeggios_.clear ();
-    }
-}
-
-void
-Accidental_engraver::finalize ()
-{
-
-}
-
-void
-Accidental_engraver::stop_translation_timestep ()
-{
-  if (key_item_p_)
-    {
-      for (int i = 0; i < head_l_arr_.size (); i++)
-	Side_position_interface::add_support (key_item_p_, head_l_arr_[i]);
-
-      typeset_grob (key_item_p_);
-      key_item_p_ = 0;
-    }
-
-
-  mel_l_arr_.clear ();
+  accidental_arr_.clear();
   arpeggios_.clear ();
-  tie_l_arr_.clear ();
-  head_l_arr_.clear ();
-  forced_l_arr_.clear ();
-  origin_l_arr_.clear ();
+  tie_arr_.clear ();
 }
 
 void
-Accidental_engraver::acknowledge_grob (Grob_info info)
+New_accidental_engraver::acknowledge_grob (Grob_info info)
 {
   Note_req * note_l =  dynamic_cast <Note_req *> (info.music_cause ());
 
   if (note_l && Rhythmic_head::has_interface (info.grob_l_))
     {
-      mel_l_arr_.push (note_l);
-      head_l_arr_.push (info.grob_l_);
-      origin_l_arr_.push (info.origin_trans_l_->daddy_trans_l_);
+      Accidental_entry entry ;
+      entry.head_ = info.grob_l_;
+      entry.origin_ = info.origin_trans_l_->daddy_trans_l_;
+      entry.melodic_ = note_l;
+
+      accidental_arr_.push (entry);
     }
   else if (Tie::has_interface (info.grob_l_))
     {
-      tie_l_arr_.push (info.grob_l_);
+      tie_arr_.push (info.grob_l_);
     }
   else if (Arpeggio::has_interface (info.grob_l_))
     {
@@ -405,7 +430,7 @@ Accidental_engraver::acknowledge_grob (Grob_info info)
 }
 
 void
-Accidental_engraver::process_music ()
+New_accidental_engraver::process_music ()
 {
   SCM sig = get_property ("keySignature");
 
@@ -430,12 +455,12 @@ Accidental_engraver::process_music ()
 
 
 
-ENTER_DESCRIPTION (Accidental_engraver,
+ENTER_DESCRIPTION (New_accidental_engraver,
 "Make accidentals.  Catches note heads, ties and notices key-change
 events.  Due to interaction with ties (which don't come together
 with note heads), this needs to be in a context higher than Tie_engraver.",
 		   
-	       "Accidentals",
+	       "Accidental",
 	       "rhythmic-head-interface tie-interface arpeggio-interface",
 	       "localKeySignature extraNatural autoAccidentals autoCautionaries",
 		   "localKeySignature");
