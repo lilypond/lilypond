@@ -123,9 +123,8 @@ Dynamic_engraver::do_process_music ()
 	  Side_position::set_axis (line_spanner_, Y_AXIS);
 	  Axis_group_interface::set_interface (line_spanner_);
 	  Axis_group_interface::set_axes (line_spanner_, Y_AXIS, Y_AXIS);
-	  announce_element (Score_element_info
-			    (line_spanner_,
-			     text_req_l_ ? text_req_l_ : accepted_spanreqs_drul_[START]));
+	  announce_element (line_spanner_,
+			     text_req_l_ ? text_req_l_ : accepted_spanreqs_drul_[START]);
 
 	}
     }
@@ -174,14 +173,14 @@ Dynamic_engraver::do_process_music ()
 
       text_p_->add_offset_callback (Side_position::aligned_on_self,
 				    Y_AXIS);
-      announce_element (Score_element_info (text_p_, text_req_l_));
+      announce_element (text_p_, text_req_l_);
     }
 
   if (accepted_spanreqs_drul_[STOP])
     {
       if (!cresc_p_)
 	{
-	  accepted_spanreqs_drul_[STOP]->warning
+	  accepted_spanreqs_drul_[STOP]->origin ()->warning
 	    (_ ("can't find start of (de)crescendo"));
 	}
       else
@@ -198,7 +197,7 @@ Dynamic_engraver::do_process_music ()
     {
       if (current_cresc_req_)
 	{
-	  accepted_spanreqs_drul_[START]->warning
+	  accepted_spanreqs_drul_[START]->origin ()->warning
 	    (current_cresc_req_->span_dir_ == 1
 	     ?
 	     _ ("already have a crescendo")
@@ -267,7 +266,7 @@ Dynamic_engraver::do_process_music ()
 	  cresc_p_->set_elt_property ("self-alignment-Y", gh_int2scm (0));
 	  cresc_p_->add_offset_callback
 	    (Side_position::aligned_on_self, Y_AXIS);
-	  announce_element (Score_element_info (cresc_p_, accepted_spanreqs_drul_[START]));
+	  announce_element (cresc_p_, accepted_spanreqs_drul_[START]);
 	}
     }
 }
@@ -287,7 +286,7 @@ Dynamic_engraver::do_removal_processing ()
     {
       typeset_element (cresc_p_ );
       finished_cresc_p_ = cresc_p_;
-      current_cresc_req_->warning (_ ("unterminated (de)crescendo"));
+      current_cresc_req_->origin ()->warning (_ ("unterminated (de)crescendo"));
     }
   if (line_spanner_)
     {

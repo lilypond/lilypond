@@ -1,6 +1,6 @@
 /*   
   debug.cc --  implement debugging routines
-  
+
   source file of the GNU LilyPond music typesetter
   
   (c) 1996--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>

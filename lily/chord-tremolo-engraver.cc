@@ -101,7 +101,7 @@ Chord_tremolo_engraver::do_process_music ()
       SCM smp = get_property ("measurePosition");
       Moment mp =  (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
       beam_start_location_ = mp;
-      announce_element (Score_element_info (beam_p_, repeat_));
+      announce_element (beam_p_, repeat_);
     }
 }
 
@@ -112,7 +112,7 @@ Chord_tremolo_engraver::do_removal_processing ()
   typeset_beam ();
   if (beam_p_)
     {
-      repeat_->warning (_ ("unterminated chord tremolo"));
+      repeat_->origin ()->warning (_ ("unterminated chord tremolo"));
       finished_beam_p_ = beam_p_;
       typeset_beam ();
     }
@@ -171,7 +171,7 @@ Chord_tremolo_engraver::acknowledge_element (Score_element_info info)
 	    {
 	      String s = _ ("stem must have Rhythmic structure");
 	      if (info.req_l_)
-		info.req_l_->warning (s);
+		info.req_l_->origin ()->warning (s);
 	      else
 		::warning (s);
 	    }

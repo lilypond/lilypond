@@ -123,7 +123,7 @@ Mark_engraver::create_items (Request *rq)
     }
 
   
-  announce_element (Score_element_info (text_p_, rq));
+  announce_element (text_p_, rq);
 }
 
 
@@ -161,9 +161,11 @@ Mark_engraver::do_process_music ()
       /*
 	automatic marks.
        */
-      SCM m = (mark_req_l_->mark_label_ == SCM_UNDEFINED)
-	? get_property ("rehearsalMark")
-	: SCM(mark_req_l_->mark_label_);
+      
+      SCM m = mark_req_l_->get_mus_property ("label");
+      if (gh_string_p (m)) 
+	m =  get_property ("rehearsalMark");
+;
       
       if (gh_number_p (m))
 	{

@@ -38,8 +38,6 @@ public:
   int find_col_idx (Paper_column const *) const;
 
   Link_array<Item> broken_col_range (Item const*,Item const*) const;
-    
-    
   void typeset_line (Line_of_score*);
     
 protected:

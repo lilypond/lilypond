@@ -12,15 +12,29 @@
 #include "musical-pitch.hh"
 #include "debug.hh"
 
+Music *
+Repeated_music::body ()const
+{
+  return unsmob_music (get_mus_property ("body"));
+}
+
+Music_sequence*
+Repeated_music::alternatives ()const
+{
+  return dynamic_cast<Music_sequence*>  (unsmob_music (get_mus_property ("alternatives")));
+}
+
 Repeated_music::Repeated_music(Music *beg, int times, Music_sequence * alts)
 {
-  repeat_body_p_ = beg;
+  set_mus_property ("body", beg->self_scm_);
   fold_b_ = false;
   repeats_i_ = times;
-  alternatives_p_ = alts;
   volta_fold_b_ = true;
   if (alts)
-    alts->music_p_list_p_->truncate (times);
+    {
+      alts->truncate (times);
+      set_mus_property ("alternatives", alts->self_scm_);
+    }
 }
 
 Repeated_music::Repeated_music (Repeated_music const &s)
@@ -30,16 +44,8 @@ Repeated_music::Repeated_music (Repeated_music const &s)
   fold_b_ = s.fold_b_;
   volta_fold_b_ = s.volta_fold_b_;
   type_ = s.type_;
-  repeat_body_p_ = s.repeat_body_p_ ? s.repeat_body_p_->clone () : 0;
-  alternatives_p_ = s.alternatives_p_
-    ? dynamic_cast<Music_sequence*> (s.alternatives_p_->clone ()):0;
 }
 
-Repeated_music::~Repeated_music ()
-{
-  delete repeat_body_p_;
-  delete alternatives_p_;
-}
 
 void
 Repeated_music::do_print () const
@@ -47,71 +53,69 @@ Repeated_music::do_print () const
 #ifndef NPRINT
   DEBUG_OUT << "Fold = " << fold_b_ << " reps: " << repeats_i_;
 
-  if (repeat_body_p_)
-    repeat_body_p_->print();
+  if (body ())
+    body ()->print();
   
-  if (alternatives_p_)
-    alternatives_p_->print();
+  if (alternatives ())
+    alternatives ()->print();
 #endif
 }
 
 Musical_pitch
 Repeated_music::to_relative_octave (Musical_pitch p)
 {
-  if (repeat_body_p_)
-    p = repeat_body_p_->to_relative_octave (p);
+  if (body ())
+    p = body ()->to_relative_octave (p);
 
   Musical_pitch last = p ; 
-  if (alternatives_p_)
-    for (Cons<Music> *i = alternatives_p_->music_p_list_p_->head_; i ; i = i->next_)
-      {
-	last = i->car_->to_relative_octave (p);
-      }
+  if (alternatives ())
+    for (SCM s = alternatives ()->music_list (); gh_pair_p (s);  s = gh_cdr (s))
+      unsmob_music (gh_car (s))->to_relative_octave (p);
+     
 
   return last;
 }
 
-
-
 void
 Repeated_music::transpose (Musical_pitch p)
 {
-  if (repeat_body_p_)
-    repeat_body_p_->transpose (p);
+  if (body ())
+    body ()->transpose (p);
 
-  if (alternatives_p_)
-    alternatives_p_->transpose (p);  
+  if (alternatives ())
+    alternatives ()->transpose (p);  
 }
 
 void
 Repeated_music::compress (Moment p)
 {
-  if (repeat_body_p_)
-    repeat_body_p_->compress (p);
+  if (body ())
+    body ()->compress (p);
 
-  if (alternatives_p_)
-    alternatives_p_->compress (p);  
+  if (alternatives ())
+    alternatives ()->compress (p);  
 }
 
 Moment
 Repeated_music::alternatives_length_mom () const
 {
-  if (!alternatives_p_ )
+  if (!alternatives () )
     return 0;
   
   if  (fold_b_)
-    return alternatives_p_->maximum_length ();
+    return alternatives ()->maximum_length ();
 
   Moment m =0;
   int done =0;
-  Cons<Music> *p = alternatives_p_->music_p_list_p_->head_;
-  while (p && done < repeats_i_)
+
+  SCM p = alternatives ()->music_list ();
+   while (gh_pair_p (p) && done < repeats_i_)
     {
-      m = m + p->car_->length_mom ();
+      m = m + unsmob_music (gh_car (p))->length_mom ();
       done ++;
       if (volta_fold_b_
-	  || repeats_i_ - done < alternatives_p_->length_i ())
-	p = p->next_;
+	  || repeats_i_ - done < alternatives ()->length_i ())
+      p = gh_cdr (p);
     }
   return m;
 }
@@ -120,9 +124,9 @@ Moment
 Repeated_music::body_length_mom () const
 {
   Moment m = 0;
-  if (repeat_body_p_)
+  if (body ())
     {
-      m = repeat_body_p_->length_mom ();
+      m = body ()->length_mom ();
       if (!fold_b_ && !volta_fold_b_)
 	m *= Rational (repeats_i_);
     }

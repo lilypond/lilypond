@@ -106,7 +106,7 @@ Stem_engraver::acknowledge_element(Score_element_info i)
 		  tremolo_p_ = new Item (get_property ("basicStemTremoloProperties"));
 		  Stem_tremolo::set_interface (tremolo_p_);
 
-		  announce_element (Score_element_info (tremolo_p_, tremolo_req_l_));
+		  announce_element (tremolo_p_, tremolo_req_l_);
 		  /*
 		    The number of tremolo flags is the number of flags of
 		    the tremolo-type minus the number of flags of the note
@@ -120,12 +120,12 @@ Stem_engraver::acknowledge_element(Score_element_info i)
 						gh_int2scm (tremolo_flags));
 		}
 	    }
-	  announce_element (Score_element_info (stem_p_, r));
+	  announce_element (stem_p_, r);
 	}
 
       if (Stem::flag_i (stem_p_) != duration_log)
 	{
-	  r->warning (_f ("Adding note head to incompatible stem (type = %d)", 1 <<  Stem::flag_i (stem_p_)));
+	  r->origin ()->warning (_f ("Adding note head to incompatible stem (type = %d)", 1 <<  Stem::flag_i (stem_p_)));
 	}
 
       Stem::add_head (stem_p_,h);

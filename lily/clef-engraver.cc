@@ -164,7 +164,7 @@ Clef_engraver::do_try_music (Music * r_l)
     {
       clef_req_l_ = cl;
       if (!set_type (cl->clef_str_))
-	cl->error (_ ("unknown clef type"));
+	cl->origin ()->warning (_ ("unknown clef type"));
 
       return true;
     }
@@ -179,7 +179,7 @@ Clef_engraver::create_clef()
   if (!clef_p_)
     {
       Item *c= new Item ( current_settings_);
-      announce_element (Score_element_info (c, clef_req_l_));
+      announce_element (c, clef_req_l_);
 
       Staff_symbol_referencer::set_interface (c);
       
@@ -198,7 +198,7 @@ Clef_engraver::create_clef()
       g->add_offset_callback (Side_position::centered_on_parent, X_AXIS);
       g->set_elt_property ("direction", gh_int2scm (octave_dir_));
       octavate_p_ = g;
-      announce_element (Score_element_info (octavate_p_, clef_req_l_));
+      announce_element (octavate_p_, clef_req_l_);
     }
 }
 

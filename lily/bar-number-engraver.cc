@@ -25,7 +25,6 @@ protected:
   Protected_scm staffs_;
 
 protected:
-  virtual void do_creation_processing ();
   virtual void do_pre_move_processing ();
   virtual void acknowledge_element (Score_element_info);
   void create_items();
@@ -62,10 +61,6 @@ Bar_number_engraver::Bar_number_engraver ()
   staffs_ = SCM_EOL;
 }
 
-void
-Bar_number_engraver::do_creation_processing ()
-{
-}
 
 
 					       
@@ -130,6 +125,6 @@ Bar_number_engraver::create_items ()
     }
 
 
-  announce_element (Score_element_info (text_p_, 0));
+  announce_element (text_p_, 0);
 }
 

@@ -30,9 +30,9 @@ Sequential_music_iterator::Sequential_music_iterator ()
 void
 Sequential_music_iterator::construct_children()
 {
-  cursor_ = dynamic_cast<Music_sequence const*> (music_l_)->music_p_list_p_->head_;
+  cursor_ = dynamic_cast<Music_sequence const*> (music_l_)->music_list ();
   
-  while (cursor_)
+  while (gh_pair_p (cursor_ ))
     {
       start_next_element();
       if (!iter_p_->ok()) 
@@ -52,16 +52,16 @@ Sequential_music_iterator::leave_element()
 {
   delete iter_p_;
   iter_p_ =0;
-  Moment elt_time = cursor_->car_->length_mom ();
+  Moment elt_time = unsmob_music (gh_car (cursor_))->length_mom ();
   here_mom_ += elt_time;
-  cursor_ =cursor_->next_;
+  cursor_ =gh_cdr (cursor_);
 }
 
 void
 Sequential_music_iterator::start_next_element()
 {
   assert (!iter_p_);
-  iter_p_ = get_iterator_p (cursor_->car_);
+  iter_p_ = get_iterator_p (unsmob_music (gh_car (cursor_)));
 }
 
 void
@@ -80,14 +80,11 @@ Sequential_music_iterator::~Sequential_music_iterator()
   if (iter_p_)
     {
       if (iter_p_->ok ())
-	music_l_->warning (_ ("Must stop before this music ends"));
+	music_l_->origin ()->warning (_ ("Must stop before this music ends"));
       delete iter_p_;
       iter_p_ = 0;
     }
 }
-
-
-
 
 void
 Sequential_music_iterator::do_process_and_next (Moment until)
@@ -112,7 +109,7 @@ Sequential_music_iterator::do_process_and_next (Moment until)
 	  set_sequential_music_translator();
 	  leave_element();
 	  
-	  if (cursor_)
+	  if (gh_pair_p (cursor_))
 	    start_next_element();
 	  else 
 	    goto loopexit;
@@ -138,7 +135,7 @@ Sequential_music_iterator::ok() const
 }
 
 Music_iterator*
-Sequential_music_iterator::try_music_in_children (Music const *m) const
+Sequential_music_iterator::try_music_in_children (Music *m) const
 { 
   return iter_p_ ? iter_p_->try_music (m) : 0;
 }

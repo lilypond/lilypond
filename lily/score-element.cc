@@ -10,6 +10,7 @@
 #include <string.h>
 #include <math.h>
 
+#include "input-smob.hh"
 #include "libc-extension.hh"
 #include "group-interface.hh"
 #include "misc.hh"
@@ -78,12 +79,9 @@ Score_element::Score_element (Score_element const&s)
 
 Score_element::~Score_element()
 {
-  // this goes awry when score-elements are copied...
-
   /*
-     Kijk goed naar hoe smobify en unsmobify werken.  unsmobify_self
-    is te gebruiken wanneer C++ geheugen beheer weer overneemt van
-    GUILE. --hwn */
+    do nothing scm-ish and no unprotecting here.
+   */
 }
 
 
@@ -248,10 +246,24 @@ Molecule
 Score_element::get_molecule ()  const
 {
   SCM proc = get_elt_property ("molecule-callback");
-  if (gh_procedure_p (proc)) 
-    return create_molecule (gh_apply (proc, gh_list (this->self_scm_, SCM_UNDEFINED)));
 
-  return Molecule ();
+  SCM mol = SCM_EOL;
+  if (gh_procedure_p (proc)) 
+    mol = gh_apply (proc, gh_list (this->self_scm_, SCM_UNDEFINED));
+
+
+  SCM origin =get_elt_property ("origin");
+  if (!unsmob_input (origin))
+    origin =ly_symbol2scm ("no-origin");
+  
+  if (gh_pair_p (mol))
+    {
+      // ugr.
+	mol = gh_cons (gh_list (origin, gh_car (mol), SCM_UNDEFINED), gh_cdr (mol));
+    }
+
+  
+  return create_molecule (mol);
 }
 
 
@@ -710,15 +722,17 @@ Score_element::mark_smob (SCM ses)
       programming_error ("SMOB marking gone awry");
       return SCM_EOL;
     }
-  scm_gc_mark ( s->immutable_property_alist_);
-
-  s->do_derived_mark ();
+  scm_gc_mark (s->immutable_property_alist_);
+  scm_gc_mark (s->mutable_property_alist_);
+  
   if (s->parent_l (Y_AXIS))
     scm_gc_mark (s->parent_l (Y_AXIS)->self_scm_);
   if (s->parent_l (X_AXIS))
     scm_gc_mark (s->parent_l (X_AXIS)->self_scm_);
 
-  return s->mutable_property_alist_;
+  if (s->original_l_)
+    scm_gc_mark (s->original_l_->self_scm_);
+  return s->do_derived_mark ();
 }
 
 int
@@ -736,9 +750,10 @@ Score_element::print_smob (SCM s, SCM port, scm_print_state *)
   return 1;
 }
 
-void
+SCM
 Score_element::do_derived_mark ()
 {
+  return SCM_EOL;
 }
 
 void

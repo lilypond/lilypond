@@ -51,7 +51,7 @@ Align_note_column_engraver::do_creation_processing ()
   Side_position::set_direction (align_item_p_, LEFT);
   
   // needed  for setting font size.
-  announce_element (Score_element_info (align_item_p_, 0));
+  announce_element (align_item_p_, 0);
 }
 
 void

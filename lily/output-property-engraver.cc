@@ -42,7 +42,7 @@ Output_property_engraver::acknowledge_element (Score_element_info inf)
   for (int i=props_.size (); i--; )
     {
       Output_property * o = props_[i];
-      SCM pred = gh_car (o->pred_sym_val_list_);
+      SCM pred = o->get_mus_property ("predicate");
       
       /*
 	should typecheck pred. 
@@ -51,8 +51,9 @@ Output_property_engraver::acknowledge_element (Score_element_info inf)
 			   gh_list (inf.elem_l_->self_scm_, SCM_UNDEFINED));
       if (to_boolean (result))
 	{
-	  inf.elem_l_->set_elt_property (gh_cadr (o->pred_sym_val_list_),
-					 gh_caddr (o->pred_sym_val_list_));
+	  SCM sym = o->get_mus_property ("symbol");
+	  SCM val = o->get_mus_property ("value");
+	  inf.elem_l_->set_elt_property (sym, val);
 	}
     }
 }

@@ -79,7 +79,7 @@ Slur_engraver::do_removal_processing ()
   if (!wgb)
     for (int i=0; i < requests_arr_.size (); i++)
       {
-	requests_arr_[i]->warning (_ ("unterminated slur"));
+	requests_arr_[i]->origin ()->warning (_ ("unterminated slur"));
       }
 }
 
@@ -95,7 +95,7 @@ Slur_engraver::do_process_music ()
 	{
 	  if (slur_l_stack_.empty ())
 
-	    slur_req_l->warning (_f ("can't find both ends of %s", _ ("slur")));
+	    slur_req_l->origin ()->warning (_f ("can't find both ends of %s", _ ("slur")));
 	  else
 	    {
 	      Score_element* slur = slur_l_stack_.pop ();
@@ -121,7 +121,7 @@ Slur_engraver::do_process_music ()
 	    }
 	  start_slur_l_arr_.push (slur);
 	  requests_arr_.push (slur_req_l);
-	  announce_element (Score_element_info (slur, slur_req_l));
+	  announce_element (slur, slur_req_l);
 	}
     }
   for (int i=0; i < start_slur_l_arr_.size (); i++)

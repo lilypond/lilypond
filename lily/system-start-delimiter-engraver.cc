@@ -79,7 +79,7 @@ System_start_delimiter_engraver::do_creation_processing()
       delim_->set_elt_property ("glyph", s);
     }
 
-  announce_element (Score_element_info (delim_,0));
+  announce_element (delim_,0);
 }
 
 void

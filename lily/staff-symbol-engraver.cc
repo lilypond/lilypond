@@ -48,7 +48,7 @@ Staff_symbol_engraver::do_creation_processing()
   
   span_p_->set_bound(LEFT, unsmob_element (get_property ("currentCommandColumn")));
 
-  announce_element (Score_element_info (span_p_, 0));
+  announce_element (span_p_, 0);
 }
 
 void

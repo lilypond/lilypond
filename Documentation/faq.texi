@@ -2,15 +2,8 @@
 @setfilename faq.info
 @settitle FAQ - GNU LilyPond FAQs
 
-@node Top, , Windows32, (dir)
+@node Top, , , (dir)
 @top
-@menu
-* FAQ - GNU LilyPond FAQs::       FAQ - GNU LilyPond FAQs
-@end menu
-
-
-
-@node FAQ - GNU LilyPond FAQs, Miscellaneous, , Top
 @menu
 * Miscellaneous::                 Miscellaneous
 * Installing::                    Installing
@@ -26,7 +19,7 @@
 @chapter FAQ - GNU LilyPond FAQs
 
 
-@node Miscellaneous, Installing, FAQ - GNU LilyPond FAQs, FAQ - GNU LilyPond FAQs
+@node Miscellaneous, ,,top
 @section Miscellaneous
 
 @subsubsection HELP! I'm stuck!
@@ -37,7 +30,7 @@ directly.
 
 Note: relative paths are meant to be relative to the source directory
 
-@node Installing, Documentation, Miscellaneous, FAQ - GNU LilyPond FAQs
+@node Installing,, ,top
 @section Installing
 
 
@@ -88,21 +81,23 @@ Metafont when you run TeX.  Check your TeX installation, or ask
 your local TeX guru.  The supplied @file{.afm} files are intended to
 be used by LilyPond, not by any other programs.
 
-@node Documentation, Language- mudela, Installing, FAQ - GNU LilyPond FAQs
+@node Documentation,, ,top
 @section Documentation
 
 @subsubsection What a sober website/manual you have there!
 
-LilyPond development is moving quite fast, documentation will often lag
-a bit behind.  But don't hesitate to point out inaccuracies. Whip up
-your mail reader and write to the mailing list.
+LilyPond development is moving fast, so the documentation will often be out
+of date.  But don't hesitate to point out inaccuracies. Whip up your
+mail reader and write to the mailing list.
 
 @subsubsection Please take me off your mailing list, I get  so much mail!
 
 Don't ask Han-wen, don't ask David. Instead, read about
 @uref{../../index.html#mailing-lists,  the mailing lists} here.
 
-@node Language- mudela, Do you support -, Documentation, FAQ - GNU LilyPond FAQs
+
+
+@node Language- mudela,, ,top
 @section Language: mudela
 
 @subsubsection Why do I have to type the accidentals to the note if I
@@ -150,7 +145,7 @@ of (x,y) positions and symbols.  You can only sensibly do TeX stuff in
 the symbol string.  You can access the symbol string easily for some
 symbols (notably lyrics and @code{^"text"} commands).
 
-@node Do you support -,  How do I -, Language- mudela, FAQ - GNU LilyPond FAQs
+@node Do you support -,, ,top
 @section Do you support ...
 
 @subsubsection Do you support pop songs (chords, single staff, lyrics)?
@@ -183,7 +178,7 @@ No.
 
 Yes. See @file{input/test/grace.ly}.
 
-@node How do I -, Development, Do you support -, FAQ - GNU LilyPond FAQs
+@node How do I -,, ,top
 @section How do I ....
 
 @subsubsection How do I change the TeX layout?
@@ -324,7 +319,7 @@ will do the trick for you:
 @end  example
 
 
-@node Development, Running, How do I -, FAQ - GNU LilyPond FAQs
+@node Development,, ,top
 @section Development
 
 @subsubsection Could you implement feature XXXX? It is really easy, just extend the syntax to allow YYYY!
@@ -398,8 +393,62 @@ end
 
 Upgrade/downgrade to 4.17.
 
-@node Running, Copyright, Development, FAQ - GNU LilyPond FAQs
+@node Running,, ,top
 @section Running
+
+@subsubsection Correcting errors is so tedious. Is there a better way?
+
+As of 1.3.73, lilypond provides support for the xdvi @code{src:}
+special. This can be used with Xdvik (22.16 or better) and xdvi (22.28
+or better) to go to the place in the input that corresponds to a symbol
+in the output.
+
+lilypond:
+
+Decide if you want column positioning, and edit @file{lily.scm}
+according to the comments at the function @code{define-origin}.
+
+emacs:
+
+Put this in @file{~/.emacs}:
+@example
+(server-start)
+@end example
+
+For column positioning, apply @uref{this
+patch,http://www.cs.uu.nl/~hanwen/software/emacsclient-column} to
+@code{emacsclient.c} and @code{server.el}. Stick the compiled
+emacsclient into a bin directory, and put @code{server.el} into a elisp
+directory (eg. @file{~/usr/share/emacs/}). Add the following to your
+@file{.emacs} init file, before invoking server-start.
+@example
+(setq load-path (cons (concat (getenv "HOME") "/usr/share/emacs")
+ load-path))
+@end example
+
+Xdvik:
+
+Warning: @uref{Xdvik,ftp://ftp.cs.uu.nl/pub/tex-archive/dviware/xdvik/},
+which is shipped with most TeX distributions, doesn't work very well for
+src specials. You're better off using plain xdvi.
+@example
+	xdvi -srcmode -srcvisibility output.dvi
+@end example
+
+Click control-mouse button 2 for making emacs jump to the appropriate place.
+
+For column positioning you must install this @uref{patch,
+http://www.cs.uu.nl/~hanwen/software/xdvik-src} to make Xdvik emit
+column numbers. Add the command line option @code{-srceditorcommand
+"emacsclient --no-wait +%l:%c %f"}
+
+Xdvi
+
+@uref{Xdvi,ftp://ftp.math.berkeley.edu/pub/Software/TeX/xdvi.tar.gz} has
+better support for src specials. Apply @uref{this patch,
+http://www.cs.uu.nl/~hanwen/software/xdvi-src}. When viewing,
+control-mousebutton 1 will take you to the correct line/column. 
+
 
 @subsubsection I use dvilj4, and there are lots of warning messages for the printing
 
@@ -492,7 +541,7 @@ The MIDI output was originally put in as a proof that MIDI could be
 done, and as a method of proof"reading" the input.  The MIDI support
 is by no means finished.  Patches appreciated.
 
-@node Copyright, Windows32, Running, FAQ - GNU LilyPond FAQs
+@node Copyright,, ,top
 @section Copyright
 
 @subsubsection What is Urtext?  Critical Edition?
@@ -646,7 +695,7 @@ for a summary of copyright relative to old music, also for the
 expert forum for such subsubsections.
 
 
-@node Windows32, Top, Copyright, FAQ - GNU LilyPond FAQs
+@node Windows32,, ,top
 @section Windows32
 
 @subsubsection I downloaded the windows32 port, and it doesn't match the website!

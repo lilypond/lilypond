@@ -95,7 +95,7 @@ Extender_engraver::do_removal_processing ()
 {
   if (extender_p_)
     {
-      req_l_->warning (_ ("unterminated extender"));
+      req_l_->origin ()->warning (_ ("unterminated extender"));
       extender_p_->set_bound(RIGHT, unsmob_element (get_property ("currentCommandColumn")));
     }
 }
@@ -107,7 +107,7 @@ Extender_engraver::do_process_music ()
     {
       if (!last_lyric_l_)
 	{
-	  req_l_->warning (_ ("Nothing to connect extender to on the left.  Ignoring extender request."));
+	  req_l_->origin ()->warning (_ ("Nothing to connect extender to on the left.  Ignoring extender request."));
 	  return;
 	}
       
@@ -115,7 +115,7 @@ Extender_engraver::do_process_music ()
       extender_p_->set_extent_callback (Score_element::point_dimension_callback, Y_AXIS);
 
       Lyric_extender (extender_p_).set_textitem  (LEFT, last_lyric_l_);
-      announce_element (Score_element_info (extender_p_, req_l_));
+      announce_element (extender_p_, req_l_);
     }
 }
 

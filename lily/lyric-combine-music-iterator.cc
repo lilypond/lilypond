@@ -12,16 +12,25 @@
 #include "lyric-combine-music.hh"
 #include "musical-request.hh"
 
-Busy_playing_req busy_req;
-Melisma_req melisma_start_req;
-Melisma_req melisma_stop_req;
-Melisma_playing_req melisma_playing_req;
-
+/*
+  Ugh, why static?
+ */
+Busy_playing_req *busy_req;
+Melisma_req *melisma_start_req;
+Melisma_req *melisma_stop_req;
+Melisma_playing_req * melisma_playing_req;
 
 Lyric_combine_music_iterator::Lyric_combine_music_iterator ()
 {
-  melisma_start_req.span_dir_ = START;
-  melisma_stop_req.span_dir_ = STOP;
+  if (!busy_req)
+    {
+      busy_req = new Busy_playing_req;
+      melisma_playing_req = new Melisma_playing_req;
+      melisma_stop_req = new Melisma_req;
+      melisma_start_req = new Melisma_req;      
+    }
+  melisma_start_req->span_dir_ = START;
+  melisma_stop_req->span_dir_ = STOP;
   
   music_iter_p_ =0;
   lyric_iter_p_ =0;
@@ -65,19 +74,20 @@ Lyric_combine_music_iterator::do_process_and_next (Moment m)
   
   music_iter_p_->process_and_next (m);
 
-  bool busy = try_music (&busy_req);
+  bool busy = try_music (busy_req);
   if (busy)
     {
-      bool melisma_b = try_music (&melisma_playing_req);
+      bool melisma_b = try_music (melisma_playing_req);
       if (!melisma_b)
 	{
 	  if (lyric_iter_p_->ok ())
 	    {
+	      // FIXME
 #if 0				// devise a new way for this
 	      if (melisma_b && !melisma_started_b_)
-		lyric_iter_p_->try_music (&melisma_start_req);
+		lyric_iter_p_->try_music (melisma_start_req);
 	      else if (melisma_started_b_)
-		lyric_iter_p_->try_music (&melisma_stop_req);
+		lyric_iter_p_->try_music (melisma_stop_req);
 #endif
 	      
 	      Moment m= lyric_iter_p_->next_moment ();
@@ -85,8 +95,6 @@ Lyric_combine_music_iterator::do_process_and_next (Moment m)
 	    }
 	}
     }
-  
-
   
   Music_iterator::do_process_and_next (m);
 }
@@ -98,7 +106,7 @@ Lyric_combine_music_iterator::~Lyric_combine_music_iterator ()
 }
 
 Music_iterator*
-Lyric_combine_music_iterator::try_music_in_children (Music const *m) const
+Lyric_combine_music_iterator::try_music_in_children (Music *m) const
 {
   Music_iterator * i =  music_iter_p_->try_music (m);
   if (i)

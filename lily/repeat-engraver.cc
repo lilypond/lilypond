@@ -111,8 +111,8 @@ Repeat_engraver::do_try_music (Music* m)
 void
 Repeat_engraver::queue_events ()
 {
-  Music_sequence* alt = repeated_music_l_->alternatives_p_;
-  Moment walk_mom = now_mom () + repeated_music_l_->repeat_body_p_->length_mom ();
+  Music_sequence* alt = repeated_music_l_->alternatives ();
+  Moment walk_mom = now_mom () + repeated_music_l_->body ()->length_mom ();
 
   SCM novolta = get_property ("noVoltaBraces");
   bool create_volta = !to_boolean (novolta);
@@ -135,8 +135,11 @@ Repeat_engraver::queue_events ()
 	appropriate timestamps. The volta spanner event (a number string)
 	happens at the begin of the alt. The :| bar event at the ending.
       */
-      for (Cons<Music> *i = alt->music_p_list_p_->head_; i; i = i->next_)
-	{
+
+  for (SCM s = repeated_music_l_->alternatives ()->music_list ();
+       gh_pair_p (s);  s = gh_cdr (s))
+    {
+      Music *mus =unsmob_music (gh_car (s));
 
 	  /*
 	    some idiot might typeset a repeat not starting on a
@@ -155,17 +158,17 @@ Repeat_engraver::queue_events ()
 	      Bar_create_event * c = new Bar_create_event (walk_mom, last_number+ 1,
 							   volta_number);
 	      
-	      if (!i->next_)
+	      if (!gh_pair_p (gh_cdr (s)))
 		c->last_b_ = true;
 	      
 	      becel.append (c);
 	      last_number = volta_number;
 	      volta_number ++;
               SCM l (get_property ("voltaSpannerDuration"));
-              if (SMOB_IS_TYPE_B (Moment, l))
+              if (unsmob_moment(l))
 		{
-		  Moment vSD_mom = *SMOB_TO_TYPE (Moment,l);
-		  if ( vSD_mom < i->car_->length_mom() ) // terminate volta early ?
+		  Moment vSD_mom = *unsmob_moment (l);
+		  if ( vSD_mom < mus->length_mom() ) // terminate volta early ?
 		    {
 		      vSD_mom += walk_mom;
 		      c->last_b_ = true;
@@ -173,9 +176,9 @@ Repeat_engraver::queue_events ()
 		    }
 		}
 	    }
-	  walk_mom += i->car_->length_mom();
+	  walk_mom += mus->length_mom();
 
-	  if (i->next_)
+	  if (gh_pair_p (gh_cdr (s)))
 	    becel.append (new Bar_create_event (walk_mom, ":|"));
 	  else
 	    becel.append (new Bar_create_event (walk_mom, "stop"));
@@ -235,7 +238,7 @@ Repeat_engraver::do_process_music ()
 	      assert (!volta_span_p_);
 	      volta_span_p_ = new Spanner (get_property ("basicVoltaSpannerProperties"));
 	      Volta_spanner::set_interface (volta_span_p_);
-	      announce_element (Score_element_info (volta_span_p_,0));
+	      announce_element (volta_span_p_,0);
 	      volta_span_p_->set_elt_property ("text",
 					       ly_str02scm (t.ch_C()));
 	      volta_span_p_->set_elt_property ("last-volta",

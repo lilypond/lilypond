@@ -7,7 +7,7 @@
 #include "musical-request.hh"
 #include "command-request.hh"
 #include "local-key-item.hh"
-#include "key-item.hh"
+#include "item.hh"
 #include "tie.hh"
 #include "rhythmic-head.hh"
 #include "timing-translator.hh"
@@ -25,7 +25,7 @@
    (FIXME).
  */
 struct Local_key_engraver : Engraver {
-  Local_key_item *key_item_p_;
+  Item *key_item_p_;
 protected:
   VIRTUAL_COPY_CONS(Translator);
   virtual void do_process_music();
@@ -97,12 +97,13 @@ Local_key_engraver::process_acknowledged ()
 	    {
 	      if (!key_item_p_) 
 		{
-		  key_item_p_ = new Local_key_item (get_property ("basicLocalKeyProperties"));
+		  key_item_p_ = new Item(get_property ("basicLocalKeyProperties"));
+		  Local_key_item::set_interface (key_item_p_);
 		  Side_position::set_axis (key_item_p_, X_AXIS);
 		  Side_position::set_direction (key_item_p_, LEFT);
 		  Staff_symbol_referencer::set_interface (key_item_p_);
 			 
-		  announce_element (Score_element_info (key_item_p_, 0));
+		  announce_element (key_item_p_, 0);
 		}
 
 	      
@@ -110,14 +111,18 @@ Local_key_engraver::process_acknowledged ()
 		sign (prev_acc) * (prev_acc - a) == 1
 		&& abs(prev_acc) == 2;
 
-	      key_item_p_->add_pitch (note_l->pitch_,
-	  			      note_l->cautionary_b_,
-				      extra_natural);
+	      Local_key_item::add_pitch (key_item_p_, note_l->pitch_,
+					 note_l->cautionary_b_,
+					 extra_natural);
 	      Side_position::add_support (key_item_p_,support_l);
 	    }
 	  
 	  if (!forget)
 	    {
+	      /*
+		not really really correct if there are more than one
+		noteheads with the same notename.
+	       */
 	      localsig = scm_assoc_set_x (localsig, gh_cons (gh_int2scm (o),
 							     gh_int2scm (n)),
 					  gh_int2scm (a)); 
@@ -141,10 +146,8 @@ Local_key_engraver::process_acknowledged ()
 
   
   
-  daddy_trans_l_->set_property ("localKeySignature",  localsig);
+      daddy_trans_l_->set_property ("localKeySignature",  localsig);
     }
-  /*
-   */
   
   if (key_item_p_ && grace_align_l_)
     {
@@ -218,15 +221,19 @@ Local_key_engraver::do_process_music()
   Moment mp =  (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
 
   SCM sig = get_property ("keySignature");
-  if (!mp)
-    {
-      if (!to_boolean (get_property ("noResetKey")))
-	daddy_trans_l_->set_property ("localKeySignature",  ly_deep_copy (sig));
-    }
-  else if (last_keysig_ != sig) 
+
+  /*
+    Detect key sig changes. If we haven't found any, check if at start
+    of measure, and set localKeySignature anyhow.  */
+  if (last_keysig_ != sig) 
     {
       daddy_trans_l_->set_property ("localKeySignature",  ly_deep_copy (sig));
       last_keysig_ = sig;
+    }
+  else if (!mp)
+    {
+      if (!to_boolean (get_property ("noResetKey")))
+	daddy_trans_l_->set_property ("localKeySignature",  ly_deep_copy (sig));
     }
 }
 

@@ -8,7 +8,7 @@
  */
 #include "request-iterator.hh"
 #include "music.hh"
-
+#include "input.hh"
 
 void
 Simple_music_iterator::do_process_and_next (Moment m)
@@ -17,7 +17,7 @@ Simple_music_iterator::do_process_and_next (Moment m)
     {
       bool g= try_music (music_l_);
       if (!g)
-	music_l_->warning (_f ("Junking music: `%s'", classname(music_l_)));
+	music_l_->origin ()->warning (_f ("Junking music: `%s'", classname(music_l_)));
 
       first_b_ = false;
     }

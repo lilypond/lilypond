@@ -24,18 +24,13 @@
 class Engraver : public virtual Translator {
     
   friend class Engraver_group_engraver;
-
 protected:
-    
-
   /// utility
   Paper_def * paper_l() const;
   /**
     Invoke walker method to typeset element. Default: pass on to daddy.
     */
   virtual void typeset_element (Score_element*elem_p);
-
-    
   /**
     take note of item/spanner
     put item in spanner. Adjust local key; etc.
@@ -52,7 +47,8 @@ protected:
   /**
     Announce element. Default: pass on to daddy. Utility
     */
-  virtual void announce_element (Score_element_info);
+  virtual void announce_element (Score_element*, Music*);
+  virtual void announce_element (Score_element_info);  
 public:
   VIRTUAL_COPY_CONS(Translator);
   Engraver_group_engraver * daddy_grav_l() const;
@@ -60,8 +56,6 @@ public:
     override other ctor
    */
   Engraver () {}
-
-  
 };
 
 

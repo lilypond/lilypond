@@ -23,6 +23,7 @@ Engraver_group_engraver::announce_element (Score_element_info info)
   Engraver::announce_element (info);
 }
 
+
 void
 Engraver_group_engraver::do_announces()
 {
@@ -32,17 +33,12 @@ Engraver_group_engraver::do_announces()
 	trg->do_announces ();
     }
 
-  Request dummy_req;
-
   while (announce_info_arr_.size ())
     {
       for (int j =0; j < announce_info_arr_.size(); j++)
 	{
 	  Score_element_info info = announce_info_arr_[j];
 	  
-	  if (!info.req_l_)
-	    info.req_l_ = &dummy_req;
-
 	  for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
 	    {
 	      if (!dynamic_cast <Engraver_group_engraver *> (p->car_))

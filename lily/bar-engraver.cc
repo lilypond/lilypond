@@ -37,7 +37,7 @@ Bar_engraver::create_bar ()
 	  bar_p_->set_elt_property ("glyph", default_type); // ugh
 	}
 
-      announce_element (Score_element_info (bar_p_, 0));
+      announce_element (bar_p_, 0);
     }
 }
 

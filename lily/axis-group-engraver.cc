@@ -6,12 +6,32 @@
   (c) 1999--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
  */
 
-#include "axis-group-engraver.hh"
 #include "spanner.hh"
 #include "paper-column.hh"
 #include "axis-group-interface.hh"
-
+#include "engraver.hh"
 #include "engraver-group-engraver.hh"
+
+/**
+   Put stuff in a Spanner with an Axis_group_interface.
+   Use as last element of a context. 
+ */
+class Axis_group_engraver : public Engraver
+{
+protected:
+  Spanner *staffline_p_;
+  Link_array<Score_element> elts_;
+  virtual void do_creation_processing();
+  virtual void do_removal_processing();
+  virtual void acknowledge_element (Score_element_info);
+  virtual void process_acknowledged ();
+  virtual Spanner* get_spanner_p () const;
+public:
+  VIRTUAL_COPY_CONS(Translator);
+  Axis_group_engraver ();
+};
+
+ADD_THIS_TRANSLATOR(Axis_group_engraver);
 
 Axis_group_engraver::Axis_group_engraver ()
 {
@@ -29,7 +49,7 @@ Axis_group_engraver::do_creation_processing ()
   Pointer_group_interface (it, "bounded-by-me").add_element (staffline_p_);  
   staffline_p_->set_bound(LEFT,it);
 
-  announce_element (Score_element_info (staffline_p_, 0));
+  announce_element (staffline_p_, 0);
 }
 
 Spanner*
@@ -91,4 +111,38 @@ Axis_group_engraver::process_acknowledged ()
   elts_.clear ();
 }
 
-ADD_THIS_TRANSLATOR(Axis_group_engraver);
+
+////////////////////////////////////////////////////////
+
+// maybenot sucsh a good idea after all.
+
+#include "hara-kiri-group-spanner.hh"
+#include "rhythmic-head.hh"
+
+class Hara_kiri_engraver : public Axis_group_engraver
+{
+protected:
+  virtual Spanner*get_spanner_p ()const;
+  virtual void acknowledge_element (Score_element_info);
+public:
+  VIRTUAL_COPY_CONS(Translator);
+};
+
+Spanner*
+Hara_kiri_engraver::get_spanner_p () const
+{
+  Spanner * sp = new Spanner (get_property ("basicHaraKiriVerticalGroupspannerProperties"));
+  Hara_kiri_group_spanner::set_interface (sp);
+  return sp;
+}
+
+void
+Hara_kiri_engraver::acknowledge_element (Score_element_info i)
+{
+  Axis_group_engraver::acknowledge_element (i);
+  if (Rhythmic_head::has_interface (i.elem_l_))
+    {
+      Hara_kiri_group_spanner::add_interesting_item (staffline_p_, i.elem_l_);
+    }
+}
+ADD_THIS_TRANSLATOR(Hara_kiri_engraver);

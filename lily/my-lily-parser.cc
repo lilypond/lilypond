@@ -106,8 +106,6 @@ My_lily_parser::get_chord (Musical_pitch tonic,
 			   Musical_pitch* bass_p,
 			   Duration d)
 {
-  Simultaneous_music*v = new Request_chord;
-  v->set_spot (here_input ());
 
   /*
     UARGAUGRAGRUAUGRUINAGRAUGIRNA
@@ -120,22 +118,22 @@ My_lily_parser::get_chord (Musical_pitch tonic,
 
   Tonic_req* t = new Tonic_req;
   t->pitch_ = tonic;
-  v->add_music (t);
 
+  SCM l = SCM_EOL;
   //urg
   if (chord.inversion_b_
       && Chord::find_notename_i (&chord.pitch_arr_, chord.inversion_pitch_) > 0)
     {
       Inversion_req* i = new Inversion_req;
       i->pitch_ = chord.inversion_pitch_;
-      v->add_music (i);
+      l = gh_cons (i->self_scm_, l);
     }
 
   if (chord.bass_b_)
     {
       Bass_req* b = new Bass_req;
       b->pitch_ = chord.bass_pitch_;
-      v->add_music (b);
+      l = gh_cons (b->self_scm_, l);      
     }
 
   Array<Musical_pitch> pitch_arr = chord.to_pitch_arr ();
@@ -145,8 +143,11 @@ My_lily_parser::get_chord (Musical_pitch tonic,
       Note_req* n = new Note_req;
       n->pitch_ = p;
       n->duration_ = d;
-      v->add_music (n);
+      l = gh_cons (n->self_scm_, l);
     }
+
+  Simultaneous_music*v = new Request_chord (l);
+  v->set_spot (here_input ());
 
   return v;
 }

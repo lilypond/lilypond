@@ -13,15 +13,18 @@
 #include "music.hh"
 #include "protected-scm.hh"
 
+
+/*
+  
+props:
+
+  relevant stuff: the predicate, the symbol, the value
+
+ */
 class Output_property : public Music
 {
 public:
   Output_property(SCM, SCM, SCM);
-
-  /**
-    relevant stuff: the predicate, the symbol, the value
-   */
-  Protected_scm pred_sym_val_list_;
 };
 
 #endif /* OUTPUT_PROPERTY_HH */

@@ -52,7 +52,6 @@ praeludiumLeft = \notes \relative c {
   \context Staff <
     \context Voice = two { r4 }
     \context Voice = one { \stemup s4 dis' cis cis ~ |
-    % BUG -> (insane springs.)
     \times 4/5
       {  [cis8 ( cis
 

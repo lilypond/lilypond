@@ -2,9 +2,9 @@
 % part of LilyPond's pretty-but-neat music font
 
 % size:=5;
-size:=20*6/15;
+design_size:=20*6/15;
 
-input feta-nummer-generic.mf;
+input feta-nummer.mf;
 
 end.
 

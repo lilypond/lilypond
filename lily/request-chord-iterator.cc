@@ -30,7 +30,6 @@ Request_chord_iterator::elt_l () const
 Request_chord_iterator::Request_chord_iterator ()
 {
   last_b_ = false;
-  cursor_ = 0;
 }
 
 
@@ -63,18 +62,19 @@ Request_chord_iterator::do_process_and_next (Moment mom)
 {
   if (first_b_)
     {
-      for (Cons<Music> *i = elt_l ()->music_p_list_p_->head_; i; i = i->next_)
+      for (SCM s = dynamic_cast<Music_sequence *> (music_l_)->music_list (); gh_pair_p (s);  s = gh_cdr (s))
 	{
-	  if (Request * req_l = dynamic_cast<Request*> (i->car_))
+	  Music *mus = unsmob_music (gh_car (s));
+	  if (Request * req_l = dynamic_cast<Request*> (mus))
 	    {
 	      bool gotcha = try_music (req_l);
 	      if (!gotcha)
-		req_l->warning (_f ("Junking request: `%s'", classname( req_l)));
+		req_l->origin ()->warning (_f ("Junking request: `%s'", classname( req_l)));
 	    }
 	  else
-	    i->car_->warning (_f ("Huh?  Not a Request: `%s'",
-				   classname (i->car_)));
-	}
+	    mus->origin ()->warning (_f ("Huh?  Not a Request: `%s'",
+						 classname (mus)));
+		    }
       first_b_ = false;
     }
 

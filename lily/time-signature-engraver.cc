@@ -64,7 +64,7 @@ Time_signature_engraver::do_process_music()
 
   
   if (time_signature_p_)
-    announce_element (Score_element_info (time_signature_p_, req));
+    announce_element (time_signature_p_, req);
 }
 
 void

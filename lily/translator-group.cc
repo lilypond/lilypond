@@ -459,6 +459,13 @@ Translator_group::get_property (SCM sym) const
 void
 Translator_group::set_property (String id, SCM val)
 {
-  properties_dict_->set (ly_symbol2scm (id.ch_C()), val);
+  set_property (ly_symbol2scm (id.ch_C()), val);
 }
+
+void
+Translator_group::set_property (SCM sym, SCM val)
+{
+  properties_dict_->set (sym, val);
+}
+
 

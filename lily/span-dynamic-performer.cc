@@ -84,7 +84,7 @@ Span_dynamic_performer::do_process_music ()
     {
       if (!span_start_req_l_)
 	{
-	  span_req_l_drul_[STOP]->warning (_ ("can't find start of (de)crescendo"));
+	  span_req_l_drul_[STOP]->origin ()->warning (_ ("can't find start of (de)crescendo"));
 	}
       else
 	{

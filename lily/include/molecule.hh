@@ -37,6 +37,8 @@
     Empty molecules have empty dimensions.  If add_at_edge is used to
     init the molecule, we assume that
     DIMENSIONS = (Interval(0,0),Interval(0,0)
+
+    TODO: go full smob with Molecule.
     
 */
 class Molecule {

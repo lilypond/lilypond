@@ -184,7 +184,7 @@ Tie_engraver::process_acknowledged ()
 	  Tie::set_head (p,RIGHT, dynamic_cast<Item*> (unsmob_element (gh_cdr (pair))));
 	  
 	  tie_p_arr_.push (p);
-	  announce_element (Score_element_info (p, req_l_));
+	  announce_element (p, req_l_);
 	}
       else for (SCM s = head_list; gh_pair_p (s); s = gh_cdr (s))
 	{
@@ -195,12 +195,12 @@ Tie_engraver::process_acknowledged ()
 	  Tie::set_head (p, RIGHT, dynamic_cast<Item*> (unsmob_element (gh_cdar (s))));
 	  
 	  tie_p_arr_.push (p);
-	  announce_element (Score_element_info (p, req_l_));
+	  announce_element (p, req_l_);
 	}
 
       if (!tie_p_arr_.size ())
 	{
-	  req_l_->warning (_ ("No ties were created!"));
+	  req_l_->origin ()->warning (_ ("No ties were created!"));
 	}
       else if (tie_p_arr_.size () > 1 && !tie_column_p_)
 	{
@@ -208,7 +208,7 @@ Tie_engraver::process_acknowledged ()
 	  Tie_column::set_interface (tie_column_p_);
 	  for (int i = tie_p_arr_.size (); i--; )
 	    Tie_column::add_tie (tie_column_p_,tie_p_arr_ [i]);
-	  announce_element (Score_element_info (tie_column_p_, 0));
+	  announce_element (tie_column_p_, 0);
 	}
     }
 }

@@ -1,9 +1,10 @@
+
 % feta-nummer10.mf
 % part of LilyPond's pretty-but-neat music font
 
-size:=10;
+design_size:=10;
 
-input feta-nummer-generic;
+input feta-nummer;
 
 end.
 

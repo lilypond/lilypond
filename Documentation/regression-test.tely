@@ -287,7 +287,6 @@ between note and accidentals is less than between the notes with the
 same value.  Clef changes also get extra space, but not as much as
 barlines.
 
-
 Even if a line is very tightly spaced, there will still be room
 between prefatory matter and the following notes.  The space after the
 prefatory is very rigid.  In contrast, the space before the barline
@@ -379,6 +378,9 @@ the start of the line. If @code{createKeyOnClefChange} is set, they're
 also created on a clef change.
 
 @mudelafile{keys.ly}
+
+
+
 
 @ignore
 @c the input file is too long and does not test for specific bugs

@@ -33,9 +33,7 @@ public:
   int rank_i_;
   void post_processing(bool);
 
-  Protected_scm output_;
   Line_of_score(SCM);
-    
   /// is #c# contained in #*this#?
   bool contains_b (Paper_column const *c) const;
   int element_count () const;

@@ -111,14 +111,13 @@ Note_heads_engraver::do_process_music()
 
 	  d->set_parent (note_p, Y_AXIS);
 	  d->add_offset_callback (Dots::quantised_position_callback, Y_AXIS);
-	  announce_element (Score_element_info (d,0));
+	  announce_element (d,0);
 	  dot_p_arr_.push (d);
 	}
 
       note_p->set_elt_property("staff-position",  gh_int2scm (note_req_l->pitch_.steps ()));
 
-      Score_element_info itinf (note_p,note_req_l);
-      announce_element (itinf);
+      announce_element (note_p,note_req_l);
       note_p_arr_.push (note_p);
     }
 }

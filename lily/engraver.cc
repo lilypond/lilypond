@@ -17,17 +17,29 @@
 
 
 void
-Engraver::announce_element (Score_element_info i)
+Engraver::announce_element (Score_element_info inf)
 {
-  Score_element *  e = i.elem_l_;
+  daddy_grav_l()->announce_element (inf);
+}
 
+void
+Engraver::announce_element (Score_element* e, Music *m)
+{
   if (e->get_elt_property ("interfaces") == SCM_EOL)
     Group_interface (e, "interfaces").add_thing (ly_symbol2scm (e->name()));
+
+  if (m && m->origin ()->location_str ().length_i ())
+    {
+      e->set_elt_property ("origin", m->get_mus_property ("origin"));
+    }
   
+  Score_element_info i (e, m);
   if (!i.origin_trans_l_)
     i.origin_trans_l_ = this;
   daddy_grav_l()->announce_element (i);
 }
+
+
  
 void
 Engraver::typeset_element (Score_element*p)

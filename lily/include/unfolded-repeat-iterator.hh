@@ -39,7 +39,7 @@ public:
   Music_iterator * current_iter_p_;
   
   /// pointer to the alternative that will be processed next.
-  Cons<Music> *alternative_cons_l_;
+  SCM alternative_cons_;
   ~Unfolded_repeat_iterator();
   Unfolded_repeat_iterator ();
 
@@ -48,7 +48,7 @@ protected:
   virtual void construct_children ();
   virtual Moment next_moment () const;
   virtual void do_process_and_next (Moment);
-  virtual Music_iterator *try_music_in_children (Music const*) const;
+  virtual Music_iterator *try_music_in_children (Music *) const;
 
   virtual bool ok () const;
   virtual void next_element ();

@@ -21,11 +21,6 @@
  */
 class Paper_outputter
 {
-#if 0
-  Protected_scm molecules_;
-  SCM last_cons_;
-#endif
-  
   bool verbatim_scheme_b_;
   Paper_stream * stream_p_;
 public:

@@ -6,7 +6,6 @@
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 #include "translator-group.hh"
-#include "axis-group-engraver.hh"
 #include "paper-column.hh"
 #include "align-interface.hh"
 #include "span-bar.hh"
@@ -20,10 +19,8 @@ class Vertical_align_engraver : public Engraver
   bool qualifies_b (Score_element_info) const;  
 public:
   VIRTUAL_COPY_CONS(Translator);
-  
   Vertical_align_engraver();
 protected:
-  
   virtual void acknowledge_element (Score_element_info);
   virtual void do_creation_processing();
   virtual void do_removal_processing();
@@ -44,7 +41,7 @@ Vertical_align_engraver::do_creation_processing()
 			       gh_int2scm (DOWN));
   
   valign_p_->set_bound(LEFT,unsmob_element (get_property ("currentCommandColumn")));
-  announce_element (Score_element_info (valign_p_ , 0));
+  announce_element (valign_p_ , 0);
 }
 
 void

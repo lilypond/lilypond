@@ -12,15 +12,16 @@
   this is culled from various other iterators, but sharing code by subclassing proved to be too difficult.
  */
 
+#include "input.hh"
 #include "chord-tremolo-iterator.hh"
 #include "repeated-music.hh"
 
 void
 Chord_tremolo_iterator::construct_children ()
 {
-  Repeated_music const* rep = dynamic_cast<Repeated_music const*> (music_l_);
+  Repeated_music * rep = dynamic_cast<Repeated_music*> (music_l_);
   factor_  = Moment (1, rep->repeats_i_);
-  child_iter_p_ = get_iterator_p (rep->repeat_body_p_);
+  child_iter_p_ = get_iterator_p (rep->body ());
 }
 
 Chord_tremolo_iterator::Chord_tremolo_iterator()
@@ -38,7 +39,7 @@ Chord_tremolo_iterator::do_process_and_next (Moment m)
       if (yeah)
 	set_translator (yeah->report_to_l ());
       else
-	music_l_->warning ( _("no one to print a tremolos"));
+	music_l_->origin ()->warning ( _("no one to print a tremolos"));
     }
 
   child_iter_p_->process_and_next  (factor_ * m);
@@ -63,7 +64,7 @@ Chord_tremolo_iterator::~Chord_tremolo_iterator ()
 }
 
 Music_iterator*
-Chord_tremolo_iterator::try_music_in_children (Music const *m) const
+Chord_tremolo_iterator::try_music_in_children (Music  *m) const
 {
   return child_iter_p_->try_music (m);
 }

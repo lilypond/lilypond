@@ -43,14 +43,17 @@ Line_number_engraver::process_acknowledged ()
       text_item_p_->set_parent (interesting_[0].elem_l_, Y_AXIS);
 
 
-      announce_element (Score_element_info (text_item_p_, 0));
+      announce_element (text_item_p_, 0);
     }
 }
 
 void
 Line_number_engraver::acknowledge_element (Score_element_info inf)
 {
-  if (Note_head::has_interface (inf.elem_l_))
+  if (!inf.req_l_)
+    return ;
+  
+  if ( Note_head::has_interface (inf.elem_l_))
     {
       interesting_.push (inf);
       support_.push (inf.elem_l_);
@@ -73,7 +76,7 @@ Line_number_engraver::do_pre_move_processing ()
 	  if (i)
 	    s += ",";
 	  
-	  s += interesting_[i].req_l_->line_number_str ();
+	  s += interesting_[i].req_l_->origin ()->line_number_str ();
 	  
 	}
 

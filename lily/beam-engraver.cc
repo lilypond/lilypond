@@ -72,7 +72,7 @@ Beam_engraver::do_try_music (Music *m)
 
       if (d == STOP && !beam_p_)
 	{
-	  m->warning (_ ("can't find start of beam"));
+	  m->origin ()->warning  (_ ("can't find start of beam"));
 	  return false;
 	}
       reqs_drul_[d ] = c;
@@ -88,7 +88,7 @@ Beam_engraver::do_process_music ()
   if (reqs_drul_[STOP])
     {
       if (!beam_p_)
-	reqs_drul_[STOP]->warning (_("can't find start of beam"));
+	reqs_drul_[STOP]->origin ()->warning (_("can't find start of beam"));
       prev_start_req_ =0;
       finished_beam_p_ = beam_p_;
       finished_beam_info_p_ = beam_info_p_;
@@ -117,7 +117,7 @@ Beam_engraver::do_process_music ()
     {
       if (beam_p_)
 	{
-	  reqs_drul_[START]->warning (_ ("already have a beam"));
+	  reqs_drul_[START]->origin ()->warning (_ ("already have a beam"));
 	  return;
 	}
 
@@ -135,7 +135,7 @@ Beam_engraver::do_process_music ()
       
       /* urg, must copy to Auto_beam_engraver too */
  
-      announce_element (Score_element_info (beam_p_, reqs_drul_[START]));
+      announce_element (beam_p_, reqs_drul_[START]);
     }
 }
 
@@ -174,7 +174,7 @@ Beam_engraver::do_removal_processing ()
   typeset_beam ();
   if (beam_p_)
     {
-      prev_start_req_->warning (_ ("unterminated beam"));
+      prev_start_req_->origin ()->warning (_ ("unterminated beam"));
       finished_beam_p_ = beam_p_;
       finished_beam_info_p_ = beam_info_p_;
       typeset_beam ();
@@ -209,7 +209,7 @@ Beam_engraver::acknowledge_element (Score_element_info info)
 	    {
 	      String s = _ ("stem must have Rhythmic structure");
 	      if (info.req_l_)
-		info.req_l_->warning (s);
+		info.req_l_->origin ()->warning (s);
 	      else
 		::warning (s);
 	  
@@ -218,8 +218,8 @@ Beam_engraver::acknowledge_element (Score_element_info info)
 
 	  if (rhythmic_req->duration_.durlog_i_<= 2)
 	    {
-	      rhythmic_req->warning (_ ("stem doesn't fit in beam"));
-	      prev_start_req_->warning (_ ("beam was started here"));
+	      rhythmic_req->origin ()->warning (_ ("stem doesn't fit in beam"));
+	      prev_start_req_->origin ()->warning (_ ("beam was started here"));
 	      /*
 		don't return, since
 

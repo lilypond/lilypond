@@ -40,26 +40,26 @@ the  alternative just set.
 void
 Unfolded_repeat_iterator::next_element () 
 {
-  Repeated_music const* mus =dynamic_cast<Repeated_music const*> (music_l_);
+  Repeated_music * mus =dynamic_cast<Repeated_music *> (music_l_);
   delete current_iter_p_;
   current_iter_p_ =0;
 
 
   if (do_main_b_)
     {
-      done_mom_ += mus->repeat_body_p_->length_mom ();
+      done_mom_ += mus->body ()->length_mom ();
 
       if (!mus->volta_fold_b_)
 	done_count_ ++;
      
-      if (alternative_cons_l_)
+      if (gh_pair_p (alternative_cons_))
 	{
-	  current_iter_p_ = get_iterator_p (alternative_cons_l_->car_);
+	  current_iter_p_ = get_iterator_p (unsmob_music (gh_car (alternative_cons_)));
 	  do_main_b_ = false;
 	}
       else if (done_count_ <  mus->repeats_i_ && !mus->volta_fold_b_) 
 	{
-	  current_iter_p_ = get_iterator_p (mus->repeat_body_p_);
+	  current_iter_p_ = get_iterator_p (mus->body ());
 	  do_main_b_ = true;
 	}
     }
@@ -69,13 +69,13 @@ Unfolded_repeat_iterator::next_element ()
 	we're not in the main part. So we're either in an alternative, or
 	we just finished.
       */
-      if (alternative_cons_l_)
+      if (alternative_cons_)
 	{
-	  done_mom_ += alternative_cons_l_->car_->length_mom ();
+	  done_mom_ += unsmob_music (gh_car (alternative_cons_))->length_mom ();
 
 	  if (mus->volta_fold_b_ || 
 	      mus->repeats_i_ - done_count_  < alternative_count_i_)
-	    alternative_cons_l_ = alternative_cons_l_->next_;
+	    alternative_cons_ = gh_cdr (alternative_cons_);
 	  
 	  /*
 	    we've done the main body as well, but didn't go over the other
@@ -84,13 +84,13 @@ Unfolded_repeat_iterator::next_element ()
 	    done_count_ ++;
 	}
       
-      if (done_count_ < mus->repeats_i_ && alternative_cons_l_)
+      if (done_count_ < mus->repeats_i_ && gh_pair_p (alternative_cons_))
 	{
 	  if (mus->volta_fold_b_)
-	    current_iter_p_ = get_iterator_p (alternative_cons_l_->car_);
+	    current_iter_p_ = get_iterator_p (unsmob_music (gh_car (alternative_cons_)));
 	  else
 	    {
-	      current_iter_p_ = get_iterator_p (mus->repeat_body_p_);
+	      current_iter_p_ = get_iterator_p (mus->body ());
 	      do_main_b_ = true;
 	    }
 	}
@@ -113,22 +113,23 @@ Unfolded_repeat_iterator::next_moment () const
 void
 Unfolded_repeat_iterator::construct_children ()
 {
-  Repeated_music const* mus =dynamic_cast<Repeated_music const*> (music_l_);
-  alternative_cons_l_ = (mus->alternatives_p_)
-    ? mus->alternatives_p_->music_p_list_p_->head_
-    : 0;
+  Repeated_music * mus =dynamic_cast<Repeated_music *> (music_l_);
+  
+  alternative_cons_ = (mus->alternatives ())
+    ? mus->alternatives ()->music_list ()
+    : SCM_EOL;
 
-  for (Cons<Music> *p = alternative_cons_l_; p; p = p->next_)
+  for (SCM p = alternative_cons_; gh_pair_p (p); p = gh_cdr (p))
     alternative_count_i_ ++;
 
-  if (mus->repeat_body_p_)
+  if (mus->body ())
     {
-      current_iter_p_  = get_iterator_p (mus->repeat_body_p_);
+      current_iter_p_  = get_iterator_p (mus->body ());
       do_main_b_ = true;
     }
-  else if (alternative_cons_l_)
+  else if (gh_pair_p (alternative_cons_))
     {
-      current_iter_p_ = get_iterator_p (alternative_cons_l_->car_);
+      current_iter_p_ = get_iterator_p (unsmob_music (gh_car (alternative_cons_)));
       do_main_b_ = false;
     }
 }
@@ -142,7 +143,7 @@ Unfolded_repeat_iterator::do_process_and_next (Moment m)
       if (yeah)
 	set_translator (yeah->report_to_l ());
       else
-	music_l_->warning ( _("no one to print a volta bracket"));
+	music_l_->origin ()->warning ( _("no one to print a volta bracket"));
     }
   while (1)
     {
@@ -172,7 +173,7 @@ Unfolded_repeat_iterator::do_print () const
 }
 
 Music_iterator* 
-Unfolded_repeat_iterator::try_music_in_children (Music const * m) const
+Unfolded_repeat_iterator::try_music_in_children (Music  * m) const
 {
   return  current_iter_p_->try_music (m);
 }

@@ -21,17 +21,14 @@
   */
 class Music_wrapper : public Music
 {
-  Music * element_p_;
 public:
   Music_wrapper (Music*);
-  Music * element_l () const;
+  Music * element () const;
   virtual void transpose (Musical_pitch);
   virtual void do_print () const;
   
   VIRTUAL_COPY_CONS(Music);
-  Music_wrapper (Music_wrapper const&);
   virtual Moment length_mom () const;
-  virtual ~Music_wrapper ();
   virtual Musical_pitch to_relative_octave (Musical_pitch);
   virtual void compress (Moment);
 };

@@ -10,50 +10,74 @@
 #include "debug.hh"
 #include "musical-pitch.hh"
 
-Music_sequence::Music_sequence (Music_sequence const&s)
-  : Music (s)
+
+void
+Music_sequence::truncate (int k)
 {
-  music_p_list_p_ = new Music_list (*s.music_p_list_p_);
+  SCM l = get_mus_property ("list");
+  if (k == 0)
+    {
+      l = SCM_EOL;
+    }
+  else
+    {
+      SCM s = l;
+      k--;
+      for (; gh_pair_p (s) && k--; s = gh_cdr (s))
+	;
+
+      if (gh_pair_p (s))
+	{
+	  gh_set_cdr_x (s, SCM_EOL);
+	}
+    }
+  set_mus_property ("list", l);
 }
 
-
-
-Music_sequence::Music_sequence(Music_list *mlist_p)
+SCM
+Music_sequence::music_list ()const
 {
-  music_p_list_p_ = mlist_p;
+  return get_mus_property ("list");
+}
+
+/*
+  Ugh this sucks. Linear. do not use.
+ */
+void
+Music_sequence::append_music (Music *m)
+{
+  set_mus_property ("list",
+		    gh_append2( music_list(), gh_cons (m->self_scm_, SCM_EOL)));
+}
+Music_sequence::Music_sequence(SCM h)
+{
+  set_mus_property ("list", h);
 }
 
 void
 Music_sequence::transpose (Musical_pitch rq)
 {
-  for (Cons<Music> *i = music_p_list_p_->head_; i;  i = i->next_)
-    i->car_->transpose (rq);    
+  for (SCM s = music_list (); gh_pair_p (s);  s = gh_cdr (s))
+    unsmob_music (gh_car (s))->transpose (rq);    
 }
 
 void
 Music_sequence::do_print() const
 {
 #ifndef NPRINT
-  for (Cons<Music> *i = music_p_list_p_->head_; i;  i = i->next_)  
-    i->car_->print();
+  for (SCM s = music_list (); gh_pair_p (s);  s = gh_cdr (s))
+    unsmob_music (gh_car (s))->print();
 #endif 
 }
 
 
-void
-Music_sequence::add_music (Music *m_p)
-{
-  music_p_list_p_->add_music (m_p);
-}
 
 Moment
 Music_sequence::cumulative_length () const
 {
   Moment last=0;
-  for (Cons<Music> *i = music_p_list_p_->head_; i;  i = i->next_)
-    {
-      last += i->car_->length_mom ();
-    }
+  for (SCM s = music_list (); gh_pair_p (s);  s = gh_cdr (s))
+    last += unsmob_music (gh_car (s))->length_mom ();
   return  last;
 }
 
@@ -68,19 +92,40 @@ Moment
 Music_sequence::maximum_length () const
 {
   Moment dur = 0;
-  for (Cons<Music> *i = music_p_list_p_->head_; i;  i = i->next_)
-    dur = dur >? i->car_->length_mom ();
+  for (SCM s = music_list (); gh_pair_p (s);  s = gh_cdr (s))
+    dur = dur >? unsmob_music (gh_car (s))->length_mom ();
 
   return dur;
 }
 int
 Music_sequence::length_i () const
 {
-  return cons_list_size_i (music_p_list_p_->head_);
+  return scm_ilength (music_list ());
 }
 
 Musical_pitch
-Music_sequence::do_relative_octave (Musical_pitch p, bool b)
+Music_sequence::do_relative_octave (Musical_pitch p, bool ret_first)
 {
-  return music_p_list_p_->do_relative_octave (p, b);  
+  Musical_pitch retval;
+  int count=0;
+
+  Musical_pitch last = p;
+  for (SCM s = music_list (); gh_pair_p (s);  s = gh_cdr (s))
+    {
+      last = unsmob_music (gh_car (s))->to_relative_octave (last);
+      if (!count ++ )
+	retval = last;
+    }
+
+  if (!ret_first)
+    retval = last;
+  
+  return retval;
+}
+
+void
+Music_sequence::compress (Moment m)
+{
+  for (SCM s = music_list (); gh_pair_p (s);  s = gh_cdr (s))
+    unsmob_music (gh_car (s))->compress (m);
 }

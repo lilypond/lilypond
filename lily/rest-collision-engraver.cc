@@ -42,7 +42,7 @@ Rest_collision_engraver::process_acknowledged ()
 
   rest_collision_p_ = new Item (get_property ("basicRestCollisionProperties"));
   Rest_collision::set_interface (rest_collision_p_);
-  announce_element (Score_element_info (rest_collision_p_, 0));
+  announce_element (rest_collision_p_, 0);
   for (int i=0; i< note_column_l_arr_.size (); i++)
     Rest_collision::add_column ( rest_collision_p_,note_column_l_arr_[i]);
 }

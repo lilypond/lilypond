@@ -52,7 +52,7 @@ Line_group_engraver_group::do_creation_processing()
   staffline_p_->set_bound(LEFT,it);
   Pointer_group_interface (it, "bounded-by-me").add_element (staffline_p_);
   
-  Engraver::announce_element (Score_element_info (staffline_p_,0));
+  Engraver::announce_element (staffline_p_,0);
 }
 
 void

@@ -149,6 +149,12 @@ Item::handle_prebroken_dependencies ()
   /*
     Can't do this earlier, because try_visibility_lambda () might set
     the elt property transparent, which would then be copied.
+
+    TODO:
+
+    handle visibility-lambda the item itself iso. breakstatusdir, so
+    the function can do more complicated things.
+    
   */
   SCM vis = get_elt_property ("visibility-lambda");
   if (gh_procedure_p (vis))
@@ -170,3 +176,12 @@ Item::handle_prebroken_dependencies ()
     }
 }
 
+SCM
+Item::do_derived_mark ()
+{
+  if (broken_to_drul_[LEFT])
+    scm_gc_mark (broken_to_drul_[LEFT]->self_scm_);
+  if (broken_to_drul_[RIGHT])
+    scm_gc_mark (broken_to_drul_[RIGHT]->self_scm_);
+  return SCM_EOL;
+}

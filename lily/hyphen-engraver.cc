@@ -87,7 +87,7 @@ Hyphen_engraver::do_removal_processing ()
 {
   if (hyphen_p_)
     {
-      req_l_->warning (_ ("unterminated hyphen"));
+      req_l_->origin ()->warning (_ ("unterminated hyphen"));
       hyphen_p_->set_bound(RIGHT, unsmob_element (get_property ("currentCommandColumn")));
     }
 }
@@ -99,14 +99,14 @@ Hyphen_engraver::do_process_music ()
     {
       if (!last_lyric_l_)
 	{
-	  req_l_->warning (_ ("Nothing to connect hyphen to on the left.  Ignoring hyphen request."));
+	  req_l_->origin ()->warning (_ ("Nothing to connect hyphen to on the left.  Ignoring hyphen request."));
 	  return;
 	}
       
       hyphen_p_ = new Spanner (get_property ("basicHyphenSpannerProperties"));
       hyphen_p_->set_extent_callback (Score_element::point_dimension_callback,Y_AXIS);
       Hyphen_spanner (hyphen_p_).set_textitem  (LEFT, last_lyric_l_);
-      announce_element (Score_element_info (hyphen_p_, req_l_));
+      announce_element (hyphen_p_, req_l_);
     }
 }
 
