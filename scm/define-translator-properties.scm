@@ -190,6 +190,14 @@ arpeggios that cross staves.
 (translator-property-description 'crescendoText markup? "Text to print at start of non-hairpin crecscendo, ie: @samp{cresc.}")
 (translator-property-description 'crescendoSpanner symbol? "Type of spanner to be used for crescendi.  One of: @samp{hairpin}, @samp{line}, @samp{dashed-line}, @samp{dotted-line}.  If unset, hairpin type is used.")
 (translator-property-description 'decrescendoText markup? "Text to print at start of non-hairpin decrecscendo, ie: @samp{dim.}")
+(translator-property-description 'drumStyleTable hash-table?
+				 "A hash table containing mapping drums to layout settings.
+Predefined values: @code{drums-style}, @code{timbales-style}, @code{congas-style}, @code{bongos-style}
+and @code{percussion-style}.
+
+The layout style is a hash table, containing the drum-pitches  (eg. the symbol @code{hihat}) as key,
+and a list (@var{notehead-style} @var{script} @var{vertical-position}) as values.
+ ")
 (translator-property-description 'currentBarNumber integer? "Contains the current barnumber. This property is incremented at
 every barline.
 ")

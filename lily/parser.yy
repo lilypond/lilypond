@@ -283,7 +283,6 @@ yylex (YYSTYPE *s,  void * v)
 %token PAPER
 %token PARTCOMBINE
 %token PARTIAL
-%token PITCHNAMES
 %token PROPERTY
 %token RELATIVE
 %token REMOVE
@@ -327,7 +326,8 @@ yylex (YYSTYPE *s,  void * v)
 %token <scm>	DURATION_IDENTIFIER
 %token <scm>    FRACTION
 %token <id>	IDENTIFIER
-%token <scm>	CHORDNAMES
+%token DRUMS
+%token <scm>	DRUM_PITCH
 %token <scm> 	CHORD_MODIFIER
 %token <scm>	SCORE_IDENTIFIER
 %token <scm>	MUSIC_OUTPUT_DEF_IDENTIFIER
@@ -394,7 +394,6 @@ yylex (YYSTYPE *s,  void * v)
 
 %type <scm>	translator_spec_block translator_spec_body
 %type <music> 	tempo_event
-%type <scm> notenames_body notenames_block chordmodifiers_block
 %type <scm>	script_abbreviation
 
 
@@ -420,13 +419,7 @@ lilypond:	/* empty */
 	;
 
 toplevel_expression:
-	notenames_block			{
-		THIS->lexer_->pitchname_tab_ =  $1;
-	}
-	| chordmodifiers_block			{
-		THIS->lexer_->chordmodifier_tab_  = $1;
-	}
-	| lilypond_header {
+	lilypond_header {
 		THIS->input_file_->header_ = $1;
 	}
 	| score_block {
@@ -478,26 +471,7 @@ embedded_scm:
 	;
 
 
-chordmodifiers_block:
-	CHORDMODIFIERS notenames_body   {  $$ = $2; }
-	;
 
-notenames_block:
-	PITCHNAMES notenames_body   {  $$ = $2; }
-	;
-
-notenames_body:
-	embedded_scm	{
-	  int i = scm_ilength ($1);
-
-	  SCM tab = scm_make_vector (gh_int2scm (i), SCM_EOL);
-	  for (SCM s = $1; gh_pair_p (s); s = ly_cdr (s)) {
-		SCM pt = ly_cdar (s);
-		scm_hashq_set_x (tab, ly_caar (s), pt);
-	  }
-	  $$ = tab;
-	}
-	;
 
 lilypond_header_body:
 	{
@@ -1048,7 +1022,19 @@ basic music objects too, since the meaning is different.
 			}
 	}
 	| NOTES
-		{ THIS->lexer_->push_note_state (); }
+		{
+		SCM nn = THIS->lexer_->lookup_identifier ("pitchnames");
+		THIS->lexer_->push_note_state (alist_to_hashq (nn));
+	}
+	Music
+		{ $$ = $3;
+		  THIS->lexer_->pop_state ();
+		}
+	| DRUMS
+		{
+		SCM nn = THIS->lexer_->lookup_identifier ("drumPitchNames");
+		THIS->lexer_->push_note_state (alist_to_hashq (nn));
+	}
 	Music
 		{ $$ = $3;
 		  THIS->lexer_->pop_state ();
@@ -1065,7 +1051,10 @@ basic music objects too, since the meaning is different.
 		  THIS->lexer_->pop_state ();
 	}
 	| CHORDS
-		{ THIS->lexer_->push_chord_state (); }
+		{
+		SCM nn = THIS->lexer_->lookup_identifier ("chordmodifiers");
+		THIS->lexer_->chordmodifier_tab_ = alist_to_hashq (nn);
+		THIS->lexer_->push_chord_state (); }
 	Music
 		{
 		  Music * chm = MY_MAKE_MUSIC("UnrelativableMusic");
@@ -1960,6 +1949,21 @@ simple_element:
 		n->set_spot (i);
 		$$ = v;
 	}
+	| DRUM_PITCH optional_notemode_duration {
+		Input i = THIS->pop_spot ();
+
+		Music *n =  MY_MAKE_MUSIC("NoteEvent");
+		n->set_mus_property ("duration" ,$2);
+		n->set_mus_property ("drum-type" , $1);
+
+		Music *v = MY_MAKE_MUSIC("EventChord");
+		v->set_mus_property ("elements", scm_list_n (n->self_scm (), SCM_UNDEFINED));
+		scm_gc_unprotect_object (n->self_scm());
+		v->set_spot (i);
+		n->set_spot (i);
+		$$ = v;
+		
+	}
 	| figure_spec optional_notemode_duration {
 		Music * m = unsmob_music ($1);
 		Input i = THIS->pop_spot (); 
@@ -2458,3 +2462,4 @@ get_next_unique_context ()
 		
 	return scm_makfrom0str (s);
 }
+

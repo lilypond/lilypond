@@ -1,11 +1,12 @@
 #(ly:set-option 'old-relative)
 
-\version "2.1.13"
+\version "2.1.19"
 breve = #(ly:make-duration -1 0)
 longa = #(ly:make-duration -2 0 )
 maxima = #(ly:make-duration -3 0)
 
 \include "nederlands.ly"		% dutch
+\include "drumpitch-init.ly"		
 \include "chord-modifiers-init.ly"
 \include "script-init.ly"
 

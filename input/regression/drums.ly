@@ -1,64 +1,36 @@
-% tests drum notation and midi-drums.
-% see ly/drumpitch-init.ly for list of instruments and paper-kits.
-%     scm/midi.scm for list of midi-drumkits.
 
 \header {
-texidoc = "Drum notation, although kludgy, should work."
+   texidoc = "Test drum notation."
 }
 
-\include "drumpitch-init.ly"
 
-\version "2.1.7"
+\version "2.1.19"
 
-drh = \notes { cymc4.^"crash" hhc16^"h.h." hh \repeat "unfold" 5 {hhc8 hho hhc8 hh16 hh} hhc4 r4 r2 }
-drl = \notes {\repeat "unfold" 3 {bd4 sn8 bd bd4 << bd ss >> } bd8 tommh tommh bd toml toml bd tomfh16 tomfh }
-timb = \notes \repeat "unfold" 2 {timh4 ssh timl8 ssh r timh r4 ssh8 timl r4 cb8 cb}
+drh = \drums { cymc4.^"crash" hhc16^"h.h." hh \repeat "unfold" 5 {hhc8 hho hhc8 hh16 hh} hhc4 r4 r2 }
+drl = \drums {\repeat "unfold" 3 {bd4 sn8 bd bd4 << bd ss >> } bd8 tommh tommh bd toml toml bd tomfh16 tomfh }
+timb = \drums \repeat "unfold" 2 {timh4 ssh timl8 ssh r timh r4 ssh8 timl r4 cb8 cb}
 
-\score { \repeat "volta" 2
- <<
-  \context TwoLineStaff=timbst \notes <<
-    \property Staff.instrument="timbales"
-    \clef "percussion"
-    \apply #(drums->paper 'timbales) \timb
-  >>
-  \context Staff=drumst \notes <<
-    \property Staff.instrument="drums"
-    \clef "percussion"
-    \apply #(drums->paper 'drums) <<
-      \context Voice=voa {\stemUp \drh }
-      \context Voice=vob {\stemDown \drl }
+\score {
+    \repeat "volta" 2
+    <<
+	\new DrumStaff \with {
+	    drumStyleTable = #timbales-style
+	    StaffSymbol \override #'line-count = #2
+	    BarLine \override #'bar-size = #2
+	} <<
+	    \property Staff.instrument="timbales"
+	    \timb
+	>>
+	\new DrumStaff <<
+	    \property Staff.instrument="drums"
+	    \new DrumVoice {\stemUp \drh }
+	    \new DrumVoice {\stemDown \drl }
+	>>
     >>
-  >>
- >>
- \paper {
-   \translator {
-      \StaffContext
-      \consists Instrument_name_engraver
-      Script \override #'padding = #0.5
-   }
-   \translator {
-      \StaffContext
-      \name TwoLineStaff
-      \alias Staff
-      \consists Instrument_name_engraver
-      StaffSymbol \override #'line-count = #2
-      BarLine \override #'bar-size = #2
-   }
-   \translator {
-      \ScoreContext
-      \accepts TwoLineStaff
-   }
- }
-}
+    \paper {}
 
-\score { \repeat "unfold" 2
-  \context Staff \notes <<
-    \property Staff.instrument="drums"
-    \timb
-    \drh
-    \drl
-  >>
-  \midi{ \tempo 4=120 }
+    %% broken:
+    \midi{ \tempo 4=120 }
 }
 
 

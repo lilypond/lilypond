@@ -48,8 +48,8 @@ Lyric_extender::brew_molecule (SCM smob)
     return SCM_EOL;
 
   /*
-    It seems that short extenders are even lengthened to go past the note head,  but
-    haven't found a pattern in it yet. --hwn  1/1/04
+    It seems that short extenders are even lengthened to go past the
+    note head, but haven't found a pattern in it yet. --hwn 1/1/04
     
    */
   SCM minlen =  me->get_grob_property ("minimum-length");
@@ -73,7 +73,7 @@ Lyric_extender::brew_molecule (SCM smob)
 
   Real w = right_point - left_point;
 
-  if (w < 0)
+  if (w < 1.5 * h)
     return SCM_EOL;
   
   Molecule  mol (Lookup::round_filled_box (Box (Interval (0,w), Interval (0,h)),

@@ -48,22 +48,7 @@ Phrasing_slur_engraver::Phrasing_slur_engraver ()
 bool
 Phrasing_slur_engraver::try_music (Music *ev)
 {
-  if (ev->is_mus_type ("abort-event"))
-    {
-      for (int i = 0; i < phrasing_slur_l_stack_.size (); i++)
-	{
-	  phrasing_slur_l_stack_[i]->suicide ();
-	}
-      phrasing_slur_l_stack_.clear ();
-      for (int i = 0; i < end_phrasing_slurs_.size (); i++)
-	{
-	  end_phrasing_slurs_[i]->suicide ();
-	}
-      end_phrasing_slurs_.clear ();
-      eventses_.clear ();
-      new_phrasing_slur_evs_.clear ();
-    }
-  else if (ev->is_mus_type ("phrasing-slur-event"))
+ if (ev->is_mus_type ("phrasing-slur-event"))
     {
       /*
 	Let's not start more than one phrasing slur per moment.

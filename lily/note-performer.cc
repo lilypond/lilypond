@@ -47,11 +47,15 @@ Note_performer::create_audio_elements ()
       while (note_evs_.size ())
 	{
 	  Music* n = note_evs_.pop ();
-	  Pitch pit =  * unsmob_pitch (n->get_mus_property ("pitch"));
-	  Audio_note* p = new Audio_note (pit,  n->get_length (), transposing_i);
-	  Audio_element_info info (p, n);
-	  announce_element (info);
-	  notes_.push (p);
+	  Pitch *pit =  unsmob_pitch (n->get_mus_property ("pitch"));
+
+	  if (pit)
+	    {
+	      Audio_note* p = new Audio_note (*pit,  n->get_length (), transposing_i);
+	      Audio_element_info info (p, n);
+	      announce_element (info);
+	      notes_.push (p);
+	    }
 	}
       note_evs_.clear ();
     }

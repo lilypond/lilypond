@@ -222,7 +222,7 @@ Coherent_ligature_engraver::typeset_ligature (Spanner *ligature,
 ENTER_DESCRIPTION (Coherent_ligature_engraver,
 /* descr */       "This is an abstract class.  Subclasses such as Gregorian_ligature_engraver handle ligatures by glueing special ligature heads together.",
 /* creats*/       "",
-/* accepts */     "ligature-event abort-event",
+/* accepts */     "ligature-event",
 /* acks  */      "note-head-interface rest-interface",
 /* reads */       "",
 /* write */       "");

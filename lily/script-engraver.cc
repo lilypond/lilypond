@@ -12,6 +12,7 @@
 #include "engraver.hh"
 #include "note-column.hh"
 #include "translator-group.hh"
+#include "warn.hh"
 
 struct Script_tuple
 {
@@ -82,29 +83,25 @@ copy_property (Grob * g , SCM sym, SCM alist)
   ScriptStaccato , ScriptMarcato, etc. )
  */
 void make_script_from_event (Grob *p,
-			     SCM * descr, Translator_group*tg, Music * event,
+			     SCM * descr, Translator_group*tg,
+			     SCM art_type, 
 			     int index)
 {
   SCM alist = tg->get_property ("scriptDefinitions");
-  SCM art_type= event->get_mus_property ("articulation-type");
   SCM art = scm_assoc (art_type, alist);
 
   if (art == SCM_BOOL_F)
     {
-      event->origin ()->warning (_("Don't know how to interpret articulation:"));
-      event->origin ()->warning (_("Scheme encoding: "));
+      warning (_("Don't know how to interpret articulation:"));
+      warning (_("Scheme encoding: "));
       scm_write (art_type, scm_current_error_port ());
       return  ;
     }
 
   art = gh_cdr (art);
-    
   
   *descr = art;  
 
-  SCM force_dir = event->get_mus_property ("direction");
-  if (is_direction (force_dir) && to_dir (force_dir))
-    p->set_grob_property ("direction", force_dir);
 
   copy_property (p, ly_symbol2scm ("script-molecule"), art);
   copy_property (p, ly_symbol2scm ("direction"), art);
@@ -136,9 +133,17 @@ Script_engraver::process_music ()
 
       Grob * p = make_item ("Script");
 
-      make_script_from_event (p, &scripts_[i].description_, daddy_trans_, l, i);
+      make_script_from_event (p, &scripts_[i].description_, daddy_trans_,
+			      l->get_mus_property ("articulation-type"),
+			      i);
 
       scripts_[i].script_ = p;
+
+      
+      SCM force_dir = l->get_mus_property ("direction");
+      if (is_direction (force_dir) && to_dir (force_dir))
+	p->set_grob_property ("direction", force_dir);
+      
       if (p)
 	announce_grob (p, l->self_scm());
     }

@@ -241,6 +241,9 @@ Accidental_engraver::process_acknowledged_grobs ()
 	  Translator_group * origin = accidentals_[i].origin_;
 
 	  Pitch * pitch = unsmob_pitch (note->get_mus_property ("pitch"));
+	  if (!pitch)
+	    continue;
+	  
 	  int num = number_accidentals (note, pitch, origin, accidentals, barnum);
 	  int num_caut = number_accidentals (note, pitch, origin, cautionaries, barnum);
 	  bool cautionary = to_boolean (note->get_mus_property ("cautionary"));

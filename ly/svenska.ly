@@ -3,7 +3,7 @@
 %
 % by Mats Bengtsson.
 
-\pitchnames #`(
+pitchnamesSvenska = #`(
 	(cessess . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
 	(cess . ,(ly:make-pitch -1 0 FLAT))
 	(c . ,(ly:make-pitch -1 0 NATURAL))
@@ -40,4 +40,6 @@
 	(hiss . ,(ly:make-pitch -1 6 SHARP))
 	(hississ . ,(ly:make-pitch -1 6 DOUBLE-SHARP))
 )
-\version "1.9.8"
+
+pitchnames =  \pitchnamesSvenska
+\version "2.1.19"

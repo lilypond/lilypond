@@ -2780,68 +2780,57 @@ of percussion.
 
 @syntax
 
-Percussion staves are typeset with help of a set of Scheme
-functions. The system is based on the general MIDI drum-pitches.
-Include @file{drumpitch-init.ly} to use drum pitches. This file
-defines the pitches from the Scheme variable @code{drum-pitch-names},
-the definition of which can be read in @file{scm/drums.scm}.  Each
-piece of percussion has a full name and an abbreviated name, and either
-the full name or the abbreviation may be used in input files.
+Percussion notes may be entered in @code{\drums} mode, which is
+similar to @code{notes}.  Each piece of percussion has a full name and
+an abbreviated name, and both be used in input files:
 
-To typeset the music on a staff apply the function @code{drums->paper}
-to the percussion music. This function takes a list of percussion
-instrument names, notehead scripts and staff positions (i.e.
-pitches relative to the C-clef) and transforms the input
-music by moving the pitch, changing the notehead and (optionally)
-adding a script:
+@lilypond[singleline]
+ \drums { hihat4 hh4 }
+@end lilypond
+
+To typeset the music, the notes must be interpreted in a
+@internalsref{DrumStaff} and @internalsref{DrumVoice} contexts:
+
 @c
 @lilypond[singleline,verbatim,quote]
-\include "drumpitch-init.ly"
-up = \notes { crashcymbal4 hihat8 halfopenhihat hh hh hh openhihat }
-down = \notes { bassdrum4 snare8 bd r bd sn4 }
+up = \drums { crashcymbal4 hihat8 halfopenhihat hh hh hh openhihat }
+down = \drums { bassdrum4 snare8 bd r bd sn4 }
 \score {
-    \apply #(drums->paper 'drums) \context Staff <<
-        \clef percussion
-        \new Voice { \voiceOne \up }
-        \new Voice { \voiceTwo \down }
-    >>
-}
-
+    \new DrumStaff
+        << \new DrumVoice { \voiceOne \up } 
+           \new DrumVoice { \voiceTwo \down } 
+>> }
 @end lilypond
-In the above example the music was transformed using the list @code{'drums}.
-The following lists are defined in @file{scm/drums.scm}:
+
+There are also other layout possibilities. To use these, set the
+property @code{drumStyleTable} in context @internalsref{DrumVoice}.
+The following variables have been predefined:
+
 @table @code
-@item 'drums
-to typeset a typical drum kit on a five-line staff:
+@item drums-style
+is the default. It typesets a typical drum kit on a five-line staff
 
 @lilypond[noindent]
-\include "drumpitch-init.ly"
 nam = \lyrics { cymc cyms cymr hh hhc hho hhho hhp cb hc
     bd sn ss tomh tommh tomml toml tomfh tomfl }
-mus = \notes  { cymc cyms cymr hh hhc hho hhho hhp cb hc
+mus = \drums  { cymc cyms cymr hh | hhc hho hhho hhp | \break cb hc
     bd sn ss tomh tommh tomml toml tomfh tomfl s16 }
 \score {
-    <<
-        \apply #(drums->paper 'drums) \context Staff <<
-            \clef percussion
-            \mus
-        >>
+    << \new DrumStaff\with {
+            \remove Bar_engraver
+            \remove Time_signature_engraver
+            Stem \set #'transparent =  ##t
+            Stem \set #'Y-extent-callback =  ##f
+            minimumVerticalExtent = #'(-4.0 . 5.0)
+    } \mus
         \context Lyrics \nam 
     >>
     \paper {
-        linewidth = 100.0\mm
-        \translator {
-            \StaffContext
-            \remove Bar_engraver
-            \remove Time_signature_engraver
-            minimumVerticalExtent = #'(-4.0 . 5.0)
-        }
-        \translator {
-            \VoiceContext
-            \remove Stem_engraver
-        }
-   }   
-}
+    %% need to do this, because of indented @itemize
+    linewidth= 9 \cm 
+    \translator { \ScoreContext
+    BarNumber \set #'transparent =##T
+}}}
 @end lilypond
 
 The drum scheme supports six different toms.  When there fewer toms, simply
@@ -2849,129 +2838,92 @@ select the toms that produce the desired result, i.e. to get toms on
 the three middle lines you use @code{tommh}, @code{tomml} and
 @code{tomfh}.
 
-Because general MIDI does not contain rimshots the sidestick is used
-for this purpose instead.
-@item 'timbales
+@item timbales-style
 to typeset timbales on a two line staff:
 
 @lilypond[singleline]
-\include "drumpitch-init.ly"
 nam = \lyrics { timh ssh timl ssl cb }
-mus = \notes  { timh ssh timl ssl cb s16 }
+mus = \drums  { timh ssh timl ssl cb s16 }
 \score {
     <<
-        \apply #(drums->paper 'timbales) \context Staff <<
-            \clef percussion
-            \mus
-        >>
-        \context Lyrics \nam 
-    >>
-    \paper {
-        \translator {
-            \StaffContext
+        \context DrumStaff \with {
             \remove Bar_engraver
             \remove Time_signature_engraver
+            Stem \set #'transparent =  ##t
+            Stem \set #'Y-extent-callback =  ##f
             StaffSymbol \override #'line-count = #2
             StaffSymbol \override #'staff-space = #2
             minimumVerticalExtent = #'(-3.0 . 4.0)
-        }
-        \translator {
-            \VoiceContext
-            \remove Stem_engraver
-        }
-
-    }   
+            drumStyleTable = #timbales-style
+        } \mus
+        \context Lyrics \nam 
+    >>
 }
 @end lilypond
-@item 'congas
+@item congas-style
 to typeset congas on a two line staff:
 
 @lilypond[singleline]
-\include "drumpitch-init.ly"
 nam = \lyrics { cgh cgho cghm ssh cgl cglo cglm ssl }
-mus = \notes  { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
+mus = \drums  { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
 \score {
     <<
-        \apply #(drums->paper 'congas) \context Staff <<
-            \clef percussion
-            \mus
-        >>
-        \context Lyrics \nam 
-    >>
-    \paper {
-        \translator {
-            \StaffContext
+        \context DrumStaff\with {
             \remove Bar_engraver
             \remove Time_signature_engraver
+            drumStyleTable = #congas-style
             StaffSymbol \override #'line-count = #2
+            
+            %% this sucks; it will lengthen stems.
             StaffSymbol \override #'staff-space = #2
-            minimumVerticalExtent = #'(-3.0 . 4.0)
-        }
-        \translator {
-            \VoiceContext
-            \remove Stem_engraver
-        }
-    }   
+            Stem \set #'transparent =  ##t
+            Stem \set #'Y-extent-callback =  ##f
+        } \mus
+        \context Lyrics \nam 
+    >>
 }
 @end lilypond
-@item 'bongos
+@item bongos-style
 to typeset bongos on a two line staff:
 
 @lilypond[singleline]
-\include "drumpitch-init.ly"
 nam = \lyrics { boh boho bohm ssh bol bolo bolm ssl }
-mus = \notes  { boh boho bohm ssh bol bolo bolm ssl s16 }
+mus = \drums  { boh boho bohm ssh bol bolo bolm ssl s16 }
 \score {
     <<
-        \apply #(drums->paper 'bongos) \context Staff <<
-            \clef percussion
-            \mus
-        >>
-        \context Lyrics \nam 
-    >>
-    \paper {
-        \translator {
-            \StaffContext
+        \context DrumStaff\with {
             \remove Bar_engraver
             \remove Time_signature_engraver
             StaffSymbol \override #'line-count = #2
+            drumStyleTable = #bongos-style
+           
+            %% this sucks; it will lengthen stems.
             StaffSymbol \override #'staff-space = #2
-            minimumVerticalExtent = #'(-3.0 . 4.0)
-        }
-        \translator {
-            \VoiceContext
-            \remove Stem_engraver
-        }
-    }   
-}
-@end lilypond
-@item 'percussion
-to typeset all kinds of simple percussion on one line staves:
-@lilypond[singleline]
-\include "drumpitch-init.ly"
-nam = \lyrics { tri trio trim gui guis guil cb cl tamb cab mar hc }
-mus = \notes  { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
-\score {
-    <<
-        \apply #(drums->paper 'percussion) \context Staff <<
-            \clef percussion
-            \mus
-        >>
+            Stem \set #'transparent =  ##t
+            Stem \set #'Y-extent-callback =  ##f
+        } \mus
         \context Lyrics \nam 
     >>
-    \paper {
-        \translator {
-            \StaffContext
+}
+@end lilypond
+
+@item percussion-style
+to typeset all kinds of simple percussion on one line staves:
+@lilypond[singleline]
+nam = \lyrics { tri trio trim gui guis guil cb cl tamb cab mar hc }
+mus = \drums  { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
+\score {
+    <<
+        \context DrumStaff\with{
             \remove Bar_engraver
-            \remove Time_signature_engraver
+            drumStyleTable = #percussion-style
             StaffSymbol \override #'line-count = #1
-            minimumVerticalExtent = #'(-2.0 . 3.0)
-        }
-        \translator {
-            \VoiceContext
-            \remove Stem_engraver
-        }
-    }   
+            \remove Time_signature_engraver
+            Stem \set #'transparent =  ##t
+            Stem \set #'Y-extent-callback =  ##f
+        } \mus
+        \context LyricsVoice \nam 
+    >>
 }
 @end lilypond
 @end table
@@ -2980,60 +2932,41 @@ If you do not like any of the predefined lists you can define your own
 list at the top of your file:
 
 @lilypond[singleline, verbatim]
-#(set-drum-kit 'mydrums `(
-        (bassdrum     default   #f        ,(ly:make-pitch -1 2 0))
-        (snare        default   #f        ,(ly:make-pitch 0 1 0))
-        (hihat        cross     #f        ,(ly:make-pitch 0 5 0))
-        (pedalhihat   xcircle   "stopped" ,(ly:make-pitch 0 5 0))
-        (lowtom	      diamond   #f        ,(ly:make-pitch -1 6 0))
+#(define mydrums '(
+        (bassdrum     default   #f        -1)
+        (snare        default   #f        0)
+        (hihat        cross     #f        1)
+        (pedalhihat   xcircle   "stopped" 2)
+        (lowtom	      diamond   #f       3)
 ))
-\include "drumpitch-init.ly"
-up = \notes { hh8 hh hh hh hhp4 hhp }
-down = \notes { bd4 sn bd toml8 toml }
-\score {    
-    \apply #(drums->paper 'mydrums) \context Staff <<
-        \clef percussion
-        \new Voice { \voiceOne \up }
-        \new Voice { \voiceTwo \down }
-    >>
-}
-@end lilypond
-
-To use a modified existing list, one can prepend modifications to the
-the existing list:
-
-@example
-#(set-drum-kit 'mydrums (append `(
-   (bassdrum default #f ,(ly:make-pitch -1 2 0))
-   (lowtom   diamond #f ,(ly:make-pitch -1 6 0))
-) (get-drum-kit 'drums)))
-@end example
-
-You can easily combine percussion notation with pitched notation.
-Indeed, the file @file{drumpitch-init.ly} replaces the normal pitch
-names, so you will have to reinclude @file{nederlands.ly} after the
-drum-pattern-definitions to enter normal notes:
-@c
-@lilypond[singleline,verbatim]
-\include "drumpitch-init.ly"
-up = \notes { crashcymbal4 hihat8 halfopenhihat hh hh hh openhihat }
-down = \notes { bassdrum4 snare8 bd r bd sn4 }
-\include "nederlands.ly"
-bass = \notes \transpose c c,, { a4. e8 r e g e }
+up = \drums { hh8 hh hh hh hhp4 hhp }
+down = \drums { bd4 sn bd toml8 toml }
 \score {
-    <<
-        \apply #(drums->paper 'drums) \new Staff <<
-            \clef percussion
-            \new Voice { \voiceOne \up }
-            \new Voice { \voiceTwo \down }
-        >>
-        \new Staff { \clef "F_8" \bass }
+    \new DrumStaff <<
+        \property DrumStaff.drumStyleTable
+           = #(alist->hash-table mydrums)
+        \new DrumVoice { \voiceOne \up }
+        \new DrumVoice { \voiceTwo \down }
     >>
 }
 @end lilypond
+
+
+@seealso
+
+Init files: @file{ly/drumpitch-init.ly}
+
+@refbugs
+
+Short polyphonic notation, @code{<< @dots{} \\ @dots{} >>}, does not
+work for @internalsref{DrumVoices}.
+
+
 
 @node Percussion MIDI output
 @subsection Percussion MIDI output
+
+@ignore
 
 In order to produce correct MIDI output you need to produce two score
 blocks---one for the paper and one for the MIDI output.  To use the
@@ -3060,12 +2993,15 @@ none of the scheme functions to get the correct MIDI output:
 @}
 @end example
 
+Because general MIDI does not contain rimshots the sidestick is used
+for this purpose instead.
+
+
+@end ignore
+
 @refbugs
 
-
-Chords entered with @code{< @dots{} >} do not work.  This scheme is a
-temporary implementation.
-
+MIDI output for drums is temporarily broken.
 
 @node Piano music
 @section Piano music

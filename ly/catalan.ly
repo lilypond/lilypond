@@ -17,7 +17,7 @@
 
 
 % For using "sostingut" notation, which is also correct
-\pitchnames #`(
+pitchnamesCatalan = #`(
 	(dobb . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
 	(dob . ,(ly:make-pitch -1 0 FLAT))
 	(do . ,(ly:make-pitch -1 0 NATURAL))
@@ -71,6 +71,6 @@
 	(siss . ,(ly:make-pitch -1 6 DOUBLE-SHARP))
 )
 
+pitchnames = \pitchnamesCatalan
 
-
-\version "1.9.8"
+\version "2.1.19"

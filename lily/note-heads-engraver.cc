@@ -1,5 +1,5 @@
 /*
-  head-grav.cc -- part of GNU LilyPond
+  note-heads-engraver.cc -- part of GNU LilyPond
 
   (c)  1997--2003 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
@@ -15,14 +15,9 @@
 #include "engraver.hh"
 #include "warn.hh"
 
-/**
-  make balls and rests
- */
-
 class Note_heads_engraver : public Engraver
 {
   Link_array<Item> notes_;
-  
   Link_array<Item> dots_;
   Link_array<Music> note_reqs_;
 
@@ -86,7 +81,7 @@ Note_heads_engraver::process_music ()
 
       Pitch *pit =unsmob_pitch (req->get_mus_property ("pitch"));
 
-      int pos = pit->steps ();
+      int pos = pit ? pit->steps () : 0;
       SCM c0 = get_property ("centralCPosition");
       if (gh_number_p (c0))
 	pos += gh_scm2int (c0);
@@ -119,7 +114,7 @@ Note_heads_engraver::stop_translation_timestep ()
 ENTER_DESCRIPTION(Note_heads_engraver,
 /* descr */       "Generate noteheads.",
 /* creats*/       "NoteHead Dots",
-/* accepts */     "note-event busy-playing-event ligature-event abort-event",
+/* accepts */     "note-event busy-playing-event",
 /* acks  */      "",
 /* reads */       "centralCPosition",
 /* write */       "");

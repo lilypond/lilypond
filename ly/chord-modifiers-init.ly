@@ -1,6 +1,6 @@
-\version "1.9.8"
+\version "2.1.19"
 
-\chordmodifiers #default-chord-modifier-list
+chordmodifiers = #default-chord-modifier-list
 
 whiteTriangleMarkup = #(make-override-markup
 			'(font-family . math) (make-simple-markup "M"))

@@ -31,11 +31,6 @@
   music-descriptions)
 
 
-(define (hash-table->alist t)
-  "Convert table t to list"
-  (apply append
-	 (vector->list t)
-  ))
 
 (define (strip-description x)
     (cons (symbol->string (car x))

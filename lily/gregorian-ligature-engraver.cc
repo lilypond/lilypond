@@ -277,7 +277,7 @@ Gregorian_ligature_engraver::stop_translation_timestep ()
 ENTER_DESCRIPTION (Gregorian_ligature_engraver,
 /* descr */       "This is an abstract class.  Subclasses such as Vaticana_ligature_engraver handle ligatures by glueing special ligature heads together.",
 /* creats*/       "",
-/* accepts */     "ligature-event abort-event",
+/* accepts */     "ligature-event",
 /* acks  */      "note-head-interface rest-interface",
 /* reads */       "",
 /* write */       "");

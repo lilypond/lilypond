@@ -163,6 +163,25 @@
       ))
  
 
+(define-public (hash-table->alist t)
+  "Convert table t to list"
+  (apply append
+	 (vector->list t)
+  ))
+
+;; todo: code dup with C++. 
+(define-public (alist->hash-table l)
+  "Convert alist to table"
+  (let
+      ((m (make-hash-table (length l))))
+
+    (map (lambda (k-v)
+	   (hashq-set! m (car k-v) (cdr k-v)))
+	 l)
+
+    m))
+       
+
 
 ;;;;;;;;;;;;;;;;
 ; list
@@ -383,7 +402,6 @@ L1 is copied, L2 not.
        "define-translator-properties.scm"
        "translation-functions.scm"
        "script.scm"
-       "drums.scm"
        "midi.scm"
 
        "beam.scm"

@@ -67,15 +67,7 @@ Cluster_spanner_engraver::typeset_grobs ()
 bool
 Cluster_spanner_engraver::try_music (Music *m)
 {
-  if (m->is_mus_type ("abort-event"))
-    {
-      if (spanner_)
-	{
-	  spanner_->suicide ();
-	  spanner_ = 0;
-	}
-    }
-  else if (m->is_mus_type ("cluster-note-event"))
+  if (m->is_mus_type ("cluster-note-event"))
     {
       cluster_notes_.push (m);
       return true;
@@ -147,7 +139,7 @@ Cluster_spanner_engraver::acknowledge_grob (Grob_info info)
 ENTER_DESCRIPTION(Cluster_spanner_engraver,
 /* descr */	"Engraves a cluster using Spanner notation ",
 /* creats*/	"ClusterSpanner ClusterSpannerBeacon",
-/* accepts */	"cluster-note-event abort-event",
+/* accepts */	"cluster-note-event",
 /* acks  */	"note-column-interface",
 /* reads */	"",
 /* write */	"");

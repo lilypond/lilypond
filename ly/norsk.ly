@@ -27,7 +27,7 @@
 
 %}
 
-\pitchnames #`(
+pitchnamesNorsk = #`(
 	(ceses . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
 	(cessess . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
 	(ces . ,(ly:make-pitch -1 0 FLAT))
@@ -103,5 +103,6 @@
 )
 
 
+pitchnames =\pitchnamesNorsk
 
-\version "1.9.8"
+\version "2.1.19"

@@ -6,7 +6,7 @@
 % 2001/08/28 Heikki Junes <<heikki.junes@hut.fi>>
 %            added bb and marked heses as `unusual'
 
-\pitchnames #`(
+pitchnamesSuomi = #`(
 	(ceses . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
 	(ces . ,(ly:make-pitch -1 0 FLAT))
 	(c . ,(ly:make-pitch -1 0 NATURAL))
@@ -45,4 +45,7 @@
 	(his . ,(ly:make-pitch -1 6 SHARP))
 	(hisis . ,(ly:make-pitch -1 6 DOUBLE-SHARP))
 )
-\version "1.9.8"
+
+pitchnames = \pitchnamesSuomi
+
+\version "2.1.19"
