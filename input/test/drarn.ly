@@ -1,4 +1,7 @@
 \version "1.7.18"
+\header{texidoc="@cindex Drarn
+You can attach slurs and ties to noteheads.
+" }
 
 \score {
   \context Staff \notes <

@@ -1,4 +1,5 @@
 \version "1.7.18"
+% definately wil be renamed to something.
 %{
 (Message vers:9)
 To: Adrian Mariano <<adrian@camcornelledu>>.
@@ -22,6 +23,10 @@ Try this (we'll include it in pl23/24):
 
 extra-staff.ly:
 %}
+
+\header{ texidoc="@cindex Staff Extra
+@cindex Staff Ossia
+You can add an extra staff after the beginning of a piece. "}
 
 \score {
 	<

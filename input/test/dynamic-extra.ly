@@ -1,7 +1,8 @@
 \version "1.7.18"
+% probably should be merged into refman.
 \header{
-    texidoc = "Additional tricks for dynamics.  Pi`u forte dynamic script"
-}
+    texidoc = "@cindex Dynamic Piu Forte
+Additional tricks for dynamics.  Pi`u forte dynamic script. " }
 
 piuf =	\markup {  \italic "pi\\`u" \dynamic "f" }
 

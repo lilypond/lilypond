@@ -1,11 +1,15 @@
 \version "1.7.18"
-
+% possibly rename to time-signature-multiple ?
 
 % barline spacing  disrupts visual rhythm.
 
 %%FIXME
 
 %% #(define nbal (acons '("Staff_bar" "begin-of-note") '(minimum_space 0.0) default-break-align-space-alist))  %% FIXME
+
+\header{ texidoc="@cindex Time Signature Multiple
+You can have multiple time signatures occuring at the same time.
+" }
 
 \score{
     \notes \relative c'  <

@@ -1,11 +1,11 @@
 \version "1.7.18"
-
-
+% renamed from defaultbars.ly to bars-always.ly
 \header {
 
-    texidoc = "By setting barAlways and defaultBarType, you can
-    automatically insert barlines everywhere." 
-}
+    texidoc = "@cindex Bars Always
+By setting barAlways and defaultBarType, you can
+automatically insert barlines everywhere.
+" }
 
 
 \score {

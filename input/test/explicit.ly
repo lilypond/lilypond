@@ -1,7 +1,7 @@
 \version "1.7.18"
 
-\header{
-texidoc="Explicit pitches and durations."
+\header{ texidoc="@cindex Explicit Pitch and Duration
+Explicit pitches and durations. "
 }
 \score {
   \notes {

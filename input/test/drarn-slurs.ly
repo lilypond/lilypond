@@ -1,7 +1,8 @@
 \version "1.7.18"
-
+% possible rename to slurs-?
+% TODO: find out what drarn means, and if there's an overlap with drarn.ly
 \header{
-texidoc="
+texidoc="@cindex Drarn Slurs
 Slurs can be forced to always attach to note heads.
 "
 }

@@ -1,11 +1,11 @@
+% possible rename to ancient- or gregorian- ?
 \header {
-
-    texidoc = "Divisiones are gregorian variants of breathing signs.
+    texidoc = "@cindex Divisiones
+Divisiones are gregorian variants of breathing signs.
 Choices are @code{divisioMinima}, @code{divisioMaior}
 @code{divisioMaxima} and @code{finalis}, @code{virgula} and
-@code{caesura}."
-
-}
+@code{caesura}.
+" }
 
 \version "1.7.18"
 

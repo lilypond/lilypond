@@ -1,6 +1,7 @@
 \version "1.7.18"
 \header {
-  texidoc = "By inserting the @TeX{} command \embeddedps, you can
+  texidoc = "@cindex Embedded Postscript
+By inserting the @TeX{} command \embeddedps, you can
 insert postscript directly into the output.
 
 TODO: make molecule-callback to do this. 

@@ -1,5 +1,6 @@
 \version "1.7.18"
-
+\header{ texidoc="@cindex Embedded Tex
+You can embed Tex commands in your score. "}
 
 fragment = \notes {
   a''^"3 $\\times$ \\`a deux"
