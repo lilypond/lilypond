@@ -13,95 +13,100 @@
 
 LilyPond uses the Scheme programming language, both as part of the
 input syntax, and as internal mechanism to glue together modules of
-the program. This section is a very brief overview of entering data in
+the program.  This section is a very brief overview of entering data in
 Scheme.@footnote{If you want to know more about Scheme, see
 @uref{http://@/www@/.schemers@/.org}.}
 
 The most basic thing of a language is data: numbers, character
-strings, lists, etc. Here is a list of data types that are relevant to
+strings, lists, etc.  Here is a list of data types that are relevant to
 LilyPond input.
 
 @table @asis
 @item Booleans
-  Boolean values are True or False. The Scheme for True is @code{#t}
-  and False is @code{#f}.
+Boolean values are True or False.  The Scheme for True is @code{#t}
+and False is @code{#f}.
 @cindex @code{##t}
 @cindex @code{##f}
+
 @item Numbers
-  Numbers are entered in the standard fashion,
-  @code{1} is the (integer) number one, while @code{-1.5} is a
-  floating point number (a non-integer number). 
+Numbers are entered in the standard fashion,
+@code{1} is the (integer) number one, while @code{-1.5} is a
+floating point number (a non-integer number). 
+
 @item Strings
-  Strings are enclosed in double quotes,
-  @example
-    "this is a string"
-  @end example
+Strings are enclosed in double quotes,
 
-  Strings may span several lines
-  @example
-    "this
-    is
-    a string"
-  @end example
+@example
+"this is a string"
+@end example
 
-  Quotation marks and newlines can also be added with so-called escape
-  sequences. The string @code{a said "b"} is entered as
-  @example
-    "a said \"b\""
-  @end example
+Strings may span several lines
 
-  Newlines and backslashes are escaped with @code{\n} and @code{\\}
+@example
+"this
+is
+a string"
+@end example
+
+Quotation marks and newlines can also be added with so-called escape
+sequences.  The string @code{a said "b"} is entered as
+
+@example
+"a said \"b\""
+@end example
+
+Newlines and backslashes are escaped with @code{\n} and @code{\\}
 respectively.
 @end table
 
 
 In a music file, snippets of Scheme code are introduced with the hash
-mark @code{#}. So, the previous examples translated in LilyPond are
+mark @code{#}.  So, the previous examples translated in LilyPond are
 
 @example
-  ##t ##f 
-  #1 #-1.5
-  #"this is a string"
-  #"this
-  is
-  a string"
+##t ##f 
+#1 #-1.5
+#"this is a string"
+#"this
+is
+a string"
 @end example
 
 For the rest of this section, we will assume that the data is entered
 in a music file, so we add @code{#}s everywhere.
 
-Scheme can be used to do calculations. It uses @emph{prefix}
-syntax. Adding 1 and 2 is written as @code{(+ 1 2)} rather than the
-traditional 1+2.
+Scheme can be used to do calculations.  It uses @emph{prefix}
+syntax.  Adding 1 and@tie{}2 is written as @code{(+ 1 2)} rather than the
+traditional @math{1+2}.
 
 @lisp
-  #(+ 1 2)
-   @result{} #3 
+#(+ 1 2)
+  @result{} #3 
 @end lisp
 
 The arrow @result{} shows that the result of evaluating @code{(+ 1 2)}
-is @code{3}.  Calculations may be nested; the result of a function may
+is@tie{}@code{3}.  Calculations may be nested; the result of a function may
 be used for another calculation.
 
 @lisp
-  #(+ 1 (* 3 4))
-   @result{} #(+ 1 12) 
-   @result{} #13
+#(+ 1 (* 3 4))
+  @result{} #(+ 1 12) 
+  @result{} #13
 @end lisp
 
 These calculations are examples of evaluations; an expression like
-@code{(* 3 4)} is replaced by its value @code{12}. A similar thing
-happens with variables. After defining a variable  
+@code{(* 3 4)} is replaced by its value @code{12}.  A similar thing
+happens with variables.  After defining a variable  
 
 @example
-  twelve = #12 
+twelve = #12 
 @end example
 
 @noindent
 variables can also be used in expressions, here
 
 @example
-  twentyFour = #(* 2 twelve) 
+twentyFour = #(* 2 twelve) 
 @end example 
 
 @noindent
@@ -109,21 +114,21 @@ the number 24 is stored in the variable @code{twentyFour}.
 The same assignment can be done in completely in Scheme as well,
 
 @example
-  #(define twentyFour (* twelve))
+#(define twentyFour (* twelve))
 @end example
 
 The @emph{name} of a variable is also an expression, similar to a
-number or a string. It is entered as
+number or a string.  It is entered as
 
 @example
-  #'twentyFour
+#'twentyFour
 @end example
 
 @cindex @code{#'symbol}
 @cindex quoting in Scheme
 
 The quote mark @code{'} prevents Scheme interpreter from substituting
-@code{24} for the @code{twentyFour}. Instead, we get the name
+@code{24} for the @code{twentyFour}.  Instead, we get the name
 @code{twentyFour}.
 
 This syntax will be used very frequently, since many of the layout
@@ -131,55 +136,56 @@ tweaks involve assigning (Scheme) values to internal variables, for
 example
 
 @example
-  \override Stem #'thickness = #2.6
+\override Stem #'thickness = #2.6
 @end example
 
-This instruction adjusts the appearance of stems. The value @code{2.6}
+This instruction adjusts the appearance of stems.  The value @code{2.6}
 is put into a the @code{thickness} variable of a @code{Stem}
-object. This makes stems almost twice as thick as their normal size.
+object.  This makes stems almost twice as thick as their normal size.
 To distinguish between variables defined in input files (like
 @code{twentyFour} in the example above) and variables of internal
 objects, we will call the latter ``properties'' and the former
-``identifiers.'' So, the stem object has a @code{thickness} property,
+``identifiers.''  So, the stem object has a @code{thickness} property,
 while @code{twentyFour} is an identifier.
 
 @cindex properties vs. identifiers
 @cindex identifiers vs. properties 
 
 Two-dimensional offsets (X and Y coordinates) as well as object sizes
-(intervals with a left and right point) are entered as @code{pairs}. A
+(intervals with a left and right point) are entered as @code{pairs}.  A
 pair@footnote{In Scheme terminology, the pair is called @code{cons},
-and its two elements are called @code{car} and @code{cdr} respectively.}  is entered
-as @code{(first . second)} and, like symbols, they must be quoted,
+and its two elements are called @code{car} and @code{cdr} respectively.}
+is entered as @code{(first . second)} and, like symbols, they must be quoted,
 
 @example
-  \override TextScript #'extra-offset = #'(1 . 2)  
+\override TextScript #'extra-offset = #'(1 . 2)  
 @end example 
 
 This assigns the pair (1, 2) to the @code{extra-offset} property of the
-TextScript object. This moves the object 1 staff space to the right,
+TextScript object.  This moves the object 1 staff space to the right,
 and 2 spaces up.
 
 The two elements of a pair may be arbitrary values, for example
 
 @example
-  #'(1 . 2)
-  #'(#t . #f)
-  #'("blah-blah" . 3.14159265)
+#'(1 . 2)
+#'(#t . #f)
+#'("blah-blah" . 3.14159265)
 @end example
 
 A list is entered by enclosing its elements in parentheses, and adding
-a quote. For example,
+a quote.  For example,
+
 @example
-  #'(1 2 3)
-  #'(1 2 "string" #f)
+#'(1 2 3)
+#'(1 2 "string" #f)
 @end example
 
 We have been using lists all along.  A calculation, like @code{(+ 1
 2)} is also a list (containing the symbol @code{+} and the numbers 1
-and 2). Normally lists are interpreted as calculations, and the Scheme
-interpreter substitutes the outcome of the calculation. To enter a
-list, we stop evaluation. This is done by quoting the list with a
+and@tie{}2).  Normally lists are interpreted as calculations, and the
+Scheme interpreter substitutes the outcome of the calculation.  To enter a
+list, we stop evaluation.  This is done by quoting the list with a
 quote @code{'} symbol.  So, for calculations do not use a quote.
 
 Inside a quoted list or pair, there is no need to quote anymore.  The
@@ -187,8 +193,7 @@ following is a pair of symbols, a list of symbols and a list of lists
 respectively,
 
 @example
-  #'(stem . head)
-  #'(staff clef key-signature)
-  #'((1) (2))
+#'(stem . head)
+#'(staff clef key-signature)
+#'((1) (2))
 @end example
-

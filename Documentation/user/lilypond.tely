@@ -31,7 +31,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 @ignore
 @omfcreator Han-Wen Nienhuys and Jan Nieuwenhuizen
-@omfdescription User manual  of the LilyPond music engraving system
+@omfdescription User manual of the LilyPond music engraving system
 @omftype user manual
 @omfcategory Applications|Publishing
 @omflanguage English
@@ -64,7 +64,7 @@ besides the reader and the writer.
 print.  Instead refer to an example input file (@inputfileref), these
 are clickable in HTML.
 
-* Abbrevs in caps, e.g. HTML, DVI, MIDI, etc.
+* Abbrevs in caps, e.g., HTML, DVI, MIDI, etc.
 
 * Colon usage
   0. Do not use a colon to introduce examples, sentences just continue
@@ -119,8 +119,8 @@ Copyright @copyright{} 1999--2004 by the authors
 @lilypond[raggedright]
 \score {
     \context Lyrics {
-        \override Score.RehearsalMark   #'self-alignment-X = #LEFT
-        \override Score.RehearsalMark   #'font-size = #-2 
+        \override Score.RehearsalMark #'self-alignment-X = #LEFT
+        \override Score.RehearsalMark #'font-size = #-2 
         \mark #(ly:export (string-append
              "(For LilyPond version " (lilypond-version) ")"))
         s2
@@ -178,7 +178,7 @@ of this and other documentation.
 * Sound::                          Producing MIDI output
 * Changing defaults::              Tuning output.
 * Interfaces for programmers::
-* Running LilyPond::              Operation.
+* Running LilyPond::               Operation.
 * Converting from other formats::  Converting to lilypond source format.
 * Integrating text and music::     Integrating text and music with lilypond-book.
 * Literature list::

@@ -53,7 +53,7 @@ rounded look.  Our flat symbol is designed after, among others, this
 one.  It is rounded, and its weight harmonizes with the thickness of
 our staff lines, which are also much thicker than Henle's lines.
 
-@multitable @columnfractions  .05 .3 .3 .3 .05
+@multitable @columnfractions .05 .3 .3 .3 .05
 @item @tab
 @ifnotinfo
 @iftex
@@ -268,27 +268,27 @@ appearance of objects.  In the following example, the rule which note
 head objects use to produce their symbol is changed during the music
 fragment.
 
-@c  FIXME: this example has errors:
+@c FIXME: this example has errors:
 @c    programming error: Grob `NoteHead' has no interface for property `text'
 @c    Continuing; crossing fingers
 @lilypond[quote,raggedright]
 #(define (mc-squared grob orig current)
   (let ((interfaces (ly:grob-property grob 'interfaces))
-	(pos (ly:grob-property grob 'staff-position)))
+        (pos (ly:grob-property grob 'staff-position)))
     (if (and (memq 'note-head-interface interfaces)
-	     (memq pos '(-2 -3 -5)))
-	(begin
-	  (ly:grob-set-property! grob 'print-function brew-new-markup-stencil)
-	  (ly:grob-set-property! grob 'font-family 'roman)
-	  (ly:grob-set-property!
-	   grob 'text
-	   (make-raise-markup
-	    -0.5
-	    (case pos
-	      ((-5) (make-simple-markup "m"))
-	      ((-3) (make-simple-markup "c "))
-	      ((-2) (make-smaller-markup (make-bold-markup "2")))
-	      (else (make-simple-markup "bla")))))))))
+             (memq pos '(-2 -3 -5)))
+        (begin
+          (ly:grob-set-property! grob 'print-function brew-new-markup-stencil)
+          (ly:grob-set-property! grob 'font-family 'roman)
+          (ly:grob-set-property!
+           grob 'text
+           (make-raise-markup
+            -0.5
+            (case pos
+              ((-5) (make-simple-markup "m"))
+              ((-3) (make-simple-markup "c "))
+              ((-2) (make-smaller-markup (make-bold-markup "2")))
+              (else (make-simple-markup "bla")))))))))
 
 \new Voice \relative c' {
    \stemUp
@@ -484,7 +484,7 @@ group called `Voice context,' while the engravers for key, accidental,
 bar, etc., go into a group called `Staff context.'  In the case of
 polyphony, a single Staff context contains more than one Voice context.
 Similarly, more Staff contexts can be put into a single Score
-context. The Score context is the top level notation context.
+context.  The Score context is the top level notation context.
 
 @seealso
 
@@ -556,7 +556,7 @@ This expression is put in sequence by enclosing it in curly braces
 @code{@{@tie{}@dots{}@tie{}@}}
 
 @example
-@{ f4 <<c4 d4 e4>>  @}
+@{ f4 <<c4 d4 e4>> @}
 @end example
 
 @lilypond[quote,relative=1,fragment]
@@ -575,7 +575,7 @@ again with another simultaneous expression (a half note) using <<,
 @lilypond[quote,fragment,relative=2]
 \new Voice { << g2 \\ { f4 <<c d e>> } >> }
 @end lilypond
-	
+
 Such recursive structures can be specified neatly and formally in a
 context-free grammar.  The parsing code is also generated from this
 grammar.  In other words, the syntax of LilyPond is clearly and
@@ -608,9 +608,9 @@ By adding chord names and lyrics we obtain a lead sheet.
 
 @lilypond[quote,raggedright]
 <<
-   \chords  { c2 c f2 c }
+   \chords { c2 c f2 c }
    \new Staff \relative c' { \time 2/4 c4 c g'4 g a4 a g2 }
-   \new Lyrics \lyricmode  { twin4 kle twin kle lit tle star2 }
+   \new Lyrics \lyricmode { twin4 kle twin kle lit tle star2 }
 >>
 @end lilypond
 

@@ -29,7 +29,7 @@ The input format supports the notion of variable: in the following
 example, a music expression is assigned to a variable with the name
 @code{traLaLa}.
 @example
-  traLaLa = @{ c'4 d'4 @}
+traLaLa = @{ c'4 d'4 @}
 @end example
 
 @noindent
@@ -38,8 +38,8 @@ There is also a form of scoping: in the following example, the
 @code{\layout} block also contains a @code{traLaLa} variable, which is
 independent of the outer @code{\traLaLa}.
 @example
-  traLaLa = @{ c'4 d'4 @}
-  \layout @{ traLaLa = 1.0 @}
+traLaLa = @{ c'4 d'4 @}
+\layout @{ traLaLa = 1.0 @}
 @end example
 @c
 In effect, each input file is a scope, and all @code{\header},
@@ -47,43 +47,43 @@ In effect, each input file is a scope, and all @code{\header},
 toplevel scope.
 
 Both variables and scoping are implemented in the GUILE module system.
-An anonymous Scheme module is attached to each scope. An assignment of
+An anonymous Scheme module is attached to each scope.  An assignment of
 the form
 @example
- traLaLa = @{ c'4 d'4 @}
+traLaLa = @{ c'4 d'4 @}
 @end example
 
 @noindent
 is internally converted to a Scheme definition
 @example
- (define traLaLa @var{Scheme value of ``@code{... }''})
+(define traLaLa @var{Scheme value of ``@code{... }''})
 @end example
 
 This means that input variables and Scheme variables may be freely
 mixed.  In the following example, a music fragment is stored in the
-variable @code{traLaLa}, and duplicated using Scheme. The result is
+variable @code{traLaLa}, and duplicated using Scheme.  The result is
 imported in a @code{\score} by means of a second variable
 @code{twice}:
 @example
-  traLaLa = @{ c'4 d'4 @}
+traLaLa = @{ c'4 d'4 @}
 
-  #(define newLa (map ly:music-deep-copy
-    (list traLaLa traLaLa)))
-  #(define twice
-    (make-sequential-music newLa))
+#(define newLa (map ly:music-deep-copy
+  (list traLaLa traLaLa)))
+#(define twice
+  (make-sequential-music newLa))
 
-  @{ \twice @}
+@{ \twice @}
 @end example
 
 In the above example, music expressions can be `exported' from the
-input to the Scheme interpreter. The opposite is also possible. By
+input to the Scheme interpreter.  The opposite is also possible.  By
 wrapping a Scheme value in the function @code{ly:export}, a Scheme
 value is interpreted as if it were entered in LilyPond syntax.  Instead
 of defining @code{\twice}, the example above could also have been
 written as
 @example
-  @dots{}
-  @{ #(ly:export (make-sequential-music newLa)) @}
+@dots{}
+@{ #(ly:export (make-sequential-music newLa)) @}
 @end example
 
 @refbugs
@@ -95,31 +95,31 @@ Mixing Scheme and LilyPond identifiers is not possible with the
 @subsection Internal music representation
 
 When a music expression is parsed, it is converted into a set of
-Scheme music objects. The defining property of a music object is that
-it takes up time. Time is a rational number that measures the length
+Scheme music objects.  The defining property of a music object is that
+it takes up time.  Time is a rational number that measures the length
 of a piece of music, in whole notes.
 
 A music object has three kinds of types:
 @itemize @bullet
 @item
-  music name: Each music expression has a name, for example, a note
+music name: Each music expression has a name, for example, a note
 leads to a @internalsref{NoteEvent}, and @code{\simultaneous} leads to
-a @internalsref{SimultaneousMusic}. A list of all expressions
+a @internalsref{SimultaneousMusic}.  A list of all expressions
 available is in the internals manual, under
 @internalsref{Music expressions}.
 
 @item
-  `type' or interface: Each music name has several `types' or
+`type' or interface: Each music name has several `types' or
 interfaces, for example, a note is an @code{event}, but it is also a
 @code{note-event}, a @code{rhythmic-event} and a @code{melodic-event}.
 
-  All classes of music are listed in the internals manual, under
-  @internalsref{Music classes}.
+All classes of music are listed in the internals manual, under
+@internalsref{Music classes}.
 
-  @item
-C++ object: Each music object is represented by a C++ object. For
+@item
+C++ object: Each music object is represented by a C++ object.  For
 technical reasons, different music objects may be represented by
-different C++ object types. For example, a note is @code{Event}
+different C++ object types.  For example, a note is @code{Event}
 object, while @code{\grace} creates a @code{Grace_music} object.
 
 We expect that distinctions between different C++ types will disappear
@@ -133,12 +133,12 @@ note.  A list of all properties available is in the internals manual,
 under @internalsref{Music properties}.
 
 A compound music expression is a music object that contains other
-music objects in its properties. A list of objects can be stored in
+music objects in its properties.  A list of objects can be stored in
 the @code{elements} property of a music object, or a single `child'
-music object in the @code{element} object. For example,
+music object in the @code{element} object.  For example,
 @internalsref{SequentialMusic} has its children in @code{elements},
 and @internalsref{GraceMusic} has its single argument in
-@code{element}. The body of a repeat is stored in the @code{element}
+@code{element}.  The body of a repeat is stored in the @code{element}
 property of @internalsref{RepeatedMusic}, and the alternatives in
 @code{elements}.
 
@@ -153,12 +153,12 @@ The syntax of composite music expressions, like
 follows the general form of
 
 @example
-  \@code{keyword} @var{non-music-arguments} @var{music-arguments}
+\@code{keyword} @var{non-music-arguments} @var{music-arguments}
 @end example
 
-Such syntax can also be defined as user code. To do this, it is
-necessary to create a @emph{music function}. This is a specially marked
-Scheme function. For example, the music function @code{\applymusic} applies
+Such syntax can also be defined as user code.  To do this, it is
+necessary to create a @emph{music function}.  This is a specially marked
+Scheme function.  For example, the music function @code{\applymusic} applies
 a user-defined function to a music expression.  Its syntax is
 
 @example
@@ -168,35 +168,35 @@ a user-defined function to a music expression.  Its syntax is
 A music function is created with @code{ly:make-music-function},
 
 @example
-  (ly:make-music-function
+(ly:make-music-function
 @end example
 
 @code{\applymusic} takes a Scheme function and a Music expression as
-argument. This is encoded in its first argument,
+argument.  This is encoded in its first argument,
 
 @example
-   (list procedure? ly:music?)
+(list procedure? ly:music?)
 @end example
 
 The function itself takes another argument, an Input location
-object. That object is used to provide error messages with file names
+object.  That object is used to provide error messages with file names
 and line numbers.  The definition is the second argument of
-@code{ly:make-music-function}. The body is function simply calls the
+@code{ly:make-music-function}.  The body is function simply calls the
 function
 
 @example
-  (lambda (where func music)
-   (func music))
+(lambda (where func music)
+ (func music))
 @end example
 
-The above Scheme code only defines the functionality. The tag
+The above Scheme code only defines the functionality.  The tag
 @code{\applymusic} is selected by defining
 
 @example
-  applymusic = #(ly:make-music-function
-                  (list procedure? ly:music?)
-                  (lambda (location func music)
-                    (func music)))
+applymusic = #(ly:make-music-function
+                (list procedure? ly:music?)
+                (lambda (location func music)
+                  (func music)))
 @end example
 
 A @code{def-music-function} macro is introduced on top of
@@ -204,9 +204,9 @@ A @code{def-music-function} macro is introduced on top of
 functions:
 
 @example
-  applymusic = #(def-music-function (location func music)
-                  (procedure? ly:music?)
-                  (func music))
+applymusic = #(def-music-function (location func music)
+                (procedure? ly:music?)
+                (func music))
 @end example
 
 Examples of the use of @code{\applymusic} are in the next section.
@@ -233,31 +233,32 @@ properties using the functions @code{ly:music-property} and
 
 An example is a function that reverses the order of elements in
 its argument,
-@lilypond[verbatim,raggedright]
-  #(define (rev-music-1 m)
-     (ly:music-set-property! m 'elements (reverse
-       (ly:music-property m 'elements)))
-     m)
-  \applymusic #rev-music-1 { c4 d4 } 
+@lilypond[quote,verbatim,raggedright]
+#(define (rev-music-1 m)
+  (ly:music-set-property! m 'elements 
+    (reverse (ly:music-property m 'elements)))
+  m)
+
+\applymusic #rev-music-1 { c'4 d'4 } 
 @end lilypond
 
-The use of such a function is very limited. The effect of this
+The use of such a function is very limited.  The effect of this
 function is void when applied to an argument which is does not have
 multiple children.  The following function application has no effect
 
 @example
-  \applymusic #rev-music-1 \grace @{ c4 d4 @}
+\applymusic #rev-music-1 \grace @{ c4 d4 @}
 @end example
 
 @noindent
-In this case, @code{\grace} is stored as @internalsref{GraceMusic}, which has no
-@code{elements}, only a single @code{element}. Every generally
+In this case, @code{\grace} is stored as @internalsref{GraceMusic}, which
+has no @code{elements}, only a single @code{element}.  Every generally
 applicable function for @code{\applymusic} must---like music expressions
 themselves -- be recursive.
 
 The following example is such a recursive function: It first extracts
 the @code{elements} of an expression, reverses them and puts them
-back. Then it recurses, both on @code{elements} and @code{element}
+back.  Then it recurses, both on @code{elements} and @code{element}
 children.
 @example
 #(define (reverse-music music)
@@ -279,17 +280,17 @@ A slightly more elaborate example is in
 @inputfileref{input/@/test,reverse@/-music@/.ly}.
 
 Some of the input syntax is also implemented as recursive music
-functions. For example, the syntax for polyphony
+functions.  For example, the syntax for polyphony
 @example
-  <<a \\ b>>
+<<a \\ b>>
 @end example
 
 @noindent
-is actually  implemented as a recursive function that replaces the
+is actually implemented as a recursive function that replaces the
 above by the internal equivalent of
 @example
-  << \context Voice = "1" @{ \voiceOne a @}
-    \context Voice = "2" @{ \voiceTwo b @} >>
+<< \context Voice = "1" @{ \voiceOne a @}
+   \context Voice = "2" @{ \voiceTwo b @} >>
 @end example
 
 Other applications of @code{\applymusic} are writing out repeats
@@ -301,8 +302,8 @@ exporting LilyPond input to other formats
 @cindex internal storage
 @cindex @code{\displayMusic}
 When writing a music function, it is often instructive to inspect how
-a music expression is stored internally. This can be done with the
-music function @code{\displayMusic}
+a music expression is stored internally.  This can be done with the
+music function @code{\displayMusic}.
 
 @seealso
 
@@ -316,105 +317,103 @@ music function @code{\displayMusic}
 @subsection Using LilyPond syntax inside Scheme
 
 Creating music expressions in Scheme can be tedious, as they are
-heavily nested and the resulting Scheme code is large. For some
+heavily nested and the resulting Scheme code is large.  For some
 simple tasks, this can be avoided, using LilyPond usual syntax inside
 Scheme, with the dedicated @code{#@{ ... #@}} syntax.
 
 The following two expressions give equivalent music expressions:
 @example
-  mynotes = @{ \override Stem #'thickness = #4
-              @{ c'8 d' @} @}
+mynotes = @{ \override Stem #'thickness = #4
+            @{ c'8 d' @} @}
   
-  #(define mynotes #@{ \override Stem #'thickness = #4
-                      @{ c'8 d' @} #@})
+#(define mynotes #@{ \override Stem #'thickness = #4
+                    @{ c'8 d' @} #@})
 @end example
 
 The content of @code{#@{ ... #@}} is enclosed in an implicit @code{@{
-... @}} block, which is parsed. The resulting music expression, a
+... @}} block, which is parsed.  The resulting music expression, a
 @code{SequentialMusic} music object, is then returned and usable in Scheme.
 
 Arbitrary Scheme forms, including variables, can be used in @code{#@{ ... #@}}
 expressions with the @code{$} character (@code{$$} can be used to
-produce a single $ character). This makes the creation of simple
-functions straightforward. In the following example, a function
+produce a single $ character).  This makes the creation of simple
+functions straightforward.  In the following example, a function
 setting the TextScript's padding is defined:
 
-@lilypond[verbatim,raggedright]
-  #(use-modules (ice-9 optargs))
-  #(define* (textpad padding #:optional once?)
-    (ly:export   ; this is necessary for using the expression
-                 ; directly inside a block
-      (if once?
-          #{ \once \override TextScript #'padding = #$padding #}
-          #{ \override TextScript #'padding = #$padding #})))
-  
-      {
-          c'^"1"
-          #(textpad 3.0 #t) % only once
-          c'^"2"
-          c'^"3"
-          #(textpad 5.0)
-          c'^"4"
-          c'^"5"
-          
-      }
+@lilypond[quote,verbatim,raggedright]
+#(use-modules (ice-9 optargs))
+#(define* (textpad padding #:optional once?)
+  (ly:export   ; this is necessary for using the expression
+               ; directly inside a block
+    (if once?
+        #{ \once \override TextScript #'padding = #$padding #}
+        #{ \override TextScript #'padding = #$padding #})))
+
+ {
+   c'^"1"
+   #(textpad 3.0 #t) % only once
+   c'^"2"
+   c'^"3"
+   #(textpad 5.0)
+   c'^"4"
+   c'^"5"
+ }
 @end lilypond
 
 Here, the variable @code{padding} is a number; music expression
 variables may also be used in a similar fashion, as in the following
 example:
 
-@lilypond[verbatim,raggedright]
-  #(define (with-padding padding)
-     (lambda (music)
-       #{ \override TextScript #'padding = #$padding
-          $music
-          \revert TextScript #'padding #}))
-  
-      {
-          c'^"1"
-          \applymusic #(with-padding 3)
-            { c'^"2" c'^"3"}
-          c'^"4"
-      }
+@lilypond[quote,verbatim,raggedright]
+#(define (with-padding padding)
+  (lambda (music)
+   #{ \override TextScript #'padding = #$padding
+      $music
+      \revert TextScript #'padding #}))
+
+{
+  c'^"1"
+  \applymusic #(with-padding 3) { c'^"2" c'^"3" }
+  c'^"4"
+}
 @end lilypond
 
 The function created by @code{(with-padding 3)} adds @code{\override} and
 @code{\revert} statements around the music given as an argument, and returns
-this new expression. Thus, this example is equivalent to:
+this new expression.  Thus, this example is equivalent to:
 
 @example
-      @{
-          c'^"1"
-          @{ \override TextScript #'padding = #3
-            @{ c'^"2" c'^"3"@}
-            \revert TextScript #'padding
-          @}
-          c'^"4"
-      @}
+@{
+  c'^"1"
+  @{ \override TextScript #'padding = #3
+    @{ c'^"2" c'^"3"@}
+    \revert TextScript #'padding
+  @}
+  c'^"4"
+@}
 @end example
 
 This function may also be defined as a music function:
 
-@lilypond[verbatim,raggedright]
-  withPadding = #(def-music-function (location padding music) (number? ly:music?)
-                   #{ \override TextScript #'padding = #$padding
-                      $music 
-                      \revert TextScript #'padding #})
-  
-      {
-          c'^"1"
-          \withPadding #3
-            { c'^"2" c'^"3"}
-          c'^"4"
-      }
+@lilypond[quote,verbatim,raggedright]
+withPadding =
+  #(def-music-function (location padding music) (number? ly:music?)
+    #{ \override TextScript #'padding = #$padding
+       $music 
+       \revert TextScript #'padding #})
+
+{
+  c'^"1"
+  \withPadding #3 { c'^"2" c'^"3"}
+  c'^"4"
+}
 @end lilypond
 
 
 @node Markup programmer interface
 @section Markup programmer interface
 
-Markups implemented as special Scheme functions. When applied with as
+Markups implemented as special Scheme functions.  When applied with as
 arguments an output definition (@code{\layout} or @code{\paper}),
 and a list of properties and other arguments, produce a Stencil
 object.
@@ -431,7 +430,7 @@ object.
 @cindex defining markup commands 
 
 The @code{markup} macro builds markup expressions in Scheme while
-providing a LilyPond-like syntax. For example,
+providing a LilyPond-like syntax.  For example,
 @example
 (markup #:column (#:line (#:bold #:italic "hello" #:raise 0.4 "world")
                   #:bigger #:line ("foo" "bar" "baz")))
@@ -448,7 +447,9 @@ is equivalent to:
 This example exposes the main translation rules between regular
 LilyPond markup syntax and Scheme markup syntax, which are summed up
 is this table:
-@multitable @columnfractions .5 .5
+
+@quotation
+@multitable @columnfractions .3 .3
 @item @b{LilyPond} @tab @b{Scheme}
 @item @code{\command} @tab @code{#:command}
 @item @code{\variable} @tab @code{variable}
@@ -457,22 +458,26 @@ is this table:
 @item @code{string} @tab @code{"string"}
 @item @code{#scheme-arg} @tab @code{scheme-arg}
 @end multitable
+@end quotation
 
 Besides, the whole scheme language is accessible inside the
 @code{markup} macro: thus, one may use function calls inside
 @code{markup} in order to manipulate character strings for
-instance. This proves useful when defining new markup commands (see
+instance.  This proves useful when defining new markup commands (see
 @ref{Markup command definition}).
 
 @refbugs
 
 One can not feed the @code{#:line} (resp @code{#:center},
 @code{#:column}) command with a variable or the result of a function
-call. E.g.:
+call.  Example:
+
 @lisp
 (markup #:line (fun-that-returns-markups))
 @end lisp
-is illegal. One should use the @code{make-line-markup} (resp
+
+@noindent
+is invalid.  One should use the @code{make-line-markup} (resp
 @code{make-center-markup}, @code{make-column-markup}) function
 instead,
 @lisp
@@ -485,15 +490,15 @@ instead,
 In a markup like
 
 @example
-  \raise #0.5 "foo"
+\raise #0.5 "foo"
 @end example
 
 @noindent
 @code{\raise} is actually represented by the @code{raise-markup}
-function. The markup expression is stored as
+function.  The markup expression is stored as
 
 @example
-  (list raise-markup 0.5 (list simple-markup 'latin1 "foo"))
+(list raise-markup 0.5 (list simple-markup 'latin1 "foo"))
 @end example
 
 @noindent
@@ -504,15 +509,15 @@ When the markup is converted to printable objects (Stencils), the
 raise markup is called as
 
 @example
-  (apply raise-markup
-         @var{\layout object}
-         @var{list of property alists}
-         0.5
-         @var{the "foo" markup})
+(apply raise-markup
+       @var{\layout object}
+       @var{list of property alists}
+       0.5
+       @var{the "foo" markup})
 @end example
 
 The @code{raise-markup} first creates the stencil for the @code{foo}
-string, and then it raises that Stencil by 0.5 staff space. This is a
+string, and then it raises that Stencil by 0.5 staff space.  This is a
 rather simple example; more complex examples are in the rest of this
 section, and in @file{scm/@/define@/-markup@/-commands@/.scm}.
 
@@ -520,7 +525,7 @@ section, and in @file{scm/@/define@/-markup@/-commands@/.scm}.
 @subsection Markup command definition
 
 New markup commands can be defined
-with  the @code{def-markup-command} scheme macro.
+with the @code{def-markup-command} scheme macro.
 @lisp
 (def-markup-command (@var{command-name} @var{layout} @var{props} @var{arg1} @var{arg2} ...)
             (@var{arg1-type?} @var{arg2-type?} ...)
@@ -544,19 +549,19 @@ As a simple example, we show how to add a @code{\smallcaps} command,
 which selects @TeX{}'s small caps font.  Normally, we could select the
 small caps font as follows:
 
-@verbatim
-  \markup { \override #'(font-shape . caps)  Text-in-caps }
-@end verbatim
+@example
+\markup @{ \override #'(font-shape . caps) Text-in-caps @}
+@end example
 
 This selects the caps font by setting the @code{font-shape} property to
 @code{#'caps} for interpreting @code{Text-in-caps}.
 
 To make the above available as @code{\smallcaps} command, we have to
-define a function using @code{def-markup-command}. The command should
-take a single argument, of markup type. Therefore, the start of the
+define a function using @code{def-markup-command}.  The command should
+take a single argument, of markup type.  Therefore, the start of the
 definition should read
 @example
-  (def-markup-command (smallcaps layout props argument) (markup?)
+(def-markup-command (smallcaps layout props argument) (markup?)
 @end example
 
 @noindent
@@ -565,16 +570,16 @@ What follows is the content of the command: we should interpret
 the @code{argument} as a markup, i.e.
 
 @example
-    (interpret-markup layout  @dots{} argument)
+(interpret-markup layout @dots{} argument)
 @end example
 
 @noindent
 This interpretation should add @code{'(font-shape . caps)} to the active
-properties, so we substitute the  following for the @dots{} in the
+properties, so we substitute the following for the @dots{} in the
 above example:
 
 @example
- (cons (list '(font-shape . caps) ) props)
+(cons (list '(font-shape . caps) ) props)
 @end example
 
 @noindent
@@ -584,78 +589,78 @@ consing a list with the extra setting.
 
 Suppose that we are typesetting a recitative in an opera, and
 we would like to define a command that will show character names in a
-custom manner. Names should be printed with small caps and translated a
+custom manner.  Names should be printed with small caps and translated a
 bit to the left and top.  We will define a @code{\character} command
 that takes into account the needed translation, and uses the newly
 defined @code{\smallcaps} command:
 
-@verbatim
+@example
 #(def-markup-command (character layout props name) (string?)
-   "Print the character name in small caps, translated to the left and
-   top. Syntax: \\character #\"name\""
-   (interpret-markup layout props 
-    (markup "" #:translate (cons -4 2) #:smallcaps name)))
-@end verbatim
+  "Print the character name in small caps, translated to the left and
+  top.  Syntax: \\character #\"name\""
+  (interpret-markup layout props 
+   (markup "" #:translate (cons -3 1) #:smallcaps name)))
+@end example
 
 There is one complication that needs explanation: texts above and below
 the staff are moved vertically to be at a certain distance (the
-@code{padding} property) from the staff and the notes. To make sure
+@code{padding} property) from the staff and the notes.  To make sure
 that this mechanism does not annihilate the vertical effect of our
 @code{#:translate}, we add an empty string (@code{""}) before the
 translated text.  Now the @code{""} will be put above the notes, and the
-@code{name} is moved in relation to that empty string. The net effect is
+@code{name} is moved in relation to that empty string.  The net effect is
 that the text is moved to the upper left.
 
 The final result is as follows:
-@verbatim
-    { \fatText
-        c''^\markup \character #"Cleopatra"
-        e'^\markup \character #"Giulio Cesare"
-    }
-@end verbatim
+@example
+@{
+  c''^\markup \character #"Cleopatra"
+  e'^\markup \character #"Giulio Cesare"
+@}
+@end example
 
-@lilypond[raggedright]
+@lilypond[quote,raggedright]
 #(def-markup-command (smallcaps layout props str) (string?)
-   "Print the string argument in small caps. Syntax: \\smallcaps #\"string\""
-   (interpret-markup layout props
-    (make-line-markup
-     (map (lambda (s)
-            (if (= (string-length s) 0)
-                s
-                (markup #:large (string-upcase (substring s 0 1))
-                        #:translate (cons -0.6 0)
-                        #:tiny (string-upcase (substring s 1)))))
-          (string-split str #\Space)))))
+  "Print the string argument in small caps.  Syntax: \\smallcaps #\"string\""
+  (interpret-markup layout props
+   (make-line-markup
+    (map (lambda (s)
+          (if (= (string-length s) 0)
+              s
+              (markup #:large (string-upcase (substring s 0 1))
+                      #:translate (cons -0.6 0)
+                      #:tiny (string-upcase (substring s 1)))))
+         (string-split str #\Space)))))
 
 #(def-markup-command (character layout props name) (string?)
-   "Print the character name in small caps, translated to the left and
-   top. Syntax: \\character #\"name\""
-   (interpret-markup layout props 
-    (markup "" #:translate (cons -4 0) #:smallcaps name)))
+  "Print the character name in small caps, translated to the left and
+  top.  Syntax: \\character #\"name\""
+  (interpret-markup layout props 
+   (markup "" #:translate (cons -3 1) #:smallcaps name)))
 
-    { \fatText
-        c''^\markup \character #"Cleopatra"
-        e'^\markup \character #"Giulio Cesare"
-    }
+{
+  c''^\markup \character #"Cleopatra" c'' c'' c''
+  e'^\markup \character #"Giulio Cesare" e' e' e'
+}
 @end lilypond
 
 We have used the @code{caps} font shape, but suppose that our font
-that does not have a small-caps variant. In that case, we have to fake
+that does not have a small-caps variant.  In that case, we have to fake
 the small caps font, by setting a string in upcase, with the first
 letter a little larger:
 
 @example
 #(def-markup-command (smallcaps layout props str) (string?)
-   "Print the string argument in small caps."
-   (interpret-markup layout props
-    (make-line-markup
-     (map (lambda (s)
-            (if (= (string-length s) 0)
-                s
-                (markup #:large (string-upcase (substring s 0 1))
-                        #:translate (cons -0.6 0)
-                        #:tiny (string-upcase (substring s 1)))))
-          (string-split str #\Space)))))
+  "Print the string argument in small caps."
+  (interpret-markup layout props
+   (make-line-markup
+    (map (lambda (s)
+          (if (= (string-length s) 0)
+              s
+              (markup #:large (string-upcase (substring s 0 1))
+                      #:translate (cons -0.6 0)
+                      #:tiny (string-upcase (substring s 1)))))
+         (string-split str #\Space)))))
 @end example
 
 The @code{smallcaps} command first splits its string argument into
@@ -663,11 +668,11 @@ tokens separated by spaces (@code{(string-split str #\Space)}); for
 each token, a markup is built with the first letter made large and
 upcased (@code{#:large (string-upcase (substring s 0 1))}), and a
 second markup built with the following letters made tiny and upcased
-(@code{#:tiny (string-upcase (substring s 1))}). As LilyPond
+(@code{#:tiny (string-upcase (substring s 1))}).  As LilyPond
 introduces a space between markups on a line, the second markup is
-translated to the left (@code{#:translate (cons -0.6 0) ...}). Then,
+translated to the left (@code{#:translate (cons -0.6 0) ...}).  Then,
 the markups built for each token are put in a line by
-@code{(make-line-markup ...)}. Finally, the resulting markup is passed
+@code{(make-line-markup ...)}.  Finally, the resulting markup is passed
 to the @code{interpret-markup} function, with the @code{layout} and
 @code{props} arguments.
 
@@ -688,21 +693,21 @@ to the @code{interpret-markup} function, with the @code{layout} and
 @cindex calling code during interpreting
 @cindex @code{\applycontext}
 
-Contexts can be modified during interpretation with Scheme code. The
+Contexts can be modified during interpretation with Scheme code.  The
 syntax for this is
 @example
-  \applycontext @var{function}
+\applycontext @var{function}
 @end example
 
 @var{function} should be a Scheme function taking a single argument,
-being the context to apply it to. The following code will print the
+being the context to apply it to.  The following code will print the
 current bar number on the standard output during the compile:
 
 @example
-    \applycontext
-      #(lambda (x)
-         (format #t "\nWe were called in barnumber ~a.\n"
-          (ly:context-property x 'currentBarNumber)))
+\applycontext
+  #(lambda (x)
+    (format #t "\nWe were called in barnumber ~a.\n"
+     (ly:context-property x 'currentBarNumber)))
 @end example
 
 
@@ -715,7 +720,7 @@ current bar number on the standard output during the compile:
 @cindex @code{\applyoutput}
 
 
-The most versatile way of tuning an object is @code{\applyoutput}. Its
+The most versatile way of tuning an object is @code{\applyoutput}.  Its
 syntax is
 @example
 \applyoutput @var{proc}
@@ -744,10 +749,9 @@ note-heads on the center-line:
 
 @example
 (define (blanker grob grob-origin context)
-  (if (and (memq (ly:grob-property grob 'interfaces)
-                 note-head-interface)
-           (eq? (ly:grob-property grob 'staff-position) 0))
-
-           (set! (ly:grob-property grob 'transparent) #t)))
+ (if (and (memq (ly:grob-property grob 'interfaces)
+                note-head-interface)
+          (eq? (ly:grob-property grob 'staff-position) 0))
+     (set! (ly:grob-property grob 'transparent) #t)))
 @end example
 
