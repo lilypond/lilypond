@@ -1,3 +1,46 @@
+1.5.15.jcn1
+===========
+
+* Fixes for latest guile cvs.
+
+* Add --enable-optimising flag to configure (Huh?).
+
+* Only inline string utlis when optimising.
+
+* Compile fix.
+
+1.5.15.rz1
+==========
+
+* added property autoReminders, automatically creating reminder
+  accidentals. - major changes to accidental-engraver.
+
+1.5.15.hwn1
+===========
+
+* Junk translator-description.scm
+
+* Make Repeated_music use 'element and 'elements in stead of 'body and
+'alternatives.  Associated changes in parser and music-sequence.cc.
+
+* Change Part_combine_music and Lyric_combine_music to use 'elements
+music property.
+
+* Porrectus patch (Juergen Reuter)
+
+ - Rewrote code for vaticana style porrectus grob; the solid shape is
+  now drawn as a single bezier sandwich rather than composed from a
+  couple of misused slurs.  Looks now much nicer.
+
+ - Added code to forbid line-breaking inbetween a porrectus
+  (preliminary; to be moved to ligature engraver framework).
+
+ - Added auto-properties property for automatic determination of grob
+  properties add-stem and stem-direction from musical context.
+
+ - Small clean-ups.
+
+
 1.5.14.jcn6
 ===========
 
