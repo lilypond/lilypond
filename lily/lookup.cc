@@ -6,13 +6,11 @@
   (c)  1997--2003 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
   Jan Nieuwenhuizen <janneke@gnu.org>
-
-  TODO
-      Glissando
 */
 #include <math.h>
 #include <ctype.h>
 
+#include "line-interface.hh"
 #include "warn.hh"
 #include "dimensions.hh"
 #include "bezier.hh"
@@ -97,26 +95,6 @@ Lookup::dashed_slur (Bezier b, Real thick, Real dash)
   return   Molecule (box, at);
 }
 
-Molecule
-Lookup::line (Real th, Offset from, Offset to)
-{
-  SCM at = scm_list_n (ly_symbol2scm ("draw-line"),
-			gh_double2scm (th), 
-			gh_double2scm (from[X_AXIS]),
-			gh_double2scm (from[Y_AXIS]),
-			gh_double2scm (to[X_AXIS]),
-			gh_double2scm (to[Y_AXIS]),
-			SCM_UNDEFINED);
-
-  Box box;
-  box.add_point (from);
-  box.add_point (to);
-
-  box[X_AXIS].widen (th/2);
-  box[Y_AXIS].widen (th/2);  
-
-  return Molecule (box, at);
-}
 
 
 Molecule
@@ -275,7 +253,7 @@ Lookup::round_filled_polygon (Array<Offset> points, Real blotdiameter)
   if (points.size () == 1)
     return dot (points[0], 0.5 * blotdiameter);
   if (points.size () == 2)
-    return line (blotdiameter, points[0], points[1]);
+    return Line_interface::make_line (blotdiameter, points[0], points[1]);
 
   /* shrink polygon in size by 0.5 * blotdiameter */
   Array<Offset> shrinked_points;
@@ -346,8 +324,6 @@ Lookup::round_filled_polygon (Array<Offset> points, Real blotdiameter)
 
 /*
   TODO: deprecate?
-
-  should use rounded corners.
  */
 Molecule
 Lookup::frame (Box b, Real thick, Real blot)

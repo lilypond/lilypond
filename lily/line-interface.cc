@@ -12,7 +12,7 @@ source file of the GNU LilyPond music typesetter
 #include "grob.hh"
 #include "staff-symbol-referencer.hh"
 #include "lookup.hh"
-
+#include "paper-def.hh"
 
 
 Molecule
@@ -42,12 +42,38 @@ Line_interface::make_dashed_line (Real thick, Offset from, Offset to,
   m.translate (from);
   return m;
 }
+
+Molecule
+Line_interface::make_line (Real th, Offset from, Offset to)
+{
+  SCM at = scm_list_n (ly_symbol2scm ("draw-line"),
+			gh_double2scm (th), 
+			gh_double2scm (from[X_AXIS]),
+			gh_double2scm (from[Y_AXIS]),
+			gh_double2scm (to[X_AXIS]),
+			gh_double2scm (to[Y_AXIS]),
+			SCM_UNDEFINED);
+
+  Box box;
+  box.add_point (from);
+  box.add_point (to);
+
+  box[X_AXIS].widen (th/2);
+  box[Y_AXIS].widen (th/2);  
+
+  return Molecule (box, at);
+}
+
+
 /*
   TODO: read THICK from ME
  */
 Molecule
-Line_interface::dashed_line (Grob *me, Real thick, Offset from, Offset to)
+Line_interface::line (Grob *me, Offset from, Offset to)
 {
+  Real thick = me->get_paper()->get_realvar (ly_symbol2scm ("linethickness"));  
+  thick *= robust_scm2double (me->get_grob_property ("thickness"), 1.0); // todo: staff sym referencer? 
+  
   SCM type = me->get_grob_property ("style");
   if (type == ly_symbol2scm ("dotted-line")
       || type == ly_symbol2scm ("dashed-line"))
@@ -67,7 +93,7 @@ Line_interface::dashed_line (Grob *me, Real thick, Offset from, Offset to)
     }
   else
     {
-      return Lookup::line (thick, from, to);
+      return make_line (thick, from, to);
     }
 }
 

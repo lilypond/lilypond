@@ -21,28 +21,17 @@
 #include "lookup.hh"
 #include "line-interface.hh"
 
-/*
-  TODO: convert all Molecule functions to taking arguments of the form
-
-  Offset FROM, Offset TO.
-
-
-  TODO:
-
-  Introduce line-interface that allows dots/dashes/etc. to be set as
-  grob-properties. Make arbitrary paths.
-  
- */
-
-
 Molecule
-zigzag_molecule (Grob *me, Real thick, 
+zigzag_molecule (Grob *me, 
 		 Offset from,
 		 Offset to)
 {
   Offset dz = to -from;
   Real dx = dz[X_AXIS];
   Real dy = dz[Y_AXIS];
+
+  Real thick = me->get_paper()->get_realvar (ly_symbol2scm ("linethickness"));  
+  thick *= robust_scm2double (me->get_grob_property ("thickness"), 1.0); // todo: staff sym referencer? 
   
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   SCM ws = me->get_grob_property ("zigzag-width");
@@ -104,7 +93,7 @@ Line_spanner::after_line_breaking (SCM  g)
 
 
 Molecule
-Line_spanner::line_molecule (Grob *me, Real thick,
+Line_spanner::line_molecule (Grob *me, 
 			     Offset from,
 			     Offset to)
 {
@@ -118,8 +107,8 @@ Line_spanner::line_molecule (Grob *me, Real thick,
 	  || (type == ly_symbol2scm ("trill") && dz[Y_AXIS] != 0)))
     {
       return  (type == ly_symbol2scm ("zigzag"))
-	? zigzag_molecule (me, thick, from, to)
-	: Line_interface::dashed_line (me, thick, from, to);
+	? zigzag_molecule (me, from, to)
+	: Line_interface::line (me, from, to);
     }
   else if (gh_symbol_p (type)
 	   && type == ly_symbol2scm ("trill"))
@@ -201,11 +190,6 @@ Line_spanner::brew_molecule (SCM smob)
   Offset my_off;
   Offset his_off;
   
-  Real thick = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));  
-
-  SCM s = me->get_grob_property ("thickness");
-  if (gh_number_p (s))
-    thick *= gh_scm2double (s);
 
   if (bound[RIGHT]->break_status_dir())
     {
@@ -262,7 +246,7 @@ Line_spanner::brew_molecule (SCM smob)
       dz = (dz.length () - 2*gap) *dir;
       
   
-      Molecule l (line_molecule (me, thick, Offset(0, 0), dz));
+      Molecule l (line_molecule (me, Offset(0, 0), dz));
 
       l.translate (dir * gap +  p1
 		   - Offset (me->relative_coordinate (commonx, X_AXIS),
@@ -297,7 +281,7 @@ Line_spanner::brew_molecule (SCM smob)
       ofxy = dxy * (off/dxy.length ());
       dxy -= 2*ofxy;
   
-      Molecule line = line_molecule (me, thick, Offset (0,0),dxy);
+      Molecule line = line_molecule (me, Offset (0,0),dxy);
 
       line.translate_axis (bound[LEFT]->extent (bound[LEFT], X_AXIS).length ()/2, X_AXIS); 
       line.translate (ofxy - my_off + his_off);

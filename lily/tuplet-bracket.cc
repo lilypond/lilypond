@@ -196,12 +196,6 @@ Tuplet_bracket::brew_molecule (SCM smob)
   
   if (bracket_visibility)      
     {
-      Real  lt =  pap->get_realvar (ly_symbol2scm ("linethickness"));
-
-      SCM thick = me->get_grob_property ("thickness");
-      if (gh_number_p (thick))
-	lt *= gh_scm2double (thick);
-
       SCM gap = me->get_grob_property ("gap");
       
       SCM fl = me->get_grob_property ("bracket-flare");
@@ -222,7 +216,7 @@ Tuplet_bracket::brew_molecule (SCM smob)
       while (flip (&d) != LEFT);
       
       Molecule brack = make_bracket (me, Y_AXIS,
-				     Offset (w, ry - ly), lt,
+				     Offset (w, ry - ly), 
 				     height,
 				     gh_scm2double (gap),
 				     flare,
@@ -245,7 +239,7 @@ Molecule
 Tuplet_bracket::make_bracket (Grob *me,	// for line properties.
 			      Axis protusion_axis,
 			      Offset dz,
-			      Real thick, Drul_array<Real> height,
+			      Drul_array<Real> height,
 			      Real gap,
 			      Drul_array<Real> flare,
 			      Drul_array<Real> shorten)
@@ -275,10 +269,10 @@ Tuplet_bracket::make_bracket (Grob *me,	// for line properties.
 
   Molecule m;
   do {
-    m.add_molecule (Line_interface::dashed_line (me, thick, straight_corners[d],
+    m.add_molecule (Line_interface::line (me, straight_corners[d],
 						 gap_corners[d]));
     
-    m.add_molecule (Line_interface::dashed_line (me, thick, straight_corners[d],
+    m.add_molecule (Line_interface::line (me,  straight_corners[d],
 						 flare_corners[d]));
   } while (flip (&d) != LEFT);
 

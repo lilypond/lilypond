@@ -11,6 +11,7 @@
 #include "box.hh"
 #include "warn.hh"
 #include "font-interface.hh"
+#include "line-interface.hh"
 #include "molecule.hh"
 #include "paper-column.hh"
 #include "paper-def.hh"
@@ -66,7 +67,6 @@ Volta_bracket_interface::brew_molecule (SCM smob)
      && strcmp(cs,":|:")!=0 && strcmp(cs,".|")!=0);
 
   Paper_def * paper =me->get_paper ();
-  Real staff_thick = paper->get_realvar (ly_symbol2scm ("linethickness"));  
   Real half_space = 0.5;
 
   Item * bound = dynamic_cast<Spanner*> (me)->get_bound (LEFT);
@@ -90,16 +90,15 @@ Volta_bracket_interface::brew_molecule (SCM smob)
 
   Real w = dynamic_cast<Spanner*> (me)->spanner_length () - left - half_space;
   Real h =  gh_scm2double (me->get_grob_property ("height"));
-  Real t =  staff_thick * gh_scm2double (me->get_grob_property ("thickness"));
 
   Molecule start,end ;
   if (!no_vertical_start)
-    start = Lookup::line (t, Offset (0,0), Offset (0, h)); 
+    start = Line_interface::line (me, Offset (0,0), Offset (0, h)); 
   
   if (!no_vertical_end)
-    end = Lookup::line (t, Offset (w, 0), Offset (w,h));
+    end = Line_interface::line (me, Offset (w, 0), Offset (w,h));
 
-  Molecule mol = Lookup::line (t, Offset (0, h), Offset (w,h));
+  Molecule mol = Line_interface::line (me, Offset (0, h), Offset (w,h));
   mol.add_molecule (start);
   mol.add_molecule (end);
 
