@@ -1,9 +1,16 @@
 @node Properties, , , Reference Manual
 
+Properties are Scheme values, so they have a type.  The type of a
+property is listed in parentheses after the property name.
+
+@macro propertytype{t}
+ (/t/)
+@end macro
+
 @cindex properties!Lyrics
 
 @table @samp
-  @item @code{textStyle}@indexcode{textStyle}  
+  @item @code{textStyle}@indexcode{textStyle} @propertytype{string}
     Set the font for lyrics.  The available font choices are
     @code{roman}, @code{italic}, @code{bold}, @code{large}, @code{Large},
     @code{typewriter}, and @code{finger}.  The @code{finger} font can
@@ -18,7 +25,7 @@
 @cindex properties!Thread
 
 @table @samp
-  @item @code{noteheadStyle}@indexcode{noteheadStyle}  
+  @item @code{noteheadStyle}@indexcode{noteheadStyle} @propertytype{string}
     Selects type of note head.  Choices are @code{cross},
     @code{diamond}, @code{harmonic}, @code{transparent}, and @code{""}. 
     They are shown in that order below.
@@ -53,7 +60,7 @@
 
  
 @table @samp  
-  @item @code{stemStyle}@indexcode{stemStyle}  
+  @item @code{stemStyle}@indexcode{stemStyle} @propertytype{string}
     By default set to @code{"grace"} meaning that all unbeamed 
     notes with flags are typeset with a slash through the flag. 
     Setting to @code{""} gives standard flags.
@@ -65,17 +72,16 @@
 @cindex properties!Voice
 
 @table @samp  
-  @item @code{abbrev}@indexcode{abbrev}  
+  @item @code{abbrev}@indexcode{abbrev} @propertytype{integer}
     Set length for tremolo to be used if no length is explicitly
     specified. 
 
   @item @code{articulationScriptPadding}@indexcode{articulationScriptPadding}
-     
     Determines the extra space added between articulation marks, such
     as staccato, tenuto, trill, up/down bow or fermata, and the
     closest staff line or note.
 
-  @item @code{articulationScriptVerticalDirection}
+  @item @code{articulationScriptVerticalDirection} @propertytype{direction}
     @indexcode{articulationScriptVerticalDirection}  
     Determines the location of articulation marks.  Set to @code{\up}
     to print marks above the staff; set to @code{\down} to print marks
@@ -93,7 +99,7 @@
     Specifies when automatically generated beams can start.  See
     section XREF-autobeam [FIXME].
 
-  @item @code{beamquantisation}@indexcode{beamquantisation}  
+  @item @code{beamQuantisation}@indexcode{beamQuantisation} @propertytype{symbol}
     Set to @code{\none} for no quantization.  Set to @code{\normal} to
     quantize position and slope.  Set to @code{\traditional} to avoid
     wedges.  These three settings are available via
@@ -101,7 +107,7 @@
     @code{\beamposnormal}@keyindex{beamposnormal}, and
     @code{\beampostraditional}@keyindex{beampostraditional}.
 
-  @item @code{beamslopedamping}@indexcode{beamslopedamping}  
+  @item @code{beamSlopeDamping}@indexcode{beamSlopeDamping} @propertytype{number}
     Set to @code{\none} for undamped beams.  Set to @code{\normal} for
     damped beams.  Set to @code{\infinity} for beams with zero slope. 
     The identifiers
@@ -110,15 +116,15 @@
     @code{\beamslopezero}@keyindex{beamslopezero} each set the
     corresponding value.
 
-  @item @code{dynamicDirection}@indexcode{dynamicDirection}  
+  @item @code{dynamicDirection}@indexcode{dynamicDirection} @propertytype{direction}
     Determines location of dynamic marks.  Set to @code{\up} to print
     marks above the staff; set to @code{\down} to print marks below
     the staff.
 
-  @item @code{dynamicStyle}@indexcode{dynamicStyle}  
+  @item @code{dynamicStyle}@indexcode{dynamicStyle} @propertytype{string}
     Set the text style for dynamics.  
 
-  @item @code{fontSize}@indexcode{fontSize}  
+  @item @code{fontSize}@indexcode{fontSize} @propertytype{number}
     Can be used to select smaller font sizes for music.  The normal
     font size is 0, and the two smaller sizes are -1
     and -2.
@@ -201,41 +207,36 @@ the note.
     Determines the extra space added between the mark and the closest
     staff line or note.
 
-  @item @code{markDirection}@indexcode{markDirection}  
+  @item @code{markDirection}@indexcode{markDirection} @propertytype{direction}
     Determines if marks should be printed above or below the staff.
     Set to @code{\up} to print marks above the staff; set to
     @code{\down} to print marks below the staff.
 
-  @item @code{midiInstrument}@indexcode{midiInstrument}  
+  @item @code{midiInstrument}@indexcode{midiInstrument} @propertytype{string}
     Sets the instrument for MIDI output.  If this property is not set
     then LilyPond will use the @code{instrument} property.  This must
     be set to one of the strings on the list of MIDI instruments that
     appears in section XREF-midilist [FIXME].  If you use a string which
     is not listed, LilyPond will silently substitute piano.
 
-  @item @code{oldTieBehavior}@indexcode{oldTieBehavior}  
-    Set to 1 in order to get old tie behavior where ties would
-    connect unequal pitches.  This property is deprecated, and its
-    use is not recommended.
-
-  @item @code{restStyle}@indexcode{restStyle}  
+  @item @code{restStyle}@indexcode{restStyle} @propertytype{string}
     Change the layout of rests shorter than quarter notes. 
     Currently, the standard layout @code{""} and mensural notation
     @code{"mensural"} are available. Mensural rests of duration
     32 or shorter are not available.
     
-  @item @code{scriptHorizontal}@indexcode{scriptHorizontal}  
+  @item @code{scriptHorizontal}@indexcode{scriptHorizontal} @propertytype{boolean}
     Put scripts left or right of note heads.  Support for this is
     limited.  Accidentals will collide with scripts.
     
-  @item @code{slurVerticalDirection}@indexcode{slurVerticalDirection}  
+  @item @code{slurVerticalDirection}@indexcode{slurVerticalDirection} @propertytype{direction}
     Set to @code{\free} for free choice of slur direction, set to
     @code{\up} to force slurs up, set to @code{\down} to force slurs
     down.  The shorthands @code{\slurup}@keyindex{slurup},
     @code{\slurdown}@keyindex{slurdown}, and
     @code{\slurboth}@keyindex{slurboth} are available.
 
-  @item @code{slurDash}@indexcode{slurDash}  
+  @item @code{slurDash}@indexcode{slurDash} @propertytype{number}
     Set to 0 for normal slurs, 1 for dotted slurs, and a
     larger value for dashed slurs.  Identifiers
     @code{\slurnormal}@keyindex{slurnormal} and
@@ -246,30 +247,29 @@ the note.
     Set length of stems.  Unit is `@code{interline}/2', so
     @code{stemLength} defaults to 7.
 
-  @item @code{stemLeftBeamCount}@indexcode{stemLeftBeamCount}  
+  @item @code{stemLeftBeamCount}@indexcode{stemLeftBeamCount} @propertytype{integer}
     Specify the number of beams to draw on the left side of the next
     note.  Overrides automatic beaming.  The value is only used once,
     and then it is erased.
 
-  @item @code{stemRightBeamCount}@indexcode{stemRightBeamCount}  
+  @item @code{stemRightBeamCount}@indexcode{stemRightBeamCount} @propertytype{integer}
     Specify the number of beams to draw on the right side of the next
     note.  Overrides automatic beaming.  The value is only used once,
     and then it is erased.
-  @item @code{tieVerticalDirection}@indexcode{tieVerticalDirection}  
+  @item @code{tieVerticalDirection}@indexcode{tieVerticalDirection} @propertytype{direction}
     Set to @code{\free} for free choice of tie direction, set to
     @code{\up} to force ties up, set to @code{\down} to force ties
     down.
 
-  @item @code{transposing}@indexcode{transposing}  
+  @item @code{transposing}@indexcode{transposing} @propertytype{integer}
     Transpose the MIDI output.  Set this property to the number of
     half-steps to transpose by.
 
-  
-  @item @code{textEmptyDimension}@indexcode{textEmptyDimension}  
+  @item @code{textEmptyDimension}@indexcode{textEmptyDimension} @propertytype{boolean}
     If set to 1 then text placed above or below the staff is
     assumed to have zero width.
   
-  @item @code{textStyle}@indexcode{textStyle}  
+  @item @code{textStyle}@indexcode{textStyle} @propertytype{string}
     Set the text style for superscripts and subscripts.  See above
     for list of text styles.
 
@@ -277,7 +277,7 @@ the note.
     Determines the extra space added between superscripted resp.
     subscripted text and the closest staff line or note.
 
-  @item @code{verticalDirection}@indexcode{verticalDirection}  
+  @item @code{verticalDirection}@indexcode{verticalDirection} @propertytype{direction}
     Determines the direction of stems, subscripts, beams, slurs, and
     ties.  Set to @code{\down} to force them down, @code{\up} to force
     them up, or @code{\free} to let LilyPond decide.  This can be used
@@ -287,12 +287,12 @@ the note.
     property.
     
 
-  @item @code{tupletDirection}@indexcode{tupletDirection}  
+  @item @code{tupletDirection}@indexcode{tupletDirection} @propertytype{direction}
     Determines the direction of triplets and other tuplets.  Set to
     @code{\down} to force them below the staff, @code{\up} to force
     them above, or @code{\free} to let LilyPond decide.
 
-  @item @code{tupletVisibility}@indexcode{tupletVisibility}  
+  @item @code{tupletVisibility}@indexcode{tupletVisibility}  (number) [FIXME]
     Determines whether tuplets of notes are labelled.  Setting
     to 0 shows nothing; setting to 1 shows a number;
     setting to 2 shows a number and a bracket if there is no
@@ -308,21 +308,16 @@ the note.
 
 @table @samp
  
-  @item @code{barNonAuto}@indexcode{barNonAuto}  
+  @item @code{barNonAuto}@indexcode{barNonAuto} @propertytype{boolean}
     If set to 1 then bar lines will not be printed
     automatically; they must be explicitly created with @code{\bar}
     keywords.  Unlike with the @code{\cadenza} keyword, measures are
     still counted.  Bar generation will resume according to that
     count if this property is set to zero.
 
-  @item @code{barNumberDirection}@indexcode{barNumberDirection}  
+  @item @code{barNumberDirection}@indexcode{barNumberDirection} @propertytype{direction}
     Set to @code{\up} or @code{\down} to put bar numbers above or below
     the staff.
-
-  @item @code{barNumberHangOnClef}@indexcode{barNumberHangOnClef}  
-    Set to 1 to cause bar numbers to appear above or below the
-    clef instead of on the bar line.  This property is deprecated. 
-    Do not use.
 
   @item @code{barNumberScriptPadding}@indexcode{barNumberScriptPadding}  
     Sets extra space between the bar number and the bar it labels.
@@ -331,45 +326,41 @@ the note.
     Specify the height of the bar lines if it should be different
     than the staff height.
 
-  @item @code{barAtLineStart}@indexcode{barAtLineStart}  
+  @item @code{barAtLineStart}@indexcode{barAtLineStart} @propertytype{boolean}
     Set to 1 to produce a bar line after the clef at the start
     of each line (but not at the beginning of the music).
 
-  @item @code{clefStyle}@indexcode{clefStyle}  
+  @item @code{clefStyle}@indexcode{clefStyle} @propertytype{string}
     Determines how clefs are typeset.  If set to @code{transparent},
     the clefs are not printed at all, if set to
     @code{fullSizeChanges}, clef changes in the middle of a line are
     typeset with a full size clef.  By default, clef changes are
     typeset in smaller size.
 
-  @item @code{createKeyOnClefChange}@indexcode{createKeyOnClefChange}  
+  @item @code{createKeyOnClefChange}@indexcode{createKeyOnClefChange} @propertytype{boolean}
     Set to a nonempty string if you want key signatures to be printed
     when the clef changes.  Set to the empty string if you do not
     want key signatures printed.
 
-  @item @code{createInitdefaultClef}@indexcode{createInitdefaultClef}  
-    Specify whether clefs are created on default?  (Doesn't seem to
-    do anything.)
+  @item @code{createInitdefaultClef}@indexcode{createInitdefaultClef} @propertytype{boolean}
+    Specify whether clefs are created on default? @propertytype{Doesn't seem to
+    do anything.}
 
-  @item @code{defaultClef}@indexcode{defaultClef}  
+  @item @code{defaultClef}@indexcode{defaultClef} @propertytype{string}
     Determines the default clef.  See @code{\clef} keyword.
 
-  @item @code{markHangOnClef}@indexcode{markHangOnClef}  
-    Set to 1 to cause marks to appear by clefs instead of by bar
-    lines.  Deprecated, use is not recommended.
-
-  @item @code{marginDirection}@indexcode{marginDirection}  
+  @item @code{marginDirection}@indexcode{marginDirection} @propertytype{direction}
     Set to @code{\left} or @code{\right} to specify location of
     marginal scripts.
 
   @item @code{marginScriptPadding}@indexcode{marginScriptPadding}  
     Specify extra space for marginal scripts.
 
-  @item @code{forgetAccidentals}@indexcode{forgetAccidentals}  
+  @item @code{forgetAccidentals}@indexcode{forgetAccidentals} @propertytype{boolean}
     Causes accidentals to be printed at every note instead of
     remembered for the duration of a measure.
 
-  @item @code{noResetKey}@indexcode{noResetKey}  
+  @item @code{noResetKey}@indexcode{noResetKey} @propertytype{boolean}
     Do not reset the key at the start of a measure.  Accidentals will
     be printed only once and are in effect until overridden, possibly
     many measures later.
@@ -377,24 +368,22 @@ the note.
   @item @code{staffLineLeading}@indexcode{staffLineLeading}  
     Specifies the distance (in points) between lines of the staff.
 
-  @item @code{numberOfStaffLines}@indexcode{numberOfStaffLines}  
+  @item @code{numberOfStaffLines}@indexcode{numberOfStaffLines} @propertytype{integer}
     Specifies the number of staff lines.  The default is 5.
 
   @item @code{postBreakPadding}@indexcode{postBreakPadding}  
     Extra space in points to be added after the clef, time signature
     and key signature on the staff.  Deprecated, do not use.
 
-  @item @code{noVoltaBraces}@indexcode{noVoltaBraces}  
+  @item @code{noVoltaBraces}@indexcode{noVoltaBraces} @propertytype{boolean}
     Set to true to suppress the printing of brackets over alternate
     endings specified by the command @code{\alternative}.
 
-  @item @code{numberOfStaffLines}@indexcode{numberOfStaffLines}  
-    Sets the number of lines that the staff has.
  
-  @item @code{barAlways}@indexcode{barAlways}  
+  @item @code{barAlways}@indexcode{barAlways} @propertytype{boolean}
     If set to 1 a bar line is drawn after each note.
 
-  @item @code{defaultBarType}@indexcode{defaultBarType}  
+  @item @code{defaultBarType}@indexcode{defaultBarType} @propertytype{string}
     Sets the default type of bar line. See Section XREF-barlines [FIXME] 
     for a list of available bar types.
 
@@ -409,7 +398,7 @@ the note.
     @code{midiInstrument} property is not set, then @code{instrument}
     is used to determine the instrument for MIDI output.
 
-  @item @code{keyOctaviation}@indexcode{keyOctaviation}  
+  @item @code{keyOctaviation}@indexcode{keyOctaviation} @propertytype{boolean}
     If set to 1, then keys are the same in all octaves.  If set
     to 0 then the key signature for different octaves can be
     different and is specified independently:
@@ -421,7 +410,7 @@ the note.
     The default value is 1.  Can be set to zero with
     @code{\specialkey} or reset to 1 with @code{\normalkey}.
 
-  @item @code{timeSignatureStyle}@indexcode{timeSignatureStyle}  
+  @item @code{timeSignatureStyle}@indexcode{timeSignatureStyle} @propertytype{string}
     Changes the default two-digit layout for time signatures.  The
     following values are recognized:
 
@@ -485,7 +474,7 @@ the note.
     
 @end mudela
 
-  @item @code{voltaSpannerDuration}@indexcode{voltaSpannerDuration}  
+  @item @code{voltaSpannerDuration}@indexcode{voltaSpannerDuration} @propertytype{moment}
     Set to an integer to control the size of the brackets printed by
     @code{\alternative}.  The integer specifies the number of whole
     notes duration to use for the brackets.  It is rounded to the
@@ -515,7 +504,7 @@ the note.
 @cindex properties!Score
 
 @table @samp
-  @item @code{skipBars}@indexcode{skipBars}  
+  @item @code{skipBars}@indexcode{skipBars} @propertytype{boolean}
     Set to 1 to skip the empty bars that are produced by
     multimeasure notes and rests.  These bars will not appear on the
     printed output.  Set to zero (the default) to expand multimeasure
@@ -537,7 +526,7 @@ r1 r1*3 R1*3\property Score.skipBars=1 r1*3 R1*3
 @cindex properties!ChordNamesVoice
 
 @table @samp
-  @item @code{chordInversion}@indexcode{chordInversion}  
+  @item @code{chordInversion}@indexcode{chordInversion} @propertytype{boolean}
     Determines whether LilyPond should look for chord inversions when
     translating from notes to chord names.  Set to 1 to find
     inversions.  The default is 0 which does not look for

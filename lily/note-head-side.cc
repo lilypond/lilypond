@@ -14,7 +14,6 @@ Note_head_side::add_support (Item*head_l)
 {
   Side_position_interface s (this);
   s.add_support (head_l);
-  add_dependency (head_l);
 }
 
 

@@ -110,18 +110,26 @@ Local_key_item::do_brew_molecule_p() const
   
  if (accidental_arr_.size()) 
     {
-      Box b(Interval (0, 0.6 * note_distance), Interval (0,0));
-      Molecule m (lookup_l ()->fill (b));
-      output->add_at_edge (X_AXIS, RIGHT, m, 0);
+      Drul_array<SCM> pads;
+
+      /*
+	Use a cons?
+       */
+      pads[RIGHT] = get_elt_property ("right-padding");
+      pads[LEFT] = get_elt_property ("left-padding");
+
+      Direction d = LEFT;
+      do {
+	if (!gh_number_p (pads[d]))
+	  continue;
+
+	Box b(Interval (0, gh_scm2double (pads[d]) * note_distance),
+	      Interval (0,0));
+	Molecule m (lookup_l ()->fill (b));
+	output->add_at_edge (X_AXIS, d, m, 0);
+      } while ( flip (&d)!= LEFT);
     }
 
   return output;
 }
 
-void
-Local_key_item::do_substitute_element_pointer (Score_element *o, Score_element*n)
-{
-  Note_head_side::do_substitute_element_pointer (o,n);
-  Staff_symbol_referencer::do_substitute_element_pointer (o,n);
-  
-}

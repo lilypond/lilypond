@@ -20,7 +20,6 @@ public:
   Grace_align_item ();
 protected:
   virtual void do_add_processing ();
-  virtual void do_substitute_element_pointer (Score_element*,Score_element*);
   virtual void do_pre_processing ();
 };
 #endif /* GRACE_ALIGN_ITEM_HH */

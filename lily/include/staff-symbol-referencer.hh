@@ -1,5 +1,5 @@
 /*   
-  staff-sym-referencer.hh -- declare Staff_sym_referencer
+  staff-sym-referencer.hh -- declare staff_symbol_referencer
   
   source file of the GNU LilyPond music typesetter
   
@@ -7,8 +7,8 @@
   
  */
 
-#ifndef STAFF_SYM_REFERENCER_HH
-#define STAFF_SYM_REFERENCER_HH
+#ifndef STAFF_SYMBOL_REFERENCER_HH
+#define STAFF_SYMBOL_REFERENCER_HH
 
 #include "score-element.hh"
 
@@ -19,13 +19,14 @@
  */
 class Staff_symbol_referencer : public virtual Score_element
 {
-  int position_i_;
+  Real position_f_;
+  
 protected:
-  Staff_symbol * staff_sym_l_;
+  Staff_symbol * staff_symbol_l_;
 
 public:
   Staff_symbol_referencer ();
-  void set_position (int);
+  void set_position (Real);
   
   void set_staff_symbol (Staff_symbol*);
   /**
@@ -39,7 +40,8 @@ public:
   virtual void do_substitute_element_pointer (Score_element*,Score_element*);
   virtual void do_pre_processing ();
   virtual Real position_f () const;
+
 };
 
-#endif /* STAFF_SYM_REFERENCER_HH */
+#endif /* STAFF_SYMBOL_REFERENCER_HH */
 

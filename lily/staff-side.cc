@@ -140,7 +140,7 @@ Side_position_interface::aligned_side (Dimension_cache const *c)
   Score_element * me = dynamic_cast<Score_element*> (c->element_l ());
   Side_position_interface s(me);
   Direction d = s.get_direction ();
-  Axis ax = s.get_axis ();
+  Axis ax = c->axis ();
   Real o = side_position (c);
 
   Interval iv =  me->extent (ax);
@@ -156,6 +156,35 @@ Side_position_interface::aligned_side (Dimension_cache const *c)
   return o;
 }
 
+#if 0
+
+/*
+  need cascading off callbacks for this.
+ */
+Side_position_interface::quantised_side (Dimension_cache const *c)
+{
+  Score_element * me = dynamic_cast<Score_element*> (c->element_l ());
+  Side_position_interface s(me);
+  Direction d = s.get_direction ();
+  Axis ax = c->axis ();
+  Real o = side_position (c);
+  Staff_symbol_referencer * st = dynamic_cast (me);
+
+  if (st && ax == Y_AXIS)
+    {
+      st->translate_axis (o, Y_AXIS);
+      st->set_position ();
+
+      st->lines_i ();
+      st->quantise_to_next_line (d);
+      st->translate_axis (o, -Y_AXIS);
+    }
+
+  return o;
+}
+#endif
+  
+
 
 void
 Side_position_interface::set_axis (Axis a)
@@ -165,21 +194,21 @@ Side_position_interface::set_axis (Axis a)
     elt_l_->set_elt_property ("side-support" ,SCM_EOL);
 
   Axis other = Axis ((a +1)%2);
-  elt_l_->dim_cache_[a]->set_offset_callback (aligned_side);
-  elt_l_->dim_cache_[other]->set_offset_callback (0);  
+  elt_l_->dim_cache_[a]->off_callbacks_.push (aligned_side);
 }
 
 
 Axis
 Side_position_interface::get_axis () const
 {
-  Offset_cache_callback c = elt_l_->dim_cache_[X_AXIS]->off_callback_l_ ;
-  if (c == side_position
-      || c == aligned_side
-      ) // UGH.
-    return X_AXIS;
-  else
-    return Y_AXIS;  
+  Dimension_cache * c =  elt_l_->dim_cache_[X_AXIS];
+  for (int i=0 ; i < c->off_callbacks_.size();i ++)
+    if (c->off_callbacks_[i] == side_position
+	||c->off_callbacks_[i] == aligned_side)
+      return X_AXIS;
+
+  
+  return Y_AXIS;
 }
 
 void
@@ -197,5 +226,6 @@ Side_position_interface::is_staff_side_b () const
 bool
 Side_position_interface::supported_b () const
 {
-  return elt_l_->get_elt_property ("side-support") != SCM_EOL;
+  SCM s =elt_l_->get_elt_property  ("side-support"); 
+  return s != SCM_UNDEFINED && s != SCM_EOL;
 }

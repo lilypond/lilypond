@@ -75,13 +75,14 @@ Script_engraver::do_process_requests()
 	stafy.set_direction (l->get_direction ());
 
       SCM axisprop = get_property ("scriptHorizontal",0);
-      if (gh_boolean_p (axisprop) && gh_scm2bool (axisprop))
+      bool xaxis = gh_boolean_p (axisprop) && gh_scm2bool (axisprop);
+      if (xaxis)
 	stafy.set_axis (X_AXIS);
       else
 	stafy.set_axis (Y_AXIS);
       
-      if (follow_staff && !gh_boolean_p (axisprop) && gh_scm2bool (axisprop))
-	p->set_elt_property ("no-staff-support", SCM_BOOL_T);
+      if (!follow_staff && ! xaxis)
+	p->set_elt_property ("staff-support", SCM_BOOL_T);
 
       p->set_elt_property ("script-priority", priority);
   

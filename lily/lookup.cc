@@ -448,18 +448,6 @@ Molecule
 Lookup::staff_brace (Real y, int staff_size) const
 {
   Molecule m;
-  /*
-    (define (pianobrace y staffht)
-    (let* ((step 1.0)
-    (minht (* 2 staffht))
-    (maxht (* 7 minht))
-    )
-    (string-append
-    (select-font (string-append "feta-braces" (number->string (inexact->exact staffht))) 0)
-    (char (max 0 (/  (- (min y (- maxht step)) minht) step))))
-    )
-    )
-  */
 
   Real step  = 1.0;
   int minht  = 2 * staff_size;

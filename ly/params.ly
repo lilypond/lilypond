@@ -306,3 +306,7 @@ Wordwrap =0.0;
 
 #'margin-shape = #'()
 
+
+% 
+#'Local_key_item::left-padding = #'0.2
+#'Local_key_item::right-padding = #'0.4

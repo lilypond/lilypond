@@ -18,7 +18,7 @@ Dimension_cache::Dimension_cache (Dimension_cache const &d)
   basic_offset_ = d.basic_offset_;
   extra_offset_ = d.extra_offset_;
   off_valid_b_ = d.off_valid_b_;
-  off_callback_l_ = d.off_callback_l_;
+  off_callbacks_ = d.off_callbacks_;
 }
 
 Dimension_cache::Dimension_cache ()
@@ -40,7 +40,6 @@ Dimension_cache::init()
   valid_b_ = false;
   empty_b_ = false;
   off_valid_b_ = false;
-  off_callback_l_ =0;
 }
 
 
@@ -62,13 +61,13 @@ Dimension_cache::set_offset (Real x)
     
    */
   
-  basic_offset_ = x;
+  extra_offset_ = x;
 }
 
 void
 Dimension_cache::translate (Real x)
 {
-  basic_offset_ += x;
+  extra_offset_ += x;
 }
 
 Real
@@ -100,11 +99,14 @@ Dimension_cache::axis () const
 Real
 Dimension_cache::get_offset () const
 {
-  if (!off_valid_b_ && off_callback_l_ )
+  if (!off_valid_b_)
     {
       Dimension_cache *d = (Dimension_cache*) this;
+
+      d->basic_offset_ =0.0;
       d->off_valid_b_ = true;
-      d->basic_offset_ = (*off_callback_l_) (d);
+      for (int i=0; i < off_callbacks_.size (); i++)
+	d->basic_offset_ += (*off_callbacks_[i]) (d);
     }
 
   return basic_offset_ + extra_offset_;
@@ -166,8 +168,4 @@ Dimension_cache::set_callback (Dim_cache_callback c)
   callback_l_ =c;
 }
 
-void
-Dimension_cache::set_offset_callback (Offset_cache_callback c)
-{
-  off_callback_l_ =c;
-}
+

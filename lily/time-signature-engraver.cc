@@ -54,11 +54,6 @@ Time_signature_engraver::do_pre_move_processing()
 {
   if (time_signature_p_) 
     {
-      SCM sigstyle = get_property ("timeSignatureStyle", 0);
-      if (gh_string_p (sigstyle))
-        {
-          time_signature_p_->set_elt_property ("style", sigstyle);
-        }
       typeset_element (time_signature_p_);
       time_signature_p_ =0;
     }
