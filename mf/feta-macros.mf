@@ -117,26 +117,41 @@ def distorted_ellipse(expr a,b,err_y,err_x,super) =
 	superellipse((a,err_x),(-err_y,b),(-a,-err_x),(err_y,-b),super);
 	enddef;
 
-% stolen from feta-eindelijk, but still
-% FIXME: too high
-def draw_block (expr bottom_left, top_right) =
-	pickup pencircle scaled blot_diameter;
 
-	begingroup;
-	save x,y;
-	bot y1 = ypart bottom_left;
-	top y2 = ypart top_right;
-	y3 = y2;
-	y4 = y1;
 
-	rt x1 = xpart top_right;
-	x2 = x1;
-	lft x3 = xpart bottom_left;
-	x4 = x3;
+def draw_rounded_block (expr bottom_left, top_right, roundness) =
+       save round;
+       round = floor min(roundness,xpart (top_right-bottom_left),
+                                   ypart (top_right-bottom_left));
+ 
+ 
+       pickup pencircle scaled round;
+  
+        begingroup;
+        save x,y;
+       z2+(round/2,round/2) = top_right;
+       z4-(round/2,round/2) = bottom_left;
+        y3 = y2;
+        y4 = y1;
+        x2 = x1;
+        x4 = x3;
+       fill bot z1 .. rt z1 --- rt z2 .. top z2 ---
+            top z3 .. lft z3 --- lft z4 .. bot z4 --- cycle;
+        endgroup;
+        enddef;
+  
 
-	filldraw z1--z2--z3--z4--cycle;
-	endgroup;
-	enddef;
+
+ def draw_block (expr bottom_left, top_right) =
+       draw_rounded_block (bottom_left, top_right, blot_diameter);
+       enddef;
+ 
+ def draw_gridline (expr bottom_left,top_right,thickness) =
+       draw_rounded_block (bottom_left-(thickness/2,thickness/2),
+                           top_right+(thickness/2,thickness/2),
+                           thickness);
+       enddef;
+       
 
 def draw_brush(expr a,w,b,v) =
 	save x,y;

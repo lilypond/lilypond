@@ -73,7 +73,7 @@ fet_beginchar( "whole rest (outside staff)", "0o", "outsidewholerest");
 	y5 = y6 = 0;
 	lft x5 = - b - block_rest_y;
 	rt x6 = w + block_rest_y;
-	draw z5 .. z6;
+	draw_gridline(z5,z6,ledgerlinethickness);
 fet_endchar;
 
 fet_beginchar("half rest (outside staff)", "1o", "outsidehalfrest");
@@ -84,7 +84,7 @@ fet_beginchar("half rest (outside staff)", "1o", "outsidehalfrest");
 	y5 = y6 = 0;
 	lft x5 = - b - block_rest_y ;  
 	rt x6 = w + block_rest_y;
-	draw z5 .. z6;
+	draw_gridline (z5,z6,ledgerlinethickness);
 fet_endchar;
 
 

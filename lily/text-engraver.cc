@@ -128,12 +128,17 @@ Text_engraver::create_grobs ()
       text->set_grob_property ("text", r->get_mus_property ("text"));
       
       SCM nonempty = get_property ("textNonEmpty");
-      if (to_boolean (nonempty))
-	/*
-	  empty text: signal that no rods should be applied.  
-	 */
-	text->set_grob_property ("no-spacing-rods" , SCM_BOOL_F);
-		
+
+      if (gh_boolean_p (nonempty))
+	if (gh_scm2bool (nonempty))
+	  /*
+	    empty text: signal that no rods should be applied.
+	    Default nowadays.
+	  */
+	  text->set_grob_property ("no-spacing-rods" , SCM_BOOL_F);
+	else
+	  text->set_grob_property ("no-spacing-rods" , SCM_BOOL_T);
+       
       announce_grob (text, r->self_scm ());
       texts_.push (text);
     }

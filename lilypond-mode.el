@@ -262,6 +262,8 @@ Must be the car of an entry in `LilyPond-command-alist'."
 			   ;;"LilyPond"
 			   LilyPond-command-default))
 			(t LilyPond-command-default)))
+
+         (completion-ignore-case t)
 	 
 	 (answer (or LilyPond-command-force
 		     (completing-read

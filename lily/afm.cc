@@ -15,7 +15,7 @@ Adobe_font_metric::Adobe_font_metric (AFM_Font_info * fi)
   checksum_ = 0;
   font_inf_ = fi;
 
-  for (int i= 256; i--;)
+  for (int i= 256  >? fi->numOfChars; i--;)
     ascii_to_metric_idx_.push (-1);
   
   for (int i=0; i < fi->numOfChars; i++)

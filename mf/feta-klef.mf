@@ -147,10 +147,10 @@ def draw_bass_clef(expr exact_center, reduction) =
 	penlabels(1,2,3,4);
 
 	save dot_diam;
-	2 dot_diam = reduction* (staff_space - stafflinethickness);
+	2 dot_diam = round reduction* (staff_space - stafflinethickness);
 	pickup pencircle scaled dot_diam;
-	draw z5;
-	draw z5 yscaled -1;
+	drawdot z5;
+	drawdot z5 yscaled -1;
 enddef;
 
 

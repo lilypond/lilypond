@@ -3541,19 +3541,19 @@ details, see the file @file{scm/font.scm}.
 @cindex @code{papersize}
 
 To change the paper size, you must first set the
-@code{papersize} variable at top level.  Set it to
+@code{papersize} paper variable variable.  Set it to
 the strings @code{a4}, @code{letter}, or @code{legal}.  After this
 specification, you must set the font as described above.  If you want
 the default font, then use the 20 point font.
 
 @example
-        papersize = "a4"
+        \paper{papersize = "a4"}
         \include "paper16.ly"
 @end example
 
 The file @code{paper16.ly}  will now include a file named @file{a4.ly}, which
 will set the paper variables @code{hsize} and @code{vsize} (used by
-@code{ly2dvi})
+Lilypond and @code{ly2dvi})
 
 @c .  {Line break}
 @node Line break
