@@ -1,3 +1,10 @@
+pl 78.jcn3
+	- configure: ln en zip 
+	- target doosdist -> lilypond-x.x.x.exe.zip: + executables - sources
+
+pl 78.jcn2
+	- INFTY doze fixes
+
 pl 78.jcn1
 	- fix for multi-staff midi: wohltemperirt.ly, standchen.ly
 	- doze fixes

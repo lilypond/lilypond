@@ -85,6 +85,7 @@ TOPLEVEL_VERSION=$(TOPLEVEL_MAJOR_VERSION).$(TOPLEVEL_MINOR_VERSION).$(TOPLEVEL_
 # fix naming, use TOPLEVEL_ prefix _or_ MODULE?
 MODULE_DIST_NAME = $(MODULE_NAME)-$(VERSION)
 DIST_NAME = lilypond-$(TOPLEVEL_VERSION)
+NO_DOOS_DIST = bin flower lib lily make mi2mu out
 #
 
 # list of object files:
