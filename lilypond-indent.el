@@ -15,6 +15,7 @@
 ;;;    * in syntax-highlighting slurs are not always highlighted the right way
 ;;;      e.g. opening slurs are found found better in "#( ( ) ( ) )" than
 ;;;      opening slurs
+;;;    * is locality of show-paren-function and paren-highlight possible?
 
 (defcustom LilyPond-indent-level 4
   "*Indentation of lilypond statements with respect to containing block.")
@@ -342,7 +343,8 @@ slur-paren-p defaults to nil.
     ;; match concurrent one-char opening and closing slurs
     (if (and (eq dir 1)
 	     (not (sequencep bracket-type))
-	     (eq (char-syntax (char-after oldpos)) ?\())
+	     (eq (char-syntax (char-after oldpos)) ?\()
+	     (not (eq (char-after oldpos) ?<)))
 	;; anyway do not count open slur, since already level = -1
         (progn (forward-char 1)
 	       (if (eq (following-char) 
@@ -540,27 +542,211 @@ builtin 'blink-matching-open' is not used. In syntax table, see
 		 (LilyPond-blink-matching-paren)
 		 (forward-char 1))))))
 
-;;; REDEFINITIONS
-(defun aargh-this-breaks-other-emacs-modes-scan-sexps (pos dir) 
+(defun LilyPond-scan-sexps (pos dir) 
   "This function is redefined to be used in Emacs' show-paren-function and
 in XEmacs' paren-highlight."
   (LilyPond-blink-matching-paren dir))
 
-;; Emacs and XEmacs have slightly different names for parenthesis highlighting.
-(if (not (string-match "XEmacs\\|Lucid" emacs-version))
-    (progn
-      (fset 'old-show-paren-function (symbol-function 'show-paren-function))
-      (defun show-paren-function ()
-      "Highlights the matching slur if cursor is moved before opening or 
-after closing slur. In this redefinition strings and comments are skipped."
-      (if (not (LilyPond-inside-string-or-comment-p))
-	  (old-show-paren-function))))
-  (progn
-    ;; NOTE: paren-set-mode must be set before paren-highlight is redefined
-    (paren-set-mode 'paren)
-    (fset 'old-paren-highlight (symbol-function 'paren-highlight))
-    (defun paren-highlight ()
-      "Highlights the matching slur if cursor is moved before opening or 
-after closing slur. In this redefinition strings and comments are skipped."
-      (if (not (LilyPond-inside-string-or-comment-p))
-	  (old-paren-highlight)))))
+;;; REDEFINITIONS: in future make show-paren-mode and paren-highlight local?
+
+;;; From Emacs' paren.el, with minimal changes (see "LilyPond"-lines)
+;; Find the place to show, if there is one,
+;; and show it until input arrives.
+(defun show-paren-function ()
+;;(defun LilyPond-show-paren-function () ; make show-paren-function local ??
+  (if show-paren-mode
+      (let (pos dir mismatch face (oldpos (point)))
+	(cond ((eq (char-syntax (preceding-char)) ?\))
+	       (setq dir -1))
+	      ((eq (char-syntax (following-char)) ?\()
+	       (setq dir 1)))
+	;;
+	;; Find the other end of the sexp.
+	(when (and dir
+		   (not (LilyPond-inside-string-or-comment-p)))
+	  (save-excursion
+	    (save-restriction
+	      ;; Determine the range within which to look for a match.
+	      (when blink-matching-paren-distance
+		(narrow-to-region
+		 (max (point-min) (- (point) blink-matching-paren-distance))
+		 (min (point-max) (+ (point) blink-matching-paren-distance))))
+	      ;; Scan across one sexp within that range.
+	      ;; Errors or nil mean there is a mismatch.
+	      (condition-case ()
+		  (setq pos (LilyPond-scan-sexps (point) dir))
+		(error (setq pos t mismatch t)))
+	      ;; If found a "matching" paren, see if it is the right
+	      ;; kind of paren to match the one we started at.
+	      (when (integerp pos)
+		(let ((beg (min pos oldpos)) (end (max pos oldpos)))
+		  (when (/= (char-syntax (char-after beg)) ?\$)
+		    (setq mismatch
+			  (not (eq (char-before end)
+				   ;; This can give nil.
+				   (matching-paren (char-after beg)))))))))))
+	;;
+	;; Highlight the other end of the sexp, or unhighlight if none.
+	(if (not pos)
+	    (progn
+	      ;; If not at a paren that has a match,
+	      ;; turn off any previous paren highlighting.
+	      (and show-paren-overlay (overlay-buffer show-paren-overlay)
+		   (delete-overlay show-paren-overlay))
+	      (and show-paren-overlay-1 (overlay-buffer show-paren-overlay-1)
+		   (delete-overlay show-paren-overlay-1)))
+	  ;;
+	  ;; Use the correct face.
+	  (if mismatch
+	      (progn
+		(if show-paren-ring-bell-on-mismatch
+		    (beep))
+		(setq face 'show-paren-mismatch-face))
+	    (setq face 'show-paren-match-face))
+	  ;;
+	  ;; If matching backwards, highlight the closeparen
+	  ;; before point as well as its matching open.
+	  ;; If matching forward, and the openparen is unbalanced,
+	  ;; highlight the paren at point to indicate misbalance.
+	  ;; Otherwise, turn off any such highlighting.
+	  (if (and (= dir 1) (integerp pos))
+	      (when (and show-paren-overlay-1
+			 (overlay-buffer show-paren-overlay-1))
+		(delete-overlay show-paren-overlay-1))
+	    (let ((from (if (= dir 1)
+			    (point)
+			  (forward-point -1)))
+		  (to (if (= dir 1)
+			  (forward-point 1)
+			(point))))
+	      (if show-paren-overlay-1
+		  (move-overlay show-paren-overlay-1 from to (current-buffer))
+		(setq show-paren-overlay-1 (make-overlay from to)))
+	      ;; Always set the overlay face, since it varies.
+	      (overlay-put show-paren-overlay-1 'priority show-paren-priority)
+	      (overlay-put show-paren-overlay-1 'face face)))
+	  ;;
+	  ;; Turn on highlighting for the matching paren, if found.
+	  ;; If it's an unmatched paren, turn off any such highlighting.
+	  (unless (integerp pos)
+	    (delete-overlay show-paren-overlay))
+	  (let ((to (if (or (eq show-paren-style 'expression)
+			    (and (eq show-paren-style 'mixed)
+				 (not (pos-visible-in-window-p pos))))
+			(point)
+		      pos))
+		(from (if (or (eq show-paren-style 'expression)
+			      (and (eq show-paren-style 'mixed)
+				   (not (pos-visible-in-window-p pos))))
+			  pos
+			(save-excursion
+			  (goto-char pos)
+			  (forward-point (- dir))))))
+	    (if show-paren-overlay
+		(move-overlay show-paren-overlay from to (current-buffer))
+	      (setq show-paren-overlay (make-overlay from to))))
+	  ;;
+	  ;; Always set the overlay face, since it varies.
+	  (overlay-put show-paren-overlay 'priority show-paren-priority)
+	  (overlay-put show-paren-overlay 'face face)))
+    ;; show-paren-mode is nil in this buffer.
+    (and show-paren-overlay
+	 (delete-overlay show-paren-overlay))
+    (and show-paren-overlay-1
+	 (delete-overlay show-paren-overlay-1))))
+
+;;; From XEmacs' paren.el, with minimal changes (see "LilyPond"-lines)
+;; Find the place to show, if there is one,
+;; and show it until input arrives.
+(defun paren-highlight ()
+;;(defun LilyPond-paren-highlight () ; make paren-highlight local ??
+  "This highlights matching parentheses.
+
+See the variables:
+  paren-message-offscreen   use modeline when matching paren is offscreen?
+  paren-ding-unmatched	    make noise when passing over mismatched parens?
+  paren-mode		    'blink-paren, 'paren, or 'sexp
+  blink-matching-paren-distance  maximum distance to search for parens.
+
+and the following faces:
+  paren-match, paren-mismatch, paren-blink-off"
+
+  ;; I suppose I could check here to see if a keyboard macro is executing,
+  ;; but I did a quick empirical check and couldn't tell that there was any
+  ;; difference in performance
+
+  (let ((oldpos (point))
+	(pface nil)			; face for paren...nil kills the overlay
+	(dir (and paren-mode
+		  (not (input-pending-p))
+		  (not executing-kbd-macro)
+		  (cond ((eq (char-syntax (preceding-char)) ?\))
+			 -1)
+			((eq (char-syntax (following-char)) ?\()
+			 1))))
+	pos mismatch)
+
+    (save-excursion
+      (if (or (not dir)
+	      (LilyPond-inside-string-or-comment-p)
+	      (not (save-restriction
+		     ;; Determine the range within which to look for a match.
+		     (if blink-matching-paren-distance
+			 (narrow-to-region
+			  (max (point-min)
+			       (- (point) blink-matching-paren-distance))
+			  (min (point-max)
+			       (+ (point) blink-matching-paren-distance))))
+
+		     ;; Scan across one sexp within that range.
+		     (condition-case nil
+			 (setq pos (LilyPond-scan-sexps (point) dir))
+		       ;; NOTE - if blink-matching-paren-distance is set,
+		       ;; then we can have spurious unmatched parens.
+		       (error (paren-maybe-ding)
+			      nil)))))
+
+	  ;; do nothing if we didn't find a matching paren...
+	  nil
+
+	;; See if the "matching" paren is the right kind of paren
+	;; to match the one we started at.
+	(let ((beg (min pos oldpos)) (end (max pos oldpos)))
+	  (setq mismatch
+		(and (/= (char-syntax (char-after beg)) ?\\)
+		     (/= (char-syntax (char-after beg)) ?\$)
+		     ;; XEmacs change
+		     (matching-paren (char-after beg))
+		     (/= (char-after (1- end))
+			 (matching-paren (char-after beg)))))
+	  (if (eq paren-mode 'sexp)
+	      (setq paren-extent (make-extent beg end))))
+	(and mismatch
+	     (paren-maybe-ding))
+ 	(setq pface (if mismatch
+			'paren-mismatch
+		      'paren-match))
+	(and (memq paren-mode '(blink-paren paren))
+	     (setq paren-extent (make-extent (- pos dir) pos)))
+
+	(if (and paren-message-offscreen
+		 (eq dir -1)
+                 (not (current-message))
+		 (not (window-minibuffer-p (selected-window)))
+		 (not (pos-visible-in-window-safe pos)))
+            (paren-describe-match pos mismatch))
+		 
+	;; put the right face on the extent
+	(cond (pface
+	       (set-extent-face paren-extent pface) 
+	       (set-extent-priority paren-extent 100) ; want this to be high
+	       (and (eq paren-mode 'blink-paren)
+		    (setq paren-blink-on-face pface
+			  paren-n-blinks 0
+			  paren-timeout-id
+			  (and paren-blink-interval
+			       (add-timeout paren-blink-interval
+					    'paren-blink-timeout
+					    nil
+					    paren-blink-interval))))))
+	))))
