@@ -195,8 +195,9 @@
 
 	* lily/staff-spacing.cc (next_note_correction): idem
 
-	* lily/separating-group-spanner.cc (find_rods): use conditional_width().
-
+	* lily/separating-group-spanner.cc (find_rods): use
+	conditional_width().
+	
 	* scm/sketch.scm: fix roundfilledbox definition
 
 	* lily/lily-guile.cc (robust_list_ref): be sensible with negative

@@ -49,26 +49,18 @@ If you want to compile LilyPond from source, download here:
 @end itemize
 
 
-Of course, if your platform supports LilyPond, such as Debian GNU/Linux,
-FreeBSD, OpenBSD or NetBSD, you're encouraged to use the native build
-from source drill.
-
 For Red Hat Linux and SuSE Linux, @file{.spec} files are included in the
 tarball; see instructions below.
 
 
-@subsubsection Anonymous CVS access
 
-Short version:
+Of course, if your platform supports LilyPond, such as Debian GNU/Linux,
+FreeBSD, OpenBSD or NetBSD, you're encouraged to use the native build
+from source drill.
 
-@quotation
-@example
-cvs -d :pserver:anoncvs@@lilypond.org:/home/lilypond login
-cvs -d :pserver:anoncvs@@lilypond.org:/home/lilypond co -P lilypond
-@end example
-@end quotation
+The latest development version is also available through anonymous
+CVS. See @uref{http://savannah.gnu.org/cvs/?group=lilypond}.
 
-See @uref{http://lilypond.org/wiki/?CVS} for more information.
 
 @html
 <a name="download-binaries">
