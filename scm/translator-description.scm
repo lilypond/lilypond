@@ -433,9 +433,9 @@ measurePosition and currentBarNumber to determine what number to print over the 
     (engraver-description
      "Note_head_line_engraver"
      "Engrave a line between two note heads, for example a glissando.
-If followThread is set, staff switches also generate a line."
-     '(Glissando FollowThread)
-     '(followThread)))
+If followVoice is set, staff switches also generate a line."
+     '(Glissando VoiceFollower)
+     '(followVoice)))
 
    (cons
     'Note_name_engraver

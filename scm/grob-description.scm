@@ -608,7 +608,7 @@
 		;; if you want to set point-size, you cannot set
 		;; relative-size, as no font will be found for other
 		;; sheets than 20
-		;;(font-point-size . 20)
+		;;(font-design-size . 20)
 		;;(font-relative-size . #f)
 		(meta . ,(grob-description "SystemStartDelimiter" system-start-delimiter-interface font-interface))
 		))

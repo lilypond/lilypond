@@ -19,7 +19,7 @@
 	((eq? name 'font-shape) 2)
 	((eq? name 'font-family) 3)
 	((eq? name 'font-name) 4)
-	((eq? name 'font-point-size) 5)
+	((eq? name 'font-design-size) 5)
 	(else (ly-warning "unknown font field name"))
 	)
        ))
@@ -305,7 +305,7 @@ and warn if the selected font is not unique.
 (define (properties-to-font-name fonts properties-alist-list)
   (let*  (
 	  ;; change order to change priorities of qualifiers.
-	  (q-order    '(font-name font-family font-series font-shape font-point-size font-relative-size))
+	  (q-order    '(font-name font-family font-series font-shape font-design-size font-relative-size))
 	  (rawqualifiers (map (lambda (x) (chain-assoc x  properties-alist-list))
 			      q-order))
 	  (qualifiers (filter-list pair? rawqualifiers))

@@ -465,6 +465,7 @@ numbers in this mode.
 @menu
 * Key signature::               
 * Time signature::              
+* Unmetered music::             
 * Bar lines::                   
 @end menu
 
@@ -607,6 +608,27 @@ Internally,  this is a short cut for
   \property Score.measurePosition = -@var{length of duration}
 @end example
 @cindex @code{|}
+
+
+@node Unmetered music
+@subsection Unmetered music
+
+Bar lines and bar numbers are calculated automatically. For unmetered
+music (e.g. cadenzas), this is not desirable. The property
+@code{Score.timing} can be used to switch off this automatic timing
+
+@lilypond[fragment,relative,singleline,verbatim]
+c'2.
+\property Score.timing = ##f
+c4 c4 c4  
+\property Score.timing = ##t
+c4 c4 c4 
+@end lilypond
+
+The identifiers @code{\cadenzaOn} and @code{\cadenzaOff} can be used to
+achieve the same effect.
+
+
 
 @c .   {Bar lines}
 @node Bar lines
@@ -1213,7 +1235,7 @@ stem.  This behavior can be controlled with the
 @lilypond[fragment,verbatim]
 \relative c'' {
   \grace c8 c4 \grace { [c16 c16] } c4
-  \grace { \property Grace.Stem \override #'flag-style = ##f c16 } c4
+  \grace { \property Grace.Stem \override #'flag-style = #'() c16 } c4
 }
 
 @end lilypond
@@ -2411,11 +2433,31 @@ documentation. Look for @code{Thread_devnull_engraver}
 @node Hara-kiri staffs
 @subsection Hara-kiri staffs
 
+In orchestral scores, staffs that only have rests are usually removed.
+This saves some space.  LilyPond also supports this through the
+hara-kiri@footnote{Hara kiri, also called Seppuku, is the ritual suicide
+of the Japanese Samourai warriors.} staff. This staff commits suicide
+when it finds itself to be empty after the line-breaking process---note
+that it will not disappear when it contains normal rests, you must use
+multi measure rests.
 
-[TODO]
+The hara kiri staff is specialized version of the Staff context. It is
+available as the context identifier @code{\HaraKiriStaffContext}.
+Observe how the second staff in this example disappears in the second
+line.
 
-@footnote{Harakiri, also called Seppuku, is the ritual suicide of
-the Japanese Samourai warriors.}
+@lilypond[verbatim]
+\score  {
+  \notes \relative c' <
+    \context Staff = SA { e4 f g a \break c1 }
+    \context Staff = SB { c4 d e f \break R1 }
+  >
+  \paper {
+    linewidth = 6.\cm ; 
+    \translator { \HaraKiriStaffContext }
+  }
+}
+@end lilypond
 
 
 
@@ -2504,6 +2546,7 @@ grob property.
 * Tuning groups of grobs ::     
 * Tuning per grob ::            
 * What to tune?::               
+* Font selection::              
 * Text markup::                 
 @end menu
 
@@ -2662,6 +2705,87 @@ There is also a master list of contexts. Clicking each takes you to an
 overview of the context, listing which grob types are created there.
 
 
+@node Font selection
+@subsection Font selection
+
+Most graphics in LilyPond are composed of characters of fonts.  You can
+alter the characteristics of the font by setting certain grob
+properties. The mechanism that is used for this resembles LaTeX's New
+Font Selection Scheme. Within this scheme, a font is entirely
+characterized by its font name.
+
+For each grob that uses fonts (in other words, each grob that supports
+@code{font-interface}) a font-name must be selected before it can be
+printed.  The font name is selected by looking at a number of grob
+properties:
+
+@table @code
+@item font-family
+  The general class of the typeface.  Supported are roman (Computer
+Modern), braces (for piano staff braces), music (the standard music
+font), dynamic (font for dynamic signs) and typewriter
+
+@item font-shape
+  A symbol indicating the shape of the font, a finer gradation than
+  font-family. Choices are italic and upright
+@item font-series
+  Symbol indicating the serie of the font.  Series form a finer gradation
+  than font-shape. Choices are medium and bold.
+
+@item font-relative-size
+  A number indicating the size relative the standard size.  For example,
+  with 20pt staff height, relative size -1  corresponds to 16pt staff
+  height, and relative size +1 corresponds to 23 pt staff height.
+
+@item font-design-size
+A number indicating  the design size of the font. 
+
+This is a feature of the Computer Modern Font: each point size has a
+slightly different design. Smaller design sizes are relatively wider,
+which enhances readability. Scalable type faces such TrueType and Adobe
+Type1 usually come as ``one design fits all sizes''.
+
+@item font-name
+  The name of the font, without the design size, eg. @code{cmr},
+@code{cmti}, etc. Setting this overrides font-family, font-shape and
+font-series.
+
+@end table
+
+The font is selected by taking the first font that satisfies all
+qualifiers specified. You can override any of these fields through
+@code{\override} and @code{\revert}. The special value @code{*} matches
+any value for that qualifier.
+
+@example
+  \property Lyrics.LyricText \override #'font-series = #'bold
+  \property Lyrics.LyricText \override #'font-shape = #'*
+@end example
+
+@cindex @code{font-style}
+
+There are also pre-cooked font selection qualifiers. These are selected
+through the grob property @code{font-style}.  For example, the style
+@code{finger} selects family @code{number} and relative size @code{-3}.
+Styles available include: volta, finger, tuplet, timesig, mmrest,
+script, large, Large and dynamic.
+
+The style sheets and tables for selecting fonts are located in
+@file{scm/font.scm}. Refer to this file for more information.
+
+@refbugs
+
+Relative size is not linked to any real size.  There is no mechanism to
+select magnifications of fonts, meaning that you can not scale fonts
+continuoussly. There is no style sheet provided for other fonts besides
+the @TeX{} family.
+
+@cindex font selection
+@cindex font magnification
+@cindex @code{font-interface}
+
+@refbugs
+
 
 @node Text markup
 @subsection Text markup
@@ -2729,7 +2853,7 @@ horizontal mode: set all text on one line (default)
 @var{fontstyle} may be any of @code{finger volta timesig mmrest mark
 script large Large dynamic}
 
-[wat is het verschil tussen fontstyle en abbrev?]
+[wat is het verschil tussen fontstyle en abbrev?  ]
 
 
 It is possible to use @TeX{} commands in the strings, but this should be
@@ -2778,7 +2902,7 @@ where each of the items is one of
        @end example
 
         See @file{scm/font.scm} for details of @var{alist}.
-@item an \elementdescriptions declaration.
+  @item an \elementdescriptions declaration.
         @example
                 \elementdescriptions @var{alist}
         @end example

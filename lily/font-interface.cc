@@ -15,6 +15,23 @@
 #include "warn.hh"
 
 
+/*
+  TODO revise font handling.
+
+
+* relative sizes should relate to staff-space, eg.  font-staff-space
+= 1.2 ^ relative-size
+
+* If a relative size is given, lily should magnify the closest
+design size font to match that. (ie. fonts should have variable
+scaling)
+
+(this requires that fonts are stored as (filename , designsize))
+
+
+  
+ */
+
 SCM
 Font_interface::font_alist_chain (Grob *me)
 {
@@ -113,7 +130,7 @@ so a 14% speedup.
 
 */
 
-static SCM name_sym, shape_sym, family_sym, series_sym, rel_sz_sym, pt_sz_sym, wild_sym;
+static SCM name_sym, shape_sym, family_sym, series_sym, rel_sz_sym, design_sz_sym, wild_sym;
 
 
 static void
@@ -124,7 +141,7 @@ init_syms ()
   family_sym = scm_permanent_object (ly_symbol2scm ("font-family"));
   series_sym = scm_permanent_object (ly_symbol2scm ("font-series"));
   rel_sz_sym = scm_permanent_object (ly_symbol2scm ("font-relative-size"));
-  pt_sz_sym = scm_permanent_object (ly_symbol2scm ("font-point-size"));
+  design_sz_sym = scm_permanent_object (ly_symbol2scm ("font-design-size"));
   wild_sym = scm_permanent_object (ly_symbol2scm ("*"));
 
   scm_make_gsubr ("ly-get-default-font", 1 , 0, 0, (Scheme_function_unknown) ly_font_interface_get_default_font);
@@ -151,7 +168,7 @@ Font_interface::properties_to_font_name (SCM fonts, SCM alist_chain)
   SCM series = SCM_BOOL_F;
 
   
-  SCM point_sz = ly_assoc_chain (pt_sz_sym, alist_chain);
+  SCM point_sz = ly_assoc_chain (design_sz_sym, alist_chain);
   SCM rel_sz = SCM_BOOL_F;
 
   if (!gh_pair_p (name))

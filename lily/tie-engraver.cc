@@ -167,6 +167,8 @@ Tie_engraver::create_grobs ()
 	  SCM pair = gh_list_ref (head_list, gh_int2scm (i/2));
 	  
 	  Spanner * p = new Spanner (basic);
+
+	  Tie::set_interface (p);
 	  Tie::set_head (p,LEFT, dynamic_cast<Item*> (unsmob_grob (gh_car (pair))));
 	  Tie::set_head (p,RIGHT, dynamic_cast<Item*> (unsmob_grob (gh_cdr (pair))));
 	  

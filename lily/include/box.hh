@@ -12,7 +12,8 @@
 #include "axes.hh"
 
 
-struct Box {
+struct Box
+{
   Interval interval_a_[NO_AXES];
     
   Interval &x () {return interval_a_[X_AXIS]; }

@@ -49,16 +49,5 @@
   \global\let\lilypondpiece\relax%
   \global\let\mustmakelilypondpiecetitle\undefined%
 }
-% header -- head ?
-\def\makelilypondheader
-{
-  \ifx\lilypondhead\undefined\else%
-    \parbox{\textwidth}{\mbox{}\lilypondhead}\fi
-}
-\def\makelilypondfooter
-{
-  \ifx\lilypondfooter\undefined\else%
-    \parbox{\textwidth}{\mbox{}\lilypondfooter}\fi
-}
 \endinput
 

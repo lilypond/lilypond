@@ -1428,16 +1428,13 @@ line is not indented.  The line still looks very cramped, but that is due
 to the page layout of this document.
 
 
+@ignore
 [TODO:
 
-* arpeggio, glissando, 
-
-* \apply, \outputproperty, \translator @{@}, \molecule hacking.
-
-* font-size, cadenza. rhythmic staff, multi-stanza.
+* font-size, multi-stanza.
 
 * Simple part combining in a Hymn
-
+@end ignore
 
 @node An orchestral score
 @section An orchestral score

@@ -429,7 +429,7 @@ are a party in collision resolution.
    'font-interface
    "Any symbol that is typeset through fixed sets of glyphs (ie. fonts)"
    '(font-style font-series font-shape font-family font-name
-font-point-size font-relative-size)
+font-design-size font-relative-size)
    )
 
 

@@ -165,7 +165,7 @@ procedure? "visibility-lambda function for explicit Key changes;
 (ie. at the start of the line) key signatures.")
 
 
-(translator-property-description 'followThread boolean?
+(translator-property-description 'followVoice boolean?
 				 "if set, note heads are tracked  across staff switches by a thin line")
 (translator-property-description 'forceClef boolean? "Show clef symbol, even if it hasn't changed. Only active for the first clef after the property is set, not for the full staff.")
 (translator-property-description 'forgetAccidentals boolean? "do
