@@ -1,12 +1,12 @@
 depth = ..
 
-TEX_FILES = $(wildcard *.tex)  $(outdir)/latin1.enc  $(outdir)/music-drawing-routines.ps
+TEX_FILES = $(wildcard *.tex)  
 
 EXTRA_DIST_FILES = $(TEX_FILES) latin1.enc
 STEPMAKE_TEMPLATES=install
 
 INSTALLATION_DIR=$(local_lilypond_datadir)/tex/
-INSTALLATION_FILES=$(TEX_FILES)
+INSTALLATION_FILES=$(TEX_FILES) $(outdir)/latin1.enc  $(outdir)/music-drawing-routines.ps
 
 include $(depth)/make/stepmake.make
 
