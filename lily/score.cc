@@ -1,7 +1,7 @@
 /*
   score.cc -- implement Score
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -20,6 +20,7 @@
 #include "midi-def.hh"
 #include "pulk-voices.hh"
 #include "request-column.hh"
+#include "p-col.hh"
 
 extern String default_out_fn;
 
