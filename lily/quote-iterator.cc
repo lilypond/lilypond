@@ -31,6 +31,7 @@ public:
   
   DECLARE_SCHEME_CALLBACK (constructor, ()); 
 
+  bool accept_music_type (Music*) const;
 protected:
   virtual void derived_mark ();
   virtual void construct_children ();
@@ -38,6 +39,21 @@ protected:
   virtual void process (Moment);
   virtual bool ok () const;
 };
+
+bool
+Quote_iterator::accept_music_type (Music *mus) const
+{
+  SCM accept = get_outlet()->get_property ("quotedEventTypes");
+  for (SCM s =  mus->get_property ("types");
+       ly_c_pair_p (s);  s = ly_cdr (s))
+    {
+      if (scm_memq (ly_car (s), accept) != SCM_BOOL_F)
+	return true;
+    }
+
+  return false;
+}
+
 
 void
 Quote_iterator::derived_mark ()
@@ -116,14 +132,12 @@ Quote_iterator::ok () const
   return ly_c_vector_p (event_vector_) && (event_idx_ <= end_idx_);
 }
 
-
 Moment
 Quote_iterator::pending_moment () const
 {
   SCM entry = SCM_VECTOR_REF (event_vector_, event_idx_);
   return *unsmob_moment (ly_caar (entry)) - start_moment_;
 }
-
 
 void
 Quote_iterator::process (Moment m)
@@ -155,9 +169,10 @@ Quote_iterator::process (Moment m)
 	{
 	  SCM ev_acc = ly_car (s);
 
-
 	  Music * mus = unsmob_music (ly_car (ev_acc));
-	  if (mus)
+	  if (!mus)
+	    programming_error ("need music in quote.");
+	  else if (accept_music_type (mus))
 	    {
 	      if (quote_pitch || me_pitch)
 		{
@@ -182,8 +197,6 @@ Quote_iterator::process (Moment m)
 	      if (!b)
 		mus->origin ()->warning (_f ("In quotation: junking event %s", mus->name ()));
 	    }
-	  else
-	    programming_error ("need music in quote.");
 	}
     }
   event_idx_ ++; 
