@@ -11,8 +11,8 @@
 	forced_stem_shorten3=0.;
 	\translator{
 		\PianoStaffContext
-		maxVerticalAlign=42.\pt;
-		minVerticalAlign=42.\pt;
+		maxVerticalAlign=8.4;
+		minVerticalAlign=8.4;
 	}
 	\translator{\StaffContext
 	timeSignatureStyle="C";}

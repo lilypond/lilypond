@@ -132,7 +132,7 @@ class Performance;
 class Performer;
 class Performer_group_performer;
 class Piano_bar_engraver;
-class Pitch_interrogate_req;
+
 class Pitch_squash_engraver;
 class Property_iterator;
 class Rational;

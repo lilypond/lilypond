@@ -22,28 +22,36 @@
 
    height -- real  (dy)
 
+
+   Read-only
+   =========
+   
+   flag-width-function --
+
    damping -- amount of beam slope damping. (int)
-   should beam slope be damped? 0: no, 1: yes, 100000: horizontal beams 
-
-
-   molecule-callback --
-
-   beam-thickness -- weight of beams, in staffspace
-
-   beam-space-function -- function of type multiplicity -> real (in staffspace)
+     should beam slope be damped? 0: no, 1: yes, 100000: horizontal beams 
 
    default-neutral-direction -- which direction to choose if we're in
      the middle of the staff
    
-   after-line-breaking-callback --
+   thickness -- weight of beams, in staffspace
 
+   space-function -- function of type multiplicity -> real (in staffspace)
+
+   beamed-stem-shorten --
+
+   height-quants --
+
+   vertical-position-quant-function --
+
+   dir-function --
+   
    damping -- damping factor (real).
 
    outer-stem-length-limit -- catch suspect beam slopes, set slope to zero if
      outer stem is lengthened more than this (in staffspace)
 
    slope-limit -- set slope to zero if slope is running away steeper than this.
-
 */
 class Beam
 {

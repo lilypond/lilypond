@@ -15,15 +15,13 @@
 Simultaneous_music_iterator::Simultaneous_music_iterator ()
 {
   separate_contexts_b_ = false;
-  cursor_i_ = 0;
 }
 
 Simultaneous_music_iterator::Simultaneous_music_iterator (Simultaneous_music_iterator const& src)
   : Music_iterator (src)
 {
-  cursor_i_ = src.cursor_i_;
   separate_contexts_b_ = src.separate_contexts_b_;
-  for (Cons<Music_iterator> *p = children_p_list_.head_; p; p = p->next_)
+  for (Cons<Music_iterator> *p = src.children_p_list_.head_; p; p = p->next_)
     {
       Music_iterator *i = p->car_;
       children_p_list_.append (new Killing_cons<Music_iterator> (i->clone (), 0));
@@ -35,12 +33,6 @@ Simultaneous_music_iterator::~Simultaneous_music_iterator ()
   children_p_list_.junk ();
 }
 
-/*
-  Should roll next () into this as well
-
-
-  huh? --hwn
- */
 SCM
 Simultaneous_music_iterator::get_music (Moment m)const
 {
@@ -105,6 +97,23 @@ Simultaneous_music_iterator::process (Moment until)
     }
 }
 
+void
+Simultaneous_music_iterator::skip (Moment until)
+{
+  for (Cons<Music_iterator> **pp = &children_p_list_.head_; *pp;)
+    {
+      Music_iterator * i = (*pp)->car_;
+      if (i->pending_moment() <= until) 
+	{
+	  i->skip (until);
+	}
+      if (!i->ok())
+	delete children_p_list_.remove_cons (pp);
+      else
+	pp = &(*pp)->next_;
+    }
+}
+
 Moment
 Simultaneous_music_iterator::pending_moment() const
 {
@@ -132,3 +141,5 @@ Simultaneous_music_iterator::try_music_in_children (Music *m) const
     b =p->car_->try_music (m);
   return b;
 }
+
+

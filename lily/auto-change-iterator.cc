@@ -66,21 +66,58 @@ Auto_change_iterator::change_to (Music_iterator *it, String to_type,
 
 }
 
-Pitch_interrogate_req* spanish_inquisition; // nobody expects it
+/*
+  Look ahead to find first pitches to determine staff position.
+  WARNING: this means that
+
+  \autochange Staff \notes { .... \context Staff = otherstaff { .. } .. }
+
+  will confuse the autochanger, since it will not notice that the
+  music for OTHERSTAFF is not his.
+
+  PRECONDITION: this->ok() holds.
+*/
+Array<Musical_pitch>
+Auto_change_iterator::pending_pitch (Moment m) const
+{
+  Music_iterator * iter = child_iter_p_ ->clone ();
+  Array<Musical_pitch> ps;
+  while (1)
+    {
+      SCM muses = iter->get_music (m);
+      for (SCM s = muses; gh_pair_p (s); s=gh_cdr (s))
+	if (Note_req* nr = dynamic_cast<Note_req*> (unsmob_music (gh_car (s))))
+	  {
+	    ps.push (nr->pitch_);
+	  }
+
+      if (ps.size ())
+	break;
+
+      iter->skip (m);
+      if (!iter->ok())
+	break;
+      
+      m = iter->pending_moment ();
+    }
+
+  delete iter;
+  return ps;
+}
 
 void
 Auto_change_iterator::process (Moment m)
 {
+  /*
+    first we get the pitches, then we do the real work.
+    Music_wrapper_iterator::process() might process (and throw away)
+    pitches we need.  */
+  Array<Musical_pitch> ps = pending_pitch (m);
+
   Music_wrapper_iterator::process (m);
-
-  if (!spanish_inquisition)
-    spanish_inquisition = new Pitch_interrogate_req;
-
-  Music_iterator *it = try_music (spanish_inquisition);
-
-  if (it && spanish_inquisition->pitch_arr_.size ())
+  if (ps.size ())
     {
-      Musical_pitch p = spanish_inquisition->pitch_arr_[0];
+      Musical_pitch p = ps[0];
       Direction s = Direction (sign(p.steps ()));
       if (s != where_dir_)
 	{
@@ -88,11 +125,9 @@ Auto_change_iterator::process (Moment m)
 	  String to_id =  (s >= 0) ?  "up" : "down";
 	  Auto_change_music const * auto_mus = dynamic_cast<Auto_change_music const* > (music_l_);
 
-	  change_to (it, auto_mus->what_str_, to_id);	  
+	  change_to (child_iter_p_, auto_mus->what_str_, to_id);	  
 	}
     }
-
-  spanish_inquisition->pitch_arr_.clear ();
 }
 
 Auto_change_iterator::Auto_change_iterator( )

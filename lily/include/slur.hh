@@ -28,7 +28,20 @@
 
    y-free -- ? 
    
- */
+   control-points --
+
+
+   
+   Read-only
+   =========
+   
+   extremity-rules --
+
+   extremity-offset-alist --
+
+   thickness --
+
+*/
 class Slur
 {
 public:

@@ -61,41 +61,41 @@ basloopje = \notes\relative c{
   d,8( a' d f a d f d a f d )a
 }
 
-accompany = \notes \relative c{
+accompany = \notes \relative c {
   % snapnie, hoevaak relative c heeft ze nodig?
-  \notes\relative c \basloopje
-  \notes\relative c \basloopje
-  \notes\relative c \basloopje
-  \transpose bes \notes\relative c{ \basloopje }
-  \transpose bes \notes\relative c{ \basloopje }
-  \notes\relative c \basloopje
-  \transpose bes \notes\relative c{ \basloopje }
-  \transpose bes \notes\relative c{ \basloopje }
-  \transpose a \notes\relative c{ \basloopje }
-  \transpose bes \notes\relative c{ \basloopje }
-  \transpose a \notes\relative c{ \basloopje }
-  \notes\relative c \basloopje
-  \notes\relative c \basloopje
+ \basloopje
+ \basloopje
+ \basloopje
+  \transpose bes  \basloopje 
+  \transpose bes  \basloopje 
+   \basloopje
+  \transpose bes  \basloopje 
+  \transpose bes  \basloopje 
+  \transpose a  \basloopje 
+  \transpose bes  \basloopje 
+  \transpose a  \basloopje 
+ \basloopje
+ \basloopje
   % huh? d'
-  \transpose d' \notes\relative c{ \basloopje }
-  \notes\relative c \basloopje
-  \notes\relative c \basloopje
-  \transpose d' \notes\relative c{ \basloopje }
-  \notes\relative c \basloopje
-  \notes\relative c \basloopje
-  \transpose e' \notes\relative c{ \basloopje }
-  \notes\relative c \basloopje
-  \notes\relative c \basloopje
-  \transpose bes \notes\relative c{ \basloopje }
-  \transpose a \notes\relative c{ \basloopje }
-  \notes\relative c \basloopje
-  \notes\relative c \basloopje
-  \transpose d' \notes\relative c{ \basloopje }
-  \notes\relative c \basloopje
-  \transpose d' \notes\relative c{ \basloopje }
-  \notes\relative c \basloopje
-  \notes\relative c \basloopje
-  \transpose e' \notes\relative c{ \basloopje }
+  \transpose d'  \basloopje 
+ \basloopje
+ \basloopje
+  \transpose d'  \basloopje 
+ \basloopje
+ \basloopje
+  \transpose e'  \basloopje 
+ \basloopje
+ \basloopje
+  \transpose bes  \basloopje 
+  \transpose a  \basloopje 
+ \basloopje
+ \basloopje
+  \transpose d'  \basloopje 
+ \basloopje
+  \transpose d'  \basloopje 
+ \basloopje
+ \basloopje
+  \transpose e'  \basloopje 
   < e1*6/4 b' e> ~ < e b' e> 
 }
 
@@ -104,15 +104,16 @@ accompany = \notes \relative c{
 		\context Staff=up < 
 			\global
 			\context Voice=foo {
-			\property Voice.verticalDirection = #1
-			\property Voice.scriptVerticalDirection = #1
+			\stemup
+			\property Voice.basicScriptProperties \push #'direction = #1
+			
 			\melody 
 			}
 		>
 		\context Staff=down <
 			\global
 			\clef bass;
-			\autochange Staff \accompany
+			\autochange Staff \context Voice \accompany
 		>
 	>
 

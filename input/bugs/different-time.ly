@@ -1,3 +1,6 @@
+%
+% irregular spacing.
+
 \score{
     \context PianoStaff <
         \context Staff = upper \notes\relative c''{

@@ -157,25 +157,6 @@ public:
   VIRTUAL_COPY_CONS (Music);
 };
 
-/**
-   What pitches have ben acked ?
- */
-class Pitch_interrogate_req : public Request
-{
-public:
-  Array<Musical_pitch> pitch_arr_;
-  VIRTUAL_COPY_CONS (Music);
-};
-
-/**
-   What rhythms have ben acked ?
- */
-class Rhythm_interrogate_req : public Request
-{
-public:
-  Array<Duration> duration_arr_;
-  VIRTUAL_COPY_CONS (Music);
-};
 
 
 /**

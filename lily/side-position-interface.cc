@@ -148,7 +148,10 @@ directed_round (Real f, Direction d)
 
 /*
   Callback that quantises in staff-spaces, rounding in the direction
-  of the elements "direction" elt property. */
+  of the elements "direction" elt property.
+
+  Only rounds when we're inside the staff, as determined by
+  Staff_symbol_referencer::staff_radius() */
 Real
 Side_position::quantised_position (Score_element *me, Axis )
 {
@@ -158,9 +161,10 @@ Side_position::quantised_position (Score_element *me, Axis )
     {
       Real p = Staff_symbol_referencer::position_f (me);
       Real rp = directed_round (p, d);
-
+      Real rad = Staff_symbol_referencer::staff_radius (me) *2 ;
       int ip = int  (rp);
-      if ((ip % 2) == 0)
+
+      if (abs (ip) < rad && (ip % 2) == 0)
 	{
 	  ip += d;
 	  rp += d;

@@ -68,18 +68,6 @@ Note_heads_engraver::do_try_music (Music *m)
     {
       return now_mom () < note_end_mom_;
     }
-  else if (Pitch_interrogate_req *p = dynamic_cast<Pitch_interrogate_req*> (m))
-    {
-      for (int i= note_req_l_arr_.size (); i--;)
-	p->pitch_arr_.push (note_req_l_arr_[i]->pitch_); // GUH UGH UGHUGH.
-      return true;
-    }
-  else if (Rhythm_interrogate_req *r = dynamic_cast<Rhythm_interrogate_req*> (m))
-    {
-      for (int i= note_req_l_arr_.size (); i--;)
-	r->duration_arr_.push (note_req_l_arr_[i]->duration_); // GUH UGH UGHUGH.
-      return true;
-    }
   return false;
   
 }
