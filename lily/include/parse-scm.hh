@@ -15,8 +15,8 @@ struct Parse_start
 };
 
 SCM catch_protected_parse_body (void *);
-SCM protected_ly_parse_scm (Parse_start *);
+SCM protected_ly_parse_scm (Parse_start *, bool);
 
-SCM ly_parse_scm (char const* s, int *, Input);
+SCM ly_parse_scm (char const *, int *, Input, bool);
 
 #endif

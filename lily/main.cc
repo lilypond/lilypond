@@ -64,7 +64,7 @@ String output_format_global = "tex";
 /* Current output name. */
 String output_name_global;
 
-/* Run in safe mode? -- FIXME: should be re-analised */
+/* Run in safe mode? */
 bool safe_global_b = false;
 
 /* Verbose progress indication? */
@@ -118,12 +118,7 @@ static Long_option_init options_static[] = {
   {0, "no-paper", 'm',  _i ("produce MIDI output only")},
   {_i ("FILE"), "output", 'o',  _i ("write output to FILE")},
   {_i ("DIR"), "dep-prefix", 'P',  _i ("prepend DIR to dependencies")},
-#if 0
-  /*
-    should audit again.
-   */
-  {0, "safe", 's',  _i ("inhibit file output naming and exporting")},
-#endif
+  {0, "safe-mode", 's',  _i ("run in safe mode")},
   {0, "version", 'v',  _i ("print version number")},
   {0, "verbose", 'V', _i ("be verbose")},
   {0, "warranty", 'w',  _i ("show warranty and copyright")},

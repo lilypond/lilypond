@@ -19,7 +19,7 @@ static int module_count;
 void
 ly_init_anonymous_module (void * data)
 {
-  scm_c_use_module ("lily");  
+  scm_c_use_module ("lily");
 }
 
 Protected_scm anon_modules;
@@ -29,7 +29,6 @@ ly_make_anonymous_module ()
 {
   String s = "*anonymous-ly-" + to_string (module_count++) +  "*";
   SCM mod = scm_c_define_module (s.to_str0(), ly_init_anonymous_module, 0);
-
   anon_modules = scm_cons (mod, anon_modules);
   return mod;
 }
