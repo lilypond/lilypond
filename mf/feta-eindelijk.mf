@@ -256,7 +256,7 @@ def draw_eighth_rest =
 	y1 = - staff_space ;
 	y2 = h -  lower_brush;
 	x2r = width;
-	z2 = z1 + whatever*dir(75);
+	z2 = z1 + whatever*dir(72);
        	z9 = z2 + 0.5 stafflinethickness * dir (angle(z2 - z1)- 10);
 	pat = z1l --- z2l .. z9 .. z2r --- simple_serif (z1r, z1l, -40) .. cycle;
 	fill pat;
@@ -270,13 +270,13 @@ def draw_eighth_rest =
 
 	enddef;
 
-fet_beginchar("8th rest","3","eighthrest");
-	draw_eighth_rest;
-	fet_endchar;
-
 fet_beginchar("Classical quarter rest","2classical","clasquartrest");
 	draw_eighth_rest;
 	currentpicture := currentpicture xscaled -1 shifted (w,0);
+	fet_endchar;
+
+fet_beginchar("8th rest","3","eighthrest");
+	draw_eighth_rest;
 	fet_endchar;
 
 fet_beginchar("16th rest","4","sixteenthrest");
@@ -286,7 +286,7 @@ fet_beginchar("16th rest","4","sixteenthrest");
 	pair crook_dir;
 	path pat;
 
-	width# := 1.25 staff_space#;
+	width# := 1.2 staff_space#;
 	bulb_diam# := 0.64 staff_space#;
 	thin# := 1.2 stafflinethickness#;
 	thick# :=  2.2 stafflinethickness#;
@@ -305,7 +305,7 @@ fet_beginchar("16th rest","4","sixteenthrest");
 	y1 = -2 staff_space ;
 	y2 = h -  lower_brush;
 	x2r = width;
-	z2 = z1 + whatever*dir(75.5);
+	z2 = z1 + whatever*dir(74);
        	z9 = z2 + 0.5 stafflinethickness * dir (angle(z2 - z1)- 10);
 	pat = z1l --- z2l .. z9 .. z2r --- simple_serif (z1r, z1l, -40) .. cycle;
 	fill pat;
@@ -326,7 +326,7 @@ fet_beginchar("32th rest","5","thirtysecondrest");
 	pair crook_dir;
 	path pat;
 
-	width# := 1.5 staff_space#;
+	width# := 1.3 staff_space#;
 	bulb_diam# := 0.64 staff_space#;
 	thin# := 1.2 stafflinethickness#;
 	thick# :=  2.2 stafflinethickness#;
@@ -367,7 +367,7 @@ fet_beginchar("64th rest","6","sixtyfourthrest");
 	pair crook_dir;
 	path pat;
 
-	width# := 1.75 staff_space#;
+	width# := 1.4 staff_space#;
 	bulb_diam# := 0.64 staff_space#;
 	thin# := 1.2 stafflinethickness#;
 	thick# :=  2.2 stafflinethickness#;
@@ -386,7 +386,7 @@ fet_beginchar("64th rest","6","sixtyfourthrest");
 	y1 = -3 staff_space ;
 	y2 = h -  lower_brush;
 	x2r = width;
-	z2 = z1 + whatever*dir(76.5);
+	z2 = z1 + whatever*dir(78);
        	z9 = z2 + 0.5 stafflinethickness * dir (angle(z2 - z1)- 10);
 	pat = z1l --- z2l .. z9 .. z2r --- simple_serif (z1r, z1l, -40) .. cycle;
 	fill pat;
@@ -409,7 +409,7 @@ fet_beginchar("128th rest","7","hundredtwentyeighthrest");
 	pair crook_dir;
 	path pat;
 
-	width# := 2.0 staff_space#;
+	width# = 1.5 staff_space#;
 	bulb_diam# := 0.64 staff_space#;
 	thin# := 1.2 stafflinethickness#;
 	thick# :=  2.2 stafflinethickness#;
@@ -428,7 +428,7 @@ fet_beginchar("128th rest","7","hundredtwentyeighthrest");
 	y1 = -3 staff_space ;
 	y2 = h -  lower_brush;
 	x2r = width;
-	z2 = z1 + whatever*dir(77);
+	z2 = z1 + whatever*dir(80);
        	z9 = z2 + 0.5 stafflinethickness * dir (angle(z2 - z1)- 10);
 	pat = z1l --- z2l .. z9 .. z2r --- simple_serif (z1r, z1l, -40) .. cycle;
 	fill pat;
