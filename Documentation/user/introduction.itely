@@ -24,7 +24,7 @@ we love to see and love to play from.
 @end menu
 
 
-@node Notation in LilyPond 
+@node Notation in LilyPond
 @section Notation in LilyPond
 
 
@@ -214,7 +214,7 @@ Similarly, more Staff contexts can be put into a single Score context.
 
 
 
-@node  Engraving in LilyPond
+@node Engraving in LilyPond
 @section Engraving in LilyPond
 
 

@@ -21,6 +21,9 @@
 
 	* Documentation/user/lilypond.tely: update version.
 
+	* Documentation/user/{appendices,introduction,refman,tutorial}.itely:
+	Remove extra spaces in each @node, fixes spaces.
+
 2003-10-29  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* scripts/lilypond-book.py (output_dict): Add definition of

@@ -365,7 +365,7 @@ from the list shown before in the terminal. If none work, go to
 The commands for formatting and printing music on all platforms are
 detailed in @ref{Invoking LilyPond}.
 
-@node More about pitches 
+@node More about pitches
 @section More about pitches 
 
 A @rglos{sharp} (@texisharp{}) pitch is made by adding @samp{is} to
@@ -543,7 +543,7 @@ see @ref{Beaming}
 @end table
 
 
-@node  Octave entry
+@node Octave entry
 @section Octave entry
 
 
