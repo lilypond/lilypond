@@ -49,13 +49,13 @@ Multi_measure_rest_engraver::do_try_music (Music* req_l)
    {
      if (multi_measure_req_l_)
        if (!multi_measure_req_l_->equal_b (mr)
-	   || rest_moments_[START] != now_moment ())
+	   || rest_moments_[START] != now_mom ())
 	 return false;
   
      multi_measure_req_l_ = mr;
-     rest_moments_[START] = now_moment ();
+     rest_moments_[START] = now_mom ();
      
-     rest_moments_[STOP] = rest_moments_[START] + multi_measure_req_l_->duration_.length ();
+     rest_moments_[STOP] = rest_moments_[START] + multi_measure_req_l_->duration_.length_mom ();
      return true;
    }
  return false;
@@ -76,7 +76,7 @@ Multi_measure_rest_engraver::do_process_requests ()
 void
 Multi_measure_rest_engraver::do_pre_move_processing ()
 {
-  Moment now (now_moment ());
+  Moment now (now_mom ());
   Time_description const *time = get_staff_info().time_C_;
   if (mmrest_p_ && (now >= rest_moments_[START]) 
     && !time->whole_in_measure_
@@ -98,7 +98,7 @@ void
 Multi_measure_rest_engraver::do_post_move_processing ()
 {
   Time_description const *time = get_staff_info().time_C_;
-  Moment now (now_moment ());
+  Moment now (now_mom ());
 
   if (mmrest_p_ && !time->whole_in_measure_)
     {

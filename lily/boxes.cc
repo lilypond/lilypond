@@ -30,6 +30,13 @@ Box::Box()
 {        
 }
 
+void
+Box::set_empty ()
+{
+  interval_a_[X_AXIS].set_empty ();
+  interval_a_[Y_AXIS].set_empty (); 
+}
+
 Box::Box (Interval ix, Interval iy)
 {
   x() = ix;

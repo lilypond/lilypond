@@ -13,7 +13,7 @@
 #include "abbreviation-beam.hh"
 #include "misc.hh"
 #include "debug.hh"
-#include "atom.hh"
+
 #include "molecule.hh"
 #include "leastsquares.hh"
 #include "stem.hh"

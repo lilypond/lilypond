@@ -17,7 +17,7 @@
 void
 Request_chord_iterator::construct_children()
 {
-  elt_duration_ =elt_l ()->duration ();
+  elt_length_mom_ =elt_l ()->length_mom ();
   get_req_translator_l();
 }
 
@@ -36,7 +36,7 @@ Request_chord_iterator::Request_chord_iterator ()
 bool
 Request_chord_iterator::ok() const
 {
-  return (elt_duration_ && !last_b_) || first_b_;
+  return (elt_length_mom_ && !last_b_) || first_b_;
 }
 
 
@@ -46,7 +46,7 @@ Request_chord_iterator::next_moment() const
 {
   Moment m (0);
   if  (!first_b_)
-    m = elt_duration_;
+    m = elt_length_mom_;
   return m;
 }
 
@@ -54,7 +54,7 @@ void
 Request_chord_iterator::do_print() const
 {
 #ifndef NPRINT
-  DOUT << "duration: " << elt_duration_;
+  DOUT << "duration: " << elt_length_mom_;
 #endif
 }
 
@@ -78,6 +78,6 @@ Request_chord_iterator::do_process_and_next (Moment mom)
       first_b_ = false;
     }
 
-  if (mom >= elt_duration_)
+  if (mom >= elt_length_mom_)
     last_b_ = true;
 }

@@ -403,9 +403,9 @@ Midi_note::Midi_note (Audio_item* audio_item_l)
 }
 
 Moment
-Midi_note::duration () const
+Midi_note::length_mom () const
 {
-  Moment m = dynamic_cast <Rhythmic_req *> (audio_item_l_->req_l_)->duration ();
+  Moment m = dynamic_cast <Rhythmic_req *> (audio_item_l_->req_l_)->length_mom ();
   if (m < Moment (1, 1000))
     {
       warning (_ ("silly duration"));
@@ -418,7 +418,7 @@ int
 Midi_note::pitch_i () const
 {
   int p = dynamic_cast <Melodic_req*> (audio_item_l_->req_l_)->pitch_.semitone_pitch () 
-    + ((Audio_note*)audio_item_l_)->transposing_i_;
+    + dynamic_cast<Audio_note*>(audio_item_l_)->transposing_i_;
   if (p == INT_MAX)
     {
       warning (_ ("silly pitch"));
@@ -453,7 +453,7 @@ int
 Midi_note_off::pitch_i () const
 {
   return dynamic_cast <Melodic_req *> (audio_item_l_->req_l_)->pitch_.semitone_pitch ()
-    + ((Audio_note*)audio_item_l_)->transposing_i_;
+    + dynamic_cast<Audio_note*>(audio_item_l_)->transposing_i_;
 }
 
 String
@@ -470,7 +470,7 @@ Midi_note_off::str () const
 Midi_tempo::Midi_tempo (Audio_item* audio_item_l)
   : Midi_item (audio_item_l)
 {
-  per_minute_4_i_ = ( (Audio_tempo*)audio_item_l_)->per_minute_4_i_;
+  per_minute_4_i_ = dynamic_cast<Audio_tempo*>(audio_item_l_)->per_minute_4_i_;
 }
 
 Midi_tempo::Midi_tempo (int per_minute_4_i)
@@ -491,8 +491,8 @@ Midi_tempo::str () const
 Midi_text::Midi_text (Audio_item* audio_item_l)
   : Midi_item (audio_item_l)
 {
-  text_str_ = ( (Audio_text*)audio_item_l_)->text_str_;
-  type_ = (Type) ( (Audio_text*)audio_item_l_)->type_;
+  text_str_ = dynamic_cast<Audio_text*>(audio_item_l_)->text_str_;
+  type_ = (Type) dynamic_cast<Audio_text*>(audio_item_l_)->type_;
 }
 
 Midi_text::Midi_text (Midi_text::Type type, String text_str)

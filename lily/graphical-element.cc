@@ -84,8 +84,7 @@ Graphical_element::set_empty (bool b)
 Interval
 Graphical_element::extent (Axis a) const
 {
-  Dimension_cache const * d = //(Dimension_cache*)
-    &dim_cache_[a];
+  Dimension_cache const * d = &dim_cache_[a];
 
   if (d->empty_b ())
     return Interval ();

@@ -30,7 +30,7 @@ public:
   
   VIRTUAL_COPY_CONS(Music);
   Music_wrapper (Music_wrapper const&);
-  virtual Moment duration () const;
+  virtual Moment length_mom () const;
   virtual ~Music_wrapper ();
   virtual Musical_pitch to_relative_octave (Musical_pitch);
   

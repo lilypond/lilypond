@@ -34,7 +34,7 @@ public:
 
   
 protected:
-  virtual Moment now_moment () const;
+  virtual Moment now_mom () const;
   virtual Global_translator *global_l() { return this; }
 };
 

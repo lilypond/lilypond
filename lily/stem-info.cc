@@ -10,7 +10,7 @@
 #include "proto.hh"
 #include "misc.hh"
 #include "debug.hh"
-#include "atom.hh"
+
 #include "stem.hh"
 #include "paper-def.hh"
 #include "lookup.hh"

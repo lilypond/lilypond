@@ -14,109 +14,101 @@
 #include "dimensions.hh"
 #include "lookup.hh"
 #include "main.hh"
+#include "global-ctor.hh"
 
-inline bool
-Atom::check_infinity_b ()const
+Atom::Atom(SCM s)
 {
-  bool ridiculous = false;
+  func_ = s;
+}
+
+
+#if 0
+int
+Atom::smob_display (SCM smob, SCM port, scm_print_state*)
+{
+  Atom* a =(Atom*) SCM_CDR(smob);
+  String i (a->off_.str ());
   
-#ifndef NDEBUG
-  /* infinity checks. */
-  for (int a = X_AXIS; a < NO_AXES; a++)
-    {
-      Axis ax = (Axis)a;
-      if (abs (off_[ax]) >= 100 CM)
-	{
-	  warning (_f ("ridiculous dimension: %s, %s", axis_name_str (ax),
-		   print_dimen (off_[ax])));
-	  
-	  if (experimental_features_global_b)
-	    assert (false);
+  scm_puts ("#<Atom ", port);
+  scm_puts (i.ch_C(), port);
+  gh_display (a->func_);
+  scm_puts (">", port);
 
-	  ( (Atom*)this)->off_[ax] = 0.0;
-	  ridiculous = true;
-	}
-    }
-#endif
-  return ridiculous;
+  /* non-zero means success */
+  return 1;
 }
 
+
+scm_sizet
+Atom::smob_free (SCM smob)
+{
+  Atom * a= (Atom*) SCM_CDR(smob);
+  delete a;
+  return sizeof (Atom);
+}
+
+SCM
+Atom::smob_mark (SCM smob) 
+{
+  Atom * a= (Atom*) SCM_CDR(smob);
+  scm_gc_mark (a->func_);
+  return a->font_;
+}
+
+long Atom::smob_tag_;
 
 void
-Atom::print () const
+Atom::init_smob ()
 {
-#ifndef NPRINT
-  DOUT << "string: " << str_ << '\n';
+  static scm_smobfuns type_rec;
 
-  DOUT << "dim:";
-  for (Axis i=X_AXIS; i < NO_AXES; incr (i))
-    DOUT << axis_name_str (i) << " = " << dim_[i].str ();
+  type_rec.mark = smob_mark;
+  type_rec.free = smob_free;
+  type_rec.print = smob_display;
+  type_rec.equalp = 0;
 
-  DOUT << "\noffset: " << off_.str ();
-#endif
-}
-
-Box
-Atom::extent () const
-{
-  Box b (dim_);
-  b.translate (off_);
-  return b;
-}
-
-Interval
-Atom::extent (Axis a) const
-{
-  return dim_[a] + off_[a];
+  smob_tag_ = scm_newsmob (&type_rec);
 }
 
 
-
-Atom::Atom ()
-  : dim_ (Interval (0,0),Interval (0,0))
+SCM
+Atom::make_smob () const
 {
-  str_ = "unknown\n";
-  origin_l_ = 0;
+  SCM smob;
+  SCM_NEWCELL (smob);
+  SCM_SETCAR (smob, smob_tag_);
+  SCM_SETCDR (smob, this);
+  return smob;
 }
 
-Atom::Atom (String s, Box b)
-  :  dim_ (b)
+SCM
+Atom::make_atom (SCM outputfunc)
 {
-  str_ = s;
-  origin_l_ = 0;  
+  Atom * a= new Atom(outputfunc);
+  return a->make_smob ();
 }
 
-
-String
-Atom::str () const
+SCM
+Atom::copy_self () const
 {
-  return String ("Atom (\'") + str_ + "\', (" + dim_.x ().str () + ", "
-    + dim_.y ().str () + "))";
-}
-
-Offset
-Atom::offset () const
-{
-  check_infinity_b ();
-  return off_;
-}
-
-void
-Atom::translate_axis (Real r, Axis a)
-{
-  off_[a] += r;
-  check_infinity_b ();
-}
-
-void
-Atom::translate (Offset o)
-{
-  off_ += o;
-  check_infinity_b ();
+  return (new Atom (*this))->make_smob ();
 }
 
 bool
-Atom::empty() const
+Atom::Atom_b (SCM obj)
 {
-  return (dim_.y().length() == 0);
+  return(SCM_NIMP(obj) && SCM_CAR(obj) == smob_tag_);
 }
+
+Atom* 
+Atom::atom_l (SCM a)
+{
+  assert (Atom_b (a));
+  return (Atom*) SCM_CDR(a);
+}
+
+
+ADD_GLOBAL_CTOR_WITHNAME(atomsmob, Atom::init_smob);
+#endif
+
+

@@ -98,16 +98,16 @@ mudela(verbatim)(
 	    \time 3/4;		
 
 	\repeat 2 {
-	    d4 [g,8 a b c] d4 g, g |
-	    e'4 [c8 d e fis] g4 g, g |
-	    c4 [d8( )c b a( ] )b4 [c8 b a g] |
-	    a4 [b8 a g fis] g2.  |
+	    d4 g,8 a b c d4 g, g |
+	    e'4 c8 d e fis g4 g, g |
+	    c4 d8( )c b a( )b4 c8 b a g |
+	    a4 b8 a g fis g2.  |
 	}
 
-        b'4 [g8 a b g]
-        a4 [d,8 e fis d] |
-        g4 [e8 fis g d] cis4 [b8 cis] a4 |
-        [a8-. b-. cis-. d-. e-. fis-. ] 
+        b'4 g8 a b g
+        a4 d,8 e fis d |
+        g4 e8 fis g d cis4 b8 cis a4 |
+        a8-. b-. cis-. d-. e-. fis-.
         g4 fis e |
         fis a,  r8 cis8
         d2.-\fermata
@@ -224,16 +224,6 @@ code(c''), the real pitch of this note is code(d'').  The 4
 designates the duration of the note (it is a quarter note). COMMENT(
 
 )verb(
-        [g,8
-)COMMENT(
-
-)The open bracket starts a beam.  Lily can set beams automatically,
-but we want to specify them ourselves.  This bracket is connected to the
-following note, which is an eighth with pitch code(g') (remember
-relative mode for pitches!)
-COMMENT(
-
-)verb(
         a b
 )COMMENT(
 
@@ -243,16 +233,6 @@ duration (It is not illegal to enter it anyway.  You would then enter
 code(a8 b8)) COMMENT(
 
 )verb(
-          c]
-) COMMENT(
-
-) This ends the beam started four notes earlier, at the code(g).  In
-the output, you will notice a measure bar following this note.  You do
-not have to enter anything to make LilyPond create a bar.  Instead
-Lily will deduce where bars have to be by comparing durations of notes with
-the current time signature.  COMMENT(
-
-)verb(
           d4 g, g |
 ) COMMENT(
 
@@ -260,7 +240,7 @@ the current time signature.  COMMENT(
 music, LilyPond will check  that barchecks are found at the start of
 a bar.  This can help you track down notes you forgot to enter. 
 verb(
-        e'4 [c8 d e fis]
+        e'4 c8 d e fis
 ) COMMENT(
 
 ) So far, no notes were chromatically altered.  Here is the first one
@@ -269,17 +249,16 @@ that is: code(fis). Mudela by default uses Dutch note names, and
 sharp sign in the output. The program keeps track of key signatures,
 and will only print accidentals if they are needed.
 verb(
-        c4 [d8( )c b a( ] )b4 [c8 b a g] |
+        c4 d8( )c b a( )b4 c8 b a g |
 ) COMMENT(
 
 ) The next line shows something new: In mudela, one enters a slur by
 marking the beginning and ending note of the slur with an opening and
 closing parenthesis respectively.  In the line shown above this is
 done for two slurs.  Note that parentheses (slur markers) are between
-the notes, and the brackets (beam markers) around the notes. As you
-can see, the brackets and parentheses do not have to nest.
+the notes.  As you can see, parentheses do not have to nest.
 verb(
-        a4 [b8 a g fis] g2.  |
+        a4 b8 a g fis g2.  |
 ) COMMENT(
 
 ) A duration that is to be augmented with a duration dot, is notated
@@ -291,14 +270,14 @@ verb(
 
 ) The end of the repeated music.  LilyPond will typset a repeat bar.
 verb(
-     cis'4 [b8 cis] a4 |
+     cis'4 b8 cis a4 |
 ) COMMENT(
 
 ) This line shows that Lily will print an accidental if that is
 needed: the first C sharp will be printed with an accidental, the
 second one without.  COMMENT(
 
-)verb( [a8-. b-. cis-. d-. e-. fis-. ] % try some super and subscripts.)COMMENT(
+)verb( a8-. b-. cis-. d-. e-. fis-. % try some super and subscripts.)COMMENT(
 
 )There is more to music than just pitches and rhythms.  An important
 aspect is articulation.  You can enter articulation signs either in an
@@ -545,8 +524,8 @@ that is covered in bind(Section)ref(sec:polyphonic).
 
 subsect(Chords with names)
 
-In the previous section we have been talking more about 'stacked notes'
-rather than 'chords'.
+In the previous section we have been talking more about `stacked notes'
+rather than `chords'.
 If you need to enter a lot of chords that have proper names, you can use 
 the code(\chords) mode as an alternative:
 COMMENT(
@@ -1256,7 +1235,10 @@ perfor0mable: COMMENT(
 
 )mudela(fragment,verbatim)(
   <
-    \type Staff  { c''8. c''16 bes'8. a'16 g'4 f'8 g'4. }
+    \type Staff  { 
+      \property Voice.beamAuto = "0" % no beams in melody
+      c''8. c''16 bes'8. a'16 g'4 f'8 g'4. 
+    }
     \type Lyrics \lyrics { 'got8. me16 on8. my16 knees,4 Le-8 lie!4. }
   >
 ) COMMENT(
@@ -1276,7 +1258,10 @@ urg
 )COMMENT(
 
 )mudela(fragment,verbatim)(<
-  \type Staff  { c''8. c''16 bes'8. a'16 g'4 f'8 g'4. }
+  \type Staff  { 
+    \property Voice.beamAuto = "0" % no beams in melody
+    c''8. c''16 bes'8. a'16 g'4 f'8 g'4. 
+  }
   \type Lyrics \lyrics { 'got8 me8 on8. m$\cal_Y$16 "3s,"4 Le-8 lie!4.}
 >
 )COMMENT(
@@ -1684,8 +1669,13 @@ COMMENT(
 
 Of course, you can also use different ratios, and use beamed notes or
 rests:
+COMMENT( BROKEN
+
+lilypond: score-element.cc:134: class Paper_def * Score_element::paper() const: Assertion `pscore_l_' failed.
+
 mudela(fragment)(
 	\type Voice \times 4/5 { [c''8 c''16 c''16] r8 [g'8 g'8] }
+)
 )
 If you make a tuplet of  beamed notes, where the beam is as wide as
 the bracket, the bracket is omitted.

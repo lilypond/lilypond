@@ -124,14 +124,6 @@ global = \notes{
 			minVerticalAlign = 3.0*\staffheight;
 			maxVerticalAlign = 3.0*\staffheight;
 		}
-		\translator{
-			\VoiceContext
-			\consists Auto_beam_engraver;
-			beamAuto = "1";
-			beamAutoEnd8 = "1/2";
-			beamAutoEnd16 = "1/4";
-			beamAutoEnd32 = "1/4";
-		}
 	}
 	\midi{ \tempo 4 = 40; }
 	\header{

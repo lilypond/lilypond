@@ -29,14 +29,11 @@ public:
     
   virtual void do_print() const;
   virtual Direction staff_dir() const;
-  virtual Atom get_atom (Paper_def* p, Direction dir_) const;
+  virtual Molecule get_molecule (Paper_def* p, Direction dir_) const;
   virtual ~Text_def() {};
   virtual bool do_equal_b (const General_script_def*) const;
   Text_def();
   virtual void print() const;
-  virtual Interval width (Paper_def*) const;
-private:
-  Real guess_width_f(Atom&) const;
 };
 
 #endif // TEXT_DEF_HH

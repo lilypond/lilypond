@@ -37,7 +37,7 @@ public:
     
   bool do_equal_b (Request*) const;
   void compress (Moment);
-  virtual Moment duration() const;
+  virtual Moment length_mom () const;
   static int compare (Rhythmic_req const&,Rhythmic_req const&);
   REQUESTMETHODS(Rhythmic_req);
 };
@@ -86,6 +86,13 @@ struct Melodic_req :virtual Musical_req
   bool do_equal_b (Request*) const;
   static int compare (Melodic_req const&,Melodic_req const&);
   REQUESTMETHODS(Melodic_req);
+};
+
+/// specify tonic of a chord
+struct Tonic_req : public Melodic_req
+{
+  Tonic_req ();
+  REQUESTMETHODS(Tonic_req);
 };
 
 /// Put a note of specified type, height, and with accidental on the staff.
@@ -163,21 +170,12 @@ public:
 
 class Dynamic_req  : public virtual Musical_req  {
 public:
-  /**
-    for absolute dynamics
-
-    This sux. We'd want increasing numbers for FFF till PPP, but not 
-    for FP, SF, SFZ (FP is *not* louder than FFF)
-   */
-  enum Loudness {
-    FFFFFF, FFFFF, FFFF, FFF, FF, F, MF, MP, P, PP, PPP, PPPP, PPPPP, PPPPPP, FP, SF, SFF, SFZ, SP, SPP, RFZ };
-  static String loudness_static_str (Loudness);
   REQUESTMETHODS(Dynamic_req);
 };
 
 class Absolute_dynamic_req  : public Dynamic_req  {
 public:
-  Loudness loudness_;
+  String loudness_str_;
   virtual bool do_equal_b (Request*) const;
   String loudness_str () const;
   Absolute_dynamic_req();

@@ -56,6 +56,7 @@ barAlways		1	generate bar at every moment
 [Staff]
 barAuto			0	none
 barAuto			1	auto-generate bar every measure
+barAtLineStart		0/1     generate bar at beginning of line
 
 [Staff]
 beamAuto                0/1     auto-beam on/off
@@ -72,6 +73,8 @@ timeSignatureStyle	oldn/m	Set symbol explicitly,
 				n/m=2/2,3/2,3/4,4/4,6/4	or 9/4.
 [Staff]
 voltaVisibility         0/1     on/off
+voltaSpannerDuration    Rat.    Coda kludge: set length of volta-spanner,
+                                typically set to one measure: "1"
 
 [Staff?]
 instrument		ascii	midi instrument table lookup

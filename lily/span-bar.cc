@@ -9,7 +9,7 @@
 #include "span-bar.hh"
 #include "lookup.hh"
 #include "dimensions.hh"
-#include "atom.hh"
+
 #include "paper-def.hh"
 #include "molecule.hh"
 #include "align-element.hh"
@@ -36,6 +36,11 @@ Span_bar::set_align (Align_element *a)
 Interval
 Span_bar::do_width () const
 {
+  if (no_width_b_)
+    {
+      return Interval (0,0);
+    }
+  
   Molecule m = lookup_l ()->bar (type_str_, 40 PT);
   
   return m.extent (X_AXIS);
@@ -47,6 +52,9 @@ Span_bar::do_pre_processing ()
   Bar::do_pre_processing ();
   
   evaluate_empty ();
+  translate_axis (extra_x_off_, X_AXIS);
+  
+  dim_cache_[Y_AXIS].set_empty (false); // a hack to make mark scripts work.
 }
 
 void
@@ -82,17 +90,8 @@ Span_bar::evaluate_empty ()
     }
 }
 
-Molecule
-Span_bar::get_bar_sym (Real dy) const
-{
-  if (dy < paper ()->staffheight_f () / 2)
-    return Atom ();
-  
-  return lookup_l ()->bar (type_str_, dy);
-}
-
-Molecule*
-Span_bar::do_brew_molecule_p () const
+Interval
+Span_bar::get_spanned_interval () const
 {
   Interval y_int;
   for (int i=0; i < spanning_l_arr_.size (); i++) 
@@ -105,9 +104,22 @@ Span_bar::do_brew_molecule_p () const
 
       y_int.unite (y + spanning_l_arr_[i]->extent(Y_AXIS));
     }
+  return y_int;
+}
 
-  Molecule*output = new Molecule (get_bar_sym (y_int.length ()));
-  output->translate_axis (y_int.center (), Y_AXIS);
+Interval
+Span_bar::do_height () const
+{
+  return get_spanned_interval ();
+}
+
+Molecule*
+Span_bar::do_brew_molecule_p () const
+{
+  Interval iv (get_spanned_interval ());
+  Molecule*output = new Molecule (lookup_l ()->bar (type_str_, iv.length ()));
+
+  output->translate_axis (iv.center (), Y_AXIS);
   return output;
 }
 
@@ -116,4 +128,6 @@ Span_bar::do_brew_molecule_p () const
 Span_bar::Span_bar ()
 {
   type_str_ = "";
+  extra_x_off_ = 0.0;
+  no_width_b_ = false;
 }

@@ -61,6 +61,11 @@ Bar_engraver::create_bar ()
 	{
 	  bar_p_->type_str_ = default_type;
 	}
+      Scalar prop = get_property ("barAtLineStart", 0);
+      if (prop.to_bool ())
+	{
+	  bar_p_->at_line_start_b_ = true;
+	}
       announce_element (Score_element_info (bar_p_, bar_req_l_));
     }
 }
@@ -68,6 +73,13 @@ Bar_engraver::create_bar ()
 void
 Bar_engraver::request_bar (String type_str)
 {
+  Scalar prop = get_property ("barAtLineStart", 0);
+  if (!now_mom ())
+    {
+      Scalar prop = get_property ("barAtLineStart", 0);
+      if (!prop.to_bool ())
+	return;
+    }
   create_bar ();
   if (((type_str == "|:") && (bar_p_->type_str_ == ":|"))
     || ((type_str == ":|") && (bar_p_->type_str_ == "|:")))
@@ -104,10 +116,10 @@ Bar_engraver::do_process_requests()
       create_bar ();    
       bar_p_->type_str_ = bar_req_l_->type_str_;
     }
-  else if (!now_moment ())
+  else if (!now_mom ())
     {
       create_bar ();
-      bar_p_->type_str_ = "";
+      bar_p_->type_str_ = "|";
     }
   else 
     {

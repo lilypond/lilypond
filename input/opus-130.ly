@@ -63,12 +63,6 @@ cello = \notes\relative c'{
 	>
 	\paper{
 		\translator { \OrchestralScoreContext }
-		\translator {
-			\VoiceContext
-			\consists Auto_beam_engraver;
-	  		beamAuto = 1.;
-	  		beamAutoEnd = "3/8";
-		}
 	}
 	\midi{ \tempo 4 = 160; }
 }

@@ -152,8 +152,6 @@ lower = \type Staff \notes \relative c{
     \translator{ \OrchestralScoreContext }
     \translator{
 	    \VoiceContext
-	    \consists Auto_beam_engraver;
-	    beamAuto = 1.;
 	    beamAutoEnd8 = "1/4";
 	    beamAutoEnd16 = "1/4";
     }

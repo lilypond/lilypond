@@ -14,24 +14,25 @@
 
 class Span_bar : public virtual Bar
 {
-    Link_array<Score_element> spanning_l_arr_;
-
+  Link_array<Score_element> spanning_l_arr_;
+  Interval get_spanned_interval () const;
 public:
-    Span_bar();
+  Real extra_x_off_;
+  bool no_width_b_;
+  Span_bar();
     
-    VIRTUAL_COPY_CONS(Score_element);
-    void add_bar (Bar*);
-    void set_align (Align_element *);
+  VIRTUAL_COPY_CONS(Score_element);
+  void add_bar (Bar*);
+  void set_align (Align_element *);
 
 protected:
-    void evaluate_empty ();
-    virtual Interval do_width() const;
-    virtual void do_pre_processing();
-    virtual void do_post_processing();
-    
-    virtual void do_substitute_dependency (Score_element*,Score_element*);
-    virtual Molecule * do_brew_molecule_p() const;
-    virtual Molecule get_bar_sym (Real dy) const;
+  void evaluate_empty ();
+  virtual Interval do_width() const;
+  virtual void do_pre_processing();
+  virtual void do_post_processing();
+  virtual Interval do_height () const;
+  virtual void do_substitute_dependency (Score_element*,Score_element*);
+  virtual Molecule * do_brew_molecule_p() const;
 };
 
 #endif // SPAN_BAR_HH

@@ -19,7 +19,7 @@ Staff_margin_engraver::Staff_margin_engraver ()
   axis_ = X_AXIS;
   type_ = "margin";
   visibility_lambda_
-    = gh_eval_str ("(lambda (d) (if (= d 1) '(#f . #f) '(#t . #t)))");
+    = gh_eval_str ("postbreak_only_visibility");
 }
 
 
@@ -49,7 +49,7 @@ Staff_margin_engraver::acknowledge_element (Score_element_info i)
 
   String long_str = get_property ("instrument", 0);
   String str = get_property ("instr", 0);
-  if (now_moment () > Moment (0) && str.length_i ())
+  if (now_mom () > Moment (0) && str.length_i ())
     long_str = str;
 
   if (long_str.empty_b ())

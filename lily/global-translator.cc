@@ -47,7 +47,7 @@ Global_translator::prepare (Moment m)
 }
 
 Moment
-Global_translator::now_moment () const
+Global_translator::now_mom () const
 {
   return now_mom_;
 }

@@ -26,13 +26,13 @@
 #include "abbreviation-beam.hh"
 #include "misc.hh"
 #include "debug.hh"
-#include "atom.hh"
+
 #include "molecule.hh"
 #include "leastsquares.hh"
 #include "stem.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
-#include "grouping.hh"
+#include "rhythmic-grouping.hh"
 
 Beam::Beam ()
 {
@@ -629,15 +629,15 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
        */
       Real w = here->hpos_f () - prev->hpos_f ();
       w = w/2 <? nw_f;
-      Atom a;
+      Molecule a;
       if (lhalfs)		// generates warnings if not
 	a =  lookup_l ()->beam (sl, w, beam_f);
       a.translate (Offset (-w, -w * sl));
       for (int j = 0; j  < lhalfs; j++)
 	{
-	  Atom b (a);
+	  Molecule b (a);
 	  b.translate_axis (-dir_ * dy * (lwholebeams+j), Y_AXIS);
-	  leftbeams.add_atom (b);
+	  leftbeams.add_molecule (b);
 	}
     }
 
@@ -647,7 +647,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       int rwholebeams = here->beams_i_drul_[RIGHT] <? next->beams_i_drul_[LEFT];
 
       Real w = next->hpos_f () - here->hpos_f ();
-      Atom a = lookup_l ()->beam (sl, w + stemdx, beam_f);
+      Molecule a = lookup_l ()->beam (sl, w + stemdx, beam_f);
       a.translate_axis( - stemdx/2, X_AXIS);
       int j = 0;
       Real gap_f = 0;
@@ -656,9 +656,9 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 	  int nogap = rwholebeams - here->beam_gap_i_;
 	  for (; j  < nogap; j++)
 	    {
-	      Atom b (a);
+	      Molecule b (a);
 	      b.translate_axis (-dir_ * dy * j, Y_AXIS);
-	      rightbeams.add_atom (b);
+	      rightbeams.add_molecule (b);
 	    }
 	  // TODO: notehead widths differ for different types
 	  gap_f = nw_f / 2;
@@ -668,9 +668,9 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 
       for (; j  < rwholebeams; j++)
 	{
-	  Atom b (a);
+	  Molecule b (a);
 	  b.translate (Offset (gap_f, -dir_ * dy * j));
-	  rightbeams.add_atom (b);
+	  rightbeams.add_molecule (b);
 	}
 
       w = w/2 <? nw_f;
@@ -679,9 +679,9 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 
       for (; j  < rwholebeams + rhalfs; j++)
 	{
-	  Atom b (a);
+	  Molecule b (a);
 	  b.translate_axis (-dir_ * dy * j, Y_AXIS);
-	  rightbeams.add_atom (b);
+	  rightbeams.add_molecule (b);
 	}
 
     }

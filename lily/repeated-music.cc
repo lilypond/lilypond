@@ -27,6 +27,7 @@ Repeated_music::~Repeated_music ()
 Repeated_music::Repeated_music (Repeated_music const& s)
   : Music (s)
 {
+  repeats_i_ = s.repeats_i_;
   repeat_p_ = (s.repeat_p_) ? s.repeat_p_->clone () : 0;
   // urg?
   alternative_p_ = (s.alternative_p_) ? dynamic_cast <Music_sequence*> (s.alternative_p_->clone ()) : 0;
@@ -51,13 +52,13 @@ Repeated_music::transpose (Musical_pitch p)
 }
 
 Moment
-Repeated_music::duration () const
+Repeated_music::length_mom () const
 {
   Moment m;
   if (repeat_p_)
-    m += repeat_p_->duration ();
+    m += repeat_p_->length_mom ();
   if (alternative_p_)
-    m += alternative_p_->duration ();
+    m += alternative_p_->length_mom ();
   return m;
 }
 

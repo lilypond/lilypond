@@ -30,11 +30,9 @@ Engraver_group_engraver::do_announces()
   Link_array<Translator_group> groups = group_l_arr ();
   for (int i=0; i < groups.size(); i++) 
     {
-      Engraver * eng = dynamic_cast<Engraver*> (groups[i]);
-      if (eng)
+      Engraver_group_engraver * group = dynamic_cast<Engraver_group_engraver*> (groups[i]);
+      if (group)
 	{
-	  Engraver_group_engraver * group =
-	    (Engraver_group_engraver*) eng;
 	  group->do_announces();
 	}
     }

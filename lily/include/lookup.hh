@@ -10,10 +10,8 @@
 #ifndef LOOKUP_HH
 #define LOOKUP_HH
 
-#include "atom.hh"
 #include "molecule.hh"
 #include "fproto.hh"
-#include "scalar.hh"
 #include "direction.hh"
 #include "box.hh"
 
@@ -27,33 +25,34 @@ public:
 
 
   
-  Atom special_ball (int, String) const;
-  Atom simple_bar (String s, Real w) const;
+  Molecule special_ball (int, String) const;
+  Molecule simple_bar (String s, Real w) const;
   Molecule accidental (int, bool cautionary) const;
-  Atom afm_find (String, bool warn=true) const;
-  Atom ball (int) const;
+  Molecule afm_find (String, bool warn=true) const;
+  Molecule ball (int) const;
   Molecule bar (String, Real height) const;
-  Atom beam (Real, Real, Real) const;
-  Atom clef (String) const;
-  Atom dashed_slur (Array<Offset> controls, Real thick, Real dash) const;
-  Atom dots () const;
-  Atom extender (Real) const;
-  Atom fill (Box b) const;
-  Atom flag (int, Direction) const;
-  Atom hairpin (Real width, bool decresc, bool continued) const;
-  Atom plet (Real dy, Real dx, Direction dir) const;
-  Atom rest (int, bool outside) const;
-  Atom rule_symbol (Real height, Real width) const;
-  Atom script (String idx) const;
-  Atom stem (Real y1_pos, Real y2_pos) const;
-  Atom slur (Array<Offset> controls) const;
-  Atom streepje (int type) const;
-  Atom text (String style, String text) const;
-  Atom vbrace (Real &dy) const;
-  Atom vbracket (Real &dy) const;
-  Atom volta (Real w, bool last_b) const;
-  Atom special_time_signature (String, Array<int>) const;
-  Atom time_signature (Array<int>) const;
+  Molecule beam (Real, Real, Real) const;
+  Molecule clef (String) const;
+  Molecule dashed_slur (Array<Offset> controls, Real thick, Real dash) const;
+  Molecule dots () const;
+  Molecule ledger_line (Interval) const;
+  Molecule fill (Box b) const;
+  Molecule filledbox (Box b) const;  
+  Molecule flag (int, Direction) const;
+  Molecule hairpin (Real width, bool decresc, bool continued) const;
+  Molecule plet (Real dy, Real dx, Direction dir) const;
+  Molecule rest (int, bool outside) const;
+  Molecule rule_symbol (Real height, Real width) const;
+  Molecule script (String idx) const;
+  Molecule stem (Real y1_pos, Real y2_pos) const;
+  Molecule slur (Array<Offset> controls) const;
+  Molecule streepje (int type) const;
+  Molecule text (String style, String text) const;
+  Molecule staff_brace (Real dy) const;
+  Molecule staff_bracket (Real dy) const;
+  Molecule volta (Real w, bool last_b) const;
+  Molecule special_time_signature (String, int,int) const;
+  Molecule time_signature (int n,int d) const;
 
   Paper_def * paper_l_;
 

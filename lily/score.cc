@@ -58,7 +58,7 @@ Score::run_translator (Music_output_def *odef_l)
       return ;
     }
   *mlog << '\n' << _("Interpreting music...") << flush;
-  trans_p->last_mom_ = music_p_->duration ();
+  trans_p->last_mom_ = music_p_->length_mom ();
 
   Music_iterator * iter = Music_iterator::static_get_iterator_p (music_p_, trans_p);
   

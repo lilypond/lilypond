@@ -64,3 +64,34 @@ Array<T>::reverse ()
     swap (i,j);
 }
 
+template<class T> INLINE
+void
+Array<T>::OK() const
+{
+  assert (max_ >= size_ && size_ >=0);
+  if (max_) assert (array_p_);
+}
+
+template<class T> INLINE
+T *
+Array<T>::remove_array_p ()
+{
+  T * p = array_p_;
+  size_ = 0;
+  max_ = 0;
+  array_p_ =0;
+  return p;
+}
+
+template<class T> INLINE
+Array<T>
+Array<T>::slice (int lower, int upper)
+{
+  assert (lower >= 0 && lower <=upper&& upper <= size_);
+  Array<T> r;
+  int s =upper-lower;
+  r.set_size (s);
+  arrcpy (r.array_p_, array_p_  + lower, s);
+  return r;
+}
+

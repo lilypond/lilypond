@@ -30,7 +30,7 @@ protected:
   
     
 private:
-  Atom get_symbol() const;
+  Molecule get_symbol() const;
 };
 
 #endif // CRESCENDO_HH

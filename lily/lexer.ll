@@ -180,13 +180,13 @@ EXTENDER	__
 	cerr << _ ("missing end quote") << endl;
 	exit (1);
 }
-<notes>{RESTNAME} 	{
+<chords,notes>{RESTNAME} 	{
 	const char *s = YYText ();
 	yylval.string = new String (s);	
 	DOUT << "rest:"<< yylval.string;
 	return RESTNAME;
 }
-<notes>R		{
+<chords,notes>R		{
 	return MEASURES;
 }
 <INITIAL,chords,lyrics,notes>\\\${BLACK}*{WHITE}	{
@@ -293,6 +293,9 @@ EXTENDER	__
 	{UNSIGNED}		{
 		yylval.i = String_convert::dec2_i (String (YYText ()));
 		return UNSIGNED;
+	}
+	\" {
+		start_quote ();
 	}
 	. {
 		return yylval.c = YYText ()[0];

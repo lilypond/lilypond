@@ -31,7 +31,7 @@ Spring_spacer::default_solution() const
 Score_column*
 Spring_spacer::scol_l (int i)
 {
-  return (Score_column*)cols_[i].pcol_l_;
+  return dynamic_cast<Score_column*>(cols_[i].pcol_l_);
 }
 
 const Real COLFUDGE=1e-3;
@@ -394,7 +394,7 @@ Spring_spacer::add_column (Paper_column  *col, bool fixed, Real fixpos)
 Line_of_cols
 Spring_spacer::error_pcol_l_arr() const
 {
-  Array<Paper_column*> retval;
+  Link_array<Paper_column> retval;
   for (int i=0; i< cols_.size(); i++)
     if (cols_[i].ugh_b_)
       retval.push (cols_[i].pcol_l_);
@@ -599,7 +599,7 @@ Spring_spacer::calc_idealspacing()
 	  if (delta_t)
 	    {
 	      Real k=  paper_l()->arithmetic_constant (context_shortest_arr[i]);
-	      durational_distance =  paper_l()->duration_to_dist (delta_t,k);
+	      durational_distance =  paper_l()->length_mom_to_dist (delta_t,k);
 	    }
 	  symbol_distance += -cols_[i+1].width_[LEFT];
  
@@ -632,7 +632,7 @@ Spring_spacer::calc_idealspacing()
 	    }
 	  Moment delta_t = scol_l (i+1)->when() - scol_l (i)->when ();
 	  Real k=  paper_l()->arithmetic_constant(context_shortest);
-	  Real dist = paper_l()->duration_to_dist (shortest_playing_len, k);
+	  Real dist = paper_l()->length_mom_to_dist (shortest_playing_len, k);
 	  dist *= (double)(delta_t / shortest_playing_len);
 
 	  /*
@@ -682,8 +682,8 @@ Spring_spacer::calc_idealspacing()
 	  */
 	  if (i + 1 < cols_.size () && scol_l(i+1)->breakable_b_)
 	    {
-	      // one interline minimum seems ok for last column too?
-	      dist = dist >? interline_f;
+	      // two interline minimum ok for last column?
+	      dist = dist >? 2 * interline_f;
 
 	      // set minimum rod 
 	      /*
@@ -703,7 +703,7 @@ Spring_spacer::calc_idealspacing()
 		-- jcn
 	       */
 
-	      cols_[i].width_[RIGHT] = cols_[i].width_[RIGHT] >? interline_f;
+	      cols_[i].width_[RIGHT] = cols_[i].width_[RIGHT] >? 2 * interline_f;
 	    }
 
 	  // ugh, do we need this?

@@ -11,73 +11,78 @@
 #include "molecule.hh"
 #include "atom.hh"
 #include "debug.hh"
+#include "killing-cons.tcc"
 
 Box
 Molecule::extent() const
 {
-  Box b;
-  for (iter_top (atoms_,c); c.ok(); c++)
-    b.unite (c->extent());
-  return b;
+  return dim_;
 }
 
 Interval
 Molecule::extent(Axis a) const
 {
-  Interval i;
-  for (iter_top (atoms_,c); c.ok(); c++)
-    i.unite (c->extent(a));
-  return i;
+  return dim_[a];
 }
 
 void
 Molecule::translate (Offset o)
 {
-  for (iter_top (atoms_,c); c.ok(); c++)
-    c->translate (o);
+  for (Cons<Atom> *  ptr = atom_list_; ptr; ptr = ptr->next_)
+    {
+      ptr->car_->off_ += o;
+    }
+  dim_.translate (o);
 }
 
 void
 Molecule::translate_axis (Real x,Axis a)
 {
-  for (iter_top (atoms_,c); c.ok(); c++)
-    c->translate_axis (x,a);
+  for (Cons<Atom> *  ptr = atom_list_; ptr; ptr = ptr->next_)
+    {
+      ptr->car_->off_[a] += x;
+    }
+  dim_[a] += x;
 }
 
 void
 Molecule::add_molecule (Molecule const &m)
 {
-  for (iter_top (m.atoms_,c); c.ok(); c++) 
+  for (Cons<Atom> *  ptr = m.atom_list_; ptr; ptr = ptr->next_)
     {
-      add_atom (**c);
+      add_atom (ptr->car_);
     }
+
+  dim_.unite (m.dim_);
 }
 
-
 void
-Molecule::add_at_edge (Axis a, Direction d, Molecule const &m, Real padding)
+Molecule::add_atom (Atom const *al)
 {
-  Real my_extent= atoms_.size()
-    ? extent ()[a][d] 
-    : 0.0;
-  
-  Real offset = my_extent -  m.extent ()[a][-d];
-  Molecule toadd (m);
-  toadd.translate_axis (offset + d * padding, a);
-  add_molecule (toadd);
+  Atom *a = new Atom(*al);
+
+  atom_list_ = new Killing_cons<Atom> (a, atom_list_);
 }
 
-  
-  
 void
-Molecule::operator = (Molecule const &)
+Molecule::operator=(Molecule const & src)
 {
-  assert (false);
+  if (&src == this) return;
+  delete atom_list_;
+  atom_list_ = 0;
+  dim_= src.dim_;
+  add_molecule (src);
 }
 
 Molecule::Molecule (Molecule const &s)
 {
+  atom_list_ = 0;
   add_molecule (s);
+}
+
+Molecule::~Molecule ()
+{
+  delete atom_list_;
 }
 
 void
@@ -86,18 +91,33 @@ Molecule::print() const
 #ifndef NPRINT
   if (! check_debug)
     return;
-  for (iter_top (atoms_,c); c.ok(); c++)
-    c->print();
+  DOUT << "dim:";
+  for (Axis i=X_AXIS; i < NO_AXES; incr (i))
+    DOUT << axis_name_str (i) << " = " << dim_[i].str ();
 #endif
 }
 
 void
-Molecule::add_atom (Atom const &a)
+Molecule::do_center (Axis a)
 {
-  atoms_.bottom().add (new Atom (a)); 
+  Interval i (extent (a));
+  translate_axis (-i.center (), a);
 }
 
-Molecule::Molecule (Atom const &a)
+Molecule::Molecule ()
 {
-  add_atom (a) ;
+  dim_ = Box (Interval(0,0),Interval( 0,0  ));
+  atom_list_ = 0;
+}
+
+
+void
+Molecule::add_at_edge (Axis a, Direction d, Molecule const &m, Real padding)
+{
+  Real my_extent= dim_[a][d];
+  
+  Real offset = my_extent -  m.extent ()[a][-d];
+  Molecule toadd (m);
+  toadd.translate_axis (offset + d * padding, a);
+  add_molecule (toadd);
 }

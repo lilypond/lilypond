@@ -690,7 +690,7 @@ midi_body: /* empty */ 		{
 		$$-> assign_translator ($2);
 	}
 	| midi_body tempo_request ';' {
-		$$->set_tempo ($2->dur_.length (), $2->metronome_i_);
+		$$->set_tempo ($2->dur_.length_mom (), $2->metronome_i_);
 		delete $2;
 	}
 	| midi_body error {
@@ -946,7 +946,7 @@ verbose_command_req:
 		$$ = new Cadenza_req ($2);
 	}
 	| PARTIAL duration_length 	{
-		$$ = new Partial_measure_req ($2->length ());
+		$$ = new Partial_measure_req ($2->length_mom ());
 		delete $2;
 	}
 	| CLEF STRING {
@@ -987,11 +987,11 @@ post_requests:
 		THIS->post_reqs.push ($2);
 	}
 	| post_requests close_request_parens	{
-		Array<Request*>& r = *THIS->get_parens_request ($2);
-		for (int i = 0; i < r.size (); i++ )
-			r[i]->set_spot (THIS->here_input ());
-		THIS->post_reqs.concat (r);
-		delete &r;
+		Link_array<Request> *r = THIS->get_parens_request ($2);
+		for (int i = 0; i < r->size (); i++ )
+			r->elem (i)->set_spot (THIS->here_input ());
+		THIS->post_reqs.concat (*r);
+		delete r;
 	}
 	;
 
@@ -1129,9 +1129,10 @@ extender_req:
 	};
 
 dynamic_req:
-	ABSDYNAMIC '{' unsigned '}'	{
+	ABSDYNAMIC '{' STRING '}'	{
 		Absolute_dynamic_req *ad_p = new Absolute_dynamic_req;
-		ad_p ->loudness_ = (Dynamic_req::Loudness)$3;
+		ad_p ->loudness_str_ = *$3;
+		delete $3;
 		$$ =ad_p;
 	}
 	| SPANDYNAMIC '{' int int '}' {
@@ -1267,12 +1268,11 @@ pre_requests:
 			
 	}
 	| pre_requests open_request_parens {
-
-		Array<Request*>& r = *THIS->get_parens_request ($2);
-		for (int i = 0; i < r.size (); i++ )
-			r[i]->set_spot (THIS->here_input ());
-		THIS->pre_reqs.concat (r);
-		delete &r;
+		Link_array<Request>* r = THIS->get_parens_request ($2);
+		for (int i = 0; i < r->size (); i++ )
+			r->elem (i)->set_spot (THIS->here_input ());
+		THIS->pre_reqs.concat (*r);
+		delete r;
 	}
 	;
 

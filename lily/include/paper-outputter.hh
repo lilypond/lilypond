@@ -39,8 +39,6 @@ public:
   void stop_line ();
   void switch_to_font (String fontname);
 
-  Array<String> font_arr_;
-  String current_font_;
   Paper_stream* outstream_l_;
 };
 

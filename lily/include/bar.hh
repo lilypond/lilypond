@@ -15,6 +15,7 @@
 class Bar:public Item {
 public:
   String type_str_;
+  bool at_line_start_b_;
 
   
   VIRTUAL_COPY_CONS(Score_element);

@@ -10,7 +10,7 @@
 #include "beam-engraver.hh"
 #include "musical-request.hh"
 #include "beam.hh"
-#include "grouping.hh"
+#include "rhythmic-grouping.hh"
 #include "stem.hh"
 #include "warn.hh"
 #include "time-description.hh"
@@ -22,6 +22,7 @@ Beam_engraver::Beam_engraver ()
   finished_grouping_p_ = 0;
   grouping_p_ =0;
   reqs_drul_[LEFT] = reqs_drul_[RIGHT] =0;
+  prev_start_req_ =0;
 }
 
 bool
@@ -50,6 +51,7 @@ Beam_engraver::do_process_requests ()
     {
       if (!beam_p_)
 	reqs_drul_[STOP]->warning (_("No beam to end"));
+      prev_start_req_ =0;
       finished_beam_p_ = beam_p_;
       finished_grouping_p_ = grouping_p_;
 
@@ -111,7 +113,11 @@ Beam_engraver::typeset_beam ()
 void
 Beam_engraver::do_post_move_processing ()
 {
-  reqs_drul_ [START] =0;
+  if (reqs_drul_[START])
+    {
+      prev_start_req_ = reqs_drul_[START];
+      reqs_drul_ [START] =0;
+    }      
 }
 
 void
@@ -126,7 +132,7 @@ Beam_engraver::do_removal_processing ()
   typeset_beam ();
   if (beam_p_)
     {
-      warning (_ ("Unfinished beam"));
+      prev_start_req_->warning (_ ("Unfinished beam"));
       finished_beam_p_ = beam_p_;
       finished_grouping_p_ = grouping_p_;
       typeset_beam ();
@@ -171,7 +177,7 @@ Beam_engraver::acknowledge_element (Score_element_info info)
 	if (!grouping_p_->child_fit_b (start))
 	  {
 	    String s (_ ("please fix me") + ": " 
-		      + _f ("stem at %s doesn't fit in beam", now_moment ().str ()));
+		      + _f ("stem at %s doesn't fit in beam", now_mom ().str ()));
 
 	    if (info.req_l_)
 	      info.req_l_->warning(s);
@@ -180,7 +186,7 @@ Beam_engraver::acknowledge_element (Score_element_info info)
 	  }
 	else
 	  {
-	    grouping_p_->add_child (start, rhythmic_req->duration ());
+	    grouping_p_->add_child (start, rhythmic_req->length_mom ());
 	    stem_l->flag_i_ = rhythmic_req->duration_.durlog_i_;
 	    beam_p_->add_stem (stem_l);
 	  }

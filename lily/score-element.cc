@@ -59,7 +59,7 @@ Score_element::~Score_element()
 Score_element*
 Score_element::dependency (int i) const
 {
-  return (Score_element*) get_out_edge_arr ()[i];
+  return (Score_element*) (get_out_edge_arr ()[i]);
 }
 
 int
@@ -71,7 +71,7 @@ Score_element::dependency_size () const
 Score_element*
 Score_element::dependent (int i) const
 {
-  return (Score_element*) get_in_edge_arr()[i];
+  return (Score_element *)( get_in_edge_arr()[i]);
 }
 
 int
@@ -184,11 +184,6 @@ Score_element::output_processing ()
     delete output_p_;
   
   output_p_ = do_brew_molecule_p ();
-  for (PCursor<Atom*> i(output_p_->atoms_); i.ok(); i++)
-    {
-      i->origin_l_ = this;
-    }
-  
   pscore_l_->outputter_l_->output_molecule (output_p_,
 					    absolute_offset (),
 					    classname(this));
@@ -256,7 +251,7 @@ Score_element::do_junk_links()
 Molecule*
 Score_element::do_brew_molecule_p() const
 {
-  Atom a (lookup_l ()->fill (Box (Interval (0,0), Interval (0,0))));
+  Molecule a (lookup_l ()->fill (Box (Interval (0,0), Interval (0,0))));
   return new Molecule (a);
 }
 

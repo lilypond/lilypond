@@ -12,8 +12,8 @@
 
 
 class Script_engraver : public Engraver {
-  Array<Script *> script_p_arr_;
-  Array<Script_req *> script_req_l_arr_;
+  Link_array<Script> script_p_arr_;
+  Link_array<Script_req> script_req_l_arr_;
 
 public:
   VIRTUAL_COPY_CONS(Translator);

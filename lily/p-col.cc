@@ -91,13 +91,13 @@ Paper_column::compare (Paper_column const &c1, Paper_column const &c2)
 Paper_column*
 Paper_column::prebreak_l() const
 {
-  return (Paper_column*)broken_to_drul_[LEFT];
+  return dynamic_cast<Paper_column*>(broken_to_drul_[LEFT]);
 }
 
 Paper_column*
 Paper_column::postbreak_l() const
 {
-  return(Paper_column*) broken_to_drul_[RIGHT];
+  return dynamic_cast<Paper_column*>( broken_to_drul_[RIGHT]);
 }
 bool
 Paper_column::breakpoint_b() const
@@ -130,7 +130,7 @@ Paper_column::used_b() const
 Paper_column*
 Paper_column::column_l () const
 {
-  return (Paper_column*)this;
+  return (Paper_column*)(this);
 }
 
 

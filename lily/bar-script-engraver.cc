@@ -19,7 +19,7 @@ Bar_script_engraver::Bar_script_engraver ()
   staff_side_p_ = 0;
   text_p_ =0;
   visibility_lambda_ 
-    = gh_eval_str ("(lambda (d) (if (= d -1) '(#t . #t) '(#f . #f)))");
+    = gh_eval_str ("non_postbreak_visibility");
 }
 
 void

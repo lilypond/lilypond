@@ -8,7 +8,7 @@
 
 #include "debug.hh"
 #include "script-def.hh"
-#include "atom.hh"
+
 #include "paper-def.hh"
 #include "lookup.hh"
 
@@ -71,8 +71,8 @@ Script_def::inside_b() const
   return inside_staff_b_; 
 }
 
-Atom
-Script_def::get_atom (Paper_def *p , Direction d) const
+Molecule
+Script_def::get_molecule (Paper_def *p , Direction d) const
 {
   String preidx_str ="";
   if (invertsym_b_)

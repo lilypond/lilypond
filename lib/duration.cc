@@ -45,10 +45,8 @@ Duration::compress (Moment m)
   plet_.type_i_ *= m.den_i (); 
 }
 
-// ugh, what's this?
-// i should be called "mom ()", ... or at least "length_mom ()"
 Moment
-Duration::length () const
+Duration::length_mom () const
 {
   return Duration_convert::dur2_mom (*this);
 }

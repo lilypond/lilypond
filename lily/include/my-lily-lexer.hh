@@ -36,7 +36,7 @@ public:
 
   Notename_table *chordmodifier_tab_p_;
   Notename_table *note_tab_p_;
-  Array<Scope*> scope_l_arr_;
+  Link_array<Scope> scope_l_arr_;
   Keyword_table * keytable_p_;
   int errorlevel_i_;
 

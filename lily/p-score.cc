@@ -120,38 +120,6 @@ Paper_score::find_col (Paper_column const *c) const
 }
 
 
-#if 0
-void
-Paper_score::set_breaking (Array<Column_x_positions> const &breaking)
-{
-  for (iter (span_p_list_.top (),i); i.ok  ();)
-    {
-      Spanner *span_p = i.remove_p ();
-      if (span_p->broken_b ()
-	  || !((Score_element*)span_p)->line_l ())
-	{
-	  span_p->unlink ();
-	  delete span_p;
-	}
-      else 
-	{
-	  typeset_broken_spanner (span_p);
-	}
-    }
-  for (iter (elem_p_list_.top (),i); i.ok  () ;)
-    {
-      Item *i_l =dynamic_cast <Item *> (i);
-      if (i_l && !i_l->line_l ())
-	{
-	  i_l->unlink ();
-	  Score_element * item_p= i.remove_p ();
-	  delete item_p;
-	}
-      else
-	i++;
-    }
-}
-#endif
 
 
 Array<Column_x_positions>

@@ -36,7 +36,7 @@ Tie_engraver::acknowledge_element (Score_element_info i)
   if (Note_head *nh = dynamic_cast<Note_head *> (i.elem_l_))
     {
       Note_req * m = dynamic_cast<Note_req* > (i.req_l_);
-      now_heads_.push (CHead_melodic_tuple (nh, m, now_moment()+ m->duration ()));
+      now_heads_.push (CHead_melodic_tuple (nh, m, now_mom()+ m->length_mom ()));
     }
 }
 
@@ -45,7 +45,7 @@ Tie_engraver::do_process_requests ()
 {
   if (req_l_)
     {
-      Moment now = now_moment ();
+      Moment now = now_mom ();
       Link_array<Note_head> nharr;
       
       stopped_heads_.clear ();
@@ -116,7 +116,7 @@ void
 Tie_engraver::do_post_move_processing ()
 {
   req_l_ =0;
-  Moment now = now_moment ();
+  Moment now = now_mom ();
   while (past_notes_pq_.size () && past_notes_pq_.front ().end_ < now)
     past_notes_pq_.delmin ();
 }

@@ -27,7 +27,8 @@ Music_wrapper_iterator::do_print () const
 void
 Music_wrapper_iterator::construct_children ()
 {
-  child_iter_p_ = get_iterator_p (music_wrapper_l ()->element_l ());  
+  child_iter_p_ =
+    get_iterator_p (dynamic_cast<Music_wrapper const*> (music_l_)->element_l ());
 }
 
 Music_wrapper_iterator::~Music_wrapper_iterator ()
@@ -35,11 +36,6 @@ Music_wrapper_iterator::~Music_wrapper_iterator ()
   delete child_iter_p_;
 }
 
-Music_wrapper*
-Music_wrapper_iterator::music_wrapper_l () const
-{
-  return (Music_wrapper*) music_l_;
-}
 
 bool
 Music_wrapper_iterator::ok () const

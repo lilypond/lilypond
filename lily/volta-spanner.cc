@@ -6,7 +6,7 @@
   (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "atom.hh"
+
 #include "box.hh"
 #include "debug.hh"
 #include "lookup.hh"
@@ -21,7 +21,6 @@
 #include "pointer.tcc"
 
 template class P<Text_def>;		// UGH
-
 
 Volta_spanner::Volta_spanner ()
 {
@@ -45,9 +44,9 @@ Volta_spanner::do_brew_molecule_p () const
   Real internote_f = paper ()->internote_f ();
   Real dx = internote_f;
   Real w = extent (X_AXIS).length () - dx;
-  Atom volta (lookup_l ()->volta (w, last_b_));
+  Molecule volta (lookup_l ()->volta (w, last_b_));
   Real h = volta.dim_.y ().length ();
-  Atom num (number_p_->get_atom (paper (), LEFT));
+  Molecule num (number_p_->get_molecule (paper (), LEFT));
   Real dy = column_arr_.top ()->extent (Y_AXIS) [UP] > 
      column_arr_[0]->extent (Y_AXIS) [UP];
   dy += 2 * h;
@@ -59,12 +58,16 @@ Volta_spanner::do_brew_molecule_p () const
     dy = dy >? note_column_arr_[i]->extent (Y_AXIS).max ();
   dy -= h;
 
-  Real gap = num.dim_.x ().length () / 2;
+  Text_def two_text;
+  two_text.text_str_ = "2";
+  two_text.style_str_ = number_p_->style_str_;
+  Molecule two (two_text.get_molecule (paper (), LEFT));
+  Real gap = two.dim_.x ().length () / 2;
   Offset off (num.dim_.x ().length () + gap, 
 	      h / internote_f - gap);
   num.translate (off);
-  mol_p->add_atom (volta);
-  mol_p->add_atom (num);
+  mol_p->add_molecule (volta);
+  mol_p->add_molecule (num);
   mol_p->translate (Offset (0, dy));
   return mol_p;
 }
@@ -78,7 +81,7 @@ Volta_spanner::do_add_processing ()
       set_bounds (RIGHT, column_arr_.top ());  
     }
 
-  number_p_->style_str_ = "number-1";
+  number_p_->style_str_ = "number"; // number-1
 }
   
 Interval

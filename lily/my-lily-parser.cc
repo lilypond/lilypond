@@ -154,6 +154,10 @@ My_lily_parser::get_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p,
 
   Chord chord (tonic, add_arr_p, sub_arr_p, inversion_p);
 
+  Tonic_req* t = new Tonic_req;
+  t->pitch_ = tonic;
+  v->add_music (t);
+
   for (int i = 0; i < chord.pitch_arr_.size (); i++)
     {
       Musical_pitch p = chord.pitch_arr_[i];
@@ -163,7 +167,6 @@ My_lily_parser::get_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p,
       v->add_music (n);
     }
 
-  v->set_spot (here_input ());
   return v;
 }
 
@@ -185,10 +188,10 @@ My_lily_parser::get_note_element (Note_req *rq, Duration * duration_p)
 /*
   UGH.
  */
-Array<Request*>*
+Link_array<Request>*
 My_lily_parser::get_parens_request (int t)
 {
-  Array<Request*>& reqs = *new Array<Request*>;
+  Link_array<Request>& reqs = *new Link_array<Request>;
   switch (t)
     {
     case '~':

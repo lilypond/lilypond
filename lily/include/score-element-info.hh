@@ -12,7 +12,7 @@
 
 #include "scalar.hh"
 #include "lily-proto.hh"
-#include "array.hh"
+#include "parray.hh"
 
 /**
   Data container for broadcasts 
@@ -20,7 +20,7 @@
 struct Score_element_info {
     Score_element * elem_l_;
     Music *req_l_;
-    Array<Engraver*> origin_grav_l_arr_;
+    Link_array<Engraver> origin_grav_l_arr_;
 
     Score_element_info (Score_element*, Music*);
     Score_element_info();

@@ -40,7 +40,7 @@ minor = 3
 
 \include "property.ly"
 
-\scmfile "lily.scm";
+
 
 unusedEntry = \notes { c4 }		% reset default duration
 

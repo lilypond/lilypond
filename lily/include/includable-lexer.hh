@@ -13,7 +13,7 @@
 #include <FlexLexer.h>
 
 #include "string.hh"
-#include "array.hh"
+#include "parray.hh"
 #include "fproto.hh"
 #include "proto.hh"
 
@@ -29,7 +29,7 @@ class Includable_lexer : public yyFlexLexer
 
 protected:
   bool  close_input ();
-  Array<Source_file*> include_stack_;
+  Link_array<Source_file> include_stack_;
   Array<int> char_count_stack_;
 
 public:

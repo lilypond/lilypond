@@ -127,6 +127,8 @@ barthick_thin = 1.6*\staffline;
 tuplet_thick = 1.0*\staffline;
 volta_thick = 1.6*\staffline;
 
+extender_height = 0.8*\staffline;
+
 
 \include "engraver.ly";
 

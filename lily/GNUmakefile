@@ -8,6 +8,9 @@ SUBDIRS = include
 
 MODULE_LIBS=$(depth)/lib $(depth)/flower 
 MODULE_INCLUDES=$(depth)/lib/include $(depth)/flower/include 
+MODULE_CXXFLAGS=
+
+
 
 STEPMAKE_TEMPLATES= c++ executable po
 

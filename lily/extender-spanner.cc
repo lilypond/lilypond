@@ -6,7 +6,7 @@
   (c)  1998 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "atom.hh"
+
 #include "box.hh"
 #include "debug.hh"
 #include "lookup.hh"
@@ -52,12 +52,11 @@ Extender_spanner::do_brew_molecule_p () const
   Real w = extent (X_AXIS).length ();
   
   w += (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
-  
-  Atom a = lookup_l ()->extender (w);
-
+  Real h = paper ()->get_realvar (ly_symbol ("extender_height"));
+  Molecule a = lookup_l ()->filledbox ( Box (Interval (0,w), Interval (0,h)));
   a.translate (Offset (dx_f_drul_[LEFT], dy_f_drul_[LEFT]));
 
-  mol_p->add_atom (a);
+  mol_p->add_molecule (a);
 
   return mol_p;
 }

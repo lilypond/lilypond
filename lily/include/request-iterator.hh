@@ -18,9 +18,9 @@
 class Request_chord_iterator : public Music_iterator {
   Request_chord * elt_l () const;
   /**
-     cache elt_l ()->duration ().
+     cache elt_l ()->length_mom ().
    */
-  Moment elt_duration_;
+  Moment elt_length_mom_;
   bool last_b_;
 
 public:

@@ -13,6 +13,7 @@
 #include "paper-def.hh"
 #include "lookup.hh"
 #include "stem.hh"
+#include "offset.hh"
 
 Abbreviation::Abbreviation ()
 {
@@ -44,15 +45,15 @@ Abbreviation::do_brew_molecule_p () const
   } 
   Real sl = slope_f * internote_f;
 
-  Atom a (lookup_l ()->beam (sl, w, beam_f));
+  Molecule a (lookup_l ()->beam (sl, w, beam_f));
   a.translate (Offset (-w/2, w / 2 * slope_f));
 
   Molecule *beams= new Molecule; 
   for (int i = 0; i < abbrev_flags_i_; i++)
     {
-      Atom b (a);
+      Molecule b (a);
       b.translate_axis (interbeam_f * i, Y_AXIS);
-      beams->add_atom (b);
+      beams->add_molecule (b);
     }
   beams->translate_axis (-beams->extent ()[Y_AXIS].center (), Y_AXIS);
 

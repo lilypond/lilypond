@@ -194,13 +194,6 @@ bassdux = \type Voice=three \notes \relative c' {
 	    minVerticalAlign = 3.0*\staffheight;
 	    maxVerticalAlign = 3.0*\staffheight;
 	}
-	\translator {
-	    \VoiceContext
-	    \consists Auto_beam_engraver;
-	    beamAuto = 1.;
-	    % eights end at 1/2, 16 at 1/4
-	    beamAutoEnd = "1/2";
-	}
     }
     \header{
 	opus = "BWV 847";

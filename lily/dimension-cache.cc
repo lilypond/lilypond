@@ -13,6 +13,7 @@ Dimension_cache::Dimension_cache (Dimension_cache const &d)
 {
   init();
   empty_b_ = d.empty_b_;
+  offset_ = d.offset_; //let's hope others will copy  the refpoint appropriately. 
 }
 
 Dimension_cache::Dimension_cache ()

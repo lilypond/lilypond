@@ -7,11 +7,11 @@ redef(var)(1)(whenlatex(latexcommand({\normalfont\scshape )ARG1+latexcommand(}))
 
 redef(code)(1)(tt(ARG1))
 
+
 COMMENT(
 
 TODO:
    the use of semicolons needs to be documented once it settles down
-   \times needs documentation with examples somewhere once it works (?)
    paper size?
    the explanation of how lyrics mode parses words seems ridiculous.  
      Is there a simple way to explain this, or is the behavior
@@ -22,15 +22,39 @@ TODO:
    accordion symbols
    extender*  (see extender.ly)
    \repeat & \alternative  -> probably should have an example
+   properties:
+      unfoldRepeats
+      voltaVisibility
+   property: stemLeftBeamCount stemRightBeamCount
+   interstaff beams (beam-interstaff.ly)
+   interstaff slurs (see preludes-1.ly)
+   boolean property barAuto
+   property: noteheadStyle
+   harmonics: test/harmonics.fly
+   autobeamer
+   properties: beamAutoEndx ??? rational string "1/2"
+        beamAutoBegin
+        beamAutoEnd
+        beamAuto
+        ScriptPadding
+        Direction
+        chordNameStyle (banter)
+        chordInversionPreserve
+        createInitdefaultClef  
+        dynamicStyle   
+        singleStaffBracket
+        numberOfStaffLines
+
+
+	{Mark,BarNumber,Margin}{Direction,ScriptPadding}
+		
+	
 )
 
 
-COMMENT( This document contains Mudela fragments.  You need at least
+COMMENT( 
+This document contains Mudela fragments.  You need at least
 Yodl-1.30.18 to convert this to tex or html.
-
-TODO
-
-in stead <-> instead
 )
 
 htmlbodyopt(bgcolor)(white)
@@ -47,7 +71,7 @@ latexlayoutcmds(
 
 whentexinfo(notableofcontents())
 
-article(Mudela 1.0.7 / LilyPond 1.1.8 Reference Manual)
+article(Mudela 1.0.14 / LilyPond 1.1.27 Reference Manual)
       (Adrian Mariano, Han-Wen Nienhuys and Jan Nieuwenhuizen)
       (nop()PIPETHROUGH(date "+%B %d, %Y")()()nop())
 
@@ -225,16 +249,16 @@ will only be able to refer to identifiers whose names begin with a
 letter and are entirely alphanumeric.  It is also impossible to refer
 to an identifier whose name is the same as the name of a keyword.  The
 following words are keywords:
-verb(absdynamic    grouping       mm              relative     
-accepts       header         musicalpitch    remove       
-alternative   in             name            repeat       tempo
-bar           include        notenames       scm          time
-cadenza       key            notes           scmfile      times
-clef          keysignature   paper           score        translator
-cm            lyrics         partial         script       transpose
-consists      maininput      penalty         shape        type
-duration      mark           property        skip         version
-font          midi           pt              spandynamic)
+verb(absdynamic     duration        mark           property   skip       
+accepts        font            midi           pt         spandynamic
+alternative    grouping        mm             relative   tempo      
+bar            header          musicalpitch   remove     time       
+cadenza        in              name           repeat     times      
+chordmodifier  include         notenames      scm        translator 
+chords         key             notes          scmfile    transpose  
+clef           keysignature    paper          score      type       
+cm             lyrics          partial        script     version    
+consists       maininput       penalty        shape)
 
 The right hand side of an identifier assignment is parsed completely
 when the assignment is made.  It therefore must have any context
@@ -317,6 +341,10 @@ characters.  If code(word) is encountered, LilyPond first checks for a
 notename of code(word).  If no notename is found, then code(word) is
 treated as a string.  If you mistype a notename, the parser will most
 likely complain that you should be in code(\lyrics) mode to do lyrics. 
+
+dit(Chord mode) Chord mode is instroduced by the keyword code(\chords).
+Very similar to Note mode.  
+COMMENT(I'm not sure how it differs)
 
 dit(Lyric mode) Lyrics mode is introduced by the keyword
 code(\lyrics).  This mode is has rules that make it easy to include
@@ -437,42 +465,66 @@ mudela(fragment,verbatim,center)(
 a'4. b'4.
 )
 
-In addition, the duration can be followed by a multiplier which is
-introduced with the asterisk code(*) and can be an integer or a
-fraction.  The multiplier changes the duration that LilyPond uses
-internally for the note, but for notes it 
-does not change the symbol that is printed.  
-mudela(fragment,verbatim,center)(
-c'4*2 c'4*2 d'8*2/3 d'8*2/3
-)
-For long rests with durations equal to an integer number of whole notes,
-LilyPond produces output that indicates the duration of the rest.  If you use
-code(r) then one rest symbol will be printed and several measures left blank.
-If you use code(R) then all of the measure will be filled with whole rests.
-If you set the code(Score.SkipBars) property, then only one measure will be
-printed; with code(R), a number indicating the length of the rest will be
-displayed.  
-mudela(fragment,verbatim,center)(
-r1*3 R1*3
-\property Score.SkipBars=1
-r1*3 R1*3)
-
 Extra long notes can be obtained using the code(\breve) and
 code(longa) durations:
 mudela(fragment,verbatim,center)(
 c'\breve gis'\longa
 )
 
+In order to get triplets and other tuplets, you must use the
+code(\times) keyword which multiplies the duration by a fraction.  The
+syntax is code(\times) var(fraction) var(music).  The length of all of
+the specified music will be multiplied by the fraction and the
+fraction's denominator will be printed over the notes.  The most
+common tuplet is the triplet in which 3 notes have the length of 2, so
+the notes are 2/3 their written length:
+mudela(fragment,verbatim,center)( b'4 \times 2/3 {c'4 c' c'} d'4 d'4 )
+If you try to use code(\times) as the first thing in your music, you
+may encounter the warning ``No one to print a tuplet start bracket''.
+This happens because the Tuplet-engraver is in Voice and no Voice has
+been created yet.  You must explicitly specify the Voice context in
+this situation 
+mudela(fragment,verbatim,center)( 
+\type Voice { \times 2/3 {c'4 d' e'}} 
+)
 
-subsect(Note Spanners: Beams, Tuplets, Slurs and Ties)
+A shorthand for code(\times) is to write code(*)var(fraction) after a
+duration.  This shorthand will not label triplets correctly, but
+it is convenient for long rests.  
+For long rests with durations equal to an integer number of whole notes,
+LilyPond produces output that indicates the duration of the rest.  If you use
+code(r) then one rest symbol will be printed and several measures left blank.
+If you use code(R) then all of the measure will be filled with whole rests.
+mudela(fragment,verbatim,center)(
+r1 r1*3 R1*3
+)
+If you set the code(Score.SkipBars) property, then only one measure will be
+printed; with code(R), a number indicating the length of the rest will be
+displayed.  
+mudela(fragment,verbatim,center)(
+\property Score.SkipBars=1
+r1 r1*3 R1*3
+)
+Even though the code(\times) command is not explicit, it is still
+necessary to specify a code(Voice) context if the music begins with
+rests lengthened using code(*).  
+Otherwise, the following will result:
+mudela(fragment,verbatim,center)(
+R1*3 c'1 d'
+)
+
+subsect(Note Spanners: Beams, Slurs and Ties)
 
 A beam is specified by surrounding the beamed notes with brackets
 code([) and code(]).  
 mudela(fragment,verbatim,center)(
-[a'8 a'] [a'16 a' a' a']
+[a'8 a'] [a'16 a' a' a'] 
 )
-
-[EXPLAIN TUPLETS HERE]
+Some more elaborate constructions:
+mudela(fragment,verbatim,center)(
+[a'16 <a' c''> c'' <a' c''>] 
+\times 2/3 { [e'8 f' g'] }
+)
 
 Another type of spanner is the slur.  Slurs connects chords and try to
 avoid crossing stems.  A slur is started with code(CHAR(40)) and stopped with
@@ -492,6 +544,22 @@ mudela(fragment,verbatim,center)(
 e' ~ e' <c' e' g'> ~ <c' e' g'>
 )
 
+It is possible to create beams and slurs that cross staffs by switching the
+context:
+mudela(fragment,verbatim,center)(
+<
+\type Staff=one \notes\relative c'{
+  \stemup
+  [c8 c \translator Staff=two \stemup c c]
+  \translator Staff=one
+  d4( \translator Staff=two )a4
+  }
+\type Staff=two \notes{ \clef bass;}
+>
+)
+
+
+COMMENT(!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!)
 
 subsect(Note Ornaments)
 
@@ -515,17 +583,17 @@ mudela()(
           c''-\open  c''-\flageolet  c''-\reverseturn 
           c''-\trill
           c''-\prall c''-\mordent c''-\prallprall  c''-\prallmordent
-          c''-\upprall c''-\downprall c''-\thumb}
+          c''-\upprall c''-\downprall c''-\thumb }
   \type Lyrics \lyrics{  
         accent      marcato      staccatissimo fermata stopped
            staccato tenuto upbow downbow lheel rheel ltoe rtoe  turn
            open  flageolet reverseturn 
              trill  prall
-           mordent prallprall prallmordent uprall  downprall thumb}>
-  \paper{linewidth  = 5.875\in;
-         indent = 0.0;
-        }
-}
+           mordent prallprall prallmordent uprall  downprall thumb } 
+  >
+  \paper{ linewidth = 5.875\in;          
+          indent = 0.0;        }
+ }
 )
 
 COMMENT( The following are defined in script.ly but do not work:
@@ -571,6 +639,9 @@ spacer notes.
 mudela(fragment,verbatim,center)(
 c'' \< \! c''   d'' \decr e'' \rced 
 < f''1 {s4 \< \! s4 \> \! s2 } >)
+
+
+COMMENT(Broken!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!)
 
 Tremolo marks can be printed by a note by adding code(:)[var(length)]
 after the note.  The length must be at least 8.  A var(length) value
@@ -683,6 +754,101 @@ code(\transpose) first.  Any code(\relative) keywords that are outside the
 code(\transpose) have no effect on notes that appear inside the
 code(\transpose).  
 
+sect(Chords)
+
+Chords can be entered either by name or by listing the notes in angle brackets.
+Chords can be displayed either as notes or by name.  To enter chords by name,
+either place them inside the code(\chords) keyword, or use
+code(\notes) and surround them with
+code(@) characters. 
+Chord names have the form
+var(tonic)[var(duration)][code(-)var(modifier)][code(^)var(subtractions)][code(/)var(inversion)]
+The var(tonic) should be the tonic note of the chord, and the var(duration) is
+the chord duration in the usual notation.  There are two kinds of modifiers.
+One type is chord additions, which are obtained by listing intervals separated
+by dots.  An interval is written by its number with an optional code(+) or
+code(-) to indicate raising or lowering by half a step.  A chord additions has
+two effects:  it adds the specified interval and all lower odd numbered
+intervals to the chord, and it may lower or raise the specified interval.
+Intervals can be separated by a dot (code(.)) if you need to list
+several unmodified intervals.
+Repeating a code(-) character will remove a half step from the preceeding
+interval.  
+mudela(fragment,verbatim,center)(
+\transpose c''{ 
+\chords{
+  c1 c-3- c-7 c-8 c-9  
+  c-9-5+7+ c-3-5- c-4.6.8
+}}) 
+The second type of modifier that may appear after the code(-) is 
+a named modifier. 
+Named modifiers are listed in the file file(chord-modifiers.ly).  The
+available modifiers are code(m) and code(min) which lower
+the 3rd half a step, code(aug) which raises the 5th, code(dim) which lowers
+the 5th, code(maj) which adds a raised 7th, and code(sus) which replaces the
+5th with a 4th.  
+mudela(fragment,verbatim,center)(
+\transpose c''{ 
+\chords{
+  c1-m c-min c-maj c-aug c-dim c-sus
+}}) 
+
+Chord subtractions are used to eliminate notes from a chord.  The notes to be
+subtracted are listed after a code(^) character, separated by dots.  
+mudela(fragment,verbatim,center)(
+\transpose c''{ 
+\chords{
+  c1^3 c-7^5.3 c-8^7
+}}) 
+
+Chord inversions can be specified by appending code(/) and the name of a
+single note to a chord.  This has the effect of lowering the specified note by
+an octave so it becomes the lowest note in the chord.  If the
+specified note is not in the chord then a warning will be printed.  
+mudela(fragment,verbatim,center)(
+\transpose c'''{ 
+ @c1@ @c/e@ @c/g@ @c-7/e@
+}) 
+Throughout these examples, chords have been shifted around the staff
+using code(\transpose).  The code(\relative) keyword has odd effects
+when combined with named chords.  
+
+For displaying printed chord names, use the code(ChordNames) context.  
+The chords may be entered either using the notation described above,
+or directly using angle brackets. 
+mudela(fragment,verbatim)(
+<
+  \type ChordNames { \chords{ a b c} \notes{ < d f g >  < e g b > } }
+  \type Staff \notes{ a b c' d' e' }
+>
+)
+Lilypond examines chords specified as lists of notes to determine a
+name to give the chord.  By default, LilyPond will not try to identify
+chord inversions:
+mudela(fragment,verbatim,center)(
+<
+  \type ChordNames { 
+     \notes{ < e' g' c'' > } }
+  \type Staff \notes{ c' } 
+>)
+If you want inversions to be recognized, you must set the property
+code(Score.chordInversion): 
+mudela(fragment,verbatim,center)(
+<
+  \property Score.chordInversion = 1
+  \type ChordNames { 
+       \notes{ < e' g' c'' > } }
+  \type Staff \notes{ c' } 
+>)
+
+COMMENT(
+  Two other properties
+     chordInversionPreserve
+ and chordNameStyle = Banter
+ exist.  What do these do?
+)
+
+
 sect(Lyrics)
 
 Lyrics are entered like notes, with pitches replaced
@@ -714,39 +880,29 @@ URG
 Why does this warrant an URG?
 )
 
+When one word is attached to many notes, you may 
+want a  continuous line after the lyric to show  this.   To achieve
+this effect, add a code(__) lyric after the lyric to be extended.  
+This will create
+an extender, a line  that extends over the entire duration of 
+the lyric.   There must be a lyric after the code(__), so if you want
+to extend the final lyric, you will have to end with a blank lyric. 
+mudela(verbatim,center)(
+\score{
+< \notes \relative c''{ 
+     a4()b()c()d c()d()b()a }
+   \type Lyrics \lyrics {
+     foo1 __  bar2. __ _ }
+> })
+     
 
-COMMENT(
+COMMENT(Broken!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!)
 
-sect(Chords and Voices)
-
-Here's a simple chord
-mudela(fragment,verbatim,center)(
-<c e g>
-)
-
-here are a few
-mudela(fragment,verbatim,center)(
-<
-        { c'()d'()c' }
-        { e'()f'()e' }
-        { g'()a'()g' }
->
-)
-
-and similarly voices
-mudela(fragment,verbatim)(
-<
-        { \voiceone c'4 g' c' g' }
-        { \voicetwo c2 g2 }
->
-)
-
-)
 
 sect(Time)  
 
 LilyPond aligns all musical objects according to the amount of time
-they occupy.  All of these objects have a duration.  When music is
+they occupy.  All musical objects have a duration.  When music is
 written sequentially using braces the duration is the sum of the 
 durations of the elements.  When music is stacked into simultaneous music 
 using angle
@@ -843,6 +999,30 @@ verb(
 )
 
 
+sect(Repeats)
+
+In order to specify repeats, use the code(\repeat) keyword.  By
+default, repeats are printed with repeat symbols.  
+mudela(fragment,verbatim,center)(
+c'1
+\repeat 2 { c'4 d' e' f' }
+\repeat 2 { f' e' d' c' })
+In order to specify alternate endings, use the code(\alternative)
+keyword.  
+mudela(fragment,verbatim,center)(
+c'1
+\repeat 2 {c'4 d' e' f'} 
+\alternative { {d'2 d'} {f' f} })
+When the repeats involve partial measures, it will be necessary to use
+code(\partial) keywords to indicate which measures are short.  
+mudela(fragment,verbatim)(
+\type Staff { \relative c'{
+  \repeat 2 { \partial 4; e | c2 d2 | e2 f2 | }
+  \alternative { { g4 g g } {\partial 2.; a a a a | b1 } }
+}})
+Repeats can be unfolded by setting the unfoldRepeats 
+
+
 sect(Keywords)
 
 Keywords sometimes appear alone, but usually they require arguments.
@@ -907,7 +1087,7 @@ mudela(center)(
 mudela(center)(
 \score{
   \notes{\cadenza 1; \clef alto;    c'4_"\kern -10mm alto"
-           \clef scarlatti;    c'4_"\kern -4mm scarlatti"
+      %     \clef scarlatti;    c'4_"\kern -4mm scarlatti"
            \clef mezzosoprano; c'4^"\kern -10mm mezzosoprano"
            \clef soprano;  c'4_"\kern -10mm soprano"
            \clef treble;  c'4^"\kern -6mm treble"
@@ -973,7 +1153,7 @@ dit(code(\lyrics) var(lyriclist)) Parse var(lyriclist) in lyrics mode.
 
 dit(code(\maininput)) Internal command.  This command is used for creating init
 files like file(init.fly) that read the user file into the middle of another
-file.  Using it in a user file will lead to an infinite loop.
+file.  It is illegal to use this command in a user file.  
         
 dit(code(\mark) var(unsigned)code(;) or code(\mark) var(string)code(;)) 
 Allowed in music only.  Prints a mark over or under (depending on the
@@ -1006,8 +1186,6 @@ code(\musicalpitch) keyword.
 
 dit(code(\notes) var(music)) Enter note mode and process the
 specified music. 
-
-dit(code(\)code(output) var(string)code(;)) Generate a parse error.
 
 dit(code(\paper) var(statmentlist)) 
 Appears in a score block to indicate that the music should be printed
@@ -1163,6 +1341,12 @@ dit(code(Voice)) Corresponds to a voice on a staff.
   This context handles the conversion of noteheads,
   dynamic signs, stems, beams, super- and subscripts, slurs, ties and rests.
 
+dit(code(ChordNamesVoice)) A voice with chord names.  Handles printing
+of a line of chord names.  
+
+dit(code(ChordNames))  Typesets chord names.  Can contain
+code(ChordNamesVoice) contexts.  
+
 dit(code(Lyrics)) Typesets lyrics.  It can contain code(LyricVoice) contexts.
 
 dit(code(Staff)) Handles clefs, bar lines, keys,
@@ -1176,6 +1360,10 @@ dit(code(GrandStaff)) Contains code(Staff) or code(RhythmicStaff)
 contexts.  It adds a brace on the left side grouping the staffs
 together. The bar lines of the contained staffs are connected vertically.
 It can contain code(Staff) contexts.
+
+dit(code(PianoStaff)) Just like code(GrandStaff) but with
+code(minVerticalAlign) set equal to code(maxVerticalAlign) so that
+interstaff beaming and slurring can be used.  
 
 dit(code(StaffGroup)) Contains code(Staff) or code(RhythmicStaff)
 contexsts.  Adds a bracket on the left side, grouping the staffs
@@ -1262,7 +1450,7 @@ direction, set to code(\up) to force slurs up, set to code(\down) to
 force slurs down.  The shorthands code(\slurup), code(\slurdown), and
 code(\slurboth) are available.
 
-dit(code(tieYDirection)) Set to code(\free) for free choice of tie
+dit(code(tieydirection)) Set to code(\free) for free choice of tie
 direction, set to code(\up) to force ties up, set to code(\down) to
 force ties down.  
 
@@ -1275,7 +1463,7 @@ horizontally if they collide with other notes.  This is useful when
 typesetting many voices on one staff.  The identifier code(\shift) is
 defined to enable this.
 
-dit(code(dynamicdir)) Determines location of dynamic marks.  Set to
+dit(code(dynamicDir)) Determines location of dynamic marks.  Set to
 code(\up) to print marks above the staff; set to code(\down) to print
 marks below the staff.
 
@@ -1379,6 +1567,8 @@ mudela(fragment,center)(
 }
 )
 
+COMMENT(Broken!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!)
+
 
 )
    
@@ -1420,8 +1610,12 @@ beams with zero slope.  The identifiers code(\beamslopeproportional),
 code(\beamslopedamped), and code(\beamslopezero) each set the
 corresponding value.
 
+dit(code(chordInversion)) Determines whether LilyPond should look for
+chord inversions when translating from notes to chord names.  Set to 1
+to find inversions.  The default is 0 which does not look for inversions.
+
 )
-       
+
 
 COMMENT(
 
@@ -1429,10 +1623,6 @@ Mystery properties:
 
 bar-number-engraver.cc:  "barScriptPadding"  vertical space for numbers
 span-bar-engraver.cc:    "singleStaffBracket" do single staffs get a bracket?
-bar-column-engraver.cc:  "barColumnPriority"        
-bar-number-engraver.cc:  "barNumberBreakPriority"   Control horizontal ordering
-mark-engraver.cc:        "markBreakPriority"      of bars, clefs, keysig
-staff-margin-engraver.cc:"marginBreakPriority"    etc.  Slated for revision
 )
 
 sect(Pre-defined Identifiers)
@@ -1556,6 +1746,8 @@ at the top level, these assignments must be terminated by a semicolon.
 
 subsect(Paper variables)
 
+Warning: this section is outdated and inaccurate.  
+
 There are a large number of paper variables that are used to control
 details of the layout.  Usually you will not want to change these
 variables; they are set by default to vaules that depend on the font
@@ -1601,17 +1793,10 @@ whether beams go up or down.  It is real valued.  If set to 2.0 then
 majority selection is used.  If set to 3.0, then mean selection is
 used based on the mean center distance.  If set to 4.0 then median
 selection is used, based on the median center distance.  
-dit(code(beam_ideal_stem1))
-dit(code(beam_ideal_stem2))
-dit(code(beam_minimum_stem1))
-dit(code(beam_minimum_stem2))
-dit(code(beam_multiple_break))
-dit(code(beam_slope_damp_correct_factor))
-dit(code(beam_thickness)) Specify the thickness of beams.
 dit(code(castingalgorithm)) 
 dit(code(forced_stem_shorten)) Stems that have been forced to go the
 unnatural direction are shortened by this amount.  Equal to
-code(\interline) by default.  
+dit(code(forced_stem_shorten0))
 dit(code(gourlay_energybound))
 dit(code(gourlay_maxmeasures)) Maximum number of measures per line
 when using Gourlay method.
@@ -1792,7 +1977,6 @@ The engravers for paper output are:
 
 description(
 dit(code(Abbreviation_beam_engraver))
-dit(code(Bar_column_engraver)) 
 dit(code(Bar_engraver)) Engraves bar lines.  Normally in code(Staff) and
 code(RhythmicStaff).  
 dit(code(Bar_number_engraver)) Engrave bar numbers.  These numbers
@@ -1806,6 +1990,8 @@ with flags instead of beams.
 
 dit(code(Beam_req_swallow_translator)) Swallows beam requests.  In
 code(LyricVoice).  
+dit(code(Chord_name_engraver)) Engraves chord names.  Normally in
+code(ChordNameVoice) 
 dit(code(Clef_engraver)) Engraves the clef symbol.  Normally in code(Staff).
 dit(code(Collision_engraver))
 dit(code(Dot_column_engraver)) Engraves dots on dotted notes shifted to the
@@ -1822,11 +2008,6 @@ dit(code(Piano_bar_engraver))
 dit(code(Pitch_squash_engraver)) Treat all pitches as middle C.  Used in
 code(RhythmicStaff).  Note that the notes move, but the locations of
 accidentals stay the same. 
-dit(code(Plet_engraver)) Engraves brackets and the number over tuplets.  In
-code(Voice).  
-dit(code(Plet_swallow_engraver)) Swallows tuplet requests without any output.
-In code(LyricVoice).  
-COMMENT( Should this be named Plet_req_swallow_translator? )
 dit(code(Priority_horizontal_align_engraver))
 dit(code(Repeat_engraver)) Handles repeats? In code(Staff) and 
    code(RhythmicStaff).

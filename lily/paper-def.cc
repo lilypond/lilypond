@@ -109,7 +109,7 @@ SCMVAR(linewidth);
 }
 
 Real
-Paper_def::duration_to_dist (Moment d,Real k) const
+Paper_def::length_mom_to_dist (Moment d,Real k) const
 {
   return arithmetic_spacing (d,k);
 }

@@ -18,7 +18,7 @@ Bar_number_engraver::Bar_number_engraver()
   axis_ = Y_AXIS;
   type_ = "barNumber";
   visibility_lambda_
-    = gh_eval_str ("(lambda (d) (if (= d 1) '(#f . #f) '(#t . #t)))");
+    = gh_eval_str ("postbreak_only_visibility");
 }
 
 void
@@ -28,7 +28,7 @@ Bar_number_engraver::do_process_requests ()
   Timing_translator *timer = dynamic_cast<Timing_translator*>(tr);
   Time_description *time = &timer->time_;
 
-  if (!time->whole_in_measure_ && !time->cadenza_b_ && now_moment () > Moment (0))
+  if (!time->whole_in_measure_ && !time->cadenza_b_ && now_mom () > Moment (0))
     {
       create_items (0);
 	

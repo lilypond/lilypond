@@ -34,7 +34,7 @@ public:
   virtual Direction rel_stem_dir() const;
   virtual int priority_i() const;
   virtual bool inside_b() const;
-  virtual Atom get_atom (Paper_def* p, Direction dir_) const;
+  virtual Molecule get_molecule (Paper_def* p, Direction dir_) const;
   
 
   virtual bool do_equal_b (General_script_def const *) const;

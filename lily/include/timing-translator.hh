@@ -12,7 +12,7 @@
 
 #include "translator.hh"
 #include "time-description.hh"
-#include "grouping.hh"
+#include "rhythmic-grouping.hh"
 #include "parray.hh"
 
 class Timing_translator : public virtual Translator

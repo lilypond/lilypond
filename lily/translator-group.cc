@@ -245,7 +245,7 @@ Translator_group::nongroup_l_arr () const
 void
 Translator_group::terminate_translator (Translator*r_l)
 {
-  DOUT << "Removing " << classname (r_l) << " at " << now_moment () << '\n';
+  DOUT << "Removing " << classname (r_l) << " at " << now_mom () << '\n';
   r_l->removal_processing();
   Translator * trans_p =remove_translator_p (r_l);
 

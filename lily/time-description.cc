@@ -18,7 +18,7 @@ Time_description::str () const
   s += "at ";
   s += when_.str ();
   s +="\ntime_signature " + (whole_per_measure_/one_beat_).str () +":" +
-	 (Rational (Rational (1)/one_beat_)).str ();
+	 (Moment (Moment (1)/one_beat_)).str ();
   s += "\nposition " + to_str (bars_i_) + ":"+ whole_in_measure_.str () +"\n}\n";
   return s;
 }
@@ -69,7 +69,7 @@ Time_description::Time_description()
 void
 Time_description::add (Moment dt)
 {
-  assert (dt >= Rational (0));
+  assert (dt >= Moment (0));
   when_ +=  dt;
   whole_in_measure_ += dt;
 
@@ -84,7 +84,7 @@ void
 Time_description::set_time_signature (int l, int o)
 {
   assert (o);
-  one_beat_ = Rational (1)/Moment (o);
+  one_beat_ = Moment (1)/Moment (o);
   whole_per_measure_ = Moment (l) * one_beat_;
 }
 
@@ -102,7 +102,7 @@ Time_description::allow_time_signature_change_b()
 String
 Time_description::try_set_partial_str (Moment p) const
 {
-  if (p<Rational (0))
+  if (p<Moment (0))
 	return (_ ("partial measure must be non-negative"));
   if (p > whole_per_measure_)
 	return (_ ("partial measure too large"));

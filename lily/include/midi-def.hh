@@ -31,7 +31,7 @@ public:
   Midi_def();
   ~Midi_def();
 
-  Real duration_to_seconds_f (Moment);
+  Real length_mom_to_seconds_f (Moment);
   int get_tempo_i (Moment moment);
   void print() const;
   void set_tempo (Moment moment, int count_per_minute_i);

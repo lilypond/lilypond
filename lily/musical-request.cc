@@ -120,10 +120,23 @@ Melodic_req::do_print () const
 pitch_.print ();
 }
 
+
+Tonic_req::Tonic_req ()
+{
+}
+
+void
+Tonic_req::do_print () const
+{
+#ifndef NPRINT
+  Melodic_req::do_print ();
+#endif
+}
+
 int
 Rhythmic_req::compare (Rhythmic_req const &r1, Rhythmic_req const &r2)
 {
-  return (r1.duration () - r2.duration ());
+  return (r1.length_mom () - r2.length_mom ());
 }
 
 bool
@@ -147,9 +160,9 @@ Rhythmic_req::do_print () const
 
 
 Moment
-Rhythmic_req::duration () const
+Rhythmic_req::length_mom () const
 {
-  return duration_.length ();
+  return duration_.length_mom ();
 }
 
 void
@@ -309,7 +322,7 @@ void
 Skip_req::do_print () const
 {
 #ifndef NPRINT
-  DOUT << "duration: " << duration ();
+  DOUT << "duration: " << length_mom ();
 #endif
 }
 
@@ -323,8 +336,7 @@ void
 Absolute_dynamic_req::do_print () const
 {
 #ifndef NPRINT
-  Dynamic_req::do_print ();
-  DOUT << " loudness " <<loudness_str ();
+  DOUT << " loudness " <<loudness_str_ ;
 #endif
 }
 
@@ -332,58 +344,12 @@ bool
 Absolute_dynamic_req::do_equal_b (Request *r) const
 {
   Absolute_dynamic_req *a = dynamic_cast <Absolute_dynamic_req *> (r);
-  return a&& loudness_ == a->loudness_;
+  return a&& loudness_str_ == a->loudness_str_;
 }
-
-String
-Dynamic_req::loudness_static_str (Loudness l)
-{
-  switch (l)
-    {
-    case FFFFFF: return "ffffff";
-    case FFFFF : return "fffff";
-    case FFFF: return "ffff";
-    case FFF: return "fff";
-    case FF: return "ff";
-    case F: return "f";
-    case MF: return "mf";
-    case MP: return "mp";
-    case P: return "p";
-    case PP: return "pp";
-    case PPP: return "ppp";
-    case PPPP: return "pppp";
-    case PPPPP: return "ppppp";
-    case PPPPPP: return "pppppp";    
-
-    case FP: return "fp";
-    case SF: return "sf";
-    case SFF: return "sff";
-    case SFZ: return "sfz";
-    case SP: return "sp";
-    case SPP: return "spp";
-    case RFZ: return "rfz";
-    }
-  return "";
-}
-
-String
-Absolute_dynamic_req::loudness_str () const
-{
-  String str = loudness_static_str (loudness_);
-  if (str.empty_b ())
-    {
-      String s = "mf";
-      warning (_f ("never heard of dynamic scale `\%s\', assuming %s",
-	str, s));
-      str = s;
-    }
-  return str;
-}
-
 
 Absolute_dynamic_req::Absolute_dynamic_req ()
 {
-  loudness_ = MF;
+  loudness_str_ = "fm";		// yes, "illegal" on purpose.
 }
 
 

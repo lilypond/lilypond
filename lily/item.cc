@@ -122,7 +122,7 @@ Item*
 Item::find_prebroken_piece (Line_of_score*l) const
 {
   if (line_l() == l) 
-    return (Item*)this;
+    return (Item*)(this);
   else if (broken_to_drul_[LEFT] && broken_to_drul_[LEFT]->line_l() == l)
     return broken_to_drul_[LEFT];
   else if (broken_to_drul_[RIGHT] && broken_to_drul_[RIGHT]->line_l() == l)
@@ -135,9 +135,9 @@ Item*
 Item::find_prebroken_piece (Direction breakstatus) const
 {
   if (!breakstatus)
-    return (Item *) this;	// ugh
+    return (Item *)(this);	// ugh
   else
-    return (Item*) broken_to_drul_[breakstatus];
+    return dynamic_cast<Item*>( broken_to_drul_[breakstatus]);
 }
 
 void

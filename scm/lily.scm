@@ -4,10 +4,8 @@
 ; 
 ; (c) 1998 Jan Nieuwenhuizen <janneke@gnu.org>
 
-; TODO
-;   - naming
-;   - ready ps code (draw_bracket) vs tex/ps macros/calls (pianobrace),
-;     all preparations from ps,tex to scm
+
+(debug-enable 'backtrace)
 
 ;;; library funtions
 (define
@@ -58,33 +56,11 @@
 (define security-paranoia #f)
 
 
-;;;;;;;;
-;;; UGH.  THESE SUCK!
-
-(define (empty) 
-  "")
-
-(define (empty1 a)
-  "")
-
-(define (empty2 a b )
-  "")
-
-(define emptybar empty1)
-
-;;; and these suck as well.
-(define (setdynamic s) (text "dynamic" (string-append "\\" s)))
-(define (setroman s) (text "text" s))
-(define (settypewriter s) (text "typewriter" s))
-(define (setnumber s) (text "number" s))
-(define (setbold s) (text "bold" s))
-(define (setlarge s) (text "large" s))
-(define (setLarge s) (text "Large" s))
-(define (setmark s) (text "mark" s))
-(define (setfinger s) (text "finger" s))
-(define (setitalic s) (text "italic" s))
-(define (setnumber-1 s) (text "numberj" s))
-  
+;; See documentation of Item::visibility_lambda_
+(define (postbreak_only_visibility d) (if (= d 1) '(#f . #f) '(#t . #t)))
+(define (non_postbreak_visibility d) (if (= d -1) '(#t . #t) '(#f . #f)))
+(define (spanbar_non_postbreak_visibility d) (if (= d -1) '(#t . #t) '(#f . #f)))
+(define (spanbar_postbreak_only_visibility d) (if (= d 1) '(#f . #f) '(#t . #t)))
 
 
 ;;;;;;;; TeX
@@ -94,6 +70,45 @@
   (define (unknown) 
     "%\n\\unknown%\n")
 
+  (define font-alist '())
+  (define font-count 0)
+  (define current-font "")
+  (define (clear-fontcache)
+    (begin
+      (set! font-alist '())
+      (set! font-count 0)
+      (set! current-font "")))
+  
+  (define (cached-fontname i)
+    (string-append
+     "\\lilyfont"
+     (make-string 1 (integer->char (+ 65 i)))
+     )
+    )
+    
+  (define (select-font font-name)
+      (if (not (equal? font-name current-font))
+	  (begin
+	    (set! current-font font-name)
+	    (define font-cmd (assoc font-name font-alist))
+	    (if (eq? font-cmd #f)
+		(begin
+		  (set! font-cmd (cached-fontname font-count))
+		  (set! font-alist (acons font-name font-cmd font-alist))
+		  (set! font-count (+ 1 font-count))
+		  (string-append "\\font" font-cmd "=" font-name font-cmd)
+		  )
+		(cdr font-cmd))
+	    )
+	  
+	  ""				;no switch needed
+
+	  )
+      
+      )
+
+
+  
   (define (beam width slope thick)
     (embedded-ps ((ps-scm 'beam) width slope thick)))
 
@@ -109,9 +124,6 @@
   (define (decrescendo w h cont)
     (embedded-ps ((ps-scm 'decrescendo) w h cont)))
 
-  (define 
-    (doublebar h)
-    (invoke-dim1  "doublebar" h))
 
   (define (embedded-ps s)
     (string-append "\\embeddedps{" s "}"))
@@ -121,16 +133,9 @@
   
   (define (experimental-on) "\\turnOnExperimentalFeatures")
 
-  (define (extender h)
-    (invoke-dim1 "extender" h))
 
-  (define
-    (fatdoublebar h)
-    (invoke-dim1  "fatdoublebar" h))
 
-  (define
-    (finishbar h)
-    (invoke-dim1  "finishbar" h))
+
 
   (define (font-switch i)
     (string-append
@@ -190,13 +195,7 @@
     (string-append
      "{\\bracefont " (char  (/  (- (min y (- maxht step)) minht)   step)) "}"))
   
-  (define
-    (repeatbar h)
-    (invoke-dim1  "repeatbar" h))
 
-  (define
-    (repeatbarstartrepeat h)
-    (invoke-dim1  "repeatbarstartrepeat" h))
 
   (define (rulesym h w) 
     (string-append 
@@ -206,23 +205,17 @@
      )
     )
 
-  (define (slur l)
-    (embedded-ps ((ps-scm 'slur) l)))
+  (define (bezier-sandwich l)
+    (embedded-ps ((ps-scm 'bezier-sandwich) l)))
 
-  (define
-    (startbar h)
-    (invoke-dim1  "startbar" h))
 
-  (define
-    (startrepeat h)
-    (invoke-dim1  "startrepeat" h))
-
-  (define (start-line) 
-    (string-append 
-     "\\hbox{%\n")
+  (define (start-line)
+    (begin
+      (clear-fontcache)
+      "\\hbox{%\n")
     )
 
-  (define (filledbox breapth width height depth) 
+  (define (filledbox breapth width depth height) 
     (string-append 
      "\\kern" (number->dim (- breapth))
      "\\vrule width " (number->dim (+ breapth width))
@@ -232,12 +225,9 @@
   (define (stop-line) 
     "}\\interscoreline")
 
-  (define
-    (stoprepeat h)
-    (invoke-dim1 "stoprepeat" h))
 
-  (define (text f s)
-    (string-append "\\set" f "{" (output-tex-string s) "}"))
+  (define (text s)
+    (string-append "\\hbox{" (output-tex-string s) "}"))
   
   (define (tuplet dx dy thick dir)
     (embedded-ps ((ps-scm 'tuplet) dx dy thick dir)))
@@ -245,10 +235,9 @@
   (define (volta w thick last)
     (embedded-ps ((ps-scm 'volta) w thick last)))
 
-  (define (maatstreep h)
-    (string-append "\\maatstreep{" (number->dim h) "}"))
-  
-  ; urg: generate me
+
+  ;; The procedures listed below form the public interface of TeX-scm.
+  ;; (should merge the 2 lists)
   (cond ((eq? action-name 'all-definitions)
 	 `(begin
 	    (define beam ,beam)
@@ -256,14 +245,8 @@
 	    (define bracket ,bracket)
 	    (define crescendo ,crescendo)
 	    (define dashed-slur ,dashed-slur) 
-	    (define doublebar ,doublebar)
-	    (define emptybar ,emptybar)
 	    (define decrescendo ,decrescendo) 
-	    (define empty ,empty)
 	    (define end-output ,end-output)
-	    (define extender ,extender)
-	    (define fatdoublebar ,fatdoublebar)
-	    (define finishbar ,finishbar)
 	    (define font-def ,font-def)
 	    (define font-switch ,font-switch)
 	    (define generalmeter ,generalmeter)
@@ -273,20 +256,15 @@
 	    (define invoke-char ,invoke-char) 
 	    (define invoke-dim1 ,invoke-dim1)
 	    (define placebox ,placebox)
-	    (define repeatbar ,repeatbar)
-	    (define repeatbarstartrepeat ,repeatbarstartrepeat)
 	    (define rulesym ,rulesym)
-	    (define slur ,slur)
-	    (define startbar ,startbar)
-	    (define startrepeat ,startrepeat)
-	    (define stoprepeat ,stoprepeat)
+	    (define bezier-sandwich ,bezier-sandwich)
+	    (define select-font ,select-font)
 	    (define start-line ,start-line)
 	    (define filledbox ,filledbox)
 	    (define stop-line ,stop-line)
 	    (define text ,text)
 	    (define experimental-on  ,experimental-on)
 	    (define char  ,char)
-	    (define maatstreep ,maatstreep)
 	    (define pianobrace ,pianobrace)
 	    (define volta ,volta)
 	    ))
@@ -297,13 +275,8 @@
 	((eq? action-name 'bracket) bracket)
 	((eq? action-name 'crescendo) crescendo)
 	((eq? action-name 'dashed-slur) dashed-slur) 
-	((eq? action-name 'doublebar) doublebar)
 	((eq? action-name 'decrescendo) decrescendo) 
-	((eq? action-name 'empty) empty)
 	((eq? action-name 'end-output) end-output)
-	((eq? action-name 'extender) extender)
-	((eq? action-name 'fatdoublebar) fatdoublebar)
-	((eq? action-name 'finishbar) finishbar)
 	((eq? action-name 'font-def) font-def)
 	((eq? action-name 'font-switch) font-switch)
 	((eq? action-name 'generalmeter) generalmeter)
@@ -313,13 +286,8 @@
 	((eq? action-name 'invoke-char) invoke-char) 
 	((eq? action-name 'invoke-dim1) invoke-dim1)
 	((eq? action-name 'placebox) placebox)
-	((eq? action-name 'repeatbar) repeatbar)
-	((eq? action-name 'repeatbarstartrepeat) repeatbarstartrepeat)
 	((eq? action-name 'rulesym) rulesym)
-	((eq? action-name 'slur) slur)
-	((eq? action-name 'startbar) startbar)
-	((eq? action-name 'startrepeat) startrepeat)
-	((eq? action-name 'stoprepeat) stoprepeat)
+	((eq? action-name 'bezier-sandwich) bezier-sandwich)
 	((eq? action-name 'start-line) start-line)
 	((eq? action-name 'stem) stem)
 	((eq? action-name 'stop-line) stop-line)
@@ -356,8 +324,6 @@
      (numbers->string (list w h (inexact->exact cont)))
      "draw_decrescendo"))
 
-  (define (empty) 
-    "\n empty\n")
 
   (define (end-output)
     "\nshowpage\n")
@@ -404,20 +370,22 @@
      (number->string y) " "
      "rulesym"))
 
-  (define (slur l)
+  (define (bezier-sandwich l)
     (string-append 
      (apply string-append (map control->string l)) 
-     " draw_slur"))
+     " draw_bezier_sandwich"))
 
-  (define (start-line) 
-    "\nstart_line {\n")
-
+  (define (start-line)
+    (begin
+      (clear-fontcache)
+      "\nstart_line {\n"))
+  
   (define (stem kern width height depth) 
     (string-append (numbers->string (list kern width height depth))
 		   "draw_stem" ))
 
-  (define (stop-line) 
-    "}\nstop_line\n")
+  (define (stop-line)
+      "}\nstop_line\n")
 
   (define (text f s)
     (string-append "(" s ") set" f " "))
@@ -446,10 +414,10 @@
 	    (define bracket ,bracket)
 	    (define crescendo ,crescendo)
 	    (define volta ,volta)
-	    (define slur ,slur)
+	    (define bezier-sandwich ,bezier-sandwich)
 	    (define dashed-slur ,dashed-slur) 
 	    (define decrescendo ,decrescendo) 
-	    (define empty ,empty)
+
 	    (define end-output ,end-output)
 	    (define font-def ,font-def)
 	    (define font-switch ,font-switch)
@@ -471,7 +439,7 @@
 	((eq? action-name 'bracket) bracket)
 	((eq? action-name 'crescendo) crescendo)
 	((eq? action-name 'volta) volta)
-	((eq? action-name 'slur) slur)
+	((eq? action-name 'bezier-sandwich) bezier-sandwich)
 	((eq? action-name 'dashed-slur) dashed-slur) 
 	((eq? action-name 'decrescendo) decrescendo)
 	(else (error "unknown tag -- PS-SCM " action-name))
@@ -479,5 +447,26 @@
   )
   
 
+;
+; Russ McManus, <mcmanus@IDT.NET>  
+; 
+; I use the following, which should definitely be provided somewhere
+; in guile, but isn't, AFAIK:
+; 
+; 
 
+(define (hash-table-for-each fn ht)
+  (do ((i 0 (+ 1 i)))
+      ((= i (vector-length ht)))
+    (do ((alist (vector-ref ht i) (cdr alist)))
+	((null? alist) #t)
+      (fn (car (car alist)) (cdr (car alist))))))
+
+(define (hash-table-map fn ht)
+  (do ((i 0 (+ 1 i))
+       (ret-ls '()))
+      ((= i (vector-length ht)) (reverse ret-ls))
+    (do ((alist (vector-ref ht i) (cdr alist)))
+	((null? alist) #t)
+      (set! ret-ls (cons (fn (car (car alist)) (cdr (car alist))) ret-ls)))))
 

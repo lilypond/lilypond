@@ -33,7 +33,7 @@ Bow::do_brew_molecule_p () const
   Real thick = paper ()->get_var ("slur_thickness");
   Array<Offset> c = get_controls ();
   Real dy = c[3].y () - c[0].y ();
-  Atom a;
+  Molecule a;
 
   if (!dash_i_)
     a = lookup_l ()->slur (c);
@@ -56,7 +56,7 @@ Bow::do_brew_molecule_p () const
   a.translate (Offset (dx_f_drul_[LEFT], dy_f_drul_[LEFT]));
 
   Molecule* mol_p = new Molecule;
-  mol_p->add_atom (a);
+  mol_p->add_molecule (a);
   mol_p->translate_axis (-interstaff_f_, Y_AXIS);
 
   return mol_p;

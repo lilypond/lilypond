@@ -15,7 +15,6 @@
 #include "paper-outputter.hh"
 #include "paper-stream.hh"
 #include "molecule.hh"
-#include "atom.hh"
 #include "array.hh"
 #include "string-convert.hh"
 #include "debug.hh"
@@ -24,6 +23,7 @@
 #include "scope.hh"
 #include "identifier.hh"
 #include "lily-version.hh"
+#include "atom.hh"
 
 Paper_outputter::Paper_outputter (Paper_stream *s)
 {
@@ -40,7 +40,18 @@ Paper_outputter::~Paper_outputter ()
 void
 Paper_outputter::output_header ()
 {
- 
+#if 0
+  int gobble = 10000;
+  {// alloc big chunk of memory.
+    SCM beg = SCM_EOL;
+    String bigstr = String_convert::char_str (' ', 50);
+    for (int i = gobble; i--; )
+      {
+	beg = gh_cons (gh_str02scm (bigstr.ch_C()), beg);
+      }
+  }
+#endif
+  
   if (safe_global_b)
     {
       ly_set_scm ("security-paranoia", SCM_BOOL_T);
@@ -88,30 +99,36 @@ Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
   if (check_debug)
     *outstream_l_ << String ("\n%start: ") << nm << "\n";
 
-  for (PCursor <Atom*> i (m->atoms_); i.ok (); i++)
+
+  if (check_debug)
     {
-      Offset a_off = i->offset ();
+      output_comment (nm);
+    }
+      
+
+  for (Cons<Atom> *ptr = m->atom_list_; ptr; ptr = ptr->next_)
+    {
+      Atom * i = ptr->car_;
+      Offset a_off = i->off_;
       a_off += o;
 
-      if (!i->lambda_)
+      if (!i->func_)
 	continue; 
 
-      if (check_debug)
+      if (i->font_)
 	{
-	  output_comment (classname (i.ptr ()->origin_l_));
-
+	  output_scheme (gh_list (ly_symbol ("select-font"),
+				  gh_str02scm (symbol_to_string (i->font_).ch_C()),
+				  SCM_UNDEFINED));
 	}
+
+      SCM box_scm
+	= gh_list (ly_symbol ("placebox"),
+		   gh_double2scm (a_off.x ()),
+		   gh_double2scm (a_off.y ()), 
+		   i->func_.to_SCM(),
+		   SCM_UNDEFINED);
       
-      switch_to_font (i->font_);
-
-      SCM args_scm = gh_list (gh_double2scm (a_off.x ()),
-		 gh_double2scm (a_off.y ()), 
-		 i->lambda_.to_SCM (),
-		 SCM_UNDEFINED);
-
-
-      SCM box_scm = gh_cons (ly_symbol ("placebox"), args_scm);
-
       output_scheme (box_scm);
     }
 }
@@ -133,8 +150,6 @@ Paper_outputter::output_comment (String str)
 void
 Paper_outputter::output_scheme (SCM scm)
 {
-  String o = String ("\'") + output_global_ch;
-
   if (String (output_global_ch) == "scm")
     {
       static SCM port = 0;
@@ -204,28 +219,6 @@ Paper_outputter::output_version ()
 }
 
 void
-Paper_outputter::switch_to_font (String fontname)
-{
-  if (fontname.length_i () && fontname != current_font_)
-    {
-      current_font_ = fontname;
-      int i=0;
-
-      for (; i< font_arr_.size (); i++)
-	if (font_arr_[i] == fontname)
-	    break;
-
-      if (i == font_arr_.size ())
-	{
-	  font_arr_.push (fontname);
-	  output_font_def (i, fontname);
-	}
-      output_font_switch (i);
-    }
-  return;
-}
-
-void
 Paper_outputter::start_line ()
 {
   SCM scm = gh_list (ly_symbol ("start-line"), SCM_UNDEFINED);
@@ -281,22 +274,11 @@ Paper_outputter::output_int_def (String k, int v)
   gh_define (k.ch_l (), gh_int2scm (v));
 }
 
-void
-Paper_outputter::output_font_switch (int i)
-{
-  SCM scm = gh_list (ly_symbol ("font-switch"),
-		     gh_int2scm (i),
-		     SCM_UNDEFINED);
 
-  output_scheme (scm);
-}
 
 void
 Paper_outputter::stop_line ()
 {
   SCM scm =    gh_list (ly_symbol ("stop-line"), SCM_UNDEFINED);
   output_scheme (scm);
-
-  current_font_ = "";
-  font_arr_.clear ();
 }

@@ -44,7 +44,7 @@ Multi_measure_rest::do_brew_molecule_p () const
   if (!column_arr_.size ())
     return mol_p;
 
-  Atom s;
+  Molecule s;
   if (measures_i_ == 1 || measures_i_ == 2 || measures_i_ == 4) 
     {
       s = (lookup_l ()->rest (- intlog2(measures_i_), 0));
@@ -54,7 +54,7 @@ Multi_measure_rest::do_brew_molecule_p () const
     {
       s = (lookup_l ()->rest (-4, 0));
     }
-  mol_p->add_atom (s);
+  mol_p->add_molecule (s);
   Real interline_f = paper ()->interline_f ();
   if (measures_i_ == 1)
     {
@@ -67,9 +67,9 @@ Multi_measure_rest::do_brew_molecule_p () const
       text.text_str_ = to_str (measures_i_);
       text.style_str_ = "number";
       text.align_dir_ = CENTER;
-      Atom s = text.get_atom (paper (), UP);
+      Molecule s = text.get_molecule (paper (), UP);
       s.translate_axis (3.0 * interline_f, Y_AXIS);
-      mol_p->add_atom (s);
+      mol_p->add_molecule (s);
     }
 
   return mol_p;

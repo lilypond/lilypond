@@ -12,7 +12,7 @@
 #include "text-def.hh"
 #include "debug.hh"
 #include "paper-def.hh"
-#include "atom.hh"
+
 
 
 void
@@ -57,11 +57,11 @@ Text_spanner::do_post_processing()
 Molecule*
 Text_spanner::do_brew_molecule_p() const
 {
-  Atom tsym (spec_p_->get_atom (paper(),CENTER));
+  Molecule tsym (spec_p_->get_molecule (paper(),CENTER));
   tsym.translate (text_off_);
 
   Molecule*output = new Molecule;
-  output->add_atom (tsym);
+  output->add_molecule (tsym);
   return output;
 }
 

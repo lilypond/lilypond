@@ -103,7 +103,8 @@ Break_algorithm::find_breaks () const
 Line_spacer*
 Break_algorithm::generate_spacing_problem (Line_of_cols curline, Interval line) const
 {
-  Spring_spacer * sp= (Spring_spacer*) (*get_line_spacer) (); // ugh
+  // ugh
+  Spring_spacer * sp= dynamic_cast<Spring_spacer*> ((*get_line_spacer) ());
 
   sp->paper_l_ = pscore_l_->paper_l_;
   sp->add_column (curline[0], true, line[LEFT]);
@@ -146,7 +147,7 @@ Break_algorithm::feasible (Line_of_cols curline) const
   for (int i=0; i < curline.size (); i++)
     {
       if (i && i < curline.size () -1
-	  && (((Score_column*)curline[i])->break_penalty_i () >= Break_req::FORCE))
+	  && ((dynamic_cast<Score_column*>(curline[i]))->break_penalty_i () >= Break_req::FORCE))
 	return false;
     }
   return true;

@@ -12,7 +12,6 @@
 #include "molecule.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
-#include "clef-engraver.hh"
 #include "g-text-item.hh"
 #include "p-score.hh"
 
@@ -78,10 +77,8 @@ Clef_item::do_brew_molecule_p() const
   String t = symbol_;
   if  (change_b_)
     t += "_change";
-  //  Atom s = lookup_l ()-> text ("roman", to_str (break_status_dir ()));
-    
-  Atom s = lookup_l ()->clef (t);
-  Molecule*output = new Molecule (Atom (s));
+
+  Molecule*output = new Molecule (lookup_l ()->clef (t));
   return output;
 }
 

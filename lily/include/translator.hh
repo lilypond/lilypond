@@ -9,7 +9,7 @@
 
 #ifndef TRANSLATOR_HH
 #define TRANSLATOR_HH
-
+#include "global-ctor.hh"
 #include "string.hh"
 #include "lily-proto.hh"
 #include "virtual-methods.hh"
@@ -61,7 +61,7 @@ public:
     */
   Music_output_def *output_def_l () const;
   Scalar get_property (String, Translator_group **) const;
-  virtual Moment now_moment () const;  
+  virtual Moment now_mom () const;  
 
 protected:
    enum { 
@@ -90,32 +90,21 @@ protected:
 };
 
 
-template<class T>
-class Translator_adder
-{
-public:
-  static Translator *ctor ()
-    {
-      T *t = new T;
-      t->type_str_ = classname (t);
-      return t;
-    }
-  Translator_adder () {	
-    add_constructor (ctor);
-  }				
-};
-
 /**
   A macro to automate administration of translators.
  */
-#define ADD_THIS_TRANSLATOR(c)				\
-  Translator_adder<c> _ ## c ## init;
+#define ADD_THIS_TRANSLATOR(T)				\
+static void  _ ## T ## _adder () {\
+      T *t = new T;\
+      t->type_str_ = classname (t);\
+      add_translator (t);\
+}\
+ADD_GLOBAL_CTOR(_ ## T ## _adder);
 
-typedef Translator *(*Translator_ctor) ();
+
 
 extern Dictionary<Translator*> *global_translator_dict_p;
 void add_translator (Translator*trans_p);
-void add_constructor (Translator_ctor ctor);
 
 Translator*get_translator_l (String s);
 

@@ -24,6 +24,7 @@ struct Box {
     
   void translate (Offset o);
   /// smallest box enclosing #b#
+  void set_empty ();
   void unite (Box b);
   Box();
   Box (Interval ix, Interval iy);

@@ -69,7 +69,7 @@ public:
 
 class Partial_measure_req  : public Timing_req  {
 public:
-  Moment duration_;
+  Moment length_mom_;
 
   Partial_measure_req (Moment);
   REQUESTMETHODS(Partial_measure_req);

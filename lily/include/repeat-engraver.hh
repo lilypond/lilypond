@@ -37,6 +37,7 @@ private:
   Array<Moment> stop_mom_arr_;
   Array<Moment> alternative_start_mom_arr_;
   Array<Moment> alternative_stop_mom_arr_;
+  Array<String> alternative_str_arr_;
 };
 
 #endif // REPEAT_ENGRAVER_HH

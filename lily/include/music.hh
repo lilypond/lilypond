@@ -44,7 +44,7 @@ public:
   virtual Musical_pitch to_relative_octave (Musical_pitch);
 
   /// The duration of this piece of music
-  virtual Moment duration () const;
+  virtual Moment length_mom () const;
 
   virtual ~Music(){}
   void print() const;

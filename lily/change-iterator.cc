@@ -15,8 +15,9 @@
 void
 Change_iterator::error (String reason)
 {
-  String to_type = change_l ()->change_to_type_str_;
-  String to_id =  change_l ()->change_to_id_str_;
+  Change_translator const * t = dynamic_cast<Change_translator const*> (music_l_);   
+  String to_type = t->change_to_type_str_;
+  String to_id =  t->change_to_id_str_;
 
   String warn1 = _f ("can't change `%s\' to `%s\'", to_type, to_id) 
     + ": " + reason;
@@ -24,13 +25,7 @@ Change_iterator::error (String reason)
     + report_to_l ()->type_str_ + " = `"
     + report_to_l ()->id_str_ + "\': ";
   warning (warn2);
-  change_l ()->warning (warn1);
-}
-
-Change_translator *
-Change_iterator::change_l ()
-{
-  return (Change_translator*) music_l_;
+  t->warning (warn1);
 }
 
 /*
@@ -42,8 +37,9 @@ Change_iterator::do_process_and_next (Moment m)
   Translator_group * current = report_to_l ();
   Translator_group * last = 0;
 
-  String to_type = change_l ()->change_to_type_str_;
-  String to_id =  change_l ()->change_to_id_str_;
+  Change_translator const * t = dynamic_cast<Change_translator const*> (music_l_); 
+  String to_type = t->change_to_type_str_;
+  String to_id =  t->change_to_id_str_;
 
   /* find the type  of translator that we're changing.
      

@@ -2,28 +2,29 @@
 % declare the standard dynamic identifiers.
 %
 
-pppppp = \absdynamic { 13 }
-ppppp = \absdynamic { 12 }
-pppp = \absdynamic { 11 }
-ppp = \absdynamic { 10 }
-pp = \absdynamic { 9 }
-p = \absdynamic { 8 }
-mp = \absdynamic { 7 }
-mf = \absdynamic { 6 }
-f = \absdynamic { 5 } % f is a notename too.
-ff = \absdynamic { 4 }
-fff = \absdynamic { 3 }
-ffff = \absdynamic { 2 }
-fffff = \absdynamic { 1 }
-ffffff = \absdynamic { 0 }
+pppppp = \absdynamic { "pppppp" }	% Yeah yeah, \absdynamic "foo"; would/should also work. 
 
-fp = \absdynamic { 14 }
-sf = \absdynamic { 15 }
-sff = \absdynamic { 16 }
-sfz = \absdynamic { 17 }
-sp = \absdynamic { 18 }
-spp = \absdynamic { 19 }
-rfz = \absdynamic { 20 }
+ppppp = \absdynamic { "ppppp" }
+pppp = \absdynamic { "pppp" }
+ppp = \absdynamic { "ppp" }
+pp = \absdynamic { "pp" }
+p = \absdynamic { "p" }
+mp = \absdynamic { "mp" }
+mf = \absdynamic { "mf" }
+f = \absdynamic { "f" }
+ff = \absdynamic { "ff" }
+fff = \absdynamic { "fff" }
+ffff = \absdynamic { "ffff" }
+fffff = \absdynamic { "fffff" }
+ffffff = \absdynamic { "ffffff" }
+
+fp = \absdynamic { "fp" }
+sf = \absdynamic { "sf" }
+sff = \absdynamic { "sff" }
+sfz = \absdynamic { "sfz" }
+sp = \absdynamic { "sp" }
+spp = \absdynamic { "spp" }
+rfz = \absdynamic { "rfz" }
 
 cr = \spandynamic { 1 1 } 
 decr = \spandynamic { -1 1 }
