@@ -1,3 +1,8 @@
+2003-07-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/introduction.itely (Introduction): rewrite
+	start of introduction.
+
 2003-07-18  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* lily/all-font-metrics.cc: fixed typo
@@ -11,6 +16,9 @@
 	* lilypond-mode.el: use LilyPond-mode-set-syntax-table.
 
 2003-07-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/refman.itely (Figured bass): 
+	language nit courtesy http://www.vocabula.com
 
 	* GNUmakefile.in: remove no kpathsea hack.
 

@@ -8,8 +8,8 @@ LATEX_FILES =$(wildcard *.latex)
 # todo: add latex.
 DVI_FILES = $(addprefix $(outdir)/, $(TELY_FILES:.tely=.dvi))
 
-EXTRA_DIST_FILES= $(LATEX_FILES)
-
+EXTRA_DIST_FILES= $(LATEX_FILES) $(IMAGES)
+# IMAGES=$(wildcard *-suite1-line.*)
 HTML_FILES = $(addprefix $(outdir)/, $(TELY_FILES:.tely=.html))
 
 PS_FILES = $(DVI_FILES:.dvi=.ps)
@@ -33,6 +33,9 @@ include $(depth)/make/stepmake.make
 # emacs cannot fix the menu structure when @mbinclude is used
 # lilypond.tely uses mbinclude
 TEXINFO_SOURCES := $(filter-out lilypond.tely, $(TEXINFO_SOURCES))
+
+outimages:
+	cp $(IMAGES) $(outdir)
 
 dvi: $(DVI_FILES)
 
@@ -61,7 +64,7 @@ extra-local-help:
 
 # Generic rule using % twice not possible?
 # $(outdir)/%/%.html: $(outdir)/%.texi
-$(outdir)/lilypond/lilypond.html: $(outdir)/lilypond.texi
+$(outdir)/lilypond/lilypond.html: $(outdir)/lilypond.texi outimages
 	mkdir -p $(dir $@)
 	$(MAKEINFO) --output=$(outdir)/lilypond --html $<
 	-cp -f $(outdir)/*.{png,ly} $(outdir)/lilypond
@@ -84,7 +87,7 @@ else
 # Links referred to by Documentation index
 LILYPOND_LINKS=Reference-Manual.html Tutorial.html Ly2dvi.html Midi2ly.html
 
-local-WWW: deep-symlinks
+local-WWW: outimages deep-symlinks
 
 deep-symlinks:
 	mkdir -p $(outdir)/lilypond
