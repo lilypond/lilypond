@@ -1524,19 +1524,19 @@ configurable, i.e.
 (set-articulation '~ "trill")
 
 */
-		Music * m = MY_MAKE_MUSIC ("NewBeamEvent");
+		Music * m = MY_MAKE_MUSIC ("BeamEvent");
 		m->set_spot (THIS->here_input());
 		m->set_mus_property ("span-direction" , gh_int2scm (START));
 		$$ = m;
 	}
 	| ']'  {
-		Music * m = MY_MAKE_MUSIC ("NewBeamEvent");
+		Music * m = MY_MAKE_MUSIC ("BeamEvent");
 		m->set_spot (THIS->here_input());
 		m->set_mus_property ("span-direction" , gh_int2scm (STOP));
 		$$ = m;
 	}
 	| '~' {
-		Music * m = MY_MAKE_MUSIC ("NewTieEvent");
+		Music * m = MY_MAKE_MUSIC ("TieEvent");
 		m->set_spot (THIS->here_input());
 		$$ = m;
 	}

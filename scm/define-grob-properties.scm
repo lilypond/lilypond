@@ -223,10 +223,6 @@ style-sheet's normal size, -1 is smaller, +1 is bigger.")
 (grob-property-description 'font-series symbol? "partial font definition: medium, bold.")
 (grob-property-description 'font-shape symbol? "partial font definition: upright or italic.")
 
-(grob-property-description 'font-style symbol? "a precooked set of font
-definitions, eg. finger volta timesig mark script large Large
-dynamic.")
-
 (grob-property-description 'force-hshift number? "amount of
 collision_note_width that overides automatic collision settings. This
 is used by @ref{note-collision-interface}.")
@@ -434,7 +430,8 @@ the Nth element of the list gives the amount stem shortening of a note with N fl
 (grob-property-description 'style symbol? "a string determining what style of  glyph is typeset. Valid choices depend on the function that is reading this property. .")
 (grob-property-description 'support-head ly:grob? "the note head at
 one end of the stem.")
-(grob-property-description 'text markup? "Text markup.  See reference manual for more information.")
+(grob-property-description 'text markup? "Text markup.  See the
+notation manual for more information.")
 (grob-property-description 'thick-thickness number? "thickness, measured in stafflinethickness.")
 (grob-property-description 'thickness number? "thickness, measured in stafflinethickness.")
 (grob-property-description 'thin-kern number? "space after a hair-line.")

@@ -1,12 +1,11 @@
 /*   
-  tie-engraver.cc --  implement Tie_engraver
+  new-tie-engraver.cc --  implement Tie_engraver
   
   source file of the GNU LilyPond music typesetter
   
   (c) 1998--2003 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
-
 
 #include "event.hh"
 #include "tie.hh"
@@ -27,25 +26,28 @@
    TODO: Remove the dependency on musical info. We should tie on the
    basis of position and duration-log of the heads (not of the events).
 
-   New tie event happens at the time of the first note, the 
+   TODO: support sparseTies.
+
+   TODO: melismata will fuck up now:
+
+   < { c8 ~ c8 }
+     { c16 c c c  } >
+
+   melisma is after the 2nd 8th note, but will now be signaled as
+   lasting till the 3rd 16th.
 */
 class Tie_engraver : public Engraver
 {
-  Moment end_mom_;
-  Moment next_end_mom_;
-
   Music *event_;
-  
+  Music *last_event_;
   Link_array<Grob> now_heads_;
-  Link_array<Grob> stopped_heads_;
+  Link_array<Grob> heads_to_tie_;
   Link_array<Grob> ties_;
-
+  
   Spanner * tie_column_;
   
-  void set_melisma (bool);
   
 protected:
-  virtual void start_translation_timestep ();
   virtual void stop_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music*);
@@ -60,6 +62,7 @@ public:
 Tie_engraver::Tie_engraver ()
 {
   event_ = 0;
+  last_event_  = 0;
   tie_column_ = 0;
 }
 
@@ -71,23 +74,17 @@ Tie_engraver::try_music (Music *mus)
     {
       event_ = mus;
     }
-
+  
   if (event_)
     {
       SCM m = get_property ("automaticMelismata");
       bool am = gh_boolean_p (m) &&gh_scm2bool (m);
       if (am)
 	{
-	  set_melisma (true);
+  daddy_trans_->set_property ("tieMelismaBusy", m ? SCM_BOOL_T : SCM_BOOL_F);
 	}
     }
   return true;
-}
-
-void
-Tie_engraver::set_melisma (bool m)
-{
-  daddy_trans_->set_property ("tieMelismaBusy", m ? SCM_BOOL_T : SCM_BOOL_F);
 }
 
 void
@@ -95,95 +92,39 @@ Tie_engraver::acknowledge_grob (Grob_info i)
 {
   if (Note_head::has_interface (i.grob_))
     {
-      now_heads_.push (i.grob_);
+      Grob * h  = i.grob_;
+      now_heads_.push (h);
+      for  (int  i=heads_to_tie_.size (); i--;)
+	{
+	  Grob *th =  heads_to_tie_[i];
+	  int staff_pos = gh_scm2int (h->get_grob_property ("staff-position"));
+	  int left_staff_pos = gh_scm2int (th->get_grob_property ("staff-position"));
+	  if (staff_pos == left_staff_pos)
+	    {
+	      Grob * p = new Spanner (get_property ("Tie"));
+	      Tie::set_interface (p); // cannot remove yet!
+	  
+	      Tie::set_head (p, LEFT, th);
+	      Tie::set_head (p, RIGHT, h);
+	  
+	      ties_.push (p);
+	      announce_grob(p, last_event_->self_scm());
+	    }
+	}
     }
-}
-
-int
-head_pitch_compare (Grob  *const&a,Grob  *const&b)
-{
-  Music *m1 =unsmob_music (a->get_grob_property ("cause"));
-  Music *m2 =unsmob_music (b->get_grob_property ("cause"));  
-
-  return Pitch::compare (* unsmob_pitch (m1->get_mus_property ("pitch")),
-			 * unsmob_pitch (m2->get_mus_property ("pitch")));
 }
 
 void
 Tie_engraver::process_acknowledged_grobs ()
 {
-  if (event_)
+  if (ties_.size () > 1 && !tie_column_)
     {
-      now_heads_.sort (&head_pitch_compare);
-      /*
-	We could sort stopped_heads_ as well (and use a linear alg. in
-	stead of nested loop), but we'd have to use a stable sorting
-	algorithm, since the ordering of the stopped heads (of the
-	same pitch) is relevant.
-       */
-
-      SCM head_list = SCM_EOL;
+      tie_column_ = new Spanner (get_property ("TieColumn"));
       
-      for (int i = now_heads_.size(); i--;)
-	{
-	  for (int j = stopped_heads_.size(); j--;)
-	    {
-	      int comp
-		= head_pitch_compare (now_heads_[i], stopped_heads_[j]);
+      for (int i = ties_.size (); i--;)
+	Tie_column::add_tie (tie_column_,ties_ [i]);
 
-	      if (!comp)
-		{
-		  head_list  = gh_cons (gh_cons (stopped_heads_[j]->self_scm (),
-						 now_heads_[i]->self_scm ()),
-					head_list);
-
-		  now_heads_.del (i);
-		  stopped_heads_.del (j);
-		  break ;
-		}
-	    }
-	}
-     
-      SCM basic = get_property ("Tie");
-      SCM sparse = get_property ("sparseTies");
-      if (to_boolean (sparse))
-	{
-	  int i = scm_ilength (head_list);
-
-	  if (!i)
-	    return;
-	  
-	  SCM pair = scm_list_ref (head_list, gh_int2scm (i/2));
-	  
-	  Spanner * p = new Spanner (basic);
-
-	  Tie::set_interface (p); // cannot remove.
-	  Tie::set_head (p,LEFT, dynamic_cast<Item*> (unsmob_grob (ly_car (pair))));
-	  Tie::set_head (p,RIGHT, dynamic_cast<Item*> (unsmob_grob (ly_cdr (pair))));
-	  
-	  ties_.push (p);
-	  announce_grob(p, event_->self_scm());
-	}
-      else for (SCM s = head_list; gh_pair_p (s); s = ly_cdr (s))
-	{
-	  Grob * p = new Spanner (basic);
-	  Tie::set_interface (p); // cannot remove yet!
-	  
-	  Tie::set_head (p, LEFT, dynamic_cast<Item*> (unsmob_grob (ly_caar (s))));
-	  Tie::set_head (p, RIGHT, dynamic_cast<Item*> (unsmob_grob (ly_cdar (s))));
-	  
-	  ties_.push (p);
-	  announce_grob(p, event_->self_scm());
-	}
-
-      if (ties_.size () > 1 && !tie_column_)
-	{
-	  tie_column_ = new Spanner (get_property ("TieColumn"));
-
-	  for (int i = ties_.size (); i--;)
-	    Tie_column::add_tie (tie_column_,ties_ [i]);
-	  announce_grob(tie_column_, SCM_EOL);
-	}
+      announce_grob(tie_column_, SCM_EOL);
     }
 }
 
@@ -191,23 +132,31 @@ Tie_engraver::process_acknowledged_grobs ()
 void
 Tie_engraver::stop_translation_timestep ()
 {
+
+  if (ties_.size ())
+    {
+      heads_to_tie_.clear ();
+      for (int i=0; i<  ties_.size (); i++)
+	{
+	  typeset_tie (ties_[i]);
+	}
+
+      ties_.clear();
+      last_event_ = 0;
+      if (tie_column_)
+	{
+	  typeset_grob (tie_column_);
+	  tie_column_ =0;
+	}
+    }
+  
+  if (event_)
+    {
+      heads_to_tie_ = now_heads_;
+      last_event_ = event_;
+    }
   event_ = 0;
   now_heads_.clear ();
-
-  /*
-    we don't warn for no ties, since this happens naturally when you
-    use skipTypesetting.  */
-  
-  for (int i=0; i<  ties_.size (); i++)
-   {
-      typeset_tie (ties_[i]);
-    }
-  ties_.clear ();
-  if (tie_column_)
-    {
-      typeset_grob (tie_column_);
-      tie_column_ =0;
-    }
 }
 
 void
@@ -231,60 +180,11 @@ Tie_engraver::typeset_tie (Grob *her)
   typeset_grob (her);
 }
 
-void
-Tie_engraver::start_translation_timestep ()
-{
-  SCM m = get_property ("automaticMelismata");
-  if (to_boolean (m))
-    {
-      set_melisma (false);
-    }
-
-  SCM grobs = get_property ("busyGrobs");
-  Moment now = now_mom();
-  stopped_heads_.clear ();
-  
-  for (; gh_pair_p (grobs); grobs = gh_cdr (grobs))
-    {
-      Grob * grob  = unsmob_grob (gh_cdar (grobs));
-      Moment end  =*unsmob_moment (gh_caar (grobs));
-      
-      /*
-	This is slightly ugh: we are now confunding the frontend
-	(iterators) and the backend (note heads) */
-      if (end > now)
-	break;
-      else if (end == now
-	       && Note_head::has_interface (grob))
-	stopped_heads_.push (grob);
-    }
-
-
-  /*
-    
-    The list starts with entries that start earlier. By going through
-    it, we reverse the order, where as we'd like to use the `last'
-    heads first.
-
-    This makes  a difference for grace notes. If we have
-
-    c4 \grace c8 ~ c4
-
-    Then busyGrobs will have ((1/4 . gc8) (1/4 . c4)). 
-
-    We want stopped_heads_ to contain (c4 gc8), because we start with
-    it at the top.
-   */
-  stopped_heads_.reverse();
-
-  event_ = 0;
-}
-
 
 ENTER_DESCRIPTION(Tie_engraver,
 /* descr */       "Generate ties between noteheads of equal pitch.",
 /* creats*/       "Tie TieColumn",
 /* accepts */     "tie-event",
 /* acks  */      "rhythmic-head-interface",
-/* reads */       "sparseTies tieMelismaBusy",
+/* reads */       "tieMelismaBusy",
 /* write */       "");
