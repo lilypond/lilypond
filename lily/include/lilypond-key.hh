@@ -23,9 +23,9 @@ class Lilypond_grob_key : public Object_key
   int disambiguation_count_;
 
 public:
-  Lilypond_grob_key(Object_key const *context,
-		    Moment start,
-		    String name, int);
+  Lilypond_grob_key (Object_key const *context,
+		     Moment start,
+		     String name, int);
 
   static Object_key *from_scheme (SCM);
 protected:
