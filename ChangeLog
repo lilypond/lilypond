@@ -1,5 +1,9 @@
 2004-07-04  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/test/volta-chord-names.ly: new file.
+
+	* lily/volta-bracket.cc (print): handle no bars situation. 
+
 	* lily/volta-engraver.cc (staff_eligible): backport. Always
 	use voltaOnThisStaff as override.
 	(stop_translation_timestep): backport: set bounds. 
