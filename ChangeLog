@@ -1,3 +1,8 @@
+2003-03-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scripts/ly2dvi.py (find_pfa_fonts): add --png option
+	(make_html_menu_file): --html menu. 
+
 2003-03-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scripts/ly2dvi.py (run_dvips): +add the .map file 

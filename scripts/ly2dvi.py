@@ -1,4 +1,4 @@
-#!@PYTHON@
+g#!@PYTHON@
 #
 # ly2dvi.py -- Run LilyPond, add titles to bare score, generate printable
 #              document
@@ -39,7 +39,6 @@ TODO:
 
   * for foo.ly, rename ly2dvi.dir to out-ly2dvi, foo.ly2dvi, foo.dir ?
      
-     
   * move versatile taglines, 
   
      \header {
@@ -74,6 +73,7 @@ import operator
 import stat
 import string
 import traceback
+import glob
 
 ################################################################
 # Users of python modules should include this snippet
@@ -137,10 +137,13 @@ option_definitions = [
 	(_ ('RES'), '', 'preview-resolution',
 	 _ ("set the resolution of the preview to RES")),
 	('', 'P', 'postscript', _ ("generate PostScript output")),
-	('', 'p', 'pdf', _ ("generate PDF output")),	
+	('', '', 'png', _("generate PNG page images")),
+	('', '', 'psgz', _("generate PS.GZ")), 
+	('', 'p', 'pdf', _ ("generate PDF output")),
 	('', '', 'pdftex', _ ("use pdflatex to generate a PDF output")),
 	# FIXME: preview, picture; to indicate creation of a PNG?
 	('', '', 'preview', _ ("make a picture of the first system")),
+	('','', 'html', _("make HTML file with links to all output")),
 	(_ ("KEY=VAL"), 's', 'set', _ ("change global setting KEY to VAL")),
 	('', 'V', 'verbose', _ ("verbose")),
 	('', 'v', 'version', _ ("print version number")),
@@ -149,12 +152,16 @@ option_definitions = [
 
 # other globals
 preview_p = 0
+page_images_p = 0
 lilypond_error_p = 0
+html_p = 0
 
 # Pdftex support
 pdftex_p = 0
 latex_cmd = 'latex'
-tex_extension = '.tex'
+
+
+tex_extension = '.tex'  ## yuk.
 
 #lilypond_binary = 'valgrind --suppressions=%(home)s/usr/src/guile-1.6.supp --num-callers=10 %(home)s/usr/src/lilypond/lily/out/lilypond '% { 'home' : '/home/hanwen' }
 
@@ -282,7 +289,7 @@ def analyse_lilypond_output (filename, extra):
 	# urg
 	'''Grep FILENAME for interesting stuff, and
 	put relevant info into EXTRA.'''
-	filename = filename+tex_extension
+	filename = filename + tex_extension
 	ly.progress (_ ("Analyzing %s...") % filename)
 	s = open (filename).read ()
 
@@ -295,24 +302,25 @@ def analyse_lilypond_output (filename, extra):
 	ly.progress ('\n')
 
 def find_tex_files_for_base (base, extra):
-
 	'''
 	Find the \header fields dumped from BASE.
 	'''
 	
 	headerfiles = {}
 	for f in layout_fields:
-		if os.path.exists (base + '.' + f):
-			headerfiles[f] = base+'.'+f
+		fn = base + '.' + f
+		if os.path.exists (fn)
+			headerfiles[f] = fn
 
 	if os.path.exists (base  +'.dep'):
 		dependency_files.append (base + '.dep')
 
 	for f in extra_fields:
-		if os.path.exists (base + '.' + f):
-			extra[f].append (open (base + '.' + f).read ())
+		fn =base + '.' + f
+		if os.path.exists (fn):
+			extra[f].append (open (fn).read ())
 	
-	return (base+tex_extension,headerfiles)
+	return (base + tex_extension, headerfiles)
 	 
 
 def find_tex_files (files, extra):
@@ -604,7 +612,47 @@ def find_pfa_fonts (name):
 		m = re.match ('.*?/(feta[-a-z0-9]+) +findfont', s[here:], re.DOTALL)
 	return pfa
 
+
+def make_html_menu_file (html_file, files_found):
+	exts = {
+		'pdf' : "Print (PDF, %s)",
+		'ps.gz' : "Print (gzipped PostScript, %s)",
+		'png' : "View (PNG, %s)",
+		'midi' : "Listen (MIDI, %s)",
+		'ly' : "View source code (%s)", 
+		}
+	html_str = ''
+
+	pages = filter (lambda x : re.search ('page[0-9]+.png',  x),
+			files_found)
+	rest =  filter (lambda x : not re.search ('page[0-9]+.png',  x),
+			files_found)
+
+	preview = filter (lambda x: re.search ('.png$', x), rest)
+	if preview:
+		html_str = '<img src="%s">' % preview[0]
+
+	for p in pages:
+		page = re.sub ('.*page([0-9])+.*', 'View page \\1 (PNG picture, %s)\n', p)
+		page = page % 'unknown size'
+		
+		html_str += '<li><a href="%s">%s</a>' % (p, page)
+		
+		
+	for e in ['pdf', 'ps.gz', 'midi', 'ly']:
+		fs = filter (lambda x: re.search ('.%s$' % e, x), rest)
+		for f in fs:
+			entry = exts[e] % 'unknown size' # todo
+			html_str += '<li><a href="%s">%s</a>\n\n' % (f, entry)
+
+	html_str += "\n\n</li>"
+	ly.progress (_("Writing HTML menu `%s'") % html_file)
+	open (html_file, 'w').write (html_str)
 	
+################################################################
+## MAIN
+################################################################
+
 (sh, long) = ly.getopt_args (option_definitions)
 try:
 	(options, files) = getopt.getopt (sys.argv[1:], sh, long)
@@ -647,7 +695,8 @@ for opt in options:
 		lily_p = 0
 	elif o == '--preview':
 		preview_p = 1
-		targets.append ('PNG')
+		if 'PNG' not in targets:
+			targets.append ('PNG')
 	elif o == '--preview-resolution':
 		preview_resolution = string.atoi (a)
 	elif o == '--no-paper' or o == '-m':
@@ -676,6 +725,14 @@ for opt in options:
 		if status:
 			ly.warranty ()
 		sys.exit (0)
+	elif o == '--html':
+		html_p = 1
+	elif o == '--png':
+		page_images_p = 1
+		if 'PNG' not in targets:
+			targets.append ('PNG')
+	elif o == '--psgz':
+		targets.append ('PS.GZ')
 	else:
 		unimplemented_option () # signal programming error
 
@@ -779,6 +836,9 @@ if 1:
 	# have subsequent stages and use 'lelie' output.
 	if pseudo_filter_p:
 		files[0] = 'lelie'
+
+	if 'PS.GZ'  in targets:
+		targets.append ('PS')
 		
 	if 'PNG' in targets and 'PS' not in targets:
 		targets.append ('PS')
@@ -813,7 +873,7 @@ if 1:
 			else:
 				ly.warning (_("Failed to make PS file. Rerun with --verbose for a trace."))
 
-	if 'PNG' in  targets:
+	if preview_p:
 		ly.make_preview (outbase)
 
 	if 'PDFTEX' in targets:
@@ -839,6 +899,8 @@ if 1:
 			else:
 				ly.warning (_("Running LaTeX falied. Rerun with --verbose for a trace."))
 				
+	if page_images_p:
+		ly.make_page_images (outbase)
 
 	# add DEP to targets?
 	if track_dependencies_p:
@@ -846,7 +908,7 @@ if 1:
 		generate_dependency_file (depfile, depfile)
 		if os.path.isfile (depfile):
 			ly.progress (_ ("dependencies output to `%s'...") %
-				  depfile)
+				     depfile)
 			ly.progress ('\n')
 
 	if pseudo_filter_p:
@@ -865,20 +927,33 @@ if 1:
 		targets = []
 		ly.progress ('\n')
 		
+	if 'PS.GZ' in targets:
+		ly.system ("gzip *.ps") 
+		targets.remove ('PS')
+
 	# Hmm, if this were a function, we could call it the except: clauses
+	files_found = []
 	for i in targets:
 		ext = string.lower (i)
+
+		pattern = '%s.%s' % (outbase, ext)
+		if i == 'PNG':
+			pattern  = '*.png' 
+		ls = glob.glob (pattern)
+		files_found += ls 
 		ly.cp_to_dir ('.*\.%s$' % ext, outdir)
-		outname = outbase + '.' + string.lower (i)
-		abs = os.path.join (outdir, outname)
-		if reldir != '.':
-			outname = os.path.join (reldir, outname)
-		if os.path.isfile (abs):
-			ly.progress (_ ("%s output to `%s'...") % (i, outname))
+
+
+		if ls:
+			names = string.join (map (lambda x: "`%s'" % x, ls))
+			ly.progress (_ ("%s output to %s...") % (i, names))
 			ly.progress ('\n')
 		elif verbose_p:
 			ly.warning (_ ("can't find file: `%s'") % outname)
-			
+
+	if html_p:
+		make_html_menu_file (os.path.join (outdir, outbase + ".html"), files_found)
+
 	os.chdir (original_dir)
 	ly.cleanup_temp ()
 
