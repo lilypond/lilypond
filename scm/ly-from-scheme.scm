@@ -16,7 +16,7 @@
                                                                                             (char->integer #\0)))))
                                                  (string->list (number->string var-idx)))))))))
 
-(define-public (ly:parse-string-result str module)
+(define-public (ly:parse-string-result str parser module)
   "Parse `str', which is supposed to contain a music expression."
   (let ((music-sym (gen-lily-sym)))
     (ly:parser-parse-string
@@ -34,27 +34,50 @@
 the scheme music expression. The $ character may be used to introduce
 scheme forms, typically symbols. $$ may be used to simply write a `$'
 character."
-  (let* ((format-args '())
-         (lily-string (with-output-to-string
-                        (lambda ()
+  (let ((bindings '()))
+    (define (create-binding! val)
+      "Create a new symbol, bind it to `val' and return it."
+      (let ((tmp-symbol (gen-lily-sym)))
+        (set! bindings (cons (cons tmp-symbol val) bindings))
+        tmp-symbol))
+    (define (remove-dollars! form)
+      "Generate a form where `$variable' and `$ value' mottos are replaced
+      by new symbols, which are binded to the adequate values."
+      (cond (;; $variable
+             (and (symbol? form)
+                  (string=? (substring (symbol->string form) 0 1) "$")
+                  (not (string=? (substring (symbol->string form) 1 2) "$")))
+             (create-binding! (string->symbol (substring (symbol->string form) 1))))
+            (;; atom
+             (not (pair? form)) form)
+            (;; ($ value ...)
+             (eqv? (car form) '$)
+             (cons (create-binding! (cadr form)) (remove-dollars! (cddr form))))
+            (else ;; (something ...)
+             (cons (remove-dollars! (car form)) (remove-dollars! (cdr form))))))
+    (let ((lily-string (call-with-output-string
+                        (lambda (out)
                           (do ((c (read-char port) (read-char port)))
-                              ((and (char=? c #\#)
-                                    (char=? (peek-char port) #\}))
-                               (read-char port))
-                            (cond ((and (char=? c #\$)
-                                        (not (char=? (peek-char port) #\$)))
-                                   ;; a $variable
-                                   (display "~a")
-                                   (set! format-args (cons (read port) 
-format-args)))
-                                  ((and (char=? c #\$)
-                                        (char=? (peek-char port) #\$))
-                                   ;; just a $ character
-                                   (display (read-char port)))
-                                  (else
-                                   ;; other caracters
-                                   (display c))))))))
-   `(ly:parse-string-result (format #f ,lily-string ,@(reverse! format-args))
-                            (current-module))))
+                             ((and (char=? c #\#)
+                                   (char=? (peek-char port) #\})) ;; we stop when #} is encoutered
+                              (read-char port))
+                           (cond
+                            ;; a $form expression
+                            ((and (char=? c #\$) (not (char=? (peek-char port) #\$)))
+                             (format out "\\~a" (create-binding! (read port))))
+                            ;; just a $ character
+                            ((and (char=? c #\$) (char=? (peek-char port) #\$))
+                             (display (read-char port) out))  ;; pop the second $
+                            ;; a #scheme expression
+                            ((char=? c #\#)
+                             (format out "#~a" (remove-dollars! (read port))))
+                            ;; other caracters
+                            (else
+                             (display c out))))))))
+      `(let ((parser-clone (ly:clone-parser parser)))
+         ,@(map (lambda (binding)
+                  `(ly:parser-define parser-clone ',(car binding) ,(cdr binding)))
+                (reverse bindings))
+         (ly:parse-string-result ,lily-string parser-clone (current-module))))))
 
 (read-hash-extend #\{ read-lily-expression)
