@@ -18,7 +18,8 @@ StaffContext=\translator {
 %	\consists "Repeat_engraver"
 	\consists "Volta_engraver"
 	\consists "Separating_line_group_engraver"	
-
+	SeparatingGroupSpanner \override #'spacing-procedure
+	  =  #Separating_group_spanner::set_spacing_rods_and_seqs
 
 
 	\consists "Clef_engraver"

@@ -66,18 +66,30 @@ Arpeggio::brew_molecule (SCM smob)
        */
       return SCM_EOL;
     }
+
+  Direction dir = CENTER;
+  if (isdir_b (me->get_grob_property ("arpeggio-direction")))
+    {
+      dir = to_dir (me->get_grob_property ("arpeggio-direction"));
+    }
   
   Molecule mol;
-  Molecule arpeggio = Font_interface::get_default_font (me)->find_by_name ("scripts-arpeggio");
+  Font_metric *fm =Font_interface::get_default_font (me);
+  Molecule squiggle = fm->find_by_name ("scripts-arpeggio");
 
+  Real arrow_space = (dir) ? Staff_symbol_referencer::staff_space (me)  : 0.0;
+  
   Real y = heads[LEFT];
-  while (y < heads[RIGHT])
+  while (y < heads[RIGHT] - arrow_space)
     {
-      mol.add_at_edge (Y_AXIS, UP,arpeggio, 0.0);
-      y+= arpeggio. extent (Y_AXIS).length ();
+      mol.add_at_edge (Y_AXIS, UP,squiggle, 0.0);
+      y+= squiggle. extent (Y_AXIS).length ();
     }
   mol.translate_axis (heads[LEFT], Y_AXIS);
-
+  if (dir)
+    mol.add_at_edge (Y_AXIS, dir,
+		     fm->find_by_name ("scripts-arpeggio-arrow-" + to_str (dir)), 0.0);
+  
   return mol.smobbed_copy () ;
 }
 

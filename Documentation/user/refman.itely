@@ -1621,6 +1621,13 @@ the specified number of repeats.
 }
 @end lilypond
 
+@subsection Unfolding repeats for MIDI output.
+
+@cindex expanding repeats
+
+See @file{input/test/unfold-all-repeats.ly}. 
+
+
 @refbugs
 
 Notice that timing information is not remembered at the start of an
@@ -1906,6 +1913,34 @@ to the chords in both staves, and set
 
 This command creates @code{Voice.Arpeggio} grobs.  Cross staff arpeggios
 are @code{PianoStaff.Arpeggio}.
+
+To add an arrow head to explicitly specify the direction of the
+arpeggio, you should set the arpeggio grob property
+@code{arpeggio-type}.
+
+@lilypond[fragment,relative,verbatim]
+  \context Voice {
+     \property Voice.Arpeggio \override #'arpeggio-direction = #1
+     <c\arpeggio e g c>
+     \property Voice.Arpeggio \override #'arpeggio-direction = #-1
+     <c\arpeggio e g c>
+  }
+@end lilypond
+
+@ignore
+A square bracket on the left indicates that the player should not
+arpeggiate the chord.
+
+@lil ypond[fragment,relative,verbatim]
+  \context PianoStaff <
+    \property PianoStaff.connectArpeggios = ##t
+    \property PianoStaff.Arpeggio \override #'arpeggio-direction = #'bracket
+    \context Voice = one  { <c'\arpeggio e g c> }
+    \context Voice = other { \clef bass  <c,,\arpeggio e g>}
+  >  
+@ e nd lilypond
+@end ignore
+
 
 @refbugs
 
