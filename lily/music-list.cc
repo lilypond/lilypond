@@ -27,12 +27,12 @@ IMPLEMENT_IS_TYPE_B1(Chord,Music_list);
 MInterval
 Chord::time_int()const
 {
-//    MInterval m( -(Real)INT_MAX, (Real)INT_MAX );
-    MInterval m( 0, 0 );
+    MInterval m;
     for (iter(music_p_list_.top(), i); i.ok(); i++)
 	m.unite(i->time_int());
     return m;
 }
+
 void
 Chord::translate(Moment m)
 {
