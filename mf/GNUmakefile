@@ -69,7 +69,8 @@ export MFINPUTS:=.:$(MFINPUTS)
 default: $(ALL_GEN_FILES)
 
 $(outdir)/lilypond.map: 
-	echo $(FONT_FILES:.mf=) | awk -v RS=' ' '{print $$1 " TeX-" $$1 " <" $$1 ".pfa"}' > $@
+	echo $(FONT_FILES:.mf=) | tr ' ' '\n' | \
+		sed 's/\(.*\)/\1 \1 <\1.pfa/' > $@
 
 ##
 ## todo: this also depends on .tfm, FIXME.

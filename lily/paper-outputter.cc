@@ -114,7 +114,7 @@ Paper_outputter::output_scope (Scope *scope, String prefix)
 	}
       else if (gh_number_p (v))
 	{
-	  output_Real_def (prefix + s, gh_scm2double (v));	  
+	  output_Real_def (prefix + s, gh_scm2double (v));
 	}
     }
 }
@@ -137,9 +137,9 @@ Paper_outputter::output_Real_def (String k, Real v)
 {
   
   SCM scm = scm_list_n (ly_symbol2scm ("lily-def"),
-		     ly_str02scm (k.ch_l ()),
-		     ly_str02scm (to_str (v).ch_l ()),
-		     SCM_UNDEFINED);
+			ly_str02scm (k.ch_l ()),
+			ly_str02scm (to_str (v).ch_l ()),
+			SCM_UNDEFINED);
   output_scheme (scm);
 }
 
