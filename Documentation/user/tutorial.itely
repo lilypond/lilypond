@@ -2020,10 +2020,10 @@ to the page layout of this document.
 @node Fine tuning a piece
 @section  Fine tuning a piece
 
-In this section, we show some ways to fine tune the final output of a
-piece. We do so using a single measure of a moderately complex piano
-piece: a Brahms intermezzo (opus 119, no. 1). Both fragments (the
-tuned and the untuned are in the @file{input/tutorial/}).
+In this section we show some ways to fine tune the final output of a
+piece.  We do so using a single measure of a moderately complex piano
+piece: a Brahms intermezzo (opus 119, no. 1).  Both fragments (the
+tuned and the untuned versions) are in @file{input/tutorial/}.
 
 The code for the untuned example shows us some new things.
 
@@ -2037,58 +2037,56 @@ The code for the untuned example shows us some new things.
 @cindex @code{\<}
 @cindex @code{\!}
 
-The crescendo is ended at the half note by the escaped exclamation
-mark @code{\!}.
-
-Hairpin dynamics can be indicated using @code{\>} to start a
-decrescendo, and @code{\!} to end one. The crescendo is started using
-@code{\<} and also ended using @code{\!}. Absolute dynamics can be
-entered using @code{\p}, @code{\mf}, etc. All these commands apply to
-the complete chord where they are entered, but for syntactical
-reasons, they must be attached to one of the notes of  the chord.
+Hairpin dynamics can be easily added to Lilypond scores.  Beginning a
+crescendo is indicated with @code{\<} and ending a crescendo is indicated
+with @code{\!}.  A decrescendo can be indicated with @code{\>} and
+@code{\!}.  Absolute dynamics (sometimes called ``Letter dynamics'') can
+be entered using @code{\p}, @code{\mf}, etc.  All these dynamics will
+apply to the whole chord where they are entered, but for syntactical
+reasons they must be attached to one of the notes of the chord.
 
 @cindex fingering instructions
 
-Fingering indications are entered simply using @code{-@var{N}}, where
+Fingering indications are entered with @code{-@var{N}}, where
 @var{N} is a digit.
 
 Now that we have the basic piece of music entered, we want to fine
-tune it, so we get something that resembles the original printed
+tune it so that we get something that resembles the original printed
 edition by Schott/Universal Edition:
 
 @lilypondfile{brahms-tweaked.ly}
 
 @cindex tuning grob behavior
 
-The basic process that we follow is that we override defaults in the
-printing system. We do this by setting variables in so-called grobs.
-Printed symbols are internally represented by Graphical Objects
-(Grobs).  Each grob is described by a bunch of settings.  Every
-setting is a variable: it has a name, and you can assign a value to
-the variable. These setting determine the fonts, offsets, sub-routines
-to be called on the grob, etc.  The initial values of these settings
-are set in the Scheme file @file{scm/grob-description.scm}.
+Fine tuning involves overriding the defaults of the printing system.  
+We do this by setting variables which control how Lilypond prints
+symbols.  Printed symbols are called @emph{grobs} (GRaphical OBjects).  
+Each grob is described by a bunch of settings.  Every setting is a
+variable: it has a name and a value which you can change.  These values
+determine the fonts, offsets, sub-routines to be called on the grob,
+etc.  The initial values of these settings are set in the Scheme file
+@file{scm/grob-description.scm}.
 
 @cindex slur attachments
 
-We start with the slur: the slur in the upper part, running from the F
-sharp to the A, runs from stem to stem in the printed edition, while
-ours starts from the note head at the left. The following property
-setting forces all slurs to run from stem to stem (and not from or to
-note head)
+We start with the slur in the upper part, running from F sharp to A.  In
+the printed edition, this slur runs from stem to stem; in our version,
+the slur begins at the note head of the F sharp.  The following property
+setting forces all slurs to run from stem to stem (not from or to note
+heads!).
 
 @example
   \property Voice.Slur \set #'attachment = #'(stem . stem)
 @end example
 
-More precisely, this command extends the definition of the @code{Slur}
+More precisely, this command modifies the definition of the @code{Slur}
 object in the current @code{Voice}.  The variable @code{attachment} is
 set to the pair of symbols @code{'(stem . stem)}. 
 
-Although this is useful information, it is not very helpful: the
-lilypond back-end supports approximately 240 variables like
+Although this fixes the slur, it isn't very helpful for fine tuning in
+general: the lilypond back-end supports approximately 240 variables like
 @code{attachment}, each with their own meaning and own type
-(eg. number, symbol, list, etc). Besides slur, LilyPond has 80
+(eg. number, symbol, list, etc).  Besides slur, LilyPond has 80
 different types of Grobs, that may be created in 14 different context
 types besides Voice.
 
@@ -2098,23 +2096,26 @@ types besides Voice.
 
 The interesting information is how you can figure out which properties
 to tune for your own scores. To discover this, you must have a copy of
-the internals document. This is a set of HTML pages, which should be
-included if you run a binary distribution@footnote{You can also
+the internals document. This is a set of HTML pages which should be
+included if you installed a binary distribution@footnote{You can also
 compile them by executing @code{make -C Documentation/user/
-out/lilypond-internals.html} in the source package.}. This document is
-also available on the web: go to the lilypond website, click
-``Documentation: other'' on the side bar, click
-``lilypond-internals'', under information for users.
+out/lilypond-internals.html} in the source package.}.  These HTML pages
+are also available on the web: go to the lilypond website, click
+``Documentation: Index'' on the side bar, look in the ``Information for
+uses'' section, and click on ``Documentation of internals''.
 
-You might want to bookmark either the HTML files on disk, or the one
-on the web. One word of caution is in place here: the internals
-documentation is generated from the definitions that lily uses. For
-that reason, it is strongly tied to the version of LilyPond that you
-use. Before you proceed, please make sure that you are using the
-documentation that corresponds to the LilyPond version that you use.
+You might want to bookmark either the HTML files on your disk, or the one
+on the web (the HTML on your hard drive will load much faster than the
+ones on the web!).  One word of caution: the internals documentation is
+generated from the definitions that lily uses.  For that reason, it is
+strongly tied to the version of LilyPond that you use.  Before you
+proceed, please make sure that you are using the documentation that
+corresponds to the version of LilyPond that you are using.
 
-Suppose that you wanted to tune the behavior of the slur. The first
-step is to get some general information on slurs in lilypond. Turn to
+@c  TODO: the quote is incorrect, although that shouldn't be a big
+@c    problem for the reader.
+Suppose that you wanted to tune the behavior of the slur.  The first
+step is to get some general information on slurs in lilypond.  Turn to
 the index, and look up ``slur''. The section on slurs says
 @quotation
 The grob for this object is @internalsref{Slur}, generally in
@@ -2124,12 +2125,12 @@ The grob for this object is @internalsref{Slur}, generally in
 So the grob for this object is called @code{Slur}, and slurs are
 created in the @code{Voice} context.  If you are reading this tutorial
 in the HTML version, then you can simply click Slur, otherwise, you
-must look it up the internal documentation: click ``grob overview'' ,
-and select ``slur'' (the list is alphabetical.)
+should look it up the internal documentation: click ``grob overview''
+and select ``slur'' (the list is alphabetical).
 
 Now you get a list of all the properties that the slur object
-supports, along with their default values. Among the properties we
-find the @code{attachment} property with its default setting.
+supports, along with their default values.  Among the properties we
+find the @code{attachment} property with its default setting.  
 The property documentation explains that the following setting will
 produce the desired effect:
 @example 
@@ -2138,30 +2139,31 @@ produce the desired effect:
 
 If you ran the previous example, you have unknowingly already used
 this kind of command.  The @file{ly/property-init.ly} contains the
-definition of @code{\stemUp}
+definition of @code{\stemUp}:
 @example
   stemUp = \property Voice.Stem \set #'direction = #1
 @end example  
 
+@c this is a long section, and adding an extra space here helps to
+@c break it into smaller subsections and thus is easier to understand.
+@*
 
-We also want to move around the fingering `3'.  In the printed edition
-it is not above the stem, but a little lower, slightly left of the
-stem. From the user manual, we find that the associated grob is called
+Next we want to move the fingering `3'.  In the printed edition it is
+not above the stem, but a little lower and slightly left of the
+stem.  From the user manual we find that the associated grob is called
 @code{Fingering}, but how do we know if we should use @code{Voice} or
-@code{Staff}. In many cases, @code{Voice} is a safe bet, but you can
+@code{Staff}?  In many cases, @code{Voice} is a safe bet, but you can
 also deduce this information from the internals documentation: if you
 visit the documentation of @code{Fingering}, you will notice
 @example
 Fingering grobs are created by: Fingering_engraver
 @end example
 
-
-
 Clicking @code{Fingering_engraver} will show you the documentation of
 the module responsible for interpreting the fingering instructions and
-translating them to a @code{Fingering} grob. Such a module is called
-an @emph{engraver}. The documentation of the @code{Fingering_engraver}
-says,
+translating them to a @code{Fingering} grob.  Such a module is called
+an @emph{engraver}.  The documentation of the @code{Fingering_engraver}
+says
 @example
 Fingering_engraver is part of contexts: Voice and TabVoice
 @end example
@@ -2182,19 +2184,23 @@ the first guess @code{Voice} was indeed correct.
 
 For shifting the fingering, we use the grob property
 @code{extra-offset}.  The following command manually adds an offset to
-the object. We move it a little to the left, and 1.8 staff space
+the object.  We move it a little to the left, and 1.8 staff space
 downwards.
 @example
  \property Voice.Fingering \set #'extra-offset = #'(-0.3 . -1.8) 
 @end example	   
 The @code{extra-offset} is a low-level feature: it moves around
 objects in the printout; the formatting engine is completely oblivious
-to these offsets. The unit of these offsets are staff-spaces. 
+to these offsets.  The unit of these offsets are staff-spaces.  The
+first number controls left-right movement; a positive number will move
+the object (they're called grobs, remember?) to the right.  The second
+number controls up-down movement; a positive number will move the grob
+higher.
 
 @cindex reverting grob properties
 @cindex undoing grob properties
 
-We only want to offset a single grob, so after the F-sharp, we must
+We only want to offset a single grob, so after the F-sharp we must
 undo the setting. The technical term is to revert the grob property.
 @example
   \property Voice.Fingering \revert #'extra-offset
@@ -2204,54 +2210,55 @@ undo the setting. The technical term is to revert the grob property.
 @cindex translator properties
 @cindex grob properties
 @cindex music properties
+@*
 
+There are three different types of variables in LilyPond, something
+which can be confusing at first (and for some people it stays confusing
+:).  Variables such as @code{extra-offset} and @code{attachment} are
+called grob properties.  They are not the same as translator properties,
+like @code{autoBeaming}.  Finally, music expressions are internally
+stored using properties (so-called music properties).  You will encounter
+music properties if you run Scheme functions on music using @code{\apply}.
 
-There is three different types of variables in LilyPond, something
-which is confusing at first (and for some, it stays like that).
-Variables such as @code{extra-offset} and @code{attachment} are called
-grob properties. They are something different from the translator
-properties, like @code{autoBeaming}. Finally, music expressions are
-internally also stored using properties, so-called music
-properties. You will encounter the latter type if you run Scheme
-functions on music using @code{\apply}.
-
-The second fingering instruction should be moved up a little, to avoid
-a collision with the slur. This could be achieved with
+The second fingering instruction should be moved up a little to avoid
+a collision with the slur.  This could be achieved with
 @code{extra-offset}, but in this case, a simpler mechanism also
-works. We insert an empty text between the 5 and the note. The empty
+works.  We insert an empty text between the 5 and the note. The empty
 text pushes the fingering instruction away:
 @example
   a^" "^#'(finger "5")
 @end example
 
-Lilypond tries to put fingering instructions closer to the notes as
-text instructions. To insert an empty text (@code{^" "}) between the
-finger and the note, we have disguised the fingering instruction as a
-text: @code{(finger "5")}.
+Lilypond tries to put fingering instructions as close to the notes as
+possible.  To make sure that Lilypond doesn't do that, we disguise the
+fingering as text: @code{(finger "5")}.
 
-Normally, one would specify dynamics in a single voice, and start and
-end dynamics (such as @b{f} and @b{p}) will be aligned with
-hairpins. In this case, we want the decrescendo to be in a different
-place from the piano sign. We achieve this by putting the dynamic
-markings in different voices. The crescendo should be above the upper
-staff. This can be forced by the precooked command 
+@*
+@*
+
+Normally one would specify all dynamics in the same voice, so that
+dynamics (such as @b{f} and @b{p}) will be aligned with hairpins.  But
+in this case, we don't want the decrescendo to be aligned with the
+piano sign.  We achieve this by putting the dynamic markings in different
+voices.  The crescendo should be above the upper staff.  This can be
+forced by using the precooked command 
 @example
   \dynamicsUp
 @end example
 
-However, if you do that, the decrescendo will be too close to the
-upper voice, and collide with the stems. Looking at the manual for
+However, if you do that the decrescendo will be too close to the
+upper voice and collide with the stems.  Looking at the manual for
 dynamics, we notice that ``Vertical positioning of these symbols is
-handled by the @internalsref{DynamicLineSpanner} grob.''. If we turn
-to the documentation of @code{DynamicLineSpanner}, we find that the
-@code{DynamicLineSpanner} supports several so-called
-`interfaces'. This grob not only puts dynamic objects next to the
-staff (@code{side-position-interface}), but it also groups dynamic
-objects (@code{axis-group-interface}), is considered a dynamic sign
-itself (@code{dynamic-interface}) and is a grob: it has the
-@code{grob-interface}, with all the variables that come with it.
+handled by the @internalsref{DynamicLineSpanner} grob.''.  If we turn
+to the documentation of @code{DynamicLineSpanner}, we find that
+@code{DynamicLineSpanner} supports several so-called `interfaces'.  This
+grob not only puts dynamic objects next to the staff
+(@code{side-position-interface}), but it also groups dynamic objects
+(@code{axis-group-interface}), is considered a dynamic sign
+itself (@code{dynamic-interface}), and is a grob.  It has the standard
+@code{grob-interface} with all the variables that come with it.
 
-For the moment, we are interested in the side positioning:
+For the moment we are interested in side positioning:
 @quotation
  side-position-interface
 
@@ -2259,8 +2266,8 @@ For the moment, we are interested in the side positioning:
   support).  In this case, the direction signifies where to put the
   victim object relative to the support (left or right, up or down?)
 @end quotation
-Between the grob and its support (in this case: the notes in the voice
-going down), there should be more space. This space is controlled by
+Between the grob and its support (in this case the notes in the voice
+going down), there should be more space.  This space is controlled by
 @code{padding}, so we increase it.
 @example
 	    \property Voice.DynamicLineSpanner \override #'padding = #5.0
@@ -2270,17 +2277,20 @@ This command is almost like the command for setting slur attachments,
 but subtly different in its details.  Grob properties can be
 manipulated with two commands: @code{\override} extends the grob
 variables with a setting, and @code{\revert} releases this
-setting. This has a certain theoretical appeal: the operations are
-simple and symmetric. For practical use, it can be cumbersome.  Both
+setting.  This has a certain theoretical appeal: the operations are
+simple and symmetric.  But for practical use, it can be cumbersome.  The
 commands act like parentheses: you should carefully balance the use of
-@code{\override} and @code{\revert}. The @code{\set} command is more
+@code{\override} and @code{\revert}.  The @code{\set} command is more
 friendly: it first does a @code{\revert} followed by @code{\override}.
 
-Finally, Brahms uses music notation is a slightly unorthodox way. Ties
-usually happen only within one voice. In this piece, the composer
-gladly produces ties that jump voices. We deal with this by faking
+@*
+@*
+
+Brahms uses music notation is a slightly unorthodox way.  Ties
+usually happen only within one voice.  In this piece, the composer
+gladly produces ties that jump voices.  We deal with this by faking
 these ties: whenever we need such a tie, we insert a notehead in a
-different voice, and blank the stem. This is done in the following
+different voice, and blank the stem.  This is done in the following
 snippet of code.
 
 @example
@@ -2290,6 +2300,14 @@ snippet of code.
 @end example
 
 Finally, the last tie is forced up using @code{\tieUp}.
+
+@*
+@*
+
+Here's the complete ``fine tuned'' version, which includes all the
+modifications we discussed in this section:
+
+@lilypondfile[verbatim]{brahms-tweaked.ly}
 
 
 @node An orchestral score
