@@ -1,6 +1,6 @@
 % DOCUMENTME!
 
-\version "1.5.68"
+\version "1.7.6"
 
 
 
@@ -47,3 +47,4 @@ voicedefault =  \notes {
         }
 }
 
+%% new-chords-done %%

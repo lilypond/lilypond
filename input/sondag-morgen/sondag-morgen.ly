@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 \include "paper13.ly"
 
 mu = {}
@@ -145,8 +145,8 @@ sd = \translator Staff = down
 }
 
 
-mu = \p
-ac = \f
+mu = -\p
+ac = -\f
 su = {}
 sd = {}
 \include "sondag-morgen-unfolded.ly"
@@ -157,7 +157,7 @@ sd = {}
     \notes <
 	\context Staff = lead <
 	    \property Staff.instrument = "drawbar organ"
-	    \context Voice < \mel s1\ff >
+	    \context Voice < \mel s1-\ff >
 	>
 	\context Staff = sopsax <
 	    \property Staff.instrument = "soprano sax"

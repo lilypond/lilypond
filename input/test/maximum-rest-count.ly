@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
     texidoc = "Control the number of rests in a collision   with maximum-rest-count."
 }
@@ -42,3 +42,4 @@
 \tempo 1 = 60
 }
 }
+%% new-chords-done %%

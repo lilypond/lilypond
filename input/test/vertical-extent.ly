@@ -5,7 +5,7 @@ normal property values, and are written itno the grob when the
 associated context finishes, so using it in \property works.
 
  " }
-\version "1.5.68"
+\version "1.7.6"
 
 \score {
   \notes  <
@@ -27,3 +27,4 @@ associated context finishes, so using it in \property works.
     \translator{\StaffContext minimumVerticalExtent = #'(-2.0 . 2.0)}
   }
 }
+%% new-chords-done %%

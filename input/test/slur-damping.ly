@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 % test damping
 
 
@@ -11,3 +11,4 @@
 		c c c c
 	}
 }
+%% new-chords-done %%

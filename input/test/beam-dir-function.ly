@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header{
   texidoc="
@@ -62,3 +62,4 @@ down by default.  We set that to 1 (up) in the lower staff."  }
 %% Local variables:
 %% LilyPond-indent-level:2
 %% End:
+%% new-chords-done %%

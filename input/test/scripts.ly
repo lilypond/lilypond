@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 	
 
 
@@ -67,3 +67,4 @@ blah =  	\notes{ \transpose c c' {
 	\blah
 
 }
+%% new-chords-done %%

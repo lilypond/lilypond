@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header{
 texidoc="
@@ -18,3 +18,4 @@ fragment = \notes {
   \notes\relative c \fragment
   \paper { }  
 }
+%% new-chords-done %%

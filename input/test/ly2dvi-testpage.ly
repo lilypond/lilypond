@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 
 %{
@@ -40,3 +40,4 @@ poet = "poet"
 	copyright = "localcopyright"
 	}
 }
+%% new-chords-done %%

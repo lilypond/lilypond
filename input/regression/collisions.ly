@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 \header{
 texidoc="
 Normal collisions. We have support for polyphony, where the

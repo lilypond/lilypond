@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \include "deutsch.ly"
 
 marks = \lyrics {
@@ -112,8 +112,8 @@ piar = \notes {
 	<h1-\arpeggio fis' d' g a d> 
     }
 }
-U = \sustainUp
-D = \sustainDown
+U = -\sustainUp
+D = -\sustainDown
 pial = \notes {
     \pial
     \clef "F"

@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 \header{
 enteredby = 	 "jcn"
 copyright = 	 "public domain"
@@ -22,3 +22,4 @@ inversions =  \notes\transpose c c'\chords{
 }
 
 
+%% new-chords-done %%

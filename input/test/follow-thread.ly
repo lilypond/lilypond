@@ -6,7 +6,7 @@ property @code{followVoice}.
 "
 }
 
-\version "1.5.68"
+\version "1.7.6"
 % followVoice: connect note heads with line when thread switches staff 
 
 fragment = \notes {
@@ -28,3 +28,4 @@ fragment = \notes {
   \notes\relative c \fragment
   \paper { }  
 }
+%% new-chords-done %%

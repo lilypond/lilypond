@@ -1,4 +1,4 @@
-\version "1.7.3"  %% or actually: 1.7.1 ...
+\version "1.7.6"  %% or actually: 1.7.1 ...
 \header {
 texidoc= "Using make-music, you can add
 various stuff to notes. Here is an example
@@ -31,3 +31,4 @@ create, then write a function that will build the structure for you."
   \apply #(lambda (x) (add-text-script x "6") (display x) x ) \notes { c4-3 }
 }
 
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 
 
@@ -7,3 +7,4 @@
 	\grace {[b8^1 c^2]} d4^3
 }
 \paper {linewidth = -1.  }}
+%% new-chords-done %%

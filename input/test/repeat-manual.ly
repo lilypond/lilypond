@@ -1,5 +1,5 @@
 
-\version "1.5.68"
+\version "1.7.6"
 
 
 \score { \notes {
@@ -18,3 +18,4 @@
  c c
 }
 }
+%% new-chords-done %%

@@ -14,3 +14,4 @@ texidoc = "High level functionality can be accomplished with GUILE. Semantics ar
 }
 
 \score{ \notes{ c4 } }
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 
 \header {
 texidoc = "Hmm. what's this supposed to test?"
@@ -12,15 +12,16 @@ texidoc = "Hmm. what's this supposed to test?"
 			       ,Beam::shift_region_to_valid
 	
 			      )
-		[a'8 <a' g''>]
-		[c <c e,>]
-		[a'16 <a' g''>]
-		[c <c e,>]
-		[a'32 <a' g''>]
-		[c <c e,>]
+		[a'8 <<a' g''>>]
+		[c <<c e,>>]
+		[a'16 <<a' g''>>]
+		[c <<c e,>>]
+		[a'32 <<a' g''>>]
+		[c <<c e,>>]
 	}
 	\paper{
 
 		linewidth = 66.0\mm
 	}
 }
+%% new-chords-done %%

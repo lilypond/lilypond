@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \score { 
   \context Voice \notes\relative c {
     % to see the magic: uncomment size stuff in init/paper20.ly
@@ -17,3 +17,4 @@
   \paper { }  
   \midi { }
 }
+%% new-chords-done %%

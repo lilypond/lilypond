@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 
 % a few 32nds shouldn't stretch spacing enormously.
@@ -14,3 +14,4 @@
 }
 \paper  { linewidth = -1.0 }
 }
+%% new-chords-done %%

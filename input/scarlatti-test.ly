@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.6"
 %K000.ly LilyPond 1.2.16
 \header {
 title="John's Scarlatti quotes"
@@ -344,6 +344,6 @@ s4.*6
 \clef bass
 \key d \major
 s4.*38
->>
+> >
 } 
 

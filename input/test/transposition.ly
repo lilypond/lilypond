@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 %{
 Hi all,
 
@@ -72,3 +72,4 @@ vFour =  \notes \transpose c d \vThree
 
 
 
+%% new-chords-done %%

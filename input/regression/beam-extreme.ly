@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 \header{
 texidoc="
 Beams should behave reasonably well, even under extreme circumstances.

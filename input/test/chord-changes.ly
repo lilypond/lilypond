@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 
 \header{
 texidoc="property chordChanges: only display chord names when
@@ -26,3 +26,4 @@ scheme = \chords {
     }
   }
 }
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.6.4"
+\version "1.7.6"
 
 % bagpipe music.
 
@@ -104,3 +104,4 @@ f4 |
 )d4. \gdcg d4.
   }
 }
+%% new-chords-done %%

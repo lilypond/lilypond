@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 
 global =  \notes {
@@ -20,3 +20,4 @@ one =  \notes \relative c {
 \score{
 \context Staff	< \global \one >
 }
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 %
 % We'd want to combine the stems, but have two slurs too...
@@ -19,3 +19,4 @@
 		linewidth=60.\mm
 	}
 }
+%% new-chords-done %%

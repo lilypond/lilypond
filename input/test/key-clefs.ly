@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \include "paper16.ly"
 
@@ -25,3 +25,4 @@
 	\paper{\paperSixteen}
 
 }
+%% new-chords-done %%

@@ -33,3 +33,4 @@ noFlag = \once \property Voice.Stem \override #'flag-style = #'no-flag
 
     \paper { linewidth = -1.0 }
 }
+%% new-chords-done %%

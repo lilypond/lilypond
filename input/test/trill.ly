@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.6"
 
 \header {
 texidoc="show trill line type"
@@ -23,3 +23,4 @@ texidoc="show trill line type"
   }
   \paper { }  
 }
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 % the Gm7sus4/D chord prints as Gm/4/7/D
 % it took me quite a while by experiment to work out how to enter it -- PC
 
@@ -12,7 +12,7 @@ gmsus=\notes\relative c \chords{
 	g1:3-.4.7
 
 	% another hard way:
-	\notes< g'1 bes c d f >
+	\notes<< g' bes c d f >>1
 
 	% bit easier:
 	g1:m.4.7
@@ -30,3 +30,4 @@ gmsus=\notes\relative c \chords{
 		\context Staff \gmsus
 	>
 }
+%% new-chords-done %%

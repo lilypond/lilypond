@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \include "german-chords-init.ly"
 
 % #(set! german-Bb #t)
@@ -13,3 +13,4 @@ ch = \chords { beses1/+beses bes/+bes b/+b bis/+bis ases/+ases as/+as a/+a ais/+
    \paper {}
 }
 
+%% new-chords-done %%

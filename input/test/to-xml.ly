@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.6"
 
 fooBar = \notes { < c''4 \\ g'4 > }
 
@@ -25,3 +25,4 @@ fooBar = \notes { < c''4 \\ g'4 > }
 \score {
 \fooBar
 }
+%% new-chords-done %%

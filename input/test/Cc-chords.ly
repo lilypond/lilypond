@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
   texidoc="Jazz chord names, but with lower case names for minor chords"
 }
@@ -24,3 +24,4 @@
     \context ChordNames \chords { c1 c:m c:m7 }
   >
 }
+%% new-chords-done %%

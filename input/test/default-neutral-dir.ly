@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header { texidoc = "
 The direction of a perfectly centred beams can be
 controlled through @code{Voice.Beam}'s grob-property
@@ -11,3 +11,4 @@ directly@code{neutral-direction}
   \property Voice.Beam \set #'neutral-direction = #-1
   [b b]
 }}
+%% new-chords-done %%

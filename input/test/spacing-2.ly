@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 opus =  "BWV 937 (prelude)"
 composer =  "J. S. Bach"
@@ -35,3 +35,4 @@ source =  "Petits Preludes et Fugues.  Urtext. Editions Henry Lemoine, Paris."
 }
 
 
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header {
 texidoc = "
@@ -33,3 +33,4 @@ Midi2ly tuplet test.
   \paper { }  
   \midi { }
 }
+%% new-chords-done %%

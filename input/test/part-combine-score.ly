@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 
 \header {
 texidoc="Template for part-combining orchestral scores"
@@ -12,7 +12,7 @@ texidoc="Template for part-combining orchestral scores"
 End = { \skip 1*9 \bar "|." }
 
 flautoI = \notes\relative c'' {
-  c4\pp d e f
+  c4-\pp d e f
   b,4 d c d
   r2 e4 f
   \break
@@ -29,7 +29,7 @@ flautoI = \notes\relative c'' {
 }
 
 flautoII = \notes\relative c'' {
-  g4\ff b d f
+  g4-\ff b d f
   r2 c4 d
   a c c d
   a4. b8 c4 d
@@ -96,15 +96,15 @@ violinoIStaff =  \context Staff = oneViolini <
   \End
 >
 
-violinoIIStaff =  \context Staff = twoViolini <
+violinoIIStaff =  \context Staff = twoViolini <<
   % MIDI hoort geeneens verschil tussen een
   % eerste en tweede viool -)
-  \property Staff.midiInstrument = #"violin"
-  \property Staff.instrument = #"Violino II"
-  \property Staff.instr = #"Vl. II"
+  \property StaffmidiInstrument = #"violin"
+  \property Staffinstrument = #"Violino II"
+  \property Staffinstr = #"Vl II"
   \violinoII
   \End
->
+>>.
 
 violaI = \notes\transpose c' c, \violinoI
 
@@ -127,11 +127,11 @@ violeGroup =  \notes \context VoiceCombineStaff = oneViole <
 >
 
 violoncello = \notes\relative c {
-  c1\ff d e f c d e f c
+  c1-\ff d e f c d e f c
 }
 
 contrabasso = \notes\relative c {
-  c1\pp
+  c1-\pp
   d4 e d e
   e1
   f4 g f g
@@ -286,3 +286,4 @@ archiGroup =  \context StaffGroup = archi_group <
     }
   }
 }
+%% new-chords-done %%

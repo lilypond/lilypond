@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
   texidoc="Beam-stem attachment test.  Helper file for ps/dvips problems."
 }
@@ -13,4 +13,4 @@
     linewidth = -1.0
     magnification = 64
   }
-}
+}%% new-chords-done %%

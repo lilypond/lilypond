@@ -9,7 +9,7 @@ copyright = 	 "public domain"
 Tested = 	 "Nested StaffGroups"
 }
 
-\version "1.5.68" % rz1
+\version "1.7.6" % rz1
 
 \score { \notes
 <
@@ -44,3 +44,4 @@ Tested = 	 "Nested StaffGroups"
 
  \paper { linewidth = -1 }
 }
+%% new-chords-done %%

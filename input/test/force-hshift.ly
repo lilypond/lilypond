@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
     texidoc="Force hshift to override collisions"
     }
@@ -11,13 +11,13 @@
 			\property Voice.NoteColumn \override #'force-hshift = #0.1
 			\stemUp
 	       		\property Voice.NoteColumn \override #'horizontal-shift = #1
-			<g' d'>
+			<<g' d'>>
 		}
 		\context Voice = VB {
 			\stemDown
 	       		\property Voice.NoteColumn \override #'horizontal-shift = #1
 			\property Voice.NoteColumn \override #'force-hshift = #-0.1
-			<bes f'>
+			<<bes f'>>
 		}
 	>
   }
@@ -26,3 +26,4 @@
   }  
   \midi { }
 }
+%% new-chords-done %%

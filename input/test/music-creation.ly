@@ -1,4 +1,4 @@
-\version "1.7.3"  %% or actually: 1.7.1 ...
+\version "1.7.6"  %% or actually: 1.7.1 ...
 \header {
 
  texidoc = "You can create music expressions from Scheme.  The
@@ -29,3 +29,4 @@ fooMusic  = #(seq-music-list
      )
      
 \score { \fooMusic }
+%% new-chords-done %%

@@ -2,7 +2,7 @@
     texidoc = "Ambituses indicate pitch ranges for voices."
 }
 
-\version "1.5.68"
+\version "1.7.6"
 
 upper = \notes \relative c {
 	\clef "treble"
@@ -47,3 +47,4 @@ lower = \notes \relative c {
 		}
 	}
 }
+%% new-chords-done %%

@@ -4,47 +4,47 @@ opus= "BWV 939"
 piece = "2"
 
 
-\version "1.7.3"
+\version "1.7.6"
 upper =  \context Staff \notes\relative c{
 	\context Voice=i
 	\property Voice.TextScript \set #'font-style = #'italic
 	r8 c' e g  e c bes' g |
 	a c, f a  f c c' a |
 	b g b d  b g f' d |
-	<e2 c g>
+	<<e c g>>2
 	r4
-	<e c g >
-	<d2 c a>
+	<<e c g >>
+	<<d c a>>2
 	r4
-	<d c a>
+	<<d c a>>
 	< { \stemUp [d8 g, 8 b d] }
 	  \context Voice = ii < \stemDown b g >
 	>
 	
-	<b4 g>
-	<e b>
+	<<b g>>4
+	<<e b>>
 	c2
 	r4
 	<
 		{ \stemUp\tieUp c ~ c8}
 		% We get a warning: No ties created!
 		% but they are too!
-		\context Voice=ii { \stemDown\tieDown <e,4 a> ~ <e8 a> }
+		\context Voice=ii { \stemDown\tieDown <<e, a>>4 ~ <<e a>>8 }
 	>
 	\stemBoth 
 	d, fis a  fis d c' a |
 	b g b d  b g f'! d |
 	e g, c e  c g g' e |
 	fis a, c fis  c a a' fis |
-	<g2 d b>
+	<<g d b>>2
 	r4 b,4 |
 	c8 e g c  g e bes' g |
 	a16 g f e  d c b ! a 
 	b g a b  c d e f |
 	g4
-	<g,2 c>
-	<d4 b'>
-	<e1 c'>
+	<<g, c>>2
+	<<d b'>>4
+	<<e c'>>1
 	\bar "|."
 }
 
@@ -99,3 +99,4 @@ global =  \notes{
 	}
 }
 
+%% new-chords-done %%

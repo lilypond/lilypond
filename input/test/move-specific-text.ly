@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.6"
 
 #(define (make-text-checker text)
    (lambda (grob) (equal? text (ly:get-grob-property grob 'text))))
@@ -12,3 +12,4 @@
   }
   \paper { linewidth = -1. }
 }
+%% new-chords-done %%

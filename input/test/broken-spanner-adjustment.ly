@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.6"
 \header {
 
 	 texidoc = "Broken spanners can be adjusted individually, but
@@ -30,3 +30,4 @@ this requires complicated scheme code.
 }
     \paper { linewidth= 5.0 \cm }
     }
+%% new-chords-done %%

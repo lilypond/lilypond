@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 % This is the main score file of the Petites Preludes
 
 \include "header.ly"
@@ -11,3 +11,4 @@
 \include "preludes-4.ly"
 \include "preludes-5.ly"
 \include "preludes-6.ly"
+%% new-chords-done %%

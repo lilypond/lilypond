@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
   texidoc = "
 
@@ -45,3 +45,4 @@ your favourite algorithm isn't one of these, you can hook up your own.
 %% End:
 
 
+%% new-chords-done %%

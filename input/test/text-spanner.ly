@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.6"
 
 \header {
 texidoc = "ottava spanners."
@@ -35,3 +35,4 @@ texidoc = "ottava spanners."
         \property Staff.centralCPosition = #-6
     }
 }
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.6"
 
 \score { 
   \context Voice \notes\relative c {
@@ -23,3 +23,4 @@
   \paper { }  
   \midi { }
 }
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 
 
@@ -23,3 +23,4 @@ shiftV = \property Voice.NoteColumn \override #'horizontal-shift = #4
   \paper { }  
   \midi { }
 }
+%% new-chords-done %%

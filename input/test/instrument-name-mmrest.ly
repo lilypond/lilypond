@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 %{
 
@@ -22,3 +22,4 @@ interesting bug in 1.3.98)
 	  }
 	}
 
+%% new-chords-done %%

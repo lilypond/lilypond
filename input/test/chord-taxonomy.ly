@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 \header {
   title="Chord Taxonomy of LilyPond -- jazz"
 }
@@ -23,3 +23,4 @@ scheme = \chords {
     \context Staff \notes \transpose c c' \scheme
   >
 }
+%% new-chords-done %%

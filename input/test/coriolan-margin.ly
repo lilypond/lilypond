@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 
 % Ugh, we need to override some LaTeX titling stuff
@@ -135,3 +135,4 @@ violoncello = \notes \relative c' {
   }
 }
 
+%% new-chords-done %%

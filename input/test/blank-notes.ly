@@ -1,4 +1,4 @@
-\version "1.7.0"
+\version "1.7.6"
 
 \header {
     
@@ -22,3 +22,4 @@ unblanknotes = { \property Voice.NoteHead
 	     g4 a 
 	     }}
 
+%% new-chords-done %%

@@ -2,7 +2,7 @@
 texidoc = " the transposing property leaves output invariant, but has effect on MIDI."
 
 }
-\version "1.5.68"
+\version "1.7.6"
 
 \score { 
   \context Voice \notes\relative c {
@@ -21,3 +21,4 @@ texidoc = " the transposing property leaves output invariant, but has effect on 
   \paper { }  
   \midi { }
 }
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 %{
 Hmm, ik vraag me af of dit al helemaal koel is.
@@ -112,3 +112,4 @@ Heb niet zomaar beter idee, nog.
 }
 
 
+%% new-chords-done %%

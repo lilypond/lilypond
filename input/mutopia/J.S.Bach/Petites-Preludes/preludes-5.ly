@@ -3,7 +3,7 @@
 piece = "5"
 opus = "BWV 926"
 
-\version "1.7.3"
+\version "1.7.6"
 
 upper =  \context Staff \notes\relative c
 	\context Voice=i {
@@ -85,8 +85,8 @@ upper =  \context Staff \notes\relative c
 	f a f d  f d b d  gis, b a gis |
 
 	% arpeggio
-	<g'!4. e a,> a8 
-	< f4  d a > ~ 
+	<<g'! e a,>>4. a8 
+	<< f  d a >>4 ~ 
 	[f8 e]
 	< { \stemUp 
 		e4.^\prall d8
@@ -101,7 +101,7 @@ upper =  \context Staff \notes\relative c
 	a fis d g e cis |
 
 	%  the mordent is on the D !
-	<fis2. d-\mordent a> 
+	<<fis d a>>2.-\mordent 
 }
 
 
@@ -206,3 +206,4 @@ global =  \notes{
 	}
 }
 
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header {
 	crossRefNumber = "1"
@@ -42,3 +42,4 @@ e'8    f'8    g'8    a'8    bes'8    c''8
 	}
 	\midi {}
 }
+%% new-chords-done %%

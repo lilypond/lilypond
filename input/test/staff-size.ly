@@ -4,7 +4,7 @@ are two options: using StaffContainer and override/revert, or
 \outputproperty. Both methods are shown in this example."
 }
 
-\version "1.5.70"
+\version "1.7.6"
 \score {
   \notes \relative c' < \context StaffContainer = SA{
      \property StaffContainer.StaffSymbol \set #'staff-space = #(/ 16 20)
@@ -15,10 +15,10 @@ are two options: using StaffContainer and override/revert, or
 	\dynamicUp\stemDown
 
 	%\key gis \major
-	c8 d [e f g a] b c \ff
+	c8 d [e f g a] b c -\ff
   }
 
-\context Staff = SB { \dynamicDown c,,4 \ff c c c  }
+\context Staff = SB { \dynamicDown c,,4 -\ff c c c  }
 \context Staff = SC {
   \context Staff \outputproperty #(make-type-checker 'staff-symbol-interface)
     #'staff-space =  #0.8
@@ -30,3 +30,4 @@ are two options: using StaffContainer and override/revert, or
 \paper { linewidth = -1. }
 }
 
+%% new-chords-done %%

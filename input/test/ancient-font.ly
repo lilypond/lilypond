@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 \header {
     title	= "ancient font test"
     date	= "2002"
@@ -290,3 +290,4 @@ lowerStaff =  \context MensuralStaff = lowerStaff <
         }
     }
 }
+%% new-chords-done %%

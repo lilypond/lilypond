@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header{
     texidoc="Controlling beam positions."
 }
@@ -18,3 +18,4 @@
 	[c e] [e c]
   }
 }
+%% new-chords-done %%

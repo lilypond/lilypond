@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header{
 title= "Spacing"
 subtitle =  "proofsheet" 
@@ -95,3 +95,4 @@ singlepart =  \notes{
       linewidth= 20.0\cm
     }
 }
+%% new-chords-done %%

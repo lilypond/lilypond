@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 \header {
 texidoc="Octave duplicate parts of music"
 }
@@ -57,3 +57,4 @@ lowerOctave = \notes <
   >  
   \paper { }
 }
+%% new-chords-done %%

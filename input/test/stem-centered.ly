@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
     texidoc ="mensural note heads."
     }
@@ -12,3 +12,4 @@ c\longa*1/4 c\breve*1/2 c1 c2 c4 c8
 }
 }
 }
+%% new-chords-done %%

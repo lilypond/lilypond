@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 
 texidoc="You can enter notes and articulations separately, and merge
@@ -16,3 +16,4 @@ music = \notes\relative c' { c4 d e f g  a b c d e }
      \repeat unfold 2 \staccatos
    >
 }
+%% new-chords-done %%

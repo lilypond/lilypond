@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 
 \include "paper16.ly"
  
@@ -63,4 +63,5 @@ bassvoices = \notes \relative c' {
         linewidth = 15.0 \cm }
 }
 %% new-chords-done %%
+
 

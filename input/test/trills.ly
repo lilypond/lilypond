@@ -6,7 +6,7 @@
   linewidth = 433.619940\pt
   
 } 
-\version "1.5.68"
+\version "1.7.6"
 \header {
   texidoc="Document trills, pralls and turns"
   title="Marques des agr\\'ements et leur signification"
@@ -111,3 +111,4 @@ endHorizScript = {
     >
   >
 }
+%% new-chords-done %%

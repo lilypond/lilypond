@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \score{
 \notes\relative c''{
@@ -26,3 +26,4 @@ a8(a a a a a a)a
 indent=0.0\mm
 }
 }
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \score {
     \notes\context PianoStaff <
     \context Staff = up
@@ -19,4 +19,6 @@
     >
     \paper { linewidth = -1. }
 }
+
+%% new-chords-done %%
 

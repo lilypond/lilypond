@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header{
 texidoc = "Hairy case for beam, chord, and automatic knees."

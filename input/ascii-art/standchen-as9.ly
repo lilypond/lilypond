@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.6"
 % ASCII Art output
 
 % Process as:
@@ -15,7 +15,7 @@
     \context Staff=upper \notes\relative c{
       \key f \major
       \time 3/4
-      r8^"Moderato" %\pp 
+      r8^"Moderato" %-\pp 
       <g'-. c-.> <c-. es-.> <g-. c-.> <c-. es-.> <g-. c-.> |
       r8 <as-. c-.> <c-. es-.>
     }

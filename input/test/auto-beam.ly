@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 %{
   The auto-beam engraver has presets for common time signatures.
@@ -62,3 +62,4 @@
     \paper{
     }
 }
+%% new-chords-done %%

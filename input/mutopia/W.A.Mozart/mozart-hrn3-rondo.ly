@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 
 % \include "mozart-hrn3-defs.ly"
 
@@ -46,7 +46,7 @@ rondo = \notes 	\relative c'
 	c4 r8 r4 r8 |
 	R2.*7
 	\mark  "A"
-	c4.\p \grace { e16( } [)d8 c d]
+	c4.-\p \grace { e16( } [)d8 c d]
 	c4 r8 r4 r8
 	e4. \grace g16( [)f8 e f]
 	e4 r8 r4 r8
@@ -129,7 +129,7 @@ rondo = \notes 	\relative c'
 	\mark "F"
 	\endcresc
 	
-	f2.\f ~ |
+	f2.-\f ~ |
 	f4 r8 r4 r8
 	r8 [g,\> g] [g g g]
 	
@@ -144,7 +144,7 @@ rondo = \notes 	\relative c'
 	R2.*7
 	\mark "G"
 	R2.*4
-	c,4.\mf c4 c8
+	c,4.-\mf c4 c8
 	c4. e4 c8
 	g'4. g4 g8
 	g4. g,4 g8
@@ -156,7 +156,7 @@ rondo = \notes 	\relative c'
 	\cresc g'2.  bes,2.
 	a4. [b16 c d e f g]
 	a4. f4 d8
-	[\endcresc c8\f g' e] [c g e]
+	[\endcresc c8-\f g' e] [c g e]
 	[ c e' c]  [g e c]
 	g4 r8 [g''8 e c]
 
@@ -167,13 +167,13 @@ rondo = \notes 	\relative c'
 	
 	)c4 r8 r4 r8
 	R2.*5
-	r8 r8^\fermata d8\p [d e f]
+	r8 r8^\fermata d8-\p [d e f]
 	[g ()e c] [d()e d]
 	\cresc [c  c c] [d e f]
 	[g()e c] [d()e d]
-	\endcresc c4\f  r8 r4 r8
+	\endcresc c4-\f  r8 r4 r8
 	R2.*5
-	[c8\f c, c] [c c c]
+	[c8-\f c, c] [c c c]
 	c4 r8 c4 r8
 
         %This is technically incorrect, since we started with an 8th
@@ -192,3 +192,4 @@ rondo = \notes 	\relative c'
 	\midi{ \tempo 4 = 100 }
 	\paper { }
 }
+%% new-chords-done %%

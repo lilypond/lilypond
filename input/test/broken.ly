@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 \header{
 enteredby = 	 "jcn"
 copyright = 	 "PD"
@@ -43,3 +43,4 @@ broken =  \notes\transpose c c'{
 	}
 }
 
+%% new-chords-done %%

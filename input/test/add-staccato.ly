@@ -1,4 +1,4 @@
-\version "1.7.3"  %% or actually: 1.7.1 ...
+\version "1.7.6"  %% or actually: 1.7.1 ...
 \header {
 
 texidoc= "Using make-music, you can add various stuff to notes. Here
@@ -35,3 +35,4 @@ one would not use scm constructs.  See separate-staccato.ly first."
   }
 }
 
+%% new-chords-done %%

@@ -3,7 +3,7 @@
 opus = "BWV 925"
 piece = "4"
 
-\version "1.7.3"
+\version "1.7.6"
 
 %{
 
@@ -26,9 +26,9 @@ one = \context Staff \notes\relative c {
 	g fis g a  g b a g |
 	\stemUp
 
-	fis4 e8 a <fis4 d> <gis e> |
+	fis4 e8 a <<fis d>>4 <<gis e>> |
 	%5
-	<a4 e> <fis d> < g!16 d> fis g a 
+	<<a e>>4 <<fis d>> << g! d>>16 fis g a 
 	\stemBoth
 	g b a g |
 	\property Voice.TextScript \set #'font-style = #'italic
@@ -92,9 +92,9 @@ two = \context Staff \notes\relative c{
 	e4 d ~ d16 d cis b cis4 ~ |
 	cis8 a d4. d4^> cis8 |
 	\translator Staff=upper \stemDown\tieDown
-	d4 \stemBoth\tieBoth r16 b d b~ <g'4 e b> 
+	d4 \stemBoth\tieBoth r16 b d b~ <<g' e b>>4 
 	r16 cis, e cis~ |
-	<a'4 fis cis> r16 d, fis d~ <b'4 g d>
+	<<a' fis cis>>4 r16 d, fis d~ <<b' g d>>4
 	r16 fis a fis~ |
 	%10
 	\stemDown
@@ -108,9 +108,9 @@ two = \context Staff \notes\relative c{
 	\translator Staff=upper \stemDown\tieDown
 	d'8. ~ d8 c d4 a8 g |
 	%15
-	fis8 \translator Staff=lower \stemUp c' b4 \stemDown <a
+	fis8 \translator Staff=lower \stemUp c' b4 \stemDown <<a
 	\translator Staff=upper \stemDown
-	a'4.>
+	a'>>4.
 	\stemDown\tieDown
 	a'8~ |
 	a g~  g16 e fis8~  fis16 d8.~  d8. cis!16 |
@@ -227,3 +227,4 @@ global = \notes{
 		piece = \piece
 	}
 }
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 
 
 %{
@@ -19,7 +19,7 @@ Would this be acceptable/good enough/convenient for entry?
 
 % used to be quarter notes here. Why? --hwn 
 scales =  \notes \transpose c c' \chords{
-		%<c1 e g>
+		%<<c e g>>1
 		c1:m c:min c:dim c:aug c:sus c:maj
                 c1:6 c:7 c:9 c:11 c:13
 		c:m7 c:m.sus c:m7.sus
@@ -68,3 +68,4 @@ keys =  \notes{
 		}
 	}
 }
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
   texidoc="Blank music paper with clefs"
 }
@@ -18,3 +18,4 @@
     }
   }
 }
+%% new-chords-done %%
