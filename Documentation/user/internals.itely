@@ -947,8 +947,8 @@ staves belonging together).  From @TeX{}'s point of view, a system is an
 vertically on the baseline of the text.  Between systems,
 @code{\interscoreline} is inserted vertically to have stretchable space.
 The horizontal dimension of the @code{\hbox} is given by the
-@code{linewidth} parameter from LilyPond's @code{\paper} block (using the
-natural line width if its value is@w{ }@minus{}1).
+@code{linewidth} parameter from LilyPond's @code{\paper} block.
+
 
 After the last system LilyPond emits a stronger variant of
 @code{\interscoreline} only if the macro @code{\lilypondpaperlastpagefill}

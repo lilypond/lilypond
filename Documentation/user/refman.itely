@@ -805,7 +805,7 @@ measure is subdivided in 2, 2, 2 and 3. This is passed to
    a4. g4
    }
    \paper {
-       linewidth = -1.0
+       raggedright = ##t
        \translator { \StaffContext
          \consists "Measure_grouping_engraver"
    }}}
@@ -4040,7 +4040,7 @@ Currently, the following styles are supported:
         ^\markup { \musicglyph #"custodes-mensural-u0" }
     }
     \paper {
-        linewidth = -1.0
+        raggedright = ##t
         interscoreline = 1
         \translator {
             \ScoreContext
@@ -5178,7 +5178,7 @@ and once with exaggerated corrections.
       c'4 e''4 e'4 b'4 |
       b'4 e''4 b'4 e''4|      
     }
-    \paper { linewidth = -1. } }
+    \paper { raggedright = ##t } }
 @end lilypond
 
 @cindex SpacingSpanner, overriding properties
@@ -5212,7 +5212,7 @@ kneed stems.
      \context Staff = down { [c8 c \translator Staff=up <<c d>> c 
 \translator Staff=down c c c] }
      >
-     \paper { linewidth = -1 }
+     \paper { raggedright = ##t }
 }
 @end lilypond
 
@@ -5289,10 +5289,12 @@ This makes the following 28 measures (assuming 4/4 time) be broken every
 The most basic settings influencing the spacing are @code{indent} and
 @code{linewidth}. They are set in the @code{\paper} block. They
 control the indentation of the first line of music, and the lengths of
-the lines.  If @code{linewidth} set to a negative value, a single
-unjustified line is produced.  A similar effect for scores that are
-longer than one line, can be produced by setting @code{raggedright} to
-true in the @code{\paper} block.
+the lines.
+
+If  @code{raggedright} is set to true in the @code{\paper}
+block, then the lines are justified at their natural length. This
+useful for short fragments, and for checking how tight the natural
+spacing is.
 
 @cindex page layout
 @cindex vertical spacing

@@ -664,7 +664,7 @@ def compose_full_body (body, opts):
 
 	if 'singleline' in opts:
 		if not linewidth:
-			linewidth = 'linewidth = -1.0'
+			linewidth = 'raggedright = ##t'
 		if not indent:
 			indent = 'indent = 0.0\mm'
 	elif not linewidth:
