@@ -28,6 +28,7 @@ original = \relative c'' { c8 d s2 es8 gis8 }
 	\original
     }
     \new Staff \relative c'' <<
+	\set Staff.instrument = "orig+quote"	
 	\set Staff.quotedEventTypes = #'(note-event articulation-event)
 	\original
 	\new Voice {
