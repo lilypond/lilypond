@@ -1,5 +1,8 @@
 2004-04-08  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/bezier-bow.cc (slur_shape): make indent dependent on
+	width. This removes the 'hook' at the end of a long slur.
+
 	* buildscripts/mf-to-table.py (parse_logfile): don't append
 	encoding to fontname.
 
