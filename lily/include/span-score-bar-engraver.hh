@@ -28,8 +28,9 @@ public:
 };
 
 /**
-  Please don't shoot the piano player
- */
+  Make a piano brace.  (No, this doesn't manufacture ``Please don't
+  shoot the piano player.''  signs)
+  */
 class Piano_bar_engraver :  public Span_score_bar_engraver
 {
 public:
@@ -39,7 +40,7 @@ public:
 };
 
 /**
-  
+  Make Choir brackets.
  */
 class Staff_group_bar_engraver :  public Span_score_bar_engraver
 {
