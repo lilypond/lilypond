@@ -71,6 +71,10 @@ Rhythmic_column_engraver::process_acknowledged ()
 void
 Rhythmic_column_engraver::acknowledge_element (Score_element_info i)
 {
+  if (get_property ("weAreGraceContext",0).to_bool () !=
+      (i.elem_l_->get_elt_property (grace_scm_sym) != SCM_BOOL_F))
+    return ;
+  
   Item * item =  dynamic_cast <Item *> (i.elem_l_);
   if (Stem*s=dynamic_cast<Stem *> (item))
     {
