@@ -275,7 +275,7 @@
 (define text new-text)
 
 (define (white-text scale s)
-   (let ((mystring (string-append "(" s  ") " (number->string scale)   " /Helvetica-bold "
+   (let ((mystring (string-append "(" s  ") " (number->string scale)   " /Helvetica-Bold "
           " draw_white_text")))
   mystring))
 
