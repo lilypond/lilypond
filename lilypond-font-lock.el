@@ -34,34 +34,34 @@
 "\\(aeol\\|dor\\|ion\\|locr\\|\\(mixo\\)?lyd\\|phryg\\)ian" 
 "alias" "\\(altern\\|rel\\)ative" "apply" "arpeggio" "autochange" "bar" "break"
 "breathe" "breve" "beamintervals" "broken" "blend" "\\(bc\\|end\\)incipit" 
-"ch\\(ar\\)?" "cg" "chord\\(s\\|stest\\|chordmodifiers\\)?"
+"ch\\(ar\\)?" "cg" "chord\\(s\\|stest\\|\\(chord\\)?modifiers\\)?"
 "clef[ \t]*\\(F\\|G\\|alto\\|baritone\\|bass\\|\\(mezzo\\)?soprano\\|treble\\|violin\\|tenor\\)?"
-"clipping" "cm" "coda" "complex" 
+"clipping" "[cm]m" "coda" "complex" 
 "\\(command\\)?spanrequest" "consists\\(end\\)?"
 "context" "contrabasso" "\\(de\\)?cr" "default" "denies" "different" "dirs"
-"down\\(bow\\|prall\\)?" "duration" "\\(dynamic\\)?script"
+"down\\(bow\\|prall\\)?" "duration" "\\(dynamic\\|text\\)?script"
 "eccentric" "eg" "embeddedps" "elementdescriptions"
 "ex\\(treme\\)?" "fermata" "f+" "figures" "font" "flageolet" "fp" "fragment" 
-"fz" "gliss\\(ando\\)?" "gg" "gmsus" "grace" "gr\\(and\\)?staff"
+"s?fz" "gliss\\(ando\\)?" "gg" "gmsus" "grace" "gr\\(and\\)?staff"
 "header" "\\(h\\|v\\)size" "in\\(clude\\|versions\\|visible\\)?" 
 "key\\(s\\(ignature\\)?\\)?" "lag" "\\(l\\|r\\)heel" "line\\(break\\|prall\\)"
 "longa" "lower" "\\(l\\|r\\)toe"
 "mark" "marcato" "maxima" "mel\\(isma\\|ody\\)?" "midi" "m\\(aj\\|in\\)or"
 "\\(up\\|down\\)?mordent" "monstrous" "multipart" "music"
 "\\(musical\\)?pitch" "m\\(p\\|f\\|m\\)?" "name" "newpage" "noise\\(beat\\)?"
-"normal\\(key\\|size\\)" "note\\(name\\)?s" "nt?"
+"normal\\(key\\|size\\)" "\\(note\\|pitch\\)?names" "notes" "nt?"
 "one\\(staff\\)?" "open" "\\(output\\)?property" "over\\(ride\\)?"
 "part\\(combine\\|ial\\)" "penalty" "p+" "pt" 
 "prall\\(down\\|mordent\\|prall\\|up\\)?" "quickmeasure" "rc\\(ed\\)?" "remove"
 "repeat[ \t]*\\(\\(un\\)?fold\\|percent\\|\\|tremolo\\|volta\\)?" "rest"
-"revert" "\\(reverse\\)?turn" "rf\\(z\\)?" "rhythm"
+"revert" "\\(reverse\\)?turn" "rfz?" "rhythm"
 "right" "scales?" "scheme" "\\(sc\\)?paper" "\\(sc\\)?score" "sd"
-"segno" "sequential" "set\\(tings\\)?" "sf\\(f\\|z\\)?" "shortlong"
+"segno" "sequential" "set\\(tings\\)?" "shortlong"
 "simultaneous" "singlepart" "skip" "small" "\\(smart\\)?transpose"
-"sp\\(p\\)?" "staccat\\(issim\\)?o" "staff\\(height\\|space\\)" "start" 
+"s[pf]+" "staccat\\(issim\\)?o" "staff\\(height\\|space\\)" "start" 
 "stop\\(ped\\)?"
 "st\\(paper\\|score\\)" "stuff" "stylesheet" "su" "tab" "tempo" "tenuto" 
-"textscript" "thenotes" "thrd" "threevoice" "thumb" "tilt\\(down\\|up\\)" 
+"thenotes" "thrd" "threevoice" "thumb" "tilt\\(down\\|up\\)" 
 "timb" "times?" "tiny" "toeters" "touch" "translator" 
 "trill" "type" "t\\(wo\\(voice\\(steminvert\\)?\\)?\\)?" 
 "un\\(der\\|set\\)" "up\\(bow\\|per\\|prall\\)?" "version" 
@@ -127,7 +127,7 @@
       (cons (concat "\\(" rwregex "\\)") 'font-lock-variable-name-face)
 
 ;; highlight note names; separate notes from (other than ')'-type) brackets
-      '("[ <\{[~()\t]\\(\\(\\(\\(do\\|re\\|mi\\|fa\\|sol\\|la\\|si\\)\\(bb?\\|dd?\\|ss?\\)?\\)\\|\\([a-hsrR]\\(flat\\(flat\\)?\\|sharp\\(sharp\\)?\\|ff?\\|ss?\\|is\\(siss\\|s\\|is\\)?\\|es\\(sess\\|s\\|es\\)?\\)?\\)\\|\\(as\\(as\\|es\\)?\\)\\|\\(es\\(es\\)?\\)\\|\\(bb\\)\\)[,']*\\(128\\|64\\|32\\|16\\|8\\|4\\|2\\|1\\)?[.]*\\)" 1 font-lock-type-face)
+      '("[ <\{[~()\t]\\(\\(\\(\\(do\\|re\\|mi\\|fa\\|sol\\|la\\|si\\)\\(bb?\\|dd?\\|ss?\\)?\\)\\|\\([a-hsrR]\\(flat\\(flat\\)?\\|sharp\\(sharp\\)?\\|ff?\\|ss?\\|is\\(siss\\|s\\|is\\)?\\|es\\(sess\\|s\\|es\\)?\\)?\\)\\|\\(as\\(as\\|es\\)?\\)\\|\\(es\\(es\\)?\\)\\|\\(bb\\)\\)[,']*[?!]?\\(128\\|64\\|32\\|16\\|8\\|4\\|2\\|1\\)?[.]*\\)" 1 font-lock-type-face)
 
 ;; highlight identifiers
       (cons (concat "\\([_^-]?\\(" iregex "\\)\\)+\\($\\|[] \t(~{}>\\\\]\\)") '(0 font-lock-function-name-face t))

@@ -1,3 +1,8 @@
+2002-04-10  Heikki Junes <hjunes@cc.hut.fi>
+
+	* lilypond-font-lock.el: Handle notes with cautionary accidentals.
+	  Add few keywords.
+
 2002-04-09 Chris Jackson <chris@fluffhouse.org.uk>
 
 	* lily/arpeggio.cc: New function brew_chord_bracket to draw chord
