@@ -1,20 +1,6 @@
-MAJVER=1
-MINVER=0
-PATCHLEVEL=13
+include Variables.make
 
-PACKAGENAME=flower
-VERSION=$(MAJVER).$(MINVER).$(PATCHLEVEL)
-DNAME=$(PACKAGENAME)-$(VERSION)
-DEFINES=-DNDEBUG -O2
-#DEFINES=-g
-CXXFLAGS+=$(DEFINES)  -Wall -W -pedantic
-
-include Sources.make
-
-obs=$(cc:.cc=.o)
-staticlib=libflower.a
-
-$(staticlib): $(obs)
+$(staticlib): $(obs) fversion.hh
 	$(AR) cr libflower.a $(obs)
 
 include depend
@@ -29,8 +15,9 @@ clean:
 realclean: clean
 	rm -f depend
 
-DFILES=$(hh) $(cc) $(inl) $(templatecc) Makefile Sources.make TODO README
-DDIR=$(DNAME)
+fversion.hh: Variables.make make_version
+	make_version $(MAJVER) $(MINVER) $(PATCHLEVEL) "$(CXX) `$(CXXVER)`" > $@
+
 
 dist:
 	-mkdir $(DDIR)
