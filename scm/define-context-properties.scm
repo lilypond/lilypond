@@ -277,6 +277,7 @@ sustain pedals: @code{text}, @code{bracket} or @code{mixed} (both).")
      (pedalUnaCordaStyle ,symbol? "see @code{pedalSustainStyle}.")
      (pedalSostenutoStyle ,symbol? "see @code{pedalSustainStyle}.")
      (printKeyCancellation ,boolean? "Print restoration alterations before a key signature change. ")
+     (printPartCombineTexts ,boolean? "set Solo/A due texts in the part combiner?")
      (printOctaveNames ,boolean? "Print octave marks for the NoteNames context.")
      (recordEventSequence ,procedure? "When
 @internalsref{Recording_group_engraver} is in this context, then upon
@@ -309,7 +310,6 @@ r1 r1*3 R1*3  \\\\property Score.skipBars= ##t r1*3 R1*3
      (skipTypesetting ,boolean?
 		      "When true, all no typesetting is done, speeding
 up  the interpretation phase. This speeds up debugging large scores.")
-     (soloADue ,boolean? "set Solo/A due texts in the part combiner?")
      (soloIIText ,string? "text for begin of solo for voice ``two'' when part-combining.")
      (soloText ,string? "text for begin of solo when part-combining.")
      (squashedPosition ,integer? " Vertical position of

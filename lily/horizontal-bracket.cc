@@ -72,5 +72,5 @@ Horizontal_bracket::print (SCM smob)
 
 ADD_INTERFACE (Horizontal_bracket,"horizontal-bracket-interface",
   "A horizontal bracket encompassing notes.",
-  "columns");
+  "columns bracket-flare shorten-pair edge-height");
 

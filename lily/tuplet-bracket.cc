@@ -285,10 +285,10 @@ Tuplet_bracket::make_bracket (Grob *me,	// for line properties.
   Stencil m;
   do {
     m.add_stencil (Line_interface::line (me, straight_corners[d],
-						 gap_corners[d]));
+					 gap_corners[d]));
     
     m.add_stencil (Line_interface::line (me,  straight_corners[d],
-						 flare_corners[d]));
+					 flare_corners[d]));
   } while (flip (&d) != LEFT);
 
   return m;  
@@ -478,7 +478,7 @@ Tuplet_bracket::after_line_breaking (SCM smob)
 
       /*
 	duh. magic.
-       */
+<       */
       offset = lp + dir * (0.5 + ly_scm2double (me->get_property ("padding")));
       dy = rp- lp;
     }

@@ -2061,7 +2061,7 @@ Examples: @inputfileref{input/regression,breathing-sign.ly}.
 
 Metronome settings can be entered as follows
 @example 
-  \tempo @var{duration} = @var{per-minute} 
+ i \tempo @var{duration} = @var{per-minute} 
 @end example
 
 In the MIDI output, they are interpreted as a tempo change, and in the
@@ -3460,7 +3460,7 @@ For fine-tuning of the appearance of a pedal bracket, the properties
 @code{edge-width}, @code{edge-height}, and @code{shorten-pair} of
 @code{PianoPedalBracket} objects (see
 @internalsref{PianoPedalBracket} in the Program reference)  can be modified.  For example, the
-bracket may be extended to the end of the note head
+bracket may be extended to the right edge of the note head
 
 @lilypond[quote,fragment,verbatim,relative=2]
 \override Staff.PianoPedalBracket  
@@ -3510,6 +3510,8 @@ arrowhead to the wiggly line
 A square bracket on the left indicates that the player should not
 arpeggiate the chord
 
+@c todo: ugh, lousy typography. Look for real example. --hwn
+
 @lilypond[quote,fragment,relative=1,verbatim]
 \arpeggioBracket
 <c' e g c>\arpeggio
@@ -3530,14 +3532,13 @@ arpeggiate the chord
 
 @seealso
 
-Program reference: @internalsref{ArpeggioEvent} music expressions lead to
-@internalsref{Arpeggio} objects.  Cross staff arpeggios are
-@internalsref{PianoStaff}.@internalsref{Arpeggio}.
+Program reference: @internalsref{ArpeggioEvent},
+@internalsref{Arpeggio}.
 
 @refbugs
 
 It is not possible to mix connected arpeggios and unconnected
-arpeggios in one @internalsref{PianoStaff} at the same time.
+arpeggios in one @internalsref{PianoStaff} at the same point in time.
 
 @node Staff switch lines
 @subsection Staff switch lines
@@ -3550,8 +3551,8 @@ arpeggios in one @internalsref{PianoStaff} at the same time.
 @cindex @code{followVoice}
 
 Whenever a voice switches to another staff a line connecting the notes
-can be printed automatically. This is enabled if the property
-@code{PianoStaff.followVoice} is set to true
+can be printed automatically. This is switched on by setting
+@code{PianoStaff.followVoice} to true
 
 @lilypond[quote,fragment,relative=1,verbatim]
 \context PianoStaff <<
@@ -3567,7 +3568,7 @@ can be printed automatically. This is enabled if the property
 
 @seealso
 
-The associated object is @internalsref{VoiceFollower}.
+Program reference: @internalsref{VoiceFollower}.
 
 @refcommands
 
@@ -3605,47 +3606,67 @@ noFlag = \once \override Stem  #'flag-style = #'no-flag
 @node Vocal music
 @section Vocal music
 
+There are three different issues when printing vocal music
 
-The easiest way to add lyrics to a melody, is by appending
+@itemize @bullet
+@item
+  Song texts must be entered as texts, not notes. For example, for 
+lyrics, the input @code{a} should be interpreted as
+a one letter text, and not the note A.
+@item
+  Song texts must be printed as text, and not as notes. 
+@item
+  Song texts must be aligned with the notes of their melody
+@end itemize
+
+The simplest solution to printing music uses the @code{\addlyrics}
+function to deal with these three problems in one go.  However, these
+three functions can be controlled separately, which is necessary
+for complex vocal music. 
 
 
+@menu
+* Setting simple songs::        
+* Entering lyrics::             
+* Hyphens and extenders::       
+* The Lyrics context::          
+* Flexibility in alignment::    
+* More stanzas::                
+* Ambitus::                     
+@end menu
+
+@node Setting simple songs
+@subsection Setting simple songs
+
+The easiest way to add lyrics to a melody is to append
 @cindex \addlyrics
 @example
   \addlyrics @{ @var{the lyrics} @} 
 @end example
 
+@noindent
 to a melody. Here is an example,
 
 @lilypond[raggedright,verbatim]
-  \relative { \time 3/4 c2 e4 g2. }
-  \addlyrics { play the game } 
+{
+    \time 3/4 
+    \relative { c2 e4 g2. }
+    \addlyrics { play the game }
+}
 @end lilypond
 
 More stanzas can be added by adding more
 @code{\addlyrics} sections 
 
 @lilypond[raggedright,verbatim]
-  \relative { \time 3/4 c2 e4 g2. }
+{
+  \time 3/4
+  \relative {  c2 e4 g2. }
   \addlyrics { play the game } 
   \addlyrics { speel het spel } 
-  \addlyrics { joue le jeu } 
+  \addlyrics { joue le jeu }
+}
 @end lilypond
-
-The @code{\addlyrics} keyword has three functions: it interprets the
-following words as texts instead of notes, it sets up a context for
-printing texts (the @code{Lyrics} context), and it couples the melody
-with the lyrics, so the durations of both are aligned.
-
-These three functions can be controlled separately, and that is what
-the following sections are about.
-
-@menu
-* Entering lyrics::             
-* The Lyrics context::          
-* Flexibility in alignment::    
-* More stanzas::                
-* Ambitus::                     
-@end menu
 
 @node Entering lyrics
 @subsection Entering lyrics
@@ -3657,29 +3678,27 @@ the following sections are about.
 
 Lyrics are entered in a special input mode. This mode is is introduced
 by the keyword @code{\lyrics}.  In this mode you can enter lyrics,
-with punctuation and accents without any hassle.  Syllables are
-entered like notes, but with pitches replaced by text.  For example,
+with punctuation and accents, and the input @code{a} is not parsed as
+a pitch, but rather as a one letter syllable.  Syllables are entered
+like notes, but with pitches replaced by text.  For example,
 @example
   \lyrics @{ Twin-4 kle4 twin- kle litt- le star2 @}
 @end example
 
-A word in Lyrics mode begins with: an alphabetic character, @code{_},
-@code{?}, @code{!}, @code{:}, @code{'}, the control characters @code{^A}
-through @code{^F}, @code{^Q} through @code{^W}, @code{^Y}, @code{^^},
-any 8-bit character with ASCII code over 127, or a two-character
-combination of a backslash followed by one of @code{`}, @code{'},
-@code{"}, or @code{^}.
 
-Subsequent characters of a word can be any character that is not a digit
-and not white space.  One important consequence of this is that a word
-can end with @code{@}}. The following example is usually a bug. The
-syllable includes a @code{@}}, and hence the opening brace is not balanced
+A word lyrics mode begins with an alphabetic character, and ends with
+any space or digit.  The following characters can be any character
+that is not a digit or white space.  One important consequence of this
+is that a word can end with @code{@}}. The following example is
+usually a bug. The syllable includes a @code{@}}, so the
+opening brace is not balanced
 @example
   \lyrics @{ twinkle@}
 @end example
 
 @cindex @code{\property}, in @code{\lyrics}
-Similarly, a period following a alphabetic sequence, is included in
+@noindent
+Similarly, a period following an alphabetic sequence, is included in
 the resulting string. As a consequence, spaces must be inserted around
 property commands
 @example
@@ -3701,10 +3720,35 @@ following example incorporates double quotes
 @end example
 
 This example is slightly academic, since it gives better looking
-results to use matched single quotes, @code{``} and @code{''}
+results to use single quotes, @code{``} and @code{''}
 @example
   \lyrics @{ He said: ``Let my peo ple go'' @}
 @end example
+
+
+The full definition of a word start in Lyrics mode is somewhat more
+complex.
+
+A word in Lyrics mode begins with: an alphabetic character, @code{_},
+@code{?}, @code{!}, @code{:}, @code{'}, the control characters @code{^A}
+through @code{^F}, @code{^Q} through @code{^W}, @code{^Y}, @code{^^},
+any 8-bit character with ASCII code over 127, or a two-character
+combination of a backslash followed by one of @code{`}, @code{'},
+@code{"}, or @code{^}.
+
+
+
+@seealso
+
+Program reference: events @internalsref{LyricEvent}, and
+@internalsref{LyricText}.
+
+@refbugs
+
+The definition of lyrics mode is too complex.
+
+@node Hyphens and extenders
+@subsection Hyphens and extenders
 
 @cindex hyphens
 
@@ -3720,18 +3764,14 @@ indicated with a horizontal line centered between a syllable and the
 next one. Such a line is called an extender line, and it is entered as
 @code{__}.
 
+
 @seealso
 
-Program reference: events @internalsref{LyricEvent},
-@internalsref{HyphenEvent}, and @internalsref{ExtenderEvent}. Objects
-@internalsref{LyricHyphen}, @internalsref{LyricExtender} and
-@internalsref{LyricText}.
+Program reference: @internalsref{HyphenEvent}, 
+@internalsref{ExtenderEvent}, @internalsref{LyricHyphen}, and
+@internalsref{LyricExtender}
 
 Examples: @inputfileref{input/test,lyric-hyphen-retain.ly}.
-
-@refbugs
-
-The definition of lyrics mode is too complex.
 
 
 
@@ -3817,10 +3857,18 @@ last one, e.g.
 
 In addition, notes are considered a melisma if they are manually
 beamed, and automatic beaming (see @ref{Setting automatic beam
-behavior}) is switched off.  The criteria for deciding melismata can
+behavior}) is switched off.
+
+@ignore
+
+@c nonformation:
+
+The criteria for deciding melismata can
 be tuned with the property @code{melismaBusyProperties}. See
 @internalsref{Melisma_translator} in the program reference for more
 information.
+
+@end ignore
 
 Lyrics can also be entered without @code{\lyricsto}. In this case the
 durations of each syllable must be entered explicitly, for example,
@@ -3830,12 +3878,17 @@ durations of each syllable must be entered explicitly, for example,
   sink2 or4 swim2.  
 @end verbatim
 
-Alignment to a melody can be specified with the @code{associatedVoice}
-property,
+The alignment to a melody can be specified with the
+@code{associatedVoice} property,
 
 @verbatim
-  \set associatedVoice = #"melody"
+  \set associatedVoice = #"lala"
 @end verbatim 
+
+@noindent
+The value of the property (here: @code{"lala"}) should be the name of
+a @internalsref{Voice} context. Without this setting, extender lines
+will not be formatted properly.
 
 Here is an example demonstrating manual lyric durations,
 
@@ -3865,8 +3918,8 @@ A complete example of a SATB score setup is in the file
 
 @seealso
 
-Program reference: Music expressions: @internalsref{LyricCombineMusic},
-Contexts: @internalsref{Lyrics}, @internalsref{Melisma_translator}.
+Program reference: @internalsref{LyricCombineMusic},
+@internalsref{Lyrics}, @internalsref{Melisma_translator}.
 
 Examples: @inputfileref{input/template,satb.ly},
 @inputfileref{input/regression,lyric-combine-new.ly},
@@ -3879,12 +3932,6 @@ Examples: @inputfileref{input/template,satb.ly},
 Melismata are not detected automatically, and extender lines must be
 inserted by hand.
 
-
-For proper processing of extender lines, the
- @internalsref{Lyrics} and @internalsref{Voice} should be
-linked. This can be achieved either by using @code{\lyricsto} or by
-setting corresponding names for both contexts. The latter is explained
-in @ref{More stanzas}.
 
 @c TODO: document \new Staff << Voice \lyricsto >> bug
 
@@ -4085,9 +4132,8 @@ Program reference: Layout objects @internalsref{LyricText} and
 
 The term @emph{ambitus} denotes a range of pitches for a given voice
 in a part of music.  It also may denote the pitch range that a musical
-instrument is capable of playing.  Ambits are printed on vocal
-parts, so singers can easily determine if it meets his or her
-capabilities.
+instrument is capable of playing.  Ambits are printed on vocal parts,
+so performers can easily determine it meets their capabilities.
 
 It denoted at the beginning of a piece near the initial clef.  The
 range is graphically specified by two note heads, that represent the
@@ -4114,15 +4160,9 @@ This results in the following output
     }
   }
 
-  \context ChoirStaff 
-  \relative c' <<
-    \new Staff {
-      as'' c e2 cis,2
-    }
-    \new Staff  {
-      es4 b c f as g
-    }
-  >>
+  \relative \new Staff {
+    as'' c e2 cis,2
+  }
 @end lilypond
 
 If you have multiple voices in a single staff, and you want a single
@@ -4206,7 +4246,7 @@ marking the harmonic pitch with @code{\harmonic}.
 @cindex guitar tablature
 
 Tablature notation is used for notating music for plucked string
-instruments.  It notates pitches not by using note heads, but by
+instruments.  Pitches are not denoted with note heads, but by
 indicating on which string and fret a note must be played.  LilyPond
 offers limited support for tablature.
 
@@ -4283,8 +4323,8 @@ a Scheme list with one integer number for each string, the number
 being the pitch (measured in semitones relative to middle C) of an
 open string.  The numbers specified for @code{stringTuning} are the
 numbers of semitones to subtract or add, starting the specified pitch
-by default middle C, in string order. Thus, the notes are e, a, d, and
-g
+by default middle C, in string order. In the next example,
+@code{stringTunings} is set for the pitches e, a, d, and g
 
 @lilypond[quote,fragment,verbatim]
   \context TabStaff <<
@@ -4328,7 +4368,7 @@ set of pitches, so they can be transposed
 
 
 @lilypond[quote,verbatim,raggedright]
-twoWays =  \transpose c c' {
+twoWays = \transpose c c' {
   \chords {
     c1 f:sus4 bes/f
   }
@@ -4356,13 +4396,16 @@ an inversion.
 @subsection Chords mode
 @cindex Chords mode
 
-Chord mode is a mode where you can input sets of pitches using common
-names.  It is introduced by the keyword @code{\chords}.
-In chords mode,  a  chord is entered by the root, which is entered
-like a common pitch
+In chord mode sets of pitches (chords) are entered with common names.
+A chord is entered by the root, which is entered like a common pitch
+
 @lilypond[quote,fragment,verbatim,relative=2]
 \chords { es4. d8 c2 }
 @end lilypond
+
+@noindent
+The mode is introduced by the keyword @code{\chords}.
+
 @cindex chord entry
 @cindex chord mode
 
@@ -4541,7 +4584,7 @@ following properties
 @cindex @code{chordNameExceptions}
 @item chordNameExceptions
 This is a list that contains the chords that have special formatting.
-For an example, see
+For an example of tuning this property, see
 @inputfileref{input/regression,chord-name-exceptions.ly}.
 @cindex exceptions, chord names.
 
@@ -4697,12 +4740,36 @@ constructed in three different ways
 @item The group is started with a brace at the left, and bar lines are
 connected. This is done with the @internalsref{GrandStaff} context.
 
+@lilypond[verbatim]
+\new GrandStaff
+\relative <<
+  \new Staff { c1 c }
+  \new Staff { c c }
+>>
+@end lilypond 
+
+
 @item The group is started with a bracket, and bar lines are connected. This is done with the
 @internalsref{StaffGroup} context
+
+@lilypond[verbatim]
+\new GrandStaff
+\relative <<
+  \new Staff { c1 c }
+  \new Staff { c c }
+>>
+@end lilypond 
 
 
 @item The group is  started with a vertical line. Bar lines are not
 connected.  This is the default for the score.
+
+@lilypond[verbatim]
+\relative <<
+  \new Staff { c1 c }
+  \new Staff { c c }
+>>
+@end lilypond 
 
 @end itemize
 
@@ -4762,8 +4829,9 @@ cadenza =  \relative c' {
 @cindex @code{\mark}
 
 To print a  rehearsal mark, use the @code{\mark} command
-@lilypond[quote,fragment,verbatim]
-\relative c'' {
+
+@lilypond[quote,fragment,verbatim,relative=1]
+{
   c1 \mark \default
   c1 \mark \default
   c1 \mark #8 
@@ -4774,6 +4842,8 @@ To print a  rehearsal mark, use the @code{\mark} command
 
 @noindent
 (The letter I is skipped in accordance with engraving traditions.)
+
+@c FIXME - should make that tunable.
 
 The mark is incremented automatically if you use @code{\mark
 \default}, but you can also use an integer argument to set the mark
@@ -4792,14 +4862,15 @@ c1 \mark \default
 c1 \mark \default
 \set Score.markFormatter
    = #(lambda (mark  context)
-       (make-bold-markup (make-box-markup (number->string mark))))
+       (make-bold-markup
+        (make-box-markup (number->string mark))))
 c1 \mark \default
 c1 \mark \default
 @end lilypond
 
 The file @file{scm/translation-functions.scm} contains the definitions
 of @code{format-mark-numbers} (the default format) and
-@code{format-mark-letters}. They can be used as inspiration for other
+@code{format-mark-letters}. These can be used as inspiration for other
 formatting functions.
 
 
@@ -4840,6 +4911,7 @@ definition of @code{format-mark-numbers} and
 formatting functions.
 
 Examples: @inputfileref{input/regression,rehearsal-mark-letter.ly},
+
 @inputfileref{input/regression,rehearsal-mark-number.ly}.
 
 
@@ -5114,18 +5186,6 @@ The syntax for part combining is
   \partcombine @var{musicexpr1} @var{musicexpr2}
 @end example
 
-The music expressions will be interpreted as @internalsref{Voice}
-contexts. If using relative octaves, @code{\relative} should be
-specified for both music expressions, i.e.
-
-@example
-\partcombine \relative @dots{}  @var{musicexpr1}
-  \relative @dots{} @var{musicexpr2}
-@end example
-
-@noindent
-A @code{\relative} section that is outside of @code{\partcombine} has
-no effect on the pitches of @var{musicexpr1} and @var{musicexpr2}.
 
 
 The following example demonstrates the basic functionality of the part
@@ -5150,12 +5210,27 @@ may set the property @code{soloADue} to false
 
 @lilypond[quote,verbatim,raggedright,fragment,relative=2]
 \new Staff <<
-  \set Staff.soloADue = ##f
+  \set Staff.printPartCombineTexts = ##f
   \partcombine
     \relative g' { g a( b) r }
     \relative g' { g r4 r f }
 >>
 @end lilypond
+
+
+Both arguments to @code{\partcombine} will be interpreted as
+@internalsref{Voice} contexts. If using relative octaves,
+@code{\relative} should be specified for both music expressions, i.e.
+
+@example
+\partcombine
+  \relative @dots{} @var{musicexpr1}
+  \relative @dots{} @var{musicexpr2}
+@end example
+
+@noindent
+A @code{\relative} section that is outside of @code{\partcombine} has
+no effect on the pitches of @var{musicexpr1} and @var{musicexpr2}.
 
 @seealso
 
@@ -5166,9 +5241,9 @@ Program reference: @internalsref{PartCombineMusic},
 
 @refbugs
 
-In @code{soloADue} mode, when the two voices play the same notes on and
-off, the part combiner may typeset @code{a2} more than once in a
-measure.
+When @code{soloADue} is set, when the two voices play the same notes
+on and off, the part combiner may typeset @code{a2} more than once in
+a measure.
 
 @code{\partcombine} cannot be inside @code{\times}. 
 
@@ -5201,10 +5276,9 @@ in this example disappears in the second line
 
 
 @lilypond[quote,verbatim]
-  \paper {
-    linewidth = 6.\cm 
-    \context { \RemoveEmptyStaffContext }
-  }
+\paper {
+  \context { \RemoveEmptyStaffContext }
+}
 
 {
   \relative c' <<
@@ -5214,8 +5288,8 @@ in this example disappears in the second line
 }
 @end lilypond
 
-The first page shows all staves in full. If empty staves should be
-removed from the first page too, set @code{remove-first} to false in
+The first system shows all staves in full. If empty staves should be
+removed from the first system too, set @code{remove-first} to false in
 @internalsref{RemoveEmptyVerticalGroup}.
 
 Another application is making ossia sections, i.e. alternative
@@ -5235,7 +5309,7 @@ for the full score, and one with cue notes for the instrumental part
 
 @example
   c1
-  \relative c' <<
+  <<
     \tag #'part <<
       R1 \\
       @{
@@ -5262,11 +5336,11 @@ This defines a note with a conditional fingering indication.
 By applying the @code{remove-tag} function, tagged expressions can be
 filtered. For example,
 @example
-\simultaneous @{
+<<
   @var{the music}
   \applymusic #(remove-tag 'score) @var{the music}
   \applymusic #(remove-tag 'part) @var{the music}
-@}
+>>
 @end example
 would yield
 

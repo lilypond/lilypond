@@ -48,7 +48,7 @@ void
 Part_combine_engraver::process_music ()
 {
   if (event_
-      && to_boolean (get_property ("soloADue")))
+      && to_boolean (get_property ("printPartCombineTexts")))
     {
       SCM what = event_->get_property ("part-combine-status");
       SCM text = SCM_EOL;
@@ -101,5 +101,5 @@ ENTER_DESCRIPTION (Part_combine_engraver,
 /* accepts */     "part-combine-event",
 /* acks  */       "multi-measure-rest-interface "
 "slur-interface stem-interface note-head-interface"
-,/* reads */       "soloADue",
+,/* reads */       "printPartCombineTexts",
 /* write */       "");
