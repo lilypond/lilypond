@@ -185,8 +185,6 @@ scrollkeeper-update
 
 %{_libdir}/lilypond/
 
-/etc/profile.d/lilypond.*
-
 
 %files documentation
 
