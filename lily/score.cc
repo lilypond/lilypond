@@ -75,7 +75,7 @@ Score::~Score ()
 void
 Score::run_translator (Music_output_def *odef)
 {
-   Cpu_timer timer;
+  Cpu_timer timer;
   Global_translator * trans = odef->get_global_translator ();
   if (!trans)
     {

@@ -7,15 +7,12 @@ Force hshift to override collisions. " }
 \score { 
      \notes\relative c'
        \context Staff < {
-			\property Voice.NoteColumn \override #'force-hshift = #0.1
-			\stemUp
-	       		\property Voice.NoteColumn \override #'horizontal-shift = #1
-			<<d a'>>
-		} \\
-		 {
-			\stemDown
-	       		\property Voice.NoteColumn \override #'horizontal-shift = #1
-			\property Voice.NoteColumn \override #'force-hshift = #-0.1
+			<<d g>>
+			<<d g>>
+		} \\ {
+			<<b f'>>
+\once \property Voice.NoteColumn
+  \override #'force-hshift = #1.7
 			<<b f'>>
 		}
 	> 
