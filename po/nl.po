@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 1.3.59\n"
-"POT-Creation-Date: 2001-02-24 12:58+0100\n"
+"POT-Creation-Date: 2001-02-27 21:26+0100\n"
 "PO-Revision-Date: 2000-06-09 02:23+0200\n"
 "Last-Translator: Jan Nieuwenhuizen <janneke@gnu.org>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -72,8 +72,8 @@ msgstr "positie onbekend"
 msgid "can't map file"
 msgstr "kan bestand niet inkaarten"
 
-#: mapped-file-storage.cc:87 midi-stream.cc:77 mudela-stream.cc:111
-#: paper-stream.cc:40 scores.cc:48 simple-file-storage.cc:44 text-stream.cc:23
+#: mapped-file-storage.cc:87 mudela-stream.cc:111 paper-stream.cc:40
+#: scores.cc:48 simple-file-storage.cc:44 text-stream.cc:23
 #, c-format
 msgid "can't open file: `%s'"
 msgstr "kan bestand niet openen: `%s'"
@@ -188,7 +188,7 @@ msgstr "stok past niet in waardestreep"
 msgid "beam was started here"
 msgstr "waardestreep werd hier gestart"
 
-#: break-align-item.cc:131
+#: break-align-item.cc:136
 #, c-format
 msgid "unknown spacing pair `%s', `%s'"
 msgstr "onbekend ruimte paar `%s', `%s'"
@@ -246,19 +246,19 @@ msgstr "kan geheugen controle niet zetten!"
 msgid "NaN"
 msgstr "NaN"
 
-#: dynamic-engraver.cc:194 span-dynamic-performer.cc:86
+#: dynamic-engraver.cc:198 span-dynamic-performer.cc:86
 msgid "can't find start of (de)crescendo"
 msgstr "kan start van (de)crescendo niet vinden"
 
-#: dynamic-engraver.cc:219
+#: dynamic-engraver.cc:223
 msgid "already have a crescendo"
 msgstr "heb al een crescendo"
 
-#: dynamic-engraver.cc:220
+#: dynamic-engraver.cc:224
 msgid "already have a decrescendo"
 msgstr "heb al een decrescendo"
 
-#: dynamic-engraver.cc:303
+#: dynamic-engraver.cc:307
 msgid "unterminated (de)crescendo"
 msgstr "onbeëindigd (de)crescendo"
 
@@ -345,95 +345,99 @@ msgstr "liedteksten gevonden zonder bijbehorend nootbolletje"
 msgid "Huh? Melismatic note found to have associated lyrics."
 msgstr "Huh?  Melismatische noot blijkt bijbehorende liedtekst te hebben."
 
-#: main.cc:105
+#: main.cc:108
 msgid "EXT"
 msgstr "EXT"
 
-#: main.cc:105
+#: main.cc:108
 msgid "use output format EXT (scm, ps, tex or as)"
 msgstr "gebruik uitvoer formaat EXT (scm, ps, tex of as)"
 
-#: main.cc:95 main.cc:106
+#: main.cc:95 main.cc:109
 msgid "this help"
 msgstr "deze hulp"
 
-#: main.cc:107
+#: main.cc:110
 msgid "FIELD"
 msgstr "VELD"
 
-#: main.cc:107
+#: main.cc:110
 msgid "write header field to BASENAME.FIELD"
 msgstr "schrijf kop veld naar BASISNAAM.VELD"
 
-#: main.cc:108 main.cc:111
+#: main.cc:111 main.cc:114
 msgid "DIR"
 msgstr "DIR"
 
-#: main.cc:108
+#: main.cc:111
 msgid "add DIR to search path"
 msgstr "voeg DIR toe aan zoekpad"
 
-#: main.cc:98 main.cc:109
+#: main.cc:98 main.cc:112
 msgid "FILE"
 msgstr "BESTAND"
 
-#: main.cc:109
+#: main.cc:112
 msgid "use FILE as init file"
 msgstr "gebruik BESTAND als initialisatiebestand"
 
-#: main.cc:110
+#: main.cc:113
 msgid "write Makefile dependencies for every input file"
 msgstr "schrijf Makefile afhankelijkheden voor elk invoerbestand"
 
-#: main.cc:111
+#: main.cc:114
 msgid "prepend DIR to dependencies"
 msgstr "voeg DIR voor aan afhankelijkheden"
 
-#: main.cc:112
+#: main.cc:115
 msgid "produce MIDI output only"
 msgstr "produceer alleen MIDI uitvoer"
 
-#: main.cc:113
+#: main.cc:116
 msgid "NAME"
 msgstr "NAAM"
 
-#: main.cc:113
+#: main.cc:116
 msgid "write output to NAME"
 msgstr "schrijf uitvoer naar NAAM"
 
-#: main.cc:114
+#: main.cc:117
 msgid "inhibit file output naming and exporting"
 msgstr "verbied naamgeving van uitvoer bestand en exportering"
 
-#: main.cc:103 main.cc:115
+#: main.cc:103 main.cc:118
 msgid "don't timestamp the output"
 msgstr "geen tijdsstempel in de uitvoer"
 
-#: main.cc:104 main.cc:116
+#: main.cc:104 main.cc:119
 msgid "print version number"
 msgstr "druk versienummer af"
 
-#: main.cc:117
+#: main.cc:120
 msgid "verbose"
 msgstr "breedsprakig"
 
-#: main.cc:106 main.cc:118
+#: main.cc:106 main.cc:121
 msgid "show warranty and copyright"
 msgstr "toon garantie en auteursrechten"
+
+#: main.cc:122
+msgid "write midi ouput in formatted ascii"
+msgstr "schrijf midi uitvoer in geformatteerd ascii"
 
 #.
 #. No version number or newline here. It confuses help2man
 #.
-#: main.cc:135
+#: main.cc:139
 #, c-format
 msgid "Usage: %s [OPTION]... [FILE]..."
 msgstr "Gebruik: %s [OPTIE]... [BESTAND]..."
 
-#: main.cc:137
+#: main.cc:141
 msgid "Typeset music and or play MIDI from FILE"
 msgstr "Zet muziek en of speel MIDI van BESTAND"
 
-#: main.cc:141
+#: main.cc:145
 msgid ""
 "LilyPond is a music typesetter.  It produces beautiful sheet music\n"
 "using a high level description file as input.  LilyPond is part of \n"
@@ -443,22 +447,22 @@ msgstr ""
 "uitgaande van een hoog niveau beschrijving bestand.  LilyPond \n"
 "maakt deel uit van het GNU Project.\n"
 
-#: main.cc:119 main.cc:147
+#: main.cc:119 main.cc:151
 msgid "Options:"
 msgstr "Opties:"
 
-#: main.cc:151
+#: main.cc:155
 msgid "This binary was compiled with the following options:"
 msgstr "Dit programma is gecompileerd met de volgende instellingen:"
 
-#: main.cc:123 main.cc:170
+#: main.cc:123 main.cc:174
 #, c-format
 msgid "Report bugs to %s"
 msgstr ""
 "Meld luizen in het programma aan %s;\n"
 "meld onjuistheden in de vertaling aan <janneke@gnu.org> of <hanwen@cs.uu.nl>"
 
-#: main.cc:55 main.cc:178
+#: main.cc:55 main.cc:182
 #, c-format
 msgid ""
 "This is free software.  It is covered by the GNU General Public License,\n"
@@ -470,16 +474,16 @@ msgstr ""
 "onder bepaalde voorwaarden.  Roep aan als `%s --warranty' voor meer\n"
 "informatie.\n"
 
-#: main.cc:62 main.cc:185 main.cc:197
+#: main.cc:62 main.cc:189 main.cc:201
 #, c-format
 msgid "Copyright (c) %s by"
 msgstr "Copyright (c) %s "
 
-#: main.cc:195
+#: main.cc:199
 msgid "GNU LilyPond -- The music typesetter"
 msgstr "GNU LilyPond -- De Muziekzetter"
 
-#: main.cc:71 main.cc:203
+#: main.cc:71 main.cc:207
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License version 2\n"
@@ -509,27 +513,23 @@ msgstr ""
 "zoniet, schrijf dan naar de Free Software Foundation, Inc.,\n"
 "675 Mass Ave, Cambridge, MA 02139, USA.\n"
 
-#: midi-item.cc:311
+#: midi-item.cc:312
 #, c-format
 msgid "no such instrument: `%s'"
 msgstr "geen dergelijk instrument: `%s'"
 
-#: midi-item.cc:366
+#: midi-item.cc:367
 #, c-format
 msgid "unconventional key: flats: %d, sharps: %d"
 msgstr "vreemde toonsoort: %d mollen, %d kruizen"
 
-#: midi-item.cc:413
+#: midi-item.cc:414
 msgid "silly duration"
 msgstr "rare duur"
 
-#: midi-item.cc:426
+#: midi-item.cc:427
 msgid "silly pitch"
 msgstr "rare toonhoogte"
-
-#: midi-stream.cc:29 paper-stream.cc:50
-msgid "Error syncing file (disk full?)"
-msgstr "Fout by synchroniseren van bestand (disk vol?)"
 
 #: musical-request.cc:29
 #, c-format
@@ -603,6 +603,10 @@ msgstr "Uitvoer van Score, gedefinieerd op: "
 msgid "can't create directory: `%s'"
 msgstr "kan directory niet scheppen: `%s'"
 
+#: paper-stream.cc:50
+msgid "Error syncing file (disk full?)"
+msgstr "Fout by synchroniseren van bestand (disk vol?)"
+
 #.
 #. We could change the current translator's id, but that would make
 #. errors hard to catch
@@ -632,7 +636,7 @@ msgstr "Schepper: "
 msgid "from musical definition: %s"
 msgstr "van muzikale definitie: %s"
 
-#: performance.cc:161
+#: performance.cc:166
 #, c-format
 msgid "MIDI output to %s..."
 msgstr "MIDI uitvoer naar %s..."
@@ -749,7 +753,7 @@ msgstr "Vreemde stoklengte; controleer op krappe waardestrepen"
 msgid "Adding note head to incompatible stem (type = %d)"
 msgstr "Voeg noot bolletje toe aan onverenigbare stok (type = %d)"
 
-#: text-spanner.cc:117
+#: text-spanner.cc:121
 msgid "Text_spanner too small"
 msgstr "Text_spanner te klein"
 
@@ -781,11 +785,11 @@ msgid "%s: TFM file has %u parameters, which is more than the %u I can handle"
 msgstr ""
 "%s: TFM bestand heeft %u parameters, wat meer is dan de %u die ik aan kan"
 
-#: tie-engraver.cc:212 tie-performer.cc:173
+#: tie-engraver.cc:211 tie-performer.cc:173
 msgid "No ties were created!"
 msgstr "Geen overbindingen geschapen!"
 
-#: tie-engraver.cc:231
+#: tie-engraver.cc:230
 msgid "lonely tie"
 msgstr "eenzame overbinding"
 

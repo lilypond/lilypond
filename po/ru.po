@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-02-24 12:58+0100\n"
+"POT-Creation-Date: 2001-02-27 21:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: August S.Sigov <august@infran.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -62,8 +62,8 @@ msgstr "положение неизвестно"
 msgid "can't map file"
 msgstr "не могу отобразить файл в память"
 
-#: mapped-file-storage.cc:87 midi-stream.cc:77 mudela-stream.cc:111
-#: paper-stream.cc:40 scores.cc:48 simple-file-storage.cc:44 text-stream.cc:23
+#: mapped-file-storage.cc:87 mudela-stream.cc:111 paper-stream.cc:40
+#: scores.cc:48 simple-file-storage.cc:44 text-stream.cc:23
 #, c-format
 msgid "can't open file: `%s'"
 msgstr "не могу открыть файл: `%s'"
@@ -176,7 +176,7 @@ msgstr "штиль не влезает в группировку"
 msgid "beam was started here"
 msgstr "группировка начиналась здесь"
 
-#: break-align-item.cc:131
+#: break-align-item.cc:136
 #, fuzzy, c-format
 msgid "unknown spacing pair `%s', `%s'"
 msgstr "неизвестная переменная бумаги: `%s'"
@@ -235,19 +235,19 @@ msgstr "не могу включить проверку памяти"
 msgid "NaN"
 msgstr "NaN"
 
-#: dynamic-engraver.cc:194 span-dynamic-performer.cc:86
+#: dynamic-engraver.cc:198 span-dynamic-performer.cc:86
 msgid "can't find start of (de)crescendo"
 msgstr "не могу найти начало (де)крещендо"
 
-#: dynamic-engraver.cc:219
+#: dynamic-engraver.cc:223
 msgid "already have a crescendo"
 msgstr "крещендо уже есть"
 
-#: dynamic-engraver.cc:220
+#: dynamic-engraver.cc:224
 msgid "already have a decrescendo"
 msgstr "декрещендо уже есть"
 
-#: dynamic-engraver.cc:303
+#: dynamic-engraver.cc:307
 msgid "unterminated (de)crescendo"
 msgstr "незаконченное (де)крещендо"
 
@@ -333,100 +333,104 @@ msgstr ""
 msgid "Huh? Melismatic note found to have associated lyrics."
 msgstr ""
 
-#: main.cc:105
+#: main.cc:108
 msgid "EXT"
 msgstr "РАСШ"
 
-#: main.cc:105
+#: main.cc:108
 #, fuzzy
 msgid "use output format EXT (scm, ps, tex or as)"
 msgstr "использовать выходной формат РАСШ"
 
-#: main.cc:95 main.cc:106
+#: main.cc:95 main.cc:109
 msgid "this help"
 msgstr "эта справка"
 
-#: main.cc:107
+#: main.cc:110
 #, fuzzy
 msgid "FIELD"
 msgstr "ФАЙЛ"
 
-#: main.cc:107
+#: main.cc:110
 msgid "write header field to BASENAME.FIELD"
 msgstr ""
 
-#: main.cc:108 main.cc:111
+#: main.cc:111 main.cc:114
 msgid "DIR"
 msgstr "КАТ"
 
-#: main.cc:108
+#: main.cc:111
 msgid "add DIR to search path"
 msgstr "добавить КАТ к пути поиска"
 
-#: main.cc:98 main.cc:109
+#: main.cc:98 main.cc:112
 msgid "FILE"
 msgstr "ФАЙЛ"
 
-#: main.cc:109
+#: main.cc:112
 msgid "use FILE as init file"
 msgstr "использовать ФАЙЛ как файл инициализации"
 
-#: main.cc:110
+#: main.cc:113
 msgid "write Makefile dependencies for every input file"
 msgstr "записывать зависимости Makefile для каждого входного файла"
 
-#: main.cc:111
+#: main.cc:114
 msgid "prepend DIR to dependencies"
 msgstr ""
 
-#: main.cc:112
+#: main.cc:115
 msgid "produce MIDI output only"
 msgstr "производить вывод только MIDI"
 
-#: main.cc:113
+#: main.cc:116
 #, fuzzy
 msgid "NAME"
 msgstr "ОСНОВА"
 
-#: main.cc:113
+#: main.cc:116
 #, fuzzy
 msgid "write output to NAME"
 msgstr "записывать вывод в ОСНОВА[-x].расширение"
 
-#: main.cc:114
+#: main.cc:117
 msgid "inhibit file output naming and exporting"
 msgstr "скрыть именование и экспорт вывода в файл"
 
-#: main.cc:103 main.cc:115
+#: main.cc:103 main.cc:118
 msgid "don't timestamp the output"
 msgstr "не отмечать дату и время вывода"
 
-#: main.cc:104 main.cc:116
+#: main.cc:104 main.cc:119
 msgid "print version number"
 msgstr "выводить номер версии"
 
-#: main.cc:117
+#: main.cc:120
 #, fuzzy
 msgid "verbose"
 msgstr "быть болтливым"
 
-#: main.cc:106 main.cc:118
+#: main.cc:106 main.cc:121
 msgid "show warranty and copyright"
 msgstr "показать гарантию и copyright"
+
+#: main.cc:122
+msgid "write midi ouput in formatted ascii"
+msgstr ""
 
 #.
 #. No version number or newline here. It confuses help2man
 #.
-#: main.cc:135
+#: main.cc:139
 #, c-format
 msgid "Usage: %s [OPTION]... [FILE]..."
 msgstr "Использование: %s [ОПЦИЯ]... [ФАЙЛ]..."
 
-#: main.cc:137
+#: main.cc:141
 msgid "Typeset music and or play MIDI from FILE"
 msgstr "Набирать музыку и/или проигрывать MIDI из ФАЙЛа"
 
-#: main.cc:141
+#: main.cc:145
 msgid ""
 "LilyPond is a music typesetter.  It produces beautiful sheet music\n"
 "using a high level description file as input.  LilyPond is part of \n"
@@ -436,20 +440,20 @@ msgstr ""
 "на бумаге, используя высокоуровневый файл описания на вводе. Lilypond\n"
 "является частью Проекта GNU.\n"
 
-#: main.cc:119 main.cc:147
+#: main.cc:119 main.cc:151
 msgid "Options:"
 msgstr "Опции:"
 
-#: main.cc:151
+#: main.cc:155
 msgid "This binary was compiled with the following options:"
 msgstr "Этот исполняемый файл был собран со следующими опциями:"
 
-#: main.cc:123 main.cc:170
+#: main.cc:123 main.cc:174
 #, c-format
 msgid "Report bugs to %s"
 msgstr "Сообщайте об ошибках по %s"
 
-#: main.cc:55 main.cc:178
+#: main.cc:55 main.cc:182
 #, c-format
 msgid ""
 "This is free software.  It is covered by the GNU General Public License,\n"
@@ -461,17 +465,17 @@ msgstr ""
 "при соблюдении некоторых условий. Вызывайте как `%s --warranty' для\n"
 "получения дополнительной информации.\n"
 
-#: main.cc:62 main.cc:185 main.cc:197
+#: main.cc:62 main.cc:189 main.cc:201
 #, c-format
 msgid "Copyright (c) %s by"
 msgstr "Все права защищены (c) %s by"
 
-#: main.cc:195
+#: main.cc:199
 #, fuzzy
 msgid "GNU LilyPond -- The music typesetter"
 msgstr "GNU LilyPond -- Наборщик музыки Проекта GNU"
 
-#: main.cc:71 main.cc:203
+#: main.cc:71 main.cc:207
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License version 2\n"
@@ -488,27 +492,23 @@ msgid ""
 "USA.\n"
 msgstr ""
 
-#: midi-item.cc:311
+#: midi-item.cc:312
 #, c-format
 msgid "no such instrument: `%s'"
 msgstr "нет такого инструмента: `%s'"
 
-#: midi-item.cc:366
+#: midi-item.cc:367
 #, c-format
 msgid "unconventional key: flats: %d, sharps: %d"
 msgstr "нестандартный ключ: бемоли: %d, диезы: %d"
 
-#: midi-item.cc:413
+#: midi-item.cc:414
 msgid "silly duration"
 msgstr "глупая продолжительность"
 
-#: midi-item.cc:426
+#: midi-item.cc:427
 msgid "silly pitch"
 msgstr "глупый тон"
-
-#: midi-stream.cc:29 paper-stream.cc:50
-msgid "Error syncing file (disk full?)"
-msgstr "Ошибка синхронизации файла (диск переполнен?)"
 
 #: musical-request.cc:29
 #, c-format
@@ -582,6 +582,10 @@ msgstr ""
 msgid "can't create directory: `%s'"
 msgstr "не могу найти или создать: `%s'"
 
+#: paper-stream.cc:50
+msgid "Error syncing file (disk full?)"
+msgstr "Ошибка синхронизации файла (диск переполнен?)"
+
 #.
 #. We could change the current translator's id, but that would make
 #. errors hard to catch
@@ -611,7 +615,7 @@ msgstr "Создатель: "
 msgid "from musical definition: %s"
 msgstr "из музыкальной нотации %s"
 
-#: performance.cc:161
+#: performance.cc:166
 #, c-format
 msgid "MIDI output to %s..."
 msgstr "вывод MIDI в %s..."
@@ -730,7 +734,7 @@ msgstr ""
 msgid "Adding note head to incompatible stem (type = %d)"
 msgstr "Добавляю ноту к несовместимому штилю (тип = %d)"
 
-#: text-spanner.cc:117
+#: text-spanner.cc:121
 msgid "Text_spanner too small"
 msgstr ""
 
@@ -764,11 +768,11 @@ msgstr ""
 msgid "%s: TFM file has %u parameters, which is more than the %u I can handle"
 msgstr ""
 
-#: tie-engraver.cc:212 tie-performer.cc:173
+#: tie-engraver.cc:211 tie-performer.cc:173
 msgid "No ties were created!"
 msgstr ""
 
-#: tie-engraver.cc:231
+#: tie-engraver.cc:230
 msgid "lonely tie"
 msgstr ""
 

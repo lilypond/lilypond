@@ -60,9 +60,12 @@ Midi_walker::do_start_note (Midi_note* note_p)
 	      /* let stopnote in queue be ignored,
 	       new stop note wins */
 	      stop_note_queue[i].ignore_b_ = true;
+	      
+#if 0	// Ugh: this fixes stuck notes bug, but breaks most everything else?
 	      /* don't replay start note, */
 	      play_start = false;
 	      break;
+#endif	      
 	    }
 	  else
 	    {

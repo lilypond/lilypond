@@ -98,16 +98,20 @@ Local_key_engraver::create_grobs ()
 	  bool different = !gh_equal_p(prev_acc , gh_int2scm(a));
 	  int p = gh_number_p(prev_acc) ? gh_scm2int(prev_acc) : 0;
 
-	  Grob *tie_break_cautionary = 0;
+	  Grob *tie_break_reminder = 0;
 	  bool tie_changes = false;
 	  for (int i=0; i < tie_l_arr_.size (); i++)
 	    if (support_l == Tie::head (tie_l_arr_[i], RIGHT))
 	      {
 		tie_changes = different;
-#if 1
-		/* Enable accidentals for broken tie */
-		tie_break_cautionary = tie_l_arr_[i];
-#endif
+		/* Enable accidentals for broken tie
+
+		   We only want an accidental on a broken tie,
+		   if the tie changes the accidental.
+		   
+		   Maybe check property noTieBreakForceAccidental? */
+		if (different)
+		  tie_break_reminder = tie_l_arr_[i];
 		break;
 	      }
 
@@ -121,7 +125,7 @@ Local_key_engraver::create_grobs ()
 	  if (((to_boolean (note_l->get_mus_property ("force-accidental"))
 		|| different)
 	       && !tie_changes)
-	      || tie_break_cautionary)
+	      || tie_break_reminder)
 	    {
 	      if (!key_item_p_) 
 		{
@@ -142,7 +146,7 @@ Local_key_engraver::create_grobs ()
 	      Local_key_item::add_pitch (key_item_p_, *unsmob_pitch (note_l->get_mus_property ("pitch")),
 					 to_boolean (note_l->get_mus_property ("cautionary")),
 					 extra_natural,
-					 tie_break_cautionary);
+					 tie_break_reminder);
 	      Side_position::add_support (key_item_p_,support_l);
 	    }
 	  

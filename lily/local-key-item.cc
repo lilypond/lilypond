@@ -69,11 +69,14 @@ Local_key_item::parenthesize (Grob*me, Molecule m)
   return m;
 }
 
-/*
-  HW says: move to tie.cc
+/* HW says: maybe move to tie.cc
 
-  Ugh: this doesn't work: brew_molecule is called before line-breaking
- */ 
+  Note, tie should not kill all accidentals when broken, only the ones
+  that are indicated by a property tie-break-reminder, I guess
+
+  Find if any of the accidentals were created because they're at the rhs of a
+  tie.  If that's the reason they exist, and the tie was NOT broken,
+  put the accidental up for deletion.  Clear molecule cache. */
 MAKE_SCHEME_CALLBACK (Local_key_item, after_line_breaking, 1);
 SCM
 Local_key_item::after_line_breaking (SCM smob)
@@ -86,14 +89,14 @@ Local_key_item::after_line_breaking (SCM smob)
     {
       SCM opts = gh_cdar (s);
 
-      SCM t = scm_memq (ly_symbol2scm ("tie-break-cautionary"), opts);
+      SCM t = scm_memq (ly_symbol2scm ("tie-break-reminder"), opts);
       if (t != SCM_BOOL_F)
 	{
 	  Grob *tie = unsmob_grob (gh_cadr (t));
 	  Spanner *sp = dynamic_cast<Spanner*> (tie);
 	  if (!sp->original_l_)
 	    {
-	      /* there should be a better way to delete me */
+	      /* there should be a better way to delete part of me */
 	      scm_set_car_x (s, gh_list (gh_caar (s),
 					 ly_symbol2scm ("deleted"),
 					 SCM_UNDEFINED));

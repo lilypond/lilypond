@@ -1,75 +1,33 @@
-\version "1.3.120";
-
-instrument = "Orchestra"
-% instrument = ""
-
-\include "header.ly"
-\include "global.ly"
-
-\include "paper16.ly"
-
-\include "bassi.ly"
-\include "clarinetti.ly"
-\include "corni.ly"
-\include "fagotti.ly"
-\include "flauti.ly"
-\include "oboi.ly"
-\include "timpani.ly"
-\include "trombe.ly"
-\include "viole.ly"
-\include "violino-1.ly"
-\include "violino-2.ly"
-
-
-legniGroup =  \context StaffGroup = legni_group <
-	\flautiStaff
-	\oboiStaff
-	\clarinettiStaff
-	\fagottiStaff
->
-
-ottoniGroup =  \context StaffGroup = otonni_group <
-	\corniStaff
-	\trombeStaff
->
-
-timpaniGroup =  \context StaffGroup = timpani_group <
-	\timpaniStaff
-	% Force a staff bracket (?)
-	\context Staff = timpany \End
->
-
-violiniGroup =  \context GrandStaff = violini_group <
-	\violinoIStaff
-	\violinoIIStaff
->
-
-archiGroup =  \context StaffGroup = archi_group <
-	\violiniGroup
-	\violeGroup
-	\bassiGroup
->
-
-
-\score{
-	<
-		\legniGroup
-		\ottoniGroup
-		\timpaniGroup
-		\archiGroup
-	>
-	\header{
-		instrument = "";
-	}
-	\include "coriolan-paper.ly"
-%	\include "coriolan-midi.ly"
-}
-
-
 
 %%
 %% Hopefully, this can be junked when part-combiner+midi+dynamics work ok.
 %%
+
+\version "1.3.117";
+
+\include "header.ly"
+\include "global.ly"
+
+\include "flauto-1.ly"
+\include "flauto-2.ly"
+\include "oboe-1.ly"
+\include "oboe-2.ly"
+\include "clarinetto-1.ly"
+\include "clarinetto-2.ly"
+\include "fagotto-1.ly"
+\include "fagotto-2.ly"
+\include "corno-1.ly"
+\include "corno-2.ly"
+\include "trombo-1.ly"
+\include "trombo-2.ly"
+\include "timpani.ly"
+\include "violino-1.ly"
+\include "violino-2.ly"
+\include "viola-1.ly"
+\include "viola-2.ly"
+\include "violoncello.ly"
+\include "contrabasso.ly"
+
 \score{
 	<
 	\global
@@ -131,3 +89,4 @@ archiGroup =  \context StaffGroup = archi_group <
 	>
 	\include "coriolan-midi.ly"
 }
+
