@@ -516,7 +516,7 @@ For La@TeX{} input, the file to give to La@TeX{} has extension
 
 
 
-@section Bugs
+@refbugs
 
 The Texinfo command @code{pagesize} is not interpreted. Almost all
 La@TeX{} commands that change margins and line widths are ignored.
