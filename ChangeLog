@@ -1,5 +1,7 @@
 2004-02-04  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/spacing-engraver.cc (finalize): robustifications.
+
 	* input/regression/new-part-combine-solo-global.ly: new file.
 
 	* scm/part-combiner.scm: rewrite.

@@ -56,8 +56,11 @@ Staff_symbol_engraver::process_music ()
 void
 Staff_symbol_engraver::finalize ()
 {
-  span_->set_bound (RIGHT,unsmob_grob (get_property ("currentCommandColumn")));
-  typeset_grob (span_);
+  if (span_)
+    {
+      span_->set_bound (RIGHT,unsmob_grob (get_property ("currentCommandColumn")));
+      typeset_grob (span_);
+    }
   span_ =0;
 }
 

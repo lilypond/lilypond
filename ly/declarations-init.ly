@@ -120,6 +120,7 @@ partCombineListener = \paper {
 	  \type "Recording_group_engraver"
 	  recordEventSequence = #notice-the-events-for-pc
  }
+ \translator { \ScoreContext skipTypesetting = ##t }
 }
 
 #(set-part-combine-listener partCombineListener)
