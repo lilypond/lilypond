@@ -1,5 +1,8 @@
 2004-04-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* buildscripts/mf-to-table.py (write_fontlist): Use \lyrics
+	for lyrics, not for commands.
+
 	* lily/parser.yy (scalar): Bugfix: accept LYRICS_STRING.
 	FIXME: Replace some `Music's with Grouped_music_list; fixes make web.
 
