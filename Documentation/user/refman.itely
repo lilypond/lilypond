@@ -3699,15 +3699,15 @@ whose source is available as
 @lilypondfile[notexidoc]{bar-number-every-fifth.ly}
 
 The start of that numbering can also be reset, as demonstrated in
-@inputfileref{input/test,bar-number-every-5-reset.ly}.
+@inputfileref{input/test,bar-number-every-five-reset.ly}.
 
-@lilypondfile[notexidoc]{bar-number-every-5-reset.ly}
+@lilypondfile[notexidoc]{bar-number-every-five-reset.ly}
 
 
 @seealso
 
 @internalsref{BarNumber}.
-@inputfileref{input/test,bar-number-every-5-reset.ly}.
+@inputfileref{input/test,bar-number-every-five-reset.ly}.
 @inputfileref{input/test,bar-number-every-fifth.ly}
 
 @refbugs
