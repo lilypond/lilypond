@@ -16,7 +16,7 @@ EXTRA_DISTFILES = $(MFFILES) $(TEXFILES) TODO
 #
 
 FONT_FILES = $(wildcard *[0-9].mf)
-FET_FILES = $(wildcard font-en-tja*[0-9].mf)
+FET_FILES = $(wildcard feta[0-9]*.mf)
 
 lyout = $(depth)/init
 texout = $(depth)/tex
@@ -44,12 +44,12 @@ $(lyout)/%.ly $(texout)/%.tex: $(outdir)/%.log
 	$(depth)/bin/$(outdir)/mf-to-table --ly $(lyout)/$(<F:.log=.ly) --tex $(texout)/$(<F:.log=.tex) $<
 
 localinstall:
-	$(INSTALL) -d $(MFDIR)/lilypond
-	$(INSTALL) -m 644 $(MFFILES) $(MFDIR)/lilypond/
+	$(INSTALL) -d $(MFDIR)/public/lilypond
+	$(INSTALL) -m 644 $(MFFILES) $(MFDIR)/public/lilypond/
 
 localuninstall:
 	for i in $(MFFILES) ; do rm -f $(MFDIR)/lilypond/$$i; done
-	-rmdir $(MFDIR)/lilypond/
+	-rmdir $(MFDIR)/public/lilypond/
 
 $(outdir)/mfdeps: $(FONT_FILES)
 # do something silly to avoid barfs if python not installed.

@@ -1,0 +1,18 @@
+% font-en-tja16.mf
+% part of LilyPond's pretty-but-neat music font
+
+% font_identifier:="font-en-tja16";
+% font_size 16pt#;
+
+input autometric;
+fet_beginfont("feta", 16);
+staffsize#:=16pt#;
+test:=0;
+
+
+input feta-generic;
+
+fet_endfont("feta");
+
+end.
+
