@@ -56,8 +56,9 @@ prefix=os.path.join (os.environ['HOME'], 'usr', 'pkg', 'lilypond')
 import re
 import glob
 import os
-import sys
 import string
+import sys
+import stat
 
 # SConscripts are only needed in directories where something needs
 # to be done, building or installing
@@ -134,6 +135,7 @@ for key in ['LD_LIBRARY_PATH', 'GUILE_LOAD_PATH', 'PKG_CONFIG_PATH']:
     	if os.environ.has_key(key):
         	ENV[key] = os.environ[key]
 
+
 env = Environment (
 	ENV = ENV,
 
@@ -166,7 +168,6 @@ env = Environment (
 	MFMODE = 'ljfour'
 	)
 
-
 Help (usage + opts.GenerateHelpText (env))
 
 map (lambda x: opts.AddOptions ((x,)), config_vars)
@@ -189,6 +190,11 @@ if env['warnings']:
 	env.Append (CXXFLAGS = '-Wconversion')
 if env['verbose']:
 	env['__verbose'] = '--verbose'
+
+env.Append (PKG_CONFIG_PATH = [os.path.join (os.environ['HOME'],
+					     'usr/pkg/gnome/lib'),
+			       os.path.join (os.environ['HOME'],
+					     'usr/pkg/pango/lib')])
 
 env['srcdir'] = Dir ('.').srcnode ().abspath
 
@@ -370,7 +376,9 @@ if os.path.exists (config_cache) and 'config' in COMMAND_LINE_TARGETS:
 # WTF?
 # scons: *** Calling Configure from Builders is not supported.
 # env.Command (config_cache, None, configure)
-if not os.path.exists (config_cache):
+if not os.path.exists (config_cache) \
+   or (os.stat ('SConstruct')[stat.ST_MTIME]
+       > os.stat (config_cache)[stat.ST_MTIME]):
 	env = configure (None, None, env)
 	map (lambda x: opts.AddOptions ((x,)), config_vars)
 	opts.Save (config_cache, env)
@@ -435,7 +443,7 @@ def symlink_tree (target, source, env):
 			frm = os.path.join (srcdir, src[1:])
 		else:
 			depth = len (string.split (dir, '/'))
-			frm = os.path.join ('../' * depth, src, out)
+			frm = os.path.join ('../' * depth, src, env['out'])
 		os.symlink (frm, os.path.basename (dst))
 	prefix = os.path.join (env['out'], 'usr')
 	map (lambda x: symlink (x[0], os.path.join (prefix, x[1])),
@@ -455,9 +463,9 @@ def symlink_tree (target, source, env):
 	os.chdir (srcdir)
 
 if env['debugging']:
-	print 'run_prefix:' + run_prefix
-	env.Command (os.path.join (run_prefix, 'stamp'), 'VERSION',
-		     [symlink_tree, 'touch $TARGET'])
+	stamp = os.path.join (run_prefix, 'stamp')
+	env.Depends ('.', stamp)
+	env.Command (stamp, 'VERSION', [symlink_tree, 'touch $TARGET'])
 
 #### dist, tar
 def plus (a, b):
