@@ -22,8 +22,6 @@ somewhat familiar with using LilyPond.
 * Beaming::                     
 * Accidentals::                 
 * Expressive marks::            
-* Articulations::               
-* Fingering instructions::      
 * Repeats::                     
 * Rhythmic music::              
 * Piano music::                 
@@ -1094,6 +1092,7 @@ happen on barlines.
 
  Special types
 of barlines can be forced with the @code{\bar} command:
+@c
 @lilypond[relative=1,fragment,verbatim]
    c4 \bar "|:" c4
 @end lilypond
@@ -1110,6 +1109,12 @@ c4
 \bar ".|." c
 \bar "|." 
 @end lilypond
+For allowing linebreaks, there is a special command,
+@example
+  \bar "empty"
+@end example 
+This will insert an invisible barline, and allow linebreaks at this
+point.
 
 In scores with many staves, a @code{\bar} command in one staff is
 automatically applied to all staves. The resulting bar lines are
@@ -1173,7 +1178,8 @@ small, short-lived voices or for single chords:
 
 @lilypond[verbatim,fragment]
 \context Staff \relative c'' {
- c4 << { f d e  } \\ { b c2 } >> c4 << g' \\ b, \\  f' \\ d >>
+  c4 << { f d e  } \\ { b c2 } >>
+  c4 << g' \\ b, \\  f' \\ d >>
 }
 @end lilypond
 
@@ -1670,12 +1676,9 @@ some of them are typeset as cautionaries.
 @node Customized accidental rules
 @subsection  Customized accidental rules
 
-This section must be considered gurus-only, and hence it must be
-sufficient with a short description of the system and a reference to
-the internal documentation.
-
-The algorithm tries several different rules, and uses the rule
-that gives the highest number of accidentals.  Each rule consists of
+For determining when to print an accidental, several different rules
+are tried.  The rule that gives the highest number of accidentals is
+used.  Each rule consists of
 @table @var
 @item context:
       In which context is the rule applied. For example, if
@@ -1753,6 +1756,11 @@ for the problematic notes.
 @node Expressive marks
 @section Expressive marks
 
+
+@c todo: should change ordering
+@c where to put text spanners, metronome marks,
+@c fingering?
+ 
 @menu
 * Slurs ::                      
 * Phrasing slurs::              
@@ -1760,6 +1768,12 @@ for the problematic notes.
 * Metronome marks::             
 * Text spanners::               
 * Analysis brackets::           
+* Articulations::               
+* Fingering instructions::      
+* Text scripts::                
+* Grace notes::                 
+* Glissando ::                  
+* Dynamics::                    
 @end menu
 
 @node Slurs 
@@ -1771,9 +1785,9 @@ A slur indicates that notes are to be played bound or @emph{legato}.
 @syntax
 
 They are entered using parentheses:
-@lilypond[fragment,verbatim,center]
-  f'( g')( a') a'8[ b'(] a'4 g'2 f'4)
-  <c' e'>2( <b d'>2)
+@lilypond[relative 1,fragment,verbatim,center]
+  f( g)( a) a8 b( a4 g2 f4)
+  <c e>2( <b d>2)
 @end lilypond
 
 
@@ -1988,7 +2002,7 @@ To use this, add the @internalsref{Horizontal_bracket_engraver} to
 
 
 @node Articulations
-@section Articulations
+@subsection Articulations
 @cindex Articulations
 
 @cindex articulations
@@ -2071,12 +2085,12 @@ eg.
 
 @refbugs
 
-All of these note ornaments appear in the printed output but have no
+ These note ornaments appear in the printed output but have no
 effect on the MIDI rendering of the music.
 
 
 @node Fingering instructions
-@section Fingering instructions
+@subsection Fingering instructions
 
 @cindex fingering
 
@@ -2100,8 +2114,8 @@ You can use the thumb-script to indicate that a note should be
 played with your thumb (used in cello music):
 
 @lilypond[verbatim, singleline, fragment]
-      <a' a''-3>8(_\thumb[ <b' b''-3>)_\thumb
-      <c'' c'''-3>(_\thumb <d'' d'''-3>)_\thumb]
+      <a' a''-3>8(_\thumb <b' b''-3>)_\thumb
+      <c'' c'''-3>(_\thumb <d'' d'''-3>)_\thumb
 @end lilypond
 
 Fingerings for chords can also be added to individual notes
@@ -2124,13 +2138,6 @@ to note heads:
 
 @internalsref{FingerEvent}, and @internalsref{Fingering}.
 
-
-@menu
-* Text scripts::                
-* Grace notes::                 
-* Glissando ::                  
-* Dynamics::                    
-@end menu
 
 @node Text scripts
 @subsection Text scripts
@@ -2182,16 +2189,18 @@ They are entered with the commands @code{\acciaccatura} and
 
 @lilypond[relative=2,verbatim,fragment]
 b4 \acciaccatura d8 c4 \appoggiatura e8 d4
-\acciaccatura { g16 f } e4
+\acciaccatura { g16[ f] } e4
 @end lilypond
 
 Both are special forms of the @code{\grace} command. By prefixing this
 keyword to a music expression, a new one is formed, which will be
 printed in a smaller font and takes up no logical time in a measure.
 @lilypond[relative=2,verbatim,fragment]
-  c4 \grace c16 c4 \grace {
-  c16[ d16] } c2 c4
+  c4 \grace c16 c4
+  \grace { c16[ d16] } c2 c4
 @end lilypond
+
+@noindent
 Unlike @code{\acciaccatura} and @code{\appoggiatura}, the
 @code{\grace} command does not start a slur.
 
@@ -2204,7 +2213,7 @@ example is shown here with timing tuples:
 <<
   \relative c''{ 
   c4  \grace c16  c4  \grace {
-  c16[  d16] } c4
+  c16[  d16] } c2 c4
   }
   \new Lyrics \lyrics {
       \markup { (0,0)  } 4
@@ -2231,8 +2240,8 @@ every eighth grace note:
 
 
 
-If you want to end a note with a grace note, then the standard trick
-is to put the grace notes before a phantom ``space note'', e.g.
+If you want to end a note with a grace, then the standard trick
+is to put the grace notes after a ``space note'', e.g.
 @lilypond[fragment,verbatim, relative=2]
 \context Voice {
     << { d1^\trill ( }
@@ -2250,7 +2259,7 @@ A @code{\grace} section will introduce special typesetting settings,
 for example, to produce smaller type, and set directions. Hence, when
 introducing layout tweaks, they should be inside the grace section,
 for example,
-@lilypond[fragment,verbatim,relative 2]
+@lilypond[fragment,verbatim,relative 1]
 \new Voice {
     \acciaccatura {
       \property Voice.Stem \override #'direction = #-1
@@ -2339,7 +2348,7 @@ a note:
 
 @refbugs
 
-Additional texts (such as @emph{gliss.}) is not supported.
+Adding additional texts (such as @emph{gliss.}) is not supported.
 
 
 @node Dynamics
@@ -2419,7 +2428,7 @@ You can also supply your own texts:
   \context Voice {
     \property Voice.crescendoText = \markup { \italic "cresc. poco" }
     \property Voice.crescendoSpanner = #'dashed-line
-    a'2\mf\< a a a\!
+    a'2\< a a a\!\mf
   }
 @end lilypond
 
@@ -2460,8 +2469,8 @@ must set properties for the @internalsref{DynamicLineSpanner} object.
 
 Repetition is a central concept in music, and multiple notations exist
 for repetitions. In LilyPond, most of these notations can be captured
-in a uniform syntax. One of the advantages is, all these repetitions
-can be rendered in MIDI accurately.
+in a uniform syntax. One of the advantages is that they can be
+rendered in MIDI accurately.
 
 The following types of repetition are supported:
 
@@ -2522,27 +2531,25 @@ give enough alternatives for all of the repeats, then the first
 alternative is assumed to be played more than once.
 
 Normal notation repeats are used like this:
-@lilypond[fragment,verbatim]
-  c'1
-  \repeat volta 2 { c'4 d' e' f' }
-  \repeat volta 2 { f' e' d' c' }
+@lilypond[fragment,verbatim,relative 1]
+  c1
+  \repeat volta 2 { c4 d e f }
+  \repeat volta 2 { f e d c }
 @end lilypond
 
 With alternative endings:
-@lilypond[fragment,verbatim]
-  c'1
-  \repeat volta 2 {c'4 d' e' f'} 
-  \alternative { {d'2 d'} {f' f} }
+@lilypond[fragment,verbatim,relative 1]
+  c1
+  \repeat volta 2 {c4 d e f} 
+  \alternative { {d2 d} {f f,} }
 @end lilypond
 
 
-@lilypond[fragment,verbatim]
+@lilypond[fragment,verbatim,relative 1]
 \context Staff {
-  \relative c' {
     \partial 4
     \repeat volta 4 { e | c2 d2 | e2 f2 | }
     \alternative { { g4 g g } { a | a a a a | b2. } }
-  }
 }
 @end lilypond
 
@@ -2603,12 +2610,12 @@ alphabetic characters. Or,
   stops a running volta bracket:
 @end table
 
-@lilypond[verbatim, fragment]
- c''4
+@lilypond[verbatim, fragment,relative 2]
+ c4
     \property Score.repeatCommands = #'((volta "93") end-repeat)
- c''4 c''4
+ c4 c4
     \property Score.repeatCommands = #'((volta #f))
- c''4 c''4
+ c4 c4
 @end lilypond
 
 
@@ -3088,7 +3095,7 @@ terminating too soon.
 @refbugs
 
 The staff switches often do not end up in optimal places. For high
-quality output staff switches should be specified manually.
+quality output, staff switches should be specified manually.
 
  
 
@@ -3163,9 +3170,9 @@ c''4\sostenutoDown d''4 e''4 c'4 f'4 g'4 a'4\sostenutoUp
 
 For fine-tuning of the appearance of a pedal bracket, the properties
 @code{edge-width}, @code{edge-height}, and @code{shorten-pair} of
-@code{PianoPedalBracket} objects (, see the detailed documentation of
-@internalsref{PianoPedalBracket},) can be modified.  For example, the bracket
-may be extended to the end of the note head:
+@code{PianoPedalBracket} objects (see
+@internalsref{PianoPedalBracket} in the Program reference)  can be modified.  For example, the
+bracket may be extended to the end of the note head:
 
 @lilypond[fragment,verbatim]
 \property Staff.PianoPedalBracket \override
@@ -3235,7 +3242,7 @@ arpeggiate the chord. To draw these brackets, set the
 
 @seealso
 
-@internalsref{ArpeggioEvent} expression lead to
+@internalsref{ArpeggioEvent} music expressions lead to
 @internalsref{Arpeggio} objects.  Cross staff arpeggios are
 @internalsref{PianoStaff}.@internalsref{Arpeggio}.
 
@@ -3404,24 +3411,24 @@ more complex orderings, the best way is to setup the hierarchy of
 staves and lyrics first, e.g.
 @example
 \context ChoirStaff \notes <<
-  \new Lyrics @{ s1 @}
-  \new Staff @{ s1 @}
-  \new Lyrics @{ s1 @}
-  \new Staff @{ s1 @}
+  \context Lyrics = sopr @{ s1 @}
+  \context Staff = soprStaff @{ s1 @}
+  \context Lyrics = tenor @{ s1 @}
+  \context Staff = tenorStaff @{ s1 @}
 >>
 @end example
 and then combine the appropriate melodies and lyric lines:
 @example
   \addlyrics
-    \new Staff @emph{the music}
-    \new Lyrics @emph{the lyrics}
+    \context Staff = soprStaff  @emph{the music}
+    \context Lyrics = sopr @emph{the lyrics}
 @end example
 
 putting both together, you would get
 @example
 \context ChoirStaff \notes <<
-  \new Lyrics @dots{}
-  \new Staff @dots{}
+  \context Lyrics = @dots{}
+  \context Staff =  @dots{}
   \addlyrics @dots{}
 >>
 @end example
@@ -3564,8 +3571,7 @@ To apply, add the @internalsref{Ambitus_engraver} to the
   @}
 @end example
 
-For example,
-
+This results in the following output:
 @lilypond[singleline]
 upper = \notes \relative c {
   \clef "treble"
@@ -3598,75 +3604,19 @@ ambitus per staff rather than per each voice, then add the
 @internalsref{Ambitus_engraver} to the @internalsref{Staff} context
 rather than to the @internalsref{Voice} context.
 
-If you have a score with multiple staves and you want the ambitus to
-appear only in some of the staves, then you have to declare a new
-context type derived from the @internalsref{Voice} context or
-@internalsref{Staff} context.  The derived context must consist of the
-@internalsref{Ambitus_engraver} and it must be accepted by a proper
-parent context, in the below example the @internalsref{Staff} context
-or @internalsref{Score} context, respectively.  The original context
-and the derived context can then be used in parallel in the same
-score.
-
-@lilypond[singleline]
-voiceA = \notes \transpose c c'' {
-  c4 d e c e f g2
-}
-voiceB = \notes \transpose c c' {
-  e4 f g2 g8 a g f e4 c
-}
-\score {
-  \context ChoirStaff <<
-    \new Staff <<
-      \new VoiceWithAmbitus { \stemUp \voiceA }
-      \new VoiceWithAmbitus { \stemDown \voiceB }
-    >>
-    \new StaffWithAmbitus <<
-      \new Voice { \stemUp \voiceA }
-      \new Voice { \stemDown \voiceB }
-    >>
-    \new Staff <<
-      \new Voice { \stemUp \voiceA }
-      \new Voice { \stemDown \voiceB }
-    >>
-  >>
-  \paper {
-    raggedright = ##t
-    \translator {
-      \VoiceContext
-      \name "VoiceWithAmbitus"
-      \alias "Voice"
-      \consists Ambitus_engraver
-    }
-    \translator {
-      \StaffContext
-      \name "StaffWithAmbitus"
-      \alias "Staff"
-      \consists Ambitus_engraver
-    }
-    \translator {
-      \StaffContext
-      \accepts "VoiceWithAmbitus"
-    }
-    \translator {
-      \ScoreContext
-      \accepts "StaffWithAmbitus"
-    }
-  }
-}
-@end lilypond
-
+It is possible to tune individual ambiti for multiple voices on a
+single staff, for example by erasing or shifting them horizontally. An
+example is in @inputfileref{input/test,ambitus-mixed.ly}
 
 @seealso
 
-@internalsref{Ambitus}, and @inputfileref{input/regression,ambitus.ly}.
+@internalsref{Ambitus}, @inputfileref{input/regression,ambitus.ly},
+@inputfileref{input/test,ambitus-mixed.ly}.
 
 @refbugs
 
 There is no collision handling in the case of multiple per-voice
-ambitus.  To avoid collision, multiple ambitus in a single staff
-should be printed horizontally one after the other rather than on top
-of each other in the same horizontal position.
+ambitus.
 
 @node Tablatures
 @section Tablatures
@@ -3775,8 +3725,7 @@ takes three argument: string number, string tuning and note pitch.
 
 @refbugs
 
-Most of the guitar special effects such as bend have not been
-implemented yet.
+No guitar special effects have been implemented.
 
 
 
@@ -3895,8 +3844,9 @@ Modifiers can be mixed with additions:
 @cindex @code{m}
 
 Since an unaltered 11 does not sound good when combined with an
-unaltered 13, the 11 is removed in this case (, unless it is added
+unaltered 13, the 11 is removed in this case (unless it is added
 explicitly):
+@c
 @lilypond[fragment,verbatim]
   \chords { c:13 c:13.11 c:m13 }
 @end lilypond 
@@ -4018,6 +3968,10 @@ alteration. The transformation from pitch to letter is done by this
 function.  Special note names (for example, the German ``H'' for a
 B-chord) can be produced by storing a new function in this property.
 
+The pre-defined variables @code{\germanChords},
+@code{\semiGermanChords} set these variables.
+
+
 @cindex chordNoteNamer
 @item chordNoteNamer
 The default is to print single pitch, e.g. the bass note, using the
@@ -4032,7 +3986,7 @@ There are also two other chord name schemes implemented: an alternate
 Jazz chord notation, and a systematic scheme called Banter chords. The
 alternate jazz notation is also shown on the chart in @ref{Chord name
 chart}.  Turning on these styles is described in the input file
-@inputfileref{input/test/,chord-names-jazz.ly}.
+@inputfileref{input/test,chord-names-jazz.ly}.
 
 @cindex Banter
 @cindex jazz chords
@@ -4212,13 +4166,16 @@ and @internalsref{Staff}.@code{instr}. This will print a string before
 the start of the staff. For the first start, @code{instrument} is
 used, for the next ones @code{instr} is used:
 
+@quotation
 @lilypond[verbatim,singleline]
   \property Staff.instrument = "ploink " { c''4 }  
 @end lilypond
+@end quotation
 
 You can also use markup texts to construct more complicated instrument
 names:
 
+@quotation
 @lilypond[fragment,verbatim,singleline]
   \notes {
     \property Staff.instrument = \markup {
@@ -4231,7 +4188,7 @@ names:
      { c''1 }
   }
 @end lilypond
-
+@end quotation
 
 @seealso
 
@@ -4295,11 +4252,11 @@ you must put @code{\transpose} outside of @code{\relative}, since
 @cindex @code{R}
 
 Multi measure rests are entered using `@code{R}'. It is specifically
-meant for full bar rests and for entering parts: the rest can expand to
-fill a score with rests, or it can be printed as a single multimeasure
-rest. This expansion is controlled by the property
-@code{Score.skipBars}. If this is set to true, Lily will not expand
-empty measures, and the appropriate number is added automatically:
+meant for full bar rests and for entering parts: the rest can expand
+to fill a score with rests, or it can be printed as a single
+multimeasure rest. This expansion is controlled by the property
+@code{Score.skipBars}. If this is set to true, empty measures will not
+be expanded, and the appropriate number is added automatically:
 
 @lilypond[fragment,verbatim]
  \time 4/4 r1 | R1 | R1*2
@@ -4364,13 +4321,13 @@ There is no way to automatically condense multiple rests into a single
 multimeasure rest. Multi measure rests do not take part in rest
 collisions.
 
-Be careful when entering multimeasure rests followed by whole notes,
+Be careful when entering multimeasure rests followed by whole
+notes. The following will enter two notes lasting four measures each:
 @example
  R1*4 cis cis 
 @end example
-will enter two notes lasting four measures each. When @code{skipBars}
-is set, then the result will look OK, but the bar numbering will be
-off.
+When @code{skipBars} is set, then the result will look OK, but the
+bar numbering will be off.
 
 @node Automatic part combining
 @subsection Automatic part combining
@@ -4503,10 +4460,9 @@ in this example disappears in the second line:
 }
 @end lilypond
 
-In orchestral scores, the first page usually shows all staffs in
-full. To prevent empty staffs from being discarded from the first
-page, set @code{remove-first} to false in
-@internalsref{RemoveEmptyVerticalGroup}.
+The first page shows all staffs in full. If they should be  removed
+from  the first page too, set @code{remove-first} to false
+in @internalsref{RemoveEmptyVerticalGroup}.
 
 @node Different editions from one source
 @subsection Different editions from one source
@@ -4521,13 +4477,13 @@ for the full score, and one with cue notes for the instrumental part:
 @example
     c1
     \relative c' <<
-	\tag #'part <<
-	  R1 \\
-	  @{
-	      \property Voice.fontSize = #-1
-	      c4_"cue" f2 g4 @} 
+        \tag #'part <<
+          R1 \\
+          @{
+              \property Voice.fontSize = #-1
+              c4_"cue" f2 g4 @} 
         >>
-	\tag #'score R1
+        \tag #'score R1
      >>
      c1
 @end example
@@ -4549,8 +4505,8 @@ filtered. For example,
 @example
 \simultaneous @{
         @var{the music}
-	\apply #(remove-tag 'score) @var{the music}
-	\apply #(remove-tag 'part) @var{the music}
+        \apply #(remove-tag 'score) @var{the music}
+        \apply #(remove-tag 'part) @var{the music}
 @}
 @end example
 would yield
@@ -4717,13 +4673,13 @@ select ancient accidentals.   Supported styles are
                 { " " \musicglyph #"accidentals-vaticana-1"
                   " " \musicglyph #"accidentals-vaticana0" }
             >
-	    \column <
+            \column <
                 "medicaea"
-		{ " " \musicglyph #"accidentals-medicaea-1" }
+                { " " \musicglyph #"accidentals-medicaea-1" }
             >
-	    \column <
+            \column <
                 "hufnagel"
-		{ " " \musicglyph #"accidentals-hufnagel-1" }
+                { " " \musicglyph #"accidentals-hufnagel-1" }
             >
             \column <
                 "mensural"
@@ -4733,7 +4689,7 @@ select ancient accidentals.   Supported styles are
         }
     }
     \paper {
-	raggedright = ##t 
+        raggedright = ##t 
         interscoreline = 1
         \translator {
             \ScoreContext
@@ -5082,10 +5038,10 @@ following table:
 @lilypond
 \score {
     \notes {
-	\property Score.timing = ##f
-	\property Score.barAlways = ##t
-	s_\markup { "$\\backslash$time 4/4" }
-	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural4/4" }
+        \property Score.timing = ##f
+        \property Score.barAlways = ##t
+        s_\markup { "$\\backslash$time 4/4" }
+         ^\markup { "       " \musicglyph #"timesig-neo\_mensural4/4" }
 	s
 	s_\markup { "$\\backslash$time 2/2" }
 	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural2/2" }
@@ -5384,9 +5340,9 @@ square bracket above the ligature:
 @lilypond[singleline,verbatim]
 \score {
     \notes \transpose c c' {
-	\[ g c a f d' \]
-	a g f
-	\[ e f a g \]
+        \[ g c a f d' \]
+        a g f
+        \[ e f a g \]
     }
 }
 @end lilypond
@@ -5422,11 +5378,11 @@ To engrave white mensural ligatures, in the paper block the
 
 @example
     \paper @{
-	\translator @{
-	    \VoiceContext
-	    \remove Ligature_bracket_engraver
-	    \consists Mensural_ligature_engraver
-	@}
+        \translator @{
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Mensural_ligature_engraver
+        @}
     @}
 @end example
 
@@ -5441,33 +5397,33 @@ automatic transcription of the ligatures.
 For example,
 
 @example
-	\property Score.timing = ##f
-	\property Score.defaultBarType = "empty"
-	\property Voice.NoteHead \set #'style = #'neo_mensural
-	\property Staff.TimeSignature \set #'style = #'neo_mensural
-	\clef "petrucci_g"
-	\[ g\longa c\breve a\breve f\breve d'\longa \]
-	s4
-	\[ e1 f1 a\breve g\longa \]
+        \property Score.timing = ##f
+        \property Score.defaultBarType = "empty"
+        \property Voice.NoteHead \set #'style = #'neo_mensural
+        \property Staff.TimeSignature \set #'style = #'neo_mensural
+        \clef "petrucci_g"
+        \[ g\longa c\breve a\breve f\breve d'\longa \]
+        s4
+        \[ e1 f1 a\breve g\longa \]
 @end example
 @lilypond[singleline]
 \score {
     \notes \transpose c c' {
-	\property Score.timing = ##f
-	\property Score.defaultBarType = "empty"
-	\property Voice.NoteHead \set #'style = #'neo_mensural
-	\property Staff.TimeSignature \set #'style = #'neo_mensural
-	\clef "petrucci_g"
-	\[ g\longa c\breve a\breve f\breve d'\longa \]
-	s4
-	\[ e1 f1 a\breve g\longa \]
+        \property Score.timing = ##f
+        \property Score.defaultBarType = "empty"
+        \property Voice.NoteHead \set #'style = #'neo_mensural
+        \property Staff.TimeSignature \set #'style = #'neo_mensural
+        \clef "petrucci_g"
+        \[ g\longa c\breve a\breve f\breve d'\longa \]
+        s4
+        \[ e1 f1 a\breve g\longa \]
     }
     \paper {
-	\translator {
-	    \VoiceContext
-	    \remove Ligature_bracket_engraver
-	    \consists Mensural_ligature_engraver
-	}
+        \translator {
+            \VoiceContext
+            \remove Ligature_bracket_engraver
+            \consists Mensural_ligature_engraver
+        }
     }
 }
 @end lilypond
@@ -5479,14 +5435,14 @@ to the following:
 @lilypond[singleline]
 \score {
     \notes \transpose c c' {
-	\property Score.timing = ##f
-	\property Score.defaultBarType = "empty"
-	\property Voice.NoteHead \set #'style = #'neo_mensural
-	\property Staff.TimeSignature \set #'style = #'neo_mensural
-	\clef "petrucci_g"
-	\[ g\longa c\breve a\breve f\breve d'\longa \]
-	s4
-	\[ e1 f1 a\breve g\longa \]
+        \property Score.timing = ##f
+        \property Score.defaultBarType = "empty"
+        \property Voice.NoteHead \set #'style = #'neo_mensural
+        \property Staff.TimeSignature \set #'style = #'neo_mensural
+        \clef "petrucci_g"
+        \[ g\longa c\breve a\breve f\breve d'\longa \]
+        s4
+        \[ e1 f1 a\breve g\longa \]
     }
 }
 @end lilypond
@@ -7182,7 +7138,7 @@ takes care of making @internalsref{BassFigure} objects.
 In figures input mode, a group of bass figures is delimited by
 @code{<} and @code{>}. The duration is entered after the @code{>>}:
 @example
-	<4 6>
+        <4 6>
 @end example
 @lilypond[fragment]
 \context FiguredBass
@@ -7204,7 +7160,7 @@ Spaces or dashes may be inserted by using @code{_}. Brackets are
 introduced with @code{[} and @code{]}:
 
 @example
-	< [4 6] 8 [_! 12]>
+        < [4 6] 8 [_! 12]>
 @end example
 @lilypond[fragment]
  \context FiguredBass
@@ -7267,11 +7223,11 @@ entering the chant, as the following short excerpt demonstrates:
 
 In the 20th century, composers have greatly expanded the musical
 vocabulary. With this expansion, many innovations in musical notation
-have been tried. For a comprehensive overview, refer to @cite{Stone
-1980} (see @ref{Literature list}). In general, the use of new, innovative
-notation makes a piece harder to understand and perform and its use
-should therefore be avoided if possible.  For this reason, support for
-contemporary notation in LilyPond is limited.
+have been tried. The book by Stone (1980) gives a comprehensive
+overview (see @ref{Literature list}). In general, the use of new,
+innovative notation makes a piece harder to understand and perform and
+its use should therefore be avoided if possible.  For this reason,
+support for contemporary notation in LilyPond is limited.
 
 
 @menu
@@ -7554,7 +7510,7 @@ then you can use
 @end example
 @end itemize
 
-For the digirati, the object description is an Scheme association
+ The object description is an Scheme association
 list. Since a Scheme list is a singly linked list, we can treat it as
 a stack, and @code{\override} and @code{\revert} are push and pop
 operations.  The association list is stored in a normal context
@@ -7563,8 +7519,9 @@ property, hence
  \property Voice.NoteHead  = #'() 
 @end example
 will effectively erase @internalsref{NoteHead}s from the current
-@internalsref{Voice}. However, this mechanism is not guaranteed to
-work, and may cause crashes or other anomalous behavior.
+@internalsref{Voice}. Typically, this will blank the object. However,
+this mechanism should not be used: it may cause crashes or other
+anomalous behavior.
 
 @seealso
 
@@ -7576,8 +7533,8 @@ work, and may cause crashes or other anomalous behavior.
 @refbugs
 
 The backend is not very strict in type-checking object properties.
-Cyclic references in @var{value} cause hangs and/or crashes.
-Similarly, reverting properties that are system defaults may also lead
+Cyclic references in Scheme values for properties cause hangs and/or
+crashes.  Reverting properties that are system defaults may also lead
 to crashes.
 
 @node Constructing a tweak
@@ -7603,13 +7560,13 @@ The generated documentation is a set of HTML pages which should be
 included if you installed a binary distribution, typically in
 @file{/usr/share/doc/lilypond}.  They are also available on the web:
 go to the @uref{http://lilypond.org,LilyPond website}, click
-``Documentation'', and then ``Program reference'' on the side bar. It
-is advisable to bookmark either the local HTML files if possible. They
-will load faster than the ones on the web.  If you use the version
-from the web, you must check whether the documentation matches the
-program version: the documentation is generated from the definitions
-that the program uses, and therefore it is strongly tied to the
-LilyPond version.
+``Documentation'', select the correct version, and click then
+``Program reference.'' It is advisable to bookmark the local HTML
+files. They will load faster than the ones on the web.  If you use the
+version from the web, you must check whether the documentation matches
+the program version: it is generated from the definitions that the
+program uses, and therefore it is strongly tied to the LilyPond
+version.
 
 
 @c  [TODO: revise for new site.]
@@ -7629,7 +7586,10 @@ instructions}), you will notice that there is written:
 @seealso
 
 @internalsref{FingerEvent} and @internalsref{Fingering}.
+
 @end quotation
+
+@separate
 
 @noindent
 In other words, the fingerings once entered, are internally stored as
@@ -7637,8 +7597,8 @@ In other words, the fingerings once entered, are internally stored as
 layout object is created for every @code{FingerEvent}.
 
 The Fingering object has a number of different functions, and each of
-those is captured in an interface,  when we look up
-@internalsref{Fingering} in the generated documentation.
+those is captured in an interface. The interfaces are listed under
+@internalsref{Fingering} in the program reference.
 
 
 
@@ -7665,7 +7625,7 @@ For the vertical placement, we have to look under
 @code{side-position-interface}
 
   Position a victim object (this one) next to other objects (the
-  support).  In this case, the direction signifies where to put the
+  support).  In this case, the property @code{direction} signifies where to put the
   victim object relative to the support (left or right, up or down?)
 @end quotation
 
@@ -7723,7 +7683,9 @@ Of course, the tweak may also done in a larger context than
 @code{Voice}, for example, @internalsref{Staff} or
 @internalsref{Score}.
 
-The internals document also contains alphabetical lists of
+@seealso
+
+The program reference also contains alphabetical lists of
 @internalsref{Contexts}, @internalsref{All-layout-objects} and
 @internalsref{Music-expressions}, so you can also find which objects to
 tweak by browsing the internals document.
@@ -7739,10 +7701,10 @@ syntax is
 @end example
 
 @noindent
-where @var{proc} is a Scheme function, taking four arguments.
+where @var{proc} is a Scheme function, taking three arguments.
 
-When interpreted, the function @var{proc} is called for every layout object found
-in the context, with the following arguments:
+When interpreted, the function @var{proc} is called for every layout
+object found in the context, with the following arguments:
 @itemize @bullet
 @item the layout object itself,
 @item the context where the layout object was created, and
@@ -7755,32 +7717,6 @@ object property @code{cause}.  For example, for a note head, this is a
 @internalsref{NoteHead} event, and for a @internalsref{Stem} object,
 this is a @internalsref{NoteHead} object.
 
-
-@node Outputproperty
-@subsection Outputproperty
-
-@cindex @code{\outputproperty}
-
-Another way of tuning objects is the more arcane @code{\outputproperty}
-feature.  The syntax is as follows:
-@example
-\outputproperty @var{predicate} @var{symbol} = @var{value}
-@end example
-Here @code{predicate} is a Scheme function taking an object argument, and
-returning a boolean.  This statement is processed by the
-@code{Output_property_engraver}.  It instructs the engraver to feed all
-objects that it sees to @var{predicate}. Whenever the predicate returns
-true, the object property @var{symbol} will be set to @var{value}.
-
-You will need to combine this statement with @code{\context} to select
-the appropriate context to apply this to.
-@inputfileref{input/regression,output-property.ly} shows an example of
-the use of @code{\outputproperty}.
-
-@refbugs
-
-This command is slated for removal.  Please use the
-@code{\applyoutput} command, see @ref{Applyoutput}.
 
 
 @node Font selection
@@ -8338,8 +8274,8 @@ of these files, the variables @code{paperEleven},
 are defined respectively.  The default @code{\paper} block is also
 set. These files should be imported at toplevel, i.e.
 @example
-	\include "paper26.ly"
-	\score @{  ... @}
+        \include "paper26.ly"
+        \score @{  ... @}
 @end example
 
 The default font size settings for each staff heights are generated

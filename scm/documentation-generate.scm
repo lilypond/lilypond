@@ -43,7 +43,7 @@
 (display
  (string-append
   "@c -*-texinfo-*-"
-  (texi-file-head "LilyPond internals" outname "(lilypond.info)")
+  (texi-file-head "LilyPond program-reference" outname "(lilypond-internals.info)")
   "
 
 @ifhtml

@@ -1524,16 +1524,27 @@ def conv (str):
 		
 		raise FatalConversionError()
 	
-	if re.search ("ly:get-font", str) :
-		sys.stderr.write (r"(ly:get-font foo ..)  has been replaced by" + \
-				  " (ly:paper-get-font (ly:grob-get-paper foo) .. ).\n" +\
-				  "please update manually.")
-		
-		raise FatalConversionError()
 	return str
 		
 
 conversions.append (((1,9,6), conv, 'ly:get-font deprecated.'))
+
+def conv (str):
+	def sub_alteration (m):
+		alt = m.group (3)
+		alt = {
+			'-1': 'FLAT',
+			'-2': 'DOUBLE-FLAT',
+			'0': 'NATURAL',
+			'1': 'SHARP',
+			'2': 'DOUBLE-SHARP',
+			}[alt]
+		
+		return '(ly:make-pitch %s %s %s)' % (m.group(1), m.group (2), alt)
+	
+	str =re.sub ("\\(ly:make-pitch *([0-9-]+) *([0-9-]+) *([0-9-]+) *\\)", sub_alteration, str) 
+	return str
+conversions.append (((1,9,7), conv, 'use symbolic constants for alterations.'))
 
 
 

@@ -152,7 +152,7 @@ check: local-check
 local-check:
 
 # ugh.  ugh ugh ugh
-$(config_make): $(topdir)/configure $(topdir)/VERSION
+$(config_make): $(topdir)/configure
 	@echo "************************************************************"
 	@echo "configure changed! You should probably reconfigure manually."
 	@echo "************************************************************"

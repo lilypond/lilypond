@@ -65,6 +65,13 @@
 (define-public DOWN -1)
 (define-public CENTER 0)
 
+(define-public DOUBLE-FLAT -2)
+(define-public FLAT -1)
+(define-public SHARP 1)
+(define-public DOUBLE-SHARP 2)
+(define-public NATURAL 0)
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; lily specific variables.
 (define-public default-script-alist '())

@@ -303,7 +303,7 @@ Side_position_interface::supported_b (Grob*me)
 
 ADD_INTERFACE (Side_position_interface,"side-position-interface",
   "Position a victim object (this one) next to other objects (the "
-"support).  In this case, the direction signifies where to put the  "
+"support).  In this case, the property @code{direction} signifies where to put the  "
 "victim object relative to the support (left or right, up or down?) "
 ,
   "staff-padding side-support-elements direction-source direction side-relative-direction minimum-space padding");

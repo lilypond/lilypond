@@ -162,3 +162,31 @@ LY_DEFINE (get_broken_into,
 }
 
 
+LY_DEFINE (ly_grob_suicide,
+	  "ly:grob-suicide", 1, 0, 0, (SCM g),
+	   "Kill @var{g}.")
+{
+  Grob *me = unsmob_grob (g);
+  SCM_ASSERT_TYPE (me, g, SCM_ARG1, __FUNCTION__, "grob");
+
+  me->suicide ();
+  return SCM_UNDEFINED;
+}
+
+
+
+LY_DEFINE (ly_grob_translate_axis_x,
+	  "ly:grob-translate-axis!", 3, 0, 0,
+	   (SCM g, SCM d, SCM a),
+	   "Translate @var{g} on axis @var{a} over distance @var{d}.")
+{
+  Grob *me = unsmob_grob (g);
+  SCM_ASSERT_TYPE (me, g, SCM_ARG1, __FUNCTION__, "grob");
+  SCM_ASSERT_TYPE (gh_number_p (d), d, SCM_ARG2, __FUNCTION__, "dimension");
+  SCM_ASSERT_TYPE (ly_axis_p (a), a, SCM_ARG3, __FUNCTION__, "axis");
+
+  me->translate_axis (gh_scm2double (d),
+		      Axis (gh_scm2int (a)));
+  return SCM_UNDEFINED;
+}
+
