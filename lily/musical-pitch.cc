@@ -9,6 +9,7 @@
 #include "musical-pitch.hh"
 #include "debug.hh"
 #include "main.hh"
+#include "ly-smobs.icc"
 
 int
 compare (Array<Musical_pitch>* left, Array<Musical_pitch>* right)
@@ -31,37 +32,35 @@ compare (Array<Musical_pitch>* left, Array<Musical_pitch>* right)
   return 0;
 }
 
-SCM
-Musical_pitch::to_scm ()const
-{
-  return gh_list (gh_int2scm (octave_i_),
-		  gh_int2scm (notename_i_),
-		  gh_int2scm (accidental_i_),
-		  SCM_UNDEFINED);
-}
-
-
-Musical_pitch::Musical_pitch (SCM s)
-{
-  octave_i_ = gh_scm2int (gh_car (s));
-  notename_i_ = gh_scm2int (gh_cadr (s));
-  accidental_i_ = gh_scm2int (gh_caddr (s));
-}
-
-Musical_pitch::Musical_pitch (int n, int a, int o)
+Musical_pitch::Musical_pitch (int o, int n, int a)
 {
   notename_i_ = n;
-  accidental_i_ = a;
+  alteration_i_ = a;
   octave_i_ = o;
+
+  if (n < 0 || n >= 7 ||
+      a < -2 || a > 2)
+    {
+      String s = _("Pitch arguments out of range");
+      s += ": alteration = " + to_str (a);
+      s += ", notename = " + to_str (n);
+      warning (s);
+    }
 }
 
+Musical_pitch::Musical_pitch ()
+{
+  notename_i_ = 0;
+  alteration_i_ = 0;
+  octave_i_ = 0;
+}
 
 int
 Musical_pitch::compare (Musical_pitch const &m1, Musical_pitch const &m2)
 {
-    int o=  m1.octave_i_ - m2.octave_i_;
+  int o=  m1.octave_i_ - m2.octave_i_;
   int n = m1.notename_i_ - m2.notename_i_;
-  int a = m1.accidental_i_ - m2.accidental_i_;
+  int a = m1.alteration_i_ - m2.alteration_i_;
 
   if (o)
 	return o;
@@ -79,14 +78,14 @@ Musical_pitch::steps () const
 }
 
 /*
-  should be settable from input to allow "viola"-mode
+  should be settable from input?
  */
 static Byte pitch_byte_a[  ] = { 0, 2, 4, 5, 7, 9, 11 };
 
 int
 Musical_pitch::semitone_pitch () const
 {
-  return  pitch_byte_a[ notename_i_ % 7 ] + accidental_i_ + octave_i_ * 12;
+  return  pitch_byte_a[ notename_i_ % 7 ] + alteration_i_ + octave_i_ * 12;
 }
 
 void
@@ -106,7 +105,7 @@ Musical_pitch::transpose (Musical_pitch delta)
 
   int new_pitch = semitone_pitch ();
   int delta_acc = new_pitch - old_pitch - delta_pitch;
-  accidental_i_ -= delta_acc;
+  alteration_i_ -= delta_acc;
 }
 
 
@@ -123,8 +122,8 @@ Musical_pitch::str () const
 {
   int n = (notename_i_ + 2) % 7;
   String s = to_str (char(n + 'a'));
-  if (accidental_i_)
-    s += String (accname[accidental_i_ + 2]);
+  if (alteration_i_)
+    s += String (accname[alteration_i_ + 2]);
 
   if (octave_i_ > 0)
     {
@@ -154,8 +153,8 @@ Musical_pitch::to_relative_octave (Musical_pitch p)
   Musical_pitch up_pitch (p);
   Musical_pitch down_pitch (p);
 
-  up_pitch.accidental_i_ = accidental_i_;
-  down_pitch.accidental_i_ = accidental_i_;
+  up_pitch.alteration_i_ = alteration_i_;
+  down_pitch.alteration_i_ = alteration_i_;
   
   Musical_pitch n = *this;
   up_pitch.up_to (notename_i_);
@@ -193,3 +192,157 @@ Musical_pitch::down_to (int notename)
   notename_i_ = notename;
 }
 
+/****************************************************************/
+
+
+IMPLEMENT_TYPE_P(Musical_pitch, "pitch?");
+IMPLEMENT_UNSMOB(Musical_pitch, pitch);
+SCM
+Musical_pitch::mark_smob (SCM )
+{
+  return SCM_EOL;
+}
+
+IMPLEMENT_SIMPLE_SMOBS(Musical_pitch);
+
+
+int
+Musical_pitch::print_smob (SCM s, SCM port, scm_print_state *)
+{
+  Musical_pitch  *r = (Musical_pitch *) gh_cdr (s);
+     
+  scm_puts ("#<Musical_pitch ", port);
+  scm_display (gh_str02scm (r->str().ch_C()), port);
+  scm_puts (" >", port);
+  
+  return 1;
+}
+
+SCM
+Musical_pitch::equal_p (SCM a , SCM b)
+{
+  Musical_pitch  *p = (Musical_pitch *) gh_cdr (a);
+  Musical_pitch  *q = (Musical_pitch *) gh_cdr (b);  
+
+  bool eq = p->notename_i_ == q->notename_i_
+    && p->octave_i_ == q->octave_i_
+    && p->alteration_i_ == q->alteration_i_;
+
+  return eq ? SCM_BOOL_T : SCM_BOOL_F;
+}
+
+MAKE_SCHEME_CALLBACK(Musical_pitch, less_p, 2);
+SCM
+Musical_pitch::less_p (SCM p1, SCM p2)
+{
+  Musical_pitch *a = unsmob_pitch (p1);
+  Musical_pitch *b = unsmob_pitch (p2);
+
+  if (compare(*a, *b) < 0 )
+    return SCM_BOOL_T;
+  else
+    return SCM_BOOL_F;
+}
+
+/*
+  should add optional args
+ */
+
+static SCM
+make_pitch (SCM o, SCM n, SCM a)
+{
+  Musical_pitch p;
+  p.octave_i_ = gh_scm2int (o);    
+  p.notename_i_ = gh_scm2int (n);
+  p.alteration_i_ = gh_scm2int (a);
+  return p.smobbed_copy ();
+}
+
+static SCM
+pitch_octave (SCM pp)
+{
+  Musical_pitch *p = unsmob_pitch (pp);
+  int q = 0;
+  if (!p)
+    warning ("Not a pitch");
+  else
+    q = p->octave_i();
+
+  return gh_int2scm (q);
+}
+
+static SCM
+pitch_alteration (SCM pp)
+{
+  Musical_pitch *p = unsmob_pitch (pp);
+  int q = 0;
+  if (!p)
+    warning ("Not a pitch");
+  else
+    q = p->alteration_i();
+
+  return gh_int2scm (q);
+}
+
+static SCM
+pitch_notename (SCM pp)
+{
+  Musical_pitch *p = unsmob_pitch (pp);
+  int q = 0;
+  if (!p)
+    warning ("Not a pitch");
+  else
+    q = p->notename_i();
+
+  return gh_int2scm (q);
+}
+
+static SCM
+pitch_semitones (SCM pp)
+{
+  Musical_pitch *p = unsmob_pitch (pp);
+  int q = 0;
+  if (!p)
+    warning ("Not a pitch");
+  else
+    q = p->steps();
+
+  return gh_int2scm (q);
+}
+
+static void
+add_funcs()
+{
+  scm_make_gsubr ("make-pitch", 3, 0, 0, (Scheme_function_unknown)make_pitch);
+  scm_make_gsubr ("pitch-octave", 1, 0, 0, (Scheme_function_unknown)pitch_octave);
+  scm_make_gsubr ("pitch-notename", 1, 0, 0, (Scheme_function_unknown)pitch_notename);
+  scm_make_gsubr ("pitch-alteration", 1, 0, 0, (Scheme_function_unknown)pitch_alteration);
+  scm_make_gsubr ("pitch-semitones", 1, 0, 0, (Scheme_function_unknown)pitch_semitones);
+}
+
+ADD_SCM_INIT_FUNC(pitch, add_funcs);
+
+SCM
+Musical_pitch::smobbed_copy ()const
+{
+  Musical_pitch *  p = new Musical_pitch (*this);
+  return p->smobbed_self ();
+}
+
+int
+Musical_pitch::octave_i ()const
+{
+  return octave_i_;
+}
+
+int
+Musical_pitch::notename_i () const
+{
+  return notename_i_;
+}
+
+int
+Musical_pitch::alteration_i () const
+{
+  return alteration_i_;
+}

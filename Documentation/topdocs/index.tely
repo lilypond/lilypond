@@ -29,9 +29,9 @@ editor to enter it, you can put it in mail or embed it in an article like
 this:
 
 @quotation
-@mudela[fragment,verbatim]
+@lilypond[fragment,verbatim]
 \relative c'' { \key c \minor; r8 c16 b c8 g as c16 b c8 d | g,4 }
-@end mudela 
+@end lilypond 
 @end quotation
 
 The output looks very good: the font and the layout algorithms were

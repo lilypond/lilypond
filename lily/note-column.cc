@@ -127,12 +127,6 @@ Note_column::set_dotcol (Score_element*me,Score_element *d)
 
 
 
-Interval
-Note_column::rest_dim (Score_element*me) 
-{
-  Score_element * r = unsmob_element (me->get_elt_property ("rest"));
-  return r->extent (r, Y_AXIS);	// ??
-}
 
 Score_element*
 Note_column::first_head (Score_element*me) 

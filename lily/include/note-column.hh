@@ -34,7 +34,6 @@ public:
   static Direction static_dir (Score_element*);
   static void translate_rests(Score_element*me,int dy);
   static Score_element * first_head (Score_element*me);
-  static Interval rest_dim (Score_element*me);
   static void set_stem (Score_element*me,Score_element*);
   static void set_dotcol (Score_element*me,Score_element*);
   static void add_head (Score_element*me,Score_element*);

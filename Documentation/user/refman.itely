@@ -52,15 +52,9 @@
 @section Overview
 
 This document@footnote{This document has been revised for
-LilyPond 1.2.} describes the the GNU LilyPond input format, which is
-a language for defining music.  We call this language @emph{Music
-Definition Language} or @emph{Mudela}, for short.@footnote{If anybody
-comes up with a better name, we'd gladly take this.  Gourlay already
-uses a ``Musical Description Language,'' ISO standard 10743 defines a
-``Standard Music Description Language.''  We're not being original
-here.}
+LilyPond 1.2.} describes the the GNU LilyPond input format
 
-@emph{Mudela} is a language that allows you to
+with @emph{Lilypond}-input you can
 
 @itemize @bullet
   @item  create musical expressions by combining pitches, durations 
@@ -69,7 +63,7 @@ here.}
        you can enter them in manageable chunks.
 @end itemize
 
-@emph{Mudela} aims to define a piece of music completely, both from
+@emph{Lilypond} input aims to define a piece of music completely, both from
 typesetting and from a performance point of view.
 
 
@@ -302,7 +296,7 @@ filename including the @file{.ly} extension must be given,
 Specify the version of LilyPond that a file was written for.  The
 argument is a version string in quotes, for example @code{"1.2.0"}. 
 This is used to detect invalid input, and to aid
-@code{convert-mudela}, a tool that automatically upgrades input files.
+@code{convert-ly}, a tool that automatically upgrades input files.
 
 
 
@@ -338,7 +332,7 @@ subsection XREF-notenames [FIXME].
 
 @node modes, , ,  Reference Manual
 
-To simplify entering notes, lyrics, and chords, @emph{Mudela} has three
+To simplify entering notes, lyrics, and chords, @emph{Lilypond} has three
 special input modes on top of the default mode.  In each mode, words
 are identified on the input.  If @code{"word"} is encountered, it is
 treated as a string.  If @code{\word} is encountered, it is treated as
@@ -350,7 +344,7 @@ different modes have different rules for deciding what is a word.
   @item Normal mode.
 @cindex mode!normal
  
-    At the start of parsing, @emph{Mudela} is in Normal mode.  In Normal
+    At the start of parsing, @emph{Lilypond} is in Normal mode.  In Normal
     mode, a word is an alphabetic character followed by alphanumeric
     characters.  If @code{word} is encountered on the input it is
     treated as a string.
@@ -438,7 +432,7 @@ versions, thus the use of the dollar sign is discouraged.}
 
 @cindex types and identifiers
 
-@emph{Mudela} has a limited set of types:
+@emph{Lilypond} has a limited set of types:
 
 @itemize @bullet
   @item  integers
@@ -455,7 +449,7 @@ versions, thus the use of the dollar sign is discouraged.}
   @item  score definitions (@code{\score}@keyindex{score} blocks)
 @end itemize
 
-Type is a syntactical property: @emph{Mudela} has no real type system,
+Type is a syntactical property: @emph{Lilypond} has no real type system,
 so there is no support for generic expressions, functions, or user
 defined types.  For the same reason, it is not possible to mix reals
 and integers in arithmetic expressions, and ``type
@@ -469,7 +463,7 @@ Identifiers allow objects to be assigned to names.  To assign an
 identifier, you use `@var{name}=@var{value}' and to refer to an
 identifier, you preceed its name with a backslash:
 `@code{\}@var{name}'.  Identifier assignments must appear at top level
-in the @emph{Mudela} file.  Semicolons are forbidden after assignments
+in the @emph{Lilypond} file.  Semicolons are forbidden after assignments
 appearing at top level but they are obligatory after assignments
 appearing in the @code{\paper} block, see Section XREF-paper [FIXME].
 
@@ -505,7 +499,7 @@ reference to the first identifier useless.}
 
 @cindex music expressions
 
-Music in @emph{Mudela} is entered as a music expression.  Notes, rests,
+Music in @emph{Lilypond} is entered as a music expression.  Notes, rests,
 lyric syllables are music expressions (the atomic
 expressions)
 @cindex atomic music expressions
@@ -606,25 +600,25 @@ single quote (`@code{'}@indexcode{'}') characters or a series of comma
 (`@code{,}@indexcode{,}') characters.  Each @code{'} raises the pitch by one
 octave; each @code{,} lowers the pitch by an octave.
 
-@mudela[fragment,verbatim,center]
+@lilypond[fragment,verbatim,center]
   c' d' e' f' g' a' b' c''
-@end mudela
+@end lilypond
 
-@mudela[fragment,verbatim,center]
+@lilypond[fragment,verbatim,center]
   cis' dis' eis' fis' gis' ais' bis'
-@end mudela
+@end lilypond
 
-@mudela[fragment,verbatim,center]
+@lilypond[fragment,verbatim,center]
   ces' des' es' fes' ges' as' bes'
-@end mudela
+@end lilypond
 
-@mudela[fragment,verbatim,center]
+@lilypond[fragment,verbatim,center]
   cisis' eisis' gisis' aisis' beses'
-@end mudela
+@end lilypond
 
-@mudela[fragment,verbatim,center]
+@lilypond[fragment,verbatim,center]
   ceses' eses' geses' ases' beses'
-@end mudela
+@end lilypond
 
 Whenever a C-sharp is desired,  you must specify a C-sharp.  LilyPond
 will determine what accidentals to typeset depending on the key and
@@ -638,9 +632,9 @@ cautionary accidental,
 accidental within parentheses can be obtained by adding the question
 mark `@code{?}@indexcode{?}' after the pitch.
 
-@mudela[fragment,verbatim,center]
+@lilypond[fragment,verbatim,center]
   cis' d' e' cis'  c'? d' e' c'!
-@end mudela
+@end lilypond
 
 
 @cindex duration
@@ -659,7 +653,7 @@ c'1 c'2 c'4 c'8 c'16 c'32 c'64 c'64
 
 @quotation
 
-@mudela[]
+@lilypond[]
 \score {
   \notes \relative c'' {
     a\longa a\breve  
@@ -673,7 +667,7 @@ c'1 c'2 c'4 c'8 c'16 c'32 c'64 c'64
     } %}
   }
 }
-@end mudela
+@end lilypond
 @end quotation
 
 @quotation
@@ -687,7 +681,7 @@ r1 r2 r4 r8 r16 r32 r64 r64
 
 @quotation
 
-@mudela[]
+@lilypond[]
 \score {
   \notes \relative c'' {
     r\longa r\breve  
@@ -704,7 +698,7 @@ r1 r2 r4 r8 r16 r32 r64 r64
     }
   }
 }
-@end mudela
+@end lilypond
 @end quotation
 
 If the duration is omitted then it is set equal to the previous
@@ -712,9 +706,9 @@ duration.  If there is no previous duration, a quarter note is
 assumed.  The duration can be followed by a dot (`@code{.}@indexcode{.}')
 to obtain dotted note lengths.
 
-@mudela[fragment,verbatim,center]
+@lilypond[fragment,verbatim,center]
   a'4. b'4.
-@end mudela
+@end lilypond
 
 You can alter the length of duration by writing
 `@code{*}@var{fraction}' after it.  This will not affect the
@@ -791,13 +785,13 @@ formatting, this is the feature to use. The downside to this is that
 you need to know exactly how the backend works. Example:
 
 
-@mudela[fragment,verbatim]
+@lilypond[fragment,verbatim]
 \relative c'' { c4
 	\context Staff \outputproperty
 		#(make-type-checker 'Note_head)
 		#'extra-offset = #'(5.0 . 7.5)
 <c8 e g> }
-@end mudela
+@end lilypond
 
 This selects all note heads occurring at current staff level, and sets
 the extra-offset of those heads to (5,7.5), shifting them up and
@@ -962,7 +956,7 @@ clef:
 
 @quotation
 
-@mudela[]
+@lilypond[]
 \score {
   \notes {
     \cadenzaOn
@@ -978,12 +972,12 @@ clef:
     linewidth = -1.0;
   }
 }
-@end mudela
+@end lilypond
 @end quotation
 
 @quotation
 
-@mudela[]
+@lilypond[]
 \score {
   \notes {
 	\cadenzaOn
@@ -997,7 +991,7 @@ clef:
     linewidth = 4.5 \in;
   }
 }
-@end mudela
+@end lilypond
 @end quotation
 
 The three clef symbols can also be obtained using the names `@code{G}', 
@@ -1023,16 +1017,16 @@ this has the same effect as the space rest `@code{s}'.
 A beam is specified by surrounding the beamed notes with brackets
 `@code{[}@indexcode{[}' and `@code{]}@indexcode{]}'.  
 
-@mudela[fragment,verbatim,center]
+@lilypond[fragment,verbatim,center]
   [a'8 a'] [a'16 a' a' a']
-@end mudela
+@end lilypond
 
 Some more elaborate constructions:
 
-@mudela[fragment,verbatim,center]
+@lilypond[fragment,verbatim,center]
   [a'16 <a' c''> c'' <a' c''>]
   \times 2/3 { [e'8 f' g'] }
-@end mudela
+@end lilypond
 
 Beaming can be generated automatically; see section XREF-autobeam [FIXME].
 
@@ -1046,14 +1040,14 @@ style.
 XREF-tremolo [FIXME]).
   
 
-@mudela[fragment,verbatim,center]
+@lilypond[fragment,verbatim,center]
   \repeat "tremolo" 8 { c16 d16 }
   \repeat "tremolo" 4 { c16 d16 }    
-@end mudela
+@end lilypond
 
-@mudela[fragment,verbatim,center]
+@lilypond[fragment,verbatim,center]
   c'4:32
-@end mudela
+@end lilypond
 
 
 @cindex --@@@code{-}@code{-}
@@ -1078,9 +1072,9 @@ Ties are indicated using the tilde symbol `@code{~}@indexcode{~}'.
 If you try to tie together chords which have no common pitches, a
 warning message will appear and no ties will be created.
 
-@mudela[fragment,verbatim,center]
+@lilypond[fragment,verbatim,center]
   e' ~ e' <c' e' g'> ~ <c' e' g'>
-@end mudela
+@end lilypond
 
 
 
@@ -1102,7 +1096,7 @@ forced to appear above or below the note by writing
 respectively.  Here is a chart showing symbols above notes, with the
 name of the corresponding symbol appearing underneath.
 
-@mudela[]
+@lilypond[]
 
   \score {
     < \notes {
@@ -1130,7 +1124,7 @@ name of the corresponding symbol appearing underneath.
     }
   }
 
-@end mudela
+@end lilypond
 
 In addition, it is possible to place arbitrary strings of text or
 @TeX{} above or below notes by using a string instead of an
@@ -1145,7 +1139,7 @@ To save typing, fingering instructions (digits 0 to 9 are
 supported) and single characters shorthands exist for a few
 common symbols
 
-@mudela[]
+@lilypond[]
 
   \score {
     \notes {
@@ -1167,7 +1161,7 @@ common symbols
     }
   }
 
-@end mudela
+@end lilypond
 
 Dynamic marks are specified by using an identifier after a note:
 `@code{c4-\ff}' (the dash is optional for dynamics: `@code{c4 \ff})'.  
@@ -1230,9 +1224,9 @@ the slur.  The terminal `@code{)}' appears to the left of the
 first note in the slur.  This makes it possible to put a note in
 slurs from both sides:
 
-@mudela[fragment,verbatim,center]
+@lilypond[fragment,verbatim,center]
   f'()g'()a' [a'8 b'(] a'4 g'2 )f'4
-@end mudela
+@end lilypond
 
 
 @cindex crescendo
@@ -1249,10 +1243,10 @@ and @code{\rced} go after the last note.  Because these marks are
 bound to notes, if you want to get several marks during one note, you
 must use spacer notes.
 
-@mudela[fragment,verbatim,center]
+@lilypond[fragment,verbatim,center]
   c'' \< \! c''   d'' \decr e'' \rced 
   < f''1 { s4 \< \! s2 \> \! s4 } >
-@end mudela
+@end lilypond
 
 
 @example
@@ -1270,10 +1264,10 @@ use the shorthands which are defined in the initialization file
 
 You can attach a (general) span request to a note using
 
-@mudela[fragment,verbatim,center]
+@lilypond[fragment,verbatim,center]
   c'4-\spanrequest \start "slur"
   c'4-\spanrequest \stop "slur"
-@end mudela
+@end lilypond
 
 The slur syntax with parentheses is a shorthand for this.
 
@@ -1290,9 +1284,9 @@ the note stem.  If the length is omitted, then the last value is
 used, or the value of the @code{tremoloFlags}@indexcode{tremoloFlags} property if there was
 no last value.
 
-@mudela[verbatim,fragment,center]
+@lilypond[verbatim,fragment,center]
   c'2:8 c':32
-@end mudela
+@end lilypond
 
 
 
@@ -1305,13 +1299,13 @@ Music expressions are compound data structures.  You can nest music
 expressions any way you like.  This simple example shows how three
 chords can be expressed in two different ways:
 
-@mudela[fragment,verbatim,center]
+@lilypond[fragment,verbatim,center]
   \notes \context Staff {
     \cadenzaOn
     <a c'> <b  d' > <c' e'>
     < { a b  c' } { c' d' e' } >
   }
-@end mudela
+@end lilypond
 
 @cindex context selection
 @c @keyindex{context}
@@ -1390,28 +1384,28 @@ elements.  The following shorthand is a common idiom:
 If you try to use a chord as the first thing in your score, you might
 get multiple staffs instead of a chord.
 
-@mudela[verbatim,center]
+@lilypond[verbatim,center]
   \score {
     \notes <c''4 e''>
     \paper {
       linewidth = -1.;
     }
   }
-@end mudela
+@end lilypond
 
 This happens because the chord is interpreted by a score context.
 Each time a note is encountered a default Voice context (along with a
 Staff context) is created.  The solution is to explicitly instantiate
 a Voice context:
 
-@mudela[verbatim,center]
+@lilypond[verbatim,center]
   \score {
     \notes\context Voice <c''4 e''>
     \paper {
       linewidth = -1.;
     }
   }
-@end mudela
+@end lilypond
 
 
 
@@ -1441,31 +1435,31 @@ specified that will act as the predecessor of the first note of
 
 Entering scales is straightforward in relative mode.
 
-@mudela[fragment,verbatim,center]
+@lilypond[fragment,verbatim,center]
   \relative c' {
     c d e f g a b c c,
   }
-@end mudela
+@end lilypond
 
 And octave changing marks are used for intervals greater than a fourth.
 
-@mudela[fragment,verbatim,center]
+@lilypond[fragment,verbatim,center]
   \relative c'' {
     c g c f, c' a, e'' }
-@end mudela
+@end lilypond
 
 If the preceding item is a chord, the first note of the chord is used
 to determine the first note of the next chord.  But other notes
 within the second chord are determined by looking at the immediately
 preceding note.
 
-@mudela[fragment,verbatim,center]
+@lilypond[fragment,verbatim,center]
   \relative c' {
     c <c e g> 
     <c' e g>
     <c, e' g>
   }
-@end mudela 
+@end lilypond 
 
 The pitch after the @code{\relative} contains a notename.  To parse
 the pitch as a notename, you have to be in note mode, so there must
@@ -1503,7 +1497,7 @@ must be separated by a dot (`@code{.}').
 
 @quotation
 
-@mudela[fragment,verbatim]
+@lilypond[fragment,verbatim]
 \transpose c'' {
   \chords {
     c1  c:3-       c:7     c:8
@@ -1511,7 +1505,7 @@ must be separated by a dot (`@code{.}').
   }
 }
 
-@end mudela
+@end lilypond
 @end quotation
 
 The second type of modifier that may appear after the `@code{:}' is a
@@ -1524,14 +1518,14 @@ which replaces the 5th with a 4th.
 
 @quotation
 
-@mudela[fragment,verbatim]
+@lilypond[fragment,verbatim]
 \transpose c'' {
   \chords {
     c1:m c:min7 c:maj c:aug c:dim c:sus
   }
 }
 
-@end mudela
+@end lilypond
 @end quotation
  
 
@@ -1539,13 +1533,13 @@ Chord subtractions are used to eliminate notes from a chord.  The
 notes to be subtracted are listed after a `@code{^}' character,
 separated by dots.
 
-@mudela[fragment,verbatim,center]
+@lilypond[fragment,verbatim,center]
   \transpose c'' {
     \chords {
       c1^3 c:7^5.3 c:8^7
     }
   }
-@end mudela 
+@end lilypond 
 
 Chord inversions can be specified by appending `@code{/}@indexcode{/}' and
 the name of a single note to a chord.  This has the effect of
@@ -1553,28 +1547,28 @@ lowering the specified note by an octave so it becomes the lowest
 note in the chord.  If the specified note is not in the chord, a
 warning will be printed.
 
-@mudela[fragment,verbatim,center]
+@lilypond[fragment,verbatim,center]
   \transpose c''' {
     \chords {
       c1 c/e c/g c:7/e
     }
   }
 
-@end mudela 
+@end lilypond 
 
 Bass notes can be added by `@code{/+}@indexcode{/+}' and
 the name of a single note to a chord.  This has the effect of
 adding the specified note to the chord, lowered by an octave,
 so it becomes the lowest note in the chord.
 
-@mudela[fragment,verbatim,center]
+@lilypond[fragment,verbatim,center]
   \transpose c''' {
     \chords {
       c1 c/+c c/+g c:7/+b
     }
   }
 
-@end mudela 
+@end lilypond 
 
 Throughout these examples, chords have been shifted around the staff
 using @code{\transpose}.
@@ -1599,9 +1593,9 @@ optionally with a bracket.  The most common tuplet is the triplet in
 which 3 notes have the length of 2, so the notes are 2/3 of
 their written length:
 
-@mudela[fragment,verbatim,center]
+@lilypond[fragment,verbatim,center]
   g'4 \times 2/3 {c'4 c' c'} d'4 d'4
-@end mudela
+@end lilypond
 
 
 
@@ -1630,13 +1624,13 @@ stem.  This behavior can be controlled with the
 
 @quotation
 
-@mudela[fragment,verbatim]
+@lilypond[fragment,verbatim]
 \relative c'' {
   \grace c8 c4 \grace { [c16 c16] } c4
   \grace { \property Grace.flagStyle = "" c16 } c4
 }
 
-@end mudela
+@end lilypond
 @end quotation
 
 At present, nesting @code{\grace}@keyindex{grace} notes, e.g.
@@ -1701,24 +1695,24 @@ Normal notation repeats are used like this:
 
 @quotation
 
-@mudela[fragment,verbatim]
+@lilypond[fragment,verbatim]
   c'1
   \repeat volta 2 { c'4 d' e' f' }
   \repeat volta 2 { f' e' d' c' }
 
-@end mudela
+@end lilypond
 @end quotation
 
 With alternative endings:
 
 @quotation
 
-@mudela[fragment,verbatim]
+@lilypond[fragment,verbatim]
   c'1
   \repeat volta 2 {c'4 d' e' f'} 
   \alternative { {d'2 d'} {f' f} }
 
-@end mudela
+@end lilypond
 @end quotation
 
 Folded repeats look like this:@footnote{Folded repeats offer little
@@ -1728,17 +1722,17 @@ implemented.}
 
 @quotation
 
-@mudela[fragment,verbatim]
+@lilypond[fragment,verbatim]
   c'1
   \repeat fold 2 {c'4 d' e' f'} 
   \alternative { {d'2 d'} {f' f} }
 
-@end mudela
+@end lilypond
 @end quotation
 
 @quotation
 
-@mudela[fragment,verbatim]
+@lilypond[fragment,verbatim]
 \context Staff {
   \relative c' {
     \partial 4;
@@ -1747,7 +1741,7 @@ implemented.}
   }
 }
 
-@end mudela
+@end lilypond
 @end quotation
 
 If you don't give enough alternatives for all of the repeats, then
@@ -1756,7 +1750,7 @@ the specified number of repeats.
 
 @quotation
 
-@mudela[fragment,verbatim]
+@lilypond[fragment,verbatim]
 \context Staff {
   \relative c' {
     \repeat volta 3 { \partial 4; e | c2 d2 | e2 f2 | }
@@ -1766,7 +1760,7 @@ the specified number of repeats.
   }
 }
 
-@end mudela
+@end lilypond
 @end quotation
 
 It is possible to nest @code{\repeat}.  This is not entirely
@@ -1797,7 +1791,7 @@ will print flats.
 
 @quotation
 
-@mudela[fragment,verbatim]
+@lilypond[fragment,verbatim]
 \context Staff {
   \clef "F";
   { \key e \major; c d e f }
@@ -1806,7 +1800,7 @@ will print flats.
   \transpose cis'' { \key e \major; c d e f }
 }
 
-@end mudela
+@end lilypond
 @end quotation
 
 If you want to use both @code{\transpose} and @code{\relative}, then
@@ -1837,7 +1831,7 @@ notes.
 
 @quotation
 
-@mudela[verbatim,fragment]
+@lilypond[verbatim,fragment]
 \addlyrics
 \transpose c'' {
   \property Voice.automaticMelismata = ##t
@@ -1846,7 +1840,7 @@ notes.
 \context Lyrics \lyrics {
  do4 re mi fa }
 
-@end mudela
+@end lilypond
 @end quotation
 
 You should use a single rhythm melody, and single rhythm lyrics (a
@@ -1855,7 +1849,7 @@ undesired effects when using multiple stanzas:
 
 @quotation
 
-@mudela[verbatim,fragment]
+@lilypond[verbatim,fragment]
 \addlyrics
 \transpose c'' {
   c8 () cis d8. e16 f2
@@ -1864,7 +1858,7 @@ undesired effects when using multiple stanzas:
 < { do4 re mi fa }
   { do8 re mi fa } >
 
-@end mudela
+@end lilypond
 @end quotation
 
 It is valid (but probably not very useful) to use notes instead of
@@ -1973,7 +1967,7 @@ simultaneous music.
 
 @quotation
 
-@mudela[fragment,verbatim]
+@lilypond[fragment,verbatim]
 <
   \context ChordNames {
     \chords{a b c} \notes{<d f g>  <e g b>}
@@ -1983,14 +1977,14 @@ simultaneous music.
   }
 >
 
-@end mudela
+@end lilypond
 @end quotation
 
 LilyPond examines chords specified as lists of notes to determine a
 name to give the chord.  By default, LilyPond will not try to
 identify chord inversions:
 
-@mudela[fragment,verbatim,center]
+@lilypond[fragment,verbatim,center]
   <
     \context ChordNameVoice \notes {
       <e'1 g' c''>
@@ -1999,12 +1993,12 @@ identify chord inversions:
       <e'1 g' c''>
     }
   >
-@end mudela
+@end lilypond
 
 If you want inversions to be recognized, you must set the property
 @code{ChordNames.chordInversion}@indexcode{ChordNames.chordInversion}:
 
-@mudela[fragment,verbatim,center]
+@lilypond[fragment,verbatim,center]
   <
     \property Score.chordInversion = ##t
     \context ChordNameVoice \notes {
@@ -2014,7 +2008,7 @@ If you want inversions to be recognized, you must set the property
       <e'1 g' c''>
     }
   >
-@end mudela
+@end lilypond
 
 
 
@@ -2033,7 +2027,7 @@ Here is a full example:
 
 @quotation
 
-@mudela[verbatim]
+@lilypond[verbatim]
 \score {
   <
     \notes \transpose c'' {
@@ -2047,7 +2041,7 @@ Here is a full example:
   >
 }
 
-@end mudela
+@end lilypond
 @end quotation
 
 You may want a continuous line after the syllables to show melismata. 
@@ -2059,7 +2053,7 @@ shorten it by using a blank lyric (using `@code{_}').
 
 @quotation
 
-@mudela[verbatim]
+@lilypond[verbatim]
 \score {
   <
     \notes \relative c'' {
@@ -2071,7 +2065,7 @@ shorten it by using a blank lyric (using `@code{_}').
   >
 }
 
-@end mudela
+@end lilypond
 @end quotation
 
      
@@ -2084,7 +2078,7 @@ For example:
 
 @quotation
 
-@mudela[verbatim]
+@lilypond[verbatim]
 \score {
   <
     \notes \transpose c'' {
@@ -2098,7 +2092,7 @@ For example:
   >
 }
 
-@end mudela
+@end lilypond
 @end quotation
 
 
@@ -2170,14 +2164,14 @@ one is created.  For example,
 
 @quotation
 
-@mudela[verbatim]
+@lilypond[verbatim]
 \score {
   \notes \relative c'' {
     c4 <d4 \context Staff = "another" e4> f
   }
 }
 
-@end mudela
+@end lilypond
 @end quotation
 
 In this example, the @code{c} and @code{d} are printed on the
@@ -2217,7 +2211,7 @@ Lastly, you may wonder, why this:
 
 doesn't result in this:
 
-@mudela[]
+@lilypond[]
 
   \score {
     \notes \relative c'' {
@@ -2225,7 +2219,7 @@ doesn't result in this:
     }
   }
 
-@end mudela
+@end lilypond
 
 For the @code{c4}, a default @code{Staff} (with a contained
 @code{Voice}) context is created.  After the @code{c4} ends, no

@@ -211,3 +211,4 @@ Sequential_music_iterator::try_music_in_children (Music *m) const
 { 
   return iter_p_ ? iter_p_->try_music (m) : 0;
 }
+IMPLEMENT_CTOR_CALLBACK(Sequential_music_iterator);

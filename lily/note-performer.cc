@@ -36,7 +36,8 @@ Note_performer::do_process_music ()
       while (note_req_l_arr_.size ())
 	{
 	  Note_req* n = note_req_l_arr_.pop ();
-	  Audio_note* p = new Audio_note (n->pitch_, n->length_mom (), transposing_i);
+	  Musical_pitch pit =  * unsmob_pitch (n->get_mus_property ("pitch"));
+	  Audio_note* p = new Audio_note (pit,  n->length_mom (), transposing_i);
 	  Audio_element_info info (p, n);
 	  announce_element (info);
 	  note_p_arr_.push (p);

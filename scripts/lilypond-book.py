@@ -3,24 +3,24 @@
 # TODO:
 # * Figure out clean set of options. Hmm, isn't it pretty ok now?
 # * add support for .lilyrc
-
+# * EndLilyPondOutput is def'd as vfil. Causes large white gaps.
 
 # todo: dimension handling (all the x2y) is clumsy. 
 
 # This is was the idea for handling of comments:
 #	Multiline comments, @ignore .. @end ignore is scanned for
 #	in read_doc_file, and the chunks are marked as 'ignore', so
-#	mudela-book will not touch them any more. The content of the
+#	lilypond-book will not touch them any more. The content of the
 #	chunks are written to the output file. Also 'include' and 'input'
 #	regex has to check if they are commented out.
 #
-#	Then it is scanned for 'mudela', 'mudela-file' and 'mudela-block'.
+#	Then it is scanned for 'lilypond', 'lilypond-file' and 'lilypond-block'.
 #	These three regex's has to check if they are on a commented line,
 #	% for latex, @c for texinfo.
 #
 #	Then lines that are commented out with % (latex) and @c (Texinfo)
 #	are put into chunks marked 'ignore'. This cannot be done before
-#	searching for the mudela-blocks because % is also the comment character
+#	searching for the lilypond-blocks because % is also the comment character
 #	for lilypond.
 #
 #	The the rest of the rexeces are searched for. They don't have to test
@@ -48,7 +48,7 @@ include_path = [os.getcwd()]
 g_here_dir = os.getcwd ()
 g_dep_prefix = ''
 g_outdir = ''
-g_force_mudela_fontsize = 0
+g_force_lilypond_fontsize = 0
 g_read_lys = 0
 g_do_pictures = 1
 g_num_cols = 1
@@ -286,9 +286,9 @@ texi_linewidths = {
 option_definitions = [
   ('EXT', 'f', 'format', 'set format.  EXT is one of texi and latex.'),
   ('DIM',  '', 'default-music-fontsize', 'default fontsize for music.  DIM is assumed to be in points'),
-  ('DIM',  '', 'default-mudela-fontsize', 'deprecated, use --default-music-fontsize'),
-  ('DIM', '', 'force-music-fontsize', 'force fontsize for all inline mudela. DIM is assumed be to in points'),
-  ('DIM', '', 'force-mudela-fontsize', 'deprecated, use --force-music-fontsize'),
+  ('DIM',  '', 'default-lilypond-fontsize', 'deprecated, use --default-music-fontsize'),
+  ('DIM', '', 'force-music-fontsize', 'force fontsize for all inline lilypond. DIM is assumed be to in points'),
+  ('DIM', '', 'force-lilypond-fontsize', 'deprecated, use --force-music-fontsize'),
   ('DIR', 'I', 'include', 'include path'),
   ('', 'M', 'dependencies', 'write dependencies'),
   ('PREF', '',  'dep-prefix', 'prepend PREF before each -M dependency'),
@@ -304,31 +304,31 @@ option_definitions = [
 # format specific strings, ie. regex-es for input, and % strings for output
 output_dict= {
 	'latex': {
-		'output-mudela-fragment' : r"""\begin[eps,singleline,%s]{mudela}
+		'output-lilypond-fragment' : r"""\begin[eps,singleline,%s]{lilypond}
   \context Staff <
     \context Voice{
       %s
     }
   >
-\end{mudela}""", 
-		'output-mudela':r"""\begin[%s]{mudela}
+\end{lilypond}""", 
+		'output-lilypond':r"""\begin[%s]{lilypond}
 %s
-\end{mudela}""",
+\end{lilypond}""",
 		'output-verbatim': "\\begin{verbatim}%s\\end{verbatim}",
-		'output-default-post': "\\def\postMudelaExample{}\n",
-		'output-default-pre': "\\def\preMudelaExample{}\n",
+		'output-default-post': "\\def\postLilypondExample{}\n",
+		'output-default-pre': "\\def\preLilypondExample{}\n",
 		'usepackage-graphics': '\\usepackage{graphics}\n',
-		'output-eps': '\\noindent\\parbox{\\mudelaepswidth{%(fn)s.eps}}{\includegraphics{%(fn)s.eps}}',
-		'output-tex': '\\preMudelaExample \\input %(fn)s.tex \\postMudelaExample\n',
+		'output-eps': '\\noindent\\parbox{\\lilypondepswidth{%(fn)s.eps}}{\includegraphics{%(fn)s.eps}}',
+		'output-tex': '\\preLilypondExample \\input %(fn)s.tex \\postLilypondExample\n',
 		'pagebreak': r'\pagebreak',
 		},
-	'texi' : {'output-mudela': """@mudela[%s]
+	'texi' : {'output-lilypond': """@lilypond[%s]
 %s
-@end mudela 
+@end lilypond 
 """,
-		  'output-mudela-fragment': """@mudela[%s]
+		  'output-lilypond-fragment': """@lilypond[%s]
 \context Staff\context Voice{ %s }
-@end mudela """,
+@end lilypond """,
 		  'pagebreak': None,
 		  'output-verbatim': r"""@example
 %s
@@ -372,11 +372,11 @@ re_dict = {
 		  'preamble-end': r'(?P<code>\\begin{document})',
 		  'verbatim': r"(?s)(?P<code>\\begin{verbatim}.*?\\end{verbatim})",
 		  'verb': r"(?P<code>\\verb(?P<del>.).*?(?P=del))",
-		  'mudela-file': r'(?m)^[^%\n]*?(?P<match>\\mudelafile(\[(?P<options>.*?)\])?\{(?P<filename>.+)})',
-		  'mudela' : r'(?m)^[^%\n]*?(?P<match>\\mudela(\[(?P<options>.*?)\])?{(?P<code>.*?)})',
-		  'mudela-block': r"(?sm)^[^%\n]*?(?P<match>\\begin(\[(?P<options>.*?)\])?{mudela}(?P<code>.*?)\\end{mudela})",
-		  'def-post-re': r"\\def\\postMudelaExample",
-		  'def-pre-re': r"\\def\\preMudelaExample",		  
+		  'lilypond-file': r'(?m)^[^%\n]*?(?P<match>\\lilypondfile(\[(?P<options>.*?)\])?\{(?P<filename>.+)})',
+		  'lilypond' : r'(?m)^[^%\n]*?(?P<match>\\lilypond(\[(?P<options>.*?)\])?{(?P<code>.*?)})',
+		  'lilypond-block': r"(?sm)^[^%\n]*?(?P<match>\\begin(\[(?P<options>.*?)\])?{lilypond}(?P<code>.*?)\\end{lilypond})",
+		  'def-post-re': r"\\def\\postLilypondExample",
+		  'def-pre-re': r"\\def\\preLilypondExample",		  
 		  'usepackage-graphics': r"\usepackage{graphics}",
 		  'intertext': r',?\s*intertext=\".*?\"',
 		  'multiline-comment': no_match,
@@ -392,9 +392,9 @@ re_dict = {
 		 'landscape': no_match,
 		 'verbatim': r"""(?s)(?P<code>@example\s.*?@end example\s)""",
 		 'verb': r"""(?P<code>@code{.*?})""",
-		 'mudela-file': '(?m)^(?!@c)(?P<match>@mudelafile(\[(?P<options>.*?)\])?{(?P<filename>[^}]+)})',
-		 'mudela' : '(?m)^(?!@c)(?P<match>@mudela(\[(?P<options>.*?)\])?{(?P<code>.*?)})',
-		 'mudela-block': r"""(?m)^(?!@c)(?P<match>(?s)(?P<match>@mudela(\[(?P<options>.*?)\])?\s(?P<code>.*?)@end mudela\s))""",
+		 'lilypond-file': '(?m)^(?!@c)(?P<match>@lilypondfile(\[(?P<options>.*?)\])?{(?P<filename>[^}]+)})',
+		 'lilypond' : '(?m)^(?!@c)(?P<match>@lilypond(\[(?P<options>.*?)\])?{(?P<code>.*?)})',
+		 'lilypond-block': r"""(?m)^(?!@c)(?P<match>(?s)(?P<match>@lilypond(\[(?P<options>.*?)\])?\s(?P<code>.*?)@end lilypond\s))""",
 		  'option-sep' : ', *',
 		  'intertext': r',?\s*intertext=\".*?\"',
 		  'multiline-comment': r"(?sm)^\s*(?!@c\s+)(?P<code>@ignore\s.*?@end ignore)\s",
@@ -448,13 +448,13 @@ def error (str):
 
 
 def compose_full_body (body, opts):
-	"""Construct the mudela code to send to Lilypond.
+	"""Construct the lilypond code to send to Lilypond.
 	Add stuff to BODY using OPTS as options."""
 	music_size = default_music_fontsize
 	latex_size = default_text_fontsize
 	for o in opts:
-		if g_force_mudela_fontsize:
-			music_size = g_force_mudela_fontsize
+		if g_force_lilypond_fontsize:
+			music_size = g_force_lilypond_fontsize
 		else:
 			m = re.match ('([0-9]+)pt', o)
 			if m:
@@ -493,7 +493,7 @@ def compose_full_body (body, opts):
 	optstring = string.join (opts, ' ')
 	optstring = re.sub ('\n', ' ', optstring)
 	body = r"""
-%% Generated by mudela-book.py; options are %s  %%ughUGH not original options
+%% Generated by lilypond-book.py; options are %s  %%ughUGH not original options
 \include "paper%d.ly"
 \paper  { linewidth = %f \pt; } 
 """ % (optstring, music_size, l) + body
@@ -648,29 +648,29 @@ def do_include_file(m):
 def do_input_file(m):
 	return read_doc_file(m.group('filename'))
 
-def make_mudela(m):
+def make_lilypond(m):
 	if m.group('options'):
 		options = m.group('options')
 	else:
 		options = ''
-	return [('input', get_output('output-mudela-fragment') % 
+	return [('input', get_output('output-lilypond-fragment') % 
 			(options, m.group('code')))]
 
-def make_mudela_file(m):
+def make_lilypond_file(m):
 	if m.group('options'):
 		options = m.group('options')
 	else:
 		options = ''
-	return [('input', get_output('output-mudela') %
+	return [('input', get_output('output-lilypond') %
 			(options, find_file(m.group('filename'))))]
 
-def make_mudela_block(m):
+def make_lilypond_block(m):
 	if m.group('options'):
 		options = get_re('option-sep').split (m.group('options'))
 	else:
 	    options = []
 	options = filter(lambda s: s != '', options)
-	return [('mudela', m.group('code'), options)]
+	return [('lilypond', m.group('code'), options)]
 
 def do_columns(m):
 	if __main__.format != 'latex':
@@ -736,7 +736,7 @@ def read_doc_file (filename):
 
 
 taken_file_names = {}
-def schedule_mudela_block (chunk):
+def schedule_lilypond_block (chunk):
 	"""Take the body and options from CHUNK, figure out how the
 	real .ly should look, and what should be left MAIN_STR (meant
 	for the main file).  The .ly is written, and scheduled in
@@ -748,7 +748,7 @@ def schedule_mudela_block (chunk):
 	
 	"""
 	(type, body, opts) = chunk
-	assert type == 'mudela'
+	assert type == 'lilypond'
 	file_body = compose_full_body (body, opts)
 	basename = `abs(hash (file_body))`
 	for o in opts:
@@ -801,14 +801,14 @@ def schedule_mudela_block (chunk):
 	else: # format == 'texi'
 		s = 'output-all'
 	newbody = newbody + get_output(s) % {'fn': basename }
-	return ('mudela', newbody, opts, todo, basename)
+	return ('lilypond', newbody, opts, todo, basename)
 
-def process_mudela_blocks(outname, chunks):#ugh rename
+def process_lilypond_blocks(outname, chunks):#ugh rename
 	newchunks = []
 	# Count sections/chapters.
 	for c in chunks:
-		if c[0] == 'mudela':
-			c = schedule_mudela_block (c)
+		if c[0] == 'lilypond':
+			c = schedule_lilypond_block (c)
 		elif c[0] == 'numcols':
 			paperguru.m_num_cols = c[2]
 		newchunks.append (c)
@@ -839,7 +839,7 @@ def compile_all_files (chunks):
 	png = []
 
 	for c in chunks:
-		if c[0] <> 'mudela':
+		if c[0] <> 'lilypond':
 			continue
 		base  = c[4]
 		exts = c[3]
@@ -953,8 +953,8 @@ def options_help_str (opts):
 	return str
 
 def help():
-	sys.stdout.write("""Usage: mudela-book [options] FILE\n
-Generate hybrid LaTeX input from Latex + mudela
+	sys.stdout.write("""Usage: lilypond-book [options] FILE\n
+Generate hybrid LaTeX input from Latex + lilypond
 Options:
 """)
 	sys.stdout.write (options_help_str (option_definitions))
@@ -982,7 +982,7 @@ def write_deps (fn, target):
 	__main__.read_files = []
 
 def identify():
-	sys.stdout.write ('mudela-book (GNU LilyPond) %s\n' % program_version)
+	sys.stdout.write ('lilypond-book (GNU LilyPond) %s\n' % program_version)
 
 def print_version ():
 	identify()
@@ -1000,9 +1000,9 @@ def do_file(input_filename):
 	my_depname = my_outname + '.dep'		
 
 	chunks = read_doc_file(input_filename)
-	chunks = chop_chunks(chunks, 'mudela', make_mudela, 1)
-	chunks = chop_chunks(chunks, 'mudela-file', make_mudela_file, 1)
-	chunks = chop_chunks(chunks, 'mudela-block', make_mudela_block, 1)
+	chunks = chop_chunks(chunks, 'lilypond', make_lilypond, 1)
+	chunks = chop_chunks(chunks, 'lilypond-file', make_lilypond_file, 1)
+	chunks = chop_chunks(chunks, 'lilypond-block', make_lilypond_block, 1)
 	chunks = chop_chunks(chunks, 'singleline-comment', do_ignore, 1)
 	chunks = chop_chunks(chunks, 'preamble-end', do_preamble_end)
 	chunks = chop_chunks(chunks, 'numcols', do_columns)
@@ -1010,16 +1010,16 @@ def do_file(input_filename):
 	#for c in chunks: print "c:", c;
 	#sys.exit()
 	scan_preamble(chunks)
-	chunks = process_mudela_blocks(my_outname, chunks)
+	chunks = process_lilypond_blocks(my_outname, chunks)
 	# Do It.
 	if __main__.g_run_lilypond:
 		compile_all_files (chunks)
 		newchunks = []
 		# finishing touch.
 		for c in chunks:
-			if c[0] == 'mudela' and 'eps' in c[2]:
-				body = re.sub (r"""\\mudelaepswidth{(.*?)}""", find_eps_dims, c[1])
-				newchunks.append (('mudela', body))
+			if c[0] == 'lilypond' and 'eps' in c[2]:
+				body = re.sub (r"""\\lilypondepswidth{(.*?)}""", find_eps_dims, c[1])
+				newchunks.append (('lilypond', body))
 			else:
 				newchunks.append (c)
 		chunks = newchunks
@@ -1059,7 +1059,7 @@ for opt in options:
 	elif o == '--outname' or o == '-o':
 		if len(files) > 1:
 			#HACK
-			sys.stderr.write("Mudela-book is confused by --outname on multiple files")
+			sys.stderr.write("Lilypond-book is confused by --outname on multiple files")
 			sys.exit(1)
 		outname = a
 	elif o == '--help' or o == '-h':
@@ -1070,14 +1070,14 @@ for opt in options:
 		do_deps = 1
 	elif o == '--default-music-fontsize':
 		default_music_fontsize = string.atoi (a)
-	elif o == '--default-mudela-fontsize':
-		print "--default-mudela-fontsize is deprecated, use --default-music-fontsize"
+	elif o == '--default-lilypond-fontsize':
+		print "--default-lilypond-fontsize is deprecated, use --default-music-fontsize"
 		default_music_fontsize = string.atoi (a)
 	elif o == '--force-music-fontsize':
-		g_force_mudela_fontsize = string.atoi(a)
-	elif o == '--force-mudela-fontsize':
-		print "--force-mudela-fontsize is deprecated, use --default-mudela-fontsize"
-		g_force_mudela_fontsize = string.atoi(a)
+		g_force_lilypond_fontsize = string.atoi(a)
+	elif o == '--force-lilypond-fontsize':
+		print "--force-lilypond-fontsize is deprecated, use --default-lilypond-fontsize"
+		g_force_lilypond_fontsize = string.atoi(a)
 	elif o == '--dep-prefix':
 		g_dep_prefix = a
 	elif o == '--no-pictures':

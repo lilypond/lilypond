@@ -23,3 +23,5 @@ Output_property_music_iterator::process (Moment m)
 
   skip (m);
 }
+
+IMPLEMENT_CTOR_CALLBACK(Output_property_music_iterator);

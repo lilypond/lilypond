@@ -7,7 +7,7 @@
 @section DESCRIPTION
 ly2dvi is a Python script which creates input file for La@TeX{},
 based on information from the output files from LilyPond.
-The script handles multiple files. If a mudela file name is
+The script handles multiple files. If a lilypond file name is
 specified LilyPond is run to make an output (@TeX{}) file.
 
 One or more La@TeX{} files are created, based on information found
@@ -72,7 +72,7 @@ Arne Fagertun name @file{ly2dvi}.
 
 @section Features
 
-ly2dvi responds to several parameters specified in the mudela
+ly2dvi responds to several parameters specified in the lilypond
 file. They are overridden by corresponding command line options.
 
 @table @samp
@@ -102,7 +102,7 @@ file. They are overridden by corresponding command line options.
 @section Files
 
 @file{titledefs.tex} is inspected for definitions used to extract
-additional text definitions from the mudela file. In the current
+additional text definitions from the lilypond file. In the current
 version the following are defined:
 
 @table @samp

@@ -17,7 +17,7 @@ list is alphabetically ordered.
 
 @itemize @bullet
 @item @email{tca@@gnu.org, Tom Cato Amundsen},
-    cembalo-partita in mudela, accordion symbols, some mudela-book.py
+    cembalo-partita in lilypond, accordion symbols, some lilypond-book.py
 @item @email{matsb@@s3.kth.se, Mats Bengtsson},
     @uref{http://www.s3.kth.se/~matsb/}
     lots of testing, fixes, general comments and contributions.
@@ -73,7 +73,7 @@ list is alphabetically ordered.
 @item @email{daboys@@austin.rr.com, Jeffrey B. Reed},
     Windows-NT support.
 @item Shay Rojanski
-    Some mudela source.
+    Some lilypond input.
 @item @email{august@@infran.ru, August S.Sigov}
     Russian translation
 @end itemize

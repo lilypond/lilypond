@@ -17,8 +17,6 @@
 
 class Output_def_identifier;
 class Score_identifier;
-class Duration_identifier;
-
 
 
 #define IDACCESSOR(Class)\
@@ -26,7 +24,7 @@ virtual Class *  access_content_ ## Class (bool) const { error (#Class  + String
 
 
 /**
-   A declarable data structure in mudela.
+   A declarable data structure in lilypond.
 
    TODO: use SMOBS for the union type, and junk all derived classes.
    */
@@ -44,7 +42,6 @@ struct Identifier : public Input {
   String str () const;
   IDACCESSOR(Music_output_def)
   IDACCESSOR(Score)
-  IDACCESSOR(Duration)
   VIRTUAL_COPY_CONS(Identifier);
 
   DECLARE_SMOBS(Identifier, foo);
@@ -67,7 +64,6 @@ struct Class ## _identifier : Identifier {\
 }\
 
 
-DECLARE_ID_CLASS(Duration);
 DECLARE_ID_CLASS(Score);
 DECLARE_ID_CLASS(Music_output_def);
 

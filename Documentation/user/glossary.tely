@@ -60,7 +60,7 @@ accidental.
 
 @
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 \property Score.barNonAuto = ##t
 \property Voice.textStyle = "large"
 \notes\relative c'' {
@@ -70,7 +70,7 @@ accidental.
   geses1_"db. flat" s s2 
   g!1_"natural" s2
 }
-@end mudela
+@end lilypond
 @item accelerando 
 I: accelerando, F: accelerando, en acc@'el@'erant, D: accelerando, Schneller,
 NL: accelerando, DK: accelerando, S: accelerando, N:
@@ -115,11 +115,11 @@ mode hell@'enique D: reines Moll, NL: , DK: ren mol, S: ren mollskala, N: .
 
 @
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 \property Score.barNonAuto = ##t
 \notes\relative c'' {
 a1 b c d e f g a }
-@end mudela
+@end lilypond
 
 @item andante
 I: andante, F: andante, D: Andante, NL: andante, DK: andante, S: andante,
@@ -139,7 +139,7 @@ the duration of the long a. is proportionate to that of the main note.
 
 @
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 \emptyText
 %\property Voice.textEmptyDimension = ##t
 \property Voice.textStyle = "large"
@@ -155,13 +155,13 @@ fis8 e16 fis
 g8 fis16 g | a4 \bar "||"; }
 \notes\relative c'' {
 <d4_"performance" a fis> r g16 () fis e fis a () g fis g | a4 \bar "||"; }
-@end mudela
+@end lilypond
 
 An appoggiatura may have more notes preceding the main note.
 
 @
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 \emptyText
 \property Voice.textStyle = "large"
 \notes\relative c'' {
@@ -175,7 +175,7 @@ An appoggiatura may have more notes preceding the main note.
     \context Voice = vb { \stemDown as16 ~ as8. as16 ~ as8. } >
   \bar "||";
 }
-@end mudela
+@end lilypond
 
 @item arpeggio
 I: arpeggio, F: arp@`ege, D: Arpeggio, Akkordbrechungen, gebrochener
@@ -183,7 +183,7 @@ Akkord, NL: gebroken akoord, DK: arpeggio, akkordbrydning, S: arpeggio, N:
 
 @
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 \context GrandStaff <
   \notes\relative c'' { 
     \time 4/4;
@@ -201,7 +201,7 @@ Akkord, NL: gebroken akoord, DK: arpeggio, akkordbrydning, S: arpeggio, N:
         c2 c | c c } >
   }
 >
-@end mudela
+@end lilypond
 
 @item ascending interval
 I: intervallo ascendente, F: intervalle ascendant, D: steigendes Intervall,
@@ -274,7 +274,7 @@ beams determine the note value of the connected notes.
 
 @
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 \property Score.barNonAuto = ##t
 \emptyText
 \property Voice.textStyle = "large"
@@ -283,7 +283,7 @@ beams determine the note value of the connected notes.
   [g16_"1/16" g g g] s16
   [g32_"1/32" s32 g32 s32 g32 s32 g32] s16
   [g64_"1/64" s32 g64 s32 g64 s32 g64] s32 }
-@end mudela
+@end lilypond
 
 @item beat
 I: tempi, F: temps, D: Taktschlag, Zeit (im Takt), NL: tel, DK: (takt)slag, S:
@@ -295,13 +295,13 @@ start of the music.
 
 @
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 \key g \major;
 \time 4/4;
 \notes\relative c'' { g4 c b a | g1 \bar "||";}
 \time 3/8;
 \notes\relative c'' { g8 d' c | b c a | g4. \bar "||";}
-@end mudela
+@end lilypond
 
 @item bind
 @w{@ar{}@strong{tie}}
@@ -316,22 +316,22 @@ orchestral or choral score.
 
 @
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \context GrandStaff < 
   \property GrandStaff.minVerticalAlign = 12
   \notes\relative c'' { \clef treble; g4 e c2 }
   \notes\relative c { \clef bass; c1 \bar "|."; } > 
-@end mudela
+@end lilypond
 
 @
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 %\context StaffGroup < 
 \context ChoirStaff < 
   \property StaffGroup.minVerticalAlign = 12
   \notes\relative c'' { \clef treble; g4 e c2 }
   \notes\relative c { \clef bass; c1 \bar "|."; } > 
-@end mudela
+@end lilypond
 
 @item brass
 I: ottoni, D: Blechbl@"aser, NL: koper (blazers), F: cuivres,
@@ -356,10 +356,10 @@ in pre-1650 music.
 
 @
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t
 \notes\relative c'' { g\breve } 
-@end mudela
+@end lilypond
 
 @item C
 I: do, F: ut,  D: C, c, NL: c, DK: c, S: c, N: c
@@ -373,7 +373,7 @@ lines.
 
 @
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t
 \property Staff.clefStyle = #"fullSizeChanges"
 \property Staff.textStyle = #"large"
@@ -389,7 +389,7 @@ lines.
 \context Lyrics \lyrics { 
   Soprano Mezzosoprano Alto Tenor Baritone 
 }
-@end mudela
+@end lilypond
 
 @item cadence 
 I: cadenza, F: cadence, D: Kadenz, NL: cadens, DK: kadence, S: kadens, N: .
@@ -433,7 +433,7 @@ chords are denoted open chords
 
 @
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t
 \property Voice.textNonEmpty = ##t
 \property Voice.textStyle = "large"
@@ -446,7 +446,7 @@ chords are denoted open chords
   <g_"seventh-chord~" b d f>
   <g_"ninth-chord" b d f a> s s2
 }
-@end mudela
+@end lilypond
 
 @item chromatic scale
 I: scala cromatica, F: gamme chromatique, D: Chromatische Tonleiter, NL:
@@ -456,10 +456,10 @@ A scale consisting of all 11 @w{@ar{}@strong{semitone}}s.
 
 @
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t 
 \notes\relative c' { c1 cis d dis e f fis g gis a ais b c }
-@end mudela
+@end lilypond
 
 @item chromaticism
 I: cromatismo, F: chromatisme, D: Chromatik, NL: chromatiek, DK: kromatik, S:
@@ -511,10 +511,10 @@ Melody moving in the narrow steps of the scale;
 
 @
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \key g \major; \time 4/4;
 \notes\relative c'' { g4 g g a | b2 a | g4 b a a | g1 \bar "||"; }
-@end mudela
+@end lilypond
 
 @item consonance 
 I: consonanza, F: consonance, D: Konsonanz, NL: consonant, DK: konsonans, S:
@@ -542,7 +542,7 @@ composition methods.
 
 @
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 \property Score.timeSignatureStyle = "C2/2"
 \context GrandStaff <
   \notes\relative c' { 
@@ -576,7 +576,7 @@ composition methods.
       } >
   }
 >
-@end mudela
+@end lilypond
 
 @item counter tenor
 I: controtenore, F: contre-tenor, D: Kontratenor, NL: contratenor, DK:
@@ -600,10 +600,10 @@ abbreviation "cresc.".
 
 @
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \key g \major; \time 4/4;
 \notes\relative c'' { g4 \< a b c | \! d1 \bar "|."; }
-@end mudela
+@end lilypond
 
 @item cue-notes
 I: notine, F: petites notes pr@'ec@'edent l'entr@'ee d'in instrument,
@@ -631,11 +631,11 @@ frequently near the beginning marked by a sign:
 
 @
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \property Voice.textStyle = "large"
 \key g \major; \time 4/4;
 \notes\relative c'' { d1 | g,4^\segno  a b c | b a g2_"d.s." \bar "|."; }
-@end mudela
+@end lilypond
 
 @item decrescendo
 I: decrescendo, D: Decrescendo, Leiser, NL: decrescendo, DK: decrescendo, S:
@@ -646,10 +646,10 @@ or the abbreviation "decresc.".
 
 @
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \key g \major; \time 4/4;
 \notes\relative c'' { d4 \> c b a | \! g1 \bar "|."; }
-@end mudela
+@end lilypond
 
 @item descending interval
 I: intervallo discendente, F: intervalle descendant, D: fallendes Intervall,
@@ -671,7 +671,7 @@ also to some extent in newer jazz music.
  
 @
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \emptyText
 \property Score.barNonAuto = ##t 
 \property Lyrics.textStyle = "large"
@@ -684,9 +684,9 @@ also to some extent in newer jazz music.
   \property Voice.textScriptPadding = #-4
   b^"~~ S" c }
   \context Lyrics \lyrics { Ionian }
-@end mudela
+@end lilypond
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \emptyText
 \property Score.barNonAuto = ##t 
 \property Lyrics.textStyle = "large"
@@ -700,9 +700,9 @@ also to some extent in newer jazz music.
   \property Voice.textScriptPadding = #-4
   b^"~~ S" c d }
   \context Lyrics \lyrics { Dorian }
-@end mudela
+@end lilypond
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \emptyText
 \property Score.barNonAuto = ##t 
 \property Lyrics.textStyle = "large"
@@ -715,9 +715,9 @@ also to some extent in newer jazz music.
   \property Voice.textScriptPadding = #-4
   b^"~~ S" c d e }
   \context Lyrics \lyrics { Phrygian }
-@end mudela
+@end lilypond
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \emptyText
 \property Score.barNonAuto = ##t 
 \property Lyrics.textStyle = "large"
@@ -730,9 +730,9 @@ also to some extent in newer jazz music.
   \property Voice.textScriptPadding = #0
   e^"~~ S" f }
   \context Lyrics \lyrics { Lydian }
-@end mudela
+@end lilypond
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \emptyText
 \property Score.barNonAuto = ##t 
 \property Lyrics.textStyle = "large"
@@ -745,9 +745,9 @@ also to some extent in newer jazz music.
   \property Voice.textScriptPadding = #0
   e^"~~ S" f g }
   \context Lyrics \lyrics { Mixolydian }
-@end mudela
+@end lilypond
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \emptyText
 \property Score.barNonAuto = ##t 
 \property Lyrics.textStyle = "large"
@@ -760,14 +760,14 @@ also to some extent in newer jazz music.
   \property Voice.textScriptPadding = #0
   e^"~~ S" f g a }
   \context Lyrics \lyrics { Aeolian }
-@end mudela
+@end lilypond
 
 From the beginning of the 17th century the scales used in European
 compositional music are primarily the major and the minor scales. In the
 harmonic minor scale type an augmented second (A) occurs between the 6th and
 7th tone.
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \emptyText
 \property Score.barNonAuto = ##t 
 \property Lyrics.textStyle = "large"
@@ -780,9 +780,9 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
   \property Voice.textScriptPadding = #-4
   b^"~~ S" c }
   \context Lyrics \lyrics { Major }
-@end mudela
+@end lilypond
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \emptyText
 \property Score.barNonAuto = ##t 
 \property Lyrics.textStyle = "large"
@@ -795,9 +795,9 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
   \property Voice.textScriptPadding = #0
   e^"~~ S" f g a }
   \context Lyrics \lyrics { "ancient minor" }
-@end mudela
+@end lilypond
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \emptyText
 \property Score.barNonAuto = ##t 
 \property Lyrics.textStyle = "large"
@@ -814,9 +814,9 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
   gis^"~~ S" 
   a }
   \context Lyrics \lyrics { "Harmonic minor" }
-@end mudela
+@end lilypond
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \emptyText
 \property Score.barNonAuto = ##t 
 \property Lyrics.textStyle = "large"
@@ -834,7 +834,7 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
   c^"~~ S" b a
 }
   \context Lyrics \lyrics { "Melodic minor" }
-@end mudela
+@end lilypond
 
 @item diminished interval
 I: intervallo diminuito, F: intervalle diminu@'e, D: vermindertes Intervall,
@@ -859,13 +859,13 @@ scale. Opposite of @ar{}@strong{conjunct movement}.
 
 @
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 \key a \major;
 \time 4/4;
 \notes\relative c' { 
   \partial 8; e8 | a4. gis8 b a e cis |
   fis2 d4. \bar "||"; }
-@end mudela
+@end lilypond
 
 @item dissonant interval; dissonance
 I: intervallo dissonante, dissonanza, F: dissonance, D: Dissonanz, NL:
@@ -1004,14 +1004,14 @@ Two notes, intervals, or scales are enharmonic if they have different names
 but equal pitch.
 
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 \property Score.barNonAuto = ##t
 \property Voice.textStyle = "large"
 \notes\relative c'' {
   gis1_"g sharp" s as1_"a flat" s s
   < des_"dim fifth" g,! > s s < cis_"augm fourth" g! > s s
 }
-@end mudela
+@end lilypond
 
 @item equal temperament 
 I: temperamento equabile, F: temp@'erament @'egal, D: gleichschwebende
@@ -1044,7 +1044,7 @@ example bass recorder) while 8 below the clef symbol indicates playing an
 octave lower (for example on double bass @w{@ar{}@strong{strings}}).
 
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t 
 \property Staff.clefStyle = #"fullSizeChanges"
 \property Lyrics.textStyle = "large"
@@ -1071,7 +1071,7 @@ octave lower (for example on double bass @w{@ar{}@strong{strings}}).
   "octaved up" 
   "octaved down" 
 }
-@end mudela
+@end lilypond
 
 @item fermata
 I: corona, F: pause, D: Fermate, NL: fermate, DK: fermat, S: fermat, N: .
@@ -1079,11 +1079,11 @@ I: corona, F: pause, D: Fermate, NL: fermate, DK: fermat, S: fermat, N: .
 Prolonged note or rest of indefinite duration.
 
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 \time 4/4;
 \notes\relative c'' {
 a4 b c2^\fermata \bar "|."; }
-@end mudela
+@end lilypond
 
 @item fifth
 I: quinta, F: quinte, D: Quinte, NL: kwint, DK: kvint, S: kvint, N:
@@ -1108,7 +1108,7 @@ Ornament at the end of the stem of a note used for notes with values less than
 a quarter note. The number of flags determines the @w{@ar{}@strong{note value}}.
 
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 \property Score.barNonAuto = ##t
 \emptyText
 \property Voice.textStyle = "large"
@@ -1117,7 +1117,7 @@ a quarter note. The number of flags determines the @w{@ar{}@strong{note value}}.
   g16_"1/16" s8 
   g32_"1/32" s8 
   g64_"1/64" s8 }
-@end mudela
+@end lilypond
 
 @item flat
 I: bemolle, F: b@'emol, D: B, b, NL: mol, DK: b, S: bef@"ortecken, N: .
@@ -1155,7 +1155,7 @@ of the base chords.
 
 @
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \emptyText
 \property Score.barNonAuto = ##t 
 \property Lyrics.textStyle = "large"
@@ -1165,7 +1165,7 @@ of the base chords.
   < g1 e c > < a f d > < b g e > 
   < c a f > < d b g > < e c a > < f d b > }
 \context Lyrics \lyrics { T Sp Dp S D Tp "D{\\kern-5pt}$\\mid$" } 
-@end mudela
+@end lilypond
 
 @item G
 I: sol, F: sol, D: G, g, NL: g, DK: g, S: g, N: g.
@@ -1182,7 +1182,7 @@ that).
 
 @
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t 
 \property Staff.clefStyle = #"fullSizeChanges"
 \property Lyrics.textStyle = "large"
@@ -1203,7 +1203,7 @@ that).
   "octaved up"
   "octaved down"
 }
-@end mudela
+@end lilypond
 
 @item glissando
 I: glissando, F: glissando, D: Glissando, NL: glissando, DK: glissando, S:
@@ -1253,7 +1253,7 @@ section. @ar{}@w{}@strong{functional harmony}
 
 @
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \context GrandStaff < 
   \notes\relative c'' { 
     \time 4/4;
@@ -1266,7 +1266,7 @@ section. @ar{}@w{}@strong{functional harmony}
     \partial 4; c4 | f, g c2
     \bar "|."; } 
   \context Lyrics \lyrics { T S D T } > 
-@end mudela
+@end lilypond
 
 @item harmony
 I: armonia, F: harmonie, D: Harmonie, Zusammenklang, NL: harmonie, DK:
@@ -1279,7 +1279,7 @@ Consonances:
 
 @
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t
 \property Voice.textStyle = "large"
 \notes\relative c'' {
@@ -1291,13 +1291,13 @@ Consonances:
   <g1_"octave" g'> s
   <g1_"decime" b'> s s
 }
-@end mudela
+@end lilypond
 
 Dissonances:
 
 @
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t
 \property Voice.textStyle = "large"
 \notes\relative c'' {
@@ -1305,7 +1305,7 @@ Dissonances:
   <g1_"seventh" f'> s 
   <g1_"ninth" a'> s s
 }
-@end mudela
+@end lilypond
 
 Three note harmony @w{@ar{}@strong{chord}}
 
@@ -1328,7 +1328,7 @@ forms an octave.
 
 @ 
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t
 \property Lyrics.textStyle = "large"
 \property Voice.textStyle = "large"
@@ -1345,11 +1345,11 @@ forms an octave.
 }
 \context Lyrics \lyrics { 
   unisone second second second third third third third } 
-@end mudela
+@end lilypond
 
 @ 
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t
 \property Lyrics.textStyle = "large"
 \property Voice.textStyle = "large"
@@ -1366,11 +1366,11 @@ forms an octave.
 }
 \context Lyrics \lyrics { 
   fourth fourth fifth fifth sixth sixth sixth sixth } 
-@end mudela
+@end lilypond
 
 @ 
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t
 \property Lyrics.textStyle = "large"
 \property Voice.textStyle = "large"
@@ -1387,7 +1387,7 @@ forms an octave.
 }
 \context Lyrics \lyrics { 
   seventh seventh seventh octave none none decime decime } 
-@end mudela
+@end lilypond
 
 @item inverted interval
 I: intervallo rivolto, F: intervalle renvers@'e, D: umgekerhtes Intervall, NL:
@@ -1397,7 +1397,7 @@ The difference between an interval and an octave.
 
 @
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t
 \property Voice.textStyle = "large"
 \notes\relative c'' {
@@ -1405,7 +1405,7 @@ The difference between an interval and an octave.
   < g,_"third" b > s < g'_"sixth" b, > s \bar "||";
   < g,_"fourth" c > s < g'_"fifth" c, > s \bar "||";
 }
-@end mudela
+@end lilypond
 
 @item just intonation
 I: intonazione giusta, F: intonation juste, D: reine Stimmung, NL: reine
@@ -1453,10 +1453,10 @@ A ledger line is an extension of the staff.
 
 @
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t 
 \notes\relative c'' { a,1 s c'' } 
-@end mudela
+@end lilypond
 
 @item legato
 I: legato, F: legato, li@'e, D: legato, NL: legato, DK: legato, S: legato, N:
@@ -1468,7 +1468,7 @@ unlike @emph{leggiero} or @emph{non-legato} (b), @emph{portato} (c) and
 
 @
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 \property Score.barNonAuto = ##t
 \emptyText
 \property Lyrics.textStyle = "large"
@@ -1480,7 +1480,7 @@ unlike @emph{leggiero} or @emph{non-legato} (b), @emph{portato} (c) and
   c4-. d-. e-. \bar "||"; 
 }
 \context Lyrics \lyrics { a "" "" b "" "" c "" "" d  }
-@end mudela
+@end lilypond
 
 @item legato curve
 @w{@ar{}@strong{slur}} @w{@ar{}@strong{legato}}
@@ -1510,13 +1510,13 @@ note value: double length of @w{@ar{}@strong{brevis}}. @w{@ar{}@strong{note valu
 
 @
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t 
 \notes\relative c'' { 
   \property Voice.noteHeadStyle = #'mensural
   g\longa 
 } 
-@end mudela
+@end lilypond
 
 @item major interval
 I: intervallo maggiore, F: intervalle majeur, D: gro@ss{}es Intervall, NL:
@@ -1573,28 +1573,28 @@ one speaks of @emph{duple} (2/2, 2/4, 2/8), @emph{triple} (3/2, 3/4, 3/8) or
 
 @
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 \notes\relative c'' { 
   \time 3/4;
   \key f \major;
   c es d | c bes8 a bes4 | c es d | c2 \bar "||";}
-@end mudela
+@end lilypond
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 \notes\relative c' { 
   \time 6/8;
   \key f \major;
   f8 f f f a16 g a f | 
   c'8 c c c e16 d e c \bar "||";}
-@end mudela
+@end lilypond
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 \notes\relative c'' { 
   \time 5/4;
   \key g \major;
   d4 b8 g b d d c a4 | 
   g8 g16 g g8 g16 g g8 fis16 g a8 fis16 e d4 \bar "||";}
-@end mudela
+@end lilypond
 
 @item metronome
 I: metronomo, F: m@'etronome, D: Metronom, NL: metronoom, 
@@ -1625,7 +1625,7 @@ First C below the 440 Hz A.
 
 @
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t 
 \property Staff.clefStyle = #"fullSizeChanges"
 \notes\relative c' { 
@@ -1633,7 +1633,7 @@ First C below the 440 Hz A.
   \clef alto; c s
   \clef treble; c s
 } 
-@end mudela
+@end lilypond
 
 @item minor interval
 I: intervallo minore, F: intervalle mineur, D: kleines Intervall, NL: klein
@@ -1674,7 +1674,7 @@ subject.
 
 @
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \property Score.timeSignatureStyle = "C2/2"
 \emptyText
 \property Voice.textStyle = "large"
@@ -1685,7 +1685,7 @@ subject.
   g8 d16_"------" c d8 g16 fis g8 b,16 a b8 g'16 fis |
   g8 g,16 a b8 cis d16 s 
 } 
-@end mudela
+@end lilypond
 
 @item movement
 I: movimento, F: mouvement, D: Satz, NL: deel, DK: sats, S: sats, N: .
@@ -1700,12 +1700,12 @@ mehrtaktige Pause, DK: flertaktspause, S: flertaktspaus, N: .
 
 @
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 \notes\relative c'' {
 a1
 \property Score.skipBars=##t R1*3 
 a1 }
-@end mudela
+@end lilypond
 
 @item mixolydian mode
 @w{@ar{}@strong{diatonic scale}}
@@ -1758,7 +1758,7 @@ but sometimes (mostly in pre baroque music) the double length note value
 
 @
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 \property Voice.textStyle = "large"
 \property Score.barNonAuto = ##t
 \notes\relative c'' { 
@@ -1767,30 +1767,30 @@ but sometimes (mostly in pre baroque music) the double length note value
   \property Voice.noteHeadStyle = ##f
   g1_"1/1" g2_"1/2" g4_"1/4" s16 g8_"1/8" s16
   g16_"1/16" s16 g32_"1/32" s16 g64_"1/64" s32 }
-@end mudela
+@end lilypond
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 \property Voice.textStyle = "large"
 \property Score.barNonAuto = ##t
 \notes\relative c'' { 
   r\longa_"longa" r\breve_"breve" 
   r1_"1/1" r2_"1/2" r4_"1/4" s16 r8_"1/8" s16
   r16_"1/16" s16 r32_"1/32" s16 r64_"1/64" s32 }
-@end mudela
+@end lilypond
 
 An augmentation dot after a note multiplies the duration by one and a
 half. Another dot adds yet a fourth of the duration.
 
 @
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 \emptyText
 \property Voice.textStyle = "large"
 \notes\relative c'' { 
   \time 4/4;
   g4._"pointed" g8 g2 | g4 () g8 g g2 \bar "||"; 
   g4.._"double pointed" g16 g2 | g4 () g8 () g16 g g2 \bar "||"; }
-@end mudela
+@end lilypond
 
 Alternatively note values may be subdivided by other ratios. Most common is
 subdivision by 3 (@emph{triplets}) and 5 (@emph{quintuplets}). Subdivisions by
@@ -1799,7 +1799,7 @@ frequently used.
 
 @
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 \property Voice.textStyle = "large"
 \emptyText
 \notes\relative c'' { 
@@ -1811,7 +1811,7 @@ frequently used.
   g4 g g \bar "||";
   \times 6/4 {g8_"quadruplets" g g g} |
   g8 g g g g4 \bar "||";}
-@end mudela
+@end lilypond
 
 @
 
@@ -1834,7 +1834,7 @@ middle of the 19th century and onwards the trill is performed with the main
 note first while in the music from the preceding baroque and classic periods
 the upper note is played first.
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 <
   \context Staff = sa {
     \emptyText
@@ -1849,14 +1849,14 @@ the upper note is played first.
     c2. b32 c b c \times 4/5 { b c b c b } | c1
   }
 >
-@end mudela
+@end lilypond
 
 Other frequently used ornaments are the @emph{turn}, the @emph{mordent} and the
 @emph{prall} (inverted mordent).
 
 @
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 <
   \context Staff = sa {
     \emptyText
@@ -1873,7 +1873,7 @@ Other frequently used ornaments are the @emph{turn}, the @emph{mordent} and the
     e'4 [e8 ~ e32 d e d] c2
   } 
 >
-@end mudela
+@end lilypond
 
 @w{@ar{}@strong{appoggiatura}}
 
@@ -2001,7 +2001,7 @@ the same @w{@ar{}@strong{signature}}.
 
 @
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \emptyText
 \property Score.barNonAuto = ##t 
 \property Voice.textStyle = "large"
@@ -2012,7 +2012,7 @@ the same @w{@ar{}@strong{signature}}.
   \key es \major;
   c,1_"c minor" d es f g a! b! c \bar "||";
 }
-@end mudela
+@end lilypond
 
 @item repeat
 I: ritornello, F: barre de reprise, D: Wiederholung, NL: herhaling, DK:
@@ -2020,13 +2020,13 @@ gen@-ta@-gel@-se, S: repris, N: .
 
 @
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 \key g \major;
 \time 4/4;
 \notes\relative c'' { 
   \repeat volta 2 {g4 g d' d | e e d2 | c4 c b b | a a g2 }
 }
-@end mudela
+@end lilypond
 
 @item rest
 I: pausa, F: silence, D: Pause, NL: rust, DK: pause, S: paus, N: .
@@ -2072,7 +2072,7 @@ sub@-do@-mi@-nant (S) and V = dominant (D).
 
 @
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \emptyText
 \property Score.barNonAuto = ##t 
 \property Lyrics.textStyle = "large"
@@ -2084,7 +2084,7 @@ sub@-do@-mi@-nant (S) and V = dominant (D).
   < { I II III IV V VI VII I } 
     { T "" "" S D } >
 }
-@end mudela
+@end lilypond
 
 @w{@ar{}@strong{functional harmony}}
 
@@ -2116,10 +2116,10 @@ semitones. @w{@ar{}@strong{interval}} @w{@ar{}@strong{chromatic scale}}
 
 @
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t 
 \notes\relative c'' { g1 gis s a bes s b c }
-@end mudela
+@end lilypond
 
 @item seventh
 I: settima, F: septi@`eme, D: Septime, NL: septiem, DK: septim, S: septim, N: .
@@ -2232,14 +2232,14 @@ notehead.
 
 @
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 \key d \major;
 \time 4/4;
 \notes\relative c'' { 
   \partial 8; a8 | 
   d4-\staccato cis-\staccato b-\staccato cis-\staccato | 
   d2. \bar "||"; }
-@end mudela
+@end lilypond
 
 @item staff
 I: pentagramma, rigo (musicale), F: port@'ee, D: Notensystem, NL: (noten)balk;
@@ -2259,7 +2259,7 @@ note. @w{@ar{}@strong{beam}}
 
 @
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 \property Score.noAutoBeaming = ##t
 \property Score.barNonAuto = ##t
 \emptyText
@@ -2270,7 +2270,7 @@ note. @w{@ar{}@strong{beam}}
   g,8_"1/8" g' s16
   g,16_"1/16" g' s16
 }
-@end mudela
+@end lilypond
 
 @item strings
 I: archi, F: cordes, D: Streicher, NL: strijkers, DK: strygere, S:
@@ -2335,7 +2335,7 @@ the underlaying (normal) pulse and the actual (abnormal) rhythm.
 
 @
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 \emptyText
 \property Voice.textStyle = "large"
 \time 4/4;
@@ -2344,7 +2344,7 @@ the underlaying (normal) pulse and the actual (abnormal) rhythm.
   d8 dis |
   e c'4 e,8 c'4 e,8 c' ( | ) c2
 }
-@end mudela
+@end lilypond
 
 @item syntonic comma; dydimic comma
 
@@ -2420,7 +2420,7 @@ with figures designating the chief @w{@ar{}@strong{interval}}s and
  
 @
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 \context GrandStaff <
   \notes\relative c'' { 
     \time 4/4;
@@ -2448,7 +2448,7 @@ with figures designating the chief @w{@ar{}@strong{interval}}s and
       { "" "" "2" "" "2" "" "2" "" } >
   } 
 >
-@end mudela
+@end lilypond
 
 @item tie; bind
 I: legatura (di valore), F: liaison, D: Haltebogen, NL: overbinding, DK:
@@ -2460,10 +2460,10 @@ uniting them into a single sound equal to the combined durations.
 
 @
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 \property Score.barNonAuto = ##t
 \notes\relative c'' { g2 ~ g4. }
-@end mudela
+@end lilypond
 
 @item time signature
 
@@ -2493,7 +2493,7 @@ Shifting a melody up or down in pitch, while keeping the same relative pitches.
 
 @
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 \context Staff {
   \time 3/4;
   \notes\relative c'' {
@@ -2503,7 +2503,7 @@ Shifting a melody up or down in pitch, while keeping the same relative pitches.
     \key g \major;
     d4 g,8 a b c | d4 g, g | e' c8 d e fis | g4 g, g \bar "|."; }
 }
-@end mudela
+@end lilypond
 
 @item treble clef
 I: chiave di violino, F: cl@'e de sol, D: Violinschl@"ussel,
@@ -2524,7 +2524,7 @@ a @w{@ar{}@strong{chord}}, usually in the distance of a third
  
 @
 
-@mudela[13pt,eps] 
+@lilypond[13pt,eps] 
 \emptyText
 \property Score.barNonAuto = ##t 
 \property Voice.textStyle = "large"
@@ -2533,7 +2533,7 @@ a @w{@ar{}@strong{chord}}, usually in the distance of a third
   % e2:32_"a" f:32 [ e8:16 f:16 g:16 a:16 ] s4 \repeat "tremolo" 16 { e32_"b" g }
   e2:32_"a" f:32 [ e8:16 f:16 g:16 a:16 ] s4 \repeat "tremolo" 8 { e32_"b" g }
 } 
-@end mudela
+@end lilypond
 
 @item triad
 I: triade, F: triade, accord parfait, accord de trois sons, D: Dreiklang, NL:
@@ -2592,13 +2592,13 @@ line. @w{@ar{}@strong{measure}} @w{@ar{}@strong{meter}}
 
 @
 
-@mudela[13pt,eps]
+@lilypond[13pt,eps]
 \key f \major;
 \time 4/4;
 \notes\relative c' { 
   \partial 4; f4 | bes4. a8 bes4 c | 
   bes () a g f | bes4. a8 bes4 c | f,2. \bar "||"; }
-@end mudela
+@end lilypond
 
 @item voice
 I: voce, F: voix, D: Stimme, NL: stem, DK: stemme, S: st@"amma, N: ,

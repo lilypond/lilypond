@@ -303,7 +303,7 @@
 				   (ly-gulp-file "lily.ps") 'pre " %\n" 'post)
 	 (ly-gulp-file "lily.ps"))
      "}"
-     "\\input lilyponddefs\\newdimen\\outputscale \\outputscale=\\mudelapaperoutputscale pt\\turnOnPostScript"))
+     "\\input lilyponddefs\\newdimen\\outputscale \\outputscale=\\lilypondpaperoutputscale pt\\turnOnPostScript"))
 
   (define (header creator generate) 
     (string-append
@@ -579,7 +579,7 @@
   
   (define (lily-def key val)
 
-     (if (string=? (substring key 0 (min (string-length "mudelapaper") (string-length key))) "mudelapaper")
+     (if (string=? (substring key 0 (min (string-length "lilypondpaper") (string-length key))) "lilypondpaper")
 	 (string-append "/" key " {" val "} bind def\n")
 	 (string-append "/" key " (" val ") def\n")
 	 )
@@ -828,15 +828,15 @@
 	)
     (if (pair? e)
 	`(((symbol . clefGlyph)
-	   (type . property-set)
+	   (type . ,Property_iterator::constructor)
 	   (value . ,(cadr e))
 	   )
 	  ((symbol . clefPosition)
-	   (type . property-set)
+	   (type . ,Property_iterator::constructor)
 	   (value . ,(caddr e))
 	   )
 	  ((symbol . clefOctavation)
-	   (type . property-set)
+	   (type . ,Property_iterator::constructor)
 	   (value . ,(caddr (cdr e)))
 	  )
 	  )
@@ -844,3 +844,36 @@
 	  (ly-warn (string-append "Unknown clef type `" cl "'\nSee scm/lily.scm for supported clefs"))
 	  '())
     )))
+
+
+
+(define (repeat-name-to-ctor name)
+  (let*
+      ((supported-reps
+	`(("volta" . ((type . ,Volta_repeat_iterator::constructor)
+		      (length . ,Repeated_music::volta_music_length)
+		      ))
+	  ("unfold" . ((type . ,Unfolded_repeat_iterator::constructor)
+		       (length . ,Repeated_music::unfolded_music_length)
+		       ))
+	  ("fold" . ((type  . ,Folded_repeat_iterator::constructor)
+		      (length . ,Repeated_music::folded_music_length)
+		      ))
+	  ("tremolo" . ((type . ,Chord_tremolo_iterator::constructor)
+			(length . ,Repeated_music::volta_music_length)
+			))
+	  ))
+	  
+       (handle (assoc name supported-reps))
+       )
+
+    (if (pair? handle)
+	(cdr handle)
+	(begin
+	  (ly-warn
+	   (string-append "Unknown repeat type `" name "'\nSee scm/lily.scm for supported repeats")
+	   )
+	  '(type . 'repeated-music))
+	)
+  ))
+

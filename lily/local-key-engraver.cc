@@ -83,9 +83,9 @@ Local_key_engraver::process_acknowledged ()
 	  Score_element * support_l = support_l_arr_[i];
 	  Note_req * note_l = mel_l_arr_[i];
 
-	  int n = note_l->pitch_.notename_i_;
-	  int o = note_l->pitch_.octave_i_;
-	  int a = note_l->pitch_.accidental_i_;
+	  int n = unsmob_pitch (note_l->get_mus_property ("pitch"))->notename_i_;
+	  int o = unsmob_pitch (note_l->get_mus_property ("pitch"))->octave_i () ;
+	  int a = unsmob_pitch (note_l->get_mus_property ("pitch"))->alteration_i_;
 	  
 	  /* see if there's a tie that "changes" the accidental */
 	  /* works because if there's a tie, the note to the left
@@ -117,7 +117,7 @@ Local_key_engraver::process_acknowledged ()
 		sign (prev_acc) * (prev_acc - a) == 1
 		&& abs(prev_acc) == 2;
 
-	      Local_key_item::add_pitch (key_item_p_, note_l->pitch_,
+	      Local_key_item::add_pitch (key_item_p_, *unsmob_pitch (note_l->get_mus_property ("pitch")),
 					 to_boolean (note_l->get_mus_property ("cautionary")),
 					 extra_natural);
 	      Side_position::add_support (key_item_p_,support_l);

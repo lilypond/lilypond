@@ -33,7 +33,6 @@ class Auto_change_iterator;
 class Auto_change_music;
 class Axis_group_engraver;
 class Bar_engraver;
-class Bar_req;
 class Bar_req_collect_engraver;
 class Barcheck_req;
 class Base_span_bar_engraver;
@@ -48,7 +47,7 @@ class Busy_playing_req;
 class Change_iterator;
 class Change_translator;
 class Chord_tremolo_iterator;
-class Clef_change_req;
+
 class Column_x_positions;
 class Context_specced_music;
 class Engraver;

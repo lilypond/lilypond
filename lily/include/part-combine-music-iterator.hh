@@ -19,7 +19,7 @@ public:
   Part_combine_music_iterator ();
 
   enum State { UNKNOWN, UNRELATED=1, SOLO1=2, SOLO2=4, UNIRHYTHM=8, UNISON=16, UNISILENCE=32, SPLIT_INTERVAL=64 };
- 
+  static SCM constructor_cxx_function; 
 protected:
   virtual ~Part_combine_music_iterator ();
 

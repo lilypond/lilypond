@@ -419,7 +419,8 @@
 		(stem-shorten . (0.5))
 		; if stem is on middle line, choose this direction.
 		(default-neutral-direction . 1)
-		(X-offset-callbacks . (,Stem::off_callback))		
+		(X-offset-callbacks . (,Stem::off_callback))
+		(X-extent-callback . ,Stem::dim_callback)	
 		(meta . ,(element-description  "Stem" stem-interface  font-interface))
 	))
 

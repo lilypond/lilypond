@@ -16,6 +16,7 @@ class Chord_tremolo_iterator : public Music_iterator
 {
 public:
   VIRTUAL_COPY_CONS (Music_iterator);
+  static SCM constructor_cxx_function;
   Chord_tremolo_iterator ();
 
 protected:

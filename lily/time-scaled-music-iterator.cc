@@ -27,3 +27,5 @@ Time_scaled_music_iterator::process (Moment m)
 
   Music_wrapper_iterator::process (m);
 }
+
+IMPLEMENT_CTOR_CALLBACK(Time_scaled_music_iterator);

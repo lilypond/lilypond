@@ -54,3 +54,5 @@ Simple_music_iterator::process (Moment m)
 
   skip (m);
 }
+
+IMPLEMENT_CTOR_CALLBACK(Simple_music_iterator);

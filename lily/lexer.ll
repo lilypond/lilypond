@@ -38,9 +38,12 @@
 #include "musical-request.hh"
 #include "identifier.hh"
 #include "version.hh"
-#include "mudela-version.hh"
+#include "lilypond-input-version.hh"
 #include "translator-def.hh"
 
+/*
+RH 7 fix (?)
+*/
 #define isatty HORRIBLEKLUDGE
 
 void strip_trailing_white (String&);
@@ -240,9 +243,6 @@ HYPHEN		--
 		return SCM_T;
 	}
 	yylval.scm = ly_parse_scm (s, &n);
-	DEBUG_OUT << "Scheme: ";
-	if (flower_dstream)
-		ly_display_scm (yylval.scm);
 	
 	for (int i=0; i < n; i++)
 	{
@@ -401,7 +401,6 @@ HYPHEN		--
 }
 
 [{}]	{
-
 	DEBUG_OUT << "parens\n";
 	return YYText ()[0];
 }
@@ -487,7 +486,11 @@ My_lily_lexer::scan_escaped_word (String str)
 		yylval.scm = sid;
 		
 		return dynamic_cast<Request*> (mus) ? REQUEST_IDENTIFIER : MUSIC_IDENTIFIER;
+	} else if (unsmob_duration (sid)) {
+		yylval.scm = sid;
+		return DURATION_IDENTIFIER;
 	}
+
 
 
 
@@ -501,13 +504,11 @@ My_lily_lexer::scan_escaped_word (String str)
 	}
 
 	if ((YYSTATE != notes) && (YYSTATE != chords)) {
-		SCM pitch = scm_hashq_ref (pitchname_tab_, sym, SCM_BOOL_F);
+		SCM pitch = scm_hashq_get_handle (pitchname_tab_, sym);
 		
-		if (pitch != SCM_BOOL_F)
+		if (gh_pair_p (pitch))
 		{
-			yylval.pitch = new Musical_pitch (pitch);
-			yylval.pitch->set_spot (Input (source_file_l (), 
-			  here_ch_C ()));
+			yylval.scm = gh_cdr (pitch);
 			return NOTENAME_PITCH;
 		}
 	}
@@ -524,17 +525,13 @@ My_lily_lexer::scan_bare_word (String str)
 {
 	SCM sym = ly_symbol2scm (str.ch_C ());
 	if ((YYSTATE == notes) || (YYSTATE == chords)) {
-		SCM pitch = scm_hashq_ref (pitchname_tab_, sym, SCM_BOOL_F);
-		if (pitch != SCM_BOOL_F) {
-		    yylval.pitch = new Musical_pitch (pitch);
-		    yylval.pitch->set_spot (Input (source_file_l (), 
-		      here_ch_C ()));
+		SCM pitch = scm_hashq_get_handle (pitchname_tab_, sym);
+		if (gh_pair_p (pitch)) {
+		    yylval.scm = gh_cdr (pitch);
                     return (YYSTATE == notes) ? NOTENAME_PITCH : TONICNAME_PITCH;
-		} else if ((pitch = scm_hashq_ref (chordmodifier_tab_, sym, SCM_BOOL_F))!= SCM_BOOL_F)
+		} else if ((pitch = scm_hashq_get_handle (chordmodifier_tab_, sym))!= SCM_BOOL_F)
 		{
-		    yylval.pitch = new Musical_pitch (pitch);
-		    yylval.pitch->set_spot (Input (source_file_l (), 
-		      here_ch_C ()));
+		    yylval.scm = gh_cdr (pitch);
 		    return CHORDMODIFIER_PITCH;
 		}
 	}
@@ -593,12 +590,12 @@ strip_trailing_white (String&s)
 bool
 valid_version_b (String s)
 {
-  Mudela_version current ( MAJOR_VERSION "." MINOR_VERSION "." PATCH_LEVEL );
-  Mudela_version ver (s);
+  Lilypond_version current ( MAJOR_VERSION "." MINOR_VERSION "." PATCH_LEVEL );
+  Lilypond_version ver (s);
   if (!((ver >= oldest_version) && (ver <= current)))
 	{	
-		non_fatal_error (_f ("incorrect mudela version: %s (%s, %s)", ver.str (), oldest_version.str (), current.str ()));
-		non_fatal_error (_("Consider converting the input with the convert-mudela script")); 
+		non_fatal_error (_f ("incorrect lilypond version: %s (%s, %s)", ver.str (), oldest_version.str (), current.str ()));
+		non_fatal_error (_("Consider converting the input with the convert-ly script")); 
 		return false;
     }
   return true;

@@ -113,7 +113,7 @@ more than this (in staffspace)")
    "A clef sign"
    (list
     (elt-property-description 'non-default boolean? "not set because of existence of a bar?")
-    (elt-property-description 'change boolean? "is this a change clef (smaller size)?")
+    (elt-property-description 'full-size-change boolean? "if set, don't make a change clef smaller.")  
     (elt-property-description 'glyph string? "a string determining what glyph is typeset")
     ))
   )
@@ -386,7 +386,7 @@ Align_interface::center_on_element). ")
    (list
     (elt-property-description 'grow-direction dir? "crescendo or decrescendo?")
     (elt-property-description 'thickness number? "thickness, measured in stafflinethickness")
-    (elt-property-description 'height number? "height, measured in staffspace in ")
+    (elt-property-description 'height number? "height, measured in staffspace.")
     )))
 
 (define arpeggio-interface

@@ -83,8 +83,8 @@
 
   (define (lily-def key val)
 	  (if 
-	   (or (equal? key "mudelapaperlinewidth")
-	       (equal? key "mudelapaperstaffheight"))
+	   (or (equal? key "lilypondpaperlinewidth")
+	       (equal? key "lilypondpaperstaffheight"))
 	   (string-append "(define " key " " (arg->string val) ")\n")
 	   ""))
 

@@ -20,6 +20,8 @@ class Folded_repeat_iterator : public Music_iterator
 {
 public:
   VIRTUAL_COPY_CONS (Music_iterator);
+  static SCM constructor_cxx_function;
+  
   Folded_repeat_iterator ();
   ~Folded_repeat_iterator ();
   

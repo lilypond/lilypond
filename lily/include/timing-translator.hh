@@ -17,10 +17,12 @@
 
 class Timing_translator : public virtual Translator
 {
+
+  SCM last_time_sig_;
 public:
   VIRTUAL_COPY_CONS(Translator);
   Timing_translator ();
-  Link_array<Timing_req> timing_req_l_arr_;
+  Music *check_;
 
 protected: 
   virtual void do_creation_processing ();
@@ -32,6 +34,6 @@ protected:
 public:
   Moment measure_position () const;
   Moment measure_length () const;  
-  void set_time_signature (int, int);
+  void set_time_signature ();
 };
 #endif // TIMING_TRANSLATOR_HH

@@ -33,12 +33,11 @@
    
    BODY A B C
 
-   is called "semi" folded.  This is common notation
+   is called volta.  This is common notation
 
    BODY A BODY B BODY C
 
    is called unfolded.  Useful for MIDI.
-
 
    If the number of repeats is smaller than the number of alternatives, then
    the excess alternatives are ignored for all timing purposes.
@@ -52,21 +51,18 @@ class Repeated_music : public Music
 public:
   Music * body () const;
   Music_sequence * alternatives () const;
-  String type_;
-  
-  bool fold_b_;
-  /// if FOLD_B_ is false, semifold this.
-  bool volta_fold_b_;
 
   /// how often do we repeat?
-  int repeats_i_;
+  int repeat_count( ) const;
   virtual Musical_pitch to_relative_octave (Musical_pitch);
 
-  /// The duration of this piece of music
-  virtual Moment length_mom () const;
   Moment body_length_mom () const;
-  Moment alternatives_length_mom () const;
+  Moment alternatives_length_mom (bool fold) const;
 
+  DECLARE_SCHEME_CALLBACK(unfolded_music_length, (SCM));
+  DECLARE_SCHEME_CALLBACK(volta_music_length, (SCM));
+  DECLARE_SCHEME_CALLBACK(folded_music_length, (SCM));    
+  
   /// Transpose, with the interval central C to #p#
   virtual void transpose (Musical_pitch p);
 

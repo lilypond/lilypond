@@ -88,7 +88,7 @@ than the names being similar :-)"
 @c Move to Reference Manual?
 * Internals:(lilypond-internals).  Auto generated detailed documentation.
 * More information::               Where to turn to for more help.
-* convert-mudela::                 Upgrading input files.
+* convert-ly::                 Upgrading input files.
 @c Hmm, having the generated doco in a separate file,
 @c the index can't refer to that.
 * Index::                          Unified index.
@@ -118,7 +118,7 @@ than the names being similar :-)"
 
 @include moreinfo.itexi
 
-@include convert-mudela.itexi
+@include convert-ly.itexi
 
 @node Index, , , Top
 @unnumbered Index

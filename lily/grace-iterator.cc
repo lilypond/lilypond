@@ -50,3 +50,5 @@ Grace_iterator::pending_moment () const
   return 0;
 }
 
+
+IMPLEMENT_CTOR_CALLBACK(Grace_iterator);

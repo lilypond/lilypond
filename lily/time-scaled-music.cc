@@ -8,7 +8,7 @@
  */
 
 #include "time-scaled-music.hh"
-
+#include "time-scaled-music-iterator.hh"
 
 Time_scaled_music::Time_scaled_music (int n, int d,Music *mp)
   : Music_wrapper (mp)
@@ -16,7 +16,8 @@ Time_scaled_music::Time_scaled_music (int n, int d,Music *mp)
   num_i_ = n;
   den_i_ = d;
   compress (Moment (num_i_,den_i_));
-  set_mus_property ("type", ly_symbol2scm ("time-scaled-music"));
+  set_mus_property ("type",
+		    Time_scaled_music_iterator::constructor_cxx_function);
 }
 
 

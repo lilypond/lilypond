@@ -86,28 +86,29 @@ Note_heads_engraver::do_process_music()
 
 
       
-      Note_req * note_req_l = note_req_l_arr_[i];
+      Music * req = note_req_l_arr_[i];
       
+      Duration dur   = *unsmob_duration (req->get_mus_property ("duration"));
       note_p->set_elt_property ("duration-log",
-				gh_int2scm (note_req_l->duration_.durlog_i_ <? 2));
+				gh_int2scm (dur.duration_log () <? 2));
 
-      if (note_req_l->duration_.dots_i_)
+      if (dur.dot_count ())
 	{
 	  Item * d = new Item (get_property ("Dots"));
 	  Rhythmic_head::set_dots (note_p, d);
 	  
-	  if (note_req_l->duration_.dots_i_
+	  if (dur.dot_count ()
 	      != gh_scm2int (d->get_elt_property ("dot-count")))
-	    d->set_elt_property ("dot-count", gh_int2scm (note_req_l->duration_.dots_i_));
+	    d->set_elt_property ("dot-count", gh_int2scm (dur.dot_count ()));
 
 	  d->set_parent (note_p, Y_AXIS);
 	  announce_element (d,0);
 	  dot_p_arr_.push (d);
 	}
 
-      note_p->set_elt_property("staff-position",  gh_int2scm (note_req_l->pitch_.steps ()));
+      note_p->set_elt_property("staff-position",  gh_int2scm (unsmob_pitch (req->get_mus_property ("pitch"))->steps ()));
 
-      announce_element (note_p,note_req_l);
+      announce_element (note_p,req);
       note_p_arr_.push (note_p);
     }
 }

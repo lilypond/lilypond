@@ -69,6 +69,15 @@ Music::compress (Moment)
 Moment
 Music::length_mom () const
 {
+  SCM l = get_mus_property ("length");
+  if (unsmob_moment (l))
+    return *unsmob_moment(l);
+  else if (gh_procedure_p (l))
+    {
+      SCM res = gh_call1(l, self_scm( ));
+      return *unsmob_moment(res);
+    }
+    
   return 0;
 }
 

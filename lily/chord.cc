@@ -13,6 +13,11 @@
 #include "music-list.hh"
 #include "musical-request.hh"
 
+/*
+  UGH
+
+  should compare SCM lists.
+ */
 int
 compare (Chord* left, Chord* right)
 {
@@ -27,7 +32,20 @@ compare (Chord* left, Chord* right)
 /*
   FIXME: should use SCM iso. arrays and have-to-delete pointers.
 
-  FIXME: this contains memleaks.
+  FIXME: a real function looks like
+
+
+    Return_value func (Input_value),
+
+  not
+
+    void func (Input_value *);
+
+  FIXME:
+
+    pitch is really a tuple, hence an immutable object. We
+    should remove all mutating operations.
+
  */
   
 /*
@@ -41,7 +59,7 @@ to_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p, Array<Musical_pi
   for (int i=0; i < add_arr_p->size (); i++)
     {
       Musical_pitch* p = &(*add_arr_p)[i];
-      if (p->octave_i_ == -100)
+      if (p->octave_i ()  == -100)
         {
           p->octave_i_ = 0;
 	  dim_b = true;
@@ -75,7 +93,7 @@ to_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p, Array<Musical_pi
   else if (dim_b)
     {
       Musical_pitch* p = &add_arr_p->top ();
-      p->accidental_i_--;
+      p->alteration_i_--;
     }
 
   /*
@@ -92,7 +110,7 @@ to_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p, Array<Musical_pi
     {
       for (int i=0; i < missing_arr.size (); i++)
         {
-	  missing_arr[i].accidental_i_--;
+	  missing_arr[i].alteration_i_--;
 	}
     }
 
@@ -112,7 +130,7 @@ to_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p, Array<Musical_pi
      C-sus (4) = c f g (1 4 5)
    */
   Musical_pitch sus = tonic;
-  sus.transpose (Musical_pitch (3));
+  sus.transpose (Musical_pitch (0,3,0));
   if (Chord::find_pitch_i (add_arr_p, sus) != -1)
     {
       int i = Chord::find_pitch_i (&missing_arr, third);
@@ -176,16 +194,17 @@ to_chord (Array<Musical_pitch> pitch_arr, Tonic_req* tonic_req, Inversion_req* i
 
   if (bass_req)
     {
-      assert (pitch_arr[0].notename_i_ == bass_req->pitch_.notename_i_);
+      assert (pitch_arr[0].notename_i_ == unsmob_pitch (bass_req->get_mus_property ("pitch"))->notename_i_);
       bass_p = new Musical_pitch (pitch_arr.get (0));
     }
     
   if (inversion_req)
     {
-      assert (pitch_arr[0].notename_i_ == inversion_req->pitch_.notename_i_);
-      inversion_p = new Musical_pitch (inversion_req->pitch_);
+      assert (pitch_arr[0].notename_i_ == unsmob_pitch (inversion_req->get_mus_property ("pitch"))->notename_i_);
+      inversion_p = new Musical_pitch (* unsmob_pitch (inversion_req->get_mus_property ("pitch")));
       assert (tonic_req);
-      int tonic_i = Chord::find_notename_i (&pitch_arr, tonic_req->pitch_);
+      int tonic_i = Chord::find_notename_i (&pitch_arr,
+					    *unsmob_pitch (tonic_req->get_mus_property ("pitch")));
       if (tonic_i)
 	Chord::rebuild_insert_inversion (&pitch_arr, tonic_i);
     }
@@ -193,7 +212,7 @@ to_chord (Array<Musical_pitch> pitch_arr, Tonic_req* tonic_req, Inversion_req* i
   if (find_inversion_b && !inversion_p)
     {
       int tonic_i = tonic_req
-	? Chord::find_notename_i (&pitch_arr, tonic_req->pitch_) 
+	? Chord::find_notename_i (&pitch_arr, *unsmob_pitch (tonic_req->get_mus_property ("pitch"))) 
 	: Chord::find_tonic_i (&pitch_arr);
 	
       if (tonic_i)
@@ -205,7 +224,7 @@ to_chord (Array<Musical_pitch> pitch_arr, Tonic_req* tonic_req, Inversion_req* i
 
   if (tonic_req)
     {
-      assert (pitch_arr[0].notename_i_ == tonic_req->pitch_.notename_i_);
+      assert (pitch_arr[0].notename_i_ == unsmob_pitch (tonic_req->get_mus_property ("pitch"))->notename_i_);
     }
 
   return Chord (pitch_arr, inversion_p, bass_p);
@@ -253,9 +272,9 @@ Chord::base_arr (Musical_pitch p)
 {
   Array<Musical_pitch> base;
   base.push (p);
-  p.transpose (Musical_pitch (2));
+  p.transpose (Musical_pitch (0,2,0));
   base.push (p);
-  p.transpose (Musical_pitch (2, -1));
+  p.transpose (Musical_pitch (0, 2, -1));
   base.push (p);
   return base;
 }
@@ -270,7 +289,7 @@ Chord::rebuild_transpose (Array<Musical_pitch>* pitch_arr_p, Musical_pitch tonic
       p.transpose (q);
       // duh, c7 should mean <c bes>
       if (fix7_b && (step_i (tonic, p) == 7))
-        p.accidental_i_--;
+        p.alteration_i_--;
       (*pitch_arr_p)[i] = p;
     }
   pitch_arr_p->sort (Musical_pitch::compare);
@@ -293,7 +312,7 @@ Chord::find_notename_i (Array<Musical_pitch> const* pitch_arr_p, Musical_pitch p
     {
       for (int i = 0; i < pitch_arr_p->size (); i++)
 	{
-	  p.octave_i_ = (*pitch_arr_p)[i].octave_i_;
+	  p.octave_i_ = (*pitch_arr_p)[i].octave_i () ;
 	  if (p == (*pitch_arr_p)[i])
 	    return i;
 	}
@@ -305,7 +324,7 @@ int
 Chord::step_i (Musical_pitch tonic, Musical_pitch p)
 {
   int i = p.notename_i_ - tonic.notename_i_
-    + (p.octave_i_ - tonic.octave_i_) * 7;
+    + (p.octave_i ()  - tonic.octave_i () ) * 7;
   while (i < 0)
     i += 7;
   i++;
@@ -324,7 +343,7 @@ Chord::missing_thirds_pitch_arr (Array<Musical_pitch> const* pitch_arr_p)
   /* is the third c-e, d-f, etc. small or large? */
   int minormajor_a[] = {0, -1, -1, 0,0,-1,-1};
   for (int i=0; i < 7; i++)
-    thirds.push (Musical_pitch( 2, minormajor_a[i]));
+    thirds.push (Musical_pitch( 0, 2, minormajor_a[i]));
 
   Musical_pitch tonic = (*pitch_arr_p)[0];
   Musical_pitch last = tonic;
@@ -343,7 +362,7 @@ Chord::missing_thirds_pitch_arr (Array<Musical_pitch> const* pitch_arr_p)
 	      if ((last.notename_i_ - tonic.notename_i_ + 7) % 7 == 6)
 		{
 		  Musical_pitch special_seven = last;
-		  Musical_pitch lower (0, -1);
+		  Musical_pitch lower (0, 0, -1);
 		  special_seven.transpose (lower);
 		  missing_arr.push (special_seven);
 		}
@@ -378,7 +397,7 @@ Chord::to_pitch_arr () const
       for (; i < pitch_arr.size (); i++)
 	{
 	  if ((pitch_arr[i].notename_i_ == inversion_pitch_.notename_i_)
-	      && (pitch_arr[i].accidental_i_ == inversion_pitch_.accidental_i_))
+	      && (pitch_arr[i].alteration_i_ == inversion_pitch_.alteration_i_))
 	    break;
 	}
       if (i == pitch_arr.size ())
@@ -472,7 +491,7 @@ Chord::rebuild_from_base (Array<Musical_pitch>* pitch_arr_p, int base_i)
       Musical_pitch p = (*pitch_arr_p)[(base_i + i) % pitch_arr_p->size ()];
       if (p < last)
 	{
-	  p.octave_i_ = last.octave_i_;
+	  p.octave_i_ = last.octave_i () ;
 	  if (p < last)
 	    p.octave_i_++;
 	}
@@ -490,7 +509,7 @@ Chord::rebuild_insert_inversion (Array<Musical_pitch>* pitch_arr_p, int tonic_i)
   rebuild_from_base (pitch_arr_p, tonic_i - 1);
   if (pitch_arr_p->size ())
     {
-      inversion.octave_i_ = (*pitch_arr_p)[0].octave_i_ - 1;
+      inversion.octave_i_ = (*pitch_arr_p)[0].octave_i ()  - 1;
       while (inversion < (*pitch_arr_p)[0])
 	inversion.octave_i_++;
     }
@@ -517,25 +536,40 @@ Chord::rebuild_with_bass (Array<Musical_pitch>* pitch_arr_p, int bass_i)
 
 // junk me
 Simultaneous_music *
-get_chord (Musical_pitch tonic,
-			   Array<Musical_pitch>* add_arr_p,
-			   Array<Musical_pitch>* sub_arr_p,
-			   Musical_pitch* inversion_p,
-			   Musical_pitch* bass_p,
-			   Duration d)
+get_chord (SCM stonic,
+	   SCM sadd_arr_p,
+	   SCM ssub_arr_p,
+	   SCM sinversion_p,
+	   SCM sbass_p,
+	   SCM dur)
 {
+  Musical_pitch tonic = *unsmob_pitch (stonic);
+  
+  Musical_pitch *inversion_p = unsmob_pitch( sinversion_p);
+  Musical_pitch *bass_p = unsmob_pitch (sbass_p);
+	
+  Array<Musical_pitch> add_arr_p;
+  Array<Musical_pitch> sub_arr_p;
+
+  for (SCM s = sadd_arr_p ; gh_pair_p (s); s = gh_cdr (s))
+    add_arr_p.push (*unsmob_pitch (gh_car (s)));
+  for (SCM s = ssub_arr_p ; gh_pair_p (s); s = gh_cdr (s))
+    sub_arr_p.push (*unsmob_pitch (gh_car (s)));
+  
+  sub_arr_p.reverse ();
+  add_arr_p.reverse ();
 
   /*
     UARGAUGRAGRUAUGRUINAGRAUGIRNA
 
     ugh
    */
-  Chord chord = to_chord (tonic, add_arr_p, sub_arr_p, inversion_p, bass_p);
+  Chord chord = to_chord (tonic, &add_arr_p, &sub_arr_p, inversion_p, bass_p);
   inversion_p = 0;
   bass_p = 0;
 
   Tonic_req* t = new Tonic_req;
-  t->pitch_ = tonic;
+  t->set_mus_property ("pitch",  tonic.smobbed_copy ());
   SCM l = gh_cons (t->self_scm (), SCM_EOL);
 
   //urg
@@ -543,25 +577,29 @@ get_chord (Musical_pitch tonic,
       && Chord::find_notename_i (&chord.pitch_arr_, chord.inversion_pitch_) > 0)
     {
       Inversion_req* i = new Inversion_req;
-      i->pitch_ = chord.inversion_pitch_;
+      i->set_mus_property ("pitch",  chord.inversion_pitch_.smobbed_copy ());
       l = gh_cons (i->self_scm (), l);
+      scm_unprotect_object (i->self_scm ());
     }
 
   if (chord.bass_b_)
     {
       Bass_req* b = new Bass_req;
-      b->pitch_ = chord.bass_pitch_;
-      l = gh_cons (b->self_scm (), l);      
+      b->set_mus_property ("pitch",  chord.bass_pitch_.smobbed_copy ());      
+
+      l = gh_cons (b->self_scm (), l);
+      scm_unprotect_object (b->self_scm ());      
     }
 
   Array<Musical_pitch> pitch_arr = chord.to_pitch_arr ();
   for (int i = pitch_arr.size (); --i >= 0;)
     {
-      Musical_pitch p = pitch_arr[i];
       Note_req* n = new Note_req;
-      n->pitch_ = p;
-      n->duration_ = d;
+      n->set_mus_property ("pitch", pitch_arr[i].smobbed_copy ());
+      n->set_mus_property ("duration", dur);
       l = gh_cons (n->self_scm (), l);
+
+      scm_unprotect_object (n->self_scm ());
     }
 
   Simultaneous_music*v = new Request_chord (l);

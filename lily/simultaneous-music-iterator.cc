@@ -143,3 +143,5 @@ Simultaneous_music_iterator::try_music_in_children (Music *m) const
 }
 
 
+
+IMPLEMENT_CTOR_CALLBACK(Simultaneous_music_iterator);

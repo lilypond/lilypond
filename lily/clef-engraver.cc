@@ -17,7 +17,6 @@
 #include "note-head.hh"
 #include "staff-symbol-referencer.hh"
 #include "debug.hh"
-#include "command-request.hh"
 #include "engraver.hh"
 #include "direction.hh"
 #include "side-position-interface.hh"
@@ -43,7 +42,6 @@ protected:
 private:
   Item * clef_p_;
   Item * octavate_p_;
-  Clef_change_req * clef_req_l_;
 
   SCM prev_glyph_;
   SCM prev_cpos_;
@@ -56,7 +54,6 @@ private:
 Clef_engraver::Clef_engraver ()
 {
   clef_p_ = 0;
-  clef_req_l_ = 0;
   octave_dir_ = CENTER;
   octavate_p_ = 0;
 

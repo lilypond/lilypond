@@ -22,37 +22,9 @@
 bool
 Timing_translator::do_try_music (Music*r)
 {
-  if (Timing_req *t =  dynamic_cast <Timing_req *> (r))
+  if (dynamic_cast<Barcheck_req*> (r))
     {
-      for (int i=0; i < timing_req_l_arr_.size (); i++)
-	{
-	  /*
-	    merge timing reqs.
-	   */
-	  if (timing_req_l_arr_[i]->equal_b(t))
-	    return true;
-	  if (String (classname (timing_req_l_arr_[i])) == classname (r))
-	    {
-	      r->origin ()->warning (_ ("conflicting timing request"));
-	      timing_req_l_arr_[i]->origin ()->warning (_("This is the other timing request")); 
-	      return false;
-	    }
-	}
-
-      /*
-	We have to do this soon enough. Maybe we'd better disguise
-	\time as a \property. Then all settings will be `immediate'.
-       */
-      if (Time_signature_change_req *c
-	  = dynamic_cast <Time_signature_change_req *> (t))
-	{
-	  int b = gh_scm2int (c->get_mus_property ("beats"));
-	  int o = gh_scm2int (c->get_mus_property ("one-beat"));      
-	  
-	  set_time_signature (b, o);
-
-	}
-      timing_req_l_arr_.push(t);
+      check_ = r;
       return true;
     }
   return false;
@@ -61,26 +33,31 @@ Timing_translator::do_try_music (Music*r)
 void
 Timing_translator::do_process_music()
 {
-  for (int i=0; i < timing_req_l_arr_.size (); i++)
+  if (check_ && measure_position ())
     {
-      if (!dynamic_cast <Barcheck_req *> (timing_req_l_arr_[i]))
-	continue;
-      if (measure_position ())
-	{
-	  timing_req_l_arr_[i]->origin ()->warning (_f ("barcheck failed at: %s", 
-							measure_position ().str ()));
-	  Moment zero; 
+      check_->origin ()->warning (_f ("barcheck failed at: %s", 
+				      measure_position ().str ()));
+      Moment zero; 
+      
+      if (!to_boolean (get_property ("barCheckNoSynchronize")))
+	daddy_trans_l_->set_property("measurePosition", zero.smobbed_copy ());
+    }
 
-	  // resync
-	  daddy_trans_l_->set_property("measurePosition", zero.make_scm ());
-	}
+  SCM fr = get_property ("timeSignatureFraction");
+  
+  if (scm_equal_p (fr, last_time_sig_) == SCM_BOOL_F)
+    {
+      last_time_sig_ = fr;
+      set_time_signature ();
     }
 }
+
 
 void
 Timing_translator::do_pre_move_processing()
 {
-  timing_req_l_arr_.set_size (0);
+  check_ = 0;
+  
   Translator *t = this;
   Global_translator *global_l =0;
   do
@@ -115,11 +92,11 @@ Timing_translator::do_creation_processing()
   Moment m;
   daddy_trans_l_->set_property ("timing" , SCM_BOOL_T);  
   daddy_trans_l_->set_property ("currentBarNumber" , gh_int2scm (1));
-  daddy_trans_l_->set_property ("measurePosition", m.make_scm ());
-  daddy_trans_l_->set_property ("beatLength", Moment (1,4).make_scm ());
-  daddy_trans_l_->set_property ("measureLength",  Moment (1).make_scm());
+  daddy_trans_l_->set_property ("measurePosition", m.smobbed_copy ());
   daddy_trans_l_->set_property ("timeSignatureFraction",
 				gh_cons (gh_int2scm (4), gh_int2scm (4)));
+
+  set_time_signature ();
 }
 
 Moment
@@ -134,18 +111,24 @@ Timing_translator::measure_length () const
 
 
 void
-Timing_translator::set_time_signature (int l, int o)
+Timing_translator::set_time_signature ()
 {
+  SCM fr = get_property ("timeSignatureFraction");
+  int l = gh_scm2int (gh_car (fr));
+  int o = gh_scm2int (gh_cdr (fr));
+  
   Moment one_beat = Moment (1)/Moment (o);
   Moment len = Moment (l) * one_beat;
-  daddy_trans_l_->set_property ("measureLength", len.make_scm ());
-  daddy_trans_l_->set_property ("beatLength", one_beat.make_scm ());
-  daddy_trans_l_->set_property ("timeSignatureFraction",
-				gh_cons (gh_int2scm (l), gh_int2scm (o)));
+
+  daddy_trans_l_->set_property ("measureLength", len.smobbed_copy ());
+  daddy_trans_l_->set_property ("beatLength", one_beat.smobbed_copy ());
 }
 
 Timing_translator::Timing_translator()
 {
+
+  last_time_sig_ = SCM_BOOL_F;
+
 }
 
 
@@ -168,6 +151,7 @@ Timing_translator::measure_position () const
 void
 Timing_translator::do_post_move_processing()
 {
+	check_ =00;
   Translator *t = this;
   Global_translator *global_l =0;
   do
@@ -196,7 +180,7 @@ Timing_translator::do_post_move_processing()
     }
   else
     {
-      daddy_trans_l_->set_property ("measurePosition", measposp.make_scm());
+      daddy_trans_l_->set_property ("measurePosition", measposp.smobbed_copy());
     }
   
   measposp += dt;
@@ -219,6 +203,6 @@ Timing_translator::do_post_move_processing()
     }
 
   daddy_trans_l_->set_property ("currentBarNumber", gh_int2scm (b));
-  daddy_trans_l_->set_property ("measurePosition", measposp.make_scm());
+  daddy_trans_l_->set_property ("measurePosition", measposp.smobbed_copy());
 }
 

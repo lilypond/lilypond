@@ -13,6 +13,30 @@
 #include "music-sequence.hh"
 #include "warn.hh"
 
+
+/*
+  DOCUMENTME
+ */
+int
+compare (Array<Duration> const * left, Array<Duration> const * right)
+{
+  assert (left);
+  assert (right);
+  
+  if (left->size () == right->size ())
+    {
+      for (int i = 0; i < left->size (); i++)
+	{
+	  int r = Duration::compare ((*left)[i], (*right)[i]);
+	  if (r)
+	    return r;
+	}
+    }
+  else
+    return 1;
+  return 0;
+}
+
 Part_combine_music_iterator::Part_combine_music_iterator ()
 {
   first_iter_p_ = 0;
@@ -116,9 +140,9 @@ get_music_info (Moment m, Music_iterator* iter, Array<Musical_pitch> *pitches, A
 	{
 	  Music *m = unsmob_music (gh_car (i));
 	  if (Melodic_req *r = dynamic_cast<Melodic_req *> (m))
-	    pitches->push (r->pitch_);
+	    pitches->push (*unsmob_pitch (r->get_mus_property("pitch")));
 	  if (Rhythmic_req *r = dynamic_cast<Rhythmic_req *> (m))
-	    durations->push (r->duration_);
+	    durations->push (*unsmob_duration (r->get_mus_property("duration")));
 	}
     }
 }
@@ -408,3 +432,5 @@ Part_combine_music_iterator::get_music (Moment m)const
     s = gh_append2 (second_iter_p_->get_music (m),s);
   return s;
 }
+
+IMPLEMENT_CTOR_CALLBACK(Part_combine_music_iterator);

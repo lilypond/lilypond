@@ -88,7 +88,7 @@ Auto_change_iterator::pending_pitch (Moment m) const
       for (SCM s = muses; gh_pair_p (s); s=gh_cdr (s))
 	if (Note_req* nr = dynamic_cast<Note_req*> (unsmob_music (gh_car (s))))
 	  {
-	    ps.push (nr->pitch_);
+	    ps.push (*unsmob_pitch (nr->get_mus_property ("pitch")));
 	  }
 
       if (ps.size ())
@@ -135,3 +135,5 @@ Auto_change_iterator::Auto_change_iterator( )
 {
   where_dir_ = CENTER;
 }
+
+IMPLEMENT_CTOR_CALLBACK(Auto_change_iterator);

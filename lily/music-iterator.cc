@@ -11,25 +11,10 @@
  */
 #include "debug.hh"
 #include "music-iterator.hh"
-#include "property-iterator.hh"
-#include "request-chord-iterator.hh"
-#include "sequential-music-iterator.hh"
-#include "simultaneous-music-iterator.hh"
 #include "translator-group.hh"
-#include "change-iterator.hh"
 #include "music-wrapper.hh"
 #include "music-wrapper-iterator.hh"
-#include "time-scaled-music-iterator.hh"
-#include "repeated-music.hh"
-#include "folded-repeat-iterator.hh"
-#include "unfolded-repeat-iterator.hh"
-#include "grace-iterator.hh"
-#include "lyric-combine-music-iterator.hh"
-#include "auto-change-iterator.hh"
-#include "part-combine-music-iterator.hh"
 #include "simple-music-iterator.hh"
-#include "output-property-music-iterator.hh"
-#include "chord-tremolo-iterator.hh"
 #include "context-specced-music.hh"
 
 Music_iterator::Music_iterator ()
@@ -99,68 +84,20 @@ Music_iterator::get_music (Moment)const
   return SCM_EOL;
 }
 
-
-
-/* We could do this decentrally:
-
- -  Declare a new smob-type, which stores a function ptr in its CDR
-   (and not a struct ptr). The function ptr has signature
-
-   	Music_iterator* (*)()
-
- - initialize  all music with a set_mus_property("iterator-ctor"),
-
- - do
- 
-    func_ptr  p = (func_ptr) gh_cdr (get_mus_property ("iterator-ctor"));
-    iter_p = (*p)();
-
-*/
-
 Music_iterator*
 Music_iterator::static_get_iterator_p (Music *m)
 {
   Music_iterator * p =0;
 
   SCM type = m->get_mus_property ("type") ;
-
-  if (type == ly_symbol2scm ("property-set"))
-    p = new Property_iterator;
-  else if (type == ly_symbol2scm ("property-push"))
-    p = new Push_property_iterator;
-  else if (type == ly_symbol2scm ("property-pop"))
-    p = new Pop_property_iterator;
-  else if (type == ly_symbol2scm ("output-property"))
-    p = new Output_property_music_iterator;
-  else if (type == ly_symbol2scm ("request-chord"))
-    p = new Request_chord_iterator;
-  else  if (type == ly_symbol2scm ("lyric-combine-music"))
-    p = new Lyric_combine_music_iterator;
-  else if  (type == ly_symbol2scm ("simultaneous-music"))
-    p =  new Simultaneous_music_iterator;
-  else if (type == ly_symbol2scm ("sequential-music"))
-    p =  new Sequential_music_iterator;
-  else if (type == ly_symbol2scm ("change-translator"))
-    p = new Change_iterator;
-  else if (type == ly_symbol2scm ("time-scaled-music"))
-    p = new Time_scaled_music_iterator;
-  else if (type == ly_symbol2scm ("grace-music"))
-    p = new Grace_iterator;
-  else if (type == ly_symbol2scm ("auto-change-music"))
-    p = new Auto_change_iterator;
-  else if (type == ly_symbol2scm ("part-combined-music"))
-    p = new Part_combine_music_iterator;
+  if (unsmob_cxx_function (type))
+    {
+      Cxx_function f =  unsmob_cxx_function (type);
+      
+      p = (Music_iterator*) (*f) (SCM_EOL);
+    }
   else if (dynamic_cast<Music_wrapper   *> (m))
     p = new Music_wrapper_iterator;
-  else if (Repeated_music  * n = dynamic_cast<Repeated_music  *> (m))
-    {
-      if (n->type_ == "tremolo")
-	p = new Chord_tremolo_iterator;
-      else if (n->fold_b_)
-	p = new Folded_repeat_iterator;
-      else
-	p = new Unfolded_repeat_iterator;
-    }
   else
     {
       p = new Simple_music_iterator ;
@@ -233,3 +170,4 @@ Music_iterator::try_music_in_children (Music *) const
   return 0;
 }
 
+IMPLEMENT_CTOR_CALLBACK(Music_iterator);

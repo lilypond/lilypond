@@ -129,3 +129,5 @@ Folded_repeat_iterator::try_music_in_children (Music * m) const
     return alternative_iter_p_->try_music (m);
   return 0;
 }
+
+IMPLEMENT_CTOR_CALLBACK(Folded_repeat_iterator);

@@ -42,7 +42,7 @@ Note_name_engraver::do_process_music ()
     {
       if (i)
 	s += " ";
-      s += req_l_arr_[i]->pitch_.str ();
+      s += unsmob_pitch (req_l_arr_[i]->get_mus_property ("pitch"))->str ();
     }
   if (s.length_i())
     {

@@ -80,11 +80,20 @@ Rest_collision::do_shift (Score_element *me, SCM elts)
    */
   Link_array<Score_element> rests;
   Link_array<Score_element> notes;
-
+  Score_element * commony = 0;
   for (SCM s = elts; gh_pair_p (s); s = gh_cdr (s))
     {
+      
       Score_element * e = unsmob_element (gh_car (s));
-      if (e && unsmob_element (e->get_elt_property ("rest")))
+      if (!e)
+	continue;
+      
+      if (!commony)
+	commony = e;
+      else
+	commony= commony->common_refpoint  (e, Y_AXIS);
+      
+      if (unsmob_element (e->get_elt_property ("rest")))
 	rests.push (e);
       else
 	notes.push (e);
@@ -184,16 +193,15 @@ Rest_collision::do_shift (Score_element *me, SCM elts)
       // try to be opposite of noteheads. 
       Direction dir = - Note_column::dir (notes[0]);
 
-      Interval restdim = Note_column::rest_dim (rcol);
+      Score_element * r = unsmob_element (rcol->get_elt_property ("rest"));
+      Interval restdim = r->extent (r, Y_AXIS);	// ??
+
       if (restdim.empty_b ())
 	return SCM_UNSPECIFIED;
       
-      // staff ref'd?
+      // FIXME: staff ref'd?
       Real staff_space = 1.0;
 
-	/* FIXME
-	  staff_space =  rcol->rests[0]->staff_space ();
-	*/
       Real minimum_dist = gh_scm2double (me->get_elt_property ("minimum-distance")) * staff_space;
       
       /*
@@ -202,7 +210,9 @@ Rest_collision::do_shift (Score_element *me, SCM elts)
       Interval notedim;
       for (int i = 0; i < notes.size(); i++) 
 	{
-	  notedim.unite (notes[i]->extent (notes[i],Y_AXIS)); // refp?
+	  Score_element * stem = Note_column::stem_l (notes[i]);
+	  Score_element * head = Stem::first_head (stem);
+	  notedim.unite (head->extent (commony, Y_AXIS));
 	}
 
       Interval inter (notedim);

@@ -14,7 +14,7 @@
 #include "lily-proto.hh"
 
 /**
-  Output something that was defined in a mudela file. 
+  Output something that was defined in a lilypond file. 
  */
 class Music_output 
 {

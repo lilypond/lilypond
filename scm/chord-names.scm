@@ -24,9 +24,9 @@
 ;; * text definition is rather ad-hoc
 ;; * do without format module
 ;; * finish and check american names
-;; * make notename (tonic) configurable from mudela
+;; * make notename (tonic) configurable from lilypond
 ;; * fix append/cons stuff in inner-name-banter
-;;
+;; * doc strings.
 
 
 ;;;;;;;;;
@@ -68,6 +68,7 @@
 ;; DONT use non-ascii characters, even if ``it works'' in Windows
 
 (define chord::names-alist-american '())
+
 (set! chord::names-alist-american
       (append 
        '(
@@ -428,7 +429,7 @@
 					(list 'super (step->text-banter p))
 					(if (pair? (cdr from))
 					    '((super "/"))
-					    '()))))))
+					    '())))))) ; nesting?
 		 to))
 	 (if (and (pair? base-and-inversion)
 		  (or (car base-and-inversion)
@@ -461,6 +462,14 @@
 	(subtractions #f))
     (chord::inner-name-banter tonic user-name additions subtractions base-and-inversion)))
 
+(define (new-to-old-pitch p)
+  (if (pitch? p)
+      (list (pitch-octave p) (pitch-notename p) (pitch-alteration p))
+      #f
+  ))
+
+
+
 ;; C++ entry point
 ;; 
 ;; Check for each subset of chord, full chord first, if there's a
@@ -472,6 +481,10 @@
   ;(display "pitches:") (display  pitches) (newline)
   ;(display "style:") (display  style) (newline)
   ;(display "b&i:") (display  base-and-inversion) (newline)
+  (set! pitches (map new-to-old-pitch pitches))
+  (set! base-and-inversion (cons (new-to-old-pitch (car base-and-inversion))
+				 (new-to-old-pitch (cdr base-and-inversion))))
+  
   (let ((diff (pitch::diff '(0 0 0) (car pitches)))
 	(name-func 
 	  (ly-eval (string->symbol (string-append "chord::name-" style))))

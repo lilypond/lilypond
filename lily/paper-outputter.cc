@@ -194,7 +194,7 @@ Paper_outputter::output_version ()
   else
     id_str += String (", ") + version_str ();
 
-  output_String_def ( "mudelatagline", id_str);
+  output_String_def ( "lilypondtagline", id_str);
   output_String_def ( "LilyPondVersion", version_str ());
 }
 

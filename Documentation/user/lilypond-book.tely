@@ -1,10 +1,10 @@
 \input texinfo @c -*-texinfo-*-
-@setfilename mudela-book.info
-@settitle mudela-book Manual
+@setfilename lilypond-book.info
+@settitle lilypond-book Manual
 @afourpaper
 @titlepage
-@title mudela-book Manual
-@subtitle Integrating mudela with La@TeX{} and TeXinfo
+@title lilypond-book Manual
+@subtitle Integrating lilypond with La@TeX{} and TeXinfo
 @author Tom Cato Amundsen and  Han-Wen Nienhuys
 
      Copyright @copyright{} 1999 by the authors
@@ -68,7 +68,7 @@ translation approved by the Free Software Foundation.
 
 @end ifinfo
 @tex
-\def\preMudelaExample{\vspace{0.5cm}}
+\def\preLilypondExample{\vspace{0.5cm}}
 @end tex
 
 @contents
@@ -85,14 +85,14 @@ the end of this document ]
 
 [TODO: THIS MANUAL IS NOT FINISHED YET. FIXME.]
 
-@command{mudela-book} is a script that helps integrating mudela with
-La@TeX{} or TeXinfo. @command{mudela-book} runs Lilypond on fragments
-of mudela in your source file, and includes the results into a
+@command{lilypond-book} is a script that helps integrating lilypond with
+La@TeX{} or TeXinfo. @command{lilypond-book} runs Lilypond on fragments
+of lilypond in your source file, and includes the results into a
 document that can be processed with La@TeX{}, @command{makeinfo}
 or @command{texi2dvi}.
 The result is a text document with formatted music integrated.
 
-@command{mudela-book} will do its best to try to align the music to
+@command{lilypond-book} will do its best to try to align the music to
 the left and right margins. Currently the most used papersizes and
 one- and twocolumn mode is supported. But if you use some more
 advances features, like the geometry-package or change the margins in
@@ -103,20 +103,20 @@ La@TeX{} or texinfo.
 
 @section TeXinfo reference
 
-Your markup the mudela code like this:
+Your markup the lilypond code like this:
 @example
-@@mudela[options, go, here]
- YOUR MUDELA CODE
-@@end mudela
+@@lilypond[options, go, here]
+ YOUR LILYPOND CODE
+@@end lilypond
 @end example
 
 or
 
 @example
-@@mudela[option, go, here]@{ YOUR MUDELA CODE @}
+@@lilypond[option, go, here]@{ YOUR LILYPOND CODE @}
 @end example
 
-@command{mudela-book} knows the default margins, and a few papersizes.
+@command{lilypond-book} knows the default margins, and a few papersizes.
 These commands should be in the beginning of the document:
 @itemize @bullet
 @item @code{@@afourpaper}
@@ -130,24 +130,24 @@ These commands should be in the beginning of the document:
 Two simple examples. First a complete block:
 
 @example
-@@mudela[26pt]
+@@lilypond[26pt]
 c' d' e' f' g'2 g'
-@@end mudela
+@@end lilypond
 @end example
 
 produces this music:
-@mudela
+@lilypond
 c' d' e' f' g'2 g'
-@end mudela
+@end lilypond
 
 Then the short version:
 @example
-@@mudela[11pt]@{<c' e' g'>@}
+@@lilypond[11pt]@{<c' e' g'>@}
 @end example
 
 and its music:
 
-@mudela[11pt]{<c' e' g'>}
+@lilypond[11pt]{<c' e' g'>}
 
 
 @subsection @@example and @@code
@@ -155,38 +155,38 @@ and its music:
 I'm not sure if this will go into the final documentation, this is
 here mostly to remember me on why things are the way they are.
 
-@command{mudela-book} will do nothing with special with @code{@@code} and
+@command{lilypond-book} will do nothing with special with @code{@@code} and
 @code{@@example} environments. The 'code' and 'example' commands
 should work just as normal. People looking at document that should be
-processed by @command{mudela-book}, should notice nothing special, except from
+processed by @command{lilypond-book}, should notice nothing special, except from
 some block like this:
 @example
-@@mudela
+@@lilypond
 BLABLA
-@@end mudela
+@@end lilypond
 @end example
 
 or this:
 
-@code{@@mudela@{ BLABLA @}}
+@code{@@lilypond@{ BLABLA @}}
 
-Anything other is a bug in @command{mudela-book}.
+Anything other is a bug in @command{lilypond-book}.
 
 So to get this in the printed manual:
 
 @example
-@@mudela[26pt]
+@@lilypond[26pt]
 \relative c'@{c d e f g2 g@}
-@@end mudela
+@@end lilypond
 @end example
 
 you have to write this:
 
 @example
 @@example
-@@@@mudela[26pt]
+@@@@lilypond[26pt]
 \relative c'@@@{c d e f g2 g@@@}
-@@@@end mudela
+@@@@end lilypond
 @@end example
 @end example
 
@@ -195,31 +195,31 @@ Simply explained, every '@{', '@}' and '@@' has to be written as '@@@{',
 
 @section La@TeX{} reference
 
-Your markup the mudela code like this:
+Your markup the lilypond code like this:
 @example
-\begin[option, go, here]@{mudela@}
- YOUR MUDELA CODE
-\end@{mudela@}
+\begin[option, go, here]@{lilypond@}
+ YOUR LILYPOND CODE
+\end@{lilypond@}
 @end example
 
 or 
 
 @example
-\mudela@{ YOUR MUDELA CODE @}
+\lilypond@{ YOUR LILYPOND CODE @}
 @end example
 
 The 'geometry' package is is not supported. The most popular
 papersizes should work.
 
-Mudela-book know about the @code{\onecolumn} and 
+Lilypond-book know about the @code{\onecolumn} and 
 @code{\twocolumn} commands.
 
-The music will be surrounded by @code{\preMudelaExample} and
-@code{\postMudelaExample}. The variables are 
+The music will be surrounded by @code{\preLilypondExample} and
+@code{\postLilypondExample}. The variables are 
 defined to nothing by default, and the user can redefine them
 to whatever he wants.
 @strong{[UGH: THIS DOES NOT HAPPEN WHEN
-YOU USE THE SHORT FORM, \MUDELA@{ ... @}, CHECK OUT WHY]}
+YOU USE THE SHORT FORM, \LILYPOND@{ ... @}, CHECK OUT WHY]}
 
 @subsection @code{landscape} package 
 There is some simple support for landscape paper format, and this
@@ -228,7 +228,7 @@ letter paper is supported, more to come...
 
 A more complete
 support, maybe also supporting the geometry package is planned, but
-there are more work that has to be done on @command{mudela-book}
+there are more work that has to be done on @command{lilypond-book}
 first.
 
 This should work:
@@ -244,25 +244,25 @@ BLA BLA BLA
 @subsection Examples 
 
 @example
-\begin[26pt]@{mudela@}
+\begin[26pt]@{lilypond@}
 c' d' e' f' g'2 g'2
-\end@{mudela@}
+\end@{lilypond@}
 @end example
 
 produces this music:
 
-@mudela[26pt]
+@lilypond[26pt]
 c' d' e' f' g'2 g'2
-@end mudela
+@end lilypond
 
 Then the short version:
 @example
-\mudela[11pt]@{<c' e' g'>@}
+\lilypond[11pt]@{<c' e' g'>@}
 @end example
 
 and its music:
 
-@mudela[11pt]{<c' e' g'>}
+@lilypond[11pt]{<c' e' g'>}
 
 
 @subsection \begin@{verbatim@} and \verb|\verb| 
@@ -280,14 +280,14 @@ There work just as expected. Look at @file{mb-latex.tex} for details.
     CONTENTS is copied into the source enclosed in a verbatim block,
     followed by any text given with the @code{intertext} option, then
     the actual music is displayed. This option does not work with
-    the short version of the mudela blocks:
+    the short version of the lilypond blocks:
 
-    @code{ @@mudela@{ CONTENTS @} } and @code{ \mudela@{ CONTENTS @} }
+    @code{ @@lilypond@{ CONTENTS @} } and @code{ \lilypond@{ CONTENTS @} }
     
 @item intertext="text inside apostrophs"
     Used in conjunction with @code{verbatim} option.
 @item filename=FILENAME
-    Save the mudela code to FILENAME instead of using a hash value
+    Save the lilypond code to FILENAME instead of using a hash value
     of CONTENTS.
 @item 11pt, 13pt, 16pt, 20pt, 26pt
     set the fontsize to use for the music
@@ -297,20 +297,20 @@ There work just as expected. Look at @file{mb-latex.tex} for details.
   linewidth = textwidth
 @item fragment
 @item nonfragment
-    Override @command{mudela-book} autodetection of what type of code is in the
-    mudela block, voice contents or complete code.
+    Override @command{lilypond-book} autodetection of what type of code is in the
+    lilypond block, voice contents or complete code.
 @end table
 
 @section Invocation
 
-When you run @command{mudela-book} it will generate lots of small
+When you run @command{lilypond-book} it will generate lots of small
 files that Lilypond will process. So to avoid all the garbage in
 your source directory, you should either change to a temporary
 directory, or use the @code{--outdir} commandline options:
 
-@code{cd out && mudela-book ../yourfile.tex}
+@code{cd out && lilypond-book ../yourfile.tex}
 
-@code{mudela-book --outdir=out yourfile.tex}
+@code{lilypond-book --outdir=out yourfile.tex}
 
 
 For latex input, the file to give to latex has ext @file{.latex}.
@@ -322,7 +322,7 @@ If you use @code{--outdir}, you should also @code{cd} to that directory
 before running LaTeX or makeinfo.
 
 @strong{[UGH: IS THIS THE BEST WAY TO DO IT. MAYBE ADD A COMMENT LINE TO THE
-GENERATED FILE, SO MUDELA-BOOK CAN TEST IF THE FILE IT IS TO OVERWRITE
+GENERATED FILE, SO LILYPOND-BOOK CAN TEST IF THE FILE IT IS TO OVERWRITE
 IS GENERATED.]}
 
 @strong{About the input}
@@ -331,15 +331,15 @@ If the file contains the ``block''
 
 @example 
 
-        \begin@{mudela@}
+        \begin@{lilypond@}
         CONTENTS
-        \end@{mudela@}
+        \end@{lilypond@}
  
 @end example 
 
-then LilyPond is run on CONTENTS.  @command{mudela-book} puts the result back,
-surrounded by @code{\preMudelaExample} and @code{\postMudelaExample}
-commands. @code{\preMudelaExample} and @code{posMudelaExample} is
+then LilyPond is run on CONTENTS.  @command{lilypond-book} puts the result back,
+surrounded by @code{\preLilypondExample} and @code{\postLilypondExample}
+commands. @code{\preLilypondExample} and @code{posLilypondExample} is
 defined to nothing by default, and the user can redefine them
 to whatever he wants.
 
@@ -350,13 +350,13 @@ to whatever he wants.
 
 @item @option{-f}, @option{--format=}
     Specify the document type to process, @code{latex} or @code{texi}.
-    @command{mudela-book} usually figure out this automatically.
+    @command{lilypond-book} usually figure out this automatically.
 @item --default-music-fontsize=??pt
-    Set the fontsize to use for mudela if no fontsize is given
+    Set the fontsize to use for lilypond if no fontsize is given
     as option.
 @item --force-music-fontsize=??pt
-    Force all mudela to use this fontsize, overriding options
-    given to \begin@{mudela@}
+    Force all lilypond to use this fontsize, overriding options
+    given to \begin@{lilypond@}
 @item -I DIR, --include=DIR
     include path
 @item -M, --dependencies
@@ -370,9 +370,9 @@ to whatever he wants.
 @item --read-lys
 	don't write ly files. This way you can do
 	@example
-	mudela-book file.tely
-	convert-mudela
-	mudela-book --read-lys
+	lilypond-book file.tely
+	convert-ly
+	lilypond-book --read-lys
 	@end example
 @item --outname=FILE
     The name of La@TeX{} file to output. If this option  is not given,
@@ -387,7 +387,7 @@ to whatever he wants.
 
 
 
-@command{mudela-book} is written in python 1.5, so you have to install
+@command{lilypond-book} is written in python 1.5, so you have to install
 @uref{http://www.python.org,python}.
 
 
@@ -408,7 +408,7 @@ Ignores almost all La@TeX{} commands that changes margins and linewidths.
 @ignore
 
 So what does this look like? Well, here is an example:
-@mudela[veryverbatim, intertext="produces this music:"]
+@lilypond[veryverbatim, intertext="produces this music:"]
 \score{
   \notes\relative c'{
     \time 5/8;
@@ -418,13 +418,13 @@ So what does this look like? Well, here is an example:
     [f( a b d b a][f a b d] | )e2
   }
 }
-@end mudela
+@end lilypond
 If you are lucky, the above example show a nice feature of LilyPond
 and La@TeX{}. Since LilyPond can output the music as @TeX{} graphics,
 La@TeX{} can insert pagebreaks between the lines of music.
 
 Notice that there is no @code{\paper} statement in the example
-above. Mudela-book will insert some code for you that defines the
+above. Lilypond-book will insert some code for you that defines the
 linewidth and the font to use. If you don't want to change the default, 
 there is no need to put an empty @code{\paper@{@}} inside the @code{\score}.
 In the example above, something like
@@ -443,7 +443,7 @@ music, another file than @code{paper16.ly} will be included.
 If you want to make the music not so wide, you can insert a
 @code{\paper} statement that set the linewidth:
 
-@mudela[veryverbatim, intertext="produces this music:"]
+@lilypond[veryverbatim, intertext="produces this music:"]
 \score{
   \notes\relative c'{
     \time 5/8;
@@ -454,108 +454,108 @@ If you want to make the music not so wide, you can insert a
   }
   \paper{linewidth = 10.\cm;}
 }
-@end mudela
+@end lilypond
 
 Very often, if you mix music and text, the music is often only a 
 few notes or at most a few bars. This music should be as short as
 possible and not stretched to be aligned to the right margin.
 
-If you only write voice-contents in the mudela block, @command{mudela-book}
+If you only write voice-contents in the lilypond block, @command{lilypond-book}
 will set the @code{linewidth} variable to -1, so Lilypond
 will make the music as short as possible but without breaking the
 line. Here is a well know harmonic progression:
-@mudela[veryverbatim, intertext="produce a well known harmonic progression:"]
+@lilypond[veryverbatim, intertext="produce a well known harmonic progression:"]
   \context Voice { <c' e g> <b d g> <c2 e g> }
-@end mudela
+@end lilypond
 
 If you want to place music examples in the text,
-@mudela[eps]
+@lilypond[eps]
 \context Voice {  <c' e g> <b d g> <c2 e g>}
-@end mudela
+@end lilypond
 , you can use the @code{eps} option. This will create the music as
 eps graphics and include it into the document with the 
 @code{\includegraphics} command.
 
 The code used look like this:
 @example
-@@mudela[eps]
+@@lilypond[eps]
  \context Voice { <c' e g> <b d g> <c2 e g> }
-@@end mudela
+@@end lilypond
 @end example
 
 You can also use the @code{eps} option if the block is a complete
-mudela source. This 5 cm long empty line, 
-@mudela[eps]
+lilypond source. This 5 cm long empty line, 
+@lilypond[eps]
 \score{
   \notes{s}
   \paper{ linewidth = 5.\cm;}
 }
-@end mudela
+@end lilypond
 was created with this code:
 @example
-@@mudela[eps]
+@@lilypond[eps]
 \score@{
   \notes@{s@}
   \paper@{ linewidth = 5.\cm;@}
 @}
-@@end mudela
+@@end lilypond
 @end example
 
 To avoid that La@TeX{} places the music on a line of its one, there should
-be no empty lines between the normal text and the mudela
+be no empty lines between the normal text and the lilypond
 environment. 
 
-You can also use @code{mudelafile} (on a separate line, FIXME), to
+You can also use @code{lilypondfile} (on a separate line, FIXME), to
 include another file.
 
 @section Fontsize options You can use all lilypond fontsizes in
-@command{mudela-book}.  The default 16pt fontsize is probably to big to be
+@command{lilypond-book}.  The default 16pt fontsize is probably to big to be
 included in the middle of the text, 11pt or 13pt is probably better.
 
 The code can look like this:
 @example
-@@mudela[13pt, eps]
+@@lilypond[13pt, eps]
 <c' e g>
-@@end mudela
+@@end lilypond
 @end example
 
 The following options set the fontsize:
 @itemize
 @item @code{11pt}
-@mudela[11pt, eps]
+@lilypond[11pt, eps]
   \relative c'{
     r16 [c d e][f d e c] [g'8 c][b-\prall c] |
     [d16 g, a b][c a b g][d'8 g f-\prall g]
   }
-@end mudela
+@end lilypond
 @item @code{13pt}
-@mudela[13pt, eps]
+@lilypond[13pt, eps]
   \relative c'{
     r16 [c d e][f d e c] [g'8 c][b-\prall c] |
     [d16 g, a b][c a b g][d'8 g f-\prall g]
   }
-@end mudela
+@end lilypond
 @item @code{16pt}
-@mudela[16pt, eps]
+@lilypond[16pt, eps]
   \relative c'{
     r16 [c d e][f d e c] [g'8 c][b-\prall c] |
     [d16 g, a b][c a b g][d'8 g f-\prall g]
   }
-@end mudela
+@end lilypond
 @item @code{20pt}
-@mudela[20pt, eps]
+@lilypond[20pt, eps]
   \relative c'{
     r16 [c d e][f d e c] [g'8 c][b-\prall c] |
     [d16 g, a b][c a b g][d'8 g f-\prall g]
   }
-@end mudela
+@end lilypond
 @item @code{26pt}
-@mudela[26pt, eps]
+@lilypond[26pt, eps]
   \relative c'{
     r16 [c d e][f d e c] [g'8 c][b-\prall c] |
     [d16 g, a b][c a b g][d'8 g f-\prall g]
   }
-@end mudela
+@end lilypond
 @end itemize
 
 
@@ -569,8 +569,8 @@ lines.
 
 @section Just in case...
 The options @code{fragment} and @code{nonfragment} will override
-@command{mudela-book} when it scans the mudela code to see if it is voice
-contents or complete code. This might be useful if @command{mudela-book} choose
+@command{lilypond-book} when it scans the lilypond code to see if it is voice
+contents or complete code. This might be useful if @command{lilypond-book} choose
 wrong. 
 
 Since there is no finder's fee which doubles every year, there is no
@@ -579,13 +579,13 @@ if you need this one of these options.
 
 @section Examples
 
-This was all options to @code{\begin}. The rest of the mudela
-document will show some ways you can use mudela in
+This was all options to @code{\begin}. The rest of the lilypond
+document will show some ways you can use lilypond in
 La@TeX{} documents. It will also act as a simple test-suite for
-mudela-book. You can place @code{eps} mudela in and marginspars just
+lilypond-book. You can place @code{eps} lilypond in and marginspars just
 as any other included eps graphics.
 
-@mudela
+@lilypond
 \score{
   \notes\relative c'{ 
         \time 12/8;  
@@ -596,17 +596,17 @@ as any other included eps graphics.
   }
   \paper{linewidth = 7.\cm;}
 }
-@end mudela
+@end lilypond
 
 
 To the right you can see some bars from the trumpet fanfara from the
 beginning of the fantastic street opera ``Houdini the Great'', by the
 Danish composer Andy Pape. The music is put inside a
 @code{floatingfigure} environment, and the music will be aligned by
-the right marging if you set floatingfigure width and mudela linewidth
+the right marging if you set floatingfigure width and lilypond linewidth
 to the same value. The code looks like this:
 
-@mudela[verbatim]
+@lilypond[verbatim]
 \score{
   \notes\relative c'{ 
     \time 12/8;  
@@ -618,7 +618,7 @@ to the same value. The code looks like this:
   }
   \paper{linewidth = 7.\cm;}
 }
-@end mudela
+@end lilypond
 
 If you have a lot of small music examples like this in the middle of
 your text, you might get a nicer look by using ``double'' line
@@ -626,7 +626,7 @@ spacing. Put the @code{\linespread@{1.6@}} command into the preamble of
 your document. Then the line spacing will not be increased between the
 lines where you have music printed with the smallest font size.
 
-Mudela-book does know about @code{\onecolumn} and @code{\twocolumn}. 
+Lilypond-book does know about @code{\onecolumn} and @code{\twocolumn}. 
 So the music will be adjusted to the new linewith:
 
 Verbatim environments will also ignore the page margins. That is

@@ -151,7 +151,7 @@ class Input:
 
         titles={}
         for line in this.__fd.readlines():
-            m=re.match('\\\\def\\\\mudela([\w]+){(.*)}',line)
+            m=re.match('\\\\def\\\\lilypond([\w]+){(.*)}',line)
             if m:
                 for var in varTable:
                     if m.group(1) == var[0]:
@@ -171,7 +171,7 @@ class TeXOutput:
     This class handles all ly2dvi.py output file methods
 
     private methods:
-     __mudelaDefs(opt)  Send title info to output file
+     __lilypondDefs(opt)  Send title info to output file
 
     Public methods:
     __init__()  Constructor
@@ -192,7 +192,7 @@ class TeXOutput:
     #
     # __medelaDefs
     #
-    def __mudelaDefs(this,opt):
+    def __lilypondDefs(this,opt):
         """
         Write titles to output
 
@@ -203,7 +203,7 @@ class TeXOutput:
 
         titles = Props.get('titles')
         for key in titles.keys():
-            this.write('%s\\mudela%s{%s}%%\n' % (opt,key,titles[key]))
+            this.write('%s\\lilypond%s{%s}%%\n' % (opt,key,titles[key]))
 
     #
     # write
@@ -271,7 +271,7 @@ class TeXOutput:
 \renewcommand{\@oddhead}{\parbox{\textwidth}%%
     {\mbox{}\small\theheader\hfill\textbf{\thepage}}}%%
 %% UGR.
-%%\renewcommand{\@evenhead}{eve!{\small\mudelainstrument{,}\quad\textbf{\thepage}}\hfil}%%
+%%\renewcommand{\@evenhead}{eve!{\small\lilypondinstrument{,}\quad\textbf{\thepage}}\hfil}%%
 \renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\thefooter}}%%
 \begin{document}
 """ % ( program_id(), Props.get('filename'), now, Props.get('papersize'),
@@ -289,7 +289,7 @@ class TeXOutput:
         except:
             sys.exit('ExitNoWrite', this.__outfile)
         this.write(top)
-        this.__mudelaDefs('')
+        this.__lilypondDefs('')
         this.write("""\
 \\makelilytitle
 """) 
@@ -311,13 +311,13 @@ class TeXOutput:
         this.write("""\
 \\def\\theopus{}%
 \\def\\thepiece{}%
-\\def\\mudelaopus{}%
-\\def\\mudelapiece{}%
+\\def\\lilypondopus{}%
+\\def\\lilypondpiece{}%
 """)
-        this.__mudelaDefs("\\def")
+        this.__lilypondDefs("\\def")
         this.write("""\
-\\def\\theopus{\\mudelaopus}% ugh
-\\def\\thepiece{\\mudelapiece}%
+\\def\\theopus{\\lilypondopus}% ugh
+\\def\\thepiece{\\lilypondpiece}%
 \\makelilypiecetitle
 """)
 
@@ -339,9 +339,9 @@ class TeXOutput:
             outfile = os.path.join(Props.get('output'), outfile )
             
         this.write(r"""
-%% \vfill\hfill{\mudelatagline}
+%% \vfill\hfill{\lilypondtagline}
 \makeatletter
-\renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\mudelatagline}}%%
+\renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\lilypondtagline}}%%
 \makeatother
 \end{document}
 """)
@@ -494,7 +494,7 @@ class Properties:
         mudefs=[]    
 
         for line in fd.readlines():
-            m=re.match('\\\\newcommand\*{\\\\mudela([\w]+)}',line)
+            m=re.match('\\\\newcommand\*{\\\\lilypond([\w]+)}',line)
             if m:
                 mudefs.append(m.group(1))
 	fd.close
@@ -839,7 +839,7 @@ class Properties:
 	this.__set('tmp',dir,requester)
 
     #
-    # Set mudela source file name
+    # Set lilypond source file name
     #
     def setFilename(this,file, requester):	
 	this.__set('filename',file,requester)

@@ -110,6 +110,7 @@ in LilyPond-include-path."
 ;; variable instead of quering the user. 
 (defvar LilyPond-command-force nil)
 
+(defvar LilyPond-xdvi-command "xdvik")
 
 ;; This is the major configuration variable.
 (defcustom LilyPond-command-alist
@@ -121,7 +122,7 @@ in LilyPond-include-path."
     ("SmartView" . ("xdvi %d" . "LilyPond"))
     
     ;; refreshes when kicked USR1
-    ("View" . ("xdvik %d" . "LilyPond"))
+    ("View" . ((concat LilyPond-xdvi-command " %d") . "LilyPond"))
     )
 
   "AList of commands to execute on the current document.

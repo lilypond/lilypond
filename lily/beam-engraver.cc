@@ -257,7 +257,8 @@ Beam_engraver::acknowledge_element (Score_element_info info)
 	      return;
 	    }
 
-	  if (rhythmic_req->duration_.durlog_i_<= 2)
+      int durlog  = unsmob_duration (rhythmic_req->get_mus_property ("duration"))-> duration_log ();
+	  if (durlog <= 2)
 	    {
 	      rhythmic_req->origin ()->warning (_ ("stem doesn't fit in beam"));
 	      prev_start_req_->origin ()->warning (_ ("beam was started here"));
@@ -269,10 +270,10 @@ Beam_engraver::acknowledge_element (Score_element_info info)
 	    }
 
 	  stem_l->set_elt_property ("duration-log",
-				    gh_int2scm (rhythmic_req->duration_.durlog_i_));
+				    gh_int2scm (durlog));
 	  Moment stem_location = now_mom () - beam_start_mom_ + beam_start_location_;
 	  beam_info_p_->add_stem (stem_location,
-				  (rhythmic_req->duration_.durlog_i_ - 2) >? 1);
+				  (durlog- 2) >? 1);
 	  Beam::add_stem (beam_p_, stem_l);
 	}
     }

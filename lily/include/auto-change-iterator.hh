@@ -17,6 +17,8 @@ class Auto_change_iterator : public Music_wrapper_iterator
 {
 public:
   VIRTUAL_COPY_CONS (Music_iterator);
+  static SCM constructor_cxx_function;
+  
   Auto_change_iterator ();
 
 protected:

@@ -35,8 +35,8 @@ Score_engraver::prepare (Moment w)
   set_columns (new Paper_column (get_property (ly_symbol2scm ("NonMusicalPaperColumn"))),
 	       new Paper_column (get_property (ly_symbol2scm ("PaperColumn"))));
   
-  command_column_l_->set_elt_property ("when", w.make_scm());
-  musical_column_l_->set_elt_property ("when", w.make_scm());
+  command_column_l_->set_elt_property ("when", w.smobbed_copy());
+  musical_column_l_->set_elt_property ("when", w.smobbed_copy());
   command_column_l_->set_elt_property ("breakable", SCM_BOOL_T);
   
   Score_element_info i1(command_column_l_, 0), i2 (musical_column_l_,0);

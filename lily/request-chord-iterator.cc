@@ -78,3 +78,5 @@ Request_chord_iterator::process (Moment m)
     }
   skip (m);
 }
+
+IMPLEMENT_CTOR_CALLBACK(Request_chord_iterator);

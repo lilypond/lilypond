@@ -4,7 +4,7 @@
 \score {  \notes
 	\relative c'' \context Staff {
 		\emptyText
-		\repeat "semi" 2 { \time 4/4; c4^"cuivr\\'e"_\fermata }
+		\repeat volta 2 { \time 4/4; c4^"cuivr\\'e"_\fermata }
 		 \alternative {
 		 	{ \property Voice.textStyle = "italic" d-4_"cantabile" }
 		 	{  e }  } \grace { c16 }

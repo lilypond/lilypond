@@ -11,11 +11,6 @@
 #include "musical-request.hh"
 
 
-Bar_req::Bar_req (String s)
-{
-  set_mus_property ("type", ly_str02scm (s.ch_C()));
-}
-
 bool
 Barcheck_req::do_equal_b (Request const *r) const
 {
@@ -24,33 +19,11 @@ Barcheck_req::do_equal_b (Request const *r) const
 }
 
 
-Clef_change_req::Clef_change_req ()
-{
-
-}
-
-
-bool
-Time_signature_change_req::do_equal_b (Request const *r) const
-{
-  Time_signature_change_req  const* m
-    = dynamic_cast <Time_signature_change_req  const*> (r);
-
-#if 0
-  return m && m->beats_i_ == beats_i_
-    && one_beat_i_ == m->one_beat_i_;
-#endif
-  return m;
-}
-
-Time_signature_change_req::Time_signature_change_req ()
-{
-}
 
 
 Tempo_req::Tempo_req ()
 {
-  dur_. durlog_i_ = 2;
+  set_mus_property ("duration", Duration(2,0).smobbed_copy ());
 }
 
 
@@ -82,28 +55,30 @@ Key_change_req::transpose (Musical_pitch p)
   SCM pa = get_mus_property ("pitch-alist");
   for (SCM s = pa; gh_pair_p (s); s = gh_cdr (s))
     {
-      SCM k = gh_caar (s);
-
-      if (gh_pair_p (k))
+      SCM key = gh_caar (s);
+      SCM alter = gh_cdar (s);
+      if (gh_pair_p (key))
 	{
-	  Musical_pitch orig (gh_list (gh_car (k), gh_cdr (k), gh_cdr (s), SCM_UNDEFINED));
+	  Musical_pitch orig (gh_scm2int (gh_car (key)),
+			      gh_scm2int (gh_cdr (key)),
+			      gh_scm2int (alter));
 
 	  orig.transpose (p);
 
-	  SCM key = gh_cons (gh_int2scm (orig.octave_i_),
+	  SCM key = gh_cons (gh_int2scm (orig.octave_i () ),
 			     gh_int2scm (orig.notename_i_));
 
-	  newlist = gh_cons (gh_cons (key, gh_int2scm (orig.accidental_i_)),
+	  newlist = gh_cons (gh_cons (key, gh_int2scm (orig.alteration_i_)),
 			     newlist);
 	}
-      else if (gh_number_p (k))
+      else if (gh_number_p (key))
 	{
-	  Musical_pitch orig (gh_list (gh_int2scm (0), k, gh_cdar (s), SCM_UNDEFINED));
+	  Musical_pitch orig (0, gh_scm2int (key), gh_scm2int (alter));
 	  orig.transpose (p);
 
-	  SCM key =gh_int2scm (orig.notename_i_);
-	  newlist = gh_cons (gh_cons (key, gh_int2scm (orig.accidental_i_)),
-			     newlist);
+	  key =gh_int2scm (orig.notename_i_);
+	  alter = gh_int2scm (orig.alteration_i_);
+	  newlist = gh_cons (gh_cons (key, alter), newlist);
 	}
     }
 

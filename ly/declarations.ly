@@ -1,6 +1,6 @@
-breve = \duration #'( -1 0)
-longa = \duration #'( -2 0 )
-maxima = \duration #'( -3 0 )
+breve = \duration #(make-duration -1 0)
+longa = \duration #(make-duration -2 0 )
+maxima = \duration #(make-duration  -3 0)
 
 \include "nederlands.ly"		% dutch
 \include "chord-modifiers.ly"

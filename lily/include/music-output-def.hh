@@ -16,7 +16,9 @@
 #include "virtual-methods.hh"
 
 /**
-  Definition of how to output mudela. 
+  Definition of how to output lilypond.
+
+  TODO: smobify, remove Music_output_def_identifier.
  */
 class Music_output_def  
 {

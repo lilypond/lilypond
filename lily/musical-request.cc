@@ -20,32 +20,24 @@ Tremolo_req::Tremolo_req ()
 void
 Melodic_req::transpose (Musical_pitch delta)
 {
-  pitch_.transpose (delta);
+  Musical_pitch p = *unsmob_pitch (get_mus_property ("pitch"));
   
-  if (abs (pitch_.accidental_i_) > 2)
+  p.transpose (delta);
+  
+  if (abs (p.alteration_i_) > 2)
     {
 	warning (_f ("Transposition by %s makes accidental larger than two",
 	  delta.str ()));
     }
+
+  set_mus_property ("pitch", p.smobbed_copy ());
 }
 
 bool
 Melodic_req::do_equal_b (Request const* r) const
 {
   Melodic_req const* m= dynamic_cast <Melodic_req const*> (r);
-  return m&& !compare (*m, *this);
-}
-
-int
-Melodic_req::compare (Melodic_req const &m1 , Melodic_req const&m2)
-{
-  return Musical_pitch::compare (m1.pitch_, m2.pitch_);
-}
-
-int
-Rhythmic_req::compare (Rhythmic_req const &r1, Rhythmic_req const &r2)
-{
-  return (r1.length_mom () - r2.length_mom ());
+  return m; // && !compare (*m, *this);
 }
 
 bool
@@ -53,7 +45,7 @@ Rhythmic_req::do_equal_b (Request const* r) const
 {
   Rhythmic_req const* rh = dynamic_cast <Rhythmic_req const*> (r);
 
-  return rh && !compare (*this, *rh);
+  return rh; // ;  && !compare (*this, *rh);
 }
 
 
@@ -61,16 +53,17 @@ Rhythmic_req::do_equal_b (Request const* r) const
 Moment
 Rhythmic_req::length_mom () const
 {
-  return duration_.length_mom ();
+  return  unsmob_duration (  get_mus_property( "duration"))->length_mom ();
+
 }
 
 void
 Rhythmic_req::compress (Moment m)
 {
-  duration_.compress (m);
+  Duration *d =  unsmob_duration (get_mus_property( "duration"));
+
+  set_mus_property ("duration", d ->compressed (m).smobbed_copy());
 }
-
-
 
 bool
 Note_req::do_equal_b (Request const* r) const

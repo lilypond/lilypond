@@ -20,7 +20,7 @@ void
 Chord_tremolo_iterator::construct_children ()
 {
   Repeated_music * rep = dynamic_cast<Repeated_music*> (music_l_);
-  factor_  = Moment (1, rep->repeats_i_);
+  factor_  = Moment (1, rep->repeat_count ());
   child_iter_p_ = get_iterator_p (rep->body ());
 }
 
@@ -69,4 +69,7 @@ Chord_tremolo_iterator::try_music_in_children (Music  *m) const
   return child_iter_p_->try_music (m);
 }
 
+
+
+IMPLEMENT_CTOR_CALLBACK(Chord_tremolo_iterator);
 

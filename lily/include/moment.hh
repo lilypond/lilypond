@@ -29,7 +29,7 @@ public:
   /*
     Deliver a copy of THIS as a smobified SCM
    */
-  SCM make_scm () const; 
+  SCM smobbed_copy () const; 
 };
 
 

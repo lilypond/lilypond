@@ -258,7 +258,7 @@ Auto_beam_engraver::end_beam ()
       shortest_mom_ = Moment (1, 8);
     }
 }
- 
+
 void
 Auto_beam_engraver::typeset_beam ()
 {
@@ -364,7 +364,8 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
 	  return ;
 	}
 	      
-      int durlog  =rhythmic_req->duration_.durlog_i_;
+      int durlog  = unsmob_duration (rhythmic_req->get_mus_property ("duration"))->duration_log ();
+      
       if (durlog <= 2)
 	{
 	  if (stem_l_arr_p_)
@@ -376,7 +377,7 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
 	if shortest duration would change
 	reconsider ending/starting beam first.
       */
-      Moment mom = rhythmic_req->duration_.length_mom ();
+      Moment mom = unsmob_duration (rhythmic_req->get_mus_property ("duration"))->length_mom ();
       consider_end_and_begin (mom);
       if (!stem_l_arr_p_)
 	return;

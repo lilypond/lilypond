@@ -22,6 +22,7 @@ class Music_wrapper_iterator : public Music_iterator
 {
 public:
   VIRTUAL_COPY_CONS (Music_iterator);
+  static SCM constructor_cxx_function;  
   Music_wrapper_iterator ();
   Music_wrapper_iterator (Music_wrapper_iterator const&);
   ~Music_wrapper_iterator ();

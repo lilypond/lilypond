@@ -1,6 +1,6 @@
 #!@PYTHON@
 
-# convert-mudela.py -- convertor for mudela versions
+# convert-lilypond.py -- convertor for lilypond versions
 # 
 # source file of the GNU LilyPond music typesetter
 # 
@@ -13,7 +13,7 @@
 # 0.2
 #  - rewrite in python
 
-program_name = 'convert-mudela'
+program_name = 'convert-ly'
 version = '@TOPLEVEL_VERSION@'
 
 import os
@@ -24,8 +24,8 @@ import  string
 import re
 import time
 
-mudela_version_re_str = '\\\\version *\"(.*)\"'
-mudela_version_re = re.compile(mudela_version_re_str)
+lilypond_version_re_str = '\\\\version *\"(.*)\"'
+lilypond_version_re = re.compile(lilypond_version_re_str)
 
 def program_id ():
 	return '%s (GNU LilyPond) %s' %(program_name,  version);
@@ -36,7 +36,7 @@ def identify ():
 def usage ():
 	sys.stdout.write (
 		r"""Usage: %s [OPTION]... [FILE]... 
-Try to convert to newer mudela-versions.  The version number of the
+Try to convert to newer lilypond-versions.  The version number of the
 input is guessed by default from \version directive
 
 Options:
@@ -92,9 +92,9 @@ def version_cmp (t1, t2):
 			return t1[x] - t2[x]
 	return 0
 
-def guess_mudela_version(filename):
+def guess_lilypond_version(filename):
 	s = gulp_file (filename)
-	m = mudela_version_re.search (s)
+	m = lilypond_version_re.search (s)
 	if m:
 		return m.group(1)
 	else:
@@ -592,8 +592,8 @@ def do_conversion (infile, from_version, outfile, to_version):
 	if last_conversion:
 		sys.stderr.write ('\n')
 		new_ver =  '\\\\version \"%s\"' % tup_to_str (last_conversion)
-		if re.search (mudela_version_re_str, str):
-			str = re.sub (mudela_version_re_str,new_ver , str)
+		if re.search (lilypond_version_re_str, str):
+			str = re.sub (lilypond_version_re_str,new_ver , str)
 		else:
 			str = new_ver + '\n' + str
 
@@ -615,7 +615,7 @@ def do_one_file (infile_name):
 	if __main__.from_version:
 		from_version = __main__.from_version
 	else:
-		guess = guess_mudela_version (infile_name)
+		guess = guess_lilypond_version (infile_name)
 		if not guess:
 			raise UnknownVersion()
 		from_version = str_to_tuple (guess)

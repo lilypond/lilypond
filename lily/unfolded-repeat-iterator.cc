@@ -23,6 +23,7 @@ Unfolded_repeat_iterator::Unfolded_repeat_iterator ()
 {
   done_count_ =0;
   current_iter_p_ =0;
+  volta_b_ = false;
   do_main_b_ = false;
   alternative_count_i_ =0;
 }
@@ -44,7 +45,7 @@ Unfolded_repeat_iterator::next_element (bool side_effect)
   delete current_iter_p_;
   current_iter_p_ =0;
 
-  bool do_repcommands = side_effect && repmus->volta_fold_b_;
+  bool do_repcommands = side_effect && volta_b_;
   
   if (do_main_b_)
     {
@@ -60,7 +61,7 @@ Unfolded_repeat_iterator::next_element (bool side_effect)
       
       here_mom_ += repmus->body ()->length_mom ();
 
-      if (!repmus->volta_fold_b_)
+      if (!volta_b_)
 	done_count_ ++;
      
       if (gh_pair_p (alternative_cons_))
@@ -68,7 +69,7 @@ Unfolded_repeat_iterator::next_element (bool side_effect)
 	  current_iter_p_ = get_iterator_p (unsmob_music (gh_car (alternative_cons_)));
 	  do_main_b_ = false;
 
-	  if (repmus->volta_fold_b_)
+	  if (volta_b_)
 	    {
 	      String repstr = to_str (done_count_ + 1);
 	      if (do_repcommands)
@@ -76,11 +77,11 @@ Unfolded_repeat_iterator::next_element (bool side_effect)
 					     ly_str02scm (repstr.ch_C()), SCM_UNDEFINED));
 	    }	  
 	}
-      else if (repmus->volta_fold_b_)
+      else if (volta_b_)
 	{
 	  add_repeat_command (ly_symbol2scm ("end-repeat"));
 	}
-      else if (done_count_ <  repmus->repeats_i_)
+      else if (done_count_ <  repmus->repeat_count ())
 	{
 	  current_iter_p_ = get_iterator_p (repmus->body ());
 	  do_main_b_ = true;
@@ -101,8 +102,8 @@ Unfolded_repeat_iterator::next_element (bool side_effect)
 	{
 	  here_mom_ += unsmob_music (gh_car (alternative_cons_))->length_mom ();
 
-	  if (repmus->volta_fold_b_ || 
-	      repmus->repeats_i_ - done_count_  < alternative_count_i_)
+	  if (volta_b_ || 
+	      repmus->repeat_count () - done_count_  < alternative_count_i_)
 	    alternative_cons_ = gh_cdr (alternative_cons_);
 	  
 	  if (do_repcommands)
@@ -113,7 +114,7 @@ Unfolded_repeat_iterator::next_element (bool side_effect)
 	  /*
 	    we've done the main body as well, but didn't go over the other
 	    increment.  */
-	  if (repmus->volta_fold_b_)
+	  if (volta_b_)
 	    done_count_ ++;
 	}
 
@@ -125,7 +126,7 @@ Unfolded_repeat_iterator::next_element (bool side_effect)
 	if we're full unfold: go back to main body.
        */
       
-      if (done_count_ < repmus->repeats_i_ && gh_pair_p (alternative_cons_))
+      if (done_count_ < repmus->repeat_count () && gh_pair_p (alternative_cons_))
 	{
 	  if (do_repcommands)
 	    {
@@ -136,7 +137,7 @@ Unfolded_repeat_iterator::next_element (bool side_effect)
 	    }
 
 	  
-	  if (repmus->volta_fold_b_)
+	  if (volta_b_)
 	    current_iter_p_ = get_iterator_p (unsmob_music (gh_car (alternative_cons_)));
 	  else
 	    {
@@ -207,7 +208,7 @@ Unfolded_repeat_iterator::process (Moment m)
 {
   if (!m)
     {
-      if (dynamic_cast<Repeated_music*> (music_l_)->volta_fold_b_)
+      if (volta_b_)
 	add_repeat_command (ly_symbol2scm ("start-repeat"));
     }
   while (1)
@@ -281,4 +282,12 @@ Music_iterator*
 Unfolded_repeat_iterator::try_music_in_children (Music  * m) const
 {
   return  current_iter_p_->try_music (m);
+}
+
+IMPLEMENT_CTOR_CALLBACK(Unfolded_repeat_iterator);
+IMPLEMENT_CTOR_CALLBACK(Volta_repeat_iterator);
+
+Volta_repeat_iterator::Volta_repeat_iterator ()
+{
+  volta_b_ = true;
 }

@@ -21,7 +21,7 @@ PS_GZ_FILES= $(addsuffix .gz, $(PS_FILES))
 INFO_FILES = $(addprefix $(outdir)/, lilypond.info lilypond-internals.info)
 
 STEPMAKE_TEMPLATES=tex texinfo documentation
-LOCALSTEPMAKE_TEMPLATES=lilypond mudela
+LOCALSTEPMAKE_TEMPLATES=lilypond ly
 
 include $(depth)/make/stepmake.make 
 

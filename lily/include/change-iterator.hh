@@ -19,7 +19,7 @@ public:
   VIRTUAL_COPY_CONS (Music_iterator);
   /* constructor is public */
   virtual void process (Moment);
-
+  static SCM constructor_cxx_function;
 private:
   void  error (String);
 };

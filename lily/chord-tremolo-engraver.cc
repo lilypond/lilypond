@@ -19,6 +19,7 @@
 #include "note-head.hh"
 #include "spanner.hh"
 #include "item.hh"
+#include "chord-tremolo-iterator.hh"
 
 /**
   This acknowledges repeated music with "tremolo" style.  It typesets
@@ -75,7 +76,9 @@ bool
 Chord_tremolo_engraver::do_try_music (Music * m)
 {
   Repeated_music * rp = dynamic_cast<Repeated_music*> (m);
-  if (rp && rp->type_ == "tremolo" && !repeat_) 
+  if (rp
+      && rp->get_mus_property ("type") == Chord_tremolo_iterator::constructor_cxx_function
+      && !repeat_) 
     {
       Moment l = rp->body_length_mom ();
       repeat_ = rp;

@@ -24,8 +24,8 @@
 	)
        ))
   
-;; return that part of LIST for which PRED is true.
 (define (filter-list pred? list)
+  "return that part of LIST for which PRED is true."
   (if (null? list) '()
       (let* (
 	     (rest  (filter-list pred? (cdr list)))
@@ -42,9 +42,8 @@
 ;; this is bad, since we generate garbage every font-lookup.
 ;; otoh, if the qualifiers is narrow enough , we don't generate much garbage.
 
-
-;; return those descriptions from FONT-DESCR-LIST whose FIELD-NAME matches VALUE
 (define (filter-field field-name value font-descr-alist)
+  "return those descriptions from FONT-DESCR-LIST whose FIELD-NAME matches VALUE"
       (filter-list
        (lambda (x) (eq? value (font-field field-name (car x))))
        font-descr-alist)
@@ -123,21 +122,24 @@
     ((-3 medium upright math msam 10) . "msam10")
    ))
 
-;; return a FONT-DESCR with relative size decremented by DECREMENT
+;; 
 (define (change-relative-size font-desc decrement)
+  "return a FONT-DESCR with relative size decremented by DECREMENT"
   (cons (- (car font-desc) decrement) (cdr font-desc))
   )
 
-;; map a  function FUNC over the keys of an alist LIST, leaving the vals. 
+;; 
 (define (map-alist-keys func list)
+  "map a  function FUNC over the keys of an alist LIST, leaving the vals. "
   (if (null?  list)
       '()
       (cons (cons (func (caar list)) (cdar list))
 	    (map-alist-keys func (cdr list)))
       ))
  
-;; map a function FUNC over the vals of  LIST, leaving the keys. 
+;; 
 (define (map-alist-vals func list)
+  "map a function FUNC over the vals of  LIST, leaving the keys."
   (if (null?  list)
       '()
       (cons (cons  (caar list) (func (cdar list)))
@@ -189,9 +191,7 @@
 	(dynamic . ((font-series . bold) (font-family . dynamic) (font-relative-size . 0)))
 	))
     (properties-to-font .
-
 			,Font_interface::properties_to_font_name)
-			; ,properties-to-font-name)
 
     ;; FIXME: this is a not-so-cool idea to use ALIGN
     ;; RAISE, LOOKUP, since they are not proper elt-properties,
@@ -215,8 +215,8 @@
     )
   )
 
-;; reduce the font list by successively applying a font-qualifier.
 (define (qualifiers-to-fontnames  qualifiers font-descr-alist)
+  " reduce the font list by successively applying a font-qualifier."
   (if (null? qualifiers)
       font-descr-alist
       
@@ -226,9 +226,8 @@
       )
   ))
 
-
-;; does FONT-DESC satisfy QUALIFIERS?
 (define (font-qualifies? qualifiers font-desc)
+  "does FONT-DESC satisfy QUALIFIERS?"
   (if (null? qualifiers) #t
       (if (eq? (font-field (caar qualifiers) font-desc) (cdar qualifiers))
 	  (font-qualifies? (cdr qualifiers) font-desc)
@@ -247,9 +246,10 @@
       ))
 
 
-;; return a single font from FONTS (or a default, if none found)
-;; and warn if the selected font is not unique.
 (define (select-unique-font qualifiers fonts)
+  "return a single font from FONTS (or a default, if none found)
+and warn if the selected font is not unique.
+"
   (let*  (
 	  (err (current-error-port))
 	  )
@@ -287,9 +287,7 @@
   )
 
 ;; TODO
-;; add support for override by font-name
-;; very often-used; hard-code in C++, and use SCM glue code.
-
+;; the C++ version  in font-interface.cc is usually used.
 (define (properties-to-font-name fonts properties-alist-list)
   (let*  (
 	  ;; change order to change priorities of qualifiers.
@@ -342,15 +340,16 @@
 	font)	; return the topmost.
     ))
 
+(if #f (begin
+	 (define (test-module)
+	   (display (filter-list pair? '(1 2 (1 2) (1 .2)))
+		    (display (filter-field 'font-name 'cmbx paper20-style-sheet-alist))
 		    
+		    (display (qualifiers-to-fontname '((font-name . cmbx)) paper20-style-sheet-alist))
+		    (display (style-to-font-name 'paper20 'large))
+		    )
+	   )
+	 )
 
 
-; (define (test-module)
-;  (display (filter-list pair? '(1 2 (1 2) (1 .2)))
-;(display (filter-field 'font-name 'cmbx paper20-style-sheet-alist))
-
-; (display (qualifiers-to-fontname '((font-name . cmbx)) paper20-style-sheet-alist))
-; (display (style-to-font-name 'paper20 'large))
-; )
-
-
+)

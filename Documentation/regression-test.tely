@@ -29,7 +29,7 @@ Rests.  Note that the dot of 8th, 16th and 32nd rests rest should be
 next to the top of the rest.  All rests except the whole rest are
 centered on the middle staff line.  
 
-@mudelafile{rest.ly}
+@lilypondfile{rest.ly}
 
 Note head shapes are settable.  The stem endings should be adjusted
 per note head.  If you want different note head styles on one stem,
@@ -39,7 +39,7 @@ Harmonic notes have a different shape and different
 dimensions. Nevertheless, noteheads in both styles can be combined, on
 either up or down stems.
 
-@mudelafile{noteheadstyle.ly}
+@lilypondfile{noteheadstyle.ly}
 
 Noteheads can have dots, and rests can too.  Augmentation dots should
 never be printed on a staff line, but rather be shifted vertically. They
@@ -47,12 +47,12 @@ should go up, but in case of multiple parts, the down stems have down
 shifted dots.  (Wanske p. 186) In case of chords, all dots should be in
 a column.  The dots go along as rests are shifted to avoid collisions.
 
-@mudelafile{dots.ly}
+@lilypondfile{dots.ly}
 
 Accidentals work: the second note does not get a sharp. The third and
 fourth show forced and courtesy accidentals
 
-@mudelafile{accidental.ly}
+@lilypondfile{accidental.ly}
 
 Multiple measure rests do not collide with barlines and clefs.  They
 are not expanded when you set @code{Score.skipBars}.  Although the
@@ -60,20 +60,20 @@ multi-measure-rest is a Spanner, minimum distances are set to keep it
 colliding from barlines. 
 
 
-@mudelafile{multi-measure-rest.ly}
+@lilypondfile{multi-measure-rest.ly}
 
 If @code{Score.skipBars} is set,
 the signs for four, two, and one measure rest are combined to
 produce the graphical representation of rests for up to 10 bars.
 The number of bars will be written above the sign.
 
-@mudelafile{mm-rests2.ly}
+@lilypondfile{mm-rests2.ly}
 
 A sharp sign after a double sharp sign, as well as a flat sign
 after a double flat sign is automatically prepended with a
 natural sign.
 
-@mudelafile{accidental-single-double.ly}
+@lilypondfile{accidental-single-double.ly}
 
 @section Stems
 
@@ -82,7 +82,7 @@ crossing stems.  If the stem is in a beam, the tremolo must be parallel
 to the beam.  If the stem is invisible (eg. on a whole note), the
 tremolo must be centered on the note.
 
-@mudelafile{stem-tremolo.ly}
+@lilypondfile{stem-tremolo.ly}
 
 Chord tremolos look like beams, but are a kind of repeat symbol.
 To avoid confusion, chord tremolo beams do not reach the stems, but 
@@ -90,7 +90,7 @@ leave a gap.  Chord tremolo beams on half notes are not ambiguous,
 as half notes cannot appear in a regular beam, and should reach the 
 stems.
   
-@mudelafile{chord-tremolo.ly}
+@lilypondfile{chord-tremolo.ly}
 
 Beams, stems and noteheads often have communication troubles, since
 the two systems for y dimensions (1 unit = staffspace, 1 unit = 1
@@ -100,28 +100,28 @@ Stems, beams, ties and slurs should behave similarly, when placed
 on the middle staff line. Of course stem-direction is down for high
 notes, and up for low notes.
 
-@mudelafile{stem-direction.ly}
+@lilypondfile{stem-direction.ly}
 
 Similarly, if @code{stem_default_neutral_direction} is set to @code{-1}.
 
-@mudelafile{stem-direction-down.ly}
+@lilypondfile{stem-direction-down.ly}
 
 @section Scripts
 
 The staccato dot (and all scripts with follow-into-staff set), must
 not be on staff lines.
 
-@mudelafile{staccato-pos.ly}
+@lilypondfile{staccato-pos.ly}
 
 Dynamics appear below or above the staff.  If multiple dynamics are
 linked with (de)crescendi, they should be on the same line.
 
-@mudelafile{dyn-line.ly}
+@lilypondfile{dyn-line.ly}
 
 
 Arpeggios are supported, both cross-staff and one-staff. 
 
-@mudelafile{arpeggio.ly}
+@lilypondfile{arpeggio.ly}
 
 
 
@@ -131,7 +131,7 @@ Chord names are generated from a list pitches, and are customisable
 from guile.  For some unlogical names, guile customisation is used
 by default.
 
-@mudelafile{chord-names.ly}
+@lilypondfile{chord-names.ly}
 
 @section Grace notes
 
@@ -147,7 +147,7 @@ main note.  Grace notes can also be positioned after the main note.
 Grace notes without beams should have a slash, if @code{flagStyle} is
 not set.  Main note scripts don't end up on the grace note.
 
-@mudelafile{grace.ly}
+@lilypondfile{grace.ly}
 
 @section Beams, slurs and other spanners
 
@@ -155,45 +155,45 @@ Beaming is generated automatically. Beams may cross bar lines. In that
 case, line breaks are forbidden.  Yet clef and key signatures are
 hidden just as with breakable bar lines.
 
-@mudelafile{beaming.ly}
+@lilypondfile{beaming.ly}
 
 Beams should behave reasonably well, even under extreme circumstances.
 Stems may be short, but noteheads should never touch the beam.
 
-@mudelafile{beam-extreme.ly}
+@lilypondfile{beam-extreme.ly}
 
 Beams should always reach the middle staff line.  The second beam
 counting from the note head side, should never be lower than the
 second staff line.  This does not hold for grace note beams.
 Override with @code{noStemExtend}.
 
-@mudelafile{beam-position.ly}
+@lilypondfile{beam-position.ly}
 
 Slurs should look nice and symmetric.  The curvature may increase
 only to avoid noteheads, and as little as possible.  Slurs never
 run through noteheads or stems.
 
-@mudelafile{slur-nice.ly}
-@mudelafile{slur-symmetry.ly}
-@mudelafile{slur-symmetry-1.ly}
+@lilypondfile{slur-nice.ly}
+@lilypondfile{slur-symmetry.ly}
+@lilypondfile{slur-symmetry-1.ly}
 
 Across line breaks, slurs behave nicely.  On the left, they extend to
 just after the preferatory matter, and on the right to the end of the
 staff.  A slur should follow the same vertical direction it would have
 in unbroken state.
 
-@mudelafile{slur-broken-trend.ly}
+@lilypondfile{slur-broken-trend.ly}
 
 Ties are strictly horizontal.  They are placed in between note heads.
 The horizontal middle should not overlap with a staffline.
 
-@mudelafile{tie.ly}
+@lilypondfile{tie.ly}
 
 When tieing chords, the outer slurs point outwards, the inner slurs
 point away from the center of the staff.  Override with
 @code{tieVerticalDirection}.
 
-@mudelafile{tie-chord.ly}
+@lilypondfile{tie-chord.ly}
 
 When tieing notes with accidentals across a bar boundary, the accidental
 must not be drawn on the note in the new bar.  Instead, the next note of
@@ -203,32 +203,32 @@ boundaries should be explicit.
 
 Pitches can be verified by printing them  with the @code{NoteNames} context.
 
-@mudelafile{tie-accidental.ly}
+@lilypondfile{tie-accidental.ly}
 
 Beams can be typeset over fixed distance aligned staffs, beam
 beautification doesn't really work, but knees do. Beams should be
 behave well, wherever the switching point is.
 
-@mudelafile{beam-cross-staff.ly}
+@lilypondfile{beam-cross-staff.ly}
 
 The same goes for slurs. They behave decently when broken across
 linebreak.
 
-@mudelafile{slur-cross-staff.ly}
+@lilypondfile{slur-cross-staff.ly}
 
 Tuplets are indicated by a bracket with a number.  There should be no
 bracket if there is one beam that matches  the length of the tuplet.
 The bracket does not interfere with the stafflines, and the number is
 centered in the gap in the bracket.
 
-@mudelafile{tup.ly}
+@lilypondfile{tup.ly}
 
 @section Property details
 
 More specific settings take precendence over less specific settings. The
 second slur has slurDirection set to down, overriding the stemup  setting.
 
-@mudelafile{generic-property-override.ly}
+@lilypondfile{generic-property-override.ly}
 
 @section Repeats
 
@@ -243,26 +243,26 @@ the number of repeats.
 
 Unfolded behavior:
 
-@mudelafile{repeat-unfold.ly}
+@lilypondfile{repeat-unfold.ly}
 
 Volta (Semi folded) behavior.  Voltas can start on non-barline moments.
 If they don't barlines should still be shown.
 
-@mudelafile{repeat-volta.ly}
+@lilypondfile{repeat-volta.ly}
 
 Folded.  This doesn't make sense without alternatives, but it works.
 
-@mudelafile{repeat-fold.ly}
+@lilypondfile{repeat-fold.ly}
 
 Across linebreaks, the left edge of a first and second alternative
 bracket should be equal
 
-@mudelafile{repeat-line-break.ly}
+@lilypondfile{repeat-line-break.ly}
 
 Auto change piano staff switches  voices  between up and down staffs
 automatically; rests are switched along with the coming note.
 
-@mudelafile{auto-change.ly}
+@lilypondfile{auto-change.ly}
 
 @section Lyrics
 
@@ -276,11 +276,11 @@ precook a chord of staffs/lyrics and label those.  Of course
 extenders do not assume anything about lyric lengths, so they continue
 to work.
 
-@mudelafile{lyric-combine.ly}
+@lilypondfile{lyric-combine.ly}
 
 Multiple stanzas
 
-@mudelafile{lyrics-multi-stanza.ly}
+@lilypondfile{lyrics-multi-stanza.ly}
 
 @section Multiple notes
 
@@ -290,26 +290,26 @@ inside the staff, and by half spaces outside.  Notice that the half
 and whole rests just outside the staff get ledger lines in different
 cases.
 
-@mudelafile{rest-collision.ly}
+@lilypondfile{rest-collision.ly}
 
 Normal collisions. We have support for polyphony, where the
 middle voices are horizontally shifted.
 
-@mudelafile{collisions.ly}
+@lilypondfile{collisions.ly}
 
 The number of stafflines of a staff can be set with the property
 numberOfStaffLines.  Ledger lines both on note heads and rests are
 adjusted.  Barlines also are adjusted.
 
 
-@mudelafile{number-staff-lines.ly}
+@lilypondfile{number-staff-lines.ly}
 
 @section Spacing
 
 In a limited number of cases, LilyPond corrects for optical spacing
 effects.  In this example, space for opposite pointed stems is adjusted
 
-@mudelafile{stem-spacing.ly}
+@lilypondfile{stem-spacing.ly}
 
 If there are accidentals in the music, we add space, but the space
 between note and accidentals is less than between the notes with the
@@ -323,25 +323,25 @@ must stretch like the space within the measure.
 
 Tight:
 
-@mudelafile{spacing-tight.ly}
+@lilypondfile{spacing-tight.ly}
 
 Natural:
 
-@mudelafile{spacing-natural.ly}
+@lilypondfile{spacing-natural.ly}
 
 Loose:
 
-@mudelafile{spacing-loose.ly}
+@lilypondfile{spacing-loose.ly}
 
 Adding a @code{Bar_engraver} to the LyricsVoice context makes sure that
 lyrics don't collide with barlines.
 
-@mudelafile{lyrics-bar.ly}
+@lilypondfile{lyrics-bar.ly}
 
 Text is set with empty horizontal dimensions.  The boolean property
 textNonEmpty is used to respect the horizontal size of text.
 
-@mudelafile{non-empty-text.ly}
+@lilypondfile{non-empty-text.ly}
 
 
 
@@ -355,19 +355,19 @@ textNonEmpty is used to respect the horizontal size of text.
 Breaks can be encouraged and discouraged using @code{\break} and
 @code{\nobreak}.  They are abbrevs for @code{\penalty} commands.
 
-@mudelafile{break.ly}
+@lilypondfile{break.ly}
 
 Markings that are attached to (invisible) barlines are 
 delicate: the are attached to the rest of the score without the score
 knowing it.  Consequently, they fall over  often.
 
-@mudelafile{bar-scripts.ly}
+@lilypondfile{bar-scripts.ly}
 
 Staff margins are also markings attached to barlines.  They should be
 left of the staff, and be centered vertically wrt the staff.  They may
 be on normal staffs, but also on compound staffs, like the PianoStaff
 
-@mudelafile{staff-margin.ly}
+@lilypondfile{staff-margin.ly}
 
 Breathing signs, also used for phrasing, do normally not influence
 global spacing -- only if space gets tight, notes are shifted to make
@@ -375,37 +375,37 @@ room for the breathing sign. Breathing signs break beams running
 through their voice. In the following example, the notes in the first
 two measures all have the same distance from each other:
 
-@mudelafile{breathing-sign.ly}
+@lilypondfile{breathing-sign.ly}
 
 Hara kiri staffs kill themselves if they are empty.  This example really
 contains two staffs, but the second contains only spaces, and is
 therefore removed. 
 
-@mudelafile{hara-kiri-short.ly}
+@lilypondfile{hara-kiri-short.ly}
 
 In orchestral scores and hymns, voices are traditionally combined onto
 one staff.  LilyPond has a part combiner, that combines or separates two
 voices according to actual rhythm and pitch.  User-defined texts such as
 ``solo'' and ``@`a2'' are typeset automagically, as appropriate.
 
-@mudelafile{part-combine.ly}
+@lilypondfile{part-combine.ly}
 
 
 Fonts are  available in a default set of sizes: 11, 13, 16, 20, 23 and
 26pt staffheight.  Sizes of the text fonts and symbol fonts are made
 to match the staff dimensions.    
 
-@mudelafile[nonfragment]{size11.ly}
+@lilypondfile[nonfragment]{size11.ly}
 
-@mudelafile[nonfragment]{size13.ly}
+@lilypondfile[nonfragment]{size13.ly}
 
-@mudelafile[nonfragment]{size16.ly}
+@lilypondfile[nonfragment]{size16.ly}
 
-@mudelafile[nonfragment]{size20.ly}
+@lilypondfile[nonfragment]{size20.ly}
 
-@mudelafile[nonfragment]{size23.ly}
+@lilypondfile[nonfragment]{size23.ly}
 
-@mudelafile[nonfragment]{size26.ly}
+@lilypondfile[nonfragment]{size26.ly}
 
 
 @section Clefs and Time Signatures
@@ -416,7 +416,7 @@ size. For octaviated clefs, the ``8'' should appear closely above or
 below the clef respectively.  The ``8'' is processed in a convoluted
 way, so this is fragile as well.
 
-@mudelafile{clefs.ly}
+@lilypondfile{clefs.ly}
 
 
 Key signatures appear on key  changes. They may also
@@ -424,7 +424,7 @@ appear without barlines.  The restoration accidentals are not printed at
 the start of the line. If @code{createKeyOnClefChange} is set, they're
 also created on a clef change.
 
-@mudelafile{keys.ly}
+@lilypondfile{keys.ly}
 
 
 
@@ -449,11 +449,11 @@ signatures.
 As a last resort, the placement of items can be adjusted manually, by
 setting the @code{extra-offset} of an output object.
 
-@mudelafile{generic-output-property.ly}
+@lilypondfile{generic-output-property.ly}
 
 The same mechanism can be  used  to force pagebreaks.
 
-@mudelafile{between-systems.ly}
+@lilypondfile{between-systems.ly}
 
 @bye
 
