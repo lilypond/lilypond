@@ -725,7 +725,7 @@ by replacing the @internalsref{Note_heads_engraver} by the
 In the following examples, notes crossing the bar line are split and tied.
 
 
-@lilypond[quote,fragment,verbatim,relative=2,raggedright]
+@lilypond[quote,fragment,verbatim,relative=1,raggedright]
 \new Voice \with {
   \remove "Note_heads_engraver"
   \consists "Completion_heads_engraver"
@@ -1232,8 +1232,8 @@ The command @code{\oneVoice} will revert back to the normal setting.
 Normally, note heads with a different number of dots are not merged, but
 when  the object property @code{merge-differently-dotted} is set in
 the @internalsref{NoteCollision} object, they are merged
-@lilypond[quote,verbatim,fragment,raggedright]
-\relative c'' \context Voice << {
+@lilypond[quote,verbatim,fragment,raggedright,relative=2]
+\context Voice << {
   g8 g8 
   \override Staff.NoteCollision  
     #'merge-differently-dotted = ##t
@@ -1243,7 +1243,7 @@ the @internalsref{NoteCollision} object, they are merged
 
 Similarly, you can merge half note heads with eighth notes, by setting
 @code{merge-differently-headed}
-@lilypond[quote,fragment,relative=3,verbatim]
+@lilypond[quote,fragment,relative=2,verbatim]
 \context Voice << {
   c8 c4.
   \override Staff.NoteCollision
@@ -1326,7 +1326,7 @@ notation (see @ref{Clusters}).
 Beams are used to group short notes into chunks that are aligned with
 the metrum. They are inserted automatically
 
-@lilypond[quote,fragment,verbatim,relative=3]
+@lilypond[quote,fragment,verbatim,relative=2]
 \time 2/4 c8 c c c \time 6/8 c c c c8. c16  c8
 @end lilypond
 
@@ -1337,7 +1337,7 @@ that differ from the defaults.
 Individual notes may be marked with @code{\noBeam}, to prevent them
 from being beamed
 
-@lilypond[quote,fragment,verbatim,relative=3]
+@lilypond[quote,fragment,verbatim,relative=2]
 \time 2/4 c8 c\noBeam c c
 @end lilypond
 
@@ -2063,10 +2063,10 @@ of the chord by adding them after the pitches
 @end lilypond
 
 @noindent
-In this case, setting @code{fingeringOrientations} will put  fingerings next
+iIn this case, setting @code{fingeringOrientations} will put  fingerings next
 to note heads
 
-@lilypond[quote,verbatim,raggedright,fragment,relative=2]
+@lilypond[quote,verbatim,raggedright,fragment,relative=1]
 \set fingeringOrientations = #'(left down)
 <c-1 es-2 g-4 bes-5 > 4
 \set fingeringOrientations = #'(up right down)
@@ -2145,7 +2145,7 @@ They are entered with the commands @code{\acciaccatura} and
 @cindex appoggiatura
 @cindex acciaccatura
 
-@lilypond[quote,relative=3,verbatim,fragment]
+@lilypond[quote,relative=2,verbatim,fragment]
 b4 \acciaccatura d8 c4 \appoggiatura e8 d4
 \acciaccatura { g16[ f] } e4
 @end lilypond
@@ -2153,7 +2153,8 @@ b4 \acciaccatura d8 c4 \appoggiatura e8 d4
 Both are special forms of the @code{\grace} command. By prefixing this
 keyword to a music expression, a new one is formed, which will be
 printed in a smaller font and takes up no logical time in a measure.
-@lilypond[quote,relative=3,verbatim,fragment]
+
+@lilypond[quote,relative=2,verbatim,fragment]
 c4 \grace c16 c4
 \grace { c16[ d16] } c2 c4
 @end lilypond
@@ -2192,7 +2193,7 @@ The placement of grace notes is synchronized between different staves.
 In the following example, there are two sixteenth graces notes for
 every eighth grace note
 
-@lilypond[quote,relative=3,verbatim,fragment] 
+@lilypond[quote,relative=2,verbatim,fragment] 
 << \new Staff { e4 \grace { c16[ d e f] } e4 }
    \new Staff { c'4 \grace { g8[ b] } c4 } >>
 @end lilypond
@@ -2202,7 +2203,7 @@ every eighth grace note
 If you want to end a note with a grace, the standard trick is to put
 the grace notes after a ``space note''
 
-@lilypond[quote,fragment,verbatim,relative=3]
+@lilypond[quote,fragment,verbatim,relative=2]
 \context Voice {
   << { d1^\trill ( }
      { s2 \grace { c16[ d] } } >>
@@ -2267,7 +2268,7 @@ Grace note synchronization can also lead to surprises. Staff notation,
 such as key signatures, bar lines, etc. are also synchronized. Take
 care when you mix staves with grace notes and staves without, for example,
 
-@lilypond[quote,relative=3,verbatim,fragment]
+@lilypond[quote,relative=2,verbatim,fragment]
 << \new Staff { e4 \bar "|:" \grace c16 d4 }
    \new Staff { c4  \bar "|:"  d4 } >>
 @end lilypond
@@ -2375,7 +2376,7 @@ example
 You can also use a text saying @emph{cresc.} instead of hairpins. Here
 is an example how to do it
 
-@lilypond[quote,fragment,relative=3,verbatim]
+@lilypond[quote,fragment,relative=2,verbatim]
 \setTextCresc
 c \< d e f\!
 \setHairpinCresc
@@ -2570,7 +2571,7 @@ alphabetic characters. Or,
   stops a running volta bracket
 @end table
 
-@lilypond[quote,verbatim,fragment,relative=3]
+@lilypond[quote,verbatim,fragment,relative=2]
 c4
   \set Score.repeatCommands = #'((volta "93") end-repeat)
 c4 c4
@@ -3124,7 +3125,7 @@ information.
 Pedals can also be indicated by a sequence of brackets, by setting the 
 @code{pedalSustainStyle} property to @code{bracket} objects
 
-@lilypond[quote,fragment,verbatim,relative=3]
+@lilypond[quote,fragment,verbatim,relative=2]
 \set Staff.pedalSustainStyle = #'bracket
 c\sustainDown d e
 b\sustainUp\sustainDown
@@ -3135,7 +3136,7 @@ A third style of pedal notation is a mixture of text and brackets,
 obtained by setting the @code{pedalSustainStyle} style property to
 @code{mixed}
 
-@lilypond[quote,fragment,verbatim,relative=3]
+@lilypond[quote,fragment,verbatim,relative=2]
 \set Staff.pedalSustainStyle = #'mixed
 c\sustainDown d e
 b\sustainUp\sustainDown
@@ -3146,7 +3147,7 @@ The default `*Ped.' style for sustain and damper pedals corresponds to
 style @code{#'text}. The sostenuto pedal uses @code{mixed} style by
 default.
 
-@lilypond[quote,fragment,verbatim,relative=3]
+@lilypond[quote,fragment,verbatim,relative=2]
 c\sostenutoDown d e c, f g a\sostenutoUp
 @end lilypond
 
@@ -3156,7 +3157,7 @@ For fine-tuning of the appearance of a pedal bracket, the properties
 @internalsref{PianoPedalBracket} in the Program reference)  can be modified.  For example, the
 bracket may be extended to the end of the note head
 
-@lilypond[quote,fragment,verbatim]
+@lilypond[quote,fragment,verbatim,relative=2]
 \override Staff.PianoPedalBracket  
    #'shorten-pair = #'(0 . -1.0)
 c\sostenutoDown d e c, f g a\sostenutoUp
@@ -3547,7 +3548,7 @@ The complete example is shown here
 
 Stanza numbers can be added by setting @code{stanza}, e.g.
 
-@lilypond[quote,verbatim,relative=3]
+@lilypond[quote,verbatim,relative=2]
 <<
   \context Voice = duet {
     \time 3/4 g2 e4 a2 f4 g2. }
@@ -4242,7 +4243,7 @@ and @internalsref{Staff}.@code{instr}. This will print a string before
 the start of the staff. For the first start, @code{instrument} is
 used, for the next ones @code{instr} is used.
 
-@lilypond[quote,verbatim,raggedright,relative=3]
+@lilypond[quote,verbatim,raggedright,relative=1]
 \set Staff.instrument = "Ploink "
 \set Staff.instr = "Plk "
 c1

@@ -30,7 +30,7 @@ c4. c4..
 @item @code{c d e f g a b }
 @tab scale 
 @tab
-@lilypond[relative=2,notime]
+@lilypond[relative=1,notime]
 c d e f g a b
 @end lilypond
 
@@ -209,7 +209,7 @@ a\> a a\!
 @item @code{\times 2/3 @{f g a@}}
 @tab triplets
 @tab
-@lilypond[relative=2,fragment]
+@lilypond[relative=1,fragment]
   \times 2/3 { f8 g a }
 @end lilypond
 
@@ -260,7 +260,7 @@ twinkle
 @item @code{<<@{e f@} \\@{c d@}>>}
 @tab polyphony
 @tab
-@lilypond[fragment,relative=3]
+@lilypond[fragment,relative=2]
 \context Staff <<{e f} \\ {c d}>>
 @end lilypond
 

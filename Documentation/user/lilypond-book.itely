@@ -227,12 +227,12 @@ of which lilypond-book will produce a HTML with appropriate image tags for the
 music fragments:
  
 @example
-<lilypond relative=1 verbatim>
+<lilypond relative=2 verbatim>
   \key c \minor r8 c16 b c8 g as c16 b c8 d | g,4
 </lilypond>
 @end example
 
-@lilypond[relative=1]
+@lilypond[relative=2]
   \key c \minor r8 c16 b c8 g as c16 b c8 d | g,4
 @end lilypond
 
