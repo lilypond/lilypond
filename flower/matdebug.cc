@@ -35,7 +35,7 @@ Matrix::print() const
 Vector::operator String() const
 {
     String s("vector [");
-#ifndef NDEBUG
+#ifndef NPRINT
     for (int i=0; i < dim(); i++) {
 	s += String(dat[i], "%6f") + ' ';
     }
