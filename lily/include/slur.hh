@@ -1,14 +1,13 @@
-/* 
+/*
   slur.hh -- declare Slur
   
   source file of the GNU LilyPond music typesetter
   
   (c) 2004 Han-Wen Nienhuys <hanwen@xs4all.nl>
-  
 */
 
-#ifndef NEW_SLUR_HH
-#define NEW_SLUR_HH
+#ifndef SLUR_HH
+#define SLUR_HH
 
 #include "lily-proto.hh"
 #include "lily-guile.hh"
@@ -26,5 +25,4 @@ public:
   static Bezier get_curve (Grob*me);
 };
 
-#endif /* NEW_SLUR_HH */
-
+#endif /* SLUR_HH */

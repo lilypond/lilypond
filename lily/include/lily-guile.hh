@@ -281,6 +281,6 @@ LY_DEFINE_WITHOUT_DECL (CLASS ## FNAME, CLASS::FNAME, PRIMNAME, REQ, OPT, \
 			VAR, ARGLIST, DOCSTRING)
 
 #define get_property(x) internal_get_property (ly_symbol2scm (x))
-#define set_property(x,y) internal_set_property (ly_symbol2scm (x), y)
+#define set_property(x, y) internal_set_property (ly_symbol2scm (x), y)
 
 #endif /* LILY_GUILE_HH */

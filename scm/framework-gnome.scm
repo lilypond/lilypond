@@ -235,6 +235,7 @@
 	  
 	  (let ((properties (ly:grob-properties grob))
 		(basic-properties (ly:grob-basic-properties grob))
+		(id (ly:grob-id grob))
 		(x (inexact->exact (gdk-event-button:x-root event)))
 		(y (inexact->exact (gdk-event-button:y-root event))))
 	       
@@ -248,7 +249,7 @@
 	      
 	      (add window vbox)
 	      (connect button 'clicked (lambda (b) (destroy window)))
-	      
+
 	      (for-each
 	       (lambda (x)
 		 (let ((button (make <gtk-button>
@@ -260,7 +261,7 @@
 				  (format #f "~S" (cdr x))))))
 		   (set-size-request button 150 BUTTON-HEIGHT)
 		   (add vbox button)))
-	       properties)
+	       (cons (list id) properties))
 	      (add vbox button)
 	      
 	      ;; FIXME: how to do window placement?

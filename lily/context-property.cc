@@ -1,18 +1,19 @@
-/*   
-   translator-property.cc -- implement manipulation of immutable Grob
+/*
+   context-property.cc -- implement manipulation of immutable Grob
    property lists.
 
    source file of the GNU LilyPond music typesetter
 
    (c) 2004 Han-Wen Nienhuys <hanwen@xs4all.nl>
- */
+*/
 
-#include "main.hh"
 #include "context.hh"
-#include "warn.hh"
-#include "item.hh"
-#include "spanner.hh"
+#include "grob-selector.hh"
 #include "engraver.hh"
+#include "item.hh"
+#include "main.hh"
+#include "spanner.hh"
+#include "warn.hh"
 
 /*
   Grob descriptions (ie. alists with layout properties) are
@@ -178,7 +179,7 @@ updated_grob_properties (Context * tg, SCM sym)
   else
     {
       SCM copy = daddy_props;
-      SCM * tail = &copy;
+      SCM *tail = &copy;
       SCM p = scm_car (props);
       while  (p != based_on)
 	{
@@ -194,16 +195,17 @@ updated_grob_properties (Context * tg, SCM sym)
     }
 }
 
-Item*
+Item *
 make_item_from_properties (Translator *tr, SCM x, SCM cause)
 {
-  Context *tg = tr->context ();
+  Context *context = tr->context ();
   
-  SCM props = updated_grob_properties (tg, x);
-  Item *it= new Item (props);
+  SCM props = updated_grob_properties (context, x);
+  Item *it = new Item (props);
+  Grob_selector::register_grob (context, it);
 
   dynamic_cast<Engraver*>(tr)->announce_grob (it, cause);
-  
+
   return it;
 }
 
@@ -211,11 +213,11 @@ Spanner*
 make_spanner_from_properties (Translator *tr, SCM x, SCM cause)
 {
   Context *tg = tr->context ();
-  
+
   SCM props = updated_grob_properties (tg, x);
-  Spanner *it= new Spanner (props);
+  Spanner *it = new Spanner (props);
 
   dynamic_cast<Engraver*>(tr)->announce_grob (it, cause);
-  
+
   return it;
 }

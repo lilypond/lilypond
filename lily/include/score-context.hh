@@ -1,17 +1,14 @@
-/*   
-score-context.hh -- declare Score_notation_context
-
-source file of the GNU LilyPond music typesetter
-
-(c) 2004 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
- */
-
+/*
+  score-context.hh -- declare Score_context
+  
+  source file of the GNU LilyPond music typesetter
+  
+  (c) 2004 Han-Wen Nienhuys <hanwen@xs4all.nl>
+*/
 #ifndef SCORE_CONTEXT_HH
 #define SCORE_CONTEXT_HH
 
 #include "global-context.hh"
-
 
 class Score_context : public Context
 {
@@ -21,7 +18,5 @@ class Score_context : public Context
   virtual void finish ();
   virtual void one_time_step ();
 };
-
-
 
 #endif /* SCORE_CONTEXT_HH */

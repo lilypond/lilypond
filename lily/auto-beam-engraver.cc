@@ -276,15 +276,13 @@ Auto_beam_engraver::consider_end (Moment test_mom)
     }
 }
 
-Spanner*
+Spanner *
 Auto_beam_engraver::create_beam ()
 {
   if (to_boolean (get_property ("skipTypesetting")))
-    {
-     return 0;
-    }
+    return 0;
   
-  Spanner* beam = new Spanner (beam_settings_);
+  Spanner *beam = new Spanner (beam_settings_);
   for (int i = 0; i < stems_->size (); i++)
     {
       /*

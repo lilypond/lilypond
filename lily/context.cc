@@ -7,15 +7,16 @@
 
 */
 
-#include "translator-group.hh"
 #include "context-def.hh"
+#include "context-selector.hh"
 #include "context.hh"
-#include "warn.hh"
+#include "ly-smobs.icc"
+#include "main.hh"
 #include "output-def.hh"
 #include "scm-hash.hh"
-#include "main.hh"
-#include "ly-smobs.icc"
 #include "score-context.hh"
+#include "translator-group.hh"
+#include "warn.hh"
 
 bool
 Context::is_removable () const
@@ -29,7 +30,7 @@ Context::check_removal ()
 {
   for (SCM p = context_list_; scm_is_pair (p); p = scm_cdr (p))
     {
-      Context *trg =  unsmob_context (scm_car (p));
+      Context *trg = unsmob_context (scm_car (p));
 
       trg->check_removal ();
       if (trg->is_removable ())
@@ -45,14 +46,14 @@ Context::Context (Context const&)
   assert (false);
 }
 
-Scheme_hash_table*
+Scheme_hash_table *
 Context::properties_dict () const
 {
   return Scheme_hash_table::unsmob (properties_scm_);
 }
 
 void
-Context::add_context (Context*t)
+Context::add_context (Context *t)
 {
   SCM ts = t->self_scm ();
   context_list_ = ly_append2 (context_list_,
@@ -62,9 +63,10 @@ Context::add_context (Context*t)
   if (!t->init_)
     {
       t->init_ = true;
-      
+      Context_selector::register_context (t);
+        
       scm_gc_unprotect_object (ts);
-      Context_def * td = unsmob_context_def (t->definition_);
+      Context_def *td = unsmob_context_def (t->definition_);
 
       /*
 	this can not move before add_context (), because \override
@@ -306,11 +308,11 @@ find_context_below (Context * where,
 	return where;
     }
   
-  Context * found = 0;
+  Context *found = 0;
   for (SCM s = where->children_contexts ();
        !found && scm_is_pair (s); s = scm_cdr (s))
     {
-      Context * tr = unsmob_context (scm_car (s));
+      Context *tr = unsmob_context (scm_car (s));
 
       found = find_context_below (tr, type, id);
     }
@@ -327,22 +329,21 @@ Context::properties_as_alist () const
 SCM
 Context::context_name_symbol () const
 {
-  Context_def * td = unsmob_context_def (definition_ );
+  Context_def *td = unsmob_context_def (definition_);
   return td->get_context_name ();
 }
 
 String
 Context::context_name () const
 {
-  return  ly_symbol2string (context_name_symbol ());
+  return ly_symbol2string (context_name_symbol ());
 }
 
 Score_context*
 Context::get_score_context () const
 {
-  if (Score_context *sc =dynamic_cast<Score_context*> ((Context*) this))
+  if (Score_context *sc = dynamic_cast<Score_context*> ((Context*) this))
     return sc;
-  
   else if (daddy_context_)
     return daddy_context_->get_score_context ();
   else
@@ -352,8 +353,7 @@ Context::get_score_context () const
 Output_def *
 Context::get_output_def () const
 {
-  return  (daddy_context_)
-    ? daddy_context_->get_output_def () : 0;
+  return daddy_context_ ? daddy_context_->get_output_def () : 0;
 }
 
 Context::~Context ()
@@ -374,7 +374,7 @@ Context::print_smob (SCM s, SCM port, scm_print_state *)
      
   scm_puts ("#<", port);
   scm_puts (classname (sc), port);
-  if (Context_def *d=unsmob_context_def (sc->definition_))
+  if (Context_def *d = unsmob_context_def (sc->definition_))
     {
       scm_puts (" ", port);
       scm_display (d->get_context_name (), port);
@@ -398,7 +398,7 @@ Context::print_smob (SCM s, SCM port, scm_print_state *)
 SCM
 Context::mark_smob (SCM sm)
 {
-  Context * me = (Context*) SCM_CELL_WORD_1 (sm);
+  Context *me = (Context*) SCM_CELL_WORD_1 (sm);
   
   scm_gc_mark (me->context_list_);
   scm_gc_mark (me->aliases_);
