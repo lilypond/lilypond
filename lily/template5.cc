@@ -14,8 +14,6 @@
 
 #include "interval.tcc"
 
-template INTERVAL__INSTANTIATE(Rational);
-
 #include "compare.hh"
 
 Rational
@@ -32,3 +30,6 @@ Interval_t<Rational>::T_to_str (Rational a)
   return a.str ();
 }
 
+
+
+template INTERVAL__INSTANTIATE(Rational);
