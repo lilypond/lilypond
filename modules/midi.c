@@ -108,6 +108,7 @@ message_t metaEvents[] = {
   0x58, "TIME_SIGNATURE",
   0x59, "KEY_SIGNATURE",
   0x7F, "SEQUENCER_SPECIFIC_META_EVENT",
+  0xFF, "META_EVENT",
   0,0
 };
 
