@@ -1,8 +1,7 @@
 \input texinfo @c -*-texinfo-*-
 @setfilename mudela-book.info
 @settitle mudela-book Manual
-
-
+@afourpaper
 @titlepage
 @title mudela-book Manual
 @subtitle Integrating mudela with La@TeX{} and TeXinfo
@@ -68,16 +67,21 @@ except that this permission notice may be stated in a
 translation approved by the Free Software Foundation.
 
 @end ifinfo
+@tex
+\def\preMudelaExample{\vspace{0.5cm}}
+@end tex
 
-
+@contents
 @node Top, , , (dir)
 @top
 
 
+
 @section Introduction
 
-[TODO: THIS MANUAL IS OUTDATED. FIXME.]
+[TODO: THIS MANUAL IS NOT FINISHED YET. FIXME.]
 
+@ignore
 Mudela-book is a script that process your La@TeX{} file and with great
 help from GNU LilyPond it translates blocks of mudela code it finds
 inside @code{mudela} environments to tex or eps graphics. It then
@@ -353,48 +357,48 @@ defined to nothing by default, and the user can redefine them
 to whatever he wants.
 
 @code{\begin} takes the following options:
+@end ignore
 
-@table @samp
-@item eps
-    the music is created as eps graphics that can be inserted in 
-    the middle of a text line, not only as a separate paragraph
-@item verbatim
-    CONTENTS is copied into the TeX source enclosed in a verbatim block.
-@item 11pt, 13pt, 16pt, 20pt, 26pt
-    set the fontsize to use for the music
-@item singleline
-  linewidth = -1.
-@item multiline
-  linewidth = textwidth
-@item fragment
-@item nonfragment
-    Override mudela-book autodetection of what type of code is in the
-    mudela block, voice contents or complete code.
-@end table
 
+@subsection Command line options
 
 @table @samp
 
-@item --default-mudela-fontsize=??pt
+@item -f, --format=
+    Specify the document type to process, @code{latex} or @code{texi}.
+    @file{mudela-book} usually figure out this automatically.
+@item --default-music-fontsize=??pt
     Set the fontsize to use for mudela if no fontsize is given
     as option.
-@item --force-mudela-fontsize=??pt
+@item --force-music-fontsize=??pt
     Force all mudela to use this fontsize, overriding options
     given to \begin@{mudela@}
+@item -I DIR, --include=DIR
+    include path
+@item -M, --dependencies
+        Write dependencies to out-www/filename.dep
+@item --dep-prefix=PREF
+	prepend PREF before each -M dependency
+@item -n, --no-lily
+	don't run lilypond
+@item --no-pictures
+	don't generate pictures
+@item --read-lys
+	don't write ly files. This way you can do
+	@example
+	mudela-book file.tely
+	convert-mudela
+	mudela-book --read-lys
+	@end example
 @item --outname=FILE
     The name of La@TeX{} file to output. If this option  is not given,
-the output name derived from the input name.
-@item --out-www=DIRECTORY
-    The name of the directory to output lilypond output and input to.
-    This must be a name; the subdirectory will be created in the cwd. [FIXME]
+    the output name derived from the input name.
+@item --outdir=
+	where to place generated files
+@item --version
+	print version information
 @item --help
 	Print a short help message
-@item --dependencies
-        Write dependencies to out-www/filename.dep
-@item --force-verbatim
-	Make all mudela verbatim.
-@item --initfile=FILE
-        read command definitions from @file{FILE}
 @end table
 
 
@@ -410,12 +414,16 @@ The La@TeX{} \includeonly@{...@} command is ignored.
 
 Ignores almost all La@TeX{} commands that changes margins and linewidths.
 
+La@TeX{} comments can confuse mudela-book:
+@example
+% this music will be displayed: \mudela@{c d e@}
+@end example
+
 @section Authors
 
 @email{hanwen@@cs.uu.nl, Han-Wen Nienhuys}, @uref{http://www.cs.uu.nl/people/hanwen}
 
-@email{tomato@@xoommail.com, Tom Cato Amundsen}
-
+@email{tca@@gnu.org, Tom Cato Amundsen}
 
 @bye
 
