@@ -1,6 +1,7 @@
 \version "1.7.18"
-\header {
-texidoc = "" 
+
+\header { texidoc = "@cindex Slur Minimum Length
+You can set the minimum length of a slur. " 
 }
 
 \score{
