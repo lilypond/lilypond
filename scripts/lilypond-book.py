@@ -64,7 +64,6 @@ import lilylib as ly
 global _;_=ly._
 global re;re = ly.re
 
-
 # lilylib globals
 program_version = '@TOPLEVEL_VERSION@'
 program_name = sys.argv[0]
@@ -72,15 +71,14 @@ verbose_p = 0
 pseudo_filter_p = 0
 original_dir = os.getcwd ()
 
-
-help_summary = _ ("""Process LilyPond snippets in hybrid HTML, LaTeX or texinfo document.
+help_summary = _ ('''Process LilyPond snippets in hybrid HTML, LaTeX or texinfo document.
 Example usage:
 
    lilypond-book --filter="tr '[a-z]' '[A-Z]'" BOOK
    lilypond-book --filter="convert-ly --no-version --from=2.0.0 -" BOOK
    lilypond-book --process='lilypond -I include' BOOK
 
-""")
+''')
 
 copyright = ('Jan Nieuwenhuizen <janneke@gnu.org>',
 	     'Han-Wen Nienhuys <hanwen@cs.uu.nl>')
@@ -95,7 +93,7 @@ option_definitions = [
 	('', 'V', 'verbose', _ ("be verbose")),
 	('', 'v', 'version', _ ("print version information")),
 	('', 'w', 'warranty', _ ("show warranty and copyright")),
-	]
+]
 
 include_path = [ly.abspath (os.getcwd ())]
 lilypond_binary = os.path.join ('@bindir@', 'lilypond')
@@ -103,7 +101,6 @@ lilypond_binary = os.path.join ('@bindir@', 'lilypond')
 # only use installed binary when we're installed too.
 if '@bindir@' == ('@' + 'bindir@') or not os.path.exists (lilypond_binary):
 	lilypond_binary = 'lilypond'
-
 
 use_hash_p = 1
 format = 0
@@ -151,205 +148,236 @@ VERBATIM = 'verbatim'
 # (?x) -- ignore whitespace in patterns
 no_match = 'a\ba'
 snippet_res = {
+	##
 	HTML: {
-	'include':
-	  no_match,
-	'lilypond':
-	  r'''(?mx)
-	    (?P<match>
-	    <lilypond
-	      ((?P<options>[^:]*):)
-	      (?P<code>.*?)
-	    />)''',
-	'lilypond_block':
-	  r'''(?msx)
-	    (?P<match>
-	    <lilypond
-	      (?P<options>[^>]+)?
-	    >
-	    (?P<code>.*?)
-	    </lilypond>)''',
-	'lilypond_file':
-	  r'''(?mx)
-	    (?P<match>
-	    <lilypondfile
-	      (?P<options>[^>]+)?
-	    >\s*
-	      (?P<filename>[^<]+)\s*
-	    </lilypondfile>)''',
-	'multiline_comment':
-	  r'''(?smx)
-	    (?P<match>
-	    \s*(?!@c\s+)
-	    (?P<code><!--\s.*?!-->)
-	    \s)''',
-	'singleline_comment':
-	  no_match,
-	'verb':
-	  r'''(?x)
-	    (?P<match>
-	      (?P<code><pre>.*?</pre>))''',
-	'verbatim':
-	  r'''(?x)
-	    (?s)
-	    (?P<match>
-	      (?P<code><pre>\s.*?</pre>\s))''',
+		'include':
+		  no_match,
+
+		'lilypond':
+		  r'''(?mx)
+		    (?P<match>
+		    <lilypond
+		      ((?P<options>[^:]*):)
+		      (?P<code>.*?)
+		    />)''',
+
+		'lilypond_block':
+		  r'''(?msx)
+		    (?P<match>
+		    <lilypond
+		      (?P<options>[^>]+)?
+		    >
+		    (?P<code>.*?)
+		    </lilypond>)''',
+
+		'lilypond_file':
+		  r'''(?mx)
+		    (?P<match>
+		    <lilypondfile
+		      (?P<options>[^>]+)?
+		    >\s*
+		      (?P<filename>[^<]+)\s*
+		    </lilypondfile>)''',
+
+		'multiline_comment':
+		  r'''(?smx)
+		    (?P<match>
+		    \s*(?!@c\s+)
+		    (?P<code><!--\s.*?!-->)
+		    \s)''',
+
+		'singleline_comment':
+		  no_match,
+
+		'verb':
+		  r'''(?x)
+		    (?P<match>
+		      (?P<code><pre>.*?</pre>))''',
+
+		'verbatim':
+		  r'''(?x)
+		    (?s)
+		    (?P<match>
+		      (?P<code><pre>\s.*?</pre>\s))''',
 	},
 
+	##
 	LATEX: {
-	'include':
-	  r'''(?smx)
-	    ^[^%\n]*?
-	    (?P<match>
-	    \\input\s*{
-	      (?P<filename>\S+?)
-	    })''',
+		'include':
+		  r'''(?smx)
+		    ^[^%\n]*?
+		    (?P<match>
+		    \\input\s*{
+		      (?P<filename>\S+?)
+		    })''',
+
 	'lilypond':
-	  r'''(?smx)
-	    ^[^%\n]*?
-	    (?P<match>
-	    \\lilypond\s*(
-	    \[
-	      (?P<options>.*?)
-	    \])?\s*{
-	      (?P<code>.*?)
-	    })''',
+		  r'''(?smx)
+		    ^[^%\n]*?
+		    (?P<match>
+		    \\lilypond\s*(
+		    \[
+		      (?P<options>.*?)
+		    \])?\s*{
+		      (?P<code>.*?)
+		    })''',
+
 	'lilypond_block':
-	  r'''(?smx)
-	    ^[^%\n]*?
-	    (?P<match>
-	    \\begin\s*(
-	    \[
-	      (?P<options>.*?)
-	    \])?\s*{lilypond}
-	      (?P<code>.*?)
-	    ^[^%\n]*?
-	    \\end\s*{lilypond})''',
-	'lilypond_file':
-	  r'''(?smx)
-	    ^[^%\n]*?
-	    (?P<match>
-	    \\lilypondfile\s*(
-	    \[
-	      (?P<options>.*?)
-	    \])?\s*\{
-	      (?P<filename>\S+?)
-	    })''',
-	'multiline_comment':
-	  no_match,
-	'singleline_comment':
-	  r'''(?mx)
-	    ^.*?
-	    (?P<match>
-	      (?P<code>
-	      %.*$\n+))''',
-	'verb':
-	  r'''(?mx)
-	    ^[^%\n]*?
-	    (?P<match>
-	      (?P<code>
-	      \\verb(?P<del>.)
-		.*?
-	      (?P=del)))''',
-	'verbatim':
-	  r'''(?msx)
-	    ^[^%\n]*?
-	    (?P<match>
-	      (?P<code>
-	      \\begin\s*{verbatim}
-		.*?
-	      \\end\s*{verbatim}))''',
+		  r'''(?smx)
+		    ^[^%\n]*?
+		    (?P<match>
+		    \\begin\s*(
+		    \[
+		      (?P<options>.*?)
+		    \])?\s*{lilypond}
+		      (?P<code>.*?)
+		    ^[^%\n]*?
+		    \\end\s*{lilypond})''',
+
+		'lilypond_file':
+		  r'''(?smx)
+		    ^[^%\n]*?
+		    (?P<match>
+		    \\lilypondfile\s*(
+		    \[
+		      (?P<options>.*?)
+		    \])?\s*\{
+		      (?P<filename>\S+?)
+		    })''',
+
+		'multiline_comment':
+		  no_match,
+
+		'singleline_comment':
+		  r'''(?mx)
+		    ^.*?
+		    (?P<match>
+		      (?P<code>
+		      %.*$\n+))''',
+
+		'verb':
+		  r'''(?mx)
+		    ^[^%\n]*?
+		    (?P<match>
+		      (?P<code>
+		      \\verb(?P<del>.)
+			.*?
+		      (?P=del)))''',
+
+		'verbatim':
+		  r'''(?msx)
+		    ^[^%\n]*?
+		    (?P<match>
+		      (?P<code>
+		      \\begin\s*{verbatim}
+			.*?
+		      \\end\s*{verbatim}))''',
 	},
 
+	##
 	TEXINFO: {
-	'include':
-	  r'''(?mx)
-	    ^(?P<match>
-	    @include\s+
-	      (?P<filename>\S+))''',
-	'lilypond':
-	  r'''(?smx)
-	    ^[^\n]*?(?!@c\s+)[^\n]*?
-	    (?P<match>
-	    @lilypond\s*(
-	    \[
-	      (?P<options>.*?)
-	    \])?\s*{
-	      (?P<code>.*?)
-	    })''',
-	'lilypond_block':
-	  r'''(?msx)
-	    ^(?P<match>
-	    @lilypond\s*(
-	    \[
-	      (?P<options>.*?)
-	    \])?\s+?
-	    ^(?P<code>.*?)
-	    ^@end\s+lilypond)\s''',
-	'lilypond_file':
-	  r'''(?mx)
-	    ^(?P<match>
-	    @lilypondfile\s*(
-	    \[
-	      (?P<options>.*?)
-	    \])?\s*{
-	      (?P<filename>\S+)
-	    })''',
-	'multiline_comment':
-	  r'''(?smx)
-	    ^(?P<match>
-	      (?P<code>
-	      @ignore\s
-		.*?
-	      @end\s+ignore))\s''',
-	'singleline_comment':
-	  r'''(?mx)
-	    ^.*
-	    (?P<match>
-	      (?P<code>
-	      @c([ \t][^\n]*|)\n))''',
+		'include':
+		  r'''(?mx)
+		    ^(?P<match>
+		    @include\s+
+		      (?P<filename>\S+))''',
 
-# don't do this: fucks up with @code{@{}
-#	'verb': r'''(?P<code>@code{.*?})''',
-	'verbatim':
-	  r'''(?sx)
-	    (?P<match>
-	      (?P<code>
-	      @example
-		\s.*?
-	      @end\s+example\s))''',
+		'lilypond':
+		  r'''(?smx)
+		    ^[^\n]*?(?!@c\s+)[^\n]*?
+		    (?P<match>
+		    @lilypond\s*(
+		    \[
+		      (?P<options>.*?)
+		    \])?\s*{
+		      (?P<code>.*?)
+		    })''',
+
+		'lilypond_block':
+		  r'''(?msx)
+		    ^(?P<match>
+		    @lilypond\s*(
+		    \[
+		      (?P<options>.*?)
+		    \])?\s+?
+		    ^(?P<code>.*?)
+		    ^@end\s+lilypond)\s''',
+
+		'lilypond_file':
+		  r'''(?mx)
+		    ^(?P<match>
+		    @lilypondfile\s*(
+		    \[
+		      (?P<options>.*?)
+		    \])?\s*{
+		      (?P<filename>\S+)
+		    })''',
+
+		'multiline_comment':
+		  r'''(?smx)
+		    ^(?P<match>
+		      (?P<code>
+		      @ignore\s
+			.*?
+		      @end\s+ignore))\s''',
+
+		'singleline_comment':
+		  r'''(?mx)
+		    ^.*
+		    (?P<match>
+		      (?P<code>
+		      @c([ \t][^\n]*|)\n))''',
+
+	# don't do this: fucks up with @code{@{}
+	#	'verb': r'''(?P<code>@code{.*?})''',
+
+		'verbatim':
+		  r'''(?sx)
+		    (?P<match>
+		      (?P<code>
+		      @example
+			\s.*?
+		      @end\s+example\s))''',
 	},
 }
 
 format_res = {
 	HTML: {
-	'option-sep': '\s*',
-	'intertext': r',?\s*intertext=\".*?\"',
+		'intertext': r',?\s*intertext=\".*?\"',
+		'option_sep': '\s*',
 	},
+
 	LATEX: {
-	'intertext': r',?\s*intertext=\".*?\"',
-	'option-sep': ',\s*',
+		'intertext': r',?\s*intertext=\".*?\"',
+		'option_sep': '\s*,\s*',
 	},
+
 	TEXINFO: {
-	'intertext': r',?\s*intertext=\".*?\"',
-	'option-sep': ',\s*',
+		'intertext': r',?\s*intertext=\".*?\"',
+		'option_sep': '\s*,\s*',
 	},
 }
 
 ly_options = {
+	##
 	NOTES: {
 		RELATIVE: r'''\relative c%(relative_quotes)s''',
 	},
+
+	##
 	PAPER: {
 		INDENT: r'''
     indent = %(indent)s''',
 	'linewidth': r'''
     linewidth = %(linewidth)s''',
+
 		NOINDENT: r'''
     indent = 0.0\mm''',
+
 		QUOTE: r'''
     linewidth = %(linewidth)s - 2.0 * %(exampleindent)s
 ''',
+
 		RAGGEDRIGHT: r'''
     indent = 0.0\mm
     raggedright = ##t''',
@@ -374,70 +402,89 @@ ly_options = {
 }
 
 output = {
+	##
 	HTML: {
-	FILTER: r'''<lilypond %(options)s>
+		FILTER: r'''<lilypond %(options)s>
 %(code)s
 </lilypond>
 ''',
 
-	AFTER: r'''
+		AFTER: r'''
   </a>
 </p>''',
-	BEFORE: r'''<p>
+
+		BEFORE: r'''<p>
   <a href="%(base)s.ly">''',
-	OUTPUT: r'''
+
+		OUTPUT: r'''
     <img align="center" valign="center"
 	 border="0" src="%(image)s" alt="[image of music]">''',
-	PRINTFILENAME:'<p><tt><a href="%(base)s.ly">%(filename)s</a></tt></p>',
-	QUOTE: r'''<blockquote>
+
+		PRINTFILENAME: '<p><tt><a href="%(base)s.ly">%(filename)s</a></tt></p>',
+
+		QUOTE: r'''<blockquote>
 %(str)s
 </blockquote>
 ''',
-	VERBATIM: r'''<pre>
+		VERBATIM: r'''<pre>
 %(verb)s</pre>''',
 	},
 
-	LATEX:	{
-	AFTER: '',
-	BEFORE: '',
-	OUTPUT: r'''{\parindent 0pt
+	##
+	LATEX: {
+		AFTER: '',
+
+		BEFORE: '',
+
+		OUTPUT: r'''{\parindent 0pt
 \catcode`\@=12
 \ifx\preLilyPondExample\undefined\relax\else\preLilyPondExample\fi
 \def\lilypondbook{}%%
 \input %(base)s.tex
 \ifx\postLilyPondExample\undefined\relax\else\postLilyPondExample\fi
 \catcode`\@=0}''',
-	PRINTFILENAME: '''\\texttt{%(filename)s}
+
+		PRINTFILENAME: '''\\texttt{%(filename)s}
 	''',
-	QUOTE: r'''\begin{quotation}
+
+		QUOTE: r'''\begin{quotation}
 %(str)s
 \end{quotation}
 ''',
-	VERBATIM: r'''\noindent
+
+		VERBATIM: r'''\noindent
 \begin{verbatim}
 %(verb)s\end{verbatim}
 ''',
-	FILTER: r'''\begin{lilypond}[%(options)s]
+
+		FILTER: r'''\begin{lilypond}[%(options)s]
 %(code)s
 \end{lilypond}''',
 	},
 
+	##
 	TEXINFO: {
-	FILTER: r'''@lilypond[%(options)s]
+		FILTER: r'''@lilypond[%(options)s]
 %(code)s
 @lilypond''',
-	AFTER: '',
-	BEFORE: '',
-	OUTPUT: r'''@noindent
+
+		AFTER: '',
+
+		BEFORE: '',
+
+		OUTPUT: r'''@noindent
 @image{%(base)s,,,[image of music],%(ext)s}''',
-	PRINTFILENAME: '''@file{%(filename)s}
+
+		PRINTFILENAME: '''@file{%(filename)s}
 	''',
-	QUOTE: r'''@quotation
+
+		QUOTE: r'''@quotation
 %(str)s
 @end quotation
 ''',
-	# FIXME: @exampleindent 5  is the default...
-	VERBATIM: r'''@exampleindent 0
+
+		# FIXME: @exampleindent 5  is the default...
+		VERBATIM: r'''@exampleindent 0
 @example
 %(verb)s@end example
 @exampleindent 5
@@ -445,7 +492,7 @@ output = {
 	},
 }
 
-PREAMBLE_LY = r"""%%%% Generated by %(program_name)s
+PREAMBLE_LY = r'''%%%% Generated by %(program_name)s
 %%%% Options: [%(option_string)s]
 #(set! toplevel-score-handler ly:parser-print-score)
 #(set! toplevel-music-handler (lambda (p m)
@@ -460,15 +507,16 @@ PREAMBLE_LY = r"""%%%% Generated by %(program_name)s
 \layout { %(layout_string)s
 }
 
-"""
+'''
 
 FRAGMENT_LY = r'''
     %(notes_string)s{
-%% ly snippet contents follows: 
+%% ly snippet contents follows:
 	%(code)s
 %% end ly snippet
 	}
 '''
+
 FULL_LY = '''
 %% ly snippet:
 %(code)s
@@ -476,10 +524,10 @@ FULL_LY = '''
 '''
 
 texinfo_linewidths = {
-	'@afourpaper': '160 \\mm',
-	'@afourwide': '6.5 \\in',
-	'@afourlatex': '150 \\mm',
-	'@smallbook': '5 \\in' ,
+	'@afourpaper': '160\\mm',
+	'@afourwide': '6.5\\in',
+	'@afourlatex': '150\\mm',
+	'@smallbook': '5\\in',
 	'@letterpaper': '6\\in',
 }
 
@@ -561,7 +609,7 @@ def compose_ly (code, options):
 
 		if not found and key not in (FRAGMENT, NOFRAGMENT, PRINTFILENAME,
 					     RELATIVE, VERBATIM, TEXIDOC):
-			ly.warning (_("ignoring unknown ly option: %s") % i)
+			ly.warning (_ ("ignoring unknown ly option: %s") % i)
 
 	#URGS
 	if RELATIVE in override.keys () and override[RELATIVE]:
@@ -583,7 +631,6 @@ def compose_ly (code, options):
 	preamble_string = string.join (options_dict[PREAMBLE], '\n    ') % override
 	return (PREAMBLE_LY + body) % vars ()
 
-
 # BARF
 # use lilypond for latex (.lytex) books,
 # and lilypond --preview for html, texinfo books?
@@ -596,7 +643,6 @@ def to_eps (file):
 	ly.system ('dvips -Ppdf -u+ec-mftrace.map -u+lilypond.map -E -o %s.eps %s' \
 		   % (file, file))
 
-
 	# check if it really is EPS.
 	# Otherwise music glyphs disappear from 2nd and following pages.
 
@@ -604,14 +650,12 @@ def to_eps (file):
 	# cropping as well.
 
 	f = open ('%s.eps' % file)
-	for x in range(0,10):
+	for x in range (0, 10):
 		if re.search ("^%%Pages: ", f.readline ()):
-
 			# make non EPS.
 			ly.system ('dvips -Ppdf -u+ec-mftrace.map -u+lilypond.map -o %s.eps %s' \
 				   % (file, file))
 			break
-
 
 def find_file (name):
 	for i in include_path:
@@ -633,8 +677,7 @@ def verbatim_texinfo (s):
 			       re.sub ('@', '@@', s)))
 
 def split_options (option_string):
-	return re.split (format_res[format]['option-sep'], option_string)
-
+	return re.split (format_res[format]['option_sep'], option_string)
 
 class Chunk:
 	def replacement_text (self):
@@ -642,7 +685,6 @@ class Chunk:
 
 	def filter_text (self):
 		return self.replacement_text ()
-
 
 	def ly_is_outdated (self):
 		return 0
@@ -718,8 +760,7 @@ class Lilypond_snippet (Snippet):
 		outf = open (self.basename () + '.ly', 'w')
 		outf.write (self.full_ly ())
 
-		open (self.basename() + '.txt', 'w').write("image of music")
-
+		open (self.basename () + '.txt', 'w').write ("image of music")
 
 	def ly_is_outdated (self):
 		base = self.basename ()
@@ -973,20 +1014,17 @@ def is_derived_class (cl, baseclass):
 			return 1
 	return 0
 
-
 def process_snippets (cmd, ly_snippets, png_snippets):
 	ly_names = filter (lambda x: x, map (Lilypond_snippet.basename, ly_snippets))
 	png_names = filter (lambda x: x, map (Lilypond_snippet.basename, png_snippets))
-
 
 	status = 0
 	if ly_names:
 		status = ly.system (string.join ([cmd] + ly_names),
 				    ignore_error = 1, progress_p = 1)
 
-
 	if status:
-		ly.error( 'Process %s exited unsuccessfully.' % cmd )
+		ly.error ('Process %s exited unsuccessfully.' % cmd)
 		raise Compile_error
 
 	if format == HTML or format == TEXINFO:
@@ -997,7 +1035,6 @@ def process_snippets (cmd, ly_snippets, png_snippets):
 
 #			elif os.path.exists (i + '.ps'):
 #				ly.make_ps_images (i + '.ps', resolution=110)
-
 
 LATEX_DOCUMENT = r'''
 %(preamble)s
@@ -1025,7 +1062,7 @@ def get_latex_textwidth (source):
 		columnsep = string.atof (m.group (1))
 
 	textwidth = 0
-	m = re.search('textwidth=([0-9.]*)pt', parameter_string)
+	m = re.search ('textwidth=([0-9.]*)pt', parameter_string)
 	if m:
 		textwidth = string.atof (m.group (1))
 		if columns:
@@ -1071,7 +1108,6 @@ def do_process_cmd (chunks):
 	else:
 		ly.progress (_ ("All snippets are up to date..."))
 	ly.progress ('\n')
-
 
 def do_file (input_filename):
 	#ugh
@@ -1120,11 +1156,10 @@ def do_file (input_filename):
 					   + '/' + input_base
 					   + format2ext[format])
 
-
 		if (os.path.exists (input_filename) and
 		    os.path.exists (output_filename) and
 		    os.path.samefile (output_filename, input_fullname)):
-			ly.error (_("Output would overwrite input file; use --output."))
+			ly.error (_ ("Output would overwrite input file; use --output."))
 			ly.exit (2)
 
 		output_file = open (output_filename, 'w')
@@ -1169,7 +1204,6 @@ def do_file (input_filename):
 		if filter_cmd:
 			output_file.writelines ([c.filter_text () for c in chunks])
 
-
 		elif process_cmd:
 			do_process_cmd (chunks)
 			ly.progress (_ ("Compiling %s...") % output_filename)
@@ -1188,12 +1222,11 @@ def do_file (input_filename):
 		     filter (lambda x: is_derived_class (x.__class__, Include_snippet), chunks))
 	except Compile_error:
 		os.chdir (original_dir)
-		ly.progress (_('Removing `%s\'') % output_filename)
+		ly.progress (_ ('Removing `%s\'') % output_filename)
 		ly.progress ('\n')
 
 		os.unlink (output_filename)
 		raise Compile_error
-
 
 def do_options ():
 	global format, output_name
