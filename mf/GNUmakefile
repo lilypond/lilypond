@@ -18,13 +18,13 @@ FETA_MF_FILES = $(wildcard feta[0-9]*.mf)\
 STAFF_SIZES = 11 13 14 16 18 20 23 26
 BRACES = a b c d e f g h i
 
-OTF_FILES = $(addsuffix .otf, $(addprefix $(outdir)/emmentaler-, $(STAFF_SIZES)))\
+OTF_FILES = $(STAFF_SIZES:%=$(outdir)/emmentaler-%.otf)\
  $(outdir)/aybabtu.otf
-PFA_OTF_FILES = $(addsuffix .pfa, $(addprefix $(outdir)/PFAemmentaler-, $(STAFF_SIZES)))\
+PFA_OTF_FILES = $(STAFF_SIZES:%=$(outdir)/PFAemmentaler-%.pfa)\
  $(outdir)/PFAaybabtu.pfa
-PE_SCRIPTS = $(addsuffix .pe, $(addprefix $(outdir)/emmentaler-, $(STAFF_SIZES))) \
-  $(addsuffix .dep, $(addprefix $(outdir)/emmentaler-, $(STAFF_SIZES))) 
-OTF_TABLES = $(addsuffix .otf-table, $(addprefix $(outdir)/feta, $(STAFF_SIZES))) \
+PE_SCRIPTS = $(STAFF_SIZES:%=$(outdir)/emmentaler-%.pe)\
+ $(STAFF_SIZES:%=$(outdir)/emmentaler-%.dep)
+OTF_TABLES = $(STAFF_SIZES:%=$(outdir)/feta%.otf-table)\
  $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
 FETA_FONTS = $(FETA_MF_FILES:.mf=)
 SVG_FILES = $(OTF_FILES:%.otf=%.svg) $(ALL_FONTS:%=$(outdir)/%.svg)
@@ -42,7 +42,8 @@ LOG_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.log)
 LISP_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.lisp)
 TEXTABLES = $(FETA_MF_FILES:%.mf=$(outdir)/%.tex)
 ENC_FILES = $(TEXTABLES:.tex=.enc) $(outdir)/cmr.enc
-TFM_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.tfm) $(addprefix $(outdir)/,$(addsuffix .tfm,$(SAUTER_FONTS)))
+TFM_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.tfm)\
+ $(SAUTER_FONTS:%=$(outdir)/%.tfm)
 FETA_LIST_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%list.ly)
 
 
@@ -67,7 +68,7 @@ $(outdir)/%.otf-table: $(outdir)/%.lisp $(if $(findstring brace,$<),,$(subst fet
 		$(if $(findstring brace,$<),,$(subst feta,parmesan,$<)) \
 		$(if $(findstring brace,$<),,$(subst feta,feta-alphabet,$<)) > $@
 
-$(outdir)/aybabtu.otf: $(outdir)/aybabtu.subfonts  $(outdir)/aybabtu.fontname $(outdir)/aybabtu.otf-table $(outdir)/aybabtu.otf-gtable $(outdir)/aybabtu.pe
+$(outdir)/aybabtu.otf $(outdir)/PFAaybabtu.pfa: $(outdir)/aybabtu.subfonts $(outdir)/aybabtu.fontname $(outdir)/aybabtu.otf-table $(outdir)/aybabtu.otf-gtable $(outdir)/aybabtu.pe
 
 $(outdir)/aybabtu.fontname:
 	echo -n 'aybabtu' > $@ 

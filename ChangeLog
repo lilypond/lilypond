@@ -1,3 +1,8 @@
+2005-04-06  Jan Nieuwenhuizen  <jan.nieuwenhuizen@aspiratie.nl>
+
+	* mf/GNUmakefile: Rewrite $addprefix, $addsuffix using % short-forms.
+	Add PFAaybabtu.pfa dependency on aybabtu.subfonts.
+
 2005-04-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/framework-ps.scm (ps-font-command): use string-hash for
@@ -11,7 +16,8 @@
 
 	* GNUmakefile.in: don't put mf/ link in share/ dir.
 
-	* lily/staff-spacing.cc: move same-direction-correction to note-spacing-interface
+	* lily/staff-spacing.cc: move same-direction-correction to
+	note-spacing-interface
 
 	* scm/lily.scm (lilypond-main): use variable argument count for
 	exception handler.
