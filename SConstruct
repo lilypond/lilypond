@@ -202,10 +202,10 @@ env.Alias ('config', config_cache)
 
 cachedir = os.path.join (outdir, 'build-cache')
 
-if not os.path.exists(cachedir):
-	os.makedirs(cachedir)
+if not os.path.exists (cachedir):
+	os.makedirs (cachedir)
 
-CacheDir (os.path.join (outdir, 'build-cache'))
+CacheDir (cachedir)
 
 # No need to set $LILYPONDPREFIX to run lily, but cannot install...
 if env['debugging'] and not 'install' in COMMAND_LINE_TARGETS:
