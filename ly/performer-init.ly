@@ -73,6 +73,7 @@
 	\accepts TabStaff
 	\accepts Lyrics 
 	\accepts StaffGroup
+	\accepts Devnull
 	\accepts ChoirStaff
 	\accepts RhythmicStaff
 	\accepts ChordNames
