@@ -208,7 +208,7 @@ def setup_temp ():
 	if not __main__.keep_temp_dir_p:
 		__main__.temp_dir = tempfile.mktemp (__main__.program_name)
 	try:
-		os.mkdir (__main__.temp_dir, 0777)
+		os.mkdir (__main__.temp_dir, 0700)
 	except OSError:
 		pass
 

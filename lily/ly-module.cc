@@ -61,6 +61,9 @@ define_one_var (void * closure, SCM key, SCM val, SCM result)
   return SCM_EOL;
 }
 
+/*
+  Ugh signature of scm_internal_hash_fold () is inaccurate.
+ */
 typedef SCM (*Hash_cl_func)();
 
 void

@@ -37,6 +37,7 @@ Distributions will want to install lilypond.info doing:
 @omflanguage English
 @end ignore
 
+@c don't remove this comment.
 
 @ignore
 
@@ -49,7 +50,6 @@ manual is about
 besides the reader and the writer.
 
 * don't use abbreviations (don't, won't, etc.)
-
 
 @end ignore
 
