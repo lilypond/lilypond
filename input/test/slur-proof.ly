@@ -1,7 +1,6 @@
 
-% :-(
 x = {
-\outputproperty #(make-type-checker 'Note_head) #'extra-offset = #'(-1 . 0)
+\outputproperty #(make-type-checker 'note-head-interface) #'extra-offset = #'(-1 . 0)
 }
 
 \score{
@@ -39,8 +38,8 @@ indent=0.0\mm;
 linewidth=-1.0\mm;
 \translator{
 \VoiceContext
-slurVerticalDirection = #1
-stemVerticalDirection = #-1
+Slur \override #'direction = #1
+Stem \override #'direction = #-1
 }
 }
 }

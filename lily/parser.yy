@@ -39,9 +39,9 @@
 #include "repeated-music.hh"
 #include "lilypond-input-version.hh"
 #include "grace-music.hh"
-#include "auto-change-music.hh"
 #include "part-combine-music.hh"
 #include "scm-hash.hh"
+#include "auto-change-iterator.hh"
 
 #include "chord.hh"
 
@@ -772,8 +772,9 @@ Composite_music:
 		$$ = csm;
 	}
 	| AUTOCHANGE STRING Music	{
-		Auto_change_music * chm = new Auto_change_music (SCM_EOL);
+		Music * chm = new Music_wrapper (SCM_EOL);
 		chm->set_mus_property ("element", $3->self_scm ());
+		chm->set_mus_property ("iterator-ctor", Auto_change_iterator::constructor_cxx_function);
 
 		scm_unprotect_object ($3->self_scm ());
 		chm->set_mus_property ("what", $2); 
@@ -1267,6 +1268,9 @@ verbose_request:
 		a->set_spot (THIS->here_input ());
 		$$ = a;
 	}
+	/*
+duh, junk this syntax from the parser, if possible. 
+	*/
 	| ARPEGGIO {
 		Arpeggio_req *a = new Arpeggio_req;
 		a->set_spot (THIS->here_input ());

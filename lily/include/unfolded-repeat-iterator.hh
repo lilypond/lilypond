@@ -50,7 +50,7 @@ public:
   SCM alternative_cons_;
   ~Unfolded_repeat_iterator();
   Unfolded_repeat_iterator ();
-
+  Unfolded_repeat_iterator (Unfolded_repeat_iterator const &);
 protected:  
   virtual void construct_children ();
   virtual Moment pending_moment () const;

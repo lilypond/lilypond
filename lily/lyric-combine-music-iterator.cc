@@ -98,6 +98,13 @@ Lyric_combine_music_iterator::~Lyric_combine_music_iterator ()
   delete music_iter_p_;
 }
 
+Lyric_combine_music_iterator::Lyric_combine_music_iterator (Lyric_combine_music_iterator const & src)
+    : Music_iterator (src)
+{
+
+  lyric_iter_p_ = src.lyric_iter_p_ ? src.lyric_iter_p_->clone () : 0;
+  music_iter_p_ = src.music_iter_p_ ? src.music_iter_p_->clone () : 0;  
+}
 Music_iterator*
 Lyric_combine_music_iterator::try_music_in_children (Music *m) const
 {

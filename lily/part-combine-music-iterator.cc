@@ -28,6 +28,18 @@ Part_combine_music_iterator::~Part_combine_music_iterator ()
   delete first_iter_p_;
 }
 
+Part_combine_music_iterator::Part_combine_music_iterator (Part_combine_music_iterator const &src)
+  : Music_iterator (src)
+{
+  second_iter_p_ = src.second_iter_p_ ? src.second_iter_p_->clone () : 0;
+  first_iter_p_ = src.first_iter_p_ ? src.first_iter_p_->clone () : 0;
+
+  first_until_ = src.first_until_;
+  second_until_ = src.second_until_;
+  state_ = src.state_;
+  suffix_ = src.suffix_;
+}
+
 Moment
 Part_combine_music_iterator::pending_moment () const
 {

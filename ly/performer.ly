@@ -43,7 +43,9 @@ ThreadContext = \translator {
 	\name Grace;
 	\consists "Note_performer";
 	\consists "Tie_performer";
-	 weAreGraceContext = "1";
+	 \consists "Swallow_performer";
+
+	 weAreGraceContext = #t
 }
 
 \translator

@@ -6,11 +6,13 @@
 
 @menu
 * Conversion stages::              Lilypond is a multi-pass program.
+* Moment:: 
 * Grobs::                          Graphical object  
 * Engraver::
 * Music_iterator::
 * Music::
 * Molecules::                       Molecules are stand-alone descriptions of output
+* Font metrics::                    Font metrics
 @end menu
 
 @node Conversion stages
@@ -66,6 +68,18 @@ are output, line by line.
 
 @end table
 
+@node Moment
+@section Moment
+
+Moment is a rational number. Since GUILE doesn't support them natively,
+so we created our own rational data type.
+
+@defun moment?
+@end defun
+
+@defun make-moment num den
+create the rational number @var{num}/@var{den}. 
+@end defun
 
 @node Grobs
 @section Grobs
@@ -95,6 +109,7 @@ how grobs work.
 * Setting grob properties::
 * Items and Spanners::
 * Pointer substitution::
+* Grob Scheme functions::
 @end menu
 
 @node What is a grob?
@@ -326,6 +341,26 @@ complications. When a  spanner crosses a line-break, then the spanner is
 the grob is made. A substitution process redirects all grob-reference
 so that spanner grob will only reference other grobs in the same line.
 
+@node Grob Scheme functions
+@unnumberedsubsec Grob Scheme functions
+
+
+@defun ly-get-grob-property g sym
+  Get the value of a value in grob @var{g} of property @var{sym}. It
+will return @code{'()} (end-of-list) if not true.
+@end  defun
+
+@defun ly-set-grob-property g sym val
+@end defun
+
+@defun ly-get-spanner-bound spanner dir
+@end defun
+
+@defun ly-grob? g
+@end defun
+
+
+
 @node Engraver
 @section Engraver
 
@@ -382,6 +417,40 @@ name of the property is @code{molecule-callback}, and its value should
 be a Scheme function taking one argument (the grob) and returning a
 Molecule.
 
+@defun molecule? m
+@end defun
+
+@defun ly-combine-molecule-at-edge  mol1 axis dir mol2 padding
+@end defun
+
+@defun molecule?  m 
+@end defun
+
+@defun ly-get-molecule-extent! mol axis
+@end defun
+
+@defun ly-set-molecule-extent! mol axis extent
+@end defun
+
+@node Font metrics
+@section Font metrics
+
+The font object represents the metric information of a font. Every font
+that is loaded into LilyPond can be accessed via Scheme. 
+
+[tfm vs. afm]
+
+
+@defun ly-get-default-font gr
+This returns the default font for grob @var{gr}.
+@end defun
+
+@defun ly-find-glyph-by-name font name
+This function retrieves a Molecule for the glyph named @var{name} in
+@var{font}.  The font must be available as a afm file.
+@cindex afm file
+
+@end defun
 
 
 @node Development
@@ -939,6 +1008,11 @@ are both small projects and big ones. Most of them are listed in our
 TODO file, listed on the homepage of Jan and
 @uref{http://www.cs.uu.nl/~hanwen/lily-devel,Han-Wen}.  Modifying
 LilyPond almost always requires patches to the C++ part.
+
+If you still don't have any idea what to do, you might want to browse
+the mailing lists; Users do lots of feature requests, and you could
+implement any of them.
+
 
 There are also numerous other interesting projects that are more or less
 related  to LilyPond

@@ -82,11 +82,14 @@ endincipit = \notes{
 autoBeamOff = \property Voice.noAutoBeaming = ##t
 autoBeamOn = \property Voice.noAutoBeaming = ##f
 
-
 emptyText = \property Voice.textNonEmpty = ##f
 fatText = \property Voice.textNonEmpty = ##t
 
+showStaffSwitch = \property Thread.followThread = ##t
+hideStaffSwitch = \property Thread.followThread = ##f
+
+
 % To remove a Volta bracet or some other graphical object,
-% set it to turnOff. Example: \property Staff.VoltaBracket = turnOff
+% set it to turnOff. Example: \property Staff.VoltaBracket = \turnOff
 
 turnOff = #'((meta .  ((interfaces . ()))))

@@ -21,7 +21,8 @@ class Folded_repeat_iterator : public Music_iterator
 public:
   VIRTUAL_COPY_CONS (Music_iterator);
   static SCM constructor_cxx_function;
-  
+
+  Folded_repeat_iterator (Folded_repeat_iterator const &src);
   Folded_repeat_iterator ();
   ~Folded_repeat_iterator ();
   
@@ -39,7 +40,7 @@ protected:
 private:
   Music_iterator * main_iter_p_;
   Music_iterator * alternative_iter_p_;
-  int count_;
+
   Moment main_length_mom_;
 };
 #endif /* FOLDED_REPEAT_ITERATOR_HH */

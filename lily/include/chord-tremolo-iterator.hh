@@ -18,7 +18,7 @@ public:
   VIRTUAL_COPY_CONS (Music_iterator);
   static SCM constructor_cxx_function;
   Chord_tremolo_iterator ();
-
+  Chord_tremolo_iterator (Chord_tremolo_iterator const & );
 protected:
   virtual ~Chord_tremolo_iterator ();
   virtual Moment pending_moment () const;

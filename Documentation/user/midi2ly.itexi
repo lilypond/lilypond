@@ -1,7 +1,7 @@
 @c -*-texinfo-*-
 
-@node Midi2ly
-@section Midi2ly
+@node midi2ly
+@section midi2ly
 
 Midi2ly translates a MIDI input file to a LilyPond source file.
 Midi2ly is part of the GNU LilyPond music typesetting package.

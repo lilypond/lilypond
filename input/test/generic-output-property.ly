@@ -1,7 +1,7 @@
 \header{
 texidoc="
-As a last resort, the placement of items can be adjusted manually, by
-setting the @code{extra-offset} of an output object.
+As a last resort, the placement of grobs can be adjusted manually, by
+setting the @code{extra-offset} of a grob.
 ";
 }
 
@@ -22,9 +22,5 @@ setting the @code{extra-offset} of an output object.
 }
 \paper{
 	linewidth=-1.0;
-	\translator {
-		\ScoreContext
-		\consists "Mark_engraver";
-	}
 }
 }

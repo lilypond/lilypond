@@ -1,7 +1,7 @@
 @c -*-texinfo-*-
 
-@node Ly2dvi
-@section Ly2dvi
+@node ly2dvi
+@section ly2dvi
 
 Ly2dvi is a Python script which creates input file for La@TeX{},
 based on information from the output files from LilyPond.
