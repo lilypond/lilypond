@@ -31,7 +31,6 @@ public:
     bool multi_octave_b_;
     
     Octave_key&oct(int);
-    Octave_key  oct(int) const;
     void set(int name, int acc);
     void set(int oct, int name, int acc);
     Key();

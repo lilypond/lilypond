@@ -1,6 +1,5 @@
-
 /*
-  lily-proto.hh -- declare 
+  lily-proto.hh -- declare class names.
 
   source file of the LilyPond music typesetter
 
@@ -10,6 +9,7 @@
 
 #ifndef LILY_PROTO_HH
 #define LILY_PROTO_HH
+#include "proto.hh"
 
 struct    My_lily_lexer;
 struct My_lily_parser;
@@ -39,8 +39,11 @@ struct Command_req;
 struct Collision_register;
 struct Collision;
 struct Note_req;
+struct Pulk_voices;
+struct Pulk_voice;
 struct Plet_req;
 struct Partial_measure_req;
+struct Request_column;
 struct Rest_req;
 struct Rhythmic_grouping_req;
 struct Rhythmic_req;

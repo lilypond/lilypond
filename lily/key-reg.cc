@@ -16,6 +16,7 @@
 #include "musical-request.hh"
 #include "local-key-item.hh"
 #include "bar.hh"
+#include "time-description.hh"
 
 Key_register::Key_register()
 {
@@ -65,8 +66,8 @@ Key_register::process_requests()
 void
 Key_register::pre_move_processing()
 { 
-
-    if (! default_key_b_ && ! change_key_b_ ) {
+    Time_description const * time_C_ = get_staff_info().time_C_;
+    if ( time_C_->whole_in_measure_&& default_key_b_ && ! change_key_b_ ) {
 	delete kit_p_ ;
 	kit_p_ =0;
     }
@@ -90,7 +91,7 @@ Key_register::read_req(Key_change_req * r)
     accidental_idx_arr_.set_size(0);
     for (int i = 0; i < r->melodic_p_arr_.size(); i ++) {
 	Melodic_req *  m_l =r->melodic_p_arr_[i];
-	int n_i=m_l->notename_i_;
+	int n_i =m_l->notename_i_;
 	int a_i = m_l->accidental_i_;
 	int o_i = m_l->octave_i_;
 	if (r->multi_octave_b_)

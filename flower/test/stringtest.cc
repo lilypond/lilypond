@@ -2,10 +2,10 @@
   stupid test program to verify stringlib
   stringtest.cc
   */
-#include <iostream.h>
 #include "string.hh"
 #include "varray.hh"
 #include "string-convert.hh"
+#include "flower-test.hh"
 
 void
 ctors()
@@ -89,8 +89,8 @@ test_empty_b( String str )
     return false;
 }
 
-int 
-main()
+void
+stringtest()
 {
     ctors();
     cmp();
@@ -109,11 +109,12 @@ main()
     cout << "up: " << str.upper_str() << " down: " << str.lower_str()<<endl;
     
     if ( test_empty_b( str ) )
-    	return 1;
-    
+	cout << "failed";
+
     String fn = "";
     if ( !test_empty_b( fn ) )
-    	return 1;
+	cout << "failed";
+
     
     fn = "";
     fn += "";
@@ -123,7 +124,8 @@ main()
     cout << String_convert::bin2hex_str( String( (char)0xff ) ) << endl;
     cout << "-1:" << String_convert::i2hex_str( -1, 2, '0' );
     cout << endl;
-    return 0;
+
 }
 
 
+ADD_TEST(stringtest);

@@ -61,7 +61,7 @@ CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG a
 
 
 
-17/Apr/97                LilyPond 0.0.52                        1
+21/Apr/97                LilyPond 0.0.53                        1
 
 
 
@@ -127,7 +127,7 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
 
 
 
-17/Apr/97                LilyPond 0.0.52                        2
+21/Apr/97                LilyPond 0.0.53                        2
 
 
 
@@ -139,18 +139,29 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
        installed.  The resulting binaries can be found in the
        subdirectory _b_i_n_/.
 
+IIIINNNNSSSSTTTTAAAALLLLLLLLIIIINNNNGGGG
+       If you have done a successful make, then a simple
+
+               make install
+
+       should do the trick. Install the musixtex fonts in a
+       directory which TeX and MF knows. Do not forget to rehash
+       TeX (if applicable)
+
 RRRRUUUUNNNNNNNNIIIINNNNGGGG
        GNU LilyPond does use a lot of resources. For operation
        you need the following:
 
-       +o A fast computer (a full page of music typically takes 1
-            minute on my 486/66, using the --------eeeennnnaaaabbbblllleeee----cccchhhheeeecccckkkkiiiinnnngggg
+       +o    A fast computer (a full page of music typically takes
+            1 minute on my 486/66, using the --------eeeennnnaaaabbbblllleeee----cccchhhheeeecccckkkkiiiinnnngggg
             compile. It's lot slower than most MusiXTeX
             preprocessors)
 
-       +o TeX
+       +o    TeX
 
-       +o The MusixTeX fonts. (I use those found in MusixTeX T.59)
+       +o    The MusixTeX fonts. (I use those found in MusixTeX
+            T.59). Beware, the clef symbol has changed position
+            in recent versions of MusixTeX)
 
        Please refer to the man page for more information.
 
@@ -176,6 +187,21 @@ PPPPLLLLAAAATTTTFFFFOOOORRRRMMMMSSSS
        GNU LilyPond (pl 0.0.39) is known to compile on the
        following platforms:
 
+
+
+
+
+
+
+21/Apr/97                LilyPond 0.0.53                        3
+
+
+
+
+
+INSTALL(1)            LilyPond documentation           INSTALL(1)
+
+
                * linux 2.0.x, g++ 2.7.2[.1]
                * aix 4.1, g++ 2.7.2
                * windows-nt 4.0, cygnus gnu-win32 beta17.1 (~=g++ 2.7.2)
@@ -193,6 +219,46 @@ AAAAUUUUTTTTHHHHOOOORRRRSSSS
 
 
 
-17/Apr/97                LilyPond 0.0.52                        3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+21/Apr/97                LilyPond 0.0.53                        4
 
 

@@ -35,6 +35,14 @@ Design criteria
 >
 
 =item *
+<a href=AUTHORS.html
+>
+AUTHORS
+</a
+>
+
+
+=item *
 <a href=lilypond.html
 >
 The manual page
@@ -54,6 +62,14 @@ internal structures.
 Mudela, the input format
 </a
 >
+
+=item *
+<a href=convert-mudela.html
+>
+The mudela convertor: convert-mudela
+</a
+>
+
 
 =item *
 <a href=faq.html

@@ -9,7 +9,7 @@
 
 #ifndef MIDIOUTPUT_HH
 #define MIDIOUTPUT_HH
-#include "p-score.hh"
+#include "lily-proto.hh"
 
 struct Midi_output {
     Midi_output(Score* score_l, Midi_def* );

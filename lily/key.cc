@@ -22,17 +22,12 @@ Key::oct(int i)
     return octaves[i+ZEROOCTAVE];    
 }
 
-Octave_key
-Key::oct(int i)const
-{
-    return octaves[i+ZEROOCTAVE];    
-}
 
 void
 Octave_key::set(int i, int a)
 {
     assert(a > -3 && a < 3);
-    accidental_i_arr_[i]=a;    
+    accidental_i_arr_[i]=a;
 }
 
 void

@@ -23,7 +23,7 @@
 class My_lily_parser {
     char const* here_ch_C()const;
     Array<Input> define_spot_array_;
-  
+    String init_str_;
 
     void add_requests( Voice_element*v);
 
@@ -37,7 +37,7 @@ public:
     int default_octave_i_;
     Duration default_duration_;
     String textstyle_str_;
-    
+    bool first_b_;
     bool last_duration_mode ;
     Array<Request*> pre_reqs, post_reqs;
     int fatal_error_i_;
@@ -64,6 +64,7 @@ public:
     void print_declarations();
     bool ignore_version_b_;
 public:
+    void do_init_file();
     void parse_file ( String init_str, String file_str);
     My_lily_parser(Sources * sources_l);
     ~My_lily_parser();

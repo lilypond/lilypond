@@ -1,7 +1,7 @@
 %{ // -*-Fundamental-*-
 #include <iostream.h>
 
-#define MUDELA_VERSION "0.0.52"
+#define MUDELA_VERSION "0.0.53"
 
 #include "script-def.hh"
 #include "symtable.hh"
@@ -83,6 +83,12 @@ yylex(YYSTYPE *s,  void * v_l)
 {
 	My_lily_parser	 *pars_l = (My_lily_parser*) v_l;
 	My_lily_lexer * lex_l = pars_l->lexer_p_;
+	
+	if (pars_l->first_b_) {
+		pars_l->first_b_ = false;
+		pars_l->do_init_file();
+ 	}
+
 	lex_l->lexval_l = (void*) s;
 	return lex_l->yylex();
 }
@@ -108,6 +114,7 @@ yylex(YYSTYPE *s,  void * v_l)
 %token INPUT_REGS
 %token HSHIFT
 %token IN_T
+%token INIT_END
 %token LYRIC
 %token KEY
 %token MELODIC
@@ -216,8 +223,15 @@ mudela:	/* empty */
 	| mudela error
 	| mudela check_version { } 
 	| mudela add_notenames { }
+	| mudela init_end	{}
 	;
 
+init_end: INIT_END ';'		{
+	    THIS->print_declarations();
+	    THIS->init_parse_b_ = false;
+	    THIS->set_debug();
+	}
+	;
 check_version:
 	VERSION STRING ';'		{
 		if (*$2 != MUDELA_VERSION) {

@@ -24,10 +24,6 @@ Score_walker::Score_walker(Score *s)
 	walker_p_arr_.push(w_p);
     }
 
-    if(ok()) {
-	s->find_col(0, false)->set_breakable();
-	s->find_col(s->last(), false)->set_breakable();
-    }
     reinit();
     breaks_i_=0;
 }
@@ -115,7 +111,6 @@ Score_walker::~Score_walker()
     *mlog << "[" <<breaks_i_<<"]"<<flush;
     for (int i=0; i < walker_p_arr_.size(); i++) 
 	delete walker_p_arr_[i];
-    assert( !score_l_->find_col(score_l_->last(), true)->used_b());
 }
 
 

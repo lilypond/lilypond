@@ -1,7 +1,27 @@
- // cursor.icc -*-c++-*-
-#ifndef CURSOR_INL
-#define CURSOR_INL
+/*
+  cursor.icc -- implement Cursor
+
+  source file of the Flower Library
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
+
+#ifndef CURSOR_ICC
+#define CURSOR_ICC
+
+
+
 #include <assert.h>
+
+// untested
+template<class T>
+inline
+Cursor<T>::Cursor( )
+ :   list_(*(List<T> *)0)	// ugh
+{
+    pointer_ = 0;
+}
 
 
 template<class T>
@@ -70,21 +90,21 @@ Cursor<T>::pointer()
 
 template<class T>
 inline bool
-Cursor<T>::backward()
+Cursor<T>::backward()const
 {
     return ( pointer_ != 0 );
 }
 
 template<class T>
 inline bool
-Cursor<T>::forward()
+Cursor<T>::forward()const
 {
     return ( pointer_ != 0 );
 }
 
 template<class T>
 inline bool
-Cursor<T>::ok()
+Cursor<T>::ok()const
 {
     return ( pointer_ != 0 );
 }
@@ -110,4 +130,5 @@ Cursor<T>::operator --( int )
     return r;
 }
 
-#endif
+
+#endif // CURSOR_ICC

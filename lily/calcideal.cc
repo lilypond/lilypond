@@ -18,8 +18,11 @@ Score::calc_idealspacing()
     iter_top(cols_,i);
 
     for (; i.ok(); i++) {
-	assert(i->used_b());
+	if (!i->used_b())
+	    continue;
+	
 	PCursor<Score_column*> j(i+1);
+
 	if (i->musical_b()) {
 	    assert(j.ok());
 	    for (int n=0; n < i->durations.size(); n++) {
@@ -28,14 +31,19 @@ Score::calc_idealspacing()
 		Real strength =  i->durations[0]/i->durations[n];
 		assert(strength <= 1.0);
 		
-		while (j->when() < d + i->when())
+		while (j.ok()) {
+		    if (j->used_b() && j->when() >= d + i->when() )
+			break;
 		    j++;
+		}
 		Moment delta_desired = j->when() - (d+i->when());
 		dist += paper_p_->duration_to_dist(delta_desired);
 		
 		pscore_p_->connect(i->pcol_l_, j->pcol_l_, dist, strength);
 	    }
 	} else if (j.ok()) {
+	    while  (!j->used_b())
+		j++;
 	    
 	    /* attach i to the next column in use. This exists, since
 	      the last col is breakable, and therefore in use

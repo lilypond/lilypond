@@ -5,6 +5,7 @@
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
+
 #include "staff-column.hh"
 #include "voice.hh"
 #include "p-score.hh"
@@ -37,9 +38,7 @@ Complex_walker::try_request(Request*req)
 {
     bool b =walk_regs_p_->try_request(req);
     if (!b)
-	
 	req->warning("junking request: "  + String(req->name()));
-    
 }
 
 void

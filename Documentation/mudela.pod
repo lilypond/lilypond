@@ -30,7 +30,7 @@ file, as this document does not cover every aspect of mudela yet.
 The de-facto extension of Mudela is F<.ly>. Files may be included by
 entering C<include> at the start of a line:
 
-	include "a_file.ly"
+	\include "a_file.ly"
 
 =head2 Comments
 

@@ -26,10 +26,10 @@ globalmusic= \melodic{
 %		\key fis
 }
 
-include "mlalt.ly"
-include "mlvio1.ly"
-include "mlvio2.ly"
-include "mlcello.ly"
+\include "mlalt.ly"
+\include "mlvio1.ly"
+\include "mlvio2.ly"
+\include "mlcello.ly"
 
 \score{
 	\staff{ melodicregs globalmusic alto }

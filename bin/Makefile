@@ -11,3 +11,10 @@ SCRIPTS = clearlily cpgento genheader make_patch \
 EXTRA_DISTFILES = $(SCRIPTS)
 #
 
+
+localinstall: all
+	$(INSTALL) -d $(bindir)
+	$(INSTALL) -m 755 convert-mudela $(bindir)
+
+localuninstall:
+	rm -f $(bindir)/convert-mudela

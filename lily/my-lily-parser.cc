@@ -50,23 +50,23 @@ My_lily_parser::print_declarations()
 }
 
 void
+My_lily_parser::do_init_file()
+{
+    init_parse_b_ = true;
+    set_debug();
+    lexer_p_->new_input(init_str_, source_l_);
+}
+
+void
 My_lily_parser::parse_file(String init, String s)
 {
     *mlog << "Parsing ... ";
     lexer_p_ = new My_lily_lexer;
-
-    set_debug();
-    init_parse_b_ = true;
-
-    lexer_p_->new_input(init, source_l_);
-    do_yyparse();
-    print_declarations();
-   
-    init_parse_b_ = false;
-    set_debug();
+    init_str_ = init;
+    
     lexer_p_->new_input(s, source_l_);
     do_yyparse();
-
+    print_declarations();
 
     if(!define_spot_array_.empty())
 	warning("Braces don't match.");
@@ -227,6 +227,7 @@ My_lily_parser::get_parens_request(char c)
 
 My_lily_parser::My_lily_parser(Sources * source_l)
 {
+    first_b_ = true;
     source_l_ = source_l;
     lexer_p_ = 0;
     default_duration_.type_i_ = 4;

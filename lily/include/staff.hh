@@ -17,15 +17,12 @@
 class Staff {
     Staff(const Staff&src);
     
-    /// synchronous horizontal stuff
-    IPointerList<Voice*> voice_list_;
-    Staff_column *get_col(Moment, PCursor<Staff_column*> * last= 0);
-    
 public:
     Input_register * ireg_p_;
     
+    PointerList<Voice*> voice_list_;
     /// runtime field
-    IPointerList<Staff_column*> cols_;
+    PointerList<Staff_column*> cols_;
 
     Score *score_l_;
     PScore *pscore_l_;
@@ -35,19 +32,14 @@ public:
 
     void add(const PointerList<Voice*> &s);
 
-    void add_voice(Voice *v);
+    void add_voice(Voice *v_p);
     Paper_def*paper()const;
-
-    void setup_staffcols();
 
     void OK() const;
     void print() const;
 
     /// when does the last *musical* element finish?
     Moment last() const;
-
-//    /// extract midi info
-//    Midi_track* midi_track_p();
 
     /// remove unused cols
     void clean_cols() ;
@@ -56,6 +48,7 @@ public:
     virtual void set_output(PScore * destination)=0;
     virtual Staff_walker *get_walker_p()=0;    
     virtual ~Staff() { }
+    void add_col(Staff_column*);
 protected:
 
 };

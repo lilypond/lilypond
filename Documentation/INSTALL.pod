@@ -126,6 +126,15 @@ everything will be compiled, but nothing will be installed.  The
 resulting binaries can be found in the subdirectory
 F<bin/>.
 
+=head1 INSTALLING
+
+If you have done a successful C<make>, then a simple
+
+	make install
+
+should do the trick. Install the musixtex fonts in a directory which
+TeX and MF knows. Do not forget to rehash TeX (if applicable)
+
 =head1 RUNNING
 
 GNU LilyPond does use a lot of resources. For operation you need the following:
@@ -134,16 +143,19 @@ GNU LilyPond does use a lot of resources. For operation you need the following:
 =over 5
 
 =item *
+
 A fast computer (a full page of music typically takes 1 minute
 on my 486/66, using the B<--enable-checking> compile. It's lot slower
 than most MusiXTeX preprocessors)
 
 =item *
+
 TeX
 
 =item *
-The MusixTeX fonts. (I use those found in MusixTeX
-T.59)
+
+The MusixTeX fonts. (I use those found in MusixTeX T.59). Beware, the
+clef symbol has changed position in recent versions of MusixTeX)
 
 =back
 

@@ -1,5 +1,5 @@
 /*
-  (c) Han-Wen Nienhuys 1995,96
+  (c) Han-Wen Nienhuys 1995,96,97
 
   Distributed under GNU GPL  
 */
@@ -21,11 +21,13 @@ inline void arrcpy(T*dest, T*src, int count) {
   
   
   This template implements a scaleable vector. With (or without) range
-  checking. It may be flaky for objects with complicated con- and
-  destructors. The type T should have a default constructor. It is
+  checking. The type T should have a default constructor. It is
   best suited for simple types, such as int, double or String, it
   provides a paranoidly safe replacement for the new T[int] construct.
 
+  You should \bf{never} store pointers to objects in an Array (since
+  the array may be relocated without the pointer knowing it).
+  
   It uses stack terminology, (push, pop, top), and  can be used as a stack.
 
   
@@ -99,9 +101,18 @@ public:
 
     /// tighten array size_.
     void precompute () { remax(size_); }
+    
 
-    /// this makes Array behave like an array
-    T &operator[] (const int i) const {
+    /// access element
+    T &operator[] (int i)  {
+	return elem(i);
+    }
+    /// access element
+    T const & operator[] (int i) const {
+	return elem(i);
+    }
+    /// access element
+    T &elem( int i) const {
 	assert(i >=0&&i<size_);
 	return ((T*)thearray)[i];	
     }

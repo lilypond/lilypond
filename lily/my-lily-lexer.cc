@@ -32,6 +32,7 @@ static Keyword_ent the_key_tab[]={
     {"geometric", GEOMETRIC},
     {"hshift", HSHIFT},
     {"in", IN_T},
+    {"init_end", INIT_END},
     {"inputregister", INPUT_REGS},
     {"lyric", LYRIC},
     {"key", KEY},

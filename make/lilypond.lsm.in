@@ -1,3 +1,5 @@
+[This lsm-entry is not in the LSM yet.]
+
 Begin3
 Title: LilyPond
 Version: @TOPLEVEL_VERSION@
@@ -8,6 +10,7 @@ meters, clefs, keys, lyrics, versatile input-language, cadenzas
 beams, slurs, triplets.
 Keywords: music typesetting midi notation
 Author: hanwen@stack.nl (Han-Wen Nienhuys)
+	jan@digicash.com (Jan Nieuwenhuizen)
 Maintained-by: hanwen@stack.nl (Han-Wen Nienhuys)
 Primary-site: pcnov095.win.tue.nl /pub/lilypond/  
 	300k lilypond-@TOPLEVEL_VERSION@.tar.gz

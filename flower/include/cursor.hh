@@ -21,7 +21,10 @@ class Cursor
     /** create cursor, set at top. The const part isn't true, actually, #list#
       surely isn't const, but I get tired of the warning messages.  */
     Cursor( const List<T>& list, Link<T>* pointer = 0 );
-    
+    /**
+      Create an invalid cursor (pointing to nothing, associated with   no list.)
+     */
+    Cursor();
     Cursor( const Cursor<T>& cursor );
 
     T& thing();
@@ -47,13 +50,13 @@ class Cursor
     Cursor<T> operator --( int ); 
 
     /// point to link?
-    bool ok();                  
+    bool ok()const;
 
     /// ++ items left?
-    bool forward();		
+    bool forward()const;		
 
     /// -- items left?
-    bool backward();
+    bool backward()const;
 
     /**  put (copy) after me in List. 
       analogously to editor. ok() interpreted as at end

@@ -13,7 +13,7 @@
 #include "score.hh"
 #include "paper-def.hh"
 #include "midi-def.hh"
-#include "staff.hh"
+
 
 
 void

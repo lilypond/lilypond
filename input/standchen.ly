@@ -9,6 +9,7 @@
 % The purpose of this file is to demonstrate features of LilyPond.
 % (there is an accompanying LaTeX file, standchen.tex)
 %
+\version "0.0.53";
 
 melodie = \melodic{  
 	\meter  3/4 ;
@@ -450,8 +451,7 @@ tekstII = \lyric{
 
 \score{
 	\staff{ lyricregs tekstI }
-% sorry. Have to fix
-%	\staff{ lyricregs tekstII }
+	\staff{ lyricregs tekstII }
 
 	\staff{ melodicregs melodie }
 	\staff{ melodicregs begeleiding }
