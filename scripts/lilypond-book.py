@@ -155,7 +155,7 @@ snippet_res = {
 	},
 
 	TEXINFO: {
-	'include':  '(?m)^[^%\n]*?(?P<match>@include\s+(?P<filename>\S*))',
+	'include':  '(?m)^[^%\n]*?(?P<match>@include\s+(?P<filename>\S+))',
 	'lilypond' : '(?m)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?{(?P<code>.*?)})',
 	'lilypond_block': r'''(?ms)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?\s(?P<code>.*?)@end lilypond)\s''',
 	'lilypond_file': '(?m)^(?P<match>@lilypondfile(\[(?P<options>[^]]*)\])?{(?P<filename>[^}]+)})',
