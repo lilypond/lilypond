@@ -28,24 +28,23 @@
 ;;; debugging evaluator is slower.  This should
 ;;; have a more sensible default.
 
-
 (if (ly:get-option 'verbose)
     (begin
       (debug-enable 'debug)
       (debug-enable 'backtrace)
-      (read-enable 'positions) ))
+      (read-enable 'positions)))
 
+;; FIXME: huh?
+(define-public toplevel-music-handler ly:parser-add-book-and-score)
 
 (define-public (line-column-location line col file)
   "Print an input location, including column number ."
   (string-append (number->string line) ":"
-		 (number->string col) " " file)
-  )
+		 (number->string col) " " file))
 
 (define-public (line-location line col file)
   "Print an input location, without column number ."
-  (string-append (number->string line) " " file)
-  )
+  (string-append (number->string line) " " file))
 
 (define-public point-and-click #f)
 

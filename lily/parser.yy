@@ -449,10 +449,12 @@ toplevel_expression:
 		THIS->header_ = $1;
 	}
 	| toplevel_music EOI {
-		Music_output_def *paper = get_paper (THIS);
+	 	Music_output_def *paper = get_paper (THIS);
+		//FIXME
 		// delay?
 		// SCM proc = paper->get_scmvar ("toplevel-music-handler");
  		SCM proc = ly_scheme_function ("ly:parser-add-book-and-score");
+  		//SCM proc = ly_scheme_function ("toplevel-music-handler");
 		scm_call_2 (proc, THIS->self_scm (), $1->self_scm ());
  		scm_gc_unprotect_object (paper->self_scm ());
 	}
