@@ -560,17 +560,20 @@ Beam::consider_auto_knees (Grob *me, Direction d)
  TODO:
    take some y-position (chord/beam/nearest?) into account
    scmify forced-fraction
-
-   TODO:
-   
-   why is shorten stored in beam, and not directly in stem?
+ 
+  This is done in beam because the shorten has to be uniform over the
+  entire beam.
 
 */
 void
-Beam::set_stem_shorten (Grob *m)
+Beam::set_stem_shorten (Grob *me)
 {
-  Spanner*me = dynamic_cast<Spanner*> (m);
-
+  /*
+    shortening looks silly for x staff beams
+   */
+  if (knee_b(me))
+    return ;
+  
   Real forced_fraction = forced_stem_count (me) / visible_stem_count (me);
 
   int beam_count = get_beam_count (me);
@@ -1268,7 +1271,32 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
   return gh_double2scm (-d *  discrete_dist);
 }
 
+bool
+Beam::knee_b (Grob*me)
+{
+  SCM k=   me->get_grob_property ("knee");
+  if (gh_boolean_p(k))
+    return gh_scm2bool (k);
 
+  Link_array<Grob> stems=
+    Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
+
+  Drul_array<bool> dirs_found(0,0);
+  
+  for (int i= 0; i < stems.size(); i++)
+    {
+      Grob*s = stems[i];
+      dirs_found[Directional_element_interface::get(s)] = true;
+
+      if (dirs_found[LEFT]&&dirs_found[RIGHT])
+	break;
+    }
+
+  bool knee = dirs_found[LEFT]&&dirs_found[RIGHT];
+  me->set_grob_property ("knee", gh_bool2scm (knee));
+
+  return knee;
+}
 
 
 ADD_INTERFACE (Beam, "beam-interface",
