@@ -1,5 +1,10 @@
 2002-11-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* ly/property-init.ly (setMmRestFermata): added.
+
+	* Documentation/user/refman.itely (Multi measure rests): fermatas
+	on mm rests.
+
 	* input/regression/apply-context.ly (texidoc): new file
 
 	* lily/parser.yy (Simple_music): \applycontext #FUNCTION allows

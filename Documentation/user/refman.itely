@@ -3585,11 +3585,10 @@ effect music that appears inside a @code{\transpose}.
 
 Multi measure rests are entered using `@code{R}'. It is specifically
 meant for full bar rests and for entering parts: the rest can expand to
-fill a score with 
-rests, or it can be printed as a single multimeasure rest This expansion
-is controlled by the property @code{Score.skipBars}. If this is set to true,
-Lily will not expand empty measures, and the appropriate number is added
-automatically.
+fill a score with rests, or it can be printed as a single multimeasure
+rest This expansion is controlled by the property
+@code{Score.skipBars}. If this is set to true, Lily will not expand
+empty measures, and the appropriate number is added automatically.
 
 @lilypond[fragment,verbatim]
  \time 4/4 r1 | R1 | R1*2
@@ -3617,14 +3616,29 @@ rest centered in the measure, regardless of the time signature.
 
 @cindex whole rests for a full measure 
 
-The object for this object is @internalsref{MultiMeasureRest}.
+The object for this object is @internalsref{MultiMeasureRest}, and
+@internalsref{MultiMeasureRestNumber}.
 
 @refbugs
 
 Currently, there is no way to automatically condense multiple rests
 into a single multimeasure rest. Multi measure rests do not take part
-in rest collisions. There is no way to put texts centered on
-multi-measure rests.
+in rest collisions.
+
+Multi-measure rests do not accept @var{note}-@code{text} syntax for
+putting texts and scripts on the rest.  This has to be done by setting
+@code{#'text} in @internalsref{MultiMeasureRestNumber}. An identifier is
+provided for a fermata:
+
+@cindex text on multi-measure rest
+@cindex script on multi-measure rest
+@cindex fermata on multi-measure rest
+
+@lilypond[verbatim,fragment]
+  \time 3/4
+  \setMmRestFermata R2.
+@end lilypond
+
 
 @cindex condensing rests
 
