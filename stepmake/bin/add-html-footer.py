@@ -125,7 +125,9 @@ for f in files:
 	+ '</TITLE></HEAD>'
     s = check_tag ('<title>', title, s, 0)
 
-    s = check_tag ('<html>', '<HTML>', s, 0)
+    s = check_tag ('<html', '', s, 0)
+    if regex.search ('<HTML', s) == -1:
+	s = '<HTML>\n' + s
     s = check_tag ('</html>', '</HTML>', s, 1)
 
     #urg

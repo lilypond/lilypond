@@ -6,7 +6,8 @@ DATA_FILES = $(wildcard *.data)
 datafiles = $(addprefix $(outdir)/,$(DATA_FILES:.data=.html))
 TEX_FILES = $(wildcard *.tex)
 DOC_FILES = $(wildcard *.doc)
-DVI_FILES = $(addprefix $(outdir)/,$(DOC_FILES:.doc=.dvi) $(YO_FILES:.yo=.dvi))
+TELY_FILES = $(wildcard *.tely)
+DVI_FILES = $(addprefix $(outdir)/,$(DOC_FILES:.doc=.dvi) $(YO_FILES:.yo=.dvi) $(TELY_FILES:.tely=.dvi))
 OUT_BIB_FILES = $(addprefix $(outdir)/, $(BIB_FILES))
 
 # just include me
@@ -16,8 +17,8 @@ OUTTEX_FILES = $(addprefix $(outdir)/, $(TEX_FILES))
 OUTDOC_FILES = $(addprefix $(outdir)/, $(DOC_FILES))
 EL_FILES = $(wildcard *.el)
 BIB_FILES= $(wildcard *.bib)
-EXTRA_DIST_FILES= $(BIB_FILES) $(DOC_FILES) $(DATA_FILES) $(EL_FILES) $(YO_URG_FILES) $(TEX_FILES) $(wildcard *.sty) 
-HTML_FILES = $(addprefix $(outdir)/, $(YO_FILES:.yo=.html))
+EXTRA_DIST_FILES= $(BIB_FILES) $(DOC_FILES) $(DATA_FILES) $(EL_FILES) $(YO_URG_FILES) $(TEX_FILES) $(TELY_FILES) $(wildcard *.sty) 
+HTML_FILES = $(addprefix $(outdir)/, $(YO_FILES:.yo=.html) $(TELY_FILES:.tely=.html))
 PS_FILES = $(DVI_FILES:.dvi=.ps)
 
 STEPMAKE_TEMPLATES=tex documentation
@@ -54,7 +55,7 @@ $(outdir)/%.tex: %.data $(depth)/VERSION
 
 local-WWW: $(HTML_FILES) $(OUTTEX_FILES:.doc=.ps.gz) $(OUTYO_FILES:.yo=.latex) $(OUTYO_FILES:.yo=.ps.gz) $(addprefix $(outdir)/, $(BIB_FILES:.bib=.html)) $(datafiles) ps
 	$(PYTHON) $(step-bindir)/ls-latex.py --package=$(topdir) --title 'LaTeX documents about design and implementation of LilyPond' \
-	  $(YO_FILES) $(OUTYO_FILES:.yo=.latex) $(BIB_FILES) $(DOC_FILES) $(TEX_FILES)\
+	  $(TELY_FILES) $(YO_FILES) $(OUTYO_FILES:.yo=.latex) $(BIB_FILES) $(DOC_FILES) $(TEX_FILES)\
 	  | sed "s!$(outdir)/!!g" > $(outdir)/index.html
 	  $(PYTHON) $(step-bindir)/add-html-footer.py --package=$(topdir) $(outdir)/index.html
 

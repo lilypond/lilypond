@@ -109,6 +109,21 @@ def read_texinfo_header (fn):
     header.format = 'HTML'
     return  header
 
+def read_tely_header (fn):
+    header = Latex_head ()
+    s = gulp_file (fn)
+    i = regex.search( '@settitle', s)
+    s = s[i+10:]
+    i = regex.search( '\n', s)
+    if i < 0:
+	sys.stderr.write ('gulped file: ' + fn + '\n')
+	raise 'huh?'
+    header.title = s[:i]
+    header.filename = fn
+    header.outfile = regsub.gsub ('\.tely', '.html', fn)
+    header.format = 'HTML'
+    return  header
+
 # urg
 # should make a 'next_parens'
 yo_article_re = regex.compile('article(\\([^)]*\\))[ \t\n]*(\\([^)]*\\))')
@@ -135,7 +150,6 @@ def read_yo_header (fn):
     header.outfile = regsub.gsub ('\.yo$', '.html', fn)
     header.format = 'HTML'
     return  header
-
 
 def print_html_head (l,o,h):
     pre =o
@@ -192,6 +206,8 @@ for x in files:
 	head = read_pod_header (x)
     elif regex.search ('\\.texinfo$', x) <> -1:
 	head = read_texinfo_header (x)
+    elif regex.search ('\\.tely$', x) <> -1:
+	head = read_tely_header (x)
     elif regex.search ('\\.yo$', x) <> -1:
 	head = read_yo_header (x)
     else:

@@ -6,7 +6,8 @@ DATA_FILES = $(wildcard *.data)
 datafiles = $(addprefix $(outdir)/,$(DATA_FILES:.data=.html))
 TEX_FILES = $(wildcard *.tex)
 DOC_FILES = $(wildcard *.doc)
-DVI_FILES = $(addprefix $(outdir)/,$(DOC_FILES:.doc=.dvi) $(YO_FILES:.yo=.dvi))
+TELY_FILES = $(wildcard *.tely)
+DVI_FILES = $(addprefix $(outdir)/,$(DOC_FILES:.doc=.dvi) $(YO_FILES:.yo=.dvi) $(TELY_FILES:.tely=.dvi))
 
 # just include me
 YO_URG_FILES = $(wildcard *.yo-urg)
@@ -14,8 +15,8 @@ YO_URG_FILES = $(wildcard *.yo-urg)
 OUTTEX_FILES = $(addprefix $(outdir)/, $(TEX_FILES))
 OUTDOC_FILES = $(addprefix $(outdir)/, $(DOC_FILES))
 
-EXTRA_DIST_FILES= $(DOC_FILES) $(DATA_FILES) $(EL_FILES) $(YO_URG_FILES) $(TEX_FILES) testje.fly
-HTML_FILES = $(addprefix $(outdir)/, $(YO_FILES:.yo=.html))
+EXTRA_DIST_FILES= $(DOC_FILES) $(DATA_FILES) $(EL_FILES) $(YO_URG_FILES) $(TEX_FILES) $(TELY_FILES) testje.fly
+HTML_FILES = $(addprefix $(outdir)/, $(YO_FILES:.yo=.html) $(TELY_FILES:.tely=.html))
 PS_FILES = $(DVI_FILES:.dvi=.ps)
 
 STEPMAKE_TEMPLATES=tex documentation

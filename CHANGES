@@ -1,3 +1,7 @@
+pl 2.jcn1
+	- add-html-footer.py, ls-latex.py .tely updates and fixes
+	- tely (texinfo-lily) rules and test Documentation/metadoc/foo.tely
+
 pl 1.uu2
 	- complete rewrite of mudela-book. Much cleaner now.
 Support for texinfo.

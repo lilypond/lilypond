@@ -1,0 +1,21 @@
+\input texinfo   @c -*-texinfo-*-
+@setfilename foo
+@settitle foo
+
+@c @node Top
+@c @top
+
+@menu
+* foo:: bar
+@end menu
+
+@node foo
+@section foo
+
+@mudela[veryverbatim, intertext="produces this music:"]
+\score{
+  \notes\relative c'{
+  	a b c
+  }
+}
+@end mudela
