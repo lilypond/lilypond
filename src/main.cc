@@ -11,6 +11,7 @@ long_option_init theopts[] = {
     1, "output", 'o',
     0, "warranty", 'w',
     0, "help", 'h',
+    0, "debug", 'd',
     0,0,0
 };
 
@@ -20,7 +21,10 @@ help()
     cout <<
 	"--help, -h		This help\n"
 	"--warranty, -w		show warranty & copyright\n"
-	"--output, -o		set default output\n";
+	"--output, -o		set default output\n"
+	"--debug, -d		enable debug output\n"
+	;
+    
 }
 void notice()
 {
@@ -63,6 +67,9 @@ main (int argc, char **argv)
 	case 'h':
 	    help();
 	    exit(0);
+	    break;
+	case 'd':
+	    set_debug(true);
 	    break;
 	default:
 	    assert(false);
