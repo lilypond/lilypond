@@ -337,6 +337,8 @@ Grace note do weird things with timing. Fragile.
 
 @lilypondfile[printfilename]{system-extents.ly}
 
+@lilypondfile[printfilename]{system-start-bracket.ly}
+
 @lilypondfile[printfilename,nofragment]{size11.ly}
 
 @lilypondfile[printfilename,nofragment]{size13.ly}
