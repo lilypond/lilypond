@@ -181,7 +181,7 @@ cis' cis' cis'! cis'?
 @seealso
 
 The automatic production of accidentals can be tuned in many
-ways.  For more information, refer to @ref{Accidentals}.
+ways.  For more information, refer to @ref{Automatic accidentals}.
 
 
 
@@ -1395,7 +1395,11 @@ Polyphony in music refers to having more than one voice occuring in
 a piece of music.  Polyphony in LilyPond refers to having more than
 one voice on the same staff.
 
-@subsection Writing polyphonic music
+@menu
+* Writing polyphonic music::
+@end menu
+
+@node Writing polyphonic music
 @subsection Writing polyphonic music
 @cindex polyphony
 
@@ -1801,43 +1805,49 @@ down.  However, this behaviour can be altered with the
 
 @node Accidentals
 @section Accidentals
-@cindex Accidentals
 
 This section describes how to change the way that accidentals are
-inserted automatically before the running notes.
+inserted automatically before notes.
 
-Common rules for typesetting accidentals have been canned in a
+@menu
+* Automatic accidentals::
+@end menu
+
+@node Automatic accidentals
+@subsection Automatic accidentals
+@cindex Automatic accidentals
+
+Common rules for typesetting accidents have been placed in a
 function.  This function is called as follows
 
 @cindex @code{set-accidental-style}
 @example
-  #(set-accidental-style 'modern 'Voice)
+#(set-accidental-style 'STYLE #('CONTEXT#))
 @end example
 
-The function takes two arguments: a symbol that denotes the style (in
-the example, @code{modern}), and another symbol that denotes the
-context name (in this example, @code{Voice}).  If no context name is
-supplied, @code{Staff} is the default.
+The function can take two arguments: the name of the accidental style,
+and an optional argument that denotes the context which should be
+changed.  If no context name is supplied, @code{Staff} is the default,
+but you may wish to apply the accidental style to a single @code{Voice}
+instead.
 
-The following styles are supported
+The following accidental styles are supported
 @table @code
 @item default
-      This is the default typesetting behavior.  It should correspond
-      to 18th century common practice: Accidentals are
-      remembered to the end of the measure in which they occur and
-      only on their own octave.
+This is the default typesetting behavior.  It corresponds
+to 18th century common practice: Accidentals are
+remembered to the end of the measure in which they occur and
+only on their own octave.
 
 @item voice
-@c
-      The normal behavior is to remember the accidentals on
+The normal behavior is to remember the accidentals on
 Staff-level.  This variable, however, typesets accidentals
 individually for each voice.  Apart from that, the rule is similar to
-@code{code}.
+@code{default}.
 
-      As a result,
-       accidentals from one voice do not get canceled in other
-      voices, which is often unwanted result
-      @c
+As a result, accidentals from one voice do not get canceled in other
+voices, which is often an unwanted result
+
 @lilypond[quote,raggedright,relative=1,fragment,verbatim]
 \context Staff <<
   #(set-accidental-style 'voice)
@@ -1846,8 +1856,8 @@ individually for each voice.  Apart from that, the rule is similar to
     { c, e }
 >> >>
 @end lilypond
-@c
-      The @code{voice} option should be used if the voices
+
+The @code{voice} option should be used if the voices
 are to be read solely by individual musicians.  If the staff is to be
 used by one musician (e.g. a conductor) then 
 @code{modern} or @code{modern-cautionary}
@@ -1855,12 +1865,11 @@ should be used instead.
 
 @item modern
 @cindex @code{modern} style accidentals
-      This rule corresponds to the common practice in the 20th
-      century.
-      This rule prints the same accidentals as @code{default},  but temporary
-      accidentals also are canceled in other octaves.  Furthermore,
-      in the same octave, they also get canceled in the following
-      measure
+This rule corresponds to the common practice in the 20th century.  This rule
+prints the same accidentals as @code{default}, but temporary
+accidentals also are canceled in other octaves.  Furthermore,
+in the same octave, they also get canceled in the following
+measure
 
 @lilypond[quote,raggedright,fragment,verbatim]
 #(set-accidental-style 'modern)
@@ -1868,24 +1877,23 @@ cis' c'' cis'2 | c'' c'
 @end lilypond
 
 @item @code{modern-cautionary}
-      @cindex @code{modern-cautionary}
-     This rule is similar to @code{modern}, but the
-     ``extra'' accidentals (the ones not typeset by
-     @code{default}) are typeset as cautionary accidentals.
-     They are printed in reduced size or with parentheses
+@cindex @code{modern-cautionary}
+This rule is similar to @code{modern}, but the ``extra'' accidentals
+(the ones not typeset by @code{default}) are typeset as cautionary
+accidentals.  They are printed in reduced size or with parentheses
 @lilypond[quote,raggedright,fragment,verbatim]
 #(set-accidental-style 'modern-cautionary)
 cis' c'' cis'2 | c'' c'
 @end lilypond
 
-      @cindex @code{modern-voice}
+@cindex @code{modern-voice}
 @item modern-voice
 This rule is used for multivoice accidentals to be read both by musicians
 playing one voice and musicians playing all voices.  Accidentals are
 typeset for each voice, but they @emph{are} canceled across voices in
 the same @internalsref{Staff}.
 
-      @cindex @code{modern-voice-cautionary}
+@cindex @code{modern-voice-cautionary}
 @item modern-voice-cautionary
 This rule is the same as @code{modern-voice}, but with the extra
 accidentals (the ones not typeset by @code{voice}) typeset
@@ -1894,32 +1902,31 @@ as cautionaries.  Even though all accidentals typeset by
 some of them are typeset as cautionaries.
 
 @item piano
-      @cindex @code{piano} accidentals
-This rule reflects      20th century practice for piano notation.  Very similar to
-      @code{modern} but accidentals also get canceled
-      across the staves in the same @internalsref{GrandStaff} or
-      @internalsref{PianoStaff}.
+@cindex @code{piano} accidentals
+This rule reflects 20th century practice for piano notation.  Very similar to
+@code{modern} but accidentals also get canceled
+across the staves in the same @internalsref{GrandStaff} or
+@internalsref{PianoStaff}.
 
 @item piano-cautionary
-      @cindex @code{#(set-accidental-style 'piano-cautionary)}
-      As @code{#(set-accidental-style 'piano)} but with the extra accidentals
-      typeset as cautionaries.
+@cindex @code{#(set-accidental-style 'piano-cautionary)}
+As @code{#(set-accidental-style 'piano)} but with the extra accidentals
+typeset as cautionaries.
 
 @item no-reset
-      @cindex @code{no-reset} accidental style
-      @c
-      This is the same as @code{default} but with accidentals lasting
-      ``forever'' and not only until the next measure
+@cindex @code{no-reset} accidental style
+This is the same as @code{default} but with accidentals lasting
+``forever'' and not only until the next measure
 @lilypond[quote,raggedright,fragment,verbatim,relative=1]
 #(set-accidental-style 'no-reset)
 c1 cis cis c
 @end lilypond
 
 @item forget
-      This is sort of the opposite of @code{no-reset}: Accidentals
-      are not remembered at all---and hence all accidentals are
-      typeset relative to the key signature, regardless of what was
-      before in the music
+This is sort of the opposite of @code{no-reset}: Accidentals
+are not remembered at all---and hence all accidentals are
+typeset relative to the key signature, regardless of what was
+before in the music
       
 @lilypond[quote,raggedright,fragment,verbatim,relative=1]
 #(set-accidental-style 'forget)
