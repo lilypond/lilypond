@@ -107,9 +107,8 @@ Ledger_line_spanner::print (SCM smob)
 {
   Spanner *me = dynamic_cast<Spanner*> (unsmob_grob (smob));
   Link_array<Grob> heads (Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-heads"));
-  Link_array<Grob> ambituses (Pointer_group_interface__extract_grobs (me, (Grob*)0, "ambituses"));
 
-  if (heads.is_empty () && ambituses.is_empty ())
+  if (heads.is_empty ())
     return SCM_EOL;
     
   Stencil ledgers;
@@ -121,7 +120,6 @@ Ledger_line_spanner::print (SCM smob)
     {
       Axis a = Axis (i);
       common[a] = common_refpoint_of_array (heads, me, a);
-      common[a] = common_refpoint_of_array (ambituses, common[a], a);
       for (int i = heads.size (); i--; )
 	if (Grob * g = unsmob_grob (me->get_property ("accidental-grob")))
 	  common[a] = common[a]->common_refpoint (g, a);
@@ -237,30 +235,7 @@ Ledger_line_spanner::print (SCM smob)
 	}
     }
 
-  /* create  ledgers for ambitus.
 
-  TODO: split off separate function
-
-  */      
-  for (int i = ambituses.size (); i--; )
-    {
-      Item *a = dynamic_cast<Item*> (ambituses[i]);
-      Interval x_ext = ambituses[i]->extent (common[X_AXIS], X_AXIS);
-      x_ext.widen (length_fraction * x_ext.length ());
-      
-      Slice ps (Ambitus::get_positions (a));
-      Direction d = DOWN; 
-      do
-	{
-	  if (abs (ps[d]) > interspaces + 1)
-	    ledgers.add_stencil (brew_ledger_lines (staff, ps[d], interspaces,
-						    halfspace,
-						    ledgerlinethickness,
-						    x_ext, 0.0));
-	}
-      while (flip (&d) != DOWN);
-    }
-      
   ledgers.translate_axis (-me->relative_coordinate (common[X_AXIS], X_AXIS),
 			  X_AXIS);
   
