@@ -1063,7 +1063,6 @@ for opt in options:
  		else:
  			flats = - alterations
 		key = Key (sharps, flats, minor)
-                print key
 	elif o == '--start-quant' or o == '-s':
 		start_quant = string.atoi (a)
 	elif o == '--allow-tuplet' or o == '-t':
