@@ -5,16 +5,29 @@
 @node Top, , , (dir)
 @top
 
+@html
+<a name="everyone">
+@end html
 
-@unnumberedsubsec Documentation for everyone
+
+@unnumberedsubsec General information
+
 
 @itemize @bullet 
 @item @uref{DEDICATION.html,Dedication}  Lily is  dedicated to our friends.
 @item @uref{http://www.gnu.org/copyleft/gpl.html,GPL} it is released under
   the GNU GPL.
+@item @uref{http://www.lilypond.org/wiki, Lilypond Wiki} A wikiwiki site
+  dedicated to lilypond.
 @end itemize
 
+@html
+<a name="new-users">
+@end html
+
+
 @unnumberedsubsec Information for new users
+
 @itemize @bullet
 @item @uref{../../index.html,index} What is Lilypond?
 @item @uref{../topdocs/out-www/README.html, README} general information
@@ -22,14 +35,21 @@
   How install on Unix.
 @item @uref{../windows/out-www/installing.html, WINDOWS}
 How to install on Windows.
-@item @uref{http://appel.lilypond.org/wiki?LilyPondFaqs,FAQ} Frequently
+@item @uref{http://www.lilypond.org/wiki?LilyPondFaqs,FAQ} Frequently
 asked questions, with answers.
-@item @uref{http://appel.lilypond.org/wiki?MailingLists,MailingLists} Subscribe to
+@item @uref{http://www.lilypond.org/wiki?MailingLists,MailingLists} Subscribe to
 the mailing lists
-@item @uref{../out-www/lilypond/Tutorial.html,Tutorial} Learn how to use LilyPond.
+@item @uref{../user/out-www/lilypond/Tutorial.html,Tutorial} Learn how to use LilyPond.
 @end itemize
 
+
+
+@html
+<a name="other-users">
+@end html
+
 @unnumberedsubsec Information for other users
+
 
 @itemize @bullet
 @item @uref{CHANGES.html, CHANGES} things recently done
@@ -50,12 +70,23 @@ terms, including translations.  (in
 @uref{../user/out-www/glossary.ps.gz,Postscript})
 @end itemize
 
+
+
+@html
+<a name="developers">
+@end html
+
 @unnumberedsubsec Information for developers
+
 
 @itemize @bullet
 @item @uref{../out-www/regression-test.html,regression-test} A glossary
 of musical terms, including translations.  (in
 @uref{../out-www/regression-test.ps.gz,Postscript})
+@item
+@uref{http://www2.iro.umontreal.ca/~pinard/po/registry.cgi?domain=lilypond">Translations,lilypond
+textual domain
+}  in the Translation Project.
 @end itemize
 
 
@@ -68,6 +99,11 @@ of musical terms, including translations.  (in
 
 
 @unnumberedsubsec Background information
+
+
+@html
+<a name="background">
+@end html
 
 @itemize @bullet
 @item @uref{../topdocs/out-www/AUTHORS.html, Authors} documents who did

@@ -11,29 +11,19 @@ This document explains how to install the binary release for windows
 on a Microsoft Windows 95, 98, NT or 2000 machine.
 
 This release is a free extra service of the developers to assist windows
-users. Please remember that we (the developers) rather dislike windows,
+users.  Please remember that we (the developers) rather dislike windows,
 and none of us use it.  Don't complain to us that installing LilyPond is
 too difficult; rather, send us code that works better.
 
-You must install the following software:
+You need the following software (but read on):
 
+@c list these first, because lilypond install scripts look for these
+@c packages
 @table @asis
-@item LilyPond
-Download and run
-@uref{ftp://ftp.lilypond.org/pub/LilyPond/gnu-windows/setup.exe, setup.exe}
-to install LilyPond.
-
-This will install the minimal set of cygwin tools needed to run
-LilyPond.  If you already have cygwin installed, don't worry: nothing
-will be installed twice.  To expand on this minimal set, click
-@uref{http://sources.redhat.com/cygwin/setup.exe,here},
-or visit a Cygwin
-@uref{http://sources.redhat.com/cygwin/mirrors.html,mirror site}.
-
 @item A full TeX installation.
 
-For example,  download  and install 
-@uref{http://prdownloads.sourceforge.net/miktex/miktex-2.0-lvl-1.zip,MikTeX},
+Currently, only MikTeX is supported.  Download and install
+@uref{http://downloads.sourceforge.net/miktex/miktex-2.0-lvl-1.zip,MikTeX},
 or visit @uref{http://www.miktex.org,www.miktex.org}.
 @c See @file{/usr/doc/cygwin/tetex-beta-20001218.README} for details.
 
@@ -66,7 +56,27 @@ install Python-1.5.2, or visit
 @uref{http://www.python.org,www.python.org}.
 
 We have not tried using newer versions than 1.5.2.
+
+@item LilyPond
+Download and run
+@c let's do http, so that people read the README
+@uref{http://www.lilypond.org/gnu-windows/setup.exe, setup.exe}
+to install LilyPond.
+
+This will install the minimal set of cygwin tools needed to run
+LilyPond.
+
+As of version 1.3.150, you also have the option to install MiKTeX,
+Python and GSView from this installer, but that's still somewhat
+experimental.  If you choose to install these by hand (see above), make
+sure to install them @strong{before} you install LilyPond.
+
+If you already have cygwin installed, don't worry: nothing will be
+installed twice.  To expand on this minimal set, click
+@uref{http://sources.redhat.com/cygwin/setup.exe,here}, or visit a
+Cygwin @uref{http://sources.redhat.com/cygwin/mirrors.html,mirror site}.
 @end table
+
 
 
 @section Windows running setup

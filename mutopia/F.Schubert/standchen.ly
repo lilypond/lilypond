@@ -431,21 +431,7 @@ grandStaff =  \context PianoStaff <
 			\lyricStaff 
 		\grandStaff
 	>
-	\paper { 
-%{		\translator {
-			\HaraKiriStaffContext
-			%VerticalExtent = #'(0 . 0)
-			%MinimumVerticalExtent = #'(0 . 0)
-			%StaffMinimumVerticalExtent = #'(0 . 0)
-		}
-		%}
-		\translator {
-			\LyricsContext
-			VerticalExtent = #'(1.2 . 1.2)
-			MinimumVerticalExtent = #'(0 . 0)
-			StaffMinimumVerticalExtent = #'(1.2 . 1.2)
-		}
-	}
+	\paper {  }
 	\midi{
 		\tempo 4 = 54
 	}

@@ -68,8 +68,10 @@ ly_init_kpath (char *av0)
     /var/texmf/fonts, reducing clutter and compilation time.
     
   */
+#ifndef __CYGWIN__  /* mktextfm/mktexpk does not work on windows */
   unsetenv ("TFMFONTS");
-  
+#endif
+
   /*
    initialize kpathsea
    */

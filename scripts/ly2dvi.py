@@ -280,6 +280,7 @@ def system (cmd, ignore_error = 0):
 	"""
 	
         if ( os.name != 'posix' ):
+		cmd = re.sub (r'''\\''', r'''\\\\\\''', cmd)
 		cmd = "sh -c \'%s\'" % cmd
 	if verbose_p:
 		progress (_ ("Invoking `%s\'") % cmd)
@@ -562,10 +563,7 @@ None
 	f.write (s)
 	f.close ()
 
-        if ( os.name == 'posix' ):
-		cmd = 'latex \\\\nonstopmode \\\\input %s' % latex_fn
-	else:
-		cmd = 'latex \\\\\\\\nonstopmode \\\\\\\\input %s' % latex_fn
+	cmd = 'latex \\\\nonstopmode \\\\input %s' % latex_fn
 
 	if not verbose_p:
 		progress ( _("Running %s...") % 'LaTeX')

@@ -75,14 +75,10 @@ Performer_group_performer::do_announces ()
 
   if (announce_info_arr_.size ())
     {
+#if 0  //printf?  -> include <stdio.h>     
       printf ("do_announces: elt: %s\n",
 	      classname (announce_info_arr_[0].elem_l_));
+#endif      
       announce_info_arr_.clear ();
     }
 }
-
-
-
-
-
-
