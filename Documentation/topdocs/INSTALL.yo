@@ -2,18 +2,11 @@ article(INSTALL - compiling and installing GNU LilyPond)(HWN & JCN)()
 
 sect(ABSTRACT)
 
-You do something which looks remotely like
-verb(
-	configure    # Check out the buildscripts/set-lily.sh script
-	make
-	make install
-)
-
-The detailed instructions follow here.  The
-file(buildscripts/set-lily.sh) script sets some environment variables
-and symlinks, which comes in handly when you have to compile LilyPond
-very often.  It is aimed at people who run (or debug) LilyPond without 
-installing.
+This document explains what you need to install LilyPond, and what you
+should do.  If you are going to compile and install LilyPond very
+often you might want to check out the file(buildscripts/set-lily.sh)
+script.  It sets some environment variables and symlinks, which comes
+in handly when you have to compile LilyPond very often.  
 
 sect(PREREQUISITES)
 
@@ -141,7 +134,9 @@ sect(CONFIGURING and COMPILING)
 
 to install GNU LilyPond, simply type:
 verb(
-	configure
+	gunzip -c lilypond-x.y.z | tar xf -
+	cd lilypond-x.y.z
+	configure		# fill in your standard prefix with --prefix
 	make
 	make install
 )
@@ -295,27 +290,21 @@ Please refer to the man page for more information.
 sect(REDHAT LINUX)
 
 RedHat Linux users can compile an RPM. A spec file is in
-file(make/out/lilypond.spec).  You should install a gif file called
-file(lelie_icon.gif) along with the sources.  You can generate this
-gif file by typing
-
-verb(
-     make gifs
-)
-
-in the directory file(Documentation).
+file(make/out/lilypond.spec), it is distributed along with the
+sources.
 
 You can make the rpm by issuing
-
 verb(
-	make rpm
+	rpm -tb lilypond-x.y.z.tar.gz
+	rpm -i /usr/src/redhat/RPMS/i386/lilypond-x.y.z
 )
 
 
 sect(DEBIAN GNU/LINUX)
 
 A Debian package is also available; contact Anthony Fok
-email(foka@debian.org).  The build scripts are in the subdirectory file(debian/)
+email(foka@debian.org).  The build scripts are in the subdirectory
+file(debian/).
 
 
 sect(WINDOWS NT/95)
