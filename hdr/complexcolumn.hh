@@ -10,6 +10,8 @@
 #ifndef COMPLEXCOLUMN_HH
 #define COMPLEXCOLUMN_HH
 
+#include "stcol.hh"
+
 /// column of Complex_staff: store one request
 struct Complex_column : Staff_column {
 
@@ -22,14 +24,13 @@ struct Complex_column : Staff_column {
 
     Slur_req *find_slur(Voice *);
 
-    void typeset_item(Item *, int=1);
-    void typeset_item_directional(Item *, int dir, int=1);
-    Molecule *create_command_mol(Command *com);
+    void typeset_musical_item(Item *);
+    void typeset_breakable_items(Array<Item *> &pre_p_arr,
+				 Array<Item *> &nobreak_p_arr,
+				 Array<Item *> &post_p_arr);
+    virtual void setup_one_request(Request*);
 
-    void take_request(Request *rq);   
-    virtual void setup_requests();
-
-    Complex_column(Score_column*s,Complex_staff*rs);
+    Complex_column(Complex_staff*rs);
 };
 
 #endif // COMPLEXCOLUMN_HH
