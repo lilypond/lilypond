@@ -106,7 +106,7 @@ Key_engraver::acknowledge_element (Score_element_info info)
 }
 
 void
-Key_engraver::do_process_requests ()
+Key_engraver::do_process_music ()
 {
   if (keyreq_l_) 
     {

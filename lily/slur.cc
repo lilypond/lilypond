@@ -352,7 +352,7 @@ Slur::encompass_offset (Note_column const* col) const
 }
 
 void
-Slur::do_post_processing ()
+Slur::after_line_breaking ()
 {
   set_extremities ();
   set_control_points ();

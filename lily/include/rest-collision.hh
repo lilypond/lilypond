@@ -20,6 +20,6 @@ public:
     
   Rest_collision();
 protected:
-  virtual void do_pre_processing();
+  virtual void before_line_breaking ();
 };
 #endif // REST_COLLISION_HH

@@ -35,7 +35,7 @@ Key_performer::do_print () const
 }
 
 void
-Key_performer::do_process_requests ()
+Key_performer::do_process_music ()
 {
   if (key_req_l_)
     {

@@ -21,7 +21,7 @@ class Hara_kiri_group_spanner : public Axis_group_spanner
 {
 public:
   Hara_kiri_group_spanner ();
-  virtual void do_post_processing ();
+  virtual void after_line_breaking ();
   void add_interesting_item (Item* n);
 protected:
   VIRTUAL_COPY_CONS(Score_element);

@@ -467,16 +467,16 @@ no clef is printed upon creation.
     is used to determine the instrument for MIDI output.
 
   @item @code{keyOctaviation}@indexcode{keyOctaviation} @propertytype{boolean}
-    If set to TRUE, then keys are the same in all octaves.  If set
-    to FALSE then the key signature for different octaves can be
+    If set to false, then keys are the same in all octaves.  If set
+    to true then the key signature for different octaves can be
     different and is specified independently:
 
     @example
       \keysignature bes fis'
     @end example
 
-    The default value is 1.  Can be set to zero with
-    @code{\specialkey} or reset to 1 with @code{\normalkey}.
+    The default value is @code{#f}.  Can be set to @code{#t} with
+    @code{\specialkey} or reset with @code{\normalkey}.
 
   @item @code{timeSignatureStyle}@indexcode{timeSignatureStyle} @propertytype{string}
     Changes the default two-digit layout for time signatures.  The

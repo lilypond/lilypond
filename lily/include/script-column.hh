@@ -18,7 +18,7 @@ public:
   Script_column();
   void add_staff_sided (Item*);
 protected:
-  virtual void do_pre_processing ();
+  virtual void before_line_breaking ();
 };
 
 

@@ -65,7 +65,7 @@ Extender_engraver::do_removal_processing ()
 }
 
 void
-Extender_engraver::do_process_requests ()
+Extender_engraver::do_process_music ()
 {
   if (req_l_)
     {

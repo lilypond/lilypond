@@ -107,7 +107,7 @@ Bar_engraver::do_removal_processing ()
 }
 
 void
-Bar_engraver::do_process_requests()
+Bar_engraver::do_process_music()
 {  
   Translator * t = daddy_grav_l  ()->get_simple_translator ("Timing_engraver");
 

@@ -26,6 +26,6 @@ public:
   Dot_column ();
 
 protected:
-  virtual void do_post_processing ();
+  virtual void after_line_breaking ();
 };
 #endif // DOT_COLUMN_HH

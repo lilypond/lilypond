@@ -147,7 +147,7 @@ Note_column::set_dotcol (Dot_column *d)
 */
 
 void
-Note_column::do_post_processing ()
+Note_column::after_line_breaking ()
 {
   if (!stem_l () || !rest_b ())
     return;

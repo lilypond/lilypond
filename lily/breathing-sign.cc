@@ -39,7 +39,7 @@ Breathing_sign::do_brew_molecule () const
 }
 
 void
-Breathing_sign::do_post_processing()
+Breathing_sign::after_line_breaking ()
 {
   Real space = staff_symbol_referencer (this).staff_space();
   Direction d = directional_element (this). get ();

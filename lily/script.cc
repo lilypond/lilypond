@@ -39,7 +39,7 @@ Script::get_molecule(Direction d) const
 
 
 void
-Script::do_pre_processing ()
+Script::before_line_breaking ()
 {
   /*
     center my self on the note head.
@@ -49,7 +49,7 @@ Script::do_pre_processing ()
 }
 
 void
-Script::do_post_processing ()
+Script::after_line_breaking ()
 {
   Side_position_interface i (this);
   Direction d =  i.get_direction ();

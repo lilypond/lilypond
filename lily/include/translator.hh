@@ -91,7 +91,7 @@ protected:
   virtual void do_print () const;
   virtual void do_pre_move_processing();
   virtual void do_post_move_processing();
-  virtual void do_process_requests () ;
+  virtual void do_process_music () ;
   virtual void do_creation_processing() ;
   virtual void do_removal_processing();
 };

@@ -42,7 +42,7 @@ Rest_engraver::do_pre_move_processing ()
 }
 
 void
-Rest_engraver::do_process_requests ()
+Rest_engraver::do_process_music ()
 {
   if (rest_req_l_ && !rest_p_) 
     {

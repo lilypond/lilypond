@@ -43,7 +43,7 @@ Auto_beam_engraver::do_try_music (Music*)
 } 
 
 void
-Auto_beam_engraver::do_process_requests ()
+Auto_beam_engraver::do_process_music ()
 {
   consider_end_and_begin (shortest_mom_);
 }

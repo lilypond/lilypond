@@ -25,7 +25,7 @@ public:
   Script_engraver();
 protected:
   virtual bool do_try_music (Music*);
-  virtual void do_process_requests ();
+  virtual void do_process_music ();
   virtual void do_pre_move_processing ();
   virtual void do_post_move_processing ();
   virtual void acknowledge_element (Score_element_info);
@@ -54,7 +54,7 @@ Script_engraver::do_try_music (Music *r_l)
 }
 
 void
-Script_engraver::do_process_requests()
+Script_engraver::do_process_music()
 {
   for (int i=0; i < script_req_l_arr_.size(); i++)
     {

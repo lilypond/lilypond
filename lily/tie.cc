@@ -92,7 +92,7 @@ Tie::do_add_processing()
 }
 
 void
-Tie::do_post_processing()
+Tie::after_line_breaking ()
 {
   if (!head (LEFT) && !head (RIGHT))
     {

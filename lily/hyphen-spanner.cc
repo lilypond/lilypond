@@ -57,7 +57,7 @@ Hyphen_spanner::do_brew_molecule () const
 
 
 void
-Hyphen_spanner::do_post_processing ()
+Hyphen_spanner::after_line_breaking ()
 {
   // UGH
   Real gap = paper_l ()->get_var ("interline");

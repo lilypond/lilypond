@@ -147,3 +147,9 @@ All_font_metrics::font_descriptions () const
 }
 
 
+
+Font_metric*
+find_font (String name)
+{
+  return   all_fonts_global_p->find_font (name);
+}

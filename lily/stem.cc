@@ -367,7 +367,7 @@ Stem::position_noteheads ()
 }
 
 void
-Stem::do_pre_processing ()
+Stem::before_line_breaking ()
 {
   stem_end_position ();	// ugh. Trigger direction calc.
   position_noteheads ();

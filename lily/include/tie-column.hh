@@ -20,7 +20,7 @@ public:
   void add_tie (Tie*);
   Tie_column ();
 protected:
-  virtual void do_post_processing ();
+  virtual void after_line_breaking ();
   void set_directions ();
   
 };

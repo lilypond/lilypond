@@ -151,7 +151,7 @@ Multi_measure_rest::do_add_processing ()
 }
   
 void
-Multi_measure_rest::do_post_processing ()
+Multi_measure_rest::after_line_breaking ()
 {
   if (!gh_pair_p (get_elt_property ("columns")))
     set_elt_property ("transparent", SCM_BOOL_T);

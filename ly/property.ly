@@ -103,11 +103,11 @@ normalsize = {
 }
 
 normalkey = {
-	\property Staff.keyOctaviation = 1
+	\property Staff.keyOctaviation = ##f
 }
 
 specialkey = {
-	\property Staff.keyOctaviation = 0
+	\property Staff.keyOctaviation = ##t
 }
 
 % End the incipit and print a ``normal line start''.

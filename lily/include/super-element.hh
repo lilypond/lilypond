@@ -27,7 +27,6 @@ public:
   void space_processing ();
   void pre_processing();
   void breakable_col_processing();
-  void break_processing();
   void post_processing();
   void output_all ();
 };

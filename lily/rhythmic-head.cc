@@ -49,7 +49,7 @@ Rhythmic_head::dot_count () const
 }
   
 void
-Rhythmic_head::do_post_processing ()
+Rhythmic_head::after_line_breaking ()
 {
   if (Dots *d = dots_l ())
     {

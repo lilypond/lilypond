@@ -50,7 +50,7 @@ Beam_engraver::do_try_music (Music *m)
 
 
 void
-Beam_engraver::do_process_requests ()
+Beam_engraver::do_process_music ()
 {
   if (reqs_drul_[STOP])
     {

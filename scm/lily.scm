@@ -5,6 +5,14 @@
 ; (c) 1998 Jan Nieuwenhuizen <janneke@gnu.org>
 
 
+;
+; This file contains various routines in Scheme that are easier to 
+; do here than in C++.  At present it is a unorganised mess. Sorry. 
+;
+;
+
+
+
 ;(debug-enable 'backtrace)
 
 ;;; library funtions
@@ -27,13 +35,11 @@
 	  )
       )
 
-(define (glue-2-strings a b) 
-  (string-append a " " b))
 
 (define (numbers->string l)
-  (reduce glue-2-strings (map number->string l)))
+  (apply string-append (map ly-number->string l)))
 
-(define (chop-decimal x) (if (< (abs x) 0.001) 0.0 x))
+; (define (chop-decimal x) (if (< (abs x) 0.001) 0.0 x))
 
 (define (number->octal-string x)
   (let* ((n (inexact->exact x))
@@ -49,11 +55,9 @@
     (number->string n radix)))
 
 
-(define
-  (control->string c)
-  (string-append
-   (string-append (number->string (car c)) " ")
-   (string-append (number->string (cdr c)) " ")))
+(define (control->string c)
+  (string-append (number->string (car c)) " "
+		 (number->string (cdr c)) " "))
 
 
 (define (font i)
@@ -230,20 +234,6 @@
     (not (not (memq name (ly-get-elt-property elt 'interfaces))))))
 
 	
-
-
-
-
-
-
-
-
-;;;;;;;;;;;;;;;;;;; generic output
-
-(define (translate-molecule offset)
-  "")
-
-
 ;;;;;;;;;;;;;;;;;;; TeX output
 (define (tex-scm action-name)
   (define (unknown) 
@@ -287,12 +277,6 @@
   (define (decrescendo thick w h cont)
     (embedded-ps ((ps-scm 'decrescendo) thick w h cont)))
 
-   ;This sets CTM so that you get to the currentpoint
-  ; by executing a 0 0 moveto
-
-  
- 
-
   (define (font-load-command name-mag command)
     (string-append
      "\\font\\" command "="
@@ -300,7 +284,6 @@
      " scaled "
      (number->string (magstep (cdr name-mag)))
      "\n"))
-
 
   (define (embedded-ps s)
     (string-append "\\embeddedps{" s "}"))
@@ -365,7 +348,7 @@
 
   (define (number->dim x)
     (string-append 
-     (number->string  (chop-decimal x)) " pt "))
+     (ly-number->string x) " pt "))
 
   (define (placebox x y s) 
     (string-append 
@@ -462,7 +445,6 @@
 
 ;;;;;;;;;;;; PS
 (define (ps-scm action-name)
-
 
   ;; alist containing fontname -> fontcommand assoc (both strings)
   (define font-alist '())

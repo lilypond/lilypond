@@ -23,7 +23,7 @@ class Font_size_engraver : public Engraver {
   Protected_scm size_;
 protected:
   virtual void acknowledge_element (Score_element_info);
-  virtual void  do_process_requests ();
+  virtual void  do_process_music ();
 public:
   Font_size_engraver ();
   

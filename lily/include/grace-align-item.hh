@@ -20,7 +20,7 @@ public:
   Grace_align_item ();
 protected:
   virtual void do_add_processing ();
-  virtual void do_pre_processing ();
+  virtual void before_line_breaking ();
 };
 #endif /* GRACE_ALIGN_ITEM_HH */
 

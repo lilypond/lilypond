@@ -92,7 +92,7 @@ Tie_column::set_directions ()
 }
 
 void
-Tie_column::do_post_processing ()
+Tie_column::after_line_breaking ()
 {
   set_directions ();
 }

@@ -33,7 +33,7 @@ Rest_collision::add_column (Note_column *nc_l)
 }
 
 void
-Rest_collision::do_pre_processing()
+Rest_collision::before_line_breaking ()
 {
   Link_array<Note_column> rest_l_arr =
     Group_interface__extract_elements (this, (Note_column*) 0, "rests");

@@ -84,7 +84,7 @@ protected:
   virtual void do_removal_processing ();
   virtual void acknowledge_element (Score_element_info);
   virtual bool do_try_music (Music *req_l);
-  virtual void do_process_requests ();
+  virtual void do_process_music ();
   virtual void do_pre_move_processing ();
   virtual void do_post_move_processing ();
 };
@@ -151,7 +151,7 @@ Dynamic_engraver::do_try_music (Music * m)
 }
 
 void
-Dynamic_engraver::do_process_requests ()
+Dynamic_engraver::do_process_music ()
 {
   if ((span_req_l_drul_[START] || text_req_l_) && !line_spanner_)
     {

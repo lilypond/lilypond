@@ -27,7 +27,7 @@ protected:
 
   virtual void do_add_processing ();
   static  Interval dim_callback (Dimension_cache const*);
-  virtual void do_post_processing ();
+  virtual void after_line_breaking ();
 };
 
 #endif // VOLTA_SPANNER_HH

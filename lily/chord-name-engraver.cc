@@ -61,7 +61,7 @@ Chord_name_engraver::do_try_music (Music* m)
 }
 
 void
-Chord_name_engraver::do_process_requests ()
+Chord_name_engraver::do_process_music ()
 {
   if (chord_name_p_)
     return;

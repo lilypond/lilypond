@@ -28,7 +28,7 @@ Hara_kiri_group_spanner::add_interesting_item (Item* n)
 }
 
 void 
-Hara_kiri_group_spanner::do_post_processing ()
+Hara_kiri_group_spanner::after_line_breaking ()
 {
   SCM worth = get_elt_property ("items-worth-living");
   if (gh_pair_p (worth))

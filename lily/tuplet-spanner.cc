@@ -189,7 +189,7 @@ Tuplet_spanner::calc_dy (Real * dy) const
 }
 
 void
-Tuplet_spanner::do_post_processing ()
+Tuplet_spanner::after_line_breaking ()
 {
   Link_array<Note_column> column_arr=
     Group_interface__extract_elements (this, (Note_column*)0, "columns");

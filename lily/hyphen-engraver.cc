@@ -63,7 +63,7 @@ Hyphen_engraver::do_removal_processing ()
 }
 
 void
-Hyphen_engraver::do_process_requests ()
+Hyphen_engraver::do_process_music ()
 {
   if (req_l_)
     {

@@ -36,9 +36,9 @@ protected:
   static Interval width_callback(Dimension_cache const*) ;
   static Interval height_callback(Dimension_cache const*) ;  
   
-  virtual void do_pre_processing();
-  virtual void do_post_processing();
-  virtual Molecule do_brew_molecule() const;
+  virtual Real get_bar_size () const;
+  virtual void before_line_breaking ();
+  virtual void after_line_breaking ();
 };
 
 #endif // SPAN_BAR_HH

@@ -35,7 +35,7 @@ public:
 
 protected:
   virtual void do_removal_processing();
-  virtual void do_process_requests();
+  virtual void do_process_music();
   virtual bool do_try_music (Music*);
   virtual void acknowledge_element (Score_element_info);
   virtual void do_pre_move_processing();
@@ -92,7 +92,7 @@ Chord_tremolo_engraver::do_try_music (Music* m)
 }
 
 void
-Chord_tremolo_engraver::do_process_requests ()
+Chord_tremolo_engraver::do_process_music ()
 {
   if (reqs_drul_[STOP])
     {

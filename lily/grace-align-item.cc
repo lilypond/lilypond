@@ -19,7 +19,7 @@ Grace_align_item::Grace_align_item ()
 }
   
 void
-Grace_align_item::do_pre_processing ()
+Grace_align_item::before_line_breaking ()
 {
   Real nhw = // lookup_l ()->notehead (2, "").dim_[X_AXIS].length();
     paper_l ()->get_var ("quartwidth");
@@ -28,7 +28,7 @@ Grace_align_item::do_pre_processing ()
   column_l ()->set_elt_property ("contains-grace", SCM_BOOL_T);
 
   
-  Axis_align_item::do_pre_processing ();
+  Axis_align_item::before_line_breaking ();
   //  translate_axis (-0.5* nhw, X_AXIS); // ugh.
 }
 

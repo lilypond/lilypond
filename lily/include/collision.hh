@@ -29,7 +29,7 @@ protected:
   Array<Shift_tup> automatic_shift ();
   Array<Shift_tup> forced_shift ();
   
-  virtual void do_pre_processing();
+  virtual void before_line_breaking ();
 public:
     
   void add_column (Note_column*ncol_l);

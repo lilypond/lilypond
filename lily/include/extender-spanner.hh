@@ -35,7 +35,7 @@ public:
 
 protected:
   virtual Molecule do_brew_molecule () const;
-  void do_post_processing ();
+  void after_line_breaking ();
  
   VIRTUAL_COPY_CONS (Score_element);
 

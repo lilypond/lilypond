@@ -26,7 +26,7 @@
 class Clef_item : public Item
 {
 protected:
-  virtual void do_pre_processing();
+  virtual void before_line_breaking ();
   virtual void do_add_processing ();
 public:
   VIRTUAL_COPY_CONS(Score_element);

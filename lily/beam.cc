@@ -79,7 +79,7 @@ Beam::get_multiplicity () const
    their beam, during 'final-pre-processing'.]
  */
 void
-Beam::do_pre_processing ()
+Beam::before_line_breaking ()
 {
   // Why?
   if (visible_stem_count () < 2)
@@ -263,7 +263,7 @@ Beam::set_stem_shorten ()
   Adjust stem lengths to reach beam.
  */
 void
-Beam::do_post_processing ()
+Beam::after_line_breaking ()
 {
   /* first, calculate y, dy */
   Real y, dy;

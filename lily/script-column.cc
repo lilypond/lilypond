@@ -41,7 +41,7 @@ staff_side_compare (Item * const &i1,
 }
 
 void
-Script_column::do_pre_processing ()
+Script_column::before_line_breaking ()
 {
   Drul_array<Link_array<Item> > arrs;
   Link_array<Item> staff_sided 

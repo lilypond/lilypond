@@ -14,14 +14,14 @@
 #include "dimension-cache.hh"
 
 void
-Align_element::do_post_processing()
+Align_element::after_line_breaking()
 {
   if (axis () == Y_AXIS)
     do_side_processing ();
 }
 
 void
-Align_element::do_pre_processing ()
+Align_element::before_line_breaking ()
 {
   if (axis () == X_AXIS)
     do_side_processing ();

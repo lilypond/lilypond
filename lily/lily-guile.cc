@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>		// isinf
 
 #include "libc-extension.hh"
 #include "lily-guile.hh"
@@ -217,16 +218,6 @@ ly_isdir_p (SCM s)
 }
 
 
-static void
-init_functions ()
-{
-  scm_make_gsubr ("ly-warn", 1, 0, 0, (SCM(*)(...))ly_warning);
-  scm_make_gsubr ("ly-gulp-file", 1,0, 0, (SCM(*)(...))ly_gulp_file);
-  scm_make_gsubr ("dir?", 1,0, 0, (SCM(*)(...))ly_isdir_p);  
-}
-
-ADD_SCM_INIT_FUNC(funcs, init_functions);
-
 
 typedef void (*Void_fptr)();
 Array<Void_fptr> *scm_init_funcs_;
@@ -367,3 +358,47 @@ ly_type (SCM exp)
 
   return ly_str02scm (cp);
 }
+
+/*
+  convert without too many decimals, and leave  a space at the end.
+ */
+   
+   
+SCM
+ly_number2string (SCM s)
+{
+  assert (gh_number_p (s));
+
+  char str[100];			// ugh.
+
+  if (scm_integer_p (s))
+    {
+      Real r (gh_scm2double (s));
+
+      if (isinf (r) || isnan (r))
+	{
+	  programming_error ("Infinity or NaN encountered while converting Real number; setting to zero.");
+	  r = 0.0;
+	}
+
+      sprintf (str, "%8.4f ", r);
+    }
+  else
+    {
+      sprintf (str, "%d ", gh_scm2int (s));
+    }
+
+  return gh_str02scm (str);
+}
+
+
+static void
+init_functions ()
+{
+  scm_make_gsubr ("ly-warn", 1, 0, 0, (SCM(*)(...))ly_warning);
+  scm_make_gsubr ("ly-gulp-file", 1,0, 0, (SCM(*)(...))ly_gulp_file);
+  scm_make_gsubr ("dir?", 1,0, 0, (SCM(*)(...))ly_isdir_p);
+  scm_make_gsubr ("ly-number->string", 1, 0,0, (SCM(*)(...)) ly_number2string);
+}
+
+ADD_SCM_INIT_FUNC(funcs, init_functions);

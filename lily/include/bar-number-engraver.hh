@@ -14,7 +14,7 @@
 
 class Bar_number_engraver : public Bar_script_engraver {
 protected:
-  void do_process_requests ();
+  void do_process_music ();
 public:
   VIRTUAL_COPY_CONS(Translator);
   Bar_number_engraver();

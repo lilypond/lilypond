@@ -32,7 +32,7 @@ Time_signature_performer::do_print () const
 }
 
 void
-Time_signature_performer::do_process_requests ()
+Time_signature_performer::do_process_music ()
 {
   if (time_signature_req_l_)
     {

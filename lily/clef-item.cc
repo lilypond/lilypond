@@ -19,7 +19,7 @@
 #include "warn.hh"
 
 void
-Clef_item::do_pre_processing()
+Clef_item::before_line_breaking ()
 {
   SCM style_sym =get_elt_property ("style");
   String style;

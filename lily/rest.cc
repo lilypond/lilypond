@@ -17,7 +17,7 @@
 
 
 void
-Rest::do_post_processing ()
+Rest::after_line_breaking ()
 {
   if (balltype_i () == 0)
     {

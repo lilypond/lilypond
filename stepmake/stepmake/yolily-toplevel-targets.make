@@ -11,15 +11,6 @@ do-top-doc:
 
 $(README_TXT_FILES): do-top-doc
 
-
-htmldoc: 
-	$(MAKE) CONFIGSUFFIX='www' local-WWW
-	$(MAKE) CONFIGSUFFIX='www' -C Documentation WWW
-	rm -f `find . -name \*.html~ -print`
-	$(footify-all-command)
-	find `find Documentation -type d -name 'out-www'` -not -name '*dvi' -not -name '*ly' -not -name '*tex' -not -name '*.ps' -not -name 'out-www' 
-	tar cfz $(outdir)/htmldoc.tar.gz  `cat wwwlist` `ls *.png $(ERRORLOG)`  index.html
-
 localclean:
 
 

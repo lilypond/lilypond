@@ -274,7 +274,7 @@ Score_element::do_break_processing()
 }
 
 void
-Score_element::do_post_processing()
+Score_element::after_line_breaking ()
 {
 }
 
@@ -285,7 +285,7 @@ Score_element::do_breakable_col_processing()
 }
 
 void
-Score_element::do_pre_processing()
+Score_element::before_line_breaking ()
 {
 }
 
@@ -312,9 +312,9 @@ Score_element::do_brew_molecule() const
     }
   else
     {
-      Interval emp;
-      emp.set_empty ();
-      return lookup_l ()->fill (Box (emp,emp));
+      Molecule m ;
+      m.set_empty (true);
+      return m;
     }
 }
 
@@ -555,28 +555,28 @@ Score_element::fixup_refpoint ()
   for (int a = X_AXIS; a < NO_AXES; a ++)
     {
       Axis ax = (Axis)a;
-      Score_element * par = parent_l (ax);
+      Score_element * parent = parent_l (ax);
 
-      if (!par)
+      if (!parent)
 	continue;
       
-      if (par->line_l () != line_l ())
+      if (parent->line_l () != line_l ())
 	{
-	  Score_element * newpar = par->find_broken_piece (line_l ());
-	  set_parent (newpar, ax);
+	  Score_element * newparent = parent->find_broken_piece (line_l ());
+	  set_parent (newparent, ax);
 	}
 
       if (Item * i  = dynamic_cast<Item*> (this))
 	{
-	  Item *pari = dynamic_cast<Item*> (par);
+	  Item *parenti = dynamic_cast<Item*> (parent);
 
-	  if (pari && i)
+	  if (parenti && i)
 	    {
 	      Direction  my_dir = i->break_status_dir () ;
-	      if (my_dir!= pari->break_status_dir())
+	      if (my_dir!= parenti->break_status_dir())
 		{
-		  Item *newpar =  pari->find_broken_piece (my_dir);
-		  set_parent (newpar, ax);
+		  Item *newparent =  parenti->find_broken_piece (my_dir);
+		  set_parent (newparent, ax);
 		}
 	    }
 	}

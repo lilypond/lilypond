@@ -50,7 +50,7 @@ Extender_spanner::do_brew_molecule () const
 
 
 void
-Extender_spanner::do_post_processing ()
+Extender_spanner::after_line_breaking ()
 {
   // UGH
   Real gap = paper_l ()->get_var ("interline");

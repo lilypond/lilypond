@@ -27,7 +27,7 @@ Lyric_performer::do_print () const
 }
 
 void
-Lyric_performer::do_process_requests ()
+Lyric_performer::do_process_music ()
 {
   if (lreq_arr_.size () && lreq_arr_[0]->text_str_.length_i ())
     {

@@ -53,7 +53,7 @@ Note_heads_engraver::do_try_music (Music *m)
 }
 
 void
-Note_heads_engraver::do_process_requests()
+Note_heads_engraver::do_process_music()
 {
   if (note_p_arr_.size ())
     return ;

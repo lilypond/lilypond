@@ -53,7 +53,7 @@ Note_head::ledger_line (Interval xwid) const
 
 
 void
-Note_head::do_pre_processing ()
+Note_head::before_line_breaking ()
 {
   // 8 ball looks the same as 4 ball:
   String type; 

@@ -74,8 +74,8 @@ Property_engraver::apply_properties (SCM p, Score_element *e)
 	{
 	  SCM errport = scm_current_error_port ();
 	  warning (_("Wrong type for property"));
-	  
-	  scm_puts ("type predicate: ", errport);
+	  scm_display (prop_sym, errport);
+	  scm_puts (", type predicate: ", errport);
 	  scm_display (type_p, errport);
 	  scm_puts (", value found: ", errport);
 	  scm_display (val, errport);

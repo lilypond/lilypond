@@ -137,7 +137,7 @@ Volta_spanner::dim_callback (Dimension_cache const *c)
 }
 
 void
-Volta_spanner::do_post_processing ()
+Volta_spanner::after_line_breaking ()
 {
   Link_array<Bar> bar_arr
     = Group_interface__extract_elements (this, (Bar*)0, "bars");

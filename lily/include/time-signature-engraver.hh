@@ -17,7 +17,7 @@
   */
 class Time_signature_engraver : public Engraver {
 protected:
-  virtual void do_process_requests();
+  virtual void do_process_music();
   virtual void do_pre_move_processing();
 public:
   VIRTUAL_COPY_CONS(Translator);
