@@ -13,7 +13,11 @@
 Span_bar*
 Span_score_bar_engraver::get_span_bar_p() const
 {
-  return new Span_score_bar;
+  Span_bar*s =  new Span_score_bar;
+  s->break_priority_i_ = -4;
+    
+  return s;
+    
 }
 
 
@@ -23,7 +27,9 @@ IMPLEMENT_IS_TYPE_B1(Piano_bar_engraver, Span_score_bar_engraver);
 Span_bar*
 Piano_bar_engraver::get_span_bar_p() const
 {
-  return new Piano_brace;
+  Span_bar *s= new Piano_brace;
+  s->break_priority_i_ = -4;
+  return s;
 }
 
 ADD_THIS_TRANSLATOR(Piano_bar_engraver);
