@@ -382,9 +382,9 @@ ly_options = {
 		EXAMPLEINDENT: '',
 
 		NOTIME: r'''\context {
-  \Staff
-  \remove Time_signature_engraver
-}''',
+    \Staff
+    \remove Time_signature_engraver
+  }''',
 	},
 
 	##

@@ -1,3 +1,7 @@
+2004-10-27  Werner Lemberg  <wl@gnu.org>
+
+	* Documentation/user/music-glossary.tely: Revised.
+
 2004-10-26  Carl Sorensen  <carldsorensen@comcast.net>
 
 	* input/test/fret-diagram.ly: insert breaks, remove raggedright to
@@ -6,7 +10,6 @@
 	* Documentation/user/notation.itely (Fret diagrams): Remove raggedright
 	from options for the example so fret-diagrams won't overlap
 	one another.
-	
 
 2004-10-26  Werner Lemberg  <wl@gnu.org>
 
