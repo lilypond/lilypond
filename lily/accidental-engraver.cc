@@ -140,59 +140,87 @@ Accidental_engraver::initialize ()
     * Then check the global signature (only step).
   
     Return number of accidentals (0, 1 or 2).  */
+
+static bool
+recent_enough (int bar_number, SCM alteration_def, SCM laziness)
+{
+  if (scm_is_number (alteration_def))
+    return true;
+
+  return (bar_number <= scm_to_int (ly_cdr (alteration_def)) + scm_to_int (laziness));
+}
+
+static int
+extract_alteration (SCM alteration_def)
+{
+  if (scm_is_number (alteration_def))
+    return scm_to_int (alteration_def);
+  else if (ly_c_pair_p (alteration_def))
+    return scm_to_int (ly_car (alteration_def));
+  else if (alteration_def == SCM_BOOL_F)
+    return 0;
+  else
+    assert (0);
+  return 0;
+}
+
 static int
 number_accidentals_from_sig (bool *different, SCM sig, Pitch *pitch,
-			     int curbarnum, SCM laziness, bool ignore_octave)
+			     int bar_number, SCM laziness, bool ignore_octave)
 {
   int n = pitch->get_notename ();
   int o = pitch->get_octave ();
-  int a = pitch->get_alteration ();
 
-  SCM prev_alt = SCM_BOOL_F;
+  SCM previous_alteration = SCM_BOOL_F;
 
-  if (!ignore_octave)
+
+  SCM from_same_octave = ly_assoc_get (scm_cons (scm_int2num (o),
+						     scm_int2num (n)), sig, SCM_BOOL_F);
+  SCM from_key_signature = ly_assoc_get (scm_int2num (n), sig, SCM_BOOL_F);
+  SCM from_other_octaves = SCM_BOOL_F;
+  for (SCM s = sig ; ly_c_pair_p (s); s = ly_cdr (s))
     {
-      SCM prev_local
-	= scm_assoc (scm_cons (scm_int2num (o), scm_int2num (n)), sig);
-
-      if (ly_c_pair_p (prev_local))
-	{
-	  if (ly_c_pair_p (ly_cdr (prev_local))
-	      && scm_is_number (laziness))
-	    {
-	      int barnum = scm_to_int (ly_cddr (prev_local));
-
-	      prev_local = scm_cons (ly_car (prev_local), ly_cadr (prev_local));
-	      if (curbarnum <= barnum + scm_to_int (laziness))
-		prev_alt = prev_local;
-	    }
-	}
+      SCM entry = ly_car (s);
+      if (ly_c_pair_p (ly_car (entry))
+	  && ly_cdar (entry) == scm_int2num (n))
+	from_other_octaves = ly_cdr (entry); 
     }
+  
 
-  if (prev_alt == SCM_BOOL_F)
-    prev_alt = scm_assoc (scm_int2num (n), sig);
-
-  prev_alt =  (prev_alt == SCM_BOOL_F) ? scm_int2num (0) : ly_cdr (prev_alt); 
-    
+  if (from_same_octave != SCM_BOOL_F
+      && recent_enough (bar_number, from_same_octave, laziness))
+    {
+      previous_alteration = from_same_octave;
+    }
+  else if (ignore_octave
+	   && from_other_octaves != SCM_BOOL_F
+	   && recent_enough (bar_number, from_other_octaves, laziness))
+    {
+      previous_alteration = from_other_octaves;
+    }
+  else if (from_key_signature != SCM_BOOL_F)
+    {
+      previous_alteration = from_key_signature;
+    }
+  
   /* UGH. prev_acc can be #t in case of ties. What is this for?  */
-  int p = scm_is_number (prev_alt) ? scm_to_int (prev_alt) : 0;
 
-  int num;
-  if (a == p && scm_is_number (prev_alt))
+  int prev = extract_alteration (previous_alteration);
+  int alter = pitch->get_alteration ();
+  int num = 1;
+  if (alter == prev)
     num = 0;
-  else if ( (abs (a)<abs (p) || p*a<0) && a != 0 )
+  else if ((abs (alter) < abs (prev) || prev*alter < 0) && alter != 0)
     num = 2;
-  else
-    num = 1;
 
-  *different = (a != p);
+  *different = (alter != prev);
   return num;
 }
 
 static int
 number_accidentals (bool *different,
 		    Pitch *pitch, Context *origin,
-		    SCM accidentals, int curbarnum)
+		    SCM accidentals, int bar_number)
 {
   int number = 0;
 
@@ -221,7 +249,7 @@ number_accidentals (bool *different,
 	    {
 	      bool d = false;
 	      int n = number_accidentals_from_sig
-		(&d, localsig, pitch, curbarnum, laziness, any_octave_b);
+		(&d, localsig, pitch, bar_number, laziness, any_octave_b);
 	      *different = *different || d;
 	      number = max (number, n);     
 	    }

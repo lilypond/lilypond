@@ -124,6 +124,7 @@ SCM ly_offset2scm (Offset);
 Offset ly_scm2offset (SCM);
 SCM ly_assoc_chain (SCM key, SCM achain);
 SCM ly_assoc_cdr (SCM key, SCM alist);
+SCM ly_assoc_get (SCM key, SCM alist, SCM def);
 Interval ly_scm2interval (SCM);
 Drul_array<Real> ly_scm2realdrul (SCM);
 Slice int_list_to_slice (SCM l);
