@@ -97,10 +97,6 @@ notewidth = (\quartwidth + \wholewidth) / 2.0;
 barsize = \staffheight;
 rulethickness = \staffline;
 
-% stem should be thinner?
-stemthickness = \staffline;
-
-
 gourlay_energybound = 100000.;
 %{
 The following bounds the number of measures
@@ -109,17 +105,14 @@ on a line.  Decreasing it greatly reduces computation time
 gourlay_maxmeasures = 10.;
 castingalgorithm = \Gourlay;
 
-%{
-Ross. page 151
+%{ Ross. page 151 lists these values, but we think that thick lines
+and kernings are too thick.
 
 bar_kern = 0.5 * \interline;
 bar_thinkern = 0.75 * \interline;
 barthick_thick = 0.5* \interline;
 barthick_score = 0.13333* \interline;
 barthick_thin = 0.1*\interline;
-Can't be, these are ugly!  Changed to old (TeX) values.
-
-% barline should be thicker!
 
 %}
 
@@ -130,6 +123,11 @@ barthick_thin = 1.6*\staffline;
 
 tuplet_thick = 1.0*\staffline;
 volta_thick = 1.6*\staffline;
+
+% relative thickness of thin lines  1.6 : 1 : 0.8
+stemthickness = 0.8*\staffline;
+rulethickness = \staffline;
+
 
 extender_height = 0.8*\staffline;
 
