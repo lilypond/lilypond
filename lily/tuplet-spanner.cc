@@ -14,6 +14,7 @@
 #include "molecule.hh"
 #include "paper-column.hh"
 #include "paper-def.hh"
+#include "text-item.hh"
 #include "tuplet-spanner.hh"
 #include "stem.hh"
 #include "note-column.hh"
@@ -75,9 +76,9 @@ Tuplet_spanner::brew_molecule (SCM smob)
       SCM number = me->get_elt_property ("text");
       if (gh_string_p (number) && number_visibility)
 	{
-	  Molecule
-	    num (me->lookup_l ()->text ("italic",
-				    ly_scm2string (number), me->paper_l ()));
+	  SCM properties = gh_append2 (me->immutable_property_alist_,
+				       me->mutable_property_alist_);
+	  Molecule num = Text_item::text2molecule (me, number, properties);
 	  num.align_to (X_AXIS, CENTER);
 	  num.translate_axis (w/2, X_AXIS);
 	  num.align_to (Y_AXIS, CENTER);

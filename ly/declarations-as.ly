@@ -53,7 +53,7 @@ melismaEnd = \property Staff.melismaBusy = ##f
 % ugh
 \include "midi.ly"
 
-\include "textscripts.ly"
+\include "dynamic-scripts.ly"
 \include "spanners.ly"
 
 \include "property.ly"

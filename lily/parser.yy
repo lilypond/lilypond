@@ -128,6 +128,7 @@ yylex (YYSTYPE *s,  void * v_l)
 /* tokens which are not keywords */
 %token AUTOCHANGE
 %token ARPEGGIO
+%token DYNAMICSCRIPT
 %token TEXTSCRIPT
 %token ACCEPTS
 %token ALTERNATIVE
@@ -1056,19 +1057,17 @@ verbose_request:
 		$$ = dynamic_cast<Request*> (unsmob_music ($1)->clone ());
 		$$->set_spot (THIS->here_input ());
 	}
-	| TEXTSCRIPT STRING STRING 	{
-		Text_script_req *ts_p = new Text_script_req;
-		ts_p-> text_str_ = ly_scm2string ($2);
-		ts_p-> style_str_ = ly_scm2string ($3);
-		ts_p->set_spot (THIS->here_input ());
-
-		$$ = ts_p;
+	| DYNAMICSCRIPT embedded_scm {
+		Dynamic_script_req *d = new Dynamic_script_req;
+		d->text_ = $2;
+		d->set_spot (THIS->here_input ());
+		$$ = d;
 	}
 	| TEXTSCRIPT embedded_scm {
-		Text_script_req *ts_p = new Text_script_req;
-		ts_p->text_scm_ = $2;
-		ts_p->set_spot (THIS->here_input ());
-		$$ = ts_p;
+		Text_script_req *t = new Text_script_req;
+		t->text_ = $2;
+		t->set_spot (THIS->here_input ());
+		$$ = t;
 	}
 	| SPANREQUEST bare_int STRING {
 		Span_req * sp_p = new Span_req;
@@ -1231,19 +1230,27 @@ open_request_parens:
 	;
 
 gen_text_def:
-	string {
-		Text_script_req *t  = new Text_script_req;
+	embedded_scm {
+		Text_script_req *t = new Text_script_req;
+		t->text_ = $1;	
+		t->set_spot (THIS->here_input ());
 		$$ = t;
-		t->text_str_ = ly_scm2string ($1);
-
-		$$->set_spot (THIS->here_input ());
+	}
+	| string {
+		Text_script_req *t = new Text_script_req;
+		t->text_ = $1;
+		t->set_spot (THIS->here_input ());
+		$$ = t;
 	}
 	| DIGIT {
-		Text_script_req* t  = new Text_script_req;
+		/*
+		  Maybe use Finger_script_request?
+		*/
+		Text_script_req* t = new Text_script_req;
+		t->text_ = gh_cons (ly_symbol2scm ("finger"),
+			ly_str02scm (to_str ($1).ch_C ()));
+		t->set_spot (THIS->here_input ());
 		$$ = t;
-		t->text_str_ = to_str ($1);
-		t->style_str_ = "finger";
-		$$->set_spot (THIS->here_input ());
 	}
 	;
 
@@ -1426,7 +1433,7 @@ simple_element:
 		else
 			THIS->pop_spot ();
 		Lyric_req* lreq_p = new Lyric_req;
-		lreq_p ->text_str_ = ly_scm2string ($1);
+		lreq_p ->text_ = $1;
 		lreq_p->duration_ = *$3;
 		lreq_p->set_spot (THIS->here_input());
 		Simultaneous_music* velt_p = new Request_chord (gh_list (lreq_p->self_scm (), SCM_UNDEFINED));

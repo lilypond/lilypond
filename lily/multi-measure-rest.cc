@@ -18,6 +18,7 @@
 #include "group-interface.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
+#include "text-item.hh"
 
 void
 Multi_measure_rest::set_interface (Score_element*me)
@@ -130,7 +131,12 @@ Multi_measure_rest::brew_molecule (SCM smob)
 
   if (measures > 1)
     {
-      Molecule s (me->lookup_l ()->text ("number", to_str (measures), me->paper_l ()));
+      SCM properties = gh_append2 (me->immutable_property_alist_,
+				   me->mutable_property_alist_);
+      Molecule s =
+	Text_item::text2molecule (me,
+				  ly_str02scm (to_str (measures).ch_C ()),
+				  properties);
       s.align_to (X_AXIS, CENTER);
       s.translate_axis (3.0 * staff_space, Y_AXIS);
       mol.add_molecule (s);

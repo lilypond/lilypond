@@ -474,9 +474,13 @@ ScoreContext = \translator {
 		(molecule-callback . ,Text_item::brew_molecule)
 		(breakable . #t)
 		(visibility-lambda . ,begin-of-line-visible)
-		(name . "BarNumber")
 		(padding . 1.0)
 		(direction . 1)
+		(properties-to-font-name . ,properties-to-font-name)
+		(style-to-font-name . ,style-to-font-name)
+		(markup-to-properties . ,markup-to-properties)
+		(font-family . roman)
+		(name . "BarNumber")
 	)
 
 	Beam = #basic-beam-properties
@@ -565,11 +569,13 @@ ScoreContext = \translator {
 	)
 	
 	DynamicText = #`(
-		(style . "dynamic")
 		(interfaces . (dynamic-interface))
 		(Y-offset-callbacks . (,Side_position::aligned_on_self))
-
 		(molecule-callback . ,Text_item::brew_molecule)
+		(font-style . dynamic)
+		(properties-to-font-name . ,properties-to-font-name)
+		(style-to-font-name . ,style-to-font-name)
+		(markup-to-properties . ,markup-to-properties)
 		(script-priority . 100)
 		(self-alignment-Y . 0)
 		(name . "DynamicText")
@@ -631,6 +637,10 @@ ScoreContext = \translator {
 		(molecule-callback . ,Text_item::brew_molecule)		
 		(break-align-symbol . Instrument_name)
 		(visibility-lambda . ,begin-of-line-visible)
+		(properties-to-font-name . ,properties-to-font-name)
+		(style-to-font-name . ,style-to-font-name)
+		(markup-to-properties . ,markup-to-properties)
+		(font-family . roman)
 		(name . "InstrumentName")
 	)
 	
@@ -675,16 +685,24 @@ ScoreContext = \translator {
 		(self-alignment-X . 0)
 		(non-rhythmic . #t)
 		(word-space . 0.6)
+		(properties-to-font-name . ,properties-to-font-name)
+		(style-to-font-name . ,style-to-font-name)
+		(markup-to-properties . ,markup-to-properties)
+		(font-family . roman)
 		(name . "LyricText") 
 	)
 	
 	RehearsalMark = #`(
-	  (interfaces . (mark-interface side-position-interface))
-	  (molecule-callback . ,Text_item::brew_molecule)	
-	  (breakable . #t)
-	  (visibility-lambda . ,end-of-line-invisible)
-	  (padding . 4.0)
-	  (name . "RehearsalMark")
+	        (interfaces . (mark-interface side-position-interface))
+		(molecule-callback . ,Text_item::brew_molecule)	
+		(breakable . #t)
+		(visibility-lambda . ,end-of-line-invisible)
+		(padding . 4.0)
+		(properties-to-font-name . ,properties-to-font-name)
+		(style-to-font-name . ,style-to-font-name)
+		(markup-to-properties . ,markup-to-properties)
+		(font-style . mark)
+		(name . "RehearsalMark")
 	)
 	
 	MultiMeasureRest = #`(
@@ -724,7 +742,10 @@ ScoreContext = \translator {
 		(X-offset-callbacks . (,Side_position::centered_on_parent ,Side_position::aligned_on_self))
 		(Y-offset-callbacks . (,Side_position::aligned_side))
 		(molecule-callback . ,Text_item::brew_molecule)
-		(style . "italic")
+		(font-shape . "italic")
+		(properties-to-font-name . ,properties-to-font-name)
+		(style-to-font-name . ,style-to-font-name)
+		(markup-to-properties . ,markup-to-properties)
 		(name . "OctavateEight")
 	)
 	
@@ -861,7 +882,10 @@ ScoreContext = \translator {
 		(molecule-callback . ,Text_spanner::brew_molecule)
 		(type . "line")
 		(direction . 1)
-		(text-style . "italic")
+		(font-shape . "italic")
+		(properties-to-font-name . ,properties-to-font-name)
+		(style-to-font-name . ,style-to-font-name)
+		(markup-to-properties . ,markup-to-properties)
 		(name . "TextSpanner")		
 	)
 	Tie = #`(
@@ -888,17 +912,25 @@ ScoreContext = \translator {
 		(break-align-symbol . Time_signature)
 		(visibility-lambda . ,all-visible)
 		(breakable . #t)
+		(properties-to-font-name . ,properties-to-font-name)
+		(style-to-font-name . ,style-to-font-name)
+		(markup-to-properties . ,markup-to-properties)
+		(font-style . timesig)
 		(name . "TimeSignature")
 	)
 
 	TupletBracket = #`(
+		(interfaces . (tuplet-spanner-interface))
 		(number-gap . 2.0)   
 		(delta-y . 0)
 		(thick . 1.0)
 		(after-line-breaking-callback . ,Tuplet_spanner::after_line_breaking)
 		(molecule-callback . ,Tuplet_spanner::brew_molecule)
-		(interfaces . (tuplet-spanner-interface))
-		(name "TupletBracket")
+		(properties-to-font-name . ,properties-to-font-name)
+		(style-to-font-name . ,style-to-font-name)
+		(markup-to-properties . ,markup-to-properties)
+		(font-shape . "italic")
+		(name . "TupletBracket")
 	)	
 
 	SostenutoPedal = #`(
@@ -908,7 +940,10 @@ ScoreContext = \translator {
 		 (,Side_position::aligned_side
 		  ,Side_position::centered_on_parent))
 
-		(style . "italic")
+		(font-shape . "italic")
+		(properties-to-font-name . ,properties-to-font-name)
+		(style-to-font-name . ,style-to-font-name)
+		(markup-to-properties . ,markup-to-properties)
 		(no-spacing-rods . #t)
 		(self-alignment-X . 0)
 		(name  . "SostenutoPedal")
@@ -968,7 +1003,10 @@ ScoreContext = \translator {
 	)	
 	UnaChordaPdeal = #`(
 		(molecule-callback . ,Text_item::brew_molecule)
-		(style . "italic")
+		(font-shape . "italic")
+		(properties-to-font-name . ,properties-to-font-name)
+		(style-to-font-name . ,style-to-font-name)
+		(markup-to-properties . ,markup-to-properties)
 		(no-spacing-rods . #t)
 		(self-alignment-X . 0)
 		(X-offset-callbacks . (,Side_position::aligned_on_self))
@@ -987,6 +1025,10 @@ ScoreContext = \translator {
 		(thickness . 1.6)  ;  stafflinethickness
 		(height . 2.0) ; staffspace;
 		(minimum-space . 25)
+		(properties-to-font-name . ,properties-to-font-name)
+		(style-to-font-name . ,style-to-font-name)
+		(markup-to-properties . ,markup-to-properties)
+		(font-style . volta)
 		(name . "VoltaBracket")
 	)	
 

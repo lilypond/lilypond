@@ -7,6 +7,7 @@
 */
 
 #include "molecule.hh"
+#include "text-item.hh"
 #include "text-spanner.hh"
 #include "spanner.hh"
 #include "lookup.hh"
@@ -63,11 +64,16 @@ Text_spanner::brew_molecule (SCM smob)
     }
   while (flip (&d) != LEFT);
   
+#if 0
   SCM s = me->get_elt_property ("text-style");
+
   String text_style = "italic";
   if (gh_string_p (s))
     text_style = ly_scm2string (s);
- 
+#endif
+
+  SCM properties = gh_append2 (me->immutable_property_alist_,
+			       me->mutable_property_alist_);
   SCM edge_text = me->get_elt_property ("edge-text");
   Drul_array<Molecule> edge;
   if (gh_pair_p (edge_text))
@@ -75,8 +81,8 @@ Text_spanner::brew_molecule (SCM smob)
       Direction d = LEFT;
       do
 	{
-	  String text = ly_scm2string (index_cell (edge_text, d));
-	  edge[d] = me->lookup_l ()->text (text_style, text, me->paper_l ());
+	  SCM text = index_cell (edge_text, d);
+	  edge[d] = Text_item::text2molecule (me, text, properties);
 	  if (!edge[d].empty_b ())
 	    edge[d].align_to (Y_AXIS, CENTER);
 	}
@@ -87,7 +93,7 @@ Text_spanner::brew_molecule (SCM smob)
   shorten[LEFT] = 0;
   shorten[RIGHT] = 0;
 
-  s = me->get_elt_property ("shorten");
+  SCM s = me->get_elt_property ("shorten");
   if (gh_pair_p (s))
     {
       shorten[LEFT] = gh_scm2double (gh_car (s)) * staff_space;

@@ -42,7 +42,6 @@ public:
   static Molecule dashed_slur (Bezier, Real thick, Real dash) ;
   static Molecule blank (Box b) ;
   static Molecule filledbox (Box b) ;  
-  static Molecule text (String style, String text, Paper_def*) ;
 };
 Lookup* unsmob_lookup (SCM);
 #endif // LOOKUP_HH

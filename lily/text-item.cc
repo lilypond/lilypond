@@ -55,20 +55,33 @@ Text_item::text2molecule (Score_element *me, SCM text, SCM properties)
   return Molecule ();
 }
 
+static
+SCM
+get_elt_property (Score_element *me, char const *name)
+{
+  SCM s = me->get_elt_property (name);
+  if (s == SCM_EOL)
+    error (_f ("No `%s' defined for %s", name, me->name ()));
+  return s;
+}
+
 Molecule
 Text_item::string2molecule (Score_element *me, SCM text, SCM properties)
 {
   SCM style = scm_assoc (ly_symbol2scm ("font-style"), properties);
   SCM paper = me->get_elt_property ("style-sheet");
+  if (paper == SCM_EOL)
+    paper = scm_string_to_symbol (me->paper_l ()->get_scmvar ("style_sheet"));
+
   SCM font_name;
   if (gh_pair_p (style))
     {
-      SCM f = me->get_elt_property ("style-to-font-name");
+      SCM f = get_elt_property (me, "style-to-font-name");
       font_name = gh_call2 (f, paper, gh_cdr (style));
     }
   else
     {
-      SCM f = me->get_elt_property ("properties-to-font-name");
+      SCM f = get_elt_property (me, "properties-to-font-name");
       font_name = gh_call2 (f, paper, properties);
     }
    
@@ -143,8 +156,7 @@ Text_item::markup_sentence2molecule (Score_element *me, SCM markup_sentence,
 {
   SCM markup = gh_car (markup_sentence);
   SCM sentence = gh_cdr (markup_sentence);
-  SCM f = me->get_elt_property ("markup-to-properties");
-  
+  SCM f = get_elt_property (me, "markup-to-properties");
   SCM p = gh_cons (gh_call1 (f, markup), properties);
 
   Axis align = X_AXIS;
@@ -165,25 +177,16 @@ Text_item::markup_sentence2molecule (Score_element *me, SCM markup_sentence,
 
 MAKE_SCHEME_CALLBACK (Text_item, brew_molecule, 1);
 SCM 
-Text_item::brew_molecule (SCM smob) 
+Text_item::brew_molecule (SCM smob)
 {
   Score_element *me = unsmob_element (smob);
   
-  SCM text = me->get_elt_property ("scm-text");
-  Molecule mol;
-  if (text == SCM_EOL)
-    {
-      SCM style = me->get_elt_property ("style");
-      String st = gh_string_p (style) ?  ly_scm2string (style) : "";
-      SCM text = me->get_elt_property ("text");
-      String t = gh_string_p (text) ? ly_scm2string (text) : "";
-      
-      mol = me->paper_l ()->lookup_l (0)->text (st, t, me->paper_l ());
-    }
-  else
-    mol = text2molecule (me, text,
-			 gh_append2 (me->immutable_property_alist_,
-				     me->mutable_property_alist_));
+  SCM text = me->get_elt_property ("text");
+
+  SCM properties = gh_append2 (me->immutable_property_alist_,
+			       me->mutable_property_alist_);
+
+  Molecule mol = Text_item::text2molecule (me, text, properties);
 
   SCM space = me->get_elt_property ("word-space");
   if (gh_number_p (space))
