@@ -2707,8 +2707,12 @@ is an example how to do it
 
 @lilypond[quote,raggedright,fragment,relative=2,verbatim]
 \setTextCresc
-c \< d e f\!
+c\< d e f\!
 \setHairpinCresc
+e\> d c b\!
+\setTextDecresc
+c\> d e f\!
+\setTextDim
 e\> d c b\!
 @end lilypond
 

@@ -1,4 +1,9 @@
-2005-01-02    Tatsuya Ono <tats_ono@infoseek.jp>
+2005-01-02  Graham Percival <gperlist@shaw.ca>
+
+	* Documentation/user/notation.itely: add example of \setTextDecresc
+	and \setTextDim.
+
+2005-01-02  Tatsuya Ono <tats_ono@infoseek.jp>
 
 	* scm/define-markup-commands.scm :  fix glyph-strings of
 	accidentals and \note-by-number
