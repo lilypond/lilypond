@@ -133,7 +133,7 @@ public:
 
 
 /**
-   instruct lyric context to alter typesetting (unimplemented).  */
+   instruct lyric context to alter typesetting.  */
 class Melisma_req : public Span_req
 {
 public:
