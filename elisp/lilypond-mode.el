@@ -31,10 +31,13 @@
 (defvar LilyPond-region-file-prefix "emacs-lily"
   "File prefix for commands on buffer or region.")
 
+(defvar LilyPond-master-file nil
+  "Master file that will be used by Lilypond next run.")
+
 ;; FIXME: find ``\score'' in buffers / make settable?
-(defun LilyPond-master-file ()
-  ;; duh
-  (buffer-file-name))
+(defun LilyPond-get-master-file ()
+  (or LilyPond-master-file
+      (buffer-file-name)))
 
 (defvar LilyPond-kick-xdvi nil
   "If true, no simultaneous xdvi's are started, but reload signal is sent.")
@@ -286,7 +289,7 @@ in LilyPond-include-path."
   (interactive)
   (if (buffer-modified-p)
       (progn (save-buffer)
-	     (setq LilyPond-command-default "LilyPond"))))
+	     (setq LilyPond-command-next LilyPond-command-default))))
 
 ;;; return (dir base ext)
 (defun split-file-name (name)
@@ -308,6 +311,8 @@ in LilyPond-include-path."
   :group 'LilyPond
   :type 'string)
 ;;;(make-variable-buffer-local 'LilyPond-command-last)
+
+(defvar LilyPond-command-next LilyPond-command-default)
 
 (defvar LilyPond-command-current 'LilyPond-command-master)
 ;;;(make-variable-buffer-local 'LilyPond-command-master)
@@ -344,12 +349,12 @@ in LilyPond-include-path."
 (defun LilyPond-command-current-midi ()
   "Play midi corresponding to the current document."
   (interactive)
-  (LilyPond-command (LilyPond-command-menu "Midi") 'LilyPond-master-file))
+  (LilyPond-command (LilyPond-command-menu "Midi") 'LilyPond-get-master-file))
 
 (defun LilyPond-command-all-midi ()
   "Play midi corresponding to the current document."
   (interactive)
-  (LilyPond-command (LilyPond-command-menu "MidiAll") 'LilyPond-master-file))
+  (LilyPond-command (LilyPond-command-menu "MidiAll") 'LilyPond-get-master-file))
 
 (defun count-rexp (start end rexp)
   "Print number of found regular expressions in the region."
@@ -375,7 +380,7 @@ in LilyPond-include-path."
 (defun LilyPond-string-current-midi ()
   "Check the midi file of the following midi-score in the current document."
   (let ((fnameprefix (if (eq LilyPond-command-current 'LilyPond-command-master)
-			 (substring (LilyPond-master-file) 0 -3); suppose ".ly"
+			 (substring (LilyPond-get-master-file) 0 -3); suppose ".ly"
 		       LilyPond-region-file-prefix))
 	(allcount (string-to-number (substring (count-midi-words) 0 -12)))
 	(count (string-to-number (substring (count-midi-words-backwards) 0 -12))))
@@ -389,7 +394,7 @@ in LilyPond-include-path."
 (defun LilyPond-string-all-midi ()
   "Return the midi files of the current document in ascending order."
   (let ((fnameprefix (if (eq LilyPond-command-current 'LilyPond-command-master)
-			 (substring (LilyPond-master-file) 0 -3); suppose ".ly"
+			 (substring (LilyPond-get-master-file) 0 -3); suppose ".ly"
 		       LilyPond-region-file-prefix))
 	(allcount (string-to-number (substring (count-midi-words) 0 -12))))
     (concat (if (> allcount 0)  ; at least one midi-score
@@ -411,23 +416,23 @@ in LilyPond-include-path."
 
     ("2Dvi" . ("lilypond %s" . "View"))
     ("2PS" . ("lilypond -P %s" . "ViewPS"))
-    ("2Midi" . ("lilypond -m %s" . "View"))
+    ("2Midi" . ("lilypond -m %s" . "Midi"))
 
     ("Book" . ("lilypond-book %x" . "LaTeX"))
     ("LaTeX" . ("latex '\\nonstopmode\\input %l'" . "View"))
 
     ;; point-n-click (arg: exits upop USR1)
-    ("SmartView" . ("xdvi %d" . "LilyPond"))
+    ("SmartView" . ("xdvi %d"))
 
     ;; refreshes when kicked USR1
-    ("View" . (,(concat LilyPond-xdvi-command " %d") . "LilyPond"))
-    ("ViewPS" . (,(concat LilyPond-gv-command " %p") . "LilyPond"))
+    ("View" . (,(concat LilyPond-xdvi-command " %d")))
+    ("ViewPS" . (,(concat LilyPond-gv-command " %p")))
 
     ;; The following are refreshed in LilyPond-command:
     ;; - current-midi depends on cursor position and
-    ("Midi" . (,(concat LilyPond-midi-command " " (LilyPond-string-current-midi)) . "LilyPond" )) ; 
+    ("Midi" . (,(concat LilyPond-midi-command " " (LilyPond-string-current-midi)))) ; 
     ;; - all-midi depends on number of midi-score.
-    ("MidiAll" . (,(concat LilyPond-all-midi-command " " (LilyPond-string-all-midi)) . "LilyPond"))
+    ("MidiAll" . (,(concat LilyPond-all-midi-command " " (LilyPond-string-all-midi))))
     )
 
   "AList of commands to execute on the current document.
@@ -485,36 +490,35 @@ Must be the car of an entry in `LilyPond-command-alist'."
 (defun xLilyPond-compile-sentinel (process msg)
   (if (and process
 	   (= 0 (process-exit-status process)))
-      (setq LilyPond-command-default
-	      (cddr (assoc LilyPond-command-default LilyPond-command-alist)))))
+      (setq LilyPond-command-next
+	    (or (cddr (assoc LilyPond-command-next LilyPond-command-alist))
+		LilyPond-command-default))))
 
 ;; FIXME: shouldn't do this for stray View/xdvi
 (defun LilyPond-compile-sentinel (buffer msg)
   (if (string-match "^finished" msg)
-      (setq LilyPond-command-default
-	    (cddr (assoc LilyPond-command-default LilyPond-command-alist)))))
+      (setq LilyPond-command-next
+	    (or (cddr (assoc LilyPond-command-next LilyPond-command-alist))
+		LilyPond-command-default))))
 
 ;;(make-variable-buffer-local 'compilation-finish-function)
 (setq compilation-finish-function 'LilyPond-compile-sentinel)
 
 (defun LilyPond-command-query (name)
   "Query the user for what LilyPond command to use."
-  (let* ((default (cond ((if (string-equal name LilyPond-region-file-prefix)
-			     (LilyPond-check-files (concat name ".tex")
-						   (list name)
-						   (list LilyPond-file-extension))
-			   (if (verify-visited-file-modtime (current-buffer))
-			       (if (buffer-modified-p)
-				   (if (y-or-n-p "Save buffer before next command? ")
-				       (LilyPond-save-buffer)))
-			     (if (y-or-n-p "The command will be invoked to an already saved buffer. Revert it? ")
-				 (revert-buffer t t)))
-			   ;;"LilyPond"
-			   LilyPond-command-default))
-			(t LilyPond-command-default)))
-
-         (completion-ignore-case t)
-	 
+  (cond ((string-equal name LilyPond-region-file-prefix)
+	 (LilyPond-check-files (concat name ".tex")
+			       (list name)
+			       (list LilyPond-file-extension)))
+	((verify-visited-file-modtime (current-buffer))
+	 (and (buffer-modified-p)
+	      (y-or-n-p "Save buffer before next command? ")
+	      (LilyPond-save-buffer)))
+	((y-or-n-p "The command will be invoked to an already saved buffer. Revert it? ")
+	 (revert-buffer t t)))
+    
+  (let* ((default LilyPond-command-next)
+	 (completion-ignore-case t)
 	 (answer (or LilyPond-command-force
 		     (completing-read
 		      (concat "Command: (default " default ") ")
@@ -531,49 +535,49 @@ Must be the car of an entry in `LilyPond-command-alist'."
   "Run command on the current document."
   (interactive)
   (LilyPond-command-select-master)
-  (LilyPond-command (LilyPond-command-query (LilyPond-master-file))
-		    'LilyPond-master-file))
+  (LilyPond-command (LilyPond-command-query (LilyPond-get-master-file))
+		    'LilyPond-get-master-file))
 
 (defun LilyPond-command-lilypond ()
   "Run lilypond for the current document."
   (interactive)
-  (LilyPond-command (LilyPond-command-menu "LilyPond") 'LilyPond-master-file)
+  (LilyPond-command (LilyPond-command-menu "LilyPond") 'LilyPond-get-master-file)
 )
 
 (defun LilyPond-command-formatdvi ()
   "Format the dvi output of the current document."
   (interactive)
-  (LilyPond-command (LilyPond-command-menu "2Dvi") 'LilyPond-master-file)
+  (LilyPond-command (LilyPond-command-menu "2Dvi") 'LilyPond-get-master-file)
 )
 
 (defun LilyPond-command-formatps ()
   "Format the ps output of the current document."
   (interactive)
-  (LilyPond-command (LilyPond-command-menu "2PS") 'LilyPond-master-file)
+  (LilyPond-command (LilyPond-command-menu "2PS") 'LilyPond-get-master-file)
 )
 
 (defun LilyPond-command-formatmidi ()
   "Format the midi output of the current document."
   (interactive)
-  (LilyPond-command (LilyPond-command-menu "2Midi") 'LilyPond-master-file)
+  (LilyPond-command (LilyPond-command-menu "2Midi") 'LilyPond-get-master-file)
 )
 
 (defun LilyPond-command-smartview ()
   "View the dvi output of current document."
   (interactive)
-  (LilyPond-command (LilyPond-command-menu "SmartView") 'LilyPond-master-file)
+  (LilyPond-command (LilyPond-command-menu "SmartView") 'LilyPond-get-master-file)
 )
 
 (defun LilyPond-command-view ()
   "View the dvi output of current document."
   (interactive)
-  (LilyPond-command (LilyPond-command-menu "View") 'LilyPond-master-file)
+  (LilyPond-command (LilyPond-command-menu "View") 'LilyPond-get-master-file)
 )
 
 (defun LilyPond-command-viewps ()
   "View the ps output of current document."
   (interactive)
-  (LilyPond-command (LilyPond-command-menu "ViewPS") 'LilyPond-master-file)
+  (LilyPond-command (LilyPond-command-menu "ViewPS") 'LilyPond-get-master-file)
 )
 
 ;; FIXME, this is broken
@@ -670,8 +674,8 @@ command."
 		    (LilyPond-kill-midi))) ; stop and start playing
 	      (if (and (member name (list "Midi" "MidiAll")) job-string)
 		  (if (file-newer-than-file-p
-		       (LilyPond-master-file)
-		       (concat (substring (LilyPond-master-file) 0 -3) ".midi"))
+		       (LilyPond-get-master-file)
+		       (concat (substring (LilyPond-get-master-file) 0 -3) ".midi"))
 		      (if (y-or-n-p "Midi older than source. Reformat midi?")
 			  (progn
 			    (LilyPond-command-formatmidi)
@@ -694,7 +698,7 @@ command."
 				(sit-for 0 100)))
 			  (setq job-string nil)))))
 
-	      (setq LilyPond-command-default name)
+	      (setq LilyPond-command-next name)
 	      (if (string-equal job-string "no jobs")
 		  (LilyPond-compile-file command name))))))))
 	  
@@ -948,12 +952,12 @@ command."
 ;;; Some kind of mapping which includes :keys might be more elegant
 ;;; Put keys to LilyPond-command-alist and fetch them from there somehow.
 	  '([ "LilyPond" LilyPond-command-lilypond t])
-	  '([ "TeX" (LilyPond-command (LilyPond-command-menu "TeX") 'LilyPond-master-file) ])
+	  '([ "TeX" (LilyPond-command (LilyPond-command-menu "TeX") 'LilyPond-get-master-file) ])
 	  '([ "2Dvi" LilyPond-command-formatdvi t])
 	  '([ "2PS" LilyPond-command-formatps t])
 	  '([ "2Midi" LilyPond-command-formatmidi t])
-	  '([ "Book" (LilyPond-command (LilyPond-command-menu "Book") 'LilyPond-master-file) ])
-	  '([ "LaTeX" (LilyPond-command (LilyPond-command-menu "LaTeX") 'LilyPond-master-file) ])
+	  '([ "Book" (LilyPond-command (LilyPond-command-menu "Book") 'LilyPond-get-master-file) ])
+	  '([ "LaTeX" (LilyPond-command (LilyPond-command-menu "LaTeX") 'LilyPond-get-master-file) ])
 	  '([ "Kill jobs" LilyPond-kill-jobs t])
 	  '("-----")
 	  '([ "SmartView" LilyPond-command-smartview t])
@@ -1168,7 +1172,7 @@ LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
   (interactive)
   (require 'ilisp)
   (guile "lilyguile" (LilyPond-command-expand (cadr (assoc "2Dvi" LilyPond-command-alist))
-                                              (funcall 'LilyPond-master-file)))
+                                              (funcall 'LilyPond-get-master-file)))
   (comint-default-send (ilisp-process) "(define-module (*anonymous-ly-1*))")
   (comint-default-send (ilisp-process) "(set! %load-path (cons \"/usr/share/ilisp/\" %load-path))")
   (comint-default-send (ilisp-process) "(use-modules (guile-user) (guile-ilisp))")
