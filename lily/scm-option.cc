@@ -46,8 +46,12 @@ bool lily_1_8_compatibility_used = false;
  */
 bool internal_type_checking_global_b;
 
+
+/*
+  What is this function for ? 
+ */
 LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 0, 0, (SCM),
-		  "Print ly-set-option usage")
+		  "Print ly:set-option usage")
 {
   printf ( _("lilypond -e EXPR means:").to_str0 ());
   puts ("");
@@ -55,17 +59,11 @@ LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 0, 0, (SCM),
   puts ("");
   printf (_ ("  Multiple -e options may be given, they will be evaluated sequentially.").to_str0 ());
   puts ("");
-  printf (_("  The function ly-set-option allows for access to some internal variables.").to_str0 ());
+  printf (_("  The function ly:set-option allows for access to some internal variables.").to_str0 ());
   puts ("\n");
   printf (_ ("Usage: lilypond-bin -e \"(ly-set-option SYMBOL VAL)\"").to_str0 ());
   puts ("\n");
-  printf (_ ("Where SYMBOL VAL pair is any of:").to_str0 ());
-  puts ("");
-  printf ( "  help ANY-SYMBOL\n"
-	   "  internal-type-checking BOOLEAN\n"
-	   "  midi-debug BOOLEAN\n"
-	   "  parse-protect BOOLEAN\n"
-	   "  testing-level INTEGER\n");
+  printf (_ ("Use help as  SYMBOL to get online help.").to_str0 ());
 
   exit (0);
   return SCM_UNSPECIFIED;
@@ -77,7 +75,11 @@ LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 0, 0, (SCM),
 don't timestamp the output
 
 @item -t,--test
-Switch on any experimental features.  Not for general public use. */
+Switch on any experimental features.  Not for general public use.
+
+*/
+
+
 LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
 	    "Set a global option value.  Supported options include\n"
 "\n"

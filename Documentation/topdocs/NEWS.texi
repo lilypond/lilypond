@@ -81,7 +81,7 @@ is the same as
 The default value is one octave below middle C.
 
 @c update-me?  formal definition of newaddlyrics, once it works
-@item Combining lyrics with music can be @code{newlyrics}
+@item Combining lyrics with music can be @code{\newlyrics}
 
 @example
 <<
@@ -98,7 +98,7 @@ The default value is one octave below middle C.
 >>
 @end example
 
-Syntactically, @code{\newlyrics} acts like an infix operator
+Syntactically, @code{\newlyrics} acts like an infix operator.
 
 @item The parser is encapsulated in a Scheme function
 @code{ly:parse-file}, so the following fragment processes two files

@@ -93,6 +93,9 @@ LY_DEFINE (ly_input_message, "ly:input-message", 2, 0, 0, (SCM sip, SCM msg),
   return SCM_UNDEFINED;
 }
 
+/*
+  TODO: rename this function. ly:input-location? vs ly:input-location
+ */
 LY_DEFINE (ly_input_location, "ly:input-location", 1, 0, 0, (SCM sip),
 	  "Return input location in @var{sip} as (filename line column).")
 {

@@ -7,6 +7,7 @@
 
 */
 
+#include "main.hh"
 #include "string.hh"
 #include "lily-guile.hh"
 #include "ly-module.hh"
@@ -20,15 +21,39 @@ void
 ly_init_anonymous_module (void *data)
 {
   (void) data;
-  scm_c_use_module ("lily");
 }
 
 SCM
-ly_make_anonymous_module ()
+ly_make_anonymous_module (bool safe)
 {
-  String s = "*anonymous-ly-" + to_string (module_count++) +  "*";
-  SCM mod = scm_c_define_module (s.to_str0 (), ly_init_anonymous_module, 0);
+  SCM mod = SCM_EOL;
+  if (!safe)
+    {
+      
+      String s = "*anonymous-ly-" + to_string (module_count++) +  "*";
+      mod = scm_c_define_module (s.to_str0 (), ly_init_anonymous_module, 0);
+
+      ly_use_module (mod, global_lily_module);
+    }
+  else
+    {
+      SCM proc = ly_scheme_function ("make-safe-lilypond-module");
+
+      mod = scm_call_0 (proc);
+    }
   return mod;
+}
+
+SCM
+ly_use_module (SCM mod, SCM used)
+{
+  SCM expr
+    = scm_list_3 (ly_symbol2scm ("module-use!"),
+		  mod,
+		  scm_list_2 (ly_symbol2scm ("module-public-interface"),
+			      used));
+  
+  return scm_eval (expr, global_lily_module);
 }
 
 #define FUNC_NAME __FUNCTION__
@@ -38,7 +63,8 @@ ly_module_define (void *closure, SCM key, SCM val, SCM result)
 {
   (void) result;
   SCM module = (SCM) closure;
-  scm_module_define (module, key, scm_variable_ref (val));
+  if (scm_variable_bound_p (val) == SCM_BOOL_T)
+    scm_module_define (module, key, scm_variable_ref (val));
   return SCM_EOL;
 }
 

@@ -104,7 +104,7 @@ My_lily_lexer::My_lily_lexer (Sources *sources)
   error_level_ = 0; 
   main_input_b_ = false;
   
-  add_scope (ly_make_anonymous_module ());
+  add_scope (ly_make_anonymous_module (safe_global_b));
 }
 
 My_lily_lexer::My_lily_lexer (My_lily_lexer const &src)
@@ -126,6 +126,7 @@ My_lily_lexer::encoding () const
   return encoding_ ;
 }
 
+
 void
 My_lily_lexer::add_scope (SCM module)
 {
@@ -133,13 +134,7 @@ My_lily_lexer::add_scope (SCM module)
   scm_set_current_module (module);
   for (SCM s = scopes_; ly_c_pair_p (s); s = ly_cdr (s))
     {
-      /* UGH. how to do this more neatly? */      
-      SCM expr
-	= scm_list_3 (ly_symbol2scm ("module-use!"),
-		      module,
-		      scm_list_2 (ly_symbol2scm ("module-public-interface"),
-				  ly_car (s)));
-      scm_primitive_eval (expr);
+      ly_use_module (module, ly_car (s));
     }
   scopes_ = scm_cons (module, scopes_);
 }

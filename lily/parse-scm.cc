@@ -13,7 +13,7 @@
    
    Thanks to Gary Houston <ghouston@freewire.co.uk>  */
 SCM
-internal_ly_parse_scm (Parse_start * ps, bool safe)
+internal_ly_parse_scm (Parse_start * ps)
 {
   Source_file* sf =ps->start_location_.source_file_;
   SCM port = sf->get_port ();
@@ -29,17 +29,6 @@ internal_ly_parse_scm (Parse_start * ps, bool safe)
   /* Read expression from port */
   if (!SCM_EOF_OBJECT_P (form = scm_read (port)))
     {
-      if (safe)
-	{
-	  static SCM safe_module;
-	  if (!safe_module)
-	    {
-	      safe_module = scm_primitive_eval (ly_symbol2scm ("safe-module"));
-	      ly_import_module (safe_module, scm_c_resolve_module ("lily"));
-	    }
-	  answer = scm_eval (form, safe_module);
-	}
-      else
 	answer = scm_primitive_eval (form);
     }
  
@@ -62,14 +51,14 @@ SCM
 catch_protected_parse_body (void *p)
 {
   Parse_start *ps = (Parse_start*) p;
-  return internal_ly_parse_scm (ps, false);
+  return internal_ly_parse_scm (ps);
 }
 
 SCM
 safe_catch_protected_parse_body (void *p)
 {
   Parse_start *ps = (Parse_start*) p;
-  return internal_ly_parse_scm (ps, true);
+  return internal_ly_parse_scm (ps);
 }
 
 SCM 
@@ -105,11 +94,10 @@ parse_handler (void * data, SCM tag, SCM args)
 #endif
 
 SCM
-protected_ly_parse_scm (Parse_start *ps, bool safe)
+protected_ly_parse_scm (Parse_start *ps)
 {
   return scm_internal_catch (ly_symbol2scm (READ_ERROR),
-			     (safe ? &safe_catch_protected_parse_body
-			      : catch_protected_parse_body),
+			     &catch_protected_parse_body,
 			     (void*) ps,
 			     &parse_handler, (void*) ps);
 }
@@ -124,8 +112,8 @@ ly_parse_scm (char const* s, int *n, Input i, bool safe)
   ps.str = s;
   ps.start_location_ = i;
 
-  SCM ans = parse_protect_global ? protected_ly_parse_scm (&ps, safe)
-    : internal_ly_parse_scm (&ps, safe);
+  SCM ans = parse_protect_global ? protected_ly_parse_scm (&ps)
+    : internal_ly_parse_scm (&ps);
   *n = ps.nchars;
 
   return ans;  

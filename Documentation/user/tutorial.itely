@@ -482,8 +482,11 @@ Here are key signatures, accidentals and ties in action
 @end example
 
 @c TODO: use relative mode, verbatim, junk \transpose and above @example
+
+
+
 @lilypond[quote,noindent,linewidth=50\staffspace]
-\transpose c c' { 
+\transpose c c' {
   \time 4/4
   \key g \minor
   \clef violin
@@ -493,7 +496,9 @@ Here are key signatures, accidentals and ties in action
   gis2 r2
 }
 @end lilypond
+
 @cindex accidentals
+
 
 @noindent
 There are some interesting points to note in this example.  Bar lines

@@ -500,7 +500,7 @@ embedded_scm:
 
 lilypond_header_body:
 	{
-		$$ = ly_make_anonymous_module ();
+		$$ = ly_make_anonymous_module (safe_global_b);
 		THIS->lexer_->add_scope ($$);
 	}
 	| lilypond_header_body assignment  {
