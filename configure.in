@@ -3,6 +3,12 @@ dnl  Process this file with autoconf to produce a configure script.
 
 dnl should cache result.
 dnl should  look in $prefix first.
+printing_b=no
+checking_b=yes
+debug_b=yes
+optimise_b=no
+profile_b=no
+#shared_b=no
 
 AC_DEFUN(AC_TEX_PREFIX, [
     
@@ -75,24 +81,18 @@ AC_INIT(flower/choleski.cc)
 
 
 AC_LANG_CPLUSPLUS
-printing_b=no
-checking_b=yes
-debug_b=yes
-optimise_b=no
-profile_b=no
-#shared_b=no
 
 AC_ARG_ENABLE(printing,
-    [  enable-printing        set debug printing],
+    [  enable-printing        turn on debug printing],
     [printing_b=$enableval])
 
 	
 AC_ARG_ENABLE(checking,
-    [  disable-checking       set runtime checks],
+    [  disable-checking       set runtime checks (assert calls)],
     [checking_b=$enableval] )
 
 AC_ARG_ENABLE(debugging,
-    [  disable-debugging         set debug info],
+    [  disable-debugging         set debug info ],
     [debug_b=$enableval])
 
 AC_ARG_ENABLE(optimise,
@@ -105,12 +105,12 @@ AC_ARG_ENABLE(profiling,
     [profile_b=$enableval])
     
 AC_ARG_ENABLE(tex-prefix,
-    [  tex-prefix=DIR  set the tex-directory to find TeX subdirectories.],
+    [  tex-prefix=DIR  set the tex-directory to find TeX subdirectories. (default: PREFIX)],
     [TEXPREFIX=$enableval],
     [TEXPREFIX=auto] )
     
 AC_ARG_ENABLE(tex-dir,
-    [  tex-dir=DIR  set the directory to put LilyPond  TeX files in.],
+    [  tex-dir=DIR  set the directory to put LilyPond  TeX files in. ],
     [TEXDIR=$enableval],
     [TEXDIR=auto] )
 AC_ARG_ENABLE(mf-dir,
@@ -170,6 +170,8 @@ AC_CHECK_PROGS(PODMAN, pod2man, error)
     
 if test "x$TEXPREFIX" = xauto ; then
     AC_TEX_PREFIX(TEXPREFIX)
+else
+ find_texprefix=$TEXPREFIX
 fi
     
 if test "x$TEXDIR" = xauto ; then

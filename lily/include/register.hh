@@ -1,8 +1,11 @@
 /*
-  register.hh -- part of LilyPond
+  register.hh -- declare Request_register
 
-  (c) 1996,1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  source file of the LilyPond music typesetter
+
+  (c) 1996, 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
+
 
 #ifndef REGISTER_HH
 #define REGISTER_HH

@@ -5,7 +5,8 @@
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 
-  todo: key undo
+  
+  Todo: key undo, special keys.
   
   */
 #include "key-reg.hh"

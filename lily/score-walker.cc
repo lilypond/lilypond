@@ -48,7 +48,7 @@ Score_walker::operator ++(int )
     if (ok() && ptr()->when() == last)
 	PCursor<Score_column *>::operator++(0);
     reinit();
-    bool last_b =  (!ok());	// urgh
+    bool last_b =  (!ok());	// ughh
     for (int i=0; i< walker_p_arr_.size(); i++) {
 	if (walker_p_arr_[i]->ok() &&
 	    (last_b || walker_p_arr_[i]->when() < when())) {

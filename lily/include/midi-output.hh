@@ -11,6 +11,7 @@
 #define MIDIOUTPUT_HH
 #include "lily-proto.hh"
 
+
 struct Midi_output {
     Midi_output(Score* score_l, Midi_def* );
 

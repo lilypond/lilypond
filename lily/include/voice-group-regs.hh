@@ -23,13 +23,13 @@ protected:
     virtual void post_move_processing();
     virtual bool try_request(Request*);
 public:
-
+    void OK() const;
     virtual Request_register * get_register_p(Request_register  * reg_l);
     /// each group in a staff has an unique ID.
     String group_id_str_;
 
     /// The pointers are in the base class. This is just administration
-    Array<Voice_registers*> voice_regs_l_;
+    Array<Voice_registers*> voice_reg_l_arr_;
     /* *************** */
     
     NAME_MEMBERS(Voice_group_registers);

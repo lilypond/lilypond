@@ -3,10 +3,24 @@
 #include "paper-def.hh"
 #include "molecule.hh"
 #include "text-def.hh"
+#include "dimen.hh"
+
+Interval
+Text_def::width() const
+{
+    Atom a = create_atom();
+
+    Real guess_width_f = text_str_.length_i() * a.sym.dim.x.length(); // ugh
+    Interval i(0, guess_width_f);
+    i += - (align_i_ + 1)* i.center();
+    return i;
+}
+
 
 Text_def::Text_def()
 {   
-    align_i_ = 1;			// right
+    align_i_ = -1;			// right
+    pdef_l_ = 0;
     style_str_ = "roman";
 }
 bool
@@ -17,9 +31,9 @@ Text_def::compare(Text_def const &def)
 }
 
 Atom
-Text_def::create_atom(Paper_def*p) const
+Text_def::create_atom() const
 {
-    return p->lookup_l()->text(style_str_, text_str_, -align_i_);
+    return pdef_l_->lookup_l()->text(style_str_, text_str_, -align_i_);
 }
 
 void

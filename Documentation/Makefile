@@ -51,7 +51,7 @@ localclean:
 	rm -f out/*
 	rm -f $(TEXTFILES) $(HTMLFILES) $(GROFFFILES)
 
-MAN1FILES = lilypond convert-mudela
+MAN1FILES = lilypond convert-mudela mi2mu
 MAN1GROFF = $(addprefix $(outdir)/, $(addsuffix .1,$(MAN1FILES)))
 
 bla:

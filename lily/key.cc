@@ -1,3 +1,14 @@
+/*
+  key.cc -- implement Key, Octave_key
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+
+  TODO
+  transposition.
+*/
+
 #include "key.hh"
 
 const int OCTAVES=14;		// ugh..

@@ -1,8 +1,11 @@
 /*
-  break.hh -- part of LilyPond
+  break.hh -- declare  Break_algorithm
 
-  (c) 1996,97 Han-Wen Nienhuys
+  source file of the LilyPond music typesetter
+
+  (c) 1996, 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
+
 
 #ifndef BREAK_HH
 #define BREAK_HH
@@ -11,7 +14,12 @@
 #include "colhpos.hh"
 
 /** Class representation of an algorithm which decides where to put
-  the column, and where to break lines.  */
+  the column, and where to break lines.
+  
+  TODO: a decent algorithm, based on dynamic programming or something
+  a like. A "parindent", caching of breakpoints
+  
+  */
 struct Break_algorithm {
     PScore &pscore_;
     Real linelength;

@@ -29,6 +29,8 @@ int compare (PQueue_ent<K,T> const &e1 , PQueue_ent<K,T> const &e2) {
 
   Hungarian postfix pq
   
+  TODO: add increase/decrease operations,
+  add max() operation
  */
 template<class T>
 class PQueue {

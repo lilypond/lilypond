@@ -1,3 +1,17 @@
+/*
+  beam.cc -- implement Beam
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+
+  TODO
+
+  Less hairy code. Better slope calculations.
+  knee ([\stem 1; c8 \stem -1; c8]
+  
+*/
+
 #include "varray.hh"
 
 #include "proto.hh"
@@ -112,7 +126,7 @@ Beam::solve_slope()
     left_pos *= dir_i_;    
     slope *= dir_i_;
 
-				// URG
+				// ugh
     Real sl = slope*paper()->internote();
     paper()->lookup_l()->beam(sl, 20 PT);
     slope = sl /paper()->internote();

@@ -7,9 +7,12 @@
 
 
 /**
-  this needs A LOT of rethinking.
-
   generate springs between columns.
+
+  TODO: This needs A LOT of rethinking.  Spacing should take optical
+  effects into account, should be local (measure wide), should check
+  smallest divisions.
+    
 
   */
 void

@@ -106,6 +106,14 @@ My_lily_parser::set_duration_mode(String s)
 }
 
 void
+My_lily_parser::set_default_duration(Duration const *d)
+{
+    last_duration_mode = false;
+    default_duration_ = *d;
+}
+
+
+void
 My_lily_parser::set_last_duration(Duration const *d)
 {
     if (last_duration_mode)
@@ -130,21 +138,29 @@ My_lily_parser::get_word_element(Text_def* tdef_p, Duration * duration_p)
 }
 
 Voice_element *
-My_lily_parser::get_rest_element(String,  Duration * duration_p )
+My_lily_parser::get_rest_element(String s,  Duration * duration_p )
 {    
     Voice_element* velt_p = new Voice_element;
     velt_p->set_spot( here_input());
 
-    Rest_req * rest_req_p = new Rest_req;
-    rest_req_p->duration_ = *duration_p;
-    rest_req_p->set_spot( here_input());
-
-    velt_p->add(rest_req_p);
-    
+    if (s=="s") { /* Space */
+	Skip_req * skip_p = new Skip_req;
+	skip_p->duration_ = duration_p->length();
+	skip_p->set_spot( here_input());
+	velt_p->add(skip_p);
+    }
+    else {
+	Rest_req * rest_req_p = new Rest_req;
+	rest_req_p->duration_ = *duration_p;
+	rest_req_p->set_spot( here_input());
+	
+	velt_p->add(rest_req_p);
+    }
     Stem_req * stem_p = new Stem_req;
     stem_p->duration_ = *duration_p;
     stem_p->set_spot ( here_input ());
     velt_p->add(stem_p);
+
     delete duration_p;
     return velt_p;
 }

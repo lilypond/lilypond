@@ -7,9 +7,9 @@
 %
 % copyright: None
 %
-% declare melody (which will be in *one* staff ) for the lead voice
 \version "0.0.54";
 
+% declare melody (which will be in *one* staff ) for the lead voice
 melodie = \melodic {
 	 			% switch Lilypond in note-mode
 	\clef\violin;

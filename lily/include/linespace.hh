@@ -45,6 +45,9 @@ struct Colinfo {
 
     The quality is given by the total potential energy in the
     springs. The lower the energy, the better the configuration.
+
+    TODO: make item widths work per pstaff.
+
 */
 class Spacing_problem {
     Array<Idealspacing const *> ideals;

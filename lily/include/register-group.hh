@@ -38,7 +38,7 @@ public:
     /**
       Remove #reg_l# from the list, and return it.
      */
-    Request_register * get_register_p(Request_register*reg_l);
+    virtual Request_register * get_register_p(Request_register*reg_l);
     virtual void set_feature(Feature i);
     virtual bool acceptable_request_b(Request*)const;
     virtual void pre_move_processing();

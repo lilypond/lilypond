@@ -1,12 +1,17 @@
-% JS Bach, Das Wohltemperirtes Clavier I, Fuga II (c-minor)
 %
-%	Public Domain -- typed by by HWN
+% title: Das Wohltemperirte Clavier I, Fuga II (c-minor)
+% description: 
+% composer(s): JS Bach
+% entered-by: HWN
+% copyright:Public Domain 
 %
+% Tested Features:stem direction, multivoice.
+%
+
 \version "0.0.54";
 
 global = \melodic{
  	\meter 4/4 ;
- 	\grouping 2*2; 
  	\key bes es as; 
 }
   
@@ -90,7 +95,7 @@ comes = \melodic  {
 	[G F16 Es] [F8 D] [As G] r A |
 	[B c] [F16 Es D C] [C8 c16 B] [c8  G]|
 	[As c16 B] [c8 d] [G8 c16 B] [c8 d] |
-	[F16 G] As4 [G16 F] E2. |
+	[F16 G] As4 [G16 F] E2 |
 	
 }
 

@@ -10,10 +10,11 @@
 #include "lyric-register.hh"
 #include "musical-request.hh"
 #include "text-item.hh"
+#include "paper-def.hh"
+#include "lookup.hh"
 
 Lyric_register::Lyric_register()
 {
-    
 }
 
 bool
@@ -32,8 +33,9 @@ Lyric_register::process_requests()
 {
     Text_item * last_item_l =0;
     for (int i=0; i < lreq_arr_.size(); i++) {
-	Text_item *lp = new Text_item(lreq_arr_[i]);
+	Text_item *lp = new Text_item(lreq_arr_[i]->tdef_p_ );
 	lp->dir_i_ = -1;
+	lp->fat_b_ = true;
 	if (last_item_l)
 	    lp->add_support(last_item_l);
 	last_item_l = lp;

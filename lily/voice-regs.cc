@@ -18,6 +18,7 @@
 
 Voice_registers::Voice_registers(Voice *v_p, Input_register const*ireg_C)
 {
+    terminate_b_ = false;
     ireg_C_ = ireg_C;
     voice_l_ = v_p;
     add(ireg_C->get_nongroup_p_arr());
@@ -39,7 +40,7 @@ Voice_registers::try_request(Request*r_l)
     
     Command_req *c=r_l->command();
     if (c&&c->terminate()) {
-	daddy_reg_l_->terminate_register(this);
+	terminate_b_ = true;
 	return true;		// scary. We're deleted now.. 
     } else if (c&&c->groupchange()) {
 	/* this is scary as well. The groupchange has to be handled by
@@ -49,7 +50,7 @@ Voice_registers::try_request(Request*r_l)
 	assert(daddy_reg_l_->name() == Voice_group_registers::static_name());
 	((Staff_registers*)daddy_reg_l_->daddy_reg_l_)->	// scary.
 	    change_group(c->groupchange(), this,
-			 (Voice_group_registers*)daddy_reg_l_);	// UGR!
+			 (Voice_group_registers*)daddy_reg_l_);	// ugh!
 	return true;
     }
     
@@ -72,4 +73,13 @@ Voice_registers::do_print() const
     mtor << "Voice= " << voice_l_<<'\n';
     Register_group_register::do_print();
 #endif
+}
+
+void
+Voice_registers::pre_move_processing()
+{
+    if (terminate_b_)
+	daddy_reg_l_->terminate_register(this);
+    else 
+	Register_group_register::pre_move_processing();
 }

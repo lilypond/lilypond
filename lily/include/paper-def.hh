@@ -1,9 +1,9 @@
 /*
-  paper-def.hh -- declare Paper_def
+paper-def.hh -- declare Paper_def
 
   source file of the LilyPond music typesetter
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1996,1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 
@@ -15,12 +15,19 @@
 #include "moment.hh"
 
 
-/** symbols, dimensions and constants
+/** 
+
+  symbols, dimensions and constants
 
   This struct takes care of all kinds of symbols, dimensions and
  constants. Most of them are related to the point-size of the fonts,
  so therefore, the lookup table for symbols is also in here.
 
+ TODO: 
+
+ add support for multiple fontsizes 
+ split into "Input_paper_def" and Paper_def
+ add support for other len->wid conversions.
  */
 class Paper_def {
     Lookup *lookup_p_;

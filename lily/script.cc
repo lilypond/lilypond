@@ -55,7 +55,7 @@ Script::set_default_dir()
 void
 Script::set_default_index()
 {
-    pos_i_ = get_position_i();
+    pos_i_ = get_position_i(symbol().dim.y);
 }
 
 Interval

@@ -1,5 +1,7 @@
 %%
 %% include file for LilyPond
+%%
+%% this file defines various macros to accomodate lilypond output
 
 \def\mdef#1#2{\def#1{\mchar{#2}}}
 \def\mchar#1{\musicfnt\char#1}
@@ -9,6 +11,14 @@
         \raise\dimen0\hbox{#1}}
 \def\maccentdef#1#2#3{\def#1{\maccentraise{\mchar{#2}}{#3}}}
 \def\vcenter#1{\vbox to 0pt{\vss #1\vss}}
+
+\def\mathdef#1#2{\def#1{\mathchar{#2}}}
+% \def\mathchar#1{\mathfnt\char#1}
+\def\mathchar#1{$#1$}
+\def\mathaccentraise#1#2{\dimen0=\noteheight
+        \rationalmultiply\dimen0*#2%
+        \raise\dimen0\hbox{#1}}
+\def\mathaccentdef#1#2#3{\def#1{\mathaccentraise{\mathchar{#2}}{#3}}}
 
 \def\topalign#1{\vbox to 0pt{#1\vss}}
 \def\botalign#1{\vbox to 0pt{\vss #1}}
@@ -63,7 +73,7 @@
         \font\hslurdfont=xslhd16
         \font\hslurhfont=xslhz20
         \font\musicfnt=musix16
-        \font\dynfont=cmbxti10
+        \font\dynfont=cmbxti12
         \font\musicdraw=musixsps
         \balkhoog=16pt
         \staffrulethickness=0.4pt
@@ -88,18 +98,19 @@
 }
 % \def\dyn{\italicfont}
 \def\dyn{\dynfont}
-\def\dynf{f\kern-.1ex}
-\def\dynm{f\kern-.15ex}
-\def\dynp{p\kern-.15ex}
+\def\kdynf{\dynfont f\kern-.1ex}
+\def\kdynm{\dynfont f\kern-.15ex}
+\def\kdynp{\dynfont p\kern-.15ex}
 
-\def\dynppp{\dynfont\dynp\dynp p}
-\def\dynpp{\dynfont\dynp p}
+\def\dynppp{\dynfont\dynp\kdynp p}
+
+\def\dynpp{\dynfont p\kdynp}
 \def\dynp{\dynfont p}
-\def\dynmp{\dynfont\dynm p}
-\def\dynmf{\dynfont\dynm f}
+\def\dynmp{\dynfont m\kdynp}
+\def\dynmf{\dynfont m\kdynf}
 \def\dynf{\dynfont f}
-\def\dynff{\dynfont\dynf f}
-\def\dynfff{\dynfont\dynf\dynf f}
+\def\dynff{\dynfont f\kdynf}
+\def\dynfff{\dynfont f\kdynf \kdynf}
 
 \def\slurcharh#1{{\slurhfont\char#1}}
 \def\slurcharu#1{{\slurufont\char#1}}
@@ -231,13 +242,16 @@
 \maccentdef\fermata{80}{-1/1}
 \maccentdef\ifermata{81}{1/1}
 
-
-
 \mdef\spicato{28}
 \mdef\ispicato{29}
 \mdef\upbow{23}
 \mdef\downbow{22}
 \mdef\portato{26}
+
+% \mathdef\heel\cup % "225B
+% \mathdef\toe\wedge % "225E
+\mathaccentdef\heel\cup{-1/1}
+\mathaccentdef\toe\wedge{-1/1}
 
 \def\stem#1#2{\vrule height#2 depth-#1}
 

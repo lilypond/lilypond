@@ -17,6 +17,8 @@ struct Assoc_ent_ {
 
 /** mindblowingly stupid Associative array implementation.
   Hungarian: map
+
+  TODO: a decent hash for strings.
  */
 template<class K, class V>
 struct Assoc {

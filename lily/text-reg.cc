@@ -39,7 +39,7 @@ void
 Text_register::process_requests()
 {
     if (text_req_l_) {
-	text_p_ = new Text_item(text_req_l_); // UGH
+	text_p_ = new Text_item(text_req_l_->tdef_p_, 0); // ugh
 	announce_element(Staff_elem_info(text_p_, text_req_l_));
     }
 }

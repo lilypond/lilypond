@@ -4,6 +4,12 @@
   source file of the LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+
+  TODO
+  This doth suck. We should have PS output, and read spacing info from TFMs
+  
+  Glissando, bracket
+  
 */
 
 #include "lookup.hh"
@@ -54,7 +60,7 @@ Lookup::text(String style, String text, int dir) const
 
     Symbol s = (*symtables_)("align")->lookup(dir);
     s.tex = substitute_args(s.tex,a);
-    s.dim.y = tsym.dim.y;
+    s.dim = tsym.dim;
     return s;
 }
 

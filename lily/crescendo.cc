@@ -30,7 +30,7 @@ Molecule*
 Crescendo::brew_molecule_p() const return m_p ;
 {
     Real x_off_dim=0.0;
-    Real absdyn_dim = 10 PT;	// UGR
+    Real absdyn_dim = 10 PT;	// ugh
     
     m_p = new Molecule;
     Real w_dim = width().length();

@@ -31,6 +31,7 @@ class My_lily_parser {
     Voice_element* get_rest_element(String,Duration *);
     Voice_element* get_word_element(Text_def*, Duration*);
     void set_last_duration(Duration const *);
+    void set_default_duration(Duration const *);
     void set_duration_mode(String s);
     friend int yyparse( void*);
 public:

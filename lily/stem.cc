@@ -128,7 +128,7 @@ Stem::set_default_stemlen()
 	set_default_dir();
 
     
-    // uhh... how about non 5-line staffs?
+    // ugh... how about non 5-line staffs?
     if ((max_head_i() < -2 && dir_i_ == 1 )
 	||(min_head_i() > staff_size_i_ + 2 && dir_i_ == -1) ){
 	set_stemend(    staff_size_i_ /2 );
@@ -202,17 +202,15 @@ Molecule*
 Stem::brew_molecule_p()const 
 {
     Molecule *out =0;
+    if (invisible_b() && ! rest_l_arr_.size())
+	warning("Empty stem. Ugh!");
+    
     if ( invisible_b() )
 	return Staff_elem::brew_molecule_p();
     
     Real bot  = stem_bottom_f_;
     Real top = stem_top_f_;
-    if (min_head_i() > max_head_i()) {
-	warning("Empty stem. Ugh!");
-	bot = -10;
-	top = 20;
-    }
-
+    
     assert(bot!=top);
  
     Paper_def *p =paper();
