@@ -17,13 +17,6 @@
 
 (translator-property-description 'ExtraVerticalExtent
 				 number-pair? "extra vertical extent, same format as  MinimumVerticalExtent")
-(translator-property-description 'Generic_property_list list? "description of the conversion.
-
-Defines names and types for generic properties. These are properties
-than can be plugged into the backend directly. See the init file
-@file{generic-property.scm} for details.  For internal use only,
-deprecated.
-")
 (translator-property-description 'MinimumVerticalExtent number-pair?
 				 "minimum vertical extent, same format as VerticalExtent")
 (translator-property-description 'VerticalExtent number-pair?

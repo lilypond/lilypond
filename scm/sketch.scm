@@ -170,11 +170,6 @@
    (sketch-numbers->string (map mul-scale (list x y)))
    "))\n"))
 
-(define (hairpin x y thick width starth endh )
-  (string-append
-   "#"
-   (numbers->string (list width starth endh thick))
-   " draw_hairpin"))
 
 ;; what the heck is this interface ?
 (define (dashed-slur thick dash l)
@@ -264,17 +259,6 @@ layer('Layer 1',1,1,0,0,(0,0,0))
 (define (text x y s)
   (string-append "txt('" s "',(" (sketch-numbers->string
 				  (map mul-scale (list x y))) "))\n"))
-
-
-(define (volta x y h w thick vert_start vert_end)
-  (string-append "#"
-   (numbers->string (list h w thick (inexact->exact vert_start) (inexact->exact vert_end)))
-   " draw_volta"))
-
-(define (tuplet x y ht gap dx dy thick dir)
-  (string-append "#"
-   (numbers->string (list ht gap dx dy thick (inexact->exact dir)))
-   " draw_tuplet"))
 
 
 (define (unknown) 

@@ -48,9 +48,6 @@
 (define (dashed-slur thick dash l)
   (embedded-pdf ((pdf-scm 'dashed-slur)  thick dash l)))
 
-(define (hairpin thick w sh eh)
-  (embedded-pdf ((pdf-scm 'hairpin) thick w sh eh)))
-
 (define (char i)
   (string-append "\\char" (inexact->string i 10) " "))
 
@@ -165,11 +162,6 @@
 (define (text s)
   (string-append "\\hbox{" (output-tex-string s) "}"))
 
-(define (tuplet ht gapx dx dy thick dir)
-  (embedded-pdf ((pdf-scm 'tuplet) ht gapx dx dy thick dir)))
-
-(define (volta h w thick vert_start vert_end)
-  (embedded-pdf ((pdf-scm 'volta) h w thick vert_start vert_end)))
 
 (define (define-origin file line col)
   (if (procedure? point-and-click)

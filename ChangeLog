@@ -1,5 +1,15 @@
 2002-04-01  Han-Wen  <hanwen@cs.uu.nl>
 
+	* scm/generic-property.scm: remove generic-property, property-engraver
+
+	* lily/volta-bracket.cc (brew_molecule): use Lookup::line() for bracket
+
+	* lily/hairpin.cc (brew_molecule): use Lookup::line() for hairpins.
+
+	* ps/music-drawing-routines.ps: remove volta, tuplet, hairpin routines.
+
+	* scm/*.scm: remove volta, hairpin and tuplet functions.
+
 	* lily/rhythmic-column-engraver.cc (acknowledge_grob): don't make
 	note column for notes/stems/dots that already have parents. Fixes
 	nested grace contexts.

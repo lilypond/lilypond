@@ -85,10 +85,6 @@
 (define (dashed-slur thick dash l)
   (embedded-ps (list 'dashed-slur thick dash `(quote ,l))))
 
-(define (hairpin thick w sh eh)
-  (embedded-ps (list 'hairpin thick w sh eh))
-)
-
 (define (char i)
   (string-append "\\char" (inexact->string i 10) " "))
 
@@ -261,8 +257,6 @@
 (define (draw-line thick fx fy tx ty)
   (embedded-ps (list 'draw-line thick fx fy tx ty)))
 
-(define (volta h w thick vert_start vert_end)
-  (embedded-ps (list 'volta  h w thick vert_start vert_end)))
 (define (between-system-string string)
   string
   )

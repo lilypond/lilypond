@@ -103,13 +103,6 @@
 (define (char i)
   (invoke-char " show" i))
 
-(define (hairpin thick width starth endh )
-  (string-append (setlinewidth thick)
-		 (moveto 0 starth)
-		 (lineto width endh)
-		 (moveto 0 (- starth))
-		 (lineto width (- endh))
-		 (closestroke)))
 
 (define (dashed-slur thick dash l)
   (string-append (setlineparams)
@@ -211,30 +204,6 @@
 
 (define (text s) "")
 
-(define (volta h w thick vert_start vert_end)
-  (string-append (setlinewidth thick)
-		 (setlineparams)
-		 (if (= vert_start 0) 
-		     (string-append (moveto 0 0)
-				    (lineto 0 h))
-		     (moveto 0 h))
-		 (lineto w h)
-		 (if (= vert_end 0) (lineto w 0) "")
-		 (closestroke)))
-
-(define (tuplet ht gap dx dy thick dir)
-  (let ((gapy (* (/ dy dx) gap)))
-    (string-append (setlinewidth thick)
-		   (setlineparams)
-		   (moveto 0 (- (* ht dir)))
-		   (lineto 0 0)
-		   (lineto (/ (- dx gap) 2)
-			   (/ (- dy gapy) 2))
-		   (moveto (/ (+ dx gap) 2)
-			   (/ (+ dy gapy) 2))
-		   (lineto dx dy)
-		   (lineto dx (- dy (* ht dir)))
-		   (closestroke))))
 
 (define (unknown) "\n unknown\n")
 

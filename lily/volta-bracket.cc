@@ -19,7 +19,7 @@
 #include "group-interface.hh"
 #include "side-position-interface.hh"
 #include "directional-element-interface.hh"
-
+#include "lookup.hh"
 
 /*
   this is too complicated. Yet another version of side-positioning,
@@ -85,19 +85,18 @@ Volta_bracket_interface::brew_molecule (SCM smob)
   Real h =  gh_scm2double (me->get_grob_property ("height"));
   Real t =  staff_thick * gh_scm2double (me->get_grob_property ("thickness"));
 
-  /*
-    ugh: should build from line segments.
-   */
-  SCM at = (scm_list_n (ly_symbol2scm ("volta"),
-		     gh_double2scm (h),
-		     gh_double2scm (w),
-		     gh_double2scm (t),
-		     gh_int2scm (no_vertical_start),
-		     gh_int2scm (no_vertical_end),
-		     SCM_UNDEFINED));
 
-  Box b (Interval (0, w), Interval (0, h));
-  Molecule mol (b, at);
+  Molecule start,end ;
+  if (!no_vertical_start)
+    start = Lookup::line (t, Offset (0,0), Offset (0, h)); 
+  
+  if (!no_vertical_end)
+    end = Lookup::line (t, Offset (w, 0), Offset (w,h));
+
+  Molecule mol = Lookup::line (t, Offset (0, h), Offset (w,h));
+  mol.add_molecule (start);
+  mol.add_molecule (end);
+  
   SCM text = me->get_grob_property ("text");
   SCM properties = scm_list_n (me->mutable_property_alist_,
 			       me->immutable_property_alist_,SCM_UNDEFINED);

@@ -67,7 +67,7 @@ cresc = \notes {
 	RehearsalMark \override #'padding = #1
 	MultiMeasureRest \override #'padding = #0.5
 	MultiMeasureRest \override #'number-threshold = #1
-	Stem \override #'thickness = #1.3
+	
 	Beam \override #'thickness = #0.6
 	Beam \override #'beam-space = #0.8
 	Slur \override #'beautiful = #0.3
