@@ -406,8 +406,8 @@ System::get_line (bool is_last)
 
   
 #ifndef PAGE_LAYOUT
-  // still does not work - do we really need this at all?
-  if (is_last)
+  // does not work: (\\par error) - do we really need this at all?
+  if (false && !is_last)
     {
       SCM lastcol = ly_car (get_property ("columns"));
       Grob *g = unsmob_grob (lastcol);
