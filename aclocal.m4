@@ -229,7 +229,7 @@ dnl    fi
     AC_CHECK_PROGS(TAR, tar, error)
     AC_CHECK_PROGS(BASH, bash, /bin/sh)
 
-    AC_PATH_PROG(PYTHON, python, -echo no python)
+    AC_PATH_PROG(PYTHON, ${PYTHON:-python}, -echo no python)
     AC_SUBST(PYTHON)
 
 

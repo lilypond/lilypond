@@ -41,7 +41,7 @@
 #include "mudela-version.hh"
 #include "scope.hh"
 #include "relative-music.hh"
-
+#include "transposed-music.hh"
 
 // mmm
 Mudela_version oldest_version ("1.0.3");
@@ -700,8 +700,7 @@ Music:
 	| Simultaneous_music		{ $$ = $1; }
 	| Sequential_music		{ $$ = $1; }
 	| TRANSPOSE musical_pitch Music {
-		$$ = $3;
-		$$ -> transpose (*$2);
+		$$ = new Transposed_music ($3, *$2);
 		delete $2;
 	}
 	| MUSIC_IDENTIFIER { $$ = $1->access_Music (); }
@@ -1283,7 +1282,6 @@ simple_element:
 		velt_p->set_spot (THIS->here_input ());
 		velt_p->add_music (m);
 		$$ = velt_p;
-
 	}
 	| STRING notemode_duration 			{
 		if (!THIS->lexer_p_->lyric_state_b ())

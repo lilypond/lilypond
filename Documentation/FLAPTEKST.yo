@@ -1,4 +1,4 @@
-COMMENT(silly...DEFINEMACRO(pic)(1)(url(ARG1)(ARG1.gif)))
+COMMENT(silly...DEFINEMACRO(pic)(1)(url(ARG1)(ARG1.png)))
 DEFINEMACRO(pic)(1)(verbinclude(ARG1.in))
 
 nsect(LilyPond -- De Muziek Zetter van het GNU Project)

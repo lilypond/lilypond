@@ -27,6 +27,8 @@ Music_wrapper::do_print () const
 {
   element_p_->print ();
 }
+
+
 void
 Music_wrapper::transpose (Musical_pitch p)
 {

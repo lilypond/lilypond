@@ -1,3 +1,5 @@
+pl 53
+	- moved TeX stuff into tex template
 pl 52
 	- striproff
 	- reeable $(PACKAGE)_LIBES,_INCLUDES

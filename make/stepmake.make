@@ -31,6 +31,11 @@ LOCALSTEPMAKE_TEMPLATES:= generic $(LOCALSTEPMAKE_TEMPLATES)
 
 all:
 
+-include $(addprefix $(depth)/make/,$(addsuffix -inclusions.make, $(LOCALSTEPMAKE_TEMPLATES)))
+
+-include $(addprefix $(depth)/make/,$(addsuffix -inclusions.make, $(STEPMAKE_TEMPLATES)))
+
+
 include $(addprefix $(stepdir)/,$(addsuffix -vars.make, $(STEPMAKE_TEMPLATES)))
 
 # ugh. need to do this because of PATH :=$(topdir)/..:$(PATH) 

@@ -260,7 +260,7 @@ Lookup::streepje (int type) const
   if (type > 2)
     type = 2;
 
-  return  afm_find ("balls" + String ("-") +to_str (type) + "l");
+  return  afm_find ("balls-" + to_str (type) + "l");
 }
 
 Atom
@@ -291,6 +291,16 @@ Lookup::time_signature (Array<Scalar> a) const
 
   return s;
 }
+
+
+
+Atom
+Lookup::special_time_signature (String s) const
+{
+  Atom a (afm_find ("timesig-"+ s));
+  return a;
+}
+
 
 
 Atom

@@ -41,6 +41,7 @@ struct Lookup {
   Atom vbrace (Real &dy) const;
   Atom vbracket (Real &dy) const;
   Atom time_signature (Array<Scalar>) const;
+  Atom special_time_signature (String) const;
   Atom stem (Real y1_pos, Real y2_pos) const;
   Atom rule_symbol (Real height, Real width) const;
   Atom accidental (int) const;

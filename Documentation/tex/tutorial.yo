@@ -3,8 +3,6 @@ COMMENT(-*-text-*-)
 redef(var)(1)(whenlatex(latexcommand({\normalfont\scshape )ARG1+latexcommand(}))\
     whenhtml(sc(ARG1)))
 
-def(mycode)(1)(tt(ARG1))
-
 COMMENT( This document contains Mudela fragments.  You need at least
 Yodl-1.30.18 to convert this to tex or html.
 
@@ -62,7 +60,10 @@ latexcommand(\def\preexample{\par})
 latexcommand(\def\postexample{\par\medskip})
 latexcommand(\def\file#1{{mycode(#1)}})
 
+COMMENT(urg, texinfo include breaks)
+whenhtml(
 includefile(html-disclaimer.yo-urg)
+)
 
 sect(Introduction)
 label(tutorial:introduction)
@@ -1444,7 +1445,7 @@ mudela(verbatim)(
     >
     \paper {
       linewidth = -1.0;
-      stem_length = 12.0*\internote;
+      stem_length = 6.0*\interline;
     }
   }
 )
