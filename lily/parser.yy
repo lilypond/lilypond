@@ -1086,10 +1086,9 @@ basic music objects too, since the meaning is different.
 		SCM nn = THIS->lexer_->lookup_identifier ("drumPitchNames");
 		THIS->lexer_->push_note_state (alist_to_hashq (nn));
 	}
-	/* FIXME: This used to be:
+	/* FIXME: This used to be: */
 	Music
-*/
-	Grouped_music_list
+/*	Grouped_music_list */
 		{ $$ = $3;
 		  THIS->lexer_->pop_state ();
 		}
