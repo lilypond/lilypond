@@ -8,3 +8,6 @@ gen_files = map (lambda x: os.path.splitext (x)[0], sources)
 gens = map (env.AT_COPY, sources)
 dir = env['bindir']
 env.Install (dir, gen_files)
+
+#pot = env.POT (sources)
+#env.Alias ('pot', pot)

@@ -2,6 +2,7 @@
 
 Import ('env')
 sources = env['src_glob'] (env, '*.cc')
+includes = env['src_glob'] (env, '*.hh')
 outdir = Dir ('.').path
 
 # abs_srcdir = Dir ('.').srcnode ().abspath
@@ -14,3 +15,8 @@ if env['static']:
 	e.Library (name, sources) 
 if not env['static'] or env['shared']:
 	e.SharedLibrary (name, sources)
+
+#pot = env.POT (sources + includes)
+#map (lambda x: e.Depends
+pot = env.Command (env['pottarget'], sources + includes, env['potcommand'])
+env.Alias ('pot', pot)
