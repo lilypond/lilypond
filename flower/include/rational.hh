@@ -45,7 +45,9 @@ public:
   int den  () const { return den_; }
   int num_i  () const { return sign_ * num_; }
   int den_i  () const { return den_; }
-  Rational truncated () const;
+  Rational trunc_rat () const;
+  Rational div_rat (Rational) const;
+  Rational mod_rat (Rational) const;
   void negate ();
   operator bool () const;
   operator int () const;
@@ -64,6 +66,7 @@ public:
   Rational &operator /= (Rational);  
   Rational &operator += (Rational);
   Rational &operator -= (Rational);
+  Rational &operator %= (Rational);
   static int compare (Rational const&, Rational const&);
   int sign () const;
   String str () const;
@@ -73,6 +76,7 @@ IMPLEMENT_ARITHMETIC_OPERATOR (Rational, / );
 IMPLEMENT_ARITHMETIC_OPERATOR (Rational, + );
 IMPLEMENT_ARITHMETIC_OPERATOR (Rational, * );
 IMPLEMENT_ARITHMETIC_OPERATOR (Rational, - );
+IMPLEMENT_ARITHMETIC_OPERATOR (Rational, % );
 
 INSTANTIATE_COMPARE (Rational const&, Rational::compare);
 
