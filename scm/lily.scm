@@ -9,13 +9,12 @@
 
 ;;; library funtions
 
-; :use-module (ice-9 regex))
+(use-modules (ice-9 regex))
 
 ;; do nothing in .scm output
 (define (comment s)
   ""
   )
-
 
 (define
   (xnumbers->string l)
@@ -201,32 +200,26 @@
 (define (style-to-cmr s)
   (assoc s cmr-alist )
   )
+	    
 
-(define (define-font name-mag)
-  (cons name-mag
-	(string-append  "\\magfont"
-			(string-encode-integer (hash (car name-mag) 1000000))
-			"m"
-			(string-encode-integer (cdr name-mag)))
-
-	)
-  )
 
 (define font-name-alist  '())
-(define (define-fonts names)
-  (set! font-name-alist (map define-font names))
-  (apply string-append (map (lambda (x)
-			(string-append "\\font" (cdr x) "="
-				       (symbol->string (caar x))
-				       " scaled "
-				       (number->string (magstep (cdar x)))
-				       "\n"))
-		      font-name-alist
-		      )
-	 )
-  )
-  
+(define (font-command name-mag)
+    (cons name-mag
+	  (string-append  "magfont"
+			  (string-encode-integer (hash (car name-mag) 1000000))
+			  "m"
+			  (string-encode-integer (cdr name-mag)))
 
+	  )
+    )
+(define (define-fonts names)
+  (set! font-name-alist (map font-command names))
+  (apply string-append
+	 (map (lambda (x)
+		(font-load-command (car x) (cdr x))) font-name-alist)
+  ))
+  
 
 (define (tex-scm action-name)
   (define (unknown) 
@@ -244,7 +237,7 @@
 	    (ly-warn (string-append
 		      "Programming error: No such font known " (car font-name-symbol)))
 	    "")				; issue no command
-	  (cdr c))
+	  (string-append "\\" (cdr c)))
       
       
       ))
@@ -269,7 +262,19 @@
 
    ;This sets CTM so that you get to the currentpoint
   ; by executing a 0 0 moveto
-       
+
+  
+ 
+
+  (define (font-load-command name-mag command)
+    (string-append
+     "\\font\\" command "="
+     (symbol->string (car name-mag))
+     " scaled "
+     (number->string (magstep (cdr name-mag)))
+     "\n"))
+
+
   (define (embedded-ps s)
     (string-append "\\embeddedps{" s "}"))
 
@@ -293,15 +298,16 @@
   (define (header-end)
     (string-append
      "\\special{! "
-     (ly-gulp-file "lily.ps")
-     ;; breaks on ppc
-;;     (regexp-substitute/global #f "\n" (ly-gulp-file "lily.ps") 'pre " %\n" 'post)
+     ; fixed in 1.3.4
+     ;(ly-gulp-file "lily.ps")
+
+     (regexp-substitute/global #f "\n" (ly-gulp-file "lily.ps") 'pre " %\n" 'post)
      "}"
      "\\input lilyponddefs \\turnOnPostScript"))
 
   (define (header creator generate) 
     (string-append
-     "%created by: " creator generate "\n"))
+     "%created by: " creator generate))
 
   (define (invoke-char s i)
     (string-append 
@@ -324,8 +330,9 @@
   (define (lily-def key val)
     (string-append
      "\\def\\"
-;     (regexp-substitute/global #f "_" (output-tex-string key) 'pre "X" 'post)
-     (output-tex-string key)
+     ; fixed in 1.3.4
+     (regexp-substitute/global #f "_" (output-tex-string key) 'pre "X" 'post)
+     ;(output-tex-string key)
      "{" (output-tex-string val) "}\n"))
 
   (define (number->dim x)
@@ -335,19 +342,8 @@
   (define (placebox x y s) 
     (string-append 
      "\\placebox{"
-     (number->dim y) "}{" (number->dim x) "}{" s "}"))
+     (number->dim y) "}{" (number->dim x) "}{" s "}\n"))
 
-  ;;;;
-  (define (pianobrace y staffht)
-    (let* ((step 1.0)
-	   (minht (* 2 staffht))
-	   (maxht (* 7 minht))
-	   )
-      (string-append
-       (select-font (string-append "feta-braces" (number->string (inexact->exact staffht))) 0)
-       (char (max 0 (/  (- (min y (- maxht step)) minht) step))))
-      )
-    )
 
 
   (define (bezier-sandwich l thick)
@@ -383,6 +379,7 @@
   ;; (should merge the 2 lists)
   (cond ((eq? action-name 'all-definitions)
 	 `(begin
+	    (define font-load-command ,font-load-command)
 	    (define beam ,beam)
 	    (define bezier-sandwich ,bezier-sandwich)
 	    (define bracket ,bracket)
@@ -400,7 +397,6 @@
 	    (define header ,header) 
 	    (define invoke-char ,invoke-char) 
 	    (define invoke-dim1 ,invoke-dim1)
-	    (define pianobrace ,pianobrace)
 	    (define placebox ,placebox)
 	    (define select-font ,select-font)
 	    (define start-line ,start-line)
@@ -437,6 +433,7 @@
 	)
   )
 
+
 ;;;;;;;;;;;; PS
 (define (ps-scm action-name)
 
@@ -463,26 +460,34 @@
 		      (6 30) ; really: 29.856
 		      )))
   
-  (define (select-font font-name magnification)
-    (define font-cmd (assoc font-name font-alist))
-    (if (not (equal? font-name current-font))
-	(begin
-	  (set! current-font font-name)
-	  (if (eq? font-cmd #f)
-	      (begin
-		(set! font-cmd (cached-fontname font-count))
-		(set! font-alist (acons font-name font-cmd font-alist))
-		(set! font-count (+ 1 font-count))
-		(string-append "\n/" font-cmd " {/"
-			       font-name " findfont " 
-			       (mag-to-size magnification)
-			       " scalefont setfont} bind def \n"
-			       font-cmd " \n"))
-		(string-append (cdr font-cmd) " ")))
-	  ; font-name == current-font no switch needed
-	  ""				
-	  ))
-		  
+  
+  (define (select-font font-name-symbol)
+    (let*
+	(
+	 (c (assoc font-name-symbol font-name-alist))
+	 )
+
+      (if (eq? c #f)
+	  (begin
+	    (ly-warn (string-append
+		      "Programming error: No such font known " (car font-name-symbol)))
+	    "")				; issue no command
+	  (string-append " " (cdr c) " "))
+      
+      
+      ))
+
+    (define (font-load-command name-mag command)
+      (string-append
+       "/" command
+       " { /"
+       (symbol->string (car name-mag))
+       " findfont "
+       (number->string (magstep (cdr name-mag)))
+       " 1000 div 12 mul  scalefont setfont } bind def "
+       "\n"))
+
+
   (define (beam width slope thick)
     (string-append
      (numbers->string (list width slope thick)) " draw_beam" ))
@@ -572,18 +577,6 @@
     (string-append 
      (number->string x) " " (number->string y) " {" s "} placebox "))
 
-  (define (pianobrace y staffht)
-    (let* ((step 1.0)
-	   (minht (* 2 staffht))
-	   (maxht (* 7 minht))
-	   )
-      (string-append
-       (select-font (string-append "feta-braces" (number->string (inexact->exact staffht))) 0)
-       (char (max 0 (/  (- (min y (- maxht step)) minht) step))))
-      )
-    )
-
-
   (define (bezier-sandwich l thick)
     (string-append 
      (apply string-append (map control->string l))
@@ -637,9 +630,9 @@
 	    (define filledbox ,filledbox)
 	    (define font-def ,font-def)
 	    (define font-switch ,font-switch)
-	    (define pianobrace ,pianobrace)
 	    (define header-end ,header-end)
 	    (define lily-def ,lily-def)
+	    (define font-load-command ,font-load-command)
 	    (define header ,header) 
 	    (define invoke-char ,invoke-char) 
 	    (define invoke-dim1 ,invoke-dim1)
@@ -667,7 +660,34 @@
 	)
   )
 
-					;
+
+(define (gulp-file name)
+  (let* ((port (open-file name "r"))
+	 (content (let loop ((text ""))
+		       (let ((line (read-line port)))
+			    (if (or (eof-object? line)
+				    (not line)) 
+				text
+				(loop (string-append text line "\n")))))))
+	(close port)
+	content))
+
+(define (scm-gulp-file name)
+  (set! %load-path 
+	(cons (string-append 
+	       (getenv 'LILYPONDPREFIX) "/ps") %load-path))
+  (let ((path (%search-load-path name)))
+       (if path
+	   (gulp-file path)
+	   (gulp-file name))))
+
+(define (scm-tex-output)
+  (eval (tex-scm 'all-definitions)))
+				
+(define (scm-ps-output)
+  (eval (ps-scm 'all-definitions)))
+
+				
 ; Russ McManus, <mcmanus@IDT.NET>  
 ; 
 ; I use the following, which should definitely be provided somewhere
@@ -691,12 +711,18 @@
       (set! ret-ls (cons (fn (car (car alist)) (cdr (car alist))) ret-ls)))))
 
 
-;;;; print a SCM expression.  Isn't this part of the std lib?
-
+;; guile-1.3.4 has list->string
 (define (scmlist->string exp)
+  (list->string exp))
+
+;; obsolete, maybe handy for testing
+;; print a SCM expression.  Isn't this part of the std lib?
+(define (xxscmlist->string exp)
   (cond
+   ((null? (car exp)) (begin (display ("urg:") (newline))))
    ((pair? (cdr exp)) (string-append (scm->string (car exp)) " " (scmlist->string (cdr exp))))
    ((eq? '() (cdr exp)) (string-append (scm->string (car exp)) ")"))
+   ;; howto check for quote?
    (else (string-append (scm->string (car exp)) " . " (scm->string (cdr exp)) ")"))
    ))
 
@@ -706,5 +732,7 @@
    ((number? exp) (number->string exp))
    ((symbol? exp) (symbol->string exp))
    ((string? exp) (string-append "\"" exp "\""))
+   ;; probably: #@quote
+   (else (begin (display "programming error: scm->string: ") (newline) "'"))
    ))
 
