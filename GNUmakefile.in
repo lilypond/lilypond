@@ -110,15 +110,17 @@ $(tree-prefix)/lilypond-force: GNUmakefile
 	mkdir -p $(tree-prefix)/dvips
 	mkdir -p $(tree-prefix)/elisp
 	mkdir -p $(tree-prefix)/fonts
+	mkdir -p $(tree-prefix)/fonts/otf
+	mkdir -p $(tree-prefix)/fonts/tfm
+	mkdir -p $(tree-prefix)/fonts/type1
+	mkdir -p $(tree-prefix)/fonts/svg
+	mkdir -p $(tree-prefix)/fonts/map
+	mkdir -p $(tree-prefix)/fonts/enc
 	mkdir -p $(tree-prefix)/tex
 	cd $(builddir)/lib && \
 		ln -s  ../../../python/$(outconfbase) python
 	cd $(tree-prefix) && \
 		ln -s $(abs-srcdir)/ly ly && \
-		ln -s ../../../mf/$(outconfbase) otf && \
-		ln -s ../../../mf/$(outconfbase) svg && \
-		ln -s ../../../mf/$(outconfbase) tfm && \
-		ln -s $(abs-srcdir)/mf && \
 		ln -s $(abs-srcdir)/ps && \
 		ln -s ../../../python/$(outconfbase) python && \
 		ln -s $(abs-srcdir)/scm && \
@@ -130,14 +132,19 @@ $(tree-prefix)/lilypond-force: GNUmakefile
 		ln -s $(abs-srcdir)/tex source && \
 		ln -s ../../../../tex/$(outconfbase) tex-out && \
 		ln -s ../../../../mf/$(outconfbase) mf-out
+	cd $(tree-prefix)/fonts/type1 && \
+		ln -s ../../../../../mf/$(outconfbase)/*.pfa .
+	cd $(tree-prefix)/fonts/otf && \
+		ln -s ../../../../../mf/$(outconfbase)/*.otf .
+	cd $(tree-prefix)/fonts/svg && \
+		ln -s ../../../../../mf/$(outconfbase)/*.svg .
+	cd $(tree-prefix)/fonts/tfm && \
+		ln -s ../../../../../mf/$(outconfbase)/*.tfm .
+	cd $(tree-prefix)/fonts/enc && \
+		ln -s ../../../../../mf/$(outconfbase)/*.enc .
 	cd $(tree-prefix)/fonts && \
 		ln -s $(abs-srcdir)/mf source && \
-		ln -s ../../../../tex/$(outconfbase) enc && \
-		ln -s ../../../../mf/$(outconfbase) map && \
-		ln -s ../../../../mf/$(outconfbase) otf && \
-		ln -s ../../../../mf/$(outconfbase) tfm && \
-		ln -s ../../../../mf/$(outconfbase) svg && \
-		ln -s ../../../../mf/$(outconfbase) type1
+		true
 	cd $(tree-prefix)/elisp && \
 		ln -sf ../../../../../elisp/$(outconfbase)/lilypond-words.el . && \
 		ln -s $(abs-srcdir)/elisp/*.el .

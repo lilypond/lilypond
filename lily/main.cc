@@ -16,6 +16,7 @@
 #include <pwd.h>
 #include <grp.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 
 #include "config.hh"
 
@@ -234,15 +235,35 @@ setup_paths ()
 
   /* Adding mf/out make lilypond unchanged source directory, when setting
      LILYPONDPREFIX to lilypond-x.y.z */
-  char *suffixes[] = {"ly", "fonts/cff", "fonts/otf", "mf/out", "scm",
-		      "fonts/tfm", "ps", "fonts/svg",
-		      0};
+  char *suffixes[] = {"ly", "ps", "scm", 0 };
 
+  Array<String> dirs;
   for (char **s = suffixes; *s; s++)
     {
       String path = prefix_directory + to_string ('/') + String (*s);
-      global_path.prepend (path);
+      dirs.push (path);
     }
+
+  /*
+    ugh. C&P font-config.cc
+  */
+  struct stat statbuf; 
+  String builddir = prefix_directory + "/mf/out/";
+  if (stat (builddir.to_str0 (), &statbuf) == 0)
+    {
+      dirs.push (builddir.to_str0 ());
+    }
+  else
+    {
+      dirs.push (prefix_directory + "/fonts/otf/");
+      dirs.push (prefix_directory + "/fonts/type1/");
+      dirs.push (prefix_directory + "/fonts/cff/");
+      dirs.push (prefix_directory + "/fonts/svg/");
+      dirs.push (prefix_directory + "/fonts/cff/");
+    }
+
+  for (int i = 0; i < dirs.size (); i++)
+    global_path.prepend (dirs[i]);  
 }
   
 static void
