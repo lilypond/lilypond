@@ -23,6 +23,20 @@ ADD_THIS_TRANSLATOR (Lyric_phrasing_engraver);
   backend. Fixme.
 */
 
+/*
+  TODO:
+
+  shared lyrics should be vertically centered:
+
+  
+
+> About lyrics, it happens that there are common words for many bars, like
+> for a refrain say.  When there is an even number of lyrics lines, I do not
+> know how to force the positioning of the common lyric line in the plain
+> middle of the others, because this is in between lines.  Not a big matter,
+> but it would be a bit nicer if this was doable.
+
+ */
 
 /*
   We find start and end of phrases, and align lyrics accordingly.
