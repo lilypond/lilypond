@@ -1,3 +1,20 @@
+2004-09-26  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* Documentation/user/examples.itely: removed \midi block to
+	simplify the example
+
+	* Documentation/user/notation.itely: Removed superfluous
+	TextSpanner tweakings (is already done by engraver-init.ly).
+	Documented bug: vertical alignment of articulations.
+
+	* Documentation/user/notation.itely, ly/engraver-init.ly
+	(VaticanaVoice, GregorianTranscriptionVoice): Bugfix: TextSpanner
+	padding.
+
+	* Documentation/user/notation.itely, ly/engraver-init.ly: moved
+	docu about TextSpanner padding bug from manual to engraver.ly
+	(since it's workarounded and hence not user-visible any more)
+
 2004-09-26  Graham Percival  <gperlist@shaw.ca>
 
 	* ly/property-init.ly: fix bug in displaying ledger lines while
