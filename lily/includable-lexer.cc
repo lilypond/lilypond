@@ -47,7 +47,7 @@ Includable_lexer::new_input (String s, Sources  * global_sources)
 {
   if (!allow_includes_b_)
     {
-      LexerError ("include files are disallowed.");
+      LexerError (_ ("include files are not allowed").to_str0 ());
       return;
     }
   

@@ -206,6 +206,7 @@ HYPHEN		--
 	}
 	<<EOF>> 	{
 		LexerError (_ ("EOF found inside a comment").to_str0 ());
+		main_input_b_ = false;
 		if (! close_input ()) 
 		  yyterminate (); // can't move this, since it actually rets a YY_NULL
 	}
@@ -219,7 +220,7 @@ HYPHEN		--
 		main_input_b_ = true;
 	}
 	else
-		error (_ ("\\maininput disallowed outside init files"));
+		error (_ ("\\maininput not allowed outside init files"));
 }
 
 <INITIAL,chords,lyrics,figures,notes>\\include           {
@@ -286,17 +287,14 @@ HYPHEN		--
 	//char const* s = YYText () + 1;
 	char const* s = here_str0 ();
 	int n = 0;
-	if (main_input_b_ && safe_global_b) {
-		error (_ ("Can't evaluate Scheme in safe mode"));
-		yylval.scm =  SCM_EOL;
-		return SCM_T;
-	}
-	SCM sval = ly_parse_scm (s, &n, here_input());
+	SCM sval = ly_parse_scm (s, &n, here_input (),
+		safe_global_b && main_input_b_);
+
 	if (sval == SCM_UNDEFINED)
-		{
+	{
 		sval = SCM_UNSPECIFIED;
 		errorlevel_ = 1;
-		}
+ 	}
 
 	for (int i=0; i < n; i++)
 	{
@@ -529,8 +527,7 @@ HYPHEN		--
 }
 
 <<EOF>> {
-
-
+	main_input_b_ = false;
 	if (! close_input ()) { 
  	  yyterminate (); // can't move this, since it actually rets a YY_NULL
 	}

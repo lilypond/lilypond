@@ -25,20 +25,27 @@ AFM_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.afm) \
 	$(AF_FILES:%.af=$(outdir)/%.afm)
 ENC_FILES = $(TEXTABLES:.tex=.enc)
 TFM_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.tfm)
+FETA_LIST_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%list.ly)
 
 
 ENCODING_FILE=$(findstring $(<:.mf=.enc), $(FETA_MF_FILES:.mf=.enc))
 MFTRACE_FLAGS=$(if $(ENCODING_FILE),--encoding $(ENCODING_FILE),)
 
+SAUTER_FONTS = cmbxti8
+
+ALL_FONTS = $(FETA_FONTS) $(SAUTER_FONTS)
+PFA_FILES = $(ALL_FONTS:%=$(outdir)/%.pfa)
+PFB_FILES = $(PFA_FILES:%.pfa=%.pfb)
+
 # Make tfm files first, log files last, 
 # so that normally log files aren't made twice
-ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(AFM_FILES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES)
+ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(AFM_FILES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) $(FETA_LIST_FILES) $(PFA_FILES) $(outdir)/lilypond.map $(outdir)/fonts.scale
 
 #PRE_INSTALL=$(MAKE) "$(ALL_GEN_FILES)"
 INSTALLATION_DIR=$(local_lilypond_datadir)/fonts/source
 INSTALLATION_FILES=$(MF_FILES) $(AF_FILES)
 
-INSTALLATION_OUT_SUFFIXES=1 2 3 4 5
+INSTALLATION_OUT_SUFFIXES=1 2 3 4 5 6
 
 INSTALLATION_OUT_DIR1=$(local_lilypond_datadir)/tex
 INSTALLATION_OUT_FILES1=$(TEXTABLES)
@@ -49,21 +56,14 @@ INSTALLATION_OUT_FILES2=$(AFM_FILES)
 INSTALLATION_OUT_DIR3=$(local_lilypond_datadir)/fonts/tfm
 INSTALLATION_OUT_FILES3=$(TFM_FILES)
 
+INSTALLATION_OUT_DIR4=$(local_lilypond_datadir)/ly
+INSTALLATION_OUT_FILES4=$(FETA_LIST_FILES)
 
-SAUTER_FONTS = cmbxti8
+INSTALLATION_OUT_DIR5=$(local_lilypond_datadir)/fonts/type1
+INSTALLATION_OUT_FILES5=$(PFA_FILES) $(outdir)/fonts.scale
 
-ALL_FONTS = $(FETA_FONTS) $(SAUTER_FONTS)
-
-
-PFA_FILES = $(ALL_FONTS:%=$(outdir)/%.pfa)
-PFB_FILES = $(PFA_FILES:%.pfa=%.pfb)
-
-ALL_GEN_FILES += $(PFA_FILES) $(outdir)/lilypond.map $(outdir)/fonts.scale
-INSTALLATION_OUT_DIR4=$(local_lilypond_datadir)/fonts/type1
-INSTALLATION_OUT_FILES4=$(PFA_FILES) $(outdir)/fonts.scale
-
-INSTALLATION_OUT_DIR5=$(local_lilypond_datadir)/dvips/
-INSTALLATION_OUT_FILES5=$(outdir)/lilypond.map
+INSTALLATION_OUT_DIR6=$(local_lilypond_datadir)/dvips/
+INSTALLATION_OUT_FILES6=$(outdir)/lilypond.map
 
 export MFINPUTS:=.:$(MFINPUTS)
 

@@ -9,9 +9,11 @@
 
 
 (use-modules (ice-9 regex)
-	     (srfi srfi-1)		;lists
-	     (srfi srfi-13)		;strings
-	     )
+	     (ice-9 safe)
+	     (srfi srfi-1)  ; lists
+	     (srfi srfi-13)) ; strings
+
+(define-public safe-module (make-safe-module))
 
 (define-public (myd k v) (display k) (display ": ") (display v) (display ", "))
 

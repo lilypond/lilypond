@@ -14,7 +14,7 @@
   Need guile-1.3.4 (>1.3 anyway) for ftell on str ports -- jcn
 */
 SCM
-internal_ly_parse_scm (Parse_start * ps)
+internal_ly_parse_scm (Parse_start * ps, bool safe)
 {
   Source_file* sf =ps->start_location_.source_file_;
   SCM port = sf->get_port();
@@ -29,25 +29,18 @@ internal_ly_parse_scm (Parse_start * ps)
 
   /* Read expression from port */
   if (!SCM_EOF_OBJECT_P (form = scm_read (port)))
-    answer = scm_primitive_eval (form);
+    {
+      if (safe)
+	{
+	  SCM safe_module = scm_primitive_eval (ly_symbol2scm ("safe-module"));
+	  answer = scm_eval (form, safe_module);
+	}
+      else
+	answer = scm_primitive_eval (form);
+    }
  
-  /*
-   After parsing
-
- (begin (foo 1 2))
-
-   all seems fine, but after parsing
-
- (foo 1 2)
-
-   read_buf has been advanced to read_pos - 1,
-   so that scm_ftell returns 1, instead of #parsed chars
-   */
-  
-  /*
-    urg: reset read_buf for scm_ftell
-    shouldn't scm_read () do this for us?
-  */
+  /* Reset read_buf for scm_ftell.
+     Shouldn't scm_read () do this for us?  */
   scm_fill_input (port);
   SCM to = scm_ftell (port);
   ps->nchars = gh_scm2int (to) - gh_scm2int (from);
@@ -55,20 +48,24 @@ internal_ly_parse_scm (Parse_start * ps)
   /* Don't close the port here; if we re-enter this function via a
      continuation, then the next time we enter it, we'll get an error.
      It's a string port anyway, so there's no advantage to closing it
-     early.
-
-     scm_close_port (port);
-  */
+     early. */
+  // scm_close_port (port);
 
   return answer;
 }
-
 
 SCM
 catch_protected_parse_body (void *p)
 {
   Parse_start *ps = (Parse_start*) p;
-  return internal_ly_parse_scm (ps);
+  return internal_ly_parse_scm (ps, false);
+}
+
+SCM
+safe_catch_protected_parse_body (void *p)
+{
+  Parse_start *ps = (Parse_start*) p;
+  return internal_ly_parse_scm (ps, true);
 }
 
 SCM 
@@ -103,10 +100,11 @@ parse_handler (void * data, SCM tag, SCM args)
 #endif
 
 SCM
-protected_ly_parse_scm (Parse_start *ps)
+protected_ly_parse_scm (Parse_start *ps, bool safe)
 {
   return scm_internal_catch (ly_symbol2scm (READ_ERROR),
-			     &catch_protected_parse_body,
+			     (safe ? &safe_catch_protected_parse_body
+			      : catch_protected_parse_body),
 			     (void*)ps,
 			     &parse_handler, (void*)ps);
 }
@@ -117,15 +115,15 @@ bool  parse_protect_global  = true;
   Try parsing. If failure, then return SCM_UNDEFINED.
  */
 SCM
-ly_parse_scm (char const* s, int *n, Input i)
+ly_parse_scm (char const* s, int *n, Input i, bool safe)
 {
   
   Parse_start ps ;
   ps.str = s;
   ps.start_location_ = i;
 
-  SCM ans = parse_protect_global ? protected_ly_parse_scm (&ps)
-    : internal_ly_parse_scm (&ps);
+  SCM ans = parse_protect_global ? protected_ly_parse_scm (&ps, safe)
+    : internal_ly_parse_scm (&ps, safe);
   *n = ps.nchars;
 
   return ans;  
