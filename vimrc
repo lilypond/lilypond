@@ -5,28 +5,28 @@ set shiftwidth=2
 " some handy key mappings
 "
 " F4  save & make and play midi
-map <F4> :w:se makeprg=ly2dvi\ -m\ %<:make:!timidity %<.midi
+map <F4> :w<Return>:se makeprg=ly2dvi\ -m\ %<<Return>:make<Return>:!timidity %<.midi<Return>
 "
 " F5  save & make dvi, midi, ps
-map <F5> :w:se makeprg=ly2dvi\ -P\ %<:make
+map <F5> :w<Return>:se makeprg=ly2dvi\ -P\ %<<Return>:make<Return>
 "
 " F6  view ps
-map <F6> :!gv -watch %<.ps &
+map <F6> :!gv -watch %<.ps &<Return>
 "
 " F7  prev error
-map <F7> :cp
+map <F7> :cp<Return>
 "
 " F8  next error
-map <F8> :cn
+map <F8> :cn<Return>
 "
 " F9  make
-map <F9> :w:se makeprg=make\ -k:make
+map <F9> :w<Return>:se makeprg=make\ -k<Return>:make<Return>
 "
 " F10 run buffer through lily
-map <F10> :w:se makeprg=lilypond\ %:t:make
+map <F10> :w<Return>:se makeprg=lilypond\ %:t<Return>:make<Return>
 "
 " shift F10: run buffer through lily -M
-map <S-F10> :w:se makeprg=lilypond\ -M\ %:t:make
+map <S-F10> :w<Return>:se makeprg=lilypond\ -M\ %:t<Return>:make<Return>
 "
 "
 " errorformat for lily (with columns) and gcc
