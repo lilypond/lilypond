@@ -177,8 +177,8 @@ def makediff (fromdir, todir, patch_name):
 			
 	sys.stderr.write ('diffing to %s... ' % patch_name)
 	os.system ('pwd')
-	print ('diff -urN %s . >> %s' % (fromdir, patch_name))
-	os.system ('diff -urN %s . >> %s' % (fromdir, patch_name))
+	print ('diff -purN %s . >> %s' % (fromdir, patch_name))
+	os.system ('diff -purN %s . >> %s' % (fromdir, patch_name))
 	os.system ('gzip --quiet -9f %s' % patch_name)
    
 
