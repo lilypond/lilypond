@@ -1,3 +1,7 @@
+2004-03-09  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* ly/engraver-init.ly: don't remove slur engraver from DrumVoice.
+
 2004-03-09  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/paper-book.cc (get_pages): Simplistic page breaking.
