@@ -1,5 +1,16 @@
 2003-05-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/define-grobs.scm: uniform naming for definitions and output
+	routine files. 
+
+	* ly/engraver-init.ly (ChoirStaffContext): add \description from
+	scm/context-description.scm
+
+	* lily/parser.yy (translator_spec_body): add \description to the
+	\translator{} body syntax.
+
+	* lily/ottava-engraver.cc: new file.
+
 	* scm/chord-name.scm (natural-chord-alteration): replace old
 	chord stuff. 
 

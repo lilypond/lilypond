@@ -171,8 +171,9 @@
   (let*
       (
        (name (cdr (assoc 'type-name context-desc)))
-       (desc-handle (assoc (string->symbol name) context-description-alist))
-       (desc (if (pair? desc-handle)  (cdr desc-handle) ""))
+       (desc-handle (assoc 'description context-desc))
+       (desc (if (and  (pair? desc-handle) (string? (cdr desc-handle)))
+		 (cdr desc-handle) "(not documented)"))
        
        (accepts (cdr (assoc 'accepts context-desc)))
        (consists (append

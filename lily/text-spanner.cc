@@ -1,10 +1,10 @@
 /*
 
-text-spanner.cc -- implement Text_spanner
+  text-spanner.cc -- implement Text_spanner
 
-source file of the GNU LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
-(c) 2000--2003 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 2000--2003 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "molecule.hh"
@@ -46,7 +46,11 @@ Text_spanner::brew_molecule (SCM smob)
     }
 
   /* Ugh, must be same as Hairpin::brew_molecule.  */
-  Real padding = gh_scm2double (me->get_grob_property ("if-text-padding"));
+  Real padding = 0.0;
+  SCM itp= me->get_grob_property ("if-text-padding");
+  if (gh_number_p (itp))
+    padding = gh_scm2double (itp);
+  
   Real broken_left =  spanner->get_broken_left_end_align ();
   Real width = spanner->spanner_length ();
   width -= broken_left;
@@ -70,7 +74,7 @@ Text_spanner::brew_molecule (SCM smob)
 
 	  /* Text spanners such as ottava, should span from outer limits of
 	     noteheads, iso (de)cresc. spanners that span the inner space */
-	  if (me->get_grob_property ("outer") != SCM_EOL)
+	  if (me->get_grob_property ("enclose-bounds") != SCM_EOL)
 	    {
 	      width -= d * r;
 	    }
@@ -293,5 +297,5 @@ ADD_INTERFACE (Pianopedal,"piano-pedal-interface",
 
 ADD_INTERFACE (Text_spanner,"text-spanner-interface",
 	       "generic text spanner",
-	       "dash-period if-text-padding dash-length edge-height edge-widen edge-text shorten-pair type thickness outer width-correct");
+	       "dash-period if-text-padding dash-length edge-height edge-widen edge-text shorten-pair type thickness enclose-bounds width-correct");
 

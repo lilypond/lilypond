@@ -20,7 +20,7 @@
 
 (debug-enable 'backtrace)
 
-(define-module (scm sodipodi))
+(define-module (scm output-sodipodi))
 (define this-module (current-module))
 
 (use-modules

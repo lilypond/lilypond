@@ -4,8 +4,8 @@ startCluster = #(make-span-event 'ClusterEvent START)
 stopCluster = #(make-span-event 'ClusterEvent STOP)
 
 
-groupOpen = #(make-span-event 'NoteGroupingEvent START)
-groupClose = #(make-span-event 'NoteGroupingEvent STOP)
+startGroup = #(make-span-event 'NoteGroupingEvent START)
+stopGroup = #(make-span-event 'NoteGroupingEvent STOP)
 
 
 cr = #(make-span-event 'CrescendoEvent START)

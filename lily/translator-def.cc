@@ -31,6 +31,7 @@ Translator_def::mark_smob (SCM smob)
 {
   Translator_def* me = (Translator_def*) SCM_CELL_WORD_1 (smob);
 
+  scm_gc_mark (me->description_);
   scm_gc_mark (me->type_aliases_);
   scm_gc_mark (me->consists_name_list_);
   scm_gc_mark (me->accepts_name_list_);
@@ -50,6 +51,7 @@ Translator_def::Translator_def ()
   end_consists_name_list_ = SCM_EOL;
   property_ops_ = SCM_EOL;
   type_name_ = SCM_EOL;
+  description_ = SCM_EOL;
 
   smobify_self();
   
@@ -69,9 +71,11 @@ Translator_def::Translator_def (Translator_def const & s)
   end_consists_name_list_ = SCM_EOL;
   property_ops_ = SCM_EOL;
   type_name_ = SCM_EOL;
-
+  description_ = SCM_EOL;
   
   smobify_self();
+  description_ = s.description_;
+
   consists_name_list_ = scm_list_copy (s.consists_name_list_);
   end_consists_name_list_ = scm_list_copy (s.end_consists_name_list_);
   accepts_name_list_ = scm_list_copy (s.accepts_name_list_);
@@ -327,10 +331,17 @@ Translator_def::to_alist () const
   SCM l = SCM_EOL;
   
   l = gh_cons (gh_cons (ly_symbol2scm ("consists"),  consists_name_list_), l);
-  l = gh_cons (gh_cons (ly_symbol2scm ("end-consists"),  end_consists_name_list_), l);
+  l = gh_cons (gh_cons (ly_symbol2scm ("description"),  description_), l);
+  l = gh_cons (gh_cons (ly_symbol2scm ("end-consists"),
+			end_consists_name_list_), l);
   l = gh_cons (gh_cons (ly_symbol2scm ("accepts"),  accepts_name_list_), l);
   l = gh_cons (gh_cons (ly_symbol2scm ("property-ops"),  property_ops_), l);
-  l = gh_cons (gh_cons (ly_symbol2scm ("type-name"),  type_name_), l); // junkme.
+
+  /*
+    junkme:
+   */
+  l = gh_cons (gh_cons (ly_symbol2scm ("type-name"),  type_name_), l);
+  
   l = gh_cons (gh_cons (ly_symbol2scm ("group-type"),  translator_group_type_), l);    
 
   return l;  

@@ -29,7 +29,9 @@ private:
   SCM end_consists_name_list_;
   SCM accepts_name_list_;
   SCM property_ops_;
+
 public:
+  SCM description_; 
   SCM type_name_;
   SCM type_aliases_;
   SCM translator_group_type_;

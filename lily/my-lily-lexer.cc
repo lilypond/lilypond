@@ -46,6 +46,7 @@ static Keyword_ent the_key_tab[]={
   {"context", CONTEXT},
   {"default", DEFAULT},
   {"denies", DENIES},
+  {"description", DESCRIPTION},
   {"duration", DURATION},
   {"grobdescriptions", GROBDESCRIPTIONS},
   {"figures",FIGURES},

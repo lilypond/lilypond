@@ -221,6 +221,7 @@ yylex (YYSTYPE *s,  void * v)
 %token SIMULTANEOUS
 %token CONSISTSEND
 %token DENIES
+%token DESCRIPTION
 %token EXTENDER
 %token FIGURES FIGURE_OPEN FIGURE_CLOSE
 %token FIGURE_BRACKET_CLOSE FIGURE_BRACKET_OPEN
@@ -539,6 +540,9 @@ translator_spec_body:
 		Translator_def*td =  unsmob_translator_def ($$);
 		td->translator_group_type_ = $2;
 		td->set_spot (THIS->here_input ());
+	}
+	| translator_spec_body DESCRIPTION string  {
+		unsmob_translator_def ($$)->description_ = $3;
 	}
 	| translator_spec_body STRING '=' embedded_scm			{
 		unsmob_translator_def ($$)->add_property_assign ($2, $4);

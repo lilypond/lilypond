@@ -1067,6 +1067,19 @@
 	(meta . ((interfaces . (text-spanner-interface side-position-interface font-interface spanner-interface))))		
 	))
     
+    (OttavaSpanner
+     . (
+	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(molecule-callback . ,Text_spanner::brew_molecule)
+	(font-family . roman)
+	(outer . #t)
+	(width-correct . 0.0)
+	(type . dotted-line)
+	(edge-height . (0 . 1.5))
+	(direction . 1)
+	(meta . ((interfaces . (text-spanner-interface side-position-interface font-interface spanner-interface))))		
+	))
+    
     (TabNoteHead
      . (
 	(font-family . roman)

@@ -26,7 +26,7 @@
 ;;  NAME X Y ARGUMENTS-PASSED-BY-LILYPOND
 ;;
 
-(define-module (scm sketch))
+(define-module (scm output-sketch))
 (debug-enable 'backtrace)
 
 (define this-module (current-module))

@@ -1,4 +1,4 @@
-(define-module (scm ascii-script)
+(define-module (scm output-ascii-script)
   )
 
 (define this-module (current-module))

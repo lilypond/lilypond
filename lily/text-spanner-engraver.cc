@@ -6,18 +6,10 @@
   (c) 2000--2003 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "dimensions.hh"
-#include "event.hh"
-#include "paper-column.hh"
 #include "note-column.hh"
 #include "item.hh"
 #include "side-position-interface.hh"
 #include "engraver.hh"
-#include "group-interface.hh"
-#include "directional-element-interface.hh"
-#include "translator-group.hh"
-#include "axis-group-interface.hh"
-
 
 class Text_spanner_engraver : public Engraver
 {
@@ -107,11 +99,13 @@ Text_spanner_engraver::process_music ()
 	  current_req_ = req_drul_[START];
 	  span_  = new Spanner (get_property ("TextSpanner"));
 
+#if 0
 	  /* Ugh.  Reset (de)cresc. specific properties */
-	  span_->set_grob_property ("outer", SCM_BOOL_T);
+	  span_->set_grob_property ("enclose-bounds", SCM_BOOL_T);
 	  span_->set_grob_property ("if-text-padding", gh_double2scm (0));
 	  span_->set_grob_property ("width-correct", gh_double2scm (0));
-	  	    
+#endif
+	  
 	  Side_position_interface::set_axis (span_, Y_AXIS);
 	  announce_grob (span_, req_drul_[START]->self_scm());
 	  req_drul_[START] = 0;
