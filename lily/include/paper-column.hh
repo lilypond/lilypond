@@ -34,7 +34,7 @@ public:
   static int rank_i (Grob*);
 
   Paper_column (SCM);
-  bool musical_b () const;
+  static bool musical_b (Grob *);
   static Moment when_mom (Grob*);
 
   static bool used_b (Grob*) ;
