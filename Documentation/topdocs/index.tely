@@ -1,6 +1,7 @@
 \input texinfo @c -*-texinfo-*-
 @setfilename index.info
-@settitle LilyPond homepage
+@settitle 
+@c title looks silly in HTML, because it's just below WEB-TITLE.
 
 @html
 <!--- @@WEB-TITLE@@=GNU Music Typesetter Homepage --->

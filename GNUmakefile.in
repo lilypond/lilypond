@@ -44,6 +44,9 @@ doc: run-reqs
 	$(MAKE) -C Documentation
 
 web-doc: web-reqs
+	$(MAKE) out=www -C input/regression/ WWW
+	$(MAKE) out=www -C input/template/ WWW
+	$(MAKE) out=www -C input/test/ WWW
 	$(MAKE) out=www -C Documentation WWW
 	$(MAKE) footify
 

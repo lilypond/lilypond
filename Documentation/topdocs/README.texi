@@ -1,6 +1,6 @@
 \input texinfo @c -*-texinfo-*-
 @setfilename README.info
-@settitle This is the toplevel README to LilyPond
+@settitle Toplevel README
 
 @html
 <!--- @@WEB-TITLE@@=README --->
@@ -30,8 +30,8 @@ The primary download site for sourcecode is
 @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/}.
 
 If you have a slow connection, then you are advised to use
-@uref{xdelta,ftp://ftp.xcf.berkeley.edu/pub/xdelta/} for patching
-source archives; Xdelta (@file{.xd}) files are supplied on the website.
+@uref{ftp://ftp.xcf.berkeley.edu/pub/xdelta/,xdelta} for patching
+source archives; Xdelta (@file{.xd}) files are supplied on the FTP site.
 
 @section Compilation
 

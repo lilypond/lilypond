@@ -2,6 +2,12 @@
 
 	* VERSION: release 1.6.0 
 
+	* Documentation/user/latex-example.latex: restore from old version
+
+	* Documentation/topdocs/index.tely: remove @settitle
+
+	* Documentation/topdocs/README.texi: small fixes.
+
 	* lily/self-aligment-interface.cc (centered_on_parent): only
 	return center if extents not empty.
 
@@ -9,7 +15,7 @@
 
 	* mf/feta-bolletjes.mf: use resolution independent variables.
 
-2002-08-19  janneke  <janneke@blauw.xs4all.nl>
+2002-08-19  janneke  <janneke@blauw.xs4all.nl>;
 
 	* lily/stem.cc (calc_stem_info): Fix [a8 a32].
 
@@ -34,10 +40,12 @@
 	* regular-spacing-engraver.cc:
 	* lily/regular-spacing-engraver.cc: Add regular-distance-to.
 
-	* ligature-bracket.cc, ligature-engraver.cc, ligature-head.cc, mensural-ligature-engraver.cc, mensural-ligature.cc:
-		* lily/mensural-ligature-engraver.cc:
-		* scm/grob-property-description.scm: Add head-width, join-left,
-		primitive.
+	* ligature-bracket.cc, ligature-engraver.cc, ligature-head.cc,
+	mensural-ligature-engraver.cc, mensural-ligature.cc:
+
+	* lily/mensural-ligature-engraver.cc:
+	* scm/grob-property-description.scm: Add head-width, join-left,
+	primitive.
 
 2002-08-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
