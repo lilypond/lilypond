@@ -1,7 +1,8 @@
 \header{
 filename =	 "preludes-6.ly";
 title =	 "6";
-piece = "\\numfont 5";
+% piece = "\\numfont 5";
+piece = "5";
 opus = "BWV 940";
 % blz 11
 % Six Petits Pr'eludes
@@ -12,7 +13,6 @@ enteredby =	 "jcn";
 copyright =	 "public domain";
 }
 
-\version "0.1.14";
 one = \melodic{
 	\octave c';
 	\skip 4*4; |
@@ -46,7 +46,7 @@ two = \melodic{
 	s4 [e32 d e8.~] e4 d4 ~ |
 	d4. [cis16-2 d-1] cis4 d-1 ~ |
 	d8 r r16 [e-2 f d] r16 [e-2 f d] r [d-1 e-3 cis] |
-	r16 [e-3 d-1 c!-2] ['bes! d8.] s4 r16\> [bes-2 a-2 \!g-1] |
+	r16 [e-3 d-1 c!-2] [bes,! d8.] s4 r16\> [bes-2 a-2 \!g-1] |
 	fis1-2
 }
 
@@ -54,7 +54,7 @@ three = \melodic{
 	\octave c;
 	\stemup
 	f2-1( e-2 |
-	\stemboth;
+	\stemboth
 	[)d16 d'( c' bes] [a-4 bes-2 f-5 g-4] 
 	[a32 g a8 bes16-2]
 	[g8.-4 f16-5] |
@@ -64,7 +64,7 @@ three = \melodic{
 	\stemdown
 	e4 ~ [e16 f-2( e-3 d-4] [cis a, b, cis-3] [d-4 e-3 f-2 d-4] |
 	\textstyle "finger";
-	)'bes!2-"5\\_4" a, ~ |
+	)bes,!2-"5\\_4" a, ~ |
 	a, a, |
 	d, cis-5 |
 	a1-2
@@ -73,7 +73,7 @@ three = \melodic{
 
 four = \melodic{
 	\octave c;
-	\stemdown;
+	\stemdown 
 	d2-3 cis-4 |
 	\skip 4*12;
 	\translator Staff=treble \octave c'; \stemup \property Voice.hshift = 1 

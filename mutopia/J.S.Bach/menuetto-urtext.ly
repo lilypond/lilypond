@@ -7,7 +7,6 @@ Well, there are still some scripts in this "urtext".
 But merging music and scripts doen't work too well yet (see alto_scripts).
 %}
 
-\version "0.1.14";
 menuetto_i_a = \melodic{
 %	\octave relative;
 	<d,2\f f a> bes4  |
@@ -40,13 +39,14 @@ menuetto_i_a = \melodic{
 	[g,8 f g e] f4 |
 	[g,8 g'] <a,4. { e'^\trill ~ d8 }> |
 	<d,2. a' d> |
+	\octave c;
 }
 
 menuetto_i_b = \melodic{
 %	\octave relative;
 	\slurdotted
 	\skip 2.*1; |
-	<c,8 e> \skip 8*5; |
+	<c8 e> \skip 8*5; |
 	\skip 2.*1; |
 	a,8 \skip 8*5; |
 	\skip 2.*1; |
@@ -66,6 +66,7 @@ menuetto_i_b = \melodic{
 %	g2 f4 |
 	g4 \skip 4*1; f4 |
 	cis8 \skip 8*3; d4 |
+	\octave c;
 }
 
 % UGH, fix this like in sarabande
@@ -115,7 +116,7 @@ menuetto_i = \type Voice \melodic<
 
 menuetto_ii = \melodic{
 	\slurdotted
-	fis4^\trill [d8( e fis )g] |
+	fis'4^\trill [d8( e fis )g] |
 	a4 fis,, a'' |
 	[g,,8()b] e4 g |
 	\slurnormal

@@ -98,6 +98,25 @@ most MusiXTeX preprocessors)
 
 =back
 
+=head1 WEBSITE
+
+If you want to auto-generate Lily's website, you'll need some additional
+conversion tools.
+
+=over 5
+
+=item *
+
+Xpmtoppm (from the libgr-progs package).
+
+=item *
+
+Bib2html (http://pertsserver.cs.uiuc.edu/~hull/bib2html.)
+Which, in turn depends on Man2htlm (http://askdonald.ask.uni-karlsruhe.de/
+hppd/hpux/Networking/WWW/Man2html-1.05) for proper installation (ugh).
+TeTeX users, don't forget to rerun texhash.
+
+=back
 
 =head1 CONFIGURING and COMPILING
 

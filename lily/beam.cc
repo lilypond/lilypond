@@ -204,6 +204,7 @@ Beam::solve_slope ()
 
   assert (multiple_i_);
   Array<Stem_info> sinfo;
+  DOUT << "Beam::solve_slope: \n";
   for (int j=0; j <stems_.size (); j++)
     {
       Stem *i = stems_[j];
@@ -234,8 +235,53 @@ Beam::solve_slope ()
 	}
 
       l.minimise (slope_f_, left_y_);
+
+     }
+
+  solved_slope_f_ = dir_ * slope_f_;
+
+  /*
+    This neat trick is by Werner Lemberg, damped = tanh (slope_f_) corresponds
+    with some tables in [Wanske]
+    */
+  if (damping_i_)
+    slope_f_ = 0.6 * tanh (slope_f_) / damping_i_;
+
+  /* 
+    [TODO]
+    think
+
+    dropping lq for stemlengths solves [d d d] [d g d] "bug..."
+
+    but may be a bit too crude, and result in lots of 
+    too high beams...
+
+    perhaps only if slope = 0 ?
+    */
+
+//      left_y_ = sinfo[0].minyf_;
+
+  if (sinfo.size () >= 1)
+    {
+      Real staffline_f = paper ()->rule_thickness ();
+      Real epsilon_f = staffline_f / 8;
+      if (abs (slope_f_) < epsilon_f)
+	left_y_ = (sinfo[0].idealy_f_ + sinfo.top ().idealy_f_) / 2;
+      else
+	/* 
+	  symmetrical, but results often in having stemlength = minimal 
+
+	left_y_ = sinfo[0].dir_ == dir_ ? sinfo[0].miny_f_ : sinfo[0].maxy_f_;
+
+	  what about
+	*/
+	{
+	  Real dx = stems_.top ()->hpos_f () - stems_[0]->hpos_f ();
+	  left_y_ = sinfo[0].idealy_f_ >? sinfo.top ().idealy_f_ - slope_f_ * dx; 
+	}
     }
 
+  // uh?
   Real dy = 0.0;
   for (int i=0; i < sinfo.size (); i++)
     {
@@ -247,15 +293,7 @@ Beam::solve_slope ()
     }
   left_y_ += dy;
   left_y_ *= dir_;
-
   slope_f_ *= dir_;
-  solved_slope_f_ = slope_f_;
-  /*
-    This neat trick is by Werner Lemberg, damped = tanh (slope_f_) corresponds
-    with some tables in [Wanske]
-    */
-  if (damping_i_)
-    slope_f_ = 0.6 * tanh (slope_f_) / damping_i_;
 
   quantise_dy ();
 }
@@ -466,10 +504,14 @@ Beam::set_stemlens ()
    */
 
   Real dx_f = stems_.top ()->hpos_f () - stems_[0]->hpos_f ();
-  Real damped_slope_dy_f = (solved_slope_f_ - slope_f_) * dx_f / 2;
-  if (abs (damped_slope_dy_f) <= epsilon_f)
+  Real damp_correct_f = paper ()->get_var ("beam_slope_damp_correct_factor");
+  Real damped_slope_dy_f = (solved_slope_f_ - slope_f_) * dx_f
+    * sign (slope_f_);
+  damped_slope_dy_f *= damp_correct_f;
+  if (damped_slope_dy_f <= epsilon_f)
     damped_slope_dy_f = 0;
 
+  DOUT << "Beam::set_stemlens: \n";
   Real x0 = stems_[0]->hpos_f ();
   Real dy_f = 0;
   // urg
@@ -503,8 +545,7 @@ Beam::set_stemlens ()
 	      dy_f = dy_f >? info.miny_f_ - y;
 	    }
 	}
-      if (dy_f && damped_slope_dy_f 
-      	&& (sign (dy_f) == sign (damped_slope_dy_f)))
+      if (damped_slope_dy_f && (dy_f >= 0))
 	dy_f += damped_slope_dy_f;
       damped_slope_dy_f = 0;
       if (abs (dy_f) <= epsilon_f)

@@ -27,7 +27,7 @@ tenor =
         \stemdown
         r8 [c8 d e] [f. g32 f] [e8 a] |
         [d g] ~ [g16 a g f] [e f e d] [c d c b,] |
-        ['a8 fis] g4 ~ [g8 fis16 e] [f8 d] |
+        [a,8 fis] g4 ~ [g8 fis16 e] [f8 d] |
         [g f! e d] c r r g ~ |
 %% 5
         [g f16 e] f4 ~ [f16 f e8] d4 |
@@ -78,25 +78,25 @@ soprane =
 	f2 [e8. fis16] g4 ~
 %% 10
 	g4 fis [g16 f! e d] [c d c b,] |
-	['a16 c b, a,] g,8 r8 r16 [c16 b, a,] ['gis8 e] |
-	[d c16 b,16] ['a gis, a, b,] [c fis, a, gis,] ['b8 a,16 b,]
-	[c8 f e d] ~ [d c16 b,] ['b8. a,16] |
+	[a,16 c b, a,] g,8 r8 r16 [c16 b, a,] [gis,8 e] |
+	[d c16 b,16] [a, gis, a, b,] [c fis, a, gis,] [b,8 a,16 b,]
+	[c8 f e d] ~ [d c16 b,] [b,8. a,16] |
 	a,4 r4 r2 |
 %% 15
-	r2 r8 ['g8 a, b,] |
-	[c8. d32 c] ['b8 c] [d e] [f!. g32 f!] |
+	r2 r8 [g,8 a, b,] |
+	[c8. d32 c] [b,8 c] [d e] [f!. g32 f!] |
 	[e8 a d g] ~ [g16 a g f] [e8 a] |
 	[d8 bes] [a g16 f] [g f g e] [f g g f32 g] |
 	[a16 cis d g] [e8. d16] d8 r8 r4 |
 %% 20
 	r2 r4 r8 g, |
-	['a b,] [c. d32 c] ['b8 e a, d] ~ |
-	[e16 e d c] ['b c d e] [f g a g] [f e d c] |
+	[a, b,] [c. d32 c] [b,8 e a, d] ~ |
+	[e16 e d c] [b, c d e] [f g a g] [f e d c] |
 	b,4 [c8 d] g, c4 b,8 |
-	c4 ['b8 bes,8] a, d4 c8 |
+	c4 [b,8 bes,8] a, d4 c8 |
 %% 25
 	[d8 e] f4 ~ [f16 a g f] [e f e d] |
-	c2 r16 ['g32 a, b,!16 c] [d e f8] ~ |
+	c2 r16 [g,32 a, b,!16 c] [d e f8] ~ |
 	[f32 c d e f16 g] [a8. b16] <g2 c'2> |
     }
 
@@ -153,23 +153,23 @@ bass =
 %% 5
 	r2 r8 [c8 d e] |
 	[f. g32 f] [e8 a] [d g] ~ [g16 a g f] |
-	[e f e d] [c d c b,] ['a8 d a fis] |
+	[e f e d] [c d c b,] [a,8 d a fis] |
 	[g16 a bes g] [cis8 d] a4 e4 |
 	[a16 b c' d'] [c' b a g] c'8 r8 r4 |
 %% 10
-	r2 r8 ['g8 a, b,] |
-	[c. d32 c] ['b8 e] ['a d] ~ [d16 e d c] |
+	r2 r8 [g,8 a, b,] |
+	[c. d32 c] [b,8 e] [a, d] ~ [d16 e d c] |
 	b,8 e4 d8 c f!4 e8 ~ |
 	e d4 e8 [f! e16 d] e4 |
 	a,4 r4 r2 |
 %% 15
-	r8 ['g8 a, b,] [c. d32 c] ['b8 e] |
-	['a8 d] ~ [d16 e d c] ['b8 bes, a, g'] |
-	['a8 fis g e] d4 [e8 f!] |
+	r8 [g,8 a, b,] [c. d32 c] [b,8 e] |
+	[a,8 d] ~ [d16 e d c] [b,8 bes, a, g'] |
+	[a,8 fis g e] d4 [e8 f!] |
 	[g8. a32 g] [f8 bes] [e a] ~ [a16 bes a g] |
 	[f e f d] [g8 a] d2 ~ |
 %% 20
-	[d16 e d c] ['b a, g, fis,] ['e8 e fis g] ~ |
+	[d16 e d c] [b, a, g, fis,] [e,8 e fis g] ~ |
 	[g a16 g16] [fis8 d] g2 ~ |
 	g2 a4 [b8 c'] |
 	[f16 a g f] [e d c b,] [c d e f] [g8 g,] |

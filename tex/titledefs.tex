@@ -34,24 +34,24 @@
 %
 \def\makelilytitle
 {
-  {\center\bfseries\huge\center\thetitle}
+  {\center\bfseries\center\sethuge{\thetitle}}
         \par
-       {\center\bfseries\Large\thesubtitle}
+       {\center\bfseries\setLarge{\thesubtitle}}
   \bigskip
-  {\flushright\scshape\thecomposer\par}
+  {\flushright\setlarge{\normalfont\scshape\thecomposer}\par}
   % urg
   \edef\saveparskip{\parskip}\parskip-5mm
-  {\flushright\theopus\par}
-  {\flushright\thearranger\par}
+  {\flushright\settext{\theopus}\par}
+  {\flushright\settext{\thearranger}\par}
   \parskip\saveparskip
-  {\center\large\theinstrument\par}
-  {\flushleft\scshape\large\thepiece}
+  {\center\setlarge{\theinstrument}\par}
+  {\flushleft\setLarge{\normalfont\scshape\thepiece}}
 }
 \def\makelilypiecetitle
 {
   \bigskip
-  {\flushright\theopus\par}
-  {\flushleft\scshape\large\thepiece}
+  {\flushright\settext{\theopus}\par}
+  {\flushleft\setLarge{\normalfont\scshape\thepiece}}
 }
 \endinput
 

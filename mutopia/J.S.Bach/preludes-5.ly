@@ -1,7 +1,8 @@
 \header{
 filename =	 "preludes-5.ly";
 title =	 "5";
-piece = "\\numfont 5";
+% piece = "\\numfont 5";
+piece = "5";
 opus = "BWV 926";
 % blz 2
 % Clavierb"uchlein f"ur W. Fr. Bach
@@ -12,7 +13,6 @@ enteredby =	 "jcn";
 copyright =	 "public domain";
 }
 
-\version "0.1.14";
 one = \melodic{
 	\octave c';
 	\textstyle "italic";
@@ -28,15 +28,15 @@ one = \melodic{
 	[a gis-3 fis e d'-5 \!b-2] |
 	< 
 		{
-			\voiceone;
+			\voiceone 
 			\textstyle "roman";
 			c'4-\mordent^"(\\textsharp)"\p r r |
 			c'4-\mordent^"(\\textsharp)" r r
 			\textstyle "italic";
 		}
-		{ \voicetwo; a4 r r | a4 r r }
+		{ \voicetwo  a4 r r | a4 r r }
 	> |
-	\onevoice;
+	\onevoice 
 	[a'8\mf( es'-3\> d' c' bes!-3 a] |
 	[g fis-3 e!-2 d-1 c'-4 \!a] |
 	[)bes8-\mordent\p( d'8-5 bes-3 g-1] )g'4 |
@@ -47,13 +47,13 @@ one = \melodic{
 	[f-3 d-1 f-2 a-3 d'-5 g-2] |
 	< 
 		{ 
-			\voiceone;
+			\voiceone 
 			% ... textnatural
 			[cis'8-\prall e'8-5-"poco cresc." cis'-3 a e' cis']
 		}
-		{ \voicetwo; a4 }
+		{ \voicetwo  a4 }
 	>
-	\onevoice;
+	\onevoice 
 	[a8 e'-5 cis' a bes!-3 a] |
 	[g e'-5 cis'-3 g e'-5 cis'-3] |
 	[g-1 e'-5 cis' g a-3 g] |
@@ -70,7 +70,7 @@ one = \melodic{
 	[f-3 a f d a-5 f] |
 	[d-1 a-5 f-3 d-1 cis-2 d-1] |
 	[e-3\< g-5 e-3 bes,-1 g-5 e-3] |
-	['bes-1 g-5 e-3 \!cis-2 a,-1 g-5] |
+	[bes,-1 g-5 e-3 \!cis-2 a,-1 g-5] |
 	[f16-4\mf d-2 c-1 bes,-3] \stemup a,-2 s16 s8 s4 |
 % ugh
 %	s1 |
@@ -81,18 +81,18 @@ one = \melodic{
 	<g'!4.-5\f e' a> a'8-5 
 	<
 		{
-			\voiceone;
+			\voiceone 
 			f'4-4\> ~ | \![f'8 e'] [e'32-4 f' e'8. ~] [e'8 d'-3]
 		}
-		{ \voicetwo; <d'4 a> r4 cis'-2 }
+		{ \voicetwo  <d'4 a> r4 cis'-2 }
 	> |
-	\onevoice;
+	\onevoice 
 	[d'8-4 c'!-3 a-1 d'-4 bes-2 g-1] |
 	[c'-5 a-3 fis-2 bes-4 g e ] |
 	[a-5 fis-"dim. e rall." d g-5 e cis-2] |
 	<
-		{ \voiceone; <fis2-.-5\p a,> }
-		{ \voicetwo; [d32( cis d8. ~] ) d2 }
+		{ \voiceone  <fis2-.-5\p a,> }
+		{ \voicetwo  [d32( cis d8. ~] ) d2 }
 	> |
 	\bar "|.";
 }
@@ -149,7 +149,7 @@ two = \melodic{
 	a,
 	\stemup
 	[d-5-"m.d." c bes,] a, 
-	\stemdown ['g-2 f,-"m.g." e,] ['d f,-4 a,-2 d-1] |
+	\stemdown [g,-2 f,-"m.g." e,] [d, f,-4 a,-2 d-1] |
 	\stemup
 %	[f-2\ped a]
 	[f-2-"Ped." a]
@@ -168,7 +168,7 @@ lilypond: ../flower/include/varray.hh:116: struct Rhythmic_grouping *& Array<Rhy
 Aborted (core dumped)
 %}
 	[cis8-3( e cis a,] [d16-1 c bes, a,] |
-	[)'g8 g a-2( g-3 a-1 a,] |
+	[)g,8 g a-2( g-3 a-1 a,] |
 	)d4-3 d'-1 d |
 	d r r |
 	d,( )d d, |

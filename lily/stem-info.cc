@@ -45,7 +45,6 @@ Stem_info::Stem_info (Stem const *s)
     */
 
   Real internote_f = s->paper ()->internote_f ();
-  Real interline_f = 2.0 * internote_f;
   Real interbeam_f = s->paper ()->interbeam_f (mult_i_);
   Real beam_f = s->paper ()->beam_thickness_f ();
          
@@ -64,6 +63,11 @@ Stem_info::Stem_info (Stem const *s)
   idealy_f_ = s->chord_start_f () * beam_dir_ / internote_f;
   idealy_f_ *= internote_f;
 
+  Real break_i = (int)rint (s->paper ()->get_var ("beam_multiple_break"));
+  Real min_stem1_f = s->paper ()->get_var ("beam_minimum_stem1");
+  Real min_stem2_f = s->paper ()->get_var ("beam_minimum_stem2");
+  Real ideal_stem1_f = s->paper ()->get_var ("beam_ideal_stem1");
+  Real ideal_stem2_f = s->paper ()->get_var ("beam_ideal_stem2");
 
   if (!beam_dir_ || (beam_dir_ == dir_))
     {
@@ -71,13 +75,16 @@ Stem_info::Stem_info (Stem const *s)
       miny_f_ = idealy_f_;
       maxy_f_ = INT_MAX;
 
-      // B"arenreiter
-      if (mult_i_ < 3)
-	idealy_f_ += 2.0 * interline_f;
+      if (mult_i_ < break_i)
+        {
+	  idealy_f_ += ideal_stem1_f;
+	  miny_f_ += min_stem1_f;
+	}
       else
-	idealy_f_ += 1.5 * interline_f;
-
-      miny_f_ += 1.0 * interline_f;
+        {
+	  idealy_f_ += ideal_stem2_f;
+	  miny_f_ += min_stem2_f;
+	}
 
       // lowest beam of (UP) beam must never be lower than second staffline
       miny_f_ = miny_f_ >? (- 2 * internote_f - beam_f
@@ -87,22 +94,24 @@ Stem_info::Stem_info (Stem const *s)
     {
       idealy_f_ -= beam_f;
       maxy_f_ = idealy_f_;
+      miny_f_ = -INT_MAX;
 
       // B"arenreiter
-      if (mult_i_ < 3)
-	idealy_f_ -= 2.0 * interline_f;
+      if (mult_i_ < break_i)
+        {
+	  idealy_f_ -= ideal_stem1_f;
+	  maxy_f_ -= min_stem1_f;
+	}
       else
-	idealy_f_ -= 1.5 * interline_f;
-
-      maxy_f_ -= 1.0 * interline_f;
-
-      miny_f_ = -INT_MAX;
+        {
+	  idealy_f_ -= ideal_stem2_f;
+	  maxy_f_ -= min_stem2_f;
+	}
     }
 
   idealy_f_ /= internote_f;
   miny_f_ /= internote_f;
   maxy_f_ /= internote_f;
-  miny_f_ /= internote_f;
 
   DOUT << "dir_: " << dir_ << '\n';
   DOUT << "mult_i_: " << mult_i_ << '\n';

@@ -7,6 +7,6 @@ depth = ../..
 
 include $(depth)/make/Mutopia.make
 
-examples=font20 denneboom spacing 
+examples=font20 denneboom
 
 include $(depth)/make/WWW.make
