@@ -527,6 +527,9 @@ to the @code{interpret-markup} function, with the @code{paper} and
 @node Context evaluation
 @appendixsubsec Context evaluation
 
+@cindex calling code during interpreting
+@cindex @code{\applycontext}
+
 Contexts can be modified during interpretation with Scheme code. The
 syntax for this is
 @example
@@ -548,6 +551,11 @@ current bar number on the standard output during the compile:
 
 @node Running a function on all layout objects
 @appendixsubsec Running a function on all layout objects
+
+
+@cindex calling code on layout objects
+@cindex @code{\applyoutput}
+
 
 The most versatile way of tuning an object is @code{\applyoutput}. Its
 syntax is

@@ -20,8 +20,6 @@
   accidental-placement.cc
 
 */
-
-
 Stencil
 parenthesize (Grob*me, Stencil m)
 {
