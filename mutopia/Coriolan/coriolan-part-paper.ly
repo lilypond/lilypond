@@ -1,5 +1,5 @@
 \version "1.3.120"
-\paper{
+\paper {
 	%\paperSixteen
 
 	% Fine for my a4 laserprinter:
@@ -10,11 +10,11 @@
 	textheight = 270.0\mm;
 	linewidth = 180.0\mm;
 
-	\translator{
+	\translator {
 		\ThreadContext
 		\consists "Rest_engraver";
 	}
-	\translator{
+	\translator {
 		\VoiceContext
 		\remove "Rest_engraver";
 
@@ -28,11 +28,14 @@
 		%% devNullThread = #'never
 		\consists "Thread_devnull_engraver";
 	}
-	\translator{
+	% We need the HaraKiri staff for Staff Combining,
+	% but we better remove the Instrument_name_engraver.
+	\translator {
 		\HaraKiriStaffContext
 		\consists "Mark_engraver";
+		\remove "Instrument_name_engraver";
 	}
-	\translator {
+	\translator  {
 		\OrchestralScoreContext
 		skipBars = ##t 
 
