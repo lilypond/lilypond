@@ -16,13 +16,13 @@ Note_head_engraver::Note_head_engraver()
 }
 
 bool
-Note_head_engraver::do_try_request(Request *req_l) 
+Note_head_engraver::do_try_request (Request *req_l) 
 {
     if (note_req_l_)
 	return false;
     
-    if (req_l->musical() && (req_l->musical()->note() || req_l->musical()->rest()))
-	note_req_l_=req_l->musical()->rhythmic();
+    if (req_l->musical() && (req_l->musical ()->note () || req_l->musical ()->rest ()))
+	note_req_l_=req_l->musical()->rhythmic ();
     else
 	return false;
 
@@ -35,12 +35,12 @@ Note_head_engraver::do_process_requests()
     if (!note_req_l_)
 	return;
     
-    Note_head*n_p = new Note_head(8);	// ugh
+    Note_head*n_p = new Note_head (8);	// ugh
     note_p_ = n_p;
-    n_p->set_rhythmic(note_req_l_->rhythmic());
+    n_p->set_rhythmic (note_req_l_->rhythmic());
 
     if (note_req_l_->note()) {
-	n_p->position_i_ = note_req_l_->note()->height();
+	n_p->position_i_ = note_req_l_->note()->height ();
 	Staff_info inf = get_staff_info();
 	if (inf.c0_position_i_l_)
 	    n_p->position_i_ += *inf.c0_position_i_l_;
@@ -48,15 +48,15 @@ Note_head_engraver::do_process_requests()
 	n_p->rest_b_ = true;
     }
     
-    Score_elem_info itinf(note_p_,note_req_l_);
-    announce_element(itinf);
+    Score_elem_info itinf (note_p_,note_req_l_);
+    announce_element (itinf);
 }
  
 void
 Note_head_engraver::do_pre_move_processing()
 {
     if (note_p_) {
-	typeset_element(note_p_);
+	typeset_element (note_p_);
 	note_p_ = 0;
     }
 }

@@ -53,6 +53,6 @@ Staff_info::musical_pcol_l()
 Moment
 Staff_info::when()
 {
-    return command_l()->when();
+    return command_l()->when ();
 }
 

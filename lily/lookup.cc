@@ -27,11 +27,11 @@ Lookup::Lookup()
     symtables_ = new Symtables;
 }
 
-Lookup::Lookup(Lookup const &s)
+Lookup::Lookup (Lookup const &s)
 {
     paper_l_ = s.paper_l_;
     texsetting = s.texsetting;
-    symtables_ = new Symtables(*s.symtables_);
+    symtables_ = new Symtables (*s.symtables_);
 }
 Lookup::~Lookup()
 {
@@ -39,32 +39,32 @@ Lookup::~Lookup()
 }
 
 void
-Lookup::add(String s, Symtable*p)
+Lookup::add (String s, Symtable*p)
 {
-    symtables_->add(s, p);
+    symtables_->add (s, p);
 }
 
 void
 Lookup::print()const
 {
     #ifndef NPRINT
-    mtor << "Lookup: " << texsetting << " {\n";
+    DOUT << "Lookup: " << texsetting << " {\n";
     symtables_->print();
-    mtor << "}\n";
+    DOUT << "}\n";
     #endif
 }
 
 Symbol
-Lookup::text(String style, String text, int dir) const
+Lookup::text (String style, String text, int dir) const
 {
     Array<String> a;
  
-    a.push(text);
-    Symbol tsym =  (*symtables_)("style")->lookup(style);
-    a[0] = substitute_args(tsym.tex,a);
+    a.push (text);
+    Symbol tsym =  (*symtables_)("style")->lookup (style);
+    a[0] = substitute_args (tsym.tex,a);
 
-    Symbol s = (*symtables_)("align")->lookup(dir);
-    s.tex = substitute_args(s.tex,a);
+    Symbol s = (*symtables_)("align")->lookup (dir);
+    s.tex = substitute_args (s.tex,a);
     s.dim = tsym.dim;
     return s;
 }
@@ -72,85 +72,85 @@ Lookup::text(String style, String text, int dir) const
 
 
 Symbol
-Lookup::ball(int j) const
+Lookup::ball (int j) const
 {
     if (j > 4)
 	j = 4;
 
     Symtable * st = (*symtables_)("balls");
-    return st->lookup(String(j));
+    return st->lookup (String (j));
 }
 
 Symbol
-Lookup::rest(int j, bool o) const
+Lookup::rest (int j, bool o) const
 {
-    return (*symtables_)("rests")->lookup(String(j) + (o ? "o" : "") );
+    return (*symtables_)("rests")->lookup (String (j) + (o ? "o" : ""));
 }
 
 Symbol
-Lookup::fill(Box b) const
+Lookup::fill (Box b) const
 {
-    Symbol s( (*symtables_)("param")->lookup("fill"));
+    Symbol s ((*symtables_)("param")->lookup ("fill"));
     s.dim = b;
     return s;
 }
 
 Symbol
-Lookup::accidental(int j) const
+Lookup::accidental (int j) const
 {
-    return (*symtables_)("accidentals")->lookup(String(j));
+    return (*symtables_)("accidentals")->lookup (String (j));
 }
 
 
 Symbol
-Lookup::bar(String s, Real h) const
+Lookup::bar (String s, Real h) const
 {
     Array<String> a;
-    a.push(print_dimen( h));
-    Symbol ret=(*symtables_)("bars")->lookup(s);;
-    ret.tex = substitute_args(ret.tex, a);
-    ret.dim.y() = Interval( 0, h);
+    a.push (print_dimen (h));
+    Symbol ret=(*symtables_)("bars")->lookup (s);;
+    ret.tex = substitute_args (ret.tex, a);
+    ret.dim.y() = Interval (0, h);
     return ret;
 }
 
 Symbol
-Lookup::script(String s) const
+Lookup::script (String s) const
 {
-    return (*symtables_)("scripts")->lookup(s);
+    return (*symtables_)("scripts")->lookup (s);
 }
 
 Symbol
-Lookup::dynamic(String s) const
+Lookup::dynamic (String s) const
 {
-    return (*symtables_)("dynamics")->lookup(s);
+    return (*symtables_)("dynamics")->lookup (s);
 }
 
 Symbol
-Lookup::clef(String s) const
+Lookup::clef (String s) const
 {
-    return (*symtables_)("clefs")->lookup(s);
+    return (*symtables_)("clefs")->lookup (s);
 }
  
 Symbol
-Lookup::dots(int j) const
+Lookup::dots (int j) const
 {
     if (j>3) {
 	j = 3;
-	warning("max 3 dots");	// todo
+	warning ("max 3 dots");	// todo
     }
-    return (*symtables_)("dots")->lookup(j);
+    return (*symtables_)("dots")->lookup (j);
 }
 
 Symbol
-Lookup::flag(int j) const
+Lookup::flag (int j) const
 {
-    return (*symtables_)("flags")->lookup(j);
+    return (*symtables_)("flags")->lookup (j);
 }
 
 Symbol
-Lookup::streepjes(int i) const
+Lookup::streepjes (int i) const
 {
-    assert(i);
+    assert (i);
     
     int arg;
     String idx;
@@ -162,64 +162,64 @@ Lookup::streepjes(int i) const
 	arg = i;
 	idx = "toplines";
     }
-    Symbol ret = (*symtables_)("streepjes")->lookup(idx);
+    Symbol ret = (*symtables_)("streepjes")->lookup (idx);
     
     Array<String> a;
-    a.push(arg);
-    ret.tex = substitute_args(ret.tex, a);
+    a.push (arg);
+    ret.tex = substitute_args (ret.tex, a);
 
     return ret;
 }
 
 Symbol
-Lookup::hairpin(Real &wid, bool decresc) const
+Lookup::hairpin (Real &wid, bool decresc) const
 {
-    int idx = int(rint(wid / 6 PT));
-    if(!idx) idx ++;
+    int idx = int (rint (wid / 6 PT));
+    if (!idx) idx ++;
     wid = idx*6 PT;
     String idxstr = (decresc)? "decrescendosym" : "crescendosym";
-    Symbol ret=(*symtables_)("param")->lookup(idxstr);
+    Symbol ret=(*symtables_)("param")->lookup (idxstr);
        
     Array<String> a;
-    a.push(idx);
-    ret.tex = substitute_args(ret.tex, a);
-    ret.dim.x() = Interval(0,wid);
+    a.push (idx);
+    ret.tex = substitute_args (ret.tex, a);
+    ret.dim.x() = Interval (0,wid);
     return ret;
 }
 
 Symbol
-Lookup::linestaff(int lines, Real wid) const
+Lookup::linestaff (int lines, Real wid) const
 {
     Real internote_f = paper_l_ ->internote_f();
     Symbol s;
     Real dy = (lines >0) ? (lines-1)*internote_f : 0;
-    s.dim = Box(Interval(0,wid), Interval(0,dy));
+    s.dim = Box (Interval (0,wid), Interval (0,dy));
 
     Array<String> a;
-    a.push(lines);
-    a.push(print_dimen(wid));
+    a.push (lines);
+    a.push (print_dimen (wid));
 
-    s.tex = (*symtables_)("param")->lookup("linestaf").tex;
-    s.tex = substitute_args(s.tex, a);
+    s.tex = (*symtables_)("param")->lookup ("linestaf").tex;
+    s.tex = substitute_args (s.tex, a);
 
     return s;
 }
 
 
 Symbol
-Lookup::meter(Array<Scalar> a) const
+Lookup::meter (Array<Scalar> a) const
 {
     Symbol s;
-    s.dim.x() = Interval( 0 PT, 10 PT);
-    s.dim.y() = Interval(0, 20 PT);	// todo
-    String src = (*symtables_)("param")->lookup("meter").tex;
-    s.tex = substitute_args(src,a);
+    s.dim.x() = Interval (0 PT, 10 PT);
+    s.dim.y() = Interval (0, 20 PT);	// todo
+    String src = (*symtables_)("param")->lookup ("meter").tex;
+    s.tex = substitute_args (src,a);
     return s;    
 }
 
 
 Symbol
-Lookup::stem(Real y1,Real y2) const
+Lookup::stem (Real y1,Real y2) const
 {
     if (y1 > y2) {
 	Real t = y1;
@@ -228,15 +228,15 @@ Lookup::stem(Real y1,Real y2) const
     }
     Symbol s;
     
-    s.dim.x() = Interval(0,0);
-    s.dim.y() = Interval(y1,y2);
+    s.dim.x() = Interval (0,0);
+    s.dim.y() = Interval (y1,y2);
     
     Array<String> a;
-    a.push(print_dimen(y1));
-    a.push(print_dimen(y2));
+    a.push (print_dimen (y1));
+    a.push (print_dimen (y2));
 	
-    String src = (*symtables_)("param")->lookup("stem").tex;
-    s.tex = substitute_args(src,a);
+    String src = (*symtables_)("param")->lookup ("stem").tex;
+    s.tex = substitute_args (src,a);
     return s;
 }
 
@@ -244,32 +244,32 @@ Lookup::stem(Real y1,Real y2) const
   should be handled via TeX code and Lookup::bar()
  */
 Symbol
-Lookup::vbrace(Real &y) const
+Lookup::vbrace (Real &y) const
 {
     if (y < 2* 20 PT) {
-	warning ( "piano brace too small (" + print_dimen(y)+ ")");
+	warning ( "piano brace too small (" + print_dimen (y)+ ")");
 	y = 2*20 PT;
     }
     if (y > 67 * 2 PT) {
-	warning ( "piano brace too big (" + print_dimen(y)+ ")");	
+	warning ( "piano brace too big (" + print_dimen (y)+ ")");	
 	y = 67 *2 PT;
     }
     
-    int idx = int(rint((y/2.0 - 20 ) + 148));
+    int idx = int (rint ((y/2.0 - 20) + 148));
     
-    Symbol s = (*symtables_)("param")->lookup("brace");
+    Symbol s = (*symtables_)("param")->lookup ("brace");
     {
 	Array<String> a;
-	a.push(idx);
-	s.tex = substitute_args(s.tex,a);
-	s.dim.y() = Interval(0,y);
+	a.push (idx);
+	s.tex = substitute_args (s.tex,a);
+	s.dim.y() = Interval (0,y);
     }
     {
 	Array<String> a;
-	a.push(print_dimen( y/2 ));
-	a.push(print_dimen(0));
-	a.push(s.tex);
-	s.tex = substitute_args("\\placebox{%}{%}{%}", a);
+	a.push (print_dimen (y/2));
+	a.push (print_dimen (0));
+	a.push (s.tex);
+	s.tex = substitute_args ("\\placebox{%}{%}{%}", a);
     }
 
 	

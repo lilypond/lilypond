@@ -26,7 +26,7 @@ void
 Meter_performer::do_print() const
 {
 #ifndef NPRINT
-    if ( meter_req_l_ )
+    if ( meter_req_l_)
     	meter_req_l_->print();
 #endif
 }
@@ -34,21 +34,21 @@ Meter_performer::do_print() const
 void
 Meter_performer::process_requests()
 {
-    if ( meter_req_l_ )
-	play( new Audio_meter( meter_req_l_ ) );
+    if ( meter_req_l_)
+	play (new Audio_meter (meter_req_l_) );
     meter_req_l_ = 0;
 }
 
 bool
-Meter_performer::do_try_request( Request* req_l )
+Meter_performer::do_try_request (Request* req_l)
 {
-    if ( meter_req_l_ )
+    if ( meter_req_l_)
 	return false;
 
-    if ( req_l->command() )
-	meter_req_l_ = req_l->command()->meterchange();
+    if ( req_l->command())
+	meter_req_l_ = req_l->command()->meterchange ();
 
-    if ( meter_req_l_ )
+    if ( meter_req_l_)
 	return true;
 
     return false;

@@ -19,14 +19,14 @@ const Real TOL=1e-1;		// roughly 1/30 mm
 String
 Active_constraints::status() const
 {
-    String s("Active|Inactive [");
+    String s ("Active|Inactive [");
     for (int i=0; i< active.size(); i++) {
-	s += String(active[i]) + " ";
+	s += String (active[i]) + " ";
     }
 
     s+="| ";
     for (int i=0; i< inactive.size(); i++) {
-	s += String(inactive[i]) + " ";
+	s += String (inactive[i]) + " ";
     }
     s+="]";
 
@@ -39,13 +39,13 @@ Active_constraints::OK()
 #ifndef NDEBUG
     H.OK();
     A.OK();
-    assert(active.size() +inactive.size() == opt->cons.size());
-    assert(H.dim() == opt->dim());
-    assert(active.size() == A.rows());
+    assert (active.size() +inactive.size () == opt->cons.size ());
+    assert (H.dim() == opt->dim ());
+    assert (active.size() == A.rows ());
     Array<int> allcons;
 
     for (int i=0; i < opt->cons.size(); i++)
-	allcons.push(0);
+	allcons.push (0);
     for (int i=0; i < active.size(); i++) {
 	int j = active[i];
 	allcons[j]++;
@@ -55,39 +55,39 @@ Active_constraints::OK()
 	allcons[j]++;
     }
     for (int i=0; i < allcons.size(); i++)
-	assert(allcons[i] == 1);
+	assert (allcons[i] == 1);
 #endif
 }
 
 Vector
-Active_constraints::get_lagrange(Vector gradient)
+Active_constraints::get_lagrange (Vector gradient)
 {
     return (A*gradient);
 }
 
 void
-Active_constraints::add(int k)
+Active_constraints::add (int k)
 {
     // add indices
     int cidx=inactive[k];
-    active.push(cidx);
+    active.push (cidx);
 
-    inactive.swap(k,inactive.size()-1);
+    inactive.swap (k,inactive.size()-1);
     inactive.pop();
 
-    Vector a( opt->cons[cidx] );
+    Vector a (opt->cons[cidx]);
     // update of matrices
     Vector Ha = H*a;
     Real aHa = a*Ha;
-    Vector addrow(Ha.dim());
-    if (abs(aHa) > EPS) {
+    Vector addrow (Ha.dim());
+    if (abs (aHa) > EPS) {
 	/*
 	  a != 0, so if Ha = O(EPS), then
 	  Ha * aH / aHa = O(EPS^2/EPS)
 
 	  if H*a == 0, the constraints are dependent.
 	  */
-	H -= Matrix(Ha/aHa , Ha);
+	H -= Matrix (Ha/aHa , Ha);
     
 
 	/*
@@ -95,51 +95,51 @@ Active_constraints::add(int k)
 	  */
 	addrow=Ha;
         addrow/= aHa;
-	A -= Matrix(A*a, addrow);
-	A.insert_row(addrow,A.rows());
+	A -= Matrix (A*a, addrow);
+	A.insert_row (addrow,A.rows());
     }else
 	WARN << "degenerate constraints";
 }
 
 void
-Active_constraints::drop(int k)
+Active_constraints::drop (int k)
 {
     int q=active.size()-1;
 
         // drop indices
-    inactive.push(active[k]);
-    active.swap(k,q);
-    A.swap_rows(k,q);
+    inactive.push (active[k]);
+    active.swap (k,q);
+    A.swap_rows (k,q);
     active.pop();
 
-    Vector a(A.row(q));
+    Vector a (A.row (q));
     if (a.norm() > EPS) {
 	/*
 	 
 	 */
         Real q = a*opt->quad*a;
-	Matrix aaq(a,a/q);
+	Matrix aaq (a,a/q);
 	H += aaq;
 	A -= A*opt->quad*aaq;
     }else
 	WARN << "degenerate constraints";
 #ifndef NDEBUG
-    Vector rem_row(A.row(q));
-    assert(rem_row.norm() < EPS);
+    Vector rem_row (A.row (q));
+    assert (rem_row.norm() < EPS);
 #endif
      
-    A.delete_row(q);
+    A.delete_row (q);
 }
 
 
-Active_constraints::Active_constraints(Ineq_constrained_qp const *op)
+Active_constraints::Active_constraints (Ineq_constrained_qp const *op)
     :       A(0,op->dim()),
 	    H(op->dim()),
-	    opt(op)
+	    opt (op)
 {
     for (int i=0; i < op->cons.size(); i++)
-	inactive.push(i);
-    Choleski_decomposition chol(op->quad);
+	inactive.push (i);
+    Choleski_decomposition chol (op->quad);
 
     /*
       ugh.
@@ -152,7 +152,7 @@ Active_constraints::Active_constraints(Ineq_constrained_qp const *op)
     constraints.        
     */
 Vector
-Active_constraints::find_active_optimum(Vector g)
+Active_constraints::find_active_optimum (Vector g)
 {
     return H*g;
 }

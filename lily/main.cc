@@ -25,7 +25,7 @@ bool only_midi = false;
 bool version_ignore_b_ = false;
 int exit_status_i_;
 
-void destill_inname( String &name_str_r);
+void destill_inname (String &name_str_r);
 
 Long_option_init theopts[] = {
     {1, "output", 'o'},
@@ -104,24 +104,24 @@ notice()
 static File_path path;
 
 void
-do_one_file(String init_str, String file_str)
+do_one_file (String init_str, String file_str)
 {
-    if ( init_str != "" && "" == path.find( init_str ) ) {
+    if ( init_str != "" && "" == path.find (init_str) ) {
 	error ( "Can not find `" + init_str +"\'");
 	return ;
     }
-    if ( file_str!= "" && path.find( file_str ) == "" ) {
+    if ( file_str!= "" && path.find (file_str) == "" ) {
 	error ( "Can not find `" + file_str + "'");
 	return ;
     }
     
     Sources sources;
     source_l_g = &sources; 
-    source_l_g->set_path(&path);
+    source_l_g->set_path (&path);
     {
-	My_lily_parser parser(source_l_g);
-	parser.set_version_check(version_ignore_b_);
-	parser.parse_file(init_str, file_str);
+	My_lily_parser parser (source_l_g);
+	parser.set_version_check (version_ignore_b_);
+	parser.parse_file (init_str, file_str);
     }
     do_scores();
     source_l_g = 0;
@@ -134,63 +134,63 @@ main (int argc, char **argv)
 
 
     // must override (come before) "/usr/local/share/lilypond"!
-    char const * env_l=getenv("LILYINCLUDE");
+    char const * env_l=getenv ("LILYINCLUDE");
     if (env_l) {
-	path.add(env_l);
+	path.add (env_l);
     }
-    path.add( "" );
-    path.add( String( DIR_DATADIR ) + "/init/" );
+    path.add ("");
+    path.add (String (DIR_DATADIR) + "/init/" );
     
-    path.push(DIR_DATADIR );
+    path.push (DIR_DATADIR);
 
-    Getopt_long oparser(argc, argv,theopts);
+    Getopt_long oparser (argc, argv,theopts);
     cout << get_version_str() << endl;
-    String init_str("symbol.ly");
+    String init_str ("symbol.ly");
     
     while (Long_option_init const * opt = oparser()) {
 	switch ( opt->shortname){
 	case 'o':
-	    set_default_output(oparser.optional_argument_ch_C_);
+	    set_default_output (oparser.optional_argument_ch_C_);
 	    break;
 	case 'w':
 	    notice();
-	    exit(0);
+	    exit (0);
 	    break;
 	case 'I':
-	    path.push(oparser.optional_argument_ch_C_);
+	    path.push (oparser.optional_argument_ch_C_);
 	    break;
 	case 'i':
 	    init_str = oparser.optional_argument_ch_C_;
 	    break;
 	case 'h':
 	    usage();
-	    exit(0);
+	    exit (0);
 	    break;
 	case 'V':
 	    version_ignore_b_ = true;
 	    break;
 	case 'd':
-	    set_debug(true);
+	    set_debug (true);
 	    break;
 	case 'M':
 	    only_midi = true;
 	    break;
 	default:
-	    assert(false);
+	    assert (false);
 	    break;
 	}
     }
 
     int p=0;
     const char *arg ;
-    while ( (arg= oparser.get_next_arg()) ) {
-	String f(arg);
-	destill_inname(f);
-	do_one_file(init_str,f);
+    while ( (arg= oparser.get_next_arg())) {
+	String f (arg);
+	destill_inname (f);
+	do_one_file (init_str,f);
 	p++;
     }
     if (!p) {
-	do_one_file(init_str, "");	
+	do_one_file (init_str, "");	
     }
 
     return exit_status_i_;
@@ -198,14 +198,14 @@ main (int argc, char **argv)
 
 /// make input file name: add default extension. "" is stdin.
 void
-destill_inname( String &name_str_r)
+destill_inname (String &name_str_r)
 {
-    if ( name_str_r.length_i() )
+    if ( name_str_r.length_i())
         {
-        if( name_str_r[ 0 ] != '-' ) 
+        if (name_str_r[ 0 ] != '-') 
 	    {
 	    String a,b,c,d;
-	    split_path(name_str_r,a,b,c,d);
+	    split_path (name_str_r,a,b,c,d);
 
 	    // add extension if not present.
 	    if (d == "") 

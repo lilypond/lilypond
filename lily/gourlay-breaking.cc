@@ -45,7 +45,7 @@ Gourlay_breaking::do_solve()const
     Line_of_cols all = all_cols();
     Array<int> breaks = find_break_indices();
     
-    optimal_paths.set_size(breaks.size());
+    optimal_paths.set_size (breaks.size());
 
     Break_node first_node ;
     first_node.prev_break_i_ = -1;
@@ -64,7 +64,7 @@ Gourlay_breaking::do_solve()const
 	  start with a short line, add measures. At some point 
 	  the line becomes infeasible. Then we don't try to add more 
 	 */
-	for (int start_idx = break_idx; start_idx--; ){
+	for (int start_idx = break_idx; start_idx--;){
 	    if  (break_idx - start_idx > max_measures_i_) 
 		break;
 
@@ -73,31 +73,31 @@ Gourlay_breaking::do_solve()const
 		
 		continue;
 	    
-	    Line_of_cols line = all.slice(breaks[start_idx], breaks[break_idx]+1);
+	    Line_of_cols line = all.slice (breaks[start_idx], breaks[break_idx]+1);
 	    
 	    line[0] = line[0]->postbreak_p_;
-	    line.top() = line.top()->prebreak_p_;
+	    line.top() = line.top ()->prebreak_p_;
 	    
-	    if (!feasible(line))
+	    if (!feasible (line))
 		break;
 	    
 	    Col_hpositions approx;
 	    approx.cols = line;
 	    
-	    approx.spacer_l_ = generate_spacing_problem( line );
-	    spacer_p_list.bottom().add(approx.spacer_l_);
+	    approx.spacer_l_ = generate_spacing_problem (line);
+	    spacer_p_list.bottom().add (approx.spacer_l_);
 
-	    ((Break_algorithm*)this)->approx_stats_.add( approx.cols );
-	    approx.approximate_solve_line(  );
+	    ((Break_algorithm*)this)->approx_stats_.add (approx.cols);
+	    approx.approximate_solve_line();
 	    
-	    if  (approx.energy_f_  > energy_bound_f_ ){ 
+	    if  (approx.energy_f_  > energy_bound_f_){ 
 		continue;
 	    }
 
 	    
 	    // this is a likely candidate. Store it.
-	    candidate_lines.push( approx );
-	    candidates.push( start_idx );
+	    candidate_lines.push (approx);
+	    candidates.push (start_idx);
 	}
 
 	    
@@ -111,15 +111,15 @@ Gourlay_breaking::do_solve()const
 		continue;
 
 	    if ( !candidate_lines[j].satisfies_constraints_b_) {
-		 candidate_lines[j].solve_line( );
-		 ((Break_algorithm*)this)->exact_stats_.add ( candidate_lines[j].cols );
+		 candidate_lines[j].solve_line();
+		 ((Break_algorithm*)this)->exact_stats_.add ( candidate_lines[j].cols);
 	    }
 	    
 	    Real this_energy 
 		= optimal_paths[start].line_config_.energy_f_ 
 		+ candidate_lines[j].energy_f_ ;
 	    
-	    if ( this_energy < minimal_energy ) {
+	    if ( this_energy < minimal_energy) {
 		minimal_j = j;
 		minimal_energy = this_energy;
 	    }
@@ -133,7 +133,7 @@ Gourlay_breaking::do_solve()const
 	    optimal_paths[break_idx].line_config_ = candidate_lines[minimal_j];
 	}
 
-	if ( !(break_idx % HAPPY_DOTS_I) )
+	if ( !(break_idx % HAPPY_DOTS_I))
 	    *mlog << "[" << break_idx << "]"<<flush;
     }
 
@@ -147,18 +147,18 @@ Gourlay_breaking::do_solve()const
 
     Array<Col_hpositions> lines;
     /* skip 0-th element, since it is a "dummy" elt*/
-    for (int i = optimal_paths.size()-1; i> 0; ) {
-	final_breaks.push ( i );
+    for (int i = optimal_paths.size()-1; i> 0;) {
+	final_breaks.push ( i);
 	assert ( i > optimal_paths[i].prev_break_i_);
 
 	// there was no "feasible path"
-	if (!optimal_paths[i].line_config_.config.size() )
+	if (!optimal_paths[i].line_config_.config.size())
 	   return lines; 
 	i = optimal_paths[i].prev_break_i_;
     }
 
-    for (int i= final_breaks.size(); i--; ) 
-	lines.push ( optimal_paths[final_breaks[i]].line_config_ );
+    for (int i= final_breaks.size(); i--;) 
+	lines.push ( optimal_paths[final_breaks[i]].line_config_);
 
     
     return lines;
@@ -175,7 +175,7 @@ Gourlay_breaking::Gourlay_breaking()
 void
 Gourlay_breaking::do_set_pscore()
 {
-    energy_bound_f_ = pscore_l_->paper_l_->get_var(  "gourlay_energybound");
-    max_measures_i_ =int (rint( pscore_l_->paper_l_->get_var(  "gourlay_maxmeasures")));
+    energy_bound_f_ = pscore_l_->paper_l_->get_var ("gourlay_energybound");
+    max_measures_i_ =int (rint (pscore_l_->paper_l_->get_var ("gourlay_maxmeasures")));
 }
 

@@ -18,43 +18,43 @@ void
 Spanner::do_print()const
 {
 #ifndef NPRINT
-    mtor << "Between col ";
-    if ( left_col_l_ )
-    	mtor << left_col_l_->rank_i();
+    DOUT << "Between col ";
+    if ( left_col_l_)
+    	DOUT << left_col_l_->rank_i();
     else 
-	mtor << "nop";
-    mtor << ", ";
-    if ( right_col_l_ )
-    	mtor << right_col_l_->rank_i();
+	DOUT << "nop";
+    DOUT << ", ";
+    if ( right_col_l_)
+    	DOUT << right_col_l_->rank_i();
     else 
-	mtor << "nop";
+	DOUT << "nop";
     if (broken_into_l_arr_.size())
-	mtor << "with broken pieces\n";
+	DOUT << "with broken pieces\n";
 #endif
 }
 
 void
-Spanner::break_into_pieces(bool copy_deps_b)
+Spanner::break_into_pieces (bool copy_deps_b)
 {
-    if (  broken_into_l_arr_.size() )
+    if (  broken_into_l_arr_.size())
 	return; 
 	 
     PCol * left = left_col_l_;
     PCol * right = right_col_l_;
-    if(left->daddy_l_) left = left->daddy_l_;
-    if(right->daddy_l_) right = right->daddy_l_;
+    if (left->daddy_l_) left = left->daddy_l_;
+    if (right->daddy_l_) right = right->daddy_l_;
     
     
-    Link_array<PCol> break_cols = pscore_l_->broken_col_range(left,right);
+    Link_array<PCol> break_cols = pscore_l_->broken_col_range (left,right);
     Link_array<Spanner> broken_into_l_arr;
 
-    break_cols.insert(left,0);
-    break_cols.push(right);
+    break_cols.insert (left,0);
+    break_cols.push (right);
 
     for (int i=1; i < break_cols.size(); i++) {
-	Spanner* span_p = clone()->spanner();
+	Spanner* span_p = clone()->spanner ();
 	if (copy_deps_b)
-	    span_p->copy_dependencies( *this );
+	    span_p->copy_dependencies (*this);
 	left = break_cols[i-1];
 	right = break_cols[i];
 	if (!right->line_l_)
@@ -62,13 +62,13 @@ Spanner::break_into_pieces(bool copy_deps_b)
 	if (!left->line_l_)
 	    left = left->postbreak_p_;
 
-	assert(left&&right && left->line_l_ == right->line_l_);
+	assert (left&&right && left->line_l_ == right->line_l_);
 
 	span_p->left_col_l_  = left;
 	span_p->right_col_l_ = right;
 	
-	pscore_l_->typeset_broken_spanner(span_p);
-	broken_into_l_arr.push( span_p );
+	pscore_l_->typeset_broken_spanner (span_p);
+	broken_into_l_arr.push (span_p);
     }
      
     broken_into_l_arr_ = broken_into_l_arr;
@@ -89,7 +89,7 @@ Spanner::do_break_processing()
     set_my_columns();
     
     if (!line_l()) {
-	break_into_pieces(true);
+	break_into_pieces (true);
 	for (int i=0; i < broken_into_l_arr_.size(); i++)
 	    broken_into_l_arr_[i]->handle_broken_dependencies();
     } else { 
@@ -109,10 +109,10 @@ Spanner::do_width()const
 {
     Real r = right_col_l_->hpos_f_;
     Real l = left_col_l_->hpos_f_;
-    assert(*left_col_l_ < *right_col_l_);
-    assert(r>=l);
+    assert (*left_col_l_ < *right_col_l_);
+    assert (r>=l);
 	
-    return Interval(0, r-l);
+    return Interval (0, r-l);
 }
 
 Line_of_score *
@@ -125,10 +125,10 @@ Spanner::line_l()const
 
 
 Spanner*
-Spanner::find_broken_piece(Line_of_score*l)const
+Spanner::find_broken_piece (Line_of_score*l)const
 {
     for (int i=0; i < broken_into_l_arr_.size(); i++)
-	if(broken_into_l_arr_[i]->line_l() == l)
+	if (broken_into_l_arr_[i]->line_l() == l)
 	    return broken_into_l_arr_[i];
     return 0;				   
 	  

@@ -14,7 +14,7 @@
 #include "molecule.hh"
 #include "lookup.hh"
 
-Text_item::Text_item(General_script_def*tdef_l, int d)
+Text_item::Text_item (General_script_def*tdef_l, int d)
 {
     dir_i_ = d;
     fat_b_ = false;
@@ -36,23 +36,23 @@ Text_item::do_pre_processing()
 Interval
 Text_item::symbol_height()const
 {
-    return tdef_p_->get_atom(paper(), dir_i_).sym_.dim.y();
+    return tdef_p_->get_atom (paper(), dir_i_).sym_.dim.y ();
 }
     
 Molecule*
 Text_item::brew_molecule_p() const
 {
-    Atom a(tdef_p_->get_atom(paper(), dir_i_));
+    Atom a (tdef_p_->get_atom (paper(), dir_i_));
 
 /*
   if ( fat_b_)
-	a.sym.dim.x = tdef_p_->width(paper());
+	a.sym.dim.x = tdef_p_->width (paper());
 	*/
-    Molecule* mol_p = new Molecule(a);
+    Molecule* mol_p = new Molecule (a);
 
-    if(dir_i_<0 )		// should do something better anyway.
-	mol_p->translate( -mol_p->extent().y().left , Y_AXIS);
-    mol_p->translate( pos_i_ * paper()->internote_f(), Y_AXIS);
+    if (dir_i_<0)		// should do something better anyway.
+	mol_p->translate (-mol_p->extent().y ().left , Y_AXIS);
+    mol_p->translate (pos_i_ * paper()->internote_f (), Y_AXIS);
     
     return mol_p;
 }

@@ -20,23 +20,23 @@ Request::do_print() const
 MInterval
 Request::time_int() const
 {
-    return MInterval(0, duration());
+    return MInterval (0, duration());
 }
 
 
 bool
-Request::equal_b(Request *r)const
+Request::equal_b (Request *r)const
 {
-    if ( is_type_b ( r->name() ) )
-	return r->do_equal_b( (Request*)this );
-    if ( r->is_type_b( name ()))
-	return do_equal_b( r );
+    if ( is_type_b ( r->name()) )
+	return r->do_equal_b ((Request*)this);
+    if ( r->is_type_b (name()))
+	return do_equal_b (r);
 	 
     return false;
 }
 
 bool
-Request::do_equal_b(Request*)const
+Request::do_equal_b (Request*)const
 {
     return false;
 }

@@ -33,16 +33,16 @@ General_script_def::inside_b()const
 }
 
 bool
-General_script_def::equal_b(General_script_def const&g)const
+General_script_def::equal_b (General_script_def const&g)const
 {
-    if (name() != g.name())
+    if (name() != g.name ())
 	return false;
 
-    return do_equal_b(&g);
+    return do_equal_b (&g);
 }
 
 bool
-General_script_def::do_equal_b(General_script_def const*)const
+General_script_def::do_equal_b (General_script_def const*)const
 {
     return true;
 }
@@ -51,9 +51,9 @@ General_script_def::do_equal_b(General_script_def const*)const
 void
 General_script_def::print() const
 {
-    mtor << name() << "{";
+    DOUT << name() << "{";
     do_print();
-    mtor << "}";
+    DOUT << "}";
 }
 
 void
@@ -62,10 +62,10 @@ General_script_def::do_print() const
 }
 
 Atom
-General_script_def::get_atom(Paper_def*, int)const
+General_script_def::get_atom (Paper_def*, int)const
 {
     Symbol s;
-    return Atom(s);
+    return Atom (s);
 }
 
 IMPLEMENT_IS_TYPE_B(General_script_def);

@@ -27,10 +27,10 @@ Axis_group_spanner::do_break_processing_if_unbroken()
 		 && item_l->break_status_i() == 0) {
 		// last two checks are paranoia
 		Item * broken_item_l = 
-		    item_l->find_prebroken_piece( my_line );
-		add_element( broken_item_l );
+		    item_l->find_prebroken_piece (my_line);
+		add_element (broken_item_l);
 	    }
-	    remove_element( elems[i] );  
+	    remove_element (elems[i]);  
 	}
     }
     
@@ -46,7 +46,7 @@ Axis_group_spanner::do_break_processing()
 	return;
     }
 
-    break_into_pieces( true );
+    break_into_pieces (true);
     Link_array<Score_elem> loose_elems = axis_admin_.elem_l_arr_;
     remove_all();
     
@@ -54,7 +54,7 @@ Axis_group_spanner::do_break_processing()
 	Score_elem * elt = loose_elems[i];
 	Line_of_score *elt_line = elt->line_l();
 	
-	if ( ! elt_line ){
+	if ( ! elt_line){
 	    /* this piece doesn't know where it belongs.
 	       Find out if it was broken, and use the broken remains
 	       */
@@ -66,28 +66,28 @@ Axis_group_spanner::do_break_processing()
 			 = (Axis_group_spanner*)broken_into_l_arr_[j];
 		    
 		    Spanner * broken_span_l 
-			= sp->find_broken_piece(
+			= sp->find_broken_piece (
 			    ((Score_elem*)my_broken_l)->line_l());
 		    
 		    if (broken_span_l) 
-			my_broken_l->add_element(broken_span_l );
+			my_broken_l->add_element (broken_span_l);
 		    
 		}
 	    } else if (elt->item() 
 		       && elt->item()->breakable_b_ 
-		       && elt->item()->break_status_i() == 0) {
+		       && elt->item()->break_status_i () == 0) {
 
 		// broken items
 		for (int j =0; j < 2; j++) {
 		    Item * my_item = elt->item()->broken_to_a_[j];
 		    Line_of_score * item_line_l = my_item->line_l() ;
-		    if ( ! item_line_l ) 
+		    if ( ! item_line_l) 
 			continue;
 		    
 		    Axis_group_spanner * v
-			= (Axis_group_spanner*)find_broken_piece( item_line_l );
+			= (Axis_group_spanner*)find_broken_piece (item_line_l);
 		    if (v)
-			v->add_element( my_item );
+			v->add_element (my_item);
 		}
 		    
 	    }
@@ -96,8 +96,8 @@ Axis_group_spanner::do_break_processing()
 	     Put it in appropriate piece of this spanner
 	     */
 	    Axis_group_spanner * my_broken_l
-		= (Axis_group_spanner*)find_broken_piece( elt->line_l() );
-	    my_broken_l->add_element( elt );
+		= (Axis_group_spanner*)find_broken_piece (elt->line_l());
+	    my_broken_l->add_element (elt);
 	}
     }
     

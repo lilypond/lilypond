@@ -26,7 +26,7 @@ void
 Note_performer::do_print() const
 {
 #ifndef NPRINT
-    if ( note_req_l_ ) {
+    if ( note_req_l_) {
     	note_req_l_->print();
     }
 #endif
@@ -36,22 +36,22 @@ void
 Note_performer::process_requests() 
 {
     // this is _really_ braindead, but it generates some output
-    if ( !note_req_l_ || !note_req_l_->melodic()  || !note_req_l_->rhythmic() )
+    if ( !note_req_l_ || !note_req_l_->melodic()  || !note_req_l_->rhythmic ())
 	return;
 
-    play( new Audio_note( note_req_l_ ) );
+    play (new Audio_note (note_req_l_) );
     note_req_l_ = 0;
 }
 
 bool 
-Note_performer::do_try_request( Request* req_l )
+Note_performer::do_try_request (Request* req_l)
 {
-    if ( note_req_l_ )
+    if ( note_req_l_)
 	return false;
     
-    if ( !req_l->musical() || !req_l->musical()->note() )
+    if ( !req_l->musical() || !req_l->musical ()->note ())
 	return false;
 
-    note_req_l_ = req_l->musical()->melodic();
+    note_req_l_ = req_l->musical()->melodic ();
     return true;
 }

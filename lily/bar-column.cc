@@ -16,17 +16,17 @@ Bar_column::Bar_column()
 }
 
 void
-Bar_column::set_bar(Bar*b)
+Bar_column::set_bar (Bar*b)
 {
-    Script_column::add_support( b );
+    Script_column::add_support (b);
     bar_l_ = b;	
 }
 
 void
-Bar_column::do_substitute_dependency(Score_elem*o,Score_elem*n)
+Bar_column::do_substitute_dependency (Score_elem*o,Score_elem*n)
 {
-    Script_column::do_substitute_dependency(o,n);
-    if ( o == bar_l_ ) {
+    Script_column::do_substitute_dependency (o,n);
+    if ( o == bar_l_) {
 	bar_l_ = n ? (Bar*)n->item() : 0;
     }
 }

@@ -23,7 +23,7 @@ Script_def::Script_def()
 }
 
 void
-Script_def::set_from_input(String idx,  bool follow, int stem, int staff ,bool invert, int priority_i)
+Script_def::set_from_input (String idx,  bool follow, int stem, int staff ,bool invert, int priority_i)
 {
     inside_staff_b_ = follow;
     symidx_str_ = idx ;
@@ -38,13 +38,13 @@ void
 Script_def::do_print() const
 {
 #ifndef NPRINT
-    mtor << "Script_def{ idx: " << symidx_str_ 
+    DOUT << "Script_def{ idx: " << symidx_str_ 
 	 << " direction, stem: " << rel_stem_dir_i_ << " staff : " << staff_dir_i_ << "}\n";
 #endif
 }
 
 bool
-Script_def::do_equal_b(General_script_def const *g)const 
+Script_def::do_equal_b (General_script_def const *g)const 
 {
     Script_def const * c = (Script_def const*) g;
     return (symidx_str_ == c->symidx_str_ &&
@@ -72,13 +72,13 @@ Script_def::inside_b() const
 }
 
 Atom
-Script_def::get_atom(Paper_def *p , int d)const
+Script_def::get_atom (Paper_def *p , int d)const
 {
     String preidx_str ="";
     if (invertsym_b_&& d < 0) 
 	preidx_str = "-";
 
-    return p->lookup_l()->script(preidx_str + symidx_str_);
+    return p->lookup_l()->script (preidx_str + symidx_str_);
 }
 
 

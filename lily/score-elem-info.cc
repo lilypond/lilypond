@@ -9,7 +9,7 @@
 #include "score-elem-info.hh"
 #include "request.hh"
 
-Score_elem_info::Score_elem_info(Score_elem*s_l, Request*r_l)
+Score_elem_info::Score_elem_info (Score_elem*s_l, Request*r_l)
 {
     elem_l_ = s_l;
     req_l_ = r_l;

@@ -12,16 +12,16 @@
 
 #include "debug.hh"
 
-Audio_column::Audio_column( Moment at_mom )
+Audio_column::Audio_column (Moment at_mom)
 {
     at_mom_ = at_mom;
     audio_score_l_ = 0;
 }
 
 void
-Audio_column::add( Audio_item* l )
+Audio_column::add (Audio_item* l)
 {
-    audio_item_l_list_.bottom().add( l );
+    audio_item_l_list_.bottom().add (l);
     l->audio_column_l_ = this; 
 }
 
@@ -35,9 +35,9 @@ void
 Audio_column::print() const
 {
 #ifndef NPRINT
-    mtor << "Audio_column {";
-    mtor << "at: " << at_mom_ << "\n";
-    mtor << "}\n";
+    DOUT << "Audio_column {";
+    DOUT << "at: " << at_mom_ << "\n";
+    DOUT << "}\n";
 #endif 
 }
 

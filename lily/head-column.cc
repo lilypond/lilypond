@@ -19,12 +19,12 @@ Head_column::Head_column()
 }
 
 void
-Head_column::do_substitute_dependency(Score_elem*o,
+Head_column::do_substitute_dependency (Score_elem*o,
 				      Score_elem*n)
 {
-    Script_column::do_substitute_dependency(o,n);
-    if (o->name() == Note_head::static_name()) {
-	head_l_arr_.substitute( (Note_head*)o->item(), 
+    Script_column::do_substitute_dependency (o,n);
+    if (o->name() == Note_head::static_name ()) {
+	head_l_arr_.substitute ((Note_head*)o->item(), 
 				(n)? (Note_head*)n->item() : 0);
     }
     if (stem_l_ == o) {
@@ -34,26 +34,26 @@ Head_column::do_substitute_dependency(Score_elem*o,
 
 
 void
-Head_column::set(Stem*stem_l)
+Head_column::set (Stem*stem_l)
 {
     stem_l_ = stem_l;
-    Score_elem::add_dependency(stem_l);
+    Score_elem::add_dependency (stem_l);
     for (int i=0; script_l_arr_.size(); i++)
-	script_l_arr_[i]->set_stem( stem_l );
+	script_l_arr_[i]->set_stem (stem_l);
 }
 
 void
-Head_column::add(Script *script_l)
+Head_column::add (Script *script_l)
 {
-    Script_column::add(script_l) ;
-    if  (stem_l_ )
-	script_l->set_stem( stem_l_ );
+    Script_column::add (script_l) ;
+    if  (stem_l_)
+	script_l->set_stem (stem_l_);
 }
 void
-Head_column::add(Note_head *n_l)
+Head_column::add (Note_head *n_l)
 {
-    add_support(n_l);
-    head_l_arr_.push(n_l);
+    add_support (n_l);
+    head_l_arr_.push (n_l);
 }
 
 
@@ -64,7 +64,7 @@ void
 Head_column::do_print() const
 {
 #ifndef NPRINT
-    mtor << "heads: " << head_l_arr_.size();
+    DOUT << "heads: " << head_l_arr_.size();
 #endif
 }
 

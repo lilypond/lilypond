@@ -14,7 +14,7 @@
 MInterval
 Music::time_int() const
 {
-    return MInterval(0,0);
+    return MInterval (0,0);
 }
 
 void
@@ -23,22 +23,22 @@ Music::print()const
 #ifndef NPRINT
     if ( ! check_debug)
 	return ;
-    mtor << name() << "{";
+    DOUT << name() << "{";
     if  (type_str_!="" || id_str_!="")
-	mtor << "`" <<type_str_ << " = " << id_str_<<"\'";
+	DOUT << "`" <<type_str_ << " = " << id_str_<<"\'";
     do_print();
-    mtor << "}\n";
+    DOUT << "}\n";
 #endif
 }
 
 void
-Music::transpose(Melodic_req const*)
+Music::transpose (Melodic_req const*)
 {
     
 }
 
 void
-Music::translate(Moment )
+Music::translate (Moment)
 {
 }
 

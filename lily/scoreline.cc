@@ -22,7 +22,7 @@
 String
 Line_of_score::TeX_string() const
 {
-     String s("\\hbox{%<- line of score\n");
+     String s ("\\hbox{%<- line of score\n");
      if (error_mark_b_)
 	 s+= "\\scorelineerrormark";
      
@@ -37,24 +37,24 @@ Line_of_score::TeX_string() const
 	 Link_array<Score_elem> elems;
 	    
 	 if (col_l->error_mark_b_) {
-	     chunk_str += String("\\columnerrormark");
+	     chunk_str += String ("\\columnerrormark");
 	 }
 	 
 	 // now output the items.
-	 for (iter_top(col_l->its,j); j.ok(); j++) {
-	     elems.push(j);
+	 for (iter_top (col_l->its,j); j.ok(); j++) {
+	     elems.push (j);
 	 }
 
 	 // spanners.
-	 for (iter_top(col_l->starters,j); j.ok(); j++) {
-	     if (j->name() != name())
-		elems.push(j);
+	 for (iter_top (col_l->starters,j); j.ok(); j++) {
+	     if (j->name() != name ())
+		elems.push (j);
 	 }
 	 
 	 for (int j =0; j< elems.size(); j++) {
 	     Offset o = elems[j]->absolute_offset();
 	     o[X_AXIS] += cols[i]->hpos_f_;
-	     s += elems[j]->TeX_string_without_offset(o);
+	     s += elems[j]->TeX_string_without_offset (o);
 	 }
      }
      s += "}";
@@ -74,26 +74,26 @@ Line_of_score::Line_of_score()
 IMPLEMENT_IS_TYPE_B1(Line_of_score,Spanner);
 
 void
-Line_of_score::add(Score_elem*e)
+Line_of_score::add (Score_elem*e)
 {
     // avoid excess dependencies.
-    if(!( e->axis_group_l_a_[0] || e->axis_group_l_a_[1]))
-	add_dependency(e);
+    if (!( e->axis_group_l_a_[0] || e->axis_group_l_a_[1]))
+	add_dependency (e);
 }
 
 bool
-Line_of_score::contains_b(PCol const* c)const
+Line_of_score::contains_b (PCol const* c)const
 {
-    return cols.find_l((PCol*)c);
+    return cols.find_l ((PCol*)c);
 }
 
 void
-Line_of_score::set_breaking(Array<Col_hpositions> const &breaking)
+Line_of_score::set_breaking (Array<Col_hpositions> const &breaking)
 {
     for (int j=0; j < breaking.size(); j++) {
-	const Array<PCol*> &curline(breaking[j].cols);
-	const Array<PCol*> &errors(breaking[j].error_col_l_arr_);
-	const Array<Real> &config(breaking[j].config);
+	const Array<PCol*> &curline (breaking[j].cols);
+	const Array<PCol*> &errors (breaking[j].error_col_l_arr_);
+	const Array<Real> &config (breaking[j].config);
 	
 	for (int i=0; i < errors.size(); i++)
 	    errors[i]->error_mark_b_ = true;
@@ -102,8 +102,8 @@ Line_of_score::set_breaking(Array<Col_hpositions> const &breaking)
 	Line_of_score *line_p =0;
 	
 	if (breaking.size() >1) {
-	    line_p = (Line_of_score*)clone()->spanner();
-	    line_p->copy_dependencies( *this );
+	    line_p = (Line_of_score*)clone()->spanner ();
+	    line_p->copy_dependencies (*this);
 	    line_l = line_p;
 	} else 
 	    line_l =  this;
@@ -113,8 +113,8 @@ Line_of_score::set_breaking(Array<Col_hpositions> const &breaking)
 	line_l->right_col_l_= curline.top();
 	
 	if (line_p) {  
-	    pscore_l_->typeset_broken_spanner(line_p);
-	    broken_into_l_arr_.push(line_p);
+	    pscore_l_->typeset_broken_spanner (line_p);
+	    broken_into_l_arr_.push (line_p);
 	}
 	
 	for (int i=0; i < curline.size(); i++){
@@ -125,7 +125,7 @@ Line_of_score::set_breaking(Array<Col_hpositions> const &breaking)
 }
 
 void
-Line_of_score::break_into_pieces(bool)
+Line_of_score::break_into_pieces (bool)
 {
 }
 
@@ -136,10 +136,10 @@ Line_of_score::get_lines()const
 
     if (broken_into_l_arr_.size())
 	for (int i=0; i < broken_into_l_arr_.size(); i++) {
-	    ret.push((Line_of_score*)broken_into_l_arr_[i]);
+	    ret.push ((Line_of_score*)broken_into_l_arr_[i]);
 	}
     else 
-	ret.push((Line_of_score*)this);	// ugh
+	ret.push ((Line_of_score*)this);	// ugh
     
     return ret;
 }

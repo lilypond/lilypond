@@ -21,7 +21,7 @@ Stem_req::do_print() const
 {
 #ifndef NPRINT
     Rhythmic_req::do_print();
-    mtor << "dir : " << dir_i_;
+    DOUT << "dir : " << dir_i_;
 #endif
 }
 
@@ -50,7 +50,7 @@ void
 Span_req::do_print() const    
 {
 #ifndef NPRINT
-    mtor  << spantype ;
+    DOUT << spantype ;
 #endif
 }
 
@@ -67,7 +67,7 @@ void
 Spacing_req::do_print()const
 {
 #ifndef NPRINT
-    mtor << "next " << next << "dist " << distance << "strength\n";
+    DOUT << "next " << next << "dist " << distance << "strength\n";
 #endif
 }
 
@@ -89,13 +89,13 @@ Melodic_req::Melodic_req()
 }
 
 void
-Melodic_req::transpose(Melodic_req const & delta)
+Melodic_req::transpose (Melodic_req const & delta)
 {
     int old_pitch = pitch();
     int delta_pitch = delta.pitch();
     octave_i_ += delta.octave_i_;
     notename_i_ += delta.notename_i_;
-    while  (notename_i_ >= 7 ) {
+    while  (notename_i_ >= 7) {
 	notename_i_ -= 7;
 	octave_i_ ++;
     }
@@ -104,22 +104,22 @@ Melodic_req::transpose(Melodic_req const & delta)
     int delta_acc = new_pitch - old_pitch - delta_pitch;
     
     accidental_i_ -= delta_acc;
-    if (abs(accidental_i_) > 2) {
-	delta.warning("transposition makes accidental larger than 2");
+    if (abs (accidental_i_) > 2) {
+	delta.warning ("transposition makes accidental larger than 2");
     }
 }
 
 IMPLEMENT_IS_TYPE_B1(Melodic_req,Musical_req);
 
 bool
-Melodic_req::do_equal_b(Request*r)const
+Melodic_req::do_equal_b (Request*r)const
 {
-    Melodic_req* m= r->musical()->melodic();
-    return !compare( *m, *this);
+    Melodic_req* m= r->musical()->melodic ();
+    return !compare (*m, *this);
 }
 
 int
-Melodic_req::compare(Melodic_req const &m1 , Melodic_req const&m2)
+Melodic_req::compare (Melodic_req const &m1 , Melodic_req const&m2)
 {
     int o=  m1.octave_i_ - m2.octave_i_;
     int n = m1.notename_i_ - m2.notename_i_;
@@ -138,7 +138,7 @@ void
 Melodic_req::do_print() const
 {
 #ifndef NPRINT
-    mtor << "notename: " << notename_i_ 
+    DOUT << "notename: " << notename_i_ 
 	 << " acc: " <<accidental_i_<<" oct: "<< octave_i_;
 #endif
 }
@@ -162,21 +162,21 @@ Melodic_req::pitch() const
 
 /* *************** */
 int
-Rhythmic_req::compare(Rhythmic_req const &r1, Rhythmic_req const &r2)
+Rhythmic_req::compare (Rhythmic_req const &r1, Rhythmic_req const &r2)
 {
-    return (r1.duration() - r2.duration());
+    return (r1.duration() - r2.duration ());
 }
 
 bool
-Rhythmic_req::do_equal_b(Request*r)const
+Rhythmic_req::do_equal_b (Request*r)const
 {
-    Rhythmic_req* rh = r->musical()->rhythmic();
+    Rhythmic_req* rh = r->musical()->rhythmic ();
 
-    return !compare(*this, *rh);
+    return !compare (*this, *rh);
 }
 
 void
-Rhythmic_req::set_duration(Duration d)
+Rhythmic_req::set_duration (Duration d)
 {
     duration_ = d;
 }
@@ -192,7 +192,7 @@ void
 Rhythmic_req::do_print() const
 {
 #ifndef NPRINT
-    mtor << "duration { " <<duration_.str() << "}";
+    DOUT << "duration { " <<duration_.str() << "}";
 #endif
 }
 
@@ -203,8 +203,8 @@ Rhythmic_req::duration() const {
 }
 /* *************** */
 
-Lyric_req::Lyric_req(Text_def* def_p)
-    :Text_req(0, def_p)
+Lyric_req::Lyric_req (Text_def* def_p)
+    :Text_req (0, def_p)
 {
     def_p->align_i_ = 0;	// centre
     dir_i_ = -1;		// lyrics below (invisible) staff
@@ -222,9 +222,9 @@ Lyric_req::do_print() const
 
 /* *************** */
 bool
-Note_req::do_equal_b(Request*r)const
+Note_req::do_equal_b (Request*r)const
 {
-    return Rhythmic_req::do_equal_b(r) && Melodic_req::do_equal_b(r);
+    return Rhythmic_req::do_equal_b (r) && Melodic_req::do_equal_b (r);
 }
 
 
@@ -241,7 +241,7 @@ Note_req::do_print() const
 #ifndef NPRINT
     Melodic_req::do_print();
     if (forceacc_b_) {
-	mtor << " force accidental\n";
+	DOUT << " force accidental\n";
     }
     Rhythmic_req::do_print();
 #endif
@@ -274,7 +274,7 @@ Slur_req::do_print()const{}
 
 
 bool
-Span_req:: do_equal_b(Request*r)const
+Span_req:: do_equal_b (Request*r)const
 {
     Span_req * s = r->span();
     return spantype - s->spantype;
@@ -286,7 +286,7 @@ Span_req::Span_req()
 }
 
 /* *************** */
-Script_req::Script_req(Script_req const&s)
+Script_req::Script_req (Script_req const&s)
 {
     dir_i_ = s.dir_i_;
     scriptdef_p_ = s.scriptdef_p_ ? s.scriptdef_p_->clone() : 0;
@@ -295,14 +295,14 @@ Script_req::Script_req(Script_req const&s)
 /*
   don't check dirs?
   
-  (d1.dir_i_ == d2.dir_i_ )
+  (d1.dir_i_ == d2.dir_i_)
  */
 bool
-Script_req::do_equal_b(Request*r)const
+Script_req::do_equal_b (Request*r)const
 {
     Script_req * s = r->script();
     
-    return  scriptdef_p_->equal_b(*s->scriptdef_p_);
+    return  scriptdef_p_->equal_b (*s->scriptdef_p_);
 }
 
 Script_req::Script_req()
@@ -318,7 +318,7 @@ void
 Script_req::do_print() const
 {
 #ifndef NPRINT
-    mtor << " dir " << dir_i_ ;
+    DOUT << " dir " << dir_i_ ;
     scriptdef_p_->print();
 #endif
 }
@@ -346,13 +346,13 @@ Text_req::~Text_req()
     tdef_p_ = 0;
 }
 
-Text_req::Text_req(Text_req const& src)
+Text_req::Text_req (Text_req const& src)
 {
-    tdef_p_ = new Text_def(*src.tdef_p_);
+    tdef_p_ = new Text_def (*src.tdef_p_);
     dir_i_ = src.dir_i_;
 }
 
-Text_req::Text_req(int dir_i, Text_def* tdef_p)	
+Text_req::Text_req (int dir_i, Text_def* tdef_p)	
 {
     dir_i_ = dir_i;
     tdef_p_ = tdef_p;
@@ -365,7 +365,7 @@ void
 Text_req::do_print() const
 {
 #ifndef NPRINT
-    mtor << " dir " << dir_i_ ;
+    DOUT << " dir " << dir_i_ ;
     tdef_p_->print();
 #endif
 }
@@ -380,7 +380,7 @@ Skip_req::do_print() const
 {
 #ifndef NPRINT
 
-    mtor << "duration: " << duration();
+    DOUT << "duration: " << duration();
 #endif
 }
 
@@ -402,12 +402,12 @@ Absolute_dynamic_req::do_print() const
 {
 #ifndef NPRINT
     Dynamic_req::do_print();
-    mtor << " loudness " <<loudness_str(loudness_);
+    DOUT << " loudness " <<loudness_str (loudness_);
 #endif
 }
 
 String
-Dynamic_req::loudness_str(Loudness l) 
+Dynamic_req::loudness_str (Loudness l) 
 {
     switch (l) {
     case FFF: return "fff";
@@ -419,7 +419,7 @@ Dynamic_req::loudness_str(Loudness l)
     case PP: return "pp";
     case PPP: return "ppp";
     }
-    assert(false);
+    assert (false);
     return "";
 }
 
@@ -442,7 +442,7 @@ Span_dynamic_req::do_print()const
 {
 #ifndef NPRINT
     Span_req::do_print();
-    mtor << "louder/louder: " <<dynamic_dir_i_;
+    DOUT << "louder/louder: " <<dynamic_dir_i_;
 #endif
 }
 

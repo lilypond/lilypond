@@ -22,7 +22,7 @@
 #include "p-col.hh"
 
 Score_elem*
-Score_elem::dependency(int i)const
+Score_elem::dependency (int i)const
 {
     return (Score_elem*) get_out_edge_arr()[i];
 }
@@ -30,11 +30,11 @@ Score_elem::dependency(int i)const
 int
 Score_elem::dependency_size() const
 {
-    return get_out_edge_arr().size();
+    return get_out_edge_arr().size ();
 }
 
 Score_elem*
-Score_elem::dependent(int i) const
+Score_elem::dependent (int i) const
 {
     return (Score_elem*) get_in_edge_arr()[i];
 }
@@ -42,65 +42,65 @@ Score_elem::dependent(int i) const
 int
 Score_elem::dependent_size() const
 {
-    return get_in_edge_arr().size();
+    return get_in_edge_arr().size ();
 }
 
 
 
 String
-Score_elem::TeX_string_without_offset(Offset o)const
+Score_elem::TeX_string_without_offset (Offset o)const
 {
-    if (transparent_b_ )
+    if (transparent_b_)
 	return "";
-    String s( "\\placebox{%}{%}{%}");
+    String s ("\\placebox{%}{%}{%}");
     Array<String> a;
-    a.push( print_dimen(o.y() ));
-    a.push( print_dimen(o.x() ));
+    a.push (print_dimen (o.y()));
+    a.push (print_dimen (o.x()));
     String t = output->TeX_string();
     if (t == "")
 	return t;
 
-    a.push( t);
+    a.push (t);
     String r;
     if (check_debug)
-	r = String("\n%start: ") + name() + "\n";
-    r += substitute_args(s, a);;
+	r = String ("\n%start: ") + name() + "\n";
+    r += substitute_args (s, a);;
     return r;
 }
 
 String
 Score_elem::TeX_string() const
 {
-    assert( status_ > POSTCALCED);
-    return TeX_string_without_offset(offset_);
+    assert (status_ > POSTCALCED);
+    return TeX_string_without_offset (offset_);
 }
 
 void
-Score_elem::copy_dependencies(Score_elem const &s)
+Score_elem::copy_dependencies (Score_elem const &s)
 {
     /* called from derived ctor, so most info points to the same deps
       as (Directed_graph_node&)s. Nobody points to us, so don't copy
       dependents.      
      */
-    copy_edges_out(s);
+    copy_edges_out (s);
 }
 
-Score_elem::Score_elem(Score_elem const&s)
+Score_elem::Score_elem (Score_elem const&s)
 {
     transparent_b_ = s.transparent_b_;
     empty_b_ = s.empty_b_;
     axis_group_l_a_[0] = axis_group_l_a_[1] =0;
     status_ = s.status_;
-    assert(!s.output);
+    assert (!s.output);
     output = 0;
     pscore_l_ = s.pscore_l_;
-    offset_ = Offset(0,0);
+    offset_ = Offset (0,0);
 }
 
 Score_elem::~Score_elem()
 {
     // some paranoia to prevent weird segv's
-    assert(status_ < DELETED);
+    assert (status_ < DELETED);
     delete output;
     status_ = DELETED;
     output = 0;
@@ -111,7 +111,7 @@ Score_elem::~Score_elem()
   GEOMETRY
  */
 Real
-Score_elem::absolute_coordinate(Axis a)const
+Score_elem::absolute_coordinate (Axis a)const
 {
     Real r = offset_[a];
     for ( Axis_group_element * axis_group_l = axis_group_l_a_[a];
@@ -125,17 +125,17 @@ Score_elem::absolute_coordinate(Axis a)const
 Offset
 Score_elem::absolute_offset() const
 {
-    return Offset(absolute_coordinate(X_AXIS), absolute_coordinate(Y_AXIS));
+    return Offset (absolute_coordinate (X_AXIS), absolute_coordinate (Y_AXIS));
 }
 
  void
-Score_elem::translate(Real y, Axis a)
+Score_elem::translate (Real y, Axis a)
 {
     offset_[a] += y;
 }
 
 Real
-Score_elem::relative_coordinate(Axis_group_element*e, Axis a)const
+Score_elem::relative_coordinate (Axis_group_element*e, Axis a)const
 {
     Real r =0.0;
     for ( Axis_group_element * axis_group_l = axis_group_l_a_[a];
@@ -147,19 +147,19 @@ Score_elem::relative_coordinate(Axis_group_element*e, Axis a)const
 }
 
 Axis_group_element* 
-Score_elem::common_group(Score_elem const* s, Axis a)const
+Score_elem::common_group (Score_elem const* s, Axis a)const
 {
     Link_array<Axis_group_element> my_groups;
     for ( Axis_group_element * axis_group_l = axis_group_l_a_[a];
 	  axis_group_l;
 	  axis_group_l = axis_group_l->axis_group_l_a_[a])
-	my_groups.push( axis_group_l );
+	my_groups.push (axis_group_l);
 
     Axis_group_element* common_l=0;
     for ( Axis_group_element * axis_group_l = s->axis_group_l_a_[a];
 	  !common_l && axis_group_l;
 	  axis_group_l = axis_group_l->axis_group_l_a_[a])
-	common_l = my_groups.find_l( axis_group_l );
+	common_l = my_groups.find_l (axis_group_l);
 
     return common_l;
 }
@@ -167,7 +167,7 @@ Score_elem::common_group(Score_elem const* s, Axis a)const
 
 
 void
-Score_elem::translate(Offset O)
+Score_elem::translate (Offset O)
 {
     offset_ += O;
 }
@@ -179,26 +179,26 @@ Score_elem::do_width() const
 
     if (!output){
 	Molecule*m = brew_molecule_p();
-	r = m->extent().x();
+	r = m->extent().x ();
 	delete m;
     } else
-	r = output->extent().x();
+	r = output->extent().x ();
     return r;
 }
 
 Interval
 Score_elem::width() const
 {
-    return extent( X_AXIS);
+    return extent (X_AXIS);
 }
 
 Interval
-Score_elem::extent(Axis a)const
+Score_elem::extent (Axis a)const
 {
     Interval r;
-    if ( !empty_b_ ) {
+    if ( !empty_b_) {
 	
-	r = (a == X_AXIS)? do_width(): do_height();
+	r = (a == X_AXIS)? do_width(): do_height ();
     }
     
     if (!r.empty_b()) // float exception on DEC Alpha
@@ -213,17 +213,17 @@ Score_elem::do_height() const
     Interval r;
     if (!output){
 	Molecule*m = brew_molecule_p();
-	r = m->extent().y();
+	r = m->extent().y ();
 	delete m;
     } else
-	r = output->extent().y();
+	r = output->extent().y ();
     return r;
 }
 
 Interval
 Score_elem::height() const
 {
-    return extent(Y_AXIS);
+    return extent (Y_AXIS);
 }
 
 /*
@@ -233,18 +233,18 @@ void
 Score_elem::print()const
 {
 #ifndef NPRINT
-    mtor << name() << "{\n";
-    mtor << "dets: " << dependent_size() << "dependencies: " << 
+    DOUT << name() << "{\n";
+    DOUT << "dets: " << dependent_size() << "dependencies: " << 
 	dependency_size();
-    if (offset_.x() || offset_.y())
-	mtor << "offset (" << offset_.x() << ", " << offset_.y() <<")";
-    mtor << "\n";
+    if (offset_.x() || offset_.y ())
+	DOUT << "offset (" << offset_.x() << ", " << offset_.y () <<")";
+    DOUT << "\n";
 
     do_print();
     if (output)
 	output->print();
     
-    mtor <<  "}\n";
+    DOUT <<  "}\n";
 #endif
 }
 
@@ -253,7 +253,7 @@ Score_elem::Score_elem()
     transparent_b_ = empty_b_ = false;
     axis_group_l_a_[0] = axis_group_l_a_[1] =0;
     pscore_l_=0;
-    offset_ = Offset(0,0);
+    offset_ = Offset (0,0);
     output = 0;
     status_ = ORPHAN;
 }
@@ -262,7 +262,7 @@ Score_elem::Score_elem()
 Paper_def*
 Score_elem::paper()  const
 {
-    assert(pscore_l_);
+    assert (pscore_l_);
     return pscore_l_->paper_l_;
 }
 
@@ -278,16 +278,16 @@ Score_elem::add_processing()
 void
 Score_elem::pre_processing()
 {
-    if (status_ >= PRECALCED )
+    if (status_ >= PRECALCED)
 	return;
 
-    assert(status_ != PRECALCING); // cyclic dependency
+    assert (status_ != PRECALCING); // cyclic dependency
     status_ = PRECALCING;
 
     for (int i=0; i < dependency_size(); i++)
-	dependency(i)->pre_processing();
+	dependency (i)->pre_processing();
 
-    Link_array<Score_elem> extra(get_extra_dependencies());
+    Link_array<Score_elem> extra (get_extra_dependencies());
     for (int i=0; i < extra.size(); i++)
 	extra[i]->pre_processing();
     
@@ -298,19 +298,19 @@ Score_elem::pre_processing()
 void
 Score_elem::breakable_col_processing()
 {
-    if (status_ >= PREBROKEN )
+    if (status_ >= PREBROKEN)
 	return;
 
-    if(status_== PREBREAKING) {
+    if (status_== PREBREAKING) {
 	status_ = PREBROKEN;
 	return ;
     }
     status_ = PREBREAKING;
 
     for (int i=0; i < dependency_size(); i++)
-	dependency(i)->breakable_col_processing();
+	dependency (i)->breakable_col_processing();
 
-      Link_array<Score_elem> extra(get_extra_dependencies());
+      Link_array<Score_elem> extra (get_extra_dependencies());
     for (int i=0; i < extra.size(); i++)
 	extra[i]->breakable_col_processing();
     
@@ -322,7 +322,7 @@ Score_elem::breakable_col_processing()
 void
 Score_elem::break_processing()
 {
-    if (status_ >= BROKEN )
+    if (status_ >= BROKEN)
 	return;
 
     if (status_ == BREAKING) {
@@ -332,9 +332,9 @@ Score_elem::break_processing()
     status_ = BREAKING;
 
     for (int i=0; i < dependency_size(); i++)
-	dependency(i)->break_processing();
+	dependency (i)->break_processing();
 
-    Link_array<Score_elem> extra(get_extra_dependencies());
+    Link_array<Score_elem> extra (get_extra_dependencies());
     for (int i=0; i < extra.size(); i++)
 	extra[i]->break_processing();
     
@@ -357,14 +357,14 @@ Score_elem::post_processing()
 {
     if (status_ >= POSTCALCED)
 	return;
-    assert(status_ != POSTCALCING);// cyclic dependency
+    assert (status_ != POSTCALCING);// cyclic dependency
     status_=POSTCALCING;	
 
   
     for (int i=0; i < dependency_size(); i++)
-	dependency(i)->post_processing();
+	dependency (i)->post_processing();
 
-    Link_array<Score_elem> extra(get_extra_dependencies());
+    Link_array<Score_elem> extra (get_extra_dependencies());
     for (int i=0; i < extra.size(); i++)
 	extra[i]->post_processing();
     
@@ -387,9 +387,9 @@ Score_elem::molecule_processing()
     status_ = OUTPUT;		// do it only once.
   
     for (int i=0; i < dependency_size(); i++)
-	dependency(i)->molecule_processing();
+	dependency (i)->molecule_processing();
 
-    Link_array<Score_elem> extra(get_extra_dependencies());
+    Link_array<Score_elem> extra (get_extra_dependencies());
     for (int i=0; i < extra.size(); i++)
 	extra[i]->molecule_processing();
     
@@ -426,11 +426,11 @@ Score_elem::do_add_processing()
 }
 
 void
-Score_elem::do_substitute_dependency(Score_elem*,Score_elem*)
+Score_elem::do_substitute_dependency (Score_elem*,Score_elem*)
 {
 }
 void
-Score_elem::do_substitute_dependent(Score_elem*,Score_elem*)
+Score_elem::do_substitute_dependent (Score_elem*,Score_elem*)
 {
 }
 
@@ -443,7 +443,7 @@ IMPLEMENT_IS_TYPE_B(Score_elem);
 Molecule*
 Score_elem::brew_molecule_p()const
 {
-    Atom a(paper()->lookup_l()->fill(Box(Interval(0,0), Interval(0,0))));
+    Atom a (paper()->lookup_l ()->fill (Box (Interval (0,0), Interval (0,0))));
     return new Molecule (a);
 }
 
@@ -461,29 +461,29 @@ Score_elem::line_l()const
   */
 
 void
-Score_elem::remove_dependency(Score_elem*e)
+Score_elem::remove_dependency (Score_elem*e)
 {
-    remove_edge_out(e);
-    substitute_dependency(e, 0);
+    remove_edge_out (e);
+    substitute_dependency (e, 0);
 }
 
 void
-Score_elem::add_dependency(Score_elem*e)
+Score_elem::add_dependency (Score_elem*e)
 {
-    Directed_graph_node::add(e);
+    Directed_graph_node::add (e);
 }
 void
-Score_elem::substitute_dependency(Score_elem* old, Score_elem* new_l)
+Score_elem::substitute_dependency (Score_elem* old, Score_elem* new_l)
 {
-    do_substitute_dependency(old,new_l);
-    old->do_substitute_dependent(this, 0);
+    do_substitute_dependency (old,new_l);
+    old->do_substitute_dependent (this, 0);
 }
 
 void
 Score_elem::junk_dependencies()
 {
-    while ( dependency_size() ) {
-	remove_edge_out( dependency( 0 ));
+    while ( dependency_size()) {
+	remove_edge_out (dependency (0));
     }
 }
 
@@ -496,29 +496,29 @@ Score_elem::handle_broken_dependencies()
 
     Link_array<Score_elem> remove_us_arr;
     for (int i=0; i < dependency_size(); i++) {
-	Score_elem * elt = dependency(i);
+	Score_elem * elt = dependency (i);
 	if (elt->line_l() != line){ 
 	    if (elt->spanner()) {
 		Spanner * sp = elt->spanner();
-		Spanner * broken = sp->find_broken_piece(line);
-		substitute_dependency(sp, broken);
+		Spanner * broken = sp->find_broken_piece (line);
+		substitute_dependency (sp, broken);
 
-		add_dependency(broken);
-	    } else if (elt->item() && elt->item()->pcol_l_->breakpoint_b()
-		       && elt->item()->break_status_i() == 0) {
-		Item * my_item = elt->item()->find_prebroken_piece(line);
-		substitute_dependency( elt, my_item);
+		add_dependency (broken);
+	    } else if (elt->item() && elt->item ()->pcol_l_->breakpoint_b ()
+		       && elt->item()->break_status_i () == 0) {
+		Item * my_item = elt->item()->find_prebroken_piece (line);
+		substitute_dependency (elt, my_item);
 		if (my_item)
-		    add_dependency( my_item);
+		    add_dependency (my_item);
 	    }
-	    remove_us_arr.push(elt);
+	    remove_us_arr.push (elt);
 	} 
     }
 
     remove_us_arr.default_sort();
     remove_us_arr.uniq();
     for (int i=0;  i <remove_us_arr.size(); i++)
-	remove_dependency(remove_us_arr[i]);
+	remove_dependency (remove_us_arr[i]);
 
     status_ = BROKEN;
 }
@@ -542,26 +542,26 @@ Score_elem::handle_prebroken_dependencies()
     Link_array<Score_elem> old_arr, new_arr;
     
     for (int i=0; i < dependency_size(); i++) {
-	Score_elem * elt = dependency(i);
+	Score_elem * elt = dependency (i);
 	Item *it_l = elt->item();
 	if (it_l && it_l->breakable_b_)
 	    if (item()) {
-		Score_elem *new_l = it_l->find_prebroken_piece(item()->pcol_l_);
-		if (new_l != elt ) {
+		Score_elem *new_l = it_l->find_prebroken_piece (item()->pcol_l_);
+		if (new_l != elt) {
 		    new_arr.push (new_l);
-		    old_arr.push(elt);
+		    old_arr.push (elt);
 		} 
 	    }else {
-		new_arr.push(it_l->broken_to_a_[0]);
-		old_arr.push(0);
-		old_arr.push(0);		
-		new_arr.push(it_l->broken_to_a_[1]);		
+		new_arr.push (it_l->broken_to_a_[0]);
+		old_arr.push (0);
+		old_arr.push (0);		
+		new_arr.push (it_l->broken_to_a_[1]);		
 	    }
     }
     
     for (int i=0;  i < old_arr.size(); i++)
 	if (old_arr[i])
-	    substitute_dependency( old_arr[i], new_arr[i] );
+	    substitute_dependency (old_arr[i], new_arr[i]);
 	
 	
     status_ = PREBROKEN;
@@ -573,8 +573,8 @@ void
 Score_elem::unlink_all()
 {
     for (int i=0; i < dependency_size(); i++) 
-	dependency(i)->unlink_all();
-    Link_array<Score_elem> extra(get_extra_dependencies());
+	dependency (i)->unlink_all();
+    Link_array<Score_elem> extra (get_extra_dependencies());
     for (int i=0; i < extra.size(); i++)
 	extra[i]->unlink_all();
     
@@ -587,15 +587,15 @@ Score_elem::unlink()
 {
     do_unlink();
     while ( dependency_size()) {
-	do_substitute_dependency(dependency(0),0);
-	remove_edge_out_idx(0);
+	do_substitute_dependency (dependency (0),0);
+	remove_edge_out_idx (0);
     }
-    while  ( dependent_size() ) {
-	dependent(0)->remove_dependency(this);
+    while  ( dependent_size()) {
+	dependent (0)->remove_dependency (this);
     }
     for (int j=0; j < 2; j++)
 	if ( axis_group_l_a_[j])
-	    axis_group_l_a_[j]->remove_element(this);
+	    axis_group_l_a_[j]->remove_element (this);
 
 }
 
@@ -604,7 +604,7 @@ Score_elem::OK()const
 {
 #ifndef NDEBUG
     for (int i=0; i < dependency_size(); i++) {
-	dependency(i)->OK();
+	dependency (i)->OK();
     }
 #endif
 }

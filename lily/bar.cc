@@ -27,16 +27,16 @@ IMPLEMENT_IS_TYPE_B1(Bar,Item);
 void
 Bar::do_print()const
 {
-    mtor << type_str_;
+    DOUT << type_str_;
 }
 
 Molecule*
 Bar::brew_molecule_p()const
 {    
     Paper_def *p = paper();
-    Symbol s = p->lookup_l()->bar( type_str_, 
-				   p->get_var("bar_size") );
-    Molecule*output = new Molecule(Atom(s));
+    Symbol s = p->lookup_l()->bar (type_str_, 
+				   p->get_var ("bar_size"));
+    Molecule*output = new Molecule (Atom (s));
     return output;
 }
 

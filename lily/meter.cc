@@ -4,8 +4,8 @@
 #include "paper-def.hh"
 #include "lookup.hh"
 
-Meter::Meter(Array<Scalar>a)
-    :args(a)
+Meter::Meter (Array<Scalar>a)
+    :args (a)
 {
     breakable_b_ = true;
 }
@@ -13,8 +13,8 @@ Meter::Meter(Array<Scalar>a)
 Molecule*
 Meter::brew_molecule_p()const
 {
-    Symbol s = paper()->lookup_l()->meter(args);
-    return new Molecule(Atom(s));
+    Symbol s = paper()->lookup_l ()->meter (args);
+    return new Molecule (Atom (s));
 }
 
 

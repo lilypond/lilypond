@@ -26,19 +26,19 @@ Col_hpositions::~Col_hpositions()
 }
 
 void
-Col_hpositions::add( PCol*c)
+Col_hpositions::add (PCol*c)
 {
-    cols.push(c);
+    cols.push (c);
 }
 
 void
 Col_hpositions::print() const
 {
 #ifndef NPRINT
-    mtor << "energy : " << energy_f_ << '\n';
-    mtor << "line of " << config.size() << " cols\n";
-    Vector v(config);
-    mtor << v;
+    DOUT << "energy : " << energy_f_ << '\n';
+    DOUT << "line of " << config.size() << " cols\n";
+    Vector v (config);
+    DOUT << v;
 #endif
 }
 
@@ -46,7 +46,7 @@ void
 Col_hpositions::OK()const
 {
 #ifndef NDEBUG
-    assert(config.size() == cols.size());
+    assert (config.size() == cols.size ());
 #endif
 }
 
@@ -61,14 +61,14 @@ Col_hpositions::stupid_solution()
 void
 Col_hpositions::solve_line() 
 {
-    spacer_l_->solve(this);
+    spacer_l_->solve (this);
 }
 
 
 void
 Col_hpositions::approximate_solve_line() 
 {
-    spacer_l_->lower_bound_solution(this);
+    spacer_l_->lower_bound_solution (this);
 }
 
 

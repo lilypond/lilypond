@@ -29,19 +29,19 @@ Engraver::post_move_processing()
 void
 Engraver::removal_processing()
 {
-    if ( status < CREATION_INITED )
+    if ( status < CREATION_INITED)
 	do_creation_processing();
     
     do_removal_processing();
 }
 
 bool
-Engraver::try_request(Request * r)
+Engraver::try_request (Request * r)
 {
     if (status < MOVE_INITED)
 	post_move_processing();
 
-    return do_try_request(r);
+    return do_try_request (r);
 }
 
 void
@@ -64,19 +64,19 @@ Engraver::pre_move_processing()
 }
 
 void
-Engraver::fill_staff_info(Staff_info&)
+Engraver::fill_staff_info (Staff_info&)
 {
     
 }
 
 Scalar
-Engraver::get_feature(String t)
+Engraver::get_feature (String t)
 {
-    return daddy_grav_l_->get_feature(t);
+    return daddy_grav_l_->get_feature (t);
 }
 
 bool
-Engraver::do_try_request(Request*)
+Engraver::do_try_request (Request*)
 {
     return false;
 }
@@ -88,16 +88,16 @@ Engraver::Engraver()
 }
 
 void
-Engraver::announce_element(Score_elem_info i)
+Engraver::announce_element (Score_elem_info i)
 {
-    i.origin_grav_l_arr_.push(this);
-    daddy_grav_l_->announce_element(i);
+    i.origin_grav_l_arr_.push (this);
+    daddy_grav_l_->announce_element (i);
 }
 
 void
-Engraver::typeset_element(Score_elem*p)
+Engraver::typeset_element (Score_elem*p)
 {
-    daddy_grav_l_->typeset_element(p);
+    daddy_grav_l_->typeset_element (p);
 }
 
 Paper_def*
@@ -107,7 +107,7 @@ Engraver::paper()const
 }
 
 bool
-Engraver::contains_b(Engraver *grav_l)const
+Engraver::contains_b (Engraver *grav_l)const
 {
     return this == grav_l;
 }
@@ -122,9 +122,9 @@ void
 Engraver::print() const
 {
 #ifndef NPRINT
-    mtor << "\n" << name() << " {";
+    DOUT << "\n" << name() << " {";
     do_print();
-    mtor << "}";
+    DOUT << "}";
 #endif
 }
 

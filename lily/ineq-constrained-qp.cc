@@ -17,40 +17,40 @@
 const int MAXITER=100;		// qlpsolve.hh
 
 /*
-    assume x(idx) == value, and adjust constraints, lin and quad accordingly
+    assume x (idx) == value, and adjust constraints, lin and quad accordingly
 
     TODO: add const_term
     */
 void
-Ineq_constrained_qp::eliminate_var(int idx, Real value)
+Ineq_constrained_qp::eliminate_var (int idx, Real value)
 {
-    Vector row(quad.row(idx));
+    Vector row (quad.row (idx));
     row*= value;
 
-    quad.delete_row(idx);
+    quad.delete_row (idx);
 
-    quad.delete_column(idx);
+    quad.delete_column (idx);
 
-    lin.del(idx);
-    row.del(idx);
+    lin.del (idx);
+    row.del (idx);
     lin +=row ;
 
    for (int i=0; i < cons.size(); i++) {
       consrhs[i] -= cons[i](idx) *value;
-      cons[i].del(idx);
+      cons[i].del (idx);
    }
 }
 
 void
-Ineq_constrained_qp::add_inequality_cons(Vector c, double r)
+Ineq_constrained_qp::add_inequality_cons (Vector c, double r)
 {
-    cons.push(c);
-    consrhs.push(r);
+    cons.push (c);
+    consrhs.push (r);
 }
 
-Ineq_constrained_qp::Ineq_constrained_qp(int novars):
-    quad(novars),
-    lin(novars),
+Ineq_constrained_qp::Ineq_constrained_qp (int novars):
+    quad (novars),
+    lin (novars),
     const_term (0.0)
 {
 }
@@ -58,10 +58,10 @@ Ineq_constrained_qp::Ineq_constrained_qp(int novars):
 void
 Ineq_constrained_qp::OK() const
 {
-#if !defined(NDEBUG) && defined(PARANOID)
-    assert(cons.size() == consrhs.size());
+#if !defined (NDEBUG) && defined (PARANOID)
+    assert (cons.size() == consrhs.size ());
     Matrix Qdif= quad - quad.transposed();
-    assert(Qdif.norm()/quad.norm() < EPS);
+    assert (Qdif.norm()/quad.norm () < EPS);
 #endif    
 }
      
@@ -74,16 +74,16 @@ Ineq_constrained_qp::eval (Vector v)
 
 
 int
-min_elt_index(Vector v)
+min_elt_index (Vector v)
 {
     Real m=infinity_f; 
     int idx=-1;
     for (int i = 0; i < v.dim(); i++){
-	if (v(i) < m) {
+	if (v (i) < m) {
 	    idx = i;
-	    m = v(i);
+	    m = v (i);
 	}
-	assert(v(i) <= infinity_f);
+	assert (v (i) <= infinity_f);
     }
     return idx;
 }
@@ -98,43 +98,43 @@ min_elt_index(Vector v)
     the next point is found in a direction determined by projecting
     the gradient onto the active constraints.  (well, not really the
     gradient. The optimal solution obeying the active constraints is
-    tried. This is why H = Q^-1 in initialisation) )
+    tried. This is why H = Q^-1 in initialisation))
 
 
     */
 Vector
-Ineq_constrained_qp::constraint_solve(Vector start) const 
+Ineq_constrained_qp::constraint_solve (Vector start) const 
 {    
     if (!dim())
-	return Vector(0);
+	return Vector (0);
     
     // experimental
     if (quad.dim() > 10)
 	quad.try_set_band();
     
-    Active_constraints act(this);
+    Active_constraints act (this);
     act.OK();    
 
     
-    Vector x(start);
+    Vector x (start);
     Vector gradient=quad*x+lin;
 	//    Real fvalue = x*quad*x/2 + lin*x + const_term;
 	// it's no use.
 
-    Vector last_gradient(gradient);
+    Vector last_gradient (gradient);
     int iterations=0;
     
     while (iterations++ < MAXITER) {
-	Vector direction= - act.find_active_optimum(gradient);
+	Vector direction= - act.find_active_optimum (gradient);
        	
-	mtor << "gradient "<< gradient<< "\ndirection " << direction<<"\n";
+	DOUT << "gradient "<< gradient<< "\ndirection " << direction<<"\n";
 	
 	if (direction.norm() > EPS) {
-	    mtor << act.status() << '\n';
+	    DOUT << act.status() << '\n';
 	    
 	    Real minalf = infinity_f;
 
-	    Inactive_iter minidx(act);
+	    Inactive_iter minidx (act);
 
 
 	    /*
@@ -142,11 +142,11 @@ Ineq_constrained_qp::constraint_solve(Vector start) const
 	    bump into the edges of the simplex
 	    */
     
-	    for (Inactive_iter ia(act); ia.ok(); ia++) {
+	    for (Inactive_iter ia (act); ia.ok(); ia++) {
 
 		if (ia.vec() * direction >= 0)
 		    continue;
-		Real alfa= - (ia.vec()*x - ia.rhs())/
+		Real alfa= - (ia.vec()*x - ia.rhs ())/
 		    (ia.vec()*direction);
 		
 		if (minalf > alfa) {
@@ -155,19 +155,19 @@ Ineq_constrained_qp::constraint_solve(Vector start) const
 		}
 	    }
 	    Real unbounded_alfa = 1.0;
-	    Real optimal_step = min(minalf, unbounded_alfa);
+	    Real optimal_step = min (minalf, unbounded_alfa);
 
 	    Vector deltax=direction * optimal_step;
 	    x += deltax;	    
 	    gradient += optimal_step * (quad * deltax);
 	    
-	    mtor << "step = " << optimal_step<< " (|dx| = " <<
+	    DOUT << "step = " << optimal_step<< " (|dx| = " <<
 		deltax.norm() << ")\n";	    
 	   
 	    if (minalf < unbounded_alfa) {
 		/* bumped into an edge. try again, in smaller space. */
-		act.add(minidx.idx());
-		mtor << "adding cons "<< minidx.idx()<<'\n';
+		act.add (minidx.idx());
+		DOUT << "adding cons "<< minidx.idx()<<'\n';
 		continue;
 	    }
 	    /*ASSERT: we are at optimal solution for this "plane"*/
@@ -175,37 +175,37 @@ Ineq_constrained_qp::constraint_solve(Vector start) const
     
 	}
 	
-	Vector lagrange_mult=act.get_lagrange(gradient);	
-	int m= min_elt_index(lagrange_mult);
+	Vector lagrange_mult=act.get_lagrange (gradient);	
+	int m= min_elt_index (lagrange_mult);
 	
-	if (m>=0 && lagrange_mult(m) > 0) {
+	if (m>=0 && lagrange_mult (m) > 0) {
 	    break;		// optimal sol.
 	} else if (m<0) {
-	    assert(gradient.norm() < EPS) ;
+	    assert (gradient.norm() < EPS) ;
 	    
 	    break;
 	}
 	
-	mtor << "dropping cons " << m<<'\n';
-	act.drop(m);
+	DOUT << "dropping cons " << m<<'\n';
+	act.drop (m);
     }
     if (iterations >= MAXITER)
 	WARN<<"didn't converge!\n";
     
-    mtor <<  ": found " << x<<" in " << iterations <<" iterations\n";
-    assert_solution(x);
+    DOUT <<  ": found " << x<<" in " << iterations <<" iterations\n";
+    assert_solution (x);
     return x;
 } 
 
     
 Vector
-Ineq_constrained_qp::solve(Vector start)const
+Ineq_constrained_qp::solve (Vector start)const
 { 
     /* no hassle if no constraints*/
-    if ( ! cons.size() ) {
-	Choleski_decomposition chol( quad );
-	return - chol.solve(lin);
+    if ( ! cons.size()) {
+	Choleski_decomposition chol (quad);
+	return - chol.solve (lin);
     } else {
-	return constraint_solve( start );
+	return constraint_solve (start);
     }
 }

@@ -16,10 +16,10 @@ PCol::width() const
 {
     Interval w;
 
-    for (iter_top(its,i); i.ok(); i++)
-	w.unite(i->width());
+    for (iter_top (its,i); i.ok(); i++)
+	w.unite (i->width());
     if (w.empty_b())
-	w.unite(Interval(0,0));
+	w.unite (Interval (0,0));
     return w;
 }
 
@@ -42,7 +42,7 @@ PCol::rank_i() const
 }
 
 void
-PCol::set_rank(int i)
+PCol::set_rank (int i)
 {
     rank_i_ = i;
     if (prebreak_p_)
@@ -55,39 +55,39 @@ void
 PCol::print() const
 {
 #ifndef NPRINT
-    mtor << "PCol {";
+    DOUT << "PCol {";
 
-    mtor << "rank: " << rank_i_ << '\n';
+    DOUT << "rank: " << rank_i_ << '\n';
 
-    mtor << "# symbols: " << its.size() ;
+    DOUT << "# symbols: " << its.size() ;
     if (breakable_b()){
-	mtor << "\npre,post: ";
+	DOUT << "\npre,post: ";
 	prebreak_p_->print();
 	postbreak_p_->print();
     } else if (daddy_l_) {
-	mtor<<'\n' << ((this == daddy_l_->prebreak_p_) ?
+	DOUT <<'\n' << ((this == daddy_l_->prebreak_p_) ?
 		       "prebreak" : "postbreak");
-	mtor << '\n';
+	DOUT << '\n';
     }
-    mtor << "extent: " << width().str() << "\n";
-    mtor << "}\n";
+    DOUT << "extent: " << width().str () << "\n";
+    DOUT << "}\n";
 #endif 
 }
 
 int
-PCol::compare(PCol const &c1, PCol const &c2)
+PCol::compare (PCol const &c1, PCol const &c2)
 {
-    return c1.rank_i() - c2.rank_i();
+    return c1.rank_i() - c2.rank_i ();
 }
 
 void
 PCol::OK() const
 {
 #ifndef NDEBUG
-    if (prebreak_p_ || postbreak_p_ ) {
-	assert(prebreak_p_&&postbreak_p_);
-	assert(prebreak_p_->daddy_l_ == this);
-	assert(postbreak_p_->daddy_l_ == this);
+    if (prebreak_p_ || postbreak_p_) {
+	assert (prebreak_p_&&postbreak_p_);
+	assert (prebreak_p_->daddy_l_ == this);
+	assert (postbreak_p_->daddy_l_ == this);
     }
 #endif
 }
@@ -144,14 +144,14 @@ PCol::~PCol()
 }
 
 void
-PCol::add( Item *i)
+PCol::add (Item *i)
 {
-    its.bottom().add(i);
+    its.bottom().add (i);
     i->pcol_l_ = this; 
 }
 
 bool
 PCol::used_b()const
 {
-    return daddy_l_ || breakable_b() || its.size()|| used_b_;
+    return daddy_l_ || breakable_b() || its.size ()|| used_b_;
 }

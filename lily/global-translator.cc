@@ -18,13 +18,13 @@ Global_translator::Global_translator()
 }
 
 Translator*
-Global_translator::ancestor_l(int)
+Global_translator::ancestor_l (int)
 {
     return this;
 }
 
 void
-Global_translator::add_moment_to_process(Moment m)
+Global_translator::add_moment_to_process (Moment m)
 {
     if (m  > last_mom_)
 	return;
@@ -32,7 +32,7 @@ Global_translator::add_moment_to_process(Moment m)
     for (int i=0; i <  extra_mom_pq_.size(); i++)
 	if (extra_mom_pq_[i] == m)
 	    return;
-    extra_mom_pq_.insert(m);
+    extra_mom_pq_.insert (m);
 }
 
 int
@@ -42,14 +42,14 @@ Global_translator::depth_i()const
 }
 
 void
-Global_translator::set_score(Score *s)
+Global_translator::set_score (Score *s)
 {
     score_l_ = s;
-    last_mom_ = score_l_->music_p_->time_int().max();
+    last_mom_ = score_l_->music_p_->time_int().max ();
 }
 
 void
-Global_translator::modify_next(Moment &w)
+Global_translator::modify_next (Moment &w)
 {
     while (extra_mom_pq_.size() && 
 	extra_mom_pq_.front() <= w)
@@ -64,7 +64,7 @@ Global_translator::moments_left_i()const
 }
 
 void
-Global_translator::prepare(Moment)
+Global_translator::prepare (Moment)
 {
 }
 

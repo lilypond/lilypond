@@ -38,14 +38,14 @@ struct Stem_info {
     int beams_i_;
 
     Stem_info(){}
-    Stem_info(Stem const *);
+    Stem_info (Stem const *);
 };
 
-Stem_info::Stem_info(Stem const *s)
+Stem_info::Stem_info (Stem const *s)
 {
     x = s->hpos_f();
     dir_i_ = s->dir_i_;
-    beams_i_ = intlog2( s->flag_i_ ) - 2;
+    beams_i_ = intlog2( s->flag_i_) - 2;
 
     /*
      [todo] 
@@ -64,14 +64,14 @@ Stem_info::Stem_info(Stem const *s)
          
      */
 
-    Real notehead_y = s->paper()->interline_f();
+    Real notehead_y = s->paper()->interline_f ();
     // huh? why do i need the / 2
-//    Real interbeam_f = s->paper()->interbeam_f();
-    Real interbeam_f = s->paper()->interbeam_f() / 2;
+//    Real interbeam_f = s->paper()->interbeam_f ();
+    Real interbeam_f = s->paper()->interbeam_f () / 2;
            
     /* well eh, huh?
     idealy_f_  = dir_i_ * s->stem_start_f() + beams_i_ * interbeam_f; 
-    if ( beams_i_ < 3 )
+    if ( beams_i_ < 3)
 	idealy_f_ += 2 * interline_f;
     else
 	idealy_f_ += 1.5 * interline_f;
@@ -82,7 +82,7 @@ Stem_info::Stem_info(Stem const *s)
     miny_f_ = dir_i_ * s->stem_start_f() + notehead_y + beams_i_ * interbeam_f;
 
     idealy_f_ =  miny_f_ >? idealy_f_;
-//    assert(miny_f_ <= idealy_f_);
+//    assert (miny_f_ <= idealy_f_);
 }
 
 
@@ -92,8 +92,8 @@ Stem_info::Stem_info(Stem const *s)
 Offset
 Beam::center()const
 {
-    Real w=(paper()->note_width() + width().length())/2.0;
-    return Offset(w, (left_pos + w* slope)*paper()->internote_f());
+    Real w=(paper()->note_width () + width ().length ())/2.0;
+    return Offset (w, (left_pos + w* slope)*paper()->internote_f ());
 }
 
 
@@ -104,10 +104,10 @@ Beam::Beam()
 }
 
 void
-Beam::add(Stem*s)
+Beam::add (Stem*s)
 {
-    stems.push(s);
-    s->add_dependency(this);
+    stems.push (s);
+    s->add_dependency (this);
     s->print_flag_b_ = false;
 }
 
@@ -164,10 +164,10 @@ Beam::solve_slope()
 	if (i->invisible_b())
 	    continue;
 	
-	Stem_info info(i);
-	sinfo.push(info);
+	Stem_info info (i);
+	sinfo.push (info);
     }
-    if (! sinfo.size() )
+    if (! sinfo.size())
 	slope = left_pos = 0;
     else if (sinfo.size() == 1) {
 	slope = 0;
@@ -178,10 +178,10 @@ Beam::solve_slope()
 	Least_squares l;
 	for (int i=0; i < sinfo.size(); i++) {
 	    sinfo[i].x -= leftx;
-	    l.input.push(Offset(sinfo[i].x, sinfo[i].idealy_f_));
+	    l.input.push (Offset (sinfo[i].x, sinfo[i].idealy_f_));
 	}
 
-	l.minimise(slope, left_pos);
+	l.minimise (slope, left_pos);
     }
     
     Real dy = 0.0;
@@ -198,15 +198,15 @@ Beam::solve_slope()
     slope *= dir_i_;
 
     /*
-      This neat trick is by Werner Lemberg, damped = tanh(slope) corresponds
+      This neat trick is by Werner Lemberg, damped = tanh (slope) corresponds
       with some tables in [Wanske]
      */
-    slope = 0.6 * tanh(slope);  
+    slope = 0.6 * tanh (slope);  
 
 				// ugh
-    Real sl = slope*paper()->internote_f();
-    paper()->lookup_l()->beam(sl, 20 PT);
-    slope = sl /paper()->internote_f();
+    Real sl = slope*paper()->internote_f ();
+    paper()->lookup_l ()->beam (sl, 20 PT);
+    slope = sl /paper()->internote_f ();
 }
 
 void
@@ -217,7 +217,7 @@ Beam::set_stemlens()
 	Stem *s = stems[j];
 
 	Real x =  s->hpos_f()-x0;
-	s->set_stemend(left_pos + slope * x);	
+	s->set_stemend (left_pos + slope * x);	
     }
 }
 
@@ -226,7 +226,7 @@ void
 Beam::do_post_processing()
 {
     if ( stems.size() < 2) {
-	warning("Beam with less than 2 stems");
+	warning ("Beam with less than 2 stems");
 	transparent_b_ = true;
 	return ;
     }
@@ -235,13 +235,13 @@ Beam::do_post_processing()
 }
 
 void
-Beam::set_grouping(Rhythmic_grouping def, Rhythmic_grouping cur)
+Beam::set_grouping (Rhythmic_grouping def, Rhythmic_grouping cur)
 {
     def.OK();
     cur.OK();
-    assert(cur.children.size() == stems.size());
+    assert (cur.children.size() == stems.size ());
     
-    cur.split(def);
+    cur.split (def);
 
     Array<int> b;
     {
@@ -249,18 +249,18 @@ Beam::set_grouping(Rhythmic_grouping def, Rhythmic_grouping cur)
 	for (int j=0; j <stems.size(); j++) {
 	    Stem *s = stems[j];
 
-	    int f = intlog2(abs(s->flag_i_))-2;
-	    assert(f>0);
-	    flags.push(f);
+	    int f = intlog2(abs (s->flag_i_))-2;
+	    assert (f>0);
+	    flags.push (f);
 	}
 	int fi =0;
-	b= cur.generate_beams(flags, fi);
-	b.insert(0,0);
-	b.push(0);
-	assert(stems.size() == b.size()/2);
+	b= cur.generate_beams (flags, fi);
+	b.insert (0,0);
+	b.push (0);
+	assert (stems.size() == b.size ()/2);
     }
 
-    for (int j=0, i=0; i < b.size() && j <stems.size(); i+= 2, j++) {
+    for (int j=0, i=0; i < b.size() && j <stems.size (); i+= 2, j++) {
 	Stem *s = stems[j];
 	s->beams_left_i_ = b[i];
 	s->beams_right_i_ = b[i+1];
@@ -279,23 +279,23 @@ Beam::do_pre_processing()
 Interval
 Beam::do_width() const
 {
-    return Interval( stems[0]->hpos_f(),
-		     stems.top()->hpos_f() );
+    return Interval (stems[0]->hpos_f(),
+		     stems.top()->hpos_f ());
 }
 
 /*
   beams to go with one stem.
   */
 Molecule
-Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
+Beam::stem_beams (Stem *here, Stem *next, Stem *prev)const
 {
-    assert( !next || next->hpos_f() > here->hpos_f()  );
-    assert( !prev || prev->hpos_f() < here->hpos_f()  );
-//    Real dy=paper()->internote_f()*2;
-    Real dy = paper()->interbeam_f();
-    Real stemdx = paper()->rule_thickness();
-    Real sl = slope*paper()->internote_f();
-    paper()->lookup_l()->beam(sl, 20 PT);
+    assert (!next || next->hpos_f() > here->hpos_f () );
+    assert (!prev || prev->hpos_f() < here->hpos_f () );
+//    Real dy=paper()->internote_f ()*2;
+    Real dy = paper()->interbeam_f ();
+    Real stemdx = paper()->rule_thickness ();
+    Real sl = slope*paper()->internote_f ();
+    paper()->lookup_l ()->beam (sl, 20 PT);
 
     Molecule leftbeams;
     Molecule rightbeams;
@@ -304,16 +304,16 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
     if (prev) {
 	int lhalfs= lhalfs = here->beams_left_i_ - prev->beams_right_i_ ;
 	int lwholebeams= here->beams_left_i_ <? prev->beams_right_i_ ;
-	Real w = (here->hpos_f() - prev->hpos_f())/4;
+	Real w = (here->hpos_f() - prev->hpos_f ())/4;
 	Symbol dummy;
-	Atom a(dummy);
+	Atom a (dummy);
 	if (lhalfs)		// generates warnings if not
-	    a =  paper()->lookup_l()->beam(sl, w);
-	a.translate(Offset (-w, -w * sl));
+	    a =  paper()->lookup_l ()->beam (sl, w);
+	a.translate (Offset (-w, -w * sl));
 	for (int j = 0; j  < lhalfs; j++) {
-	    Atom b(a);
-	    b.translate( -dir_i_ * dy * (lwholebeams+j), Y_AXIS);
-	    leftbeams.add( b );
+	    Atom b (a);
+	    b.translate (-dir_i_ * dy * (lwholebeams+j), Y_AXIS);
+	    leftbeams.add (b);
 	}
     }
 	
@@ -321,28 +321,28 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 	int rhalfs = here->beams_right_i_ - next->beams_left_i_;
 	int rwholebeams = here->beams_right_i_ <? next->beams_left_i_; 
 
-	Real w = next->hpos_f() - here->hpos_f();
-	Atom a = paper()->lookup_l()->beam(sl, w + stemdx);
+	Real w = next->hpos_f() - here->hpos_f ();
+	Atom a = paper()->lookup_l ()->beam (sl, w + stemdx);
 	
 	int j = 0;
 	for (; j  < rwholebeams; j++) {
-	    Atom b(a);
-	    b.translate( -dir_i_ * dy * j, Y_AXIS);
-	    rightbeams.add( b ); 
+	    Atom b (a);
+	    b.translate (-dir_i_ * dy * j, Y_AXIS);
+	    rightbeams.add (b); 
 	}
 
 	w /= 4;
 	if (rhalfs)
-	    a = paper()->lookup_l()->beam(sl, w);
+	    a = paper()->lookup_l ()->beam (sl, w);
 	
 	for (; j  < rwholebeams + rhalfs; j++) {
-	    Atom b(a);
-	    b.translate( -dir_i_ * dy * j, Y_AXIS);
-	    rightbeams.add(b ); 
+	    Atom b (a);
+	    b.translate (-dir_i_ * dy * j, Y_AXIS);
+	    rightbeams.add (b); 
 	}
 	
     }
-    leftbeams.add(rightbeams);
+    leftbeams.add (rightbeams);
     return leftbeams;
 }
 
@@ -353,20 +353,20 @@ Beam::brew_molecule_p() const
  
     Molecule *mol_p = new Molecule;
     // huh? inter-what
-//    Real inter_f = paper()->interbeam_f();
-    Real inter_f = paper()->internote_f();
+//    Real inter_f = paper()->interbeam_f ();
+    Real inter_f = paper()->internote_f ();
     Real x0 = stems[0]->hpos_f();
     for (int j=0; j <stems.size(); j++) {
 	Stem *i = stems[j];
 	Stem * prev = (j > 0)? stems[j-1] : 0;
 	Stem * next = (j < stems.size()-1) ? stems[j+1] :0;
 
-	Molecule sb = stem_beams(i, next, prev);
+	Molecule sb = stem_beams (i, next, prev);
 	Real  x = i->hpos_f()-x0;
-	sb.translate(Offset(x, (x * slope  + left_pos)* inter_f));
-	mol_p->add(sb);
+	sb.translate (Offset (x, (x * slope  + left_pos)* inter_f));
+	mol_p->add (sb);
     }
-    mol_p->translate(x0 - left_col_l_->hpos_f_, X_AXIS);
+    mol_p->translate (x0 - left_col_l_->hpos_f_, X_AXIS);
     return mol_p;
 }
 
@@ -377,15 +377,15 @@ void
 Beam::do_print()const
 {
 #ifndef NPRINT
-    mtor << "slope " <<slope << "left ypos " << left_pos;
+    DOUT << "slope " <<slope << "left ypos " << left_pos;
     Spanner::do_print();
 #endif
 }
 
 void
-Beam::do_substitute_dependent(Score_elem*o,Score_elem*n)
+Beam::do_substitute_dependent (Score_elem*o,Score_elem*n)
 {
-    if (o->is_type_b( Stem::static_name() )) {
-	stems.substitute( (Stem*)o->item(),  n?(Stem*) n->item():0);
+    if (o->is_type_b (Stem::static_name())) {
+	stems.substitute ((Stem*)o->item(),  n?(Stem*) n->item ():0);
     }
 }

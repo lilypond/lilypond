@@ -19,9 +19,9 @@ Axis_group_element::do_unlink()
 
 
 bool
-Axis_group_element::contains_b(Score_elem const*e)const
+Axis_group_element::contains_b (Score_elem const*e)const
 {
-    return axis_admin_.contains_b(e);
+    return axis_admin_.contains_b (e);
 }
 
 Link_array<Score_elem>
@@ -40,53 +40,53 @@ Axis_group_element::do_print()const
 
 
 void
-Vertical_group_element::add_element(Score_elem*e)
+Vertical_group_element::add_element (Score_elem*e)
 {
-    axis_admin_.add_element(e, this, Y_AXIS, Y_AXIS);
+    axis_admin_.add_element (e, this, Y_AXIS, Y_AXIS);
 }
 
 void
-Vertical_group_element::remove_element(Score_elem*e)
+Vertical_group_element::remove_element (Score_elem*e)
 {
-    axis_admin_.remove_element(e, Y_AXIS, Y_AXIS);
+    axis_admin_.remove_element (e, Y_AXIS, Y_AXIS);
 }
 
 
 Interval
 Vertical_group_element::do_height() const
 {
-    return axis_admin_.extent(Y_AXIS);
+    return axis_admin_.extent (Y_AXIS);
 }
 void
 Vertical_group_element::remove_all()
 {
-    axis_admin_.remove_all(Y_AXIS,Y_AXIS);
+    axis_admin_.remove_all (Y_AXIS,Y_AXIS);
 }
 // ****************
 
 void
 Horizontal_group_element::remove_all()
 {
-    axis_admin_.remove_all(X_AXIS,X_AXIS);
+    axis_admin_.remove_all (X_AXIS,X_AXIS);
 }
 
 void
-Horizontal_group_element::add_element(Score_elem*e)
+Horizontal_group_element::add_element (Score_elem*e)
 {
-    axis_admin_.add_element(e,this, X_AXIS,X_AXIS);
+    axis_admin_.add_element (e,this, X_AXIS,X_AXIS);
 }
 
 void
-Horizontal_group_element::remove_element(Score_elem*e)
+Horizontal_group_element::remove_element (Score_elem*e)
 {
-    axis_admin_.remove_element(e,X_AXIS,X_AXIS);
+    axis_admin_.remove_element (e,X_AXIS,X_AXIS);
 }
 
 
 Interval
 Horizontal_group_element::do_width()const
 {
-    return axis_admin_.extent(X_AXIS);
+    return axis_admin_.extent (X_AXIS);
 }
 
 
@@ -95,18 +95,18 @@ Horizontal_group_element::do_width()const
 void
 Horizontal_vertical_group_element::remove_all()
 {
-    axis_admin_.remove_all(X_AXIS,Y_AXIS);
+    axis_admin_.remove_all (X_AXIS,Y_AXIS);
 }
 void
-Horizontal_vertical_group_element::add_element(Score_elem *e)
+Horizontal_vertical_group_element::add_element (Score_elem *e)
 {
-    axis_admin_.add_element(e, this, X_AXIS, Y_AXIS);
+    axis_admin_.add_element (e, this, X_AXIS, Y_AXIS);
 }
 
 void
-Horizontal_vertical_group_element::remove_element(Score_elem*e)
+Horizontal_vertical_group_element::remove_element (Score_elem*e)
 {
-    axis_admin_.remove_element(e, X_AXIS, Y_AXIS);
+    axis_admin_.remove_element (e, X_AXIS, Y_AXIS);
 }
 
 

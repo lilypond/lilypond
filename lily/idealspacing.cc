@@ -15,9 +15,9 @@ void
 Idealspacing::print() const
 {
 #ifndef NPRINT
-    mtor << "idealspacing {" ;
-    mtor << "distance "<<space_f_<< " strength " << hooke_f_ ;
-    mtor << "left " << left_i_ << " right " << right_i_ << "}\n";
+    DOUT << "idealspacing {" ;
+    DOUT << "distance "<<space_f_<< " strength " << hooke_f_ ;
+    DOUT << "left " << left_i_ << " right " << right_i_ << "}\n";
 #endif
 }
 
@@ -32,5 +32,5 @@ Idealspacing::Idealspacing()
 void
 Idealspacing::OK() const
 {
-    assert(hooke_f_ >= 0);
+    assert (hooke_f_ >= 0);
 }
