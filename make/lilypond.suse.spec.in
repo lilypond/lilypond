@@ -92,7 +92,7 @@ The documentation of LilyPond, both in HTML and PostScript.
 # In fact, do not take out the spaces between % and { , because RPM will gladly
 # do a substitution anyway.
 
-CFLAGS="$RPM_OPT_FLAGS" ./configure --disable-checking --disable-debugging --enable-printing --prefix=%{_prefix} --enable-optimise --enable-shared
+CFLAGS="$RPM_OPT_FLAGS" ./configure --disable-checking --disable-debugging --enable-printing --prefix=%{_prefix} --enable-optimising --enable-shared
 
 make LDFLAGS=-s "CFLAGS=$RPM_OPT_FLAGS" all
 

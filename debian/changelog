@@ -1,8 +1,9 @@
-lilypond (1.6.1-1) unstable; urgency=low
+lilypond (1.6.2-1) unstable; urgency=low
 
   * New upstream release.
+  * Check g++ version and run lexer-gcc-3.1.sh if necessary.
 
- -- Anthony Fok <foka@debian.org>  Sat, 31 Aug 2002 18:15:53 +0800
+ -- Anthony Fok <foka@debian.org>  Tue, 10 Sep 2002 23:37:27 +0800
 
 lilypond (1.6.0-1) unstable; urgency=medium
 

@@ -7,6 +7,8 @@
   & Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "config.h"
+
 #include <stdio.h>
 #include <assert.h>
 #if HAVE_SSTREAM

@@ -59,9 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 # DO NOT use % { configure } , it hardcodes all paths, runs libtool,
 # so we can't do make prefix=/tmp/ install.
 # -- not sure what this comment means; it's a relic from the PPC spec file -- mbrown@fensystems.co.uk
-##./configure --disable-checking --disable-debugging --enable-printing --prefix=%{_prefix} --disable-optimise --enable-shared
+##./configure --disable-checking --disable-debugging --enable-printing --prefix=%{_prefix} --disable-optimising --enable-shared
 ## Add options if needed
-./configure --disable-checking --prefix=%{_prefix} --enable-optimise
+./configure --disable-checking --prefix=%{_prefix} --enable-optimising
 make MAKE_PFA_FILES=1 all
 
 # make info
