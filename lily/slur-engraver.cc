@@ -19,6 +19,7 @@ class Slur_engraver : public Engraver
   Link_array<Span_req> new_slur_req_l_arr_;
   Link_array<Score_element> slur_l_stack_;
   Link_array<Score_element> end_slur_l_arr_;
+  Moment last_start_;
 
   void set_melisma (bool);
 
@@ -32,7 +33,13 @@ protected:
 
 public:
   VIRTUAL_COPY_CONS (Translator);
+  Slur_engraver ();
 };
+
+Slur_engraver::Slur_engraver ()
+{
+  last_start_ = Moment (-1);
+}
 
 bool
 Slur_engraver::do_try_music (Music *req_l)
@@ -56,8 +63,23 @@ Slur_engraver::do_try_music (Music *req_l)
 	}
       else if (sl->span_type_str_ == "slur")
 	{
-	  new_slur_req_l_arr_.push (sl);
-	  return true;
+	  /*
+	    Let's not start more than one slur per moment.
+	   */
+	  if (sl->span_dir_ == START)
+	    {
+	      if (now_mom () > last_start_)
+	        {
+	          new_slur_req_l_arr_.push (sl);
+		  last_start_ = now_mom ();
+	          return true;
+		}
+	    }
+	  else
+	    {
+	      new_slur_req_l_arr_.push (sl);
+	      return true;
+	    }
 	}
     }
   return false;

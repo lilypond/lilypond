@@ -212,6 +212,8 @@ fagottoII = \notes \relative c {
 	\!f'2\ff e|
 	dis b~|
 	b1\p|
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	a\<|
 	g|
 	f|

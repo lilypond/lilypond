@@ -269,9 +269,13 @@ yylex (YYSTYPE *s,  void * v_l)
 mudela:	/* empty */
 	| mudela toplevel_expression {}
 	| mudela assignment  { }
-	| mudela error
+	| mudela error {
+		THIS->error_level_i_  = 1;
+		//THIS->parser_error (_ ("ly invalid"));
+	}
 	| mudela INVALID	{
-		THIS->error_level_i_  =1;
+		THIS->error_level_i_  = 1;
+		//THIS->parser_error (_ ("ly invalid"));
 	}
 	;
 
@@ -474,8 +478,10 @@ translator_spec_body:
 */
 score_block:
 	SCORE { 
+		THIS->remember_spot ();
 	}
 	/*cont*/ '{' score_body '}' 	{
+		THIS->pop_spot ();
 		$$ = $4;
 		if (!$$->def_p_arr_.size ())
 		{
@@ -484,6 +490,15 @@ score_block:
 		  $$->add_output (id ? id->access_content_Music_output_def (true) : new Paper_def );
 		}
 	}
+/*
+	| SCORE '{' score_body error {
+		$$ = $3
+		$$->set_spot (THIS->here_input ());
+		// THIS->here_input ().error ("SCORE INVALID");
+		$$->error ("SCORE INVALID");
+		THIS->parser_error (_f ("SCORE ERROR"));
+	}
+*/
 	;
 
 score_body:
@@ -1378,16 +1393,25 @@ simple_element:
 
 		$$ = new Sequential_music (ms);
 	}
-	| STRING optional_notemode_duration 	{
-		if (!THIS->lexer_p_->lyric_state_b ())
-			THIS->parser_error (_ ("Have to be in Lyric mode for lyrics"));
+	| STRING { 
+	 	THIS->remember_spot ();
+	} 
+	/* cont */
+	optional_notemode_duration 	{
+		if (!THIS->lexer_p_->lyric_state_b ()) {
+			THIS->pop_spot ().error (_ ("Have to be in Lyric mode for lyrics"));
+			THIS->error_level_i_  = 1;
+			THIS->parser_error (_ ("Giving up"));
+		} 
+		else
+			THIS->pop_spot ();
 		Lyric_req* lreq_p = new Lyric_req;
 		lreq_p ->text_str_ = ly_scm2string ($1);
-		lreq_p->duration_ = *$2;
+		lreq_p->duration_ = *$3;
 		lreq_p->set_spot (THIS->here_input());
 		Simultaneous_music* velt_p = new Request_chord (gh_list (lreq_p->self_scm (), SCM_UNDEFINED));
 
-		delete  $2; // ugh
+		delete  $3; // ugh
 		$$= velt_p;
 
 	}
