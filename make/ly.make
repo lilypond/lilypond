@@ -70,7 +70,7 @@ $(outdir)/%-book.ps: $(outdir)/%.ps
 #
 # Also clean hand-compiled stuff in cwd
 #
-localclean: local-auto-gen-clean
+local-clean: local-auto-gen-clean
 
 # Compose string from two parts: must not remove myself.
 auto-gen-tag=Generated

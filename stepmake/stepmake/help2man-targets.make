@@ -1,6 +1,6 @@
 default: man
 
-localinstall: install-help2man
+local-install: install-help2man
 
 install-help2man: man
 	-$(INSTALL) -d $(mandir)/man1
@@ -9,7 +9,7 @@ install-help2man: man
 
 man: $(HELP2MAN_GROFFS)
 
-localuninstall: uninstall-help2man
+local-uninstall: uninstall-help2man
 
 uninstall-help2man:
 	$(foreach a, $(notdir $(MANGROFFS)), rm -f $(a) && ) true

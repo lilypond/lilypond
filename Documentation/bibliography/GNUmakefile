@@ -36,5 +36,5 @@ $(outdir)/%.html: %.bib
 	-$(BIBTEX2HTML) $(BIBTEX2HTML_FLAGS)
 	$(footify) $@
 
-localclean:
+local-clean:
 	rm -f fonts.aux fonts.log feta*.tfm feta*.*pk

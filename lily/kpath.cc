@@ -8,7 +8,9 @@ source file of the GNU LilyPond music typesetter
  */
 
 #include <stdio.h>
+
 #include "config.h"
+#include "string.hh"
 
 #define popen REALLYUGLYKLUDGE
 #define pclose ANOTHERREALLYUGLYKLUDGE
@@ -21,7 +23,7 @@ extern "C" {
 #endif
 
 #include "kpath.hh"
-
+#include "version.hh"
 
 
 char * ly_find_afm (char const * name)
@@ -52,17 +54,18 @@ ly_init_kpath (char *av0)
   kpse_maketex_option("tfm", TRUE);
 
   /*
-    UGH: should not use DIR_DATADIR, but /var,  
-   */
-
-  /*
     ugh: apparently the program_args is non-functional.
    */
-  kpse_format_info[kpse_tfm_format].program ="mktextfm --destdir " DIR_DATADIR "/tfm";
-
-  kpse_format_info[kpse_tfm_format].client_path =
-    (DIR_DATADIR "/tfm" );
+#define VERSION MAJOR_VERSION "." MINOR_VERSION "."  PATCH_LEVEL
   
+#define MY_TFMPATH "$VARTEXFONTS/tfm/lilypond/" VERSION "/"
+
+  char * mypath = kpse_expand (MY_TFMPATH);
+  String prog = "mktextfm --destdir ";
+  prog += mypath;
+  
+  kpse_format_info[kpse_tfm_format].program = strdup (prog.ch_C());
+  kpse_format_info[kpse_tfm_format].client_path = mypath;
 #endif
 }
 

@@ -2,12 +2,12 @@
 
 MANGROFF = $(addprefix $(outdir)/, $(addsuffix .$(SECTION)))
 
-localinstall: $(MANGROFFS)
+local-install: $(MANGROFFS)
 	-$(INSTALL) -d $(mandir)/man$(SECTION)
 	$(INSTALL) -m 644 $(MANGROFFS) $(mandir)/man$(SECTION)
 
 
-localuninstall:
+local-uninstall:
 	(cd  $(mandir)/man$(SECTION)/; rm -f $(MANGROFF))
 
 

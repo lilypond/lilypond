@@ -13,9 +13,9 @@ exe: $(EXECUTABLE)
 
 
 
-localinstall: installexe
+local-install: installexe
 
-localuninstall: uninstallexe
+local-uninstall: uninstallexe
 
 installexe: all
 	-$(INSTALL) -d $(bindir)

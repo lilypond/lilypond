@@ -1,5 +1,5 @@
 
-localinstall: $(LIBRARY)
+local-install: $(LIBRARY)
 ifneq ($(strip $(INSTALL_HEADERS)),)
 	$(INSTALL) -d $(includedir)
 	$(INSTALL) $(INSTALL_HEADERS) $(includedir)
@@ -14,7 +14,7 @@ else
 	$(INSTALL) $(LIBRARY) $(libdir)/$(INSTALL_LIBRARY)
 endif
 
-localuninstall:
+local-uninstall:
 ifneq ($(strip $(INSTALL_HEADERS)),)
 	rm -f $(addprefix $(includedir)/, $(INSTALL_HEADERS))
 endif

@@ -73,7 +73,7 @@ examples:
 # and using a matching TeX (well, I gave up trying for now).
 my_tfm_path=$(TFM_PATH) /tmp /tmp /tmp /tmp /tmp /tmp 
 
-localinstall:
+local-install:
 	mkdir -p $(datadir)
 ifeq ($(KPATHSEA),0)
 	$(foreach i, 1 2 3 4 5, rm -f $(datadir)/tfm.$(i); $(LN_S) $(word $(i), $(my_tfm_path)) $(datadir)/tfm.$(i) ; )

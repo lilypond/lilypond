@@ -11,7 +11,7 @@ do-top-doc:
 
 $(README_TXT_FILES): do-top-doc
 
-localclean:
+local-clean:
 
 
 # if you fix this, please fix yodl too!
