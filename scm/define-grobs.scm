@@ -177,7 +177,7 @@
 	(auto-knee-gap . 5.5)
 
 	;; only for debugging.
-	(font-name . "cmr10")
+	(font-family . roman)
 	
 	(space-function . ,Beam::space_function)
 	(meta . ((interfaces . (staff-symbol-referencer-interface beam-interface spanner-interface))))
@@ -936,8 +936,8 @@
 
 	;; FIXME this should come from 'lengths
 
-	(beamed-lengths . (3.26 3.26 1.5))
-;	(beamed-lengths . (3.5 3.5 3.5 4.5 5.0))
+;	(beamed-lengths . (3.26 3.26 1.5))
+	(beamed-lengths . (3.5 3.5 3.5 4.5 5.0))
 	
 	;; We use the normal minima as minimum for the ideal lengths,
 	;; and the extreme minima as abolute minimum length.
@@ -946,7 +946,7 @@
 	(beamed-minimum-free-lengths . (1.83 1.5 1.25))
 	
 	;; The 'extreme case' minima
-	(beamed-extreme-minimum-free-lengths . (2.5 2.0 1.0))
+	(beamed-extreme-minimum-free-lengths . (2.0 1.25))
 
 	(X-offset-callbacks . (,Stem::off_callback))
 	(X-extent-callback . ,Stem::dim_callback)	

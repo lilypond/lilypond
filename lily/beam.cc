@@ -46,6 +46,8 @@ Notes:
 
 #define DEBUG_QUANTING 1
 
+bool debug_beam_quanting_flag;
+
 
 #if DEBUG_QUANTING
 #include "text-item.hh"  // debug output.
@@ -485,6 +487,7 @@ Beam::brew_molecule (SCM grob)
   the_beam.translate_axis (pos[LEFT], Y_AXIS);
 
 #if (DEBUG_QUANTING)
+  if (debug_beam_quanting_flag)
     {
       /*
 	This code prints the demerits for each beam. Perhaps this
