@@ -138,7 +138,7 @@ Mudela_score::output (String filename_str)
   
   mudela_stream << "\\paper{}\n";
   
-#if 0
+#if 1
   mudela_stream << "\\midi{\n";
   
   // let's not use silly 0 track

@@ -14,6 +14,25 @@
 #include "paper-def.hh"
 #include "lookup.hh"
 
+int
+compare (Chord* left, Chord* right)
+{
+  assert (left);
+  assert (right);
+  
+  if (left->inversion_b_ == right->inversion_b_
+      && left->bass_b_ == right->bass_b_
+      && left->pitch_arr_.size () == right->pitch_arr_.size ())
+    {
+      for (int i = 0; i < left->pitch_arr_.size (); i++)
+	if (left->pitch_arr_[i] != right->pitch_arr_[i])
+	  return 1;
+      return 0;
+    }
+  
+  return 1;
+}
+
 /*
   FIXME: should use SCM iso. arrays and have-to-delete pointers.
 

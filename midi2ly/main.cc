@@ -122,6 +122,23 @@ usage()
   cout << _f ("Report bugs to %s", "bug-gnu-music@gnu.org") << endl;
 }
 
+void
+show_settings ()
+{
+  LOGOUT (VERBOSE_ver) << "\n";
+  LOGOUT (VERBOSE_ver) << _f ("no_double_dots: %d\n", 
+    Duration_convert::no_double_dots_b_s);
+  LOGOUT (VERBOSE_ver) << _f ("no_rests: %d\n", 
+    no_rests_b_g);
+  LOGOUT (VERBOSE_ver) << _f ("no_quantify_b_s: %d\n", 
+    Duration_convert::no_quantify_b_s);
+  LOGOUT (VERBOSE_ver) << _f ("no_smaller_than: %d (1/%d)\n", 
+    Duration_convert::no_smaller_than_i_s,
+    Duration_convert::type2_i (Duration_convert::no_smaller_than_i_s));
+  LOGOUT (VERBOSE_ver) << _f ("no_tuplets: %d\n", 
+    Duration_convert::no_tuplets_b_s);
+}
+
 int
 main (int argc_i, char* argv_sz_a[])
 {
@@ -230,22 +247,10 @@ main (int argc_i, char* argv_sz_a[])
   source.set_binary (true);
   source.set_path (&path);
 
-  LOGOUT (NORMAL_ver) << "\n";
-  LOGOUT (NORMAL_ver) << _f ("no_double_dots: %d\n", 
-    Duration_convert::no_double_dots_b_s);
-  LOGOUT (NORMAL_ver) << _f ("no_rests: %d\n", 
-    no_rests_b_g);
-  LOGOUT (NORMAL_ver) << _f ("no_quantify_b_s: %d\n", 
-    Duration_convert::no_quantify_b_s);
-  LOGOUT (NORMAL_ver) << _f ("no_smaller_than: %d (1/%d)\n", 
-    Duration_convert::no_smaller_than_i_s,
-    Duration_convert::type2_i (Duration_convert::no_smaller_than_i_s));
-  LOGOUT (NORMAL_ver) << _f ("no_tuplets: %d\n", 
-    Duration_convert::no_tuplets_b_s);
-
   char const* arg_sz = 0;
   while ( (arg_sz = getopt_long.get_next_arg ()))
     {
+      show_settings ();
       filename_str_g = arg_sz;
       Midi_score_parser midi_parser;
       Mudela_score* score_p = midi_parser.parse (arg_sz, &source);
