@@ -438,7 +438,7 @@ def global_latex_preamble (extra):
 		linewidth = '597pt'
 	else:
 		linewidth = '%d%s' % (maxlw, unit)
-	s = s + '\geometry{%swidth=%s%s,includehead,bottom=20mm,headsep=2mm,top=12mm,headheight=2mm,footskip=2mm,%s}\n' % (papersize, linewidth, textheight, orientation)
+	s = s + '\geometry{%swidth=%s%s,bottom=11mm,headsep=2mm,top=12mm,headheight=2mm,footskip=5mm,%s}\n' % (papersize, linewidth, textheight, orientation)
 
 
 	if 'twoside' in  extra['latexoptions'] :
