@@ -100,8 +100,10 @@ identify (ostream* os)
 void
 usage ()
 {
-  identify (&cout);
-  cout << "\n";
+  
+  /*
+    No version number or newline here. It confuses help2man
+   */
   cout << _f ("Usage: %s [OPTION]... [FILE]...", "lilypond");
   cout << "\n\n";
   cout << _ ("Typeset music and or play MIDI from FILE");

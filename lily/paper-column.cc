@@ -43,7 +43,7 @@ Paper_column::Paper_column (SCM l)
   Axis_group_interface::set_interface (this);
   Axis_group_interface::set_axes (this, X_AXIS, X_AXIS);
   Spaceable_element::set_interface (this);
-  set_elt_property ("bounded-by-me", SCM_EOL);
+
   line_l_=0;
   rank_i_ = -1;
 }

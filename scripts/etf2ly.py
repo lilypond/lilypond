@@ -87,6 +87,36 @@ def find_scale (transposition):
 	trscale = map(lambda x, k=transposition: transpose(x, k), cscale)
 
 	return trscale
+def EDU_to_duration (edu):
+	log = 1
+	d = 4096
+	while d > edu:
+		d = d >> 1
+		log = log << 1
+
+	edu = edu - d
+	dots = 0
+	if edu == d /2:
+		dots = 1
+	elif edu == d*3/4:
+		dots = 2
+	return (log, dots)	
+
+def rat_to_lily_duration (rat):
+	(n,d) = rat
+
+	basedur = 1
+	while d and  d % 2 == 0:
+		basedur = basedur << 1
+		d = d >> 1
+
+	str = 's%d' % basedur
+	if n <> 1:
+		str = str + '*%d' % n
+	if d <> 1:
+		str = str + '/%d' % d
+
+	return str
 
 def gcd (a,b):
 	if b == 0:
@@ -125,6 +155,8 @@ def rat_add (a,b):
 def rat_neg (a):
 	(p,q) = a
 	return (-p,q)
+
+
 
 def rat_subtract (a,b ):
 	return rat_add (a, rat_neg (b))
@@ -481,37 +513,7 @@ class Staff:
 		return str
 
 				
-def EDU_to_duration (edu):
-	log = 1
-	d = 4096
-	while d > edu:
-		d = d >> 1
-		log = log << 1
 
-	edu = edu - d
-	dots = 0
-	if edu == d /2:
-		dots = 1
-	elif edu == d*3/4:
-		dots = 2
-	return (log, dots)	
-
-def rat_to_lily_duration (rat):
-	(n,d) = rat
-
-	basedur = 1
-	while d and  d % 2 == 0:
-		basedur = basedur << 1
-		d = d >> 1
-
-	str = 's%d' % basedur
-	if n <> 1:
-		str = str + '*%d' % n
-	if d <> 1:
-		str = str + '/%d' % d
-
-	return str
-		
 
 class Chord:
 	def __init__ (self, finale_entry):
@@ -939,34 +941,37 @@ class Etf_file:
 			e.prev = self.chords[e.finale[0][1]]
 			e.next = self.chords[e.finale[0][2]]
 
-
-	 
-
-
-
 def identify():
 	sys.stderr.write ("%s from LilyPond %s\n" % (program_name, version))
 
 def help ():
-	print r"""
+	print """Usage: etf2ly [OPTION]... ETF-FILE
+
 Convert ETF to LilyPond.
 
-Usage: etf2ly [OPTION]... ETF-FILE
-
 Options:
-  -h, --help          this help
-  -o, --output=FILE   set output filename to FILE
-  -v, --version       version information
+  -h,--help          this help
+  -o,--output=FILE   set output filename to FILE
+  -v,--version       version information
 
 Enigma Transport Format is a format used by Coda Music Technology's
 Finale product. This program will convert a subset of ETF to a
 ready-to-use lilypond file.
 
+Report bugs to bug-gnu-music@gnu.org
 
+Written by  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 """
 
 def print_version ():
-	print r"""etf2ly (GNU lilypond) %s""" % version
+	print r"""etf2ly (GNU lilypond) %s
+
+This is free software.  It is covered by the GNU General Public License,
+and you are welcome to change it and/or distribute copies of it under
+certain conditions.  Invoke as `midi2ly --warranty' for more information.
+
+Copyright (c) 2000 by Han-Wen Nienhuys <hanwen@cs.uu.nl>
+""" % version
 
 
 

@@ -186,7 +186,10 @@ Dynamic_engraver::do_process_music ()
       else
 	{
 	  assert (!finished_cresc_p_);
-	  cresc_p_->set_bound (RIGHT, unsmob_element (get_property ("currentMusicalColumn")));
+	  Score_element* cc = unsmob_element (get_property ("currentMusicalColumn"));
+	  
+	  cresc_p_->set_bound (RIGHT, cc);
+
 	  finished_cresc_p_ = cresc_p_;
 	  cresc_p_ = 0;
 	  current_cresc_req_ = 0;
@@ -233,7 +236,8 @@ Dynamic_engraver::do_process_music ()
 					    + "Spanner", SCM_UNDEFINED);
 	    }
 
-	  cresc_p_->set_bound (LEFT, unsmob_element (get_property ("currentMusicalColumn")));
+	  Score_element *cc = unsmob_element (get_property ("currentMusicalColumn"));
+	  cresc_p_->set_bound (LEFT, cc);
 
 
 	  /* 
@@ -324,7 +328,7 @@ Dynamic_engraver::typeset_all ()
   if (finished_line_spanner_)
     {
       Side_position::add_staff_support (finished_line_spanner_);
-
+#if 0
       if (!finished_line_spanner_->get_bound (LEFT))
 	{
 	  Score_element * cmc
@@ -335,7 +339,8 @@ Dynamic_engraver::typeset_all ()
 	finished_line_spanner_->set_bound (RIGHT,
 					   finished_line_spanner_->get_bound (LEFT));
       
-      
+#endif
+      extend_spanner_over_elements (finished_line_spanner_);
       typeset_element (finished_line_spanner_);
       finished_line_spanner_ = 0;
     }

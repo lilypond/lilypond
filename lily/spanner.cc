@@ -18,7 +18,7 @@
 #include "paper-column.hh"
 #include "line-of-score.hh"
 #include "break-align-item.hh"
-
+#include "group-interface.hh"
 
 void
 Spanner::do_break_processing ()
@@ -194,6 +194,19 @@ Spanner::set_bound(Direction d, Score_element*s)
     {
       set_parent (i, X_AXIS);
     }
+
+  /*
+    Signal that this column needs to be kept alive. They need to be
+    kept alive to have meaningful position and linebreaking.
+
+    [maybe we should try keeping all columns alive?, and perhaps
+    inherit position from their (non-)musical brother]
+    
+  */
+  if (dynamic_cast<Paper_column*> (i))
+    {
+      Pointer_group_interface (i, "bounded-by-me").add_element (this);  
+    }
 }
 
 
@@ -314,3 +327,70 @@ add_bound_item (Spanner* sp, Item*it)
   else
     sp->set_bound (RIGHT, it);
 }
+
+static void
+extend_spanner_over_item (Item *it, SCM extremal_pair)
+{
+  if (!it)
+    return;
+  Item * col = it->column_l ();
+  Item * i1 = dynamic_cast<Item*> (unsmob_element (gh_car (extremal_pair)));
+  Item * i2 = dynamic_cast<Item*> (unsmob_element (gh_cdr (extremal_pair)));
+  int r = Paper_column::rank_i (col);
+  if (!i1 || r < Paper_column::rank_i (i1->column_l ()))
+    {
+      gh_set_car_x (extremal_pair, it->self_scm ());
+    }
+  if (!i2 || r > Paper_column::rank_i (i2->column_l ()))
+    {
+      gh_set_cdr_x (extremal_pair, it->self_scm ());
+    }
+}
+
+static void
+extend_spanner_over_elements (SCM value, SCM extremal_pair)
+{
+  if (gh_pair_p (value))
+    {
+      extend_spanner_over_elements (gh_car (value), extremal_pair);
+      extend_spanner_over_elements (gh_cdr (value), extremal_pair);
+    }
+  else if (unsmob_element (value))
+    {
+      if (Spanner * sp = dynamic_cast<Spanner*> (unsmob_element(value)))
+	{
+	  extend_spanner_over_item (sp->get_bound (LEFT), extremal_pair);
+	  extend_spanner_over_item (sp->get_bound (RIGHT), extremal_pair);
+	}
+      else if (Item * it= dynamic_cast<Item*> (unsmob_element(value)))
+	extend_spanner_over_item (it, extremal_pair);
+    }
+}
+
+
+/*
+  Make sure that the left and right bounds encompasses all objects it
+  points to.
+
+  TODO: maybe be more specific. Most probably fucks up if someone sets
+  a pointer to the staffsymbol in S
+*/
+void
+extend_spanner_over_elements (Score_element*s)
+{
+  Spanner*sp = dynamic_cast<Spanner*> (s);
+
+  SCM s1 = sp->get_bound (LEFT) ? sp->get_bound (LEFT)->self_scm () : SCM_EOL;
+  SCM s2 = sp->get_bound (RIGHT) ? sp->get_bound (RIGHT)->self_scm () : SCM_EOL;  
+  
+  SCM pair = gh_cons (s1,s2);
+  extend_spanner_over_elements (sp->mutable_property_alist_, pair);
+
+  Score_element *p1 =  unsmob_element (gh_car (pair));
+  Score_element* p2 = unsmob_element (gh_cdr (pair));
+  sp->set_bound (LEFT,p1);
+  sp->set_bound (RIGHT, p2);
+
+  //extra precaution.
+}
+

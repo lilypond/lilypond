@@ -10,7 +10,7 @@
 #include "directional-element-interface.hh"
 
 
-static SCM Directional_element_interface::direction_sym;
+SCM Directional_element_interface::direction_sym;
 
 static void
 init_functions ()

@@ -1,4 +1,18 @@
 
+1.3.84
+======
+
+* pmx2ly, PMX to LilyPond conversion. Succesfully converts barsant.pmx.
+
+* musedata2ly, a Musedata to LilyPond convertor. Succesfully converts
+wtk1-fugue2
+
+* bugfixes for dynamics: make sure that dynamic alignments encompass
+the dynamics they support, and that any columns they attach to aren't
+prematurely killed.
+
+* bugfix: make sure \time gets noticed early enough.
+
 1.3.83
 ======
 
@@ -32,7 +46,6 @@
 
 * Smobified Translator and Translator_group, junked
 Translator_group_identifier.
-
 
 * \pushproperty and \popproperty withing \translator, similar to
 predefining \property, ie.
@@ -329,9 +342,6 @@ have self_scm_)
 
 * Glen Prideaux lyric phrasing engraver. See
 input/test/lyric-phrasing.ly
-
-
-
 
 1.3.73
 ======

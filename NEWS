@@ -1,4 +1,4 @@
-* Finale (.etf) import program. 
+* Finale (.etf), PMX (.pmx) and musedata import tools.
 
 * Point and click functionality using emacs and Xdvi.
 
@@ -18,10 +18,12 @@ internals: LilyPond is smaller, cleaner, more flexible, etc.
 
 * Typography: More elegant slurs, aligned dynamics, text crescendos,
 
-* Nice lyrics placement: Automagical phrasing and melisma alignment.
+* Better lyrics placement: Automagical phrasing, melisma alignment,
+  stanza numbering.
 
-* Part combining for orchestral scores and hymns: Automagical combining
-  and separating of two voices, with Solo/`a2 indications as appropriate.
+* Part combining for orchestral scores and hymns: two voices are
+  combined automatic into a staff automatically, including Solo/`a2
+  indications as appropriate.
 
 * Chordnames are now configurable in every respect
 
@@ -32,3 +34,5 @@ internals: LilyPond is smaller, cleaner, more flexible, etc.
 * Finished ouverture Coriolan as full orchestral score example.
 
 * AsciiScript [check if broken, decide wether to keep]
+
+* Translations into Japanese and Russian
