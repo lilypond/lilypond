@@ -230,40 +230,6 @@ def flare_path(expr pos,alpha,beta,line,flare, direction) =
 	endgroup
 	enddef;
 
-def flare_path_t(expr pos,alpha,beta,line, flare, bulb, direction) =
-	begingroup;
-	clearxy;
-	penpos1(line, 180+beta+alpha);
-	z1r=pos;
-	penpos2(bulb, 180+beta+alpha);
-	z2=z3;
-	penpos3(bulb, 0+alpha);
-	save taille,roundness;
-
-	taille = -0.5;
-	roundness = 0.5;
-	z3r = z1  + flare * (dir (alpha) + dir (alpha +beta));
-	z4=  z2r - taille * line * dir(alpha)
-		+ roundness * line *dir (alpha - beta)
-		;
-
-	penlabels(1,2,3,4);
-	pickup pencircle;
-	save t; t=0.833;
-	save p; 
-	path p;
-	p:=z1r{dir(alpha)}..z3r{dir(180+alpha-beta)}..z2l{dir(alpha+180)}
-		..z3l{dir(180+alpha+beta)}..tension t
-		..z4{dir(180+alpha+beta)}
-		..z1l{dir(alpha+180)};
-
-	if direction = 1:
-		p
-	else:
-		reverse p
-	fi
-	endgroup
-	enddef;
 
 
 def brush(expr a,w,b,v) =

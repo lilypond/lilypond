@@ -26,7 +26,7 @@ right_downflag_space# = .0 downflag_width#;
 
 save hip_thickness, foot_thickness;
 hip_thickness# = 1.3 stemthickness#;
-foot_thickness# =  1.0 hip_thickness#;
+foot_thickness# =  0.95 hip_thickness#;
 
 %
 % Inspired by Adobe Sonata and [Wanske]
@@ -41,7 +41,7 @@ def draw_flag(expr center, flare,
 	penpos1(flare, 90);
 	penpos2(whatever, 0);
 	x2r - x2l = hip_thickness;
-	penpos3(foot_thickness, 0.0) ;
+	penpos3 (foot_thickness, -20.0);
 
 	z1r  = center;
 	z2r = center + (xpart dims, -ypart(dims) * hip_depth);

@@ -10,7 +10,7 @@ mode_setup;
 
 ex# :=  (design_size / 2.4)* pt#;
 descender# := 0.5 ex#;
-ascender# := 0.75 ex#;
+ascender# := 0.72 ex#;
 staffspace# := 1.75 / 2.0 * ex#;
 stafflinethickness# := staffspace# / 10;
 

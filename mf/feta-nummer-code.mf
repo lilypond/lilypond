@@ -6,11 +6,83 @@
 % 
 % (c) 1997--2002 Jan Nieuwenhuizen <janneke@gnu.org>
 
+
+%
+% TODO all the invocation of flare_path are weird -- 
+% the horizontal tangents should be more at the center of the 
+% glyph.
+%
+
 fet_begingroup("number")
 
 define_pixels(height,thick,thick,thin,hair,flare);
 define_pixels(foot_top,foot_width);
 define_pixels(kuulleke);
+
+
+
+%
+% Yet Another Bulb Routine with smooth inside curve.
+%
+% alpha = start direction.
+% beta = which side to turn to.
+% flare = diameter of the bulb
+% line = diameter of line attachment
+% direction = is ink on left or right side (1 or -1)
+%
+
+% 
+% The basic idea, is to put a really bulb shaped ending at 
+% an angle of 45 degrees with the normal ending.
+% the length  can be controlled using flare_len and flare_thick. 
+def number_flare_path(expr pos,alpha,beta,line,flare,
+
+			move_away_to,
+			turn_to,
+			away_from_start_pos, direction) =
+	begingroup;
+	clearxy;
+	save flare_thick, flare_len;
+
+	flare_thick= 0.7 flare;
+	flare_len = 0.9 * 0.75 flare;
+	save taille;
+	taille = -0.05 flare;
+
+
+	penpos1(line,180+beta+alpha);
+	z1r=pos;
+
+	z2r = z1r + move_away_to *dir (alpha) + (line + turn_to) * dir(alpha+beta);
+	penpos2(flare_thick, alpha + 0.45 beta);
+	penpos3(flare_thick, alpha + 0.5 beta);
+
+	z3 = 0.5 [z2l,z2r] + flare_len* dir (alpha + 3/2 beta);
+
+	z4 = z2l + taille * dir (alpha);
+	penlabels(1,2,3,4);
+	pickup pencircle;
+
+	save p;
+	path p;
+	p := z1r{dir(alpha)}
+		.. super_curvelet (z1r, z2r, 0.73, -1)
+		.. z2r{dir(180+alpha-beta)}.. z3r{dir(alpha+180)}
+		..z3l{dir(180+alpha+beta)}
+
+		..z4{dir(180+alpha+beta)}
+		.. super_curvelet (z4, z1l, 0.69, 1)
+		..z1l{dir(alpha+180)};
+%	draw p ;
+	if direction = 1:
+		p
+	else:
+		reverse p
+	fi
+	endgroup
+	enddef;
+
+
 
 def calc_kuulleke(expr w,alpha) = 
 	begingroup;
@@ -62,8 +134,6 @@ def draw_six =
 	z3r=(w,1/2[0,y1]);
 	penpos4(hair,-90);
 	z4r=(x2,0);
-	penpos5(7/8thick,180);
-	z5r=(0,y1);
 	penpos6(hair,90);
 	z6r=(w-flare,h);
 	penpos7(7/8thick,180);
@@ -73,13 +143,13 @@ def draw_six =
 	penlabels(1,2,3,4,5,6,7,8,9,10,11);
 
 
-	% TODO: use super_curvelet for stuff connected to flare_path.
-
 	save t; t=tense;
 	fill z7{right}..z2r{right}..tension t..z3r{down}
 		..tension t..z4r{left}
-		..tension t..z7r{up}..tension t..
-		flare_path (z6r,0,-90,hair,flare, 1)
+		..tension t..z7r{up}
+		.. super_curvelet(z7r, z6r, 0.76, 1)
+		.. flare_path (z6r,0,-90,hair,flare, 1)
+
 		..tension t..z7l{down}..z10l{up}..cycle;
 
 	unfill z2l{right}..tension t..z3l{down}..tension t
@@ -193,6 +263,9 @@ fet_beginchar("Numeral 2", "2", "two")
 	save alpha; alpha=-45*widen;
 	save beta; beta=85;
 	save gamma; gamma=beta-10;
+	save flare_start_distance;
+
+	flare_start = 0.25 ;
 	save theta; theta=20/widen;
 	penpos1(hair,90+beta);
 	z1=(0,0)+(1/2sqrt(2)*hair)*dir(45);
@@ -205,17 +278,29 @@ fet_beginchar("Numeral 2", "2", "two")
 		..{dir(180+beta)}z1l..cycle;
 
 	penpos4(thick,0);
-	z4r=(w-thin/2,.72h);
+	z4r=(w-thin/2, .71 h);
 	penpos5(thin,90);
-	z5r=(1/2hair+flare,h);
+	y5r = h;
+	x5r = 1/2 hair + 1.0 flare + flare_start* flare;
+
 	penlabels(1,2,3,4);
 	penlabels(5,6);
 	save t; t=tense;
-	fill z1l{dir(beta)}..tension t..z4r{up}
-		..tension t..
-	 	flare_path(z5r,180,90,thin,flare,1)
-		..z4l{down}..tension t
+
+	save p;
+	path p ;
+	p := z1l{dir(beta)}..tension t..z4r{up}
+ 		.. number_flare_path(z5r,180,90,thin, flare,
+				x5r  - 1/2 hair,
+				.22 h, 
+				flare_start* flare, 1)
+		.. z4l{down}..tension t
 		..{dir(180+beta)}z1r..cycle;
+
+	pickup pencircle scaled 1;
+%	draw p;
+	fill p;
+
 fet_endchar;
 
 fet_beginchar("Numeral 3", "3", "three")
@@ -242,8 +327,9 @@ fet_beginchar("Numeral 3", "3", "three")
 	pickup pencircle scaled 1;
 %	draw
 	fill
-		flare_path (z1l, 180, 90, hair, 7/8 flare, -1) ..tension t..
-		z2l{down}..z7r{dir(180+alpha)}
+		flare_path (z1l, 180, 90, hair, 7/8 flare, -1) 
+		.. super_curvelet(z1l, z2l, 0.76, -1)
+		.. z2l{down}..z7r{dir(180+alpha)}
 		..z7l{dir(-alpha)}..z5r{down}..tension t..
 
 		flare_path (z6r, 180, -90, hair, flare, 1) ..tension t..
@@ -329,8 +415,8 @@ fet_beginchar("Numeral 5", "5", "five")
 	save beta; beta=45;
 	save t; t=tense;
 	fill z8r{dir(beta)}..z9r{right}..tension t..z10r{down}
-		..tension t..
-		flare_path(z11r,180,-90,hair,flare, 1)
+		.. super_curvelet(z10r, z11r, 0.76, 1)
+		.. flare_path(z11r,180,-90,hair,flare, 1)
 		..z11l{right}..tension t..z10l{up}..tension t
 		..z9l{left}..z8l{dir(180+beta+10)}..cycle;
 
