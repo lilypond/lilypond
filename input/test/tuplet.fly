@@ -18,7 +18,7 @@
 
 \property Voice.tupletDirection = \down
 \property Voice.tupletVisibility = 0
-\times2/3{c,4^"tupletDirection = \\textbackslash{}down" d e} 
+\times2/3{c,4^"tupletDirection = down" d e} 
   \times2/3{[[f8 g a]]} \times2/3{b16 c d} c8 |
 \property Voice.tupletVisibility = 1
 \times2/3{c,4 d e} \times2/3{[f8 g a]} \times2/3{b16 c d} c8 |
@@ -31,7 +31,7 @@
 
 \property Voice.tupletDirection = \up
 \property Voice.tupletVisibility = 0
-\times2/3{c,4^"tupletDirection = \\textbackslash{}up" d e} 
+\times2/3{c,4^"tupletDirection = up" d e} 
   \times2/3{[[f8 g a]]} \times2/3{b16 c d} c8 |
 \property Voice.tupletVisibility = 1
 \times2/3{c,4 d e} \times2/3{[f8 g a]} \times2/3{b16 c d} c8 |
