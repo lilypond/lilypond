@@ -8,7 +8,7 @@ Summary: A preprocessor to make TeX typeset music.
 URL: http://www.stack.nl/~hanwen/lilypond
 Packager: Han-Wen Nienhuys <hanwen@stack.nl>
 Icon: lelie_icon.gif
-Buildroot: /tmp/lilypond_build
+Buildroot: /tmp/lilypond-install
 
 %description
 GNU LilyPond which converts music definition files into visual or
@@ -27,7 +27,9 @@ rm -rf $RPM_BUILD_ROOT
 strip lily/out/lilypond mi2mu/out/mi2mu
 make prefix="$RPM_BUILD_ROOT/usr" install
 %files
-%doc @TEXT_DOCS@ @EXAMPLE_LYS@ Documentation/lelie_logo.gif
+%doc @TEXT_DOCS@ 
+%doc @EXAMPLE_LYS@ 
+%doc Documentation/lelie_logo.gif
 /usr/bin/convert-mudela
 /usr/bin/mudela-book
 /usr/bin/lilypond
