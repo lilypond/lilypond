@@ -1,5 +1,5 @@
 % generated automatically by mf-to-table.py version 0.4
-% on Tue Oct 28 12:14:59 1997
+% on Tue Oct 28 20:43:44 1997
 % Do not edit
 % input from out/font-en-tja16.log
 % name=\symboltables {

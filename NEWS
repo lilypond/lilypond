@@ -1,3 +1,11 @@
+pl 27.om-je-te-helpen-met-je-ps-spul.jcn1
+	- embedded slurs:
+	  * bf: placements
+	  * added \embeddedtex
+	  * postscript is default
+	  * fixed \embeddedps
+	  * fixed mf: draw_slur
+	  * postscript macro: draw_slur
 
 pl 27
 	- -t/--test switch for experimental stuff.
