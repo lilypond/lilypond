@@ -21,16 +21,16 @@ $(outdir)/%.o: %.cc
 $(outdir)/%.o: $(outdir)/%.cc
 	$(DO_CXX_COMPILE)
 
-$(outdir)/%.cc: %.y
+$(outdir)/%.cc: %.yy
 	$(BISON) $<
-	mv $(shell basename $@ .cc ).tab.c $@
+	mv $<.tab.c $@
 
-$(outdir)/%.hh: %.y
+$(outdir)/%.hh: %.yy
 	$(BISON) -d $<
-	mv $(shell basename $@ .hh ).tab.h $@
-	mv $(shell basename $@ .hh ).tab.c $(outdir)/$(shell basename $@ .hh).cc
+	mv $<.tab.h $@
+	mv $<.tab.c $(outdir)/$(shell basename $@ .hh).cc
 
-$(outdir)/%.cc: %.l
+$(outdir)/%.cc: %.ll
 	$(FLEX) -Cfe -p -p -t $< > $@
 # could be faster:
 #	$(FLEX) -8 -Cf -t $< > $@
@@ -43,12 +43,6 @@ $(outdir)/%: %.m4
 # ?$(outdir)/%.dep:
 %.dep:
 	touch $@
-
-
-# build and config stuff: (could make this generic default rule...)
-#
-%/.build:
-	echo 0 > $@
 
 
 $(depth)/%.txt: check-doc-deps
