@@ -154,6 +154,12 @@ VoiceContext = \translator {
 	startUnaChorda = #"una chorda"
 	stopUnaChorda = #"tre chorde"
 
+	soloText = #"Solo"
+	soloIIText = #"Solo II"
+	aDueText = #"\\`a2"
+	soloADue = ##t
+	splitInterval = #'(0 . 1)
+
 	\consists "Piano_pedal_engraver";
 	\consists "Script_engraver";
 	\consists "Script_column_engraver";
@@ -609,7 +615,7 @@ ScoreContext = \translator {
 	)
 	basicScriptProperties	 = #`(
 		(molecule-callback . ,Script::brew_molecule)
-		(interface . (script-interface))
+		(interfaces . (script-interface))
 	)
 	basicScriptColumnProperties = #`(
 		(before-line-breaking-callback . ,Script_column::before_line_breaking)
@@ -664,7 +670,7 @@ ScoreContext = \translator {
 		(no-spacing-rods . #t)
 		(molecule-callback . ,Sustain_pedal::brew_molecule)
 		(self-alignment-X . 0)
-		(interface . (sustain-pedal-interface))
+		(interfaces . (sustain-pedal-interface))
 	)	
 	staffSymbolBasicProperties = #`(
 		(molecule-callback . ,Staff_symbol::brew_molecule)
