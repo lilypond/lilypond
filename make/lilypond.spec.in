@@ -31,8 +31,8 @@ strip lily/out/lilypond mi2mu/out/mi2mu
 make prefix="$RPM_BUILD_ROOT/usr" install
 
 mkdir -p $RPM_BUILD_ROOT/etc/profile.d
-cp buildscripts/out/lilypond-profile $RPM_BUILD_ROOT/etc/profile.d/lilypond.sh
-cp buildscripts/out/lilypond-login $RPM_BUILD_ROOT/etc/profile.d/lilypond.csh
+cp bin/out/lilypond-profile $RPM_BUILD_ROOT/etc/profile.d/lilypond.sh
+cp bin/out/lilypond-login $RPM_BUILD_ROOT/etc/profile.d/lilypond.csh
 
 %files
 

@@ -14,7 +14,7 @@ Output: DVI file
 """
 
 name = 'ly2dvi'
-version = '0.0.5'
+version = '0.0.6'
 errorlog = ''
 
 import sys
@@ -876,7 +876,8 @@ class Properties:
 def getLilyopts():
     inc = ''	
     if len(Props.get('include')) > 0: 
-        inc = '-I ' + string.join(Props.get('include'),os.pathsep)
+        # inc = '-I ' + string.join(Props.get('include'), os.pathsep ())
+        inc = '-I ' + string.join(Props.get('include'), " -I ")
     else:
 
         if Props.get('dependencies'):

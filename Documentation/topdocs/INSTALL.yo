@@ -4,13 +4,13 @@ sect(ABSTRACT)
 
 You do something which looks remotely like
 verb(
-	configure    # Check out the buildscripts/set-lily.sh script
+	configure    # Check out the bin/set-lily.sh script
 	make
 	make install
 )
 
 The detailed instructions follow here.  The
-file(buildscripts/set-lily.sh) script sets some environment variables
+file(bin/set-lily.sh) script sets some environment variables
 and symlinks, which comes in handly when you have to compile LilyPond
 very often.  It is aimed at people who run (or debug) LilyPond without 
 installing.
@@ -60,8 +60,8 @@ export TEXINPUTS="/usr/local/share/lilypond/tex:"
 The empty path component
 represents TeX() and MetaFont's default search paths.  Scripts with
 the proper paths for the bourne and C-shell respectively are generated in
-file(buildscripts/out/lilypond-profile) and
-file(buildscripts/out/lilypond-login) during compilation.
+file(bin/out/lilypond-profile) and
+file(bin/out/lilypond-login) during compilation.
 
 
 sect(RECOMMENDED)

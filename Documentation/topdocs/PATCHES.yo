@@ -47,7 +47,7 @@ verb(
 which rolls the tarball file(../releases/lilypond-0.1.73.tar.gz)
 and leaves your patch as file(./lilypond-0.1.73.jcn1.diff).
 footnote('Make diff' generates a patch between two tarballs.  For 
-more info type 'make diff help=='.  We assume that there is a tarball 
+more info type 'make diff help=='.)  We assume that there is a tarball 
 file(lilypond-0.1.73.tar.gz) in the directory file(../releases).
 
 

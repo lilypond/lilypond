@@ -8,7 +8,7 @@ depth = .
 
 # descent order into subdirectories:
 #
-SUBDIRS = scripts buildscripts  flower lib lily mf mi2mu po debian \
+SUBDIRS = bin flower lib lily mf mi2mu po debian \
 	Documentation init input tex make mutopia test intl stepmake\
 	ps
 #

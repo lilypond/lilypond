@@ -8,8 +8,9 @@
 # you do make dist 
 #
 
-buildscripts = $(depth)/buildscripts
-
+# urg, ambiguous and thus error prone; hardcode all $(*scripts) to bin?
+buildscripts = $(depth)/bin
+scripts = $(depth)/bin
 
 flower-dir = $(depth)/flower
 lib-dir = $(depth)/lib
