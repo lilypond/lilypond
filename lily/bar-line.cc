@@ -190,20 +190,18 @@ Bar_line::get_staff_bar_size (SCM smob)
 
 
 ADD_INTERFACE (Bar_line, "bar-line-interface",
-  "Bar line.
-
-Print a special bar symbol. It replaces the 
-regular bar symbol with a special
-symbol.  The argument @var{bartype} is a string which specifies the
-kind of bar to print.  Options are @code{:|},
-@code{|:}, @code{:|:},
-@code{||}, @code{|.},
-@code{.|}, and @code{.|.}. 
-
-These produce, respectively, a right repeat, a left repeat, a double
-repeat, a double bar, a start bar, an end bar, and a thick double bar.
-If @var{bartype} is set to @code{empty} then nothing is printed,
-but a line break is allowed at that spot.
-"
-,
+  "Bar line.\n"
+"\n"
+"Print a special bar symbol. It replaces the \n"
+"regular bar symbol with a special\n"
+"symbol.  The argument @var{bartype} is a string which specifies the\n"
+"kind of bar to print.  Options are @code{:|},\n"
+"@code{|:}, @code{:|:},\n"
+"@code{||}, @code{|.},\n"
+"@code{.|}, and @code{.|.}. \n"
+"\n"
+"These produce, respectively, a right repeat, a left repeat, a double\n"
+"repeat, a double bar, a start bar, an end bar, and a thick double bar.\n"
+"If @var{bartype} is set to @code{empty} then nothing is printed,\n"
+"but a line break is allowed at that spot.\n",
   "bar-size-procedure kern thin-kern hair-thickness thick-thickness glyph bar-size break-glyph-function");

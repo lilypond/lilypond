@@ -26,7 +26,6 @@ public:
 
   SCM scope_;
   SCM scaled_fonts_;
-  SCM style_sheet_;
   
   VIRTUAL_COPY_CONS (Music_output_def);
   Music_output_def (Music_output_def const&);

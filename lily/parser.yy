@@ -351,9 +351,6 @@ toplevel_expression:
 		else if (dynamic_cast<Midi_def*> ($1))
 			THIS->lexer_->set_identifier (scm_makfrom0str ("$defaultmidi"), $1->self_scm ());
 	}
-	| embedded_scm {
-		// junk value
-	}	
 	;
 
 embedded_scm:
@@ -433,6 +430,7 @@ all objects can be unprotected as soon as they're here.
 
 */
 	}
+	| embedded_scm { }
 	;
 
 
@@ -638,9 +636,6 @@ music_output_def_body:
 	}
 	| music_output_def_body translator_spec_block	{
 		$$->assign_translator ($2);
-	}
-	| music_output_def_body STYLESHEET embedded_scm {
-		dynamic_cast<Paper_def*> ($$)-> style_sheet_ = $3;
 	}
 	| music_output_def_body tempo_event  {
 		/*

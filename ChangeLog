@@ -1,3 +1,14 @@
+2002-10-13  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/parser.yy (assignment): allow SCM expression as assignment.
+
+	* lily/include/music-output-def.hh (class Music_output_def):
+	* lily/music-output-def.cc: 
+	* lily/paper-def.cc: 
+	* scm/font.scm (markup-to-properties):
+	* lily/parser.yy (music_output_def_body): 
+	remove style_sheet_
+
 2002-10-12  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* ly/grace-init.ly (startGraceMusic): shorten default grace stem
@@ -112,8 +123,6 @@
 	* lily/beam.cc (rest_collision_callback): Fixed: partial rewrite.
 
 2002-09-30  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
-
-	* VERSION: 1.6.5 released
 
 	* scripts/lilypond-book.py (make_pixmap): don't produce empty pages.
 
