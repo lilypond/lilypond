@@ -12,5 +12,5 @@ e.Command ('lilypond-words.el',
 	    '#/ly/engraver-init.ly',],
 	   a)
 
-dir = env['sharedir_package_version'] + '/elisp'
+dir = env['DESTDIR'] + env['sharedir_package_version'] + '/elisp'
 env.Install (dir, sources)

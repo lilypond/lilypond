@@ -12,5 +12,5 @@ e.Command ('lilypond-words.vim',
 	    '#/ly/engraver-init.ly',],
 	   a)
 
-dir = env['sharedir_package_version'] + '/vim'
+dir = env['DESTDIR'] + env['sharedir_package_version'] + '/vim'
 env.Install (dir, sources)

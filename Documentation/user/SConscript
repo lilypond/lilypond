@@ -69,3 +69,8 @@ env.Alias ('doc', pdfs)
 
 env.Alias ('doc', 'lilypond/lilypond.html')
 env.Alias ('doc', 'lilypond-internals/lilypond-internals.html')
+
+#dir = env['DESTDIR'] + env['sharedir_doc_package'] + '/html'
+#env.Install (dir, 'lilypond')
+#env.Install (dir, 'lilypond-user')
+#env.Alias ('install', dir)

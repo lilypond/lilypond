@@ -2,6 +2,6 @@
 
 Import ('env')
 sources = env['src_glob'] (env, '*.tex') + ['latin1.enc']
-dir = env['sharedir_package_version'] + '/tex'
+dir = env['DESTDIR'] + env['sharedir_package_version'] + '/tex'
 env.Install (dir, sources)
 env.Alias ('install', dir)

@@ -118,6 +118,7 @@ opts = Options ([config_cache, 'custom.py'], ARGUMENTS)
 opts.Add ('prefix', 'Install prefix', '/usr/')
 opts.Add ('out', 'Output directory', 'out-scons')
 opts.Add ('build', 'Build directory', '.')
+opts.Add ('DESTDIR', 'DESTDIR prepended to prefix', '')
 opts.AddOptions (
 	BoolOption ('warnings', 'compile with -Wall and similiar',
 		   1),
@@ -152,7 +153,7 @@ for key in ['LD_LIBRARY_PATH', 'GUILE_LOAD_PATH', 'PKG_CONFIG_PATH']:
 
 env = Environment (
 	ENV = ENV,
-	
+
 	BASH = '/bin/bash',
 	PERL = '/usr/bin/perl',
 	PYTHON = '/usr/bin/python',
@@ -196,15 +197,16 @@ run_prefix = os.path.join (absbuild, os.path.join (env['out'], 'usr'))
 
 CacheDir (os.path.join (outdir, 'build-cache'))
 
-if env['debugging']:
-	# No need to set $LILYPONDPREFIX to run lily, but cannot install...
+# No need to set $LILYPONDPREFIX to run lily, but cannot install...
+if env['debugging'] and not 'install' in COMMAND_LINE_TARGETS:
 	env['prefix'] = run_prefix
-	
+
 prefix = env['prefix']
 bindir = os.path.join (prefix, 'bin')
 sharedir = os.path.join (prefix, 'share')
 libdir = os.path.join (prefix, 'lib')
 localedir = os.path.join (sharedir, 'locale')
+sharedir_doc_package = os.path.join (sharedir, 'doc', package.name)
 sharedir_package = os.path.join (sharedir, package.name)
 sharedir_package_version = os.path.join (sharedir_package, version)
 lilypondprefix = sharedir_package_version
@@ -220,6 +222,7 @@ env.Append (
 	local_lilypond_datadir = sharedir_package_version,
 	lilypondprefix = lilypondprefix,
 	sharedir_package = sharedir_package,
+	sharedir_doc_package = sharedir_doc_package,
 	sharedir_package_version = sharedir_package_version,
 	)
 
@@ -704,7 +707,7 @@ web_list = os.path.join (outdir, 'weblist')
 # fixme: generate in $outdir is cwd/builddir
 env.Command (web_list,
 	     ## this is correct, but takes > 5min if you have a peder :-)
-	     ## 'doc',
+	     ##'doc',
 	     '#/VERSION',
 	     ['$PYTHON buildscripts/mutopia-index.py -o examples.html ./',
 	      'cd $absbuild && $footify $$(find . -name "*.html" -print)',

@@ -1,7 +1,7 @@
 # -*-python-*-
 
 Import ('env')
-sources = env['glob'] (env, '*.scm')
-dir = env['sharedir_package_version'] + '/scm'
+sources = env['src_glob'] (env, '*.scm')
+dir = env['DESTDIR'] + env['sharedir_package_version'] + '/scm'
 env.Install (dir, sources)
 env.Alias ('install', dir)

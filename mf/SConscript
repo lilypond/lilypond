@@ -1,6 +1,5 @@
 # -*-python-*-
 
-import os
 Import ('env')
 sources = env['glob'] (env, '*.mf')
 
@@ -28,9 +27,9 @@ env.Alias ('mf', 'cmr.enc')
 #env.Depends (mf', pfa_essential)
 env.Alias ('mf', pfa_essential + p)
 
-tfmdir = os.path.join (env['lilypondprefix'], 'fonts/tfm')
-afmdir = os.path.join (env['lilypondprefix'], 'afm')
-pfadir = os.path.join (env['lilypondprefix'], 'fonts/type1')
+tfmdir = env['DESTDIR'] + env['lilypondprefix'] + '/fonts/tfm'
+afmdir = env['DESTDIR'] + env['lilypondprefix'] + '/afm'
+pfadir = env['DESTDIR'] + env['lilypondprefix'] + '/fonts/type1'
 ti = map (lambda x: env.Install (tfmdir, x), t)
 ai = map (lambda x: env.Install (afmdir, x), a)
 pi = map (lambda x: env.Install (pfadir, x), p)
