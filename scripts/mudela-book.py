@@ -109,7 +109,6 @@ class Tex_output:
 		self.file = open (self.output_fn , 'w')
 		self.verbatim = 0		
 	def open_mudela (self, basename):
-
 		self.mudela_basename =basename
 		if self.verbatim:
 			self.file.write ('\\begin{verbatim}\n')
@@ -140,17 +139,42 @@ begin_mudela_opts_re = regex.compile ('^ *\\\\begin{mudela}\[\(.*\)\]')
 end_mudela_re = regex.compile ('^ *\\\\end{mudela}')
 section_re = regex.compile ('\\\\section')
 chapter_re = regex.compile ('\\\\chapter')
-
+input_re = regex.compile ('^\\\\input[ \t\n]+\\(.*\\)$')
 
 class Tex_input:
-	def __init__ (self, name, outname):
+	def __init__ (self,name):
+		if regex.search ('\\.[^/\\\\]+',name) == -1:
+			name = name + '.tex'
+		print 'opening %s' % name
+		self.filename = name
 		self.infile = open (name)
+		
+	def get_lines (self):
+		lines = self.infile.readlines ()
+		(retlines, retdeps) = ([],[self.filename])
+		for line in lines:
+			if input_re.search (line) <> -1:
+				t = Tex_input (input_re.group (1))
+				ls =t.get_lines ()
+				retlines = retlines + ls[0]
+				retdeps = retdeps + ls[1]
+			else:
+				retlines.append (line)
+
+		return (retlines, retdeps)
+
+class Main_tex_input(Tex_input):
+	def __init__ (self, name, outname):
+		
+		Tex_input.__init__ (self, name) # ugh
+
 		self.outname = outname
 		self.chapter = 0
 		self.section = 0
 		self.fine_count =0
 		self.mudtex = Tex_output (self.outname)
 		self.mudela = None
+		self.deps = []
 	def set_sections (self, l):
 		if section_re.search (l) <> -1:
 			self.section = self.section + 1
@@ -164,8 +188,9 @@ class Tex_input:
 
 	def gen_basename (self):
 		return '%s/%s-%d.%d.%d' % (outdir, self.outname,self.chapter,self.section,self.fine_count)
+
 	def do_it(self):
-		lines = self.infile.readlines ()
+		(lines, self.deps) = self.get_lines ()
 		for line in lines:
 			if begin_mudela_re.search (line) <> -1:
 				if begin_mudela_opts_re.search (line) <> -1:
@@ -222,7 +247,9 @@ sys.stderr.write ('This is %s version %s\n' % ('mudela-book', program_version))
 
 outname = ''
 (options, files) = getopt.getopt(
-	sys.argv[1:], 'hd:o:', [ 'outdir=', 'outname=', 'help'])
+	sys.argv[1:], 'hd:o:', [ 'outdir=', 'outname=', 'help', 'dependencies'])
+
+do_deps = 0
 for opt in options:
 	o = opt[0]
 	a = opt[1]
@@ -232,15 +259,26 @@ for opt in options:
 		outdir = a
 	if o == '--help' or o == '-h':
 		help ()
+	if o == '--dependencies':
+		do_deps = 1
+
+def write_deps (fn, out,  deps):
+	f = open (outdir + fn, 'w')
+	f.write ('%s: %s\n'% (outdir + out + '.dvi', reduce (lambda x,y: x + ' '+ y, deps)))
+	f.close ()
 
 
 for f in files:
-    my_outname = outname
-    if not my_outname:
-	my_outname = regsub.sub ('\\(.*\\)\\.doc', '\\1', f)
+	my_outname = outname
+	if not my_outname:
+		my_outname = regsub.sub ('\\(.*\\)\\.doc', '\\1', f)
 
-    inp = Tex_input (f, my_outname)
-    inp.do_it ()
-	
+	my_depname = my_outname + '.dep'
+
+	inp = Main_tex_input (f, my_outname)
+	inp.do_it ()
+
+	if do_deps:
+		write_deps (my_depname, my_outname, inp.deps)
 
 
