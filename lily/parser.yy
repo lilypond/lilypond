@@ -1665,7 +1665,6 @@ pitch_also_in_chords:
 	| steno_tonic_pitch
 	;
 
-
 close_event:
 	'('	{
 		Music * s= MY_MAKE_MUSIC("SlurEvent");
