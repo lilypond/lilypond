@@ -79,7 +79,7 @@ Timing_translator::do_process_music()
 				  measure_position ().str ()));
 	      // resync
 	      daddy_trans_l_->set_property("measurePosition",
-					   (new Moment)->smobify_self ());
+					   smobify (new Moment));
 
 	    }
 	}
@@ -124,12 +124,9 @@ Timing_translator::do_creation_processing()
 {
   daddy_trans_l_->set_property ("timing" , SCM_BOOL_T);  
   daddy_trans_l_->set_property ("currentBarNumber" , gh_int2scm (1));
-  daddy_trans_l_->set_property("measurePosition",
-			       (new Moment)->smobify_self());
-  daddy_trans_l_->set_property ("oneBeat",
-				(new Moment (1,4))->smobify_self ());
-  daddy_trans_l_->set_property("measureLength",
-			       (new Moment (1))->smobify_self());
+  daddy_trans_l_->set_property ("measurePosition", smobify (new Moment));
+  daddy_trans_l_->set_property ("oneBeat", smobify (new Moment (1,4)));
+  daddy_trans_l_->set_property ("measureLength", smobify (new Moment (1)));
 }
 
 Moment
@@ -160,10 +157,8 @@ Timing_translator::set_time_signature (int l, int o)
 {
   Moment one_beat = Moment (1)/Moment (o);
   Moment len = Moment (l) * one_beat;
-  daddy_trans_l_->set_property ("measureLength",
-				(new Moment (len))->smobify_self ());
-  daddy_trans_l_->set_property ("beatLength",
-				(new Moment (one_beat))->smobify_self ());
+  daddy_trans_l_->set_property ("measureLength", smobify (new Moment (len)));
+  daddy_trans_l_->set_property ("beatLength", smobify (new Moment (one_beat)));
 }
 
 Timing_translator::Timing_translator()
@@ -219,7 +214,7 @@ Timing_translator::do_post_move_processing()
   else
     {
       measposp = new Moment;
-      daddy_trans_l_->set_property ("measurePosition", measposp->smobify_self ());
+      daddy_trans_l_->set_property ("measurePosition", smobify (measposp));
     }
   
   *measposp += dt;

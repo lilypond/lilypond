@@ -9,7 +9,7 @@
 #include <stdio.h>
 
 #include "scm-hash.hh"
-#include "hash-table-iter.hh"
+
 
 
 Scheme_hash_table::Scheme_hash_table ()
@@ -97,7 +97,6 @@ void
 Scheme_hash_table::set (SCM k, SCM v)
 {
   (*this)[k] = v;
-  scm_unprotect_object (v);
 }
 
 // UGH. 

@@ -97,8 +97,7 @@ Paper_column::column_l () const
 Paper_column::Paper_column (Moment w)
   : Item (SCM_EOL)		// guh.?
 {
-  SCM when = (new Moment (w))->smobify_self ();
-  scm_unprotect_object (when);
+  SCM when = smobify (new Moment (w));
   set_elt_property ("when", when);
 
   Axis_group_interface (this).set_interface ();

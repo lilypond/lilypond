@@ -257,7 +257,7 @@ if to_diff == from_diff:
 	elif to_src:
 	      to_diff = to_diff + '.src'
 	else:
-	      sys.stderr.write (name + ': nothing to do: to == from == ' + from_diff + '\n')
+	      sys.stderr.write (patch_name + ': nothing to do: to == from = ' + from_diff + '\n')
 	      sys.exit (1)
 
 if not patch_name:
