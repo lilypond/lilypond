@@ -4,13 +4,7 @@ default:
 # UGH. 
 include $(stepdir)/www-targets.make
 
-local-WWW: $(OUTHTML_FILES) footify
-
-footify: $(sort $(wildcard $(outdir)/*.html out/*.html out-www/*.html))
-	$(footify) $(sort $(wildcard $(outdir)/*.html out/*.html out-www/*.html))
-
-deep-footify:
-	$(deep-footify) $(sort $(wildcard $(outdir)/*/*.html))
+local-WWW: $(OUTHTML_FILES) 
 
 # why isn't this in texinfo-targets?
 INFO_INSTALL_FILES = $(wildcard $(addsuffix *, $(INFO_FILES)))

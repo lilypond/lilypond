@@ -71,14 +71,12 @@ $(outdir)/lilypond/lilypond.html: $(outdir)/lilypond.texi
 	$(MAKEINFO) --output=$(outdir)/lilypond --html $<
 	-cp -f $(outdir)/*.{png,ly} $(outdir)/lilypond
 	-cp -f $(outdir)/lilypond/index.html $@
-	$(deep-footify) $(shell find $(outdir)/$(*F)/*.html)
 
 $(outdir)/lilypond-internals/lilypond-internals.html: $(outdir)/lilypond-internals.texi
 	mkdir -p $(dir $@)
 	$(MAKEINFO) --output=$(outdir)/lilypond-internals --html $<
 	-cp -f $(outdir)/*.{png,ly} $(outdir)/lilypond-internals
 	-cp -f $(outdir)/lilypond-internals/index.html $@
-	$(deep-footify) $(shell find $(outdir)/$(*F)/*.html)
 
 ifeq ($(SPLITTING_MAKEINFO),yes)
 
@@ -116,14 +114,10 @@ deep-WWW-clean:
 
 info-dir:
 	$(SHELL) $(buildscript-dir)/install-info-html.sh --dir=$(outdir) lilypond lilypond-internals
-	$(MAKE) footify
-	$(MAKE) deep-footify
 
 
 $(outdir)/%.bib: %.bib
 	ln -f $< $@
-# we want footers even if website builds (or is built) partly
-	$(MAKE) footify
 
 local-clean:
 	rm -f fonts.aux fonts.log feta*.tfm feta*.*pk 

@@ -133,7 +133,9 @@ if os.path.basename (index_url) != "index.html":
 top_url = os.path.dirname (index_url) + "/"
 
 header = compose (default_header, header_file)
-footer = compose (default_footer, footer_file) + built
+
+# compose (default_footer, footer_file)
+footer =  built
 header_tag = '<!-- header_tag -->'
 footer_tag = '<!-- footer_tag -->'
 

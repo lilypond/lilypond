@@ -229,7 +229,7 @@ For example, consider the following fragment of notation.
 @lilypond
 \score { \notes \relative c'' {
 \stemUp
-    c4-\f f4
+    a4^\f f8
   	}
 \paper { raggedright = ##t }
      }
@@ -245,7 +245,7 @@ high note and the `f', as shown in this example
 \score { \notes \relative c'' {
 \stemUp
     \once\property Voice. DynamicLineSpanner  \override #'padding = #4.0 
-    c4-\f f4
+    a4^\f f8
   	}
 \paper { raggedright = ##t }
      }
@@ -278,10 +278,11 @@ following command, the entire piece is now formatted with thicker stems:
 @end example
 
 @lilypond
-\score { \notes {
+\score { \notes \relative c'' {
     \property Score.Stem \override #'thickness = #2.0 
     \once\property Voice. DynamicLineSpanner  \override #'padding = #4.0 
-    g'4-\f g4
+\stemUp
+    a4^\f f8
   	}
 \paper { raggedright = ##t }
      }
@@ -324,7 +325,7 @@ completely automatically. Under this assumption, the output does not
 have to be touched up. Consequently, an interactive display of the
 output, where it is possible to reposition notation elements, is
 superfluous.  This implies that the program should be a batch program:
-the input is entered in a file, which is @emph{compiled}, i.e. then
+the input is entered in a file, which then is @emph{compiled}, i.e.
 put through the program.  The final output is produced as a file ready
 to view or print. The compiler fills in all the details of the
 notation, those details should be left out of the input file. In other
@@ -369,9 +370,10 @@ see most.  As a results, some users think that music representation is
 a very important or interesting problem. In reality, less than 10% of
 the source code of the program handles reading and representing the
 input, and they form the easy bits of the program.  In our opinion,
-producing music notation, and formatting it prettily are the
-interesting and important parts: they take up most of the bulk of the
-code, and are the most difficult things to get right.
+producing music notation, and formatting it prettily are much more
+interesting and important than music music representation: solving
+these problems takes up most of the bulk of the code, and they are the
+most difficult things to get right.
 
 @node Example applications
 @section Example applications
@@ -495,14 +497,14 @@ documentation package for your platform
 
 @itemize @bullet
 @item
-Generated internal documentation.
+Program reference
 @ifhtml
 available @uref{../lilypond-internals/lilypond-internals.html,here}
 @end ifhtml
 
-The generated internal documentation is a set of heavily crosslinked
-HTML pages, which documents the nit-gritty details of each and every
-LilyPond class, object and function.  It is produced directly from the
+The program reference is a set of heavily crosslinked HTML pages,
+which documents the nit-gritty details of each and every LilyPond
+class, object and function.  It is produced directly from the
 formatting definitions used.
 
 Almost all formatting functionality that is used internally, is

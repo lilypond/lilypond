@@ -29,12 +29,9 @@ local-WWW: $(addprefix $(outdir)/, $(BIB_FILES:.bib=.html))
 
 $(outdir)/%.bib: %.bib
 	ln -f $< $@
-# we want footers even if website builds (or is built) partly
-	$(MAKE) footify
 
 $(outdir)/%.html: %.bib
 	$(PYTHON) $(depth)/buildscripts/bib2html.py -o $@ $<
-	$(footify) $@
 
 local-clean:
 	rm -f fonts.aux fonts.log feta*.tfm feta*.*pk
