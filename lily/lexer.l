@@ -22,6 +22,7 @@
 
 
 #include <stdio.h>
+#include <ctype.h>
 
 #include "string.hh"
 #include "string-convert.hh"
@@ -32,6 +33,9 @@
 #include "parseconstruct.hh"
 #include "main.hh"
 #include "identifier.hh"
+void strip_trailing_white(String&);
+void strip_leading_white(String&);
+
 
 #define start_quote()	\
 	yy_push_state(quote);\
@@ -52,6 +56,7 @@
 %option warn
 
 %x incl
+%x header
 %x lyrics
 %x notes
 %x quote
@@ -73,6 +78,7 @@ INT		-?{N}+
 REAL		({INT}\.{N}*)|(-?\.{N}+)
 KEYWORD		\\{WORD}
 WHITE		[ \n\t\f]
+HORIZONTALWHITE		[ \t]
 BLACK		[^ \n\t\f]
 RESTNAME	[rs]
 NOTECOMMAND	\\{A}+
@@ -94,7 +100,7 @@ LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
   %[^{\n].*	{
   }
   {WHITE}+ 	{
-	
+
   }
 }
 
@@ -107,13 +113,37 @@ LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
 	"%"+"}"		{
 		yy_pop_state();
 	}
-}
-<longcomment><<EOF>> {
-	LexerError("EOF found inside a comment");
-	if (! close_input()) { 
- 	  yyterminate(); // can't move this, since it actually rets a YY_NULL
+	<<EOF>> 	{
+		LexerError("EOF found inside a comment");
+		if (! close_input()) 
+		  yyterminate(); // can't move this, since it actually rets a YY_NULL
 	}
 }
+<header>{
+	[\{\}]	{
+		return YYText()[0];
+	}
+	^{WORD}		{
+		String s=YYText();
+		yylval.string = new String(s);
+		return FIELDNAME;
+	}
+	{HORIZONTALWHITE}+{BLACK}.*\n		{
+		String s=YYText();
+		strip_leading_white(s);
+		strip_trailing_white(s);
+		yylval.string = new String(s);
+		return RECORDLINE;
+	}
+	{WHITE}* 	{
+	}
+
+	.		{
+		return YYText()[0];
+	}
+}
+
+
 <notes,INITIAL,lyrics>\\include           {
 	yy_push_state(incl);
 }
@@ -374,4 +404,30 @@ bool
 My_lily_lexer::lyric_state_b() const
 {
 	return YY_START == lyrics;
+}
+
+void 
+My_lily_lexer::push_header_state() 
+{
+	yy_push_state(header);
+}
+
+void strip_trailing_white(String&s)
+{
+	int i=0;
+	for (;  i < s.length_i(); i++) 
+		if (!isspace(s[i]))
+			break;
+
+	s = s.nomid_str(0, i);
+}
+void strip_leading_white(String&s)
+{
+	int i=s.length_i();	
+	while (i--) 
+		if (!isspace(s[i]))
+			break;
+
+	s = s.left_str(i+1);
+
 }
