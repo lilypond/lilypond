@@ -55,7 +55,7 @@ Choleski_decomposition::Choleski_decomposition(Matrix P)
 	D(k) = d;
     }
 
-#ifdef NDEBUG
+#ifndef NDEBUG
     assert((original()-P).norm() / P.norm() < EPS);
 #endif
 }
@@ -81,10 +81,10 @@ Choleski_decomposition::inverse() const
 	    invm(i,j) = inv(j);
     }
     
-#ifdef NDEBUG
+#ifndef NDEBUG
     Matrix I1(n), I2(original());
     I1.unit();
-    assert((I1-original()*invm).norm()/original.norm() < EPS);
+    assert((I1-I2*invm).norm()/I2.norm() < EPS);
 #endif
     
     return invm;

@@ -21,7 +21,7 @@
         \rationalmultiply\dimen0*#2%
         \raise\dimen0\hbox{#1}}
 \def\maccentdef#1#2#3{\def#1{\maccentraise{\mchar{#2}}{#3}}}
-\def\vcenter#1{\vbox to 0pt{\vss #1\vss}}
+\def\vertcenter#1{\vbox to 0pt{\vss #1\vss}}
 
 \def\mathdef#1#2{\def#1{\mathchar{#2}}}
 \def\mathchar#1{\mathfont\char#1}
@@ -110,15 +110,15 @@
 \def\kdynm{\dynfont m\kern-.15ex}
 \def\kdynp{\dynfont p\kern-.15ex}
 
-\def\dynppp{\dynfont\dynp\kdynp p}
 
-\def\dynpp{\dynfont p\kdynp}
 \def\dynp{\dynfont p}
+\def\dynpp{\dynp\kdynp}
+\def\dynppp{\dynpp\kdynp}
 \def\dynmp{\dynfont m\kdynp}
 \def\dynmf{\dynfont m\kdynf}
 \def\dynf{\dynfont f}
-\def\dynff{\dynfont f\kdynf}
-\def\dynfff{\dynfont f\kdynf \kdynf}
+\def\dynff{\dynf\kdynf}
+\def\dynfff{\dynff\kdynf}
 
 \def\slurcharh#1{{\slurhfont\char#1}}
 \def\slurcharu#1{{\slurufont\char#1}}
@@ -226,10 +226,10 @@
 \def\sixteenthflag{\topalign{\usixteenthflag}}
 \def\thirtysecondflag{\topalign{\uthirtysecondflag}}
 
-\def\cquartrest{\vcenter\quartrest}
-\def\ceighthrest{\vcenter\eighthrest}
-\def\csixteenthrest{\vcenter\sixteenthrest}
-\def\cthirtysecondrest{\vcenter\thirtysecondrest}
+\def\cquartrest{\vertcenter\quartrest}
+\def\ceighthrest{\vertcenter\eighthrest}
+\def\csixteenthrest{\vertcenter\sixteenthrest}
+\def\cthirtysecondrest{\vertcenter\thirtysecondrest}
 
 \def\lsingledot{\kern-\notewidth\singledot}
 \def\ldoubledot{\kern-\notewidth\doubledot}
@@ -238,14 +238,14 @@
 \maccentdef\sforzato{30}{-3/2}
 \maccentdef\marcato{20}{-1/1}
 \maccentdef\imarcato{21}{1/1}
-\maccentdef\staccato{24}{-1/1}
-\maccentdef\istaccato{25}{1/1}
-\maccentdef\staccatissimo{28}{-1/1}
-\maccentdef\istaccatissimo{29}{1/1}
-\maccentdef\portato{18}{-9/10}
-\maccentdef\iportato{19}{9/10}
-\maccentdef\tenuto{26}{0/1}
-\maccentdef\itenuto{27}{0/1}
+\maccentdef\staccato{24}{-1/3}
+\maccentdef\istaccato{25}{1/3}
+\maccentdef\staccatissimo{28}{-5/5}
+\maccentdef\istaccatissimo{29}{2/5}
+\maccentdef\portato{18}{-6/5}
+\maccentdef\iportato{19}{3/5}
+\maccentdef\tenuto{26}{-1/1}
+\maccentdef\itenuto{27}{1/1}
 \maccentdef\fermata{80}{-1/1}
 \maccentdef\ifermata{81}{1/1}
 
@@ -253,7 +253,6 @@
 \mdef\ispicato{29}
 \mdef\upbow{23}
 \mdef\downbow{22}
-\mdef\portato{26}
 
 \mathdef\cup{91} % \cup
 \mathdef\wedge{94} % \wedge

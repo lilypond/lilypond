@@ -74,8 +74,14 @@ Slur::do_post_processing()
     if (!dir_i_)
 	set_default_dir();
     Real inter_f = paper()->internote();
-    left_pos_i_ = encompass_arr_[0]->stem_l_->height()[dir_i_]/inter_f;
-    right_pos_i_ = encompass_arr_.top()->stem_l_->height()[dir_i_]/inter_f;
+    if (encompass_arr_[0]->stem_l_)
+        left_pos_i_ = encompass_arr_[0]->stem_l_->height()[dir_i_]/inter_f;
+    else
+        left_pos_i_ = 0;
+    if (encompass_arr_.top()->stem_l_)
+        right_pos_i_ = encompass_arr_.top()->stem_l_->height()[dir_i_]/inter_f;
+    else
+        right_pos_i_ = 0;
 
     left_pos_i_ += dir_i_;
     right_pos_i_ += dir_i_;
