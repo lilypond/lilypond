@@ -88,7 +88,7 @@ def progress (s):
 
 program_version = '@TOPLEVEL_VERSION@'
 if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
-	program_version = '1.5.53'
+	program_version = '1.6.0'
 
 # if set, LILYPONDPREFIX must take prevalence
 # if datadir is not set, we're doing a build and LILYPONDPREFIX 
@@ -164,6 +164,7 @@ class LatexPaper:
 		self.m_document_preamble = []
 		self.m_num_cols = 1
 		self.m_multicols = 1
+		
 	def find_latex_dims(self):
 		if g_outdir:
 			fname = os.path.join(g_outdir, "lily-tmp.tex")
@@ -173,6 +174,7 @@ class LatexPaper:
 			f = open(fname, "w")
 		except IOError:
 			error ("Error creating temporary file '%s'" % fname)
+
 		for s in self.m_document_preamble:
 			f.write(s)
 		f.write(r"""
@@ -185,7 +187,11 @@ class LatexPaper:
 		""")
 		f.close()
 		re_dim = re.compile(r"\\(\w+)\s+(\d+\.\d+)")
-		p = os.popen("latex %s" % fname)
+
+		cmd = "latex '\\nonstopmode \input %s'" % fname
+		if verbose_p:
+			sys.stderr.write ("Invoking `%s' as pipe" % cmd) 
+		p = os.popen(cmd)
 		ln = p.readline()
 		while ln:
 			ln = string.strip(ln)
@@ -464,20 +470,20 @@ re_dict = {
 		  'include': r'(?m)^[^%\n]*?(?P<match>\\mbinclude{(?P<filename>[^}]+)})',
 		  'option-sep' : ',\s*',
 		  'header': r"\n*\\documentclass\s*(\[.*?\])?",
-		  'preamble-end': r'(?P<code>\\begin{document})',
-		  'verbatim': r"(?s)(?P<code>\\begin{verbatim}.*?\\end{verbatim})",
+		  'preamble-end': r'(?P<code>\\begin\s*{document})',
+		  'verbatim': r"(?s)(?P<code>\\begin\s*{verbatim}.*?\\end{verbatim})",
 		  'verb': r"(?P<code>\\verb(?P<del>.).*?(?P=del))",
 		  'lilypond-file': r'(?m)^[^%\n]*?(?P<match>\\lilypondfile\s*(\[(?P<options>.*?)\])?\s*\{(?P<filename>.+)})',
 		  'lilypond' : r'(?m)^[^%\n]*?(?P<match>\\lilypond\s*(\[(?P<options>.*?)\])?\s*{(?P<code>.*?)})',
 		  'lilypond-block': r"(?sm)^[^%\n]*?(?P<match>\\begin\s*(\[(?P<options>.*?)\])?\s*{lilypond}(?P<code>.*?)\\end{lilypond})",
 		  'def-post-re': r"\\def\\postLilypondExample",
 		  'def-pre-re': r"\\def\\preLilypondExample",
-		  'usepackage-graphics': r"\usepackage{graphics}",
+		  'usepackage-graphics': r"\usepackage\s*{graphics}",
 		  'intertext': r',?\s*intertext=\".*?\"',
 		  'multiline-comment': no_match,
 		  'singleline-comment': r"(?m)^.*?(?P<match>(?P<code>^%.*$\n+))",
 		  'numcols': r"(?P<code>\\(?P<num>one|two)column)",
-		  'multicols': r"(?P<code>\\(?P<be>begin|end){multicols}({(?P<num>\d+)?})?)",
+		  'multicols': r"(?P<code>\\(?P<be>begin|end)\s*{multicols}({(?P<num>\d+)?})?)",
 		  },
 
 
@@ -554,7 +560,7 @@ def bounding_box_dimensions(fname):
 		return (0,0)
 
 def error (str):
-	sys.stderr.write (str + "\n  Exiting ... \n\n")
+	sys.stderr.write ("\n\n" + str + "\nExiting ... \n\n")
 	raise 'Exiting.'
 
 
@@ -667,6 +673,7 @@ def scan_latex_preamble(chunks):
 			paperguru.m_num_cols = 2
 		break
 
+
 	# Then we add everythin before \begin{document} to
 	# paperguru.m_document_preamble so that we can later write this header
 	# to a temporary file in find_latex_dims() to find textwidth.
@@ -676,6 +683,10 @@ def scan_latex_preamble(chunks):
 			continue
 		paperguru.m_document_preamble.append(chunks[idx][1])
 		idx = idx + 1
+
+	if len(chunks) == idx:
+		error ("Didn't find end of preamble (\\begin{document})")
+		
 	paperguru.find_latex_dims()
 
 def scan_texi_preamble (chunks):
@@ -899,6 +910,8 @@ def read_doc_file (filename):
 	# because we don't want to include files that are mentioned
 	# inside a verbatim environment
 	chunks = chop_chunks(chunks, 'verbatim', make_verbatim)
+
+
 	chunks = chop_chunks(chunks, 'verb', make_verb)
 	chunks = chop_chunks(chunks, 'multiline-comment', do_ignore)
 	#ugh fix input

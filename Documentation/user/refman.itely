@@ -1779,6 +1779,7 @@ articulation. They are demonstrated here.
       c''4-|_"c-|"      s4
       c''4->_"c->"      s4
       c''4-^_"c-\\^{ }" s4
+      c''4-__"c-\_" s4      
     }
   }
 @end lilypond
@@ -1800,7 +1801,8 @@ using @code{^} and @code{_}.
 @cindex staccatissimo
 @cindex fermata 
 @cindex stopped     
-@cindex staccato     
+@cindex staccato
+@cindex portato
 @cindex tenuto        
 @cindex upbow
 @cindex downbow
@@ -1829,7 +1831,8 @@ using @code{^} and @code{_}.
       \property Score.LyricText \override #'font-shape = #'upright
       \context Staff \notes {
         c''-\accent      c''-\marcato      c''-\staccatissimo c''^\fermata 
-        c''-\stopped     c''-\staccato     c''-\tenuto        c''-\upbow
+        c''-\stopped     c''-\staccato     c''-\tenuto         c''-\portato
+        c''-\upbow
         c''-\downbow     c''^\lheel        c''-\rheel         c''^\ltoe
         c''-\rtoe        c''-\turn         c''-\open          c''-\flageolet
         c''-\reverseturn c''-\trill        c''-\prall         c''-\mordent
@@ -1839,7 +1842,8 @@ using @code{^} and @code{_}.
       }
       \context Lyrics \lyrics {
         accent__      marcato__      staccatissimo__ fermata
-        stopped__     staccato__     tenuto__        upbow
+        stopped__     staccato__     tenuto__        portato
+        upbow
         downbow__     lheel__        rheel__         ltoe
         rtoe__        turn__         open__          flageolet
         reverseturn__ trill__        prall__         mordent
