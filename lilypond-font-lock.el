@@ -153,7 +153,7 @@
       (cons (concat "\\(" rwregex "\\)") 'font-lock-variable-name-face)
 
 ;; ... notes and rests, accidentals and duration (multiplied), e.g., b,?16.*3/4
-      '("\\(^\\|[ <\{[~(!)\t\\\|]\\)\\(\\(\\(\\(\\(do\\|re\\|[ms]i\\|[fl]a\\|sol\\)\\(bb?\\|dd?\\|ss?\\)?\\)\\|\\([a-h]\\(flat\\(flat\\)?\\|sharp\\(sharp\\)?\\|ff?\\|ss?\\|is\\(siss\\|s\\|is\\)?\\|es\\(sess\\|s\\|es\\)?\\)?\\)\\|\\(as\\(as\\|es\\)?\\)\\|\\(es\\(es\\)?\\)\\|\\(bb\\)\\)[,']*[?!]?\\|[srR]\\)\\([ \t]*\\(128\\|6?4\\|3?2\\|16?\\|8\\|\\\\breve\\)[.]*\\([ \t]*[*][ \t]*[0-9]+\\(/[1-9]+\\)?\\)?\\)?\\)" 2 font-lock-type-face)
+      '("\\(^\\|[ <\{[~(!)\t\\\|]\\)\\(\\(\\(\\(bb\\|as[ae]s\\|eses\\|\\(do\\|re\\|[ms]i\\|[fl]a\\|sol\\)\\(bb?\\|dd?\\|ss?\\)?\\)\\|\\([a-h]\\(\\(flat\\)+\\|\\(sharp\\)+\\|is\\(siss\\|i?s\\)?\\|es\\(sess\\|e?s\\)?\\|ff?\\|ss?\\)?\\)\\)[,']*[?!]?\\|[srR]\\)\\([ \t]*\\(128\\|6?4\\|3?2\\|16?\\|8\\|\\\\breve\\)[.]*\\([ \t]*[*][ \t]*[0-9]+\\(/[1-9][0-9]*\\)?\\)?\\)?\\)" 2 font-lock-type-face)
 
 ;; "on top", ... '{[]}'-brackets
       '("\\([][}{]\\)" 0 font-lock-warning-face t)

@@ -1,4 +1,3 @@
-
 /*
   clef.cc -- implement Clef_item
 
@@ -6,7 +5,6 @@
 
   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-
 
 #include "clef.hh"
 #include "string.hh"

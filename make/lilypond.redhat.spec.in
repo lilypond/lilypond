@@ -89,6 +89,8 @@ rm `find /var/lib/texmf -name 'feta*pk -print' -or -name 'feta*tfm -print'` /tmp
 %endif
 
 
+chkfontpath --add=/usr/share/lilypond/pfa/
+
 echo 'Please logout first before using LilyPond.'
 
 %preun
@@ -99,6 +101,7 @@ if [ $1 = 0 ]; then
 fi
 %endif
 
+chkfontpath --remove=/usr/share/lilypond/pfa/
 
 %files
 %defattr(-, root, root)
