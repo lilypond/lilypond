@@ -82,9 +82,11 @@
 		       (lambda (x)
 			 (let*
 			     ((context (cdr (assoc 'context-name x)))
+			      (group (assq-ref x 'group-type))
 			      (consists (append
-					 (list
-					  (cdr (assoc 'group-type x)))
+					 (if group
+					     (list group)
+					     '())
 					 (cdr (assoc 'consists x))
 					 ))
 
@@ -185,8 +187,11 @@
 		 (cdr desc-handle) "(not documented)"))
        
        (accepts (cdr (assoc 'accepts context-desc)))
+       (group (assq-ref context-desc 'group-type))
+
        (consists (append
-		  (list (cdr (assoc 'group-type context-desc)))
+		  (if group (list group)
+		      '())
 		  (cdr (assoc 'consists context-desc))
 		  ))
        (props (cdr (assoc 'property-ops context-desc)))
@@ -225,19 +230,22 @@
 	      (map document-engraver-by-name consists))
        ))))
 
-(define (engraver-grobs  grav)
+(define (engraver-grobs grav)
   (let* ((eg (if (symbol? grav)
 		 (find-engraver-by-name grav)
 		 grav)))
-
     (if (eq? eg #f)
 	'()
 	(map symbol->string (cdr (assoc 'grobs-created (ly:translator-description eg)))))
   ))
 
 (define (context-grobs context-desc)
-  (let* ((consists (append
-		    (list (cdr (assoc 'group-type context-desc)))
+  (let* (
+	 (group (assq-ref context-desc 'group-type))
+	 (consists (append
+		    (if group
+			(list group)
+			'())
 		    (cdr (assoc 'consists context-desc))
 		    ))
 	 (grobs  (apply append

@@ -139,7 +139,7 @@ Score_engraver::one_time_step ()
 {
   if (!to_boolean (get_property ("skipTypesetting")))
     {
-      recurse_down_engravers (daddy_context_, &Engraver::process_music, false);
+      recurse_down_engravers (daddy_context_, &Engraver::process_music, true);
       recurse_down_engravers (daddy_context_, &Engraver::do_announces, true);
     }
   

@@ -34,7 +34,7 @@ LY_DEFINE(ly_translator_description,
 	  "Return an alist of properties of  translator @var{me}.")
 {
   Translator *tr =unsmob_translator (me);
-  SCM_ASSERT_TYPE (tr, me, SCM_ARG1, __FUNCTION__, "Context");
+  SCM_ASSERT_TYPE (tr, me, SCM_ARG1, __FUNCTION__, "Translator");
 
   return tr->translator_description ();
 }

@@ -15,6 +15,7 @@
 \translator {
     \name Global
     \accepts Score
+\description "Hard coded entry point for LilyPond. Cannot be tuned."
     }
 \translator {
     \StaffContext

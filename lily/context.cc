@@ -118,6 +118,14 @@ Context*
 Context::find_create_context (SCM n, String id,
 			      SCM operations)
 {
+  /*
+    Don't create multiple score contexts.
+   */
+  if (dynamic_cast<Global_context*> (this)
+      && dynamic_cast<Global_context*> (this)->get_score_context ())
+    return get_score_context ()->find_create_context (n, id, operations);
+    
+  
   Context * existing = find_existing_context (n,id);
   if (existing)
     return existing;
@@ -377,17 +385,8 @@ Context::print_smob (SCM s, SCM port, scm_print_state *)
   
 
   scm_puts (" ", port);
-  scm_display (sc->implementation_, port);
-  
-#if 0
-  Translator * tr = unsmob_translator (sc->implementation_);
-  if  (Translator_group *tg = dynamic_cast<Translator_group*> (tr))
-    scm_display (tg->get_simple_trans_list (), port);
-#endif
-  
-  /*
-    don't try to print properties, that is too much hassle.
-   */
+
+  scm_display (sc->context_list_, port);
   scm_puts (" >", port);
   
   return 1;
