@@ -138,6 +138,7 @@ Hairpin
 \\HaraKiriStaffContext
 \\header
 \\hideStaffSwitch
+\\hspace
 \\huge
 \\Huge
 \\hsize
@@ -165,6 +166,7 @@ InnerStaffGroup
 \\legniGroup
 \\lheel
 Ligature_bracket_engraver
+\\line
 \\linebreak
 \\lineprall
 \\locrian
@@ -224,6 +226,7 @@ NoteHead
 NoteNames
 \\NoteNamesContext
 \\notes
+\\number
 \\nt
 \\oboi
 \\oboiStaff

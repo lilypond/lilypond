@@ -1,3 +1,9 @@
+2003-01-15  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond-mode.el: allow launching multiple ViewPS processes.
+	
+	* lilypond.words: add from Text markup.
+
 2003-01-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* mf/feta-toevallig.mf: make flat heavier.

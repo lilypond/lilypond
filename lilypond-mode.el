@@ -5,7 +5,7 @@
 ;;;  
 ;;; (c) 1999--2001 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;; 
-;;; Changed 2001--2002 Heikki Junes <heikki.junes@hut.fi>
+;;; Changed 2001--2003 Heikki Junes <heikki.junes@hut.fi>
 ;;;    * Add PS-compilation, PS-viewing and MIDI-play (29th Aug 2001)
 ;;;    * Keyboard shortcuts (12th Sep 2001)
 ;;;    * Inserting tags, inspired on sgml-mode (11th Oct 2001)
@@ -26,7 +26,7 @@
 (require 'easymenu)
 (require 'compile)
 
-(defconst LilyPond-version "1.7.9"
+(defconst LilyPond-version "1.7.12"
   "`LilyPond-mode' version number.")
 
 (defconst LilyPond-help-address "bug-lilypond@gnu.org"
@@ -574,8 +574,9 @@ command."
 						(apply file nil)))
 	      (jobs nil)
 	      (job-string "no jobs"))
-	  (if (string-equal name "View")
-	      (let ((buffer-xdvi (get-buffer-create "*view*")))
+	  (if (member name (list "View" "ViewPS"))
+	      ;; is USR1 a right signal for viewps?
+	      (let ((buffer-xdvi (get-buffer-create (concat "*" name "*"))))
 		(if LilyPond-kick-xdvi
 		  (let ((process-xdvi (get-buffer-process buffer-xdvi)))
 		    (if process-xdvi
