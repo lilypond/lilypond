@@ -44,18 +44,24 @@ REAL		[0-9]+(\.[0-9]*)?
 %%
 
 \$		{
-	BEGIN(notes); return '$';
+	BEGIN(notes); 
 }
 
 <notes>{NOTECOMMAND}	{
 	String c = YYText() +1;
+
 	int l = lookup_keyword(c);
-	if (l == -1) {
-		String e("unknown NOTECOMMAND: \\");
-		e += c;
-		yyerror(e);
+	if (l != -1)
+		return l;
+	Identifier * id = lookup_identifier(c);
+	if (id) {		
+		yylval.id = id;
+		return IDENTIFIER;
 	}
-	return l;
+	String *sp = new String( c);
+	mtor << "new id: " << *sp;
+	yylval.string=sp;
+	return NEWIDENTIFIER;
 }
 
 <notes>{RESTNAME} 	{
@@ -84,7 +90,7 @@ REAL		[0-9]+(\.[0-9]*)?
 
 }
 <notes>\$	{
-	BEGIN(INITIAL); return '$';
+	BEGIN(INITIAL); 
 }
 <notes>[{}]	{
 	return YYText()[0];
@@ -120,15 +126,16 @@ REAL		[0-9]+(\.[0-9]*)?
 		yyterminate();
 }
 {WORD}		{
-	int l = lookup_keyword(YYText());
+	String c = YYText();
+	int l = lookup_keyword(c);
 	if (l != -1)
 		return l;
-	Identifier * id = lookup_identifier(YYText());
+	Identifier * id = lookup_identifier(c);
 	if (id) {		
 		yylval.id = id;
 		return IDENTIFIER;
 	}
-	String *sp = new String( YYText());
+	String *sp = new String( c);
 	mtor << "new id: " << *sp;
 	yylval.string=sp;
 	return NEWIDENTIFIER;

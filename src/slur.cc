@@ -1,4 +1,5 @@
 #include "slur.hh"
+#include "scalar.hh"
 #include "lookup.hh"
 #include "paper.hh"
 #include "notehead.hh"

@@ -8,7 +8,7 @@
 #define KEY_HH
 
 #include "vray.hh"
-#include "string.hh"
+#include "scalar.hh"
 
 class Key {
     svec<int> accidentals;
@@ -16,8 +16,8 @@ class Key {
     /****************/
 
 public:
-    svec<int> read(svec<String> );
-    svec<int> oldkey_undo(svec<String>);
+    svec<int> read(svec<Scalar> );
+    svec<int> oldkey_undo(svec<Scalar>);
 
     Key();
     void set(int i, int acc);

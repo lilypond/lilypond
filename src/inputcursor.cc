@@ -3,13 +3,14 @@
   */
 
 #include "inputcommands.hh"
+#include "inputcommand.hh"
 #include "debug.hh"
 #include "staffcommands.hh"
 #include "getcommand.hh"
 #include "command.hh"
 
 void
-interpret_meter(Command *c, int &beats_per_meas, int& one_beat,
+interpret_meter(Input_command *c, int &beats_per_meas, int& one_beat,
 		Real& whole_per_measure)
 {
     beats_per_meas = c->args[1].value();
@@ -41,8 +42,8 @@ Input_cursor::reset()
     last=0;    
 }
 
-Input_cursor :: Input_cursor(PCursor<Command*>c)
-    :PCursor<Command*>(c)
+Input_cursor :: Input_cursor(PCursor<Input_command*>c)
+    :PCursor<Input_command*>(c)
 {
     reset();    
 }
@@ -65,11 +66,11 @@ void
 Input_cursor::operator++(int)
 {    
     last = when();
-    (*(PCursor<Command*> *) this) ++;
+    (*(PCursor<Input_command*> *) this) ++;
 
     if (ok()) {	
 	sync();
-	if (ptr()->code == INTERPRET && ptr()->args[0] == "METER") {
+	if (ptr()->args[0] == "METER") {
 	    int i,j;	    
 	    interpret_meter(ptr(), i, j, whole_per_measure);
 	}
@@ -77,7 +78,7 @@ Input_cursor::operator++(int)
 }
 
 void
-Input_cursor::addbot(Command*c)
+Input_cursor::addbot(Input_command*c)
 {
     assert(!ok());    
     add(c);
@@ -85,9 +86,9 @@ Input_cursor::addbot(Command*c)
 
 
 void
-Input_cursor::add(Command*c)
+Input_cursor::add(Input_command*c)
 {
-    PCursor<Command*> ::add(c);
+    PCursor<Input_command*> ::add(c);
     (*this)++;
 }
 
@@ -95,7 +96,7 @@ void
 Input_cursor::last_command_here()
 {
     assert(ok());
-    PCursor<Command*> next = (*this)+1;
+    PCursor<Input_command*> next = (*this)+1;
     while (next.ok() && next->when == when()){
 	*this = next;
 	next = *this +1;

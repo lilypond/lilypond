@@ -1,11 +1,10 @@
-#include "string.hh"
+#include "scalar.hh"
 #include "molecule.hh"
 #include "meter.hh"
 #include "paper.hh"
 #include "lookup.hh"
 
-
-Meter::Meter(svec<String> a)
+Meter::Meter(svec<Scalar>a)
     :args(a)
 {
 }

@@ -6,7 +6,7 @@
 
 #ifndef CLEF_HH
 #define CLEF_HH
-#include "string.hh"
+#include "scalar.hh"
 #include "vray.hh"
 
 struct Clef {
@@ -14,7 +14,7 @@ struct Clef {
     String clef_type;
 
     Clef();
-    void read(svec<String> args);    
+    void read(svec<Scalar> args);    
 };
 #endif // CLEF_HH
 

@@ -3,16 +3,17 @@
 
 #include "lexer.hh"
 #include "paper.hh"
-#include "staff.hh"
-#include "score.hh"
+#include "inputstaff.hh"
+#include "inputscore.hh"
+#include "inputmusic.hh"
 #include "main.hh"
 #include "keyword.hh"
-#include "getcommand.hh"
+#include "inputcommand.hh"
 #include "debug.hh"
 #include "parseconstruct.hh"
 #include "dimen.hh"
 #include "identifier.hh"
-#include "inputmusic.hh"
+
 
 #ifndef NDEBUG
 #define YYDEBUG 1
@@ -24,13 +25,11 @@ svec<Request*> pre_reqs, post_reqs;
 
 %union {    
     Real real;
-    Command *command;
+    Input_command *command;
     Identifier *id;    
     Voice *voice;    
     Voice_element *el;	
-    Staff *staff;    
     String *string;
-    Score *score;
     const char *consstr;
     Paperdef *paper;
     Request* request;
@@ -42,15 +41,17 @@ svec<Request*> pre_reqs, post_reqs;
     char c;
 
     svec<String> * strvec;
-    svec<Command*> *commandvec;
+    svec<Input_command*> *commandvec;
     Voice_list *voicelist;
+	Input_staff *staff;    
+	Input_score *score;
 }
 
-%token VOICE STAFF SCORE TITLE RHYTHMSTAFF BAR NOTENAME OUTPUT
+%token VOICE STAFF SCORE TITLE  BAR NOTENAME OUTPUT
 %token CM IN PT MM PAPER WIDTH METER UNITSPACE SKIP COMMANDS
-%token MELODICSTAFF GEOMETRIC START_T DURATIONCOMMAND OCTAVECOMMAND
+%token GEOMETRIC START_T DURATIONCOMMAND OCTAVECOMMAND
 %token KEY CLEF VIOLIN BASS MULTI TABLE CHORD VOICES
-%token PARTIAL
+%token PARTIAL RHYTHMIC MELODIC MUSIC
 
 %token <id>  IDENTIFIER
 %token <string> NEWIDENTIFIER 
@@ -69,8 +70,7 @@ svec<Request*> pre_reqs, post_reqs;
 %type <el> voice_elt full_element
 %type <command> score_command staff_command skipcommand
 %type <score> score_block score_body
-%type <staff> staff_block  rhythmstaff_block rhythmstaff_body
-%type <staff> melodicstaff_block melodicstaff_body staffdecl
+%type <staff> staff_block staff_init staff_body
 %type <i> int
 %type <commandvec> score_commands_block score_commands_body
 %type <commandvec> staff_commands_block staff_commands_body
@@ -81,7 +81,7 @@ svec<Request*> pre_reqs, post_reqs;
 %type <chord> music_chord music_chord_body
 %type <horizontal>  horizontal_music
 %type <mvoice>  music_voice_body music_voice
-%type <voicelist> voices
+
 
 %%
 
@@ -89,7 +89,7 @@ mudela:	/* empty */
 	| mudela score_block { 
 		add_score($2);
 	}
-	| mudela add_declaration {	}
+	| mudela add_declaration { }
 	;
 /*
 	DECLARATIONS
@@ -104,8 +104,12 @@ declaration:
 		$$ = new Staff_id(*$1, $3);
 		delete $1; // this sux
 	}
-	| NEWIDENTIFIER '=' voices {
-		$$ = new Voices_id(*$1, $3);
+	| NEWIDENTIFIER '=' music_voice {
+		$$ = new M_voice_id(*$1, $3);
+		delete $1;
+	}
+	| NEWIDENTIFIER '=' music_chord  {
+		$$ = new M_chord_id(*$1, $3);
 		delete $1;
 	}
 	;
@@ -117,7 +121,7 @@ declaration:
 score_block: SCORE '{' score_body '}' 	{ $$ = $3; }
 	;
 
-score_body:		{ $$ = new Score; } 
+score_body:		{ $$ = new Input_score; }
 	| score_body staff_block	{ $$->add($2); }
 	| score_body score_commands_block 	{
 		$$->add(*$2);
@@ -132,7 +136,7 @@ score_commands_block:
 	COMMANDS '{' score_commands_body '}' { $$ =$3;}
 	;
 
-score_commands_body:			{ $$ = new svec<Command*>; }
+score_commands_body:			{ $$ = new svec<Input_command*>; }
 	| score_commands_body score_command		{
 		$$->add($2);
 	}
@@ -143,7 +147,7 @@ staff_commands_block: COMMANDS '{' staff_commands_body '}'	{
 	;
 
 staff_commands_body:
-	/* empty */			{ $$ = new svec<Command*>; }
+	/* empty */			{ $$ = new svec<Input_command*>; }
 	| staff_commands_body staff_command	{
 		$$->add($2);
 	}
@@ -151,9 +155,9 @@ staff_commands_body:
 
 staff_command:
 	skipcommand
-	| KEY '$' pitch_list '$'	{/*UGH*/
-		$$ = get_key_interpret_command(*$3);
-		delete $3;
+	| KEY  pitch_list 	{/*UGH*/
+		$$ = get_key_interpret_command(*$2);
+		delete $2;
 	}
 	| CLEF clef_id			{
 		$$ = get_clef_interpret_command(*$2);
@@ -197,56 +201,35 @@ paper_body:
 	STAFFs
 */
 staff_block:
-	staffdecl
-	| rhythmstaff_block
-	| melodicstaff_block
+	 STAFF '{' staff_body '}' 	{ $$ = $3; }
 	;
 
-staffdecl: STAFF '{' IDENTIFIER '}' { $$ = $3->staff()->clone(); }
-	;
 
-rhythmstaff_block:
-	RHYTHMSTAFF '{' rhythmstaff_body '}'	{ $$ = $3; }
-	;
 
-rhythmstaff_body:
-	/* empty */			{ $$ = get_new_rhythmstaff(); }
-	| rhythmstaff_body voices	{ $$->add(*$2);
-		delete $2;
+staff_init:
+	IDENTIFIER		{ $$ = new Input_staff(*$1->staff()); }
+	| RHYTHMIC		{
+		$$ = new Input_staff("rhythmic");
 	}
-	| rhythmstaff_body staff_commands_block {
+	| MELODIC		{
+		$$ = new Input_staff( "melodic");
+	}
+	;
+
+staff_body:
+	staff_init
+	| staff_body		horizontal_music	{
+		$$->add($2);
+	}
+	| staff_body staff_commands_block {
 		$$->add(*$2);
 		delete $2;
 	}
 	;
 
-melodicstaff_block:
-	MELODICSTAFF '{' melodicstaff_body '}'	{ $$ = $3; }
-	;
-
-melodicstaff_body:
-	/* empty */			{ $$ = get_new_melodicstaff(); }
-	| melodicstaff_body voices	{
-		$$->add(*$2);
-		delete $2;
-	}	
-	| melodicstaff_body staff_commands_block {
-		$$->input_commands_.add(get_reset_command());
-		$$->add(*$2);
-		delete $2;
-	} 	
-	;
-
-voices:
-	'$' music_voice_body '$'  {
-		$$ = new Voice_list($2->convert());
-	}
-	| VOICES '{' IDENTIFIER '}' 	{
-		$$ = new Voice_list(*$3->voices());
-	}
-	;
-
-
+/*
+	MUSIC
+*/
 horizontal_music:
 	music_voice	{ $$ = $1; }
 	;
@@ -255,11 +238,14 @@ vertical_music:
 	music_chord	{ $$ = $1; }
 	;
 
-music_voice: VOICE '{' music_voice_body '}'	{ $$ = $3; }
+music_voice: MUSIC '{' music_voice_body '}'	{ $$ = $3; }
 	;
 
 music_voice_body:			{
 		$$ = new Music_voice;
+	}
+	| music_voice_body IDENTIFIER {
+		$$->concatenate($2->mvoice());
 	}
 	| music_voice_body full_element {
 		$$->add($2);
@@ -277,6 +263,9 @@ music_chord: CHORD '{' music_chord_body '}'	{ $$ = $3; }
 
 music_chord_body:		{
 		$$ = new Music_general_chord;
+	}
+	| music_voice_body IDENTIFIER {
+		$$->concatenate($2->mchord());
 	}
 	| music_chord_body horizontal_music {
 		$$ -> add($2);

@@ -28,7 +28,7 @@ class PointerList : public List<void *>
 ///  pl. which deletes pointers given to it.
 template<class T>
 struct IPointerList : public PointerList<T> {
-    IPointerList(IPointerList&) { set_empty(); }
+    IPointerList(const IPointerList&) { set_empty(); }
     IPointerList() { }
 protected:
     virtual void remove( Cursor<void*> me ) { remove (PCursor<T>(me)); }

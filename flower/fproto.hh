@@ -19,9 +19,6 @@ template<class T> struct Link;
 template<class T> struct Handle ;
 
 
-struct Assoc_ent_ ;
-struct Assoc ;
-struct Assoc_iter ;
 struct Choleski_decomposition ;
 struct Interval ;
 struct long_option_init ;

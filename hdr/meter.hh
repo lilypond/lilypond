@@ -10,9 +10,9 @@
 #include "vray.hh"
 
 struct Meter: Item {
-    svec<String> args;
+    svec<Scalar> args;
     
-    Meter(svec<String> args) ;
+    Meter(svec<Scalar> args) ;
     void preprocess();
 };
 #endif // METER_HH

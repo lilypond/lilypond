@@ -1,0 +1,25 @@
+LilyPond is a "5-pass" system:
+
+1. Parsing:
+
+No difficult algorithms. Associated datastructures have prefix Input
+(eg Input_score, Input_command)
+
+2. Processing:
+
+Requests are processed and granted. In this step data-structures for
+3. are created and filled with data: PScore, PCol, PStaff
+
+3. Calculation:
+
+This step uses structures which have names starting with 'P'.
+linebreaks and horizontal positions of PCols are determined. Line_of_*
+generated.
+
+4. Postprocesing:
+
+Some items and all spanners need computation after the PCol positions
+are determined.
+
+5. Output
+

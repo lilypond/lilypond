@@ -29,6 +29,8 @@ struct Score_column {
     static int compare(Score_column & c1, Score_column &c2) {
 	return sgn(c1.when - c2.when);
     }
+    void add_duration(Real );
+    void preprocess();
     void set_breakable() {
 	 pcol_->set_breakable();
     }

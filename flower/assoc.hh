@@ -4,7 +4,7 @@
 #include "vray.hh"
 #include <assert.h>
 
-template<class K,class V>
+template<class K, class V>
 struct Assoc_ent_ {
     bool free;
     K key;
@@ -69,7 +69,6 @@ public:
 	assert(elt_query(key));
 	return arr[find(key)].val;
     }
-
 };
 /** mindblowingly stupid Associative array implementation
  */

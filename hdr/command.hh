@@ -3,7 +3,7 @@
 
 #include "glob.hh"
 #include "vray.hh"
-#include "string.hh"
+#include "scalar.hh"
 
 enum Commandcode {
 	NOP,
@@ -18,7 +18,7 @@ struct Command {
 
     Real when;
     /// analogous to argv[]
-    svec<String> args;
+    svec<Scalar> args;
 
     ///
     int priority;

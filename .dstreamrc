@@ -1,27 +1,27 @@
 #class name		silence?
 
 yyFlexLexer		1
-PCol			1
-Score			1
+PCol			0
 Score_column		1
 Ineq_constrained_qp 	1
 Spacing_problem 	1
 Colinfo			1
 Mixed_qp		1
 PScore			1
-Parser			1
+Parser			0
 Lexer			1
 parse_duration		1
 parse_pitch		1
 Col_configuration	1
-Command			1
-Score_commands		1
 Note_req		1
 Rhythmic_req		1
 Rest_req		1
 delete_identifiers	1
+Command			0
+Staff_commands		0
 Staff			0
+Score			0
 Voice			0
 Voice_element		0
-Request			1
+Request			0
 Input_cursor		1

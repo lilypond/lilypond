@@ -11,7 +11,8 @@
 #include "plist.hh"
 #include "real.hh"
 
-struct Input_cursor : public PCursor<Command*>
+
+struct Input_cursor : public PCursor<Input_command*>
 {
     /// current measure info
     Real whole_per_measure;
@@ -24,22 +25,22 @@ struct Input_cursor : public PCursor<Command*>
     
     int bars;
     
-    Input_cursor(PCursor<Command*>);
+    Input_cursor(PCursor<Input_command*>);
     /// hmm. not safe. Should rethink cursor.
     void operator++(int);
     /** warning: no optor -- () defined.. */
     void reset();
     Real when()const;
-    void add(Command*);
+    void add(Input_command*);
     void setpartial(Real);
-    void addbot(Command*);
+    void addbot(Input_command*);
     void sync();
     void print()const;   
     void last_command_here();
 };
 
 /// the list of commands in Score
-struct Input_commands : public IPointerList<Command*> {
+struct Input_commands : public IPointerList<Input_command*> {
     Input_cursor ptr;
 
     /****************/
@@ -50,7 +51,7 @@ struct Input_commands : public IPointerList<Command*> {
     
     Input_commands();
     Input_commands(Input_commands const&);
-    void add(Command*);
+    void add(Input_command);
     void reset();
     void print()const;
     Staff_commands *parse() const;
@@ -58,7 +59,7 @@ struct Input_commands : public IPointerList<Command*> {
 
 
 void
-interpret_meter(Command *c, int &beats_per_meas, int& one_beat,
+interpret_meter(Input_command *c, int &beats_per_meas, int& one_beat,
 		Real& whole_per_measure);
 #endif // INPUTCOMMANDS_HH
 

@@ -59,10 +59,3 @@ get_new_rhythmstaff()
     return new Rhythmic_staff;
 }
 
-
-
-Rhythmic_staff*
-Rhythmic_staff::clone() const
-{
-    return new Rhythmic_staff(*this);
-}

@@ -13,7 +13,7 @@ Item *
 Simple_staff::get_TYPESET_item(Command *com)
 {
     Item *s=0;
-    svec<String> arg( com->args);
+    svec<Scalar> arg( com->args);
     String type =arg[0];
     arg.del(0);
     if (type ==  "BAR" ) {

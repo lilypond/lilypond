@@ -1,3 +1,4 @@
+#include "debug.hh"
 #include "inputmusic.hh"
 #include "voice.hh"
 
@@ -5,7 +6,10 @@ Vertical_simple::Vertical_simple()
 {
     voice_ = new Voice;
 }
-
+Vertical_simple::Vertical_simple(Vertical_simple const&s)
+{
+    voice_ = new Voice(*s.voice_);
+}
 void
 Vertical_simple::add(Voice_element*v)
 {
@@ -22,16 +26,51 @@ Vertical_simple::translate_time(Real t)
 {
     voice_->start += t;
 }
+
 Voice_list
 Vertical_simple::convert()
 {
     Voice_list l;
-    l.bottom().add(voice_);
+    l.bottom().add(new Voice(*voice_));
     return l;
 }
 
-    
+Vertical_simple::~Vertical_simple()
+{
+    delete voice_;
+}
+
+void
+Vertical_simple::print() const
+{
+    mtor << "Vertical_simple {";
+    voice_->print();
+    mtor << "}\n";
+}
+
 /****************/
+void
+Music_voice::print() const
+{
+     mtor << "Music_voice {";
+    for (PCursor<Vertical_music*> i(voice_); i.ok(); i++)
+	 i->print();
+    mtor << "}\n";
+}
+
+void
+Music_voice::concatenate(Music_voice*h)
+{
+    for (PCursor<Vertical_music*> i(h->voice_); i.ok(); i++)
+	add(i->clone());    
+}
+
+
+Music_voice::Music_voice(Music_voice const&s)
+{
+    for (PCursor<Vertical_music*> i(s.voice_); i.ok(); i++)
+	add(i->clone());
+}
 
 void
 Music_voice::add(Voice_element*v)
@@ -51,7 +90,6 @@ Music_voice::add(Voice_element*v)
 void
 Music_voice::add(Vertical_music*v)
 {
-    //   v->translate_time(length());
     voice_.bottom().add(v);
 }
 
@@ -73,7 +111,7 @@ Music_voice::convert()
     Real here = 0.0;
     
     for (PCursor<Vertical_music*> i(voice_); i.ok(); i++) {
-	Real len = i->length();	// has to be stored, since translate_time doesn't work on copies of the contents of i.
+	Real len = i->length();	
 	Voice_list k(i->convert());
 	k.translate_time(here);	
 	l.concatenate(k);
@@ -93,6 +131,21 @@ Music_voice::translate_time(Real t)
     
     
 /****************/
+void
+Music_general_chord::print() const
+{
+    mtor << "Music_general_chord {";
+     for (PCursor<Horizontal_music*> i(chord_); i.ok(); i++)
+	i->print();
+     mtor << "}\n";
+}
+
+void
+Music_general_chord::concatenate(Music_general_chord*v)
+{
+    for (PCursor<Horizontal_music*> i(v->chord_); i.ok(); i++)
+	add(i->clone());
+}
 
 void
 Music_general_chord::translate_time(Real t)
@@ -130,6 +183,15 @@ Music_general_chord::convert()
     return l;
 }
 
+
+Music_general_chord::Music_general_chord(
+    Music_general_chord const & s)
+{
+    for (PCursor<Horizontal_music*> i(s.chord_); i.ok(); i++) {
+	add(i->clone());
+    }
+}
+    
 /****************/
 
 void

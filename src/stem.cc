@@ -98,7 +98,8 @@ Stem::set_default_extents()
     set_stemend((dir< 0) ? maxnote-stemlen: minnote +stemlen);
     if (dir > 0){	
 	stem_xoffset = paper()->note_width();
-    }
+    } else
+	stem_xoffset = 0;
 }
 
 void
@@ -160,5 +161,5 @@ Stem::hpos()const
 void
 Stem::preprocess()
 {
- 
+    set_default_extents();	// needed for the flags.
 }

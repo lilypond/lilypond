@@ -55,7 +55,7 @@ Cursor<T>::insert( const T& th )
 }
 
 template<class T>
-inline const List<T>&
+inline  List<T>&
 Cursor<T>::list() const
 {
     return list_;

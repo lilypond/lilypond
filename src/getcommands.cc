@@ -1,28 +1,10 @@
 #include "string.hh"
+#include "inputcommand.hh"
 #include "parseconstruct.hh"
 #include "command.hh"
 
 Command*
-get_partial_command(Real u)
-{
-    Command*c = new Command;
-    c->code = INTERPRET;    
-    c->args.add("PARTIAL");
-    c->args.add(u);
-    return c;
-}
-
-Command*
-get_reset_command()
-{
-    Command*c = new Command;
-    c->code = INTERPRET;    
-    c->args.add("RESET");
-    return c;
-}
-
-Command*
-get_key_interpret_command(svec<String> which)
+get_key_interpret_command(svec<Scalar> which)
 {
     Command*c = new Command;
     c->code = INTERPRET;    
@@ -34,18 +16,7 @@ get_key_interpret_command(svec<String> which)
 }
 
 Command*
-get_clef_interpret_command(String w)
-{
-    Command*c = new Command;
-    c->code = INTERPRET;
-    c->args.add("CLEF");
-    c->args.add(w);
-    c->priority = 190;
-    return c;
-}
-
-Command*
-get_key_typeset_command(svec<String> which)
+get_key_typeset_command(svec<Scalar>which)
 {
     Command*c = new Command;
     c->code = TYPESET;    
@@ -53,19 +24,6 @@ get_key_typeset_command(svec<String> which)
     String k("KEY");
     c->args.insert(k,0 );
     c->priority = 70;
-    return c;
-}
-
-Command *
-get_meterchange_command(int n, int m)
-{
-    Command*c = new Command;
-
-    c->code = INTERPRET;
-    c->args.add( "METER");
-    c->args.add( n );
-    c->args.add( m );
-    c->priority = 170;		// more than bar
     return c;
 }
 
@@ -82,7 +40,7 @@ get_meter_command(Real w, int n, int m)
     c->priority = 40;
     return c;
 }
-
+#if 0
 Command*
 get_bar_command(Real w)
 {
@@ -96,17 +54,4 @@ get_bar_command(Real w)
 }
 
 
-Command *
-get_skip_command(int n, Real m)
-{
-    Command*c = new Command;
-    
-    c->code = INTERPRET;
-    c->args.add( "SKIP");
-    c->args.add( n );
-    c->args.add( m );
-    c->priority = 0;		
-    return c;
-}
-
-
+#endif

@@ -26,3 +26,24 @@ Score_column::print() const
     mtor << "}\n";
 #endif
 }
+
+int
+Real_compare(Real &a , Real& b)
+{
+    return sgn(a-b);
+}
+
+void
+Score_column::preprocess()
+{
+    durations.sort(Real_compare);
+}
+void
+Score_column::add_duration(Real d)
+{
+    for (int i = 0; i< durations.sz(); i++) {
+	if (d == durations[i])
+	    return ;
+    }
+    durations.add(d);
+}

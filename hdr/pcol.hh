@@ -37,7 +37,8 @@ struct PCol {
     PScore * pscore_;
 
     /****************/
-
+    /// which  one (left =0)
+    int rank() const;
     /// does this column have items, does it have spacings attached?
     bool used() const;
     

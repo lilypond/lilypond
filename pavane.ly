@@ -1,12 +1,13 @@
 % pavane pour une Infante d\'efunte
 % 
-% M. Ravel
+% Maurice Ravel
 %
 % (Ravel has been dead for over 50 years. This does not have copyright)
 %
 
-horn = melodicstaff {
-	$
+horn =
+staff {melodic
+	music{ 	$
 	\octave { 'c }
 	\duration { 8}
 
@@ -21,11 +22,11 @@ horn = melodicstaff {
 	cis4 d4()[d cis d e]
 \octave { c }
 					a4 gis2.
-	a4 b4()[b a b cis]		fis4 e4 cis2
+	a4 b4()[b a b 'cis]		fis4 e4 cis2
 	e4 fis4 () [fis e fis gis]	cis4 `b4()`b8 r8 r4
 
 	r4 r4 				'cis4 'd4 () ['d 'cis 'd 'e]
-	a4 gis2.			a4 b4()[b a b cis]
+	a4 gis2.			a4 b4()[b a b 'cis]
 	fis4 e4 cis2			e4 fis4()[fis e fis gis]
 	cis4 `b4()`b8 r8 r4		r1
 	r2 r4 r4			
@@ -37,16 +38,19 @@ horn = melodicstaff {
 	r4 fis2 fis4 			fis2()[fis e a fis]
 	fis4 e4 d4 e4 			`b2() [`b `a d cis]
 	`b [`fis `a `b] cis4 `b4	`fis2 r2
-	$
-	commands {
+	$}
+	commands {	
 		key  $fis cis $
 	}
 }
 
 score {
-	staff { horn }
-	paper { unitspace 2.2 cm
-		geometric 1.5
+	staff {
+		horn
+	}
+	paper {
+		unitspace 1.5 cm
+		geometric 1.4
 	}
 	commands { meter 4 4
 		skip 18:0

@@ -226,6 +226,7 @@ Spacing_problem::print_ideal(const Idealspacing*id)const
     int r = col_id(id->right);
 
     mtor << "between " << l <<","<<r<<":" ;
+    id->print();
 #endif
 }
 
