@@ -40,7 +40,8 @@ Word_wrap::solve()
 	    // try to solve
 	    if (!feasible(current.cols)) {
 		if (!minimum.cols.size())
-		    error("sorry, this measure is too long");
+		    error("sorry, this measure is too long, breakpoint: "
+			  + String(break_idx_i) );
 		current.energy = INFTY;	// make sure we go back
 	    } else {
 		current = solve_line(current.cols);
