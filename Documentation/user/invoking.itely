@@ -70,8 +70,13 @@ dump text strings to @file{.texstr} file, which can be run through
 (La)@TeX{}, resulting in a @code{.textmetrics} file, which contains the
 extents of strings of text.
 @item ps
- for PostScript
+ for PostScript.
 @cindex PostScript output
+
+  Postscript files include TTF, Type1 and OTF fonts. No subsetting of
+  these fonts is done. When using oriental character sets, this can
+  lead to huge files.  
+  
 @item eps
  for encapsulated PostScript. This dumps every page (system) as a separate
 @file{EPS} file, without fonts, and as one collated @file{EPS} file with

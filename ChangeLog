@@ -1,5 +1,7 @@
 2005-02-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/regression/utf8.ly (japanese): add japanese lyrics.
+
 	* lily/pfb.cc (LY_DEFINE): ly:ttf->pfa, new function.
 
 	* THANKS: add Steve D
