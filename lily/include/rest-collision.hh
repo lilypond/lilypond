@@ -23,6 +23,6 @@ public:
   
   static bool has_interface (Grob*);
   DECLARE_SCHEME_CALLBACK (force_shift_callback, (SCM element, SCM axis));
-  static SCM do_shift (Grob*,SCM);
+  static SCM do_shift (Grob*);
 };
 #endif // REST_COLLISION_HH

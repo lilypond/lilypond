@@ -151,7 +151,11 @@ key signatures after the bar lines:
 a queue of (END-MOMENT . GROB) conses. This is for internal (C++) use only.
 Use at your own risk.  This property contains the grobs for which  END-MOMENT >= NOW.
 ")
-(translator-property-description 'centralCPosition number? "Place of the central C. Usually determined by looking at clefPosition and clefGlyph.")
+
+(translator-property-description 'centralCPosition number? "Place of
+the central C, measured in half staffspaces.  Usually determined by
+looking at clefPosition and clefGlyph.")
+
 (translator-property-description
  'changeMoment moment-pair?
  "duration that voices are examined for differences, when
@@ -163,7 +167,13 @@ into one staff.")
 (translator-property-description 'clefGlyph string? "Name of the symbol within the music font")
 (translator-property-description 'clefOctavation integer? "Add
 this much extra octavation. Values of 7 and -7 are common.")
-(translator-property-description 'clefPosition number? "Where should the center of the symbol go?")
+
+(translator-property-description 'clefPosition number? "Where should
+the center of the clef symbol go?  On systems with an odd number of
+stafflines, the value 0 puts the clef on the middle staffline; a
+positive value shifts it up, a negative value shifts it down.  The
+unit of this distance is the half staff space.")
+
 (translator-property-description 'combineParts boolean? "try to combine parts?")
 (translator-property-description 'connectArpeggios boolean? " If
 set, connect all arpeggios that are found.  In this way, you can make

@@ -571,6 +571,7 @@ columns.
 (grob-property-description 'collision-done boolean? "")
 (grob-property-description 'rest ly:grob? "the staff symbol grob that we're in.")
 (grob-property-description 'rest-collision ly:grob? "rest collision that a rest is in.")
+(grob-property-description 'rest-collision-done boolean? "Is this rest collision processed yet?")
 
 (grob-property-description 'staff-support boolean? " JUNKME.")
 (grob-property-description 'script-molecule pair? "index code for script.")
