@@ -28,12 +28,12 @@ Line_of_score::TeX_string() const
 	 s+= "\\scorelineerrormark";
      
      
-     Real lastpos = cols[0]->hpos;
+     Real lastpos = cols[0]->hpos_f_;
      for (int i=0; i < cols.size();  i++){
 	 PCol* col_l= cols[i];
 	 // all items in the current line & staff.
 	 String chunk_str;
-	 Real delta  = col_l->hpos - lastpos;
+	 Real delta  = col_l->hpos_f_ - lastpos;
 	    
 	    
 	 if (col_l->error_mark_b_) {
@@ -53,7 +53,7 @@ Line_of_score::TeX_string() const
 	     if (delta)
 		 s +=String( "\\kern ") + print_dimen(delta);
 	     s += chunk_str;
-	     lastpos = col_l->hpos;
+	     lastpos = col_l->hpos_f_;
 	 }
      }
      s += "}";
@@ -75,7 +75,8 @@ IMPLEMENT_IS_TYPE_B1(Line_of_score,Spanner);
 void
 Line_of_score::add(Score_elem*e)
 {
-    add_dependency(e);
+    if( !e->dependent_size())	// avoid excess dependencies.
+	add_dependency(e);
 }
 
 bool
@@ -114,7 +115,7 @@ Line_of_score::set_breaking(Array<Col_hpositions> const &breaking)
 	}
 	
 	for (int i=0; i < curline.size(); i++){
-	    curline[i]->hpos = config[i];
+	    curline[i]->hpos_f_ = config[i];
 	    curline[i]->line_l_ = (Line_of_score*)line_l;
 	}
     }
