@@ -74,8 +74,7 @@ hegedraagjetekst =  \lyrics{
 }
 
 texte =  \lyrics{ 
-	\property Lyrics . textStyle" =  "italic" 
-%	\property Lyrics . textStyle" =  "roman" 
+	\property Lyrics . LyricText \set #'font-shape = #'italic
  	Ah! vous dir -- ai -- je ma -- man " "
 	Ce qui cau -- se mon tour --  " " ment
 	Pa -- pa veut que je rai -- son -- ne
@@ -85,7 +84,7 @@ texte =  \lyrics{
 }
 
 texti =  \lyrics{
-	\property "Lyrics"."textStyle" =  "roman"
+
 	Twin -- kle, twin -- kle, lit -- tle star, " "
 	How I won -- der what you  " " are.
 	Up a -- bove the world so high, " "
