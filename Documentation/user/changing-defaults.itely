@@ -308,6 +308,7 @@ layout property name:
 @menu
 * Tuning objects::              
 * Constructing a tweak::        
+* Selecting font sizes::        
 * Font selection::              
 @end menu
 
@@ -384,15 +385,7 @@ c'4 \revert Stem #'thickness
 c'4
 @end lilypond
 
-The following example gives exactly the same result as the previous
-one (assuming the system default for stem thickness is 1.3):
-@c
-@lilypond[verbatim]
-  c'4 \override Stem   #'thickness = #4.0
-  c'4
-  c'4 \override Stem   #'thickness = #1.3
-  c'4
-@end lilypond
+
 
 Reverting a setting which was not set in the first place has no
 effect.
@@ -435,24 +428,23 @@ and/or crashes.
 Three pieces of information are required to use @code{\override} and
 @code{\set}: the name of the layout object, the context and the name
 of the property.  We demonstrate how to glean this information from
-the notation manual and the generated documentation.
+the notation manual and the program reference.
 
 The generated documentation is a set of HTML pages which should be
 included if you installed a binary distribution, typically in
 @file{/usr/share/doc/lilypond}.  They are also available on the web:
 go to the @uref{http://lilypond.org,LilyPond website}, click
-``Documentation'', select the correct version, and click then
+``Documentation'', select the correct version, and then click
 ``Program reference.'' It is advisable to bookmark the local HTML
-files. They will load faster than the ones on the web.  If you use the
-version from the web, you must check whether the documentation matches
-the program version: it is generated from the definitions that the
-program uses, and therefore it is strongly tied to the LilyPond
-version.
+files. They will load faster than the ones on the web and matches the
+version of LilyPond you are using.
+ 
 
 
 @c  [TODO: revise for new site.]
 
-Suppose we want to move the fingering indication in the fragment below:
+Suppose we want to move the fingering indication in the fragment
+below:
 
 @lilypond[relative=2,verbatim]
 c-2
@@ -487,9 +479,9 @@ The @code{Fingering} object has a fixed size
 (@internalsref{item-interface}), the symbol is a piece of text
 (@internalsref{text-interface}), whose font can be set
 (@internalsref{font-interface}).  It is centered horizontally
-(@internalsref{self-alignment-interface}), it is placed next to other
-objects (@internalsref{side-position-interface}) vertically, and its
-placement is coordinated with other scripts
+(@internalsref{self-alignment-interface}), it is placed vertically
+next to other objects (@internalsref{side-position-interface}), and
+its placement is coordinated with other scripts
 (@internalsref{text-script-interface}).  It also has the standard
 @internalsref{grob-interface} (grob stands for Graphical object)
 @cindex grob
@@ -572,10 +564,8 @@ Internals: the program reference also contains alphabetical lists of
 to tweak by browsing the internals document.
 
 
-
-
-@node Font selection
-@subsection Font selection
+@node Selecting font sizes
+@subsection Selecting font sizes
 
 The most common thing to change about the appearance of fonts is their
 size. The font size of any context can be easily changed by setting
@@ -584,20 +574,86 @@ negative numbers make the font smaller, positive numbers larger. An
 example is given below:
 @c
 @lilypond[fragment,relative=1,verbatim]
-  c4 c4 \set fontSize = #-1
+  c4 c4 \set fontSize = #-3
   f4 g4
 @end lilypond
-This command will set @code{font-size} (see below), and does
-not change the size of variable symbols, such as beams or slurs.
+This command will set @code{font-size} (see below) in all layout
+objects in the current context. It does not change the size of
+variable symbols, such as beams or slurs.
+
+The font size is set by modifying the @code{font-size} property.  Its
+value is a number indicating the size relative to the standard size.
+Each step up is an increase of approximately 12% of the font size. Six
+steps is exactly a factor two. The Scheme function @code{magstep}
+converts a @code{font-size} number to a scaling factor.
+
+LilyPond has fonts in different design sizes: the music fonts for
+smaller sizes are chubbier, while the text fonts are relatively wider.
+Font size changes are achieved by scaling the design size that is
+closest to the desired size.
+
+The @code{font-size} mechanism does not work for fonts selected
+through @code{font-name}. These may be scaled with
+@code{font-magnification}.
+
 
 One of the uses of @code{fontSize} is to get smaller symbols for cue
 notes. An elaborate example of those is in
 @inputfileref{input/test,cue-notes.ly}.
 
+@cindex @code{font-style}
+
+@refcommands
+
+The following commands set @code{fontSize} for the current voice.
+
+@cindex @code{\tiny}
+@code{\tiny}, 
+@cindex @code{\small}
+@code{\small}, 
+@cindex @code{\normalsize}
+@code{\normalsize}.
+
+
+
 @cindex magnification
 @cindex cue notes
 
-The font used for printing a object can be selected by setting
+
+@node Font selection
+@subsection Font selection
+
+Font selection for the standard fonts, @TeX{}'s Computer Modern fonts,
+can also be adjusted with a more fine-grained mechanism.  By setting
+the object properties described below, you can select a different font;
+all three mechanisms work for every object that supports
+@code{font-interface}:
+
+
+@itemize @bullet
+@item @code{font-family}
+ is a symbol indicating the general class of the typeface.  Supported are
+@code{roman} (Computer Modern), @code{braces} (for piano staff
+braces), @code{music} (the standard music font, including ancient
+glyphs), @code{dynamic} (for dynamic signs) and @code{typewriter}.
+  
+@item @code{font-shape}
+  is a symbol indicating the shape of the font, there are typically several
+  font shapes available for each font family. Choices are @code{italic},
+  @code{caps} and @code{upright}.
+
+@item @code{font-series}
+is a  symbol indicating the series of the font. There are typically several
+font series for each font family and shape. Choices are @code{medium}
+and @code{bold}. 
+
+@end table
+
+
+Fonts selected in the way sketched above come from a predefined style
+sheet.
+
+ The font used for printing a object can be selected by setting
 @code{font-name}, e.g.
 @example
   \override Staff.TimeSignature
@@ -615,68 +671,7 @@ directions.
 @cindex font size
 @cindex font magnification
 
-Font selection for the standard fonts, @TeX{}'s Computer Modern fonts,
-can also be adjusted with a more fine-grained mechanism.  By setting
-the object properties described below, you can select a different font;
-all three mechanisms work for every object that supports
-@code{font-interface}:
 
-
-@table @code
-@item font-family
- is a symbol indicating the general class of the typeface.  Supported are
-@code{roman} (Computer Modern), @code{braces} (for piano staff
-braces), @code{music} (the standard music font, including ancient
-glyphs), @code{dynamic} (for dynamic signs) and @code{typewriter}.
-  
-@item font-shape
-  is a symbol indicating the shape of the font, there are typically several
-  font shapes available for each font family. Choices are @code{italic},
-  @code{caps} and @code{upright}.
-
-@item font-series
-is a  symbol indicating the series of the font. There are typically several
-font series for each font family and shape. Choices are @code{medium}
-and @code{bold}. 
-
-@end table
-
-For any of these properties, the value @code{*} (i.e. the symbol
-@code{*}, entered as @code{#'*}), acts as a wildcard. This can be used
-to override default setting, which are always present. For example:
-@example
-  \override Lyrics .LyricText   #'font-series = #'bold
-  \override Lyrics .LyricText   #'font-family = #'typewriter
-  \override Lyrics .LyricText   #'font-shape = #'*
-@end example
-
-@cindex @code{font-style}
-
-The font size is set by modifying the @code{font-size} property.  Its
-value is a number indicating the size relative to the standard size.
-Each step up is an increase of approximately 12% of the font size. Six
-steps is exactly a factor two. The Scheme function @code{magstep}
-converts a @code{font-size} number to a scaling factor.
-
-LilyPond has fonts in different design sizes: the music fonts for
-smaller sizes are chubbier, while the text fonts are relatively wider.
-Font size changes are achieved by scaling the design size that is
-closest to the desired size.
-
-The @code{font-size} mechanism does not work for fonts selected
-through @code{font-name}. These may be scaled with
-@code{font-magnification}.
-
-@refcommands
-
-The following commands set @code{fontSize} for the current voice.
-
-@cindex @code{\tiny}
-@code{\tiny}, 
-@cindex @code{\small}
-@code{\small}, 
-@cindex @code{\normalsize}
-@code{\normalsize}.
 
 @seealso
 
@@ -685,7 +680,7 @@ fonts may be added to LilyPond.
 
 @refbugs
 
-There is no style sheet provided for other fonts besides the @TeX{}
+No style sheet is provided for other fonts besides the @TeX{}
 Computer Modern family.
 
 @cindex font selection
@@ -758,9 +753,18 @@ Some objects have alignment procedures of their own, which cancel out
 any effects of alignments applied to their markup arguments as a
 whole.  For example, the @internalsref{RehearsalMark} is horizontally
 centered, so using @code{\mark \markup @{ \left-align .. @}} has no
-effect. Similarly, whole texts over notes cannot be moved vertically
-with @code{\raise}. For moving and aligning complete objects, grob
-properties should be used.
+effect.
+
+Similarly, for moving whole texts over notes with
+@code{\raise}, use the following trick:
+@example
+  "" \raise #0.5 raised
+@end example
+
+The text @code{raised} is now raised relative to the empty string
+@code{""} which is not visible.  Alternatively, complete objects can
+be moved with layout properties such as @code{padding} and
+@code{extra-offset}.
 
 
 
@@ -991,18 +995,19 @@ There is no convenient mechanism to manually override spacing.
 
 @node Font Size
 @subsection Font size
+
 @cindex font size, setting
 @cindex staff size, setting
 @cindex @code{paper} file
 
-The Feta font provides musical symbols at eight seven different
+The Feta font provides musical symbols at eight  different
 sizes. Each font is tuned for a different staff size: at smaller sizes
 the font gets heavier, to match the relatively heavier staff lines.
 The recommended font sizes are listed in the following table:
 
 @multitable @columnfractions  .25 .25 .25 .25
 
-@item @b{name}
+@item @b{font name}
 @tab @b{staff height (pt)}
 @tab @b{staff height (mm)}
 @tab @b{use}
@@ -1013,38 +1018,38 @@ The recommended font sizes are listed in the following table:
 @tab pocket scores
 
 @item feta13
-@tab 12.60pt
-@tab 4.4mm
+@tab 12.60
+@tab 4.4
 @tab
 
 @item feta14
-@tab 14.14pt
-@tab 5.0mm
+@tab 14.14
+@tab 5.0
 @tab 
 
 @item feta16
-@tab 15.87pt
-@tab 5.6mm
+@tab 15.87
+@tab 5.6
 @tab 
 
 @item feta18
-@tab 17.82pt
-@tab 6.3mm
+@tab 17.82
+@tab 6.3
 @tab song books
 
 @item feta20
-@tab 17.82pt
-@tab 7.0mm
+@tab 17.82
+@tab 7.0
 @tab standard parts 
 
 @item feta23
-@tab 22.45 pt
-@tab 7.9mm
+@tab 22.45 
+@tab 7.9
 @tab 
 
 @item feta20
-@tab 25.2 pt
-@tab 8.9mm
+@tab 25.2 
+@tab 8.9
 @tab
 @c modern rental material  ?
 
@@ -1063,6 +1068,9 @@ which can be set   in the following manner:
 This sets the global default size to 14pt staff height, and scales all
 fonts accordingly.
 
+@seealso
+
+This manual: @ref{Selecting font sizes}.
 
 
 @node Line breaking
@@ -1138,12 +1146,11 @@ The page layout process happens outside the LilyPond formatting
 engine: variables controlling page layout are passed to the output,
 and are further interpreted by @code{lilypond} wrapper program. It
 responds to the following variables in the @code{\paper} block.  The
-variable @code{textheight} sets the total height of the music on each
-page.  The spacing between systems is controlled with
-@code{interscoreline}, its default is 16pt.  The distance between the
-score lines will stretch in order to fill the full page
-@code{interscorelinefill} is set to a positive number.  In that case
-@code{interscoreline} specifies the minimum spacing.
+spacing between systems is controlled with @code{interscoreline}, its
+default is 16pt.  The distance between the score lines will stretch in
+order to fill the full page @code{interscorelinefill} is set to a
+positive number.  In that case @code{interscoreline} specifies the
+minimum spacing.
 
 @cindex @code{textheight}
 @cindex @code{interscoreline}

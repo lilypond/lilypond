@@ -159,18 +159,19 @@ some punctuation. It doesn't have any letters.  "
   (interpret-markup paper (prepend-alist-chain 'font-shape 'latin1 props) arg))
 
 (def-markup-command (dynamic paper props arg) (markup?)
-  "Use the dynamic font.  This font only contains s, f, m, z, p, and
-r.  When producing phrases, like ``piu f'', the normal words (like
-``piu'') should be done in a different font.  The recommend font for
-this is bold and italic
-"
+  "Use the dynamic font.  This font only contains @b{s}, @b{f}, @b{m},
+@b{z}, @b{p}, and @b{r}.  When producing phrases, like ``piu @b{f}'', the
+normal words (like ``piu'') should be done in a different font.  The
+recommend font for this is bold and italic"
   (interpret-markup
    paper (prepend-alist-chain 'font-family 'dynamic props) arg))
 
 (def-markup-command (italic paper props arg) (markup?)
+  "Use italic @code{font-shape} for @var{arg}. "
   (interpret-markup paper (prepend-alist-chain 'font-shape 'italic props) arg))
 
 (def-markup-command (typewriter paper props arg) (markup?)
+  "Use @code{font-family} typewriter for @var{arg}."
   (interpret-markup
    paper (prepend-alist-chain 'font-family 'typewriter props) arg))
 
@@ -180,33 +181,49 @@ this is bold and italic
    paper (prepend-alist-chain 'font-shape 'upright props) arg))
 
 (def-markup-command (doublesharp paper props) ()
+  "Draw a double sharp symbol."
+
   (interpret-markup paper props (markup #:musicglyph "accidentals-4")))
-(def-markup-command (threeqsharp paper props) ()
+(def-markup-command (sesquisharp paper props) ()
+  "Draw a 3/2 sharp symbol."
   (interpret-markup paper props (markup #:musicglyph "accidentals-3")))
+
 (def-markup-command (sharp paper props) ()
+  "Draw a sharp symbol."
   (interpret-markup paper props (markup #:musicglyph "accidentals-2")))
 (def-markup-command (semisharp paper props) ()
+  "Draw a semi sharp symbol."
   (interpret-markup paper props (markup #:musicglyph "accidentals-1")))
 (def-markup-command (natural paper props) ()
+  "Draw a natural symbol."
+
   (interpret-markup paper props (markup #:musicglyph "accidentals-0")))
 (def-markup-command (semiflat paper props) ()
+  "Draw a semiflat."
   (interpret-markup paper props (markup #:musicglyph "accidentals--1")))
 (def-markup-command (flat paper props) ()
+  "Draw a flat symbol."
+  
   (interpret-markup paper props (markup #:musicglyph "accidentals--2")))
-(def-markup-command (threeqflat paper props) ()
+(def-markup-command (sesquiflat paper props) ()
+  "Draw a 3/2 flat symbol."
+  
   (interpret-markup paper props (markup #:musicglyph "accidentals--3")))
 (def-markup-command (doubleflat paper props) ()
+  "Draw a double flat symbol."
+
   (interpret-markup paper props (markup #:musicglyph "accidentals--4")))
 
 
 (def-markup-command (column paper props args) (markup-list?)
+  "Stack the markups in @var{args} vertically."
   (stack-lines
    -1 0.0 (cdr (chain-assoc 'baseline-skip props))
    (map (lambda (m) (interpret-markup paper props m)) args)))
 
 (def-markup-command (dir-column paper props args) (markup-list?)
   "Make a column of args, going up or down, depending on the setting
-of the #'direction layout property."
+of the @code{#'direction} layout property."
   (let* ((dir (cdr (chain-assoc 'direction props))))
     (stack-lines
      (if (number? dir) dir -1)
@@ -215,6 +232,7 @@ of the #'direction layout property."
      (map (lambda (x) (interpret-markup paper props x)) args))))
 
 (def-markup-command (center-align paper props args) (markup-list?)
+  "Put @code{args} in a centered column. "
   (let* ((mols (map (lambda (x) (interpret-markup paper props x)) args))
          (cmols (map (lambda (x) (ly:stencil-align-to! x X CENTER)) mols)))
     (stack-lines -1 0.0 (cdr (chain-assoc 'baseline-skip props)) mols)))
@@ -225,13 +243,16 @@ of the #'direction layout property."
     m))
 
 (def-markup-command (left-align paper props arg) (markup?)
+  "Align @var{arg} on its left edge. "
+  
   (let* ((m (interpret-markup paper props arg)))
     (ly:stencil-align-to! m X LEFT)
     m))
 
 (def-markup-command (halign paper props dir arg) (number? markup?)
-  "Set horizontal alignment. @var{dir} = -1 is left, @var{dir} = 1 is
-right, values in between vary alignment accordingly."
+  "Set horizontal alignment. If @var{dir} is -1, then it is
+left-aligned, while+1 is right. Values in between interpolate alignment
+accordingly."
 
   
   (let* ((m (interpret-markup paper props arg)))
@@ -285,9 +306,8 @@ and/or @code{extra-offset} properties. "
                               amount Y))
 
 (def-markup-command (fraction paper props arg1 arg2) (markup? markup?)
-  "Make a fraction of two markups.
-
-Syntax: \\fraction MARKUP1 MARKUP2."
+  "Make a fraction of two markups."
+  
   (let* ((m1 (interpret-markup paper props arg1))
          (m2 (interpret-markup paper props arg2)))
     (ly:stencil-align-to! m1 X CENTER)
@@ -307,8 +327,9 @@ Syntax: \\fraction MARKUP1 MARKUP2."
 ;; TODO: better syntax.
 
 (def-markup-command (note-by-number paper props log dot-count dir) (number? number? number?)
-  "Syntax: \\note-by-number #LOG #DOTS #DIR.  By using fractional values
-for DIR, you can obtain longer or shorter stems."
+  "Construct a note symbol, with stem.  By using fractional values for
+@var{dir}, you can obtain longer or shorter stems."
+  
   (let* ((font (ly:paper-get-font paper (cons '((font-family .  music)) props)))
          (stemlen (max 3 (- log 1)))
          (headgl (ly:find-glyph-by-name
@@ -390,6 +411,7 @@ a shortened down stem."
 
 (def-markup-command (normal-size-super paper props arg) (markup?)
   "A superscript which does not use a smaller font."
+  
   (ly:stencil-translate-axis (interpret-markup
                                paper
                                props arg)
@@ -438,7 +460,8 @@ that.
                          offset))
 
 (def-markup-command (sub paper props arg) (markup?)
-  "Syntax: \\sub MARKUP."
+  "Set @var{arg} in subscript."
+  
   (ly:stencil-translate-axis
    (interpret-markup
     paper
@@ -448,19 +471,21 @@ that.
    Y))
 
 (def-markup-command (normal-size-sub paper props arg) (markup?)
+  "Set @var{arg} in subscript, in a normal font size."
+
   (ly:stencil-translate-axis
    (interpret-markup paper props arg)
    (* -0.5 (cdr (chain-assoc 'baseline-skip props)))
    Y))
 
 (def-markup-command (hbracket paper props arg) (markup?)
-  "Horizontal brackets around @var{arg}."  
+  "Draw horizontal brackets around @var{arg}."  
   (let ((th 0.1) ;; todo: take from GROB.
         (m (interpret-markup paper props arg)))
     (bracketify-stencil m X th (* 2.5 th) th)))
 
 (def-markup-command (bracket paper props arg) (markup?)
-  "Vertical brackets around @var{arg}."  
+  "Draw vertical brackets around @var{arg}."  
   (let ((th 0.1) ;; todo: take from GROB.
         (m (interpret-markup paper props arg)))
     (bracketify-stencil m Y th (* 2.5 th) th)))

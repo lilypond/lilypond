@@ -1988,6 +1988,14 @@ def conv (str):
 conversions.append (((2,1,29), conv,
 		     '\\center -> \\center-align, \\translator -> \\context'))
 
+
+def conv (str):
+	str = re.sub (r'\\threeq(flat|sharp)', r'\\sesqui\1', str)
+	return str
+
+conversions.append (((2,1,30), conv,
+		     '\\threeq{flat,sharp} -> \\sesqui{flat,sharp}'))
+
 ################################
 #	END OF CONVERSIONS	
 ################################
