@@ -320,6 +320,8 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
       rod.distance_ = l->extent (l, X_AXIS)[BIGGER] - r->extent (r, X_AXIS)[SMALLER]
 	+ sym_width  + 2.0;			// 2.0 = magic!
   
+      rod.distance_ = max(rod.distance_,
+			  gh_scm2double (me->get_grob_property ("minimum-length")));
       rod.add_to_cols ();
     }
   return SCM_UNSPECIFIED;
@@ -333,4 +335,4 @@ numbers, fields from font-interface may be used.
 
 
 ",
-  "expand-limit measure-count number-threshold padding thickness");
+  "expand-limit measure-count number-threshold padding thickness minimum-length");

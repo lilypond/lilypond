@@ -530,7 +530,7 @@
 	(thickness . 6.6)
 	(font-family . number)
 	(padding . 1)
-	(meta . ((interfaces . (multi-measure-rest-interface rest-interface font-interface staff-symbol-referencer-interface spanner-interface))))
+	(meta . ((interfaces . (multi-measure-rest-interface rest-interface font-interface staff-symbol-referencer-interface))))
 	))
 
     (NoteCollision
