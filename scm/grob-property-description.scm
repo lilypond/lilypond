@@ -33,6 +33,7 @@
 . OPTION-LIST) entries. OPTION-LIST can contain 'cautionary, 'natural
 and 'tie-break-reminder ")
 (grob-property-description 'add-stem boolean? "Add stem to porrectus?.")
+(grob-property-description 'adjust-if-on-staffline boolean? "If this grob is on a staff line, adjust its appearance, so that it better fits into the staff.  E.g., if set true on stem grobs, flares of mensural flags will always be aligned with the staff lines, regardless if the associated note head is printed on a staff line or inbetween.")
 (grob-property-description 'after-line-breaking-callback procedure? "Procedure taking a grob as argument.
 This procedure is called (using dependency resolution) after line breaking. Return value is ignored.")
 (grob-property-description 'align number? "the alignment of the text, 0 is horizontal, 1 is vertical.")
@@ -105,12 +106,9 @@ Align_interface::center_on_element). .")
 (grob-property-description 'dash-period number? "the length of one dash + white space.")
 (grob-property-description 'dashed number? "[FIXME: use dash-period/dash length; see text-spanner] number representing the length of the dashes.")
 (grob-property-description 'de-uglify-parameters list? "list of 3 real constants. They define the valid areas for the middle control points. Used in de_uglyfy. They are a bit empirical.")
-(grob-property-description 'neutral-direction dir? "Where to go if
-we're in the middle of the staff.  [Ross] has the following to say
-about this: Some engravers consider the middle line neutral, and take
-the option of using either up- or down-stems for notes that fall on
-it. However, more up-to-date engraving no longer permits an option;
-now a down-stem is always appropriate.")
+
+(grob-property-description 'neutral-direction dir? "Where to go if we're on the neutral position of the staff (by default, the middle of the staff; see also grob-property neutral-position).  [Ross] has the following to say about this: Some engravers consider the middle line neutral, and take the option of using either up- or down-stems for notes that fall on it. However, more up-to-date engraving no longer permits an option; now a down-stem is always appropriate.")
+(grob-property-description 'neutral-position number? "Position (in half staff spaces) where to flip the direction of stems: by default, custodes above this position get their stems downwards; custodes below this position get their stems upwards.  A value of 0 designates the center of the staff.  Use property neutral-direction to control the behaviour of stems on the neutral position itself.  (Note: currently, neutral-position is supported only for custodes; for stems of note heads, neutral-position is currently fixed to 0, i.e. the middle of the staff.)")
 
 (grob-property-description 'delta-y number? "amount of ascension.")
 (grob-property-description 'dependencies list? "list of score-grob pointers that indicate who to compute first for certain global passes.")
@@ -241,6 +239,7 @@ FIXME: also pair? (cons LEFT RIGHT)
 
 (grob-property-description 'minimum-width number? "minimum-width of rest symbol, in staffspace.")
 (grob-property-description 'molecule-callback procedure? "Function taking grob as argument, returning a Scheme encoded Molecule.")
+
 (grob-property-description 'new-accidentals list? "list of (pitch, accidental) pairs.")
 (grob-property-description 'no-spacing-rods boolean? "read from grobs: boolean that makes Separation_item ignore this item (MOVE ME TO ITEM).")
 (grob-property-description 'no-stem-extend boolean? "should stem not be extended to middle staff line?.")

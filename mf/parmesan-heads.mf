@@ -11,7 +11,7 @@ numeric black_notehead_width;
 
 fet_begingroup ("noteheads")
 
-noteheight#:=staff_space#+ (1 + overdone_heads) *stafflinethickness#;
+noteheight#:=staff_space# + (1 + overdone_heads)*stafflinethickness#;
 define_pixels(noteheight);
 
 
@@ -205,6 +205,7 @@ fet_endchar;
 %
 %
 % ledger (leger) lines
+%
 %
 fet_beginchar("Ledger ending", "ledgerending", "ledgerending")
 set_char_box (5/2 ledgerlinethickness#, 5/2 ledgerlinethickness#,
@@ -432,22 +433,22 @@ punctum_char("Ed. Vat. punctum", "0vaticana_punctum", "vatpunctumhead",
 	     false, false, false, false, 1.0);
 
 % punctum cavum (for OpusTeX compatibility)
-%punctum_char("Ed. Vat. punctum cavum", "0vaticana_punctum_cavum",
-%	     "vatpunctumcavumhead",
-%	     false, false, false, true, false,
-%	     false, false, false, false, 1.0);
+punctum_char("Ed. Vat. punctum cavum", "0vaticana_punctum_cavum",
+	     "vatpunctumcavumhead",
+	     false, false, false, true, false,
+	     false, false, false, false, 1.0);
 
 % linea punctum (for OpusTeX compatibility)
-%punctum_char("Ed. Vat. linea punctum", "0vaticana_linea_punctum",
-%	     "vatlineapunctumhead",
-%	     false, false, true, false, false,
-%	     false, false, false, false, 1.0);
+punctum_char("Ed. Vat. linea punctum", "0vaticana_linea_punctum",
+	     "vatlineapunctumhead",
+	     false, false, true, false, false,
+	     false, false, false, false, 1.0);
 
 % linea punctum cavum (for OpusTeX compatibility)
-%punctum_char("Ed. Vat. linea punctum cavum", "0vaticana_linea_punctum_cavum",
-%	     "vatlineapunctumcavumhead",
-%	     false, false, true, true, false,
-%	     false, false, false, false, 1.0);
+punctum_char("Ed. Vat. linea punctum cavum", "0vaticana_linea_punctum_cavum",
+	     "vatlineapunctumcavumhead",
+	     false, false, true, true, false,
+	     false, false, false, false, 1.0);
 
 % punctum inclinatum
 inclinatum_char("Ed. Vat. inclinatum", "0vaticana_inclinatum",
@@ -530,36 +531,36 @@ fet_beginchar("Ed. Vat. quilisma", "0vaticana_quilisma", "vatquilismahead")
 fet_endchar;
 
 % solesmes punctum inclinatum parvum
-%inclinatum_char("Solesmes punctum inclinatum parvum", "0solesmes_incl_parvum",
-%		"solinclparvumhead",
-%		true, false, false);
+inclinatum_char("Solesmes punctum inclinatum parvum", "0solesmes_incl_parvum",
+		"solinclparvumhead",
+		true, false, false);
 
 % solesmes punctum auctum ascendens
-%punctum_char("Solesmes punctum auctum ascendens", "0solesmes_auct_asc",
-%	     "solauctaschead",
-%	     false, false, false, false, false,
-%	     true, true, false, false, 1.0);
+punctum_char("Solesmes punctum auctum ascendens", "0solesmes_auct_asc",
+	     "solauctaschead",
+	     false, false, false, false, false,
+	     true, true, false, false, 1.0);
 
 % solesmes punctum auctum descendens
-%punctum_char("Solesmes punctum auctum descendens", "0solesmes_auct_desc",
-%	     "solauctdeschead",
-%	     false, false, false, false, false,
-%	     true, false, false, false, 1.0);
+punctum_char("Solesmes punctum auctum descendens", "0solesmes_auct_desc",
+	     "solauctdeschead",
+	     false, false, false, false, false,
+	     true, false, false, false, 1.0);
 
 % solesmes punctum inclinatum auctum
-%inclinatum_char("Solesmes punctum incl. auctum", "0solesmes_incl_auctum",
-%		"solpunctuminclinatumauctumhead",
-%		false, false, true);
+inclinatum_char("Solesmes punctum incl. auctum", "0solesmes_incl_auctum",
+		"solpunctuminclinatumauctumhead",
+		false, false, true);
 
 % solesmes stropha
-%inclinatum_char("Solesmes stropha", "0solesmes_stropha",
-%		"solstrophahead",
-%		false, true, false);
+inclinatum_char("Solesmes stropha", "0solesmes_stropha",
+		"solstrophahead",
+		false, true, false);
 
 % solesmes stropha aucta
-%inclinatum_char("Solesmes stropha aucta", "0solesmes_stropha_aucta",
-%		"solstrophaauctahead",
-%		false, true, true);
+inclinatum_char("Solesmes stropha aucta", "0solesmes_stropha_aucta",
+		"solstrophaauctahead",
+		false, true, true);
 
 % solesmes oriscus
 fet_beginchar("Solesmes oriscus", "0solesmes_oriscus",

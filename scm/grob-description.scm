@@ -31,6 +31,7 @@
 		(left-padding . 0.2)
 		(right-padding . 0.4)
 		(paren-cautionaries . #t)
+		(font-family . music)
 		(meta . ,(grob-description accidentals-interface font-interface side-position-interface))
 	))
 
@@ -165,14 +166,17 @@
 	))
 
        (Custos . (
-               (break-align-symbol . Custos)
-               (breakable . #t )
-               (molecule-callback . ,Custos::brew_molecule)
-               (visibility-lambda . ,end-of-line-visible)
-	       (style .  vaticana)
-	       (Y-offset-callbacks . (,Staff_symbol_referencer::callback))
-	       (font-family . music)
-               (meta . ,(grob-description custos-interface staff-symbol-referencer-interface break-aligned-interface) )
+		(break-align-symbol . Custos)
+		(breakable . #t)
+		(molecule-callback . ,Custos::brew_molecule)
+		(visibility-lambda . ,end-of-line-visible)
+		(style . vaticana)
+		(neutral-position . 0)
+		(neutral-direction . -1)
+		(adjust-if-on-staffline . #t)
+		(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
+		(font-family . music)
+		(meta . ,(grob-description custos-interface staff-symbol-referencer-interface break-aligned-interface) )
        ))
 	
 
@@ -626,6 +630,7 @@
 		(X-offset-callbacks . (,Stem::off_callback))
 		(X-extent-callback . ,Stem::dim_callback)	
 		(Y-extent-callback . ,Stem::height)
+		(adjust-if-on-staffline . #t)
 		(font-family . music)	   
 		(meta . ,(grob-description stem-interface  font-interface))
 	))
