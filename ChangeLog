@@ -1,3 +1,7 @@
+2004-06-20  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* po/tr.po: turkish translation.
+
 2004-06-19  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scripts/lilypond.py (make_include_option): set lilypond_error_p.
