@@ -152,7 +152,7 @@ ly2dvi_binary = os.path.join ('@bindir@', 'ly2dvi')
 
 # only use installed binary  when we're installed too.
 if '@bindir@' == ('@' + 'bindir@') or not os.path.exists (lilypond_binary):
-	lilypond_binary = 'ly2dvi'
+	ly2dvi_binary = 'ly2dvi'
 
 
 
