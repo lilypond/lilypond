@@ -1245,7 +1245,9 @@ nevertheless, this is not very clean, and we should find a different
 solution.  
 
 */
-pre_events:
+pre_events: {
+		THIS->push_spot ();
+	}
 	;
 
 event_chord:
@@ -1501,6 +1503,17 @@ event_that_take_dir:
 	| close_event
 	| open_event
 	| '['  {
+
+
+/*
+
+TODO: should take all these defs out of the parser, adn make use
+configurable, i.e.
+
+
+(set-articulation '~ "trill")
+
+*/
 		Music * m = MY_MAKE_MUSIC ("NewBeamEvent");
 		m->set_spot (THIS->here_input());
 		m->set_mus_property ("span-direction" , gh_int2scm (START));
@@ -2119,6 +2132,8 @@ step_number:
  */
 number_expression:
 	number_expression '+' number_term {
+
+		THIS->
 		$$ = scm_sum ($1, $3);
 	}
 	| number_expression '-' number_term {
