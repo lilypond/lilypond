@@ -39,6 +39,15 @@
 	(apply format (cons (current-error-port) (cons string rest)))
 	(force-output (current-error-port)))))
 
+
+;; Hmm, actually, the only vars really needed by output-gnome are
+;; * (root (canvas go))
+;; * location
+;; * item-locations
+;; * pixels-per-unit
+;; * text-items
+;;
+;; so this class could be split in two parts / records?
 (define-class <gnome-outputter> ()
   (page-stencils ;;#:init-value '#()
    #:init-keyword #:page-stencils #:accessor page-stencils)

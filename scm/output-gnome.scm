@@ -207,8 +207,8 @@ lilypond-bin -fgnome input/simple-song.ly
 	  (affine-relative item output-scale 0 0 output-scale 0 0)
 	  
 	  (gtype-instance-signal-connect item 'event item-event)
-	  (if location
-	      (hashq-set! item-locations item location))
+	  (if (location go)
+	      (hashq-set! (item-locations go) item (location go)))
 	  item)
 	#f)))
 
@@ -302,8 +302,8 @@ lilypond-bin -fgnome input/simple-song.ly
 ;; origin -- bad name
 (define (define-origin file line col)
   ;; ughr, why is this not passed as [part of] stencil object
-  (set! location (if (procedure? point-and-click)
-		     ;; duh, only silly string append
-		     ;; (point-and-click line col file)
-		     (list line col file)
-		     #f)))
+  (set! (location go) (if (procedure? point-and-click)
+			  ;; duh, only silly string append
+			  ;; (point-and-click line col file)
+			  (list line col file)
+			  #f)))
