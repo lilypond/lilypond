@@ -131,12 +131,13 @@ glissando = #(make-music 'GlissandoEvent)
 fermataMarkup = \markup { \musicglyph #"scripts-ufermata" } 
 
 hideNotes =\sequential {
-				% hide notes, accidentals, etc.
-    \override Dots  #'transparent = ##t
-    \override NoteHead  #'transparent = ##t
-    \override Stem  #'transparent = ##t
-    \override Beam  #'transparent = ##t
-    \override Accidental  #'transparent = ##t
+  % hide notes, accidentals, etc.
+  \override Dots  #'transparent = ##t
+  \override NoteHead  #'transparent = ##t
+  \override NoteHead  #'no-ledgers = ##t
+  \override Stem  #'transparent = ##t
+  \override Beam  #'transparent = ##t
+  \override Accidental  #'transparent = ##t
 }
 
 
@@ -145,6 +146,7 @@ unHideNotes = \sequential {
   \revert Beam #'transparent
   \revert Stem #'transparent
   \revert NoteHead #'transparent
+  \revert NoteHead #'no-ledgers
   \revert Dots #'transparent 
 }
 
