@@ -18,8 +18,9 @@ Main author, all files files except mentioned below
 
 Jan Nieuwenhuizen <jan@digicash.com>
 
-lily/midi-*, mi2mu/*, flower/string.cc, make/*.make, Documentation/mudela.pod
-lib/*source-file*, lib/duration.cc, lib/source, flower/*list*
+lily/midi-*, mi2mu/*, parts flower/string*.cc, make/*.make,
+parts of Documentation/mudela.pod, lib/*source-file*, lib/duration.cc,
+lib/source, flower/*{list,cursor}*,  
 
 and corresponding header files.
 

@@ -36,8 +36,8 @@ melodie = \melodic {
 		  (|		% start a slur
 				% NOTE: the slurstart should be directly after the note
 			) 	% end a slur.
-			  g r8 g8 ~ 	 a r8 a8 ~ 	 g r4 
-	  f r8 f8 ~ 	 e4 r8 e8 ~ | d4 r8 d8 ~ 	 c4 r4 
+			  g r8 g8 () 	 a r8 a8 () 	 g r4 
+	  f r8 f8 () 	 e4 r8 e8 (|)  d4 r8 d8 () 	 c4 r4 
 }
 
 				% more of this.
@@ -53,8 +53,8 @@ begeleiding = \melodic{
 	\octave  'c ;
 	e 'g	d 'g	c 'g	'b 'g	e 'g	d 'g	c 'g	'b 'g
 	%%%% var 1
-	r8 e8~  c  	r8 e8~  c  	r8 f8~ c 	r8 e8~ c
-	r8 d8~ 'b 	r8 c8~ 'a 	r8 'a8~ 'f 	r8 'e8~ 'c
+	r8 e8()  c  	r8 e8()  c  	r8 f8() c 	r8 e8() c
+	r8 d8() 'b 	r8 c8() 'a 	r8 'a8() 'f 	r8 'e8() 'c
 }
 
 \score{

@@ -18,8 +18,12 @@
 class Voice_group_registers  : public Register_group_register {
     Moment termination_mom_;
     Input_register const *ireg_C_;
+    int dir_i_;
+
 protected:
     virtual void do_print() const;
+    virtual void set_feature(Feature);
+    virtual Scalar get_feature(String);
     virtual void post_move_processing();
     virtual bool try_request(Request*);
 public:

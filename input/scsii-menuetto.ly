@@ -1,17 +1,17 @@
-% scsii-menuetto.ly
-%
-% Solo Cello Suites
-% Johann Sebastian Bach (1685-1750)
-% bwv 000
-%
-% Suite II part v
-% Menuetto I
-%
-% Copyright (c) 1995,1996,1997 Jan Nieuwenhuizen <jan@digicash.com>
-% 
-% The purpose of this file is to demonstrate features of LilyPond.
-% (there is an accompanying LaTeX file, scsii-menuetto.tex)
-%
+%{MudelaHeader
+
+ filename: scsii-menuetto.ly
+ title:Solo Cello Suites,
+ description: Suite II part V, Menuetto I
+ composers: Johann Sebastian Bach (1685-1750)
+ entered-by: JCN
+ copyright: 
+
+ Tested Features:breaking algorithm, chords, multivoice, accents
+
+
+EndMudelaHeader
+%}
 \version "0.0.57";
 %% Stuff from MPP version
 % \lefttitle{Menuetto}

@@ -16,6 +16,12 @@
 #include "register-group.hh"
 #include "debug.hh"
 
+Scalar
+Request_register::get_feature(String t)
+{
+    return daddy_reg_l_->get_feature(t);
+}
+
 bool
 Request_register::try_request(Request*)
 {

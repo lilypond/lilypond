@@ -62,7 +62,7 @@ Staff_registers::change_group(Group_change_req * greq_l,
     }
     Voice_group_registers * new_group_l = get_group(new_str);
     new_group_l->add(regs_p);
-    
+    regs_p->sync_features(); 
     mtor << "processed change_group " << get_staff_info().when()<<"\n";
     print();
 }

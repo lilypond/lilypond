@@ -87,15 +87,22 @@ protected:
      */
     virtual void set_feature(Feature){}
     /**
+      ask daddy for a feature
+     */
+    virtual Scalar get_feature(String type_str);
+    /**
       Does this equal or contain a certain register?
      */
+
+    virtual void sync_features() {}
+    
     virtual bool contains_b(Request_register*reg_l)const;
     /**
       Get information on the staff. Default: ask daddy.
       */
     virtual Staff_info get_staff_info();
-    
-    
+
+
     virtual void do_print()const;  
 public:
     /** Every Request_register (except for the 'top' which is directly

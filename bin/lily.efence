@@ -1,4 +1,4 @@
-# gdb script
-file bin/lilypond
-set environment  LD_PRELOAD libefence.so
+#!/bin/sh
+gdb --command=bin/efence.gdbinit
+
 

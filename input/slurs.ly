@@ -16,8 +16,8 @@ EndMudelaHeader
 \score{\staff{
 	melodicregs 
 	\melodic{\octave c';
-		\duration 4;
-		c ~ c ~ g ~ c ~
+		\duration "last";
+		'c4 ~ 'c c'' ~ c'' ~ g ~ c ~
 		d ~ e ~ f ~ g ~
 		a ~ b ~ 'c ~ c
 
@@ -29,8 +29,9 @@ EndMudelaHeader
 		< { c ~ d }
 		  { e ~ f }
 		>
-
-
+	< \multivoice 
+	{ \stem 1; c'8 ~g ~e( ~c~ [c'~ g' e' )c'] c'' ~ c'' c~c }
+	{ \stem -1; c (e g )c'~( [b a g )d]   	r2 } >
 
 	}
 

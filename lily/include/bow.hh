@@ -20,6 +20,7 @@ protected:
     int right_pos_i_;
     Real left_dx_f_;
     Real right_dx_f_;
+    
     Molecule*brew_molecule_p()const;
 public:
     Bow();

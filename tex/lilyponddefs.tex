@@ -3,7 +3,18 @@
 %%
 %% this file defines various macros to accomodate lilypond output
 
-\def\mdef#1#2{\def#1{\mchar{#2}}}
+% TeXbook ex 7.7
+\def\ifundefined#1{\expandafter\ifx\csname#1\endcsname\relax}
+
+\def\SkipLilydefs{\endinput}
+\ifundefined{EndLilyPondOutput}
+        \def\EndLilyPondOutput{\csname bye\endcsname}
+        \def\SkipLilydefs{}
+\fi
+\SkipLilydefs
+% should use \endinput
+
+        \def\mdef#1#2{\def#1{\mchar{#2}}}
 \def\mchar#1{\musicfnt\char#1}
 \def\rationalmultiply#1*#2/#3{\multiply #1 by #2 \divide #1 by #3}
 \def\maccentraise#1#2{\dimen0=\noteheight
@@ -49,7 +60,7 @@
         \font\musicdraw=musixsps
         \font\italicfont=cmti10
         \font\dynfont=cmbxti10 scaled \magstep1
-	\font\mathfont=cmsy10
+        \font\mathfont=cmsy10
         \balkhoog=20pt
         \notewidth=6pt
         \noteheight=5pt
@@ -71,7 +82,7 @@
         \font\musicfnt=musix16
         \font\dynfont=cmbxti12
         \font\musicdraw=musixsps
-	\font\mathfont=cmsy8
+        \font\mathfont=cmsy8
         \balkhoog=16pt
         \staffrulethickness=0.4pt
         \notewidth=5pt
@@ -279,3 +290,6 @@
 \def\settext#1{\textfont #1}
 \def\setitalic#1{\italicfont #1}
 \def\setdynamic#1{\dynfont #1}
+
+        
+

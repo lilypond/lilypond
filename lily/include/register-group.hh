@@ -41,6 +41,7 @@ public:
     virtual Request_register * get_register_p(Request_register*reg_l);
     virtual void set_feature(Feature i);
     virtual bool acceptable_request_b(Request*)const;
+    virtual void sync_features() ;
     virtual void pre_move_processing();
     virtual void post_move_processing();
     virtual void acknowledge_element(Staff_elem_info info);

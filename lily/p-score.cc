@@ -131,6 +131,7 @@ PScore::output(Tex_stream &ts)
 	if ((lic+1).ok())
 	    ts << "\\interscoreline\n";
     }	
+    ts << "\n\\EndLilyPondOutput";
 }
 
 
