@@ -56,7 +56,6 @@ Paper_book::print_smob (SCM smob, SCM port, scm_print_state*)
   scm_puts ("#<", port);
   scm_puts (classname (b), port);
   scm_puts (" ", port);
-  //scm_puts (b->, port);
   scm_puts (">", port);
   return 1;
 }
@@ -133,9 +132,9 @@ Paper_book::classic_output (String outname)
       
   SCM mod = scm_c_resolve_module (mod_nm.to_str0 ());
   SCM func = scm_c_module_lookup (mod, "output-classic-framework");
+ 
 
   func = scm_variable_ref (func);
-      
   scm_apply_0 (func, scm_list_n (scm_makfrom0str (outname.to_str0 ()),
 				 self_scm (),
 				 scopes,

@@ -1,3 +1,22 @@
+2005-01-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/output-ps.scm (utf8-string): add utf8-string for completeness.
+
+	* scm/framework-ps.scm (dump-stencil-as-EPS): new function
+
+	* Documentation/user/invoking.itely (Invoking lilypond): add note
+	about EPS backend.
+
+	* scm/framework-eps.scm: new file: create per-system/per-page EPS
+	files for inclusion in lilypond-book document.
+
+	* input/tutorial/lbook-latex-test.tex: rename from lilbook.tex
+
+	* input/tutorial/lbook-texi-test.texi: new file.
+
+	* scm/safe-lily.scm (safe-objects): add
+	{begin,end}-of-line-(in)?visible as safe.
+ 
 2005-01-30  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/changing-defaults.itely: fixed example
@@ -14,6 +33,9 @@
 	lines.
 
 2005-01-29  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/stencil.cc (moved_to_edge): don't halt on adding empty
+	stencils.
 
 	* ps/lilyponddefs.ps: add start-page, start-system doesn't
 	translate to top of page. Fixes alignment problems of

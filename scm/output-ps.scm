@@ -173,6 +173,9 @@
 		 " draw_box"))
 
 
+(define (utf8-string pango-font-description string)
+  (ly:warn "utf8-string encountered in PS backend"))
+
 (define (glyph-string
 	 postscript-font-name
 	 size

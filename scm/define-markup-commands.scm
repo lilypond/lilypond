@@ -685,7 +685,7 @@ the elements marked in @var{indices}, which is a list of numbers."
   (define (stack-stencils stencils bskip last-stencil)
     (cond
      ((null? stencils) '())
-     ((not last-stencil)
+     ((not (ly:stencil? last-stencil))
       (cons (car stencils)
 	    (stack-stencils (cdr stencils) bskip (car stencils))))
      (else
@@ -730,7 +730,8 @@ the elements marked in @var{indices}, which is a list of numbers."
 		  x)) args))
 	 (leading
 	  (chain-assoc-get 'baseline-skip props))
-	 (stacked (stack-stencils stencils 1.25 #f))
+	 (stacked (stack-stencils
+		   (remove ly:stencil-empty? stencils) 1.25 #f))
 	 (brackets (make-brackets stacked indices '())))
 
     (apply ly:stencil-add
