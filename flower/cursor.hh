@@ -16,10 +16,11 @@ class Cursor
       tired of the warning messages.  */
     
     Cursor( const Cursor<T>& cursor );
-    
+
+    T& thing();
     /// return current T
-    T& operator *();		
-    operator T() { return  *(*this); }
+    T& operator *() { return thing(); }
+    operator T() { return thing(); }
     Cursor<T> operator =( const Cursor<T>& c );
 
     /// make cursor with #no# items back
@@ -98,10 +99,6 @@ private:
  */
 
 
-
-
-
-
 /*
   comparisons.
   */
@@ -119,4 +116,4 @@ template_instantiate_compare(Cursor<T>, cursor_compare, template<class T>);
 #include "list.hh"
 #include "cursor.inl"
 
-#endif // __CURSOR_HH //
+#endif // CURSOR_HH 
