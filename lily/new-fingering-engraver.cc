@@ -15,7 +15,7 @@
 #include "stem.hh"
 #include "rhythmic-head.hh"
 #include "self-alignment-interface.hh"
-#include "script.hh"
+#include "script-interface.hh"
 #include "stem.hh"
 
 struct Finger_tuple

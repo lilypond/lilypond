@@ -6,6 +6,7 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "duration.hh"
 #include "input-smob.hh"
 #include "ly-smobs.icc"
 #include "main.hh"
@@ -14,7 +15,6 @@
 #include "pitch.hh"
 #include "score.hh"
 #include "warn.hh"
-
 
 bool
 Music::internal_is_music_type (SCM k) const
@@ -215,6 +215,13 @@ Music::origin () const
   return ip ? ip : & dummy_input_global;
 }
 
+int
+Music::duration_log () const
+{
+  if (is_mus_type ("rhythmic-event"))
+    return unsmob_duration (get_property ("duration"))->duration_log ();
+  return 0;
+}
 
 Music*
 make_music_by_name (SCM sym)

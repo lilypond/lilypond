@@ -16,8 +16,7 @@
 #include "smobs.hh"
 #include "music-constructor.hh"
 
-
-#define is_mus_type(x) internal_is_music_type(ly_symbol2scm (x))
+#define is_mus_type(x) internal_is_music_type (ly_symbol2scm (x))
 
 /** Music is anything that has duration and supports both time compression and
   transposition.
@@ -46,6 +45,7 @@ public:
   void internal_set_property (SCM , SCM val);
   SCM get_property_alist (bool mut) const;
   bool internal_is_music_type (SCM) const;
+  int duration_log () const;
   
   virtual Pitch to_relative_octave (Pitch);
   String name () const;
