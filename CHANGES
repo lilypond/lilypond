@@ -1,4 +1,14 @@
---- ../lilypond-1.3.41.jcn2/CHANGES	Sat Apr  1 13:09:18 2000
+--- ../lilypond-1.3.41/CHANGES	Thu Mar 30 11:05:01 2000
+++ b/CHANGES	Sat Apr  1 20:35:51 2000
+@@ -1,3 +1,8 @@
+1.3.41.mb1
+
+* Avoid that xxxXXXVerticalExtent is used for empty HaraKiriStaff 
+  lines.
+
+ 1.3.40.jcn3
+ ===========
+ --- ../lilypond-1.3.41.jcn2/CHANGES	Sat Apr  1 13:09:18 2000
 ++ b/CHANGES	Sat Apr  1 16:51:17 2000
 @@ -1,3 +1,9 @@
 1.3.41.jcn3
