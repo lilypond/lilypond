@@ -54,3 +54,10 @@ Group_interface::set_interface ()
       elt_l_->set_elt_property (name_, SCM_EOL);
     }
 }
+
+Group_interface
+group (Score_element*s)
+{
+  Group_interface gi (s);
+  return gi;
+}

@@ -95,7 +95,7 @@ RhythmicStaffContext=\translator{
 	
 	Generic_property_list = #generic-staff-properties
 	
-	barSize = \staffheight;
+	barSize = #'staff-height
 	\consists "Pitch_squash_engraver";
 	\consists "Separating_line_group_engraver";	
 	\name RhythmicStaff;
@@ -113,7 +113,6 @@ VoiceContext = \translator {
 	\type "Engraver_group_engraver";
 	dynamicPadding = #5.0
 	Generic_property_list = #generic-voice-properties
-
 
 	\consists "Dynamic_engraver";   % must come before text_engraver.
 	\name Voice ;

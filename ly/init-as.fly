@@ -1,26 +1,27 @@
-% Toplevel MUSicAscii initialisation file. 
+% Toplevel AsciiScript initialisation file. 
 
 \version "1.3.24";
 
-\include "declarations-musa.ly"
+\include "declarations-as.ly"
 
 % burp.  need to override lily.scm
 #(define cmr-alist 
   '(("bold" . "cmbx") 
-    ("dynamic" . "feta-din") 
+    ("brace" . "as-braces")
+    ("dynamic" . "cmr") 
     ("feta" . "feta") 
     ("feta-1" . "feta") 
     ("feta-2" . "feta") 
-    ("finger" . "musa-nummer") 
+    ("finger" . "as-number") 
     ("typewriter" . "cmtt") 
     ("italic" . "cmti") 
     ("roman" . "cmr") 
     ("script" . "cmr") 
     ("large" . "cmbx") 
     ("Large" . "cmbx") 
-    ("mark" . "musa-nummer") 
-    ("number" . "musa-nummer") 
-    ("volta" . "musa-nummer"))
+    ("mark" . "as-number") 
+    ("number" . "as-number") 
+    ("volta" . "as-number"))
 )
 
 \score { 
@@ -28,9 +29,13 @@
     \maininput
   }
   \paper {
-    \paper_musa_nine
+    \paper_as_nine
     %linewidth=-1.0;
     %indent = 0.0;
+    \translator { \StaffContext barSize = #'staff-height }
+
+    % no beam-slope
+    %\translator { \VoiceContext beamHeight = #0; }
   }  
   %\midi{ }
 }

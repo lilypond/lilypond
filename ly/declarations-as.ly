@@ -50,7 +50,7 @@ melismaEnd = \property Staff.melismaBusy = ##f
 	scmsetting = "(lilyponddefs.ps) findlibfile {exch pop //systemdict /run get exec} { /undefinedfilename signalerror } ifelse;\n";% UGH. 
 }
 
-\include "paper-musa9.ly"
+\include "paper-as9.ly"
 
 % ugh
 \include "midi.ly"

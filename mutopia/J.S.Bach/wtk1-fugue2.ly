@@ -7,12 +7,14 @@
 
   % mutopia headers.
   mutopiatitle = "Das Wohltemperierte Clavier I, Fuga II (c-minor)";
-  mutopiacomposer = "J.S.Bach";
+  mutopiacomposer = "J. S. Bach (1685-1750)";
+  mutopiainstrument = "Piano";
   mutopiaopus = "BWV847";
   style = "baroque";
-  copyright =    "\\\\This music is part of the Mutopia project, http://sca.uwaterloo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by Han-Wen Nienhuys.\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!";
+  copyright = "Public Domain";
+  tagline =    "\\\\This music is part of the Mutopia project, http://sca.uwaterloo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by Han-Wen Nienhuys.\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!";
   maintainer = "hanwen@cs.uu.nl";
-  lastupdated = "1999/Oct/14";
+  lastupdated = "2000/Feb/14";
 }
 
 

@@ -1,9 +1,0 @@
-StartFontMetrics 2.0
-Comment musa-nummer1.afm
-FontName musa-nummer 1
-FontFamily musa-nummer
-StartCharMetrics 1
-Comment 52; WX 1; N Numeral-4; B 0 1000 0 1000;
-C 52; WX 1; N Numeral-4; B 0 100 0 100;
-EndCharMetrics
-EndFontMetrics %d

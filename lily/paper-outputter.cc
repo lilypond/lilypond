@@ -153,7 +153,7 @@ Paper_outputter::dump_onto (Paper_stream *ps)
       scm_display (gh_str02scm (
 	";;; Usage: guile -s x.scm > x.tex\n"
 	"(primitive-load-path 'lily.scm)\n"
-	"(scm-musa-output)\n"
+	"(scm-as-output)\n"
 	";(scm-tex-output)\n"
 	";(scm-ps-output)\n"
 	"(map (lambda (x) (display (eval x))) '(\n"

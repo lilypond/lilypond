@@ -57,6 +57,7 @@ showln -sf $LILYPOND_SOURCEDIR/midi2ly/out/midi2ly $prefix/bin/midi2ly
 showln -sf $LILYPOND_SOURCEDIR/scripts/out/ly2dvi $prefix/bin/ly2dvi
 showln -sf $LILYPOND_SOURCEDIR/scripts/out/mudela-book $prefix/bin/mudela-book
 showln -sf $LILYPOND_SOURCEDIR/buildscripts/out/genheader $prefix/bin/genheader
+showln -sf $LILYPOND_SOURCEDIR/scripts/out/as2text $prefix/bin/as2text
 
 
 

@@ -80,7 +80,8 @@ Score_element::Score_element (Score_element const&s)
   /*
     should protect because smobify_self () might trigger GC.
    */
-  element_property_alist_ = scm_protect_object (ly_deep_copy (s.element_property_alist_));
+  SCM onstack = ly_deep_copy (s.element_property_alist_);
+  element_property_alist_ = onstack;
 
   output_p_ =0;
   status_i_ = s.status_i_;
@@ -639,7 +640,6 @@ Score_element::print_smob (SCM s, SCM port, scm_print_state *)
 void
 Score_element::do_smobify_self ()
 {
-  scm_unprotect_object (element_property_alist_); // ugh
 }
 
 SCM

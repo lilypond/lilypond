@@ -1,6 +1,8 @@
 % params.ly
 % generic paper parameters
 
+#'staff-height = \staffheight;
+
 paperfile = \papersize + ".ly";
 % paperfile = "a4.ly";
 \include \paperfile;
@@ -74,6 +76,7 @@ slur_interstaff_snap_to_stem = 2.5 * \interline;
 % maximum dy change allowed by snapping
 slur_snap_max_slope_change = 0.5;
 slur_interstaff_snap_max_slope_change = 0.5;
+slur_thickness = 1.2 * \stafflinethickness;
 
 
 
@@ -87,8 +90,8 @@ tie_staffspace_length = 4.0 * \interline;
 % ugh: rename to bow (in bezier.cc and fonts.doc too...)
 
 % used to be 1.4 .
-slur_thickness = 1.2 * \stafflinethickness;
 tie_thickness = 1.2 * \stafflinethickness;
+tie_staffline_clearance = 2.0 *\tie_thickness;
 
 %{
  Specifies the maximum height of slurs.
@@ -100,7 +103,6 @@ slur_height_limit = \staffheight;
 Specifes the ratio of slur hight to slur width
 to aim for.  Default value is 0.3. 
 %}
-
 % slur_ratio = 0.3;
 % try bit flatter slurs
 slur_ratio = 0.25;

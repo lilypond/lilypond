@@ -19,6 +19,8 @@ class Note_head : public Rhythmic_head
 {
 public:
   static int compare (Note_head * const &a, Note_head *const &b) ;
+
+  Molecule ledger_line (Interval) const;
 protected:
   
   virtual void do_pre_processing();

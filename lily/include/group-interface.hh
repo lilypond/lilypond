@@ -28,6 +28,8 @@ public:
   void add_element (Score_element*);
 };
 
+Group_interface group (Score_element*);
+
 /*
   template<class T>
   Link_array<T> Group_interface__extract_elements (T *, String name);

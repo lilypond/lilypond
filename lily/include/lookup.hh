@@ -23,28 +23,27 @@
 class Lookup
 {
 public:
+  String font_name_;
+  Adobe_font_metric * afm_l_;
+
+
   Lookup ();
   Lookup (Lookup const&);
 
   Molecule simple_bar (String s, Real w, Paper_def*) const;
   Molecule afm_find (String, bool warn=true) const;
   Molecule bar (String, Real height, Paper_def*) const;
-  Molecule beam (Real, Real, Real) const;
-  Molecule dashed_slur (Bezier, Real thick, Real dash) const;
-  Molecule ledger_line (Interval) const;
-  Molecule fill (Box b) const;
-  Molecule filledbox (Box b) const;  
   Molecule accordion (SCM arg, Real interline_f) const;
-  Molecule slur (Bezier controls, Real cthick, Real thick) const;
-  Molecule text (String style, String text, Paper_def*) const;
-  Molecule staff_brace (Real dy, int) const;
-  Molecule staff_bracket (Real height, Paper_def* paper_l) const;
-  Molecule volta (Real h, Real w,  Real thick,  bool vert_start, bool vert_end) const;
-  Molecule special_time_signature (String, int,int, Paper_def*) const;
-  Molecule time_signature (int n,int d, Paper_def*) const;
 
-  String font_name_;
-  Adobe_font_metric * afm_l_;
+  static Molecule frame (Box b, Real thick);
+  static Molecule slur (Bezier controls, Real cthick, Real thick) ;
+  static Molecule beam (Real, Real, Real) ;
+  static Molecule dashed_slur (Bezier, Real thick, Real dash) ;
+  static Molecule fill (Box b) ;
+  static Molecule filledbox (Box b) ;  
+  static Molecule text (String style, String text, Paper_def*) ;
+  static Molecule staff_brace (Real dy, int) ;
+  static Molecule staff_bracket (Real height, Paper_def* paper_l) ;
 };
 
 #endif // LOOKUP_HH

@@ -11,21 +11,18 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 .* TODO
 . * use hash tabs iso. alist_ for elt property?
 . * fix tremolos.
-. * ROADMAP file.
 . * change ) c4  to c4-)
 . * internationalize GUILE msgs.
 . * unbroken marks.
 . * write smobifying howto.
-. * \property autoBeamOverRest (boolean). Don't stop for rests when autobeaming.
-?
 . * put property test files in refman.
-. * fix slurdotted!
 . * alignment within @itemize
 . * interstaff stems
 . * junk dstream output.
 . * Change website to be index to documentation.
 . * \grace { c d } c1 in midi
 . * \prop slurdir in grace notes
+. * Make fingering and playing instructions Music_wrappers?
 . * \eltproperty "=Context" "Elt_name" "prop-name" #value
 . * script columns
 . * Must stop before this music ends:
@@ -126,7 +123,6 @@ of the grace notes and extend to the note after the grace notes.
 . * 4. Lyrics and grace sections don't go too well together.
  The words are aligned with the main note, not the start of the
  grace note.  This is usually wrong, but is sometimes right.
-. * tie-direction
 . * rhythmic staff & accidentals.
 . * use melismaBusy in Lyric context to typeset melismata correctly.  
 . * ly2dvi/lilypond logfile.

@@ -1,5 +1,7 @@
-% params-musa.ly
+% params-as.ly
 % generic paper parameters
+
+#'staff-height = \staffheight;
 
 %%paperfile = \papersize + ".ly";
 %%% paperfile = "a4.ly";
@@ -12,11 +14,8 @@ linewidth = 60.0\char;
 textheight = 60.0\char;
 indent = 8.0\char;
 
-%interline = \staffheight / 4.0;
-interline = 2.0\char;
-
-%stafflinethickness = \interline / 10.0;
-stafflinethickness = 1.0\char;
+interline = (\staffheight - 1.0 ) / 4.0;
+stafflinethickness = \interline / 2.0;
 
 % urg, need grace_ versions of these too?
 beam_thickness = 0.52 * (\interline - \stafflinethickness);
@@ -128,7 +127,7 @@ gourlay_maxmeasures = 10.;
 
 bar_kern = 1.0\char;
 bar_thinkern = 1.0\char;
-barthick_thick = 1.0\char;
+barthick_thick = 2.0\char;
 barthick_score = 1.0\char;
 barthick_thin = 1.0\char;
 
@@ -140,9 +139,9 @@ bracket_arch_width = \bracket_arch_height;
 bracket_arch_angle = 50.0;
 
 tuplet_spanner_gap = 2.0 * \interline;
-tuplet_thick = 1.0*\stafflinethickness;
-volta_thick = 1.6*\stafflinethickness;
-volta_spanner_height = 2.0 *\interline;
+tuplet_thick = 1.0\char;
+volta_thick = 1.0\char;
+volta_spanner_height = 1.0\char;
 
 % relative thickness of thin lines  1.6 : 1 : 0.8
 stemthickness = 1.0\char;

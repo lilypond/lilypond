@@ -16,6 +16,9 @@
 \def\thepiece{}
 \def\themeter{}
 \def\thepoet{}
+\def\theheader{}
+\def\thefooter{}
+\def\theorchestralinstrument{}
 %
 % duh.  LaTeX has a \title too.
 \renewcommand*{\title}[1]{\def\thetitle{#1}}
@@ -30,6 +33,8 @@
 %
 \newcommand*{\mudelatitle}[1]{\def\thetitle{#1}}
 \newcommand*{\mudelasubtitle}[1]{\def\thesubtitle{#1}}
+\newcommand*{\mudelafooter}[1]{\def\thefooter{#1}}
+\newcommand*{\mudelahead}[1]{\def\theheader{#1}}
 \newcommand*{\mudelacomposer}[1]{\def\thecomposer{#1}}
 \newcommand*{\mudelaarranger}[1]{\def\thearranger{#1}}
 \newcommand*{\mudelainstrument}[1]{\def\theinstrument{#1}}
