@@ -1,3 +1,8 @@
+2004-07-05  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* input/test/chords-below-volta-bracket.ly,
+	input/test/no-key-at-end-of-line.ly: New example files (FAQs)
+
 2004-07-05  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/beam-quanting.cc (score_forbidden_quants): backport, more
