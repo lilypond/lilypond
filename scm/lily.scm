@@ -1,8 +1,8 @@
-;;; lily.scm -- implement Scheme output routines for TeX and PostScript
+;;;; lily.scm -- implement Scheme output routines for TeX and PostScript
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c)  1998--2003 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; (c)  1998--2004 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 ;;; Library functions

@@ -1,5 +1,10 @@
 2004-02-11  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scm/part-combiner.scm: Add proper header.
+
+	* All but lily/*: The great --2003 --2004 replace; the missing
+	`bits'.
+
 	* TODO: Fix outline mode.  Add book notes.
 
 	* ROADMAP: Update.
@@ -9,7 +14,6 @@
 	* scm/part-combiner.scm (make-autochange-music): use
 	accumulator. Fixes stack overflow.
 
-	* lily/*: rename brew_molecule -> print , molecule-callback -> print-function
 	* lily/*: rename brew_molecule -> print , molecule-callback ->
 	print-function
 
