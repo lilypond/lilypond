@@ -1,3 +1,15 @@
+2004-02-29  Heikki Junes <hjunes@cc.hut.fi>
+
+	* ly/property-init: new functions: \arpeggioUp, \arpeggioDown,
+	\arpeggioBoth. redefine \arpeggioBracket.
+
+	* Documentation/user/refman.itely: document new arpeggio
+	functions.
+
+	* scripts/convert-ly.py: add a rule for \arpeggioBracket.
+
+	* input/regression/arpeggio-bracket.ly: apply convert-ly.
+
 2004-02-29  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* Documentation/user/introduction.itely (Automated engraving):
