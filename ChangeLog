@@ -1,3 +1,9 @@
+2002-06-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* ly/espanol.ly: added.
+
+	* lily/simple-spacer.cc (solve): remove assert.
+
 2002-06-17  Han-Wen  <hanwen@cs.uu.nl>
 
 	* lily/forbid-break-engraver.cc (class
