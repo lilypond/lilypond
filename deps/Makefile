@@ -1,9 +1,12 @@
-DISTFILES=Makefile
-
-default:
+DISTFILES=Makefile dummy.dep
 
 
-dist:
+
+dummy.dep:
+	touch dummy.dep
+
+
+dist: $(DISTFILES)
 	ln $(DISTFILES) $(DDIR)/$(SUBDIR)
 
 clean:

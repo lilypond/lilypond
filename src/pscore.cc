@@ -9,7 +9,7 @@
 #include "pscore.hh"
 #include "tstream.hh"
 #include "item.hh"
-
+#include "break.hh"
 
 Idealspacing*
 PScore::get_spacing(PCol*l, PCol*r)
@@ -229,7 +229,7 @@ PScore::add_broken(Spanner*s)
 }
 
 void
-PScore::set_breaking(Array<Col_configuration> breaking)
+PScore::set_breaking(Array<Col_hpositions> breaking)
 {
     for (int j=0; j < breaking.size(); j++) {
 	Array<PCol*> &curline(breaking[j].cols);
