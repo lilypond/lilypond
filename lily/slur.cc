@@ -86,7 +86,23 @@ Slur::do_post_processing()
   encompass_arr_.sort (Note_column_compare);
   if (!dir_)
     set_default_dir();
-  Real inter_f = paper()->internote_f ();
+  Real interline_f = paper ()->interline_f ();
+  Real inter_f = interline_f / 2;
+
+  /* 
+   [OSU]: slur and tie placement
+
+   slurs:
+   * x = centre of head (upside-down: inner raakpunt stem) - d * gap
+
+   * y = length < 5ss : horizontal raakpunt + d * 0.25 ss
+     y = length >= 5ss : y next interline - d * 0.25 ss
+     --> height <= 5 length ?? we use <= 3 length, now...
+
+   * suggested gap = ss / 5;
+   */
+  // jcn: 1/5 seems so small?
+  Real gap_f = interline_f / 2; // 5;
   
   Drul_array<Note_column*> extrema;
   extrema[LEFT] = encompass_arr_[0];
@@ -103,10 +119,16 @@ Slur::do_post_processing()
 	    *(spanned_drul_[d]->width ().length () -0.5*nw_f);
 	}
       else if (extrema[d]->stem_l_ && !extrema[d]->stem_l_->transparent_b_) 
-	dy_f_drul_[d] = (int)rint (extrema[d]->stem_l_->height()[dir_]);
+        {
+	  dy_f_drul_[d] = (int)rint (extrema[d]->stem_l_->height()[dir_]);
+	  /* normal slur from notehead centre to notehead centre, minus gap */
+	  dx_f_drul_[d] += -d * gap_f;
+	}
       else 
-	dy_f_drul_[d] = (int)rint (extrema[d]->head_positions_interval()[dir_])* inter_f;
-      dy_f_drul_[d] += dir_ * inter_f;
+        {
+	  dy_f_drul_[d] = (int)rint (extrema[d]->head_positions_interval()[dir_])* inter_f;
+	}
+      dy_f_drul_[d] += dir_ * interline_f;
     }
   while ((d *= -1) != LEFT);
 }

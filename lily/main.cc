@@ -38,7 +38,7 @@ Long_option_init theopts[] = {
   {0, "debug", 'd'},
   {1, "init", 'i'},
   {1, "include", 'I'},
-  {0, "no-midi", 'M'},
+  {0, "no-paper", 'M'},
   {0, "no-postscript", 'P'},
   {0, "ignore-version", 'V'},
   {0,0,0}
