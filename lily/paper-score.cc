@@ -100,14 +100,13 @@ Paper_score::process ()
 
   if (global_header_p)
     {
-    Scope gh (global_header_p);
-    outputter_l_->output_scope (&gh, "lilypond");
+      Scope gh (global_header_p);
+      outputter_l_->output_scope (&gh, "lilypond");
+      outputter_l_->write_header_fields_to_file (&gh);
     }
   if (header_l_)
     {
-      if (header_l_)
-	outputter_l_->output_scope (header_l_, "lilypond");
-
+      outputter_l_->output_scope (header_l_, "lilypond");
       outputter_l_->write_header_fields_to_file (header_l_);
     }
   
