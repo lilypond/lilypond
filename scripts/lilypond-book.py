@@ -1012,7 +1012,7 @@ def determine_format (str):
 	if __main__.format == '':
 		
 		html = re.search ('(?i)<[dh]tml', str[:200])
-		latex = re.search ('''\\document''', str[:200])
+		latex = re.search (r'''\\document''', str[:200])
 		texi = re.search ('@node|@setfilename', str[:200])
 
 		f = ''
