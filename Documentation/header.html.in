@@ -38,7 +38,7 @@ which substitutes some @AT_VARIABLES@ as well.
       <tr><td bgcolor="#e8e8ff"><a href="@INDEX@"><b>Home</b></a></td></tr>
       <tr><td><font size=-1>
         <a href="http://www.cs.uu.nl/~hanwen/lilypond">Development</a><br>
-        <a href="http://appel.dyndns.org/lilypond">Hacking</a><br>
+        <a href="http://appel.lilypond.org/lilypond">Hacking</a><br>
         <a href="http://www.gnu.org">GNU Project</a><br>
         <a href="http://www2.iro.umontreal.ca/~pinard/po/registry.cgi?domain=lilypond">Translations</a><br>
         <a href="http://www.lilypond.org">LilyPond dot org</a><br>
@@ -53,7 +53,7 @@ which substitutes some @AT_VARIABLES@ as well.
     	<a href="@TOP@Documentation/out-www/faq.html">FAQ</a><br>
     	<a href="@TOP@Documentation/user/out-www/lilypond.html">User manual</a><br>
     	<a href="@TOP@Documentation/out-www/regression-test.html">Features</a><br>
-    	<a href="http://appel.dyndns.org/lilypond/todo.html">Todo</a><br>
+    	<a href="http://appel.lilypond.org/lilypond/todo.html">Todo</a><br>
 	<br>
       </td></tr>
       <tr><td bgcolor="#e8e8ff">
@@ -73,7 +73,7 @@ which substitutes some @AT_VARIABLES@ as well.
 	<a href="ftp://ftp.debian.org/debian/dists/unstable/main/binary-i386/tex">Debian i386</a><br>
 	<a href="ftp://ftp.debian.org/debian/dists/unstable/main/binary-powerpc/tex">Debian PowerPC</a><br>
 	<a href="http://home.austin.rr.com/jbr/jeff/lilypond/">Windows Stable</a><br>
-	<a href="http://appel.dyndns.org/lilypond/gnu-windows">Windows Testing</a><br>
+	<a href="http://appel.lilypond.org/lilypond/gnu-windows">Windows Testing</a><br>
 	<br>
       </td></tr>
       <tr><td bgcolor="#e8e8ff">
@@ -92,9 +92,10 @@ which substitutes some @AT_VARIABLES@ as well.
         <a href="@INDEX@#mailing-lists"><b>Mailing Lists</b></a>
       </td></tr>
       <tr><td><font size=-1>
-	<a href="http://www.mail-archive.com/gnu-music-discuss@gnu.org">Discussion</a><br>
-	<a href="http://www.mail-archive.com/help-gnu-music@gnu.org">Help</a><br>
-	<a href="http://www.mail-archive.com/bug-gnu-music@gnu.org">Bugs</a><br>
+	<a href="http://mail.gnu.org/mailman/listinfo/gnu-music-discuss/">Discussion</a><br>
+        <a href="http://mail.gnu.org/mailman/listinfo/help-gnu-music">Help</a><br>
+        <a href="http://mail.gnu.org/mailman/listinfo/bug-gnu-music/">Bugs</a><br>
+        <a href="http://mail.gnu.org/mailman/listinfo/info-gnu-music">Announcements</a><br>
 	<br>
       </td></tr>
     </table>
