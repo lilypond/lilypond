@@ -3,9 +3,10 @@
 	* lily/beam.cc (least_squares): Fix asymmetry and scary float
 	comparison.
 
-	* lily/stem.cc (calc_stem_info): Moved, documented, cleaned up and
-	fixed up-to-stem feature.
+	* lily/stem.cc (calc_stem_info): Move, document, clean up and fix
+	up-to-stem feature.
 
+	* ly/grace-init.ly (startGraceMusic):
 	* scm/grob-description.scm (beamed-lengths): Subtract half a beam
 	thickness, to fix most ugly beams.  See input/test/stem.ly and
 	baerenreiter-sarabande.ly.
