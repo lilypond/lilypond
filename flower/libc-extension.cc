@@ -120,6 +120,10 @@ strrev (Byte* byte, int length_i)
   return byte;
 }
 
+#if ! HAVE_LRINT
+#define lrint(__x) ((long)(double) __x)
+#endif
+
 #if ! HAVE_SNPRINTF
 int 
 snprintf (char *str, size_t, char const *format, ...)

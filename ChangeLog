@@ -1,3 +1,10 @@
+2003-07-19  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* flower/libc-extension.cc (lrint)[!HAVE_LRINT]: Add casting #define.
+
+	* configure.in: 
+	* config.hh.in: Check for lrint.
+
 2003-07-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/separation-item.cc: add padding property.

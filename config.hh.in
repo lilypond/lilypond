@@ -36,6 +36,9 @@
 /* define if you have isinf */
 #define HAVE_ISINF 0
 
+/* define if you have lrint */
+#define HAVE_LRINT 0
+
 /* define if you want KPATHSEA */
 #define KPATHSEA @KPATHSEA@
 
