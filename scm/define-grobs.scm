@@ -1080,6 +1080,7 @@
 	(Y-offset-callbacks . (,Side_position_interface::out_of_staff
 			       ,Side_position_interface::aligned_side))
 	(molecule-callback . ,Text_spanner::brew_molecule)
+	(font-shape . italic)
 	(font-family . roman)
 	(text-repeat-if-broken . #t)
 	(shorten-pair . (0.0 . -0.6))

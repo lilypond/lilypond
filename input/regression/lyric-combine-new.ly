@@ -9,11 +9,11 @@
 \score {
 <<
     \notes \context Voice = "bla" \relative c'' {
-	c2( d4) e4 ( c2 d4) e4 
+	\autoBeamOff
+	c2( d4) e8[ c b c] f4
     }
     \newaddlyrics "bla" \lyrics \new LyricsVoice { bla ab blob blob }
-    \newaddlyrics "bla"
-    \lyrics \new LyricsVoice {
+    \newaddlyrics "bla" \lyrics \new LyricsVoice {
 	bla 
 
 	\property LyricsVoice . ignoreMelismata = ##t
@@ -26,5 +26,8 @@
 	
 	blob
     }
+    
+    \new Lyrics <<  \newaddlyrics "bla" \lyrics \new LyricsVoice { nes ted lyrics voice with more words than no tes } >>
     >>
+
     }

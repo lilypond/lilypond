@@ -99,6 +99,9 @@ Global_translator::run_iterator_on_me (Music_iterator * iter)
 	}
 
       w = sneaky_insert_extra_moment (w);
+      if (w.main_part_.is_infinity ())
+	break ;
+      
       
       //      printf ("proccing %s\n ",       w.to_string ().to_str0 ());
       if (first)

@@ -32,7 +32,8 @@ protected:
   virtual void derived_mark () const;
 private:
   bool start_new_syllable () ;
-
+  void find_thread ();
+  
   Translator_group * lyrics_context_;
   Translator_group* music_context_;
   Music_iterator * lyric_iter_;
@@ -98,7 +99,7 @@ New_lyric_combine_music_iterator::run_always () const
 bool
 New_lyric_combine_music_iterator::ok () const
 {
-  return music_context_ && lyric_iter_->ok ();
+  return lyric_iter_ && lyric_iter_->ok ();
 }
 
 void
@@ -146,35 +147,46 @@ New_lyric_combine_music_iterator::construct_children ()
   Music *m = unsmob_music (get_music ()->get_mus_property ("element"));
   lyric_iter_ = unsmob_iterator (get_iterator (m));
 
-  SCM voice_name = get_music ()->get_mus_property ("associated-context");
-  
-  
-  Translator_group * thread = 0, *voice =0;
-
-  if (gh_string_p (voice_name))
+  if (lyric_iter_)
     {
-      Translator_group *t = report_to ();
-      while (t && t->daddy_trans_)
-	t = t->daddy_trans_;
-      
-      voice = find_context_below (t, "Voice", ly_scm2string (voice_name));
-      if (voice)
-	thread = find_context_below (voice, "Thread", "");
-    }
-  
-  if (thread)
-    {
-      music_context_ = thread;
       lyrics_context_ = find_context_below (lyric_iter_->report_to (), "LyricsVoice", "");
+    }
 
-      if (lyrics_context_)
-	lyrics_context_->set_property ("associatedVoiceContext",  voice->self_scm ());
+  find_thread ();
+}
+
+void
+New_lyric_combine_music_iterator::find_thread ()
+{
+  if (!music_context_)
+    {
+      SCM voice_name = get_music ()->get_mus_property ("associated-context");
+  
+      if (gh_string_p (voice_name))
+	{
+	  Translator_group *t = report_to ();
+	  while (t && t->daddy_trans_)
+	    t = t->daddy_trans_;
+      
+	  Translator_group* voice = find_context_below (t, "Voice", ly_scm2string (voice_name));
+	  Translator_group *thread = 0;
+	  if (voice)
+	    thread = find_context_below (voice, "Thread", "");
+
+	  if (thread)
+	    music_context_ = thread;
+      
+	  if (lyrics_context_ && voice)
+	    lyrics_context_->set_property ("associatedVoiceContext",  voice->self_scm ());
+	}
     }
 }
 
 void
 New_lyric_combine_music_iterator::process (Moment )
 {
+  find_thread ();
+  
   if (!music_context_->daddy_trans_)
     {
       music_context_ = 0;

@@ -57,7 +57,10 @@ Text_spanner::brew_molecule (SCM smob)
 
   Grob *common = spanner->get_bound (LEFT)->common_refpoint (spanner->get_bound (RIGHT), X_AXIS);
   Paper_def * paper = me->get_paper();
-  
+
+  SCM flare = me->get_grob_property ("bracket-flare");
+  SCM shorten = me->get_grob_property ("shorten-pair");
+
   Interval span_points;
   Drul_array<bool> broken;
   Direction d = LEFT;
@@ -68,16 +71,22 @@ Text_spanner::brew_molecule (SCM smob)
 
       if (broken[d])
 	{
-	if (d == LEFT)
-	  span_points[d] = spanner->get_broken_left_end_align ();
-	else
-	  span_points[d] = b->relative_coordinate (common, X_AXIS);
+	  if (d == LEFT)
+	    span_points[d] = spanner->get_broken_left_end_align ();
+	  else
+	    span_points[d] = b->relative_coordinate (common, X_AXIS);
 	}
       else
 	  {
 	    bool encl = to_boolean (me->get_grob_property ("enclose-bounds"));
 	    span_points[d] = b->extent (common, X_AXIS)[encl ? d : -d];
+
+	    if (is_number_pair (shorten))
+	      span_points -= d * gh_scm2double (index_get_cell (shorten, d));
 	  }
+      
+      if (is_number_pair (flare))
+	span_points -= d * gh_scm2double (index_get_cell (flare, d));
     }
   while (flip (&d) != LEFT);
 
@@ -105,25 +114,6 @@ Text_spanner::brew_molecule (SCM smob)
       while (flip (&d) != LEFT);
     }
 
-
-  Drul_array<Real> shorten;
-  shorten[LEFT] = 0;
-  shorten[RIGHT] = 0;
-
-  SCM ew = me->get_grob_property ("bracket-flare");
-  SCM s = me->get_grob_property ("shorten-pair");
-  if (gh_pair_p (s))
-    {
-      span_points[LEFT] += gh_scm2double (ly_car (s));
-      span_points[RIGHT] -= gh_scm2double (ly_cdr (s));
-    }
-  if (gh_pair_p (ew))
-    {
-      span_points[LEFT] += gh_scm2double (ly_car (ew));
-      span_points[RIGHT] -= gh_scm2double (ly_cdr (ew));
-    }
-
-
   Real thick = paper->get_realvar (ly_symbol2scm ("linethickness"));  
   SCM st = me->get_grob_property ("thickness");
   if (gh_number_p (st))
@@ -132,8 +122,8 @@ Text_spanner::brew_molecule (SCM smob)
     }
   
   Drul_array<Molecule> edge_line;
-  s = me->get_grob_property ("edge-height");
-  if (gh_pair_p (s))
+  SCM edge_height = me->get_grob_property ("edge-height");
+  if (is_number_pair (edge_height))
     {
       Direction d = LEFT;
       int dir = to_dir (me->get_grob_property ("direction"));
@@ -143,10 +133,10 @@ Text_spanner::brew_molecule (SCM smob)
 	    continue;
 	  
 	  Real dx = 0.0;
-	  if (gh_pair_p (ew))
-	    dx = gh_scm2double (index_get_cell (ew, d)) * d;
+	  if (gh_pair_p (flare))
+	    dx = gh_scm2double (index_get_cell (flare, d)) * d;
 
-	  Real dy = gh_scm2double (index_get_cell (s, d)) * - dir;
+	  Real dy = gh_scm2double (index_get_cell (edge_height, d)) * - dir;
 	  if (dy)
 	    edge_line[d] = Line_spanner::line_molecule (me, thick, Offset(0,0),
 							Offset (dx, dy));
