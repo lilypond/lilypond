@@ -1,12 +1,13 @@
-" Vim syntax file
+" LilyPond syntax file
 " Language:	LilyPond
 " Maintainer:	Heikki Junes <hjunes@cc.hut.fi>
 " Created:      Oct 17, 2002
 " Last Change:	Sep 23, 2003
 " Version:	6.1-1
-" Latest:
-" http://savannah.gnu.org/cgi-bin/viewcvs/lilypond/lilypond/lilypond.vim
-
+"
+" Installed As:	vim/syntax/lilypond.vim
+" Uses Generated File:	vim/syntax/lilypond.words.vim
+"
 " For version 5.x: Clear all syntax items
 " For version 6.x: Quit when a syntax file was already loaded
 if version < 600

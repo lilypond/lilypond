@@ -1,3 +1,6 @@
+"
+" Installed As:	~/.vim/filetype.vim
+"
 " my filetype file
 if exists("did_load_filetypes")
   finish
