@@ -9,7 +9,11 @@
 
 %
 % FIXME: custodes and clefs do not show on all staves
-% FIXME: some set_char_box() definitions seem to be bad
+%
+
+%
+% FIXME: move VaticnaStaff/VaticanaVoice definition to engraver-init.ly?
+% Or rather to gregorian-init.ly?
 %
 
 cantus = \notes \relative c {
@@ -36,19 +40,24 @@ verba = \context Lyrics = verba \lyrics {
   \paper {
     stafflinethickness = \staffspace / 5.0
     linewidth = 15.0 \cm
+    indent = 0.0
 %
 % FIXME: ragged-right alignment is currently broken
-%   width = 15.0 \cm
+%   width = 12.0 \cm
 %   raggedright = ##t
+%   gourlay_maxmeasures = 30.
+%   arithmetic_basicspace = 3.8
+%   arithmetic_multiplier = 8.\pt
 %
     \translator {
       \VoiceContext
       \name VaticanaVoice
       \alias Voice
+      \remove "Stem_engraver"
       \remove Ligature_bracket_engraver
       \consists Vaticana_ligature_engraver
       NoteHead \set #'style = #'vaticana_punctum
-      Stem \set #'transparent = ##t
+%     TextScript \set #'padding = #0.0
     }
     \translator {
       \StaffContext
@@ -58,6 +67,7 @@ verba = \context Lyrics = verba \lyrics {
       \remove Bar_engraver
       \consists Custos_engraver
       StaffSymbol \set #'line-count = #4
+%     StaffSymbol \set #'width = #60.0 % FIXME: how to get same as \linewidth?
       TimeSignature \set #'transparent = ##t
       KeySignature \set #'style = #'vaticana
       Accidental \set #'style = #'vaticana

@@ -1,3 +1,18 @@
+2003-04-21  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* buildscripts/mf-to-table.py: bugfix: "--" in glyph names:
+	prevent TeX from interpreting them as long dash
+
+	* input/test/vaticana.ly: updated
+
+	* mf/parmesan-accidentals.mf, mf/parmesan-clefs.mf,
+	mf/parmesan-custodes.mf, mf/parmesan-flags.mf,
+	mf/parmesan-heads.mf, mf/parmesan-rests.mf,
+	mf/parmesan-scripts.mf, mf/parmesan-timesig.mf: more set_char_box
+	fixes
+
+	* mf/parmesan-heads.mf: ledger endings: removed dead code
+
 2003-04-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* Documentation/user/GNUmakefile

@@ -89,11 +89,15 @@ def draw_mensural_flag (expr staffline_adjustment, flares, direction) =
 	fi;
 	char_box_adjust = flare_shift+0.5;
 	if direction = dir_up:
-		set_char_box(0, 0.60 staff_space#,
-			     (1.00+char_box_adjust)*staff_space#, 0)
+		set_char_box(0,
+			     0.60 staff_space#,
+			     (flares+char_box_adjust)*staff_space#,
+			     0.10 staff_space#)
 	else: % direction = dir_down
-		set_char_box(0.60 staff_space#, 0,
-			     (1.00+char_box_adjust)*staff_space#, 0)
+		set_char_box(0.60 staff_space#,
+			     0,
+			     0.10 staff_space#,
+			     (flares+char_box_adjust)*staff_space#)
 	fi;
 	draw_mensural_outermost_flare (staffline_adjustment)
 	for flare_count := 2 step 1 until 4:

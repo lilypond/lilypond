@@ -4,8 +4,8 @@
 % source file of LilyPond's pretty-but-neat music font
 % 
 % (c) 1998--2002 Mats Bengtsson <matsb@s3.kth.se>,
-%		 Christian Mondrup <scancm@biobase.dk>,
-%                Juergen Reuter <reuter@ipd.uka.de>
+%		 Christian Mondrup <scancm@biobase.dk>
+% (c) 2002, 2003 Juergen Reuter <reuter@ipd.uka.de>
 % 
 
 fet_begingroup ("timesig")
@@ -31,8 +31,8 @@ define_pixels(Cdiameter, Cthickness, Chairpin);
 def draw_nail (expr bottom_left, top_right) =
 	save round;
 	round = floor min(blot_diameter,
-				xpart (top_right-bottom_left),
-				ypart (top_right-bottom_left));
+			  xpart (top_right-bottom_left),
+			  ypart (top_right-bottom_left));
 
 	pickup pencircle scaled round;
 
@@ -50,8 +50,8 @@ def draw_nail (expr bottom_left, top_right) =
 
 		pickup pencircle scaled round;
 		fill bot z1 .. rt z1 --- rt z5 .. rt z2 .. top z2 ---
-			top z3 .. lft z3 .. lft z6 --- lft z4 .. bot z4 ---
-			cycle;
+		     top z3 .. lft z3 .. lft z6 --- lft z4 .. bot z4 ---
+		     cycle;
         endgroup;
 
 enddef;
@@ -61,20 +61,20 @@ def mens_timesig (expr verbose_name, internal_name, mudela_name,
 
 	fet_beginchar(verbose_name, internal_name, mudela_name)
 		if slashed:
-			set_char_box(.5 Cdiameter# + staff_space#,
-				.5 Cdiameter# + staff_space#, 
-				staff_space#,
-				staff_space#);
+			set_char_box(.5 (Cdiameter# + Cthickness#),
+				     .5 (Cdiameter# + Cthickness#),
+				     .75 (Cdiameter# + Cthickness#),
+				     .75 (Cdiameter# + Cthickness#));
 			if (full_circle or dotted):
-				draw_nail((-Cthickness/2, -1.5d), (Cthickness/2, 1.5h));
+				draw_nail((-Cthickness/2, -d), (Cthickness/2, h));
 			else:
-				draw_nail((-Cthickness, -1.5d), (0, 1.5h));
+				draw_nail((-Cthickness, -d), (0, h));
 			fi;
 		else:
-			set_char_box(.5 Cdiameter# + staff_space#,
-				.5 Cdiameter# + staff_space#, 
-				.5 Cdiameter#,
-				.5 Cdiameter#);
+			set_char_box(.5 (Cdiameter# + Cthickness#),
+				     .5 (Cdiameter# + Cthickness#),
+				     .5 (Cdiameter# + Cthickness#),
+				     .5 (Cdiameter# + Cthickness#));
 		fi;
 		pickup pencircle xscaled Cthickness yscaled Chairpin rotated 0;
 		if full_circle:
@@ -154,20 +154,20 @@ def neo_mens_timesig (expr verbose_name, internal_name, mudela_name,
 
 	fet_beginchar(verbose_name, internal_name, mudela_name)
 		if slashed:
-			set_char_box(.5 neo_Cdiameter# + staff_space#,
-				.5 neo_Cdiameter# + staff_space#, 
-				staff_space#,
-				staff_space#);
+			set_char_box(.5 (neo_Cdiameter# + neo_Cthickness#),
+				     .5 (neo_Cdiameter# + neo_Cthickness#),
+				     .5 (neo_Cdiameter# + neo_Cthickness#),
+				     .5 (neo_Cdiameter# + neo_Cthickness#));
 			if (full_circle or dotted):
 				draw_block((-neo_Cthickness/2, -d), (neo_Cthickness/2, h));
 			else:
 				draw_block((-neo_Cthickness, -d), (0, h));
 			fi;
 		else:
-			set_char_box(.5 neo_Cdiameter# + staff_space#,
-				.5 neo_Cdiameter# + staff_space#, 
-				.5 neo_Cdiameter#,
-				.5 neo_Cdiameter#);
+			set_char_box(.5 (neo_Cdiameter# + neo_Cthickness#),
+				     .5 (neo_Cdiameter# + neo_Cthickness#),
+				     .5 (neo_Cdiameter# + neo_Cthickness#),
+				     .5 (neo_Cdiameter# + neo_Cthickness#));
 		fi;
 		pickup pencircle scaled neo_Cthickness;
 		if full_circle:

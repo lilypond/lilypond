@@ -47,7 +47,6 @@ def custos_hufnagel(expr verbose_name, internal_name, mudela_name,
 		2beta# = ht# * b_h;
 		a# = beta# * a_b;
 		wd# = 2a# / a_w;
-		set_char_box(0, wd#, ht# / 2, ht# / 2);
 		black_notehead_width# := wd#;
 
 		save rh_width, rh_height, rh_edge; % rhombus dimensions
@@ -69,10 +68,13 @@ def custos_hufnagel(expr verbose_name, internal_name, mudela_name,
 		  xscaled stafflinethickness
 		  yscaled rh_edge
 		  rotated (-35*direction);
-		z1=(0.5rh_width,+0.25direction*rh_height);
-		z2=(1.0rh_width,-0.25direction*rh_height);
+		z1=(0.0rh_width,+0.25direction*rh_height);
+		z2=(0.5rh_width,-0.25direction*rh_height);
 		z3-z2=(stem_size*rh_width,+0.75*stem_size*direction*rh_height);
 		draw z1 -- z2 -- z3;
+
+		set_char_box(stafflinethickness#, wd# / 2,
+			     ht# / 2, ht# / 2);
 
 	fet_endchar;
 enddef;
@@ -123,7 +125,6 @@ def custos_medicaea(expr verbose_name, internal_name, mudela_name,
 		2beta# = ht# * b_h;
 		a# = beta# * a_b;
 		wd# = 0.4a# / a_w;	% width intentionally too small
-		set_char_box(0, wd#, ht# / 2, ht# / 2);
 		black_notehead_width# := wd#;
 
 		define_pixels(ht, wd);
@@ -146,6 +147,8 @@ def custos_medicaea(expr verbose_name, internal_name, mudela_name,
 		z3 = (1.0wd - stafflinethickness/2, 0.0ht);
 		z4 = z3 + (0, +direction*stem_size*ht);
 		draw z3 .. z4;
+
+		set_char_box(0, wd#, ht# / 2, ht# / 2);
 
 	fet_endchar;
 enddef;
@@ -196,7 +199,6 @@ def custos_vaticana(expr verbose_name, internal_name, mudela_name,
 		2beta# = ht# * b_h;
 		a# = beta# * a_b;
 		wd# = 0.4a# / a_w;
-		set_char_box(0, wd#, ht# / 2, ht# / 2);
 		black_notehead_width# := wd#;
 
 		save stem_size;
@@ -220,6 +222,8 @@ def custos_vaticana(expr verbose_name, internal_name, mudela_name,
 		z3=(1.0wd, +0.0ht);
 		z4=(1.0wd, +direction*stem_size*ht);
 		draw z3 -- z4;
+
+		set_char_box(0, wd#, 0.3 ht#, 0.3 ht#);
 
 	fet_endchar;
 enddef;

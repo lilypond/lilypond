@@ -160,9 +160,15 @@ def write_fontlist (file, global_info, charmetrics):
 \score{\notes{\fatText
 """)
 	for m in charmetrics:
-		escapedname=re.sub('_','\\\\_', m['name'])
-		doubleescapedname=re.sub('_','\\\\_', escapedname)
-		file.write ('  s^\\markup { \\musicglyph #"%s" "%s" }\n' % (escapedname, doubleescapedname))
+
+## \musicglyph and \markup require "_" to be escaped differently:
+		musicglyphname=re.sub('_','\\\\_', m['name'])
+		markupname=re.sub('_','\\\\_', musicglyphname)
+
+## prevent TeX from interpreting "--" as long dash:
+		markupname=re.sub('--','-{}-', markupname)
+
+		file.write ('  s^\\markup { \\musicglyph #"%s" "%s" }\n' % (musicglyphname, markupname))
 	file.write (r"""
 }
   \paper{
