@@ -1,5 +1,5 @@
 /*   
-  staff-side.cc --  implement Staff_side_element
+  side-position-interface.cc --  implement Side_position_interface
   
   source file of the GNU LilyPond music typesetter
   

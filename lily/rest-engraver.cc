@@ -1,5 +1,5 @@
 /*
-  rest-grav.cc -- implement Rest_engraver
+  rest-engraver.cc -- implement Rest_engraver
 
   source file of the GNU LilyPond music typesetter
 
