@@ -1,3 +1,27 @@
+pl 16
+	- bf: doco about {Mus*,Opus}TeX
+	- ; optional after \musicidentifier
+	- bf: configure: MFDIR
+	- bf: String::operator bool () removed
+	- bf: String::operator char const * () removed
+	- bf: Line_spacer::~Line_spacer () added: plugged memleak
+	- bf: Line_of_score::do_unlink () call Spanner::do_unlink
+	- bf: rests in beams
+	- bfs: mudela-man
+	- bf: textnatural
+	- bf: 20 pt flags
+	- bf: longarest 
+	
+
+pl 15.jcn1
+	- bf: typos whole and half notehead
+	- de-uglyfied bolletjes.mf
+	- ascii output of font metrics in mf logfile
+
+******
+sep 17
+
+	
 pl 15
 	- put top of NEWS file in the webpage
 	- breadth first search for engravers.
