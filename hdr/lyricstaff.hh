@@ -10,14 +10,11 @@
 
 /// (lstaff)
 struct Lyric_staff : Staff {
-    PStaff* line_pstaff_p_;
+    PStaff* pstaff_l_;
 
     Staff_column* create_col(Score_column*);
-    
-//    virtual Item *get_TYPESET_item(Command*);
-    virtual void set_output(PScore *);
-//    virtual Local_key_item* get_local_key_item();
 
+    virtual void set_output(PScore *);
     void process_commands(PCursor<Command*> &where);
     virtual void walk();
 

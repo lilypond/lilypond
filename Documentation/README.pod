@@ -25,7 +25,7 @@ customizable notenames, customizable fontset
 multiple staffs in one score
 
 =item *
-multiple stafftypes (melodic, rhythmic)
+multiple stafftypes (melodic, rhythmic) [broken from  pl28 on]
 
 =item *
 beams, slurs, chords, super/subscripts (accents and text),
@@ -42,7 +42,6 @@ a different file.
 =item *
 clef changes, meter changes, cadenza-mode, declaring markings
 in the music, repeat bars
-
 
 =back
 
@@ -258,9 +257,8 @@ coding C++
 
 =head1 EXAMPLES
 
-At this time, LilyPond is only suited for Quick & Dirty jobs (the
-output quality of multistaff material still is too low). If you're not
-discouraged; this is what I type in my xterm:
+At this time, LilyPond output looks nice, but is not of production
+quality. If you're not discouraged; this is what I type in my xterm:
 
 	lilypond someinput.ly
 	tex test

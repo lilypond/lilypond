@@ -8,7 +8,12 @@
 
 const INITIALMAX=8;
 class String_handle;
+
 /// Internal String struct
+/**
+   the data itself. Handles simple tasks (resizing, resetting)
+   */
+
 class StringData {
     // GNU malloc: storage overhead is 8 bytes anyway.
 
@@ -43,6 +48,10 @@ friend class String_handle;
     }
 
 
+    /** POST: maxlen >= j.
+      IN: j, maximum stringlength.    
+      contents thrown away.
+    */
     void setmax(int j) {	
 	OKW();
 	if (j > maxlen) {
@@ -54,11 +63,11 @@ friend class String_handle;
 	    length = 0;
 	}
     }
+    
     /** POST: maxlen >= j.
-      IN: j, maximum stringlength.    
-      contents thrown away.
-    */
-    ///
+      IN: j, maximum stringlength.
+      contents are kept if it grows.
+      */
     void remax(int j) {
 	OKW();
 	if (j > maxlen) {
@@ -70,10 +79,6 @@ friend class String_handle;
 	//    length = strlen(string);
 	}
     }
-    /** POST: maxlen >= j.
-      IN: j, maximum stringlength.
-      contents are kept if it grows.
-      */    
     /// check if writeable.
     void OKW() {
 
@@ -153,13 +158,13 @@ friend class String_handle;
     }
 };
 
-/**
-   the data itself. Handles simple tasks (resizing, resetting)
-   */
 
 
-/****************************************************************/
 /// ref. counting for strings
+/**
+   handles ref. counting, and provides a very thin
+   interface using char *
+ */
 class String_handle {
     StringData* data;
     
@@ -229,11 +234,6 @@ public:
     void trunc(int j) { copy(); data->trunc(j); }
     int len() const { return data->length; }
 };
-/**
-   handles ref. counting, and provides a very thin
-   interface using char *
- */
-
 
 #ifdef NDEBUG
 #if (NDEBUG == BLONDE)

@@ -58,7 +58,9 @@ Dstream::silence(String s)
 	return false;
     return (*silent)[s];
 }
-///
+
+/** only output possibility. Delegates all conversion to String class.
+ */
 Dstream &
 Dstream::operator<<(String s)
 {
@@ -93,8 +95,6 @@ Dstream::operator<<(String s)
     return *this;    
 }
 
-/** only output possibility. Delegates all conversion to String class.
- */
 
 Dstream::Dstream(ostream *r, const char * cfg_nm )
 {

@@ -20,7 +20,7 @@ struct Input_staff {
     IPointerList<Input_command*> commands_;
     IPointerList<Input_music*> music_;
 
-    /****************/
+    /* *************** */
 
     void add(Input_music*m);
     Input_staff(Input_staff const&);

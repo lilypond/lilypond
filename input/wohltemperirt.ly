@@ -7,7 +7,7 @@
 
 dux = music { $
 	\duration { \last } 
-	\stem{-1}  r8 ['c16 b] ['c8 g] [as 'c16 b] ['c8 'd] |
+	 r8-"dux" \stem{-1} ['c16 b] ['c8 g] [as 'c16 b] ['c8 'd] |
 	[g 'c16 b] ['c8 'd] [f16 g] as4 [g16 f]	|
 	[es 'c b a] [ g f es d] [c8 'es 'd 'c] |
 	[bes a bes 'c] [fis g a fis] |
@@ -21,7 +21,7 @@ comes = music { $
 	r1 r1
 	\stem{1}
 	\octave {'}
-	r8 [g16 fis] [g8 c] [es g16 f] [g8 a]|
+	r8-"comes" [g16 fis] [g8 c] [es g16 f] [g8 a]|
 	[d8 g16 fis] [g8 a] [c16 d] es4 [d16 c] |
 	[`bes8 es16 d] [es8 `g8] [`as f16 es] [f8 `a] |
 	[`bes8 g16 f] [g8 `b] [c8 d16 es] f4( |
@@ -32,8 +32,8 @@ $}
 
 bassdux = music { $
 	r1 r1 r1 r1 r1 r1
-	\stem{1}	\octave { }
-	r8 [c16 B] [c8 G] [As c16 Bes] [c8 d] |
+	\octave { }
+	r8 [c16 B] [c8 G] [As c16 B] [c8 d] |
 	[G c16 B] [c8 d] [F16 G] As4 [G16 F] | $
 }
 
@@ -62,7 +62,7 @@ score {
 		meter 4*4
 		skip 8:0
 	}
-	paper { unitspace 2.5cm
-		geometric 1.1
+	paper { %unitspace 2.5cm
+		%geometric 1.4
 	}
 }

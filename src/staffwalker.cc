@@ -2,6 +2,7 @@
 #include "staffwalker.hh"
 #include "stcol.hh"
 #include "sccol.hh"
+#include "debug.hh"
 
 Staff_walker::~Staff_walker() {}
 Staff_walker::Staff_walker(Staff_walker const &s)
@@ -29,7 +30,7 @@ Staff_walker::process()
 {
     break_status = BREAK_END - BREAK_PRE;
 
-    if (ptr()->mus()) {
+    if (ptr()->musical_b()) {
 	process_requests();
     } else if (ptr()->staff_commands_p_)
 	for (iter_top(*ptr()->staff_commands_p_,i); i.ok(); i++) {
@@ -66,6 +67,11 @@ void
 Staff_walker::operator++(int i)
 {
     do_pre_move();
+    if (ptr()->musical_b() && ptr()->tdescription_
+	&& !ptr()->tdescription_->whole_in_measure) {
+	*mlog << "[" << ptr()->tdescription_->bars<<"]"<< flush;
+    }
     PCursor<Staff_column*>::operator++(i);
+
     do_post_move();
 }

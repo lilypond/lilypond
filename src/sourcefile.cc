@@ -17,6 +17,9 @@
 #include "string.hh"
 #include "proto.hh"
 #include "plist.hh"
+#include "lexer.hh"
+#include "debug.hh"
+#include "parseconstruct.hh"
 #include "main.hh"     		// find_file
 
 #include "sourcefile.hh"
@@ -143,12 +146,13 @@ Source_file::line_i( char const* pos_ch_c_l )
 void
 Source_file::map()
 {
+    if ( fildes_i_m == -1 )
+	return;
+
     data_caddr_m = (caddr_t)mmap( (void*)0, size_off_m, PROT_READ, MAP_SHARED, fildes_i_m, 0 );
 
-    if ( (int)data_caddr_m == -1 ) {
-	cerr << "lilypond: can't map: " << name_str_m << ": " << strerror( errno ) << endl;
-	assert( 0 );
-    }
+    if ( (int)data_caddr_m == -1 )
+	warning( String( "can't map: " ) + name_str_m + String( ": " ) + strerror( errno ), defined_ch_c_l ); //lexer->here_ch_c_l() );
 }
 
 String
@@ -160,12 +164,15 @@ Source_file::name_str()
 void
 Source_file::open()
 {
-    name_str_m = find_file( name_str_m );
+    String name_str = find_file( name_str_m );
+    if ( name_str != "" ) 
+        name_str_m = name_str;
+
     fildes_i_m = ::open( name_str_m, O_RDONLY );	
-    
+	    
     if ( fildes_i_m == -1 ) {
-	cerr << "lilypond: can't open: " << name_str_m << ": " << strerror( errno ) << endl;
-	assert( 0 );
+	warning( String( "can't open: " ) + name_str_m + String( ": " ) + strerror( errno ), defined_ch_c_l ); // lexer->here_ch_c_l() );
+        return;
     }
 
     struct stat file_stat;

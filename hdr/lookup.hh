@@ -11,7 +11,7 @@
 struct Lookup {
     Symtables *symtables_;
     String texsetting;
-    /****************/
+    /* *************** */
     void add(String, Symtable*);
 
     Real internote();
@@ -19,14 +19,16 @@ struct Lookup {
     Symbol linestaff(int n, Real w);
     Symbol fill(Box b);
     Symbol beam_element(int,int,Real=0);
+
     /// round slope to closest TeXslope
     Symbol beam(Real&,Real);
-    Symbol streepjes(int pos);
+
     /**
       pos == 3 : 3 lines above staff (extending below note)
 
       pos == -3: below staff
       */
+    Symbol streepjes(int pos);
 
     Symbol meter(Array<Scalar>);
     Symbol stem(Real y1_pos, Real y2_pos);
@@ -44,7 +46,7 @@ struct Lookup {
     Symbol big_slur(int dy, Real &dx, int dir);
     Symbol text(String style, String text, int align = 1);
     Symbol script(String idx);
-
+    Symbol hairpin(Real & width, bool decresc);
 
     Lookup();
     Lookup(Lookup const &);

@@ -5,6 +5,15 @@
 
 
 ///   searching directory for file.
+/**
+
+   Abstraction of PATH variable. An interface for searching input files.
+   Search a number of dirs for a file.
+
+   Should use kpathsea?
+   
+*/
+
 class File_path : private Array<String>
 {
 public:
@@ -18,15 +27,6 @@ public:
     Array<String>::push;
     void add(String str) { push(str); }
 };
-/**
-
-   Abstraction of PATH variable. An interface for searching input files.
-   Search a number of dirs for a file.
-
-   Should use kpathsea?
-   
-*/
-
 /// split path into its components
 void split_path(String path, String &drive, String &dirs, String &filebase, String &extension);
 

@@ -16,7 +16,7 @@ struct Col_hpositions {
     Array<Real> config;
     Real energy;
 
-    /****************/
+    /* ************** */
     void OK()const;
 
     Col_hpositions();

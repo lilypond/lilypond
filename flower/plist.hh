@@ -10,6 +10,11 @@
 #include "list.hh"
 
 /// Use for list of pointers, e.g. PointerList<AbstractType*>.
+/**
+  This class does no deletion of the pointers, but it knows how to
+  copy itself (shallow copy). We could have derived it from List<T>,
+  but this design saves a lot of code dup; for all PointerLists in the
+  program only one parent List<void*> is instantiated.  */
 template<class T>
 class PointerList : public List<void *>
 {
@@ -24,19 +29,8 @@ class PointerList : public List<void *>
     void concatenate(PointerList<T> const &s) { List<void*>::concatenate(s); }
     PointerList() {}
 };
-/**
-  This class does no deletion of the pointers, but it knows how to
-  copy itself (shallow copy). We could have derived it from List<T>,
-  but this design saves a lot of code dup; for all PointerLists in the
-  program only one parent List<void*> is instantiated.  */
 
 ///  pl. which deletes pointers given to it.
-template<class T>
-struct IPointerList : public PointerList<T> {
-    IPointerList(const IPointerList&) { set_empty(); }
-    IPointerList() { }
-    ~IPointerList();
-};
 /**
   NOTE:
   
@@ -48,6 +42,12 @@ struct IPointerList : public PointerList<T> {
   You have to copy this yourself, or use the macro PointerList__copy
   
   */
+template<class T>
+struct IPointerList : public PointerList<T> {
+    IPointerList(const IPointerList&) { set_empty(); }
+    IPointerList() { }
+    ~IPointerList();
+};
 
 #define IPointerList__copy(T, to, from, op)   \
   for (PCursor<T> _pc_(from); _pc_.ok(); _pc_++)\

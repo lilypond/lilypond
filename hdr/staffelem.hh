@@ -11,6 +11,12 @@
 #include "offset.hh"
 #include "molecule.hh"
 
+/** Both Spanner and Item are Staff_elem's. Most Staff_elem's depend
+  on other Staff_elem's, eg, Beam needs to know and set direction of
+  Stem. So the Beam has to be calculated *before* Stem. This is
+  accomplished with the dependencies field of struct Staff_elem.
+
+  */
 struct Staff_elem {
     enum Status {
 	ORPHAN,			// not yet added to pstaff
@@ -25,7 +31,7 @@ struct Staff_elem {
     ///  the pstaff it is in
     PStaff *pstaff_l_;
 
-    /****************/
+    /* *************** */
     Staff_elem(Staff_elem const&);
     String TeXstring () const ;
     virtual void print() const;
@@ -65,21 +71,14 @@ private:
     /// member: the symbols
     Molecule *output;		// should scrap, and use temp var?
 
-    /// 
-    Offset offset_;
+
     /**
       This is  needed, because #output# may still be
       NULL.
       */
+    Offset offset_;
     Array<Staff_elem*> dependencies;
 };
-/** Both Spanner and Item are Staff_elem's. Most Staff_elem's depend
-  on other Staff_elem's, eg, Beam needs to know and set direction of
-  Stem. So the Beam has to be calculated *before* Stem. This is
-  accomplished with the dependencies field of struct Staff_elem.
-
-  */
-
 #define NAME_METHOD(c)	const char *c::name()const{ return #c; } struct c
 #endif // STAFFELEM_HH
 

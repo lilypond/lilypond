@@ -14,11 +14,10 @@
 struct Slur : Directional_spanner {
 
     Array<Notehead*> encompass;
-    //int dir;
 
-    bool open_left,open_right;			
+    bool open_left, open_right;			
 
-    /****************/
+    /* *************** */
     Offset center() const;
     Slur();
     void do_post_processing();

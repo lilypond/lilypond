@@ -12,11 +12,13 @@ struct Assoc_ent_ {
 };
 
 /// hungarian: map
+/** mindblowingly stupid Associative array implementation
+ */
 template<class K, class V>
 struct Assoc {
     Array< Assoc_ent_<K,V> > arr;
 
-    /****************/
+    /* ************** */
     
     int find(K key) const {
 	for (int i = 0; i < arr.size(); i++) {
@@ -60,7 +62,7 @@ public:
 	int i = find_creat(key);
 	arr[i].val = val;
     }
-    /**
+    /*
     should create "set" template
     */
     V& operator[](K key) {
@@ -71,7 +73,5 @@ public:
 	return arr[find(key)].val;
     }
 };
-/** mindblowingly stupid Associative array implementation
- */
 
 #endif

@@ -20,7 +20,7 @@ struct Line_of_staff {
     Line_of_score  * line_of_score_l_;
     PStaff *pstaff_l_;
 
-    /****************/
+    /* *************** */
     
     String TeXstring() const;
     Line_of_staff(Line_of_score*, PStaff *);

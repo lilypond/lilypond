@@ -1,4 +1,8 @@
 #!/bin/sh
 
 # unclobber current dir.
-rm -v *.aux *.log `grep -li "^% Creator: LilyPond" *.out *.uit` *.orig *~
+rm -vf *.aux *.log `grep -li "^% Creator: LilyPond" *.out` *.orig *~
+
+# docxx mess
+rm -vf *.class  HIER*.html dxxgifs.tex gifs.db icon?.gif logo.gif down.gif \
+    aindex.html index.html

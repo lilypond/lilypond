@@ -13,7 +13,7 @@ struct Colinfo {
     const Real* fixpos;
     Interval width;
     
-    /****************/
+    /* *************** */
     Colinfo();
     void operator=(Colinfo const&);
     Colinfo(Colinfo const&);
@@ -27,7 +27,25 @@ struct Colinfo {
 };
 
 
-/// spacing for one line.
+/** the problem, given by the columns (which include constraints) and
+    intercolumn spacing. The problem is:
+
+    Generate a spacing which
+    \begin{itemize}
+    \item
+    Satisfies spacing constraints (notes can't be printed through each other)
+    \item
+    Looks good, ie tries to conform to  an ideal spacing as much as possible.
+    \end{itemize}
+    This is converted by regarding idealspacing as "springs" attached
+    to columns. The equilibrium of one spring is the ideal
+    distance. The columns have a size, this imposes "hard" constraints
+    on the distances. This transforms the problem into a quadratic
+    programming problem with linear constraints.
+
+    The quality is given by the total potential energy in the
+    springs. The lower the energy, the better the configuration.
+*/
 class Spacing_problem {
     Array<const Idealspacing*> ideals;
     Array<Colinfo> cols;
@@ -51,26 +69,28 @@ class Spacing_problem {
     void make_constraints(Mixed_qp& lp) const;
 
 public:
-    /// solve the spacing problem
+    /** solve the spacing problem
+          return the column positions, and the energy (last element)
+	  */
     Array<Real> solve() const;
-    /**
-    return the column positions, and the energy (last element)
-    */
+
     /// add a idealspacing to the problem.
-    void add_ideal(const Idealspacing *i);
-    
     /**
+      
+      
     One pair of columns can have no, one or more idealspacings,
     since they can be "summed" if the columns to which #i# refers are
     not in this problem, the spacing is ignored.
     */
+    void add_ideal(const Idealspacing *i);
     
     
     /// add a col to the problem
-    void add_column(const PCol *, bool fixed=false, Real fixpos=0.0);
-    /** columns have to be added left to right. The column contains
+       /** columns have to be added left to right. The column contains
       info on it's minimum width.
     */
+    void add_column(const PCol *, bool fixed=false, Real fixpos=0.0);
+ 
 
 
     bool check_constraints(Vector v) const;
@@ -82,23 +102,4 @@ public:
 };
 
 
-/** the problem, given by the columns (which include constraints) and
-    intercolumn spacing. The problem is:
-
-    Generate a spacing which
-    \begin{itemize}
-    \item
-    Satisfies spacing constraints (notes can't be printed through each other)
-    \item
-    Looks good, ie tries to conform to  an ideal spacing as much as possible.
-    \end{itemize}
-    This is converted by regarding idealspacing as "springs" attached
-    to columns. The equilibrium of one spring is the ideal
-    distance. The columns have a size, this imposes "hard" constraints
-    on the distances. This transforms the problem into a quadratic
-    programming problem with linear constraints.
-
-    The quality is given by the total potential energy in the
-    springs. The lower the energy, the better the configuration.
-*/
 #endif

@@ -19,7 +19,7 @@ struct Script : Item {
     Stem *stem_l_;
     Array<Item *> support;
 
-    /****************/
+    /* *************** */
     const char * name() const;    
     Molecule*	brew_molecule_p()const;
     virtual void do_post_processing();

@@ -19,6 +19,7 @@ Notehead::Notehead(int ss)
     extremal = 0;
     defined_ch_c_l_m = 0;
 }
+
 void
 Notehead::set_rhythmic(Rhythmic_req*r_req_l)
 {

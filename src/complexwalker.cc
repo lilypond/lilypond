@@ -5,26 +5,49 @@
 #include "clef.hh"
 #include "pscore.hh"
 #include "complexstaff.hh"
-#include "sccol.hh"
 #include "debug.hh"
 #include "keyitem.hh"
 #include "clefitem.hh"
 #include "voicegroup.hh"
-#include "register.hh"
+#include "localkeyreg.hh"
 #include "complexwalker.hh"
 #include "misc.hh"
 
-void
-Complex_walker::do_INTERPRET_command(Command*com)
+Rhythmic_grouping
+parse_grouping(Array<Scalar> const &a)
 {
-    Array<Scalar> args(com->args);
+    Array<int> r;
+    Array<Moment> grouplen_arr;
+    for (int i= 0 ; i < a.size()/2; ) {
+	r.push(a[i++]);
+	grouplen_arr.push(Moment(1,(int) a[i++]));
+    }
+    Moment here =0;
+
+    Array<Rhythmic_grouping*> children;
+    for (int i=0; i < r.size(); i++) {
+	
+	Moment last = here;
+	here += grouplen_arr[i] * Rational(r[i]);
+	children.push(
+	    new Rhythmic_grouping(MInterval(last, here), r[i] ));
+    }
+    return Rhythmic_grouping(children);
+}
+
+void
+Complex_walker::do_INTERPRET_command(Command*com_l)
+{
+    Array<Scalar> args(com_l->args);
     args.del(0);
-    if (com->args[0] == "GROUPING") {	
+    String com = com_l->args[0];
+    
+    if (com == "GROUPING") {	
 	default_grouping = parse_grouping(args);
-    }else if (com->args[0] == "NEWMEASURE") {
+    }else if (com == "NEWMEASURE") {
 	local_key_.reset(key_);
 
-    } else if (com->args[0] == "KEY") {
+    } else if (com == "KEY") {
 	
 	if (col()->when() > Moment(0)) {
 	    assert(!oldkey_undo);
@@ -33,10 +56,10 @@ Complex_walker::do_INTERPRET_command(Command*com)
 	
 	typesetkey = key_.read(args);
 	local_key_.reset(key_);	
-    } else if (com->args[0] == "CLEF") {
-	clef_.read(args);
+    } else if (com == "CLEF") {
+	clef_.set_type(args[0]);
     } else {
-	WARN << " ignoring INTERPRET command: " << com->args[0]<< "\n";
+	WARN << " ignoring INTERPRET command: " << com<< "\n";
     }
 }
 
@@ -101,17 +124,17 @@ Complex_walker::do_announces()
     for (int i = 0; i < announce_info_arr_.size(); i++){
 	Staff_elem_info info = announce_info_arr_[i];
 	for (iter_top(voice_reg_list_,j); j.ok(); j++) {
-	    j->announce_element(info);
+	    j->acknowledge_element(info);
 	}
 	for (iter_top (	group_reg_list_, j); j.ok(); j++) {
-	    j->announce_element(info);
+	    j->acknowledge_element(info);
 	}
 	local_key_reg_.acknowledge_element(info);
     }
 }
 
 Voice_registers *
-Complex_walker::find_voice_reg(Voice*v_l)
+Complex_walker::find_voice_reg(Voice*v_l)const
 {
    for (iter_top(voice_reg_list_, i); i.ok(); i++) {
 	if (i->voice_l_ == v_l)
@@ -133,7 +156,7 @@ Complex_walker::get_voice_reg(Voice*v_l)
 }
 
 Voice_group_registers *
-Complex_walker::find_voice_group(Voice* v_l)
+Complex_walker::find_voice_group(Voice* v_l)const
 {
     if (!voice_group_map_.elt_query(v_l))
 	return 0;
@@ -141,7 +164,7 @@ Complex_walker::find_voice_group(Voice* v_l)
 }
 
 Voice_group_registers *
-Complex_walker::find_voice_group(const char *id)
+Complex_walker::find_voice_group(const char *id)const
 {
     for (iter_top(group_reg_list_, i); i.ok(); i++)
 	if (i->group_id_str_ == id)
@@ -176,7 +199,7 @@ Complex_walker::get_voice_group(const char* id)
 }
 
 void 
-Complex_walker::do_change_group(const Voice * v, String group_id_str)
+Complex_walker::do_change_group(Voice * v, String group_id_str)
 {
     voice_group_map_[v] = get_voice_group(group_id_str);
 }
@@ -196,12 +219,6 @@ Complex_walker::try_request(Request*req)
     } else if (Voice_group_registers::acceptable_request(req)){
 	Voice_group_registers* reg_l = get_voice_group(voice_l);
 	b = reg_l->try_request(req);
-#if 0
-	if (!b) {
-	    bool please_b = get_voice_group("")->try_request(req);	   
-	    b |= please_b;
-	}
-#endif
     } 
 
     if (!b)
@@ -243,13 +260,13 @@ Complex_walker::typeset_element(Staff_elem *elem_p)
     if (!elem_p)
 	return;
     if (elem_p->spanner())
-	pscore_l_->typeset_spanner(elem_p->spanner(), staff()->theline_l_);
+	pscore_l_->typeset_spanner(elem_p->spanner(), staff()->pstaff_l_);
     else
 	col()->typeset_item(elem_p->item()); 
 }
 
 Complex_walker::Complex_walker(Complex_staff*s)
-    : Staff_walker(s, s->theline_l_->pscore_l_),
+    : Staff_walker(s, s->pstaff_l_->pscore_l_),
       local_key_reg_(this)      
 {
     oldkey_undo = 0;
@@ -293,4 +310,14 @@ Complex_walker::do_post_move()
     for (iter_top (group_reg_list_, j); j.ok(); j++) 
 	j->post_move_processing();
     local_key_reg_.post_move_processing();
+}
+
+Array<Voice_registers*>
+Complex_walker::get_voice_regs(Voice_group_registers* group_regs_l) const
+    return l_arr;
+{
+    for (Assoc_iter<Voice*,Voice_group_registers*> i(voice_group_map_); i.ok(); i++) {
+	if (i.val() == group_regs_l)
+	    l_arr.push(find_voice_reg(i.key()));
+    }
 }

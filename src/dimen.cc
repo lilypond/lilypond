@@ -15,7 +15,6 @@ parse_dimen(String dim)
     return convert_dimen(dim.fvalue(), unit); 
 }
 
-const Real CM_TO_PT=72/2.54;
 
 Real
 convert_dimen(Real quant, String unit)
@@ -27,7 +26,7 @@ convert_dimen(Real quant, String unit)
     if (unit == "mm")
 	return quant*CM_TO_PT/10;
     if (unit == "in")
-	return quant * 72;
+	return quant * INCH_TO_PT;
     error ("unknown length unit: `" + unit+"'");
 }
 

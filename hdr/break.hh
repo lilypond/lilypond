@@ -14,7 +14,7 @@ struct Break_algorithm {
     PScore &pscore_;
     Real linelength;
 
-    /****************/
+    /* *************** */
 
     Break_algorithm(PScore&);
 

@@ -17,7 +17,7 @@ struct Input_score {
     IPointerList<Input_staff*> staffs_;
     IPointerList<Input_command*> commands_;
     
-    /****************************************************************/
+    /* *************************************************************** */
     Input_score();
     Input_score(Input_score const&);
     void add(Array<Input_command*> &s);
@@ -28,7 +28,5 @@ struct Input_score {
     void print() const;
     Score*parse();
 };
-/**
-        
-    */
+
 #endif

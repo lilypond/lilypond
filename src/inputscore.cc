@@ -26,6 +26,7 @@ Input_score::set(Paperdef*p)
     delete paper_;
     paper_ = p;
 }
+
 Input_score::Input_score(Input_score const&)
 {
     assert(false);
@@ -53,9 +54,7 @@ Input_score::parse()
 
 Input_score::~Input_score()
 {
-    // TODO!
-//should fix paper/symtabs to allow this deletion.
-//    delete paper_;
+    delete paper_;
 }
 
 Input_score::Input_score()

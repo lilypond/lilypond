@@ -28,7 +28,7 @@ Notename_tab::set(int l, int s, String n)
     assert(l < 8 && s <= 2 && s >= -2 && l >=0);
     notetab[l * 5 + s +2] = n;
 }
-/****************/
+/* *************** */
 void
 My_flex_lexer::set(Notename_tab *n)
 {

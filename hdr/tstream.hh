@@ -5,6 +5,11 @@
 #include "string.hh"
 
 /// TeX output
+/**
+  Use this class for writing to a TeX file.
+  It counts braces to prevent nesting errors, and
+  it will add a comment sign before each newline.
+  */
 struct Tex_stream {
     bool outputting_comment;
     ostream *os;
@@ -21,9 +26,4 @@ struct Tex_stream {
 private:
     Tex_stream(Tex_stream const&);
 };
-/**
-  Use this class for writing to a TeX file.
-  It counts braces to prevent nesting errors, and
-  it will add a comment sign before each newline.
-  */
 #endif

@@ -8,7 +8,10 @@
 #define PATHSEP '/'
 #endif
 
-
+/**
+   INPUT: path the original full filename
+   OUTPUT: 4 components of the path. They can be empty
+*/
 void
 split_path(String path, 
 	   String &drive, String &dirs, String &filebase, String &extension)
@@ -45,11 +48,6 @@ split_path(String path,
 	filebase = path;
 	}
 }
-/**
-   INPUT: path the original full filename
-   OUTPUT: 4 components of the path. They can be empty
-*/
-
 
 File_path::File_path(String pref)
 {
@@ -58,7 +56,11 @@ File_path::File_path(String pref)
 }
 
 
-///
+///find a file
+/**
+  It will search in the current dir, in the construction-arg, and
+  in any other added path, in this order.
+  */
 String
 File_path::find(String nm)
 {
@@ -75,7 +77,3 @@ File_path::find(String nm)
      }
      return "";
 }
-/**
-  It will search in the current dir, in the construction-arg, and
-  in any other added path, in this order.
-  */

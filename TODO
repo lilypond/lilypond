@@ -1,18 +1,18 @@
-
-	./input/standchen.ly.rej
-
-	./src/stem.cc.rej
-
-	* scrap simplestaff
+This is an assorted collection of stuff that will be done, might be
+done, or is an idea that I want to think about
 
 BUGS
 	* first clef isn't printed
 
-	* accidental placement for other clefs
+	* key undo
+
+	* key print if 
 
 SEVERELY LACKING:
 
 	* grace notes
+
+	* dynamics (hairpins) 
 
 INPUTLANGUAGE
 
@@ -26,12 +26,11 @@ INPUTLANGUAGE
 
 SMALLISH PROJECTS
 
+	* binsearch for notenames
+
 	* stafftypes: voice names/ instrument names.
 
-	* make spanner for staffsym
-	
-	* Lookup::tex_glissando, Lookup::tex_bracket,
-	Lookup::tex_cresc, Lookup::tex_decresc (use texbeam.cc as an
+	* Lookup::tex_glissando, Lookup::tex_bracket,  (use texbeam.cc as an
 	example.)
 
 	* Decent TeX titledefs (\tempo, \metron, etc. )
@@ -64,10 +63,11 @@ DOC
 
 	* beam generation.
 
-
 	* all errors
 
 FUTURE
+
+	* warning: beam(): Beam too narrow: beam gen not per stem
 
 	* put scripts on barcommands 
 
@@ -95,9 +95,6 @@ IDEAS
 
 	* itemcolumns
 
-	* dependencies: -> implement children more elegantly. Handle
-	spanner with broken deps.
-
 	* use an embedded language: scheme, lisp, S-lang, Perl, ?
 
 	* y -dims in internote?
@@ -113,7 +110,7 @@ IDEAS
 
 	* Spacing_request for manually adjusting spacing
 
-	* Staff_group.
+	* Staff_group, Score_request_register.
 
 	* SHIT: meters/bars should be aligned, which is difficult if
 	we get different keychanges in different staffs.
@@ -123,3 +120,5 @@ IDEAS
 	* MusixTeX output possible?
 
 	* PostScript output (esp. Beams, Slurs, etc)
+
+	* caching breakpoints

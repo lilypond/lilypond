@@ -45,9 +45,10 @@ Local_key_item::brew_molecule_p()const
     Molecule*octmol = 0;
     int lastoct = -100;
     for  (int i = 0; i <  accs.size(); i++) {
+	// do one octave
 	if (accs[i].octave != lastoct) {
 	    if (octmol){
-		Real dy =lastoct*7*paper()->interline()/2;
+		Real dy =lastoct*7*paper()->internote();
 		octmol->translate(Offset(0, dy));
 		output->add(*octmol);
 		delete octmol;
@@ -57,14 +58,14 @@ Local_key_item::brew_molecule_p()const
 	lastoct = accs[i].octave;
 	Symbol s =paper()->lookup_p_->accidental(accs[i].acc);   
 	Atom a(s);
-	Real dy = (accs[i].name + c0_position) * paper()->interline()/2;
+	Real dy = (accs[i].name + c0_position) * paper()->internote();
 	a.translate(Offset(0,dy));
 
 	octmol->add_right(a);
     }
 
     if (octmol){
-	Real dy =lastoct*7*paper()->interline()/2;
+	Real dy =lastoct*7*paper()->internote();
 	octmol->translate(Offset(0, dy));
 	output->add(*octmol);
 	delete octmol;

@@ -8,7 +8,9 @@
 
 const int FLAT_TOP_PITCH=2; /* fes,ges,as and bes typeset in lower octave */
 const int SHARP_TOP_PITCH=4; /*  ais and bis typeset in lower octave */
+
 NAME_METHOD(Keyitem);
+
 Keyitem::Keyitem(int c)
 {
     c_position = c;
@@ -28,7 +30,8 @@ Keyitem::read(Array<int> s)
 void 
 Keyitem::read(const Clef& c)
 {
-    c_position=(c.c0_pos+70)%7;
+    int octaves =(abs(c.c0_position_i_) / 7) +1 ;
+    c_position=(c.c0_position_i_ + 7*octaves)%7;
 }
 
 
@@ -48,7 +51,7 @@ Molecule*
 Keyitem::brew_molecule_p()const
 {
     Molecule*output = new Molecule;
-    Real inter = paper()->interline()/2;
+    Real inter = paper()->internote();
     
     for (int i =0; i < pitch.size(); i++) {
 	Symbol s= paper()->lookup_p_->accidental(acc[i]);

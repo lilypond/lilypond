@@ -20,14 +20,13 @@ Paperdef::duration_to_dist(Moment d)
 Real
 Paperdef::rule_thickness()const
 {
-    return convert_dimen(0.4, "pt");
+    return 0.4 PT;
 }
 
 Paperdef::Paperdef(Lookup *l)
 {
     lookup_p_ = l;
-
-    linewidth = convert_dimen(15,"cm");		// in cm for now
+    linewidth = 15 *CM_TO_PT;		// in cm for now
     whole_width = 8 * note_width();
     geometric_ = sqrt(2);
 }
@@ -72,7 +71,7 @@ Paperdef::note_width()const
 Real
 Paperdef::standard_height() const
 {
-    return convert_dimen(20,"pt");
+    return 20 PT;
 }
 
 void

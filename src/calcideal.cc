@@ -1,15 +1,13 @@
 #include "idealspacing.hh"
-#include "tstream.hh"
 #include "score.hh"
 #include "pscore.hh"
-#include "staff.hh"
 #include "paper.hh"
 #include "sccol.hh"
-#include "debug.hh"
+//#include "debug.hh"
 #include "dimen.hh"
 
 
-/*
+/**
   this needs A LOT of rethinking.
 
   generate springs between columns.
@@ -28,18 +26,14 @@ Score::calc_idealspacing()
 	    for (int n=0; n < i->durations.size(); n++) {
 		Moment d = i->durations[n];
 		Real dist = paper_p_->duration_to_dist(d);
+		Real strength =  i->durations[0]/i->durations[n];
+		assert(strength <= 1.0);
+		
 		while (j->when() < d + i->when())
 		    j++;
 		assert( j->when()== d+i->when());
 		
-		pscore_p_->connect(i->pcol_l_, j->pcol_l_, dist);
-#if 0		
-		if (!j->musical_ && (j+1).ok() 
-		    && ) {
-		    j++;
-		    pscore_p_->connect(i->pcol_l_, j->pcol_l_,  dist);
-		}
-#endif	
+		pscore_p_->connect(i->pcol_l_, j->pcol_l_, dist, strength);
 	    }
 	} else if (j.ok()) {
 	    
@@ -48,8 +42,7 @@ Score::calc_idealspacing()
 	      */
 	    
 	    Moment d = j->when() - i->when();
-	    Real dist = (d) ? paper_p_->duration_to_dist(d) :
-		convert_dimen(2,"pt"); // todo
+	    Real dist = (d) ? paper_p_->duration_to_dist(d) : 2 PT; // todo
 	    
 	    pscore_p_->connect(i->pcol_l_, j->pcol_l_, dist, (d) ? 1.0:1.0);
 	}

@@ -3,8 +3,7 @@
 
 #include "textstr.hh"
 
-/**: do "#" comments, read quote enclosed  fields */
-
+/** do "#" comments, read quote enclosed  fields */
 /// a "const" Array. Contents can't be changed.
 class Text_record : Array<String>  
 {
@@ -28,6 +27,9 @@ public:
     Array<String>::size;           
 };
 
+/**
+    add a subrec/fieldsep/record separator
+    */
 /// abstraction for a datafile
 class Text_db : private Data_file
 {
@@ -50,8 +52,4 @@ public:
     }
 };
 
-
-/**
-    add a subrec/fieldsep/record separator
-    */
 #endif

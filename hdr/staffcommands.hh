@@ -14,7 +14,7 @@
 struct Staff_commands_at : public IPointerList<Command*> {
     Time_description tdescription_;
     
-    /****************/
+    /* *************** */
     
     bool is_breakable();
     Moment when();

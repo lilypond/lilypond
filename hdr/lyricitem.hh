@@ -9,7 +9,7 @@
 #include "textitem.hh"
   
 struct Lyric_item : Text_item {
-    /****************/
+    /* *************** */
     Lyric_item(Lyric_req* lreq_l, int voice_count_i);
     virtual void do_pre_processing();    
 };

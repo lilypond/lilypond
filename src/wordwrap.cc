@@ -2,13 +2,12 @@
 #include "pscore.hh"
 #include "debug.hh"
 
-/* el stupido. This should be done more accurately:
+/** el stupido. This should be done more accurately:
 
    It would be nice to have a Dynamic Programming type of algorithm
    similar to TeX's
    
     */
-
 Array<Col_hpositions>
 Word_wrap::solve()
 {
@@ -64,7 +63,8 @@ Word_wrap::solve()
 	    curcol ++;
 	    break_idx_i++;
 	}
-	mtor << "Adding cols~, next breakpoint " << break_idx_i << '\n';
+
+	*mlog << "[" <<break_idx_i<<"]"<<flush;
 	breaking.push(minimum);
     }
     

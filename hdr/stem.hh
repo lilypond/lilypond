@@ -11,6 +11,16 @@
 #include "moment.hh"
 
 /// the rule attached to the ball
+/**
+  takes care of:
+
+  \begin{itemize}
+  \item the rule
+  \item the flag
+  \item up/down position.
+  \end{itemize}
+  */
+
 struct Stem : Item {
 /*
     /// rhythmical length
@@ -29,27 +39,27 @@ struct Stem : Item {
     int staff_center;
 
     // extent of the stem (positions)
-    Real bot, top;
     /**
       fractional, since Beam has to adapt them.
       */
 
+    Real bot, top;
     Real stemlen;
     
     /// flagtype? 4 none, 8 8th flag, 0 = beam.
     int flag;
 
     ///geen gedonder, jij gaat onder
-    int dir;
     /**
        -1 stem points down, +1: stem points up
        */
 
+    int dir;
     Real stem_xoffset;
     
     Array<Notehead*> heads;
 
-    /****************/
+    /* *************** */
     Stem(int center); //, Moment duration);
     
     /// ensure that this Stem also encompasses the Notehead #n#
@@ -70,14 +80,4 @@ struct Stem : Item {
 
     Molecule* brew_molecule_p() const;
 };
-/**
-  takes care of:
-
-  \begin{itemize}
-  \item the rule
-  \item the flag
-  \item up/down position.
-  \end{itemize}
-  */
-
 #endif

@@ -6,6 +6,16 @@
 #include "vector.hh"
 
 /// a Real matrix
+/** This is a class for a nonsquare block of #Real#s.  The
+    implementation of sparse matrices is done in the appropriate #smat#
+    class. Matrix only does the mathematical actions (adding,
+    multiplying, etc.)
+
+    
+    TODO
+    implement ref counting?  */
+
+
 class Matrix {
     virtual_smat *dat;
     
@@ -15,11 +25,11 @@ public:
     int rows() const { return dat->rows(); }
 
     /// return the size of a matrix
-    int dim() const;
     /**
-      PRE
+      @pre
       the matrix needs to be square.
     */
+    int dim() const;
      
     // Matrix() { dat = 0; } 
     ~Matrix() { delete dat; }
@@ -40,7 +50,6 @@ public:
     void operator/=(Real a) { (*this) *= 1/a; }
     
     /// add a row
-    void insert_row(Vector v,int k);
     /**
       add a row to the matrix before  row k
 
@@ -48,25 +57,26 @@ public:
       v.dim() == cols()
       0 <= k <= rows()
     */
+    void insert_row(Vector v,int k);
     ///
-    void delete_row(int k) { dat->delete_row(k); }
     /**
       delete a row from this matrix.
 
       PRE
       0 <= k < rows();
     */
+    void delete_row(int k) { dat->delete_row(k); }
     void delete_column(int k) { dat->delete_column(k); }
-    ///
-    Matrix(int n);
+
     /**
       square n matrix, initialised to null
     */
-    ///
-    Matrix(int n, int m);
+    Matrix(int n);
+
     /**
       n x m matrix, init to 0
     */
+    Matrix(int n, int m);
     Matrix(const Matrix &m);
 
     /// dyadic product: v * w.transpose
@@ -98,18 +108,18 @@ public:
 
     Real norm() const;
     /// swap
-    void swap_columns(int c1, int c2);
     /**
       PRE
       0 <= c1,c2 < cols()
     */
+    void swap_columns(int c1, int c2);
 
     /// swap
-    void swap_rows(int c1, int c2);
     /**
       PRE
       0 <= c1,c2 < rows()
     */
+    void swap_rows(int c1, int c2);
 
 
     Vector row(int ) const;
@@ -118,16 +128,6 @@ public:
     operator String() const;
     void print() const;
 };
-
-/** This is a class for a nonsquare block of #Real#s.  The
-    implementation of sparse matrices is done in the appropriate #smat#
-    class. Matrix only does the mathematical actions (adding,
-    multiplying, etc.)
-
-    
-    TODO
-    implement ref counting?  */
-
 
 inline Vector
 operator *(Vector &v, const Matrix& m) { return m.left_multiply(v); }

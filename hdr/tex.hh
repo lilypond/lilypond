@@ -6,14 +6,14 @@
 #include "scalar.hh"
 
 /// parameter substitution in TeXstrings
-String
-substitute_args(String source, Array<String> args);
 /**
-  this structure provides a simple macro mechanism:
+  this function provides a simple macro mechanism:
 
   if source == "tex%bla%", then
-  eval({"X","Y"})  == "texXblaY"
+  substitute_args(source, {"X","Y"})  == "texXblaY"
   */
+String
+substitute_args(String source, Array<String> args);
 
 /// parameter substitution in TeXstrings
 String

@@ -8,19 +8,20 @@
 #include "complexstaff.hh"
 #include "sccol.hh" 
 #include "complexwalker.hh"
-#include "main.hh"
+#include "score.hh"
+#include "pscore.hh"
+#include "staffsym.hh"
 
 
-
-Complex_column::Complex_column(Score_column*s, Complex_staff *rs)
+Complex_column::Complex_column(Score_column*s, Complex_staff *staff_l)
     : Staff_column(s)
 {
-    staff_l_ = rs;
+    staff_l_ = staff_l;
 }
 
 Complex_staff::Complex_staff()
 {
-    theline_l_ = 0;
+    pstaff_l_ = 0;
 }
 
 void
@@ -57,7 +58,21 @@ void
 Complex_staff::walk()
 {
     for (Complex_walker sc(this); sc.ok(); sc++) {
-	sc.col()->setup_requests();// TODO
+	sc.col()->setup_requests();
 	sc.process();
     }
+    Staff_symbol *span_p = new Staff_symbol(5);
+
+	
+    Score_column* col_last
+	=score_l_->find_col(score_l_->last(), false);
+    Score_column* col_first=
+	score_l_->find_col(0, false);
+    col_first->pcol_l_->set_breakable();
+    col_last->pcol_l_->set_breakable();
+	
+    span_p->set_extent( col_first->pcol_l_->postbreak_p_,
+		       col_last->pcol_l_->prebreak_p_);
+
+    pscore_l_->typeset_spanner(span_p, pstaff_l_);
 }

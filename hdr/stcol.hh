@@ -1,5 +1,5 @@
 /*
-  stcol.hh -- part of LilyPond
+  stcol.hh -- declare Staff_column
 
   (c) 1996,97 Han-Wen Nienhuys
 */
@@ -23,22 +23,22 @@ struct Staff_column {
 
     Time_description *tdescription_;
     
-    /****************/
+    /* *************** */
     
-    Staff_column(Score_column*s); 
-    bool mus() const;
+    Staff_column(Score_column*); 
+    bool musical_b() const;
     Moment when() const;
     void add(Voice_element*ve);
     void OK() const;
-    /****************************************************************
+    /*
       VIRTUAL
-    ****************************************************************/
+    */
 
     virtual void setup_requests()=0;
 
     virtual ~Staff_column();
 private:
-    Staff_column(Staff_column const&){}
+    Staff_column(Staff_column const&);
 };
 
 

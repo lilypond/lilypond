@@ -16,7 +16,7 @@ struct Text_item : Item {
     int dir_i_;
     Text_def* tdef_l_;
     
-    /****************/
+    /* ***************/
     const char * name() const;    
     virtual void set_default_pos();
     Molecule* brew_molecule_p() const;

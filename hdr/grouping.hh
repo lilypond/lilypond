@@ -13,12 +13,13 @@
 
 typedef Interval_t<Moment> MInterval;
 
-/// data structure which represents rhythmic units 
+/** data structure which represents rhythmic units   this is a tree. It groupes notes according to rules
+ */
 struct Rhythmic_grouping {
     Array<Rhythmic_grouping*> children;
     MInterval *interval_;
     
-    /****************/
+    /* *************** */
 
     Array<MInterval> intervals();
     MInterval interval()const;
@@ -51,9 +52,4 @@ private:
     void junk();
     void copy(Rhythmic_grouping const&);
 };
-/**
-  this is a tree. It groupes notes according to rules
-  
- */
-
 #endif

@@ -9,7 +9,10 @@
 #include "pstaff.hh"
 
 /// all stuff which goes onto paper
-struct PScore {
+/** notes, signs, symbols in a score can be grouped in two ways:
+    horizontally (staffwise), and vertically (columns). #PScore#
+    contains the items, the columns and the staffs.
+ */struct PScore {
     Paperdef *paper_l_;
     
     /// the columns, ordered left to right
@@ -33,7 +36,7 @@ struct PScore {
     /// broken spanners
     IPointerList<Spanner*> broken_spans;
 
-    /****************/
+    /* *************** */
     /* CONSTRUCTION */
     
     PScore(Paperdef*);
@@ -42,8 +45,12 @@ struct PScore {
 
     void add(PStaff *);
     
-    /// add item
-    void typeset_item(Item *,  PCol *,PStaff*,int=1);
+     /// add an item
+    /**
+       add the item in specified containers. If breakstatus is set
+       properly, add it to the {pre,post}break of the pcol.
+       */
+    void typeset_item(Item *item_p,  PCol *pcol_l,PStaff*pstaf_l,int breakstatus=1);
 
     /// add a Spanner
     void typeset_spanner(Spanner*, PStaff*);
@@ -91,8 +98,5 @@ private:
     /// delete unused columns
     void clean_cols();
 };
-/** notes, signs, symbols in a score can be grouped in two ways:
-    horizontally (staffwise), and vertically (columns). #PScore#
-    contains the items, the columns and the staffs.
- */
+
 #endif

@@ -37,7 +37,7 @@ Simple_music::print() const
     mtor << "}\n";
 }
 
-/****************/
+/* *************** */
 
 void
 Complex_music::add(Input_music*v)
@@ -74,7 +74,7 @@ Complex_music::set_default_group(String g)
     for (iter_top(elts,i); i.ok(); i++)
 	    i->set_default_group(g);
 }
-/****************************************************************/
+/* *************************************************************** */
 
 void
 Music_voice::print() const
@@ -134,7 +134,7 @@ Music_voice::translate_time(Moment t)
 
     
     
-/****************/
+/* *************** */
 
 void
 Music_general_chord::add_elt(Voice_element*v)
@@ -180,7 +180,7 @@ Music_general_chord::convert()const
     return l;
 }
 
-/****************/
+/* *************** */
 
 void
 Multi_voice_chord::set_default_group(String g)
@@ -193,7 +193,7 @@ Multi_voice_chord::set_default_group(String g)
 }
 
 
-/****************/
+/* *************** */
 
 void
 Voice_list::translate_time(Moment x)

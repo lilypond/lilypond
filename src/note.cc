@@ -1,7 +1,7 @@
 /*
   could use cleanup
  */
-  #include <ctype.h>
+#include <ctype.h>
 #include "lexer.hh"
 #include "string.hh"
 #include "real.hh"
@@ -121,7 +121,7 @@ get_note_element(String pitch, int * notename, int * duration )
     parse_pitchmod(pitch, i, oct, forceacc);
     rq->notename =notename[0];
     rq->accidental = notename[1];
-    rq->octave = oct;
+    rq->octave = oct + notename[2];
     rq->forceacc = forceacc;
     rq->balltype = dur;
     rq->dots = dots;
@@ -289,7 +289,9 @@ Request*
 get_script_req(int d , Script_def*def)
 {
     Script_req* script_req_p = new Script_req(d, def);
-    script_req_p->defined_ch_c_l_m = defined_ch_c_l;
+//    script_req_p->defined_ch_c_l_m = req_defined_ch_c_l;
+    // all terminal symbols, rather set directly here:
+    script_req_p->defined_ch_c_l_m = lexer->here_ch_c_l();
     return script_req_p;
 }
 

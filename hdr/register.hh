@@ -8,146 +8,77 @@
 #define REGISTER_HH
 #include "proto.hh"
 #include "varray.hh"
+#include "request.hh"
 
 /// data container.
 struct Staff_elem_info {
     Staff_elem * elem_p_;
     Request*req_l_;
     const Voice * voice_l_;
-    Voice_group_registers * group_regs_l_;
- 
+    Voice_group_registers * group_regs_l_; 
     Request_register * origin_reg_l_;
 
-    /****/
+    /* *** */
     Staff_elem_info(Staff_elem*, Request*, Request_register*);
     Staff_elem_info();
 };
 
 /// Hungarian postfix: reg
+/**
+  a struct which processes requests, and creates the Staff_elems  
+  */
 struct Request_register {
     Complex_walker * walk_l_;
     Array<Request*> accepted_req_arr_;
     
-    /****************/
-
+    /* *************** */
+    /**
+      Warning: you can't copy a Request_register
+      */
+    Request_register(Request_register const &);
     Request_register(Complex_walker*);
     Request_register();
     virtual ~Request_register(){}
 
-    /// take note of item/spaanner
+    /** take note of item/spaanner
+	put item in spanner. Adjust local key; etc.
+      */
     virtual void acknowledge_element(Staff_elem_info){}
     /**
-      put item in spanner. Adjust local key; etc.
+      Announce element to  walker
       */
+    void announce_element(Staff_elem_info);
+
+    /**
+      invoke walker method to typeset element
+      */
+    void typeset_element(Staff_elem*elem_p);
     
-    ///
-    virtual bool try_request(Request *req_l) =0;
     /**
       try to fit the request in this register
 
-      RETURN
-      false: request noted, but not taken.
+      @return
+      false: not noted,  not taken.
 
       true: request swallowed. Don't try to put elsewhere
 
       (may be we could use C++ exceptions.. :-)
       */
-
+    virtual bool try_request(Request *req_l) =0;
+    
     /// make items/spanners with the requests you got
     virtual void process_request()=0;
-
+    Paperdef * paper() const;
     /// typeset any spanners. Empty accepted_req_arr_
     void pre_move_processing();
     void post_move_processing();
-    
+    virtual void set_dir(int){}
 protected:
     /// virtual, called by pre_move_process()
     virtual void do_pre_move_process(){}
     virtual void do_post_move_process(){}
 };
-/**
-  a struct which processes requests, and creates the Staff_elems  
-  */
 
-struct Notehead_register : Request_register {
-    Item* note_p_;
-    /****************/
-    Notehead_register(Complex_walker*);
-    virtual bool try_request(Request *req_l) ;
-    virtual void process_request();
-    virtual void do_pre_move_process();
-};
-
-struct Slur_register : Request_register {
-    Array<Slur_req*> requests_arr_;
-    Array<Slur *> slur_l_stack_;
-    Array<Slur*> end_slur_l_arr_;
-    
-    /****************/
-    ~Slur_register();
-    Slur_register(Complex_walker*);
-    virtual bool try_request(Request*);
-    virtual void process_request();
-    virtual void acknowledge_element(Staff_elem_info);
-    virtual void do_pre_move_process();
-};
-
-struct Stem_beam_register : Request_register {
-    Stem * stem_p_;
-    Beam * beam_p_;
-    Beam_req * beam_req_l_;
-    Stem_req * stem_req_l_;
-    Beam_req * start_req_l_;
-    bool end_beam_b_;
-    Rhythmic_grouping *current_grouping;
-    int default_dir_i_;
-    
-    /****************/
-    Stem_beam_register(Complex_walker*);
-    ~Stem_beam_register();
-    void set_dir(int dir_i_);
-    virtual bool try_request(Request*);
-    virtual void process_request();
-    virtual void acknowledge_element(Staff_elem_info);
-    virtual void do_pre_move_process();
-    virtual void do_post_move_process();
-};
-
-struct   Script_register : Request_register {
-    Script * script_p_;
-    
-    /****************/
-    void set_dir(int dir_i_);
-    Script_register(Complex_walker*);
-    virtual bool try_request(Request*);
-    virtual void process_request();
-    virtual void acknowledge_element(Staff_elem_info);
-    virtual void do_pre_move_process();
-};
-
-struct Text_register : Request_register{
-    Text_item * text_p_;
-
-    /****************/
-    void set_dir(int dir_i_);
-    Text_register(Complex_walker*);
-    virtual bool try_request(Request*);
-    virtual void process_request();
-    virtual void do_pre_move_process();
-};
-
-
-struct Local_key_register : Request_register {
-    Local_key_item* key_item_p_;
-
-    /****************/
-    
-    virtual bool try_request(Request*);
-    virtual void process_request();
-    virtual void acknowledge_element(Staff_elem_info);
-    virtual void do_pre_move_process();
-    Local_key_register(Complex_walker*);
-};
 
 #endif // REGISTER_HH
 

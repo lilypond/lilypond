@@ -5,6 +5,7 @@
 #include "plist.hh"
 #include "moment.hh"
 #include "assoc.hh"
+#include "string.hh"
 
 /// the total music def of one movement
 struct Score {
@@ -20,7 +21,8 @@ struct Score {
     int errorlevel_i_;
     
     Assoc<String, Moment> markers_assoc_;
-    /****************************************************************/
+
+    /* *************************************************************** */
 
     /// construction
     Score(Paperdef*);
@@ -40,28 +42,26 @@ struct Score {
 
     // utils:
     PCursor<Score_column*> create_cols(Moment);
+
+    /// find a column. The cursor is given to try a little efficiency.
     PCursor<Score_column *> find_col(Moment,bool);
+    
     /// when does the last *musical* element finish?
     Moment last() const;
 
 private:
     Score(Score const&){}
-    ///
-    void do_cols();
+
     /**
       make the pcol_l_ fields of each Score_column point to the correct PCol,
       remove any unnecessary Score_column's
      */
+    void do_cols();
 
     /// remove unused cols
     void clean_cols();
     
     /// add #Idealspacings# to #pscore_#
     void calc_idealspacing();
-    /** add the score wide commands (bars, breaks) to each staff so
-    they can process (typeset) them if needed */
 };
-/**
-        
-    */
 #endif

@@ -1,17 +1,9 @@
-//
-//  what about 
-//      #include "flower.hh"
-//      #include "lily.hh"
-//
-//  or should we first devide lily/src up ?
-// HWN: huh?
-
 #include "request.hh"
 #include "voice.hh"
 #include "pscore.hh"
 #include "lyricstaff.hh"
 #include "lyricwalker.hh"
-#include "sccol.hh"
+//#include "sccol.hh"
 #include "debug.hh"
 #include "lyricitem.hh"
 
@@ -23,13 +15,11 @@ Lyric_walker::do_word(Word_info)
 void
 Lyric_walker::do_INTERPRET_command(Command* )
 {
-//    WARN << "command for Lyrics found\n";
 }
 
 void
 Lyric_walker::do_TYPESET_command(Command* )
 {
-//    WARN << "command for Lyrics found\n";
 }
 
 void
@@ -44,7 +34,7 @@ Lyric_walker::process_requests()
 }
 
 Lyric_walker::Lyric_walker(Lyric_staff* lstaff_l)
-    : Staff_walker(lstaff_l, lstaff_l->line_pstaff_p_->pscore_l_)
+    : Staff_walker(lstaff_l, lstaff_l->pstaff_l_->pscore_l_)
 {
     reset();
 }

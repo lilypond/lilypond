@@ -12,7 +12,7 @@
 struct Directional_spanner : Spanner{
     
     /// -1 below heads, +1 above heads.
-    int dir;
+    int dir_i_;
 
     /// offset of "center" relative to left-column/0-pos of staff
     virtual Offset center() const=0;

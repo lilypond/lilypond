@@ -21,7 +21,6 @@ struct Stem_info {
     Real miny;
     int no_beams;
 
-    ///////////////
     
     Stem_info(){}
     Stem_info(const Stem*);
@@ -37,7 +36,7 @@ Stem_info::Stem_info(const Stem*s)
 
 }
 
-/****************/
+/* *************** */
 
 Offset
 Beam::center()const
@@ -45,7 +44,7 @@ Beam::center()const
     assert(status >= POSTCALCED);
 
     Real w=(paper()->note_width() + width().length())/2.0;
-    return Offset(w, (left_pos + w* slope)*paper()->interline());
+    return Offset(w, (left_pos + w* slope)*paper()->internote());
 }
 
 
@@ -53,7 +52,6 @@ Beam::Beam()
 {
     slope = 0;
     left_pos = 0.0;
-    dir =0;
 }
 
 void
@@ -73,9 +71,9 @@ Beam::set_default_dir()
 	int d = i->get_default_dir();
 	dirs[(d+1)/2] ++;
     }
-    dir =  (dirs[0] > dirs[1]) ? -1 : 1;
+    dir_i_ =  (dirs[0] > dirs[1]) ? -1 : 1;
     for (iter_top(stems,i); i.ok(); i++) {
-	i->dir = dir;
+	i->dir = dir_i_;
     }
 }
 
@@ -108,12 +106,12 @@ Beam::solve_slope()
 	    dy = my -y;	
     }
     left_pos += dy;
-    left_pos *= dir;    
-    slope *= dir;
+    left_pos *= dir_i_;    
+    slope *= dir_i_;
 
 				// URG
     Real sl = slope*paper()->internote();
-    paper()->lookup_p_->beam(sl, convert_dimen(20,"pt"));
+    paper()->lookup_p_->beam(sl, 20 PT);
     slope = sl /paper()->internote();
 }
 
@@ -184,7 +182,7 @@ Beam::do_pre_processing()
     left  = (*stems.top())   ->pcol_l_;
     right = (*stems.bottom())->pcol_l_;    
     assert(stems.size()>1);
-    if (!dir)
+    if (!dir_i_)
 	set_default_dir();
 
 }
@@ -209,7 +207,7 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
     Real dy=paper()->internote()*2;
     Real stemdx = paper()->rule_thickness();
     Real sl = slope*paper()->internote();
-    paper()->lookup_p_->beam(sl, convert_dimen(20,"pt"));
+    paper()->lookup_p_->beam(sl, 20 PT);
 
     Molecule leftbeams;
     Molecule rightbeams;
@@ -223,7 +221,7 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 	a.translate(Offset (-w, -w * sl));
 	for (int j = 0; j  < lhalfs; j++) {
 	    Atom b(a);
-	    b.translate(Offset(0, -dir * dy * (lwholebeams+j)));
+	    b.translate(Offset(0, -dir_i_ * dy * (lwholebeams+j)));
 	    leftbeams.add( b );
 	}
     }
@@ -238,7 +236,7 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 	int j = 0;
 	for (; j  < rwholebeams; j++) {
 	    Atom b(a);
-	    b.translate(Offset(0, -dir * dy * j));
+	    b.translate(Offset(0, -dir_i_ * dy * j));
 	    rightbeams.add( b ); 
 	}
 	w /= 4;
@@ -246,7 +244,7 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 	
 	for (; j  < rwholebeams + rhalfs; j++) {
 	    Atom b(a);
-	    b.translate(Offset(0, -dir * dy * j));
+	    b.translate(Offset(0, -dir_i_ * dy * j));
 	    rightbeams.add(b ); 
 	}
 	

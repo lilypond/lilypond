@@ -77,18 +77,21 @@ Staff::clean_cols()
 Staff_column *
 Staff::get_col(Moment w, bool mus)
 {
-    Score_column* sccol_l = score_l_->find_col(w,mus);
-    
-    iter_top(cols,i);
+    iter_top(cols,i);    
     for (; i.ok(); i++) {
-
-	if (*i->score_column_l_ > *sccol_l) // too far
+	if (i->when() == w) {
+	    if (i->musical_b() == mus) {
+		assert( score_l_->find_col(w,mus).ptr() == i->score_column_l_);
+		return i;
+	    }
+	    else if (!mus)
+		break;
+	} else if (i->when() > w)
 	    break;
-	if (sccol_l == i->score_column_l_)
-	    return i;
     }
-
     /* post: *sc > *->score_column_l_ || !i.ok() */
+
+    Score_column* sccol_l = score_l_->find_col(w,mus);
     Staff_column* newst = create_col(sccol_l);
 
     if (!i.ok()) {
@@ -98,6 +101,7 @@ Staff::get_col(Moment w, bool mus)
     
     if (mus) {
 	i.insert(newst);
+	
 	return newst;
     }
 
@@ -136,17 +140,21 @@ void
 Staff::setup_staffcols()
 {    
     for (iter_top(voices,i); i.ok(); i++) {
+
 	Moment now = i->start;
 	for (iter_top(i->elts,j); j.ok(); j++) {
-
-	    Staff_column *s_l=get_col(now,true);
+	    
+	    Staff_column *s_l= get_col(now, true);
+	    assert(now == s_l->when());
 	    s_l->add(j);
 	    now += j->duration;	    
 	}
-	
     }
+    OK();
     set_time_descriptions();
 }
+
+
 
 void
 Staff::set_time_descriptions()
@@ -182,7 +190,7 @@ Staff::OK() const
     i++;
     for (; i.ok(); j++,i++) {
 	if ( j->when() == i->when())
-	    assert(!j->mus() && i->mus());
+	    assert(!j->musical_b() && i->musical_b());
 	else
 	    assert(j->when () < i->when() );
     }

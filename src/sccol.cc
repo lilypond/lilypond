@@ -54,6 +54,7 @@ Score_column::preprocess()
 void
 Score_column::add_duration(Moment d)
 {
+    assert(d);
     for (int i = 0; i< durations.size(); i++) {
 	if (d == durations[i])
 	    return ;

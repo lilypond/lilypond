@@ -29,6 +29,10 @@ operator op(type t1, type t2)\
 #endif
 
 /// handy notations for a signed comparison
+/**
+    make the operators{<,<=,==,>=,>} and the MAX and MIN of two.
+    Please fill a & in the type argument if necessary.    
+    */
 #define template_instantiate_compare(type, function, prefix) \
 prefix one_operator(type, function, >)\
 prefix one_operator(type, function, >=)\
@@ -41,10 +45,6 @@ prefix inline type max(type t1, type t2) {  return (t1 > t2 )? t1 : t2; }\
 prefix inline type min(type t1, type t2) {  return (t1 < t2 )? t1 : t2; }\
   \
 prefix  bool operator<(type t1, type t2) /* stupid fix to allow ; */
-     /**
-    make the operators{<,<=,==,>=,>} and the MAX and MIN of two.
-    Please fill a & in the type argument if necessary.    
-    */
 
 
     

@@ -20,7 +20,7 @@ struct Local_key_item : Item {
     Array<Item*> group;
     int c0_position;		// move into walker
 
-    /****************/
+    /* *************** */
     
     Local_key_item(int c0position);
     void add(Item*);

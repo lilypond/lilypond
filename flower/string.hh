@@ -20,6 +20,30 @@
 #include "stringutil.hh"
 
 /// the smart string class.
+/** 
+
+  Intuitive string class. provides 
+
+  ref counting through #String_handle#
+
+  conversion from bool, int, double, char *, char.
+
+  conversion to int, upcase, downcase
+
+
+  printable. 
+
+  indexing (pos, posAny, lastPos)
+
+  cutting (left, right, mid)
+
+  concat (+=, +)
+
+  signed comparison (<, >, ==, etc)
+
+  No operator[] is provided, since this would be enormously  slow. If needed,
+  convert to const char *. 
+*/
 class String
 {
 protected:
@@ -27,8 +51,8 @@ protected:
 
 public:
     /// init to ""
-    String() {  }                  
     /** needed because other constructors are provided.*/
+    String() {  }                  
     String(Rational);
     /// String s = "abc";
     String( const char* source ); 
@@ -95,11 +119,11 @@ public:
     int lastPos( const char* string ) const;
 
     /// index of leftmost c
-    int pos(char c ) const;
     /**
     RETURN:
     0 if not found, else index + 1
     */
+    int pos(char c ) const;
     int pos(const char* string ) const;
     int posAny(const char* string ) const;
 
@@ -117,30 +141,6 @@ public:
     int len() const;
 
 };
-/** 
-
-  Intuitive string class. provides 
-
-  ref counting thru #String_handle#
-
-  conversion from bool, int, double, char *, char.
-
-  conversion to int, upcase, downcase
-
-
-  printable. 
-
-  indexing (pos, posAny, lastPos)
-
-  cutting (left, right, mid)
-
-  concat (+=, +)
-
-  signed comparison (<, >, ==, etc)
-
-  No operator[] is provided, since this would be enormously  slow. If needed,
-  convert to const char *. 
-*/
 
 #include "compare.hh"
 

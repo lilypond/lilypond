@@ -1,8 +1,12 @@
+# -*-make-*-
+
 # version info
 MAJVER=0
 MINVER=0
-PATCHLEVEL=29
+PATCHLEVEL=30
+
 include Site.make
+
 ####
 #### USER CONFIGURABLE
 ####
@@ -23,7 +27,8 @@ EXTRACXXFLAGS=-pipe -Wall -W   -Wmissing-prototypes
 # ElectricFence is a memory debugger which uses the 
 # VM hardware to trap malloc/free errors.
 #
-#EXTRALIB+=-lefence
+
+EXTRALIB= #+=-lefence
 
 ####
 #### END USER CONFIGURABLE part.
@@ -47,18 +52,13 @@ CXXVER=`$(CXX) --version`
 
 # directories
 TOPDIR  := $(shell if [ "$$PWD" != "" ]; then echo $$PWD; else pwd; fi)
+
 OBJECTDIR=objects
 HEADERDIR=hdr
 CCDIR=src
 INITDIR=init
 DEPDIR=deps
 INPUTDIR=input
-#vpath %.cc $(CCDIR)
-#vpath %.hh $(HEADERDIR)
-#vpath %.y $(CCDIR)
-#vpath %.l $(CCDIR)
-#vpath %.o $(OBJECTDIR)
-#vpath %.dep $(DEPDIR)
 
 # 
 #
@@ -71,11 +71,12 @@ obs=$(addprefix $(OBJECTDIR)/,$(cc:.cc=.o))
 ALLDEPS=$(addprefix $(DEPDIR)/,$(cc:.cc=.dep))
 STABLEOBS=$(addprefix $(OBJECTDIR)/,$(stablecc:.cc=.o)) 
 HEADERS=$(addprefix $(HEADERDIR)/,$(hdr)) 
-progdocs=$(HEADERS) $(addprefix $(CCDIR)/, $(mycc))
+progdocs=$(HEADERS) #$(CCSOURCE)
+
 #dist
 .EXPORT_ALL_VARIABLES:
 
-DOCDIR=docdir
+DOCDIR=docxx
 
 PACKAGENAME=lilypond
 DNAME=$(PACKAGENAME)-$(VERSION)

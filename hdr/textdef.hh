@@ -17,7 +17,7 @@ struct Text_def  {
     char const* defined_ch_c_l_m;
   
 
-    /*****************/
+    /* ****************/
     virtual ~Text_def() {};
     bool compare(const Text_def&);
     Text_def();

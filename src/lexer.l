@@ -9,6 +9,7 @@
 #include "parser.hh"
 #include "debug.hh"
 #include "inputscore.hh"
+#include "parseconstruct.hh"
 #include "main.hh"
 
 %}
@@ -220,7 +221,8 @@ include           {
 <incl>[ \t]*      { /* eat the whitespace */ }
 <incl>\"[^"]*\"+   { /* got the include file name */
    String s (YYText()+1);
-	s = s.left(s.len()-1);
+   s = s.left(s.len()-1);
+   defined_ch_c_l = here_ch_c_l() - String( YYText() ).len() - 1;
    new_input(s);
    yy_pop_state();
 }

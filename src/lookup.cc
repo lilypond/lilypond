@@ -42,7 +42,7 @@ Lookup::text(String style, String text, int dir)
     return s;
 }
 
-/****************/
+/* *************** */
 
 Real
 Lookup::internote()
@@ -137,7 +137,21 @@ Lookup::streepjes(int i)
     return ret;
 }
 
-
+Symbol
+Lookup::hairpin(Real &wid, bool decresc)
+{
+    int idx = rint(wid / 6 PT);
+    if(!idx) idx ++;
+    wid = idx*6 PT;
+    String idxstr = (decresc)? "decrescendosym" : "crescendosym";
+    Symbol ret=(*symtables_)("param")->lookup(idxstr);
+       
+    Array<String> a;
+    a.push(idx);
+    ret.tex = substitute_args(ret.tex, a);
+    ret.dim.x = Interval(0,wid);
+    return ret;
+}
 
 Symbol
 Lookup::linestaff(int lines, Real wid) 
@@ -162,9 +176,8 @@ Symbol
 Lookup::meter(Array<Scalar> a)
 {
     Symbol s;
-    s.dim.x = Interval( convert_dimen(0,"pt"),
-			convert_dimen(10,"pt"));
-    s.dim.y = Interval(0, convert_dimen(20,"pt") );	// todo
+    s.dim.x = Interval( 0 PT, 10 PT);
+    s.dim.y = Interval(0, 20 PT);	// todo
     String src = (*symtables_)("param")->lookup("meter").tex;
     s.tex = substitute_args(src,a);
     return s;    

@@ -16,7 +16,7 @@ Staff_column::OK() const
 }
 
 bool
-Staff_column::mus() const
+Staff_column::musical_b() const
 {
     return score_column_l_->musical_;
 }
@@ -38,10 +38,11 @@ Staff_column::add(Voice_element*ve)
     v_elts.push(ve);
 }
 
-Staff_column::Staff_column(Score_column *s_l)
+Staff_column::Staff_column(Score_column * cur)
+
 {
     tdescription_ =0;
-    score_column_l_ = s_l;
+  score_column_l_=cur;
     staff_commands_p_ = 0;
 }
 

@@ -2,7 +2,7 @@
 #ifndef CURSOR_INL
 #define CURSOR_INL
 #include <assert.h>
-//#include "list.hh"
+
 
 template<class T>
 inline

@@ -8,18 +8,16 @@
 
 /// items grouped horizontally
 struct PStaff {
-    Molecule * stafsym_p_;
     PScore * pscore_l_;
     
     
     PointerList<const Spanner*> spans;
     PointerList<Item*> its;
 
-    /****************/
-    virtual void brew_molecule_p(Real width)=0; // maybe overkill
+    /* *************** */
     void add(Item*i);
     PStaff(PScore*);
-    virtual ~PStaff();
+
 private:
     PStaff(PStaff const&);
 };

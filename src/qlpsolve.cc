@@ -142,7 +142,7 @@ Active_constraints::find_active_optimum(Vector g)
     return H*g;
 }
 
-/****************************************************************/
+/* *************************************************************** */
 
 int
 min_elt_index(Vector v)
@@ -159,6 +159,19 @@ min_elt_index(Vector v)
 }
 
 ///the numerical solving
+/** Mordecai Avriel, Nonlinear Programming: analysis and methods (1976)
+    Prentice Hall.
+
+    Section 13.3
+
+    This is a "projected gradient" algorithm. Starting from a point x
+    the next point is found in a direction determined by projecting
+    the gradient onto the active constraints.  (well, not really the
+    gradient. The optimal solution obeying the active constraints is
+    tried. This is why H = Q^-1 in initialisation) )
+
+
+    */
 Vector
 Ineq_constrained_qp::solve(Vector start) const 
 {    
@@ -248,17 +261,4 @@ Ineq_constrained_qp::solve(Vector start) const
     return x;
 } 
 
-/** Mordecai Avriel, Nonlinear Programming: analysis and methods (1976)
-    Prentice Hall.
-
-    Section 13.3
-
-    This is a "projected gradient" algorithm. Starting from a point x
-    the next point is found in a direction determined by projecting
-    the gradient onto the active constraints.  (well, not really the
-    gradient. The optimal solution obeying the active constraints is
-    tried. This is why H = Q^-1 in initialisation) )
-
-
-    */
     
