@@ -73,6 +73,28 @@ flex
 gcc-2.95.2
 "
 
+binutils_after_rpm='
+cd $PREFIX/$TARGET_ARCH/bin \;
+ln -f ../../bin/$TARGET_ARCH-ar ar \;
+ln -f ../../bin/$TARGET_ARCH-as as \;
+ln -f ../../bin/$TARGET_ARCH-dlltool dlltool \;
+ln -f ../../bin/$TARGET_ARCH-ld ld \;
+ln -f ../../bin/$TARGET_ARCH-nm nm \;
+ln -f ../../bin/$TARGET_ARCH-objdump objdump \;
+ln -f ../../bin/$TARGET_ARCH-objcopy objcopy \;
+ln -f ../../bin/$TARGET_ARCH-ranlib ranlib \;
+ln -f ../../bin/$TARGET_ARCH-strip strip \;
+cd $PREFIX/bin \;
+rm -f ar as dlltool ld nm objdump objcopy ranlib strip \;
+'
+gcc_after_rpm='
+cd $PREFIX/$TARGET_ARCH/bin \;
+ln -f ../../bin/$TARGET_ARCH-gcc cc \;
+ln -f ../../bin/$TARGET_ARCH-gcc gcc \;
+ln -f ../../bin/$TARGET_ARCH-c++ c++ \;
+ln -f ../../bin/$TARGET_ARCH-g++ g++
+'
+
 #guile_after_rpm='ln -f $NATIVE_PREFIX/bin/i686-redhat-cygwin-guile-config $NATIVE_PREFIX/bin/i686-pc-cygwin-guile-config'
 
 lilypond_version=@TOPLEVEL_VERSION@
@@ -168,6 +190,9 @@ build ()
 	rpm -ivv --ignoreos --ignorearch --nodeps --force\
 		--dbpath $NATIVE_ROOT/var/lib/rpm \
 		$topdir/RPMS/$a/$name*.rpm
+	#urg
+        name_after_rpm="`expand $name _after_rpm`"
+	`eval $name_after_rpm` || exit 1
 )
 }
 
@@ -244,11 +269,12 @@ db_cv_sprintf_count=yes
 db_cv_spinlocks=no
 EOF
 
-cross_rpm_dir=$NATIVE_PREFIX/lib/rpm/$cta
-cross_rpm_link=/usr/lib/rpm/$cta
+mcta=$ARCH-cygwin
+cross_rpm_dir=$NATIVE_PREFIX/lib/rpm/$mcta
+cross_rpm_link=/usr/lib/rpm/$mcta
 mkdir -p $cross_rpm_dir
 rm -f $cross_rpm_link
-ln -s $NATIVE_PREFIX/lib/rpm/$cta $cross_rpm_link
+ln -s $NATIVE_PREFIX/lib/rpm/$mcta $cross_rpm_link
 
 native_rpm_dir=$NATIVE_PREFIX/lib/rpm/$ta
 native_rpm_link=/usr/lib/rpm/$ta
@@ -263,6 +289,8 @@ base_macros=$NATIVE_PREFIX/lib/rpm/base-macros
 rm -f $base_macros
 cat > $base_macros <<EOF
 %root		/Cygnus
+%_rootbindir    /Cygnus/bin
+#_usr           /Cygnus/usr
 %_prefix	/Cygnus/usr
 %prefix		/Cygnus/usr
 %native_prefix	/Cygnus/usr
@@ -275,6 +303,7 @@ cat > $base_macros <<EOF
 
 #%DocDir		%{native_prefix}/doc
 %DocDir		/Cygnus/usr/doc
+%_docdir	/Cygnus/usr/doc
 %_defaultdocdir /Cygnus/usr/doc
 
 %cygwin_dll	%{native_prefix}/bin/cygwin1.dll
@@ -291,11 +320,13 @@ cat >> $cross_macros <<EOF
 %config_site	%{nil}
 %ldflags	%{nil}
 %_target_platform $TARGET_ARCH
+%program_prefix $TARGET_ARCH-
 
 %configure	\
   CFLAGS="%{cflags}" LDFLAGS="%{ldflags}" CONFIG_SITE=%{config_site} \
   %{sourcedir}/configure \
-  --host=%{_host} --target=%{_target_platform} --prefix=%{native_prefix}
+  --host=%{_host} --target=%{_target_platform} --prefix=%{native_prefix} \
+  --program-prefix=%{program_prefix}
 EOF
 
 cp -f $base_macros $native_macros
@@ -362,7 +393,7 @@ mkdir -p $topdir/{BUILD,RPMS/{$ta,$cta},SOURCES,SPECS,SRPMS}
 # end of setup
 ##############
 
-
+OLDPATH=$PATH
 PATH=$PREFIX/bin:$PATH
 
 mkdir -p $PREFIX/src
@@ -377,21 +408,6 @@ for i in $cross_rpm; do
 	fi
 done
 
-# urg, bug in binutil's cross-make install
-(
-cd $PREFIX/$TARGET_ARCH/bin
-ln -f ../../bin/$TARGET_ARCH-objdump objdump
-ln -f ../../bin/$TARGET_ARCH-objcopy objcopy
-)
-# urg, bug in gcc's cross-make install
-(
-cd $PREFIX/$TARGET_ARCH/bin
-ln -f ../../bin/$TARGET_ARCH-gcc cc
-ln -f ../../bin/$TARGET_ARCH-gcc gcc
-ln -f ../../bin/$TARGET_ARCH-c++ c++
-ln -f ../../bin/$TARGET_ARCH-g++ g++
-)
-
 PATH=$PREFIX/$TARGET_ARCH/bin:$PATH
 
 cd $PREFIX/src
@@ -405,13 +421,18 @@ for i in $native_rpm; do
 	fi
 done
 
-cd $NATIVE_PREFIX/src/redhat/BUILD
+##############
+# Distribution
+##############
 
+PATH=$OLDPATH
+
+mkdir -p $distdir
 rm -f $distdir/$CYGWIN_DLL.gz
 cd $distdir && cp -f $PREFIX/bin/$CYGWIN_DLL . && gzip -f $CYGWIN_DLL
 
-rm -f $distdir/rpm2cpio.gz
-cd $distdir && cp -f $PREFIX/bin/rpm2cpio . && gzip -f rpm2cpio
+rm -f $distdir/rpm.gz
+cd $distdir && cp -f $ROOT/bin/rpm . && gzip -f rpm
 
 
 cat > $distdir/setup.sh <<EOF
@@ -419,26 +440,43 @@ cat > $distdir/setup.sh <<EOF
 set -x
 ROOT=/Cygnus
 PREFIX=\$ROOT/usr
-gunzip rpm2cpio.gz || exit 1
-# currently, the cygwin1.dll's conflict.
-# it's been reported one can't have both in PATH
-dll=\$ROOT/net-485
-mkdir -p \$dll
-gzip -dc cygwin.dll.gz > \$dll/cygwin1.dll
-here=\`pwd\`
-cd \$ROOT/.. && (PATH=\$dll \$here/rpm2cpio \$here/rpm*.rpm ) | cpio -ivmd 
-PATH=\$dll rpm --root=\$ROOT --initdb
-cd \$here
-for i in RPMS/$ta/*.rpm; do
-	PATH=\$dll rpm -ivv --ignoreos --ignorearch --nodeps --force\
-		  --dbpath \$ROOT/var/lib/rpm \
-		  \$i
+gunzip rpm.gz || exit 1
+#dll=\$ROOT/net-485
+#mkdir -p \$dll
+#gzip -dc cygwin.dll.gz > \$dll/cygwin1.dll
+## this won't work: must be done outside of cygwin
+#old_dll=\`which cygwin1.dll\`
+#mv -f \$old_dll \$old_dll.orig\$\$
+#gunzip cygwin1.dll.gz
+#cp -f cygwin1.dll \$old_dll
+echo > rpmrc
+mkdir -p \$ROOT/var/lib
+mkdir -p \$ROOT/bin
+echo > \$ROOT/bin/rpm
+./rpm --root \$ROOT --rcfile rpmrc --initdb
+./rpm --root \$ROOT --rcfile rpmrc --nodeps --ignorearch --ignoreos -Uhv \\
+	RPMS/$ta/rpm-*.$ta.rpm \\
+	RPMS/$ta/*.$ta.rpm
 done
 EOF
 
 cat > $distdir/setup.bat <<EOF
+del dll olddll
+#old_dll=\`which cygwin1.dll\`
+bash -c 'dll=\`which cygwin1.dll\`;
+	wdll=\`cygpath -w \$dll\`;
+	echo cygwin1.dll \$wdll > newdll; echo \$wdll \$wdll.orig\$\$ > olddll'
+if not errorlevel 0 goto nobash
+#mv -f \$old_dll \$old_dll.orig\$\$
+#gunzip cygwin1.dll.gz
+gunzip cygwin1.dll.gz
+#cp -f cygwin1.dll \$old_dll
+copy < olddll 
+copy < newdll 
 bash setup.sh
-if errorlevel 0 goto exit
+if not errorlevel 0 goto nobash
+goto :exit
+:nobash
 @echo "setup.bat: can't find bash"
 @echo "setup.bat: please install usertools from"
 @echo "setup.bat: http://sourceware.cygnus.com/cygwin/"
@@ -449,20 +487,14 @@ cat > $distdir/lilypond.sh <<EOF
 #!/bin/bash
 ROOT=/Cygnus
 PREFIX=\$ROOT/usr
-# currently, the cygwin1.dll's conflict.
-# it's been reported one can't have both in PATH
-dll=\$ROOT/net-485
-PATH=\$dll \$ROOT/bin/lilypond \$*
+\$ROOT/bin/lilypond \$*
 EOF
 
 cat > $distdir/midi2ly.sh <<EOF
 #!/bin/bash
 ROOT=/Cygnus
 PREFIX=\$ROOT/usr
-# currently, the cygwin1.dll's conflict.
-# it's been reported one can't have both in PATH
-dll=\$ROOT/net-485
-PATH=\$dll \$ROOT/bin/midi2ly \$*
+\$ROOT/bin/midi2ly \$*
 EOF
 
 cat > $distdir/lilypond.bat <<EOF
@@ -487,3 +519,29 @@ done
 
 rm -f $www/setup.zip
 cd $www && zip setup.zip lily-w32 $distbase/* $dist_rpms
+
+
+# make small zip dist available
+#
+zipdir=$www/zip
+mkdir -p $zipdir
+
+rm -f $zipdir/$CYGWIN_DLL.zip
+cd $ROOT/bin && zip $zipdir/$CYGWIN_DLL.zip $CYGWIN_DLL
+
+for i in guile-1 rpm lilypond; do
+	found=`find_path $i*.rpm $distdir/RPMS/$ta`
+	if [ "$found" = "" ]; then
+		echo "$i: no such .rpm"
+	else
+		base=`basename $found`
+		package=`echo $base | sed "s/\.$ta.rpm//"`
+		dir=/tmp/$i-rpm2zip
+		rm -rf $dir
+		mkdir -p $dir
+		cd $dir || exit 1
+		rpm2cpio $found | cpio -id
+		zip -ry $zipdir/$package.zip .
+		rm -rf $dir
+	fi
+done
