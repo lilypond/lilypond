@@ -14,7 +14,6 @@
 #include "p-score.hh"
 #include "paper-def.hh"
 
-
 const HAPPY_DOTS_I = 3;
 
 /**
@@ -41,7 +40,6 @@ struct Break_node {
 Array<Col_hpositions>
 Gourlay_breaking::do_solve() const
 {
-
   Array<Break_node> optimal_paths;
   Line_of_cols all = all_cols();
   Array<int> breaks = find_break_indices();
@@ -170,20 +168,9 @@ Gourlay_breaking::do_solve() const
       i = optimal_paths[i].prev_break_i_;
     }
 
-  print_stats();
-  /*
-    TODO print variation in energy
-   */
-  if (max_energy_f) 
-    {
-      ;
-    }
-  
-  
 
   for (int i= final_breaks.size(); i--;) 
     lines.push (optimal_paths[final_breaks[i]].line_config_);
-
   
   return lines;
 }

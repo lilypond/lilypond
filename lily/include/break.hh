@@ -19,12 +19,12 @@
  */
 struct Col_stats
 {
-    int count_i_;
-    int cols_i_;
+  int count_i_;
+  int cols_i_;
 
-    Col_stats(); 
-    void add (Line_of_cols const&l);
-    String str() const;
+  Col_stats(); 
+  void add (Line_of_cols const&l);
+  String str() const;
 };
 
 /** Class representation of an algorithm which decides where to put
@@ -36,45 +36,43 @@ struct Col_stats
 class Break_algorithm {
 protected:
 
-    Paper_score *pscore_l_;
-    Real linelength;
+  Paper_score *pscore_l_;
+  Real linelength;
 
-    /// search all pcols which are breakable.
-    Line_of_cols find_breaks() const;
+  /// search all pcols which are breakable.
+  Line_of_cols find_breaks() const;
 
-    Line_of_cols all_cols() const;
-    Array<int> find_break_indices() const;
+  Line_of_cols all_cols() const;
+  Array<int> find_break_indices() const;
     
 
-    /// helper: solve for the columns in #curline#.
-    void solve_line (Col_hpositions*) const;
+  /// helper: solve for the columns in #curline#.
+  void solve_line (Col_hpositions*) const;
 
-    /// helper: approximate the energyv
-    void approximate_solve_line (Col_hpositions*) const;
+  /// helper: approximate the energyv
+  void approximate_solve_line (Col_hpositions*) const;
 
-    /// does curline fit on the paper?    
-    bool feasible (Line_of_cols) const;
+  /// does curline fit on the paper?    
+  bool feasible (Line_of_cols) const;
     
 
-    Line_spacer* generate_spacing_problem (Line_of_cols) const;
+  Line_spacer* generate_spacing_problem (Line_of_cols) const;
 
-    virtual Array<Col_hpositions> do_solve() const=0;
-    void print_stats() const;
-
-    virtual void do_set_pscore();
+  virtual Array<Col_hpositions> do_solve() const=0;
+   virtual void do_set_pscore();
 public:
-    Col_stats approx_stats_;
-    Col_stats exact_stats_;
-
-    Line_spacer* (*get_line_spacer)();
+  Col_stats approx_stats_;
+  Col_stats exact_stats_;
+  
+  Line_spacer* (*get_line_spacer)();
     
-    Break_algorithm();
-    void set_pscore (Paper_score*);
+  Break_algorithm();
+  void set_pscore (Paper_score*);
 
-    /// check if the spacing/breaking problem is well-stated
-    void problem_OK() const;
-    void OK() const;
-    Array<Col_hpositions> solve() const;
+  /// check if the spacing/breaking problem is well-stated
+  void problem_OK() const;
+  void OK() const;
+  Array<Col_hpositions> solve() const;
 };
 
 #endif // BREAK_HH
