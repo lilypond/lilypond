@@ -38,11 +38,11 @@ General_script_def::equal_b(General_script_def const&g)const
     if (name() != g.name())
 	return false;
 
-    return do_equal_b(g);
+    return do_equal_b(&g);
 }
 
 bool
-General_script_def::do_equal_b(General_script_def const&)const
+General_script_def::do_equal_b(General_script_def const*)const
 {
     return true;
 }
