@@ -87,6 +87,7 @@ Phrasing_slur_engraver::acknowledge_grob (Grob_info info)
       */
       SCM inside = e->get_property ("inside-slur");
       if (Tie::has_interface (e)
+	  || Slur::has_interface (e)
 	  || to_boolean (inside))
 	{
 	  for (int i = slurs_.size (); i--; )

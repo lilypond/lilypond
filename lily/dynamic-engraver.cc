@@ -16,7 +16,6 @@
 #include "hairpin.hh"
 #include "interval.hh"
 #include "item.hh"
-#include "slur.hh"
 #include "note-column.hh"
 #include "paper-column.hh"
 #include "script-interface.hh"
@@ -45,7 +44,6 @@ class Dynamic_engraver : public Engraver
 {
   Item *script_;
   Spanner *line_spanner_;
-  Spanner *slur_;
   Spanner *cresc_;
 
   Spanner *finished_line_spanner_;
@@ -77,7 +75,6 @@ protected:
 Dynamic_engraver::Dynamic_engraver ()
 {
   script_ = 0;
-  slur_ = 0;
   finished_cresc_ = 0;
   line_spanner_ = 0;
   finished_line_spanner_ = 0;
@@ -424,8 +421,6 @@ Dynamic_engraver::acknowledge_grob (Grob_info info)
 	  < scm_to_int (script_->get_property ("script-priority")))
 	Side_position_interface::add_support (line_spanner_, info.grob_);
     }
-  else if (Slur::has_interface (info.grob_))
-    slur_ = dynamic_cast<Spanner*> (info.grob_);
 }
 
 ENTER_DESCRIPTION (Dynamic_engraver,
@@ -437,6 +432,6 @@ ENTER_DESCRIPTION (Dynamic_engraver,
 		  
 /* creats*/       "DynamicLineSpanner DynamicText Hairpin TextSpanner",
 /* accepts */     "absolute-dynamic-event crescendo-event decrescendo-event",
-/* acks  */      "note-column-interface script-interface slur-interface",
+/* acks  */      "note-column-interface script-interface",
 /* reads */       "",
 /* write */       "");
