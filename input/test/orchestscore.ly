@@ -17,7 +17,9 @@ c1 | c2 c | c c | R1*5
 \score{ < 
   \context StaffGroup = wood <
     \context Staff = flauto <
-      \property Staff.instrument = "\\rotatebox[origin=c]{90}{Flauto}"
+    %"\\rotatebox[origin=c]{90}{Flauto}"
+    
+      \property Staff.instrument = "Flauto"
       \property Staff.instr = "Fl."
       \m
     >
@@ -82,7 +84,7 @@ c1 | c2 c | c c | R1*5
     >
     \context Staff = vlc <
       %% \property Staff.instrument = "Violoncello"
-      \property StaffCombineStaff.instrument = #'(lines "Violoncello" "e" "Contrabasso")
+      \property Staff.instrument = #'(lines "Violoncello" "e" "Contrabasso")
       \property Staff.instr = "Vlc"
       \m
     >

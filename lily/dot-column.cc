@@ -124,7 +124,7 @@ Dot_column::add_head (Grob * me, Grob *rh)
   Grob * d = unsmob_grob (rh->get_grob_property ("dot"));
   if (d)
     {
-      Side_position::add_support (me,rh);
+      Side_position_interface::add_support (me,rh);
 
       Pointer_group_interface ::add_element (me, "dots",d);
       d->add_offset_callback (Dot_column::force_shift_callback_proc , Y_AXIS);

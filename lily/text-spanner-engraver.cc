@@ -123,7 +123,7 @@ Text_spanner_engraver::create_grobs ()
 	  span_->set_grob_property ("if-text-padding", gh_double2scm (0));
 	  span_->set_grob_property ("width-correct", gh_double2scm (0));
 	  	    
-	  Side_position::set_axis (span_, Y_AXIS);
+	  Side_position_interface::set_axis (span_, Y_AXIS);
 	  Grob *e = unsmob_grob (get_property ("currentMusicalColumn"));
 	  span_->set_bound (LEFT, e);
 	  
@@ -138,7 +138,7 @@ Text_spanner_engraver::acknowledge_grob (Grob_info info)
 {
   if (span_ && Note_column::has_interface (info.elem_l_))
     {
-      Side_position::add_support (span_, info.elem_l_);
+      Side_position_interface::add_support (span_, info.elem_l_);
       add_bound_item (span_, dynamic_cast<Item*> (info.elem_l_));
     }
 }
@@ -148,7 +148,7 @@ Text_spanner_engraver::typeset_all ()
 {  
   if (finished_)
     {
-      Side_position::add_staff_support (finished_);
+      Side_position_interface::add_staff_support (finished_);
       typeset_grob (finished_);
       finished_ = 0;
     }

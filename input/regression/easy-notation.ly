@@ -1,5 +1,5 @@
 \header {
-texidoc  = " Ez-notation prints names in note heads."
+texidoc  = " Ez-notation prints names in note heads.";
 }
 
 \score {

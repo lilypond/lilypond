@@ -16,7 +16,7 @@
 #include "group-interface.hh"
 
 void
-Side_position::add_support (Grob*me, Grob*e)
+Side_position_interface::add_support (Grob*me, Grob*e)
 {
   Pointer_group_interface::add_element (me, "side-support-elements",e);
 }
@@ -24,7 +24,7 @@ Side_position::add_support (Grob*me, Grob*e)
 
 
 Direction
-Side_position::get_direction (Grob*me)
+Side_position_interface::get_direction (Grob*me)
 {
   SCM d = me->get_grob_property ("direction");
   if (isdir_b (d) && to_dir (d))
@@ -41,23 +41,31 @@ Side_position::get_direction (Grob*me)
   Grob * e = unsmob_grob(other_elt);
   if (e)
     {
-      return (Direction)(relative_dir * Side_position::get_direction (e));
+      return (Direction)(relative_dir * Side_position_interface::get_direction (e));
     }
   
-  return DOWN;
+  return CENTER;
 }
   
-/*
-   Callback that does the aligning. Puts the element next to the support
- */
 
-MAKE_SCHEME_CALLBACK(Side_position,side_position,2);
+MAKE_SCHEME_CALLBACK(Side_position_interface,aligned_on_support_extents, 2);
 SCM
-Side_position::side_position (SCM element_smob, SCM axis)
+Side_position_interface::aligned_on_support_extents (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
 
+  return general_side_position (me, a, true);
+}
+
+
+/*
+ Puts the element next to the support, optionally taking in
+ account the extent of the support.
+*/
+SCM
+Side_position_interface::general_side_position (Grob * me, Axis a, bool use_extents)
+{
   Grob *common = me->parent_l (a);
   SCM support = me->get_grob_property ("side-support-elements");
   for (SCM s = support; s != SCM_EOL; s = gh_cdr (s))
@@ -70,12 +78,15 @@ Side_position::side_position (SCM element_smob, SCM axis)
   Interval dim;
   for (SCM s = support; s != SCM_EOL; s = gh_cdr (s))
     {
-
       Grob * e  = unsmob_grob ( gh_car (s));
       if (e)
-	{
+	if (use_extents)
 	  dim.unite (e->extent (common, a));
-	}
+	else
+	  {
+	    Real x = e->relative_coordinate (common, a);
+	    dim.unite (Interval (x,x));
+	  }
     }
 
   if (dim.empty_b ())
@@ -83,33 +94,51 @@ Side_position::side_position (SCM element_smob, SCM axis)
       dim = Interval(0,0);
     }
 
-  Direction dir = Side_position::get_direction (me);
+  Direction dir = Side_position_interface::get_direction (me);
     
   Real off =  me->parent_l (a)->relative_coordinate (common, a);
   SCM minimum = me->remove_grob_property ("minimum-space");
 
-  Real total_off = dim[dir] + off;
+  Real total_off = dim.linear_combination (dir) + off;
   SCM padding = me->remove_grob_property ("padding");
   if (gh_number_p (padding))
     {
       total_off += gh_scm2double (padding) * dir;
     }
-  if (gh_number_p (minimum) && total_off * dir < gh_scm2double (minimum))
+
+  if (gh_number_p (minimum) 
+      && dir
+      && total_off * dir < gh_scm2double (minimum))
     {
       total_off = gh_scm2double (minimum) * dir;
     }
+
   if (fabs (total_off) > 100 CM)
     programming_error ("Huh ? Improbable staff side dim.");
 
   return gh_double2scm (total_off);
 }
 
+/*
+  Cut & paste (ugh.)
+ */
+MAKE_SCHEME_CALLBACK(Side_position_interface,aligned_on_support_refpoints,2);
+SCM
+Side_position_interface::aligned_on_support_refpoints (SCM smob, SCM axis)
+{
+  Grob *me = unsmob_grob (smob);
+  Axis a = (Axis) gh_scm2int (axis);
+
+  return  general_side_position (me, a, false); 
+}
+
+
 /**
   callback that centers the element on itself
  */
-MAKE_SCHEME_CALLBACK(Side_position,aligned_on_self,2);
+MAKE_SCHEME_CALLBACK(Side_position_interface,aligned_on_self,2);
 SCM
-Side_position::aligned_on_self (SCM element_smob, SCM axis)
+Side_position_interface::aligned_on_self (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
@@ -156,14 +185,14 @@ directed_round (Real f, Direction d)
 
   Only rounds when we're inside the staff, as determined by
   Staff_symbol_referencer::staff_radius() */
-MAKE_SCHEME_CALLBACK(Side_position,quantised_position,2);
+MAKE_SCHEME_CALLBACK(Side_position_interface,quantised_position,2);
 SCM
-Side_position::quantised_position (SCM element_smob, SCM )
+Side_position_interface::quantised_position (SCM element_smob, SCM )
 {
   Grob *me = unsmob_grob (element_smob);
   
   
-  Direction d = Side_position::get_direction (me);
+  Direction d = Side_position_interface::get_direction (me);
 
   if (Staff_symbol_referencer::has_interface (me))
     {
@@ -186,15 +215,15 @@ Side_position::quantised_position (SCM element_smob, SCM )
 /*
   Position next to support, taking into account my own dimensions and padding.
  */
-MAKE_SCHEME_CALLBACK(Side_position,aligned_side,2);
+MAKE_SCHEME_CALLBACK(Side_position_interface,aligned_side,2);
 SCM
-Side_position::aligned_side (SCM element_smob, SCM axis)
+Side_position_interface::aligned_side (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
   
-  Direction d = Side_position::get_direction (me);
-  Real o = gh_scm2double (side_position (element_smob,axis));
+  Direction d = Side_position_interface::get_direction (me);
+  Real o = gh_scm2double (aligned_on_support_extents (element_smob,axis));
 
   Interval iv =  me->extent (me, a);
 
@@ -212,9 +241,9 @@ Side_position::aligned_side (SCM element_smob, SCM axis)
 /*
   Position centered on parent.
  */
-MAKE_SCHEME_CALLBACK(Side_position,centered_on_parent,2);
+MAKE_SCHEME_CALLBACK(Side_position_interface,centered_on_parent,2);
 SCM
-Side_position::centered_on_parent (SCM element_smob, SCM axis)
+Side_position_interface::centered_on_parent (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
@@ -225,7 +254,7 @@ Side_position::centered_on_parent (SCM element_smob, SCM axis)
 
 
 void
-Side_position::add_staff_support (Grob*me)
+Side_position_interface::add_staff_support (Grob*me)
 {
   Grob* st = Staff_symbol_referencer::staff_symbol_l (me);
   if (st)
@@ -235,19 +264,19 @@ Side_position::add_staff_support (Grob*me)
 }
 
 void
-Side_position::set_axis (Grob*me, Axis a)
+Side_position_interface::set_axis (Grob*me, Axis a)
 {
-  me->add_offset_callback (Side_position::aligned_side_proc, a);
+  me->add_offset_callback (Side_position_interface::aligned_side_proc, a);
 }
 
 
 
 // ugh. doesn't cactch all variants. 
 Axis
-Side_position::get_axis (Grob*me)
+Side_position_interface::get_axis (Grob*me)
 {
-  if (me->has_offset_callback_b (Side_position::aligned_side_proc, X_AXIS)
-      || me->has_offset_callback_b (Side_position::aligned_side_proc , X_AXIS))
+  if (me->has_offset_callback_b (Side_position_interface::aligned_side_proc, X_AXIS)
+      || me->has_offset_callback_b (Side_position_interface::aligned_side_proc , X_AXIS))
     return X_AXIS;
 
   
@@ -255,31 +284,31 @@ Side_position::get_axis (Grob*me)
 }
 
 void
-Side_position::set_direction (Grob*me, Direction d)
+Side_position_interface::set_direction (Grob*me, Direction d)
 {
   me->set_grob_property ("direction", gh_int2scm (d));
 }
 
 void
-Side_position::set_minimum_space (Grob*me, Real m)
+Side_position_interface::set_minimum_space (Grob*me, Real m)
 {
   me->set_grob_property ("minimum-space", gh_double2scm (m));
 }
 
 void
-Side_position::set_padding (Grob*me, Real p)
+Side_position_interface::set_padding (Grob*me, Real p)
 {
   me->set_grob_property ("padding", gh_double2scm (p));
 }
 
 bool
-Side_position::has_interface (Grob*me) 
+Side_position_interface::has_interface (Grob*me) 
 {
   return me->has_interface (ly_symbol2scm ("side-position-interface"));
 }
 
 bool
-Side_position::supported_b (Grob*me) 
+Side_position_interface::supported_b (Grob*me) 
 {
   SCM s = me->get_grob_property  ("side-support-elements"); 
   return gh_pair_p(s);

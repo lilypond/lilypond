@@ -70,7 +70,6 @@ Rest_engraver::create_grobs ()
       rest_p_ = new Item (get_property ("Rest"));
       Rhythmic_head::set_interface (rest_p_);
       Staff_symbol_referencer::set_interface (rest_p_);
-
       
       int durlog  = unsmob_duration (rest_req_l_->get_mus_property ("duration"))-> duration_log ();
       

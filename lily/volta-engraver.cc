@@ -173,7 +173,7 @@ Volta_engraver::stop_translation_timestep ()
 {
   if (end_volta_span_p_)
     {
-      Side_position::add_staff_support (end_volta_span_p_);
+      Side_position_interface::add_staff_support (end_volta_span_p_);
       
       typeset_grob (end_volta_span_p_ );
       end_volta_span_p_ =0;

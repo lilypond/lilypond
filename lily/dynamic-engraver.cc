@@ -140,7 +140,7 @@ Dynamic_engraver::process_music ()
 	{
 	  line_spanner_ = new Spanner (get_property ("DynamicLineSpanner"));
 
-	  Side_position::set_axis (line_spanner_, Y_AXIS);
+	  Side_position_interface::set_axis (line_spanner_, Y_AXIS);
 	  Axis_group_interface::set_interface (line_spanner_);
 	  Axis_group_interface::set_axes (line_spanner_, Y_AXIS, Y_AXIS);
 
@@ -174,8 +174,8 @@ Dynamic_engraver::process_music ()
       script_p_->set_grob_property ("text",
 				   script_req_l_->get_mus_property ("text"));
       
-      Side_position::set_direction (script_p_, LEFT);
-      Side_position::set_axis (script_p_, X_AXIS);
+      Side_position_interface::set_direction (script_p_, LEFT);
+      Side_position_interface::set_axis (script_p_, X_AXIS);
       
       if (Direction d = script_req_l_->get_direction ())
 	Directional_element_interface::set (line_spanner_, d);
@@ -339,7 +339,7 @@ Dynamic_engraver::typeset_all ()
       /*
 	To make sure that this works
       */
-      Side_position::add_staff_support (finished_line_spanner_);
+      Side_position_interface::add_staff_support (finished_line_spanner_);
       /*
 	We used to have
 	
@@ -366,7 +366,7 @@ Dynamic_engraver::acknowledge_grob (Grob_info i)
     {
       if (line_spanner_)
 	{
-	  Side_position::add_support (line_spanner_,i.elem_l_);
+	  Side_position_interface::add_support (line_spanner_,i.elem_l_);
 	  add_bound_item (line_spanner_,dynamic_cast<Item*>(i.elem_l_));
 	}
     }

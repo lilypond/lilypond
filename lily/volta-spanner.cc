@@ -111,12 +111,12 @@ void
 Volta_spanner::add_bar  (Grob *me, Item* b)
 {
   Pointer_group_interface::add_element(me, "bars",b);
-  Side_position::add_support (me,b);
+  Side_position_interface::add_support (me,b);
   add_bound_item (dynamic_cast<Spanner*>(me), b); 
 }
 
 void
 Volta_spanner::add_column (Grob*me, Grob* c)
 {
-  Side_position::add_support (me,c);
+  Side_position_interface::add_support (me,c);
 }

@@ -46,7 +46,7 @@ Script_column::before_line_breaking (SCM smob)
 				     
   for (int i=0; i < staff_sided.size (); i++)
     {
-      arrs[Side_position::get_direction (staff_sided[i])]
+      arrs[Side_position_interface::get_direction (staff_sided[i])]
 	.push (staff_sided[i]);
     }
 
@@ -61,7 +61,7 @@ Script_column::before_line_breaking (SCM smob)
       {
 
 	if (last)
-	  Side_position::add_support( arr[i],last);
+	  Side_position_interface::add_support( arr[i],last);
 	    
 	arr[i]->remove_grob_property ("script-priority");
 	last = arr[i];

@@ -163,7 +163,7 @@ Clef_engraver::create_clef ()
     {
       Item * g = new Item (get_property ("OctavateEight"));
 
-      Side_position::add_support (g,clef_p_);      
+      Side_position_interface::add_support (g,clef_p_);      
 
       g->set_parent (clef_p_, Y_AXIS);
       g->set_parent (clef_p_, X_AXIS);

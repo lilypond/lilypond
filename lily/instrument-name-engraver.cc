@@ -13,17 +13,19 @@
 #include "system-start-delimiter.hh"
 #include "side-position-interface.hh"
 #include "align-interface.hh"
+#include "axis-group-interface.hh"
+#include "translator-group.hh"
 
 class Instrument_name_engraver : public Engraver
 {
   Item *text_;
-  Grob * delim_ ;
-
+  Grob *delim_ ;
+  
   void create_text (SCM s);
 public:
   VIRTUAL_COPY_CONS(Translator);
   Instrument_name_engraver ();
-
+  virtual void initialize ();
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
 };
@@ -38,10 +40,18 @@ Instrument_name_engraver::Instrument_name_engraver ()
 
 
 void
+Instrument_name_engraver::initialize ()
+{
+  daddy_trans_l_->set_property ("instrumentSupport", SCM_EOL); 
+}
+
+void
 Instrument_name_engraver::stop_translation_timestep ()
 {
   if (text_)
     {
+      text_->set_grob_property ("side-support-elements",
+				get_property ("instrumentSupport"));
       typeset_grob (text_);
       text_ = 0;
     }
@@ -82,12 +92,20 @@ Instrument_name_engraver::acknowledge_grob (Grob_info i)
 	  
     }
 
-  if (Align_interface::has_interface (i.elem_l_)
-      && Align_interface::axis  (i.elem_l_) == Y_AXIS      
-      //System_start_delimiter::has_interface (i.elem_l_)
-      && i.origin_trans_l_->daddy_trans_l_ == daddy_trans_l_)
+  if (dynamic_cast<Spanner*> (i.elem_l_)
+      && i.elem_l_->has_interface (ly_symbol2scm ("dynamic-interface")))
+    return;
+  
+  if (dynamic_cast<Spanner*> (i.elem_l_)
+      &&((Axis_group_interface::has_interface (i.elem_l_)
+	 && Axis_group_interface::axis_b (i.elem_l_, Y_AXIS))
+	 || (Align_interface::has_interface (i.elem_l_)
+	     && Align_interface::axis  (i.elem_l_) == Y_AXIS)))
     {
-      delim_ = i.elem_l_;
+      SCM nl = gh_cons (i.elem_l_->self_scm (),
+			get_property ("instrumentSupport"));
+
+      daddy_trans_l_->set_property ("instrumentSupport", nl);
     }
 }
 

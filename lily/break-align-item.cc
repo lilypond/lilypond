@@ -69,7 +69,7 @@ Break_align_interface::self_align_callback (SCM element_smob, SCM axis)
    */
   
   
-  return Side_position::aligned_on_self (element_smob, axis);  
+  return Side_position_interface::aligned_on_self (element_smob, axis);  
 }
 
 void

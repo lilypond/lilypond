@@ -97,6 +97,11 @@ Paper_outputter::output_header ()
       generate = generate.left_str (generate.length_i () - 1);
     }
 
+  /*
+    Make fixed length time stamps
+   */
+  generate = generate + to_str (' ' * (120 - generate.length_i ())>? 0)  ;
+  
   SCM args_scm = 
     gh_list (ly_str02scm (creator.ch_l ()),
 	     ly_str02scm (generate.ch_l ()), SCM_UNDEFINED);

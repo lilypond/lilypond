@@ -104,6 +104,11 @@ Performance::output_header_track (Midi_stream& midi_stream)
       str += ctime (&t);
       str = str.left_str (str.length_i() - 1);
     }
+
+  /*
+    Pad out time stamps to 120 chars.  */
+  str = str + to_str (' ' , (120 - str.length_i ()) >? 0);
+  
   Audio_text generate_a (Audio_text::TEXT, str);
   Midi_text generate (&generate_a);
   midi_track.add (Moment (0), &generate);

@@ -46,8 +46,10 @@ public:
 class Audio_key : public Audio_item
 {
 public:
-  Audio_key (); //Newkey_def const& key);
-  // FIXME
+  Audio_key (int acc, bool major);
+
+  int accidentals_;
+  bool major_;
 };
 
 class Audio_instrument : public Audio_item

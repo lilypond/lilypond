@@ -151,6 +151,8 @@ Staff.defaultBarType will have no effect.
 (translator-property-description 'chordChanges boolean? "Only generate chords
 if they change.
 ")
+(translator-property-description 'easyPlay boolean? "Copy note names into note head grob property")
+
 (translator-property-description 'explicitClefVisibility procedure? "visibility-lambda function for clef changes.")
 
 (translator-property-description 'explicitKeySignatureVisibility

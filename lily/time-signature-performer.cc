@@ -49,6 +49,7 @@ Time_signature_performer::create_audio_elements ()
   if (gh_pair_p (fr)
       && scm_equal_p (fr, prev_fraction_) != SCM_BOOL_T)
     {
+      prev_fraction_ = fr;
       int b = gh_scm2int (gh_car (fr));
       int o = gh_scm2int (gh_cdr (fr));
       

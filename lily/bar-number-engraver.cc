@@ -119,7 +119,7 @@ Bar_number_engraver::create_items ()
 
   SCM b = get_property ("BarNumber");
   text_p_ = new Item (b);
-  Side_position::set_axis(text_p_,Y_AXIS);
+  Side_position_interface::set_axis(text_p_,Y_AXIS);
 
   announce_grob (text_p_, 0);
 }

@@ -147,7 +147,7 @@ Local_key_engraver::create_grobs ()
 					 to_boolean (note_l->get_mus_property ("cautionary")),
 					 extra_natural,
 					 tie_break_reminder);
-	      Side_position::add_support (key_item_p_,support_l);
+	      Side_position_interface::add_support (key_item_p_,support_l);
 	    }
 	  
 	  /*
@@ -192,7 +192,7 @@ Local_key_engraver::create_grobs ()
   
   if (key_item_p_ && grace_align_l_)
     {
-      Side_position::add_support (grace_align_l_,key_item_p_);
+      Side_position_interface::add_support (grace_align_l_,key_item_p_);
       grace_align_l_ =0;
     }
 
@@ -206,7 +206,7 @@ Local_key_engraver::create_grobs ()
 	(Arpeggios are engraved left of accidentals, of course.)
        */
       for (int i=0;  i < arpeggios_.size ();  i++)
-	Side_position::add_support (arpeggios_[i], key_item_p_);
+	Side_position_interface::add_support (arpeggios_[i], key_item_p_);
 
       arpeggios_.clear ();
     }
@@ -224,7 +224,7 @@ Local_key_engraver::stop_translation_timestep()
   if (key_item_p_)
     {
       for (int i=0; i < support_l_arr_.size(); i++)
-	Side_position::add_support (key_item_p_,support_l_arr_[i]);
+	Side_position_interface::add_support (key_item_p_,support_l_arr_[i]);
 
       typeset_grob (key_item_p_);
       key_item_p_ =0;

@@ -107,6 +107,7 @@
      "}"
      "\\input lilyponddefs\\newdimen\\outputscale \\outputscale=\\lilypondpaperoutputscale pt\\turnOnPostScript"))
 
+  ;; Note: this string must match the string in ly2dvi.py!!!
   (define (header creator generate) 
     (string-append
      "% Generated automatically by: " creator generate "\n"))
