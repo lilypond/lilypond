@@ -43,6 +43,7 @@ My_lily_parser::parse_file (String init, String in_file, String out_file)
   lexer_->main_input_name_ = in_file;
 
   progress_indication (_ ("Parsing..."));
+  progress_indication ("\n");
 
   set_yydebug (0);
   lexer_->new_input (init, &input_file_->sources_);
@@ -50,8 +51,6 @@ My_lily_parser::parse_file (String init, String in_file, String out_file)
   /* Read .ly IN_FILE, lex, parse, write \score blocks from IN_FILE to
      OUT_FILE (unless IN_FILE redefines output file name).  */
   do_yyparse ();
-
-  progress_indication ("\n");
   
   if (!define_spots_.is_empty ())
     {

@@ -72,6 +72,7 @@ Paper_def::get_paper_outputter (String outname)  const
 {
   progress_indication (_f ("paper output to `%s'...",
 			   outname == "-" ? String ("<stdout>") : outname));
+  progress_indication("\n");
 
   global_input_file->target_strings_.push (outname);
   Paper_outputter * po = new Paper_outputter (outname);
