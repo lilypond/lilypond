@@ -119,7 +119,6 @@
 @end iftex
 
 
-
 @ignore
 @omftitle LilyPond internals
 @omfcreator Han-Wen Nienhuys and Jan Nieuwenhuizen
