@@ -19,14 +19,16 @@ to the number of systems or the system number of a grob.
 %% If we're not using 6 systems, there's definately a problem.
 %% #(define (assert-system-count smob n) ...
 
-
 #(define (display-systemno smob)
   (let* ((this-system (ly:grob-system smob))
 	 (systems (ly:spanner-broken-into
 		   (ly:grob-original this-system))))
-    (display smob)
-    (display (list-index systems this-system))
-    (newline)))
+   (display smob)
+   (display systems)
+   (display this-system)
+   
+   (display (list-index systems this-system))
+   (newline)))
   
 
 #(define (display-system-count smob)
@@ -40,8 +42,8 @@ to the number of systems or the system number of a grob.
 \score{
     \notes\relative c''{
 	\override NoteHead  #'after-line-breaking-callback
-	% = #display-system-count
-	= #display-systemno
+	 = #display-system-count
+%	= #display-systemno
 	c1
 	d
     }
