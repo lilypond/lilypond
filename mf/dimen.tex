@@ -9,8 +9,10 @@
 \font\slurs=xslhd16
 \font\specfont=musixspx
 \font\egler=opus16
-\def\thefont{\egler}
+\font\nummertjes=feta-nummer10
+%\def\thefont{\egler}
 %\def\thefont{\specfont}
+\def\thefont{\nummertjes}
 
 \def\mb#1{{\thefont\char#1}}
 
@@ -52,7 +54,8 @@
 
 \newcount\n
 \def\charn{\n=-1
-        \loop\ifnum\n<255\advance\n by1
+%        \loop\ifnum\n<255\advance\n by1
+        \loop\ifnum\n<10\advance\n by1
         \doitem{\number\n}\endgraf\repeat}
 
 
