@@ -39,7 +39,7 @@ pedal = \notes {
       \name Dynamics
       \consists "Output_property_engraver"
       
-      minimumverticalExtent = #'(-1 . 1)
+      minimumVerticalExtent = #'(-1 . 1)
       pedalSustainStrings = #'("Ped." "*Ped." "*")
       pedalUnaCordaStrings = #'("una corda" "" "tre corde")
       

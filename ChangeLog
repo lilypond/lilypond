@@ -1,5 +1,8 @@
 2002-08-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scripts/convert-ly.py (FatalConversionError.conv): bug in
+	verticalExtent replacement.
+
 	* VERSION: 1.73 released.
 
 2002-08-14 <jiba@tuxfamily.org>

@@ -904,11 +904,13 @@ if 1:
 
 if 1:
 	def conv (str):
-		str = re.sub ('MinimumVerticalExtent', 'MinimumV@rticalExtent', str)
-		str = re.sub ('ExtraVerticalExtent', 'ExtraV@rticalExtent', str)
+		str = re.sub ('MinimumVerticalExtent', 'minimumV@rticalExtent', str)
+		str = re.sub ('minimumVerticalExtent', 'minimumV@rticalExtent', str)		
+		str = re.sub ('ExtraVerticalExtent', 'extraV@rticalExtent', str)
+		str = re.sub ('extraVerticalExtent', 'extraV@rticalExtent', str)		
 		str = re.sub ('VerticalExtent', 'verticalExtent', str)
-		str = re.sub ('ExtraV@rticalExtent', 'extraVerticalExtent', str)
-		str = re.sub ('MinimumV@rticalExtent', 'minimumVerticalExtent', str)		
+		str = re.sub ('extraV@rticalExtent', 'extraVerticalExtent', str)
+		str = re.sub ('minimumV@rticalExtent', 'minimumVerticalExtent', str)		
 		return str
 
 	conversions.append (((1,5,59), conv,
