@@ -18,7 +18,7 @@ code that works better (see @uref{compiling.html,compiling}).
 
 @section Windows binary setup 
 
-Apart from LilyPond itself, you need Cygwin, GUILE, Python, and a TeX
+Apart from LilyPond itself, you need Cygwin, GUILE, Python and a TeX
 installation, but all this software be installed by running setup.exe:
 
 @table @asis
@@ -32,9 +32,9 @@ This will install the minimal set of cygwin tools needed to run
 LilyPond.  Make sure to install in the default place, @file{c:/cygwin},
 and install everything.
 
-As of version 1.3.150, you also have the option to install MiKTeX,
-Python and GSView from this installer, which is recommended.  If you
-choose to install these by hand (see below), make sure to install them
+As of version 1.3.150, you also have the option to install MiKTeX and
+GSView from this installer, which is recommended.  If you choose to
+install these by hand (see below), make sure to install them
 @strong{before} you install LilyPond, otherwise your LilyPond setup will
 be broken.
 
@@ -137,13 +137,6 @@ Click @uref{ftp://mirror.cs.wisc.edu/pub/mirrors/ghost/AFPL/gs650/gs650w32.exe
 @uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum,ftp.cs.wisc.edu}.
 or visit the
 @uref{http://www.cs.wisc.edu/~ghost/,Ghostscript, Ghostview and GSview site}.
-
-@item Python
-Click @uref{http://www.python.org/ftp/python/win32/py152.exe,here} to
-install Python-1.5.2, or visit
-@uref{http://www.python.org,www.python.org}.
-
-We have not tried using newer versions than 1.5.2.
 
 @end table
 

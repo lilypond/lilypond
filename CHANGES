@@ -1,5 +1,7 @@
-1.5.6.jcn1
+1.5.6.jcn2
 =========
+ 
+* Use Cygwin included Python; drop Windows Python and workarounds.
 
 * Include make/lilypond.mandrake.spec (unchecked!) and README.mandrake.
 
