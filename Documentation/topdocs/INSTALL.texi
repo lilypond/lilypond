@@ -501,10 +501,10 @@ send bug reports to @email{bug-lilypond@@gnu.org}.
 
 Bugs that are not fault of LilyPond are documented here.
 
-@unnumberedsubsec Debian GNU/Linux unstable gcc-3.0
+@unnumberedsubsec FLex-2.5.4a and gcc-3.0
 
-Flex (2.5.4a-11) in unstable does not produce g++-3.0 compliant C++
-code.  To compile LilyPond with gcc-3.0 you may do:
+Flex 2.5.4a does not produce g++-3.0 compliant C++ code.  To compile
+LilyPond with gcc-3.0 you may do:
 
 @example
         CC=gcc-3.0 CXX=g++-3.0 ./configure --enable-config=gcc-3.0
@@ -512,6 +512,8 @@ code.  To compile LilyPond with gcc-3.0 you may do:
         patch -p1 < lexer-gcc-3.0.patch
         make conf=gcc-3.0 -C lily
 @end example
+
+Note that this is fixed in Debian/unstable for flex >= 2.5.4a-13.
 
 @unnumberedsubsec NetBSD
 

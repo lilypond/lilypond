@@ -1,5 +1,7 @@
-1.5.2.jcn1
+1.5.2.jcn2
 ==========
+
+* Flex is fixed in Debian/unstable.  Update documentation accordingly.
 
 * Guile 1.3.4 compile fix.
 

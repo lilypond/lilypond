@@ -1,5 +1,6 @@
 \version "1.3.146"
 \header {
+texidoc="setting staff symbol properties the normal way is broken"
     title	= "ancient font test"
     date	= "2000"
 }
@@ -15,12 +16,7 @@ global =  \notes {
 
 upperVoice =  \context Staff = upperVoice <
     \global
-    
-    % this is broken until further notice -- see refman
-    % \property Staff.StaffSymbol \override #'line-count = #4
-    \context Staff \outputproperty #(make-type-checker 'staff-symbol-interface)
-      #'line-count = #4
-
+    \property Staff.StaffSymbol \override #'line-count = #4
     \notes \transpose c' {
 	\property Voice.NoteHead \override #'style = #'mensural
 	\property Voice.Stem \override #'stem-centered = ##t
@@ -60,12 +56,7 @@ upperVoice =  \context Staff = upperVoice <
 
 lowerVoice =  \context Staff = lowerNotes <
     \global
-    
-    % this is broken until further notice -- see refman
-    % \property Staff.StaffSymbol \override #'line-count = #5
-    \context Staff \outputproperty #(make-type-checker 'staff-symbol-interface)
-      #'line-count = #5
-    
+    \property Staff.StaffSymbol \override #'line-count = #5
     \notes \transpose c' {
         \property Voice.NoteHead \override #'style = #'mensural
 	\property Voice.Stem \override #'stem-centered = ##t
