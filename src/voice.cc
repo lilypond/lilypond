@@ -48,7 +48,7 @@ Voice::Voice(Voice const&src)
 
 Voice::Voice()
 {
-    start = 0.0;
+    start = 0;
 }
 
 void
