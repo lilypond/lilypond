@@ -1,12 +1,16 @@
 2002-11-19  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el: LilyPond-imenu-generic-re: only alphabetic chars,
-	remove instructions (found in lilypond-init.el or Documentation).
+	remove instructions; instead, refer to lilypond-init.el and
+	Documentation/topdocs/INSTALL.texi.
 
-	* lilypond.words: add identifiers.
+	* lilypond.words: add identifiers and reserved words.
 
 	* Documentation/topdocs/INSTALL.texi: separate sections for installing
 	files and adding a load-path.
+
+	* lilypond-init.el: Instructions, extracted from 
+	Documentation/topdocs/INSTALL.texi. 
 	
 2002-11-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
