@@ -144,7 +144,8 @@ def draw_neo_mensural_black_head (expr wid) =
 	save head_width;
 	head_width# = wid;
 	set_char_box (0, head_width#, noteheight#/2, noteheight#/2);
-
+	charwx := head_width# / 2;
+	charwy := noteheight# / 2;
 
 	y3 = y1 =0;
 	x2 = x4 = (x1 + x3) /2;
@@ -242,7 +243,10 @@ def draw_diamond_head (expr head_h, pen_w, pen_h, angle, open) =
       define_pixels(head_width, head_height);
 
       set_char_box (0, head_width#,
-		    head_height#/2, head_height#/2);
+	head_height#/2, head_height#/2);
+      
+      charwx := head_width# / 2;
+      charwy := head_height# / 2 - stafflinethickness#;
 
       pickup pencircle
 	     xscaled (min(blot_diameter, pen_w * head_width))

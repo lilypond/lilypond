@@ -72,13 +72,15 @@ def parse_logfile (fn):
 		elif tags[0] == 'char':
 			m = {
 				'description':  tags[1],
-				'name': group + '-' + tags[7],
-				'tex': tags[8],
+				'name': group + '-' + tags[9],
+				'tex': tags[10],
 				'code': string.atoi (tags[2]),
 				'breapth':string.atof (tags[3]),
 				'width': string.atof (tags[4]),
 				'depth':string.atof (tags[5]),
-				'height':string.atof (tags[6])
+				'height':string.atof (tags[6]),
+				'wx': string.atof (tags[7]),
+				'wy':string.atof (tags[8]),
 				}
 			charmetrics.append (m)
 		elif tags[0] == 'font':
@@ -110,15 +112,15 @@ def write_afm_char_metric(file, charmetric):
 
 	f = 1000;
 	tup = (charmetric['code'],
-	       (charmetric['width'] + charmetric['breapth'])*f,
 		charmetric['name'],
 		-charmetric['breapth'] *f,
 		-charmetric['depth']*f,
 		charmetric['width']*f,
-		charmetric['height']*f)
+		charmetric['height']*f,
+	       charmetric['wx'] * f,
+	       charmetric['wy'] * f)
 	
-	
-	file.write ('C %d ; WX %d ; N  %s ;  B %d %d %d %d ;\n'% tup)
+	file.write ('C %d ; N %s ; B %d %d %d %d ; W %d %d ;\n'% tup)
 
 def write_afm_header (file):
 	file.write ("StartFontMetrics 2.0\n")

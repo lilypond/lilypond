@@ -7,9 +7,9 @@ source file of the GNU LilyPond music typesetter
 
  */
 
+#include "warn.hh"
 #include "virtual-font-metric.hh"
 #include "all-font-metrics.hh"
-#include "main.hh"
 #include "molecule.hh"
 #include "paper-def.hh"
 
@@ -65,40 +65,91 @@ Virtual_font_metric::find_by_name (String glyph) const
   
 
 Box
-Virtual_font_metric::get_char (int code)  const
+Virtual_font_metric::get_ascii_char (int)  const
 {
-  int last_k = 0;
+  programming_error ("Virtual font metric cannot be indexed by ASCII.");
+  return Box();
+}
+
+Molecule
+Virtual_font_metric::get_ascii_char_molecule (int )  const
+{
+  programming_error ("Virtual font metric cannot be indexed by ASCII.");
+  return Molecule();
+}
+
+
+Offset
+Virtual_font_metric::get_indexed_wxwy (int code)  const
+{
+  int total = 0;
   for (SCM s = font_list_; gh_pair_p (s); s = gh_cdr (s))
     {
       Font_metric* fm = unsmob_metrics (gh_car (s));
-      int k = last_k + fm->count ();
-      if (last_k <= code && code < k)
+      if (code < total + fm->count ())
 	{
-	  return fm->get_char (code - last_k);
+	  return fm->get_indexed_wxwy (code - total);
 	}
-      last_k = k;
+      total += fm->count ();
+    }
+
+  
+  return Offset (0,0);
+}
+
+Box
+Virtual_font_metric::get_indexed_char (int code)  const
+{
+  int total = 0;
+  for (SCM s = font_list_; gh_pair_p (s); s = gh_cdr (s))
+    {
+      Font_metric* fm = unsmob_metrics (gh_car (s));
+      if (code < total + fm->count ())
+	{
+	  return fm->get_indexed_char (code - total);
+	}
+      total += fm->count ();
     }
 
   
   return Box();
 }
-  
+
+
+int 
+Virtual_font_metric::name_to_index (String glyph) const
+{
+  Molecule m;
+  int total = 0; 
+  for (SCM s = font_list_; m.empty_b () && gh_pair_p (s); s = gh_cdr (s))
+    {
+      Font_metric *m =unsmob_metrics (gh_car (s));
+      int k = m->name_to_index (glyph);
+      if (k >= 0)
+	return total + k;
+
+      total += m->count ();
+    }
+
+  return -1;
+}
+
   
 Molecule
-Virtual_font_metric::get_char_molecule (int code)  const
+Virtual_font_metric::get_indexed_char_molecule (int code)  const
 {
   Molecule  m ;  
-  int last_k = 0;
+  int total = 0;
+  
   for (SCM s = font_list_; gh_pair_p (s); s = gh_cdr (s))
     {
       Font_metric* fm = unsmob_metrics (gh_car (s));
-      int k = last_k + fm->count ();
-      if (last_k <= code && code < k)
+      if (code < total + fm->count())
 	{
-	  m = fm->get_char_molecule (code - last_k);
+	  m = fm->get_indexed_char_molecule (code - total); // ugh.
 	  break; 
 	}
-      last_k = k;
+      total += fm->count ();
     }
 
   return m;

@@ -23,10 +23,14 @@ struct Adobe_font_metric : Font_metric
 {
   AFM_Font_info * font_inf_;
 
+  virtual int name_to_index (String) const;
   virtual int count () const;
-  virtual Box get_char (int) const;
-  AFM_CharMetricInfo const *find_char_metric (String name, bool warn=true) const;
-  AFM_CharMetricInfo const *find_ascii_metric (int, bool warn=true) const;  
+  virtual Box get_ascii_char (int) const;
+  virtual Box get_indexed_char (int) const;
+  virtual Offset get_indexed_wxwy (int) const;
+  
+  AFM_CharMetricInfo const *find_char_metric (String name) const;
+  AFM_CharMetricInfo const *find_ascii_metric (int) const;  
 
   String to_string () const;
   ~Adobe_font_metric ();

@@ -262,15 +262,38 @@ Note_head::brew_ez_molecule (SCM smob)
 Real
 Note_head::stem_attachment_coordinate (Grob *me, Axis a)
 {
-  SCM v = me->get_grob_property ("stem-attachment-function");
+  SCM brewer = me->get_grob_property ("molecule-callback");
+  Font_metric * fm  = Font_interface::get_default_font (me);
+  
+  if (brewer == Note_head::brew_molecule_proc)
+    {
+      SCM style  = me->get_grob_property ("style");
+      if (!gh_symbol_p (style))
+	{
+	  return 0.0;
+	}
+      
+      SCM log = gh_int2scm (Note_head::get_balltype (me));
+      SCM proc = me->get_grob_property ("glyph-name-procedure");
+      SCM scm_font_char = scm_call_2 (proc, log, style);
+      String font_char = "noteheads-" + ly_scm2string (scm_font_char);
 
+      int k = fm->name_to_index (font_char);
+      Box b = fm->get_indexed_char (k);
+      Offset wxwy = fm->get_indexed_wxwy (k);
+      Interval v = b[a];
+      if (!v.empty_b ())
+	return 2 * (wxwy[a] - v.center()) / v.length ();
+    }
+
+  /*
+    Fallback
+   */
+  SCM v = me->get_grob_property ("stem-attachment-function");
   if (!gh_procedure_p (v))
     return 0.0;
-
-  SCM st = me->get_grob_property ("style");
-  SCM log = gh_int2scm (get_balltype (me));
-  SCM result = gh_apply (v, scm_list_n (st, log, SCM_UNDEFINED));
-
+  
+  SCM result = scm_call_2 (v, me->self_scm(), gh_int2scm (axis));
   if (!gh_pair_p (result))
     return 0.0;
 
@@ -278,7 +301,6 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
   
   return gh_number_p (result) ?  gh_scm2double (result) : 0.0;
 }
-
 int
 Note_head::get_balltype (Grob*me) 
 {

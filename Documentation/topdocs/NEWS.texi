@@ -8,6 +8,12 @@
 @chapter New features in 2.1 since 2.0
 
 @itemize
+@item
+The weight of the stafflines is now heavier at smaller staff sizes.
+To match this, the font has been revamped completely for looking: the
+font is now much heavier for smaller sizes, and the note heads are
+more rounded in smaller sizes.
+
 @item Processing scores is now done while parsing the file. New
 Scheme functions give more flexibility: for example, it is now possible
 interpret a score, collecting synchronized musical events in a list, and

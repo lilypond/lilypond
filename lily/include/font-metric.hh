@@ -23,10 +23,16 @@ public:
   String path_;
   
   virtual int count () const;
-  virtual Box get_char (int ascii) const;
-  virtual Molecule get_char_molecule (int ascii) const;
+  virtual Offset get_indexed_wxwy (int) const;
+  virtual Box get_indexed_char (int index) const;
+  virtual Box get_ascii_char (int ascii) const;
   virtual Box text_dimension (String)  const;
+  virtual int name_to_index (String) const;
+
   virtual Molecule find_by_name (String) const;
+  virtual Molecule get_indexed_char_molecule (int k) const;
+  virtual Molecule get_ascii_char_molecule (int k) const;  
+  
   DECLARE_SMOBS (Font_metric,);
 private:
   Font_metric (Font_metric const&); // no copy.
@@ -39,4 +45,3 @@ protected:
 DECLARE_UNSMOB(Font_metric, metrics);
 
 #endif /* FONT_METRIC_HH */
-

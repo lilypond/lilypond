@@ -20,9 +20,12 @@ public:
   Virtual_font_metric (SCM namelist, Real, Paper_def*);
 
   virtual int count () const;
-  virtual Box get_char (int ascii) const;
-  virtual Molecule get_char_molecule (int ascii) const;
-  
+  virtual Box get_indexed_char (int ascii) const;
+  virtual Box get_ascii_char (int ascii) const;
+  virtual Molecule get_indexed_char_molecule (int ascii) const;
+  virtual Molecule get_ascii_char_molecule (int ascii) const;
+  virtual Offset get_indexed_wxwy (int) const;
+  virtual int name_to_index (String)const;
   virtual Molecule find_by_name (String) const;
 
 protected:

@@ -43,7 +43,7 @@ def fet_endgroup(expr name) =
 enddef;
 
 def autometric_output_char=
-	message "@{char@:"&charnamestr&"@:"&decimal charcode&"@:"&decimal charbp&"@:"&decimal charwd&"@:"&decimal chardp&"@:"&decimal charht&"@:"&idstr&"@:"&texstr&"@}";
+	message "@{char@:"&charnamestr&"@:"&decimal charcode&"@:"&decimal charbp&"@:"&decimal charwd&"@:"&decimal chardp&"@:"&decimal charht&"@:"&decimal charwx&"@:"&decimal charwy&"@:"&idstr&"@:"&texstr&"@}";
 enddef;
 
 def hround_pixels(expr sharped) = hround(sharped * hppp) enddef;
@@ -73,6 +73,9 @@ def set_char_box(expr b_sharp, w_sharp, d_sharp,h_sharp) =
 	b := hround(b_sharp *hppp);
 	h := hround(h_sharp *vppp);
 	d := hround(d_sharp *vppp);
+
+	charwx := charwd;
+	charwy := 0;
 enddef;
 
 def no_dimen_beginchar(expr c) =
@@ -103,6 +106,8 @@ def fet_beginchar(expr name, id_lit, texstr_lit) =
 	save texstr, idstr, charnamestr;
 	save charbp;
 	save w,b,h,d;
+	save charwx, charwy;
+
 	string texstr, idstr, charnamestr;
 	texstr := texstr_lit;
 	charnamestr := name;

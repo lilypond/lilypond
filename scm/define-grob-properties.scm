@@ -421,10 +421,12 @@ itself.  Return value is ignored.")
 
 (grob-property-description 'staffline-clearance ly:dimension? "don't get closer than this to stafflines.")
 (grob-property-description 'stem ly:grob? "pointer to Stem object.")
+
 (grob-property-description 'stem-attachment-function procedure? "Where
-does the stem attach to the notehead? Function takes a symbol argument
-being the style. It returns a (X . Y) pair, specifying location in
-terms of note head bounding box.")
+does the stem attach to the notehead? Function takes grob and axis as
+arguments. It returns a (X . Y) pair, specifying location in terms of
+note head bounding box.")
+
 (grob-property-description 'stem-end-position number? "Where does the stem end (the end is opposite to the support-head.")
 
 (grob-property-description 'stem-shorten list? "shorten stems in forced directions given flag multiplicity:

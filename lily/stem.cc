@@ -737,7 +737,7 @@ Stem::brew_molecule (SCM smob)
 	must not take ledgers into account.
        */
       Interval head_height = Note_head::head_extent (hed,Y_AXIS);
-      Real y_attach = Note_head::stem_attachment_coordinate ( hed, Y_AXIS);
+      Real y_attach = Note_head::stem_attachment_coordinate (hed, Y_AXIS);
 
       y_attach = head_height.linear_combination (y_attach);
       stem_y[Direction (-d)] += d * y_attach/dy;
@@ -786,7 +786,6 @@ Stem::off_callback (SCM element_smob, SCM)
   if (Grob * f = first_head (me))
     {
       Interval head_wid = Note_head::head_extent(f, X_AXIS);
-
       
       Real attach =0.0;
 
@@ -811,13 +810,13 @@ Stem::off_callback (SCM element_smob, SCM)
 	  Real rule_thick
 	    = gh_scm2double (me->get_grob_property ("thickness"))
 	    * me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
-
 	  
 	  r += - d * rule_thick * 0.5;
 	}
     }
   return gh_double2scm (r);
 }
+
 
 Grob*
 Stem::get_beam (Grob*me)
