@@ -4,7 +4,29 @@ GNU Music project - manifesto
 
 =head1 DESCRIPTION
 
-Random ranting about the GNU Music project
+Random ranting about the GNU Music project. 
+
+=head2 Note
+
+The GNU Music project was started by a few people (among others Robert Strandh,
+Robert.Strandh@labri.u-bordeaux.fr), who wanted to create free software
+for music printing and composing. After its initiation, its
+development efforts slowed down.
+
+Independently, I started LilyPond. When I showed it to
+RMS, he was very enthousiastic about having LilyPond in the GNU
+project. I subsequently learned about the GNU Music project, and
+contacted them.  We (the GNU Music project people and us, LilyPond
+people) agreed that cooperation would be desirable. Although merging
+of both efforts is technically infeasible at this point, we did decide
+that LilyPond should also be part of the GNU Music project (when it is
+really released).
+
+In summary, LilyPond is part of the GNU project, and part of the (yet
+to be created) GNU Music project. LilyPond 's existence does not mean
+that other efforts for free music tools have come to a halt. In
+particular, the following document is entirely mine, and is not meant
+to reflect anyone else's opinion.
 
 =head1 GOAL
 
@@ -94,7 +116,7 @@ Emacs and TeX
 =item easy to use.
 
 That is, for technical users (that can read a manual). The learning
-curve should be as easy as possible but not at the expense of comfort
+curve should be as flat as possible but not at the expense of comfort
 of use and power.
 
 =back
@@ -106,19 +128,25 @@ of use and power.
 =item A set of music fonts
 
 Preferably in Metafont, suited to both screen display and use on
-paper;  This is because the copyright heritage of {Opus,Musix}tex is unclear.
+paper; This is needed because
+
+1. the copyright heritage of
+{Opus,Musix}tex is unclear. 
+
+2. We don't have any legal papers which make these fonts free (to use
+and alter)
 
 =item A typesetting engine
 
 A system with rules on how to set properties of items to be printed
-(up/down directions, breaking, etc) LilyPond provides one, but it is
-not yet suited to interactive typesetting
+(up/down directions, breaking, dimensoins, etc) LilyPond provides one,
+but it is not (yet) suited to interactive typesetting
 
 =item A display engine
 
 which can display clear notewriting in (say) an X-window
 
-Gsharp is there, but far from finished. Ideally the system should
+G-Sharp is there, but far from finished. Ideally the system should
 cooperate with the typesetting engine
 
 =item An ASCII language
@@ -152,7 +180,7 @@ simplifies creating a collection of music
 (difficult) A system to generate accompaniments, figured bass,
 automatic accompaniment, etc.
 
-=item an internet archive of free music
+=item An internet archive of free music
 
 The complete works by Bach, Beethoven, and any other ancient composer
 should be electronically retrievable. This might be a separate
