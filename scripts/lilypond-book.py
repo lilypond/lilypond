@@ -13,13 +13,13 @@ TODO:
 Example usage:
 
 test:
-     filter-lilypond-book --filter="tr '[a-z]' '[A-Z]'" BOOK
+     lilypond-book --filter="tr '[a-z]' '[A-Z]'" BOOK
 	  
 convert-ly on book:
-     filter-lilypond-book --filter="convert-ly --no-version --from=1.6.11 -" BOOK
+     lilypond-book --filter="convert-ly --no-version --from=1.6.11 -" BOOK
 
 classic lilypond-book:
-     filter-lilypond-book --process="lilypond-bin" BOOK.tely
+     lilypond-book --process="lilypond-bin" BOOK.tely
 
    must substitute:
      @mbinclude foo.itely -> @include foo.itely
@@ -70,9 +70,9 @@ original_dir = os.getcwd ()
 
 help_summary = _ ("""Process LilyPond snippets in hybrid HTML, LaTeX or texinfo document.  Example usage:
 
-   filter-lilypond-book --filter="tr '[a-z]' '[A-Z]'" BOOK
-   filter-lilypond-book --filter="convert-ly --no-version --from=2.0.0 -" BOOK
-   filter-lilypond-book --process='lilypond-bin -I include' BOOK
+   lilypond-book --filter="tr '[a-z]' '[A-Z]'" BOOK
+   lilypond-book --filter="convert-ly --no-version --from=2.0.0 -" BOOK
+   lilypond-book --process='lilypond-bin -I include' BOOK
 
 """)
 
