@@ -81,7 +81,7 @@ do_scores()
 	}
       else
 	{
-	  if (!monitor->silent_b ("do_scores"))
+	  if (!lily_monitor->silent_b ("do_scores"))
 	      is_p->print ();
 	  is_p->process();
 	}

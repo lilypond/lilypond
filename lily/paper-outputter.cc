@@ -85,7 +85,7 @@ Paper_outputter::output_header ()
 
 #ifndef NPRINT
   DOUT << "output_header\n";
-  if (check_debug && !monitor->silent_b ("Guile"))
+  if (check_debug && !lily_monitor->silent_b ("Guile"))
     {
       gh_display (args_scm); gh_newline ();
     }

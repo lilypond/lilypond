@@ -544,12 +544,12 @@ String
 Midi_track::data_str () const
 {
   String str = Midi_chunk::data_str ();
-  if (check_debug && !monitor->silent_b ("Midistrings"))
+  if (check_debug && !lily_monitor->silent_b ("Midistrings"))
     str += "\n";
   for (Cons<Midi_event> *i=event_p_list_.head_; i; i = i->next_) 
     {
       str += i->car_->str ();
-      if (check_debug && !monitor->silent_b ("Midistrings"))
+      if (check_debug && !lily_monitor->silent_b ("Midistrings"))
         str += "\n";
     }
   return str;

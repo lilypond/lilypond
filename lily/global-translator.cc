@@ -86,14 +86,14 @@ Global_translator::run_iterator_on_me (Music_iterator * iter)
 	{
 	  w = iter->next_moment();
 	  DOUT << "proccing: " << w << '\n';
-	  if (!monitor->silent_b ("walking"))
+	  if (!lily_monitor->silent_b ("walking"))
 	    iter->print();
 	}
       
       modify_next (w);
       prepare (w);
       
-      if (!monitor->silent_b ("walking"))
+      if (!lily_monitor->silent_b ("walking"))
 	print();
 
       iter->process_and_next (w);
