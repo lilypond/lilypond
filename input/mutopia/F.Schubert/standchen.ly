@@ -183,14 +183,14 @@ trebleVerseOne =  \notes\relative c{
 trebleEentje =  \notes \relative c' \context Voice {
 	\stemBoth
 	<<e e'>>2 r4 |
-	<<f as!>>2-\(-\mf <<as( c>>8.-> <<f as>>16-)-\) |
+	<<f as!>>2-\(-\mf <<as c>>8.-(-> <<f as>>16-)-\) |
 	% urg: slurs with staccati are ugly
-	<<e g>>4. <<e g(>>8-. <<e g>>-. <<e g>>-)-. |
-	<<f g>>4. <<b, g'(>>8-. <<d g>>-. <<f g>>-)-. |
+	<<e g>>4. <<e g>>8-.-( <<e g>>-. <<e g>>-)-. |
+	<<f g>>4. <<b, g'>>8-.-( <<d g>>-. <<f g>>-)-. |
 	<<e g>>2 <<e g>>4-\pp |
 	<<f a>>2-\( <<a c>>8.-( <<f a>>16-)-\) |
-	<<e g>>4.-\( <<e( g>>8-. <<e g>>-. <<e g>>-)-\)-. |
-	<<f g>>4. <<b, g'(>>8-. <<d g>>-. <<f g>>-)-. |
+	<<e g>>4.-\( <<e g>>8-(-. <<e g>>-. <<e g>>-)-\)-. |
+	<<f g>>4. <<b, g'>>8-(-. <<d g>>-. <<f g>>-)-. |
 	%60
 	<<e g>>2 r4 |
 }
@@ -200,7 +200,7 @@ trebleThrough =  \notes \relative c'{
 	<<e e'>>2. |
 	%61
 	R2. |
-	[<<g, g'>>8.-\< <<g g'>>16 <<b b'>>8. <<b\> b'>>16 -\! <<d d'>>8. <<d d'>>16] |
+	[<<g, g'>>8.-\< <<g g'>>16 <<b b'>>8. <<b b'>>16-\>-\! <<d d'>>8. <<d d'>>16] |
 
 	%% score has double slur on chord.
 	< { c4( )b } { c'4 b } > \!r |
@@ -242,8 +242,8 @@ trebleThrough =  \notes \relative c'{
 
 	% four copied from begin eentje
 	<<f as!>>2-( <<as c>>8.-> <<f as>>16-) |
-	<<e g>>4. <<e g(>>8-. <<e g>>-. <<e g>>-)-. |
-	<<f g>>4. <<b, g'(>>8-. <<d g>>-. <<f g>>-)-. |
+	<<e g>>4. <<e g>>8-(-. <<e g>>-. <<e g>>-)-. |
+	<<f g>>4. <<b, g'>>8-(-. <<d g>>-. <<f g>>-)-. |
 	%80
 
 	\property Voice . TextScript \override #'font-shape = #'italic
@@ -316,7 +316,7 @@ bassThrough =  \notes\relative c{
 	<<g, g'>>8 [<<g' d'>> <<d' f>> <<g, d'>> <<as b d >>-> <<b d f>>] |
 	<<g, g'>>8 [<<g' d'>> <<d' f>> <<g, d'>> <<gis b d >>-> <<b d f>>] |
 	%65
-	<<gis, gis'>>8 [<<d''\> e>> <<e b'>> <<d e>> <<e b'>> <<de>> -\!] |
+	<<gis, gis'>>8 [<<d'' e>>-\> <<e b'>> <<d e>> <<e b'>> <<d e>> -\!] |
 	<<a, a'>>8 [<<c' e>> <<e a>> <<c e>> <<e a>> <<c e>>] |
 	<<a, a'>>8 [<<a' d f>> <<d f a>> <<a d f>> <<d f a>> <<a d f>>] |
 	<<a, a'>>8 [<<a' c e>> <<c e a>> <<a c e>> <<c e a>> <<a c e>>] |
