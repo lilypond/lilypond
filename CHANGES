@@ -1,3 +1,47 @@
+1.3.96.jcn10
+============
+
+* Made small fixes to basic properties: regression-test compiles.
+
+* Moved Text_script_req's text_ member into mus-property.
+
+* Renamed ChordName to ChordNames, for consistancy.
+
+* Resurrected most of chord names, superscripting and kerning
+  is currently broken, though.
+
+* Junked all old style text lookups, except for feta definitions.
+
+* Added support for name-based character lookups.
+
+* Added support for font styles and papersize style sheets.
+
+* Added new code for font selection and scm text markup.  Only used
+  for testing in \textscript SCM. See input/test/markup.ly.
+
+* Fixed (added actually, it got lost?) word-space for chords.
+
+* Added slope-limit and attachment-offset properties to slur.
+
+* Slur's broken trend now weighs in the number of note-columns.
+
+* Spacing tweaks
+
+1.3.96.hwn1
+===========
+
+* Mudela-book fixes (Tom Cato Amundsen)
+
+* Put marks above chords.
+
+* Solaris fix.
+
+* Type checking for \push and \pop; elt property description (docs
+inclusive) is now in Scheme.
+
+* Self-documenting backend using ly/generate-documentation.ly
+
+
 1.3.95.jcn5
 ===========
 
