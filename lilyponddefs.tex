@@ -1,5 +1,3 @@
-
-
 \def\musixtwentydefs{
 	\font\musicfnt=musix20
 
@@ -8,13 +6,9 @@
 	%\balkskip4pt
 }
 \def\interstaffline{
-%	\vskip 20pt%
+	\vskip 20pt%
 }
-\def\interscoreline{
-	\par\vskip 10pt\par
-	\hrule height 2pt width2cm
-	\vskip 10pt
-}
+
 \musixtwentydefs
 \def\mdef#1#2{\def#1{{\musicfnt\char#2}}}
 \mdef\quartball{'007}
@@ -32,11 +26,28 @@
 \mdef\singledot{'00}
 \mdef\doubledot{'01}
 \mdef\tripledot{'02}
-\def\maatstreep{\vrule height10pt }
-\def\finishbar{\vrule height10pt width 1pt}
+\def\maatstreep{\vrule height8pt depth8pt }
+\def\finishbar{\vrule height8pt width 1pt depth8pt}
 \parindent0pt
+
+\def\generalmeter#1#2{\vbox to 0pt{\vss\rm\hbox{#1}\hbox{#2}\vss}}
+
+\mdef\mussepline{155}
+\def\lineseparator{\vbox{\mussepline\vskip -5pt\mussepline}}
+\def\interscoreline{
+	\par\vskip 10pt\par
+	\hskip -5pt\lineseparator% \hbox to 1cm{\kern -5mm\hrulefill}
+	\vskip 10pt
+}
+
+\newcount\n
+\def\linestafsym#1#2{\hbox to 0pt{\vbox to 0pt{\n=0%
+	\loop\ifnum\n<#1\advance\n by1
+	\ifnum\n>1\vskip2pt\fi \hrule width#2\repeat\vss}\hss}}
 
 \def\vcenter#1{\vbox to 0pt{\vss #1\vss}}
 
 \def\cquartrest{\vcenter\quartrest}
-
+\def\ceighthrest{\vcenter\eighthrest}
+\def\csixteenthrest{\vcenter\sixteenthrest}
+\def\cthirtysecondrest{\vcenter\thirtysecondrest}
