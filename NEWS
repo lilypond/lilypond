@@ -1,3 +1,14 @@
+pl 56
+	- Massive Rest/Stem/Collision/Note_column rewrite: resolve
+notehead/rest ambiguities and bugs. eg, [c8 r8 c8] 
+
+pl 54.jnc1
+	- standchen.ly: repeats; lyricii to end
+	- convert-mudela: help + usage
+	- fixed midi key/meter-change (triggered by martien.ly) bug
+
+******
+April 23
 pl 55
 	- staff-side robustification
 	- script-on-rest bug
