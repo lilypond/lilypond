@@ -108,7 +108,8 @@ Rest::glyph_name (Grob *me, int balltype, String style, bool try_ledgers)
     actual_style = "";
   }
 
-  return ("rests-") + to_string (balltype) + (ledgered_b ? "o" : "") + actual_style;
+  return ("rests." + to_string (balltype) + (ledgered_b ? "o" : "")
+	  + actual_style);
 }
 
 

@@ -1,5 +1,10 @@
 2004-12-13  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scm/encoding.scm (coding-alist): Fix encodings for fetaNumber
+	and fetaDynamic.
+
+	* lily/rest.cc (glyph_name): Change - to . .
+
 	* scm/output-gnome.scm (text): Hello world, again.
 
 	* scm/output-svg.scm (named-glyph): New function.  Hello world!
