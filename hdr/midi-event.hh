@@ -19,12 +19,12 @@ public:
 	Midi_event();
 	virtual ~Midi_event();
 	
-	String mudela_str();
+	virtual String mudela_str(); // = 0;
+	virtual void output_mudela( Lily_stream& lily_stream_r );
+	virtual Moment mom();
 
 protected:
 	String mudela_str_;
-
-private:
 };
 
 class Midi_key : public Midi_event {
@@ -41,11 +41,16 @@ private:
 };
 
 class Midi_note : public Midi_event {
-public:
-//	Midi_note( Midi_key* midi_key_l, Midi_tempo* midi_tempo_l, Midi_time* midi_time_l, int pitch_i, Real duration_f );
-	Midi_note( Midi_key* midi_key_l, Midi_time* midi_time_l, int clocks_per_whole_i, int pitch_i, Real duration_f );
+    public:
+	int const c0_pitch_i_c_ = 60;
+
+        Midi_note( Midi_key* midi_key_l, Midi_time* midi_time_l, int division_1_i, int pitch_i, int time_i );
 	virtual ~Midi_note();
 
+	virtual Moment mom();
+	
+private:
+	Duration dur_;
 };
 
 class Midi_tempo : public Midi_event {
@@ -62,14 +67,16 @@ private:
 
 class Midi_time : public Midi_event {
 public:
-	Midi_time( int num_i, int den_i, int clocks_i, int count_32_i );
+	Midi_time( int num_i, int den_i, int division_4_i, int count_32_i );
 	virtual ~Midi_time();
 
-	String duration_str( int usecond24th_per_clock_i, Real delta_time_f );
-	int whole_clocks_i();
+	Duration i2_dur( int time_i, int division_1_i );
+	int clocks_1_i();
 
 private:
-	int whole_clocks_i_;
+	Real sync_f_;
+	Duration sync_dur_;
+	int clocks_1_i_;
 	int num_i_;
 	int den_i_;
 };
