@@ -1,3 +1,8 @@
+2002-12-07  Rune Zedeler  <rz@daimi.au.dk>
+
+	* lily/accidental-engraver.cc:
+	Bugfix: Also print forced accidentals when autoAccidentals = \turnOff
+
 2002-12-06  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lilypond.vim:
