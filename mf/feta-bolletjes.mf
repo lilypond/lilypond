@@ -536,7 +536,7 @@ save solfa_pen_thick;
 solfa_pen_thick# = 2 stafflinethickness#;
 define_pixels (solfa_pen_thick);
 
-def draw_do_head (expr width_factor) =
+def draw_do_head (expr width_factor, dir) =
 	save p ;
 	path p;
 	set_char_box(0, width_factor * noteheight#, 0.5 noteheight#, 0.5 noteheight#);
@@ -551,22 +551,38 @@ def draw_do_head (expr width_factor) =
 	x3 =.5[x1,x2];
 
 	p := z1 -- z2 -- z3 -- cycle;
+
+	charwx := charwd;
+	charwy := - chardp + 0.5 stafflinethickness#;
+	if dir = -1:
+		charwy := - charwy;
+	fi;
 enddef;
 
 fet_beginchar("Whole dohead", "s0do", "wholedohead")
-	draw_do_head (1.8);
+	draw_do_head (1.8, 1);
 	draw p;
 fet_endchar;
 
 
-fet_beginchar("Half dohead", "s1do", "halfdohead")
-	draw_do_head (1.5);
+fet_beginchar("Half dohead", "d1do", "downhalfdohead")
+	draw_do_head (1.5, -1);
 	draw p;
+fet_endchar;
+
+fet_beginchar("Half dohead", "s1do", "halfdohead")
+	draw_do_head (1.5, 1);
+	draw p;
+fet_endchar;
+
+fet_beginchar("Quart dohead", "d2do", "downdohead")
+	draw_do_head (1.55, -1);
+	filldraw p;
 fet_endchar;
 
 
 fet_beginchar("Quart dohead", "s2do", "dohead")
-	draw_do_head (1.55);
+	draw_do_head (1.55, 1);
 	filldraw p;
 fet_endchar;
 
@@ -579,18 +595,19 @@ fet_endchar;
 
 
 
-def draw_re_head (expr width_factor) =
+def draw_re_head (expr width_factor, dir) =
 	save p ;
 	path p;
 	set_char_box(0, width_factor * noteheight#, 0.5 noteheight#, 0.5 noteheight#);
 	
 	pickup pencircle scaled solfa_pen_thick;
 
-
+	save curve_start;
+	curve_start = 0.7;
 	lft x1 = 0;
 	y1 = y5;
 	x1 = x2;
-	y2 = .7 [y3,y1];
+	y2 = curve_start [y3,y1];
 	bot y3 = - d;
 	x3 = .5 [x2,x4];
 	rt x4 = w;
@@ -599,22 +616,38 @@ def draw_re_head (expr width_factor) =
 	x5 = x4;
 	labels (range 1 thru 5);
 	p := z1 --- z2 .. z3{right} .. z4 --- z5 --- cycle;
+
+	charwx := charwd;
+	charwy := curve_start [-chardp, charht];
+	if dir = -1:
+		charwy := - charwy;
+	fi;
 enddef;
 
 fet_beginchar("Whole rehead", "s0re", "wholerehead")
-	draw_re_head (1.8);
+	draw_re_head (1.8,1);
 	draw p;
 fet_endchar;
 
 
-fet_beginchar("Half rehead", "s1re", "halfrehead")
-	draw_re_head (1.5);
+fet_beginchar("Half up rehead", "u1re", "uphalfrehead")
+	draw_re_head (1.5, 1);
+	draw p;
+fet_endchar;
+
+fet_beginchar("Half down rehead", "d1re", "downhalfrehead")
+	draw_re_head (1.5, -1);
 	draw p;
 fet_endchar;
 
 
-fet_beginchar("Quart rehead", "s2re", "rehead")
-	draw_re_head (1.55);
+fet_beginchar("Quart rehead", "u2re", "uprehead")
+	draw_re_head (1.55, 1);
+	filldraw p;
+fet_endchar;
+
+fet_beginchar("Quart rehead", "d2re", "downrehead")
+	draw_re_head (1.55, -1);
 	filldraw p;
 fet_endchar;
 
@@ -699,6 +732,8 @@ def draw_fa_head (expr width_factor) =
 	p_up := z1 -- z2 -- z3 --cycle;
 	p_down := z1 -- z4 -- z3 --cycle;
 
+	charwy := 0.0;
+	charwx := charwd;
 enddef;
 
 
@@ -712,22 +747,22 @@ fet_beginchar("Whole fa down head", "u0fa", "wholefauphead")
 	draw p_down;
 fet_endchar;
 
-fet_beginchar("half fa up head", "d0fa", "halffadownhead")
+fet_beginchar("half fa up head", "d1fa", "halffadownhead")
 	draw_fa_head (1.5);
 	draw p_up;
 fet_endchar;
 
-fet_beginchar("Half fa down head", "u0fa", "halffauphead")
+fet_beginchar("Half fa down head", "u1fa", "halffauphead")
 	draw_fa_head (1.5);
 	draw p_down;
 fet_endchar;
 
-fet_beginchar("Quarter fa up head", "u0fa", "quarterfadownhead")
+fet_beginchar("Quarter fa up head", "u2fa", "quarterfadownhead")
 	draw_fa_head (1.55);
 	filldraw p_up;
 fet_endchar;
 
-fet_beginchar("Quarter fa down head", "d0fa", "quarterfauphead")
+fet_beginchar("Quarter fa down head", "d2fa", "quarterfauphead")
 	draw_fa_head (1.55);
 	filldraw p_down;
 fet_endchar;
@@ -775,17 +810,19 @@ fet_endchar;
 
 
 
-def draw_ti_head (expr width_factor) =
+def draw_ti_head (expr width_factor, dir) =
 	set_char_box(0, width_factor * noteheight#, 0.5 noteheight#, 0.5 noteheight#);
 	save p;
 	path p;
-	
+	save cone_height;
+	cone_height = 0.64;
+
 	pickup pencircle scaled solfa_pen_thick;
 
 	x1 = .5 [x2, x4];
 	bot y1 = -d;
 	lft x2 = 0;
-	y2 = .65 [y1,y3];
+	y2 = cone_height [y1,y3];
 	rt x4 = w;
 	y4 = y2;
 	x3 = x1;
@@ -794,22 +831,39 @@ def draw_ti_head (expr width_factor) =
 	labels(range 1 thru 4);
 
 	p := z1 -- z2  .. z3{right} .. z4 -- cycle;
+	charwx := charwd;
+	charwy := cone_height [-chardp, charht];
+	if dir = - 1:
+		charwy := - charwy;
+	fi;
 enddef;
 
-fet_beginchar("Whole tihead", "s0ti", "wholetihead")
-	draw_ti_head (1.8);
+fet_beginchar("Whole up tihead", "s0ti", "wholetihead")
+	draw_ti_head (1.8, 1);
 	draw p;
 fet_endchar;
 
 
-fet_beginchar("Half tihead", "s1ti", "halftihead")
-	draw_ti_head (1.5);
+fet_beginchar("Half up tihead", "u1ti", "uphalftihead")
+	draw_ti_head (1.5, 1);
+	draw p;
+fet_endchar;
+
+fet_beginchar("Half down tihead", "d1ti", "dnhalftihead")
+	draw_ti_head (1.5, -1);
 	draw p;
 fet_endchar;
 
 
-fet_beginchar("Quart tihead", "s2ti", "tihead")
-	draw_ti_head (1.55);
+
+fet_beginchar("Quart up tihead", "u2ti", "utihead")
+	draw_ti_head (1.55, 1);
+	filldraw p;
+fet_endchar;
+
+
+fet_beginchar("Quart down tihead", "d2ti", "dtihead")
+	draw_ti_head (1.55, -1);
 	filldraw p;
 fet_endchar;
 
