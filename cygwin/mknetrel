@@ -1,0 +1,336 @@
+# -*- shell-script -*-
+
+# stable LilyPond releases: lilypond-1.4
+# archive=ftp://lilypond.org/pub/LilyPond/v1.4
+
+# LilyPond development: lilypond-1.5
+# archive=ftp://lilypond.org/pub/LilyPond/v1.5
+
+# Guile specific mknetrel overrides
+# To use this, do something like:
+cat >/dev/null <<EOC
+
+   wget -P/var/tmp ftp://lilypond.org/pub/LilyPond/v1.5/lilypond-1.5.68.tar.gz
+   rm -rf /home/mknetrel/netrel/src/lilypond-*
+   mkdir -p /home/mknetrel/netrel/src && cd /home/mknetrel/netrel/src
+   ## TODO: look at pimport
+   tar xzf /var/tmp/lilypond-*
+   mv lilypond-* $(echo lilypond-*)-1
+   cd -
+   ./bin/mknetrel -xXC lilypond
+
+EOC
+
+
+BUILD=1
+# sover=14
+
+patch=$mknetrel_root/patch
+iscygwin || (uploads=$here/uploads/$base && mkdir -p $uploads)
+
+sub_packages="doc"
+
+
+
+##. $extra/jcn
+
+
+# -*- shell-script -*-
+
+# jcn -- unsorted stuff
+
+
+#
+# Patching and configuring
+#
+
+# Maybe add to mknetrel or pimport.
+dopatchsrc () {
+    cd $src
+    patch -p1 < $patch/$package.patch
+    [ -d cygwin -a ! -e CYGWIN-PATCHES ] && ln -s cygwin CYGWIN-PATCHES
+    [ -d CYGWIN-PATCHES -a ! -e cygwin ] && ln -s CYGWIN-PATCHES cygwin
+    [ -d CYGWIN-PATCHES ] || mkdir CYGWIN-PATCHES
+}
+
+# Maybe add to mknetrel or pimport.
+patchsrc () {
+    [ -r $patch/$package.patch -a ! -r $src/CYGWIN-PATCHES -a ! -r $src/cygwin ] && dopatchsrc
+}
+
+autoupdate () {
+    for i in bootstrap autogen.sh; do
+	if [ -x ./$i ]; then
+	    ./$i || exit 1
+	    return 0
+	fi
+    done
+    
+    aclocal
+    rm -rf libltdl
+    libtoolize --force --copy --automake --ltdl
+    autoheader
+    autoconf
+    automake --add-missing
+}
+
+crosscache () {
+	cat <<EOF > config.cache
+
+ac_cv_c_bigendian=${ac_cv_c_bigendian=no}
+ac_cv_sizeof_char=${ac_cv_sizeof_char=1}
+ac_cv_sizeof_char_p=${ac_cv_sizeof_char_p=4}
+ac_cv_sizeof_double=${ac_cv_sizeof_double=8}
+ac_cv_sizeof_float=${ac_cv_sizeof_float=4}
+ac_cv_sizeof_int=${ac_cv_sizeof_int=4}
+ac_cv_sizeof_long=${ac_cv_sizeof_long=4}
+ac_cv_sizeof_long_double=${ac_cv_sizeof_long_double=12}
+ac_cv_sizeof_long_long=${ac_cv_sizeof_long_long=8}
+ac_cv_sizeof_short=${ac_cv_sizeof_short=2}
+ac_cv_sizeof_void_p=${ac_cv_sizeof_void_p=4}
+ac_cv_c_long_size_t=${ac_cv_c_long_size_t=no}
+ac_cv_c_long_time_t=${ac_cv_c_long_time_t=yes}
+ac_16bit_type=${ac_16bit_type=short}
+ac_32bit_type=${ac_32bit_type=int}
+ac_64bit_type=${ac_64bit_type=none}
+ac_cv_sys_restartable_syscalls=${ac_cv_sys_restartable_syscalls=no}
+ac_cv_sprintf_count=${ac_cv_sprintf_count=yes}
+ac_cv_spinlocks=${ac_cv_spinlocks=no}
+ac_cv_func_getpgrp_void=${ac_cv_func_getpgrp_void=yes}
+ac_cv_func_setvbuf_reversed=${ac_cv_func_setvbuf_reversed=no}
+ac_cv_func_mkfifo=yes
+
+# Try at preventing to break make rules while crosscompiling.  This
+# used work, but nowadays ./configure thinks it knows better than me.
+
+# But what ./configure doesn't know, is that automake and libtool are
+# broken wrt cross-building, and wrt cc_for_build.  See new
+# workarounds above.
+
+ac_exeext=${ac_exeext=}
+ac_cv_exeext=${ac_cv_exeext=}
+EOF
+}
+
+
+
+#
+# Subpackage stuff -- Maybe move to mknetrel
+#
+
+# Possibly, using file-lists globs is smarter than separate install
+# prefixes.  We'll see what happens when packaging tetex-*.
+
+
+lib_name () {
+    echo lib$base$sover
+}
+
+devel_name () {
+    echo $base-devel
+}
+
+doc_name () {
+    echo $base-doc
+}
+
+lib_split () {
+    mkdir -p ./$prefix/bin || exit 1
+    mv $inst/$prefix/bin/*.dll ./$prefix/bin
+    mkdir -p ./$prefix/share || exit 1
+    mv $inst/$prefix/share/$base ./$prefix/share
+    true
+}
+   
+devel_split () {
+    mkdir -p ./$prefix/bin || exit 1
+    mv $inst/$prefix/bin/guile-* ./$prefix/bin
+    mv $inst/$prefix/include ./$prefix/include
+    mkdir -p ./$prefix/lib || exit 1
+    mv $inst/$prefix/lib/*.a ./$prefix/lib
+    mv $inst/$prefix/lib/*.la ./$prefix/lib
+    mkdir -p ./$prefix/share || exit 1
+    mv $inst/$prefix/share/aclocal ./$prefix/share
+    true
+}
+
+doc_split () {
+    mkdir -p ./$prefix || exit 1
+    mv $inst/$prefix/info ./$prefix
+    true
+}
+
+domkdist() {
+    #
+    # Fix up installation slightly
+    #
+    cd $inst || exit 1
+    chmod -R a+w .
+    cd usr 2>/dev/null && dousrstuff
+
+
+    # Split off any sub-packages.  The actual splitting is handled by
+    # a package's specific code in extra/.
+
+    # To package `foo' in foo, foo-doc and foo-devel, set
+    # sub_packages='doc devel'.
+
+    # Then provide functions doc_name and devel_name, that return the
+    # full name of the sub-package.  Also provide functions doc_split
+    # and devel_split, that mv part of foo's installation in $inst to
+    # the sub-packages' installation roots $inst-doc and $inst-devel.
+
+    cd $inst || exit 1
+    presplit
+
+    for i in $sub_packages; do
+	subname=$(${i}_name)
+        rm -rf $inst-$i
+	mkdir -p $inst-$i || exit 1
+  	cd $inst-$i
+	${i}_split || exit 1
+    done
+    
+    #
+    # Make tar balls
+    #
+
+    cd $inst || exit 1
+    prepackage
+
+    # The base package
+    echo creating $tarstem.tar.bz2
+    cd $inst || exit 1
+
+    f=$src/cygwin/setup.hint && test -r $f && cp $f $uploads
+    f=$src/cygwin/$base.hint && test -r $f && cp $f $uploads/setup.hint
+    find * -print | sort | tar -T - --no-recursion -cjf $tarstem.tar.bz2
+
+    # Any sub-packages
+    for i in $sub_packages; do
+	subname=$(${i}_name)
+	subload=$uploads/$subname
+	subtarstem=$subload/$subname-$ver
+	mkdir -p $subload || exit 1
+	echo creating $subtarstem.tar.bz2
+	f=$src/cygwin/$subname.hint && test -r $f && cp $f $subload/setup.hint
+  	cd $inst-$i
+	find * -print | sort | tar -T - --no-recursion -cjf $subtarstem.tar.bz2
+    done
+
+    # The source package
+    cd $src/.. || exit 1
+    echo creating "$tarstem"-src.tar.bz2
+    find $package_src/* -print -follow | egrep -v '\.cvsignore|\.bak$|\.orig$|\.o$|~$|^.#|CVS|%redact|/tags$' | egrep -v "$src_exclude" | sort | tar -T - --no-recursion -cjf "$tarstem"-src.tar.bz2
+    postpackage
+}
+
+
+# end jcn
+
+
+
+
+needdevoflags () {
+    return 1
+}
+
+# do I have a broken setup, do the Guile developers not know how to
+# write configure.in and Makefile.am, or are automake/libtool broken?
+preconfig () { # aka libtool_woes ()
+
+    # Add to mknetrel?
+    patchsrc 
+
+    ## autoupdate
+
+    cd $build || exit 1
+
+    GUILE=1.5.6
+    cat > guile-config <<EOF
+#/bin/sh
+[ "\$1" == "--version" ] && echo "guile-config - Guile version $GUILE"
+[ "\$1" == "compile" ] && echo "-I$PREFIX/include"
+[ "\$1" == "link" ] && echo "-L$PREFIX/lib -lguile"
+exit 0
+EOF
+
+    chmod 755 guile-config
+    old_path=$PATH
+    PATH=$(pwd):$PATH
+    
+    LDFLAGS="$PREFIX/bin/libpython2.2.dll"
+}
+
+postconfig () {
+    # Configure for build, for generating doc
+    rm -f config.cache
+    (PATH="$old_path" \
+	CFLAGS="-O2 -g" \
+	$src/configure --prefix=/usr --enable-config=for-build)
+}
+
+prebuild () {
+    # Build for build, generating doc
+    cd $build || exit 1
+    
+    # ugh, footify fix
+    cd $src && ln -s GNUmakefile.in GNUmakefile
+
+    cd $build || exit 1
+    PATH=/bin:/usr/bin:$PATH make conf=for-build all doc html-doc
+    for i in $(find . -path "out-for-build/*.1"); do
+	cp -pv $i $(dirname $(dirname $i))/$(basename $i)
+    done
+}
+
+postinstall () {
+    mkdir -p $inst-doc/$prefix
+    cd $src || exit 1
+    make conf=for-build prefix=$inst-doc/$prefix install-html-doc
+
+
+    ## copy READMEs etc
+
+    cd $src || exit 1
+    docdir=$prefix/share/doc/$name-$version
+    
+    mkdir -p $inst/$docdir
+
+    ## Generic READMEs
+    find . -maxdepth 1 -type f -exec cp -pv \{\} $inst/$docdir \;
+
+    ## Windows readmes
+    cd Documentation/windows || exit 1
+    cp -p README $inst/$docdir/README.Cygwin
+    cp -p changelog $inst/$docdir/changelog.Cygwin
+    mkdir -p $inst/$prefix/doc/Cygwin
+    cp -p README $inst/$prefix/doc/Cygwin/$cygpack.README
+
+    ## copy examples
+    cd $src || exit 1
+    cp -prv input $inst/$docdir
+
+    cd $inst-doc/$prefix/share/doc/$name-$version &&
+    ln -s $(find html/Documentation -name '*.ps.gz') .
+
+    ## Cygwin doesn't adhere to FHS (and why should they?)
+    cd $inst/$prefix && mv share/doc .
+    cd $inst-doc/$prefix && mv share/doc .
+}
+
+#presplit () {
+#    docdir=$prefix/share/doc/$name-$version
+#    mkdir -p $inst-doc/$docdir || exit 1
+#}
+
+doc_split () {
+    mkdir -p ./$prefix || exit 1
+    mv $inst/$prefix/info ./$prefix
+    true
+}
+
+
+#prepackage () {
+#  mv $inst/$prefix/bin/guile-* $inst-devel/$prefix/bin
+#}

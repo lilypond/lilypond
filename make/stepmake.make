@@ -1,5 +1,12 @@
 # make/Stepmake.make
 
+
+all: foe
+
+foe:
+	@echo one=.$(shell cd $(builddir); pwd).
+	@echo two=.$(shell cd $(depth); pwd).
+
 include $(depth)/make/toplevel-version.make
 
 
@@ -29,26 +36,23 @@ endif
 ifdef config
   configuration=$(config)
 else
-  ifeq ($(builddir),.)
+  ifeq ($(builddir),)
     configuration=$(depth)/config$(CONFIGSUFFIX).make
   else
-    # user package
-    configuration=$(depth)/$(builddir)/config$(CONFIGSUFFIX).make
-    # stepmake package
-    #configuration=$(depth)/../$(builddir)/stepmake/config$(CONFIGSUFFIX).make
+    configuration=$(builddir)/config$(CONFIGSUFFIX).make
   endif
+endif
+
+ifeq ($(builddir),)
+  outroot=.
+else
+  outroot=$(builddir)/$(patsubst $(shell cd $(depth); pwd)%,%,$(pwd))
 endif
 
 include $(configuration)
 
-ifeq ($(builddir),.)
-  outroot=$(builddir)
-else
-  outroot=$(depth)/$(builddir)/$(patsubst $(shell cd $(depth); pwd)%,%,$(shell cd .; pwd))
-endif
-
 outdir=$(outroot)/$(outbase)
-config_h=$(depth)/$(builddir)/config$(CONFIGSUFFIX).h
+config_h=$(builddir)/config$(CONFIGSUFFIX).h
 
 # The outdir that was configured for: best guess to find binaries
 outconfbase=out$(CONFIGSUFFIX)

@@ -8,7 +8,6 @@ ifeq ($(topdir),)
 abs-srcdir := $(shell cd $(depth); pwd)
 #deprecated
 topdir := $(abs-srcdir)
-abs-builddir := $(shell cd $(depth)/$(builddir); pwd)
 endif
 pwd := $(shell pwd)
 

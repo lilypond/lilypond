@@ -13,7 +13,7 @@ endif
 
 $(outdir)/%.1: $(outdir)/%
 	echo "generating man page from --help"
-	@$(PERL) $(depth)/$(builddir)/buildscripts/$(outbase)/help2man $< > $@ || \
+	@$(PERL) $(builddir)/buildscripts/$(outbase)/help2man $< > $@ || \
 	(echo ""; echo "Apparently the man pages failed to build. This is";\
 	echo "no problem, since they don't contain any information anyway.";\
 	echo "Please run make again, and be prepared for NO manual pages.")

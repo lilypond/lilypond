@@ -11,7 +11,7 @@ depth = .
 SUBDIRS = buildscripts scripts flower lily \
 	mf ly tex ps scm \
 	python po make intl \
-	debian $(builddir)/stepmake \
+	cygwin debian $(builddir)/stepmake \
 	Documentation input
 #
 
@@ -105,22 +105,22 @@ WWW-clean:
 	$(MAKE) -C input WWW-clean
 
 top-WWW-clean:
-	cd $(depth)/$(builddir) && rm -f $(TOP_HTMLS) lily-[0-9]*.png
+	cd $(builddir) && rm -f $(TOP_HTMLS) lily-[0-9]*.png
 	$(SHELL) $(buildscript-dir)/clean-fonts.sh
 
 WWW:
 
 default: builddir-setup
 
-builddir-setup: $(depth)/$(builddir)/share/lilypond/$(TOPLEVEL_VERSION)-force
+builddir-setup: $(builddir)/share/lilypond/$(TOPLEVEL_VERSION)-force
 
-$(depth)/$(builddir)/share/lilypond/$(TOPLEVEL_VERSION)-force:
+$(builddir)/share/lilypond/$(TOPLEVEL_VERSION)-force:
 	# Preparing LilyPond tree for builddir exec
-	@echo Making $(depth)/$(builddir)/share 
-	@cd $(depth)/$(builddir) && rm -rf share
-	@cd $(depth)/$(builddir) && mkdir -p share/lilypond
-	@cd $(depth)/$(builddir)/share/lilypond && mkdir -p $(TOPLEVEL_VERSION)
-	@cd $(depth)/$(builddir)/share/lilypond/$(TOPLEVEL_VERSION) && \
+	@echo Making $(builddir)/share 
+	@cd $(builddir) && rm -rf share
+	@cd $(builddir) && mkdir -p share/lilypond
+	@cd $(builddir)/share/lilypond && mkdir -p $(TOPLEVEL_VERSION)
+	@cd $(builddir)/share/lilypond/$(TOPLEVEL_VERSION) && \
 		ln -s ../../../$(srcdir)/ly ly && \
 		ln -s ../../../mf/$(outconfbase) dvips && \
 		ln -s ../../../mf/$(outconfbase) afm && \
@@ -128,14 +128,14 @@ $(depth)/$(builddir)/share/lilypond/$(TOPLEVEL_VERSION)-force:
 		ln -s ../../../$(srcdir)/mf && \
 		ln -s ../../../$(srcdir)/ps && \
 		ln -s ../../../$(srcdir)/scm
-	@cd $(depth)/$(builddir)/share/lilypond/$(TOPLEVEL_VERSION) && \
+	@cd $(builddir)/share/lilypond/$(TOPLEVEL_VERSION) && \
 		mkdir tex
-	@cd $(depth)/$(builddir)/share/lilypond/$(TOPLEVEL_VERSION)/tex && \
+	@cd $(builddir)/share/lilypond/$(TOPLEVEL_VERSION)/tex && \
 		ln -s ../../../../$(srcdir)/tex source && \
 		ln -s ../../../../mf/$(outconfbase) generate
-	@cd $(depth)/$(builddir)/share/lilypond/$(TOPLEVEL_VERSION) && \
+	@cd $(builddir)/share/lilypond/$(TOPLEVEL_VERSION) && \
 		mkdir fonts
-	@cd $(depth)/$(builddir)/share/lilypond/$(TOPLEVEL_VERSION)/fonts && \
+	@cd $(builddir)/share/lilypond/$(TOPLEVEL_VERSION)/fonts && \
 		ln -s ../../../../$(srcdir)/mf source && \
 		ln -s ../../../../mf/$(outconfbase) afm && \
 		ln -s ../../../../mf/$(outconfbase) tfm && \
@@ -143,4 +143,4 @@ $(depth)/$(builddir)/share/lilypond/$(TOPLEVEL_VERSION)-force:
 
 local-clean: builddir-setup-clean
 builddir-setup-clean:
-	@cd $(depth)/$(builddir) && rm -rf share
+	@cd $(builddir) && rm -rf share

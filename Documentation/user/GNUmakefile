@@ -119,14 +119,14 @@ ifneq ($(CROSS),yes)
 # there used to be a dependency on a dummy target, to force a rebuild of lilypond-internals every time.
 # however, this triggers compilation during install, which  is a bad thing (tm).
 
-$(outdir)/lilypond-internals.nexi $(outdir)/lilypond-internals.texi: $(depth)/$(builddir)/lily/$(outconfbase)/lilypond
-	cd $(outdir) && ../$(depth)/$(builddir)/lily/$(outconfbase)/lilypond --verbose ../$(src-depth)/ly/generate-documentation
+$(outdir)/lilypond-internals.nexi $(outdir)/lilypond-internals.texi: $(builddir)/lily/$(outconfbase)/lilypond
+	cd $(outdir) && $(builddir)/lily/$(outconfbase)/lilypond --verbose ../$(src-depth)/ly/generate-documentation
 	-ln $(outdir)/lilypond-internals.texi $(outdir)/lilypond-internals.nexi
 
 
 ## unused
 $(outdir)/interfaces.itexi: dummy
-	cd $(outdir) && ../$(depth)/$(builddir)/lily/$(outconfbase)/lilypond ../$(src-depth)/ly/generate-interface-doc
+	cd $(outdir) && $(builddir)/lily/$(outconfbase)/lilypond ../$(src-depth)/ly/generate-interface-doc
 
 else
 

@@ -2,11 +2,11 @@
 ## settings to run LilyPond
 
 
-export PATH:=$(abs-builddir)/lily/$(outconfbase):$(abs-builddir)/buildscripts/$(outconfbase):$(PATH)
+export PATH:=$(builddir)/lily/$(outconfbase):$(builddir)/buildscripts/$(outconfbase):$(PATH)
 
 # LilyPond is often run from within $(outdir), making a relative
 # PREFIX incorrect.
-export LILYPONDPREFIX:=$(shell cd $(depth)/$(builddir)/share/lilypond/$(TOPLEVEL_VERSION); pwd)
+export LILYPONDPREFIX:=$(shell cd $(builddir)/share/lilypond/$(TOPLEVEL_VERSION); pwd)
 
 export PYTHONPATH:=$(topdir)/python:$(PYTHONPATH)
 
@@ -41,9 +41,9 @@ ifneq ($(the-script-dir),)
 
 ABC2LY = $(script-dir)/abc2ly.py
 CONVERT_LY = $(script-dir)/convert-ly.py
-LILYPOND = $(abs-builddir)/lily/$(outconfbase)/lilypond
+LILYPOND = $(builddir)/lily/$(outconfbase)/lilypond
 LILYPOND_BOOK = $(script-dir)/lilypond-book.py
-LILYPOND_BOOK_INCLUDES = -I $(pwd) -I $(outdir) -I$(input-dir) -I $(input-dir)/tricks/ -I $(input-dir)/regression/ -I $(input-dir)/test/ -I $(input-dir)/tutorial/ -I $(abs-builddir)/mf/$(outconfbase)/  -I $(abs-builddir)/mf/out/
+LILYPOND_BOOK_INCLUDES = -I $(pwd) -I $(outdir) -I$(input-dir) -I $(input-dir)/tricks/ -I $(input-dir)/regression/ -I $(input-dir)/test/ -I $(input-dir)/tutorial/ -I $(builddir)/mf/$(outconfbase)/  -I $(builddir)/mf/out/
 LY2DVI = $(script-dir)/ly2dvi.py
 LYS_TO_TELY = $(buildscript-dir)/lys-to-tely.py
 PS_TO_GIFS = $(buildscript-dir)/ps-to-gifs.sh
