@@ -642,7 +642,7 @@ if test $checking_b = no; then
 fi
 
 # however, C++ support in mingw32 v 0.1.4 is still flaky
-if test $MINGWPREFIX != no; then // huh?
+if test x$MINGWPREFIX != xno; then 
     ICFLAGS="-I$MINGWPREFIX/include"
     ILDFLAGS="-$MINGWPREFIX/lib"
 fi
@@ -941,12 +941,14 @@ fi
 
 
 
+
+
 for ac_prog in bison
 do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:950: checking for $ac_word" >&5
+echo "configure:952: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_BISON'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -980,7 +982,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:984: checking for $ac_word" >&5
+echo "configure:986: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_FLEX'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1014,7 +1016,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1018: checking for $ac_word" >&5
+echo "configure:1020: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_MAKE'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1048,7 +1050,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1052: checking for $ac_word" >&5
+echo "configure:1054: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_PODMAN'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1084,7 +1086,7 @@ if test "x$TEXPREFIX" = xauto ; then
     
 
     echo $ac_n "checking TeX/MF root dir directory""... $ac_c" 1>&6
-echo "configure:1088: checking TeX/MF root dir directory" >&5    
+echo "configure:1090: checking TeX/MF root dir directory" >&5    
 
     find_root_prefix="$prefix"
     
@@ -1122,7 +1124,7 @@ if test "x$TEXDIR" = xauto ; then
     
     
     echo $ac_n "checking TeX input directory""... $ac_c" 1>&6
-echo "configure:1126: checking TeX input directory" >&5    
+echo "configure:1128: checking TeX input directory" >&5    
     find_dirdir=`(cd $find_texprefix; 
       $FIND ./ -type d -a -name tex -print |sort|head -1|sed 's#^\./##')`
     
@@ -1144,7 +1146,7 @@ if test "x$MFDIR" = xauto; then
     
     
     echo $ac_n "checking MF input directory""... $ac_c" 1>&6
-echo "configure:1148: checking MF input directory" >&5    
+echo "configure:1150: checking MF input directory" >&5    
     find_dirdir=`(cd $find_texprefix; 
       $FIND ./ -type d -a -name source -print |sort|head -1|sed 's#^\./##')`
     
@@ -1200,7 +1202,7 @@ else
 fi
 
 echo $ac_n "checking how to run the C++ preprocessor""... $ac_c" 1>&6
-echo "configure:1204: checking how to run the C++ preprocessor" >&5
+echo "configure:1206: checking how to run the C++ preprocessor" >&5
 if test -z "$CXXCPP"; then
 if eval "test \"`echo '$''{'ac_cv_prog_CXXCPP'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
@@ -1213,12 +1215,12 @@ ac_link='${CXX-g++} -o conftest $CXXFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $L
 cross_compiling=$ac_cv_prog_cxx_cross
   CXXCPP="${CXX-g++} -E"
   cat > conftest.$ac_ext <<EOF
-#line 1217 "configure"
+#line 1219 "configure"
 #include "confdefs.h"
 #include <stdlib.h>
 EOF
 ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
-{ (eval echo configure:1222: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+{ (eval echo configure:1224: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
 ac_err=`grep -v '^ *+' conftest.out`
 if test -z "$ac_err"; then
   :
@@ -1238,17 +1240,17 @@ echo "$ac_t""$CXXCPP" 1>&6
 
 ac_safe=`echo "FlexLexer.h" | sed 'y%./+-%__p_%'`
 echo $ac_n "checking for FlexLexer.h""... $ac_c" 1>&6
-echo "configure:1242: checking for FlexLexer.h" >&5
+echo "configure:1244: checking for FlexLexer.h" >&5
 if eval "test \"`echo '$''{'ac_cv_header_$ac_safe'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
-#line 1247 "configure"
+#line 1249 "configure"
 #include "confdefs.h"
 #include <FlexLexer.h>
 EOF
 ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
-{ (eval echo configure:1252: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+{ (eval echo configure:1254: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
 ac_err=`grep -v '^ *+' conftest.out`
 if test -z "$ac_err"; then
   rm -rf conftest*
@@ -1650,7 +1652,7 @@ fi
 eval "DIR_DATADIR=$datadir"
 DIR_DATADIR="$DIR_DATADIR/lilypond"
 echo $ac_n "checking ""... $ac_c" 1>&6
-echo "configure:1654: checking " >&5
+echo "configure:1656: checking " >&5
 
 cat << EOF > lib/out/config.hh
 
