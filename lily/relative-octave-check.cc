@@ -31,8 +31,8 @@ Relative_octave_check::to_relative_octave (Pitch p)
 	}
     }
   
-  return  Pitch   (p.get_octave () + delta_oct,
-	      p.get_notename (), p.get_alteration ());
+  return  Pitch (p.get_octave () + delta_oct,
+		 p.get_notename (), p.get_alteration ());
 }
 
 ADD_MUSIC(Relative_octave_check);

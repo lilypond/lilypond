@@ -1038,15 +1038,20 @@ basic music objects too, since the meaning is different.
 	}
 	| APPLY embedded_scm Music  {
 		if (!ly_input_procedure_p ($2))
+			{
 			THIS->parser_error (_ ("\\apply takes function argument"));
-		
-		SCM ret = gh_call1 ($2, $3->self_scm ());
-		Music *m = unsmob_music (ret);
-		if (!m) {
-			THIS->parser_error ("\\apply must return a Music");
-			m = MY_MAKE_MUSIC("Music");
+			$$ = $3;
 			}
-		$$ = m;
+		else
+			{
+			SCM ret = gh_call1 ($2, $3->self_scm ());
+			Music *m = unsmob_music (ret);
+			if (!m) {
+				THIS->parser_error ("\\apply must return a Music");
+				m = MY_MAKE_MUSIC("Music");
+				}
+			$$ = m;
+			}
 	}
 	| NOTES
 		{ THIS->lexer_->push_note_state (); }

@@ -106,6 +106,21 @@ names are the Dutch note names.  In Dutch, @code{aes} is contracted to
 @code{as}, but both forms are accepted. Similarly, both
 @code{es} and @code{ees} are accepted.
 
+Half-flats and half-sharps are formed by adding @code{-eh} and
+@code{-ih}; the following is a series of Cs with increasing pitches:
+
+@lilypond[verbatim,relative 2]
+  ceses4
+  ceseh
+  ces
+  ceh
+  c
+  cih
+  cis 
+  cisih
+  cisis
+@end lilypond  
+
 There are predefined sets of note names for various other languages.
 To use them,  include the language specific init file.  For
 example: @code{\include "english.ly"}.  The available language files
@@ -7380,7 +7395,6 @@ layout property name:
 * Tuning objects ::             
 * Constructing a tweak::        
 * Applyoutput::                 
-* Outputproperty::              
 * Font selection::              
 * Text markup::                 
 @end menu
@@ -7711,11 +7725,23 @@ object found in the context, with the following arguments:
 @item the context where @code{\applyoutput} is processed.
 @end itemize
 
+
 In addition, the cause of the layout object, i.e.  the music
 expression or object that was responsible for creating it, is in the
 object property @code{cause}.  For example, for a note head, this is a
 @internalsref{NoteHead} event, and for a @internalsref{Stem} object,
 this is a @internalsref{NoteHead} object.
+
+Here is a simple example of @code{\applyoutput}; it blanks note-heads on the
+center-line:
+@example
+(define (blanker grob grob-origin context)
+  (if (and (memq (ly:get-grob-property grob 'interfaces)
+                 note-head-interface)
+           (eq? (ly:get-grob-property grob 'staff-position) 0))
+
+           (ly:set-grob-property! grob 'transparent #t)))
+@end example
 
 
 
@@ -8069,9 +8095,8 @@ The global layout determined by three factors: the page layout, the
 line breaks and the spacing. These all influence each other. The
 choice of spacing determines how densely each system of music is set,
 which influences where line breaks breaks are chosen, and thus
-ultimately how many pages a piece of music takes. In this section, the
-algorithm for spacing music is explained, and how spacing can be
-tuned.
+ultimately how many pages a piece of music takes. This section
+explains how to tune the algorithm for spacing.
 
 Globally spoken, this procedure happens in three steps: first,
 flexible distances (``springs'') are chosen, based on durations. All
@@ -8115,7 +8140,7 @@ set
 @example
   \property Staff.minimumVerticalExtent = #'(-4 . 4)
 @end example
-This sets the vertical size of the current staff to 4 staff-space on
+This sets the vertical size of the current staff to 4 staff spaces on
 either side of the center staff line.  The argument of
 @code{minimumVerticalExtent} is interpreted as an interval, where the
 center line is the 0, so the first number is generally negative.  The
@@ -8174,10 +8199,10 @@ notes are generally followed by one NHW of space.
 If one would follow the above procedure exactly, then adding a single
 32th note to a score that uses 8th and 16th notes, would widen up the
 entire score a lot. The shortest note is no longer a 16th, but a 32nd,
-thus adding 2 noteheads of space to every note. To prevent this, the
+thus adding 1 NHW to every note. To prevent this, the
 shortest duration for spacing is not the shortest note in the score,
 but the most commonly found shortest note.  Notes that are even
-shorter this are followed by a space that is proportonial to their
+shorter this are followed by a space that is proportional to their
 duration relative to the common shortest note.  So if we were to add
 only a few 16th notes to the example above, they would be followed by
 half a NHW:

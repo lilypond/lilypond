@@ -1,4 +1,4 @@
-\version "1.9.1"
+\version "1.9.7"
 % paper-init.ly
 
 %% Why som complicated?  /MB

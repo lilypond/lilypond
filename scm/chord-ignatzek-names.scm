@@ -137,7 +137,7 @@ work than classifying the pitches."
     
     (define (prefix-modifier->markup mod)
       (if (and (= 3 (pitch-step mod))
-	       (= -1 (ly:pitch-alteration mod)))
+	       (= FLAT (ly:pitch-alteration mod)))
 	  (make-simple-markup "m")
 	  (make-simple-markup "huh")
 	  ))
@@ -273,9 +273,8 @@ work than classifying the pitches."
 
        ;; do minor-3rd modifier.
        (if (and (get-step 3 pitches)
-		(= (ly:pitch-alteration (get-step 3 pitches)) -1))
-	   (set! prefixes (cons (get-step 3 pitches) prefixes))
-	   )
+		(= (ly:pitch-alteration (get-step 3 pitches)) FLAT))
+	   (set! prefixes (cons (get-step 3 pitches) prefixes)))
        
        ;; lazy bum. Should write loop.
        (cond

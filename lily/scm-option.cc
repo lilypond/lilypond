@@ -13,6 +13,7 @@
 #include "lily-guile.hh"
 #include "scm-option.hh"
 #include "warn.hh"
+#include "main.hh"
 
 /*
   This interface to option setting is meant for setting options are
@@ -148,6 +149,8 @@ LY_DEFINE (ly_get_option, "ly:get-option", 1, 0, 0, (SCM var),
 	   "Report whether old-relative compatibility mode is necessary\n"
 	   "@item old-relative\n"
 	   "Report whether old-relative compatibility mode is used\n"
+	   "@item verbose\n"
+	   "Report whether we are running in verbose mode\n"
 	   "@end table\n"
 	   "\n")
 {
@@ -159,6 +162,10 @@ LY_DEFINE (ly_get_option, "ly:get-option", 1, 0, 0, (SCM var),
     {
       return gh_bool2scm (lily_1_8_relative);
     }
+  if (var == ly_symbol2scm ("verbose"))
+    {
+      return gh_bool2scm (verbose_global_b);
+    }  
   else
     {
       warning (_("Unknown internal option!"));

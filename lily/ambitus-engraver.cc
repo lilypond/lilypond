@@ -85,8 +85,8 @@ Ambitus_engraver::Ambitus_engraver ()
    * (pitch_min > pitch_max) means that pitches are not yet
    * initialized
    */
-  pitch_min = Pitch (0, 0, +1);
-  pitch_max = Pitch (0, 0, -1);
+  pitch_min = Pitch (0, 0, SHARP);
+  pitch_max = Pitch (0, 0, FLAT);
 }
 
 void

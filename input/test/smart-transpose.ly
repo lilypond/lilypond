@@ -26,14 +26,14 @@ how useful these enharmonic modifications are. Mats B.
          (n (ly:pitch-notename p)))
 
     (cond
-     ((and (> a 0) (or (eq? n 6) (eq? n 2)))
-      (set! a (- a 1)) (set! n (+ n 1)))
-     ((and (< a 0) (or (eq? n 0) (eq? n 3)))
-      (set! a (+ a 1)) (set! n (- n 1))))
+     ((and (> a 1) (or (eq? n 6) (eq? n 2)))
+      (set! a (- a 2)) (set! n (+ n 1)))
+     ((and (< a -1) (or (eq? n 0) (eq? n 3)))
+      (set! a (+ a 2)) (set! n (- n 1))))
 
     (cond
-     ((eq? a 2)  (set! a 0) (set! n (+ n 1)))
-     ((eq? a -2) (set! a 0) (set! n (- n 1))))
+     ((eq? a 4)  (set! a 0) (set! n (+ n 1)))
+     ((eq? a -4) (set! a 0) (set! n (- n 1))))
 
     (if (< n 0) (begin (set!  o (- o 1)) (set! n (+ n 7))))
     (if (> n 6) (begin (set!  o (+ o 1)) (set! n (- n 7))))

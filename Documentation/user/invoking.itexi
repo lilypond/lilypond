@@ -416,8 +416,9 @@ happens rarely. The most usual cause is misinstalled fonts.
 @cindex Scheme error
 @item Scheme error
 Errors that occur while executing Scheme code are caught by the Scheme
-interpreter. When they occur, a call trace of the offending function
-is printed.
+interpreter. If running with the verbose option (@code{-V} or
+@code{--verbose}) then a call trace is printed of the offending
+function call.
 
 @cindex Programming error
 @item Programming error
@@ -456,11 +457,11 @@ test.ly:2:19: error: not a duration: 5:
 
 If you have input that results in a crash or an erroneous output, then
 that is a bug. We try respond to bug-reports promptly, and fix them as
-soon as possible. For this, we need to replicate and isolate the
-problem. Please help us by sending a good bug-report: an input file
-that will reproduce the problem. Please make it small, so we can
-easily isolate the problem. Don't forget to tell which version you
-use, and on which platform you run it.  Send the report to
+soon as possible. For this, we need to reproduce and isolate the
+problem. Help us by sending a defective input file, so we can
+reproduce the problem. Make it small, so we can easily debug the
+problem. Don't forget to tell which version you use, and on which
+platform you run it.  Send the report to
 @email{bug-lilypond@@gnu.org}.
 
 @node Point and click

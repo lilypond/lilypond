@@ -32,7 +32,7 @@
       (make-line-markup (list empty-markup))
       (conditional-kern-before
        (alteration->text-accidental-markup alteration)
-       (= alteration -1) 0.2
+       (= alteration FLAT) 0.2
        )))
 
 
@@ -52,7 +52,7 @@
 "
   (let* ((name (ly:pitch-notename pitch))
          (alt (ly:pitch-alteration pitch))
-	 (n-a (if (member (cons name alt) '((6 . -1) (6 . -2)))
+	 (n-a (if (member (cons name alt) `((6 . ,FLAT) (6 . ,DOUBLE-FLAT)))
 		 (cons 7 (+ (if B-instead-of-Bb 1 0) alt))
 		 (cons name alt))))
     (make-line-markup
@@ -66,16 +66,17 @@
 (define-public (note-name->german-markup  pitch)
   (let* ((name (ly:pitch-notename pitch))
 	 (alt (ly:pitch-alteration pitch))
-	 (n-a (if (member (cons name alt) '((6 . -1) (6 . -2)))
-		  (cons 7 (+ 1 alt))
+	 (n-a (if (member (cons name alt) `((6 . ,FLAT) (6 . ,DOUBLE-FLAT)))
+		  (cons 7 (+ 2 alt))
 		  (cons name alt))))
     (make-line-markup
      (list
       (string-append
-       (list-ref '("c" "d" "e" "f" "g" "a" "h" "b") (car n-a))
+       (list-ref '("c" "d" "e" "f" "g" "a" "h" "b") (/ (car n-a) 2))
        (if (or (equal? (car n-a) 2) (equal? (car n-a) 5))
-	   (list-ref '( "ses"  "s" "" "is" "isis") (+ 2 (cdr n-a)))
-	   (list-ref '("eses" "es" "" "is" "isis") (+ 2 (cdr n-a)))))))))
+	   (list-ref '( "ses"  "s" "" "is" "isis") (+ 2 (/ (cdr n-a) 2) ))
+	   (list-ref '("eses" "es" "" "is" "isis") (+ 2 (/ (cdr n-a) 2) ))
+	   ))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;

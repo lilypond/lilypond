@@ -1,4 +1,4 @@
-\version "1.9.1"
+\version "1.9.7"
 
 %
 % Running LilyPond on this file generates the documentation

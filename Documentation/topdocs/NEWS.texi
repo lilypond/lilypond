@@ -9,6 +9,16 @@
 
 @itemize
 @item
+Quarter tones are now supported. They are entered by suffixing
+@code{ih} for a half-sharp and @code{eh} for a half-flat. Hence, the
+following is an ascending list of pitches:
+
+@example
+  ceses ceseh ces ceh c cih cis cisih cisis
+@end example
+
+
+@item
 Clefs may now be transposed arbitrarily, for example
 
 @example

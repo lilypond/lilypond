@@ -1,5 +1,33 @@
 2003-09-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/topdocs/NEWS.texi (Top): add quarter tones.
+
+	* Documentation/user/refman.itely (Pitches): doc quarter tones.
+
+	* lily/pitch.cc (LY_DEFINE): ly:pitch-quartertones: new function
+	(quartertone_pitch): new function
+
+	* mf/feta-toevallig.mf: add 3/4 sharp, 1/4 sharp, 1/4 flat.
+
+	* ly/nederlands.ly: add -eh and -ih for quarter tones.
+
+	* lily/accidental-placement.cc (add_accidental): support for
+	quarter tones.
+
+	* ly/LANGUAGEs.ly: use symbols for alterations.
+
+	* mf/feta-toevallig.mf: change accidental codes. 
+
+	* scm/lily.scm (ly:get-option): switch on debugging only for
+	--verbose.
+
+	* lily/lily-guile.cc: remove ly:verbose?
+
+	* lily/scm-option.cc (LY_DEFINE): add verbose to  get-option.
+
+	* lily/parser.yy (TODO): only do gh_call() for apply with
+	procedure argument.
+
 	* lily/tie-engraver.cc (start_translation_timestep): move melisma
 	stuff in accordance with new timing of tie-events.
 

@@ -9,6 +9,7 @@
 #include "molecule.hh"
 #include "accidental-interface.hh"
 #include "paper-def.hh"
+#include "pitch.hh"
 
 /*
   TODO: insert support for smaller cautionaries, tie-break-reminders.
@@ -69,7 +70,7 @@ Accidental_interface::accurate_boxes (Grob *a,Grob**common)
       && !parens
       && scm_ilength (accs) == 1)
     {
-      if (gh_scm2int (gh_car (accs)) == -1)
+      if (gh_scm2int (gh_car (accs)) == FLAT)
 	{
 	  Box stem = b;
 	  Box bulb = b;
@@ -107,45 +108,48 @@ Accidental_interface::accurate_boxes (Grob *a,Grob**common)
  * is currently no sharp accidental in vaticana style.  In these cases
  * this function falls back to one of the other styles.
  */
+
+/*
+  todo: this sort of stuff in Scheme. --hwn.
+ */
 String
-Accidental_interface::get_fontcharname(String style, int alteration)
+Accidental_interface::get_fontcharname (String style, int alteration)
 {
+  if (alteration == DOUBLE_FLAT
+      || alteration == DOUBLE_SHARP)
+    {
+      return to_string (alteration);
+    }
+  
   if (style == "hufnagel")
     switch (alteration)
       {
-      case -2: return "-2";
-      case -1: return "hufnagel-1";
+      case FLAT: return "hufnagel-1";
       case 0: return "vaticana0";
-      case 1: return "mensural1";
-      case 2: return "2";
+      case SHARP: return "mensural1";
       }
   if (style == "medicaea")
     switch (alteration)
       {
-      case -2: return "-2";
-      case -1: return "medicaea-1";
+      case FLAT: return "medicaea-1";
       case 0: return "vaticana0";
-      case 1: return "mensural1";
-      case 2: return "2";
+      case SHARP: return "mensural1";
       }
   if (style == "vaticana")
     switch (alteration)
       {
-      case -2: return "-2";
-      case -1: return "vaticana-1";
+      case FLAT: return "vaticana-1";
       case 0: return "vaticana0";
-      case 1: return "mensural1";
-      case 2: return "2";
+      case SHARP: return "mensural1";
       }
   if (style == "mensural")
     switch (alteration)
       {
-      case -2: return "-2";
-      case -1: return "mensural-1";
+      case FLAT: return "mensural-1";
       case 0: return "vaticana0";
-      case 1: return "mensural1";
-      case 2: return "2";
+      case SHARP: return "mensural1";
       }
+  
   if (style == "neo_mensural")
     style = ""; // currently same as default
   if (style == "default")

@@ -1544,6 +1544,9 @@ def conv (str):
 	
 	str =re.sub ("\\(ly:make-pitch *([0-9-]+) *([0-9-]+) *([0-9-]+) *\\)", sub_alteration, str) 
 
+
+	str = re.sub ("ly:verbose", "ly:get-option 'verbose", str)
+
 	m= re.search ("\\\\outputproperty #([^#]+)[\t\n ]*#'([^ ]+)", str)
 	if m:
 		sys.stderr.write (\
@@ -1553,10 +1556,19 @@ Please hand-edit, using
   \applyoutput #(outputproperty-compatibility %s '%s <GROB PROPERTY VALUE>)
 
 as a substitution text.""" % (m.group (1), m.group (2)) )
-		raise FatalConversionError
+		raise FatalConversionError ()
+
+	if re.search ("ly:(make-pitch|ly:pitch-alteration)", str):
+		sys.stderr.write (
+"""The alteration field of Scheme pitches was multiplied by 2
+to support quarter tone accidentals. Please edit ly:make-pitch and
+ly:pitch-alteration calls by hand""")
+		raise FatalConversionError ()
 	
 	return str
-conversions.append (((1,9,7), conv, 'use symbolic constants for alterations, remove \\outputproperty'))
+conversions.append (((1,9,7), conv,
+		     '''use symbolic constants for alterations,
+remove \\outputproperty, move ly:verbose into ly:get-option'''))
 
 
 
