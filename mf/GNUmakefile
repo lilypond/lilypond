@@ -26,7 +26,7 @@ OTF_TABLES = $(addsuffix .otf-table, $(addprefix $(outdir)/feta, $(STAFF_SIZES))
  $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
 FETA_FONTS = $(FETA_MF_FILES:.mf=)
 SVG_FILES = $(OTF_FILES:%.otf=%.svg) $(ALL_FONTS:%=$(outdir)/%.svg)
-CFF_FILES = $(OTF_FILES:%.otf=%.cff)
+COMMONFF_FILES = $(OTF_FILES:%.otf=%.commonff)
 CFF_PS_FILES = $(OTF_FILES:%.otf=%.cff.ps)
 
 
@@ -59,10 +59,11 @@ foe:
 	echo $(TEXMF)
 	kpsewhich exbase.mf
 
-$(outdir)/%.cff $(outdir)/%.otf $(outdir)/%.svg: $(outdir)/%.pe
-	(cd $(outdir) && fontforge -script $(notdir $<)) 
+$(outdir)/%.commonff $(outdir)/%.otf $(outdir)/%.svg: $(outdir)/%.pe
+	(cd $(outdir) && fontforge -script $(notdir $<) \
+	 && mv $(notdir $(basename $<)).cff $(notdir $(basename $<)).commonff)
 
-$(CFF_PS_FILES): $(CFF_FILES)
+$(CFF_PS_FILES): $(COMMONFF_FILES)
 	cd $(outdir) && $(builddir)/lily/$(outconfbase)/lilypond --verbose $(abs-srcdir)/ly/generate-embedded-cff
 
 $(outdir)/%.otf-table: $(outdir)/%.lisp $(if $(findstring brace,$<),,$(subst feta,parmesan,$<)) 
@@ -90,7 +91,7 @@ ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) 
 INSTALLATION_DIR=$(local_lilypond_datadir)/fonts/source
 INSTALLATION_FILES=$(MF_FILES) $(AF_FILES)
 
-INSTALLATION_OUT_SUFFIXES=1 2 3 4 5 6 7 8 9
+INSTALLATION_OUT_SUFFIXES=1 2 3 4 5 6 7 9
 
 INSTALLATION_OUT_DIR1=$(local_lilypond_datadir)/tex
 INSTALLATION_OUT_FILES1=$(TEXTABLES)
@@ -105,7 +106,6 @@ INSTALLATION_OUT_FILES3=$(TFM_FILES)
 INSTALLATION_OUT_DIR4=$(local_lilypond_datadir)/ps
 INSTALLATION_OUT_FILES4=$(CFF_PS_FILES)
 
-
 INSTALLATION_OUT_DIR5=$(local_lilypond_datadir)/fonts/type1
 INSTALLATION_OUT_FILES5=$(PFA_FILES)
 
@@ -114,10 +114,6 @@ INSTALLATION_OUT_FILES6=$(outdir)/lilypond.map
 
 INSTALLATION_OUT_DIR7=$(local_lilypond_datadir)/ps/
 INSTALLATION_OUT_FILES7=$(ENC_FILES)
-
-# install in fonts/cff or ps/ directory?
-INSTALLATION_OUT_DIR8=$(local_lilypond_datadir)/cff
-INSTALLATION_OUT_FILES8=$(CFF_FILES)
 
 INSTALLATION_OUT_DIR9=$(local_lilypond_datadir)/svg
 INSTALLATION_OUT_FILES9=$(SVG_FILES)

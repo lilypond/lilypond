@@ -237,7 +237,6 @@
 		       ((and bare-file-name
 			     (string-match "\\.otf" bare-file-name))
 
-			(display "HOI\n")
 			(cached-file-contents (string-regexp-substitute "otf" "cff.ps" bare-file-name)))
 		       ((and bare-file-name (string-match "\\.ttf" bare-file-name))
 			(ly:ttf->pfa bare-file-name))

@@ -1,5 +1,9 @@
 2005-03-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* mf/GNUmakefile: generate .commonff to not confuse fontconfig.
+
+	* ly/generate-embedded-cff.ly: capitalize.
+
 	* lily/pango-select.cc (select_pango_font): use ::find_pango_font,
 	so as to register the pango font.
 
