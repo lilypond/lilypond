@@ -86,7 +86,10 @@ LY_DEFINE(ly_grob_staff_position,
   Real pos = Staff_symbol_referencer::get_position (g);
 
   if (fabs (rint (pos) -pos) < 1e-6) // ugh.
-    return gh_int2scm (lrint (pos));
+    /*
+      lrint has issues with various glibcs. 
+     */
+    return gh_int2scm ((int) round (pos));
   else
     return gh_double2scm (pos);
 }

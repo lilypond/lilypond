@@ -201,15 +201,15 @@ def help ():
 
 def lilypond_version (binary):
 	p = read_pipe ('%s --version ' % binary)
-	x = []
-	def catch_version (match):
-		x.append (match.group (1))
-		return ''
-	
-	re.sub ('GNU LilyPond ([^\n]+)\n', catch_version, p)
-	x.append ('not found')
-	
-	return x[0]
+
+	ls = p.split ('\n')
+	v= '<not found>'
+	for l in ls:
+		m = re.search ('GNU LilyPond ([0-9a-z.]+)', p)
+		if m:
+			v = m.group (1)
+			
+	return v
 	
 def lilypond_version_check (binary, req):
 	if req[0] <> '@' :

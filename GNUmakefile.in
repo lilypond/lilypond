@@ -17,8 +17,8 @@ SUBDIRS = buildscripts python scripts \
 #
 
 SCRIPTS = configure aclocal.m4 autogen.sh
-README_FILES =  ChangeLog  COPYING DEDICATION NEWS README.mandrake ROADMAP THANKS
-README_TXT_FILES = AUTHORS.txt README.txt INSTALL.txt
+README_FILES =  ChangeLog  COPYING DEDICATION README.mandrake ROADMAP THANKS
+README_TXT_FILES = AUTHORS.txt README.txt INSTALL.txt NEWS.txt
 IN_FILES := $(wildcard *.in)
 EXTRA_DIST_FILES = $(wildcard *.el) vimrc VERSION $(README_FILES)  $(SCRIPTS) $(IN_FILES)  emacsclient.patch lexer-gcc-3.0.patch server.el.patch darwin.patch .cvsignore  lexer-gcc-3.1.sh  lilypond.words
 NON_ESSENTIAL_DIST_FILES = $(README_TXT_FILES)
@@ -62,7 +62,8 @@ local-web-post:
 	cd $(builddir) && find Documentation input \
 		$(web-ext:%=-path '*/out-www/*.%' -or) -false \
 		> $(outdir)/weblist
-	echo '<META HTTP-EQUIV="refresh" content="2;URL=Documentation/out-www/index.html">' > $(builddir)/index.html
+	echo '<META HTTP-EQUIV="refresh" content="1;URL=Documentation/out-www/index.html">' > $(builddir)/index.html
+	echo '<html><body>Redirecting to the documentation index...</body></html>' >> $(builddir)/index.html
 	cd $(builddir) && ls *.html >> $(outdir)/weblist
 	cat $(outdir)/weblist | (cd $(builddir); GZIP=-9v tar -czf $(outdir)/web.tar.gz  -T -)
 

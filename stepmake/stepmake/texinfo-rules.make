@@ -17,8 +17,10 @@ $(outdir)/%.ps.gz.omf: %.texi
 	$(call GENERATE_OMF,ps.gz) 
 
 # Generic rule not possible?
-$(outdir)/%/%.html: $(outdir)/%.texi
+$(outdir)/%/%.html: $(outdir)/%.texi 
+	$(MAKEINFO) -I $(outdir) --output=$@ --html --no-split --no-headers $<
 	$(MAKEINFO) --output=$@ --html $<
+
 
 $(outdir)/%.dvi: $(outdir)/%.texi
 	cd $(outdir); texi2dvi --batch $(TEXINFO_PAPERSIZE_OPTION) $(<F)
