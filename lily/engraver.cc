@@ -28,7 +28,7 @@ Engraver::announce_element (Score_element_info i)
     i.origin_trans_l_ = this;
   daddy_grav_l()->announce_element (i);
 }
-
+ 
 void
 Engraver::typeset_element (Score_element*p)
 {

@@ -7,11 +7,9 @@
 %{
 
 This file tests as much features of lily as possible. If there are any
-basic faults in , this file will not run correctly.
+basic faults in lily, this file will not run correctly.
 
 TODO:
-
-* add tuplets
 
 * repeats.
 

@@ -9,8 +9,9 @@
 
 #ifndef COLLISION_HH
 #define COLLISION_HH
+
 #include "lily-proto.hh"
-#include "item.hh"
+#include "lily-guile.hh"
 
 
 /**
@@ -35,17 +36,16 @@
   Read and removed from elements.
   
 */
-class Collision : public Item
+class Collision			// interface
 {
 public:
-  SCM automatic_shift ();
-  SCM forced_shift ();
-  void do_shifts ();  
-  SCM member_before_line_breaking ();
-  static SCM before_line_breaking (SCM);
+  Score_element*  elt_l_;
+  static SCM automatic_shift (Score_element*);
+  static SCM forced_shift (Score_element*);
+  static Real force_shift_callback (Score_element const*, Axis);
+  static void do_shifts (Score_element*);
 
-    
   void add_column (Note_column*ncol_l);
-  Collision(SCM);
+  Collision(Score_element*);
 };
 #endif // COLLISION_HH

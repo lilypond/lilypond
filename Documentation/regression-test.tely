@@ -43,10 +43,16 @@ a column.  The dots go along as rests are shifted to avoid collisions.
 
 @mudelafile{dots.ly}
 
+Accidentals worki: the second note does not get a sharp. The third and
+fourth show forced and courtesy accidentals
+
+@mudelafile{accidental.ly}
+
 Multiple measure rests do not collide with barlines and clefs.  They
 are not expanded when you set @code{Score.skipBars}.  Although the
 multi-measure-rest is a Spanner, minimum distances are set to keep it
 colliding from barlines. 
+
 
 @mudelafile{multi-measure-rest.ly}
 
@@ -129,7 +135,6 @@ Grace notes without beams should have a slash, if @code{flagStyle} is
 not set.  Main note scripts don't end up on the grace note.
 
 @mudelafile{grace.ly}
-
 
 @section Beams, slurs and other spanners
 

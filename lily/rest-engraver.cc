@@ -56,7 +56,7 @@ Rest_engraver::do_process_music ()
       
       if (rest_req_l_->duration_.dots_i_)
 	{
-	  dot_p_ = new Dots (get_property ("basicDotsProperties"));
+	  dot_p_ = new Item (get_property ("basicDotsProperties"));
 
 	  Staff_symbol_referencer_interface si (dot_p_);
 	  si.set_interface ();

@@ -845,3 +845,69 @@ Beam::last_visible_stem () const
     }
   return 0;
 }
+
+
+/*
+  [TODO]
+  handle rest under beam (do_post: beams are calculated now)
+  what about combination of collisions and rest under beam.
+
+  Should lookup
+    
+    rest -> stem -> beam -> interpolate_y_position ()
+*/
+Real
+Beam::rest_collision_callback (Score_element const *rest, Axis a )
+{
+  assert (a == Y_AXIS);
+
+  Score_element * st = unsmob_element (rest->get_elt_pointer ("stem"));
+  Stem * stem  = dynamic_cast<Stem*> (st);
+  if (!stem)
+    return 0.0;
+  Beam * beam = dynamic_cast<Beam*> (unsmob_element (stem->get_elt_pointer ("beam"))); 
+  if (!beam || !beam->visible_stem_count ())
+    return 0.0;
+
+  // make callback for rest from this.
+  Real beam_dy = 0;
+  Real beam_y = 0;
+
+
+  // todo: make sure this calced already.
+  SCM s = beam->get_elt_property ("height");
+  if (gh_number_p (s))
+    beam_dy = gh_scm2double (s);
+  
+  s = beam->get_elt_property ("y-position");
+  if (gh_number_p (s))
+    beam_y = gh_scm2double (s);
+  
+  Real x0 = beam->first_visible_stem ()->relative_coordinate (0, X_AXIS);
+  Real dx = beam->last_visible_stem ()->relative_coordinate (0, X_AXIS) - x0;
+  Real dydx = beam_dy && dx ? beam_dy/dx : 0;
+
+  Direction d = stem->get_direction ();
+  Real beamy = (stem->relative_coordinate (0, X_AXIS) - x0) * dydx + beam_y;
+
+  Staff_symbol_referencer_interface si (rest);
+
+  Real staff_space = si.staff_space ();      
+  Real rest_dim = rest->extent (Y_AXIS)[d]*2.0 / staff_space ;
+
+  Real minimum_dist
+    = gh_scm2double (rest->get_elt_property ("minimum-beam-collision-distance"));
+  Real dist =
+    minimum_dist +  -d  * (beamy - rest_dim) >? 0;
+
+  int stafflines = si.line_count ();
+
+  // move discretely by half spaces.
+  int discrete_dist = int (ceil (dist));
+
+  // move by whole spaces inside the staff.
+  if (discrete_dist < stafflines+1)
+    discrete_dist = int (ceil (discrete_dist / 2.0)* 2.0);
+
+  return  (-d *  discrete_dist);
+}

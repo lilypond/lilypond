@@ -14,14 +14,12 @@
 #include "array.hh"
 #include "request.hh"
 #include "score-element-info.hh"
-#include "staff-info.hh"
 #include "translator.hh"
 
 
 /**
   a struct which processes requests, and creates the #Score_element#s.
-  It may use derived classes. Hungarian postfix: grav
-  
+  It may use derived classes. 
   */
 class Engraver : public virtual Translator {
     

@@ -1,3 +1,25 @@
 
-[todo]
+* Improved design and implementation: Complete rewrite of the
+internals: LilyPond is smaller, cleaner, more flexible, etc.
 
+ - More pervasive GUILE integration resulting in 
+
+ - Improved speed, with comparable memory footprint
+
+ - Improved robustness: Lily almost never crashes.
+
+* Piano pedal support
+
+* MIDI: dynamics, tempo changes
+
+* Typography: More elegant slurs, aligned dynamics, text crescendos,
+
+* Chordnames are now configurable in every respect
+
+* Included extensive glossary
+
+* Many bugfixes.
+
+* Finished ouverture Coriolan as full orchestral score example.
+
+* AsciiScript [check if broken, decide wether to keep]

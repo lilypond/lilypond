@@ -43,7 +43,7 @@ c\longa*1/4 c\breve*1/2 c1 c2 c4 c8
 			\property Voice . noteHeadStyle = #'cross
 						 f4^"4"
 						  g4^"5"
-			\property Voice . noteHeadStyle = ""
+			\property Voice . noteHeadStyle = ##f
 			% Music to the Martians!
 			< bes4^"6" e_"7" c_"8" >
 			a^"0"_"9"

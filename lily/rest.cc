@@ -24,8 +24,7 @@ Rest::member_after_line_breaking ()
       Staff_symbol_referencer_interface si (this);
       si.set_position (si.position_f () + 2);
     }
-  
-  Dots * d = dots_l ();
+  Item * d = dots_l ();
   if (d && balltype_i () > 4) // UGH.
     {
       /*

@@ -14,12 +14,13 @@
 
 /** a struct for treating a group of noteheads (noteheads, stem
   (chord) and scripts) as a single entity.
+
+  UGR. Junkme.  refpoint should be the notehead, dir should come from stem.
+
 */
 class Note_column : public Item
 {
 public:
-  SCM member_after_line_breaking ();
-  static SCM after_line_breaking (SCM);
   static int shift_compare (Note_column *const &, Note_column*const&);
   
   /** The relative position of the "voice" containing this
@@ -30,15 +31,15 @@ public:
   Direction dir () const;
 
 
-  Interval_t<int> head_positions_interval() const;
-
+  static Slice head_positions_interval(Score_element* me) ;
+  static Direction static_dir (Score_element*);
   void translate_rests(int dy);
   Note_head * first_head ()const;
   Interval rest_dim ()const ;
   Note_column (SCM);
-  void set_stem (Stem*);
-  void set_dotcol (Dot_column*);
-  void add_head (Rhythmic_head*);
+  void set_stem (Score_element*);
+  void set_dotcol (Score_element*);
+  void add_head (Score_element*);
   bool rest_b () const;
 
   Stem *stem_l()const;

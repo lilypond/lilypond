@@ -18,11 +18,11 @@
 #include "staff-symbol-referencer.hh"
 
 
-Dots*
+Item*
 Rhythmic_head::dots_l () const
 {
   SCM s = get_elt_pointer ("dot");
-  return dynamic_cast<Dots*> (unsmob_element (s));
+  return dynamic_cast<Item*> (unsmob_element (s));
 }
 
 int
@@ -51,7 +51,7 @@ GLUE_SCORE_ELEMENT(Rhythmic_head,after_line_breaking);
 SCM
 Rhythmic_head::member_after_line_breaking ()
 {
-  if (Dots *d = dots_l ())
+  if (Item *d = dots_l ())
     {
       Staff_symbol_referencer_interface si (d);
       Staff_symbol_referencer_interface me (d);      
@@ -63,7 +63,7 @@ Rhythmic_head::member_after_line_breaking ()
 
 
 void
-Rhythmic_head::add_dots (Dots *dot_l)
+Rhythmic_head::add_dots (Item *dot_l)
 {
   set_elt_pointer ("dot", dot_l->self_scm_);
   dot_l->add_dependency (this);  

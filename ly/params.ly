@@ -185,8 +185,6 @@ crescendo_dash_thickness = 1.2*\stafflinethickness;
 crescendo_dash = 4.0*\staffspace;
 
 % in internote.
-restcollision_minimum_dist = 3.0;
-restcollision_minimum_beamdist = 1.5;
 
 
 % unit for note collision resolving

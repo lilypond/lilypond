@@ -11,16 +11,18 @@
 #define REST_COLLISION_HH
 
 #include "lily-proto.hh"
-#include "item.hh"
+#include "lily-guile.hh"
 
-class Rest_collision : public Item {
+class Rest_collision		// interface
+{
 public:
+  Score_element *elt_l_;
+  
   void add_column (Note_column*);
-  Interval rest_dim () const;
-    
-  Rest_collision(SCM);
+  Rest_collision(Score_element*);
+  void set_interface ();
 
-  SCM member_after_line_breaking ();
-  static SCM after_line_breaking (SCM);
+  static Real force_shift_callback (Score_element const*, Axis);
+  static SCM do_shift (Score_element*,SCM);
 };
 #endif // REST_COLLISION_HH

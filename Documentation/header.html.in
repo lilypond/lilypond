@@ -48,7 +48,8 @@ which substitutes some @AT_VARIABLES@ as well.
     	<a href="@TOP@Documentation/out-www/index.html"><b>Documentation</b></a>
       </td></tr>
       <tr><td><font size=-1>
-    	<a href="@TOP@Documentation/out-www/CHANGES.html">NEWS</a><br>
+    	<a href="@TOP@Documentation/out-www/NEWS.html">NEWS</a><br>
+    	<a href="@TOP@Documentation/out-www/CHANGES.html">Change Log</a><br>
     	<a href="@TOP@Documentation/out-www/faq.html">FAQ</a><br>
     	<a href="@TOP@Documentation/user/out-www/lilypond.html">User manual</a><br>
     	<a href="@TOP@Documentation/out-www/regression-test.html">Features</a><br>

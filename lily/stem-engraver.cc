@@ -12,7 +12,7 @@
 #include "musical-request.hh"
 #include "misc.hh"
 #include "stem-tremolo.hh"
-#include "staff-info.hh"
+
 #include "translator-group.hh"
 #include "engraver.hh"
 

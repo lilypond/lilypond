@@ -61,7 +61,7 @@ Note_head::member_before_line_breaking ()
   if (balltype_i () > 2)
     set_elt_property ("duration-log", gh_int2scm (2));
 
-  if (Dots *d = dots_l ())
+  if (Item *d = dots_l ())
     { // move into Rhythmic_head?
       Staff_symbol_referencer_interface si (d);
       Staff_symbol_referencer_interface me (this);      

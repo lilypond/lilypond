@@ -7,13 +7,46 @@
   
  */
 #include "engraver-group-engraver.hh"
-#include "beam-engraver.hh"
+#include "engraver.hh"
 #include "musical-request.hh"
 #include "beam.hh"
 #include "stem.hh"
 #include "warn.hh"
 #include "beaming.hh"
 #include "score-engraver.hh"
+#include "rest.hh"
+#include "drul-array.hh"
+
+class Beam_engraver : public Engraver
+{
+  Drul_array<Span_req*> reqs_drul_;
+
+  Beam *finished_beam_p_;
+  Beam *beam_p_;
+  Span_req * prev_start_req_;
+
+  Beaming_info_list * beam_info_p_;
+  Beaming_info_list * finished_beam_info_p_;  
+
+  /// location  within measure where beam started.
+  Moment beam_start_location_;
+
+  /// moment (global time) where beam started.
+  Moment beam_start_mom_;
+  
+  void typeset_beam ();
+protected:
+  virtual void do_pre_move_processing ();
+  virtual void do_post_move_processing ();
+  virtual void do_removal_processing ();
+  virtual void acknowledge_element (Score_element_info);
+  virtual bool do_try_music (Music*);
+  virtual void do_process_music ();
+public:
+  Beam_engraver ();
+  VIRTUAL_COPY_CONS (Translator);
+};
+
 
 Beam_engraver::Beam_engraver ()
 {
@@ -150,48 +183,54 @@ Beam_engraver::acknowledge_element (Score_element_info info)
 {
   if (beam_p_)
     {
-      Stem* stem_l = dynamic_cast<Stem *> (info.elem_l_);
-      if (!stem_l || stem_l->beam_l ())
-	return;
-
-
-      bool stem_grace = stem_l->get_elt_property ("grace") == SCM_BOOL_T;
-
-      SCM wg =get_property ("weAreGraceContext");
-      bool wgb= to_boolean (wg);
-
-      if (wgb!= stem_grace)
- 	return;
-
-      Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (info.req_l_);
-      if (!rhythmic_req)
+      if (Rest* r = dynamic_cast<Rest* > (info.elem_l_))
 	{
-	  String s = _ ("stem must have Rhythmic structure");
-	  if (info.req_l_)
-	    info.req_l_->warning (s);
-	  else
-	    ::warning (s);
+	  r->add_offset_callback (Beam::rest_collision_callback, Y_AXIS);
+	}
+      else if (Stem* stem_l = dynamic_cast<Stem *> (info.elem_l_))
+	{
+	  if (stem_l->beam_l ())
+	    return;
+
+
+	  bool stem_grace = stem_l->get_elt_property ("grace") == SCM_BOOL_T;
+
+	  SCM wg =get_property ("weAreGraceContext");
+	  bool wgb= to_boolean (wg);
+
+	  if (wgb!= stem_grace)
+	    return;
+
+	  Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (info.req_l_);
+	  if (!rhythmic_req)
+	    {
+	      String s = _ ("stem must have Rhythmic structure");
+	      if (info.req_l_)
+		info.req_l_->warning (s);
+	      else
+		::warning (s);
 	  
-	  return;
-	}
-      
-      if (rhythmic_req->duration_.durlog_i_<= 2)
-	{
-	  rhythmic_req->warning (_ ("stem doesn't fit in beam"));
-	  prev_start_req_->warning (_ ("beam was started here"));
-	  /*
-	    don't return, since
+	      return;
+	    }
 
-	    [r4 c8] can just as well be modern notation.
-	   */
-	}
+	  if (rhythmic_req->duration_.durlog_i_<= 2)
+	    {
+	      rhythmic_req->warning (_ ("stem doesn't fit in beam"));
+	      prev_start_req_->warning (_ ("beam was started here"));
+	      /*
+		don't return, since
 
-      stem_l->set_elt_property ("duration-log",
-				gh_int2scm (rhythmic_req->duration_.durlog_i_));
-      Moment stem_location = now_mom () - beam_start_mom_ + beam_start_location_;
-      beam_info_p_->add_stem (stem_location,
-			      (rhythmic_req->duration_.durlog_i_ - 2) >? 1);
-      beam_p_->add_stem (stem_l);
+		[r4 c8] can just as well be modern notation.
+	      */
+	    }
+
+	  stem_l->set_elt_property ("duration-log",
+				    gh_int2scm (rhythmic_req->duration_.durlog_i_));
+	  Moment stem_location = now_mom () - beam_start_mom_ + beam_start_location_;
+	  beam_info_p_->add_stem (stem_location,
+				  (rhythmic_req->duration_.durlog_i_ - 2) >? 1);
+	  beam_p_->add_stem (stem_l);
+	}
     }
 }
 

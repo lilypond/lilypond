@@ -12,7 +12,6 @@
 #include "array.hh"
 #include "request.hh"
 #include "score-element-info.hh"
-#include "staff-info.hh"
 #include "translator.hh"
 
 /**

@@ -33,9 +33,6 @@ SCM
 Hara_kiri_group_spanner::member_after_line_breaking ()
 {
   SCM worth = get_elt_pointer ("items-worth-living");
-  /*
-    worth == self_scm  is a stupid way to signal that we're done.
-   */
   if (gh_pair_p (worth))
     return SCM_UNDEFINED;
 

@@ -53,16 +53,15 @@ Spanner::do_break_processing ()
   if  (left == right)
     {
       /*
-	FIXME: this is broken.
-       */
-      /*
 	If we have a spanner spanning one column, we must break it
 	anyway because it might provide a parent for another item.  */
       Direction d = LEFT;
       do
 	{
 	  Item* bound = left->find_prebroken_piece (d);
-	  if (bound->line_l ())
+	  if (!bound)
+	    programming_error ("no broken bound");
+	  else if (bound->line_l ())
 	    {
 	      Spanner * span_p = dynamic_cast<Spanner*>( clone ());
 	      span_p->set_bound (LEFT, bound);
