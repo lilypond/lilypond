@@ -14,7 +14,7 @@
 #  - rewrite in python
 
 program_name = 'convert-mudela'
-version = '0.2'
+version = '0.3'
 
 
 import os
@@ -271,6 +271,12 @@ def do_one_file (infile_name):
 
 	
 	do_conversion (infile, from_version, outfile, to_version)
+
+	if infile_name:
+		infile.close ()
+
+	if outfile_name:
+		outfile.close ()
 
 	if __main__.edit:
 		os.rename (infile_name, infile_name + '~')

@@ -10,7 +10,6 @@ paper_twentysix = \paper {
 	notewidth = 8.59\pt
 	wholewidth = 12.87\pt;
 
-	basicspace = 8.\pt;
 	arithmetic_basicspace = 2.;
         arithmetic_multiplier = 6.\pt;
 	

@@ -7,24 +7,28 @@ paperfile = \papersize + ".ly";
 \include "paper.ly";
 
 interline = \staffheight / 4.0;
-internote = \interline / 2.0;
+
+
+% thickness of stafflines
 staffline = \interline / 10.0;
 
 beam_thickness = 0.52 * (\interline - \staffline);
 interbeam = (2.0 * \interline - \beam_thickness) / 2.0;
 interbeam4 = (3.0 * \interline - \beam_thickness) / 3.0;
-%
+
 
 % stems and beams
 %
 % not used for beams
-stem_length = 7.0*\internote;
+stem_length = 3.5*\interline;
+
 %
 % stems in unnatural (forced) direction should be shortened,
 % according to [Roush & Gourlay].  Their suggestion to knock off
 % a whole staffspace seems a bit drastical though?
 %
 forced_stem_shorten = 1.0 * \interline;
+
 %
 % there are several ways to calculate the direction of a beam
 % 
@@ -35,6 +39,7 @@ forced_stem_shorten = 1.0 * \interline;
 % enum Dir_algorithm { DOWN=-1, UP=1, MAJORITY=2, MEAN, MEDIAN };
 %
 beam_dir_algorithm = 2.0;
+
 %
 %
 % some beam-stemlength settings...
@@ -47,6 +52,7 @@ beam_minimum_stem1 = 1.5 * \interline;
 beam_minimum_stem2 = 1.0 * \interline;
 beam_ideal_stem1 = 2.0 * \interline;
 beam_ideal_stem2 = 1.5 * \interline;
+
 % beam_slope_damp_correct_factor = 2.0;
 beam_slope_damp_correct_factor = 0.0;
 
@@ -62,6 +68,7 @@ tie_slope_damping = 0.3;
 % slur_thickness = 1.8 * \staffline;
 slur_thickness = 1.4 * \staffline;
 slur_height_limit = \staffheight;
+
 % mmm, try bit flatter slurs
 % slur_ratio = 1.0 / 3.0;
 slur_ratio = 0.3;
@@ -78,9 +85,6 @@ barsize = \staffheight;
 rulethickness = \staffline;
 stemthickness = \staffline;
 
-% uhm
-unitspace = 22.\pt;
-geometric = 0.;
 
 gourlay_energybound = 100000.;
 %{

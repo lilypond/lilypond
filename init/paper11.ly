@@ -12,7 +12,6 @@ paper_eleven = \paper {
 	quartwidth = 3.63\pt;
 	wholewidth = 5.45\pt;
 
-	basicspace = 3.\pt;
 	arithmetic_basicspace = 2.;
         arithmetic_multiplier = 4.8\pt;
 	
