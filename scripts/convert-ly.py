@@ -1444,6 +1444,11 @@ if 1:
 	def conv (str):
 		str = re.sub ('accacciatura',
 			      'acciaccatura', str)
+
+		if re.search ("context-spec-music"):
+			sys.stderr.write ("context-spec-music takes a symbol for the context now. Update by hand."
+			raise FatalConversionError()
+
 		return str
 	
 	conversions.append (((1,9,3), conv, """\acciaccatura misspelling"""))

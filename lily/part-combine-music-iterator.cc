@@ -92,7 +92,7 @@ Part_combine_music_iterator::construct_children ()
 }
 
 void
-Part_combine_music_iterator::change_to (Music_iterator *it, String to_type,
+Part_combine_music_iterator::change_to (Music_iterator *it, SCM to_type,
 					String to_id)
 {
   Translator_group * current = it->report_to ();
@@ -108,7 +108,7 @@ Part_combine_music_iterator::change_to (Music_iterator *it, String to_type,
      
      If \translator Staff = bass, then look for Staff = *
    */
-  while (current && current->type_string_ != to_type)
+  while (current && !current->is_alias_b (to_type))
     {
       last = current;
       current = current->daddy_trans_;
@@ -136,7 +136,7 @@ Part_combine_music_iterator::change_to (Music_iterator *it, String to_type,
 	  
 	   last->translator_id_string_  = get_change ()->change_to_id_string_;
 	*/
-	error (_f ("I'm one myself: `%s'", to_type.to_str0 ()));
+	error (_f ("I'm one myself: `%s'", ly_symbol2string (to_type).to_str0 ()));
       }
   else
     error (_f ("none of these in my family: `%s'", to_id.to_str0 ()));
@@ -169,7 +169,7 @@ Part_combine_music_iterator::get_state (Moment)
   
   Music *p = get_music ();
 
-  String w = ly_scm2string (p->get_mus_property ("what"));
+  SCM w = p->get_mus_property ("what");
     
   
   Translator_group *first_translator = first_iter_->report_to ()->find_create_translator (w, "one" + suffix_);
@@ -394,7 +394,7 @@ s      Consider thread switching: threads "one", "two" and "both".
       if (second_iter_ && second_iter_->ok ())
 	second_iter_->try_music (abort_req);
      }
-  String w = ly_scm2string (p->get_mus_property ("what"));
+  SCM  w = p->get_mus_property ("what");
   if (combine_b != previously_combined_b)
     change_to (second_iter_, w, (combine_b ? "one" : "two")
 	       + suffix_);

@@ -34,9 +34,10 @@ class Translator_group : public virtual Translator {
 
   friend class Interpretation_context_handle;
   SCM add_translator (SCM, Translator*);
-
+  
 protected:
   ~Translator_group ();
+
 public:
   void execute_pushpop_property (SCM prop, SCM sym, SCM val);
   SCM internal_get_property (SCM name_sym) const;
@@ -47,7 +48,7 @@ public:
   Translator_group *where_defined (SCM name_sym) const;
 
   String id_string_;
-
+  String context_name () const;  
   VIRTUAL_COPY_CONS (Translator);
   Translator_group (Translator_group const &);
   Translator_group ();
@@ -63,9 +64,10 @@ public:
   Translator *remove_translator (Translator*trans);
   void check_removal ();
   // Translator *get_simple_translator (String) const;
-  Translator_group *find_existing_translator (String n, String id);
-  Translator_group *find_create_translator (String n, String id);
-  Link_array<Translator_group> path_to_acceptable_translator (String alias, Music_output_def*) const;
+  Translator_group *find_existing_translator (SCM context_name, String id);
+  Translator_group *find_create_translator (SCM context_name, String id);
+  Link_array<Translator_group> path_to_acceptable_translator (SCM alias,
+							      Music_output_def*) const;
   Translator_group*get_default_interpreter ();
 
 public:

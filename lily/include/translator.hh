@@ -37,11 +37,8 @@ class Translator
   void init ();
 public:
   Music_output_def * output_def_;
-  String type_string_;
   
-  bool is_alias_b (String) const;
-    
-
+  bool is_alias_b (SCM) const;
   Translator (Translator const &);
 
   
@@ -62,7 +59,6 @@ public:
   SCM simple_trans_list_;
   SCM trans_group_list_;
   SCM definition_;
-  
   SCM properties_scm_;
   DECLARE_SMOBS (Translator, dummy);
 
@@ -88,7 +84,6 @@ static void  _ ## T ## _adder () {\
       T *t = new T;\
       T::static_description_ = t->static_translator_description ();\
       scm_permanent_object (T::static_description_);\
-      t->type_string_ = classname (t);\
       add_translator (t);\
 }\
 SCM T::translator_description() const\

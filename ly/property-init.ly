@@ -81,11 +81,11 @@ newpage = \notes
 }
 
 % dynamic ly:dir?  text script, articulation script ly:dir?	
-oneVoice = #(context-spec-music (make-voice-props-revert) "Voice")
-voiceOne = #(context-spec-music (make-voice-props-set 0) "Voice")
-voiceTwo = #(context-spec-music (make-voice-props-set 1) "Voice")
-voiceThree =#(context-spec-music (make-voice-props-set 2) "Voice")
-voiceFour = #(context-spec-music (make-voice-props-set 3) "Voice")
+oneVoice = #(context-spec-music (make-voice-props-revert) 'Voice)
+voiceOne = #(context-spec-music (make-voice-props-set 0) 'Voice)
+voiceTwo = #(context-spec-music (make-voice-props-set 1) 'Voice)
+voiceThree =#(context-spec-music (make-voice-props-set 2) 'Voice)
+voiceFour = #(context-spec-music (make-voice-props-set 3) 'Voice)
 
 	
 tiny  = 

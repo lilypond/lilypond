@@ -15,7 +15,7 @@
 
 
 void
-Auto_change_iterator::change_to (Music_iterator *it, String to_type,
+Auto_change_iterator::change_to (Music_iterator *it, SCM to_type_sym,
 				 String to_id)
 {
   Translator_group * current = it->report_to ();
@@ -31,7 +31,7 @@ Auto_change_iterator::change_to (Music_iterator *it, String to_type,
      
      If \translator Staff = bass, then look for Staff = *
    */
-  while (current && current->type_string_ != to_type)
+  while (current && !current->is_alias_b (to_type_sym))
     {
       last = current;
       current = current->daddy_trans_;
@@ -47,7 +47,7 @@ Auto_change_iterator::change_to (Music_iterator *it, String to_type,
     if (last)
       {
 	Translator_group * dest = 
-	  it->report_to ()->find_create_translator (to_type, to_id);
+	  it->report_to ()->find_create_translator (to_type_sym, to_id);
 	current->remove_translator (last);
 	dest->add_used_group_translator (last);
       }
@@ -134,8 +134,7 @@ Auto_change_iterator::process (Moment m)
 	{
 	  where_dir_ = s;
 	  String to_id = (s >= 0) ?  "up" : "down";
-	  String wh = ly_scm2string (get_music ()->get_mus_property ("what"));
-	  change_to (child_iter_, wh, to_id);	  
+	  change_to (child_iter_, get_music ()->get_mus_property ("what"), to_id);	  
 	}
     }
 }

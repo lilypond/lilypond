@@ -26,7 +26,7 @@ protected:
   Array<Pitch> pending_pitch (Moment)const;
 private:
   Direction where_dir_;
-  void change_to (Music_iterator* , String, String);
+  void change_to (Music_iterator* , SCM, String);
 };
 
 #endif /* AUTO_CHANGE_ITERATOR_HH */

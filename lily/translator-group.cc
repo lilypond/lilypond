@@ -105,9 +105,9 @@ Translator_group::removable_b () const
 }
 
 Translator_group *
-Translator_group::find_existing_translator (String n, String id)
+Translator_group::find_existing_translator (SCM n, String id)
 {
-  if ((is_alias_b (n) && (id_string_ == id || id.empty_b ())) || n == "Current")
+  if ((is_alias_b (n) && (id_string_ == id || id.empty_b ())) || n == ly_symbol2scm ("Current"))
     return this;
 
   Translator_group* r = 0;
@@ -123,14 +123,14 @@ Translator_group::find_existing_translator (String n, String id)
 
 
 Translator_group*
-Translator_group::find_create_translator (String n, String id)
+Translator_group::find_create_translator (SCM n, String id)
 {
   Translator_group * existing = find_existing_translator (n,id);
   if (existing)
     return existing;
 
   Link_array<Translator_def> path
-    = unsmob_translator_def (definition_)->path_to_acceptable_translator (scm_makfrom0str ((char*)n.to_str0 ()), get_output_def ());
+    = unsmob_translator_def (definition_)->path_to_acceptable_translator (n, get_output_def ());
 
   if (path.size ())
     {
@@ -155,7 +155,7 @@ Translator_group::find_create_translator (String n, String id)
     ret = daddy_trans_->find_create_translator (n,id);
   else
     {
-      warning (_f ("can't find or create `%s' called `%s'", n, id));
+      warning (_f ("can't find or create `%s' called `%s'", ly_symbol2string (n).to_str0 (), id));
       ret =0;
     }
   return ret;
@@ -213,7 +213,7 @@ Translator_group::remove_translator (Translator*trans)
 bool
 Translator_group::is_bottom_translator_b () const
 {
-  return !gh_string_p (unsmob_translator_def (definition_)->default_child_context_name ());
+  return !gh_symbol_p (unsmob_translator_def (definition_)->default_child_context_name ());
 }
 
 Translator_group*
@@ -455,4 +455,10 @@ Translator_group::properties_as_alist () const
 {
   return properties_dict()->to_alist();
 }
-  
+
+String
+Translator_group::context_name () const
+{
+  Translator_def * td = unsmob_translator_def (definition_ );
+  return ly_symbol2string (td->type_name_);
+}

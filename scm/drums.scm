@@ -231,10 +231,10 @@
  )
 
 (define (make-head-type t)
-  (context-spec-music (make-head-type-elem t) "Thread"))
+  (context-spec-music (make-head-type-elem t) 'Thread))
 
 (define (make-thread-context thread-name element)
-  (context-spec-music element "Thread" thread-name))
+  (context-spec-music element 'Thread thread-name))
 
 ;; makes a sequential-music of thread-context, head-change and note
 (define (make-drum-head kit req-ch )

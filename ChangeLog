@@ -1,4 +1,12 @@
+2003-08-30  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/main.cc (main): don't identify binary.
+
 2003-08-29  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/include/translator.hh (class Translator): remove
+	type_string_ , use symbol for context name throughout.
+	Changes through whole source tree.
 
 	* scripts/lilypond.py: rename ly2dvi.py to lilypond.py
 	set PDF as default, and always make PDF.

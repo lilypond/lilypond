@@ -270,14 +270,14 @@ number_accidentals (Music * note, Pitch *pitch, Translator_group * origin,
       */
       else if (gh_symbol_p (ly_car (accidentals)))
 	{
-	  String context = ly_symbol2string (ly_car (accidentals));
+	  SCM context = ly_car (accidentals);
 	  
 	  while (origin && !origin->is_alias_b (context))
 	    origin = origin->daddy_trans_;
       
 	  if (!origin)
 	    warning (_f ("Symbol is not a parent context: %s. Ignored", 
-			 context.to_str0 ()));
+			 ly_symbol2string (context).to_str0 ()));
 	}
       else warning (_f ("Accidental typesetting must be pair or context-name: %s", 
 			ly_scm2string (ly_car (accidentals)).to_str0 ()));

@@ -575,7 +575,7 @@ translator_spec_body:
 		scm_string_to_symbol ($2), $4);
 	}
 	| translator_spec_body NAME STRING  {
-		unsmob_translator_def ($$)->type_name_ = $3;
+		unsmob_translator_def ($$)->type_name_ = scm_string_to_symbol ($3);
 	}
 	| translator_spec_body CONSISTS STRING  {
 		unsmob_translator_def ($$)->add_element ($3);
@@ -594,10 +594,10 @@ translator_spec_body:
 		unsmob_translator_def ($$)->add_last_element ( $3);
 	}
 	| translator_spec_body ACCEPTS STRING  {
-		unsmob_translator_def ($$)->set_acceptor ($3,true);
+		unsmob_translator_def ($$)->set_acceptor (scm_string_to_symbol ($3), true);
 	}
 	| translator_spec_body DENIES STRING  {
-		unsmob_translator_def ($$)->set_acceptor ($3,false);
+		unsmob_translator_def ($$)->set_acceptor (scm_string_to_symbol ($3), false);
 	}
 	| translator_spec_body REMOVE STRING  {
 		unsmob_translator_def ($$)->remove_element ($3);
@@ -917,7 +917,7 @@ Composite_music:
 		csm->set_mus_property ("element", $3->self_scm ());
 		scm_gc_unprotect_object ($3->self_scm ());
 
-		csm->set_mus_property ("context-type",$2);
+		csm->set_mus_property ("context-type", scm_string_to_symbol ($2));
 		csm->set_mus_property ("context-id", scm_makfrom0str (""));
 
 		$$ = csm;
@@ -928,7 +928,7 @@ Composite_music:
 		chm->set_mus_property ("iterator-ctor", Auto_change_iterator::constructor_proc);
 
 		scm_gc_unprotect_object ($3->self_scm ());
-		chm->set_mus_property ("what", $2); 
+		chm->set_mus_property ("what", scm_string_to_symbol ($2));
 
 		$$ = chm;
 		chm->set_spot (*$3->origin ());
@@ -990,7 +990,7 @@ basic music objects too, since the meaning is different.
 		csm->set_mus_property ("element", $5->self_scm ());
 		scm_gc_unprotect_object ($5->self_scm ());
 
-		csm->set_mus_property ("context-type", $2);
+		csm->set_mus_property ("context-type", scm_string_to_symbol ($2));
 		csm->set_mus_property ("context-id", $4);
 
 		$$ = csm;
@@ -1003,7 +1003,7 @@ basic music objects too, since the meaning is different.
 		csm->set_mus_property ("element", $3->self_scm ());
 		scm_gc_unprotect_object ($3->self_scm ());
 
-		csm->set_mus_property ("context-type", $2);
+		csm->set_mus_property ("context-type", scm_string_to_symbol ($2));
 
 		SCM new_id = scm_number_to_string (gh_int2scm (new_context_count ++),
 					gh_int2scm (10));
@@ -1019,9 +1019,9 @@ basic music objects too, since the meaning is different.
 	{
 		int n = gh_scm2int (ly_car ($3)); int d = gh_scm2int (ly_cdr ($3));
 		Music *mp = $4;
-	$$= MY_MAKE_MUSIC("TimeScaledMusic");
-		$$->set_spot (THIS->pop_spot ());
 
+		$$= MY_MAKE_MUSIC("TimeScaledMusic");
+		$$->set_spot (THIS->pop_spot ());
 
 		$$->set_mus_property ("element", mp->self_scm ());
 		scm_gc_unprotect_object (mp->self_scm ());
@@ -1123,8 +1123,8 @@ re_rhythmed_music:
 
 part_combined_music:
 	PARTCOMBINE STRING Music Music {
-	Music * p= MY_MAKE_MUSIC("PartCombineMusic");
-		p->set_mus_property ("what", $2);
+		Music * p= MY_MAKE_MUSIC("PartCombineMusic");
+		p->set_mus_property ("what", scm_string_to_symbol ($2));
 		p->set_mus_property ("elements", gh_list ($3->self_scm (),$4->self_scm (), SCM_UNDEFINED));  
 
 		scm_gc_unprotect_object ($3->self_scm ());
@@ -1137,7 +1137,7 @@ part_combined_music:
 translator_change:
 	TRANSLATOR STRING '=' STRING  {
 		Music*t= MY_MAKE_MUSIC("TranslatorChange");
-		t-> set_mus_property ("change-to-type", $2);
+		t-> set_mus_property ("change-to-type", scm_string_to_symbol ($2));
 		t-> set_mus_property ("change-to-id", $4);
 
 		$$ = t;
@@ -1165,7 +1165,7 @@ simple_property_def:
 		$$ = csm;
 		$$->set_spot (THIS->here_input ());
 
-		csm-> set_mus_property ("context-type", $2);
+		csm-> set_mus_property ("context-type", scm_string_to_symbol ($2));
 	}
 	| PROPERTY STRING '.' STRING UNSET {
 		
@@ -1179,7 +1179,7 @@ simple_property_def:
 		$$ = csm;
 		$$->set_spot (THIS->here_input ());
 
-		csm-> set_mus_property ("context-type", $2);
+		csm-> set_mus_property ("context-type", scm_string_to_symbol ($2));
 	}
 	| PROPERTY STRING '.' STRING SET embedded_scm '=' embedded_scm {
 		bool autobeam
@@ -1201,7 +1201,7 @@ simple_property_def:
 		$$ = csm;
 		$$->set_spot (THIS->here_input ());
 
-		csm-> set_mus_property ("context-type", $2);
+		csm-> set_mus_property ("context-type", scm_string_to_symbol ($2));
 	}
 	| PROPERTY STRING '.' STRING OVERRIDE
 		embedded_scm '=' embedded_scm
@@ -1229,7 +1229,7 @@ simple_property_def:
 		$$ = csm;
 		$$->set_spot (THIS->here_input ());
 
-		csm-> set_mus_property ("context-type", $2);
+		csm-> set_mus_property ("context-type", scm_string_to_symbol ($2));
 
 	}
 	| PROPERTY STRING '.' STRING REVERT embedded_scm {
@@ -1252,7 +1252,7 @@ simple_property_def:
 		$$ = csm;
 		$$->set_spot (THIS->here_input ());
 
-		csm-> set_mus_property ("context-type", $2);
+		csm-> set_mus_property ("context-type", scm_string_to_symbol ($2));
 	}
 	;
 
@@ -1409,7 +1409,7 @@ command_element:
 		$$ = csm;
 		$$->set_spot (THIS->here_input ());
 
-		csm->set_mus_property ("context-type", scm_makfrom0str ("Timing"));
+		csm->set_mus_property ("context-type", ly_symbol2scm ("Timing"));
 	}
 	| PARTIAL duration_length  	{
 		Moment m = - unsmob_duration ($2)->get_length ();
@@ -1420,7 +1420,7 @@ command_element:
 		scm_gc_unprotect_object (p->self_scm ());
 
 		$$ =sp ;
-		sp-> set_mus_property ("context-type", scm_makfrom0str ("Timing"));
+		sp-> set_mus_property ("context-type", ly_symbol2scm ("Timing"));
 	}
 	| CLEF STRING  {
 		static SCM proc ;

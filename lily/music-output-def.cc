@@ -77,23 +77,15 @@ Music_output_def::assign_translator (SCM transdef)
   Translator_def *tp = unsmob_translator_def (transdef);
   assert (tp);
 
-  
-  SCM s = ly_symbol2scm ("");
-  if (gh_string_p (tp->type_name_))
-    s = scm_string_to_symbol (tp->type_name_);
-
-  translator_tab_->set (s, transdef);
+  translator_tab_->set (tp->type_name_, transdef);
 }
 
 /*
-  find the translator for NAME. NAME may be a string or a symbol.
+  find the translator for NAME. NAME must be a symbol.
  */
 SCM
 Music_output_def::find_translator (SCM name) const
 {  
-  if (gh_string_p (name))
-    name = scm_string_to_symbol (name);
-  
   SCM val  =SCM_EOL;
   translator_tab_->try_retrieve (name, &val);
   return val;

@@ -490,7 +490,6 @@ main (int argc, char **argv)
 	  break;
 	}
     }
-  identify (stderr);
 
   if (help_b)
     {

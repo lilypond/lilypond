@@ -43,19 +43,18 @@ Translator::Translator (Translator const &s)
   self_scm_ = SCM_EOL;
   init ();
   output_def_ = s.output_def_;
-  type_string_ = s.type_string_;
 
   smobify_self ();
 }
 
 bool
-Translator::is_alias_b (String s) const
+Translator::is_alias_b (SCM sym) const
 {
-  bool b  = s == type_string_;
+  Translator_def * td = unsmob_translator_def (definition_);
+  bool b  = (sym == td->type_name_);
 
-  for (SCM a = unsmob_translator_def (definition_)->type_aliases_;
-       !b && gh_pair_p (a); a = ly_cdr (a))
-    b = b || s == ly_scm2string (ly_car (a));
+  for (SCM a = td->type_aliases_; !b && gh_pair_p (a); a = ly_cdr (a))
+    b = b || sym == ly_car (a);
 
   return b;
 }
@@ -150,3 +149,4 @@ Translator::static_translator_description ()const
 IMPLEMENT_SMOBS (Translator);
 IMPLEMENT_DEFAULT_EQUAL_P (Translator);
 IMPLEMENT_TYPE_P(Translator,"ly:translator?");
+
