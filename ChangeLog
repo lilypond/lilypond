@@ -1,5 +1,7 @@
 2005-01-14  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/include/lyric-combine-music.hh ("music.hh"): remove file.
+
 	* lily/slur-scoring.cc (get_best_curve): only switch on
 	DEBUG_SLUR_SCORING for non NDEBUG builds.
 
