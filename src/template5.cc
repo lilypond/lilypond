@@ -2,7 +2,8 @@
 #include "string.hh"
 #include "moment.hh"
 #include "real.hh"
-#include "interval.cc"
+
+#include "interval.tcc"
 
 Interval__instantiate(Real);
 Interval__instantiate(Rational);
