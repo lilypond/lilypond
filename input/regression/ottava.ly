@@ -43,9 +43,10 @@ with @code{Staff.ottavation}.
   a b c a
   #(set-octavation 0)
   #(set-octavation -1)
-  a b c a
+  a b c a 
   #(set-octavation 0)
-  a,
+  \break
+  a, 
   #(set-octavation 1)
   \property Staff.ottavation = #"8"
   b
@@ -53,7 +54,10 @@ with @code{Staff.ottavation}.
   c a 
   #(set-octavation -1) b a g 
   #(set-octavation 0)
-  c
+  c 
+  #(set-octavation -1)
+  \property Staff.ottavation = #"8"
+  c,,16
 }
 }
 

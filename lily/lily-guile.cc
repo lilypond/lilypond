@@ -714,3 +714,29 @@ robust_list_ref(int i, SCM l)
   return gh_car(l);
 }
 
+
+
+Real
+robust_scm2double (SCM k, double x)
+{
+  if (gh_number_p (k))
+    x = gh_scm2double (k);
+  return x;
+}
+
+Drul_array<Real>
+robust_scm2interval (SCM k, Drul_array<Real> v)
+{
+  if (is_number_pair (k))
+    v = ly_scm2interval (k);
+  return v;
+}
+
+Offset
+robust_scm2offset (SCM k, Offset o)
+{
+  if (is_number_pair (k))
+    o = ly_scm2offset (k);
+
+  return o;
+}

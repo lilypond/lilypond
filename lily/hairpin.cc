@@ -7,6 +7,7 @@
 */
 
 #include "molecule.hh"
+#include "line-interface.hh"
 #include "hairpin.hh"
 #include "spanner.hh"
 #include "font-interface.hh"
@@ -120,41 +121,16 @@ Hairpin::brew_molecule (SCM smob)
     should do relative to staff-symbol staff-space?
    */
 
-  Real period = 1.0;
-  s = me->get_grob_property ("dash-period");
-  if (gh_number_p (s))
-    period = gh_scm2double (s);
-  
-  Real fraction = 1.0;
-  s = me->get_grob_property ("dash-fraction");
-  if (gh_number_p (s))
-    fraction = gh_scm2double (s);
-  
-  /*
-    TODO: set line style.
-   */
   Molecule mol;
-  if (fraction < 1.0)
-    {
-      mol  = Lookup::dashed_line (thick,
-				  Offset (0, starth),
-				  Offset (width, endh),
-				  period, fraction);
-      mol.add_molecule (Lookup::dashed_line (thick,
-					     Offset (0, -starth),
-					     Offset (width, -endh),
-					     period, fraction));
-    }
-  else
-    {
-      mol  = Lookup::line (thick,
-			   Offset (0, starth),
-			   Offset (width, endh));
-      mol.add_molecule (Lookup::line (thick,
-				      Offset (0, -starth),
-				      Offset (width, -endh)
-				      ));
-    }
+  mol  = Line_interface::dashed_line (me,
+				      thick,
+				      Offset (0, starth),
+				      Offset (width, endh));
+  mol.add_molecule (Line_interface::dashed_line (me,
+						 thick,
+						 Offset (0, -starth),
+						 Offset (width, -endh)));
+
   mol.translate_axis (x_points[LEFT]
 		      - bounds[LEFT]->relative_coordinate (common, X_AXIS),
 		      X_AXIS);
@@ -165,5 +141,5 @@ Hairpin::brew_molecule (SCM smob)
 
 ADD_INTERFACE (Hairpin, "hairpin-interface",
   "hairpin crescendo.",
-  "dash-period dash-fraction grow-direction thickness height if-text-padding");
+  "grow-direction height if-text-padding");
 

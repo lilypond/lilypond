@@ -92,7 +92,6 @@ Volta_bracket_interface::brew_molecule (SCM smob)
   Real h =  gh_scm2double (me->get_grob_property ("height"));
   Real t =  staff_thick * gh_scm2double (me->get_grob_property ("thickness"));
 
-
   Molecule start,end ;
   if (!no_vertical_start)
     start = Lookup::line (t, Offset (0,0), Offset (0, h)); 

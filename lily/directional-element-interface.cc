@@ -1,5 +1,5 @@
 /*   
-  directional-element.cc -- implement Directional_element
+  directional-element-interface.cc -- implement Directional_element
   
   source file of the GNU LilyPond music typesetter
   

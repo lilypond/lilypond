@@ -1,5 +1,30 @@
 2004-01-18  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/hairpin.cc: use Line_interface
+
+	* lily/line-interface.cc: new file. Line_interface for everything
+	with dotted/dashed lines.
+	
+
+	* lily/tuplet-bracket.cc (make_bracket): use Line_interface.
+
+	* lily/ottava-bracket.cc (brew_molecule): new file, separate routine
+	for constructing ottava brackets.
+	
+	* lily/ottava-engraver.cc (acknowledge_grob): hang the bracket on
+	the note heads.
+
+	* Documentation/user/internals.itely (Engravers and performers):
+	fix broken link.
+
+	* scm/music-functions.scm (make-mark-set): new function.
+
+	* lily/lookup.cc: remove Lookup::horizontal_slope (): it is
+	functionally identical to beam.
+
+	* lily/mensural-ligature.cc (brew_flexa): replace horizontal_slope
+	() with beam (). 
+
 	* Documentation/user/refman.itely (Rehearsal marks): document new
 	functionality.
 

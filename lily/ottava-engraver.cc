@@ -50,7 +50,7 @@ Ottava_spanner_engraver::process_music ()
       if (gh_string_p (ott))
 	{
 	  span_  = new Spanner (get_property ("OttavaSpanner"));
-	  span_->set_grob_property ("edge-text", gh_cons (ott, SCM_EOL));
+	  span_->set_grob_property ("text", ott);
 	  announce_grob (span_, SCM_EOL);
 
 	  SCM c0 (get_property ("centralCPosition"));
@@ -69,6 +69,7 @@ Ottava_spanner_engraver::acknowledge_grob (Grob_info info)
   if (span_ && it && Note_column::has_interface (info.grob_))
     {
       Side_position_interface::add_support (span_, it);
+
       if (!span_->get_bound (LEFT))
 	span_->set_bound (LEFT, it);
       span_->set_bound (RIGHT, it);
