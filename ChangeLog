@@ -4,6 +4,9 @@
 	remove instructions (found in lilypond-init.el or Documentation).
 
 	* lilypond.words: add identifiers.
+
+	* Documentation/topdocs/INSTALL.texi: separate sections for installing
+	files and adding a load-path.
 	
 2002-11-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
