@@ -65,6 +65,7 @@ def tarball(v):
 def released_tarball(v):
     return lilydirs.release_dir + tarball(v)
 
+
 def tuple_to_list(tup):
     l=[]
     for x in tup:
