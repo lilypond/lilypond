@@ -132,15 +132,17 @@ void
 Rhythmic_column_engraver::acknowledge_grob (Grob_info i)
 {
   Item * item =  dynamic_cast <Item *> (i.grob_l_);
-  if (item && Stem::has_interface (item))
+  if (!item || item->get_parent (X_AXIS))
+    return ; 
+  if (Stem::has_interface (item))
     {
       stem_l_ = item;
     }
-  else if (item && Rhythmic_head::has_interface (item))
+  else if (Rhythmic_head::has_interface (item))
     {
       rhead_l_arr_.push (item);
     }
-  else if (item && Dot_column::has_interface (item))
+  else if (Dot_column::has_interface (item))
     {
       dotcol_l_ = item;
     }

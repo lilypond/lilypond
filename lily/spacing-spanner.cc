@@ -441,7 +441,7 @@ Spacing_spanner::find_shortest (Link_array<Grob> const &cols)
 	  max_count = counts[i];
 	}
 
-      printf ("duration %d/%d, count %d\n", durations[i].num (), durations[i].den (), counts[i]);
+      //      printf ("duration %d/%d, count %d\n", durations[i].num (), durations[i].den (), counts[i]);
     }
 
   /*
