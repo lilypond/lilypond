@@ -270,6 +270,21 @@ WARNING: deprecated; use make-music-by-name.
   return s;
 }
 
+// to do  property args 
+LY_DEFINE(ly_get_mutable_properties,
+	  "ly-get-mutable-properties", 1, 0, 0,  (SCM mus),
+	  "
+Return an alist signifying the mutable properties of @var{mus}.
+The immutable properties are not available; they should be initialized
+by the functions make-music-by-name function.
+  ")
+{
+  Music *m = unsmob_music (mus);
+  SCM_ASSERT_TYPE(m, mus, SCM_ARG1, __FUNCTION__, "music");
+
+  return m->get_property_alist (true);
+}
+
 LY_DEFINE(ly_music_list_p,"music-list?", 1, 0, 0, 
   (SCM l),"Type predicate: return true if @var{l} is a list of music objects.")
 {

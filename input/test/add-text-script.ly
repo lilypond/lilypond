@@ -9,13 +9,13 @@ create, then write a function that will build the structure for you."
 } 
 
 #(define (make-text-script x) 
-   (let ((m (make-music-by-name "Text_script_req")))
+   (let ((m (make-music-by-name 'TextScriptEvent)))
      (ly-set-mus-property! m 'text-type 'finger)
      (ly-set-mus-property! m 'text x)
      m))
      
 #(define (add-text-script m x)
-   (if (equal? (ly-music-name m) "Request_chord")
+   (if (equal? (ly-music-name m) 'RequestChord)
        (ly-set-mus-property! m 'elements
 			    (cons (make-text-script x)
 				  (ly-get-mus-property m 'elements)))

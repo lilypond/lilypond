@@ -483,7 +483,7 @@
 
 (define-public (make-music-by-name x)
   (if (not (symbol? x))
-      (misc-error "Not a symbol: ~s" x))
+      (error (format "Not a symbol: ~a" x)))
   (let*
       (
        (props (hashq-ref music-name-to-property-table x '()))

@@ -21,7 +21,6 @@ internal_ly_parse_scm (Parse_start * ps)
 
   int off = ps->start_location_.defined_str0_ - sf->to_str0();
   
-  
   scm_seek (port, scm_long2num (off), scm_long2num (SEEK_SET));
   SCM from = scm_ftell (port);
 
@@ -114,14 +113,26 @@ protected_ly_parse_scm (Parse_start *ps)
 }
 
 
+static bool protect = true;
+
+LY_DEFINE(set_parse_protect, "ly-set-parse-protect",
+	  1,0,0, (SCM t),
+	  "If protection is switched on, errors in inline scheme are caught.")
+{
+  protect =  (t == SCM_BOOL_T);
+  return SCM_UNSPECIFIED;
+}
+
 SCM
 ly_parse_scm (char const* s, int *n, Input i)
 {
+  
   Parse_start ps ;
   ps.str = s;
   ps.start_location_ = i;
 
-  SCM ans = protected_ly_parse_scm (&ps);
+  SCM ans = protect ? protected_ly_parse_scm (&ps)
+    : internal_ly_parse_scm (&ps);
   *n = ps.nchars;
   return ans;  
 }
