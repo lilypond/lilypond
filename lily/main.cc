@@ -435,7 +435,12 @@ parse_argv (int argc, char **argv)
 	case 'm':
 	  no_paper_global_b = true;
 	  break;
+	case 'p':
+	  make_preview = true;
+	  break;
 	default:
+	  programming_error (to_string ("unhandled short option: %c",
+					opt->shortname_char_));
 	  assert (false);
 	  break;
 	}
