@@ -1,3 +1,7 @@
+pl 72
+	- bf: mfplain dependency
+	- inimf, inimf checking (sigh)
+
 pl 71
 	- bf: c-tags
 	- yodl: groff, ditroff

@@ -54,16 +54,17 @@
 	grestore
 } bind def
 
-/vrule % width height depth
+/vrule % width depth height
 {
 	gsave
 	3 -1 roll setlinewidth
-	neg 0 exch moveto
-	0 exch lineto stroke
+	%neg 0 exch moveto
+	0 exch moveto
+	neg 0 exch lineto stroke
 	grestore
 } bind def
 
-/draw_stem % kern width height depth
+/draw_stem % breapth width depth height
 {
 	gsave
 	4 -1 roll neg 0 translate

@@ -1,5 +1,5 @@
 
-pfa: $(PFA_FILES) mfplain.mem
+pfa: mfplain.mem $(PFA_FILES)
 
-mfplain.mem:
-	inimpost mfplain.ini
+mfplain.mem: mfplain.ini
+	$(INIMETAPOST) mfplain.ini

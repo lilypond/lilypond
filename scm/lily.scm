@@ -391,8 +391,8 @@
   
   (define (experimental-on) "")
   
-  (define (filledbox kern width height depth) 
-    (string-append (numbers->string (list kern width height depth))
+  (define (filledbox breapth width depth height) 
+    (string-append (numbers->string (list breapth width depth height))
 		   "draw_stem" ))
 
   ;; obsolete?
@@ -449,8 +449,8 @@
       (clear-fontcache)
       "\nstart_line {\n"))
   
-  (define (stem kern width height depth) 
-    (string-append (numbers->string (list kern width height depth))
+  (define (stem breapth width depth height) 
+    (string-append (numbers->string (list breapth width depth height))
 		   "draw_stem" ))
 
   (define (stop-line)
