@@ -1,7 +1,7 @@
 #!@PYTHON@
 
 # Created 01 September 2003 by Heikki Junes.
-# Makes a lilypond.words file which is used by (X)Emacs and Vim.
+# Generates lilypond.words.el for (X)Emacs and lilypond.words.vim for Vim.
 
 import string
 import re
@@ -125,9 +125,9 @@ for name in [
 
 # the output file
 if sys.argv[1:] == []:
-  out = open('lilypond.words', 'w')
+  out = open('lilypond.words.el', 'w')
 else:
-  out = open(sys.argv[1]+'/lilypond.words', 'w')
+  out = open(sys.argv[1]+'/lilypond.words.el', 'w')
 
 # the menu in lilypond-mode.el
 for line in [

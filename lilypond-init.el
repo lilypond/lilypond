@@ -4,7 +4,7 @@
 
 ;; Emacs mode for entering music and running LilyPond is contained in
 ;; the source archive as `lilypond-mode.el', `lilypond-indent.el',
-;; `lilypond-font-lock.el' and `lilypond.words'. You should install 
+;; `lilypond-font-lock.el' and `lilypond.words.el'. You should install 
 ;; these files to a directory included in your `load-path'. 
 ;; File `lilypond-init.el' should be placed to `load-path/site-start.d/' 
 ;; or appended to your `~/.emacs' or `~/.emacs.el'. 

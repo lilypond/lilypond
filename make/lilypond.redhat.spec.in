@@ -73,7 +73,7 @@ gzip -9fn $RPM_BUILD_ROOT%{_infodir}/*
 %endif
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/emacs/site-lisp/site-start.d
-install -m 644 lilypond-mode.el lilypond-font-lock.el lilypond-indent.el out/lilypond.words $RPM_BUILD_ROOT/%{_datadir}/emacs/site-lisp/
+install -m 644 lilypond-mode.el lilypond-font-lock.el lilypond-indent.el out/lilypond.words.el $RPM_BUILD_ROOT/%{_datadir}/emacs/site-lisp/
 
 install -m 644 lilypond-init.el $RPM_BUILD_ROOT/%{_datadir}/emacs/site-lisp/site-start.d
 

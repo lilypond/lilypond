@@ -57,16 +57,16 @@
 
 (defun LilyPond-words-filename ()
   "The file containing LilyPond \keywords \Identifiers and ReservedWords.
-Finds file lilypond-words from load-path."
+Finds file lilypond-words.el from load-path."
   (let ((fn nil)
 	(lp load-path)
-	(words-file "lilypond.words"))
+	(words-file "lilypond.words.el"))
     (while (and (> (length lp) 0) (not fn))
       (setq fn (concat (car lp) "/" words-file))
       (if (not (file-readable-p fn)) 
 	  (progn (setq fn nil) (setq lp (cdr lp)))))
     (if (not fn)
-	(progn (message "Warning: `lilypond.words' not found in `load-path'. See `lilypond-init.el'.")
+	(progn (message "Warning: `lilypond.words.el' not found in `load-path'. See `lilypond-init.el'.")
 	       (sit-for 5 0)))
     fn))
 
@@ -92,7 +92,7 @@ Finds file lilypond-words from load-path."
   "The last command selected from the LilyPond-Insert -menu.")
 
 (defconst LilyPond-menu-keywords 
-  (let ((wordlist '()) ; add syntax entries to lilypond.words
+  (let ((wordlist '())
 	(co (all-completions "" (LilyPond-add-dictionary-word ())))
 	(currword ""))
     (progn
@@ -107,7 +107,7 @@ Finds file lilypond-words from load-path."
   "Keywords inserted from LilyPond-Insert-menu.")
 
 (defconst LilyPond-keywords
-  (let ((wordlist '("\\score")) ; add \keywords to lilypond.words
+  (let ((wordlist '("\\score"))
 	(co (all-completions "" (LilyPond-add-dictionary-word ())))
 	(currword ""))
     (progn
@@ -129,7 +129,7 @@ Finds file lilypond-words from load-path."
   "LilyPond \\keywords")
 
 (defconst LilyPond-identifiers 
-  (let ((wordlist '("\\voiceOne")) ; add \Identifiers to lilypond.words
+  (let ((wordlist '("\\voiceOne"))
 	(co (all-completions "" (LilyPond-add-dictionary-word ()))))
     (progn
       (while (> (length co) 0)
@@ -147,7 +147,7 @@ Finds file lilypond-words from load-path."
   "LilyPond \\Identifiers")
 
 (defconst LilyPond-Capitalized-Reserved-Words 
-  (let ((wordlist '("Staff")) ; add ReservedWords to lilypond.words
+  (let ((wordlist '("Staff"))
 	(co (all-completions "" (LilyPond-add-dictionary-word ()))))
     (progn
       (while (> (length co) 0)
@@ -164,7 +164,7 @@ Finds file lilypond-words from load-path."
   "LilyPond ReservedWords")
 
 (defconst LilyPond-non-capitalized-reserved-words
-  (let ((wordlist '("c")) ; add note names lilypond.words
+  (let ((wordlist '("c"))
 	(co (all-completions "" (LilyPond-add-dictionary-word ()))))
     (progn
       (while (> (length co) 0)
@@ -847,7 +847,7 @@ command."
     (message "No tag was selected from LilyPond->Insert tag-menu.")))
 
 (defun LilyPond-insert-tag ()
-  "Insert syntax for given tag. The definitions are in lilypond.words."
+  "Insert syntax for given tag. The definitions are in LilyPond-words-filename."
   (interactive)
   (setq b (find-file-noselect (LilyPond-words-filename) t t))
   (let ((word LilyPond-insert-tag-current)

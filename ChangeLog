@@ -4,6 +4,12 @@
 	$(builddir).  Stepmake is a normal subdirectory now, that is not
 	configured.  Another srcdir build fix.
 
+	* Documentation/topdocs/INSTALL.texi,
+	buildscripts/lilypond.words.py, lilypond-font-lock.el,
+	lilypond-init.el, lilypond-mode.el, debian/rules,
+	make/lilypond.{redhat,madrake,suse}.spec.in, vimrc:
+	rename generated file lilypond.words to lilypond.words.el.
+
 2003-09-20  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* ly/chord-modifiers-init.ly, lilypond.vim: updates for vim.
