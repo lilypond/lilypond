@@ -1,3 +1,11 @@
+1.5.10.jcn1
+==========
+
+* parser.yy: Guile > 1.4 compilation fix; scm_unprotect_object is deprecated.
+
+1.5.10
+======
+
 1.5.9.hjj2
 ==========
 * Emacs-mode: Keyboard shortcuts, separated identifiers from keywords

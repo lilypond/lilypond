@@ -1718,7 +1718,7 @@ bass_figure:
 		Note_req * nr = new Note_req;
 		$$ = nr->self_scm ();
 		nr->set_mus_property ("pitch", p.smobbed_copy ());
-		scm_unprotect_object ($$);
+		scm_gc_unprotect_object ($$);
 	}
 	| bass_figure bass_mod {
 		if ($2) { 
