@@ -52,13 +52,35 @@
 
 (def-markup-command (postscript paper props str) (string?)
 
-  "This inserts @var{str} directly into the output as a PostScript command string. For example,
+  "This inserts @var{str} directly into the output as a PostScript
+command string.  Due to technicalities of the output backends,
+different scales should be used for the @TeX{} and PostScript backend,
+selected with @code{-f}. 
+
+
+For the TeX backend, the following string prints a rotated text
 
 @cindex rotated text
-@lilypond[verbatim]
-{ c^\\markup { \\postscript #\" /ecrm10 findfont 10 output-scale div scalefont 90 rotate (hello) show \" } } 
-@end lilypond"
 
+@verbatim
+0 0 moveto /ecrm10 findfont 
+1.75 scalefont setfont 90 rotate (hello) show
+@end verbatim
+
+@noindent
+The magical constant 1.75 scales from LilyPond units (staff spaces) to
+TeX dimensions.
+
+For the postscript backend, use the following
+
+@verbatim
+gsave /ecrm10 findfont 
+ 10.0 output-scale div 
+ scalefont setfont  90 rotate (hello) show grestore 
+@end verbatim
+"
+  ;; FIXME
+  
   (ly:make-stencil
    (list 'embedded-ps str)
    '(0 . 0) '(0 . 0)  ))

@@ -292,7 +292,8 @@
   For example,
   
 @example
-   \\markup \\fret-diagram #'((mute 6) (mute 5) (open 4) (place-fret 3 2) (place-fret 2 3) (place-fret 1 2))
+   \\markup \\fret-diagram #'((mute 6) (mute 5) (open 4)
+        (place-fret 3 2) (place-fret 2 3) (place-fret 1 2))
 @end example 
   
   will produce a standard D chord diagram without fingering indications.
