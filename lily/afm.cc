@@ -83,8 +83,8 @@ Adobe_font_metric::find_char_metric (String nm, bool warn) const
 int
 Adobe_font_metric::count () const
 {
-  return font_inf_->numOfChars ;
-  //  return ascii_to_metric_idx_.size ();
+  // return font_inf_->numOfChars ;
+  return ascii_to_metric_idx_.size ();
 }
 
 Box

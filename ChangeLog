@@ -1,5 +1,10 @@
 2002-05-22  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* Documentation/user/refman.itely: Bugfix: add node Repeats and
+	MIDI.  Regenerate menu.  Fix @end example.
+
+	* lily/afm.cc (count): Revert.
+
 	* lily/accidental.cc: Add cautionary-style to interface.
 
 2002-05-22  Han-Wen  <hanwen@cs.uu.nl>
