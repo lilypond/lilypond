@@ -1,3 +1,7 @@
+2004-08-18  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* lily/clef-engraver.cc: Add forceClef to list of read properties.
+
 2004-07-30  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* Documentation/user/changing-defaults.itely (Horizontal spacing): 
