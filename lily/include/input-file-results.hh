@@ -37,8 +37,7 @@ private:
 
 extern Input_file_results* global_input_file;
 
-void do_one_file (String init_string, String in_file, String out_file);
-
+void do_one_file (char const* file);
 
 #endif /* FILE_RESULTS_HH */
 

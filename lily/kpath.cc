@@ -84,7 +84,7 @@ kpathsea_find_tfm (char const * name)
 
 
 void
-init_kpath (char *av0)
+initialize_kpathsea (char *av0)
 {
 #if KPATHSEA && HAVE_KPATHSEA_KPATHSEA_H
   /*
