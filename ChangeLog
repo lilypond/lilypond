@@ -1,5 +1,10 @@
 2004-02-17  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/note-collision.cc (check_meshing_chords): only wipe heads
+	if necessary. Else, simply wipe dots.
+
+	* input/test/beam-alternate.ly: new file
+
 	* input/test/piano-staff-distance.ly: new file.
 
 	* lily/translator-group.cc (recurse_down_translators): use
