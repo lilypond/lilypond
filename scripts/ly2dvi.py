@@ -120,7 +120,7 @@ debug_p = 0
 ## ly2dvi: silly name?
 ## do -P or -p by default?
 ##help_summary = _ ("Run LilyPond using LaTeX for titling")
-help_summary = _ ("Run LilyPond, add titles, generate printable document")
+help_summary = _ ("Run LilyPond, add titles, generate printable document.")
 copyright = ('Han-Wen Nienhuys <hanwen@cs.uu.nl',
 	     'Jan Nieuwenhuizen <janneke@gnu.org')
 

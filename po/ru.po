@@ -678,7 +678,7 @@ msgstr ""
 #. # do -P or -p by default?
 #. #help_summary = _ ("Run LilyPond using LaTeX for titling")
 #: ly2dvi.py:121
-msgid "Run LilyPond, add titles, generate printable document"
+msgid "Run LilyPond, add titles, generate printable document."
 msgstr ""
 
 #: ly2dvi.py:127 main.cc:115
