@@ -1375,7 +1375,7 @@ def identify (stream):
 
 def print_version ():
 	identify (sys.stdout)
-	sys.stdout.write (r'''Copyright 1998--1999
+	sys.stdout.write (r'''Copyright 1998--2003
 Distributed under terms of the GNU General Public License. It comes with
 NO WARRANTY.
 ''')
