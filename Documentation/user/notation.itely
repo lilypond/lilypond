@@ -1096,7 +1096,6 @@ command
 \time 2/4 c'2 \time 3/4 c'2. 
 @end lilypond
 
-@c  FIXME: broken numbers for 4/4 and 2/2 time.
 The symbol that is printed can be customized with the @code{style}
 property.  Setting it to @code{#'()} uses fraction style for 4/4 and
 2/2 time,
@@ -1104,7 +1103,7 @@ property.  Setting it to @code{#'()} uses fraction style for 4/4 and
 @lilypond[fragment,verbatim]
 \time 4/4 c'1
 \time 2/2 c'1
-\override TimeSignature #'style = #'()
+\override Staff.TimeSignature #'style = #'()
 \time 4/4 c'1
 \time 2/2 c'1
 @end lilypond
