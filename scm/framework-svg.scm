@@ -12,8 +12,11 @@
 ;; FIXME: 0.62 to get paper size right
 (define output-scale (* 0.62 scale-to-unit))
 
-(define-public (output-framework outputter book scopes fields basename)
-  (let* ((paper (ly:paper-book-paper book))
+(define-public (output-framework basename book scopes fields)
+  (let* ((filename (format "~a.svg" basename))
+	 (outputter  (ly:make-paper-outputter filename
+					      (ly:output-backend)))
+	 (paper (ly:paper-book-paper book))
 	 (pages (ly:paper-book-pages book))
 	 (landscape? (eq? (ly:output-def-lookup paper 'landscape) #t))
 	 (page-number (1- (ly:output-def-lookup paper 'firstpagenumber)))
@@ -75,7 +78,9 @@
 
 (define (dump-fonts outputter paper)
   (let* ((fonts (ly:paper-fonts paper))
-	 (font-names (uniq-list (sort (map ly:font-file-name fonts) string<?)))
+	 (font-names (uniq-list (sort
+				 (filter string?
+					 (map ly:font-file-name fonts)) string<?)))
 	 (svgs (map
 		(lambda (x)
 		  (let ((file-name (ly:find-file (string-append x ".svg"))))
