@@ -81,7 +81,18 @@ Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
       
       return scm_apply_2 (func, layout_smob, props, args);
     }
-  return SCM_EOL;
+  else
+    {
+      programming_error ("Is not a markup: ");
+      scm_display (markup, scm_current_error_port());
+      assert (false);
+      Box b;
+      b[X_AXIS].set_empty();
+      b[Y_AXIS].set_empty();
+      
+      Stencil s(b, SCM_EOL);
+      return s.smobbed_copy();
+    }
 }
 
 MAKE_SCHEME_CALLBACK (Text_interface,print,1);

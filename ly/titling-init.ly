@@ -1,4 +1,3 @@
-
 bookTitleMarkup = \markup {
   \column <
     \fill-line < \fromproperty #'header:dedication >
@@ -7,25 +6,25 @@ bookTitleMarkup = \markup {
     >
     \fill-line <
       \override #'(baseline-skip . 3)
-        \column <
-	  \fill-line <
-	        \huge \bigger \bigger
-		   \bold \fromproperty #'header:subtitle
-		>
-	  \fill-line <
-	        \huge \bigger
-		   \bold \fromproperty #'header:subsubtitle
-		>
-	  >
+      \column <
+	\fill-line <
+	  \huge \bigger \bigger
+	  \bold \fromproperty #'header:subtitle
+	>
+	\fill-line <
+	  \huge \bigger
+	  \bold \fromproperty #'header:subsubtitle
+	>
+      >
     >
     \fill-line <
       \fromproperty #'header:poet
       \fromproperty #'header:instrument 
       \column <
-		\fromproperty #'header:composer
-		\fromproperty #'header:arranger
-		>
+	\fromproperty #'header:composer
+	\fromproperty #'header:arranger
       >
+    >
   >
 }
 
@@ -54,6 +53,8 @@ evenHeaderMarkup = \markup
 oddFooterMarkup = \markup {
   \column <
     \fill-line <
+
+      % put copyright only on pagenr. 1 
       \on-the-fly #(lambda (layout props arg)
 		    (if (= 1 (chain-assoc-get 'page:page-number props   -1))
 		     (interpret-markup layout props arg)
@@ -62,6 +63,7 @@ oddFooterMarkup = \markup {
       \fromproperty #'header:copyright
     >
     \fill-line <
+      % put tagline only on last page
       \on-the-fly #(lambda (layout props arg)
 		    (if (chain-assoc-get 'page:last?  props #f)
 		     (interpret-markup layout props arg)
@@ -71,7 +73,4 @@ oddFooterMarkup = \markup {
     >
   >
 }
-
-
-
 

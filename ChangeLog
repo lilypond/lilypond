@@ -1,5 +1,22 @@
 2004-11-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/stencil.scm (stack-lines): return empty-stencil if argument
+	is '()
+	(stack-stencils): idem.
+
+	* Documentation/user/changing-defaults.itely (Creating titles):
+	document new title layout options.
+
+	* lily/parser.yy (lilypond_header_body): copy previous
+	$globalheader if present.
+
+	* lily/ly-module.cc (LY_DEFINE): rename ly:import-module to
+	ly:module-copy
+	
+	* scm/page-layout.scm (marked-up-headfoot): remove old functions.
+
+	* scm/titling.scm: remove old titling functions
+
 	* lily/stencil.cc (translate): remove absolute dimension.
 
 	* ly/titling-init.ly (oddFooterMarkup): new file. Generate titles

@@ -171,15 +171,16 @@ smallerPaper = \layout {
   betweensystempadding = 0\mm
 }
 
-\score{
-  \sarabandeCelloStaff
-  \midi{ \tempo 4 = 40 }
-  \layout { }
-  \header{
-    opus= "" 
-    piece ="Sarabande" }
+\book {
+  \score{
+    \sarabandeCelloStaff
+    \layout { }
+    \midi{ \tempo 4 = 40 }
+    \header{
+      opus= "" 
+      piece ="Sarabande" }
+  }
 }
-
 %%% Local variables:
 %%% LilyPond-indent-level:2
 %%% End:

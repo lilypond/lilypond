@@ -54,7 +54,7 @@ ly_use_module (SCM mod, SCM used)
 #define FUNC_NAME __FUNCTION__
 
 static SCM
-ly_module_define (void *closure, SCM key, SCM val, SCM result)
+module_define_closure_func (void *closure, SCM key, SCM val, SCM result)
 {
   (void) result;
   SCM module = (SCM) closure;
@@ -67,18 +67,16 @@ ly_module_define (void *closure, SCM key, SCM val, SCM result)
 typedef SCM (*Hash_cl_func)();
 
 /*
-  Check me. This is NOT an actual import. It just copies the
-  definitions.
-
   If a variable in changed in SRC, we DEST doesn't see the
   definitions.
  */
-LY_DEFINE (ly_import_module, "ly:import-module",
+LY_DEFINE (ly_module_copy, "ly:module-copy",
 	   2, 0, 0, (SCM dest, SCM src),
-	   "Import all bindings from module SRC into DEST.")
+	   "Copy all bindings from module SRC into DEST.")
 {
   SCM_VALIDATE_MODULE (1, src);
-  scm_internal_hash_fold ((Hash_cl_func) &ly_module_define, (void*) dest,
+  scm_internal_hash_fold ((Hash_cl_func) &module_define_closure_func,
+			  (void*) dest,
 			  SCM_EOL, SCM_MODULE_OBARRAY (src));
   return SCM_UNSPECIFIED;
 }

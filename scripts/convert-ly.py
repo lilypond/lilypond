@@ -2271,6 +2271,16 @@ conversions.append (((2, 5, 0),
 		     ''))
 
 
+def conv (str):
+	str = re.sub (r'ly:import-module',
+		      r'ly:module-copy', str) 
+	return str
+
+conversions.append (((2, 5, 1),
+		     conv,
+		     'ly:import-module -> ly:module-copy'))
+
+
 
 ################################
 #	END OF CONVERSIONS	

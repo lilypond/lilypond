@@ -12,6 +12,52 @@
 
 ;;;;;;;;;;;;;;;;;;
 
+(define-public ((marked-up-headfoot what-odd what-even) layout scopes page-number last?)
+
+  "Read variables WHAT-ODD, WHAT-EVEN from LAYOUT, and interpret them
+as markup. The PROPS argument will include variables set in SCOPES and
+page:last?, page:page-number-string and page:page-number
+" 
+
+  (define (get sym)
+    (ly:output-def-lookup layout sym))
+
+  (define (interpret-in-page-env potential-markup)
+    (if (markup? potential-markup)
+	(let*
+	    ((alists  (map ly:module->alist scopes))
+	     (prefixed-alists
+	      (map (lambda (alist)
+		     (map (lambda (entry)
+			    (cons
+			     (string->symbol
+			      (string-append
+			       "header:"
+			       (symbol->string (car entry))))
+			     (cdr entry)
+			     ))
+			  alist))
+		   alists))
+	     (pgnum-alist (list
+			   (cons 'page:last? last?)
+			   (cons 'page:page-number-string
+				 (number->string page-number))
+			   (cons 'page:page-number  page-number)))
+	     (props (append
+		     (list pgnum-alist)
+		     prefixed-alists
+		     (page-properties layout)))
+	     )
+
+	  (interpret-markup layout props potential-markup))
+	
+	empty-stencil))
+
+  (interpret-in-page-env
+   (if (and (even? page-number)
+	    (markup? (get what-even)))
+       (get what-even)
+       (get what-odd))))
 
 (define-public ((marked-up-title what) layout scopes)
   "Read variables WHAT from SCOPES, and interpret it as markup. The
@@ -40,7 +86,7 @@ PROPS argument will include variables set in SCOPES (prefixed with
        (props (append prefixed-alist
 		      (page-properties layout)))
 
-       (markup (get what))
+       (markup (ly:output-def-lookup layout what))
        )
 
     (if (markup? markup)
@@ -48,125 +94,3 @@ PROPS argument will include variables set in SCOPES (prefixed with
 	(ly:make-stencil '() '(1 . -1) '(1 . -1)))
   ))
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; old
-					; titling.
-(define-public (default-book-title layout scopes)
-  "Generate book title from header strings."
-
-
-  (define (get sym)
-    (let ((x (ly:modules-lookup scopes sym)))
-      (if (markup? x) x "")))
-  (define (has sym)
-    (markup?  (ly:modules-lookup scopes sym)))
-
-  (let ((props (page-properties layout)))
-
-    (interpret-markup
-     layout props
-     (make-override-markup
-      '(baseline-skip . 4)
-      (make-column-markup
-       (append
-	(if (has 'dedication)
-	    (list (markup #:fill-line
-			  (#:normalsize (get 'dedication))))
-	    '())
-	(if (has 'title)
-	    (list
-	     (markup (#:fill-line
-		      (#:huge #:bigger #:bigger #:bigger #:bigger #:bold
-			      (get 'title)))))
-	    '())
-	(if (or (has 'subtitle) (has 'subsubtitle))
-	    (list
-	     (make-override-markup
-	      '(baseline-skip . 3)
-	      (make-column-markup
-	       (list
-		(markup #:fill-line
-			(#:large #:bigger #:bigger #:bold (get 'subtitle)))
-		(markup #:fill-line (#:bigger #:bigger #:bold
-					      (get 'subsubtitle)))
-		(markup #:override '(baseline-skip . 5)
-			#:column ("")))
-
-	       ))
-	     )
-	    '())
-	
-	(list
-	 (make-override-markup
-	  '(baseline-skip . 2.5)
-	  (make-column-markup
-	   (append
-	    (if (or (has 'poet) (has 'composer))
-		(list (markup #:fill-line
-			      (#:bigger (get 'poet)
-					#:large #:bigger #:caps
-					(get 'composer))))
-		'())
-	    (if (or (has 'texttranslator) (has 'opus))
-		(list
-		 (markup
-		  #:fill-line
-		  (#:bigger (get 'texttranslator) #:bigger (get 'opus))))
-		'())
-	    (if (or (has 'meter) (has 'arranger))
-		(list
-		 (markup #:fill-line
-			 (#:bigger (get 'meter) #:bigger (get 'arranger))))
-		'())
-	    (if (has 'instrument)
-		(list
-		 ""
-		 (markup #:fill-line (#:large #:bigger (get 'instrument))))
-		'())
-;;; piece is done in the score-title
-;;;	     (if (has 'piece)
-;;;		 (list ""
-;;;		       (markup #:fill-line (#:large #:bigger #:caps (get 'piece) "")))
-;;;		 '())
-	    ))))))))))
-
-
-(define-public (default-user-title layout markup)
-  "Generate book title from header markup."
-  (if (markup? markup)
-      (let ((props (page-properties layout))
-	    (baseline-skip (chain-assoc-get 'baseline-skip props 2)) )
-	(stack-lines DOWN 0 BASELINE-SKIP
-		     (list (interpret-markup layout props markup))))))
-
-(define-public (default-score-title layout scopes)
-  "Generate score title from header strings."
-
-  (define (get sym)
-    (let ((x (ly:modules-lookup scopes sym)))
-      (if (markup? x) x "")))
-
-  (define (has sym)
-    (markup? (ly:modules-lookup scopes sym)))
-
-  (let ((props (page-properties layout)))
-    (interpret-markup
-     layout props
-     (make-override-markup
-      '(baseline-skip . 4)
-      (make-column-markup
-       (append
-	(if (has 'opus)
-	    ;; opus, again?
-	    '()
-
-	    ;; todo: figure out if and what should be here? 
-	    ;;(list (markup #:fill-line ("" (get 'opus))))
-	    '())
-	(if (has 'piece)
-	    (list
-	     (markup #:fill-line (#:large #:bigger (get 'piece) "")))
-	    '())))))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

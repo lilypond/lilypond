@@ -114,8 +114,14 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
 
   /* FIXME: 100CM should relate to paper size.  */
   if (fabs (total_off) > 100 CM)
-    programming_error (String_convert::form_string ("Improbable offset for grob %s: %f%s", me->name (), total_off, INTERNAL_UNIT));
-  
+    {
+      String msg
+	=  String_convert::form_string ("Improbable offset for grob %s: %f%s",
+					me->name ().to_str0 (), total_off,
+					INTERNAL_UNIT);
+      
+      programming_error (msg);
+    }
   return scm_make_real (total_off);
 }
 
