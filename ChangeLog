@@ -1,5 +1,8 @@
 2003-02-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/lily-guile.cc (ly:dimension?): add dimension as separate
+	grob prop type. 
+
 	* Documentation/user/refman.itely (Printing named chords): add
 	chord name tweak doco.
 
