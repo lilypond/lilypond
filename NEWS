@@ -1,3 +1,62 @@
+pl 28
+pl 27.hwn2
+	- un-SMOB Atom.  Cons and Killing_cons as simple cons replacements.
+
+pl 27.jcn5
+	- outline TODO
+
+pl 27.jcn4
+ 	- measure-end hinterfleish patch
+ 	- input/test/coda-kludge.ly
+ 	- bf: volta-number placement
+ 	- volta: support for "1.-2."  "3"
+ 
+pl 27.jcn3
+	- bf's: zero-length repeats
+	- Auto beamer:
+	  * turned on by default
+	  * input/test/auto-beam*.ly
+	  * support for time-defaults
+	- Chords:
+	  * input/just-friends.ly
+	  * ChordNameContext
+	  * bf's: chord mode: accept STRINGS, rests
+	  * bf's: banter_str
+	- new bool \property Score.barAtLineStart
+
+pl 27.hwn1
+	- global ctors
+	- read lily.scm before all .lys
+	- Link_array derives from Array<void*>
+	- search repl: Array<X*> -> Link_array<X>
+	- junked most static casts
+	- revamped Atom / Molecule: Molecule now is the public interface.
+Atom is a GUILE smob. Guile takes care of allocation and list stuff.
+	- bar scripts on score bars (there you are, Mats)
+	- :||: span bar fixed
+	- using generic ledger lines now (regenerate fonts!)
+	- refman updates (Thanks, Adrian!)
+	- Molecule::operator = (), Molecule::do_center ()
+	- junked Span_score_bar, Score_bar, Staff_bracket, Piano_brace. Folded functionality into Span_bar
+	- textstyle property for textual scripts.
+	- lookup cleanups (time_signature, text, stem, junked extender, filledbox, simple_bar)
+	- junked obsolete TeX stuff.
+	- ly2dvi-testpage.ly
+	- only make AFMs for feta[0-9]+.mf
+	- using strings for abs loudness.
+
+	
+pl 27.jcn2
+ 	- grand renaming: Duration vs Moment / Rational
+
+pl 27.uu1
+	- extra beam warning
+
+pl 27.jcn1
+	- complete redo of chord and chord name code
+	- small fixes
+
+*************
 pl 27 (feb 3)
 
 pl 26.uu1 
