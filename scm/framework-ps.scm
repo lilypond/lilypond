@@ -31,10 +31,6 @@
 (define-public (ps-font-command font)
   (let* ((name (munge-lily-font-name (ly:font-file-name font)))
 	 (magnify (ly:font-magnification font)))
-  (display font)
-  (display name)
-  (display magnify)
-  (newline)
 
     (string-append
      "magfont" (string-encode-integer (string-hash  name 1000000))
