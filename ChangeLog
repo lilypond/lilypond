@@ -1,5 +1,8 @@
 2004-09-16  Heikki Junes  <hjunes@cc.hut.fi>
 
+	 * Documentation/user/{changing-defaults,examples,invoking,
+	 tutorial}.itely: Expand 's to is.
+
 	 *  Documentation/user/notation.itely: Capitalize only first letter.
 
 	 *  Documentation/user/programming-interface.itely: Capitalize Scheme.

@@ -632,8 +632,8 @@ for complex music like polyphonic scores.
 Note that this example only has one staff, whereas
 the previous example had three seperate staves.  That is because this
 example begins with a single note.  To determine the number of staves,
-LilyPond looks at the first element.  If it's a single note, there's one
-staff; if there's a simultaneous expression, there's more than one staff.
+LilyPond looks at the first element.  If it is a single note, there is one
+staff; if there is a simultaneous expression, there is more than one staff.
 
 @lilypond[fragment,quote,verbatim,relative=2] 
 {
@@ -748,7 +748,7 @@ c-3 e-5 b-2 a-1
 
 Articulations and fingerings are usually placed automatically, but you
 can specify a direction using @samp{^} (up) or @samp{_} (down).  You can
-also use multiple articulations on the same note.  In most cases, it's
+also use multiple articulations on the same note.  In most cases, it is
 best to let LilyPond determine the articulation directions.
 
 @lilypond[fragment,quote,verbatim,relative=2]

@@ -48,7 +48,7 @@ it quicker.  How often is ``every so often''?  It depends on the complexity
 of the music.  For very simple music, perhaps just once or twice.  For
 very complex music, every bar.
 
-@item One bar per line.  If there's anything complicated, either in the music
+@item One bar per line.  If there is anything complicated, either in the music
 itself or in the output you desire, it's often good to write only one bar
 per line.  Saving screen space by cramming eight bars per line just isn't
 worth it if you have to `debug' your files.
@@ -206,7 +206,7 @@ harmonies = \chordmode {
 @section Piano templates
 @subsection Solo piano
 
-Here's a simple piano staff.
+Here is a simple piano staff.
 
 @lilypond[verbatim,raggedright]
 
@@ -241,7 +241,7 @@ lower = \relative c {
 
 @subsection Piano and melody with lyrics
 
-Here's a typical song format: one staff with the melody and lyrics, with
+Here is a typical song format: one staff with the melody and lyrics, with
 piano accompaniment underneath.
 
 @lilypond[verbatim,raggedright]
@@ -300,7 +300,7 @@ lower = \relative c {
 @section Small ensembles
 @subsection SATB vocal score
 
-Here's a standard four-part SATB vocal score.  With larger ensembles,
+Here is a standard four-part SATB vocal score.  With larger ensembles,
 it's often useful to include a section which is included in all
 parts.  For example, the time signature and key signatures are almost
 always the same for all parts.
@@ -783,7 +783,7 @@ chant = \relative c' {
 
 @subsection Bagpipe music
 
-Here's an example of bagpipe music.  It demonstrates a big strength of
+Here is an example of bagpipe music.  It demonstrates a big strength of
 LilyPond, compared to graphical score editors: in LilyPond, you can
 very easily reuse small segments of music without writing them out
 completely.  This template defines a large number of small segments

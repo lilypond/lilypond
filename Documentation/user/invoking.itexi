@@ -289,7 +289,7 @@ has already been reported.  You could also try doing a few searches
 on the mailing list for the bug.  Sometimes the bug will have already
 been reported and a fix or workaround is already known.
 
-Here's an example of a good bug report:
+Here is an example of a good bug report:
 
 @verbatim
 
