@@ -35,10 +35,10 @@ dvi: $(DVI_FILES)
 
 ps: $(PS_FILES)
 
+# Cancel the default info generation rule.  We want to generate info
+# from `.nexi', making sure we don't run LilyPond for inline pictures,
+# when just generating info:
 
-# Cancel default info generation rule.  We want to generate info from
-# `.nexi', making sure we don't run LilyPond for inline pictures, when
-# generating info.
 $(outdir)/%.info: $(outdir)/%.texi
 
 default: 
@@ -47,6 +47,14 @@ default:
 # We must build them by default, otherwise they get built during make install
 info: $(INFO_FILES)
 
+local-help: extra-local-help
+
+extra-local-help:
+	@echo -e "\
+  dvi         update dvi documents\n\
+  info        update info pages\n\
+  ps          update PostScript documents\n\
+"
 
 # Generic rule using % twice not possible?
 # $(outdir)/%/%.html: $(outdir)/%.texi
