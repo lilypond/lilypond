@@ -4,7 +4,7 @@
 #include "proto.hh"
 
 void new_input(String s);
-bool close_input();
+
 int yylex();
 void yyerror(const char *s);
 bool busy_parsing();
