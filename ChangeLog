@@ -1,5 +1,9 @@
 2004-04-03  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* buildscripts/mf-to-table.py (base): add DesignSize comment.
+
+	* lily/afm.cc (read_afm_file): read design size.
+
 	* input/regression/repeat-unfold-tremolo.ly: add dotted case.
 
 	* scm/music-functions.scm (unfold-repeats): handle dots too.
