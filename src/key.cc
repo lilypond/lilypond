@@ -38,11 +38,11 @@ Local_key::reset(Key k)
 }
 
 svec<int>
-Key::read(svec<String> s)
+Key::read(svec<Scalar> s)
 {
     svec<int> newkey;
     for (int j = 0; j < 7; j++)
-     accidentals[j] = 0;
+	accidentals[j] = 0;
    
     for (int i=0; i < s.sz(); i++) {
 	int large, small;
@@ -56,7 +56,7 @@ Key::read(svec<String> s)
 }
 
 svec<int>
-Key::oldkey_undo(svec<String> s)
+Key::oldkey_undo(svec<Scalar>s)
 {
     svec<int> oldkey;
     svec<int> newkey;
