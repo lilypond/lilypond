@@ -99,7 +99,7 @@ underscore = _
 
 program_version = '@TOPLEVEL_VERSION@'
 if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
-	program_version = '1.7.5'
+	program_version = '1.7.14'
 
 def identify (port):
 	port.write ('%s (GNU LilyPond) %s\n' % (__main__.program_name, program_version))
@@ -421,8 +421,6 @@ def make_preview (name):
 	cmd = r'''gs -g%dx%d -sDEVICE=pnggray  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=%s -r%d -dNOPAUSE %s %s -c quit ''' % \
 	      (x, y, png, __main__.preview_resolution, trans_ps, preview_ps)
 	
-	system (cmd)
-
 	status = system (cmd)
 	signal = 0xf & status
 	exit_status = status >> 8
@@ -431,3 +429,14 @@ def make_preview (name):
 		os.unlink (png)
 		error (_ ("Removing output file"))
 		exit (1)
+
+def make_page_images (name, resolution = 90):
+
+	""" Generate images for
+	all pages in the PS file NAME. NAME should be the basename
+	(not including the extension.).
+	"""
+	
+	cmd = 'gs -sDEVICE=pnggray -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -sOutputFile="%s-page%%d.png" -r%d -dNOPAUSE %s -c quit'
+	cmd = cmd % (name, resolution, name + '.ps')
+	system (cmd)

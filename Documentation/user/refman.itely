@@ -3646,9 +3646,10 @@ The @code{\mark} command can also be used to put signs like coda,
 segno and fermatas on a barline.  The trick is to use the text markup
 mechanism to access the fermata symbol.
 @lilypond[fragment,verbatim,relative=1]
-  c1 \mark #'(music "scripts-ufermata") 
+  c1 \mark \markup { \musicglyph #"scripts-ufermata" }
   c1
 @end lilypond
+
 
 The problem is that marks that occur at a line break are typeset only
 at the beginning of the next line, opposite to what you want for the

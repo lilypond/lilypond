@@ -112,6 +112,7 @@ original_dir = os.getcwd ()
 temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
 keep_temp_dir_p = 0
 preview_resolution = 90
+debug_p = 0
 
 ## FIXME
 ## ly2dvi: silly name?
@@ -125,6 +126,7 @@ option_definitions = [
 	('', 'd', 'dependencies',
 	 _ ("write Makefile dependencies for every input file")),
 	('', 'h', 'help', _ ("this help")),
+	('', '', 'debug', _ ("print even more output")),
 	(_ ("DIR"), 'I', 'include', _ ("add DIR to LilyPond's search path")),
 	('', 'k', 'keep',
 	 _ ("keep all output, output to directory %s.dir") % program_name),
@@ -243,6 +245,8 @@ def run_lilypond (files, dep_prefix):
 	global verbose_p
 	if verbose_p:
 		opts = opts + ' --verbose'
+
+	if debug_p:
 		ly.print_environment ()
 
 	cmd = string.join ((lilypond_cmd,opts, fs))
@@ -498,16 +502,14 @@ None
 		# make a preview by rendering only the 1st line.
 		preview_fn = outbase + '.preview.tex'
 		f = open (preview_fn, 'w')
-		f.write (r'''
-%s
-\input lilyponddefs
-\pagestyle{empty}
-\begin{document}
-\def\interscoreline{\endinput}
-\input %s
-\end{document}
-''' % (global_latex_preamble (extra), outbase))
+		wfs = find_tex_files (files, extra)
+		s = global_latex_definition (wfs, extra)
 
+		s = re.sub ('thispagestyle{firstpage}', r'''thispagestyle{empty}%
+\\def\\interscoreline{\\endinput}''',s ) 
+		s = re.sub ('thispagestyle{lastpage}', r'''thispagestyle{empty}%
+\\def\\interscoreline{\\endinput}''',s ) 
+		f.write (s)
 		f.close()
 		cmd = '%s \\\\nonstopmode \\\\input %s' % (latex_cmd, preview_fn)
 		ly.system (cmd)
@@ -545,8 +547,8 @@ None.
 			opts = opts + ' -Ppdf -G0 -u lilypond.map'
 		else:
 			ly.warning (_ ('''Trying create PDF, but no PFA fonts found.
-Using bitmap fonts instead. This will look poorly.'''))
-		
+Using bitmap fonts instead. This will look bad.'''))
+
 	cmd = 'dvips %s -o%s %s' % (opts, outbase + '.ps', outbase + '.dvi')
 	ly.system (cmd)
 
@@ -634,6 +636,9 @@ for opt in options:
 		targets.append ('PDF')
 	elif o == '--keep' or o == '-k':
 		keep_temp_dir_p = 1
+	elif o == '--debug':
+		verbose_p = 1
+		debug_p = 1 
 	elif o == '--no-lily':
 		lily_p = 0
 	elif o == '--preview':

@@ -2150,13 +2150,14 @@ a collision with the slur.  This could be achieved with
 works.  We insert an empty text between the 5 and the note. The empty
 text pushes the fingering instruction away:
 @example
-  a^" "^#'(finger "5")
+  a-)^" "^\markup { \finger "5" } 
 @end example
 
-Lilypond tries to put fingering instructions as close to the notes as
-possible.  To make sure that Lilypond doesn't do that, we disguise the
-fingering as text: @code{(finger "5")}.
-
+A fingering instruction, which would be entered as @code{^5}, is put
+as close to the notes as possible, closer than the space entered to 
+push away the 5. Hence, the 5 is entered as a normal text, formatting
+of fingering instructions.  
+ 
 @separate
 
 Normally one would specify all dynamics in the same voice, so that
