@@ -14,7 +14,7 @@
 class Script_def : public General_script_def {
     /// invert if below staff?
     bool invertsym_b_;
-    String symidx;
+    String symidx_str_;
     
 
     /// on the other side of the stem?
@@ -38,11 +38,11 @@ public:
     NAME_MEMBERS();
 
     virtual bool do_equal_b(General_script_def const &)const;
-    void print() const;
+    virtual void do_print() const;
     Script_def();
-    void set_from_input(String, bool, int, int ,bool);
+    void set_from_input(String, bool, int, int ,bool,int );
 protected:
-    VIRTUAL_COPY_CONS(Script_def,General_script_def)
+    VIRTUAL_COPY_CONS(Script_def,General_script_def);
 
 };
 
