@@ -11,6 +11,7 @@
 #include <cmath>
 #include <cctype>
 
+#include "directional-element-interface.hh"
 #include "staff-symbol.hh"
 #include "misc.hh"
 #include "dots.hh"
@@ -26,7 +27,7 @@
   clean up the mess left by ledger line handling.
 */
 static Stencil
-internal_print (Grob *me)
+internal_print (Grob *me, String * font_char)
 {
   SCM style  = me->get_property ("style");
   if (!scm_is_symbol (style))
@@ -37,13 +38,39 @@ internal_print (Grob *me)
   SCM log = scm_int2num (Note_head::get_balltype (me));
   SCM proc = me->get_property ("glyph-name-procedure");
   SCM scm_font_char = scm_call_2 (proc, log, style);
-  String font_char = "noteheads-" + ly_scm2string (scm_font_char);
 
   Font_metric * fm = Font_interface::get_default_font (me);
-  Stencil out = fm->find_by_name (font_char);
-  if (out.is_empty ())
+
+  Direction stem_dir = CENTER;
+  if (Grob *stem = unsmob_grob (me->get_property ("stem")))
     {
-      me->warning (_f ("note head `%s' not found", font_char.to_str0 ()));
+      stem_dir = get_grob_direction (stem);
+      if (stem_dir == CENTER)
+	{
+	  programming_error ("Must have stem dir for note head");
+	}
+    }
+  
+  Stencil out;
+
+  String prefix = "noteheads-";
+  String idx =
+    prefix + ((stem_dir == UP) ? "u" : "d")  + ly_scm2string (scm_font_char);
+  out = fm->find_by_name (idx);
+  if (out.is_empty ()
+      && stem_dir)
+    {
+      idx = prefix + "s" + ly_scm2string (scm_font_char);
+      out = fm->find_by_name (idx);
+    }
+  
+  if (out.is_empty())
+    {
+      me->warning (_f ("note head `%s' not found", idx.to_str0 ()));
+    }
+  else
+    {
+      *font_char = idx;
     }
 
   return out;
@@ -56,7 +83,8 @@ Note_head::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
-  return internal_print (me).smobbed_copy ();
+  String idx;
+  return internal_print (me, &idx).smobbed_copy ();
 }
 
 
@@ -106,19 +134,10 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
   
   if (brewer == Note_head::print_proc)
     {
-      SCM style  = me->get_property ("style");
-      if (!scm_is_symbol (style))
-	{
-	  return 0.0;
-	}
-      
-      SCM log = scm_int2num (Note_head::get_balltype (me));
-      SCM proc = me->get_property ("glyph-name-procedure");
-      SCM scm_font_char = scm_call_2 (proc, log, style);
-      String font_char = "noteheads-" + ly_scm2string (scm_font_char);
+      String key;
+      internal_print (me, &key);
 
-      int k = fm->name_to_index (font_char) ;
-
+      int k = fm->name_to_index (key) ;
       if (k >= 0)
 	{
 	  Box b = fm->get_indexed_char (k);
