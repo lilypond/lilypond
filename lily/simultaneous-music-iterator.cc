@@ -47,6 +47,13 @@ Simultaneous_music_iterator::derived_mark()const
   scm_gc_mark (children_list_);
 }
 
+void
+Simultaneous_music_iterator::derived_substitute(Translator_group*f,Translator_group*t)
+{
+  for (SCM s = children_list_; gh_pair_p (s); s = gh_cdr(s))
+    unsmob_iterator (gh_car (s))-> substitute_outlet (f,t);
+}
+
 SCM
 Simultaneous_music_iterator::get_pending_events (Moment m)const
 {

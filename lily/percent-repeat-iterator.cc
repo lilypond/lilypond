@@ -96,3 +96,10 @@ Percent_repeat_iterator::derived_mark()const
   if (child_iter_)
     scm_gc_mark (child_iter_->self_scm());
 }
+
+void
+Percent_repeat_iterator::derived_substitute(Translator_group*f,Translator_group*t )
+{
+  if (child_iter_)
+    child_iter_->substitute_outlet (f,t);
+}

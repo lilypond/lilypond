@@ -30,6 +30,7 @@ protected:
 
   virtual bool ok () const;
   virtual void derived_mark () const;
+  virtual void derived_substitute (Translator_group*,Translator_group*) ;
 private:
   bool get_busy_status ()const ;
   bool melisma_busy (); 
@@ -94,6 +95,15 @@ Lyric_combine_music_iterator::derived_mark()const
     scm_gc_mark (music_iter_->self_scm());
   if (lyric_iter_)
     scm_gc_mark (lyric_iter_->self_scm());
+}
+
+void
+Lyric_combine_music_iterator::derived_substitute (Translator_group*f,Translator_group* t)
+{
+  if (music_iter_)
+    music_iter_->substitute_outlet (f,t);
+  if (lyric_iter_)
+    lyric_iter_->substitute_outlet (f,t);
 }
 
 void

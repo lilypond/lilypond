@@ -311,6 +311,15 @@ as separate voices.")
 	(types . (general-music part-combine-music))
 	(iterator-ctor . ,Part_combine_music_iterator::constructor)
 	))
+    (NewPartCombineMusic
+     . (
+	(description .  "Combine two parts on a staff, either merged or
+as separate voices.")
+
+	(internal-class-name . "Simultaneous_music")
+	(types . (general-music part-combine-music))
+	(iterator-ctor . ,New_pc_iterator::constructor)
+	))
     
     (PhrasingSlurEvent
      . (

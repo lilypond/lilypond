@@ -30,6 +30,7 @@ protected:
   virtual bool run_always ()const;
   virtual bool ok () const;
   virtual void derived_mark () const;
+  virtual void derived_substitute (Translator_group*,Translator_group*);
 private:
   bool start_new_syllable () ;
   void find_thread ();
@@ -111,6 +112,17 @@ New_lyric_combine_music_iterator::derived_mark()const
     scm_gc_mark (lyrics_context_->self_scm ());
   if (music_context_)
     scm_gc_mark (music_context_->self_scm ());
+}
+
+void
+New_lyric_combine_music_iterator::derived_substitute (Translator_group*f, Translator_group*t)
+{
+  if (lyric_iter_)
+    lyric_iter_->substitute_outlet (f,t);
+  if (lyrics_context_ && lyrics_context_==f)
+    lyrics_context_ = t;
+  if (music_context_ && music_context_ == f)
+    music_context_ = t; 
 }
 
 /*
