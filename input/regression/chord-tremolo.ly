@@ -1,4 +1,4 @@
-\version "1.7.18"
+\version "1.6.11"
 
 \header{
 texidoc="
@@ -37,7 +37,6 @@ In this example, each tremolo lasts exactly one measure.
 
 	c4 c4 c4 c4 c4 
   }
-
+  \paper {} 
   \midi { }
 }
-%% new-chords-done %%

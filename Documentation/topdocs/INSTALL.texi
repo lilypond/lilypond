@@ -41,12 +41,9 @@ packages if these are available for your platform.
 @item Download development releases from
 @c Hmm, these won't show up in lilypond.org/stats
 @c Otoh, lilypond.org is not updated when release mail arrives
-@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/} by FTP and
-@uref{http://ftp.cs.uu.nl/pub/GNU/LilyPond/}, by HTTP.
-@item @uref{ftp://sca.uwaterloo.ca/pub/} by FTP (Canadian mirror)
-@item at @code{lilypond.org} 
 @uref{ftp://ftp.lilypond.org/pub/LilyPond/} by FTP and
 @uref{http://www.lilypond.org/ftp/} by HTTP.
+@item @uref{ftp://sca.uwaterloo.ca/pub/} by FTP (Canadian mirror)
 @end itemize
 
 
@@ -349,12 +346,7 @@ file.
 
 @subsection Red Hat Linux
 
-Red Hat 7.x i386 RPMS are available from
-@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/binaries/}.  For running on
-a Red Hat system you need these packages: guile, tetex, tetex-latex,
-tetex-dvips, libstdc++, python, ghostscript.
-
-You can also compile them yourself.  A spec file is in
+A spec file is in
 @file{make/out/lilypond.redhat.spec}. This file is distributed along
 with the sources.  You can make the rpm by issuing
 @example 
@@ -371,22 +363,13 @@ addition to the those needed for running: glibc-devel, gcc-c++,
 libstdc++-devel, guile-devel, flex, bison, texinfo, groff, mftrace,
 netpbm-progs, autotrace, t1utils.
 
+For running on a Red Hat system you need these packages: guile, tetex,
+tetex-latex, tetex-dvips, libstdc++, python, ghostscript.
 
-
-@subsection LinuxPPC
-
-
-Some LinuxPPC RPMS should available from
-@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/binaries/}.
-
-A LinuxPPC RPM can be made using the @file{lilypond.redhat.spec} file.
 
 @subsection SuSE
 
-Some SUSE RPMS should available from
-@uref{ftp://ftp.lilypond.org/pub/LilyPond/binaries/SuSE}.
-
-You can also compile a RPM for SUSE yourself.  A spec file is in
+You can compile a RPM for SUSE yourself.  A spec file is in
 @file{make/out/lilypond.suse.spec}, see the instructions for building
 the Red Hat RPM.
 

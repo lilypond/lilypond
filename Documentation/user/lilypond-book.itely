@@ -30,11 +30,11 @@ It can work on La@TeX{}, @code{html} or texinfo documents.  A tutorial
 on using lilypond-book is in @ref{Integrating text and music}.
 
 @menu
-* Integrating Texinfo and music::
-* Integrating La@TeX{} and music::
-* Integrating HTML and music::
-* Music fragment options::
-* Invoking lilypond-book::
+* Integrating Texinfo and music::  
+* Integrating LaTeX and music::  
+* Integrating HTML and music::  
+* Music fragment options::      
+* Invoking lilypond-book::      
 @end menu
 
 
@@ -102,8 +102,8 @@ When producing texinfo, lilypond-book also generates bitmaps of the
 music, so you can make a HTML document with embedded music.
 
 
-@node Integrating La@TeX{} and music
-@section Integrating La@TeX{} and music
+@node Integrating LaTeX and music
+@section Integrating LaTeX and music
 
 You specify LilyPond code like this:
 

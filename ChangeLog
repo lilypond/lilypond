@@ -1,3 +1,13 @@
+2003-07-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* stepmake/stepmake/metafont-rules.make: backport 1.7 fixes.
+
+	* scripts/etf2ly.py: backport 1.7.24 fixes.
+
+	* Documentation/topdocs/INSTALL.texi (Top): idem.
+
+	* Documentation/topdocs/README.texi (Top): change to ftp.lilypond.org
+
 2003-07-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/main.cc (notice): change FSF address

@@ -8,6 +8,7 @@ $(outdir)/%.dvi: %.mf
 	mv $(basename $<).dvi $(outdir)
 	rm $(basename $<).*gf
 
+# This is not metafont, this is feta-specific
 $(outdir)/%.log: %.mf
 	$(METAFONT) $<
 	mv $(@F) $@
@@ -28,12 +29,15 @@ $(outdir)/%.$(XPM_RESOLUTION)pk: $(outdir)/%.$(XPM_RESOLUTION)gf
 	gftopk $< $@
 
 
+ENCODINGFILE=$(wildcard $(outdir)/$(patsubst %.mf,%.enc,$<))
+ENCODINGOPTION=$(if $(ENCODINGFILE),--encoding=$(ENCODINGFILE),)
 $(outdir)/%.pfa: %.mf
-	$(MFTRACE) -I $(outdir)/ --pfa --simplify --keep-trying $(basename $(@F))
+	$(MFTRACE) $(ENCODINGOPTION) -I $(outdir)/ --pfa --simplify --keep-trying $(basename $(@F))
 	mv $(basename $(@F)).pfa $(outdir)
 
 $(outdir)/%.pfb: %.mf
-	$(MFTRACE) -I $(outdir)/ --pfb --simplify --keep-trying  $(basename $(@F))
+	$(MFTRACE) -I $(outdir)/ --pfa --pfb --simplify --keep-trying  $(basename $(@F))
+	-mv $(basename $(@F)).pfa $(outdir)
 	mv $(basename $(@F)).pfb $(outdir)
 
 #%.afm:
