@@ -1,3 +1,44 @@
+1.3.133.jcn5
+============
+
+* Bugfix: fixed point-and-click broken in jcn2.
+
+* convert-ly: Added and fixed various entries (our strings with optional "" re\ally suck).
+
+* Small ez play tweaks.  Guess I'm a sucker too.
+
+* Easy-play bugfixes: don't do showpage for each notehead, output
+staff-symbol first, moved to lily.ps.
+
+* Bugfix: don't print so many decimals in ps output.
+
+* Bugfix for refman example.
+
+* Added some part combiner doco.
+
+* Bugfix: a broken tie only generates an accidental if it would differ
+from an untied note.
+
+1.3.133.hwn1
+============
+
+* Center instrument name on staffs.  Use
+Side_position_interface::align_elements_to_refpoints.
+
+* staff-symbol-referencer-interface, general cleanup of
+interface-description.scm
+
+1.3.133.mb3
+===========
+
+* Bugfix: Time and key signatures in MIDI.
+
+* Bugfix: Tempo changes in MIDI work again.
+
+* Bugfix: ly2dvi file.tex works again.
+
+* Bugfix: don't stretch the space after the last score line.
+
 1.3.132.jcn3
 ============
 
