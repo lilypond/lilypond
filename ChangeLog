@@ -1,3 +1,7 @@
+2005-04-02  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* buildscripts/install-info-html.sh: Fix link.
+
 2005-03-31  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/documentation-generate.scm (string-append): Fix @usermanref,
