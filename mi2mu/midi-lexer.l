@@ -373,8 +373,9 @@ SSME		[\0x7f][\x03]
 }
 <meta_event>{U8} {
 	warning( String( "meta_event: unimplemented event: " )
-		+ String_convert::bin2hex_str( String( *YYText() ) ),
-		this->here_ch_C() );
+		+ String_convert::bin2hex_str( String( *YYText() ) )
+//,		this->here_ch_C() 
+	);
 	yy_pop_state();
 	yy_pop_state();
 	yy_push_state( u8 ); 
