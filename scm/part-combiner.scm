@@ -31,7 +31,7 @@
 
 (define-method (note-events (vs <Voice-state>))
   (define (f? x)
-    (equal? (ly:get-mus-property  x 'name) 'NoteEvent))
+    (equal? (ly:music-property  x 'name) 'NoteEvent))
   (filter f? (events vs)))
 
 (define-method (previous-voice-state (vs <Voice-state>))
@@ -143,18 +143,18 @@ Voice-state objects
     "Analyse EVS at INDEX, given state ACTIVE."
     
     (define (analyse-tie-start active ev)
-      (if (equal? (ly:get-mus-property ev 'name) 'TieEvent)
+      (if (equal? (ly:music-property ev 'name) 'TieEvent)
 	  (acons 'tie index active)
 	  active
 	  ))
     
     (define (analyse-tie-end active ev)
-      (if (equal? (ly:get-mus-property ev 'name) 'NoteEvent)
+      (if (equal? (ly:music-property ev 'name) 'NoteEvent)
 	  (assoc-remove! active 'tie)
 	  active) )
 
     (define (analyse-absdyn-end active ev)
-      (if (equal? (ly:get-mus-property ev 'name) 'AbsoluteDynamicEvent)
+      (if (equal? (ly:music-property ev 'name) 'AbsoluteDynamicEvent)
 	  (assoc-remove!
 	   (assoc-remove! active 'cresc)
 	   'decr)
@@ -170,7 +170,7 @@ Voice-state objects
     
     (define (analyse-span-event active ev)
       (let*
-	  ((name (ly:get-mus-property ev 'name))
+	  ((name (ly:music-property ev 'name))
 	   (key (cond
 		 ((equal? name 'SlurEvent) 'slur)
 		 ((equal? name 'PhrasingSlurEvent) 'tie)
@@ -178,7 +178,7 @@ Voice-state objects
 		 ((equal? name 'CrescendoEvent) 'cresc)
 		 ((equal? name 'DecrescendoEvent) 'decr)
 		 (else #f)) )
-	   (sp (ly:get-mus-property ev 'span-direction)) )
+	   (sp (ly:music-property ev 'span-direction)) )
 
 	(if (and (symbol? key) (ly:dir? sp))
 	    (if (= sp STOP)
@@ -255,12 +255,12 @@ Voice-state objects
 	       (consists Note_heads_engraver)
 	       )))
     
-    (ly:set-mus-property! m 'elements (list m1 m2))
-    (ly:set-mus-property! m1 'property-operations props)
-    (ly:set-mus-property! m2 'property-operations props)
+    (ly:music-set-property! m 'elements (list m1 m2))
+    (ly:music-set-property! m1 'property-operations props)
+    (ly:music-set-property! m2 'property-operations props)
     (ly:run-translator m2 part-combine-listener)
     (ly:run-translator m1 part-combine-listener)
-    (ly:set-mus-property! m 'split-list
+    (ly:music-set-property! m 'split-list
 			 (determine-split-list (reverse! (cdr (assoc "one" noticed)) '())
 					       (reverse! (cdr (assoc "two" noticed)) '())))
     (set! noticed '())
@@ -323,13 +323,13 @@ Only set if not set previously.
 	   (vs2 (cdr (voice-states now-state)))
 	   
 	   (notes1 (note-events vs1))
-	   (durs1 (sort (map (lambda (x) (ly:get-mus-property x 'duration)) notes1) ly:duration<?))
+	   (durs1 (sort (map (lambda (x) (ly:music-property x 'duration)) notes1) ly:duration<?))
 	   (pitches1 (sort
-		      (map (lambda (x) (ly:get-mus-property x 'pitch)) notes1) ly:pitch<?))
+		      (map (lambda (x) (ly:music-property x 'pitch)) notes1) ly:pitch<?))
 	   (notes2 (note-events vs2))
-	   (durs2     (sort (map (lambda (x) (ly:get-mus-property x 'duration)) notes2) ly:duration<?))
+	   (durs2     (sort (map (lambda (x) (ly:music-property x 'duration)) notes2) ly:duration<?))
 	   (pitches2 (sort
-		      (map (lambda (x) (ly:get-mus-property x 'pitch)) notes2) ly:pitch<?)) )
+		      (map (lambda (x) (ly:music-property x 'pitch)) notes2) ly:pitch<?)) )
 	
 	(cond
 	 ((> (length notes1) 1) (put 'apart))
@@ -423,8 +423,8 @@ Only set if not set previously.
 		 ((and
 		   (= 1 (length notes1))
 		   (= 1 (length notes2))
-		   (equal? (ly:get-mus-property (car notes1) 'pitch)
-			   (ly:get-mus-property (car notes2) 'pitch)))
+		   (equal? (ly:music-property (car notes1) 'pitch)
+			   (ly:music-property (car notes2) 'pitch)))
 
 		  (set! (configuration now-state) 'unisono))
 		 ((and
@@ -588,10 +588,10 @@ the mark when there are no spanners active."
 	    ((evs (map car (cdar event-list)))
 	     (now (caar event-list))
 	     (notes (filter (lambda (x)
-			      (equal? (ly:get-mus-property  x 'name) 'NoteEvent))
+			      (equal? (ly:music-property  x 'name) 'NoteEvent))
 			      evs))
 	     (pitch (if (pair? notes)
-			(ly:get-mus-property (car notes) 'pitch)
+			(ly:music-property (car notes) 'pitch)
 			#f)) )
 
 	;; tail recursive.
@@ -617,8 +617,8 @@ the mark when there are no spanners active."
 	 '())
        ))
 
-    (ly:set-mus-property! m 'element music)
-    (ly:set-mus-property! m 'split-list split)
+    (ly:music-set-property! m 'element music)
+    (ly:music-set-property! m 'split-list split)
     
     (set! noticed '())
     m

@@ -1,5 +1,5 @@
 
-\version "2.1.25"
+\version "2.1.26"
 
 
 \header {
@@ -25,6 +25,6 @@ This example prints a bar-number during processing on stdout.
     \applycontext
 	#(lambda (tr)
 	 (format #t "\nWe were called in barnumber ~a.\n"
-	  (ly:get-context-property tr 'currentBarNumber)))
+	  (ly:context-property tr 'currentBarNumber)))
     c1 c1
 }}

@@ -16,7 +16,7 @@ the lilypond.py script, and a line must be uncommented.
 
     }
 
-\version "2.1.22"
+\version "2.1.26"
 
 \score {
 \new Staff \notes \relative c'' {

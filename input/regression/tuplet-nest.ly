@@ -1,12 +1,12 @@
 
-\version "2.1.25"
+\version "2.1.26"
 \header {
   texidoc="By a manual hack for nested tuplets, an outer tuplet can be moved up."
 }
 
 #(define (make-text-checker-once text)
   (lambda (grob) (and text-checker-once
-		      (if (equal? text (ly:get-grob-property grob 'text))
+		      (if (equal? text (ly:grob-property grob 'text))
 			  (begin
 			    (set! text-checker-once #f) #t)
 			  #f))))

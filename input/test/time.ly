@@ -1,5 +1,5 @@
 
-\version "2.1.22"
+\version "2.1.26"
 % TODO: This file could be old.  Ask about it later.  -gp
 
 \header { texidoc = "@cindex Time

@@ -293,7 +293,7 @@ current bar number on the standard output during the compile:
     \applycontext
       #(lambda (x)
          (format #t "\nWe were called in barnumber ~a.\n"
-          (ly:get-context-property x 'currentBarNumber)))
+          (ly:context-property x 'currentBarNumber)))
 @end example
 
 
@@ -852,15 +852,15 @@ The syntax for @code{\apply} is
 This means that the scheme function @var{func} is called with
 @var{music} as its argument.  The return value of @var{func} is the
 result of the entire expression.  @var{func} may read and write music
-properties using the functions @code{ly:get-mus-property} and
-@code{ly:set-mus-property!}.
+properties using the functions @code{ly:music-property} and
+@code{ly:music-set-property!}.
 
 An example is a function that reverses the order of elements in
 its argument:
 @lilypond[verbatim,raggedright]
   #(define (rev-music-1 m)
-     (ly:set-mus-property! m 'elements (reverse
-       (ly:get-mus-property m 'elements)))
+     (ly:music-set-property! m 'elements (reverse
+       (ly:music-property m 'elements)))
      m)
   \score { \notes \apply #rev-music-1 { c4 d4 } }
 @end lilypond
@@ -885,12 +885,12 @@ back. Then it recurses, both on @code{elements} and @code{element}
 children.
 @example
 #(define (reverse-music music)
-  (let* ((elements (ly:get-mus-property music 'elements))
-         (child (ly:get-mus-property music 'element))
+  (let* ((elements (ly:music-property music 'elements))
+         (child (ly:music-property music 'element))
          (reversed (reverse elements)))
 
     ; set children
-    (ly:set-mus-property! music 'elements reversed)
+    (ly:music-set-property! music 'elements reversed)
 
     ; recurse
     (if (ly:music? child) (reverse-music child))

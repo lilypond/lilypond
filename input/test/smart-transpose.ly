@@ -1,5 +1,5 @@
 
-\version "2.1.25"
+\version "2.1.26"
 
 \header {
 texidoc="@cindex Smart Transpose
@@ -43,24 +43,24 @@ how useful these enharmonic modifications are. Mats B.
     (ly:make-pitch o n a)))
 
 #(define (simplify music)
-  (let* ((es (ly:get-mus-property music 'elements))
-         (e (ly:get-mus-property music 'element))
-         (p (ly:get-mus-property music 'pitch)))
+  (let* ((es (ly:music-property music 'elements))
+         (e (ly:music-property music 'element))
+         (p (ly:music-property music 'pitch)))
 
     (if (pair? es)
-        (ly:set-mus-property!
+        (ly:music-set-property!
          music 'elements
          (map (lambda (x) (simplify x)) es)))
 
     (if (ly:music? e)
-        (ly:set-mus-property!
+        (ly:music-set-property!
          music 'element
          (simplify e)))
 
     (if (ly:pitch? p)
         (begin
           (set! p (unhair-pitch p))
-          (ly:set-mus-property! music 'pitch p)))
+          (ly:music-set-property! music 'pitch p)))
 
     music))
 

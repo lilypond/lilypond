@@ -49,4 +49,4 @@ pitchnamesDeutsch = #`(
 
 pitchnames = \pitchnamesDeutsch
 
-\version "2.1.22"
+\version "2.1.26"

@@ -18,6 +18,14 @@ Version 2.1.13
 
 @itemize @bullet
 
+@item The naming of exported Scheme functions now follows Scheme conventions.
+Changes be applied to Scheme files with convert-ly:
+
+@example
+        convert-ly -e -n --from=2.1.24 --to=2.1.26 *.scm 
+@end example
+
+
 @item Notes can  be excluded from auto-beaming, by  marking them with
 @code{\noBeam}:
 @example

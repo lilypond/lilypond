@@ -17,18 +17,18 @@
 (define-public (make-bass-figure-markup figures context)
   
   (define (no-end-bracket? f1 f2)
-    (eq? (ly:get-mus-property f1 'bracket-stop) '())
+    (eq? (ly:music-property f1 'bracket-stop) '())
     )
   (define (no-start-bracket? f1 f2)
-    (eq? (ly:get-mus-property f2 'bracket-start) '())
+    (eq? (ly:music-property f2 'bracket-start) '())
     )
 
   ;; TODO: support slashed numerals here.
   (define (fig-to-markup fig-music)
     (let*
-	((align-accs (eq? #t (ly:get-context-property context 'alignBassFigureAccidentals)))
-	 (fig  (ly:get-mus-property fig-music 'figure))
-	 (acc  (ly:get-mus-property fig-music 'alteration))
+	((align-accs (eq? #t (ly:context-property context 'alignBassFigureAccidentals)))
+	 (fig  (ly:music-property fig-music 'figure))
+	 (acc  (ly:music-property fig-music 'alteration))
 	 (acc-markup #f)
 	 (fig-markup
 	  (if (string? fig)
@@ -50,7 +50,7 @@
 	(
 	 (c (make-dir-column-markup (map fig-to-markup figs)))
 	 )
-      (if (eq? (ly:get-mus-property (car figs) 'bracket-start) #t)
+      (if (eq? (ly:music-property (car figs) 'bracket-start) #t)
 	  (make-bracket-markup c)
 	  c
 	  )))

@@ -1,5 +1,5 @@
 
-\version "2.1.22"
+\version "2.1.26"
 \header{
 texidoc="
 Key signatures may appear on key changes, even without a barline.  

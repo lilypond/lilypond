@@ -1,5 +1,5 @@
 
-\version "2.1.22"
+\version "2.1.26"
 
 \header{
 texidoc= "Lyrics can be set to a melody automatically.  Excess lyrics will be

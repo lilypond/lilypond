@@ -2364,8 +2364,8 @@ Adding additional texts (such as @emph{gliss.}) is not supported.
 @cindex @code{\rfz}
 
 
-Absolute dynamic marks are specified using an variable after a
-note: @code{c4\ff}.  The available dynamic marks are @code{\ppp},
+Absolute dynamic marks are specified using a command after a note:
+@code{c4\ff}.  The available dynamic marks are @code{\ppp},
 @code{\pp}, @code{\p}, @code{\mp}, @code{\mf}, @code{\f}, @code{\ff},
 @code{\fff}, @code{\fff}, @code{\fp}, @code{\sf}, @code{\sff},
 @code{\sp}, @code{\spp}, @code{\sfz}, and @code{\rfz}:
@@ -3379,8 +3379,8 @@ hierarchy of staves and lyrics first, e.g.
 \context ChoirStaff \notes <<
   \context Lyrics = sopranoLyrics @{ s1 @}
   \context Voice = soprano @{ @emph{music} @}
-  \context Lyrics = tenor @{ s1 @}
-  \context Voice = tenorLyrics @{ @emph{music} @}
+  \context Lyrics = tenorLyrics @{ s1 @}
+  \context Voice = tenor @{ @emph{music} @}
 >>
 @end example
 and then combine the appropriate melodies and lyric lines:
@@ -7839,11 +7839,11 @@ Here is a simple example of @code{\applyoutput}; it blanks note-heads on the
 center-line:
 @example
 (define (blanker grob grob-origin context)
-  (if (and (memq (ly:get-grob-property grob 'interfaces)
+  (if (and (memq (ly:grob-property grob 'interfaces)
                  note-head-interface)
-           (eq? (ly:get-grob-property grob 'staff-position) 0))
+           (eq? (ly:grob-property grob 'staff-position) 0))
 
-           (ly:set-grob-property! grob 'transparent #t)))
+           (ly:grob-set-property! grob 'transparent #t)))
 @end example
 
 

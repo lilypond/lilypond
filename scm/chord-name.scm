@@ -90,12 +90,12 @@ FOOBAR-MARKUP) if OMIT-ROOT is given and non-false.
 "
 
   (define (chord-to-exception-entry m)
-    (let* ((elts (ly:get-mus-property m 'elements))
+    (let* ((elts (ly:music-property m 'elements))
 	   (omit-root (and (pair? rest) (car rest)))
-	   (pitches (map (lambda (x) (ly:get-mus-property x 'pitch))
+	   (pitches (map (lambda (x) (ly:music-property x 'pitch))
 			 (filter
 			  (lambda (y) (memq 'note-event
-					    (ly:get-mus-property y 'types)))
+					    (ly:music-property y 'types)))
 			  elts)))
 	   (sorted (sort pitches ly:pitch<?))
 	   (root (car sorted))
@@ -107,10 +107,10 @@ FOOBAR-MARKUP) if OMIT-ROOT is given and non-false.
 	   ;; \chords has changed to c' too?
 	   (diff (ly:pitch-diff root (ly:make-pitch 0 0 0)))
 	   (normalized (map (lambda (x) (ly:pitch-diff x diff)) sorted))
-	   (texts (map (lambda (x) (ly:get-mus-property x 'text))
+	   (texts (map (lambda (x) (ly:music-property x 'text))
 		       (filter
 			(lambda (y) (memq 'text-script-event
-					  (ly:get-mus-property y 'types)))
+					  (ly:music-property y 'types)))
 			elts)))
 
 	   (text (if (null? texts) #f (if omit-root (car texts) texts))))
@@ -118,10 +118,10 @@ FOOBAR-MARKUP) if OMIT-ROOT is given and non-false.
 
   (define (is-req-chord? m)
     (and
-     (memq 'event-chord (ly:get-mus-property m 'types))
+     (memq 'event-chord (ly:music-property m 'types))
      (not (equal? ZERO-MOMENT (ly:music-length m)))))
 
-  (let* ((elts (filter is-req-chord? (ly:get-mus-property seq 'elements)))
+  (let* ((elts (filter is-req-chord? (ly:music-property seq 'elements)))
 	 (alist (map chord-to-exception-entry elts)))
     (filter (lambda (x) (cdr x)) alist)))
 

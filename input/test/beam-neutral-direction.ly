@@ -1,5 +1,5 @@
 
-\version "2.1.22"
+\version "2.1.26"
 \header{
 	texidoc="@cindex Beam Neutral Direction
 When a beam falls in the middle of the staff, LilyPond normally

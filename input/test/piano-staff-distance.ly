@@ -8,7 +8,7 @@ this at home.  "
 
 }
 
-\version "2.1.25"
+\version "2.1.26"
 
 #(define ((futz-alignment-callback distance count) grob axis)
 
@@ -27,7 +27,7 @@ DISTANCE; then call the original callback.  "
 	      (< count (length bs))
 	      (equal? (list-ref bs count) a)
 	 )
-	 (ly:set-grob-property! a 'forced-distance distance))
+	 (ly:grob-set-property! a 'forced-distance distance))
      
      (Align_interface::fixed_distance_alignment_callback grob axis)) )
 

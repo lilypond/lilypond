@@ -1,5 +1,5 @@
 
-\version "2.1.22"
+\version "2.1.26"
 \header {
     texidoc = "@cindex Bar Lines
 Different types of bar lines demonstrated.

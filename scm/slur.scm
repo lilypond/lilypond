@@ -7,13 +7,13 @@
 ;;;;
 
 (define (attached-to-stem slur dir)
-  (let* ((note-columns (ly:get-grob-property slur 'note-columns))
+  (let* ((note-columns (ly:grob-property slur 'note-columns))
 	 (col (if (= dir 1) (car note-columns) (car (last-pair note-columns))))
-	 (stem (ly:get-grob-property col 'stem)))
+	 (stem (ly:grob-property col 'stem)))
     (and
      (eq? col (ly:spanner-get-bound slur dir))
      (ly:grob? stem)
-     (ly:get-grob-property stem 'heads))))
+     (ly:grob-property stem 'heads))))
 
 
 ;;
@@ -22,24 +22,24 @@
 ;;    'head 'along-side-stem 'stem 'loose-end
 ;;
 (define (calc-slur-extremity slur dir)
-  (let* ((note-columns (ly:get-grob-property slur 'note-columns))
+  (let* ((note-columns (ly:grob-property slur 'note-columns))
 	 (col (car (if (= dir 1) note-columns (reverse note-columns))))
-	 (stem (ly:get-grob-property col 'stem)))
+	 (stem (ly:grob-property col 'stem)))
 
 
    (cond
     ((< (length note-columns) 1) 'head)
     ((not (attached-to-stem slur dir)) 'loose-end)
     ((and stem
-	  (not (equal? (ly:get-grob-property slur 'direction) 
-		       (ly:get-grob-property stem 'direction))))  'head)
+	  (not (equal? (ly:grob-property slur 'direction) 
+		       (ly:grob-property stem 'direction))))  'head)
     ((and (attached-to-stem slur dir)
 	  (ly:grob? stem)
-	  (ly:grob? (ly:get-grob-property stem 'beam))
+	  (ly:grob? (ly:grob-property stem 'beam))
 	  ;; and beam on same side as slur
 	  (equal?
-	   (ly:get-grob-property stem 'direction)
-	   (ly:get-grob-property slur 'direction)))
+	   (ly:grob-property stem 'direction)
+	   (ly:grob-property slur 'direction)))
      'stem)
     ((not (attached-to-stem slur dir))  'loose-end)
     (else 'head))

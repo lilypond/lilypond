@@ -6,7 +6,7 @@
    Both solutions are demonstrated here.
 " }
 
-\version "2.1.22"
+\version "2.1.26"
 
 \score {
     \notes\relative c''

@@ -667,6 +667,7 @@ LATEX_DOCUMENT = r'''
 '''
 #need anything else besides textwidth?
 def get_latex_textwidth (source):
+	print 'hoi\n', source
 	m = re.search (r'''(?P<preamble>\\begin\s*{document})''', source)
 	preamble = source[:m.start (0)]
 	latex_document = LATEX_DOCUMENT % vars ()
@@ -754,12 +755,19 @@ def do_file (input_filename):
 			output_filename = (output_name
 					   + '/' + input_base
 					   + format2ext[format])
+
+
+		if os.path.samefile (output_filename, input_fullname):
+			ly.error (_("Output would overwrite input file; use --output."))
+			sys.exit (2)
+
 		output_file = open (output_filename, 'w')
 		if output_name:
 			os.chdir (output_name)
 
 	ly.progress (_ ("Reading %s...") % input_fullname)
 	source = in_handle.read ()
+	print 'hoai', source, in_handle
 	ly.progress ('\n')
 	
 	snippet_types = (

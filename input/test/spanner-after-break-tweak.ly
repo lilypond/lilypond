@@ -1,5 +1,5 @@
 
-\version "2.1.25"
+\version "2.1.26"
 
 \header { texidoc = "@cindex Spanner after break
 
@@ -19,7 +19,7 @@ after the line break is moved around. "
     ;; if you're using this for other grob-types.
     
     (if (and  (>= (length b) 2) (eq? (car (last-pair b)) grob))
-	(ly:set-grob-property! grob 'extra-offset '(-2 . -1))
+	(ly:grob-set-property! grob 'extra-offset '(-2 . -1))
 	)
   ))
 

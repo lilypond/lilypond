@@ -10,16 +10,16 @@ dynamics are left over. These are put onto the 2nd measure."
 
 }
 
-\version "2.1.25"
+\version "2.1.26"
 
 #(define (notes-to-skip m)
 "Convert all stuff with duration (notes, lyrics, bass figures, etc.) to skips.
 Scripts and dynamics are maintained.
 "
-  (if (memq 'rhythmic-event (ly:get-mus-property m 'types))
+  (if (memq 'rhythmic-event (ly:music-property m 'types))
 	(let* ((newmus 	  (make-music-by-name 'SkipEvent)))
 		(map
-		  (lambda (x) (ly:set-mus-property! newmus (car x) (cdr x)))
+		  (lambda (x) (ly:music-set-property! newmus (car x) (cdr x)))
 		  (ly:get-mutable-properties m))
 		newmus
 	)
