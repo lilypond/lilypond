@@ -9,56 +9,37 @@
 #ifndef CHORD_HH
 #define CHORD_HH
 
-#include "array.hh"
-#include "musical-pitch.hh"
-#include "lily-proto.hh"
-
-
+#include "pitch.hh"
 
 /*
-  Slightly on the hairy side? In any case COMMENTME.
+  ``chord'' is encoded:
+  (PITCHES . (INVERSION . BASS))
+
+  Chord:: namespace...
  */
 class Chord
 {
 public:
-  static Array<Musical_pitch> base_arr (Musical_pitch p);
-  static int find_tonic_i (Array<Musical_pitch> const*);
-  static int find_pitch_i (Array<Musical_pitch> const*, Musical_pitch p);
-  static int find_notename_i (Array<Musical_pitch> const*, Musical_pitch p);
-  static Array<Musical_pitch> missing_thirds_pitch_arr (Array<Musical_pitch> const* pitch_arr_p);
-  static void rebuild_from_base (Array<Musical_pitch>*, int base_i);
-  static void rebuild_insert_inversion (Array<Musical_pitch>*, int tonic_i);
-  static void rebuild_transpose (Array<Musical_pitch>*, Musical_pitch tonic, bool fix7_b);
-  static void rebuild_with_bass (Array<Musical_pitch>*, int bass_i);
-  static int step_i (Musical_pitch tonic, Musical_pitch p);
-
-
-  Chord ();
-  Chord (Array<Musical_pitch> pitch_arr, Musical_pitch* inversion_p, Musical_pitch* bass_p);
-  Chord (Chord const&);
-
-  Array<Musical_pitch> to_pitch_arr () const;
-
-  Array<Musical_pitch> pitch_arr_;
-  bool inversion_b_;
-  Musical_pitch inversion_pitch_;
-  bool bass_b_;
-  Musical_pitch bass_pitch_;
+  static SCM pitches_and_requests_to_chord (SCM pitches,
+				     SCM tonic_req,
+				     SCM inversion_req,
+				     SCM bass_req,
+				     bool find_inversion_b);
+  static SCM base_pitches (SCM tonic);
+  static SCM transpose_pitches (SCM tonic, SCM pitches);
+  static SCM lower_step (SCM tonic, SCM pitches, SCM step);
+  static SCM member_notename (SCM p, SCM pitches);
+  static int step_i (Pitch tonic, Pitch p);
+  static SCM step_scm (SCM tonic, SCM p);
+  static SCM missing_thirds (SCM pitches);
+  static SCM to_pitches (SCM chord);
+  static SCM guess_tonic (SCM pitches);
+  static SCM rebuild_from_base (SCM pitches, SCM base);
+  static SCM rebuild_insert_inversion (SCM pitches); //, SCM tonic);
+  static SCM rebuild_with_bass (SCM pitches, SCM bass);
+  static SCM tonic_add_sub_inversion_bass_to_scm (SCM tonic, SCM add, SCM sub,
+					    SCM inversion, SCM bass);
+  static Simultaneous_music *get_chord (SCM tonic, SCM add, SCM sub, SCM inversion, SCM bass, SCM dur);
 };
 
-Chord to_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p, Array<Musical_pitch>* sub_arr_p, Musical_pitch* inversion_p, Musical_pitch* bass_p);
-
-Chord to_chord (Array<Musical_pitch> pitch_arr, Tonic_req* tonic_req, Inversion_req* inversion_req, Bass_req* bass_req, bool find_inversion_b);
-
-int compare (Chord*, Chord*);
-
-Simultaneous_music *get_chord (SCM tonic,
-			       SCM add_arr_p,
-			       SCM sub_arr_p,
-			       SCM inversion_p,
-			       SCM bass_p,
-			       SCM d);
-
-
-
-#endif // CHORD_HH
+#endif /* CHORD_HH */

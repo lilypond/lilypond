@@ -9,7 +9,7 @@
 
 #include "repeated-music.hh"
 #include "music-list.hh"
-#include "musical-pitch.hh"
+#include "pitch.hh"
 #include "debug.hh"
 
 Music *
@@ -48,13 +48,13 @@ Repeated_music::Repeated_music (Repeated_music const &s)
 }
 
 
-Musical_pitch
-Repeated_music::to_relative_octave (Musical_pitch p)
+Pitch
+Repeated_music::to_relative_octave (Pitch p)
 {
   if (body ())
     p = body ()->to_relative_octave (p);
 
-  Musical_pitch last = p ; 
+  Pitch last = p ; 
   if (alternatives ())
     for (SCM s = alternatives ()->music_list (); gh_pair_p (s);  s = gh_cdr (s))
       unsmob_music (gh_car (s))->to_relative_octave (p);
@@ -64,7 +64,7 @@ Repeated_music::to_relative_octave (Musical_pitch p)
 }
 
 void
-Repeated_music::transpose (Musical_pitch p)
+Repeated_music::transpose (Pitch p)
 {
   if (body ())
     body ()->transpose (p);

@@ -1,38 +1,19 @@
 /*   
-  musical-pitch.cc --  implement Musical_pitch
+  musical-pitch.cc --  implement Pitch
   
   source file of the GNU LilyPond music typesetter
   
   (c) 1998--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
-#include "musical-pitch.hh"
+#include "pitch.hh"
 #include "debug.hh"
 #include "main.hh"
 #include "ly-smobs.icc"
 
-int
-compare (Array<Musical_pitch>* left, Array<Musical_pitch>* right)
-{
-  assert (left);
-  assert (right);
-  
-  if (left->size () == right->size ())
-    {
-      for (int i = 0; i < left->size (); i++)
-	{
-	  int r = Musical_pitch::compare ((*left)[i], (*right)[i]);
-	  if (r)
-	    return r;
-	}
-    }
-  else
-    return 1;
 
-  return 0;
-}
 
-Musical_pitch::Musical_pitch (int o, int n, int a)
+Pitch::Pitch (int o, int n, int a)
 {
   notename_i_ = n;
   alteration_i_ = a;
@@ -48,7 +29,7 @@ Musical_pitch::Musical_pitch (int o, int n, int a)
     }
 }
 
-Musical_pitch::Musical_pitch ()
+Pitch::Pitch ()
 {
   notename_i_ = 0;
   alteration_i_ = 0;
@@ -56,7 +37,7 @@ Musical_pitch::Musical_pitch ()
 }
 
 int
-Musical_pitch::compare (Musical_pitch const &m1, Musical_pitch const &m2)
+Pitch::compare (Pitch const &m1, Pitch const &m2)
 {
   int o=  m1.octave_i_ - m2.octave_i_;
   int n = m1.notename_i_ - m2.notename_i_;
@@ -72,7 +53,7 @@ Musical_pitch::compare (Musical_pitch const &m1, Musical_pitch const &m2)
 }
 
 int
-Musical_pitch::steps () const
+Pitch::steps () const
 {
   return  notename_i_ + octave_i_*7;
 }
@@ -83,13 +64,14 @@ Musical_pitch::steps () const
 static Byte pitch_byte_a[  ] = { 0, 2, 4, 5, 7, 9, 11 };
 
 int
-Musical_pitch::semitone_pitch () const
+Pitch::semitone_pitch () const
 {
   return  pitch_byte_a[ notename_i_ % 7 ] + alteration_i_ + octave_i_ * 12;
 }
 
+/* WHugh, wat een intervaas */
 void
-Musical_pitch::transpose (Musical_pitch delta)
+Pitch::transpose (Pitch delta)
 {
   int old_pitch = semitone_pitch ();
   int delta_pitch = delta.semitone_pitch ();
@@ -109,6 +91,9 @@ Musical_pitch::transpose (Musical_pitch delta)
 }
 
 
+
+
+/* FIXME */
 #if 0
 // nice test for internationalisation strings
 char const *accname[] = {"double flat", "flat", "natural",
@@ -118,7 +103,7 @@ char const *accname[] = {"eses", "es", "", "is" , "isis"};
 #endif
 
 String
-Musical_pitch::str () const
+Pitch::str () const
 {
   int n = (notename_i_ + 2) % 7;
   String s = to_str (char(n + 'a'));
@@ -146,17 +131,17 @@ Musical_pitch::str () const
   change me to relative, counting from last pitch p
   return copy of resulting pitch
  */
-Musical_pitch
-Musical_pitch::to_relative_octave (Musical_pitch p)
+Pitch
+Pitch::to_relative_octave (Pitch p)
 {
   int oct_mod = octave_i_  + 1;	// account for c' = octave 1 iso. 0 4
-  Musical_pitch up_pitch (p);
-  Musical_pitch down_pitch (p);
+  Pitch up_pitch (p);
+  Pitch down_pitch (p);
 
   up_pitch.alteration_i_ = alteration_i_;
   down_pitch.alteration_i_ = alteration_i_;
   
-  Musical_pitch n = *this;
+  Pitch n = *this;
   up_pitch.up_to (notename_i_);
   down_pitch.down_to (notename_i_);
 
@@ -173,7 +158,7 @@ Musical_pitch::to_relative_octave (Musical_pitch p)
 }
 
 void
-Musical_pitch::up_to (int notename)
+Pitch::up_to (int notename)
 {
   if (notename_i_  > notename)
     {
@@ -183,7 +168,7 @@ Musical_pitch::up_to (int notename)
 }
 
 void
-Musical_pitch::down_to (int notename)
+Pitch::down_to (int notename)
 {
   if (notename_i_ < notename)
     {
@@ -192,26 +177,42 @@ Musical_pitch::down_to (int notename)
   notename_i_ = notename;
 }
 
+///MAKE_SCHEME_CALLBACK (Pitch, transpose, 2);
+///transpose_proc?
+SCM
+Pitch::transpose (SCM p, SCM delta)
+{
+  Pitch t = *unsmob_pitch (p);
+  t.transpose (*unsmob_pitch (delta));
+  return t.smobbed_copy ();
+}
+
+static SCM
+pitch_transpose (SCM p, SCM delta)
+{
+  return Pitch::transpose (p, delta);
+}
+
 /****************************************************************/
 
 
-IMPLEMENT_TYPE_P(Musical_pitch, "pitch?");
-IMPLEMENT_UNSMOB(Musical_pitch, pitch);
+IMPLEMENT_TYPE_P(Pitch, "pitch?");
+IMPLEMENT_UNSMOB(Pitch, pitch);
 SCM
-Musical_pitch::mark_smob (SCM )
+Pitch::mark_smob (SCM )
 {
   return SCM_EOL;
 }
 
-IMPLEMENT_SIMPLE_SMOBS(Musical_pitch);
+IMPLEMENT_SIMPLE_SMOBS(Pitch);
 
 
 int
-Musical_pitch::print_smob (SCM s, SCM port, scm_print_state *)
+Pitch::print_smob (SCM s, SCM port, scm_print_state *)
 {
-  Musical_pitch  *r = (Musical_pitch *) gh_cdr (s);
+  Pitch  *r = (Pitch *) gh_cdr (s);
      
-  scm_puts ("#<Musical_pitch ", port);
+  scm_puts ("#<Pitch ", port);
   scm_display (gh_str02scm ((char*)r->str().ch_C()), port);
   scm_puts (" >", port);
   
@@ -219,10 +220,10 @@ Musical_pitch::print_smob (SCM s, SCM port, scm_print_state *)
 }
 
 SCM
-Musical_pitch::equal_p (SCM a , SCM b)
+Pitch::equal_p (SCM a , SCM b)
 {
-  Musical_pitch  *p = (Musical_pitch *) gh_cdr (a);
-  Musical_pitch  *q = (Musical_pitch *) gh_cdr (b);  
+  Pitch  *p = (Pitch *) gh_cdr (a);
+  Pitch  *q = (Pitch *) gh_cdr (b);  
 
   bool eq = p->notename_i_ == q->notename_i_
     && p->octave_i_ == q->octave_i_
@@ -231,12 +232,12 @@ Musical_pitch::equal_p (SCM a , SCM b)
   return eq ? SCM_BOOL_T : SCM_BOOL_F;
 }
 
-MAKE_SCHEME_CALLBACK(Musical_pitch, less_p, 2);
+MAKE_SCHEME_CALLBACK(Pitch, less_p, 2);
 SCM
-Musical_pitch::less_p (SCM p1, SCM p2)
+Pitch::less_p (SCM p1, SCM p2)
 {
-  Musical_pitch *a = unsmob_pitch (p1);
-  Musical_pitch *b = unsmob_pitch (p2);
+  Pitch *a = unsmob_pitch (p1);
+  Pitch *b = unsmob_pitch (p2);
 
   if (compare(*a, *b) < 0 )
     return SCM_BOOL_T;
@@ -251,7 +252,7 @@ Musical_pitch::less_p (SCM p1, SCM p2)
 static SCM
 make_pitch (SCM o, SCM n, SCM a)
 {
-  Musical_pitch p;
+  Pitch p;
   p.octave_i_ = gh_scm2int (o);    
   p.notename_i_ = gh_scm2int (n);
   p.alteration_i_ = gh_scm2int (a);
@@ -261,7 +262,7 @@ make_pitch (SCM o, SCM n, SCM a)
 static SCM
 pitch_octave (SCM pp)
 {
-  Musical_pitch *p = unsmob_pitch (pp);
+  Pitch *p = unsmob_pitch (pp);
   int q = 0;
   if (!p)
     warning ("Not a pitch");
@@ -274,7 +275,7 @@ pitch_octave (SCM pp)
 static SCM
 pitch_alteration (SCM pp)
 {
-  Musical_pitch *p = unsmob_pitch (pp);
+  Pitch *p = unsmob_pitch (pp);
   int q = 0;
   if (!p)
     warning ("Not a pitch");
@@ -287,7 +288,7 @@ pitch_alteration (SCM pp)
 static SCM
 pitch_notename (SCM pp)
 {
-  Musical_pitch *p = unsmob_pitch (pp);
+  Pitch *p = unsmob_pitch (pp);
   int q = 0;
   if (!p)
     warning ("Not a pitch");
@@ -300,7 +301,7 @@ pitch_notename (SCM pp)
 static SCM
 pitch_semitones (SCM pp)
 {
-  Musical_pitch *p = unsmob_pitch (pp);
+  Pitch *p = unsmob_pitch (pp);
   int q = 0;
   if (!p)
     warning ("Not a pitch");
@@ -313,36 +314,39 @@ pitch_semitones (SCM pp)
 static void
 add_funcs()
 {
+  // should take list?: (make-pitch '(octave name accidental))
   scm_make_gsubr ("make-pitch", 3, 0, 0, (Scheme_function_unknown)make_pitch);
+
   scm_make_gsubr ("pitch-octave", 1, 0, 0, (Scheme_function_unknown)pitch_octave);
   scm_make_gsubr ("pitch-notename", 1, 0, 0, (Scheme_function_unknown)pitch_notename);
   scm_make_gsubr ("pitch-alteration", 1, 0, 0, (Scheme_function_unknown)pitch_alteration);
   scm_make_gsubr ("pitch-semitones", 1, 0, 0, (Scheme_function_unknown)pitch_semitones);
+  scm_make_gsubr ("Pitch::transpose", 2, 0, 0, (Scheme_function_unknown) pitch_transpose);
 }
 
 ADD_SCM_INIT_FUNC(pitch, add_funcs);
 
 SCM
-Musical_pitch::smobbed_copy ()const
+Pitch::smobbed_copy ()const
 {
-  Musical_pitch *  p = new Musical_pitch (*this);
+  Pitch *  p = new Pitch (*this);
   return p->smobbed_self ();
 }
 
 int
-Musical_pitch::octave_i ()const
+Pitch::octave_i ()const
 {
   return octave_i_;
 }
 
 int
-Musical_pitch::notename_i () const
+Pitch::notename_i () const
 {
   return notename_i_;
 }
 
 int
-Musical_pitch::alteration_i () const
+Pitch::alteration_i () const
 {
   return alteration_i_;
 }

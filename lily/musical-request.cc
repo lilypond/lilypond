@@ -18,9 +18,9 @@ Tremolo_req::Tremolo_req ()
 
 
 void
-Melodic_req::transpose (Musical_pitch delta)
+Melodic_req::transpose (Pitch delta)
 {
-  Musical_pitch p = *unsmob_pitch (get_mus_property ("pitch"));
+  Pitch p = *unsmob_pitch (get_mus_property ("pitch"));
   
   p.transpose (delta);
   

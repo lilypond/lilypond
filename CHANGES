@@ -1,3 +1,27 @@
+1.3.107.jcn3
+============
+
+* Dropped ly_lists_equal for gh_equal_
+
+* Removed Array from chord.
+
+* Small bugfix to lilypond-mode.
+
+* lily/part-combine-music-iterator.cc: fixed (switch `combineParts'
+property on), and removed Array.
+
+1.3.107.uu1
+===========
+
+* Bugfix: don't call Crescendo::brew_molecule () too early if there is
+an absolute dynamic.
+
+* Rename class Crescendo to Hairpin.
+
+* Search/replace: Musical_pitch -> Pitch 
+
+* More links in the backend documentation.
+
 1.3.106.jcn2
 ============
 

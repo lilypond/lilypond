@@ -54,7 +54,7 @@ public:
 
   /// how often do we repeat?
   int repeat_count( ) const;
-  virtual Musical_pitch to_relative_octave (Musical_pitch);
+  virtual Pitch to_relative_octave (Pitch);
 
   Moment body_length_mom () const;
   Moment alternatives_length_mom (bool fold) const;
@@ -64,7 +64,7 @@ public:
   DECLARE_SCHEME_CALLBACK(folded_music_length, (SCM));    
   
   /// Transpose, with the interval central C to #p#
-  virtual void transpose (Musical_pitch p);
+  virtual void transpose (Pitch p);
 
   /// Scale the music in time by #factor#.
   virtual void compress (Moment factor);

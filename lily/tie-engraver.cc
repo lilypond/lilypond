@@ -146,7 +146,7 @@ Tie_engraver::process_acknowledged ()
       while  (i >= 0 && j >=0)
 	{
 	  int comp
-	    = Musical_pitch::compare (*unsmob_pitch (now_heads_[i].req_l_->get_mus_property ("pitch") ),
+	    = Pitch::compare (*unsmob_pitch (now_heads_[i].req_l_->get_mus_property ("pitch") ),
 				      *unsmob_pitch (stopped_heads_[j].req_l_->get_mus_property ("pitch")));
 
 	  if (comp)
@@ -294,7 +294,7 @@ CHead_melodic_tuple::pitch_compare (CHead_melodic_tuple const&h1,
   SCM p1  = h1.req_l_->get_mus_property ("pitch");
   SCM p2  = h2.req_l_->get_mus_property ("pitch");
   
-  return Musical_pitch::equal_p (p1,p2) == SCM_BOOL_T;
+  return Pitch::equal_p (p1,p2) == SCM_BOOL_T;
 }
 
 int

@@ -22,10 +22,10 @@ public:
   Music * first_l () const;
   Music * second_l () const;
   
-  virtual void transpose (Musical_pitch);
+  virtual void transpose (Pitch);
 
   virtual Moment length_mom () const;
-  virtual Musical_pitch to_relative_octave (Musical_pitch);
+  virtual Pitch to_relative_octave (Pitch);
   virtual void compress (Moment);
 };
 

@@ -1,5 +1,5 @@
 /*
-  crescendo.hh -- declare Crescendo
+  crescendo.hh -- declare Hairpin
 
   source file of the GNU LilyPond music typesetter
 
@@ -14,7 +14,7 @@
 /**
   The hairpin symbol. 
  */
-struct Crescendo
+struct Hairpin
 {
 public:
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM));

@@ -880,8 +880,7 @@ defaultBarType, barAlways, barNonAuto and measurePosition.
       
       (translator-property-description 'barAlways boolean? " If set to true a bar line is drawn after each note.
 ")
-      (translator-property-description 'defaultBarType string? "Sets the default type of bar line. See Section XREF-barlines [FIXME] 
-    for a list of available bar types.
+      (translator-property-description 'defaultBarType string? "Sets the default type of bar line.  Available bar types: [FIXME]
 ")
       (translator-property-description 'skipBars boolean? " Set to true to skip the empty bars that are produced by
     multimeasure notes and rests.  These bars will not appear on the

@@ -13,7 +13,7 @@
 #include "request.hh"
 #include "array.hh"
 #include "duration.hh"
-#include "musical-pitch.hh"
+#include "pitch.hh"
 #include "protected-scm.hh"
 
 class Break_req : public Request {
@@ -68,7 +68,7 @@ public:
   
 protected:
   VIRTUAL_COPY_CONS(Music);
-  void transpose (Musical_pitch  d);
+  void transpose (Pitch  d);
   bool do_equal_b (Request const * )const; 
 };
 

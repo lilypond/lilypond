@@ -10,14 +10,14 @@
 #include "relative-music.hh"
 #include "debug.hh"
 
-Musical_pitch
-Relative_octave_music::to_relative_octave (Musical_pitch)
+Pitch
+Relative_octave_music::to_relative_octave (Pitch)
 {
   return last_pitch_;
 }
 
 
-Relative_octave_music::Relative_octave_music(Music*p,Musical_pitch def)
+Relative_octave_music::Relative_octave_music(Music*p,Pitch def)
   : Music_wrapper (p)
 {
   last_pitch_ = element ()->to_relative_octave (def);

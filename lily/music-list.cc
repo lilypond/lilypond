@@ -8,7 +8,7 @@
 
 #include "music-list.hh"
 #include "music-wrapper.hh"
-#include "musical-pitch.hh"
+#include "pitch.hh"
 #include "request.hh"
 #include "musical-request.hh"
 #include "music-iterator.hh"
@@ -45,8 +45,8 @@ Sequential_music::length_mom () const
   return cumulative_length ();
 }
 
-Musical_pitch
-Simultaneous_music::to_relative_octave (Musical_pitch p)
+Pitch
+Simultaneous_music::to_relative_octave (Pitch p)
 {
   return do_relative_octave (p, true);
 }
@@ -58,15 +58,15 @@ Request_chord::Request_chord(SCM s)
 		    Request_chord_iterator::constructor_cxx_function);
 }
 
-Musical_pitch
-Request_chord::to_relative_octave (Musical_pitch last)
+Pitch
+Request_chord::to_relative_octave (Pitch last)
 {
   for (SCM s = music_list (); gh_pair_p (s);  s = gh_cdr (s))
     {
       Music * mus = unsmob_music (gh_car (s));
       if (Melodic_req *m= dynamic_cast <Melodic_req *> (mus))
 	{
-	  Musical_pitch pit = *unsmob_pitch (m->get_mus_property ("pitch"));
+	  Pitch pit = *unsmob_pitch (m->get_mus_property ("pitch"));
 	  
 	  pit.to_relative_octave (last);
 	  m->set_mus_property ("pitch", pit.smobbed_copy());

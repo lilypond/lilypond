@@ -10,7 +10,7 @@
 #include "music.hh"
 #include "music-list.hh"
 #include "debug.hh"
-#include "musical-pitch.hh"
+#include "pitch.hh"
 #include "ly-smobs.icc"
 
 SCM
@@ -90,15 +90,15 @@ Music::print_smob(SCM s, SCM p, scm_print_state*)
   return 1;
 }
 
-Musical_pitch
-Music::to_relative_octave (Musical_pitch m)
+Pitch
+Music::to_relative_octave (Pitch m)
 {
   return m;
 }
 
 
 void
-Music::transpose (Musical_pitch )
+Music::transpose (Pitch )
 {
 }
 

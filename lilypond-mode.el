@@ -114,7 +114,7 @@ in LilyPond-include-path."
 
 ;; This is the major configuration variable.
 (defcustom LilyPond-command-alist
-  '(
+  `(
     ("LilyPond" . ("lilypond %s" . "TeX"))
     ("TeX" . ("tex '\\nonstopmode\\input %t'" . "View"))
     
@@ -122,7 +122,7 @@ in LilyPond-include-path."
     ("SmartView" . ("xdvi %d" . "LilyPond"))
     
     ;; refreshes when kicked USR1
-    ("View" . ((concat LilyPond-xdvi-command " %d") . "LilyPond"))
+    ("View" . (,(concat LilyPond-xdvi-command " %d") . "LilyPond"))
     )
 
   "AList of commands to execute on the current document.

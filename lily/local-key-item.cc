@@ -1,5 +1,5 @@
 /*
-  local-key-item.cc -- implement Local_key_item, Musical_pitch
+  local-key-item.cc -- implement Local_key_item, Pitch
 
   source file of the GNU LilyPond music typesetter
 
@@ -18,7 +18,7 @@
 static SCM
 pitch_less  (SCM p1, SCM p2)
 {
-  return Musical_pitch::less_p (gh_car (p1),  gh_car (p2));
+  return Pitch::less_p (gh_car (p1),  gh_car (p2));
 }
 
 static SCM pitch_less_proc;
@@ -33,7 +33,7 @@ ADD_SCM_INIT_FUNC(lkpitch,init_pitch_funcs);
 
 
 void
-Local_key_item::add_pitch (Score_element*me, Musical_pitch p, bool cautionary, bool natural)
+Local_key_item::add_pitch (Score_element*me, Pitch p, bool cautionary, bool natural)
 {
   SCM acs = me->get_elt_property ("accidentals");
   SCM pitch = p.smobbed_copy ();
@@ -82,7 +82,7 @@ Local_key_item::brew_molecule (SCM smob)
   for  (SCM s = accs;
 	gh_pair_p (s); s = gh_cdr (s))
     {
-      Musical_pitch p (*unsmob_pitch (gh_caar (s)));
+      Pitch p (*unsmob_pitch (gh_caar (s)));
       SCM opts = gh_cdar (s);
       
       // do one octave

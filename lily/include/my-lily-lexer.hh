@@ -18,7 +18,7 @@
 #include "string.hh"
 #include "includable-lexer.hh"
 #include "duration.hh"
-#include "musical-pitch.hh"
+#include "pitch.hh"
 #include "protected-scm.hh"
 
 bool busy_parsing();

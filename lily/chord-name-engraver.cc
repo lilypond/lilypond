@@ -16,7 +16,8 @@
 #include "main.hh"
 #include "dimensions.hh"
 #include "item.hh"
-#include "musical-pitch.hh"
+#include "pitch.hh"
+#include "protected-scm.hh"
 
 class Chord_name_engraver : public Engraver 
 {
@@ -32,14 +33,16 @@ protected:
 
 private:
   void create_chord_name ();
-
-  Array<Musical_pitch> pitch_arr_;
+  
   Item* chord_name_p_;
-  Chord* chord_p_;
-  Chord* last_chord_p_;
-  Tonic_req* tonic_req_;
-  Inversion_req* inversion_req_;
-  Bass_req* bass_req_;
+  Protected_scm pitches_;
+
+  Protected_scm chord_;
+  Protected_scm last_chord_;
+
+  Protected_scm tonic_req_;
+  Protected_scm inversion_req_;
+  Protected_scm bass_req_;
 };
 
 ADD_THIS_TRANSLATOR (Chord_name_engraver);
@@ -47,18 +50,19 @@ ADD_THIS_TRANSLATOR (Chord_name_engraver);
 Chord_name_engraver::Chord_name_engraver ()
 {
   chord_name_p_ = 0;
-  tonic_req_ = 0;
-  inversion_req_ = 0;
-  bass_req_ = 0;
-  chord_p_ = 0;
-  last_chord_p_ = 0;
+  pitches_ = SCM_EOL;
+  tonic_req_ = SCM_EOL;
+  inversion_req_ = SCM_EOL;
+  bass_req_ = SCM_EOL;
+  chord_ = SCM_EOL;
+  last_chord_ = SCM_EOL;
 }
 
 void
 Chord_name_engraver::acknowledge_element (Score_element_info i)
 {
   if (Note_req* n = dynamic_cast<Note_req*> (i.req_l_))
-    pitch_arr_.push (* unsmob_pitch (n->get_mus_property ("pitch")));
+    pitches_ = gh_cons (n->get_mus_property ("pitch"), pitches_);
 }
 
 bool
@@ -66,22 +70,22 @@ Chord_name_engraver::do_try_music (Music* m)
 {
   if (Note_req* n = dynamic_cast<Note_req*> (m))
     {
-      pitch_arr_.push (* unsmob_pitch (n->get_mus_property ("pitch")));
+      pitches_ = gh_cons (n->get_mus_property ("pitch"), pitches_);
       return true;
     }
   if (Tonic_req* t = dynamic_cast<Tonic_req*> (m))
     {
-      tonic_req_ = t;
+      tonic_req_ = t->get_mus_property ("pitch");
       return true;
     }
   if (Inversion_req* i = dynamic_cast<Inversion_req*> (m))
     {
-      inversion_req_ = i;
+      inversion_req_ = i->get_mus_property ("pitch");
       return true;
     }
   if (Bass_req* b = dynamic_cast<Bass_req*> (m))
     {
-      bass_req_ = b;
+      bass_req_ = b->get_mus_property ("pitch");
       return true;
     }
   return false;
@@ -90,47 +94,41 @@ Chord_name_engraver::do_try_music (Music* m)
 void
 Chord_name_engraver::do_process_music ()
 {
-  if (chord_name_p_)
-    return;
+  if (!chord_name_p_ && pitches_ != SCM_EOL)
+    {
+      bool find_inversion_b = false;
+      SCM chord_inversion = get_property ("chordInversion");
+      if (gh_boolean_p (chord_inversion))
+	find_inversion_b = gh_scm2bool (chord_inversion);
 
-  if (!pitch_arr_.size ())
-    return;
-
-  bool find_inversion_b = false;
-  SCM chord_inversion = get_property ("chordInversion");
-  if (gh_boolean_p (chord_inversion))
-    find_inversion_b = gh_scm2bool (chord_inversion);
-
-  chord_p_ = new Chord (to_chord (pitch_arr_,
-				  tonic_req_, inversion_req_, bass_req_,
-				  find_inversion_b));
-  
-  create_chord_name ();
-  announce_element (chord_name_p_, 0);
-  SCM s = get_property ("drarnChords"); //FIXME!
-  if (to_boolean (s) && last_chord_p_ && !compare (chord_p_, last_chord_p_))
-    chord_name_p_->set_elt_property ("begin-of-line-visible", SCM_BOOL_T);
+      chord_ = Chord::pitches_and_requests_to_chord (pitches_,
+						     tonic_req_,
+						     inversion_req_,
+						     bass_req_,
+						     find_inversion_b);
+      
+      create_chord_name ();
+      announce_element (chord_name_p_, 0);
+      SCM s = get_property ("drarnChords"); //FIXME!
+      if (to_boolean (s) && last_chord_ != SCM_EOL &&
+	  gh_equal_p (chord_, last_chord_))
+	chord_name_p_->set_elt_property ("begin-of-line-visible", SCM_BOOL_T);
+    }
 }
 
 void
 Chord_name_engraver::create_chord_name ()
 {
-  assert (chord_p_);
   chord_name_p_ = new Item (get_property ("ChordName"));
-  /*
-    Hmm, why not represent complete chord as list?
-    ((tonic third fifth) (inversion bass))
-  */
-  SCM plist = SCM_EOL;
-  for (int i= chord_p_->pitch_arr_.size (); i--; )
-    plist = gh_cons (chord_p_->pitch_arr_[i].smobbed_copy (), plist);
-  
-  chord_name_p_->set_elt_property ("pitches", plist);
-  if (chord_p_->inversion_b_)
-    chord_name_p_->set_elt_property ("inversion",
-				     chord_p_->inversion_pitch_.smobbed_copy ());
-  if (chord_p_->bass_b_)
-    chord_name_p_->set_elt_property ("bass", chord_p_->bass_pitch_.smobbed_copy ());
+
+  SCM pitches = gh_car (chord_);
+  SCM modifiers = gh_cdr (chord_);
+  SCM inversion = gh_car (modifiers);
+  SCM bass = gh_cdr (modifiers);
+  /* Hmm, maybe chord-name should use (pitches (inversion . base)) too? */
+  chord_name_p_->set_elt_property ("pitches", pitches);
+  chord_name_p_->set_elt_property ("inversion", inversion);
+  chord_name_p_->set_elt_property ("inversion", bass);
 }
 
 void
@@ -140,13 +138,13 @@ Chord_name_engraver::do_pre_move_processing ()
     {
       typeset_element (chord_name_p_);
     }
-  pitch_arr_.clear ();
   chord_name_p_ = 0;
-  tonic_req_ = 0;
-  inversion_req_ = 0;
-  bass_req_ = 0;
-  delete last_chord_p_;
-  last_chord_p_ = chord_p_;
-  chord_p_ = 0;
+
+  pitches_ = SCM_EOL;
+  tonic_req_ = SCM_EOL;
+  inversion_req_ = SCM_EOL;
+  bass_req_ = SCM_EOL;
+  last_chord_ = chord_;
+  chord_ = SCM_EOL;
 }
 

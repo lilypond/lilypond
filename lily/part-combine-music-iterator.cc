@@ -11,31 +11,8 @@
 #include "translator-group.hh"
 #include "musical-request.hh"
 #include "music-sequence.hh"
+#include "lily-guile.hh"
 #include "warn.hh"
-
-
-/*
-  DOCUMENTME
- */
-int
-compare (Array<Duration> const * left, Array<Duration> const * right)
-{
-  assert (left);
-  assert (right);
-  
-  if (left->size () == right->size ())
-    {
-      for (int i = 0; i < left->size (); i++)
-	{
-	  int r = Duration::compare ((*left)[i], (*right)[i]);
-	  if (r)
-	    return r;
-	}
-    }
-  else
-    return 1;
-  return 0;
-}
 
 Part_combine_music_iterator::Part_combine_music_iterator ()
 {
@@ -131,8 +108,9 @@ Part_combine_music_iterator::change_to (Music_iterator *it, String to_type,
 }
 
 
+// SCM*, moet / kan dat niet met set_x ofzo?
 static void
-get_music_info (Moment m, Music_iterator* iter, Array<Musical_pitch> *pitches, Array<Duration> *durations)
+get_music_info (Moment m, Music_iterator* iter, SCM *pitches, SCM *durations)
 {
   if (iter->ok ())
     {
@@ -140,9 +118,9 @@ get_music_info (Moment m, Music_iterator* iter, Array<Musical_pitch> *pitches, A
 	{
 	  Music *m = unsmob_music (gh_car (i));
 	  if (Melodic_req *r = dynamic_cast<Melodic_req *> (m))
-	    pitches->push (*unsmob_pitch (r->get_mus_property("pitch")));
+	    *pitches = gh_cons (r->get_mus_property("pitch"), *pitches);
 	  if (Rhythmic_req *r = dynamic_cast<Rhythmic_req *> (m))
-	    durations->push (*unsmob_duration (r->get_mus_property("duration")));
+	    *durations = gh_cons (r->get_mus_property("duration"), *durations);
 	}
     }
 }
@@ -199,35 +177,46 @@ Part_combine_music_iterator::get_state (Moment)
 	    pending = first_iter->pending_moment () <? second_iter->pending_moment ();
 	  last_pending = pending;
 
-	  Array<Musical_pitch> first_pitches;
-	  Array<Duration> first_durations;
-	  get_music_info (pending, first_iter, &first_pitches, &first_durations);
+	  SCM first_pitches = SCM_EOL;
+	  SCM first_durations = SCM_EOL;
+	  get_music_info (pending, first_iter,
+			  &first_pitches, &first_durations);
       
-	  Array<Musical_pitch> second_pitches;
-	  Array<Duration> second_durations;
-	  get_music_info (pending, second_iter, &second_pitches, &second_durations);
+	  SCM second_pitches = SCM_EOL;
+	  SCM second_durations = SCM_EOL;
+	  get_music_info (pending, second_iter,
+			  &second_pitches, &second_durations);
 
-	  if (first_pitches.size () && second_pitches.size ())
+	  if (first_pitches != SCM_EOL && second_pitches != SCM_EOL)
 	    {
-	      first_pitches.sort (Musical_pitch::compare);
-	      second_pitches.sort (Musical_pitch::compare);
-	      interval = gh_int2scm (first_pitches.top ().steps ()
-				     - second_pitches[0].steps ());
+	      scm_sort_list_x (first_pitches,
+			       scm_eval2 (ly_str02scm ("Pitch::less_p"),
+					  SCM_EOL));
+	      scm_sort_list_x (second_pitches,
+			       scm_eval2 (ly_str02scm ("Pitch::less_p"),
+					  SCM_EOL));
+	      interval = gh_int2scm (unsmob_pitch (gh_car (first_pitches))->steps ()
+				     - unsmob_pitch (gh_car (scm_last_pair (second_pitches)))->steps ());
 	    }
-	  if (first_durations.size ())
+	  
+	  if (first_durations != SCM_EOL)
 	    {
-	      first_durations.sort (Duration::compare);
-	      first_mom += first_durations.top ().length_mom ();
+	      scm_sort_list_x (first_durations,
+			       scm_eval2 (ly_str02scm ("Duration::less_p"),
+					  SCM_EOL));
+	      first_mom += unsmob_duration (gh_car (first_durations))->length_mom ();
 	    }
-
-	  if (second_durations.size ())
+	  
+	  if (second_durations != SCM_EOL)
 	    {
-	      second_durations.sort (Duration::compare);
-	      second_mom += second_durations.top ().length_mom ();
+	      scm_sort_list_x (second_durations,
+			       scm_eval2 (ly_str02scm ("Duration::less_p"),
+					  SCM_EOL));
+	      second_mom += unsmob_duration (gh_car (second_durations))->length_mom ();
 	    }
-
-	  if (!first_pitches.empty () && second_pitches.empty ()
-	       && !(second_until_ > now))
+	  
+	  if (first_pitches != SCM_EOL && second_pitches == SCM_EOL
+		  && !(second_until_ > now))
 	    {
 	      state |= UNRELATED;
 	      state &= ~UNISILENCE;
@@ -237,7 +226,7 @@ Part_combine_music_iterator::get_state (Moment)
 	  else
 	    state &= ~SOLO1;
 
-	  if (first_pitches.empty () && !second_pitches.empty ()
+	  if (first_pitches == SCM_EOL && second_pitches != SCM_EOL
 	      && !(first_until_ > now))
 	    {
 	      state |= UNRELATED;
@@ -248,7 +237,7 @@ Part_combine_music_iterator::get_state (Moment)
 	  else
 	    state &= ~SOLO2;
 
-	  if (!compare (&first_durations, &second_durations))
+ 	  if (gh_equal_p (first_durations, second_durations))
 	    {
 	      state &= ~UNISILENCE;
 	      if (!(state & ~(UNIRHYTHM | UNISON)))
@@ -257,8 +246,8 @@ Part_combine_music_iterator::get_state (Moment)
 	  else
 	    state &= ~(UNIRHYTHM | UNISILENCE);
 	  
-	  if (!first_pitches.empty ()
-	      &&!compare (&first_pitches, &second_pitches))
+	  if (first_pitches != SCM_EOL
+	      && gh_equal_p (first_pitches, second_pitches))
 	    {
 	      state &= ~UNISILENCE;
 	      if (!(state & ~(UNIRHYTHM | UNISON)))
@@ -267,7 +256,7 @@ Part_combine_music_iterator::get_state (Moment)
 	  else
 	    state &= ~(UNISON);
 	    
-	  if (first_pitches.empty () && second_pitches.empty ())
+	  if (first_pitches == SCM_EOL && second_pitches == SCM_EOL)
 	    {
 	      if (!(state & ~(UNIRHYTHM | UNISILENCE)))
 		state |= UNISILENCE;
@@ -294,9 +283,9 @@ Part_combine_music_iterator::get_state (Moment)
 		state &= ~(SPLIT_INTERVAL);
 	    }
 
-	  if (first && !first_pitches.empty ())
+	  if (first && first_pitches != SCM_EOL)
 	    first_until_ = first_mom;
-	  if (first && !second_pitches.empty ())
+	  if (first && second_pitches != SCM_EOL)
 	    second_until_ = second_mom;
 	  first = false;
 
@@ -374,13 +363,17 @@ Part_combine_music_iterator::process (Moment m)
   if (combine_b != previously_combined_b)
     change_to (second_iter_p_, w, (combine_b ? "one" : "two")
 	       + suffix_);
-
+  
   Translator_group *first_translator = first_iter_p_->report_to_l ()->find_create_translator_l (w, "one" + suffix_);
   Translator_group *second_translator = second_iter_p_->report_to_l ()->find_create_translator_l (w, "two" + suffix_);
+  
 
-  /*
-    hmm
-   */
+  /* Hmm */
+  first_translator->set_property ("combineParts", SCM_BOOL_T);
+  second_translator ->set_property ("combineParts", SCM_BOOL_T);
+ 
+ 
+  /* hmm */
   SCM b = (state & UNIRHYTHM) ? SCM_BOOL_T : SCM_BOOL_F;
   first_translator->set_property ("unirhythm", b);
   second_translator->set_property ("unirhythm", b);

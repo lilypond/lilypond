@@ -44,7 +44,7 @@ local-WWW: $(HTML_FILES) $(datafiles) $(PS_GZ_FILES) $(DEEP_HTML_FILES)
 	$(SHELL) $(buildscript-dir)/install-info-html.sh --dir=$(outdir) lilypond lilypond-internals
 	$(MAKE) footify
 	-mkdir $(outdir)/lilypond 
-	ln -f $(outdir)/*.png $(outdir)/lilypond
+	cp -f $(outdir)/*.png $(outdir)/lilypond
 	$(MAKE) deep-footify
 
 #	$(PYTHON) $(step-bindir)/ls-latex.py --title 'User documentation' \

@@ -105,9 +105,9 @@
        ))
 	
 	(Crescendo . (
-		(molecule-callback . ,Crescendo::brew_molecule)
+		(molecule-callback . ,Hairpin::brew_molecule)
 		(thickness . 1.0)
-		(shorten-for-letter  .  4.0)
+		(padding . 1.0)
 		(height . 0.6666)
 		(dash-thickness . 1.2)
 		(dash-length . 4.0)
@@ -291,7 +291,7 @@
 		(font-family . roman)
 		(meta . ,(element-description  "NoteName"
 					       note-name-interface font-interface
-					       general-element-interface))
+					       ))
 		))
 
 	(OctavateEight . (

@@ -19,9 +19,10 @@
 
 ;; First level Engraver description and
 ;; second level Context description
-(define (document-engraver level engraver-descr)
+(define (document-engraver where engraver-descr)
  
   (let* (
+	 (level (if (eq? where 'context) 3 2))
 	 (props (car (cdddr engraver-descr)))
 	 (name (car engraver-descr))
 	 (desc (cadr engraver-descr))
@@ -29,14 +30,14 @@
 	 )
 
     (string-append
-     (section level (engraver-name name))
+     (texi-section level (engraver-name name) (eq? where 'context))
      desc
      "\n\n"
      (if (null? props)
 	 ""
 	 (string-append
-	  (section (+ level 1) "Properties")
-	  (description-list
+	  (texi-section (+ level 1) "Properties" #f)
+	  (description-list->texi
 	   (map (lambda (x) (document-translator-property x)) props))))
      (if  (null? objs)
 	  ""
@@ -74,7 +75,7 @@
     (processing name)
     (string-append
      (node (engraver-name name))
-     (document-engraver 2 description))))
+     (document-engraver 'self description))))
 
 ;; Second level, part of Context description
 (define (document-engraver-by-name name)
@@ -85,7 +86,7 @@
 
     (if (eq? eg #f)
 	(string-append "Engraver " name ", not documented.\n")
-	(document-engraver 3 (cdr eg))
+	(document-engraver 'context (cdr eg))
  	)
     ))
 
@@ -127,7 +128,7 @@
     (processing name)
     (string-append
      (node (context-name name))
-     (section 2 (context-name name))
+     (texi-section 2 (context-name name) #f)
       doc)))
 
 (define (document-paper name)

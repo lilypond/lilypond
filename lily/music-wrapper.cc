@@ -14,7 +14,7 @@
 
 
 void
-Music_wrapper::transpose (Musical_pitch p)
+Music_wrapper::transpose (Pitch p)
 {
   if (element ())
     element ()-> transpose (p);
@@ -33,8 +33,8 @@ Music_wrapper::length_mom () const
   return element ()->length_mom ();
 }
 
-Musical_pitch
-Music_wrapper::to_relative_octave (Musical_pitch p)
+Pitch
+Music_wrapper::to_relative_octave (Pitch p)
 {
   return element ()->to_relative_octave (p);
 }

@@ -36,7 +36,7 @@ private:
   Item * create_custos();
   bool custos_permitted;
   Link_array<Score_element> custos_arr_;
-  Array<Musical_pitch> pitches_;
+  Array<Pitch> pitches_;
 };
 
 Custos_engraver::Custos_engraver ()

@@ -1,4 +1,3 @@
-
 ;;; backend-documentation-lib.scm -- Functions for backend documentation
 ;;;
 ;;; source file of the GNU LilyPond music typesetter
@@ -10,43 +9,53 @@
 ;;; This file generates documentation for the backend of lilypond.
 
 ;; alist of property descriptions
-;; when called by First level Interface description, desc == '()
-;; CDR "not set" is only used for Second level Element description
-(define (document-element-property prop desc)
-  (let ((handle (assoc (car prop) desc)))
-    (cons
-     (string-append "@code{" (symbol->string (car prop)) "} "
-		    "(" (type-name (cadr prop)) ")"
-		    (if (equal? desc '()) "" ":"))
-     (string-append (if (equal? desc '())
-			(caddr prop)
-			(if (pair? handle)
-			    (string-append (caddr prop)
-					   "\ndefault value: @code{"
-					   (scm->string (cdr handle))
-					   "}")
-			    "not set"))))))
 
-;; First level Interface description
-;; Second level, part of element description
-(define (document-interface level interface element-description)
-  (let* ((name (car interface))
+
+(define (document-element-property property-def element-description only-doc-if-set)
+  "
+"
+  (let* (
+	(handle (assoc (car property-def) element-description))
+	(def-val-str (if (eq? handle #f)
+			 "not set"
+			 (scm->texi (cdr handle))))
+				
+	(name (symbol->string (car property-def)))
+	(type (type-name (cadr property-def)))
+	(desc (caddr property-def))
+	)
+
+    (if (and  (eq? handle #f) only-doc-if-set)
+	'("" . "")
+	(cons (string-append "@code{" name "} "
+		       "(" type ")"
+		       ":" )
+	      (string-append desc
+			     "\nDefault value: "
+			     def-val-str))
+    ))
+  )
+
+(define (document-interface where interface element-description)
+  "
+
+"
+  (let* ((level (if (eq? where 'element) 3 2))
+	 (name (car interface))
 	 (desc (cadr interface))
 	 (props (caddr interface))
-	 (docs (map (lambda (x)
-		      (document-element-property x element-description))
-		    props)))
+	 (docfun  (lambda (x)
+		    (document-element-property
+		     x element-description (eq? where 'element))))
+	 (docs (map docfun props))
+	 )
 
     (string-append
-     (section level (string-append (interface-name (symbol->string name))))
+     (texi-section level (string-append (interface-name (symbol->string name))) (eq? where 'element)) ;gur.
      desc
      
-     (description-list
-      ;; filter-out entries with CDR "not set"
-      (apply append
-	     (map (lambda  (x)
-		    (if (string-match "not set" (cdr x)) '() (list x)))
-		  docs))))))
+     (description-list->texi docs)
+     )))
 
 ;; First level Interface description
 (define (document-separate-interface interface)
@@ -54,7 +63,7 @@
     (processing name)
     (string-append
      (node (interface-name name))
-     (document-interface 2 interface '()))))
+     (document-interface 'self interface '()))))
 
 ;; First level element description
 (define (document-element iname description)
@@ -68,12 +77,12 @@
 	 
 	 (name (cdr (assoc 'name meta)))
 	 (ifaces (cdr (assoc 'interface-descriptions meta)))
-	 (ifacedoc (map (lambda (x) (document-interface 3 x description))
+	 (ifacedoc (map (lambda (x) (document-interface 'element x description))
 			(reverse ifaces))))
     
     (string-append
      (node (element-name name))
-     (section 2 (element-name name))
+     (texi-section 2 (element-name name) #f)
      "\n"
 
      (let* ((element (string->symbol name))
@@ -131,8 +140,10 @@
       (load "lily.scm")))
 
 (use-modules (ice-9 string-fun))
+
+(define interface-file-str (string-append (ly-gulp-file "interface.scm") "\n(define "))
 (define (list-interface-names)
-  (let* ((text (string-append (ly-gulp-file "interface.scm") "\n(define "))
+  (let* ((text interface-file-str)
 	 (r (make-regexp 
 	     "\n[(](define *([a-z-]*-interface)*)*[^\n]*"))
 	 (t (regexp-substitute/global #f r text 2 " " 'post))
