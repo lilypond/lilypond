@@ -4,10 +4,10 @@ depth = ..
 NAME = lilypond
 SUBDIRS = include
 
-MODULE_LIBS=$(depth)/flower  $(depth)/ttftool $(depth)/kpath-guile 
+MODULE_LIBS= $(depth)/flower  $(depth)/ttftool $(depth)/kpath-guile 
 MODULE_INCLUDES= $(depth)/flower/include $(depth)/ttftool/include 
 MODULE_CXXFLAGS= 
-MODULE_LDFLAGS=
+MODULE_LDFLAGS= $(KPATHSEA_LIBS)
 
 
 HELP2MAN_EXECS = lilypond
