@@ -24,6 +24,7 @@
 
 Simple_spacer::Simple_spacer ()
 {
+  active_count_ = 0;
   force_f_ = 0.;
   indent_f_ =0.0;
   default_space_f_ = 20 PT;
@@ -100,8 +101,12 @@ Simple_spacer::set_active_states ()
   // safe, since
   // force is only copied.
   for (int i=0 ; i <springs_.size (); i++)
-    if (springs_[i].block_force_f_ >= force_f_) 
-      springs_[i].active_b_ = false;
+    if (springs_[i].active_b_
+	&& springs_[i].block_force_f_ >= force_f_)
+      {
+	springs_[i].active_b_ = false;
+	active_count_ --; 
+      }
 }   
 
 Real
@@ -125,10 +130,7 @@ Spring_description::length (Real f) const
 bool
 Simple_spacer::active_b () const
 {
-   for (int i=0; i < springs_.size (); i++)
-    if (springs_[i].active_b_)
-      return true;
-   return false;
+  return active_count_; 
 }
 
 void
@@ -216,6 +218,7 @@ Simple_spacer::add_columns (Link_array<Grob> cols)
       
       desc.block_force_f_ = - desc.hooke_f_ * desc.ideal_f_; // block at distance 0
       springs_.push (desc);
+      active_count_ ++;
     }
   
   for (int i=0; i < cols.size () - 1; i++)
@@ -255,7 +258,32 @@ Simple_spacer::solve (Column_x_positions *positions) const
   positions->loose_cols_ = loose_cols_;
   
   positions->satisfies_constraints_b_ = (line_len_f_ < 0) || active_b ();
+
+
+  /*
+    Check if breaking constraints are met.
+   */
+  bool break_satisfy = true;
+  int sz =  positions->cols_.size ();
+  for (int i = sz; i--; )
+    {
+      SCM p = positions->cols_[i]->get_grob_property( "penalty");
+      if (gh_number_p (p))
+	{
+	  if (gh_scm2double (p) < -9999)
+	    break_satisfy = break_satisfy && (i == 0 || i == sz -1);
+	  if (gh_scm2double (p) > 9999)
+	    break_satisfy = break_satisfy && !(i == 0 || i == sz -1);
+	}
+      
+    }
+
+  positions->satisfies_constraints_b_ =
+    positions->satisfies_constraints_b_ && break_satisfy;
 }
+
+
+
 
 
 
