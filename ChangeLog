@@ -3,6 +3,7 @@
 	* scm/output-gnome.scm (beam): add function.
 	(draw-line): new routine.
 	(dashed-line): stub; call draw-line
+	(polygon): new routine.
 
 2004-11-15  Werner Lemberg  <wl@gnu.org>
 
