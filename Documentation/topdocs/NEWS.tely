@@ -49,7 +49,7 @@ to GhostScript 8.x.
 
 @item
 Separator slashes may be inserted between systems in a score. For an
-example, see @inputfileref{input/regression/system-separator.ly}:
+example, see @inputfileref{input/regression,system-separator.ly}:
 
 @item
 Locations of errors in the input are now calculated more precisely.
