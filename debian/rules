@@ -55,6 +55,7 @@ build-doc-stamp:
 
 	$(MAKE) -C Documentation
 	$(MAKE) web
+	find . -type d -name 'out-www' | xargs rm -rf
 
 	touch build-doc-stamp
 
@@ -98,13 +99,13 @@ binary-indep: build-doc install
 	cd $(r_doc)/$(d) \
 	    && cp -s `find html/Documentation -name '*.ps.gz'` . \
 	    && cp -s html/Documentation/pictures/out-www/*.png .
-	# Copy the DVI docs too ...
-	cp -a `find Documentation -name '*.dvi' ! -name 'lily-[0-9]*.dvi'` \
-		$(r_doc)/$(d)/
+#	# Copy the DVI docs too ...
+#	cp -a `find Documentation -name '*.dvi' ! -name 'lily-[0-9]*.dvi'` \
+#		$(r_doc)/$(d)/
 	dh_installdocs
 	dh_installchangelogs
 	dh_link
-	dh_compress -Xusr/share/doc/lilypond/html/
+	dh_compress -X$(d)/html/
 	dh_fixperms
 	dh_installdeb
 	dh_gencontrol
@@ -128,10 +129,10 @@ binary-arch: build install
 #	cp -a Documentation/misc/[ACN]* $(r)/$(d)/misc/
 
 #	dh_installexamples input
-	find input \( -name '*.*ly' -o -name '*.abc' -o -name '*.tex' -o -name 'TODO' \) \
-		-exec cp -a --parents '{}' $(r)/$(d)/examples ';'
-	for i in `find $(r)/$(d)/examples/ -type d -name out`; do \
-		mv -fv $$i/* $$i/..; rmdir $$i; done
+#	find input \( -name '*.*ly' -o -name '*.abc' -o -name '*.tex' -o -name 'TODO' \) \
+#		-exec cp -a --parents '{}' $(r)/$(d)/examples ';'
+#	for i in `find $(r)/$(d)/examples/ -type d -name out`; do \
+#		mv -fv $$i/* $$i/..; rmdir $$i; done
 #	dh_installmenu
 	dh_installemacsen
 #	dh_installcron
