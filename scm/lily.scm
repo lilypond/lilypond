@@ -309,7 +309,7 @@
 
   (define (header creator generate) 
     (string-append
-     "%created by: " creator generate))
+     "%created by: " creator generate "\n"))
 
   (define (invoke-char s i)
     (string-append 
@@ -350,9 +350,8 @@
     (embedded-ps ((ps-scm 'bezier-sandwich) l thick)))
 
   (define (start-line ht)
-    (begin
       (string-append"\\vbox to " (number->dim ht) "{\\hbox{%\n"))
-    )
+
   (define (stop-line) 
     "}\\vss}\\interscoreline")
   (define (stop-last-line)
@@ -582,8 +581,7 @@
      " draw_bezier_sandwich"))
 
   (define (start-line height)
-    (begin
-      "\nstart_line {\n"))
+	  "\nstart_line {\n")
   
   (define (stem breapth width depth height) 
     (string-append (numbers->string (list breapth width depth height))
@@ -658,6 +656,116 @@
 	)
   )
 
+(define (musa-scm action-name)
+
+  (define (char i)
+    (string-append "char (" (inexact->string i 10) ")\n"))
+
+  (define (end-output) 
+    "end_output ()\n")
+  
+  (define (experimental-on)
+	  "")
+
+  (define (filledbox breapth width depth height)
+	  (let ((dx (+ width breapth))
+		(dy (+ depth height)))
+	       (string-append 
+		"move_relative (" 
+		(inexact->string (* -1 breapth) 10)
+		", "
+		(inexact->string (* -1 depth) 10)
+		")\n"
+		(if (< dx dy)
+		    (string-append "vline (" (inexact->string dy 10) ")\n")
+		    (string-append "hline (" (inexact->string dx 10) ")\n")))))
+
+  (define (font-load-command name-mag command)
+    (string-append
+     "load_font (\"" 
+     (symbol->string (car name-mag)) "\", " 
+     (number->string (magstep (cdr name-mag)))
+     ")\n"))
+
+  (define (header creator generate) 
+    (string-append "header (\"" creator "\", \"" generate "\")\n"))
+
+  (define (header-end) 
+    "header_end ()\n")
+
+  (define (lily-def key val)
+	  "")
+
+  (define (placebox x y s) 
+    (string-append 
+     "move_to (" (inexact->string x 10) ", " (inexact->string y 10) ")\n" s))
+
+  (define (select-font font-name-symbol)
+    (let* ((c (assoc font-name-symbol font-name-alist)))
+      (if (eq? c #f)
+	  (begin
+	    (ly-warn 
+	     (string-append 
+	      "Programming error: No such font known " 
+	      (car font-name-symbol)))
+	    "")				; issue no command
+	  (string-append "select_font (\"" (symbol->string (car font-name-symbol)) "\")\n"))))
+
+  (define (start-line height)
+    (string-append "start_line (" (inexact->string height 10) ")\n"))
+
+  (define (stop-line)
+    "stop_line ()\n")
+
+  (define (text s)
+    (string-append "text (\"" s "\")\n"))
+
+  (cond ((eq? action-name 'all-definitions)
+	 `(begin
+	    ;;(define beam ,beam)
+	    ;;(define tuplet ,tuplet)
+	    ;;(define bracket ,bracket)
+	    (define char ,char)
+	    ;;(define crescendo ,crescendo)
+	    ;;(define volta ,volta)
+	    ;(define bezier-sandwich ,bezier-sandwich)
+	    ;;(define dashed-slur ,dashed-slur) 
+	    ;;(define decrescendo ,decrescendo) 
+	    (define end-output ,end-output)
+	    (define experimental-on ,experimental-on)
+	    (define filledbox ,filledbox)
+	    ;;(define font-def ,font-def)
+	    (define font-load-command ,font-load-command)
+	    ;;(define font-switch ,font-switch)
+	    (define header ,header) 
+	    (define header-end ,header-end)
+	    (define lily-def ,lily-def)
+	    ;;(define invoke-char ,invoke-char) 
+	    ;;(define invoke-dim1 ,invoke-dim1)
+	    (define placebox ,placebox)
+	    (define select-font ,select-font)
+	    (define start-line ,start-line)
+	    ;;(define stem ,stem)
+	    (define stop-line ,stop-line)
+	    (define stop-last-line ,stop-line)
+	    (define text ,text)
+	    ))
+	;;((eq? action-name 'tuplet) tuplet)
+	;;((eq? action-name 'beam) beam)
+	;;((eq? action-name 'bezier-sandwich) bezier-sandwich)
+	;;((eq? action-name 'bracket) bracket)
+	((eq? action-name 'char) char)
+	;;((eq? action-name 'crescendo) crescendo)
+	;;((eq? action-name 'dashed-slur) dashed-slur) 
+	;;((eq? action-name 'decrescendo) decrescendo)
+	;;((eq? action-name 'experimental-on) experimental-on)
+	((eq? action-name 'filledbox) filledbox)
+	((eq? action-name 'select-font) select-font)
+	;;((eq? action-name 'volta) volta)
+	(else (error "unknown tag -- MUSA-SCM " action-name))
+	)
+  )
+
 
 (define (gulp-file name)
   (let* ((port (open-file name "r"))
@@ -684,6 +792,10 @@
 				
 (define (scm-ps-output)
   (eval (ps-scm 'all-definitions)))
+
+(define (scm-musa-output)
+  (display (gulp-file "musa.py"))
+  (eval (musa-scm 'all-definitions)))
 
 				
 ; Russ McManus, <mcmanus@IDT.NET>  

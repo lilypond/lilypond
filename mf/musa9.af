@@ -1,0 +1,26 @@
+# musa9.af --
+
+ C 23; WX 2; N dots-dot;  B 0 3 1 0;
+.
+ C 33; WX 9; N noteheads-0;  B 0 3 1 0;
+(O)
+ C 34; WX 6; N noteheads-1;  B 0 3 1 0;
+(O)
+ C 35; WX 6; N noteheads-2;  B 0 3 1 0;
+(*)
+ C 86; WX 7; N flags-d3; B  0 2 1 1;
+\
+ \
+ C 95 ; WX 1 ; N  clefs-G ;  B 5 0 -3 7;
+   /\       
+   | |
+   |/
+   |
+  /|
+ / |
+|  | _
+| (@) )
+ \ | /
+   |
+   |
+ (_|

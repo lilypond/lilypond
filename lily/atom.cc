@@ -23,7 +23,7 @@
 Atom::Atom(SCM s)
 {
   SCM onstack = s;		// protection.
-  func_ = scm_protect_object (s);
+  func_ = onstack; //scm_protect_object (s);
   self_scm_ = SCM_EOL;
   smobify_self ();
 }

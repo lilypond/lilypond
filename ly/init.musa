@@ -1,0 +1,36 @@
+% Toplevel MUSicAscii initialisation file. 
+
+\version "1.3.24";
+
+\include "declarations-musa.ly"
+
+% burp.  need to override lily.scm
+#(define cmr-alist 
+  '(("bold" . "cmbx") 
+    ("dynamic" . "feta-din") 
+    ("feta" . "feta") 
+    ("feta-1" . "feta") 
+    ("feta-2" . "feta") 
+    ("finger" . "musa-nummer") 
+    ("typewriter" . "cmtt") 
+    ("italic" . "cmti") 
+    ("roman" . "cmr") 
+    ("script" . "cmr") 
+    ("large" . "cmbx") 
+    ("Large" . "cmbx") 
+    ("mark" . "musa-nummer") 
+    ("number" . "musa-nummer") 
+    ("volta" . "musa-nummer"))
+)
+
+\score { 
+  \context Voice \notes\relative c {
+    \maininput
+  }
+  \paper {
+    \paper_musa_nine
+    %linewidth=-1.0;
+    %indent = 0.0;
+  }  
+  %\midi{ }
+}

@@ -4,7 +4,11 @@ depth = ..
 
 STEPMAKE_TEMPLATES=metafont metapost install install-out
 
-EXTRA_DIST_FILES += README feta.tex
+AF_FILES = $(wildcard *.af) 
+#AFM_FILES = $(wildcard *.afm) 
+AF_AFM_FILES = $(wildcard *.afm) 
+
+EXTRA_DIST_FILES += README feta.tex  $(AF_FILES) $(AF_AFM_FILES)
 
 FET_FILES = $(wildcard feta[0-9]*.mf)
 FONT_FILES = $(wildcard feta*[0-9].mf)
