@@ -7,6 +7,9 @@
 @unnumbered New features in 2.3 since 2.2
 
 @itemize @bullet
+@item The melody  for a @code{\lyricsto} text can be changed during a melody.
+
+@item The @code{\lyricsto} keyword now automatically sets @code{\lyrics}.
 
 @item The LilyPond binary  now supports output options
 @code{--dvi} @code{--png} @code{--ps} @code{--pdf} and

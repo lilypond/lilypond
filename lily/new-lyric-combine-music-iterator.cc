@@ -1,11 +1,11 @@
 /*   
-new-lyric-combine-iterator.cc --  implement New_lyric_combine_music_iterator
+     new-lyric-combine-iterator.cc -- implement New_lyric_combine_music_iterator
 
-source file of the GNU LilyPond music typesetter
+     source file of the GNU LilyPond music typesetter
 
-(c) 2004 Han-Wen Nienhuys <hanwen@xs4all.nl>
+     (c) 2004 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
- */
+*/
 
 #include "context.hh"
 #include "lyric-combine-music.hh"
@@ -38,6 +38,8 @@ private:
   bool made_association_;
   Context * lyrics_context_;
   Context * music_context_;
+  SCM lyricsto_voice_name_;
+  
   Music_iterator * lyric_iter_;
 };
 
@@ -142,6 +144,9 @@ New_lyric_combine_music_iterator::construct_children ()
   Music *m = unsmob_music (get_music ()->get_property ("element"));
   lyric_iter_ = unsmob_iterator (get_iterator (m));
 
+  lyricsto_voice_name_ = get_music ()->get_property ("associated-context");
+
+  
   find_voice ();
   
   if (lyric_iter_)
@@ -158,22 +163,33 @@ New_lyric_combine_music_iterator::construct_children ()
 void
 New_lyric_combine_music_iterator::find_voice ()
 {
-  if (!music_context_)
-    {
-      SCM voice_name = get_music ()->get_property ("associated-context");
-  
-      if (ly_c_string_p (voice_name))
-	{
-	  Context *t = get_outlet ();
-	  while (t && t->get_parent_context ())
-	    t = t->get_parent_context ();
+  SCM voice_name = lyricsto_voice_name_;
+  SCM running = lyrics_context_ ? lyrics_context_->get_property ("associatedVoice") : SCM_EOL;
 
-	  String name = ly_scm2string (voice_name);
-	  Context *voice = find_context_below (t, ly_symbol2scm ("Voice"), name);
-	  if (voice)
-	    music_context_ = voice;
-	    
-	}
+  if (ly_c_string_p (running))
+    voice_name = running;
+
+  if (ly_c_string_p (voice_name)
+      && (!music_context_ || ly_scm2string (voice_name) != music_context_->id_string ()))    
+    {
+      /*
+	(spaghettini).
+	
+	Need to set associatedVoiceContext again
+       */
+      if (music_context_)
+	made_association_ = false;
+      
+      Context *t = get_outlet ();
+      while (t && t->get_parent_context ())
+	t = t->get_parent_context ();
+
+      String name = ly_scm2string (voice_name);
+      Context *voice = find_context_below (t, ly_symbol2scm ("Voice"), name);
+
+      
+      if (voice)
+	music_context_ = voice;
     }
 
   if (lyrics_context_ && music_context_)

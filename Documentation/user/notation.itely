@@ -3567,7 +3567,10 @@ Program reference: Music expressions: @internalsref{LyricCombineMusic},
 Contexts: @internalsref{Lyrics}, @internalsref{Melisma_translator}.
 
 Examples: @inputfileref{input/template,satb.ly},
-@inputfileref{input/regression,lyric-combine-new.ly}.
+@inputfileref{input/regression,lyric-combine-new.ly},
+@c TODO: make separate section for melismata 
+@inputfileref{input/test,lyrics-melisma-variants.ly}.
+@inputfileref{input/test,lyrics-melisma-faster.ly}.
  
 @refbugs
 
