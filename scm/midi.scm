@@ -42,7 +42,7 @@
 (set! instrument-equalizer-alist
       (append 
        '(
-	 ("flute" . (0 . 0.07))
+	 ("flute" . (0 . 0.7))
 	 ("oboe" . (0 . 0.7))
 	 ("clarinet" . (0 . 0.7))
 	 ("bassoon" . (0 . 0.6))
