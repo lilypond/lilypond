@@ -44,31 +44,71 @@ ifeq ($(out),www)
 # This builds all .info targets with images, in out-www.
 # Viewawble with a recent Emacs, doing: M-x info out-www/lilypond.info
 
-#info: $(INFO_FILES)
-
 # Cancel the special, non-image info generation rule that skips images:
 $(outdir)/%.info: $(outdir)/%.nexi
 
-local-install-info: install-info info
+local-install-info: info
 	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
 ifneq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
 ## Can not have absolute symlinks because some binary packages build schemes
 ## install files in nonstandard root.  Best we can do is to notify the
 ## builder or packager.
-	@echo "***"
+	@echo
+	@echo "***************************************************************"
+	@echo "Please add or update the LilyPond direntries, do"
+	@echo
+	@echo "    install-info --info-dir=$(infodir) $(outdir)/lilypond.info"
+	@echo
 	@echo "For images in the INFO docs to work, do: "
+	@echo
 	@echo "    (cd $(package_infodir) && ln -sf ../../doc/lilypond/Documentation/user/out-www/*png .)"
 	@echo "or add something like that to the postinstall script."
-	@echo "***"
+	@echo
 else
+
+	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
+	install-info --info-dir=$(infodir) $(outdir)/lilypond.info
 	(cd $(package_infodir) && ln -sf $(local_package_docdir)/Documentation/user/out-www/*png .)
 endif
 
 local-uninstall-WWW:
 	rm -f $(package_infodir)/*.png
+
 else
-    # Cancel the default info generation rule that generates images:
-    $(outdir)/%.info: # $(outdir)/%.texi
+
+# Cancel the default info generation rule that generates images:
+$(outdir)/%.info: # $(outdir)/%.texi
+
+local-install-info: info
+	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
+ifneq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
+## Can not have absolute symlinks because some binary packages build schemes
+## install files in nonstandard root.  Best we can do is to notify the
+## builder or packager.
+	@echo
+	@echo "***************************************************************"
+	@echo "Please add or update the LilyPond direntries, do"
+	@echo
+	@echo "    install-info --info-dir=$(infodir) out/lilypond.info"
+	@echo
+	@echo "For images in the INFO docs to work, do"
+	@echo
+	@echo "    make out=www install-info "
+	@echo
+	@echo "and read the extra instructions."
+	@echo
+else
+	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
+	install-info --info-dir=$(infodir) $(outdir)/lilypond.info
+	@echo
+	@echo "***************************************************************"
+	@echo "For images in the INFO docs to work, do"
+	@echo
+	@echo "    make out=www install-info "
+	@echo
+endif
+
+
 endif
 
 # All web targets, except info image symlinks and info docs are

@@ -13,9 +13,9 @@ TODO: cleanup
 @end ignore
 
 
-
-@node Integrating text and music
-@chapter Integrating text and music
+@c Note: keep this node named so that `info lilypond-book' brings you here.
+@node LilyPond-book
+@chapter LilyPond-book: Integrating text and music
 
 If you want to add pictures of music to a document, you can simply do it
 the way you would do with other types of pictures.  The pictures are
@@ -31,13 +31,13 @@ the music are adjusted to match the layout of your document.
 This procedure may be applied to La@TeX{}, HTML or Texinfo documents.
 
 @menu
-* An example of a musicological document::
-* Integrating LaTeX and music::
-* Integrating Texinfo and music::
-* Integrating HTML and music::
-* Music fragment options::
-* Invoking lilypond-book::
-* Filename extensions::
+* An example of a musicological document::  
+* Integrating LaTeX and music::  
+* Integrating Texinfo and music::  
+* Integrating HTML and music::  
+* Music fragment options::      
+* Invoking lilypond-book::      
+* Filename extensions::         
 @end menu
 
 

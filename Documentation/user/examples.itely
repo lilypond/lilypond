@@ -1233,7 +1233,7 @@ gcdg = { \grace { g'32[ c' d']  } }
 @section Lilypond-book templates
 
 These templates are for use with @code{lilypond-book}.  If you're not familiar
-with this program, please refer to @ref{Integrating text and music}.
+with this program, please refer to @ref{LilyPond-book}.
 
 @subsection LaTeX
 
