@@ -127,7 +127,7 @@ Repeat_engraver::do_process_requests ()
       if (i == alternative_music_arr_.size () - 1)
         v->last_b_ = true;
       Text_def* t = new Text_def;
-      t->text_str_ = to_str (i - bees + 1);
+      t->text_str_ = to_str (i - bees + 1) + ".";
       v->number_p_.set_p (t);
       volta_p_arr_.push (v);
       announce_element (Score_element_info (v, alternative_music_arr_[i]));

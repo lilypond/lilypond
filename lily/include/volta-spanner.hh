@@ -22,7 +22,6 @@ public:
   void add_column (Bar*);
  
   P<Text_def>  number_p_;
-  P<Text_def>  dot_p_;
   Link_array<Bar> column_arr_;
   Link_array<Note_column> note_column_arr_;
   bool last_b_;

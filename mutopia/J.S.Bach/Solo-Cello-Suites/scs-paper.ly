@@ -2,7 +2,7 @@ linewidth = 180.\mm;
 gourlay_maxmeasures = 10.0;
 \translator { \BarNumberingStaffContext }
 \translator {
-	\StaffContext
+	\VoiceContext
 	\consists Auto_beam_engraver;
 	beamAuto = 1.0;
 	beamAutoEnd8 = "1/4";

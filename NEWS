@@ -1,3 +1,9 @@
+pl25.jcn1
+	- volta-spanner: junked dot_p_; not so handy after all: kerning??
+	- feta-nummer: added : ,-.14s4s 
+	- volta/tuplet thickness
+	- bf: scs-paper
+	- bf: ".|", and bar-thicknesses
 
 pl 23.ms2
 	- property noteheadStyle

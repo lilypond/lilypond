@@ -239,11 +239,11 @@
   (define (text f s)
     (string-append "\\set" f "{" (output-tex-string s) "}"))
   
-  (define (tuplet dx dy dir)
-    (embedded-ps ((ps-scm 'tuplet) dx dy dir)))
+  (define (tuplet dx dy thick dir)
+    (embedded-ps ((ps-scm 'tuplet) dx dy thick dir)))
 
-  (define (volta w last)
-    (embedded-ps ((ps-scm 'volta)  w last)))
+  (define (volta w thick last)
+    (embedded-ps ((ps-scm 'volta) w thick last)))
 
   (define (maatstreep h)
     (string-append "\\maatstreep{" (number->dim h) "}"))
@@ -423,13 +423,14 @@
     (string-append "(" s ") set" f " "))
 
 
-  (define (volta w last)
+  (define (volta w thick last)
     (string-append 
-     (numbers->string (list w (inexact->exact last)))
+     (numbers->string (list w thick (inexact->exact last)))
      "draw_volta"))
-  (define   (tuplet dx dy dir)
+
+  (define (tuplet dx dy thick dir)
     (string-append 
-     (numbers->string (list dx dy (inexact->exact dir)))
+     (numbers->string (list dx dy thick (inexact->exact dir)))
      "draw_tuplet"))
 
 

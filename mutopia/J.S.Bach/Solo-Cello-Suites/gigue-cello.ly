@@ -49,15 +49,11 @@ gigue_cello_staff = \type Staff <
 
 \score{
 	\$gigue_cello_staff
-	% \paper { \include "scs-paper.ly"; }
 	\paper{
-	        linewidth = 180.\mm;
-		\translator { \BarNumberingStaffContext }
+		\include "scs-paper.ly";
+		gourlay_maxmeasures = 7.0;
 		\translator{
 			\VoiceContext
-			% add experimental auto-beaming
-			\consists Auto_beam_engraver;
-			beamAuto = 1.;
 			beamAutoEnd8 = "3/4";
 			beamAutoEnd16 = "3/4";
 		}

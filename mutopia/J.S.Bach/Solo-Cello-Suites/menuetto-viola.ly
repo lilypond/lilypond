@@ -63,13 +63,10 @@ menuetto_i_viola_staff = \type Staff <
 \score{
 	\$menuetto_i_viola_staff
 	\paper{
-	        linewidth = 180.\mm;
-		\translator { \BarNumberingStaffContext }
+		\include "scs-paper.ly";
+		gourlay_maxmeasures = 7.0;
 		\translator{
 			\VoiceContext
-			% add experimental auto-beaming
-			\consists Auto_beam_engraver;
-			beamAuto = 1.;
 			beamAutoEnd8 = "3/4";
 		}
 	}
@@ -100,13 +97,10 @@ menuetto_ii_viola_staff = \type Staff <
 \score{
 	\$menuetto_ii_viola_staff
 	\paper{
-	        linewidth = 180.\mm;
-		\translator { \BarNumberingStaffContext }
+		\include "scs-paper.ly";
+		gourlay_maxmeasures = 7.0;
 		\translator{
 			\VoiceContext
-			% add experimental auto-beaming
-			\consists Auto_beam_engraver;
-			beamAuto = 1.;
 			beamAutoEnd8 = "3/4";
 		}
 	}

@@ -149,8 +149,8 @@ Lookup::bar (String str, Real h) const
     }
   else if (str == ".|")
     {
-      m.add_at_edge (X_AXIS, RIGHT, thick, kern);
-      m.add_at_edge (X_AXIS, RIGHT, thin, 0);
+      m.add_at_edge (X_AXIS, RIGHT, thick, 0);
+      m.add_at_edge (X_AXIS, RIGHT, thin, kern);
     }
   else if (str == ":|")
     {
@@ -166,7 +166,7 @@ Lookup::bar (String str, Real h) const
     }
   else if (str == ":|:")
     {
-      m.add_at_edge (X_AXIS, LEFT, thick,kern/2);
+      m.add_at_edge (X_AXIS, LEFT, thick,thinkern);
       m.add_at_edge (X_AXIS, LEFT, colon,kern);      
       m.add_at_edge (X_AXIS, RIGHT, thick,kern);
       m.add_at_edge (X_AXIS, RIGHT, colon,kern);      
@@ -485,10 +485,18 @@ Atom
 Lookup::plet (Real dy , Real dx, Direction dir) const
 {
   Atom a;
+  SCM thick = ly_symbol ("tuplet_thick");
+  Real t = 0.1 PT;
+  if (paper_l_->scope_p_->elem_b (thick))
+    {
+      t = paper_l_->get_realvar (thick);
+    }
   a.lambda_ = gh_list(ly_symbol ("tuplet"),
 		      gh_double2scm (dx),
 		      gh_double2scm (dy),
-		      gh_int2scm (dir), SCM_UNDEFINED);
+		      gh_double2scm (t),
+		      gh_int2scm (dir),
+		      SCM_UNDEFINED);
   return a;
 }
 
@@ -534,8 +542,15 @@ Atom
 Lookup::volta (Real w, bool last_b) const
 {
   Atom a;
+  SCM thick = ly_symbol ("volta_thick");
+  Real t = 0.1 PT;
+  if (paper_l_->scope_p_->elem_b (thick))
+    {
+      t = paper_l_->get_realvar (thick);
+    }
   a.lambda_ = gh_list (ly_symbol ("volta"),
 		       gh_double2scm (w),
+		       gh_double2scm (t),
 		       gh_int2scm (last_b),
 		       SCM_UNDEFINED);
 
