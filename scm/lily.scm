@@ -162,6 +162,13 @@
 	    (map-alist-keys func (cdr list)))
       ))
  
+;;;;;;;;;;;;;;;;
+;; hash
+
+
+
+(if (not (defined? 'hash-table?))	; guile 1.6 compat
+    (define hash-table? vector?))
 
 (define-public (hash-table->alist t)
   "Convert table t to list"

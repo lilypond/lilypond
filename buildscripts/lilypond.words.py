@@ -84,16 +84,7 @@ for name in [
 	    notes = notes + ['' + m.group(2)]
     F.close()
 
-# (short) drum names
-for name in [
-'scm/drums.scm'
-]:
-    F = open(name, 'r')
-    for line in F.readlines():
-	m = re.search(r"^(\s*\([a-z]+\s*)([a-z]+)(\s*,\(ly:make-pitch)",line)
-	if m:
-	    notes = notes + ['' + m.group(2)]
-    F.close()
+
     
 # reserved words
 for name in [
