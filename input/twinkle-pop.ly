@@ -36,12 +36,12 @@ acc = \chords {
 text = \lyrics{ 
         \property Lyrics . textStyle =  "italic"
 
-        Ah!4 vous dir- ai- je ma man2
-        Ce4 qui cau- se mon tour- ment2
-        Pa-4 pa veut que je rai- so- nne
-        Comme4 un- e grand- e per- so- nne
-        Moi4 je dis que les bon- bons2
-        Val-4 ent mieux que la rai- son2
+        Ah!4 vous dir -- ai -- je ma man2
+        Ce4 qui cau -- se mon tour -- ment2
+        Pa4 --  pa veut que je rai -- so -- nne
+        Comme4 un -- e grand -- e per -- so -- nne
+        Moi4 je dis que les bon -- bons2
+        Val4 -- ent mieux que la rai -- son2
         
 }
 

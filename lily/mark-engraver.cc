@@ -8,7 +8,6 @@
 
 #include <ctype.h>
 #include "bar.hh"
-#include "clef-item.hh"
 #include "command-request.hh"
 #include "dimension-cache.hh"
 #include "engraver-group-engraver.hh"

@@ -12,7 +12,7 @@
 
 #include "staff-symbol-referencer.hh"
 #include "bar.hh"
-#include "clef-item.hh"
+
 #include "debug.hh"
 #include "command-request.hh"
 #include "timing-translator.hh"
@@ -27,7 +27,7 @@
 
 /// where is c-0 in the staff?
 class Clef_engraver : public  Engraver {
-  Clef_item * clef_p_;
+  Item * clef_p_;
   Item * octavate_p_;
   Clef_change_req * clef_req_l_;
   
@@ -177,7 +177,7 @@ Clef_engraver::create_clef()
 {
   if (!clef_p_)
     {
-      Clef_item *c= new Clef_item ( current_settings_);
+      Item *c= new Item ( current_settings_);
       announce_element (Score_element_info (c, clef_req_l_));
 
       Staff_symbol_referencer_interface si(c);

@@ -13,7 +13,7 @@
 #include "molecule.hh"
 #include "paper-column.hh"
 #include "paper-def.hh"
-#include "extender-spanner.hh"
+#include "lyric-extender.hh"
 
 
 MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Lyric_extender,brew_molecule)
@@ -33,10 +33,10 @@ Lyric_extender::brew_molecule (SCM smob)
 }
 
 void
-Lyric_extender::set_textitem (Direction d, Item* textitem_l)
+Lyric_extender::set_textitem (Direction d, Score_element*s)
 {
-  elt_l_->set_bound (d, textitem_l);
-  elt_l_->add_dependency (textitem_l);
+  elt_l_->set_bound (d, s);
+  elt_l_->add_dependency (s);
 }
 
 Lyric_extender::Lyric_extender (Spanner*s)

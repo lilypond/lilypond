@@ -445,10 +445,11 @@ ScoreContext = \translator {
 	)
 	 basicClefItemProperties = #`(
    	   (molecule-callback . ,Score_element::brew_molecule)
-	   (before-line-breaking-callback . ,Clef_item::before_line_breaking)
+	   (before-line-breaking-callback . ,Clef::before_line_breaking)
 	   (breakable . #t)
 	   (break-align-symbol . Clef_item)
-	   (visibility-lambda . ,begin-of-line-visible) 
+	   (visibility-lambda . ,begin-of-line-visible)
+	   (clef-interface . #t)
 	 )
 	basicSlurProperties = #`(
 		(molecule-callback . ,Slur::brew_molecule)
@@ -511,7 +512,9 @@ ScoreContext = \translator {
 	)
 	basicLyricTextProperties = #`(
 		(molecule-callback . ,Text_item::brew_molecule)
+		(self-alignment-X . 0)
 		(non-rhythmic . #t)
+		(text-item-interface . #t)
 	)
 	basicMarkProperties = #`(
 	  (molecule-callback . ,Text_item::brew_molecule)	

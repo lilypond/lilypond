@@ -12,6 +12,7 @@
 #include "item.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
+#include "side-position-interface.hh"
 
 ADD_THIS_TRANSLATOR (Lyric_engraver);
 
@@ -45,6 +46,13 @@ Lyric_engraver::do_process_music()
       text_p_->set_elt_property ("text",
 				 ly_str02scm   ((req_l_->text_str_ + " ").ch_C ()));
 
+      text_p_->add_offset_callback (&Side_position_interface::aligned_on_self,X_AXIS);
+      /*
+	We can't reach the notehead where we're centered from here. So
+	we kludge.
+      */
+      text_p_->translate_axis (paper_l()->get_var ("quartwidth")/2, X_AXIS);
+      
       announce_element (Score_element_info (text_p_, req_l_));
     }
 }

@@ -12,53 +12,60 @@
 #include "molecule.hh"
 #include "item.hh"
 
-Clef_item::Clef_item (SCM s)
-  : Item (s)
-{}
+
+/**
+  Set a clef in a staff.
+
+  properties:
+
+  non-default -- not set because of existence of a bar?
+
+  change -- is this a change clef (smaller size)?
+
+  glyph -- a string determining what glyph is typeset
+  
+ */
+struct Clef 
+{
+  static SCM before_line_breaking (SCM);
+};
 
 
 /*
 FIXME: should use symbol.
 
-FIXME: this should be schemified.
 */
-GLUE_SCORE_ELEMENT(Clef_item,before_line_breaking);
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Clef,before_line_breaking);
 SCM
-Clef_item::member_before_line_breaking ()
+Clef::before_line_breaking (SCM smob)
 {
-  SCM style_sym =get_elt_property ("style");
+  Item * s = dynamic_cast<Item*> (unsmob_element (smob));
+
+  SCM style_sym =s->get_elt_property ("style");
   String style;
   if (gh_string_p (style_sym))
     style = ly_scm2string (style_sym);
 
-  SCM glyph = get_elt_property ("glyph");
+  SCM glyph = s->get_elt_property ("glyph");
   
   if (gh_string_p (glyph))
     {
-      String s = ly_scm2string (glyph);
+      String str = ly_scm2string (glyph);
 
       /*
 	FIXME: should use fontsize property to set clef changes.
        */
-      if (get_elt_property ("non-default") &&
-	  break_status_dir() != RIGHT && style != "fullSizeChanges")
+      if (s->get_elt_property ("non-default") &&
+	  s->break_status_dir() != RIGHT && style != "fullSizeChanges")
 	{
-	  s += "_change";
-	  set_elt_property ("glyph", ly_str02scm (s.ch_C()));	  
+	  str += "_change";
+	  s->set_elt_property ("glyph", ly_str02scm (str.ch_C()));	  
 	}
     }
   else
     {
-      suicide ();
+      s->suicide ();
       return SCM_UNDEFINED;
-    }
-
-  // ugh.
-  /* why not suicide? */
-  if (style == "transparent")	// UGH. JUNKME
-    {
-      set_elt_property ("molecule-callback", SCM_BOOL_T);
-      set_extent_callback (0, X_AXIS);
     }
 
   return SCM_UNDEFINED;

@@ -22,8 +22,8 @@
   then.  */
 class Hyphen_engraver : public Engraver
 {
-  Item *last_lyric_l_;
-  Item *current_lyric_l_;
+  Score_element *last_lyric_l_;
+  Score_element *current_lyric_l_;
   Hyphen_req* req_l_;
   Spanner* hyphen_p_;
 public:
@@ -54,16 +54,16 @@ Hyphen_engraver::Hyphen_engraver ()
 void
 Hyphen_engraver::acknowledge_element (Score_element_info i)
 {
-
   // -> text-item
-  if (Item* t = dynamic_cast<Item*> (i.elem_l_))
+  if (dynamic_cast<Item*> (i.elem_l_)
+      && to_boolean (i.elem_l_->get_elt_property ("text-item-interface")))
     {
-      current_lyric_l_ = t;
+      current_lyric_l_ = i.elem_l_;
       if (hyphen_p_
 	  && !hyphen_p_->get_bound (RIGHT)
 	    )
 	  {
-	    Hyphen_spanner (hyphen_p_).set_textitem (RIGHT, t);
+	    Hyphen_spanner (hyphen_p_).set_textitem (RIGHT, i.elem_l_);
 	  }
     }
 }

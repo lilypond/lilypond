@@ -8,12 +8,12 @@
 
 #include "proto.hh"
 #include "musical-request.hh"
-#include "extender-spanner.hh"
+#include "lyric-extender.hh"
 #include "paper-column.hh"
 #include "item.hh"
 #include "engraver.hh"
 #include "drul-array.hh"
-#include "extender-spanner.hh"
+#include "lyric-extender.hh"
 #include "pqueue.hh"
 
 
@@ -28,8 +28,8 @@
   then.  */
 class Extender_engraver : public Engraver
 {
-  Item *  last_lyric_l_;
-  Item * current_lyric_l_;
+  Score_element *last_lyric_l_;
+  Score_element *current_lyric_l_;
   Extender_req* req_l_;
   Spanner* extender_p_;
 public:
@@ -62,14 +62,15 @@ void
 Extender_engraver::acknowledge_element (Score_element_info i)
 {
   // -> text_item
-  if (Item* t = dynamic_cast<Item*> (i.elem_l_))
+  if (dynamic_cast<Item*> (i.elem_l_)
+      && to_boolean (i.elem_l_->get_elt_property ("text-item-interface")))
     {
-      current_lyric_l_ = t;
+      current_lyric_l_ = i.elem_l_;
       if (extender_p_
 	  && !extender_p_->get_bound (RIGHT)
 	    )
 	  {
-	    Lyric_extender(extender_p_).set_textitem (RIGHT, t);
+	    Lyric_extender(extender_p_).set_textitem (RIGHT, dynamic_cast<Item*> (i.elem_l_));
 	  }
     }
 }

@@ -37,7 +37,7 @@ public:
 
   // TODO: make virtual and do this for Items as well.
   Interval_t<int> spanned_rank_iv ();
-  void set_bound (Direction d, Item*);
+  void set_bound (Direction d, Score_element*);
   Item *get_bound (Direction d) const;
   
   Spanner (SCM);

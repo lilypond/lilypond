@@ -17,7 +17,7 @@
 #include "engraver.hh"
 #include "musical-pitch.hh"
 #include "protected-scm.hh"
-#include "clef-item.hh"
+
 
 /**
   Make the key signature.
@@ -100,7 +100,7 @@ Key_engraver::do_try_music (Music * req_l)
 void
 Key_engraver::acknowledge_element (Score_element_info info)
 {
-  if (dynamic_cast <Clef_item *> (info.elem_l_)) 
+  if (to_boolean (info.elem_l_->get_elt_property ("clef-interface"))) 
     {
       SCM c =  get_property ("createKeyOnClefChange");
       if (to_boolean (c))

@@ -1,3 +1,10 @@
+1.3.63.uu1
+==========
+
+* Lyrics centered on notehead.
+
+* Removed Clef_item as score-element derived type.
+
 1.3.61.jcn2
 ===========
 

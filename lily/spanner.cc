@@ -157,8 +157,15 @@ Spanner::get_bound (Direction d) const
 }
 
 void
-Spanner::set_bound(Direction d, Item*i)
+Spanner::set_bound(Direction d, Score_element*s)
 {
+  Item * i = dynamic_cast<Item*> (s);
+  if (!i)
+    {
+      programming_error ("Must have Item for spanner bound.");
+      return;
+    }
+  
   spanned_drul_[d] =i;
 
   /**
