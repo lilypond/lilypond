@@ -3,7 +3,7 @@
 % 
 % source file of LilyPond's pretty-but-neat music font
 % 
-% (c) 2002 Juergen Reuter <reuter@ipd.uka.de>
+% (c) 2002, 2003 Juergen Reuter <reuter@ipd.uka.de>
 % 
 
 fet_begingroup ("scripts")
@@ -12,8 +12,10 @@ def draw_signum_congruentiae =
 	save za, zb, zc, zd, ze, zf, zg, zh;
 	pair za, zb, zc, zd, ze, zf, zg, zh;
 
-	set_char_box(staff_space#/2, staff_space#/2,
-		     5/2*stafflinethickness#, 2staff_space#);
+	set_char_box(0.50 staff_space# + 1.5 stafflinethickness#,
+		     0.50 staff_space# + 1.5 stafflinethickness#,
+		     2.5 stafflinethickness#,
+		     2.00 staff_space# + 3.5 stafflinethickness#);
 
 	pickup pencircle
 		xscaled 1.0 stafflinethickness

@@ -18,8 +18,8 @@ fet_begingroup ("accidentals")
 %
 %
 fet_beginchar("Ed. Med. Flat" , "medicaea-1", "medicaeaflat");
-	set_char_box(0, 0.8 staff_space#, 0.6 staff_space#, 
-	  2.0 staff_space#);
+	set_char_box(0.1 staff_space#, 0.6 staff_space#,
+		     0.6 staff_space#, 1.0 staff_space#);
 
 	pickup pencircle
 		xscaled 0.50 stafflinethickness
@@ -57,10 +57,6 @@ fet_beginchar("Ed. Med. Flat" , "medicaea-1", "medicaeaflat");
 %
 %
 fet_beginchar("Ed. Vat. Flat" , "vaticana-1", "vaticanaflat");
-        set_char_box(0, 0.7 staff_space#, 0.6 staff_space#, 
-                2.0 staff_space#);
-        define_pixels (stafflinethickness, staff_space);
-
         save za, zb, zc, zd, ze, zf, zg;
         pair za, zb, zc, zd, ze, zf, zg;
         za = (0.00 staff_space, +0.80 staff_space);
@@ -75,13 +71,14 @@ fet_beginchar("Ed. Vat. Flat" , "vaticana-1", "vaticanaflat");
                 xscaled 0.50 stafflinethickness
                 yscaled 0.22 staff_space;
         draw za{down} .. {down}zb .. zc .. zd{up} .. {up}ze .. zf .. zg;
+
+        set_char_box(0.00 staff_space# + 0.25 stafflinethickness#,
+		     0.50 staff_space# + 0.25 stafflinethickness#,
+		     0.23 staff_space# + 0.11 staff_space#,
+		     0.80 staff_space# + 0.11 staff_space#);
         fet_endchar;
 
 fet_beginchar("Ed. Vat. Natural" , "vaticana0", "vaticananatural");
-	set_char_box(0, 0.6 staff_space#, 0.6 staff_space#, 
-		2.0 staff_space#);
-	define_pixels (stafflinethickness, staff_space);
-
 	save za, zb, zc, zd;
 	pair za, zb, zc, zd;
 	pickup pencircle
@@ -99,6 +96,11 @@ fet_beginchar("Ed. Vat. Natural" , "vaticana0", "vaticananatural");
 		yscaled -1
 		shifted (0.40 staff_space, 0.0 staff_space);
 
+	set_char_box(0.00 staff_space# + 0.40 stafflinethickness#,
+		     0.40 staff_space# + 0.40 stafflinethickness#,
+		     0.65 staff_space# + 0.11 staff_space#,
+		     0.65 staff_space# + 0.11 staff_space#);
+
 	fet_endchar;
 
 %%%%%%%%
@@ -110,10 +112,8 @@ fet_beginchar("Ed. Vat. Natural" , "vaticana0", "vaticananatural");
 %
 %
 fet_beginchar("Mensural Sharp" , "mensural1", "mensuralsharp");
-	set_char_box(0.4 staff_space#, 0.6 staff_space#, 0.5 staff_space#, 
-		0.5 staff_space#);
 	save stemthick;
-	define_pixels (stemthick, staff_space);
+	define_pixels (stemthick);
 	stemthick# = stafflinethickness#;
 
 	save za, zb;
@@ -126,13 +126,16 @@ fet_beginchar("Mensural Sharp" , "mensural1", "mensuralsharp");
 	addto currentpicture also currentpicture xscaled -1;
 	addto currentpicture also currentpicture shifted (0.20 staff_space, 0);
 
+	set_char_box(0.8 * 0.4 staff_space# + 0.4 stemthick#,
+		     (0.8 * 0.4 + 0.2) * staff_space# + 0.4 stemthick#,
+		     0.4 staff_space# + 0.4 stemthick#, 
+		     0.4 staff_space# + 0.4 stemthick#);
+
 	fet_endchar;
 
 fet_beginchar("Mensural Flat" , "mensural-1", "mensuralflat");
-	set_char_box(0.1 staff_space#, 0.7 staff_space#, 0.4 staff_space#, 
-		1.8 staff_space#);
 	save stemthick;
-	define_pixels (stemthick, staff_space);
+	define_pixels (stemthick);
 	stemthick# = stafflinethickness#;
 
 	save za, zb, zc, zd, ze;
@@ -148,13 +151,17 @@ fet_beginchar("Mensural Flat" , "mensural-1", "mensuralflat");
 	zd = (0.35 staff_space, +0.25 staff_space);
 	ze = (0.00 staff_space, +0.25 staff_space);
 	draw za -- zb .. zc .. zd .. ze;
+
+	set_char_box(0.00 staff_space# + 0.75 stemthick#,
+		     0.40 staff_space# + 0.75 stemthick#,
+		     0.25 staff_space# + 0.75 stemthick#,
+		     1.80 staff_space# + 0.75 stemthick#);
+
 	fet_endchar;
 
 fet_beginchar("Hufnagel Flat" , "hufnagel-1", "hufnagelflat");
-	set_char_box(0.5 staff_space#, 0.7 staff_space#, 0.4 staff_space#, 
-		1.8 staff_space#);
 	save stemthick;
-	define_pixels (stemthick, staff_space);
+	define_pixels (stemthick);
 	stemthick# = stafflinethickness#;
 
 	save za, zb, zc, zd, ze, zf;
@@ -171,6 +178,12 @@ fet_beginchar("Hufnagel Flat" , "hufnagel-1", "hufnagelflat");
 	ze = (0.30 staff_space, +0.30 staff_space);
 	zf = (0.00 staff_space, +0.15 staff_space);
 	draw za -- zb -- zc .. zd .. ze -- zf;
+
+	set_char_box(0.00 staff_space# + 1.0 stemthick#,
+		     0.50 staff_space# + 1.0 stemthick#,
+		     0.30 staff_space# + 0.5 stemthick#, 
+		     1.80 staff_space# + 0.5 stemthick#);
+
 	fet_endchar;
 
 fet_endgroup ("accidentals")
