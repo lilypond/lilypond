@@ -17,11 +17,7 @@ oboes = \notes \relative c'' \context Voice = oboes {
     <
         { \times 2/3 { a8 g c }  c2 }
 	\\
-        { \grace {
-                \stemDown
-                [f,16 g]
-		\stemBoth }
-                f8 e e2 }  
+        { f,8 e e2 }  
     >
 
     \grace <c,8( e> <)b8. d8.-\trill> <c16 e> | 
