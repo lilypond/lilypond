@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include <strstream.h>
@@ -23,7 +23,9 @@
 #include "scope.hh"
 
 static Keyword_ent the_key_tab[]={
+  {"absdynamic", ABSDYNAMIC},
   {"accepts", ACCEPTS},
+  {"accidentals", ACCIDENTALS},
   {"bar", BAR},
   {"cadenza", CADENZA},
   {"clear", CLEAR},
@@ -32,15 +34,15 @@ static Keyword_ent the_key_tab[]={
   {"consists", CONSISTS},
   {"contains", CONTAINS},
   {"duration", DURATION},
-  {"absdynamic", ABSDYNAMIC},
+  {"font", FONT},
+  {"grouping", GROUPING},
   {"in", IN_T},
-  {"translator", TRANSLATOR},
-  {"type", TYPE},
   {"lyric", LYRIC},
   {"key", KEY},
+  {"mark", MARK},
   {"melodic" , MELODIC},
-  {"musical_pitch", MUSICAL_PITCH},
-  {"meter", METER},
+  {"musicalpitch", MUSICAL_PITCH},
+  {"time", TIME_T},
   {"midi", MIDI},
   {"mm", MM_T},
   {"multi", MULTI},
@@ -63,11 +65,10 @@ static Keyword_ent the_key_tab[]={
   {"spandynamic", SPANDYNAMIC},
   {"symboltables", SYMBOLTABLES},
   {"tempo", TEMPO},
-  {"texid", TEXID},
-  {"textstyle", TEXTSTYLE},
+  {"translator", TRANSLATOR},
+  {"type", TYPE},
   {"transpose", TRANSPOSE},
   {"version", VERSION},
-  {"grouping", GROUPING},
   {0,0}
 };
 
@@ -114,8 +115,10 @@ My_lily_lexer::set_identifier (String name_str, Identifier* i, bool unique_b)
   Identifier *old = lookup_identifier (name_str);
   if  (old)
     {
+#if 0
       if (unique_b)
-	old->warning(_("redeclaration of \\") + name_str);
+	old->warning(_f ("redeclaration of `\\%s\'", name_str));
+#endif
       delete old;
     }
   (*scope_l_arr_.top ())[name_str] = i;
@@ -125,8 +128,6 @@ My_lily_lexer::~My_lily_lexer()
 {
   delete keytable_p_;
   delete toplevel_scope_p_ ;
-
-
   delete note_tab_p_;
 }
 
@@ -135,7 +136,7 @@ My_lily_lexer::print_declarations (bool init_b) const
 {
   for (int i=scope_l_arr_.size (); i--; )
     {
-      DOUT << "Scope no. " << i << "\n";
+      DOUT << "Scope no. " << i << '\n';
       scope_l_arr_[i]->print ();
     }
 }
@@ -145,7 +146,7 @@ My_lily_lexer::LexerError (char const *s)
 {
   if (include_stack_.empty())
     {
-      *mlog << _("error at EOF") << s << '\n';
+      *mlog << _f ("error at EOF: %s", s) << endl;
     }
   else
     {
