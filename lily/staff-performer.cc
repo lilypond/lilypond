@@ -88,7 +88,7 @@ Staff_performer::new_instrument_str ()
   return instrument_str_;
 
 /* ugh, but can 't
-  if (properties_dict_.elt_b ("instrument"))
+  if (properties_dict_.elem_b ("instrument"))
     return properties_dict_["instrument"];
   return "";
 */

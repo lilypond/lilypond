@@ -48,7 +48,7 @@ Score_priority_engraver::acknowledge_element (Score_element_info inf)
       
       int priority =item_l->break_priority_i_;
       Horizontal_group_item * hg =0;
-      if (!align_p_assoc_.elt_b(priority))
+      if (!align_p_assoc_.elem_b(priority))
 	{
 	  hg = new Horizontal_group_item;
 	  announce_element (Score_element_info (hg,0));

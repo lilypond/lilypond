@@ -1,5 +1,7 @@
+\version "1.0.4";
+
 \score{
-	\melodic\transpose c'{
+	\notes\transpose c'{
 		\property Score.beamquantisation = \none
 
 		[a'8 <a' g'']>

@@ -1,5 +1,5 @@
 
-\version "1.0.4";
+\version "1.0.6";
 
 \include "table13.ly";
 \include "table16.ly";

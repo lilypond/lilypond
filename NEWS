@@ -1,3 +1,26 @@
+
+
+pl 12.hwn1
+	- \remove "Engraver_type";
+	- \output "bla" -> output = "bla" (mudela 0.1.6)
+	- \property defaultclef -> \property defaultClef
+	- naming of access_{Engraver,Performer,Translator_group} ()
+	- changed syntax for \translator in \paper{} (mudela 0.1.6)
+	- declared contexts:
+
+		StaffContext = \translator { .. }
+		\translator { \StaffContext }
+
+	- elt_b -> elem_b
+	- bf: add Separating_line_group_engraver to RhythmicStaff.
+
+
+pl 12.am1
+	- large doc patch, ChoireStaff -> ChoirStaff
+
+*******
+pl 12
+
 pl 11.uu2
 	- added Transposed_music for mixing transposition and relative 
 

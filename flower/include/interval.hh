@@ -100,7 +100,7 @@ struct Interval_t {
   }
   String str() const;    
   void print () const;
-  bool elt_b (T r);
+  bool elem_b (T r);
   void negate () {
     T r = -left;
     T l = -right;

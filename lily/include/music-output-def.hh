@@ -21,9 +21,12 @@
  */
 class Music_output_def  
 {
+  Scope *translator_p_dict_p_;
 public:
-  Dictionary<Translator*> translator_p_dict_;
+  Scope *scope_p_;
+  
   Array<String> filename_str_arr_;
+
 
 
   
@@ -37,8 +40,8 @@ public:
 
   Global_translator *get_global_translator_p ();
   Translator_group *get_group_translator_p (String type) const;
-  void assign_translator (String, Translator*);
-  String outfile_str_;
+    String get_default_output () const;
+  void assign_translator (Translator*);
   Translator * find_translator_l (String) const;
   virtual int get_next_default_count () const;
 };

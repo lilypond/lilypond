@@ -37,7 +37,6 @@
 class Paper_def : public Music_output_def 
 {
   Assoc<int, Lookup *> *lookup_p_assoc_p_;
-  Scope* scope_p_;
   static int default_count_i_;
 
 protected:

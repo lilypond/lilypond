@@ -19,7 +19,7 @@ class Timing_engraver : public Timing_translator, public Engraver
 {   
 protected:
   virtual void fill_staff_info (Staff_info&);
-  virtual Engraver * engraver_l () { return Engraver::engraver_l (); }
+  virtual Engraver * access_Engraver () { return Engraver::access_Engraver (); }
 public:
   TRANSLATOR_CLONE(Timing_engraver);
   DECLARE_MY_RUNTIME_TYPEINFO;

@@ -40,7 +40,7 @@ Local_key_engraver::do_creation_processing ()
     }
   else
     {
-      key_C_ = &((Key_engraver*)result->engraver_l ())->key_;
+      key_C_ = &((Key_engraver*)result->access_Engraver  ())->key_;
       local_key_ = *key_C_;
     }
 }

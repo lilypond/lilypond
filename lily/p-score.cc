@@ -271,7 +271,8 @@ Tex_stream *
 Paper_score::open_output_stream ()
 {
   // output
-  String base_outname = paper_l_->outfile_str_ ;
+  String base_outname=paper_l_->get_default_output ();
+
   if (base_outname.empty_b ())
     {
       base_outname = default_outname_base_global;

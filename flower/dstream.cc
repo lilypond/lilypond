@@ -53,9 +53,9 @@ Dstream::identify_as (String name)
   String cl (strip_member (mem));
   String idx = cl;
 
-  if (silent_assoc_p_->elt_b (mem))
+  if (silent_assoc_p_->elem_b (mem))
     idx  = mem;
-  else if (silent_assoc_p_->elt_b (cl))
+  else if (silent_assoc_p_->elem_b (cl))
     idx = cl;
   else
     {
@@ -74,7 +74,7 @@ Dstream::identify_as (String name)
 bool
 Dstream::silent_b (String s) const
 {
-  if (!silent_assoc_p_->elt_b (s))
+  if (!silent_assoc_p_->elem_b (s))
     return false;
   return (*silent_assoc_p_)[s];
 }
@@ -162,7 +162,7 @@ Dstream::Dstream (ostream *r, char const * cfg_nm)
     (*silent_assoc_p_)[r[0]] = (bool)(int)(Scalar (r[1]));
   }
 
-  if ((*silent_assoc_p_).elt_b ("Dstream_default_silence"))
+  if ((*silent_assoc_p_).elem_b ("Dstream_default_silence"))
     default_silence_b_ = (*silent_assoc_p_)["Dstream_default_silence"];
 }
 

@@ -44,8 +44,8 @@
 #include "transposed-music.hh"
 
 // mmm
-Mudela_version oldest_version ("1.0.3");
-Mudela_version version ("1.0.4");
+Mudela_version oldest_version ("1.0.6");
+Mudela_version version ("1.0.6");
 
 
 // needed for bison.simple's malloc() and free()
@@ -175,6 +175,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token PROPERTY
 %token PT_T
 %token RELATIVE
+%token REMOVE
 %token SCORE
 %token SCRIPT
 %token SHAPE
@@ -245,7 +246,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <music>	Music  relative_music Sequential_music Simultaneous_music
 %type <music>	property_def translator_change
 %type <music_list> Music_list
-%type <paper>	paper_block paper_body
+%type <paper>	paper_block paper_def_body
 %type <real>	dim real
 %type <real>	real_mult_expression real_primary
 %type <real>	unit
@@ -368,7 +369,8 @@ add_declaration:
 	    $4->set_spot (THIS->pop_spot ());
 	}
 	;
-
+simple_identifier_init: identifier_init
+	;
 identifier_init:
 	score_block {
 		$$ = new Score_identifier ($1, SCORE_IDENTIFIER);
@@ -402,11 +404,7 @@ identifier_init:
 	| explicit_duration {
 		$$ = new Duration_identifier ($1, DURATION_IDENTIFIER);
 	}
-	| simple_identifier_init
-	;
-
-simple_identifier_init:
-	real {
+	| real {
 		$$ = new Real_identifier (new Real ($1), REAL_IDENTIFIER);
 	}
 	| string {
@@ -432,6 +430,11 @@ translator_spec_body:
 	}
 	| TYPE STRING ';'	{
 		Translator* t = get_translator_l (*$2);
+		Translator_group * tg = t->access_Translator_group ();
+
+		if (!tg)
+			THIS->parser_error (_("Need a translator group for a context"));
+		
 		t = t->clone ();
 		t->set_spot (THIS->here_input ());
 		$$ = t;
@@ -453,12 +456,20 @@ translator_spec_body:
 		delete $4;
 		$$->set_property (*$2, str);
 	}
+	| translator_spec_body STRING ';' {
+		$$->type_str_ = *$2;
+		delete $2;
+	}
 	| translator_spec_body CONSISTS STRING ';' {
-		$$->group_l ()->consists_str_arr_.push (*$3);
+		$$->access_Translator_group ()-> set_element (*$3, true);
 		delete $3;
 	}
 	| translator_spec_body ACCEPTS STRING ';' {
-		$$->group_l ()->accepts_str_arr_.push (*$3);
+		$$->access_Translator_group ()-> set_acceptor (*$3, true);
+		delete $3;
+	}
+	| translator_spec_body REMOVE STRING ';' {
+		$$->access_Translator_group ()-> set_element (*$3, false);
 		delete $3;
 	}
 	;
@@ -528,7 +539,7 @@ intastint_list:
 	PAPER
 */
 paper_block:
-	PAPER '{' paper_body '}' 	{ 
+	PAPER '{' paper_def_body '}' 	{ 
 		$$ = $3;
 		THIS-> lexer_p_->scope_l_arr_.pop ();
 	}
@@ -539,7 +550,7 @@ optional_semicolon:
 	| ';'
 	;
 
-paper_body:
+paper_def_body:
 	/* empty */		 	{
 		Paper_def *p = THIS->default_paper_p ();
 		THIS-> lexer_p_-> scope_l_arr_.push (p->scope_p_);
@@ -550,30 +561,21 @@ paper_body:
 		THIS->lexer_p_->scope_l_arr_.push (p->scope_p_);
 		$$ = p;
 	}
-	| paper_body OUTPUT STRING ';'	{ 
-		$$->outfile_str_ = *$3;
-		delete $3;
-	}
-	| paper_body int '=' symtables		{ // ugh, what a syntax
+	| paper_def_body int '=' symtables		{ // ugh, what a syntax
 		$$->set_lookup ($2, $4);
 	}
-	| paper_body STRING '=' simple_identifier_init optional_semicolon {
-	    Identifier* id = $4;
-	    id->init_b_ = THIS->init_parse_b_;
-	    if (id->is_type_b (Translator_identifier::static_name ()))
-	      {
-		$$->assign_translator (*$2, id->access_Translator ());
-		delete id;
-	      }
-	    else
-	      THIS->lexer_p_->set_identifier (*$2, id);
+	| paper_def_body STRING '=' simple_identifier_init ';' {
+	      THIS->lexer_p_->set_identifier (*$2, $4);
 	      delete $2;
 	}
-	| paper_body SHAPE '=' shape_array ';' {
+	| paper_def_body translator_spec {
+		$$-> assign_translator ($2);
+	}
+	| paper_def_body SHAPE '=' shape_array ';' {
 		$$->shape_int_a_ = *$4;
 		delete $4;
 	}
-	| paper_body error {
+	| paper_def_body error {
 
 	}
 	;
@@ -637,13 +639,8 @@ midi_body: /* empty */ 		{
 	| MIDI_IDENTIFIER	{
 		$$ = $1-> access_Midi_def ();		
 	}
-	| midi_body STRING '=' translator_spec	{
-		$$-> assign_translator (*$2, $4);
-		delete $2;
-	}
-	| midi_body OUTPUT STRING ';'	{
-		$$->outfile_str_ = *$3;
-		delete $3;
+	| midi_body translator_spec	{
+		$$-> assign_translator ($2);
 	}
 	| midi_body tempo_request ';' {
 		$$->set_tempo ($2->dur_.length (), $2->metronome_i_);

@@ -1,15 +1,15 @@
-\version "1.0.4";
+\version "1.0.6";
 
 \score{
 	\notes{
 		c( d e )c |
-		\slurdotted;
+		\slurdotted
 		c( d e )c |
-		\slurnormal;
+		\slurnormal
 		c( d e )c |
 		\property Voice.slurdash = 3
 		c( d e )c |
-		\slurnormal;
+		\slurnormal
 		c( d e )c |
 	}
 	\paper{ 
@@ -19,4 +19,5 @@
 		castingalgorithm = \Wordwrap;
 	}
 }
+
 

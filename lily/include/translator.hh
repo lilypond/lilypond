@@ -66,9 +66,9 @@ public:
   Music_output_def *output_def_l () const;
   
   virtual Moment now_moment () const;  
-  virtual Engraver *engraver_l () { return 0; }
-  virtual Performer *performer_l() { return 0; }
-  virtual Translator_group * group_l () { return 0; }
+  virtual Engraver *access_Engraver () { return 0; }
+  virtual Performer *access_Performer() { return 0; }
+  virtual Translator_group * access_Translator_group () { return 0; }
 
 protected:
    enum { 

@@ -30,7 +30,7 @@ Time_signature_engraver::do_process_requests()
       return ;
     }
   
-  Timing_engraver * timing_grav_l= (Timing_engraver*) result->engraver_l ();
+  Timing_engraver * timing_grav_l= (Timing_engraver*) result->access_Engraver  ();
   
   Time_signature_change_req *req = timing_grav_l->time_signature_req_l();
   if (req)

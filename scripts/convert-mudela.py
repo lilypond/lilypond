@@ -200,7 +200,31 @@ if 1:
 	
 	conversions.append ((1,0,4), conv, 'default_{paper,midi}\n')
 
+if 1:
+	def conv(lines):
+		newlines =[]
+		for x in lines:
+			x =  regsub.gsub ('ChoireStaff', 'ChoirStaff',x)
+			x =  regsub.gsub ('\\output', 'output = ',x)
+			newlines.append (x)
+		return newlines
+	
+	conversions.append ((1,0,5), conv, 'ChoireStaff -> ChoirStaff\n')
 
+if 1:
+	def conv(lines):
+		newlines =[]
+		found = 0
+		for x in lines:
+			found = regex.search ('[a-zA-Z]+ = *\\translator',x) <> -1
+			newlines.append (x)
+			if found: break
+		if found:
+			sys.stderr.write ('\nNot smart enough to \\translator syntax\n')
+			raise FatalConversionError()
+		return newlines
+	
+	conversions.append ((1,0,6), conv, 'foo = \\translator {\type .. } ->\translator {\type ..; foo; }\n')
 ############################
 
 def get_conversions (from_version, to_version):

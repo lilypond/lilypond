@@ -27,7 +27,7 @@ public:
 protected:
   virtual int get_tempo_i() const;
   virtual void play (Audio_element * elem_p );
-  Performer * performer_l () { return this; }
+  Performer * access_Performer () { return this; }
 };
 
 

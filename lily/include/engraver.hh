@@ -70,7 +70,7 @@ public:
   Engraver () {}
 
   DECLARE_MY_RUNTIME_TYPEINFO;
-  virtual Engraver * engraver_l () { return this; }
+  virtual Engraver * access_Engraver () { return this; }
 };
 
 

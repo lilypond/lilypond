@@ -50,12 +50,37 @@ Translator_group::check_removal()
 IMPLEMENT_IS_TYPE_B1(Translator_group, Translator);
 
 void
-Translator_group::add (Translator *trans_p)
+Translator_group::add_translator (Translator *trans_p)
 {
   trans_p_list_.bottom().add (trans_p);
   trans_p->daddy_trans_l_ = this;
   trans_p->output_def_l_ = output_def_l_;
   trans_p->add_processing ();
+}
+
+void
+Translator_group::set_acceptor (String accepts, bool add)
+{
+  if (add)
+    accepts_str_arr_.push (accepts);
+  else
+    for (int i=accepts_str_arr_.size (); i--; )
+      if (accepts_str_arr_[i] == accepts)
+	accepts_str_arr_.del (i);
+}
+
+void
+Translator_group::set_element (String s, bool add)
+{
+  if (!get_translator_l (s))
+    error ("Program has no such type");
+
+  if (add)
+    consists_str_arr_.push (s);
+  else
+    for (int i=consists_str_arr_.size (); i--; )
+      if (consists_str_arr_[i] == s)
+	consists_str_arr_.del (i);
 }
 
 bool
@@ -85,9 +110,9 @@ Translator_group::path_to_acceptable_translator (String type) const
   for (int i=0; i < accepts_str_arr_.size (); i++)
     {
       Translator *t = output_def_l ()->find_translator_l (accepts_str_arr_[i]);
-      if (!t || !t->group_l ())
+      if (!t || !t->access_Translator_group ())
 	continue;
-      accepted_arr.push (t->group_l());
+      accepted_arr.push (t->access_Translator_group ());
     }
 
 
@@ -133,8 +158,8 @@ Translator_group::find_create_translator_l (String n, String id)
       // start at 1.  The first one (index 0) will be us.
       for (int i=0; i < path.size (); i++)
 	{
-	  Translator_group * new_group = path[i]->clone ()->group_l ();
-	  current->add (new_group);
+	  Translator_group * new_group = path[i]->clone ()->access_Translator_group ();
+	  current->add_translator (new_group);
 	  current = new_group;
 	}
       current->id_str_ = id;
@@ -185,8 +210,8 @@ Translator_group::group_l_arr () const
   Link_array<Translator_group> groups;
   for (PCursor<Translator*> i (trans_p_list_.top ()); i.ok (); i++)
     {
-      if (i->group_l ())
-	groups.push (i->group_l ());
+      if (i->access_Translator_group ())
+	groups.push (i->access_Translator_group ());
     }
   return groups;
 }
@@ -197,7 +222,7 @@ Translator_group::nongroup_l_arr () const
   Link_array<Translator> groups;
   for (PCursor<Translator*> i (trans_p_list_.top ()); i.ok (); i++)
     {
-      if (!i->group_l ())
+      if (!i->access_Translator_group ())
 	groups.push (i.ptr ());
     }
   return groups;
@@ -263,8 +288,8 @@ Translator_group::get_default_interpreter()
 	  warning (_f ("can't find or create `%s\'", accepts_str_arr_[0]));
 	  t = this;
 	}
-      Translator_group * g= t->clone ()->group_l ();
-      add (g);
+      Translator_group * g= t->clone ()->access_Translator_group ();
+      add_translator (g);
 
       if (!g->is_bottom_translator_b ())
 	return g->get_default_interpreter ();
@@ -352,6 +377,6 @@ Translator_group::do_add_processing ()
       if (!t)
 	warning (_f ("can't find `%s\'", consists_str_arr_[i]));
       else
-	add (t->clone ());
+	add_translator (t->clone ());
     }
 }

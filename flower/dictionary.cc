@@ -18,7 +18,7 @@ public:
   Dictionary (Dictionary const&);
   T &elem (String s);
   T const &elem (String s) const;
-  bool elt_b (String s) const;
+  bool elem_b (String s) const;
   void add (String, T);
   void clear ();
 }

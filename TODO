@@ -11,28 +11,6 @@ grep for TODO and ugh/ugr/urg
 
 	ydirection <-> yDirection
 
-	* 
-   \score{
-      \notes { \property Staff.defaultclef = bass    a b c d }
-      \paper{
-
-
-   Staff = \translator {
-	   \type "Line_group_engraver_group";
-	   \consists "Bar_engraver";
-	   \consists "Clef_engraver";
-	   \consists "Key_engraver";
-	   \consists "Local_key_engraver";
-	   \consists "Time_signature_engraver";
-	   \consists "Staff_sym_engraver";
-	   \consists "Collision_engraver";
-	   \consists "Rest_collision_engraver";
-	   \consists "Separating_line_group_engraver";
-	   \accepts "Voice";
-	}
-   }
-}
-
 	* typo checks on property names?
 
 	* egcs-1.1 support

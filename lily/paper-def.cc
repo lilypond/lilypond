@@ -26,8 +26,8 @@
 Paper_def::Paper_def ()
 {
   lookup_p_assoc_p_ = new Assoc<int, Lookup*>;
-  scope_p_ = new Scope;
 }
+
 
 Paper_def::~Paper_def ()
 {
@@ -36,7 +36,6 @@ Paper_def::~Paper_def ()
       delete ai.val ();
     }
   
-  delete scope_p_;
   delete lookup_p_assoc_p_;
 }
 
@@ -51,13 +50,13 @@ Paper_def::Paper_def (Paper_def const&s)
       set_lookup (ai.key(), l);
     }
   
-  scope_p_ = new Scope (*s.scope_p_);
+
 }
 
 Real
 Paper_def::get_var (String s) const
 {
-  if (!scope_p_->elt_b (s))
+  if (!scope_p_->elem_b (s))
     error (_f ("unknown paper variable: `%s\'", s));
   Real * p = scope_p_->elem (s)->access_Real (false);
   if (!p)
@@ -134,7 +133,7 @@ Paper_def::geometric_spacing (Moment d) const
 void
 Paper_def::set_lookup (int i, Lookup*l)
 {
-  if (lookup_p_assoc_p_->elt_b (i))
+  if (lookup_p_assoc_p_->elem_b (i))
     {
       delete lookup_p_assoc_p_->elem (i);
     }
@@ -200,11 +199,6 @@ Paper_def::print () const
       ai.val ()->print ();
     }
 
-  for (Assoc_iter<String,Identifier*> i (*scope_p_); i.ok (); i++)
-    {
-      DOUT << i.key () << "= ";
-      DOUT << i.val ()->str () << '\n';
-    }
   DOUT << "}\n";
 #endif
 }
@@ -235,4 +229,6 @@ Paper_def::get_next_default_count () const
 {
   return default_count_i_ ++;
 }
+
+
 

@@ -25,20 +25,29 @@ typedef void (Translator::*Const_method_pointer)(void) const;
   hierarchically grouped #Translator#s
   */
 class Translator_group : public virtual Translator {
+  Array<String> consists_str_arr_;
+  Array<String> accepts_str_arr_;
+
 public:
   Pointer_list<Translator *> trans_p_list_;
   String id_str_;
-  Array<String> consists_str_arr_;
-  Array<String> accepts_str_arr_;
+
+
+  
+  
   int iterator_count_;
 
   TRANSLATOR_CLONE(Translator_group);
   DECLARE_MY_RUNTIME_TYPEINFO;
 
+  void set_acceptor (String accepts, bool add);
+  void set_element (String accepts, bool add);  
+  
+  
   Translator_group(Translator_group const &);
   Translator_group();
-  void add (Translator *);
-
+  void add_translator (Translator *trans_p);
+  
   Link_array<Translator> nongroup_l_arr () const;
   Link_array<Translator_group> group_l_arr () const;
   
@@ -53,6 +62,8 @@ public:
   Translator *remove_translator_p (Translator*trans_l);
   void check_removal ();
 
+
+  
   Translator *get_simple_translator (char const *type) const;
   Translator_group *find_existing_translator_l (String n, String id);
   Translator_group *find_create_translator_l (String n, String id);
@@ -61,7 +72,7 @@ public:
   Translator_group*get_default_interpreter();
 protected:
   virtual ~Translator_group ();
-  virtual Translator_group * group_l () { return this; }
+  virtual Translator_group * access_Translator_group () { return this; }
   virtual void do_print () const;
   virtual void do_process_requests ();
   virtual void do_add_processing ();

@@ -40,7 +40,7 @@ Symtables::~Symtables()
 Atom
 Symtable::lookup (String s) const
 {
-  if (elt_b (s))
+  if (elem_b (s))
     {
       Atom a (elem(s));
       return a;
@@ -56,7 +56,7 @@ Symtable::lookup (String s) const
 Symtable*
 Symtables::operator()(String s)
 {
-  if (!elt_b (s))
+  if (!elem_b (s))
     {
       error (_f ("Symtable `%s\' unknown", s));
       /* 

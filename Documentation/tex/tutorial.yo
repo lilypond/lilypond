@@ -976,9 +976,9 @@ mudela()(\score{
 \notes \relative c' {  \time 2/4; g'4 c,4 a'4 f4 e c d2 }
 \paper { 
   linewidth = -1.;
-  Staff = \translator {
+  \translator {
     \type "Line_group_engraver_group";
-
+    Staff ;
     defaultclef = violin;
 
     \consists "Timing_engraver";
@@ -1000,9 +1000,9 @@ mudela()(
   \notes \relative c' {  \time 2/4; g'4 c,4 a'4 f4 e c d2 }
   \paper{
   linewidth = -1.;
-    Staff = \translator {
+    \translator {
     \type "Line_group_engraver_group";
-    defaultclef = violin;
+    defaultclef = violin;Staff;
     \consists "Time_signature_engraver";
     \consists "Separating_line_group_engraver";
     \accepts "Voice";
@@ -1018,9 +1018,9 @@ mudela()(
   \notes \relative c' {  \time 2/4; g'4 c,4 a'4 f4 e c d2 }
   \paper{
   linewidth = -1.;
-    Staff = \translator {
+    \translator {
     \type "Line_group_engraver_group";
-    defaultclef = violin;
+    defaultclef = violin;Staff ;
     \consists "Bar_engraver";
     \consists "Time_signature_engraver";
     \consists "Separating_line_group_engraver";
@@ -1036,9 +1036,9 @@ mudela()(\score{
   \notes\relative c' { \time 2/4; g'4 c,4
 a'4 f4 e c d2 } \paper {
   linewidth = -1.;
-  Staff = \translator {
+  \translator {
     \type "Line_group_engraver_group";
-
+    Staff ;
     defaultclef = violin;
     \consists "Bar_engraver";
     \consists "Time_signature_engraver";
@@ -1057,9 +1057,9 @@ mudela()(\score {
   \notes \relative c' {\clef alto;  \time 2/4; g'4 c,4 a'4 f4 e c d2 }
 \paper {
   linewidth = -1.;
-  Staff = \translator {
+   \translator {
     \type "Line_group_engraver_group";
-
+    Staff;
      defaultclef = violin;
     \consists "Bar_engraver";
     \consists "Time_signature_engraver";
@@ -1574,9 +1574,14 @@ verb(
 \translator
 {
         \type "Engraver_group_engraver";
+
+	"ContextName"
+
         \accepts "...";
         \accepts "...";
         \accepts "...";
+
+
 
         \consists " ... ";
         \consists " ... ";
@@ -1635,29 +1640,13 @@ mycode(Timing_engraver).
 mudela(verbatim)(
 polymetricpaper = \paper {
   Score = \translator {
-    \type Score_engraver;
-    \consists "Score_priority_engraver";
-    \consists "Priority_horizontal_align_engraver";
-    \consists "Vertical_align_engraver";
-    % \consists "Timing_engraver"; % removed Timing_engraver
-    \accepts "Staff";
+    \ScoreContext
+    \remove "Timing_engraver";
   }
 
   Staff = \translator {
-    \type "Line_group_engraver_group";
-
-    defaultclef = violin;
-
-    \consists "Bar_engraver";
-    \consists "Clef_engraver";
-    \consists "Key_engraver";
-    \consists "Local_key_engraver";
-    \consists "Time_signature_engraver";
-    \consists "Timing_engraver";  % added Timing_engraver
-    \consists "Staff_sym_engraver";
-    \consists "Separating_line_group_engraver";
-
-    \accepts "Voice";
+    \StaffContext
+    \consists "Timing_engraver";
   }
 }
 \score {

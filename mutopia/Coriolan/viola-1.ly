@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.4";
+\version "1.0.6";
 
 viola1 = \notes \relative c {
 	\type Voice=one

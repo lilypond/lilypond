@@ -7,12 +7,11 @@ TestedFeatures =	 "multiple meters, beaming, unsynced bars, userdefd engravers";
 
 
 
-\version "1.0.4";
+\version "1.0.6";
 
 ritme = \notes\transpose c'' {
-	\partial 8;
-
 	\time  4/4;
+	\partial 8;
 	c8					|
 	
 	[a8~  a8. a8 a16 a16 a16] c4.		|	% watch the beams!
@@ -37,10 +36,14 @@ ritme = \notes\transpose c'' {
 	
 
 another = 
-	\notes{ \time 4/4; 
-		c1.  c1. c4 c4 c4 c4  \time  4/4; c1 c1 c1
+	\notes{ \time 6/4; 
+		c1.  c1. \time 4/4;c4 c4 c4 c4  c1 c1 c1
 	 }
 
+
+%
+% Beams are incorrect for the next staff.  They cut through the whole notes.
+%
 
 yanother = 
 	\notes{ \time 4/4; 
@@ -60,57 +63,17 @@ yanother =
 	\paper{
 
 	%% remove Timing_engraver and Bar_number_engraver
-	Score = \translator {
-	\type Score_engraver;
-
-	%\consists "Timing_engraver";
-
-	\consists "Span_score_bar_engraver";
-	\consists "Score_priority_engraver";
-	\consists "Priority_horizontal_align_engraver";
-	\consists "Vertical_align_engraver";
-
-
-	\accepts "StaffGroup";
-	\accepts "Staff";
-	\accepts "Lyrics";
-	\accepts "GrandStaff";
-}
-
-RhythmicStaff = \translator
-{
-	  \type "Engraver_group_engraver";
-	nolines  = "1";
-	  \consists "Pitch_squash_engraver";
-
-	\consists "Bar_column_engraver";
-	\consists "Bar_number_engraver";
-	  \consists "Bar_engraver";
-	  \consists "Meter_engraver";
-	  \consists "Staff_sym_engraver";
-	  \consists "Line_group_engraver";
-	  \consists "Timing_engraver";
-	  \accepts "Voice";
-}
-	%% add Timing_engraver to the staff
-	Staff = \translator {
-	  \type "Engraver_group_engraver";
-	defaultclef=	violin;
-
-	\consists "Bar_column_engraver";
-	\consists "Bar_number_engraver";
-	\consists "Timing_engraver";
-	  \consists "Bar_engraver";
-	  \consists "Clef_engraver";
-	  \consists "Key_engraver";
-	  \consists "Meter_engraver";
-	  \consists "Local_key_engraver";
-	  \consists "Staff_sym_engraver";
-	  \consists "Collision_engraver";
-	  \consists "Rest_collision_engraver";
-
-	  \consists "Line_group_engraver";
-	  \accepts "Voice";
-	}
+ \translator {
+ \ScoreContext
+ \remove "Timing_engraver";
+  }
+  \translator {
+  \RhythmicStaffContext
+  \consists "Timing_engraver";
+  }
+  \translator{
+  \StaffContext
+  \consists "Timing_engraver";
+  }
 	}
 }

@@ -30,7 +30,7 @@ Engraver_group_engraver::do_announces()
   Link_array<Translator_group> groups = group_l_arr ();
   for (int i=0; i < groups.size(); i++) 
     {
-      Engraver * eng = groups[i]->engraver_l ();
+      Engraver * eng = groups[i]->access_Engraver  ();
       if (eng)
 	{
 	  Engraver_group_engraver * group =
@@ -52,7 +52,7 @@ Engraver_group_engraver::do_announces()
 	    info.req_l_ = &dummy_req;
 	  for (int i=0; i < nongroups.size(); i++) 
 	    {	// Is this good enough?
-	      Engraver * eng = nongroups[i]->engraver_l ();
+	      Engraver * eng = nongroups[i]->access_Engraver  ();
 	      if (eng && eng!= info.origin_grav_l_arr_[0])
 		eng->acknowledge_element (info);
 	    }
@@ -60,7 +60,7 @@ Engraver_group_engraver::do_announces()
       announce_info_arr_.clear ();
       for (int i=0; i < nongroups.size(); i++)
 	{
-	  Engraver * eng = nongroups[i]->engraver_l ();
+	  Engraver * eng = nongroups[i]->access_Engraver  ();
 	  if (eng)
 	    eng->process_acknowledged ();
 	}
@@ -77,7 +77,7 @@ Engraver_group_engraver::get_staff_info() const
   Link_array<Translator> simple_translators = nongroup_l_arr (); 
   for (int i=0; i < simple_translators.size(); i++)
     {
-    Engraver * eng = simple_translators[i]->engraver_l ();
+    Engraver * eng = simple_translators[i]->access_Engraver  ();
     if (eng)
       eng->fill_staff_info (inf);
     }
