@@ -9,6 +9,7 @@
 
 /*
   [TODO]
+    * fix broken interstaff slurs
     * begin and end should be treated as a/acknowledge Scripts.
     * broken slur should have uniform trend
     * smart changing of endings
@@ -28,7 +29,6 @@
 #include "debug.hh"
 #include "slur-bezier-bow.hh"
 #include "main.hh"
-#include "cross-staff.hh"
 #include "group-interface.hh"
 #include "staff-symbol-referencer.hh"
 
@@ -130,8 +130,8 @@ Slur::encompass_offset (Note_column const* col) const
   if (!stem_l)
     {
       warning (_ ("Slur over rest?"));
-     o[X_AXIS] = col->relative_coordinate (0, X_AXIS);
-      o[Y_AXIS] = col->extent (Y_AXIS)[dir];
+      o[X_AXIS] = col->relative_coordinate (0, X_AXIS);
+      o[Y_AXIS] = col->relative_coordinate (0, Y_AXIS);
       return o;  
     }
   Direction stem_dir = Directional_element_interface (stem_l).get ();
@@ -146,18 +146,17 @@ Slur::encompass_offset (Note_column const* col) const
   if ((stem_dir == dir)
       && !stem_l->extent (Y_AXIS).empty_b ())
     {
-      o[Y_AXIS] = stem_l->extent (Y_AXIS)[dir];
+      o[Y_AXIS] = stem_l->relative_coordinate (0, Y_AXIS);
     }
   else
     {
-      o[Y_AXIS] = col->extent (Y_AXIS)[dir];
+      o[Y_AXIS] = col->relative_coordinate (0, Y_AXIS);
     }
 
   /*
    leave a gap: slur mustn't touch head/stem
    */
   o[Y_AXIS] += dir * paper_l ()->get_var ("slur_y_free");
-  o[Y_AXIS] -= calc_interstaff_dist (stem_l, this);
   return o;
 }
 
@@ -220,10 +219,8 @@ Slur::set_extremities ()
 	  for (SCM s = scm_eval (ly_symbol2scm ("slur-extremity-rules"));
 	       s != SCM_EOL; s = gh_cdr (s))
 	    {
-	      SCM r = scm_eval (scm_listify (gh_caar (s),
-					     this->self_scm_,
-					     gh_int2scm ((int)dir),
-					     SCM_UNDEFINED));
+	      SCM r = gh_call2 (gh_caar (s), this->self_scm_,
+				 gh_int2scm ((int)dir));
 	      if (r != SCM_BOOL_F)
 		{
 		  index_set_cell (get_elt_property ("attachment"), dir,
@@ -304,38 +301,12 @@ Slur::get_attachment (Direction dir) const
 	}
     }
 
-
-  /*
-    URG
-   */
-
-  if (str != "loose-end")
-    {
-      Link_array<Note_column> encompass_arr =
-	Pointer_group_interface__extract_elements (this, (Note_column*)0,
-						   "note-columns");
-      o -= Offset (0, calc_interstaff_dist (dir == LEFT ? encompass_arr[0]
-					    : encompass_arr.top (), this));
-    }
+    if (str != "loose-end")
+      o += Offset (0, get_bound (dir)->relative_coordinate (0, Y_AXIS)
+		 - relative_coordinate (0, Y_AXIS));
+    
   return o;
 }
-
-int
-Slur::cross_staff_count ()const
-{
-  Link_array<Note_column> encompass_arr =
-    Pointer_group_interface__extract_elements (this, (Note_column*)0, "note-columns");
-
-  int k=0;
-
-  for (int i = 0; i < encompass_arr.size (); i++)
-    {
-      if (calc_interstaff_dist (encompass_arr[i], this))
-	k++;
-    }
-  return k;
-}
-
 
 Array<Offset>
 Slur::get_encompass_offset_arr () const
@@ -345,7 +316,8 @@ Slur::get_encompass_offset_arr () const
   
   Array<Offset> offset_arr;
 
-  Offset origin (relative_coordinate (0, X_AXIS), 0);
+  Offset origin (relative_coordinate (0, X_AXIS),
+		 relative_coordinate (0, Y_AXIS));
 
   int first = 1;
   int last = encompass_arr.size () - 2;
@@ -355,18 +327,12 @@ Slur::get_encompass_offset_arr () const
   /*
     left is broken edge
   */
-  int cross_count  = cross_staff_count ();
 
-  /*
-    URG
-  */
-  bool cross_b = cross_count && cross_count < encompass_arr.size ();
   if (encompass_arr[0] != get_bound (LEFT))
     {
       first--;
-      Real is = calc_interstaff_dist (encompass_arr[0], this);
-      if (cross_b)
-	offset_arr[0][Y_AXIS] += is;
+      offset_arr[0][Y_AXIS] -= encompass_arr[0]->relative_coordinate (0, Y_AXIS)
+	- relative_coordinate (0, Y_AXIS);
     }
 
   /*
@@ -384,6 +350,12 @@ Slur::get_encompass_offset_arr () const
     }
 
   offset_arr.push (Offset (spanner_length (), 0) + get_attachment (RIGHT));
+
+  if (encompass_arr[0] != get_bound (LEFT))
+    {
+      offset_arr.top ()[Y_AXIS] -= encompass_arr.top ()->relative_coordinate (0, Y_AXIS)
+	- relative_coordinate (0, Y_AXIS);
+    }
 
   return offset_arr;
 }

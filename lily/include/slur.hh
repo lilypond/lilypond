@@ -37,7 +37,6 @@ private:
   void de_uglyfy (Slur_bezier_bow* bb, Real default_height);
   void set_extremities ();
   void set_control_points ();
-  int cross_staff_count () const;
   Offset encompass_offset (Note_column const* )const;
 };
 
