@@ -1,4 +1,5 @@
 #include "molecule.hh"
+#include "notehead.hh"
 #include "stem.hh"
 #include "linestaff.hh"
 #include "rhythmstaff.hh"
@@ -28,9 +29,18 @@ Rhythmic_column::typeset_command(Command *com, int breakst)
 void
 Rhythmic_column::typeset_req(Request *rq)
 {
-    Item *i =new Item;
-    Molecule*m=create_req_mol(rq);
-    i->output=m;
+    Item *i ;
+    if (rq->note()) {
+	Notehead *n =new Notehead(1);
+	n->balltype = rq->rhythmic()->balltype;
+	n->dots = rq->rhythmic()->dots;
+	n->position = 0;
+	i = n;
+    } else if (rq->rest()) {
+	i =new Item;
+	Molecule*m=create_req_mol(rq);
+	i->output=m;
+    }
     typeset_item(i);
 }
 
@@ -40,9 +50,7 @@ Rhythmic_column::typeset_stem(Stem_req*rq)
     Stem * s = new Stem(0);
     s->minnote = s->maxnote = 0;
     s->flag = rq->stem_number;
-    s->calculate();
     typeset_item(s);
-    s->brew_molecole();
 }
 
 /*
