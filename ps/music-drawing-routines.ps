@@ -2,10 +2,11 @@
 %
 % Functions for direct and embedded PostScript
 
+/blot-diameter { lilypondpaperblotdiameter } bind def
 
-% FIXME: set with individual symbols
-% round cappings 
-1 setlinecap
+/set_tex_dimen {
+	cvr def     
+} bind def
 
 /euclidean_length  
 { 
@@ -20,26 +21,26 @@
 	%% FIXME: hardcoded
 	currentdict /testing known {
 		%% real thin lines for testing
-		/l 0.005 def
+		/blot 0.005 def
 	}{
-		/l 0.05 def
+		/blot blot-diameter def
 	} ifelse
 
 	0 setlinecap
-	l setlinewidth
+	blot setlinewidth
 	1 setlinejoin
 
-	l 2 div sub /h exch def
-	l 2 div sub /d exch def
+	blot 2 div sub /h exch def
+	blot 2 div sub /d exch def
 
 	%% UGH huh?
 	%% Where does this correction come from?
 	%% Why don't we need this in x direction?
-	h l 2 div sub /h exch def
-	d l 2 div sub /d exch def
+	h blot 2 div sub /h exch def
+	d blot 2 div sub /d exch def
 
-	l 2 div sub /w exch def
-	l 2 div sub /b exch def
+	blot 2 div sub /w exch def
+	blot 2 div sub /b exch def
 
 	b neg d neg moveto
 	b w add 0 rlineto
@@ -62,20 +63,20 @@
 	%% FIXME: hardcoded
 	currentdict /testing known {
 		%% real thin lines for testing
-		/l 0.01 def
+		/blot 0.005 def
 	}{
-		/l 0.1 def
+		/blot blot-diameter def
 	} ifelse
-	l 2 div setlinewidth
+	blot setlinewidth
 
  	0 setlinecap
 	1 setlinejoin
 
-	l sub /t exch def
-	l sub /w exch def
+	blot 2 mul sub /t exch def
+	blot 2 mul sub /w exch def
 	w mul /h exch def
 
-	l 2 div t 2 div neg moveto
+	blot t 2 div neg moveto
 	w h rlineto
 	0 t rlineto
 	w neg h neg rlineto
@@ -91,39 +92,46 @@
 
 /draw_repeat_slash % width slope thick
 {
-  /beamthick exch def
-  /slope exch def
-  /width exch def
-  beamthick beamthick slope div euclidean_length
-    /xwid exch def 
-  0 0 moveto
-  xwid 0  rlineto
-  width slope width mul rlineto
-  xwid neg 0 rlineto
-%  width neg width angle sin mul neg rlineto
-  closepath fill
+	1 setlinecap
+	1 setlinejoin
+
+	/beamthick exch def
+	/slope exch def
+	/width exch def
+	beamthick beamthick slope div euclidean_length
+	  /xwid exch def 
+	0 0 moveto
+	xwid 0  rlineto
+	width slope width mul rlineto
+	xwid neg 0 rlineto
+      %  width neg width angle sin mul neg rlineto
+	closepath fill
 } bind def
 
 /draw_hairpin % width start_h end_h thick
 {
-  setlinewidth
-  /end_h exch def 
-  /start_h exch def
-  /wid exch def
-  0 start_h moveto
-  wid end_h lineto
-  stroke
-  0 start_h neg moveto
-  wid end_h neg lineto
-  stroke
+	1 setlinecap
+	1 setlinejoin
+
+	setlinewidth
+	/end_h exch def 
+	/start_h exch def
+	/wid exch def
+	0 start_h moveto
+	wid end_h lineto
+	stroke
+	0 start_h neg moveto
+	wid end_h neg lineto
+	stroke
 } bind def
 
 /draw_tuplet % height gap dx dy thick dir 
 { 
-	/dir exch def 
-	setlinewidth 
 	1 setlinecap 
 	1 setlinejoin 
+
+	/dir exch def 
+	setlinewidth 
 	/tuplet_dy exch def 
 	/tuplet_dx exch def 
 	/tuplet_gapx exch def 
@@ -196,13 +204,14 @@
 
 /draw_volta % h w thick vert_start vert_end 
 { 
+	1 setlinecap 
+	1 setlinejoin 
+
 	/vert_end exch def 
 	/vert_start exch def 
 	setlinewidth 
 	/volta_w exch def 
  	/volta_h exch def 
-	1 setlinecap 
-	1 setlinejoin 
 	vert_start 0 eq { 
 		0 0 moveto 
 		0 volta_h lineto 

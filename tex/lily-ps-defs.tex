@@ -20,6 +20,7 @@
                         ##1 @endspecial}%
         }
 }
-
+\def\PSsetTeXdimen#1{\expandafter\special{! /#1 (\csname #1\endcsname) set_tex_dimen}}
+\PSsetTeXdimen{lilypondpaperblotdiameter}
 \def\turnOnExperimentalFeatures{}
 
