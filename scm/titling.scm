@@ -37,12 +37,15 @@ page:last?, page:page-number-string and page:page-number
 			    alist))
 		     alists))
 	       (tagline (ly:modules-lookup scopes 'tagline)) 
+	       (default-tagline (ly:output-def-lookup layout 'tagline)) 
 
 	       (pgnum-alist
 		(list
-		 (cons 'header:tagline (if (markup? tagline)
-					   tagline
-					   TAGLINE))
+		 (cons 'header:tagline
+		       (cond
+			((markup? tagline) tagline)
+			((markup? default-tagline) default-tagline)
+			(else "")))
 		 (cons 'page:last? last?)
 		 (cons 'page:page-number-string
 		       (number->string page-number))

@@ -41,6 +41,10 @@ See
 the section Point and click in he user manual. 
 @end ifnothtml
 
+@item
+White mensural ligatures now conform more closely to Renaissance
+usage.
+
 
 @item
 With the new @code{tieWaitForNote} property, arpeggios may be written
@@ -65,8 +69,8 @@ Individual objects may be assigned colors, for example,
 The PostScript backend is now used by default. This backend requires
 less machinery to run, and gives more consistent results.
 
-Due bugs in GhostScript's PDF handling, it is recommended to upgrade
-to GhostScript 8.x.
+Due to bugs in GhostScript's PDF handling, it is recommended to
+upgrade to GhostScript 8.x.
 
 @item
 Separator slashes may be inserted between systems in a score. For an

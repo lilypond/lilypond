@@ -7,6 +7,17 @@ slashSeparator = \markup {
       \raise #0.7 \beam #2.0 #0.5 #0.48
   }
 
+
+tagline = \markup {
+  \with-url
+  #"http://lilypond.org/pdflink/"
+  \line {
+    "Engraved by LilyPond"
+    #(ly:export (lilypond-version))
+    "-"
+    "www.lilypond.org"
+  }
+}
 bookTitleMarkup = \markup {
 
   \column {
