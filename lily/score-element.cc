@@ -836,8 +836,8 @@ init_functions ()
 bool
 Score_element::has_interface (SCM k)
 {
-  if (mutable_property_alist_ == SCM_EOL)
-    return false;
+  //  if (mutable_property_alist_ == SCM_EOL)
+  //  return false;
   
   SCM ifs = get_elt_property (interfaces_sym);
 

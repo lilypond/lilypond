@@ -200,9 +200,9 @@ Piano_pedal_engraver::do_process_music ()
 	  p->item_p_->add_offset_callback (Side_position::aligned_on_self, X_AXIS);
 	  p->item_p_->add_offset_callback (Side_position::centered_on_parent, X_AXIS);
 	  announce_element (p->item_p_,
-						p->req_l_drul_[START]
-						? p->req_l_drul_[START]
-						: p->req_l_drul_[STOP]);
+			    p->req_l_drul_[START]
+			    ? p->req_l_drul_[START]
+			    : p->req_l_drul_[STOP]);
 	}
     }
 }
