@@ -440,18 +440,120 @@ fet_beginchar("Quart diamondhead", "2diamond", "diamondhead")
 	fill black;
 fet_endchar;
 
+save triangle; path triangle;
+triangle = (-sqrt3/4,-1/2) -- (0,1) -- (sqrt3/4,-1/2) -- cycle;
+
+fet_beginchar("Whole trianglehead", "0triangle", "wholetrianglehead")
+	set_char_box(0, 2(noteheight#+stafflinethickness#)/sqrt3*7/8,
+	  (noteheight#+stafflinethickness#)/2,(noteheight#+stafflinethickness#)/2);
+	fill triangle scaled (7h/6) shifted (w/2,-h/6);
+	unfill triangle scaled 0.72h shifted (w/2,-h/6);
+fet_endchar;
+fet_beginchar("Half trianglehead", "1triangle", "halftrianglehead")
+	thick := 1.2stafflinethickness;
+	set_char_box(0, 2noteheight#/sqrt3*7/8,noteheight#/2,noteheight#/2);
+	fill triangle scaled (7h/6) shifted (w/2,-h/6);
+	unfill triangle scaled 0.7h shifted (w/2,-h/6);
+fet_endchar;
+fet_beginchar("Quart trianglehead", "2triangle", "trianglehead")
+	thick := 1.2stafflinethickness;
+	set_char_box(0, 2noteheight#/sqrt3*7/8,noteheight#/2,noteheight#/2);
+	fill triangle scaled (7h/6) shifted (w/2,-h/6);
+fet_endchar;
+
+
+slw := staff_space;
+slw# := staff_space#;
+slt := 1.25stafflinethickness;
+slt# := 1.25stafflinethickness#;
+slxt = 1.5slt;
+slxt# := 1.5slt#;
+slh := 1.5staff_space;
+slh# := 1.5staff_space#;
+
+fet_beginchar("Whole slashhead","0slash","wholeslashhead")
+	wid := slw#+2slxt#+staff_space#;
+	set_char_box(0,wid-stafflinethickness#,slh#/2,slh#/2);
+	define_pixels (wid);
+	pickup penrazor scaled slxt;
+	draw (-b+slxt/2-stafflinethickness/2,-d) -- (-b+slxt/2+slw-stafflinethickness/2,h);
+	draw (w-slxt/2-slw+stafflinethickness/2,-d) -- (w-slxt/2+stafflinethickness/2,h);
+	pickup penrazor scaled slt rotated 90;
+	draw (-b+slxt-stafflinethickness/2,-d+slt/2) -- (w-slw+stafflinethickness/2,-d+slt/2);
+	draw (-b+slw-stafflinethickness/2,h-slt/2) -- (w-slxt+stafflinethickness/2,h-slt/2);
+fet_endchar;
+
+fet_beginchar("Half slashhead","1slash","halfslashhead")
+	wid := slw#+2slxt#+0.6staff_space#;
+	set_char_box(0,wid-stafflinethickness#,slh#/2,slh#/2);
+	define_pixels (wid);
+	pickup penrazor scaled slxt;
+	draw (b+slxt/2-stafflinethickness/2,-d) -- (b+slxt/2+slw-stafflinethickness/2,h);
+	draw (w-slxt/2-slw+stafflinethickness/2,-d) -- (w-slxt/2+stafflinethickness/2,h);
+	pickup penrazor scaled slt rotated 90;
+	draw (b+slxt-stafflinethickness/2,-d+slt/2) -- (w-slw+stafflinethickness/2,-d+slt/2);
+	draw (b+slw-stafflinethickness/2,h-slt/2) -- (w-slxt+stafflinethickness/2,h-slt/2);
+fet_endchar;
+
+fet_beginchar("Quart slashhead","2slash","quartslashhead")
+	wid := slw#+slxt#;
+	set_char_box(0,slw#+slxt#-stafflinethickness#,slh#/2,slh#/2);
+	define_pixels (wid);
+	pickup penrazor scaled slxt;
+	draw (b+slxt/2-stafflinethickness/2,-d) -- (b+slxt/2+slw-stafflinethickness/2,h);
+fet_endchar;
+
+% thick is the distance between the two parallel lines in the cross (distance between centres of lines)
+def draw_cross(expr thick) =
+	pent := 1.2stafflinethickness;
+	pickup pencircle scaled pent;
+	% alfa is the slant of the lines (i.e. 1 means 45 degrees)
+	alfa := (2h-pent)/(w-pent);
+	% llen is the length of the little outer lines
+	% llen = thick / sin(2atan(alfa))
+	llen := thick/(ypart(dir(2angle(1,alfa))));
+	xa := llen/sqrt(1+alfa**2);
+	ya := xa*alfa;
+	xl := w/2-xa-pent/2;
+	yl := h-ya-pent/2;
+	save crz; path crz;
+	crz = (xa,0) -- (xa+xl,yl) -- (xl,yl+ya) -- (0,ya);
+	draw crz shifted(w/2,0);
+	draw crz xscaled -1 shifted(w/2,0);
+	draw crz yscaled -1 shifted(w/2,0);
+	draw crz scaled -1 shifted(w/2,0);
+enddef;
+
+fet_beginchar("Whole Crossed notehead", "0cross", "wholecrossedhead")
+	wid# := black_notehead_width#+4stafflinethickness#;
+	hei# := noteheight#+stafflinethickness#;
+	set_char_box(0, wid#,hei#/2,hei#/2);
+	draw_cross(3.75stafflinethickness);
+fet_endchar;
+
+fet_beginchar("Half Crossed notehead", "1cross", "halfcrossedhead")
+	wid# := black_notehead_width#+2stafflinethickness#;
+	hei# := noteheight#+stafflinethickness#/2;
+	set_char_box(0, wid#,hei#/2,hei#/2);
+	draw_cross(3stafflinethickness);
+fet_endchar;
+
 fet_beginchar("Crossed notehead", "2cross", "crossedhead")
-	set_char_box(0, black_notehead_width#, noteheight#/2, noteheight#/2);
-	pickup pencircle scaled 1.5 stafflinethickness;
-	lft x1 = 0;
-	bot y1 = -d;
-	top y2 = h;
-	rt x2 = w;
+	wid# := black_notehead_width#;
+	hei# := noteheight#;
+	set_char_box(0, wid#,hei#/2,hei#/2);
+	draw_cross(stafflinethickness/4);
+fet_endchar;
 
-	draw z1 .. z2;
-	draw (z1 .. z2) yscaled -1;
-fet_endchar
-
+fet_beginchar("X-Circled notehead", "2xcircle", "xcircledhead")
+	set_char_box(0, noteheight#+stafflinethickness#,
+	  noteheight#/2+stafflinethickness#/2,noteheight#/2+stafflinethickness#/2);
+	pickup pencircle scaled 1.2stafflinethickness;
+	draw fullcircle scaled 2h shifted (h,0);
+	pos := h/sqrt2;
+	draw (-pos+h,-pos) -- (pos+h,pos);
+	draw (-pos+h,pos) -- (pos+h,-pos);
+fet_endchar;
 
 fet_endgroup("noteheads");
 define_pixels(black_notehead_width);
