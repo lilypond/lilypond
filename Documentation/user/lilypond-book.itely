@@ -282,45 +282,6 @@ PDF can then be produced with a PostScript to PDF translator like
 @cindex latin1
 
 
-[THE FOLLOWING IS OUT OF DATE. ]
-
-LilyPond does not use the La@TeX{} font handling scheme for lyrics and
-text markups; it uses the EC font family and has limited support for
-selecting an input encoding with the @code{\encoding} keyword if the
-output is directly processed (these limitations primarily affect
-LilyPond's native PostScript output).  With @command{lilypond-book}, the
-encoding issues are completely handled by the document which includes
-LilyPond snippets; @command{lilypond} outputs all text strings without
-modification.  The drawback is that LilyPond always applies the EC font
-metrics to those strings for computing the locations within the music
-snippets; this often causes unpleasant horizontal (and vertical) shifts.
-With other words, support for encodings other than @w{latin-1} is
-possible but usually yields badly positioned text.  Future versions of
-LilyPond will fix this.
-
-Since @w{latin-1} is the default encoding for LilyPond markup and lyrics
-it is not necessary to explicitly add @code{\encoding "latin1"} to
-LilyPond snippets.  You might also consider the use of @code{\encoding
-"TeX"} instead which basically makes LilyPond skip @TeX{} commands
-(starting with a backslash) and braces in text strings -- it is not
-recommended, though, since LilyPond gives only a rough approximation to
-the real string length.
-
-As a corrolary of the last paragraphs the following two lines should be
-present in the La@TeX{} document preamble
-
-[END OUT OF DATE]
-
-@example
-\usepackage[latin1]@{inputenc@}
-\usepackage[T1]@{fontenc@}
-@end example
-
-@noindent
-and real @w{latin-1} characters should be used in LilyPond snippets; for
-example, use @code{ß}, not @code{\ss}.
-
-
 @node Integrating Texinfo and music
 @section Integrating Texinfo and music
 
@@ -560,6 +521,12 @@ distribution) are small @file{.ly} files which look exactly like this.
 If a LilyPond input file is included with @code{\lilypondfile}, print
 the file name right before the music snippet.  For HTML output, this is
 a link.
+
+@item fontload
+This option includes fonts in all of the generated EPS-files for this
+snippet. This should be used if the snippet uses any font that LaTeX
+cannot find on its own.
+
 @end table
 
 
