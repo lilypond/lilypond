@@ -374,8 +374,6 @@
 	  (let ((val (variable-ref var))
 		(tex-key (symbol->string sym)))
 	    
-	    (format (current-error-port) "SYM:~S\n" sym)
-	    
 	    (if (memq sym fields)
 		(header-to-file basename sym val))
 	    
@@ -415,6 +413,8 @@
 (define header-stencils '())
 
 (define output-port (current-error-port))
+
+;; just calling this from paper-score gives Stack overflow.
 (define (set-port p)
   (set! output-port p)
   "")
@@ -430,8 +430,6 @@
 (define (output-stencil port expr offset)
   (if (pair? expr)
       (let ((head (car expr)))
-	(format (current-error-port) "head: ~S\n" head)
-	(force-output (current-error-port))
 	(cond
 	 ((ly:input-location? head)
 	  (display (apply define-origin (ly:input-location head)) port)
