@@ -42,8 +42,8 @@ ottoni = \context StaffGroup = otonni_group <
 
 $timpani_g = \context StaffGroup = timpani_group <
 	\$timpani_staff
-	% HaraKiri mustn't work on first page
-	\context Staff = urgtimpany \notes{ \skip 1*34; }
+	% Force a staff bracket (?)
+	\context Staff = timpany { \skip 1; }
 >
 
 violini = \context GrandStaff = violini_group <

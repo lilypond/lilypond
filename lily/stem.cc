@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996, 1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1996--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
     Jan Nieuwenhuizen <janneke@gnu.org>
 
   TODO: This is way too hairy
@@ -219,7 +219,7 @@ Stem::Stem ()
   set_elt_property ("heads", SCM_EOL);
   set_elt_property ("rests", SCM_EOL);
 
-  dim_cache_[X_AXIS]->off_callbacks_.push ( &Stem::off_callback);
+  add_offset_callback ( &Stem::off_callback, X_AXIS);
 }
 
 bool

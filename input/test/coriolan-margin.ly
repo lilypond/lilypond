@@ -1,21 +1,8 @@
-
-\header{
-%% URG
-Clarinetti ="\\vbox to0pt{\vss\\hbox to0pt{\\hss2 Clarinetti\\hss}\\hbox to0pt{\\hss (B\\textflat)\\hss}\vss}";
-Cl ="\\vbox to0pt{\vss\\hbox to0pt{\\hss Cl.\\hss}\\hbox to0pt{\\hss (B\\textflat)\\hss}\vss}";
-Corni ="\\vbox to0pt{\vss\\hbox to0pt{\\hss2 Corni\\hss}\\hbox to0pt{\\hss (E\\textflat)\\hss}\vss}";
-Cor ="\\vbox to0pt{\vss\\hbox to0pt{\\hss Cor.\\hss}\\hbox to0pt{\\hss (E\\textflat)\\hss}\vss}";
-Trombe ="\\vbox to0pt{\vss\\hbox to0pt{\\hss2 Trombe\\hss}\\hbox to0pt{\\hss (C)\\hss}\vss}";
-Tbe ="\\vbox to0pt{\vss\\hbox to0pt{\\hss Tbe.\\hss}\\hbox to0pt{\\hss (C)\\hss}\vss}";
-Timpani ="\\vbox to0pt{\vss\\hbox to0pt{\\hss Timpani\\hss}\\hbox to0pt{\\hss (C-G)\\hss}\vss}";
-VioloncelloContrabasso ="\\hss\\vbox to0pt{\vss\\hbox to0pt{\\hss Violoncello\\hss}\\hbox to0pt{\\hss e\\hss}\\hbox to0pt{\\hss Contrabasso\\hss}\vss}";
-VcCb ="\\hss\\vbox to0pt{\vss\\hbox to0pt{\\hss Vc.\\hss}\\hbox to0pt{\\hss Cb.\\hss}\vss}";
-}
-
 flauti = \notes \relative c' {
   \property Staff.instrument	= #"2 Flauti"
   \property Staff.instr		= #"Fl."
-  c1 \break c
+  c1 
+  \break c
   \bar"|.";
 }
 
@@ -26,9 +13,6 @@ oboi = \notes \relative c' {
 }
 
 clarinetti = \notes \relative c' {
-  %%\property Staff.instrument	= #"\\mudelaClarinetti         "
-  %%\property Staff.instr	= #"\\mudelaCl    "
-
   \property Staff.instrument	= #"2 Clarinetti\n(B\\textflat)"
   \property Staff.instr		= #"Cl.\n(B\\textflat)"
 
@@ -42,9 +26,6 @@ fagotti = \notes \relative c' {
 }
 
 corni = \notes \relative c' {
-  %%\property Staff.instrument	= #"\\mudelaCorni      "
-  %%\property Staff.instr	= #"\\mudelaCor    "
-
   \property Staff.instrument	= #"2 Corni\n(E\\textflat)"
   \property Staff.instr		= #"Cor.\n(E\\textflat)"
 
@@ -52,9 +33,6 @@ corni = \notes \relative c' {
 }
 
 trombe = \notes \relative c' {
-  %%\property Staff.instrument	= #"\\mudelaTrombe        "
-  %%\property Staff.instr	= #"\\mudelaTbe    "
-
   \property Staff.instrument	= #"2 Trombe\n(C)"
   \property Staff.instr		= #"Tbe.\n(C)"
 
@@ -62,9 +40,6 @@ trombe = \notes \relative c' {
 }
 
 timpani = \notes \relative c' {
-  %%\property Staff.instrument	= #"\\mudelaTimpani         "
-  %%\property Staff.instr	= #"Timp."
-
   \property Staff.instrument	= #"Timpani\n(C-G)"
   \property Staff.instr		= #"Timp."
 
@@ -90,13 +65,12 @@ viola = \notes \relative c' {
 }
 
 violoncello = \notes \relative c' {
-  %%\property Staff.instrument	= #"\\mudelaVioloncelloContrabasso         "
-  %%\property Staff.instr	= #"\\mudelaVcCb    "
-
   \property Staff.instrument	= #"Violoncello\ne\nContrabasso"
   \property Staff.instr		= #"Vc.\nCb."
   c1 c
 }
+
+\include "paper16.ly"
 
 \score {
   < 
@@ -112,6 +86,11 @@ violoncello = \notes \relative c' {
     >
     \context StaffGroup ="timpani" <
       \context Staff ="timpani" \timpani
+     { 
+       \skip 1; 
+       % Hmm: this forces a staff-bracket, that's good!
+       % However, I can't find where is decided on staff-bracket yes/no
+     }
     >
     \context StaffGroup ="archi" <
       \context GrandStaff ="violini" <
@@ -132,12 +111,16 @@ violoncello = \notes \relative c' {
 	}
 
   \paper {
+  	\paper_sixteen
   	indent=100.0\mm;
   	linewidth=150.0\mm;
     \translator {
-      \StaffContext
-      \consists Staff_margin_engraver;
-      staffMarginHorizontalPadding = #-12
+      \HaraKiriStaffContext
+    }
+    \translator {
+      \ScoreContext
+      instrumentScriptPadding = #55  %% urg, this is in pt
+      instrScriptPadding = #25
     }
   }
 }

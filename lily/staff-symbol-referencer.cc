@@ -3,7 +3,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1999--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
  */
 
 #include <math.h>
@@ -22,7 +22,8 @@ void
 Staff_symbol_referencer_interface::set_interface ()
 {
   elt_l_->set_elt_property ("staff-position", gh_double2scm (0.0));
-  elt_l_->dim_cache_[Y_AXIS]->off_callbacks_.push (callback);
+  elt_l_->add_offset_callback (callback, Y_AXIS);
+  
 }
 
 
@@ -138,12 +139,10 @@ Staff_symbol_referencer_interface::set_position (Real p)
 
     }
 
-  Array<Offset_cache_callback> &callbacks (elt_l_->dim_cache_[Y_AXIS]->off_callbacks_);
-  for (int i=0; i < callbacks.size ();i++)
-    if (callbacks[i] == callback)
-      return ;
+  if (elt_l_->has_offset_callback_b (callback, Y_AXIS))
+    return ; 
 
-  callbacks.push (callback);
+  elt_l_->add_offset_callback (callback, Y_AXIS);
 }
 
 Staff_symbol_referencer_interface

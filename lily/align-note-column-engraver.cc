@@ -3,7 +3,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1999--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
 
@@ -59,7 +59,6 @@ Align_note_column_engraver::do_removal_processing ()
     {
       Direction d = to_dir (al);
       directional_element (align_item_p_).set (d);
-      align_item_p_->set_elt_property ("align-dir", to_dir (-d));
     }
   
   typeset_element (align_item_p_);

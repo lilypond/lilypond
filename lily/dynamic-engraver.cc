@@ -7,6 +7,7 @@
 */
 #include "debug.hh"
 #include "dimensions.hh"
+#include "dimension-cache.hh"
 #include "crescendo.hh"
 #include "musical-request.hh"
 #include "lookup.hh"
@@ -23,6 +24,14 @@
 #include "directional-element-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "translator-group.hh"
+
+
+/*
+  TODO:
+
+  * fix vertical placement of orphaned items
+  * fix padding 
+ */
 
 class Dynamic_line_spanner : public Spanner
 {
@@ -71,6 +80,9 @@ class Dynamic_engraver : public Engraver
 
   Dynamic_line_spanner* line_spanner_;
   Moment last_request_mom_;
+
+  Note_column* pending_column_;
+  Link_array<Score_element> pending_element_arr_;
   
   void  typeset_all ();
 
@@ -87,6 +99,7 @@ protected:
   virtual void do_process_music ();
   virtual void do_pre_move_processing ();
   virtual void do_post_move_processing ();
+  virtual void typeset_element (Score_element*);
 };
 
 ADD_THIS_TRANSLATOR (Dynamic_engraver);
@@ -107,6 +120,7 @@ Dynamic_engraver::Dynamic_engraver ()
   line_spanner_ = 0;
   span_start_req_l_ = 0;
   cresc_p_ =0;
+  pending_column_ = 0;
 
   text_req_l_ = 0;
   span_req_l_drul_[START] = 0;
@@ -153,18 +167,32 @@ Dynamic_engraver::do_try_music (Music * m)
 void
 Dynamic_engraver::do_process_music ()
 {
-  if ((span_req_l_drul_[START] || text_req_l_) && !line_spanner_)
+  if ((span_req_l_drul_[START] || text_req_l_)
+      && !line_spanner_
+      && pending_element_arr_.size ())
     {
       line_spanner_ = new Dynamic_line_spanner;
+      assert (pending_column_);
+      line_spanner_->add_column (pending_column_);
       side_position (line_spanner_).set_axis (Y_AXIS);
       announce_element (Score_element_info
 			(line_spanner_,
 			 text_req_l_ ? text_req_l_ : span_req_l_drul_[START]));
 
     }
-	  
+
+  if (line_spanner_ && pending_element_arr_.size ())
+    {
+      for (int i = 0; i < pending_element_arr_.size (); i++)
+	pending_element_arr_[i]->set_parent (line_spanner_, Y_AXIS);
+      pending_element_arr_.clear ();
+    }
+
   if (span_req_l_drul_[START] || text_req_l_)
     last_request_mom_ = now_mom ();
+  else
+    pending_element_arr_.clear ();
+
   
   if (text_req_l_)
     {
@@ -176,9 +204,10 @@ Dynamic_engraver::do_process_music ()
       text_p_->set_elt_property ("style", gh_str02scm ("dynamic"));
       text_p_->set_elt_property ("script-priority",
 					  gh_int2scm (100));
-	  
-      assert (line_spanner_);
-      text_p_->set_parent (line_spanner_, Y_AXIS);
+      pending_element_arr_.push (text_p_);
+      text_p_->set_elt_property ("self-alignment-Y", gh_int2scm (0));
+      text_p_->add_offset_callback (Side_position_interface::aligned_on_self,
+		Y_AXIS);
       announce_element (Score_element_info (text_p_, text_req_l_));
     }
 
@@ -193,7 +222,6 @@ Dynamic_engraver::do_process_music ()
 	{
 	  assert (!finished_cresc_p_);
 	  cresc_p_->set_bound(RIGHT, get_staff_info ().musical_pcol_l ());
-	  //	  cresc_p_->add_dependency (get_staff_info ().musical_pcol_l ());
 	  finished_cresc_p_ = cresc_p_;
 	  cresc_p_ = 0;
 	  span_start_req_l_ = 0;
@@ -238,8 +266,6 @@ Dynamic_engraver::do_process_music ()
 	  cresc_p_->set_bound(LEFT, get_staff_info ().musical_pcol_l ());
 
 
-	  // cresc_p_->add_dependency (get_staff_info ().musical_pcol_l ());
-
 	  /* 
 	      We know how wide the text is, if we can be sure that the
 	      text already has relevant pointers into the paperdef,
@@ -247,6 +273,12 @@ Dynamic_engraver::do_process_music ()
 
 	      Since font-size may be set by a context higher up, we
 	      can not be sure of the size.
+
+
+	      We shouldn't try to do this stuff here, the Item should
+	      do it when the score is finished.  We could maybe
+	      set a callback to have the Item do the alignment if
+	      it is not a special symbol, like Crescendo.
 	  */
 
 	     
@@ -258,10 +290,10 @@ Dynamic_engraver::do_process_music ()
 		index_set_cell (finished_cresc_p_->get_elt_property ("dynamic-drul"),
 				RIGHT, SCM_BOOL_T);
 	    }
-
-	  assert (line_spanner_);
-	  cresc_p_->set_parent (line_spanner_, Y_AXIS);
-	  // cresc_p_->add_dependency (line_spanner_);
+	  pending_element_arr_.push (cresc_p_);
+	  cresc_p_->set_elt_property ("self-alignment-Y", gh_int2scm (0));
+	  cresc_p_->add_offset_callback
+	    (Side_position_interface::aligned_on_self, Y_AXIS);
 	  announce_element (Score_element_info (cresc_p_, span_req_l_drul_[START]));
 	}
     }
@@ -291,6 +323,12 @@ Dynamic_engraver::do_removal_processing ()
     }
 }
 
+void
+Dynamic_engraver::typeset_element (Score_element* e)
+{
+  side_position (e).add_staff_support ();
+  Engraver::typeset_element (e);
+}
 
 void
 Dynamic_engraver::typeset_all ()
@@ -314,9 +352,6 @@ Dynamic_engraver::typeset_all ()
       * continue through piece */
   if (line_spanner_ && last_request_mom_ < now_mom ())
     {
-
-      side_position (line_spanner_).add_staff_support ();
-      
       typeset_element (line_spanner_);
       line_spanner_ = 0;
     }
@@ -325,12 +360,16 @@ Dynamic_engraver::typeset_all ()
 void
 Dynamic_engraver::acknowledge_element (Score_element_info i)
 {
-  if (line_spanner_)
+  if (Note_column* n = dynamic_cast<Note_column*> (i.elem_l_))
     {
-      if (Note_column* n = dynamic_cast<Note_column*> (i.elem_l_))
+      if (line_spanner_)
 	{
 	  side_position (line_spanner_).add_support (n);
 	  line_spanner_->add_column (n);
+	}
+      else
+	{
+	  pending_column_ = n;
 	}
     }
 }

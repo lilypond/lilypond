@@ -1,7 +1,7 @@
 /*
   extender-spanner.hh -- part of GNU LilyPond
 
-  (c) 1998, 1999 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1998--2000 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #ifndef EXTENDER_SPANNER_HH

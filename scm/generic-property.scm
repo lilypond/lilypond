@@ -99,6 +99,9 @@
 (define generic-rest-properties
   (cons "Rest" (list (list 'restStyle string? 'reststyle))))
 
+(define generic-rest-collision-properties
+  (cons "Rest_collision" (list (list 'maximumRestCount number? 'maximum-rest-count))))
+
 (define generic-tie-properties
   (cons "Tie" (list
 	       (list 'tieVerticalDirection dir? 'direction)
@@ -175,6 +178,7 @@
    generic-timesig-properties
    generic-clef-properties
    generic-collision-properties
+   generic-rest-collision-properties
 ;   generic-staff-symbol-properties
    generic-All-properties      
    )

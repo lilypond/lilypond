@@ -1,7 +1,7 @@
 /*
   score-element.hh -- declare Score_element
 
-  (c) 1996-1999 Han-Wen Nienhuys
+  (c) 1996-1999--2000 Han-Wen Nienhuys
 */
 
 #ifndef STAFFELEM_HH
@@ -12,6 +12,8 @@
 #include "lily-guile.hh"
 #include "lily-proto.hh"
 #include "smobs.hh"
+#include "dimension-cache-callback.hh"
+
 
 typedef void (Score_element::*Score_element_method_pointer) (void);
 
@@ -150,8 +152,6 @@ protected:
   /// do calculations after determining horizontal spacing
   virtual void after_line_breaking ();
     
-  virtual Link_array<Score_element> get_extra_dependencies () const;
-
   static Interval dim_cache_callback (Dimension_cache const*);
 public:
   static SCM ly_set_elt_property (SCM, SCM,SCM);
@@ -194,6 +194,9 @@ public:
   Score_element*common_refpoint (Score_element const* s, Axis a) const;
   Score_element*common_refpoint (Link_array<Score_element> elems, Axis a) const;
 
+
+  bool has_offset_callback_b (Offset_cache_callback, Axis)const;
+  void add_offset_callback (Offset_cache_callback, Axis);
   /**
      Set the  parent refpoint of THIS to E
    */

@@ -18,6 +18,7 @@
 #include "rest.hh"
 #include "group-interface.hh"
 #include "staff-symbol-referencer.hh"
+#include "duration.hh"
 
 void
 Rest_collision::add_column (Note_column *nc_l)
@@ -30,6 +31,30 @@ Rest_collision::add_column (Note_column *nc_l)
     gi.name_ = "notes";
   
   gi.add_element (nc_l);
+}
+
+static Duration
+to_duration (int type, int dots)
+{
+  Duration d;
+  d.durlog_i_ = type;
+  d.dots_i_ = dots;
+  return d;
+}
+
+static Moment
+rhythmic_head2mom (Rhythmic_head* r)
+{
+  return to_duration (r->balltype_i (), r->dot_count ()).length_mom ();
+}
+
+static Rhythmic_head*
+col2rhythmic_head (Note_column* c)
+{
+  SCM s = c->get_elt_property ("rests");
+  assert (gh_pair_p (s));
+  Score_element* e = unsmob_element (gh_car (s));
+  return dynamic_cast<Rhythmic_head*> (e);
 }
 
 void
@@ -61,13 +86,59 @@ Rest_collision::before_line_breaking ()
   // meisjes met meisjes
   if (!ncol_l_arr.size()) 
     {
+
+      /*
+	Oeps, nu zie ik 't pas: colommen met noten.
+	Het commentaar, dat ik ooit geschreven had: meisjes met meisjes,
+	is achterhaald: urg.
+
+       */
+
+      Moment m = rhythmic_head2mom (col2rhythmic_head (rest_l_arr[0]));
+      int i = 1;
+      for (; i < rest_l_arr.size (); i++)
+	{
+	  Moment me = rhythmic_head2mom (col2rhythmic_head (rest_l_arr[i]));
+	  if (me != m)
+	    break;
+	}
+
+      /*
+	If all durations are the same, we'll check if there are more
+	rests than maximum-rest-count.
+	Otherwise (different durations), we'll try to display them all
+	(urg: all 3 of them, currently).
+       */
+      int display_count;
+      SCM s = get_elt_property ("maximum-rest-count");
+      if (i == rest_l_arr.size ()
+	  && gh_number_p (s) && gh_int2scm (s) < rest_l_arr.size ())
+	{
+	  display_count = gh_int2scm (s);
+#if 0
+	  /*
+	    Setting surplus rests to transparent.
+	    Only really necessary for maximum-rest-count == 0,
+	    because rests wil be set at exact the same position
+	    and thus overlap.
+	  */
+	  for (i--;i > display_count; i--)
+	    col2rhythmic_head (rest_l_arr[i-1])
+	      ->set_elt_property ("transparent", SCM_BOOL_T);
+#endif
+	}
+      else
+	display_count = rest_l_arr.size ();
+      
       /*
 	UGH.  Should get dims from table.  Should have minimum dist.
        */
-      int dy = rest_l_arr.size() > 2 ? 6 : 4;
-	
-      rest_l_arr[0]->translate_rests (rest_l_arr[0]->dir () *dy);	
-      rest_l_arr.top()->translate_rests (rest_l_arr.top ()->dir ()* dy);
+      int dy = display_count > 2 ? 6 : 4;
+      if (display_count > 1)
+	{
+	  rest_l_arr[0]->translate_rests (dy);	
+	  rest_l_arr[1]->translate_rests (-dy);
+	}
     }
   // meisjes met jongetjes
   else 

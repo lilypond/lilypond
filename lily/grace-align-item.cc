@@ -3,7 +3,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1999--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
 
@@ -24,7 +24,9 @@ Grace_align_item::before_line_breaking ()
   Real nhw = // lookup_l ()->notehead (2, "").dim_[X_AXIS].length();
     paper_l ()->get_var ("quartwidth");
   
-  threshold_interval_[MIN] = nhw* 1.5;
+  set_elt_property ("threshold",
+		    gh_cons (gh_double2scm (nhw* 1.5),
+			     gh_double2scm (infinity_f)));
   column_l ()->set_elt_property ("contains-grace", SCM_BOOL_T);
 
   
