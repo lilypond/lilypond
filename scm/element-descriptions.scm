@@ -513,6 +513,7 @@
 		(thick . 1.0)
 		(after-line-breaking-callback . ,Tuplet_spanner::after_line_breaking)
 		(molecule-callback . ,Tuplet_spanner::brew_molecule)
+		(font-family . roman)
 		(font-shape . italic)
 		(font-relative-size . -1)
 		(meta .  ,(element-description "TupletBracket" text-interface
