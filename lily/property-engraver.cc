@@ -148,7 +148,7 @@ Property_engraver::apply_properties (SCM p, Grob *e, Translator_group*origin)
 	    SCM type_name = gh_call1 (typefunc, type_p);
 	    warning (_f ("Wrong type for property: %s, type: %s, value found: %s, type: %s",
 			 ly_symbol2string (prop_sym).ch_C (),
-			 ly_symbol2string (type_name).ch_C (),
+			 ly_scm2string (type_name).ch_C (),
 			 ly_scm2string (ly_write2scm (val)).ch_C (),
 			 ly_scm2string (ly_type (val)).ch_C ()));
 	    scm_puts ("\n", errport);

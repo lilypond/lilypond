@@ -419,9 +419,8 @@ type_check_assignment (SCM val, SCM sym,  SCM type_symbol)
 	  /* warning () ? */
 	  scm_puts (_f ("Failed typecheck for `%s', value `%s' must be of type `%s'",
 			ly_symbol2string (sym).ch_C (),
-			ly_symbol2string (val).ch_C (),
-			ly_scm2string (ly_write2scm (val)).ch_C (),
-			ly_symbol2string (type_name).ch_C ()).ch_C (),
+			ly_scm2string (ly_write2scm( val)).ch_C (),
+			ly_scm2string (type_name).ch_C ()).ch_C (),
 		    errport);
 	  scm_puts ("\n", errport);		      
 	}
