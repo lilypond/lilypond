@@ -68,3 +68,4 @@ Key_item::brew_molecule_p()const
     output->add_right(m);
     return output;
 }
+IMPLEMENT_STATIC_NAME(Key_item);

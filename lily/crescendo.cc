@@ -34,3 +34,5 @@ Crescendo::brew_molecule_p() const return m_p ;
     int pos = (dir_i_ >0) ? staff_size_i_ + 4 : - 4 ;
     m_p->translate(Offset(0,pos * paper()->internote()));
 }
+
+IMPLEMENT_STATIC_NAME(Crescendo);
