@@ -74,9 +74,10 @@ Font_metric *select_font (Output_def *layout, SCM chain);
 DECLARE_UNSMOB (Output_def, output_def);
 
 
-Font_metric *find_scaled_font (Output_def *od,
-			       Font_metric *f, Real magnification);
+Font_metric* find_pango_font (Output_def *layout,  SCM descr, Real factor);
+Font_metric *find_scaled_font (Output_def *od, Font_metric *f, Real magnification);
 Output_def *scale_output_def (Output_def *def, Real scale);
+
 Real output_scale (Output_def*);
 
 #endif /* MUSIC_OUTPUT_DEF_HH */

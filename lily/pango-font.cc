@@ -16,6 +16,7 @@
 #include "lookup.hh"
 #include "dimensions.hh"
 #include "pango-font.hh"
+#include "warn.hh"
 
 #if HAVE_PANGO_FT2
 #include "stencil.hh" 
@@ -26,7 +27,7 @@ Pango_font::Pango_font (PangoFT2FontMap *fontmap,
 			PangoFontDescription *description,
 			Real output_scale)
 {
-  subfonts_ = SCM_EOL;
+  physical_font_tab_ = scm_c_make_hash_table (11);
   PangoDirection pango_dir = (dir == RIGHT)
     ? PANGO_DIRECTION_LTR
     : PANGO_DIRECTION_RTL;
@@ -61,14 +62,15 @@ Pango_font::~Pango_font ()
 void
 Pango_font::register_font_file (String filename, String ps_name) 
 {
-  subfonts_ = scm_cons (scm_makfrom0str (filename.to_str0 ()),
-			subfonts_);
+  scm_hash_set_x (physical_font_tab_,
+		  scm_makfrom0str (ps_name.to_str0()),
+		  scm_makfrom0str (filename.to_str0()));
 }
 
 void
 Pango_font::derived_mark () const
 {
-  scm_gc_mark (subfonts_);
+  scm_gc_mark (physical_font_tab_);
 }
 
 Stencil
@@ -124,21 +126,35 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
   char *filename = 0;
   FcPatternGetString(fcpat, FC_FILE, 0, (FcChar8 **) &filename);
   char const *ps_name = FT_Get_Postscript_Name (ftface);
-  ((Pango_font *) this)->register_font_file (filename, ps_name);
-  pango_fc_font_unlock_face (fcfont);
+
+  if (ps_name)
+    {
+      ((Pango_font *) this)->register_font_file (filename, ps_name);
+      pango_fc_font_unlock_face (fcfont);
       
-  SCM expr = scm_list_4 (ly_symbol2scm ("glyph-string"),
-			 scm_makfrom0str (ps_name),
-			 scm_from_double (size),
-			 ly_quote_scm (glyph_exprs));
+      SCM expr = scm_list_4 (ly_symbol2scm ("glyph-string"),
+			     scm_makfrom0str (ps_name),
+			     scm_from_double (size),
+			     ly_quote_scm (glyph_exprs));
 
-  Stencil item_stencil (b, expr);
+      return Stencil (b, expr);
+    }
+  else
+    {
+      warning (_ ("FreeType face has no PostScript font name."));      
+      return Stencil();
+    }
+}
 
-  return item_stencil;  
+SCM
+Pango_font::physical_font_tab () const
+{
+  return physical_font_tab_;
 }
 
 
 Stencil
+
 Pango_font::text_stencil (String str) const
 {
   GList *items = pango_itemize (context_,
@@ -195,24 +211,11 @@ Pango_font::text_stencil (String str) const
   return dest;
 }
 
-SCM
-Pango_font::sub_fonts () const
-{
-  return subfonts_;
-}
 
 SCM 
 Pango_font::font_file_name () const
 {
   return SCM_BOOL_F;
-}
-
-LY_DEFINE (ly_pango_font_p, "ly:pango-font?",
-	   1, 0, 0,
-	   (SCM f),
-	   "Is @var{f} a pango font?")
-{
-  return scm_from_bool (dynamic_cast<Pango_font*> (unsmob_metrics (f)));
 }
 
 

@@ -418,6 +418,7 @@ or
 %type <outputdef>	output_def_body output_def_head
 %type <outputdef> output_def paper_block 
 
+%type <scm>     assignment_id
 %type <scm>	Music_list
 %type <scm>	chord_body_elements
 %type <scm>	chord_item chord_items chord_separator new_chord
@@ -554,8 +555,13 @@ lilypond_header:
 /*
 	DECLARATIONS
 */
+assignment_id:
+	STRING		{ $$ = $1; }
+	| LYRICS_STRING { $$ = $1; }
+	;
+
 assignment:
-	STRING '=' identifier_init  {
+	assignment_id '=' identifier_init  {
 		if (! is_regular_identifier ($1))
 		{
 			@1.warning (_ ("Identifier should have alphabetic characters only"));
@@ -1280,12 +1286,12 @@ re_rhythmed_music:
 		$$ = all;
 		scm_gc_unprotect_object (voice->self_scm ());
 	}
-	| LYRICSTO {
+	| LYRICSTO simple_string {
 		THIS->lexer_->push_lyric_state ();
-	} simple_string Music {
+	} Music {
 		THIS->lexer_->pop_state ();
 		Music *music = $4;
-		SCM name = $3;
+		SCM name = $2;
 		$$ = make_lyric_combine_music (name, music);
 		scm_gc_unprotect_object (music->self_scm ());
 	}

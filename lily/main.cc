@@ -275,6 +275,10 @@ main_with_guile (void *, int, char **)
   init_global_tweak_registry ();
   init_fontconfig ();
   init_freetype ();
+
+  is_pango_format_global = (output_backend_global != "tex"
+			    && output_backend_global != "texstr");
+
   all_fonts_global = new All_font_metrics (global_path.to_string ());
 
   init_scheme_code_string += ")";
@@ -380,10 +384,9 @@ parse_argv (int argc, char **argv)
 	  warranty ();
 	  exit (0);
 	  break;
+	  
 	case 'b':
 	  output_backend_global = option_parser->optional_argument_str0_;
-	  is_pango_format_global = (output_backend_global != "tex"
-				    &&output_backend_global != "texstr");
 	  break;
 
 	case 'f':

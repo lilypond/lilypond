@@ -61,6 +61,8 @@ SCM parse_symbol_list (char const *);
 SCM robust_list_ref(int i, SCM l);
 SCM alist_to_hashq (SCM);
 
+SCM ly_alist_vals (SCM alist);
+SCM ly_hash2alist (SCM tab);
 
 /* inserts at front, removing dublicates */
 inline SCM ly_assoc_front_x(SCM alist, SCM key, SCM val)
