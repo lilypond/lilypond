@@ -227,6 +227,8 @@
 			   (aname (string-append x ".pfa"))
 			   (bname (string-append x ".pfb"))
 			   (cff-file-name (ly:find-file cffname))
+			   (a-file-name (ly:kpathsea-find-file aname))
+			   (b-file-name (ly:kpathsea-find-file bname))
 			   )
 		      (cond
 		       ((and bare-file-name (string-match "\\.pfb" bare-file-name))

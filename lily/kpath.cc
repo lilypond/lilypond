@@ -105,40 +105,6 @@ kpathsea_find_format (String name)
 }
 #endif
 
-String
-kpathsea_gulp_file_to_string (String name)
-{
-  String file_name = global_path.find (name);
-
-#if (KPATHSEA && HAVE_KPSE_FIND_FILE)
-  if (file_name.is_empty ())
-    {
-      char *p = kpse_find_file (name.to_str0 (), kpathsea_find_format (name),
-	true);
-      if (p)
-	file_name = p;
-      else
-	warning (_f ("kpathsea can't find file: `%s'", name));
-    }
-#endif
-
-  if (file_name.is_empty ())
-    error (_f ("can't find file: `%s'", name));
-
-  if (be_verbose_global)
-    progress_indication ("[" + file_name);
-
-  int filesize;
-  char *str = gulp_file (file_name, &filesize);
-  String string (str);
-  delete[] str;
-  
-  if (be_verbose_global)
-    progress_indication ("]");
-
-  return string;
-}
-
 
 
 void

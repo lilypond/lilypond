@@ -24,7 +24,9 @@ for opt in options:
 
 for design_size in [11,13,14,16,18,20,23,26]:
 	name = 'Emmentaler' 
+	filename = name.lower ()
 	script = '''#!@FONTFORGE@
+
 New();
 
 # Separate Feta versioning?
@@ -63,12 +65,12 @@ LoadTableFromFile("LILF", "%(name)s-%(design_size)d.subfonts")
 LoadTableFromFile("LILC", "feta%(design_size)d.otf-table")
 LoadTableFromFile("LILY", "feta%(design_size)d.otf-gtable")
 
-Generate("%(name)s-%(design_size)d.otf");
-Generate("%(name)s-%(design_size)d.cff");
-Generate("%(name)s-%(design_size)d.svg");
+Generate("%(filename)s-%(design_size)d.otf");
+Generate("%(filename)s-%(design_size)d.cff");
+Generate("%(filename)s-%(design_size)d.svg");
 ''' % vars()
 
-	path = os.path.join (outdir, '%s-%d.pe' % (name, design_size))
+	path = os.path.join (outdir, '%s-%d.pe' % (filename, design_size))
 	open (path, 'w').write (script)
 
 	subfonts = ['feta%(design_size)d',

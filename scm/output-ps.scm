@@ -278,8 +278,7 @@
   (let* ((space-length (cdar (ly:text-dimension font " ")))
 	 (space-move (string-append (number->string space-length)
 				    " 0.0 rmoveto "))
-	 (input-enc "latin1")
-	 (out-vec (decode-byte-string input-enc s)))
+	 (out-vec (decode-byte-string s)))
 
     (string-append
      (ps-font-command font) " setfont "
