@@ -142,6 +142,7 @@ is used by @ref{note-collision-interface}")
 (elt-property-description 'full-size-change boolean? "if set, don't make a change clef smaller.")
 
 (elt-property-description 'glyph symbol? "a string determining what (style) of  glyph is typeset. Valid choices depend on the function that is reading this property. ")
+(elt-property-description 'gap number? "Size of a gap in a variable symbol")
 (elt-property-description 'glyph-name string? "a name of character within font")
 
 (elt-property-description 'grow-direction dir? "crescendo or decrescendo?")
@@ -285,6 +286,7 @@ horizontal mode: set all text on one line (default)
 (elt-property-description 'thick-thickness number? "thickness, measured in stafflinethickness")
 (elt-property-description 'thickness number? "thickness, measured in stafflinethickness")
 (elt-property-description 'thin-kern number? "space after a hair-line")
+(elt-property-description 'forced-distance number? "forced distance for an alignment")
 (elt-property-description 'threshold number-pair? "(cons MIN MAX), where MIN and MAX are dimensions in staffspace")
 (elt-property-description 'transparent boolean? "This is almost the
 same as setting molecule-callback to #f, but this retains the
