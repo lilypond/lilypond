@@ -16,7 +16,7 @@ lower = \notes\relative c {
 
 dynamics = \notes {
   s2\fff\> s4
-  \!s-\pp
+  s-\!-\pp
 }
 
 pedal = \notes {
