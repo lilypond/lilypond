@@ -1861,34 +1861,26 @@ More precisely, this command modifies the definition of the @code{Slur}
 object in the current @code{Voice}.  The variable @code{attachment} is
 set to the pair of symbols @code{'(stem . stem)}. 
 
-Although this fixes the slur, it is not very helpful for fine tuning in
-general: the lilypond back-end supports approximately 240 variables
-like @code{attachment}, each with their own meaning and own type
-(eg. number, symbol, list, etc).  Besides slur, LilyPond has 80
-different types of graphical objects, that may be created in 14
-different context types besides Voice.
-
 @cindex internal documentation
 @cindex finding graphical objects
 @cindex graphical object descriptions 
 
-The interesting information is how you can figure out which properties
-to tune for your own scores. To discover this, you must have a copy of
-the internals document. This is a set of HTML pages which should be
-included if you installed a binary distribution@footnote{You can also
-compile them by executing @code{make -C Documentation/user/
-out/lilypond-internals.html} in the source package.}.  These HTML pages
-are also available on the web: go to the lilypond website, click
-``Documentation: Index'' on the side bar, look in the ``Information for
-uses'' section, and click on ``Documentation of internals''.
+This command fixes one particular problem with a slur. The rest of
+this section explains how to figure out which properties to tune for
+your own scores. To discover this, you must have a copy of the
+internals document. This is a set of HTML pages which should be
+included if you installed a binary distribution.  These HTML pages are
+also available on the web: go to the lilypond website, click
+``Documentation: Index'' on the side bar, look in the ``Information
+for uses'' section, and click on ``Documentation of internals''.
 
-You might want to bookmark either the HTML files on your disk, or the one
-on the web (the HTML on your hard drive will load much faster than the
-ones on the web!).  One word of caution: the internals documentation is
-generated from the definitions that lily uses.  For that reason, it is
-strongly tied to the version of LilyPond that you use.  Before you
-proceed, please make sure that you are using the documentation that
-corresponds to the version of LilyPond that you are using.
+You might want to bookmark either the HTML files on your disk, or the
+one on the web (the HTML on your hard drive will load much faster than
+the ones on the web!).  One word of caution: the internals
+documentation is generated from the definitions that the program uses.
+Hence, the internals documentation is strongly tied to the version you
+use.  Before you proceed, make sure that the versions of program and
+documentation match.
 
 @c  TODO: the quote is incorrect, although that shouldn't be a big
 @c    problem for the reader.
@@ -1914,13 +1906,6 @@ produce the desired effect:
 @example 
  \property Voice.Slur \set #'attachment = #'(stem . stem)
 @end example
-
-If you ran the previous example, you have unknowingly already used
-this kind of command.  The @inputfileref{ly,property-init.ly} contains the
-definition of @code{\stemUp}:
-@example
-  stemUp = \property Voice.Stem \set #'direction = #1
-@end example  
 
 @c this is a long section, and adding an extra space here helps to
 @c break it into smaller subsections and thus is easier to understand.
@@ -1990,12 +1975,13 @@ undo the setting. The technical term is to revert the property.
 @separate
 
 There are three different types of variables in LilyPond, something
-which can be confusing at first (and for some people it stays confusing
-:).  Variables such as @code{extra-offset} and @code{attachment} are
-called grob properties.  They are not the same as translator properties,
-like @code{autoBeaming}.  Finally, music expressions are internally
-stored using properties (so-called music properties).  You will encounter
-music properties if you run Scheme functions on music using @code{\apply}.
+which can be confusing at first (and for some people it stays
+confusing).  Variables such as @code{extra-offset} and
+@code{attachment} are called grob properties.  They are not the same
+as translator properties, like @code{autoBeaming}.  Finally, music
+expressions are internally stored using properties (so-called music
+properties).  You will encounter music properties if you run Scheme
+functions on music using @code{\apply}.
 
 The second fingering instruction should be moved up a little to avoid
 a collision with the slur.  This could be achieved with
