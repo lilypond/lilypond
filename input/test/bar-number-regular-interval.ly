@@ -5,14 +5,14 @@ Bar numbers can also be printed inside boxes.
 
 " }
 
-\version "2.3.17"
+\version "2.3.18"
 
 \score {
     \context Staff  \transpose  c c' {
 	\override Score.BarNumber  #'break-visibility = #end-of-line-invisible
 	\set Score.barNumberVisibility = #(every-nth-bar-number-visible 4)
 	\override Score.BarNumber  #'print-function =
-	#(make-stencil-boxer 0.1 0.25 0.25 Text_item::print)
+	#(make-stencil-boxer 0.1 0.25 0.25 Text_interface::print)
 	\override Score.BarNumber  #'font-size = #2
 	
 	\repeat unfold 9 { c1 } \bar "|."

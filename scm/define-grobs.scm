@@ -540,6 +540,7 @@
 	(space-alist . (
 			(time-signature . (extra-space . 1.25))
 			(staff-bar .  (extra-space . 0.6))
+			(key-signature . (extra-space . 0.5))
 			(right-edge . (extra-space . 0.5))
 			(first-note . (fixed-space . 2.5))
 			))

@@ -7438,7 +7438,7 @@ tsMarkup =\markup  {
 }
 
 {
-  \override Staff.TimeSignature  #'print-function = #Text_item::print
+  \override Staff.TimeSignature  #'print-function = #Text_interface::print
   \override Staff.TimeSignature  #'text = #tsMarkup
   \time 3/2
   c'2  \bar ":" c'4 c'4.

@@ -2214,7 +2214,7 @@ def conv (str):
 
 conversions.append (((2, 3, 18),
 		     conv,
-		     '''Text_item -> Text_interface''' )
+		     '''Text_item -> Text_interface''' ))
 
 ################################
 #	END OF CONVERSIONS	
