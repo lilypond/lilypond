@@ -1,4 +1,4 @@
-i\input texinfo @c -*- coding: latin-1; mode: texinfo; -*-
+\input texinfo @c -*- coding: latin-1; mode: texinfo; -*-
 @setfilename lilypond.info
 @settitle GNU LilyPond
 @iftex
