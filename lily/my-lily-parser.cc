@@ -20,6 +20,7 @@
 #include "midi-def.hh"
 #include "paper-def.hh"
 #include "identifier.hh"
+#include "chord.hh"
 
 My_lily_parser::My_lily_parser (Sources * source_l)
 {
@@ -151,159 +152,11 @@ My_lily_parser::get_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p,
   Simultaneous_music*v = new Request_chord;
   v->set_spot (here_input ());
 
-  for (int i = 0; i < add_arr_p->size (); i++)
+  Chord chord (tonic, add_arr_p, sub_arr_p, inversion_p);
+
+  for (int i = 0; i < chord.pitch_arr_.size (); i++)
     {
-      Musical_pitch p = tonic;
-      Musical_pitch q = (*add_arr_p)[i];
-      // duh, c7 should mean <c bes>
-      if (q.notename_i_ == 6)
-        q.accidental_i_--;
-      p.transpose (q);
-      (*add_arr_p)[i] = p;
-    }
-  add_arr_p->sort (Musical_pitch::compare);
-  for (int i = 0; i < sub_arr_p->size (); i++)
-    {
-      Musical_pitch p = tonic;
-      Musical_pitch q = (*sub_arr_p)[i];
-      // duh, c7 should mean <c bes>
-      if (q.notename_i_ == 6)
-        q.accidental_i_--;
-      p.transpose (q);
-      (*sub_arr_p)[i] = p;
-    }
-  sub_arr_p->sort (Musical_pitch::compare);
-
-  Musical_pitch third (2);
-  Musical_pitch mthird (2, -1);
-  Musical_pitch missing;
-  missing = tonic;
-  missing.transpose (third);
-
-  Musical_pitch p;
-  p = tonic;
-  p.transpose (third);
-  p.transpose (mthird);
-
-  /*
-   must have minimum at 5 (3 is added automatically as missing)
-   */
-  if (!add_arr_p->size ())
-    add_arr_p->push (p);
-  else if ((add_arr_p->top () < p) && (add_arr_p->top ().notename_i_ != p.notename_i_))
-    add_arr_p->push (p);
-  add_arr_p->sort (Musical_pitch::compare);
-
-  Array<Musical_pitch> triads;
-  triads.push (third);   // c e 
-  triads.push (mthird);  // d f 
-  triads.push (mthird);  // e g 
-  triads.push (third);   // f a 
-  triads.push (third);   // g b 
-  triads.push (mthird);  // a c 
-  triads.push (mthird);  // b d 
-
-  /*
-    if first addition is 4, assume sus4 and don't add third implicitely
-   */
-  Musical_pitch sus (3);
-  sus.transpose (tonic);
-  if (add_arr_p->size ())
-    if ((*add_arr_p)[0] == sus)
-      missing.transpose (mthird);
-
-  /*
-   add missing triads
-   */
-  for (int i = 0; i < add_arr_p->size (); i++)
-    {
-      Musical_pitch p = (*add_arr_p)[i];
-      if (p > missing)
-        while (p > missing)
-	  {
-	    if (p.notename_i_ != missing.notename_i_)
-	      {
-	        if ((missing.notename_i_ - tonic.notename_i_ + 7) % 7 == 6)
-		  {
-		    Musical_pitch special_seven = missing;
-		    Musical_pitch lower (0, -1);
-		    special_seven.transpose (lower);
-		    add_arr_p->insert (special_seven, i++);
-		  }
-		else
-		  add_arr_p->insert (missing, i++);
-	      }
-	    missing.transpose (triads[(missing.notename_i_ - tonic.notename_i_ + 7) % 7]);
-	  }
-      else if (p.notename_i_ == missing.notename_i_)
-        missing.transpose (triads[(missing.notename_i_ - tonic.notename_i_ + 7) % 7]);
-      else
-	i++;
-    }
-
-  /*
-    add tonic
-   */
-  if (!add_arr_p->size () || ((*add_arr_p)[0] != tonic))
-    add_arr_p->insert (tonic, 0);
-
-  Array<Musical_pitch> pitch_arr;
-  /*
-   add all that aren't subtracted
-   */
-  for (int i = 0; i < add_arr_p->size (); i++)
-    {
-      Musical_pitch p = (*add_arr_p)[i];
-      int j = 0;
-      for (; j < sub_arr_p->size (); j++)
-	if (p == (*sub_arr_p)[j])
-	  {
-	    sub_arr_p->del (j);
-	    j = -1;
-	    break;
-	  }
-      if (j == sub_arr_p->size ())
-        pitch_arr.push (p);
-    }
-
-  for (int i = 0; i < sub_arr_p->size (); i++)
-    warning (_f ("invalid subtraction: not part of chord: %s",
-		 (*sub_arr_p)[i].str ()));
-
-  if (inversion_p)
-    {
-      int i = 0;
-      for (; i < pitch_arr.size (); i++)
-	if ((pitch_arr[i].notename_i_ == inversion_p->notename_i_)
-	  && (pitch_arr[i].accidental_i_ == inversion_p->accidental_i_))
-	  break;
-      if (i == pitch_arr.size ())
-	warning (_f ("invalid inversion pitch: not part of chord: %s",
-		      inversion_p->str ()));
-      else
-        {
-	  Array<Musical_pitch> pitches;
-	  Musical_pitch last (0, 0, -5);
-	  for (int j = 0; j < pitch_arr.size (); j++)
-	    {
-	      Musical_pitch p = pitch_arr[(j + i) % pitch_arr.size ()];
-	      if (p < last)
-	        {
-		  p.octave_i_ = last.octave_i_;
-		  if (p < last)
-		    p.octave_i_++;
-		}
-	      pitches.push (p);
-	      last = p;
-	    }
-	  pitch_arr = pitches;
-	}
-      delete inversion_p;
-    }
-
-  for (int i = 0; i < pitch_arr.size (); i++)
-    {
-      Musical_pitch p = pitch_arr[i];
+      Musical_pitch p = chord.pitch_arr_[i];
       Note_req* n = new Note_req;
       n->pitch_ = p;
       n->duration_ = d;

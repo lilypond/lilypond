@@ -102,6 +102,7 @@ Dynamic_engraver::do_process_requests()
 
 	  staff_side_p_ = new G_staff_side_item;
 	  staff_side_p_->set_victim (text_p_);
+	  staff_side_p_->axis_ = Y_AXIS;
 	  
 
 	  prop = get_property ("dynamicDir", 0);
@@ -173,8 +174,10 @@ Dynamic_engraver::do_pre_move_processing()
   if (to_end_cresc_p_)
     to_end_cresc_p_->add_support (s_l);
   if (staff_side_p_)
-    staff_side_p_->add_support (s_l);
-
+    {
+      staff_side_p_->add_support (s_l);
+      //      staff_side_p_->dim_cache_[Y_AXIS].parent_l_ =  &s_l->dim_cache_[Y_AXIS];
+    }
 
   typeset_all ();
 }

@@ -50,6 +50,7 @@ struct Break_req;
 struct Cadenza_req;
 struct Change_iterator;
 struct Change_translator;
+struct Chord;
 struct Chord_name_engraver;
 struct Clef_change_req;
 struct Clef_item;

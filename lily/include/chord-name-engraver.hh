@@ -15,6 +15,11 @@
 
 #include "lily-proto.hh"
 
+Array<Musical_pitch> rebuild_from_base_pitch_arr (Array<Musical_pitch> pitch_arr, int base_i);
+Array<Musical_pitch> rebuild_insert_inversion_pitch_arr (Array<Musical_pitch> pitch_arr, int tonic_i);
+Array<Musical_pitch> rebuild_with_bass_pitch_arr (Array<Musical_pitch> pitch_arr, int bass_i);
+
+
 class Chord_name_engraver : public Engraver 
 {
 protected:
@@ -31,7 +36,7 @@ private:
   Array<Musical_pitch> pitch_arr_;
   Link_array<Item> text_p_arr_;
 
-  String banter_str (Array<Musical_pitch> pitch_arr, int tonic_i, Musical_pitch inversion) const;
+  String banter_str (Array<Musical_pitch> pitch_arr, Musical_pitch* inversion) const;
   int find_tonic_i () const;
   Array<Musical_pitch> rebuild_pitch_arr (int tonic_i) const;
 };

@@ -5,10 +5,15 @@ TestedFeatures =	 "chord inversions";
 }
 
 inversions = \notes\transpose c''\chords{
+	% inversions ignored here
 	c1 c-sus c-6 c/e c/g c/d
 	% now try to find chords with inversions
 	\property Score.chordInversion = 1 
-	c1 c-sus c-6 c/e c/g c/d
+	\property Score.chordInversionPreserve = 1 
+	c1 c-sus c-6 
+	c/e % c/e is not found because preserving doesn't work fully yet...
+	c/g
+	c/d % this triggers a warning: no 'd' in chord of c
 }
 
 \score{
