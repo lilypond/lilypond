@@ -1,3 +1,11 @@
+/*
+  calcideal.cc -- implement Score::calc_idealspacing()
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include "idealspacing.hh"
 #include "score.hh"
 #include "p-score.hh"
@@ -13,7 +21,7 @@
   effects into account, should be local (measure wide), should check
   smallest divisions.
     
-
+  plus, calc_idealspacing() should be called per line.
   */
 void
 Score::calc_idealspacing()

@@ -228,17 +228,21 @@ PScore::add_broken(Spanner*s)
 }
 
 void
-PScore::set_breaking(Array<Col_hpositions> breaking)
+PScore::set_breaking(Array<Col_hpositions> const &breaking)
 {
     for (int j=0; j < breaking.size(); j++) {
-	Array<PCol*> &curline(breaking[j].cols);
-	Array<Real> &config(breaking[j].config);
+	const Array<PCol*> &curline(breaking[j].cols);
+	const Array<PCol*> &errors(breaking[j].error_col_l_arr_);
+	const Array<Real> &config(breaking[j].config);
 	
 	Line_of_score *s_p = new Line_of_score(curline,this);
+	s_p->error_mark_b_ =  breaking[j].ugh_b_;
 	lines.bottom().add(s_p);   	
 	for (int i=0; i < curline.size(); i++){
 	    curline[i]->hpos = config[i];
 	}
+	for (int i=0; i < errors.size(); i++)
+	    errors[i]->error_mark_b_ = true;
     }
 }
 

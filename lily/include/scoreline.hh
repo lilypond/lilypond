@@ -15,6 +15,7 @@ struct
 Line_of_score {
     Pointer_list<PCol *> cols;
 
+    bool error_mark_b_;
     // need to store height of each staff.
     IPointer_list<Line_of_staff*> staffs;
     PScore * pscore_l_;	// needed to generate staffs

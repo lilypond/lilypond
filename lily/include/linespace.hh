@@ -1,27 +1,36 @@
-#ifndef PROBLEM_HH
-#define PROBLEM_HH
+/*
+  linespace.hh -- declare Colinfo, Spacing_problem
 
+  source file of the LilyPond music typesetter
+
+  (c) 1996,1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
+
+#ifndef LINESPACE_HH
+#define LINESPACE_HH
 #include "glob.hh"
 #include "plist.hh"
 #include "varray.hh"
 #include "vector.hh"
 #include "interval.hh"
+#include "pointer.hh"
 
 /// helper struct for #Spacing_problem#
 struct Colinfo {
-    PCol const *pcol_;
-    Real const * fixpos;
+    PCol *pcol_l_;
+    P<Real> fixpos_p_;
     Interval width;
-    
+    int rank_i_;
+    /// did some tricks to make this column come out.
+    bool ugh_b_;		
     /* *************** */
     Colinfo();
-    void operator=(Colinfo const&);
-    Colinfo(Colinfo const&);
-    ~Colinfo();
-    Colinfo(PCol const *,Real const *);
+    Colinfo(PCol *,Real const *);
+
     void print() const;
-    bool fixed() const { return fixpos;}
-    Real fixed_position()const { return *fixpos; }
+    bool fixed() const { return fixpos_p_.get_C();}
+    Real fixed_position()const { return *fixpos_p_; }
     Real minright() const { return width.right; }
     Real minleft() const { return -width.left; }
 };
@@ -52,7 +61,10 @@ struct Colinfo {
 class Spacing_problem {
     Array<Idealspacing const *> ideals;
     Array<Colinfo> cols;
-
+    Array<Colinfo> loose_col_arr_;
+    
+    /// mark column #i# as being loose.
+    void loosen_column(int i);
     /// the index of #c# in #cols#
     int col_id(PCol const *c) const;
 
@@ -71,7 +83,12 @@ class Spacing_problem {
     /// generate the LP constraints
     void make_constraints(Mixed_qp& lp) const;
 
+
+    void handle_loose_cols();
+    void position_loose_cols(Vector &) const;
 public:
+    Array<PCol*> error_pcol_l_arr() const;
+
     /** solve the spacing problem
       
       @return the column positions, and the energy (last element)
@@ -93,7 +110,7 @@ public:
     /** add a col to the problem. columns have to be added left to right. The column contains
       info on it's minimum width.
     */
-    void add_column(PCol const *, bool fixed=false, Real fixpos=0.0);
+    void add_column(PCol  *, bool fixed=false, Real fixpos=0.0);
  
 
 
@@ -103,6 +120,7 @@ public:
     void OK() const;
     void print() const;
     void print_ideal(Idealspacing const *)const;
+    void prepare();
 };
 
 
