@@ -253,10 +253,17 @@ of this and other documentation.
 * Preface::                        Preface.
 * Introduction::                   What, Why, How.
 * Tutorial::                       A tutorial introduction.
-* Example templates::              Larger examples
+* Example templates::              Larger examples.
+* Basic notation::                 Standard musical notation.
+* Instrument-specific notation::   Notation that is only used for some
+                                   instruments.
+* Advanced notation::              Less frequently used notation.
+* Global issues::                  Non-notation commands.
+
 * Notation manual::                All notation supported, and how to
-                                   produce it.
-* Sound::                          Producing MIDI output
+                                   produce it.  (SOON OBSOLETE)
+* Sound::                          Producing MIDI output  (SOON OBSOLETE)
+
 * Changing defaults::              Tuning output.
 * Interfaces for programmers::
 * Running LilyPond::               Operation.
@@ -281,8 +288,14 @@ of this and other documentation.
 @include tutorial.itely
 @include examples.itely
 @include invoking.itely
+@include basic-notation.itely
+@include instrument-notation.itely
+@include advanced-notation.itely
+@include global.itely
+
 @include notation.itely
 @include sound-output.itexi
+
 @include changing-defaults.itely
 @include programming-interface.itely
 @include lilypond-book.itely
@@ -296,10 +309,8 @@ of this and other documentation.
 @include scheme-tutorial.itely
 @include notation-appendices.itely
 @include point-and-click.itely
-
-@include fdl.itexi
-
 @include cheatsheet.itely
+@include fdl.itexi
 
 @node Unified index
 @appendix Unified index

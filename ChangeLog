@@ -11,6 +11,12 @@
 
 	* Documentation/user/{various}: inserted two spaces after a period.
 
+	* Documentation/user/lilypond.tely: added framework for reorg.
+
+	* Documentation/user/basic-notation.itely, instrument-notation.itely,
+	advanced-notation.itely, global.itely: new files, placeholder for
+	future reorg.
+
 2005-02-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/user/changing-defaults.itely (Text encoding): add
