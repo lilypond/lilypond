@@ -25,6 +25,5 @@ $(outdir)/%.ly.txt: %.ly
 	ln -f $< $@
 
 $(outdir)/%.dvi: %.ly
-	(cd $(outdir); \
-	LILYINCLUDE="..:$$LILYINCLUDE" ly2dvi ../$< )
+	ly2dvi -o $(outdir)  $< 
 

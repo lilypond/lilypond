@@ -1,6 +1,7 @@
 \header{
 filename =	 "los-toros-oboe.ly";
-title =	         "La Feria\\normalsize\\[2ex]Los Toros";
+title =	         "La Feria"
+subtitle = "Los Toros";
 opus =	         "";
 composer =	 "Paul Lac\\^ome d'Estalenx (1838-1920)";
 enteredby =	 "jcn";

@@ -66,6 +66,7 @@ Makefile: make/Toplevel.make.in
 
 
 website:
+	$(MAKE) CONFIGSUFFIX='www' -C Documentation WWW
 
 
 examples:
