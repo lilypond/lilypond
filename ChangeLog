@@ -1,6 +1,9 @@
 2004-12-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/framework-scm.scm (output-framework): new file.
+
 	* mf/GNUmakefile: remove SAUTER_FONTS.
+	remove SVG/sodipodi hacks.
 
 	* scm/lily-library.scm (stderr): move stderr.
 
