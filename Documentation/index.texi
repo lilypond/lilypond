@@ -194,28 +194,30 @@ Frequently Asked Questions} first.
 
 
 @itemize @bullet
-@item @uref{http://mail.gnu.org/mailman/listinfo/gnu-music-discuss,gnu-music-discuss@@gnu.org}
-This list is for discussions concerning LilyPond.
+@item @uref{http://mail.gnu.org/mailman/listinfo/lilypond-devel,lilypond-devel@@gnu.org}
+This list is for discussions concerning the development release of
+LilyPond.
 
 Searchable archives are available from
-@uref{http://www.mail-archive.com/gnu-music-discuss@@gnu.org}.
+@uref{http://www.mail-archive.com/lilypond-devel@@gnu.org}.
 
-@item @uref{http://mail.gnu.org/mailman/listinfo/info-gnu-music,info-gnu-music@@gnu.org}
+@item @uref{http://mail.gnu.org/mailman/listinfo/info-lilypond,info-lilypond@@gnu.org}
 is a low-volume list for information on the GNU Music project.
     This list is moderated; ask 
     @email{drl@@gnu.org, David R. Linn} or
     @email{hanwen@@cs.uu.nl, Han-Wen} to send announcements for this list.
 
 Searchable archives are available from
-@uref{http://www.mail-archive.com/info-gnu-music@@gnu.org}.
+@uref{http://www.mail-archive.com/info-lilypond@@gnu.org}.
 
-@item @uref{http://mail.gnu.org/mailman/listinfo/help-gnu-music,help-gnu-music@@gnu.org}
-    For help with using LilyPond.
+@item @uref{http://mail.gnu.org/mailman/listinfo/lilypond-user,lilypond-user@@gnu.org}
+        For discussing every-day use of LilyPond, in particular the
+stable releases..
 
 Searchable archives are available from
-@uref{http://www.mail-archive.com/help-gnu-music@@gnu.org}.
+@uref{http://www.mail-archive.com/lilypond-user@@gnu.org}.
 
-@item @uref{http://mail.gnu.org/mailman/listinfo/bug-gnu-music,bug-gnu-music@@gnu.org}
+@item @uref{http://mail.gnu.org/mailman/listinfo/bug-lilypond,bug-lilypond@@gnu.org}
 If you have bugreports, you should send them to this list.  
 
 
@@ -226,7 +228,7 @@ they tend to be very big and don't help with describing the problem.
 
 
 Searchable archives are available from
-@uref{http://www.mail-archive.com/bug-gnu-music@@gnu.org}.
+@uref{http://www.mail-archive.com/bug-lilypond@@gnu.org}.
 
 @end itemize
 
