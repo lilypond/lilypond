@@ -136,18 +136,8 @@ Tie_engraver::do_pre_move_processing ()
     }
   now_heads_.clear ();
 
-  SCM dir (get_property ("tieVerticalDirection", 0));
-  SCM dir2 (get_property ("verticalDirection", 0));
-
-  Direction tie_dir = CENTER;
-  if (gh_number_p(dir))
-    tie_dir = to_dir (dir);
-  else if (isdir_b (dir2))
-    tie_dir = to_dir (dir2);
-  
   for (int i=0; i<  tie_p_arr_.size (); i++)
    {
-      tie_p_arr_[i]->set_direction (tie_dir);
       typeset_element (tie_p_arr_[i]);
     }
   tie_p_arr_.clear ();

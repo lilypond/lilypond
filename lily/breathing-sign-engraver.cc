@@ -45,10 +45,6 @@ Breathing_sign_engraver::do_process_requests()
   if(breathing_sign_req_l_) {
     breathing_sign_p_ = new Breathing_sign;
 
-    SCM prop = get_property ("verticalDirection", 0);
-    if(isdir_b(prop))
-      breathing_sign_p_->set_vertical_position(to_dir (prop));
-
     announce_element (Score_element_info (breathing_sign_p_, breathing_sign_req_l_));
   }
 }

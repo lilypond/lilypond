@@ -89,10 +89,10 @@ Key_engraver::acknowledge_element (Score_element_info info)
     {
       bool def =  (!item_p_);
       create_key ();
-      if (def)
+      if (!def)
 	{
 	  item_p_->set_elt_property ("visibility-lambda",
-				    ly_ch_C_eval_scm ("postbreak_only_visibility"));
+				    ly_ch_C_eval_scm ("all-visibility"));
 	}
     }
 

@@ -23,18 +23,9 @@ Breathing_sign::Breathing_sign ()
 {
   set_direction (UP);
   set_elt_property ("breakable", SCM_BOOL_T);
-  set_elt_property ("visibility-lambda",
-		    ly_ch_C_eval_scm ("non_postbreak_visibility"));
 }
 
-void
-Breathing_sign::set_vertical_position (Direction updown)
-{
-  assert(updown >= -1 && updown <= +1);
 
-  if(updown != 0)
-    set_direction (updown);
-}
 
 Molecule*
 Breathing_sign::do_brew_molecule_p () const

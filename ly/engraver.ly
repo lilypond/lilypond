@@ -16,6 +16,26 @@ StaffContext=\translator {
  % Bar_engraver must be first so default bars aren't overwritten
 % with empty ones.
 	\consists "Repeat_engraver";
+
+
+	%  name, glyph id, c0 position
+	supportedClefTypes = #'(
+	  ("treble" "treble" -2)
+	  ("violin" "treble" -2)
+	  ("G" "treble" -2)
+	  ("G2" "treble" -2)
+	  ("french" "treble" -4 )
+	  ("soprano" "alto" -4 )
+	  ("mezzosoprano" "alto" -2 )
+	  ("alto" "alto" 0 )
+	  ("tenor" "alto" 2 )
+	  ("baritone" "alto" 4 )
+	  ("varbaritone" "bass" 0)
+	  ("bass" "bass" 2 )
+	  ("F" "bass" 2)
+	  ("subbass" "bass" 4)
+	)
+	
 	\consists "Clef_engraver";
 	\consists "Key_engraver";
 	\consists "Time_signature_engraver";
