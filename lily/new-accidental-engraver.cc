@@ -64,7 +64,6 @@ protected:
   virtual void process_music ();
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
-  virtual void initialize ();
   virtual void process_acknowledged_grobs ();
   virtual void finalize ();
   virtual void process_grobs_first_pass ();
@@ -102,8 +101,8 @@ protected:
 
 New_accidental_engraver::New_accidental_engraver ()
 {
+  last_keysig_ = SCM_BOOL_F;
   accidental_placement_ = 0;
-  last_keysig_ = SCM_EOL;
 }
 
 /* inserts the source alist into the destination alist, erasing old entries.
@@ -165,13 +164,6 @@ static void set_property_on_family(Translator_group * trans, const char * sym, S
       trans -> set_property (sym,  ly_deep_copy (val));
       trans = trans->daddy_trans_;
     }
-}
-
-void
-New_accidental_engraver::initialize ()
-{
-  // to ensure that process_music will initialize last_keysig_
-  last_keysig_ = SCM_BOOL_F;
 }
 
 /*

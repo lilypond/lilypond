@@ -31,13 +31,11 @@ public:
   virtual void process_music ();
   virtual void initialize ();
 
-  bool first_b_;
 };
 
 void
 Repeat_acknowledge_engraver::initialize ()
 {
-  first_b_ = true;
   daddy_trans_->set_property ("repeatCommands", SCM_EOL);
 }
 
@@ -49,7 +47,6 @@ Repeat_acknowledge_engraver::Repeat_acknowledge_engraver ()
 void
 Repeat_acknowledge_engraver::start_translation_timestep ()
 {
-  first_b_ = true;
   Translator_group * tr = daddy_trans_->where_defined (ly_symbol2scm ("repeatCommands"));
   if (!tr)
     tr = daddy_trans_;
