@@ -1,4 +1,15 @@
 ******
+pl 44
+	- pure parser, My_lily_parser
+	- ''a iso ``a
+	- Includable_lexer
+	- junk Input_file
+	- Duration in parser, Duration restructuring
+	- grandiose lexer hax. Flex should be fixed, really.
+	Lexer much faster now.
+	- opps. mi2mu broken
+
+******
 pl 43
 	- transposition.
 	- $variable&@name 
@@ -9,14 +20,14 @@ pl 43
 
 pl 42.hwn3
 	- const naming change (T const <-> const T)
-	- Mudela 0.1
+	- Mudela 0.1 (roughly the same as below..)
 
 pl 42.3
 	- moving towards Mudela 0.1:
 	    * (almost) all keywords must be preceded by backslash '\'
 	    * explicit lexer switches '$' and '@' dropped
 	    * keyword "music" dropped for horizontal music
-	    * keywords "\lyric" "\melodic" "\rhythmic" introduced, e.g.:
+	    * keywords "\lyric" " introduced, e.g.:
 		melody = \melodic { c c | g g }
 	    * staff initialisable with music identifier: 
 	    	\staff{ melody }

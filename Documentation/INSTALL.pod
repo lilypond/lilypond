@@ -85,7 +85,10 @@ have the gnu
 development tools, and your make is gnu make.  If this is not the
 case, you can adjust your environment variables to your taste:
 
-	CXXFLAGS="-I /home/me/my_include -DWEIRD_FOOBAR" configure
+	export CPPFLAGS="-I /home/me/my_include -DWEIRD_FOOBAR" 
+	configure
+
+C<CPPFLAGS> are the preprocessor flags. 
 
 the configure script is Cygnus configure, and it will accept
 B<--help>. If you are not root, you will probably have to make it with
