@@ -63,7 +63,7 @@
      "\\def\\" (tex-font-command font) "{%\n"
      ;; UGH.  Should be handled via alist.
      (if (equal? "Extended-TeX-Font-Encoding---Latin" font-encoding)
-	 "  \\fontencoding{T1}\\selectfont"
+	 "  \\lilypondfontencoding{T1}"
 	 "  ")
      "\\lilypond" (tex-font-command font)
      "}\n"
