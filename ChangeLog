@@ -5,6 +5,8 @@
 
 2003-08-06  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/user/refman.itely (Hiding staffs): fixes.
+
 	* mf/feta-eindelijk.mf (tracingvariables): add TODO.
 
 	* lily/system-start-delimiter.cc (after_line_breaking): retrieve

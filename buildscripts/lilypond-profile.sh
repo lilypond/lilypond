@@ -24,11 +24,11 @@ EXAMPLE 1: One time use
 
 
 
-EXAMPLE 2: Local installation
+EXAMPLE 2: Install for self
 
 	* Do
 
-	    mv lilypond-profile $HOME/bin/
+	    cp lilypond-profile $HOME/bin/
 
 	* Add
 
@@ -39,7 +39,7 @@ EXAMPLE 2: Local installation
 	* Logout.
 
 
-EXAMPLE 3: Global installation
+EXAMPLE 3: Install for all users.
 
 	* Do
 
