@@ -2089,6 +2089,7 @@ conversions.append (((2, 3, 1), conv,
 		     '''\\apply -> \\applymusic'''))
 
 def conv (str):
+	str = re.sub (r'\\OrchestralScoreContext', '\\Score', str)
 	def func(m):
 		if m.group(1) not in ['RemoveEmptyStaff',
 				      'AncientRemoveEmptyStaffContext',
@@ -2096,6 +2097,7 @@ def conv (str):
 			return '\\' + m.group (1)
 		else:
 			return m.group (0)
+		
 		
 	str = re.sub (r'\\([a-zA-Z]+)Context\b', func, str)
 

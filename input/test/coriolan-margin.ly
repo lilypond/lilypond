@@ -138,7 +138,7 @@ violoncello = \notes \relative c' {
 	  \RemoveEmptyStaffContext
       }
       \context {
-	  \OrchestralScore
+	  \Score
 	  \override TimeSignature #'style = #'C
       }
   }

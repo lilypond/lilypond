@@ -1,5 +1,9 @@
 2004-05-28  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* ly/engraver-init.ly (EasyNotation): remove OrchestralScoreContext
+
+	* lily/rest.cc: add direction to rest properties.
+
 	* lily/include/output-def.hh: new file, move from
 	music-output-def.hh
 
