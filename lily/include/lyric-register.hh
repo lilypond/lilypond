@@ -1,7 +1,7 @@
 /*
-  lyric-register.hh -- declare 
+  lyric-register.hh -- declare Lyric_register
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -12,7 +12,8 @@
 #include "register.hh"
 #include "varray.hh"
 
-#include "proto.hh"
+#include "lily-proto.hh"
+
 class Lyric_register : public Request_register {
     Array<Lyric_req*> lreq_arr_;
     virtual bool acceptable_request_b(Request*);

@@ -120,6 +120,21 @@ A: The entry point is in main(). Good luck. :-)
 Seriously, read, reread and reread lilygut and CodingStyle, and
 just start anywhere. 
 
+Anywhere? Well, most of the comment doco are in the header files, so
+your best bet would be C<less lily/include/*.hh>. Some of the most
+important data-structures are to be found in:
+
+	- p-col.hh
+	- *request.hh
+	- register.hh
+	- score-elem.hh
+	- input-music.hh
+	- linespace.hh
+	- item.hh
+	- spanner.hh
+	- voice.hh
+
+
 Q: Why GPL?
 
 A: Yes.

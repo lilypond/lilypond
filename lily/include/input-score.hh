@@ -1,7 +1,7 @@
 /*
-  input-score.hh -- declare 
+  input-score.hh -- declare Input_score
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -11,7 +11,7 @@
 #define INPUTSCORE_HH
 
 #include "varray.hh"
-#include "proto.hh"
+#include "lily-proto.hh"
 #include "plist.hh"
 #include "string.hh"
 #include "input.hh"

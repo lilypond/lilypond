@@ -1,7 +1,7 @@
 /*
-  midi-def.hh -- declare 
+  midi-def.hh -- declare Midi_def
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Jan Nieuwenhuizen <jan@digicash.com>
 */
@@ -9,7 +9,7 @@
 
 #ifndef MIDIDEF_HH
 #define MIDIDEF_HH
-#include "proto.hh"
+#include "lily-proto.hh"
 #include "real.hh"
 #include "string.hh"
 #include "moment.hh"
