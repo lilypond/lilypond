@@ -146,15 +146,30 @@ Ambitus::brew_molecule (SCM smob)
       return SCM_EOL;
     }
 
+  int p_min, p_max;
   Pitch *pitch_min = unsmob_pitch (me->get_grob_property ("pitch-min"));
-  int p_min = pitch_min->steps ();
+  if (!pitch_min)
+    {
+      me->programming_error("Ambitus: pitch_min undefined; assuming 0");
+      p_min = 0;
+    }
+  else
+    {
+      p_min = pitch_min->steps ();
+    }
   Pitch *pitch_max = unsmob_pitch (me->get_grob_property ("pitch-max"));
-  int p_max = pitch_max->steps ();
+  if (!pitch_max)
+    {
+      me->programming_error("Ambitus: pitch_max undefined; assuming 0");
+      p_max = 0;
+    }
+  else
+    {
+      p_max = pitch_max->steps ();
+    }
   if (p_min > p_max)
     {
-      String message = "Ambitus: no range to output";
-      me->warning (_ (message.ch_C ()));
-      return SCM_EOL;
+      me->programming_error ("Ambitus: reverse range");
     }
 
   SCM c0 = me->get_grob_property ("centralCPosition");
