@@ -4677,11 +4677,11 @@ The line of the example demonstrates font switching commands. Notice
 that the command only apply to the first following word; enclose a set
 of texts with braces to apply a command to more words.
 @example
-  \markup { \bold { hi there } }
+  \markup @{ \bold @{ hi there @} @}
 @end example
 For clarity, you can also do this for single arguments, e.g.
 @example
-  \markup { is \italic { anyone } home }
+  \markup @{ is \italic @{ anyone @} home @}
 @end example
 
 @cindex font size, texts
@@ -4701,7 +4701,8 @@ The following size commands set abolute sizes
 @item \small
 @item \large
 @item \huge
-@end \itemize
+@end table
+
 You can also make letter larger or smaller relative to their neighbors,
 with the commands @code{\larger} and @code{\smaller}.
 @cindex smaller
@@ -4766,7 +4767,7 @@ letter 'A'.
 @cindex \hspace
 This produces a invisible object taking horizontal space.
 @example 
-\markup { A \hspace #2.0 B } 
+\markup @{ A \hspace #2.0 B @} 
 @end example
 will put extra space between A and B. Note that lilypond 
 inserts space before and after @code{\hspace}. 
@@ -4775,7 +4776,7 @@ inserts space before and after @code{\hspace}.
 @cindex \fontsize
 This sets the relative font size, eg.
 @example
-A \fontsize #2 { B C } D
+A \fontsize #2 @{ B C @} D
 @end example
 
 This will enlarge the B and the C by two steps.
@@ -4783,7 +4784,7 @@ This will enlarge the B and the C by two steps.
 @cindex  \translate
 This translates an object. It's first argument is a cons of numbers
 @example
-A \translate #(cons 2 -3) { B C } D
+A \translate #(cons 2 -3) @{ B C @} D
 @end example
 This moves `B C' 2 spaces to the right, and 3 down.
 
@@ -4792,7 +4793,7 @@ This moves `B C' 2 spaces to the right, and 3 down.
 This sets the font magnification for the its argument. In the following
 example, the middle A will be 10% larger.
 @example
-A \magnify #1.1 { A } A
+A \magnify #1.1 @{ A @} A
 @end example
 
 
@@ -4805,13 +4806,11 @@ m \override #'(font-family . math) m m
 @end example
 @end table
 
-
 In markup mode you can compose expressions, similar to mathematical
 expressions, XML documents and music expressions.  The braces group
 notes into horizontal lines. Other types of lists also exist: you can
 stack expressions grouped with @code{<<}, and @code{>>} vertically with
 the command @code{\column}.
-
 
 @lilypond[verbatim,fragment,relative=1]
  c1^\markup { \column << a b c >> }
@@ -4842,12 +4841,14 @@ eighthNote = \markup
     a1^\markup { \magnify #0.9 \eighthNote " = 64" }
   }
 }
+@end lilypond
+
 @refbugs
 
 @cindex kerning
 
-LilyPond account for kerning in its text formatting engine, so it spaces
-texts slightly too wide.
+LilyPond does not account for kerning in its text formatting, so it
+spaces texts slightly too wide.
 
 Syntax errors for markup mode are confusing.
 
