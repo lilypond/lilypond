@@ -1,3 +1,7 @@
+2004-04-09  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* Documentation/user/lilypond.tely (Top): manual for v2.3 (backportme)
+
 2004-04-09  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/font.scm (add-century-schoolbook-fonts):
@@ -6,6 +10,11 @@
 	* input/test/title-markup.ly: Use Century Schoolbook font.
 
 2004-04-09  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scripts/convert-ly.py: limited old-style markup convert. (Thanks
+	to Erik Sandberg) 
+
+	* Documentation/user/lilypond.tely (Top): update,  
 
 	* lily/font-metric.cc (LY_DEFINE): new function, return fontName.
 
