@@ -20,6 +20,9 @@ Foundation to create a system of free software for the world-community
 
 The documentation system for C++ sources, which the LilyPond sources use.
 
+=item http://www.iat.unc.edu/technology/music/music.html
+
+An enormous collection of music related URLs
 
 =back
 
@@ -135,7 +138,7 @@ LilyPond
 
 =item http://www.redhat.com/
 
-develops and markets a GNU/Linux distribution (of
+RedHat Software Inc. develops and markets a GNU/Linux distribution (of
 which we are avid users)
 
 
