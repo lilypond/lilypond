@@ -1044,7 +1044,7 @@ has the following aspects
 @itemize @bullet
 @item Its size is independent of the horizontal spacing, unlike slurs or beams.
 
-@item It is a piece of text. Granted, it's usually  a very short text.
+@item It is a piece of text. Granted, it is usually a very short text.
 
 @item That piece of text is typeset with a font, unlike slurs or beams.
 @item Horizontally, the center of the symbol should be aligned to the
