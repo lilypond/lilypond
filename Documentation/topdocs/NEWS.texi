@@ -8,6 +8,7 @@
 @chapter New features in 1.9 since 1.8
 
 @itemize
+
 @item
 Quarter tones are now supported. They are entered by suffixing
 @code{ih} for a half-sharp and @code{eh} for a half-flat. Hence, the
@@ -17,6 +18,21 @@ following is an ascending list of pitches:
   ceses ceseh ces ceh c cih cis cisih cisis
 @end example
 
+@item
+The following constructs have been removed from the syntax:
+
+@example
+  \duration #SCHEME-DURATION
+  \pitch #SCHEME-PITCH
+  \outputproperty @var{func} @var{symbol} = @var{value}
+@end example
+
+For @code{\outputproperty}, the following may be substituted:
+
+@example
+   \applyoutput #(outputproperty-compatibility @var{func}
+                  @var{symbol} @var{value}) 
+@end example 
 
 @item
 Clefs may now be transposed arbitrarily, for example

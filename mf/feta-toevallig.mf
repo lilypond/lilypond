@@ -87,7 +87,7 @@ fet_beginchar("Sharp" , "2", "sharp");
 	fet_endchar;
 
 fet_beginchar("1/2 Sharp" , "1", "semisharp");
-	set_char_box(0, 0.6 staff_space#, 1.5 staff_space#, 
+	set_char_box(0, 0.7 staff_space#, 1.5 staff_space#, 
 		1.5 staff_space#);
 
 	draw_meta_sharp (w);
