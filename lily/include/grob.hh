@@ -148,5 +148,7 @@ SCM substitute_mutable_property_alist (SCM alist);
 Link_array<Grob> ly_scm2grobs (SCM ell);
 SCM ly_grobs2scm (Link_array<Grob> a);
 
+Interval robust_relative_extent (Grob*, Grob*, Axis); 
+
 #endif /* GROB_HH */
 

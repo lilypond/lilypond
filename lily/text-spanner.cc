@@ -68,9 +68,7 @@ Text_spanner::print (SCM smob)
 	    Interval ext = b->extent (common, X_AXIS);
 	    
 	    span_points[d] =
-	      (ext.is_empty())
-	      ? b->relative_coordinate (common, X_AXIS)
-	      : ext.linear_combination (d * encl);
+	      robust_relative_extent (b, common, X_AXIS).linear_combination (d * encl);
 
 	    if (is_number_pair (shorten))
 	      span_points -= d * ly_scm2double (index_get_cell (shorten, d));
