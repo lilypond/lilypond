@@ -255,12 +255,12 @@ setup_paths ()
   /* Adding mf/out make lilypond unchanged source directory, when setting
      LILYPONDPREFIX to lilypond-x.y.z */
   char *suffixes[] = {"ly", "afm", "mf/out", "scm", "tfm", "ps", 0};
-  String prefix = prefix_directory;
-  if (prefix.empty_b ())
-    prefix =  DIR_DATADIR;
+
+  if (prefix_directory.empty_b ())
+    prefix_directory =  DIR_DATADIR;
   for (char **s = suffixes; *s; s++)
     {
-      String p =  prefix + to_str ('/') + String (*s);
+      String p =  prefix_directory + to_str ('/') + String (*s);
       global_path.add (p);
 
 #if !KPATHSEA
@@ -324,6 +324,7 @@ main_prog (void * , int, char**)
 
     Very ugh.
    */
+
   init_lily_guile (prefix_directory);
   cout << endl;
 
