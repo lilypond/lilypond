@@ -2,9 +2,9 @@
 
 \header{
 texidoc="
-Rests.  Note that the dot of 8th, 16th and 32nd rests rest should be
-next to the top of the rest.  All rests except the whole rest are
-centered on the middle staff line.
+There is a big variety of rests.  Note that the dot of 8th, 16th and 32nd 
+rests rest should be next to the top of the rest.  All rests except the 
+whole rest are centered on the middle staff line.
 "
 }
 

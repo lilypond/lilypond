@@ -2,7 +2,7 @@
 \version "2.1.22"
 \header {
 	texidoc = "For juxtaposed chords with the same direction, a
-slight optical correction is used. It is constant, and only works if
+slight optical correction is used. It is constant, and works only if
 two chords have no common head-positions range."
 }
 

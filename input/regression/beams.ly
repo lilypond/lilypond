@@ -1,7 +1,7 @@
 
 \version "2.1.22"
 \header {
-    texidoc = "A simple test for beams."
+    texidoc = "Beaming can be also given explicitly."
 }
 
     \paper { raggedright= ##t }

@@ -5,8 +5,8 @@
 
 texidoc="
 
-LilyPond corrects for optical spacing of stems. The overlap between to
-adjacent stems of different direction is used as a measure for how
+There are optical corrections to the spacing of stems. The overlap between 
+two adjacent stems of different direction is used as a measure for how
 much to correct."
 
 }

@@ -3,7 +3,7 @@
 \header {
 texidoc = "First and second bes (tied across line break)
 should get an accidental, but others should not.
-Only first B should get natural sign."
+Only first b should get natural sign."
 }
 
 \score {

@@ -1,6 +1,6 @@
 \version "2.1.22"
 \header {
-texidoc = "Measure  repeats are supported, and may be nested with beat repeats."
+texidoc = "Measure repeats may be nested with beat repeats."
 }
 	
 \score { \notes \relative c'' \context Voice { \time 4/4

@@ -2,10 +2,10 @@
 \version "2.1.22"
 \header {
     
-texidoc = "Notes that are shorter than the common shortest note, Get a
+texidoc = "Notes that are shorter than the common shortest note get a
 space (i.e. without the space needed for the note) proportional to
-their duration. So 16th notes get 1/2 of the space of an eigth note.
-The total distance for a 16th is (including note head) is 3/4 of the
+their duration. So, the 16th notes get 1/2 of the space of an eigth note.
+The total distance for a 16th (which includes note head) is 3/4 of the
 eighth note. "
 
 }

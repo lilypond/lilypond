@@ -1,7 +1,7 @@
 
 \version "2.1.25"
 \header {
-  texidoc="Manual hack for nested tuplets, move outer tuplet up."
+  texidoc="By a manual hack for nested tuplets, an outer tuplet can be moved up."
 }
 
 #(define (make-text-checker-once text)

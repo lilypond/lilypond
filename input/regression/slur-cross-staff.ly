@@ -2,8 +2,7 @@
 \version "2.1.22"
 \header{
 texidoc="
-The same goes for slurs. They behave decently when broken across
-linebreak.
+Slurs behave decently when broken across a linebreak.
 "
 }
 

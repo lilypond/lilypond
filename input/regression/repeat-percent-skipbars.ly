@@ -2,7 +2,7 @@
 
 
 \header {
-texidoc = "Percent repeats are not skipped, even when skipBars is set.  "
+texidoc = "Percent repeats are not skipped, even when @code{skipBars} is set."
 }
 
     \paper { raggedright= ##t }

@@ -2,8 +2,8 @@
 \version "2.1.22"
 \header {
     
-    texidoc ="Broken matter at the end of line does not upset the
-    space following rests and notes."  }
+    texidoc ="Broken engraving of a bar at the end of a line does not upset 
+    the space following rests and notes."  }
 
 \score
 {

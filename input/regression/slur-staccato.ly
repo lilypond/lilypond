@@ -1,7 +1,7 @@
 
 \version "2.1.22"
 \header {
-texidoc="Manual hack for slur and staccato."
+texidoc="An extra offset may be added between a slur and staccato(s)."
 }
 
 \paper { raggedright = ##t}

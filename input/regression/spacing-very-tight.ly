@@ -2,11 +2,13 @@
 \version "2.1.22"
 \header {
 texidoc = "
- When tightly spaced, hinterfleisch -> 0.
- Stems may touch the bar lines, opposite stems may touch eachother.
- We need a mininum of about a note-width/interline space in these
- situations, so that in tightly spaced music all vertical lines
- are about equally spaced.
+ When tightly spaced, the spaces between elements (hinterfleisch?) 
+ may approach zero. In that case, 
+ stems may touch the bar lines and opposite stems may touch eachother.
+ In these situations,
+ a mininum of about a note-width/interline space is needed,
+ so that all vertical lines are approximately equally spaced in tightly 
+ spaced music.
 
  "
  

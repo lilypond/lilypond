@@ -4,8 +4,8 @@
 texidoc = "Ottava brackets are supported, through the
 use of the scheme function @code{set-octavation}.
 
-The spanner should go below for 8va bassa, and the string can be tuned
-with @code{Staff.ottavation}.
+The spanner should go below a staff for 8va bassa, and the ottavation
+string can be tuned with @code{Staff.ottavation}.
 
 "
 

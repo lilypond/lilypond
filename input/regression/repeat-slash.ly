@@ -1,6 +1,7 @@
 \version "2.1.22"
 \header {
-texidoc = "Beat repeats are supported."
+texidoc = "Within a bar, beat repeats denote that a music snippet should be
+played again."
 }
 
 \score { \notes \relative c'

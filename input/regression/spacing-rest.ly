@@ -2,8 +2,8 @@
 \version "2.1.22"
 \header {
     texidoc = "Rests get a little less space, since they are narrower.
-However, the feta quarter rest is relatively wide, causing this effect to be
-very small.
+However, the quarter rest in feta font is relatively wide, causing this 
+effect to be very small.
 "
     }
 \score { \notes \relative c'' \context Staff {

@@ -1,10 +1,10 @@
 \version "2.1.22"
 \header{
-texidoc = "Concurrent tuplets should be spaced equidistantly on
-all staffs.
+texidoc = "Concurrent tuplets should be equidistant on all staffs.
 
-Note that this only spaces correctly (exactly) when raggedright
-is. For non-raggedright, it still shows a bug: uneven spacing. 
+Note that this only spaces correctly (exactly) when @code{raggedright}
+is enabled. For a non-@code{raggedright} case, it still shows a bug: 
+uneven spacing. 
 "  }
 
 

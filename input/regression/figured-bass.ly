@@ -4,9 +4,9 @@ texidoc = "
 Figured bass is created by the FiguredBass context which eats
 figured bass requests and  rest-requests.  You must enter these using
 the special @code{\figures @{ @}} mode, which allows you to type
-numbers, like @code{<<4 6+>>}.
+numbers, like @code{<4 6+>}.
 
-You can also type letters by entering quoted strings, as demonstrated in the last example. 
+You can also type letters by entering quoted strings.
 " }
 
 \score { \notes  <<

@@ -2,7 +2,7 @@
 
     texidoc = "In polyphonic situations, rests are moved down
 even if there is no opposite note or rest. The amount is two
-staff-spaces. "
+@code{staff-space}s. "
 
     }
 

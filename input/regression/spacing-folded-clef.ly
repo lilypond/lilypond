@@ -1,7 +1,7 @@
 \version "2.1.22"
 \header {
 texidoc = "A clef can be folded below notes in a different staff, if
-this doesn't disrupt the flow of the notes."
+this does not disrupt the flow of the notes."
 }
 
 \score { \notes \relative c'' <<

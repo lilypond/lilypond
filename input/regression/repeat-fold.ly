@@ -2,7 +2,8 @@
 
 \header{
 texidoc="
-Folded.  This doesn't make sense without alternatives, but it works.
+Folded repeat may not make sense without alternatives, and there
+should not be more alternatives than repeats.
 "
 }
 

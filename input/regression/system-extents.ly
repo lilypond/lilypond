@@ -1,8 +1,8 @@
 \version "2.1.23"
 \header {
 
-    texidoc = "LilyPond correctly determines the size of every
-    system. This includes postscript constructs such as slurs."
+    texidoc = "The size of every system is correctly determined; this 
+    includes postscript constructs such as slurs."
 
     }
 	  

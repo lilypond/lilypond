@@ -5,16 +5,16 @@
     Augmentation dots should never be printed on a staff line,
 but rather be shifted vertically. They should go up, but in case of
 multiple parts, the down stems have down shifted dots.  In case of
-chords, all dots should be in a column.  The dots go along as rests
-are shifted to avoid collisions.
+chords, all dots should be in a column.  The dots follow the shift
+of rests when avoiding collisions.
 
-The priorities, are (ranked in importance):
+The priorities to print the dots are (ranked in importance):
 
 @itemize @bullet
-@item keeping dots off staff lines
-@item keeping dots close to their  note heads
-@item moving dots in the direction specified by the voice
-@item moving dots up
+@item keeping dots off staff lines,
+@item keeping dots close to their  note heads,
+@item moving dots in the direction specified by the voice,
+@item moving dots up.
 @end itemize
 
 "

@@ -1,9 +1,9 @@
 \header {
     
 texidoc = "Staves may be present in several sizes within a score.
-This is achieved with an internal scaling factor. When code forgets to
-take into account the scaling factor, objects generally become too
-thick or too large on smaller staves."
+This is achieved with an internal scaling factor. If the scaling factor is 
+forgotten in some places, objects generally become too thick or too 
+large on smaller staves."
 
 }
 

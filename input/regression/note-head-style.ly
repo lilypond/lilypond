@@ -1,9 +1,10 @@
 \version "2.1.22"
 \header{
 texidoc="
-Note head shapes are settable.  The stem endings should be adjusted
-per note head.  If you want different note head styles on one stem,
-you must create a special context called.
+Note head shapes may be set from several choices.  
+The stem endings should be adjusted according to the note head.  
+If you want different note head styles on one stem,
+you must create a special context.
 
 Harmonic notes have a different shape and different
 dimensions. 
