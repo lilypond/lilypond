@@ -1,7 +1,7 @@
 #ifndef COLS_HH
 #define COLS_HH
 
-#include "glob.hh"
+
 #include "boxes.hh"
 #include "plist.hh"
 #include "item.hh"

@@ -4,7 +4,7 @@ depth = ..
 include $(depth)/make/Include.make
 
 # list of distribution files:
-SCRIPTS = clearlily cpgento make_patch lily.efence \
+SCRIPTS = clearlily cpgento make-patch lily.efence \
 	make-version release conflily
 PERL_SCRIPTS_IN = $(wildcard *.in)
 PERL_SCRIPTS = $(addprefix $(outdir)/, $(PERL_SCRIPTS_IN:.in=))

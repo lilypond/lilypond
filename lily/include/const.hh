@@ -7,7 +7,6 @@
 #include <math.h>
 #include "real.hh"
 
-const Real INFTY=HUGE_VAL;
-const Real INFTY_f=(Real)INT_MAX;
+#error
 
 #endif

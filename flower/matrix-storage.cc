@@ -19,8 +19,8 @@ Matrix_storage::set_addition_result(Matrix_storage *&dat, Matrix_storage *right)
 
 	if ( R->band_size_i() > L->band_size_i()) { 
 	    L->set_band_size(R->band_size_i());
-	    return ;
 	}
+	    return ;
     }
     if  (!dat || !dat->is_type_b(Full_storage::static_name() )) {
 

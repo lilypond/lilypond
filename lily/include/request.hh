@@ -9,7 +9,7 @@
 #ifndef REQUEST_HH
 #define REQUEST_HH
 
-#include "glob.hh"
+
 #include "string.hh"
 #include "moment.hh"
 #include "virtual-methods.hh"

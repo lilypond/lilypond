@@ -47,6 +47,7 @@ rpmdvis=$(rpmmudocs:.doc=.dvi)
 rpmexamples= $(addprefix input/, $(notdir $(shell ls $(depth)/input/*.{ly,tex})))
 
 
+date = $(shell date '+%d%b%y'|tr a-z A-Z)
 sed-version= sed 's!@TOPLEVEL_VERSION@!${TOPLEVEL_VERSION}!g'
 sed-date=sed 's!@DATE@!${date}!g'
 sed-examples = sed 's!@EXAMPLE_LYS@!${rpmexamples} ${rpmmudocs}!g'

@@ -61,7 +61,7 @@ RRRRUUUUNNNNNNNNIIIINNNNGGGG
 
 
 
-1/Aug/97                  LilyPond 0.1.0                        1
+3/Aug/97                  LilyPond 0.1.1                        1
 
 
 
@@ -127,7 +127,7 @@ CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG a
 
 
 
-1/Aug/97                  LilyPond 0.1.0                        2
+3/Aug/97                  LilyPond 0.1.1                        2
 
 
 
@@ -186,14 +186,14 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
                 subdir of tex-prefix)
 
        --enable-mf-dir
-                Set then directory mf input is in (idem)
+                Set the directory mf input is in (idem)
                 [obsolete]
 
-                All options are documented in the _c_o_n_f_i_g_u_r_e help
 
 
 
-1/Aug/97                  LilyPond 0.1.0                        3
+
+3/Aug/97                  LilyPond 0.1.1                        3
 
 
 
@@ -202,6 +202,10 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
 
+       --enable-out-dir
+                Set the directory for machine generated output.
+
+                All options are documented in the _c_o_n_f_i_g_u_r_e help
                 The option --------eeeennnnaaaabbbblllleeee----ooooppppttttiiiimmmmiiiisssseeee is recommended for
                 Real Life usage.
 
@@ -214,6 +218,35 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
                 in the subdirectories _o_u_t_/ (which contain all
                 files generated during compilation).
 
+       BBBBuuuuiiiillllddddiiiinnnngggg ffffoooorrrr mmmmuuuullllttttiiiipppplllleeee hhhhoooossssttttssss
+
+       LilyPond does not follow the GNU standards when it comes
+       to configuring and making Makefiles. In LilyPond, _m_a_k_e
+       generates _a_l_l output in output directories (called _o_u_t_/,
+       by default).  You can have multiple compiles from the same
+       source-tree, by overriding the setting for the output
+       directory.
+
+       Example: on my system, I do debugging and lots compiling.
+       For this I use the configuration as follows:
+
+               configure --prefix=~ --enable-debugging --enable-printing --enable-checking
+               make all
+
+       and I want to do profiling. For that I use
+
+               configure --prefix=~ --enable-debugging --disable-printing\
+                       --disable-checking --enable-profiling --enable-optimise\
+                       --enable-out-dir=out-profile
+
+               make OUTDIR_NAME=out-profile all
+
+       These two commands build two entirely separate versions of
+       LilyPond. In Real Life, you would probably also want to
+       have two different prefixes. On my machine this is no
+       problem; I never do make install. My prefix dirs are
+       linked back to my source directory.
+
 IIIINNNNSSSSTTTTAAAALLLLLLLLIIIINNNNGGGG
        If you have done a successful make, then a simple
 
@@ -223,6 +256,18 @@ IIIINNNNSSSSTTTTAAAALLLLLLLLIIIINNNNGGGG
 
        Install the musixtex fonts in a directory which TeX and MF
        knows (if you are root, look for a directory which
+
+
+
+3/Aug/97                  LilyPond 0.1.1                        4
+
+
+
+
+
+INSTALL(1)            LilyPond documentation           INSTALL(1)
+
+
        contains the directories with AMS and CM source (*.mf)
        files. Create a subdir lilypond or musixtex and copy the
        fonts into that). Do not forget to rehash TeX (if
@@ -239,6 +284,9 @@ CCCCAAAAVVVVEEEEAAAATTTTSSSS
                  Alpha in dstream.cc. You should turn off this
                  flag for this file.
 
+       +o         Perl5.003 and Perl5.004 use different syntax for
+                 pod2html:
+
 EEEEXXXXAAAAMMMMPPPPLLLLEEEE
        This is what I type in my xterm:
 
@@ -247,26 +295,6 @@ EEEEXXXXAAAAMMMMPPPPLLLLEEEE
                xdvi test&
 
        This is what the output looks like over here:
-
-
-
-
-
-
-
-
-
-
-
-
-1/Aug/97                  LilyPond 0.1.0                        4
-
-
-
-
-
-INSTALL(1)            LilyPond documentation           INSTALL(1)
-
 
                GNU LilyPond 0.0.78 #4/FlowerLib 1.1.24 #0
                Parsing ... [/home/hw/share/lilypond/init//
@@ -292,6 +320,22 @@ RRRREEEEDDDDHHHHAAAATTTT LLLLIIIINNNNUUUUXXXX
        ~/.rpmrc, and edit the RPM-dir in _V_a_r_i_a_b_l_e_s_._m_a_k_e. (If you
        create the RPM as a normal user the permissions will not
        be set correctly, unfortunately)
+
+
+
+
+
+3/Aug/97                  LilyPond 0.1.1                        5
+
+
+
+
+
+INSTALL(1)            LilyPond documentation           INSTALL(1)
+
+
+DDDDEEEEBBBBIIIIAAAANNNN GGGGNNNNUUUU////LLLLIIIINNNNUUUUXXXX
+       A Debian package is in the works
 
 WWWWIIIINNNNDDDDOOOOZZZZEEEE
        Windows NT:
@@ -325,6 +369,28 @@ AAAAUUUUTTTTHHHHOOOORRRRSSSS
 
 
 
-1/Aug/97                  LilyPond 0.1.0                        5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3/Aug/97                  LilyPond 0.1.1                        6
 
 

@@ -108,6 +108,10 @@ Matrix::operator=(Matrix const &m)
 int
 Matrix::band_i()const
 {
+    if ( band_b() ) {
+	Diagonal_storage const * diag = (Diagonal_storage*) dat;
+	return diag->band_size_i();
+    }
     int starty = dim();
     while (starty >= 0 ) {
 	for ( int i = starty, j = 0; i < dim(); i++, j++ )
@@ -206,9 +210,13 @@ operator /(Matrix const& m1,Real a)
     return  m;
 }
 
+/*
+  ugh. Only works for square matrices.
+ */
 void
 Matrix::transpose()		// delegate to storage?
 {
+#if 1
     for (int i=0, j=0; dat->mult_ok(i,j); dat->mult_next(i,j)) {
 	if (i >= j)
 	    continue;
@@ -216,6 +224,7 @@ Matrix::transpose()		// delegate to storage?
 	dat->elem(i,j) = dat->elem(j,i);
 	dat->elem(j,i)=r;
     }
+#endif
 }
 
 Matrix
@@ -252,6 +261,7 @@ Matrix::set_product(Matrix const &m1, Matrix const &m2)
     
     if (m1.dat->try_right_multiply(dat, m2.dat))
 	return; 
+    
     for (int i=0, j=0; dat->mult_ok(i,j);
 	 dat->mult_next(i,j)) {
 	Real r=0.0;

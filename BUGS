@@ -16,3 +16,7 @@
 } 
 
 *******************
+
+Stack frame overwrite in on Solaris 2.5.
+Engraver_group_engraver::Engraver_group_engraver() called from
+Score_engraver::Score_engraver()

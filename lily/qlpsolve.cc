@@ -11,11 +11,10 @@
 
 #include "ineq-constrained-qp.hh"
 #include "qlpsolve.hh"
-#include "const.hh"
 #include "debug.hh"
 #include "choleski.hh"
 
-const Real TOL=1e-2;		// roughly 1/10 mm
+const Real TOL=1e-1;		// roughly 1/30 mm
 
 String
 Active_constraints::status() const
@@ -63,9 +62,7 @@ Active_constraints::OK()
 Vector
 Active_constraints::get_lagrange(Vector gradient)
 {
-    Vector l(A*gradient);
-
-    return l;
+    return (A*gradient);
 }
 
 void
@@ -121,8 +118,9 @@ Active_constraints::drop(int k)
 	 
 	 */
         Real q = a*opt->quad*a;
-	H += Matrix(a,a/q);
-	A -= A*opt->quad*Matrix(a,a/q);
+	Matrix aaq(a,a/q);
+	H += aaq;
+	A -= A*opt->quad*aaq;
     }else
 	WARN << "degenerate constraints";
 #ifndef NDEBUG
@@ -142,6 +140,10 @@ Active_constraints::Active_constraints(Ineq_constrained_qp const *op)
     for (int i=0; i < op->cons.size(); i++)
 	inactive.push(i);
     Choleski_decomposition chol(op->quad);
+
+    /*
+      ugh.
+     */
     H=chol.inverse();
     OK();
 }

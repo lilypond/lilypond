@@ -14,6 +14,9 @@
 \def\preexample{\par\medskip}
 \def\postexample{\par\medskip}
 
+\emph{This document is not complete yet. It's just a brief blurb which
+  skimps some features of Mudela}
+
 
 \section{Overview}
 Mudela is a language for specifying music. LilyPond is a

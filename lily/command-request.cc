@@ -186,9 +186,11 @@ Key_change_req::squash_octaves()
 void
 Key_change_req::do_print() const
 {
+#ifndef NPRINT
     for (int i=0; i < melodic_p_arr_.size(); i++) {
 	melodic_p_arr_[i]->print();
     }
+#endif
 }
 
 Key_change_req::Key_change_req()

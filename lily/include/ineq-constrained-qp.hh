@@ -31,6 +31,10 @@ public:
       */
     void assert_solution(Vector sol) const;
     /// solve the problem using a projected gradient method
+    Vector constraint_solve(Vector)const;
+    /**
+      Solve it. First try it the easy way.
+     */
     Vector solve(Vector start) const;
     
     /**

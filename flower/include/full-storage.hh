@@ -26,57 +26,28 @@ class Full_storage : public Matrix_storage
     Real** els_p_p_;
 
     void
-    init() {
-	els_p_p_=0;
-	height_i_=width_i_=max_height_i_=max_width_i_=0;
-
-    }
-    
-    bool valid(int i, int j) const {
-	return (i>=0 && i < height_i_)
-	    && (j < width_i_ && j >=0);
-    }
-    
+    init() ;
+     
+    bool valid(int i, int j) const ; 
 
     void resize_rows(int);
     void resize_cols(int);
 
 public:
-    virtual int rows() const {
-	return height_i_;
-    }
-    virtual int cols() const {
-	return width_i_;
-    }
+    virtual int rows() const;
+    virtual int cols() const ;
     
     
     virtual void resize(int i, int j);
-    virtual void resize(int i) {
-	resize(i,i);
-    }
-    
-    virtual Real& elem(int i,int j) {
-	assert(valid(i,j));
-	return els_p_p_[i][j];
-    }
-    virtual Real elem(int i, int j) const {
-	assert(valid(i,j));
-	return els_p_p_[i][j];
-    }
+    virtual void resize(int i);
+    virtual Real& elem(int i,int j);
+    virtual Real elem(int i, int j)const ;
     int dim()const;
     Full_storage(Matrix_storage*);
-    Full_storage() {
-	init();
-    }
-    Full_storage(int i, int j) {
-	init();
-	set_size(i,j);
-    }
+    Full_storage();
+    Full_storage(int i, int j);
     Full_storage(Full_storage const&);
-    Full_storage(int i) {
-	init();
-	set_size(i);
-    }
+    Full_storage(int i);
     void OK() const;
     void operator=(Full_storage const &);
     
@@ -89,7 +60,7 @@ public:
     virtual void mult_next(int &i, int &j) const ;
     virtual bool trans_ok(int i, int j) const;
     virtual void trans_next(int &i, int &j) const;
-    VIRTUAL_COPY_CONS(Full_storage,Matrix_storage);
+    DECLARE_VIRTUAL_COPY_CONS(Full_storage,Matrix_storage);
     DECLARE_MY_RUNTIME_TYPEINFO;
     virtual bool try_right_multiply(Matrix_storage * dest, Matrix_storage const * )const;
 };

@@ -58,8 +58,8 @@ class Score_elem : private Directed_graph_node {
 
 public:
     PScore *pscore_l_;    
-    int x_group_element_i_;
-    int y_group_element_i_;
+    Vertical_group  *y_group_l_;
+    Horizontal_group *x_group_l_;
     Score_elem(Score_elem const&);
     virtual String TeX_string () const ;
     virtual void print() const;
@@ -99,8 +99,19 @@ public:
       add a dependency. It may be the 0 pointer, in which case, it is ignored.
      */
     void add_dependency(Score_elem* );    
+    void copy_dependencies(Score_elem const&);
+    /**
+      junk the dependency array. Don't do derived stuff.
+     */
+    void junk_dependencies();
     
-    
+
+    /*
+      virtual accessors
+     */
+    virtual Vertical_group * vertical_group() { return 0; }
+    virtual Horizontal_group * horizontal_group() { return 0; }
+
     virtual Spanner* spanner()  { return 0; }
     virtual Horizontal_vertical_group* elem_group() { return 0; }
     virtual Item * item() { return 0; }

@@ -10,8 +10,12 @@
 
 
 IMPLEMENT_IS_TYPE_B1(Horizontal_align_item,Item);
-
-
+void
+Horizontal_align_item::OK() const
+{
+   for  (int i =0; i < item_l_arr_.size(); i++) 
+       assert ( pcol_l_ == item_l_arr_[i]->pcol_l_ );
+}
 bool
 Horizontal_align_item::contains_b(Item *i)const
 {
@@ -57,6 +61,7 @@ struct Horizontal_align_item_content {
 void
 Horizontal_align_item::do_pre_processing()
 {
+    OK();
     {  
 	Array<Horizontal_align_item_content> content;
 	for  (int i =0; i < item_l_arr_.size(); i++) 

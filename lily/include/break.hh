@@ -13,37 +13,63 @@
 #include "lily-proto.hh"
 #include "colhpos.hh"
 
+
+/**
+  Statistics for the number of columns calced.
+ */
+struct Col_stats
+{
+    int count_i_;
+    int cols_i_;
+
+    Col_stats(); 
+    void add(Line_of_cols const&l);
+    String str()const;
+};
+
 /** Class representation of an algorithm which decides where to put
   the column, and where to break lines.
   
-  TODO: a decent algorithm, based on dynamic programming or something
-  a like. A "parindent", caching of breakpoints
+  TODO:  A "parindent", caching of breakpoints
   
   */
 class Break_algorithm {
-    Line_spacer* generate_spacing_problem(Line_of_cols)const;
 protected:
+
     PScore *pscore_l_;
     Real linelength;
 
     /// search all pcols which are breakable.
     Line_of_cols find_breaks() const;
 
-     /// helper: solve for the columns in #curline#.
-    Col_hpositions solve_line(Line_of_cols) const;
+    Line_of_cols all_cols() const;
+    Array<int> find_break_indices()const;
+    
+
+    /// helper: solve for the columns in #curline#.
+    void solve_line(Col_hpositions*) const;
+
+    /// helper: approximate the energyv
+    void approximate_solve_line(Col_hpositions*) const;
 
     /// does curline fit on the paper?    
     bool feasible(Line_of_cols)const;
     
 
-    /** generate a solution with no regard to idealspacings or
-      constraints.  should always work */
-    Col_hpositions stupid_solution(Line_of_cols) const;
+    Line_spacer* generate_spacing_problem(Line_of_cols)const;
+
     virtual Array<Col_hpositions> do_solve()const=0;
+    void print_stats()const;
+
+    virtual void do_set_pscore();
 public:
+    Col_stats approx_stats_;
+    Col_stats exact_stats_;
+
     Line_spacer* (*get_line_spacer)();
     
-    Break_algorithm(PScore&);
+    Break_algorithm();
+    void set_pscore(PScore*);
 
     /// check if the spacing/breaking problem is well-stated
     void problem_OK()const;

@@ -9,6 +9,7 @@
 
 #ifndef ELEM_GROUP_HH
 #define ELEM_GROUP_HH
+
 #include "score-elem.hh"
 
 class Elbement_group: public virtual Score_elem {
@@ -17,23 +18,26 @@ protected:
     
     virtual void do_print() const ;
 public:
+    Elbement_group(Elbement_group const&);
     Elbement_group();
     bool contains_b(Score_elem const *)const;
     void add_element(Score_elem*);
     DECLARE_MY_RUNTIME_TYPEINFO;
-       
 };
 
 class Horizontal_group : public Elbement_group {
 public:
     DECLARE_MY_RUNTIME_TYPEINFO;
-    Horizontal_group(Horizontal_group const&);
     Horizontal_group(){}
     void add_element(Score_elem*);
+    Horizontal_group(Horizontal_group const&);
+    void remove_element(Score_elem*);
+
 protected:
+    virtual Horizontal_group * horizontal_group() { return this; }
     virtual void do_substitute_dependency(Score_elem*,Score_elem*);
     virtual void do_print() const ;
-  virtual void translate_x(Real);
+    virtual void translate_x(Real);
     virtual Interval do_width()const;
 };
 
@@ -41,10 +45,13 @@ class Vertical_group : public Elbement_group {
 protected:
     virtual void translate_y(Real);
     virtual void do_print() const ;
-  virtual Interval do_height()const;
+    virtual Interval do_height()const;
     virtual void do_substitute_dependency(Score_elem*,Score_elem*);
-    void add_element(Score_elem*);
+    virtual Vertical_group * vertical_group() { return this; }
 public:
+    void add_element(Score_elem*);
+    void remove_element(Score_elem*);
+    
     Vertical_group(Vertical_group const &);
     Vertical_group(){}
     DECLARE_MY_RUNTIME_TYPEINFO;

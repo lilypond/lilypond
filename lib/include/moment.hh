@@ -5,10 +5,24 @@
 #ifndef MOMENT_HH
 #define MOMENT_HH
 
+#include <limits.h>
 #include "rational.hh"
+
+/**
+  A really big time-moment.
+
+  Windhoze-suck-suck-suck-suck-suck-thank-you-cygnus
+
+  I get tired of all these incompatibilities.  Let's just assume that
+  INT_MAX is really, really, really big.
+
+  Can't we name this Saint_jut_mom (Sintjuttemis ?)  */
+  
+const infinity_mom = Rational(INT_MAX);
+
 class String;
 typedef Rational Moment;
-void printm(Moment const&);
+
 
 
 #endif // 

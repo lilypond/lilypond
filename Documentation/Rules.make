@@ -36,7 +36,7 @@ $(outdir)/%.1: %.pod
 $(outdir)/%.gz: $(outdir)/%
 	gzip -c9 $< > $@
 
-$(outdir)/%.dvi: $(depth)/input/%.ly
+$(outdir)/%.dvi: $(depth)/input/%.ly $(lilyout)/lilypond
 	(cd $(outdir); lilypond ../$< ;\
 	if [ -f ../$(basename $< ).tex ]; \
 	then \

@@ -16,7 +16,5 @@ Line_spacer::Line_spacer()
 Paper_def*
 Line_spacer::paper_l()const
 { 
-
-
     return paper_l_ ;
 }

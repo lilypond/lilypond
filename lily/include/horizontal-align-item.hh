@@ -35,6 +35,7 @@ public:
     DECLARE_MY_RUNTIME_TYPEINFO;
     SCORE_ELEM_CLONE(Horizontal_align_item);
     void add(Item*, int p);
+    void OK()const;
     Horizontal_align_item();
 protected:
     

@@ -12,6 +12,8 @@
 depth = ..
 #
 
+NAME = lilypond
+
 # generic variables:
 #
 include Stable.make
@@ -21,7 +23,6 @@ include VERSION
 
 # identify module:
 #
-NAME = lilypond
 
 #
 
@@ -69,3 +70,5 @@ localclean:
 localinstall: installexe
 
 localuninstall: uninstallexe
+
+$(outdir)/lily-version.o: $(outdir)/version.hh

@@ -140,7 +140,7 @@ Rhythmic_grouping::split(Array<MInterval> splitpoints)
 		ch.push(children[i]);
 	    } else {
 		Rhythmic_grouping *newchild=new Rhythmic_grouping(
-		    children.subvec(starti, i+1));
+		    children.slice(starti, i+1));
 
 		ch.push(newchild);
 	    }

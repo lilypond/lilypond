@@ -58,7 +58,7 @@ Score::run_translator(Global_translator * trans_l)
 
     trans_l->start();
     while ( iter->ok() || trans_l->moments_left_i() ) {
-	Moment w = INFTY_f;
+	Moment w = infinity_mom;
 	if (iter->ok() ) {
 	    w = iter->next_moment();
 	    iter->print();

@@ -19,10 +19,3 @@
 
 
 IMPLEMENT_IS_TYPE_B2(Line_of_staff,Spanner,Horizontal_vertical_group);
-
-void
-Line_of_staff::add_element(Score_elem*elem_l)
-{
-    if (!elem_l->y_group_element_i_)
-	Horizontal_vertical_group::add_element(elem_l);
-}

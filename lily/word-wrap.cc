@@ -1,5 +1,5 @@
 /*
-  wordwrap.cc -- implement Word_wrap
+  word-wrap.cc -- implement Word_wrap
 
   source file of the LilyPond music typesetter
 
@@ -13,17 +13,19 @@
 #include "spring-spacer.hh"
 
 
-/** el stupido. This should be done more accurately:
-
-   It would be nice to have a Dynamic Programming type of algorithm
-   similar to TeX's
+/** el stupido. 
    
+  
+   A Dynamic Programming type of algorithm
+   similar to TeX's is in Gourlay_breaking
+
    */
 Array<Col_hpositions>
 Word_wrap::do_solve()const
 {
     problem_OK();
-    iter_top(pscore_l_->col_p_list_,curcol);
+    
+    PCursor<PCol*> curcol(pscore_l_->col_p_list_.top());
     Array<Col_hpositions> breaking;
     Line_of_cols breakpoints(find_breaks());
     assert(breakpoints.size()>=2);
@@ -40,7 +42,7 @@ Word_wrap::do_solve()const
 	break_idx_i++;
 
 	while (break_idx_i < breakpoints.size()) {
-
+	
 	    // add another measure.
 	    while (breakpoints[break_idx_i] != curcol.ptr()){
 		current.add(curcol);
@@ -48,24 +50,30 @@ Word_wrap::do_solve()const
 	    }
 	    current.add(breakpoints[break_idx_i]->prebreak_p_ );
 
+	    current.spacer_l_ = generate_spacing_problem( current.cols );
+
 	    // try to solve
 	    if (!feasible(current.cols)) {
 		if (!minimum.cols.size()) {
 		    warning("Ugh, this measure is too long, breakpoint: "
 			  + String(break_idx_i) +
 			" (generating stupido solution)");
-		    current = stupid_solution(current.cols);
-		    current.energy = - 1; // make sure we break out.
+		    current.stupid_solution();
+		    current.energy_f_ = - 1; // make sure we break out.
 		} else
-		    current.energy = INFTY_f;	// make sure we go back
+		    current.energy_f_ = infinity_f;	// make sure we go back
 	    } else {
-		current = solve_line(current.cols);
+		
+		current.solve_line();
 		current.print();
 	    }
 
+	    delete current.spacer_l_;
+	    current.spacer_l_ =0;
+
 	    // update minimum, or backup.
-	    if (current.energy < minimum.energy || current.energy < 0) {		
-		minimum = current;	   
+	    if (current.energy_f_ < minimum.energy_f_ || current.energy_f_ < 0) {
+		minimum = current;
 	    } else {		// we're one col too far.
 		break_idx_i--;
 		while (curcol.ptr() != breakpoints[break_idx_i])
@@ -83,12 +91,11 @@ Word_wrap::do_solve()const
 	*mlog << "[" <<break_idx_i<<"]"<<flush;
 	breaking.push(minimum);
     }
-    
+    print_stats();
     return breaking;
 }
 
-Word_wrap::Word_wrap(PScore&ps)
-    : Break_algorithm(ps)
+Word_wrap::Word_wrap()
 {
     get_line_spacer = Spring_spacer::constructor;
 }

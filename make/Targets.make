@@ -136,9 +136,28 @@ dist:
 # should be trapped
 	rm -rf $(distdir)/
 
+# ugh. should generate in out/
+dozedist: doosdist
+doosdist:
+	-mkdir $(distdir)
+#	nogo, SUBDIRS is handed down to subdir...
+#	$(MAKE) SUBDIRS="Documentation init input tex" localdist
+	$(MAKE) localdist
+	chmod -Rf a+rX $(distdir)
+#	ugh, the ugly way, then
+	(cd $(distdir); rm -rf $(NO_DOOS_DIST))
+	cp $(lilyout)/lilypond.exe $(distdir)
+	strip -s $(distdir)/lilypond.exe
+	cp $(mi2muout)/mi2mu.exe $(distdir)
+	strip -s $(distdir)/mi2mu.exe
+	(cd ./$(depth); $(ZIP) $(DIST_NAME).exe.zip $(distdir))
+# should be trapped
+	rm -rf $(distdir)/
+
+
 localdist: $(DISTFILES)
 	if [ -d out ]; then mkdir $(distdir)/$(localdir)/out; fi
-	ln $(DISTFILES) $(distdir)/$(localdir)
+	$(LN) $(DISTFILES) $(distdir)/$(localdir)
 ifdef SUBDIRS
 	set -e; for i in $(SUBDIRS); do mkdir $(distdir)/$(localdir)/$$i; \
 		$(MAKE) localdir=$(localdir)/$$i -C $$i localdist; done
@@ -151,7 +170,7 @@ moduledist:
 	rm -rf $(module-distdir)/ 
 
 localmoduledist:
-	ln $(DISTFILES) $(module-distdir)/$(localdir)
+	$(LN) $(DISTFILES) $(module-distdir)/$(localdir)
 ifdef SUBDIRS
 	set -e; for i in $(SUBDIRS); do mkdir $(module-distdir)/$(localdir)/$$i; done
 	set -e; for i in $(SUBDIRS); do $(MAKE) localdir=$(localdir)/$$i -C $$i localmoduledist; done
@@ -175,12 +194,14 @@ $(outdir)/version.hh: VERSION
 
 
 # should this be in Rules?
-configure: configure.in
+configure: configure.in aclocal.m4
 	autoconf - < $<> $@
 	chmod +x configure
 
 localclean:
 
+install-strip:
+	$(MAKE) INSTALL="$(INSTALL) -s" install
 
 install: localinstall
 ifdef SUBDIRS

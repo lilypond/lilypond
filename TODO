@@ -6,6 +6,27 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr
 
+	* generate stuff in out/default, out/sun5-irix etc iso out/ 
+and out-sun5/
+
+	* derive dstream, texstream from ostream?
+
+	* A typical pop-music example.
+
+	* check libtool, automake
+
+	* have make dist produce tarball in out/ directory.
+
+	* write a faster Spring_spacer ( without matrices if possible )
+
+	* A decent scalar type
+
+	* relate energybound to linelen unitspace fontsize etc.
+
+	* naming of Voice_group/Voice
+
+	* benchmark band_matrices.
+
 	* versioning stuff (cvt mudela, mudela, etc.)
 
 	* get rid of gif files.
@@ -23,6 +44,13 @@ grep for TODO and ugh/ugr
 	* lyrics in chords still fuck up.
 
 	* rewire acknowledge_element() logic with a process_acknowledged()
+	
+	* Global type registration.  
+
+		My_class * p = create_object( My_class )
+		Type t = get_type ( *p );
+		if ( t <= get_type( q ))
+			..
 
 	* progress when creating MIDI elts.
 
@@ -32,15 +60,35 @@ grep for TODO and ugh/ugr
 
 	* piano staff
 
-	* implement better breaking algorithm
-
 	* update 20 pt table
 
 	* decent TeX page layout
 
 	* a tutorial
 
+3RD PARTY BUGS:
+
+	* bugreport to doc++ devel: struct not in class hier; public
+	virtual baseclasses
+
+	* DOC++ bugs/ newer version?
+
+	* Rational infty(HUGE_VAL) on glibc / w32
+
+	* Fix profiling. gprof bugreport?
+
+	* read from mmap directly: bugreport to flex developers->
+	yy_scan_buffer in C++..
+
+	* (where are the) gcc compile warnings on linux
+	
+
 PROJECTS
+
+	* input converters
+	- NIFF?
+	- ABC? 
+	- SMDL?
 
 	* add to MIDI output:
 	- tempo change
@@ -134,16 +182,10 @@ PARSER
 
 BUGS
 
-	* fix mysterious Flex malloc bug 
-
 	* should adjust stemlength for flag number.
 
 	* lilypond - -> crash
 
-	* standchen triool beam up/down
-	
-	* (where are the) gcc compile warnings on linux
-	
 SEVERELY LACKING:
 
 	* SPEED!
@@ -214,11 +256,6 @@ SMALLISH PROJECTS
 
 	* shared lib on Solaris too.
 
-	* bugreport to doc++ devel: struct not in class hier; public
-	virtual baseclasses
-
-	* get rid of init_end;
-
 	* cleanup lily-proto.hh and proto.hh
 
 	* half-sharps, half-flats
@@ -249,9 +286,6 @@ SMALLISH PROJECTS
 	* midi esp.: use I32 iso int where 32 bits are needed (or assumed...)
 
 	* parshape
-
-	* read from mmap directly: bugreport to flex developers->
-	yy_scan_buffer in C++..
 
 	* binsearch/hash for identifiers
 
@@ -302,8 +336,6 @@ FUTURE
 	* put scripts on bars
 
 	* guitar chord
-
-	* better beamslope calculation:	QLP for beams?
 
 	* Text_crescendo
 

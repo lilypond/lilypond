@@ -12,9 +12,9 @@
 #include "full-storage.hh"
 
 /**
-  Store a single-band matrix;
+  Store a  matrix with a single-band.
 
-  INVARIANT
+  @invariant
   
   Diagonal_storage(i,j) == band_(i, j-i + band_size_i())
   
@@ -58,7 +58,7 @@ public:
     virtual void mult_next(int &i, int &j) const ;
     virtual bool trans_ok(int i, int j) const;
     virtual void trans_next(int &i, int &j) const;
-    VIRTUAL_COPY_CONS(Diagonal_storage, Matrix_storage);
+    DECLARE_VIRTUAL_COPY_CONS(Diagonal_storage, Matrix_storage);
     DECLARE_MY_RUNTIME_TYPEINFO;
     virtual bool try_right_multiply(Matrix_storage * dest, Matrix_storage const *)const;
 };

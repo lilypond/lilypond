@@ -36,7 +36,7 @@ Vertical_align_engraver::acknowledge_element(Score_elem_info i)
 {
     if ( i.origin_grav_l_arr_.size() == 2 && 
 	 i.elem_l_->is_type_b(Vertical_group::static_name()) &&
-	 !i.elem_l_->y_group_element_i_   ) {
+	 !i.elem_l_->y_group_l_   ) {
 	assert( !valign_p_->contains_b(  i.elem_l_) );
 
 	valign_p_->add ( i.elem_l_ );

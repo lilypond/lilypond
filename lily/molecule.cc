@@ -129,8 +129,12 @@ Molecule::Molecule(Molecule const &s)
 void
 Molecule::print() const
 {
+#ifndef NPRINT
+    if (! check_debug)
+	return;
     for (iter_top(ats,c); c.ok(); c++)
 	c->print();
+#endif
 }
 
 void

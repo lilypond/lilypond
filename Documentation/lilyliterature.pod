@@ -49,6 +49,7 @@ December 1996
 
 [Pamphlet explaining some fine points in music font design HWN]
 
+
 =head2 Notation with computers
 
 Donald Byrd.  ``Music Notation by Computer''.  Dissertation Indiana
@@ -72,11 +73,6 @@ Assisted Research in the Humanities.
 
 [Annual editions since 1985, many containing surveys of music
 typesetting technology. SP]
-
-Wael A. Hegazy and John S. Gourlay. ``Optimal line breaking in music''. In
-Document Manipulation and Typography, J.C. van Vliet (ed) 1988.
-
-[This generalizes TeX's breaking algorithm to music HWN]
 
 David A.  Gomberg; ``A Computer-oriented System for Music Printing.''
 Computers and the Humanities, Vol.11, pp 63-80.
@@ -110,6 +106,13 @@ Computer and Information Science, The Ohio State University, 1987.
 
 [Describes the "parser" which converts MusiCopy MDL  to MusiCopy
 Simultaneities & columns HWN]
+
+Wael A. Hegazy and John S. Gourlay. ``Optimal line breaking in
+music''.  Technical Report OSU-CISRC-8/87-TR33, Department of Computer
+and Information Science, The Ohio State University, 1987
+
+[This generalizes TeX's breaking algorithm to music. It also appeared in
+Document Manipulation and Typography, J.C. van Vliet (ed) 1988. HWN]
 
 Dean K. Roush. ``Using MusiCopy''. Technical Report
 OSU-CISRC-18/87-TR31, Department of Computer and Information Science,
@@ -244,14 +247,11 @@ Kurt Stone. Music Notation in the Twentieth Century. New York: Norton,
 1980.
 
 
-=head2 other stuff
+=head2 Other stuff
 
 
 More on GNU Music:
 http://dept-info.labri.u-bordeaux.fr/~strandh/Gsharp
-
-Tablature: http://wabakimi.carleton.ca/~phacket2/guitar/tabfaq.html
-
 
 Peter S. Langston, ``Unix music tools at Bellcore''.  Software ---
 Practice and Experience, Vol. 20(S1), S1/47--S1/61, 1990.
@@ -261,15 +261,36 @@ playback. It doesn't mention notation issues, but does come with the
 grand idea (not) of using music to monitor complex systems. Imagine
 your nuclear plant supervisor to use AC/DC for checking the reactor HWN]
 
+
+=head2 File formats
+
+Tablature: http://wabakimi.carleton.ca/~phacket2/guitar/tabfaq.html
+
 Cindy Grande, NIFF6a Notation Interchange File Format.  Grande
-Software Inc., 1995.  ftp://blackbox.cartah.washington.edu/pub/
+Software Inc., 1995.  ftp://blackbox.cartah.washington.edu/pub/,
+http://www.jtauber.com/music/encoding/niff/
 
 [Specs for NIFF, a comprehensive but binary (yuk) format for notation HWN]
+
+SMDL, Standard Musical Description Language 
+ftp://ftp.ornl.gov/pub/sgml/wg8/smdl/10743.pdf
+
+MPDL,
+
+HMSL, Hierarchical Music Structured Language, 
+
+DARMS, 
+
+enigma, 
+
+SCORE,
+
 
 =head1 AUTHORS
 
 References and comments contributed by Han-Wen Nienhuys (HWN), Miguel
 Filgueiras, Mark Basinski (MB), Dorothea Blostein, Stephen Page (SP),
-Jan Nieuwenhuizen.
+Jan Nieuwenhuizen, Peter Kerr.
 
 This should really be redone in BibTeX
+

@@ -1,13 +1,28 @@
+/*
+  colhpos.cc -- implement Col_hpositions
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include "colhpos.hh"
 #include "real.hh"
 #include "debug.hh"
-#include "const.hh"
 #include "vector.hh"
+#include "line-spacer.hh"
 
 Col_hpositions::Col_hpositions()
 {
-    energy = INFTY_f;
+    energy_f_ = infinity_f;
     ugh_b_ = false;
+    satisfies_constraints_b_ = false;
+    spacer_l_ =0;
+}
+
+Col_hpositions::~Col_hpositions()
+{
+
 }
 
 void
@@ -20,7 +35,7 @@ void
 Col_hpositions::print() const
 {
 #ifndef NPRINT
-    mtor << "energy : " << energy << '\n';
+    mtor << "energy : " << energy_f_ << '\n';
     mtor << "line of " << config.size() << " cols\n";
     Vector v(config);
     mtor << v;
@@ -34,3 +49,26 @@ Col_hpositions::OK()const
     assert(config.size() == cols.size());
 #endif
 }
+
+void
+Col_hpositions::stupid_solution()
+{
+    energy_f_ = infinity_f;
+    ugh_b_ = true;
+    config = spacer_l_->default_solution();
+}
+
+void
+Col_hpositions::solve_line() 
+{
+    spacer_l_->solve(this);
+}
+
+
+void
+Col_hpositions::approximate_solve_line() 
+{
+    spacer_l_->lower_bound_solution(this);
+}
+
+

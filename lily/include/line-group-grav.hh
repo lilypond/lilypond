@@ -16,7 +16,7 @@
   Engravers put elements on the same or lowel level in a line
   */
 class Line_group_engraver : public Engraver{
-    Line_of_staff *staffline_p_;   
+    Vertical_group_spanner *staffline_p_;   
 
 protected:
     virtual void do_creation_processing();

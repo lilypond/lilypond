@@ -39,6 +39,17 @@ public:
 	    else
 		del(i);
     }
+    void unordered_substitute(T* old, T * new_l)
+    {
+	int i;
+	while ((i = find_i(old)) >=0) 
+	    if (new_l)
+		elem(i) =new_l;
+	    else {
+		unordered_del( i );
+	    }
+    
+    }
     void default_sort() {
 	sort(default_compare);
     }

@@ -1,6 +1,6 @@
 /*
-  elem-group-item.hh -- declare Element_group_item
-
+  elem-group-item.hh -- declare Horizontal_vertical_group_item
+  
   source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
@@ -19,13 +19,6 @@ public:
     SCORE_ELEM_CLONE(Horizontal_vertical_group_item);
 protected:
     virtual void do_print() const;
-};
-
-class Horizontal_group_item : public Item, public Horizontal_group {
-    DECLARE_MY_RUNTIME_TYPEINFO;
-    SCORE_ELEM_CLONE(Horizontal_group_item);
-protected:
-    virtual void do_print() const { Elbement_group::do_print(); }
 };
 
 #endif // ELEM_GROUP_ITEM_HH

@@ -39,7 +39,7 @@ SUBDIRS = include test
 # list of distribution files:
 #
 SCRIPTS = 
-README_FILES = NEWS README TODO
+README_FILES = ONEWS NEWS README TODO
 EXTRA_DISTFILES= configure config.hh.in configure.in VERSION $(README_FILES) $(SCRIPTS) Flower-flags.make.in
 #
 
@@ -74,3 +74,6 @@ endif
 
 localuninstall:
 	rm -f $(libdir)/libflower.{so,a}
+
+
+$(outdir)/flower-version.o: $(outdir)/version.hh

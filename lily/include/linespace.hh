@@ -10,7 +10,7 @@
 
 #ifndef LINESPACE_HH
 #define LINESPACE_HH
-#include "glob.hh"
+
 #include "plist.hh"
 #include "varray.hh"
 #include "vector.hh"

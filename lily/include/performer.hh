@@ -14,6 +14,10 @@
 #include "score-elem-info.hh"
 #include "staff-info.hh"
 
+/**
+  Convert a music definition into a audio representation.
+  A baseclass
+ */
 class Performer {
     bool init_b_;
 public:

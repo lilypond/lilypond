@@ -4,9 +4,11 @@ mudela-book - integrate LaTeX and mudela
 
 =head1 SYNOPSIS
 
-	convert-mudela [options] [files]
+	convert-mudela [options] [file]
 
 =head1 DESCRIPTION
+
+If no file is given, input is taken from the standard input
 
 mudela-book runs LilyPond on fragments of mudela in your source file,
 and produces a LaTeXable document, with formatted music.
@@ -38,7 +40,8 @@ CONTENTS is copied into the TeX source enclosed in a verbatim block.
 
 =item B<--outname>
 
-The name of TeX file to output
+The name of TeX file to output. If none is given, the output is
+printed on stdout.
 
 =item B<--outdir> 
 
