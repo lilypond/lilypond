@@ -1,4 +1,4 @@
-;;;; framework-tex.scm --
+1;;;; framework-tex.scm --
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;
@@ -14,6 +14,7 @@
 	     (guile)
 	     (srfi srfi-1)
 	     (srfi srfi-13)
+	     (srfi srfi-14)
 	     (lily))
 
 (define (output-formats)
@@ -348,8 +349,15 @@
 	    (ly:kpathsea-expand-variable "$extra_mem_top")
 	    'pre "" 'post)))
 	 (base (basename name ".tex"))
-	 (cmd (string-append
-	       "latex \\\\nonstopmode \\\\input " name)))
+	 (cmd (format
+	       #f "latex \\\\nonstopmode \\\\input '~a'" name)))
+
+    ;; FIXME: latex 'foo bar' works, but \input 'foe bar' does not?
+    (if (string-index name (char-set #\space #\ht #\newline #\cr))
+	(error (format
+		#f
+		(_"TeX file name must not contain whitespace: `~a'") name)))
+
     (setenv "extra_mem_top" (number->string (max curr-extra-mem 1024000)))
     (let ((dvi-name (string-append base ".dvi")))
       (if (access? dvi-name W_OK)
@@ -360,7 +368,7 @@
 		  (string-append base ".dvi"))
 	  (newline (current-error-port))))
 
-    ;; fixme: set in environment?
+    ;; FIXME: set in environment?
     (if (ly:get-option 'safe)
 	(set! cmd (string-append "openout_any=p " cmd)))
 
