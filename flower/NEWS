@@ -1,4 +1,7 @@
 
+pl 26
+	- Getopt_long : command -- and command - 
+	- Getopt_long: cosmetics
 
 pl 25
 	- unordered_substitute and unordered_del
