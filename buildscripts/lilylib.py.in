@@ -177,21 +177,6 @@ def cleanup_temp ():
 		shutil.rmtree (temp_dir)
 
 
-#what a name.
-def set_setting (dict, key, val):
-	try:
-		val = string.atof (val)
-	except ValueError:
-		#warning (_ ("invalid value: %s") % `val`)
-		pass
-
-	try:
-		dict[key].append (val)
-	except KeyError:
-		warning (_ ("no such setting: %s") % `key`)
-		dict[key] = [val]
-
-
 def strip_extension (f, ext):
 	(p, e) = os.path.splitext (f)
 	if e == ext:

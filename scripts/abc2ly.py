@@ -67,6 +67,7 @@ import os
 
 UNDEF = 255
 state = UNDEF
+strict = 0
 voice_idx_dict = {}
 header = {}
 header['footnotes'] = ''
@@ -88,6 +89,13 @@ DIGITS='0123456789'
 alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"	
 HSPACE=' \t'
 midi_specs = ''
+
+
+def error (msg):
+	sys.stderr.write (msg)
+	if strict:
+		sys.exit (1)
+	
 	
 def check_clef(s):
       if not s:
@@ -457,6 +465,7 @@ def compute_key (k):
 		key_count = flat_key_seq.index (keytup)
 		accseq = map (lambda x: (3*x + 3 ) % 7, range (1, key_count + 1))
 	else:
+		error ("Huh?")
 		raise "Huh"
 	
 	key_table = [0] * 7
@@ -1226,8 +1235,7 @@ def parse_file (fn):
 			ln = junk_space (ln)
 
 		if ln:
-			msg = "%s: %d: Huh?  Don't understand\n" % (fn, lineno)
-			sys.stderr.write (msg)
+			error ("%s: %d: Huh?  Don't understand\n" % (fn, lineno))
 			left = orig_ln[0:-len (ln)]
 			sys.stderr.write (left + '\n')
 			sys.stderr.write (' ' *  len (left) + ln + '\n')	
@@ -1246,7 +1254,8 @@ Options:
   -h, --help          this help
   -o, --output=FILE   set output filename to FILE
   -v, --version       version information
-
+  -s, --strict        be strict about succes.
+  
 This program converts ABC music files (see
 http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt) To LilyPond input.
 """
@@ -1256,7 +1265,7 @@ def print_version ():
 
 
 
-(options, files) = getopt.getopt (sys.argv[1:], 'vo:h', ['help','version', 'output='])
+(options, files) = getopt.getopt (sys.argv[1:], 'vo:hs', ['help','version', 'output=', 'strict'])
 out_filename = ''
 
 for opt in options:
@@ -1265,11 +1274,12 @@ for opt in options:
 	if o== '--help' or o == '-h':
 		help ()
 		sys.exit (0)
-	if o == '--version' or o == '-v':
+	elif o == '--version' or o == '-v':
 		print_version ()
 		sys.exit(0)
-		
-	if o == '--output' or o == '-o':
+	elif o == '--strict' or o == '-s':
+		strict = 1
+	elif o == '--output' or o == '-o':
 		out_filename = a
 	else:
 		print o

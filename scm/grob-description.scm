@@ -316,6 +316,7 @@
 		(self-alignment-X . 0)
 		(non-rhythmic . #t)
 		(word-space . 0.6)
+               (end-alignment . 5)
 		(font-family . roman)
 		(font-shape . upright)
 		(meta . ,(grob-description lyric-syllable-interface text-interface font-interface ))

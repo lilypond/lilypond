@@ -532,7 +532,8 @@ that helps show the length of a melissima (tied/slurred note)."
    'lyric-syllable-interface
    "a single piece of lyrics"
    '(
-    word-space  
+    word-space
+    end-alignment
     ))
 
 

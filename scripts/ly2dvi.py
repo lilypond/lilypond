@@ -67,9 +67,19 @@ import operator
 import tempfile
 import traceback
 
-datadir = '@datadir@'
-sys.path.append ('@datadir@/python')
-sys.path.append ('@datadir@/buildscripts/out')
+datadir = ''
+
+if '@datadir@' == ('@' + 'datadir' + '@'):
+	datadir = os.environ['LILYPONDPREFIX']
+else:
+	datadir = '@datadir@'
+
+while datadir[-1] == os.sep:
+	datadir = datadir[:-1]
+
+
+sys.path.append (os.path.join (datadir, 'python'))
+sys.path.append (os.path.join (datadir, 'buildscripts/out'))	
 
 try:
 	import gettext
@@ -112,6 +122,7 @@ option_definitions = [
 
 from lilylib import *
 
+# verbose_p = 1 # arg!
 
 layout_fields = ['dedication', 'title', 'subtitle', 'subsubtitle',
 	  'footer', 'head', 'composer', 'arranger', 'instrument',
@@ -170,12 +181,32 @@ environment = {
 	'GS_LIB' : datadir + '/ps',
 }
 
+
 def setup_environment ():
 	for key in environment.keys ():
 		val = environment[key]
 		if os.environ.has_key (key):
 			val = os.environ[key] + os.pathsep + val 
 		os.environ[key] = val
+
+#what a name.
+def set_setting (dict, key, val):
+	try:
+		val = string.atof (val)
+	except ValueError:
+		#warning (_ ("invalid value: %s") % `val`)
+		pass
+
+	try:
+		dict[key].append (val)
+	except KeyError:
+		warning (_ ("no such setting: %s") % `key`)
+		dict[key] = [val]
+
+
+def print_environment ():
+	for (k,v) in os.environ.items ():
+		sys.stderr.write ("%s=\"%s\"\n" % (k,v)) 
 
 def run_lilypond (files, outbase, dep_prefix):
 	opts = ''
@@ -196,11 +227,14 @@ def run_lilypond (files, outbase, dep_prefix):
 	fs = string.join (files)
 
 	if not verbose_p:
-		progress ( _("Running %s...") % 'LilyPond')
 		# cmd = cmd + ' 1> /dev/null 2> /dev/null'
+		progress ( _("Running %s...") % 'LilyPond')
 	else:
 		opts = opts + ' --verbose'
-	
+
+		# for better debugging!
+		print_environment ()
+	print opts, fs	
 	system ('lilypond %s %s ' % (opts, fs))
 
 def analyse_lilypond_output (filename, extra):

@@ -1,16 +1,47 @@
-%
-%  This is NOT a lilypond input file. It is an ABC file, see
-%  http://www.gre.ac.uk/~c.walshaw/abc/
-%  
-%  LilyPond includes import tools for Finale, Musedata, ABC, MIDI and PMX
-%
-X:1
-T:Paddy O'Rafferty
-C:Trad.
-M:6/8
-K:D
-dff cee|def gfe|dff cee|dfe dBA|dff cee|def gfe|faf gfe|1 dfe dBA:|2 dfe dcB||
-~A3 B3|gfe fdB|AFA B2c|dfe dcB|~A3 ~B3|efe efg|faf gfe|1 dfe dcB:|2 dfe dBA||
-fAA eAA|def gfe|fAA eAA|dfe dBA|fAA eAA|def gfe|faf gfe|dfe dBA:|
+\header {
+	composer = "Trad."
+	crossRefNumber = "1"
+	footnotes = ""
+	tagline = "Lily was here (unknown version) -- automatically converted from ABC"
+	title = "Paddy O'Rafferty"
+}
+voicedefault = \notes {
+\property Score.defaultBarType="empty"
 
+%   This is NOT a lilypond input file. It is an ABC file, see
+ %   http://www.gre.ac.uk/~c.walshaw/abc/
+ %   
+ %   LilyPond includes import tools for Finale, Musedata, ABC, MIDI and PMX
+ \time 6/8 \key d \major   d''8    fis''8    fis''8    cis''8    e''8    e''8  
+\bar "|"   d''8    e''8    fis''8    g''8    fis''8    e''8  \bar "|"   d''8    
+fis''8    fis''8    cis''8    e''8    e''8  \bar "|"   d''8    fis''8    e''8   
+ d''8    b'8    a'8  \bar "|"   d''8    fis''8    fis''8    cis''8    e''8    
+e''8  \bar "|"   d''8    e''8    fis''8    g''8    fis''8    e''8  \bar "|"   
+fis''8    a''8    fis''8    g''8    fis''8    e''8  \bar "|"   d''8    fis''8   
+ e''8    d''8    b'8    a'8  \bar ":|"   d''8    fis''8    e''8    d''8    
+cis''8    b'8  \bar "||"     a'4. ^"~"    b'4.  \bar "|"   g''8    fis''8    
+e''8    fis''8    d''8    b'8  \bar "|"   a'8    fis'8    a'8    b'4    cis''8  
+\bar "|"   d''8    fis''8    e''8    d''8    cis''8    b'8  \bar "|"   a'4. 
+^"~"    b'4. ^"~"  \bar "|"   e''8    fis''8    e''8    e''8    fis''8    g''8  
+\bar "|"   fis''8    a''8    fis''8    g''8    fis''8    e''8  \bar "|"   d''8  
+  fis''8    e''8    d''8    cis''8    b'8  \bar ":|"   d''8    fis''8    e''8   
+ d''8    b'8    a'8  \bar "||"     fis''8    a'8    a'8    e''8    a'8    a'8  
+\bar "|"   d''8    e''8    fis''8    g''8    fis''8    e''8  \bar "|"   fis''8  
+  a'8    a'8    e''8    a'8    a'8  \bar "|"   d''8    fis''8    e''8    d''8   
+ b'8    a'8  \bar "|"   fis''8    a'8    a'8    e''8    a'8    a'8  \bar "|"   
+d''8    e''8    fis''8    g''8    fis''8    e''8  \bar "|"   fis''8    a''8    
+fis''8    g''8    fis''8    e''8  \bar "|"   d''8    fis''8    e''8    d''8    
+b'8    a'8  \bar ":|"           
+}\score{
+        \notes <
 
+	\context Staff="default"
+	{
+	    \voicedefault 
+	}
+
+    >
+	\paper {
+	}
+	\midi {}
+}

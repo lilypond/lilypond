@@ -23,6 +23,21 @@
 * Bugfix: Key_performer::create_audio_elements: transpose list to
 `do', before determining tonality.
 
+1.4.8.moh1
+==========
+
+* new property "end-alignment" to control non-centered lyric alignment
+
+1.5.17.hwn1
+===========
+
+* Be quicker in Grob::handle_broken_dependencies().
+
+* --strict option for abc2ly, exit if an error is found.
+
+* GUILE 1.3.4 fix.
+
+
 1.5.17
 ======
 

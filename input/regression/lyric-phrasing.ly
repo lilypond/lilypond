@@ -36,7 +36,7 @@
       }
       \context LyricsVoice = "v-2" \lyrics {
         \property LyricsVoice . stanza = "2:"
-        x x x __ x
+        x x x __ x.
       }
    >
 }

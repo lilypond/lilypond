@@ -354,7 +354,9 @@ Grob::add_dependency (Grob*e)
       CRITERION is either a SMOB pointer to the desired line, or a number
       representing the break direction. Do not modify SRC.
 
-      It is rather tightly coded, since it takes a lot of time.
+      It is rather tightly coded, since it takes a lot of time; it is
+      one of the top functions in the profile.
+
 */
 SCM
 Grob::handle_broken_grobs (SCM src, SCM criterion)
@@ -363,7 +365,7 @@ Grob::handle_broken_grobs (SCM src, SCM criterion)
   Grob *sc = unsmob_grob (src);
   if (sc)
     {
-      if (gh_number_p (criterion))
+      if (SCM_INUMP (criterion))
 	{
 	  Item * i = dynamic_cast<Item*> (sc);
 	  Direction d = to_dir (criterion);
@@ -388,22 +390,23 @@ Grob::handle_broken_grobs (SCM src, SCM criterion)
 	    return SCM_UNDEFINED;
 
 	  /* now: sc && sc->line_l () == line */
-	  if (!line
+	  if (!line)
+	    return sc->self_scm();
 	      /*
 		This was introduced in 1.3.49 as a measure to prevent
 		programming errors. It looks expensive (?). TODO:
 		benchmark , document when (what kind of programming
 		errors) this happens.
 	       */
-	      || (sc->common_refpoint (line, X_AXIS)
-		  && sc->common_refpoint (line, Y_AXIS)))
+	  if (sc->common_refpoint (line, X_AXIS)
+	       && sc->common_refpoint (line, Y_AXIS))
 	    {
 	      return sc->self_scm ();
 	    }
 	  return SCM_UNDEFINED;
 	}
     }
-  else if (gh_pair_p (src))
+  else if (SCM_CONSP (src))
     {
       SCM oldcar =ly_car (src);
       /*
@@ -427,7 +430,7 @@ Grob::handle_broken_grobs (SCM src, SCM criterion)
 	}
 
       SCM newcdr = handle_broken_grobs (oldcdr, criterion);
-      return gh_cons (newcar, newcdr);
+      return scm_cons (newcar, newcdr);
     }
   else
     return src;
