@@ -18,21 +18,24 @@
    A musical duration.
   */
 struct Duration {
+public:
+  
   Duration ();
   Duration (int, int);
   String str () const;
-  void set_plet (int,int );
+
   Duration compressed (Rational) const;
   Rational length_mom () const ;
+
+
+  int duration_log ()const;
+  int dot_count () const;
+
   static int compare (Duration const&, Duration const&);
 
   SCM smobbed_copy () const;
   DECLARE_SCHEME_CALLBACK (less_p, (SCM a, SCM b));
   DECLARE_SIMPLE_SMOBS (Duration,);
-
-public:
-  int duration_log ()const;
-  int dot_count () const;
   
 private:
     /// Logarithm of the base duration.
