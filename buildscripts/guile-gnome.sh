@@ -49,8 +49,8 @@ PKG_CONFIG_PATH=$OPT/pango/lib/pkgconfig:$PKG_CONFIG_PATH
 LD_LIBRARY_PATH=$OPT/pango/lib:$LD_LIBRARY_PATH
 
 mkdir -p gnome/CVS
-cd gnome
 if ! pkg-config --atleast-version=1.5.1 pango; then
+    cd gnome
     if [ -n "$BLOEDIGE_RAND" ]; then
 	echo ":pserver:anonymous@anoncvs.gnome.org:/cvs/gnome" > CVS/Root
 	echo "." > CVS/Repository
@@ -70,12 +70,8 @@ if ! pkg-config --atleast-version=1.5.1 pango; then
     cd ../..
 fi
 
-## 3. Currently (2004-9-14) GUILE CVS needs pending patches from
-## * http://lists.gnu.org/archive/html/guile-devel/2004-09/msg00057.html
-## * http://lists.gnu.org/archive/html/guile-devel/2004-09/msg00062.html
-## to be usable with guile-gnome.
-## Use system's guile (1.6.4, hopefully) for now.
-PATH=/usr/bin:$PATH
+## 3. Currently (2004-9-15) GUILE CVS works again
+## PATH=/usr/bin:$PATH
 
 if [ -d $OPT/libffi/ ]; then
     export LDFLAGS=-L$OPT/libffi/lib
@@ -113,6 +109,7 @@ if ! pkg-config --exact-version=1.9.1 g-wrap-2.0-guile; then
     cd =build
     ../configure --prefix=$OPT/g-wrap --enable-maintainer-mode
     make install
+    cd ../..
 fi    
 
 
@@ -122,8 +119,6 @@ fi
 # mv srfi-34.scm srfi-34.scm-g-wrap
 # cp $OPT/guile/share/guile-1.7/srfi/srfi-34.scm .)
 
-cd ../..
-
 PKG_CONFIG_PATH=$OPT/guile-gnome/lib/pkgconfig:$PKG_CONFIG_PATH
 LD_LIBRARY_PATH=$OPT/guile-gnome/lib:$LD_LIBRARY_PATH
 GUILE_LOAD_PATH=$OPT/guile-gnome/share/guile:$GUILE_LOAD_PATH
@@ -131,17 +126,39 @@ GUILE_LOAD_PATH=$OPT/guile-gnome/share/guile:$GUILE_LOAD_PATH
 ## 5.  get guile-gnome
 if ! pkg-config --atleast-version=2.5.990 guile-gnome-glib; then
     if [ -n "$BLOEDIGE_RAND" ]; then
-	tla register-archive guile-gnome-devel@gnu.org--2004 \
-	    http://people.debian.org/~rotty/arch/guile-gnome-devel@gnu.org/2004/ || true
-	tla get guile-gnome-devel@gnu.org--2004/dists--dev guile-gnome
-	cd guile-gnome
-	tla build-config -r configs/gnu.org/dev
-	cd src
 
-        # 5a.  get extra modules (gnome canvas)
-	for i in $EXTRA; do
-	    tla get guile-gnome-devel@gnu.org--2004/$i--dev $i
-	done
+	if false; then # rotty
+	    tla register-archive guile-gnome-devel@gnu.org--2004 \
+		http://people.debian.org/~rotty/arch/guile-gnome-devel@gnu.org/2004/ || true
+	    tla get guile-gnome-devel@gnu.org--2004/dists--dev guile-gnome
+	    cd guile-gnome
+	    tla build-config -r configs/gnu.org/dev
+	    cd src
+
+            # 5a.  get extra modules (gnome canvas)
+	    for i in $EXTRA; do
+	        tla get guile-gnome-devel@gnu.org--2004/$i--dev $i
+	    done
+	else # andy
+	    tla register-archive wingo@pobox.com--2004-main \
+		http://ambient.2y.net/wingo/arch/wingo@pobox.com--2004-main || true
+	    
+	    tla get wingo@pobox.com--2004-main/guile-gnome-dists--release guile-gnome
+	    cd guile-gnome
+	    tla build-config -r configs/gnu.org/guile-gnome-platform-2.5.990
+	    cd src
+	    EXTRA="pkg atk defs glib gstreamer gtk gtksourceview libgda libglade libgnome libgnomeui pango libgnomecanvas"
+	    EXTRA=
+
+            # 5a.  get extra modules (gnome canvas)
+	    for i in $EXTRA; do
+		tla get wingo@pobox.com--2004-main/guile-gnome-$i--release $i
+	    done
+
+	    cd libgnomecanvas
+	    #patch -p1 < ~/canvas-pats
+	    cd ..
+	fi
 
 	if [ ! -f configure ]; then
 	    sh autogen.sh --noconfigure
@@ -153,28 +170,4 @@ if ! pkg-config --atleast-version=2.5.990 guile-gnome-glib; then
 	ln -s guile-gnome-platform-2.5.990 guile-gnome
 	cd guile-gnome
 	ln -s . src
-    fi
-    
-    rm -rf $OPT/guile-gnome
-    mkdir =build
-    cd =build
-
-# Using libtool < 1.6.0 together with gcc-3.4 may trigger this problem:
-#
-#    If a tag has not been given, and we're using a compiler which is
-#    not one of the ones with which libtool was built, attempt to
-#    infer the compiler from the first word of the command line passed
-#    to libtool.
-#
-    if [ -z "$GCC34" ]; then
-    # Use libtool-1.5.6, gcc-3.{2,3} without -O2,
-	CFLAGS='-O -g' ../src/configure --prefix=$OPT/guile-gnome --enable-maintainer-mode
-    else
-    # or use gcc-3.4 with libtool-1.6.0
-	CC=$GCC34 ../src/configure --prefix=$OPT/guile-gnome --enable-maintainer-mode
-    fi
-    make install G_WRAP_MODULE_DIR=$OPT/g-wrap/share/guile/site
-fi
-
-# simple test -- fails atm
-# guile -s ../src/libgnomecanvas/examples/canvas.scm
+	patch -p0 <<EOF
