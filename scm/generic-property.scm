@@ -79,7 +79,6 @@
 (define generic-sustain-pedal-properties
   (cons 'sustain-pedal-interface
 	(list
-	 (list 'textScriptPadding number? 'padding)
 	 (list 'sustainPedalPadding number? 'padding))))
 
 (define generic-chord-name-properties
