@@ -2,9 +2,9 @@
 
 \include "deutsch.ly"
 
-
 %% 19 is broken --hwn.
 %\include "paper19.ly"
+\include "paper16.ly"
 \version "1.7.18"
 
 \header {
@@ -24,8 +24,7 @@ u = { \translator Staff = up  \stemDown }
 m = { \translator Staff = mid  \stemUp  }
 d = { \translator Staff = down  \stemUp }
 
-% forcedBreak should be \break, but first we have to reinstate paper19 or paper18
-forcedBreak = \notes { }
+forcedBreak = \break
 
 global = \notes { \key fis \major \time 6/8
   \property Score.beatLength = #(ly:make-moment 3 8)
@@ -39,9 +38,9 @@ righta = \notes \transpose c cis' {
  \repeat volta 2 {
   \property Voice.TextScript \override #'extra-offset = #'(-8.0 . 2.5)
   \m  a,16-[^\p( \u c^\markup {
-      \large { "Einfach ("
+      \large "Einfach ("
       \note #3 #0 #1
-      " = 100)" } }
+      \large " = 100)" }
   a c -] \m  g,-[ \u c^3 -] \m  b,-[ \u c^2 b c-] \m  a,-[ \u )c^3-] | 
   \property Voice.TextScript \revert #'extra-offset
   \m  f,-[( \u c f c-] \m  g,-[ \u c^4-] \m  a,-[ \u c^2 a c8  c16-)-] | 
@@ -52,6 +51,7 @@ righta = \notes \transpose c cis' {
   \m  f,-[( \u d^3 f d-] \m  g,-[ \u d g d-] \m  g,-[ \u c-] \m  a,-[ \u  a-)-] |
   \m  g,-[( \u c g c-] \m  f,-[ \u h,^2 g h,-] \m  e,-[ \u c^2 g  c-)-] |
  }
+ \forcedBreak
  \stemUp \slurUp \tieUp
  b4^5( <<a g>>8~<<a g>> a g^4 |
  f4^5 e8^5~e  d4-)^4 |
@@ -81,7 +81,7 @@ righta = \notes \transpose c cis' {
   f-) f'-5( e'-5 d'-4 c'-3  f'-)-5 <<f^4 a^5>>4-( <<e^3 g^5>>8 |
  <<a, f^4>>4 <<g, e^3>>8 f16^4 d'^5~ d'8.-[ c'16^4] |
  \forcedBreak 
- < f8-)^3 \context Voice = another { \m  a,16-[^\pp \u c8 c16] } > \m  g,-[ \u c_3-] \m  b,-[^\markup { \finger "2-1" } \u c8 c16-] \m  a,-[ \u c]~ | \stemBoth
+ < f8-)^3_\pp \context Voice = another { \m  a,16-[ \u c8 c16] } > \m  g,-[ \u c_3-] \m  b,-[^\markup { \finger "2-1" } \u c8 c16-] \m  a,-[ \u c]~ | \stemBoth
  c16 c8_4 c c16~c c8_2 c c16~ |
  c16 c8 c c16~c c8 c c16~ |
  c16 c8 c c16 r4^\fermata r8 | \bar "|."
@@ -108,13 +108,13 @@ rightb = \notes \transpose c cis' {
  c_3 g,_2 es, g, h,_4 g, d, g, c g,8 f,16 |
  c g, es, g, es c_3 as, c^2 d^3 c h, c |
  e des b,\< des g e_3 ces_4 d_2 f^3 d cis d |
- \property Voice.Slur \override #'extra-offset =  #'(0 . 3)
- \property Voice.Slur \override #'beautiful = #42
- g( fes des fes b g_3 \! es_1 ges_2 a^3 ges f_1 ges_2 |
+ \property Voice.PhrasingSlur \override #'extra-offset =  #'(0 . 3)
+ \property Voice.PhrasingSlur \override #'beautiful = #42
+ g\( fes des fes b g_3 \! es_1 ges_2 a^3 ges f_1 ges_2 |
  r ges_2 b des_1 ges b,_2 des ges,^1 b, \d des,^1 \stemDown \transpose c' c { b,-[_1 as,] |
- g,8  b,16-[ g, e, cis,]  d,-)_4 \< f, h, d_3 f_2 \! r16 }
- \property Voice.Slur \revert #'extra-offset
- \property Voice.Slur \revert #'beautiful
+ g,8  b,16-[ g, e, cis,]  d,-\)_4 \< f, h, d_3 f_2 \! r16 }
+ \property Voice.PhrasingSlur \revert #'extra-offset
+ \property Voice.PhrasingSlur \revert #'beautiful
 
  \translator Staff=mid
  \relative c { \stemDown \slurDown
@@ -122,7 +122,7 @@ rightb = \notes \transpose c cis' {
   f8..^1 f32^1 g8^2  a4.-)^1 |
   c4^1( b8 d4 c8 |
   f,8.. f32^1 g8^2  a4.-) |
-  a4^1( c8^1_\accent~c b g16^1( b^2 |
+  a4^1-( c8^1_\accent~[c b-)] [g16^1( b^2] |
    c4-)^1 es8^1~es d^1 f^1~ |
   \property PianoStaff.Arpeggio \override #'direction = #1
   f f8.. f32^1( as4.-)^\fermata-\arpeggio ~ |
@@ -181,7 +181,7 @@ lefta = \notes \transpose c cis {
  a4 c'8^\accent(~c'  b-) d'^\accent~ |
  d' d'8..^\accent d'32-1 s4. |
  s2.*2
- s8 r16 h\( c' d' es' as g8-\arpeggio  fis-)(
+ s8 r16 h\( c' d' es' as g8-\arpeggio  fis-(
  ges-)-\) f16-2( a-1 c'-3  f'-)-1 \grace {\stemDown \slurUp  b,-[-( f] \stemUp }  e'-)-1( d' c' b-1 a-2-\prall g 
   f16-)-4 f' <<c' e'>> d'-1 c'-2 h-1 s4.
  s2.
@@ -213,12 +213,12 @@ leftb = \notes \transpose c cis {
  fis^1 d d, d  a-[ d_2] g, d g d_3  b,-[_5( g_2] |
   a-) c_3 f, c  c'-[ f_2] b, f b f_3 d' as |
  h, as d' as h, as( f'4.-)^\fermata-\arpeggio_2 ~
- \d \stemDown f'8. \clef G \stemBoth \tieBoth
+ \d \stemDown f'8. \clef G \stemBoth \tieBoth \phrasingSlurDown
    \transpose c c' { e16-[_4( f g]  as-[ des_3]  c8-[_4 <<h, d f d'>>]~ |
- <<h, d f d'>>} \clef F <<c_3 f_1>>-[-( <<b,_4 e^2>>] <<a,_5 eis^1>>8.-) h,16_4( c d |
+ <<h, d f d'>>} \clef F <<c_3 f_1>>-[-( <<b,_4 e^2>>] <<a,_5 eis^1>>8.-) h,16_4\( c d |
  \voiceTwo
  es as,_3 g,8 fis,~fis, g,_4-\arpeggio gis,_5~ |
- gis, <<a, c>>16 r16 r8 r4 cis8( |
+ gis, <<a, c>>16-\) r16 r8 r4 cis8( |
   d-) e( f16_4 d_5  c4.-)_ \markup { \finger "4-3" }~ |
  \oneVoice
  c16( h,_4 c_3 cis_1 d_2 b,_3 a,_4 as,_1 g,8  c,8-) |
@@ -246,9 +246,12 @@ leftb = \notes \transpose c cis {
       \clef G <\global \context Voice=upv \righta >
     }
     \context Staff = mid {
+    \property Staff.InstrumentName \set #'font-relative-size   = #0
+    \property Staff.InstrumentName \set #'font-shape   = #'upright
+    \property Staff.InstrumentName \set #'font-magnification   = #1
+    \property Staff.InstrumentName \set #'extra-offset = #'(0 . 6)
    % \property Staff.instrument="\\begin{turn}{-90}{Rechte Hand}\\end{turn}"
-    \property Staff.instrument= \markup {
-	 \column << Rechte Hand >>  }
+    \property Staff.instrument= \markup { \column << Rechte Hand >>  }
       \clef F <\global \context Voice=midv \rightb>
     }
       \context Staff = down {
@@ -261,9 +264,9 @@ leftb = \notes \transpose c cis {
     interscoreline = 0.0
     interscorelinefill = 1
     indent = 0.5 \in
-    textheight = 27.0 \cm
+    % textheight = 29.8 \cm
     pagenumber = no
-   
+    linewidth = 17.0 \cm
     \translator {
       \HaraKiriStaffContext
     }
@@ -273,7 +276,7 @@ leftb = \notes \transpose c cis {
     }
     \translator {
       \PianoStaffContext
-      VerticalAlignment \override #'forced-distance = #12.0
+      VerticalAlignment \override #'forced-distance = #13.0
     }
   }
   \midi { \tempo 8=100 }
