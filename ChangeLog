@@ -1,3 +1,10 @@
+2004-02-02  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* scripts/lilypond.py (ly_paper_to_latexpaper): Add newline before 
+	\thispagestyle{lastpage} to avoid that it's printed on the second
+	last page when there's only a single score line on the last page.
+	(The page breaking mechanism in TeX played some ugly tricks to us.)
+
 2004-02-01  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/filter-lilypond-book.py: Further development.
