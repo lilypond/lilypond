@@ -9,9 +9,7 @@
 
 ;;; Running LilyPond on this file generates the documentation
 
-(debug-enable 'debug)
-(debug-enable 'backtrace)
-(read-enable 'positions)
+;(set-debug-cell-accesses! 5000)
 
 ;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;; TODO : make modules of these!
@@ -19,14 +17,13 @@
 
 ; todo: naming: grob vs. layout property
 
-(define load-files '("documentation-lib.scm"
-		     "document-functions.scm"
-		     "document-translation.scm"
-		     "document-music.scm"
-		     "document-backend.scm"
-		     "document-markup.scm"
-		     ))
-(map ly:load load-files)
+(map ly:load '("documentation-lib.scm"
+	       "document-functions.scm"
+	       "document-translation.scm"
+	       "document-music.scm"
+	       "document-backend.scm"
+	       "document-markup.scm"
+	       ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
