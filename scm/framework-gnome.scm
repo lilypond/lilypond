@@ -16,7 +16,7 @@
     (use-modules (gnome gw canvas))
     (use-modules (gnome gw libgnomecanvas)))
 
-(define-public (output-framework-gnome outputter book scopes fields basename)
+(define-public (output-framework outputter book scopes fields basename)
   (let* ((bookpaper (ly:paper-book-book-paper book))
 	 (pages (list->vector (ly:paper-book-pages book))))
 

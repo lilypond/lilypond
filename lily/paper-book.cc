@@ -133,12 +133,10 @@ Paper_book::output (String outname)
       if (ly_c_module_p (header_))
 	scopes = scm_cons (header_, scopes);
   
-      String func_nm = format;
-      func_nm = "output-framework-" + func_nm;
       String mod_nm = "scm framework-" + format;
       
       SCM mod = scm_c_resolve_module (mod_nm.to_str0 ());
-      SCM func = scm_c_module_lookup (mod, func_nm.to_str0 ());
+      SCM func = scm_c_module_lookup (mod, "output-framework");
 
       func = scm_variable_ref (func);
       scm_apply_0 (func, scm_list_n (out->self_scm (),
@@ -173,12 +171,10 @@ Paper_book::classic_output (String outname)
   for (int i = 0; i < output_formats.size (); i++)
     {
       String format = output_formats[i];
-      String func_nm = format;
-      func_nm = "output-classic-framework-" + func_nm;
       String mod_nm = "scm framework-" + format;
       
       SCM mod = scm_c_resolve_module (mod_nm.to_str0 ());
-      SCM func = scm_c_module_lookup (mod, func_nm.to_str0 ());
+      SCM func = scm_c_module_lookup (mod, "output-classic-framework");
 
       func = scm_variable_ref (func);
       

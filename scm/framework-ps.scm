@@ -167,7 +167,7 @@
   (ly:outputter-dump-stencil outputter page)
   (ly:outputter-dump-string outputter "} stop-system \nshowpage\n"))
 
-(define-public (output-framework-ps outputter book scopes fields basename)
+(define-public (output-framework outputter book scopes fields basename)
   (let* ((bookpaper (ly:paper-book-book-paper book))
 	 (pages (ly:paper-book-pages book))
 	 (page-number 0)
@@ -197,7 +197,7 @@
    pages)
   (ly:outputter-dump-string outputter "%%Trailer\n%%EOF\n")))
 
-(define-public (output-classic-framework-ps outputter book scopes fields
+(define-public (output-classic-framework outputter book scopes fields
 					    basename)
   (let* ((bookpaper (ly:paper-book-book-paper book))
 	 (lines (ly:paper-book-lines book))

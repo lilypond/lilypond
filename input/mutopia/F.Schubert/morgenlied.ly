@@ -32,8 +32,10 @@ manuscriptBreak = { \break }
 
 
 
-\paper  {
-    #(paper-set-staff-size (* 5.8 mm))
+#(set-global-staff-size (/ (* 5.8 72.27) 25.4))
+
+\bookpaper  {
+%#(set-global-staff-size (* 5.8 mm))
     linewidth = #(* mm 160)
     indent = 8\mm
     interscoreline = 2.\mm
