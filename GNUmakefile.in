@@ -17,7 +17,7 @@ SUBDIRS = buildscripts scripts flower lily \
 #
 
 SCRIPTS = configure aclocal.m4
-README_FILES =  CHANGES COPYING DEDICATION NEWS README.mandrake ROADMAP
+README_FILES =  ChangeLog CHANGES COPYING DEDICATION NEWS README.mandrake ROADMAP
 README_TXT_FILES = AUTHORS.txt README.txt INSTALL.txt FAQ.txt
 IN_FILES := $(wildcard *.in)
 EXTRA_DIST_FILES = lilypond-font-lock.el lilypond-mode.el lilypond-init.el vimrc VERSION $(README_FILES)  $(SCRIPTS) $(IN_FILES)  emacsclient.patch lexer-gcc-3.0.patch
