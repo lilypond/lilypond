@@ -5,7 +5,7 @@ NAME=midi
 
 
 # compile fucks up on without autoconf -I flag.
-STEPMAKE_TEMPLATES=c install # python-module
+STEPMAKE_TEMPLATES=c install python-module
 
 INSTALLATION_FILES=$(outdir)/midi.so
 INSTALLATION_DIR=$(datadir)/python

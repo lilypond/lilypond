@@ -18,7 +18,20 @@ midi.parse (s)
 
 */
 
-#include <python2.0/Python.h>
+#include "config.h"
+
+/* urg */
+#if HAVE_PYTHON2_PYTHON_H
+#include <python2/Python.h>
+#elif HAVE_PYTHON_PYTHON_H
+#define assert(x)
+#include <python/Python.h>
+#elif HAVE_PYTHON_H
+#define assert(x)
+#include <Python.h>
+#else
+#error Need Python.h
+#endif
 
 #if 0
 int x = 0;
