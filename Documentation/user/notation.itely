@@ -3210,12 +3210,6 @@ handle this cross-staffing behavior.  In this section we discuss the
 
 @refbugs
 
-There is no support for putting chords across staves.  You can get
-this result by increasing the length of the stem in the lower stave so
-it reaches the stem in the upper stave, or vice versa. An example is
-included with the distribution as
-@inputfileref{input/test,stem-cross-staff.ly}.
-
 Dynamics are not centered, but kludges do exist. See
 @inputfileref{input/template,piano-dynamics.ly}.
 
@@ -3509,6 +3503,31 @@ The associated object is @internalsref{VoiceFollower}.
 @code{\showStaffSwitch}, 
 @cindex @code{\hideStaffSwitch}
 @code{\hideStaffSwitch}.
+
+
+@node Cross staff stems
+@subsection Cross staff stems
+
+The chords which cross staves may be produced by increasing the length
+of the stem in the lower stave, so it reaches the stem in the upper
+stave, or vice versa.
+
+@lilypond[raggedright,verbatim]
+stemExtend = \once \override Stem  #'length = #22
+noFlag = \once \override Stem  #'flag-style = #'no-flag
+\context PianoStaff <<
+  \new Staff   {
+    \stemDown \stemExtend
+    f'4
+    \stemExtend \noFlag
+    f'8
+  }
+  \new Staff {
+    \clef bass
+    a4 a8
+  }
+>>
+@end lilypond
 
 
 @node Vocal music

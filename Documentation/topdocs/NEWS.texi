@@ -16,7 +16,7 @@ started and stopped with
 @end example
 
 @item There is a new  markup commands @code{\postscript} that takes a
-string that is dumped as verbatim postscript.
+string that is dumped as verbatim PostScript.
 
 @item The melody  for a @code{\lyricsto} text can be changed during a
 melody by setting the @code{associatedVoice} property.
