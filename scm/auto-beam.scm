@@ -1,10 +1,8 @@
-;;;
-;;; auto-beam.scm -- Auto-beam-engraver settings
-;;;
-;;; source file of the GNU LilyPond music typesetter
-;;; 
-;;; (c)  2000--2004 Jan Nieuwenhuizen <janneke@gnu.org>
-;;;
+;;;; auto-beam.scm -- Auto-beam-engraver settings
+;;;;
+;;;; source file of the GNU LilyPond music typesetter
+;;;; 
+;;;; (c)  2000--2004 Jan Nieuwenhuizen <janneke@gnu.org>
 
 ;;; specify generic beam begin and end times
 

@@ -92,7 +92,7 @@
       
     (ly:output-def-scope pd))))
 
-(define (output-scopes scopes fields basename)
+(define (output-scopes paper scopes fields basename)
   (define (output-scope scope)
     (apply
      string-append
@@ -119,12 +119,10 @@
 	 (map output-scope scopes)))
 
 (define (select-font name-mag-pair)
-  (let*
-      (
-       (c (assoc name-mag-pair font-name-alist))
-       )
+  (let ((c (assoc name-mag-pair font-name-alist)))
 
-    (if (eq? c #f)
+    (if c
+	(string-append "\\" (cddr c))
 	(begin
 	  (ly:warn (string-append
 		    "Programming error: No such font known "
@@ -141,9 +139,7 @@
 	      (write font-name-alist (current-error-port)))
 
 	  ;; (format #f "\n%FAILED: (select-font ~S)\n" name-mag-pair))
-	  "")
-	
-	(string-append "\\" (cddr c)))))
+	  ""))))
 
 ;; top-of-file, wtf?  ugh: tagline?
 (define (top-of-file)

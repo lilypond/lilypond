@@ -1,9 +1,8 @@
-					; paper.scm - manipulate the paper block.
-;
-; (C) 2004 Han-Wen Nienhuys
-
-; the  functions are fairly basic here.
-
+;;;; paper.scm -- manipulate the paper block.
+;;;;
+;;;;  source file of the GNU LilyPond music typesetter
+;;;; 
+;;;; (c)  2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 
 (define-public (paper-set-staff-size sz)
@@ -26,29 +25,26 @@
     (module-define! m 'ledgerlinethickness (+ (* 0.5 pt) (/ ss 10)))
     (module-define! m 'blotdiameter (* 0.35 pt))
     (module-define! m 'interscoreline (* 4 mm))
+    ;; REMOVEME
     (module-define! m 'lineheight (* 14 ss))))
 
 (define-public (set-global-staff-size sz)
   "Set the default staff size, where SZ is thought to be in PT."
-  (let*
-      ((old-mod (current-module))
-       (pap (eval  '$defaultpaper old-mod))
-       (new-paper (ly:output-def-clone pap))
-       (new-scope  (ly:output-def-scope new-paper))
-       )
+  (let* ((old-mod (current-module))
+	 (pap (eval '$defaultpaper old-mod))
+	 (new-paper (ly:output-def-clone pap))
+	 (new-scope (ly:output-def-scope new-paper)))
     (set-current-module new-scope)
     (paper-set-staff-size (* sz (eval 'pt new-scope)))
     (set-current-module old-mod)
-    (module-define! old-mod '$defaultpaper new-paper)
-  ))
-
+    (module-define! old-mod '$defaultpaper new-paper)))
 
 (define paper-alist
   '(("a4" . (cons (* 210 mm) (* 297.9 mm)))
-    ("a3" . (cons (* 297.9 mm)  (* 420 mm)))
-    ("legal" . (cons (* 8.5 in)  (* 14.0 in)))
+    ("a3" . (cons (* 297.9 mm) (* 420 mm)))
+    ("legal" . (cons (* 8.5 in) (* 14.0 in)))
     ("letter" . (cons (* 8.5 in) (* 11.0 in)))
-    ("tabloid" . (cons (* 11.0 in) (* 17.0 in))))   )
+    ("tabloid" . (cons (* 11.0 in) (* 17.0 in)))))
 
 ;; todo: take dimension arguments.
 
@@ -56,15 +52,13 @@
 (define (set-paper-dimensions m w h)
   "M is a module (ie. paper->scope_ )"
   
-  (let*
-      ( (mm (eval 'mm m)) )
-
+  (let* ((mm (eval 'mm m)))
     (module-define! m 'hsize w)
     (module-define! m 'vsize h)
     (module-define! m 'linewidth (- w (* 20 mm)))
     (module-define! m 'raggedright #f)
     (module-define! m 'packed #f)
-    (module-define! m 'indent (/ w 14)) ))
+    (module-define! m 'indent (/ w 14))))
 
 
 (define-public (set-paper-size name)

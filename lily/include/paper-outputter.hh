@@ -38,7 +38,7 @@ public:
   
   void dump_scheme (SCM);
 
-  void output_metadata (SCM);
+  void output_metadata (SCM, Paper_def*);
   void output_music_output_def (Music_output_def* odef);
   void output_scheme (SCM scm);
 };

@@ -1,11 +1,11 @@
-;;; pdftex.scm -- implement Scheme output routines for PDFTeX
-;;;
-;;;  source file of the GNU LilyPond music typesetter
-;;;  modified from the existing tex.scm
-;;; 
-;;; (c)  1998--2004 Jan Nieuwenhuizen <janneke@gnu.org>
-;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
-;;; Stephen Peters <portnoy@portnoy.org>
+;;;; pdftex.scm -- implement Scheme output routines for PDFTeX
+;;;;
+;;;;  source file of the GNU LilyPond music typesetter
+;;;;  modified from the existing tex.scm
+;;;; 
+;;;; (c)  1998--2004 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;;                 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;;                 Stephen Peters <portnoy@portnoy.org>
 
 
 ;; TODO: port this  to the new module framework.

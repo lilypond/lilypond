@@ -1,8 +1,8 @@
-;;;; grob-description.scm -- part of generated backend documentation
+;;;; define-grobs.scm -- 
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c)  1998--2004  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;; (c)  1998--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 ;;;; distances are given in linethickness (thicknesses) and

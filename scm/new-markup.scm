@@ -1,3 +1,9 @@
+;;;; new-markup.scm -- 
+;;;;
+;;;;  source file of the GNU LilyPond music typesetter
+;;;; 
+;;;; (c)  2003--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+
 "
 Internally markup is stored as lists, whose head is a function.
 

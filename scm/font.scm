@@ -1,10 +1,9 @@
-;;;
-;;; font.scm -- implement Font stuff
-;;;
-;;; source file of the GNU LilyPond music typesetter
-;;; 
-;;; (c)  2000--2004 Jan Nieuwenhuizen <janneke@gnu.org>
-;;;
+;;;; font.scm -- implement Font stuff
+;;;;
+;;;; source file of the GNU LilyPond music typesetter
+;;;; 
+;;;; (c)  2000--2004 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;;                 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 ;; Should separate default sizes
 ;; into separate list/alist ?
@@ -31,7 +30,6 @@ or
 
 (define-public (magstep x)
   (exp (* (/ x 6) (log 2))))
-
 
 (define-public paper20-font-vector
   '((#(medium upright number) .
@@ -117,8 +115,6 @@ or
 
 (define-public (scale-font-list factor)
   (append size-independent-fonts
-	  (map (lambda (y) (scale-font-entry y factor))   paper20-font-vector)
-  ))
-    
-;
+	  (map (lambda (y) (scale-font-entry y factor)) paper20-font-vector)))
+
 
