@@ -25,8 +25,6 @@ Hairpin::brew_molecule (SCM smob)
   Grob *me= unsmob_grob (smob);
   Spanner *spanner = dynamic_cast<Spanner*> (me);
 
-  Real line = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));  
-  
   SCM s = me->get_grob_property ("grow-direction");
   if (!is_direction (s))
     {
@@ -103,7 +101,6 @@ Hairpin::brew_molecule (SCM smob)
 
   bool continued = broken[Direction (-grow_dir)];
   Real height = gh_scm2double (me->get_grob_property ("height"));
-  Real thick = line * gh_scm2double (me->get_grob_property ("thickness"));
 
   Real starth, endh;
   if (grow_dir < 0)
@@ -122,12 +119,10 @@ Hairpin::brew_molecule (SCM smob)
    */
 
   Molecule mol;
-  mol  = Line_interface::dashed_line (me,
-				      thick,
+  mol  = Line_interface::line (me,
 				      Offset (0, starth),
 				      Offset (width, endh));
-  mol.add_molecule (Line_interface::dashed_line (me,
-						 thick,
+  mol.add_molecule (Line_interface::line (me,
 						 Offset (0, -starth),
 						 Offset (width, -endh)));
 

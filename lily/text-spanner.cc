@@ -32,8 +32,6 @@ MAKE_SCHEME_CALLBACK (Text_spanner, brew_molecule, 1);
 
 /*
   TODO: this function is too long
-
-
 */
 SCM
 Text_spanner::brew_molecule (SCM smob) 
@@ -105,13 +103,6 @@ Text_spanner::brew_molecule (SCM smob)
 	}
       while (flip (&d) != LEFT);
     }
-
-  Real thick = paper->get_realvar (ly_symbol2scm ("linethickness"));  
-  SCM st = me->get_grob_property ("thickness");
-  if (gh_number_p (st))
-    {
-      thick *=  gh_scm2double (st);
-    }
   
   Drul_array<Real> edge_height = robust_scm2interval (me->get_grob_property ("edge-height"),
 						      Interval (1.0, 1.0));
@@ -130,8 +121,7 @@ Text_spanner::brew_molecule (SCM smob)
 
 	  Real dy = - dir * edge_height[d] ;
 	  if (dy)
-	    edge_line[d] = Line_spanner::line_molecule (me, thick, Offset(0,0),
-							Offset (dx, dy));
+	    edge_line[d] = Line_spanner::line_molecule (me, Offset(0,0), Offset (dx, dy));
 	}
       while (flip (&d) != LEFT);
     }
@@ -160,17 +150,13 @@ Text_spanner::brew_molecule (SCM smob)
 
   if (!span_points.is_empty ())
     {
-      Molecule l =Line_spanner::line_molecule (me, thick,
-					       Offset (span_points[LEFT], 0),
+      Molecule l =Line_spanner::line_molecule (me, Offset (span_points[LEFT], 0),
 					       Offset (span_points[RIGHT], 0));
       m.add_molecule (l);
     }
   m.translate_axis (- me->relative_coordinate (common, X_AXIS), X_AXIS);
   return m.smobbed_copy ();
 }
-
-
-
 
 ADD_INTERFACE (Text_spanner,"text-spanner-interface",
 	       "generic text spanner",

@@ -1214,7 +1214,7 @@
 	(minimum-space . 5)
 	(font-family . number)
 	(font-size . -4)
-	(meta . ((interfaces . (volta-bracket-interface text-interface side-position-interface font-interface spanner-interface))))
+	(meta . ((interfaces . (volta-bracket-interface line-interface text-interface side-position-interface font-interface spanner-interface))))
 	))
     
     (VerticalAlignment

@@ -97,9 +97,6 @@ Ottava_bracket::brew_molecule (SCM smob)
   Interval bracket_span_points = span_points;
   bracket_span_points[LEFT] += text_offset;
   
-  Real thick = paper->get_realvar (ly_symbol2scm ("linethickness"));  
-  thick *= robust_scm2double (me->get_grob_property ("thickness"), 1.0);
-
   Drul_array<Real> edge_height = robust_scm2interval (me->get_grob_property ("edge-height"),
 						      Interval (1.0, 1.0));
 
@@ -118,7 +115,7 @@ Ottava_bracket::brew_molecule (SCM smob)
   if (!bracket_span_points.is_empty ())
     b = Tuplet_bracket::make_bracket (me,
 				      Y_AXIS, Offset (bracket_span_points.length (), 0),
-				      thick, edge_height,
+				       edge_height,
 				      0.0,
 				      flare, shorten);
   

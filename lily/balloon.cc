@@ -4,6 +4,7 @@
 
 #include "text-item.hh"
 #include "grob.hh"
+#include "line-interface.hh"
 #include "lookup.hh"
 #include "font-interface.hh"
 #include "molecule.hh"
@@ -83,7 +84,7 @@ Balloon_interface::brew_molecule (SCM smob)
 
   Offset z2 = z1 + off;
   
-  fr.add_molecule (Lookup::line (0.1, z1, z2));
+  fr.add_molecule (Line_interface::line (me, z1, z2));
 
   text_mol->translate (z2);
   fr.add_molecule (*text_mol);

@@ -14,11 +14,12 @@ source file of the GNU LilyPond music typesetter
 
 struct Line_interface
 {
-  static Molecule dashed_line (Grob *me, Real thick, Offset from, Offset to);
+  static Molecule line (Grob *me, Offset from, Offset to);
   static bool has_interface (Grob*);
   static Molecule make_dashed_line (Real th, Offset from, Offset to, Real, Real);
-
+  static Molecule make_line (Real th, Offset from, Offset to);
 };
+
 #endif /* LINE_INTERFACE_HH */
 
 
