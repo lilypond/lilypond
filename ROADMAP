@@ -34,7 +34,6 @@ LilyPond's source files.
      E.Satie/
      F.Schubert/
      J.S.Bach/
-   intl/			library for gettext
    po/				translations
    ports/                       access to mutopia archive
    ps/				postscript library files
