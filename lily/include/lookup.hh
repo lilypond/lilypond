@@ -22,6 +22,8 @@ struct Lookup
   static Molecule accordion (SCM arg, Real interline_f, Font_metric*fm);
   static Molecule frame (Box b, Real thick);
   static Molecule slur (Bezier controls, Real cthick, Real thick) ;
+  static Molecule bezier_sandwich (Bezier, Bezier);
+  static Molecule horizontal_slope (Real, Real, Real);
   static Molecule beam (Real, Real, Real) ;
   static Molecule dashed_slur (Bezier, Real thick, Real dash) ;
   static Molecule blank (Box b) ;

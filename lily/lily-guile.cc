@@ -23,6 +23,7 @@
 #include "offset.hh"
 #include "interval.hh"
 #include "pitch.hh"
+#include "dimensions.hh"
 
 SCM
 ly_last (SCM list)
@@ -463,6 +464,12 @@ ly_version ()
   return gh_eval_str ((char*)vs);
 }
 
+SCM
+ly_unit ()
+{
+  return gh_str02scm (INTERNAL_UNIT);
+}
+
 static void
 init_functions ()
 {
@@ -470,6 +477,8 @@ init_functions ()
 		      (Scheme_function_unknown)ly_warning);
   scm_c_define_gsubr ("ly-version", 0, 0, 0,
 		      (Scheme_function_unknown)ly_version);  
+  scm_c_define_gsubr ("ly-unit", 0, 0, 0,
+		      (Scheme_function_unknown)ly_unit);  
   scm_c_define_gsubr ("ly-gulp-file", 1,0, 0,
 		      (Scheme_function_unknown)ly_gulp_file);
   scm_c_define_gsubr ("dir?", 1,0, 0, (Scheme_function_unknown)ly_isdir_p);

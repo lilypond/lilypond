@@ -442,6 +442,13 @@ def neomens_half_block_rest =
 	draw_block ((0,0), (neomens_block_rest_x, neomens_half_block_rest_y));
 	enddef;
 
+fet_beginchar("Neo-mensural maxima rest", "-3neo_mensural", "neomensmaximarest");
+       set_char_box(0, neomens_block_rest_x#,
+		    neomens_block_rest_y#, 2 neomens_block_rest_y#);
+       draw_block ((0,-neomens_block_rest_y),
+		   (neomens_block_rest_x, 2 neomens_block_rest_y));
+fet_endchar;
+
 fet_beginchar("Neo-mensural longa rest", "-2neo_mensural", "neomenslongarest");
        set_char_box(0, neomens_block_rest_x#,
 		    neomens_block_rest_y#, neomens_block_rest_y#);

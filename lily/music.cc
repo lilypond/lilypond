@@ -93,6 +93,13 @@ Music::length_mom () const
 Moment
 Music::start_mom () const
 {
+  SCM l = get_mus_property ("start-moment-function");
+  if (gh_procedure_p (l))
+    {
+      SCM res = gh_call1 (l, self_scm ());
+      return *unsmob_moment (res);
+    }
+
   Moment m ;
   return m;
 }

@@ -9,12 +9,6 @@
 # Jan Arne Fagertun <Jan.A.Fagertun@@energy.sintef.no> (Bourne shell script)
 #
 
-
-# 
-# TODO: should allow to set a central pk cache directory from the command line.
-# TODO: should allow to switch off pk cache.
-#
-
 #
 # Note: gettext work best if we use ' for docstrings and "
 #       for gettextable strings.
@@ -334,7 +328,8 @@ extra_init = {
 	'pagenumber' : [1],
 	'textheight' : [], 
 	'linewidth' : [],
-	'orientation' : []
+	'orientation' : [],
+	'unit' : ['pt'],
 }
 
 extra_fields = extra_init.keys ()
@@ -343,9 +338,6 @@ fields = layout_fields + extra_fields
 include_path = ['.']
 lily_p = 1
 paper_p = 1
-cache_pks_p = 1
-
-PK_PATTERN='feta.*\.[0-9]+pk'
 
 output_name = ''
 targets = {
@@ -362,11 +354,12 @@ dependency_files = []
 
 kpse = os.popen ('kpsexpand \$TEXMF').read()
 kpse = re.sub('[ \t\n]+$','', kpse)
+type1_paths = os.popen ('kpsewhich -expand-path=\$T1FONTS').read ()
 
 environment = {
 	## todo: prevent multiple addition.
 	'TEXMF' : "{%s,%s}" % (datadir, kpse) ,
-	'GS_FONTPATH' : datadir + '/afm:' + datadir + '/pfa',
+	'GS_FONTPATH' : type1_paths,
 	'GS_LIB' : datadir + '/ps',
 }
 
@@ -567,14 +560,15 @@ lily output file in TFILES after that, and return the Latex file constructed.  '
 	if extra['orientation']:
 		orientation = extra['orientation'][0]
 
-	# set sane geometry width (a4-width) for linewidth = -1.
+ 	unit = extra['unit'][-1]
+ 	# set sane geometry width (a4-width) for linewidth = -1.
 	maxlw = max (extra['linewidth'] + [-1])
 	if maxlw < 0:
 	        # who the hell is 597 ?
 		linewidth = '597pt'
 	else:
-		linewidth = maxlw
-	s = s + '\geometry{width=%smm%s,headheight=2mm,footskip=2mm,%s}\n' % (linewidth, textheight, orientation)
+		linewidth = '%d%s' % (maxlw, unit)
+	s = s + '\geometry{width=%s%s,headheight=2mm,footskip=2mm,%s}\n' % (linewidth, textheight, orientation)
 
 	if extra['latexoptions']:
 		s = s + '\geometry{twosideshift=4mm}\n'
@@ -826,9 +820,6 @@ if files and files[0] != '-':
 
 	setup_environment ()
 	tmpdir = setup_temp ()
-	if cache_pks_p :
-		os.chdir (outdir)
-		cp_to_dir (PK_PATTERN, tmpdir)
 
 	# to be sure, add tmpdir *in front* of inclusion path.
 	#os.environ['TEXINPUTS'] =  tmpdir + ':' + os.environ['TEXINPUTS']
@@ -893,9 +884,6 @@ if files and files[0] != '-':
 		elif verbose_p:
 			warning (_ ("can't find file: `%s'") % outname)
 			
-		if cache_pks_p:
-			cp_to_dir (PK_PATTERN, outdir)
-		
 	os.chdir (original_dir)
 	cleanup_temp ()
 	

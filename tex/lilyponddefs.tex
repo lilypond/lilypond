@@ -40,18 +40,14 @@
 % Attempt to keep lilypiecetitle together with the piece:
 \def\myfilbreak{\par\vfil\penalty200\vfilneg}
 
-% stacked horizontal lines
-\ifundefined{lilypondpaperinterscoreline}
-        \def\lilypondpaperinterscoreline{16}
-\fi
+
 \ifundefined{lilypondpaperinterscorelinefill}
         \def\lilypondpaperinterscorelinefill{0}
 \else
         \def\lilypondpaperinterscorelinefill{1}
 \fi
 
-\def\interscoreline{\vskip\lilypondpaperinterscoreline pt plus %
-  \lilypondpaperinterscorelinefill fill}
+\def\interscoreline{\vskip \lilypondpaperinterscoreline \lilypondpaperunit plus \lilypondpaperinterscorelinefill fill}
 
 \def\placebox#1#2#3{%
         \botalign{\hbox{\raise #1\leftalign{\kern #2{}#3}}}}%

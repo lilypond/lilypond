@@ -90,11 +90,18 @@
   (string-append
    "/" command
    " { /"
-   (car name-mag)
+   (capitalize-font-name (car name-mag))
    " findfont "
    "20 " (ly-number->string (cdr name-mag)) " mul "
    "output-scale div scalefont setfont } bind def "
    "\n"))
+
+;; Ugh, the Bluesky type1 fonts for computer modern use capitalized 
+;; postscript font names.
+(define (capitalize-font-name name)
+  (if (equal? (substring name 0 2) "cm")
+      (string-upcase name)
+      name))
 
 (define (beam width slope thick)
   (string-append

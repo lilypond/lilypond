@@ -17,20 +17,22 @@
 
 #include <math.h>
 
-SCM
-Line_spanner::line_atom (Grob* me, Real dx, Real dy)
+
+/*
+  slightishly clumsy interface?
+
+  Make  a Scheme expression for a line going from (0,0) to (dx,dy). 
+ */
+
+static SCM
+line_atom (Grob* me, Real thick, Real dx, Real dy)
 {
   SCM type = me->get_grob_property ("type");
   Real staff_space = Staff_symbol_referencer::staff_space (me);
-  Real thick = me->paper_l ()->get_var ("stafflinethickness");  
-
-  SCM s = me->get_grob_property ("line-thickness");
-  if (gh_number_p (s))
-    thick *= gh_scm2double (s);
   
       // maybe these should be in line-thickness?
   Real length = staff_space;
-  s = me->get_grob_property ("dash-length");
+  SCM s = me->get_grob_property ("dash-length");
   if (gh_number_p (s))
     length = gh_scm2double (s) * staff_space;
 
@@ -60,7 +62,7 @@ Line_spanner::line_atom (Grob* me, Real dx, Real dy)
 }
 
 Molecule
-Line_spanner::line_molecule (Grob* me, Real dx, Real dy)
+Line_spanner::line_molecule (Grob* me, Real thick, Real dx, Real dy)
 {
   Molecule mol;
   SCM type = me->get_grob_property ("type");
@@ -70,8 +72,9 @@ Line_spanner::line_molecule (Grob* me, Real dx, Real dy)
 	  || type == ly_symbol2scm ("dotted-line")
 	  || (type == ly_symbol2scm ("trill") && dy != 0)))
     {
-      Box b (Interval (0, dx), Interval (0, dy));
-      mol = Molecule (b, line_atom (me, dx, dy));
+      Box b (Interval (-0.5* thick +  (0 <? dx) ,0.5* thick+ (0 >? dx)),
+	     Interval (- 0.5* thick + (0<? dy), 0.5*thick + (0 >? dy)));
+      mol = Molecule (b, line_atom (me, thick, dx, dy));
     }
   else if (gh_symbol_p (type)
 	   && type == ly_symbol2scm ("trill"))
@@ -240,8 +243,15 @@ Line_spanner::brew_molecule (SCM smob)
 							  Y_AXIS)); 
       
       }
+
+  Real thick = me->paper_l ()->get_var ("stafflinethickness");  
+
+  SCM s = me->get_grob_property ("line-thickness");
+  if (gh_number_p (s))
+    thick *= gh_scm2double (s);
+
   
-  Molecule line = line_molecule (me, dxy[X_AXIS], dxy[Y_AXIS]);
+  Molecule line = line_molecule (me, thick, dxy[X_AXIS], dxy[Y_AXIS]);
   line.translate_axis (bound[LEFT]->extent (bound[LEFT],
 					    X_AXIS).length ()/2, X_AXIS); 
   line.translate (ofxy - my_off + his_off);

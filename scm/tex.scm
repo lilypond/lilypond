@@ -165,6 +165,13 @@
 
 (define (header-end)
   (string-append
+   "\\def\\scaletounit{ "
+   (number->string (cond
+		     ((equal? (ly-unit) "mm") (/ 72.0  25.4))
+		     ((equal? (ly-unit) "pt") (/ 72.0  72.27))
+		     (else (error "unknown unit" (ly-unit)))
+		     ))
+    " mul }"
    "\\special{\\string! "
    
    ;; URG: ly-gulp-file: now we can't use scm output without Lily
@@ -175,10 +182,7 @@
        (ly-gulp-file "music-drawing-routines.ps"))
    (if (defined? 'ps-testing) "/testing true def%\n" "")
    "}"
-   "\\input lilyponddefs \\outputscale=\\lilypondpaperoutputscale "
-   ;; "pt"
-   "mm"
-
+   "\\input lilyponddefs \\outputscale=\\lilypondpaperoutputscale \\lilypondpaperunit"
    "\\turnOnPostScript"))
 
 ;; Note: this string must match the string in ly2dvi.py!!!
@@ -226,7 +230,8 @@
   (embedded-ps (list 'bezier-sandwich  `(quote ,l) thick)))
 
 (define (start-line ht)
-  (string-append"\\vbox to " (number->dim ht) "{\\hbox{%\n"))
+  (string-append "\\vbox to " (number->dim ht) "{\\hbox{"
+		 "%\n"))
 
 (define (stop-line) 
   "}\\vss}\\interscoreline\n")

@@ -1,10 +1,10 @@
 /*
 
-  text-spanner.cc -- implement Text_spanner
+text-spanner.cc -- implement Text_spanner
 
-  source file of the GNU LilyPond music typesetter
+source file of the GNU LilyPond music typesetter
 
-  (c) 2000--2002 Jan Nieuwenhuizen <janneke@gnu.org>
+(c) 2000--2002 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "molecule.hh"
@@ -21,14 +21,19 @@
 
 /*
   TODO:
-    - vertical start / vertical end (fixme-name) |
-    - contination types (vert. star, vert. end)  |-> eat volta-spanner
-    - more styles
-    - more texts/positions
- */
+  - vertical start / vertical end (fixme-name) |
+  - contination types (vert. star, vert. end)  |-> eat volta-spanner
+  - more styles
+  - more texts/positions
+*/
 
 MAKE_SCHEME_CALLBACK (Text_spanner, brew_molecule, 1);
 
+/*
+  TODO: this function is too long, too hairy.
+
+  TODO: document this. What the heck is happening here?
+*/
 SCM
 Text_spanner::brew_molecule (SCM smob) 
 {
@@ -64,7 +69,7 @@ Text_spanner::brew_molecule (SCM smob)
 	  if (!e.empty_b ())
 	    r = e[-d] + padding;
 	  /* Text spanners such as ottava, should span from outer limits of
-	   noteheads, iso (de)cresc. spanners that span the inner space */
+	     noteheads, iso (de)cresc. spanners that span the inner space */
 	  if (me->get_grob_property ("outer") != SCM_EOL)
 	    // r *= -1; // huh?
 	    {
@@ -83,6 +88,7 @@ Text_spanner::brew_molecule (SCM smob)
   width += gh_scm2double (me->get_grob_property ("width-correct"));
   /* /Ugh */
 
+  // who is ecs? --hwn
 
   SCM properties = Font_interface::font_alist_chain (me);
 
@@ -127,9 +133,15 @@ Text_spanner::brew_molecule (SCM smob)
     }
 
   /* ugh */
-  Real thick = me->paper_l ()->get_var ("stafflinethickness");  
   
-  Molecule line = Line_spanner::line_molecule (me, width, 0);
+  Real thick = me->paper_l ()->get_var ("stafflinethickness");  
+  SCM st = me->get_grob_property ("thickness");
+  if (gh_number_p (st))
+    {
+      thick *=  gh_scm2double (st);
+
+    }
+  Molecule line = Line_spanner::line_molecule (me, thick, width, 0);
   
   Drul_array<Molecule> edge_line;
   s = me->get_grob_property ("edge-height");
@@ -146,12 +158,7 @@ Text_spanner::brew_molecule (SCM smob)
 	  Real dy = gh_scm2double (index_cell (s, d)) * - dir;
 	  if (dy)
 	    {
-	      SCM list = Line_spanner::line_atom (me, dx, dy);
-	      Box b (Interval (-thick, 0),
-		     dy > 0
-		     ? Interval (0, dy)
-		     : Interval (dy, 0));
-	      edge_line[d] = Molecule (b, list);
+	      edge_line[d] = Line_spanner::line_molecule (me, thick, dx, dy);
 	    }
 	}
       while (flip (&d) != LEFT);
@@ -164,9 +171,10 @@ Text_spanner::brew_molecule (SCM smob)
   if (!edge_line[LEFT].empty_b ())
     m.add_at_edge (X_AXIS, RIGHT, edge_line[LEFT], 0);
   if (!line.empty_b ())
-    m.add_at_edge (X_AXIS, RIGHT, line, 0);
+    m.add_at_edge (X_AXIS, RIGHT, line,
+		   edge_line[LEFT].empty_b () ? 0 : - thick/2);
   if (!edge_line[RIGHT].empty_b ())
-    m.add_at_edge (X_AXIS, RIGHT, edge_line[RIGHT], 0);
+    m.add_at_edge (X_AXIS, RIGHT, edge_line[RIGHT], -thick/2);
   if (!edge[RIGHT].empty_b ())
     m.add_at_edge (X_AXIS, RIGHT, edge[RIGHT], 0);
   m.translate_axis (broken_left + extra_off[LEFT] + shorten[LEFT], X_AXIS);
@@ -184,20 +192,25 @@ Text_spanner::brew_molecule (SCM smob)
 */
 
 void 
-Text_spanner::setup_pedal_bracket(Spanner *s)
+Text_spanner::setup_pedal_bracket(Spanner *me)
 {
 
-  Real thick = s->paper_l ()->get_var ("stafflinethickness");  
+  Real thick = me->paper_l ()->get_var ("stafflinethickness");  
+  SCM st = me->get_grob_property ("thickness");
+  if (gh_number_p (st))
+    {
+      thick *=  gh_scm2double (st);
+    }  
 
   Drul_array<bool> w, broken;
   Drul_array<Real> height, width, shorten, r;
 
-  SCM pa = s->get_grob_property ("if-text-padding");
-  SCM ew = s->get_grob_property ("edge-width");
-  SCM eh = s->get_grob_property ("edge-height");
-  SCM sp = s->get_grob_property ("shorten-pair");
-  SCM wl = s->get_grob_property ("left-widen");
-  SCM wr = s->get_grob_property ("right-widen");
+  SCM pa = me->get_grob_property ("if-text-padding");
+  SCM ew = me->get_grob_property ("edge-width");
+  SCM eh = me->get_grob_property ("edge-height");
+  SCM sp = me->get_grob_property ("shorten-pair");
+  SCM wl = me->get_grob_property ("left-widen");
+  SCM wr = me->get_grob_property ("right-widen");
 
   // Pedal has an angled left edge \__  or an angled right edge __/ 
   w[LEFT] = w[RIGHT] = false;
@@ -214,7 +227,7 @@ Text_spanner::setup_pedal_bracket(Spanner *s)
     padding = gh_scm2double (pa);
 
   do {
-    Item *b = s->get_bound (d);
+    Item *b = me->get_bound (d);
 
     e = b->extent (b, X_AXIS);
     if (!e.empty_b ())
@@ -236,10 +249,10 @@ Text_spanner::setup_pedal_bracket(Spanner *s)
   Real extra_short = 0;
   // For 'Mixed' style pedals, i.e.  a bracket preceded by text:  Ped._____|
   // need to shorten by the extent of the text grob
-  if ( to_boolean (s->get_grob_property ("text-start")) )
+  if ( to_boolean (me->get_grob_property ("text-start")) )
     {
       height[LEFT] = 0;
-      Grob * textbit = s->get_parent(Y_AXIS);
+      Grob * textbit = me->get_parent(Y_AXIS);
       extra_short = padding;
       if (textbit->has_interface(ly_symbol2scm("piano-pedal-interface")))
 	// for pretty Ped. scripts. 
@@ -252,8 +265,8 @@ Text_spanner::setup_pedal_bracket(Spanner *s)
 	{
 	  SCM text  =  textbit->get_grob_property("text"); 
 	  if (gh_string_p (text)) {
-	    SCM properties = Font_interface::font_alist_chain (s);
-	    Molecule mol = Text_item::text2molecule (s, text, properties);
+	    SCM properties = Font_interface::font_alist_chain (me);
+	    Molecule mol = Text_item::text2molecule (me, text, properties);
 	    extra_short += mol.extent(X_AXIS).length() / 2;
 	  }
 	}
@@ -264,17 +277,17 @@ Text_spanner::setup_pedal_bracket(Spanner *s)
   shorten[LEFT] += abs(width[LEFT]) * 2   +  extra_short ;
   
   if (broken[LEFT]) {
-    shorten[LEFT] -= s->get_broken_left_end_align () ;
+    shorten[LEFT] -= me->get_broken_left_end_align () ;
     shorten[RIGHT] -= r[RIGHT];
   }
   else 
     // Shorten bracket on the right so it ends just before the spanned note.
     shorten[RIGHT]  +=  thick  -  (r[LEFT]  +  r[RIGHT]);
 
-  s->set_grob_property ("edge-height", gh_cons ( gh_double2scm ( height[LEFT] ) , 
-						 gh_double2scm ( height[RIGHT]) ) );
-  s->set_grob_property ("edge-width",  gh_cons ( gh_double2scm ( width[LEFT]  ), 
-						 gh_double2scm ( width[RIGHT] ) ));
-  s->set_grob_property ("shorten-pair", gh_cons ( gh_double2scm ( shorten[LEFT] ), 
-					     gh_double2scm ( shorten[RIGHT] ) ));
+  me->set_grob_property ("edge-height", gh_cons ( gh_double2scm ( height[LEFT] ) , 
+						  gh_double2scm ( height[RIGHT]) ) );
+  me->set_grob_property ("edge-width",  gh_cons ( gh_double2scm ( width[LEFT]  ), 
+						  gh_double2scm ( width[RIGHT] ) ));
+  me->set_grob_property ("shorten-pair", gh_cons ( gh_double2scm ( shorten[LEFT] ), 
+						   gh_double2scm ( shorten[RIGHT] ) ));
 }

@@ -15,7 +15,6 @@ startGraceMusic = {
     \property Voice.Stem \override #'no-stem-extend = ##t
     \property Voice.Stem \override #'flag-style  = #"grace"
 
-    \property Voice.Beam \override #'space-function = #grace-beam-space-function
     \property Voice.Beam \override #'thickness = #0.384
     
     % Can't use Staff.fontSize, since time sigs, keys sigs, etc. will

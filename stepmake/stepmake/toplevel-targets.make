@@ -39,7 +39,7 @@ dist:
 	$(MAKE) local-dist $(distdir)
 	chmod -R a+r $(distdir)
 	chmod  a+x `find $(distdir) -type d -print` 
-	(cd ./$(depth)/$(outdir); $(TAR) cf - $(DIST_NAME) | gzip -9 > $(DIST_NAME).tar.gz)
+	(cd ./$(depth)/$(outdir); $(TAR) -cf -  --owner=0 --group=0 $(DIST_NAME) | gzip -9 > $(DIST_NAME).tar.gz)
 # ugh.
 # Can't compare "stage1" dist with "stage2" dist in this way?
 	-ln -f $(depth)/$(outdir)/$(distname).tar.gz $(release-dir)

@@ -1,4 +1,74 @@
+2002-03-23  Han-Wen  <hanwen@cs.uu.nl>
+
+	* VERSION: 1.5.46
+
+	* lily/beam.cc (score_slopes_dy, score_stem_lengths,
+	score_forbidden_quants): ): take out of SCM, pass parameters so
+	grob props are read only once. (wtk1-fugue2 from 31 sec to 14
+	secs).
+
+	* lily/lily-guile.cc (ly_unit): return internal unit.
+
+	* scm/tex.scm (header-end): insert scaling factor, using ly-unit 
+
+	* lily/paper-outputter.cc (output_version): output internal unit
+	from Paper_outputter
+
+	* scripts/ly2dvi.py: Read unit from paper vars (43.jcn3).
+
+2002-03-22  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
+
+       * scripts/ly2dvi.py: clean up old .*pk font caching code.
+
+       * scm/ps.scm: Use uppercase postscript font names for the standard
+       TeX fonts.
+
+       * scripts/ly2dvi.py, buildscripts/lilypond-{login,profile}.sh, :
+       Add all available TeX Type1 fonts, including Feta, to the
+       Ghostscript font path.
+
+       * Documentation/topdocs/INSTALL.texi (Top): Add required pktrace
+       version (affects the FontName) in lilypond.map.
+
+       * mf/GNUmakefile, Documentation/user/appendices.itely: Rename font
+       documentation file to fetaNNlist.ly to avoid name collisions between
+       lilypond generated .tex file and font .tex macros file.
+
+
+2002-03-22  Juergen Reuter <reuter@ipd.uka.de>
+
+	* mf/feta-eindelijk.mf, mf/parmesan-rests.mf: added maxima rests;
+	made mensural longa and (semi-)brevis leaner
+
+	* mf/parmesan-clefs.mf, scm/clef.scm: enhanced petrucci c clef
+
+	* lily/{{lookup,porrectus}.cc,include/{lookup,porrectus}.hh}: code
+	clean-up: moved bezier shape and slope from porrectus to lookup
+
+	* buildscripts/clean-fonts.sh: added search paths /var/cache/fonts
+	and /usr/share/texmf/fonts
+
+2002-03-22  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/text-spanner.cc (brew_molecule): add #'thickness
+	(brew_molecule): add corrections for thickness in molecule padding.
+
+	* lily/line-spanner.cc (line_atom): make function private
+
+	* scripts/lilypond-book.py (get_bbox): Use GS -sDEVICE=bbox to
+	discover bounding box. This solves the cropping problem.
+
+	* lily/bar-check-iterator.cc (process): Only resynchronize bar
+	check when it  fails. This fixes the combination of  grace notes
+	and bar checks.
+
 2002-03-21  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/repeated-music.cc (minimum_start): new Scheme callable function
+	(first_start): new Scheme callable. This will fix repeated music
+	starting with grace notes.
+
+	* lily/music.cc (start_mom): check start-moment-function grob property.
 
 	* VERSION: 1.5.45 released
 

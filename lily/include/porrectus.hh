@@ -30,8 +30,6 @@ private:
   static Molecule brew_mensural_molecule (Item *, Real,
 					  bool, Real, Real,
 					  bool, Direction);
-  static Molecule brew_bezier_sandwich (Bezier, Bezier);
-  static Molecule brew_horizontal_slope (Real, Real, Real);
   static Molecule create_ledger_line (Interval, Grob *);
   static Molecule create_streepjes (Grob *, int, int, Interval);
 };

@@ -110,10 +110,9 @@
 	(before-line-breaking-callback . ,Beam::before_line_breaking)
 	(after-line-breaking-callback . (,Beam::after_line_breaking
 					 ,Beam::end_after_line_breaking))
-	(quant-score-functions . (,Beam::score_forbidden_quants
-				  ,Beam::score_slopes_dy
-				  ,Beam::score_stem_lengths
-				  ))
+;	(quant-score-functions . (
+;				  ,Beam::score_stem_lengths
+;				  ))
 	(neutral-direction . -1)
 	(dir-function . ,beam-dir-majority-median)
 	(beamed-stem-shorten . (1.0 0.5))
@@ -567,9 +566,7 @@
 	(edge-width . (0.5 . 0.5))
 	(edge-height . (1.0 . 1.0))
 	(shorten-pair . (0.0 . 0.0))
-	(left-widen  . #f)
-	(right-widen . #f)
-	(text-start  . #f)
+	(thickness .  1.0)
 	(meta . ,(grob-description piano-pedal-interface))
 	))
 

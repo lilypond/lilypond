@@ -149,6 +149,11 @@ smallerPaper = \paper {
 baerPaper = \paper {
     indent = 7. \mm
     linewidth =183.5 \mm
+    interscoreline=4.0\mm
+    \translator {
+	     \ScoreContext
+%	     System \override #'molecule-callback = #box-grob-molecule
+    }
 }
 
 

@@ -176,9 +176,10 @@ Compilation
 
           ./configure --without-kpathsea --enable-tfm-path=/usr/share/texmf/fonts/tfm/public/cm/:/usr/share/texmf/fonts/tfm/ams/symbols
 
-   * pktrace, [OPTIONAL], needed for generating PostScript Type1 fonts.
-     Get it from  `http://www.cs.uu.nl/~hanwen/pktrace/'.  You will
-     need to install some additional packages to get pktrace to work.
+   * pktrace 1.0 or newer, [OPTIONAL], needed for generating PostScript
+     Type1 fonts. Get it from  `http://www.cs.uu.nl/~hanwen/pktrace/'.
+     You will need to install some additional packages to get pktrace
+     to work.
 
 
 Running requirements

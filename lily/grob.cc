@@ -919,6 +919,8 @@ init_functions ()
 		      (Scheme_function_unknown)ly_set_grob_property);
   scm_c_define_gsubr ("ly-get-spanner-bound", 2 , 0, 0,
 		      (Scheme_function_unknown) spanner_get_bound);
+  scm_c_define_gsubr ("ly-get-paper-variable", 2, 0, 0,
+		      (Scheme_function_unknown) ly_get_paper_var);
   scm_c_define_gsubr ("ly-get-extent", 3, 0, 0,
 		      (Scheme_function_unknown) ly_get_extent);
   scm_c_define_gsubr ("ly-get-parent", 2, 0, 0,

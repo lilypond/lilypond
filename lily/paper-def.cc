@@ -165,8 +165,6 @@ Paper_def::find_font (SCM fn, Real m)
 SCM
 Paper_def::font_descriptions ()const
 {
-
-  
   SCM l = SCM_EOL;
   for (SCM s = scaled_fonts_; gh_pair_p (s); s = ly_cdr (s))
     {

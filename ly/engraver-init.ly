@@ -34,8 +34,9 @@ StaffContext=\translator {
 	\consists "Grob_pq_engraver"
 
 	\consistsend "Axis_group_engraver"
-	
-	MinimumVerticalExtent = #'(-4 . 4)
+
+
+	MinimumVerticalExtent = #'(-6 . 6)
 	ExtraVerticalExtent = ##f
 	VerticalExtent = ##f 
 	localKeySignature = #'()

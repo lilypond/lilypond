@@ -18,6 +18,8 @@ dirs=".
 /var/spool/texmf
 /var/tmp/texfonts
 /var/texfonts
+/var/cache/fonts
+/usr/share/texmf/fonts
 "
 
 for i in $dirs; do

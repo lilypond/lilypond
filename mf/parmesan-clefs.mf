@@ -326,19 +326,21 @@ fet_beginchar("neo-mensural c clef", "neo_mensural_c_change", "cneomenscclef")
 fet_endchar;
 
 
-def draw_petrucci_c_clef(expr exact_center, reduction) = 
+def draw_petrucci_c_clef(expr exact_center, flare_align, reduction) = 
 	% inspired by Josquin Desprez, "Stabat Mater", Libro tertio,
 	% 1519, printed by Petrucci, in: MGG, volume 7, Table 11.
 	draw_brevis(exact_center, reduction, true, true);
 
-	save reduced_il, reduced_slt;
+	save half_reduced_il, reduced_il, reduced_slt;
 	save stem_width, interline;
 
+	half_reduced_il# = staff_space# * sqrt(reduction);
 	reduced_il# = staff_space# * reduction;
 	reduced_slt# = stafflinethickness# * reduction;
 	stem_width# = 1.4 reduced_slt#;
 	interline# = staff_space#;
 
+	define_pixels(half_reduced_il);
 	define_pixels(reduced_il);
 	define_pixels(reduced_slt);
 	define_pixels(stem_width);
@@ -347,41 +349,88 @@ def draw_petrucci_c_clef(expr exact_center, reduction) =
 	addto currentpicture also currentpicture
 		yscaled -1 shifted (0, 2*(ypart exact_center) - interline);
 
-	pickup pencircle xscaled stem_width yscaled blot_diameter;
-	z6 = exact_center + (stem_width/2, 0);
-	z7 = z6 + (0, -2.2reduced_il);
-	draw z6 .. z7;
-
 	addto currentpicture also currentpicture 
-		xscaled -1 shifted (2x4l,0);
-
-	z8 = exact_center + (stem_width/2, 0);
-	z9 = z8 + (0, -3.2reduced_il);
-	draw z8 .. z9;
+		xscaled -1 shifted (reduction*2x4l,0);
 
 	addto currentpicture also currentpicture
 		yscaled -1 shifted (0, 4*(ypart exact_center));
+
+	pickup pencircle xscaled stem_width yscaled blot_diameter;
+
+	xpart z6 = xpart z7 = xpart exact_center + stem_width/2;
+	ypart z6 = ypart exact_center +
+		   min(3.2, 3.2 + 0.2 + flare_align)*half_reduced_il;
+	ypart z7 = ypart exact_center -
+		   min(3.2, 3.2 + 0.2 - flare_align)*half_reduced_il;
+	draw z6 .. z7;
+
+	xpart z8 = xpart z9 = reduction*2x4l - xpart exact_center - stem_width/2;
+	ypart z8 = min(ypart z6 - 0.2*half_reduced_il,
+		       xpart exact_center + 2.2half_reduced_il);
+	ypart z9 = max(ypart z7 + 0.2*half_reduced_il,
+		       xpart exact_center - 2.2half_reduced_il);
+	draw z8 .. z9;
 
 	set_char_box(0, 2head_width#,
 		     noteheight#*4*reduction, noteheight#*4*reduction);
 enddef;
 
 
-fet_beginchar("petrucci c clef", "petrucci_c", "petruccicclef")
+fet_beginchar("petrucci c1 clef", "petrucci_c1", "petruccic1clef")
 	if test = 1:
 		draw_staff(-1,3, 0.0);
 	fi;
-	draw_petrucci_c_clef((0,0), 1.0);
+	draw_petrucci_c_clef((0,0), +2, 1.0);
 fet_endchar;
-fet_beginchar("petrucci c clef", "petrucci_c_change", "cpetruccicclef")
-	draw_petrucci_c_clef((1.3 staff_space#,0), .8);
+fet_beginchar("petrucci c1 clef", "petrucci_c1_change", "cpetruccic1clef")
+	draw_petrucci_c_clef((1.3 staff_space#,0), +2, .8);
+fet_endchar;
+
+fet_beginchar("petrucci c2 clef", "petrucci_c2", "petruccic2clef")
+	if test = 1:
+		draw_staff(-1,3, 0.0);
+	fi;
+	draw_petrucci_c_clef((0,0), +1, 1.0);
+fet_endchar;
+fet_beginchar("petrucci c2 clef", "petrucci_c2_change", "cpetruccic2clef")
+	draw_petrucci_c_clef((1.3 staff_space#,0), +1, .8);
+fet_endchar;
+
+fet_beginchar("petrucci c3 clef", "petrucci_c3", "petruccic3clef")
+	if test = 1:
+		draw_staff(-1,3, 0.0);
+	fi;
+	draw_petrucci_c_clef((0,0), 0, 1.0);
+fet_endchar;
+fet_beginchar("petrucci c3 clef", "petrucci_c3_change", "cpetruccic3clef")
+	draw_petrucci_c_clef((1.3 staff_space#,0), 0, .8);
+fet_endchar;
+
+fet_beginchar("petrucci c4 clef", "petrucci_c4", "petruccic4clef")
+	if test = 1:
+		draw_staff(-1,3, 0.0);
+	fi;
+	draw_petrucci_c_clef((0,0), -1, 1.0);
+fet_endchar;
+fet_beginchar("petrucci c4 clef", "petrucci_c4_change", "cpetruccic4clef")
+	draw_petrucci_c_clef((1.3 staff_space#,0), -1, .8);
+fet_endchar;
+
+fet_beginchar("petrucci c5 clef", "petrucci_c5", "petruccic5clef")
+	if test = 1:
+		draw_staff(-1,3, 0.0);
+	fi;
+	draw_petrucci_c_clef((0,0), -2, 1.0);
+fet_endchar;
+fet_beginchar("petrucci c5 clef", "petrucci_c5_change", "cpetruc5iceclef")
+	draw_petrucci_c_clef((1.3 staff_space#,0), -2, .8);
 fet_endchar;
 
 
 def draw_mensural_c_clef(expr exact_center, reduction) =
 	% inspired by Ockeghem, "Missa Prolationum", in: MGG, volume
 	% 9, table 94.
-	draw_petrucci_c_clef(exact_center, reduction);
+	draw_petrucci_c_clef(exact_center, 0, reduction);
 
 	addto currentpicture also currentpicture
 		shifted (0, -interline);

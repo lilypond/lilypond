@@ -56,15 +56,13 @@ Bar_check_iterator::process (Moment m)
       if (where->main_part_)
 	{
 	  music_l ()->origin ()->warning (_f ("barcheck failed at: %s", 
-					    where->str ()));
-	}
-      
-      if (!to_boolean (sync))
-	{
-	  tr = tr->where_defined (ly_symbol2scm("measurePosition"));
-	  Moment zero;
-	  tr->set_property ("measurePosition", zero.smobbed_copy ());
+					      where->str ()));
+	  if (!to_boolean (sync))
+	    {
+	      tr = tr->where_defined (ly_symbol2scm("measurePosition"));
+	      Moment zero;
+	      tr->set_property ("measurePosition", zero.smobbed_copy ());
+	    }
 	}
     }
-}
-    
+}    

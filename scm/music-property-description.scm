@@ -59,6 +59,10 @@ TODO: consider making type into symbol ")
 (music-property-description 'type symbol? "The type of this music object. Determines iteration in some cases.")
 (music-property-description 'repeat-count  integer? "do a @code{\repeat} how ofen?")
 (music-property-description 'span-direction dir? "Does this start or stop a spanner?")
+
+(music-property-description 'start-moment-function procedure? "Function to compute the negative length of
+starting grace notes.")
+
 (music-property-description 'symbol symbol? "Grob name to perform an override/revert on.")
 (music-property-description 'text markup? "markup expression to be printed")
 ;; markup?
