@@ -1,3 +1,8 @@
+2002-07-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* buildscripts/lilypond-profile.sh: update support for
+	LILYPONDPREFIX
+
 2002-07-24  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/user/refman.itely (Point and click): Add info
@@ -7,6 +12,8 @@
 
 	* lily/accidental-placement.cc (extent_callback): remove function
 	(position_accidentals): do nothing if not live.
+	Use accidental-grobs property i.s.o. accidentals, to maintain
+	proper typing. 
 
 2002-07-24  Jan Nieuwenhuizen  <janneke@gnu.org>
 
