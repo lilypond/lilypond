@@ -1,6 +1,6 @@
 
-#$(outdir)/%.tex: %.tex
-#	$(LN) $< $@
+$(outdir)/%.tex: %.tex
+	cp $< $@
 
 $(outdir)/%.dvi: $(outdir)/%.tex
 	(cd $(outdir); tex \\nonstopmode \\input $(<F))
