@@ -70,6 +70,7 @@ inline SCM scm_c_make_vector  (int k, SCM val) {
 #define scm_gc_unregister_collectable_memory(a,b,c) scm_done_free(b)
 #define scm_gc_register_collectable_memory(a,b,c) scm_done_malloc(b)
 #define SCM_VECTOR_REF(v,i) (SCM_VELTS((v))[(i)])
+#define scm_from_int(x) SCM_MAKINUM(x)
 #define scm_hash_table_p scm_vector_p 
 
 #endif
