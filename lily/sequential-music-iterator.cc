@@ -88,6 +88,32 @@ Sequential_music_iterator::set_sequential_music_translator()
     set_translator (child_report);
 }
 
+void
+Sequential_music_iterator::skip (Moment until)
+{
+  while (1)
+    {
+      SCM nm = iter_p_->get_music (until - here_mom_);
+      
+      Moment m = 0;
+      for (SCM i = nm; gh_pair_p(i); i = gh_cdr (i))
+	m = m >? unsmob_music (gh_car (i))->length_mom ();
+
+      delete iter_p_;
+
+      cursor_ = gh_cdr (cursor_);
+
+      iter_p_ = 0;
+      if (gh_pair_p (cursor_))
+	iter_p_ = get_iterator_p (unsmob_music (gh_car (cursor_)));
+      else
+	return;
+
+      if (m > Moment (0))
+	return;
+    }
+}
+
 /*
   [todo: translate]
   
@@ -110,9 +136,12 @@ Sequential_music_iterator::set_sequential_music_translator()
   redenering helderder is.
 */
 
+#if 1
 SCM
 Sequential_music_iterator::get_music (Moment until)const
 {
+  if (until < pending_moment ())
+    return SCM_EOL;
   SCM s = SCM_EOL;
   SCM curs = cursor_;
   Music_iterator * iter = iter_p_->clone ();
@@ -138,6 +167,41 @@ Sequential_music_iterator::get_music (Moment until)const
     }
   return s;
 }
+#else
+SCM
+Sequential_music_iterator::get_music (Moment until) const
+{
+  Sequential_music_iterator* i = dynamic_cast<Sequential_music_iterator *> (this->clone ());
+  SCM s = SCM_EOL;
+  while (1) 
+      {
+	Moment local_until = until - i->here_mom_;
+	while (i->iter_p_->ok ()) 
+	  {
+	    Moment here = i->iter_p_->pending_moment ();
+	    if (here != local_until)
+	      goto finalise;
+	    
+	    s = gh_append2 (i->iter_p_->get_music (local_until), s);
+	    i->iter_p_->skip (local_until);
+	  }
+	  
+	  if (!i->iter_p_->ok ()) 
+	    {
+	      i->leave_element ();
+	      
+	      if (gh_pair_p (i->cursor_))
+		i->start_next_element ();
+	      else
+		goto finalise;
+	    }
+	}
+ finalise:
+  delete i;
+  return s;
+}
+#endif
+
  
 void
 Sequential_music_iterator::process (Moment until)

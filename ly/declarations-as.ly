@@ -6,10 +6,11 @@ breve = \duration #'( -1 0)
 longa = \duration #'( -2 0 )
 maxima = \duration #'( -3 0 )
 
-#(eval-string (ly-gulp-file "generic-property.scm"))
-
-% urg, move to basic property?
-#(eval-string (ly-gulp-file "slur.scm"))
+#(begin
+  (eval-string (ly-gulp-file "slur.scm"))
+  (eval-string (ly-gulp-file "generic-property.scm"))
+  (eval-string (ly-gulp-file "basic-properties.scm"))
+ )
 
 \include "nederlands.ly"		% dutch
 \include "chord-modifiers.ly"

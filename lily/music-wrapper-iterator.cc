@@ -41,6 +41,12 @@ Music_wrapper_iterator::ok () const
 }
 
 void
+Music_wrapper_iterator::skip (Moment m)
+{
+  child_iter_p_->skip (m);
+}
+
+void
 Music_wrapper_iterator::process (Moment m)
 {
   child_iter_p_->process (m);

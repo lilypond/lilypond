@@ -15,6 +15,9 @@ indent = 8.0\char;
 staffspace = (\staffheight - 1.0 ) / 4.0;
 stafflinethickness = \staffspace / 2.0;
 
+% deprecated
+interline = \staffspace;
+
 %{
 The space taken by a note is determined by the formula 
 
@@ -26,8 +29,10 @@ arithmetic_basicspace.  The smallest space is the one following the
 shortest note in the measure.  Typically arithmetic_basicspace is set
 to the width of a quarter note head.
 %}
+% quartwidth == 1.32 * staffspace
 arithmetic_basicspace = 2.;
-arithmetic_multiplier = 0.9 * \quartwidth ;
+%arithmetic_multiplier = 0.9 * \quartwidth ;
+arithmetic_multiplier = 0.9 * 1.32 * \staffspace;
 
 
 % catch suspect beam slopes, set slope to zero if

@@ -50,6 +50,7 @@
 		soloIIText = #""
 		aDueText = #""
 		splitInterval = #'(1 . 0)
+		changeMoment = #`(,(make-moment 1 1) . ,(make-moment 1 1))
 	}
 	\translator {
 		\StaffGroupContext

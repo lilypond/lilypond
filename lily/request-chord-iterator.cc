@@ -45,9 +45,8 @@ Request_chord_iterator::elt_l () const
   return (Request_chord*) music_l_;
 }
 
-
 SCM
-Request_chord_iterator::get_music (Moment)const
+Request_chord_iterator::get_music (Moment) const
 {
   SCM s = SCM_EOL;
   if (music_l_)
@@ -65,7 +64,6 @@ Request_chord_iterator::get_music (Moment)const
 void
 Request_chord_iterator::process (Moment m)
 {
-  last_processed_mom_ = m;
   if (music_l_)
     {
       for (SCM s = dynamic_cast<Music_sequence *> (music_l_)->music_list ();
@@ -83,7 +81,6 @@ Request_chord_iterator::process (Moment m)
 	    mus->origin ()->warning (_f ("Huh?  Not a Request: `%s'",
 					 classname (mus)));
 	}
-
-     music_l_ =0;
     }
+  skip (m);
 }
