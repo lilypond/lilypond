@@ -87,7 +87,7 @@ upperStaff = \context GregorianStaff = "upperStaff" <<
 	\override NoteHead  #'style = #'hufnagel.punctum
 	\clef "hufnagel-fa2"
 	ces! des! es!
-	\override Staff.BarLine  #'bar.size = #3.0 \bar "|"
+	\override Staff.BarLine  #'bar-size = #3.0 \bar "|"
 %	\break % 6 (8*1)
 
 	fes! ges!
