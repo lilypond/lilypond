@@ -1,3 +1,9 @@
+2003-09-21  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* cygwin/mknetrel: Native fixes.
+
+	* cygwin/GNUmakefile (EXTRA_DIST_FILES): Add mknetrel.*
+
 2003-09-20  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/topdocs/NEWS.texi: Add note about .ly double click

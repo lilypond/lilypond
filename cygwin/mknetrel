@@ -7,21 +7,18 @@
 # See http://lilypond.org/web/devel/packaging.html for more information,
 # report bugs to bug-lilypond@gnu.org.
 #
-#
-# Get mknetrel from here:
-#
-#   cvs -d:pserver:anoncvs@sources.redhat.com:/cvs/cygwin-apps co mknetrel
-#
-# To build the package do:
+# To build the package, do:
 cat >/dev/null <<EOC
 
-   wget -P/var/tmp ftp://lilypond.org/pub/LilyPond/v1.9/lilypond-1.9.8.tar.gz
+   cd /
+   cvs -d:pserver:anoncvs@sources.redhat.com:/cvs/cygwin-apps co -d netrel mknetrel
+   wget -P/var/tmp ftp://lilypond.org/pub/LilyPond/v1.9/lilypond-1.9.9.tar.gz
+   mkdir -p /netrel/src && cd /netrel/src
    rm -rf /netrel/src/lilypond-*
-   mkdir -p /netrel/src && cd /home/netrel/src
    tar xzf /var/tmp/lilypond-*
-   mv lilypond-1.9.8 lilypond-1.9.8-1
-   cd -
-   ./bin/mknetrel -xX lilypond
+   mv lilypond-1.9.9 lilypond-1.9.9-1
+   cp lilypond-1.9.9-1/cygwin/mknetrel /netrel/extra/lilypond
+   /netrel/bin/mknetrel -xX lilypond
 
 EOC
 
@@ -54,14 +51,14 @@ preconfig () {
     patchsrc 
     rm -f config.cache
 
-    # for cross-compiling LilyPond:
+    # for cross-compiling LilyPond, fake a guile-config
     if ! iscygwin; then
 	cd $build || exit 1
 	GUILE=1.6.4
 	cat > guile-config <<EOF
 [ "\$1" == "--version" ] && echo "guile-config - Guile version $GUILE"
-[ "\$1" == "compile" ] && echo "-I$cygwin_prefix/include"
-[ "\$1" == "link" ] && echo "-L$cygwin_prefix/lib -lguile"
+[ "\$1" == "compile" ] && echo "-I$cygwin_root/usr/include"
+[ "\$1" == "link" ] && echo "-L$cygwin_root/usr/lib -lguile"
 exit 0
 EOF
 	chmod 755 guile-config
@@ -114,7 +111,7 @@ prebuild () {
 	cp -pv mf/out-for-build/* mf/out
     fi
     
-    addmakeflags MAKE_PFA_FILES=1 ' ' LDFLAGS="$cygwin_prefix/bin/libpython2.3.dll" ' ' 'target=i686-pc-cygwin'
+    addmakeflags MAKE_PFA_FILES=1 ' ' LDFLAGS="$cygwin_root/usr/bin/libpython2.3.dll" ' ' 'target=i686-pc-cygwin'
 }
 
 preinstall () {
@@ -127,7 +124,7 @@ preinstall () {
 	cp -v lily/out-for-build/lilypond.1 lily/out
     fi
     
-    addmakeflags MAKE_PFA_FILES=1 ' ' LDFLAGS="$cygwin_prefix/bin/libpython2.3.dll" ' ' 'target=i686-pc-cygwin'
+    addmakeflags MAKE_PFA_FILES=1 ' ' LDFLAGS="$cygwin_root/usr/bin/libpython2.3.dll" ' ' 'target=i686-pc-cygwin'
 }
 
 postinstall () {
