@@ -15,7 +15,8 @@
 /*
   collect Note_column, and as soon as there are 2 or more, put them in
   a collision object.  */
-class Collision_engraver : public Engraver {
+class Collision_engraver : public Engraver
+{
   Item * col_;
   Link_array<Grob> note_columns_;
 

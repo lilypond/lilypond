@@ -55,6 +55,7 @@
 * Rests::                       
 * Skips::                       
 * Durations::                   
+* Stems::                       
 * Ties::                        
 * Tuplets::                     
 * Easy Notation note heads ::   
@@ -149,7 +150,23 @@ The verbose syntax for pitch specification is
   \pitch @var{scmpitch}
 @end example
 
+
 where @var{scmpitch} is a Scheme object of the @code{Pitch} type.
+
+@refcommands
+
+Dots are normally moved up to avoid staff lines, except in polyphonic
+situations. The following commands may be used to force a particular
+direction manually.
+
+@refcommand dotsUp 
+@refcommand dotsDown 
+@refcommand dotsBoth
+
+Notes can be hidden and unhidden with the following commands.
+
+@refcommand hideNotes 
+@refcommand unHideNotes 
 
 
 @seealso
@@ -338,6 +355,20 @@ Dot placement for chords is not perfect.  In some cases, dots overlap:
  <<f, c'' d e f>>4.
 @end lilypond
 
+@node Stems
+@subsection Stems
+
+Whenever a note is found,  a
+@internalsref{Stem} object is created automatically. For whole notes
+and rests, stem objects are also created, but in those cases, the stem
+is invisible.
+
+@refcommands
+
+@refcommand \stemUp
+@refcommand \stemDown
+@refcommand \stemBoth
+
 
 @node Ties
 @subsection Ties
@@ -368,6 +399,14 @@ exactly the same concept.
 If you need to tie notes over bars, it may be easier to use automatic
 note splitting (See @ref{Automatic note splitting}).
 
+@refcommands
+
+
+@refcommand tieUp 
+@refcommand tieDown 
+@refcommand tieBoth 
+@refcommand tieDotted 
+@refcommand tieSolid
 
 @seealso 
 
@@ -435,6 +474,13 @@ instead.
 
 @cindex @code{tupletNumberFormatFunction}
 @cindex tuplet formatting 
+
+
+@refcommands
+
+@refcommand tupletUp  
+@refcommand tupletDown 
+@refcommand tupletBoth
 
 @seealso
 
@@ -956,6 +1002,12 @@ music (e.g. cadenzas), this is not desirable.  By setting
 @code{Score.timing} to false, this automatic timing can be switched
 off.
 
+
+@refcommands
+
+@refcommand cadenzaOn 
+@refcommand cadenzaOff 
+
 @node Bar lines
 @subsection Bar lines
 @cindex Bar lines
@@ -1088,9 +1140,33 @@ Similarly, you can merge half note heads with eighth notes, by setting
 
 LilyPond also vertically shifts rests that are opposite of a stem. 
 
+
 @lilypond[singleline,fragment,verbatim]
 \context Voice < c''4 \\  r4 >
 @end lilypond
+
+
+@refcommands
+
+
+
+@refcommand oneVoice 
+@refcommand voiceOne 
+@refcommand voiceTwo 
+@refcommand voiceThree 
+@refcommand voiceFour 
+
+The following commands specify in what chords of the current voice
+should be shifted: the outer voice has @code{\shiftOff}, and the inner
+voices have @code{\shiftOn}, @code{\shiftOnn}, etc.
+
+
+@refcommand shiftOn
+@refcommand shiftOnn  
+@refcommand shiftOnnn  
+@refcommand shiftOff  
+
+
 
 @seealso
 
@@ -1295,6 +1371,11 @@ accepting notes, this last beam will not be typeset at all.
 For melodies that have lyrics, you may want to switch off 
 automatic beaming. This is done by setting @code{Voice.autoBeaming} to
 @code{#f}. 
+
+@refcommands
+
+@refcommand autoBeamOff 
+@refcommand autoBeamOn 
 
 
 @refbugs
@@ -1507,6 +1588,19 @@ voices in the same staff share accidentals, but staves do not.
 
 @end table
 
+@refcommands
+
+@refcommand defaultAccidentals 
+@refcommand voiceAccidentals 
+@refcommand modernAccidentals 
+@refcommand modernCautionaries 
+@refcommand modernVoiceAccidentals 
+@refcommand modernVoiceCautionaries 
+@refcommand pianoAccidentals 
+@refcommand pianoCautionaries 
+@refcommand noResetKey 
+@refcommand forgetAccidentals 
+
 @seealso
 
 @internalsref{Accidental_engraver}, @internalsref{Accidental},
@@ -1595,6 +1689,15 @@ stems might look better:
   d,32-( d'4 d8..-)
 @end lilypond
 
+@refcommands
+
+
+@refcommand slurUp   
+@refcommand slurDown 
+@refcommand slurBoth 
+@refcommand slurDotted 
+@refcommand slurSolid 
+
 @seealso
 
 @seeinternals{Slur}, @internalsref{SlurEvent}.
@@ -1631,6 +1734,12 @@ should use @code{\phrasingSlurUp}, @code{\phrasingSlurDown}, and
 
 The commands @code{\slurUp}, @code{\slurDown}, and @code{\slurBoth}
 will only affect normal slurs and not phrasing slurs.
+
+@refcommands
+
+@refcommand phrasingSlurUp   
+@refcommand phrasingSlurDown 
+@refcommand phrasingSlurBoth 
 
 @seealso
 
@@ -1817,6 +1926,13 @@ using @code{^} and @code{_}.
 @cindex varcoda
 
 @lilypondfile[notexidoc]{script-chart.ly}
+
+
+@refcommands
+
+@refcommand scriptUp  
+@refcommand scriptDown 
+@refcommand scriptBoth
 
 @seealso
 
@@ -2155,6 +2271,15 @@ You can also supply your own texts:
 
 @cindex diminuendo
 
+
+@refcommands
+
+@refcommand dynamicUp  
+@refcommand dynamicDown 
+@refcommand dynamicBoth 
+
+@cindex direction, of dynamics
+
 @seealso
 
 @internalsref{CrescendoEvent}, @internalsref{DecrescendoEvent},
@@ -2166,12 +2291,7 @@ handled by the @internalsref{DynamicLineSpanner} object.
 
 If you want to adjust padding or vertical direction of the dynamics,
 you must set properties for the @internalsref{DynamicLineSpanner}
-object. Predefined variables to set the vertical direction are
-@code{\dynamicUp} and  @code{\dynamicDown}.
-
-@cindex direction, of dynamics
-@cindex @code{\dynamicDown}
-@cindex @code{\dynamicUp}
+object.
 
 
 @node Repeats
@@ -2940,6 +3060,10 @@ arpeggiate the chord. To draw these brackets, set the
        <<c' e g c>>-\arpeggio
 @end lilypond
 
+@refcommands
+
+@refcommand arpeggioBracket 
+@refcommand arpeggio
 
 @refbugs
 
@@ -2973,6 +3097,11 @@ can be printed automatically. This is enabled if the property
 @end lilypond
 
 The associated object is @internalsref{VoiceFollower}.
+
+@refcommands
+
+@refcommand showStaffSwitch 
+@refcommand hideStaffSwitch 
 
 
 @node Vocal music
@@ -3659,6 +3788,12 @@ value you can specify a different function. I.e. you could use letters
 in lower case for the base note.
 
 @end table
+
+@refcommands
+
+@refcommand germanChords 
+@refcommand semiGermanChords 
+
 
 @seealso
 
@@ -6524,12 +6659,50 @@ affecting a whole set of objects.  Second, you can select one specific
 object, and set a object property in that object.
 
 @menu
+* Predefined variables::        
 * Tuning objects ::             
 * Applyoutput::                 
 * Outputproperty::              
 * Font selection::              
 * Text markup::                 
 @end menu
+
+@node Predefined variables
+@subsection Predefined variables
+
+
+
+slurUp   
+slurDown 
+slurBoth 
+
+slurDotted
+slurSolid
+
+phrasingSlurUp   
+phrasingSlurDown 
+phrasingSlurBoth 
+
+shiftOn  
+shiftOnn  
+shiftOnnn  
+shiftOff  
+
+
+dynamicUp  
+dynamicDown 
+dynamicBoth 
+
+scriptUp
+scriptDown
+scriptBoth 
+
+dotsUp 
+dotsDown 
+dotsBoth 
+
+
+
 
 @node Tuning objects 
 @subsection Tuning objects 
@@ -6820,7 +6993,13 @@ to override default setting, which are always present. For example:
 
 @cindex @code{font-style}
 
+@refcommands
 
+The following commands set @code{fontSize} for the current voice.
+
+@refcommand tiny  
+@refcommand small  
+@refcommand normalsize
 
 @refbugs
 
@@ -7344,6 +7523,7 @@ the @file{.tex} output to instruct @TeX{} where to break pages.  This
 is done by setting the @code{between-systems-strings} on the
 @internalsref{NonMusicalPaperColumn} where the system is broken.
 An example is shown in @inputfileref{input/regression,between-systems.ly}.
+The predefined command @code{\newpage} also does this.
 
 @cindex paper size
 @cindex page size
@@ -7363,6 +7543,11 @@ the default font, then use the 20 point font.
 The file @code{paper16.ly}  will now include a file named @file{a4.ly}, which
 will set the paper variables @code{hsize} and @code{vsize} (used by
 Lilypond and @code{ly2dvi})
+
+
+@refcommands
+
+@refcommand newpage 
 
 
 @seealso

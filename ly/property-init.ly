@@ -10,6 +10,11 @@ slurUp   = \property Voice.Slur \set #'direction = #1
 slurDown = \property Voice.Slur \set #'direction = #-1
 slurBoth = \property Voice.Slur \revert #'direction 
 
+% There's also dash, but setting dash period/length should be fixed.
+slurDotted = \property Voice.Slur \set #'dashed = #1
+slurSolid = \property Voice.Slur \revert #'dashed
+
+
 phrasingSlurUp   = \property Voice.PhrasingSlur \set #'direction = #1
 phrasingSlurDown = \property Voice.PhrasingSlur \set #'direction = #-1
 phrasingSlurBoth = \property Voice.PhrasingSlur \revert #'direction 
@@ -22,6 +27,10 @@ shiftOff  = \property Voice.NoteColumn \revert #'horizontal-shift
 tieUp = \property Voice.Tie \set #'direction = #1
 tieDown = \property Voice.Tie \set #'direction = #-1
 tieBoth = \property Voice.Tie \revert #'direction 
+
+tieDotted = \property Voice.Tie \set #'dashed = #1
+tieSolid = \property Voice.Tie \revert #'dashed
+
 
 dynamicUp  = {
   \property Voice.DynamicText \set #'direction = #1
@@ -53,16 +62,9 @@ dotsUp = \property Voice.Dots \set #'direction = #1
 dotsDown = \property Voice.Dots \set #'direction = #-1
 dotsBoth = \property Voice.Dots \revert #'direction 
 
-% why doubly?
-tupletUp  = {
-  \property Voice.TupletBracket \set #'direction = #1
-}
-tupletDown = {
-  \property Voice.TupletBracket \set #'direction = #-1
-}
-tupletBoth = {
-  \property Voice.TupletBracket \revert #'direction
-}
+tupletUp  =   \property Voice.TupletBracket \set #'direction = #1
+tupletDown =   \property Voice.TupletBracket \set #'direction = #-1
+tupletBoth =   \property Voice.TupletBracket \revert #'direction
 
 cadenzaOn = \property Timing.timing = ##f
 cadenzaOff = {
@@ -85,12 +87,6 @@ voiceTwo = #(context-spec-music (make-voice-props-set 1) "Voice")
 voiceThree =#(context-spec-music (make-voice-props-set 2) "Voice")
 voiceFour = #(context-spec-music (make-voice-props-set 3) "Voice")
 
-% There's also dash, but setting dash period/length should be fixed.
-slurDotted = \property Voice.Slur \set #'dashed = #1
-slurSolid = \property Voice.Slur \revert #'dashed
-tieDotted = \property Voice.Tie \set #'dashed = #1
-tieSolid = \property Voice.Tie \revert #'dashed
-
 	
 tiny  = 
 	\property Voice.fontSize= #-2
@@ -98,18 +94,10 @@ tiny  =
 small  = 
 	\property Voice.fontSize= #-1
 
-
 normalsize = {
 	\property Voice.fontSize= #0
 }
 
-normalkey = {
-	\property Staff.keyOctaviation = ##f
-}
-
-specialkey = {
-	\property Staff.keyOctaviation = ##t
-}
 
 % End the incipit and print a ``normal line start''.
 endincipit = \notes{

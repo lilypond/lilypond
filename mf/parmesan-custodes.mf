@@ -154,15 +154,15 @@ def custos_medicaea(expr verbose_name, internal_name, ly_name,
 enddef;
 
 % custos medicaea, stem up, between staff lines
-custos_medicaea("Custos Med.", "medicaea-u0", "medicaea_u0",
+custos_medicaea("Custos Med.", "medicaea-u0", "medicaeau0",
 		dir_up, between_staff_lines);
 
 % custos medicaea, stem up, on staff line
-custos_medicaea("Custos Med.", "medicaea-u1", "medicaea_u1",
+custos_medicaea("Custos Med.", "medicaea-u1", "medicaeau1",
 		dir_up, on_staff_line);
 
 % custos medicaea, stem up, anywhere
-custos_medicaea("Custos Med.", "medicaea-u2", "medicaea_u2",
+custos_medicaea("Custos Med.", "medicaea-u2", "medicaeau2",
 		dir_up, anywhere);
 
 % custos medicaea, stem down, between staff lines

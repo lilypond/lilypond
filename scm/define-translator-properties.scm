@@ -86,13 +86,20 @@ the previous note on the same pitch in any octave. The value has same meaning as
 same-octave.
 @end table
 ")
+(translator-property-description 'autoBeaming boolean? "If set to true
+then beams are generated automatically.")
 
 (translator-property-description 'autoCautionaries list? "List similar to
 autoAccidentals, but it controls cautionary accidentals rather than
 normal ones. Both lists are tried, and the one giving the most accidentals
 wins. In case of draw, a normal accidental is typeset.
 ")
-
+(translator-property-description 'automaticBars boolean? " If set to true then bar lines will not be printed
+    automatically; they must be explicitly created with @code{bar}
+    keywords.  Unlike with the @code{cadenza} keyword, measures are
+    still counted.  Bar generation will resume according to that
+    count if this property is set to zero.
+")
 (translator-property-description 'automaticPhrasing boolean? " If set,
 the @ref{Lyric_phrasing_engraver} will match note heads of context
 called Voice X to syllables from LyricsVoice called
@@ -104,24 +111,21 @@ file @file{lyrics-multi-stanza.ly}.
 set, \\addlyrics will assume that beams, slurs and ties signal
 melismata, and align lyrics accordingly.
 ")
+(translator-property-description 'allowBeamBreak boolean?
+				 "If true allow line breaks during beams.")
 
 (translator-property-description 'barAlways boolean? "If set to true a bar line is drawn after each note.
 ")
 (translator-property-description 'barCheckSynchronize boolean? "If
 true then reset measurePosition when finding a barcheck. Turn off when
 using barchecks in polyphonic music.")
-(translator-property-description 'barNonAuto boolean? " If set to true then bar lines will not be printed
-    automatically; they must be explicitly created with @code{bar}
-    keywords.  Unlike with the @code{cadenza} keyword, measures are
-    still counted.  Bar generation will resume according to that
-    count if this property is set to zero.
-")
 (translator-property-description 'barNumberVisibility procedure? "Procedure that takes an int and returns whether the corresponding bar number should be printed")
 (translator-property-description 'bassFigureFormatFunction procedure? "DOCME")
 (translator-property-description 'beamMelismaBusy boolean? "Signal if a beam is set when automaticMelismata is set")
 (translator-property-description 'beatLength ly:moment? "The length of one beat in this time signature.")
 (translator-property-description 'beatGrouping list?
 				 "List of beatgroups. Eg. in 5/8 time #(list 2 3).")
+
 (translator-property-description 'breakAlignOrder list? "Defines the order in which
 prefatory matter (clefs, key signatures) appears, eg. this puts the
 key signatures after the bar lines:
@@ -174,7 +178,6 @@ into one staff.")
 (translator-property-description
  'chordNameSeparator markup?
  "The markup object used to separate parts of a chord name.")
-
 
 (translator-property-description 'chordChanges boolean? "Only show changes in chords scheme?")
 (translator-property-description 'clefGlyph string? "Name of the symbol within the music font")
@@ -234,8 +237,6 @@ Do nothing.
 ")
 (translator-property-description 'explicitClefVisibility procedure? "visibility-lambda function for clef changes.")
 
-
-
 (translator-property-description 'explicitKeySignatureVisibility
 procedure? "visibility-lambda function for explicit Key changes;
 \override of #'break-visibility will set the visibility for normal
@@ -257,14 +258,14 @@ another non-natural.
 				 "Used to set the relative size of all grobs
 in a context. This is done using the @code{Font_size_engraver}.")
 
-(translator-property-description 'allowBeamBreak boolean?
-				 "If true allow line breaks during beams.")
+(translator-property-description 'fingerHorizontalDirection integer?
+				 "If set, put the middle fingerings to
+the side of the note head. Use LEFT, RIGHT or unset.")
 
 (translator-property-description 'forceClef boolean? "Show clef symbol, even if it hasn't changed. Only active for the first clef after the property is set, not for the full staff.")
-(translator-property-description 'graceAccidentalSpace number? "amount space to alot for an accidental")
-(translator-property-description 'graceAlignPosition ly:dir? "put the grace note before or after the main note?")
-(translator-property-description 'highStringOne boolean? "Whether the 1st string is the string with
-highest pitch on the instrument (used by the automatic string selector).")
+(translator-property-description 'highStringOne boolean? "Whether the
+1st string is the string with highest pitch on the instrument (used by
+the automatic string selector).")
 (translator-property-description 'instr markup? "see @code{instrument}")
 (translator-property-description 'instrument markup? " If @code{Instrument_name_engraver}
 @cindex Instrument_name_engraver
@@ -297,7 +298,7 @@ signature at this point in the measure.  The format is the same as for keySignat
 the major7 be formatted in a chord name?")
 (translator-property-description 'measureLength ly:moment? "Length of one
 measure in the current time signature last?")
-(translator-property-description 'measurePosition ly:moment? " How much
+(translator-property-description 'measurePosition ly:moment? "How much
 of the current measure (measured in whole notes) have we had.  This
 can be set manually to create incomplete measures (anacrusis, upbeat),
 the start of the music.
@@ -318,10 +319,7 @@ auto string-selecting mechanism selects the highest string with a fret
 not less than minimumFret")
 (translator-property-description 'minimumVerticalExtent number-pair?
 "minimum vertical extent, same format as VerticalExtent")
-(translator-property-description 'autoBeaming boolean? "If set to true
-then beams are generated automatically.")
 (translator-property-description 'noDirection boolean? "Don't set directions by a2-engraver when part-combining.")
-(translator-property-description 'oneBeat ly:moment? "  How long does one beat in the current time signature last?")
 (translator-property-description
  'originalCentralCPosition integer?
  "Used for temporary overriding central C in octavation brackets. ")
@@ -334,9 +332,11 @@ this is done with the pedal.")
 (translator-property-description 'pedalUnaCordaStrings list? "see pedalSustainStrings.")
 (translator-property-description 'pedalSostenutoStrings list? "see pedalSustainStrings.")
 
-(translator-property-description 'phrasingPunctuation string? "")
-(translator-property-description 'rehearsalMark number-or-string? "")
-(translator-property-description 'regularSpacingDelta ly:moment? "TODO")
+(translator-property-description 'phrasingPunctuation string?
+				 "A string of characters that are considered
+lyric punctuation")
+(translator-property-description 'rehearsalMark number-or-string? "The
+last rehearsal mark printed.")
 (translator-property-description 'repeatCommands list? "This property is read to find any command of the form (volta . X), where X is a string or #f")
 (translator-property-description 'scriptDefinitions list? "
 Description of scripts. This is used by Script_engraver for typesetting note-super/subscripts. See @file{scm/script.scm} for more information
@@ -350,11 +350,7 @@ than this number of measures, no number is printed. ")
 scripts left or right of note heads.  Support for this is limited.
 Accidentals will collide with scripts.
 ")
-(translator-property-description 'fingerHorizontalDirection integer?
-				 "If set, put the middle fingerings to
-the side of the note head. Use LEFT, RIGHT or unset.")
-
-(translator-property-description 'skipBars boolean? " Set to true to
+(translator-property-description 'skipBars boolean? "If set to true, then
 skip the empty bars that are produced by multimeasure notes and rests.
 These bars will not appear on the printed output.  If not set (the
 default) multimeasure notes and rests expand into their full length,
@@ -403,11 +399,6 @@ positions - by only drawing one beam over the beat.")
 				 "Function formatting a tab notehead; it takes
 a string number, a list of string tunings and Pitch object. It returns the text as a string.")
 
-(translator-property-description 'textNonEmpty boolean? " If set
-to true then text placed above or below the staff is not assumed to
-have zero width.  @code{\fatText} and @code{\emptyText} are predefined
-settings.
-.")
 (translator-property-description 'tieMelismaBusy boolean? "Signal ties when automaticMelismata is set.")
 (translator-property-description 'timeSignatureFraction number-pair? "
 pair of numbers,  signifying the time signature. For example #'(4 . 4) is a 4/4time signature.")
@@ -420,12 +411,15 @@ Switch off for cadenzas.")
 (translator-property-description 'tupletNumberFormatFunction procedure?
 				 "Function taking a music as input, producing a string. This function is called to determine the text to print on a tuplet bracket.")
 
+
+;; remove this? 
 (translator-property-description 'tupletInvisible boolean? "
     If set to true, tuplet bracket creation is switched off
 entirely. This has the same effect as setting both
 @code{tupletNumberVisibility} and @code{tupletBracketVisibility} to
 @code{#f}, but as this does not even create any grobs, this setting
 uses less memory and time.")
+
 (translator-property-description 'tupletSpannerDuration ly:moment? "
 Normally a tuplet bracket is as wide as the
 @code{	imes} expression that gave rise to it. By setting this
@@ -435,7 +429,7 @@ property, you can make brackets last shorter. Example
 @@lilypond[verbatim,fragment]
 context Voice 	imes 2/3 @{
   property Voice.tupletSpannerDuration = #(ly:make-moment 1 4)
-  [c8 c c] [c c c]
+  c-[8 c c-] c-[ c c-]
 @}
 @@end lilypond
 @end example
@@ -465,7 +459,10 @@ and therefore only work in contexts which contain an
 ")
 
 (translator-property-description 'voltaOnThisStaff boolean?
- "Normally, volta brackets are put only on the topmost staff. Setting this variable to true, will force a bracket to be on this staff as well.")
+ "Normally, volta brackets are put only on the topmost staff. Setting
+this variable to true, will force a bracket to be on this staff as
+well.")
+
 (translator-property-description 'voltaSpannerDuration ly:moment? "maximum duration of the volta bracket.
 
     Set to a duration to control the size of the brackets printed by

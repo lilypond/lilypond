@@ -95,5 +95,5 @@ ENTER_DESCRIPTION (Timing_engraver,
 /* creats*/       "",
 /* accepts */     "",
 /* acks  */      "",
-/* reads */       "timeSignatureFraction automaticBars whichBar barAlways defaultBarType skipBars timing oneBeat measureLength measurePosition currentBarNumber",
+/* reads */       "timeSignatureFraction automaticBars whichBar barAlways defaultBarType skipBars timing measureLength measurePosition currentBarNumber",
 /* write */       "");
