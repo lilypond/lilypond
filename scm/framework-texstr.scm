@@ -31,7 +31,18 @@
 ")
 
 
-(define-public (output-framework outputter book scopes fields basename )
+(define-public (output-classic-framework outputter book scopes fields basename)
+  (let* ((paper (ly:paper-book-paper book))
+	 (lines (ly:paper-book-systems book))
+	 )
+    (ly:outputter-dump-string outputter (header basename))
+    (for-each
+     (lambda (system)
+       (ly:outputter-dump-stencil outputter (ly:paper-system-stencil system)))
+     lines)
+    (ly:outputter-dump-string outputter (footer))))
+
+(define-public (output-framework outputter book scopes fields basename)
   (let* ((paper (ly:paper-book-paper book))
 	 (pages (ly:paper-book-pages book))
 	 )

@@ -1,5 +1,7 @@
 2004-12-29  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scripts/lilypond-book.py (process_snippets): add texstr support.
+
 	* scm/framework-texstr.scm (header): change extension to .textmetrics
 
 	* lily/lily-parser.cc (parse_file): do try_load_text_metrics for

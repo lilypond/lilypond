@@ -11,7 +11,7 @@
  (guile)
  (ice-9 regex)
  (srfi srfi-13)
- (lily output-tex)
+ (scm framework-tex)
  (lily))
 
 (define (dummy . foo) #f)
