@@ -12,7 +12,10 @@
 # target all:
 #
 all:	 default
-	for i in $(SUBDIRS); do $(MAKE) -C $$i all; done
+ifdef SUBDIRS
+	set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i all; done
+endif
+
 #
 
 # platform specific variables,
@@ -23,45 +26,40 @@ include ./$(depth)/make/out/Site.make
 # where to do this ?
 .PRECIOUS:  $(makeout)/Site.make
 
-# ... and configure bootstrap :-)
-#
-$(makeout)/Site.make: $(make-dir)/$(genout) $(flower-config) $(lily-config)
-# this is handy, but runs on second "make distclean" too. ah well...
-#	if [ \! -d $(makeout) ]; then mkdir $(makeout); fi
-	touch $@
-	@echo "oeps, sources were not configured!"
-	(cd $(depth); ./configure)
-#
-
 # dependency list of executable:
 #
-EXECUTABLE = $(bindir)/$(NAME)
-$(EXECUTABLE): $(OFILES) $(CUSTOMLIBES)
-#	$(STRIPDEBUG) $(STABLEOBS)
-#	$(LD_COMMAND) -o $@ $^ $(LOADLIBES)
-	$(LD_COMMAND) $(OFILES) $(LOADLIBES)
-	-@touch $(VERSION_DEPENDENCY) $(ERROR_LOG)
+EXECUTABLE = $(lily_bindir)/$(NAME)
+$(EXECUTABLE): $(build) $(OFILES) $(CUSTOMLIBES) 
 	$(INCREASE_BUILD)
-	touch $(build) #waai necessary?
-#
+	$(MAKE) $(OFILES)  $(SILENT_LOG)
+#	$(STRIPDEBUG) $(STABLEOBS)
+	$(LD_COMMAND) $(OFILES) $(LOADLIBES)
+
 exe: $(EXECUTABLE)
 #
+
+$(build):
+	echo 0 > $@
 
 # dependency list of library:
 #
 LIBRARY = $(libdir)/$(LIB_PREFIX)$(NAME)$(LIB_SUFFIX)
-$(LIBRARY): $(OFILES) $(CUSTOMLIBES)
-	$(AR_COMMAND) $(OFILES)
-	-@touch $(VERSION_DEPENDENCY) $(ERROR_LOG)
+$(LIBRARY): $(build) $(OFILES) $(CUSTOMLIBES)
 	$(INCREASE_BUILD)
-	touch $(build) #waai necessary?
+	$(MAKE) $(OFILES)  $(SILENT_LOG)
+	$(AR_COMMAND) $(OFILES)
+	$(RANLIB_COMMAND)
+
+
 #
 lib: $(LIBRARY)
 #
 
-clean:
-	rm -f $(allexe) core $(allobs) $(alldeps)
-	for i in $(SUBDIRS); do $(MAKE) -C $$i clean; done
+clean: localclean
+	rm -f $(allobs) $(alldeps)
+ifdef SUBDIRS
+	set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i clean; done
+endif
 
 distclean: clean
 	rm -rf  $(lily-version) $(flower-version) $(mi2mu-version) .b $(build) *~ $(allout) $(allgen)
@@ -75,7 +73,7 @@ config:
 
 # dummydeps:
 #
-dummydep: $(flower-dir)/$(genout) $(lib-dir)/$(genout) $(lily-dir)/$(genout) $(mi2mu-dir)/$(genout) $(DUMMYDEPS)
+dummydep: $(DUMMYDEPS)
 #
 
 # value of $(OSTYPE) on windhoos; "make $OSTYPE" if you use bash :-)
@@ -105,7 +103,7 @@ help:
 #
 
 doc:
-	$(MAKE) -C Documentation do-doc
+	$(MAKE) -C $(depth)/Documentation do-doc
 
 # doc++ documentation of classes
 doc++: $(progdocs)	
@@ -117,10 +115,13 @@ dist:
 	(cd ./$(depth); tar cfz $(DIST_NAME).tar.gz $(DIST_NAME))
 	rm -rf $(distdir)/  # should be trapped
 
-localdist:
+localdist: $(DISTFILES)
+	if [ -d out ]; then mkdir $(distdir)/$(localdir)/out; fi
 	ln $(DISTFILES) $(distdir)/$(localdir)
-	for i in $(SUBDIRS); do mkdir $(distdir)/$(localdir)/$$i; done
-	for i in $(SUBDIRS); do $(MAKE) localdir=$(localdir)/$$i -C $$i localdist; done
+ifdef SUBDIRS
+	set -e; for i in $(SUBDIRS); do mkdir $(distdir)/$(localdir)/$$i; done
+	set -e; for i in $(SUBDIRS); do $(MAKE) localdir=$(localdir)/$$i -C $$i localdist; done
+endif
 
 moduledist:
 	-mkdir $(module-distdir)
@@ -130,27 +131,45 @@ moduledist:
 
 localmoduledist:
 	ln $(DISTFILES) $(module-distdir)/$(localdir)
-	for i in $(SUBDIRS); do mkdir $(module-distdir)/$(localdir)/$$i; done
-	for i in $(SUBDIRS); do $(MAKE) localdir=$(localdir)/$$i -C $$i localmoduledist; done
+ifdef SUBDIRS
+	set -e; for i in $(SUBDIRS); do mkdir $(module-distdir)/$(localdir)/$$i; done
+	set -e; for i in $(SUBDIRS); do $(MAKE) localdir=$(localdir)/$$i -C $$i localmoduledist; done
+endif
 
 all-tags: TAGS
-	for i in $(SUBDIRS); do $(MAKE) -C $$i all-tags; done
+ifdef SUBDIRS
+	set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i all-tags; done
+endif
 
 TAGS: $(allcc)
 	etags -CT $(allcc) 
 
-# to some outdir?
-autoconf:
-	autoconf -  < configure.in > ac_configure  
-
 
 # version stuff:
 #
-check-flower-version:
-	$(MAKE) flower-version -C ./$(depth)/flower
-$(lily-version): $(lily-dir)/$(genout) ./$(depth)/.version ./$(bindir)/make_version $(build)
-	./$(bindir)/make_version "$(MAJOR_VERSION)" "$(MINOR_VERSION)" "$(PATCH_LEVEL)" "$(MY_PATCH_LEVEL)" "$(BUILD)" "$(CXX) $(CXXVER)" > $@
-check-mi2mu-version:
-	$(MAKE) mi2mu-version -C ./$(depth)/mi2mu
-#
 
+out/version.hh: .version
+	./$(lily_bindir)/make_version > $@
+
+
+# should this be in Rules?
+configure: configure.in
+	autoconf - < $<> $@
+	chmod +x configure
+
+localclean:
+
+
+install: localinstall
+ifdef SUBDIRS
+	set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i install; done
+endif
+
+localinstall:
+
+uninstall: localuninstall
+ifdef SUBDIRS
+	set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i uninstall; done
+endif
+
+localuninstall:
