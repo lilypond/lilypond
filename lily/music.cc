@@ -295,7 +295,7 @@ LY_DEFINE(ly_extended_make_music,
 	  "@var{props}. \n\n"
 	  ""
 	  "This function is for internal use, and is only called by "
-	  "@code{make-music-by-name}, which is the preferred interface "
+	  "@code{make-music}, which is the preferred interface "
 	  "for creating music objects. "
 	  )
 {
@@ -312,7 +312,7 @@ LY_DEFINE(ly_get_mutable_properties,
 	  "ly:get-mutable-properties", 1, 0, 0,  (SCM mus),
 	  "Return an alist containing the mutable properties of @var{mus}.\n"
 	  "The immutable properties are not available; they should be initialized\n"
-	  "by the  @code{make-music-by-name} function.\n"
+	  "by the  @code{make-music} function.\n"
 	  )
 {
   Music *m = unsmob_music (mus);
@@ -379,7 +379,7 @@ Music*
 make_music_by_name (SCM sym)
 {
   if (!make_music_proc)
-    make_music_proc = scm_primitive_eval (ly_symbol2scm ("make-music-by-name"));
+    make_music_proc = scm_primitive_eval (ly_symbol2scm ("make-music"));
 	
   SCM rv = scm_call_1 (make_music_proc, sym);
 

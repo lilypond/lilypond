@@ -11,19 +11,17 @@ create, then write a function that will structure the music for you.
 } 
 
 #(define (make-text-script x) 
-   (let ((m (make-music-by-name 'TextScriptEvent)))
-    (ly:music-set-property! m 'direction DOWN) 
-     (ly:music-set-property! m 'text (make-simple-markup x))
-     m))
+   (make-music 'TextScriptEvent
+               'direction DOWN
+               'text (make-simple-markup x)))
      
 #(define (add-text-script m x)
    (if (equal? (ly:music-property m 'name) 'EventChord)
-       (ly:music-set-property! m 'elements
-			    (cons (make-text-script x)
-				  (ly:music-property m 'elements)))
-       
+       (set! (ly:music-property m 'elements)
+             (cons (make-text-script x)
+                  (ly:music-property m 'elements)))       
        (let ((es (ly:music-property m 'elements))
-	     (e (ly:music-property m 'element)) )
+	     (e (ly:music-property m 'element)))
 	 (map (lambda (y) (add-text-script y x)) es)
 	 (if (ly:music? e)
 	     (add-text-script e x))))

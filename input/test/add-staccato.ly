@@ -11,16 +11,15 @@ it is not necessary to use scm constructs (see @code{separate-staccato.ly}).
 } 
 
 #(define (make-script x)
-   (let ((m (make-music-by-name 'ArticulationEvent)))
-     (ly:music-set-property! m 'articulation-type x)
-     m))
+   (make-music 'ArticulationEvent
+               'articulation-type x))
     
 #(define (add-script m x)
    (if
-    (equal? (ly:music-property m 'name) 'EventChord)
-    (ly:music-set-property! m 'elements
-			  (cons (make-script x)
-				(ly:music-property m 'elements))))
+     (equal? (ly:music-property m 'name) 'EventChord)
+     (set! (ly:music-property m 'elements)
+           (cons (make-script x)
+                 (ly:music-property m 'elements))))
    m)
 
 #(define (add-staccato m)

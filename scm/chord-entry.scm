@@ -163,10 +163,9 @@ the bass specified.
   "Make EventChord with notes corresponding to PITCHES, BASS and
 DURATION, and INVERSION."
   (define (make-note-ev pitch)
-    (let ((ev (make-music-by-name 'NoteEvent)))
-      (set! (ly:music-property ev 'duration) duration)
-      (set! (ly:music-property ev 'pitch) pitch)
-      ev))
+    (make-music 'NoteEvent
+                'duration duration
+                'pitch pitch))
   (let ((nots (map make-note-ev pitches))
 	(bass-note (if bass (make-note-ev bass) #f))
 	(inv-note (if inversion (make-note-ev inversion) #f)))

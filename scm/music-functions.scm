@@ -51,7 +51,7 @@
   (set! music (inner-music-filter pred? music))
   (if (ly:music? music)
       music
-      (make-music-by-name 'Music)))	  ;must return music.
+      (make-music 'Music)))	  ;must return music.
 
 (define-public (remove-tag tag)
   (lambda (mus)
@@ -110,12 +110,9 @@
 (define-public (note-to-cluster music)
   "Replace NoteEvents by ClusterNoteEvents."
   (if (eq? (ly:music-property music 'name) 'NoteEvent)
-      (let ((cn (make-music-by-name 'ClusterNoteEvent)))
-	(set! (ly:music-property cn 'pitch)
-	      (ly:music-property music 'pitch))
-	(set! (ly:music-property cn 'duration)
-	      (ly:music-property music 'duration))
-	cn)
+      (make-music 'ClusterNoteEvent
+		  'pitch (ly:music-property music 'pitch)
+		  'duration (ly:music-property music 'duration))
       music))
 
 (define-public (notes-to-clusters music)
@@ -157,28 +154,25 @@ written by Rune Zedeler. "
 (define-public (make-grob-property-set grob gprop val)
   "Make a Music expression that sets GPROP to VAL in GROB. Does a pop first,
 i.e.  this is not an override"
-  (let ((m (make-music-by-name	'OverrideProperty)))
-    (set! (ly:music-property m 'symbol) grob)
-    (set! (ly:music-property m 'grob-property) gprop)
-    (set! (ly:music-property m 'grob-value) val)
-    (set! (ly:music-property m 'pop-first) #t)
-    m))
+  (make-music 'OverrideProperty
+	      'symbol grob
+	      'grob-property gprop
+	      'grob-value val
+	      'pop-first #t))
 
 (define-public (make-grob-property-override grob gprop val)
   "Make a Music expression that sets GPROP to VAL in GROB. Does a pop first,
 i.e.  this is not an override"
-  (let ((m (make-music-by-name	'OverrideProperty)))
-    (set! (ly:music-property m 'symbol) grob)
-    (set! (ly:music-property m 'grob-property) gprop)
-    (set! (ly:music-property m 'grob-value) val)
-    m))
+  (make-music 'OverrideProperty
+	      'symbol grob
+	      'grob-property gprop
+	      'grob-value val))
 
 (define-public (make-grob-property-revert grob gprop)
   "Revert the grob property GPROP for GROB."
-   (let* ((m (make-music-by-name  'OverrideProperty)))
-     (set! (ly:music-property m 'symbol) grob)
-     (set! (ly:music-property m 'grob-property) gprop)
-     m))
+  (make-music 'OverrideProperty
+	      'symbol grob
+	      'grob-property gprop))
 
 (define direction-polyphonic-grobs
   '(Tie Rest Slur Script TextScript Stem Dots DotColumn))
@@ -201,71 +195,60 @@ i.e.  this is not an override"
     (list (make-grob-property-revert 'NoteColumn 'horizontal-shift)))))
 
 
-(define-public (context-spec-music m context . rest)
-  "Add \\context CONTEXT = foo to M. "
-  (let ((cm (make-music-by-name 'ContextSpeccedMusic)))
-    (set! (ly:music-property cm 'element) m)
-    (set! (ly:music-property cm 'context-type) context)
-    (if (and  (pair? rest) (string? (car rest)))
-	(set! (ly:music-property cm 'context-id) (car rest)))
+(define*-public (context-spec-music m context #:optional id)
+  "Add \\context CONTEXT = ID to M. "
+  (let ((cm (make-music 'ContextSpeccedMusic
+			'element m
+			'context-type context)))
+    (if (string? id)
+	(set! (ly:music-property cm 'context-id) id))
     cm))
 
 (define-public (make-apply-context func)
-  (let ((m (make-music-by-name 'ApplyContext)))
-    (set! (ly:music-property m 'procedure) func)
-    m))
+  (make-music 'ApplyContext
+	      'procedure func))
 
 (define-public (make-sequential-music elts)
-  (let ((m (make-music-by-name 'SequentialMusic)))
-    (set! (ly:music-property m 'elements) elts)
-    m))
+  (make-music 'SequentialMusic
+	      'elements elts))
 
 (define-public (make-simultaneous-music elts)
-  (let ((m (make-music-by-name 'SimultaneousMusic)))
-    (set! (ly:music-property m 'elements) elts)
-    m))
+  (make-music 'SimultaneousMusic
+	      'elements elts))
 
 (define-public (make-event-chord elts)
-  (let ((m (make-music-by-name 'EventChord)))
-    (set! (ly:music-property m 'elements) elts)
-    m))
+  (make-music 'EventChord
+	      'elements elts))
 
 (define-public (make-skip-music dur)
-  (let ((m (make-music-by-name 'SkipMusic)))
-    (set! (ly:music-property m 'duration) dur)
-    m))
+  (make-music 'SkipMusic
+	      'duration dur))
 
 ;;;;;;;;;;;;;;;;
 
 ;; mmrest
 (define-public (make-multi-measure-rest duration location)
-  (let ((start (make-music-by-name 'MultiMeasureRestEvent))
-	(ch    (make-music-by-name 'BarCheck))
-	(ch2   (make-music-by-name 'BarCheck))
-	(seq   (make-music-by-name 'MultiMeasureRestMusicGroup)))
-    (map (lambda (x) (set! (ly:music-property x 'origin) location))
-	 (list start ch ch2 seq))
-    (set! (ly:music-property start 'duration) duration)
-    (set! (ly:music-property seq 'elements)
-	  (list ch
-		(make-event-chord (list start))
-		ch2))
-    seq))
+  (make-music 'MultiMeasureRestMusicGroup
+	      'origin location
+	      'elements (list (make-music 'BarCheck
+					  'origin location)
+			      (make-event-chord (list (make-music 'MultiMeasureRestEvent
+								  'origin location
+								  'duration duration)))
+			      (make-music 'BarCheck
+					  'origin location))))
 
 (define-public (glue-mm-rest-texts music)
   "Check if we have R1*4-\\markup { .. }, and if applicable convert to
 a property set for MultiMeasureRestNumber."
-  
   (define (script-to-mmrest-text script-music)
     "Extract 'direction and 'text   from SCRIPT-MUSIC, and transform into property sets."
-    (let ((text (ly:music-property script-music 'text))
-	  (dir	(ly:music-property script-music 'direction))
-	  (p	(make-music-by-name 'MultiMeasureTextEvent)))
+    (let ((dir (ly:music-property script-music 'direction))
+	  (p   (make-music 'MultiMeasureTextEvent
+			   'text (ly:music-property script-music 'text))))
       (if (ly:dir? dir)
 	  (set! (ly:music-property p 'direction) dir))
-      (set! (ly:music-property p 'text) text)
       p))
-  
   (if (eq? (ly:music-property music 'name) 'MultiMeasureRestMusicGroup)
       (let* ((text? (lambda (x) (memq 'script-event (ly:music-property x 'types))))
 	     (es (ly:music-property  music 'elements))
@@ -278,14 +261,12 @@ a property set for MultiMeasureRestNumber."
 
 
 (define-public (make-property-set sym val)
-  (let ((m (make-music-by-name 'PropertySet)))
-    (set! (ly:music-property m 'symbol) sym)
-    (set! (ly:music-property m 'value) val)
-    m))
+  (make-music 'PropertySet
+	      'symbol sym
+	      'value val))
 
 (define-public (make-ottava-set octavation)
-  (let ((m (make-music-by-name 'ApplyContext)))
-    
+  (let ((m (make-music 'ApplyContext)))
     (define (ottava-modify context)
       "Either reset centralCPosition to the stored original, or remember
 old centralCPosition, add OCTAVATION to centralCPosition, and set
@@ -337,7 +318,7 @@ Rest can contain a list of beat groupings
 		  (context-spec-music (make-property-set 'rehearsalMark label)
 				      'Score)
 		  #f))
-	 (ev (make-music-by-name 'MarkEvent))
+	 (ev (make-music 'MarkEvent))
 	 (ch (make-event-chord (list ev))))
     (if set
 	(make-sequential-music (list set ch))
@@ -349,25 +330,21 @@ Rest can contain a list of beat groupings
   (ly:export (apply make-time-signature-set `(,num ,den . ,rest))))
 
 (define-public (make-penalty-music pen)
- (let ((m (make-music-by-name 'BreakEvent)))
-   (set! (ly:music-property m 'penalty) pen)
-   m))
+  (make-music 'BreakEvent
+	      'penalty pen))
 
 (define-public (make-articulation name)
-  (let ((m (make-music-by-name 'ArticulationEvent)))
-    (set! (ly:music-property m 'articulation-type) name)
-    m))
+  (make-music 'ArticulationEvent
+	      'articulation-type name))
 
 (define-public (make-lyric-event string duration)
-  (let ((m (make-music-by-name 'LyricEvent)))
-    (set! (ly:music-property m 'duration) duration)
-    (set! (ly:music-property m 'text) string)
-    m))
+  (make-music 'LyricEvent
+	      'duration duration
+	      'text string))
 
 (define-public (make-span-event type spandir)
-  (let ((m (make-music-by-name	type)))
-    (set! (ly:music-property m 'span-direction) spandir)
-    m))
+  (make-music type
+	      'span-direction spandir))
 
 (define-public (set-mus-properties! m alist)
   "Set all of ALIST as properties of M." 
@@ -424,7 +401,7 @@ Rest can contain a list of beat groupings
     m))
 
 (define-public (empty-music)
-  (ly:export (make-music-by-name 'Music)))
+  (ly:export (make-music 'Music)))
 ;;;
 
 ; Make a function that checks score element for being of a specific type. 
@@ -454,7 +431,7 @@ Rest can contain a list of beat groupings
 (define-public (smart-bar-check n)
   "Make	 a bar check that checks for a specific bar number. 
 "
-  (let ((m (make-music-by-name 'ApplyContext)))
+  (let ((m (make-music 'ApplyContext)))
     (define (checker tr)
       (let* ((bn (ly:context-property tr 'currentBarNumber)))
 	(if (= bn n)
