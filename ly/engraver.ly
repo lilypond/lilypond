@@ -322,6 +322,8 @@ ScoreContext = \translator {
 	\type Score_engraver;
 	\name Score;
 
+	marginScriptPadding = #10  % urg, in \pt
+
 	\consists "Timing_engraver";
 	\consists "Output_property_engraver";	
 
