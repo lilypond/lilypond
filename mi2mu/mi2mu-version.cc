@@ -6,7 +6,7 @@
 #include "version.hh"
 
 
-static char *s = "mi2mu " MAJOR_VERSION "." MINOR_VERSION "."  MY_PATCH_LEVEL " #%d";
+static char *s = "mi2mu " MAJOR_VERSION "." MINOR_VERSION "."  PATCH_LEVEL MY_PATCH_LEVEL " #%d";
 
 static const int build=
 #include ".build"

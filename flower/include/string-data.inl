@@ -105,29 +105,29 @@ String_data::tighten()
 }
 // assignment.
 INLINE void 
-String_data::set( Byte const* byte_c_l, int length_i ) 
+String_data::set( Byte const* byte_C, int length_i ) 
 {
     OKW();
 
-    assert( byte_c_l && byte_c_l != data_byte_p_);
+    assert( byte_C && byte_C != data_byte_p_);
 
     length_i_ = length_i;
     remax( length_i_ );     // copies too
-    memcpy( data_byte_p_, byte_c_l, length_i_ );
+    memcpy( data_byte_p_, byte_C, length_i_ );
     data_byte_p_[ length_i_ ] = 0;
 }
 
 INLINE
 void 
-String_data::set( char const* ch_c_l ) 
+String_data::set( char const* ch_C ) 
 {
-    set( (Byte const*)ch_c_l, strlen( ch_c_l ) );
+    set( (Byte const*)ch_C, strlen( ch_C ) );
 }
 
 
 /// concatenation.
 INLINE void 
-String_data::append( Byte const* byte_c_l, int length_i ) 
+String_data::append( Byte const* byte_C, int length_i ) 
 {
     OK();
     OKW();
@@ -135,22 +135,22 @@ String_data::append( Byte const* byte_c_l, int length_i )
     
     length_i_ += length_i;
     remax( length_i_ );
-    memcpy( data_byte_p_ + old_i, byte_c_l, length_i );	
+    memcpy( data_byte_p_ + old_i, byte_C, length_i );	
     data_byte_p_[ length_i_ ] = 0;
 }
 
 INLINE
 void 
-String_data::operator += ( char const* ch_c_l ) 
+String_data::operator += ( char const* ch_C ) 
 {
-    append( (Byte const*)ch_c_l, strlen( ch_c_l ) );
+    append( (Byte const*)ch_C, strlen( ch_C ) );
 }
 
 
 
 INLINE
 char const*
-String_data::ch_c_l() const
+String_data::ch_C() const
 {
     return (char const*)data_byte_p_; 
 }
@@ -161,7 +161,7 @@ String_data::ch_l()
 }
 
 INLINE Byte const*
-String_data::byte_c_l() const 
+String_data::byte_C() const 
 { 
     return data_byte_p_; 
 }

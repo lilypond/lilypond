@@ -97,20 +97,20 @@ Midi_note::mudela_str( bool command_mode_bo )
 
 	//ugh
 	String str;
-	if ( dur_.plet_p_ )
+	if ( dur_.plet_b() )
 		str += String( "\\plet{ " )
-			+ String_convert::i2dec_str( dur_.plet_p_->iso_i_, 0, 0 )
+			+ String_convert::i2dec_str( dur_.plet_.iso_i_, 0, 0 )
 			+ "/"
-			+ String_convert::i2dec_str( dur_.plet_p_->type_i_, 0, 0 )
+			+ String_convert::i2dec_str( dur_.plet_.type_i_, 0, 0 )
 			+ " } ";
 
 	str += name_str_;
 
 	Duration dur = dur_;
-	dur.set_plet( 0 );
+	dur.set_plet( 1,1 );
 	str += Duration_convert::dur2_str( dur );
 
-	if ( dur_.plet_p_ )
+	if ( dur_.plet_b() )
 		str += String( " \\plet{ 1/1 }" );
 		
 	return str;
@@ -162,7 +162,7 @@ Midi_text::mudela_str( bool command_mode_bo )
 {
 	(void)command_mode_bo;
 	if ( !text_str_.length_i() 
-		|| ( text_str_.length_i() != (int)strlen( text_str_.ch_c_l() ) ) )
+		|| ( text_str_.length_i() != (int)strlen( text_str_.ch_C() ) ) )
 		return "";
 
 	return "% " + text_str_ + "\n\t";
