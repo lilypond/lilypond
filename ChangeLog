@@ -1,5 +1,10 @@
 2005-04-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scripts/lilypond-book.py: refactor the compose_ly procedure.
+	Patch by John Williams.
+	
+2005-04-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
 	* scm/page-layout.scm (default-page-make-stencil): always combine
 	the header stencil, even if empty. This prevents the body text to
 	reach up to the margins.

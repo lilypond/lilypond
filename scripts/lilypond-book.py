@@ -596,174 +596,6 @@ def classic_lilypond_book_compatibility (key, value):
 
 	return (None, None)
 
-def compose_ly (code, options, type):
-	option_dict = {}
-
-	for i in options:
-		if string.find (i, '=') > 0:
-			(key, value) = re.split ('\s*=\s*', i)
-			option_dict[key] = value
-		else:
-			if i in no_options.keys ():
-				if no_options[i] in option_dict.keys ():
-					del option_dict[no_options[i]]
-			else:
-				option_dict[i] = None
-
-	has_linewidth = option_dict.has_key (LINEWIDTH)
-	no_linewidth_value = 0
-
-	# If LINEWIDTH is used without parameter, set it to default.
-	if has_linewidth and option_dict[LINEWIDTH] == None:
-		no_linewidth_value = 1
-		del option_dict[LINEWIDTH]
-
-	for i in default_ly_options.keys ():
-		if i not in option_dict.keys ():
-			option_dict[i] = default_ly_options[i]
-
-	if not has_linewidth:
-		if type == 'lilypond' or FRAGMENT in option_dict.keys ():
-			option_dict[RAGGEDRIGHT] = None
-
-		if type == 'lilypond':
-			if LINEWIDTH in option_dict.keys ():
-				del option_dict[LINEWIDTH]
-		else:
-			if RAGGEDRIGHT in option_dict.keys ():
-				if LINEWIDTH in option_dict.keys ():
-					del option_dict[LINEWIDTH]
-
-		if QUOTE in option_dict.keys () or type == 'lilypond':
-			if LINEWIDTH in option_dict.keys ():
-				del option_dict[LINEWIDTH]
-
-	if not INDENT in option_dict.keys ():
-		option_dict[INDENT] = '0\\mm'
-
-	# The QUOTE pattern from ly_options only emits the `linewidth'
-	# keyword.
-	if has_linewidth and QUOTE in option_dict.keys ():
-		if no_linewidth_value:
-			del option_dict[LINEWIDTH]
-		else:
-			del option_dict[QUOTE]
-
-	if FRAGMENT in option_dict.keys ():
-		body = FRAGMENT_LY
-	else:
-		body = FULL_LY
-
-	# Defaults.
-	relative = 1
-	override = {}
-	# The original concept of the `exampleindent' option is broken.
-	# It is not possible to get a sane value for @exampleindent at all
-	# without processing the document itself.  Saying
-	#
-	#   @exampleindent 0
-	#   @example
-	#   ...
-	#   @end example
-	#   @exampleindent 5
-	#
-	# causes ugly results with the DVI backend of texinfo since the
-	# default value for @exampleindent isn't 5em but 0.4in (or a smaller
-	# value).  Executing the above code changes the environment
-	# indentation to an unknown value because we don't know the amount
-	# of 1em in advance since it is font-dependent.  Modifying
-	# @exampleindent in the middle of a document is simply not
-	# supported within texinfo.
-	#
-	# As a consequence, the only function of @exampleindent is now to
-	# specify the amount of indentation for the `quote' option.
-	#
-	# To set @exampleindent locally to zero, we use the @format
-	# environment for non-quoted snippets.
-	override[EXAMPLEINDENT] = r'0.4\in'
-	override[LINEWIDTH] = texinfo_linewidths['@smallbook']
-	override.update (default_ly_options)
-
-	option_list = []
-	for (key, value) in option_dict.items ():
-		if value == None:
-			option_list.append (key)
-		else:
-			option_list.append (key + '=' + value)
-	option_string = string.join (option_list, ',')
-
-	compose_dict = {}
-	compose_types = [NOTES, PREAMBLE, LAYOUT, PAPER]
-	for a in compose_types:
-		compose_dict[a] = []
-
-	for (key, value) in option_dict.items():
-		(c_key, c_value) = \
-		  classic_lilypond_book_compatibility (key, value)
-		if c_key:
-			if c_value:
-				ly.warning \
-				  (_ ("deprecated ly-option used: %s=%s" \
-				    % (key, value)))
-				ly.warning \
-				  (_ ("compatibility mode translation: %s=%s" \
-				    % (c_key, c_value)))
-			else:
-				ly.warning \
-				  (_ ("deprecated ly-option used: %s" \
-				    % key))
-				ly.warning \
-				  (_ ("compatibility mode translation: %s" \
-				    % c_key))
-
-			(key, value) = (c_key, c_value)
-
-		if value:
-			override[key] = value
-		else:
-			if not override.has_key (key):
-				override[key] = None
-
-		found = 0
-		for type in compose_types:
-			if ly_options[type].has_key (key):
-				compose_dict[type].append (ly_options[type][key])
-				found = 1
-				break
-
-		if not found and key not in simple_options:
-			ly.warning (_ ("ignoring unknown ly option: %s") % i)
-
-	# URGS
-	if RELATIVE in override.keys () and override[RELATIVE]:
-		relative = string.atoi (override[RELATIVE])
-
-	relative_quotes = ''
-
-	# 1 = central C
-	if relative < 0:
-		relative_quotes += ',' * (- relative)
-	elif relative > 0:
-		relative_quotes += "'" * relative
-
-	program_name = __main__.program_name
-
-	paper_string = \
-	  string.join (compose_dict[PAPER], '\n  ') % override
-	layout_string = \
-	  string.join (compose_dict[LAYOUT], '\n  ') % override
-	notes_string = \
-	  string.join (compose_dict[NOTES], '\n  ') % vars ()
-	preamble_string = \
-	  string.join (compose_dict[PREAMBLE], '\n  ') % override
-
-        font_dump_setting = ''
-	if FONTLOAD in options:
-		font_dump_setting = '#(define-public force-eps-font-include #t)\n'
-          			  
-	return (PREAMBLE_LY + body) % vars ()
-
-
 def find_file (name):
 	for i in include_path:
 		full = os.path.join (i, name)
@@ -814,7 +646,7 @@ class Snippet (Chunk):
 		self.type = type
 		self.match = match
 		self.hash = 0
-		self.options = []
+		self.option_dict = {}
 		self.format = format
 		self.line_number = line_number
 
@@ -842,8 +674,7 @@ class Lilypond_snippet (Snippet):
 	def __init__ (self, type, match, format, line_number):
 		Snippet.__init__ (self, type, match, format, line_number)
 		os = match.group ('options')
-		if os:
-			self.options = split_options (os)
+		self.do_options(os,self.type)
 
 	def ly (self):
 		return self.substring ('code')
@@ -851,8 +682,178 @@ class Lilypond_snippet (Snippet):
 	def full_ly (self):
 		s = self.ly ()
 		if s:
-			return compose_ly (s, self.options, self.type)
+			return self.compose_ly (s)
 		return ''
+
+	def do_options (self, option_string, type):
+		self.option_dict = {}
+
+		options = split_options(option_string)
+
+		for i in options:
+			if string.find (i, '=') > 0:
+				(key, value) = re.split ('\s*=\s*', i)
+				self.option_dict[key] = value
+			else:
+				if i in no_options.keys ():
+					if no_options[i] in self.option_dict.keys ():
+						del self.option_dict[no_options[i]]
+				else:
+					self.option_dict[i] = None
+
+		has_linewidth = self.option_dict.has_key (LINEWIDTH)
+		no_linewidth_value = 0
+
+		# If LINEWIDTH is used without parameter, set it to default.
+		if has_linewidth and self.option_dict[LINEWIDTH] == None:
+			no_linewidth_value = 1
+			del self.option_dict[LINEWIDTH]
+
+		for i in default_ly_options.keys ():
+			if i not in self.option_dict.keys ():
+				self.option_dict[i] = default_ly_options[i]
+
+		if not has_linewidth:
+			if type == 'lilypond' or FRAGMENT in self.option_dict.keys ():
+				self.option_dict[RAGGEDRIGHT] = None
+
+			if type == 'lilypond':
+				if LINEWIDTH in self.option_dict.keys ():
+					del self.option_dict[LINEWIDTH]
+			else:
+				if RAGGEDRIGHT in self.option_dict.keys ():
+					if LINEWIDTH in self.option_dict.keys ():
+						del self.option_dict[LINEWIDTH]
+
+			if QUOTE in self.option_dict.keys () or type == 'lilypond':
+				if LINEWIDTH in self.option_dict.keys ():
+					del self.option_dict[LINEWIDTH]
+
+		if not INDENT in self.option_dict.keys ():
+			self.option_dict[INDENT] = '0\\mm'
+
+		# The QUOTE pattern from ly_options only emits the `linewidth'
+		# keyword.
+		if has_linewidth and QUOTE in self.option_dict.keys ():
+			if no_linewidth_value:
+				del self.option_dict[LINEWIDTH]
+			else:
+				del self.option_dict[QUOTE]
+
+	def compose_ly (self, code):
+		if FRAGMENT in self.option_dict.keys ():
+			body = FRAGMENT_LY
+		else:
+			body = FULL_LY
+
+		# Defaults.
+		relative = 1
+		override = {}
+		# The original concept of the `exampleindent' option is broken.
+		# It is not possible to get a sane value for @exampleindent at all
+		# without processing the document itself.  Saying
+		#
+		#   @exampleindent 0
+		#   @example
+		#   ...
+		#   @end example
+		#   @exampleindent 5
+		#
+		# causes ugly results with the DVI backend of texinfo since the
+		# default value for @exampleindent isn't 5em but 0.4in (or a smaller
+		# value).  Executing the above code changes the environment
+		# indentation to an unknown value because we don't know the amount
+		# of 1em in advance since it is font-dependent.  Modifying
+		# @exampleindent in the middle of a document is simply not
+		# supported within texinfo.
+		#
+		# As a consequence, the only function of @exampleindent is now to
+		# specify the amount of indentation for the `quote' option.
+		#
+		# To set @exampleindent locally to zero, we use the @format
+		# environment for non-quoted snippets.
+		override[EXAMPLEINDENT] = r'0.4\in'
+		override[LINEWIDTH] = texinfo_linewidths['@smallbook']
+		override.update (default_ly_options)
+
+		option_list = []
+		for (key, value) in self.option_dict.items ():
+			if value == None:
+				option_list.append (key)
+			else:
+				option_list.append (key + '=' + value)
+		option_string = string.join (option_list, ',')
+
+		compose_dict = {}
+		compose_types = [NOTES, PREAMBLE, LAYOUT, PAPER]
+		for a in compose_types:
+			compose_dict[a] = []
+
+		for (key, value) in self.option_dict.items():
+			(c_key, c_value) = \
+			  classic_lilypond_book_compatibility (key, value)
+			if c_key:
+				if c_value:
+					ly.warning \
+					  (_ ("deprecated ly-option used: %s=%s" \
+					    % (key, value)))
+					ly.warning \
+					  (_ ("compatibility mode translation: %s=%s" \
+					    % (c_key, c_value)))
+				else:
+					ly.warning \
+					  (_ ("deprecated ly-option used: %s" \
+					    % key))
+					ly.warning \
+					  (_ ("compatibility mode translation: %s" \
+					    % c_key))
+
+				(key, value) = (c_key, c_value)
+
+			if value:
+				override[key] = value
+			else:
+				if not override.has_key (key):
+					override[key] = None
+
+			found = 0
+			for type in compose_types:
+				if ly_options[type].has_key (key):
+					compose_dict[type].append (ly_options[type][key])
+					found = 1
+					break
+
+			if not found and key not in simple_options:
+				ly.warning (_ ("ignoring unknown ly option: %s") % key)
+
+		# URGS
+		if RELATIVE in override.keys () and override[RELATIVE]:
+			relative = string.atoi (override[RELATIVE])
+
+		relative_quotes = ''
+
+		# 1 = central C
+		if relative < 0:
+			relative_quotes += ',' * (- relative)
+		elif relative > 0:
+			relative_quotes += "'" * relative
+
+		program_name = __main__.program_name
+
+		paper_string = \
+		  string.join (compose_dict[PAPER], '\n  ') % override
+		layout_string = \
+		  string.join (compose_dict[LAYOUT], '\n  ') % override
+		notes_string = \
+		  string.join (compose_dict[NOTES], '\n  ') % vars ()
+		preamble_string = \
+		  string.join (compose_dict[PREAMBLE], '\n  ') % override
+
+		font_dump_setting = ''
+		if FONTLOAD in self.option_dict:
+			font_dump_setting = '#(define-public force-eps-font-include #t)\n'
+					  
+		return (PREAMBLE_LY + body) % vars ()
 
 	# TODO: Use md5?
 	def get_hash (self):
@@ -937,10 +938,10 @@ class Lilypond_snippet (Snippet):
 		base = self.basename ()
 		if format == HTML:
 			str += self.output_print_filename (HTML)
-			if VERBATIM in self.options:
+			if VERBATIM in self.option_dict:
 				verb = verbatim_html (self.substring ('code'))
 				str += write (output[HTML][VERBATIM] % vars ())
-			if QUOTE in self.options:
+			if QUOTE in self.option_dict:
 				str = output[HTML][QUOTE] % vars ()
 
 		str += output[HTML][BEFORE] % vars ()
@@ -969,10 +970,10 @@ class Lilypond_snippet (Snippet):
 		base = self.basename ()
 		if format == LATEX:
 			str += self.output_print_filename (LATEX)
-			if VERBATIM in self.options:
+			if VERBATIM in self.option_dict:
 				verb = self.substring ('code')
 				str += (output[LATEX][VERBATIM] % vars ())
-			if QUOTE in self.options:
+			if QUOTE in self.option_dict:
 				str = output[LATEX][QUOTE] % vars ()
 
 		str += (output[LATEX][OUTPUT] % vars ())
@@ -980,7 +981,7 @@ class Lilypond_snippet (Snippet):
 
 	def output_print_filename (self, format):
 		str = ''
-		if PRINTFILENAME in self.options:
+		if PRINTFILENAME in self.option_dict:
 			base = self.basename ()
 			filename = self.substring ('filename')
 			str = output[format][PRINTFILENAME] % vars ()
@@ -997,15 +998,15 @@ class Lilypond_snippet (Snippet):
 				+ self.output_print_filename (LATEX)
 				+ '\n@end tex\n')
 		base = self.basename ()
-		if TEXIDOC in self.options:
+		if TEXIDOC in self.option_dict:
 			texidoc = base + '.texidoc'
 			if os.path.exists (texidoc):
 				str += '@include %(texidoc)s\n\n' % vars ()
 
-		if VERBATIM in self.options:
+		if VERBATIM in self.option_dict:
 			verb = verbatim_texinfo (self.substring ('code'))
 			str += (output[TEXINFO][VERBATIM] % vars ())
-			if not QUOTE in self.options:
+			if not QUOTE in self.option_dict:
 				str = output[TEXINFO][NOQUOTE] % vars ()
 
 		str += self.output_info ()
@@ -1014,7 +1015,7 @@ class Lilypond_snippet (Snippet):
 #		str += ('@tex\n' + self.output_latex () + '\n@end tex\n')
 #		str += ('@html\n' + self.output_html () + '\n@end html\n')
 
-		if QUOTE in self.options:
+		if QUOTE in self.option_dict:
 			str = output[TEXINFO][QUOTE] % vars ()
 
 		# need par after image
