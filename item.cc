@@ -1,7 +1,7 @@
 #include "line.hh"
-
-
+#include "symbol.hh"
 #include "cols.hh"
+
 String
 Spanner::TeXstring() const
 {
@@ -37,6 +37,12 @@ Interval
 Item::width() const
 {
     return output->extent().x;
+}
+
+Interval
+Item::height() const
+{
+    return output->extent().y;
 }
 
 /****************************************************************/

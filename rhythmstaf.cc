@@ -7,7 +7,7 @@
 #include "command.hh"
 #include "molecule.hh"
 #include "rhythmstaf.hh"
-
+#include "symbol.hh"
  
 
 Rhythmic_column::Rhythmic_column(Score_column*s, Rhythmic_staff *rs)
@@ -93,8 +93,8 @@ Rhythmic_column::typeset_command(Command *com, int breakst)
     Item *i = new Item;
     const Symbol*s=0;
 
-    if (com -> args[0] ==  "|" ) {
-	s = Symbol::find_bar("|");	
+    if (com -> args[0] ==  "BAR" ) {
+	s = Symbol::find_bar(com->args[1]);	
     } else
 	assert(false);
     
