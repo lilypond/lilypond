@@ -15,6 +15,8 @@
 struct Stem_info 
 {
   Real idealy_f_;
+
+  // fixme: we're an Interval!
   Real miny_f_;
   Real maxy_f_;
 };
