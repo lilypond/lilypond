@@ -12,12 +12,7 @@
 #include "staff-symbol.hh"
 #include "paper-def.hh"
  
-bool
-Staff_symbol_referencer::has_interface (Grob*e)
-{
-  return unsmob_grob (e->get_grob_property ("staff-symbol"))
-    || gh_number_p (e->get_grob_property ("staff-position"));
-}
+
 
 int
 Staff_symbol_referencer::line_count (Grob*me) 
@@ -141,12 +136,12 @@ Staff_symbol_referencer::set_position (Grob*me,Real p)
 }
 
 /*
-  half  of the height, in staff space.
- */
+  Half of the height, in staff space, i.e. 2.0 for a normal staff. 
+*/
 Real
 Staff_symbol_referencer::staff_radius (Grob*me)
 {
-  return (line_count (me) -1) / 2;
+  return (line_count (me) -1) / 2.0;
 }
 
 
@@ -157,13 +152,9 @@ compare_position (Grob *const  &a, Grob * const &b)
     Staff_symbol_referencer::get_position ((Grob*)b));
 }
 
-
-
-
-#define has_interface ugly_hack
 ADD_INTERFACE (Staff_symbol_referencer,"staff-symbol-referencer-interface",
-  "Object whose Y position is meaning with reference to a staff
-symbol. Objects that have this interface should include
-Staff_symbol_referencer::callback in their Y-offset-callback.
-",
+  "Object whose Y position is meaning with reference to a staff "
+"symbol. Objects that have this interface should include "
+"Staff_symbol_referencer::callback in their Y-offset-callback. "
+,
   "staff-position");

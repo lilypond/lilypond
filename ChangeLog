@@ -1,3 +1,8 @@
+2002-10-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/tie.cc (get_control_points): also avoid staff lines on the
+	just outside the outer staff lines
+
 2002-10-21  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* ly/params-init.ly: Just define style-alist, no need to

@@ -249,7 +249,8 @@ Tie::get_control_points (SCM smob)
 
       Real clear = staff_space * gh_scm2double (me->get_grob_property ("staffline-clearance"));
 
-      if (fabs (y) <= Staff_symbol_referencer::staff_radius (me)
+      if (fabs (y) <=
+	  Staff_symbol_referencer::staff_radius (me) * staff_space + clear
 	  && fabs (diff) < clear)
 	{
 	  Real y1 = ry + clear;
