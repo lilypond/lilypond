@@ -72,3 +72,6 @@ Sources::sourcefile_l( char const* ch_C )
 	    return *sourcefile_l_pcur;
     return 0;
 }
+
+Sources::~Sources()
+{}
