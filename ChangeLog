@@ -1,3 +1,7 @@
+2004-04-09  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/output-ps.scm: Remove some cruft.
+
 2004-04-09  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* Documentation/user/lilypond.tely (Top): manual for v2.3 (backportme)
