@@ -45,7 +45,7 @@ ifeq ($(out),www)
 #info: $(INFO_FILES)
     # Cancel the special, non-image info generation rule that skips images:
     $(outdir)/%.info: $(outdir)/%.nexi
-local-install-info: #install-info info
+local-install-info: install-info info
 	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
 ifneq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
 ## Can not have absolute symlinks because some binary packages build schemes
