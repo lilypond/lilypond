@@ -1,0 +1,19 @@
+#!/bin/sh
+old=$1
+new=$2
+nm=$3
+if [ ! -x  $nm$new ]
+then
+   echo untarring ..
+  tar zfxv $nm$new.tar.gz
+fi
+if [ ! -x  $nm$old ]
+then
+   echo untarring
+   tar zfxv $nm$old.tar.gz
+fi
+
+(cd $nm$old; make clean)
+(cd $nm$new; make clean)
+(cd $nm$new; diff -P -c  ../$nm$old . > ../patch-$new)
+rm -rf $nm$old
