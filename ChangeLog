@@ -1,3 +1,8 @@
+2004-05-16  Heikki Junes <hjunes@cc.hut.fi>
+
+	* buildscripts/lilypond-words.py: search words also from
+	music-functions-init.ly.
+
 2004-05-15  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
 	* ly/music-functions-init.ly (def-music-function): new helper
