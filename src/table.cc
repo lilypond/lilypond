@@ -10,6 +10,7 @@ static Keyword_ent  the_key_tab[]={
     "voice", VOICE,
     "rhythmstaff", RHYTHMSTAFF,
     "melodicstaff", MELODICSTAFF,
+    "clef", CLEF,
     "score", SCORE,
     "bar", BAR,
     "output", OUTPUT,
@@ -20,6 +21,8 @@ static Keyword_ent  the_key_tab[]={
     "mm", MM,
     "paper", PAPER,
     "width", WIDTH,
+    "violin", VIOLIN,
+    "bass", BASS,
     "meter", METER,
     "unitspace", UNITSPACE,
     "skip", SKIP,
@@ -28,6 +31,7 @@ static Keyword_ent  the_key_tab[]={
     "staff", STAFF,
     "geometric", GEOMETRIC,
     "duration", DURATIONCOMMAND,
+    "key", KEY, 
     0,0
 } ;
 
