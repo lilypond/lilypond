@@ -1,3 +1,12 @@
+2002-10-13  Rune Zedeler  <rune@zedeler.dk>
+
+	* lily/accidental-engraver.cc: Fix
+	grace-in-the-beginning-of-measure bug caused by the resent
+	partial-measure fix.
+
+	* lily/stem.cc: reversed noteheads overlap half of the stem. (Full
+	overlap looks too crowded)
+	
 2002-10-13  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/parser.yy (assignment): allow SCM expression as assignment.

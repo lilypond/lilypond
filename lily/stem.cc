@@ -418,10 +418,8 @@ Stem::position_noteheads (Grob*me)
 
 
   bool invisible = invisible_b (me);
-  Real thick = 0.0;
-  if (invisible)
-        thick = gh_scm2double (me->get_grob_property ("thickness"))
-	  * me->get_paper ()->get_var ("linethickness");
+  Real thick = gh_scm2double (me->get_grob_property ("thickness"))
+     * me->get_paper ()->get_var ("linethickness");
       
 
   Grob *hed = support_head (me);
@@ -446,10 +444,16 @@ Stem::position_noteheads (Grob*me)
 	      Real l = Note_head::head_extent (heads[i], X_AXIS).length ();
 
 	      Direction d = get_direction (me);
-	      heads[i]->translate_axis (l * d, X_AXIS);
+	      /* reversed head should be shifted l-thickness, but this looks
+		 too crowded, so we only shift l-0.5*thickness.
+		 Notice that this leads to assymetry: Normal heads overlap
+		 the stem 100% whereas reversed heads only overlaps the stem
+		 50% */
+	      #define magic 0.5
+	      heads[i]->translate_axis ((l-thick*magic) * d, X_AXIS);
 
 	      if (invisible_b(me))
-		heads[i]->translate_axis (-thick *2* d , X_AXIS);
+		heads[i]->translate_axis (-thick*(2-magic) * d , X_AXIS);
 
 	      
 	     /* TODO:
