@@ -5,7 +5,6 @@
 #include "tex.hh"
 #include "scalar.hh"
 
-
 Lookup::Lookup()
 {
     texsetting = "\\unknowntexsetting";
