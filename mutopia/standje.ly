@@ -1,6 +1,6 @@
 \header{
 filename =	 "standje.ly";
-title =	 "St\"andchen (Serenade) \"Leise flehen meine Lieder\"";
+title =	 "St\\\"andchen (Serenade) ``Leise flehen meine Lieder''";
 opus =	 "D. 957 No. 4";
 composer =	 "Franz Schubert (1797-1828)"
 	 "Text by Ludwig Rellstab (1799-1860)";
@@ -13,7 +13,7 @@ copyright =	 "public domain";
 multiple \paper{}s in one \score 
 %}
 
-\version "0.1.8";
+\version "0.1.9";
 
 $vocal_verse1 = \melodic{
 	\octave c';
@@ -82,6 +82,50 @@ $lyric_verse1 = \lyric{
 	nicht.2. |
 }
 	
+$lyric_verse2 = \lyric{
+% 5
+	\[2/3 H\"orst4 die8 \] Nach-4. ti-8 
+	\[2/3 gal-4 len8 \] schla-4 gen?8 _8
+	Ach!4. sie8 \[2/3 fleh-4 en8 \] 
+	dich,2 _4
+	_4 _ _ 
+	_4_ _
+
+% 11
+	\[2/3 Mit4 der8 \] T\"o-4. ne8
+	\[2/3 s\"u\ss-4 en8 \] Kla-4. gen8
+	Fleh-4. en8 \[2/3 sie4 f\"ur8 \]
+	mich.2 _4
+	_4_ _ 
+	_4_ _
+
+% 17
+	Sie-8. ver-16 stehn4. des8
+	Bus-8. ens16 Seh-4. nen,8
+	\[2/3 Ken-4 nen8 \] Lieb-4. es-8 
+	schmerz,2.
+	\[2/3 Ken-4 nen8 \] Lieb-4. es-8 
+	schmerz,2.
+
+% 23
+	R\"uh-8. ren16 mit4. den8 
+	Sil-8. ber-16 t\"o-4. nen8
+	\[2/3 Jed-4 es8 \] wei-4. che8 
+	Herz.2.
+}
+
+$lyric_through1 = \lyric{
+% 37
+	La\ss8. auch16 dir8. die16 Brust8. be-16 |
+	we- gen, |
+	Lieb-4. chen,8 h\"o-8. re16 |
+	mich!2 _ |
+	Be-8. bend16 harr' ich8 _8 |
+	dir8. ent-16 ge- gen!8 _8 |
+	\[2/3 Komm, be-8 \] gl\"u4. cke8 |
+	mich!2. |
+}
+
 $treble_intro = \melodic{
 	\octave c';
 	\clef violin;
@@ -127,14 +171,11 @@ $treble_verse1 = \melodic{
 
 $treble_eentje = \melodic{
 	\octave c';
-%	<{as!2\mf( [c'8. )as16]} {f2 as8( )f}> |
-%	as!2\mf( [c'8. )as16] |
-%	<e4. g> <[e8-.( g-.> <e8-. g-.> <)e8-. g-.]> |
-	<f2\mf as!(> <[as8.( c'> <)f )as16]> |
+	<f2\mf as!(> <[as8.->( c'> <)f16 )as]> |
 	<e4. g> <[e8-. g-.(> <e-. g-.> <e-. )g-.]> |
 	<f4. g> <['b8-. g-.(> <d-. g-.> <f-. )g-.]> |
 	<e2 g\pp> <e4 g> |
-	<f2\mf a(> <[as8.( c'> <)f )a16]> |
+	<f2\mf a(> <[as8.( c'> <)f16 )a]> |
 	<e4. g> <[e8-. g-.(> <e-. g-.> <e-. )g-.]> |
 	<f4. g> <['b8-. g-.(> <d-. g-.> <f-. )g-.]> |
 	<e2. g> |
@@ -178,8 +219,16 @@ $bass_verse1 = \melodic{
 	'c8 <[c e g> <e g c'> <c e g> <e g c'> <c e g]> |
 }
 
-$bass_eentje1 = \melodic{
+$bass_eentje = \melodic{
 	\octave c;
+	<'c8 c> <[c f as!> <f as c'> <c f as> <f as c'> <c f as]> |
+	'c8 <[c e g> <e g c'> <c e g> <e g c'> <c e g]> |
+	<''g8 'g> <[d g> <g b> <d g> <g b> <d g]> |
+	'c8 <[e g> <g c'> <e g> <g c'> <e g]> |
+	<'c8 c> <[c f a> <f a c'> <c f a> <f a c'> <c f a]> |
+	'c8 <[c e g> <e g c'> <c e g> <e g c'> <c e g]> |
+	<''g8 'g> <[d g> <g b> <d g> <g b> <d g]> |
+	'c8 <[e g> <g c'> <e g> <g c'> <e g]> |
 }
 		
 global= \melodic {\meter 3 /4; \key bes es as; }
@@ -191,14 +240,16 @@ global= \melodic {\meter 3 /4; \key bes es as; }
 			\meter 3 /4; 
 			\skip 4 * 12; 
 			\$lyric_verse1
-%			\skip 4 * 24; 
+			\skip 4 * 24; 
+			\$lyric_verse2
 		}
 		\type Staff { < 
 			\global 
 			{ 
 				\skip 4 * 12; 
 				\$vocal_verse1 
-%				\skip 4 * 24; 
+				\skip 4 * 24; 
+				\$vocal_verse1
 			}
 		> }
 		
@@ -208,7 +259,8 @@ global= \melodic {\meter 3 /4; \key bes es as; }
 				{ 
 					\$treble_intro 
 					\$treble_verse1 
-%					\$treble_eentje
+					\$treble_eentje
+					\$treble_verse1 
 				}
 			>
 			< 
@@ -216,7 +268,8 @@ global= \melodic {\meter 3 /4; \key bes es as; }
 				{ 
 					\$bass_intro 
 					\$bass_verse1 
-%					\$bass_eentje
+					\$bass_eentje
+					\$bass_verse1 
 				}
 			>
 		>
