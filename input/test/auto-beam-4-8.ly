@@ -17,7 +17,7 @@
      |  |  |   |--|
     x| x| x|  x| x|
 %}
-     \property Voice.beamAutoEnd = "2/4"
+     \property Voice.beamAutoEnd = #(make-moment 2 4)
      c8 c c c16 c
 
   }
