@@ -1,5 +1,7 @@
 2004-02-24  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scm/output-ps.scm (top-of-file): Add tagline definition.  FIXME.
+
 	* ps/music-drawing-routines.ps: 
 	* ps/lilyponddefs.ps: Add end markers.
 
