@@ -9,8 +9,8 @@
 
 #include "direction.hh"
 
-#if 0 
-String direction_str (Direction d, Axis a)
+String
+direction_str (Direction d, Axis a)
 {
   String s("center");
   if (a == Y_AXIS)
@@ -23,4 +23,3 @@ String direction_str (Direction d, Axis a)
     }
   return s;
 }
-#endif

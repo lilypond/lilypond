@@ -9,6 +9,7 @@
 #include "string.hh"
 #include "general-script-def.hh"
 
+#error 
 /** The characteristics of a certain kind of accent. It is not the
   accent itself.  */
 class Script_def : public General_script_def {

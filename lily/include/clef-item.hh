@@ -7,7 +7,7 @@
 #ifndef CLEFITEM_HH
 #define CLEFITEM_HH
 #include "item.hh"
-#include "text-def.hh"
+
 #include "direction.hh"
 #include "pointer.hh"
 #include "staff-symbol-referencer.hh"

@@ -5,7 +5,7 @@
 
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-#include "script-def.hh"
+#include "general-script-def.hh"
 #include "musical-request.hh"
 #include "paper-def.hh"
 #include "script.hh"

@@ -1,4 +1,19 @@
-pl 37.mb1
+--- ../lilypond-1.1.37/NEWS	Wed Mar 31 21:50:35 1999
+++ b/NEWS	Sun Apr  4 00:42:55 1999
+@@ -1,4 +1,13 @@
+pl 37.script1
+	- major Script rehack.
+	- junked Text_def, changed \property textstyle -> \property textStyle
+(todo -> convert-mudela)
+	- Line_of_score is an Axis_group_element, no more overlapping
+lines, hopefully.
+	- mf: whole diamond head tweak 
+ 
+*****
+pl 37 (march 30, 1999)
+ 	- diamond heads (probably really ugly).
+ 	- cross head.
+ 	- tweaked harmonic head a bit.pl 37.mb1
 	- Added property restStyle. 
 	- mensural 4th, 8th and 16th rests.
 

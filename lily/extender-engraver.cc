@@ -8,7 +8,6 @@
 #include "musical-request.hh"
 #include "extender-engraver.hh"
 #include "extender-spanner.hh"
-#include "text-def.hh"
 #include "score-column.hh"
 #include "g-text-item.hh"
 

@@ -19,7 +19,8 @@ class Axis_align_item : public virtual Align_element,
 public:
   Axis_align_item ();
 protected:
-  virtual  void do_print () const {}
+  virtual void do_print ()const;
+
 };
 #endif /* AXIS_ALIGN_ITEM_HH */
 

@@ -72,7 +72,7 @@ Rhythmic_column_engraver::acknowledge_element (Score_element_info i)
     return;
   if (Script *s=dynamic_cast<Script *> (item))
     {
-      if (i.req_l_ && dynamic_cast <Musical_req *> (i.req_l_)) 
+      if (i.req_l_)
 	{
 	  script_l_arr_.push (s);
 	}

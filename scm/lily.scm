@@ -90,6 +90,10 @@
     ("volta" . "feta-nummer"))
 )
 
+(define script-alist '())
+(define (articulation-to-scriptdef a)
+  (assoc a script-alist)
+  )
 
 ;; Map style names to TeX font names.  Return false if 
 ;; no font name found. 
@@ -127,6 +131,8 @@
 		  (set! font-cmd (cached-fontname font-count))
 		  (set! font-alist (acons font-name font-cmd font-alist))
 		  (set! font-count (+ 1 font-count))
+		  (if (equal? font-name "")
+		      (error "Empty fontname -- SELECT-FONT"))
 		  (string-append "\\font" font-cmd "=" font-name font-cmd))
 		(cdr font-cmd)))
 	  ""				;no switch needed
@@ -231,11 +237,13 @@
     (embedded-ps ((ps-scm 'bezier-sandwich) l)))
 
 
-  (define (start-line)
+  (define (start-line ht)
     (begin
       (clear-fontcache)
-      "\\hbox{%\n")
+      (string-append"\\vbox to " (number->dim ht) "{\\hbox{%\n"))
     )
+  (define (stop-line) 
+    "}\\vss}\\interscoreline")
 
   (define (filledbox breapth width depth height) 
     (string-append 
@@ -244,8 +252,6 @@
      "depth " (number->dim depth)
      "height " (number->dim height) " "))
 
-  (define (stop-line) 
-    "}\\interscoreline")
 
 
   (define (text s)
@@ -522,9 +528,8 @@
 	(else (error "unknown tag -- PS-SCM " action-name))
 	)
   )
-  
 
-;
+					;
 ; Russ McManus, <mcmanus@IDT.NET>  
 ; 
 ; I use the following, which should definitely be provided somewhere

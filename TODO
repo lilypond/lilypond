@@ -16,7 +16,6 @@ Grep for TODO and ugh/ugr/urg.
 > lines from the staff to the note will have a blob too.  For example,
 > with the note "a4" there will be a black note at the ledger line where
 > "c" would be too.  However, only the "a4" will have the extra blob.
-
 . * ps/lily.ps
 . * AFM for BlueSky AFM files.
 . * devise standard for functioning of Vertical_align_element.
@@ -24,6 +23,7 @@ Grep for TODO and ugh/ugr/urg.
 . * staff size for post/prebreaks
 . * .ly files
 .  * input/star-spangled-banner
+.  * input/scripts.ly
 .  * mutopia/J.S.Bach/wtk1-fugue2.ly
 .  * input/test/grace
 .  * fix: text on rests: ridiculous dims
@@ -84,6 +84,7 @@ specify the third.  Should there be?
 
 .* TODO before 1.2
 . * \selectmusic to cut pieces from music. 
+. * TODO: merge atom & molecule; make  tree from molecule.
 . * break priority setting from SCM.
 . * Gade score
 .  * remove [] in favour of auto-beamer
@@ -128,11 +129,10 @@ compilation.
 . * fix Repeated_music design
 . * one big ly2dvi input that includes *all* tests.
 . * store req -> element, element -> element causes for warnings
-. * junk Text_def, use G_text_item in stead.
+. * use G_text_item in stead.
 . * junk Script_def
 . * include examples in RPM.
 . * fix partial measures in meaningful way.
-
 . * add scripts to bars eg.  |^"bla" 
 . * relative mode for mi2mu
 . * uniformise recent feta contributions.
@@ -167,10 +167,10 @@ length?
 . * fix convert-mudela manpage
 . * decimal point in \paper {}
 . * {  \voiceone <a'4.*2/3  d''4.*2/3 fis''4.*2/3>  [g''8 fis'' e''] d''4 |}
-	 and=20
+	 and
 	 { \voicetwo  d'4 d'2.*2/3 } spacing
 . * tied notes for MIDI
-. * sharp /flat on trills (in MIDI ??)
+. * sharp / flat on trills (in MIDI ??)
 . * scm-ify \property values.
 . * move class Lookup {} into scm
 . * msgfmt -o check?

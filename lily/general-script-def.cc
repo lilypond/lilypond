@@ -1,3 +1,4 @@
+
 /*
   general-script-def.cc -- implement General_script_def
 
@@ -66,6 +67,7 @@ General_script_def::get_molecule (Paper_def*, Direction) const
   Molecule s;
   return Molecule (s);
 }
+
 
 
 

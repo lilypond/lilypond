@@ -29,7 +29,7 @@ toeters = \type Staff = toeters <
 	\toeter_ii
 >
  
-zager = \type Staff = zager \notes \relative c {
+zager = \type Staff = zager \notes \relative c'' {
 	\clef bass;
 	\property Staff.instrument = "Zager"
 	\property Staff.instr = "Zag."
@@ -45,7 +45,7 @@ zager = \type Staff = zager \notes \relative c {
 	f e d c
 }
 
-zoger = \type Staff = zoger \notes \relative c {
+zoger = \type Staff = zoger \notes \relative c'' {
 	\clef bass;
 	\property Staff.instrument = "Zoger"
 	\property Staff.instr = "Zog."
@@ -76,7 +76,7 @@ zagers = \type GrandStaff <
 	>
 	\paper{
 		linewidth = 40.0\mm;
-		\translator { \HaraKiriStaffContext }
+%		\translator { \HaraKiriStaffContext }
 %uh?
 %		\translator { \OrchestralScoreContext }
 %		\translator { \OrchestralPartStaffContext }

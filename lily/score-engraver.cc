@@ -157,7 +157,8 @@ Score_engraver::typeset_all()
 		musical_column_l_->add_element(item_p);
 	    }
 	}
-      scoreline_l_->add_element (elem_p);
+      if (!elem_p->dim_cache_[Y_AXIS].parent_l_)
+	scoreline_l_->add_element (elem_p);
     }
   elem_p_arr_.clear();
 }
@@ -185,7 +186,7 @@ Score_engraver::set_columns (Score_column *new_command_l,
   if (command_column_l_ && command_column_l_->linked_b()) 
     {
       pscore_p_->add_column (command_column_l_);
-      scoreline_l_->add_element (command_column_l_);
+      scoreline_l_->add_column (command_column_l_);
     }
   else 
     {
@@ -200,7 +201,7 @@ Score_engraver::set_columns (Score_column *new_command_l,
   if (musical_column_l_ && musical_column_l_->linked_b()) 
     {
       pscore_p_->add_column (musical_column_l_);
-      scoreline_l_->add_element (musical_column_l_);
+      scoreline_l_->add_column (musical_column_l_);      
     }
   else 
     {

@@ -7,7 +7,6 @@
 */
 
 #include "lyric-performer.hh"
-#include "text-def.hh"
 #include "musical-request.hh"
 #include "audio-item.hh"
 

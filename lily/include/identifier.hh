@@ -18,7 +18,7 @@
 class Notename_table_identifier;
 class Translator_identifier;
 class Music_identifier;
-class General_script_def_identifier;
+class Articulation_req_identifier;
 class Symtables_identifier;
 class Midi_def_identifier;
 class Paper_def_identifier;
@@ -54,7 +54,6 @@ struct Identifier : public Input {
   IDACCESSOR(Translator)
   IDACCESSOR(Notename_table)
   IDACCESSOR(Music)
-  IDACCESSOR(General_script_def)
   IDACCESSOR(Symtables)
   IDACCESSOR(Midi_def)
   IDACCESSOR(Paper_def)

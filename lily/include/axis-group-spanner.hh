@@ -7,8 +7,8 @@
 */
 
 
-#ifndef SPAN_AXIS_GROUP_HH
-#define SPAN_AXIS_GROUP_HH
+#ifndef AXIS_GROUP_SPANNER_HH
+#define AXIS_GROUP_SPANNER_HH
 
 #include "spanner.hh"
 #include "axis-group-element.hh"

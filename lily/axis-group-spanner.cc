@@ -34,15 +34,24 @@ Axis_group_spanner::do_break_processing_if_unbroken()
 		item_l->find_prebroken_piece (my_line);
 	      add_element (broken_item_l);
 	    }
-	  remove_element (elems[i]);  
+
+	  Spanner *spanner_l = dynamic_cast<Spanner*> (elems[i]);
+	  if (spanner_l)
+	    {
+	      Spanner *broken_spanner_l =
+		spanner_l->find_broken_piece (my_line);
+	      add_element (broken_spanner_l);
+	    }
+	  remove_element (elems[i]);
 	}
+      
     }
 }
 
 void
 Axis_group_spanner::do_break_processing()
 {
-  DOUT << "do_break_processing ()\n";
+
   bool breaking_self_b = ! Spanner::line_l();
   if (!breaking_self_b)  
     {

@@ -14,7 +14,6 @@
 #include "notename-table.hh"
 #include "scalar.hh"
 #include "translation-property.hh"
-#include "script-def.hh"
 #include "lookup.hh"
 #include "misc.hh"
 #include "my-lily-lexer.hh"
@@ -30,7 +29,7 @@
 #include "command-request.hh"
 #include "musical-request.hh"
 #include "my-lily-parser.hh"
-#include "text-def.hh"
+
 #include "translator-group.hh"
 #include "score.hh"
 #include "music-list.hh"
@@ -96,7 +95,6 @@ Paper_def* current_paper = 0;
     Array<int> *intvec;
     Notename_table *chordmodifiertab;
     Duration *duration;
-    General_script_def * script;
     Identifier *id;
     Music *music;
     Music_list *music_list;
@@ -117,7 +115,6 @@ Paper_def* current_paper = 0;
     Simultaneous_music *chord;
     String *string;
     Tempo_req *tempo;
-    Text_def * textdef;
     Translator* trans;
     char c;
     const char *consstr;
@@ -205,9 +202,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token <id>	IDENTIFIER
 %token <id>	NOTENAME_TABLE_IDENTIFIER
 %token <id>	MUSIC_IDENTIFIER
-%token <id>	POST_REQUEST_IDENTIFIER
-%token <id>	SCRIPT_IDENTIFIER
-%token <id>	COMMAND_IDENTIFIER
+%token <id>	REQUEST_IDENTIFIER
 %token <id>	REAL_IDENTIFIER
 %token <id>	STRING_IDENTIFIER
 %token <id>	TRANS_IDENTIFIER
@@ -224,6 +219,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <outputdef> output_def
 %type <scope> 	mudela_header mudela_header_body
 %type <request>	open_request_parens close_request_parens open_request close_request
+%type <request> request_with_dir request_that_take_dir verbose_request
 %type <i>	sub_quotes sup_quotes
 %type <music>	simple_element  request_chord command_element Simple_music  Composite_music 
 %type <music>	Alternative_music Repeated_music
@@ -236,7 +232,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <duration> entered_notemode_duration explicit_duration
 %type <intvec>	intastint_list int_list
 %type <reqvec>  pre_requests post_requests
-
+%type <request> gen_text_def
 %type <pitch>   explicit_musical_pitch steno_musical_pitch musical_pitch absolute_musical_pitch
 %type <pitch>   steno_tonic_pitch
 %type <notereq>	steno_notepitch
@@ -254,20 +250,19 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <paper>	paper_block paper_def_body
 %type <real>	real_expression real real_with_dimension
 %type <request> abbrev_command_req
-%type <request>	post_request structured_post_request
+%type <request>	post_request 
 %type <request> command_req verbose_command_req
-%type <request>	script_req  dynamic_req extender_req
+%type <request>	extender_req
 %type <string>	string
 %type <score>	score_block score_body
 %type <intarr>	shape_array
-%type <script>	script_definition script_body mudela_script gen_script_def
-%type <textdef> text_def finger
+
 %type <string>	script_abbreviation
 %type <trans>	translator_spec_block translator_spec_body
 %type <tempo> 	tempo_request
 %type <notenametab> notenames_body notenames_block chordmodifiers_block
 
-%expect 7
+
 
 
 %left '-' '+'
@@ -422,7 +417,7 @@ identifier_init:
 	}
 
 	| post_request {
-		$$ = new Request_identifier ($1, POST_REQUEST_IDENTIFIER);
+		$$ = new Request_identifier ($1, REQUEST_IDENTIFIER);
 	}
 	| explicit_duration {
 		$$ = new Duration_identifier ($1, DURATION_IDENTIFIER);
@@ -435,10 +430,6 @@ identifier_init:
 	}
 	| int	{
 		$$ = new int_identifier (new int ($1), INT_IDENTIFIER);
-	}
-	| script_definition {
-		$$ = new General_script_def_identifier ($1, SCRIPT_IDENTIFIER);
-
 	}
 	;
 
@@ -568,6 +559,7 @@ paper_block:
 		THIS-> lexer_p_->scope_l_arr_.pop ();
 	}
 	;
+
 
 optional_dot:
 	/* empty */
@@ -716,11 +708,8 @@ Music:
 	| Composite_music
 	;
 
-Alternative_music: {
-		Music_list* m = new Music_list;
-		$$ = new Sequential_music (m);
-	}
-	| ALTERNATIVE Simultaneous_music {
+Alternative_music:
+	ALTERNATIVE Simultaneous_music {
 		$$ = $2;
 	}
 	| ALTERNATIVE Sequential_music {
@@ -891,9 +880,6 @@ abbrev_command_req:
 	| '|'				{
 		$$ = new Barcheck_req;
 	}
-	| COMMAND_IDENTIFIER	{
-		$$ = $1->access_content_Request (true);
-	}
 	| '~'	{
 		$$ = new Tie_req;
 	}
@@ -987,33 +973,73 @@ post_requests:
 	{
 		$$ = new Link_array<Request>;
 	}
-	| post_requests structured_post_request {
+	| post_requests post_request {
 		$2->set_spot (THIS->here_input ());
 		$$->push ($2);
 	}
-	| post_requests close_request	{
-		$$->push ($2);
-	}
-	;
-
-structured_post_request:
-	script_req
-	| post_request
 	;
 
 post_request:
-	POST_REQUEST_IDENTIFIER	{
-		$$ = (Request*)$1->access_content_Request (true);
+	verbose_request
+	| request_with_dir
+	| close_request
+	;
+
+
+request_that_take_dir:
+	gen_text_def
+	| verbose_request
+	| script_abbreviation {
+		Identifier*i = THIS->lexer_p_->lookup_identifier ("dash-" + *$1);
+		Articulation_req *a = new Articulation_req;
+		a->articulation_str_ = *i->access_content_String (false);
+		delete $1;
+		$$ = a;
 	}
-	| dynamic_req {
-		$$ = $1;
+	;
+
+request_with_dir:
+	script_dir request_that_take_dir	{
+		if (G_script_req * gs = dynamic_cast<G_script_req*> ($2))
+			gs->dir_ = $1;
+		else if ($1)
+			$2->warning ("Can't specify direction for this request");
+		$$ = $2;
+	}
+	;
+	
+verbose_request:
+	REQUEST_IDENTIFIER	{
+		$$ = (Request*)$1->access_content_Request (true);
+		$$->set_spot (THIS->here_input ());
+	}
+	| ABSDYNAMIC '{' STRING '}'	{
+		Absolute_dynamic_req *ad_p = new Absolute_dynamic_req;
+		ad_p ->loudness_str_ = *$3;
+		ad_p->set_spot (THIS->here_input ());
+		delete $3;
+		$$ =ad_p;
+	}
+	| SPANDYNAMIC '{' int int '}' {
+		Span_dynamic_req * sp_p = new Span_dynamic_req;
+		sp_p-> dynamic_dir_  = Direction($3);
+		sp_p->spantype_ = Direction($4);
+		sp_p->set_spot (THIS->here_input ());
+		$$ = sp_p;
 	}
 	| abbrev_type	{
 		Abbreviation_req* a = new Abbreviation_req;
+		a->set_spot (THIS->here_input ());
 		a->type_i_ = $1;
 		$$ = a;
 	}
-
+	| SCRIPT STRING 	{ 
+		Articulation_req * a = new Articulation_req;
+		a->articulation_str_ = *$2;
+		a->set_spot (THIS->here_input ());
+		$$ = a;
+		delete $2;
+	}
 	;
 
 optional_modality:
@@ -1126,22 +1152,6 @@ extender_req:
 	}
 	;
 
-dynamic_req:
-	ABSDYNAMIC '{' STRING '}'	{
-		Absolute_dynamic_req *ad_p = new Absolute_dynamic_req;
-		ad_p ->loudness_str_ = *$3;
-		delete $3;
-		$$ =ad_p;
-	}
-	| SPANDYNAMIC '{' int int '}' {
-		Span_dynamic_req * sp_p = new Span_dynamic_req;
-		sp_p-> dynamic_dir_  = Direction($3);
-		sp_p->spantype_ = Direction($4);
-		$$ = sp_p;
-	}
-	;
-
-
 close_request:
 	close_request_parens {
 		$$ = $1;
@@ -1184,60 +1194,16 @@ open_request_parens:
 	}
 	;
 
-
-
-script_definition:
-	SCRIPT '{' script_body '}' 	{ $$ = $3; }
-	;
-
-script_body:
-	STRING int int int int int		{
-		Script_def *s = new Script_def;
-		s->set_from_input (*$1,$2, $3,$4,$5, $6);
-		$$  = s;
-		delete $1;
-	}
-	;
-
-script_req:
-	script_dir gen_script_def	{
-		Musical_script_req *m = new Musical_script_req;
-		$$ = m;
-		m->scriptdef_p_ = $2;
-		m->set_spot (THIS->here_input ());
-		if (!m->dir_)
-		  m->dir_  = (Direction)$1;
-	}
-	;
-
-gen_script_def:
-	text_def	{ 
-		$$ = $1;
-		((Text_def*) $$)->align_dir_ = LEFT; /* UGH */
-	}
-	| mudela_script	{ 
-		$$ = $1;
-		$$-> set_spot (THIS->here_input ());
-	}
-	| finger {
-		$$ = $1;
-		((Text_def*)$$)->align_dir_ = RIGHT; /* UGH */
-	}
-	;
-
-text_def:
+gen_text_def:
 	string {
-		Text_def *t  = new Text_def;
+		Text_script_req *t  = new Text_script_req;
 		$$ = t;
 		t->text_str_ = *$1;
 		delete $1;
 		$$->set_spot (THIS->here_input ());
 	}
-	;
-
-finger:
-	 DIGIT {
-		Text_def* t  = new Text_def;
+	| DIGIT {
+		Text_script_req* t  = new Text_script_req;
 		$$ = t;
 		t->text_str_ = to_str ($1);
 		t->style_str_ = "finger";
@@ -1247,40 +1213,25 @@ finger:
 
 script_abbreviation:
 	'^'		{
-		$$ = THIS->lexer_p_
-		->lookup_identifier ("dash-hat")->access_content_String (true)
-
+		$$ = new String ("hat");
 	}
 	| '+'		{
-		$$ = THIS->lexer_p_
-		->lookup_identifier ("dash-plus")->access_content_String (true)
- }
-	| '-'		{
-		$$ = THIS->lexer_p_
-		->lookup_identifier ("dash-dash")->access_content_String (true)
- }
+		$$ = new String ("plus");
+	}
+	| '-' 		{
+		$$ = new String ("dash");
+	}
  	| '|'		{
-		$$ = THIS->lexer_p_
-		->lookup_identifier ("dash-bar")->access_content_String (true)
- }
+		$$ = new String ("bar");
+	}
 	| '>'		{
-		$$ = THIS->lexer_p_
-		->lookup_identifier ("dash-larger")->access_content_String (true)
- }
+		$$ = new String ("larger");
+	}
 	| '.' 		{
-		$$ = THIS->lexer_p_
-		->lookup_identifier ("dash-dot")->access_content_String (true);
+		$$ = new String ("dot");
 	}
 	;
 
-mudela_script:
-	SCRIPT_IDENTIFIER		{ $$ = $1->access_content_General_script_def (true); }
-	| script_definition		{ $$ = $1; }
-	| script_abbreviation		{
-		$$ = THIS->lexer_p_->lookup_identifier (*$1)->access_content_General_script_def (true);
-		delete $1;
-	}
-	;
 
 script_dir:
 	'_'	{ $$ = DOWN; }
@@ -1421,6 +1372,7 @@ notemode_chord:
                 $$ = THIS->get_chord (*$1, $3, $4, $5, *$2);
         };
 
+
 chord_additions: 
 	{
 		$$ = new Array<Musical_pitch>;
@@ -1439,6 +1391,21 @@ chord_notes:
 		$$->push (*$2);
 	}
 	;
+
+chord_subtractions: 
+	{
+		$$ = new Array<Musical_pitch>;
+	} 
+	| '^' chord_notes {
+		$$ = $2;
+	}
+	;
+
+
+/*
+	forevery : X : optional_X sucks. Devise  a solution.
+*/
+
 
 chord_addsub:
 	chord_note optional_dot
@@ -1483,15 +1450,6 @@ chord_note:
 		$$->accidental_i_ = -1;
 	}
         ;
-
-chord_subtractions: 
-	{
-		$$ = new Array<Musical_pitch>;
-	} 
-	| '^' chord_notes {
-		$$ = $2;
-	}
-	;
 
 /*
 	UTILITIES

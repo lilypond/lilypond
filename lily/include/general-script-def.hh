@@ -10,6 +10,8 @@
 #ifndef GENERAL_SCRIPT_DEF_HH
 #define GENERAL_SCRIPT_DEF_HH
 
+
+
 #include "lily-proto.hh"
 #include "input.hh"
 #include "virtual-methods.hh"

@@ -13,9 +13,6 @@
 #include "stem.hh"
 #include "general-script-def.hh"
 
-
-
-
 void
 Script_column::add_script (Script*s_l)
 {
@@ -119,3 +116,4 @@ Script_column::do_substitute_element_pointer (Score_element*o,Score_element*n)
 				 dynamic_cast <Item *> (n));
     }
 }
+

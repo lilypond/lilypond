@@ -12,6 +12,9 @@
 
 #include "item.hh"
 
+/**
+   Print a text in specified style.
+ */
 class G_text_item : public Item
 {
 public:

@@ -244,7 +244,7 @@ fet_beginchar("Whole diamondhead", "0diamond", "wholediamondhead")
 	err_y_a:=0; % no slant
 	tilt:=0;
 	superness:=0.495;
-	ai_a:=0.400;
+	ai_a:=0.350;
 	% ai_bi:=1.23;
 	ai_bi:=1.30; % jcn
 	% err_y_ai:=0.0938;

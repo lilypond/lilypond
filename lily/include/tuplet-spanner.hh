@@ -6,7 +6,7 @@
 
 #ifndef Tuplet_spanner_HH
 #define Tuplet_spanner_HH
-#include "text-def.hh"
+
 #include "pointer.hh"
 #include "directional-spanner.hh"
 
@@ -19,7 +19,12 @@ public:
  
   void add_column (Note_column*);
   void set_beam (Beam*);
-  P<Text_def>  tdef_p_;
+  
+
+  String  number_str_;
+  /*
+    junk us.
+   */
   bool bracket_visibility_b_;
   bool num_visibility_b_;
   

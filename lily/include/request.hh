@@ -25,14 +25,9 @@
 
  */
 class Request : public Music {
-
 public:
-    
   virtual ~Request(){}
-
-  
   VIRTUAL_COPY_CONS(Music);
-    
   bool equal_b (Request*) const;
 protected:
   virtual bool do_equal_b (Request*) const;
@@ -40,26 +35,27 @@ protected:
 };
 
 
-#define REQUESTMETHODS(T)	\
-\
-VIRTUAL_COPY_CONS(Request);\
-virtual void do_print() const
 
-
+class G_script_req : public virtual Request
+{
+public:
+  Direction dir_;
+  VIRTUAL_COPY_CONS(Music);
+};
 
 /** Put a script above or below this ``note'' or bar. eg upbow, downbow. Why
   a request? These symbols may conflict with slurs and brackets, so
   this also a request */
 
-class Script_req  : public virtual Request { 
+class Script_req  : public virtual G_script_req { 
 public:
-  Direction dir_;
   General_script_def *scriptdef_p_;
   
   bool do_equal_b (Request*) const;
 
   Script_req();
-  REQUESTMETHODS(Script_req);
+  VIRTUAL_COPY_CONS(Music);
+  virtual void do_print () const;
   ~Script_req();
   Script_req (Script_req const&);
 };
@@ -73,10 +69,12 @@ class Span_req  : public virtual Request  {
 public:
   /// should the spanner start or stop, or is it unwanted?
   Direction spantype_;
-  bool do_equal_b (Request*) const;
-  REQUESTMETHODS(Span_req);
 
   Span_req();
+protected:
+  virtual bool do_equal_b (Request*) const;
+  virtual void do_print() const;
+  VIRTUAL_COPY_CONS(Music);
 };
 
 /**
@@ -84,13 +82,13 @@ public:
  */
 class Tie_req : public Request {
 public:
-  REQUESTMETHODS(Tie_req);
+  VIRTUAL_COPY_CONS(Music);
 };
 
 /** Start / stop a beam at this note */
 class Beam_req  : public Span_req  {
 public:
-  REQUESTMETHODS(Beam_req);
+  VIRTUAL_COPY_CONS(Music);
 };
 
 #endif
