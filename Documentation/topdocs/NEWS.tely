@@ -29,8 +29,9 @@ See user manual, \NAME\
 
 @itemize @bullet
 @item
-Notes with ledger lines will be kept at a distance, so the lines do
-not disappear.
+Notes with ledger lines will be kept at a distance, so they never
+disappear.
+
 @item
 Clefs that are below notes of other staves are now spaced according to
 engraving conventions.
