@@ -137,10 +137,10 @@ Hairpin
 \\HaraKiriStaffContext
 \\header
 \\hideStaffSwitch
+\\hsize
 \\hspace
 \\huge
 \\Huge
-\\hsize
 \\ictus
 \\improOff
 \\improOn
@@ -182,8 +182,8 @@ Lyrics
 \\LyricsContext
 LyricsVoice
 \\LyricsVoiceContext
-\\major
 \\magnify
+\\major
 \\marcato
 \\mark
 \\markup
@@ -226,8 +226,8 @@ NoteHead
 NoteNames
 \\NoteNamesContext
 \\notes
-\\number
 \\nt
+\\number
 \\once
 \\one
 \\onestaff
@@ -387,8 +387,8 @@ Stem
 \\stemUp
 \\stop
 \\stopCluster
-\\stopTextSpan
 \\stopped
+\\stopTextSpan
 \\stpaper
 \\stscore
 \\stuff
