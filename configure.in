@@ -196,7 +196,12 @@ fi
     
 if test $BISON = "error" 
 then
-	AC_MSG_WARN(can't find bison. Please install Bison (1.24 or better))
+	AC_MSG_WARN(can't find bison. Please install Bison (1.25 or better))
+else
+    bison_version=`$BISON --version| sed 's/^.*version 1.//g' `
+    if test $bison_version -lt 25; then
+	AC_MSG_WARN(Your bison is too old (1.$bison_version). Please install 1.25)
+    fi	
 fi
 
 if test $PODMAN = "error" 
