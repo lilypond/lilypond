@@ -1,0 +1,218 @@
+% eindelijk.mf
+% LilyPond's own rest(s)
+
+% todo breve/longa rests
+
+
+fet_begingroup("rests");
+
+begingroup
+
+med#:=1/33designsize;
+thick#:=1/16designsize;
+define_blacker_pixels(med,thick);
+pen med_pen;
+med_pen:= pencircle scaled med;
+
+rthin:=1/8interline;
+% rthick:=2rthin;
+rthick:=2thick+rthin;
+
+def shift_pic (expr pone, ptwo) =
+  currentpicture:=currentpicture shifted (round(pone),round(ptwo))
+enddef;
+
+% stuff for     8th,16th etc rests
+%
+save stem, ball_crook_stem, ball_crook_balldiam, flare;
+
+define_pixels(stem,flare);
+% stem#:=1/8interline#;
+stem# = 1/5interline#;
+ball_crook_stem = stem;
+ball_crook_balldiam =flare;
+flare# = 2/3interline#;
+
+save block_rest_y, block_rest_x;
+
+block_rest_y# = 5/8 interline#;
+block_rest_x# = 3/2 interline#;
+
+define_pixels(block_rest_y, block_rest_x);
+
+def block_rest=
+	pickup pencircle scaled blot_diameter;
+
+	bot y1 = 0;
+	top y2 = block_rest_y;
+	y3 = y2;
+	y4 = y1;
+
+	rt x1 = block_rest_x;
+	x2 = x1;
+	lft x3 = 0;
+	x4 = x3;
+	save p;
+	path p;
+	p:=z1 -- z2 -- z3 -- z4 -- cycle;
+	draw_rounded_path(p, blot_diameter);
+enddef;
+
+fet_beginchar( "whole rest", "0", "wholerest");
+set_char_box(0, block_rest_x#, -interline# + block_rest_y#,  interline# );
+	block_rest;
+	currentpicture := currentpicture shifted (0,interline - block_rest_y);
+fet_endchar;
+
+fet_beginchar("half rest", "1", "halfrest");
+	set_char_box(0, block_rest_x#, 0, block_rest_y#);
+	block_rest;
+fet_endchar;
+
+
+%
+% should use ledgerline thickness?
+%
+fet_beginchar( "whole rest (outside staff)", "0o", "outsidewholerest");
+	set_char_box(block_rest_y#, block_rest_x# + block_rest_y#, 
+		-interline# + block_rest_y#, interline#);
+	block_rest;
+	currentpicture := currentpicture shifted (0,interline - block_rest_y);
+	pickup pencircle scaled ledgerlinethickness;
+	draw (-block_rest_y, interline) 
+             .. (block_rest_x + block_rest_y, interline);
+fet_endchar;
+
+fet_beginchar("half rest (outside staff)", "1o", "outsidehalfrest");
+	set_char_box(block_rest_y#, block_rest_x#+ block_rest_y#, 
+		0, block_rest_y#);
+	block_rest;
+	pickup pencircle scaled ledgerlinethickness;
+	draw (-block_rest_y,0) .. (block_rest_x + block_rest_y,0);
+fet_endchar;
+
+def rest_crook(expr a, w) =
+	balled_crook(a, w, ball_crook_balldiam, ball_crook_stem)
+enddef;
+
+fet_beginchar("Quarter rest","2","quartrest");
+	alpha:=-50;
+	penpos1(rthin,alpha+90);
+	penpos2(5/4rthick,alpha);
+	penpos4(5/4rthick,alpha);
+	penpos3(3/4rthick,alpha);
+	penpos6(rthin,alpha-20);
+%	penpos6(rthick,alpha-20);
+%	penpos7(4/3thick,alpha);
+	penpos7(5/8rthick,alpha);
+	penpos8(rthin,-10);
+	y1l=7/2interline; x1l=1/3interline;
+	z2r=z1+(interline*right) rotated alpha;
+	z3=1/2[z2,z4];
+	x4=3/8interline; y4=2interline;
+	z6=z4l+(5/4interline*right) rotated alpha;
+%	x7l=x4l; y7r=y6l;
+	x7l=x4l; y7l=y4r;
+	x8=2/5interline; y8= 3/4 interline;
+	z5=z6r shifted (sqrt(2)*rthin/4,sqrt(2)*rthin/4);
+
+	pickup penrazor scaled rthin rotated 45;
+	draw z1--z2r; 
+	draw z4l--z5;
+	penstroke z2e..z3e..z4e;
+	penstroke z6e..tension1.4..z7e..tension1.4..z8e;
+	penlabels(1,2,3,4,5,6,7,8);
+	set_char_box(0, interline#, -3/4 interline#, 7/2 interline#);
+	fet_endchar;
+
+fet_beginchar("8th rest","3","eighthrest");
+	set_char_box(0, 4/3interline#,-interline#, 8/3interline#+2stafflinethickness#);
+	save x,y, ht;
+	ht = h + d;
+	x1=w-stem/6; y1=ht-flare/4;
+	rest_crook (z1,w-stem/6);
+	z2-z1=whatever*dir70;
+	y2=stem/2;
+	brush (z1,stem/3,z2,stem);
+	% ugh
+	currentpicture:=currentpicture shifted (0,interline);
+%	currentpicture:=currentpicture shifted (0,interline+2stafflinethickness);
+	fet_endchar;
+
+fet_beginchar("16th rest","4","sixteenthrest");
+	set_char_box(0,4/3interline#,0, 5/3interline#+interline#+2stafflinethickness#);
+	save x,y;
+	x1=w-stem/6; y1=h-flare/4;
+	z2-z1=whatever*dir74;
+	y2=stem/2;
+	brush (z1,stem/2,z2,stem);
+	rest_crook (z1,7/8w);
+	z3-z1=whatever*dir74;
+	y3=y1-interline;
+	rest_crook (z3,7/8w);
+%	currentpicture:=currentpicture shifted (0,2stafflinethickness);
+	fet_endchar;
+
+fet_beginchar("32th rest","5","thirtysecondrest");
+	set_char_box(0,4/3interline#,0, 5/3interline#+2interline#+2stafflinethickness#);
+	save x,y;
+	x1=w-stem/6; y1=h-flare/4;
+	z2-z1=whatever*dir76;
+	y2=stem/2;
+	brush (z1,stem/2,z2,stem);
+	rest_crook (z1,7/8w);
+	z3-z1=whatever*dir76;
+	y3=y1-interline;
+	rest_crook (z3,7/8w);
+	z4-z1=whatever*dir76;
+	y4=y1-2interline;
+	rest_crook (z4,7/8w);
+%	currentpicture:=currentpicture shifted (0,2stafflinethickness);
+	fet_endchar;
+
+fet_beginchar("64th rest","6","sixtyfourthrest");
+	set_char_box(0,4/3interline#,0, 5/3interline#+3interline#+2stafflinethickness#);
+	save x,y;
+	x1=w-stem/6; y1=h-flare/4;
+	z2-z1=whatever*dir78;
+	y2=stem/2;
+	brush (z1,stem/2,z2,stem);
+	rest_crook (z1,7/8w);
+	z3-z1=whatever*dir78;
+	y3=y1-interline;
+	rest_crook (z3,7/8w);
+	z4-z1=whatever*dir78;
+	y4=y1-2interline;
+	rest_crook (z4,7/8w);
+	z5-z1=whatever*dir78;
+	y5=y1-3interline;
+	rest_crook (z5,7/8w);
+%	currentpicture:=currentpicture shifted (0,2stafflinethickness);
+	fet_endchar;
+
+fet_beginchar("128th rest","7","hundredtwentyeighthrest"); 
+	set_char_box(0, 4/3interline#, 0, 5/3interline#+4interline#+2stafflinethickness#);
+	save x,y;
+	x1=w-stem/6; y1=h-flare/4;
+	z2-z1=whatever*dir80;
+	y2=stem/2;
+	brush (z1,stem/2,z2,stem);
+	rest_crook (z1,7/8w);
+	z3-z1=whatever*dir80;
+	y3=y1-interline;
+	rest_crook (z3,7/8w);
+	z4-z1=whatever*dir80;
+	y4=y1-2interline;
+	rest_crook (z4,7/8w);
+	z5-z1=whatever*dir80;
+	y5=y1-3interline;
+	rest_crook (z5,7/8w);
+	z6-z1=whatever*dir80;
+	y6=y1-4interline;
+	rest_crook (z6,7/8w);
+%	currentpicture:=currentpicture shifted (0,2stafflinethickness);
+	fet_endchar;
+
+endgroup;
+fet_endgroup("rests");
+

@@ -135,7 +135,7 @@ main (int argc_i, char* argv_sz_a[])
 	    int i = str.index_i (':');
 	    i = (i >=0 ? i : str.length_i ());
 	    key.accidentals_i_ = String_convert::dec2_i (str.left_str (i));
-	    key.minor_i_ = (int)(bool)String_convert::dec2_i (str.mid_str (i,1));
+	    key.minor_i_ = (int)(bool)String_convert::dec2_i (str.mid_str (i + 1,1));
 	    break;
 	  }
 	case 'n':
@@ -198,8 +198,8 @@ main (int argc_i, char* argv_sz_a[])
 	if (!score_p)
 	  return 1;
 
-	if (!score_p->mudela_key_l_)
-	  score_p->mudela_key_l_ = &key;
+	// if given on command line: override
+	score_p->mudela_key_l_ = &key;
 	mudela_score_l_g = score_p;
 	score_p->process();
 

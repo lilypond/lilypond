@@ -1,5 +1,14 @@
 #!@PYTHON@
 
+# 
+# mf-deps.py -- dependencies for metafont 
+# 
+# source file of the GNU LilyPond music typesetter
+# 
+# (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+# 
+
+
 """look into metafont source for dependencies.
 
  fixme: python path

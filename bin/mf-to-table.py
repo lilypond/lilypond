@@ -1,5 +1,13 @@
 #!@PYTHON@
 
+# 
+# mf-to-table.py -- convert spacing info in  MF logs .ly and .tex
+# 
+# source file of the GNU LilyPond music typesetter
+# 
+# (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+# 
+
 import getopt
 from string import *
 import regex
@@ -7,6 +15,7 @@ import regsub
 import os
 import sys
 import time
+
 begin_autometric_re = regex.compile('@{')
 end_autometric_re = regex.compile('@}')
 autometric_re = regex.compile('@{\([^@]*\)@}')

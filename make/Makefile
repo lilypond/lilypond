@@ -22,9 +22,8 @@ SUBDIRS = debian
 
 # two outdir files are distributed, since they make sense to have without running 
 # configure and make.
-EXTRA_DISTFILES = Configure_variables.make.in lilypond.spec.in Toplevel.make.in \
-	lilypond.lsm.in $(outdir)/lilypond.spec $(outdir)/lilypond.lsm
-
+IN_FILES = $(wildcard *.in)
+EXTRA_DISTFILES = $(IN_FILES) $(outdir)/lilypond.spec $(outdir)/lilypond.lsm $(outdir)/lelievijver.lsm
 #
 
 # generic variables:
@@ -57,5 +56,6 @@ sed-docs=sed 's!@TEXT_DOCS@!${rpmdocs}!g'
 $(outdir)/lilypond.spec: lilypond.spec.in $(depth)/VERSION
 	cat $< | $(sed-version) | $(sed-docs) | $(sed-examples) > $@
 
-$(outdir)/lilypond.lsm: lilypond.lsm.in $(depth)/VERSION
+$(outdir)/%.lsm: %.lsm.in $(depth)/VERSION
 	cat $< | $(sed-version) | $(sed-date) > $@
+

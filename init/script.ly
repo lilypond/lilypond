@@ -26,6 +26,7 @@ rfheel = \script { "fheel" 0 0 1 0 0 }
 lftoe = \script { "ftoe" 0 0 -1 0 0 }
 rftoe = \script { "ftoe" 0 0 1 0 0 }
 turn = \script { "turn" 0 0 1 0 0 }
+open = \script { "open" 0 0 1 0 0 }
 
 %
 % left toe:      right heel:

@@ -15,12 +15,12 @@
 #include "mudela-score.hh"
 #include "mudela-staff.hh"
 
-Midi_track_parser::Midi_track_parser (Midi_parser_info* info_l)
+Midi_track_parser::Midi_track_parser (Midi_parser_info* info_l, int i)
 {
   info_l_ = info_l;
   at_mom_ = 0;
   track_info_p_ = 0;
-  mudela_staff_p_ = new Mudela_staff (0, "", "", "");
+  mudela_staff_p_ = new Mudela_staff (i, "", "", "");
   parse_header ();
   parse_delta_time ();
 }
@@ -53,7 +53,7 @@ Midi_track_parser::note_end (Mudela_column* col_l, int channel_i, int pitch_i, i
 
   assert (col_l);
 
-  for (PCursor<Mudela_note*> i (open_note_l_list_.top ()); i.ok (); i++) 
+  for (PCursor<Mudela_note*> i (open_note_l_list_.top ()); i.ok (); ) 
     {
       if ((i->pitch_i_ == pitch_i) && (i->channel_i_ == channel_i)) 
 	{
@@ -64,6 +64,8 @@ Midi_track_parser::note_end (Mudela_column* col_l, int channel_i, int pitch_i, i
 	  i.remove_p();
 	  return;
 	}
+      else
+	i++;
     }
   warning (String ("junking note-end event: ")
 	   + " channel = " + String_convert::i2dec_str (channel_i, 0, ' ')
@@ -75,13 +77,10 @@ Midi_track_parser::note_end_all (Mudela_column* col_l)
 {
   // find 
   assert (col_l);
-  for (PCursor<Mudela_note*> i (open_note_l_list_.top ()); i.ok (); i++) 
+  for (PCursor<Mudela_note*> i (open_note_l_list_.top ()); i.ok (); ) 
     {
       i->end_column_l_ = col_l;
-      i.remove_p();
-      // ugh
-      if (!i.ok())
-	break;
+      i.remove_p ();
     }
 }
 
@@ -276,6 +275,7 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
 	      Mudela_tempo* p = new Mudela_tempo ( useconds_per_4_u );
 	      item_p = p;
 	      info_l_->score_l_->mudela_tempo_l_ = p;
+	      mudela_staff_p_->mudela_tempo_l_ = p;
 	    }
 	  // SMPTE_OFFSET	[\x54][\x05]
 	  else if ((byte == 0x54) && (next == 0x05))
@@ -299,6 +299,7 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
 	      item_p = p;
 	      info_l_->score_l_->mudela_meter_l_ = p;
 	      info_l_->bar_mom_ = p->bar_mom ();
+	      mudela_staff_p_->mudela_meter_l_ = p;
 	    }
 	  // KEY		[\x59][\x02]
 	  else if ((byte == 0x59) && (next == 0x02))
@@ -309,6 +310,7 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
 	      Mudela_key* p = new Mudela_key (accidentals_i, minor_i);
 	      item_p = p;
 	      info_l_->score_l_->mudela_key_l_ = p;
+	      mudela_staff_p_->mudela_key_l_ = p;
 	    }
 	  // SSME		[\0x7f][\x03]
 	  else if ((byte == 0x7f) && (next == 0x03))

@@ -1,0 +1,201 @@
+% bolletjes.mf
+% part of LilyPond's pretty-but-neat music font
+
+% most beautiful noteheads are pronounced, not circular, 
+% and not even symmetric.
+% These examples are inspired by [Wanske] [see literature list]
+
+
+fet_begingroup("balls");
+
+noteheight#:=interline#+ (1 + overdone_heads) *stafflinethickness#;
+
+define_pixels(noteheight);
+
+
+
+def draw_brevis =
+	save beamheight, head_width;
+	save holeheight, stem_width;
+	save serif_size;
+
+	head_width# = 2 interline#;
+	holeheight = 3 stafflinethickness;
+	stem_width = 1.2 stafflinethickness;
+
+
+	define_pixels(head_width);
+	set_char_box(0, head_width#, noteheight#/2, noteheight#/2);
+	
+	2 beamheight + holeheight = noteheight;
+	serif_size = (holeheight - stafflinethickness)/2;
+
+	penpos1(stem_width, 0);
+	penpos2(stem_width, 0);
+	penpos3(beamheight, 90);
+	penpos4(beamheight, 90);
+	penpos5(stem_width, 180);
+
+	z1l = (0, 0);
+	z2l = (0, -stafflinethickness/2);
+	z3r = z2r + serif_size *(1,-1);
+	y4r = y3r;
+	x4r = head_width/2;
+	z5l = z3l + serif_size * (-1,-1);
+
+	penlabels(1,2,3,4, 5);
+	fill z1r -- z1l -- z5r{down} .. z5l{up} .. z3l{right}
+		-- z4l -- z4r -- z3r{left} .. z2r{up} -- cycle;
+
+	addto currentpicture also currentpicture yscaled -1;
+	addto currentpicture also currentpicture reflectedabout(z4r, z4l);
+enddef;
+
+fet_beginchar("Brevis notehead", "-1", "brevisball")
+	draw_brevis;
+fet_endchar;
+
+
+%
+% Some sources (eg Musix/OpusTeX think that the appendage should be on
+% the right, my only other ref [Willemze], shows an appendage to the left
+%
+fet_beginchar("Longa notehead", "-2", "longaball");
+	draw_brevis;
+	save theta;
+	z7 = z5;
+	z6 - z7 = (-stem_width/2, -interline);
+	theta = angle(z6-z7)+ 90;
+	penpos7(stafflinethickness, theta);
+	penpos6(stem_width, theta);
+	
+	fill z7r .. z6r{z6-z7} .. {z7-z6} z6l -- z7l -- cycle;
+	penlabels(6,7);
+fet_endchar;
+
+% setup user vars
+def setup_notehead_vars =
+	save a_b,err_y_a,tilt,superness;
+	save ai_a,ai_bi,err_y_ai,err_x_bi,inner_tilt,inner_superness;
+	save b_h,a_w;
+	enddef;
+
+% setup addititional vars and calc them
+def notehead_calc =
+	save a,beta,ai,bi, ht, wd;
+	ht# =noteheight#;
+	2beta#=ht#*b_h;
+	a# = beta#*a_b;
+	wd# = 2a# / a_w;
+	ai# = a# * ai_a;
+	bi# = ai#/ai_bi;
+	define_pixels(a,beta);
+	define_pixels(ai,bi);
+	set_char_box(0, wd#, .5 ht#, .5 ht#);
+	enddef;
+
+
+% draw the outer and inner ellipse.
+def notehead_draw =
+	path black,white;
+	black=distorted_ellipse(a,beta,a*err_y_a,0,superness);
+	white=distorted_ellipse(ai,bi,ai*err_y_ai,bi*err_x_bi,inner_superness);
+if test>1: %fixme
+		save x;
+		x1=-x3=a; x2=x4=0; y1=y3=0; y2=-y4=b;
+		penlabels(1,2,3,4);
+		test_grid;
+else:
+		black:=black rotated tilt;
+		black:=black shifted (w/2,0);
+		white:=white rotated inner_tilt;
+		white:=white shifted (w/2,0);
+fi
+		fill black;
+		unfill white;
+
+		
+	enddef;
+
+% whole note
+% Wanske, p.38
+fet_beginchar("Whole notehead", "0", "wholeball")
+	setup_notehead_vars;
+	
+	a_b:=1.80;
+	err_y_a:=0; % no slant
+	tilt:=0;
+	superness:=0.707;
+	ai_a:=0.508;
+	% ai_bi:=1.23;
+	ai_bi:=1.30; % jcn
+	% err_y_ai:=0.0938;
+	% err_x_bi:=0;
+	err_y_ai:=0;
+	err_x_bi:=0.115;
+	% inner_tilt:=135;
+	inner_tilt:=125; % jcn
+	% inner_superness:=0.69;
+	inner_superness:=0.68; % jcn
+	b_h:=1; %no rotate-> no height correction
+	a_w:=1; % no rotate-> no width correction
+
+	notehead_calc;
+	notehead_draw;
+fet_endchar;
+
+
+% half note
+% Wanske, p.39
+fet_beginchar("Half notehead", "1", 
+	"halfball")
+	setup_notehead_vars;
+		% a_b:=1.49; % after text
+	a_b:=1.50; % after drawing
+	err_y_a:=0.157;
+	tilt:=34;
+	% superness:=0.66;
+	superness:=0.67; % jcn
+	% ai_a:=0.863;
+	ai_a:=0.850; % jcn
+	% ai_bi:=3.14;
+	ai_bi:=3.30; % jcn
+	err_y_ai:=0;
+	err_x_bi:=-0.12;
+	inner_tilt:=tilt;
+	inner_superness:=0.80;
+	b_h:=0.935;
+	a_w:=1.12;
+
+	notehead_calc;
+	notehead_draw;
+fet_endchar;
+
+
+% quarter note
+% Wanske p.38
+fet_beginchar("Quart notehead", "2", "quartball")
+	setup_notehead_vars;
+	% a_b:=1.57; % after text
+	a_b:=1.54; % after drawing
+	err_y_a:=0.044;
+	tilt:=32;
+	superness:=0.707;
+	ai_a:=0;
+	ai_bi:=1;
+	err_y_ai:=0;
+	err_x_bi:=0;
+	inner_tilt:=0;
+	inner_superness:=0.707;
+	b_h:=0.85;
+	a_w:=1.09;
+
+	notehead_calc;
+	notehead_draw;
+fet_endchar;
+
+
+
+
+fet_endgroup("balls");
+

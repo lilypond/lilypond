@@ -119,15 +119,15 @@ Mudela_score::output (String filename_str)
 
   mudela_stream << "\\score{\n";
   if  (mudela_staff_p_list_.size() > 1)
-    mudela_stream << "<\n\\multi 3;\n";
+    mudela_stream << "\\multi 3 < \\type Staff\n";
   for  (PCursor<Mudela_staff*> i (mudela_staff_p_list_); i.ok(); i++) 
     {
       if  ( (mudela_staff_p_list_.size() != 1) 
 	    &&  (i == mudela_staff_p_list_.top()))
 	continue;
-      mudela_stream << "\\melodic{ ";
+      mudela_stream << "< \\melodic{ ";
       mudela_stream << "\\$" << i->id_str();
-      mudela_stream << " }\n";
+      mudela_stream << " } >\n";
     }
   if  (mudela_staff_p_list_.size() > 1)
     mudela_stream << ">\n";
@@ -136,7 +136,7 @@ Mudela_score::output (String filename_str)
 
   mudela_stream << "\\midi{\n";
   // let's not use silly 0 track
-  mudela_staff_p_list_.bottom()->mudela_tempo_p_->output (mudela_stream);
+  mudela_staff_p_list_.bottom()->mudela_tempo_l_->output (mudela_stream);
   mudela_stream << "}\n";
 
   mudela_stream << "}\n";

@@ -13,7 +13,7 @@ staffsize#:=16pt#;
 stafflines:=5;
 code:=-1;
 
-input generic-tja;
+input feta-generic;
 
 fet_endfont("font-en-tja");
 

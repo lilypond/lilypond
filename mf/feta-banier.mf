@@ -1,0 +1,84 @@
+% flags 
+%
+
+
+fet_begingroup("floogbars")
+
+save flag_angle, flare;
+save hip_thickness, hip_depth, hip_width;
+save foot_thickness, foot_depth, foot_width;
+
+flag_angle = 32;
+
+hip_thickness# = stafflinethickness#;
+foot_thickness# = blot_diameter#;
+flare# = 1.0 interline#;
+
+hip_depth# = 15/7 interline#; 
+hip_width# = 8/7 interline# + hip_thickness# /2 + stemthickness#/2;
+
+foot_depth# = flare# + 15/7 interline#;
+foot_width# = .885 hip_width#;
+
+
+define_pixels(flare, 
+	hip_depth, hip_width, hip_thickness,
+	foot_depth, foot_width, foot_thickness
+);
+
+%treq;
+
+
+%
+% Inspired by Adobe Sonata,
+% for example, see POSTSCRIPT Language -- program design, 
+% page 119
+%
+def draw_eight_flag =
+
+
+	penpos0(stemthickness, 0);
+	penpos1(flare, 90);
+	penpos2(hip_thickness, 0);
+	penpos3(foot_thickness, 0) ;
+	penpos4(stemthickness, 0);
+
+	z0r = z1r;
+	z0  = (0,0);
+	z2 = (hip_width, -hip_depth);
+	z3 = (foot_width, -foot_depth);
+	z4r = z1l;
+
+	save bot_dir, bot_path;
+	pair bot_dir;
+	path bot_path;
+	bot_path := z2{down} .. z3;
+	bot_dir := direction 1 of bot_path;
+
+	fill z1l{dir -flag_angle} .. z2l{down} .. 
+		z3l{bot_dir}  .. z3r{-bot_dir} ..
+		{up}z2r .. {up}z1r .. 
+		z0l{down} -- z4l -- cycle;
+		
+		;
+
+enddef;
+
+
+fet_beginchar("8th Flag (up)", "3u", "eighthflag")
+	set_char_box(stemthickness# /2, hip_width# + hip_thickness#/2, 
+		foot_depth# + foot_thickness#/2, stemthickness#/2)
+
+	draw_eight_flag;	
+	penlabels(0, 1, 2, 3, 4);
+fet_endchar;
+
+fet_beginchar("8th Flag (down)", "3d", "deighthflag")
+	set_char_box(stemthickness# /2, hip_width# + hip_thickness#/2, 
+		foot_depth# + foot_thickness#/2, stemthickness#/2)
+
+	draw_eight_flag;
+	y_mirror_char;
+fet_endchar;
+
+fet_endgroup("floogbars")

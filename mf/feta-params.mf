@@ -1,0 +1,35 @@
+
+interline#:=staffsize#/(stafflines-1);
+
+%
+%  [D.K.Roush & J.S.Gourlay] say this should be 0.072
+% We know better
+% generally, the "blackness" of most chars depends on this.
+%
+stafflinethickness#:=0.1 interline#;
+
+stemthickness# := stafflinethickness#;
+ledgerlinethickness# := 1.5 stafflinethickness#;
+
+define_pixels(interline, stemthickness);
+define_pixels(stafflinethickness,ledgerlinethickness);
+
+%
+% Hand-engraved music often has balls extending above and below
+% the lines.  If you like that, modify overdone heads (unit:
+% stafflinethickness)
+%
+
+numeric overdone_heads;
+overdone_heads = 0.0;
+
+% 
+% Because of the engraving/stamping process, no traditional
+% characters have sharp edges and corners
+% The following variable controls the amount of "roundness"
+%
+% this is not a meta variable: it is related to absolute sizes.
+%
+numeric blot_diameter;
+blot_diameter# = .4pt#;
+define_pixels(blot_diameter);

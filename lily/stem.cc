@@ -320,7 +320,7 @@ Stem::abbrev_mol () const
 }
 
 Molecule*
- Stem::brew_molecule_p () const 
+Stem::brew_molecule_p () const 
 {
   Molecule *mol_p =new Molecule;
   
@@ -361,9 +361,10 @@ Stem::note_delta_f () const
   Real r=0;
   if (head_l_arr_.size())
     {
-      r += head_l_arr_[0]->width ().length() * (stem_xdir_+1.0)/2.0;
-      if (stem_xdir_ == RIGHT)
-	r -= paper ()->rule_thickness ();
+      Interval head_wid(0,  head_l_arr_[0]->width ().length ());
+      Real rule_thick(paper ()->rule_thickness ());
+      Interval stem_wid(-rule_thick/2, rule_thick/2);
+      r = head_wid[stem_xdir_] - stem_wid[stem_xdir_];
     }
   return r;
 }

@@ -1,0 +1,21 @@
+% is this OK? Or is it a bug;
+% changing the order of z1l and z1r in reflectedabout 
+% stops mf from complaining
+fet_beginchar("open (unstopped)", "open", "ouvert")
+	save thin, height, width, thick;
+	height# = 5/4 width#;
+	height# = 2/3 interline#;
+	thin = .9 stafflinethickness;
+	thick =  1.4 thin;
+	set_char_box(width#/2, width#/2, 0, height#);
+	
+	penpos1(thick, 0);
+	penpos2(thin, 90);
+	z1r = (w,h/2);
+	z2r = (0, h);
+	penlabels(1,2);
+	penstroke z1e{up} .. {left}z2e;
+	addto currentpicture also currentpicture xscaled -1;
+	addto currentpicture also currentpicture reflectedabout(z1l, z1r);
+fet_endchar;
+fet_endgroup("foobars");

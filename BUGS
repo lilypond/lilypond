@@ -1,18 +1,5 @@
 Document Really Ugly Bugs (coredumps, assert fails, etc)
 
-[Solaris, fixed in pl13]
-
-Stack frame overwrite on Solaris 2.x (this will produce a seg
-fault, signal 11).  Stacktrace
-
-	Engraver_group_engraver::Engraver_group_engraver(int)
-	Score_engraver::Score_engraver( )
-	get_group_engraver_p()
-
-We don't know a fix or workaround, but compiling without optimisation
-might help (Without -O2 optimisation, my execs run fine on Solaris;
-without -O2, but with purify, it dumps core)
-
 
 [Linux Intel]
 
@@ -39,4 +26,8 @@ Typical stacktrace:
 
 
 I get bitten by this every once in a while, and I am very interested
-in hints what might be wrong.
+in hints what might be wrong.  This problem has only been identified
+with libc-5.3 and libc-5.4 platforms, so you might try upgrading to
+6.0, ie. GNU libc-2.
+
+
