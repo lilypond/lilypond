@@ -56,6 +56,7 @@ Performer_group_performer::do_announces ()
 {
   while (1)
     {
+      create_audio_elements ();
       performer_each (get_simple_trans_list (),
 		      &Performer::create_audio_elements);
   

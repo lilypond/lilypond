@@ -80,7 +80,7 @@ Score_engraver::prepare (Moment m)
   command_column_->set_property ("when", w);
   musical_column_->set_property ("when", w);
   
-  recurse_down_translators (daddy_context_, &Translator::start_translation_timestep, DOWN);
+  recurse_over_translators (daddy_context_, &Translator::start_translation_timestep, DOWN);
 }
 
 void
@@ -89,7 +89,7 @@ Score_engraver::finish ()
   if ((breaks_%8))
     progress_indication ("[" + to_string (breaks_) + "]");
 
-  recurse_down_translators (daddy_context_, &Translator::finalize, UP);
+  recurse_over_translators (daddy_context_, &Translator::finalize, UP);
 }
 
 /*
@@ -139,11 +139,11 @@ Score_engraver::one_time_step ()
 {
   if (!to_boolean (get_property ("skipTypesetting")))
     {
-      recurse_down_translators (daddy_context_, &Engraver::process_music, UP);
-      recurse_down_translators (daddy_context_, &Engraver::do_announces, UP);
+      recurse_over_translators (daddy_context_, &Engraver::process_music, UP);
+      recurse_over_translators (daddy_context_, &Engraver::do_announces, UP);
     }
   
-  recurse_down_translators (daddy_context_, &Translator::stop_translation_timestep, UP);
+  recurse_over_translators (daddy_context_, &Translator::stop_translation_timestep, UP);
 }
 
 void
