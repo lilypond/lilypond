@@ -1,5 +1,5 @@
 /*
-  midi-score-parser.hh -- declare 
+  midi-score-parser.hh -- declare Midi_score_parser
 
   source file of the GNU LilyPond music typesetter
 

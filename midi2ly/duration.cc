@@ -19,7 +19,6 @@
 #include "rational.hh"
 #include "duration.hh"
 #include "duration-convert.hh"
-#include "duration-iter.hh"
 
 // statics Duration
 int Duration::division_1_i_s = 384 * 4;
@@ -44,8 +43,8 @@ Duration::duration_type_b (int t)
 void
 Duration::compress (Rational m)
 {
-  plet_.iso_i_ *= m.num_i ();
-  plet_.type_i_ *= m.den_i (); 
+  plet_.iso_i_ *= m.num ();
+  plet_.type_i_ *= m.den (); 
 }
 
 Rational

@@ -1,4 +1,14 @@
---- ../lilypond-1.4.8.jcn1/CHANGES	Mon Oct  1 13:45:09 2001
+--- ../lilypond-1.4.8.jcn2/CHANGES	Mon Nov 12 15:35:25 2001
+++ b/CHANGES	Wed Nov 14 09:11:12 2001
+@@ -1,5 +1,7 @@
+-1.4.8.jcn2
+1.4.8.jcn3
+ ==========
+
+* Dropped-in fixed c++ midi2ly from 1.5.
+ 
+ * Backported lilypond-login.sh fixes.
+ --- ../lilypond-1.4.8.jcn1/CHANGES	Mon Oct  1 13:45:09 2001
 ++ b/CHANGES	Mon Nov 12 15:35:25 2001
 @@ -1,7 +1,11 @@
 -1.4.8.jcn1

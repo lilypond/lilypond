@@ -1,7 +1,7 @@
 //
 // lilypond-score.cc -- implement Lilypond_score
 //
-// copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
+// (c) 1997--2001 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #include <assert.h>
 #include "rational.hh"
@@ -192,7 +192,7 @@ Lilypond_score::quantify_columns ()
   int current_bar_i = 0;
   Rational bar_mom = lilypond_time_signature_l_->bar_mom ();
   
-  int n = 5 >? Duration_convert::no_smaller_than_i_s;
+  int n = 7 >? Duration_convert::no_smaller_than_i_s;
   n = Duration_convert::type2_i (n);
   Rational s = Rational (1, n);
   for (int i = 0; i < column_l_array_.size (); i++)

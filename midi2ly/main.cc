@@ -1,7 +1,7 @@
 //
 // main.cc -- implement  main () entry point
 //
-// copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
+// (c) 1997--2001 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #include <stdlib.h>
 #include <iostream.h>
@@ -121,7 +121,7 @@ usage()
   cout << '\n';
   cout << Long_option_init::table_str (long_option_init_a) << endl;
 
-  cout << _f ("Report bugs to %s", "bug-lilypond@gnu.org") << endl;
+  cout << _f ("Report bugs to %s", "bug-gnu-music@gnu.org") << endl;
 }
 
 void
