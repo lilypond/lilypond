@@ -293,5 +293,5 @@ Dot_column::add_head (Grob * me, Grob *rh)
 
 ADD_INTERFACE (Dot_column, "dot-column-interface",
   "Interface that groups dots so they form a column",
-  "direction stem");
+  "collision-done direction stem");
 

@@ -20,7 +20,7 @@ Translator_def::print_smob (SCM smob, SCM port, scm_print_state*)
   Translator_def* me = (Translator_def*) SCM_CELL_WORD_1 (smob);
 
   scm_puts ("#<Translator_def ", port);
-  scm_display (me->type_name_, port);
+  scm_display (me->context_name_, port);
   scm_puts (">", port);
   return 1;
 }
@@ -32,25 +32,23 @@ Translator_def::mark_smob (SCM smob)
   Translator_def* me = (Translator_def*) SCM_CELL_WORD_1 (smob);
 
   scm_gc_mark (me->description_);
-  scm_gc_mark (me->type_aliases_);
-  scm_gc_mark (me->consists_name_list_);
-  scm_gc_mark (me->accepts_name_list_);
-  scm_gc_mark (me->end_consists_name_list_);
+  scm_gc_mark (me->context_aliases_);
+  scm_gc_mark (me->accept_mods_);
+  scm_gc_mark (me->translator_mods_);
   scm_gc_mark (me->property_ops_);  
   scm_gc_mark (me->translator_group_type_);
-  return me->type_name_;
+  return me->context_name_;
 }
 
 
 Translator_def::Translator_def ()
 {
-  type_aliases_ = SCM_EOL;
+  context_aliases_ = SCM_EOL;
   translator_group_type_ = SCM_EOL;
-  accepts_name_list_ = SCM_EOL;   
-  consists_name_list_ = SCM_EOL;
-  end_consists_name_list_ = SCM_EOL;
+  accept_mods_ = SCM_EOL;
+  translator_mods_ = SCM_EOL;
   property_ops_ = SCM_EOL;
-  type_name_ = SCM_EOL;
+  context_name_ = SCM_EOL;
   description_ = SCM_EOL;
 
   smobify_self();
@@ -63,100 +61,140 @@ Translator_def::~Translator_def ()
 Translator_def::Translator_def (Translator_def const & s)
   : Input (s)
 {
-  type_aliases_ = SCM_EOL;
+  context_aliases_ = SCM_EOL;
   translator_group_type_ = SCM_EOL;
-  accepts_name_list_ = SCM_EOL;   
-  consists_name_list_ = SCM_EOL;
-  end_consists_name_list_ = SCM_EOL;
+  accept_mods_ = SCM_EOL;   
+  translator_mods_ = SCM_EOL;
   property_ops_ = SCM_EOL;
-  type_name_ = SCM_EOL;
+  context_name_ = SCM_EOL;
   description_ = SCM_EOL;
   
   smobify_self();
   description_ = s.description_;
 
-  consists_name_list_ = scm_list_copy (s.consists_name_list_);
-  end_consists_name_list_ = scm_list_copy (s.end_consists_name_list_);
-  accepts_name_list_ = scm_list_copy (s.accepts_name_list_);
-  property_ops_ = scm_list_copy (s.property_ops_);
-  type_aliases_ = scm_list_copy (s.type_aliases_);
-  translator_group_type_ = s.translator_group_type_;
-  type_name_ = s.type_name_;
-}
 
+  accept_mods_ = s.accept_mods_;
+  property_ops_ = s.property_ops_;
+  translator_mods_ = s.translator_mods_;
+  context_aliases_ = s.context_aliases_;
+  translator_group_type_ = s.translator_group_type_;
+  context_name_ = s.context_name_;
+}
 
 
 void
-Translator_def::set_acceptor (SCM name, bool add)
+Translator_def::add_context_mod (SCM mod)
 {
-  assert (gh_symbol_p (name));
-  if (add)
-    this->accepts_name_list_ = gh_cons (name, this->accepts_name_list_);
-  else
-    this->accepts_name_list_ = scm_delete_x (name, this->accepts_name_list_);
-}
+  SCM tag  = gh_car (mod);
+  if (ly_symbol2scm ("description")  == tag)
+    {
+      description_ = gh_cadr (mod);
+      return ;
+    }
 
+  SCM sym = gh_cadr (mod);
+  if (gh_string_p (sym))
+    sym = scm_string_to_symbol (sym);
+  
+  if (ly_symbol2scm ("consists") == tag
+      || ly_symbol2scm ("consists-end") == tag
+      || ly_symbol2scm ("remove") == tag)
+    {
+      if (!get_translator (sym))
+	error (_f ("Program has no such type: `%s'", ly_symbol2string (sym).to_str0 ()));
+      else
+	translator_mods_ = gh_cons (scm_list_2 (tag, sym), translator_mods_ );
+    }
+  else if (ly_symbol2scm ("accepts") == tag
+	   || ly_symbol2scm ("denies") == tag)
+    {
+      accept_mods_ = gh_cons (scm_list_2 (tag, sym), accept_mods_); 
+    }
+  else if (ly_symbol2scm ("poppush") == tag
+	   || ly_symbol2scm ("pop") == tag
+	   || ly_symbol2scm ("push") == tag
+	   || ly_symbol2scm ("assign") == tag
+	   || ly_symbol2scm ("unset") == tag)
+    {
+      property_ops_ = gh_cons (mod, property_ops_);
+    }
+  else if (ly_symbol2scm ("alias") == tag)
+    {
+      context_aliases_ = gh_cons (sym, context_aliases_);
+    }
+  else if (ly_symbol2scm ("translator-type")  == tag)
+    {
+      translator_group_type_ = sym;
+    }
+  else if (ly_symbol2scm ("context-name")  == tag)
+    {
+      context_name_ = sym;
+    }
+  else
+    {
+      programming_error ("Unknown context mod tag.");
+    }
+}
 
 SCM
-Translator_def::modify_definition (SCM list, SCM str, bool add)
+Translator_def::get_translator_names () const
 {
-  String s = ly_scm2string (str);
-  if (!get_translator (s))
-    error (_ ("Program has no such type"));
+  SCM l1 = SCM_EOL;
+  SCM l2 = SCM_EOL;
 
-  if (add)
+  SCM mods = scm_reverse (translator_mods_);
+  for (SCM s = mods; gh_pair_p (s); s = gh_cdr (s))
     {
-      if (scm_memq (str, list) != SCM_BOOL_F)
+      SCM tag = gh_caar (s);
+      SCM arg = gh_cadar (s);
+
+      if (ly_symbol2scm ("consists") == tag)
+	l1 = gh_cons (arg, l1);
+      else if (ly_symbol2scm ("consists-end") == tag)
+	l2 = gh_cons (arg, l2);
+      else if (ly_symbol2scm ("remove") == tag)
 	{
-	  warning (_f ("Already contains: `%s'", s));
-	  warning (_f ("Not adding translator: `%s'", s));
+	  l1 = scm_delete_x (arg, l1);
+	  l2 = scm_delete_x (arg, l2);
 	}
-      else
-	list= gh_cons (str, list);
     }
-  else
+
+  return scm_append_x (scm_list_2 (l1, l2));
+}
+
+SCM
+Translator_def::get_context_name () const
+{
+  return context_name_;
+}
+
+SCM
+Translator_def::get_accepted () const
+{
+  SCM correct_order = scm_reverse (accept_mods_);
+  SCM acc = SCM_EOL;
+  for (SCM s = correct_order; gh_pair_p (s); s = gh_cdr (s))
     {
-      list = scm_delete_x (str, list);
+      SCM tag = gh_caar (s);
+      SCM sym = gh_cadar (s);
+      if (tag == ly_symbol2scm ("accepts"))
+	acc = gh_cons (sym, acc);
+      else if (tag == ly_symbol2scm ("denies"))
+	acc = scm_delete_x (sym, acc);
     }
-  return list;
+  return acc;
 }
 
-
-
-void
-Translator_def::remove_element (SCM s)
-{
-  this->end_consists_name_list_ = modify_definition (this->end_consists_name_list_, s, false);
-  this->consists_name_list_ = modify_definition (this->consists_name_list_, s, false);
-}
-
-void
-Translator_def::add_element (SCM s)
-{
-  this->consists_name_list_ = modify_definition (this->consists_name_list_, s, true);
-}
-
-void
-Translator_def::add_last_element (SCM s)
-{
-  this->end_consists_name_list_ = modify_definition (this->end_consists_name_list_, s, true);
-}
-
-void
-Translator_def::add_property_operation (SCM what)
-{
-  this->property_ops_ = gh_cons (what, this->property_ops_);
-}
-
-
-
+	   
 Link_array<Translator_def>
 Translator_def::path_to_acceptable_translator (SCM type_sym, Music_output_def* odef) const
 {
   assert (gh_symbol_p (type_sym));
   
+  SCM accepted = get_accepted ();
+
   Link_array<Translator_def> accepteds;
-  for (SCM s = accepts_name_list_; gh_pair_p (s); s = ly_cdr (s))
+  for (SCM s = accepted; gh_pair_p (s); s = ly_cdr (s))
     {
       Translator_def *t = unsmob_translator_def (odef->find_translator (ly_car (s)));
       if (!t)
@@ -170,7 +208,7 @@ Translator_def::path_to_acceptable_translator (SCM type_sym, Music_output_def* o
       /*
 	don't check aliases, because \context Staff should not create RhythmicStaff.
       */
-      if (gh_equal_p (accepteds[i]->type_name_, type_sym))
+      if (gh_equal_p (accepteds[i]->get_context_name (), type_sym))
 	{
 	  best_result.push (accepteds[i]);
 	  return best_result;
@@ -205,12 +243,12 @@ IMPLEMENT_DEFAULT_EQUAL_P (Translator_def);
 
 
 static SCM
-trans_list (SCM namelist, Translator_group*tg)
+names_to_translators (SCM namelist, Translator_group*tg)
 {
   SCM l = SCM_EOL;
   for (SCM s = namelist; gh_pair_p (s) ; s = ly_cdr (s))
     {
-      Translator * t = get_translator (ly_scm2string (ly_car (s)));
+      Translator * t = get_translator (ly_car (s));
       if (!t)
 	warning (_f ("can't find: `%s'", s));
       else
@@ -232,21 +270,15 @@ trans_list (SCM namelist, Translator_group*tg)
 Translator_group *
 Translator_def::instantiate (Music_output_def* md)
 {
-  Translator * g = get_translator (ly_scm2string (translator_group_type_));
+  Translator * g = get_translator (translator_group_type_);
   g = g->clone (); 
 
   Translator_group *tg = dynamic_cast<Translator_group*> (g);
   tg->output_def_ = md;
   tg->definition_ = self_scm ();
 
-  /*
-    TODO: ugh. we're reversing CONSISTS_NAME_LIST_ here
-   */
-  SCM l1 = trans_list (consists_name_list_, tg);
-  SCM l2 =trans_list (end_consists_name_list_,tg);
-  l1 = scm_reverse_x (l1, l2);
-  
-  tg->simple_trans_list_ = l1;
+  SCM trans_names = get_translator_names (); 
+  tg->simple_trans_list_ = names_to_translators (trans_names, tg);
   
   return tg;
 }
@@ -282,7 +314,7 @@ Translator_def::make_scm ()
 SCM
 Translator_def::default_child_context_name ()
 {
-  SCM d = accepts_name_list_;
+  SCM d = get_accepted ();
   return gh_pair_p (d) ? ly_car (scm_last_pair (d)) : SCM_EOL;
 }
 
@@ -290,21 +322,25 @@ SCM
 Translator_def::to_alist () const
 {
   SCM l = SCM_EOL;
-  
-  l = gh_cons (gh_cons (ly_symbol2scm ("consists"),  consists_name_list_), l);
-  l = gh_cons (gh_cons (ly_symbol2scm ("description"),  description_), l);
-  l = gh_cons (gh_cons (ly_symbol2scm ("aliases"),  type_aliases_), l);
-  l = gh_cons (gh_cons (ly_symbol2scm ("end-consists"),
-			end_consists_name_list_), l);
-  l = gh_cons (gh_cons (ly_symbol2scm ("accepts"),  accepts_name_list_), l);
-  l = gh_cons (gh_cons (ly_symbol2scm ("property-ops"),  property_ops_), l);
 
-  /*
-    junkme:
-   */
-  l = gh_cons (gh_cons (ly_symbol2scm ("type-name"),  type_name_), l);
-  
+  l = gh_cons (gh_cons (ly_symbol2scm ("consists"),  get_translator_names ()), l);
+  l = gh_cons (gh_cons (ly_symbol2scm ("description"),  description_), l);
+  l = gh_cons (gh_cons (ly_symbol2scm ("aliases"),  context_aliases_), l);
+  l = gh_cons (gh_cons (ly_symbol2scm ("accepts"),  get_accepted ()), l);
+  l = gh_cons (gh_cons (ly_symbol2scm ("property-ops"),  property_ops_), l);
+  l = gh_cons (gh_cons (ly_symbol2scm ("context-name"),  context_name_), l);
   l = gh_cons (gh_cons (ly_symbol2scm ("group-type"),  translator_group_type_), l);    
 
   return l;  
+}
+
+bool
+Translator_def::is_alias (SCM sym) const
+{
+  bool b  = sym == context_name_;
+
+  for (SCM a = context_aliases_; !b && gh_pair_p (a); a = ly_cdr (a))
+    b = b || sym == ly_car (a);
+
+  return b;
 }

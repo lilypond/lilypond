@@ -105,7 +105,7 @@ node."
        (engravers (filter
 		   (lambda (x) (engraver-makes-grob? name x)) all-engravers-list))
        (namestr (symbol->string name))
-       (engraver-names (map ly:translator-name engravers))
+       (engraver-names (map symbol->string (map ly:translator-name engravers)))
        )
 
     (make <texi-node>

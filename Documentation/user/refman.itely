@@ -673,8 +673,6 @@ be deleted without changing the meaning of the piece.
    }
 @end lilypond
 
-
-
 @node Bar check
 @subsection Bar check
 @cindex Bar check
@@ -695,6 +693,14 @@ In the next example, the second bar check will signal an error:
   \time 3/4 c2 e4 | g2 | 
 @end example
 
+Bar checks can also be used in lyrics, for example 
+
+@example
+  \lyrics @{
+    \time 2/4
+    Twin -- kle | Twin -- kle
+  @} 
+@end example
 
 
 @cindex skipTypesetting
@@ -1181,8 +1187,12 @@ are called @internalsref{BarLine}, the bar lines that span staves are
 
 The barlines at the start of each system are
 @internalsref{SystemStartBar}, @internalsref{SystemStartBrace}, and
-@internalsref{SystemStartBracket}.  They are spanner objects and
-typically must be tuned from a @code{\translator} block.
+@internalsref{SystemStartBracket}.  Only one of these types is created
+in every context, and that type is determined by the property
+@code{systemStartDelimiter}.  They are spanner objects and therefore
+the objects, as well as @code{systemStartDelimiter} must be set from a
+@code{\translator} block (see @ref{Defining contexts}) or using
+@code{\with} (see @code{Tuning spanning contexts}).
 
 
 @node Polyphony
@@ -2508,6 +2518,7 @@ used to typeset two lines of lyrics in songs with repeats, see
 @inputfileref{input,star-spangled-banner.ly}.
 @end ignore
 
+@c tremolo, beamed
 @item tremolo
 Make tremolo beams.
 
@@ -2650,28 +2661,35 @@ alphabetic characters. Or,
 
 To place tremolo marks between notes, use @code{\repeat} with tremolo
 style:
-@lilypond[verbatim,center,singleline]
+@lilypond[verbatim,singleline]
 \score { 
   \context Voice \notes\relative c' {
     \repeat "tremolo" 8 { c16 d16 }
     \repeat "tremolo" 4 { c16 d16 }    
     \repeat "tremolo" 2 { c16 d16 }
-    \repeat "tremolo" 4 c16
   }
 }
 @end lilypond
 
+Tremolo marks can also be put on a single note.  In this case, the
+note should not be surrounded by braces.
+@lilypond[verbatim,singleline]
+    \repeat "tremolo" 4 c16
+@end lilypond
+
+A similar mechanism  is the tremolo subdivision, described in
+@ref{Tremolo subdivisions}.
+
 @seealso
 
-Tremolo beams are @internalsref{Beam} objects. Single stem tremolos
-are @internalsref{StemTremolo}s.  The music expression is
-@internalsref{TremoloEvent}.
+In this manual: @ref{Tremolo subdivisions}, @ref{Repeats}.
 
+Internals: tremolo beams are @internalsref{Beam} objects. Single stem
+tremolos are @internalsref{StemTremolo}s.  The music expression is
+@internalsref{TremoloEvent},
 
-@refbugs
-
-The single stem tremolo must be entered without @code{@{} and
-@code{@}}.
+Example files: @inputfileref{input/regression,chord-tremolo.ly},
+@inputfileref{input/regression,stem-tremolo.ly}.
 
 @node Tremolo subdivisions
 @subsection Tremolo subdivisions
@@ -2694,6 +2712,11 @@ length is omitted, then then the last value (stored in
 
 Tremolos in this style do not carry over into the MIDI output.
 
+@seealso
+
+In this manual: @ref{Tremolo repeats}.
+
+Elsewhere: @internalsref{StemTremolo}, @internalsref{TremoloEvent}.
 
 @node Measure repeats
 @subsection Measure repeats
@@ -3126,7 +3149,7 @@ quality output, staff switches should be specified manually.
 
 Voices can be switched between staves manually, using the following command:
 @example
-  \translator Staff = @var{staffname} @var{music}
+  \change Staff = @var{staffname} @var{music}
 @end example
 
 @noindent
@@ -3290,7 +3313,7 @@ can be printed automatically. This is enabled if the property
     \property PianoStaff.followVoice = ##t
     \context Staff \context Voice {
       c1
-      \translator Staff=two
+      \change Staff=two
       b2 a
     }
     \context Staff=two { \clef bass \skip 1*2 }
@@ -3718,10 +3741,8 @@ chord.
 @cindex Non-guitar tablatures
 
 You can change the number of strings, by setting the number of lines
-in the @internalsref{TabStaff} (the @code{line-count} property of
-@internalsref{TabStaff} can only be changed using
-@code{\applyoutput}, for more information, see @ref{Tuning
-objects}).
+in the @internalsref{TabStaff}. For more information, see @ref{Tuning
+spanning contexts}).
 
 You can change the tuning of the strings. A string tuning is given as
 a Scheme list with one integer number for each string, the number

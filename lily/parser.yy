@@ -86,7 +86,7 @@ TODO:
 
 Music *property_op_to_music (SCM op);
 Music *context_spec_music (SCM type, SCM id, Music * m, SCM ops_);
-
+SCM get_next_unique_context ();
 
 #define YYERROR_VERBOSE 1
 
@@ -246,6 +246,7 @@ yylex (YYSTYPE *s,  void * v)
 %token AUTOCHANGE
 %token BAR
 %token BREATHE
+%token CHANGE
 %token CHORDMODIFIERS  
 %token CHORDS
 %token LESSLESS
@@ -315,7 +316,7 @@ yylex (YYSTYPE *s,  void * v)
 %type <i>	exclamations questions dots optional_rest
 %type <i>  	 bass_mod
 %type <scm> 	grace_head
-%type <scm> 	prop_ops_body optional_prop_ops
+%type <scm> 	property_operation_list
 %type <scm>  	lyric_element
 %type <scm> 	bass_number br_bass_figure bass_figure figure_list figure_spec
 %token <i>	DIGIT
@@ -380,8 +381,9 @@ yylex (YYSTYPE *s,  void * v)
 %type <scm>  embedded_scm scalar
 %type <music>	Music Sequential_music Simultaneous_music 
 %type <music>	relative_music re_rhythmed_music part_combined_music
-%type <music>	music_property_def translator_change 
-%type <scm> Music_list property_operation
+%type <music>	music_property_def context_change 
+%type <scm> Music_list
+%type <scm> property_operation context_mod translator_mod
 %type <outputdef>  music_output_def_body
 %type <music> shorthand_command_req
 %type <music>	post_event tagged_post_event
@@ -594,49 +596,19 @@ translator_spec_body:
 	}
 	| TRANSLATOR_IDENTIFIER	{
 		$$ = $1;
-		unsmob_translator_def ($$)-> set_spot (THIS->here_input ());
-	}
-	| translator_spec_body TYPE STRING 	{
-		unsmob_translator_def ($$)->translator_group_type_ = $3;
-	}
-	| translator_spec_body DESCRIPTION string  {
-		unsmob_translator_def ($$)->description_ = $3;
-	}
-	| translator_spec_body property_operation {
-		unsmob_translator_def ($$)->add_property_operation ($2);
-	}
-	| translator_spec_body NAME STRING  {
-		unsmob_translator_def ($$)->type_name_ = scm_string_to_symbol ($3);
-	}
-	| translator_spec_body CONSISTS STRING  {
-		unsmob_translator_def ($$)->add_element ($3);
-	}
-	| translator_spec_body ALIAS STRING  {
-		Translator_def*td = unsmob_translator_def ($$);
-		td->type_aliases_ = scm_cons (scm_string_to_symbol ($3), td->type_aliases_);
+		unsmob_translator_def ($$)->set_spot (THIS->here_input ());
 	}
 	| translator_spec_body GROBDESCRIPTIONS embedded_scm {
 		Translator_def*td = unsmob_translator_def($$);
 
 		for (SCM p = $3; gh_pair_p (p); p = ly_cdr (p)) {
 			SCM tag = gh_caar (p);
-			if (tag == ly_symbol2scm ("poppush"))
-				tag = ly_symbol2scm ("push");
-			td->add_property_operation (scm_list_n (ly_symbol2scm ("assign"),
+			td->add_context_mod (scm_list_n (ly_symbol2scm ("assign"),
 							tag, ly_cdar (p), SCM_UNDEFINED));
 		}
 	}
-	| translator_spec_body CONSISTSEND STRING  {
-		unsmob_translator_def ($$)->add_last_element ( $3);
-	}
-	| translator_spec_body ACCEPTS STRING  {
-		unsmob_translator_def ($$)->set_acceptor (scm_string_to_symbol ($3), true);
-	}
-	| translator_spec_body DENIES STRING  {
-		unsmob_translator_def ($$)->set_acceptor (scm_string_to_symbol ($3), false);
-	}
-	| translator_spec_body REMOVE STRING  {
-		unsmob_translator_def ($$)->remove_element ($3);
+	| translator_spec_body context_mod {
+		unsmob_translator_def ($$)->add_context_mod ($2);		
 	}
 	;
 
@@ -912,7 +884,7 @@ Simple_music:
 		$$ = unsmob_music ($1);
 	}
 	| music_property_def
-	| translator_change
+	| context_change
 	;
 
 
@@ -922,22 +894,12 @@ grace_head:
 	| APPOGGIATURA { $$ = scm_makfrom0str ("Appoggiatura"); }
 	;
 
-optional_prop_ops:
-	/* */ {
-		$$ = SCM_EOL;
-	}
-	| WITH '{' prop_ops_body '}' {
-		$$ = $3;
-	} 
-	;
-
-prop_ops_body:
+property_operation_list:
 	/* */  { $$ = SCM_EOL; }
-	| prop_ops_body property_operation  {
+	| property_operation_list property_operation  {
 		 $$ = gh_cons ($2, $1);
 	}
 	;
-	
 
 Composite_music:
 	AUTOCHANGE STRING Music	{
@@ -1002,21 +964,25 @@ basic music objects too, since the meaning is different.
 		scm_gc_unprotect_object ($2->self_scm ());
 #endif
 	}
-	| CONTEXT string '=' string optional_prop_ops Music {
-		$$ = context_spec_music ($2, $4, $6, $5);
+	| CONTEXT string '=' string Music {
+		$$ = context_spec_music ($2, $4, $5, SCM_EOL);
 
 	}
-	| CONTEXT STRING optional_prop_ops Music	{
-		$$ = context_spec_music ($2, SCM_UNDEFINED, $4, $3);
+	| CONTEXT STRING Music {
+		$$ = context_spec_music ($2, SCM_UNDEFINED, $3, SCM_EOL);
 	}
-	| NEWCONTEXT string optional_prop_ops Music {
-		static int new_context_count;
-
-		char s[1024];
-		snprintf (s, 1024, "uniqueContext%d", new_context_count ++);
+	| NEWCONTEXT string Music {
+		$$ = context_spec_music ($2, get_next_unique_context (),
+					 $3, SCM_EOL);
+	}
+	| TRANSLATOR string '{' property_operation_list '}' Music  {
+		$$ = context_spec_music ($2, get_next_unique_context (),
+					 $6, $4);
 		
-		SCM new_id = scm_makfrom0str (s);
-		$$ = context_spec_music ($2, new_id, $4, $3);
+	}
+	| TRANSLATOR string '=' string '{' property_operation_list '}' Music  {
+		$$ = context_spec_music ($2, $4, 
+					 $8, $6);
 	}
 	| TIMES {
 		THIS->push_spot ();
@@ -1151,8 +1117,8 @@ part_combined_music:
 	}
 	;
 
-translator_change:
-	TRANSLATOR STRING '=' STRING  {
+context_change:
+	CHANGE STRING '=' STRING  {
 		Music*t= MY_MAKE_MUSIC("TranslatorChange");
 		t-> set_mus_property ("change-to-type", scm_string_to_symbol ($2));
 		t-> set_mus_property ("change-to-id", $4);
@@ -1161,8 +1127,6 @@ translator_change:
 		$$->set_spot (THIS->here_input ());
 	}
 	;
-
-
 
 property_operation:
 	STRING '='  scalar {
@@ -1187,12 +1151,33 @@ property_operation:
 	}
 	;
 
+translator_mod:
+	CONSISTSEND { $$ = ly_symbol2scm ("consists-end"); }
+	| CONSISTS { $$ = ly_symbol2scm ("consists"); }
+	| REMOVE { $$ = ly_symbol2scm ("remove"); }
+
+	| ACCEPTS { $$ = ly_symbol2scm ("accepts"); }
+	| DENIES { $$ = ly_symbol2scm ("denies"); }
+
+	| ALIAS { $$ = ly_symbol2scm ("alias"); }
+	| TYPE { $$ = ly_symbol2scm ("translator-type"); }
+	| DESCRIPTION { $$ = ly_symbol2scm ("description"); }
+	| NAME { $$ = ly_symbol2scm ("context-name"); }
+	;
+
+context_mod:
+	property_operation { $$ = $1; }
+	| translator_mod STRING {
+		$$ = scm_list_n ($1, $2, SCM_UNDEFINED);
+	}
+	;
+
 music_property_def:
 	PROPERTY STRING '.' property_operation {
 		Music * t = property_op_to_music ($4);
 		Music *csm = MY_MAKE_MUSIC("ContextSpeccedMusic");
 
- 		csm->set_mus_property ("element", t->self_scm ());
+		csm->set_mus_property ("element", t->self_scm ());
 		scm_gc_unprotect_object (t->self_scm ());
 
 		$$ = csm;
@@ -1215,8 +1200,6 @@ scalar:
 	| full_markup {  $$ = $1; }
 	| DIGIT { $$ = gh_int2scm ($1); }
         ;
-
-
 
 /*
 This is a trick:
@@ -1548,11 +1531,13 @@ configurable, i.e.
 	}
 	| close_event {
 		$$ = $1;
-		dynamic_cast<Music *> ($$)->set_mus_property ("span-direction", gh_int2scm (START));
+		dynamic_cast<Music *> ($$)->set_mus_property ("span-direction",
+			gh_int2scm (START));
 	}
 	| open_event {
 		$$ = $1;
-		dynamic_cast<Music *> ($$)->set_mus_property ("span-direction", gh_int2scm (STOP));
+		dynamic_cast<Music *> ($$)->set_mus_property ("span-direction",
+			gh_int2scm (STOP));
 	}
 	| EVENT_IDENTIFIER	{
 		$$ = unsmob_music ($1);
@@ -1644,10 +1629,6 @@ pitch_also_in_chords:
 	pitch
 	| steno_tonic_pitch
 	;
-
-
-
-
 
 hyphen_req:
 	HYPHEN {
@@ -2441,3 +2422,14 @@ context_spec_music (SCM type, SCM id, Music * m, SCM ops)
 	return csm;
 }
 
+
+SCM
+get_next_unique_context ()
+{
+	static int new_context_count;
+
+	char s[1024];
+	snprintf (s, 1024, "uniqueContext%d", new_context_count ++);
+		
+	return scm_makfrom0str (s);
+}

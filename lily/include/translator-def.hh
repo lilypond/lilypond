@@ -24,46 +24,36 @@ private:
   /*
     these lists store the definition, in opposite order of entry
   */
-  
-  SCM consists_name_list_;
-  SCM end_consists_name_list_;
-  SCM accepts_name_list_;
+  SCM translator_mods_;
+  SCM accept_mods_;
   SCM property_ops_;
 
-public:
   SCM description_;
-  /*
-    "type" is overloaded.
-   */
-  SCM type_name_;
-  SCM type_aliases_;
+  SCM context_name_;
+  SCM context_aliases_;
   SCM translator_group_type_;
-
-  SCM modify_definition (SCM, SCM, bool);
-  SCM default_child_context_name ();
   
+public:
+  void add_context_mod (SCM);
+  SCM default_child_context_name ();
+  SCM get_context_name () const;
+  SCM get_accepted ()  const;
+  SCM get_translator_names () const;
   void set_acceptor (SCM accepts, bool add);
-  void add_element (SCM name);
-  void remove_element (SCM name);
-  void add_last_element (SCM name);
-  void add_property_operation (SCM);
 
   Link_array<Translator_def> path_to_acceptable_translator (SCM type_string, Music_output_def* odef) const;
   Translator_group * instantiate (Music_output_def*);
 
   SCM to_alist () const;
-
+  bool is_alias (SCM) const;
   static SCM make_scm () ;
 
   SCM clone_scm ()const;
   void apply_default_property_operations (Translator_group*);
-
 private:
   DECLARE_SMOBS (Translator_def,foo);
   Translator_def ();
   Translator_def (Translator_def const&);
-
-
 };
 
 DECLARE_UNSMOB(Translator_def,translator_def);

@@ -470,7 +470,7 @@ String
 Translator_group::context_name () const
 {
   Translator_def * td = unsmob_translator_def (definition_ );
-  return ly_symbol2string (td->type_name_);
+  return ly_symbol2string (td->get_context_name ());
 }
 
 void

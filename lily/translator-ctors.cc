@@ -7,25 +7,26 @@
 */
 
 #include "translator.hh"
-#include <map>
+#include "scm-hash.hh"
 #include "warn.hh"
 
 /*
   should delete these after exit.
 */
 
-std::map<String,Translator*> *global_translator_dict=0;
+Scheme_hash_table *global_translator_dict=0;
 
 LY_DEFINE(get_all_translators,"ly:get-all-translators", 0, 0, 0,  (),
 	  "Return an list of a all translator objects that may be instantiated "
 	  " during a lilypond run.")
 {
-  SCM l = SCM_EOL;
-  for (std::map<String,Translator*>::const_iterator (ci (global_translator_dict->begin()));
-       ci != global_translator_dict->end (); ci++)
+  SCM l = global_translator_dict ?  global_translator_dict->to_alist () : SCM_EOL;
+
+  for (SCM s =l; gh_pair_p (s); s = gh_cdr (s))
     {
-      l = scm_cons ((*ci).second->self_scm (), l);
+      gh_set_car_x (s, gh_cdar (s));
     }
+
   return l;
 }
 
@@ -33,22 +34,22 @@ void
 add_translator (Translator *t)
 {
   if (!global_translator_dict)
-    global_translator_dict = new std::map<String,Translator*>;
+    global_translator_dict = new Scheme_hash_table;
 
-  (*global_translator_dict)[classname (t)] = t;
+  SCM k= ly_symbol2scm  (classname (t));
+  global_translator_dict->set (k, t->self_scm ());
 }
 
 Translator*
-get_translator (String s)
+get_translator (SCM sym)
 {
-  if (global_translator_dict->find (s) !=
-      global_translator_dict->end ())
-    {
-      Translator* t = (*global_translator_dict)[s];
-      return t;
-    }
+  SCM v = SCM_BOOL_F;
+  if (global_translator_dict)
+    global_translator_dict->try_retrieve (sym, &v);
 
-  error (_f ("unknown translator: `%s'", s));
-  return 0;
+  if (v == SCM_BOOL_F)
+    error (_f ("unknown translator: `%s'", ly_symbol2string (sym).to_str0 ()));
+
+  return unsmob_translator (v);
 }
 

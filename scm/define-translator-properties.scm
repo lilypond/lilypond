@@ -311,6 +311,8 @@ top of those automatically detected. ")
 (translator-property-description 'melismaBusyProperties list?
 				 "List of  properties (symbols) to
 determine whether a melisma  is playing.")
+
+
 (translator-property-description 'metronomeMarkFormatter procedure?
 				 "How to produce a metronome markup.
 Called with 2 arguments,  event and context.")
@@ -501,3 +503,8 @@ according to values of @code{defaultBarType}, @code{barAlways},
 Valid values are described in @ref{(lilypond-internals)bar-line-interface}.
 
 .")
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define-public default-melisma-properties '(melismaBusy slurMelismaBusy tieMelismaBusy beamMelismaBusy))
