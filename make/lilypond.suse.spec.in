@@ -102,8 +102,7 @@ make LDFLAGS=-s "CFLAGS=$RPM_OPT_FLAGS" all
 # ok, now make sure that lilypond package will succeed,
 # even if documentation fails to build
 
-make -C Documentation  || true
-make web-doc top-web || true
+make web
 
 %install
 

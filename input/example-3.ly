@@ -24,3 +24,8 @@ two =  \notes\relative c{
 %
 %     ly2dvi example-3
 %     xdvi example-3     # or your dvi viewer here
+
+%%
+%% For learning LilyPond, please read the tutorial, included in the
+%% user-manual.
+%% 

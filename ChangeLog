@@ -1,5 +1,15 @@
 2003-07-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* GNUmakefile.in: remove no kpathsea hack.
+
+	* Documentation/topdocs/INSTALL.texi (Top): remove web-doc from
+	doco.
+
+	* GNUmakefile.in: remove web-doc target.
+
+	* lily/all-font-metrics.cc (find_afm): add message about
+	buildscripts/clean-fonts.sh 
+
 	* scm/define-music-properties.scm (figure): use string for 'figure
 
 	* lily/parser.yy (bass_number): allow strings for bassfigure too. 
