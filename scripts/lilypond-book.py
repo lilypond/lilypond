@@ -32,8 +32,6 @@ import string
 #
 # TODO:
 #
-#  * should have a sane default --process setting 
-#
 #  * use --png --ps --pdf for making images? 
 #
 
@@ -112,7 +110,7 @@ format = 0
 output_name = 0
 latex_filter_cmd = 'latex "\\nonstopmode \input /dev/stdin"'
 filter_cmd = 0
-process_cmd = lilypond_binary
+process_cmd = ''
 default_ly_options = {}
 
 #
@@ -1073,6 +1071,9 @@ def do_options ():
 def main ():
 	files = do_options ()
 	global process_cmd
+	if process_cmd = '':
+		process_cmd = lilypond_binary + " -f tex "
+	
 	if process_cmd:
 		process_cmd += string.join ([(' -I %s' % p)
 					     for p in include_path])
