@@ -1,9 +1,9 @@
-
-\header {
-texidoc = "some instruments (notably: cello and double bass) are alternatively written on one and two staves. This is the way to do it:"
-}
 \version "1.7.19"
-
+% TODO: check if we really need both hara-kiri-switch.ly and
+% hara-kiri.ly.  -gp
+\header { texidoc = "@cindex Hara Kiri Switch
+Some instruments (notably cello and double bass) are alternatively
+written on one and two staves. This is the way to do it: " }
 
 voiceOne =  \notes \relative c'' {
 	a1 a a
@@ -47,6 +47,7 @@ grandstaff =  \context GrandStaff = one <
 	\grandstaff
 	\paper{
 		linewidth=80.0\mm
+		raggedright=##t
 
 		\translator { \VoiceContext autoBeaming = ##f }
 		\translator { \RemoveEmptyStaffContext }

@@ -1,13 +1,8 @@
 \version "1.7.18"
-%{
- Test of how to make an ``incipit'' to indicate scordatora 
- tuning of a violin part, using the clefStyle property.
- The two first bars of Biber's Rosary sonata III.
-
-   /Mats B
-%}
-
-
+\header { texidoc = "@cindex Incipit
+This shows how to make an ``incipit'' to indicate scordatora 
+tuning of a violin part, using the clefStyle property.
+The two first bars of Biber's Rosary sonata III. " }
 
 violinincipit =  \notes\relative c''{
   \clef "french"
@@ -64,6 +59,7 @@ BC  = \notes\relative c{
       \BC
     }}
   >
+	\paper { raggedright = ##t }
 }  
 
 %% new-chords-done %%

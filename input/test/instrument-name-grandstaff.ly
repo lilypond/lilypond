@@ -1,5 +1,6 @@
 \version "1.7.18"
-
+\header { texidoc = "@cindex Instrument Name Grandstaff
+You can name the whole grandstaff in addition to individual staffs. " }
 
 \score {
   \notes

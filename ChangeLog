@@ -1,3 +1,7 @@
+2003-06-18  Graham Percival  <gperlist@shaw.ca>
+
+	* input/test/[h-k]*.ly: added texidoc index.
+
 2003-06-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/music-functions.scm (make-ottava-set): 
