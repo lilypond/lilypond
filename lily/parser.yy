@@ -1171,8 +1171,8 @@ relative_music:
 	}
 	| RELATIVE Composite_music {
 		Music *m = $2;
-		/* FIXME: why is octave==0 and default not middleC? */
-		Pitch middle_c (-1, 0, 0);
+
+		Pitch middle_c (0, 0, 0);
 		$$ = make_music_relative (middle_c, m);
 		scm_gc_unprotect_object (m->self_scm ());
 	}

@@ -1,5 +1,8 @@
 2004-06-13  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/parser.yy (relative_music): start at middle C without pitch
+	argument.
+
 	* Documentation/user/changing-defaults.itely (Page layout): new node.
 	(Paper size): rename node
 	(Page breaking): new node.

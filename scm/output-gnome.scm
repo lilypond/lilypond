@@ -69,6 +69,14 @@ export LD_LIBRARY_PATH=$HOME/usr/pkg/g-wrap/lib:$HOME/usr/pkg/guile-gnome/lib
 
 set -ex
 
+if  [ -d $HOME/usr/pkg/libffi/ ] ; then
+ export LDFLAGS=-L$HOME/usr/pkg/libffi/lib/
+ export CPPFLAGS=-I$HOME/usr/pkg/libffi/include
+fi 
+
+export AUTOMAKE=automake-1.8
+export AUTOCONF=autoconf2.50 
+
 rm -rf test
 mkdir test
 cd test
@@ -92,7 +100,7 @@ tla get janneke@gnu.org--2004-gnome/g-wrap--janneke g-wrap
 cd g-wrap
 
 rm -rf $HOME/usr/pkg/g-wrap
-AUTOMAKE=automake-1.8 AUTOCONF=autoconf2.50 sh autogen.sh --noconfigure
+sh autogen.sh --noconfigure
 mkdir =build
 cd =build
 ../configure --prefix=$HOME/usr/pkg/g-wrap
@@ -123,7 +131,7 @@ tla get guile-gnome-devel@gnu.org--2004/libgnomecanvas--dev libgnomecanvas
 ## tla get janneke@gnu.org--2004-gnome/defs--janneke defs
 
 rm -rf $HOME/usr/pkg/guile-gnome
-AUTOMAKE=automake-1.8 AUTOCONF=autoconf2.50 sh autogen.sh --noconfigure
+sh autogen.sh --noconfigure
 mkdir ../=build
 cd ../=build
 
@@ -133,6 +141,10 @@ export PKG_CONFIG_PATH=$HOME/usr/pkg/g-wrap/lib/pkgconfig:$PKG_CONFIG_PATH
 
 ../src/configure --prefix=$HOME/usr/pkg/guile-gnome
 
+
+# requires 800mb RAM with -O2
+(cd libgnomecanvas/gnome/gw; perl  -i~  -pe 's/-O2//g' Makefile)
+    
 G_WRAP_MODULE_DIR=$HOME/usr/pkg/g-wrap/share/guile/site make install
 
 export GUILE_LOAD_PATH=$HOME/usr/pkg/guile-gnome/share/guile:$GUILE_LOAD_PATH

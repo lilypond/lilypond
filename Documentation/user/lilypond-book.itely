@@ -165,16 +165,8 @@ and the
 are also interpreted.
 
 @cindex titling and lilypond-book
-@cindex lilypond-book and titling
 @cindex @code{\header} in La@TeX{} documents
 
-The titling from the @code{\header} section of the fragments can be
-imported by adding the following to the top of the La@TeX{} file:
-
-@example
-\input titledefs.tex
-\def\preLilyPondExample@{\def\mustmakelilypondtitle@{@}@}
-@end example
 
 The music will be surrounded by @code{\preLilyPondExample} and
 @code{\postLilyPondExample}, which are defined to be empty by default.
