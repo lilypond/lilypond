@@ -1,5 +1,8 @@
 2004-03-07  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* Documentation/user/GNUmakefile (local-install-info): Issue
+	warning (for packager, ie, if not installing in /usr or /usr/local).
+
 	* lily/stencil-scheme.cc: 
 	* lily/staff-symbol-referencer.cc: 
 	* lily/script-column.cc: 
