@@ -85,6 +85,11 @@ in LilyPond-include-path."
   (and process
        (eq (process-status process) 'run))))
 
+(defun Midi-running ()
+  (let ((process (get-process "midi")))
+  (and process
+       (eq (process-status process) 'run))))
+
 (defun LilyPond-kill-job ()
   "Kill the currently running LilyPond job."
   (interactive)
@@ -281,6 +286,12 @@ Must be the car of an entry in `LilyPond-command-alist'."
   (LilyPond-command (LilyPond-command-query (LilyPond-master-file))
 		    'LilyPond-master-file))
 
+(defun LilyPond-command-lilypond ()
+  "Run lilypond for the current document."
+  (interactive)
+  (LilyPond-command (LilyPond-command-menu "LilyPond") 'LilyPond-master-file)
+)
+
 (defun LilyPond-command-formatdvi ()
   "Format the dvi output of the current document."
   (interactive)
@@ -339,20 +350,20 @@ Must be the car of an entry in `LilyPond-command-alist'."
 (defun LilyPond-command-next-midi ()
   "Play next midi score of the current document."
   (interactive)
-  (LilyPond-compile-file 
-   (let ((allscores (count-midi-words))
-	 (scores (count-midi-words-backwards))
-	 (fname (LilyPond-master-file)))
-     (let ((count (string-to-number (substring scores 0 (+ (length scores) -12)))))
+  (if (Midi-running)
+      (quit-process (get-process "midi") t)
+    (LilyPond-compile-file 
+     (let ((fname (LilyPond-master-file))
+	   (allcount (string-to-number (substring (count-midi-words) 0 -12)))
+	   (count (string-to-number (substring (count-midi-words-backwards) 0 -12))))
        (concat  LilyPond-midi-command " "
-		(substring fname 0 (+ (length fname) -3)) ; suppose ".ly"
-		(if (not (string= "1 occurrences" allscores)) ; only one score
-		    (if (not (eq count 0))                    ; first score
-			(if (string= scores allscores)        ; last score
-			    (concat "-" (number-to-string (+ count -1)))
-			  (concat "-" (number-to-string count)))))
-		".midi")))
-   "Midi"))
+		(substring fname 0 -3) ; suppose ".ly"
+		(if (and (> allcount 1) (> count 0)) ; not first score
+		    (if (eq count allcount)          ; last score
+			(concat "-" (number-to-string (+ count -1)))
+		      (concat "-" (number-to-string count))))
+		".midi"))
+     "Midi")))
 
 ;; FIXME, this is broken
 (defun LilyPond-region-file (begin end)
@@ -459,6 +470,7 @@ command."
 (if LilyPond-mode-map
     ()
   (setq LilyPond-mode-map (make-sparse-keymap))
+  (define-key LilyPond-mode-map "\C-c\C-l" 'LilyPond-command-lilypond)
   (define-key LilyPond-mode-map "\C-c\C-r" 'LilyPond-command-region)
   (define-key LilyPond-mode-map "\C-c\C-b" 'LilyPond-command-buffer)
   (define-key LilyPond-mode-map "\C-c\C-k" 'LilyPond-kill-job)
@@ -540,7 +552,7 @@ command."
 ;	  (let ((file 'LilyPond-command-on-current))
 ;	    (mapcar 'LilyPond-command-menu-entry LilyPond-command-alist))
 ;;; Some kind of mapping which includes :keys might be more elegant
-	  '([ "LilyPond" (LilyPond-command (LilyPond-command-menu "ViewPS") 'LilyPond-master-file) ])
+	  '([ "LilyPond" (LilyPond-command (LilyPond-command-menu "LilyPond") 'LilyPond-master-file) :keys "C-c C-l"])
 	  '([ "TeX" (LilyPond-command (LilyPond-command-menu "TeX") 'LilyPond-master-file) ])
 	  '([ "2Dvi" (LilyPond-command (LilyPond-command-menu "2Dvi") 'LilyPond-master-file) :keys "C-c C-d"])
 	  '([ "2PS" (LilyPond-command (LilyPond-command-menu "2PS") 'LilyPond-master-file) :keys "C-c C-f"])
@@ -549,7 +561,7 @@ command."
 	  '([ "SmartView" (LilyPond-command (LilyPond-command-menu "SmartView") 'LilyPond-master-file) :keys "C-c C-s"])
 	  '([ "View" (LilyPond-command (LilyPond-command-menu "View") 'LilyPond-master-file) :keys "C-c C-v"])
 	  '([ "ViewPS" (LilyPond-command (LilyPond-command-menu "ViewPS") 'LilyPond-master-file) :keys "C-c C-p"])
-	  '([ "Midi" (LilyPond-command-next-midi) :keys "C-c C-m"])
+	  '([ "Midi (off)" (LilyPond-command-next-midi) :keys "C-c C-m"])
 	  ))
 
 (defconst LilyPond-imenu-generic-re "^\\([a-zA-Z_][a-zA-Z0-9_]*\\) *="
