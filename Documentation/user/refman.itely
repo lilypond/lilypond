@@ -3945,6 +3945,9 @@ following line
 #(set! point-and-click line-column-location)
 @end example
 
+One final hint: if you correct large files with point-and-click, then
+start correcting at the end of the file. When you start at the top, and
+insert one line, all subsequent locations will be off by a line.
 
 
 @refbugs
@@ -3952,11 +3955,6 @@ following line
 When you convert the @TeX{} file to PostScript using @code{dvips}, it
 will complain about not finding @code{src:X:Y} files. Those complaints
 are harmless, and can be ignored.
-
-When using @code{line-column-location}, the cursor will be one off; it
-will not jump to the exact note that you clicked, but to the next one.
-
-[FIXME]
 
 @node Skipping corrected music
 @section Skipping corrected music
