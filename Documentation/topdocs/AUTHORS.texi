@@ -21,8 +21,7 @@ list is alphabetically ordered.
 
 @itemize @bullet
 @item @email{tca@@gnu.org, Tom Cato Amundsen},
-    cembalo-partita in lilypond, accordion symbols, some
-lilypond-book.py
+ accordion symbols, some lilypond-book.py
 @item  @email{jiba@@tuxfamily.org,Jean-Baptiste Lamy }
    Tablature support
 @item @email{matsb@@s3.kth.se, Mats Bengtsson},
@@ -82,12 +81,11 @@ lilypond-book.py
         ancient clefs, etc.)
 @item @email{daboys@@austin.rr.com, Jeffrey B. Reed},
     Windows-NT support.
-@item Shay Rojanski
-    Some lilypond input.
 @item @email{august@@infran.ru, August S.Sigov}
     Russian translation
 @item @email{rune@@zedeler.dk, Rune Zedeler}
-    Drum notation, beaming and auto-accidental changes. Font updates. Misc fixes.
+    Drum notation, beaming and auto-accidental code. Font
+updates. Miscellaneous fixes.
 @end itemize
 
 @bye
