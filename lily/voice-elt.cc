@@ -61,8 +61,8 @@ Voice_element::find_plet_start_bo(char c, Moment& moment_r)
 {
     assert( c == ']' );
     moment_r += duration;
-    for ( PCursor<Request*> req_l_pcur( reqs.top() ); req_l_pcur.ok(); req_l_pcur++ ) {
-	if (req_l_pcur->beam() && req_l_pcur->beam()->spantype == Span_req::START )
+    for ( PCursor<Request*> i( reqs.top() ); i.ok(); i++ ) {
+	if (i->beam() && i->beam()->spantype == Span_req::START )
 	    return true;
     }
     return false;
@@ -86,12 +86,12 @@ Voice_element::set_plet_backwards(Moment& now_moment_r,
     now_moment_r += duration;
     if ( now_moment_r > until_moment )
     	return;
-    for ( PCursor<Request*> req_l_pcur( reqs.top() ); req_l_pcur.ok(); req_l_pcur++ ) {
-	if (req_l_pcur->beam() && req_l_pcur->beam()->spantype == Span_req::START )
-	    req_l_pcur->beam()->nplet = den_i;
-	if (req_l_pcur->rhythmic())
-	    req_l_pcur->rhythmic()->plet_factor = Moment(num_i, den_i);
-	if (req_l_pcur->stem())
-	    req_l_pcur->stem()->plet_factor = Moment(num_i, den_i);
+    for ( PCursor<Request*> i( reqs.top() ); i.ok(); i++ ) {
+	if (i->beam() && i->beam()->spantype == Span_req::START )
+	    i->beam()->nplet = den_i;
+	if (i->rhythmic())
+	    i->rhythmic()->plet_factor = Moment(num_i, den_i);
+	if (i->stem())
+	    i->stem()->plet_factor = Moment(num_i, den_i);
     }
 }

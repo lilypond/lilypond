@@ -33,15 +33,16 @@ include ./$(depth)/make/Variables.make
 
 # descent order into subdirectories:
 #
-SUBDIRS = flower lib lily m2m \
-	Documentation bin init input make tex
+SUBDIRS = flower lib lily mi2mu \
+	Documentation bin init input tex make
 #
 
 # list of distribution files:
 #
-SYMLINKS = configure
+# SYMLINKS = # naah, configure
+SCRIPTS = configure
 README_FILES = ANNOUNCE COPYING INSTALL NEWS README TODO
-DISTFILES= Makefile .version $(README_FILES) $(SYMLINKS)
+DISTFILES= Makefile .dstreamrc .version $(README_FILES) $(SCRIPTS) $(SYMLINKS)
 #
 
 # generic targets and rules:
