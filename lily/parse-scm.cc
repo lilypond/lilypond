@@ -38,9 +38,16 @@ internal_ly_parse_scm (Parse_start * ps)
   /* Read expression from port.  */
   if (!SCM_EOF_OBJECT_P (form = scm_read (port)))
     {
-      SCM function = ly_scheme_function ("make-safe-lilypond-module");
       if (ps->safe_)
-	answer = scm_eval (form, function);
+	{
+	  static SCM module = SCM_BOOL_F;
+	  if (module == SCM_BOOL_F)
+	    {
+	      SCM function = ly_scheme_function ("make-safe-lilypond-module");
+	      module = scm_call_0 (function);
+	    }
+	  answer = scm_eval (form, module);
+	}
       else
 	answer = scm_primitive_eval (form);
     }

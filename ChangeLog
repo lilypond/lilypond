@@ -4,6 +4,13 @@
 
 2004-09-21  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/parse-scm.cc (internal_ly_parse_scm): Eval in module, not
+	in function.
+
+	* scm/framework-tex.scm (convert-to-dvi): Use nonstopmode.  Set
+	openout_any=p.  Throughout: progress to stderr, translate user
+	messages.
+
 	* scm/output-gnome.scm: Fix font dir description.
 
 2004-09-20  Han-Wen Nienhuys   <hanwen@xs4all.nl>

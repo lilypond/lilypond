@@ -145,37 +145,46 @@
      ly:version
      ly:warn
 
+     ;; SCM-only functionality
+     set-global-staff-size
+
+     ;; FIXME: cannot change staff size in --safe-mode
+     ;;$defaultbookpaper
+     ;;$defaultmidi
+     ;;$defaultpaper
+
      ;; need these for parsing init files:
      ;; todo: should have a macro define-safe-public
      DOUBLE-FLAT
-     THREE-Q-FLAT
-     FLAT
-     SEMI-FLAT
-     NATURAL
-     SEMI-SHARP
-     SHARP
-     THREE-Q-SHARP
      DOUBLE-SHARP
+     FLAT
+     NATURAL
+     SEMI-FLAT
+     SEMI-SHARP
      SEMI-TONE
+     SHARP
      START
      STOP
+     THREE-Q-FLAT
+     THREE-Q-SHARP
+
      alist->hash-table
+     chord-name->german-markup
+     context-spec-music
      default-chord-modifier-list
-     sequential-music-to-chord-exceptions
-     make-music
      make-articulation
      make-event-chord
+     make-music
      make-penalty-music
      make-span-event
-     set-start-grace-properties
-     set-stop-grace-properties
-     set-default-paper-size
-     set-part-combine-listener
-     context-spec-music
      make-voice-props-revert
      make-voice-props-set
-     chord-name->german-markup
      note-name->german-markup
+     sequential-music-to-chord-exceptions
+     set-default-paper-size
+     set-part-combine-listener
+     set-start-grace-properties
+     set-stop-grace-properties
 
      Accidental_interface::after_line_breaking
      Accidental_interface::print
