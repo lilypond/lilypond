@@ -46,10 +46,14 @@ romanze = \notes \relative c' {
 	\grace { \longgrace e16 \endlonggrace }
 	[d8. )c16 \< ] [c8 c-.( c-. \! )c-.]
 	\mark "C"
-	des1\sfp
-	g,1\sfp 
-	c\sfp   
-	c,\sfp  
+
+	%% this is a trick to get the sfp-s to align. 
+	\property Voice.Hairpin \override #'transparent = ##t
+	des1\sfp \> \!
+	g,1\sfp  \> \!
+	c\sfp    \> \!
+	c,\sfp
+	\property Voice.Hairpin \revert #'transparent 
 	R1*3
 	r8 [c-\p c c] c2~
 	[c8 c' c c] c2~
