@@ -1,5 +1,3 @@
-# Automatically generated from ./lib/Makefile.am.wild by autowild
-# Do not edit
 # Generated automatically by wild-perl 0.1
 # project  LilyPond -- the musical typesetter
 # title	   makefile for micro-lily-lib
@@ -16,12 +14,12 @@ lib_LTLIBRARIES = liblily.la
 
 liblily_la_SOURCES = binary-source-file.cc duration-convert.cc duration.cc includable-lexer.cc input.cc mapped-file-storage.cc moment.cc plet.cc simple-file-storage.cc source-file.cc source.cc template.cc warn.cc windhoos-suck-suck-suck-thank-you-cygnus.cc
 
-INCLUDES = -Iinclude -I../flower/include
+INCLUDES = -I$(top_srcdir)/lib/include -I$(top_srcdir)/flower/include
 MODULE_CXXFLAGS += -D_REENTRANT
 
-EXTRA_DIST = Makefile.am.wild
+EXTRA_DIST = Makefile.am.wild GNUmakefile
 
 distclean-local:
 	-rm -rf .deps
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
-	$(PERL) $(top_srcdir)/bin/wild-perl --top-srcdir="$(real_topdir)" < $< > $@
+	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@

@@ -1,5 +1,3 @@
-# Automatically generated from ./mutopia/J.S.Bach/Makefile.am.wild by autowild
-# Do not edit
 # Generated automatically by wild-perl 0.1
 # mutopia/J.S.Bach/Makefile.am.wild
 
@@ -13,4 +11,4 @@ OUTFILES = $(M4FILES:%.m4=%)
 default: all $(OUTFILES)
 
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
-	$(PERL) $(top_srcdir)/bin/wild-perl --top-srcdir="$(real_topdir)" < $< > $@
+	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@

@@ -1,5 +1,3 @@
-# Automatically generated from ./tex/Makefile.am.wild by autowild
-# Do not edit
 # Generated automatically by wild-perl 0.1
 # tex/Makefile.am.wild
 
@@ -16,4 +14,4 @@ uninstall-local:
 	for i in $(TEXFILES) ; do rm -f $(TEXDIR)/lilypond/$$i; done
 	-rmdir $(TEXDIR)/lilypond/
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
-	$(PERL) $(top_srcdir)/bin/wild-perl --top-srcdir="$(real_topdir)" < $< > $@
+	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
