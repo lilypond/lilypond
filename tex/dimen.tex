@@ -2,9 +2,11 @@
 % A tex file to help determine dims.
 %
 
-\font\musicfont=musix16
+\font\musicfont=musixsps
 \font\slurfont=xslu16
-\def\thefont{\musicfont}
+\font\specfont=musixspx
+% \def\thefont{\musicfont}
+\def\thefont{\specfont}
 
 \def\mb#1{{\thefont\char#1}}
 
@@ -18,7 +20,7 @@
         \divide\wid by 2
         \here=-\wid
         \loop\ifdim\here<\wid\advance\here by\inc
-                \hbox to0pt{\kern\here\vrule width0.05pt height 2pt\hss}%
+                \hbox to0pt{\kern\here\vrule width0.05pt height 4pt\hss}%
         \repeat%
 }
 

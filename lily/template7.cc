@@ -6,6 +6,8 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
+#include "proto.hh"
+#include "plist.hh"
 #include "plist.tcc"
 #include "pcursor.tcc"
 

@@ -150,6 +150,10 @@ Elbement_group::Elbement_group()
 IMPLEMENT_IS_TYPE_B2(Horizontal_vertical_group, Horizontal_group, Vertical_group);
 IMPLEMENT_STATIC_NAME(Horizontal_vertical_group);
 
+Horizontal_vertical_group::Horizontal_vertical_group()
+{
+}
+
 void
 Horizontal_vertical_group::do_substitute_dependency(Score_elem*o,Score_elem*n)
 {

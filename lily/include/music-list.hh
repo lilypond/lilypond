@@ -56,6 +56,7 @@ public:
 class Voice_element : public Chord {
 public:
     NAME_MEMBERS();
+    Voice_element();
     VIRTUAL_COPY_CONS(Voice_element,Music);
 };
 

@@ -127,28 +127,31 @@
 
 \def\emptybar{}
 
-\def\thinbar#1{\vrule height #1 width 1.6\staffrulethickness} % TODO parametric.
-\def\thickbar#1{\vrule height #1 width 2\smallspace}
-\def\maatstreep#1{\thinbar{#1}}
 \def\defaultthinbar{\thinbar{\balkheight}}
 \def\defaultthickbar{\thickbar{\balkheight}}
 %? what-s wrong with rightalign?
-\def\finishbar#1{\rightalign{\thinbar{#1}\kern\smallspace\thickbar{#1}}}
-
 \def\repeatstopbar{\hss\rightalign{\repeatcolon\hskip2\smallspace\defaultthinbar\hskip\smallspace\defaultthickbar}}
 \def\repeatstartbar{\hbox{\defaultthickbar\kern\smallspace\defaultthinbar\kern2\smallspace\repeatcolon}}
 \def\repeatstopstart{\hbox{\repeatcolon\kern2\smallspace\defaultthinbar\kern\smallspace\defaultthickbar\kern\smallspace\defaultthickbar\kern\smallspace\defaultthinbar\kern2\smallspace\repeatcolon}}
-\def\doublebar#1{\hbox{\thinbar{#1}\hskip\smallspace\thinbar{#1}}}
 
 %compatibility
 \def\repeatbar{\repeatstopbar}
 \def\startrepeat{\repeatstartbar}
 \def\repeatbarstartrepeat{\repeatstopstart}
 
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % parametric symbols
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\def\doublebar#1{\hbox{\thinbar{#1}\hskip\smallspace\thinbar{#1}}}
+\def\thinbar#1{\vrule height #1 width 1.6\staffrulethickness} % TODO parametric.
+\def\thickbar#1{\vrule height #1 width 2\smallspace}
+\def\maatstreep#1{\thinbar{#1}}
+\def\finishbar#1{\rightalign{\thinbar{#1}\kern\smallspace\thickbar{#1}}}
+
+\def\pianobrace#1{{\musicdraw\char#1}}
 \def\slurcharh#1{{\slurhfont\char#1}}
 \def\slurcharu#1{{\slurufont\char#1}}
 \def\slurchard#1{{\slurdfont\char#1}}
@@ -194,9 +197,10 @@
 
 
 \def\beamslope#1#2{{\count0=#2\advance\count0 by#1\musicfnt\char\count0}}
-\def\rulesym#1#2{\vrule height #1 width #2}
+\def\brace#1{\count0=148\advance\count0 by #1\musicdraw\char\count0}
 \def\crescendosym#1{\count0=84\advance\count0 by #1\musicdraw\char\count0}
 \def\decrescendosym#1{\count0=116\advance\count0 by #1\musicdraw\char\count0}
+\def\rulesym#1#2{\vrule height #1 width #2}
 \def\settext#1{\textfont #1}
 \def\setitalic#1{\italicfont #1}
 \def\setdynamic#1{\dynfont #1}

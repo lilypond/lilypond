@@ -60,7 +60,7 @@ class Horizontal_vertical_group : public Vertical_group,
 protected:
     virtual Horizontal_vertical_group* elem_group() { return this; }
 public:
-    Element_group();
+    Horizontal_vertical_group();
     bool contains_b(Score_elem const *)const;
     NAME_MEMBERS();
     virtual void do_substitute_dependency(Score_elem*,Score_elem*);
