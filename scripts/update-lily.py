@@ -44,8 +44,19 @@ _ = gettext.gettext
 program_name = 'build-lily'
 package_name = 'lilypond'
 help_summary = _("Fetch and rebuild from latest source package")
-build_root = os.environ ['HOME'] + '/usr/src'
-build_command = '(./configure --prefix=$HOME/usr && make all web) >> log.txt 2>&1'
+obuild_command = '(./configure --prefix=$HOME/usr && make all web) >> log.txt 2>&1'
+build_command = '''
+cd $HOME/usr/src &&
+(
+tar xzf %t &&
+rm -f building &&
+ln -s %n-%v building &&
+cd %n-%v &&
+./configure --prefix=$HOME/usr && make all web
+) >> log.txt 2>&1 &&
+rm -f %n &&
+ln -s %n%-%v %n
+'''
 
 release_dir = build_root + '/releases'
 patch_dir = build_root + '/patches'
@@ -220,6 +231,11 @@ def set_setting (dict, key, val):
 
 option_definitions = [
 	('DIR', 'b', 'build-root', _ ("unpack and build in DIR [%s]") % build_root),
+	('COMMAND', 'c', 'command', _ ("execute COMMAND, subtitute:") \
+	 + '\n                            ' + _ ("%%n: package name") \
+	 + '\n                            ' + _ ("%%v: package version") \
+	 + '\n                            ' + _ ("%%t: tarball") \
+	 ),
 	('', 'h', 'help', _ ("this help")),
         ('', 'k', 'keep', _ ("keep all output, and name the directory %s") % temp_dir),
 	('', 'r', 'remove-previous', _ ("remove previous build")),
@@ -337,12 +353,19 @@ def find_latest (url):
 	return join_package (list[-1])
 
 def build (p):
-	os.chdir (build_root)
-	system ('tar xzf %s/%s.tar.gz' % (release_dir, p))
-	system ('rm -f building')
-        os.symlink ('%s/%s' % (build_root, p), 'building')
-	os.chdir (p)
-	return system (build_command)
+	tar_ball = p + '.tar.gz'
+	(tar_name, tar_version) = split_package (tar_ball)
+	
+	expand = {
+		'%n' : tar_name,
+		'%t' : tar_ball,
+		'%v' : version_tuple_to_str (tar_version),
+		}
+
+	c = build_command
+	for i in expand.keys ():
+		c = re.sub (i, expand[i], c)
+	return system (c)
 
 (sh, long) = getopt_args (__main__.option_definitions)
 try:
@@ -361,6 +384,8 @@ for opt in options:
 		help ()
 	elif o == '--buid-root' or o == '-b':
 		build_root = a
+	elif o == '--command' or o == '-c':
+		build_command = a
 	elif o == '--remove-previous' or o == '-r':
 		remove_previous_p = 1
 	elif o == '--url' or o == '-u':
@@ -377,8 +402,7 @@ for opt in options:
 if 1:
 	latest = find_latest (url)
 
-	#if os.path.isdir ('%s/%s' % (build_root, latest)):
-	if os.path.isdir ('%s/%s/%s' % (build_root, latest, 'lily/out/lilypond')):
+	if os.path.isdir ('%s/%s' % (build_root, latest)):
 		progress (_ ("latest is %s") % latest)
 		progress (_ ("relax, %s is up to date" % package_name))
 		sys.exit (0)
@@ -403,16 +427,16 @@ if 1:
 		progress (_ ("fetching %s...") % get)
 		copy_url (get, '.')
 
-	if not build (latest):
-		if os.path.isdir ('%s/%s' % (build_root, package_name)):
-			os.chdir ('%s/%s' % (build_root, package_name))
-			previous = os.getcwd ()
-			os.chdir (build_root)
-			if remove_previous_p:
-				system ('echo rm -rf %s/%s' % (build_root, previous))
-			
-		system ('rm -f %s' % package_name)
-		os.symlink ('%s/%s' % (build_root, latest),  package_name)
+	if os.path.isdir (os.path.join (build_command, package_name)):
+		os.chdir (os.path.join (build_command, package_name))
+		previous = os.getcwd ()
+	else:
+		previous = 0
+
+	progress (_ ("building %s...") % get)
+	os.chdir (build_root)
+	if not build (latest) and previous and remove_previous_p:
+		system ('rm -rf %s' % os.path.join (build_root, previous))
 		
 	os.chdir (original_dir)
 	if release_dir != temp_dir:

@@ -256,7 +256,6 @@
 
 (define (pitch->note-name pitch)
   (cons (cadr pitch) (caddr pitch)))
-  
 
 (define (accidental->text acc)
     (if (= acc 0)
@@ -270,7 +269,7 @@
 				(list (append '((raise . 0.6))
 				  (list
 				   (string-append "accidentals-" 
-                                                 (number->string acc))))))))))))
+						  (number->string acc))))))))))))
 )
 
 (define (pitch->text pitch)

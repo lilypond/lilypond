@@ -3441,9 +3441,9 @@ Xdvi} version 22.36 or newer.
 @item emacs
 @end itemize
 
-Add one these lines to the top of your .ly file. The first one is for
+Add one of these lines to the top of your .ly file. The first one is for
 line location only. The second one is more convenient, but requires
-patching @code{emacsclient}.
+patching @code{emacsclient} and @code{server.el}.
 
 @example
 #(set! point-and-click line-location)
@@ -3470,9 +3470,13 @@ init file, before invoking server-start.
 
 
 Xdvi must be configured to use the emacs editor.  Before starting, set
-the environment variable @code{XEDITOR} to
+the environment variable @code{XEDITOR} to one of these strings.  The
+second one, that also specifies the column, only works if you have
+patched your emacsclient and server, and have compiled your @code{.ly}
+file using the @code{line-column-location} setting (see above).
 @example
-emacsclient --no-wait +%c:%l %f
+emacsclient --no-wait +%l %f
+emacsclient --no-wait +%l:%c %f
 @end example
 Xdvi also must be configured to find the fonts. Refer to the
 xdvi documentation for more information.
@@ -3486,6 +3490,9 @@ When you convert the TeX file to PostScript using dvips, dvips
 will complain about not finding @code{src:X:Y} files. Those complaints are
 harmless, and can be ignored.
 
+When using @code{line-colum-location}, the cursor will be one off; it
+will not jump to the exact note that you clicked, but to the next one.
+We hope to fix this before 1.4.
 
 @node Skipping corrected music
 @section Skipping corrected music

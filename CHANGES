@@ -1,3 +1,13 @@
+1.3.144.jcn1
+============
+
+* Fixes to point-and-click doco (Thanks, Laura Conrad).
+
+* Bugfixes: changed several (eval to (ly-eval for guile 1.3.4/1.4
+compatibility.
+
+* Fixes to buildscripts/clean-fonts.sh.
+
 1.3.143.jcn3
 ============
 
