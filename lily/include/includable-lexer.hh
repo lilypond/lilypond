@@ -14,8 +14,7 @@
 
 #include "string.hh"
 #include "parray.hh"
-#include "flower-proto.hh"
-#include "proto.hh"
+#include "lily-proto.hh"
 
 // GIGA urg!
 typedef struct yy_buffer_state *YY_BUFFER_STATE;

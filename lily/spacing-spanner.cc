@@ -288,7 +288,7 @@ Spacing_spanner::stem_dir_correction (Score_element*me, Score_element*l, Score_e
   if (d1 == d2)
     return 0.0;
 
-  bool err = false;
+
   Real correction = 0.0;
   Real ssc = me->paper_l ()->get_var("stemSpacingCorrection");
 

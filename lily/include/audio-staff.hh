@@ -7,7 +7,6 @@
 #ifndef AUDIO_STAFF_HH
 #define AUDIO_STAFF_HH
 
-#include "proto.hh"
 #include "parray.hh"
 #include "lily-proto.hh"
 #include "audio-element.hh"

@@ -10,7 +10,6 @@
 #include "cons.hh"
 #include "string.hh"
 #include "lily-proto.hh"
-#include "proto.hh"
 #include "moment.hh"
 #include "audio-item.hh"
 

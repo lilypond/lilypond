@@ -2,7 +2,7 @@
 #define DIMENSIONS_HH
 
 #include "real.hh"
-#include "string.hh"
+class String;
 
 const Real INCH_TO_PT=72.270;
 const Real CM_TO_PT=INCH_TO_PT/2.54;

@@ -10,7 +10,9 @@
 #ifndef LOOKUP_HH
 #define LOOKUP_HH
 
+#include "smobs.hh"
 #include "lily-guile.hh"
+#include "string.hh"
 #include "molecule.hh"
 #include "flower-proto.hh"
 #include "direction.hh"
@@ -22,13 +24,18 @@
  */
 class Lookup
 {
-public:
-  String font_name_;
-  Adobe_font_metric * afm_l_;
 
 
   Lookup ();
   Lookup (Lookup const&);
+
+  friend class Brutus;		// kai su, teknon. (make GCC shut up.)
+  
+public:
+  DECLARE_SMOBS;
+  static SCM make_lookup ();
+  String font_name_;
+  Adobe_font_metric * afm_l_;
 
   Molecule afm_find (String, bool warn=true) const;
   Molecule accordion (SCM arg, Real interline_f) const;
@@ -41,5 +48,5 @@ public:
   static Molecule filledbox (Box b) ;  
   static Molecule text (String style, String text, Paper_def*) ;
 };
-
+Lookup* unsmob_lookup (SCM);
 #endif // LOOKUP_HH

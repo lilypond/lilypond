@@ -6,7 +6,7 @@
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "proto.hh"
+#include "flower-proto.hh"
 #include "engraver-group-engraver.hh"
 #include "engraver.hh"
 #include "debug.hh"

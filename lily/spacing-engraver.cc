@@ -9,7 +9,7 @@
 
 #include "musical-request.hh"
 #include "paper-column.hh"
-#include "spacing-engraver.hh"
+
 #include "spacing-spanner.hh"
 #include "engraver.hh"
 #include "pqueue.hh"

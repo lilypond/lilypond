@@ -10,7 +10,7 @@
 #include <limits.h>		// INT_MAX
 #include <assert.h>
 
-#include "proto.hh"
+#include "flower-proto.hh"
 #include "string.hh"
 #include "source-file.hh"
 #include "binary-source-file.hh"

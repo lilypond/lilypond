@@ -223,9 +223,15 @@ Tie::get_curve () const
   b.set_default_bezier (h_inf, r_0);
   Bezier c = b.get_bezier ();
 
-  /* should do me for slurs as well. */
+  /*
+    Avoid colliding of the horizontal part with stafflines.
+    
+    should do me for slurs as well.
+
+   */
   Array<Real> horizontal (c.solve_derivative (Offset (1,0)));
 
+  
   if (horizontal.size ())
     {
       /*

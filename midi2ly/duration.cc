@@ -12,7 +12,7 @@
 
 #include <assert.h>
 
-#include "proto.hh"
+#include "flower-proto.hh"
 #include "string.hh"
 #include "source-file.hh"
 #include "source.hh"

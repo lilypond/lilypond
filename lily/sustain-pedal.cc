@@ -9,6 +9,7 @@
 #include "score-element.hh"
 #include "molecule.hh"
 #include "lookup.hh"
+#include "string.hh"
 
 // update comment --hwn 
 /*

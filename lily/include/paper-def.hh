@@ -19,6 +19,7 @@
 #include "array.hh"
 #include "interval.hh"
 #include "music-output-def.hh"
+#include "protected-scm.hh"
 
 /** 
 
@@ -46,45 +47,34 @@
 */
 class Paper_def : public Music_output_def 
 {
-  map<int, Lookup *> *lookup_p_tab_p_;
-  static int default_count_i_;
-
+  Protected_scm lookup_alist_;
 protected:
   VIRTUAL_COPY_CONS(Music_output_def);
 
 public:    
   virtual ~Paper_def ();
-
+  static int default_count_i_;
   /*
     JUNKME
    */
   Real get_realvar (SCM symbol) const;
   Real get_var (String id) const;
-
   SCM get_scmvar (String id)const; 
   void reinit ();
   Paper_def ();
   void set_lookup (int, Lookup*);
-
   Paper_def (Paper_def const&);
 
   /** The distance between beams of multiplicity_i
       JUNKME
   */
   Real interbeam_f (int multiplicity_i) const;
-
   Interval line_dimensions_int (int) const;
-
   void print () const;
-
   Lookup const * lookup_l (int sz) const;	// TODO naming
-
-
   virtual int get_next_default_count () const;
   static void reset_default_count();
-
   void output_settings (Paper_outputter*) const;
-
   Paper_stream* paper_stream_p () const;
   String base_output_str () const;
 

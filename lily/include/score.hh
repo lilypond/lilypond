@@ -10,9 +10,6 @@
 #ifndef SCORE_HH
 #define SCORE_HH
 
-#include "array.hh"
-#include "lily-proto.hh"
-#include "string.hh"
 #include "input.hh"
 #include "lily-proto.hh"
 #include "parray.hh"

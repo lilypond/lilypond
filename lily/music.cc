@@ -6,8 +6,6 @@
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
- #include <typeinfo>
-
 #include "music.hh"
 #include "music-list.hh"
 #include "debug.hh"

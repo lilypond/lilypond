@@ -6,7 +6,7 @@
  (c) 1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 #include <iostream.h>
-#include "proto.hh"
+#include "flower-proto.hh"
 #include "input.hh"
 #include "string.hh"
 #include "source.hh"

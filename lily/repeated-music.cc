@@ -61,9 +61,14 @@ Repeated_music::to_relative_octave (Musical_pitch p)
   if (repeat_body_p_)
     p = repeat_body_p_->to_relative_octave (p);
 
+  Musical_pitch last = p ; 
   if (alternatives_p_)
-    p = alternatives_p_->do_relative_octave (p, false);
-  return p;
+    for (Cons<Music> *i = alternatives_p_->music_p_list_p_->head_; i ; i = i->next_)
+      {
+	last = i->car_->to_relative_octave (p);
+      }
+
+  return last;
 }
 
 

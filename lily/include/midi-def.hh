@@ -25,15 +25,10 @@ class Midi_def : public Music_output_def {
 public:
   VIRTUAL_COPY_CONS(Music_output_def);
 
-  /// duration of whole note measured in seconds.
-  Moment whole_in_seconds_mom_;
-
   Midi_def();
   ~Midi_def();
 
-  Real length_mom_to_seconds_f (Moment);
   int get_tempo_i (Moment moment);
-  void print() const;
   void set_tempo (Moment moment, int count_per_minute_i);
   virtual int get_next_default_count () const;
   static void reset_default_count();

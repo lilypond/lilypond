@@ -38,7 +38,7 @@
 
 (defconst lily-font-lock-keywords
   (let* ((keywords '("spanrequest" "simultaneous" "sequential" "accepts"
-		     "alternative" "bar" "breathe"
+		     "autochange" "alternative" "bar" "breathe"
 		     "cadenza" "chordmodifiers" "chords" "clef" "cm" "consists"
 		     "consistsend" "context"
 		     "duration" "font" "grace" "header" "in" "lyrics"

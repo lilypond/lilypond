@@ -8,6 +8,7 @@
 
 #include <assert.h>
 #include "axes.hh"
+#include "string.hh"
 
 String
 axis_name_str (Axis a)

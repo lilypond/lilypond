@@ -7,7 +7,7 @@
 #define MUDELA_SCORE_HH
 
 #include "midi2ly-proto.hh"
-#include "proto.hh"
+#include "flower-proto.hh"
 #include "cons.hh"
 #include "parray.hh"
 

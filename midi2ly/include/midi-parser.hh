@@ -35,7 +35,7 @@
 
 #endif
 
-#include "proto.hh"
+#include "flower-proto.hh"
 #include "rational.hh"
 #include "midi2ly-proto.hh"
 

@@ -10,7 +10,6 @@
 
 
 #include "box.hh"
-#include "string.hh"
 #include "score-element.hh"
 #include "drul-array.hh"
 #include "protected-scm.hh"

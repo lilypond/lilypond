@@ -53,11 +53,6 @@ Simultaneous_music::to_relative_octave (Musical_pitch p)
 }
 
 
-Musical_pitch
-Music_sequence::do_relative_octave (Musical_pitch p, bool b)
-{
-  return music_p_list_p_->do_relative_octave (p, b);  
-}
 
 
 Musical_pitch 
