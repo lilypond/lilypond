@@ -1,20 +1,18 @@
 \version "2.3.4"
 
-\header { texidoc = "Volta repeats may be unfolded through the Scheme
-    function @code{unfold-repeats}."
+\header { texidoc = "Volta repeats may be unfolded through the music
+    function @code{\unfoldrepeats}."
 
 }
 
 nots = \relative c'   {
     c4 \repeat volta 2 c4 \alternative { d e  }
 }
+\paper {raggedright = ##t} 
 
-\score {
-     \context Voice {
-	\nots
-	\bar "||"
-	\applymusic #unfold-repeats \nots
-    }
-    \paper {raggedright = ##t} 
+\context Voice {
+    \nots
+    \bar "||"
+    \unfoldrepeats \nots
 }
 

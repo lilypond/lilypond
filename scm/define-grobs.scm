@@ -1137,6 +1137,18 @@
 	(direction . 1)
 	(meta . ((interfaces . (text-spanner-interface side-position-interface font-interface spanner-interface))))		
 	))
+    (TrillSpanner
+     . (
+	(print-function . ,Dynamic_text_spanner::print)
+	(edge-text . ,(cons (make-musicglyph-markup "scripts-trill")
+			    ""))
+	(style . trill)
+	(staff-padding . 1.0)
+	(padding . 0.5)
+	(direction . 1)
+	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(meta . ((interfaces . (text-spanner-interface side-position-interface font-interface spanner-interface))))		
+	))
     
     (OttavaBracket
      . (

@@ -292,8 +292,8 @@ above by the internal equivalent of
 Other applications of @code{\applymusic} are writing out repeats
 automatically (@inputfileref{input/test,unfold-all-repeats.ly}),
 saving keystrokes (@inputfileref{input/test,music-box.ly}) and
-exporting
-LilyPond input to other formats  (@inputfileref{input/test,to-xml.ly})
+exporting LilyPond input to other formats
+(@inputfileref{input/test,to-xml.ly})
 
 @seealso
 

@@ -24,8 +24,9 @@ somewhat familiar with LilyPond.
 * Rhythmic music::              
 * Piano music::                 
 * Vocal music::                 
+* Other instrument specific notation::  
 * Tablatures::                  
-* Chord names::                 
+* Popular music::               
 * Orchestral music::            
 * Formatting cue notes::        
 * Ancient notation::            
@@ -786,6 +787,7 @@ such as keys, clefs and time signatures.
 * Partial measures::            
 * Unmetered music::             
 * Bar lines::                   
+* Time administration::         
 * Controlling formatting of  prefatory matter::  
 @end menu
 
@@ -1013,6 +1015,9 @@ Examples: @inputfileref{input/regression,ottava.ly},
 @code{set-octavation} will get confused when clef changes happen
 during an octavation bracket.
 
+
+
+
 @node Time signature
 @subsection Time signature
 @cindex Time signature
@@ -1032,8 +1037,20 @@ command
 
 The symbol that is printed can be customized with the @code{style}
 property. Setting it to @code{#'()} uses fraction style for 4/4 and
-2/2 time.  There are many more options for its layout.  See
-@inputfileref{input/test,time.ly} for more examples.
+2/2 time,
+
+@lilypond[fragment,verbatim]
+\time 4/4 c'1
+\time 2/2 c'1
+\override TimeSignature #'style = #'()
+\time 4/4 c'1
+\time 2/2 c'1
+@end lilypond
+
+
+
+There are many more options for its layout.  See @ref{Ancient time
+signatures} for more examples.
 
 
 This command sets the property @code{timeSignatureFraction},
@@ -1228,6 +1245,49 @@ in every context, and that type is determined by the property
 @code{systemStartDelimiter}.
 
 Examples: @inputfileref{input/test,bar-lines.ly},
+
+
+@node Time administration
+@subsection Time administration
+
+Time is administered by the @internalsref{Time_signature_engraver},
+which usually lives in the @internalsref{Score} context.
+The bookkeeping deals with the following  variables
+
+@table @code
+@item currentBarNumber
+ the measure number
+@item measureLength
+  the length of the measures in the current  time signature. For a 4/4
+  time this is 1, and for 6/8 it is 3/4.
+@item measurePosition
+  the point within the measure where we currently are. This quantity
+  is reset to 0 whenever it exceeds @code{measureLength}. When that happens,
+  @code{currentBarNumber} is incremented.
+@item timing
+ if set to true, the above variables are updated for every time
+ step. When set to false, the engraver stays in the current measure
+ indefinitely.
+@end table
+
+Timing can be changed by setting any of these variables explicitly.
+In the next example, the 4/4 time signature is printed, but
+@code{measureLength} is set to 5/4. After a while, the measure is
+shortened by 1/8, by setting @code{measurePosition} to -3/8 at 2/4 in
+the measure, so the next bar line will fall at 2/4 + 3/8. 
+
+@lilypond[verbatim]
+{
+  \set Score.measureLength = #(ly:make-moment 5 4)
+  c1 c4
+  c1 c4 
+  c4 c4
+  \set Score.measurePosition = #(ly:make-moment -3 8)
+  b8 b b
+  c4 c1
+}
+@end lilypond
+
 
 @node Controlling formatting of  prefatory matter
 @subsection Controlling formatting of  prefatory matter
@@ -1807,6 +1867,7 @@ possible.
 * Text spanners::               
 * Analysis brackets::           
 * Articulations::               
+* Running trills::              
 * Fingering instructions::      
 * Text scripts::                
 * Grace notes::                 
@@ -2095,6 +2156,29 @@ c\fermata c^\fermata c_\fermata
 
 @lilypondfile[quote,raggedright]{script-chart.ly}
 
+
+The vertical ordering of scripts is controlled with the
+@code{script-priority} property. The lower this number, the closer it
+will be put to the note.  In this example, the
+@internalsref{TextScript} (the sharp symbol) first has the lowest
+priority, so it is put lowest in the first example. In the second, the
+prall trill (the @internalsref{Script}) has the lowest, so it on the
+inside. When two objects have the same priority, the order in which
+they are entered decides which one comes first.
+
+
+@lilypond[verbatim]
+\relative g''{
+    \once \override TextScript #'script-priority = #-100
+    a4^\prall^\markup { \sharp }
+    
+    \once \override Script  #'script-priority = #-100
+    a4^\prall^\markup { \sharp }
+}
+@end lilypond
+
+
+
 @refcommands
 
 @cindex @code{\scriptUp}
@@ -2113,6 +2197,33 @@ Program reference: @internalsref{ScriptEvent}, and @internalsref{Script}.
 These note ornaments appear in the printed output but have no
 effect on the MIDI rendering of the music.
 
+
+
+@node  Running trills
+@subsection Running trills
+
+Long running trills are made with @code{\startTrillSpan} and
+@code{\stopTrillSpan},
+
+
+@lilypond[verbatim]
+\relative \new Voice {
+    << { c1 \startTrillSpan }
+       { s2. \grace { d16[\stopTrillSpan e] } } >>
+    c4 }
+@end lilypond
+
+@refcommands
+
+@code{\startTrillSpan},
+@cindex @code{\startTrillSpan}
+@code{\stopTrillSpan}.
+@cindex @code{\stopTrillSpan}
+
+@seealso
+
+Program reference: @internalsref{TrillSpanner},
+@internalsref{TrillSpanEvent}.
 
 @node Fingering instructions
 @subsection Fingering instructions
@@ -2607,6 +2718,23 @@ staff. This can be adjusted by setting the @code{voltaOnThisStaff}
 property @inputfileref{input/regression,volta-multi-staff.ly},
 @inputfileref{input/regression,volta-chord-names.ly}
 
+It is possible to shorten volta brackets
+by setting @code{voltaSpannerDuration}. In the next example, the
+bracket only lasts one measure, which is a duration of 3/4. 
+
+
+
+@lilypond[verbatim,raggedright]
+\relative c''{
+    \time 3/4
+    c c c 
+    \set Staff.voltaSpannerDuration = #(ly:make-moment 3 4)
+    \repeat "volta" 5 { d d d  }
+    \alternative { { e e e f f f }
+    { g g g } }
+}
+@end lilypond
+        
 @refbugs
 
 A nested repeat like
@@ -2639,10 +2767,38 @@ example by setting @code{Score.measurePosition} or entering
 
 @cindex expanding repeats
 
-For instructions on how to expand repeats for MIDI output, see the
-example file @inputfileref{input/test,unfold-all-repeats.ly}.
+An advantage of the unified syntax for repeats, is that all repeats
+may be played out for the MIDI output. This is achieved by
+applying the @code{\unfoldrepeats} music function.
 
+@lilypond[verbatim,raggedright]
+\new Staff
+  \unfoldrepeats {
+    \repeat tremolo 8 {c'32 e' }
+    \repeat percent 2 { c''8 d'' }
+    \repeat volta 2 {c'4 d' e' f'} 
+    \alternative {
+      { g' a' a' g' }
+      {f' e' d' c' }
+    }
+    \bar "|."
+  }
+@end lilypond
 
+When creating a score file using @code{\unfoldrepeats} for midi, then
+it is necessary to make two @code{\score} blocks. One for MIDI, with
+unfolded repeats, and one for notation, eg.
+
+@example
+  \score @{
+      @var{..music..}
+      \paper @{ .. @}
+  @} 
+  \score @{
+      \unfoldrepeats @var{..music..}
+      \midi @{ .. @}
+  @} 
+@end example
 
 @node Manual repeat commands
 @subsection Manual repeat commands
@@ -2674,6 +2830,7 @@ c4 c4
   \set Score.repeatCommands = #'((volta #f))
 c4 c4
 @end lilypond
+
 
 
 @seealso
@@ -3394,6 +3551,7 @@ the following sections are about.
 @menu
 * Entering lyrics::             
 * The Lyrics context::          
+* Flexibility in alignment::    
 * More stanzas::                
 * Ambitus::                     
 @end menu
@@ -3601,16 +3759,6 @@ Here is an example demonstrating manual lyric durations,
   }  >>
 @end lilypond
 
-
-
-
-When multiple stanzas are put on the same melody, it can happen that
-two stanzas have melismata in different locations. This can be
-remedied by switching off melismata for one
-@internalsref{Lyrics}. This is achieved by setting
-the @code{ignoreMelismata} property to @code{#t}. An example is shown
-in @inputfileref{input/regression,lyric-combine-new.ly}.
-
 @cindex SATB
 @cindex choral score
 
@@ -3642,62 +3790,158 @@ inserted by hand.
 
 
 For proper processing of extender lines, the
-@internalsref{Lyrics} and @internalsref{Voice} should be
+ @internalsref{Lyrics} and @internalsref{Voice} should be
 linked. This can be achieved either by using @code{\lyricsto} or by
 setting corresponding names for both contexts. The latter is explained
 in @ref{More stanzas}.
 
 @c TODO: document \new Staff << Voice \lyricsto >> bug
 
+@node Flexibility in alignment
+@subsection Flexibility in alignment
+
+
+Often, different stanzas of one song are put to one melody in slightly
+differing ways.  Such variations can still be captured with
+@code{\lyricsto}.
+
+One possibility is that the text has a melisma in one stanza, but
+multiple syllables in another one. One solution is to make the faster
+voice ignore the melisma. This is done by setting
+@code{ignoreMelismata} in the Lyrics context.
+
+There has one tricky aspect. The setting for @code{ignoreMelismata}
+must be set one syllable @emph{before} the non-melismatic syllable
+in the text, as shown here,
+
+@lilypond[verbatim,raggedright]
+<<
+    \relative \context Voice = "lahlah" {
+	\set Staff.autoBeaming = ##f 
+	c4
+	\slurDotted
+	f8.[( g16])
+	a4
+    }
+    \new Lyrics \lyricsto "lahlah" {
+	more slow -- ly
+    }
+    \new Lyrics \lyricsto "lahlah" {
+	\set ignoreMelismata = ##t % applies to "fas"
+	go fas -- ter
+	\unset ignoreMelismata
+	still
+    }
+>>
+@end lilypond
+
+
+The @code{ignoreMelismata} applies to the syllable ``fas'', so it
+should bev entered before ``go''.
+
+The reverse is also possible: making a lyric line slower than the
+standard. This can be achieved by insert @code{\skip}s into the
+lyrics. For every @code{\skip}, the text will be delayed another note.
+For example,
+
+@lilypond[verbatim,raggedright]
+\relative { c c g' }
+\newlyrics {
+  twin -- \skip 4
+  kle
+}
+@end lilypond
+
+More complex variations in text underlay are possible. It is possible
+to switch the melody for a line of lyrics during the text. This is
+done by setting the @code{associatedVoice} property. In the example 
+
+@lilypond[raggedright]
+<<
+    \relative \context Voice = "lahlah" {
+	\set Staff.autoBeaming = ##f 
+	c4
+	<<
+	    \context Voice = alternative {
+		\voiceOne
+		\times 2/3 {
+
+		    % show associations clearly.
+		    \override NoteColumn #'force-hshift = #-3
+		    f8 f g
+		}
+	    }
+	    {
+		\voiceTwo
+		f8.[ g16]
+		\oneVoice
+	  } >>
+	a8( b) c
+
+    }
+    \new Lyrics \lyricsto "lahlah" {
+	Ju -- ras -- sic Park
+    }
+    \new Lyrics \lyricsto "lahlah" {
+
+	% Tricky: need to set associatedVoice
+	% one syllable too soon! 
+	\set associatedVoice = alternative % applies to "ran"
+	Ty --
+	ran  --
+	no --
+	\set associatedVoice = lahlah % applies to "rus"
+	sau -- rus Rex
+    } >>
+@end lilypond
+
+@noindent
+the text for the first stanza is set to a melody called ``lahlah'',
+
+@verbatim
+    \new Lyrics \lyricsto "lahlah" {
+	Ju -- ras -- sic Park
+    }
+@end verbatim 
+
+
+The second stanza initially is set to the @code{lahlah} context, but
+for the syllable ``ran'', it switches to a different melody.
+This is achieved with
+@example
+	\set associatedVoice = alternative
+@end example
+
+@noindent
+Here, @code{alternative} is the name of the @code{Voice} context
+containing the triplet.
+
+Again, the command must be one syllable too early, before ``Ty'' in
+this case.
+
+@verbatim
+    \new Lyrics \lyricsto "lahlah" {
+	\set associatedVoice = alternative % applies to "ran"
+	Ty --
+	ran  --
+	no --
+	\set associatedVoice = lahlah % applies to "rus"
+	sau -- rus Rex
+    }
+@end verbatim 
+
+@noindent
+The underlay is switched back to the starting situation by assigning
+@code{lahlah} to @code{associatedVoice}.
+
+
+
+
 @node More stanzas
 @subsection More stanzas
 
 @cindex phrasing, in lyrics
 
-
-The lyrics should be aligned with the note heads of the melody. To
-achieve this, each line of lyrics should be marked to correspond with
-the melodic line. This is done automatically when @code{\lyricsto},
-but it can also be done manually. 
-
-To this end, give the @internalsref{Voice} context an identity
-@example
-\context Voice = duet @{
-     \time 3/4
-     g2 e4 a2 f4 g2.  @}
-@end example
-
-Then set the @internalsref{Lyrics} contexts to names starting with
-that identity followed by a dash.  In the preceding example, the
-@internalsref{Voice} identity is @code{duet}, so the identities of the
-@internalsref{Lyrics}s are marked @code{duet-1} and @code{duet-2}
-@example
-  \context Lyrics = "duet-1" @{
-    Hi, my name is Bert. @}
-  \context Lyrics = "duet-2" @{
-    Ooooo, ch\'e -- ri, je t'aime. @}
-@end example
-
-@c  \lyricsto in the example below is pointless, given subject of the
-@c  section.
-
-
-The complete example is shown here
-@lilypond[quote,raggedright,verbatim]
-  <<
-    \relative c'' \context Voice = duet {
-      \time 3/4
-       g2 e4 a2 f4 g2. }
-    <<
-      \lyricsto "duet" \new Lyrics {
-        \set vocalName = "Bert"
-        Hi, my name is Bert. }
-      \lyricsto "duet" \new Lyrics {
-        \set vocalName = "Ernie"
-        Ooooo, ch\'e -- ri, je t'aime. }
-    >>
-  >>
-@end lilypond
 
 @cindex stanza number
 @cindex singer's names
@@ -3706,21 +3950,35 @@ The complete example is shown here
 Stanza numbers can be added by setting @code{stanza}, e.g.
 
 @lilypond[quote,verbatim,relative=2]
-<<
-  \context Voice = duet {
-    \time 3/4 g2 e4 a2 f4 g2. }
-    \lyricsto "duet" \new Lyrics {
+\context Voice {
+    \time 3/4 g2 e4 a2 f4 g2.
+} \newlyrics {
      \set stanza = "1. "
-     Hi, my name is Bert. }
->>
+     Hi, my name is Bert.
+} \newlyrics {
+     \set stanza = "2. "
+     Oh, che -- ri, je t'aime
+}
 @end lilypond
 
-This example also demonstrates how names of the singers can be added
-using @code{vocalName} analogous to instrument annotations for staves.
-A short version may be entered as @code{vocNam}.
+These numbers are put just before the start of first syllable.
 
-To make empty spaces in lyrics, use @code{\skip}.
+Names of singers can also be added. They are printed at the start of
+the line, just like instrument names.  They are created by setting
+@code{vocalName}. A short version may be entered as @code{vocNam}.
 
+
+@lilypond[quote,verbatim,relative=2]
+\context Voice {
+    \time 3/4 g2 e4 a2 f4 g2.
+} \newlyrics {
+     \set vocalName = "Bert "
+     Hi, my name is Bert.
+} \newlyrics {
+     \set vocalName = "Ernie "
+     Oh, che -- ri, je t'aime
+}
+@end lilypond
 
 @seealso
 
@@ -3798,6 +4056,30 @@ Examples:  @inputfileref{input/regression,ambitus.ly},
 
 There is no collision handling in the case of multiple per-voice
 ambitus.
+
+@node Other instrument specific notation
+@section Other instrument specific notation
+
+@menu
+* Harmonic notes::              
+@end menu
+
+@node Harmonic notes
+@subsection Harmonic notes
+
+@cindex artificial harmonics
+@cindex harmonics
+
+Artificial harmonics are notated with a different notehead style. They
+are entered by 
+marking the harmonic pitch with @code{\harmonic}.
+
+@lilypond[raggedright,verbatim]
+{
+ <c' g'\harmonic>4
+}
+@end lilypond
+
 
 @node Tablatures
 @section Tablatures
@@ -3905,8 +4187,20 @@ No guitar special effects have been implemented.
 Program reference: @internalsref{Tab_note_heads_engraver}.
 
 
+@node Popular music
+@section Popular music 
+
+
+
+@menu
+* Chord names::                 
+* Chords mode::                 
+* Printing chord names::        
+* Improvisation::               
+@end menu
+
 @node Chord names
-@section Chord names
+@subsection Chord names
 @cindex Chords
 
 LilyPond has support for both printing chord names.  Chords may be
@@ -4213,6 +4507,37 @@ inversions are not identified, and neither are added bass notes. This
 may result in strange chord names when chords are entered with the
 @code{< .. >} syntax.
 
+
+@node Improvisation
+@subsection Improvisation
+
+Improvisation is sometimes denoted with slashed note heads.  Such note
+heads can be created by adding a @internalsref{Pitch_squash_engraver}
+to the @internalsref{Staff} or @internalsref{Voice} context. Then, the
+following command
+
+@example
+    \set squashedPosition = #0
+    \override NoteHead  #'style = #'slash
+@end example
+
+@noindent
+switches on the slashes.
+
+There are shortcuts @code{\improvisationOn} (and an accompanying
+@code{\improvisationOff}) for this command sequence.  They are used in
+the following example
+
+@lilypond[verbatim,raggedright]
+\new Staff \with {
+  \consists Pitch_squash_engraver
+} \transpose c c' {
+  e8 e g a a16(bes)(a8) g \improvisationOn
+  e8
+  ~e2~e8 f4 fis8
+  ~fis2 \improvisationOff a16(bes) a8 g e
+}
+@end lilypond
 
 
 
@@ -5406,51 +5731,48 @@ command, @code{n} and @code{m} have to be chosen according to the
 following table
 
 @lilypond[quote]
-\score {
-     {
-        \set Score.timing = ##f
-        \set Score.barAlways = ##t
-        s_\markup { "$\\backslash$time 4/4" }
-         ^\markup { "       " \musicglyph #"timesig-neomensural4/4" }
-	s
-	s_\markup { "$\\backslash$time 2/2" }
-	 ^\markup { "       " \musicglyph #"timesig-neomensural2/2" }
-	s
-	s_\markup { "$\\backslash$time 6/4" }
-	 ^\markup { "       " \musicglyph #"timesig-neomensural6/4" }
-	s
-	s_\markup { "$\\backslash$time 6/8" }
-	 ^\markup { "       " \musicglyph #"timesig-neomensural6/8" }
-	\break
-	s_\markup { "$\\backslash$time 3/2" }
-	 ^\markup { "       " \musicglyph #"timesig-neomensural3/2" }
-	s
-	s_\markup { "$\\backslash$time 3/4" }
-	 ^\markup { "       " \musicglyph #"timesig-neomensural3/4" }
-	s
-	s_\markup { "$\\backslash$time 9/4" }
-	 ^\markup { "       " \musicglyph #"timesig-neomensural9/4" }
-        s
-	s_\markup { "$\\backslash$time 9/8" }
-	 ^\markup { "       " \musicglyph #"timesig-neomensural9/8" }
-        \break
-	s_\markup { "$\\backslash$time 4/8" }
-	 ^\markup { "       " \musicglyph #"timesig-neomensural4/8" }
-	s
-	s_\markup { "$\\backslash$time 2/4" }
-	 ^\markup { "       " \musicglyph #"timesig-neomensural2/4" }
-	\break
+\paper {
+    indent = 0.0
+    raggedright = ##t
+    \context {
+        \Staff
+        \remove Staff_symbol_engraver
+        \remove Clef_engraver
+        \remove Time_signature_engraver
     }
-    \paper {
-	indent = 0.0
-	raggedright = ##t
-	\context {
-	    \Staff
-	    \remove Staff_symbol_engraver
-	    \remove Clef_engraver
-	    \remove Time_signature_engraver
-	}
-    }
+} {
+    \set Score.timing = ##f
+    \set Score.barAlways = ##t
+    s_\markup { "$\\backslash$time 4/4" }
+     ^\markup { "       " \musicglyph #"timesig-neomensural4/4" }
+    s
+    s_\markup { "$\\backslash$time 2/2" }
+     ^\markup { "       " \musicglyph #"timesig-neomensural2/2" }
+    s
+    s_\markup { "$\\backslash$time 6/4" }
+     ^\markup { "       " \musicglyph #"timesig-neomensural6/4" }
+    s
+    s_\markup { "$\\backslash$time 6/8" }
+     ^\markup { "       " \musicglyph #"timesig-neomensural6/8" }
+    \break
+    s_\markup { "$\\backslash$time 3/2" }
+     ^\markup { "       " \musicglyph #"timesig-neomensural3/2" }
+    s
+    s_\markup { "$\\backslash$time 3/4" }
+     ^\markup { "       " \musicglyph #"timesig-neomensural3/4" }
+    s
+    s_\markup { "$\\backslash$time 9/4" }
+     ^\markup { "       " \musicglyph #"timesig-neomensural9/4" }
+    s
+    s_\markup { "$\\backslash$time 9/8" }
+     ^\markup { "       " \musicglyph #"timesig-neomensural9/8" }
+    \break
+    s_\markup { "$\\backslash$time 4/8" }
+     ^\markup { "       " \musicglyph #"timesig-neomensural4/8" }
+    s
+    s_\markup { "$\\backslash$time 2/4" }
+     ^\markup { "       " \musicglyph #"timesig-neomensural2/4" }
+    \break
 }
 @end lilypond
 
@@ -5461,36 +5783,49 @@ select ancient time signatures.  Supported styles are
 incipit of transcriptions of mensural pieces.  The @code{mensural}
 style mimics the look of historical printings of the 16th century.
 
-@inputfileref{input/test,time.ly} gives an overview over all available
-ancient and modern styles.
+The following examples shows the differences in style,
+@lilypond[raggedright]
+{
+  \time 2/2
+  c1^\markup { \hspace #-2.0 \typewriter default }
+
+  \override TimeSignature #'style = #'numbered  
+  \time 2/2
+  c1^\markup { \hspace #-2.0 \typewriter numbered }
+
+    \override TimeSignature #'style = #'mensural
+  \time 2/2
+  c1^\markup { \hspace #-2.0 \typewriter mensural }
+  
+    \override TimeSignature #'style = #'neomensural
+  \time 2/2
+  c1^\markup { \hspace #-2.0 \typewriter neomensural }
+    \override TimeSignature #'style = #'single-digit
+  \time 2/2
+  c1^\markup { \hspace #-2.0 \typewriter single-digit }
+}
+@end lilypond
 
 @seealso
 
-Program reference: @ref{Time signature} gives a general introduction into the use of time
-signatures.
+This manual: @ref{Time signature} gives a general introduction into
+the use of time signatures.
 
 @refbugs
 
-Mensural signature glyphs are mapped to time fractions in a hard-wired
-way.  This mapping is sensible, but still arbitrary: given a mensural
-time signature, the time fraction represents a modern meter that
-usually will be a good choice when transcribing a mensural piece of
-music.  For a particular piece of mensural music, however, the mapping
-may be unsatisfactory.  In particular, the mapping assumes a fixed
-transcription of durations (e.g. brevis = half note in 2/2, i.e. 4:1).
-Some glyphs (such as the alternate glyph for 6/8 meter) are not at all
-accessible through the @code{\time} command.
+Ratios of note durations do not change with the time signature. For
+example, the ratio of 1 brevis = 3 semibrevis (tempus perfectum) must
+be made by hand, by setting
 
-Mensural time signatures are supported typographically, but not yet
-musically.  The internal representation of durations is 
-based on a purely binary system; a ternary division such as 1 brevis =
-3 semibrevis (tempus perfectum) or 1 semibrevis = 3 minima (cum
-prolatione maiori) is not correctly handled: event times in ternary
-modes will be badly computed, resulting e.g. in horizontally
-misaligned note heads, and bar checks are likely to erroneously fail.
+@example
+  breveTP = #(ly:make-duration -1 0 3 2)
+@end example
 
-The syntax and semantics of the @code{\time} command for mensural
-music is subject to change.
+@noindent
+This sets breveTP to 3/2 times 2 = 3 times a whole note. 
+
+The @code{old6/8alt} symbol (an alternate   symbol for 6/8) is not
+addressable with @code{\time}. Use a @code{\markup} instead
 
 @node Custodes
 @subsection Custodes
@@ -6686,9 +7021,153 @@ support for contemporary notation in LilyPond is limited.
 
 
 @menu
+* Polymetric notation::         
 * Clusters::                    
 * Fermatas::                    
 @end menu
+
+@node Polymetric notation
+@subsection Polymetric notation
+
+Double time signatures are not supported explicitly, but they can be
+faked. In the next example, the markup for the time signature is
+created with a markup text. This markup text is inserted in the
+@internalsref{TimeSignature} grob.
+
+@lilypond[verbatim,raggedright]
+
+% create 2/4 + 5/8
+tsMarkup =\markup  {
+    \number { 
+      \column < "2" "4" >
+      \musicglyph #"scripts-stopped" 
+      \bracket \column < "5" "8" >
+    }
+}
+
+{
+  \override Staff.TimeSignature  #'print-function = #Text_item::print
+  \override Staff.TimeSignature  #'text = #tsMarkup
+  \time 3/2
+  c'2  \bar ":" c'4 c'4.
+}
+@end lilypond
+
+Each staff can also have its own time signature.  This is done by
+moving the @internalsref{Timing_engraver} to @internalsref{Staff}
+context.
+
+@verbatim
+\paper{
+    \context{
+        \Score
+        \remove "Timing_engraver"
+    }
+    \context{
+        \Staff
+        \consists "Timing_engraver"
+    }
+}       
+@end verbatim
+
+
+Now, each staff has its own time signature.
+@verbatim
+<<
+    \new Staff {
+        \time 3/4
+        c4 c c | c c c |
+    }
+
+    \new Staff {
+        \time 2/4
+        c4 c | c c | c c
+    }
+    \new Staff {
+        \time 3/8
+        c4. c8 c c   c4. c8 c c
+    }
+>>
+@end verbatim
+
+@lilypond[raggedright]
+\paper{
+    \context{
+        \Score
+        \remove "Timing_engraver"
+    }
+    \context{
+        \Staff
+        \consists "Timing_engraver"
+    }
+}       
+
+\relative c'  <<
+    \new Staff {
+        \time 3/4
+        c4 c c | c c c |
+    }
+
+    \new Staff {
+        \time 2/4
+        c4 c | c c | c c
+    }
+    \new Staff {
+        \time 3/8
+        c4. c8 c c   c4. c8 c c
+    }
+>>
+@end lilypond
+
+
+A different form of polymetric notation is where note lengths have
+different values across staves.
+
+This notation can be created by setting a common time signature for
+each staff but replacing it manually using
+@code{timeSignatureFraction} to the desired fraction. Then the printed
+durations in each staff are scaled to the common time signature.
+The latter is done with @code{\compressmusic}, which is similar to
+@code{\times}, but does not create a tuplet bracket.
+
+
+In this example, music with the time signatures of 3/4, 9/8 and 10/8 are
+used in parallel. In the second staff, shown durations are multiplied by 
+2/3, so that 2/3 * 9/8 = 3/4, and in the third staff, shown durations are 
+multiplied by 3/5, so that 3/5 * 10/8 = 3/4.
+
+@lilypond[raggedright,verbatim]
+\relative c'  <<
+    \new Staff {
+        \time 3/4
+        c4 c c | c c c |
+    }
+    \new Staff {
+        \time 3/4
+        \set Staff.timeSignatureFraction = #'(9 . 8)
+        \compressmusic #'(2 . 3)
+          \repeat unfold 6 { c8[ c c] }
+    }
+    \new Staff {
+        \time 3/4
+        \set Staff.timeSignatureFraction = #'(10 . 8)
+        \compressmusic #'(3 . 5)
+          { \repeat unfold 2 { c8[ c c] }
+            \repeat unfold 2 { c8[  c] }
+            |  c4. c4. \times 2/3 { c8 c c } c4  }
+    }
+>>
+@end lilypond
+
+
+
+
+@refbugs
+
+When using different time signatures in parallel, the spacing is
+aligned vertically, but bar lines distort the regular spacing.
+
+
 
 @node Clusters
 @subsection Clusters
@@ -6772,6 +7251,29 @@ supported
 
 See @ref{Articulations} for general instructions how to apply scripts
 such as fermatas to notes.
+
+@node Feathered beams
+@subsection Feathered beams
+
+Feathered beams are not supported natively, but they can be faked by
+forcing two beams to overlap. Here is an example,
+
+@lilypond[raggedright]
+\relative \new Staff <<
+    \new Voice
+    {
+	\stemUp
+	\once \override Voice.Beam #'positions = #'(0 . 0.5)
+        c8[ c c c c ]
+    }
+    \new Voice {
+	\stemUp
+	\once \override Voice.Beam #'positions = #'(0 . -0.5) 
+        c[ c c c c]
+    }
+>>
+@end lilypond
+
 
 
 @node Educational use

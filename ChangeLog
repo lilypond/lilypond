@@ -4,6 +4,69 @@
 
 2004-08-01  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/regression/beam-dir-functions.ly: move from test/
+
+	* Documentation/user/notation.itely (Feathered beams): new node.
+
+	* Documentation/user/changing-defaults.itely (Difficult tweaks):
+	new node
+
+	* input/regression/lyric-hyphen-retain.ly: move to regression.
+
+	* input/regression/harmonic.ly: fold into manual
+	
+	* input/test/{hshift,move-accidentals,crescendi,feathered-beam,
+	stem-length,chord-names-no-inversions}.ly: remove
+	
+	* input/test/tie-cross-voice.ly: move to regression.
+
+	* Documentation/user/notation.itely (Running trills): new node.
+
+	* scm/define-grobs.scm (all-grob-descriptions): new grob TrillSpanner
+
+	* scm/define-music-types.scm (music-descriptions): add TrillSpanEvent
+
+	* lily/trill-spanner-engraver.cc: new file.
+
+	* input/regression/trill-spanner.ly: new file.
+
+	* input/test/timing.ly: fold into manual.
+
+	* input/test/time.ly: remove
+
+	* input/test/trill.ly: remove
+	
+	* input/test/time-signature-double.ly: fold into manual
+
+	* input/test/separate-staccato.ly: remove
+
+	* input/test/spanner-after-break-tweak.ly: fold into manual.
+
+	* input/test/script-priority.ly: fold into manual.
+
+	* input/test/scheme-interactions.ly: remove.
+	
+	* input/test/unfold-all-repeats.ly (mel),
+	input/test/repeat.ly,input/test/repeat-shorter-bracket.ly,
+	input/test/polymetric-differing-notes.ly input/test/polymetric.ly:
+	fold into manual.
+
+	* input/regression/no-staff.ly: move from input/test/
+
+	* input/regression/markup-score.ly: move from input/test/
+
+	* input/test/lyrics-melisma-faster.ly: fold into manual
+	
+	* input/test/lyrics-melisma-variants.ly: fold into manual
+
+	* Documentation/user/notation.itely (Popular music): new node. 
+
+	* input/test/gourlay.ly: remove
+	
+	* input/test/improv.ly: fold into manual.
+
+	* input/test/figured-bass-alternate.ly (fl): remove
+
 	* lily/dynamic-text-spanner.cc (print): new file.
 
 	* scm/define-grobs.scm (all-grob-descriptions): add DynamicTextSpanner

@@ -34,6 +34,15 @@ breathe = #(def-music-function (location) ()
               'origin location
               'elements (list (make-music 'BreathingSignEvent))))
 
+
+unfoldrepeats = #(def-music-function (location music) (ly:music?)
+		  (unfold-repeats music))
+
+compressmusic = #(def-music-function
+		  (location fraction music) (number-pair? ly:music?)
+		  (ly:music-compress music (ly:make-moment (car fraction) (cdr fraction))))
+
+
 %% \mytag #'foo { ... } ==> OK
 %% c-\mytag #'foo ^4    ==> KO
 %{
