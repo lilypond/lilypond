@@ -1,11 +1,5 @@
 @c -*- coding: latin-1; mode: texinfo; -*-
 
-@tex
-\input feta20.tex
-\global\font\fetasixteen=feta16
-\gdef\fetafont{\fetasixteen}
-\gdef\fetachar#1{\hbox{\fetasixteen#1}}
-@end tex
 
 @c Reference GLOSsary
 @macro rglos {NAME}
