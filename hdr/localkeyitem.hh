@@ -17,8 +17,8 @@ struct Local_acc {
 struct Local_key_item : Item {
     const char * name() const;
     Array<Local_acc> accs;
-    Array<Item*> group;
-    int c0_position;		// move into walker
+    Array<Item*> support_items_;
+    int c0_position;
 
     /* *************** */
     
