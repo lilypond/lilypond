@@ -50,6 +50,8 @@ public:
 
 };
 
+#include "compare.hh"
+
 instantiate_compare(Score_column&, Score_column::compare);
 
 #endif // SCCOL_HH
