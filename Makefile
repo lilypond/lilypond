@@ -6,7 +6,7 @@ include Variables.make
 
 $(exe): $(obs)
 	$(STRIPDEBUG) $(STABLEOBS)
-	$(CXX) -o $@ $^ $(LOADLIBES)
+	$(LINKER) -o $@ $^ $(LOADLIBES)
 
 
 .PHONY: clean docxx
@@ -31,7 +31,7 @@ doc:
 
 # doc++ documentation of classes
 docxx: $(progdocs)	
-	doc++ -p -d $(DOCDIR) $^
+	doc++ -kp -d $(DOCDIR) $^
 
 $(OBJECTDIR)/%.o: $(CCDIR)/%.cc
 	$(DODEP)\
