@@ -25,7 +25,7 @@ dux =
         \clef "violin";
         \octave c';
 
-        \stem -1;
+        \stem \down;
         r8 [c'16 b] [c'8 g] [as c'16 b] [c'8 d'] |
         [g c'16 b] [c'8 d'] [f16 g] as4 [g16 f] |
         [es c' b a] [g f! es d] [c8 es' d' c'] |
@@ -71,7 +71,7 @@ dux =
 comes =
     \melodic {
         \octave c'';
-        \stem 1;
+        \stem \up;
         r1 |
         r1 |
         r8 [g16 fis] [g8 c] [es g16 fis] [g8 a] |
@@ -153,8 +153,8 @@ bassdux =
         [d c g G]
 %% 30
         < \multi 2;
-        { \stem 1; c2~ | c1~ | c1 }
-        { \stem -1; C2~ | C1~ | C1 }
+        { \stem \up; c2~ | c1~ | c1 }
+        { \stem \down; C2~ | C1~ | C1 }
         >
     }
 

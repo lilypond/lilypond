@@ -60,15 +60,15 @@ IImenuetto = \melodic{
 	< [ e'8 g > d' cis'_"2" e' a~  g ] |
 %%11
 	< \multi 2;  
-		{\stem 1; a4~  d'4 cis'4-. }
-		{ \stem -1; f2 e4 } > |
+		{\stem \up; a4~  d'4 cis'4-. }
+		{ \stem \down; f2 e4 } > |
 %%12
 	< [ g'8^"4" d > f' e' f' d'^"3"~   c' ] |
 %%13
 	\clef "alto";
 	< \multi 2;
-		 { \stem 1; bes2 c'4 }
-		 { \stem -1; g4~  f4 e4 }% ugh
+		 { \stem \up; bes2 c'4 }
+		 { \stem \down; g4~  f4 e4 }% ugh
 	> |
 %%14
 	< [ a8 f > g a f ] < d'4-\upbow e4 'bes4 > |
@@ -86,8 +86,8 @@ IImenuetto = \melodic{
 	< { [ c'8 ( bes a )bes g~  bes ] } { [ d ] } { [ g ] } > |
 %%21
 	< \multi 2;  
-		{\stem 1;  d'4 (\stem 1; ) cis'4 d'4 }  
-		{ \stem -1; g2 f4 } 
+		{\stem \up;  d'4 (\stem \up; ) cis'4 d'4 }  
+		{ \stem \down; g2 f4 } 
 	> |
 %%22
 	< { [ g8 ~  f g e ] } { [ cis ] } > < f4 d4 > |
