@@ -5,21 +5,46 @@
 
 (use-modules (oop goops))
 
+;; todo: make module.
+
 (define-class <Voice-state> ()
   (event-list #:init-value '() #:accessor events #:init-keyword #:events)
   (when-moment #:accessor when #:init-keyword #:when)
-  (split-idx #:accessor split-idx )
+  (split-idx #:accessor split-idx)
+  (vector-index)
+  (state-vector)
   (spanner-state #:init-value '() #:accessor span-state)
   )
   
 
+(define-method (note-events (vs <Voice-state>))
+  (define (f? x)
+    (equal? (ly:get-mus-property  x 'name) 'NoteEvent))
+  (filter f? (events vs)))
 
 (define-class <Split-state> ()
   (configuration #:init-value '() #:accessor configuration)
   (when-moment #:accessor when #:init-keyword #:when)
-  (is #:init-keyword #:indexes #:accessor indexes)
+  (is #:init-keyword #:voice-states #:accessor voice-states)
   (synced  #:init-keyword #:synced #:init-value  #f #:getter synced?)
   )
+
+(define-method (previous-voice-state (vs <Voice-state>))
+  (let* ((i (slot-ref vs 'vector-index))
+	 (v (slot-ref vs 'state-vector))
+	 )
+    (if (< 0 i)
+	(vector-ref v (1- i))
+	#f)
+  ))
+				     
+(define (previous-span-state vs)
+	 (let*
+	     ((p (previous-voice-state vs)))
+
+	   (if p (span-state p)
+	       '())
+	 ))
 
 (define-method (write (x <Voice-state> ) file)
   (display (when x) file)
@@ -39,16 +64,26 @@
   (display "\n" f)
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define (make-voice-states evl)
-  (list->vector
-  (map
-   (lambda (v)
-     (make <Voice-state>
-       #:when (car v)
-       #:events (map car (cdr v))
-       ))
-     evl)))
+  (let
+      ((vec
+	(list->vector
+	 (map
+	  (lambda (v)
+	    (make <Voice-state>
+	      #:when (car v)
+	      #:events (map car (cdr v))
+	      ))
+	  evl))))
+    
+    (do ( (i 0 (1+ i)) )
+	( (= i (vector-length vec)) vec)
+      (slot-set! (vector-ref vec i) 'vector-index i)
+      (slot-set! (vector-ref vec i) 'state-vector vec)
+    )))
+
 
 (define (moment-min a b)
   (if (ly:moment<? a b) a b))
@@ -61,28 +96,28 @@ Voice-state objects
   
   (define (helper ss-idx ss-list idx1 idx2)
     (let*
-	((m1 (if (< idx1 (vector-length vs1)) (when (vector-ref vs1 idx1)) #f) )
-	 (m2 (if (< idx2 (vector-length vs2)) (when (vector-ref vs2 idx2)) #f) )
-	 (min (cond ((and m1 m2) (moment-min m1 m2))
-		    (m1 m1)
-		    (m2 m2)
+	((s1 (if (< idx1 (vector-length vs1)) (vector-ref vs1 idx1) #f))
+	 (s2 (if (< idx2 (vector-length vs2)) (vector-ref vs2 idx2) #f))
+	 (min (cond ((and s1 s2) (moment-min (when s1) (when s2)))
+		    (s1 (when s1))
+		    (s2 (when s2))
 		    (else #f)
 		    ))
 
-	 (inc1 (if (and m1 (equal? min m1)) 1 0))
-	 (inc2 (if (and m2 (equal? min m2)) 1 0))
+	 (inc1 (if (and s1 (equal? min (when s1))) 1 0))
+	 (inc2 (if (and s2 (equal? min (when s2))) 1 0))
 	 (ss-object
 	  (if min
 	      (make <Split-state>
 		#:when min
-		#:indexes (cons idx1 idx2)
+		#:voice-states (cons s1 s2)
 		#:synced (= inc1 inc2)
 		) #f))
 	 )
-      (if m1
-	  (set! (split-idx (vector-ref vs1 idx1)) ss-idx))
-      (if m2
-	  (set! (split-idx (vector-ref vs2 idx2)) ss-idx))
+      (if s1
+	  (set! (split-idx s1) ss-idx))
+      (if s2
+	  (set! (split-idx s2) ss-idx))
       
       (if min
 	  (helper (1+ ss-idx)
@@ -217,14 +252,13 @@ Voice-state objects
 
 
 
-;;
-;; todo: this function is rather too hairy and too long.
-;;
 (define-public (determine-split-list evl1 evl2)
   "EVL1 and EVL2 should be ascending"
 
+
+  
   (let*
-      ((pc-debug #f)
+      ((pc-debug #t)
        (chord-threshold 8)
        (voice-state-vec1 (make-voice-states evl1))
        (voice-state-vec2 (make-voice-states evl2))
@@ -250,10 +284,6 @@ Only set if not set previously.
 	    ))
 	))
 
-    (define (get-note-evs vs)
-      (define (f? x)
-	(equal? (ly:get-mus-property  x 'name) 'NoteEvent))
-      (filter f? (events vs)))
     
     (define (copy-state-from state-vec vs)
       (define (copy-one-state key-idx)
@@ -272,16 +302,14 @@ Only set if not set previously.
     (define (analyse-notes now-state) 
       (let*
 	  (
-	   (i1 (car (indexes now-state)))
-	   (i2 (cdr (indexes now-state)))
-	   (vs1 (vector-ref voice-state-vec1 i1))
-	   (vs2 (vector-ref voice-state-vec2 i2))
+	   (vs1 (car (voice-states now-state)))
+	   (vs2 (cdr (voice-states now-state)))
 	   
-	   (notes1 (get-note-evs vs1))
+	   (notes1 (note-events vs1))
 	   (durs1 (sort (map (lambda (x) (ly:get-mus-property x 'duration)) notes1) ly:duration<?))
 	   (pitches1 (sort
 		      (map (lambda (x) (ly:get-mus-property x 'pitch)) notes1) ly:pitch<?))
-	   (notes2 (get-note-evs vs2))
+	   (notes2 (note-events vs2))
 	   (durs2     (sort (map (lambda (x) (ly:get-mus-property x 'duration)) notes2) ly:duration<?))
 	   (pitches2 (sort
 		      (map (lambda (x) (ly:get-mus-property x 'pitch)) notes2) ly:pitch<?))
@@ -308,10 +336,12 @@ Only set if not set previously.
 
 		  ;; copy previous split state from spanner state
 		  (begin
-		    (if (> i1 0)
-			(copy-state-from voice-state-vec1 (vector-ref voice-state-vec1 (1- i1))))
-		    (if (> i2 0)
-			(copy-state-from voice-state-vec2 (vector-ref voice-state-vec2 (1- i2))))
+		    (if (previous-voice-state vs1)
+			(copy-state-from voice-state-vec1
+					 (previous-voice-state vs1)))
+		    (if (previous-voice-state vs2)
+			(copy-state-from voice-state-vec2
+					 (previous-voice-state vs2)))
 		    (if (and (null? (span-state vs1)) (null? (span-state vs2)))
 			(put 'chords))
 		    
@@ -323,26 +353,17 @@ Only set if not set previously.
     (if (< ri (vector-length result))
 	(let*
 	    ((now-state (vector-ref result ri))
-	     (i1 (car (indexes now-state)))
-	     (i2 (cdr (indexes now-state))))
+	     (vs1 (car (voice-states now-state)))
+	     (vs2 (cdr (voice-states now-state))))
 	  
 	  (cond
-	   ((= i1 (vector-length voice-state-vec1)) (put 'apart))
-	   ((= i2 (vector-length voice-state-vec2)) (put 'apart))
+	   ((not vs1) (put 'apart))
+	   ((not vs2) (put 'apart))
 	   (else
 	    (let*
 		(
-		 (vs1 (vector-ref voice-state-vec1 i1))
-		 (vs2 (vector-ref voice-state-vec2 i2))
-		 
-		 (active1
-		  (if (> i1 0)
-		      (span-state (vector-ref voice-state-vec1 (1- i1)))
-		      '()))
-		 (active2
-		  (if (> i2 0)
-		      (span-state (vector-ref voice-state-vec2 (1- i2)))
-		      '()))
+		 (active1 (previous-span-state vs1))
+		 (active2 (previous-span-state vs2))
 
 		 (new-active1 (span-state vs1))
 		 (new-active2 (span-state vs2))
@@ -350,7 +371,7 @@ Only set if not set previously.
 		 )
 	      (if
 	       pc-debug
-	       (display (list (when now-state) i1 i2 ri
+	       (display (list (when now-state) ri
 				    active1 "->" new-active1
 				    active2 "->" new-active2
 				    "\n")))
@@ -372,95 +393,147 @@ Only set if not set previously.
 	    (analyse-time-step (1+ ri))
 	    )))))
     
-    
-   (define (analyse-solo12 ri)
-     (define (put x)
-       (set-cdr! (vector-ref result ri) x) )
-     
-     (if (< ri (vector-length result))
+  (define (analyse-a2 ri)
+    (if (< ri (vector-length result))
+	(let*
+	    ((now-state (vector-ref result ri))
+	     (vs1 (car (voice-states now-state)))
+	     (vs2 (cdr (voice-states now-state)))
+	     )
+	  
+	  (if (and (equal? (configuration now-state) 'chords)
+		   vs1 vs2)
 
-       (let*
-	  ((now (when result ri))
-	   (m1 (when ev1 i1))
-	   (m2 (when ev2 i2))
-	   (notes1 (get-note-evs ev1
-				 (if (ly:moment<?  now m1)
-				     (1- i1) i1)))
-	   
-	   (durs1 (sort (map (lambda (x) (ly:get-mus-property x 'duration)) notes1) ly:duration<?))
-	   (pitches1 (sort
-		      (map (lambda (x) (ly:get-mus-property x 'pitch)) notes1) ly:pitch<?))
+	      (let*
+		  ((notes1 (note-events vs1)) 
+		   (notes2 (note-events vs2))
+		   )
 
-	   (notes2 (get-note-evs ev2
-				 (if (ly:moment<? now m2)
-				     (1- i2) i2)))
-	   (n2 (length notes2))
-	   (n1 (length notes1))
-	   (durs2 (sort (map (lambda (x) (ly:get-mus-property x 'duration)) notes2) ly:duration<?))
-	   (pitches2 (sort
-		      (map (lambda (x) (ly:get-mus-property x 'pitch)) notes2) ly:pitch<?))
-	   )
+		(cond
+		 ((and
+		   (= 1 (length notes1))
+		   (= 1 (length notes2))
+		   (equal? (ly:get-mus-property (car notes1) 'pitch)
+			   (ly:get-mus-property (car notes2) 'pitch)))
 
-	(if pc-debug (display (list
-			 "\n"
-			 (when result ri) i1 "/" (vector-length ev1)
-			      m1 ":" notes1
-			      i2 "/" (vector-length ev2) m2 ":"
-			      notes2
-			      ri "/" (vector-length result)  " = "
-			      (what  result ri)
-			      "\n"
-			      )))
-    
+		  (set! (configuration now-state) 'unisono))
+		 ((and
+		   (= 0 (length notes1))
+		   (= 0 (length notes2)))
+		  (set! (configuration now-state) 'unisilence)))
 
+		(analyse-a2 (1+ ri))
+		)))))
 	
-	 (if (equal? (what result ri) 'apart)
-	     (cond
-	      ((and (= 0 n1)
-		    (< 0 n2)
-		    (equal? now m2)
-		    )
-	       (put 'solo2))
-	      ((and (< 0 n1)
-		    (= 0 n2)
-		    (equal? now m1)
-		    )
-	       (put 'solo1))
-	      ((and (= 0 n1)
-		    (= 0 n2))
-	       (put 'apart-silence))
-	      ))
-
-	 (if (and
-	      (equal? (what result ri) 'chords)
-	      (equal? pitches1 pitches2))
-	     (put (if (pair? pitches2)
-		      'unisono 'unisilence) ))
+   (define (analyse-solo12 ri)
+    
+     (define (previous-config vs)
+       (let*  ((pvs (previous-voice-state vs))
+	       (spi (if pvs (split-idx pvs) #f))
+	       (prev-split (if spi (vector-ref result spi) #f))
+	       )
 	 
-	 (cond
-	  ((ly:moment<? m1 m2)
-	   (analyse-solo12 (1+ i1) i2 (1+ ri) ))
-	  ((ly:moment<? m2 m1)
-	   (analyse-solo12 i1 (1+ i2) (1+ ri) ))
-	  (else
-	   (analyse-solo12 (1+ i1) (1+ i2) (1+ ri)))
-	  ))))
+	 (if prev-split
+	     (configuration prev-split)
+	     'apart)
+		    
+       ))
+     (define (put-range x a b)
+       (do
+	   ((i a (1+ i)))
+	   ((> i b))
+	 (set! (configuration (vector-ref result i) x))
+	 ))
+     (define (put x)
+       (set! (configuration (vector-ref result ri)) x))
+	    
+     (define (try-solo type start-idx current-idx)
+       (if (< current-idx (vector-length result))
+	   (let*
+	       ((now-state (vector-ref result current-idx))
+		(solo-state ((if (equal? type 'solo1) car cdr) (voice-states now-state)))
+		(silent-state ((if (equal? type 'solo1) cdr car) (voice-states now-state)))
+		(silent-notes (note-events silent-state))
+		(solo-notes (note-events solo-state))
+		(soln (length solo-notes))
+		(siln (length silent-notes)))
 
+	     (cond
+	      ((not (equal? (configuration now-state) 'apart))
+	       current-idx)
+	      ((= soln 0) current-idx)
+	      ((> siln 0) current-idx)
+	      ((null? (span-state solo-state))
+	       (put-range type start-idx current-idx)
+	       current-idx)
+	      (else
+	       (try-solo type start-idx (1+ current-idx)))
+	       
+	      ))
+	   (1- current-idx)))
+	      
+     (define (analyse-moment ri)
+       "Analyse 'apart  starting at RI. Return next index. 
+"
+       
+        (let*
+	   ((now-state (vector-ref result ri))
+	    (vs1 (car (voice-states now-state)))
+	    (vs2 (cdr (voice-states now-state)))
+	    
+	    (notes1 (note-events vs1))
+	    (notes2 (note-events vs2))
+	    (n1 (length notes1))
+	    (n2 (length notes2))
+	    )
 
+	  (cond
+	   ((and (= n1 0) (= n2 0))
+	    (put 'apart-silence)
+	    (1+ ri)
+	    )
+
+	   ((and (= n2 0)
+		 (equal? (when vs1) (when now-state))
+		 (null? (previous-span-state vs1)))
+	    (try-solo 'solo1 ri ri))
+	   ((and (= n1 0)
+		 (equal? (when vs2) (when now-state))
+		 (null? (previous-span-state vs2)))
+	    (try-solo 'solo2 ri ri))
+	   (else
+	    (1+ ri))
+       )))
+	  
+     (if (< ri (vector-length result))
+	 (if (equal? (configuration (vector-ref result ri)) 'apart)
+	     (analyse-solo12 (analyse-moment ri))
+	     (analyse-solo12 (1+ ri))))
+     )
+     
+   
    (analyse-spanner-states voice-state-vec1)
    (analyse-spanner-states voice-state-vec2)
-;  (display voice-state-vec1)
-;   (display voice-state-vec2)
-;   (display result)
+
+   (if #t
+       (begin
+	(display voice-state-vec1)
+	(display "***\n")
+	(display voice-state-vec2)
+	(display "***\n")
+	(display result)
+	(display "***\n")
+	))
      
    (analyse-time-step 0)
-;   (analyse-solo12 0 0 0)
    (display result)
+   (analyse-a2 0)
+   (analyse-solo12 0)
 ;   (if pc-debug (display result))
 
    (set! result    (map
 		    (lambda (x) (cons (when x) (configuration x)))
 		    (vector->list result)))
 
-;   (if pc-debug (display result))
+   (if pc-debug (display result))
    result))

@@ -1,3 +1,9 @@
+2004-02-04  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* input/regression/new-part-combine-solo-global.ly: new file.
+
+	* scm/part-combiner.scm: rewrite.
+
 2004-02-03  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/filter-lilypond-book.py: Handle @include.  Add progress
