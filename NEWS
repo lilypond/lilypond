@@ -1,3 +1,8 @@
+pl 8.jcn1
+	- removed tutorial from texinfo, yodl2texinfo is still rather broken
+	- bf: setlocale NUMERIC to 'C'
+	- removed ugly space from print-dimen
+
 pl 8
 	- make website fixes.
 

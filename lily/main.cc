@@ -189,8 +189,8 @@ main (int argc, char **argv)
     prefix_directory = env_lily;
 
 #if HAVE_GETTEXT
-  setlocale (LC_ALL, "");
-//  setlocale (LC_MESSAGES, "");
+  setlocale (LC_ALL, ""); /* enable locales */
+  setlocale (LC_NUMERIC, "C"); /* musn't have comma's in TeX output... */
   String lily_locale_dir;
   String name (PACKAGE);
   name.to_lower ();

@@ -17,12 +17,21 @@ redef(manpagesection)(1)(sect(ARG1))
 COMMENT(redef(includefile)(1)(INCLUDEFILE(man/ARG1)))
 includefile(programs.yo)
 
+COMMENT(
+
+  Urg fooling nodeprefix for tutorial article still doesn't work...
+
+  I guess this is broken anyway, yodl2texinfo-post should make sure
+  node names + (menu) references are unique and consistent.
+
 COMMENT(prepare for texinfoing articles)
 redef(article)(3)(nodeprefix()chapter(ARG1)nodeprefix(ARG1))
 redef(article)(3)(nodeprefix()chapter(ARG1)nodeprefix(Tutorial))
 
 redef(includefile)(1)(INCLUDEFILE(tex/ARG1))
 includefile(tutorial.yo)
+
+)
 
 COMMENT(prepare for texinfoing articles)
 redef(article)(3)(nodeprefix()chapter(ARG1)nodeprefix(ARG1))
