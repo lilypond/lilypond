@@ -19,7 +19,7 @@ class Script_column_engraver : public Engraver
 {
   Script_column *scol_p_;
   Link_array<Item> script_l_arr_;
-  Link_array<Staff_side_item> staff_side_l_arr_;  
+
 public:
   Script_column_engraver ();
   VIRTUAL_COPY_CONS(Translator);
@@ -50,7 +50,7 @@ void
 Script_column_engraver::do_post_move_processing ()
 {
   script_l_arr_.clear ();
-  staff_side_l_arr_.clear ();
+
 }
 
 void
@@ -60,12 +60,9 @@ Script_column_engraver::acknowledge_element( Score_element_info inf)
   if (!thing)
     return;
   
-  Graphical_element *parent = thing->parent_l(Y_AXIS);
-
-
-  if (Staff_side_item * ss = dynamic_cast<Staff_side_item*>(parent))
+  if (Staff_sidify (thing).is_staff_side_b ())
     {
-      if (!ss->breakable_b () && ss->axis_ == Y_AXIS)
+      if (!thing->breakable_b () && Staff_sidify (thing).get_axis () == Y_AXIS)
 	{
 	  script_l_arr_.push (thing);
 	}

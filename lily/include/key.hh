@@ -15,6 +15,7 @@ class Octave_key {
 
 public:
   Array<int> accidental_i_arr_;
+  Array<bool> internal_forceacc_b_arr_;
   void clear ();
   Octave_key();
   void set (int i, int acc);
@@ -36,8 +37,12 @@ public:
   Octave_key const& oct (int) const;
   void set (int name, int acc);
   void set (Musical_pitch);
+  void set_internal_forceacc (Musical_pitch);
+  void clear_internal_forceacc (Musical_pitch);
 
   bool different_acc (Musical_pitch) const;
+  bool internal_forceacc (Musical_pitch) const;
+  bool double_to_single_acc (Musical_pitch) const;
   
   Key();
   void print () const;  

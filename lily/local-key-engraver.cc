@@ -56,39 +56,59 @@ Local_key_engraver::do_creation_processing ()
 void
 Local_key_engraver::process_acknowledged ()
 {
-  if (!key_item_p_ && mel_l_arr_.size()) 
+    if (!key_item_p_ && mel_l_arr_.size()) 
     {
-      SCM f = get_property ("forgetAccidentals",0);
-      bool forget = gh_boolean_p (f) && gh_scm2bool(f);
-      for (int i=0; i  < mel_l_arr_.size(); i++) 
-	{
-	  Item * support_l = support_l_arr_[i];
-	  Note_req * note_l = mel_l_arr_[i];
-
-          if (tied_l_arr_.find_l (support_l) && !forget)
-            local_key_.set (note_l->pitch_);
-
-	  if (!note_l->forceacc_b_
-	      && local_key_.different_acc (note_l->pitch_))
-	    continue;
-	  if (!key_item_p_) 
+        SCM f = get_property ("forgetAccidentals",0);
+        bool forget = gh_boolean_p (f) && gh_scm2bool(f);
+        for (int i=0; i  < mel_l_arr_.size(); i++) 
 	    {
-	      key_item_p_ = new Local_key_item;
-	      announce_element (Score_element_info (key_item_p_, 0));	      
-	    }
+	        Item * support_l = support_l_arr_[i];
+	        Note_req * note_l = mel_l_arr_[i];
 
-	  key_item_p_->add_pitch (note_l->pitch_,
-	  			  note_l->cautionary_b_);
-	  key_item_p_->add_support (support_l);
+            /* see if there's a tie that "changes" the accidental */
+            /* works because if there's a tie, the note to the left
+               is of the same pitch as the actual note */
+            bool tie_changes = tied_l_arr_.find_l (support_l)
+                  && !local_key_.different_acc (note_l->pitch_);
+
+            if (!forget
+
+	         && ((note_l->forceacc_b_
+	         || !local_key_.different_acc (note_l->pitch_)
+			 || local_key_.internal_forceacc (note_l->pitch_)))
+
+             && !tie_changes)
+             {
+                 if (!key_item_p_) 
+	             {
+	                 key_item_p_ = new Local_key_item;
+	                 announce_element (Score_element_info (key_item_p_, 0));
+	             }
+
+	             key_item_p_->add_pitch (note_l->pitch_,
+	  			      note_l->cautionary_b_,
+					  local_key_.double_to_single_acc(note_l->pitch_));
+	             key_item_p_->add_support (support_l);
+             }
 	  
-	  if (!forget)
-	    local_key_.set (note_l->pitch_);
-	}
+	         if (!forget)
+			 {
+				 local_key_.set (note_l->pitch_);
+                 if (!tied_l_arr_.find_l (support_l))
+			     {
+			         local_key_.clear_internal_forceacc (note_l->pitch_);
+			     }
+                 else if (tie_changes)
+				 {
+                     local_key_.set_internal_forceacc (note_l->pitch_);
+			     }
+			}
+        }
     }
-  if (key_item_p_ && grace_align_l_)
+    if (key_item_p_ && grace_align_l_)
     {
-      grace_align_l_->add_support (key_item_p_);
-      grace_align_l_ =0;
+        grace_align_l_->add_support (key_item_p_);
+        grace_align_l_ =0;
     }
   
 }

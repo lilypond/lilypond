@@ -46,6 +46,10 @@ Lemoine puts fermatas on ending bar lines everywhere.
 
 \version "1.3.4";
 
+
+lowstaff = \translator "Staff" = "lower"
+upstaff = \translator "Staff" = "upper"
+
 % upper = \context Staff \notes\relative c {
 upper = \context Staff=upper \notes\relative c {
 	\context Voice=i
@@ -68,27 +72,26 @@ upper = \context Staff=upper \notes\relative c {
 	r c, g' b r c, fis a |
 	r b, d a' r b, d g 
 	r a, c g' r a, c f! |
+	
 	% ugh arpeggio
-	<
-		{ \stemup f4 r }
-		\context Voice=ii { \stemdown <g,4 d'> r }
-	>
+	<f4 d b4>
+	r4
+	
 	\stemboth 
-	\translator Staff=lower\stemup
+	\stemup
 	r16 g,, b d  
-	[ f \translator Staff=upper\stemdown g16 b d ] | 
+	[ f \upstaff \stemdown g16 b d ] | 
 	\stemup b
-	\translator Staff=lower\stemdown
+	\lowstaff \stemdown
 	[ g b d ] f
-	\translator Staff=upper\stemup
+	\upstaff 
 	[ g16 b d ] b
-	\translator Staff=lower\stemup
-	\clef "violin"; 
 	[ g b d ]
 	\stemup
+
 	% urg, below translator change affects previous beam too!?
 	% howto separate translator command from previous beam end?
-	\translator Staff=upper f g b f |
+	\upstaff f g b f |
 	\stemboth
 	e c' g f  e c' g e 
 	d c' f, e  d b' f d |
@@ -120,7 +123,7 @@ lower = \context Staff=lower \notes\relative c{
 	c4 e g^"\\textsharp"-\mordent g,4 |
 	d'4-\mordent f a-\mordent^"\\textsharp" a,4 |
  	e' e'-\mordent a, b-\upprall |
- 	c4 e, fis gis-\downprall |
+ 	c4 e, fis gis-\upprall |
 	a4 c, d e-\upprall |
 	f4 e d-\prall c |
 	g'-\mordent^"\\textsharp" g, g'-\mordent g, |

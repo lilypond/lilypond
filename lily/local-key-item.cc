@@ -20,15 +20,17 @@ Local_key_item::Local_key_item ()
 }
 
 void
-Local_key_item::add_pitch (Musical_pitch p, bool cautionary)
+Local_key_item::add_pitch (Musical_pitch p, bool cautionary, bool natural)
 {
   for (int i=0; i< accidental_arr_.size(); i++)
     if (!Musical_pitch::compare (p, accidental_arr_[i].pitch_))
       return;
+	  /* maybe natural (and cautionary) should be modif. nonetheless? */
 
   Local_key_cautionary_tuple t;
   t.pitch_ = p;
   t.cautionary_b_ = cautionary;
+  t.natural_b_ = natural;
   accidental_arr_.push (t);
 }
 

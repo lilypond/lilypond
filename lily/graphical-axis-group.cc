@@ -61,7 +61,7 @@ Graphical_axis_group::add_element (Graphical_element*e, Axis a1 , Axis a2)
       
       e->set_parent (this, as[i]);
 
-      e->dim_cache_[as[i]]->dependencies_l_arr_.push (dim_cache_[as[i]]);
+      //      e->dim_cache_[as[i]]->dependencies_l_arr_.push (dim_cache_[as[i]]);
     }
   assert (e->parent_l(Y_AXIS) == this || e->parent_l (X_AXIS) == this);
   elem_l_arr_.push (e);
@@ -92,7 +92,7 @@ Graphical_axis_group::do_remove (Graphical_element *e)
       if (e->parent_l (a) != this)
 	continue;
       e->set_parent (0, a);
-      e->dim_cache_[a]->dependencies_l_arr_.clear ();
+      //      e->dim_cache_[a]->dependencies_l_arr_.clear ();
     }
 }
 

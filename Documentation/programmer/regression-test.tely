@@ -47,6 +47,19 @@ colliding from barlines.
 
 @mudelafile{multi-measure-rest.ly}
 
+If @code{Score.skipBars} is set,
+the signs for four, two, and one measure rest are combined to
+produce the graphical representation of rests for up to 10 bars.
+The number of bars will be written above the sign.
+
+@mudelafile{mm-rest2.ly}
+
+A sharp sign after a double sharp sign, as well as a flat sign
+after a double flat sign is automatically prepended with a
+natural sign.
+
+@mudelafile{double-single-acc.ly}
+
 @section Stems
 
 Stem tremolos (official naming?) or rolls are tremolo signs that look

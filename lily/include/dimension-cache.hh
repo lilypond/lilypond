@@ -16,7 +16,8 @@
 #include "parray.hh"
 
 class Dimension_cache;
-typedef Interval (*Dim_cache_callback)(Dimension_cache *);
+typedef Interval (*Dim_cache_callback)(Dimension_cache const *);
+typedef Real (*Offset_cache_callback)(Dimension_cache const *);
 
 /**
   Adminstration of offset dimension info. 
@@ -32,20 +33,30 @@ class Dimension_cache
   /**
     The offset wrt. to the center of #parent_l_#
    */
-  Real offset_;
+
+  Real extra_offset_;
+  Real basic_offset_;
+  
+  bool off_valid_b_;
+
+  
   Graphical_element *elt_l_;
   Dim_cache_callback callback_l_;
   friend class Graphical_element;
 
   void init ();
 public:
+  Offset_cache_callback off_callback_l_;
+  
+  Axis axis () const;
+  Real get_offset () const;
   void set_callback (Dim_cache_callback);
   /** The #offset_# is defined with regard to this graphical_element/
     dimension_cache.  */
-  
+  void set_offset_callback (Offset_cache_callback);
   Dimension_cache * parent_l_;
-  Link_array<Dimension_cache> dependencies_l_arr_;
-  Graphical_element *element_l () { return elt_l_; }
+
+  Graphical_element *element_l () const { return elt_l_; }
 
   void invalidate ();
   void invalidate_dependencies ();

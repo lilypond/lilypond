@@ -62,7 +62,8 @@ Note_heads_engraver::do_process_requests()
     {
       Note_head *note_p  = new Note_head;
       Note_req * note_req_l = note_req_l_arr_[i];
-      note_p->balltype_i_ = note_req_l->duration_.durlog_i_;
+      
+      note_p->balltype_i_ = note_req_l->duration_.durlog_i_ <? 2;
 
       if (note_req_l->duration_.dots_i_)
 	{

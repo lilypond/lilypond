@@ -21,7 +21,6 @@ class Bar_script_engraver : public Engraver
 public:
   VIRTUAL_COPY_CONS(Translator);
 protected:
-  Staff_side_item* staff_side_p_;
   Text_item* text_p_;
   Protected_scm visibility_lambda_;
   String type_;

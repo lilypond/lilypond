@@ -19,7 +19,7 @@ void
 Octave_key::print () const
 {
   for (int i= 0; i < 7 ; i++)
-    DEBUG_OUT << "note " << i << " acc: " << accidental_i_arr_[i] << '\n';
+    DEBUG_OUT << "note " << i << " acc: " << accidental_i_arr_[i] << " iforce: " << internal_forceacc_b_arr_[i] << '\n';
 }
 
 
@@ -27,6 +27,7 @@ Octave_key::print () const
 Octave_key::Octave_key()
 {
   accidental_i_arr_.set_size (7);
+  internal_forceacc_b_arr_.set_size(7);
   clear ();
 }
 
@@ -34,7 +35,10 @@ void
 Octave_key::clear ()
 {
   for (int i= 0; i < 7 ; i++)
+  {
     accidental_i_arr_[i] = 0;
+    internal_forceacc_b_arr_[i] = false;
+  }
 }
 
 Key::Key()
@@ -91,6 +95,20 @@ Key::set (Musical_pitch p)
 }
 
 void
+Key::set_internal_forceacc (Musical_pitch p)
+{
+  int   i = octave_to_index (p.octave_i_);
+  octaves_[i].internal_forceacc_b_arr_[p.notename_i_] = true;
+}
+
+void
+Key::clear_internal_forceacc (Musical_pitch p)
+{
+  int   i = octave_to_index (p.octave_i_);
+  octaves_[i].internal_forceacc_b_arr_[p.notename_i_] = false;
+}
+
+void
 Key::set (int n, int a)
 {
   for (int i= 0; i < NUMBER_OF_OCTAVES ; i++)
@@ -117,4 +135,22 @@ bool
 Key::different_acc (Musical_pitch p)const
 {
   return oct (p.octave_i_).acc (p.notename_i_) == p.accidental_i_;
+}
+
+
+bool
+Key::internal_forceacc (Musical_pitch p)const
+{
+  return oct (p.octave_i_).internal_forceacc_b_arr_[p.notename_i_];
+}
+
+
+bool
+Key::double_to_single_acc (Musical_pitch p) const
+{
+  return ((oct (p.octave_i_).acc (p.notename_i_) == -2
+      && p.accidental_i_ == -1)
+	  
+	 || (oct (p.octave_i_).acc (p.notename_i_) == 2
+	    && p.accidental_i_ == 1));
 }

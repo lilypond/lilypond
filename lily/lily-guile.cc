@@ -18,6 +18,7 @@
 #include "simple-file-storage.hh"
 #include "file-path.hh"
 #include "debug.hh"
+#include "direction.hh"
 
 SCM
 ly_str02scm (char const*c)
@@ -267,4 +268,23 @@ init_lily_guile ()
 unsigned int ly_scm_hash (SCM s)
 {
   return scm_ihashv (s, ~1u);
+}
+
+
+
+bool
+isdir_b (SCM s)
+{
+  if (gh_number_p (s))
+    {
+      int i = gh_scm2int (s);
+      return i>= -1 && i <= 1; 
+    }
+  return false;
+}
+
+Direction
+to_dir (SCM s)
+{
+  return (Direction) gh_scm2int (s);
 }

@@ -13,7 +13,7 @@
 #include "string.hh"
 #include "lily-proto.hh"
 #include "virtual-methods.hh"
-#include "property-inspect.hh"
+#include "lily-guile.hh"
 #include "dictionary.hh"
 #include "parray.hh"
 #include "input.hh"

@@ -187,7 +187,8 @@ GrandStaffContext=\translator{
 	\name GrandStaff;
 	\consists "Span_bar_engraver";
 	\consists "Piano_bar_engraver";
-
+	\consists "Property_engraver";	
+	Generic_property_list = #generic-grand-staff-properties
 	\accepts "Staff";
 };
 \translator{\GrandStaffContext}

@@ -13,8 +13,6 @@
 #include "direction.hh"
 #include "lily-guile.hh"
 
-bool isdir_b (SCM s);
-Direction to_dir (SCM s);
 
 #endif /* PROPERTY_INSPECT_HH */
 

@@ -101,7 +101,7 @@ public:
      #funcptr# is the function to call to update this element.
    */
   void calculate_dependencies (int final, int busy, Score_element_method_pointer funcptr);
-
+  static SCM handle_broken_smobs (SCM, Line_of_score*);
 
   virtual Score_element *find_broken_piece (Line_of_score*) const;
 protected:
@@ -131,9 +131,6 @@ protected:
   /// generate rods & springs
   virtual void do_space_processing ();
 
-  /// do postbreak substs on array of pointers.
-  virtual void do_substitute_arrays ();
-
   virtual void do_breakable_col_processing ();
   /// do calculations after determining horizontal spacing
   virtual void do_post_processing ();
@@ -146,7 +143,7 @@ protected:
   virtual void handle_broken_dependents ();
   virtual Link_array<Score_element> get_extra_dependencies () const;
 
-  static Interval dim_cache_callback (Dimension_cache*);
+  static Interval dim_cache_callback (Dimension_cache const*);
 public:
 
   DECLARE_SMOBS;

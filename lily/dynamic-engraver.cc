@@ -25,13 +25,9 @@
 class Dynamic_engraver : public Engraver
 {
   Text_item * text_p_;
-  Staff_side_item * staff_side_p_;
-  Staff_side_spanner * ss_span_p_;
-  Staff_side_spanner * to_end_ss_span_p_;
-  
-  
   Crescendo * to_end_cresc_p_;
   Crescendo * cresc_p_;
+
   Span_req * cresc_req_l_;
   Array<Request*> dynamic_req_l_arr_;
   void  typeset_all ();
@@ -54,9 +50,9 @@ Dynamic_engraver::Dynamic_engraver()
 {
   do_post_move_processing();
   text_p_ =0;
-  staff_side_p_ =0;
+
   to_end_cresc_p_ = cresc_p_ = 0;
-  ss_span_p_ = to_end_ss_span_p_=0;
+
   cresc_req_l_ = 0;
 }
 
@@ -98,7 +94,7 @@ void
 Dynamic_engraver::do_process_requests()
 {
   Crescendo*  new_cresc_p=0;
-  Staff_side_spanner * new_sss_p =0;
+
   for (int i=0; i < dynamic_req_l_arr_.size(); i++)
     {
       if (Text_script_req *absd =
@@ -115,39 +111,36 @@ Dynamic_engraver::do_process_requests()
 	  text_p_ = new Text_item;
 	  text_p_->text_str_ =  loud; // ugh
 	  text_p_->set_elt_property ("style", gh_str02scm ("dynamic"));
-
-	  staff_side_p_ = new Staff_side_item;
-	  staff_side_p_->set_elt_property ("script-priority",
-					   gh_int2scm (100));
-					   
-	  staff_side_p_->set_victim (text_p_);
-	  staff_side_p_->axis_ = Y_AXIS;
-	  staff_side_p_->set_direction (DOWN);
+	  text_p_->set_elt_property ("script-priority",
+				     gh_int2scm (100));
+	  Staff_sidify (text_p_).set_axis (Y_AXIS);
 
 	  
-	  SCM prop = get_property ("verticalDirection", 0);
-	  if (isdir_b (prop))
-	    {
-	      staff_side_p_->set_direction (to_dir (prop));
-	    }
-
-	  prop = get_property ("dynamicDirection", 0);
-	  if (gh_number_p(prop))
-	    {
-	      staff_side_p_->set_direction (to_dir (prop));
-	    }
 	  if (absd->get_direction ())
 	    {
-	      staff_side_p_->set_direction (absd->get_direction ());
+	      text_p_->set_elt_property ("direction", gh_int2scm (absd->get_direction ()));
 	    }
+
+
+	  /*
+	    UGH UGH 
+	   */
+	  SCM prop = get_property ("dynamicDirection", 0);
+	  if (!isdir_b (prop))
+	    {
+	      prop = get_property ("verticalDirection", 0);
+	    }
+
+	  if (isdir_b (prop) && to_dir (prop))
+	    text_p_->set_elt_property ("direction", prop);
+
 
 	  prop = get_property ("dynamicPadding", 0);
 	  if (gh_number_p(prop))
 	    {
-	      staff_side_p_->set_elt_property ("padding", prop);
+	      text_p_->set_elt_property ("padding", prop);
 	    }
 	  announce_element (Score_element_info (text_p_, absd));
-	  announce_element (Score_element_info (staff_side_p_, absd));
 	}
       else if (Span_req *span_l
 	       = dynamic_cast <Span_req *> (dynamic_req_l_arr_[i]))
@@ -162,29 +155,8 @@ Dynamic_engraver::do_process_requests()
 		{
 		  assert (!to_end_cresc_p_);
 		  to_end_cresc_p_ =cresc_p_;
-		  to_end_ss_span_p_ = ss_span_p_ ;
 		  
 		  cresc_p_ = 0;
-		  ss_span_p_ =0;
-
-
-
-		  
-		  SCM prop = get_property ("verticalDirection", 0);
-		  if (isdir_b (prop))
-		    {
-		      to_end_ss_span_p_->set_direction (to_dir (prop));
-		    }
-		  prop = get_property ("dynamicDirection", 0);
-		  if (isdir_b (prop))
-		    {
-		      to_end_ss_span_p_->set_direction (to_dir (prop));
-		    }
-		  prop = get_property ("dynamicPadding", 0);
-		  if (gh_number_p(prop))
-		    {
-		      to_end_ss_span_p_->set_elt_property ("padding",prop);
-		    }
 		}
 	    }
 	  else if (span_l->span_dir_ == START)
@@ -193,14 +165,9 @@ Dynamic_engraver::do_process_requests()
 	      assert (!new_cresc_p);
 	      new_cresc_p  = new Crescendo;
 	      new_cresc_p->grow_dir_ = (span_l->span_type_str_ == "crescendo")  ? BIGGER : SMALLER;
-	      announce_element (Score_element_info (new_cresc_p, span_l));
 
-	      new_sss_p = new Staff_side_spanner;
-	      new_sss_p->set_victim (new_cresc_p);
-	      new_sss_p->axis_ = Y_AXIS;
-	      // UGH.!
-	      // new_sss_p->set_elt_property ("dangling", SCM_BOOL_T);
-	      announce_element (Score_element_info (new_sss_p, span_l));
+	      Staff_sidify (new_cresc_p).set_axis (Y_AXIS);
+	      announce_element (Score_element_info (new_cresc_p, span_l));
 	    }
 	}
     }
@@ -211,15 +178,13 @@ Dynamic_engraver::do_process_requests()
 	{
 	  ::warning (_ ("Too many crescendi here"));
 	  typeset_element (cresc_p_);
-	  typeset_element (ss_span_p_);
+
 	  cresc_p_ = 0;
-	  ss_span_p_ =0;
 	}
       
       cresc_p_ = new_cresc_p;
-      ss_span_p_ = new_sss_p;
       cresc_p_->set_bounds(LEFT,get_staff_info().musical_pcol_l ());
-      ss_span_p_->set_bounds (LEFT,get_staff_info().musical_pcol_l ());
+
       if (text_p_)
 	{
 	  cresc_p_->dyn_b_drul_[LEFT] = true;
@@ -245,8 +210,6 @@ Dynamic_engraver::do_removal_processing ()
   if (cresc_p_)
     {
       typeset_element (cresc_p_ );
-      typeset_element (ss_span_p_);
-      ss_span_p_ =0;
       cresc_req_l_->warning (_ ("unended crescendo"));
       cresc_p_ =0;
     }
@@ -260,19 +223,17 @@ Dynamic_engraver::typeset_all ()
   if (to_end_cresc_p_)
     {
       to_end_cresc_p_->set_bounds(RIGHT,get_staff_info().musical_pcol_l ());
-      to_end_ss_span_p_->set_bounds(RIGHT,get_staff_info().musical_pcol_l ());
+
       typeset_element (to_end_cresc_p_);
-      typeset_element (to_end_ss_span_p_);
+
       to_end_cresc_p_ =0;
-      to_end_ss_span_p_ =0;
+
     }
   
   if (text_p_)
     {
       typeset_element (text_p_);
-      typeset_element (staff_side_p_);
       text_p_ =0;
-      staff_side_p_ =0;
     }
 }
 
@@ -284,14 +245,14 @@ Dynamic_engraver::acknowledge_element (Score_element_info i)
       || dynamic_cast<Note_head *> (i.elem_l_)
       )
     {
-      if (staff_side_p_)
-	staff_side_p_->add_support (i.elem_l_);
+      if (text_p_)
+	Staff_sidify (text_p_).add_support (i.elem_l_);
 
-      if (to_end_ss_span_p_)
-	to_end_ss_span_p_->add_support (i.elem_l_);
+      if (to_end_cresc_p_)
+	Staff_sidify (to_end_cresc_p_).add_support (i.elem_l_);
 
-      if (ss_span_p_)
-	ss_span_p_->add_support (i.elem_l_);
+      if (cresc_p_)
+	Staff_sidify(cresc_p_).add_support (i.elem_l_);
     }
 }
 

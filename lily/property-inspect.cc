@@ -7,21 +7,3 @@
   
  */
 
-#include "property-inspect.hh"
-
-bool
-isdir_b (SCM s)
-{
-  if (gh_number_p (s))
-    {
-      int i = gh_scm2int (s);
-      return i>= -1 && i <= 1; 
-    }
-  return false;
-}
-
-Direction
-to_dir (SCM s)
-{
-  return (Direction) gh_scm2int (s);
-}

@@ -62,7 +62,6 @@ ChoirStaff bar line types in the rest of the scores
 
 . * make all Feta (including dynamics) available to the user in
     textual scripts. Examples: "D.S. al \coda", "\mf espress.".
- 
 . * Write script that uses --find-old-relative to do auto relativization. 
 . * Junk shared cruft (duration, moment) in lib/
 

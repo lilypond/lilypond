@@ -20,9 +20,6 @@ Crescendo::Crescendo ()
   dyn_b_drul_[LEFT] = dyn_b_drul_[RIGHT] =false;
 }
 
-
-
-
 Molecule
 Crescendo::get_symbol () const
 {

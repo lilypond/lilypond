@@ -95,12 +95,8 @@ upper =  \notes \transpose c'' {
 	r16 [fis, c es] [c fis, c fis,] r fis, r fis, |
 	r16 [g, b, d] [b, g, b, d] [es c a, fis] |
 
-	
-	\context Staff <
-		\context Voice=i {\stemup g4-\fermata}
-		\context Voice=ii {\stemdown <b,4 d>}
-	>
-	\stemboth
+
+	<g4 d b>	
 	\bar "|.";
 }
 
@@ -160,7 +156,7 @@ lower =  \notes{
 	g,4 r [es8 c] |
 	g,4 r [es8 c] |
 	g,4 r r |
-	g,2._\fermata 
+	g,4_\fermata 
 	\bar "|.";
 }
 

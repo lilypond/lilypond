@@ -8,13 +8,17 @@
 
 #include "dimension-cache.hh"
 #include "parray.hh"
+#include "graphical-element.hh"
 
 Dimension_cache::Dimension_cache (Dimension_cache const &d)
 {
   init();
   callback_l_ = d.callback_l_;
   empty_b_ = d.empty_b_;
-  offset_ = d.offset_; //let's hope others will copy  the refpoint appropriately. 
+  basic_offset_ = d.basic_offset_;
+  extra_offset_ = d.extra_offset_;
+  off_valid_b_ = d.off_valid_b_;
+  off_callback_l_ = d.off_callback_l_;
 }
 
 Dimension_cache::Dimension_cache ()
@@ -26,47 +30,45 @@ void
 Dimension_cache::init()
 {
   callback_l_ =0;
-  offset_ =0.0;
+
+  basic_offset_ =0.0;
+  extra_offset_ =0.0;
+  
   elt_l_ = 0;
   dim_.set_empty ();
   parent_l_ =0;
   valid_b_ = false;
   empty_b_ = false;
+  off_valid_b_ = false;
+  off_callback_l_ =0;
 }
 
 
 void
 Dimension_cache::invalidate ()
 {
+  off_valid_b_ =false;
   valid_b_ = false;
-  invalidate_dependencies ();
 }
 
-void
-Dimension_cache::invalidate_dependencies ()
-{
-  for (int i=0; i < dependencies_l_arr_.size (); i++)
-    {
-      Dimension_cache * g = dependencies_l_arr_[i];
-      if (g->valid_b_)
-	{
-	  g->invalidate ();
-	}
-    }
-}
 
 void
 Dimension_cache::set_offset (Real x)
 {
-  invalidate_dependencies ();
-  offset_ = x;
+  // ugh!
+  /*
+
+    UGH ! UGH !
+    
+   */
+  
+  basic_offset_ = x;
 }
 
 void
 Dimension_cache::translate (Real x)
 {
-  invalidate_dependencies ();
-  offset_ += x;
+  basic_offset_ += x;
 }
 
 Real
@@ -81,9 +83,31 @@ Dimension_cache::relative_coordinate (Dimension_cache *refp) const
     
    */
   if (refp == parent_l_)
-    return offset_;
+    return get_offset ();
   else
-    return offset_ + parent_l_->relative_coordinate (refp);
+    return get_offset () + parent_l_->relative_coordinate (refp);
+}
+
+Axis
+Dimension_cache::axis () const
+{
+  if (elt_l_-> dim_cache_[X_AXIS] == this)
+    return X_AXIS;
+  else
+    return Y_AXIS;
+}
+
+Real
+Dimension_cache::get_offset () const
+{
+  if (!off_valid_b_ && off_callback_l_ )
+    {
+      Dimension_cache *d = (Dimension_cache*) this;
+      d->off_valid_b_ = true;
+      d->basic_offset_ = (*off_callback_l_) (d);
+    }
+
+  return basic_offset_ + extra_offset_;
 }
 
 Dimension_cache *
@@ -142,3 +166,8 @@ Dimension_cache::set_callback (Dim_cache_callback c)
   callback_l_ =c;
 }
 
+void
+Dimension_cache::set_offset_callback (Offset_cache_callback c)
+{
+  off_callback_l_ =c;
+}
