@@ -6,25 +6,26 @@ stemUp = \property Voice.Stem \set #'direction = #1
 stemDown = \property Voice.Stem \set #'direction = #-1 
 stemBoth= \property Voice.Stem \revert #'direction
 
-slurUp   = \property Voice.Slur \override #'direction = #1
-slurDown = \property Voice.Slur \override #'direction = #-1
+slurUp   = \property Voice.Slur \set #'direction = #1
+slurDown = \property Voice.Slur \set #'direction = #-1
 slurBoth = \property Voice.Slur \revert #'direction 
-shiftOn  = \property Voice.NoteColumn \override #'horizontal-shift = #1
-shiftOnn  = \property Voice.NoteColumn \override #'horizontal-shift = #2
-shiftOnnn  = \property Voice.NoteColumn \override #'horizontal-shift = #3
+
+shiftOn  = \property Voice.NoteColumn \set #'horizontal-shift = #1
+shiftOnn  = \property Voice.NoteColumn \set #'horizontal-shift = #2
+shiftOnnn  = \property Voice.NoteColumn \set #'horizontal-shift = #3
 shiftOff  = \property Voice.NoteColumn \revert #'horizontal-shift 
 
-tieUp = \property Voice.Tie \override #'direction = #1
-tieDown = \property Voice.Tie \override #'direction = #-1
+tieUp = \property Voice.Tie \set #'direction = #1
+tieDown = \property Voice.Tie \set #'direction = #-1
 tieBoth = \property Voice.Tie \revert #'direction 
 
 dynamicUp  = {
-  \property Voice.DynamicText \override #'direction = #1
-  \property Voice.DynamicLineSpanner \override #'direction = #1
+  \property Voice.DynamicText \set #'direction = #1
+  \property Voice.DynamicLineSpanner \set #'direction = #1
 }
 dynamicDown = {
-  \property Voice.DynamicText \override #'direction = #-1
-  \property Voice.DynamicLineSpanner \override #'direction = #-1
+  \property Voice.DynamicText \set #'direction = #-1
+  \property Voice.DynamicLineSpanner \set #'direction = #-1
 }
 dynamicBoth = {
   \property Voice.DynamicText \revert #'direction
@@ -32,33 +33,30 @@ dynamicBoth = {
 }
 
 scriptUp  = {
-  \property Voice.TextScript \override #'direction = #1
-  \property Voice.Script \override #'direction = #1
+  \property Voice.TextScript \set #'direction = #1
+  \property Voice.Script \set #'direction = #1
 }
 scriptDown = {
-  \property Voice.TextScript \override #'direction = #-1
-  \property Voice.Script \override #'direction = #-1
+  \property Voice.TextScript \set #'direction = #-1
+  \property Voice.Script \set #'direction = #-1
 }
 scriptBoth = {
   \property Voice.TextScript \revert #'direction
   \property Voice.Script \revert #'direction
 }
 
-dotsUp = \property Voice.Dots \override #'direction = #1
-dotsDown = \property Voice.Dots \override #'direction = #-1
+dotsUp = \property Voice.Dots \set #'direction = #1
+dotsDown = \property Voice.Dots \set #'direction = #-1
 dotsBoth = \property Voice.Dots \revert #'direction 
 
 % why doubly?
 tupletUp  = {
-  \property Voice.TupletBracket \override #'direction = #1
-  \property Voice.TupletBracket \override #'direction = #1
+  \property Voice.TupletBracket \set #'direction = #1
 }
 tupletDown = {
-  \property Voice.TupletBracket \override #'direction = #-1
-  \property Voice.TupletBracket \override #'direction = #-1
+  \property Voice.TupletBracket \set #'direction = #-1
 }
 tupletBoth = {
-  \property Voice.TupletBracket \revert #'direction
   \property Voice.TupletBracket \revert #'direction
 }
 
@@ -85,15 +83,14 @@ voiceThree =#(context-spec-music (make-voice-props-set 2) "Voice")
 voiceFour = #(context-spec-music (make-voice-props-set 3) "Voice")
 
 % There's also dash, but setting dash period/length should be fixed.
-slurDotted = \property Voice.Slur \override #'dashed = #1
+slurDotted = \property Voice.Slur \set #'dashed = #1
 slurSolid = \property Voice.Slur \revert #'dashed
-tieDotted = \property Voice.Tie \override #'dashed = #1
+tieDotted = \property Voice.Tie \set #'dashed = #1
 tieSolid = \property Voice.Tie \revert #'dashed
 
 	
 tiny  = 
 	\property Voice.fontSize= -2
-
 
 small  = 
 	\property Voice.fontSize= -1
