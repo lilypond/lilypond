@@ -1,5 +1,8 @@
 2003-09-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/spacing-spanner.cc (note_spacing): don't make longer
+	durations than measure-length.
+
 	* VERSION: release 2.0.0
 
 	* GNUmakefile.in (rsync-web): version independent rsync target.
@@ -43,7 +46,6 @@
 	* ly/engraver-init.ly (ScoreContext): keyAccidentalOrder is in
 	quartertones, not semitones.
 	(NoteNamesContext): swallow more event types
-
 
 	* Documentation/topdocs/NEWS.texi (Top): insert close brace.
 
