@@ -149,12 +149,25 @@ if the bug has been found earlier, consult F<TODO> and F<BUGS>
 
 If you have found a bug, then you should send a bugreport.
 
-	- send a copy of the input which causes the error
-	- send a description of the platform you use
-	- send a description of the LilyPond version you use (with
-	compile/config options please)
-	- send a description of the bug itself.
-	- send it to bug-gnu-music@vuse.vanderbilt.edu
+=over 4
+
+=item *
+send a copy of the input which causes the error
+
+=item *
+send a description of the platform you use
+
+=item *
+send a description of the LilyPond version you use (with
+compile/config options please)
+
+=item *
+send a description of the bug itself.
+
+=item *
+send it to bug-gnu-music@vuse.vanderbilt.edu
+
+=back
 
 It does help if you can find out where the bug comes from: if GNU
 LilyPond bombs out, then please recompile using with debugging info
@@ -221,7 +234,9 @@ LilyPond documentation
 
 GNU LilyPond is
 updated very frequently, the latest version is always available at:
-ftp://pcnov095.win.tue.nl/pub/lilypond.
+ftp://pcnov095.win.tue.nl/pub/lilypond and
+ftp://alpha.gnu.ai.mit.edu/gnu/
+
 
 For programs which are part of the GNU music project, the following
 mailing list have been setup:
@@ -289,5 +304,7 @@ details on spacing; it was downloaded approximately 4 times.  Then I
 got the hang of it, and in the subsequent two months, I coded until it
 had doubled in size (pl 23).
 
-The first large scale release (0.1) was planned after approximately 80
-patchlevels on August 1, 1997.
+Most the other history is described in the NEWS file. The first large
+scale release (0.1) was done after approximately 78 patchlevels on
+August 1, 1997.
+

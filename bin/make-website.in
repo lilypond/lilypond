@@ -104,14 +104,17 @@ sub gen_manuals
 {
     print "generating TeX doco list\n";
     open HTMLLIST, ">tex_manuals.html";
-    print HTMLLIST "<html><body><title>LilyPond manuals in TeX</title>\n" .
-	"<ul>\n";
+    print HTMLLIST "<HTML><TITLE>LilyPond manuals</title>\n" ;
+    print HTMLLIST "<BODY><h1>LilyPond manuals (in PostScript)</h1>";
+    print HTMLLIST "<ul>\n";
     my @todo=();
     foreach $a (@texstuff) {
 	push @todo , "out/$a.ps.gz";
 	print HTMLLIST "<li><a href=$a.ps.gz>$a.ps.gz</a>";
     }
     print HTMLLIST "</ul>";
+    
+    print HTMLLIST "</BODY></HTML>";
     close HTMLLIST;
 
     my_system( "$MAKE -C .. " .  join(' ', @todo));
