@@ -160,7 +160,7 @@ Slur::check_slope (Grob *me)
 	  o[RIGHT] = ly_scm2offset (index_get_cell (a, RIGHT));
 	  o[d][Y_AXIS] -= (limit - slope) * dx * dir / staff_space;
 
-	  o[d][Y_AXIS] *= Directional_element_interface::get (me);
+	  o[d][Y_AXIS] *= get_grob_direction (me);
 
 	  me->set_grob_property ("attachment-offset",
 				gh_cons (ly_offset2scm (o[LEFT]),
@@ -176,8 +176,8 @@ Slur::check_slope (Grob *me)
 SCM
 Slur::set_extremities (Grob *me)
 {
-  if (!Directional_element_interface::get (me))
-    Directional_element_interface::set (me, get_default_dir (me));
+  if (!get_grob_direction (me))
+    set_grob_direction (me, get_default_dir (me));
 
   SCM att = me->get_grob_property ("attachment");
       /*
@@ -415,7 +415,7 @@ Slur::encompass_offset (Grob*me,
   Offset o;
   Grob* stem = unsmob_grob (col->get_grob_property ("stem"));
   
-  Direction dir = Directional_element_interface::get (me);
+  Direction dir = get_grob_direction (me);
   
   if (!stem)
     {
@@ -424,7 +424,7 @@ Slur::encompass_offset (Grob*me,
       o[Y_AXIS] = col->relative_coordinate (common[Y_AXIS], Y_AXIS);
       return o;  
     }
-  Direction stem_dir = Directional_element_interface::get (stem);
+  Direction stem_dir = get_grob_direction (stem);
   o[X_AXIS] = stem->relative_coordinate (0, X_AXIS);
 
   /*
@@ -561,7 +561,7 @@ Slur::brew_molecule (SCM smob)
   if (gh_number_p (d))
     a = Lookup::dashed_slur (one, thick, thick * gh_scm2double (d));
   else
-    a = Lookup::slur (one, Directional_element_interface::get (me) * thick, thick);
+    a = Lookup::slur (one, get_grob_direction (me) * thick, thick);
 
   return a.smobbed_copy ();
 }
@@ -579,7 +579,7 @@ Slur::set_control_points (Grob*me)
   Real h_inf = staff_space * gh_scm2double (h_inf_scm);
   
   Slur_bezier_bow bb (get_encompass_offsets (me),
-		      Directional_element_interface::get (me),
+		      get_grob_direction (me),
 		      h_inf, r_0);
 
 
@@ -646,7 +646,7 @@ Slur::get_curve (Grob*me)
     attach = set_extremities(me);
 
   
-  if (!Directional_element_interface::get (me)
+  if (!get_grob_direction (me)
       || ! gh_symbol_p (index_get_cell (attach, LEFT))
       || ! gh_symbol_p (index_get_cell (attach, RIGHT)))
     set_extremities (me);
@@ -665,7 +665,7 @@ Slur::get_curve (Grob*me)
     }
 
   Array<Offset> enc (get_encompass_offsets (me));
-  Direction dir = Directional_element_interface::get (me);
+  Direction dir = get_grob_direction (me);
   
   Real x1 = enc[0][X_AXIS];
   Real x2 = enc.top ()[X_AXIS];

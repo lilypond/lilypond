@@ -142,7 +142,7 @@ Tuplet_bracket::brew_molecule (SCM smob)
   commonx = commonx->common_refpoint (sp->get_bound(LEFT), X_AXIS);
   commonx = commonx->common_refpoint (sp->get_bound(RIGHT), X_AXIS);  
   
-  Direction dir = Directional_element_interface::get (me);
+  Direction dir = get_grob_direction (me);
 
   Grob * lgr = get_x_bound_grob (columns[0], dir);
   Grob * rgr = get_x_bound_grob (columns.top(), dir);  
@@ -288,7 +288,7 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
   Grob * commony = common_refpoint_of_list (cols, me, Y_AXIS);
   Grob * commonx = common_refpoint_of_list (cols, me, X_AXIS);  
   
-  Direction dir = Directional_element_interface::get (me);
+  Direction dir = get_grob_direction (me);
 
   /*
     Use outer non-rest columns to determine slope
@@ -375,7 +375,7 @@ Tuplet_bracket::calc_dy (Grob*me,Real * dy)
   /*
     ugh. refps.
    */
-  Direction d = Directional_element_interface::get (me);
+  Direction d = get_grob_direction (me);
   *dy = columns.top ()->extent (columns.top (), Y_AXIS) [d]
     - columns[0]->extent (columns[0], Y_AXIS) [d];
 }
@@ -424,11 +424,11 @@ Tuplet_bracket::after_line_breaking (SCM smob)
       return SCM_UNSPECIFIED;
     }
   
-  Direction dir = Directional_element_interface::get (me);
+  Direction dir = get_grob_direction (me);
   if (!dir)
     {
       dir = Tuplet_bracket::get_default_dir (me);
-      Directional_element_interface::set (me, dir);
+      set_grob_direction (me, dir);
     }
   
   bool equally_long = false;
@@ -439,7 +439,7 @@ Tuplet_bracket::after_line_breaking (SCM smob)
    */
   Real dy, offset;
   if (!par_beam
-      || Directional_element_interface::get (par_beam) != dir)
+      || get_grob_direction (par_beam) != dir)
     {
       calc_position_and_height (me,&offset,&dy);
     }

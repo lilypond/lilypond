@@ -12,15 +12,8 @@
 
 #include "grob.hh"
 
-struct Directional_element_interface 
-{
-public:
-
-  static void set (Grob*,Direction d);
-  static Direction get (Grob*) ;
-  static bool has_interface (Grob*) ;
-};
-
+void set_grob_direction (Grob*, Direction);
+Direction get_grob_direction (Grob*);
 
 #endif /* DIRECTIONAL_ELEMENT_HH */
 

@@ -97,13 +97,13 @@ Stem::stem_end_position (Grob*me)
 Direction
 Stem::get_direction (Grob*me)
 {
-  Direction d = Directional_element_interface::get (me);
+  Direction d = get_grob_direction (me);
 
   if (!d)
     {
        d = get_default_dir (me);
        // urg, AAARGH!
-       Directional_element_interface::set (me, d);
+       set_grob_direction (me, d);
     }
   return d ;
 }
@@ -308,7 +308,7 @@ Stem::get_default_stem_end_position (Grob*me)
   if (!dir)
     {
       dir = get_default_dir (me);
-      Directional_element_interface::set (me, dir);
+      set_grob_direction (me, dir);
     }
 
 
@@ -822,7 +822,7 @@ Stem::get_stem_info (Grob *me)
     }
   
   Stem_info si;
-  si.dir_ = Directional_element_interface::get (me); 
+  si.dir_ = get_grob_direction (me); 
   si.ideal_y_ = gh_scm2double (gh_car (scm_info)); 
   si.shortest_y_ = gh_scm2double (gh_cadr (scm_info));
   return si;
@@ -835,7 +835,7 @@ Stem::get_stem_info (Grob *me)
 void
 Stem::calc_stem_info (Grob *me)
 {
-  Direction my_dir = Directional_element_interface::get (me);
+  Direction my_dir = get_grob_direction (me);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Grob *beam = get_beam (me);
   Real beam_translation = Beam::get_beam_translation (beam);

@@ -60,7 +60,7 @@ Tie_column::set_directions (Grob*me)
     Pointer_group_interface__extract_grobs (me, (Grob*)0, "ties");
 
   for (int i = ties.size (); i--;)
-    if (Directional_element_interface::get (ties[i]))
+    if (get_grob_direction (ties[i]))
       ties.del (i);
   
 
@@ -68,13 +68,13 @@ Tie_column::set_directions (Grob*me)
     return ;
   
 
-  Direction d = Directional_element_interface::get (me);
+  Direction d = get_grob_direction (me);
   if (d)
     {
       for (int i = ties.size (); i--;)
 	{
 	  Grob *  t = ties[i];
-	  Directional_element_interface::set (t, d);
+	  set_grob_direction (t, d);
 	}
       return;
     }
@@ -82,15 +82,15 @@ Tie_column::set_directions (Grob*me)
   if (ties.size () == 1)
     {
       Grob *  t = ties[0];      
-      Directional_element_interface::set (t,Tie::get_default_dir (t));
+      set_grob_direction (t,Tie::get_default_dir (t));
       return;
     }
   
   ties.sort (tie_compare);
-  Directional_element_interface::set (ties[0], DOWN);
+  set_grob_direction (ties[0], DOWN);
   ties.del (0);
   
-  Directional_element_interface ::set (ties.pop (), UP);
+  set_grob_direction (ties.pop (), UP);
   for (int i=ties.size (); i--;)
     {
       Grob *  t = ties[i];
@@ -98,7 +98,7 @@ Tie_column::set_directions (Grob*me)
       Direction d = (Direction) sign (p);
       if (!d)
 	d = UP;
-      Directional_element_interface::set (t, d);
+      set_grob_direction (t, d);
     }
   
 }

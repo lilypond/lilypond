@@ -170,7 +170,7 @@ Dynamic_engraver::process_music ()
 
       
       if (Direction d = to_dir (script_ev_->get_mus_property ("direction")))
-	Directional_element_interface::set (line_spanner_, d);
+	set_grob_direction (line_spanner_, d);
 
       Axis_group_interface::add_element (line_spanner_, script_);
 
@@ -227,7 +227,7 @@ Dynamic_engraver::process_music ()
 	  current_cresc_ev_ = accepted_spanreqs_drul_[START];
 
 	  if (Direction d = to_dir (current_cresc_ev_->get_mus_property ("direction")))
-	    Directional_element_interface::set (line_spanner_, d);
+	    set_grob_direction (line_spanner_, d);
 
 	  /*
 	    TODO: Use symbols.

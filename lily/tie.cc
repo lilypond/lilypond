@@ -86,14 +86,14 @@ Tie::get_default_dir (Grob*me)
 
   if (sl && sr)
     {
-      if (Directional_element_interface::get (sl) == UP
-	  && Directional_element_interface::get (sr) == UP)
+      if (get_grob_direction (sl) == UP
+	  && get_grob_direction (sr) == UP)
 	return DOWN;
     }
   else if (sl || sr)
     {
       Item *s = sl ? sl : sr;
-      return - Directional_element_interface::get (s);
+      return - get_grob_direction (s);
     }
 
   
@@ -122,9 +122,9 @@ Tie::get_control_points (SCM smob)
     }
 
   
-  if (!Directional_element_interface::get (me))
-    Directional_element_interface::set (me, Tie::get_default_dir (me));
-  Direction dir = Directional_element_interface::get (me);
+  if (!get_grob_direction (me))
+    set_grob_direction (me, Tie::get_default_dir (me));
+  Direction dir = get_grob_direction (me);
   
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
@@ -327,7 +327,7 @@ Tie::brew_molecule (SCM smob)
       i++;
     }
   
-   Molecule a = Lookup::slur (b, Directional_element_interface::get (me) * thick, thick);
+   Molecule a = Lookup::slur (b, get_grob_direction (me) * thick, thick);
    
    return a.smobbed_copy ();
 }

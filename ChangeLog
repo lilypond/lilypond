@@ -1,5 +1,8 @@
 2003-09-30  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/include/directional-element-interface.hh:
+	junk class, make {get,set}_grob_direction functions.
+
 	* lily/slur.cc (get_attachment): do something sensible when
 	attaching to stem without heads (eg. a rest).
 

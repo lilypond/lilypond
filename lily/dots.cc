@@ -27,11 +27,11 @@ Dots::quantised_position_callback (SCM element_smob, SCM axis)
   SCM d= me->get_grob_property ("dot-count");
   if (gh_number_p (d) && gh_scm2int (d))
     {
-      if (!Directional_element_interface::get (me))
-	Directional_element_interface::set (me, UP);
+      if (!get_grob_direction (me))
+	set_grob_direction (me, UP);
 
       if (Staff_symbol_referencer::on_staffline (me))
-	return gh_double2scm (Staff_symbol_referencer::staff_space (me) / 2.0 * Directional_element_interface::get (me));
+	return gh_double2scm (Staff_symbol_referencer::staff_space (me) / 2.0 * get_grob_direction (me));
     }
 
   return gh_double2scm (0.0);

@@ -178,11 +178,11 @@ Breathing_sign::offset_callback (SCM element_smob, SCM)
 {
   Grob *me = unsmob_grob (element_smob);
   
-  Direction d = Directional_element_interface::get (me);
+  Direction d = get_grob_direction (me);
   if (!d)
     {
       d = UP;
-      Directional_element_interface::set (me, d);
+      set_grob_direction (me, d);
     }
 
   Real inter_f = Staff_symbol_referencer::staff_space (me)/2;
