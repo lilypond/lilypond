@@ -143,7 +143,7 @@ All_font_metrics::find_afm (String name)
 	  
 	  /* FIXME: better warning message
 	     (maybe check upon startup for feta16.afm, feta16.tfm?) */
-	  if (tfm && tfm->info_.checksum != afm->checksum_)
+	  if (tfm && tfm->info ().checksum != afm->checksum_)
 	    {
 	      // FIXME: broken sentence
 	      String s = _f ("checksum mismatch for font file: `%s'",
@@ -151,7 +151,7 @@ All_font_metrics::find_afm (String name)
 	      s += " " + _f ("does not match: `%s'",
 			     tfm->file_name_.to_str0 ());
 	      s += "\n";
-	      s += " TFM: " + to_string ((int) tfm->info_.checksum);
+	      s += " TFM: " + to_string ((int) tfm->info ().checksum);
 	      s += " AFM: " + to_string ((int) afm->checksum_);
 	      s += "\n";
 	      s += _ ("Rebuild all .afm files, and remove all .pk and .tfm files.");

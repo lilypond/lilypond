@@ -23,14 +23,14 @@ for opt in options:
 
 
 for design_size in [11,13,14,16,18,20,23,26]:
-	name = 'bigcheese' 
+	name = 'emmentaler' 
 	script = '''#!@FONTFORGE@
 New();
 
 # Separate Feta versioning?
 # Naming: * expose LilyPond20/LilyPond rather than %(name)s
 #         *  using 20 as Weight works for gnome-font-select widget: gfs
-SetFontNames("%(name)s%(design_size)d", "LilyPond", "LilyPond %(name)s %(design_size)d", "%(design_size)d", "GNU GPL", "@TOPLEVEL_VERSION@");
+SetFontNames("%(name)s-%(design_size)d", "%(name)s", "%(name)s %(design_size)d", "%(design_size)d", "GNU GPL", "@TOPLEVEL_VERSION@");
 
 MergeFonts("feta%(design_size)d.pfa");
 MergeFonts("parmesan%(design_size)d.pfa");

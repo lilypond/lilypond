@@ -17,16 +17,15 @@
 class Arpeggio_engraver : public Engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS (Arpeggio_engraver); 
+  TRANSLATOR_DECLARATIONS (Arpeggio_engraver);
+  
 protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void process_music ();
-
   virtual void stop_translation_timestep ();
   virtual bool try_music (Music *);
-
 private:
-  Item* arpeggio_; 
+  Item *arpeggio_; 
   Music *arpeggio_req_;
 };
 
@@ -37,7 +36,7 @@ Arpeggio_engraver::Arpeggio_engraver ()
 }
 
 bool
-Arpeggio_engraver::try_music (Music* m)
+Arpeggio_engraver::try_music (Music *m)
 {
   if (!arpeggio_req_)
     {
@@ -56,7 +55,9 @@ Arpeggio_engraver::acknowledge_grob (Grob_info info)
 	  if (!arpeggio_->get_parent  (Y_AXIS))
 	    arpeggio_->set_parent (info.grob_, Y_AXIS);
       
-	  Pointer_group_interface::add_grob (arpeggio_, ly_symbol2scm ("stems"), info.grob_);
+	  Pointer_group_interface::add_grob (arpeggio_,
+					     ly_symbol2scm ("stems"),
+					     info.grob_);
 	}
       
       /*
@@ -89,9 +90,6 @@ Arpeggio_engraver::stop_translation_timestep ()
   arpeggio_ = 0;
   arpeggio_req_ = 0;
 }
-
-
-
 
 ADD_TRANSLATOR (Arpeggio_engraver,
 /* descr */       "Generate an Arpeggio from a Arpeggio_req",

@@ -110,7 +110,7 @@ _i ("    This program is free software; you can redistribute it and/or\n"
 /* Where the init files live.  Typically:
    LILYPOND_DATADIR = /usr/share/lilypond
    LOCAL_LILYPOND_DATADIR = /usr/share/lilypond/<VERSION> */
-char const *prefix_directory[] = {LILYPOND_DATADIR, LOCAL_LILYPOND_DATADIR, 0};
+char const *prefix_directories[] = {LILYPOND_DATADIR, LOCAL_LILYPOND_DATADIR, 0};
 
 /*  The option parser */
 static Getopt_long *option_parser = 0;
@@ -220,7 +220,7 @@ static void
 setup_paths ()
 {
   if (char const *lilypond_prefix = getenv ("LILYPONDPREFIX"))
-    prefix_directory[1] = lilypond_prefix;
+    prefix_directories[1] = lilypond_prefix;
 
   global_path.append ("");
 
@@ -228,10 +228,10 @@ setup_paths ()
      LILYPONDPREFIX to lilypond-x.y.z */
   char *suffixes[] = {"ly", "otf", "mf/out", "scm", "tfm", "ps", "svg", 0};
 
-  for (unsigned i = 0; prefix_directory[i]; i++)
+  for (unsigned i = 0; prefix_directories[i]; i++)
     for (char **s = suffixes; *s; s++)
       {
-	String p = prefix_directory[i] + to_string ('/') + String (*s);
+	String p = prefix_directories[i] + to_string ('/') + String (*s);
 	global_path.prepend (p);
 	
 #if !KPATHSEA
@@ -251,17 +251,19 @@ prepend_load_path (String dir)
 }
 
 void init_global_tweak_registry ();
+void init_fontconfig ();
+
 
 static void
 main_with_guile (void *, int, char **)
 {
   /* Engravers use lily.scm contents, need to make Guile find it.
      Prepend onto GUILE %load-path, very ugh. */
-  for (unsigned i = 0; prefix_directory[i]; i++)
+  for (unsigned i = 0; prefix_directories[i]; i++)
     {
-      prepend_load_path (prefix_directory[i]);
+      prepend_load_path (prefix_directories[i]);
       /* Junk this.  We should make real modules iso. just loading files. */
-      prepend_load_path (String (prefix_directory[i]) + "/scm");
+      prepend_load_path (String (prefix_directories[i]) + "/scm");
     }
 
   if (be_verbose_global)
@@ -270,6 +272,7 @@ main_with_guile (void *, int, char **)
   ly_c_init_guile ();
   call_constructors ();
   init_global_tweak_registry ();
+  init_fontconfig ();
   init_freetype ();
   all_fonts_global = new All_font_metrics (global_path.to_string ());
 
