@@ -1,15 +1,16 @@
 # -*-python-*-
 
-import os
-
 Import ('env')
-sources = env['src_glob'] (env, '*.el') + ['lilypond-words']
-#gen_files = map (lambda x: os.path.splitext (x)[0], sources)
-#gens = map (env.AT, sources)
+sources = env['src_glob'] (env, '*.el') + ['lilypond-words.el']
 
 e = env.Copy ()
 a = '$PYTHON $srcdir/buildscripts/lilypond-words.py --el --dir=${TARGET.dir}'
-e.Command ('lilypond-words.el', '#/lily/my-lily-lexer.cc', a)
+e.Command ('lilypond-words.el',
+	   ['#/lily/my-lily-lexer.cc',
+	    '#/buildscripts/lilypond-words.py',
+	    '#/scm/new-markup.scm',
+	    '#/ly/engraver-init.ly',],
+	   a)
 
 dir = env['sharedir_package_version'] + '/elisp'
 env.Install (dir, sources)

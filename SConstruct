@@ -41,6 +41,11 @@ Options  (see scons -h)
     scons build=DIR            # clean scrdir build, output below DIR
     scons out=DIR              # write output for alterative config to DIR
 
+Debugging
+    scons --debug=dtree
+    scons --debug=explain
+    scons verbose=1
+
 Optional custom.py
 
 import os
@@ -55,14 +60,19 @@ prefix=os.path.join (os.environ['HOME'], 'usr', 'pkg', 'lilypond')
 
 
 # TODO:
-#  * add missing dirs:
-#     - input/mutopia
-#     - vim
+#  * install doc
+
 #  * more program configure tests (mfont, ...?)
+
+#  * split doc target: doc input examples mutopia?
 
 #  * more fine-grained config.hh -- move lilypondprefix to version.hh?
 #    - config.hh:   changes after system upgrades, affects all files
 #    - version.hh:  prefix, version etc?  affects few
+
+#    - what about GUILE_*_VERSION, seems to be the major culprit,
+#      for config.hh dependency escalation.  Is the lily-guile.hh
+#      workaround necessary at all for GUILE > 1.5?
 
 #  * grep FIXME $(find . -name 'S*t')
 
@@ -78,17 +88,6 @@ import shutil
 # duh, we need 0.95.1
 EnsureSConsVersion (0, 95)
 
-# SConscripts are only needed in directories where something needs
-# to be done, building or installing
-subdirs = ['flower', 'lily', 'mf', 'scm', 'ly',
-	   'scripts', 'elisp', 'buildscripts', 'po',
-	   'Documentation', 'Documentation/user', 'Documentation/topdocs',
-	   'Documentation/bibliography',
-	   'input', 'input/regression', 'input/test', 'input/template',
-	   'cygwin', 'debian',
-	   ]
-
-
 usage = r'''Usage:
 scons [KEY=VALUE].. [TARGET|DIR]..
 
@@ -98,12 +97,13 @@ TARGETS: clean, config, doc, dist, install, mf-essential, po-update,
 '''
       
 
-config_cache = 'config.cache'
+config_cache = 'scons.cache'
 
-config_vars = (
+config_vars = [
 	'BASH',
-	'CFLAGS',
+	'CCFLAGS',
 	'CPPPATH',
+	'CPPDEFINES',
 	'CXXFLAGS',
 	'DEFINES',
 	'LIBS',
@@ -111,7 +111,7 @@ config_vars = (
 	'METAFONT',
 	'PERL',
 	'PYTHON',
-	)
+	]
 
 # Put your favourite stuff in custom.py
 opts = Options ([config_cache, 'custom.py'], ARGUMENTS)
@@ -152,13 +152,13 @@ for key in ['LD_LIBRARY_PATH', 'GUILE_LOAD_PATH', 'PKG_CONFIG_PATH']:
 
 env = Environment (
 	ENV = ENV,
-
+	
 	BASH = '/bin/bash',
-	MAKEINFO = 'LANG= makeinfo',
 	PERL = '/usr/bin/perl',
 	PYTHON = '/usr/bin/python',
 	SH = '/bin/sh',
-	
+
+	MAKEINFO = 'LANG= makeinfo',
 	ABC2LY_PY = srcdir + '/scripts/abc2ly.py',
 	LILYPOND_BOOK = srcdir + '/scripts/lilypond-book.py',
 	LILYPOND_BOOK_FLAGS = '',
@@ -170,21 +170,25 @@ env = Environment (
 					 'usr/pkg/gnome/lib'),
 			   os.path.join (os.environ['HOME'],
 					 'usr/pkg/pango/lib')],
+	GZIP='-9v',
 	MFMODE = 'ljfour',
 	TEXINFO_PAPERSIZE_OPTION = '-t @afourpaper',
 	TOPLEVEL_VERSION = version,
 	)
 
-Help (usage + opts.GenerateHelpText (env))
-
 # Add all config_vars to opts, so that they will be read and saved
 # together with the other configure options.
 map (lambda x: opts.AddOptions ((x,)), config_vars)
+
+Help (usage + opts.GenerateHelpText (env))
+
 opts.Update (env)
 
-env['checksums'] = 1
+# Using content checksums prevents rebuilds after [re]configure if
+# config.hh has not changed.
 if env['checksums']:
 	SetOption ('max_drift', 0)
+	TargetSignatures ("content")
 
 absbuild = Dir (env['build']).abspath
 outdir = os.path.join (Dir (env['build']).abspath, env['out'])
@@ -220,16 +224,17 @@ env.Append (
 	)
 
 if env['debugging']:
-	env.Append (CFLAGS = '-g')
-	env.Append (CXXFLAGS = '-g')
+	env.Append (CCFLAGS = ['-g', '-pipe'])
 if env['optimising']:
-	env.Append (CFLAGS = '-O2')
-	env.Append (CXXFLAGS = ['-O2', '-DSTRING_UTILS_INLINED'])
+	env.Append (CCFLAGS = '-O2')
+	env.Append (CXXFLAGS = ['-DSTRING_UTILS_INLINED'])
 if env['warnings']:
-	env.Append (CFLAGS = ['-W', '-Wall'])
-	# CXXFLAGS = $CFLAGS ...
-	env.Append (CXXFLAGS = ['-W', '-Wall', '-Wconversion'])
+	env.Append (CCFLAGS = ['-W', '-Wall'])
+	env.Append (CXXFLAGS = ['-Wconversion'])
+
+# ugr,huh?
 env.Append (LINKFLAGS = ['-Wl,--export-dynamic'])
+
 if env['verbose']:
 	env['__verbose'] = ' --verbose'
 	env['set__x'] = 'set -x;'
@@ -262,19 +267,27 @@ if 'realclean' in COMMAND_LINE_TARGETS:
 	if os.path.exists (config_cache):
 		os.unlink (config_cache)
 	Exit (s)
-	
-# Without target arguments, build lily only
-if not COMMAND_LINE_TARGETS:
-	env.Default ('lily')
-env.Alias ('all', '.')
+
+# Declare SConscript phonies 
+env.Alias ('minimal', config_cache)
+env.Alias ('mf-essential', config_cache)
+
+env.Alias ('minimal', ['lily', 'mf-essential'])
+env.Alias ('all', ['minimal', 'mf', '.'])
+# Do we want the doc/web separation?
 env.Alias ('doc',
 	   ['Documentation',
 	    'Documentation/user',
-	    'Documentation/topdocs'])
+	    'Documentation/topdocs',
+	    'Documentation/bibliography',
+	    'input'])
 
-env.Depends ('doc', ['lily', 'mf'])
-env.Depends ('input', ['lily', 'mf'])
+# Without target arguments, do minimal build
+if not COMMAND_LINE_TARGETS:
+	env.Default (['minimal'])
 
+# GNU Make rerouting compat:
+env.Alias ('web', 'doc')
 
 def list_sort (lst):
 	sorted = lst
@@ -305,6 +318,19 @@ def configure (target, source, env):
 		if actual < string.split (minimal, '.'):
 			lst.append ((description, package, minimal, program,
 				     string.join (actual, '.')))
+
+	for i in ['bash', 'perl', 'python', 'sh']:
+		sys.stdout.write ('Checking for %s... ' % i)
+		c = WhereIs (i)
+		key = string.upper (i)
+		if c:
+			env[key] = c
+			sys.stdout.write (c)
+		else:
+			sys.stdout.write ('not found: %s (using: %s)' \
+					  % (c, env[key]))
+			# Hmm? abort?
+		sys.stdout.write ('\n')
 
 	required = []
 	test_program (required, 'gcc', '2.8', 'GNU C compiler', 'gcc')
@@ -347,8 +373,8 @@ def configure (target, source, env):
 						: CheckYYCurrentBuffer })
 
 	defines = {
-	   'DIRSEP' : "'/'",
-	   'PATHSEP' : "':'",
+	   'DIRSEP' : "'%s'" % os.sep,
+	   'PATHSEP' : "'%s'" % os.pathsep,
 	   'TOPLEVEL_VERSION' : '"' + version + '"',
 	   'PACKAGE': '"' + package.name + '"',
 	   'DATADIR' : '"' + sharedir + '"',
@@ -456,24 +482,16 @@ def uniquify (lst):
 			n -= 1
 	return lst
 
+def uniquify_config_vars (env):
+	for i in config_vars:
+		if env.has_key (i) and type (env[i]) == type ([]):
+			env[i] = uniquify (env[i])
 
 def save_config_cache (env):
 	## FIXME: Is this smart, using option cache for saving
 	## config.cache?  I cannot seem to find the official method.
-	for i in config_vars:
-		if env.has_key (i) and type (env[i]) == type ([]):
-			env[i] = uniquify (env[i])
+	uniquify_config_vars (env)
 	opts.Save (config_cache, env)
-
-	## FIXME: Something changes in the ENVironment that triggers
-	## rebuild of everything if we continue after configuring.
-	## Maybe there's a variable missing from config_vars?
-		
-	## How to print and debug the reasons scons has for rebuilding
-	## a target (make --debug)?
-
-	## heet van de naald:
-	## - Add a --debug=explain option that reports the reason(s) why SCons
 
 	if 'config' in COMMAND_LINE_TARGETS:
 		sys.stdout.write ('\n')
@@ -484,7 +502,11 @@ def save_config_cache (env):
 		sys.stdout.write ('    scons [TARGET|DIR]...')
 		sys.stdout.write ('\n')
 		Exit (0)
-	elif 1: #not env['checksums']:
+	elif not env['checksums']:
+		# When using timestams, config.hh is NEW.  The next
+		# build triggers recompilation of everything.  Exiting
+		# here makes SCons use the actual timestamp for config.hh
+		# and prevents recompiling everything the next run.
 		command = sys.argv[0] + ' ' + string.join (COMMAND_LINE_TARGETS)
 		sys.stdout.write ('Running %s ... ' % command)
 		sys.stdout.write ('\n')
@@ -502,6 +524,9 @@ if not os.path.exists (config_cache) \
        > os.stat (config_cache)[stat.ST_MTIME]):
 	env = configure (None, None, env)
 	save_config_cache (env)
+elif env['checksums']:
+	# just save everything
+	save_config_cache (env)
 
 env.Command (version_hh, '#/VERSION',
 	     '$PYTHON ./stepmake/bin/make-version.py VERSION > $TARGET')
@@ -513,7 +538,8 @@ env.Append (
 	LILYPONDPREFIX = os.path.join (run_prefix, 'share/lilypond'),
 
 	LIBPATH = [os.path.join (absbuild, 'flower', env['out']),],
-	CPPPATH = [outdir, '#',],
+	##CPPPATH = [outdir, '#',], # do not read auto*'s header
+	CPPPATH = [outdir, ],
 	LILYPOND_BIN = os.path.join (absbuild, 'lily', env['out'],
 				     'lilypond-bin'),
 	LILYPOND_BOOK_PATH = ['.', '#/input', '#/input/regression',
@@ -621,8 +647,16 @@ def cvs_files (dir):
 	files = map (lambda x: x[1:x[1:].index ('/')+1], file_entries)
 	return map (lambda x: os.path.join (dir, x), files)
 
-#subdirs = reduce (lambda x, y: x + y, cvs_dirs ('.'))
-#print `subdirs`
+def flatten (tree, lst):
+	if type (tree) == type ([]):
+		for i in tree:
+			if type (i) == type ([]):
+				flatten (i, lst)
+			else:
+				lst.append (i)
+	return lst
+
+subdirs = flatten (cvs_dirs ('.'), [])
 readme_files = ['AUTHORS', 'README', 'INSTALL', 'NEWS']
 foo = map (lambda x: env.TXT (x + '.txt',
 			      os.path.join ('Documentation/topdocs', x)),
@@ -653,12 +687,40 @@ patch = env.PATCH (patch_name, tar_ball)
 env.Depends (patch_name, dist_ball)
 env.Alias ('release', patch)
 
+#### web
+web_base = os.path.join (outdir, 'web')
+web_ball = os.path.join (web_base, '.tar.gz')
+env['footify'] = 'MAILADDRESS=bug-lilypond@gnu.org $PYTHON stepmake/bin/add-html-footer.py --name=lilypond --version=$version'
+env['web_ext'] = ['.html', '.ly', '.midi', '.pdf', '.png', '.ps.gz', '.txt',]
+
+# compatible make heritits
+# fixme: generate in $outdir is cwd/builddir
+env.Command (web_ball, 'doc',
+	     ['$PYTHON buildscripts/mutopia-index.py -o examples.html ./',
+	      'cd $absbuild && $footify $$ (find . -name "*.html" -print)',
+	      # uhg?
+	      'cd $absbuild && rm -f $$(find . -name "*.html~" -print)',
+	      'cd $absbuild && find Documentation input \
+	      -path foo $web_path -false \
+	      > $outdir/weblist',
+	      '''echo '<META HTTP-EQUIV="refresh" content="0;URL=Documentation/out-www/index.html">' > $absbuild/index.html''',
+	      '''echo '<html><body>Redirecting to the documentation index...</body></html>' >> $absbuild/index.html''',
+	      # UGHR?  all .html cruft in cwd goes into the web ball?
+	      'cd $absbuild && ls *.html >> $outdir/weblist',
+	      'cat $outdir/weblist | (cd $absbuild; \
+	      GZIP=-9v tar -czf $web_ball  -T -)',])
+env.Alias ('web', web_ball)
+
+#### tags
 env.Append (
 	ETAGSFLAGS = ["""--regex='{c++}/^LY_DEFINE *(\([^,]+\)/\1/'""",
 		      """--regex='{c++}/^LY_DEFINE *([^"]*"\([^"]+\)"/\1/'"""])
 # filter-out some files?
 env.Command ('TAGS', src_files, 'etags $ETAGSFLAGS $SOURCES')
 
+
+# Note: SConscripts are only needed in directories where something needs
+# to be done, building or installing
 for d in subdirs:
 	if os.path.exists (os.path.join (d, 'SConscript')):
 		b = os.path.join (env['build'], d, env['out'])
@@ -667,3 +729,4 @@ for d in subdirs:
 		if os.path.abspath (b) != os.path.abspath (d):
 			env.BuildDir (b, d, duplicate = 0)
        		SConscript (os.path.join (b, 'SConscript'))
+

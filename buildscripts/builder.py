@@ -16,6 +16,8 @@ def join_path (path, infix=os.pathsep, prefix = ''):
 		return x
 	return string.join (map (lambda x: prefix + dir (x), path), infix)
 
+env['join_path'] = join_path
+
 env['MAKEINFO_INCLUDES'] = join_path (env['MAKEINFO_PATH'], '', ' -I')
 a = '$MAKEINFO $__verbose $MAKEINFO_INCLUDES --no-split --no-headers \
 --output=$TARGET $SOURCE'
@@ -89,9 +91,9 @@ def add_ps_target (target, source, env):
 	return (target + [base + '.ps'], source)
 
 a = '${set__x}LILYPONDPREFIX=$LILYPONDPREFIX \
-$PYTHON $LILYPOND_PY${__verbose}\
+$PYTHON $LILYPOND_PY${__verbose} \
 --include=${TARGET.dir} \
---output=${TARGET.base}  $SOURCE'
+--output=${TARGET.base} $SOURCE'
 lilypond = Builder (action = a, suffix = '.pdf', src_suffix = '.ly')
 ##		    emitter = add_ps_target)
 env.Append (BUILDERS = {'LilyPond': lilypond})
@@ -240,3 +242,38 @@ a = '$PYTHON $srcdir/buildscripts/lys-to-tely.py \
 --name=${TARGET.base} --title="$TITLE" $SOURCES'
 LYS2TELY = Builder (action = a, suffix = '.tely', src_suffix = '.ly')
 env.Append (BUILDERS = {'LYS2TELY': LYS2TELY})
+
+
+def mutopia (ly = None, abc = None):
+	if not abc:
+		abc = env['glob'] (env, '*.abc')
+	if not ly:
+		ly = env['glob'] (env, '*.ly') + map (env.ABC, abc)
+	pdf = map (env.LilyPond, ly)
+	# We need lily and mf to build these.
+	env.Depends (pdf, ['#/lily', '#/mf'])
+	env.Alias ('doc', pdf)
+
+env['mutopia'] = mutopia
+
+
+def collate (title = 'collated files'):
+	ly = env['glob'] (env, '*.ly')
+	e = env.Copy (
+		TITLE = title,
+		LILYPOND_BOOK_FLAGS = '''--process="lilypond-bin --header=texidoc -I$srcdir/input/test -e '(ly:set-option (quote internal-type-checking) #t)'"''',
+													    __verbose = ' --verbose',
+													    )
+	#		
+	tely = e.LYS2TELY ('collated-files', ly)
+	texi = e.TEXI (tely)
+	# We need lily and mf to build these.
+	env.Depends (texi, ['#/lily', '#/mf'])
+	dvi = e.Texi2dvi (texi)
+	pdf = e.Dvi2pdf (dvi)
+	html = e.HTML (texi)
+
+	env.Alias ('doc', pdf)
+	env.Alias ('doc', html)
+
+env['collate'] = collate

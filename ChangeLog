@@ -1,7 +1,28 @@
 2004-07-15  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/slur.cc: Add quant-score to interface.  Fixes web build.
+
+	* python/SConscript:
+	* python/vim:
+	* input/mutopia/*SConscript: New file.
+
+	* input/mutopia/W.A.Mozart/: Use .ily suffix for includes.
+
+	* scm/define-grobs.scm (all-grob-descriptions): Use ,Slur::height,
+	fixes web build.
+
+	* make/stepmake.make (scons): re-route to SCONS if user has been
+	running scons in this tree.
+
+	* SConstruct (config_vars): Add CPPDEFINES.
+	(env): Set checksums type to "content".
+	(save_config_cache): Do not exit after configuring when using
+	checksums (the default) instead of timestamps.
+
+2004-07-15  Jan Nieuwenhuizen  <janneke@gnu.org>
+
 	* SConstruct: Further development.
-	
+
 	* input/test/SConscript: 
 	* input/template/SConscript: 
 	* input/regression/SConscript: 

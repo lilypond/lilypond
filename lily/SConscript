@@ -27,6 +27,7 @@ e.HH ('parser.hh', 'parser.yy')
 
 e.Append (LIBS = ['flower'])
 e.ParseConfig ('guile-config link')
+
 name = 'lilypond-bin'
 lily = e.Program (name, sources)
 env.Install (env['bindir'], lily)

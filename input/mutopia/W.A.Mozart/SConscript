@@ -1,0 +1,4 @@
+# -*-python-*-
+
+Import ('env')
+env['mutopia'] (ly = ['mozart-hrn-3'])
