@@ -1,3 +1,10 @@
+2003-04-03  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* Documentation/user/refman.itely: added docu for
+	contemporary fermata symbols, gregorian breathing signs; small fixes
+
+	* ly/gregorian-init.ly: removed obsolete #'type props
+
 2003-04-01  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
 
 	* lily/multi-measure-rest.cc (set_spacing_rods): Handle the

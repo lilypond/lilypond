@@ -48,24 +48,20 @@ caesura = {
   \breathe
 }
 divisiominima = {
-  \once \property Voice.BreathingSign \override #'type = #'minima
   \once \property Voice.BreathingSign \override #'molecule-callback = #Breathing_sign::divisio_minima
   \breathe
 }
 divisiomaior = {
-  \once \property Voice.BreathingSign \override #'type = #'maior
   \once \property Voice.BreathingSign \override #'molecule-callback = #Breathing_sign::divisio_maior
   \once \property Voice.BreathingSign \override #'Y-offset-callbacks = #'()
   \breathe
 }
 divisiomaxima = {
-  \once \property Voice.BreathingSign \override #'type = #'maxima
   \once \property Voice.BreathingSign \override #'molecule-callback = #Breathing_sign::divisio_maxima
   \once \property Voice.BreathingSign \override #'Y-offset-callbacks = #'()
   \breathe
 }
 finalis = {
-  \once \property Voice.BreathingSign \override #'type = #'finalis
   \once \property Voice.BreathingSign \override #'molecule-callback = #Breathing_sign::finalis
   \once \property Voice.BreathingSign \override #'Y-offset-callbacks = #'()
   \breathe

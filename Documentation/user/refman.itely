@@ -470,7 +470,7 @@ tuplet brackets should be moved automatically.
 @cindex easy notation
 @cindex Hal Leonard
 
-A entirely different type of note head is the "easyplay" note head: a
+An entirely different type of note head is the "easyplay" note head: a
 note head that includes a note name.  It is used in some publications by
 Hal-Leonard Inc. music publishers.
 
@@ -1912,8 +1912,8 @@ using @code{^} and @code{_}.
 @cindex accent      
 @cindex marcato      
 @cindex staccatissimo
-@cindex fermata 
-@cindex stopped     
+@cindex fermata
+@cindex stopped
 @cindex staccato
 @cindex portato
 @cindex tenuto        
@@ -1936,6 +1936,7 @@ using @code{^} and @code{_}.
 @cindex thumb marking
 @cindex segno         
 @cindex coda
+@cindex varcoda
 
 @lilypond[]
   \score {
@@ -1943,26 +1944,34 @@ using @code{^} and @code{_}.
       \property Score.LyricText \override #'font-family =#'typewriter
       \property Score.LyricText \override #'font-shape = #'upright
       \context Staff \notes {
-        c''-\accent      c''-\marcato      c''-\staccatissimo c''^\fermata 
-        c''-\stopped     c''-\staccato     c''-\tenuto         c''-\portato
-        c''-\upbow
-        c''-\downbow     c''^\lheel        c''-\rheel         c''^\ltoe
-        c''-\rtoe        c''-\turn         c''-\open          c''-\flageolet
-        c''-\reverseturn c''-\trill        c''-\prall         c''-\mordent
-        c''-\prallprall  c''-\prallmordent c''-\upprall       c''-\downprall
-        c''-\upmordent   c''-\downmordent  c''-\pralldown     c''-\prallup
-        c''-\lineprall   c''-\thumb        c''-\segno         c''-\coda
+        c''-\accent             c''-\marcato            c''-\staccatissimo
+        c''-\staccato           c''-\tenuto             c''-\portato
+        c''-\stopped            c''-\upbow              c''-\downbow
+        c''^\lheel              c''-\rheel              c''^\ltoe
+        c''-\rtoe               c''-\open               c''-\flageolet
+        c''-\turn               c''-\reverseturn        c''-\trill
+        c''-\prall              c''-\mordent            c''-\prallprall
+        c''-\prallmordent       c''-\upprall            c''-\downprall
+        c''-\upmordent          c''-\downmordent        c''-\pralldown
+        c''-\prallup            c''-\lineprall          c''-\thumb
+        c''-\shortfermata       c''-\fermata            c''-\longfermata
+        c''-\verylongfermata    c''-\segno              c''-\coda
+        c''-\varcoda
       }
       \context Lyrics \lyrics {
-        accent__      marcato__      staccatissimo__ fermata
-        stopped__     staccato__     tenuto__        portato
-        upbow
-        downbow__     lheel__        rheel__         ltoe
-        rtoe__        turn__         open__          flageolet
-        reverseturn__ trill__        prall__         mordent
-        prallprall__  prallmordent__ uprall__        downprall
-        upmordent__   downmordent__  pralldown__  prallup__
-        lineprall__   thumb__       segno__        coda
+        accent__                marcato__              staccatissimo__
+        staccato__              tenuto__               portato__
+        stopped__               upbow__                downbow__
+        lheel__                 rheel__                ltoe__
+        rtoe__                  open__                 flageolet__
+        turn__                  reverseturn__          trill__
+        prall__                 mordent__              prallprall__
+        prallmordent__          uprall__               downprall__
+        upmordent__             downmordent__          pralldown__
+        prallup__               lineprall__            thumb__
+        shortfermata__          fermata__              longfermata__
+        verylongfermata__       segno__                coda__
+        varcoda__
       }
     >
     \paper {
@@ -1980,7 +1989,7 @@ finger changes, use markup texts:
 @c
 @lilypond[verbatim, singleline, fragment]
       c'4-1 c'4-2 c'4-3 c'4-4
-      c^\markup { \fontsize #-3 \number "2-3" }
+      c'^\markup { \fontsize #-3 \number "2-3" }
 @end lilypond
 
 @cindex finger change
@@ -4063,11 +4072,12 @@ output.
 @cindex mensural
 
 @menu
-* Ancient note heads::          
-* Ancient clefs ::              
-* Custodes::                    
-* Ligatures::                   
-* Figured bass::                
+* Ancient note heads::
+* Ancient clefs::
+* Custodes::
+* Divisiones::
+* Ligatures::
+* Figured bass::
 @end menu
 
 
@@ -4294,8 +4304,8 @@ beams, depending on which staffline it was printed.
 @node Custodes
 @subsection Custodes
 
-@cindex Custos
-@cindex Custodes
+@cindex custos
+@cindex custodes
 
 A @emph{custos} (plural: @emph{custodes}; latin word for `guard') is a
 staff context symbol that appears at the end of a staff line.  It
@@ -4349,6 +4359,91 @@ block:
   c'1 d' e' d' \break c' d' e' d'
 @}
 @end example
+
+@node Divisiones
+@subsection Divisiones
+
+@cindex divisio
+@cindex divisiones
+@cindex finalis
+
+A @emph{divisio} (plural: @emph{divisiones}; latin word for
+`division') is a staff context symbol that is used to structure
+Gregorian music into phrases and sections.  The musical meaning of
+@emph{divisio minima}, @emph{divisio maior} and @emph{divisio maxima}
+can be characterized as short, medium and long pause, somewhat like
+@ref{Breath marks}.  The @emph{finalis} sign not only marks the end of
+a chant, but is also frequently used within a single
+antiphonal/responsorial chant to mark the end of each section.
+
+To use divisiones, just include the file @code{gregorian-init.ly}.  It
+contains definitions that you can apply by just inserting
+@code{\divisiominima}, @code{\divisiomaior}, @code{\divisiomaxima},
+and @code{\finalis} at proper places into your lilypond files.
+
+@lilypond[verbatim]
+\include "gregorian-init.ly"
+\score {
+    \notes {
+	\context Staff = staff \addlyrics \notes \transpose c c' {
+	    \property Score.timing = ##f
+	    \property Score.barAlways = ##t
+	    \property Staff.BarLine \override #'transparent = ##t
+	    \property Voice.Stem \override #'transparent = ##t
+            g4( )a g e( )f e
+            ^\markup { "divisio minima" }
+	    \divisiominima
+            g4( )a g e( )f e
+            ^\markup { "divisio maior" }
+	    \divisiomaior
+            g4( )a g e( )f e
+            ^\markup { "divisio maxima" }
+	    \divisiomaxima
+            g4( )a g e( )f e
+            ^\markup { "finalis" }
+	    \finalis
+            g4( )a g e( )f e
+	}
+	\context Lyrics = lyrics \lyrics {
+	    Blah blub, blah blam.
+	    Blah blub, blah blam.
+	    Blah blub, blah blam.
+	    Blah blub, blah blam.
+	    Blah blub, blah blam.
+	}
+    }
+}
+@end lilypond
+
+Some editions use @emph{virgula} or @emph{caesura} instead of divisio
+minima.  Therefore, @code{gregorian-init.ly} also defines
+@code{\virgula} and @code{\caesura}.
+
+@lilypond[verbatim]
+\include "gregorian-init.ly"
+\score {
+    \notes {
+	\context Staff = staff \addlyrics \notes \transpose c c' {
+	    \property Score.timing = ##f
+	    \property Score.barAlways = ##t
+	    \property Staff.BarLine \override #'transparent = ##t
+	    \property Voice.Stem \override #'transparent = ##t
+            g4( )a g e( )f e
+            ^\markup { "virgula" }
+	    \virgula
+            g4( )a g e( )f e
+            ^\markup { "caesura" }
+	    \caesura
+            g4( )a g e( )f e
+	}
+	\context Lyrics = lyrics \lyrics {
+	    Blah blub, blah blam.
+	    Blah blub, blah blam.
+	    Blah blub, blah blam.
+	}
+    }
+}
+@end lilypond
 
 @node Ligatures
 @subsection Ligatures
@@ -4538,6 +4633,7 @@ vertical spacing of the figures may be set with @code{baseline-skip}.
 
 @menu
 * Clusters::
+* Fermatas::
 @end menu
 
 @node Clusters
@@ -4630,6 +4726,32 @@ note head.  Property @code{shape} controls how the overall shape of the
 cluster is constructed from the set of notes.  Currently supported
 values are @code{leftsided-stairs}, @code{rightsided-stairs},
 @code{centered-stairs}, and @code{ramp}.
+
+@node Fermatas
+@subsection Fermatas
+
+@cindex fermatas
+
+Currently, lilypond supports the following fermata symbols that are
+frequently used in contemporary music notation:
+
+@lilypond[singleline,verbatim]
+\score {
+    \notes {
+        b'1^\shortfermata_\shortfermata^\markup { short fermata }
+        r
+        b'^\fermata_\fermata^\markup { fermata }
+        r
+        b'^\longfermata_\longfermata^\markup { long fermata }
+        r
+        b'^\verylongfermata_\verylongfermata^\markup { very long fermata }
+        r
+    }
+}
+@end lilypond
+
+See @ref{Articulations} for general instructions how to apply scripts
+such as fermatas to a @code{\notes@{@}} block.
 
 @c . {Tuning output}
 @node Tuning output
