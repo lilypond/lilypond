@@ -18,7 +18,7 @@ input feta-params;
 % we must let the design increase for each
 % font to make sure that mftrace doesn't jack up the resolution too highly
 % for the longer braces.
-fet_beginfont ("feta-braces-" & char (97 + font_count), (font_count + 1) * 15,
+fet_beginfont ("feta-braces-" & char (97 + font_count), (font_count + 1) * 20,
                "fetaBraces");
 
 mode_setup;
