@@ -44,6 +44,11 @@ scriptBoth = {
   \property Voice.Script \revert #'direction
 }
 
+dotsUp = \property Voice.Dots \override #'direction = #1
+dotsDown = \property Voice.Dots \override #'direction = #-1
+dotsBoth = \property Voice.Dots \revert #'direction 
+
+% why doubly?
 tupletUp  = {
   \property Voice.TupletBracket \override #'direction = #1
   \property Voice.TupletBracket \override #'direction = #1
@@ -84,12 +89,15 @@ voiceOne = {
   \stemUp
   \slurUp
   \tieUp
+  \dotsUp    
 }
 
 voiceTwo = {
   \stemDown
   \slurDown
   \tieDown
+  \dotsDown  
+
 }
    
 voiceThree = {
@@ -97,6 +105,7 @@ voiceThree = {
   \slurUp
   \tieUp
   \shiftOn
+  \dotsUp
 }
 
 voiceFour = {
@@ -104,6 +113,7 @@ voiceFour = {
   \slurDown
   \tieDown
   \shiftOn
+  \dotsDown
 }
 
 % There's also dash, but setting dash period/length should be fixed.

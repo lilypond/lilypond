@@ -1,3 +1,38 @@
+1.5.1.hwn1
+==========
+
+* small bugfixes for grace-init.ly
+
+* Bugfix: don't mess up spacing when combining different tuplets.
+
+* Small bugfixes for lilypond-mode.el.
+
+* property-init.ly: bugfix for dot directions in polyphonic music.
+
+1.5.1.jcn3
+==========
+
+* Bugfix: text2html: escape entities inside <pre>.
+
+* Added some template .ly's for evaluation.
+
+* Make blot work without -fps too.
+
+* Use blot diameter for postscript beams and boxes.
+
+* Guile-1.5.0-cvs updates and Guile-1.4.x compatibility.
+
+* Beam knee fix.
+
+* Now really included lexer-gcc-3.0.patch.
+
+* Make Voice context accept Thread again; this fixes MIDI output for music
+that uses Thread contexts.
+
+* Removed debug printing from chord-name.scm.
+
+1.5.0
+=====
 1.5.0.jcn1
 ==========
 
