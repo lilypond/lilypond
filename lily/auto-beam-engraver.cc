@@ -481,12 +481,8 @@ Auto_beam_engraver::process_acknowledged_grobs ()
 	    }
 	}    
     }
-
-  /*
-    count_++ -> 
-
-        auto-beam-engraver.cc:459: warning: value computed is not used (gcc: 2.96) */
-  count_ = count_ + 1;
+  
+  count_ ++;
 }
 
 ENTER_DESCRIPTION (Auto_beam_engraver,

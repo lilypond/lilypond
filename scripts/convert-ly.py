@@ -1405,6 +1405,20 @@ if 1:
 	conversions.append (((1,9,0), conv, """New relative mode,
 Postfix articulations, new chord syntax."""))
 
+def conv (str):
+
+	str = re.sub ('-\\markup', '@\\markup', str)
+	str = re.sub (r'-\\', r'\\', str)
+	str = re.sub (r'-\)', ')', str)
+	str = re.sub (r'-\(', '(', str)
+	str = re.sub ('-\[', '[', str)
+	str = re.sub ('-\]', ']', str)
+	str = re.sub ('-~', '~', str)
+	str = re.sub ('@\\markup', r'-\\markup', str)
+	return str
+	
+conversions.append (((1,9,1), conv, """Remove - before articulation"""))
+
 ################################
 #	END OF CONVERSIONS	
 ################################
