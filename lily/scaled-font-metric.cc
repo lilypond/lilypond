@@ -262,7 +262,7 @@ Modified_font_metric::text_dimension (String text)
 
 	  Box char_box;
 
-	  if (!gh_symbol_p (sym))
+	  if (!ly_symbol_p (sym))
 	    continue;
 
 	  char const * chars =  SCM_SYMBOL_CHARS(sym);
