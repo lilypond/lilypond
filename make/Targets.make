@@ -140,8 +140,8 @@ dist:
 	$(MAKE) localdist
 	chmod -Rf a+rX $(distdir)
 
-	(cd ./$(depth); $(TAR) cf $(DIST_NAME).tar $(DIST_NAME);)
-	(cd $(depth); gzip -9 $(DIST_NAME).tar)
+	(cd ./$(depth); $(TAR) cf - $(DIST_NAME) | gzip -9 > $(DIST_NAME).tar.gz)
+
 # should be trapped
 	rm -rf $(distdir)/
 

@@ -175,7 +175,7 @@ bassdux =
 
     \paper{
 %	unitspace = 40.0\pt;	geometric = 1.6;
-	geometric= 1.4; unitspace= 34.\pt;
+%	geometric= 1.4; unitspace= 34.\pt;
     }
     \midi {
         \tempo 4:84;

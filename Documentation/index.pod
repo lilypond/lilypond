@@ -6,13 +6,13 @@ Excuse me for this poor page. I don't really have time for doing this..
 
 =head1 DESCRIPTION
 
-GNU LilyPond is a program to typeset music: it generates TeX (or
-LaTeX) output from file input.
 
-As a bonus, you can also output a MIDI file of what you typed.
+
+GNU LilyPond is a program which converts music definition files into
+visual or auditive output: it can typeset formatted sheet music to a
+TeX file and and (mechanical) performances to MIDI files.
 
 =head2 Examples
-
 
 <a href=example_output.html
 >
@@ -117,6 +117,20 @@ The GNU Music project
 </a
 >
 
+=item * 
+<a href=ANNOUNCE.txt
+>
+The announce of 0.1
+</a
+>
+
+=item *
+<a href=DEDICATION.txt
+>
+DEDICATION
+</a
+>
+
 =back
 
 
@@ -124,6 +138,8 @@ The GNU Music project
 
 
 =over 5
+
+
 
 
 =item *
@@ -193,12 +209,19 @@ Get LilyPond at ftp://pcnov095.win.tue.nl/pub/lilypond !
 
 
 =item *
+<a href=links.html
+>
+B<download LilyPond> and other interesting links
+</a
+>
+
+
+=item *
 <a href=sconstat/stats.html
 >
 Stats on this page.
 </a
 >
-
 
 =back
 

@@ -12,7 +12,7 @@
 #include "midi-item.hh"
 
 
-IMPLEMENT_STATIC_NAME(Lyric_performer);
+
 IMPLEMENT_IS_TYPE_B1(Lyric_performer,Performer);
 ADD_THIS_PERFORMER(Lyric_performer);
 
@@ -45,7 +45,7 @@ Lyric_performer::process_requests()
 }
 
 bool
-Lyric_performer::try_request( Request* req_l )
+Lyric_performer::do_try_request( Request* req_l )
 {
     Musical_req* m_l = req_l->musical();
     if ( !m_l || ! m_l->lreq_l() ) 

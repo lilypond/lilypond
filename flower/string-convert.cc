@@ -204,7 +204,7 @@ String_convert::int_str(int i, char const* fmt)
 String
 String_convert::double_str(double f, char const* fmt)
 {
-    char buf[STRING_BUFFER_LEN]; 
+    static char buf[STRING_BUFFER_LEN]; 
 
     snprintf(buf, STRING_BUFFER_LEN, fmt ? fmt : "%f", f);
     return buf;

@@ -1,3 +1,25 @@
+pl 77.jcn1
+	- init/*.ly in dist
+	- bf: string-convert.cc: return local buf
+	- bf: debug.cc: <new.h>
+	- bf: template4.cc: #includes
+
+pl 77	
+	- some fixes for internal compiler errors 
+derive from Pointer_list with default dtor gives error with -O2
+	- .ini -> .ly
+	- lyrics fix 
+	- Performer beautification: got rid of set_track(), midi_output()
+	- pseudo RTTI for midi-items
+	- bf: Performer*::print() 
+	- links.pod
+	- Voice_element -> Request_chord
+	- fixed flex problems: stdin input works again 
+	- Documentation/Rules.make, make-website via make
+	- spacing: now add basicspace
+
+*******
+july 28
 pl 76
 	- mudela version bumped to 0.1
 	- mudela-book

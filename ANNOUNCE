@@ -11,8 +11,9 @@ Lily is a healthy, bouncing baby weighing 335 kilobytes
 
 Visiting hours: 24hrs a day at
 
-	ftp://pcnov095.win.tue.nl/pub/lilypond/lilypond-0.1.tar.gz
-	ftp://prep.gnu.ai.mit.edu/pub/gnu/lilypond-0.1.tar.gz
+
+	ftp://pcnov095.win.tue.nl/pub/lilypond/lilypond-0.1.0.tar.gz (Europe)
+	ftp://alpha.gnu.ai.mit.edu/pub/lilypond/lilypond-0.1.0.tar.gz (US)
 
 you can see some babyfood, diapers and pictures at
 
@@ -56,9 +57,9 @@ It isn't flashy, but then I wasn't born to be a webartist.
 
 WHAT IS GNU LilyPond?
 
-GNU LilyPond which converts music definition files into visual or
-audio output: it can typeset formatted sheet music to a TeX file and
-and (mechanical) performances to MIDI files.
+GNU LilyPond is a program which converts music definition files into
+visual or auditive output: it can typeset formatted sheet music to a
+TeX file and and (mechanical) performances to MIDI files.
 
 WHY?
 
@@ -66,13 +67,15 @@ We want to create tools which can produce production quality scores
 and parts of public music. We haven't quite reached that goal:
 
 * The quality of the output isn't good enough yet due to
-some (still) insophisticated algorithms
+some (still) unsophisticated algorithms
 
 * A number of features haven't been implemented (although they can be
 quite simple)
 
-We Want You!  You can become a user, but we'd really appreciate to
-have some Hackers to help advance our project more quickly.
+WE WANT YOU!  
+
+You can become a user, but we'd really appreciate it you would start 
+hacking at Lily, and help us advance our project more quickly.
 
 WHAT IS NEEDED?
 
@@ -90,7 +93,7 @@ for running you need
 	MusiXTeX fonts 
 
 The MusiXTeX fonts are part of the MusiXTeX package version T.73,
-available at http://www.gmd.de/Misc/Music/ 
+available at any CTAN mirror, or http://www.gmd.de/Misc/Music/ 
 
 WHAT CAN LILYPOND DO?
 

@@ -8,5 +8,5 @@
 
 #include "vertical-align-spanner.hh"
 
-IMPLEMENT_STATIC_NAME(Vertical_align_spanner);
+
 IMPLEMENT_IS_TYPE_B2(Vertical_align_spanner, Vertical_align_element, Spanner);

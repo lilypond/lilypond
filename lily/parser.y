@@ -573,7 +573,7 @@ simple_element:
 
 command_elt:
 /* empty */ 	{
-		$$ = new Voice_element;
+		$$ = new Request_chord;
 		$$-> set_spot( THIS->here_input());
 	}
 /* cont: */

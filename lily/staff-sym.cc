@@ -18,7 +18,7 @@ Staff_symbol::Staff_symbol(int l)
     no_lines_i_ = l;
 }
 
-IMPLEMENT_STATIC_NAME(Staff_symbol);
+
 IMPLEMENT_IS_TYPE_B1(Staff_symbol,Spanner);
 
 void

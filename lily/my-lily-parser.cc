@@ -126,7 +126,7 @@ My_lily_parser::set_last_duration(Duration const *d)
 Chord*
 My_lily_parser::get_word_element(Text_def* tdef_p, Duration * duration_p)
 {
-    Chord* velt_p = new Voice_element;
+    Chord* velt_p = new Request_chord;
     
     Lyric_req* lreq_p = new Lyric_req(tdef_p);
 
@@ -142,7 +142,7 @@ My_lily_parser::get_word_element(Text_def* tdef_p, Duration * duration_p)
 Chord *
 My_lily_parser::get_rest_element(String s,  Duration * duration_p )
 {    
-    Chord* velt_p = new Voice_element;
+    Chord* velt_p = new Request_chord;
     velt_p->set_spot( here_input());
 
     if (s=="s") { /* Space */
@@ -171,7 +171,7 @@ My_lily_parser::get_rest_element(String s,  Duration * duration_p )
 Chord *
 My_lily_parser::get_note_element(Note_req *rq, Duration * duration_p )
 {
-    Chord*v = new Voice_element;
+    Chord*v = new Request_chord;
     v->set_spot( here_input());
 
     v->add(rq);

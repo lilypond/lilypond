@@ -11,7 +11,7 @@
 #include "p-col.hh"
 #include "p-score.hh"
 
-IMPLEMENT_STATIC_NAME(Spanner);
+
 IMPLEMENT_IS_TYPE_B1(Spanner,Score_elem);
 
 void

@@ -12,7 +12,7 @@
 #include "debug.hh"
 
 IMPLEMENT_IS_TYPE_B1(Note_performer,Performer);
-IMPLEMENT_STATIC_NAME(Note_performer);
+
 ADD_THIS_PERFORMER(Note_performer);
 
 Note_performer::Note_performer()
@@ -63,7 +63,7 @@ Note_performer::process_requests()
 }
 
 bool 
-Note_performer::try_request( Request* req_l )
+Note_performer::do_try_request( Request* req_l )
 {
     if ( note_req_l_ )
 	return false;

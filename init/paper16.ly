@@ -1,6 +1,6 @@
 
-\include "table16.ini"
-\include "engraver.ini"
+\include "table16.ly"
+\include "engraver.ly"
 
 default_paper = \paper {
 	linewidth = 15.0 \cm;
@@ -10,6 +10,7 @@ default_paper = \paper {
 	notewidth = 5.0\pt;
 	wholewidth = 4.8\pt;
 	unitspace = 30.\pt;
+	basicspace = 5.0\pt;
 
 	%
 	interbeam = 2.667\pt;

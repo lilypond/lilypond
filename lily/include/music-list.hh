@@ -53,11 +53,11 @@ public:
     virtual MInterval time_int()const;
 };
 
-class Voice_element : public Chord {
+class Request_chord : public Chord {
 public:
     NAME_MEMBERS();
-    Voice_element();
-    VIRTUAL_COPY_CONS(Voice_element,Music);
+    Request_chord();
+    VIRTUAL_COPY_CONS(Request_chord,Music);
 };
 
 /**

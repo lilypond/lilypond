@@ -41,10 +41,8 @@ Paper_def::linewidth_f() const
 Real
 Paper_def::duration_to_dist(Moment d)
 {
-    if (!d)
-	return 0;
-    
-    return get_var("unitspace")  * pow(get_var("geometric"), log_2(d));
+    Real dur_f = (d) ?pow(get_var("geometric"), log_2(d)) : 0;
+    return get_var("basicspace") + get_var("unitspace")  * dur_f;
 }
 
 

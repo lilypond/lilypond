@@ -111,7 +111,9 @@ The GNU LilyPond music typesetter.
 
 On the LilyPond input format.
 
-=item The GNU LilyPond FAQ list.
+=item mudela-man
+
+On the input format. This is a LilyPond-enhanced LaTeX document.
 
 =back
 

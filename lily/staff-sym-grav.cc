@@ -50,6 +50,6 @@ Staff_sym_engraver::do_process_requests()
 }
 
 
-IMPLEMENT_STATIC_NAME(Staff_sym_engraver);
+
 IMPLEMENT_IS_TYPE_B1(Staff_sym_engraver,Engraver);
 ADD_THIS_ENGRAVER(Staff_sym_engraver);

@@ -192,7 +192,7 @@ struct Vertical_align_spanner;
 struct Vertical_align_engraver;
 struct Vertical_align_element;
 struct Voice;
-struct Voice_element;
+struct Request_chord;
 struct Voice_group_engravers;
 struct Voice_group_performer;
 struct Voice_list;

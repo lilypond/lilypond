@@ -77,6 +77,7 @@ Score::run_translator(Global_translator * trans_l)
 void
 Score::process()
 {
+    print();
     paper();
     midi();
 }
@@ -98,7 +99,6 @@ Score::midi()
 	warning( "Errors found, /*not processing score*/" );
 //	return;
     }
-    print();
     *mlog << endl;
 }
     
@@ -115,14 +115,12 @@ Score::paper()
     run_translator( score_trans );
     delete score_trans;
     
-    if( errorlevel_i_){
+    if( errorlevel_i_) {
 	// should we? hampers debugging. 
 	warning("Errors found, /*not processing score*/");
 //	return;
     }
     
-    print();
-
     // debugging
     *mlog << endl;
     pscore_p_->process();

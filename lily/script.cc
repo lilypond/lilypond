@@ -94,7 +94,7 @@ Script::brew_molecule_p() const
     return out;
 }
 
-IMPLEMENT_STATIC_NAME(Script);
+
 IMPLEMENT_IS_TYPE_B2(Script,Item,Staff_side);
 
 int 

@@ -10,7 +10,7 @@
 #include "debug.hh"
 
 IMPLEMENT_IS_TYPE_B2(Performer_group_performer,Performer, Translator);
-IMPLEMENT_STATIC_NAME(Performer_group_performer);
+
 ADD_THIS_PERFORMER(Performer_group_performer);
 
 Performer_group_performer::Performer_group_performer()
@@ -124,12 +124,6 @@ Performer_group_performer::is_bottom_performer_b() const
     return !itrans_l_->get_default_itrans_l();
 }
 
-void
-Performer_group_performer::midi_output( Midi_stream* midi_stream_l )
-{
-    for ( PCursor<Performer*> i( perf_p_list_.top() ); i.ok(); i++ )
-	i->midi_output( midi_stream_l );
-}
 
 void
 Performer_group_performer::process_requests()
@@ -138,23 +132,36 @@ Performer_group_performer::process_requests()
 	i->process_requests();
 }
 
-void
-Performer_group_performer::set_track( Midi_def* midi_l, int& track_i_r )
-{
-    for ( PCursor<Performer*> i( perf_p_list_.top() ); i.ok(); i++ )
-	i->set_track( midi_l, track_i_r );
-}
-
 bool
-Performer_group_performer::try_request( Request* req_l )
+Performer_group_performer::do_try_request( Request* req_l )
 {
-//    return Performer::try_request( req_l );
     bool hebbes_b =false;
     for (int i =0; !hebbes_b && i < nongroup_l_arr_.size() ; i++)
 	hebbes_b =nongroup_l_arr_[i]->try_request(req_l);
-//    if (!hebbes_b)
     if ( !hebbes_b && daddy_perf_l_ )
 	hebbes_b = daddy_perf_l_->try_request(req_l);
     return hebbes_b ;
 }
 
+void
+Performer_group_performer::do_print()const
+{
+#ifndef NPRINT
+    for ( PCursor<Performer*> i( perf_p_list_.top() ); i.ok(); i++ )
+	i->print();
+#endif
+}
+
+void
+Performer_group_performer::do_creation_processing()
+{
+    for ( PCursor<Performer*> i( perf_p_list_.top() ); i.ok(); i++ )
+	i->creation_processing();
+}
+
+void
+Performer_group_performer::do_removal_processing()
+{
+    for ( PCursor<Performer*> i( perf_p_list_.top() ); i.ok(); i++ )
+	i->do_removal_processing();
+}

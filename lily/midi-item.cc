@@ -1,9 +1,10 @@
-//
-// midiitem.cc
-//
-// source file of the GNU LilyPond music typesetter
-//
-// (c) 1997 Jan Nieuwenhuizen <jan@digicash.com>
+/*
+  midi-item.cc -- implement various midi items.
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
 
 #include <limits.h>
 #include "proto.hh"
@@ -18,6 +19,18 @@
 #include "music-list.hh"
 #include "midi-item.hh"
 #include "midi-stream.hh"
+
+
+IMPLEMENT_IS_TYPE_B(Midi_item);
+IMPLEMENT_IS_TYPE_B1(Midi_key,Midi_item);
+IMPLEMENT_IS_TYPE_B1(Midi_note, Midi_item);
+IMPLEMENT_IS_TYPE_B1(Midi_duration, Midi_item);
+IMPLEMENT_IS_TYPE_B1(Midi_chunk, Midi_item);
+IMPLEMENT_IS_TYPE_B1(Midi_header, Midi_chunk);
+IMPLEMENT_IS_TYPE_B1(Midi_text, Midi_item);
+IMPLEMENT_IS_TYPE_B1(Midi_tempo, Midi_item);
+IMPLEMENT_IS_TYPE_B1(Midi_time, Midi_item);
+IMPLEMENT_IS_TYPE_B1(Midi_track, Midi_chunk);
 
 Midi_chunk::Midi_chunk()
 {
@@ -195,7 +208,7 @@ Midi_text::str() const
 	return str;
 }
 
-Midi_track::Midi_track( int number_i )
+Midi_track::Midi_track( )
 {
 //                4D 54 72 6B     MTrk
 //                00 00 00 3B     chunk length (59)
@@ -211,7 +224,7 @@ Midi_track::Midi_track( int number_i )
 //         mi = 0:  major key
 //         mi = 1:  minor key
 
-    number_i_ = number_i;
+    number_i_ = 0;
 	
     char const* data_ch_C = ""
 //        "00" "ff58" "0404" "0218" "08"

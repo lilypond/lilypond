@@ -121,7 +121,7 @@ Engraver_group_engraver::do_try_request(Request*req_l)
     bool hebbes_b =false;
     for (int i =0; !hebbes_b && i < nongroup_l_arr_.size() ; i++)
 	hebbes_b =nongroup_l_arr_[i]->try_request(req_l);
-    if (!hebbes_b)
+    if (!hebbes_b && daddy_grav_l_)
 	hebbes_b = daddy_grav_l_->try_request(req_l);
     return hebbes_b ;
 }
@@ -167,7 +167,7 @@ Engraver_group_engraver::terminate_engraver(Engraver*r_l)
 }
 
 IMPLEMENT_IS_TYPE_B2(Engraver_group_engraver,Engraver, Translator);
-IMPLEMENT_STATIC_NAME(Engraver_group_engraver);
+
 ADD_THIS_ENGRAVER(Engraver_group_engraver);
 
 void

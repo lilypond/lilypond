@@ -16,7 +16,8 @@
  */
 #define NAME_MEMBERS()	\
 static char const *static_name();\
-virtual bool is_type_b(const char *)const; \
+static bool static_is_type_b(const char*s);\
+virtual bool is_type_b(const char *s)const { return static_is_type_b(s); } \
 virtual char const *name() const{ return static_name(); } \
 int a_stupid_nonexistent_function_to_allow_the_semicolon_come_out()
 
@@ -28,20 +29,23 @@ int a_stupid_nonexistent_function_to_allow_the_semicolon_come_out()
   int  yet_another_stupid_function_to_allow_semicolon()
 
 #define IMPLEMENT_IS_TYPE_B(D) 							   \
-  bool D::is_type_b(const char *s)	const					   \
+    IMPLEMENT_STATIC_NAME(D)\
+  bool D::static_is_type_b(const char *s)					   \
 { 										   \
     return s == static_name();							   \
 }										   
 										   
 #define IMPLEMENT_IS_TYPE_B1(D,B) 						   \
-  bool D::is_type_b(const char *s)const						   \
+	IMPLEMENT_STATIC_NAME(D)\
+  bool D::static_is_type_b(const char *s)						   \
 { 										   \
-    return s == static_name() || B::is_type_b(s);				   \
+    return s == static_name() || B::static_is_type_b(s);				   \
 }										   
 #define IMPLEMENT_IS_TYPE_B2(D, BA, BB) 						   \
-  bool D::is_type_b(const char *s)	const					   \
+	IMPLEMENT_STATIC_NAME(D)\
+  bool D::static_is_type_b(const char *s)						   \
 { 										   \
-    return s == static_name() || BA::is_type_b(s) || BB::is_type_b(s); \
+    return s == static_name() || BA::static_is_type_b(s) || BB::static_is_type_b(s); \
 }
 
 #endif 

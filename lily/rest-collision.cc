@@ -15,7 +15,7 @@
 #include "collision.hh"
 #include "paper-def.hh"
 
-IMPLEMENT_STATIC_NAME(Rest_collision);
+
 IMPLEMENT_IS_TYPE_B1(Rest_collision,Item);
 
 void

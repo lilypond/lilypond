@@ -94,5 +94,5 @@ Slur::do_post_processing()
     left_pos_i_ += dir_i_;
     right_pos_i_ += dir_i_;
 }
-IMPLEMENT_STATIC_NAME(Slur);
+
 IMPLEMENT_IS_TYPE_B1(Slur,Spanner);

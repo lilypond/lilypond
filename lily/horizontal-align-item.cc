@@ -8,7 +8,7 @@
 
 #include "horizontal-align-item.hh"
 
-IMPLEMENT_STATIC_NAME(Horizontal_align_item);
+
 IMPLEMENT_IS_TYPE_B1(Horizontal_align_item,Item);
 
 

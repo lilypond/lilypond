@@ -1,2 +1,20 @@
 
 [document reintroduced deficiencies.]
+
+midi instrument?
+*******************
+ '.' -> lilypond: lexer.l:258: int My_lily_lexer::yylex(): Assertion `cnv == 1' failed.
+
+***********************
+
+2nd staff takes too long.
+
+\score { < 
+	\melodic { \id "Staff" ""; c'4 g'4 }
+	\lyric { \id "Lyric" ""; hello4 bye4 < a chord > }
+	\lyric { \id "Lyric" ""; bye4 hello4 }
+	\melodic { \id "Staff" ""; c'4 g'4 }
+	> 
+} 
+
+*******************

@@ -12,15 +12,12 @@
 Score_elem_info::Score_elem_info(Score_elem*s_l, Request*r_l)
 {
     elem_l_ = s_l;
-    voice_l_ =  (r_l)?r_l->voice_l():0;
     req_l_ = r_l;
 }
 
 Score_elem_info::Score_elem_info()
 {
     elem_l_ = 0;
-    voice_l_ = 0;
-
     req_l_ = 0;
 }
 

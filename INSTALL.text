@@ -41,27 +41,27 @@ RRRRUUUUNNNNNNNNIIIINNNNGGGG
             MusixTeX T.73). Beware, the clef symbol seems to have
             changed its position in some versions, (notably
             Egler's, a.k.a. OpusTeX). The MusixTeX fonts are
-            included in MusixTeX T.73, which can be had from any
-            CTAN site, eg at
+            included in MusixTeX (T73 or better), which can be
+            had from any CTAN site, e.g. at
 
-                    ftp://ftp.shsu.edu/tex-archive/macros/musixtex/taupin
-                    ftp://ftp.tex.ac.uk/tex-archive/macros/musixtex/taupin
-                    ftp://ftp.dante.de/tex-archive/macros/musixtex/taupin
+       ftp://ftp.shsu.edu/tex-archive/macros/musixtex/taupin
 
-            You only need the contents of the _m_f_/ subdirectory of
-            the package.
+       ftp://ftp.tex.ac.uk/tex-archive/macros/musixtex/taupin
+
+       ftp://ftp.dante.de/tex-archive/macros/musixtex/taupin
+
+                You only need the contents of the _m_f_/
+                subdirectory of the package. The primary site of
+                the Taupin version is ftp://hprib.lps.u-
+                psud.fr/pub/music_zips/musixtex.zip
 
 RRRREEEECCCCOOOOMMMMMMMMEEEENNNNDDDDEEEEDDDD
        Although not strictly necessary, these are recommended to
        have.
 
-       +o         Perl.  Most scripts are written in Perl. The
-                 documentation was created with the perl's Plain
-                 Old Documentation.
 
 
-
-28/Jul/97                LilyPond 0.0.76                        1
+29/Jul/97                LilyPond 0.0.77                        1
 
 
 
@@ -69,6 +69,10 @@ RRRREEEECCCCOOOOMMMMMMMMEEEENNNNDDDDEEEEDDDD
 
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
+
+       +o         Perl.  Most scripts are written in Perl. The
+                 documentation was created with the perl's Plain
+                 Old Documentation.
 
        +o         (GNU) find
 
@@ -121,13 +125,9 @@ CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG a
 
                configure --prefix=/usr/local --enable-tex-prefix=/usr/lib/texmf
 
-       Since GNU LilyPond currently is beta, you are advised to
-       also use
 
 
-
-
-28/Jul/97                LilyPond 0.0.76                        2
+29/Jul/97                LilyPond 0.0.77                        2
 
 
 
@@ -135,6 +135,9 @@ CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG a
 
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
+
+       Since GNU LilyPond currently is beta, you are advised to
+       also use
 
                --enable-debugging
                --enable-checking
@@ -187,13 +190,10 @@ IIIINNNNSSSSTTTTAAAALLLLLLLLIIIINNNNGGGG
 
        Install the musixtex fonts in a directory which TeX and MF
        knows (if you are root, look for a directory which
-       contains the directories with AMS and CM source (*.mf)
-       files. Create a subdir lilypond or musixtex and copy the
-       fonts into that). Do not forget to rehash TeX (if
 
 
 
-28/Jul/97                LilyPond 0.0.76                        3
+29/Jul/97                LilyPond 0.0.77                        3
 
 
 
@@ -202,6 +202,9 @@ IIIINNNNSSSSTTTTAAAALLLLLLLLIIIINNNNGGGG
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
 
+       contains the directories with AMS and CM source (*.mf)
+       files. Create a subdir lilypond or musixtex and copy the
+       fonts into that). Do not forget to rehash TeX (if
        applicable)
 
        Example: my fonts are in
@@ -209,8 +212,6 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
        pointing to that in
        _/_u_s_r_/_l_i_b_/_t_e_x_m_f_/_t_e_x_m_f_/_f_o_n_t_s_/_s_o_u_r_c_e_/_p_u_b_l_i_c_/. After I copied
        the files, I ran "texhash"
-
-       ftp://hprib.lps.u-psud.fr/pub/music_zips/musixtex.zip
 
 CCCCAAAAVVVVEEEEAAAATTTTSSSS
        +o         The -O2 option to gcc triggers a gcc bug on DEC
@@ -255,11 +256,10 @@ RRRREEEEDDDDHHHHAAAATTTT LLLLIIIINNNNUUUUXXXX
        file is in _m_a_k_e_/_o_u_t_/_l_i_l_y_p_o_n_d_._s_p_e_c. You should be able to
        create an rpm as a normal user. Be sure you have a
        ~/.rpmrc, and edit the RPM-dir in _V_a_r_i_a_b_l_e_s_._m_a_k_e. (If you
-       create the RPM as a normal user the permissions will not
 
 
 
-28/Jul/97                LilyPond 0.0.76                        4
+29/Jul/97                LilyPond 0.0.77                        4
 
 
 
@@ -268,6 +268,7 @@ RRRREEEEDDDDHHHHAAAATTTT LLLLIIIINNNNUUUUXXXX
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
 
+       create the RPM as a normal user the permissions will not
        be set correctly, unfortunately)
 
 WWWWIIIINNNNDDDDOOOOZZZZEEEE
@@ -324,7 +325,6 @@ AAAAUUUUTTTTHHHHOOOORRRRSSSS
 
 
 
-
-28/Jul/97                LilyPond 0.0.76                        5
+29/Jul/97                LilyPond 0.0.77                        5
 
 

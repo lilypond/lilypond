@@ -14,7 +14,7 @@ Buildroot: /tmp/lilypond_build
 GNU LilyPond which converts music definition files into visual or
 audio output: it can typeset formatted sheet music to a TeX file and
 and (mechanical) performances to MIDI files. Features include multiple
-meters, clefs, keys, lyrics, versatile input-language, cadenzas
+staffs meters, clefs, keys, lyrics, versatile input-language, cadenzas
 beams, slurs, triplets.
 
 %prep

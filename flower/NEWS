@@ -1,5 +1,8 @@
 version 1.1:
 
+pl 23:
+	- virtual-methods : static_is_type_b
+	- Choleski checks no if PARANOID
 pl 22:
 	- ACursor and PACursor to give array a List like interface.
 

@@ -24,10 +24,7 @@ $(outdir)/%.o: $(outdir)/%.cc
 	$(DO_CXX_COMPILE)
 
 $(outdir)/%.cc: %.y
-#	$(BISON) -d $<
 	$(BISON) $<
-#	mv $(shell basename $@ .cc ).tab.h $(include-lib)/$(shell basename $@ .cc).hh
-#	mv $(shell basename $@ .cc ).tab.h $(outdir)/$(shell basename $@ .cc).hh
 	mv $(shell basename $@ .cc ).tab.c $@
 
 $(outdir)/%.hh: %.y
@@ -39,25 +36,6 @@ $(outdir)/%.cc: %.l
 	$(FLEX) -Cfe -p -p -t $< > $@
 # could be faster:
 #	$(FLEX) -8 -Cf -t $< > $@
-
-$(outdir)/%.text: $(outdir)/%.1
-	groff -man -Tascii $< > $@
-
-$(depth)/%.text: $(outdir)/%.text
-	cp $< $@
-
-$(outdir)/%.html: %.pod
-	$(pod2html)  $<
-	mv $(notdir $@) $(outdir)/
-
-$(outdir)/%.5: %.pod
-	$(pod2groff)
-$(outdir)/%.1: %.pod
-	$(pod2groff)
-
-
-
-#
 
 # outdirs:
 #
@@ -75,17 +53,3 @@ $(outdir)/%.1: %.pod
 $(depth)/%.text: check-doc-deps
 	rm -f $@
 	ln `find ${depth}/Documentation -name $@|head -1` .
-
-$(outdir)/%.xpm: %.gif
-	giftopnm $< | ppmtoxpm > $@
-
-$(outdir)/%.ps: $(outdir)/%.dvi
-	dvips -o $@ $<
-
-$(outdir)/%.dvi: $(outdir)/%.mudtex
-	latex '\batchmode \input $<'
-
-$(outdir)/%.mudtex: %.doc
-	$(depth)/bin/mudela-book --outdir=$(outdir)/ --outname=$(notdir $@) $<
-
-

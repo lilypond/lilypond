@@ -51,7 +51,7 @@ Stem::Stem(int c)
     stem_xoffset_f_ =0;
 }
 
-IMPLEMENT_STATIC_NAME(Stem);
+
 IMPLEMENT_IS_TYPE_B1(Stem,Item);
 
 void

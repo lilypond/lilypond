@@ -103,6 +103,6 @@ Local_key_engraver::do_process_requests()
     }
 }
 
-IMPLEMENT_STATIC_NAME(Local_key_engraver);
+
 IMPLEMENT_IS_TYPE_B1(Local_key_engraver,Engraver);
 ADD_THIS_ENGRAVER(Local_key_engraver);

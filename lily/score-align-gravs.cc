@@ -21,7 +21,6 @@ public:									\
     { type_ch_C_ = T::static_name();\
     priority_i_ = p;}	\
 };									\
-IMPLEMENT_STATIC_NAME(C ## _align_engraver)	;			\
 ADD_THIS_ENGRAVER(C ## _align_engraver);				\
 IMPLEMENT_IS_TYPE_B1(C ## _align_engraver, Score_align_engraver)    	;
 

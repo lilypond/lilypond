@@ -140,7 +140,7 @@ Collision::do_pre_processing()
     }
 }
 
-IMPLEMENT_STATIC_NAME(Collision);
+
 IMPLEMENT_IS_TYPE_B1(Collision, Item);
 
 void

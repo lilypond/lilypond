@@ -18,7 +18,7 @@ Item::Item()
 	= broken_to_a_[1]=0;
 }
 
-IMPLEMENT_STATIC_NAME(Item);
+
 IMPLEMENT_IS_TYPE_B1(Item, Score_elem);
 
 void

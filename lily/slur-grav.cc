@@ -99,6 +99,6 @@ Slur_engraver::~Slur_engraver()
 	requests_arr_[i]->warning("unterminated slur");
     }
 }
-IMPLEMENT_STATIC_NAME(Slur_engraver);
+
 IMPLEMENT_IS_TYPE_B1(Slur_engraver,Engraver);
 ADD_THIS_ENGRAVER(Slur_engraver);

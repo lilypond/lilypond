@@ -58,6 +58,6 @@ Vertical_align_element::Vertical_align_element()
     empty_b_ =true;
 }
 
-IMPLEMENT_STATIC_NAME(Vertical_align_element);
+
 IMPLEMENT_IS_TYPE_B1(Vertical_align_element, Score_elem);
 

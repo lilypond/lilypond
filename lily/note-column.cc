@@ -11,7 +11,7 @@
 #include "note-head.hh"
 #include "stem.hh"
 
-IMPLEMENT_STATIC_NAME(Note_column);
+
 IMPLEMENT_IS_TYPE_B1(Note_column,Head_column);
 
 void

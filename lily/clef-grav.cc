@@ -123,6 +123,6 @@ Clef_engraver::do_removal_processing()
     clef_p_ =0;
 }
 
-IMPLEMENT_STATIC_NAME(Clef_engraver);
+
 IMPLEMENT_IS_TYPE_B1(Clef_engraver,Engraver);
 ADD_THIS_ENGRAVER(Clef_engraver);

@@ -12,7 +12,7 @@
 #include "request.hh"
 #include "debug.hh"
 
-IMPLEMENT_STATIC_NAME(Music_iterator);
+
 IMPLEMENT_IS_TYPE_B(Music_iterator);
 
 Chord_iterator::~Chord_iterator(){}
@@ -117,8 +117,8 @@ Music_iterator::static_get_iterator_p(Music *m,
     Music_iterator * p =0;
     if (m->is_type_b( Change_reg::static_name()))
 	p = new Change_iterator((Change_reg*)m);
-    else if (m->is_type_b( Voice_element::static_name()))
-	p = new Voice_element_iterator( (Voice_element*) m);
+    else if (m->is_type_b( Request_chord::static_name()))
+	p = new Request_chord_iterator( (Request_chord*) m);
     else if (m->is_type_b( Chord::static_name())) 
 	p =  new Chord_iterator( (Chord*) m);
     else if (m->is_type_b( Voice::static_name())) 
@@ -204,7 +204,7 @@ Chord_iterator::process_and_next(Moment until)
 //    assert(!ok() || next_moment() > until);
 }
 
-IMPLEMENT_STATIC_NAME(Chord_iterator);
+
 IMPLEMENT_IS_TYPE_B1(Chord_iterator,Music_iterator);
 
 Moment
@@ -266,7 +266,7 @@ Voice_iterator::~Voice_iterator()
     delete iter_p_;
 }
 
-IMPLEMENT_STATIC_NAME(Voice_iterator);
+
 IMPLEMENT_IS_TYPE_B1(Voice_iterator,Music_iterator);
 
 void
@@ -309,7 +309,7 @@ Change_iterator::Change_iterator(Change_reg * ch)
     change_l_ = ch;
 }
 
-IMPLEMENT_STATIC_NAME(Change_iterator);
+
 IMPLEMENT_IS_TYPE_B1(Change_iterator,Music_iterator);
 
 /*
@@ -336,16 +336,16 @@ Change_iterator::process_and_next(Moment mom)
 
 /* ******************** */
 
-IMPLEMENT_STATIC_NAME(Voice_element_iterator);
-IMPLEMENT_IS_TYPE_B1(Voice_element_iterator,Music_iterator);
+
+IMPLEMENT_IS_TYPE_B1(Request_chord_iterator,Music_iterator);
 
 void
-Voice_element_iterator::construct_children()
+Request_chord_iterator::construct_children()
 {
     get_req_translator_l();
 }
 
-Voice_element_iterator::Voice_element_iterator(Voice_element*el_l)
+Request_chord_iterator::Request_chord_iterator(Request_chord*el_l)
 {
     elt_l_ = el_l;
     elt_duration_ = el_l->time_int().length(); 
@@ -354,7 +354,7 @@ Voice_element_iterator::Voice_element_iterator(Voice_element*el_l)
 
 
 bool
-Voice_element_iterator::ok()const
+Request_chord_iterator::ok()const
 {
     return (elt_duration_ && !last_b_) || first_b_; 
 }
@@ -362,7 +362,7 @@ Voice_element_iterator::ok()const
 
 
 Moment
-Voice_element_iterator::next_moment()const
+Request_chord_iterator::next_moment()const
 {
     Moment m(0);
     if  (!first_b_) 
@@ -371,14 +371,14 @@ Voice_element_iterator::next_moment()const
 }
 
 void
-Voice_element_iterator::do_print() const
+Request_chord_iterator::do_print() const
 {
 #ifndef NPRINT
     mtor << "duration: " << elt_duration_;
 #endif
 }
 void
-Voice_element_iterator::process_and_next(Moment mom)
+Request_chord_iterator::process_and_next(Moment mom)
 {
     if ( first_b_ ) {
 	for (PCursor<Music*> i(elt_l_->music_p_list_); i.ok(); i++) {

@@ -1,3 +1,7 @@
+	* write a String_hash template
+
+	* write a Pointer_hash template
+
 	* fix/junk ambiguous String constructor overloads, e.g.:
 	  String( int ) and String( char )
 
@@ -7,7 +11,7 @@
 
 	* disable this auto conv: const pointer -> bool -> string
 
-	* PointerVec ?
+	* Pointer_array
 
 	* PCursor -> Pointer_cursor / PointerCursor ?
 

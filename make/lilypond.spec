@@ -1,9 +1,9 @@
 Name: lilypond
-Version: 0.0.76
+Version: 0.0.77.jcn1
 Release: 1
 Copyright: GPL
 Group: Applications/Publishing
-Source0: pcnov095.win.tue.nl:/pub/lilypond/lilypond-0.0.76.tar.gz
+Source0: pcnov095.win.tue.nl:/pub/lilypond/lilypond-0.0.77.jcn1.tar.gz
 Summary: A preprocessor to make TeX typeset music.
 URL: http://www.stack.nl/~hanwen/lilypond
 Packager: Han-Wen Nienhuys <hanwen@stack.nl>
@@ -14,7 +14,7 @@ Buildroot: /tmp/lilypond_build
 GNU LilyPond which converts music definition files into visual or
 audio output: it can typeset formatted sheet music to a TeX file and
 and (mechanical) performances to MIDI files. Features include multiple
-meters, clefs, keys, lyrics, versatile input-language, cadenzas
+staffs meters, clefs, keys, lyrics, versatile input-language, cadenzas
 beams, slurs, triplets.
 
 %prep
@@ -27,7 +27,7 @@ rm -rf $RPM_BUILD_ROOT
 strip lily/out/lilypond mi2mu/out/mi2mu
 make prefix="$RPM_BUILD_ROOT/usr" install
 %files
-%doc Documentation/out/AUTHORS.text Documentation/out/CodingStyle.text Documentation/out/INSTALL.text Documentation/out/MANIFESTO.text Documentation/out/convert-mudela.text Documentation/out/error.text Documentation/out/faq.text Documentation/out/gnu-music.text Documentation/out/index.text Documentation/out/language.text Documentation/out/lilygut.text Documentation/out/lilyliterature.text Documentation/out/lilypond.text Documentation/out/mi2mu.text Documentation/out/mudela-book.text Documentation/out/other-packages.text BUGS TODO NEWS DEDICATION ANNOUNCE README input/beams.ly input/cadenza.ly input/collisions.ly input/coriolan-alto.ly input/error.ly input/header.ly input/keys.ly input/kortjakje.ly input/multi.ly input/pedal.ly input/rhythm.ly input/scales.ly input/scripts.ly input/scsii-menuetto.ly input/scsii-menuetto.tex input/slurs.ly input/standchen.ly input/standchen.tex input/toccata-fuga-E.ly input/twinkle.ly input/wohltemperirt.ly Documentation/out/mudela-course.dvi Documentation/out/mudela-man.dvi Documentation/lelie_logo.gif
+%doc Documentation/out/AUTHORS.text Documentation/out/CodingStyle.text Documentation/out/INSTALL.text Documentation/out/MANIFESTO.text Documentation/out/convert-mudela.text Documentation/out/error.text Documentation/out/faq.text Documentation/out/gnu-music.text Documentation/out/index.text Documentation/out/language.text Documentation/out/lilygut.text Documentation/out/lilyliterature.text Documentation/out/lilypond.text Documentation/out/links.text Documentation/out/mi2mu.text Documentation/out/mudela-book.text Documentation/out/other-packages.text BUGS TODO NEWS DEDICATION ANNOUNCE README input/beams.ly input/cadenza.ly input/collisions.ly input/coriolan-alto.ly input/error.ly input/header.ly input/keys.ly input/kortjakje.ly input/multi.ly input/pedal.ly input/rhythm.ly input/scales.ly input/scripts.ly input/scsii-menuetto.ly input/scsii-menuetto.tex input/slurs.ly input/standchen.ly input/standchen.tex input/toccata-fuga-E.ly input/twinkle.ly input/wohltemperirt.ly Documentation/out/mudela-course.dvi Documentation/out/mudela-man.dvi Documentation/lelie_logo.gif
 /usr/bin/convert-mudela
 /usr/bin/mudela-book
 /usr/bin/lilypond

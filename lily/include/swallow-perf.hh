@@ -15,7 +15,8 @@
 class Swallow_performer : public Performer {
 public:
     NAME_MEMBERS();
-    virtual bool try_request (Request* ) { return true; }
+protected:
+    virtual bool do_try_request (Request* ) { return true; }
 };
 
 #endif // SWALLOW_PERF_HH

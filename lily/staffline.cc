@@ -17,7 +17,7 @@
 #include "p-score.hh"
 
 
-IMPLEMENT_STATIC_NAME(Line_of_staff);
+
 IMPLEMENT_IS_TYPE_B2(Line_of_staff,Spanner,Horizontal_vertical_group);
 
 void

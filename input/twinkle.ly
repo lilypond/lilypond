@@ -114,9 +114,9 @@ textiii = \lyric{
 }
 
 \score{
-	< \multi 3;
+	< 
 		\melodic <
-			\id "Piano" "";\multi 3;
+			\id "Piano" "";\multi 2;
 			< \global 
 				\melody >
 			< \global 
@@ -124,9 +124,12 @@ textiii = \lyric{
 		>
 		
 		% ugh
-		\lyric < \id "Lyric" "1"; \global \tekst \hegedraagjetekst >
-%		\lyric < \id "Lyric" "2";  \global \texte >
-%		\lyric < \id "Lyric" "3"; \global \texti \textii \textiii >
+		\lyric < \id "Lyric" "1"; 
+			\global \tekst \hegedraagjetekst >
+		\lyric < \id "Lyric" "2";  \global
+			\texte >
+		\lyric < \id "Lyric" "3"; \global
+			\texti \textii \textiii >
 		
 	>
 	\paper{

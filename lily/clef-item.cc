@@ -63,5 +63,5 @@ Clef_item::brew_molecule_p()const
     return output;
 }
 
-IMPLEMENT_STATIC_NAME(Clef_item);
+
 IMPLEMENT_IS_TYPE_B1(Clef_item,Item);

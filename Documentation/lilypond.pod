@@ -8,9 +8,9 @@ lilypond - the GNU music typesetter
 
 =head1 DESCRIPTION
 
-GNU LilyPond which converts music definition files into visual or
-audio output: it can produce formatted sheet music in TeX and 
-and mechanical perfomances to MIDI files.
+GNU LilyPond is a program which converts music definition files into
+visual or auditive output: it can typeset formatted sheet music to a
+TeX file and and (mechanical) performances to MIDI files.
 
 =head1 OPTIONS
 
@@ -19,7 +19,6 @@ and mechanical perfomances to MIDI files.
 =item B<-I,--include>=F<FILE>,
 
 add F<FILE> to the search path for input files.
-
 
 =item B<-M,--midi>
 
@@ -46,11 +45,15 @@ Show a summary of usage
 
 =item B<-i,--init=>F<FILE>
 
-set init file to F<FILE> (default: F<symbol.ini>)
+set init file to F<FILE> (default: F<symbol.ly>)
 
 =item B<--include, -I>=F<DIRECTORY>
 
 add F<DIRECTORY> to the search path for input files.
+
+=item B<--ignore-version, -V>
+
+make incompatible mudela version non-fatal 
 
 =back
 
@@ -175,7 +178,7 @@ Than it would help if you send a dump of the Interval and the Item
 
 =over 5
 
-=item F<symbol.ini>
+=item F<symbol.ly>
 
 The initialisation file with symbol tables etc. It
 includes files from the directory F<init/>.
@@ -196,9 +199,9 @@ B<LILYINCLUDE> an (one) additional directory for finding lilypond data.
 
 On technical details of LilyPond
 
-=item mudela(5)
+=item mudela-man
 
-On the input format
+On the input format. This is a LilyPond-enhanced LaTeX document.
 
 =item MANIFESTO
 
@@ -208,17 +211,11 @@ Goals of the GNU LilyPond project.
 
 The GNU LilyPond FAQ list
 
-=item http://
-
-The GNU Music project. GNU LilyPond is part of the GNU Music
-project. For more information on the GNU Music project, 
-
 =item http://www.stack.nl/~hanwen/lilypond/index.html
 
 GNU LilyPond has her own webpage.  This webpage contains the MIDI, GIF
 and PS files for some standard music files. It also has the complete
 LilyPond documentation
-
 
 =back
 

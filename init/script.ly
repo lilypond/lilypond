@@ -38,7 +38,7 @@ rftoe = \script { "ftoe" 0 0 1 0 0 }
 %  back  front     back  front
 %
 % 
-% heu, me thought for a moment that order in table_xxx.ini was
+% heu, me thought for a moment that order in table_xxx.ly was
 % being translated into priority...
 back = \script { "back" 0 -1 -1  0 0 }
 front = \script { "front" 0 -1 1 0 0 }

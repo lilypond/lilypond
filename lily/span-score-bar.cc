@@ -38,8 +38,8 @@ Piano_brace::do_width()const
     return Interval(0,0);
 }
 
-IMPLEMENT_STATIC_NAME(Span_score_bar);
+
 IMPLEMENT_IS_TYPE_B1(Span_score_bar, Span_bar);
 IMPLEMENT_IS_TYPE_B1(Piano_brace, Span_score_bar);
-IMPLEMENT_STATIC_NAME(Piano_brace);
+
     

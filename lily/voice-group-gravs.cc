@@ -34,7 +34,7 @@ Voice_group_engravers::do_try_request(Request*r_l)
 }
 
 
-IMPLEMENT_STATIC_NAME(Voice_group_engravers);
+
 IMPLEMENT_IS_TYPE_B1(Voice_group_engravers,Engraver_group_engraver);
 
 void

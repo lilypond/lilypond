@@ -13,7 +13,7 @@
 #include "rest-column.hh"
 #include "note-column.hh"
 
-IMPLEMENT_STATIC_NAME(Rest_collision_engraver);
+
 IMPLEMENT_IS_TYPE_B1(Rest_collision_engraver, Engraver);
 ADD_THIS_ENGRAVER(Rest_collision_engraver);
 

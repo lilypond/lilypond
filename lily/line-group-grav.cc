@@ -7,7 +7,7 @@
 */
 
 #include "staff-sym.hh"
-#include "staff-gravs.hh"
+#include "line-group-grav.hh"
 #include "command-request.hh"
 #include "bar.hh"
 #include "debug.hh"
@@ -45,7 +45,7 @@ Line_group_engraver::do_creation_processing()
 }
 
 
-IMPLEMENT_STATIC_NAME(Line_group_engraver);
+
 IMPLEMENT_IS_TYPE_B1(Line_group_engraver,Engraver);
 ADD_THIS_ENGRAVER(Line_group_engraver);
 
