@@ -21,109 +21,95 @@
 
 \def\makelilypondtitle{
   \begin{center}
-    \ifx\lilyponddedication\undefined
-    \else
-      {\normalfont\lilyponddedication\\}
-    \fi
-
+    \lilypondifundefined{lilyponddedication}
+    {}
+    {\normalfont\lilyponddedication\\}
+    
     \bfseries
-
-    \ifx\lilypondtitle\undefined
-    \else
-      {\huge\lilypondtitle\\}
-    \fi
-
-    \ifx\lilypondsubtitle\undefined
-    \else
-      {\Large\lilypondsubtitle\\}
-    \fi
-
-    \ifx\lilypondsubsubtitle\undefined
-    \else
-      {\large\lilypondsubsubtitle\\}
-    \fi
+    
+    \lilypondifundefined{lilypondtitle}
+    {}
+    {\huge\lilypondtitle\\}
+    
+    \lilypondifundefined{lilypondsubtitle}
+    {}
+    {\Large\lilypondsubtitle\\}
+    
+    \lilypondifundefined{lilypondsubsubtitle}
+    {}
+    {\large\lilypondsubsubtitle\\}
   \end{center}
-
+  
   \bigskip
-
+  
   \begin{minipage}[t]{0.45\textwidth}
-    \ifx\lilypondpoet\undefined
-    \else
-      {\lilypondpoet\\}
-    \fi
-
-    \ifx\lilypondtexttranslator\undefined
-    \else
-      {\lilypondtexttranslator\\}
-    \fi
-
-    \ifx\lilypondmeter\undefined
-    \else
-      {\lilypondmeter\\}
-    \fi
+    \lilypondifundefined{lilypondpoet}
+    {}
+    {\lilypondpoet\\}
+    
+    \lilypondifundefined{lilypondtexttranslator}
+    {}
+    {\lilypondtexttranslator\\}
+    
+    \lilypondifundefined{lilypondmeter}
+    {}
+    {\lilypondmeter\\}
   \end{minipage}
-
+  
   \hspace*{\fill}
-
+  
   \begin{minipage}[t]{0.45\textwidth}
     \begin{flushright}
-      \ifx\lilypondcomposer\undefined
-      \else
-        {\large\normalfont\scshape\lilypondcomposer\\}
-      \fi
-
-      \ifx\lilypondopus\undefined
-      \else
-        {\lilypondopus\\}
-      \fi
-
-      \ifx\lilypondarranger\undefined
-      \else
-        {\lilypondarranger\\}
-      \fi
+      \lilypondifundefined{lilypondcomposer}
+      {}
+      {\large\normalfont\scshape\lilypondcomposer\\}
+      
+      \lilypondifundefined{lilypondopus}
+      {}
+      {\lilypondopus\\}
+      
+      \lilypondifundefined{lilypondarranger}
+      {}
+      {\lilypondarranger\\}
     \end{flushright}
   \end{minipage}
-
+  
   \par
-
-  \ifx\lilypondinstrument\undefined
-  \else
-    {\center{\large\lilypondinstrument}
-     \par}
-  \fi
-
-  \ifx\lilypondpiece\undefined
-  \else
-    {\flushleft{\large\normalfont\lilypondpiece}
-     \par}
-  \fi
-
+  
+  \lilypondifundefined{lilypondinstrument}
+  {}
+  {\center{\large\lilypondinstrument}
+    \par}
+  
+  \lilypondifundefined{lilypondpiece}
+  {}
+  {\flushleft{\large\normalfont\lilypondpiece}
+    \par}
+  
 % \leavevmode
 
-  \global\let\lilypondopus\relax
-  \global\let\lilypondpiece\relax
+  \global\let\lilypondopus\undefined
+  \global\let\lilypondpiece\undefined
   \global\let\mustmakelilypondtitle\undefined
 }
 
 \def\makelilypondpiecetitle{
   \bigskip\myfilbreak
 
-  \ifx\lilypondopus\undefined
-  \else
-    {\flushright{\lilypondopus}
-     \par}
-  \fi
-
-  \ifx\lilypondpiece\undefined
-  \else
-    {\flushleft{\large\normalfont\scshape\lilypondpiece}
-     \par}
-  \fi
-
+  \lilypondifundefined{lilypondopus}
+  {}
+  {\flushright{\lilypondopus}
+    \par}
+  
+  \lilypondifundefined{lilypondpiece}
+  {}
+  {\flushleft{\large\normalfont\scshape\lilypondpiece}
+    \par}
+  
   \nopagebreak
 
-  \global\let\lilypondopus\relax
-  \global\let\lilypondpiece\relax
+  \global\let\lilypondopus\undefined
+  \global\let\lilypondpiece\undefined
   \global\let\mustmakelilypondpiecetitle\undefined
 }
 
@@ -131,32 +117,27 @@
 % these names can't be changed: they're used in mutopia headers
 
 \def\theheader{
-  \ifx\lilypondhead\undefined
-  \else
-    \lilypondhead
-  \fi
+  \lilypondifundefined{lilypondhead}
+  {}
+  \lilypondhead
 }
 
 \def\thefooter{
-  \ifx\lilypondfooter\undefined
-  \else
-    \lilypondfooter
-  \fi
+  \lilypondifundefined{lilypondfooter}
+  {}
+  \lilypondfooter
 }
 
 \def\makelilypondtagline{
-  \ifx\undefined\lilypondtagline
-  \else
-    \lilypondtagline
-  \fi
+  \lilypondifundefined{lilypondtagline}
+  {}
+  \lilypondtagline
 }
 
 \def\thecopyright{
-  \ifx\lilypondcopyright\undefined
-    \thefooter
-  \else
-    \lilypondcopyright
-  \fi
+  \lilypondifundefined{lilypondcopyright}
+  \thefooter
+  \lilypondcopyright
 }
 
 % Moved header and footer definitions here from the lilypond script.
