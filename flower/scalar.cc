@@ -1,3 +1,4 @@
+#if 0
 /*
   scalar.cc -- implement Scalar
 
@@ -8,7 +9,7 @@
 
 #include <assert.h>
 #include <stdio.h>
-#include "scalar.hh"
+
 #include "rational.hh"
 
 Scalar::Scalar (Rational r)
@@ -105,3 +106,4 @@ Scalar::to_bool () const
 }
 
 
+#endif

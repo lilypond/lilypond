@@ -7,7 +7,7 @@
   
  */
 
-#include "scalar.hh"
+
 #include "molecule.hh"
 #include "time-signature.hh"
 #include "paper-def.hh"

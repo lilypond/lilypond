@@ -15,7 +15,7 @@
 #include "lookup.hh"
 #include "debug.hh"
 #include "dimensions.hh"
-#include "scalar.hh"
+
 #include "paper-def.hh"
 #include "string-convert.hh"
 #include "file-path.hh"
