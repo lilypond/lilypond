@@ -1341,6 +1341,19 @@ ADD_INTERFACE (Beam, "beam-interface",
   "A beam.
 
 #'thickness= weight of beams, in staffspace
-  ",
+
+
+We take the least squares line through the ideal-length stems, and
+then damp that using
+
+	damped = tanh (slope)
+
+this gives an unquantized left and right position for the beam end.
+Then we take all combinations of quantings near these left and right
+positions, and give them a score (according to how close they are to
+the ideal slope, how close the result is to the ideal stems, etc.). We
+take the best scoring combination.
+
+",
   "concaveness-threshold dir-function quant-score auto-knee-gap gap chord-tremolo beamed-stem-shorten shorten least-squares-dy direction damping flag-width-function neutral-direction positions thickness");
 

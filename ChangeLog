@@ -1,3 +1,46 @@
+2002-03-27  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/multi-measure-rest.cc (symbol_molecule): split off from
+	brew_molecule()
+	(set_spacing_rods): Use symbol_molecule() to determine minimum
+	width
+	(church_rest): split off from brew_molecule()
+	(big_rest): split off from brew_molecule(). Construct using
+	variable shape.
+	
+	* mf/feta-eindelijk.mf: junk multi measure rest.
+
+2002-03-26  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/multi-measure-rest.cc (add_column): remove columns property.
+
+	* lily/dynamic-engraver.cc (process_music): add more verbose warning
+
+	* input/mozart-hrn3-romanze.ly (romanze): add mozart horn concerto
+	3 as test piece.
+
+2002-03-26  Heikki Junes <hjunes@cc.hut.fi>
+
+	* lilypond-font-lock.el (LilyPond-font-lock-keywords): most new
+	keywords covered, dropped some non-keywords, include R- and 128-notes
+
+2002-03-25 Juergen Reuter <reuter@ipd.uka.de>
+
+	* Code clean-up: Junk multiple implementations of ledger line
+	creation in note_head, custos, and porrectus.  This is important
+	since there soon will be some more applications of ledger lines to
+	come (e.g. ambitus engraver).
+
+	* Make thickness of ledger lines adjustable.  This is essential
+	for mensural notation.
+
+	* Fix some bugs in the current ledger_line implementation, most
+	notably that of the horizontal extent of ledger lines which equals
+	at least the extent of the metafont ledger_line character, and
+	which grows(!) if the desired extent shrinks below this limit.
+
+	* roundfilledbox: variable blotdiameter
+
 2002-03-24  Han-Wen  <hanwen@cs.uu.nl>
 
 	* VERSION: 1.5.47 released

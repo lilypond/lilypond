@@ -15,11 +15,11 @@
 #include "rest.hh"
 #include "molecule.hh"
 #include "misc.hh"
-#include "group-interface.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "text-item.hh"
 #include "percent-repeat-item.hh"
+#include "lookup.hh"
 
 bool
 Multi_measure_rest::has_interface (Grob*me)
@@ -31,7 +31,6 @@ MAKE_SCHEME_CALLBACK (Multi_measure_rest,percent,1);
 SCM
 Multi_measure_rest::percent (SCM smob)
 {
-  
   Grob *me = unsmob_grob (smob);
   Spanner *sp = dynamic_cast<Spanner*> (me);
   
@@ -80,25 +79,9 @@ SCM
 Multi_measure_rest::brew_molecule (SCM smob) 
 {
   Grob *me = unsmob_grob (smob);
-  if (to_boolean (me->get_grob_property ("skip-timestep")))
-    {
-      me->set_grob_property ("skip-timestep", SCM_EOL);
-      return SCM_EOL;
-    }
-  
   Spanner * sp = dynamic_cast<Spanner*> (me);
 
   SCM alist_chain = Font_interface::font_alist_chain (me);
-
-  
-  SCM style_chain =
-    Font_interface::add_style (me, ly_symbol2scm ("mmrest-symbol"),
-			       alist_chain);
-
-  Font_metric *musfont
-    = Font_interface::get_font (me,style_chain);
-			
-  Real staff_space = Staff_symbol_referencer::staff_space (me);
 
   Interval sp_iv;
   Direction d = LEFT;
@@ -126,7 +109,41 @@ Multi_measure_rest::brew_molecule (SCM smob)
    */
   x_off += sp_iv.length ()/ 2;
 
-  
+  mol.add_molecule (symbol_molecule (me));
+
+  int measures = 0;
+  SCM m (me->get_grob_property ("measure-count"));
+  if (gh_number_p (m))
+    {
+      measures = gh_scm2int (m);
+    }
+
+  if (measures > 1)
+    {
+      Molecule s = Text_item::text2molecule (me,
+					     ly_str02scm (to_str (measures).ch_C ()),
+					     alist_chain);
+      s.align_to (X_AXIS, CENTER);
+      s.translate_axis (3.0, Y_AXIS);
+      mol.add_molecule (s);
+    }
+  mol.translate_axis (x_off, X_AXIS);
+  return mol.smobbed_copy ();
+}
+
+
+Molecule
+Multi_measure_rest::symbol_molecule (Grob *me)
+{
+  SCM alist_chain = Font_interface::font_alist_chain (me);
+
+  SCM style_chain =
+    Font_interface::add_style (me, ly_symbol2scm ("mmrest-symbol"),
+			       alist_chain);
+
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
+  Font_metric *musfont
+    = Font_interface::get_font (me,style_chain);
   Molecule s;
 
   int measures = 0;
@@ -139,7 +156,7 @@ Multi_measure_rest::brew_molecule (SCM smob)
 
   SCM limit = me->get_grob_property ("expand-limit");
   if (measures <= 0)
-    return SCM_EOL;
+    return s;
   if (measures == 1)
     {
       s = musfont->find_by_name (Rest::glyph_name (me, 0, ""));
@@ -148,66 +165,87 @@ Multi_measure_rest::brew_molecule (SCM smob)
 	ugh.
        */
       if (Staff_symbol_referencer::position_f (me) == 0.0)
-	s.translate_axis (Staff_symbol_referencer::staff_space (me), Y_AXIS);
+	s.translate_axis (staff_space, Y_AXIS);
     }
   else if (measures <= gh_scm2int (limit))
     {
-      /*
-	Build a rest from smaller parts. Distances inbetween are
-	really variable, see Wanske pp. 125 */
-
-      int l = measures;
-      while (l)
-	{
-	  int k;
-	  if (l >= 4)
-	    {
-	      l-=4;
-	      k = -2;
-	    }
-	  else if (l>= 2)
-	    {
-	      l -= 2;
-	      k = -1;
-	    }
-	  else
-	    {
-	      k = 0;
-	      l --;
-	    }
-
-	  Real pad = s.empty_b ()
-	    ? 0.0 : gh_scm2double (me->get_grob_property ("padding")) * staff_space;
-
-	  Molecule r (musfont->find_by_name ("rests-" + to_str (k)));
-	  if (k == 0)
-	    r.translate_axis (staff_space, Y_AXIS);
-	  
-	  s.add_at_edge (X_AXIS, RIGHT, r, pad);
-	}
-
-
-      s.align_to (X_AXIS, CENTER);
+      Real pad = gh_scm2double (me->get_grob_property ("padding")) * staff_space;
+      s = church_rest (musfont, measures, staff_space, pad);
     }
   else 
     {
-      String idx = ("rests-") + to_str (-4);
-      s = musfont->find_by_name (idx);
+      Real w = gh_scm2double (me->get_grob_property ("width"));
+      s = big_rest (me, w);
     }
-  
-  mol.add_molecule (s);
+  return s;
+}
 
-  if (measures > 1)
+Molecule
+Multi_measure_rest::big_rest (Grob *me, Real width)
+{
+  Real thick = gh_scm2double (me->get_grob_property ("thickness"));
+  Real ss = Staff_symbol_referencer::staff_space (me);
+  
+  Real slt = me->paper_l ()->get_var ("stafflinethickness");
+  Real y = slt * thick/2 * ss;
+  Box b(Interval (0, width), Interval (-y, y));
+  Real ythick = slt * ss;
+  
+  Molecule m =  Lookup::filledbox (b);
+  Molecule yb = Lookup::filledbox (Box (Interval (-ythick, ythick), Interval (-ss, ss)));
+
+  m.add_at_edge (X_AXIS, RIGHT, yb, -ythick);
+  m.add_at_edge (X_AXIS, LEFT, yb, -ythick);
+
+  m.align_to (X_AXIS, CENTER);
+  
+  return m;
+}
+
+/*
+  Kirchenpause (?)
+  
+ */
+Molecule
+Multi_measure_rest::church_rest (Font_metric *musfont, int measures,
+				 Real staff_space, Real padding)
+{
+  Molecule s;
+ /*
+	Build a rest from smaller parts. Distances inbetween are
+	really variable, see Wanske pp. 125 */
+   
+  int l = measures;
+  while (l)
     {
-      Molecule s = Text_item::text2molecule (me,
-					     ly_str02scm (to_str (measures).ch_C ()),
-					     alist_chain);
-      s.align_to (X_AXIS, CENTER);
-      s.translate_axis (3.0 * staff_space, Y_AXIS);
-      mol.add_molecule (s);
+      int k;
+      if (l >= 4)
+	{
+	  l-=4;
+	  k = -2;
+	}
+      else if (l>= 2)
+	{
+	  l -= 2;
+	  k = -1;
+	}
+      else
+	{
+	  k = 0;
+	  l --;
+	}
+
+      Real pad = s.empty_b () ? 0.0 : padding;
+
+      Molecule r (musfont->find_by_name ("rests-" + to_str (k)));
+      if (k == 0)
+	r.translate_axis (staff_space, Y_AXIS);
+	  
+      s.add_at_edge (X_AXIS, RIGHT, r, pad);
     }
-  mol.translate_axis (x_off, X_AXIS);
-  return mol.smobbed_copy ();
+
+  s.align_to (X_AXIS, CENTER);
+  return s;
 }
 
 /*
@@ -216,8 +254,6 @@ Multi_measure_rest::brew_molecule (SCM smob)
 void
 Multi_measure_rest::add_column (Grob*me,Item* c)
 {
-  Pointer_group_interface::add_grob (me, ly_symbol2scm ("columns"),c);
-
   add_bound_item (dynamic_cast<Spanner*> (me),c);
 }
 
@@ -255,11 +291,13 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
       rod.item_l_drul_[LEFT] = l;
       rod.item_l_drul_[RIGHT] = r;
 
-	/*
-	  should do something more advanced.
-	 */
+      /*
+	should do something more advanced.
+      */
+      Molecule m = symbol_molecule(me);
+      
       rod.distance_f_ = l->extent (l, X_AXIS)[BIGGER] - r->extent (r, X_AXIS)[SMALLER]
-	+ gh_scm2double (me->get_grob_property ("minimum-width")) * staff_space;
+	+ m.extent (X_AXIS).length () + 2.5*staff_space;
   
       rod.add_to_cols ();
     }
@@ -275,4 +313,4 @@ numbers, fields from font-interface may be used.
 padding is the space between number and rest. Measured in staffspace.
 
 ",
-  "columns measure-count expand-limit minimum-width padding");
+  "thickness measure-count expand-limit padding");

@@ -23,6 +23,10 @@ public:
   DECLARE_SCHEME_CALLBACK (percent, (SCM));
   static  void add_column (Grob*,Item*);
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM ));
+
+  static Molecule big_rest (Grob*,Real);
+  static Molecule symbol_molecule (Grob*);  
+  static Molecule church_rest (Font_metric*, int,Real, Real);
 };
 
 #endif /* MULTI_MEASURE_REST_HH */

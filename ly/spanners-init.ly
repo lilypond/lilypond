@@ -7,7 +7,7 @@ rced = \spanrequest \stop "decrescendo"
 
 cresc = \notes {
   \commandspanrequest \start "crescendo" 
-  \property Voice.crescendoText = #"cresc."
+  \property Voice.crescendoText = #'((font-shape . italic) "cresc.")
   \property Voice.crescendoSpanner = #'dashed-line
 }
 

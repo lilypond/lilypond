@@ -10,7 +10,6 @@ startGraceMusic = {
         #(map (lambda (x) (* 0.8 x)) '(0.0 1.5 1.25 1.0))
     \property Voice.Stem \override #'no-stem-extend = ##t
     \property Voice.Stem \override #'flag-style  = #"grace"
-
     \property Voice.Beam \override #'thickness = #0.384
     
     % Can't use Staff.fontSize, since time sigs, keys sigs, etc. will
@@ -18,9 +17,11 @@ startGraceMusic = {
 
     \property Voice.fontSize = #-2
     \property Staff.Accidentals \override #'font-relative-size = #-2
+    \property Voice.Slur \override #'direction = #-1
 }
 
 stopGraceMusic = {
+    \property Voice.Slur \revert #'direction
     \property Staff.Accidentals \revert #'font-relative-size
     \property Voice.Beam \revert #'thickness
 

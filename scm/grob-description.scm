@@ -433,8 +433,9 @@
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(staff-position . 0)
 	(expand-limit . 10)
-	(padding . 2.0) ; staffspace
-	(minimum-width . 12.5) ; staffspace
+	(width . 5.5)
+	(thickness . 6.6)
+	(padding . 1.5) ; staffspace
 	(font-family . number)
 	(font-relative-size . 1)
 	(meta . ((interfaces . (multi-measure-rest-interface rest-interface font-interface staff-symbol-referencer-interface))))

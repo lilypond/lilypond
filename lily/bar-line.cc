@@ -54,8 +54,6 @@ Bar_line::compound_barline (Grob*me, String str, Real h)
 
   Real staffline = me->paper_l ()->get_var ("stafflinethickness");
   Real staff_space = Staff_symbol_referencer::staff_space (me);
-  Real staffspace = me->paper_l ()->get_var ("staffspace")
-    * staff_space;
 
   kern *= staffline;
   thinkern *= staffline;
@@ -67,7 +65,7 @@ Bar_line::compound_barline (Grob*me, String str, Real h)
   Molecule colon;
   Molecule dot = Font_interface::get_default_font (me)->find_by_name ("dots-dot");
   Real dist = ( Staff_symbol_referencer::line_count (me) & 1 ? 1 :
-		staff_space<2 ? 2 : .5 ) * staffspace;
+		(staff_space<2 ? 2 : .5) ) * staff_space;
   dot.translate_axis(dist/2,Y_AXIS);
   colon.add_molecule(dot);
   dot.translate_axis(-dist,Y_AXIS);

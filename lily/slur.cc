@@ -50,7 +50,7 @@ void
 Slur::add_column (Grob*me, Grob*n)
 {
   if (!gh_pair_p (n->get_grob_property ("note-heads")))
-    me->warning (_ ("Putting slur over rest.  Ignoring."));
+    me->warning (_ ("Putting slur over rest.  Ignoring rest."));
   else
     {
       Pointer_group_interface::add_grob (me, ly_symbol2scm ("note-columns"), n);
