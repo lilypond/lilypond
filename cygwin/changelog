@@ -1,3 +1,10 @@
+lilypond (1.5.72-jcn2) unstable; urgency=low
+
+  * New upstream release.
+  * Fix man pages for midi2ly and lilypond.
+
+ -- Jan Nieuwenhuizen <janneke@gnu.org>  Wed, 14 Aug 2002 00:58:58 +0200
+
 lilypond (1.5.71.jcn2-1) unstable; urgency=low
 
   * lilypond-doc.hint (category): doc.
