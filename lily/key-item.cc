@@ -26,32 +26,6 @@ Key_item::Key_item ()
   set_c_position (0);
 }
 
-void
-Key_item::set (bool multi_octave_b,
-	       Array<Musical_pitch> const &idx_arr,
-	       Array<Musical_pitch> const &old_idx_arr)
-{
-  multi_octave_b_ =multi_octave_b;
-
-  for (int i = 0; i < idx_arr.size(); i++) 
-    {
-      Musical_pitch m_l =idx_arr[i];
-      if (multi_octave_b_)
-	add (m_l);
-      else
-	add (m_l.notename_i_, m_l.accidental_i_);
-    }
-
-  for (int i = 0 ; i< old_idx_arr.size(); i++) 
-    {
-      Musical_pitch m_l =old_idx_arr[i];
-      if (multi_octave_b_)
-	 add_old (m_l);
-      else
-	add_old (m_l.notename_i_, m_l.accidental_i_);
-    }
-}
-
 void 
 Key_item::set_c_position (int c0)
 {
@@ -72,25 +46,12 @@ Key_item::add (int p, int a)
 }
 
 void
-Key_item::add (const Musical_pitch& pitch_r)
-{
-  pitch_arr_.push (pitch_r.steps());
-  acc_arr_.push (pitch_r.accidental_i_);
-}
-
-void
 Key_item::add_old (int p, int a)
 {
   old_pitch_arr_.push (p);
   old_acc_arr_.push (a);
 }
 
-void
-Key_item::add_old (const Musical_pitch& pitch_r)
-{
-  old_pitch_arr_.push (pitch_r.steps());
-  old_acc_arr_.push (pitch_r.accidental_i_);
-}
 
 int
 Key_item::calculate_position(int p, int a) const

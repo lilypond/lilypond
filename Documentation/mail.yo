@@ -1,0 +1,43 @@
+
+For programs which are part of the GNU music project, the following
+mailing list have been setup:
+
+description(
+dit(info-gnu-music@gnu.org)
+    A moderated list for information on the GNU Music project, to
+    subscribe: send mail with subject "subscribe" to
+    info-gnu-music-request@gnu.org.  
+
+    As this list is moderated, normal people should ask to
+    nemail(David R. Linn)(drl@gnu.org) or
+    nemail(Han-Wen)(hanwen@cs.uu.nl) to forward announces instead of
+    sending it to info-gnu-music@gnu.org
+
+Since the GNU Music project currently only has LilyPond, this list is
+mainly for announcing new versions of LilyPond.
+	
+dit(bug-gnu-music@gnu.org)
+
+dit(help-gnu-music@gnu.org)
+    For help with programs from the GNU music project. To subscribe: send
+    mail with subject "subscribe" to
+    email(help-gnu-music-request@gnu.org)
+
+	Since the GNU Music project currently only has LilyPond, this list is mainly about using and extending LilyPond.
+	
+dit(bug-gnu-music@gnu.org)
+    If you have bugreports, you should send them to this list. If you want
+    to read all bugreports, you should subscribe to this list.  To
+    subscribe: send mail with subject "subscribe" to
+    email(bug-gnu-music-request@gnu.org)
+dit(gnu-music-discuss@gnu.org,)
+    For discussions concerning the GNU Music project, to subscribe: send
+    mail with subject "subscribe" to
+    email(gnu-music-discuss-request@gnu.org)
+    This list is archived at
+    lurl(http://www.jab.org/mail/gnu-music-discuss@gnu.org)
+)
+
+Announces of new versions will be sent to info-gnu-music and
+gnu-music-discuss.
+

@@ -17,7 +17,7 @@ Idealspacing::print() const
 #ifndef NPRINT
   DOUT << "idealspacing {" ;
   DOUT << "distance " << space_f_ << " strength " << hooke_f_;
-  DOUT << "left " << left_i_ << " right " << right_i_ << "}\n";
+  DOUT << "left " << cols_drul_[LEFT] << " right " << cols_drul_[RIGHT] << "}\n";
 #endif
 }
 
@@ -25,8 +25,7 @@ Idealspacing::Idealspacing()
 {
   space_f_ = 0.0;
   hooke_f_ = 0.0;
-  left_i_ = -1;
-  right_i_ = -1;
+  cols_drul_[LEFT] = cols_drul_[RIGHT] = -1;
 }
 
 void

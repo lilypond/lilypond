@@ -68,7 +68,7 @@ Spring_spacer::handle_loose_cols()
   Array<int> fixed;
   for (PCursor<Idealspacing*> i (ideal_p_list_.top()); i.ok (); i++)
     {
-      connected.connect (i->left_i_,i->right_i_);
+      connected.connect (i->cols_drul_[LEFT],i->cols_drul_[RIGHT]);
     }
   for (int i = 0; i < cols_.size(); i++)
     if (cols_[i].fixed_b())
@@ -240,8 +240,8 @@ Spring_spacer::make_matrices (Matrix &quad, Vector &lin, Real &c) const
 
   for (PCursor<Idealspacing*> i (ideal_p_list_.top()); i.ok (); i++)
     {
-      int l = i->left_i_;
-      int r = i->right_i_;
+      int l = i->cols_drul_[LEFT];
+      int r = i->cols_drul_[RIGHT];
 
       quad (r,r) += i->hooke_f_;
       quad (r,l) -= i->hooke_f_;
@@ -295,7 +295,7 @@ Spring_spacer::calculate_energy_f (Vector solution) const
   Real e = 0.0;
   for (PCursor<Idealspacing*> i (ideal_p_list_.top()); i.ok(); i++)
     {
-      e += i->energy_f(solution(i->right_i_) - solution(i->left_i_));
+      e += i->energy_f(solution(i->cols_drul_[RIGHT]) - solution(i->cols_drul_[LEFT]));
     }
 
   return e;
@@ -411,7 +411,7 @@ Spring_spacer::loosen_column (int i)
   Column_info c=cols_.get (i);
   for (PCursor<Idealspacing*> j (ideal_p_list_.top()); j.ok (); j++)
     {
-      if (j->left_i_ == i|| j->right_i_ == i)
+      if (j->cols_drul_[LEFT] == i|| j->cols_drul_[RIGHT] == i)
 	j.del();
       else
 	j++;
@@ -453,8 +453,8 @@ Spring_spacer::connect (int i, int j, Real d, Real h)
 
   Idealspacing * s = new Idealspacing;
 
-  s->left_i_ = i ;
-  s->right_i_ = j;
+  s->cols_drul_[LEFT] = i ;
+  s->cols_drul_[RIGHT] = j;
   s->space_f_ = d;
   s->hooke_f_ = h;
 

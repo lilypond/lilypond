@@ -1,5 +1,5 @@
 /*
-  staff-sym-engraver.hh -- declare Staff_sym_engraver
+  staff-sym-engraver.hh -- declare Staff_symbol_engraver
 
   source file of the GNU LilyPond music typesetter
 
@@ -15,14 +15,14 @@
 /**
   Manage the staff symbol.
  */
-class Staff_sym_engraver : public Engraver { 
+class Staff_symbol_engraver : public Engraver { 
     Staff_symbol *span_p_;
 public:
-  TRANSLATOR_CLONE(Staff_sym_engraver);
-  Staff_sym_engraver();
+  TRANSLATOR_CLONE(Staff_symbol_engraver);
+  Staff_symbol_engraver();
   DECLARE_MY_RUNTIME_TYPEINFO;
 protected:
-  virtual ~Staff_sym_engraver();
+  virtual ~Staff_symbol_engraver();
   virtual void fill_staff_info (Staff_info&);
   virtual void do_removal_processing();
   virtual void do_creation_processing();

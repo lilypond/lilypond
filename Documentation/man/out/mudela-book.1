@@ -4,6 +4,9 @@
 .SH "NAME" 
 mudela-book \- integrate LaTeX and mudela
 .PP 
+.SH "SYNOPSIS" 
+\fBmudela-book\fP [options] inputfile
+.PP 
 .SH "DESCRIPTION" 
 \fBmudela-book\fP is a script that helps
 integrating mudela and \&.  mudela-book runs LilyPond on
@@ -29,29 +32,54 @@ then LilyPond is run on CONTENTS\&.  mudela-book puts the result back,
 surrounded by \f(CW\epreMudelaExample\fP and \f(CW\epostMudelaExample\fP
 commands\&. The \f(CW\ebegin\fP takes the following options:
 .PP 
+.IP "floating" 
+the created graphics can be inserted in the middle of a text line, 
+not only as a separate paragraph
 .IP "fragment" 
 mudela-book adds some redtape\&. You
 can substitute voice-contents for CONTENTS in this case\&.
 .IP "verbatim" 
 CONTENTS is copied into the TeX source enclosed in a verbatim block\&.
+.IP "11pt, 13pt, 16pt, 20pt, 26pt" 
+set the fontsize to use for the music
 .PP 
-.SH "Synopsis" 
+.SH "OPTIONS" 
 .PP 
+.IP 
+.IP "--mudela-fontsize" 
+Set the fontsize to use for mudela if no fontsize is given
+as option\&.
+.IP "--force-mudela-fontsize" 
+Force all mudela to use this fontsize, overriding options
+given to \ebegin{mudela}
 .IP "--outname" 
 The name of  file to output\&. If this option  is not given,
-the output name derived from the input name\&.  The extension \fB\&.doc\fP
-is stripped, and \f(CW\&.mudtex\fP appended\&.
+the output name derived from the input name\&.
 .IP "--outdir" 
 The directory to output lilypond output and input to\&.
 .IP "--help" 
 print a short help message
+.IP "--dependencies" 
+write dependencies to outdir/filname\&.dep
+.PP 
+.SH "FILES" 
+You have to install LaTeX\&. \fBmudela-book\fP is not tested on LaTeX 2\&.09
+and will probably fail on something else than LaTeX2e\&.
+.PP 
+\fBmudela-book\fP is written in  python 1\&.5, so you have to install 
+python\&.
 .PP 
 .SH "BUGS" 
 .PP 
-Doesn\'t handle incorrect input sanely\&.   mudela-book is written in
-python, so you have install python\&.
+The LaTeX \eincludeonly{\&.\&.\&.} command is ignored\&.
+.PP 
+You get trouble if you use the --force-verbatim option and have some
+music in \efootnote{\&.\&.\&.} or \emarginpar{\&.\&.\&.}\&.
+.PP 
+Ignores almost all LaTeX commands that changes margins and linewidths\&.
 .PP 
 .SH "AUTHOR" 
 .PP 
 Han-Wen Nienhuys <hanwen@cs\&.uu\&.nl>, http://www\&.cs\&.uu\&.nl/people/hanwen
 .PP 
+Tom Cato Amundsen <tomato@xoommail\&.com>

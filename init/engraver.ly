@@ -20,7 +20,7 @@ StaffContext=\translator {
 	\consists "Key_engraver";
 	\consists "Local_key_engraver";
 	\consists "Time_signature_engraver";
-	\consists "Staff_sym_engraver";
+	\consists "Staff_symbol_engraver";
 	\consists "Collision_engraver";
 	\consists "Rest_collision_engraver";
 	\consists "Tuplet_engraver";
@@ -77,7 +77,7 @@ RhythmicStaffContext=\translator{
 	\name RhythmicStaff;
 	\consists "Bar_engraver";
 	\consists "Time_signature_engraver";
-	\consists "Staff_sym_engraver";
+	\consists "Staff_symbol_engraver";
 	\accepts "Voice";
 };
 \translator{\RhythmicStaffContext}
@@ -208,7 +208,7 @@ HaraKiriStaffContext = \translator {
 	\consists "Key_engraver";
 	\consists "Time_signature_engraver";
 	\consists "Local_key_engraver";
-	\consists "Staff_sym_engraver";
+	\consists "Staff_symbol_engraver";
 	\consists "Collision_engraver";
 	\consists "Rest_collision_engraver";
 	\consists "Staff_margin_engraver";

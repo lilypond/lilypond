@@ -28,8 +28,10 @@ Or get the latest url(patch)(DOEXPAND(depth)/DOEXPAND(outdir)/lilypond-@TOPLEVEL
 
 nsubsect(Introduction)
 
-This is not a Fanmail/Hype page. These pages were entirely created from
-the LilyPond package-sources. 
+
+These pages were entirely created from the LilyPond package-sources.
+Sorry for poor look they have: we want to be hacking at LilyPond, and
+not at the webpages.
 
 Note: These pages are created from the latest bf(development snapshots)
 of LilyPond, specifically, this page was made from LilyPond
@@ -39,7 +41,7 @@ nsect(Sites)
 
 description(
 dit(lurl(http://www.cs.uu.nl/people/hanwen/lilypond/))Han-Wen's site.
-dit(lurl(http://www.xs4all.nl/jantien/lilypond/))Jan's site.
+dit(lurl(http://www.xs4all.nl/~jantien/lilypond/))Jan's site.
 dit(lurl(http://www.realtime.net/~daboys/lilypond/))Jeff's Windows NT Distribution site.
 )
 

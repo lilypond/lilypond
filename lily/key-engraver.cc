@@ -29,9 +29,30 @@ Key_engraver::create_key ()
       kit_p_ = new Key_item;
       kit_p_->break_priority_i_ = -1; // ugh
       announce_element (Score_element_info (kit_p_,keyreq_l_));
-      kit_p_->set (key_.multi_octave_b_, accidental_idx_arr_, old_accidental_idx_arr_);
+
+
+      for (int i = 0; i < accidental_idx_arr_.size(); i++) 
+	{
+	  Musical_pitch m_l =accidental_idx_arr_[i];
+	  int a =m_l.accidental_i_;      
+	  if (key_.multi_octave_b_)
+	    kit_p_->add (m_l.steps (), a);
+	  else
+	    kit_p_->add (m_l.notename_i_, a);
+	}
+
+      for (int i = 0 ; i< old_accidental_idx_arr_.size(); i++) 
+	{
+	  Musical_pitch m_l =old_accidental_idx_arr_[i];
+	  int a =m_l.accidental_i_;
+	  if (key_.multi_octave_b_)
+	    kit_p_->add_old (m_l.steps  (), a);
+	  else
+	    kit_p_->add_old (m_l.notename_i_, a);
+	}
     }
-}
+}      
+
 
 bool
 Key_engraver::do_try_request (Request * req_l)

@@ -8,10 +8,10 @@
 #define AUDIO_COLUMN_HH
 
 #include "proto.hh"
-#include "pcursor.hh"
 #include "plist.hh"
 #include "lily-proto.hh"
 #include "moment.hh"
+#include "pcursor.hh"
 
 
 /**

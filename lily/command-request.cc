@@ -106,7 +106,7 @@ bool
 Barcheck_req::do_equal_b (Request*r) const
 {
   Barcheck_req *b = dynamic_cast<Barcheck_req*> (r);
-  return r;
+  return b;
 }
 
 

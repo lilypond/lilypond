@@ -56,6 +56,10 @@ it()url(The Authors)(DOEXPAND(tops)/AUTHORS.html)
 it()url(Sending and applying Patches)(DOEXPAND(tops)/PATCHES.html)
 )
 
+nsubsect(Mail)
+
+includefile(mail.yo)
+
 nsubsect(Links)
 
 itemize(

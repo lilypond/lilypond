@@ -382,7 +382,10 @@
 
 (define 
   (start-line-tex) 
+  (string-append 
    "\\hbox{%\n")
+  )
+
 
 (define
   (startbar o h)
@@ -415,5 +418,6 @@
 (define
   (text-tex f s)
   (string-append "\\set" f "{" s "}"))
+
 
 
