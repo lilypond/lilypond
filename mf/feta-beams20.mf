@@ -10,5 +10,5 @@ mode_setup;
 
 staffsize#:=20pt#;
 
-input wat-zie-ik;
+input feta-watzieik;
 end.

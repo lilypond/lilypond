@@ -1,3 +1,21 @@
+pl 32
+	- change type checks (ughugh) to derivation checks (ugh)
+	- this fixes clef bug.
+	- bf: order of breakables: meter comes after bar.
+	- bf: do error iso coredump on unknown symbol-table
+	- bf: release.py, copy patch too. 
+	- bf: add makefile dep for disting MF logs.
+	- bf: don't read font-en-tja*.ly, but feta*.ly
+
+pl 31.jcn2
+	- first version of (non-ugh) c-klef
+	- bf: mi2mu: notes of zero duration as comments
+	- feta: ugh c clef
+
+
+********
+nov 17
+
 pl 31
 	- bf: replaced Score_column assert by a warning (thanks Scott)
 	- bf: mi2mu version output (thanks Scott)
@@ -10,6 +28,7 @@ pl 31
 
 ********
 nov 11
+
 pl 30
 	- feta: G clef. 
 	- scripts now do relative coords (fixes lyrics + barnumber bug)
@@ -17,6 +36,7 @@ pl 30
 	- bf: bass clef
 
 ********
+nov 6
 pl 29
 	- feta: bass clef, bf: dynamics, bf: 64th flag
 	

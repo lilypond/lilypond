@@ -9,6 +9,8 @@ grep for TODO and ugh/ugr
 0.2:
 	* add a screenshot to the website.
 
+	* fix stdin input
+
 	* LILYSOURCEDIR
 	
 	* documentation
@@ -22,8 +24,6 @@ grep for TODO and ugh/ugr
 	* versioning for Feta
 
 	* bf: abbrevs over whole note
-
-	* mi2mu: fix a1*0/4 output
 
 STUFF
 
