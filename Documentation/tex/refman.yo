@@ -49,6 +49,7 @@ latexcommand(\def\texttt#1{\tt #1})
 latexcommand(\def\textbf#1{\bf #1})
 )
 
+includefile(html-disclaimer.yo-urg)
 
 bf(This document is not up to date).  All rendered examples of course
 are current, but the rest probably isn't.  Adjusting the tutorial was

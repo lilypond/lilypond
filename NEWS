@@ -1,6 +1,20 @@
 
 (need to fix pictures. I know)
 
+
+pl 9.jcn1
+	- started gnuisation of website
+	  * filetype and size
+	  * 'no gifs due to patent problems'
+	- bumped stepmake version nr (again):
+	  please update stepmake/VERSION after making changes to stepmake...
+  
+pl 9.hwn1
+	- do default midi,paper by toplevel \paper / \midi (mudela 1.0.4)
+	- bf: error if no Score context
+	- notename table now can be declared as well.
+	- junked \clear
+
 pl 9
 	
 pl 8.uu1
