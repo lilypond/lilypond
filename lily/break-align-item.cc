@@ -13,9 +13,13 @@ void
 Break_align_item::do_pre_processing()
 {
   align_dir_ = break_status_dir();
-  threshold_interval_[SMALLER] = 1.5 PT;
   flip (&align_dir_);
-  Horizontal_align_item::do_pre_processing();
+  Axis_align_item::do_pre_processing();
 }
 
-
+Break_align_item::Break_align_item ()
+{
+  stacking_dir_ = RIGHT;
+  threshold_interval_[SMALLER] = 1.5 PT;
+  set_axis (X_AXIS);
+}
