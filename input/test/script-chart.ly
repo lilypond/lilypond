@@ -33,7 +33,7 @@
         ltoe__                  rtoe__                  open__
         stopped__               turn__                  reverseturn__
         trill__                 prall__                 mordent__
-        prallprall__            prallmordent__          uprall__
+        prallprall__            prallmordent__          upprall__
         downprall__             upmordent__             downmordent__
         pralldown__             prallup__               lineprall__
         signumcongruentiae__    shortfermata__          fermata__

@@ -2,7 +2,9 @@
 
 	* lilypond-font-lock.el: Add postfix syntax for horizontal groups.
 
-	* lilypond.words: add 3.
+	* lilypond.words: add few.
+
+	* input/test/script-chart.ly: fix typo.
 
 2003-05-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
