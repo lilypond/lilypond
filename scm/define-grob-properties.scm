@@ -465,10 +465,6 @@ containing (TRANSPARENT . EMPTY).
 (grob-property-description 'when ly:moment? "when does this column happen?.")
 (grob-property-description 'word-space ly:dimension? "elongate left (?) by this much (FIXME: cumbersome semantics).")
 
-(grob-property-description 'alignment number? "alignment of lyrics on notehead, -1 is LEFT, 0 is CENTRE, 1 is RIGHT .")
-(grob-property-description 'ignore-length-mismatch boolean? "if #t, stanzas with shorter lyrics can be moved away from their respective note-head by the lyric alignment code.")
-(grob-property-description 'begin-alignment number? "proportion of lyric length from beginning to align with note-head for left-aligned lyrics.")
-(grob-property-description 'end-alignment number? "proportion of lyric length from end to align with note-head for right-aligned lyrics.")
 (grob-property-description 'width ly:dimension? "width of a grob measured in staff space.")
 (grob-property-description 'width-correct ly:dimension? "width correction for (de)cresc. text spanners.")
 (grob-property-description 'x-gap ly:dimension? "horizontal gap between notehead and tie.")

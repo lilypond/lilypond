@@ -1,5 +1,8 @@
 2004-01-02  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
 
+	* Documentation/user/lilypond-book.itely (Integrating LaTeX and
+	music): move note about dvips to more visible place.
+
 	* lily/lyric-phrasing-engraver.cc: move from
 	new-phrasing-engraver.cc, remove old cruft (syllable-group,
 	lyric-phrasing-engraver.hh)

@@ -8,11 +8,6 @@
 
 ; should include default value?
 
-(ly:add-interface
-'note-name-interface
- "Note name"
- '(style))
-
 
 (ly:add-interface
  'cluster-beacon-interface
@@ -48,16 +43,25 @@ extents of a cluster spanner at this X position.
  '(width thickness height ligature-primitive-callback))
 
 (ly:add-interface
+ 'lyric-syllable-interface
+ "a single piece of lyrics"
+ '())
+
+(ly:add-interface
  'mark-interface
  "a rehearsal mark"
- '(
-   ))
+ '())
 
 (ly:add-interface
  'metronome-mark-interface
  "a rehearsal mark"
  '(
    ))
+
+(ly:add-interface
+'note-name-interface
+ "Note name"
+ '(style))
 
 (ly:add-interface
  'rhythmic-grob-interface

@@ -135,7 +135,10 @@ or
 @end example
 
 Running lilypond-book yields a file that can be processed with
-La@TeX{}. We show some examples here:
+La@TeX{}.
+
+
+We show some examples here:
 
 @example
 \begin[26pt]@{lilypond@}
@@ -182,6 +185,33 @@ imported by adding the following to the top of the La@TeX{} file:
 
 The music will be surrounded by @code{\preLilyPondExample} and
 @code{\postLilyPondExample}, which are defined to be empty by default.
+
+@cindex titling and lilypond-book
+@cindex lilypond-book and titling
+@cindex @code{\header} in La@TeX{} documents
+
+To add titling from the @code{\header} section of the files, add the
+following to the top of the La@TeX{} file:
+@example
+\input titledefs.tex
+\def\preLilyPondExample@{\def\mustmakelilypondtitle@{@}@}
+@end example
+
+@cindex outline fonts
+@cindex type1 fonts
+@cindex dvips
+@cindex invoking dvips
+
+For printing the LaTeX document, you will need to use dvips. For
+producing PostScript with scalable fonts, add the following options to
+the dvips command line:
+@example
+ -Ppdf -u +lilypond.map
+@end example 
+
+@noindent
+PDF can then be produced with @code{ps2pdf}.
+
 
 @node Integrating HTML and music
 @section Integrating HTML and music
@@ -359,6 +389,7 @@ starting note, where the default @code{1} is central C.
 @node Invoking lilypond-book
 @section Invoking lilypond-book
 
+
 Running @command{lilypond-book} generates lots of small files that
 LilyPond will process.  To avoid all that garbage in the source
 directory, it is advisable to change to a temporary directory first:
@@ -374,33 +405,6 @@ that director before running La@TeX{} or @file{makeinfo}:
 lilypond-book --outdir=out yourfile.tex
 cd out  && latex yourfile.latex
 @end example
-
-For La@TeX{} input, the file to give to La@TeX{} has extension @file{.latex}.
-Texinfo input will be written to a file with extension @file{.texi}.
-
-@cindex titling and lilypond-book
-@cindex lilypond-book and titling
-@cindex @code{\header} in La@TeX{} documents
-
-To add titling from the @code{\header} section of the files, add the
-following to the top of the La@TeX{} file:
-@example
-\input titledefs.tex
-\def\preLilyPondExample@{\def\mustmakelilypondtitle@{@}@}
-@end example
-
-@cindex outline fonts
-@cindex type1 fonts
-@cindex dvips
-@cindex invoking dvips
-
-For printing the LaTeX  document, you will need  to use dvips. For
-producing PS  with scalable fonts, add the following options to the dvips
-command line:
-@example
- -Ppdf -u +lilypond.map
-@end example 
-
 
 
 @command{lilypond-book} accepts the following command line options:
@@ -454,6 +458,11 @@ Print version information.
 @item @option{--help}
 Print a short help message.
 @end table
+
+
+For La@TeX{} input, the file to give to La@TeX{} has extension
+@file{.latex}.  Texinfo input will be written to a file with extension
+@file{.texi}.
 
 
 

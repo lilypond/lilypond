@@ -1631,8 +1631,11 @@ def conv (str):
 		c = match.group (1)
 		b = match.group (2)
 		
-		if b == 't' and c <> 'Score':
-			return r"\unset \property %s.melismaBusyProperties"  % c
+		if b == 't':
+			if c == 'Score':
+				return ''
+			else:
+				return r"\unset \property %s.melismaBusyProperties"  % c
 		elif b == 'f':
 			return r"\property %s.melismaBusyProperties = #'(melismaBusy)"  % c
 		

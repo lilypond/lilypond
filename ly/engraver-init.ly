@@ -449,9 +449,6 @@ AncientRemoveEmptyStaffContext = \translator {
 	clefPosition = #-2
 	centralCPosition = #-6
 	
-        automaticPhrasing = ##t
-	phrasingPunctuation = #".,:!?\""
-	
 	defaultBarType = #"|"
 	barNumberVisibility = #default-bar-number-visibility
 	automaticBars = ##t
@@ -562,7 +559,7 @@ AncientRemoveEmptyStaffContext = \translator {
 	\grobdescriptions #all-grob-descriptions
 }
 
-\translator {
+OrchestralScoreContext = \translator {
 	\ScoreContext
 }
 

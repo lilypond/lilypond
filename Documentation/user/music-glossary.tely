@@ -187,7 +187,7 @@ accidental.
   gis1 s s gisis s s ges s s geses s s g!
 }
 \context Lyrics \lyrics {
-  \property Lyrics . LyricText \override #'alignment = #-1
+  \property Lyrics . LyricText \set #'self-alignment-X = #-1
   "sharp  " "db. sharp  " "flat  " "db. flat  " natural
 }
 @end lilypond
@@ -686,7 +686,7 @@ lines.
   \clef baritone c s s
 }
 \context Lyrics \lyrics {
-  \property Lyrics . LyricText \override #'alignment = #-1
+  \property Lyrics . LyricText \override #'self-alignment-X = #-1
   "Soprano  " "Mezzosoprano  " "Alto  " "Tenor  " Baritone
 }
 @end lilypond
@@ -785,7 +785,7 @@ chords are denoted open chords
   <g b d f a> s s
 }
 \context Lyrics \lyrics{
-  \property Lyrics . LyricText \override #'alignment = #-1
+  \property Lyrics . LyricText \set #'self-alignment-X = #-1
   "major  " "minor  " "diminished  " "augmented  "
   "seventh-chord  " "ninth-chord  "
 }
@@ -1668,7 +1668,7 @@ but equal pitch.
   gis1 s s as s s <des g,!> s s <cis g!> s s
 }
 \context Lyrics \lyrics {
-  \property Lyrics . LyricText \override #'alignment = #-1
+  \property Lyrics . LyricText \set #'self-alignment-X = #-1
   "g sharp  " "a flat  " "dim fifth  " "augm fourth"
 }
 @end lilypond
@@ -1749,7 +1749,7 @@ symbol indicates playing an octave lower (for example on double bass
   f1
 }
 \context Lyrics \lyrics {
-  \property Lyrics . LyricText \override #'alignment = #-1
+  \property Lyrics . LyricText \set #'self-alignment-X = #-1
   "baritone  "
   "bass  "
   "sub-bass  "
@@ -1963,7 +1963,7 @@ scores are notated like that).
   g s s
 }
 \context Lyrics \lyrics {
-  \property Lyrics . LyricText \override #'alignment = #-1
+  \property Lyrics . LyricText \set #'self-alignment-X = #-1
   "french violin clef  "
   "violin clef  "
   "octaved up  "

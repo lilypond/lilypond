@@ -28,11 +28,6 @@ texidoc = "Lyric phrasing:
 \paper { raggedright = ##t
 
 	 \translator {
-	     \ScoreContext
-	     \remove "Lyric_phrasing_engraver"
-	     \consists "New_phrasing_engraver"
-	 }
-	 \translator {
 	     \VoiceContext
 
 	 }
