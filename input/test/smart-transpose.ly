@@ -12,6 +12,9 @@ texidoc="
 @end quotation
 
 You mean like this. (Sorry 'bout the nuked indentation.)
+
+Modified to use the standard transpose mechanism. The question is
+how useful these enharmonic modifications are. Mats B.
 @end example
 "
 }
@@ -32,11 +35,11 @@ You mean like this. (Sorry 'bout the nuked indentation.)
      ((eq? a -2) (set! a 0) (set! n (- n 1))))
 
     (if (< n 0) (begin (set!  o (- o 1)) (set! n (+ n 7))))
-    (if (> n 7) (begin (set!  o (+ o 1)) (set! n (- n 7))))
+    (if (> n 6) (begin (set!  o (+ o 1)) (set! n (- n 7))))
 
     (make-pitch o n a)))
 
-#(define (smart-transpose music pitch)
+#(define (simplify music)
   (let* ((es (ly-get-mus-property music 'elements))
          (e (ly-get-mus-property music 'element))
          (p (ly-get-mus-property music 'pitch))
@@ -46,38 +49,36 @@ You mean like this. (Sorry 'bout the nuked indentation.)
     (if (pair? es)
         (ly-set-mus-property
          music 'elements
-         (map (lambda (x) (smart-transpose x pitch)) es)))
+         (map (lambda (x) (simplify x)) es)))
 
     (if (music? alts)
         (ly-set-mus-property
          music 'alternatives
-         (smart-transpose alts pitch)))
+         (simplify alts)))
 
     (if (music? body)
         (ly-set-mus-property
          music 'body
-         (smart-transpose body pitch)))
+         (simplify body)))
 
     (if (music? e)
         (ly-set-mus-property
          music 'element
-         (smart-transpose e pitch)))
+         (simplify e)))
 
     (if (pitch? p)
         (begin
-          (set! p (unhair-pitch (Pitch::transpose p pitch)))
+          (set! p (unhair-pitch p))
           (ly-set-mus-property music 'pitch p)))
 
     music))
-
 
 music = \notes \relative c' { c4 d  e f g a b  c }
 
 \score {
   \notes \context Staff {
     \transpose ais' \music
-    \apply #(lambda (x) (smart-transpose x (make-pitch 0 5 1)))
-      \music
+    \apply #simplify \transpose ais' \music
   }
   \paper { linewidth = -1. }
 }

@@ -135,9 +135,9 @@ verbose_p = 0
 # feta16.{afm,mf,tex,tfm}, and only set env upon failure.
 #
 environment = {
-	'MFINPUTS' : datadir + '/mf:',
-	'TEXINPUTS': datadir + '/tex:' + datadir + '/ps:.:',
-	'TFMFONTS' : datadir + '/tfm:',
+	'MFINPUTS' : ':' + datadir + '/mf',
+	'TEXINPUTS': ':' + datadir + '/tex:' + datadir + '/ps',
+	'TFMFONTS' : ':' + datadir + '/tfm',
 	'GS_FONTPATH' : datadir + '/afm:' + datadir + '/pfa',
 	'GS_LIB' : datadir + '/ps',
 }
@@ -146,7 +146,7 @@ def setup_environment ():
 	for key in environment.keys ():
 		val = environment[key]
 		if os.environ.has_key (key):
-			val = val + os.pathsep + os.environ[key]
+			val = os.environ[key] + os.pathsep + val 
 		os.environ[key] = val
 
 def identify ():
@@ -284,7 +284,7 @@ def system (cmd, ignore_error = 0):
 		cmd = "sh -c \'%s\'" % cmd
 	if verbose_p:
 		progress (_ ("Invoking `%s\'") % cmd)
-	st = os.system (cmd) >> 8
+	st = os.system (cmd)
 	if st:
 		name = re.match ('[ \t]*([^ \t]*)', cmd).group (1)
 		msg = name + ': ' + _ ("command exited with value %d") % st
@@ -503,10 +503,10 @@ lily output file in TFILES after that, and return the Latex file constructed.  '
 	maxlw = max (extra['linewidth'] + [-1])
 	if maxlw < 0:
 	        # who the hell is 597 ?
-		linewidth = 597
+		linewidth = '597'
 	else:
 		linewidth = maxlw
-	s = s + '\geometry{width=%spt%s,headheight=2mm,headsep=12pt,footskip=2mm,%s}\n' % (linewidth, textheight, orientation)
+	s = s + '\geometry{width=%spt%s,headheight=2mm,headsep=0pt,footskip=2mm,%s}\n' % (linewidth, textheight, orientation)
 
 	if extra['latexoptions']:
 		s = s + '\geometry{twosideshift=4mm}\n'
@@ -544,8 +544,9 @@ lily output file in TFILES after that, and return the Latex file constructed.  '
 %% to get the last mutopia tagline right (ie: no footer on last page)
 %% Please check that mutopia footers and endfooter are OK before changing
 %% this again. -- jcn
+% the \mbox{} helps latex if people do stupid things in tagline
 \makeatletter
-\renewcommand{\@oddfoot}{\parbox{\textwidth}{\makelilypondtagline}}%
+\renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\makelilypondtagline}}%
 \makeatother
 '''
 	s = s + '\\end{document}'
@@ -766,7 +767,7 @@ if files and files[0] != '-':
 		depfile = os.path.join (outdir, outbase + '.dep')
 		generate_dependency_file (depfile, depfile)
 		if os.path.isfile (depfile):
-			progress (_ ("dependencies output to %s...") % depfile)
+			progress (_ ("dependencies output to `%s'...") % depfile)
 
 	for i in targets.keys ():
 		ext = string.lower (i)
@@ -776,7 +777,7 @@ if files and files[0] != '-':
 		if reldir != '.':
 			outname = os.path.join (reldir, outname)
 		if os.path.isfile (abs):
-			progress (_ ("%s output to %s...") % (i, outname))
+			progress (_ ("%s output to `%s'...") % (i, outname))
 		elif verbose_p:
 			warning (_ ("can't find file: `%s'") % outname)
 

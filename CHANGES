@@ -1,5 +1,43 @@
-1.3.150.jcn3
+1.3.151.jcn2
 ============
+
+* ly2dvi: changed headsep to 0pt, as old ly2dvi had.  Fixes mutopia
+textheight setting.
+
+* Fixed feta-braces: more symbols again, but all paper sizes use same
+font.  Also fixed lookup.
+
+* Maximum length for lyric-hyphen.
+
+* Two forgotten note corrections to Standchen.
+
+* Website compilation fix.
+
+1.3.151.mb1
+===========
+
+* ly2dvi: add lilypond directories at end of tex paths
+
+* renewed smart-transpose example
+
+1.3.151.hwn1
+============
+
+* Tutorial revision: add much simpler examples in front.
+
+* abc2ly fix for duration at end of line (Laura Conrad)
+
+* centralCPosition is set by \clef as well; this fixes the grace note +
+clef problem. Property clefPitches is deprecated.
+
+* Separating_group_spanner now searches items until it finds a
+non-empty one.  This fixes a problem with lyrics clashes on barlines
+when stanza numbers are on.
+
+* Uniformised progress messages. File names are always printed in quotes.
+
+1.3.151
+=======
 
 * ly2dvi: reverted footer change that broke mutopia endfooter.
 
@@ -14,6 +52,14 @@
 * Windows: possibly ly2dvi fix, tex install, minor doco fixes, fixed
 some urls.
 
+* centralCPosition is set by \clef as well; this fixes the grace note +
+clef problem. Property clefPitches is deprecated.
+
+* Separating_group_spanner now searches items until it finds a
+non-empty one.  This fixes a problem with lyrics clashes on barlines
+when stanza numbers are on.
+
+* Uniformised progress messages. File names are always printed in quotes.
 
 1.3.150.hwn1
 ============
@@ -815,7 +861,7 @@ pasta.
 
 * Bugfix: fixed point-and-click broken in jcn2.
 
-* convert-ly: Added and fixed various entries (our strings with optional "" re\ally suck).
+* convert-ly: Added and fixed various entries
 
 * Small ez play tweaks.  Guess I'm a sucker too.
 
@@ -855,7 +901,7 @@ interface-description.scm
 ============
 
 * Tied notes at a linebreak repeat their accidental.
-F
+
 * Removed some cruft from lily/include/.
 
 * Bugfix: tied notes in chords sometimes got stuck in MIDI output
@@ -1192,15 +1238,12 @@ node name for grob documentation.
 Scheme.  See input/test/molecule-hacking.ly ; allows for a kludged
 "parenthesize notehead" command.
 
-
 1.3.123.mb1
 ===========
 
 * Added percussion clef. Note: font updated!
 
 * Bugfix: font style Large works regardless of font-shape.
-
-
 
 1.3.123
 =======
@@ -1279,7 +1322,6 @@ break --srcdir builds and texi2dvi.
 * Moved make/toplevel.make.in to less unusual GNUmakefile.in
 
 * Bugfix: changed beam thickness to .48 staff-space.
-
 
 1.3.120.uu1
 ===========
