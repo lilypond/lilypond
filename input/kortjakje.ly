@@ -9,11 +9,11 @@
 %
 % declare melody (which will be in *one* staff ) for the lead voice
 
-melodie = \melodic 
+melodie = \melodic {
 	 			% switch Lilypond in note-mode
-	\clef\violin
-	\meter{ 2/4 ;
-	\octave  c ; 		% set the default octave
+	\clef\violin;
+	\meter 2/4 ;
+	\octave  c'; 		% set the default octave
 	% the default note duratino is 4
 	%%% theme
 	c c |			% the '|' checks if there is a new measure here.
@@ -33,10 +33,10 @@ melodie = \melodic
 }
 
 				% more of this.
-begeleiding = \melodic 
-	\clef "bass"
-	\meter{ 2/4 ;
-	\octave  c ; 		% default octave: 1 below the first octave.
+begeleiding = \melodic{ 
+	\clef "bass";
+	\meter 2/4 ;
+	\octave  c'; 		% default octave: 1 below the first octave.
 
 	%%% theme
 	'c			% ' before note means one octave lower.
