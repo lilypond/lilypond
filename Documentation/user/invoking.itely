@@ -90,8 +90,9 @@ Set init file to @var{file} (default: @file{init.ly}).
     Generate PDF.  This implies @code{--ps}.
 @item --preview
     Generate an output file containing the titles and the first system
-of the score.
-
+@item --no-pages
+    Do not generate the full pages. Useful in combination with
+@code{--preview}.
 @item -s,--safe
 Do not trust the @code{.ly} input. 
 

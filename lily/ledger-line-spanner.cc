@@ -207,7 +207,8 @@ Ledger_line_spanner::print (SCM smob)
       int pos = Staff_symbol_referencer::get_rounded_position (h);
       if (abs (pos) > interspaces + 1)
 	{
-	  Interval ledger_size = h->extent (common[X_AXIS], X_AXIS);
+	  Interval head_size = h->extent (common[X_AXIS], X_AXIS);
+	  Interval ledger_size = head_size;
 	  ledger_size.widen (ledger_size.length ()* length_fraction);
 
 	  Interval max_size = reqs[Paper_column::get_rank (h->get_column ())][Direction (sign(pos))].ledger_extent_;
@@ -216,11 +217,11 @@ Ledger_line_spanner::print (SCM smob)
 	  Real left_shorten =0.0;
 	  if (Grob * g = unsmob_grob (h->get_property ("accidental-grob")))
 	    {
+	      Interval accidental_size = g->extent (common[X_AXIS], X_AXIS);
 	      Real d =
-		linear_combination (Drul_array<Real> (h->extent (common[X_AXIS], X_AXIS)[LEFT],
-						      g->extent (common[X_AXIS], X_AXIS)[RIGHT]),
-				
-				    0.5);
+		linear_combination (Drul_array<Real> (accidental_size[RIGHT],
+						      head_size[LEFT]),				
+				    0.0);
 
 	      left_shorten =  (-ledger_size[LEFT] + d) >?  0 ;
 
