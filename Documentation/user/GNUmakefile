@@ -24,7 +24,7 @@ LOCALSTEPMAKE_TEMPLATES=lilypond ly
 # Hmm, what about?
 # local-dist: check-info
 
-info: check-info
+info: #  check-info  # -> reinstate when actively hacking doco.
 
 include $(depth)/make/stepmake.make 
 
