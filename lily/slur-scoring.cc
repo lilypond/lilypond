@@ -86,10 +86,6 @@ struct Slur_score_parameters
   Real edge_slope_exponent_;
   Real head_slur_distance_max_ratio_;
   Real head_slur_distance_factor_;
-
-
-
-  Slur_score_parameters (Grob*);
 };
 
 
@@ -137,67 +133,62 @@ struct Bound_info
   }
 };
 
-/*
-  TODO: create one object for passing all parameters.
- */
+struct Slur_score_state
+{
+  Spanner *slur_;
+  Grob *common_[NO_AXES];
+  bool valid_;
+  
+  Link_array<Grob> columns_;
+  Array<Encompass_info> encompass_infos_;
+  Direction dir_;
+  Slur_score_parameters parameters_;
+  Drul_array<Bound_info> extremes_;
+  Drul_array<Offset> base_attachments_;
+  Array<Slur_score> *scores_;
+  Real staff_space_;
+  Real thickness_;
+  
+  Slur_score_state();
+  ~Slur_score_state();
+};
 
+Slur_score_state::Slur_score_state()
+{
+  valid_ = false;
+  dir_ = CENTER;
+  slur_ = 0;
+  common_[X_AXIS] = 0;
+  common_[Y_AXIS] = 0;
+  scores_ = 0;
+}
 
-static void
-score_extra_encompass (Grob *me, Grob *common[],
-		       Slur_score_parameters *score_param,
-		       Drul_array<Bound_info> ,
-		       Drul_array<Offset> ,
-		       Array<Slur_score> * scores);
-static void score_slopes (Grob *me, Grob *common[],
-			  Slur_score_parameters *score_param,
-			  Drul_array<Bound_info>,
-			  Drul_array<Offset> base_attach,
-			  Array<Slur_score> *scores);
+Slur_score_state::~Slur_score_state ()
+{
+  delete scores_;
+}
 
-static void score_edges (Grob *me, Grob *common[],
-			 Slur_score_parameters *score_param,
-			 Drul_array<Bound_info> extremes,
-			 Drul_array<Offset> base_attach,
-			 Array<Slur_score> *scores);
-static void score_encompass (Grob *me, Grob *common[],
-			     Slur_score_parameters*,
-			     Drul_array<Bound_info>,
-			     Drul_array<Offset>, Array<Slur_score> *scores);
-static Bezier avoid_staff_line (Grob *me, Grob **common,
-				Drul_array<Bound_info> extremes,
+static void score_extra_encompass (Slur_score_state);
+static void score_slopes  (Slur_score_state);
+static void score_edges (Slur_score_state);
+static void score_encompass (Slur_score_state);
+static Bezier avoid_staff_line  (Slur_score_state,
 				Bezier bez);
-
-static Encompass_info get_encompass_info (Grob *me,
-					  Grob *col,
-					  Grob **common);
-static Bezier get_bezier (Grob *me,
-			  Grob **common,
-			  Slur_score_parameters*,
-			  Drul_array<Bound_info> extremes,
-			  Drul_array<Offset> attachments,
-			  Real r_0, Real h_inf);
+static Encompass_info get_encompass_info (Slur_score_state, Grob *col);
+static Bezier get_bezier (Slur_score_state,
+			  Drul_array<Offset>,
+  			  Real r_0, Real h_inf);
 static Direction get_default_dir (Grob *me);
 
 static void set_end_points (Grob *);
-static Real broken_trend_y (Grob *me, Grob **, Direction dir);
-static Drul_array<Bound_info> get_bound_info (Spanner *me, Grob **common);
+static Real broken_trend_y (Slur_score_state, Direction dir);
+static Drul_array<Bound_info> get_bound_info (Slur_score_state);
 
-static void generate_curves (Grob *me,
-			     Grob *common[],Slur_score_parameters*,
-			     Drul_array<Bound_info> extremes,
-			     Drul_array<Offset> base_attach,
-			     Array<Slur_score> *scores);
-static Array<Slur_score> enumerate_attachments
-(Grob *me, Grob *common[], Slur_score_parameters*,
- Drul_array<Bound_info> extremes,
- Drul_array<Offset> base_attachment, Drul_array<Real> end_ys);
-static Drul_array<Offset> get_base_attachments
-(Spanner *sp, Grob **common, Drul_array<Bound_info> extremes);
-static Drul_array<Real> get_y_attachment_range
-(Spanner *sp, Grob **common,
- Slur_score_parameters*,
- Drul_array<Bound_info> extremes,
- Drul_array<Offset> base_attachment);
+static void generate_curves (Slur_score_state);
+static Array<Slur_score> *enumerate_attachments (Slur_score_state,
+						Drul_array<Real> end_ys);
+static Drul_array<Offset> get_base_attachments(Slur_score_state);
+static Drul_array<Real> get_y_attachment_range(Slur_score_state);
 
 
 Real
@@ -255,34 +246,29 @@ init_score_param (Grob *me,
 }
 
 
-Slur_score_parameters::Slur_score_parameters (Grob *me)
-{
-  init_score_param (me, this);
-}
 
 /* HDIR indicates which side (left or right) we are processing here.  */
 Real
-broken_trend_y (Grob *me, Grob **common, Direction hdir)
+broken_trend_y (Slur_score_state state, Direction hdir)
 {
   /* A broken slur should maintain the same vertical trend
      the unbroken slur would have had.  */
   Real by = 0.0;
-  if (Spanner *mother = dynamic_cast<Spanner*> (me->original_))
+  if (Spanner *mother = dynamic_cast<Spanner*> (state.slur_->original_))
     {
-      int k = broken_spanner_index (dynamic_cast<Spanner*> (me));
+      int k = broken_spanner_index (state.slur_);
       int j = k + hdir;
       if (j < 0 || j >= mother->broken_intos_.size ())
 	return by;
 
       Grob *neighbor = mother->broken_intos_[j];
       if (hdir == RIGHT)
-	neighbor->set_property ("direction",
-				me->get_property ("direction"));
+	neighbor->set_property ("direction", scm_from_int (state.dir_));
 
       Spanner *common_mother
-	= dynamic_cast<Spanner*> (common[Y_AXIS]->original_);
+	= dynamic_cast<Spanner*> (state.common_[Y_AXIS]->original_);
       int common_k
-	= broken_spanner_index (dynamic_cast<Spanner*> (common[Y_AXIS]));
+	= broken_spanner_index (dynamic_cast<Spanner*> (state.common_[Y_AXIS]));
       int common_j = common_k + hdir;
 
       if (common_j < 0 || common_j >= common_mother->broken_intos_.size ())
@@ -298,68 +284,62 @@ broken_trend_y (Grob *me, Grob **common, Direction hdir)
       Grob *neighbor_common
 	= common_next_system->common_refpoint (neighbor_col, Y_AXIS);
 
-      Direction vdir = get_grob_direction (me);
+      Direction vdir = state.dir_;
       Real neighbor_y
 	= neighbor_col->extent (neighbor_common, Y_AXIS)
 	.linear_combination (int (vdir))
 	- common_next_system->relative_coordinate (neighbor_common, Y_AXIS);
 
-      Link_array<Grob> my_cols
-	= Pointer_group_interface__extract_grobs (me, (Grob *)0,
-						  "note-columns");
-
-      Grob *extreme_col = (hdir == RIGHT) ? my_cols.top () : my_cols[0];
-      Real y = extreme_col->extent (common[Y_AXIS], Y_AXIS)
-	.linear_combination (int ((my_cols.size () == 1) ? CENTER : vdir));
-      by = (y*neighbor_cols.size () + neighbor_y*my_cols.size ()) /
-	 (my_cols.size () + neighbor_cols.size ());
+      Grob *extreme_col = (hdir == RIGHT) ? state.columns_.top () : state.columns_[0];
+      Real y = extreme_col->extent (state.common_[Y_AXIS], Y_AXIS)
+	.linear_combination (int ((state.columns_.size () == 1) ? CENTER : vdir));
+      by = (y*neighbor_cols.size () + neighbor_y*state.columns_.size ()) /
+	 (state.columns_.size () + neighbor_cols.size ());
     }
   return by;
 }
 
 Encompass_info
-get_encompass_info (Grob *me,
-		    Grob *col,
-		    Grob **common)
+get_encompass_info (Slur_score_state state,
+		    Grob *col)
 {
   Grob *stem = unsmob_grob (col->get_property ("stem"));
   Encompass_info ei;
-  Direction dir = get_grob_direction (me);
 
   if (!stem)
     {
       programming_error ("No stem for note column?");
-      ei.x_ = col->relative_coordinate (common[X_AXIS], X_AXIS);
-      ei.head_ = ei.stem_ = col->extent (common[Y_AXIS],
-					 Y_AXIS)[get_grob_direction (me)];
+      ei.x_ = col->relative_coordinate (state.common_[X_AXIS], X_AXIS);
+      ei.head_ = ei.stem_ = col->extent (state.common_[Y_AXIS],
+					 Y_AXIS)[state.dir_];
       return ei;
     }
   Direction stem_dir = get_grob_direction (stem);
 
   if (Grob *head = Note_column::first_head (col))
-    ei.x_ = head->extent (common[X_AXIS], X_AXIS).center ();
+    ei.x_ = head->extent (state.common_[X_AXIS], X_AXIS).center ();
   else
-    ei.x_ = col->extent (common[X_AXIS], X_AXIS).center ();
+    ei.x_ = col->extent (state.common_[X_AXIS], X_AXIS).center ();
 
-  Grob *h = Stem::extremal_heads (stem)[Direction (dir)];
+  Grob *h = Stem::extremal_heads (stem)[Direction (state.dir_)];
   if (!h)
     {
-      ei.head_ = ei.stem_ = col->extent (common[Y_AXIS], Y_AXIS)[dir];
+      ei.head_ = ei.stem_ = col->extent (state.common_[Y_AXIS], Y_AXIS)[state.dir_];
       return ei;
     }
 
-  ei.head_ = h->extent (common[Y_AXIS], Y_AXIS)[dir];
+  ei.head_ = h->extent (state.common_[Y_AXIS], Y_AXIS)[state.dir_];
 
-  if ((stem_dir == dir)
+  if ((stem_dir == state.dir_)
       && !stem->extent (stem, Y_AXIS).is_empty ())
     {
-      ei.stem_ = stem->extent (common[Y_AXIS], Y_AXIS)[dir];
+      ei.stem_ = stem->extent (state.common_[Y_AXIS], Y_AXIS)[state.dir_];
       if (Grob *b = Stem::get_beam (stem))
 	ei.stem_ += stem_dir * 0.5 * Beam::get_thickness (b);
 
-      Interval x = stem->extent (common[X_AXIS], X_AXIS);
+      Interval x = stem->extent (state.common_[X_AXIS], X_AXIS);
       ei.x_ = x.is_empty ()
-	? stem->relative_coordinate (common[X_AXIS], X_AXIS)
+	? stem->relative_coordinate (state.common_[X_AXIS], X_AXIS)
 	: x.center ();
     }
   else
@@ -410,25 +390,25 @@ Slur::after_line_breaking (SCM smob)
 }
 
 Drul_array<Bound_info>
-get_bound_info (Spanner* me, Grob **common)
+get_bound_info (Slur_score_state state)
 {
   Drul_array<Bound_info> extremes;
 
   Direction d = RIGHT;
-  Direction dir = get_grob_direction (me);
+  Direction dir = state.dir_;
 
   do
     {
-      extremes[d].bound_ = me->get_bound (d);
+      extremes[d].bound_ = state.slur_->get_bound (d);
       if (Note_column::has_interface (extremes[d].bound_))
 	{
 	  extremes[d].note_column_ = extremes[d].bound_;
 	  extremes[d].stem_ = Note_column::get_stem (extremes[d].note_column_);
 	  extremes[d].stem_dir_ = get_grob_direction (extremes[d].stem_);
 	  extremes[d].stem_extent_[X_AXIS]
-	    = extremes[d].stem_->extent (common[X_AXIS], X_AXIS);
+	    = extremes[d].stem_->extent (state.common_[X_AXIS], X_AXIS);
 	  extremes[d].stem_extent_[Y_AXIS]
-	    = extremes[d].stem_->extent (common[Y_AXIS], Y_AXIS);
+	    = extremes[d].stem_->extent (state.common_[Y_AXIS], Y_AXIS);
 	  extremes[d].slur_head_
 	    = Stem::extremal_heads (extremes[d].stem_)[dir];
 	  if (!extremes[d].slur_head_
@@ -439,7 +419,7 @@ get_bound_info (Spanner* me, Grob **common)
 
 	  if (extremes[d].slur_head_)
 	    extremes[d].slur_head_extent_
-	      = extremes[d].slur_head_->extent (common[X_AXIS], X_AXIS);
+	      = extremes[d].slur_head_->extent (state.common_[X_AXIS], X_AXIS);
 
 	  extremes[d].staff_ = Staff_symbol_referencer
 	    ::get_staff_symbol (extremes[d].stem_);
@@ -450,65 +430,85 @@ get_bound_info (Spanner* me, Grob **common)
 	/*
 	  right side anticipates on the next note.
 	*/
-	extremes[d].neighbor_y_ = broken_trend_y (me, common, d);
+	extremes[d].neighbor_y_ = broken_trend_y (state, d);
     }
   while (flip (&d) != RIGHT);
   return extremes;
 }
 
 void
-set_end_points (Grob *me)
+fill_scoring_state (Grob *me, Slur_score_state *state_ptr)
 {
-  Link_array<Grob> columns
+  Slur_score_state &state = *state_ptr;
+  state.slur_ = dynamic_cast<Spanner*> (me);
+  state.columns_ 
     = Pointer_group_interface__extract_grobs (me, (Grob *) 0, "note-columns");
-
-  if (columns.is_empty ())
+  
+  if (state.columns_.is_empty ())
     {
       me->suicide ();
-      return;
+      return ;
     }
 
+  state.staff_space_ = Staff_symbol_referencer::staff_space (me);
+  Real lt = me->get_paper ()->get_dimension (ly_symbol2scm ("linethickness"));
+  state.thickness_ = robust_scm2double (me->get_property ("thickness"), 1.0) *  lt;
+  
+  state.dir_ = get_grob_direction (me);
+  init_score_param (me, &state.parameters_);
+  
   SCM eltlist = me->get_property ("note-columns");
   SCM extra_list = me->get_property ("encompass-objects");
   Spanner *sp = dynamic_cast<Spanner*> (me);
 
-  Grob *common[] = {0, 0};
   for (int i = X_AXIS; i < NO_AXES; i++)
     {
       Axis a = (Axis)i;
-      common[a] = common_refpoint_of_list (eltlist, me, a);
-      common[a] = common_refpoint_of_list (extra_list, common[a], a);
+      state.common_[a] = common_refpoint_of_list (eltlist, me, a);
+      state.common_[a] = common_refpoint_of_list (extra_list, state.common_[a], a);
+
+      Direction d = LEFT;
+      do {
+	state.common_[a] = state.common_[a]->common_refpoint (sp->get_bound (d), a);
+      }
+      while (flip (&d) != LEFT);
     }
 
-  common[X_AXIS] = common[X_AXIS]->common_refpoint (sp->get_bound (RIGHT),
-						    X_AXIS);
-  common[X_AXIS] = common[X_AXIS]->common_refpoint (sp->get_bound (LEFT),
-						    X_AXIS);
+  state.extremes_ = get_bound_info (state);
+  state.base_attachments_ = get_base_attachments (state);
 
-  Drul_array<Bound_info> extremes = get_bound_info (sp, common);
-  Drul_array<Offset> base_attachment
-    = get_base_attachments (sp, common, extremes);
-  Slur_score_parameters params (me);
   Drul_array<Real> end_ys
-    = get_y_attachment_range (sp, common, &params, extremes, base_attachment);
-  Array<Slur_score> scores = enumerate_attachments (me, common, &params,
-						    extremes, base_attachment,
-						    end_ys);
+    = get_y_attachment_range (state);
 
-  generate_curves (me, common, &params, extremes, base_attachment, &scores);
-  score_edges (me, common, &params,extremes, base_attachment, &scores);
-  score_slopes (me, common, &params,extremes, base_attachment, &scores);
-  score_encompass (me, common, &params,extremes, base_attachment, &scores);
-  score_extra_encompass (me, common, &params,extremes, base_attachment,
-			 &scores);
+  state.scores_ = enumerate_attachments (state, end_ys);
+  for (int i = 0; i < state.columns_.size (); i++)
+    state.encompass_infos_.push (get_encompass_info (state, state.columns_[i]));
 
+  state.valid_ = true;
+}
+
+void
+set_end_points (Grob *me)
+{
+  Slur_score_state state;
+  fill_scoring_state (me, &state);
+
+  if (!state.valid_)
+    return;
+  
+  generate_curves (state);
+  score_edges (state);
+  score_slopes (state);
+  score_encompass (state);
+  score_extra_encompass (state);
+  
   Real opt = 1e6;
   int opt_idx = -1;
-  for (int i = 0; i < scores.size (); i++)
+  for (int i = 0; i < state.scores_->size (); i++)
     {
-      if (scores[i].score_ < opt)
+      if ((*state.scores_)[i].score_ < opt)
 	{
-	  opt = scores[i].score_;
+	  opt = (*state.scores_)[i].score_;
 	  opt_idx = i;
 	}
     }
@@ -521,10 +521,10 @@ set_end_points (Grob *me)
     {
       Drul_array<Real> ins = ly_scm2interval (inspect_quants);
       Real mindist = 1e6;
-      for (int i = 0; i < scores.size (); i ++)
+      for (int i = 0; i < state.scores_->size (); i ++)
 	{
-	  Real d =fabs (scores[i].attachment_[LEFT][Y_AXIS] - ins[LEFT])
-	    + fabs (scores[i].attachment_[RIGHT][Y_AXIS] - ins[RIGHT]);
+	  Real d =fabs ((*state.scores_)[i].attachment_[LEFT][Y_AXIS] - ins[LEFT])
+	    + fabs ((*state.scores_)[i].attachment_[RIGHT][Y_AXIS] - ins[RIGHT]);
 	  if (d < mindist)
 	    {
 	      opt_idx = i;
@@ -534,20 +534,20 @@ set_end_points (Grob *me)
       if (mindist > 1e5)
 	programming_error ("Could not find quant.");
     }
-  scores[opt_idx].score_card_ += to_string ("i%d", opt_idx);
+  (*state.scores_)[opt_idx].score_card_ += to_string ("i%d", opt_idx);
 
   // debug quanting
   me->set_property ("quant-score",
-		    scm_makfrom0str (scores[opt_idx].score_card_.to_str0 ()));
+		    scm_makfrom0str ((*state.scores_)[opt_idx].score_card_.to_str0 ()));
 #endif
 
-  Bezier b = scores[opt_idx].curve_;
+  Bezier b = (*state.scores_)[opt_idx].curve_;
   SCM controls = SCM_EOL;
   for (int i = 4; i--;)
     {
       Offset o = b.control_[i]
-	- Offset (me->relative_coordinate (common[X_AXIS], X_AXIS),
- 		  me->relative_coordinate (common[Y_AXIS], Y_AXIS));
+	- Offset (me->relative_coordinate (state.common_[X_AXIS], X_AXIS),
+ 		  me->relative_coordinate (state.common_[Y_AXIS], Y_AXIS));
       controls = scm_cons (ly_offset2scm (o), controls);
     }
   me->set_property ("control-points", controls);
@@ -559,26 +559,22 @@ set_end_points (Grob *me)
  */
 
 Drul_array<Real>
-get_y_attachment_range (Spanner*me,
-			Grob **common, Slur_score_parameters *score_param,
-			Drul_array<Bound_info> extremes,
-			Drul_array<Offset> base_attachment)
+get_y_attachment_range (Slur_score_state state)
 {
   Drul_array<Real> end_ys;
-  Direction dir = get_grob_direction (me);
   Direction d = LEFT;
   do
     {
-      if (extremes[d].note_column_)
+      if (state.extremes_[d].note_column_)
 	{
-	  end_ys[d] = dir
-	    * ((dir * (base_attachment[d][Y_AXIS] +  score_param->region_size_* dir))
-	       >? (dir * (dir + extremes[d].note_column_->extent (common[Y_AXIS],
-								 Y_AXIS)[dir]))
-	       >? (dir * base_attachment[-d][Y_AXIS]));
+	  end_ys[d] = state.dir_
+	    * ((state.dir_ * (state.base_attachments_[d][Y_AXIS] +  state.parameters_.region_size_* state.dir_))
+	       >? (state.dir_ * (state.dir_ + state.extremes_[d].note_column_->extent (state.common_[Y_AXIS],
+								 Y_AXIS)[state.dir_]))
+	       >? (state.dir_ * state.base_attachments_[-d][Y_AXIS]));
 	}
       else
-	end_ys[d] = base_attachment[d][Y_AXIS] + score_param->region_size_ * dir;
+	end_ys[d] = state.base_attachments_[d][Y_AXIS] + state.parameters_.region_size_ * state.dir_;
     }
   while (flip (&d) != LEFT);
 
@@ -602,64 +598,59 @@ spanner_less (Spanner *s1, Spanner* s2)
 
 
 Drul_array<Offset>
-get_base_attachments (Spanner *me,
-		      Grob **common, Drul_array<Bound_info> extremes)
+get_base_attachments (Slur_score_state state)
 {
-  Link_array<Grob> columns
-    = Pointer_group_interface__extract_grobs (me, (Grob *)0, "note-columns");
   Drul_array<Offset> base_attachment;
-  Real staff_space = Staff_symbol_referencer::staff_space ((Grob *) me);
-  Direction dir = get_grob_direction (me);
   Direction d = RIGHT;
   do
     {
-      Grob *stem = extremes[d].stem_;
-      Grob *head = extremes[d].slur_head_;
+      Grob *stem = state.extremes_[d].stem_;
+      Grob *head = state.extremes_[d].slur_head_;
 
       Real x, y;
-      if (!extremes[d].note_column_)
+      if (!state.extremes_[d].note_column_)
 	{
 	  if (d == RIGHT)
 	    {
-	      y = extremes[d].neighbor_y_;
-	      x = extremes[d].bound_->extent (common[X_AXIS], X_AXIS)[d];
+	      y = state.extremes_[d].neighbor_y_;
+	      x = state.extremes_[d].bound_->extent (state.common_[X_AXIS], X_AXIS)[d];
 	    }
 	  else
 	    {
-	      x = me->get_broken_left_end_align ();
-	      if (extremes[RIGHT].bound_ == columns[0])
+	      x = state.slur_->get_broken_left_end_align ();
+	      if (state.extremes_[RIGHT].bound_ == state.columns_[0])
 		{
 		  y = base_attachment[RIGHT][Y_AXIS];
 		}
 	      else
 		{
-		  y = columns[0]->extent (common[Y_AXIS], Y_AXIS)[dir];
+		  y = state.columns_[0]->extent (state.common_[Y_AXIS], Y_AXIS)[state.dir_];
 		}
 	    }
 	}
       else
 	{
 	  bool same_beam =
-	 (extremes[d].stem_ && extremes[-d].stem_
-	     && Stem::get_beam (extremes[d].stem_) == Stem::get_beam (extremes[-d].stem_));
+	 (state.extremes_[d].stem_ && state.extremes_[-d].stem_
+	     && Stem::get_beam (state.extremes_[d].stem_) == Stem::get_beam (state.extremes_[-d].stem_));
 
 	  /*
 	    fixme: X coord should also be set in this case.
 	   */
 	  if (stem
-	      && extremes[d].stem_dir_ == dir
+	      && state.extremes_[d].stem_dir_ == state.dir_
 	      && Stem::get_beaming (stem, -d)
-	      && (!spanner_less (me, Stem::get_beam (stem))
+	      && (!spanner_less (state.slur_, Stem::get_beam (stem))
 		  || same_beam))
-	    y = extremes[d].stem_extent_[Y_AXIS][dir];
+	    y = state.extremes_[d].stem_extent_[Y_AXIS][state.dir_];
 	  else if (head)
-	    y = head->extent (common[Y_AXIS], Y_AXIS)[dir];
-	  y += dir * 0.5 * staff_space;
+	    y = head->extent (state.common_[Y_AXIS], Y_AXIS)[state.dir_];
+	  y += state.dir_ * 0.5 * state.staff_space_;
 
 	  Real pos
-	    = (y - extremes[d].staff_->relative_coordinate (common[Y_AXIS],
+	    = (y - state.extremes_[d].staff_->relative_coordinate (state.common_[Y_AXIS],
 							    Y_AXIS))
-	    * 2.0 / Staff_symbol::staff_space (extremes[d].staff_);
+	    * 2.0 / state.staff_space_;
 
 	  /* start off staffline. */
 	  if (fabs (pos - my_round (pos)) < 0.2
@@ -667,12 +658,12 @@ get_base_attachments (Spanner *me,
 	      && Staff_symbol_referencer::line_count (head) - 1 >= rint (pos)
 	      )
 	    // TODO: calc from slur thick & line thick, parameter.	
-	    y += 1.5 * staff_space * dir / 10;
+	    y += 1.5 * state.staff_space_ * state.dir_ / 10;
 
-	  Grob * fh = Note_column::first_head (extremes[d].note_column_);
+	  Grob * fh = Note_column::first_head (state.extremes_[d].note_column_);
 	  x =
-	 (fh ? fh->extent (common[X_AXIS], X_AXIS)
-	     : extremes[d].bound_->extent (common[X_AXIS], X_AXIS))
+	 (fh ? fh->extent (state.common_[X_AXIS], X_AXIS)
+	     : state.extremes_[d].bound_->extent (state.common_[X_AXIS], X_AXIS))
 	    .linear_combination (CENTER);
 	}
       base_attachment[d] = Offset (x, y);
@@ -683,70 +674,56 @@ get_base_attachments (Spanner *me,
 }
 
 void
-generate_curves (Grob *me, Grob **common,
-		 Slur_score_parameters *score_param,
-		 Drul_array<Bound_info> extremes,
-		 Drul_array<Offset>,
-		 Array<Slur_score> *scores)
+generate_curves (Slur_score_state state)
 {
- (void) common;
- (void) extremes;
-  Real staff_space = Staff_symbol_referencer::staff_space ((Grob *) me);
-  Real r_0 = robust_scm2double (me->get_property ("ratio"), 0.33);
-  Real h_inf = staff_space *scm_to_double (me->get_property ("height-limit"));
-  for (int i = 0; i < scores->size (); i++)
+  Real r_0 = robust_scm2double (state.slur_->get_property ("ratio"), 0.33);
+  Real h_inf = state.staff_space_ *scm_to_double (state.slur_->get_property ("height-limit"));
+  for (int i = 0; i < state.scores_->size (); i++)
     {
-      Bezier bez = get_bezier (me,
-			      common,
-			      score_param,
-			      extremes,
-			 (*scores)[i].attachment_, r_0, h_inf);
+      Bezier bez = get_bezier (state,
+			       (*state.scores_)[i].attachment_, r_0, h_inf);
 
-      bez = avoid_staff_line (me, common, extremes, bez);
- (*scores)[i].attachment_[LEFT] = bez.control_[0];
- (*scores)[i].attachment_[RIGHT] = bez.control_[3];
- (*scores)[i].curve_ = bez;
+      bez = avoid_staff_line (state, bez);
+      (*state.scores_)[i].attachment_[LEFT] = bez.control_[0];
+      (*state.scores_)[i].attachment_[RIGHT] = bez.control_[3];
+      (*state.scores_)[i].curve_ = bez;
     }
 }
 
 Bezier
-avoid_staff_line (Grob *me, Grob **common,
-		  Drul_array<Bound_info> extremes,
+avoid_staff_line (Slur_score_state state, 
 		  Bezier bez)
 {
   Offset horiz (1,0);
   Array<Real> ts = bez.solve_derivative (horiz);
-  Real lt = me->get_paper ()->get_dimension (ly_symbol2scm ("linethickness"));
-  Real thick = robust_scm2double (me->get_property ("thickness"), 1.0) *  lt;
 
   /* TODO: handle case of broken slur.  */
   if (!ts.is_empty ()
-      && (extremes[LEFT].staff_ == extremes[RIGHT].staff_)
-      && extremes[LEFT].staff_ && extremes[RIGHT].staff_)
+      && (state.extremes_[LEFT].staff_ == state.extremes_[RIGHT].staff_)
+      && state.extremes_[LEFT].staff_ && state.extremes_[RIGHT].staff_)
     {
       Real y = bez.curve_point (ts[0])[Y_AXIS];
 
-      Grob *staff = extremes[LEFT].staff_;
+      Grob *staff = state.extremes_[LEFT].staff_;
 
-      Real staff_space = extremes[LEFT].staff_space_;
-      Real p = 2 * (y - staff->relative_coordinate (common[Y_AXIS], Y_AXIS))
-	/ staff_space;
+      Real p = 2 * (y - staff->relative_coordinate (state.common_[Y_AXIS], Y_AXIS))
+	/ state.staff_space_;
 
       Real distance = fabs (my_round (p) - p);	//  in halfspaces
-      if (distance < 4 * thick
+      if (distance < 4 * state.thickness_
 	  && (int) fabs (my_round (p))
 	  <= 2 * Staff_symbol_referencer::staff_radius (staff) + 0.1
 	  && (int (fabs (my_round (p))) % 2
 	      != Staff_symbol_referencer::line_count (staff) % 2))
 	{
 	  Direction resolution_dir =
-	 (distance ?  get_grob_direction (me) : Direction (sign (p - my_round (p))));
+	 (distance ?  state.dir_ : Direction (sign (p - my_round (p))));
 
 	  // TODO: parameter
 	  Real newp = my_round (p) + resolution_dir
-	    * 5 * thick;
+	    * 5 * state.thickness_;
 	
-	  Real dy = (newp - p) * staff_space / 2.0;
+	  Real dy = (newp - p) * state.staff_space_ / 2.0;
 	
 	  bez.control_[1][Y_AXIS] += dy;
 	  bez.control_[2][Y_AXIS] += dy;
@@ -755,55 +732,48 @@ avoid_staff_line (Grob *me, Grob **common,
   return bez;
 }
 
-Array<Slur_score>
-enumerate_attachments (Grob *me, Grob *common[],
-		       Slur_score_parameters *score_param,
-		       Drul_array<Bound_info> extremes,
-		       Drul_array<Offset> base_attachment,
-		       Drul_array<Real> end_ys)
+Array<Slur_score> *
+enumerate_attachments (Slur_score_state state, Drul_array<Real> end_ys)
 {
- (void) common;
   /*ugh.   */
   Array<Slur_score> scores;
 
-  Direction dir = get_grob_direction (me);
-  Real staff_space = Staff_symbol_referencer::staff_space ((Grob *) me);
 
   Drul_array<Offset> os;
-  os[LEFT] = base_attachment[LEFT];
-  Real minimum_length = staff_space
-    * robust_scm2double (me->get_property ("minimum-length"), 2.0);
+  os[LEFT] = state.base_attachments_[LEFT];
+  Real minimum_length = state.staff_space_
+    * robust_scm2double (state.slur_->get_property ("minimum-length"), 2.0);
 
-  for (int i = 0; dir * os[LEFT][Y_AXIS] <= dir * end_ys[LEFT]; i++)
+  for (int i = 0; state.dir_ * os[LEFT][Y_AXIS] <= state.dir_ * end_ys[LEFT]; i++)
     {
-      os[RIGHT] = base_attachment[RIGHT];
-      for (int j = 0; dir * os[RIGHT][Y_AXIS] <= dir * end_ys[RIGHT]; j++)
+      os[RIGHT] = state.base_attachments_[RIGHT];
+      for (int j = 0; state.dir_ * os[RIGHT][Y_AXIS] <= state.dir_ * end_ys[RIGHT]; j++)
 	{
 	  Slur_score s;
 	  Direction d = LEFT;
 	  Drul_array<bool> attach_to_stem (false, false);
 	  do
 	    {
-	      os[d][X_AXIS] = base_attachment[d][X_AXIS];
-	      if (extremes[d].stem_
-		  && !Stem::is_invisible (extremes[d].stem_)
-		  && extremes[d].stem_dir_ == dir)
+	      os[d][X_AXIS] = state.base_attachments_[d][X_AXIS];
+	      if (state.extremes_[d].stem_
+		  && !Stem::is_invisible (state.extremes_[d].stem_)
+		  && state.extremes_[d].stem_dir_ == state.dir_)
 		{
-		  Interval stem_y = extremes[d].stem_extent_[Y_AXIS];
-		  stem_y.widen (0.25 * staff_space);
-		  if (dir == -d
+		  Interval stem_y = state.extremes_[d].stem_extent_[Y_AXIS];
+		  stem_y.widen (0.25 * state.staff_space_);
+		  if (state.dir_ == -d
 		      && stem_y.contains (os[d][Y_AXIS]))
 		    {
-		      os[d][X_AXIS] =  extremes[d].slur_head_extent_[-d]
+		      os[d][X_AXIS] =  state.extremes_[d].slur_head_extent_[-d]
 			- d * 0.3;
 		      attach_to_stem[d] = true;
 		    }
-		  else if (dir *extremes[d].stem_extent_[Y_AXIS][dir]
-			     < dir * os[d][Y_AXIS]
-			   && !extremes[d].stem_extent_[X_AXIS].is_empty ()
+		  else if (state.dir_ *state.extremes_[d].stem_extent_[Y_AXIS][state.dir_]
+			     < state.dir_ * os[d][Y_AXIS]
+			   && !state.extremes_[d].stem_extent_[X_AXIS].is_empty ()
 			   )
 		
-		    os[d][X_AXIS] = extremes[d].stem_extent_[X_AXIS].center ();
+		    os[d][X_AXIS] = state.extremes_[d].stem_extent_[X_AXIS].center ();
 		}
 	    }
 	  while (flip (&d) != LEFT);
@@ -811,14 +781,14 @@ enumerate_attachments (Grob *me, Grob *common[],
 	  Offset dz;	
 	  dz = os[RIGHT] - os[LEFT];
 	  if (dz[X_AXIS] < minimum_length
-	      || fabs (dz[Y_AXIS] / dz[X_AXIS]) > score_param->max_slope_
+	      || fabs (dz[Y_AXIS] / dz[X_AXIS]) > state.parameters_.max_slope_
 	      )
 	    {
 	      do
 		{
-		  if (extremes[d].slur_head_)
+		  if (state.extremes_[d].slur_head_)
 		    {
-		      os[d][X_AXIS] = extremes[d].slur_head_extent_.center ();
+		      os[d][X_AXIS] = state.extremes_[d].slur_head_extent_.center ();
 		      attach_to_stem[d] = false;
 		    }
 		}
@@ -828,7 +798,7 @@ enumerate_attachments (Grob *me, Grob *common[],
 	  dz = os[RIGHT] - os[LEFT];
 	  do
 	    {
-	      if (extremes[d].slur_head_
+	      if (state.extremes_[d].slur_head_
 		  && !attach_to_stem[d])
 		{
 		  /* Horizontally move tilted slurs a little.  Move
@@ -836,7 +806,7 @@ enumerate_attachments (Grob *me, Grob *common[],
 		
 		     TODO: parameter */
 		  os[d][X_AXIS]
-		    -= dir * extremes[d].slur_head_extent_.length ()
+		    -= state.dir_ * state.extremes_[d].slur_head_extent_.length ()
 		    * sin (dz.arg ()) / 3;
 		}
 	    }
@@ -845,14 +815,14 @@ enumerate_attachments (Grob *me, Grob *common[],
 	  s.attachment_ = os;
 	  scores.push (s);
 	
-	  os[RIGHT][Y_AXIS] += dir * staff_space / 2;
+	  os[RIGHT][Y_AXIS] += state.dir_ * state.staff_space_ / 2;
 	}
 
-      os[LEFT][Y_AXIS] += dir * staff_space / 2;
+      os[LEFT][Y_AXIS] += state.dir_ * state.staff_space_ / 2;
     }
 
   assert (scores.size () > 0);
-  return scores;
+  return new Array<Slur_score> (scores);
 }
 
 inline Real
@@ -864,27 +834,14 @@ linear_interpolate (Real x, Real x1, Real x2,  Real y1, Real  y2)
 
 
 void
-score_encompass (Grob *me, Grob *common[],
-		 Slur_score_parameters *score_param,
-		 Drul_array<Bound_info> extremes,
-		 Drul_array<Offset> base_attach,
-		 Array<Slur_score> *scores)
+score_encompass (Slur_score_state state)
 {
- (void) extremes;
- (void) base_attach;
-
-  Link_array<Grob> encompasses
-    = Pointer_group_interface__extract_grobs (me, (Grob *)0, "note-columns");
-  Direction dir = get_grob_direction (me);
-
   Array<Encompass_info> infos;
 
-  for (int i = 0; i < encompasses.size (); i++)
-    infos.push (get_encompass_info (me, encompasses[i], common));
 
-  for (int i = 0; i < scores->size (); i++)
+  for (int i = 0; i < state.scores_->size (); i++)
     {
-      Slur_score &configuration = scores->elem_ref (i);
+      Slur_score &configuration = state.scores_->elem_ref (i);
       Bezier const &bez (configuration.curve_);
       Real demerit = 0.0;
 
@@ -906,7 +863,7 @@ score_encompass (Grob *me, Grob *common[],
 	  if (edge)
 	  {
 	    edge_distances.push (fabs (configuration.attachment_[l_edge ? LEFT : RIGHT][Y_AXIS]
-				       - infos[j].get_point (dir)));
+				       - infos[j].get_point (state.dir_)));
 	  }
 	
 	
@@ -918,17 +875,17 @@ score_encompass (Grob *me, Grob *common[],
 	  if (!edge)
 	    {
 	      Real head_dy = (y - infos[j].head_);
-	      if (dir * head_dy < 0)
+	      if (state.dir_ * head_dy < 0)
 		{
-		  demerit += score_param->head_encompass_penalty_;
+		  demerit += state.parameters_.head_encompass_penalty_;
 		  convex_head_distances.push (0.0);
 		}
 	      else
 		{
 		  Real hd = (head_dy)
-		    ? (1 / fabs (head_dy) - 1 / score_param->free_head_distance_)
-		    : score_param->head_encompass_penalty_;
-		  hd = (hd >? 0)<? score_param->head_encompass_penalty_;
+		    ? (1 / fabs (head_dy) - 1 / state.parameters_.free_head_distance_)
+		    : state.parameters_.head_encompass_penalty_;
+		  hd = (hd >? 0)<? state.parameters_.head_encompass_penalty_;
 
 		  demerit += hd;
 		}
@@ -939,12 +896,12 @@ score_encompass (Grob *me, Grob *common[],
 						configuration.attachment_[RIGHT][Y_AXIS],
 						configuration.attachment_[LEFT][Y_AXIS]);
 
-	      if ( 1 ) // dir * infos[j].get_point (dir) > dir *line_y )
+	      if ( 1 ) // state.dir_ * infos[j].get_point (state.dir_) > state.dir_ *line_y )
 		{
 		
 		  Real closest =
-		    dir * (dir * infos[j].get_point (dir)
-			   >? dir *line_y
+		    state.dir_ * (state.dir_ * infos[j].get_point (state.dir_)
+			   >? state.dir_ *line_y
 			   );
 		  Real d = fabs (closest - y);
 	
@@ -954,11 +911,11 @@ score_encompass (Grob *me, Grob *common[],
 	
 	
 
-	  if (dir * (y - infos[j].stem_) < 0)
+	  if (state.dir_ * (y - infos[j].stem_) < 0)
 	    {
-	      Real stem_dem =score_param->stem_encompass_penalty_ ;
-	      if ((l_edge && dir == UP)
-		  || (r_edge && dir == DOWN))
+	      Real stem_dem =state.parameters_.stem_encompass_penalty_ ;
+	      if ((l_edge && state.dir_ == UP)
+		  || (r_edge && state.dir_ == DOWN))
 		stem_dem /= 5;
 
 	      demerit +=  stem_dem;
@@ -970,9 +927,9 @@ score_encompass (Grob *me, Grob *common[],
 	      ext.add_point (infos[j].head_);
 
 	      // ?
-	      demerit += -score_param->closeness_factor_
-		* (dir
-		   * (y - (ext[dir] + dir * score_param->free_head_distance_))
+	      demerit += -state.parameters_.closeness_factor_
+		* (state.dir_
+		   * (y - (ext[state.dir_] + state.dir_ * state.parameters_.free_head_distance_))
 		   <? 0)
 		/ infos.size ();
 	    }
@@ -1011,19 +968,19 @@ score_encompass (Grob *me, Grob *common[],
 	    as penalty.
 	   */
 	  avg_distance /= n;
-	  variance_penalty = score_param->head_slur_distance_max_ratio_;
+	  variance_penalty = state.parameters_.head_slur_distance_max_ratio_;
 	  if (min_dist > 0.0)
-	    variance_penalty = ((avg_distance / (min_dist  +score_param->free_head_distance_)) - 1.0)
+	    variance_penalty = ((avg_distance / (min_dist  +state.parameters_.free_head_distance_)) - 1.0)
 	      <? variance_penalty;
 
-	  variance_penalty *= score_param->head_slur_distance_factor_;
+	  variance_penalty *= state.parameters_.head_slur_distance_factor_;
 	}
 #if DEBUG_SLUR_QUANTING
- (*scores)[i].score_card_ += to_string ("C%.2f", demerit);
- (*scores)[i].score_card_ += to_string ("D%.2f", variance_penalty);
+ (*state.scores_)[i].score_card_ += to_string ("C%.2f", demerit);
+ (*state.scores_)[i].score_card_ += to_string ("D%.2f", variance_penalty);
 #endif
 
- (*scores)[i].score_ += demerit + variance_penalty;
+ (*state.scores_)[i].score_ += demerit + variance_penalty;
     }
 }
 
@@ -1051,24 +1008,11 @@ struct Extra_collision_info
 };
 
 void
-score_extra_encompass (Grob *me, Grob *common[],
-		       Slur_score_parameters *score_param,
-		       Drul_array<Bound_info> extremes,
-		       Drul_array<Offset> base_attach,
-		       Array<Slur_score> *scores)
+score_extra_encompass (Slur_score_state state)
 {
- (void) base_attach;
- (void) extremes;
-
-  Spanner *me_spanner = dynamic_cast<Spanner*> (me);
-
   Link_array<Grob> encompasses
-    = Pointer_group_interface__extract_grobs (me, (Grob *)0,
+    = Pointer_group_interface__extract_grobs (state.slur_, (Grob *)0,
 					      "encompass-objects");
-  Direction dir = get_grob_direction (me);
-  Real lt =  me->get_paper ()->get_dimension (ly_symbol2scm ("linethickness"));
-  Real thick = robust_scm2double (me->get_property ("thickness"), 1.0) * lt;
-
   Array<Extra_collision_info> collision_infos;
   for (int i = encompasses.size (); i--; )
     {
@@ -1077,8 +1021,8 @@ score_extra_encompass (Grob *me, Grob *common[],
 	  Spanner * small_slur = dynamic_cast<Spanner*> (encompasses[i]);
 	  Bezier b = Slur::get_curve (small_slur);
 
-	  Offset relative (small_slur->relative_coordinate (common[X_AXIS], X_AXIS),
-			   small_slur->relative_coordinate (common[Y_AXIS], Y_AXIS));
+	  Offset relative (small_slur->relative_coordinate (state.common_[X_AXIS], X_AXIS),
+			   small_slur->relative_coordinate (state.common_[Y_AXIS], Y_AXIS));
 
 	  for (int k = 0; k < 3; k++)
 	  {
@@ -1088,7 +1032,7 @@ score_extra_encompass (Grob *me, Grob *common[],
 	      Only take bound into account if small slur starts
 	      together with big slur.
 	     */
-	    if (hdir && small_slur->get_bound (hdir) != me_spanner->get_bound (hdir))
+	    if (hdir && small_slur->get_bound (hdir) != state.slur_->get_bound (hdir))
 	      continue;
 	
 
@@ -1097,29 +1041,29 @@ score_extra_encompass (Grob *me, Grob *common[],
 
 	    Interval yext;
 	    yext.set_full ();
-	    yext[dir] = z[Y_AXIS] + dir * thick * 1.0;
+	    yext[state.dir_] = z[Y_AXIS] + state.dir_ * state.thickness_ * 1.0;
 
 	    Interval xext (-1, 1);
-	    xext = xext * (thick*2) + z[X_AXIS];
+	    xext = xext * (state.thickness_*2) + z[X_AXIS];
 	    Extra_collision_info info (small_slur,
 				       k - 1.0,
 				       xext,
 				       yext,
-				       score_param->extra_object_collision_);
+				       state.parameters_.extra_object_collision_);
 	    collision_infos.push (info);
 	  }
 	}
       else
 	{
 	  Grob *g = encompasses [i];
-	  Interval xe = g->extent (common[X_AXIS], X_AXIS);
-	  Interval ye = g->extent (common[Y_AXIS], Y_AXIS);
+	  Interval xe = g->extent (state.common_[X_AXIS], X_AXIS);
+	  Interval ye = g->extent (state.common_[Y_AXIS], Y_AXIS);
 
 	  Real xp = 0.0;
-	  Real penalty = score_param->extra_object_collision_;
+	  Real penalty = state.parameters_.extra_object_collision_;
 	  if (Accidental_interface::has_interface (g))
 	    {
-	      penalty = score_param->accidental_collision_;
+	      penalty = state.parameters_.accidental_collision_;
 	      /* Begin copy accidental.cc */
 	      bool parens = false;
 	      if (to_boolean (g->get_property ("cautionary")))
@@ -1142,27 +1086,27 @@ score_extra_encompass (Grob *me, Grob *common[],
 		      xp = LEFT;
 		      break ;
 		    case SHARP:
-		      xp = 0.5 * dir;
+		      xp = 0.5 * state.dir_;
 		      break ;
 		    case NATURAL:
-		      xp = -dir;
+		      xp = -state.dir_;
 		      break;
 		    }
 		}
 	    }
 
-	  ye.widen (thick * 0.5);
-	  xe.widen (thick * 1.0);
+	  ye.widen (state.thickness_ * 0.5);
+	  xe.widen (state.thickness_ * 1.0);
 	  Extra_collision_info info (g, xp, xe, ye,  penalty);
 	  collision_infos.push (info);
 	}
     }
-  for (int i = 0; i < scores->size (); i++)
+  for (int i = 0; i < state.scores_->size (); i++)
     {
       Real demerit = 0.0;
       for (int j = 0; j < collision_infos.size (); j++)
 	{
-	  Drul_array<Offset> attachment = scores->elem (i).attachment_;
+	  Drul_array<Offset> attachment = state.scores_->elem (i).attachment_;
 	  Interval slur_wid (attachment[LEFT][X_AXIS], attachment[RIGHT][X_AXIS]);
 
 	  /*
@@ -1184,7 +1128,7 @@ score_extra_encompass (Grob *me, Grob *common[],
 	      Item * as_item =  dynamic_cast<Item*> (collision_infos[j].grob_);
 	      if ((as_item
 		   && as_item->get_column ()
-		   == extremes[d] .bound_->get_column ())
+		   == state.extremes_[d] .bound_->get_column ())
 		  || collision_infos[j].extents_[X_AXIS].contains (attachment[d][X_AXIS]))
 		{
 		  y = attachment[d][Y_AXIS];
@@ -1201,19 +1145,19 @@ score_extra_encompass (Grob *me, Grob *common[],
 	      if (!slur_wid.contains (x))
 		continue;
 	
-	      y = scores->elem (i).curve_.get_other_coordinate (X_AXIS, x);
+	      y = state.scores_->elem (i).curve_.get_other_coordinate (X_AXIS, x);
 	    }
 
 	  Real dist = collision_infos[j].extents_[Y_AXIS].distance (y);
 	  demerit +=
-	    fabs (0 >? (score_param->extra_encompass_free_distance_ - dist)) /
-	    score_param->extra_encompass_free_distance_
+	    fabs (0 >? (state.parameters_.extra_encompass_free_distance_ - dist)) /
+	    state.parameters_.extra_encompass_free_distance_
 	    * collision_infos[j].penalty_;
 	}
 #if DEBUG_SLUR_QUANTING
- (*scores)[i].score_card_ += to_string ("X%.2f", demerit);
+ (*state.scores_)[i].score_card_ += to_string ("X%.2f", demerit);
 #endif
- (*scores)[i].score_ += demerit;
+ (*state.scores_)[i].score_ += demerit;
     }
 }
 
@@ -1222,40 +1166,33 @@ score_extra_encompass (Grob *me, Grob *common[],
   slur-end is pointing.
  */
 void
-score_edges (Grob *me, Grob *common[],
-	     Slur_score_parameters * score_param,
-	     Drul_array<Bound_info> extremes,
-	     Drul_array<Offset> base_attach,
-	     Array<Slur_score> *scores)
+score_edges (Slur_score_state state)
 {
- (void) common;
-  Direction dir = get_grob_direction (me);
-
-  for (int i = 0; i < scores->size (); i++)
+  for (int i = 0; i < state.scores_->size (); i++)
     {
       Direction d = LEFT;
-      Slur_score &config = scores->elem_ref (i);
+      Slur_score &config = state.scores_->elem_ref (i);
       Offset dz = config.attachment_[RIGHT] - config.attachment_[LEFT];
       Real slope = dz[Y_AXIS] / dz[X_AXIS];
       do
 	{
 	  Real y = config.attachment_[d][Y_AXIS];
-	  Real dy = fabs (y - base_attach[d][Y_AXIS]);
+	  Real dy = fabs (y - state.base_attachments_[d][Y_AXIS]);
 	
-	  Real factor = score_param->edge_attraction_factor_;
+	  Real factor = state.parameters_.edge_attraction_factor_;
 	  Real demerit = factor * dy;
-	  if (extremes[d].stem_
-	      && extremes[d].stem_dir_ == dir
-	      && !Stem::get_beaming (extremes[d].stem_, -d)
+	  if (state.extremes_[d].stem_
+	      && state.extremes_[d].stem_dir_ == state.dir_
+	      && !Stem::get_beaming (state.extremes_[d].stem_, -d)
 	      )
 	    demerit /= 5;
 
-	  demerit *= exp (dir * d * slope
-			  * score_param->edge_slope_exponent_ );
+	  demerit *= exp (state.dir_ * d * slope
+			  * state.parameters_.edge_slope_exponent_ );
 	
-	 (*scores)[i].score_ += demerit;
+	 (*state.scores_)[i].score_ += demerit;
 #if DEBUG_SLUR_QUANTING
-	 (*scores)[i].score_card_ += to_string ("E%.2f", demerit);
+	 (*state.scores_)[i].score_card_ += to_string ("E%.2f", demerit);
 #endif
 	}
       while (flip (&d) != LEFT);
@@ -1263,70 +1200,64 @@ score_edges (Grob *me, Grob *common[],
 }
 
 void
-score_slopes (Grob *me, Grob *common[],
-	      Slur_score_parameters *score_param,
-	      Drul_array<Bound_info> extremes,
-	      Drul_array<Offset> base_attach,
-	      Array<Slur_score> * scores)
+score_slopes (Slur_score_state state)
 {
- (void) me;
- (void) base_attach;
 
   Drul_array<Real> ys;
   Direction d = LEFT;
   do
     {
-      if (extremes[d].slur_head_)
-	ys[d] = extremes[d].slur_head_->relative_coordinate (common[Y_AXIS],
+      if (state.extremes_[d].slur_head_)
+	ys[d] = state.extremes_[d].slur_head_->relative_coordinate (state.common_[Y_AXIS],
 							      Y_AXIS);
       else
-	ys[d] = extremes[d].neighbor_y_;
+	ys[d] = state.extremes_[d].neighbor_y_;
     }
   while (flip (&d) != LEFT);
 
   bool has_beams
-    = (extremes[LEFT].stem_ && Stem::get_beam (extremes[LEFT].stem_))
-    || (extremes[RIGHT].stem_ && Stem::get_beam (extremes[RIGHT].stem_));
+    = (state.extremes_[LEFT].stem_ && Stem::get_beam (state.extremes_[LEFT].stem_))
+    || (state.extremes_[RIGHT].stem_ && Stem::get_beam (state.extremes_[RIGHT].stem_));
 
   Real dy = ys[RIGHT] - ys[LEFT];
-  for (int i = 0; i < scores->size (); i++)
+  for (int i = 0; i < state.scores_->size (); i++)
     {
-      Offset slur_dz = (*scores)[i].attachment_[RIGHT]
-	- (*scores)[i].attachment_[LEFT];
+      Offset slur_dz = (*state.scores_)[i].attachment_[RIGHT]
+	- (*state.scores_)[i].attachment_[LEFT];
       Real slur_dy = slur_dz[Y_AXIS];
       Real demerit = 0.0;
 
       demerit += ((fabs (slur_dy / slur_dz[X_AXIS])
-		   - score_param->max_slope_) >? 0)
-	* score_param->max_slope_factor_;
+		   - state.parameters_.max_slope_) >? 0)
+	* state.parameters_.max_slope_factor_;
 
       /* 0.2: account for staffline offset. */
       Real max_dy = (fabs (dy) + 0.2);
       if (has_beams)
 	max_dy += 1.0;
 
-      demerit += score_param->steeper_slope_factor_
+      demerit += state.parameters_.steeper_slope_factor_
 	* ((fabs (slur_dy) -max_dy) >? 0);
 
       demerit += ((fabs (slur_dy/slur_dz[X_AXIS])
-		   - score_param->max_slope_) >? 0)
-	* score_param->max_slope_factor_;
+		   - state.parameters_.max_slope_) >? 0)
+	* state.parameters_.max_slope_factor_;
 
       if (sign (dy) == 0
 	  && sign (slur_dy) != 0)
-	demerit += score_param->non_horizontal_penalty_;
+	demerit += state.parameters_.non_horizontal_penalty_;
 
       if (sign (dy)
 	  && sign (slur_dy)
 	  && sign (slur_dy) != sign (dy))
 	demerit += has_beams
-	  ? score_param->same_slope_penalty_ / 10
-	  : score_param->same_slope_penalty_;
+	  ? state.parameters_.same_slope_penalty_ / 10
+	  : state.parameters_.same_slope_penalty_;
 
 #if DEBUG_SLUR_QUANTING
- (*scores)[i].score_card_ += to_string ("S%.2f", d);
+ (*state.scores_)[i].score_card_ += to_string ("S%.2f", d);
 #endif
- (*scores)[i].score_ += demerit;
+ (*state.scores_)[i].score_ += demerit;
     }
 
 
@@ -1367,34 +1298,29 @@ fit_factor (Offset dz_unit, Offset dz_perp,
 	
 
 Bezier
-get_bezier (Grob *me,
-	    Grob **common,
-	    Slur_score_parameters *score_param,
-	    Drul_array<Bound_info> extremes,	
+get_bezier (Slur_score_state state,
 	    Drul_array<Offset> attachments,
 	    Real r_0, Real h_inf
 	    )
 {
-  Link_array<Grob> encompasses
-    = Pointer_group_interface__extract_grobs (me, (Grob *) 0, "note-columns");
-  Direction dir = get_grob_direction (me);
+  Link_array<Grob> encompasses = state.columns_;
 
   Array<Offset> avoid;
   for (int i = 0; i < encompasses.size (); i++)
     {
-      if (extremes[LEFT].note_column_ == encompasses[i]
-	  || extremes[RIGHT].note_column_ == encompasses[i])
+      if (state.extremes_[LEFT].note_column_ == encompasses[i]
+	  || state.extremes_[RIGHT].note_column_ == encompasses[i])
 	continue;
 
-      Encompass_info inf (get_encompass_info (me, encompasses[i], common));
+      Encompass_info inf (get_encompass_info (state, encompasses[i]));
 
-      Real y = dir * ((dir * inf.head_) >? (dir *inf.stem_));
+      Real y = state.dir_ * ((state.dir_ * inf.head_) >? (state.dir_ *inf.stem_));
 
-      avoid.push (Offset (inf.x_,  y + dir * score_param->free_head_distance_));
+      avoid.push (Offset (inf.x_,  y + state.dir_ * state.parameters_.free_head_distance_));
     }
 
   Link_array<Grob> extra_encompasses
-    = Pointer_group_interface__extract_grobs (me, (Grob *)0, "encompass-objects");
+    = Pointer_group_interface__extract_grobs (state.slur_, (Grob *)0, "encompass-objects");
   for (int i = 0;  i < extra_encompasses.size (); i++)
     if (Slur::has_interface (extra_encompasses[i]))
       {
@@ -1402,10 +1328,10 @@ get_bezier (Grob *me,
 	Bezier b = Slur::get_curve (small_slur);
 
 	Offset z = b.curve_point (0.5);
-	z += Offset (small_slur->relative_coordinate (common[X_AXIS], X_AXIS),
-		     small_slur->relative_coordinate (common[Y_AXIS], Y_AXIS));
+	z += Offset (small_slur->relative_coordinate (state.common_[X_AXIS], X_AXIS),
+		     small_slur->relative_coordinate (state.common_[Y_AXIS], Y_AXIS));
 
-	z[Y_AXIS] += dir * score_param->free_slur_distance_;
+	z[Y_AXIS] += state.dir_ * state.parameters_.free_slur_distance_;
 	avoid.push (z);
       }
 
@@ -1417,18 +1343,18 @@ get_bezier (Grob *me,
   Real indent, height;
   get_slur_indent_height (&indent, &height, dz.length (), h_inf, r_0);
 
-  Real excentricity = robust_scm2double (me->get_property ("excentricity"), 0);
+  Real excentricity = robust_scm2double (state.slur_->get_property ("excentricity"), 0);
   Bezier curve;
 
   Real x1 = (excentricity + indent);
   Real x2 = (excentricity - indent);
   curve.control_[0] = attachments[LEFT];
-  curve.control_[1] = attachments[LEFT] + dz_perp * height * dir + dz_unit * x1;
-  curve.control_[2] = attachments[RIGHT] + dz_perp * height * dir
+  curve.control_[1] = attachments[LEFT] + dz_perp * height * state.dir_ + dz_unit * x1;
+  curve.control_[2] = attachments[RIGHT] + dz_perp * height * state.dir_
     + dz_unit * x2;
   curve.control_[3] = attachments[RIGHT];
 
-  Real ff = fit_factor (dz_unit, dz_perp, curve, dir, avoid);
+  Real ff = fit_factor (dz_unit, dz_perp, curve, state.dir_, avoid);
   Real len = dz.length ();
 
   /* This condition,
@@ -1455,8 +1381,8 @@ get_bezier (Grob *me,
   height = height >? ((height * ff) <? max_h);
 
   curve.control_[0] = attachments[LEFT];
-  curve.control_[1] = attachments[LEFT] + dz_perp * height * dir + dz_unit * x1;
-  curve.control_[2] = attachments[RIGHT] + dz_perp * height * dir + dz_unit * x2;
+  curve.control_[1] = attachments[LEFT] + dz_perp * height * state.dir_ + dz_unit * x1;
+  curve.control_[2] = attachments[RIGHT] + dz_perp * height * state.dir_ + dz_unit * x2;
   curve.control_[3] = attachments[RIGHT];
 
   return curve;
