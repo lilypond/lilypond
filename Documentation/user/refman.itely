@@ -1774,8 +1774,8 @@ example is shown here with timing tuples.
 
 @lilypond[]
 \score { \notes \relative c''{ 
-  c4^"(0,0)"  \grace c16_"(1/4,-1/16)"  c4^"(1/4,0)"  \grace {
-  [c16_"(2/4,-1/8)"  d16^"(2/4,-1/16)" ] } c4_"(2/4,0)"
+  c4^"(0,0)"  \grace c16_" "_"(1/4,-1/16)"  c4^"(1/4,0)"  \grace {
+  [c16_"(2/4,-1/8)"  d16^"(2/4,-1/16)" ] } c4_" "_"(2/4,0)"
   }
 \paper {  linewidth = 8.\cm }
 }
@@ -1793,8 +1793,8 @@ The placement of these grace notes is synchronized between different
 staffs, using this grace timing.
 
 @lilypond[relative=2,verbatim,fragment] 
-\context Staff = SA { e4 \grace { c16 d e f } e4 }
-\context Staff = SB { c4 \grace { g8 b } c4 }
+< \context Staff = SA { e4 \grace { c16 d e f } e4 }
+  \context Staff = SB { c4 \grace { g8 b } c4 } >
 @end lilypond
 
 
@@ -1823,7 +1823,7 @@ Grace note synchronization can also lead to surprises. Staff notation,
 such as key signatures, barlines, etc. are also synchronized. Take
 care when you mix staffs with grace notes and staffs without.
 
-@lilypond[relative=2,fragment]
+@lilypond[relative=2,verbatim,fragment]
 < \context Staff = SA { e4 \bar "|:" \grace c16 d4 }
   \context Staff = SB { c4 \bar "|:"  d4 } >
 @end lilypond
@@ -2790,7 +2790,7 @@ the standard staff.
   \score{
     \context StaffGroup <
       \context Staff <
-        % Hide fingering number (used for string number) for the "normal" staff
+        % Hide fingering number
         \property Staff.Fingering \override #'transparent = ##t
 
         \part

@@ -1664,7 +1664,7 @@ input file is a piano reduction of the G major Sinfonia by Giovanni
 Battista Sammartini.  It was composed around 1740.  It's in the source
 package under the name @file{input/tutorial/sammartini.ly}.
 
-@lilypondfile[verbatim]{sammartini.ly}
+@lilypondfile[smallverbatim]{sammartini.ly}
 
 As you can see, this example features multiple voices on one staff.  To
 make room for those voices, their notes have to be stemmed in opposite

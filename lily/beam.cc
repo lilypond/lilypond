@@ -759,9 +759,13 @@ Beam::quanting (SCM smob)
   Grob *fvs  = first_visible_stem (me);
   Grob *lvs  = last_visible_stem (me);
 
-  Grob *commony = fvs->common_refpoint (lvs, Y_AXIS);
-  bool xstaff=  (Align_interface::has_interface (commony));
-      
+  bool xstaff= false;
+  if (lvs && fvs)
+    {
+      Grob *commony = fvs->common_refpoint (lvs, Y_AXIS);
+      xstaff = Align_interface::has_interface (commony);
+    }
+
   for (int i = qscores.size (); i--;)
     if (qscores[i].demerits < 100)
       {

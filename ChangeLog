@@ -1,3 +1,20 @@
+2002-07-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/side-position-interface.cc (general_side_position):
+	Subtract parent offset iso. adding it. (Huh? How could this have
+	worked?)
+
+	* lily/clef-engraver.cc (stop_translation_timestep): add staff to
+	OctavateEight support.
+
+	* scripts/lilypond-book.py: add smallverbatim option.
+
+	* lily/beam.cc (quanting): bugfix. Behave sanely when no visible
+	stems.
+
+	* lily/accidental-placement.cc (position_accidentals): add padding
+	property. Increase default setting to 0.2. 
+
 2002-07-15  Han-Wen  <hanwen@cs.uu.nl>
 
 	* lily/paper-column.cc (before_line_breaking): urg. bugfix.

@@ -171,14 +171,20 @@ Clef_engraver::stop_translation_timestep ()
 	{
 	  clef_p_->set_grob_property ("break-visibility", vis);
 	  if (octavate_p_)
-	    octavate_p_->set_grob_property ("break-visibility", vis);
+	    {
+	      octavate_p_->set_grob_property ("break-visibility", vis);
+
+	    }
 	}
       
       typeset_grob (clef_p_);
       clef_p_ =0;
 
       if (octavate_p_)
-	typeset_grob (octavate_p_);
+	{
+	  Side_position_interface::add_staff_support (octavate_p_);	  
+	  typeset_grob (octavate_p_);
+	}
 
       octavate_p_ = 0;
     }
