@@ -117,6 +117,12 @@ disables the use of backslashes in @TeX{} strings.
 In @code{--safe} mode, it is not possible to import LilyPond variables
 into Scheme. 
 
+@code{--safe} does @emph{not} detect resource overuse. It is still
+possible to make the program hang indefinitely, for example by feeding
+cyclic data structures into the backend.  If using LilyPond
+on a publically accessible webserver, the process should limited in both
+allowed  CPU and memory usage.
+
 @item -v,--version
 Show version information.
 @item -V,--verbose
