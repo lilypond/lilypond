@@ -34,7 +34,7 @@ struct Staff_column {
       VIRTUAL
     ****************************************************************/
 
-    virtual void process_requests()=0;
+    virtual void setup_requests()=0;
 
     virtual ~Staff_column();
 private:
