@@ -31,14 +31,15 @@ public:
 /// abstraction for a datafile
 class Text_db : private Data_file
 {
- public:
+    void gobble_leading_white();
+public:
     /// get a line with records
     Text_record    get_record();
 
     Text_db(String fn):Data_file(fn) { }
     Data_file::error;
-    Data_file::eof;    
-    
+    bool eof();
+
     /// get next line.
     Text_record operator++(int) {
 	return get_record();
