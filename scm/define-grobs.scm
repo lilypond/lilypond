@@ -1082,7 +1082,7 @@
 	(text-repeat-if-broken . #t)
 	(shorten-pair . (0.0 . -0.6))
 	(staff-padding . 1.0)
-	(padding  . 1.0)
+	(padding  . 0.5)
 	(enclose-bounds . #t)
 	(minimum-length . 1.0)
 	(dash-fraction . 0.3)

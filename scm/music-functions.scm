@@ -791,3 +791,12 @@ Rest can contain a list of beat groupings
      (ly:set-grob-property! grob 'balloon-text-props '((font-family . roman)))
 
      ))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+
+
+(define-public (determine-split-list ev1 ev2 state)
+
+#f  )

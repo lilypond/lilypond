@@ -1,3 +1,16 @@
+2004-01-20  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/system.cc (set_loose_columns): use the right prebroken cols
+	for interpolating loose column position.
+
+	* lily/text-spanner.cc (brew_molecule): default to no vertical
+	lines.
+
+	* lily/ottava-bracket.cc (brew_molecule): vertical line doesn't
+	take space.
+
+	* scm/define-grobs.scm (all-grob-descriptions): less padding.
+
 2004-01-20  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/axis-group-engraver.cc: Include warn.hh (compile fix).
@@ -5,11 +18,11 @@
 2004-01-20  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/axis-group-engraver.cc (finalize): extra check; if
-	process_music() is never called, then staffline_ == 0.
+	process_music () is never called, then staffline_ == 0.
 
 	* lily/simultaneous-music-iterator.cc (pending_moment): don't
 	check run_always ().
-
+	
 	* VERSION: release 2.1.13
 
 	* input/regression/note-head-style.ly (pattern): cleanup.

@@ -58,6 +58,11 @@ with @code{Staff.ottavation}.
   #(set-octavation -1)
   \property Staff.ottavation = #"8"
   c,,16
+  #(set-octavation 0)
+  c'16
+  #(set-octavation -1)
+  \property Staff.ottavation = #"8"
+  g,,16
 }
 }
 

@@ -423,12 +423,12 @@ require them to be twice the thickness of the staff lines. The same
 mechanism can be used to adjust a setting globally. By issuing the
 following command, the entire piece is now formatted with thicker stems:
 @example
-    \property Score.Stem \override #'thickness = #2.0 
+    \property Score.Stem \override #'thickness = #3.0 
 @end example
 
 @lilypond
 \score { \notes \relative c'' {
-    \property Score.Stem \override #'thickness = #2.0 
+    \property Score.Stem \override #'thickness = #3.0 
     \once\property Voice. DynamicLineSpanner  \override #'padding = #4.0 
 \stemUp
     a4_\f f,8
@@ -450,7 +450,7 @@ example above is calculated by the function
 this function by a more advanced one, we could issue
 @example
     \property Voice.DynamicLineSpanner \override #'Y-offset-callbacks
-       = #`(,gee-whiz-gadget)
+       = #(list gee-whiz-gadget)
 @end example
 
 @noindent
