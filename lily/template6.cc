@@ -3,5 +3,5 @@
 #include "engraver.hh"
 #include "performer.hh"
 
-template IPL_INSTANTIATE(Engraver);
-template IPL_INSTANTIATE(Performer);
+template POINTERLIST_INSTANTIATE(Engraver);
+template POINTERLIST_INSTANTIATE(Performer);
