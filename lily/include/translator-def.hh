@@ -31,6 +31,7 @@ private:
   SCM property_ops_;
 public:
   SCM type_name_;
+  SCM type_aliases_;
   SCM translator_group_type_;
 
   SCM modify_definition (SCM, SCM, bool);

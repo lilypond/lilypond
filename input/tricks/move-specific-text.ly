@@ -1,6 +1,6 @@
 
 #(define (make-text-checker text)
-   (lambda (grob) (equal? text (ly-get-elt-property grob 'text))))
+   (lambda (grob) (equal? text (ly-get-grob-property grob 'text))))
 
 \score {
   \notes\relative c''' {

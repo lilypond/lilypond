@@ -25,8 +25,8 @@ cpp -P -traditional -o l-fake.ly  -DFAKE_GRACE les-nereides.ly
  #(define (make-text-checker text)
   (lambda (elt)
      ;; huh, string-match undefined?
-     ;; (string-match text (ly-get-elt-property elt 'text))
-     (equal? text (ly-get-elt-property elt 'text))
+     ;; (string-match text (ly-get-grob-property elt 'text))
+     (equal? text (ly-get-grob-property elt 'text))
     ))
 
 

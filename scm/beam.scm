@@ -39,7 +39,7 @@
 ;; which should be 1 (== 1 interline)
 (define (mean a b) (* 0.5 (+ a  b)))
 (define (default-beam-dy-quants beam stafflinethick)
-  (let ((thick (ly-get-elt-property beam 'thickness))
+  (let ((thick (ly-get-grob-property beam 'thickness))
 	)
     
     (list 0 (mean thick stafflinethick) (+ thick stafflinethick) 1)
@@ -52,7 +52,7 @@
 
 (define (default-beam-y-quants beam multiplicity dy staff-line)
   (let* ((beam-straddle 0)
-	 (thick (ly-get-elt-property beam 'thickness))
+	 (thick (ly-get-grob-property beam 'thickness))
 	 (beam-sit (/ (+ thick staff-line) 2))
 	 (beam-hang (- 1 (/ (- thick staff-line) 2)))
 	 (quants (list beam-hang))
@@ -67,7 +67,7 @@
 
 (define (beam-traditional-y-quants beam multiplicity dy staff-line)
   (let* ((beam-straddle 0)
-	(thick (ly-get-elt-property beam 'thickness))
+	(thick (ly-get-grob-property beam 'thickness))
 	(beam-sit (/ (+ thick staff-line) 2))
 	(beam-hang (- 1 (/ (- thick staff-line) 2)))
 	(quants '())

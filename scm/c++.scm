@@ -101,8 +101,8 @@
 (define (make-type-checker symbol)
   (lambda (elt)
     ;;(display  symbol)
-    ;;(eq? #t (ly-get-elt-property elt symbol))
-    (not (eq? #f (memq symbol (ly-get-elt-property elt 'interfaces))))))
+    ;;(eq? #t (ly-get-grob-property elt symbol))
+    (not (eq? #f (memq symbol (ly-get-grob-property elt 'interfaces))))))
 
 
 (define (index-cell cell dir)
