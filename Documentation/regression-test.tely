@@ -262,6 +262,10 @@ to work.
 
 @mudelafile{lyric-combine.ly}
 
+Multiple stanzas
+
+@mudelafile{lyrics-multi-stanza.ly}
+
 @section Multiple notes
 
 Rests should not collide with beams, stems and noteheads.  Rests may

@@ -47,7 +47,7 @@ Axis_group_engraver::do_creation_processing ()
   Axis_group_interface::set_axes (staffline_p_, Y_AXIS, Y_AXIS);
 
   Score_element *  it = unsmob_element (get_property ("currentCommandColumn"));
-  Pointer_group_interface (it, "bounded-by-me").add_element (staffline_p_);  
+
   staffline_p_->set_bound(LEFT,it);
 
   announce_element (staffline_p_, 0);
@@ -84,7 +84,7 @@ Axis_group_engraver::do_removal_processing ()
 
   Score_element *  it = unsmob_element (get_property ("currentCommandColumn"));
 
-  Pointer_group_interface (it, "bounded-by-me").add_element (staffline_p_);  
+
   staffline_p_->set_bound(RIGHT,it);
 
   typeset_element (staffline_p_);

@@ -37,7 +37,7 @@ Line_group_engraver_group::do_removal_processing()
   Score_element *  it
     = unsmob_element (get_property (ly_symbol2scm ("currentCommandColumn")));
 
-  Pointer_group_interface (it, "bounded-by-me").add_element (staffline_p_);  
+
   staffline_p_->set_bound(RIGHT,it);
   Engraver_group_engraver::typeset_element (staffline_p_);
   staffline_p_ = 0;
@@ -50,7 +50,6 @@ Line_group_engraver_group::do_creation_processing()
   Score_element *  it
     = unsmob_element (get_property (ly_symbol2scm ("currentCommandColumn"))); 
   staffline_p_->set_bound(LEFT,it);
-  Pointer_group_interface (it, "bounded-by-me").add_element (staffline_p_);
   
   Engraver::announce_element (staffline_p_,0);
 }

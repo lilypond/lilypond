@@ -61,6 +61,7 @@ protected:
 
 
 void add_bound_item (Spanner*, Item* n);
+void extend_spanner_over_elements (Score_element*  span);
 
 
 #endif

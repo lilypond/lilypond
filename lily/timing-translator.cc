@@ -38,39 +38,39 @@ Timing_translator::do_try_music (Music*r)
 	      return false;
 	    }
 	}
+
+      /*
+	We have to do this soon enough. Maybe we'd better disguise
+	\time as a \property. Then all settings will be `immediate'.
+       */
+      if (Time_signature_change_req *c
+	  = dynamic_cast <Time_signature_change_req *> (t))
+	set_time_signature (c->beats_i_, c->one_beat_i_);
     
       timing_req_l_arr_.push(t);
       return true;
     }
   return false;
 }
+
 void
 Timing_translator::do_process_music()
 {
   for (int i=0; i < timing_req_l_arr_.size (); i++)
     {
-      Timing_req * tr_l = timing_req_l_arr_[i];
+      if (!dynamic_cast <Barcheck_req *> (timing_req_l_arr_[i]))
+	continue;
+      if (measure_position ())
+	{
+	  timing_req_l_arr_[i]->origin ()->warning (_f ("barcheck failed at: %s", 
+							measure_position ().str ()));
+	  Moment zero; 
 
-      if (Time_signature_change_req *m_l = dynamic_cast <Time_signature_change_req *> (tr_l))
-	{
-	  int b_i= m_l->beats_i_;
-	  int o_i = m_l->one_beat_i_;
-	  set_time_signature (b_i, o_i);
-	}
-      else if (dynamic_cast <Barcheck_req *> (tr_l))
-	{
-	  if (measure_position ())
-	    {
-	      Moment nm; 
-	      tr_l ->origin ()->warning (_f ("barcheck failed at: %s", 
-				  measure_position ().str ()));
-	      // resync
-	      daddy_trans_l_->set_property("measurePosition", nm.make_scm ());
-	    }
+	  // resync
+	  daddy_trans_l_->set_property("measurePosition", zero.make_scm ());
 	}
     }
 }
-
 
 void
 Timing_translator::do_pre_move_processing()

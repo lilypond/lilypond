@@ -81,10 +81,8 @@ Score_engraver::do_removal_processing()
   Engraver_group_engraver::do_removal_processing();
   scoreline_l_->set_bound(RIGHT,command_column_l_);
   command_column_l_->set_elt_property ("breakable", SCM_BOOL_T);
-
   
   typeset_all ();
-
 
   set_columns (0,0);
 }
@@ -170,16 +168,16 @@ Score_engraver::typeset_all()
 void
 Score_engraver::do_pre_move_processing()
 {
+  // this generates all items.
+  Engraver_group_engraver::do_pre_move_processing();
+  
+  typeset_all();
   if (to_boolean (command_column_l_->get_elt_property ("breakable")))
     {
       breaks_i_ ++;
       if (! (breaks_i_%8))
 	progress_indication ("[" + to_str ( breaks_i_) + "]");
     }
-  // this generates all items.
-  Engraver_group_engraver::do_pre_move_processing();
-  
-  typeset_all();
 }
 
 void
@@ -194,11 +192,16 @@ Score_engraver::set_columns (Paper_column *new_command_l,
       if (*current[i])
 	{
 	  scoreline_l_->add_column ((*current[i]));
+#if 0
+	  /*
+	    TODO: delay this decision.
+	   */
 	  if (!Paper_column::used_b (*current[i]))
 	    {
 	      (*current[i])->suicide ();
 	      *current[i]  =0;
 	    }
+#endif
 	}
       if (news[i])
 	*current[i] = news[i];
