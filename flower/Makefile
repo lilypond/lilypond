@@ -1,5 +1,9 @@
+MAJVER=1
+MINVER=0
+PATCHLEVEL=1
+
 PACKAGENAME=flower
-VERSION=1.0
+VERSION=$(MAJVER).$(MINVER).$(PATCHLEVEL)
 DNAME=$(PACKAGENAME)-$(VERSION)
 CXXFLAGS+=-g -Wall
 
@@ -9,7 +13,7 @@ templatecc=cursor.cc list.cc
 inl=findcurs.inl link.inl list.inl
 hh=cursor.hh cursor.inl lgetopt.hh link.hh list.hh \
 	string.hh stringutil.hh vray.hh textdb.hh textstr.hh  assoc.hh\
-	findcurs.hh unionfind.hh compare.hh
+	findcurs.hh unionfind.hh compare.hh handle.hh
 
 
 
