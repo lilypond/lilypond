@@ -66,13 +66,14 @@ Note_head::brew_ledger_lines (Grob *me,
                               int pos,
                               int interspaces,
                               Interval x_extent,
-                              bool take_space)
+			      bool take_space)
 {
   Real inter_f = Staff_symbol_referencer::staff_space (me)/2;
   int line_count = (abs (pos) < interspaces)
     ? 0
     : (abs (pos) - interspaces) / 2;
   Molecule molecule = Molecule();
+
 
   if (line_count)
     {
@@ -87,10 +88,11 @@ Note_head::brew_ledger_lines (Grob *me,
 
       Molecule proto_ledger_line =
 	Lookup::round_filled_box (ledger_line, blotdiameter);
-      
+
       if (!take_space)
         proto_ledger_line.set_empty (true);
 
+      
       Direction dir = (Direction)sign (pos);
       Real offs = (Staff_symbol_referencer::on_staffline (me, pos))
         ? 0.0
@@ -107,7 +109,7 @@ Note_head::brew_ledger_lines (Grob *me,
 }
 
 Molecule
-internal_brew_molecule (Grob *me, bool ledger_take_space)
+internal_brew_molecule (Grob *me, bool with_ledgers)
 {
   SCM style  = me->get_grob_property ("style");
   if (!gh_symbol_p (style))
@@ -129,14 +131,14 @@ internal_brew_molecule (Grob *me, bool ledger_take_space)
 
   int interspaces = Staff_symbol_referencer::line_count (me)-1;
   int pos = (int)rint (Staff_symbol_referencer::get_position (me));
-  if (interspaces >= 0
+  if (with_ledgers && interspaces >= 0
       && abs (pos) - interspaces > 1)
     {
       Interval hd = out.extent (X_AXIS);
       Real left_ledger_protusion = hd.length ()/4;
       Real right_ledger_protusion = left_ledger_protusion;
 
-      if (unsmob_grob(me->get_grob_property ("accidental-grob")))
+      if (Grob * g = unsmob_grob(me->get_grob_property ("accidental-grob")))
 	{
 	  /*
 	    make a little room for accidentals.
@@ -144,16 +146,19 @@ internal_brew_molecule (Grob *me, bool ledger_take_space)
 	    TODO: this will look silly if a chord has ledger lines,
 	    and only the bottom note has an accidental.
 	  */
-      	  
-	  left_ledger_protusion *= 0.66;
-	  right_ledger_protusion *= 0.9; 
+
+	  Grob *common = g->common_refpoint (me, X_AXIS);
+	  Real d =
+	    me->extent (common, X_AXIS)[LEFT]
+	    -g->extent (common, X_AXIS)[RIGHT];
+	  
+	  left_ledger_protusion = left_ledger_protusion <? (d/2);
 	}
 
       Interval l_extents = Interval (hd[LEFT] - left_ledger_protusion,
 				     hd[RIGHT] + right_ledger_protusion);
       out.add_molecule (Note_head::brew_ledger_lines (me, pos, interspaces,
-						      l_extents,
-						      ledger_take_space));
+						      l_extents, false));
     }
   return out;
 }
@@ -168,7 +173,7 @@ Note_head::brew_molecule (SCM smob)
   /*
     ledgers don't take space. See top of file.
    */
-  return internal_brew_molecule (me, false).smobbed_copy ();
+  return internal_brew_molecule (me, true).smobbed_copy ();
 }
 
 /*
@@ -180,14 +185,40 @@ Note_head::brew_molecule (SCM smob)
 Interval
 Note_head::head_extent (Grob *me, Axis a)
 {
-  Molecule * mol = me->get_molecule();
-  return mol ? mol ->extent (a) : Interval(0,0);
+  SCM brewer = me->get_grob_property ("molecule-callback");
+  if (brewer == Note_head::brew_molecule_proc)
+    {
+      Molecule mol = internal_brew_molecule (me, false);
+  
+      if (!mol.empty_b())
+	return mol.extent (a);
+    }
+  else
+    {
+      Molecule * mol = me->get_molecule ();
+      if (mol)
+	return  mol->extent (a) ;
+    }
+  
+  return Interval (0,0);
 }
 
+/*
+  This is necessary to prevent a cyclic dependency: the appearance of
+  the ledgers depends on positioning, so the Grob::get_molecule() can
+  not be used for determining the note head extent.
+  
+ */ 
+MAKE_SCHEME_CALLBACK (Note_head,extent,2);
+SCM
+Note_head::extent (SCM smob, SCM axis)  
+{
+  Grob *me = unsmob_grob (smob);
 
+  return ly_interval2scm (head_extent (me, (Axis) gh_scm2int (axis)));
+}
 
 MAKE_SCHEME_CALLBACK (Note_head,brew_ez_molecule,1);
-
 SCM
 Note_head::brew_ez_molecule (SCM smob)
 {

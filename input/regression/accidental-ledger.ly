@@ -6,7 +6,7 @@
 
 \score { \notes
 {
- cis'4 cis'! cis' cis'
+ c'!4 cis'! cis' <cis'! gis'>
 }
 	 \paper { raggedright = ##t}
 }
