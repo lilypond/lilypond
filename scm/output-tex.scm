@@ -23,6 +23,7 @@
   #:export (unknown
 	     blank
 	     dot
+	     white-dot
 	     beam
 	     bracket
 	     dashed-slur
@@ -70,6 +71,9 @@
 
 (define (dot x y radius)
   (embedded-ps (list 'dot x y radius)))
+
+(define (white-dot x y radius)
+  (embedded-ps (list 'white-dot x y radius)))
 
 (define (beam width slope thick blot)
   (embedded-ps (list 'beam  width slope thick blot)))
@@ -182,4 +186,3 @@
 
 ;; no-origin not yet supported by Xdvi
 (define (no-origin) "")
-

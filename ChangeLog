@@ -1,3 +1,22 @@
+
+2004-06-17  Carl Sorensen (carl_sorensen@byu.edu)
+
+	* scm/fret-diagrams.scm: added fret-diagram-terse interface;
+	remove size as argument to fret-diagram interface;
+	improved white-circle dots for fret;
+	improved top-fret thick line/
+
+	* scm/output-ps.scm: added white-dot function
+
+	* scm/output-tex.scm: added white-dot function
+
+	* tex/music-drawing-routines.ps: added draw_white_dot function
+
+	* ps/music-drawing-routines.ps: added draw_white_dot function
+
+	* input/test/fret-diagram.ly: examples to show multiple
+	functions and multiple interfaces
+
 2004-06-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/pangofc-afm-decoder.cc (pango_fc_afm_get_glyph) 

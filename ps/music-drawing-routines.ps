@@ -228,6 +228,17 @@
 	0 360 arc closepath fill stroke
 } bind def
 
+/draw_white_dot % x1 y2 R
+{
+%	0 360 arc fill stroke
+	0 360 arc closepath % fill stroke 
+gsave
+ 1 setgray fill 
+grestore 
+%	0 360 arc closepath % fill stroke 
+  0.05 setlinewidth 0 setgray stroke
+} bind def
+
 /draw_dashed_line % dash thickness dx dy
 { 
 	1 setlinecap 
