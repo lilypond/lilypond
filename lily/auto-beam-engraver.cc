@@ -218,6 +218,11 @@ Auto_beam_engraver::consider_end (Moment test_mom)
 Spanner*
 Auto_beam_engraver::create_beam_p ()
 {
+  if (to_boolean (get_property ("skipTypesetting")))
+    {
+     return 0;
+    }
+  
   Spanner* beam_p = new Spanner (get_property ("Beam"));
   for (int i = 0; i < stem_l_arr_p_->size (); i++)
     {
@@ -258,6 +263,7 @@ Auto_beam_engraver::junk_beam ()
   stem_l_arr_p_ = 0;
   delete grouping_p_;
   grouping_p_ = 0;
+
   shortest_mom_ = Moment (1, 8);
 }
 
@@ -269,6 +275,7 @@ Auto_beam_engraver::end_beam ()
       junk_beam ();
     }
   else
+    
     {
       finished_beam_p_ = create_beam_p ();
       if (finished_beam_p_)
@@ -276,8 +283,9 @@ Auto_beam_engraver::end_beam ()
       delete stem_l_arr_p_;
       stem_l_arr_p_ = 0;
       grouping_p_ = 0;
-      shortest_mom_ = Moment (1, 8);
     }
+
+  shortest_mom_ = Moment (1, 8);
 }
 
 void

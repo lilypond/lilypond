@@ -1,5 +1,27 @@
-1.3.141.jcn3
+1.3.142.hwn2
 ============
+
+* Glossary bugfixes for lilypond code.
+
+* Bugfix: don't crash if dy or y not set.
+
+* Doco updates: moved contents of tricks chapter to input/tricks,
+inserted lilypond-book tutorial, added polyphony section.
+
+* Score.skipTypesetting skips over already or not yet corrected music, thus
+speeding up running times and score debugging. (Includes bugfix relative to
+patch submitted to list.)
+
+1.3.142.jcn1
+============
+
+* Mup2ly preprocesses and extracts all plain notes.
+
+* Bugfix: patch in $(outdir)
+
+
+1.3.142
+=======
 
 * some mup2ly progress.
 

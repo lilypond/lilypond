@@ -35,7 +35,6 @@ protected:
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
   virtual void finalize ();
-  virtual void create_grobs ();
 
 private:
   Span_req * new_req_l_;
@@ -114,12 +113,6 @@ Multi_measure_rest_engraver::process_music ()
       new_req_l_ =0;
     }
 
-}
-
-void
-Multi_measure_rest_engraver::create_grobs ()
-{
-
   if (busy_span_req_l_ && !mmrest_p_)
     {
       mmrest_p_ = new Spanner (get_property ("MultiMeasureRest"));
@@ -131,6 +124,8 @@ Multi_measure_rest_engraver::create_grobs ()
       start_measure_i_
 	= gh_scm2int (get_property ("currentBarNumber"));
     }
+
+
 }
 
 void
@@ -145,7 +140,8 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
     {
       typeset_grob (mmrest_p_);
       /*
-	we must keep mmrest_p_ around to set measure-count.
+	we must keep mmrest_p_ around to set measure-count, so
+	no mmrest_p_ = 0 here. 
        */
     }
 
