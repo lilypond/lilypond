@@ -15,9 +15,6 @@ texi2html =\
 $(outdir)/%.1: %.texinfo
 	$(texi2man)
 
-# $(outdir)/%.info: %.texinfo
-# 	$(MAKEINFO) -o $@ $<
-
 $(outdir)/%.info: $(outdir)/%.texinfo
 	$(MAKEINFO) -o $@ $<
 
@@ -32,9 +29,6 @@ $(outdir)/%.info: $(outdir)/%.texinfo
 $(outdir)/%.html: $(outdir)/%.texinfo
 	$(texi2html)
 	$(PYTHON) $(step-bindir)/add-html-footer.py --package=$(topdir) --index $(depth)/../index.html $@
-
-$(outdir)/%.texinfo: %.texinfo
-	cp $< $@
 
 $(outdir)/%.1: $(outdir)/%.texinfo
 	-$(texi2man)
