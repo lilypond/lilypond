@@ -44,6 +44,21 @@ Font_interface::font_alist_chain (Grob *me)
   return ch;
 }
 
+
+MAKE_SCHEME_CALLBACK(Font_interface, get_property_alist_chain, 1);
+SCM
+Font_interface::get_property_alist_chain (SCM grob)
+{
+
+  Grob * g = unsmob_grob (grob);
+  SCM_ASSERT_TYPE(g, grob, SCM_ARG1, __FUNCTION__, "grob");
+  return  font_alist_chain (g);
+  
+}
+  
+  
+
+
 /*
   todo: split up this func, reuse in text_item? 
  */

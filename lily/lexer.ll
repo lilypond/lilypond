@@ -296,6 +296,7 @@ HYPHEN		--
 		return FIGURE_OPEN;
 	}
 }
+
 <notes,figures>{
 	{ALPHAWORD}	{
 		return scan_bare_word (YYText ());
@@ -426,6 +427,9 @@ HYPHEN		--
 		return YYText ()[0];
 	}
 }
+
+
+
 
 <<EOF>> {
 

@@ -59,7 +59,18 @@ Text_item::text2molecule (Grob *me, SCM text, SCM alist_chain)
     }
   return Molecule ();
 }
-	     
+
+
+MAKE_SCHEME_CALLBACK(Text_item,text_to_molecule,3);
+SCM
+Text_item::text_to_molecule (SCM grob, SCM props, SCM markup)
+{
+  Grob *me = unsmob_grob (grob);
+  
+  return Text_item::text2molecule (me, markup, props).smobbed_copy();
+}
+
+
 Molecule
 Text_item::string2molecule (Grob *me, SCM text, SCM alist_chain)
 {

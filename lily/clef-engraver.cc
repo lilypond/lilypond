@@ -11,15 +11,12 @@
 #include <ctype.h>
 
 #include "translator-group.hh"
-
 #include "bar-line.hh"
 #include "staff-symbol-referencer.hh"
-
 #include "engraver.hh"
 #include "direction.hh"
 #include "side-position-interface.hh"
 #include "item.hh"
-
 
 class Clef_engraver : public  Engraver
 {
@@ -82,7 +79,6 @@ Clef_engraver::acknowledge_grob (Grob_info info)
       if (Bar_line::has_interface (info.grob_)
 	  && gh_string_p (get_property ("clefGlyph")))
 	create_clef ();
-
     } 
 }
 

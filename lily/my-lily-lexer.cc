@@ -224,3 +224,21 @@ My_lily_lexer::prepare_for_next_token ()
 {
   last_input_ = here_input();
 }
+
+#if 0
+SCM
+My_lily_lexer::scan_markup_word (String s)
+{
+  /*
+    TODO: better implementation:
+
+    - make a table of markup functions, for quicker lookup
+
+    - error handling.
+    
+   */
+  SCM s = scm_c_eval_str ((s + "-markup").to_str0());
+  yylval.scm = s;
+  return MARKUP_HEAD;
+}
+#endif

@@ -137,19 +137,19 @@ Duration::less_p (SCM p1, SCM p2)
 LY_DEFINE(make_duration,
 	  "ly:make-duration", 2, 2, 0, (SCM length, SCM dotcount,
 				     SCM num, SCM den),
-	  "
-@var{length} is the negative logarithm (base 2) of the duration:
-1 is a half note, 2 is a quarter note, 3 is an eighth
-note, etc.  The number of dots after the note is given by
-@var{dotcount}.
-
-The duration factor is optionally given by @var{num} and @var{den}.
-
-A duration is a musical duration, i.e. a length of time described by a
-power of two (whole, half, quarter, etc.) and a number of augmentation
-dots. 
-
-")
+"	  \n"
+"@var{length} is the negative logarithm (base 2) of the duration:\n"
+"1 is a half note, 2 is a quarter note, 3 is an eighth\n"
+"note, etc.  The number of dots after the note is given by\n"
+"@var{dotcount}.\n"
+"\n"
+"The duration factor is optionally given by @var{num} and @var{den}.\n"
+"\n"
+"A duration is a musical duration, i.e. a length of time described by a\n"
+"power of two (whole, half, quarter, etc.) and a number of augmentation\n"
+"dots. \n"
+"\n"
+"")
 {
   SCM_ASSERT_TYPE(gh_number_p (length), length, SCM_ARG1, __FUNCTION__, "integer");
   SCM_ASSERT_TYPE(gh_number_p (dotcount), dotcount, SCM_ARG2, __FUNCTION__, "integer");

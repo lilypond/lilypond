@@ -2215,3 +2215,33 @@ My_lily_lexer::try_special_identifiers (SCM * destination, SCM sid)
 	}
 	return -1;	
 }
+#if 0
+
+markup:
+	STRING {
+		$$ = scm_list_n (scm_c_eval_string ("simple-markup"), $1, SCM_UNDEFINED);
+	}
+	| MARKUP_HEAD0 markup
+	| MARKUP_HEAD1 SCM_T markup
+	| MARKUP_HEAD2 markup
+	| MARKUP_LIST_HEAD 
+	| MARKUP_LIST_HEAD 
+	| markup_list {
+		$$ = $1 
+	;
+
+markup_list:
+	'<' markup_list_body '>' { $$ = scm_reverse_x ($1, SCM_EOL); }
+	;
+
+markup_line:
+	'{' markup_list_body '}' { $$ = .. scm_reverse_x ($1, SCM_EOL); }
+	
+	;
+markup_list_body:
+	/**/ {  $$ = SCM_EOL; }
+	markup_list_body markup {
+		$$ = gh_cons ($2, $1) ;
+	}
+	;
+#endif
