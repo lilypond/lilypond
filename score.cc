@@ -29,6 +29,7 @@ Score::output(String s)
 void
 Score::process()
 {
+    *mlog << "Processing ...";
     set(commands_->parse(last()));
     commands_->print();
     
@@ -40,7 +41,7 @@ Score::process()
     /// distribute commands to disciples
     distribute_commands();
     
-    pscore_ = new PScore;
+    pscore_ = new PScore(paper_);
     for (PCursor<Staff*> sc(staffs_); sc.ok(); sc++) {
 	sc->set_output(pscore_);
 	sc->process();
@@ -52,9 +53,11 @@ Score::process()
     clean_cols();
     OK();
     //    print();
+    *mlog << "Calculating ... ";
     pscore_->calc_breaking();
     // TODO: calculate vertical structs
     // TODO: calculate mixed structs.
+    *mlog << "\n";
 }
 
 // remove empty cols with no spacing attached.
