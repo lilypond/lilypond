@@ -110,7 +110,7 @@ DODEP=rm -f $(depfile); DEPENDENCIES_OUTPUT="$(depfile) $(outdir)/$(notdir $@)"
 # generic target names:
 #
 ifdef NAME
-EXECUTABLE = $(outdir)/$(NAME)$(EXE)
+EXECUTABLE = $(outdir)/$(NAME)
 else
 EXECUTABLE =
 endif

@@ -193,7 +193,10 @@ to_chord (Array<Musical_pitch> pitch_arr, Tonic_req* tonic_req, Inversion_req* i
       assert (pitch_arr[0].notename_i_ == tonic_req->pitch_.notename_i_);
     }
 
-  return Chord (pitch_arr, inversion_p, bass_p);
+  Chord chord (pitch_arr, inversion_p, bass_p);
+  delete inversion_p;
+  delete bass_p;
+  return chord;
 }
 
 Chord::Chord ()

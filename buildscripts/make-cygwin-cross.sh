@@ -26,33 +26,45 @@
 # config section
 ################
 
-target=cygwin
-#target=mingw
+TARGET_OS=cygwin
+#TARGET_OS=mingw32
 
-if [ $target = cygwin ]; then
+if [ $TARGET_OS = cygwin ]; then
 	ROOT=/usr/src/cygwin-net-485
-	TARGET_ARCH=i686-pc-cygwin
+	TARGET_ARCH=i686
+	TARGET_VENDOR=pc
 else
 	ROOT=/usr/src/mingw-net-485
-	TARGET_ARCH=i386-pc-mingw32
+	TARGET_ARCH=i386
+	TARGET_VENDOR=pc
 fi
+TARGET_PLATFORM=$TARGET_ARCH-$TARGET_VENDOR-$TARGET_OS
+
+ARCH=`uname -m`
+OS=`uname -s | tr '[A-Z]' '[a-z]'`
+VENDOR=gnu
+PLATFORM=$ARCH-$VENDOR-$OS
+
+#CROSS_TARGET_PLATFORM=$ARCH-x-$TARGET_PLATFORM
+CROSS_TARGET_PLATFORM=$PLATFORM-x-$TARGET_PLATFORM
+cto=$OS-x-cygwin
+tp=i686-cygwin
+
 PREFIX=$ROOT/usr
 NATIVE_ROOT=/Cygnus
 NATIVE_PREFIX=$NATIVE_ROOT/usr
+CROSS_ROOT=$NATIVE_ROOT/$cto
+CROSS_PREFIX=$CROSS_ROOT/usr
 
 # urg
 DEVEL=/home/fred
 distdir=$DEVEL/WWW/lilypond/gnu-windows/lily-w32
 #distdir=/tmp
 
-SOURCE_PATH=$DEVEL/usr/src/releases:$DEVEL/usr/src/redhat/SRPMS
-
-ARCH=`uname -m`
-OS=`uname -s | tr '[A-Z]' '[a-z]'`
-HOST=$ARCH-gnu-$OS
-CROSS_TARGET_ARCH=$ARCH-x-$TARGET_ARCH
-cta=$ARCH-x-cygwin
-ta=i686-cygwin
+CYGWIN_SOURCE=$DEVEL/sourceware.cygnus.com/pub/cygwin/private/cygwin-net-485
+cygwin_dirs=`/bin/ls -d1 $CYGWIN_SOURCE/*`
+cygwin_source_path=`echo $CYGWIN_SOURCE $cygwin_dirs | sed s'/\$/:/g'`
+SOURCE_PATH=$DEVEL/usr/src/releases:$DEVEL/usr/src/redhat/SRPMS:$cygwin_source_path
 
 cygwin_binary=cygwin-20000301.tar.gz
 mingw_binary=bin-crtdll-2000-02-03.tar.gz
@@ -68,34 +80,28 @@ MINWG_DLL=mingwc10-net-485.dll
 
 cross_rpm="
 binutils-19990818
+gcc-2.95.2
 bison
 flex
-gcc-2.95.2
 "
 
+# binutils installs ok, but forgets these two
 binutils_after_rpm='
-cd $PREFIX/$TARGET_ARCH/bin \;
-ln -f ../../bin/$TARGET_ARCH-ar ar \;
-ln -f ../../bin/$TARGET_ARCH-as as \;
-ln -f ../../bin/$TARGET_ARCH-dlltool dlltool \;
-ln -f ../../bin/$TARGET_ARCH-ld ld \;
-ln -f ../../bin/$TARGET_ARCH-nm nm \;
-ln -f ../../bin/$TARGET_ARCH-objdump objdump \;
-ln -f ../../bin/$TARGET_ARCH-objcopy objcopy \;
-ln -f ../../bin/$TARGET_ARCH-ranlib ranlib \;
-ln -f ../../bin/$TARGET_ARCH-strip strip \;
-cd $PREFIX/bin \;
-rm -f ar as dlltool ld nm objdump objcopy ranlib strip \;
+cd $CROSS_PREFIX/$TARGET_PLATFORM/bin \;
+ln -f ../../bin/$TARGET_PLATFORM-objdump objdump \;
+ln -f ../../bin/$TARGET_PLATFORM-objcopy objcopy \;
+mv -f ld ld-in-path-breaks-libtool
 '
+# burp.  gcc doesn't install any of these
 gcc_after_rpm='
-cd $PREFIX/$TARGET_ARCH/bin \;
-ln -f ../../bin/$TARGET_ARCH-gcc cc \;
-ln -f ../../bin/$TARGET_ARCH-gcc gcc \;
-ln -f ../../bin/$TARGET_ARCH-c++ c++ \;
-ln -f ../../bin/$TARGET_ARCH-g++ g++
+cd $CROSS_PREFIX/$TARGET_PLATFORM/bin \;
+ln -f ../../bin/$TARGET_PLATFORM-gcc cc \;
+ln -f ../../bin/$TARGET_PLATFORM-gcc gcc \;
+ln -f ../../bin/$TARGET_PLATFORM-c++ c++ \;
+ln -f ../../bin/$TARGET_PLATFORM-g++ g++
 '
 
-#guile_after_rpm='ln -f $NATIVE_PREFIX/bin/i686-redhat-cygwin-guile-config $NATIVE_PREFIX/bin/i686-pc-cygwin-guile-config'
+guile_after_rpm='cp -f $NATIVE_PREFIX/bin/*guile-config $CROSS_PREFIX/$TARGET_PLATFORM/bin'
 
 lilypond_version=@TOPLEVEL_VERSION@
 
@@ -149,17 +155,18 @@ build ()
         name=`echo $package | sed 's/-.*//'`
 
 	if [ $type = "cross" ]; then
-		target_arch=$CROSS_TARGET_ARCH
-		a=$cta
+		target_platform=$CROSS_TARGET_PLATFORM
+		a=$cto
 	else
-		target_arch=$TARGET_ARCH
-		a=$ta
+		target_platform=$TARGET_PLATFORM
+		a=$tp
 	fi
 
-	rpm_package=`find_path $name*.rpm "$topdir/RPMS/$cta:$topdir/RPMS/$ta"`
+	rpm_package=`find_path $name*.rpm "$topdir/RPMS/$cto:$topdir/RPMS/$tp"`
 	if [ "$rpm_package" != "" ]; then
 		echo "$rpm_package: package exists"
-		echo "$rpm_package: just updating db"
+		#echo "$rpm_package: refreshing installation only"
+		echo "$rpm_package: just updating rpm database"
 		rpm -ivv --justdb --ignoreos --ignorearch --nodeps --force\
 			--dbpath $NATIVE_ROOT/var/lib/rpm \
 			$topdir/RPMS/$a/$name*.rpm
@@ -170,15 +177,15 @@ build ()
 	found=`find_path $package*src.rpm`
 	if [ "$found" != "" ]; then
 		rpm --root $NATIVE_ROOT -ivv $found || exit 1
-		rpm --target=$target_arch -ba SPECS/$name*.spec || exit 1
+		rpm --target=$target_platform -ba SPECS/$name*.spec || exit 1
 	else
 		tarball=`/bin/ls -d1 SOURCES/$package*tar.gz 2>/dev/null | head -1`
-		if [ "SPECS/$name.spec" != "" ] && [ "$tarball" != "" ]; then
-			rpm --target=$target_arch -ba SPECS/$name.spec || exit 1
+		if [ "$name.spec" != "" ] && [ "$tarball" != "" ]; then
+			rpm --target=$target_platform -ba SPECS/$name.spec || exit 1
 		else
 			found=`find_path $package*tar.gz`
 			if [ "$found" != "" ]; then
-				rpm --target=$target_arch -ta $found || exit 1
+				rpm --target=$target_platform -ta $found || exit 1
 			else
 				echo "$package: no such rpm or tarball"
 				exit 1
@@ -209,9 +216,19 @@ mkdir -p $ROOT
 if [ ! -d $PREFIX/bin ]; then
 	mkdir -p $PREFIX
 	cd $PREFIX
-	mkdir -p include
-	mkdir -p $TARGET_ARCH
-	cd $TARGET_ARCH && ln -s ../include .
+
+	## is this still necessary?
+	mkdir -p include lib
+	mkdir -p $TARGET_PLATFORM
+	cd $TARGET_PLATFORM && ln -s ../include .
+
+	mkdir -p $CROSS_PREFIX/$TARGET_PLATFORM
+	cd $CROSS_PREFIX/$TARGET_PLATFORM
+	ln -s $NATIVE_PREFIX/{include,lib} .
+	#ln -s $NATIVE_PREFIX/{include,lib} .
+	#ln -s $NATIVE_PREFIX/include .
+	#ln -s $CROSS_PREFIX/bin .
+	
 	cd $ROOT
 	found=`find_path $cygwin_binary`
 	if [ "$found" = "" ]; then
@@ -220,14 +237,15 @@ if [ ! -d $PREFIX/bin ]; then
 	fi
 	tar xzf $found
 	# urg, bug in gcc's cross-make configuration
-	mkdir -p $PREFIX/lib/gcc-lib/$TARGET_ARCH/2.95.2
+	mkdir -p $PREFIX/lib/gcc-lib/$TARGET_PLATFORM/2.95.2
+	mkdir -p $CROSS_PREFIX/lib/gcc-lib/$TARGET_PLATFORM/2.95.2
 else
 	echo "$PREFIX: already exists"
 	echo "$cygwin_binary: skipping"
 fi
 
 # mingw
-if [ ! -d $PREFIX/$TARGET_ARCH ]; then
+if [ ! -d $PREFIX/$TARGET_PLATFORM ]; then
 	cd $PREFIX
 	found=`find_path $mingw_binary`
 	if [ "$found" = "" ]; then
@@ -236,11 +254,11 @@ if [ ! -d $PREFIX/$TARGET_ARCH ]; then
 	fi
 	tar xzf $found
 
-	mkdir -p $PREFIX/lib/gcc-lib/$TARGET_ARCH/2.95.2
+	mkdir -p $PREFIX/lib/gcc-lib/$TARGET_PLATFORM/2.95.2
 	rm -f include
 	mkdir -p $PREFIX/i386-mingw32/include
-	ln -s $PREFIX/i386-mingw32 $TARGET_ARCH
-	ln -s $PREFIX/$TARGET_ARCH/include .
+	ln -s $PREFIX/i386-mingw32 $TARGET_PLATFORM
+	ln -s $PREFIX/$TARGET_PLATFORM/include .
 fi
 
 rm -f $NATIVE_ROOT
@@ -269,18 +287,19 @@ db_cv_sprintf_count=yes
 db_cv_spinlocks=no
 EOF
 
-mcta=$ARCH-cygwin
-cross_rpm_dir=$NATIVE_PREFIX/lib/rpm/$mcta
-cross_rpm_link=/usr/lib/rpm/$mcta
+#URG, stupid RPM
+rpm_ct=$ARCH-$TARGET_OS
+cross_rpm_dir=$CROSS_PREFIX/lib/rpm/$rpm_ct
+cross_rpm_link=/usr/lib/rpm/$rpm_ct
 mkdir -p $cross_rpm_dir
 rm -f $cross_rpm_link
-ln -s $NATIVE_PREFIX/lib/rpm/$mcta $cross_rpm_link
+ln -s $cross_rpm_dir $cross_rpm_link
 
-native_rpm_dir=$NATIVE_PREFIX/lib/rpm/$ta
-native_rpm_link=/usr/lib/rpm/$ta
+native_rpm_dir=$NATIVE_PREFIX/lib/rpm/$tp
+native_rpm_link=/usr/lib/rpm/$tp
 mkdir -p $native_rpm_dir
 rm -f $native_rpm_link
-ln -s $NATIVE_PREFIX/lib/rpm/$ta $native_rpm_link
+ln -s $native_rpm_dir $native_rpm_link
 
 cross_macros=$cross_rpm_dir/macros
 native_macros=$native_rpm_dir/macros
@@ -288,11 +307,6 @@ native_macros=$native_rpm_dir/macros
 base_macros=$NATIVE_PREFIX/lib/rpm/base-macros
 rm -f $base_macros
 cat > $base_macros <<EOF
-%root		/Cygnus
-%_rootbindir    /Cygnus/bin
-#_usr           /Cygnus/usr
-%_prefix	/Cygnus/usr
-%prefix		/Cygnus/usr
 %native_prefix	/Cygnus/usr
 
 %_topdir	%{native_prefix}/src/redhat
@@ -308,30 +322,52 @@ cat > $base_macros <<EOF
 
 %cygwin_dll	%{native_prefix}/bin/cygwin1.dll
 
+%__install	/bin/install
+
 %cflags		%{optflags}
+%cppflags	%{nil}
 
 %sourcedir	.
 EOF
 
 cp -f $base_macros $cross_macros
 cat >> $cross_macros <<EOF
-%_rpmfilename	%%{ARCH}-x-cygwin/%%{NAME}-%%{VERSION}-%%{RELEASE}.%%{ARCH}-x-cygwin.rpm
+
+%cross_prefix	/Cygnus/$cto/usr
+%root		/Cygnus/$cto
+%_rootbindir    /Cygnus/$cto/bin
+#_usr           /Cygnus/$cto/usr
+%_prefix	/Cygnus/$cto/usr
+%prefix		/Cygnus/$cto/usr
+
+%_rpmfilename	$cto/%%{NAME}-%%{VERSION}-%%{RELEASE}.$cto.rpm
 
 %config_site	%{nil}
-%ldflags	%{nil}
-%_target_platform $TARGET_ARCH
-%program_prefix $TARGET_ARCH-
 
+%cppflags	%{nil}
+%cflags		%{nil}
+%ldflags	%{nil}
+%_target_platform $TARGET_PLATFORM
+
+#% configure	\
+#  %{?__libtoolize:[ -f configure.in ] \&\& %{__libtoolize} --copy --force}; \
 %configure	\
-  CFLAGS="%{cflags}" LDFLAGS="%{ldflags}" CONFIG_SITE=%{config_site} \
+  CPPFLAGS="%{cppflags}" CFLAGS="%{cflags}" LDFLAGS="%{ldflags}" CONFIG_SITE=%{config_site} \
   %{sourcedir}/configure \
-  --host=%{_host} --target=%{_target_platform} --prefix=%{native_prefix} \
-  --program-prefix=%{program_prefix}
+  --host=%{_host} --target=%{_target_platform} --prefix=%{cross_prefix} -v
 EOF
 
 cp -f $base_macros $native_macros
 cat >> $native_macros <<EOF
+
+%root		/Cygnus
+%_rootbindir    /Cygnus/bin
+#_usr           /Cygnus/usr
+%_prefix	/Cygnus/usr
+%prefix		/Cygnus/usr
+
 %config_site	%{_prefix}/share/native-config.site
+# won't work: scripts and stuff are .exe too
 #%program_suffix .exe
 %program_suffix %{nil}
 
@@ -339,47 +375,89 @@ cat >> $native_macros <<EOF
 #%_vendor	pc
 #%_os		cygwin
 
-%_rpmfilename	%%{ARCH}-cygwin/%%{NAME}-%%{VERSION}-%%{RELEASE}.%%{ARCH}-cygwin.rpm
+%_rpmfilename	%%{ARCH}-$TARGET_OS/%%{NAME}-%%{VERSION}-%%{RELEASE}.%%{ARCH}-$TARGET_OS.rpm
 
 %__find_provides	%{native_prefix}/lib/rpm/cygwin.prov
 %__find_requires	%{native_prefix}/lib/rpm/cygwin.req
+%__fix_suffixes		%{native_prefix}/bin/fix-suffixes
+%fix_suffixes	%{__fix_suffixes} \$RPM_BUILD_ROOT%{_rootbindir}/* \$RPM_BUILD_ROOT%{native_prefix}/bin/*
 
+%cppflags	-I%{native_prefix}/include
+%cflags		%{optflags} %{cppflags}
 %ldflags	-L%{native_prefix}/lib %{cygwin_dll}
+
+#%configure	\
+#  %{?__libtoolize:[ -f configure.in ] \&\& %{__libtoolize} --copy --force}; \
+
 %configure	\
-  CFLAGS="%{cflags}" LDFLAGS="%{ldflags}" CONFIG_SITE=%{config_site} \
+  CPPFLAGS="%{cppflags}" CFLAGS="%{cflags}" LDFLAGS="%{ldflags}" CONFIG_SITE=%{config_site} \
   %{sourcedir}/configure --host=%{_host} --target=%{_target_platform} \
-  --prefix=%{native_prefix} --program-suffix=%{program_suffix}
+  --prefix=%{native_prefix} --program-prefix=
+#  --prefix=%{native_prefix} --program-suffix=%{program_suffix}
 EOF
 
-rm -f $native_rpm_dir/cygwin.prov
-cat > $native_rpm_dir/cygwin.prov <<EOF
+rm -f $NATIVE_PREFIX/lib/rpm/cygwin.prov
+cat > $NATIVE_PREFIX/lib/rpm/cygwin.prov <<EOF
 #!/bin/sh
 while read f ; do
-       f=\`echo $f | tr '[:upper:]' '[:lower:]'\`
+       f=\`echo \$f | tr '[:upper:]' '[:lower:]'\`
        case \$f in
        *.dll)  basename \$f
                ;;
        esac
 done | sort -u
 EOF
-chmod 755 $native_rpm_dir/cygwin.prov
+chmod 755 $NATIVE_PREFIX/lib/rpm/cygwin.prov
 
-rm -f $native_rpm_dir/cygwin.req
-cat > $native_rpm_dir/cygwin.req <<EOF
+rm -f $NATIVE_PREFIX/lib/rpm/cygwin.req
+cat > $NATIVE_PREFIX/lib/rpm/cygwin.req <<EOF
 #!/bin/sh
 
 while read f ; do
        case \$f in
-       *.dll|*.exe)    objdump -p $f | grep "DLL Name:" | cut -f3 -d" " | tr '[
-upper:]' '[:lower:]'
+       *.dll|*.exe)    objdump -p \$f | grep "DLL Name:" | cut -f3 -d" " | tr '[:upper:]' '[:lower:]'
                        ;;
        esac
 done | sort -u
 
 EOF
-chmod 755 $native_rpm_dir/cygwin.req
+chmod 755 $NATIVE_PREFIX/lib/rpm/cygwin.req
+
+rm -f $NATIVE_PREFIX/bin/fix-suffixes
+cat > $NATIVE_PREFIX/bin/fix-suffixes <<EOF
+#!/bin/sh
+## duh, rename executables,
+## for people that use a dumb shell instead of bash
 
 
+if [ \$# -le 0 ]; then
+	echo "Usage: fix-suffixes [FILE]..."
+	exit 2
+fi
+
+fix_extension ()
+{
+        path=\$1
+        ext=\$2
+        expr="\$3"
+	dir=\`dirname \$path\`
+        file=\`basename \$path\`
+        base=\`basename \$file \$ext\`
+        if [ \$base\$ext != \$file ]; then
+                type="\`file \$path\`"
+                if expr "\$type" : "\$expr"; then
+                        mv -f \$path \$dir/\$base\$ext
+                fi
+        fi
+}
+
+for i in \`/bin/ls -d1 \$*\`; do
+	fix_extension \$i .exe '.*Windows.*\(executable\).*'
+	fix_extension \$i .py '.*\(python\).*'
+done
+
+EOF
+chmod 755 $NATIVE_PREFIX/bin/fix-suffixes
 set -x
 type=rpm
 rm -rf $NATIVE_ROOT/var/lib/rpm
@@ -387,14 +465,16 @@ mkdir -p $NATIVE_ROOT/var/lib/rpm
 rpm --root $NATIVE_ROOT --initdb
 
 topdir=$NATIVE_PREFIX/src/redhat
-mkdir -p $topdir/{BUILD,RPMS/{$ta,$cta},SOURCES,SPECS,SRPMS}
+mkdir -p $topdir/{BUILD,RPMS/{$tp,$cto},SOURCES,SPECS,SRPMS}
 
 ##############
 # end of setup
 ##############
 
 OLDPATH=$PATH
-PATH=$PREFIX/bin:$PATH
+# building x-gcc requires to have x-ar in path
+# x-gcc will find $prefix/x/bin/as by itself
+PATH=$CROSS_PREFIX/bin:$PATH
 
 mkdir -p $PREFIX/src
 cd $PREFIX/src
@@ -408,7 +488,7 @@ for i in $cross_rpm; do
 	fi
 done
 
-PATH=$PREFIX/$TARGET_ARCH/bin:$PATH
+PATH=$CROSS_PREFIX/$TARGET_PLATFORM/bin:$PATH
 
 cd $PREFIX/src
 type=native
@@ -432,7 +512,7 @@ rm -f $distdir/$CYGWIN_DLL.gz
 cd $distdir && cp -f $PREFIX/bin/$CYGWIN_DLL . && gzip -f $CYGWIN_DLL
 
 rm -f $distdir/rpm.gz
-cd $distdir && cp -f $ROOT/bin/rpm . && gzip -f rpm
+cd $distdir && cp -f `/bin/ls -d1 $ROOT/bin/rpm* |head -1` rpm && gzip -f rpm
 
 
 cat > $distdir/setup.sh <<EOF
@@ -452,25 +532,28 @@ gunzip rpm.gz || exit 1
 echo > rpmrc
 mkdir -p \$ROOT/var/lib
 mkdir -p \$ROOT/bin
-echo > \$ROOT/bin/rpm
+touch \$ROOT/bin/rpm \$ROOT/bin/rpm.exe
 ./rpm --root \$ROOT --rcfile rpmrc --initdb
 ./rpm --root \$ROOT --rcfile rpmrc --nodeps --ignorearch --ignoreos -Uhv \\
-	RPMS/$ta/rpm-*.$ta.rpm \\
-	RPMS/$ta/*.$ta.rpm
+	RPMS/$tp/rpm-*.$tp.rpm \\
+	RPMS/$tp/*.$tp.rpm
 done
 EOF
 
 cat > $distdir/setup.bat <<EOF
 del dll olddll
-#old_dll=\`which cygwin1.dll\`
-bash -c 'dll=\`which cygwin1.dll\`;
+rem # old_dll=\`which cygwin1.dll\`
+bash -c 'mkdir -p /bin;
+	cp -f \`which bash\` /bin;
+	cp -f /bin/bash /bin/sh.exe;
+	dll=\`which cygwin1.dll\`;
 	wdll=\`cygpath -w \$dll\`;
 	echo cygwin1.dll \$wdll > newdll; echo \$wdll \$wdll.orig\$\$ > olddll'
 if not errorlevel 0 goto nobash
-#mv -f \$old_dll \$old_dll.orig\$\$
-#gunzip cygwin1.dll.gz
+rem # mv -f \$old_dll \$old_dll.orig\$\$
+rem # gunzip cygwin1.dll.gz
 gunzip cygwin1.dll.gz
-#cp -f cygwin1.dll \$old_dll
+rem # cp -f cygwin1.dll \$old_dll
 copy < olddll 
 copy < newdll 
 bash setup.sh
@@ -513,7 +596,7 @@ ln -s ../redhat/RPMS .
 www=`dirname $distdir`
 cd $www
 for i in guile-1 rpm lilypond; do
-	rpm=`find_path $i*.rpm $distbase/RPMS/$ta`
+	rpm=`find_path $i*.rpm $distbase/RPMS/$tp`
 	dist_rpms="$dist_rpms $rpm"
 done
 
@@ -530,12 +613,12 @@ rm -f $zipdir/$CYGWIN_DLL.zip
 cd $ROOT/bin && zip $zipdir/$CYGWIN_DLL.zip $CYGWIN_DLL
 
 for i in guile-1 rpm lilypond; do
-	found=`find_path $i*.rpm $distdir/RPMS/$ta`
+	found=`find_path $i*.rpm $distdir/RPMS/$tp`
 	if [ "$found" = "" ]; then
 		echo "$i: no such .rpm"
 	else
 		base=`basename $found`
-		package=`echo $base | sed "s/\.$ta.rpm//"`
+		package=`echo $base | sed "s/\.$tp.rpm//"`
 		dir=/tmp/$i-rpm2zip
 		rm -rf $dir
 		mkdir -p $dir

@@ -208,6 +208,14 @@ AC_DEFUN(AC_STEPMAKE_INIT, [
     fi
     stepmake=`echo ${stepmake} | sed "s!\\\${prefix}!$presome!"`
 
+    # urg, how is this supposed to work?
+    if test "$program_prefix" = "NONE"; then
+	  program_prefix=
+    fi
+    if test "$program_suffix" = "NONE"; then
+	  program_suffix=
+    fi
+
     AC_MSG_CHECKING(Package)
     if test "x$PACKAGE" = "xSTEPMAKE"; then
 	AC_MSG_RESULT(Stepmake package!)
@@ -336,7 +344,7 @@ dnl    fi
 	LN=cp # hard link does not work under cygnus-nt
 	LN_S='cp -r' # symbolic link does not work for native nt
 	ZIP="zip -r -9" #
-	DOTEXE=.exe
+	program_suffix=.exe
 	# urg
         # DIRSEP='\\'
  	# PATHSEP=';'
@@ -371,7 +379,8 @@ dnl    fi
 	ZIP="zip -r -9"
         INSTALL="\$(SHELL) \$(stepdir)/../bin/install-sh -c"
     fi
-    AC_SUBST(DOTEXE)
+    AC_SUBST(program_prefix)
+    AC_SUBST(program_suffix)
     AC_SUBST(ZIP)
     AC_SUBST(LN)
     AC_SUBST(LN_S)

@@ -43,8 +43,8 @@ INSTALL_DIST_FILES = \
   bin/convert-mudela\
   bin/mudela-book\
   bin/ly2dvi\
-  bin/lilypond$(DOTEXE)\
-  bin/mi2mu$(DOTEXE)\
+  bin/$(program_prefix)lilypond$(program_suffix)\
+  bin/$(program_prefix)mi2mu$(program-suffix)\
   info/lilypond.info\
   man/man1/mi2mu.1\
   man/man1/lilypond.1\
