@@ -2,6 +2,8 @@
 
 	* Documentation/user/examples.itely: second, third, fourth, and fifth sections added.
 
+	* input/template/{various}: removed files included in examples.itely.
+
 2004-08-26  Juergen Reuter   <reuter@ipd.uka.de>
 
 	* lily/stem.cc: bugfix: adjust-if-on-staffline: use
