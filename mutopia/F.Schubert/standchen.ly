@@ -16,7 +16,7 @@ multiple \paper{}s in one \score
 Note: Original key F.
 %}
 
-\version "1.0.19";
+\version "1.0.20";
 
 $vocal_verse1 = \notes\relative c''{
 	% ugh: treble/bass

@@ -52,8 +52,8 @@ Collision::do_pre_processing()
 
   /*
     [stem up, stem up shifted, stem down shifted, stem down]
-  */
-  Array<Note_column*> clash_group_arr_a[4];
+  */ 
+  Array<Note_column*> clash_group_arr_a[4]; // TODO: use drul.
 
   for (int i=0; i < clash_l_arr_.size(); i++)
     {

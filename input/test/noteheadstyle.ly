@@ -12,7 +12,7 @@ c4 c2 c8  c16 c16  c1
    \context ThreadedVoice <
     \context Thread = TA
       { \property Thread.noteHeadStyle = "cross"
-        \property ThreadedVoice.ydirection = \up c16} 
+        \property ThreadedVoice.verticalDirection = \up c16} 
     \context Thread = TB
       { \property Thread.noteHeadStyle = "" a16  }
     
@@ -40,4 +40,4 @@ c4 c2 c8  c16 c16  c1
 	}
     }
 }
-\version "1.0.19"; 
+\version "1.0.20"; 

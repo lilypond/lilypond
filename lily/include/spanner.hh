@@ -55,7 +55,9 @@ public:
   Spanner ();
   Spanner (Spanner const &);
   bool broken_b () const;
+
   virtual Array<Rod> get_rods () const;
+  virtual Array<Spring> get_springs () const;  
   virtual Spanner* find_broken_piece (Line_of_score*) const;
 protected:
   void set_my_columns ();
@@ -69,7 +71,6 @@ protected:
   Array<Breaking_information> broken_info_;
   friend Axis_group_spanner; // UGH
 
-  virtual void output_processing ();
   virtual void do_space_processing ();
   virtual void do_break_processing ();
   virtual Interval do_width () const;

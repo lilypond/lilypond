@@ -12,7 +12,7 @@
  Tested Features: cross staff beams and slurs, grace notes, no bars
 %}
 
-\version "1.0.19";
+\version "1.0.20";
 
 \include "nederlands.ly"
 
@@ -78,7 +78,7 @@ bassbeam = \notes{
 
 lower = \context Voice=two \notes \relative c{
   \stemdown
-  \property Staff.slurydirection = 1
+  \property Staff.slurVerticalDirection = 1
 
   % snapnie, hoevaak relative c heeft ze nodig?
   < \notes\relative c \basloopje \bassbeam >

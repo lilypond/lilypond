@@ -8,7 +8,7 @@ enteredby =	 "jcn";
 copyright =	 "public domain";
 latexheaders=    "headers";
 } 
-\version "1.0.19";
+\version "1.0.20";
 
 
 

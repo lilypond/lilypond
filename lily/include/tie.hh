@@ -22,10 +22,8 @@ public:
   Tie ();
   void set_head (Direction, Note_head*head_l);
   VIRTUAL_COPY_CONS(Score_element);
-  
-  bool same_pitch_b_;
-  Drul_array<Note_head *> head_l_drul_;
 
+  Drul_array<Note_head *> head_l_drul_;
 protected:
   virtual void do_add_processing ();
   virtual void do_post_processing ();

@@ -39,8 +39,9 @@
     The quality is given by the total potential energy in the
     springs. The lower the energy, the better the configuration.
 
-    TODO: make item widths work per Staff.
 
+    TODO: too complicated.  Revise.
+    Use force iso. energy.  Also optimise for uniform density
 */
 
 class Spring_spacer : public Line_spacer {

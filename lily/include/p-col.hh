@@ -12,7 +12,7 @@
 
 #include "axis-group-item.hh"
 #include "rod.hh"
-
+#include "spring.hh"
 
 /**
    stuff grouped vertically.
@@ -35,6 +35,7 @@ public:
   void preprocess ();
   /// set a minimum distance
   void add_rod (Paper_column * to, Real distance);
+  void add_spring (Paper_column * to, Real dist, Real strength);
 
   virtual Paper_column * column_l () const;
   /// if lines are broken then this column is in #line#

@@ -38,6 +38,35 @@ Paper_column::add_rod (Paper_column * p, Real d)
   minimal_dists_arr_drul_[dir].push (cr);
 }
 
+void
+Paper_column::add_spring (Paper_column * p, Real d, Real s)
+{
+  Direction dir =  Direction (sign (p->rank_i ()  - rank_i ()));
+  
+  if (!dir)
+    {
+      warning ("Must set spring between differing columns.");
+      return;
+    }
+  
+  for (int i=0; i < spring_arr_drul_[dir].size (); i++)
+    {
+      Column_spring &spring = spring_arr_drul_[dir][i];
+      if (spring.other_l_ == p)
+	{
+	  spring.distance_f_ = spring.distance_f_ >? d;
+	  return ;
+	}
+    }
+
+  Column_spring cr;
+  cr.distance_f_ = d;
+  cr.strength_f_ = s;  
+  cr.other_l_ = p;
+
+  spring_arr_drul_[dir].push (cr);
+}
+
 int
 Paper_column::rank_i() const
 {
@@ -55,15 +84,20 @@ Paper_column::do_print() const
 {
 #ifndef NPRINT
   DOUT << "rank: " << rank_i_ << '\n';
-  for (int i=0; i < minimal_dists_arr_drul_[LEFT].size (); i++)
+  Direction d = LEFT;
+  do
     {
-      minimal_dists_arr_drul_[LEFT][i].print ();
+      for (int i=0; i < minimal_dists_arr_drul_[d].size (); i++)
+	{
+	  minimal_dists_arr_drul_[d][i].print ();
+	}
+      for (int i=0; i < spring_arr_drul_[d].size (); i++)
+	{
+	  spring_arr_drul_[d][i].print ();
+	}
+      
     }
-  DOUT << "Right: ";
-  for (int i=0; i < minimal_dists_arr_drul_[RIGHT].size (); i++)
-    {
-      minimal_dists_arr_drul_[RIGHT][i].print ();
-    }
+  while ((flip (&d))!=LEFT);
   Item::do_print ();
 #endif 
 }
@@ -97,10 +131,14 @@ Paper_column::column_l () const
   return (Paper_column*)(this);
 }
 
-
+/*
+  ugh.
+ */
 void
 Paper_column::preprocess ()
 {
   minimal_dists_arr_drul_[LEFT].sort (Column_rod::compare);
   minimal_dists_arr_drul_[RIGHT].sort (Column_rod::compare);  
+  spring_arr_drul_[LEFT].sort (Column_spring::compare);
+  spring_arr_drul_[RIGHT].sort (Column_spring::compare);  
 }

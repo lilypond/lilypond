@@ -1161,12 +1161,12 @@ property of the context code(Voice).  The context code(Voice) has an
 attribute whose value is the direction to use for stems.  You can
 change it to `up' by issuing the following phrase:
 verb(
-  \property "Voice"."ydirection" = "1"
+  \property "Voice"."verticalDirection" = "1"
 )
 
 This command should be read as ``change the property called
-code(ydirection) within the current code(Voice) context to the value
-code(-1).''  For the property code(ydirection) the value code(1) means
+code(verticalDirection) within the current code(Voice) context to the value
+code(-1).''  For the property code(verticalDirection) the value code(1) means
 `up', and code(-1) means `down'. So, the
 proper way to code the polyphonic example is given in
 bind(Figure)ref(tutorial:multi-voice-fig).
@@ -1175,10 +1175,10 @@ latexcommand(\begin{figure}[h])
 mudela(fragment,verbatim,center)(
   \context "Staff" <
     \context "Voice" =  "one"  {
-      \property Voice.ydirection = "1"
+      \property Voice.verticalDirection = "1"
       r4 as'4 () as'4 g'4 }
     \context "Voice" =  "two"  {
-      \property Voice.ydirection = "-1"
+      \property Voice.verticalDirection = "-1"
       g'2 f'4 e'4 }
   >
 )
@@ -1330,8 +1330,8 @@ definition.  To remedy this, we can use an identifier to capture the
 meaning of a code(\property).
 
 mudela(verbatim)(
-stemup = \property Voice.ydirection = "1"
-stemdown = \property Voice.ydirection = "-1"
+stemup = \property Voice.verticalDirection = "1"
+stemdown = \property Voice.verticalDirection = "-1"
 shift = \property Voice.hshift = "1"
 \score {
   \context "Staff" \notes <
@@ -1349,7 +1349,6 @@ similarity in appearance between a declared property-setting entry and
 a real command like code(\clef) or code(\bar).  Real commands are
 hardcoded into the language and they have to be terminated by
 semicolons.
-
 
 sect(Sound output)
 label(tutorial:sound)

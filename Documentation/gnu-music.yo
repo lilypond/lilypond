@@ -2,22 +2,7 @@ article(GNU Music project - manifesto)(Han-Wen Nienhuys and Jan Nieuwenhuizen)()
 
 sect(Goal)
 
-Provide musicians with free software for
 
-itemize(
-it()composing
-it()engraving
-it()playing
-it()sequencing
-it()interchanging music
-it()arranging
-it()performing
-it()Metacomposing
-)
-
-These systems should encourage laymen to take up composing, in the
-same way that GNU tools have created a whole new generation of
-programmers.
 
 The public deserves free tools for composing and printing.
 

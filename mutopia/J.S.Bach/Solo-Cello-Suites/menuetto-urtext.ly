@@ -156,4 +156,4 @@ menuetto_ii = \context Staff\notes \relative c {
 	d2.
 }
 
-\version "1.0.19";
+\version "1.0.20";

@@ -393,6 +393,25 @@ Spring_spacer::add_column (Paper_column  *col, bool fixed, Real fixpos)
       r_rod.other_idx_ = this_rank;
       cols_[left_idx].rods_[RIGHT].push (r_rod);
     }
+#if 1 
+  if (experimental_features_global_b)
+    {
+      for (int i=0; i < col->spring_arr_drul_[LEFT].size (); i++)
+	{
+	  Column_spring &cr = col->spring_arr_drul_[LEFT][i];
+	  int idx = cr.other_l_->rank_i () - cols_[0].pcol_l_->rank_i ();
+	  if (idx < 0)
+	    continue;
+
+	  if (cols_[idx].pcol_l_ != cr.other_l_)
+	    continue;
+
+
+	  connect (idx, this_rank, cr.distance_f_,
+		   cr.strength_f_ / cr.distance_f_);
+	}
+    }
+#endif  
   
   cols_.push (c);
 }
@@ -481,11 +500,10 @@ Spring_spacer::connect (int i, int j, Real d, Real h)
 void
 Spring_spacer::prepare()
 {
-  DOUT << "Preparing..";
-  calc_idealspacing();
+  if (!experimental_features_global_b)
+    calc_idealspacing();
   handle_loose_cols();
   print();
-  DOUT << "finished preparing.\n";
 }
 
 Line_spacer*

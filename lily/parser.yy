@@ -9,6 +9,16 @@
            Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
+/*
+	Ambiguities:
+
+	* \alternative
+
+	* use of '-' in various places
+
+*/
+
+
 #include <iostream.h>
 #include "lily-guile.hh"
 #include "notename-table.hh"
@@ -44,8 +54,8 @@
 #include "new-repeated-music.hh"
 
 // mmm
-Mudela_version oldest_version ("1.0.16");
-Mudela_version version ("1.0.19");
+Mudela_version oldest_version ("1.0.20");
+Mudela_version version ("1.0.20");
 
 void
 print_mudela_versions (ostream &os)
@@ -1037,7 +1047,7 @@ request_that_take_dir:
 request_with_dir:
 	script_dir request_that_take_dir	{
 		if (G_script_req * gs = dynamic_cast<G_script_req*> ($2))
-			gs->dir_ = $1;
+			gs->dir_ = Direction ($1);
 		else if ($1)
 			$2->warning ("Can't specify direction for this request");
 		$$ = $2;

@@ -10,13 +10,19 @@
 #ifndef SPACING_SPANNER_HH
 #define SPACING_SPANNER_HH
 
+#include "spanner.hh"
+
 class Spacing_spanner : public Spanner
 {
-  Link_array<Paper_column> cols_;
-
+public:
   Spacing_spanner ();
+  VIRTUAL_COPY_CONS(Score_element);
+  Score_column *scol (int) const;
+  Array<Spring> do_measure (int,int) const;
+  int col_count () const;
 protected:
-  virtual void do_space_processing ();
+  virtual  Array<Spring> get_springs () const;
+  
 };
 
 #endif /* SPACING_SPANNER_HH */

@@ -106,4 +106,4 @@ gigue = \notes<
 	\$gigue_b
 >
 
-\version "1.0.19";
+\version "1.0.20";
