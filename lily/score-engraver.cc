@@ -59,7 +59,7 @@ Score_engraver::prepare (Moment w)
   Global_translator::prepare (w);
   make_columns (w);
 
-  post_move_processing ();
+  start_translation_timestep ();
 }
 
 void
@@ -115,9 +115,14 @@ Score_engraver::finalize ()
 void
 Score_engraver::one_time_step ()
 {
-  process_music ();
-  announces ();
-  pre_move_processing ();
+  if (!to_boolean (get_property (ly_symbol2scm("skipTypesetting"))))
+    {
+      process_music ();
+      announces ();
+    }
+
+  
+  stop_translation_timestep ();
   check_removal ();
 }
 

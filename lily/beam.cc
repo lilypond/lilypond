@@ -751,7 +751,9 @@ Beam::set_beaming (Grob*me,Beaming_info_list *beaming)
   FIXME: clean me up.
   */
 Molecule
-Beam::stem_beams (Grob*me,Item *here, Item *next, Item *prev) 
+Beam::stem_beams (Grob*me,Item *here, Item *next, Item *prev,
+		  Real dy, Real dydx
+		  ) 
 {
   // ugh -> use commonx
   if ((next && ! (next->relative_coordinate (0, X_AXIS) > here->relative_coordinate (0, X_AXIS))) ||
@@ -774,8 +776,6 @@ Beam::stem_beams (Grob*me,Item *here, Item *next, Item *prev)
   Real dx = visible_stem_count (me) ?
     last_visible_stem (me)->relative_coordinate (0, X_AXIS) - first_visible_stem (me)->relative_coordinate (0, X_AXIS)
     : 0.0;
-  Real dy = gh_scm2double (me->get_grob_property ("dy"));
-  Real dydx = dy && dx ? dy/dx : 0;
 
   Molecule leftbeams;
   Molecule rightbeams;
@@ -898,10 +898,18 @@ Beam::brew_molecule (SCM smob)
       dx = stems.top ()->relative_coordinate (0, X_AXIS) - x0;
     }
   
+
+
+  /*
+    TODO: the naming of the grob properties sucks.
+   */
+  SCM dy_s = me->get_grob_property ("dy");
+  SCM y_s = me->get_grob_property ("y");
+
   
-  Real dy = gh_scm2double (me->get_grob_property ("dy"));
+  Real dy = gh_number_p (dy_s) ? gh_scm2double (dy_s) : 0.0;
   Real dydx = dy && dx ? dy/dx : 0;
-  Real y = gh_scm2double (me->get_grob_property ("y"));
+  Real y = gh_number_p (y_s) ? gh_scm2double (y_s) : 0.0;
 
 
   for (int j=0; j <stems.size (); j++)
@@ -910,7 +918,7 @@ Beam::brew_molecule (SCM smob)
       Item * prev = (j > 0)? stems[j-1] : 0;
       Item * next = (j < stems.size ()-1) ? stems[j+1] :0;
 
-      Molecule sb = stem_beams (me, i, next, prev);
+      Molecule sb = stem_beams (me, i, next, prev, dy, dydx);
       Real x = i->relative_coordinate (0, X_AXIS)-x0;
       sb.translate (Offset (x, x * dydx + y));
       mol.add_molecule (sb);

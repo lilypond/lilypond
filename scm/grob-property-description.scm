@@ -104,7 +104,19 @@ Align_interface::center_on_element). .")
 (grob-property-description 'dependencies list? "list of score-grob pointers that indicate who to compute first for certain global passes.")
 (grob-property-description 'details list? "alist of parameters for detailed grob behavior.")
 (grob-property-description 'dir-forced boolean? "set if direction has been forced; read by Beam.")
-(grob-property-description 'dir-function procedure? "function of type (count total)->direction.  Default value: beam-dir-majority, also available: beam-dir-mean, beam-dir-median.")
+(grob-property-description 'dir-function procedure? "function of type (count total)->direction.  Default value: beam-dir-majority, also available: beam-dir-mean, beam-dir-median.
+
+The ways to calculate the direction of a beam work as follows:
+@table @code
+@item majority
+number count of up or down notes
+@item mean
+mean center distance of all notes
+@item median
+mean centre distance weighted per note
+@end table
+
+")
 (grob-property-description 'dir-list list? "list of stem directions, needed for optical spacing correction.")
 (grob-property-description 'direction dir? "up or down, left or right?.")
 (grob-property-description 'direction-source ly-grob? "in case side-relative-direction is set, which grob  to get the direction from .")

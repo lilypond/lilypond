@@ -26,7 +26,7 @@ class Note_heads_engraver : public Engraver
   Moment note_end_mom_;
 public:
   VIRTUAL_COPY_CONS (Translator);
-  
+
 protected:
   virtual void start_translation_timestep ();
   virtual bool try_music (Music *req_l) ;
@@ -34,7 +34,6 @@ protected:
   virtual void acknowledge_grob (Grob_info) ;
   virtual void stop_translation_timestep ();
 };
-
 
 bool
 Note_heads_engraver::try_music (Music *m) 
@@ -131,6 +130,7 @@ Note_heads_engraver::stop_translation_timestep ()
 void
 Note_heads_engraver::start_translation_timestep ()
 {
+  
   /* TODO:make this settable?
    */
   if (note_end_mom_ > now_mom ())
@@ -147,6 +147,8 @@ Note_heads_engraver::start_translation_timestep ()
       else
 	e->forbid_breaks ();	// guh. Use properties!
     }
+
+  
 }
 
 

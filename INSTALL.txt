@@ -121,9 +121,10 @@ Website
    The website is the most convenient form to use for reading the
 documentation on-line documentation. It is made by entering
 
-       make htmldoc
-   This does require a functioning LilyPond.  The binary doesn't have to
-be installed.
+
+       make web-doc
+   This does require a functioning LilyPond.  The executable doesn't
+have to be installed, though.
 
    If you want to auto-generate Lily's website, you'll need some
 additional conversion tools.

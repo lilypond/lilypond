@@ -42,7 +42,7 @@ import operator
 
 program_version = '@TOPLEVEL_VERSION@'
 if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
-	program_version = '1.3.113'
+	program_version = '1.4pre'
 
 include_path = [os.getcwd()]
 

@@ -39,7 +39,7 @@ public:
   DECLARE_SCHEME_CALLBACK (user_override, (SCM));
   DECLARE_SCHEME_CALLBACK (do_quantise_y, (SCM));
 
-  static Molecule stem_beams (Grob*,Item *here, Item *next, Item *prev);
+  static Molecule stem_beams (Grob*,Item *here, Item *next, Item *prev, Real, Real);
 
 private:
   static Direction get_default_dir (Grob*);

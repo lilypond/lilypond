@@ -75,6 +75,7 @@ local-help:
   po-replace  do po-update and replace catalogs with msgmerged versions\n\
   po-update   update translation Portable Object database\n\
   web         update website in out-www\n\
+  web-doc     generate documentation website\n\
   web-clean   clean out-www\n\
 \n\
 Some of these top level targets (diff, dist, release) can be issued\n\
