@@ -37,7 +37,6 @@ private:
 
   Bar_req * bar_req_l_;
   Bar * bar_p_;
-  bool auto_create_bar_b_;
 };
 
 #endif // BAR_ENGRAVER_HH
