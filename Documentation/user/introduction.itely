@@ -104,16 +104,18 @@ it to harmonize with the thickness of our staff lines.
 
 @ifhtml
 @html
-
+<p>
 <a href=henle-flat-bw.png>
-<img src=henle-flat-bw.png>
+<img width=300 src=henle-flat-bw.png>
 </a>
 
-<a href=baer-flat-bw.png><img width=300 src=baer-flat-bw.png></a>
+<a href=baer-flat-bw.png>
+<img width=300 src=baer-flat-bw.png></a>
 
 <a src=lily-flat-bw.png>
-<img src=lily-flat-bw.png>
-<a/>
+<img width=300 src=lily-flat-bw.png>
+</a>
+<p>
 @end html
 @end ifhtml
 
@@ -333,7 +335,7 @@ LilyPond is a batch program, so the syntax of the program is its
 user-interface.  It is the part that they see most, so it is easy to
 think that music representation is a very important or interesting
 problem. In reality, less than 10% of the source code of the program
-handles reading the input and representation, and they form the easy
+handles reading and representing the input, and they form the easy
 bits of the program. Converting the music to notation, and calculating
 a pretty layout is much more difficult.
 
@@ -342,8 +344,8 @@ a pretty layout is much more difficult.
 
 We have written LilyPond as an experiment of how to condense the art
 of music engraving into a computer program. Thanks to all that hard
-work, the program can be used to perform useful tasks.  The simplest
-application is printing notes.
+work, the program can now be used to perform useful tasks.  The
+simplest application is printing notes.
 
 @lilypond[relative=1]
   \time 2/4 c4 c g'4 g a4 a g2  
