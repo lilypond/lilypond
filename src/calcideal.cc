@@ -50,14 +50,14 @@ Score::calc_idealspacing()
 	    for (int i=0; i < sc->durations.sz(); i++) {
 		Real d = sc->durations[i];
 		Real dist = paper_->duration_to_dist(d);
-		PCol * c2 = find_col(sc->when + d,true)->pcol;
-		connect_nonmus(sc->pcol, c2, dist);
-		c2 = find_col(sc->when + d,false)->pcol;
-		connect_nonmus(sc->pcol, c2,  dist);
+		PCol * c2 = find_col(sc->when + d,true)->pcol_;
+		connect_nonmus(sc->pcol_, c2, dist);
+		c2 = find_col(sc->when + d,false)->pcol_;
+		connect_nonmus(sc->pcol_, c2,  dist);
 	    }
 	else if (sc->used()) {	// ignore empty columns
-	    PCol * c2 = find_col(sc->when,true)->pcol;
-	    connect_nonmus(sc->pcol,c2,0.0);
+	    PCol * c2 = find_col(sc->when,true)->pcol_;
+	    connect_nonmus(sc->pcol_, c2, 0.0);
 	}
     }       	
 }
