@@ -10,10 +10,13 @@
 % this file is included by feta-scripts.mf
 
 tfat := 1/2;
-twidth# := 0.5interline#;
-theight# := 0.55interline#;
+%twidth# := 0.5interline#;
+%theight# := 0.55interline#;
 % tthin# := stafflinethickness#;
 tthin# := 1.6stafflinethickness#;
+
+twidth# := 2/3interline#;
+theight# := 1/2interline#;
 
 % uhg/ uhuh?
 % toverlap# := tfat*twidth#+tthin#;
@@ -121,10 +124,11 @@ fet_beginchar("upprall", "upprall", "upprall")
 %	trills := 4;
 	trills := 3;
 	set_char_box(trills*twidth#-(trills-1)*0.5toverlap#, trills*twidth#-(trills-1)*0.5toverlap#, theight#, theight#);
-%	draw_slur(-2twidth#,-2theight#,-1);
+%	draw_slur(-2twidth#,-2theight#,0,-1);
 %	currentpicture := currentpicture shifted (-0.5w+tthin,-tfat*theight+0.75tthin);
-	draw_slur(0,-2theight#,-1);
-	currentpicture := currentpicture shifted (-0.5w+1.3tthin,-tfat*theight+1.5tthin);
+	draw_slur(0,-2theight#,0,-1);
+%	currentpicture := currentpicture shifted (-0.5w+1.3tthin,-tfat*theight+1.5tthin);
+	currentpicture := currentpicture shifted (-0.5w+1.65tthin,-tfat*theight+1.15tthin);
 %	draw_trill_four;
 	draw_trill_three;
 fet_endchar;
@@ -132,9 +136,10 @@ fet_endchar;
 fet_beginchar("downprall", "downprall", "downprall")
 	trills := 3;
 	set_char_box(trills*twidth#-(trills-1)*0.5toverlap#, trills*twidth#-(trills-1)*0.5toverlap#, theight#, theight#);
-%	draw_slur(-2twidth#,2theight#,1);
-	draw_slur(0,2theight#,1);
-	currentpicture := currentpicture shifted (-0.5w+tthin,-tfat*theight+0.75tthin);
+%	draw_slur(-2twidth#,2theight#,0,1);
+	draw_slur(0,2theight#,0,1);
+%	currentpicture := currentpicture shifted (-0.5w+tthin,-tfat*theight+0.75tthin);
+	currentpicture := currentpicture shifted (-0.5w+tthin,-tfat*theight+0.5tthin);
 	draw_trill_three;
 fet_endchar;
 

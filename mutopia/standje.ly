@@ -301,7 +301,7 @@ $grand_staff = \type Grandstaff<
 	\paper{
 		% how does this work?
 		% previously we had the clear 'ideal whole note space' setting?
-		arithmetic_multiplier = 6.\pt;
+%		arithmetic_multiplier = 6.\pt;
 		% ugh: the *first* (intro) line may only have four measures...
 		gourlay_maxmeasures = 4.;
 	}

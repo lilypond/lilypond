@@ -24,8 +24,10 @@ one = \melodic{
 	< 
 		{
 			\voiceone;
-			c'4-\mordent-"(\\textsharp)"\p r r |
-			c'4-\mordent-"(\\textsharp)" r r
+			\textstyle "roman";
+			c'4-\mordent^"(\\textsharp)"\p r r |
+			c'4-\mordent^"(\\textsharp)" r r
+			\textstyle "italic";
 		}
 		{ \voicetwo; a4 r r | a4 r r }
 	> |
@@ -94,7 +96,8 @@ one = \melodic{
 two = \melodic{
 	\clef "bass";
 	\octave c;
-	[d32( cis )d8.] r4 r |
+%	[d32( cis )d8.] r4 r |
+	d4-\mordent r r |
 	'd4 r r |
 	d-\mordent r r |
 	'd4 r r |
@@ -109,7 +112,9 @@ two = \melodic{
 	[g!-5 es'-1 c'-1 g-5 es'-1 c'-1 ] |
 	fis4-5 r r 
 	d-4( ) fis d-5 |
-	g4-\mordent-"(\\textsharp)" r r f!8 |
+	\textstyle "roman";
+	g4-\mordent^"(\\textsharp)" r r8 f!8 |
+	\textstyle "italic";
 	e4-\prall r r |
 	f4-\mordent r r8 e |
 	d4 r8 [f-1 e d] |

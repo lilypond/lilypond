@@ -32,14 +32,15 @@ beum = \melodic{
 }
 
 extend = \melodic{
-	  c8(( c c )c c c c )c |
-	  \[4/5c8( c c' c )c\]1/1 c c c c |
-	  \[4/5c8( c c c c'\]1/1 c c c )c |
-	  \[4/5c8( c c c c''\]1/1 c c c )c' |
-	  \[4/5c8( c c c c'\]1/1 c c c )'c |
-	  \[4/5c8( c c' c c\]1/1 c c c )c |
-	  \[4/5c8( c c c ''c\]1/1 c c c )c |
-	  \[4/5c8( c ''c c c\]1/1 c c c )c |
+	\octave c;
+	c8(( c c )c c c c )c |
+	\[4/5c8( c c' c )c\]1/1 c c c c |
+	\[4/5c8( c c c c'\]1/1 c c c )c |
+	\[4/5c8( c c c c''\]1/1 c c c )c' |
+	\[4/5c8( c c c c'\]1/1 c c c )'c |
+	\[4/5c8( c c' c c\]1/1 c c c )c |
+	\[4/5c8( c c c ''c\]1/1 c c c )c |
+	\[4/5c8( c ''c c c\]1/1 c c c )c |
 }
 
 extendbug = \melodic{
@@ -49,10 +50,36 @@ extendbug = \melodic{
 	[c'8( b g a] [c' d' e' c'] [c' d' e' )c']
 	c( c' c' )c
 	e( g' g' )e
+
+}
+
+blend = \melodic{
+	\octave c; 
+	\stemdown; 
+%%	    \[4/5c8( c ''c c c\]1/1 c c c )c |
+	\[4/5c8( c ''f c c\]1/1 c c c )c |
+	\[4/5c8( c \stemup ''f \stemdown c c\]1/1 c c c )c |
+	\stemup; 
+	\octave c''; 
+	\[4/5c8( c f'' c c\]1/1 c c c )c |
+	\[4/5c8( c \stemdown f'' \stemup c c\]1/1 c c c )c |
+%	    \octave c''';
+	\stemboth;
+	c4( 'c16 'e 'g 'b d f a )'c16 c4 |
+	c4( 'c16 'e 'g 'b d f f )'c16 c4 |
+	\octave c'; 
+	\stemdown; 
+	c( c'' c'' )c
+	\stemboth;
+	e( g' g' )e
+	e( g' g' )e
+	e( g' g' )e
+	e( g' g' )e
 }
 
 \score{
 	\melodic{ 
+		\blend
 		\shortlong
 		\dirs
 		\complex

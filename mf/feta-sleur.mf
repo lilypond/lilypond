@@ -48,17 +48,18 @@ sluralpha:=slurheightlimit#*pi/2;
 slurratio:=0.3333;
 slurbeta:=3/4*pi*slurratio/sluralpha;
 
-def draw_slur(expr dxs,dys,d) =
+def draw_slur(expr dxs,dys,hs,d) =
 	save x, y;
-	save b, dx, dy, indent;
+	save b, dx, dy, h, indent;
 	dx#:=dxs*1pt#;
 	dy#:=dys*1pt#;
+	h#:=hs*1pt#;
 	define_pixels(dx,dy);
 	b#:=length(dx#,dy#);
 	% ugh: huh? 2/5
 	indent#:=2/5*sluralpha*atan(slurbeta*b#);
-	define_pixels(b,indent);
-	height:=indent*d;
+	define_pixels(b,h,indent);
+	height:=(indent+h)*d;
 	z1=(0,0);
 	z2=(b,0);
 	z3=(indent,height);
@@ -78,11 +79,11 @@ def draw_slur(expr dxs,dys,d) =
 	show z6;
 enddef;
 
-def slurchar(expr dxs,dys,d) =
+def slurchar(expr dxs,dys,hs,d) =
 	beginchar(0,0,0,0) "Embedded mf";
-	draw_slur(dxs,dys,d);
+	draw_slur(dxs,dys,hs,d);
 	endchar;
 enddef;
 
-% drawslur(10,10,1);
+% drawslur(10,10,0,1);
 

@@ -1,14 +1,8 @@
-# Makefile.in generated automatically by automake 1.2f from Makefile.am
+# Makefile.in generated automatically by automake 1.2 from Makefile.am
 
-# Copyright (C) 1994, 1995, 1996, 1997, 1998 Free Software Foundation, Inc.
+# Copyright (C) 1994, 1995, 1996, 1997 Free Software Foundation, Inc.
 # This Makefile.in is free software; the Free Software Foundation
-# gives unlimited permission to copy and/or distribute it,
-# with or without modifications, as long as this notice is preserved.
-
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY, to the extent permitted by law; without
-# even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-# PARTICULAR PURPOSE.
+# gives unlimited permission to copy, distribute and modify it.
 
 # Generated automatically by wild-perl 0.1
 # project  LilyPond -- the musical typesetter
@@ -58,12 +52,12 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 transform = @program_transform_name@
 
-NORMAL_INSTALL = :
-PRE_INSTALL = :
-POST_INSTALL = :
-NORMAL_UNINSTALL = :
-PRE_UNINSTALL = :
-POST_UNINSTALL = :
+NORMAL_INSTALL = true
+PRE_INSTALL = true
+POST_INSTALL = true
+NORMAL_UNINSTALL = true
+PRE_UNINSTALL = true
+POST_UNINSTALL = true
 host_alias = @host_alias@
 host_triplet = @host@
 AGE = @AGE@
@@ -151,7 +145,7 @@ OBJECTS = $(mi2mu_OBJECTS)
 default: all
 
 .SUFFIXES:
-.SUFFIXES: .S .c .cc .lo .o .s
+.SUFFIXES: .c .cc .lo .o
 $(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
 	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps mi2mu/Makefile
 
@@ -163,7 +157,7 @@ Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 mostlyclean-binPROGRAMS:
 
 clean-binPROGRAMS:
-	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
+	test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
 
 distclean-binPROGRAMS:
 
@@ -180,7 +174,7 @@ install-binPROGRAMS: $(bin_PROGRAMS)
 	done
 
 uninstall-binPROGRAMS:
-	@$(NORMAL_UNINSTALL)
+	$(NORMAL_UNINSTALL)
 	list='$(bin_PROGRAMS)'; for p in $$list; do \
 	  rm -f $(bindir)/`echo $$p|sed '$(transform)'`; \
 	done
@@ -188,36 +182,24 @@ uninstall-binPROGRAMS:
 .c.o:
 	$(COMPILE) -c $<
 
-.s.o:
-	$(COMPILE) -c $<
-
-.S.o:
-	$(COMPILE) -c $<
-
 mostlyclean-compile:
-	-rm -f *.o core *.core
+	rm -f *.o core
 
 clean-compile:
 
 distclean-compile:
-	-rm -f *.tab.c
+	rm -f *.tab.c
 
 maintainer-clean-compile:
 
 .c.lo:
 	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
 
-.s.lo:
-	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
-
-.S.lo:
-	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
-
 mostlyclean-libtool:
-	-rm -f *.lo
+	rm -f *.lo
 
 clean-libtool:
-	-rm -rf .libs _libs
+	rm -rf .libs
 
 distclean-libtool:
 
@@ -244,7 +226,7 @@ all-recursive install-data-recursive install-exec-recursive \
 installdirs-recursive install-recursive uninstall-recursive  \
 check-recursive installcheck-recursive info-recursive dvi-recursive:
 	@set fnord $(MAKEFLAGS); amf=$$2; \
-	list='$(SUBDIRS)'; for subdir in $$list; do \
+	for subdir in $(SUBDIRS); do \
 	  target=`echo $@ | sed s/-recursive//`; \
 	  echo "Making $$target in $$subdir"; \
 	  (cd $$subdir && $(MAKE) $$target) \
@@ -254,9 +236,7 @@ check-recursive installcheck-recursive info-recursive dvi-recursive:
 mostlyclean-recursive clean-recursive distclean-recursive \
 maintainer-clean-recursive:
 	@set fnord $(MAKEFLAGS); amf=$$2; \
-	rev=''; list='$(SUBDIRS)'; for subdir in $$list; do \
-	  rev="$$subdir $$rev"; \
-	done; \
+	rev=''; for subdir in $(SUBDIRS); do rev="$$rev $$subdir"; done; \
 	for subdir in $$rev; do \
 	  target=`echo $@ | sed s/-recursive//`; \
 	  echo "Making $$target in $$subdir"; \
@@ -270,29 +250,24 @@ tags-recursive:
 
 tags: TAGS
 
-ID: $(HEADERS) $(SOURCES) $(LISP)
-	here=`pwd` && cd $(srcdir) \
-	  && mkid -f$$here/ID $(SOURCES) $(HEADERS) $(LISP)
+ID: $(HEADERS) $(SOURCES)
+	here=`pwd` && cd $(srcdir) && mkid -f$$here/ID $(SOURCES) $(HEADERS)
 
-TAGS: tags-recursive $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) $(LISP)
+TAGS: tags-recursive $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES)
 	tags=; \
 	here=`pwd`; \
 	list='$(SUBDIRS)'; for subdir in $$list; do \
 	  test -f $$subdir/TAGS && tags="$$tags -i $$here/$$subdir/TAGS"; \
 	done; \
-	list='$(SOURCES) $(HEADERS)'; \
-	unique=`for i in $$list; do echo $$i; done | \
-	  awk '    { files[$$0] = 1; } \
-	       END { for (i in files) print i; }'`; \
-	test -z "$(ETAGS_ARGS)$$unique$(LISP)$$tags" \
-	  || (cd $(srcdir) && etags $(ETAGS_ARGS) $$tags  $$unique $(LISP) -o $$here/TAGS)
+	test -z "$(ETAGS_ARGS)$(SOURCES)$(HEADERS)$$tags" \
+	  || (cd $(srcdir) && etags $(ETAGS_ARGS) $$tags  $(SOURCES) $(HEADERS) -o $$here/TAGS)
 
 mostlyclean-tags:
 
 clean-tags:
 
 distclean-tags:
-	-rm -f TAGS ID
+	rm -f TAGS ID
 
 maintainer-clean-tags:
 
@@ -307,15 +282,15 @@ distdir: $(DISTFILES)
 	  || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
 	  || cp -p $$d/$$file $(distdir)/$$file; \
 	done
-	for subdir in $(SUBDIRS); do \
-	  test -d $(distdir)/$$subdir \
-	  || mkdir $(distdir)/$$subdir \
-	  || exit 1; \
-	  chmod 777 $(distdir)/$$subdir; \
+	for subdir in $(SUBDIRS); do		\
+	  test -d $(distdir)/$$subdir		\
+	  || mkdir $(distdir)/$$subdir		\
+	  || exit 1;				\
+	  chmod 777 $(distdir)/$$subdir;	\
 	  (cd $$subdir && $(MAKE) top_distdir=../$(top_distdir) distdir=../$(distdir)/$$subdir distdir) \
 	    || exit 1; \
 	done
-main.o: main.cc ../flower/include/string-convert.hh \
+main.o main.lo: main.cc ../flower/include/string-convert.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
@@ -335,10 +310,10 @@ main.o: main.cc ../flower/include/string-convert.hh \
 	include/midi-parser.hh include/mi2mu-proto.hh \
 	../flower/include/parray.hh include/mudela-item.hh \
 	include/mudela-score.hh
-mi2mu-version.o: mi2mu-version.cc ../flower/config.hh
-midi-parser.o: midi-parser.cc ../flower/include/string-convert.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/string.hh \
+mi2mu-version.o mi2mu-version.lo: mi2mu-version.cc ../flower/config.hh
+midi-parser.o midi-parser.lo: midi-parser.cc \
+	../flower/include/string-convert.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
@@ -346,8 +321,9 @@ midi-parser.o: midi-parser.cc ../flower/include/string-convert.hh \
 	include/mi2mu-global.hh include/midi-parser.hh \
 	../lib/include/moment.hh ../flower/include/rational.hh \
 	include/mi2mu-proto.hh
-midi-score-parser.o: midi-score-parser.cc ../lib/include/moment.hh \
-	../flower/include/rational.hh ../flower/include/compare.hh \
+midi-score-parser.o midi-score-parser.lo: midi-score-parser.cc \
+	../lib/include/moment.hh ../flower/include/rational.hh \
+	../flower/include/compare.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../lib/include/source-file.hh ../lib/include/proto.hh \
@@ -364,7 +340,7 @@ midi-score-parser.o: midi-score-parser.cc ../lib/include/moment.hh \
 	include/midi-track-parser.hh include/mudela-item.hh \
 	../lib/include/duration.hh ../lib/include/plet.hh \
 	include/mudela-score.hh
-midi-track-parser.o: midi-track-parser.cc \
+midi-track-parser.o midi-track-parser.lo: midi-track-parser.cc \
 	../flower/include/string-convert.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
@@ -383,18 +359,18 @@ midi-track-parser.o: midi-track-parser.cc \
 	../lib/include/plet.hh include/mudela-score.hh \
 	../flower/include/parray.hh ../flower/include/varray.hh \
 	include/mudela-staff.hh
-mudela-column.o: mudela-column.cc include/mudela-column.hh \
-	../lib/include/proto.hh ../flower/include/fproto.hh \
-	../flower/include/real.hh include/mi2mu-proto.hh \
-	../lib/include/moment.hh ../flower/include/rational.hh \
-	../flower/include/compare.hh \
+mudela-column.o mudela-column.lo: mudela-column.cc \
+	include/mudela-column.hh ../lib/include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	include/mi2mu-proto.hh ../lib/include/moment.hh \
+	../flower/include/rational.hh ../flower/include/compare.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/plist.hh ../flower/include/list.hh \
 	../flower/include/list.icc ../flower/include/cursor.hh \
 	../flower/include/link.hh ../flower/include/link.icc \
 	../flower/include/pcursor.hh ../flower/include/cursor.icc \
 	../flower/include/iterate.hh ../flower/include/plist.icc
-mudela-item.o: mudela-item.cc include/mi2mu-global.hh \
+mudela-item.o mudela-item.lo: mudela-item.cc include/mi2mu-global.hh \
 	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -412,7 +388,7 @@ mudela-item.o: mudela-item.cc include/mi2mu-global.hh \
 	../flower/include/iterate.hh ../flower/include/plist.icc \
 	include/mudela-item.hh include/mudela-stream.hh \
 	include/mudela-score.hh ../flower/include/parray.hh
-mudela-score.o: mudela-score.cc ../lib/include/moment.hh \
+mudela-score.o mudela-score.lo: mudela-score.cc ../lib/include/moment.hh \
 	../flower/include/rational.hh ../flower/include/compare.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -431,7 +407,7 @@ mudela-score.o: mudela-score.cc ../lib/include/moment.hh \
 	../flower/include/parray.hh include/mudela-staff.hh \
 	include/mudela-stream.hh ../flower/include/list.tcc \
 	../flower/include/cursor.tcc
-mudela-staff.o: mudela-staff.cc ../lib/include/moment.hh \
+mudela-staff.o mudela-staff.lo: mudela-staff.cc ../lib/include/moment.hh \
 	../flower/include/rational.hh ../flower/include/compare.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -450,8 +426,8 @@ mudela-staff.o: mudela-staff.cc ../lib/include/moment.hh \
 	include/mudela-staff.hh include/mudela-stream.hh \
 	include/mudela-voice.hh include/mudela-score.hh \
 	../flower/include/parray.hh
-mudela-stream.o: mudela-stream.cc include/mi2mu-global.hh \
-	../flower/include/string.hh \
+mudela-stream.o mudela-stream.lo: mudela-stream.cc \
+	include/mi2mu-global.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
@@ -460,9 +436,9 @@ mudela-stream.o: mudela-stream.cc include/mi2mu-global.hh \
 	include/mi2mu-proto.hh ../lib/include/moment.hh \
 	../flower/include/rational.hh ../lib/include/duration.hh \
 	../lib/include/plet.hh include/mudela-stream.hh
-mudela-voice.o: mudela-voice.cc ../flower/include/string-convert.hh \
-	../flower/include/fproto.hh ../flower/include/real.hh \
-	../flower/include/string.hh \
+mudela-voice.o mudela-voice.lo: mudela-voice.cc \
+	../flower/include/string-convert.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
@@ -477,7 +453,7 @@ mudela-voice.o: mudela-voice.cc ../flower/include/string-convert.hh \
 	include/mudela-item.hh ../lib/include/duration.hh \
 	../lib/include/plet.hh include/mudela-staff.hh \
 	include/mudela-stream.hh include/mudela-voice.hh
-template9.o: template9.cc ../lib/include/proto.hh \
+template9.o template9.lo: template9.cc ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/list.hh ../flower/include/list.icc \
 	../flower/include/cursor.hh ../flower/include/link.hh \
@@ -496,7 +472,7 @@ template9.o: template9.cc ../lib/include/proto.hh \
 	include/mudela-score.hh ../flower/include/parray.hh \
 	../flower/include/varray.hh ../flower/include/pcursor.tcc \
 	../flower/include/plist.tcc
-version.o: version.cc ../lib/include/proto.hh \
+version.o version.lo: version.cc ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
@@ -534,19 +510,19 @@ installdirs: installdirs-recursive
 
 
 mostlyclean-generic:
-	-test -z "$(MOSTLYCLEANFILES)" || rm -f $(MOSTLYCLEANFILES)
+	test -z "$(MOSTLYCLEANFILES)" || rm -f $(MOSTLYCLEANFILES)
 
 clean-generic:
-	-test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
+	test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
 
 distclean-generic:
-	-rm -f Makefile $(DISTCLEANFILES)
-	-rm -f config.cache config.log stamp-h stamp-h[0-9]*
-	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
+	rm -f Makefile $(DISTCLEANFILES)
+	rm -f config.cache config.log stamp-h stamp-h[0-9]*
+	test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
 
 maintainer-clean-generic:
-	-test -z "$(MAINTAINERCLEANFILES)" || rm -f $(MAINTAINERCLEANFILES)
-	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
+	test -z "$(MAINTAINERCLEANFILES)" || rm -f $(MAINTAINERCLEANFILES)
+	test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
 mostlyclean-am:  mostlyclean-binPROGRAMS mostlyclean-compile \
 		mostlyclean-libtool mostlyclean-tags \
 		mostlyclean-generic
@@ -567,8 +543,8 @@ mostlyclean:  mostlyclean-recursive mostlyclean-am
 clean:  clean-recursive clean-am
 
 distclean:  distclean-recursive distclean-am distclean-local
-	-rm -f config.status
-	-rm -f libtool
+	rm -f config.status
+	rm -f libtool
 
 maintainer-clean:  maintainer-clean-recursive maintainer-clean-am
 	@echo "This command is intended for maintainers to use;"

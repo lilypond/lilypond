@@ -34,4 +34,14 @@ protected:
   virtual Atom get_bar_sym (Real) const;
 };
 
+class Staff_bracket : public Span_score_bar
+{
+public:
+  DECLARE_MY_RUNTIME_TYPEINFO;
+  SCORE_ELEM_CLONE(Staff_bracket);
+protected:
+  virtual Interval do_width() const;
+  virtual Atom get_bar_sym (Real) const;
+};
+
 #endif // SPAN_SCORE_BAR_HH

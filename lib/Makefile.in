@@ -1,14 +1,8 @@
-# Makefile.in generated automatically by automake 1.2f from Makefile.am
+# Makefile.in generated automatically by automake 1.2 from Makefile.am
 
-# Copyright (C) 1994, 1995, 1996, 1997, 1998 Free Software Foundation, Inc.
+# Copyright (C) 1994, 1995, 1996, 1997 Free Software Foundation, Inc.
 # This Makefile.in is free software; the Free Software Foundation
-# gives unlimited permission to copy and/or distribute it,
-# with or without modifications, as long as this notice is preserved.
-
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY, to the extent permitted by law; without
-# even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-# PARTICULAR PURPOSE.
+# gives unlimited permission to copy, distribute and modify it.
 
 # Generated automatically by wild-perl 0.1
 # project  LilyPond -- the musical typesetter
@@ -59,12 +53,12 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 transform = @program_transform_name@
 
-NORMAL_INSTALL = :
-PRE_INSTALL = :
-POST_INSTALL = :
-NORMAL_UNINSTALL = :
-PRE_UNINSTALL = :
-POST_UNINSTALL = :
+NORMAL_INSTALL = true
+PRE_INSTALL = true
+POST_INSTALL = true
+NORMAL_UNINSTALL = true
+PRE_UNINSTALL = true
+POST_UNINSTALL = true
 host_alias = @host_alias@
 host_triplet = @host@
 AGE = @AGE@
@@ -145,7 +139,7 @@ OBJECTS = $(liblily_la_OBJECTS)
 default: all
 
 .SUFFIXES:
-.SUFFIXES: .S .c .cc .lo .o .s
+.SUFFIXES: .c .cc .lo .o
 $(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
 	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps lib/Makefile
 
@@ -157,7 +151,7 @@ Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 mostlyclean-libLTLIBRARIES:
 
 clean-libLTLIBRARIES:
-	-test -z "$(lib_LTLIBRARIES)" || rm -f $(lib_LTLIBRARIES)
+	test -z "$(lib_LTLIBRARIES)" || rm -f $(lib_LTLIBRARIES)
 
 distclean-libLTLIBRARIES:
 
@@ -168,13 +162,13 @@ install-libLTLIBRARIES: $(lib_LTLIBRARIES)
 	$(mkinstalldirs) $(libdir)
 	@list='$(lib_LTLIBRARIES)'; for p in $$list; do \
 	  if test -f $$p; then \
-	    echo "$(LIBTOOL)  --mode=install $(INSTALL_DATA) $$p $(libdir)/$$p"; \
-	    $(LIBTOOL)  --mode=install $(INSTALL_DATA) $$p $(libdir)/$$p; \
+	    echo "$(LIBTOOL)  --mode=install $(INSTALL_PROGRAM) $$p $(libdir)/$$p"; \
+	    $(LIBTOOL)  --mode=install $(INSTALL_PROGRAM) $$p $(libdir)/$$p; \
 	  else :; fi; \
 	done
 
 uninstall-libLTLIBRARIES:
-	@$(NORMAL_UNINSTALL)
+	$(NORMAL_UNINSTALL)
 	list='$(lib_LTLIBRARIES)'; for p in $$list; do \
 	  $(LIBTOOL)  --mode=uninstall rm -f $(libdir)/$$p; \
 	done
@@ -182,36 +176,24 @@ uninstall-libLTLIBRARIES:
 .c.o:
 	$(COMPILE) -c $<
 
-.s.o:
-	$(COMPILE) -c $<
-
-.S.o:
-	$(COMPILE) -c $<
-
 mostlyclean-compile:
-	-rm -f *.o core *.core
+	rm -f *.o core
 
 clean-compile:
 
 distclean-compile:
-	-rm -f *.tab.c
+	rm -f *.tab.c
 
 maintainer-clean-compile:
 
 .c.lo:
 	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
 
-.s.lo:
-	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
-
-.S.lo:
-	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
-
 mostlyclean-libtool:
-	-rm -f *.lo
+	rm -f *.lo
 
 clean-libtool:
-	-rm -rf .libs _libs
+	rm -rf .libs
 
 distclean-libtool:
 
@@ -237,7 +219,7 @@ all-recursive install-data-recursive install-exec-recursive \
 installdirs-recursive install-recursive uninstall-recursive  \
 check-recursive installcheck-recursive info-recursive dvi-recursive:
 	@set fnord $(MAKEFLAGS); amf=$$2; \
-	list='$(SUBDIRS)'; for subdir in $$list; do \
+	for subdir in $(SUBDIRS); do \
 	  target=`echo $@ | sed s/-recursive//`; \
 	  echo "Making $$target in $$subdir"; \
 	  (cd $$subdir && $(MAKE) $$target) \
@@ -247,9 +229,7 @@ check-recursive installcheck-recursive info-recursive dvi-recursive:
 mostlyclean-recursive clean-recursive distclean-recursive \
 maintainer-clean-recursive:
 	@set fnord $(MAKEFLAGS); amf=$$2; \
-	rev=''; list='$(SUBDIRS)'; for subdir in $$list; do \
-	  rev="$$subdir $$rev"; \
-	done; \
+	rev=''; for subdir in $(SUBDIRS); do rev="$$rev $$subdir"; done; \
 	for subdir in $$rev; do \
 	  target=`echo $@ | sed s/-recursive//`; \
 	  echo "Making $$target in $$subdir"; \
@@ -263,29 +243,24 @@ tags-recursive:
 
 tags: TAGS
 
-ID: $(HEADERS) $(SOURCES) $(LISP)
-	here=`pwd` && cd $(srcdir) \
-	  && mkid -f$$here/ID $(SOURCES) $(HEADERS) $(LISP)
+ID: $(HEADERS) $(SOURCES)
+	here=`pwd` && cd $(srcdir) && mkid -f$$here/ID $(SOURCES) $(HEADERS)
 
-TAGS: tags-recursive $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) $(LISP)
+TAGS: tags-recursive $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES)
 	tags=; \
 	here=`pwd`; \
 	list='$(SUBDIRS)'; for subdir in $$list; do \
 	  test -f $$subdir/TAGS && tags="$$tags -i $$here/$$subdir/TAGS"; \
 	done; \
-	list='$(SOURCES) $(HEADERS)'; \
-	unique=`for i in $$list; do echo $$i; done | \
-	  awk '    { files[$$0] = 1; } \
-	       END { for (i in files) print i; }'`; \
-	test -z "$(ETAGS_ARGS)$$unique$(LISP)$$tags" \
-	  || (cd $(srcdir) && etags $(ETAGS_ARGS) $$tags  $$unique $(LISP) -o $$here/TAGS)
+	test -z "$(ETAGS_ARGS)$(SOURCES)$(HEADERS)$$tags" \
+	  || (cd $(srcdir) && etags $(ETAGS_ARGS) $$tags  $(SOURCES) $(HEADERS) -o $$here/TAGS)
 
 mostlyclean-tags:
 
 clean-tags:
 
 distclean-tags:
-	-rm -f TAGS ID
+	rm -f TAGS ID
 
 maintainer-clean-tags:
 
@@ -300,15 +275,15 @@ distdir: $(DISTFILES)
 	  || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
 	  || cp -p $$d/$$file $(distdir)/$$file; \
 	done
-	for subdir in $(SUBDIRS); do \
-	  test -d $(distdir)/$$subdir \
-	  || mkdir $(distdir)/$$subdir \
-	  || exit 1; \
-	  chmod 777 $(distdir)/$$subdir; \
+	for subdir in $(SUBDIRS); do		\
+	  test -d $(distdir)/$$subdir		\
+	  || mkdir $(distdir)/$$subdir		\
+	  || exit 1;				\
+	  chmod 777 $(distdir)/$$subdir;	\
 	  (cd $$subdir && $(MAKE) top_distdir=../$(top_distdir) distdir=../$(distdir)/$$subdir distdir) \
 	    || exit 1; \
 	done
-binary-source-file.lo binary-source-file.o: binary-source-file.cc \
+binary-source-file.o binary-source-file.lo: binary-source-file.cc \
 	include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/plist.hh \
 	../flower/include/list.hh ../flower/include/list.icc \
@@ -322,7 +297,7 @@ binary-source-file.lo binary-source-file.o: binary-source-file.cc \
 	../flower/include/international.hh include/source-file.hh \
 	include/binary-source-file.hh \
 	../flower/include/string-convert.hh
-duration-convert.lo duration-convert.o: duration-convert.cc \
+duration-convert.o duration-convert.lo: duration-convert.cc \
 	include/duration-convert.hh include/duration.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	include/moment.hh ../flower/include/rational.hh \
@@ -331,7 +306,7 @@ duration-convert.lo duration-convert.o: duration-convert.cc \
 	../flower/include/string.hh ../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/varray.hh \
 	include/warn.hh
-duration.lo duration.o: duration.cc include/proto.hh \
+duration.o duration.lo: duration.cc include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/plist.hh ../flower/include/list.hh \
 	../flower/include/list.icc ../flower/include/cursor.hh \
@@ -346,7 +321,7 @@ duration.lo duration.o: duration.cc include/proto.hh \
 	../flower/include/rational.hh include/duration.hh \
 	include/plet.hh include/duration-convert.hh \
 	../flower/include/varray.hh
-input.lo input.o: input.cc include/proto.hh ../flower/include/fproto.hh \
+input.o input.lo: input.cc include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh include/input.hh \
 	../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
@@ -358,18 +333,18 @@ input.lo input.o: input.cc include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/link.icc ../flower/include/pcursor.hh \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
 	../flower/include/plist.icc include/source-file.hh
-mapped-file-storage.lo mapped-file-storage.o: mapped-file-storage.cc
-moment.lo moment.o: moment.cc ../flower/include/string.hh \
+mapped-file-storage.o mapped-file-storage.lo: mapped-file-storage.cc
+moment.o moment.lo: moment.cc ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	include/moment.hh ../flower/include/rational.hh
-plet.lo plet.o: plet.cc include/plet.hh include/moment.hh \
+plet.o plet.lo: plet.cc include/plet.hh include/moment.hh \
 	../flower/include/rational.hh ../flower/include/compare.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh
-simple-file-storage.lo simple-file-storage.o: simple-file-storage.cc \
+simple-file-storage.o simple-file-storage.lo: simple-file-storage.cc \
 	include/simple-file-storage.hh include/file-storage.hh \
 	include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/varray.hh \
@@ -378,7 +353,7 @@ simple-file-storage.lo simple-file-storage.o: simple-file-storage.cc \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh \
 	include/warn.hh
-source-file.lo source-file.o: source-file.cc ../flower/include/string.hh \
+source-file.o source-file.lo: source-file.cc ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
@@ -392,7 +367,7 @@ source-file.lo source-file.o: source-file.cc ../flower/include/string.hh \
 	include/windhoos-suck-suck-suck-thank-you-cygnus.hh \
 	include/source-file.hh include/simple-file-storage.hh \
 	include/file-storage.hh
-source.lo source.o: source.cc include/binary-source-file.hh \
+source.o source.lo: source.cc include/binary-source-file.hh \
 	include/source-file.hh include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string.hh \
@@ -406,7 +381,7 @@ source.lo source.o: source.cc include/binary-source-file.hh \
 	../flower/include/iterate.hh ../flower/include/plist.icc \
 	include/source.hh ../flower/include/path.hh \
 	../flower/include/varray.hh
-template.lo template.o: template.cc include/source-file.hh \
+template.o template.lo: template.cc include/source-file.hh \
 	include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
@@ -419,12 +394,12 @@ template.lo template.o: template.cc include/source-file.hh \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
 	../flower/include/plist.icc ../flower/include/pcursor.tcc \
 	../flower/include/cursor.tcc ../flower/include/list.tcc
-warn.lo warn.o: warn.cc include/warn.hh ../flower/include/string.hh \
+warn.o warn.lo: warn.cc include/warn.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string-handle.hh \
 	../flower/include/international.hh ../flower/include/compare.hh
-windhoos-suck-suck-suck-thank-you-cygnus.lo windhoos-suck-suck-suck-thank-you-cygnus.o: \
+windhoos-suck-suck-suck-thank-you-cygnus.o windhoos-suck-suck-suck-thank-you-cygnus.lo: \
 	windhoos-suck-suck-suck-thank-you-cygnus.cc
 
 info: info-recursive
@@ -458,19 +433,19 @@ installdirs: installdirs-recursive
 
 
 mostlyclean-generic:
-	-test -z "$(MOSTLYCLEANFILES)" || rm -f $(MOSTLYCLEANFILES)
+	test -z "$(MOSTLYCLEANFILES)" || rm -f $(MOSTLYCLEANFILES)
 
 clean-generic:
-	-test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
+	test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
 
 distclean-generic:
-	-rm -f Makefile $(DISTCLEANFILES)
-	-rm -f config.cache config.log stamp-h stamp-h[0-9]*
-	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
+	rm -f Makefile $(DISTCLEANFILES)
+	rm -f config.cache config.log stamp-h stamp-h[0-9]*
+	test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
 
 maintainer-clean-generic:
-	-test -z "$(MAINTAINERCLEANFILES)" || rm -f $(MAINTAINERCLEANFILES)
-	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
+	test -z "$(MAINTAINERCLEANFILES)" || rm -f $(MAINTAINERCLEANFILES)
+	test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
 mostlyclean-am:  mostlyclean-libLTLIBRARIES mostlyclean-compile \
 		mostlyclean-libtool mostlyclean-tags \
 		mostlyclean-generic
@@ -492,8 +467,8 @@ mostlyclean:  mostlyclean-recursive mostlyclean-am
 clean:  clean-recursive clean-am
 
 distclean:  distclean-recursive distclean-am distclean-local
-	-rm -f config.status
-	-rm -f libtool
+	rm -f config.status
+	rm -f libtool
 
 maintainer-clean:  maintainer-clean-recursive maintainer-clean-am
 	@echo "This command is intended for maintainers to use;"

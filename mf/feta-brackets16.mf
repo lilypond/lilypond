@@ -1,0 +1,18 @@
+
+% 
+% feta-brackets16.mf --  implement 
+% 
+% source file of the Feta (Font-En-Tja) music font
+% 
+% (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+% 	Jan Nieuwenhuizen <jan@digicash.com>
+% 
+
+font_identifier:="feta-brackets16";
+font_size 16;
+mode_setup;
+
+staffsize#:=16pt#;
+input feta-haak;
+end.
+

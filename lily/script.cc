@@ -99,7 +99,9 @@ Script::brew_molecule_p() const
   Real dx = paper()->note_width()/2;
 
   Molecule*out = new Molecule (specs_l_->get_atom (paper(), dir_));
-  out->translate_axis (y_, Y_AXIS);
+  // ugh, staccato dots are not centred between stafflines (how?)?
+  Real correct = - (Real)dir_ * 2.0 * paper ()->rule_thickness ();
+  out->translate_axis (y_ + correct, Y_AXIS);
   out->translate_axis (dx, X_AXIS);	// FIXME! ugh
   return out;
 }

@@ -65,13 +65,13 @@ one = \melodic{
 two = \melodic{
 	\octave c;
 	\textstyle "roman";
-	c4-5 e-3 g-\mordent-"(\\textsharp)" 'g4 |
-	d-\mordent-5 f-3 a-\mordent-"(\\textsharp)" 'a4 |
+	c4-5 e-3 g-\mordent^"(\\textsharp)" 'g4 |
+	d-\mordent-5 f-3 a-\mordent^"(\\textsharp)" 'a4 |
  	e-5 e'-\mordent-1 a-4 b-\upprall |
  	c'4 e-4 fis gis-\downprall |
 	a4 c-4 d e-\upprall |
 	f4-1 e d-3-\prall c |
-	g-\mordent-"(\\textsharp)" 'g g-\mordent 'g |
+	g-\mordent^"(\\textsharp)" 'g g-\mordent 'g |
 	g-\mordent 'g g-\mordent 'g |
 	% ugh, f should be at upper staff
 	g-\mordent r r16 ['g-5( 'b-4 d] )f-1 s s s |

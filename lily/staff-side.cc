@@ -63,11 +63,18 @@ Staff_side::get_position_f () const
     }
 
 
-  Real y=0;
+  Real y = 0;
   Real inter_f = paper()-> internote_f ();
 
-  Interval v= support_height();
-  y = v[dir_] + 1 * dir_ * inter_f;	// ugh
+  Interval v = support_height();
+
+  // ugh, dim[y] = PT over here
+  y = v[dir_] + 1 * dir_ * inter_f;
+
+  int y_i = (int)rint (y / inter_f);
+  // ugh: 5 -> staff_lines
+  if ((abs (y_i) < 5) && !(abs (y_i) % 2))
+    y += (Real)dir_ * inter_f;
 
   return y;
 }

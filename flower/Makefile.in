@@ -1,14 +1,8 @@
-# Makefile.in generated automatically by automake 1.2f from Makefile.am
+# Makefile.in generated automatically by automake 1.2 from Makefile.am
 
-# Copyright (C) 1994, 1995, 1996, 1997, 1998 Free Software Foundation, Inc.
+# Copyright (C) 1994, 1995, 1996, 1997 Free Software Foundation, Inc.
 # This Makefile.in is free software; the Free Software Foundation
-# gives unlimited permission to copy and/or distribute it,
-# with or without modifications, as long as this notice is preserved.
-
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY, to the extent permitted by law; without
-# even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-# PARTICULAR PURPOSE.
+# gives unlimited permission to copy, distribute and modify it.
 
 # Generated automatically by wild-perl 0.1
 # project  FlowerSoft C++ library
@@ -59,12 +53,12 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 transform = @program_transform_name@
 
-NORMAL_INSTALL = :
-PRE_INSTALL = :
-POST_INSTALL = :
-NORMAL_UNINSTALL = :
-PRE_UNINSTALL = :
-POST_UNINSTALL = :
+NORMAL_INSTALL = true
+PRE_INSTALL = true
+POST_INSTALL = true
+NORMAL_UNINSTALL = true
+PRE_UNINSTALL = true
+POST_UNINSTALL = true
 host_alias = @host_alias@
 host_triplet = @host@
 AGE = @AGE@
@@ -150,7 +144,7 @@ OBJECTS = $(libflower_la_OBJECTS)
 default: all
 
 .SUFFIXES:
-.SUFFIXES: .S .c .cc .lo .o .s
+.SUFFIXES: .c .cc .lo .o
 $(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
 	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps flower/Makefile
 
@@ -162,7 +156,7 @@ Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 mostlyclean-libLTLIBRARIES:
 
 clean-libLTLIBRARIES:
-	-test -z "$(lib_LTLIBRARIES)" || rm -f $(lib_LTLIBRARIES)
+	test -z "$(lib_LTLIBRARIES)" || rm -f $(lib_LTLIBRARIES)
 
 distclean-libLTLIBRARIES:
 
@@ -173,13 +167,13 @@ install-libLTLIBRARIES: $(lib_LTLIBRARIES)
 	$(mkinstalldirs) $(libdir)
 	@list='$(lib_LTLIBRARIES)'; for p in $$list; do \
 	  if test -f $$p; then \
-	    echo "$(LIBTOOL)  --mode=install $(INSTALL_DATA) $$p $(libdir)/$$p"; \
-	    $(LIBTOOL)  --mode=install $(INSTALL_DATA) $$p $(libdir)/$$p; \
+	    echo "$(LIBTOOL)  --mode=install $(INSTALL_PROGRAM) $$p $(libdir)/$$p"; \
+	    $(LIBTOOL)  --mode=install $(INSTALL_PROGRAM) $$p $(libdir)/$$p; \
 	  else :; fi; \
 	done
 
 uninstall-libLTLIBRARIES:
-	@$(NORMAL_UNINSTALL)
+	$(NORMAL_UNINSTALL)
 	list='$(lib_LTLIBRARIES)'; for p in $$list; do \
 	  $(LIBTOOL)  --mode=uninstall rm -f $(libdir)/$$p; \
 	done
@@ -187,36 +181,24 @@ uninstall-libLTLIBRARIES:
 .c.o:
 	$(COMPILE) -c $<
 
-.s.o:
-	$(COMPILE) -c $<
-
-.S.o:
-	$(COMPILE) -c $<
-
 mostlyclean-compile:
-	-rm -f *.o core *.core
+	rm -f *.o core
 
 clean-compile:
 
 distclean-compile:
-	-rm -f *.tab.c
+	rm -f *.tab.c
 
 maintainer-clean-compile:
 
 .c.lo:
 	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
 
-.s.lo:
-	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
-
-.S.lo:
-	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
-
 mostlyclean-libtool:
-	-rm -f *.lo
+	rm -f *.lo
 
 clean-libtool:
-	-rm -rf .libs _libs
+	rm -rf .libs
 
 distclean-libtool:
 
@@ -242,7 +224,7 @@ all-recursive install-data-recursive install-exec-recursive \
 installdirs-recursive install-recursive uninstall-recursive  \
 check-recursive installcheck-recursive info-recursive dvi-recursive:
 	@set fnord $(MAKEFLAGS); amf=$$2; \
-	list='$(SUBDIRS)'; for subdir in $$list; do \
+	for subdir in $(SUBDIRS); do \
 	  target=`echo $@ | sed s/-recursive//`; \
 	  echo "Making $$target in $$subdir"; \
 	  (cd $$subdir && $(MAKE) $$target) \
@@ -252,9 +234,7 @@ check-recursive installcheck-recursive info-recursive dvi-recursive:
 mostlyclean-recursive clean-recursive distclean-recursive \
 maintainer-clean-recursive:
 	@set fnord $(MAKEFLAGS); amf=$$2; \
-	rev=''; list='$(SUBDIRS)'; for subdir in $$list; do \
-	  rev="$$subdir $$rev"; \
-	done; \
+	rev=''; for subdir in $(SUBDIRS); do rev="$$rev $$subdir"; done; \
 	for subdir in $$rev; do \
 	  target=`echo $@ | sed s/-recursive//`; \
 	  echo "Making $$target in $$subdir"; \
@@ -268,29 +248,24 @@ tags-recursive:
 
 tags: TAGS
 
-ID: $(HEADERS) $(SOURCES) $(LISP)
-	here=`pwd` && cd $(srcdir) \
-	  && mkid -f$$here/ID $(SOURCES) $(HEADERS) $(LISP)
+ID: $(HEADERS) $(SOURCES)
+	here=`pwd` && cd $(srcdir) && mkid -f$$here/ID $(SOURCES) $(HEADERS)
 
-TAGS: tags-recursive $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) $(LISP)
+TAGS: tags-recursive $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES)
 	tags=; \
 	here=`pwd`; \
 	list='$(SUBDIRS)'; for subdir in $$list; do \
 	  test -f $$subdir/TAGS && tags="$$tags -i $$here/$$subdir/TAGS"; \
 	done; \
-	list='$(SOURCES) $(HEADERS)'; \
-	unique=`for i in $$list; do echo $$i; done | \
-	  awk '    { files[$$0] = 1; } \
-	       END { for (i in files) print i; }'`; \
-	test -z "$(ETAGS_ARGS)$$unique$(LISP)$$tags" \
-	  || (cd $(srcdir) && etags $(ETAGS_ARGS) $$tags  $$unique $(LISP) -o $$here/TAGS)
+	test -z "$(ETAGS_ARGS)$(SOURCES)$(HEADERS)$$tags" \
+	  || (cd $(srcdir) && etags $(ETAGS_ARGS) $$tags  $(SOURCES) $(HEADERS) -o $$here/TAGS)
 
 mostlyclean-tags:
 
 clean-tags:
 
 distclean-tags:
-	-rm -f TAGS ID
+	rm -f TAGS ID
 
 maintainer-clean-tags:
 
@@ -305,117 +280,117 @@ distdir: $(DISTFILES)
 	  || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
 	  || cp -p $$d/$$file $(distdir)/$$file; \
 	done
-	for subdir in $(SUBDIRS); do \
-	  test -d $(distdir)/$$subdir \
-	  || mkdir $(distdir)/$$subdir \
-	  || exit 1; \
-	  chmod 777 $(distdir)/$$subdir; \
+	for subdir in $(SUBDIRS); do		\
+	  test -d $(distdir)/$$subdir		\
+	  || mkdir $(distdir)/$$subdir		\
+	  || exit 1;				\
+	  chmod 777 $(distdir)/$$subdir;	\
 	  (cd $$subdir && $(MAKE) top_distdir=../$(top_distdir) distdir=../$(distdir)/$$subdir distdir) \
 	    || exit 1; \
 	done
-choleski.lo choleski.o: choleski.cc include/choleski.hh \
+choleski.o choleski.lo: choleski.cc include/choleski.hh \
 	include/matrix.hh include/matrix-storage.hh include/varray.hh \
 	include/real.hh include/virtual-methods.hh include/vector.hh
-cpu-timer.lo cpu-timer.o: cpu-timer.cc include/cpu-timer.hh \
+cpu-timer.o cpu-timer.lo: cpu-timer.cc include/cpu-timer.hh \
 	include/real.hh
-data-file.lo data-file.o: data-file.cc include/international.hh \
+data-file.o data-file.lo: data-file.cc include/international.hh \
 	include/data-file.hh include/text-stream.hh include/string.hh \
 	include/arithmetic-operator.hh include/fproto.hh \
 	include/real.hh include/string-handle.hh include/compare.hh \
 	include/varray.hh
-diagonal-storage.lo diagonal-storage.o: diagonal-storage.cc \
+diagonal-storage.o diagonal-storage.lo: diagonal-storage.cc \
 	include/diagonal-storage.hh include/full-storage.hh \
 	include/varray.hh include/matrix-storage.hh include/real.hh \
 	include/virtual-methods.hh
-dictionary.lo dictionary.o: dictionary.cc
-directed-graph.lo directed-graph.o: directed-graph.cc \
+dictionary.o dictionary.lo: dictionary.cc
+directed-graph.o directed-graph.lo: directed-graph.cc \
 	include/directed-graph.hh include/parray.hh include/varray.hh
-dstream.lo dstream.o: dstream.cc include/assoc.hh include/varray.hh \
+dstream.o dstream.lo: dstream.cc include/assoc.hh include/varray.hh \
 	include/dstream.hh include/string.hh \
 	include/arithmetic-operator.hh include/fproto.hh \
 	include/real.hh include/string-handle.hh \
 	include/international.hh include/compare.hh include/scalar.hh \
 	include/text-db.hh include/data-file.hh include/text-stream.hh \
 	include/string-convert.hh include/assoc-iter.hh
-flower-debug.lo flower-debug.o: flower-debug.cc include/flower-debug.hh \
+flower-debug.o flower-debug.lo: flower-debug.cc include/flower-debug.hh \
 	include/dstream.hh include/string.hh \
 	include/arithmetic-operator.hh include/fproto.hh \
 	include/real.hh include/string-handle.hh \
 	include/international.hh include/compare.hh
-flower-version.lo flower-version.o: flower-version.cc config.hh
-full-storage.lo full-storage.o: full-storage.cc include/full-storage.hh \
+flower-version.o flower-version.lo: flower-version.cc config.hh
+full-storage.o full-storage.lo: full-storage.cc include/full-storage.hh \
 	include/varray.hh include/matrix-storage.hh include/real.hh \
 	include/virtual-methods.hh include/full-storage.icc
-interval.lo interval.o: interval.cc include/interval.hh \
+interval.o interval.lo: interval.cc include/interval.hh \
 	include/fproto.hh include/real.hh include/compare.hh \
 	include/interval.tcc include/string.hh \
 	include/arithmetic-operator.hh include/string-handle.hh \
 	include/international.hh include/flower-debug.hh \
 	include/dstream.hh
-lgetopt.lo lgetopt.o: lgetopt.cc include/lgetopt.hh \
+lgetopt.o lgetopt.lo: lgetopt.cc include/lgetopt.hh \
 	include/international.hh
-libc-extension.lo libc-extension.o: libc-extension.cc \
+libc-extension.o libc-extension.lo: libc-extension.cc \
 	include/libc-extension.hh include/fproto.hh include/real.hh \
 	config.hh
-matrix-debug.lo matrix-debug.o: matrix-debug.cc include/flower-debug.hh \
+matrix-debug.o matrix-debug.lo: matrix-debug.cc include/flower-debug.hh \
 	include/dstream.hh include/string.hh \
 	include/arithmetic-operator.hh include/fproto.hh \
 	include/real.hh include/string-handle.hh \
 	include/international.hh include/compare.hh include/matrix.hh \
 	include/matrix-storage.hh include/varray.hh \
 	include/virtual-methods.hh include/vector.hh
-matrix-storage.lo matrix-storage.o: matrix-storage.cc \
+matrix-storage.o matrix-storage.lo: matrix-storage.cc \
 	include/full-storage.hh include/varray.hh \
 	include/matrix-storage.hh include/real.hh \
 	include/virtual-methods.hh include/diagonal-storage.hh
-matrix.lo matrix.o: matrix.cc include/matrix.hh \
+matrix.o matrix.lo: matrix.cc include/matrix.hh \
 	include/matrix-storage.hh include/varray.hh include/real.hh \
 	include/virtual-methods.hh include/vector.hh \
 	include/full-storage.hh include/diagonal-storage.hh
-nscalar.lo nscalar.o: nscalar.cc
-path.lo path.o: path.cc include/path.hh include/string.hh \
+nscalar.o nscalar.lo: nscalar.cc
+path.o path.lo: path.cc include/path.hh include/string.hh \
 	include/arithmetic-operator.hh include/fproto.hh \
 	include/real.hh include/string-handle.hh \
 	include/international.hh include/compare.hh include/varray.hh \
 	include/flower-debug.hh include/dstream.hh
-rational.lo rational.o: rational.cc include/rational.hh \
+rational.o rational.lo: rational.cc include/rational.hh \
 	include/compare.hh include/arithmetic-operator.hh \
 	include/fproto.hh include/real.hh include/string.hh \
 	include/string-handle.hh include/international.hh \
 	include/string-convert.hh include/libc-extension.hh config.hh
-scalar.lo scalar.o: scalar.cc include/scalar.hh include/string.hh \
+scalar.o scalar.lo: scalar.cc include/scalar.hh include/string.hh \
 	include/arithmetic-operator.hh include/fproto.hh \
 	include/real.hh include/string-handle.hh \
 	include/international.hh include/compare.hh include/rational.hh
-string-convert.lo string-convert.o: string-convert.cc \
+string-convert.o string-convert.lo: string-convert.cc \
 	include/libc-extension.hh include/fproto.hh include/real.hh \
 	config.hh include/string.hh include/arithmetic-operator.hh \
 	include/string-handle.hh include/international.hh \
 	include/compare.hh include/string-convert.hh \
 	include/rational.hh
-string.lo string.o: string.cc include/string.hh \
+string.o string.lo: string.cc include/string.hh \
 	include/arithmetic-operator.hh include/fproto.hh \
 	include/real.hh include/string-handle.hh \
 	include/international.hh include/compare.hh \
 	include/libc-extension.hh config.hh include/string-convert.hh
-stringutil.lo stringutil.o: stringutil.cc include/string-handle.hh \
+stringutil.o stringutil.lo: stringutil.cc include/string-handle.hh \
 	include/fproto.hh include/real.hh include/string-data.hh \
 	include/string.hh include/arithmetic-operator.hh \
 	include/international.hh include/compare.hh \
 	include/string-data.icc include/string-handle.icc \
 	include/string.icc
-text-db.lo text-db.o: text-db.cc include/text-db.hh include/data-file.hh \
+text-db.o text-db.lo: text-db.cc include/text-db.hh include/data-file.hh \
 	include/text-stream.hh include/string.hh \
 	include/arithmetic-operator.hh include/fproto.hh \
 	include/real.hh include/string-handle.hh \
 	include/international.hh include/compare.hh include/varray.hh
-text-stream.lo text-stream.o: text-stream.cc include/text-stream.hh \
+text-stream.o text-stream.lo: text-stream.cc include/text-stream.hh \
 	include/string.hh include/arithmetic-operator.hh \
 	include/fproto.hh include/real.hh include/string-handle.hh \
 	include/international.hh include/compare.hh include/varray.hh
-unionfind.lo unionfind.o: unionfind.cc include/unionfind.hh \
+unionfind.o unionfind.lo: unionfind.cc include/unionfind.hh \
 	include/varray.hh
-vector.lo vector.o: vector.cc include/vector.hh include/real.hh \
+vector.o vector.lo: vector.cc include/vector.hh include/real.hh \
 	include/varray.hh
 
 info: info-recursive
@@ -452,19 +427,19 @@ installdirs: installdirs-recursive
 
 
 mostlyclean-generic:
-	-test -z "$(MOSTLYCLEANFILES)" || rm -f $(MOSTLYCLEANFILES)
+	test -z "$(MOSTLYCLEANFILES)" || rm -f $(MOSTLYCLEANFILES)
 
 clean-generic:
-	-test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
+	test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
 
 distclean-generic:
-	-rm -f Makefile $(DISTCLEANFILES)
-	-rm -f config.cache config.log stamp-h stamp-h[0-9]*
-	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
+	rm -f Makefile $(DISTCLEANFILES)
+	rm -f config.cache config.log stamp-h stamp-h[0-9]*
+	test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
 
 maintainer-clean-generic:
-	-test -z "$(MAINTAINERCLEANFILES)" || rm -f $(MAINTAINERCLEANFILES)
-	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
+	test -z "$(MAINTAINERCLEANFILES)" || rm -f $(MAINTAINERCLEANFILES)
+	test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
 mostlyclean-am:  mostlyclean-libLTLIBRARIES mostlyclean-compile \
 		mostlyclean-libtool mostlyclean-tags \
 		mostlyclean-generic
@@ -486,8 +461,8 @@ mostlyclean:  mostlyclean-recursive mostlyclean-am
 clean:  clean-recursive clean-am
 
 distclean:  distclean-recursive distclean-am distclean-local
-	-rm -f config.status
-	-rm -f libtool
+	rm -f config.status
+	rm -f libtool
 
 maintainer-clean:  maintainer-clean-recursive maintainer-clean-am
 	@echo "This command is intended for maintainers to use;"

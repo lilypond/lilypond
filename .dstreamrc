@@ -1,7 +1,7 @@
 #This file controls which classes produce debugging output
 
 # class name		silence?
-Dstream			1
+Dstream			0
 
 # yydebug
 InitParser		1
@@ -17,8 +17,8 @@ walking		11
 
 # flower lib
 File_path		1
-Matrix			0
-Vector			0
+Matrix			1
+Vector			1
 
 # lily
 Atom			1
@@ -29,6 +29,7 @@ Chord			1
 Chord_iterator		1
 Clef_item		1
 Col_configuration	1
+Column_rod		1
 Colinfo			1
 Colinfo			1
 Collision		1
@@ -37,7 +38,7 @@ Engraver_group_engraver 1
 Group_change_req	1
 Head_column		1
 Idealspacing		1
-Ineq_constrained_qp 	0
+Ineq_constrained_qp 	1
 Input_translator	1
 Item			1
 Key_item		1
@@ -45,36 +46,39 @@ Lookup			1
 Line_spacer		1
 Melodic_req		1
 Midi_def		1
-Midistrings		0
-Mixed_qp		0
+Midistrings		1
+Mixed_qp		1
 Music			1
 Music_iterator		1
+Music_output_def	1
 My_lily_lexer		1
 Note_head		1
 Note_performer		1
 Note_req		1
-Paper_score			1
+Paper_column		1
+Paper_score		1
 Paper_def		1
 Performer		1
 Performer_group_performer	1
-Request			0
+Request			1
 Request_iterator	1
 Rest_collision		1
 Rest_collision_engraver 1
 Rest_req		1
 Rhythmic_req		1
+Rod			1
 Score			1
-Score_column		0
-Score_elem		0
+Score_column		1
+Score_elem		1
 Score_engraver		1
 Score_performer		1
 Script_column		1
 Script_def		1
 Script_req		1
-Slur			1
+Slur			0
 Spacing_problem 	1
 Spanner			1
-Spring_spacer		0
+Spring_spacer		1
 Staff			1
 Staff_commands		1
 Stem			1
@@ -88,7 +92,20 @@ Text_req		1
 Time_description	1
 Voice			1
 Voice_iterator		1
-Word_wrap		0
+Word_wrap		1
 delete_identifiers	1
 parse_duration		1
 parse_pitchmod		1
+Skip_req		1
+Translation_property	1
+Translator		1
+Engraver_group_engraver 1
+Translator_group	1
+Axis_group_administration 1
+Graphical_element 	1
+Single_malt_grouping_item 1
+Graphical_element	1
+Note_column		1
+Graphical_element 	1
+Rhythmic_head		1
+Horizontal_align_item 	1

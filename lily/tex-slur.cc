@@ -150,8 +150,9 @@ Lookup::ps_slur (Real dy , Real dx, Real ht, Real dir) const
    */
   String dx_str = String_convert::precision_str (dx, 4);
   String dy_str = String_convert::precision_str (dy, 3);
+  String ht_str = String_convert::precision_str (ht, 3);
   String dir_str = String_convert::int_str ((int)dir);
-  String name = "feta-sleur-" + dx_str + "-" + dy_str + "-" + dir_str;
+  String name = "feta-sleur-" + dx_str + "-" + dy_str + "-" + ht_str + "-" + dir_str;
   int i = name.index_i ('.');
   while (i != -1)
     {
@@ -167,7 +168,7 @@ Lookup::ps_slur (Real dy , Real dx, Real ht, Real dir) const
   mf += "interline#:=staffsize#/4;\n";
   mf += "stafflinethickness#:=0.1interline#;\n";
   mf += "input feta-sleur;\n";
-  mf += "slurchar(" + dx_str + "," + dy_str + "," + dir_str + ");\n";
+  mf += "slurchar(" + dx_str + "," + dy_str + "," + ht_str + "," + dir_str + ");\n";
   mf += "end.\n";
   mf += "}\n";
 

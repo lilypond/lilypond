@@ -35,7 +35,8 @@ Interval
 Staff_symbol::do_height() const
 {
   int n = no_lines_i_ -1;
-  return 2* inter_note_f () * Interval (-n, n);
+//  return 2* inter_note_f () * Interval (-n, n);
+  return inter_note_f () * Interval (-n, n);
 }
 
 Molecule*

@@ -123,8 +123,7 @@ def
  %  (b*ratio)/(1 + b / htlimit)
  /getslurcontrol 
  { 
- 	slurhtlimit add /slurheight exch def
-        slurheight 90 div /slur_alpha exch def
+        slurhtlimit 90 div /slur_alpha exch def
         slurratio 60 div slur_alpha div  /slur_beta  exch def
         slur_beta mul 1 atan slur_alpha mul
  } bind def
@@ -138,9 +137,9 @@ def
         /slur_dy exch def
         /slur_dx exch def
         slur_dy slur_dx lily_distance /slur_b  exch def
-        slur_b slur_height getslurcontrol 
+        slur_b getslurcontrol slur_height add
         slur_dir mul /slur_ht exch def
-        slur_b slur_height getslurcontrol /slur_indent exch def       
+        slur_b getslurcontrol /slur_indent exch def       
 %
         slur_dy slur_dx atan rotate
         slur_indent slur_ht

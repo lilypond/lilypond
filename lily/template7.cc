@@ -7,8 +7,8 @@
 */
 
 #include "proto.hh"
-#include "plist.hh"
 #include "pcursor.tcc"
+#include "plist.hh"
 #include "plist.tcc"
 
 #include "music-list.hh"
