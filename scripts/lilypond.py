@@ -486,7 +486,7 @@ def run_dvips (outbase, extra):
 leaving a PS file in OUTBASE.ps
 '''
 	#FIXME: papersize, orientation must come from lilypond-bin
-
+	opts = ''
 	if extra['papersize']:
 		opts = ' -t%s' % extra['papersize'][0]
 		
