@@ -53,7 +53,9 @@ sarabandeA =  \context Voice  \relative c {
   << { d8. e16 e4.\trill d16 e } \\
     { d4 a2 } >>
   <d, a' f'>4.  e'8[ d c] |
-  bes[ g'] f[ e16(f] g[ a bes d,)] |
+  bes[ g'] f[
+     \once \override Slur #'excentricity = #2.5
+     e16(f] g[ a bes d,)] |
   cis4.\trill b8[ a g] |
 
   %% check spacing without accs: 

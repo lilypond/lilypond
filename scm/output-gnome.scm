@@ -159,7 +159,9 @@ lilypond-bin -fgnome input/simple-song.ly
 	  (move item
 		(* output-scale (+ (car system-origin) x))
 		(* output-scale (- (car system-origin) y)))
-	  (affine-relative item output-scale 0 0 output-scale 0 0)
+	  ;; UGH latest guile-gnome is broken
+	  (if (defined? 'affine-relative)
+	      (affine-relative item output-scale 0 0 output-scale 0 0))
 	  item)
 	#f)))
 

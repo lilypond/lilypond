@@ -47,10 +47,12 @@
     e=''4.( c8) s4
     | << { b='8[( c]) } \\
 	 { b='8[( c]) }>>
+
     
     s2.|
     e4( dis4)
-    e4( dis4)
+    e4( dis4) 
     g='16( b d fis)
+    \clef bass a=8[ e16(f] g[ a bes d,)] |
 }
 

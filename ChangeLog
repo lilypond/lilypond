@@ -1,3 +1,14 @@
+2004-09-09  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/output-gnome.scm (placebox): Shield affine-relative.
+
+	* buildscripts/guile-gnome.sh: Update.  Do not use GUILE CVS,
+	cater for system's pango 1.5.1.
+
+	* input/regression/new-slur.ly: Add ugly slur from scsii-sarabande.
+
+	* scm/slur.scm: Tweak.
+
 2004-09-08  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/{first couple of chapters}: more editing.

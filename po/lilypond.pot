@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-18 15:20+0200\n"
+"POT-Creation-Date: 2004-09-07 16:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,12 +78,12 @@ msgstr ""
 msgid "Opening pipe `%s'"
 msgstr ""
 
-#: lilylib.py:269 lilypond-book.py:805
+#: lilylib.py:269 lilypond-book.py:812
 #, python-format
 msgid "`%s' failed (%d)"
 msgstr ""
 
-#: lilylib.py:274 lilylib.py:333 lilypond-book.py:806 lilypond-latex.py:465
+#: lilylib.py:274 lilylib.py:333 lilypond-book.py:813 lilypond-latex.py:466
 msgid "The error log is as follows:"
 msgstr ""
 
@@ -198,52 +198,52 @@ msgstr ""
 msgid "file not found: %s"
 msgstr ""
 
-#: lilypond-book.py:788
+#: lilypond-book.py:795
 #, python-format
 msgid "Opening filter `%s'"
 msgstr ""
 
-#: lilypond-book.py:904
+#: lilypond-book.py:913
 #, python-format
 msgid "cannot determine format for: %s"
 msgstr ""
 
-#: lilypond-book.py:945
+#: lilypond-book.py:954
 msgid "Output would overwrite input file; use --output."
 msgstr ""
 
-#: lilypond-book.py:952
+#: lilypond-book.py:961
 #, python-format
 msgid "Reading %s..."
 msgstr ""
 
-#: lilypond-book.py:966
+#: lilypond-book.py:975
 msgid "Dissecting..."
 msgstr ""
 
-#: lilypond-book.py:994
+#: lilypond-book.py:1006
 msgid "Writing snippets..."
 msgstr ""
 
-#: lilypond-book.py:999
+#: lilypond-book.py:1011
 msgid "Processing..."
 msgstr ""
 
-#: lilypond-book.py:1002
+#: lilypond-book.py:1014
 msgid "All snippets are up to date..."
 msgstr ""
 
-#: lilypond-book.py:1005
+#: lilypond-book.py:1017
 #, python-format
 msgid "Compiling %s..."
 msgstr ""
 
-#: lilypond-book.py:1013
+#: lilypond-book.py:1025
 #, python-format
 msgid "Processing include: %s"
 msgstr ""
 
-#: lilypond-book.py:1029 lilypond-latex.py:575 midi2ly.py:1017 ps2png.py:51
+#: lilypond-book.py:1041 lilypond-latex.py:576 midi2ly.py:1017 ps2png.py:51
 #, python-format
 msgid "getopt says: `%s'"
 msgstr ""
@@ -339,102 +339,102 @@ msgstr ""
 msgid "print version number"
 msgstr ""
 
-#: lilypond-latex.py:202
+#: lilypond-latex.py:203
 #, python-format
 msgid "no such setting: `%s'"
 msgstr ""
 
-#: lilypond-latex.py:246
+#: lilypond-latex.py:247
 #, python-format
 msgid "LilyPond crashed (signal %d)."
 msgstr ""
 
-#: lilypond-latex.py:247
+#: lilypond-latex.py:248
 msgid "Please submit a bug report to bug-lilypond@gnu.org"
 msgstr ""
 
-#: lilypond-latex.py:254
+#: lilypond-latex.py:255
 #, python-format
 msgid "LilyPond failed on input file %s (exit status %d)"
 msgstr ""
 
-#: lilypond-latex.py:258
+#: lilypond-latex.py:259
 #, python-format
 msgid "LilyPond failed on an input file (exit status %d)"
 msgstr ""
 
-#: lilypond-latex.py:259
+#: lilypond-latex.py:260
 msgid "Continuing..."
 msgstr ""
 
-#: lilypond-latex.py:269
+#: lilypond-latex.py:270
 #, python-format
 msgid "Analyzing %s..."
 msgstr ""
 
-#: lilypond-latex.py:323
+#: lilypond-latex.py:324
 #, python-format
 msgid "no LilyPond output found for `%s'"
 msgstr ""
 
-#: lilypond-latex.py:464
+#: lilypond-latex.py:465
 msgid "LaTeX failed on the output file."
 msgstr ""
 
-#: lilypond-latex.py:512
+#: lilypond-latex.py:513
 msgid ""
 "Trying create PDF, but no PFA fonts found.\n"
 "Using bitmap fonts instead. This will look bad."
 msgstr ""
 
 #. no ps header?
-#: lilypond-latex.py:555
+#: lilypond-latex.py:556
 #, python-format
 msgid "not a PostScript file: `%s'"
 msgstr ""
 
-#: lilypond-latex.py:665
+#: lilypond-latex.py:666
 msgid "pseudo filter"
 msgstr ""
 
-#: lilypond-latex.py:668
+#: lilypond-latex.py:669
 msgid "pseudo filter only for single input file"
 msgstr ""
 
-#: lilypond-latex.py:673
+#: lilypond-latex.py:674
 msgid "no files specified on command line"
 msgstr ""
 
-#: lilypond-latex.py:705
+#: lilypond-latex.py:706
 #, python-format
 msgid "filename should not contain spaces: `%s'"
 msgstr ""
 
-#: lilypond-latex.py:743
+#: lilypond-latex.py:744
 msgid "Running LilyPond failed. Rerun with --verbose for a trace."
 msgstr ""
 
-#: lilypond-latex.py:785
+#: lilypond-latex.py:786
 msgid "Failed to make PS file. Rerun with --verbose for a trace."
 msgstr ""
 
-#: lilypond-latex.py:814
+#: lilypond-latex.py:815
 #, python-format
 msgid "%s output to <stdout>..."
 msgstr ""
 
-#: lilypond-latex.py:819 includable-lexer.cc:57 kpath.cc:134 lily-guile.cc:85
-#: lily-parser.cc:297
+#: lilypond-latex.py:820 includable-lexer.cc:57 kpath.cc:134 lily-guile.cc:89
+#: lily-parser.cc:275
 #, c-format, python-format
 msgid "can't find file: `%s'"
 msgstr ""
 
-#: lilypond-latex.py:842
+#: lilypond-latex.py:843
 #, python-format
 msgid "%s output to %s..."
 msgstr ""
 
-#: lilypond-latex.py:845
+#: lilypond-latex.py:846
 #, python-format
 msgid "can't find file: `%s.%s'"
 msgstr ""
@@ -603,7 +603,7 @@ msgstr ""
 msgid "Accidental rule must be pair or context-name; Found %s"
 msgstr ""
 
-#: accidental.cc:217 key-signature-interface.cc:137
+#: accidental.cc:221 key-signature-interface.cc:137
 #, c-format
 msgid "accidental `%s' not found"
 msgstr ""
@@ -650,7 +650,7 @@ msgstr ""
 msgid "can't find default font: `%s'"
 msgstr ""
 
-#: all-font-metrics.cc:201 includable-lexer.cc:59 lily-parser.cc:290
+#: all-font-metrics.cc:201 includable-lexer.cc:59 lily-parser.cc:268
 #, c-format
 msgid "(search path: `%s')"
 msgstr ""
@@ -663,7 +663,7 @@ msgstr ""
 msgid "\\applycontext argument is not a procedure"
 msgstr ""
 
-#: auto-change-iterator.cc:62 change-iterator.cc:61
+#: auto-change-iterator.cc:67 change-iterator.cc:61
 msgid "Can't switch translators, I'm there already"
 msgstr ""
 
@@ -854,12 +854,12 @@ msgstr ""
 msgid "can't find `%s' context"
 msgstr ""
 
-#: gourlay-breaking.cc:195
+#: gourlay-breaking.cc:199
 #, c-format
 msgid "Optimal demerits: %f"
 msgstr ""
 
-#: gourlay-breaking.cc:200
+#: gourlay-breaking.cc:204
 msgid "No feasible line breaking found"
 msgstr ""
 
@@ -961,35 +961,35 @@ msgstr ""
 msgid "ligature was started here"
 msgstr ""
 
-#: lily-guile.cc:87
+#: lily-guile.cc:91
 #, c-format
 msgid "(load path: `%s')"
 msgstr ""
 
-#: lily-guile.cc:562
+#: lily-guile.cc:559
 #, c-format
 msgid "Can't find property type-check for `%s' (%s)."
 msgstr ""
 
-#: lily-guile.cc:565
+#: lily-guile.cc:562
 msgid "Perhaps you made a typing error?"
 msgstr ""
 
-#: lily-guile.cc:571
+#: lily-guile.cc:568
 msgid "Doing assignment anyway."
 msgstr ""
 
-#: lily-guile.cc:585
+#: lily-guile.cc:582
 #, c-format
 msgid "Type check for `%s' failed; value `%s' must be of type `%s'"
 msgstr ""
 
-#: lily-lexer.cc:219
+#: lily-lexer.cc:220
 #, c-format
 msgid "Identifier name is a keyword: `%s'"
 msgstr ""
 
-#: lily-lexer.cc:236
+#: lily-lexer.cc:237
 #, c-format
 msgid "error at EOF: %s"
 msgstr ""
@@ -998,16 +998,16 @@ msgstr ""
 msgid "Parsing..."
 msgstr ""
 
-#: lily-parser.cc:110 lily-parser.cc:147
+#: lily-parser.cc:110 lily-parser.cc:143
 msgid "Braces don't match"
 msgstr ""
 
-#: lily-parser.cc:289
+#: lily-parser.cc:267
 #, c-format
 msgid "can't find init file: `%s'"
 msgstr ""
 
-#: lily-parser.cc:306
+#: lily-parser.cc:284
 #, c-format
 msgid "Now processing `%s'"
 msgstr ""
@@ -1016,7 +1016,7 @@ msgstr ""
 msgid ""
 "This program is free software.  It is covered by the GNU General Public\n"
 "License and you are welcome to change it and/or distribute copies of it\n"
-"under certain conditions.  Invoke as `lilypond-bin --warranty' for more\n"
+"under certain conditions.  Invoke as `lilypond --warranty' for more\n"
 "information.\n"
 msgstr ""
 
@@ -1189,9 +1189,9 @@ msgstr ""
 msgid "Fingerings are also not down?! Putting them down anyway."
 msgstr ""
 
-#: new-lyric-combine-music-iterator.cc:246
+#: new-lyric-combine-music-iterator.cc:245
 #, c-format
-msgid "cannot find Voice `%s'."
+msgid "cannot find Voice `%s'"
 msgstr ""
 
 #: note-collision.cc:413
@@ -1203,9 +1203,9 @@ msgstr ""
 msgid "note head `%s' not found"
 msgstr ""
 
-#: paper-outputter.cc:113
+#: paper-outputter.cc:116
 #, c-format
-msgid "paper output to `%s'..."
+msgid "Paper output to `%s'..."
 msgstr ""
 
 #: paper-score.cc:68
@@ -1250,12 +1250,8 @@ msgstr ""
 msgid "MIDI output to `%s'..."
 msgstr ""
 
-#: phrasing-slur-engraver.cc:105
-msgid "unterminated phrasing slur"
-msgstr ""
-
-#: phrasing-slur-engraver.cc:123
-msgid "can't find start of phrasing slur"
+#: phrasing-slur-engraver.cc:99 slur-engraver.cc:114
+msgid "unterminated slur"
 msgstr ""
 
 #: piano-pedal-engraver.cc:237
@@ -1278,7 +1274,11 @@ msgstr ""
 msgid "Not a grob name, `%s'."
 msgstr ""
 
-#: quote-iterator.cc:181
+#: quote-iterator.cc:108
+msgid "No events found for \\quote"
+msgstr ""
+
+#: quote-iterator.cc:183
 #, c-format
 msgid "In quotation: junking event %s"
 msgstr ""
@@ -1324,7 +1324,7 @@ msgstr ""
 
 #: scm-option.cc:64
 #, c-format
-msgid "Usage: lilypond-bin -e \"(ly:set-option SYMBOL VAL)\""
+msgid "Usage: lilypond -e \"(ly:set-option SYMBOL VAL)\""
 msgstr ""
 
 #: scm-option.cc:66
@@ -1351,25 +1351,33 @@ msgstr ""
 msgid "Install the ec-mftraced package from %s. Aborting"
 msgstr ""
 
-#: score.cc:112
-msgid "Interpreting music... "
-msgstr ""
-
-#: score.cc:122
+#: score.cc:100 score.cc:126
 msgid "Need music in a score"
 msgstr ""
 
-#: score.cc:133
+#: score.cc:116
+msgid "Interpreting music... "
+msgstr ""
+
+#: score.cc:137
 #, c-format
 msgid "elapsed time: %.2f seconds"
 msgstr ""
 
+#: score.cc:312
+msgid "Already have music in score"
+msgstr ""
+
+#: score.cc:313
+msgid "This is the previous music"
+msgstr ""
+
 #. FIXME:
-#: script-engraver.cc:100
+#: script-engraver.cc:102
 msgid "Do not know how to interpret articulation: "
 msgstr ""
 
-#: script-engraver.cc:101
+#: script-engraver.cc:103
 msgid "Scheme encoding: "
 msgstr ""
 
@@ -1378,19 +1386,13 @@ msgstr ""
 msgid "Separation_item:  I've been drinking too much"
 msgstr ""
 
-#: simple-spacer.cc:248
+#: simple-spacer.cc:489
 #, c-format
 msgid "No spring between column %d and next one"
 msgstr ""
 
-#: slur-engraver.cc:128
-msgid "unterminated slur"
-msgstr ""
-
-#. How to shut up this warning, when Voice_devnull_engraver has
-#. eaten start event?
-#: slur-engraver.cc:146
-msgid "can't find start of slur"
+#: slur-engraver.cc:124
+msgid "No slur to end"
 msgstr ""
 
 #: source-file.cc:50
@@ -1408,17 +1410,17 @@ msgstr ""
 msgid "Global shortest duration is %s"
 msgstr ""
 
-#: stem-engraver.cc:84
+#: stem-engraver.cc:88
 msgid "tremolo duration is too long"
 msgstr ""
 
 #. FIXME:
-#: stem-engraver.cc:121
+#: stem-engraver.cc:125
 #, c-format
 msgid "Adding note head to incompatible stem (type = %d)"
 msgstr ""
 
-#: stem-engraver.cc:123
+#: stem-engraver.cc:127
 msgid "Don't you want polyphonic voices instead?"
 msgstr ""
 
@@ -1426,27 +1428,27 @@ msgstr ""
 msgid "Weird stem size; check for narrow beams"
 msgstr ""
 
-#: stem.cc:599
+#: stem.cc:575
 #, c-format
 msgid "flag `%s' not found"
 msgstr ""
 
-#: stem.cc:610
+#: stem.cc:586
 #, c-format
 msgid "flag stroke `%s' not found"
 msgstr ""
 
-#: system.cc:133
+#: system.cc:134
 #, c-format
 msgid "Element count %d."
 msgstr ""
 
-#: system.cc:271
+#: system.cc:272
 #, c-format
 msgid "Grob count %d"
 msgstr ""
 
-#: system.cc:285
+#: system.cc:286
 msgid "Calculating line breaks..."
 msgstr ""
 
@@ -1565,69 +1567,57 @@ msgstr ""
 msgid "Identifier should have alphabetic characters only"
 msgstr ""
 
-#: parser.yy:699
-msgid "Already have music in score"
-msgstr ""
-
-#: parser.yy:700
-msgid "This is the previous music"
-msgstr ""
-
-#: parser.yy:726
+#: parser.yy:707
 msgid "Need \\bookpaper for bookpaper block."
 msgstr ""
 
-#: parser.yy:863
+#: parser.yy:844
 msgid "More alternatives than repeats.  Junking excess alternatives."
 msgstr ""
 
-#: parser.yy:1035
+#: parser.yy:1016
 #, c-format
 msgid "Argument %d failed typecheck"
 msgstr ""
 
-#: parser.yy:1051
+#: parser.yy:1032
 msgid "Music head function should return Music object."
 msgstr ""
 
-#: parser.yy:1297
+#: parser.yy:1278
 msgid "Grob name should be alphanumeric"
 msgstr ""
 
-#: parser.yy:1551
-msgid "Can't find music"
-msgstr ""
-
-#: parser.yy:1671
+#: parser.yy:1639
 msgid "Second argument must be pitch list."
 msgstr ""
 
-#: parser.yy:1708 parser.yy:1713 parser.yy:2242
+#: parser.yy:1676 parser.yy:1681 parser.yy:2210
 msgid "Have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:1798
+#: parser.yy:1766
 msgid "Expecting string as script definition"
 msgstr ""
 
-#: parser.yy:2007 parser.yy:2057
+#: parser.yy:1975 parser.yy:2025
 #, c-format
 msgid "not a duration: %d"
 msgstr ""
 
-#: parser.yy:2152
+#: parser.yy:2120
 msgid "Have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:2257
+#: parser.yy:2225
 msgid "Have to be in Chord mode for chords"
 msgstr ""
 
-#: parser.yy:2407
+#: parser.yy:2377
 msgid "need integer number arg"
 msgstr ""
 
-#: parser.yy:2550
+#: parser.yy:2520
 msgid "Suspect duration found following this beam"
 msgstr ""
 
@@ -1693,16 +1683,16 @@ msgstr ""
 msgid "Consider updating the input with the convert-ly script"
 msgstr ""
 
-#: lily.scm:566
+#: lily.scm:574
 #, lisp-format
-msgid "Converting to ~s..."
+msgid "Converting to `~a'..."
 msgstr ""
 
-#: lily.scm:587
+#: lily.scm:596
 #, lisp-format
-msgid "Invoking `~s'..."
+msgid "Invoking `~a'..."
 msgstr ""
 
-#: lily.scm:605
+#: lily.scm:614
 msgid "error: failed files: "
 msgstr ""

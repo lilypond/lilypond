@@ -113,7 +113,7 @@ Paper_outputter::output_stencil (Stencil stil)
 Paper_outputter *
 get_paper_outputter (String outname, String f) 
 {
-  progress_indication (_f ("paper output to `%s'...",
+  progress_indication (_f ("Paper output to `%s'...",
 			   outname == "-" ? String ("<stdout>") : outname));
   return new Paper_outputter (outname, f);
 }
