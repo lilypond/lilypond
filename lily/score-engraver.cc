@@ -259,30 +259,41 @@ Score_engraver::get_output ()
 }
 
 bool
-Score_engraver::try_music (Music*r)
+Score_engraver::try_music (Music *m)
 {
-  bool gotcha = Engraver_group_engraver::try_music (r);  
+  if (Engraver_group_engraver::try_music (m))
+    return true;
 
-  if (!gotcha && r->is_mus_type ("break-event"))
+  if (m->is_mus_type ("break-event"))
     {
-      gotcha = true;
-
       SCM pen = command_column_->get_property ("penalty");
-      Real total_penalty = is_number (pen)
-	? ly_scm2double (pen)
-	: 0.0;
+      Real total_penalty = is_number (pen) ? ly_scm2double (pen) : 0.0;
 
-      SCM rpen = r->get_property ("penalty");
-      if (is_number (rpen))
-	total_penalty +=  ly_scm2double (rpen);
-	  
-      if (total_penalty > 10000.0) //  ugh. arbitrary.
+      SCM mpen = m->get_property ("penalty");
+      if (is_number (mpen))
+	total_penalty += ly_scm2double (mpen);
+
+      command_column_->set_property ("penalty", scm_make_real (total_penalty));
+
+      /* ugh.  arbitrary, hardcoded */
+      if (total_penalty > 10000.0)
 	forbid_breaks ();
 
-      command_column_->set_property ("penalty",
-					  scm_make_real (total_penalty));
+      SCM page_pen = command_column_->get_property ("page-penalty");
+      if (is_number (page_pen))
+	{
+	  Real total_pp = ly_scm2double (page_pen);
+	  SCM mpage_pen = m->get_property ("page-penalty");
+	  if (is_number (mpen))
+	    total_pp += ly_scm2double (mpage_pen);
+
+	  // FIXME: this never reaches a grob that System::get_line sees.
+	  command_column_->set_property ("page-penalty",
+					 scm_make_real (total_pp));
+	}
+      return true;
     }
-  return gotcha;
+  return false;
 }
 
 void

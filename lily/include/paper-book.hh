@@ -5,7 +5,6 @@
 
   (c) 2004  Jan Nieuwenhuizen <janneke@gnu.org>
 */
-
 #ifndef PAPER_BOOK_HH
 #define PAPER_BOOK_HH
 

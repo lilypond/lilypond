@@ -29,7 +29,8 @@ stencil2line (Stencil* stil, bool is_title = false)
   Offset dim = Offset (stil->extent (X_AXIS).length (),
 		       stil->extent (Y_AXIS).length ());
   Paper_line *pl = new Paper_line (dim, scm_cons (stil->smobbed_copy (),
-						  SCM_EOL), is_title);
+						  SCM_EOL),
+				   -10001 * is_title, is_title);
 
   return scm_gc_unprotect_object (pl->self_scm ());
 }

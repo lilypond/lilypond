@@ -349,11 +349,15 @@ pairs.}")
 
      (padding ,ly:dimension? "Add this much extra space between
 objects that are next to each other.")
-     (penalty ,number? "Penalty for breaking at
-this column. 10000 or more means forbid linebreak, -10000 or less
-means force linebreak.  Other values influence linebreaking decisions
+     (page-penalty ,number? "Penalty for page break at
+this column.  10000 or more means forbid linebreak, -10000 or less
+means force page break.  Other values influence page breaking decisions
 as a real penalty.")
-     
+     (penalty ,number? "Penalty for line break at
+this column.  10000 or more means forbid line break, -10000 or less
+means force line break.  Other values influence line breaking decisions
+as a real penalty.")
+
      (pitch-max ,ly:pitch? "Top pitch for ambitus.")
      (pitch-min ,ly:pitch? "Bottom pitch for ambitus.")
 
