@@ -333,7 +333,6 @@ is erased.
 .")
 (translator-property-description 'stemRightBeamCount integer? "idem, for the right side.")
 
-(translator-property-description 'stringTunings list? "DOCME.")
 (translator-property-description 'stz markup? "Abbreviated form for a stanza, see also Stanza property.")
 (translator-property-description 'subdivideBeams boolean? "If set, multiple beams will be subdivided at beat
 positions - by only drawing one beam over the beat.")
@@ -407,4 +406,5 @@ according to values of @code{defaultBarType}, @code{barAlways},
 Valid values are described in @ref{(lilypond-internals)bar-line-interface}.
 
 .")
+(translator-property-description 'stringTunings list? "The tablature strings tuning. Must be a list of the different semitons pitch of each string (starting by the lower one).")
 

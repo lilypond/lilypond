@@ -8,6 +8,11 @@
 	to new $datadir convention (<package>/<version>).
 
 2002-06-13  Han-Wen  <hanwen@cs.uu.nl>
+	
+	* Document/user/refman.itely: tablature doc and code updates by
+	Jean-Baptiste Lamy <jiba@@tuxfamily.org>
+	
+	* input/template/piano-dynamics.ly: bugfixes.
 
 	* lily/key-engraver.cc (try_music): read request only once. Don't
 	overwrite lastKeySignature. Call create_key() only once. This
