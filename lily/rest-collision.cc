@@ -33,6 +33,8 @@ Rest_collision::force_shift_callback (SCM element_smob, SCM axis)
     {
       /*
 	Done: destruct pointers, so we do the shift only once.
+
+	TODO: use rest-collision-done
       */
       SCM elts = rc->get_grob_property ("elements");
       rc->set_grob_property ("elements", SCM_EOL);

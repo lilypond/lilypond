@@ -136,7 +136,7 @@ Break_align_interface::do_alignment (Grob *me)
 	  warning (_f ("unknown spacing pair `%s', `%s'",
 		       ly_symbol2string (current_origin),
 		       ly_symbol2string (next_origin)));
-	  extra_space = scm_list_n (ly_symbol2scm ("minimum-space"), gh_double2scm (0.0), SCM_UNDEFINED);
+	  extra_space = scm_list_n (ly_symbol2scm ("minimum-space-pair"), gh_double2scm (0.0), SCM_UNDEFINED);
 	}
 
       SCM symbol = ly_car (extra_space);
@@ -161,14 +161,14 @@ Break_align_interface::do_alignment (Grob *me)
 
 
   // urg
-  SCM first_pair = elems[0]->get_grob_property ("minimum-space");
+  SCM first_pair = elems[0]->get_grob_property ("minimum-space-pair");
   if (gh_pair_p (first_pair))
     first_pair = first_pair;
   else
     first_pair = gh_cons (gh_double2scm (0.0), gh_double2scm (0.0));
   
   scm_set_car_x (first_pair, gh_double2scm (-dists[0]));
-  elems[0]->set_grob_property ("minimum-space", first_pair);
+  elems[0]->set_grob_property ("minimum-space-pair", first_pair);
 
   Direction bsd = item->break_status_dir ();
   if (bsd == LEFT)
@@ -203,7 +203,7 @@ Break_align_interface::do_alignment (Grob *me)
       spring_len += dists.top ();
       stretch_distance = dists.top ();
     }
-  else if (ly_car (symbol_list) == ly_symbol2scm ("minimum-space"))
+  else if (ly_car (symbol_list) == ly_symbol2scm ("minimum-space-pair"))
     {
       spring_len = spring_len >? dists.top ();
       stretch_distance = spring_len;
