@@ -17,7 +17,20 @@
 @item -f,--format=
 Output format for sheet music. Choices are tex (for @TeX{}
 output), ps (for PostScript) and scm (for a Scheme
-dump)
+dump).
+
+For processing both the @TeX{} and the PostScript output, you must
+have appropriate environment variables set.  For @TeX{}, you have to
+set @var{MFINPUTS} and @var{TEXINPUTS} to point to the directory
+containing LilyPond metafont and .tex files.  For processing the
+PostScript with Ghostscript, you have to set @var{GS_FONTPATH} to
+point to the directory containing LilyPond @file{pfa} files.
+
+Scripts to do this are included in
+@file{buildscripts/out/lilypond-profile} (for sh shells) and
+@file{buildscripts/out/lilypond-login} (for C-shells), and should
+normally be run as part of your login process.
+
 
 @item -h,--help
 Show a summary of usage.

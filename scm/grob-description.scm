@@ -49,7 +49,9 @@
 		(direction . 1)
                 (font-family . roman)
 		(font-relative-size . -1)
+		(Y-offset-callbacks . (,Side_position::aligned_side))
 		(meta . ,(grob-description "BarNumber"
+					   side-position-interface
 			text-interface  font-interface break-aligned-interface))
 	))
 

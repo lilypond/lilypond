@@ -69,7 +69,7 @@
 
 #'thickness= weight of beams, in staffspace
   "
-   '(
+   '(auto-knee-gap
      staff-position
     height
     flag-width-function 

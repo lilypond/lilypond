@@ -311,6 +311,9 @@ add_bound_item (Spanner* sp, Item*it)
     sp->set_bound (RIGHT, it);
 }
 
+/*
+  Extends EXTREMAL_PAIR to include IT
+ */
 static void
 extend_spanner_over_item (Item *it, SCM extremal_pair)
 {
@@ -330,6 +333,9 @@ extend_spanner_over_item (Item *it, SCM extremal_pair)
     }
 }
 
+/*
+  Extends EXTREMAL_PAIR to include every grob in VALUE
+ */
 static void
 extend_spanner_over_elements (SCM value, SCM extremal_pair)
 {

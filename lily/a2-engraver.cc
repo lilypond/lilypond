@@ -134,8 +134,9 @@ A2_engraver::acknowledge_grob (Grob_info i)
       || Slur::has_interface (i.elem_l_)
       /*
 	Usually, dynamics are removed by *_devnull_engravers for the
-	second voice.  We don't want all dynamics for the first voice
-	to be placed above the staff.  */
+	second voice.  On the one hand, we don't want all dynamics for
+	the first voice to be placed above the staff.  On the other
+	hand, colliding of scripts may be worse */
 #if 0
       || i.elem_l_->has_interface (ly_symbol2scm ("dynamic-interface"))
       || i.elem_l_->has_interface (ly_symbol2scm ("text-interface"))

@@ -11,7 +11,7 @@
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol.hh"
 #include "paper-def.hh"
-
+ 
 bool
 Staff_symbol_referencer::has_interface (Grob*e)
 {
@@ -29,7 +29,7 @@ Staff_symbol_referencer::line_count (Grob*me)
 bool
 Staff_symbol_referencer::on_staffline (Grob*me)
 {
-  return on_staffline (me, (int) position_f (me));
+  return on_staffline (me, (int) rint (position_f (me)));
 }
 
 bool

@@ -197,8 +197,15 @@ Bar::get_staff_bar_size (SCM smob)
   SCM size = me->get_grob_property ("bar-size");
   if (gh_number_p (size))
     return gh_double2scm (gh_scm2double(size)*ss);
-  else
+  else if (Staff_symbol_referencer::staff_symbol_l (me))
     {
+      /*
+	If there is no staff-symbol, we get -1 from the next
+	calculation. That's a nonsense value, which would collapse the
+	barline so we return 0.0 in the next alternative.
+      */
       return gh_double2scm ((Staff_symbol_referencer::line_count (me) -1) * ss);
     }
+  else
+    return gh_int2scm (0);
 }

@@ -1,5 +1,6 @@
 Source: lilypond1.3
-Build-Depends: debhelper (>= 2.0.72), python-base (>= 1.5.2-4), libguile9-dev, tetex-bin, libkpathsea-dev, tetex-extra, flex, bison, texinfo (>= 4.0-1), bibtex2html, groff, gs, netpbm, pnmtopng, m4, gettext (>= 0.10.35-13)
+Build-Depends: debhelper (>= 2.0.72), python-base (>= 1.5.2-4), libguile-dev (>= 1:1.4-9), tetex-bin, libkpathsea-dev, tetex-extra, flex, bison, texinfo (>= 4.0-1), bibtex2html, groff, gs, netpbm, pnmtopng, m4, gettext (>= 0.10.35-13)
+Build-Conflicts: lilypond, lilypond1.3
 Section: tex
 Priority: optional
 Maintainer: Anthony Fok <foka@debian.org>
@@ -9,7 +10,7 @@ Package: lilypond1.3
 Architecture: any
 Replaces: lilypond
 Provides: lilypond
-Depends: ${shlibs:Depends}, tetex-bin (>= 1.0.5-1), python-base (>= 1.5.2-4), guile
+Depends: ${shlibs:Depends}, tetex-bin (>= 1.0.5-1), python-base (>= 1.5.2-4), guile1.4
 Recommends: tetex-extra (>= 1.0-1)
 Conflicts: lilypond, musixtex-fonts
 Description: A program for printing sheet music.

@@ -26,7 +26,7 @@ outputscale = \staffheight / 4.0;
 \translator { \ThreadContext}
 \translator { \PianoStaffContext}
 \translator { \LyricsVoiceContext }
-
+\translator { \StaffContainerContext }
 
 
 

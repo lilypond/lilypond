@@ -65,8 +65,7 @@ protected:
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music *req_l);
   virtual void stop_translation_timestep ();
-
-  virtual void create_grobs ();  
+  virtual void process_music ();  
   virtual void start_translation_timestep ();
 };
 
@@ -129,7 +128,7 @@ Dynamic_engraver::try_music (Music * m)
 }
 
 void
-Dynamic_engraver::create_grobs ()
+Dynamic_engraver::process_music ()
 {
   if (accepted_spanreqs_drul_[START] || accepted_spanreqs_drul_[STOP] || script_req_l_)
     {
@@ -187,8 +186,7 @@ Dynamic_engraver::create_grobs ()
       /*
 	finish side position alignment if the (de)cresc ends here, and
 	there are no new dynamics.
-    
-   */
+       */
  
       if ( !cresc_p_)
 	{
@@ -203,12 +201,15 @@ Dynamic_engraver::create_grobs ()
 	  cresc_p_->set_bound (RIGHT, script_p_
 			       ? script_p_
 			       : unsmob_grob (get_property ("currentMusicalColumn")));
+	  add_bound_item (line_spanner_, cresc_p_->get_bound (RIGHT));
+	  
 
 	  finished_cresc_p_ = cresc_p_;
 	  cresc_p_ = 0;
 	  current_cresc_req_ = 0;
 	}
     }
+  
   if (accepted_spanreqs_drul_[START])
     {
       if (current_cresc_req_)
@@ -224,27 +225,27 @@ Dynamic_engraver::create_grobs ()
 
 	  /*
 	    TODO: Use symbols.
-	   */
+	  */
 
 	  String start_type = ly_scm2string (accepted_spanreqs_drul_[START]->get_mus_property ("span-type"));
 
 	  /*
 	    ugh. Use push/pop?
-	   */
+	  */
 	  SCM s = get_property ((start_type + "Spanner").ch_C());
 	  if (!gh_symbol_p (s) || s == ly_symbol2scm ("hairpin"))
 	    {
 	      cresc_p_  = new Spanner (get_property ("Hairpin"));
 	      cresc_p_->set_grob_property ("grow-direction",
-					  gh_int2scm ((start_type == "crescendo")
-						      ? BIGGER : SMALLER));
+					   gh_int2scm ((start_type == "crescendo")
+						       ? BIGGER : SMALLER));
 	      
 	    }
 	  /*
 	    This is a convenient (and legacy) interface to TextSpanners
 	    for use in (de)crescendi.
 	    Hmm.
-	   */
+	  */
 	  else
 	    {
 	      cresc_p_  = new Spanner (get_property ("TextSpanner"));
@@ -256,7 +257,7 @@ Dynamic_engraver::create_grobs ()
 	      if (gh_string_p (s))
 		{
 		  cresc_p_->set_grob_property ("edge-text",
-					      gh_cons (s, ly_str02scm ("")));
+					       gh_cons (s, ly_str02scm ("")));
 		  daddy_trans_l_->set_property (start_type + "Text",
 						SCM_UNDEFINED);
 		}
@@ -267,18 +268,24 @@ Dynamic_engraver::create_grobs ()
 			       : unsmob_grob (get_property ("currentMusicalColumn")));
 
 	  Axis_group_interface::add_element (line_spanner_, cresc_p_);
+
+	  add_bound_item (line_spanner_, cresc_p_->get_bound (LEFT));
+	  
 	  announce_grob (cresc_p_, accepted_spanreqs_drul_[START]);
 	}
     }
-  script_req_l_ = 0;
-  accepted_spanreqs_drul_[START] = 0;
-  accepted_spanreqs_drul_[STOP] = 0;
 }
 
 void
 Dynamic_engraver::stop_translation_timestep ()
 {
   typeset_all ();
+  if (script_req_l_ && !current_cresc_req_)
+    {
+      finished_line_spanner_ = line_spanner_;
+      line_spanner_ =0;
+      typeset_all ();
+    }
 }
 
 void
@@ -304,11 +311,16 @@ Dynamic_engraver::typeset_all ()
 {  
   if (finished_cresc_p_)
     {
-#if 1
-      finished_cresc_p_->set_bound (RIGHT, script_p_
-			   ? script_p_
-			   : unsmob_grob (get_property ("currentMusicalColumn")));
-#endif	        
+      if (!finished_cresc_p_->get_bound (RIGHT))
+	{
+	  finished_cresc_p_->set_bound (RIGHT, script_p_
+					? script_p_
+					: unsmob_grob (get_property ("currentMusicalColumn")));
+
+	  if (finished_line_spanner_)
+	    add_bound_item (finished_line_spanner_,
+			    finished_cresc_p_->get_bound (RIGHT));
+	}
       typeset_grob (finished_cresc_p_);
       finished_cresc_p_ =0;
     }
@@ -320,8 +332,24 @@ Dynamic_engraver::typeset_all ()
     }
   if (finished_line_spanner_)
     {
+      /*
+	To make sure that this works
+      */
       Side_position::add_staff_support (finished_line_spanner_);
-      extend_spanner_over_elements (finished_line_spanner_);
+      /*
+	We used to have
+	
+	     extend_spanner_over_elements (finished_line_spanner_);
+
+	but this is rather kludgy, since finished_line_spanner_
+	typically has a staff-symbol field set , extending it over the
+	entire staff.
+
+      */
+
+      if (!finished_line_spanner_->get_bound (RIGHT))
+	finished_line_spanner_->set_bound (RIGHT, finished_line_spanner_->get_bound (LEFT));
+      
       typeset_grob (finished_line_spanner_);
       finished_line_spanner_ = 0;
     }

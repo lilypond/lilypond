@@ -1,19 +1,32 @@
-% dynamics collide with staff
+% dynamics should not collide with staff
+% dynamics (of two voices) should not collide with eachother
 
 \header {
 texidoc="Template for part-combining orchestral scores";
 }
 
 
-End = { \skip 1*6; }
+End = { \skip 1*8; }
 violoncello = \notes\relative c'' {
   c1\ff d e \break
   c1\ff d e \break
+  
+  \property Voice.crescendoText = #"cresc."
+  \property Voice.crescendoSpanner = #'dashed-line
+  g4\p\< r r r8 g(|
+  )c,4 r r r8 c|
+  [\!f8\sf(\>as f as][f g d)\!g]|
 }
 
 contrabasso = \notes\relative c'' {
   c1\pp d e
   c2\pp c d1 e
+  
+  \property Voice.crescendoText = #"cresc."
+  \property Voice.crescendoSpanner = #'dashed-line
+  g4\p\< r r r8 g(|
+  )c,4 r r r8 c|
+  [\!f8\sf(\>as f as][f g d)\!g]| 
 }
 
 flautiStaff =  \notes \context Staff = flauti <

@@ -40,7 +40,7 @@ protected:
   virtual bool try_music (Music *req_l);
   virtual void start_translation_timestep ();
   virtual void initialize ();
-  virtual void create_grobs ();
+  virtual void process_music ();
   
 private:
   Mark_req * mark_req_l_;
@@ -135,8 +135,14 @@ Mark_engraver::try_music (Music* r_l)
   return false;
 }
 
+
+/*
+
+  TODO: make the increment function in Scheme.
+
+*/
 void
-Mark_engraver::create_grobs ()
+Mark_engraver::process_music ()
 {
   if (mark_req_l_)
     {
