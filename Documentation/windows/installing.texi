@@ -11,61 +11,36 @@ This document explains how to install the binary release for windows
 on a Microsoft Windows 95, 98, NT or 2000 machine.
 
 This release is a free extra service of the developers to assist windows
-users. Please remember that we (the developers) rather dislike windows,
+users.  Please remember that we (the developers) rather dislike windows,
 and none of us use it.  Don't complain to us that installing LilyPond is
-too difficult; rather, send us code that works better.
+too difficult; rather, if you know something about your Windows, send us
+code that works better (see @uref{compiling.html,compiling}).
 
-You must install the following software:
+@section Windows binary setup 
+
+Apart from LilyPond itself, you need Cygwin, GUILE, Python, and a TeX
+installation, but all this software be installed by running setup.exe:
 
 @table @asis
 @item LilyPond
 Download and run
-@uref{ftp://ftp.lilypond.org/pub/LilyPond/gnu-windows/setup.exe, setup.exe}
+@c let's do http, so that people read the README
+@uref{http://www.lilypond.org/gnu-windows/setup.exe, setup.exe}
 to install LilyPond.
 
 This will install the minimal set of cygwin tools needed to run
-LilyPond.  If you already have cygwin installed, don't worry: nothing
-will be installed twice.  To expand on this minimal set, click
-@uref{http://sources.redhat.com/cygwin/setup.exe,here},
-or visit a Cygwin
-@uref{http://sources.redhat.com/cygwin/mirrors.html,mirror site}.
+LilyPond.
 
-@item A full TeX installation.
+As of version 1.3.150, you also have the option to install MiKTeX,
+Python and GSView from this installer, which is recommended.  If you
+choose to install these by hand (see below), make sure to install them
+@strong{before} you install LilyPond, otherwise your LilyPond setup will
+be broken.
 
-For example,  download  and install 
-@uref{http://prdownloads.sourceforge.net/miktex/miktex-2.0-lvl-1.zip,MikTeX},
-or visit @uref{http://www.miktex.org,www.miktex.org}.
-@c See @file{/usr/doc/cygwin/tetex-beta-20001218.README} for details.
-
-@item Ghostview.
-
-You can use GSView-2.6.  This old package has two advantages.  It has
-gsview and ghostscript bundeled, and it doesn't popup @emph{Register
-Now|Cancel} windows all the time.  It doesn't work together with Yap to
-display PostScript specials.
-
-Click @uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum/gsv26w32.exe,here} to
-install GSView-2.6 (GhostView for Windows), or visit
-@uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum,ftp.cs.wisc.edu}.
-
-You can also use the newer versions GSView-3.6 and GhostScript-6.50 If
-you install both these packages, Yap will display PostScript specials.
-You get annoying @emph{Register Now|Cancel} popups, though.
-
-Click @uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum/gsv36w32.exe,here} for
-GSview and 
-Click @uref{ftp://mirror.cs.wisc.edu/pub/mirrors/ghost/AFPL/gs650/gs650w32.exe
-,here} for GhostScript.
-@uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum,ftp.cs.wisc.edu}.
-or visit the
-@uref{http://www.cs.wisc.edu/~ghost/,Ghostscript, Ghostview and GSview site}.
-
-@item Python
-Click @uref{http://www.python.org/ftp/python/win32/py152.exe,here} to
-install Python-1.5.2, or visit
-@uref{http://www.python.org,www.python.org}.
-
-We have not tried using newer versions than 1.5.2.
+If you already have cygwin installed, don't worry: nothing will be
+installed twice.  To expand on this minimal set, click
+@uref{http://sources.redhat.com/cygwin/setup.exe,here}, or visit a
+Cygwin @uref{http://sources.redhat.com/cygwin/mirrors.html,mirror site}.
 @end table
 
 
@@ -100,6 +75,63 @@ PATH=/usr/lilypond-1.3.147/bin:$PATH
 @end example
 
 and try again.
+
+
+
+@subsection Additional software
+
+LilyPond needs a number of software packages to be really useful.  These
+are included in the binary setup program (see above).
+
+If you choose to install this additional software yourself, make sure
+you install LilyPond last, otherwise the LilyPond setup will be broken.
+Also note that this means that you will probably need to fix some PATH
+and TEX environment variables yourself.  If you think you can handle
+that, you may do so, but don't complain if it doesn't work.
+
+These software packages are included in the LilyPond installation:
+
+@table @asis
+@item A full TeX installation.
+
+Currently, only MikTeX is supported.  Download and install
+@uref{http://downloads.sourceforge.net/miktex/miktex-2.0-lvl-1.zip,MikTeX},
+or visit @uref{http://www.miktex.org,www.miktex.org}.
+@c See @file{/usr/doc/cygwin/tetex-beta-20001218.README} for details.
+
+@item Ghostview.
+
+You can use GSView-2.6.  This old package has two advantages.  It has
+gsview and ghostscript bundeled, and it doesn't popup @emph{Register
+Now|Cancel} windows all the time.  It doesn't work together with Yap to
+display PostScript specials.
+
+Click @uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum/gsv26w32.exe,here} to
+install GSView-2.6 (GhostView for Windows), or visit
+@uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum,ftp.cs.wisc.edu}.
+
+You can also use the newer versions GSView-3.6 and GhostScript-6.50 If
+you install both these packages, Yap will display PostScript specials.
+You get annoying @emph{Register Now|Cancel} popups, though.
+
+Click @uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum/gsv36w32.exe,here} for
+GSview and 
+Click @uref{ftp://mirror.cs.wisc.edu/pub/mirrors/ghost/AFPL/gs650/gs650w32.exe
+,here} for GhostScript.
+@uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum,ftp.cs.wisc.edu}.
+or visit the
+@uref{http://www.cs.wisc.edu/~ghost/,Ghostscript, Ghostview and GSview site}.
+
+@item Python
+Click @uref{http://www.python.org/ftp/python/win32/py152.exe,here} to
+install Python-1.5.2, or visit
+@uref{http://www.python.org,www.python.org}.
+
+We have not tried using newer versions than 1.5.2.
+
+@end table
+
+
 
 [TODO:
 

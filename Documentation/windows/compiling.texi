@@ -1,8 +1,8 @@
 @section Obtaining LilyPond
 
 You can get the latest version of LilyPond at
-@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/,
-ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/}.
+@uref{ftp://ftp.lilypond.org/pub/LilyPond/,
+ftp://ftp.lilypond.org/pub/LilyPond/}.
 
 @section Windows build requirements
 You need the following packages to compile Lilypond on Windows.
@@ -21,5 +21,48 @@ included in LilyPond's source distribution.
 
 These binaries are cross compiled for Windows on a GNU/Linux box.  You
 may want to check out the
-@uref{http://appel.lilypond.org/lilypond/gnu-windows/cross-1.1.8.tar.gz,cross
+@uref{http://www.lilypond.org/gnu-windows/cross-1.1.8.tar.gz,cross
 compilation scripts}.
+
+
+@section Windows installation specifics
+
+Installing LilyPond on Windows is similar to a unix installation, but
+needs a number of extra tricks.  All code for these tricks can be found
+in the source package directory @file{Documentation/windows}.
+
+@table @asis
+@item @var{guile-1.4-gnu-windows.patch}
+You may (Cygwin gets better every day) need this patch to compile GUILE.
+@item @var{cygwin-installer.patch}
+Apply this patch to the @file{cinstall} directory of Cygwin, to get the
+LilyPond installer.
+@item @var{--prefix=/usr/lilypond-x.y.x}
+The standard binary installation installs LilyPond into its own prefix.
+We think it's silly, but do this is on special request of Windows users.
+@item @file{fix-suffixes.sh}
+Add @file{.exe} to binary executables, add @file{.py} to Python scripts.
+@item @file{python-wrapper.sh}
+All python scripts get a wrapper script to make direct invocation easier
+and to change file paths to DOS style, which is needed by non-Cygwin
+Python, that's currently used.
+@item @file{latex-wrapper.sh}
+TeX and LaTeX get a wrapper script that changes the TEX path variables
+to DOS style, which is needed by non-Cygwin TeX, that's currently used.
+@item @file{/etc/postinstall/}
+A number of post installation scripts try to set registry entries and
+symlinks that are needed for the additional windows packages.
+@item @file{/etc/profile.d/}
+A number of login profile scripts set environment vars, every time you
+start the LilyPond/Cygwin shell (or Bash, for that matter).
+@end table
+
+These scripts and tricks are known to work in some cases, but are
+woefully incomplete.  If you find a bug, please send us your fix.
+
+Windows users have indicated that a DOS style login (as supposed to the
+LilyPond/Cygwin shell), would be useful.  We don't enjoy DOS scripting,
+and think users should try the bash shell, which is better suited for
+typing in commands.  However, if you have written useful DOS login
+scripts, please send us your code.
+
