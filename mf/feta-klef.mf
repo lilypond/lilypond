@@ -58,21 +58,21 @@ def draw_c_clef (expr reduction) =
 	penpos6(norm-hair,90);
 	z6=(xoff+3/4norm,0);
 
-	penpos7(hair,-90);
-	z7r=(x1,-d);
 
 	save t; t=0.833;
 	save p; path p;
 	p = z5l..z4l{up}..z4r{down}..z3r{right}..tension t..z2r{up}
-		..tension t..z1r{left}..z1l{right}..tension t..z2l{down}
+		..tension t..
+		flare_path(z1l,180,90,hair,norm-1/2hair, -1)
+%z1r{left}..z1l{right}
+		..tension t..z2l{down}
 		..z3l{left}..z6r..z5r{down};
 	pickup pencircle scaled 1pt#;
 	filldraw p..(reverse p yscaled -1)..cycle;
 	penlabels (1,2,3,4,5,6);
 
 	% ugh, should be bulb, not flare?
-	draw_flare(z1l,180,90,hair,norm-1/2hair);
-	draw_flare(z7r,180,-90,hair,norm-1/2hair);
+
 	enddef;
 
 fet_beginchar ("C clef", "C", "altoclef")
@@ -101,57 +101,58 @@ fet_endchar;
 % the dots, but her picture shows that the extreme is ~ 0.2 ss lower
 
 def draw_bass_clef(expr exact_center, reduction) = 
-	save reduced_il, left_tilt, left_thick, ball_to_right;
-	reduced_il# = staff_space# * reduction;
-	
-	set_horizontal_spacing;
-	ball_to_right# = 2.1 reduced_il#;
-	set_char_box(left_space# +
-		- xpart exact_center,
-		right_space# +
-		xpart exact_center + ball_to_right# + 7/12 reduced_il#, 
-		- ypart exact_center + 2.5 reduced_il#, 
-		ypart exact_center +reduced_il#);
+        save reduced_il, left_tilt, left_thick, ball_to_right;
+        reduced_il# = staff_space# * reduction;
+        
+        set_horizontal_spacing;
+        ball_to_right# = 2.1 reduced_il#;
+        set_char_box(left_space# +
+                - xpart exact_center,
+                right_space# +
+                xpart exact_center + ball_to_right# + 7/12 reduced_il#, 
+                - ypart exact_center + 2.5 reduced_il#, 
+                ypart exact_center +reduced_il#);
 
-	define_pixels(reduced_il, ball_to_right);
-	left_tilt = 5;
-	left_thick = .25  reduced_il;
+        define_pixels(reduced_il, ball_to_right);
+        left_tilt = 5;
+        left_thick = .25  reduced_il;
 
-	x1r - x1l = left_thick;
-	z1l = (hround_pixels(xpart exact_center), 
-		vround_pixels(ypart exact_center));
+        x1r - x1l = left_thick;
+        z1l = (hround_pixels(xpart exact_center), 
+                vround_pixels(ypart exact_center));
 
-	y2 = reduced_il;
+        y2 = reduced_il;
 
-	x3l - x1l =  ball_to_right;
-	x2 = .5 [x1,x3];
-	x3l - x3r = .48 reduced_il;
-	y3l = -0.05 staff_space;
-	x4 = x1l - stafflinethickness;
-	y4 = -2.2  reduced_il;
-	z5 = (x3l +  1/3 reduced_il, .5 reduced_il);
+        x3l - x1l =  ball_to_right;
+        x2 = .5 [x1,x3];
+        x3l - x3r = .48 reduced_il;
+        y3l = -0.05 staff_space;
+        x4 = x1l - stafflinethickness;
+        y4 = -2.2  reduced_il;
+        z5 = (x3l +  1/3 reduced_il, .5 reduced_il);
 
-	penpos1(whatever, left_tilt);
-	penpos2(1.2 stafflinethickness, -90);
-	penpos3(whatever,  185);
-	penpos4(stafflinethickness, 135);
+        penpos1(whatever, left_tilt);
+        penpos2(1.2 stafflinethickness, -90);
+        penpos3(whatever,  185);
+        penpos4(stafflinethickness, 135);
 
-	draw_bulb(1, z1r,  z1l, .45 reduced_il, 1.0);
+        draw_bulb(1, z1r,  z1l, .45 reduced_il, 1.0);
 
 
-	fill z1r{up} .. z2r{right} .. tension 1.0 .. z3r{down}  .. {curl 0} 
-		simple_serif(z4r, z4l, 90) {curl 0}
-		.. z3l{up} .. tension 0.9 .. z2l{left} 
-		.. z1l{dir (-90 + left_tilt)} -- cycle;
-	labels(2,4);
-	penlabels(1,2,3,4);
+        fill z1r{up} .. z2r{right} .. tension 1.0 .. z3r{down}  .. {curl 0} 
+                simple_serif(z4r, z4l, 90) {curl 0}
+                .. z3l{up} .. tension 0.9 .. z2l{left} 
+                .. z1l{dir (-90 + left_tilt)} -- cycle;
+        labels(2,4);
+        penlabels(1,2,3,4);
 
-	save dot_diam;
-	2 dot_diam = round reduction* (staff_space - stafflinethickness);
-	pickup pencircle scaled dot_diam;
-	drawdot z5;
-	drawdot z5 yscaled -1;
+        save dot_diam;
+        2 dot_diam = round reduction* (staff_space - stafflinethickness);
+        pickup pencircle scaled dot_diam;
+        drawdot z5;
+        drawdot z5 yscaled -1;
 enddef;
+
 
 
 
@@ -161,6 +162,7 @@ fet_beginchar("F clef ", "F", "bassclef")
 	fi;
 	draw_bass_clef((.5 staff_space#, 0), 1.0);
 fet_endchar;
+
 fet_beginchar("F clef (reduced)", "F_change", "cbassclef")
 	draw_bass_clef((.4 staff_space#, 0),0.8);
 fet_endchar;

@@ -152,7 +152,7 @@ Options:
     ['afm=', 'outdir=', 'dep=',  'tex=', 'debug', 'help', 'package='])
 
 
-texfile_nm = '';
+texfile_nm = ''
 depfile_nm = ''
 afmfile_nm = ''
 outdir_prefix = '.'
@@ -178,6 +178,8 @@ for opt in options:
 		print o
 		raise getopt.error
 
+base = re.sub ('.tex$', '', texfile_nm)
+
 for filenm in files:
 	(g,m, deps) =  parse_logfile (filenm)
 	cs = tfm_checksum (re.sub ('.log$', '.tfm', filenm))
@@ -187,6 +189,6 @@ for filenm in files:
 	
 	write_afm_metric (afm, g,m)
 	write_tex_defs (open (texfile_nm, 'w'), g, m)
-	write_deps (open (depfile_nm, 'wb'), deps, [texfile_nm, afmfile_nm])
+	write_deps (open (depfile_nm, 'wb'), deps, [base + '.dvi', texfile_nm, afmfile_nm])
 
 

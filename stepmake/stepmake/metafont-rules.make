@@ -1,8 +1,9 @@
 
 # Don't remove $(outdir)/.log's.  Logs are a target!
 
+# we want to see botched results as well.
 $(outdir)/%.dvi: %.mf
-	$(METAFONT) "\nonstopmode; input $<;"
+	-$(METAFONT) "\nonstopmode; input $<;"
 	gftodvi  $(basename $<)
 	mv $(basename $<).dvi $(outdir)
 	rm $(basename $<).*gf
