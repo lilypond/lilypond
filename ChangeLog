@@ -32,8 +32,6 @@
 
 2002-04-06  Chris Jackson <chris@fluffhouse.org.uk>
 
-2002-04-06  Chris Jackson <chris@fluffhouse.org.uk>
-
 	* lily/tuplet-bracket.cc, scm/grob-description.scm: New
 	edge-width, edge-height and shorten-pair properties for tuplet
 	brackets.
