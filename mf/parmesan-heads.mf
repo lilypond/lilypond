@@ -235,7 +235,7 @@ fet_beginchar("Mensural left stemmed notehead", "slmensural", "mensuralleftstemm
 	draw_mensural_left_stemmed_head (staff_space#)
 fet_endchar;
 
-fet_beginchar("Mensural maxima notehead", "-s3mensural", "mensuralmaximahead");
+fet_beginchar("Mensural maxima notehead", "s-3mensural", "mensuralmaximahead");
 	draw_mensural_longa (2.0 staff_space#)
 fet_endchar;
 

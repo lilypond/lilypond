@@ -442,7 +442,7 @@ fet_beginchar("Whole Crossed notehead", "s0cross", "wholecrossedhead")
 	draw_cross (3.75);
 fet_endchar;
 
-fet_beginchar("Half Crossed notehead", "1scross", "halfcrossedhead")
+fet_beginchar("Half Crossed notehead", "s1cross", "halfcrossedhead")
 	wid# := black_notehead_width#+2 stafflinethickness#;
 	hei# := noteheight#+stafflinethickness#/2;
 	set_char_box(0, wid#,hei#/2,hei#/2);
