@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -11,12 +11,12 @@
 #define MY_LILY_PARSER_HH
 #include "lily-proto.hh"
 #include "string.hh"
-#include "varray.hh"
+#include "array.hh"
 #include "lily-proto.hh"
 #include "lily-proto.hh"
 #include "duration.hh"
 #include "string.hh"
-#include "varray.hh"
+#include "array.hh"
 #include "input.hh"
 
 class My_lily_parser {
@@ -27,8 +27,8 @@ class My_lily_parser {
   void add_requests (Chord*v);
 
   Chord * get_note_element (Note_req * ,Duration *);
-  Chord* get_rest_element (String,Duration *);
-  Chord* get_word_element (Text_def*, Duration*);
+  Chord* get_rest_element (String, Duration *);
+  Chord* get_word_element (String, Duration*);
   Melodic_req* get_melodic_req (Melodic_req* melodic, int quotes);
   String notename_str (Melodic_req* melodic);
   void set_last_duration (Duration const *);
@@ -37,12 +37,11 @@ class My_lily_parser {
 
 public:
   int abbrev_beam_type_i_;
-  int default_octave_i_;
+  int default_abbrev_i_;
   Duration default_duration_;
   Plet plet_;
   Header *default_header_p_;
     
-  String textstyle_str_;
   bool first_b_;
 
   Array<Request*> pre_reqs, post_reqs;
