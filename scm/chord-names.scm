@@ -330,7 +330,7 @@
 ;; parts, complete the missing user-override matched part with normal
 ;; chord to be name-calculated.
 ;;
-(define (chord::user-name style pitches base-and-inversion)
+(define (default-chord-name-function style pitches base-and-inversion)
   ;(display "pitches:") (display  pitches) (newline)
   ;(display "style:") (display  style) (newline)
   ;(display "b&i:") (display  base-and-inversion) (newline)

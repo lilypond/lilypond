@@ -120,6 +120,9 @@ ScoreContext = \translator {
 	\accepts RhythmicStaff;
 	\accepts ChordNames;
 	\consists "Swallow_performer";
+
+	dynamicAbsoluteVolumeFunction = #default-dynamic-absolute-volume
+	instrumentEqualizer = #default-instrument-equaliser
 };
 \translator { \ScoreContext }
 

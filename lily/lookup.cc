@@ -266,6 +266,10 @@ Lookup::text (String style, String text, Paper_def *paper_l)
       font_mag = (int)paper_l->get_var ("magnification_" + style);
     }
 
+  /*
+    FIXME !
+   */
+  
   SCM l = scm_assoc (ly_str02scm (style.ch_C()),
 		     scm_eval2 (ly_symbol2scm ("cmr-alist"), SCM_EOL));
 

@@ -1,5 +1,38 @@
-1.3.91.uu1
-==========
+1.3.92.jcn2
+===========
+
+* Added some error messages for toplevel and stray string parse errors.
+
+* Don't start more than one slur at a time.
+
+* Set direction of Slur too in a2-engraver.
+
+1.3.92.hwn1
+===========
+* Removed calls to global GUILE namespace.
+
+* Added \property: scriptDefinitions, explicitClefVisibility,
+explicitKeySignatureVisibility, instrumentEqualizer,
+dynamicAbsoluteVolumeFunction
+
+* Added element properties Bar::break-glyph-function,
+Break_align_item::space-alist, Chord_name::chord-name-function
+
+* Added \property combineParts: part combiner switched off by default.
+
+
+* Remove all print methods.
+
+* Use Scope::try_retrieve if possible.
+
+* Remove FAQ in favor of URL.
+
+* etf2ly.py robustness fixes.
+
+* Don't compensate for left edge in broken volta spanner.
+
+1.3.92
+======
 
 * RPM .spec fixes.
 

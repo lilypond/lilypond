@@ -152,27 +152,23 @@ MAKE_SCHEME_CALLBACK (Chord_name, brew_molecule);
 SCM
 Chord_name::brew_molecule (SCM smob) 
 {
-  Score_element *sc = unsmob_element (smob);
-  SCM style = sc->get_elt_property ("style");
+  Score_element *me = unsmob_element (smob);
+  SCM style = me->get_elt_property ("style");
 
   if (!gh_string_p (style))
     style = ly_str02scm ("banter");
 
-  SCM inversion = sc-> get_elt_property ("inversion");
+  SCM inversion = me-> get_elt_property ("inversion");
   if (inversion == SCM_EOL)
     inversion = SCM_BOOL_F;
 
-  SCM bass =  sc->get_elt_property ("bass");
+  SCM bass =  me->get_elt_property ("bass");
   if (bass == SCM_EOL)
     bass = SCM_BOOL_F;
 
-  SCM pitches =  sc->get_elt_property ("pitches");
-  SCM text = scm_eval2 (gh_list (ly_symbol2scm ("chord::user-name"),
-				style,
-				ly_quote_scm (pitches),
-				ly_quote_scm (gh_cons (inversion, bass)),
-				SCM_UNDEFINED),
-			SCM_EOL);
+  SCM pitches =  me->get_elt_property ("pitches");
+  SCM func = me->get_elt_property (ly_symbol2scm ("chord-name-function"));
+  SCM text = gh_call3 (func, style, ly_quote_scm (pitches), ly_quote_scm (gh_cons (inversion, bass)));
 
-  return ly_text2molecule (sc, text).create_scheme ();
+  return ly_text2molecule (me, text).create_scheme ();
 }

@@ -85,49 +85,6 @@
 
 (define security-paranoia #f)
 
-;; Spacing constants for prefatory matter.
-;;
-;; rules for this spacing are much more complicated than this. See [Wanske] page 126 -- 134, [Ross] pg 143 -- 147
-;;
-;;
-
-;; (Measured in staff space)
-(define space-alist
- '(
-   ((none Instrument_name) . (extra-space 1.0))
-   ((Instrument_name Left_edge_item) . (extra-space 1.0))
-   ((Left_edge_item Clef_item) . (extra-space 1.0))
-   ((Left_edge_item Key_item) . (extra-space 0.0))   
-   ((Left_edge_item begin-of-note) . (extra-space 1.0))
-   ((none Left_edge_item) . (extra-space 0.0))
-   ((Left_edge_item Staff_bar) . (extra-space 0.0))
-;   ((none Left_edge_item) . (extra-space -15.0))
-;   ((none Left_edge_item) . (extra-space -15.0))
-   ((none Clef_item) . (minimum-space 1.0))
-   ((none Staff_bar) . (minimum-space 0.0))
-   ((none Clef_item) . (minimum-space 1.0))
-   ((none Key_item) . (minimum-space 0.5))
-   ((none Time_signature) . (extra-space 0.0))
-   ((none begin-of-note) . (minimum-space 1.5))
-   ((Clef_item Key_item) . (minimum-space 4.0))
-   ((Key_item Time_signature) . (extra-space 1.0))
-   ((Clef_item  Time_signature) . (minimum-space 3.5))
-   ((Staff_bar Clef_item) .   (minimum-space 1.0))
-   ((Clef_item  Staff_bar) .  (minimum-space 3.7))
-   ((Time_signature Staff_bar) .  (minimum-space 2.0))
-   ((Key_item  Staff_bar) .  (extra-space 1.0))
-   ((Staff_bar Time_signature) . (minimum-space 1.5)) ;double check this.
-   ((Time_signature begin-of-note) . (extra-space 2.0)) ;double check this.
-   ((Key_item begin-of-note) . (extra-space 2.5))
-   ((Staff_bar begin-of-note) . (extra-space 1.0))
-   ((Clef_item begin-of-note) . (minimum-space 5.0))
-   ((none Breathing_sign) . (minimum-space 0.0))
-   ((Breathing_sign Key_item) . (minimum-space 1.5))
-   ((Breathing_sign begin-of-note) . (minimum-space 1.0))
-   ((Breathing_sign Staff_bar) . (minimum-space 1.5))
-   ((Breathing_sign Clef_item) . (minimum-space 2.0))
-   )
-)
 
 ;; silly, use alist? 
 (define (find-notehead-symbol duration style)
@@ -194,7 +151,7 @@
        )
   )
 	     
-(define script-alist '())
+(define default-script-alist '())
 
 (define font-name-alist  '())
 (define (font-command name-mag)
@@ -393,6 +350,8 @@
      ; line numbers only:
     ;(string-append "\\special{src:" (number->string line) " " file "}")
 )
+    ; no origin  info: return empty string
+    ; ""
   ; no-origin not yet supported by Xdvi
   (define (no-origin) "")
   
@@ -947,33 +906,6 @@
   (if (equal? dir 1)
       (cdr cell)
       (car cell)))
-
-;
-; How should a  bar line behave at a break? 
-;
-(define (break-barline glyph dir)
-   (let ((result (assoc glyph 
-			'((":|:" . (":|" . "|:"))
-			  ("|" . ("|" . ""))
-			  ("|s" . (nil . "|"))
-			  ("|:" . ("|" . "|:"))
-			  ("|." . ("|." . nil))
-			  (".|" . (nil . ".|"))
-			  (":|" . (":|" . nil))
-			  ("||" . ("||" . nil))
-			  (".|." . (".|." . nil))
-			  ("scorebar" . (nil . "scorepostbreak"))
-			  ("brace" . (nil . "brace"))
-			  ("bracket" . (nil . "bracket"))  
-			  )
-			)))
-
-     (if (equal? result #f)
-	 (ly-warn (string-append "Unknown bar glyph: `" glyph "'"))
-	 (index-cell (cdr result) dir))
-     )
-   )
-     
 
 (define major-scale
   '(

@@ -57,10 +57,9 @@ Script_engraver::do_process_music()
     {
       Articulation_req* l=script_req_l_arr_[i];
 
-      SCM list = scm_assoc (ly_str02scm (l->articulation_str_.ch_C ()),
-			    scm_eval2 (ly_symbol2scm ("script-alist"),
-				       SCM_EOL));
-      
+      SCM alist = get_property ("scriptDefinitions");
+      SCM list = scm_assoc (ly_str02scm (l->articulation_str_.ch_C ()), alist);
+
       if (list == SCM_BOOL_F)
 	{
 	  l->origin ()->warning (_f ("Don't know how to interpret articulation `%s'",

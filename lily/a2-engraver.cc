@@ -10,6 +10,7 @@
 #include "item.hh"
 #include "note-head.hh"
 #include "stem.hh"
+#include "slur.hh"
 #include "translator-group.hh"
 #include "side-position-interface.hh"
 #include "directional-element-interface.hh"
@@ -42,6 +43,8 @@ A2_engraver::A2_engraver ()
 void
 A2_engraver::do_process_music ()
 {
+  if (!to_boolean (get_property ("combineParts")))
+    return ;
   if (!text_p_)
     {
       SCM unison = get_property ("unison");
@@ -88,6 +91,9 @@ A2_engraver::do_process_music ()
 void
 A2_engraver::acknowledge_element (Score_element_info i)
 {
+  if (!to_boolean (get_property ("combineParts")))
+    return ;
+  
   if (text_p_)
     {
       if (Note_head::has_interface (i.elem_l_))
@@ -126,10 +132,12 @@ A2_engraver::acknowledge_element (Score_element_info i)
   else if (unirhythm)
     state_ = UNIRHYTHM;
 	  
-  if (Stem::has_interface (i.elem_l_))
+  if (Stem::has_interface (i.elem_l_)
+      || Slur::has_interface (i.elem_l_)
+      // || Text_item::has_interface (i.elem_l_)
+      //|| Crescendo::has_interface (i.elem_l_)
+      )
     {
-      Item *stem_l = dynamic_cast<Item*> (i.elem_l_);
-
       /*
 	Hmm.  We must set dir when solo, in order to get
 	the rests collided to the right position
@@ -141,11 +149,11 @@ A2_engraver::acknowledge_element (Score_element_info i)
 	{
 	  if (daddy_trans_l_->id_str_ == "one")
 	    {
-	      stem_l->set_elt_property ("direction", gh_int2scm (1));
+	      i.elem_l_->set_elt_property ("direction", gh_int2scm (1));
 	    }
 	  else if (daddy_trans_l_->id_str_ == "two")
 	    {
-	      stem_l->set_elt_property ("direction", gh_int2scm (-1));
+	      i.elem_l_->set_elt_property ("direction", gh_int2scm (-1));
 	    }
 	}
     }

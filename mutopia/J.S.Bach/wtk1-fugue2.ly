@@ -50,14 +50,21 @@ dux = \context Voice=two \notes \relative c''{
 %%15
   g8
   g'16 fis g8 c, 
-  es \translator Staff = treble \stemdown g16 fis! g8 a |
+  es \translator Staff = treble
+  \stemboth
+  \stemdown
+  g16 fis! g8 a |
   d, g16 fis g8 a! c,16 d es4 d16 c |  % forced accident!
   bes8 r8 r16 d e fis g a bes8 ~ bes16 e, f g |
   a bes c8 ~ c16 fis,16 g a bes8 es,!16 d es8 g, |
   as f'16 es f8 a,8 bes g'16 f g8 b, |
 %%20
-  c16 f \translator Staff = bass \stemup es d c bes! as g 
-  f8 \translator Staff = treble \stemdown as' g f |
+  c16 f \translator Staff = bass
+  \stemboth \stemup
+     es d c bes! as g 
+  f8 \translator Staff = treble
+  \stemboth \stemdown
+  as' g f |
   es d es f b, c d b |
   c4 r8 e8 f f16 e f8 c |
   d4 r8 d8 es8 es16 d es8 bes |
@@ -142,7 +149,7 @@ bassdux = \context Voice=three \notes \relative c' {
   c16 d es8~ es16 a, bes c d es f8~ f16 b, c d |
 %%20 
 % es8 r r e f f, es! d |     % -> \classic_accidentals
-  es8 r r e \stemdown f f, es! d \stemboth |
+  es8 r r e \stemboth \stemdown f f, es! d \stemboth |
   r as' g f g f16 es f8 g |
   c16 d es d c bes as g f bes' as g f es d c |
   bes c d c bes as g f es as' g f es d c bes |
@@ -169,7 +176,6 @@ bassdux = \context Voice=three \notes \relative c' {
 	    \dux
 	    { \comes \bar "|."; }
 	      \time 4/4;
-	      \property Score.timeSignatureStyle = "C"
 	  >
 	\context Staff = bass <
 	    \key c \minor;
@@ -179,7 +185,11 @@ bassdux = \context Voice=three \notes \relative c' {
 
     \paper {
         linewidth = 18.0 \cm;
-	\translator{ \OrchestralScoreContext }
+	\translator{ \OrchestralScoreContext
+	 timeSignatureStyle \push #'style = #"C"
+
+	}
+	
     }
     \header{
 	opus = "BWV 847";
