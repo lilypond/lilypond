@@ -24,7 +24,6 @@
   */
 class Engraver_group_engraver : public Engraver, public virtual Translator {
 protected:
-    
     Pointer_list<Engraver*> grav_list_;
     Link_array<Engraver_group_engraver> group_l_arr_;
     Link_array<Engraver> nongroup_l_arr_;
@@ -32,11 +31,10 @@ protected:
     Array<Score_elem_info> announce_info_arr_;
     
     virtual void do_print()const;
-
     virtual bool removable_b()const;
-
 public:
-    virtual void print() const { Engraver::print(); }
+    Engraver*get_simple_engraver(char const*typeinfo)const;
+    virtual void print() const ;
 
     Input_translator * itrans_l_;
     void check_removal();
@@ -53,7 +51,8 @@ public:
      */
     virtual void terminate_engraver(Engraver * grav_l);
     
-   DECLARE_MY_RUNTIME_TYPEINFO;
+    
+    DECLARE_MY_RUNTIME_TYPEINFO;
     
     /**
       Remove #grav_l# from the list, and return it.
@@ -84,7 +83,6 @@ public:
      */
     Translator * ancestor_l(int l=1);
     int depth_i() const;
-
 };
 
 #endif // ENGRAVERGROUP_HH

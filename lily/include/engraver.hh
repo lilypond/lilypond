@@ -65,11 +65,6 @@ protected:
     virtual void do_removal_processing() {}
 
     /**
-      typeset a "command" item. Default: pass on to daddy.
-      If the column is not breakable, #pre_p# and #post_p# are junked
-      */
-    virtual void typeset_breakable_item(Item * nobreak_p);
-    /**
       Invoke walker method to typeset element. Default: pass on to daddy.
       */
     virtual void typeset_element(Score_elem*elem_p);
@@ -129,6 +124,7 @@ public:
     bool is_bottom_engraver() const;
 
     void post_move_processing();
+    void removal_processing();
     
     Engraver_group_engraver * daddy_grav_l_;
 

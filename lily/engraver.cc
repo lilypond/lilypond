@@ -26,6 +26,15 @@ Engraver::post_move_processing()
     status = MOVE_INITED;
 }
 
+void
+Engraver::removal_processing()
+{
+    if ( status < CREATION_INITED )
+	do_creation_processing();
+    
+    do_removal_processing();
+}
+
 bool
 Engraver::try_request(Request * r)
 {
@@ -95,12 +104,6 @@ Paper_def*
 Engraver::paper()const
 {
     return daddy_grav_l_->paper();
-}
-
-void
-Engraver::typeset_breakable_item(Item * nobreak_p)
-{
-    daddy_grav_l_->typeset_breakable_item(nobreak_p);
 }
 
 bool

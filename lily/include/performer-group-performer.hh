@@ -23,22 +23,14 @@ public:
     DECLARE_MY_RUNTIME_TYPEINFO;
     Input_translator* itrans_l_;
 
-    Performer_group_performer();
-    ~Performer_group_performer();
-
     virtual void add( Performer* perf_p );
-    virtual void print()const { Performer::print() ; }
-    virtual Moment get_mom() const;
     virtual bool do_try_request( Request* req_l );
-    virtual bool try_request(Request*r) { return Performer::try_request(r) ; }
-
-    // <ugh>
-    virtual void set_track( int& track_i_r );
-    virtual int get_track_i() const;
-    // </ugh>
+    virtual void print() const;
+    virtual bool try_request(Request* r);
+    
 
 protected:
-
+    virtual ~Performer_group_performer();
     virtual Translator* find_get_translator_l( String name, String id );
     virtual Translator* get_default_interpreter();
 

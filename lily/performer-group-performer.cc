@@ -1,6 +1,8 @@
 /*
   performer-group-performer.cc -- implement Performer_group_performer
 
+  source file of the GNU LilyPond music typesetter
+
   (c) 1996, 1997 Han-Wen Nienhuys <hanwen@stack.nl>
                  Jan Nieuwenhuizen <jan@digicash.com>
  */
@@ -10,15 +12,11 @@
 #include "debug.hh"
 
 IMPLEMENT_IS_TYPE_B2(Performer_group_performer,Performer, Translator);
-
 ADD_THIS_PERFORMER(Performer_group_performer);
-
-Performer_group_performer::Performer_group_performer()
-{
-}
 
 Performer_group_performer::~Performer_group_performer()
 {
+
 }
 
 void
@@ -47,6 +45,42 @@ int
 Performer_group_performer::depth_i() const
 {
     return daddy_perf_l_->depth_i() + 1;
+}
+
+void
+Performer_group_performer::do_creation_processing()
+{
+    for ( PCursor<Performer*> i( perf_p_list_.top() ); i.ok(); i++ )
+	i->creation_processing();
+}
+
+void
+Performer_group_performer::do_print()const
+{
+#ifndef NPRINT
+    if ( !check_debug)
+	return ;
+    for ( PCursor<Performer*> i( perf_p_list_.top() ); i.ok(); i++ )
+	i->print();
+#endif
+}
+
+void
+Performer_group_performer::do_removal_processing()
+{
+    for ( PCursor<Performer*> i( perf_p_list_.top() ); i.ok(); i++ )
+	i->do_removal_processing();
+}
+
+bool
+Performer_group_performer::do_try_request( Request* req_l )
+{
+    bool hebbes_b =false;
+    for (int i =0; !hebbes_b && i < nongroup_l_arr_.size() ; i++)
+	hebbes_b =nongroup_l_arr_[i]->try_request(req_l);
+    if ( !hebbes_b && daddy_perf_l_ )
+	hebbes_b = daddy_perf_l_->try_request(req_l);
+    return hebbes_b ;
 }
 
 Translator*
@@ -107,23 +141,17 @@ Performer_group_performer::get_default_interpreter()
 	return perf_p->get_default_interpreter();
 }
 
-Moment
-Performer_group_performer::get_mom() const
-{
-    Moment mom = Performer::get_mom();
-
-    for ( int i = 0; i < nongroup_l_arr_.size(); i++ )
-	nongroup_l_arr_[ i ]->set( mom );
-    
-    return mom;
-}
-
 bool
 Performer_group_performer::is_bottom_performer_b() const
 {
     return !itrans_l_->get_default_itrans_l();
 }
 
+void
+Performer_group_performer::print() const 
+{ 
+    Performer::print();
+}
 
 void
 Performer_group_performer::process_requests()
@@ -132,58 +160,8 @@ Performer_group_performer::process_requests()
 	i->process_requests();
 }
 
-//<ugh>
-int
-Performer_group_performer::get_track_i() const
+bool 
+Performer_group_performer::try_request( Request* r )
 {
-    int track_i = Performer::get_track_i();
-
-    for ( int i = 0; i < nongroup_l_arr_.size(); i++ )
-	nongroup_l_arr_[ i ]->set_track( track_i );
-    
-    return track_i;
-}
-
-void
-Performer_group_performer::set_track( int& track_i_r )
-{
-    for ( PCursor<Performer*> i( perf_p_list_.top() ); i.ok(); i++ )
-        i->set_track( track_i_r );
-}
-//</ugh>
-
-bool
-Performer_group_performer::do_try_request( Request* req_l )
-{
-    bool hebbes_b =false;
-    for (int i =0; !hebbes_b && i < nongroup_l_arr_.size() ; i++)
-	hebbes_b =nongroup_l_arr_[i]->try_request(req_l);
-    if ( !hebbes_b && daddy_perf_l_ )
-	hebbes_b = daddy_perf_l_->try_request(req_l);
-    return hebbes_b ;
-}
-
-void
-Performer_group_performer::do_print()const
-{
-#ifndef NPRINT
-    if ( !check_debug)
-	return ;
-    for ( PCursor<Performer*> i( perf_p_list_.top() ); i.ok(); i++ )
-	i->print();
-#endif
-}
-
-void
-Performer_group_performer::do_creation_processing()
-{
-    for ( PCursor<Performer*> i( perf_p_list_.top() ); i.ok(); i++ )
-	i->creation_processing();
-}
-
-void
-Performer_group_performer::do_removal_processing()
-{
-    for ( PCursor<Performer*> i( perf_p_list_.top() ); i.ok(); i++ )
-	i->do_removal_processing();
+    return Performer::try_request( r ); 
 }
