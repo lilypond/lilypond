@@ -1,3 +1,7 @@
+2004-12-03  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* cygwin/lily-wins.py (stat): remove old flag -p when calling lilypond.
+
 2004-11-22  Erik Sandberg  <ersa9195@student.uu.se>
 
 	* ly/dynamic-scripts-init.ly: Fixed typo.
