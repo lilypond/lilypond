@@ -7,7 +7,31 @@ TODO
   * add more un/badly documented features
   * write some text
   * add to/merge with refman
+
+
+  
+  there's a very simple, very general noXXX mechanism; try
+
+noop	\property Staff.VoltaBrace = #'()
+yes: \property Staff.VoltaBracket = #'((meta .  ((interfaces . ()))))
+
+
+  visibility?
+  brew_molecule?
 @end ignore
+
+
+@macro keyindex {word}
+@cindex \word\
+
+@end macro
+
+@macro indexcode {word}
+@cindex \word\
+
+@end macro
+
+
 
 @node Top
 @chapter Features
@@ -25,41 +49,78 @@ TODO
 * Output property::                Output property
 * Embedded TeX::                   Embedded TeX
 * Embedded PostScript::            Embedded PostScript
+* Index::                          Checking Feature index
 @end menu
-
-@ignore
-Testin'' a b c...
-@lilypond[fragment,relative,verbatim,center]
-  a'' b c
-@end lilypond
-@end ignore
 
 @node Arpeggio
 @section Arpeggio
+@cindex argepeggio
 
-@lilypond[fragment,relative,verbatim,center]
+@cindex broken arpeggio
+@c @cindex ``doorlopend'' argpeggio
+
+You can specify an arpeggio sign on a chord by issuing an
+@c duh
+@c @code{\arpeggio}@indexcode{\arpeggio} request:
+@code{\arpeggio} request:
+@cindex @code{\arpeggio}
+
+@quotation
+@lilypond[fragment,relative,verbatim]
   \context Voice <c'\arpeggio e g c>
 @end lilypond
+@end quotation
 
-@lilypond[fragment,relative,verbatim,center]
+Typesetting of simultanious chords with arpeggios can be controlled with
+the property @code{PianoStaff.connectArpeggios} @footnote{ FIXME:
+connectArpeggios.  Can't find the English terms for two kinds of
+arpeggio (Dutch: gebroken arpeggio vs doorlopend arpeggio).}  By
+default, LilyPond prints broken arpeggios; when set to true, one
+extended arpeggio sign is printed.
+
+@quotation
+@lilypond[fragment,relative,verbatim]
   \context PianoStaff <
     \property PianoStaff.connectArpeggios = ##t
     \context Staff \context Voice <c''\arpeggio e g c>
     \context Staff=other \context Voice <c,\arpeggio e g>
   >  
 @end lilypond
-
+@end quotation
 
 @node Glissando
 @section Glissando
+@cindex glissando
+
+A glissando line can be requested by issuing a
+@c duh
+@c @code{\glissando}@indexcode{\glissando} request:
+@code{\glissando} request:
+@cindex @code{\glissando}
 
 
-@lilypond[fragment,relative,verbatim,center]
+@quotation
+@lilypond[fragment,relative,verbatim]
   c'' \glissando c'
 @end lilypond
+@end quotation
+
+Printing of the additional text @code{"gliss."} is currently not
+supported.
+
 
 @subsection Follow Thread
-@lilypond[fragment,relative,verbatim,center]
+@cindex follow thread
+@cindex staff switching
+@cindex cross staff
+
+@c Documented here because it looks like a glissando.
+A glissando-like line can be printed to connect notes whenever a thread
+switches to another staff.  This is enabled if the property
+@code{PianoStaff.followThread}@indexcode{followThread} is set to true:
+
+@quotation
+@lilypond[fragment,relative,verbatim]
   \context PianoStaff <
     \property PianoStaff.followThread = ##t
     \context Staff \context Voice {
@@ -70,30 +131,54 @@ Testin'' a b c...
     \context Staff=two {\clef bass; \skip 1*2;}
   >  
 @end lilypond
+@end quotation
 
 @node Manual beam settings
 @section Manual beam settings
+@cindex beams
+@cindex beam settings
+@cindex manual beams
 
+In some cases it may be necessary to override LilyPond's automatic
+beaming algorithm.  For example, the auto beamer will not beam over
+rests, so if you want that, specify the begin and end point manually
+using @code{[}@indexcode{[} and @code{]}@indexcode{]}:
 
-Beams over rests...
-
-@lilypond[fragment,relative,verbatim,center]
+@quotation
+@lilypond[fragment,relative,verbatim]
   \context Staff {
     r4 [r8 g'' a]
   }
 @end lilypond
+@end quotation
 
+Similarly, for beams over bar lines:
 
-Control number of beams...
+@quotation
+@lilypond[fragment,relative,verbatim]
+  \context Staff {
+    a''8 r a2 r8 [a a]
+  }
+@end lilypond
+@end quotation
 
-@lilypond[fragment,relative,verbatim,center]
+If you have specific wishes for the number of beams, you can fully
+control the number of beams through the properties
+@code{Voice.stemLeftBeamCount}@indexcode{stemLeftBeamCount};
+
+@quotation
+@lilypond[fragment,relative,verbatim]
   \context Staff {
     [f'8 r16 f g a]
     [f8 r16 \property Voice.stemLeftBeamCount = #1 f g a]
   }
 @end lilypond
+@end quotation
 
-@lilypond[fragment,relative,verbatim,center]
+and @code{Voice.stemRightBeamCount}@indexcode{stemRightBeamCount}:
+ 
+@quotation
+@lilypond[fragment,relative,verbatim]
   f'32 g a b b a g f
 
   \property Voice.autoBeamSettings
@@ -105,42 +190,57 @@ Control number of beams...
   \property Voice.stemLeftBeamCount = #1 b
   a g f
 @end lilypond
+@end quotation
 
-Don't extend to middle line esp. for grace
+Conventionally, stems extend to the middle staff line, and thus so do
+beams.  The extending of the stems can be controlled through 
+@code{Voice.Stem}'s grob-property
+@code{no-stem-extend}@indexcode{no-stem-extend}:
 
-@lilypond[fragment,relative,verbatim,center]
+@quotation
+@lilypond[fragment,relative,verbatim]
   \grace a'8 a4
   \property Voice.Stem \set #'no-stem-extend = ##t
-  \grace g8 g4
+  \grace g8 g4 [g8 g]
 @end lilypond
-  
-Beam slope (height)
+@end quotation
 
-Horizontal beam
+The beam symbol can be tweaked through @code{Voice.Beam}'s
+grob-properties @code{height-hs} and @code{y-position-hs}.
 
-@lilypond[fragment,relative,verbatim,center]
+Set @code{height-hs} to zero, to get horizontal beams:
+
+@quotation
+@lilypond[fragment,relative,verbatim]
   \property Voice.Beam \set #'direction = #1
   \property Voice.Beam \set #'height-hs = #0
   [a''8 e' d c]
 @end lilypond
+@end quotation
 
-beam start-y beam-height
+Both are in half spaces.  Here's how you'd specify a weird looking beam
+that instead of beaing horizontal, falls two staff spaces (ie, four half
+spaces):
 
-Weird beam
-@lilypond[fragment,relative,verbatim,center]
+@quotation
+@lilypond[fragment,relative,verbatim]
   \property Voice.Beam \set #'y-position-hs = #4
   \property Voice.Beam \set #'height-hs = #-4
   [c'8 c] 
 @end lilypond
+@end quotation
 
+The direction of a perfectly centred beams can be
+controlled through @code{Voice.Beam}'s grob-property
+@code{default-neutral-direction}@indexcode{default-neutral-direction}
 
-Like stem...
-
-@lilypond[fragment,relative,verbatim,center]
+@quotation
+@lilypond[fragment,relative,verbatim]
   [b''8 b]
   \property Voice.Beam \set #'default-neutral-direction = #-1
   [b b]
 @end lilypond
+@end quotation
 
 There are several ways to calculate the direction of a beam.
 
@@ -161,17 +261,21 @@ mean centre distance of all notes
 mean centre distance weighted per note
 @end table
 
-You can spot the difference of these settings quite easily from these simple examples:
+You can spot the differences of these settings from these simple
+examples:
 
-@lilypond[fragment,relative,verbatim,center]
+@quotation
+@lilypond[fragment,relative,verbatim]
   [d''8 a]
   \property Voice.Beam \set #'dir-function = #beam-dir-mean
   [d a] 
   \property Voice.Beam \set #'dir-function = #beam-dir-median
   [d a]
 @end lilypond
-    
-@lilypond[fragment,relative,verbatim,center]
+@end quotation
+
+@quotation    
+@lilypond[fragment,relative,verbatim]
   \time 3/8;
   [d''8 a a]
   \property Voice.Beam \set #'dir-function = #beam-dir-mean
@@ -179,13 +283,25 @@ You can spot the difference of these settings quite easily from these simple exa
   \property Voice.Beam \set #'dir-function = #beam-dir-median
   [d a a] 
 @end lilypond
+@end quotation
+
+These beam direction functions are defined in @file{scm/beam.scm}.  If
+your favourite algorithm isn't one of these, you can hook up your own.
+
 
 
 @node Slur attachments
 @section Slur attachments
 
-Override attachments...
-@lilypond[fragment,relative,verbatim,center]
+The ending of a slur should whenever possible be attached to a note
+head.  Only in some instances where beams are involved, LilyPond may
+attach a slur to a stem end.  In some cases, you may want to override
+LilyPond's decision, eg to attach the slur to the stem end.  This can be
+done through @code{Voice.Slur}'s grob-property @code{attachment}:
+@c FIXME: make @ref{} to backend doco
+
+@quotation
+@lilypond[fragment,relative,verbatim]
   \property Voice.Slur \set #'direction = #1
   \property Voice.Stem \set #'length = #5.5
   g''8(g)g4
@@ -194,26 +310,22 @@ Override attachments...
   g8(g)g4
   g4(g8)g
 @end lilypond
+*@end quotation
 
-
-Test Before, after
-
-@c Ugh, ugh @multitable is broken in texinfo-4.0
-@c Fixed in 4.0.jcn3
-@c We'll have to postpone this before/after representation until
-@c jcn3 is rolled into texinfo...
+Trying Before | After example...
+@c Fix rolled into 4.0a prerelease
 
 @multitable @columnfractions .40 .40
 @item
 @noindent
-@lilypond[fragment,relative,verbatim,center]
+@lilypond[fragment,relative,verbatim]
 \property Voice.Slur
   \set #'direction = #1
 g''8(g)g4
 g4(g8)g
 @end lilypond
 @tab
-@lilypond[fragment,relative,verbatim,center]
+@lilypond[fragment,relative,verbatim]
 \property Voice.Slur
   \set #'direction = #1
 \property Voice.Stem
@@ -225,26 +337,41 @@ g4(g8)g
 @end lilypond
 @end multitable
 
-        
-Ophee slurs...
-@lilypond[fragment,relative,verbatim,center]
+
+Similarly, slurs can be attached to note heads even when beams are
+involved (aka Ophee slurs):
+
+@quotation
+@lilypond[fragment,relative,verbatim]
   \property Voice.Slur \set #'direction = #1
   \property Voice.Slur \set #'attachment = #'(head . head)
   g''16()g()g()g()d'()d()d()d
 @end lilypond
+@end quotation
 
+If a slur would strike through a stem or beam, LilyPond will move the
+slur away vertically (upward or downward).  In some cases, this may
+cause ugly slurs that you may want to correct:
 
-Steep slur correct...
-@lilypond[fragment,relative,verbatim,center]
+@quotation
+@lilypond[fragment,relative,verbatim]
   \property Voice.Stem \set #'direction = #1
   \property Voice.Slur \set #'direction = #1
   d'32( d'4 )d8..
   \property Voice.Slur \set #'attachment = #'(stem . stem)
   d,32( d'4 )d8..
 @end lilypond
+@end quotation
 
-Ugly slurs...
-@lilypond[verbatim,center]
+LilyPond will increase the curvature of a slur trying to stay free of
+note heads and stems.  However, if the curvature would increase too much,
+the slur will be reverted to its default shape.  This decision is based
+on @code{Voice.Slur}'s grob-property @code{beautiful} value.  In some
+cases, you may find ugly slurs beautiful, and tell LilyPond so by
+increasing the @code{beautiful} value:
+
+@quotation
+@lilypond[verbatim]
 \score {
   \notes \context PianoStaff <
     \time 6/4;
@@ -274,13 +401,14 @@ Ugly slurs...
   }
 }
 @end lilypond
+@end quotation
 
 
 @node Text spanner
 @section Text spanner
 
 Have crescendo set a text spanner iso hairpin
-@lilypond[fragment,relative,verbatim,center]
+@lilypond[fragment,relative,verbatim]
   \context Voice {
     \property Voice.crescendoText = "cresc."
     \property Voice.crescendoSpanner = #'dashed-line
@@ -290,7 +418,7 @@ Have crescendo set a text spanner iso hairpin
 
 @subsection Ottava
 
-@lilypond[fragment,relative,verbatim,center]
+@lilypond[fragment,relative,verbatim]
   a'''' b c a
   \property Voice.TextSpanner \set #'type = #'dotted-line
   \property Voice.TextSpanner \set #'edge-height = #'(0 . 1.5)
@@ -305,7 +433,7 @@ Have crescendo set a text spanner iso hairpin
 @section Engraver hacking
 
 No time signature, no barlines... 
-@lilypond[verbatim,center]
+@lilypond[verbatim]
 \score {
   \notes \relative c'' {
     a b c d
@@ -323,7 +451,7 @@ No time signature, no barlines...
 @end lilypond
 
 No staff, no clef, squash pitches
-@lilypond[verbatim,center]
+@lilypond[verbatim]
 \score {
   \notes { c4 c4 c8 c8 }
   \paper {
@@ -342,7 +470,7 @@ No staff, no clef, squash pitches
 @node Part combiner
 @section Part combiner
 
-@lilypond[verbatim,center]
+@lilypond[verbatim]
 \score{
   \context Staff = flauti <
     \time 4/4;
@@ -380,7 +508,9 @@ No staff, no clef, squash pitches
 
 Metrome hack...
 
-@lilypond[verbatim,center]
+
+
+@lilypond[verbatim]
 #(define note '(rows (music "noteheads-2" ((kern . -0.1) "flags-stem"))))
 #(define eight-note `(rows ,note ((kern . -0.1) (music ((raise . 3.5) "flags-u3")))))
 #(define dotted-eight-note `(rows ,eight-note (music "dots-dot")))
@@ -403,14 +533,14 @@ Metrome hack...
 @node Output property
 @section Output property
 
-@lilypond[fragment,relative,verbatim,center]
+@lilypond[fragment,relative,verbatim]
     \outputproperty #(make-type-checker 'note-head-interface) 
       #'extra-offset = #'(2 . 3)
     c''2 c
 @end lilypond
 
 Don't move the finger 2, only text "m.d." ...
-@lilypond[verbatim,center]
+@lilypond[verbatim]
 #(define (make-text-checker text)
    (lambda (grob) (equal? text (ly-get-elt-property grob 'text))))
 
@@ -432,7 +562,7 @@ Don't move the finger 2, only text "m.d." ...
 @node Apply hacking
 @section Apply hacking
 
-@lilypond[verbatim,center]
+@lilypond[verbatim]
 music = \notes { c'4 d'4( e'4 f'4 }
 
 #(define (reverse-music music)
@@ -487,7 +617,7 @@ on Lily, I'd be very rich :)
 @end example
 
 
-@lilypond[verbatim,center]
+@lilypond[verbatim]
 #(define  (unhair-pitch p)
   (let* ((o (pitch-octave p))
          (a (pitch-alteration p))
@@ -558,7 +688,7 @@ music = \notes \relative c' { c4 d  e f g a b  c }
 
 @node Embedded TeX
 @section Embedded TeX
-@lilypond[fragment,relative,verbatim,center]
+@lilypond[fragment,relative,verbatim]
   a''^"3 $\\times$ \\`a deux"
 @end lilypond
 
@@ -569,7 +699,7 @@ Arbitrary lines and curves not supported...
 
 [TODO:] Make a direct postscript command?
 
-@lilypond[verbatim,center]
+@lilypond[verbatim]
 \score {
   \notes \relative c'' {
     a-#"\\embeddedps{3 4 moveto 5 3 rlineto stroke}"
@@ -581,6 +711,13 @@ Arbitrary lines and curves not supported...
   \paper { linewidth = 70 * \staffspace; }
 }
 @end lilypond
+
+
+@node Index
+@section Checking Feature index
+
+@printindex cp
+
 
 @bye
 

@@ -619,6 +619,7 @@ if 1:
 		
 		str = re.sub ('(paper_[a-z]+)', regularize_paper, str)
 		str = re.sub ('sustainup', 'sustainUp', str)
+		str = re.sub ('nobreak', 'noBreak', str)
 		str = re.sub ('sustaindown', 'sustainDown', str)
 		str = re.sub ('sostenutoup', 'sostenutoUp', str)
 		str = re.sub ('sostenutodown', 'sostenutoDown', str)
@@ -628,6 +629,15 @@ if 1:
 		return str
 	
 	conversions.append (((1,3,120), conv, 'paper_xxx -> paperXxxx, pedalup -> pedalUp.'))
+
+if 1:
+	def conv (str):
+		str = re.sub ('drarnChords', 'chordChanges', str)
+		str = re.sub ('\\musicalpitch', '\\pitch', str)
+		return str
+	
+	conversions.append (((1,3,122), conv, 'drarnChords -> chordChanges, \\musicalpitch -> \\pitch'))
+
 
 ############################
 	

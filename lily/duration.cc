@@ -129,7 +129,6 @@ Duration::less_p (SCM p1, SCM p2)
     return SCM_BOOL_F;
 }
 
-
 static SCM
 make_duration (SCM l, SCM d)
 {

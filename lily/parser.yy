@@ -170,7 +170,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token MEASURES
 %token MIDI
 %token MM_T
-%token MUSICAL_PITCH
+%token PITCH
 %token NAME
 %token PITCHNAMES
 %token NOTES
@@ -245,8 +245,8 @@ yylex (YYSTYPE *s,  void * v_l)
 	
 %type <reqvec>  pre_requests post_requests
 %type <request> gen_text_def
-%type <scm>   steno_musical_pitch musical_pitch absolute_musical_pitch
-%type <scm>   steno_tonic_pitch
+%type <scm>   steno_pitch pitch absolute_pitch
+%type <scm>   explicit_pitch steno_tonic_pitch
 
 %type <scm>	chord_additions chord_subtractions chord_notes chord_step
 %type <music>	chord
@@ -820,7 +820,7 @@ Composite_music:
 	| Repeated_music		{ $$ = $1; }
 	| Simultaneous_music		{ $$ = $1; }
 	| Sequential_music		{ $$ = $1; }
-	| TRANSPOSE musical_pitch Music {
+	| TRANSPOSE pitch Music {
 		$$ = new Transposed_music (SCM_EOL);
 		Music *p = $3;
 		Pitch pit = *unsmob_pitch ($2);
@@ -874,7 +874,7 @@ Composite_music:
 	;
 
 relative_music:
-	RELATIVE absolute_musical_pitch Music {
+	RELATIVE absolute_pitch Music {
 		Music * p = $3;
 		Pitch pit = *unsmob_pitch ($2);
 		$$ = new Relative_octave_music (SCM_EOL);
@@ -1297,7 +1297,7 @@ sub_quotes:
 	}
 	;
 
-steno_musical_pitch:
+steno_pitch:
 	NOTENAME_PITCH	{
 		$$ = $1;
 	}
@@ -1337,15 +1337,22 @@ steno_tonic_pitch:
 	}
 	;
 
-musical_pitch:
-	steno_musical_pitch {
+pitch:
+	steno_pitch {
 		$$ = $1;
 	}
-	| MUSICAL_PITCH embedded_scm {
-		if (!unsmob_pitch ($2))
+	| explicit_pitch {
+		$$ = $1;
+	}
+	;
+
+explicit_pitch:
+	PITCH embedded_scm {
+		$$ = $2;
+		if (!unsmob_pitch ($2)) {
 			THIS->parser_error (_f ("Expecting musical-pitch value", 3));
-		 Pitch m;
-		$$ = m.smobbed_copy ();
+			 $$ = Pitch ().smobbed_copy ();
+		}
 	}
 	;
 
@@ -1483,8 +1490,8 @@ pre_requests:
 	}
 	;
 
-absolute_musical_pitch:
-	steno_musical_pitch	{
+absolute_pitch:
+	steno_pitch	{
 		$$ = $1;
 	}
 	;
@@ -1493,6 +1500,9 @@ duration_length:
 	steno_duration {
 		$$ = $1;
 	}
+	| explicit_duration {
+		$$ = $1;
+	}	
 	| duration_length '*' bare_unsigned {
 		$$ = unsmob_duration ($$)->compressed ( $3) .smobbed_copy ();
 	}
@@ -1514,6 +1524,9 @@ optional_notemode_duration:
 	| entered_notemode_duration {
 		$$ = $1;
 	}
+	| explicit_duration {
+		$$ = $1;
+	}	
 	;
 
 steno_duration:
@@ -1556,7 +1569,7 @@ tremolo_type:
 
 
 simple_element:
-	musical_pitch exclamations questions optional_notemode_duration {
+	pitch exclamations questions optional_notemode_duration {
 		if (!THIS->lexer_p_->note_state_b ())
 			THIS->parser_error (_ ("Have to be in Note mode for notes"));
 
