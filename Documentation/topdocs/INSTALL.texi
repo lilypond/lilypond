@@ -113,6 +113,9 @@ newer).  EGCS and 2.x are known to cause crashes.
 
 @item @uref{http://www.gnu.org/software/bison/,Bison} (version 1.25 or
 newer, but not 1.50 or 1.75).
+
+@item gettext
+
 @end itemize
 
 @subsection Running requirements

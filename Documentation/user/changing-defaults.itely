@@ -1512,11 +1512,11 @@ all three mechanisms work for every object that supports
 
 @itemize @bullet
 @item @code{font-encoding}
-is a symbol that sets layout of the glyphs. Choices include
-@code{text} for normal text, @code{braces} (for piano staff braces),
-@code{music} (the standard music font, including ancient glyphs),
-@code{dynamic} (for dynamic signs) and @code{number} for the number
-font.
+is a symbol that sets layout of the glyphs. Choices include @code{ec}
+for @TeX{} EC font encoding, @code{fetaBraces} (for piano staff
+braces), @code{fetaMusic} (the standard music font, including ancient
+glyphs), @code{fetaDynamic} (for dynamic signs) and @code{fetaNumber}
+for the number font.
 
 
 @item @code{font-family}
@@ -1673,12 +1673,50 @@ for formatting.
 
 
 @menu
+* Text encoding::               
 * Overview of text markup commands::  
 @end menu
 
+@node Text encoding
+@subsection Text encoding
+
+Texts can be entered in different encodings.  The encoding of the
+file can be set with @code{\encoding}.
+
+@example
+  \encoding "latin1"
+@end example
+
+This command may be placed anywhere in the input file. The current
+encoding is passed as an extra argument to @code{\markup} commands.
+
+If no @code{\encoding} has been specified, then the encoding is taken
+from the @code{\paper} block (or @code{\bookpaper}, if @code{\paper}
+does not specify encoding). The variable @code{inputencoding} may be
+set to a string or symbol specifying  the encoding, eg.
+
+@example
+  \paper {
+    inputencoding = "latin1"
+  } 
+@end example
+
+There is a special encoding, called @code{TeX}. This encoding does not
+reencode text for the font used. Rather, it tries to guess the width
+of @TeX{} commands, such as @code{\"}. Strings encoded with @code{TeX}
+are passed to the output back-end verbatim.
+
+@cindex encoding
+@cindex @code{\encoding}
+@cindex inputencoding
+@cindex @TeX{} commands in strings
+
+
+
+
 @node  Overview of text markup commands
 @subsection Overview of text markup commands
-
+}
 @include markup-commands.tely
 
 

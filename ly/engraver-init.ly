@@ -313,7 +313,6 @@ connected vertically.  "
 
 \context{
     \type "Engraver_group_engraver"
-    \consists "Hara_kiri_engraver"
     minimumVerticalExtent = #'(-1.2 . 2.4)
     extraVerticalExtent = ##f
     verticalExtent = ##f
@@ -330,6 +329,7 @@ printing of a single line of lyrics.  "
     \consists "Vocal_name_engraver"
     \consists "Skip_event_swallow_translator"
     \consists "Font_size_engraver"
+    \consists "Hara_kiri_engraver"
     \override SeparationItem #'padding = #0.2
 }
 

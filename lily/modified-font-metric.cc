@@ -31,8 +31,9 @@ Modified_font_metric::Modified_font_metric (String coding, Font_metric* m, Real 
   
   description_ = scm_cons (ly_car (desc), scm_make_real (total_mag));
   orig_ = m;
-
-  if (coding_scheme_ != "TeX"
+  
+  if (coding_scheme_ != "" 
+      && coding_scheme_ != "TeX"
       && coding_scheme_ != "ASCII"
       && coding_scheme_ !=  orig_->coding_scheme ())
     {
@@ -54,11 +55,9 @@ Modified_font_metric::Modified_font_metric (String coding, Font_metric* m, Real 
 					 coding_table_);
 
       coding_description_= SCM_EOL;
-
       coding_description_ = scm_acons (ly_symbol2scm ("input-name"),
 				       scm_makfrom0str (coding_scheme_.to_str0 ()),
 				       coding_description_);
-
       coding_description_ = scm_acons (ly_symbol2scm ("input-vector"),
 				       coding_vector_, coding_description_);
       coding_description_ = scm_acons (ly_symbol2scm ("output-name"),
@@ -67,7 +66,6 @@ Modified_font_metric::Modified_font_metric (String coding, Font_metric* m, Real 
       coding_description_ = scm_acons (ly_symbol2scm ("output-table"),
 				       coding_table_,
 				       coding_description_);
-      
       coding_description_ = scm_acons (ly_symbol2scm ("char-mapping"),
 				       coding_mapping_,
 				       coding_description_);
@@ -94,12 +92,12 @@ SCM
 Modified_font_metric::make_scaled_font_metric (SCM coding, Font_metric *m, Real s)
 {
   /*
-    UGOHR.
+    UGH.
    */
   if (ly_c_symbol_p (coding))
     coding = scm_symbol_to_string (coding);
   
-  String scheme = ly_scm2string (coding);
+  String scheme = ly_c_string_p (coding) ? ly_scm2string (coding) : ""; 
   
   Modified_font_metric *sfm = new Modified_font_metric (scheme, m, s);
   
@@ -238,6 +236,7 @@ Modified_font_metric::text_dimension (String text)
       b = tex_kludge (text);
     }
   else if (coding_scheme_ == "ASCII"
+	   || coding_scheme_ == "" 
 	   || coding_scheme_ ==  orig_->coding_scheme ())
     {
       Interval ydims;

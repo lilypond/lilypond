@@ -149,8 +149,7 @@ pianoLH =  \relative c'' \repeat volta 2 {
     <c e g> r r <c, c,>8 r r\fermata \clef treble
     }
 \book {
-\score {
-
+  \score {
     << \time 6/8
      \new Staff <<
 	 \context Staff #(set-accidental-style 'modern)
@@ -185,7 +184,6 @@ pianoLH =  \relative c'' \repeat volta 2 {
 	    \Staff
 	    minimumVerticalExtent = #'(-3. . 6)
 	}
-	inputencoding = #"latin1"
     }
     \midi {
 	\tempo 4 = 70
