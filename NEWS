@@ -1,3 +1,19 @@
+pl 15.uu1
+	- dynamic fix.	
+	- junked abbrev stuff from parser.
+
+pl15.tca1
+	- fixed verbatim option behaviour for mudela-book.
+        - added mudela-book option intertext="some text" 
+	- mudela-book now understand latex \begin{verbatim}
+  
+pl 15.jcn1
+	- chord inversion: 
+	  * enter C/E
+	  * display chord names according to boolean property
+	    \property Score.chordInversion; 
+
+*********
 pl 15
 
 pl 14.hwn1

@@ -26,9 +26,7 @@ My_lily_parser::My_lily_parser (Sources * source_l)
   first_b_ = true;
   source_l_ = source_l;
   lexer_p_ = 0;
-  abbrev_beam_type_i_ = 0;
   default_duration_.durlog_i_ = 2;
-  default_abbrev_i_ = 0;
   error_level_i_ = 0;
   extender_req = 0;
   fatal_error_i_ = 0;
@@ -94,11 +92,6 @@ My_lily_parser::parser_error (String s)
   exit_status_i_ = 1;
 }
 
-void
-My_lily_parser::set_abbrev_beam (int type_i)
-{
-  abbrev_beam_type_i_ = type_i;
-}
 
 
 void
@@ -153,15 +146,10 @@ My_lily_parser::get_rest_element (String s,  Duration * duration_p)
 }
 
 Simultaneous_music *
-My_lily_parser::get_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p, Array<Musical_pitch>* sub_arr_p, Duration d)
+My_lily_parser::get_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p, Array<Musical_pitch>* sub_arr_p, Musical_pitch* inversion_p, Duration d)
 {
   Simultaneous_music*v = new Request_chord;
   v->set_spot (here_input ());
-
-  Note_req* n = new Note_req;
-  n->pitch_ = tonic;
-  n->duration_ = d;
-  v->add_music (n);
 
   for (int i = 0; i < add_arr_p->size (); i++)
     {
@@ -254,25 +242,63 @@ My_lily_parser::get_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p,
     }
 
   /*
+    add tonic
+   */
+  if (!add_arr_p->size () || ((*add_arr_p)[0] != tonic))
+    add_arr_p->insert (tonic, 0);
+
+  Array<Musical_pitch> pitch_arr;
+  /*
    add all that aren't subtracted
    */
   for (int i = 0; i < add_arr_p->size (); i++)
     {
       Musical_pitch p = (*add_arr_p)[i];
+      int j = 0;
+      for (; j < sub_arr_p->size (); j++)
+	if (p == (*sub_arr_p)[j])
+	  break;
+      if (j == sub_arr_p->size ())
+        pitch_arr.push (p);
+    }
+
+  if (inversion_p)
+    {
+      int i = 0;
+      for (; i < pitch_arr.size (); i++)
+	if ((pitch_arr[i].notename_i_ == inversion_p->notename_i_)
+	  && (pitch_arr[i].accidental_i_ == inversion_p->accidental_i_))
+	  break;
+      if (i == pitch_arr.size ())
+	warning (_ ("invalid inversion pitch (not part of chord)"));
+      else
+        {
+	  Array<Musical_pitch> pitches;
+	  Musical_pitch last (0, 0, -5);
+	  for (int j = 0; j < pitch_arr.size (); j++)
+	    {
+	      Musical_pitch p = pitch_arr[(j + i) % pitch_arr.size ()];
+	      if (p < last)
+	        {
+		  p.octave_i_ = last.octave_i_;
+		  if (p < last)
+		    p.octave_i_++;
+		}
+	      pitches.push (p);
+	      last = p;
+	    }
+	  pitch_arr = pitches;
+	}
+      delete inversion_p;
+    }
+
+  for (int i = 0; i < pitch_arr.size (); i++)
+    {
+      Musical_pitch p = pitch_arr[i];
       Note_req* n = new Note_req;
       n->pitch_ = p;
       n->duration_ = d;
-      for (int j = 0; j < sub_arr_p->size (); j++)
-        {
-	  if (p == (*sub_arr_p)[j])
-	    {
-	      delete n;
-	      n = 0;
-	      break;
-	    }
-	}
-      if (n)
-	v->add_music (n);
+      v->add_music (n);
     }
 
   v->set_spot (here_input ());
@@ -311,18 +337,7 @@ My_lily_parser::get_parens_request (int t)
     case '[':
     case ']':
       {
-	if (!abbrev_beam_type_i_)
-	  {
-	    reqs.push (new Beam_req);
-	  }
-	else
-	  {
-	    Abbreviation_beam_req* a = new Abbreviation_beam_req;
-	    a->type_i_ = abbrev_beam_type_i_;
-	    if (t==']')
-	      abbrev_beam_type_i_ = 0;
-	    reqs.push (a);
-	  }
+	reqs.push (new Beam_req);
       }
       break;
 

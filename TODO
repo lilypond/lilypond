@@ -21,9 +21,6 @@ BUGS:
 	  - repeat bars span staffs
 	  - placement alternative number
 
-	* who is trying to print too (small/big) piano braces all the time?
-	    warning: piano brace too small (16.000pt)
-
 	* latex bla.tex broken (titles / \lilyfooter stuff?)
 
 	* msgfmt -o check?
@@ -53,8 +50,6 @@ BUGS:
 	* fix singleStaffBracket
 
   	* repeat bars: need distance after ":|" and before "|:"
-
-	* The time signature warnings still remain, will be fixed later.
 
 	Summary of minor spelling irregularities:
 	-  capitalization/use of underscores in property names
@@ -141,8 +136,6 @@ STUFF
 		gs: Error: /undefined in draw_beam
 		gs: Operand stack:
 
-	* run texhash after installing .tex
-
 	* fix vertical alignment and stafflines
 
 	* GrandStaff needs more work -- I want a single word
@@ -152,8 +145,6 @@ STUFF
 	organ you want to be able to give stop indications on the way
 	through, so the \property Voice.Instrument would be a stop,
 	and \property GrandStaff.instrument would be PipeOrgan...)
-
-	* make Tie_req a "command" { <c g> ~ <c g> }
 
 	* revise the Score_priority_align_engraver concept.  It sucks. 
 
@@ -183,8 +174,6 @@ ydirection and hshift preset
 	* \tempo 4. = 90;
 
 	* fix audio-items (don't use (input) requests, but copy data)
-
-	* junk My_lily_parser::abbrev_beam_type_i_ 
 
 	* make sure all ex's have a mudela-version
 
@@ -395,7 +384,6 @@ PROJECTS
 	 .. ?
 
 	* chords
-	- jazz style inversions C/E => <e g c>
 	- guitar chords (fret diagrams)
 	- other chord name styles (american(?) style)
 	- basso continuo
