@@ -3312,13 +3312,14 @@ staff. The syntax for this is
 
 @quotation
 @example
-\autochange \context Voice  @dots{}@var{music}@dots{} 
+  \autochange @dots{}@var{music}@dots{} 
 @end example
 @end quotation
 
 @noindent
-The two staves of the piano staff must be named @code{up} and
-@code{down}.
+This will create two staves inside the current PianoStaff, called
+@code{up} and @code{down}. The lower staff will be in bass clef by
+default.
 
 A @code{\relative} section that is outside of @code{\autochange} has
 no effect on the pitches of @var{music}, so, if necessary, put
@@ -3326,7 +3327,7 @@ no effect on the pitches of @var{music}, so, if necessary, put
 
 @quotation
 @example
-\autochange \relative @dots{} \new Voice @dots{}
+\autochange \relative @dots{} @dots{}
 @end example
 @end quotation
 
@@ -3337,18 +3338,10 @@ advance. Here is a practical example
         
 @lilypond[quote,verbatim,raggedright]
 \context PianoStaff <<
-  \context Staff = "up" {
-    \autochange \new Voice \relative c' {
+    \autochange \relative c' {
        g4 a  b c d r4 a g } }
-  \context Staff = "down" {
-       \clef bass
-       s1*2
-} >>
+ >>
 @end lilypond
-
-@noindent
-In this example, spacer rests are used to prevent empty staves  from
-being terminated too soon.
 
 
 @seealso
