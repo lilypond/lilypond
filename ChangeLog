@@ -1,3 +1,8 @@
+2004-11-06  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* python/GNUmakefile (STEPMAKE_TEMPLATES): Unset USER_LDFLAGS, no
+	need to link to GUILE et al.
+
 2004-11-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/define-music-properties.scm (all-music-properties): add
@@ -27,24 +32,25 @@
 
 	* elisp/lilypond-indent.el (LilyPond-indent-level): 2 is now standard.
 
-	* tex/lilyponddefs.tex: If inputencodingUse latin1 inputencoding if 
+	* tex/lilyponddefs.tex: If no inputencoding use latin1.  (backportme)
 
 	* scm/framework-tex.scm (font-load-command): Use T1 if no
-	font-encoding set.
+	font-encoding set.  (backportme)
 
 	* scm/lily.scm (postscript->pdf): Remove .pdf file if it
-	exists before converting.
+	exists before converting.  (backportme)
 
 	* scm/framework-tex.scm (convert-to-dvi): Remove .dvi file if it
-	exists before converting.
-	(convert-to-ps): Remove .ps file if it exists before converting.
+	exists before converting.  (backportme)
+	(convert-to-ps): Remove .ps file if it exists before
+	converting.  (backportme)
 
 	* lily/lexer.ll: Remove extra progress newline, use present tense.
 
 	* scm/paper.scm (paper-alist): public.
 	* scm/framework-tex.scm (convert-to-ps):
 	* scm/lily.scm (postscript->pdf): Do not leak papersizename into
-	command line.  (backportme)
+	command line.
 
 2004-11-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
