@@ -10,8 +10,6 @@ grep for TODO and ugh/ugr/urg
 BUGS:
 	* --safe:  disallow backslashes, disallow \include.
 
-	* fix fontsize switching
-
 	* fix rounding stuff in number->string
 
 	* msgfmt -o check?

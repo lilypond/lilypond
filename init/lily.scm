@@ -177,13 +177,12 @@
 (define 
   (font-def o i s) 
   ((invoke-output o "font-def") i s))
-;  (empty o))
 
 (define 
   (font-def-ps i s)
   (string-append
    "\n/" (font i) " {/" 
-   (substring s 0 (- (string-length s) 3))
+   (substring s 0 (- (string-length s) 4))
    " findfont 12 scalefont setfont} bind def\n"))
 
 (define 
@@ -379,15 +378,11 @@
 
 (define 
   (start-line-ps) 
-  (string-append
-   (urg-fix-font-ps)
-   "\nstart_line {\n"))
+   "\nstart_line {\n")
 
 (define 
   (start-line-tex) 
-  (string-append 
-   (urg-fix-font-tex)
-   "\\hbox{%\n"))
+   "\\hbox{%\n")
 
 (define
   (startrepeat o h)
@@ -417,15 +412,4 @@
   (text-tex f s)
   (string-append "\\set" f "{" s "}"))
 
-(define
-  (urg-fix-font-ps)
-  "/fontA { /feta20 findfont 12 scalefont setfont} bind def fontA\n")
-
-(define
-  (urg-fix-font-tex)
-  "\\font\\fontA=feta20.afm\\fontA\n")
-
-(define 
-  (urg-font-switch-ps i)
-  "\n/feta20 findfont 12 scalefont setfont \n")
 

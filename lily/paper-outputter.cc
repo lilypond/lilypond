@@ -178,11 +178,11 @@ Paper_outputter::switch_to_font (String fontname)
     {
       current_font_ = fontname;
       int i=0;
-      bool new_b = false;
+      bool new_b = true;
       for (; i< font_arr_.size (); i++)
 	if (font_arr_[i] == fontname)
 	  {
-	    new_b = true;
+	    new_b = false;
 	    break;
 	  }
 
