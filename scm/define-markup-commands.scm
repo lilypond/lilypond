@@ -23,7 +23,7 @@ the PDF backend."
   (let*
       ((stil (interpret-markup layout props arg))
        (xextent (ly:stencil-extent stil X))
-       (yextent (ly:stencil-extent stil X))
+       (yextent (ly:stencil-extent stil Y))
        (old-expr (ly:stencil-expr stil))
        (url-expr (list 'url-link url `(quote ,xextent) `(quote ,yextent))))
     

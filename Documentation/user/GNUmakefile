@@ -65,7 +65,6 @@ ifneq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
 	@echo "or add something like that to the postinstall script."
 	@echo
 else
-
 	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
 	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond.info
 	install-info --info-dir=$(infodir) $(outdir)/lilypond.info
@@ -187,7 +186,7 @@ $(outdir)/%.eps: %.png
 DEEP_HTML_FILES =\
  $(outdir)/lilypond/index.html\
  $(outdir)/lilypond-internals/index.html
-	
+
 else
 
 # Links referred to by Documentation index
@@ -262,7 +261,7 @@ local-clean: local-delete
 
 local-delete:
 	-for i in $$(seq 0 9); do \
-		for j in dvi eps eps.bbox eps.trans log png tex; do \
+		for j in dvi eps eps.bbox eps.trans eps.trans.ps ps log png tex; do \
 			rm -f $(outdir)/lily-$$i*$$j; \
 		done; \
 	done

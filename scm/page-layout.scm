@@ -29,16 +29,6 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define TAGLINE
-  (make-line-markup
-   (list 
-    (make-simple-markup (string-append "Engraved by LilyPond " (lilypond-version)))
-    (make-simple-markup "-")
-    (make-with-url-markup "http://lilypond.org"
-			  (make-typewriter-markup (make-simple-markup "www.lilypond.org"))
-			  
-			  ))))
-
 (define (page-headfoot layout scopes number sym sepsym dir last?)
   "Create a stencil including separating space."
   (let* ((header-proc (ly:output-def-lookup layout sym))

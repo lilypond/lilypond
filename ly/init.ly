@@ -9,7 +9,6 @@
 
 
 #(ly:set-option 'new-relative)
-#(ly:set-point-and-click #f)
 #(define toplevel-scores '())
 #(define $globalheader #f)
 #(define version-seen? #f)
