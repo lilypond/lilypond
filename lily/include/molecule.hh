@@ -8,45 +8,51 @@
 #ifndef MOLECULE_HH
 #define MOLECULE_HH
 
+#include <stdlib.h>		// size_t
 #include "lily-proto.hh"
 #include "box.hh"
 #include "axes.hh"
 #include "direction.hh"
-#include "cons.hh"
-#include "protected-scm.hh"
-
-//#define ATOM_SMOB
+#include "lily-guile.hh"
 
 /** a group of individually translated symbols. You can add molecules
     to the top, to the right, etc.
 
+    It is implemented as a "tree" of scheme expressions, as in
+
+     Expr = combine Expr Expr
+              | translate Offset Expr
+	      | SCHEME
+	      ;
+
+    SCHEME is a Scheme expression that --when eval'd-- produces the
+    desired output.  
+
+
+    Because of the way that Molecule is implemented, it is the most
+    efficient to add "fresh" molecules to what you're going to build.
+    
     Dimension behavior:
 
     Empty molecules have empty dimensions.  If add_at_edge is used to
     init the molecule, we assume that
     DIMENSIONS = (Interval(0,0),Interval(0,0)
-
+    
 */
 class Molecule {
-  Protected_scm atom_list_;
-
-  friend class Paper_outputter;
-
+  /// can't alloc on heap.
+  void * operator new (size_t s); 
 public:
   Box dim_;
-
+  SCM expr_;
+  
+  Molecule (Box, SCM s);
   Molecule();
-  ~Molecule();
 
   /**
      Set dimensions to empty, or to (Interval(0,0),Interval(0,0) */
   void set_empty (bool);
   void add_at_edge (Axis a, Direction d, const Molecule &m, Real padding);
-
-  /**
-     Add an atom.  The molecule assumes responsibility for cleaning.
-   */
-  void add_atom (SCM as);    
   void add_molecule (Molecule const &m);
   void translate (Offset);
   
@@ -62,13 +68,10 @@ public:
   void translate_axis (Real,Axis);
 
   
+  
   /// how big is #this#? 
   Box extent() const;
   Interval extent (Axis) const;
-
-  Molecule (const Molecule&s);
-
-  void operator=(const Molecule&);  
   bool empty_b() const;
   void print ()const;
 };

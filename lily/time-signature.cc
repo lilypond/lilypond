@@ -19,8 +19,8 @@ Time_signature::Time_signature ()
 }
 
 // ugh.!
-Molecule*
-Time_signature::do_brew_molecule_p () const
+Molecule 
+Time_signature::do_brew_molecule () const
 {
   SCM st = get_elt_property ("style");
 
@@ -39,15 +39,15 @@ Time_signature::do_brew_molecule_p () const
       String style (ly_scm2string (st));
       if (style[0]=='1')
 	{
-	  return new Molecule (time_signature (n, 0));
+	  return time_signature (n, 0);
 	}
       else
 	{
-	  return new Molecule (special_time_signature (style, n, d));
+	  return special_time_signature (style, n, d);
 	}
     }
   else
-    return new Molecule (time_signature (n,d));
+    return     time_signature (n,d);
 }
 
 Molecule

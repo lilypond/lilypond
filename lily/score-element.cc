@@ -30,7 +30,6 @@
 
 Score_element::Score_element()
 {
-  output_p_ =0;
   dim_cache_[X_AXIS] = new Dimension_cache;
   dim_cache_[Y_AXIS] = new Dimension_cache;
   dim_cache_[X_AXIS]->elt_l_ = dim_cache_[Y_AXIS]->elt_l_ = this;
@@ -66,7 +65,6 @@ Score_element::Score_element (Score_element const&s)
   original_l_ =(Score_element*) &s;
   element_property_alist_ = SCM_EOL; // onstack;
 
-  output_p_ =0;
   status_i_ = s.status_i_;
   lookup_l_ = s.lookup_l_;
   pscore_l_ = s.pscore_l_;
@@ -76,7 +74,6 @@ Score_element::Score_element (Score_element const&s)
 
 Score_element::~Score_element()
 {
-  assert (!output_p_);
   assert (status_i_ >=0);
   status_i_  = -1;
 
@@ -146,12 +143,8 @@ Interval
 Score_element::molecule_extent(Dimension_cache const *c)
 {
   Score_element *s = dynamic_cast<Score_element*>(c->element_l());
-  Molecule*m = s->do_brew_molecule_p();
-  
-  Interval iv =  m->extent()[c->axis ()];
-
-  delete m;
-  return iv;
+  Molecule m = s->do_brew_molecule();
+  return   m.extent()[c->axis ()];
 }
 
 
@@ -255,11 +248,8 @@ Score_element::output_processing ()
   if (to_boolean  (get_elt_property ("transparent")))
     return;
 
-  // we're being silly here. 
-  if (output_p_)
-    delete output_p_;
   
-  output_p_ = do_brew_molecule_p ();
+  Molecule m (do_brew_molecule ());
   Offset o (relative_coordinate (0, X_AXIS), relative_coordinate (0, Y_AXIS));
 
   SCM s = get_elt_property ("extra-offset");
@@ -270,12 +260,7 @@ Score_element::output_processing ()
       o[Y_AXIS] += il * gh_scm2double (gh_cdr (s));      
     }
   
-  pscore_l_->outputter_l_->output_molecule (output_p_,
-					    o,
-					    classname(this));
-
-  delete output_p_;
-  output_p_ =0;
+  pscore_l_->outputter_l_->output_molecule (m.expr_, o, classname(this));
 }
 
 /*
@@ -316,22 +301,20 @@ Score_element::do_add_processing()
 
 
 
-Molecule*
-Score_element::do_brew_molecule_p() const
+Molecule 
+Score_element::do_brew_molecule() const
 {
   SCM glyph = get_elt_property ("glyph");
   if (gh_string_p (glyph))
     {
-      Molecule*output = new Molecule (lookup_l ()->afm_find (String (ly_scm2string (glyph))));
+      return lookup_l ()->afm_find (String (ly_scm2string (glyph)));
       
-      return output;
     }
   else
     {
       Interval emp;
       emp.set_empty ();
-      Molecule a (lookup_l ()->fill (Box (emp,emp)));
-      return new Molecule (a);
+      return lookup_l ()->fill (Box (emp,emp));
     }
 }
 
@@ -609,8 +592,8 @@ Score_element::fixup_refpoint ()
 
 #include "ly-smobs.icc"
 
-IMPLEMENT_SMOBS(Score_element);
 IMPLEMENT_UNSMOB(Score_element, element);
+IMPLEMENT_SMOBS(Score_element);
 SCM
 Score_element::mark_smob (SCM ses)
 {

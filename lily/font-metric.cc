@@ -126,3 +126,5 @@ Font_metric::print_smob (SCM s, SCM port, scm_print_state * )
 }
 
 IMPLEMENT_UNSMOB(Font_metric, metrics);
+IMPLEMENT_SMOBS(Font_metric);
+

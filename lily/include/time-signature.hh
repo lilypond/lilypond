@@ -24,7 +24,7 @@ class Time_signature: public Item
   Molecule time_signature (int, int)const;
   
 protected:
-  virtual Molecule*do_brew_molecule_p() const;
+  virtual Molecule do_brew_molecule() const;
 public:
   Time_signature () ;
 

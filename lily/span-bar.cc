@@ -123,15 +123,15 @@ Span_bar::height_callback (Dimension_cache const *c)
   return s->get_spanned_interval ();
 }
 
-Molecule*
-Span_bar::do_brew_molecule_p () const
+Molecule 
+Span_bar::do_brew_molecule () const
 {
   Interval iv (get_spanned_interval ());
-  Molecule*output = new Molecule;
+  Molecule output;
   SCM s = get_elt_property ("glyph");
   if (gh_string_p (s) && !iv.empty_b())
     {
-      output->add_molecule (lookup_l ()->bar (ly_scm2string (s),
+      output.add_molecule (lookup_l ()->bar (ly_scm2string (s),
 					      iv.length (),
 					      paper_l ()));
     }

@@ -10,6 +10,8 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 
 .* TODO
 . * use hash tabs iso. alist_ for elt property?
+. * unhardcode stuff in bezier-bow: all sizes other than 20pt are
+    broken
 . * control paper-size/-file from commandline ?
   lilypond --paper=paper16 foo.ly
   lilypond --paper=paper20 foo.ly
@@ -17,6 +19,22 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 . * entangle ly/* paper-params papersize stuff
 . * fix tremolos.
 . * change ) c4  to c4-)
+. * automated marks. 
+. * There should be no pagebreak below the title of the movement!!
+. * tempo:
+
+>   - Tempo Indications:
+>     * \tempo 4 = 60 should be printed
+>     * There should be commands like \alloegro that also do something
+>       sensible in midi.
+> 
+. *  - It should be possible to have Bar numbers on every bar.
+
+. * dynamics: 
+>       * Notes should be spaced out for crescendos (had to use c^"      ")
+>       * something like c-.->\ff looks ugly.  The dynamc indication should
+>         appear left of the marks
+> 
 . * 
 There's insufficient leading between lines of lyrics, so risers like
 `l' and 'b' collide with the bottom of the line above.

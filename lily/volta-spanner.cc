@@ -32,16 +32,16 @@ Volta_spanner::Volta_spanner ()
 /*
   FIXME: too complicated.
  */
-Molecule*
-Volta_spanner::do_brew_molecule_p () const
+Molecule 
+Volta_spanner::do_brew_molecule () const
 {
-  Molecule* mol_p = new Molecule;
+  Molecule  mol;
 
   Link_array<Bar> bar_arr
     = Group_interface__extract_elements (this, (Bar*)0, "bars");
 
   if (!bar_arr.size ())
-    return mol_p;
+    return mol;
 
   Link_array<Score_element> note_column_arr
     = Group_interface__extract_elements (this, (Score_element*)0, "note-columns");
@@ -68,8 +68,6 @@ Volta_spanner::do_brew_molecule_p () const
   Real w = spanner_length() - dx - get_broken_left_end_align ();
   Real h = paper_l()->get_var ("volta_spanner_height");
 
-  Molecule volta; 
-
   SCM at = (gh_list (ly_symbol2scm ("volta"),
 		     gh_double2scm (h),
 		     gh_double2scm (w),
@@ -77,10 +75,8 @@ Volta_spanner::do_brew_molecule_p () const
 		     gh_int2scm (no_vertical_start),
 		     gh_int2scm (no_vertical_end),
 		     SCM_UNDEFINED));
-
-  volta.dim_[Y_AXIS] = Interval (- h/2, h/2);
-  volta.dim_[X_AXIS] = Interval (0, w);
-  volta.add_atom (at);
+  Box b (Interval (- h/2, h/2),  Interval (0, w));
+  Molecule volta(b,at);
   
   Molecule num (lookup_l ()->text ("volta",
 				   ly_scm2string (get_elt_property("text")),
@@ -103,10 +99,10 @@ Volta_spanner::do_brew_molecule_p () const
   Offset off (num.dim_.x ().length () + gap, 
 	      h / half_staff_space - gap);
   num.translate (off);
-  mol_p->add_molecule (volta);
-  mol_p->add_molecule (num);
-  mol_p->translate (Offset (0, dy));
-  return mol_p;
+  mol.add_molecule (volta);
+  mol.add_molecule (num);
+  mol.translate (Offset (0, dy));
+  return mol;
 }
   
 void

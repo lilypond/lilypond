@@ -16,7 +16,7 @@
 class Stem_tremolo : public Item {
 protected:
   Stem * stem_l () const;
-  virtual Molecule *do_brew_molecule_p () const;
+  virtual Molecule do_brew_molecule () const;
 
   static Interval dim_callback (Dimension_cache const*);
 public:

@@ -18,7 +18,18 @@ unsmob_ ## name ( SCM s)			\
     return SMOB_TO_TYPE(CL, s);			\
   else						\
     return 0;					\
-}
+}\
+SCM smobify (CL *cl)\
+{\
+  SCM s;								\
+									\
+  SCM_NEWCELL(s);							\
+  SCM_SETCAR(s,CL::smob_tag_);						\
+  void * me_p = cl; 							\
+  SCM_SETCDR(s,me_p);							\
+return s;\
+}\
+
 
 
 #define IMPLEMENT_SMOBS(CL)\
@@ -55,14 +66,8 @@ CL::smobify_self ()							\
     This is local. We don't assign to self_scm_ directly, to assure	\
     that S isn't GC-ed from under us.					\
    */									\
-  SCM s;								\
-									\
-  SCM_NEWCELL(s);							\
+  SCM s = smobify (this); \
   self_scm_ = s;							\
-									\
-  SCM_SETCAR(s,smob_tag_);						\
-  void * me_p = this; 							\
-  SCM_SETCDR(s,me_p);							\
   scm_protect_object (s);						\
 									\
 /* no scm_done_malloc() !  */ \

@@ -56,15 +56,15 @@ Script::do_post_processing ()
   i.set_direction (d);
 }
 
-Molecule*
-Script::do_brew_molecule_p () const
+Molecule 
+Script::do_brew_molecule () const
 {
   Direction dir = DOWN;
   SCM d = get_elt_property ("direction");
   if (isdir_b (d))
     dir = to_dir (d);
   
-  return new Molecule (get_molecule (dir));
+  return get_molecule (dir);
 }
 
 

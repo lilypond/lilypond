@@ -708,12 +708,12 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 }
 
 
-Molecule*
-Beam::do_brew_molecule_p () const
+Molecule 
+Beam::do_brew_molecule () const
 {
-  Molecule *mol_p = new Molecule;
+  Molecule mol;
   if (!stem_count ())
-    return mol_p;
+    return mol;
   Real x0,dx;
   if (visible_stem_count ())
     {
@@ -739,12 +739,12 @@ Beam::do_brew_molecule_p () const
       Molecule sb = stem_beams (i, next, prev);
       Real x = i->hpos_f ()-x0;
       sb.translate (Offset (x, x * dydx + y));
-      mol_p->add_molecule (sb);
+      mol.add_molecule (sb);
     }
-  mol_p->translate_axis (x0 
+  mol.translate_axis (x0 
     - spanned_drul_[LEFT]->relative_coordinate (0, X_AXIS), X_AXIS);
 
-  return mol_p;
+  return mol;
 }
 
 int

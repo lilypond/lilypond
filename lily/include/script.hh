@@ -26,7 +26,7 @@ public:
 protected:
   virtual void do_pre_processing ();
   virtual void do_post_processing ();
-  Molecule* do_brew_molecule_p () const;
+  Molecule do_brew_molecule () const;
 };
 
 #endif /* Stem_SCRIPT_HH */

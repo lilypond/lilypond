@@ -23,6 +23,6 @@ public:
   int line_count () const;
 protected:
   VIRTUAL_COPY_CONS(Score_element);
-  virtual Molecule* do_brew_molecule_p() const;
+  virtual Molecule do_brew_molecule() const;
 };
 #endif // STAFFSYM_HH

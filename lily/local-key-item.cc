@@ -58,13 +58,17 @@ Local_key_item::accidental (int j, bool cautionary, bool natural) const
   return m;
 }
 
-Molecule*
-Local_key_item::do_brew_molecule_p() const
+/*
+  UGH. clean me up
+ */
+Molecule 
+Local_key_item::do_brew_molecule() const
 {
-  Molecule*output = new Molecule;
+  Molecule mol;
   Staff_symbol_referencer_interface si (this);
   Real note_distance = si.staff_space ()/2;
-  Molecule *octave_mol_p = 0;
+  Molecule octave_mol;
+  bool oct_b = false;
   int lastoct = -100;
   
   for  (int i = 0; i <  accidental_arr_.size(); i++) 
@@ -73,14 +77,14 @@ Local_key_item::do_brew_molecule_p() const
       // do one octave
       if (p.octave_i_ != lastoct) 
 	{
-	  if (octave_mol_p)
+	  if (oct_b)
 	    {
 	      Real dy =lastoct*7* note_distance;
-	      octave_mol_p->translate_axis (dy, Y_AXIS);
-	      output->add_molecule (*octave_mol_p);
-	      delete octave_mol_p;
+	      octave_mol.translate_axis (dy, Y_AXIS);
+	      mol.add_molecule (octave_mol);
+	      octave_mol = Molecule ();
 	    }
-	  octave_mol_p= new Molecule;
+	  oct_b = true; 
 	}
       
       lastoct = p.octave_i_;
@@ -94,15 +98,15 @@ Local_key_item::do_brew_molecule_p() const
 			      accidental_arr_[i].natural_b_));
 
       m.translate_axis (dy, Y_AXIS);
-      octave_mol_p->add_at_edge (X_AXIS, RIGHT, m, 0);
+      octave_mol.add_at_edge (X_AXIS, RIGHT, m, 0);
     }
 
-  if (octave_mol_p)
+  if (oct_b)
     {
       Real dy =lastoct*7*note_distance;
-      octave_mol_p->translate_axis (dy, Y_AXIS);
-      output->add_molecule (*octave_mol_p);
-      delete octave_mol_p;
+      octave_mol.translate_axis (dy, Y_AXIS);
+      mol.add_molecule (octave_mol);
+      octave_mol = Molecule ();
     }
   
  if (accidental_arr_.size()) 
@@ -123,10 +127,10 @@ Local_key_item::do_brew_molecule_p() const
 	Box b(Interval (0, gh_scm2double (pads[d]) * note_distance),
 	      Interval (0,0));
 	Molecule m (lookup_l ()->fill (b));
-	output->add_at_edge (X_AXIS, d, m, 0);
+	mol.add_at_edge (X_AXIS, d, m, 0);
       } while ( flip (&d)!= LEFT);
     }
 
-  return output;
+  return mol;
 }
 

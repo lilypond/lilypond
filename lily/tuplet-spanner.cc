@@ -31,10 +31,10 @@ Tuplet_spanner::Tuplet_spanner ()
 /*
   TODO. 
  */
-Molecule*
-Tuplet_spanner::do_brew_molecule_p () const
+Molecule 
+Tuplet_spanner::do_brew_molecule () const
 {
-  Molecule* mol_p = new Molecule;
+  Molecule  mol;
 
   // Default behaviour: number always, bracket when no beam!
   bool par_beam = to_boolean (get_elt_property ("parallel-beam"));
@@ -82,7 +82,7 @@ Tuplet_spanner::do_brew_molecule_p () const
 	
 	  num.translate_axis (dy/2, Y_AXIS);
 
-	  mol_p->add_molecule (num);
+	  mol.add_molecule (num);
 	}
       
       Real thick = paper_l ()->get_var ("tuplet_thick");
@@ -99,12 +99,13 @@ Tuplet_spanner::do_brew_molecule_p () const
 				       gh_int2scm (dir),
 				       SCM_UNDEFINED);
 
-	  mol_p->add_atom (at);
+	  Box b;
+	  mol.add_molecule (Molecule (b, at));
 	}
 
-      mol_p->translate_axis (dir * staff_space, Y_AXIS);
+      mol.translate_axis (dir * staff_space, Y_AXIS);
     }
-  return mol_p;
+  return mol;
 }
   
 void

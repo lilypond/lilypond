@@ -4,6 +4,12 @@
 
 	Comment (c) 2000 Jan Nieuwenhuizen <janneke@gnu.org>
 
+	Comment Thanks go to out to  participants in discussions on
+	Comment alt.ascii-art and rec.music.compose
+
+	Comment noteheads-0 by llizard/ejm <llizard_ejm@yahoo.com>
+	Comment and Shaun Mead <shaun.mead@ns.sympatico.ca>
+
 	Comment Lines that start with TAB or FF make up the .afm
 	Comment TABs are comments
 	Comment `Comment' is the afm comment prefix

@@ -39,14 +39,11 @@ Dots::do_post_processing ()
 	si.set_position (p  + directional_element (this).get ());
     }
 }
-Molecule* 
-Dots::do_brew_molecule_p () const
+Molecule  
+Dots::do_brew_molecule () const
 {
-  Molecule *out = new Molecule;
-  Molecule fill = lookup_l ()->fill (Box (Interval (0,0),
-					  Interval (0,0)));
-  out->add_molecule (fill);
-
+  Molecule mol (lookup_l ()->fill (Box (Interval (0,0),
+					  Interval (0,0))));
   Molecule d = lookup_l ()->afm_find (String ("dots-dot"));
 
   Real dw = d.dim_[X_AXIS].length ();
@@ -56,10 +53,10 @@ Dots::do_brew_molecule_p () const
   for (int i = gh_scm2int (get_elt_property ("dot-count")); i--; )
     {
       d.translate_axis (2*dw,X_AXIS);
-      out->add_molecule (d);
+      mol.add_molecule (d);
     }
 
-  return out;
+  return mol;
 }
 
 

@@ -42,8 +42,8 @@ Stem_tremolo::dim_callback (Dimension_cache const *c)
 }
 
 
-Molecule*
-Stem_tremolo::do_brew_molecule_p () const
+Molecule 
+Stem_tremolo::do_brew_molecule () const
 {
   Stem * st = stem_l ();
   int mult =0;
@@ -85,20 +85,20 @@ Stem_tremolo::do_brew_molecule_p () const
       abbrev_flags = gh_scm2int (a);
   }
 
-  Molecule *beams= new Molecule; 
+  Molecule mol; 
   for (int i = 0; i < abbrev_flags; i++)
     {
       Molecule b (a);
       b.translate_axis (interbeam_f * i, Y_AXIS);
-      beams->add_molecule (b);
+      mol.add_molecule (b);
     }
-  beams->translate_axis (-beams->extent ()[Y_AXIS].center (), Y_AXIS);
+  mol.translate_axis (-mol.extent ()[Y_AXIS].center (), Y_AXIS);
 
   if (st)
     { 
       if (st->beam_l ())
         {
-	  beams->translate (Offset(st->hpos_f () - hpos_f (),
+	  mol.translate (Offset(st->hpos_f () - hpos_f (),
 	    st->stem_end_position () * half_staff_space - 
 	    directional_element (st->beam_l ()).get () * beams_i * interbeam_f));
 	}
@@ -107,7 +107,7 @@ Stem_tremolo::do_brew_molecule_p () const
 	  /*
 	    Beams should intersect one beamthickness below staff end
 	   */
-	  Real dy = - beams->extent ()[Y_AXIS].length () / 2 * st->get_direction ();
+	  Real dy = - mol.extent ()[Y_AXIS].length () / 2 * st->get_direction ();
 
 	  /*
 	    uhg.  Should use relative coords and placement
@@ -117,7 +117,7 @@ Stem_tremolo::do_brew_molecule_p () const
 	    : 0.0;
 	 
 	  dy += st->stem_end_position ();
-	  beams->translate (Offset(st->hpos_f () - hpos_f ()+
+	  mol.translate (Offset(st->hpos_f () - hpos_f ()+
 				   whole_note_correction, dy));
 	}
 
@@ -127,7 +127,7 @@ Stem_tremolo::do_brew_molecule_p () const
        */
     }
   
-  return beams;
+  return mol;
 }
 
 

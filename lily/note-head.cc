@@ -26,7 +26,7 @@ Note_head::ledger_line (Interval xwid) const
 {
   Drul_array<Molecule> endings;
   endings[LEFT] = lookup_l()->afm_find ("noteheads-ledgerending");
-  Molecule * e = &endings[LEFT];
+  Molecule *e = &endings[LEFT];
   endings[RIGHT] = *e;
   
   Real thick = e->dim_[Y_AXIS].length();
@@ -79,8 +79,8 @@ Note_head::do_pre_processing ()
 
 
 
-Molecule*
-Note_head::do_brew_molecule_p() const 
+Molecule 
+Note_head::do_brew_molecule() const 
 {
   Staff_symbol_referencer_interface si (this);
   
@@ -98,15 +98,14 @@ Note_head::do_brew_molecule_p() const
       type = ly_scm2string (style);
     }
   
-  Molecule*  out =
-    new Molecule (lookup_l()->afm_find (String ("noteheads-") + to_str (balltype_i ()) + type));
+  Molecule   out = lookup_l()->afm_find (String ("noteheads-") + to_str (balltype_i ()) + type);
 
-  Box ledgerless = out->dim_;
+  Box ledgerless = out.dim_;
 
   if (streepjes_i) 
     {
       Direction dir = (Direction)sign (p);
-      Interval hd = out->dim_[X_AXIS];
+      Interval hd = out.dim_[X_AXIS];
       Real hw = hd.length ()/4;
       
       Molecule ledger (ledger_line  (Interval (hd[LEFT] - hw,
@@ -119,11 +118,11 @@ Note_head::do_brew_molecule_p() const
 	  Molecule s (ledger);
 	  s.translate_axis (-dir * inter_f * (i*2 + parity),
 			   Y_AXIS);
-	  out->add_molecule (s);
+	  out.add_molecule (s);
 	}
     }
 
-  out->dim_ = ledgerless;
+  out.dim_ = ledgerless;
   return out;
 }
 

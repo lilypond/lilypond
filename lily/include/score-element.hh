@@ -62,7 +62,7 @@ public:
   int status_i_;
 
   Paper_score *pscore_l_;
-  Molecule * output_p_;
+
   Score_element ();
   Score_element (Score_element const&);
   virtual void print () const;
@@ -137,7 +137,7 @@ protected:
   /// do printing of derived info.
   virtual void do_print () const;
   /// generate the molecule    
-  virtual Molecule* do_brew_molecule_p () const;
+  virtual Molecule do_brew_molecule () const;
   ///executed directly after the item is added to the Paper_score
   virtual void do_add_processing ();
   /// do calculations before determining horizontal spacing

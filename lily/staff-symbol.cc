@@ -15,8 +15,8 @@
 
 
 
-Molecule*
-Staff_symbol::do_brew_molecule_p() const
+Molecule 
+Staff_symbol::do_brew_molecule() const
 {
   Score_element * common
     = spanned_drul_[LEFT]->common_refpoint (spanned_drul_[RIGHT], X_AXIS);
@@ -28,18 +28,18 @@ Staff_symbol::do_brew_molecule_p() const
     ;
 
   Real t = paper_l ()->get_var ("stafflinethickness");
-  Molecule rule  = lookup_l ()->filledbox (Box (Interval (0,width),
-						Interval (-t/2, t/2)));
-
   int l = line_count ();
   
   Real height = (l-1) * staff_space () /2;
-  Molecule * m = new Molecule;
+  Molecule  m;
   for (int i=0; i < l; i++)
     {
-      Molecule a (rule);
+      Molecule a =
+	lookup_l ()->filledbox (Box (Interval (0,width),
+				     Interval (-t/2, t/2)));
+
       a.translate_axis (height - i * staff_space (), Y_AXIS);
-      m->add_molecule (a);
+      m.add_molecule (a);
     }
 
   return m;

@@ -29,14 +29,11 @@ Bar::get_bar_size () const
 }
 
 
-Molecule*
-Bar::do_brew_molecule_p () const
+Molecule 
+Bar::do_brew_molecule () const
 {
   String s = ly_scm2string (get_elt_property ("glyph"));
-  Molecule *output
-    = new Molecule (lookup_l ()->bar (s, get_bar_size (), paper_l ()));
-  
-  return output;
+  return lookup_l ()->bar (s, get_bar_size (), paper_l ());
 }
 
 

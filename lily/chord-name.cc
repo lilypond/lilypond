@@ -221,8 +221,8 @@ Chord_name::banter (Array<Musical_pitch> pitch_arr, Chord_mol* name_p) const
   TODO:
     fix silly to-and-fro scm conversions
  */
-Molecule*
-Chord_name::do_brew_molecule_p () const
+Molecule 
+Chord_name::do_brew_molecule () const
 {
   Array<Musical_pitch> pitch_arr;
   scm_to_array (get_elt_property ("pitches"), &pitch_arr);
@@ -286,16 +286,16 @@ Chord_name::do_brew_molecule_p () const
   if (!name.addition_mol.empty_b ())
     name.addition_mol.translate (Offset (0, super_y));
 
-  Molecule* mol_p = new Molecule;
-  mol_p->add_at_edge (X_AXIS, RIGHT, name.tonic_mol, 0);
+  Molecule  mol;
+  mol.add_at_edge (X_AXIS, RIGHT, name.tonic_mol, 0);
   // huh?
   if (!name.modifier_mol.empty_b ())
-    mol_p->add_at_edge (X_AXIS, RIGHT, name.modifier_mol, 0);
+    mol.add_at_edge (X_AXIS, RIGHT, name.modifier_mol, 0);
   if (!name.addition_mol.empty_b ())
-    mol_p->add_at_edge (X_AXIS, RIGHT, name.addition_mol, 0);
+    mol.add_at_edge (X_AXIS, RIGHT, name.addition_mol, 0);
   if (!name.inversion_mol.empty_b ())
-    mol_p->add_at_edge (X_AXIS, RIGHT, name.inversion_mol, 0);
+    mol.add_at_edge (X_AXIS, RIGHT, name.inversion_mol, 0);
   if (!name.bass_mol.empty_b ())
-    mol_p->add_at_edge (X_AXIS, RIGHT, name.bass_mol, 0);
-  return mol_p;
+    mol.add_at_edge (X_AXIS, RIGHT, name.bass_mol, 0);
+  return mol;
 }

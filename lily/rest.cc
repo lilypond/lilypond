@@ -37,8 +37,8 @@ Rest::do_post_processing ()
 }
 
 
-Molecule *
-Rest::do_brew_molecule_p () const
+Molecule 
+Rest::do_brew_molecule () const
 {
   bool ledger_b =false;
 
@@ -58,7 +58,7 @@ Rest::do_brew_molecule_p () const
 
   String idx =  ("rests-") + to_str (balltype_i ()) + (ledger_b ? "o" : "") + style;
 
-  return new Molecule(lookup_l ()->afm_find (idx));
+  return lookup_l ()->afm_find (idx);
 }
 
 

@@ -34,7 +34,7 @@ public:
   void set_textitem (Direction, Item*);
 
 protected:
-  virtual Molecule* do_brew_molecule_p () const;
+  virtual Molecule do_brew_molecule () const;
   void do_post_processing ();
  
   VIRTUAL_COPY_CONS (Score_element);
