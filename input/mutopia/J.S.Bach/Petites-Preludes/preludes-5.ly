@@ -10,7 +10,7 @@ upper =  \context Staff \notes\relative c
 	\property Voice.TextScript \set #'font-style = #'italic
 
 
-	[d'8 a' f d a' f] |
+	 d'8-[ a' f d a' f] |
 	d a' f d a' f |
 	d bes' g d bes' g |
 	d bes' g d bes' g |
@@ -24,13 +24,13 @@ upper =  \context Staff \notes\relative c
 	a gis fis e d' b |
 	< 
 		{
-			\stemUp 
+			
 			\property Voice.TextScript \set #'font-style = #'roman
 			c4-\mordent^#'(music "accidentals-1") r r |
 			c4-\mordent^#'(music "accidentals-1") r r
 			\property Voice.TextScript \set #'font-style = #'italic
-		}
-		\context Voice=ii { \stemDown a4 r r | a4 r r }
+		} \\
+		{ \stemDown a4 r r | a4 r r }
 	> |
 	\stemBoth 
 	a'8 es d c bes a |
@@ -45,12 +45,10 @@ upper =  \context Staff \notes\relative c
 	f d f a d g, |
 	< 
 		{ 
-			\stemUp 
 			% ... textnatural
-%			cis8-\prall e8-"poco cresc." cis a e' cis 
 			cis8-\prall e8 cis a e' cis 
-		}
-		\context Voice=ii { \stemDown a4 }
+		}\\
+		{ \stemDown a4 }
 	>
 	\stemBoth 
 	a8 e' cis a bes! a |
@@ -80,18 +78,18 @@ upper =  \context Staff \notes\relative c
 %	s1 |
 	s4 s4 s4 |
 	%40
-	s4 s16 [d16 f a] \stemDown [d, f a] \stemUp d |
+	s4 s16  d16-[ f a] \stemDown  d,-[ f a] \stemBoth \stemUp d |
 	\stemBoth
 	f a f d  f d b d  gis, b a gis |
 
 	% arpeggio
 	<<g'! e a,>>4. a8 
 	<< f  d a >>4 ~ 
-	[f8 e]
-	< { \stemUp 
+	 f8-[ e]
+	< {  
 		e4.^\prall d8
-		}
-		\context Voice=ii { \stemDown cis2 }
+	  } \\
+	  {  cis2 }
 	> 
 	\stemBoth 
 	d8 c! a d bes g |
@@ -151,14 +149,15 @@ lower =  \context Staff \notes\relative c{
 	cis cis' cis, |
 	d s16
 	\stemDown
-	[g'16 f e] f a d, f | 
-	a, \stemUp [d c bes] 
-	a \stemDown [ g f e] d f a d |
+	 g'16-[ f e] f a d, f | 
+	a, \stemUp  d-[ c bes] 
+
+	a   \stemDown  g-[ f e] d f a d |
 	\stemUp
 
-	[f a]
+	 f-[ a]
 	\stemDown
-	[d, f] a s s8 s4 |
+	 d,-[ f] a s s8 s4 |
 	\stemBoth
 % ugh whole rest has duration of one bar
 	R2. |

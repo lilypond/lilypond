@@ -17,7 +17,7 @@ upper =  \context Staff \notes\relative c{
 	<<d c a>>2
 	r4
 	<<d c a>>
-	< { \stemUp [d8 g, 8 b d] }
+	< { \stemUp  d8-[ g, 8 b d] }
 	  \context Voice = ii < \stemDown b g >
 	>
 	

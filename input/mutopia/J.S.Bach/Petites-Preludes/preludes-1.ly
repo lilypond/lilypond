@@ -55,13 +55,13 @@ upper =  \context Staff=upper \notes\relative c {
 	\lowstaff
 	\stemUp
 	r16 g,, b d  
-	[ f \upstaff \stemDown g16 b d ] | 
+	 f-[ \upstaff \stemDown g16 b d ] | 
 	\stemUp b
 	\lowstaff \stemDown
-	[ g b d ] f
+	 g-[ b d ] f
 	\upstaff 
-	[ g16 b d ] b
-	[ g b d ]
+	 g16-[ b d ] b
+	 g-[ b d ]
 	\stemUp
 
 	% urg, below translator change affects previous beam too!?
