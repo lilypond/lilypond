@@ -62,6 +62,9 @@ const Real SAME_SLOPE_PENALTY = 20;
 const Real STEEPER_SLOPE_FACTOR = 50;
 const Real NON_HORIZONTAL_PENALTY = 15;
 const Real HEAD_STRICT_FREE_SPACE = 0.2;
+const Real MAX_SLOPE = 1.4;
+const Real MAX_SLOPE_FACTOR = 10;
+
 
 #define DEBUG_SLUR_QUANTING 1
 
@@ -412,13 +415,23 @@ New_slur::score_encompass (Grob * me,  Grob *common[], Drul_array<Offset> base_a
   Direction dir = get_grob_direction (me);
  
   Array<Encompass_info> infos;
+  Drul_array<Grob *> extremes (encompasses[0], encompasses.top ());
 
   int first = 1;
   int last = encompasses.size () - 2;
 
   for (int i = first; i <= last; i++)
     infos.push (get_encompass_info (me, encompasses[i], common));
-  
+
+  Drul_array<Grob*> stems;
+  Direction d = LEFT;
+  do {
+    Grob *stem = Note_column::get_stem (extremes [d]);
+    stems[d] = stem;
+  } while (flip (&d) != LEFT);
+
+
+ 
   for (int i =0 ; i < scores->size (); i++)
     {
       Bezier const &bez (scores->elem (i).curve_);
@@ -451,9 +464,14 @@ New_slur::score_encompass (Grob * me,  Grob *common[], Drul_array<Offset> base_a
 
       Direction d = LEFT;
       do {
-	demerit +=
+
+	Real attr =
 	  EDGE_ATTRACTION_FACTOR
 	  * fabs (scores->elem (i).attachment_[d][Y_AXIS] - base_attach[d][Y_AXIS]);
+	if (get_grob_direction (stems[d]) == dir)
+	  attr /= 5;
+	
+	demerit += attr;
       } while (flip (&d) != LEFT);
 
 #if DEBUG_SLUR_QUANTING
@@ -488,6 +506,8 @@ New_slur::score_slopes (Grob * me,  Grob *common[], Drul_array<Offset> base_atta
     beams[d] = Stem::get_beam (stem);
   } while (flip (&d) != LEFT);
 
+  Real dx = extremes[RIGHT]->relative_coordinate (common[X_AXIS],X_AXIS)
+    - extremes[LEFT]->relative_coordinate (common[X_AXIS],X_AXIS);
 
   Real dy = ys[RIGHT] - ys[LEFT];
   for (int i =0 ; i < scores->size (); i++)
@@ -500,6 +520,9 @@ New_slur::score_slopes (Grob * me,  Grob *common[], Drul_array<Offset> base_atta
 
       if(! (beams[LEFT] || beams[RIGHT]))
 	demerit += STEEPER_SLOPE_FACTOR *  (dir * (fabs (slur_dy) - fabs (dy)) >? 0);
+
+      demerit += ((fabs (slur_dy/dx) - MAX_SLOPE)>?0)  * MAX_SLOPE_FACTOR;
+      
       if (sign (dy) == 0 &&
 	  sign (slur_dy) != 0)
 	demerit += NON_HORIZONTAL_PENALTY;
