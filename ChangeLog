@@ -1,3 +1,9 @@
+2002-07-28  Rune Zedeler <rune@zedeler.dk>
+	
+	* lily/note-spacing.cc (stem_dir_correction) Add property
+	knee_spacing_correction controlling the amount of optical spacing
+	added to knees.
+	
 2002-07-28  Glen Prideaux  <gprideau@odyssey.apana.org.au>
        
        * lily/syllable-group.cc (set_lyric_align): Only fiddle with
