@@ -56,8 +56,8 @@ Chord_name_engraver::do_process_requests ()
 
   Chord chord (pitch_arr_);
   Musical_pitch* inversion = 0;
-  Scalar chord_inversion = get_property ("chordInversion", 0);
-  if (chord_inversion.to_bool ())
+  SCM chord_inversion = get_property ("chordInversion", 0);
+  if (gh_boolean_p (chord_inversion) && gh_scm2bool (chord_inversion))
     {
       int tonic_i = tonic_req_
 	? chord.find_notename_i (tonic_req_->pitch_) : chord.find_tonic_i ();
@@ -76,16 +76,16 @@ Chord_name_engraver::do_process_requests ()
      - switch on property, add american (?) chordNameStyle:
        Chord::american_str (...)
 
-  Scalar chordNameStyle = get_property ("chordNameStyle", 0);
+  SCM chordNameStyle = get_property ("chordNameStyle", 0);
   if (chordNameStyle == "Banter")
     item_p->text_str_ = chord.banter_str (inversion);
    */
 
   item_p->text_str_ = chord.banter_str (inversion);
   
-  Scalar style = get_property ("textStyle", 0);
-  if (style.length_i ())
-    item_p->style_str_ = style;
+  SCM style = get_property ("textStyle", 0);
+  if (gh_string_p (style))
+    item_p->style_str_ = ly_scm2string (style);
   
   text_p_arr_.push (item_p);
   announce_element (Score_element_info (item_p, 0));

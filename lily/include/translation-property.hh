@@ -11,7 +11,8 @@
 #define TRANSLATION_PROPERTY_HH
 
 #include "music.hh"
-#include "scalar.hh"
+#include "protected-scm.hh"
+
 
 /**
   Set a property of Translator 
@@ -20,7 +21,8 @@ class Translation_property : public Music
 {
 public:
   String var_str_;
-  Scalar value_;
+  Protected_scm value_;
+  
   VIRTUAL_COPY_CONS(Music);
   
 protected:

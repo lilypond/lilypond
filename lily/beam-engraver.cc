@@ -99,21 +99,21 @@ Beam_engraver::do_process_requests ()
       
       
       /* urg, must copy to Auto_beam_engraver too */
-      Scalar prop = get_property ("beamslopedamping", 0);
-      if (prop.isnum_b ()) 
-	beam_p_->set_elt_property (damping_scm_sym, gh_int2scm( prop));
+      SCM prop = get_property ("beamslopedamping", 0);
+      if (SCM_NUMBERP(prop)) 
+	beam_p_->set_elt_property (damping_scm_sym, prop);
       
       prop = get_property ("autoKneeGap", 0);
-      if (prop.isnum_b ()) 
-	beam_p_->set_elt_property (auto_knee_gap_scm_sym, gh_int2scm( prop));
+      if (SCM_NUMBERP(prop)) 
+	beam_p_->set_elt_property (auto_knee_gap_scm_sym, prop);
       
       prop = get_property ("autoInterstaffKneeGap", 0);
-      if (prop.isnum_b ()) 
-	beam_p_->set_elt_property (auto_interstaff_knee_gap_scm_sym, gh_int2scm( prop));
+      if (SCM_NUMBERP(prop)) 
+	beam_p_->set_elt_property (auto_interstaff_knee_gap_scm_sym, prop);
 
       prop = get_property ("beamquantisation", 0);
-      if (prop.isnum_b ()) 
-	beam_p_->quantisation_ = (Beam::Quantisation)(int)prop;
+      if (SCM_NUMBERP(prop)) 
+	beam_p_->quantisation_ = (Beam::Quantisation)gh_scm2int(prop);
  
       announce_element (Score_element_info (beam_p_, reqs_drul_[START]));
     }
@@ -173,7 +173,10 @@ Beam_engraver::acknowledge_element (Score_element_info info)
 
       bool stem_grace = stem_l->get_elt_property (grace_scm_sym) != SCM_BOOL_F;
 
-      if (get_property ("weAreGraceContext",0).to_bool () != stem_grace)
+      SCM wg =get_property ("weAreGraceContext",0);
+      bool wgb= gh_boolean_p (wg) && gh_scm2bool (wg);
+
+      if (wgb!= stem_grace)
  	return;
 
       Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (info.req_l_);

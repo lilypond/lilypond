@@ -114,9 +114,6 @@ Dynamic_engraver::do_process_requests()
 
 	  text_p_ = new Text_item;
 	  text_p_->text_str_ =  loud; // ugh
-	  Scalar prop = get_property ("dynamicStyle", 0);
-
-	  text_p_->style_str_ = prop.length_i () ? prop :  "dynamic";
 
 	  staff_side_p_ = new Staff_side_item;
 	  staff_side_p_->set_elt_property (script_priority_scm_sym,
@@ -127,16 +124,16 @@ Dynamic_engraver::do_process_requests()
 	  staff_side_p_->dir_ = DOWN;
 
 	  
-	  prop = get_property ("verticalDirection", 0);
-	  if (prop.isdir_b())
+	  SCM prop = get_property ("verticalDirection", 0);
+	  if (isdir_b (prop))
 	    {
-	      staff_side_p_->dir_ = Direction (int (prop));
+	      staff_side_p_->dir_ = to_dir (prop);
 	    }
 
 	  prop = get_property ("dynamicDirection", 0);
-	  if (prop.isnum_b ())
+	  if (SCM_NUMBERP(prop))
 	    {
-	      staff_side_p_->dir_ = (Direction) (int) prop;
+	      staff_side_p_->dir_ = to_dir (prop);
 	    }
 	  if (absd->dir_)
 	    {
@@ -144,10 +141,9 @@ Dynamic_engraver::do_process_requests()
 	    }
 
 	  prop = get_property ("dynamicPadding", 0);
-	  if (prop.isnum_b ())
+	  if (SCM_NUMBERP(prop))
 	    {
-	      staff_side_p_->set_elt_property (padding_scm_sym, 
-					       gh_double2scm(Real(prop)));
+	      staff_side_p_->set_elt_property (padding_scm_sym, prop);
 	    }
 	  announce_element (Score_element_info (text_p_, absd));
 	  announce_element (Score_element_info (staff_side_p_, absd));
@@ -173,21 +169,20 @@ Dynamic_engraver::do_process_requests()
 
 
 		  
-		  Scalar prop = get_property ("verticalDirection", 0);
-		  if (prop.isdir_b())
+		  SCM prop = get_property ("verticalDirection", 0);
+		  if (isdir_b (prop))
 		    {
-		      to_end_ss_span_p_->dir_ = Direction (int (prop));
+		      to_end_ss_span_p_->dir_ = to_dir (prop);
 		    }
 		  prop = get_property ("dynamicDirection", 0);
-		  if (prop.isdir_b ())
+		  if (isdir_b (prop))
 		    {
-		      to_end_ss_span_p_->dir_ = (Direction) (int) prop;
+		      to_end_ss_span_p_->dir_ = to_dir (prop);
 		    }
 		  prop = get_property ("dynamicPadding", 0);
-		  if (prop.isnum_b ())
+		  if (SCM_NUMBERP(prop))
 		    {
-		      to_end_ss_span_p_->set_elt_property (padding_scm_sym, 
-							   gh_double2scm(Real(prop)));
+		      to_end_ss_span_p_->set_elt_property (padding_scm_sym,prop);
 		    }
 		}
 	    }

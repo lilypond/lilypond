@@ -35,25 +35,24 @@ Bar_engraver::create_bar ()
       bar_p_->set_elt_property (break_priority_scm_sym, gh_int2scm (0));
 
       // urg: "" != empty...
-      String default_type = get_property ("defaultBarType", 0);
-      if (default_type.length_i ())
+      SCM default_type = get_property ("defaultBarType", 0);
+      if (gh_string_p (default_type))
 	{
-	  bar_p_->type_str_ = default_type;
+	  bar_p_->type_str_ = ly_scm2string (default_type);
 	}
 
       /*
 	urg.  Why did I implement this?
        */
-      Scalar prop = get_property ("barAtLineStart", 0);
-      if (prop.to_bool ())
+      SCM prop = get_property ("barAtLineStart", 0);
+      if (gh_boolean_p (prop) && gh_scm2bool (prop))
 	{
 	  bar_p_->set_elt_property (at_line_start_scm_sym, SCM_BOOL_T);
 	}
       prop = get_property ("barSize", 0);
-      if (prop.isnum_b ())
+      if (SCM_NUMBERP(prop))
 	{
-	  bar_p_->set_elt_property (bar_size_scm_sym, 
-				    gh_double2scm (Real(prop)));
+	  bar_p_->set_elt_property (bar_size_scm_sym, prop);
 	}
       announce_element (Score_element_info (bar_p_, 0));
     }
@@ -67,11 +66,10 @@ Bar_engraver::create_bar ()
 void
 Bar_engraver::request_bar (String requested_type)
 {
-  Scalar prop = get_property ("barAtLineStart", 0);
   if (!now_mom ())
     {
-      Scalar prop = get_property ("barAtLineStart", 0);
-      if (!prop.to_bool ())
+      SCM prop = get_property ("barAtLineStart", 0);
+      if (!gh_boolean_p (prop) && gh_scm2bool (prop))
 	return;
     }
   bool  bar_existed = bar_p_;
