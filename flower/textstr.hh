@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include "string.hh"
-#include "sstack.hh"
+#include "varray.hh"
 
 /// line counting input stream.
 class Text_stream
@@ -13,7 +13,7 @@ class Text_stream
 
     // could just have used streams. 
     FILE *f;  
-    sstack<char> pushback;
+	Array<char> pushback;
     String name;
     
  public:
