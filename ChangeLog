@@ -1,5 +1,8 @@
 2004-04-07  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* buildscripts/mf-to-table.py (parse_logfile): remove spaces from
+	encoding field.
+
 	* lily/stencil-scheme.cc: remove ly:fontify-atom 
 
 	* ly/portuges.ly (pitchnames): new file.
