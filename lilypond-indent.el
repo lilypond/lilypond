@@ -337,6 +337,9 @@ slur-paren-p defaults to nil.
 		 (setq paren-regexp (concat (car paren-regexp) "\\|" (cdr paren-regexp))))
 	(setq paren-regexp (concat (mapconcat 'car (mapcar 'cdr regexp-alist) "\\|") "\\|"
 				   (mapconcat 'cdr (mapcar 'cdr regexp-alist) "\\|")))))
+    (if (and (eq dir 1)
+	     (memq (char-after oldpos) '(?[ ?{)))
+	(forward-char 1))
     (while (and (if (/= dir 1) 
 		    (> level 0) 
 		  (< level 0))
@@ -430,7 +433,8 @@ builtin 'blink-matching-open' is not used. In syntax table, see
       (narrow-to-region
        (max (point-min) (- (point) blink-matching-paren-distance))
        (min (point-max) (+ (point) blink-matching-paren-distance))))
-    (if (memq bracket-type '(?> ?} ?< ?{))
+    (if (and (equal this-command 'LilyPond-electric-close-paren)
+	     (memq bracket-type '(?> ?} ?< ?{)))
 	;; < { need to be mutually balanced and nested, so search backwards for both of these bracket types 
 	(LilyPond-scan-containing-sexp nil nil dir)  
       ;; whereas ( ) slurs within music don't, so only need to search for ( )
