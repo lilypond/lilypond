@@ -190,7 +190,7 @@ i.e.  this is not an override"
 (define direction-polyphonic-grobs
   '(Stem Tie Rest Slur Script TextScript Dots DotColumn Fingering))
 
-(define-public (make-voice-props-set n)
+(define-safe-public (make-voice-props-set n)
   (make-sequential-music
    (append
     (map (lambda (x) (make-grob-property-set x 'direction
@@ -200,7 +200,7 @@ i.e.  this is not an override"
      (make-grob-property-set 'NoteColumn 'horizontal-shift (quotient n 2))
      (make-grob-property-set 'MultiMeasureRest 'staff-position (if (odd? n) -4 4)))))) 
 
-(define-public (make-voice-props-revert)
+(define-safe-public (make-voice-props-revert)
   (make-sequential-music
    (append
     (map (lambda (x) (make-grob-property-revert x 'direction))
@@ -209,7 +209,7 @@ i.e.  this is not an override"
     (list (make-grob-property-revert 'MultiMeasureRest 'staff-position)))))
 
 
-(define*-public (context-spec-music m context #:optional id)
+(define-safe-public (context-spec-music m context #:optional id)
   "Add \\context CONTEXT = ID to M. "
   (let ((cm (make-music 'ContextSpeccedMusic
 			'element m
@@ -240,7 +240,7 @@ i.e.  this is not an override"
   (make-music 'SimultaneousMusic
 	      'elements elts))
 
-(define-public (make-event-chord elts)
+(define-safe-public (make-event-chord elts)
   (make-music 'EventChord
 	      'elements elts))
 
@@ -355,12 +355,12 @@ of beat groupings "
 (define-public (set-time-signature num den . rest)
   (ly:export (apply make-time-signature-set `(,num ,den . ,rest))))
 
-(define-public (make-penalty-music pen page-pen)
+(define-safe-public (make-penalty-music pen page-pen)
   (make-music 'BreakEvent
 	      'penalty pen
 	      'page-penalty page-pen))
 
-(define-public (make-articulation name)
+(define-safe-public (make-articulation name)
   (make-music 'ArticulationEvent
 	      'articulation-type name))
 
@@ -369,7 +369,7 @@ of beat groupings "
 	      'duration duration
 	      'text string))
 
-(define-public (make-span-event type spandir)
+(define-safe-public (make-span-event type spandir)
   (make-music type
 	      'span-direction spandir))
 

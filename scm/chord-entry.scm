@@ -206,7 +206,7 @@ DURATION, and INVERSION."
 (define (sus-modifier pitches)
   (remove-step (pitch-step (ly:make-pitch 0 2 0)) pitches))
 
-(define-public default-chord-modifier-list
+(define-safe-public default-chord-modifier-list
   `((m . ,minor-modifier)
     (min . ,minor-modifier)
     (aug . , aug-modifier)

@@ -8,24 +8,24 @@
 
 (define-public X 0)
 (define-public Y 1)
-(define-public START -1)
-(define-public STOP 1)
+(define-safe-public START -1)
+(define-safe-public STOP 1)
 (define-public LEFT -1)
 (define-public RIGHT 1)
 (define-public UP 1)
 (define-public DOWN -1)
 (define-public CENTER 0)
 
-(define-public DOUBLE-FLAT -4)
-(define-public THREE-Q-FLAT -3)
-(define-public FLAT -2)
-(define-public SEMI-FLAT -1)
-(define-public NATURAL 0)
-(define-public SEMI-SHARP 1)
-(define-public SHARP 2)
-(define-public THREE-Q-SHARP 3)
-(define-public DOUBLE-SHARP 4)
-(define-public SEMI-TONE 2)
+(define-safe-public DOUBLE-FLAT -4)
+(define-safe-public THREE-Q-FLAT -3)
+(define-safe-public FLAT -2)
+(define-safe-public SEMI-FLAT -1)
+(define-safe-public NATURAL 0)
+(define-safe-public SEMI-SHARP 1)
+(define-safe-public SHARP 2)
+(define-safe-public THREE-Q-SHARP 3)
+(define-safe-public DOUBLE-SHARP 4)
+(define-safe-public SEMI-TONE 2)
 
 (define-public ZERO-MOMENT (ly:make-moment 0 1)) 
 
@@ -146,7 +146,7 @@ found."
 		   '() t))))
 
 ;; todo: code dup with C++. 
-(define-public (alist->hash-table lst)
+(define-safe-public (alist->hash-table lst)
   "Convert alist to table"
   (let ((m (make-hash-table (length lst))))
     (map (lambda (k-v) (hashq-set! m (car k-v) (cdr k-v))) lst)

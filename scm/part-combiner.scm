@@ -188,7 +188,7 @@ Voice-state objects
 (define part-combine-listener '())
 
 ; UGH - should pass noticed setter to part-combine-listener
-(define-public (set-part-combine-listener x)
+(define-safe-public (set-part-combine-listener x)
   (set! part-combine-listener x))
 
 (define-public (notice-the-events-for-pc context lst)

@@ -13,6 +13,7 @@
 
 (use-modules (ice-9 regex)
 	     (ice-9 safe)
+             (ice-9 optargs)
 	     (oop goops)
 	     (srfi srfi-1)  ; lists
 	     (srfi srfi-13)) ; strings
@@ -154,6 +155,26 @@ predicates. Print a message at LOCATION if any predicate failed."
     no-origin
     placebox
     unknown))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Safe definitions utility
+(define safe-objects (list))
+
+(define-macro (define-safe-public arglist . body)
+  "Define a variable, export it, and mark it as safe, ie usable in LilyPond safe mode.
+The syntax is the same as `define*-public'."
+  (define (get-symbol arg)
+    (if (pair? arg)
+        (get-symbol (car arg))
+        arg))
+  (let ((safe-symbol (get-symbol arglist)))
+    `(begin
+       (define*-public ,arglist
+         ,@body)
+       (set! safe-objects (cons (cons ',safe-symbol ,safe-symbol)
+                                safe-objects))
+       ,safe-symbol)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; other files.
