@@ -5,8 +5,8 @@ Copyright: GPL
 Group: Applications/Publishing
 Source0: pcnov095.win.tue.nl:/pub/lilypond/development/lilypond-@TOPLEVEL_VERSION@.tar.gz
 Summary: A program for typesetting music.
-URL: http://www.cs.ruu.nl/~hanwen/lilypond
-Packager: Han-Wen Nienhuys <hanwen@stack.nl>
+URL: http://www.cs.uu.nl/~hanwen/lilypond
+Packager: Han-Wen Nienhuys <hanwen@cs.uu.nl>
 Icon: lelie_icon.gif
 Buildroot: /tmp/lilypond-install
 
@@ -31,8 +31,11 @@ strip lily/out/lilypond mi2mu/out/mi2mu
 make -C Documentation gifs
 make prefix="$RPM_BUILD_ROOT/usr" install
 %files
-%doc @TEXT_DOCS@
-%doc @EXAMPLE_LYS@ 
+%doc Documentation/out/*.txt
+%doc Documentation/tex/*.doc
+%doc Documentation/tex/*.bib
+%doc mutopia/*.ly
+%doc input/*.ly
 %doc Documentation/out/lelie_logo.gif
 /usr/bin/convert-mudela
 /usr/bin/mudela-book
@@ -50,6 +53,8 @@ make prefix="$RPM_BUILD_ROOT/usr" install
 /usr/share/lilypond/
 %post
 
+ln -s 
 texhash		# takes some time...
 rm `find /var/lib/texmf -name 'feta*pk' -or -name 'feta*tfm'`
 
+ln -s  /usr/lib/texmf/texmf/tex/lilypond  /usr/lib/texmf/texmf/tex/latex/lilypond # suck me plenty

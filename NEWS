@@ -1,4 +1,45 @@
-**************
+pl 61
+	- bf: mudela-book error msgs
+	- don't dist feta-tables.
+	- bf: mf-to-table, deps[0] catch
+	- reworked initialisation parsing logic; Got a no-redtape mode
+	  for free
+	- 20 pt staffsize now default
+	- dependencies for LilyPond (-d, --dependencies).  --debug moved to -D
+	- (c) 1998
+	- ly2dvi 0.10 (JAF)
+	- changed \begin[options]{mudela} to \begin{mudela}[options]
+	- more WWW hacks.
+	
+pl 60.jcn2
+	- minor adjust for asymmetricity of beam symbol
+	- added TEST beam quantisation; see input/test/beam-pos.ly
+	- removed some empty .cc .hh
+	- Grandstaff -> Grand_staff (After [Gerou] and Harvard Dictionary of
+	  Music)
+	- bf's: slur and tie post-processing
+	- cleaned-up bow: get encompass
+	- cleaned-up beam-yspan and beam-leftpos quantisation
+	- misc.cc: some funcs to get lower and upper bounds from array of values
+	- interval.*: Slice (Interval of int)
+	- added some doco to beam.cc
+	- removed some x,y by-ref passing in Lookup
+	- cleaned-up beam-yspan quantisation
+	- cleaned-up slur get encompass
+	- configure: --disable-optimise for compile without -O
+
+pl 59.jcn4
+	- bf: beam quantise
+	- bf: sticky plet bug
+	- bf: chords in beam
+	- bf: typo beamquantisaton
+	- bf: don't blow_fit infeasible bows (x_i < x_0 || x_i > x_n)
+	- bf's: beam/stemlengths, beam-bug [c8 c16 c16]
+	- bf: placement broken tie
+	- yet another try to raise bar-number
+	- bf's: bow tangent clipping, allow higher bows
+
+************
 pl 60
 	- mats patches: use Latex font stuff.
 	- fixes to the .59 patch release (jcn)

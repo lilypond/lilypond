@@ -95,6 +95,7 @@ sub open_mudela
     $mudela_b = 1	;
     open MUDELA, ">$outdir/book-mudela.ly";
     print BOOK "\\preexample%\n";
+    print MUDELA "\\include \"paper16.ly\"\n";
     if ($center_b) {
 	print BOOK "\\begin{minipage}[c]{.5\\textwidth}\n";
 	print MUDELA "default_paper = \\paper { \\paper_sixteen ";
@@ -176,8 +177,8 @@ sub main
 	die "The input can't be the output\n";
     }
 
-    open INFILE, "<$infile";
-    open BOOK, ">$openout";
+    open INFILE, "<$infile" or die "Can't open $infile\n";
+    open BOOK, ">$openout" or  die "Can't open $openout\n";;
     while (<INFILE>) {
 	if ($mudela_b) {
 	    if (end_b "mudela") {
@@ -192,7 +193,7 @@ sub main
 	    }
 	    
 	} else {
-	    if (/^\\begin(\[.*\])?{mudela}/ ) {
+	    if (/^\\begin{mudela}(\[.*\])?/ ) {
 		my $opts ="";
 		$opts = $1 if ( defined ($1));
 
