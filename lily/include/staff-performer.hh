@@ -10,6 +10,10 @@
 
 #include "performer-group-performer.hh"
 
+/** Perform a staff. Individual notes should have their instrument
+  (staff-wide) set, so we override play()
+
+  */
 class Staff_performer : public Performer_group_performer 
 {
 public:
@@ -21,7 +25,7 @@ public:
     String instrument_str();
 
 protected:
-    virtual void play( Audio_element* p );
+    virtual void play (Audio_element* p);
     virtual void do_removal_processing();
     virtual void do_creation_processing();
 

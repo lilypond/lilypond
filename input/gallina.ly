@@ -217,12 +217,8 @@ bc=\melodic{
     \bc
   >
   \paper{
-    geometric=1.2;
-    unitspace=8.\mm;
     linewidth=18.\cm;
-    gourlay_maxmeasures=4.;
-    gourlay_energybound = 70000.;
-	basicspace = 2.8\pt;
+    gourlay_maxmeasures=5.;
   }
 }
 
