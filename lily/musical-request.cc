@@ -263,7 +263,6 @@ IMPLEMENT_IS_TYPE_B1(Beam_req,Span_req);
 
 Beam_req::Beam_req()
 {
-  nplet = 0;
 }
 
 void
@@ -286,9 +285,20 @@ Abbreviation_beam_req::do_print () const
 }
 
 IMPLEMENT_IS_TYPE_B1(Slur_req,Span_req);
-
 void
 Slur_req::do_print() const
+{
+}
+
+IMPLEMENT_IS_TYPE_B1(Plet_req,Span_req);
+
+Plet_req::Plet_req ()
+{
+  plet_i_ = 0;
+}
+
+void
+Plet_req::do_print () const
 {
 }
 

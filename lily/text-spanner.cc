@@ -24,6 +24,7 @@ Text_spanner::set_support (Directional_spanner*d)
   support_span_l_ =d;
   add_dependency (d);
 }
+
 void
 Text_spanner::do_add_processing ()
 {
