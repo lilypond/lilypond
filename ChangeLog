@@ -1,3 +1,8 @@
+2002-11-21  Heikki Junes <hjunes@cc.hut.fi>
+
+	* lilypond-mode.el (LilyPond-insert-string): new function, use it
+	in LilyPond-insert-tag-notes.
+
 2002-11-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/beam-engraver.cc (stop_translation_timestep): reset now_stop_ev_

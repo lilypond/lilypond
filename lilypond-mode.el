@@ -624,14 +624,25 @@ command."
 	     (message "Remember to add all other details as well.") (sit-for 5 0 1)))
     )))
 
+(defun LilyPond-insert-string (text pre post)
+  "Insert text to the buffer if non-empty string is given."
+  (interactive)
+  (let ((str (read-string text)))
+    (if (string-equal str "")
+	nil
+      (progn (insert pre str post)
+	     t))))
+ 
 (define-skeleton LilyPond-insert-tag-notes
   "LilyPond notes tag."
   nil
 ;  (if (bolp) nil ?\n)
-  "\\notes"
-  (if (y-or-n-p "Set \"\\relative\" attribute? ")
-      (concat " \\relative " (skeleton-read "Relative: " "" str)))
-  " { " _ " }")
+  (progn
+    (insert "\\notes ")
+    (if (not (LilyPond-insert-string "Relative: " "\\relative " " "))
+	(LilyPond-insert-string "Transpose: " "\\transpose " " "))
+    ())
+  "{ " _ " }")
 
 (define-skeleton LilyPond-insert-tag-score
   "LilyPond score tag."
