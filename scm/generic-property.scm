@@ -59,6 +59,13 @@
 		     (list 'dynamicPadding number? 'padding) 
 		     )))
   
+(define generic-dynamic-line-spanner-properties
+  (cons "Dynamic_line_spanner" (list
+		     (list 'dynamicDirection dir? 'direction)
+		     (list 'verticalDirection dir? 'direction)
+		     (list 'dynamicPadding number? 'padding) 
+		     )))
+  
 (define generic-bar-properties
   (cons "Staff_bar" (list
 		     (list 'barSize number? 'bar-size))
@@ -146,6 +153,8 @@
   (list
    generic-stem-properties
    generic-breathing-sign-properties
+   generic-crescendo-properties
+   generic-dynamic-line-spanner-properties
    generic-tie-properties
    generic-tie-column-properties   
    generic-tuplet-spanner-properties
@@ -154,7 +163,6 @@
    generic-beam-properties
    generic-text-properties
    generic-note-column-properties
-   generic-crescendo-properties
    generic-script-properties
    generic-All-properties
    ))

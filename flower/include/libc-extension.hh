@@ -19,8 +19,8 @@ char* strnlwr (char* start_l ,int n);
 char* strnupr (char* start_l, int n);
 
 #if !HAVE_MEMMEM		// GNU extension.
-Byte *memmem (Byte const * haystack, int haystack_len,
-	     Byte const *needle, int needle_len);
+void *memmem (void const * haystack, int haystack_len,
+	     void const *needle, int needle_len);
 #endif HAVE_MEMMEM
 
 #if !HAVE_SNPRINTF		// GNU extension.

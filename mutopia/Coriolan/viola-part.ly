@@ -18,16 +18,14 @@ $viola_staff = \context GrandStaff = viola <
 	\$viola2_staff
 >
 
+\include "coriolan-part-paper.ly"
+
 \score{
 	\$viola_staff
-	%%\include "coriolan-part-paper.ly"
+	\include "coriolan-part-paper.ly"
 	\paper{
-		castingalgorithm = \Wordwrap;
-		\translator { \VoiceContext noAutoBeaming = "1"; }
 		\translator { \HaraKiriStaffContext }
-		% \translator { \ScoreContext skipBars = 1; }
-		\translator { \OrchestralScoreContext skipBars = 1; }
 	}
-	\midi{ \tempo 4 = 160; }
+	\include "coriolan-midi.ly"
 }
 

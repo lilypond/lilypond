@@ -51,9 +51,11 @@ clarinetto2 = \notes \relative c {
 	d~|
 	d|
 	%a deux|
-	bes'2.-"cresc."(c4|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	bes'2.\<(c4|
 	bes a fis)d|
-	d'2\ff f,|
+	\!d'2\ff f,|
 	e1~|
 	e4\p r r2|
 	R1*11|
@@ -121,10 +123,12 @@ clarinetto2 = \notes \relative c {
 	)e2. f4\sf(|
 	)e4 r r2|
 	R1*9|
-	fis2.\p-"\ \ \ cresc."( g4|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	fis2.\p\<( g4|
 	fis e cis)a|
 	%a deux; urg|
-	a'2\ff c|
+	\!a'2\ff c|
 	b1~|
 	b4 r r2|
 	R1*5|
@@ -167,18 +171,20 @@ clarinetto2 = \notes \relative c {
 	c1\f~|
 	c\p|
 	a1\f|
-	d,\p-"\ \ \ cresc."~|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	d,\p\<~|
 	d~|
 	d~|
 	d~|
-	d4.\ff e8 f4.\sf()e8|
+	\!d4.\ff e8 f4.\sf()e8|
 	r4 r8 e f4.\sf()e8|
 	r4 r8 fis g4.\sf()fis8|
 	r4 r8 fis g4.\sf()fis8|
 	r4 r8 fis a4.\sf()g8|
 	r4 r8 g bes4.\sf()a8|
 	%a deux; urg copied clarinetto-1(270,273)|
-	f'4.-"sempre\ \ \ \ \ \ \ "\ff cis8 d4. bes8||
+	f'4.-"sempre"\ff cis8 d4. bes8||
 	a4. bes8 a4. g'8||
 	f4. cis8 d4. bes8||
 	a4. bes8 a4. g'8||
@@ -198,9 +204,11 @@ clarinetto2 = \notes \relative c {
 	R1|
 	a4-. c-. r2|
 	bes4-. c-. r2|
-	bes4-"dim." r a r|
+	\property Voice.decrescendoText = "dim."
+	\property Voice.decrescendoSpanner = "dashed-line"
+	bes4\> r a r|
 	R1|
-	a4\p r r2|
+	\!a4\p r r2|
 	R1|
 	g4 r r2|
 	R1|

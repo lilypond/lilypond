@@ -21,8 +21,10 @@ $flauti_staff = \context Staff = flauti <
 	%\notes \context Voice=flauti < 
 	\notes \context Staff=flauti < 
 		\global
-		\$flauto1
-		\$flauto2
+		\context VoiceOne=flautoi 
+			\$flauto1
+		\context VoiceTwo=flautoii 
+			\$flauto2
 	>
 >
 

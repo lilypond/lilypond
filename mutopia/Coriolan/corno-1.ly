@@ -25,11 +25,13 @@ corno1 = \notes \relative c {
 	r4 g-.\f r2 |
 	R1*2 |
 	% `a 2
-	r8 f\p-"\ \ \ cresc." f2 e4 |
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	r8 f\p\< f2 e4 |
 	r8 f f2 e4 |
 	f4. e8 f4. e8 |
 	f4. e8 f4. e8 |
-	f1\ff % ~ |
+	\!f1\ff % ~ |
 	f4 ( e f )e
 	e4. r8 	e4. r8 |
 	e4. r8 	e4. r8 |
@@ -170,11 +172,13 @@ corno1 = \notes \relative c {
 	e~|
 	e~|
 	e~|
-	e-"cresc."~|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	e\<~|
 	e~|
 	e|
 	%a deux|
-	c\f|
+	\!c\f|
 	d\p|
 	d\f|
 	e\p|
@@ -188,7 +192,7 @@ corno1 = \notes \relative c {
 	e|
 	f|
 	e|
-	e4.-"sempre\ \ \ \ \ \ \ "\ff e8 e4. e8|
+	e4.-"sempre"\ff e8 e4. e8|
 	e4. e8 e4. e8|
 	e4. e8 e4. e8|
 	e4. e8 e4. e8|

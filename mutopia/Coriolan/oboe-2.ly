@@ -76,20 +76,24 @@ oboe2 = \notes \relative c{
 	bes4 r8 bes bes4 r8 bes|
 	bes4\p r r2|
 	R1*15|
-	r4 r8 as'-"cresc." ges4 r8 des|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	r4 r8 as'\< ges4 r8 des|
 	es4 r8 bes' as4 r8 es|
 	f4 r r2|
 	R1*3|
 	%a deux; urg copied ...|
-	f4\f r r r8 es|
+	\!f4\f r r r8 es|
 	des4 r r r8 c|
 	bes4 r8 bes bes4 r8 bes|
 	bes4 r8 bes bes4 r8 bes|
-	c1\p-"\ \ \ cresc." ~||
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	c1\p\< ~||
 	c~|
 	c~|
 	c|
-	c4\ff r8 c c4 r8 c|
+	\!c4\ff r8 c c4 r8 c|
 	c4 r8 c c4 r8 c|
 	c4 r8 c c4 r8 c|
 	des4 r8 des c4 r8 c|
@@ -148,18 +152,20 @@ oboe2 = \notes \relative c{
 	d\f|
 	es\p|
 	e\f|
-	c\p-"\ \ \ cresc." ~|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	c\p\< ~|
 	c~|
 	c~|
 	c~|
-	c\ff~|
+	\!c\ff~|
 	c~|
 	c~|
 	c~|
 	c|
 	d|
 	%a deux; urg: copied oboe-1(270,274:1)|
-	es4.-"sempre\ \ \ \ \ \ \ "\ff b8 c4. as8||
+	es4.-"sempre"\ff b8 c4. as8||
 	g4. as8 g4. f'8||
 	es4. b8 c4. as8||
 	g4. as8 g4. f'8||
@@ -171,7 +177,7 @@ oboe2 = \notes \relative c{
 	R1|
 	c,1~|
 	c|
-	d'4 r r2|
+	d'4-. r r2|
 	R1|
 	c,1~|
 	c|
@@ -179,9 +185,11 @@ oboe2 = \notes \relative c{
 	R1|
 	c4-. c-. r2|
 	c4-. c-. r2|
-	c4-"dim." r d r|
+	\property Voice.decrescendoText = "dim."
+	\property Voice.decrescendoSpanner = "dashed-line"
+	c4\> r d r|
 	R1|
-	c4\p r r2|
+	\!c4\p r r2|
 	R1|
 	b4 r r2|
 	R1|

@@ -107,7 +107,9 @@ Staff_symbol_referencer_interface::callback (Dimension_cache const * c)
   return off;
 }
 
-
+/*
+  Huh? -- jcn
+ */
 void
 Staff_symbol_referencer_interface::set_position (Real p)
 {
@@ -115,6 +117,7 @@ Staff_symbol_referencer_interface::set_position (Real p)
   if (st && elt_l_->common_refpoint(st, Y_AXIS))
     {
       Real oldpos = position_f ();
+      // Aargh!
       elt_l_->set_elt_property ("staff-position", gh_double2scm (p - oldpos));
     }
   else

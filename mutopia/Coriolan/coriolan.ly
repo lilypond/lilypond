@@ -10,6 +10,7 @@ copyright =	 "public domain";
 \version "1.3.4";
 
 \include "global.ly"
+\include "paper16.ly"
 
 \include "contrabasso.ly"
 \include "clarinetti.ly"
@@ -24,6 +25,7 @@ copyright =	 "public domain";
 \include "violino-1.ly"
 \include "violino-2.ly"
 \include "violoncello.ly"
+
 
 legni = \context StaffGroup = legni_group <
 	\$flauti_staff
@@ -66,19 +68,13 @@ archi = \context StaffGroup = archi_group <
 
 \score{
 	<
-		\property Score . textStyle =  "italic"
-
+		%%? \property Score . textStyle =  "italic"
 		\$legni
 		\$ottoni
 		\$timpani_g
 		\$archi
 	>
-	\paper{
-		linewidth = 130.0\mm;
-		\translator { \VoiceContext noAutoBeaming = "1"; }
-		\translator { \HaraKiriStaffContext }
-		\translator { \OrchestralScoreContext }
-	}
-	\midi{ \tempo 4 = 160; }
+	\include "coriolan-paper.ly"
+	\include "coriolan-midi.ly"
 }
 

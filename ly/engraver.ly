@@ -108,15 +108,16 @@ RhythmicStaffContext=\translator{
 	\accepts "Voice";
 };
 \translator{\RhythmicStaffContext}
-VoiceContext = \translator {
 
+VoiceContext = \translator {
 	\type "Engraver_group_engraver";
+	\name Voice;
+
 	dynamicPadding = #5.0
 	Generic_property_list = #generic-voice-properties
 	\consists "Output_property_engraver";	
 
 	\consists "Dynamic_engraver";   % must come before text_engraver.
-	\name Voice ;
 	\consists "Property_engraver";
 	
 	\consists "Breathing_sign_engraver";

@@ -25,8 +25,10 @@ $clarinetti_staff = \context Staff = clarinetti <
 	\notes \context Staff=clarinetti < 
 		\time 4/4;
 		\key F;
-		\$clarinetto1
-		\$clarinetto2
+		\context VoiceOne=clarinettoi
+			\$clarinetto1
+		\context VoiceTwo=clarinettoii
+			\$clarinetto2
 	>
 >
 
