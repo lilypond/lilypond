@@ -12,8 +12,8 @@
 #include "source.hh"
 
 Source source;
-Source* source_global_l = &source;
-
+Source* source_l_g = &source;
+bool only_midi = false;
 extern void parse_file(String,String);
 
 
@@ -26,6 +26,7 @@ long_option_init theopts[] = {
     0, "debug", 'd',
     1, "init", 'i',
     1, "include", 'I',
+    0, "midi", 'M',
     0,0,0
 };
 
@@ -39,11 +40,13 @@ help()
 	"--debug, -d		enable debug output\n"
 	"--init, -i             set init file\n"
         "--include, -I		add to file search path.\n"
+	"--midi, -M             midi output only\n"
 	;
     
 }
 
-void notice()
+void 
+notice()
 {
     cout <<
 	"\n"
@@ -109,6 +112,9 @@ main (int argc, char **argv)
 	    break;
 	case 'd':
 	    set_debug(true);
+	    break;
+	case 'M':
+	    only_midi = true;
 	    break;
 	default:
 	    assert(false);
