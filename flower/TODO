@@ -1,7 +1,5 @@
 	* PCursor -> Pointer_cursor / PointerCursor ?
 
-	* remove List::List(element)
-
 	* efficient copy cons for List
 
 	* extend Interval
