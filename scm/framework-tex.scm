@@ -48,15 +48,26 @@
     (inexact->exact (round (* 1000 (ly:font-magnification font)))))))
 
 (define (font-load-command bookpaper font)
-  (string-append
-   "\\font\\" (tex-font-command font) "="
-   (ly:font-filename font)
-   " scaled "
-   (ly:number->string (inexact->exact
-		       (round (* 1000
-			  (ly:font-magnification font)
-			  (ly:bookpaper-outputscale bookpaper)))))
-   "\n"))
+  (let* ((coding-alist (ly:font-encoding-alist font))
+	 (font-encoding (assoc-get 'output-name coding-alist))
+	 )
+    (string-append
+     "\\font\\lilypond" (tex-font-command font) "="
+     (ly:font-filename font)
+     " scaled "
+     (ly:number->string (inexact->exact
+			 (round (* 1000
+				   (ly:font-magnification font)
+				   (ly:bookpaper-outputscale bookpaper)))))
+     "\n"
+     "\\def\\" (tex-font-command font) "{%\n"
+     ;; UGH.  Should be handled via alist.
+     (if (equal? "Extended-TeX-Font-Encoding---Latin" font-encoding)
+	 "  \\fontencoding{T1}\\selectfont"
+	 "  ")
+     "\\lilypond" (tex-font-command font)
+     "}\n"
+     )))
 
 
 (define (define-fonts bookpaper)
@@ -68,6 +79,8 @@
 				    (ly:bookpaper-outputscale bookpaper))))
    (tex-string-def "lilypondpaper" 'papersize
 		   (eval 'papersize (ly:output-def-scope bookpaper)))
+   (tex-string-def "lilypondpaper" 'inputencoding
+		   (eval 'inputencoding (ly:output-def-scope bookpaper)))
 
    (apply string-append
 	  (map (lambda (x) (font-load-command bookpaper x))

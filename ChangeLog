@@ -1,3 +1,13 @@
+2004-09-28  Werner Lemberg  <wl@gnu.org>
+
+	* scm/framework-tex.scm (font-load-command): Define proper font
+	macro which sets font encoding if available.
+	(define-fonts): Define \lilypondpaperinputencoding, to be taken
+	from the \bookpaper block.
+
+	* tex/lilyponddefs.tex (\lilypondstart): Use
+	\lilypondpaperinputencoding for global input encoding.
+
 2004-09-28  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/score.cc (Score): oops. Copy error_found_ too.
