@@ -27,7 +27,7 @@ source files.
    input/		Music input examples
        bugs/		Buggy or problematic notation
        mutopia/		Real music, more at www.mutopiaproject.org
-       no-notation/	Examples or bugs that do not produce output
+       no-notation/	Examples that do not produce output
        regression/	Testing of [all] features, one test per file
        templates/	Boilerplates for typical music layouts
        test/		Tips and tricks

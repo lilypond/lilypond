@@ -226,6 +226,16 @@ Dynamic_engraver::process_music ()
 	  if (!scm_is_symbol (s) || s == ly_symbol2scm ("hairpin"))
 	    {
 	      cresc_  = make_spanner ("Hairpin", accepted_spanreqs_drul_[START]->self_scm ());
+	      if (finished_cresc_)
+		{
+		  Pointer_group_interface::add_grob (finished_cresc_,
+						     ly_symbol2scm ("adjacent-hairpins"),
+						     cresc_);
+		  
+		  Pointer_group_interface::add_grob (cresc_,
+						     ly_symbol2scm ("adjacent-hairpins"),
+						     finished_cresc_);
+		}
 	      cresc_->set_property ("grow-direction",
 				    scm_int2num ((start_type == "crescendo")
 						 ? BIGGER : SMALLER));
