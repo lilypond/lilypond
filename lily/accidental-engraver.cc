@@ -485,21 +485,22 @@ ENTER_DESCRIPTION (Accidental_engraver,
 		   "Catch note heads, ties and notices key-change events.  "
 		   "This engraver usually lives at Staff level, but "
 		   "reads the settings for Accidental at @code{Voice} level, " 
-		   "so you can @code{\\override} them at @code{Voice}. ",
-		   
-		   "Accidental",
-		   
-		   "",
-		   
-		   "arpeggio-interface ",
-		   "autoAccidentals "
-		   "autoCautionaries",
+		   "so you can @code{\\override} them at @code{Voice}. "
+		   ,
+		   "Accidental"
+		   ,
+		   ""
+		   ,
+		   "arpeggio-interface "
 		   "finger-interface "
 		   "rhythmic-head-interface "
 		   "tie-interface "
-		   
+		   ,
+		   "autoAccidentals "
+		   "autoCautionaries "
 		   "extraNatural "
 		   "harmonicAccidentals "
-		   "localKeySignature "
-		   
-		   "localKeySignature");
+		   "localKeySignature"
+		   ,
+		   "localKeySignature"
+		   );

@@ -22,11 +22,15 @@
     (use-modules (gnome gw libgnomecanvas)))
 
 (define-public (output-framework-gnome outputter book scopes fields basename)
-  (if #t
-      (gnome-main book)
-      (ly:outputter-dump-stencil
-       outputter
-       (ly:make-stencil (list 'gnome-main book) '(0 . 0) '(0 . 0)))))
+  (newline (current-error-port))
+  
+;   ;; Hmm, 
+;   (let ((port (ly:outputter-get-output-port outputter)))
+;     (remove port)
+;     (close port))
+
+  (gnome-main book))
+
 
 ;; WTF? -- jcn
 ;; Yay, I *finally* found it!

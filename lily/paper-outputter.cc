@@ -38,9 +38,6 @@ Paper_outputter::Paper_outputter (String filename, String format)
   smobify_self ();
   
   filename_ = filename;
-  file_ = scm_open_file (scm_makfrom0str (filename.to_str0 ()),
-			 scm_makfrom0str ("w"));
-
   String module_name = "scm output-" + format;
   output_module_ = scm_c_resolve_module (module_name.to_str0 ());
 }
@@ -70,9 +67,18 @@ Paper_outputter::print_smob (SCM x, SCM p, scm_print_state*)
 }
 
 SCM
+Paper_outputter::file ()
+{
+  if (file_ == SCM_EOL)
+    file_ = scm_open_file (scm_makfrom0str (filename_.to_str0 ()),
+			   scm_makfrom0str ("w"));
+  return file_;
+}
+
+SCM
 Paper_outputter::dump_string (SCM scm)
 {
-  return scm_display (scm, file_);
+  return scm_display (scm, file ());
 }
 
 SCM
@@ -100,7 +106,6 @@ Paper_outputter::output_stencil (Stencil stil)
   interpret_stencil_expression (stil.expr (), paper_outputter_dump,
                                 (void*) this, Offset (0,0));
 }
-
 
 Paper_outputter *
 get_paper_outputter (String outname, String f) 

@@ -4,63 +4,60 @@
 ;;;; 
 ;;;; (c)  2004 Jan Nieuwenhuizen <janneke@gnu.org>
 
-;;; HIP -- hack in progress
+;;; TODO:
 ;;;
+;;;  * Figure out and fix font scaling and character placement
+;;;  * User-interface, keybindings
+;;;  * Implement missing stencil functions
+;;;  * Implement missing commands
+;;;  * Embedded Lily:
+;;;    - allow GnomeCanvas or `toplevel' GtkWindow to be created
+;;;      outside of LilyPond
+;;;    - lilylib.
+;;;  * Release schedule and packaging of dependencies.  This hack
+;;;    depends on several CVS and TLA developent sources.
+
 ;;; You need:
 ;;;
-;;;   * guile-1.6.4 (NOT CVS)
-;;;   * Rotty's g-wrap--tng, possibly Janneke's if you have libffi-3.4.
+;;;   * guile-1.6.4 (NOT CVS -- we are working on this)
+;;;   * Rotty's g-wrap--tng TLA, possibly Janneke's if you have libffi-3.4.
+;;;   * guile-gnome TLA
+;;;   * pango CVS (ie, > 2004-06-12)
 ;;;
-;;; see also: guile-gtk-general@gnu.org
-;;;
+;;; See also: guile-gtk-general@gnu.org
+
 ;;; Try it
 ;;;
-;;;   * If using GUILE CVS , then compile LilyPond with GUILE 1.6, 
+;;;   * If you are using GUILE CVS, recompile LilyPond with GUILE 1.6.
+
+;;;     [If for some unknown or funny reason you do not want to
+;;;      overwrite your lilypond-bin with GUILE CVS, you can
+;;;      reconfigure a new configuration, say g16:
+"
+PATH=/usr/bin/:$PATH ./configure --enable-config=g16 && make conf=g16
+"
+;;;     ]
 ;;;
-;;;    PATH=/usr/bin/:$PATH ./configure --enable-config=g16  ; make conf=g16
+;;;   * Install gnome/gtk development stuff
 ;;;
-;;;   * Install gnome/gtk development stuff and g-wrap, guile-gnome
-;;;     see buildscripts/guile-gnome.sh
+;;;   * Install g-wrap and guile-gnome, see buildscripts/guile-gnome.sh
 ;;;  
-;;;   * Use latin1 encoding for gnome backend, do
-;;;
-"
-       ./configure --prefix=$(pwd) --enable-config=g16
-       make -C mf conf=g16 clean
-       make -C mf conf=g16 ENCODING_FILE=$(kpsewhich cork.enc)
-       (cd mf/out-g16 && mkfontdir)
-       xset +fp $(pwd)/mf/out-g16
-"
-;;;
 ;;;   * Setup environment
 "
 export GUILE_LOAD_PATH=$HOME/usr/pkg/g-wrap/share/guile/site:$HOME/usr/pkg/g-wrap/share/guile/site/g-wrap:$HOME/usr/pkg/guile-gnome/share/guile
 export LD_LIBRARY_PATH=$HOME/usr/pkg/g-wrap/lib:$HOME/usr/pkg/guile-gnome/lib
 export XEDITOR='/usr/bin/emacsclient --no-wait +%l:%c %f'
 "
-;;;  * For GNOME point-and-click, add
-;;;     #(ly:set-point-and-click 'line-column)
-;;;    to your .ly; just click an object on the canvas.
+;;;  * Also for GNOME point-and-click, you need to set XEDITOR and add
+"
+#(ly:set-point-and-click 'line-column)
+"
+;;;    to your .ly; then click an object on the canvas.
 ;;;
 ;;;  * Run lily:
 "
 lilypond-bin -fgnome input/simple-song.ly
 "
-
-;;; TODO:
-;;;  * pango+feta font (see archives gtk-i18n-list@gnome.org and
-;;;    lilypond-devel)
-;;;    - wait for/help with pango 1.6
-;;;    - convert feta to OpenType (CFF) or TrueType (fontforge?)
-;;;    - hack feta20/feta20.pfa?:
-;;;  * font, canvas, scaling?
-;;;  * implement missing stencil functions
-;;;  * implement missing commands
-;;;  * user-interface, keybindings
-;;;  * papersize, outputscale from book
-
-
-;;; SCRIPT moved to buildscripts/guile-gnome.sh
 
 
 (debug-enable 'backtrace)
@@ -74,18 +71,23 @@ lilypond-bin -fgnome input/simple-song.ly
  (lily)
  (gnome gtk))
 
-;; the name of the module will change to canvas rsn
+
+;; The name of the module will change to `canvas' rsn
 (if (resolve-module '(gnome gw canvas))
     (use-modules (gnome gw canvas))
     (use-modules (gnome gw libgnomecanvas)))
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; globals
+
+;; junkme
 (define system-origin '(0 . 0))
 
-;;; set by framework-gnome.scm:
+;;; set by framework-gnome.scm
 (define canvas-root #f)
 (define output-scale #f)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; helper functions
@@ -129,12 +131,15 @@ lilypond-bin -fgnome input/simple-song.ly
 ;;; stencil outputters
 ;;;
 
+;;; catch-all for missing stuff
+;;; comment this out to see find out what functions you miss :-)
 (define (dummy . foo) #f)
-
 (map (lambda (x) (module-define! this-module x dummy))
      (append
       (ly:all-stencil-expressions)
       (ly:all-output-backend-commands)))
+
+
 
 (define (char font i)
   (text font (utf8 i)))
@@ -163,6 +168,7 @@ lilypond-bin -fgnome input/simple-song.ly
    ((equal? (ly:font-name font) "GNU-LilyPond-feta-20")
     "lilypond-feta, regular 32")
    (else
+    ;; FIXME
     "ecrm12")))
     ;;(ly:font-name font))))
     ;;(ly:font-filename font))))
@@ -234,12 +240,8 @@ lilypond-bin -fgnome input/simple-song.ly
 
 ;; WTF is this in every backend?
 (define (horizontal-line x1 x2 thickness)
-  ;;(let ((thickness 2))
   (filledbox (- x1) (- x2 x1) (* .5 thickness) (* .5 thickness)))
 
 (define (define-origin file line col)
   (if (procedure? point-and-click)
-      ;; duh, only silly string append
-      ;; (point-and-click line col file)
-      (list 'location line col file)
-      #f))
+      (list 'location line col file)))
