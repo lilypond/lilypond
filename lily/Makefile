@@ -12,18 +12,16 @@
 depth = ..
 #
 
+# identify module:
+#
 NAME = lilypond
+#
 
 # generic variables:
 #
 include Stable.make
 include ./$(depth)/make/Variables.make
 include VERSION
-#
-
-# identify module:
-#
-
 #
 
 # descent order into subdirectories:
@@ -39,7 +37,7 @@ EXTRA_DISTFILES = VERSION
 
 # list of custom libraries:
 #
-MODULE_LIBDEPS= check-flower-deps check-lily-deps
+MODULE_LIBDEPS= check-flower-deps check-lib-deps 
 MODULE_LIBES= -llily -lflower
 
 #
@@ -72,3 +70,8 @@ localinstall: installexe
 localuninstall: uninstallexe
 
 $(outdir)/lily-version.o: $(outdir)/version.hh
+
+# make config.hh. Ugh
+$(outdir)/main.o: $(libout)/config.hh
+
+$(libout)/config.hh: check-lib-deps
