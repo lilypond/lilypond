@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 1999-08-20 18:48+0200\n"
+"POT-Creation-Date: 1999-09-15 23:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,12 +45,7 @@ msgstr ""
 msgid "unrecognized option: `%s'"
 msgstr ""
 
-#: getopt-long.cc:151
-#, c-format
-msgid "%c"
-msgstr ""
-
-#: getopt-long.cc:155
+#: getopt-long.cc:156
 #, c-format
 msgid "invalid argument `%s' to option `%s'"
 msgstr ""
@@ -77,16 +72,8 @@ msgstr ""
 msgid "position unknown"
 msgstr ""
 
-#: mapped-file-storage.cc:65
-msgid "map_fd: "
-msgstr ""
-
 #: mapped-file-storage.cc:74
 msgid "can't map file"
-msgstr ""
-
-#: mapped-file-storage.cc:109
-msgid "vm_deallocate: "
 msgstr ""
 
 #: simple-file-storage.cc:56
@@ -124,7 +111,7 @@ msgstr ""
 
 #: all-font-metrics.cc:75
 #, c-format
-msgid "search path = %s"
+msgid "(search path: `%s)'"
 msgstr ""
 
 #: beam-engraver.cc:42
@@ -155,11 +142,11 @@ msgstr ""
 msgid "beam was started here"
 msgstr ""
 
-#: beam.cc:142
+#: beam.cc:147
 msgid "beam with less than two stems"
 msgstr ""
 
-#: beam.cc:307
+#: beam.cc:312
 msgid "weird beam shift, check your knees"
 msgstr ""
 
@@ -228,7 +215,7 @@ msgid "unknown clef type "
 msgstr ""
 
 #: collision.cc:95
-msgid "Too many clashing notecolumns. Ignoring them."
+msgid "Too many clashing notecolumns.  Ignoring them."
 msgstr ""
 
 #: crescendo.cc:42
@@ -289,7 +276,7 @@ msgid "No Grace context available!"
 msgstr ""
 
 #: grace-position-engraver.cc:89
-msgid "Unattached grace notes. Attaching to last musical column."
+msgid "Unattached grace notes.  Attaching to last musical column."
 msgstr ""
 
 #: hyphen-engraver.cc:60
@@ -305,16 +292,15 @@ msgstr ""
 msgid "%s expected"
 msgstr ""
 
-#: includable-lexer.cc:47 midi-score-parser.cc:24 scores.cc:108 scores.cc:114
+#: includable-lexer.cc:47 lily-guile.cc:82 lily-guile.cc:105
+#: midi-score-parser.cc:24 scores.cc:108 scores.cc:114
 #, c-format
 msgid "can't find file: `%s'"
 msgstr ""
 
-#: includable-lexer.cc:48
+#: includable-lexer.cc:49 lookup.cc:104 scores.cc:109
 #, c-format
-msgid ""
-"\n"
-"Search path is `%s'\n"
+msgid "(search path: `%s')"
 msgstr ""
 
 #: ineq-constrained-qp.cc:169
@@ -340,12 +326,7 @@ msgstr ""
 
 #: lily-guile.cc:84 lily-guile.cc:107
 #, c-format
-msgid "Can not find file `%s'"
-msgstr ""
-
-#: lily-guile.cc:86 lily-guile.cc:109
-#, c-format
-msgid "(Load path is `%s'"
+msgid "(load path: `%s')"
 msgstr ""
 
 #: local-key-engraver.cc:42
@@ -358,12 +339,7 @@ msgstr ""
 
 #: lookup.cc:103
 #, c-format
-msgid "Can't open `%s'\n"
-msgstr ""
-
-#: lookup.cc:104
-#, c-format
-msgid "Search path %s\n"
+msgid "can't find font: `%s'"
 msgstr ""
 
 #: lookup.cc:105
@@ -468,29 +444,29 @@ msgstr ""
 msgid "This binary was compiled with the following options:"
 msgstr ""
 
-#: main.cc:118 main.cc:119
+#: main.cc:119
 msgid "Report bugs to"
 msgstr ""
 
-#: main.cc:52 main.cc:134
+#: main.cc:52 main.cc:135
 #, c-format
 msgid ""
-"This is free software.  It is covered by the GNU General Public License,and "
-"you are welcome to change it and/or distribute copies of it undercertain "
-"conditions.  Invoke as `%s --warranty' for more information.\n"
+"This is free software.  It is covered by the GNU General Public License,\n"
+"and you are welcome to change it and/or distribute copies of it under\n"
+"certain conditions.  Invoke as `%s --warranty' for more information.\n"
 msgstr ""
 
-#: main.cc:59 main.cc:141 main.cc:153
+#: main.cc:59 main.cc:142 main.cc:154
 #, c-format
 msgid "Copyright (c) %s by"
 msgstr ""
 
 #. GNU GNU?
-#: main.cc:151
+#: main.cc:152
 msgid "GNU LilyPond -- The GNU Project music typesetter"
 msgstr ""
 
-#: main.cc:68 main.cc:159
+#: main.cc:68 main.cc:160
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License version 2\n"
@@ -534,7 +510,7 @@ msgid "Interpretation context with empty type"
 msgstr ""
 
 #: music-output-def.cc:83
-msgid "Can't find Score context"
+msgid "can't find Score context"
 msgstr ""
 
 #: musical-request.cc:42
@@ -647,7 +623,7 @@ msgstr ""
 
 #: request-chord-iterator.cc:76
 #, c-format
-msgid "Huh? Not a Request: `%s'"
+msgid "Huh?  Not a Request: `%s'"
 msgstr ""
 
 #: rest-collision.cc:64
@@ -694,18 +670,13 @@ msgstr ""
 msgid "score contains errors; will not process it"
 msgstr ""
 
-#: scores.cc:109
-#, c-format
-msgid "Search path: %s"
-msgstr ""
-
 #: script-engraver.cc:49
 #, c-format
 msgid "don't know how to interpret articulation `%s'\n"
 msgstr ""
 
 #. this shouldn't happen, but let's continue anyway.
-#: single-malt-grouping-item.cc:42
+#: single-malt-grouping-item.cc:43
 msgid "Single_malt_grouping_item: I've been drinking too much"
 msgstr ""
 
@@ -722,25 +693,25 @@ msgstr ""
 msgid "slur"
 msgstr ""
 
-#: slur.cc:39
+#: slur.cc:38
 msgid "Putting slur over rest. Ignoring"
 msgstr ""
 
-#: spacing-spanner.cc:215
+#: spacing-spanner.cc:218
 #, c-format
 msgid "can't find a ruling note at %s"
 msgstr ""
 
-#: spacing-spanner.cc:221
+#: spacing-spanner.cc:224
 #, c-format
 msgid "no minimum in measure at %s"
 msgstr ""
 
-#: spanner.cc:39
+#: spanner.cc:41
 msgid "left spanpoint is right spanpoint\n"
 msgstr ""
 
-#: spanner.cc:109
+#: spanner.cc:111
 #, c-format
 msgid "Spanner `%s' with equal left and right spanpoints"
 msgstr ""
@@ -751,6 +722,15 @@ msgstr ""
 
 #: spring-spacer.cc:295
 msgid "solution doesn't satisfy constraints"
+msgstr ""
+
+#: spring-spacer.cc:378
+#, c-format
+msgid "Improbable distance: %f point, setting to 10 mm"
+msgstr ""
+
+#: spring-spacer.cc:383
+msgid "Negative distance. Setting to 10 mm"
 msgstr ""
 
 #: stem-engraver.cc:80
@@ -953,28 +933,6 @@ msgid ""
 "LilyPond is a music typesetter.  It produces beautiful sheet music\n"
 "using a high level description file as input.  LilyPond is part of \n"
 "the GNU Project.\n"
-"\n"
-msgstr ""
-
-#: out/COPERTINA.hh:2
-msgid ""
-"LilyPond è il programma di notazione musicale del progetto\n"
-"GNU. Questo programma può generare delle ottime partiture musicali\n"
-"a partire da un file contenente la descrizione della musica. Può\n"
-"anche generare esecuzioni meccaniche della partitura in formato\n"
-"MIDI. Le caratteristiche del programma includono un versatile\n"
-"linguaggio di descrizione musicale, pentagrammi multipli, segni di\n"
-"divisione, chiavi, tasti, parole, cadenze, legature, acciaccature,\n"
-"terzine, segni di formattazione ed estrazione delle parte. Nella\n"
-"distribuzione è compreso anche un fort di simboli musicali.\n"
-"\n"
-msgstr ""
-
-#: out/FLAPTEKST.hh:2
-msgid ""
-"LilyPond is een muziekzetter.  Zij maakt prachtige bladmuziek\n"
-"uitgaande van een hoog niveau beschrijving bestand.  LilyPond \n"
-"maakt deel uit van het GNU Project.\n"
 msgstr ""
 
 #: main.cc:90

@@ -72,6 +72,6 @@ All_font_metrics::find_font (String name)
   if (f)
     return f;
   String s = _f("Can't find default font `%s\', giving up.", default_font_sz_);
-  s += String ("\n") + _f ("search path = %s", search_path_.str ());
+  s += String ("\n") + _f ("(search path: `%s)'", search_path_.str ());
   error (s);
 }

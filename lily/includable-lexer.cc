@@ -45,7 +45,9 @@ Includable_lexer::new_input (String s, Sources  * global_sources)
   if (!sl)
     {
       String msg = _f ("can't find file: `%s\'", s);
-      msg += _f ("\nSearch path is `%s'\n", global_sources->path_C_->str ().ch_C());
+      msg += "\n";
+      msg += _f ("(search path: `%s')", global_sources->path_C_->str ().ch_C());
+      msg += "\n";
       LexerError (msg.ch_C ());
 
       return;

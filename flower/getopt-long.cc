@@ -148,7 +148,8 @@ Getopt_long::report (Errorcod c)
     case E_UNKNOWNOPTION:
       str += _f ("unrecognized option: `%s\'",
       String (argument_index_i_ 
-	      ? String ("-" + _f("%c",arg_value_ch_a_a_[array_index_i_][argument_index_i_]))
+	      ? String ("-" + String_convert::form_str ("%c", 
+	        arg_value_ch_a_a_[array_index_i_][argument_index_i_]))
 	      : String (arg_value_ch_a_a_[array_index_i_])));
       break;
     case E_ILLEGALARG:

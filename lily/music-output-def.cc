@@ -80,7 +80,7 @@ Music_output_def::get_global_translator_p ()
 {
   Translator * t = find_translator_l ("Score");
   if (!t)
-    error (_("Can't find Score context"));
+    error (_ ("can't find Score context"));
   t = t->clone ();
   Global_translator *g = dynamic_cast <Global_translator *> (t);
   t->add_processing ();

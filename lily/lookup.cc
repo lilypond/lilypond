@@ -100,8 +100,8 @@ Lookup::afm_find (String s, bool warn) const
       me->afm_l_ = all_fonts_global_p->find_afm (font_name_);
       if (!me->afm_l_)
 	{
-	  warning (_f("Can't open `%s'\n", font_name_));
-	  warning (_f("Search path %s\n", global_path.str ().ch_C()));
+	  warning (_f("can't find font: `%s'", font_name_));
+	  warning (_f("(search path: `%s')", global_path.str ().ch_C()));
 	  error (_f("Aborting"));
 	}
     }
