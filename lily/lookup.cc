@@ -10,7 +10,7 @@
   TODO
       Glissando
 */
-
+#include <math.h>
 #include <ctype.h>
 #include "lookup.hh"
 #include "debug.hh"
@@ -361,7 +361,7 @@ Lookup::filledbox (Box b ) const
 /**
    Magnification steps.  These are powers of 1.2. The numbers are
  taken from Knuth's plain.tex: */
-static Real mag_steps[] = {1, 1, 1.200, 1.440, 1.7280,  2.074, 2.488};
+
 
 /**
    TODO: THIS IS UGLY.  Since the user has direct access to TeX
@@ -381,10 +381,13 @@ Lookup::text (String style, String text, Paper_def *paper_l) const
     {
       font_h = paper_l->get_var ("font_" + style);
     }
-   
+
+
+  Real realmag = 1.0;
   if (paper_l->scope_p_->elem_b ("magnification_" + style))
     {
       font_mag = (int)paper_l->get_var ("magnification_" + style);
+      realmag = pow (1.2, font_mag);
     }
 
   /*
@@ -426,13 +429,6 @@ Lookup::text (String style, String text, Paper_def *paper_l) const
 	}
     }
 
-  if (font_mag > 1 && font_mag < 7 )
-    {
-      /* UGH  */ 
-      w *= mag_steps[font_mag];
-      ydims *= mag_steps[font_mag];
-    }
-
   if(brace_count)
     {
       warning (_f ("Non-matching braces in text `%s', adding braces.", text.ch_C()));
@@ -447,9 +443,8 @@ Lookup::text (String style, String text, Paper_def *paper_l) const
 	}
     }
 
-  
-  DOUT << "\n" << to_str (w) << "\n";
-  m.dim_.x () = Interval (0, w);
+  ydims *= realmag;
+  m.dim_.x () = Interval (0, w*realmag);
   m.dim_.y () = ydims;
 
   

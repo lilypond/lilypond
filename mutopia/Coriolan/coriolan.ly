@@ -74,9 +74,9 @@ strijkers = \context StaffGroup = strijkers_group <
 		\$strijkers
 	>
 	\paper{
-		% Give hara-kiri something to do...
-		% URG fixme Score+HaraKiri!
 		linewidth = 130.0\mm;
+		\translator { \VoiceContext beamAuto=0; }
+		\translator { \HaraKiriStaffContext }
 		\translator { \OrchestralScoreContext }
 	}
 	\midi{ \tempo 4 = 160; }

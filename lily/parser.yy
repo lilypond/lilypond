@@ -747,11 +747,12 @@ Simple_music:
 	| property_def
 	| translator_change
 	| Simple_music '*' unsigned '/' unsigned 	{
-		/* urg */
-		$$ = new Time_scaled_music ($3, $5, $1);
+		$$ = $1;
+		$$->compress (Moment($3, $5 ));
 	}
 	| Simple_music '*' unsigned		 {
-		$$ = new Time_scaled_music ($3, 1, $1);
+		$$ = $1;
+		$$->compress (Moment ($3, 1));
 	}
 	;
 

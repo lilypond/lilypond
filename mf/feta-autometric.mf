@@ -113,7 +113,7 @@ enddef;
 def breapth_endchar =
 	scantokens extra_endchar;
 	if proofing > 0: makebox_with_breapth(proofrule); fi
-%	chardx := 10*(w + b);
+	chardx := (w + b);	%what the hack is chardx
 	shipit;
 	endgroup
 enddef;

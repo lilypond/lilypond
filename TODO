@@ -11,24 +11,21 @@ Grep for TODO and ugh/ugr/urg.
 .* TODO before 1.2
 . * align left edge of broken (de)cresc/slur/tie/tuplet/volta
 . * auto-staff-switching.
+. * warning if feta-nummer.tfm not found
 . * broken examples:
 input/star-spangled-banner.ly: hw?
-mutopia/J.S.Bach/Petites-Preludes/preludes-paper.ly? hw?
 mutopia/J.S.Bach/Solo-Cello-Suites/prelude-cello.ly: hw: slurs + autobeamer ?
 mutopia/Coriolan/*
-
 . * spacing of accidentals
 . * key restorations & repeats
 . * spanners from grace to  normal ctxt
+. * rename \paper?
 . * Grace_slur_engraver.
 . * paperXX.ly \quartwidth, font setting not up to date. (Should read from AFM?)
 . * input/star-spangled-banner.ly: fold for lyrics?
 . * Break_req handling is silly (break_forbid () + \break fucks up.)
 . * account for accidentals in spacing.
-. * indent = 0.0 with linewidth=-1.0
 . * \shape 1st dim skipped? 
-. * PostScript
-.  * half notes in pfa
 . * We need feta-din*.mf files for more sizes than 10.
 . * fix dynamics decently, ie. use kerning & ligatures.
 
@@ -74,6 +71,7 @@ one of the spacing bugs mentioned in the TODO.
         The words are aligned with the main note, not the start of the
         grace note.  This is usually wrong, but is sometimes right.
 . * decimal point in \paper {}
+. * tie-direction
 . * use melismaBusy in Lyric context to typeset melismata correctly.  
 . * ly2dvi/lilypond logfile.
 . * hang Item on Spanner
@@ -268,13 +266,14 @@ touching it.
       Address 0xefffeca8 is 728 bytes below frame pointer in function 
 . * GNU diff 2.7: diff -rN does not see a new directory with empty file
 . * patch: don't touch timestamp if all patches fail.
-. * mf-to-table -> add space before ; in AFM output.  (-> check AFM
-    spec. Is this a bug in afm2tfm?)
+. * MetaPost: should not generate setgray for unfill
+. * mfplain.ini not in tetex 0.9
+. * mf-to-table -> add space 'before ; in AFM output.  (-> check AFM
+spec. Is this a bug in afm2tfm?)
 . * check out GCC signatures?
 . * glibc 2.0:
 	  f = fopen ("/dev/null", "r")
 	  assert (feof (f))
-
 . * tetex: mfplain.mem
 . * timesig: sometimes bottom digit  too high: Xdvi doesn't handle
     newly created fonts correctly.

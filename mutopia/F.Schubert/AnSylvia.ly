@@ -15,10 +15,10 @@ title = "An Sylvia";
 \include "paper16.ly";
 \include "paper13.ly";
 
-pianoRH=\notes \relative c''  {
+pianoRH=\notes \relative c'  {
 		 \clef "G";
 %1
-		 <[b,8-.(\pp d-. g-.> <b-. d-. g-.> <b-. d-. g-.> <)b-. d-. g-.>]
+		 <[b8-.(\pp d-. g-.> <b-. d-. g-.> <b-. d-. g-.> <)b-. d-. g-.>]
 		 <[b8-. d-. g-.(> <b-. d-. g-.> <b-. d-. g-.> <)b-. d-. g-.>]
 		 |
 %2
@@ -236,7 +236,7 @@ tune=\notes  \relative c''  {
 %18
 		r1 |
 %19
-		d2. \context Staff < {\voiceone b8 ~ g8} {\voicetwo [b8 g8]} > |
+		d2. \context Staff < {\voiceone b8( )g8} {\voicetwo [b8 g8]} > |
 %20
 		\property Voice.slurdash = 2
 		fis4( )e		\property Voice.slurdash = ""
@@ -259,50 +259,50 @@ tune=\notes  \relative c''  {
 		r1 \bar "|.";
 }
 
-fourbars=\lyrics { "_"1*5 }
+fourbars=\lyrics { ""1*4 }
 verseOne=\lyrics {
-		Who2. is4 | Syl- via, _2 |
+		Who2. is4 | Syl- via, ""2 |
 		What2. is4 | she,2  That4 |
 		all our swains com- |
 		mend2 her?4 " " |
 		" "1 |
 		Ho-4 - - ly, |
-		fair,2 _4 and |
+		fair,2 ""4 and |
 		wise2. is4 |
-		she;2 _4 The |
+		she;2 ""4 The |
 		heav'ns4 such grace did |
-		lend2 her4 _ | _1 |
+		lend2 her4 "" | ""1 |
 		That2. a-4  |
-		do- red _2 |
+		do- red ""2 |
 		She2. might4 |
-		be,2 _ |
+		be,2 "" |
 		That2 a- |
 		do- red |
-		she2. might4 | be.2 _ |
+		she2. might4 | be.2 "" |
 }
 
 verseTwo=\lyrics {
-		Is2. she4 | kind,2 _4 as |
-		she2. is4 |fair?2 _4 For |
-		beau- ty lives with | kind-2 ness4 _ | _1 |
-		To2. her4 |eyes2 _4 doth | Love 2. re-4 |
-		pair,2 _4 To | help him of his | blind-2 ness;4 _ |
-		_1 |
-		And2*3/2 be-8 ing | help'd4 - _ _ | in-2. hab-8 its |
-		there,2 _4 And |
-		be-2 ing | help'd in- | ha-2 -4 bits4 | there.2 _2 |
+		Is2. she4 | kind,2 ""4 as |
+		she2. is4 |fair?2 ""4 For |
+		beau- ty lives with | kind-2 ness4 "" | ""1 |
+		To2. her4 |eyes2 ""4 doth | Love 2. re-4 |
+		pair,2 ""4 To | help him of his | blind-2 ness;4 "" |
+		""1 |
+		And2*3/2 be-8 ing | help'd4 - "" "" | in-2. hab-8 its |
+		there,2 ""4 And |
+		be-2 ing | help'd in- | ha-2 -4 bits4 | there.2 ""2 |
 }
 
 verseThree=\lyrics {
-		  Then2. to4 | Syl-4 via _2 |
-		  let2. us4 | sing,2 _4 That |
-		  Syl- via is ex- | cel4 - ing; _ | _1 |
-		  She2. ex-4 | cels2 _4 each | mor - - tal |
-		  thing,2 _4 Up- | on the dull earth | dwell-2 ing4
-		  _ | _1 |
-		  To2. her4 | gar- lands _2 | let2. us4 |
-		  bring,2 _ | To her | gar- lands | let2. us4 |
-		  bring.2 _ |
+		  Then2. to4 | Syl-4 via ""2 |
+		  let2. us4 | sing,2 ""4 That |
+		  Syl- via is ex- | cel4 - ing; "" | ""1 |
+		  She2. ex-4 | cels2 ""4 each | mor - - tal |
+		  thing,2 ""4 Up- | on the dull earth | dwell-2 ing4
+		  "" | ""1 |
+		  To2. her4 | gar- lands ""2 | let2. us4 |
+		  bring,2 "" | To her | gar- lands | let2. us4 |
+		  bring.2 "" |
 }
 
 
@@ -310,38 +310,38 @@ verseThree=\lyrics {
 %% German Words -- syllabification may be incorrect (entered by
 %% someone who knows no German!)
 origVerseOne=\lyrics {
-		    Was2. ist4 | Sil-4 via, _2 |
-		    sag-2. et4 | an,2 _4 
+		    Was2. ist4 | Sil-4 via, ""2 |
+		    sag-2. et4 | an,2 ""4 
 		    Da{\ss}4 | 
-		    sie die wie- te | Flur2 preist?4 _ | _1|
-		    Sch\"on2.  und4 | zart2 _4 seh'- | ich2. sie4 |
-		    nah'n,2 _4 Auf4 |
-		    Him-  melsg- gunst " und" | Spur2 weist,4 _ | _1
-		    Da{\ss}2. ihr4 | al- les _2 |
-		    un-2. ter4 | tan.2 _ |
-		    Da{\ss}2 ihr | al- les | un-2.  ter4 | tan2 _ |
+		    sie die wie- te | Flur2 preist?4 "" | ""1|
+		    Sch\"on2.  und4 | zart2 ""4 seh'- | ich2. sie4 |
+		    nah'n,2 ""4 Auf4 |
+		    Him-  melsg- gunst " und" | Spur2 weist,4 "" | ""1
+		    Da{\ss}2. ihr4 | al- les ""2 |
+		    un-2. ter4 | tan.2 "" |
+		    Da{\ss}2 ihr | al- les | un-2.  ter4 | tan2 "" |
 }
 
 origVerseTwo=\lyrics {
-		    Ist2. sie4 | sch\"on2 _4 und4 |  gut2. da-4 | zu?2 _4
-		    Reiz4| labt wie mil- de | Kind-2 heit;4 _ | _1 |
-		    Ihr-2. em4 | Aug'-2 _4 eilt | A-2. mor4 |
-		    zu,2 _4
-		    Dort4 | heilt er sein- e | Blind-2 heit,4 _ | _1 |
-		    Und2. ver-4 | weilt2 _4 in4 | s\"u{\ss}-2. er4
-		    Ruh'.2 _ |
-		    Und2 ver-2 | weilt in | s\"u{\ss}-2. er4| Ruh'.2 _ |
+		    Ist2. sie4 | sch\"on2 ""4 und4 |  gut2. da-4 | zu?2 ""4
+		    Reiz4| labt wie mil- de | Kind-2 heit;4 "" | ""1 |
+		    Ihr-2. em4 | Aug'-2 ""4 eilt | A-2. mor4 |
+		    zu,2 ""4
+		    Dort4 | heilt er sein- e | Blind-2 heit,4 "" | ""1 |
+		    Und2. ver-4 | weilt2 ""4 in4 | s\"u{\ss}-2. er4
+		    Ruh'.2 "" |
+		    Und2 ver-2 | weilt in | s\"u{\ss}-2. er4| Ruh'.2 "" |
 }
 
 origVerseThree=\lyrics {
-		      Dar4 - - um | Sil- via, _2 | t\"on',2.  o4 |
-		      Sang,2 _4
-		      Der4 | hold- en Sil- via | Ehr-2 en;4 _4 | _1 |
-		      Je2. den4 | Reiz2 _4  be- |siegt2. sie4 | lang,2 _4
-		      Den | Er- de kann ge- | w\"ah-2 ren;4 _ | _1 |
-		      Kr\"an-2. ze4 | ihr2 _4 und4 | Sai-2. ten4
-		      |klang!2 _
-		      Kr\"an-2 ze | ihr und | Sai-2. ten-4 |klang!2 _ |
+		      Dar4 - - um | Sil- via, ""2 | t\"on',2.  o4 |
+		      Sang,2 ""4
+		      Der4 | hold- en Sil- via | Ehr-2 en;4 ""4 | ""1 |
+		      Je2. den4 | Reiz2 ""4  be- |siegt2. sie4 | lang,2 ""4
+		      Den | Er- de kann ge- | w\"ah-2 ren;4 "" | ""1 |
+		      Kr\"an-2. ze4 | ihr2 ""4 und4 | Sai-2. ten4
+		      |klang!2 ""
+		      Kr\"an-2 ze | ihr und | Sai-2. ten-4 |klang!2 "" |
 }
 
 global=\notes {
@@ -374,7 +374,7 @@ GermanWords = \lyrics<
 
 Vocals= <
 	\context Staff = vocal < 
-	       \notes \transpose c {\clef "F"; \global\tune}
+	       \notes {\clef "G2"; \global\tune}
 %	       {\context  Lyrics = vocal \EnglishWords}
 	       {\context  Lyrics = vocal \GermanWords}
 	     >

@@ -4,9 +4,7 @@ depth = ..
 
 STEPMAKE_TEMPLATES=metafont metapost install install-out
 
-EXTRA_DIST_FILES += README feta.mp
-
-# wtf is feta.mp ?
+EXTRA_DIST_FILES += README
 
 FET_FILES = $(wildcard feta[0-9]*.mf)
 
@@ -42,4 +40,4 @@ $(outdir)/%.afm  $(outdir)/%.tex $(outdir)/%.dep: $(outdir)/%.log
 	$(PYTHON) $(buildscripts)/mf-to-table.py --package=$(topdir) --outdir=$(outdir) --dep $(outdir)/$(<F:.log=.dep)  --afm $(outdir)/$(<F:.log=.afm) --tex $(outdir)/$(<F:.log=.tex) $<
 
 localclean:
-	rm -f mfplain.mem mfplain.log
+	rm -f mfplain.mem mfplain.log mpout.log

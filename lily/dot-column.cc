@@ -55,6 +55,21 @@ Dot_column::Dot_column ()
   set_axes(X_AXIS,X_AXIS);
 }
 
+/*
+  Will fuck up in this case.
+
+  X.  .
+  X.X .
+   |X .
+   |
+   |
+   |X .
+   |
+   |
+
+
+   Should be smarter.
+ */
 void
 Dot_column::do_post_processing ()
 {
@@ -62,11 +77,21 @@ Dot_column::do_post_processing ()
     return;
   Slice s;
   s.set_empty ();
-  
+
+  Array<int> taken_posns;
+  int conflicts = 0;
   for (int i=0; i < dot_l_arr_.size (); i++)
     {
+      for (int j=0; j < taken_posns.size (); j++)
+	if (taken_posns[j] == dot_l_arr_[i]->position_i_)
+	  conflicts++;
+      taken_posns.push (dot_l_arr_[i]->position_i_);
       s.unite (Slice (dot_l_arr_[i]->position_i_,dot_l_arr_[i]->position_i_));      
     }
+
+  if (!conflicts)
+    return;
+  
   int  middle = s.center ();
   /*
     +1 -> off by one 

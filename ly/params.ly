@@ -201,12 +201,14 @@ stemSpacingCorrection = 0.5*\interline;
 
 
 % relative strength of space following  tprefatory matter, and inline clefs.
-non_musical_space_strength = 40.0; 
+non_musical_space_strength = 8.0; 
 
 
 %If columns do not have spacing information set, set it to this much
 loose_column_distance = 2.0 * \interline;
 
+% if stem is on middle line, choose this direction.
+stem_default_neutral_direction = 1.0;
 
 \include "engraver.ly";
 

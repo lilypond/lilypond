@@ -82,6 +82,7 @@ RhythmicStaffContext=\translator{
 \translator{\RhythmicStaffContext}
 VoiceContext = \translator {
 	\type "Engraver_group_engraver";
+	dynamicPadding = "5.0";
 	\consists "Dynamic_engraver";   % must come before text_engraver.
 	\name Voice ;
 
@@ -99,6 +100,7 @@ VoiceContext = \translator {
 
 	% ugh.  Order matters here.
 	\consists "Melisma_engraver";
+	textScriptPadding = "3.0";
 	\consists "Text_engraver";
 	\consists "Script_engraver";
 	\consists "Script_column_engraver";

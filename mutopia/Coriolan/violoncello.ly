@@ -204,8 +204,8 @@ violoncello = \notes \relative c {
 	%185
 	[g(f' d f][g f d )g,~] |
 	[g(e' c d][g e c )g~] |
-	[g(d' b d][g d b )g~] |
-	e2\ff d' | cis a ~ |
+	[g(d' b d][g d b )g(] |
+	)e2\ff d' | cis a ~ |
 	%190
 	[a8( f' d f][a f d )a!~] |
 	[a( e' cis e][a e c )a!~] |

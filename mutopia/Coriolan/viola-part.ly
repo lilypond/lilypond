@@ -13,21 +13,21 @@ copyright =	 "public domain";
 \include "viola-1.ly"
 \include "viola-2.ly"
 
-$viola_staff = \context Staff = violai <
-	\property Staff.midiInstrument = "viola"
-	\property Staff.instrument = "Viola"
-	\property Staff.instr = "Vla."
-	\clef "alto";
-	\notes \context Voice=one < 
-		\global 
-		\$viola1
-		\$viola2
-	>
+$viola_staff = \context GrandStaff = viola <
+	\$viola1_staff
+	\$viola2_staff
 >
 
 \score{
 	\$viola_staff
-	\include "coriolan-part-paper.ly"
+	%%\include "coriolan-part-paper.ly"
+	\paper{
+		castingalgorithm = \Wordwrap;
+		\translator { \VoiceContext beamAuto=0; }
+		\translator { \HaraKiriStaffContext }
+		% \translator { \ScoreContext skipBars = 1; }
+		\translator { \OrchestralScoreContext skipBars = 1; }
+	}
 	\midi{ \tempo 4 = 160; }
 }
 

@@ -10,8 +10,9 @@ Depends: ${shlibs:Depends}, tetex-bin (>= 0.9.981031-2)
 Recommends: python-base (>= 1.5.1), python-misc (>= 1.5.1), tetex-base (>= 0.9.981030-1), tetex-extra (>= 0.9.981030-1)
 Conflicts: musixtex-fonts, tetex-base (<< 0.9)
 Description: The GNU Project music typesetter.
- LilyPond produces beautiful sheet music using a high level description
- file as input.  LilyPond is part of the GNU project.
+ LilyPond is a music typesetter.  It produces beautiful sheet music
+ using a high level description file as input.  It is part of the GNU
+ project.
  
  
  .

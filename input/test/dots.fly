@@ -1,6 +1,7 @@
 
 d''4. b c4 | <b4. c d e>  <f g a b>
-%This doesn't really work yet.
+<g b d> <c, g' d' a'>
+
 
 \context Staff <
 	\context Voice = VA { \stemup <b c> r4.  }

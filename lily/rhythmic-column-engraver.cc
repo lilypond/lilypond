@@ -57,11 +57,10 @@ Rhythmic_column_engraver::process_acknowledged ()
 	  stem_l_ = 0;
 	}
 
-      /*
-	since ncol_p_ is announced, it already has its grace_scm_sym set, if we're
-	in a Grace context.
-       */
-      if (ncol_p_->get_elt_property (grace_scm_sym) == SCM_BOOL_F)
+
+      bool wegrace = get_property ("weAreGraceContext",0).to_bool ();
+
+      if (!wegrace)
 	for (int i=0; i < grace_slur_endings_.size(); i++)
 	  grace_slur_endings_[i]->add_column (ncol_p_);
       grace_slur_endings_.clear ();
@@ -71,8 +70,9 @@ Rhythmic_column_engraver::process_acknowledged ()
 void
 Rhythmic_column_engraver::acknowledge_element (Score_element_info i)
 {
-  if (get_property ("weAreGraceContext",0).to_bool () !=
+  if ((get_property ("weAreGraceContext",0).to_bool () !=
       (i.elem_l_->get_elt_property (grace_scm_sym) != SCM_BOOL_F))
+    && !dynamic_cast<Slur*> (i.elem_l_))
     return ;
   
   Item * item =  dynamic_cast <Item *> (i.elem_l_);
@@ -124,9 +124,5 @@ Rhythmic_column_engraver::do_post_move_processing()
   dotcol_l_ =0;
   stem_l_ =0;
 }
-
-
-
-
 
 ADD_THIS_TRANSLATOR(Rhythmic_column_engraver);

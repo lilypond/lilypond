@@ -1944,6 +1944,34 @@ can contain code(\translator) keywords.  The code(\paper) block can
 also contain identifier assignments and parameter assignments.  Unlike
 at the top level, these assignments must be terminated by a semicolon.
 
+subsect(Changing Font Size and Paper Size)
+
+The Feta font provides musical symbols at six different sizes.  These
+fonts are 11 point, 13 point, 16 point, 20 point, 23 point, and 26
+point.  The point size of a font is the height of the five line staff
+when displayed in the font.  The default font is 20 points.  To select
+a different font size you must load the desired size with an
+code(\include) keyword at the top level and then you must select the
+desired size with an identifier in the code(\paper) block.  To load a
+font use the command code(\include "paper)var(N)code(.ly") where
+var(N) is the desired font size.  For example, using code(\include
+"paper26.ly") will produce very large music.  This statement should
+appear at the top level at the top of your Mudela file.  To select the
+font for printing, this you must include code(\paper_twentysix) in the
+code(\paper) block of your file.  The identifiers that are used to
+select different font sizes are code(paper_eleven),
+code(paper_thirteen), code(paper_sixteen), code(paper_twenty),
+code(paper_twentythree), and code(paper_twentysix).
+
+To change the paper size, you must first set the code(papersize)
+variable at the top level.  Set it to code(a4), code(letter), or
+code(legal).  After this specification, you must set the font as
+described above.  If you want the default font, then use the 20 point
+font.  The new paper size will not take effect if the font is not
+loaded and selected afterwords.  Paper size selection works by loading
+a file named after the paper size you select.
+
+
 
 subsect(Paper variables)
 

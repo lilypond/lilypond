@@ -14,7 +14,7 @@ flauto2 = \notes \relative c {
 	c4-. r r2 | r1 | es4-. r r2 | d,4-. r r2 | R1 *4 |
 	r2 r2 | 
 	%20
-	r2 r4 b4-. | R1*6 | r4 c r2 | R1*5 | c1 % ~ |
+	r2 r4 b4-. | R1*6 | r4 c r2 | R1*6 | c1 % ~ |
 	%35
 }
 

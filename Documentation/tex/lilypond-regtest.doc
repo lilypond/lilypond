@@ -25,11 +25,11 @@ you must create a special context called Thread.
 
 \mudelafile{noteheadstyle.ly}
 
-Noteheads can have dots, and ---although this is bad style--- rests
-can too.  Augmentation dots should never be printed on a staff line,
-but rather be shifted: down stem notes shift dots down, up stem up.
-In case of chords, all dots should be in a column.  The dots go along
-as  rests are shifted to avoid collisions.
+Noteheads can have dots, and ---although this is bad style in duple
+meters--- rests can too.  Augmentation dots should never be printed on
+a staff line, but rather be shifted: down stem notes shift dots down,
+up stem up.  In case of chords, all dots should be in a column.  The
+dots go along as rests are shifted to avoid collisions.
 
 \mudelafile{dots.fly}
 
@@ -54,7 +54,8 @@ the two systems for y dimensions (1 unit = staffspace, 1 unit = 1
 point) are mixed.
 
 Stems, beams, ties and slurs should behave similarly, when placed
-on the middle staff line.
+on the middle staff line. Of course stem-direction is down for high
+notes, and up for low notes.
 
 \mudelafile{stem-direction.sly}
 
@@ -190,11 +191,22 @@ effects.  In this example, space for opposite pointed stems is adjusted
 
 \mudelafile{stem-spacing.sly}
 
-Even if a line is very tightly spaced,  there will still be room
-between prefatory matter and the following notes.  The same holds at
-the end of line.
+Even if a line is very tightly spaced, there will still be room
+between prefatory matter and the following notes.  The space after the
+prefatory is very rigid.  In contrast, the space before the barline
+must stretch like the space within the measure.
+
+Tight:
 
 \mudelafile{spacing-tight.ly}
+
+Natural:
+
+\mudelafile{spacing-natural.ly}
+
+Loose:
+
+\mudelafile{spacing-loose.ly}
 
 
 \section{Global stuff}
@@ -206,9 +218,8 @@ knowing it.  Consequently, they fall over  often.
 \mudelafile{bar-scripts.ly}
 
 Staff margins are also markings attached to barlines.  They should be
-left otf the staff, and be centered vertically wrt the staff.  They
-may be on normal staffs, but also on compound staffs, like the
-PianoStaff
+left of the staff, and be centered vertically wrt the staff.  They may
+be on normal staffs, but also on compound staffs, like the PianoStaff
 
 \mudelafile{staff-margin.ly}
 
@@ -222,7 +233,7 @@ two measures all have the same distance from each other:
 
 Fonts are  available in a default set of sizes: 11, 13, 16, 20, 23 and
 26pt staffheight.  Sizes of the text fonts and symbol fonts are made
-to match the staff dimensions. 
+to match the staff dimensions.    
 
 \mudelafile{size11.ly}
 
