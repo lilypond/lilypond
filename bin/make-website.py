@@ -43,7 +43,7 @@ depth = ''
 makewebsite_id = "<!make_website!>";
 id_str = "make-website 0.9";
 tar = "tar";
-make = "make -f Makefile";
+make = "make -f Makefile outdir=out-www";
 mailaddress = "unknown"
 fullname = "unknown"
 footstr = ""
@@ -94,98 +94,12 @@ def my_system(cmds):
 
 base="lilypond/";
 
-examples=["twinkle-pop", 
-	  "praeludium-fuga-E", 
-	  "cadenza", 
-	  "twinkle", 
-	  "collisions",
-	  "font16",
-	  "font20",
-	  #"scales", 
-	  "rhythm",
-	  "coriolan",
-	  "multi"]
-
-mutopia_examples = [ "wtk1-fugue2",
-		     "standje",
-		     "preludes-1",
-		     "preludes-2",
-		     
-		     "wtk1-prelude1",
-		     "gallina",	  
-		     "scsii-menuetto"]
-
 
 def gen_html():
     print 'generating HTML'
     my_system (["make -f Makefile -kC .. html"]);
     
 
-def gen_examples(inputs):
-    print 'generating examples:\n'
-    outputs = []
-    for i in inputs:
-	try:
-		located = multiple_find ([i + '.ly'], include_path) [0]
-	except IndexError:
-		print 'continuing dazed & confused (%s) ' % i
-		continue
-	outputs.append (located)
-	if not file_exist_b(i + '.dvi'):
-	    my_system (['ly2dvi %s' % located])
-	if not file_exist_b(i + '.ly.txt'):
-	    os.link (located, i + ".ly.txt")
-    list = map(lambda x: 'out/%s.ps.gz out/%s.gif' % (x,x), inputs)
-    my_system (['make -C .. ' + join(' ', list)])
-
-    return outputs
-
-def gen_list(inputs, filename):
-    print "generating HTML list %s\n" % filename;
-    list = open(filename, 'w')
-    list.write ('<html><TITLE>Rendered Examples</TITLE>\n'
-     '<body>These example files are taken from the LilyPond distribution.\n'
-     'LilyPond currently only outputs TeX and MIDI. The pictures and\n'
-     'PostScript files were generated using TeX, Ghostscript and some\n'
-     'graphics tools.  The papersize used for these examples is A4.  The GIF\n'
-     'files have been scaled to eliminate aliasing.\n');
-
-    for ex in inputs:
-	print '%s, ' % ex
-	header  = read_mudela_header(ex + '.ly.txt')
-	
-	def read_dict(s, default, h =header):
-		try:
-		    ret = h[s]
-		except KeyError:
-		    ret = default
-	        return ret
-	head = read_dict('title', ex)
-	composer = read_dict('composer', '')
-	desc = read_dict('description', '')
-	list.write('<hr>')
-	list.write('<h1>example file: %s</h1>' % head);
-	if composer <> '':
-	    list.write('<h2>%s</h2>\n' % composer)
-	if desc <> '':
-	    list.write('%s<p>' % desc)
-	list.write ('<ul>')
-	def list_item(filename, desc, l = list):
-	    if file_exist_b(filename):
-		l.write ('<li><a href=%s>%s</a>\n' % (filename, desc))
-	    
-	list_item(ex + '.ly.txt', 'The input')
-	for pageno in range(1,10):
-	    f  = ex + '-page%d.gif' % pageno
-	    if not file_exist_b (f):
-		break
-	    list_item(f, 'The output (picture, page %d)' % pageno)
-	list_item(ex + '.ps.gz', 'The output (gzipped PostScript)')
-	list_item(ex + '.midi', 'The output (MIDI)')
-	list.write ("</ul>");
-
-    list.write( "</BODY></HTML>");
-    list.close()
 
 texstuff = ["mudela"]
 
@@ -204,13 +118,7 @@ def gen_manuals():
 
     my_system (['make -C .. ' + todo])
 
-def file_exist_b(name):
-    try: 
-	f = open(name)
-    except IOError:
-	return 0
-    f.close ()
-    return 1
+
 def copy_files():
     print "copying files\n"
     
