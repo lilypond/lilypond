@@ -10,6 +10,13 @@
 
 2004-11-06  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* elisp/lilypond-indent.el (LilyPond-indent-level): 2 is now standard.
+
+	* tex/lilyponddefs.tex: If inputencodingUse latin1 inputencoding if 
+
+	* scm/framework-tex.scm (font-load-command): Use T1 if no
+	font-encoding set.
+
 	* scm/lily.scm (postscript->pdf): Remove .pdf file if it
 	exists before converting.
 
