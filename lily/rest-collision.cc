@@ -193,35 +193,29 @@ Rest_collision::do_shift (Grob *me, SCM elts)
 	{
 	  warning (_ ("too many colliding rests"));
 	}
-      if (notes.size () > 1)
-	{
-	  warning (_ ("too many notes for rest collision"));
-	}
       Grob * rcol = rests[0];
-
-      // try to be opposite of noteheads. 
-      Direction dir = - Note_column::dir (notes[0]);
-
+      Direction dir = Note_column::dir (rests[0]);
+ 
       Grob * r = unsmob_grob (rcol->get_grob_property ("rest"));
       Interval restdim = r->extent (r, Y_AXIS);	// ??
 
       if (restdim.empty_b ())
 	return SCM_UNSPECIFIED;
       
-      // FIXME: staff ref'd?
-      Real staff_space = 1.0;
+
+      Real staff_space = Staff_symbol_referencer::staff_space (rcol);
 
       Real minimum_dist = gh_scm2double (me->get_grob_property ("minimum-distance")) * staff_space;
-      
-      /*
-	assumption: ref points are the same. 
-       */
+
+
+      Grob *common = rcol;
+      for (int i = 0; i < notes.size (); i++)
+	common = common->common_refpoint (notes[i], Y_AXIS);
+
       Interval notedim;
       for (int i = 0; i < notes.size (); i++) 
 	{
-	  Grob * stem = Note_column::stem_l (notes[i]);
-	  Grob * head = Stem::first_head (stem);
-	  notedim.unite (head->extent (commony, Y_AXIS));
+	  notedim.unite (notes[i]->extent (common, Y_AXIS));
 	}
 
       Interval inter (notedim);
@@ -230,12 +224,12 @@ Rest_collision::do_shift (Grob *me, SCM elts)
       Real dist =
 	minimum_dist +  dir * (notedim[dir] - restdim[-dir]) >? 0;
 
-
-      // FIXME
-      //int stafflines = 5; // rcol->rests[0]->line_count;
       int stafflines = Staff_symbol_referencer::line_count (me);
-      // hurg?
-      stafflines = stafflines != 0 ? stafflines : 5;
+      if (!stafflines)
+	{
+	  programming_error ("No staff line count ? ");
+	  stafflines =5;
+	}
       
       // move discretely by half spaces.
       int discrete_dist = int (ceil (dist / (0.5 *staff_space)));
@@ -255,4 +249,6 @@ Rest_collision::set_interface (Grob*me)
   me->set_extent_callback (SCM_EOL, X_AXIS);
   me->set_extent_callback (SCM_EOL, Y_AXIS);
 }
+
+
 
