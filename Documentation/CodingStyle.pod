@@ -66,12 +66,8 @@ The class Class_name_abbreviation is coded in F<class-name-abbr.*>
 in emacs:
 
 
-	(add-hook 'c-mode-hook
-		  '(lambda ()(setq c-basic-offset 4)))
-
-
 	(add-hook 'c++-mode-hook
-		  '(lambda() (c-set-style "Stroustrup")
+		  '(lambda() (c-set-style "gnu")
 		     )
 		  )
 
