@@ -73,12 +73,6 @@ Translator::now_mom () const
 }
 
 void
-Translator::removal_processing ()
-{
-  finalize ();
-}
-
-void
 Translator::do_announces ()
 {
 }

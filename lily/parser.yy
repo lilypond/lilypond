@@ -53,7 +53,6 @@ TODO:
 */
 
 #include <ctype.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -82,7 +81,6 @@ TODO:
 #include "event.hh"
 #include "text-item.hh"
 #include "music-list.hh"
-
 
 #define MY_MAKE_MUSIC(x)  make_music_by_name (ly_symbol2scm (x))
 
@@ -429,7 +427,36 @@ toplevel_expression:
 		THIS->input_file_->header_ = $1;
 	}
 	| score_block {
-		THIS->input_file_->scores_.push ($1);
+		Score * sc = $1;
+
+		SCM head = ly_module_p (sc->header_) ? sc->header_ : THIS->input_file_->header_.to_SCM ();
+
+		Path p = split_path (THIS->output_basename_);
+		int *c =  &THIS->input_file_->score_count_;
+		if (*c)
+			{
+			p.base += "-" + to_string (*c);
+			}
+
+		(*c)++;
+		SCM outname = scm_makfrom0str (p.to_string ().to_str0());
+
+		for (int i=0; i < sc->defs_.size (); i++)
+			default_rendering (sc->music_, sc->defs_[i]->self_scm(),head, outname);
+
+		if (sc->defs_.empty ())
+		{
+		   Music_output_def *id =
+			unsmob_music_output_def (THIS->lexer_->lookup_identifier
+				("$defaultpaper"));
+
+		   id = id ? id->clone () : new Paper_def;
+	
+		   default_rendering (sc->music_, id->self_scm(), head, outname);
+						
+		   scm_gc_unprotect_object (id->self_scm ());
+		}
+		scm_gc_unprotect_object (sc->self_scm());
 	}
 	| output_def {
 		if (dynamic_cast<Paper_def*> ($1))
@@ -559,15 +586,16 @@ translator_spec_block:
 	;
 
 translator_spec_body:
-	TRANSLATOR_IDENTIFIER	{
+	/**/ {
+		$$ = Translator_def::make_scm ();
+		unsmob_translator_def ($$)->set_spot (THIS->here_input ());
+	}
+	| TRANSLATOR_IDENTIFIER	{
 		$$ = $1;
 		unsmob_translator_def ($$)-> set_spot (THIS->here_input ());
 	}
-	| TYPE STRING 	{
-		$$ = Translator_def::make_scm ();
-		Translator_def*td =  unsmob_translator_def ($$);
-		td->translator_group_type_ = $2;
-		td->set_spot (THIS->here_input ());
+	| translator_spec_body TYPE STRING 	{
+		unsmob_translator_def ($$)->translator_group_type_ = $3;
 	}
 	| translator_spec_body DESCRIPTION string  {
 		unsmob_translator_def ($$)->description_ = $3;
@@ -627,12 +655,7 @@ score_block:
 	/*cont*/ '{' score_body '}' 	{
 		THIS->pop_spot ();
 		$$ = $4;
-		if (!$$->defs_.size ())
-		{
-		  Music_output_def *id =
-			unsmob_music_output_def (THIS->lexer_->lookup_identifier ("$defaultpaper"));
-		  $$->add_output (id ? id->clone () :  new Paper_def );
-		}
+
 	}
 	;
 
@@ -661,7 +684,7 @@ score_body:
 		$$->header_ = $2;
 	}
 	| score_body output_def {
-		$$->add_output ($2);
+		$$->defs_.push ($2);
 	}
 	| score_body error {
 

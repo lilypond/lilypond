@@ -119,7 +119,7 @@ FOOBAR-MARKUP) if OMIT-ROOT is given and non-false.
   (define (is-req-chord? m)
     (and
      (memq 'event-chord (ly:get-mus-property m 'types))
-     (not (equal? (ly:make-moment 0 1) (ly:get-music-length m)))))
+     (not (equal? ZERO-MOMENT (ly:music-length m)))))
 
   (let* ((elts (filter is-req-chord? (ly:get-mus-property seq 'elements)))
 	 (alist (map chord-to-exception-entry elts)))

@@ -4,7 +4,7 @@ longgrace = \property Voice.Stem \override #'stroke-style = #'()
 endlonggrace = \property Voice.Stem \revert #'stroke-style
 ritenuto = \markup { \italic  "rit." }
 
-\version "1.9.8"
+\version "2.1.1"
   
 cresc = \notes {
     #(ly:export (make-event-chord (list (make-span-event 'CrescendoEvent START)))) 
@@ -40,7 +40,7 @@ stopGraceMusic= \sequential {
         restNumberThreshold = #1
 
 	RehearsalMark \override #'font-series = #'bold
-	RehearsalMark \override #'font-relative-size = #3
+	RehearsalMark \override #'font-size = #6
 
         Beam \override #'thickness = #0.6
         Beam \override #'space-function = #(lambda (beam mult) 0.8)

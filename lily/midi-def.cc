@@ -49,17 +49,3 @@ Midi_def::set_tempo (Moment one_beat_mom, int beats_per_minute_i)
   set_variable (ly_symbol2scm ("whole-in-seconds"), m.smobbed_copy ());
 }
 
-
-int Midi_def::score_count_=0;
-
-int
-Midi_def::get_next_score_count () const
-{
-  return score_count_++;
-}
-
-void
-Midi_def::reset_score_count ()
-{
-  score_count_ = 0;
-}

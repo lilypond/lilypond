@@ -67,25 +67,11 @@ Paper_def::line_dimensions_int (int n) const
 }
 
 
-int Paper_def::score_count_ = 0;
-
-int
-Paper_def::get_next_score_count () const
-{
-  return score_count_ ++;
-}
-
-void
-Paper_def::reset_score_count ()
-{
-  score_count_ = 0;
-}
 
 
 Paper_outputter*
-Paper_def::get_paper_outputter () 
+Paper_def::get_paper_outputter (String outname)  const
 {
-  String outname = outname_string (); 
   progress_indication (_f ("paper output to `%s'...",
 			   outname == "-" ? String ("<stdout>") : outname));
 

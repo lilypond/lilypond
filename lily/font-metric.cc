@@ -189,7 +189,7 @@ LY_DEFINE(ly_text_dimension,"ly:text-dimension", 2 , 0, 0,
   
   return gh_cons (ly_interval2scm (b[X_AXIS]), ly_interval2scm(b[Y_AXIS]));
 }
-  
+
 Molecule
 Font_metric::get_char_molecule (int code)  const
 {

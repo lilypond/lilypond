@@ -14,4 +14,5 @@ foo = \notes\relative c''   {   \key as \major dis4 dis dis!^"force" dis? }
   << \foo 
    \context NoteNames \foo
   >>
+\paper { raggedright = ##t }
 }

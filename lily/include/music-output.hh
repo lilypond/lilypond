@@ -21,15 +21,11 @@ class Music_output
 {
 public:
   Protected_scm header_;
-  String default_out_string_;
-  String origin_string_;
-  int errorlevel_;
 
-  virtual void process () {} 
+  virtual void process (String) {} 
   virtual ~Music_output (){}
   Music_output () 
   {
-    errorlevel_ = 0;
   }
        
 };

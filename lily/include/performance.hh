@@ -27,7 +27,7 @@ public:
   void output_header_track (Midi_stream& midi_stream_r);
 
   void print () const;
-  void process ();
+  void process (String);
 
   Link_array<Audio_staff> audio_staffs_;
   Cons<Audio_element> *audio_elem_p_list_;

@@ -104,12 +104,12 @@ for the reader.
 
 (define-public (finger-markup paper props . rest)
   (interpret-markup paper
-		    (cons (list '(font-relative-size . -3)
+		    (cons (list '(font-size . -4)
 				'(font-family . number))
 				props)
 		    (car rest)))
 
-(define-public fontsize-markup (set-property-markup 'font-relative-size))
+(define-public fontsize-markup (set-property-markup 'font-size))
 (define-public magnify-markup (set-property-markup 'font-magnification))
 
 (define-public bold-markup
@@ -331,7 +331,7 @@ for DIR, you can obtain longer or shorter stems."
   "Syntax: \\super MARKUP. "
   (ly:molecule-translate-axis (interpret-markup
 			       paper
-			       (cons '((font-relative-size . -2)) props) (car rest))
+			       (cons '((font-size . -3)) props) (car rest))
 			      (* 0.5 (cdr (chain-assoc 'baseline-skip props)))
 			      Y)
   )
@@ -347,7 +347,7 @@ for DIR, you can obtain longer or shorter stems."
   "Syntax: \\sub MARKUP."
   (ly:molecule-translate-axis (interpret-markup
 			       paper
-			       (cons '((font-relative-size . -2)) props)
+			       (cons '((font-size . -3)) props)
 			       (car rest))
 			      (* -0.5 (cdr (chain-assoc 'baseline-skip props)))
 			      Y)
@@ -365,10 +365,8 @@ for DIR, you can obtain longer or shorter stems."
   "Horizontal brackets around its single argument. Syntax \\hbracket MARKUP."  
   
   (let*
-      (
-       (th 0.1) ;; todo: take from GROB.
-       (m (interpret-markup paper props (car rest)))
-       )
+      ((th 0.1) ;; todo: take from GROB.
+       (m (interpret-markup paper props (car rest))) )
 
     (bracketify-molecule m X th (* 2.5 th) th)  
 ))
@@ -376,10 +374,8 @@ for DIR, you can obtain longer or shorter stems."
 (define-public (bracket-markup paper props . rest)
   "Vertical brackets around its single argument. Syntax \\bracket MARKUP."  
   (let*
-      (
-       (th 0.1) ;; todo: take from GROB.
-       (m (interpret-markup paper props (car rest)))
-       )
+      ((th 0.1) ;; todo: take from GROB.
+       (m (interpret-markup paper props (car rest))) )
 
     (bracketify-molecule m Y th (* 2.5 th) th)  
 ))
@@ -407,9 +403,8 @@ for DIR, you can obtain longer or shorter stems."
 (define-public (smaller-markup  paper props . rest)
   "Syntax: \\smaller MARKUP"
   (let*
-      (
-       (fs (cdr (chain-assoc 'font-relative-size props)))
-       (entry (cons 'font-relative-size (- fs 1)))
+      ((fs (chain-assoc-get 'font-size props 0))
+       (entry (cons 'font-size (- fs 1)))
        )
     (interpret-markup
      paper (cons (list entry) props)
@@ -419,9 +414,8 @@ for DIR, you can obtain longer or shorter stems."
 (define-public (bigger-markup  paper props . rest)
   "Syntax: \\bigger MARKUP"
   (let*
-      (
-       (fs (cdr (chain-assoc 'font-relative-size props)))
-       (entry (cons 'font-relative-size (+ fs 1)))
+      ((fs (chain-assoc-get 'font-size props 0))
+       (entry (cons 'font-size (+ fs 1)))
        )
   (interpret-markup
    paper (cons (list entry) props)
@@ -431,8 +425,7 @@ for DIR, you can obtain longer or shorter stems."
 (define-public (box-markup paper props . rest)
   "Syntax: \\box MARKUP"
   (let*
-      (
-       (th 0.1)
+      ((th 0.1)
        (pad 0.2)
        (m (interpret-markup paper props (car rest)))
        )

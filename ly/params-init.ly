@@ -1,4 +1,4 @@
-\version "1.9.8"
+\version "2.1.1"
 % JUNKME.
 
 %% deprecated
@@ -60,7 +60,6 @@ interscoreline = 4. \mm
 %%
 #(define font-defaults
       '((font-family . music)
-	(font-relative-size . 0)
 	(font-shape . upright)
 	(baseline-skip . 2)
 	(word-space . 0.6)

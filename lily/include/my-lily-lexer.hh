@@ -29,7 +29,7 @@ class My_lily_lexer : public Includable_lexer
 {
   Protected_scm scopes_;
 public:
-  String main_input_string_;
+  String main_input_name_;
   void * lexval;
   bool main_input_b_;
 

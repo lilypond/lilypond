@@ -1,12 +1,9 @@
+
 (use-modules (ice-9 regex)
-	     (srfi srfi-1))
-
-
-;; should make module?
+	     (srfi srfi-1)
+	     (oop goops))
 
 "
-
-
 Todo: this is a quick hack; it makes more sense to define a GOOPS
 class of a documentnode (similar to how
 ; the documentation is generated.)
@@ -24,11 +21,110 @@ is then separated.
      <paperoutput>
      </paperoutput>
    </score>
-
-
-
 "
 
+(define-class <xml-node> ()
+  (name #:init-value "" #:accessor node-name #:init-keyword #:name)
+  (value #:init-value "" #:accessor node-value #:init-keyword #:value)
+  (attributes #:init-value '()
+	      #:accessor node-attributes
+	      #:init-keyword #:attributes)
+  (children #:init-value '()
+	    #:accessor node-children
+	    #:init-keyword #:children))
+
+(define node-names
+  '((NoteEvent . note)
+    (SequentialMusic . measure)
+
+    ;;ugh
+    (pitch . pitch)
+    (duration . duration)
+    (octave . octave)
+    (step . step)
+    ))
+
+(define (assoc-get-default key alist default)
+  "Return value if KEY in ALIST, else DEFAULT."
+  (let ((entry (assoc key alist)))
+    (if entry (cdr entry) default)))
+
+(define (musicxml-node->string node)
+  (let ((xml-name (assoc-get-default (node-name node) node-names #f)))
+  (string-append
+   (if xml-name (open-tag xml-name '() '()) "")
+   (if (equal? (node-value node) "")
+       (string-append
+	(if xml-name "\n" "")
+	(apply string-append (map musicxml-node->string (node-children node))))
+       (node-value node))
+   (if xml-name (close-tag xml-name) "")
+   (if xml-name "\n" ""))))
+
+(define (xml-node->string node)
+  (string-append
+   "\n"
+   (open-tag (node-name node) (node-attributes node) '())
+   (if (equal? (node-value node) "")
+       (string-append
+	(apply string-append (map xml-node->string (node-children node))))
+       (node-value node))
+   "\n"
+   (close-tag (node-name node))))
+
+(define (musicxml-duration->xml-node d)
+  (make <xml-node>
+    #:name 'duration
+    #:value (number->string (ash 1 (ly:duration-log d)))))
+
+(define (duration->xml-node d)
+  (make <xml-node>
+    #:name 'duration
+    ;; #:value (number->string (ash 1 (ly:duration-log d)))))
+    #:attributes `((log . ,(ly:duration-log d))
+		   (dots . ,(ly:duration-dot-count d))
+		   (numer . ,(car (ly:duration-factor d)))
+		   (denom . ,(cdr (ly:duration-factor d))))))
+
+(define (musicxml-pitch->xml-node p)
+  (make <xml-node>
+    #:name 'pitch
+    #:children
+    (list
+     (make <xml-node>
+       #:name 'step
+       #:value (list-ref  '("C" "D" "E" "F" "G" "A" "B")
+			  (ly:pitch-notename p)))
+     (make <xml-node>
+       #:name 'octave
+       #:value (number->string (ly:pitch-octave p))))))
+
+(define (pitch->xml-node p)
+  (make <xml-node>
+    #:name 'pitch
+    #:attributes `((octave . ,(ly:pitch-octave p))
+		   (notename . ,(ly:pitch-notename p))
+		   (alteration . ,(ly:pitch-alteration p)))))
+			       
+(define (music->xml-node music)
+  (let* ((name (ly:get-mus-property music 'name))
+	 (e (ly:get-mus-property music 'element))
+	 (es (ly:get-mus-property music 'elements))
+	 (mprops (ly:get-mutable-properties music))
+	 (d (ly:get-mus-property music 'duration))
+	 (p (ly:get-mus-property music 'pitch))
+	 (ignore-props '(origin elements duration pitch element)))
+    
+    (make <xml-node>
+      #:name name
+      #:children
+      (apply
+       append
+       (if (ly:pitch? p) (list (pitch->xml-node p)) '())
+       (if (ly:duration? d) (list (duration->xml-node d)) '())
+       (if (pair? es) (map music->xml-node es) '())
+       (if (ly:music? e) (list (music->xml-node e)) '())
+       '()))))
 
 (define (dtd-header)
   (string-append
@@ -87,27 +183,6 @@ is then separated.
 <!ATTLIST pitch octave ( -1 | -2 | 0 | 1 ) #REQUIRED >")
 
 
-
-
-(define (dump-duration d port)
- (display (open-tag 'duration
-	    `((log . ,(ly:duration-log d))
-	      (dots . ,(ly:duration-dot-count d))
-	      (numer . ,(car (ly:duration-factor d)))
-	      (denom . ,(cdr (ly:duration-factor d)))
-	      )
-	    '() ) port)
- (display  (close-tag 'duration) port))
-
-(define (dump-pitch p port)
- (display (open-tag 'pitch
-	    `((octave . ,(ly:pitch-octave p))
-	      (notename . ,(ly:pitch-notename p))
-	      (alteration . ,(ly:pitch-alteration p))
-	      )
-	    '() ) port)
- (display  (close-tag 'pitch) port))
-
 ;; should use macro
 (define (assert x)
   (if x
@@ -152,45 +227,11 @@ is then separated.
 
   (string-append
    "<" (symbol->string tag)
-   (apply string-append
-	  (map dump-attr (filter candidate? attrs)))
-   ">\n")
-   
-  )
+   (apply string-append (map dump-attr (filter candidate? attrs)))
+   ">"))
+
 (define (close-tag name)
-  (string-append "</" (symbol->string name) ">\n")
-  )
-
-(define (music-to-xml-helper music port)
-   (let*
-       (
-	(name (ly:get-mus-property music 'name))
-	(e (ly:get-mus-property music 'element))
-	(es (ly:get-mus-property music 'elements))
-	(mprops (ly:get-mutable-properties music))
-	(p (ly:get-mus-property music 'pitch))
-	(d (ly:get-mus-property music 'duration))
-	(ignore-props '(origin elements duration pitch element))
-	)
-
-     ;; As almost everything is music; <SequentialMusic> is
-     ;; probably better than <music type="SequentialMusic">?
-     
-     (display (open-tag 'music (cons `(type . ,name) mprops) ignore-props)
-	      port)
-     (if (ly:duration? d)
-	 (dump-duration d port))
-     (if (ly:pitch? p)
-	 (dump-pitch p port))
-     (if (pair? es)
-	 (map (lambda (x) (music-to-xml-helper x port)) es)
-	 )
-
-     (if (ly:music? e)
-	 (begin
-	   (music-to-xml-helper e port)))
-     (display (close-tag 'music) port)
-     ))
+  (string-append "</" (symbol->string name) ">"))
 
 (define-public (music-to-xml music port)
   "Dump XML-ish stuff to PORT."
@@ -200,5 +241,20 @@ is then separated.
   ;;  (display (dtd-header) port)
   
   (display (open-tag 'music '((type . score)) '()) port)
-  (music-to-xml-helper music port)
+  (display (xml-node->string (music->xml-node music)) port)
   (display (close-tag 'music) port))
+
+(define-public (music-to-musicxml music port)
+  "Dump MusicXML-ish stuff to PORT."
+
+  ;; dtd contains # -- This confuses tex during make web.
+  ;;
+  ;;  (display (dtd-header) port)
+
+  (define pitch->xml-node musicxml-pitch->xml-node)
+  (define duration->xml-node musicxml-duration->xml-node)
+  
+  (display (open-tag 'music '((type . score)) '()) port)
+  (display (musicxml-node->string (music->xml-node music)) port)
+  (display (close-tag 'music) port))
+

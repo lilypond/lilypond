@@ -37,6 +37,7 @@
 
 #include "drul-array.hh"
 
+
 /* Guile 1.4.x compatibility */
 #if GUILE_MINOR_VERSION < 5
 
@@ -80,6 +81,9 @@ inline SCM scm_c_make_vector  (int k, SCM val) {
 #if GUILE_MINOR_VERSION < 7
 #define scm_gc_unregister_collectable_memory(a,b,c) scm_done_free(b)
 #define scm_gc_register_collectable_memory(a,b,c) scm_done_malloc(b)
+#define SCM_VECTOR_REF(v,i) (SCM_VELTS((v))[(i)])
+
+
 #endif
 
 #include "direction.hh"
@@ -220,8 +224,6 @@ unsigned int ly_scm_hash (SCM s);
 SCM index_get_cell (SCM cell, Direction d);
 SCM index_set_cell (SCM cell, Direction d, SCM val);
 
-
-
 SCM ly_snoc (SCM s, SCM list);
 SCM ly_split_list (SCM s, SCM list);
 SCM ly_unique (SCM list);
@@ -233,8 +235,9 @@ SCM ly_unique (SCM list);
  */
 void add_scm_init_func (void (*) ());
 
-
+extern "C" {
 typedef SCM (*Scheme_function_unknown) ();
+}
 
 #if __GNUC__ > 2 || __GNUC_MINOR__ >= 96
 typedef SCM (*Scheme_function_0) ();

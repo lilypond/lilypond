@@ -3,7 +3,7 @@
 texidoc = "An alternate method to make bass figures is to use
 markup texts."
 }
-\version "1.9.8"
+\version "2.1.1"
 
 nat = \markup { \musicglyph #"accidentals-0" }
 sh = \markup { \smaller \raise #0.6 \musicglyph #"accidentals-1" }
@@ -13,7 +13,7 @@ fl = \markup { \musicglyph #"accidentals--1" }
       \context Voice \notes {
 	  \clef bass
 	  \property Voice.TextScript \set #'font-family = #'number
-	  \property Voice.TextScript \set #'font-relative-size = #-3
+	  \property Voice.TextScript \set #'font-size = #-6
 	  \property Voice.TextScript \set #'baseline-skip = #1.4
 	  
 	  dis4_\markup { 6 }

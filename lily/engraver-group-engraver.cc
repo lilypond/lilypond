@@ -1,6 +1,6 @@
 /*
-  engravergroup.cc -- implement Engraver_group_engraver
-
+  engraver-group-engraver.cc -- implement Engraver_group_engraver
+  
   source file of the GNU LilyPond music typesetter
 
   (c)  1997--2003 Han-Wen Nienhuys <hanwen@cs.uu.nl>
@@ -32,38 +32,6 @@ Engraver_group_engraver::process_acknowledged_grobs_in_simple_children ()
     }
 }
 
-/*
-
-  Done: eliminating useless broadcast/acknowledge
-
-
-One cause for translation slowness: grob broadcasted/acknowledges
- (b/a): every grob is b/a-ed to all peer-engravers and all
-parent-engravers. This means that lots of (often) useless b/a is done
-for large scores (the top-level engravers gets to know every detail of
-every voice, thread, etc. Measurements indicate this is 10% of the
- interpretation time:
-
- standchen
-
-old: (pre 1.5.13)  10.28
-new: 8.73
-speedup: 15 %
-
-Coriolan:
-
-new: 197.59
-old: 219.12 seconds
-speedup: 10%
-
-
-The cost of this B/A is # of useless engravers * cost of one ack,
-which is rather low, since cost of one ack is only an interface check.
-The cost of precomputing engraver lists has two elts: computing the
-list itself, GC for the structure, looking up the list during the
-acks.
-
-*/
 SCM find_acknowledge_engravers (SCM gravlist, SCM meta);
 SCM find_accept_engravers (SCM gravlist, SCM music_descr);
 
@@ -190,7 +158,8 @@ ENTER_DESCRIPTION(Engraver_group_engraver,
 /*****************/
 
 
-bool engraver_valid (Translator*tr, SCM ifaces)
+bool
+engraver_valid (Translator*tr, SCM ifaces)
 {
   SCM ack_ifs = scm_assoc (ly_symbol2scm ("interfaces-acked"), tr->translator_description());
   ack_ifs = gh_cdr (ack_ifs);

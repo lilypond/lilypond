@@ -20,5 +20,6 @@ gisis'4 gis gisis ges |
 		\thenotes
 	}
 	>>
+\paper { raggedright = ##t }
 }
 

@@ -118,16 +118,6 @@ def simple_serif(expr p,q, a)=
 enddef;
 %
 
-% a: x diameter
-% b: y diameter
-% err_x: drift of y axis at top
-% err_y: drift of x axis at right
-def distorted_ellipse(expr a,b,err_y,err_x,super) =
-	superellipse((a,err_x),(-err_y,b),(-a,-err_x),(err_y,-b),super);
-	enddef;
-
-
-
 %
 % draw an axis aligned block making sure that edges are on pixels.
 %

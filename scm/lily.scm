@@ -77,6 +77,8 @@
 (define-public DOUBLE-SHARP 4)
 (define-public SEMI-TONE 2)
 
+(define-public ZERO-MOMENT (ly:make-moment 0 1)) 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; lily specific variables.
 (define-public default-script-alist '())
@@ -126,6 +128,14 @@
 	(if (pair? handle)
 	    handle
 	    (chain-assoc x (cdr alist-list))))))
+
+(define (chain-assoc-get x alist-list default)
+  (if (null? alist-list)
+      default
+      (let* ((handle (assoc x (car alist-list))))
+	(if (pair? handle)
+	    (cdr handle)
+	    (chain-assoc-get x (cdr alist-list) default)))))
 
 
 (define (map-alist-vals func list)

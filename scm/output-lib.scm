@@ -9,8 +9,7 @@
 
 ; The TabNoteHead stem attachment function.
 (define (tablature-stem-attachment-function style duration)
-  (cons 0.0 0.5) ;; UGH!
-)
+  (cons 0.0 0.5))
 
 ; The TabNoteHead molecule callback.
 ; Create a text molecule
@@ -30,9 +29,7 @@
       (list-ref tuning
                 (- string 1) ; remove 1 because list index starts at 0 and guitar string at 1.
                 )
-      )
-   )
-  )
+      ) ) ) 
 
 (define-public (hammer-molecule-callback grob)
   (let* ((note-collums (ly:get-grob-property grob 'note-columns))
@@ -59,9 +56,7 @@
         )
 
       (ly:molecule-combine-at-edge slur 1 1 text -0.6)
-      )
-    )
-  )
+      ) ) )
 
 
 
@@ -276,6 +271,5 @@ centered, X==1 is at the right, X == -1 is at the left."
      (if (equal? result #f)
 	 (ly:warn (string-append "Unknown bar glyph: `" glyph "'"))
 	 (index-cell (cdr result) dir))
-     )
-   )
+     ) )
      

@@ -17,6 +17,7 @@
 #include "grob-pitch-tuple.hh"
 #include "warn.hh"
 #include "note-head.hh"
+#include "staff-symbol-referencer.hh"
 
 /**
    Manufacture ties.  Acknowledge noteheads, and put them into a
@@ -89,8 +90,9 @@ Tie_engraver::acknowledge_grob (Grob_info i)
       for  (int i = heads_to_tie_.size (); i--;)
 	{
 	  Grob *th =  heads_to_tie_[i];
-	  int staff_pos = gh_scm2int (h->get_grob_property ("staff-position"));
-	  int left_staff_pos = gh_scm2int (th->get_grob_property ("staff-position"));
+	  int staff_pos = int (Staff_symbol_referencer::get_position (h));
+	  int left_staff_pos = int (Staff_symbol_referencer::get_position (th));
+	  
 	  if (staff_pos == left_staff_pos)
 	    {
 	      Grob * p = new Spanner (get_property ("Tie"));

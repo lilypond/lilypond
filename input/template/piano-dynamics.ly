@@ -1,4 +1,4 @@
-\version "1.9.8"
+\version "2.1.1"
 \header {
 texidoc ="
   Template that puts dynamics on a separate line, so it is neatly
@@ -48,7 +48,7 @@ pedal = \notes {
       \consists "Dynamic_engraver"
       \consists "Text_engraver"
 
-      TextScript \override #'font-relative-size = #1
+      TextScript \override #'font-size = #2
       TextScript \override #'font-shape = #'italic
       DynamicText \override #'extra-offset = #'(0 . 2.5)
       Hairpin \override #'extra-offset = #'(0 . 2.5)

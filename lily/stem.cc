@@ -479,16 +479,21 @@ Stem::position_noteheads (Grob*me)
 	      Real l = Note_head::head_extent (heads[i], X_AXIS).length ();
 
 	      Direction d = get_direction (me);
-	      /* reversed head should be shifted l-thickness, but this looks
-		 too crowded, so we only shift l-0.5*thickness.
-		 Notice that this leads to assymetry: Normal heads overlap
-		 the stem 100% whereas reversed heads only overlaps the stem
-		 50% */
-	      #define magic 0.5
-	      heads[i]->translate_axis ((l-thick*magic) * d, X_AXIS);
+	      /*
+		Reversed head should be shifted l-thickness, but this
+		looks too crowded, so we only shift l-0.5*thickness.
+
+		This leads to assymetry: Normal heads overlap the
+		stem 100% whereas reversed heads only overlaps the
+		stem 50%
+
+	      */
+
+	      Real reverse_overlap =0.5;
+	      heads[i]->translate_axis ((l-thick*reverse_overlap) * d, X_AXIS);
 
 	      if (invisible_b(me))
-		heads[i]->translate_axis (-thick*(2-magic) * d , X_AXIS);
+		heads[i]->translate_axis (-thick*(2 - reverse_overlap) * d , X_AXIS);
 
 	      
 	     /* TODO:

@@ -168,6 +168,7 @@ Translator_group::try_music (Music* m)
   
   if (!hebbes_b && daddy_trans_)
     hebbes_b = daddy_trans_->try_music (m);
+  
   return hebbes_b ;
 }
 
@@ -189,7 +190,7 @@ Translator_group::get_ancestor (int level)
 void
 Translator_group::terminate_translator (Translator*r)
 {
-  r->removal_processing ();
+  r->finalize ();
   /*
     Return value ignored. GC does the rest.
    */
@@ -395,7 +396,7 @@ Translator_group::initialize ()
 void
 Translator_group::finalize ()
 {
-  each (&Translator::removal_processing);
+  each (&Translator::finalize);
 }
 
 

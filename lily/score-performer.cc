@@ -98,7 +98,7 @@ void
 Score_performer::finish ()
 {
   check_removal ();
-  removal_processing ();
+  finalize ();
 }
 
 Music_output *

@@ -332,6 +332,12 @@ auto string-selecting mechanism selects the highest string with a fret
 not less than minimumFret")
 (translator-property-description 'minimumVerticalExtent number-pair?
 "minimum vertical extent, same format as VerticalExtent")
+(translator-property-description 'recordEventSequence procedure?
+				 "Upon termination of this context,
+this function is called with current context and a list of music
+objects.  The list of contains entries with start times, music objects
+and whether they're processed in this context.")
+
 (translator-property-description 'noDirection boolean? "Don't set directions by a2-engraver when part-combining.")
 (translator-property-description
  'originalCentralCPosition integer?

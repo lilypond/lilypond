@@ -32,6 +32,8 @@
 #include "scm-hash.hh"
 #include "ly-modules.hh"
 
+bool store_locations_global_b;
+
 
 /*
   no ! suffix since it doesn't modify 1st argument.
@@ -98,11 +100,11 @@ write_dependency_file (String fn,
 
 
 void
-Input_file_results::do_deps ()
+Input_file_results::do_deps (String output)
 {
   if (dependency_global_b)
     {
-      Path p = split_path (output_name_global);
+      Path p = split_path (output);
       p.ext = "dep";
       write_dependency_file (p.to_string (),
 			     target_strings_,
@@ -110,37 +112,8 @@ Input_file_results::do_deps ()
     }
 }
 
-
-void
-Input_file_results::do_scores ()
-{
-  if (header_ == SCM_EOL)
-    header_ = ly_make_anonymous_module ();
-
-  for (int i=0; i < scores_.size (); i++)
-    {
-      Score* is = scores_[i];
-      is->input_file_ = this;
-      
-      if (is->errorlevel_)
-	{
-	  is->warning (_ ("Score contains errors; will not process it"));
-	  exit_status_global |= 1;
-	}
-      else
-	{
-	  is->process ();
-	}
-    }
-  do_deps ();
-}
-
 Input_file_results::~Input_file_results ()
 {
-  for (int i=0; i < scores_.size (); i++)
-    scm_gc_unprotect_object (scores_[i]->self_scm ());
-  scores_.clear ();
-  
   inclusion_names_.clear ();
   if (header_)
     header_ = SCM_EOL;
@@ -154,43 +127,45 @@ Input_file_results::~Input_file_results ()
 
 Input_file_results* global_input_file;
 
-Input_file_results::Input_file_results (String init_string, String file_string)
+Input_file_results::Input_file_results (String init, String in_file, String out_file)
 {
-  header_ = SCM_EOL;
+  header_ = ly_make_anonymous_module ();
   global_input_file = this;
-  
+  score_count_ = 0;
   sources_.set_path (&global_path);
   
-  My_lily_parser parser (this);
 
-  progress_indication (_f ("Now processing: `%s'", file_string.to_str0 ()));
+  progress_indication (_f ("Now processing: `%s'", in_file.to_str0 ()));
   progress_indication ("\n");
-  parser.parse_file (init_string, file_string);
+
+  My_lily_parser parser (this);
+  parser.parse_file (init, in_file, out_file);
   
   if (parser.error_level_)
     {
       exit_status_global  = 1;
     }
-  else
-    do_scores ();
+
   
+  do_deps (out_file);
 }
 
 
 void
-do_one_file (String init_string, String file_string) 
+do_one_file (String init, String in_file, String out_file) 
 {
-   if (init_string.length () && global_path.find (init_string).empty_b ())
+  if (init.length () && global_path.find (init).empty_b ())
     {
-      warning (_f ("can't find file: `%s'", init_string));
+      warning (_f ("can't find file: `%s'", init));
       warning (_f ("(search path: `%s')", global_path.to_string ().to_str0 ()));
       return;
     }
-  if ((file_string != "-") && global_path.find (file_string).empty_b ())
+
+  if ((in_file != "-") && global_path.find (in_file).empty_b ())
     {
-      warning (_f ("can't find file: `%s'", file_string));
+      warning (_f ("can't find file: `%s'", in_file));
       return;
     }
 
-  Input_file_results inp_file(init_string, file_string);
+  Input_file_results inp_file (init, in_file, out_file);
 }
