@@ -95,7 +95,7 @@ Input::error (String s) const
 void
 Input::non_fatal_error (String s) const
 {
-  message (_ ("Non fatal error: ") + s);
+  message (_ ("non fatal error: ") + s);
 }
 String
 Input::location_str () const

@@ -26,7 +26,7 @@ Time_signature_engraver::do_process_music()
   if (!result)
     {
       warning (_ ("lost in time:"));
-      warning (_f ("Can't find: `%s'", " Timing_translator"));
+      warning (_f ("can't find: `%s'", " Timing_translator"));
       return ;
     }
   

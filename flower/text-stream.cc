@@ -19,7 +19,7 @@ Text_stream::Text_stream (String fn)
   if (!f)
     {
       cerr << __FUNCTION__ 
-	   << ": " << _f ("Can't open file: `%s'", fn) << '\n';
+	   << ": " << _f ("can't open file: `%s'", fn) << '\n';
       exit (1);
     }
 

@@ -10,6 +10,7 @@
 #include "engraver.hh"
 #include "bar.hh"
 #include "dimension-cache.hh"
+#include "directional-element-interface.hh"
 #include "timing-translator.hh"
 #include "text-item.hh"
 #include "side-position-interface.hh"
@@ -20,7 +21,8 @@
 /*
   TODO:
 
-    * padding
+    * align over full score
+    * text aligment: left, centred, right
     * merge with/derive from/add functionality to Bar_script_engraver
  */
 
@@ -105,28 +107,73 @@ Staff_margin_engraver::create_text (SCM text)
       // 'just to be sure': see Clef_item::do_add_processing
       l->add_dependency (t);
 
-      announce_element (Score_element_info (t, 0));
 
       /*
 	Hmm.
 	In almost every score that uses "instrument" and "instr"
 	we need two different paddings.
 	Let's try one of those first:
-	   instrumentScriptPadding/instrScriptPadding
-       */
+	instrumentScriptPadding/instrScriptPadding
+      */
       SCM s = get_property (String (now_mom () ? "instr" : "instrument")
 			    + "ScriptPadding");
       if (!gh_number_p (s))
 	s = get_property (type_ + "ScriptPadding");
+
+      Real padding = 0;
       if (gh_number_p (s))
+	padding = gh_scm2double (s);
+  
+      s = get_property (type_ + "ScriptTextStyle");
+      if (gh_string_p (s))
+	t->set_elt_property ("style", s);
+
+      s = get_property (type_ + "ScriptHorizontalAlignment");
+      /*
+        Allow centred,
+       */
+      if (gh_number_p (s) && !gh_scm2int (s))
 	{
-	  //t->set_elt_property ("padding", s);
-	  t->translate_axis (-gh_scm2double (s), X_AXIS);
+	  t->set_elt_property ("self-alignment-X", gh_int2scm (0));
+	  t->add_offset_callback (Side_position_interface::aligned_on_self, X_AXIS);
+	  /*
+%	    Centred is still broken, it always requires proper padding.
+	   */
+	  padding *= -1;
+	  if (padding)
+	    t->translate_axis (padding, X_AXIS);
 	}
+      /*
+	left or right alignment.
+      */
+      else
+	{
+	  side_position (t).set_axis (X_AXIS);
+	  side_position (t).add_support (l);
+      
+	  Direction d;
+	  if (isdir_b (s))
+	    d = to_dir (s);
+	  /*
+	    By default, align at left edge of Left_edge_item,
+	    (which makes text right-aligned)
+	    so that we don't collide with staff.
+	  */
+	  else
+	    d = LEFT;
+	  
+	  directional_element (t).set (d);
+	  padding *= -d;
+	  if (padding)
+	    t->set_elt_property ("padding", gh_double2scm (padding));
+	}
+
+
+      announce_element (Score_element_info (t, 0));
       text_p_ = t;
     }
-  //text_p_->set_elt_property ("style", s);
-  //text_p_->set_elt_property ("direction", gh_int2scm (RIGHT));
+
+
   text_p_->set_elt_property ("text", text);
 }
 

@@ -19,7 +19,7 @@ Change_iterator::error (String reason)
   String to_type = t->change_to_type_str_;
   String to_id =  t->change_to_id_str_;
 
-  String warn1 = _f ("Can't change `%s' to `%s'", to_type, to_id) 
+  String warn1 = _f ("can't change `%s' to `%s'", to_type, to_id) 
     + ": " + reason;
   /*
     GUHG!

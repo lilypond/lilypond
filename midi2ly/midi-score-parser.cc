@@ -21,7 +21,7 @@ Midi_score_parser::open (String filename_str, Sources* sources_l)
 {
   info_l_->source_l_ = sources_l->get_file_l (filename_str);
   if (!info_l_->source_l_)
-    ::error (_f ("Can't find file: `%s'", filename_str));
+    ::error (_f ("can't find file: `%s'", filename_str));
   info_l_->byte_L_ = (Byte const*)info_l_->source_l_->ch_C ();
   info_l_->end_byte_L_ = info_l_->byte_L_ + info_l_->source_l_->length_i () + 1;
 }
@@ -55,7 +55,7 @@ Midi_score_parser::parse_header ()
     exit (_("invalid number of tracks"));
   info_l_->division_1_i_ = get_i (2) * 4;
   if (info_l_->division_1_i_ < 0)
-    exit (_ ("Can't handle non-metrical time"));
+    exit (_ ("can't handle non-metrical time"));
   // ugh
   Duration::division_1_i_s = info_l_->division_1_i_;
   forward_byte_L (length_i - 6);

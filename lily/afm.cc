@@ -39,7 +39,7 @@ Adobe_font_metric::find_ascii_metric (int a , bool warn) const
     }
   else if (warn )
     {
-      warning (_f ("Can't find character number: %d", a));
+      warning (_f ("can't find character number: %d", a));
     }
 
   return 0;
@@ -52,7 +52,7 @@ Adobe_font_metric::find_char_metric (String nm, bool warn) const
     {
       if (warn)
 	{
-	  warning (_f ("Can't find character called: `%s'", nm.ch_C()));
+	  warning (_f ("can't find character called: `%s'", nm.ch_C()));
 	}
       return 0;
     }

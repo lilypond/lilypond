@@ -29,8 +29,8 @@
 /*
   TODO:
 
-  * fix vertical placement of orphaned items
-  * fix padding 
+  * padding of orphaned items
+  * direction of orphaned items
  */
 
 class Dynamic_line_spanner : public Spanner
@@ -99,7 +99,6 @@ protected:
   virtual void do_process_music ();
   virtual void do_pre_move_processing ();
   virtual void do_post_move_processing ();
-  virtual void typeset_element (Score_element*);
 };
 
 ADD_THIS_TRANSLATOR (Dynamic_engraver);
@@ -174,7 +173,6 @@ Dynamic_engraver::do_process_music ()
       line_spanner_ = new Dynamic_line_spanner;
       assert (pending_column_);
       line_spanner_->add_column (pending_column_);
-      side_position (line_spanner_).set_axis (Y_AXIS);
       announce_element (Score_element_info
 			(line_spanner_,
 			 text_req_l_ ? text_req_l_ : span_req_l_drul_[START]));
@@ -188,12 +186,37 @@ Dynamic_engraver::do_process_music ()
       pending_element_arr_.clear ();
     }
 
-  if (span_req_l_drul_[START] || text_req_l_)
+  if (span_req_l_drul_[START] || span_req_l_drul_[STOP] || text_req_l_)
     last_request_mom_ = now_mom ();
   else
-    pending_element_arr_.clear ();
+    {
+      for (int i = 0; i < pending_element_arr_.size (); i++)
+	{
+	  Score_element* e = pending_element_arr_[i];
+	  side_position (e).set_axis (Y_AXIS);
+	  side_position (e).add_staff_support ();
 
-  
+	  /*
+	    UGH UGH 
+	   */
+	  Direction d = directional_element (e).get ();
+	  if (!d)
+	    {
+	      SCM s = get_property ("dynamicDirection");
+	      if (!isdir_b (s))
+		s = get_property ("verticalDirection");
+	      if (isdir_b (s))
+		d = to_dir (s);
+	      directional_element (e).set (d);
+	    }
+	  
+	  SCM s = get_property ("dynamicPadding");
+	  if (gh_number_p (s))
+	    e->set_elt_property ("padding", s);
+	}
+      pending_element_arr_.clear ();
+    } 
+
   if (text_req_l_)
     {
       String loud = text_req_l_->text_str_;
@@ -204,10 +227,12 @@ Dynamic_engraver::do_process_music ()
       text_p_->set_elt_property ("style", gh_str02scm ("dynamic"));
       text_p_->set_elt_property ("script-priority",
 					  gh_int2scm (100));
+      if (Direction d=text_req_l_->get_direction ())
+	directional_element (text_p_).set (d);
       pending_element_arr_.push (text_p_);
       text_p_->set_elt_property ("self-alignment-Y", gh_int2scm (0));
       text_p_->add_offset_callback (Side_position_interface::aligned_on_self,
-		Y_AXIS);
+				    Y_AXIS);
       announce_element (Score_element_info (text_p_, text_req_l_));
     }
 
@@ -305,7 +330,6 @@ Dynamic_engraver::do_pre_move_processing ()
   typeset_all ();
 }
 
-
 void
 Dynamic_engraver::do_removal_processing ()
 {
@@ -318,16 +342,10 @@ Dynamic_engraver::do_removal_processing ()
   typeset_all ();
   if (line_spanner_)
     {
+      side_position (line_spanner_).add_staff_support ();
       typeset_element (line_spanner_);
       line_spanner_ = 0;
     }
-}
-
-void
-Dynamic_engraver::typeset_element (Score_element* e)
-{
-  side_position (e).add_staff_support ();
-  Engraver::typeset_element (e);
 }
 
 void
@@ -352,6 +370,7 @@ Dynamic_engraver::typeset_all ()
       * continue through piece */
   if (line_spanner_ && last_request_mom_ < now_mom ())
     {
+      side_position (line_spanner_).add_staff_support ();
       typeset_element (line_spanner_);
       line_spanner_ = 0;
     }

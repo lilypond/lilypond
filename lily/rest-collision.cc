@@ -86,14 +86,6 @@ Rest_collision::before_line_breaking ()
   // meisjes met meisjes
   if (!ncol_l_arr.size()) 
     {
-
-      /*
-	Oeps, nu zie ik 't pas: colommen met noten.
-	Het commentaar, dat ik ooit geschreven had: meisjes met meisjes,
-	is achterhaald: urg.
-
-       */
-
       Moment m = rhythmic_head2mom (col2rhythmic_head (rest_l_arr[0]));
       int i = 1;
       for (; i < rest_l_arr.size (); i++)
@@ -112,20 +104,12 @@ Rest_collision::before_line_breaking ()
       int display_count;
       SCM s = get_elt_property ("maximum-rest-count");
       if (i == rest_l_arr.size ()
-	  && gh_number_p (s) && gh_int2scm (s) < rest_l_arr.size ())
+	  && gh_number_p (s) && gh_scm2int (s) < rest_l_arr.size ())
 	{
-	  display_count = gh_int2scm (s);
-#if 0
-	  /*
-	    Setting surplus rests to transparent.
-	    Only really necessary for maximum-rest-count == 0,
-	    because rests wil be set at exact the same position
-	    and thus overlap.
-	  */
-	  for (i--;i > display_count; i--)
+	  display_count = gh_scm2int (s);
+	  for (; i > display_count; i--)
 	    col2rhythmic_head (rest_l_arr[i-1])
 	      ->set_elt_property ("transparent", SCM_BOOL_T);
-#endif
 	}
       else
 	display_count = rest_l_arr.size ();

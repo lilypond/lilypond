@@ -108,7 +108,7 @@ Mudela_stream::open()
 {
   os_p_ = new ofstream (filename_str_.ch_C ());
   if  (!*os_p_)
-    error (_f ("Can't open file: `%s'",  filename_str_));
+    error (_f ("can't open file: `%s'",  filename_str_));
 }
 
 void

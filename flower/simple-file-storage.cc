@@ -41,7 +41,7 @@ Simple_file_storage::load_file (String s)
 
   if (!f)
     {
-      warning (_f ("Can't open file: `%s'", s));
+      warning (_f ("can't open file: `%s'", s));
       return ;
     }
 

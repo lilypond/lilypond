@@ -3,6 +3,8 @@ flauti = \notes \relative c' {
   \property Staff.instr		= #"Fl."
   c1 
   \break c
+%  \break c
+%  \break c
   \bar"|.";
 }
 
@@ -61,7 +63,8 @@ violino2 = \notes \relative c' {
 viola = \notes \relative c' {
   \property Staff.instrument	= #"Viola"
   \property Staff.instr		= #"Vla."
-  c1 c
+  c1 c 
+  %c
 }
 
 violoncello = \notes \relative c' {
@@ -120,7 +123,10 @@ violoncello = \notes \relative c' {
     \translator {
       \ScoreContext
       instrumentScriptPadding = #55  %% urg, this is in pt
-      instrScriptPadding = #25
+      instrScriptPadding = #35
+      marginScriptHorizontalAlignment = #1
+      %marginScriptPadding = #15
+      %marginScriptHorizontalAlignment = #0
     }
   }
 }

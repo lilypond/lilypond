@@ -101,7 +101,7 @@ All_font_metrics::find_font (String name)
   if (f)
     return f;
 
-  warning (_f ("Can't find font: `%s'", name.ch_C ()));
+  warning (_f ("can't find font: `%s'", name.ch_C ()));
   warning (_ ("Loading default font"));
   
   String def_name = default_font_sz_;
@@ -117,8 +117,8 @@ All_font_metrics::find_font (String name)
   if (f)
     return f;
 
-  error (_f ("Can't find default font: `%s'", def_name.ch_C ()));
-  error (_f ("(search path: `%s'", search_path_.str ()));
+  error (_f ("can't find default font: `%s'", def_name.ch_C ()));
+  error (_f ("(search path: `%s')", search_path_.str ()));
   error (_ ("Giving up"));
 
   return 0;

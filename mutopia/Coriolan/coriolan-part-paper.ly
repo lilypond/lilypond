@@ -1,11 +1,10 @@
 \paper {
+	textheight = 295.0\mm;
+	linewidth = 180.0\mm;
+
 	% slurs are never beautiful (no steep slurs)
 	slur_beautiful = 0.0;
-	\translator { 
-		\OrchestralPartStaffContext 
-      		instrumentScriptPadding = #55  %% urg, this is in pt
-      		instrScriptPadding = #25  %% urg, this is in pt
-	}
+
 	\translator {
 		\VoiceContext
 		\name "VoiceOne";
@@ -29,6 +28,10 @@
 		\StaffContext
 		\accepts "VoiceOne";
 		\accepts "VoiceTwo";
+      		instrumentScriptPadding = #55  %% urg, this is in pt
+      		instrScriptPadding = #35  %% urg, this is in pt
+		maximumRestCount = #1
 	}
+	\translator { \OrchestralPartStaffContext }
 	\translator { \ScoreContext skipBars = ##t }
 }

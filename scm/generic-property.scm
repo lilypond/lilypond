@@ -54,15 +54,15 @@
 
 (define generic-crescendo-properties
   (cons "Crescendo" (list
-		     (list 'dynamicDirection dir? 'direction)
 		     (list 'verticalDirection dir? 'direction)
+		     (list 'dynamicDirection dir? 'direction)
 		     (list 'dynamicPadding number? 'padding) 
 		     )))
   
 (define generic-dynamic-line-spanner-properties
   (cons "Dynamic_line_spanner" (list
-		     (list 'dynamicDirection dir? 'direction)
 		     (list 'verticalDirection dir? 'direction)
+		     (list 'dynamicDirection dir? 'direction)
 		     (list 'dynamicPadding number? 'padding) 
 		     )))
   
