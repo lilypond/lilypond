@@ -1,5 +1,8 @@
 2003-04-11  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* python/lilylib.py (setup_temp): temporary directories are mode 700.
+	(this is a security vulnerability).
+
 	* Documentation/user/lilypond.tely: remove abbreviations (n't, 's)
 
 	* lily/multi-measure-rest-engraver.cc (stop_translation_timestep):
