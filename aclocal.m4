@@ -1,3 +1,5 @@
+dnl WARNING WARNING WARNING WARNING
+dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
 dnl aclocal.m4   -*-shell-script-*-
 dnl StepMake subroutines for configure.in
 
@@ -165,8 +167,8 @@ AC_DEFUN(AC_STEPMAKE_GUILE, [
     # gh_scm2doubles,gh_doubles2scm are new in 1.3
     GUILE_FLAGS
     AC_CHECK_LIB(guile, gh_scm2doubles,
-      LIBS="`echo $GUILE_LDFLAGS | sed -e 's/-L[[[/-_a-zA-Z0-9]]]\+ //g'` $LIBS";
-      AC_DEFINE(HAVE_LIBGUILE), , $GUILE_LDFLAGS dnl
+      [LIBS="`echo $GUILE_LDFLAGS | sed -e 's/-L[[/-_a-zA-Z0-9]]\+ //g'` $LIBS"
+      AC_DEFINE(HAVE_LIBGUILE)], , $GUILE_LDFLAGS dnl
     )
     if test "$ac_cv_lib_guile_gh_scm2doubles" != yes ; then
 	AC_STEPMAKE_WARN(You should install guile 1.3 or newer)
@@ -358,8 +360,8 @@ AC_DEFUN(AC_STEPMAKE_LEXYACC, [
     AC_CHECK_SEARCH_RESULT($FLEX,  flex, Please install Flex, 2.5 or newer)
 
     if test $BISON != "error"; then
-	bison_version=`$BISON --version| sed 's/^.*version 1.//g' `
-	if test $bison_version -lt 25; then
+	bison_version=`$BISON --version | sed 's/^.*version 1.//g'`
+	if test `echo $bison_version | sed 's/\..*$//g'` -lt 25; then
 	    AC_STEPMAKE_WARN(Your bison is a bit old (1.$bison_version). You might have to install 1.25)
 	fi	
     fi
@@ -652,6 +654,39 @@ AC_DEFUN(AC_CHECK_SEARCH_RESULT, [
 	fi
 ])
 
+dnl   GUILE_FLAGS --- set flags for compiling and linking with Guile
+dnl
+dnl   This macro runs the `guile-config' script, installed with Guile,
+dnl   to find out where Guile's header files and libraries are
+dnl   installed.  It sets two variables, marked for substitution, as
+dnl   by AC_SUBST.
+dnl   
+dnl     GUILE_CFLAGS --- flags to pass to a C or C++ compiler to build
+dnl             code that uses Guile header files.  This is almost
+dnl             always just a -I flag.
+dnl   
+dnl     GUILE_LDFLAGS --- flags to pass to the linker to link a
+dnl             program against Guile.  This includes `-lguile' for
+dnl             the Guile library itself, any libraries that Guile
+dnl             itself requires (like -lqthreads), and so on.  It may
+dnl             also include a -L flag to tell the compiler where to
+dnl             find the libraries.
+
+AC_DEFUN([GUILE_FLAGS],[
+## The GUILE_FLAGS macro.
+  ## First, let's just see if we can find Guile at all.
+  AC_MSG_CHECKING(for Guile)
+  guile-config link > /dev/null || {
+    echo "configure: cannot find guile-config; is Guile installed?" 1>&2
+    exit 1
+  }
+  GUILE_CFLAGS="`guile-config compile`"
+  GUILE_LDFLAGS="`guile-config link`"
+  AC_SUBST(GUILE_CFLAGS)
+  AC_SUBST(GUILE_LDFLAGS)
+  AC_MSG_RESULT(yes)
+])
+
 
 # Configure paths for GTK+
 # Owen Taylor     97-11-3
@@ -678,7 +713,7 @@ dnl
     LIBS="$LIBS $GTK_LIBS"
 dnl
 dnl Now check if the installed GTK is sufficiently new. (Also sanity
-dnl checks the results of gtk-config to some extent
+dnl checks the results of gtk-config to some extent)
 dnl
     AC_TRY_RUN([
 #include <gtk/gtk.h>
@@ -759,7 +794,7 @@ AC_DEFUN(AM_PATH_GTKMM,
 [dnl 
 
 dnl
-dnl Check check if the installed GTK-- is sufficiently new.
+dnl Check if the installed GTK-- is sufficiently new.
 dnl
   AC_PATH_PROG(GTKMM_CONFIG, gtkmm-config, no)
   min_gtkmm_version=ifelse([$1], ,0.9.14,$1)
@@ -948,7 +983,7 @@ dnl
     LIBS="$LIBS $GTK___LIBS"
 dnl
 dnl Now check if the installed GTK__ is sufficiently new. (Also sanity
-dnl checks the results of gtk__-config to some extent
+dnl checks the results of gtk__-config to some extent)
 dnl
     AC_TRY_RUN([
 #include <gtk--.h>
