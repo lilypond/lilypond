@@ -45,50 +45,14 @@ error_t(String const & s, Time_description const &t_tdes)
 }
 
 void
-message( String message_str, char const* context_ch_C )
-{
-    String str = "";
-    Source_file* sourcefile_l = source_l_g->sourcefile_l( context_ch_C );
-    if ( sourcefile_l ) {
-	str += sourcefile_l->file_line_no_str(context_ch_C) + String(": ");
-    }
-    str += message_str;
-    if ( sourcefile_l ) {
-	str += ":\n";
-	str += sourcefile_l->error_str( context_ch_C );
-    }
-    if ( busy_parsing() )
-    	cerr << endl;
-    cerr << str << endl;
-}
-
-void
-warning( String message_str, char const* context_ch_C )
-{
-    message( "warning: " + message_str, context_ch_C );
-}
-
-void
-error( String message_str, char const* context_ch_C )
-{
-    message( message_str, context_ch_C );
-    // since when exits error again?
-    // i-d say: error: errorlevel |= 1; -> no output upon error
-    //          warning: recovery -> output (possibly wrong)
-/*    if ( lexer )
-        lexer->errorlevel_i_ |= 1;*/
-//    exit( 1 );
-}
-
-
-void
 warning(String m)
 {
-    warning(m, (char*)0);
+    cerr << "warning" <<m <<endl;
+
 }
 
 void
 message(String m)
 {
-    error(m, (char*)0);
+    cerr << m<<endl;
 }

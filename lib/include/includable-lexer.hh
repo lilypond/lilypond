@@ -28,6 +28,7 @@ protected:
     Array<Source_file*> include_stack_;
     Array<int> char_count_stack_;
 public:
+    Source_file* source_file_l()const;
     void new_input(String s,Sources*);
     Includable_lexer();
     ~Includable_lexer();

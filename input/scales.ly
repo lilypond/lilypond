@@ -1,12 +1,15 @@
+%
+% scales with accents.
+%
 
-blah = \staff{  "melodic" 
+blah = \staff{  melodicregs
 	\melodic {
 		\duration { 8 }		  \meter {6/8}	
  		
 		\octave{ c }
-			 |[ a cr a a a a a a a rc a ]6/9 
+			 |[ a cr a a a a a a a rc a ff decr ]6/9 
 			\octave{ c }
-			 |[ a decr a a a a a a a rc a ]6/9 
+			 |[ a  a a a a a a a rc a ]6/9 
 			\octave { c' } 
 			 [ 'c 'g d a e' b' f'' c''' g''' ]6/9
 			 [ g''' c''' f'' b' e' a d 'g 'c ]6/9
@@ -23,7 +26,7 @@ blah = \staff{  "melodic"
 			 [ d' g c ]2/3  
 			 [ f c' g' ]2/3 
 			 [ g' c' f ]2/3 
- [ g' c' f ]2/3 
+			 [ g' c' f ]2/3 
   \meter {4/4}
 	
 c1

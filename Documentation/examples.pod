@@ -12,6 +12,9 @@ each file:
 	tested LilyPond features.
 	copyright info
 
+Most music distributed with LilyPond was composed a long time ago, and
+do not have copyrights. Any exceptions are mentioned here.
+
 =head2 F<cadenza.ly>
 
 A cadenza to Mozart Horn concerto no. 3. 
@@ -31,7 +34,7 @@ Features: pushgroup, popgroup.
 
 =head2 F<error.ly>
 
-Error messages, context errors.
+Features: Error messages, context errors.
 
 =head2 F<fugue1.midi.ly>
 

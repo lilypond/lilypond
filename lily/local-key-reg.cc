@@ -64,7 +64,7 @@ Local_key_register::process_requests()
 	if (key_C_)  
 	    local_key_.reset(*key_C_);
 	else if( time_C_->when_ >Moment(0))
-	    warning ("Help me! can't figure  current key", (const char*)0);
+	    warning ("Help me! can't figure  current key");
     }
 }
 IMPLEMENT_STATIC_NAME(Local_key_register);

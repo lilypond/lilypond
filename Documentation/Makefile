@@ -20,7 +20,7 @@ include ./$(depth)/make/Files.make
 
 #
 
-OUTPODFILES = $(patsubst %,$(outdir)/%,$(PODFILES))
+OUTPODFILES = $(addprefix $(outdir)/,$(PODFILES))
 TEXTFILES = $(OUTPODFILES:.pod=.text)
 GROFFFILES = $(OUTPODFILES:.pod=.1)
 HTMLFILES = $(OUTPODFILES:.pod=.html)
@@ -32,11 +32,10 @@ EXTRA_DISTFILES = lelie_icon.gif lelie_logo.gif
 #
 
 default: do-doc
-
+	echo $(TEXTFILES) $(OUTPODFILES) $(PODFILES)
 do-doc: $(TEXTFILES)
 
-html: $(pod)
-	pod2html
+html: $(HTMLFILES)
 
 htmldist: html
 	./$(lily_bindir)/make_website
@@ -49,7 +48,7 @@ include ./$(depth)/make/Rules.make
 #
 
 localclean:
-	rm -f $(TEXTFILES) $(HTMLFILES) $(GROFFFILES)
+	rm -f $(TEXTFILES) $(HTMLFILES) $(GROFFFILES) $(HTMLFILES)
 
 localinstall: $(outdir)/lilypond.1 $(outdir)/mudela.5
 	$(INSTALL) -d $(mandir)/man5

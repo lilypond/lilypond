@@ -49,7 +49,7 @@ Text_item::Text_item(Text_req* treq_l, int staffsize_i)
 void
 Text_item::set_default_index()
 {
-    pos_i_  = (dir_i_ > 0) ? staffsize_i_ + 2: -4;
+    pos_i_  = (dir_i_ > 0) ? staffsize_i_ + 4: -4;
 }
 
 void
@@ -63,10 +63,10 @@ Molecule*
 Text_item::brew_molecule_p() const
 {
     Molecule* mol_p = new Molecule(tdef_p_->create_atom(paper()));
-    mol_p->translate(Offset(0, pos_i_ * paper()->internote()));
 
-    if(dir_i_<0)
-	mol_p->translate(Offset(0, -mol_p->extent().y.length() ));
+    if(dir_i_<0 )		// should do something better anyway.
+	mol_p->translate(Offset(0, -mol_p->extent().y.left ));
+    mol_p->translate(Offset(0, pos_i_ * paper()->internote()));
     
     return mol_p;
 }

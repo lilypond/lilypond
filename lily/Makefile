@@ -14,10 +14,10 @@ depth = ..
 
 # generic variables:
 #
+include Stable.make
 include ./$(depth)/make/Variables.make
 include ./$(depth)/make/Files.make 
 include .version
-include Stable.make
 #
 
 # identify module:
@@ -39,11 +39,9 @@ EXTRA_DISTFILES = .version
 
 # list of custom libraries:
 #
-# yes, i know about the -L and -l options,
-# but these libraries get rebuilt when needed.
-CUSTOMLIBES = $(LIBLILY) $(LIBFLOWER)
+MODULE_LIBDEPS= check-flower-deps check-lily-deps
+MODULE_LIBES= -llily -lflower
 
-LOADLIBES +=
 #
 
 # main target of this module:

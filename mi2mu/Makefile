@@ -46,11 +46,8 @@ DISTFILES = Makefile .version $(ALL_SOURCES)
 
 # list of custom libraries:
 #
-# yes, i know about the -L and -l options,
-# but these libraries get rebuild when needed.
-CUSTOMLIBES = $(LIBLILY) $(LIBFLOWER) 
-
-LOADLIBES +=
+MODULE_LIBDEPS=check-flower-deps check-lily-deps
+MODULE_LIBES=-llily -lflower
 #
 
 # main target of this module:

@@ -1,4 +1,3 @@
-#ifdef STRING_TEST
 /*
   stupid test program to verify stringlib
   stringtest.cc
@@ -127,5 +126,4 @@ main()
     return 0;
 }
 
-#endif STRING_TEST
 

@@ -87,7 +87,7 @@ friend class String_handle;
 #ifndef INLINE
 #define INLINE inline
 #endif
-#include "string-data.inl"
+#include "string-data.icc"
 
 #endif
 

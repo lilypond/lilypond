@@ -45,8 +45,6 @@ extension ".cc".
 
 Inline definition files always have the file name extension ".icc".
 
-Template include files always have the file name extension ".tcc".
-
 
 =head2 INDENTATION
 
@@ -191,7 +189,7 @@ existed. I feel so stupid and ashamed!
 
 =head2 Disadvantages
 
-=over 4
+=over 5
 
 =item *
 
@@ -231,7 +229,7 @@ remains an issue.
 
 =head2 Proposal
 
-=over 4
+=over 5
 
 =item *
 
@@ -256,7 +254,7 @@ with the parts of the names separated by underscores.
 
 =head2 Types
 
-=over 4
+=over 5
 
 =item C<byte>
 
@@ -312,7 +310,7 @@ unsigned integer
 The following types modify the meaning of the prefix. 
 These are precede the prefixes:
 
-=over 4
+=over 5
 
 =item C<a>
 
@@ -346,7 +344,7 @@ reference
 
 =back
 
-=over 4
+=over 5
 
 =item C<loop_i>
 

@@ -7,7 +7,7 @@
 %
 % 
 % The purpose of this file is to demonstrate features of LilyPond;
-% respect the copyright.
+% respect the copyright. %% VAAG!
 %
 % \barnumbering5
 % \barnumberstyle\boxed
@@ -15,13 +15,13 @@
 globalmusic= \melodic{
 		\meter {2/4}
 %		\key fis
-		\skip {56*2}
+		\skip {2*56}
 %		\key bes es as
-		\skip {8*2}
+		\skip {2*8}
 		\meter {6/8}
-		\skip{ 48*8}
+		\skip{ 8*48}
 		\meter {2/4}
-		\skip {16*2}
+		\skip {2*16}
 %		\key fis
 }
 
@@ -31,10 +31,10 @@ include "mlvio2.ly"
 include "mlcello.ly"
 
 \score{
-	\staff{ globalmusic alto }
-	\staff{ globalmusic violinI }
-	\staff{ globalmusic violinII }
-	\staff{ globalmusic cello }
+	\staff{ melodicregs globalmusic alto }
+	\staff{melodicregs  globalmusic violinI }
+	\staff{ melodicregs globalmusic violinII }
+	\staff{ melodicregs globalmusic cello }
 	\paper{
 		\unitspace 24\mm
 		\width 195\mm

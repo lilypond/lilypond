@@ -61,7 +61,7 @@ CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG a
 
 
 
-25/Mar/97                LilyPond 0.0.46                        1
+3/Apr/97                 LilyPond 0.0.47                        1
 
 
 
@@ -71,6 +71,7 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
 
 
                /usr/local/man/man1/lilypond.1
+               /usr/local/lib/libflower.{so,a}
                /usr/local/bin/lilypond
                /usr/local/bin/mi2mu
                /usr/local/share/lilypond/*
@@ -101,6 +102,7 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
 
        other options include:
 
+               --enable-shared
                --enable-printing
                --enable-optimise
                --enable-profiling
@@ -122,12 +124,10 @@ RRRRUUUUNNNNNNNNIIIINNNNGGGG
 
        +o A fast computer (a full page of music typically takes 1
             minute on my 486/66, using the --------eeeennnnaaaabbbblllleeee----cccchhhheeeecccckkkkiiiinnnngggg
-            compile. It's lot slower than most MusiXTeX
-            preprocessors)
 
 
 
-25/Mar/97                LilyPond 0.0.46                        2
+3/Apr/97                 LilyPond 0.0.47                        2
 
 
 
@@ -135,6 +135,9 @@ RRRRUUUUNNNNNNNNIIIINNNNGGGG
 
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
+
+            compile. It's lot slower than most MusiXTeX
+            preprocessors)
 
        +o TeX
 
@@ -190,9 +193,6 @@ AAAAUUUUTTTTHHHHOOOORRRRSSSS
 
 
 
-
-
-
-25/Mar/97                LilyPond 0.0.46                        3
+3/Apr/97                 LilyPond 0.0.47                        3
 
 

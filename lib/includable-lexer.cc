@@ -35,7 +35,7 @@ Includable_lexer::new_input(String s, Sources  * global_sources)
 }
 
 /** pop the inputstack.  conceptually this is a destructor, but it
-  does not destruct the Source_file it creates.  */
+  does not destruct the Source_file that Includable_lexer::new_input creates.  */
 bool
 Includable_lexer::close_input()
 {
@@ -74,4 +74,10 @@ void
 Includable_lexer::add_lexed_char(int count)
 {
     char_count_stack_.top() += count;
+}
+
+Source_file*
+Includable_lexer::source_file_l()const
+{
+    return include_stack_.top();
 }

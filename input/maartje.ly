@@ -13,7 +13,7 @@ globals=\melodic{
 		\meter {2/4}
 }
 
-ritme = \staff{
+ritme = \staff{melodicregs
  	globals
 % rhythmic broken for  now
 % 	\rhytmic{
@@ -31,7 +31,7 @@ ritme = \staff{
 % 	}
 }
 
-melody= \staff{
+melody= \staff{melodicregs
 	globals
 	\melodic{
 	c8\key{fis cis gis}

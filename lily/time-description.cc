@@ -46,7 +46,7 @@ Time_description::set_cadenza(bool b)
 {
     if (cadenza_b_ && !b) {
 	if (whole_in_measure_) {
-	    bars_i_ ++;
+	    bars_i_ ++;		// should do?
 	    whole_in_measure_ = 0;
 	}
     }
@@ -90,13 +90,27 @@ Time_description::allow_meter_change_b()
 {
     return!(whole_in_measure_);
 }
+
+/**
+  retrieve error messages.
+  @return 
+  error messages if not possible, "" if possible
+  */
+String
+Time_description::try_set_partial_str(Moment p)const
+{
+      if (when_)
+	return ("Partial measure only allowed at beginning.");
+    if (p<Rational(0))
+	return ("Partial must be non-negative");
+    if (p > whole_per_measure_)
+	return ("Partial measure too large");
+    return "";
+}
+
 void
 Time_description::setpartial(Moment p)
 {
-    if (when_)
-	error_t ("Partial measure only allowed at beginning.", *this);
-    if (p<Rational(0)||p > whole_per_measure_)
-	error_t ("Partial measure has incorrect size", *this);
     whole_in_measure_ = whole_per_measure_ - p;
 }
 
@@ -108,7 +122,7 @@ Time_description::barleft()
 }
 
 int
-Time_description::compare(Time_description &t1, Time_description&t2)
+Time_description::compare(Time_description const &t1,  Time_description const&t2)
 {
     int i = sign(t1.when_-t2.when_);
 

@@ -15,11 +15,17 @@
  */
 class Input {
     char const *defined_ch_C_ ;
-
+    Source_file * source_file_l_;
 public:
-    set_spot(char const *);
-    Input(char const *);
-    Input(Input const &);
+    
+    void warning(String)const; // should use member func?
+    void error(String)const;
+    void message(String)const;
+    void set_spot(Input const &);
+    
+    String location_str()const;
+    Input(Source_file*, char const*);
+    Input();
 };
 
 #endif // INPUT_HH

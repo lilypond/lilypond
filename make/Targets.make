@@ -7,7 +7,7 @@
 #   	Jan Nieuwenhuizen <jan@digicash.com>
 #	Han-Wen Nienhuys <hanwen@stack.nl>
 
-.PHONY : all clean config default dist doc doc++ dummy exe help lib TAGS
+.PHONY : all clean config default dist doc doc++ dummy exe help lib TAGS html
 
 # target all:
 #
@@ -29,7 +29,7 @@ include ./$(depth)/make/out/Site.make
 # dependency list of executable:
 #
 EXECUTABLE = $(lily_bindir)/$(NAME)
-$(EXECUTABLE): $(build) $(OFILES) $(CUSTOMLIBES) 
+$(EXECUTABLE): $(build) $(OFILES) $(MODULE_LIBDEPS) 
 	$(INCREASE_BUILD)
 	$(MAKE) -S $(OFILES)  $(SILENT_LOG)
 ifdef STABLEOBS
@@ -45,14 +45,19 @@ $(build): $(depth)/.version
 
 # dependency list of library:
 #
-LIBRARY = $(libdir)/$(LIB_PREFIX)$(NAME)$(LIB_SUFFIX)
-$(LIBRARY): $(build) $(OFILES) $(CUSTOMLIBES)
+LIBRARY = $(outdir)/$(LIB_PREFIX)$(NAME).a
+$(LIBRARY): $(build) $(OFILES) $(MODULE_LIBDEPS)
 	$(INCREASE_BUILD)
 	$(MAKE) $(OFILES)  $(SILENT_LOG)
 	$(AR_COMMAND) $(OFILES)
 	$(RANLIB_COMMAND)
 
-
+SHAREDLIBRARY=$(outdir)/$(LIB_PREFIX)$(NAME).so
+$(SHAREDLIBRARY):  $(build) $(OFILES) $(MODULE_LIBDEPS)
+	$(INCREASE_BUILD)
+	$(MAKE) $(OFILES)  $(SILENT_LOG)
+	$(LD_COMMAND) $(OFILES) -o $@
+#	ln -sf $(outdir)/$(LIB_PREFIX)$(NAME).so.$(VERSION) $(outdir)/$(LIB_PREFIX)$(NAME).so
 #
 lib: $(LIBRARY)
 #
@@ -187,7 +192,7 @@ localuninstall:
 $(LIBFLOWER): check-flower-deps
 
 check-flower-deps:
-	$(MAKE)  -C $(depth)/flower/ $(outdir)/$(notdir $(LIBFLOWER))
+	$(MAKE)  -C $(depth)/flower/ default
 
 check-lily-deps: check-flower-deps
 	$(MAKE)  -C $(depth)/lib
@@ -204,7 +209,8 @@ $(LIBLILY): dummy
 #rpm:	dist
 #	mv ./$(depth)/lilypond-$(TOPLEVEL_VERSION).tar.gz $(rpm-sources)
 rpm:
-	cp ./$(depth)/../releases/lilypond-$(TOPLEVEL_VERSION).tar.gz $(rpm-sources)
+	make -C ./$(depth) dist
+	cp $(depth)/lilypond-$(TOPLEVEL_VERSION).tar.gz $(rpm-sources)
 	cp $(doc-dir)/*.gif $(rpm-sources)
 	$(MAKE) -C $(make-dir) spec
 	rpm -ba $(makeout)/lilypond.spec

@@ -2,8 +2,11 @@
 # project  LilyPond -- the musical typesetter
 # title	   generic variables
 # file	   make/Variables.make
-# abstract do not change this file for site-wide extensions;
-#          please edit settings in User.make 
+# abstract 
+#
+# do not change this file for site-wide extensions; please use 
+# make/out/Site.make; 
+# Any change in files in this directory (make/) would be distributed.
 #
 # Copyright (c) 1997 by    
 #   	Jan Nieuwenhuizen <jan@digicash.com>
@@ -33,7 +36,6 @@ module-distdir = ./$(depth)/$(MODULE_DIST_NAME)
 depdir = $(outdir)
 flowerout = ./$(depth)/flower/$(outdir)
 libout = ./$(depth)/lib/$(outdir)
-libdir = $(outdir)
 lilyout = ./$(depth)/lily/$(outdir)
 mi2muout = ./$(depth)/mi2mu/$(outdir)
 makeout = ./$(depth)/make/$(outdir)
@@ -81,7 +83,7 @@ OFILEC = $(SOURCE_FILES:.c=.o)
 OFILECC = $(OFILEC:.cc=.o)
 OFILEL = $(OFILECC:.l=.o)
 OFILEY = $(OFILEL:.y=.o)
-OFILES = $(patsubst %,$(outdir)/%,$(OFILEY))
+OFILES = $(addprefix $(outdir)/,$(OFILEY))
 #
 
 # dummydeps
@@ -102,7 +104,7 @@ allexe = $(lily_bindir)/lilypond $(lily_bindir)/mi2mu
 allhh := $(shell $(FIND) -name "*.hh" $(ERROR_LOG))
 allcc := $(shell $(FIND) -name "*.cc" $(ERROR_LOG))
 allobs := $(shell $(FIND) $(outdir) -name "*.o" $(ERROR_LOG))
-allibs := $(shell $(FIND) $(libdir) -name "*.lib" $(ERROR_LOG))
+
 alldeps := $(shell $(FIND) $(outdir) -name "*.dep" $(ERROR_LOG))
 
 # version stuff:
@@ -122,11 +124,17 @@ LIBLILY = $(depth)/lib/$(outdir)/$(LIB_PREFIX)lily$(LIB_SUFFIX)
 #
 ARFLAGS = ru
 CFLAGS = $(DEFINES) $(INCLUDES) $(USER_CFLAGS) $(EXTRA_CFLAGS)
-CXXFLAGS = $(CFLAGS) $(USER_CXXFLAGS) $(EXTRA_CXXFLAGS)
+
+# added two warnings that are treated by cygwin32's gcc 2.7.2 as errors.
+# huh, but still, no warnings even provoced with linux's gcc 2.7.2.1?
+EXTRA_CXXFLAGS=-pipe -Wall -W -Wmissing-prototypes -Wmissing-declarations -Wconversion
+
+
+CXXFLAGS = $(CFLAGS) $(USER_CXXFLAGS) $(EXTRA_CXXFLAGS) $(MODULE_CXXFLAGS)
 INCLUDES = -Iinclude -I$(outdir) -I$(include-lib) -I$(libout) -I$(include-flower) -I$(flowerout) 
 CXX_OUTPUT_OPTION = $< -o $@
-LDFLAGS = $(EXTRA_LDFLAGS)
-LOADLIBES = $(EXTRA_LIBES) $(CUSTOMLIBES) -lg++ # need lg++ for win32, really!
+LDFLAGS = $(EXTRA_LDFLAGS) $(MODULE_LDFLAGS) -L $(depth)/lib/out -L $(depth)/flower/out
+LOADLIBES = $(EXTRA_LIBES) $(MODULE_LIBES) -lg++ # need lg++ for win32, really!
 #
 
 # librarian:
@@ -166,7 +174,11 @@ DODEP=rm -f $(depfile); DEPENDENCIES_OUTPUT="$(depfile) $(outdir)/$(notdir $@)"
 #
 EXECUTABLE = $(NAME)$(EXE)
 LIB_PREFIX = lib
+
+ifndef LIB_SUFFIX
 LIB_SUFFIX = .a
+endif
+
 LIBRARY = $(LIB_PREFIX)$(NAME)$(LIB_SUFFIX)
 #
 
@@ -176,13 +188,20 @@ DISTFILES=$(EXTRA_DISTFILES) Makefile $(ALL_SOURCES)
 DOCDIR=$(depth)/$(outdir)
 
 # .hh should be first. Don't know why
+# take some trouble to auto sources and obsolete stuff.
 progdocs=$(shell find -name '*.hh' |egrep -v 'obsolete/|out/') $(shell find -name '*.cc'|egrep -v 'out/|obsolete/')
+
+
+pod2html=pod2html
 pod2groff=pod2man --center="LilyPond documentation" --section="0"\
 	--release="LilyPond $(TOPLEVEL_MAJOR_VERSION).$(TOPLEVEL_MINOR_VERSION).$(TOPLEVEL_PATCH_LEVEL)" $< > $@
+
+
 STRIP=strip --strip-debug
 ifdef stablecc
  STABLEOBS=$(addprefix $(outdir)/,$(stablecc:.cc=.o))
 endif
-stablecc=
+
+# substitute $(STRIP) if you want stripping
 DO_STRIP=true
 

@@ -75,7 +75,6 @@ include           {
 	String s (YYText()+1);
 	s = s.left_str(s.length_i()-1);
 	mtor << "#include `" << s << "\'\n";
-//	defined_ch_C = here_ch_C() - String( YYText() ).length_i() - 1;
 	new_input(s,source_l_g);
 	yy_pop_state();
 }
@@ -231,7 +230,7 @@ include           {
 }
 
 <*>.		{
-	error( String( "illegal character: " ) + String( YYText()[0] ), here_ch_C() );
+	LexerError( String( "illegal character: " ) +String( YYText()[0] ));
 	return YYText()[0];
 }
 

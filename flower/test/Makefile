@@ -40,8 +40,6 @@ VERSION_DEPENDENCY = #
 
 # module compile settings: (not generally needed!
 #
-EXTRA_CFLAGS = -DSTRING_TEST
-#
 
 
 # list of distribution files:
@@ -50,9 +48,9 @@ EXTRA_DISTFILES = result
 
 # list of custom libraries:
 #
-CUSTOMLIBES = $(LIBFLOWER)\
 
-LOADLIBES +=
+MODULE_LIBDEPS=check-flower-deps
+MODULE_LIBES = -lflower
 #
 
 
