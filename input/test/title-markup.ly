@@ -6,18 +6,25 @@
    lilypond-bin -fps input/title/title-markup.ly
 
 
-for utopia font,
+PostScript fonts: WIP.
 
-   cp /usr/share/fonts/afms/adobe/putb8a.afm  -> mf/out/
-   cp /usr/share/fonts/afms/adobe/put8a.afm  -> mf/out/
-   cp /usr/share/fonts/default/ghostscript/put.pfa mf/out/put8a.pfa
-   cp /usr/share/fonts/default/ghostscript/putb.pfa mf/out/putb8a.pfa
+  * Nonstandardised install directory / how to locate a ps font?
+  * Nonstandardised filenames?
+
+For century schoolbook font:
+
+  Debian:
+    cp -pv /usr/share/fonts/type1/gsfonts/c*.{afm,pfb} mf/out
+
+  Red Hat (untested):
+    cp -pv /usr/share/fonts/afms/adobe/c*.afm mf/out/
+    cp -pv /usr/share/fonts/default/ghostscript/c*.pfb mf/out
 
 %}
 
 \paper{
     #(define page-breaking ly:optimal-page-breaks)
-	fonts = #(make-utopia-tree 1.0)
+	fonts = #(make-century-schoolbook-tree 1.0)
     inputencoding = #"latin1"
 }
 

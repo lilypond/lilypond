@@ -261,37 +261,38 @@
 		)))
      )))
 
-; (display (make-font-tree 1.0))
+;; (display (make-font-tree 1.0))
 
-(define-public (add-utopia-fonts node factor)
+;; Century Schoolbook fonts filenames on Debian/Sid
+(define-public (add-century-schoolbook-fonts node factor)
   
   (add-font node
 	    '((font-family . roman)
 	      (font-shape . upright)
 	      (font-series . medium)
 	      (font-encoding . text))
-	    `(10.0 . #(,(delay (ly:font-load "putr8a")))))
+	    `(10.0 . #(,(delay (ly:font-load "c059013l")))))
   
   (add-font node
 	    '((font-family . roman)
 	      (font-shape . italic)
 	      (font-series . medium)
 	      (font-encoding . text))
-	    `(10.0 . #(,(delay (ly:font-load "putri8a")))))
+	    `(10.0 . #(,(delay (ly:font-load "c059033l")))))
   
   (add-font node
 	    '((font-family . roman)
 	      (font-shape . upright)
 	      (font-series . bold)
 	      (font-encoding . text))
-	    `(10.0 . #(,(delay (ly:font-load "putb8a")))))
+	    `(10.0 . #(,(delay (ly:font-load "c059016l")))))
   
   (add-font node
 	    '((font-family . roman)
 	      (font-shape . italic)
 	      (font-series . bold)
 	      (font-encoding . text))
-	    `(10.0 . #(,(delay (ly:font-load "putbi8a")))))
+	    `(10.0 . #(,(delay (ly:font-load "c059036l")))))
   )
 
 
@@ -306,13 +307,13 @@
   ))
 
 
-(define-public (make-utopia-tree factor)
+(define-public (make-century-schoolbook-tree factor)
 
   (let
       ((n (make-font-tree-node 'font-encoding 'music)))
 
     (add-music-fonts n factor)
-    (add-utopia-fonts n factor)
+    (add-century-schoolbook-fonts n factor)
     n
   ))
 

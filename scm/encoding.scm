@@ -84,11 +84,10 @@ vector of symbols."
 	 ("TeX-text-without-f-ligatures" . "0ef0afca.enc")
 	 ("Extended-TeX-Font-Encoding---Latin" . "tex256.enc")
 	 ("AdobeStandardEncoding" . "8a.enc")
+
+	 ;; aliases
 	 ("T1" . "tex256.enc")
-
-	 ;; FIXME: find full Adobe; for testing -- almost Adobe:
-	 ("adobe" . "ad.enc")
-
+	 ("adobe" . "8a.enc")
 	 ("latin1" . "cork.enc")
 	 
 	 ;; LilyPond.
