@@ -1,7 +1,7 @@
 #include "proto.hh"
 #include "plist.hh"
 #include "debug.hh"
-#include "lexer.hh"
+#include "my-lily-lexer.hh"
 #include "moment.hh"
 #include "time-description.hh"
 #include "source-file.hh"
@@ -30,7 +30,7 @@ error(String s)
 }
 
 void
-error_t(const String& s, const Moment& r)
+error_t(String const & s, Moment const & r)
 {
     String t_mom = String(trunc(r)) + String(r - Moment(trunc(r)));
     String e=s+ " (t = " +  t_mom + ")";
@@ -38,7 +38,7 @@ error_t(const String& s, const Moment& r)
 }
 
 void
-error_t(const String& s, Time_description const &t_tdes)
+error_t(String const & s, Time_description const &t_tdes)
 {
     String e=s+ " (at t=" + String(t_tdes.bars_i_) + ": " + String(t_tdes.whole_in_measure_) + ")\n";
     error(e);
@@ -47,7 +47,7 @@ error_t(const String& s, Time_description const &t_tdes)
 void
 message( String message_str, char const* context_ch_c_l )
 {
-    String str = "lilypond: ";
+    String str = "";		//"lilypond: ";// GNU format messages!
     Source_file* sourcefile_l = source_l_g->sourcefile_l( context_ch_c_l );
     if ( sourcefile_l ) {
 	str += sourcefile_l->file_line_no_str(context_ch_c_l) + String(": ");
