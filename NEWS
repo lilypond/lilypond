@@ -1,3 +1,7 @@
+pl 17.mb1
+	- center the number of multi-bar rests
+	- Ugly fix to make \mark work and give better placement of dynamics.
+
 pl 16.jcn2
 	- fix: TEMPO 4., well urg, "TEMPO 4 ."
 	- beginning of violino/violoncello (viola) duet

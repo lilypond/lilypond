@@ -48,6 +48,7 @@ Multi_measure_rest::brew_molecule_p () const
       Text_def text;
       text.text_str_ = to_str (measures_i_);
       text.style_str_ = "number";
+      text.align_dir_ = CENTER;
       Atom s = text.get_atom (paper (), UP);
       s.translate_axis (3.0 * interline_f, Y_AXIS);
       mol_p->add_atom (s);
