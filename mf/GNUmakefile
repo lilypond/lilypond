@@ -57,7 +57,7 @@ INSTALLATION_OUT_FILES3=$(TFM_FILES)
 #MAKE_PFA_FILES=1
 
 
-SAUTER_FONT_FILES=cmbxti7 cmbxti8 cmbxti12  cmbxti14 cmcsc7 cmcsc12 cmtt17 cmbx17
+SAUTER_FONT_FILES=cmbxti7 cmbxti8 cmbxti12  cmbxti14 cmcsc7 cmcsc12 cmtt17 cmbx14 cmbx17
 PFA_FILES= $(addprefix $(outdir)/, $(addsuffix .pfa, $(SAUTER_FONT_FILES)) $(FONT_FILES:.mf=.pfa)) 
 
 ifdef MAKE_PFA_FILES
@@ -71,7 +71,7 @@ INSTALLATION_OUT_FILES5=$(outdir)/lilypond.map
 endif
 
 $(outdir)/lilypond.map: 
-	echo $(basename PFA_FILES:.pfa=) | tr ' ' '\n' | \
+	echo $(notdir $(PFA_FILES:.pfa=)) | tr ' ' '\n' | \
 		sed 's/\(.*\)/\1 \1 <\1.pfa/' > $@
 
 $(outdir)/fonts.scale:
