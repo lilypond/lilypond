@@ -413,7 +413,7 @@ with @samp{]}.
 a8[ ais] d[ es r d]
 @end lilypond
 
-For more information on beams, see @ref{Beaming}.
+For more information on beams, see @ref{Manual beams}.
 
 
 Here are key signatures, accidentals and ties in action
