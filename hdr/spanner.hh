@@ -8,46 +8,32 @@
 #define SPANNER_HH
 
 #include "proto.hh"
-#include "interval.hh"
+#include "staffelem.hh"
 
 /// a symbol which is attached between two columns.
-struct Spanner {
+struct Spanner:Staff_elem {
     PCol *left, *right;
-    PStaff * pstaff_;
-    Molecule *output ;
 
+    
     /****************/
-
-    String TeXstring () const ;
+    
     Spanner();
-    Paperdef *paper() const;
-    virtual ~Spanner();
-    virtual Interval height()const=0;
-    /**
-      PRE:
-      processed
-      */
-  /// do calcs
-    virtual void calculate();
-    /**
-      It is safe to call calculate multiple times on one object
-      */
-   virtual Interval width()const;
-    virtual void process();
-    virtual void preprocess();
+    virtual Interval width()const;
+    void print()const;
 
-
+    Spanner *broken_at(PCol *c1,  PCol *c2) const;
+protected:
     /// clone a piece of  this spanner.
-    virtual Spanner *broken_at( PCol *c1,  PCol *c2) const=0; 
+    virtual Spanner *do_break_at( PCol *c1,  PCol *c2) const=0; 
     /**
  
     PRE
     c1 >= start, c2  <= stop
     */
-    virtual void print() const;
 };
 /**
-  A spanner is a symbol whose appearance can only be calculated after the breaking problem is solved.
+  A spanner is a symbol whose final appearance can only be calculated
+  after the breaking problem is solved.
 
   Examples
 
