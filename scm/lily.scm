@@ -96,6 +96,16 @@
   "Return tail element of LST."
   (car (last-pair lst)))
 
+
+(define (flatten-list lst)
+  "Unnest LST" 
+  (if (null? lst)
+      '()
+      (if (pair? (car lst))
+	  (append (flatten-list (car lst)) (flatten-list  (cdr lst)))
+	  (cons (car lst) (flatten-list (cdr lst))))
+  ))
+
 (define (list-minus a b)
   "Return list of elements in A that are not in B."
   (if (pair? a)
@@ -321,6 +331,7 @@ is the  first to satisfy CRIT
        "output-lib.scm"
        "c++.scm"
        "chords-ignatzek.scm"
+       "chord-entry.scm"
        "double-plus-new-chord-name.scm"
        "molecule.scm"
        "bass-figure.scm"
@@ -363,6 +374,7 @@ is the  first to satisfy CRIT
    (,symbol? . "symbol")
    (,string? . "string")
    (,boolean? . "boolean")
+   (,ly:pitch? . "pitch")
    (,ly:moment? . "moment")
    (,ly:input-location? . "input location")
    (,music-list? . "list of music")

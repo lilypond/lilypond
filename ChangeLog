@@ -1,3 +1,10 @@
+2003-02-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/chord-entry.scm (construct-chord): move chord construction
+	Scheme.
+
+	* lily/parser.yy (new_chord): new setup for chord entry.
+
 2003-02-16  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lilypond.words:

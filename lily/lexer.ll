@@ -660,7 +660,7 @@ My_lily_lexer::scan_bare_word (String str)
 		} else if ((pitch = scm_hashq_get_handle (chordmodifier_tab_, sym))!= SCM_BOOL_F)
 		{
 		    yylval.scm = ly_cdr (pitch);
-		    return CHORDMODIFIER_PITCH;
+		    return CHORD_MODIFIER;
 		}
 	}
 
