@@ -1,3 +1,11 @@
+2003-09-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* make/lilypond.redhat.spec.in (Group): remove out=www for web-install 
+
+	* mf/GNUmakefile ($(outdir)/%.afm  $(outdir)/%.enc
+	$(outdir)/%.tex $(outdir)/%.dep $(outdir)/%list.ly): list.ly is a
+	target not a source.
+
 2003-09-27  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* GNUmakefile.in (web-install): Bugfix: set out prefix Similar to

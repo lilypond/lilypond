@@ -1688,7 +1688,7 @@ Then, an individual part is made by putting the following in a file:
   instrument = "Horn in F"
 @}
 \score @{
-  \notes \transpose c' f \hornNotes
+  \notes \transpose f c' \hornNotes
 @}
 @end example
 The @code{\include} command substitutes the contents of the file at

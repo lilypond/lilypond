@@ -108,6 +108,7 @@ $(outdir)/$(redhat-package):
 	wget  --passive-ftp -P $(outdir) ftp://ftp.lilypond.org/pub/LilyPond/binaries/RedHat-9/$(redhat-package)
 
 get-rpm-pfa: $(outdir)/$(redhat-package)
+	cd $(outdir) ; rm -rf usr/ # (root alert!) 
 	cd $(outdir) ; rpm2cpio $(redhat-package) | cpio -uid '*.pfa'
 	touch $(addprefix $(outdir)/, $(addsuffix .bla,$(SAUTER_FONTS)))
 	cp `find $(outdir)/usr/ -name '*.pfa'` $(outdir)/
@@ -118,7 +119,7 @@ get-pfa: get-rpm-pfa
 
 ##
 ## todo: this also depends on .tfm, FIXME.
-$(outdir)/%.afm  $(outdir)/%.enc  $(outdir)/%.tex $(outdir)/%.dep: $(outdir)/%.log $(outdir)/%.tfm $(outdir)/%list.ly
+$(outdir)/%.afm  $(outdir)/%.enc  $(outdir)/%.tex $(outdir)/%.dep $(outdir)/%list.ly: $(outdir)/%.log $(outdir)/%.tfm 
 	$(PYTHON) $(buildscript-dir)/mf-to-table.py --package=$(topdir) --outdir=$(outdir) --dep $(outdir)/$(<F:.log=.dep)  --afm $(outdir)/$(<F:.log=.afm)  --enc $(outdir)/$(<F:.log=.enc) --tex $(outdir)/$(<F:.log=.tex) --ly $(outdir)/$(<F:.log=list.ly) $<
 
 fontdir: $(addprefix $(outdir)/, lilypond.map lilypond.sfd private-fonts fonts.scale fonts.dir)
