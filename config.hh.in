@@ -92,5 +92,8 @@
 #endif
 #endif
 
+/* define if you have pango CVS */
+#define HAVE_PANGO_CVS 0
+
 /* define if you have pango_fc_font_map_add_decoder_find_func */
 #define HAVE_PANGO_FC_FONT_MAP_ADD_DECODER_FIND_FUNC 0
