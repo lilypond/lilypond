@@ -338,6 +338,7 @@ option_definitions = [
 	('', '', 'preview', _("Make a picture of the first system.")),
 	(_ ('RES'), '', 'preview-resolution', _("Set the resolution of the preview to RES.")),
 	('', 'P', 'postscript', _ ("generate PostScript output")),
+	('', '', 'pdf', _ ("generate PDF output")),	
 	(_ ("KEY=VAL"), 's', 'set', _ ("change global setting KEY to VAL")),
 	('', 'V', 'verbose', _ ("verbose")),
 	('', 'v', 'version', _ ("print version number")),
@@ -736,6 +737,9 @@ None.
 	if extra['orientation'] and extra['orientation'][0] == 'landscape':
 		opts = opts + ' -tlandscape'
 
+	if 'PDF' in targets:
+		opts = opts + '-Ppdf -G0 -u lilypond.map'
+		
 	cmd = 'dvips %s -o%s %s' % (opts, outbase + '.ps', outbase + '.dvi')
 	quiet_system (cmd, 'dvips')
 
@@ -743,6 +747,10 @@ None.
 		cmd = 'dvips -E -o%s %s' % ( outbase + '.preview.ps', outbase + '.preview.dvi')		
 		quiet_system (cmd, 'dvips for preview')
 
+	if 'PDF' in targets:
+		cmd = 'ps2pdf %s.ps %s.pdf' % (outbase , outbase)
+		quiet_system (cmd, 'ps2pdf')
+		
 def get_bbox (filename):
 	# cut & paste 
 	system ('gs -sDEVICE=bbox -q  -sOutputFile=- -dNOPAUSE %s -c quit > %s.bbox 2>&1 ' % (filename, filename))
@@ -853,6 +861,9 @@ for opt in options:
 	elif o == '--include' or o == '-I':
 		include_path.append (a)
 	elif o == '--postscript' or o == '-P':
+		targets.append ('PS')
+	elif o == '--pdf':
+		targets.append ('PDF')
 		targets.append ('PS')
 	elif o == '--keep' or o == '-k':
 		keep_temp_dir_p = 1

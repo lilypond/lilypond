@@ -12,7 +12,7 @@ if [ -z "$LILYPONDPREFIX" ]; then
     datadir=`echo "@local_lilypond_datadir@" | sed 's!//!/!g'`
 else
     if [ -d "$LILYPONDPREFIX/share" ]; then
-	datadir=$LILYPONDPREFIX
+	datadir=$LILYPONDPREFIX/share/lilypond/
     fi
     echo "Setting tree to $datadir"
 fi

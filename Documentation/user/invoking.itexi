@@ -259,8 +259,22 @@ files. The temporary directory is created in the current directory as @code{ly2d
 @item -o,--output=@var{file}
     Generate output to @var{file}.  The extension of @var{file} is ignored.
 @item -P,--postscript
-    Also generate PostScript output, using dvips.
-@item --preview
+    Also generate PostScript output, using dvips.  The postscript uses
+the standard @TeX{} bitmap fonts for your printer.
+@item --pdf
+    Also generate Portable Document Format (PDF). This option will
+generate a PS file using scalable fonts, and will run the PS file
+through @code{ps2pdf} producing a PDF file.
+
+@cindex PDF
+@cindex Scalable fonts
+    
+    If you use lilypond-book or your own wrapper files, don't use
+\use   package[[T1]{fontenc} in the file header but don't forget
+\usepackage[[latin1]{inputenc} if you use any other non-anglosaxian
+characters.
+
+    @item --preview
     Also generate a picture of the first system of the score.
 @item -s,--set=@var{key}=@var{val}
     Add @var{key}= @var{val} to the settings, overriding those specified
@@ -380,6 +394,14 @@ the @code{\paper} block.
 @table @code
 @item LANG
 selects the language for the warning messages of Ly2dvi and LilyPond.
+
+@item GUILE_MAX_SEGMENT_SIZE
+is an option for GUILE, the scheme interpreter; it sets the size of
+the chunks of memory allocated by GUILE.  By increasing this from its
+default 8388608, the performance of LilyPond on large scores is
+slightly improved.
+
+
 @end table
 
 
