@@ -1,3 +1,15 @@
+2002-09-05  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* input/test/custos.ly: updated test file to show all available
+	custos styles
+
+	* lily/custos.cc: small code clean-ups
+
+	* input/test/rests.ly: updated test file to show all available
+	rest styles
+
+	* mf/feta-eindelijk.mf: bugfix: added missing maxima rest
+
 2002-09-05  Rune Zedeler  <rune@zedeler.dk>
 
 	* scm/output-lib.scm (make-molecule-boxer): Fixed and moved from
