@@ -674,13 +674,16 @@ Stem::dim_callback (SCM e, SCM ax)
 {
   Axis a = (Axis) gh_scm2int (ax);
   assert (a == X_AXIS);
-  Grob *se = unsmob_grob (e);
+  Grob *me = unsmob_grob (e);
   Interval r (0, 0);
-  if (unsmob_grob (se->get_grob_property ("beam")) || abs (duration_log (se)) <= 2)
+  if (unsmob_grob (me->get_grob_property ("beam")) || abs (duration_log (me)) <= 2)
     ;	// TODO!
   else
     {
-      r = flag (se).extent (X_AXIS);
+      r = flag (me).extent (X_AXIS)
+	+
+	 gh_scm2double (me->get_grob_property ("thickness"))
+	* me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"))/2;
     }
   return ly_interval2scm (r);
 }
@@ -708,12 +711,17 @@ Stem::brew_molecule (SCM smob)
 
   if (!lh)
     return SCM_EOL;
+
+  if (invisible_b (me))
+    {
+      return SCM_EOL;
+    }
   
   Real y1 = Staff_symbol_referencer::get_position (lh);
   Real y2 = stem_end_position (me);
   
   Interval stem_y (y1 <? y2,y2 >? y1);
-
+ 
 
   // dy?
   Real dy = Staff_symbol_referencer::staff_space (me) * 0.5;
@@ -729,25 +737,25 @@ Stem::brew_molecule (SCM smob)
       y_attach = head_height.linear_combination (y_attach);
       stem_y[Direction (-d)] += d * y_attach/dy;
     }
-  
-  if (!invisible_b (me))
-    {
-      Real stem_width = gh_scm2double (me->get_grob_property ("thickness"))
-	// URG
-	* me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
-      Real blot = 
-	me->get_paper ()->get_realvar (ly_symbol2scm ("blotdiameter"));
-      Box b = Box (Interval (-stem_width/2, stem_width/2),
-		   Interval (stem_y[DOWN]*dy, stem_y[UP]*dy));
 
-      Molecule ss = Lookup::round_filled_box (b, blot);
-      mol.add_molecule (ss);
-    }
+  
+  // URG
+  Real stem_width = gh_scm2double (me->get_grob_property ("thickness"))
+    * me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
+  Real blot = 
+	me->get_paper ()->get_realvar (ly_symbol2scm ("blotdiameter"));
+  
+  Box b = Box (Interval (-stem_width/2, stem_width/2),
+	       Interval (stem_y[DOWN]*dy, stem_y[UP]*dy));
+
+  Molecule ss = Lookup::round_filled_box (b, blot);
+  mol.add_molecule (ss);
 
   if (!get_beam (me) && abs (duration_log (me)) > 2)
     {
       Molecule fl = flag (me);
-      fl.translate_axis (stem_y[d]*dy, Y_AXIS);
+      fl.translate_axis (stem_y[d]*dy - d * blot/2, Y_AXIS);
+      fl.translate_axis (stem_width/2, X_AXIS);
       mol.add_molecule (fl);
     }
 

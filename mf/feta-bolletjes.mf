@@ -65,8 +65,15 @@ else:
 		white:=white rotated inner_tilt;
 		white:=white shifted (w/2,0);
 fi
+
+	if test = 1:
+		pickup pencircle scaled 1;
+		draw black;
+		draw white;
+	else:
 		fill black;
 		unfill white;
+	fi	
 
 		
 	enddef;
@@ -145,9 +152,11 @@ fet_beginchar("Half notehead", "1",
 	% superness:=0.66;
 	superness:=0.67; % jcn
 	% ai_a:=0.863;
-	ai_a:=0.850; % jcn
+	% was 0.85
+	% set to 0.83 to avoid stem entering white part.
+	ai_a:=0.830; 
 	% ai_bi:=3.14;
-	ai_bi:=3.30; % jcn
+	ai_bi:=3.25;
 	err_y_ai:=0;
 	err_x_bi:=-0.12;
 	inner_tilt:=tilt;
@@ -158,6 +167,13 @@ fet_beginchar("Half notehead", "1",
 	notehead_calc;
 	half_notehead_width# := wd#;
 	notehead_draw;
+
+	define_pixels (wd);
+	if test = 1:
+		pickup penrazor scaled stemthickness;
+		draw (.5 stemthickness, -2 staff_space) ..
+		    (.5 stemthickness, - wd * (ypart dir (inner_tilt - 10)) /2);
+	fi;
 fet_endchar;
 
 
@@ -477,19 +493,6 @@ fet_beginchar("X-Circled notehead", "2xcircle", "xcircledhead")
 	draw (-xpos+w/2,ypos) -- (xpos+w/2,-ypos);
 fet_endchar;
 
-
-%%%%%%%%%%%%
-%
-%
-% ledger (leger) lines
-%
-fet_beginchar("Ledger ending", "ledgerending", "ledgerending")
-set_char_box (5/2 ledgerlinethickness#, 5/2 ledgerlinethickness#,
-  		ledgerlinethickness#/2,ledgerlinethickness#/2);
-
-
-	draw_rounded_block((-b,-d),(w,h), 0.8 ledgerlinethickness);
-fet_endchar;
 
 
 fet_endgroup("noteheads");
