@@ -265,3 +265,12 @@ unHideNotes =  \sequential {
 \property Voice.Beam \revert #'transparent
 \property Staff.Accidental \revert #'transparent
 }
+
+germanChords = {
+    \property ChordNames. chordRootNamer = #(chord-name->german-markup #t)
+    \property ChordNames. chordNoteNamer = #note-name->german-markup
+}
+semiGermanChords = {
+    \property ChordNames. chordRootNamer = #(chord-name->german-markup #f)
+    \property ChordNames. chordNoteNamer = #note-name->german-markup
+}

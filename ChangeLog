@@ -1,3 +1,10 @@
+2003-06-10  Rune Zedeler  <rune@zedeler.dk>
+
+	* ly/property-init.ly (germanChords): Added.
+	(semiGermanChords): Added.
+	
+	* input/test/chord-names-german.ly: Use new macros
+	
 2003-06-09  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-indent.el: Use similar parenthesis highlighting for 
