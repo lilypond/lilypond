@@ -2,7 +2,7 @@
 
 %define name lilypond
 %define version @TOPLEVEL_VERSION@
-%define release 4mdk
+%define release 1mdk
 
 Summary:	A program for printing sheet music.
 Name:		%{name}
@@ -33,7 +33,7 @@ If you are new to lilypond, you will almost certainly want to install the
 %package documentation
 Summary: LilyPond documentation, examples and Mutopia files.
 Group: Applications/Publishing
-Requires: lilypond
+Requires: %{name}
 
 %description documentation
 The documentation of LilyPond, both in HTML and PostScript, along with
@@ -96,11 +96,25 @@ tar -C web -xzf out/web.tar.gz
 
 mkdir -p $RPM_BUILD_ROOT%{_menudir}
 cat >$RPM_BUILD_ROOT%{_menudir}/%{name} <<EOF
-?package(%name): command="%{_bindir}/%{name}" needs="X11" \
-icon="%{name}.xpm" section="Applications/Publishing" \
-title="%{name}" longtitle="%{name}"
+?package(%name):\
+  command="info %{name}"\
+  needs="text"\
+  icon="%{name}.xpm"\
+  section="Documentation"\
+  title="%{name}-info"\
+  longtitle="%{name} Info"
 EOF
   
+cat >$RPM_BUILD_ROOT%{_menudir}/%{name}-documentation <<EOF
+?package(%name):\
+  command="\$BROWSER %{_docdir}/%{name}-documentation-%{version}/web/index.html"\
+  needs="X11"\
+  icon="%{name}.xpm"\
+  section="Documentation"\
+  title="%{name}-documentation"\
+  longtitle="%{name} Documentation"
+EOF
+
 # icon
 install -d $RPM_BUILD_ROOT/%{_miconsdir}
 install -d $RPM_BUILD_ROOT/%{_iconsdir}
@@ -166,6 +180,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc web/
 
 %changelog
+* Fri Dec 01 2002 Heikki Johannes Junes <hjunes@cc.hut.fi> 1.7.9-1mdk
+- set menu-items to lilypond-info and lilypond-documentation.
+
 * Fri Nov 30 2002 Heikki Johannes Junes <hjunes@cc.hut.fi> 1.7.8-4mdk
 - add pre/post-dependencies and menus with icon from source.
 
