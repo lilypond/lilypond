@@ -1,5 +1,8 @@
 2004-01-10  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/output-tex.scm (tex-encoded-fontswitch): use
+	round for rounding (inexact->exact yields rationals)
+
 	* lily/*.cc: remove superfluous start_translation_timestep() calls.
 
 	* lily/translator-group.cc (get_simple_trans_list): 

@@ -28,6 +28,7 @@
 (define (tex-encoded-fontswitch name-mag)
   (let* ((iname-mag (car name-mag))
 	 (ename-mag (cdr name-mag)))
+
     (cons iname-mag
 	  (cons ename-mag
 		(string-append  "magfont"
@@ -35,7 +36,7 @@
 			   (hashq (car ename-mag) 1000000))
 			  "m"
 			  (string-encode-integer
-			   (inexact->exact (* 1000 (cdr ename-mag)))))))))
+			   (inexact->exact (round (* 1000 (cdr ename-mag))))))))))
 
 (define (define-fonts internal-external-name-mag-pairs)
   (set! font-name-alist (map tex-encoded-fontswitch
@@ -113,7 +114,7 @@
    "\\font\\" command "="
    (car name-mag)
    " scaled "
-   (ly:number->string (inexact->exact (* 1000  (cdr name-mag))))
+   (ly:number->string (inexact->exact (round (* 1000  (cdr name-mag)))))
    "\n"))
 
 (define (ez-ball c l b)

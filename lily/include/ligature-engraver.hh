@@ -15,7 +15,6 @@ class Ligature_engraver : public Engraver
 {
 protected:
   virtual void stop_translation_timestep ();
-  virtual void start_translation_timestep ();
   virtual void finalize ();
 
   virtual void acknowledge_grob (Grob_info);
