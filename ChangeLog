@@ -18,6 +18,9 @@
 
 	* stepmake/stepmake/toplevel-targets.make: rpm-mandrake -> rpm-mdk.
 
+	* lily/piano-pedal-engraver.cc: fixed warnings, got working syntax
+	from lily/glissando-engraver.cc.
+
 2003-07-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/volta-bracket.cc (brew_molecule): opps: only wipe number
