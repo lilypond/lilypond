@@ -12,7 +12,7 @@ fi
 if [ ! -f autogen.sh -o stepmake/autogen.sh -nt autogen.sh ]; then
     echo "stepmake/autogen.sh is newer. Copying file." 
     cp -f stepmake/autogen.sh autogen.sh
-    exec ./autogen.sh
+    exec ./autogen.sh "$@"
 fi
 
 # Be paranoid: check for autoconf >= 2.50
