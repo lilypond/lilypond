@@ -52,7 +52,7 @@ Line_of_score::typeset_element (Score_element * elem_p)
 {
   elem_p->pscore_l_ = pscore_l_;
   Pointer_group_interface (this, "all-elements").add_element (elem_p);
-  scm_unprotect_object (elem_p->self_scm_);
+  scm_unprotect_object (elem_p->self_scm ());
 }
 
 void
@@ -235,7 +235,7 @@ Line_of_score::add_column (Paper_column*p)
 
 
 
-  me->set_elt_property ("columns",  gh_cons (p->self_scm_, cs));
+  me->set_elt_property ("columns",  gh_cons (p->self_scm (), cs));
 
   Axis_group_interface::add_element (me, p);
 }
@@ -272,7 +272,7 @@ Line_of_score::pre_processing ()
       Score_element * e = unsmob_element (gh_car (s));
       SCM proc = e->get_elt_property ("spacing-procedure");
       if (gh_procedure_p (proc))
-	gh_call1 (proc, e->self_scm_);
+	gh_call1 (proc, e->self_scm ());
     }
 }
 
@@ -364,13 +364,13 @@ Line_of_score::broken_col_range (Item const*l, Item const*r) const
   r = r->column_l ();
   SCM s = get_elt_property ("columns");
 
-  while (gh_pair_p (s) && gh_car (s) != r->self_scm_)
+  while (gh_pair_p (s) && gh_car (s) != r->self_scm ())
     s = gh_cdr  (s);
     
   if (gh_pair_p (s))
     s = gh_cdr (s);
   
-  while (gh_pair_p (s) && gh_car (s) != l->self_scm_)
+  while (gh_pair_p (s) && gh_car (s) != l->self_scm ())
     {
       Paper_column*c = dynamic_cast<Paper_column*> ( unsmob_element (gh_car (s)));
       if (Item::breakable_b (c) && !c->line_l_)

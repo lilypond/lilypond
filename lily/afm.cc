@@ -24,7 +24,16 @@ Adobe_font_metric::Adobe_font_metric (AFM_Font_info * fi)
       name_to_metric_dict_[c->name] = i;
     }
 }
-  
+
+
+SCM
+Adobe_font_metric::make_afm (AFM_Font_info *fi)
+{
+  Adobe_font_metric * fm = new Adobe_font_metric (fi);
+
+  return fm->smobbed_self();    
+}
+
 
 AFM_CharMetricInfo const *
 Adobe_font_metric::find_ascii_metric (int a , bool warn) const
@@ -74,7 +83,7 @@ Adobe_font_metric::get_char (int code, bool warn) const
     return Box (Interval (0,0),Interval(0,0));
 }
 
-Adobe_font_metric*
+SCM
 read_afm_file (String nm)
 {
   FILE *f = fopen (nm.ch_C() , "r");
@@ -89,7 +98,7 @@ read_afm_file (String nm)
     }
   fclose (f);
 
-  return new Adobe_font_metric (fi);
+  return Adobe_font_metric::make_afm (fi);
 }
 
   

@@ -156,8 +156,8 @@ Tie_engraver::process_acknowledged ()
 	    }
 	  else
 	    {
-	      head_list  = gh_cons (gh_cons (stopped_heads_[j].head_l_->self_scm_,
-					     now_heads_[i].head_l_->self_scm_),
+	      head_list  = gh_cons (gh_cons (stopped_heads_[j].head_l_->self_scm (),
+					     now_heads_[i].head_l_->self_scm ()),
 				    head_list);
 
 	      past_notes_pq_. insert (now_heads_[i]);
@@ -250,8 +250,8 @@ Tie_engraver::typeset_tie (Score_element *her)
       new_head_drul[d] = Tie::head(her,(Direction)-d);
   } while (flip(&d) != LEFT);
 
-  index_set_cell (her->get_elt_property ("heads"), LEFT, new_head_drul[LEFT]->self_scm_ );
-  index_set_cell (her->get_elt_property ("heads"), RIGHT, new_head_drul[RIGHT]->self_scm_ );
+  index_set_cell (her->get_elt_property ("heads"), LEFT, new_head_drul[LEFT]->self_scm () );
+  index_set_cell (her->get_elt_property ("heads"), RIGHT, new_head_drul[RIGHT]->self_scm () );
 
   typeset_element (her);
 }

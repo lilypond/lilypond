@@ -45,7 +45,7 @@ Beam::add_stem (Score_element*me, Score_element*s)
   s->add_dependency (me);
 
   assert (!Stem::beam_l (s));
-  s->set_elt_property ("beam", me->self_scm_);
+  s->set_elt_property ("beam", me->self_scm ());
 
   add_bound_item (dynamic_cast<Spanner*> (me), dynamic_cast<Item*> (s));
 }

@@ -39,7 +39,7 @@ Score::Score (Score const &s)
   : Input (s)
 {
   Music * m =unsmob_music (s.music_);
-  music_ =  m?m->clone()->self_scm_ : SCM_EOL;
+  music_ =  m?m->clone()->self_scm () : SCM_EOL;
   for (int i=0; i < s.def_p_arr_.size (); i++)
     def_p_arr_.push(s.def_p_arr_[i]->clone());
   errorlevel_i_ = s.errorlevel_i_;

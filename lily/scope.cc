@@ -14,12 +14,12 @@
 
 Scope::~Scope ()
 {
-  delete id_dict_;
+  scm_unprotect_object (id_dict_->self_scm ());
 }
 
 Scope::Scope (Scope const&s)
-  : id_dict_ (new Scheme_hash_table (*s.id_dict_))
 {
+  id_dict_ =new Scheme_hash_table (*s.id_dict_);
 }
 
 Scope::Scope ()
@@ -72,7 +72,7 @@ Scope::set (String s, SCM id)
 void
 Scope::set (String s, Identifier * id) 
 {
-  return id_dict_->set (ly_symbol2scm (s.ch_C()), smobify (id));
+  return id_dict_->set (ly_symbol2scm (s.ch_C()), id->self_scm ());
 }
 
 SCM

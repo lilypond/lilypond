@@ -18,22 +18,27 @@
 #include "font-metric.hh"
 #include "parse-afm.hh"
 
-struct Adobe_font_metric : Font_metric {
+struct Adobe_font_metric : Font_metric
+{
   AFM_Font_info * font_inf_;
-
-  Array<int> ascii_to_metric_idx_;
-  Dictionary<int> name_to_metric_dict_;
 
   Box get_char (int, bool) const;
   AFM_CharMetricInfo const *find_char_metric (String name, bool warn=true) const;
   AFM_CharMetricInfo const *find_ascii_metric (int, bool warn=true) const;  
 
   String str () const;
-  Adobe_font_metric (AFM_Font_info*);
   ~Adobe_font_metric ();
+  static SCM make_afm (AFM_Font_info*);
+
+protected:
+  Array<int> ascii_to_metric_idx_;
+  Dictionary<int> name_to_metric_dict_;
+
+  Adobe_font_metric (AFM_Font_info*);
+
 };
 
-Adobe_font_metric * read_afm_file (String fn);
+SCM read_afm_file (String fn);
 Box afm_bbox_to_box (AFM_BBox bb);
   
 

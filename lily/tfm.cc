@@ -57,6 +57,7 @@ Tex_font_metric::Tex_font_metric ()
 {
 }
 
+
 static Tex_font_char_metric dummy_static_char_metric;
 
 Tex_font_char_metric const *
@@ -89,11 +90,19 @@ Tex_font_metric::str () const
   return outstr;
 }
 
-void
-Tex_font_metric::clear (int n)
+
+
+
+SCM
+Tex_font_metric::make_tfm (String fn)
 {
-  for (int i=0; i < n; i++)
-    ascii_to_metric_idx_.push (-1);
+  Tex_font_metric	* tfm_p = new Tex_font_metric;
+  Tex_font_metric_reader reader (fn);
+
+  tfm_p->info_ = reader.info_;
+  tfm_p->header_ = reader.header_;
+  tfm_p->char_metrics_ = reader.char_metrics_;
+  tfm_p->ascii_to_metric_idx_ = reader.ascii_to_metric_idx_;
+  
+  return tfm_p->smobbed_self ();
 }
-
-

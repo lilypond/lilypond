@@ -38,7 +38,7 @@ void
 Tie::set_head (Score_element*me,Direction d, Item * head_l)
 {
   assert (!head (me,d));
-  index_set_cell (me->get_elt_property ("heads"), d, head_l->self_scm_);
+  index_set_cell (me->get_elt_property ("heads"), d, head_l->self_scm ());
   
   dynamic_cast<Spanner*> (me)->set_bound (d, head_l);
   me->add_dependency (head_l);

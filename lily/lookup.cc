@@ -34,16 +34,12 @@
 Lookup::Lookup ()
 {
   afm_l_ = 0;  
-  self_scm_ = SCM_EOL;
-  smobify_self ();  
 }
 
 Lookup::Lookup (Lookup const& s)
 {
   font_name_ = s.font_name_;
-  self_scm_ = SCM_EOL;
   afm_l_ = 0;
-  smobify_self ();
 }
 
 SCM
@@ -59,28 +55,16 @@ Lookup::print_smob (SCM s, SCM p, scm_print_state*)
   return 1;
 }
 
-SCM
-Lookup::equal_p (SCM a , SCM b)
-{
-  return a == b ? SCM_BOOL_T : SCM_BOOL_F;
-}
-
-void
-Lookup::do_smobify_self ()
-{
-  
-}
 
 IMPLEMENT_UNSMOB(Lookup, lookup);
-IMPLEMENT_SMOBS(Lookup);
+IMPLEMENT_SIMPLE_SMOBS(Lookup);
+IMPLEMENT_DEFAULT_EQUAL_P(Lookup);
 
 SCM
 Lookup::make_lookup ()
 {
   Lookup * l = new Lookup;
-  SCM ls = l->self_scm_;
-  scm_unprotect_object (ls);
-  return ls;
+  return l->smobbed_self();
 }
 
 

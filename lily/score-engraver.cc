@@ -35,9 +35,8 @@ Score_engraver::prepare (Moment w)
   SCM props = get_property (ly_symbol2scm ("basicPaperColumnProperties"));
   set_columns (new Paper_column (props),  new Paper_column (props));
   
-  SCM when = smobify (new Moment (w));
-  command_column_l_->set_elt_property ("when", when);
-  musical_column_l_->set_elt_property ("when", when);
+  command_column_l_->set_elt_property ("when", w.make_scm());
+  musical_column_l_->set_elt_property ("when", w.make_scm());
   command_column_l_->set_elt_property ("breakable", SCM_BOOL_T);
   
   Score_element_info i1(command_column_l_, 0), i2 (musical_column_l_,0);
@@ -206,9 +205,9 @@ Score_engraver::set_columns (Paper_column *new_command_l,
     }
 
   if (new_musical_l)
-    set_property ("currentMusicalColumn", new_musical_l->self_scm_);
+    set_property ("currentMusicalColumn", new_musical_l->self_scm ());
   if (new_command_l)
-    set_property ("currentCommandColumn", new_command_l->self_scm_);  
+    set_property ("currentCommandColumn", new_command_l->self_scm ());  
 }
 
 Music_output*

@@ -111,10 +111,10 @@ Break_align_engraver::acknowledge_element (Score_element_info inf)
 	  */
 	  edge->set_extent_callback (Score_element::point_dimension_callback,X_AXIS);
 	  
-	  align_l_->set_elt_property ("group-center-element", edge->self_scm_);
+	  align_l_->set_elt_property ("group-center-element", edge->self_scm ());
 
 	  announce_element (edge, 0);
-	  column_alist_ = scm_assoc_set_x (column_alist_, edge_sym, edge->self_scm_);
+	  column_alist_ = scm_assoc_set_x (column_alist_, edge_sym, edge->self_scm ());
 	}
 
       SCM s = scm_assoc (align_name, column_alist_);
@@ -136,7 +136,7 @@ Break_align_engraver::acknowledge_element (Score_element_info inf)
 	  group->set_elt_property ("break-align-symbol", align_name);
 	  group->set_parent (align_l_, Y_AXIS);
 	  announce_element (group, 0);
-	  column_alist_ = scm_assoc_set_x (column_alist_, align_name, group->self_scm_);
+	  column_alist_ = scm_assoc_set_x (column_alist_, align_name, group->self_scm ());
 	}
       Axis_group_interface::add_element (group, item_l);
     }

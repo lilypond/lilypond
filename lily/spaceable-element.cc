@@ -27,7 +27,7 @@ Spaceable_element::add_rod (Score_element *me , Score_element * p, Real d)
   for (SCM s = mins; gh_pair_p (s); s = gh_cdr (s))
     {
       SCM dist = gh_car (s);
-      if (gh_car (dist) == p->self_scm_)
+      if (gh_car (dist) == p->self_scm ())
 	{
 	  gh_set_cdr_x (dist, scm_max (gh_cdr (dist),
 				       newdist));
@@ -35,7 +35,7 @@ Spaceable_element::add_rod (Score_element *me , Score_element * p, Real d)
 	}
     }
 
-  mins = gh_cons (gh_cons (p->self_scm_, newdist), mins);
+  mins = gh_cons (gh_cons (p->self_scm (), newdist), mins);
   me->set_elt_property ("minimum-distances", mins);
 }
 
@@ -47,7 +47,7 @@ Spaceable_element::add_spring (Score_element*me, Score_element * p, Real d, Real
   for (SCM s = mins; gh_pair_p (s); s = gh_cdr (s))
     {
       SCM dist = gh_car (s);
-      if (gh_car (dist) == p->self_scm_)
+      if (gh_car (dist) == p->self_scm ())
 	{
 	  programming_error("already have that spring");
 	  return ;
@@ -55,7 +55,7 @@ Spaceable_element::add_spring (Score_element*me, Score_element * p, Real d, Real
     }
   SCM newstrength= gh_double2scm (strength);  
   
-  mins = gh_cons (gh_cons (p->self_scm_, gh_cons (newdist, newstrength)), mins);
+  mins = gh_cons (gh_cons (p->self_scm (), gh_cons (newdist, newstrength)), mins);
   me->set_elt_property ("ideal-distances", mins);
 }
 

@@ -60,8 +60,8 @@ list is alphabetically ordered.
 
    * Stephen Peters <portnoy@ai.mit.edu>,     pdfTeX support
 
-   * Glen Prideaux <glenprideaux@iname.com>,     minor bug fix to
-     script used to generate doc++ documentation
+   * Glen Prideaux <glenprideaux@iname.com>,     minor bug fixes,
+     lyric-phrasing.
 
    * Roy R. Rankin <Roy.Rankin@alcatel.com.au>,     major extension,
      fixes to abc2ly, lilypond bug fixes

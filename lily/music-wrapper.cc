@@ -27,7 +27,7 @@ Music_wrapper::transpose (Musical_pitch p)
 
 Music_wrapper::Music_wrapper(Music*p)
 {
-  set_mus_property ("element", p->self_scm_);
+  set_mus_property ("element", p->self_scm ());
 }
 
 Moment

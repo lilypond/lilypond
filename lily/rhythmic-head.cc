@@ -51,7 +51,7 @@ Rhythmic_head::dot_count (Score_element*me)
 void
 Rhythmic_head::set_dots (Score_element*me,Item *dot_l)
 {
-  me->set_elt_property ("dot", dot_l->self_scm_);
+  me->set_elt_property ("dot", dot_l->self_scm ());
 }
 
 

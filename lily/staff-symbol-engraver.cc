@@ -70,7 +70,7 @@ Staff_symbol_engraver::do_removal_processing()
 void
 Staff_symbol_engraver::acknowledge_element (Score_element_info s)
 {
-  s.elem_l_->set_elt_property ("staff-symbol", span_p_->self_scm_);
+  s.elem_l_->set_elt_property ("staff-symbol", span_p_->self_scm ());
   s.elem_l_->add_dependency (span_p_); // UGH. UGH. UGH 
 }
 

@@ -54,7 +54,7 @@ Spacing_spanner::do_measure (Score_element*me, Link_array<Score_element> cols)
       if (dynamic_cast<Paper_column*> (cols[i])->musical_b ())
 	{
 	  SCM  st = cols[i]->get_elt_property ("shortest-starter-duration");
-	  Moment this_shortest = (*SMOB_TO_TYPE(Moment, st));
+	  Moment this_shortest = *unsmob_moment(st);
 	  shortest = shortest <? this_shortest;
 	  if (!mean_shortest.infty_b ())
 	    {

@@ -75,12 +75,11 @@ Timing_translator::do_process_music()
 	{
 	  if (measure_position ())
 	    {
+	      Moment nm; 
 	      tr_l ->origin ()->warning (_f ("barcheck failed at: %s", 
 				  measure_position ().str ()));
 	      // resync
-	      daddy_trans_l_->set_property("measurePosition",
-					   smobify (new Moment));
-
+	      daddy_trans_l_->set_property("measurePosition", nm.make_scm ());
 	    }
 	}
     }
@@ -122,11 +121,12 @@ ADD_THIS_TRANSLATOR(Timing_translator);
 void
 Timing_translator::do_creation_processing()
 {
+  Moment m;
   daddy_trans_l_->set_property ("timing" , SCM_BOOL_T);  
   daddy_trans_l_->set_property ("currentBarNumber" , gh_int2scm (1));
-  daddy_trans_l_->set_property ("measurePosition", smobify (new Moment));
-  daddy_trans_l_->set_property ("beatLength", smobify (new Moment (1,4)));
-  daddy_trans_l_->set_property ("measureLength", smobify (new Moment (1)));
+  daddy_trans_l_->set_property ("measurePosition", m.make_scm ());
+  daddy_trans_l_->set_property ("beatLength", Moment (1,4).make_scm ());
+  daddy_trans_l_->set_property ("measureLength",  Moment (1).make_scm());
 }
 
 Moment
@@ -145,8 +145,8 @@ Timing_translator::set_time_signature (int l, int o)
 {
   Moment one_beat = Moment (1)/Moment (o);
   Moment len = Moment (l) * one_beat;
-  daddy_trans_l_->set_property ("measureLength", smobify (new Moment (len)));
-  daddy_trans_l_->set_property ("beatLength", smobify (new Moment (one_beat)));
+  daddy_trans_l_->set_property ("measureLength", len.make_scm ());
+  daddy_trans_l_->set_property ("beatLength", one_beat.make_scm ());
 }
 
 Timing_translator::Timing_translator()
@@ -160,9 +160,9 @@ Timing_translator::measure_position () const
   SCM sm = get_property ("measurePosition");
   
   Moment m   =0;
-  if (SMOB_IS_TYPE_B (Moment, sm))
+  if (unsmob_moment (sm))
     {
-      m = *SMOB_TO_TYPE (Moment, sm);
+      m = *unsmob_moment(sm);
       while (m < Moment (0))
 	m += measure_length ();
     }
@@ -192,21 +192,19 @@ Timing_translator::do_post_move_processing()
   if (!dt)
     return;
 
-  Moment * measposp =0;
+  Moment measposp;
 
   SCM s = get_property ("measurePosition");
-  if (SMOB_IS_TYPE_B (Moment, s))
+  if (unsmob_moment (s))
     {
-      measposp = SMOB_TO_TYPE (Moment,s);
+      measposp = *unsmob_moment(s);
     }
   else
     {
-      measposp = new Moment;
-      daddy_trans_l_->set_property ("measurePosition", smobify (measposp));
+      daddy_trans_l_->set_property ("measurePosition", measposp.make_scm());
     }
   
-  *measposp += dt;
-  // don't need to set_property
+  measposp += dt;
   
   SCM barn = get_property ("currentBarNumber");
   int b = 0;
@@ -219,12 +217,13 @@ Timing_translator::do_post_move_processing()
   bool c= to_boolean (cad );
 
   Moment len = measure_length ();
-  while (c && *measposp >= len)
-      {
-	*measposp -= len;
-	b ++;
-      }
+  while (c && measposp >= len)
+    {
+      measposp -= len;
+      b ++;
+    }
 
   daddy_trans_l_->set_property ("currentBarNumber", gh_int2scm (b));
+  daddy_trans_l_->set_property ("measurePosition", measposp.make_scm());
 }
 

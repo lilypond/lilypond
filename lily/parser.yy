@@ -289,9 +289,9 @@ toplevel_expression:
 		Identifier * id = new
 			Music_output_def_identifier ($1, MUSIC_OUTPUT_DEF_IDENTIFIER);
 		if (dynamic_cast<Paper_def*> ($1))
-			THIS->lexer_p_->set_identifier ("$defaultpaper", smobify (id));
+			THIS->lexer_p_->set_identifier ("$defaultpaper", id->self_scm ());
 		else if (dynamic_cast<Midi_def*> ($1))
-			THIS->lexer_p_->set_identifier ("$defaultmidi", smobify (id));
+			THIS->lexer_p_->set_identifier ("$defaultmidi", id->self_scm ());
 	}
 	| embedded_scm {
 		// junk value
@@ -357,8 +357,17 @@ assignment:
 		THIS->remember_spot ();
 	}
 	/* cont */ '=' identifier_init  {
-	    THIS->lexer_p_->set_identifier (ly_scm2string ($1), $4);
+	        THIS->lexer_p_->set_identifier (ly_scm2string ($1), $4);
 
+/*
+ TODO: devise standard for protection in parser.
+		if (SCM_NIMP($4))
+			scm_unprotect_object ($4);
+
+  The parser stack lives on the C-stack, which means that
+all objects can be unprotected as soon as they're here.
+
+*/
 		Identifier * id =unsmob_identifier ($4);
 		Input spot = THIS->pop_spot ();
 		if (id) id->set_spot (spot);
@@ -369,24 +378,22 @@ assignment:
 
 identifier_init:
 	score_block {
-		$$ = smobify (new Score_identifier ($1, SCORE_IDENTIFIER));
+		$$ = (new Score_identifier ($1, SCORE_IDENTIFIER))->self_scm();
 	}
 	| output_def {
-		$$ = smobify (new Music_output_def_identifier ($1, MUSIC_OUTPUT_DEF_IDENTIFIER));
+		$$ = (new Music_output_def_identifier ($1, MUSIC_OUTPUT_DEF_IDENTIFIER))->self_scm();
 	}
 	| translator_spec_block {
-		$$ = smobify (new Translator_group_identifier ($1, TRANS_IDENTIFIER));
+		$$ = (new Translator_group_identifier ($1, TRANS_IDENTIFIER))->self_scm();
 	}
 	| Music  {
-		$$ = $1->self_scm_;
-		scm_unprotect_object ($$);
+		$$ = $1->self_scm ();
 	}
 	| post_request {
-		$$ = $1->self_scm_;
-		scm_unprotect_object ($$);
+		$$ = $1->self_scm ();
 	}
 	| explicit_duration {
-		$$ = smobify (new Duration_identifier ($1, DURATION_IDENTIFIER));
+		$$ = (new Duration_identifier ($1, DURATION_IDENTIFIER))->self_scm ();
 	}
 	| number_expression {
 		$$ = $1;
@@ -477,8 +484,8 @@ score_body:
 		$$ = new Score;
 
 		$$->set_spot (THIS->here_input ());
-		SCM m = $1->self_scm_;
-		scm_unprotect_object (m);
+		SCM m = $1->self_scm ();
+//		scm_unprotect_object (m);
 		$$->music_ = m;
 	}
 	| SCORE_IDENTIFIER {
@@ -554,9 +561,10 @@ music_output_def_body:
 		dynamic_cast<Midi_def*> ($$)->set_tempo ($2->dur_.length_mom (), $2->metronome_i_);
 	}
 	| music_output_def_body bare_int '=' FONT STRING		{ // ugh, what a syntax
-		Lookup * l =unsmob_lookup (Lookup::make_lookup());
+		SCM sl = Lookup::make_lookup();
+		Lookup * l =unsmob_lookup (sl);
 		l->font_name_ = ly_scm2string ($5);
-		dynamic_cast<Paper_def*> ($$)->set_lookup ($2, l);
+		dynamic_cast<Paper_def*> ($$)->set_lookup ($2, sl);
 	}
 	| music_output_def_body error {
 
@@ -577,8 +585,8 @@ Music_list: /* empty */ {
 	}
 	| Music_list Music {
 		SCM s = $$;
-		SCM c = gh_cons ($2->self_scm_, SCM_EOL);
-		scm_unprotect_object ($2->self_scm_); /* UGH */
+		SCM c = gh_cons ($2->self_scm (), SCM_EOL);
+//		scm_unprotect_object ($2->self_scm ()); /* UGH */
 
 	
 		if (gh_pair_p (gh_cdr (s)))
@@ -817,14 +825,15 @@ request_chord:
 
 command_element:
 	command_req {
-		$$ = new Request_chord (gh_cons ($1->self_scm_, SCM_EOL));
+		$$ = new Request_chord (gh_cons ($1->self_scm (), SCM_EOL));
 		$$-> set_spot (THIS->here_input ());
 		$1-> set_spot (THIS->here_input ());
 	}
 	| PARTIAL duration_length ';' 	{
 		Translation_property * p = new Translation_property;
 		p->set_mus_property ("symbol", ly_symbol2scm ( "measurePosition"));
-		p->set_mus_property ("value", (new Moment (-$2->length_mom ()))->smobify_self ());
+		Moment m = - $2->length_mom ();
+		p->set_mus_property ("value", m.make_scm());
 		delete $2; // ugh
 		Context_specced_music * sp = new Context_specced_music (p);
 		$$ =sp ;
@@ -1274,7 +1283,7 @@ simple_element:
 		n->forceacc_b_ = $2 % 2 || n->cautionary_b_;
 
 
-		Simultaneous_music*v = new Request_chord (gh_list (n->self_scm_, SCM_UNDEFINED));
+		Simultaneous_music*v = new Request_chord (gh_list (n->self_scm (), SCM_UNDEFINED));
 		v->set_spot ($1->spot ());
 		n->set_spot ($1->spot ());
 		$$ = v;
@@ -1291,14 +1300,14 @@ simple_element:
 		      skip_p->duration_ = *$2;
 
 		      skip_p->set_spot (THIS->here_input());
-			e = skip_p->self_scm_;
+			e = skip_p->self_scm ();
 		    }
 		  else
 		    {
 		      Rest_req * rest_req_p = new Rest_req;
 		      rest_req_p->duration_ = *$2;
 		      rest_req_p->set_spot (THIS->here_input());
-			e = rest_req_p->self_scm_;
+			e = rest_req_p->self_scm ();
 		    }
 		  Simultaneous_music* velt_p = new Request_chord (gh_list (e,SCM_UNDEFINED));
 		  velt_p->set_spot (THIS->here_input());
@@ -1317,11 +1326,11 @@ simple_element:
 		sp2-> span_dir_ = STOP;
 		sp1->span_type_str_ = sp2->span_type_str_ = "rest";
 
-		Request_chord * rqc1 = new Request_chord (gh_list (sp1->self_scm_, SCM_UNDEFINED));
-		Request_chord * rqc2 = new Request_chord (gh_list (sk->self_scm_, SCM_UNDEFINED));;
-		Request_chord * rqc3 = new Request_chord(gh_list (sp2->self_scm_, SCM_UNDEFINED));;
+		Request_chord * rqc1 = new Request_chord (gh_list (sp1->self_scm (), SCM_UNDEFINED));
+		Request_chord * rqc2 = new Request_chord (gh_list (sk->self_scm (), SCM_UNDEFINED));;
+		Request_chord * rqc3 = new Request_chord(gh_list (sp2->self_scm (), SCM_UNDEFINED));;
 
-		SCM ms = gh_list (rqc1->self_scm_, rqc2->self_scm_, rqc3->self_scm_, SCM_UNDEFINED);
+		SCM ms = gh_list (rqc1->self_scm (), rqc2->self_scm (), rqc3->self_scm (), SCM_UNDEFINED);
 
 		$$ = new Sequential_music (ms);
 	}
@@ -1332,7 +1341,7 @@ simple_element:
 		lreq_p ->text_str_ = ly_scm2string ($1);
 		lreq_p->duration_ = *$2;
 		lreq_p->set_spot (THIS->here_input());
-		Simultaneous_music* velt_p = new Request_chord (gh_list (lreq_p->self_scm_, SCM_UNDEFINED));
+		Simultaneous_music* velt_p = new Request_chord (gh_list (lreq_p->self_scm (), SCM_UNDEFINED));
 
 		delete  $2; // ugh
 		$$= velt_p;

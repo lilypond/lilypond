@@ -264,13 +264,15 @@ StaffGroupContext= \translator {
 LyricsVoiceContext= \translator{
 	\type "Engraver_group_engraver";
 	\consistsend "Axis_group_engraver";
-	LyricVoiceMinimumVerticalExtent = #(cons -2.5 2.5)
+	LyricVoiceMinimumVerticalExtent = #(cons -1.2 1.2)
 
 	\name LyricVoice ;
 	\consists "Separating_line_group_engraver";
 	\consists "Lyric_engraver";
 	\consists "Extender_engraver";
 	\consists "Hyphen_engraver";
+
+	phrasingPunctuation = #".,;:!?"
 };
 \translator{ \LyricsVoiceContext }
 
@@ -376,6 +378,10 @@ ScoreContext = \translator {
 	\consists "Spacing_engraver";
 
 	\consists "Vertical_align_engraver";
+
+	\consists "Lyric_phrasing_engraver";
+        automaticPhrasing = ##f;
+
 	\consists "Bar_number_engraver";
 	alignmentReference = \down;
 	defaultClef = #"treble"
@@ -536,7 +542,7 @@ ScoreContext = \translator {
 		(molecule-callback . ,Text_item::brew_molecule)
 		(self-alignment-X . 0)
 		(non-rhythmic . #t)
-		(interfaces .  (text-item-interface))
+		(interfaces .  (lyric-syllable-interface text-item-interface))
 	)
 	basicMarkProperties = #`(
 	  (molecule-callback . ,Text_item::brew_molecule)	

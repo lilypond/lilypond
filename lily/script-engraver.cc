@@ -128,7 +128,7 @@ Script_engraver::acknowledge_element (Score_element_info inf)
 	{
 	  Score_element*e = script_p_arr_[i];
 
-	  e->set_elt_property ("direction-source", inf.elem_l_->self_scm_);
+	  e->set_elt_property ("direction-source", inf.elem_l_->self_scm ());
 	  Side_position::add_support (e, inf.elem_l_);
 	}
     }

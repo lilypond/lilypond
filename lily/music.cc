@@ -18,11 +18,13 @@ ly_deep_mus_copy (SCM m)
 {
   if (unsmob_music (m))
     {
-      return unsmob_music (m)->clone ()->self_scm_;
+      SCM ss =  unsmob_music (m)->clone ()->self_scm ();
+      scm_unprotect_object (ss);
+      return ss;
     }
   else if (gh_pair_p (m))
     {
-      return gh_cons (ly_deep_copy (gh_car (m)), ly_deep_copy (gh_cdr (m)));
+      return gh_cons (ly_deep_mus_copy (gh_car (m)), ly_deep_mus_copy (gh_cdr (m)));
     }
   else
     return m;
@@ -31,7 +33,6 @@ ly_deep_mus_copy (SCM m)
 
 Music::Music (Music const &m)
 {
-  self_scm_ = SCM_EOL;
   immutable_property_alist_ = m.immutable_property_alist_;
   SCM c =ly_deep_mus_copy (m.mutable_property_alist_);
   mutable_property_alist_ = c;
@@ -44,7 +45,6 @@ Music::Music (Music const &m)
 
 Music::Music()
 {
-  self_scm_ = SCM_EOL;
   immutable_property_alist_ = SCM_EOL;
   mutable_property_alist_ = SCM_EOL;
   smobify_self ();
@@ -53,10 +53,10 @@ Music::Music()
 SCM
 Music::mark_smob (SCM m)
 {
-  Music * mus = SMOB_TO_TYPE (Music, m);
+  Music * mus = (Music *)SCM_CELL_WORD_1(m);
   scm_gc_mark (mus->immutable_property_alist_);
   scm_gc_mark (mus->mutable_property_alist_);
-  return mus->do_derived_mark ();
+  return SCM_EOL;
 }
 
 void    
@@ -99,6 +99,7 @@ Music::transpose (Musical_pitch )
 
 IMPLEMENT_UNSMOB(Music,music);
 IMPLEMENT_SMOBS(Music);
+IMPLEMENT_DEFAULT_EQUAL_P(Music);
 
 /****************************/
 
@@ -175,21 +176,13 @@ Music::origin () const
   return ip ? ip : & dummy_input_global; 
 }
 
-SCM
-Music::do_derived_mark ()
-{
-  return SCM_EOL;
-}
 
 void
 Music::print ()const
 {
 }
 
-void
-Music::do_smobify_self ()
-{
-}
+
 
 Music::~Music ()
 {

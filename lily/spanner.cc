@@ -271,11 +271,11 @@ Spanner::do_derived_mark ()
   Direction d = LEFT;
   do
     if (spanned_drul_[d])
-      scm_gc_mark (spanned_drul_[d]->self_scm_);
+      scm_gc_mark (spanned_drul_[d]->self_scm ());
   while (flip (&d) != LEFT);
 
   for (int i= broken_into_l_arr_.size () ; i--;)
-    scm_gc_mark (broken_into_l_arr_[i]->self_scm_);
+    scm_gc_mark (broken_into_l_arr_[i]->self_scm ());
 
   return SCM_EOL;
 }

@@ -67,14 +67,11 @@ Scaled_font_metric::text_dimension (String t) const
 
 Font_metric::~Font_metric ()
 {
-  unsmobify_self ();
 }
 
 Font_metric::Font_metric ()
 {
-  self_scm_ = SCM_EOL;
   name_ = SCM_EOL;
-  smobify_self ();
 }
 
 Font_metric::Font_metric (Font_metric const &)
@@ -95,6 +92,15 @@ Scaled_font_metric::Scaled_font_metric (Font_metric* m, int s)
 }
 
 SCM
+Scaled_font_metric::make_scaled_font_metric (Font_metric*m, int s)
+{
+  Scaled_font_metric *sfm = new Scaled_font_metric (m,s);
+  sfm->name_ = m->name_;
+  
+  return sfm->smobbed_self ();
+}
+
+SCM
 Font_metric::description () const
 {
   return gh_cons (name_, gh_int2scm (0));
@@ -110,15 +116,11 @@ Scaled_font_metric::description () const
 }
 
 
-void
-Font_metric::do_smobify_self ()
-{
-}
 
 SCM
 Font_metric::mark_smob (SCM s)
 {
-  Font_metric * m = SMOB_TO_TYPE(Font_metric, s);
+  Font_metric * m = (Font_metric*) SCM_CELL_WORD_1(s);
   return m->name_;
 }
 
@@ -134,5 +136,5 @@ Font_metric::print_smob (SCM s, SCM port, scm_print_state * )
 
 
 IMPLEMENT_UNSMOB (Font_metric, metrics);
-IMPLEMENT_SMOBS (Font_metric);
-
+IMPLEMENT_SIMPLE_SMOBS (Font_metric);
+IMPLEMENT_DEFAULT_EQUAL_P(Font_metric);

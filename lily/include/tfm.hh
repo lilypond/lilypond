@@ -148,14 +148,16 @@ struct Tex_font_char_metric
 class Tex_font_metric : public Font_metric
 {
 public:
-  Tex_font_metric ();
+  static  SCM make_tfm (String filename);
 
-  void clear (int n);
   Box get_char (int, bool) const;
   Tex_font_char_metric const *find_ascii (int ascii, bool warn=true) const;
 
   String str () const;
 
+private:
+  Tex_font_metric ();
+  
   Tfm_info info_;
   Tfm_header header_;
   Array<Tex_font_char_metric> char_metrics_;

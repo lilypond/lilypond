@@ -1,4 +1,19 @@
+* Small bugfix: also do a deep copy on  submusices
 
+* Fixed:  \autochange doesn't crash anymore.
+
+* Cleanup, documentation and enforcement of smob interfaces in
+LilyPond.  We distinguish between SIMPLE_SMOBS and SMOBS (objects that
+have self_scm_)
+
+* Glen Prideaux lyric phrasing engraver. See
+input/test/lyric-phrasing.ly
+
+
+
+
+1.3.73
+======
 * Removed \interscoreline after the last line, prevents some
 empty pages. (patch by Mats Bengtsson)
 

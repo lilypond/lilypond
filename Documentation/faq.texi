@@ -401,7 +401,8 @@ Upgrade/downgrade to 4.17.
 As of 1.3.73, lilypond provides support for the xdvi @code{src:}
 special. This can be used with Xdvik (22.16 or better) and xdvi (22.28
 or better) to go to the place in the input that corresponds to a symbol
-in the output.
+in the output: click on the note, and your editor jumps to the place
+where it was defined
 
 lilypond:
 
@@ -446,8 +447,14 @@ Xdvi
 
 @uref{Xdvi,ftp://ftp.math.berkeley.edu/pub/Software/TeX/xdvi.tar.gz} has
 better support for src specials. Apply @uref{this patch,
-http://www.cs.uu.nl/~hanwen/software/xdvi-src}. When viewing,
-control-mousebutton 1 will take you to the correct line/column. 
+http://www.cs.uu.nl/~hanwen/software/xdvi-src}. Before starting, set the
+environment variable @code{XEDITOR} to @code{"emacsclient --no-wait +%d
+%s"}.  When viewing, control-mousebutton 1 will take you to the correct
+line/column. Control-mousebutton 2 will show all clickable boxes.
+
+dvips:
+
+dvips will complain about the specials, but the complaints are harmless.
 
 
 @subsubsection I use dvilj4, and there are lots of warning messages for the printing

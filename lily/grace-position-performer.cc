@@ -62,8 +62,8 @@ Grace_position_performer::process_acknowledged ()
 	  
 	  Rational grace_fraction_rat (1, 2);
 	  SCM prop = get_property ("graceFraction");
-	  if (SMOB_IS_TYPE_B(Moment, prop))
-	    grace_fraction_rat = *SMOB_TO_TYPE (Moment,prop);
+	  if (unsmob_moment (prop))
+	    grace_fraction_rat = *unsmob_moment (prop);
 
 	  delay_mom = shortest_mom * grace_fraction_rat;
 	  for (int i=0; i < notes_.size (); i++)

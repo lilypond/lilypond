@@ -49,7 +49,6 @@ Score_element::Score_element(SCM basicprops)
   pscore_l_=0;
   lookup_l_ =0;
   status_i_ = 0;
-  self_scm_ = SCM_EOL;
   original_l_ = 0;
   immutable_property_alist_ =  basicprops;
   mutable_property_alist_ = SCM_EOL;
@@ -65,7 +64,6 @@ Score_element::Score_element(SCM basicprops)
 Score_element::Score_element (Score_element const&s)
    : dim_cache_ (s.dim_cache_)
 {
-  self_scm_ = SCM_EOL;
   original_l_ =(Score_element*) &s;
   immutable_property_alist_ = s.immutable_property_alist_;
   mutable_property_alist_ = SCM_EOL;
@@ -236,7 +234,7 @@ Score_element::calculate_dependencies (int final, int busy, SCM funcname)
   String s = ly_symbol2string (funcname);
   SCM proc = get_elt_property (s.ch_C());
   if (gh_procedure_p (proc))
-    gh_call1 (proc, this->self_scm_);
+    gh_call1 (proc, this->self_scm ());
   
   status_i_= final;
 
@@ -249,7 +247,7 @@ Score_element::get_molecule ()  const
 
   SCM mol = SCM_EOL;
   if (gh_procedure_p (proc)) 
-    mol = gh_apply (proc, gh_list (this->self_scm_, SCM_UNDEFINED));
+    mol = gh_apply (proc, gh_list (this->self_scm (), SCM_UNDEFINED));
 
 
   SCM origin =get_elt_property ("origin");
@@ -345,7 +343,7 @@ Score_element::handle_broken_smobs (SCM src, SCM criterion)
 	  if (i && i->break_status_dir () != d)
 	    {
 	      Item *br = i->find_prebroken_piece (d);
-	      return  (br) ? br->self_scm_ : SCM_UNDEFINED;
+	      return  (br) ? br->self_scm () : SCM_UNDEFINED;
 	    }
 	}
       else
@@ -367,7 +365,7 @@ Score_element::handle_broken_smobs (SCM src, SCM criterion)
 	      || (sc->common_refpoint (line, X_AXIS)
 		  && sc->common_refpoint (line, Y_AXIS)))
 	    {
-	      return sc->self_scm_;
+	      return sc->self_scm ();
 	    }
 	  return SCM_UNDEFINED;
 	}
@@ -419,7 +417,7 @@ Score_element::handle_broken_dependencies()
 	  Line_of_score * l = sc->line_l ();
 	  sc->mutable_property_alist_ =
 	    handle_broken_smobs (mutable_property_alist_,
-				 l ? l->self_scm_ : SCM_UNDEFINED);
+				 l ? l->self_scm () : SCM_UNDEFINED);
 	}
     }
 
@@ -430,7 +428,7 @@ Score_element::handle_broken_dependencies()
     {
       mutable_property_alist_
 	= handle_broken_smobs (mutable_property_alist_,
-			       line ? line->self_scm_ : SCM_UNDEFINED);
+			       line ? line->self_scm () : SCM_UNDEFINED);
     }
   else if (dynamic_cast <Line_of_score*> (this))
     {
@@ -712,26 +710,22 @@ Score_element::fixup_refpoint (SCM smob)
 
 IMPLEMENT_UNSMOB(Score_element, element);
 IMPLEMENT_SMOBS(Score_element);
+IMPLEMENT_DEFAULT_EQUAL_P(Score_element);
 
 SCM
 Score_element::mark_smob (SCM ses)
 {
-  Score_element * s = SMOB_TO_TYPE (Score_element, ses);
-  if (s->self_scm_ != ses)
-    {
-      programming_error ("SMOB marking gone awry");
-      return SCM_EOL;
-    }
+  Score_element * s = (Score_element*) SCM_CELL_WORD_1(ses);
   scm_gc_mark (s->immutable_property_alist_);
   scm_gc_mark (s->mutable_property_alist_);
   
   if (s->parent_l (Y_AXIS))
-    scm_gc_mark (s->parent_l (Y_AXIS)->self_scm_);
+    scm_gc_mark (s->parent_l (Y_AXIS)->self_scm ());
   if (s->parent_l (X_AXIS))
-    scm_gc_mark (s->parent_l (X_AXIS)->self_scm_);
+    scm_gc_mark (s->parent_l (X_AXIS)->self_scm ());
 
   if (s->original_l_)
-    scm_gc_mark (s->original_l_->self_scm_);
+    scm_gc_mark (s->original_l_->self_scm ());
   return s->do_derived_mark ();
 }
 
@@ -754,17 +748,6 @@ SCM
 Score_element::do_derived_mark ()
 {
   return SCM_EOL;
-}
-
-void
-Score_element::do_smobify_self ()
-{
-}
-
-SCM
-Score_element::equal_p (SCM a, SCM b)
-{
-  return gh_cdr(a) == gh_cdr(b) ? SCM_BOOL_T : SCM_BOOL_F;
 }
 
 
@@ -822,7 +805,7 @@ Score_element::discretionary_processing()
 SCM
 spanner_get_bound (SCM slur, SCM dir)
 {
-  return dynamic_cast<Spanner*> (unsmob_element (slur))->get_bound (to_dir (dir))->self_scm_;
+  return dynamic_cast<Spanner*> (unsmob_element (slur))->get_bound (to_dir (dir))->self_scm ();
 }
 
 

@@ -48,7 +48,7 @@ Output_property_engraver::acknowledge_element (Score_element_info inf)
 	should typecheck pred. 
        */
       SCM result=gh_apply (pred,
-			   gh_list (inf.elem_l_->self_scm_, SCM_UNDEFINED));
+			   gh_list (inf.elem_l_->self_scm (), SCM_UNDEFINED));
       if (to_boolean (result))
 	{
 	  SCM sym = o->get_mus_property ("symbol");

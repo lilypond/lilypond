@@ -28,7 +28,7 @@ Translator_group::~Translator_group ()
 {
   assert (removable_b());
   trans_p_list_.junk ();
-  delete properties_dict_;
+  scm_unprotect_object (properties_dict_->self_scm ());
 }
 
 
@@ -358,7 +358,7 @@ Translator_group::do_print() const
   if (!flower_dstream)
     return ;
 
-  gh_display (properties_dict_->self_scm_);
+  gh_display (properties_dict_->self_scm ());
   if (status == ORPHAN)
     {
       DEBUG_OUT << "consists of: ";

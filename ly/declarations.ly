@@ -1,17 +1,29 @@
-
+#(gc)
   
 breve = \duration #'( -1 0)
 longa = \duration #'( -2 0 )
 maxima = \duration #'( -3 0 )
 
+#(gc)
+
 #(eval-string (ly-gulp-file "generic-property.scm"))
+
+#(gc)
 
 % urg, move to basic property?
 #(eval-string (ly-gulp-file "slur.scm"))
 
+#(gc)
+
 \include "nederlands.ly"		% dutch
+
+#(gc)
+
 \include "chord-modifiers.ly"
+#(gc)
+
 \include "script.ly"
+#(gc)
 
 
 % declarations for standard directions

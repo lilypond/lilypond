@@ -14,7 +14,13 @@
 
 Scheme_hash_table::Scheme_hash_table ()
 {
-  self_scm_ = SCM_EOL;
+  smobify_self ();
+}
+
+
+Scheme_hash_table::Scheme_hash_table (Scheme_hash_table const &src)
+  : Scm_stl_map (src)
+{
   smobify_self ();
 }
 
@@ -23,13 +29,10 @@ Scheme_hash_table::operator =(Scheme_hash_table const & src)
 {
   Scm_stl_map::operator = (src);
 	
-  // we do not copy the self_scm_ field!
+  // we do not copy the self_scm () field!
 }
 
-void
-Scheme_hash_table::do_smobify_self ()
-{
-}
+
 
 
 SCM
@@ -39,7 +42,7 @@ Scheme_hash_table::mark_smob (SCM s)
     can't typecheck naively, since GC bit lives in CAR of S
    */
   
-  Scheme_hash_table *me = SMOB_TO_TYPE(Scheme_hash_table,s);
+  Scheme_hash_table *me = (Scheme_hash_table*) SCM_CELL_WORD_1(s);
 
   for (Scm_stl_map::const_iterator i= me->begin (); i != me->end(); i++)
     {
@@ -49,22 +52,14 @@ Scheme_hash_table::mark_smob (SCM s)
   return SCM_EOL;
 }
 
-
-Scheme_hash_table::Scheme_hash_table (Scheme_hash_table const &src)
-  : Scm_stl_map (src)
-{
-  self_scm_ = SCM_EOL;
-  smobify_self ();
-}
-
 int
 Scheme_hash_table::print_smob (SCM s, SCM p, scm_print_state*)
 {
-  assert (SMOB_IS_TYPE_B (Scheme_hash_table, s));
+  assert (unsmob (s));
   char str[1000];
   sprintf (str, "#<Scheme_hash_table 0x%0x ", s);
   scm_puts (str, p);      
-  Scheme_hash_table *me = SMOB_TO_TYPE(Scheme_hash_table,s);
+  Scheme_hash_table *me = unsmob(s);
   for (Scm_stl_map::const_iterator i = me->begin (); i != me->end(); i++)
     {
       scm_display ((*i).first, p);
@@ -109,7 +104,6 @@ Scheme_hash_table::get (SCM k)const
 
 Scheme_hash_table::~Scheme_hash_table( )
 {
-  unsmobify_self ();
 }
 
 SCM
@@ -125,5 +119,6 @@ Scheme_hash_table::to_alist () const
 #include "ly-smobs.icc"
 IMPLEMENT_UNSMOB(Scheme_hash_table,scheme_hash);
 IMPLEMENT_SMOBS(Scheme_hash_table);
+IMPLEMENT_DEFAULT_EQUAL_P(Scheme_hash_table);
 
 

@@ -126,14 +126,14 @@ My_lily_parser::get_chord (Musical_pitch tonic,
     {
       Inversion_req* i = new Inversion_req;
       i->pitch_ = chord.inversion_pitch_;
-      l = gh_cons (i->self_scm_, l);
+      l = gh_cons (i->self_scm (), l);
     }
 
   if (chord.bass_b_)
     {
       Bass_req* b = new Bass_req;
       b->pitch_ = chord.bass_pitch_;
-      l = gh_cons (b->self_scm_, l);      
+      l = gh_cons (b->self_scm (), l);      
     }
 
   Array<Musical_pitch> pitch_arr = chord.to_pitch_arr ();
@@ -143,7 +143,7 @@ My_lily_parser::get_chord (Musical_pitch tonic,
       Note_req* n = new Note_req;
       n->pitch_ = p;
       n->duration_ = d;
-      l = gh_cons (n->self_scm_, l);
+      l = gh_cons (n->self_scm (), l);
     }
 
   Simultaneous_music*v = new Request_chord (l);

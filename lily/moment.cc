@@ -12,6 +12,12 @@
 #include "moment.hh"
 #include "warn.hh"
 
+#include "ly-smobs.icc"
+
+IMPLEMENT_UNSMOB(Moment,moment);
+IMPLEMENT_SIMPLE_SMOBS(Moment);
+
+
 SCM
 Moment::mark_smob (SCM)
 {
@@ -19,10 +25,13 @@ Moment::mark_smob (SCM)
 }
 
 
-Moment::~Moment()
+SCM
+Moment::make_scm () const
 {
-  self_scm_ = SCM_EOL;
+  Moment * m = new Moment (*this);
+  return m->smobbed_self();
 }
+
 
 int
 Moment::print_smob (SCM s, SCM port, scm_print_state *)
@@ -37,35 +46,23 @@ Moment::print_smob (SCM s, SCM port, scm_print_state *)
   return 1;
 }
 
-void
-Moment::do_smobify_self ()
-{
-}
-
 SCM
 make_rational (SCM n, SCM d)
 {
-  Moment *r;
-  SCM retval = SCM_EOL;
+  Moment m (1,1);
+
   if (SCM_INUMP (n) && SCM_INUMP(d))
     {
-      r= new Moment (gh_scm2int (n), gh_scm2int (d));
+      m =  Moment (gh_scm2int (n), gh_scm2int (d));
     }
   else
     {
-      ::error ("make-moment takes two integer arguments.");
-      r = new Moment (1,1);
+      ::error ("make-moment takes two integer arguments. Using 1/1");
     }
 
-  retval = r->smobify_self ();
-  scm_unprotect_object (r->self_scm_);
-  return retval ;  
+  return m.make_scm ();
 }
 
-#include "ly-smobs.icc"
-
-IMPLEMENT_UNSMOB(Moment,moment);
-IMPLEMENT_SMOBS(Moment);
 
 void
 init_moments ()
@@ -78,8 +75,9 @@ ADD_SCM_INIT_FUNC(moms,init_moments);
 SCM
 Moment::equal_p (SCM a, SCM b)
 {
-  Moment *m1 = SMOB_TO_TYPE(Moment, a);
-  Moment *m2 = SMOB_TO_TYPE(Moment, b);
+  Moment *m1 = unsmob_moment (a);
+  Moment *m2 = unsmob_moment (b);
       
   return (*m1 == *m2) ? SCM_BOOL_T : SCM_BOOL_F;
 }
+

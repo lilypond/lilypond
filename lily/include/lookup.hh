@@ -24,15 +24,11 @@
  */
 class Lookup
 {
-
-
   Lookup ();
   Lookup (Lookup const&);
-
-  friend class Brutus;		// kai su, teknon. (make GCC shut up.)
-  
+  DECLARE_SIMPLE_SMOBS(Lookup,);  
 public:
-  DECLARE_SMOBS;
+
   static SCM make_lookup ();
   String font_name_;
   Adobe_font_metric * afm_l_;

@@ -38,11 +38,11 @@ Paper_score::typeset_line (Line_of_score *l)
     {
       line_l_ = l;		// ugh.
     }
-  main_smob_ = gh_cons (l->self_scm_, main_smob_);
+  main_smob_ = gh_cons (l->self_scm (), main_smob_);
   l->pscore_l_ = this;
 
   /*
-    We don't unprotect l->self_scm_, we haven't got any place else to
+    We don't unprotect l->self_scm (), we haven't got any place else to
     protect it from collection.  */
 
 }

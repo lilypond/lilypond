@@ -14,7 +14,10 @@
 #include "afm.hh"
 #include "tfm.hh"
 #include "lily-guile.hh"
-#include "tfm-reader.hh"
+#include "scm-hash.hh"
+
+
+
 
 extern "C" {
 #include <kpathsea/kpathsea.h>
@@ -24,14 +27,25 @@ const char * default_font_sz_ = "cmr10";
 
 All_font_metrics::All_font_metrics (String path)
 {
+  afm_p_dict_ = new Scheme_hash_table;
+  tfm_p_dict_ = new Scheme_hash_table;
+  scaled_p_dict_ = new Scheme_hash_table;
+  
   search_path_.parse_path (path);
+}
+
+All_font_metrics::~All_font_metrics ()
+{
+  scm_unprotect_object (afm_p_dict_->self_scm ());
+  scm_unprotect_object (tfm_p_dict_->self_scm ());
+  scm_unprotect_object (scaled_p_dict_->self_scm ());
 }
 
 Adobe_font_metric *
 All_font_metrics::find_afm (String name)
 {
   SCM sname = ly_symbol2scm (name.ch_C ());
-  if (!afm_p_dict_.elem_b (sname))
+  if (!afm_p_dict_->elem_b (sname))
     {
       String path;
       if (path.empty_b ())
@@ -48,36 +62,35 @@ All_font_metrics::find_afm (String name)
       
       if (verbose_global_b)
 	progress_indication ("[" + path);
-      Adobe_font_metric * afm_p = read_afm_file (path);
+      SCM  afm = read_afm_file (path);
 
-      afm_p->name_ = ly_symbol2scm (name.ch_C ());
+      unsmob_metrics (afm)->name_ = sname;
 
       if (verbose_global_b)
 	progress_indication ("]");
 
-      afm_p_dict_.set (sname,afm_p->self_scm_);
+       afm_p_dict_->set (sname,afm);
     }
   
-  return dynamic_cast<Adobe_font_metric*> (unsmob_metrics (afm_p_dict_.get (sname)));
+  return dynamic_cast<Adobe_font_metric*> (unsmob_metrics (afm_p_dict_->get (sname)));
 }
 
 Scaled_font_metric * 
 All_font_metrics::find_scaled (String nm, int m)
 {
-  Scaled_font_metric * s=0;
   String index =  nm + "@" + to_str (m);
   SCM sname = ly_symbol2scm (index.ch_C ());
 
   Font_metric *fm =0;
-  if (!scaled_p_dict_.elem_b (sname))
+  if (!scaled_p_dict_->elem_b (sname))
     {
       Font_metric *f = find_font (nm);
-      s = new Scaled_font_metric (f, m);
-      scaled_p_dict_.set (sname, s->self_scm_);
-      fm =  s;
+      SCM s =  Scaled_font_metric::make_scaled_font_metric (f, m);
+      scaled_p_dict_->set (sname, s);
+      fm =  unsmob_metrics (s);
     }
   else
-    fm = unsmob_metrics (scaled_p_dict_.get (sname));
+    fm = unsmob_metrics (scaled_p_dict_->get (sname));
 
   return dynamic_cast<Scaled_font_metric*> (fm);
 }
@@ -86,7 +99,7 @@ Tex_font_metric *
 All_font_metrics::find_tfm (String name)
 {
   SCM sname = ly_symbol2scm (name.ch_C ());  
-  if (!tfm_p_dict_.elem_b (sname))
+  if (!tfm_p_dict_->elem_b (sname))
     {
       String path;
       
@@ -102,17 +115,17 @@ All_font_metrics::find_tfm (String name)
 
       if (verbose_global_b)
 	progress_indication ("[" + path);
-      Tex_font_metric	* tfm_p = Tex_font_metric_reader::read_file (path);
-      tfm_p->name_ = ly_symbol2scm (name.ch_C( ));
-
+      SCM tfm = Tex_font_metric::make_tfm (path);
       if (verbose_global_b)
 	progress_indication ("]");
 
-      tfm_p_dict_.set (sname, tfm_p->self_scm_);
+      Font_metric *fm = unsmob_metrics (tfm);
+      fm->name_ = sname;
+      tfm_p_dict_->set (sname, tfm);
     }
     
   return
-    dynamic_cast<Tex_font_metric*> (unsmob_metrics (tfm_p_dict_.get(sname)));
+    dynamic_cast<Tex_font_metric*> (unsmob_metrics (tfm_p_dict_->get(sname)));
 }
 
 
@@ -158,9 +171,9 @@ All_font_metrics::font_descriptions () const
 {
   SCM l[] = {0,0,0};
 
-  l[0] = afm_p_dict_.to_alist ();
-  l[1] = tfm_p_dict_.to_alist ();
-  l[2] = scaled_p_dict_.to_alist ();  
+  l[0] = afm_p_dict_->to_alist ();
+  l[1] = tfm_p_dict_->to_alist ();
+  l[2] = scaled_p_dict_->to_alist ();  
 
   SCM list = SCM_EOL;
   for (int i=0; i < 3; i++)

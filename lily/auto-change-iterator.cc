@@ -65,18 +65,20 @@ Auto_change_iterator::change_to (Music_iterator *it, String to_type,
     ; //    error (_ ("none of these in my family"));
 
 }
-
+Pitch_interrogate_req* spanish_inquisition; // nobody expects it
 void
 Auto_change_iterator::do_process_and_next (Moment m)
 {
   Music_wrapper_iterator::do_process_and_next (m);
-  Pitch_interrogate_req spanish_inquisition; // nobody expects it
 
-  Music_iterator *it = try_music (&spanish_inquisition);
+  if (!spanish_inquisition)
+    spanish_inquisition = new Pitch_interrogate_req;
 
-  if (it && spanish_inquisition.pitch_arr_.size ())
+  Music_iterator *it = try_music (spanish_inquisition);
+
+  if (it && spanish_inquisition->pitch_arr_.size ())
     {
-      Musical_pitch p = spanish_inquisition.pitch_arr_[0];
+      Musical_pitch p = spanish_inquisition->pitch_arr_[0];
       Direction s = Direction (sign(p.steps ()));
       if (s != where_dir_)
 	{
@@ -87,6 +89,8 @@ Auto_change_iterator::do_process_and_next (Moment m)
 	  change_to (it, auto_mus->what_str_, to_id);	  
 	}
     }
+
+  spanish_inquisition->pitch_arr_.clear ();
 }
 
 Auto_change_iterator::Auto_change_iterator( )

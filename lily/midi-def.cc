@@ -39,8 +39,8 @@ Midi_def::set_tempo (Moment one_beat_mom, int beats_per_minute_i)
 {
   Moment beats_per_second = Moment (beats_per_minute_i) / Moment (60);
 
-  Moment *m = new Moment (Moment(1)/Moment(beats_per_second * one_beat_mom));
-  scope_p_->set ("whole-in-seconds", smobify (m));
+  Moment m = Moment(1)/Moment(beats_per_second * one_beat_mom);
+  scope_p_->set ("whole-in-seconds", m.make_scm());
 }
 
 
