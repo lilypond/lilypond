@@ -297,15 +297,15 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
     {
       if (Beam *b = dynamic_cast<Beam *> (info.elem_l_))
 	{
-	  junk_beam ();
+	  end_beam ();
 	}
       else if (Chord_tremolo *b = dynamic_cast<Chord_tremolo*> (info.elem_l_))
 	{
-	  junk_beam ();
+	  end_beam ();
 	}
       else if (Bar *b = dynamic_cast<Bar *> (info.elem_l_))
 	{
-	  junk_beam ();
+	  end_beam ();
 	}
       else if (Rest* rest_l = dynamic_cast<Rest *> (info.elem_l_))
 	{

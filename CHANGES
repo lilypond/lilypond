@@ -1,3 +1,6 @@
+pl 2.jcn2
+	- bf: auto-beamer: don't junk beam if manual beam shows up
+
 pl 2.jcn1
 	- add-html-footer.py, ls-latex.py .tely updates and fixes
 	- tely (texinfo-lily) rules and test Documentation/metadoc/foo.tely
