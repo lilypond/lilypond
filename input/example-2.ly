@@ -3,7 +3,7 @@
 %
 % Type:
 %
-%     ly2dvi example-2
+%     lilypond example-2
 %     xdvi example-2     # or your dvi viewer here
 %
 

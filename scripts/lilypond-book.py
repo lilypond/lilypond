@@ -113,7 +113,6 @@ original_dir = os.getcwd ()
 preview_resolution = 90
 
 ## FIXME
-## ly2dvi: silly name?
 ## do -P or -p by default?
 ##help_summary = _ ("Run LilyPond using LaTeX for titling")
 help_summary = _ ("Process LilyPond snippets in hybrid html, LaTeX or texinfo document")
@@ -228,7 +227,7 @@ class LatexPaper:
 			ly.error (_ ("LaTeX failed."))
 			ly.error (_ ("The error log is as follows:"))
 			
-			#URG see ly2dvi
+			#URG see lilypond
 			try:
 				lns = open ('lily-tmp.log').readlines ()
 			except:

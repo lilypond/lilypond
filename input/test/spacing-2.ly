@@ -26,7 +26,7 @@ texidoc = "
 
 \paper 
 {
-%	linewidth = 5.0 \cm % ly2dvi barfs on -1
+%	linewidth = 5.0 \cm % lilypond barfs on -1
 	linewidth = 8.0 \cm
 %	linewidth = 12.0 \cm	
 }

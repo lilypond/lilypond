@@ -5,10 +5,10 @@ set shiftwidth=2
 " some handy key mappings
 "
 " <F4>  save & make and play midi
-map <F4> :w<Return>:se makeprg=ly2dvi\ -m\ %<<Return>:make<Return>:!timidity %<.midi<Return>
+map <F4> :w<Return>:se makeprg=lilypond\ -m\ %<<Return>:make<Return>:!timidity %<.midi<Return>
 "
 " <F5>  save & make dvi, midi, ps
-map <F5> :w<Return>:se makeprg=ly2dvi\ -P\ %<<Return>:make<Return>
+map <F5> :w<Return>:se makeprg=lilypond\ -P\ %<<Return>:make<Return>
 "
 " <F6>  view ps
 map <F6> :!gv -watch %<.ps &<Return>

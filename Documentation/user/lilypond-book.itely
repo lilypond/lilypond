@@ -214,9 +214,9 @@ Some music in <lilypond a b c/> a line of text.
 @end example
 
 A special feature not (yet) available in other output formats, is the
-@code{<ly2dvifile>} tag, for example,
+@code{<lilypondfile>} tag, for example,
 @example
-  <ly2dvifile>trip.ly</ly2dvifile>
+  <lilypondfile>trip.ly</lilypondfile>
 @end example
 This runs @file{trip.ly} through @code{lilypond} (see also
 @ref{Invoking lilypond}), and substitutes a preview image in the

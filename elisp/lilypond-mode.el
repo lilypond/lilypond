@@ -258,9 +258,9 @@ in LilyPond-include-path."
     killed)) ; return the killed jobs
 
 ;; URG, should only run LilyPond-compile for LilyPond
-;; not for tex,xdvi (ly2dvi?)
+;; not for tex,xdvi (lilypond?)
 (defun LilyPond-compile-file (command name)
-  ;; We maybe should know what we run here (Lily, ly2dvi, tex)
+  ;; We maybe should know what we run here (Lily, lilypond, tex)
   ;; and adjust our error-matching regex ?
   (compile-internal
    (if (eq LilyPond-command-current 'LilyPond-command-master)

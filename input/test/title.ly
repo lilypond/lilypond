@@ -1,6 +1,6 @@
 #(ly:set-option 'old-relative)
 \version "1.9.8"
-% MERGE with ly2dvi-
+% MERGE with lilypond-
 \header {
   filename =  "title.ly"
   dedication = "dedication"
@@ -18,7 +18,7 @@
   enteredby = "jcn"
   source =  "urtext"
 
-  texidoc ="This test ly2dvi titling. process with ly2dvi, not lilypond-book." 
+  texidoc ="This test lilypond titling. process with lilypond, not lilypond-book." 
 }
 
 \score {

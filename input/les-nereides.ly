@@ -23,7 +23,7 @@ marked with %tweak
 possibly more impressive to render without tweaks?
 
   grep -v tweak input/les-nereides.ly >> lnnt.ly
-  ly2dvi lnnt.ly
+  lilypond lnnt.ly
 
 %}
 

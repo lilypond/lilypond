@@ -430,7 +430,6 @@ msgstr ""
 #. temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
 #. urg
 #. # FIXME
-#. # ly2dvi: silly name?
 #. # do -P or -p by default?
 #. #help_summary = _ ("Run LilyPond using LaTeX for titling")
 #: lilypond-book.py:120
@@ -561,7 +560,7 @@ msgstr "toon garantie en auteursrechten"
 msgid "LaTeX failed."
 msgstr ""
 
-#. URG see ly2dvi
+#. URG see lilypond
 #. Convert numeric values, with or without specific dimension, to floats.
 #. Keep other strings
 #. ###############################################################
@@ -665,9 +664,9 @@ msgstr "geen bestanden gespecificeerd op de commandoregel."
 #.
 #. (c)  1998--2003  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 #. Jan Nieuwenhuizen <janneke@gnu.org>
-#. This is the third incarnation of ly2dvi.
+#. This is the third incarnation of lilypond.
 #.
-#. Earlier incarnations of ly2dvi were written by
+#. Earlier incarnations of lilypond were written by
 #. Jeffrey B. Reed<daboys@austin.rr.com> (Python version)
 #. Jan Arne Fagertun <Jan.A.Fagertun@@energy.sintef.no> (Bourne shell script)
 #.
@@ -687,7 +686,6 @@ msgstr "geen bestanden gespecificeerd op de commandoregel."
 #. if __name__ == '__main__':
 #. lilylib globals
 #. # FIXME
-#. # ly2dvi: silly name?
 #. # do -P or -p by default?
 #. #help_summary = _ ("Run LilyPond using LaTeX for titling")
 #: lilypond.py:121
@@ -778,7 +776,7 @@ msgstr "druk versienummer af"
 #. init to empty; values here take precedence over values in the file
 #. # TODO: change name.
 #. for geometry v3
-#. Output formats that ly2dvi should create
+#. Output formats that lilypond should create
 #. what a name.
 #. ly.warning (_ ("invalid value: %s") % `val`)
 #. ly.warning (_ ("invalid value: %s") % `val`)
@@ -848,7 +846,7 @@ msgid ""
 msgstr ""
 
 #. ugh. Different targets?
-#. Added as functionality to ly2dvi, because ly2dvi may well need to do this
+#. Added as functionality to lilypond, because lilypond may well need to do this
 #. in future too.
 #. no ps header?
 #: lilypond.py:615
@@ -867,7 +865,7 @@ msgstr "Schrijven van `%s'..."
 #. path.
 #. As a neat trick, add directory part of first input file
 #. to include path.  That way you can do without the clumsy -I in:
-#. ly2dvi -I foe/bar/baz foo/bar/baz/baz.ly
+#. lilypond -I foe/bar/baz foo/bar/baz/baz.ly
 #: lilypond.py:769
 msgid "pseudo filter"
 msgstr ""

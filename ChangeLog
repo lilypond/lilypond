@@ -8,6 +8,17 @@
 	* input/test/lilypond-testpage.ly, Documentation/user/invoking.itexi:
 	new file (renamed, see above).
 
+	* Documentation/user/lilypond-book.itely
+	* buildscripts/lilypond-login.sh elisp/lilypond-mode.el
+	* input/example-1.ly input/example-2.ly input/example-3.ly
+	* input/les-nereides.ly input/test/fill-a4.ly input/test/spacing-2.ly
+	* input/test/title.ly po/cs.po po/da.po po/de.po po/es.po po/fi.po
+	* po/fr.po po/it.po po/ja.po po/lilypond.pot po/nl.po po/ru.po
+	* po/sv.po scm/output-pdftex.scm scm/output-tex.scm
+	* scripts/lilypond-book.py scripts/lilypond.py
+	* stepmake/bin/package-zip32.sh tex/lilyponddefs.tex tex/titledefs.tex
+	* vimrc: replace ly2dvi with lilypond and remove silly comments.
+
 2003-10-29  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* scripts/lilypond-book.py (output_dict): Add definition of

@@ -23,7 +23,7 @@ two =  \notes\relative c{
 %
 % Type:
 %
-%     ly2dvi example-3
+%     lilypond example-3
 %     xdvi example-3     # or your dvi viewer here
 
 %%
