@@ -33,7 +33,7 @@ public:
 protected:
   virtual void do_creation_processing ();
   virtual bool do_try_music (Music*);
-  void deprecated_process_music ();
+  virtual void process_acknowledged ();
   virtual void do_pre_move_processing ();
   virtual void do_post_move_processing ();
 
@@ -75,7 +75,7 @@ Piano_pedal_performer::do_creation_processing ()
 }
 
 void
-Piano_pedal_performer::deprecated_process_music ()
+Piano_pedal_performer::process_acknowledged ()
 {
   for (Pedal_info*p = info_alist_; p && p->name_; p ++)
  
@@ -104,6 +104,8 @@ Piano_pedal_performer::deprecated_process_music ()
 	  a->dir_ = START;
 	  audio_p_arr_.push (a);
 	}
+      p->req_l_drul_[START] = 0;
+      p->req_l_drul_[STOP] = 0;
     }
 }
 

@@ -11,6 +11,7 @@
 #include "lily-guile.hh"
 #include "score-element.hh"
 #include "musical-request.hh"
+#include "warn.hh"
 
 void
 Grace_engraver_group::start ()
@@ -56,6 +57,10 @@ Grace_engraver_group::announce_element (Score_element_info inf)
 void
 Grace_engraver_group::typeset_element (Score_element*e)
 {
+  if (!e)
+    programming_error ("Grace_engraver_group: empty elt\n");
+  else
+
   typeset_us_.push (e);
 }
 
@@ -69,7 +74,13 @@ void
 Grace_engraver_group::process ()
 {
   calling_self_b_  = true;
-  //process_music ();
+  
+  //process_music (); -- used to do implicit creation processing ()
+  // possibly post_move_processing ()?
+  do_creation_processing ();
+  post_move_processing ();
+
+  
   announces();
   pre_move_processing();
   check_removal();

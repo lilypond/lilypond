@@ -6,9 +6,28 @@
   (c)  1997--2000 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "tempo-performer.hh"
 #include "command-request.hh"
 #include "audio-item.hh"
+#include "performer.hh"
+
+class Tempo_performer : public Performer
+{
+public:
+  VIRTUAL_COPY_CONS(Translator);
+  
+  Tempo_performer();
+  ~Tempo_performer();
+
+protected:
+
+  virtual bool do_try_music (Music* req_l);
+  virtual void do_pre_move_processing ();
+  virtual void process_acknowledged ();
+
+private:
+  Tempo_req* tempo_req_l_;
+  Audio_tempo* audio_p_;
+};
 
 ADD_THIS_TRANSLATOR (Tempo_performer);
 
@@ -24,7 +43,7 @@ Tempo_performer::~Tempo_performer ()
 
 
 void
-Tempo_performer::deprecated_process_music ()
+Tempo_performer::process_acknowledged ()
 {
   if (tempo_req_l_)
     {

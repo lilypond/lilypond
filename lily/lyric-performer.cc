@@ -6,9 +6,27 @@
   (c)  1997--2000 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "lyric-performer.hh"
 #include "musical-request.hh"
 #include "audio-item.hh"
+#include "lily-proto.hh"
+#include "performer.hh"
+#include "array.hh"
+
+class Lyric_performer : public Performer {
+public:
+  VIRTUAL_COPY_CONS(Translator);
+ Lyric_performer ();
+
+protected:
+
+  virtual bool do_try_music (Music* req_l);
+  virtual void do_pre_move_processing ();
+  virtual void process_acknowledged ();
+
+private:
+  Link_array<Lyric_req> lreq_arr_;
+  Audio_text* audio_p_;
+};
 
 ADD_THIS_TRANSLATOR (Lyric_performer);
 
@@ -19,7 +37,7 @@ Lyric_performer::Lyric_performer ()
 
 
 void
-Lyric_performer::deprecated_process_music ()
+Lyric_performer::process_acknowledged ()
 {
   // FIXME: won't work with fancy lyrics
   if (lreq_arr_.size ()

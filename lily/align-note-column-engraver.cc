@@ -58,6 +58,12 @@ Align_note_column_engraver::do_creation_processing ()
 void
 Align_note_column_engraver::do_removal_processing ()
 {
+  if (!align_item_p_)
+    {
+      programming_error ("Align_note_column_engraver:: urg\n");
+      return;
+    }
+  
   SCM al = get_property ("graceAlignPosition");
   if (isdir_b (al))
     {

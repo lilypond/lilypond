@@ -147,7 +147,7 @@ main note.  Grace notes can also be positioned after the main note.
 Grace notes without beams should have a slash, if @code{flagStyle} is
 not set.  Main note scripts don't end up on the grace note.
 
-@lilypondfile{grace.ly}
+@c @lily pondfile{grace.ly}
 
 @section Beams, slurs and other spanners
 
@@ -167,7 +167,7 @@ counting from the note head side, should never be lower than the
 second staff line.  This does not hold for grace note beams.
 Override with @code{noStemExtend}.
 
-@lilypondfile{beam-position.ly}
+@c @lily pondfile{beam-position.ly}
 
 Slurs should look nice and symmetric.  The curvature may increase
 only to avoid noteheads, and as little as possible.  Slurs never

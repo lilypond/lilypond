@@ -33,7 +33,6 @@ public:
 protected:
   virtual void do_creation_processing ();
   virtual bool do_try_music (Music*);
-  void deprecated_process_music ();
   virtual void do_pre_move_processing ();
   virtual void do_post_move_processing ();
   virtual void acknowledge_element (Score_element_info);
@@ -86,9 +85,9 @@ Piano_pedal_engraver::~Piano_pedal_engraver()
 }
 
 /*
-  Urg: Code dup
-  I'm a script
- */
+   Urg: Code dup
+   I'm a script
+  */
 void
 Piano_pedal_engraver::acknowledge_element (Score_element_info info)
 {
@@ -132,12 +131,6 @@ Piano_pedal_engraver::do_try_music (Music *m)
 
 void
 Piano_pedal_engraver::process_acknowledged ()
-{
-  deprecated_process_music ();
-}
-
-void
-Piano_pedal_engraver::deprecated_process_music ()
 {
   for (Pedal_info*p = info_list_; p && p->name_; p ++)
     {
@@ -185,6 +178,8 @@ Piano_pedal_engraver::deprecated_process_music ()
 			    ? p->req_l_drul_[START]
 			    : p->req_l_drul_[STOP]);
 	}
+      p->req_l_drul_[START] = 0;
+      p->req_l_drul_[STOP] = 0;
     }
 }
 

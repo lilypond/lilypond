@@ -44,6 +44,7 @@ inline int compare (CHead_melodic_tuple const &a, CHead_melodic_tuple const &b)
  */
 class Tie_engraver : public Engraver
 {
+  bool done_;
   PQueue<CHead_melodic_tuple> past_notes_pq_;
   Moment end_mom_;
   Moment next_end_mom_;
@@ -62,7 +63,6 @@ protected:
   virtual void do_pre_move_processing ();
   virtual void acknowledge_element (Score_element_info);
   virtual bool do_try_music (Music*);
-  void deprecated_process_music ();
   virtual void process_acknowledged ();
   void typeset_tie (Score_element*);
 public:
@@ -118,24 +118,19 @@ Tie_engraver::acknowledge_element (Score_element_info i)
 }
 
 void
-Tie_engraver::deprecated_process_music ()
-{
-}
-
-void
 Tie_engraver::process_acknowledged ()
 {
-  if (tie_p_arr_.size ())
-    return;
-      
-  if (req_l_)
+  if (req_l_ && !done_)
     {
       Moment now = now_mom ();
       stopped_heads_.clear ();
       while (past_notes_pq_.size ()
 	     && past_notes_pq_.front ().end_ == now)
 	stopped_heads_.push (past_notes_pq_.get ());
+      done_ = true;
+      return;
     }
+
   if (req_l_)
     {
       now_heads_.sort (CHead_melodic_tuple::pitch_compare);
@@ -268,6 +263,7 @@ Tie_engraver::do_post_move_processing ()
       set_melisma (false);
     }
   req_l_ = 0;
+  done_ = false;
   Moment now = now_mom ();
   while (past_notes_pq_.size () && past_notes_pq_.front ().end_ < now)
     past_notes_pq_.delmin ();

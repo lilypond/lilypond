@@ -6,24 +6,37 @@
   (c) 1996--2000 Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
-#include "note-performer.hh"
+#include "performer.hh"
 #include "musical-request.hh"
 #include "audio-item.hh"
 #include "audio-column.hh"
 #include "global-translator.hh"
 #include "debug.hh"
 
+/**
+Convert reqs to audio notes.
+*/
+class Note_performer : public Performer {
+public:
+  VIRTUAL_COPY_CONS(Translator);
+  
+protected:
+  virtual bool do_try_music (Music *req_l) ;
+
+  virtual void do_pre_move_processing ();
+  virtual void process_acknowledged ();
+  Global_translator* global_translator_l ();
+
+private:
+  Array<Note_req*> note_req_l_arr_;
+  Array<Audio_note*> note_p_arr_;
+  Array<Audio_note*> delayed_p_arr_;
+};
 
 ADD_THIS_TRANSLATOR (Note_performer);
 
-Note_performer::Note_performer ()
-{
-}
-
-
-
 void 
-Note_performer::deprecated_process_music () 
+Note_performer::process_acknowledged ()
 {
   if (note_req_l_arr_.size ())
     {
@@ -42,12 +55,8 @@ Note_performer::deprecated_process_music ()
 	  announce_element (info);
 	  note_p_arr_.push (p);
 	}
+      note_req_l_arr_.clear ();
     }
-}
-
-void
-Note_performer::process_acknowledged ()
-{
 }
 
 Global_translator*

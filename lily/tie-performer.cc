@@ -7,18 +7,57 @@
   
  */
 
-#include "tie-performer.hh"
 #include "command-request.hh"
 #include "audio-item.hh"
 #include "musical-request.hh"
+#include "pqueue.hh"
+#include "performer.hh"
 
+struct CNote_melodic_tuple {
+  Melodic_req *req_l_ ;
+  Audio_note *note_l_;
+  Moment end_;
+  CNote_melodic_tuple ();
+  CNote_melodic_tuple (Audio_note*, Melodic_req*, Moment);
+  static int pitch_compare (CNote_melodic_tuple const &, CNote_melodic_tuple const &);
+  static int time_compare (CNote_melodic_tuple const &, CNote_melodic_tuple const &);  
+};
+
+inline int compare (CNote_melodic_tuple const &a, CNote_melodic_tuple const &b)
+{
+  return CNote_melodic_tuple::time_compare (a,b);
+}
+
+
+/**
+   Manufacture ties.  Acknowledge notes, and put them into a
+   priority queue. If we have a Tie_req, connect the notes that finish
+   just at this time, and note that start at this time.
+
+   TODO: should share code with Tie_engraver ?
+ */
+class Tie_performer : public Performer
+{
+public:
+  VIRTUAL_COPY_CONS(Translator);
+
+private:
+  bool done_;
+  PQueue<CNote_melodic_tuple> past_notes_pq_;
+  Tie_req *req_l_;
+  Array<CNote_melodic_tuple> now_notes_;
+  Array<CNote_melodic_tuple> stopped_notes_;
+  Link_array<Audio_tie> tie_p_arr_;
+  
+protected:
+  virtual void do_post_move_processing ();
+  virtual void do_pre_move_processing ();
+  virtual void acknowledge_element (Audio_element_info);
+  virtual bool do_try_music (Music*);
+  virtual void process_acknowledged ();
+};
 
 ADD_THIS_TRANSLATOR (Tie_performer);
-
-Tie_performer::Tie_performer()
-{
-  req_l_ = 0;
-}
 
 bool
 Tie_performer::do_try_music (Music *m)
@@ -47,9 +86,9 @@ Tie_performer::acknowledge_element (Audio_element_info i)
 }
 
 void
-Tie_performer::deprecated_process_music ()
+Tie_performer::process_acknowledged ()
 {
-  if (req_l_)
+  if (req_l_ && ! done_)
     {
       Moment now = now_mom ();
       Link_array<Audio_note> nharr;
@@ -58,13 +97,10 @@ Tie_performer::deprecated_process_music ()
       while (past_notes_pq_.size ()
 	     && past_notes_pq_.front ().end_ == now)
 	stopped_notes_.push (past_notes_pq_.get ());
+      done_ = true;
+      return;
     }
-}
 
-void
-Tie_performer::process_acknowledged ()
-{
-  deprecated_process_music ();
   if (req_l_)
     {
       now_notes_.sort (CNote_melodic_tuple::pitch_compare);
@@ -109,7 +145,6 @@ Tie_performer::process_acknowledged ()
 	{
 	  req_l_->origin ()->warning (_("No ties were created!"));
 	}
-      
     }
 }
 
@@ -134,6 +169,7 @@ void
 Tie_performer::do_post_move_processing ()
 {
   req_l_ =0;
+  done_ = false;
   Moment now = now_mom ();
   while (past_notes_pq_.size () && past_notes_pq_.front ().end_ < now)
     past_notes_pq_.delmin ();
