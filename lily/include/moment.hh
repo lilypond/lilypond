@@ -28,6 +28,8 @@ struct Moment : public Rational
 };
 
 
+Moment * unsmob_moment (SCM);
+
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, / );
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, + );
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, * );

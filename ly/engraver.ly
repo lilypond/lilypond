@@ -134,8 +134,8 @@ VoiceContext = \translator {
 	\consists "Beam_engraver";
 	\consists "Auto_beam_engraver";
 	\include "auto-beam-settings.ly";
-	\consists "Chord_tremolo_engraver";
 
+	\consists "Chord_tremolo_engraver";
 	\consists "Melisma_engraver";
 	textScriptPadding = #3.0
 	\consists "Text_engraver";
@@ -254,7 +254,7 @@ LyricsVoiceContext= \translator{
 LyricsContext = \translator {
 	\type "Engraver_group_engraver";
 	\name Lyrics;
-	\consists Vertical_align_engraver;%need this for getting folded repeats right.
+	\consists Vertical_align_engraver; %need this for getting folded repeats right.
 	Generic_property_list = #generic-lyrics-properties
 	\consists "Property_engraver";
 	\consistsend "Axis_group_engraver";

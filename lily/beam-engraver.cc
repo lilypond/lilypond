@@ -6,14 +6,12 @@
   (c) 1998--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
-#include "timing-engraver.hh"
 #include "engraver-group-engraver.hh"
 #include "beam-engraver.hh"
 #include "musical-request.hh"
 #include "beam.hh"
 #include "stem.hh"
 #include "warn.hh"
-#include "timing-translator.hh"
 #include "beaming.hh"
 #include "score-engraver.hh"
 
@@ -91,9 +89,10 @@ Beam_engraver::do_process_music ()
       prev_start_req_ = reqs_drul_[START];
       beam_p_ = new Beam;
 
-      Translator * t  = daddy_grav_l  ()->get_simple_translator ("Timing_engraver");
-      Timing_engraver *timer = dynamic_cast<Timing_engraver*> (t);
-      beam_start_location_ = (t) ?  timer->measure_position () : Moment (0);
+      SCM smp = get_property ("measurePosition");
+      Moment mp =  (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
+
+      beam_start_location_ = mp;
       beam_start_mom_ = now_mom();
       beam_info_p_ = new Beaming_info_list;
       

@@ -24,6 +24,10 @@ struct Beaming_info
   Beaming_info ();
 };
 
+/*
+  Generate beaming given durations of notes. Beam uses this to
+  set_beaming () for each of its stems.
+*/
 struct Beaming_info_list
 {
   Array<Beaming_info> infos_;

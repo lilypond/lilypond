@@ -6,12 +6,10 @@
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #include "bar-number-engraver.hh"
-#include "timing-translator.hh"
-#include "timing-engraver.hh"
 #include "engraver-group-engraver.hh"
 #include "text-item.hh"
+#include "moment.hh"
 
 Bar_number_engraver::Bar_number_engraver()
 {
@@ -24,14 +22,13 @@ Bar_number_engraver::Bar_number_engraver()
 void
 Bar_number_engraver::do_process_music ()
 {
-  Translator *tr = daddy_grav_l ()->get_simple_translator ("Timing_engraver");
-  Timing_translator *time = dynamic_cast<Timing_translator*>(tr);
-
   // todo include (&&!time->cadenza_b_ )
   SCM bn = get_property("currentBarNumber");
-
+  SCM smp = get_property ("measurePosition");
+  Moment mp =  (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
+  
   if (gh_number_p (bn) &&
-      !time->measure_position () && now_mom () > Moment (0))
+      !mp && now_mom () > Moment (0))
     {
       create_items (0);
 

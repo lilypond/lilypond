@@ -57,6 +57,10 @@ void
 Staff_group_bar_engraver::acknowledge_element (Score_element_info i)
 {
   Base_span_bar_engraver::acknowledge_element (i);
+
+  /*
+    UGH. This has to go into the backend. 
+   */
   if (Span_bar * b = dynamic_cast<Span_bar *> (i.elem_l_))
     {
       SCM gl = b->get_elt_property ("glyph");

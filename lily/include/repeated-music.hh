@@ -66,7 +66,7 @@ public:
 
   /// The duration of this piece of music
   virtual Moment length_mom () const;
-
+  Moment body_length_mom () const;
   Moment alternatives_length_mom () const;
 
   void print() const;

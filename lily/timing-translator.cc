@@ -14,6 +14,11 @@
 #include "global-translator.hh"
 #include "multi-measure-rest.hh"
 
+/*
+  TODO: change the rest of lily, so communication with
+  Timing_translator is only done through properties.  This means the
+  class declaration can go here.  */
+
 bool
 Timing_translator::do_try_music (Music*r)
 {

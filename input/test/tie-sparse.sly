@@ -1,4 +1,0 @@
-
-\context Voice {
-\property Voice.sparseTies = ##t
-c''  <c e g> ~ <c e g>  }

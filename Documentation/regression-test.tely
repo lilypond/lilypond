@@ -41,7 +41,7 @@ should go up, but in case of multiple parts, the down stems have down
 shifted dots.  (Wanske p. 186) In case of chords, all dots should be in
 a column.  The dots go along as rests are shifted to avoid collisions.
 
-@mudelafile{dots.fly}
+@mudelafile{dots.ly}
 
 Multiple measure rests do not collide with barlines and clefs.  They
 are not expanded when you set @code{Score.skipBars}.  Although the
@@ -78,7 +78,7 @@ leave a gap.  Chord tremolo beams on half notes are not ambiguous,
 as half notes cannot appear in a regular beam, and should reach the 
 stems.
   
-@mudelafile{chord-tremolo.sly}
+@mudelafile{chord-tremolo.ly}
 
 Beams, stems and noteheads often have communication troubles, since
 the two systems for y dimensions (1 unit = staffspace, 1 unit = 1
@@ -88,7 +88,7 @@ Stems, beams, ties and slurs should behave similarly, when placed
 on the middle staff line. Of course stem-direction is down for high
 notes, and up for low notes.
 
-@mudelafile{stem-direction.sly}
+@mudelafile{stem-direction.ly}
 
 Similarly, if @code{stem_default_neutral_direction} is set to @code{-1}.
 
@@ -99,7 +99,7 @@ Similarly, if @code{stem_default_neutral_direction} is set to @code{-1}.
 The staccato dot (and all scripts with follow-into-staff set), must
 not be on staff lines.
 
-@mudelafile{staccato-pos.sly}
+@mudelafile{staccato-pos.ly}
 
 @section Grace notes
 
@@ -136,7 +136,7 @@ counting from the note head side, should never be lower than the
 second staff line.  This does not hold for grace note beams.
 Override with @code{noStemExtend}.
 
-@mudelafile{beam-position.sly}
+@mudelafile{beam-position.ly}
 
 Slurs should look nice and symmetric.  The curvature may increase
 only to avoid noteheads, and as little as possible.
@@ -196,7 +196,7 @@ LilyPond has three modes for repeats: folded, unfolded and
 semi-unfolded.  Unfolded repeats are fully written out. Semi unfolded
 repeats have the body written and all alternatives sequentially.
 Folded repeats have the body written and all alternatives
-simultaneously.  If the number of alternatives is larger than the
+simultaneo.ly.  If the number of alternatives is larger than the
 repeat count, the excess alternatives are ignored.  If the number of
 alternatives is smaller, the first alternative is multiplied to get to
 the number of repeats.
@@ -248,14 +248,14 @@ numberOfStaffLines.  Ledger lines both on note heads and rests are
 adjusted.  Barlines also are adjusted.
 
 
-@mudelafile{number-staff-lines.fly}
+@mudelafile{number-staff-lines.ly}
 
 @section Spacing
 
 In a limited number of cases, LilyPond corrects for optical spacing
 effects.  In this example, space for opposite pointed stems is adjusted
 
-@mudelafile{stem-spacing.sly}
+@mudelafile{stem-spacing.ly}
 
 If there are accidentals in the music, we add space, but the space
 between note and accidentals is less than between the notes with the
@@ -349,7 +349,7 @@ with style ``old'', 2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8 and
 layout. The style ``1'', gives single number signatures for all
 signatures. 
 %
-\mu delafile{time.fly}
+\mu delafile{time.ly}
 @end ignore
 
 @bye

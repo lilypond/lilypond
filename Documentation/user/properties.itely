@@ -166,7 +166,7 @@ c''16 \property Staff.fontSize = -2 c''16
 Merge noteheads in collisions, even if they have a different number of
 dots. This normal notation for polyphonic guitar music.
 
-@mudelafile[verbatim]{force-hshift.sly}
+@mudelafile[verbatim]{force-hshift.ly}
 
 
 [FIXME: this should be moved]

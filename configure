@@ -2663,7 +2663,7 @@ echo "configure:2645: checking for TeX TFM directory" >&5
     ## First, let's just see if we can find Guile at all.
     echo $ac_n "checking "for guile-config"""... $ac_c" 1>&6
 echo "configure:2666: checking "for guile-config"" >&5
-    for guile_config in guile-config $build-guile-config; do
+    for guile_config in guile-config $target-guile-config $build-guile-config; do
 	echo "$ac_t"""$guile_config"" 1>&6
 	if ! $guile_config --version > /dev/null 2>&1 ; then
 	    echo "configure: warning: "cannot execute $guile_config"" 1>&2

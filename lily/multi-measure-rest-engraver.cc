@@ -10,13 +10,13 @@
 #include "multi-measure-rest.hh"
 #include "paper-column.hh"
 #include "engraver-group-engraver.hh"
-#include "timing-translator.hh"
 #include "bar.hh"
 #include "staff-symbol-referencer.hh"
 #include "engraver.hh"
 #include "moment.hh"
 
 /**
+   The name says it all: make multi measure rests 
  */
 class Multi_measure_rest_engraver : public Engraver
 {
@@ -109,28 +109,24 @@ Multi_measure_rest_engraver::do_process_music ()
 
   if (busy_span_req_l_ && !mmrest_p_)
     {
-      Translator * tr = daddy_grav_l()->get_simple_translator ("Timing_engraver");	// ugh
-      Timing_translator * time = dynamic_cast<Timing_translator*> (tr);
-
       mmrest_p_ = new Multi_measure_rest;
       Staff_symbol_referencer_interface si (mmrest_p_);
       si.set_interface ();
 
       announce_element (Score_element_info (mmrest_p_, busy_span_req_l_));
       start_measure_i_
-	= gh_scm2int (time->get_property ("currentBarNumber"));
+	= gh_scm2int (get_property ("currentBarNumber"));
     }
 }
 
 void
 Multi_measure_rest_engraver::do_pre_move_processing ()
 {
-  Moment now (now_mom ());
-  Translator * tr = daddy_grav_l()->get_simple_translator ("Timing_engraver");	// ugh
-  Timing_translator * time  = dynamic_cast<Timing_translator*> (tr);
+  SCM smp = get_property ("measurePosition");
+  Moment mp =  (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
 
-  if (mmrest_p_ && (now >= start_moment_) 
-    && !time->measure_position ()
+  if (mmrest_p_ && (now_mom () >= start_moment_) 
+    && !mp
     && (scm_ilength (mmrest_p_->get_elt_property ("columns")) >= 2))
     {
       typeset_element (mmrest_p_);
@@ -155,15 +151,16 @@ Multi_measure_rest_engraver::do_pre_move_processing ()
 void
 Multi_measure_rest_engraver::do_post_move_processing ()
 {
-  Translator * tr = daddy_grav_l()->get_simple_translator ("Timing_engraver");	// ugh
-  Timing_translator * time  = dynamic_cast<Timing_translator*> (tr);
-
   Moment now (now_mom ());
-
-  if (mmrest_p_ && !time->measure_position ())
+  
+  
+  SCM smp = get_property ("measurePosition");
+  Moment mp =  (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
+  
+  if (mmrest_p_ && !mp)
     {
       lastrest_p_ = mmrest_p_;
-      int cur = gh_scm2int (time->get_property ("currentBarNumber"));
+      int cur = gh_scm2int (get_property ("currentBarNumber"));
       lastrest_p_->set_elt_property ("measure-count",
 				     gh_int2scm (cur - start_measure_i_));
       mmrest_p_ = 0;

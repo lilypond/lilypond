@@ -407,7 +407,6 @@ done
 
 cd $NATIVE_PREFIX/src/redhat/BUILD
 
-mkdir -p $distdir
 rm -f $distdir/$CYGWIN_DLL.gz
 cd $distdir && cp -f $PREFIX/bin/$CYGWIN_DLL . && gzip -f $CYGWIN_DLL
 
@@ -488,8 +487,3 @@ done
 
 rm -f $www/setup.zip
 cd $www && zip setup.zip lily-w32 $distbase/* $dist_rpms
-
-mkdir -p zip
-for i in guile-1 rpm lilypond; do
-	
-done
