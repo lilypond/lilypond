@@ -33,6 +33,7 @@ extern bool be_verbose_global;
 extern bool do_internal_type_checking_global;
 extern bool is_pango_format_global;
 extern bool is_TeX_format_global;
+extern bool point_and_click_global;
 extern String prefix_directory;
 
 /*

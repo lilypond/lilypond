@@ -82,6 +82,8 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
 	   "@table @code\n"
 	   "@item help\n"
 	   "List all options.\n"
+	   "@item point-and-click\n"
+	   "Switch point & click on or off.\n"
 	   "@item midi-debug\n"
 	   "If set to true, generate human readable MIDI\n"
 	   "@item internal-type-checking\n"
@@ -108,6 +110,8 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
     midi_debug_global_b = to_boolean (val);
   else if (var == ly_symbol2scm ("testing-level"))
     testing_level_global = scm_to_int (val);
+  else if (var == ly_symbol2scm ("point-and-click"))
+    point_and_click_global = to_boolean (val);
   else if (var == ly_symbol2scm ("parse-protect"))
     parse_protect_global = to_boolean (val);
   else if (var == ly_symbol2scm ("internal-type-checking"))
@@ -137,6 +141,8 @@ LY_DEFINE (ly_get_option, "ly:get-option", 1, 0, 0, (SCM var),
 	   "@table @code\n"
 	   "@item old-relative-used\n"
 	   "Report whether old-relative compatibility mode is necessary\n"
+	   "@item point-and-click\n"
+	   "Report whether point & click is switched on.\n"
 	   "@item old-relative\n"
 	   "Report whether old-relative compatibility mode is used\n"
 	   "@item verbose\n"
