@@ -12,20 +12,29 @@
 
 #include "register-group.hh"
 
-struct Voice_group_registers  : Register_group_register {
-    String group_id_str_;
-    Array<Voice_registers*> voice_regs_l_;
+/**
+  A group of voices which share certain characteristics (such as beams. ).
+ */
+class Voice_group_registers  : public Register_group_register {
     Moment termination_mom_;
-    
+    Input_register const *ireg_C_;
+protected:
+    virtual void do_print() const;
+    virtual void post_move_processing();
+    virtual bool try_request(Request*);
+public:
+
+    virtual Request_register * get_register_p(Request_register  * reg_l);
+    /// each group in a staff has an unique ID.
+    String group_id_str_;
+
+    /// The pointers are in the base class. This is just administration
+    Array<Voice_registers*> voice_regs_l_;
     /* *************** */
     
     NAME_MEMBERS(Voice_group_registers);
     static bool static_acceptable_request_b(Request*);
-    virtual void terminate_register(Request_register*);
-    virtual void do_print() const;
-    virtual void post_move_processing();
     virtual void add(Request_register*);
-    Voice_group_registers(String id);
-    virtual bool try_request(Request*);
+    Voice_group_registers(String id, Input_register const *);
 };
 #endif // VOICEGROUPREGS_HH
