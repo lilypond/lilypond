@@ -5,6 +5,7 @@
     the scheme-function @code{make-century-schoolbook-tree}."
 
 }
+\version "2.3.7"
 
 \bookpaper
 {
