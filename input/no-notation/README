@@ -1,9 +1,0 @@
-These examples test various non-typesetting things. Since they 
-do not generate output, they are not in test/ or regression/
-
-Some (notably parse*.ly) are just error/warning generation tests
-and should remain here.
-
-Some (notably midi-*.ly) test midi output, which does not usually
-get tested in ../regression files.
-

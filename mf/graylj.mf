@@ -1,9 +1,0 @@
-% Gray font for LJ with proofsheet resolution 150 pixels per inch.
-% Each pixel is represented by a 4x4 square, with 4/16 of the dots on.
-
-
-font_identifier "GRAYLJ";
-
-boolean lightweight;
-
-input grayf
