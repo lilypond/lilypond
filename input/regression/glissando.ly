@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header{
 
@@ -31,3 +31,4 @@ The engraver does no time-keeping, so it involves some trickery to get
 	}
     }
 }
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
     
 texidoc = "Notes that are shorter than the common shortest note, Get a
@@ -21,3 +21,4 @@ eighth note. "
 
 	 \paper { linewidth = -1. }
 }
+%% new-chords-done %%

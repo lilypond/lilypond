@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header {
 texidoc="Slurs play well with phrasing slur."
@@ -12,3 +12,4 @@ texidoc="Slurs play well with phrasing slur."
     linewidth = -1.
   }
 }
+%% new-chords-done %%

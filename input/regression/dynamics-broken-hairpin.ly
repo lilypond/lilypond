@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header{
 texidoc = "Broken crescendi should look be open on one side."
 }
@@ -11,3 +11,4 @@ texidoc = "Broken crescendi should look be open on one side."
   }
 }
   
+%% new-chords-done %%

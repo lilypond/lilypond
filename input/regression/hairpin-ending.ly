@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header {
 
@@ -10,6 +10,7 @@ into them."
 
 
 \score {
-\notes \relative c'' { c4 \> c4 \! c4 c4_\ff \> c4 \! c4 \p }
+\notes \relative c'' { c4 \> c4 \! c4 c4_\ff \> c4 \! c4 -\p }
 \paper { linewidth = -1.} 
 }
+%% new-chords-done %%

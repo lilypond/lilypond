@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 texidoc = "The staff is a grob, and may be adjusted as well: this one
  shows a staff with 6 thick line, and a slightly large staffspace.
@@ -19,3 +19,4 @@ Beams remain correctly quantized.
 
       } 
      }
+%% new-chords-done %%

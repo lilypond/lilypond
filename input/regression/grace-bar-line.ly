@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 texidoc = "Bar line should come before the grace note."
 }
@@ -11,3 +11,4 @@ texidoc = "Bar line should come before the grace note."
  f1 \grace { [a'16 f]  } g1 }
 		\paper { linewidth = -1. }
  } 
+%% new-chords-done %%

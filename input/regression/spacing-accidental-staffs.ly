@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header { 
 texidoc = "Accidentals in different staffs don't effect the
@@ -18,3 +18,4 @@ spacing of the quarter notes here."
  }
 
 
+%% new-chords-done %%

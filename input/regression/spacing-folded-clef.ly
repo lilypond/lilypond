@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 texidoc = "A clef can be folded below notes in a different staff, if
 this doesn't disrupt the flow of the notes."
@@ -11,3 +11,4 @@ this doesn't disrupt the flow of the notes."
 
 	\paper { linewidth = -1. }
 	}
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 texidoc = "
  When tightly spaced, hinterfleisch -> 0.
@@ -19,3 +19,4 @@ texidoc = "
 		indent = 0.0\mm
 	}
 }
+%% new-chords-done %%

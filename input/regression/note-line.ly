@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header {
 texidoc = "Note head lines (eg glissando)
@@ -29,3 +29,4 @@ sd = \notes{ \translator Staff = down}
 }
 }
 
+%% new-chords-done %%

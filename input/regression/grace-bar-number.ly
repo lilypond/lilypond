@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 
 texidoc = "Grace notes do tricky things with timing. If a measure
@@ -12,3 +12,4 @@ printed correctly.
 \score { \notes\relative c''' { c1 \break
 \grace c8
 c1  }}
+%% new-chords-done %%

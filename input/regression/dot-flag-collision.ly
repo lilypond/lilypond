@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
     texidoc = "Dots move to the right when a collision with the (up)flag happens"
 }
@@ -15,3 +15,4 @@
     \paper { linewidth = -1. }
 }
 
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header{
 texidoc="
@@ -39,3 +39,4 @@ lyrics don't collide with barlines.
 		}
 	}
 }
+%% new-chords-done %%

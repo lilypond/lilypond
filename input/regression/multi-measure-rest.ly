@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header{
 
 texidoc="
@@ -34,3 +34,4 @@ Rests over measures during longer than 2 wholes use breve rests.
 	linewidth = -1.	
 	}
 }
+%% new-chords-done %%

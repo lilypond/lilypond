@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.6"
 \header {
 texidoc="Multi measure rests of second voice should not disappear."
 }
@@ -7,16 +7,16 @@ texidoc="Multi measure rests of second voice should not disappear."
 #(ly:set-point-and-click 'line-column)
 one = \notes\relative c'' {
 
-	f4 \!e-.\f r2|
+	f4 \!e-.-\f r2|
 	R1|
-	f2\p()es|
+	f2-\p()es|
 	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	d1\<|
 	d1|
 	d2 d2|
 	d2 d2|
-	\!f1\ff  |
+	\!f1-\ff  |
 	f1
 }
 
@@ -56,4 +56,4 @@ two = \notes \relative c'' {
       RestCollision \override #'maximum-rest-count = #1
     }
   }
-}
+}%% new-chords-done %%

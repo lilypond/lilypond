@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.6"
 \header {
 
 texidoc = "If NoteCollision has merge-differently-dotted set, note
@@ -15,3 +15,4 @@ heads that have differing dot counts may be merged anyway."
   \context Voice = VB { \voiceTwo [g'8. f16] [g'8. f'16] } 
   >
 }}
+%% new-chords-done %%

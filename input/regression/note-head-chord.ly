@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header {
     texidoc = "Note heads are flipped on the stem to prevent collisions.
@@ -9,9 +9,10 @@ It also works for whole heads that have invisible stems.
 
 \score { \notes \relative c''
 	 \context Thread {
-	     <g4 a c>
-	     <c d g a>
-	     <c d e >
-	     <c c g>
-	     <c1 d f g>
+	     <<g a c>>4
+	     <<c d g a>>
+	     <<c d e >>
+	     <<c c g>>
+	     <<c d f g>>1
     }}
+%% new-chords-done %%

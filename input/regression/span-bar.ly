@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 texidoc = "Span bars draw only in between staff bar lines, so setting those to transparent shows bar lines between systems only.
 "
@@ -36,3 +36,4 @@ texidoc = "Span bars draw only in between staff bar lines, so setting those to t
   }
  }
 }
+%% new-chords-done %%

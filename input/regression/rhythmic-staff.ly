@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header
 {
 
@@ -10,3 +10,4 @@
 	     r4 c4. c8 r8 c8 | c2 r2 | r1
   }
 }
+%% new-chords-done %%

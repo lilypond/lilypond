@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header{
 texidoc="
@@ -19,3 +19,4 @@ The horizontal middle should not overlap with a staffline.
 		linewidth=0.
 	}
 }
+%% new-chords-done %%

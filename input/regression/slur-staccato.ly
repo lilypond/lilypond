@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 texidoc="Manual hack for slur and staccato."
 }
@@ -14,4 +14,4 @@ texidoc="Manual hack for slur and staccato."
       #'attachment-offset = #'((0 . 1.5) . (0 . 1.5))
     b-.( a-. )b-.
   }
-}	
+}	%% new-chords-done %%

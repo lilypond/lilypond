@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header{
 
@@ -21,3 +21,4 @@ much to correct."
     linewidth=-1.0
   }  
 }
+%% new-chords-done %%

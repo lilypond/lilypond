@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 texidoc = "Measure and beat repeats are supported."
 }
@@ -17,3 +17,4 @@ texidoc = "Measure and beat repeats are supported."
 
 
      }}
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 texidoc = "whole and half rests moving outside the staff should get
 ledger lines"
@@ -29,3 +29,4 @@ ledger lines"
 
   
 }}
+%% new-chords-done %%

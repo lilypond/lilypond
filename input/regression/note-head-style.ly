@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header{
 texidoc="
 Note head shapes are settable.  The stem endings should be adjusted
@@ -66,3 +66,4 @@ c4 c2 c8  c16 c16  c1 c\breve c\longa b4 b2 b8  b16 b16 b1 b\breve b\longa \brea
 
     \paper {}
 }
+%% new-chords-done %%

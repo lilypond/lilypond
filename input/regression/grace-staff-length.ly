@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header{
 texidoc = "Stripped version of trip.ly.  Staffs should be of correct length."
 }
@@ -18,3 +18,4 @@ texidoc = "Stripped version of trip.ly.  Staffs should be of correct length."
   > 
   \paper { }
 }
+%% new-chords-done %%

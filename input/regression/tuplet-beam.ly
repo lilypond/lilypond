@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 
 texidoc = "In combination with a beam, the bracket of the tuplet
@@ -12,3 +12,4 @@ the bracket."
 \times 2/3 { [c8 c c] }
 \times 2/3 { [c16 c16] [c8 c8] }
 }}
+%% new-chords-done %%

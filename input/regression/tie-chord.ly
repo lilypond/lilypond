@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 \header{
 texidoc="
 When tieing chords, the outer slurs point outwards, the inner slurs
@@ -8,7 +8,7 @@ point away from the center of the staff.  Override with
 }
 
 
-t =  \notes \relative c' {   <c e g> ~ <c e g> }
+t =  \notes \relative c' {   <<c e g>> ~ <<c e g>> }
 
 	\score { 
 \notes \context Voice {
@@ -20,3 +20,4 @@ t =  \notes \relative c' {   <c e g> ~ <c e g> }
 
   }
 }
+%% new-chords-done %%

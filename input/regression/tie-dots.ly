@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 texidoc = "Ties should not collide with dots."
 }
@@ -10,3 +10,4 @@ texidoc = "Ties should not collide with dots."
   c4.   ~    c8    a8    g8    f8
 }}
 
+%% new-chords-done %%

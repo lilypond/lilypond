@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 texidoc = "Stanza numbers may differ for the first and following systems."
 }
@@ -12,3 +12,4 @@ texidoc = "Stanza numbers may differ for the first and following systems."
 Foo1 Bar1   }
 
 \notes { c''1 \break c''1 }>} 
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header{
 texidoc="
@@ -30,3 +30,4 @@ R1*11 |
 
 	>
 }
+%% new-chords-done %%

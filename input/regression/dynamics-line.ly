@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header{
 texidoc=" Dynamics appear below or above the staff.  If multiple
 dynamics are linked with (de)crescendi, they should be on the same
@@ -18,7 +18,7 @@ a
 
 % because do_removal_processing ()
 % doesn't seem to post_process elements
-d\f
+d-\f
 
 a
 
@@ -29,3 +29,4 @@ a
 \tempo 1 = 60
 }
 }
+%% new-chords-done %%

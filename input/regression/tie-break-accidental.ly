@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header {
 texidoc = "First and second bes (tied across line break)
@@ -17,3 +17,4 @@ Only first B should get natural sign."
     linewidth = 40*\staffspace
   }
 }
+%% new-chords-done %%

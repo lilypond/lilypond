@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 texidoc = "prefatory spacing
 
@@ -14,3 +14,4 @@ TODO: show all common combinations to check for spacing anomalies.
 }
 \paper  { linewidth = -1. }
 }
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header{
 texidoc="
 Noteheads can have dots, and rests can too.  Augmentation dots should
@@ -15,13 +15,13 @@ a column.  The dots go along as rests are shifted to avoid collisions.
   \context Voice \notes\relative c'' {
     \time 6/8
 	d4. g,,
-	<b''4. c d e>  <f g a b>
-	<g b d> <c, g' d' a'>
+	<<b'' c d e>>4.  <<f g a b>>
+	<<g b d>> <<c, g' d' a'>>
 	
 	
 	\context Staff <
-		\context Voice = VA {  \stemUp   f''  <b c> r4.  }
-		\context Voice = VB {  \stemDown b, <a b> r4. }
+		\context Voice = VA {  \stemUp   f''  <<b c>> r4.  }
+		\context Voice = VB {  \stemDown b, <<a b>> r4. }
 	>
 	
 	
@@ -29,3 +29,4 @@ a column.  The dots go along as rests are shifted to avoid collisions.
   \paper { }  
   \midi { }
 }
+%% new-chords-done %%

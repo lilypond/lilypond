@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
   texidoc = "Grace note spacing. Should be tuned? "
 }
@@ -8,3 +8,4 @@
   \paper { linewidth =-1. }
 
 }
+%% new-chords-done %%

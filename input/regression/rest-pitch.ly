@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 
 texidoc = "Rests can have pitches--these will be affected by
@@ -15,3 +15,4 @@ collision will leave it alone."
 <d \\  r> 
 }
 }
+%% new-chords-done %%

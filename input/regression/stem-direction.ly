@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header{
 texidoc="
@@ -23,3 +23,4 @@ notes, and up for low notes.
   }  
   \midi { }
 }
+%% new-chords-done %%
