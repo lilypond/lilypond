@@ -187,34 +187,18 @@ System::get_lines ()
 
       if (verbose_global_b)
 	progress_indication ("[");
-      
-      // bool last = (i + 1 == line_count);
+
+      // urg between-systems hack
+      bool last = (i + 1 == line_count);
 
       system->post_processing ();
-      scm_vector_set_x (lines, scm_int2num (i), system->get_line ());
+      scm_vector_set_x (lines, scm_int2num (i), system->get_line (last));
 
       if (verbose_global_b)
 	{
 	  progress_indication (to_string (i));
 	  progress_indication ("]");
 	}
-
-#ifndef PAGE_LAYOUT
-      if (i < line_count - 1)
-	{
-	  SCM lastcol =  ly_car (system->get_property ("columns"));
-	  Grob*  e = unsmob_grob (lastcol);
-
-	  SCM between = ly_symbol2scm ("between-system-string");
-	  SCM inter = e->internal_get_property (between);
-	  if (gh_string_p (inter))
-	    {
-	      pscore_->outputter_
-		->output_scheme (scm_list_n (between, 
-					     inter, SCM_UNDEFINED));	      
-	    }
-	}
-#endif			
     }
    return lines;
 }
@@ -412,13 +396,33 @@ System::post_processing ()
    LINE: list of ((OFFSET-X . OFFSET-Y) . STENCIL)
    Maybe make clas/smob?  */
 SCM
-System::get_line ()
+System::get_line (bool is_last)
 {  
   static int const LAYER_COUNT = 3;
   SCM line = SCM_EOL;
   if (Stencil *me = get_stencil ())
     line = scm_cons (scm_cons (ly_offset2scm (Offset (0, 0)),
 			       me->smobbed_copy ()), line);
+
+  
+#ifndef PAGE_LAYOUT
+  // still does not work - do we really need this at all?
+  if (is_last)
+    {
+      SCM lastcol = ly_car (get_property ("columns"));
+      Grob *g = unsmob_grob (lastcol);
+      
+      SCM between = ly_symbol2scm ("between-system-string");
+      SCM inter = g->internal_get_property (between);
+      if (gh_string_p (inter))
+	{
+	  Stencil *stil = new Stencil (Box (), scm_list_2 (between, inter));
+	  line = scm_cons (scm_cons (ly_offset2scm (Offset (0, 0)),
+				     stil->smobbed_copy ()),
+			   line);
+	}
+    }
+#endif
 
   /* Output stencils in three layers: 0, 1, 2.  The default layer is
      1.  */
