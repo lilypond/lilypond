@@ -48,6 +48,7 @@
 #define fix_guile_1_4_scm_primitive_eval(form) scm_eval_3 (form, 1, SCM_EOL)
 #define scm_primitive_eval(form) fix_guile_1_4_scm_primitive_eval (form)
 
+#define scm_int2num(x) scm_long2num (x)  
 #define scm_current_module() (SCM)0
 #define scm_set_current_module(x) (void)x
 #define scm_c_resolve_module(x) (SCM)0
