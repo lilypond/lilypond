@@ -1,13 +1,15 @@
 # -*-python-*-
 
 Import ('env', 'src_glob')
-sources = src_glob ('*.cc')
-includes = src_glob ('include/*.hh')
+sources = src_glob ('*.c')
+includes = src_glob ('*.h')
 outdir = Dir ('.').path
 
-name = 'flower'
+name = 'kpath-guile'
 e = env.Copy ()
-e.Append (CPPPATH = ['#/flower/include', outdir,])
+e.Append (CPPPATH = ['/#ttftool/include', '#/flower/include', outdir,],
+	  CCFLAGS = '-std=c99',
+	  )
 if env['static']:
 	e.Library (name, sources) 
 if not env['static'] or env['shared']:

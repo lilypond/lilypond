@@ -14,9 +14,11 @@ e.Append (
 	CPPPATH = [
 	  '#/lily/include',
 	  '#/flower/include',
+	  '#/kpath-guile/include',
+	  '#/ttftool/include',
 	  outdir],
 	LEXFLAGS = ['-Cfe', '-p', '-p'],
-	LIBS = ['flower'],
+	LIBS = ['flower', 'ttftool', 'kpath-guile'],
 	)
 
 e.HH ('parser.hh', 'parser.yy')

@@ -1,13 +1,13 @@
 # -*-python-*-
 
 Import ('env', 'src_glob')
-sources = src_glob ('*.cc')
-includes = src_glob ('include/*.hh')
+sources = src_glob ('*.c')
+includes = src_glob ('include/*.h')
 outdir = Dir ('.').path
 
-name = 'flower'
+name = 'ttftool'
 e = env.Copy ()
-e.Append (CPPPATH = ['#/flower/include', outdir,])
+e.Append (CPPPATH = ['#/flower/include', '#/ttftool/include', outdir,])
 if env['static']:
 	e.Library (name, sources) 
 if not env['static'] or env['shared']:
