@@ -238,10 +238,13 @@ to your @var{load-path}. Append the following line (modified) to your
 
 @section Vim mode
 
-@c lilypond.words.el for vim auto-completion?
-A Vim mode for entering music and running LilyPond is contained in
-the source archive. The LilyPond file type is detected if your file
-@file{~/.vim/filetype.vim} has the following content:
+A Vim mode for entering music and running LilyPond is contained in the 
+source archive. For version 6.2 and newer, Vim-mode works directly after 
+installing LilyPond. 
+
+For earlier versions (and if @code{$VIM} environment variable does not
+fall-back to @file{/usr/share/vim}), the LilyPond file type is detected 
+if your file @file{~/.vim/filetype.vim} has the following content:
 @example
 	if exists("did_load_filetypes")
   	  finish
@@ -250,13 +253,12 @@ the source archive. The LilyPond file type is detected if your file
   	  au! BufNewFile,BufRead *.ly           setf lilypond
 	augroup END
 @end example
-In addition, LilyPond's vim-mode files which are installed to 
-@file{/usr/share/lilypond/vim/} have to be placed in a path specified
-in your @code{$VIMRUNTIME} environment variable. You can add this path 
-to @code{$VIMRUNTIME} by appending the following line to your 
-@file{~/.vimrc}:
+If Vim has been installed to @file{/usr/local/...} instead of 
+@file{/usr/...}, then @file{/usr/share/vim} may not be specified in 
+your @code{$VIMRUNTIME} environment variable and you have to include this 
+path explicitly by appending the following line to your @file{~/.vimrc}:
 @example
-	set runtimepath+=/usr/share/lilypond/vim/
+	set runtimepath+=/usr/share/vim/
 @end example
 
 @section Problems
