@@ -18,6 +18,11 @@ Staff_sym_engraver::fill_staff_info(Staff_info&i)
     i.staff_sym_l_ = span_p_;
 }
 
+Staff_sym_engraver::~Staff_sym_engraver()
+{
+    assert( !span_p_);
+}
+
 Staff_sym_engraver::Staff_sym_engraver()
 {
    span_p_ = 0;

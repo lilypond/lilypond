@@ -20,7 +20,7 @@ voices.
 %prep
 %setup
 %build
-configure --enable-checking --disable-debugging --enable-printing --prefix=/usr --enable-optimise --enable-shared
+./configure --enable-checking --disable-debugging --enable-printing --prefix=/usr --enable-optimise --enable-shared
 make all
 %install
 rm -rf $RPM_BUILD_ROOT

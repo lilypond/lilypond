@@ -147,13 +147,13 @@ struct c ## init {					\
 	return new c;					\
     }							\
     c ## init () {					\
-	add_Engraver(c::static_name(), globalctor);	\
+	add_engraver(c::static_name(), globalctor);	\
 							\
     }							\
 } _ ## c ## init;
 
 typedef Engraver*(*Grav_ctor)(void);
-void add_Engraver(String s, Grav_ctor f);
+void add_engraver(String s, Grav_ctor f);
 
 #endif // ENGRAVER_HH
 

@@ -50,9 +50,9 @@ Note_head::do_pre_processing()
     	
     if (rest_b_) { 
 	if (balltype_i_ == 1)
-	    position_i_ = 6;
+	    position_i_ += 6;
 	else if (balltype_i_ == 2)
-	    position_i_ = 4;
+	    position_i_ += 4;
     }
 }
 

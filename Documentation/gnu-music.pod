@@ -8,23 +8,50 @@ Random ranting about the GNU Music project
 
 =head1 GOAL
 
-Provide the users with free software for:
+Provide musicians with free software for
 
-	- composing
-	- setting
-	- playing
-	- sequencing
-	- interchanging music
+=over 4
+
+=item -
+
+composing
+
+=item -
+
+engraving
+
+=item -
+
+playing
+
+=item -
+
+sequencing
+
+=item -
+
+interchanging music
+
+=back
 
 and possibly for
 
-	- arranging
-	- performing
+=over 4
+
+=item - 
+
+arranging
+
+=item -
+
+performing
+
+=back
 
 Music publishers make lots of money out of selling sheet music which
 is in the public domain (the composers died a long time ago). It is
 usually prohibited to xerox the sheet music.  Publishers have two
-arguments for not allowing this: high prices are there to guarantee
+arguments to justify this policy: the high prices are there to guarantee
 diversity (keeping lots of stock is expensive), and to encourage new
 work being composed.
 
@@ -36,6 +63,9 @@ tools have created a whole new generation of programmers.
 The public deserves to get public domain music for free (zero cents). 
 
 The public deserves free tools for composing and printing.
+
+In general, the same arguments as for software hold for music. See
+Stallmans articles on free software.
 
 
 =head1 REQUIREMENTS
@@ -149,7 +179,8 @@ system and the typesetting engine.
 
 =item *
 
-Libraries for reading, writing various audio/music/notation formats.
+Libraries for reading and writing various audio/music/notation
+formats.
 
 =back
 

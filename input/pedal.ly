@@ -24,10 +24,9 @@
 % \lbheel \lbheel \lfheel \lftoe
 % \rbheel \rbtoe \rfheel \rftoe
 
-\version "0.0.58";
+\version "0.0.61";
 
 \score{
-	\staff{ melodicregs
 		\melodic {
 			\meter 4/4;
 			\key fis cis;
@@ -44,7 +43,6 @@
 			[d-\lfheel e-\rbtoe fis-\ltoe e-\rbtoe]
 			[d-\lfheel e-\rbtoe fis-\lheel e] [d e fis e] [d e fis e] |
 			d4 r4 r4 [b-\rtoe a-\ltoe b-\rtoe fis-\ltoe] |
-		}
 	}
 	\paper{}
 }

@@ -21,18 +21,20 @@ Crescendo::Crescendo()
     inside_staff_b_ = false;
 }
 
-Molecule*
-Crescendo::brew_molecule_p() const
+Interval
+Crescendo::symbol_height()const
 {
-    Molecule* m_p =0;
-    Real x_off_dim=0.0;
-    Real absdyn_dim = 10 PT;	// ugh
-    
-    m_p = new Molecule;
+    return get_symbol().dim.y;
+}
+
+static Real absdyn_dim = 10 PT;	// ugh
+
+Symbol
+Crescendo::get_symbol()const
+{    
     Real w_dim = width().length();
     if ( left_dyn_b_ ) {
 	w_dim -= absdyn_dim;
-	x_off_dim += absdyn_dim;
     }
     if ( right_dyn_b_ ) {
 	w_dim -= absdyn_dim;
@@ -42,13 +44,23 @@ Crescendo::brew_molecule_p() const
 	warning("Crescendo too small");
 	w_dim = 0;
     }
-    Real lookup_wid = w_dim * 0.9; // make it slightly smaller.
+//    Real lookup_wid = w_dim * 0.9; // make it slightly smaller.
 
-    Symbol s( paper()->lookup_l()->hairpin( lookup_wid, grow_dir_i_ < 0) );
+    return Symbol( paper()->lookup_l()->hairpin( w_dim, grow_dir_i_ < 0) );
+}
+
+Molecule*
+Crescendo::brew_molecule_p() const
+{
+    Molecule* m_p =0;
+    Real x_off_dim=0.0;
+    if ( left_dyn_b_)
+	x_off_dim += absdyn_dim;
+    
+    m_p = new Molecule;
+    Symbol s(get_symbol());
     m_p->add(Atom(s));
-    int pos = get_position_i(s.dim.y);
-    m_p->translate(Offset(x_off_dim + 0.05 * w_dim, 
-			  pos * paper()->internote_f()));
+    m_p->translate(Offset(x_off_dim, pos_i_ * paper()->internote_f()));
     return m_p;
 }
 

@@ -37,7 +37,7 @@ class Paper_def {
     Lookup *lookup_p_;
     Assoc<String, Real> *real_vars_p_;
 
-    Input_engraver * igrav_p_;
+    Input_translator * itrans_p_;
 public:    
     String outfile_str_;
     
@@ -48,7 +48,7 @@ public:
     void reinit();
     Paper_def();
     void set(Lookup*);
-    void set (Input_engraver * );
+    void set (Input_translator * );
     Global_translator * get_global_translator_p()const;
     ~Paper_def();
     Paper_def(Paper_def const&);

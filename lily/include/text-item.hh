@@ -19,8 +19,6 @@ class Text_item : public Item ,public Staff_side{
  
 public:
 
-    int pos_i_;
-
     /// do I have width?
     bool fat_b_;
     
@@ -33,9 +31,9 @@ public:
 protected:
     General_script_def * tdef_p_;
 
-    virtual void set_default_index();
+    virtual Interval symbol_height()const;
+
     virtual Molecule* brew_molecule_p() const;
-    virtual void do_post_processing();
     virtual void do_pre_processing();
 };
 

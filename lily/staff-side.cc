@@ -22,6 +22,8 @@ Staff_side::set_staffsym(Staff_symbol* s_l)
 
 Staff_side::Staff_side()
 {
+    pos_i_ =0;
+    sym_int_ = Interval(0,0);
     staff_size_i_ = 0;
     staff_sym_l_=0;
     dir_i_ =0;
@@ -86,16 +88,20 @@ Staff_side::get_position_i()const
     return int(rint(Real(y)/inter_f)); // should ret a float?
 }
 
-int
-Staff_side::get_position_i(Interval sym_dim) const
-{ 
-    int i= get_position_i();
-    if (dir_i_)
-	return i+ int(rint(- sym_dim[-dir_i_] / paper()->internote_f()));
-    else
-	return i;
+Interval
+Staff_side::symbol_height() const
+{
+    return Interval(0,0);
 }
 
+void
+Staff_side::do_post_processing()
+{
+    sym_int_ = symbol_height();
+    pos_i_ = get_position_i( );
+    if (dir_i_)
+	pos_i_ += int(rint(- sym_int_[-dir_i_] / paper()->internote_f()));
+}
 
 void
 Staff_side::do_substitute_dependency(Score_elem*o, Score_elem*n)

@@ -47,6 +47,7 @@ public:
     Real hpos;			// should use ptr?
 
     bool error_mark_b_;
+    bool used_b_ ;		// manual override.. 
     
     PScore * pscore_l_;
 

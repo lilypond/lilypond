@@ -60,37 +60,8 @@ void
 Score::process()
 {
     paper();
-    midi();
 }
 
-void
-Score::midi()
-{
-#if 0
-    if (!midi_p_)
-	return;
-    
-    *mlog << "\nCreating elements ..." << flush;
-//    pscore_p_ = new PScore(paper_p_);
-    
-    Global_translator * score_trans=  paper_p_->get_global_translator_p();
-    run_translator( score_trans );
-    delete score_trans;
-    
-    if( errorlevel_i_){
-	// should we? hampers debugging. 
-	warning("Errors found, /*not processing score*/");
-//	return;
-    }
-    print();
-    *mlog << endl;
-//    pscore_p_->process();
-
-    // output
-    midi_output();
-#endif
-}
-    
 void
 Score::paper()
 {
@@ -122,6 +93,7 @@ Score::paper()
 
     // output
     paper_output();
+    
 }
 
 /**
@@ -247,7 +219,7 @@ Score::paper_output()
 }
 
 void
-Score::midi_output()
+Score::midi()
 {
 #if 0
     if (!midi_p_)

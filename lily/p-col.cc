@@ -29,14 +29,15 @@ PCol::clean_breakable_items()
     if (!line_l_) {
 	its.junk_links();
     }
-    if (prebreak_p_) prebreak_p_->clean_breakable_items();
-    if (postbreak_p_) postbreak_p_->clean_breakable_items();
+    if (prebreak_p_) 
+	prebreak_p_->clean_breakable_items();
+    if (postbreak_p_) 
+	postbreak_p_->clean_breakable_items();
 }
 
 int
 PCol::rank_i() const
 {
-    assert(rank_i_ != -1);
     return rank_i_;
 }
 
@@ -117,6 +118,7 @@ PCol::breakable_b() const
 
 PCol::PCol(PCol *parent)
 {
+    used_b_ = false;
     error_mark_b_ = false;
     daddy_l_ = parent;
     prebreak_p_=0;
@@ -143,5 +145,5 @@ PCol::add( Item *i)
 bool
 PCol::used_b()const
 {
-    return breakable_b() || its.size();
+    return breakable_b() || its.size()|| used_b_;
 }

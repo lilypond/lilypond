@@ -1,238 +1,240 @@
-=head1 NAME 
+=head1 NAME
 
 Lily Literature -- reading on music engraving/typesetting/etc.
 
 =head1 DESCRIPTION
 
 A list of resources on music printing/writing and engraving.  Please
-note that don't have access to most material. 
+note that don't have access to most material.
 
-[What I do know, I've commented inside brackets. They are just
-my personal comments, not to be taken too seriously]
+[What I do know, I've commented inside brackets. They are just my
+personal comments, not to be taken too seriously]
 
-=head2 Music engraving
+=head2 Music engraving: references
 
-Wanske, Helene.  ``Musiknotation --- Von der Syntax des Notenstichs
-zum EDV-gesteuerten Notensatz'', Schott-Verlag, Mainz 1988.  ISBN
-3-7957-2886-x. 
+Helene Wanske.  ``Musiknotation --- Von der Syntax des Notenstichs zum
+EDV-gesteuerten Notensatz'', Schott-Verlag, Mainz 1988.ISBN 3-7957-2886-x.
 
 [I. A very thorough overview of engraving practices of various
 craftsmen. It includes detailed specs of characters, dimensions etc.
 II. a thorough overview of a (by now antiquated) automated system
 called Ikarus; EDV Means e(lektronischen) D(aten)v(erarbeitung),
-electronic data processing]
+electronic data processing HWN]
 
 Maxwell Weaner and Walter Boelke, Standard Music Notation Practice,
 revised edition by Arnold Broido and Daniel Dorff. Music Publisher's
 Association of the United States Inc., 1993.
 
-Ross, Ted. ``Teach yourself the art of music engraving and
-processing'' (3rd edition). Hansen House, Miami Beach, FL.
-
-	Hansen House
-	1820 West Ave.
-	Miami, FL  33139
-	(305) 532-5461
+Ted Ross. ``Teach yourself the art of music engraving and processing''
+(3rd edition). Hansen House, Miami Beach, FLorida.
 
 [This is about I<engraving> i.e. professional music typesetting, and
 includes some good spacing tables MB]
 
-Read, Gardner. ``Modern Rhythmic Notation.'' Indiana University Press, 1978.
+Gardner Read. ``Modern Rhythmic Notation.'' Indiana University Press,
+1978.
 
-Read, Gardner. ``Music Notation'' (2nd edition). Taplinger Publishing,
+Gardner Read. ``Music Notation'' (2nd edition). Taplinger Publishing,
 New York.
 
-[This is as close to the ``standard'' reference work for music notation issues
-as one is likely to get. MB]
+[This is as close to the ``standard'' reference work for music
+notation issues as one is likely to get. MB]
 
-=head2 Related papers
+MPA. Standard music notation specifications for computer programming.
+December 1996
 
+[Pamphlet explaining some fine points in music font design HWN]
 
-Byrd, Donald.  ``Music Notation by Computer''.  Diss. Indiana Univ.,
-1985.
+=head2 Notation with computers
 
-Byrd, Donaldn.  ``A System for Music Printing by Computer.''
-Computers and the Humanities, 8 (1974), 161-72.
+Donald Byrd.  ``Music Notation by Computer''.  Dissertation Indiana
+University, 1985.
 
-Smith, Leland.  ``Editing and Printing Music by Computer.''  Journal
-of Music Theory, 17 (1973), 292-309. 
+Donald Byrd.  ``A System for Music Printing by Computer.''  Computers
+and the Humanities, 8 (1974), 161-72.
+
+Leland Smith.  ``Editing and Printing Music by Computer.''  Journal of
+Music Theory, 17 (1973), 292-309.
 
 [If I remember correctly, this was concerned more with an input
 language than with the typography. SP.]
 
-Gomberg, David A.   ``A Computer-Oriented System for Music Printing.''  Diss.
-Washington Univ. 1975.
+David A Gomberg.  ``A Computer-Oriented System for Music Printing.''
+Dissertation Washington University. 1975.
 
-Hewlett, Walter B. and Eleanor Selfridge-Field.  Directory of Computer
-Assisted Research in Musicology.  Menlo Park, CA: Center for Computer
-Assisted Research in the Humanities.  
+Walter B Hewlett. and Eleanor Selfridge-Field.  ``Directory of Computer
+Assisted Research in Musicology''.  Menlo Park, CA: Center for Computer
+Assisted Research in the Humanities.
 
 [Annual editions since 1985, many containing surveys of music
 typesetting technology. SP]
 
+Wael A. Hegazy and John S. Gourlay. ``Optimal line breaking in music''. In
+Document Manipulation and Typography, J.C. van Vliet (ed) 1988.
 
-W.A. Hegazy and J. S. Gourlay. Optimal line breaking in music. In
-``Document Manipulation and Typography'', J.C. van Vliet (ed) 1988.
+[This generalizes TeX's breaking algorithm to music HWN]
 
-[This generalizes TeX's breaking algorithm to music]
-
-David A.  Gomberg; A Computer-oriented System for Music Printing.
+David A.  Gomberg; ``A Computer-oriented System for Music Printing.''
 Computers and the Humanities, Vol.11, pp 63-80.
 
-J. Gourlay, ``Spacing a Line of Music,'' Technical Report
+John S. Gourlay. ``Spacing a Line of Music,'' Technical Report
 OSU-CISRC-10/87-TR35, Department of Computer and Information Science,
 The Ohio State University, 1987.
 
-J. Gourlay, A. Parrish, D. Roush, F. Sola, Y. Tien, ``Computer
-Formatting of Music,'' Technical Report OSU-CISRC-2/87-TR3,
-Department of Computer and Information Science, The Ohio State
-University, 1987.
+John S. Gourlay, A. Parrish, D. Roush, F. Sola, Y. Tien. ``Computer
+Formatting of Music,'' Technical Report OSU-CISRC-2/87-TR3, Department
+of Computer and Information Science, The Ohio State University, 1987.
 
-W. Hegazy, ``On the Implementation of the MusiCopy Language
+Wael A. Hegazy. ``On the Implementation of the MusiCopy Language
 Processor,'' Technical Report OSU-CISRC-10/87-TR34, Department of
 Computer and Information Science, The Ohio State University, 1987.
 
-A. Parrish and J. Gourlay, ``Computer Formatting of Musical
-Simultaneities,'' Technical Report OSU-CISRC-10/87-TR28, Department
-of Computer and Information Science, The Ohio State University, 1987.
+A. Parrish and John S. Gourlay. ``Computer Formatting of Musical
+Simultaneities,'' Technical Report OSU-CISRC-10/87-TR28, Department of
+Computer and Information Science, The Ohio State University, 1987.
 
-D. Roush, ``Music Formatting Guidelines,'' Technical Report
+D. Roush. ``Music Formatting Guidelines,'' Technical Report
 OSU-CISRC-3/88-TR10, Department of Computer and Information Science,
 The Ohio State University, 1988.
 
-F. Sola, ``Computer Design of Musical Slurs, Ties and Phrase
-Marks,'' Technical Report OSU-CISRC-10/87-TR32, Department of
-Computer and Information Science, The Ohio State University, 1987.
+F. Sola. ``Computer Design of Musical Slurs, Ties and Phrase Marks,''
+Technical Report OSU-CISRC-10/87-TR32, Department of Computer and
+Information Science, The Ohio State University, 1987.
 
-F. Sola and D. Roush, ``Design of Musical Beams,'' Technical
-Report OSU-CISRC-10/87-TR30, Department of Computer and Information
-Science, The Ohio State University, 1987.
+F. Sola and D. Roush. ``Design of Musical Beams,'' Technical Report
+OSU-CISRC-10/87-TR30, Department of Computer and Information Science,
+The Ohio State University, 1987.
 
-J. S. Gourlay. A language for music printing. In ``Communications of
-the ACM''. Vol. 29(5), 388--401, 1986.
+John. S. Gourlay. ``A language for music printing'', Communications
+of the ACM, Vol. 29(5), 388--401, 1986.
 
 [This paper describes a vapourware music setting system and an input
-language to go with it. ]
+language to go with it. HWN]
 
-D. Blostein and L. Haken, The Lime Music Editor: A Diagram Editor
-Involving Complex Translations, Software Practice and Experience,
-Vol. 24, No. 3, March 1994, pp. 289-306.
+Dorothea Blostein and Lippold Haken, ``The Lime Music Editor: A Diagram
+Editor Involving Complex Translations'', Software Practice and
+Experience, Vol. 24, No. 3, March 1994, pp. 289-306.
 
 [A description of various conversions, decisions and issues relating
-to this interactive editor]
+to this interactive editor HWN]
 
-L. Haken and D. Blostein, The Tilia Music Representation:
+Lippold Haken and Dorothea Blostein, ``The Tilia Music Representation:
 Extensibility, Abstraction, and Notation Contexts for the Lime Music
-Editor, Computer Music Journal, Vol. 17, No. 3, 1993, pp. 43-58 
+Editor'', Computer Music Journal, Vol. 17, No. 3, 1993, pp. 43-58
 
 [A description of Lime internals (which resemble older (before
-0.0.68pre) LilyPond data structures somewhat)]
+0.0.68pre) LilyPond data structures somewhat) HWN]
 
-L. Haken and D. Blostein, A New Algorithm for Horizontal Spacing of
-Printed Music, International Computer Music Conference, Banff,
-Sept. 1995, pp. 118-119. 
+Lippold Haken and Dorothea Blostein, ``A New Algorithm for Horizontal
+Spacing of Printed Music'', International Computer Music Conference,
+Banff, Sept. 1995, pp. 118-119.
 
 [This describes an algorithm which uses springs between adjacent
-columns. This algorithm is a "subclass" of the LilyPond algorithm.]
+columns. This algorithm is a "subclass" of the LilyPond algorithm. HWN]
 
-D. Blostein and L. Haken, Justification of Printed Music,
-Communications of the ACM, VolJ34, No. 3, March 1991, pp. 88-99. 
+Dorothea Blostein and Lippold Haken, ``Justification of Printed Music'',
+Communications of the ACM, VolJ34, No. 3, March 1991, pp. 88-99.
 
 [This paper provides a shallow overview of the algorithm used in LIME
-for spacing individual lines.]
+for spacing individual lines. HWN]
 
-Gary M. Rader, ``Creating Printed Music Automatically''. Computer Vol
+Gary M. Rader. ``Creating Printed Music Automatically''. Computer Vol
 29(6), June 1996, pp 61--69.
 
 [Describes a system called MusicEase, and explains that it uses
 "constraints" (which go unexplained) to automatically position various
-elements.]
+elements. HWN]
 
 Stephen Dowland Page.  ``Computer Tools for Music Information
-Retrieval''.  Dissertation  Univ of Oxford, 1988.  
+Retrieval''.  Dissertation University of Oxford, 1988.
 
 [Don't ask Stephen for a copy. Write to the Bodleian Library, Oxford,
-or to the British Library, instead.]
+or to the British Library, instead. SP]
 
-=head2  Further reading
-
-Chlapik, Herbert. ``Die Praxis des Notengraphikers''. Doblinger, 1987.
-ISBN 3-9000 035-96-2.
-
-[An clearly written book for the casually interested reader. It shows
-some of the conventions and difficulties in printing music]
-
-The University of Colorado Music Engraving page.
-http://obenamots.cc.colorado.edu/Musicpress/engraving.html
-
-More on GNU Music: http://dept-info.labri.u-bordeaux.fr/~strandh/Gsharp
-
-Tablature: http://wabakimi.carleton.ca/~phacket2/guitar/tabfaq.html
-
-Donato, Anthony. Preparing Music Manuscript. Englewood Cliffs:
-Prentice-Hall, 1963.
-
-Donemus. ``Uitgeven van muziek''. Donemus Amsterdam, 1900
-
-Heussenstamm, George. The Norton Manual of Music Notation. New York:
-Norton, 1987.
-
-Karkoshka, Erdhard. Notation in New Music. Trans. Ruth Koenig. New York:
-Praeger    Publishers, 1972.  Out of print.
-
-Roelofs, Ren\'e. ``Een Geautomatiseerd Systeem voor het Afdrukken van
+Ren\'e Roelofs. ``Een Geautomatiseerd Systeem voor het Afdrukken van
 Muziek'' afstudeerscriptie Bestuurlijke informatica, no 45327, Erasmus
 universiteit Rotterdam, 1991.  (``An automated system for printing
 music'' Master's Thesis Managerial Computer Science.)
 
 [This thesis describes a simplistic (monophonic) typesetting system,
-and focuses on the breaking algorithm, which is taken from Hegazy & Gourlay]
+and focuses on the breaking algorithm, which is taken from Hegazy &
+Gourlay HWN]
+
+Miguel Filgueiras and Jos\'e Paulo Leal. ``Representation and
+manipulation of music documents in SceX''.  Electronic Publishing,
+vol. 6 (4), 507--518, 1993.
+
+Eric Foxley, Music --- A language for typesetting music scores.
+Software --- Practice and Experience, Vol. 17(8), 485--502, 1987.
+
+[A paper on a TROFF preprocessor to typeset music. The output shown is
+not very sophisticated, and contains some typographical atrocities HWN]
+
+Miguel Filgueiras, ``Implementing a Symbolic Music Processing
+System''. LIACC, Universidade do Porto, 1996; submitted.
+
+Miguel Filgueiras, ``Some Music Typesetting Algorithms''. LIACC,
+Universidade do Porto, forthcoming.
+
+=head2 Engraving: further reading
+
+Herbert Chlapik. ``Die Praxis des Notengraphikers''. Doblinger, 1987.
+ISBN 3-9000 035-96-2.
+
+[An clearly written book for the casually interested reader. It shows
+some of the conventions and difficulties in printing music HWN]
+
+The University of Colorado Music Engraving page.
+http://obenamots.cc.colorado.edu/Musicpress/engraving.html
+
+Anthony Donato. Preparing Music Manuscript. Englewood Cliffs:
+Prentice-Hall, 1963.
+
+Donemus. ``Uitgeven van muziek''. Donemus Amsterdam, 1900
+
+George Heussenstamm. The Norton Manual of Music Notation. New York:
+Norton, 1987.
+
+Erdhard Karkoshka. ``Notation in New Music. Trans. Ruth
+Koenig''. Praeger Publishers, New York, 1972.  Out of print.
 
 C. Roemer, The Art of Music Copying. Roerick music co., Sherman Oaks
 (CA), 1973.
 
-Rosecrans, Glen. Music Notation Primer. New York: Passantino, 1979.
+Glen Rosecrans. Music Notation Primer. New York: Passantino, 1979.
 
-Stone, Kurt. Music Notation in the Twentieth Century. New York: Norton, 1980.
+Kurt Stone. Music Notation in the Twentieth Century. New York: Norton,
+1980.
+
 
 =head2 other stuff
 
 
-Peter S. Langston, Unix music tools at Bellcore. 
-Software --- Practice and Experience, Vol. 20(S1), S1/47--S1/61, 1990.
+More on GNU Music:
+http://dept-info.labri.u-bordeaux.fr/~strandh/Gsharp
+
+Tablature: http://wabakimi.carleton.ca/~phacket2/guitar/tabfaq.html
+
+
+Peter S. Langston, ``Unix music tools at Bellcore''.  Software ---
+Practice and Experience, Vol. 20(S1), S1/47--S1/61, 1990.
 
 [This paper deals with some command-line tools for music editing and
 playback. It doesn't mention notation issues, but does come with the
-grand idea (not) of using music to monitor complex systems. Imagine your
-nuclear plant supervisor to use AC/DC for checking the reactor]
+grand idea (not) of using music to monitor complex systems. Imagine
+your nuclear plant supervisor to use AC/DC for checking the reactor HWN]
 
-Cindy Grande, NIFF6a Notation Interchange File Format.
-Grande Software Inc., 1995.  ftp://blackbox.cartah.washington.edu/pub/
+Cindy Grande, NIFF6a Notation Interchange File Format.  Grande
+Software Inc., 1995.  ftp://blackbox.cartah.washington.edu/pub/
 
-[Specs for NIFF, a comprehensive but binary (yuk) format for notation]
+[Specs for NIFF, a comprehensive but binary (yuk) format for notation HWN]
 
-Miguel Filgueiras and Jos\'e Paulo Leal. Representation and
-manipulation of music documents in SceX.  Electronic Publishing,
-vol. 6 (4), 507--518, 1993.
-
-Eric Foxley, Music --- A language for typesetting music scores. 
-Software --- Practice and Experience, Vol. 17(8), 485--502, 1987.
-
-[A paper on a TROFF preprocessor to typeset music. The output shown is
-not very sophisticated, and contains some typographical atrocities]
-
-Alexander Brinkman,  PASCAL Programming for Music Research.
-The University of Chicago Press, 1990.
-
-Miguel Filgueiras, Implementing a Symbolic Music Processing
-System. LIACC, Universidade do Porto, 1996; submitted.
-
-Miguel Filgueiras, Some Music Typesetting Algorithms. LIACC,
-Universidade do Porto,  forthcoming.
+Alexander Brinkman, ``PASCAL Programming for Music Research''.  The
+University of Chicago Press, 1990.
 
 =head1 AUTHORS
 
-Refs contributed by Han-Wen Nienhuys, Miguel Filgueiras, Mark
+References contributed by Han-Wen Nienhuys, Miguel Filgueiras, Mark
 Basinski, Dorothea Blostein, Stephen Page, Jan Nieuwenhuizen.
 
 This should really be redone in BibTeX

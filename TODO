@@ -6,6 +6,13 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr
 
+	* Redo MIDI output to use Translators
+	- remember more horizontal info than melodics:
+	- tempo change
+	- repeat
+	- slurs
+	- dynamics etc.
+
 	* pushgroup/popgroup
 
 	* strict separation between visual and auditive processing.
@@ -21,8 +28,6 @@ grep for TODO and ugh/ugr
 	* implement better breaking algorithm
 
 	* update 20 pt table
-	
-	* use Hungarian throughout code
 
 	* decent TeX page layout
 
@@ -31,6 +36,12 @@ grep for TODO and ugh/ugr
 	* a Hands on tutorial [HKN]
 
 PROJECTS
+
+	* grace notes
+	- adapt for multiple font sizes.
+	- make separate class for Grace_*_engravers 
+	(which is at Voice_gravs level)
+	- move stem, beam, slur into baseclass to adapt for (fixed size) grace notes.
 
 	* accidentals per Voice_group
 
@@ -77,21 +88,13 @@ PROJECTS
 	- separate visual from rhythmic info even more
 	- beams over bars
 
-	* Redo MIDI output to use Translators
-	- remember more horizontal info than melodics:
-	- tempo change
-	- repeat
-	- slurs
-	- dynamics etc.
-
 
 	* Redo font support 
-	- use GSharp fonts?
 	- rename mf fonts to avoid conflicts with musixtex
-	- check (c) issues
 	- use own fonts/update musixtex fonts/find older (c)-less fonts
 	- hack up mf sources for decent spacing info (and then 
 	read AFM/TFM directly, for text too)
+	- use MF to generate rules.
 
 	* lines:
 	- Ledger lines, should be separate item: Ledger_lines, Ledger_lines
@@ -122,8 +125,6 @@ tekst staat erg ver van notenbalken af
 
 BUGS
 
-	* spurious Weird stem size warnings
-
 	* fix mysterious Flex malloc bug 
 
 	* should adjust stemlength for flag number.
@@ -137,11 +138,6 @@ BUGS
 SEVERELY LACKING:
 
 	* SPEED!
-
-	* grace notes
-
-
-FURTHER FOR ORCHESTRAL SCORE:
 
 	* multibar rests
 

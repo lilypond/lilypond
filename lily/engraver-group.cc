@@ -13,7 +13,8 @@
 #include "debug.hh"
 #include "p-score.hh"
 #include "score-elem.hh"
-#include "input-engraver.hh"
+#include "input-translator.hh"
+Engraver* get_engraver_p(String);
 
 Engraver_group_engraver::~Engraver_group_engraver()
 {
@@ -41,14 +42,13 @@ Engraver_group_engraver::removable_b()const
 
 Engraver_group_engraver::Engraver_group_engraver()
 {
-    igrav_l_ =0;
+    itrans_l_ =0;
 }
 
 void
 Engraver_group_engraver::set_feature(Feature d)
 {
-    PCursor<Engraver*> i(grav_list_.top());
-    // why the while construct?
+    iter_top(grav_list_, i);
     while (i.ok()) {
 	// this construction to ensure clean deletion
 	Engraver *grav_l = i++; 
@@ -59,8 +59,9 @@ Engraver_group_engraver::set_feature(Feature d)
 void
 Engraver_group_engraver::sync_features()
 {
-    PCursor<Engraver*> i(grav_list_.top());
+    iter_top(grav_list_, i);
     while (i.ok()) {
+
 	Engraver *grav_l = i++; 
 	grav_l->sync_features();
     }
@@ -69,8 +70,9 @@ Engraver_group_engraver::sync_features()
 void
 Engraver_group_engraver::do_pre_move_processing()
 {
-    PCursor<Engraver*> i(grav_list_.top());
+    iter_top(grav_list_, i);
     while (i.ok()) {
+	
 	Engraver *grav_l = i++; 
 	grav_l->pre_move_processing();
     }
@@ -79,8 +81,9 @@ Engraver_group_engraver::do_pre_move_processing()
 void
 Engraver_group_engraver::do_process_requests()
 {
-    PCursor<Engraver*> i(grav_list_.top());
+    iter_top(grav_list_, i);
     while (i.ok()) {
+	
 	Engraver *grav_l = i++; 
 	grav_l->process_requests();
     }
@@ -90,7 +93,7 @@ Engraver_group_engraver::do_process_requests()
 void
 Engraver_group_engraver::do_post_move_processing()
 {
-    PCursor<Engraver*> i(grav_list_.top());
+    iter_top(grav_list_, i);
     while (i.ok()) {
 		// this construction to ensure clean deletion
 	Engraver *grav_l = i++; 
@@ -106,8 +109,8 @@ Engraver_group_engraver::contains_b(Engraver* grav_l)const
     
     if (parent_b)
 	return true;
-    for (PCursor<Engraver*> i(grav_list_.top()); i.ok(); i++)
-	if (i->contains_b(grav_l))
+    for (iter_top(grav_list_, j); j.ok(); j++)
+	if (j->contains_b(grav_l))
 	    return true;
     return false;
 }
@@ -150,7 +153,7 @@ Engraver_group_engraver::remove_engraver_p(Engraver*grav_l)
 {
     group_l_arr_.substitute((Engraver_group_engraver*)grav_l,0);
     nongroup_l_arr_.substitute(grav_l,0);
-    PCursor<Engraver*> grav_cur( grav_list_.find(grav_l) );
+    iterator(grav_list_) grav_cur= grav_list_.find(grav_l);
     
     return grav_cur.remove_p();
 }
@@ -174,7 +177,7 @@ Engraver_group_engraver::do_print()const
 {
 #ifndef NPRINT
     mtor << "ID: " << id_str_ << "\n";
-    for (PCursor<Engraver*> i(grav_list_.top()); i.ok(); i++)
+    for (iter_top(grav_list_, i); i.ok(); i++) 
 	i->print();
 #endif
 }
@@ -197,17 +200,17 @@ Translator*
 Engraver_group_engraver::find_get_translator_l(String n,String id)
 {
     Translator * ret=0;
-    Input_engraver * igrav_l= igrav_l_-> recursive_find ( n );
-    if (igrav_l ) {
+    Input_translator * itrans_l= itrans_l_-> recursive_find ( n );
+    if (itrans_l ) {
 	ret = find_engraver_l(n,id);
 	if (!ret) {
 	    Engraver_group_engraver * group = 
-		igrav_l-> get_group_engraver_p();
+		itrans_l-> get_group_engraver_p();
 	    
 	    add(group);
 	    ret = group;
 	    
-	    if (group->igrav_l_->is_name_b( n ) )
+	    if (group->itrans_l_->is_name_b( n ) )
 		ret ->id_str_ = id;
 	    else
 		return ret->find_get_translator_l(n,id);
@@ -270,7 +273,7 @@ Engraver_group_engraver::do_announces()
 void
 Engraver_group_engraver::do_removal_processing()
 {
-    for (PCursor<Engraver*> i(grav_list_.top()); i.ok(); i++)
+    for (iter( grav_list_.top(), i); i.ok(); i++)
 	i->do_removal_processing();
 }
 
@@ -292,8 +295,8 @@ Engraver_group_engraver::get_default_interpreter()
     if ( is_bottom_engraver_b() )
 	return daddy_grav_l_->get_default_interpreter();
 
-    Engraver_group_engraver *grav_p= igrav_l_->
-	get_default_igrav_l()->get_group_engraver_p();
+    Engraver_group_engraver *grav_p= itrans_l_->
+	get_default_itrans_l()->get_group_engraver_p();
     add(grav_p );
     if (grav_p->is_bottom_engraver_b())
 	return grav_p;
@@ -304,5 +307,5 @@ Engraver_group_engraver::get_default_interpreter()
 bool
 Engraver_group_engraver::is_bottom_engraver_b()const
 {
-    return !igrav_l_->get_default_igrav_l();
+    return !itrans_l_->get_default_itrans_l();
 }

@@ -2,6 +2,7 @@
   could use cleanup
  */
 #include <ctype.h>
+
 #include "my-lily-lexer.hh"
 #include "string.hh"
 #include "real.hh"
@@ -9,7 +10,6 @@
 #include "musical-request.hh"
 #include "command-request.hh"
 #include "music-list.hh"
-#include "script.hh"
 #include "identifier.hh"
 #include "varray.hh"
 #include "text-def.hh"

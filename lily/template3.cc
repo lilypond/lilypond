@@ -8,12 +8,10 @@
 
 #include "symbol.hh"
 #include "request.hh"
-#include "input-engraver.hh"
-#include "input-performer.hh"
+#include "input-translator.hh"
 #include "molecule.hh"
 #include "plist.tcc"
 #include "pcursor.tcc"
 
 IPL_instantiate(Atom);
-IPL_instantiate(Input_engraver);
-IPL_instantiate(Input_performer);
+IPL_instantiate(Input_translator);

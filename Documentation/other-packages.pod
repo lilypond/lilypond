@@ -31,19 +31,13 @@ A amateurish notation program for TclTk and X.
 A preprocessor to MusixTeX by Jan Nieuwenhuizen and Han-Wen Nienhuys.
 It is outdated by its successor, LilyPond.
 
-=item Music, http://www.cs.nott.ac.uk/Departement/Staff/ef/printing.html
+=item LilyPond, http://www.stack.nl/~hanwen/lilypond/index.html
+
+Added for completeness. You are currently reading her documentation.
+
+=item Music, http://www.cs.nott.ac.uk/Department/Staff/ef/printing.html
 
 A TROFF preprocessor by Eric Foxley
-
-MusE
-
-A-R Music Engraving, by A-R Editions, Inc. Professional engraving on
-Sun boxen.
-
-=item Mup, http://www.arkkra.com/
-
-A program which creates PS from a script input. Although it comes with
-C source code, it is Shareware.
 
 =item PMX, http://www.gmd.de/Misc/Music/
 
@@ -53,12 +47,12 @@ A Preprocessor for MusiXTeX by Don Simons
 
 MusixTeX is a macro package for TeX to typeset polyphonic or
 instrumental music by Daniel Taupin, Ross Mitchell and Andreas
-Egler. It includes a font set with lots symbols
+Egler. It includes a full-featured set of fonts.
 
 =item ABC2MTeX, http://www.gmd.de/Misc/Music/
 
-A preprocessor to MusixTeX by Chris Walshaw for way of transcribing folk
-and traditional music. 
+A preprocessor to MusixTeX by Chris Walshaw for transcribing folk and
+traditional music.
 
 =item SceX http://www.ncc.up.pt/~mig/SceX.html
 
@@ -79,6 +73,15 @@ A NeXT package by William F. Clocksin. Requires Adobe fonts.
 
 =head2 Proprietary
 
+=item Scribe, http://
+
+A formatter for medieval scores.
+
+=item Mup, http://www.arkkra.com/
+
+A program which creates PS from a script input. Although it comes with
+C source code, it is Shareware.
+
 =item MusicEase, http://mesa.colorado.edu/~grader/musicez.html 
 
 Described in Computer vol 29(6). Shareware
@@ -87,23 +90,26 @@ Described in Computer vol 29(6). Shareware
 
 =item Sibelius, http://www.acorn.co.uk/developers/sibelius
 
-Finale
+=item Finale
 
-Score
+=item Score
 
-Personal Composer
+=item Personal Composer
 
+=item MusE
 
+A-R Music Engraving, by A-R Editions, Inc. Professional engraving on
+Sun boxen.
 
 =item Mozart, http://www.mozart.co.uk/
 
 A shareware windows package  
 
-Capella
+=item Capella
 
-Encore
+=item Encore
 
-Musicator
+=item Musicator
 
 =head2 Unknown
 

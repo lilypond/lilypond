@@ -378,7 +378,7 @@ Beam::do_print()const
 {
 #ifndef NPRINT
     mtor << "slope " <<slope << "left ypos " << left_pos;
-    Spanner::print();
+    Spanner::do_print();
 #endif
 }
 /*

@@ -10,7 +10,7 @@
  Tested Features: local key, key, forced accidentals
 EndMudelaHeader
 %}
-\version "0.0.58";
+\version "0.0.61";
 
 
 blah = \melodic{
@@ -31,8 +31,6 @@ blah = \melodic{
 }
 
 \score{
-	\staff { 
-		melodicregs
-		blah
-	}
+	\blah
+	
 }

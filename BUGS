@@ -1,0 +1,11 @@
+This file documents bugs which were "re-introduced" in various pl's
+
+pl69
+	* slurs.ly
+
+pl68:
+	* opening rests wohltemperirt
+	
+	* lyrics broken,
+
+	* midi broken

@@ -17,8 +17,12 @@ IMPLEMENT_IS_TYPE_B1(Spanner,Score_elem);
 void
 Spanner::do_print()const
 {
+#ifndef NPRINT
+    mtor << "Between col " << 
+	left_col_l_->rank_i() << ", " << right_col_l_->rank_i() ;
     if (broken_into_l_arr_.size())
 	mtor << "with broken pieces\n";
+#endif
 }
 
 void

@@ -1,5 +1,5 @@
 /*
-  global-gravs.cc -- implement 
+  global-gravs.cc -- implement Engraver,Performer ctors
 
   source file of the GNU LilyPond music typesetter
 
@@ -8,7 +8,7 @@
 
 #include "proto.hh"
 #include "plist.hh"
-#include "input-engraver.hh"
+#include "input-translator.hh"
 #include "debug.hh"
 #include "engraver.hh"
 
@@ -28,7 +28,7 @@ struct Engraver_table_entry {
 static Array<Engraver_table_entry> *grav_table=0;
 
 void
-add_Engraver(String s, Grav_ctor f)
+add_engraver(String s, Grav_ctor f)
 {
     if (!grav_table)
 	grav_table = new Array<Engraver_table_entry>;
@@ -47,3 +47,43 @@ get_engraver_p(String s)
     error("Unknown engraver `" + s +"\'");
     return 0;
 }
+
+#if 0
+
+struct Performer_table_entry
+{
+    String name_str_;
+    Perf_ctor ctor_l_;
+    Performer_table_entry(String s, Perf_ctor f) {
+	name_str_ =s;
+	ctor_l_ = f;
+    }
+    Performer_table_entry()
+    {
+	ctor_l_ =0;
+    }  
+}
+
+static Array<Performer_table_entry> *perf_table=0;
+
+void
+add_performer(String s, Perf_ctor f)
+{
+    if (!perf_table)
+	perf_table = new Array<Performer_table_entry>;
+    
+    perf_table->push(Performer_table_entry(s, f));
+}
+
+
+Performer*
+get_performer_p(String s)
+{
+    for (int i=0; i < perf_table->size(); i++) {
+	if ((*perf_table)[i].name_str_ == s)
+	    return (*(*perf_table)[i].ctor_l_)();
+    }
+    error("Unknown performer `" + s +"\'");
+    return 0;
+}
+#endif

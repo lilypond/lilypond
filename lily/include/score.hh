@@ -62,9 +62,7 @@ public:
 
 private:
     void run_translator(Global_translator*);
-    void midi_output();
     void paper_output();
-
     /// do midi stuff
     void midi();
 

@@ -1,17 +1,6 @@
 %{ // -*-Fundamental-*-
-
-/*
-  parser.y -- lily parser
-
-  source file of the GNU LilyPond music typesetter
-
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
-           Jan Nieuwenhuizen <jan@digicash.com>
-*/
-
 #include <iostream.h>
 
-// mmm
 #define MUDELA_VERSION "0.0.61"
 
 #include "script-def.hh"
@@ -31,8 +20,7 @@
 #include "musical-request.hh"
 #include "my-lily-parser.hh"
 #include "text-def.hh"
-#include "input-engraver.hh"
-#include "input-performer.hh"
+#include "input-translator.hh"
 #include "score.hh"
 #include "music-list.hh"
 
@@ -59,8 +47,7 @@
     Chord * chord;
     Duration *duration;
     Identifier *id;    
-    Input_engraver * igravs;
-    Input_performer * iperfs;
+    Input_translator * iregs;
     Music *music;
     Music_list *musiclist;
     Score *score;
@@ -120,7 +107,6 @@ yylex(YYSTYPE *s,  void * v_l)
 %token GROUPING
 %token GROUP
 %token REQUESTENGRAVER
-%token REQUESTPERFORMER
 %token HSHIFT
 %token IN_T
 %token ID
@@ -175,7 +161,6 @@ yylex(YYSTYPE *s,  void * v_l)
 %token <id>	REAL_IDENTIFIER
 %token <id>	INT_IDENTIFIER
 %token <id>	SCORE_IDENTIFIER
-%token <id>	MIDI_IDENTIFIER
 %token <id>	PAPER_IDENTIFIER
 %token <id>	REQUEST_IDENTIFIER
 %token <real>	REAL 
@@ -218,8 +203,7 @@ yylex(YYSTYPE *s,  void * v_l)
 %type <id>	old_identifier
 %type <symbol>	symboldef
 %type <symtable>	symtable symtable_body
-%type <igravs>	input_engraver_spec input_engraver_spec_body
-%type <iperfs>	input_performer_spec input_performer_spec_body
+%type <iregs>	input_translator_spec input_translator_spec_body
 
 %left PRIORITY
 
@@ -304,10 +288,6 @@ declaration:
 		$$ = new Paper_def_id(*$1, $3, PAPER_IDENTIFIER);
 		delete $1;
 	}
-	| declarable_identifier '=' midi_block {
-		$$ = new Midi_def_id(*$1, $3, MIDI_IDENTIFIER);
-		delete $1;
-	}
 	| declarable_identifier '=' script_definition {
 		$$ = new Script_id(*$1, $3, SCRIPT_IDENTIFIER);
 		delete $1;
@@ -340,56 +320,36 @@ declaration:
 
 
 
-input_engraver_spec:
-	REQUESTENGRAVER '{' input_engraver_spec_body '}'
+input_translator_spec:
+	REQUESTENGRAVER '{' input_translator_spec_body '}'
 		{ $$ = $3; }
 	;
 
-input_engraver_spec_body:
-	STRING	{ 
-		$$ = new Input_engraver; 
-		$$->type_str_ =*$1;
+input_translator_spec_body:
+	STRING STRING	{ 
+		$$ = new Input_translator; 
+		$$->base_str_ = *$1;
+		$$->type_str_ =*$2;
 		$$->set_spot ( THIS->here_input() );
 		delete $1;
+		delete $2;
 	}
-	| input_engraver_spec_body ALIAS STRING ';' {
+	| input_translator_spec_body ID STRING ';' {
+		$$-> default_id_str_ = *$3;
+		delete $3;
+	}
+	| input_translator_spec_body ALIAS STRING ';' {
 		$$-> alias_str_arr_.push(*$3);
 		delete $3;
 	}
-	| input_engraver_spec_body CONSISTS STRING ';'	{
+	| input_translator_spec_body CONSISTS STRING ';'	{
 		$$-> consists_str_arr_.push(*$3);
 		delete $3;
 	}
-	| input_engraver_spec_body CONTAINS input_engraver_spec {
+	| input_translator_spec_body CONTAINS input_translator_spec {
 		$$->add($3);
 	}
 	;
-
-input_performer_spec:
-	REQUESTPERFORMER '{' input_performer_spec_body '}'
-		{ $$ = $3; }
-	;
-
-input_performer_spec_body:
-	STRING	{ 
-		$$ = new Input_performer; 
-		$$->type_str_ =*$1;
-		$$->set_spot ( THIS->here_input() );
-		delete $1;
-	}
-	| input_performer_spec_body ALIAS STRING ';' {
-		$$-> alias_str_arr_.push(*$3);
-		delete $3;
-	}
-	| input_performer_spec_body CONSISTS STRING ';'	{
-		$$-> consists_str_arr_.push(*$3);
-		delete $3;
-	}
-	| input_performer_spec_body CONTAINS input_performer_spec {
-		$$->add($3);
-	}
-	;
-
 /*
 	SCORE
 */
@@ -445,7 +405,7 @@ paper_block:
 
 paper_body:
 	/* empty */		 	{
-		$$ = THIS->default_paper(); // paper / video / engrave
+		$$ = THIS->default_paper();
 	}
 	| paper_body OUTPUT STRING ';'	{ $$->outfile_str_ = *$3;
 		delete $3;
@@ -457,7 +417,7 @@ paper_body:
 	| paper_body STRING '=' REAL ';' {
 		$$->set_var(*$2, $4);
 	}
-	| paper_body input_engraver_spec	{
+	| paper_body input_translator_spec	{
 		$$->set( $2 );
 	}
 	| paper_body error {
@@ -474,8 +434,8 @@ midi_block:
 	'{' midi_body '}' 	{ $$ = $3; }
 	;
 
-midi_body: /* empty */		 	{
-		$$ = THIS->default_midi(); // midi / audio / perform
+midi_body: { 
+		$$ = new Midi_def; 
 	}
 	| midi_body OUTPUT STRING ';'	{ 
 		$$->outfile_str_ = *$3; 
@@ -484,13 +444,13 @@ midi_body: /* empty */		 	{
 	| midi_body TEMPO notemode_duration ':' int ';' {
 		$$->set_tempo( $3->length(), $5 );
 	}
-	| midi_body input_performer_spec	{
-		$$->set( $2 );
-	}
 	| midi_body error {
 
 	}
 	;
+
+
+
 
 /*
 	MUSIC
@@ -1106,12 +1066,5 @@ My_lily_parser::default_paper()
 {
 	Identifier *id = lexer_p_->lookup_identifier( "default_paper" );
 	return id ? id->paperdef(true) : new Paper_def ;
-}
-
-Midi_def*
-My_lily_parser::default_midi()
-{
-	Identifier *id = lexer_p_->lookup_identifier( "default_midi" );
-	return id ? id->mididef(true) : new Midi_def ;
 }
 
