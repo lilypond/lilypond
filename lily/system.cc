@@ -386,13 +386,18 @@ System::get_line ()
 	  }
       }
 
+  /*
+    TODO: fix user penalties.
+    
+    */
+  
   Interval x (extent (this, X_AXIS));
   Interval y (extent (this, Y_AXIS));
   Stencil sys_stencil (Box (x,y),
 		       scm_cons (ly_symbol2scm ("combine-stencil"),
 				 exprs));
   
-  Paper_line *pl = new Paper_line (sys_stencil, (int) penalty, false);
+  Paper_line *pl = new Paper_line (sys_stencil, false);
 
   return scm_gc_unprotect_object (pl->self_scm ());
 }

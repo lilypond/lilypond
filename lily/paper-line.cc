@@ -19,11 +19,11 @@ IMPLEMENT_DEFAULT_EQUAL_P (Paper_line);
 
 
 
-Paper_line::Paper_line (Stencil s, int penalty, bool is_title)
+Paper_line::Paper_line (Stencil s, bool is_title)
 {
   is_title_ = is_title;
   number_ = 0;
-  penalty_ = penalty;
+  penalty_ = 0;
   smobify_self ();
   stencil_ = s;
 }
@@ -47,6 +47,8 @@ Paper_line::print_smob (SCM smob, SCM port, scm_print_state*)
   scm_puts (classname (p), port);
   scm_puts (" ", port);
   scm_puts (to_string (p->number_).to_str0 (), port);
+  scm_puts ("p ", port);
+  scm_puts (to_string (p->penalty_).to_str0 (), port);
   if (p->is_title ())
     scm_puts (" t", port);
   scm_puts (" >", port);
@@ -99,7 +101,7 @@ LY_DEFINE (ly_paper_line_number, "ly:paper-line-number",
   return scm_int2num (pl->number_);
 }
 
-LY_DEFINE (ly_paper_line_break_score, "ly:paper-line-break-score",
+LY_DEFINE (ly_paper_line_break_score, "ly:paper-line-break-penalty",
 	   1, 0, 0, (SCM line),
 	   "Return the score for page break after @var{line}.")
 {

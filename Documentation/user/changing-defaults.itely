@@ -301,7 +301,11 @@ created automatically. For more complex scores, it is necessary to
 create them by hand.  There are three commands which do this.
 
 The easiest command is @code{\new}, and it also the quickest to type.
-It is prepended to a  music expression, for example
+It is prepended to a music expression, for example
+
+@cindex @code{\new}
+@cindex new contexts
+@cindex Context, creating
 
 @example
   \new @var{type} @var{music expression}
@@ -321,6 +325,8 @@ staves. Each part that should be on its own staff, is preceded with
      \new Staff { d4 d }
   >>
 @end lilypond
+
+@cindex @code{\context}
 
 Like @code{\new}, the @code{\context} command also directs a music
 expression to a context object, but gives the context an extra name. The
@@ -368,13 +374,14 @@ They are combined by sending both to the same @context{Voice} context,
 music = \notes { c4 c4 }
 arts = \notes  { s4-. s4-> }
 \score {
-       \notes \relative c''  << \new Staff \context Voice = "A" \music
+  \notes \relative c''  << \new Staff \context Voice = "A" \music
      \context Voice = "A" \arts
   >>
 } 
 @end lilypond
 
-
+@cindex @code{\context}
+@cindex creating contexts
 
 The third command for creating contexts is
 @example
@@ -406,6 +413,10 @@ these forms
 
 @node Changing context properties on the fly
 @subsection Changing context properties on the fly
+
+@cindex properties
+@cindex @code{\set}
+@cindex changing properties
 
 Each context can have different @emph{properties}, variables contained
 in that context. They can be changed during the interpretation step.
@@ -445,6 +456,8 @@ example @context{Staff}, then the change would also apply to all
 @context{Voice}s in the current stave. The change is applied
 `on-the-fly', during the music, so that the setting only affects the
 second group of eighth notes.
+
+@cindex @code{\unset} 
 
 There is also an @code{\unset} command,
 @quotation

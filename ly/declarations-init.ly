@@ -32,13 +32,18 @@ working with lyric sections)
 %% rather name \newline, \newpage ?
 break = #(make-event-chord (list (make-penalty-music -10001 0)))
 noBreak = #(make-event-chord (list (make-penalty-music 10001 0)))
-pagebreak = #(make-event-chord (list (make-penalty-music -10001 -10001)))
-noPagebreak = #(make-event-chord (list (make-penalty-music 0 10001)))
+pageBreak = #(make-event-chord (list (make-penalty-music -10001 -10001)))
+pagebreak = \pageBreak % ugh.
+noPageBreak = #(make-event-chord (list (make-penalty-music 0 10001)))
+noPagebreak = \noPageBreak % ugh
 
 noBeam = #(make-music 'BeamForbidEvent) 
 pipeSymbol = #(make-music 'BarCheck)
 
+foo = \notes { \pageBreak }
+
 \include "scale-definitions-init.ly"
+
 
 melisma = #(make-span-event 'ManualMelismaEvent START)
 melismaEnd = #(make-span-event 'ManualMelismaEvent STOP)

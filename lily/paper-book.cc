@@ -27,8 +27,8 @@
 
 Paper_book::Paper_book ()
 {
-  pages_ = SCM_EOL;
-  lines_ = SCM_EOL;
+  pages_ = SCM_BOOL_F;
+  lines_ = SCM_BOOL_F;
   copyright_ = SCM_EOL;
   tagline_ = SCM_EOL;
   header_ = SCM_EOL;
@@ -124,8 +124,6 @@ LY_DEFINE (ly_output_formats, "ly:output-formats",
   
   return lst; 
 }
-	  
-
 
 /*
   TODO: there is too much code dup, and the interface is not
@@ -136,7 +134,8 @@ Paper_book::output (String outname)
 {
   if (!score_lines_.size ())
     return;
-    
+
+  
   /* Generate all stencils to trigger font loads.  */
   pages ();
 
@@ -144,11 +143,9 @@ Paper_book::output (String outname)
   SCM formats = ly_output_formats();
   for (SCM s = formats; ly_c_pair_p (s); s = ly_cdr (s)) 
     {
-      
       String format = ly_scm2string (ly_car (s));
       
       Paper_outputter *out = get_paper_outputter (outname + "." + format, format);
-
   
       SCM scopes = SCM_EOL;
       if (ly_c_module_p (header_))
@@ -308,19 +305,20 @@ Paper_book::score_title (int i)
   
   return title;
 }
-
   
 
 SCM
 Paper_book::lines ()
 {
-  if (ly_c_pair_p (lines_))
+  if (SCM_BOOL_F != lines_)
     return lines_;
 
-  Stencil title = book_title ();      
+  lines_ = SCM_EOL;
+  Stencil title = book_title ();
+
   if (!title.is_empty ())
     {
-      Paper_line *pl = new Paper_line (title, -10001, true);
+      Paper_line *pl = new Paper_line (title, true);
       
       lines_ = scm_cons (pl->self_scm (), lines_);
       scm_gc_unprotect_object (pl->self_scm ());
@@ -332,7 +330,7 @@ Paper_book::lines ()
       Stencil title = score_title (i);      
       if (!title.is_empty ())
 	{
-	  Paper_line *pl = new Paper_line (title, -10001, true);
+	  Paper_line *pl = new Paper_line (title, true);
 	  lines_ = scm_cons (pl->self_scm (), lines_);
 	  scm_gc_unprotect_object (pl->self_scm ());
   	}
@@ -340,15 +338,29 @@ Paper_book::lines ()
       if (scm_vector_p (score_lines_[i].lines_) == SCM_BOOL_T)
 	{
 	  SCM line_list = scm_vector_to_list (score_lines_[i].lines_); // guh.
-	  lines_ = scm_append (scm_list_2 (scm_reverse (line_list), lines_));
+
+	  line_list = scm_reverse (line_list);
+	  lines_ = scm_append (scm_list_2 (line_list, lines_));
 	}
     }
   
   lines_ = scm_reverse (lines_);
-
+  
   int i = 0;
+  Paper_line * last = 0;
   for (SCM s = lines_; s != SCM_EOL; s = ly_cdr (s))
-    unsmob_paper_line (ly_car (s))->number_ = ++i;
+    {
+      Paper_line * p = unsmob_paper_line (ly_car (s));
+      p->number_ = ++i;
+
+      if (last && last->is_title ())
+	{
+	  p->penalty_ = 10000;	// ugh, hardcoded.
+	}
+      last = p;
+    }
+
+  
   return lines_;
 }
 
@@ -372,12 +384,16 @@ make_copyright (Output_def *paper, SCM scopes)
 SCM
 Paper_book::pages ()
 {
-  if (ly_c_pair_p (pages_))
+  if (SCM_BOOL_F != pages_)
     return pages_;
 
+  pages_ = SCM_EOL;
+  
   Output_def *paper = bookpaper_;
-  Page *page = new Page (paper, 1);
 
+
+  // dummy to extract dims
+  Page *page = new Page (SCM_EOL, paper, 1); // ugh
   Real text_height = page->text_height ();
 
   Real copy_height = 0;
@@ -388,15 +404,7 @@ Paper_book::pages ()
   if (Stencil *s = unsmob_stencil (tagline_))
     tag_height = s->extent (Y_AXIS).length ();
 
-  SCM all = lines ();
-  SCM proc = paper->c_variable ("page-breaking");
-  SCM breaks = scm_apply_0 (proc, scm_list_n (all,
-					      self_scm (),
-					      scm_make_real (text_height),
-					      scm_make_real (-copy_height),
-					      scm_make_real (-tag_height),
-					      SCM_UNDEFINED));
-
+  scm_gc_unprotect_object (page->self_scm ());
 
   /*
     UGH - move this out of C++.
@@ -408,32 +416,32 @@ Paper_book::pages ()
   tagline_ = make_tagline (bookpaper_, scopes);
   copyright_ = make_tagline (bookpaper_, scopes);
 
-  int page_count = SCM_VECTOR_LENGTH ((SCM) breaks);
-  int line = 1;
 
-  for (int i = 0; i < page_count; i++)
+  SCM all = lines ();
+  SCM proc = paper->c_variable ("page-breaking");
+  SCM pages = scm_apply_0 (proc, scm_list_n (all,
+					      self_scm (),
+					      scm_make_real (text_height),
+					      scm_make_real (-copy_height),
+					      scm_make_real (-tag_height),
+					      SCM_UNDEFINED));
+
+
+  SCM *page_tail = &pages_;
+  int num = 0;
+  for (SCM s = pages; ly_c_pair_p (s); s =  ly_cdr (s))
     {
-      if (i)
-	page = new Page (paper, i + 1);
-
-      int next = i + 1 < page_count
-	? ly_scm2int (scm_vector_ref (breaks, scm_int2num (i))) : 0;
-      while ((!next && all != SCM_EOL) || line <= next)
-	{
-	  SCM s = ly_car (all);
-	  page->lines_ = ly_snoc (s, page->lines_);
-	  page->height_ += unsmob_paper_line (s)->dim ()[Y_AXIS];
-	  page->line_count_++;
-	  all = ly_cdr (all);
-	  line++;
-	}
-      if (i == page_count-1)
-	page->is_last_ = true;
+      Page * page = new Page (ly_car (s), paper, ++num);
       
-      pages_ = scm_cons (page->self_scm (), pages_);
+      *page_tail = scm_cons (page->self_scm () , SCM_EOL);
+      page_tail = SCM_CDRLOC(*page_tail);
+
+      scm_gc_unprotect_object (page->self_scm ());
+
+      if (!ly_c_pair_p (ly_cdr (s)))
+	page->is_last_ = true;
     }
 
-  pages_ =  scm_reverse (pages_);
   return pages_;
 }
 

@@ -18,12 +18,12 @@ class Paper_line
   DECLARE_SMOBS (Paper_line, );
   Stencil stencil_;
   bool is_title_;
-  int penalty_;
   
 public:
+  int penalty_;
   int number_;
 
-  Paper_line (Stencil, int penalty, bool);
+  Paper_line (Stencil, bool);
 
   Offset dim () const;
   Stencil to_stencil () const;

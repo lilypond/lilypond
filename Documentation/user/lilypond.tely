@@ -42,6 +42,8 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 HINTS FOR STYLE
 
+* Do not forget to create @cindex entries for new sections of text.
+
 * Try not to use punctuation between introductocing sentence and
 display material (verbatim, music, example code).
 
