@@ -3,6 +3,9 @@
 	* input/test/to-xml.ly:
 	* lily/ligature-engraver.cc: Fixes documentation.
 
+	* lilypond.mandrake.spec.in:
+	* lilypond.redhat.spec.in: Add lilypond.words.
+	
 2002-11-27  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/ly2dvi.py (run_dvips): Use ly.read_pipe () instead of
