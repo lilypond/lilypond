@@ -26,12 +26,12 @@ class Paper_outputter
   String file_name_;
   SCM file_;
 
-  SCM file ();
 
 public:
   DECLARE_SMOBS (Paper_outputter,);
 
 public:
+  SCM file ();
   SCM dump_string (SCM);
   void output_scheme (SCM scm);
   Paper_outputter (String nm, String format);

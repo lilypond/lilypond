@@ -60,6 +60,16 @@ LY_DEFINE (ly_outputter_dump_string, "ly:outputter-dump-string",
 }
 
 
+LY_DEFINE (ly_outputter_port, "ly:outputter-port",
+	   1, 0, 0, (SCM outputter),
+	   "Return output port for @var{outputter}.")
+{
+  Paper_outputter *po = unsmob_outputter (outputter);
+  SCM_ASSERT_TYPE (po, outputter, SCM_ARG1, __FUNCTION__, "Paper_outputter");
+  
+  return po->file ();
+}
+
 LY_DEFINE (ly_outputter_close, "ly:outputter-close",
 	   1, 0, 0, (SCM outputter),
 	   "Close port of @var{outputter}.")

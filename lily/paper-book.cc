@@ -10,7 +10,6 @@
 
 #include "main.hh"
 #include "output-def.hh"
-#include "paper-outputter.hh"
 #include "paper-score.hh"
 #include "paper-system.hh"
 #include "warn.hh"
