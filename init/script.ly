@@ -13,10 +13,16 @@ staccato = \script { "staccato" 1 -1 0 0 0 }
 tenuto = \script {"tenuto" 0 -1 0 0 0 }
 upbow = \script { "upbow" 0 0 1 0 0 }
 downbow = \script { "downbow" 0 0 1 0 0 }
-lheel = \script { "heel" 0 0 -1  0 0 }
-rheel = \script { "heel" 0 0 1 0 0 }
-ltoe = \script { "toe" 0 0 -1 0 0 }
-rtoe = \script { "toe" 0 0 1 0 0 }
+lheel = \script { "pedalheel" 0 0 -1  0 0 }
+rheel = \script { "pedalheel" 0 0 1 0 0 }
+ltoe = \script { "pedaltoe" 0 0 -1 0 0 }
+rtoe = \script { "pedaltoe" 0 0 1 0 0 }
+turn = \script { "turn" 0 0 1 0 0 }
+open = \script { "open" 0 0 1 0 0 }
+
+
+% could  we do without this bloat?
+%
 lbheel = \script { "bheel" 0 0 -1  0 0 }
 rbheel = \script { "bheel" 0 0 1 0 0 }
 lbtoe = \script { "btoe" 0 0 -1 0 0 }
@@ -25,8 +31,6 @@ lfheel = \script { "fheel" 0 0 -1  0 0 }
 rfheel = \script { "fheel" 0 0 1 0 0 }
 lftoe = \script { "ftoe" 0 0 -1 0 0 }
 rftoe = \script { "ftoe" 0 0 1 0 0 }
-turn = \script { "turn" 0 0 1 0 0 }
-open = \script { "open" 0 0 1 0 0 }
 
 %
 % left toe:      right heel:
@@ -45,3 +49,5 @@ open = \script { "open" 0 0 1 0 0 }
 % being translated into priority...
 back = \script { "back" 0 -1 -1  0 0 }
 front = \script { "front" 0 -1 1 0 0 }
+
+trill =\script { "trill" 0 0 1 0 0 }
