@@ -115,7 +115,7 @@ PCol::add( Item *i)
 }
 
 bool
-PCol::used()const
+PCol::used_b()const
 {
     return breakable_b() || its.size();
 }

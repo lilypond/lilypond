@@ -120,6 +120,11 @@ broken systems.
 
 add F<FILE> to the search path for input files.
 
+
+=item B<-M,--midi>
+
+do midi output only
+
 =item B<-d,--debug>,
 
 Turn debugging info. LilyPond will read the file F<.dstreamrc>, which

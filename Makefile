@@ -1,3 +1,6 @@
+# Makefile
+# top level makefile of LilyPond
+
 include Variables.make 
 
 .SUFFIXES:
@@ -8,11 +11,13 @@ $(exe): $(obs)
 	$(STRIPDEBUG) $(STABLEOBS)
 	$(LINKER) -o $@ $^ $(LOADLIBES)
 
+$(m2m):	$(m2mobs)
+	$(LINKER) -o $@ $^ $(LOADLIBES)
 
 .PHONY: clean docxx
 
 clean:
-	rm -f $(exe) $(DOCDIR)/* core $(obs) $(ALLDEPS)
+	rm -f $(allexe) $(DOCDIR)/* core $(allobs) $(ALLDEPS)
 	for SUBDIR in $(SUBDIRS); \
 	do \
 		$(MAKE) SUBDIR=$$SUBDIR -C $$SUBDIR clean;\
@@ -21,7 +26,7 @@ clean:
 distclean: clean
 	rm -f  version.hh $(gencc) .GENERATE *~ $(ALLDEPS)
 
-all: kompijl doc
+all: $(exe) $(m2m) doc
 
 # value of $(OSTYPE) on windhoos; "make $OSTYPE" if u use bash :-)
 win32: 

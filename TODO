@@ -1,15 +1,14 @@
 
 before 0.1
 
-	* Register_groups as a baseclass.
 
-	* Junk Staff/Staff_col children.
+	* create libmudela, libmidi, or liblily_frontend
+
+	* Register_groups as a baseclass.
 
 	* pushgroup, popgroup.
 
 	* basic dynamics
-
-	* MIDI syntax.
 
 	* decent TeX page layout
 	
@@ -20,6 +19,8 @@ done, or is an idea that I want to think about
 
 BUGS
 	* key undo
+
+	* c8. c32 c32
 
 	* key print if clef change.
 

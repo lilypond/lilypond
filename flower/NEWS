@@ -1,5 +1,12 @@
 
-1.1:
+pl 1.1.1
+	- separated StringHandle and StringData
+(JCN pl 27-3)
+	- debug memmove code
+	- StringData bugfix
+	- old String::String( char, int ) bugfix
+
+1.1.0:
 		
 
 ------------------

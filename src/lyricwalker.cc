@@ -13,15 +13,20 @@
 #include "lyricwalker.hh"
 #include "debug.hh"
 #include "lyricitem.hh"
+#include "stcol.hh"
 
 void
 Lyric_walker::process_requests()
 {
     allow_break();
-    for (int i = 0; i <  lcol_l()->lreq_l_array_.size(); i++)  {
-	lcol_l()->typeset_item(
-	    new Lyric_item(lcol_l()->lreq_l_array_[i],i)
-	    );
+    
+    int req_count=0;
+    for (int i = 0; i < ptr()->musicalreq_l_arr_.size(); i++)  {
+	Lyric_req * lreq_l = ptr()->musicalreq_l_arr_[i]->lreq_l();
+	if (!lreq_l)
+	    continue;
+	Item *lp = new Lyric_item(lreq_l,req_count++);
+	ptr()->typeset_musical_item( lp);
     }
 }
 
@@ -32,15 +37,3 @@ Lyric_walker::Lyric_walker(Lyric_staff* lstaff_l)
 }
 
 
-
-Lyric_staff*
-Lyric_walker::lstaff_l()
-{
-    return (Lyric_staff*)staff_l_;
-}
-
-Lyric_column*
-Lyric_walker::lcol_l()
-{
-    return (Lyric_column*) *(*this);
-}

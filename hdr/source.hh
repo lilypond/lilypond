@@ -19,4 +19,8 @@ private:
     IPointerList<Source_file*> sourcefile_p_iplist_;
 };
 
+
+// ugh
+extern Source* source_l_g;
+
 #endif // SOURCE_HH //

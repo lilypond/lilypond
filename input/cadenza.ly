@@ -53,6 +53,6 @@ score {
 		cadenza {1}
 		grouping{1*4}
 	}
+	paper {}
 	midi { tempo 4:80 }
-	staff { midi  music { cad } }
 }

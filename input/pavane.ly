@@ -115,5 +115,4 @@ score {
 		bar "||"
 	}
 	midi { tempo 4:70 }
-	staff { midi   music { horn } }
 }

@@ -17,16 +17,16 @@
 
 /** 
  */
-struct Mididef {
+struct Midi_def {
     /// output file name
     String outfile_str_;
 
     /// duration of whole note
     Real whole_seconds_f_;
 
-    Mididef();
-    Mididef(Mididef const& midi_c_r);
-    ~Mididef();
+    Midi_def();
+    Midi_def(Midi_def const& midi_c_r);
+    ~Midi_def();
 
     Real duration_to_seconds_f(Moment);
     int get_tempo_i( Moment moment );

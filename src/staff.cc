@@ -26,11 +26,11 @@ Staff::paper() const
 void
 Staff::clean_cols()
 {
-    iter_top(cols,i);
+    iter_top(cols_,i);
     for(; i.ok(); ){
-	if (!i->musical_column_l_->used())
+	if (!i->musical_column_l_->used_b())
 	    i->musical_column_l_ = 0;
-	if (!i->command_column_l_->used())
+	if (!i->command_column_l_->used_b())
 	    i->command_column_l_ =0;
 	
 	if (!i->command_column_l_&& !i->musical_column_l_)
@@ -40,17 +40,10 @@ Staff::clean_cols()
     }
 }
 
-// Midi_track*
-// Staff::midi_track_p()
-// {
-//     Midi_track_p midi_track_p = new Midi_track;
-//    Midi_walker( *this );
-// }
-
 Staff_column *
 Staff::get_col(Moment w, PCursor<Staff_column*> *last)
 {    
-    iter_top(cols,i);
+    iter_top(cols_,i);
     if (last && last->ok() && (*last)->when() <= w)
 	i = *last;
     
@@ -65,14 +58,14 @@ Staff::get_col(Moment w, PCursor<Staff_column*> *last)
 
 
     PCursor<Score_column*> sccols(score_l_->find_col(w, false));
-    Staff_column* stcol_p = create_col();
-
+    Staff_column* stcol_p = new Staff_column;
+    stcol_p->staff_l_ = this;
     Score_column* comcol_l  = sccols++;
     stcol_p->set_cols(comcol_l, sccols);
     
     if (!i.ok()) {
-	cols.bottom().add(    stcol_p);
-	i = cols.bottom();
+	cols_.bottom().add(    stcol_p);
+	i = cols_.bottom();
     } else {
 	i.insert(stcol_p);
 	i--;
@@ -90,7 +83,7 @@ void
 Staff::setup_staffcols()
 {    
     for (iter_top(voice_list_,i); i.ok(); i++) {
-	PCursor<Staff_column*> last(cols);
+	PCursor<Staff_column*> last(cols_);
 	Moment now = i->start;
 	for (iter_top(i->elts,j); j.ok(); j++) {
 	    
@@ -99,7 +92,7 @@ Staff::setup_staffcols()
 	    s_l->add(j);
 	    now += j->duration;	    
 	}
-//	get_col(now,last);
+
     }
     OK();
 }
@@ -108,10 +101,10 @@ void
 Staff::OK() const
 {
 #ifndef NDEBUG
-    cols.OK();
+    cols_.OK();
     voice_list_.OK();
-    iter_top(cols, i);
-    iter_top(cols, j);
+    iter_top(cols_, i);
+    iter_top(cols_, j);
     i++;
     for (; i.ok(); j++,i++) {
 	assert(j->when () < i->when() );
@@ -146,5 +139,6 @@ Staff::print() const
 Staff::Staff()
 {    
     score_l_ =0;
-    pscore_l_ =0;    
+    pscore_l_ =0;
+    pstaff_l_ =0;
 }

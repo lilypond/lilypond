@@ -16,6 +16,8 @@ Technically it is a preprocessor which generates TeX
 score. Practically it is a typesetter, which only uses TeX as an
 output medium. (this is handy because there exist music fonts for TeX)
 
+As a bonus, you can also output a MIDI file of what you typed.
+
 HOW DOES IT WORK
 
 The input is a script file (example appended) which is read. The
@@ -35,18 +37,18 @@ having a large user base is a burden then.
 
 WHY A CALL FOR HACKERS
 
-Currently, the development has three people. I'd this project to have
-more people working on it (there is a lot of work to be done) I think
-this program is pretty original, so join in if you anything about
-music and computers!
+Currently, the development team has three people. I'd this project to
+have more people working on it (there is a lot of work to be done) I
+think this program is pretty original, so join in if you know anything
+about music and computers!
 
 As an aside, I really like the anarchist approach of linux development.
 
 WHAT HAS TO BE DONE
 
-LilyPond is written in Gnu C++, and it is (imo) written very cleanly
-(Lots of classes, lots of comments, small files/small functions) and
-with extensions in mind.
+LilyPond is written in Gnu C++, and it is (if I say so myself) written
+very cleanly (Lots of classes, lots of comments, small files/small
+functions) and with extensions in mind.
 
 	- Coding. For this time, there won't any biggish (global)
 source hackings. There are a lot of small projects which could use
@@ -108,7 +110,7 @@ EXAMPLE INPUT
 		}
 		commands {
 			meter {2 * 4}
-			skip 24*2
+			skip {24*2}
 			bar "||"
 		}
 	}

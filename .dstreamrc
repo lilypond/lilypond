@@ -38,7 +38,7 @@ Input_cursor		1
 Commands_at		1
 Input_command		1
 Time_description	1
-Melodic_req		1
+Melodic_req		0
 Midi_walker		0
 Stem_req		1
 Group_change_req	1

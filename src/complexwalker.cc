@@ -173,14 +173,14 @@ Complex_walker::try_request(Request*req)
 void
 Complex_walker::process_requests()
 {
-    Complex_column*c = col();
+    Staff_column*c =ptr();
 
-    for (int i=0; i < c->first_l_arr_.size(); i++) {
-	try_request(c->first_l_arr_[i]);
+    for (int i=0; i < c->commandreq_l_arr_.size(); i++) {
+	try_request(c->commandreq_l_arr_[i]);
     }
 
-    for (int i=0; i < c->second_l_arr_.size(); i++) {
-	try_request(c->second_l_arr_[i]);
+    for (int i=0; i < c->musicalreq_l_arr_.size(); i++) {
+	try_request(c->musicalreq_l_arr_[i]);
     }
 
     regs_process_requests();
@@ -212,7 +212,7 @@ Complex_walker::typeset_element(Staff_elem *elem_p)
     if (elem_p->spanner())
 	pscore_l_->typeset_spanner(elem_p->spanner(), staff()->pstaff_l_);
     else
-	col()->typeset_musical_item(elem_p->item()); 
+	ptr()->typeset_musical_item(elem_p->item()); 
 }
 
 Complex_walker::Complex_walker(Complex_staff*s)
@@ -255,11 +255,6 @@ Complex_walker::staff()
     return (Complex_staff*) staff_l_;
 }
 
-Complex_column*
-Complex_walker::col()
-{
-    return (Complex_column*) *(*this);
-}
 
 void
 Complex_walker::do_pre_move()
@@ -275,7 +270,7 @@ Complex_walker::do_pre_move()
     key_reg_p_->pre_move_processing();
     meter_reg_p_->pre_move_processing();
 
-    col()->typeset_breakable_items(prebreak_item_p_arr_,
+    ptr()->typeset_breakable_items(prebreak_item_p_arr_,
 				   nobreak_item_p_arr_,
 				   postbreak_item_p_arr_);
 }

@@ -1,7 +1,24 @@
 *******
+pl 34
+	- better midi syntax.
+	- --midi,-M option.
+	- preliminary midi2mudela (/mudela2midi) converter: m2m (JCN)
+Internal
+	- m2m sources: midi-*; (JCN)
+	- new Midi_walker, fixes several MIDI bugs.
+	- junked Midi_staff, Staff_column children, Midi_walker
+	- Midi_output
+
+*******
 pl33
 Examples
 	- Swedish notenames (MB)
+
+pl pre33-2
+
+Bugfix
+	- midi pitch
+	
 Features
 	- Jan's patches, see below
 Bugfix

@@ -12,10 +12,10 @@ String
 StringConversion::bin2hex_str( String bin_str )
 {
     String str;
-    Byte const* by_c_l = bin_str.by_c_l();
+    Byte const* byte_c_l = bin_str.byte_c_l();
     for ( int i = 0; i < bin_str.length_i(); i++ ) {
-	str += (char)nibble2hex_by( *by_c_l >> 4 );
-	str += (char)nibble2hex_by( *by_c_l++ );
+	str += (char)nibble2hex_by( *byte_c_l >> 4 );
+	str += (char)nibble2hex_by( *byte_c_l++ );
     }
     return str;
 }
@@ -27,11 +27,11 @@ StringConversion::hex2bin_i( String hex_str, String& bin_str_r )
         hex_str = "0" + hex_str;
 
     bin_str_r = "";
-    Byte const* by_c_l= hex_str.by_c_l();
+    Byte const* byte_c_l= hex_str.byte_c_l();
     int i = 0;
     while ( i < hex_str.length_i() ) {   
-        int high_i = hex2nibble_i( *by_c_l++ );
-        int low_i = hex2nibble_i( *by_c_l++ );
+        int high_i = hex2nibble_i( *byte_c_l++ );
+        int low_i = hex2nibble_i( *byte_c_l++ );
         if ( high_i < 0 || low_i < 0 )
             return 1; // illegal char
         bin_str_r += String( (char)( high_i << 4 | low_i ), 1 );

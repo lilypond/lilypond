@@ -1,3 +1,11 @@
+/*
+  lexer.hh -- declare My_flex_lexer
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #ifndef LEXER_HH
 #define LEXER_HH
 #include <FlexLexer.h>
@@ -11,18 +19,6 @@ void yyerror(const char *s);
 bool busy_parsing();
 void kill_lexer();
 void set_lexer();
-
-struct Input_file {
-	istream* is;
-	char const* defined_ch_c_l_;
-	Source_file* sourcefile_l_;
-	int line;
-	String name;
-
-	Input_file(String);
-	~Input_file();
-};
-
 
 /// lexer with provisions for include files.
 struct My_flex_lexer : yyFlexLexer {

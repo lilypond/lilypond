@@ -42,31 +42,32 @@ bassdux = music { $
 	r |
 	r |
 	r |
-	r |
+	r1 |
 	r8 [c16 B] [c8 G] [As c16 B] [c8 d] |
 	[G c16 B] [c8 d] [F16 G] As4 [G16 F] | 
 $}
+
+trebstaf =	staff { melodic
+		% every "music {} " in a staff has its own "voicegroup"
+		music { dux }
+		music { comes }
+		
+	}
 
 basstaf = staff { melodic
 	music { bassdux }
 }
 
 score {
-	staff { melodic
-		% every "music {} " in a staff has its own "voicegroup"
-		music { dux }
-		music { comes }
-		
-	}
 	staff { basstaf }
+	staff { trebstaf }
+	
 	commands {
 		meter {4*4}
 		grouping {2*2}
 		key {$bes es as$}
 	}
-	staff { midi music { dux } }
-	staff { midi music { comes } }
-	staff { midi music { bassdux } }
+	paper {}
 	midi {
 		tempo 4:80
 	}

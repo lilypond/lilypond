@@ -6,38 +6,55 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>, Jan Nieuwenhuizen <jan@digicash.com>
 */
 
-#include "misc.hh"
 #include "musicalrequest.hh"
-#include "voice.hh"
 #include "pscore.hh"
 #include "staff.hh"
-#include "midicolumn.hh"
-#include "midistaff.hh"
+#include "stcol.hh"
 #include "midiwalker.hh"
-#include "debug.hh"
 #include "midiitem.hh"
 #include "midistream.hh"
+#include "debug.hh"
 
-Midi_walker::Midi_walker( Midi_staff* mstaff_l )
-    : Staff_walker( mstaff_l, 0 )
+Midi_walker::Midi_walker(Staff *st_l, Midi_track* track_l)
+    : PCursor<Staff_column*>(st_l->cols_)
 {
+    track_l_ = track_l;
+    last_moment_= 0;
 }
 
-Midi_column*
-Midi_walker::mcol_l()
+void
+Midi_walker::do_stop_notes(Moment max_moment)
 {
-	return (Midi_column*) *(*this);
-}
-
-Midi_staff*
-Midi_walker::mstaff_l()
-{
-	return (Midi_staff*)staff_l_;
+    while (stop_notes.size() && stop_notes.front_idx() <= max_moment) {
+	Moment stop_moment = stop_notes.front_idx();
+	Melodic_req * req_l = stop_notes.get();
+	
+	Midi_note note(req_l, track_l_->number_i_, false);
+	
+	Moment delta_t = stop_moment-last_moment_ ;
+	last_moment_ += delta_t;
+	track_l_->add(delta_t, &note );
+    }
 }
 
 void
 Midi_walker::process_requests()
 {
-	allow_break();
+    do_stop_notes(ptr()->when());
+    for ( int i = 0; i < ptr()->musicalreq_l_arr_.size(); i++ )  {
+
+	Rhythmic_req *n = ptr()->musicalreq_l_arr_[i]->rhythmic();
+	if ( !n || !(n->note() || n->rest()) )
+	    continue;
+	
+	Midi_note note(n->melodic(), track_l_->number_i_, true);
+	stop_notes.enter(n->melodic(), n->duration() + ptr()->when() );
+	Moment dt = 0;
+	track_l_->add(dt, &note);
+    }
 }
 
+Midi_walker::~Midi_walker()
+{
+    do_stop_notes( last_moment_ + Moment(10,1)); // ugh
+}

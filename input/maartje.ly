@@ -57,14 +57,15 @@ score {
 		geometric 1.4
 		unitspace 3.0 cm
 	}
-%	staff { ritme }%broken for now
+%	staff { ritme } % broken for now
 	staff { melody }
 	commands {
 		meter {4* 4}
-		partial 8
-		skip 3*2
+		partial {8}
+		skip {1*8}
+		skip {3*2 }
 		bar ":|:"
-		skip 2*1
+		skip {1*2}
 		meter {2*4}
 
 	}

@@ -4,12 +4,12 @@ default:
 win32:
 	$(MAKE) -C .. Windows_NT
 
-DISTFILES=Makefile $(mycc) $(othersrc)
+DISTFILES=Makefile $(allcc) $(othersrc)
 dist:
 	ln $(DISTFILES) $(DDIR)/$(SUBDIR)
 
-TAGS: $(mycc)
-	etags -CT $(mycc) 
+TAGS: $(allcc)
+	etags -CT $(allcc) 
 
 clean:
 	rm -f $(gencc)

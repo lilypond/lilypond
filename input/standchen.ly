@@ -216,9 +216,6 @@ begeleiding = music { $
 %%6
  	{ \multivoice \music{ \stem{ 1 } [ `d `e `g `e `g `e ] } \music { \stem{ -1 } ``bes2 r4 } } |
 %%7 
-% this (one note missing) fails with assertion:
-% lilypond: src/beam.cc:144: void Beam::set_grouping(struct Rhythmic_grouping, struct Rhythmic_grouping): Assertion `cur.children.size() == stems.size()' failed.
-%	{ \multivoice \music{ \stem{ 1 } [ `cis `e `g `e `g ] } \music { \stem{ -1 } ``a2 r4 } } |
 	{ \multivoice \music{ \stem{ 1 } [ `cis `e `g `e `g e ] } \music { \stem{ -1 } ``a2 r4 } } |
 %%8
 	{ \multivoice \music{ \stem{ 1 } [ `d `a d `a d `a ] } \music { \stem{ -1 } `d2 r4 } } |
@@ -464,19 +461,19 @@ tekst2 = music {
 }
 
 score {
-%	staff { 
-%		lyric 
-	%	music { tekst1 }
-	%	music { tekst2 }
-%	}
-%	staff { 
-%	 	melodic 
-%		music { melodie }
-%	}
-%	staff { 
-%		melodic 
-%		music { begeleiding }
-%	}
+	staff { 
+		lyric 
+	music { tekst1 }
+	music { tekst2 }
+	}
+	staff { 
+	 	melodic 
+		music { melodie }
+	}
+	staff { 
+		melodic 
+		music { begeleiding }
+	}
 	commands { 
 		meter {3*4}
 	}
@@ -485,14 +482,10 @@ score {
 		width 195mm
 
 		% on two pages...
-%		unitspace 10mm
-%		geometric 1.2
 		unitspace 9mm
 		geometric 1.2
 		output "standchen.out"
 	}
-	staff { midi music { melodie } }
-	staff { midi music { begeleiding } }
 	midi {
 		tempo 4:50
 	}

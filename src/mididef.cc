@@ -16,24 +16,24 @@
 //     destructor
 //     routines, alphasorted
 
-Mididef::Mididef()
+Midi_def::Midi_def()
 {
     set_tempo( Moment( 1, 4 ), 60 );
     outfile_str_ = "lelie.midi"; 
 }
 
-Mididef::Mididef( Mididef const& midi_c_r )
+Midi_def::Midi_def( Midi_def const& midi_c_r )
 {
     whole_seconds_f_ = midi_c_r.whole_seconds_f_;
     outfile_str_ = midi_c_r.outfile_str_;
 }
 
-Mididef::~Mididef()
+Midi_def::~Midi_def()
 {
 }
 
 Real
-Mididef::duration_to_seconds_f( Moment moment )
+Midi_def::duration_to_seconds_f( Moment moment )
 {
     if (!moment)
 	return 0;
@@ -42,13 +42,13 @@ Mididef::duration_to_seconds_f( Moment moment )
 }
 
 int
-Mididef::get_tempo_i( Moment moment )
+Midi_def::get_tempo_i( Moment moment )
 {
     return Moment( whole_seconds_f_ ) * Moment( 60 ) * moment;
 }
 
 void
-Mididef::print() const
+Midi_def::print() const
 {
 #ifndef NPRINT
     mtor << "Midi {4/min: " << Real( 60 ) / ( whole_seconds_f_ * 4 );
@@ -58,7 +58,7 @@ Mididef::print() const
 }
 
 void
-Mididef::set_tempo( Moment moment, int count_per_minute_i )
+Midi_def::set_tempo( Moment moment, int count_per_minute_i )
 {
     whole_seconds_f_ = Moment( count_per_minute_i ) / Moment( 60 ) / moment;
 }

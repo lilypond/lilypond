@@ -3,6 +3,7 @@
 #include "identparent.hh"
 #include "associter.hh"
 #include "lexer.hh"
+#include "inputfile.hh"
 #include "parser.hh"
 #include "keyword.hh"
 #include "assoc.hh"

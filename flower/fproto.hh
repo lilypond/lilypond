@@ -27,7 +27,7 @@ struct Choleski_decomposition ;
 struct long_option_init ;
 struct Getopt_long ;
 struct Matrix ;
-struct StringData ;
+struct String_data ;
 struct String_handle ;
 struct String;
 struct virtual_smat ;
@@ -36,5 +36,6 @@ class Text_stream;
 class Data_file ;
 struct Text_db;
 struct Scalar;
+typedef unsigned char Byte;
 #endif // FPROTO_HH
 

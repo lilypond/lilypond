@@ -42,13 +42,20 @@ the C<type> is a Hungarian notation postfix for $C<Type>$. See below
 The source is commented in the DOC++ style.  Check out doc++ at
 http://www.zib.de/Visual/software/doc++/index.html
 
+	/*
+		C style comments for multiline comments.
+		[...]
+	*/
+
+
 	/**
 		short description.
 		Long class documentation.
 		(Hungarian postfix)
 	*/
 	class Class {
-		/** short description.
+		/**
+		  short description.
 		  long description
 		*/
 
@@ -57,8 +64,10 @@ http://www.zib.de/Visual/software/doc++/index.html
 
 		/**
 			short memo. long doco of member()
+			@param description of arguments
+			@return Rettype
 		*/
-		member();
+		Rettype member(Argtype);
 
 		/// memo only
 		boring_member();

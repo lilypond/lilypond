@@ -152,6 +152,7 @@ Source_file::map()
     data_caddr_ = (caddr_t)mmap( (void*)0, size_off_, PROT_READ, MAP_SHARED, fildes_i_, 0 );
 
     if ( (int)data_caddr_ == -1 )
+	// ugh: defined_ch_c_l...
 	warning( String( "can't map: " ) + name_str_ + String( ": " ) + strerror( errno ), defined_ch_c_l ); //lexer->here_ch_c_l() );
 }
 

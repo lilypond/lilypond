@@ -4,12 +4,12 @@
 
 */
 
-#ifndef __STRING_CONVERSION_HH
-#define __STRING_CONVERSION_HH
+#ifndef STRING_CONVERSION_HH
+#define STRING_CONVERSION_HH
 
 /**
   all conversions from/to String go in here.( some time, anyway )
-  Quite empty
+  The class is quite empty from data view.
   */
 class StringConversion {
 	static int hex2bin_i( String hex_str, String& bin_str_r );

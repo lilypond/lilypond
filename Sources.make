@@ -1,24 +1,27 @@
-# -*- Makefile-*-
+# Sources.make
 # sourcefiles to be shipped. Also used for dependencies
 
 hdr=   bar.hh barreg.hh beam.hh boxes.hh break.hh clefreg.hh clefitem.hh\
-	colhpos.hh  commandrequest.hh  complexcolumn.hh \
+	colhpos.hh  commandrequest.hh   \
 	complexwalker.hh complexstaff.hh\
 	const.hh debug.hh dimen.hh directionalspanner.hh\
 	 glob.hh  grouping.hh headreg.hh idealspacing.hh\
 	identifier.hh identparent.hh \
-	inputmusic.hh inputscore.hh inputstaff.hh item.hh key.hh keyitem.hh\
+	inputmusic.hh inputscore.hh inputstaff.hh\
+	inputfile.hh\
+	item.hh key.hh keyitem.hh\
 	keyreg.hh\
 	keyword.hh leastsquares.hh lexer.hh linespace.hh \
 	localkeyitem.hh localkeyreg.hh lookup.hh \
-	lyriccolumn.hh  lyricitem.hh lyricstaff.hh lyricwalker.hh\
+	lyricitem.hh lyricstaff.hh lyricwalker.hh\
 	main.hh  meter.hh meterreg.hh\
-	midicolumn.hh mididef.hh midiitem.hh midistaff.hh midistream.hh\
-	midiwalker.hh midiscorewalker.hh\
+	mididef.hh midiitem.hh midioutput.hh midistream.hh\
+	midiwalker.hh\
 	misc.hh\
 	molecule.hh moment.hh musicalrequest.hh\
 	notehead.hh notename.hh offset.hh paperdef.hh\
-	parseconstruct.hh pcol.hh proto.hh pscore.hh pstaff.hh qlp.hh\
+	 parseconstruct.hh pcol.hh proto.hh\
+	pscore.hh pstaff.hh qlp.hh\
 	qlpsolve.hh register.hh reqtodo.hh request.hh rest.hh \
 	sccol.hh score.hh\
 	scoreline.hh scorewalker.hh script.hh scriptdef.hh scriptreg.hh \
@@ -33,22 +36,24 @@ hdr=   bar.hh barreg.hh beam.hh boxes.hh break.hh clefreg.hh clefitem.hh\
 
 mycc=bar.cc barreg.cc beam.cc boxes.cc break.cc calcideal.cc clefreg.cc\
 	clefitem.cc colhpos.cc  commandrequest.cc\
-	complexcolumn.cc complexstaff.cc complexwalker.cc \
+	 complexstaff.cc complexwalker.cc \
 	debug.cc dimen.cc\
 	directionalspanner.cc\
-	 grouping.cc groupregs.cc headreg.cc\
+	grouping.cc groupregs.cc headreg.cc\
 	idealspacing.cc identifier.cc\
-	 inputmusic.cc inputscore.cc\
-	inputstaff.cc item.cc key.cc keyitem.cc \
+	inputmusic.cc inputscore.cc\
+	inputstaff.cc\
+	inputfile.cc\
+	item.cc key.cc keyitem.cc \
 	keyreg.cc keyword.cc\
 	leastsquares.cc lexerinit.cc linespace.cc \
 	localkeyitem.cc localkeyreg.cc lookup.cc\
-	lyriccolumn.cc lyricitem.cc lyricstaff.cc lyricwalker.cc\
+	lyricitem.cc lyricstaff.cc lyricwalker.cc\
 	main.cc  meter.cc meterreg.cc\
-	mididef.cc midicolumn.cc midiitem.cc midistaff.cc midistream.cc\
-	midiwalker.cc midiscorewalker.cc\
-	misc.cc molecule.cc mylexer.cc note.cc notehead.cc  notename.cc\
-	paperdef.cc pcol.cc pscore.cc pstaff.cc qlp.cc qlpsolve.cc\
+	mididef.cc  midiitem.cc midioutput.cc midistream.cc\
+	midiwalker.cc misc.cc molecule.cc mylexer.cc note.cc\
+	notehead.cc  notename.cc\
+	 paperdef.cc pcol.cc pscore.cc pstaff.cc qlp.cc qlpsolve.cc\
 	register.cc request.cc rest.cc  sccol.cc score.cc\
 	scoreline.cc scores.cc scorewalker.cc script.cc\
 	scriptdef.cc scriptreg.cc slur.cc\
@@ -67,8 +72,44 @@ mycc=bar.cc barreg.cc beam.cc boxes.cc break.cc calcideal.cc clefreg.cc\
 # a bit of a hack to keep exec size under control.
 stablecc=request.cc bar.cc boxes.cc break.cc  \
 	item.cc keyword.cc leastsquares.cc \
-	 lookup.cc molecule.cc meter.cc\
+	lookup.cc molecule.cc meter.cc\
 	paperdef.cc parser.cc lexer.cc pstaff.cc qlp.cc qlpsolve.cc\
 	template1.cc template2.cc template3.cc template4.cc\
 	template5.cc template6.cc version.cc tstream.cc  tex.cc\
 	voice.cc wordwrap.cc spanner.cc 
+
+
+# m2m headers
+#
+mym2mhh=\
+ midi-event.hh\
+ midi-main.hh\
+ midi-score.hh\
+ midi-track.hh\
+ my-midi-lexer.hh\
+ my-midi-parser.hh\
+
+#
+ 
+# m2m source
+#
+mym2mcc=\
+ midi-event.cc\
+ midi-main.cc\
+ midi-score.cc\
+ midi-template.cc\
+ midi-track.cc\
+ my-midi-lexer.cc\
+ my-midi-parser.cc\
+
+#
+
+# m2m shared source
+#
+mym2msharedcc=\
+ inputfile.cc\
+ sourcefile.cc\
+ source.cc\
+
+
+# 
