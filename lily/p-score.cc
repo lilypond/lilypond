@@ -1,7 +1,7 @@
 /*
   p-score.cc -- implement PScore
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1996, 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -12,12 +12,9 @@
 #include "lookup.hh"
 #include "spanner.hh"
 #include "paper-def.hh"
-#include "molecule.hh"
-#include "dimen.hh"
 #include "scoreline.hh"
 #include "p-score.hh"
 #include "tex-stream.hh"
-#include "item.hh"
 #include "break.hh"
 #include "p-col.hh"
 
@@ -238,7 +235,23 @@ PScore::process()
     *mlog << "\nPostprocessing elements..." << endl;
     postprocess();
 }
+/** Get all breakable columns between l and r, (not counting l and r).  */
+Link_array<PCol>
+PScore::breakable_col_range(PCol*l,PCol*r)const
+{
+    Link_array<PCol> ret;
 
+    PCursor<PCol*> start(l ? find_col(l)+1 : cols.top() );
+    PCursor<PCol*> stop(r ? find_col(r) : cols.bottom());
+  
+    while ( start < stop ) {
+	if (start->breakable_b())
+	    ret.push(start);
+	start++;
+    }
+
+    return ret;
+}
 Link_array<PCol>
 PScore::col_range(PCol*l,PCol*r)const
 {
@@ -250,5 +263,22 @@ PScore::col_range(PCol*l,PCol*r)const
     while ( start < stop )
 	ret.push(start++);
     ret.push(r);
+    return ret;
+}
+
+Link_array<PCol>
+PScore::broken_col_range(PCol*l,PCol*r)const
+{
+    Link_array<PCol> ret;
+
+    PCursor<PCol*> start(l ? find_col(l)+1 : cols.top() );
+    PCursor<PCol*> stop(r ? find_col(r) : cols.bottom());
+  
+    while ( start < stop ) {
+	if (start->breakable_b() && !start->line_l_ )
+	    ret.push(start);
+	start++;
+    }
+
     return ret;
 }

@@ -102,21 +102,21 @@ errors
 =item *
 <a href=lelieblond.gif
 >
-The lilypond logo (Big)
+The lilypond logo (Big, format: .gif)
 </a
 >
 
 =item *
 <a href=lelie_logo.gif
 >
-The lilypond logo (in gif format, medium size)
+The lilypond logo (medium size, format: .gif)
 </a
 >
 
 =item *
 <a href=example_output.html
 >
-examples: MIDI, PS, GIF and input.
+examples: MIDI, PS, .gif and input.
 </a
 >
 

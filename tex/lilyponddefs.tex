@@ -49,6 +49,7 @@
 \newdimen\noteheight
 \newdimen\notewidthhalf
 \newdimen\notewidthdouble
+\newdimen\notewidthquart
 \newdimen\staffrulethickness
 \newdimen\interstaffrule
 \newdimen\balkhalf
@@ -105,15 +106,15 @@
         \interlinedist=\fontdimen5\musicfnt
         \smallspace=.3\interlinedist
         \interstaffrule=\balkhoog
-        \advance\interstaffrule by-\staffrulethickness
         \divide\interstaffrule by 4
-        \advance\interstaffrule by -\staffrulethickness
         \notewidthhalf=\notewidth
+        \notewidthquart=\notewidth
         \notewidthdouble=\notewidth
         \rationalmultiply \notewidthhalf*1/2
+        \rationalmultiply\notewidthquart*1/4
         \multiply \notewidthdouble by 2
-               \balkhalf=\balkhoog
- \rationalmultiply\balkhalf*1/2 
+        \balkhalf=\balkhoog
+         \rationalmultiply\balkhalf*1/2 
 }
 
 % dynamics take extra kerning
@@ -238,15 +239,12 @@
 
 \def\emptybar{}
 
-\def\thinbar{\vrule height\balkhoog}
+\def\thinbar{\vrule height\balkhoog width0.8pt} % TODO parametric.
 \def\thickbar{\vrule height\balkhoog width 2\smallspace}
 \def\maatstreep{\thinbar}
 
 %? what-s wrong with rightalign?
 \def\finishbar{\rightalign{\thinbar\kern\smallspace\thickbar}}
-
-%%% \def\finishbar{\hss\rightalign{\thinbar\kern\smallspace\thickbar}}
-% \def\repeatstopbar{\rightalign{\repeatcolon\hskip2\smallspace\thinbar\hskip\smallspace\thickbar}}
 
 \def\repeatstopbar{\hss\rightalign{\repeatcolon\hskip2\smallspace\thinbar\hskip\smallspace\thickbar}}
 \def\repeatstartbar{\hbox{\thickbar\kern\smallspace\thinbar\kern2\smallspace\repeatcolon}}
@@ -279,12 +277,18 @@
         \n=0\nointerlineskip%
         \loop\ifnum\n<#1\advance\n by1%
                 \kern\interstaffrule
-                \hrule height \staffrulethickness width#2
+                \nointerlineskip
+                \vbox to 0pt{\hrule height \staffrulethickness width#2%
+                        \vss}\nointerlineskip
                 \repeat
         }}
 
+%%
+% Ugh. Need to redo this. Wish we had PS.
+%
 \def\toplines#1{ % why space needed here?
         \topalign{\hbox{\kern-\notewidth\lines{#1}{\notewidthdouble}}}}
+
 \def\botlines#1{ % idem ditto
         \botalign{\hbox{\kern-\notewidth\lines{#1}{\notewidthdouble}}}}
 

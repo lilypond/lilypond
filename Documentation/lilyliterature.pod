@@ -4,9 +4,13 @@ Lily literature -- reading on music engraving
 
 =head1 DESCRIPTION
 
-A list of resources on music printing/writing and engraving.
-Please note that don't have access to most material (except a library
-copy of Chlapik)
+A list of resources on music printing/writing and engraving.  Please
+note that don't have access to most material (except a library copy of
+Chlapik)
+
+
+More on GNU Music: http://dept-info.labri.u-bordeaux.fr/~strandh/Gsharp
+
 
 =head2 References
 
@@ -23,16 +27,16 @@ Association of the United States Inc., 1993.
 W.A. Hegazy and J. S. Gourlay. Optimal line breaking in music. In
 ``Document Manipulation and Typography'', J.C. van Vliet (ed) 1988.
 
-Ross, Ted. ``Teach yourself the art of music engraving and processing'' 
-(3rd edition). Hansen House, Miami Beach, FL.
+Ross, Ted. ``Teach yourself the art of music engraving and
+processing'' (3rd edition). Hansen House, Miami Beach, FL.
 
 	Hansen House
 	1820 West Ave.
 	Miami, FL  33139
 	(305) 532-5461
 
-[This is about I<engraving> i.e. professional music typesetting, and includes 
-some good spacing tables]
+[This is about I<engraving> i.e. professional music typesetting, and
+includes some good spacing tables]
  
 Read, Gardner. ``Modern Rhythmic Notation.'' Indiana University Press, 1978.
 
@@ -43,9 +47,7 @@ New York.
 as one is likely to get.]
 
 The University of Colorado Music Engraving page.
-http://www.cc.colorado.edu/cgi-bin/mfs/01/Dept/Musicpress/Welcome.html
-
-More on GNU Music: http://www.u-bordeaux.fr/~strandh
+http://www.cc.colorado.edu/cgi-bin/mfs/01/Dept/MU/Musicpress/Welcome.html
 
 =head2  Further reading
 

@@ -106,6 +106,8 @@ manner in which Request (the basic building blocks of mudela) are
 translated into printable items is complex: it is not always possible
 to associate one Request with one Item or Spanner.
 
+As a further notice, we want to move away from TeX (and perhaps
+output PostScript or render to an X window too)
 
 =head2 Miscellaneous
 
@@ -194,7 +196,7 @@ LD_LIBRARY_PATH to a directory containing F<libflower.so>
 
 Q: I want a DOS/NT/W95 port.
 
-A.0: Reconsider.  Try Linux.  It's fun!
+A.0: Reconsider.  Try Linux/GNU.  It's fun!
 
 A.1: Currently (patchlevel 27), GNU LilyPond (and flowerLib) compiles, links
 and runs on windhoos-nt, using the cygnus gnu port (release b17.1). 

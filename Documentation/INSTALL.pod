@@ -23,10 +23,10 @@ For compilation you need.
 
 =item *
 
-Unix. GNU LilyPond is known to run on Linux, AIX, Digital Unix and
-Solaris
+A Unix system with GNU tools. GNU LilyPond is known to run on Linux,
+AIX, Digital Unix and Solaris.
 
-If you have the Cygnus WIN32 port of the GNU utils, it will
+If you have the Cygnus WINDOWS32 port of the GNU utils, it will
 even work in Lose NT/95, but don't promise to support it.
 
 =item *
@@ -59,6 +59,7 @@ Perl.  Most scripts are written in Perl. The documentation was created
 with the perl's Plain Old Documentation.
 
 =item *
+
 (GNU) find
 
 =back
@@ -258,7 +259,7 @@ F<Variables.make>
 
 Windows NT:
 
-you need the cygnus win32 gnu port development stuff; have a look
+you need the cygnus windows32 gnu port development stuff; have a look
 at http://www.cygnus.com/gnu-win32.
 
 to make GNU LilyPond under, brr, aargh, well, simply type:
@@ -270,9 +271,14 @@ to make GNU LilyPond under, brr, aargh, well, simply type:
 
 GNU LilyPond (pl 0.0.39) is known to compile on the following platforms:
 
+Unix:
+
 	* linux 2.0.x, g++ 2.7.2[.1]
 	* aix 4.1, g++ 2.7.2
-	* windows-nt 4.0, cygnus gnu-win32 beta17.1 (~=g++ 2.7.2)
+
+Other:
+
+	* windows-nt 4.0, cygnus gnu-windows32 beta17.1 (~=g++ 2.7.2)
 	* linux 2.0.28 X to doze, gcc-go32 (~=g++ 2.7.2) [exec. untested]
 
 =head1 AUTHORS

@@ -340,6 +340,9 @@ Score_elem::handle_broken_dependencies()
     remove_us_arr.uniq();
     for (int i=0;  i <remove_us_arr.size(); i++)
 	remove_dependency(remove_us_arr[i]);
+
+    if (status < BROKEN)
+	status = BROKEN;
 }
 
 

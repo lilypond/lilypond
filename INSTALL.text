@@ -23,12 +23,12 @@ IIIIMMMMPPPPOOOORRRRTTTTAAAANNNNTTTT
 PPPPRRRREEEERRRREEEEQQQQUUUUIIIISSSSIIIITTTTEEEESSSS
        For compilation you need.
 
-       +o    Unix. GNU LilyPond is known to run on Linux, AIX,
-            Digital Unix and Solaris
+       +o    A Unix system with GNU tools. GNU LilyPond is known
+            to run on Linux, AIX, Digital Unix and Solaris.
 
-            If you have the Cygnus WIN32 port of the GNU utils,
-            it will even work in Lose NT/95, but don't promise to
-            support it.
+            If you have the Cygnus WINDOWS32 port of the GNU
+            utils, it will even work in Lose NT/95, but don't
+            promise to support it.
 
        +o    GNU C++ v2.7 or better, with libg++ installed.
             Version 2.7.2 or better recommended. I almost
@@ -45,7 +45,7 @@ RRRREEEECCCCOOOOMMMMMMMMEEEENNNNDDDDEEEEDDDD
             documentation was created with the perl's Plain Old
             Documentation.
 
-       +o (GNU) find
+       +o    (GNU) find
 
 CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG aaaannnndddd CCCCOOOOMMMMPPPPIIIILLLLIIIINNNNGGGG
        to install GNU LilyPond, simply type:
@@ -61,7 +61,7 @@ CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG a
 
 
 
-26/May/97                LilyPond 0.0.65                        1
+28/May/97                LilyPond 0.0.66                        1
 
 
 
@@ -127,7 +127,7 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
 
 
 
-26/May/97                LilyPond 0.0.65                        2
+28/May/97                LilyPond 0.0.66                        2
 
 
 
@@ -193,7 +193,7 @@ RRRRUUUUNNNNNNNNIIIINNNNGGGG
 
 
 
-26/May/97                LilyPond 0.0.65                        3
+28/May/97                LilyPond 0.0.66                        3
 
 
 
@@ -259,7 +259,7 @@ WWWWIIIINNNNDDDDOOOOZZZZEEEE
 
 
 
-26/May/97                LilyPond 0.0.65                        4
+28/May/97                LilyPond 0.0.66                        4
 
 
 
@@ -268,8 +268,8 @@ WWWWIIIINNNNDDDDOOOOZZZZEEEE
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
 
-       you need the cygnus win32 gnu port development stuff; have
-       a look at http://www.cygnus.com/gnu-win32.
+       you need the cygnus windows32 gnu port development stuff;
+       have a look at http://www.cygnus.com/gnu-win32.
 
        to make GNU LilyPond under, brr, aargh, well, simply type:
 
@@ -281,9 +281,14 @@ PPPPLLLLAAAATTTTFFFFOOOORRRRMMMMSSSS
        GNU LilyPond (pl 0.0.39) is known to compile on the
        following platforms:
 
+       Unix:
+
                * linux 2.0.x, g++ 2.7.2[.1]
                * aix 4.1, g++ 2.7.2
-               * windows-nt 4.0, cygnus gnu-win32 beta17.1 (~=g++ 2.7.2)
+
+       Other:
+
+               * windows-nt 4.0, cygnus gnu-windows32 beta17.1 (~=g++ 2.7.2)
                * linux 2.0.28 X to doze, gcc-go32 (~=g++ 2.7.2) [exec. untested]
 
 
@@ -320,11 +325,6 @@ AAAAUUUUTTTTHHHHOOOORRRRSSSS
 
 
 
-
-
-
-
-
-26/May/97                LilyPond 0.0.65                        5
+28/May/97                LilyPond 0.0.66                        5
 
 

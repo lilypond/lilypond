@@ -22,7 +22,7 @@ IMPORTANT
 
 	* decent TeX page layout
 
-	* per-pstaff item-widths [JCN]
+	* per staff item-widths [JCN]
 
 	* script priority
 
@@ -59,11 +59,11 @@ PROJECTS
 	- trill
 	- bracket
 
-	* Rewrite Beam and Rhythmic_grouping (hairy)
+	* Rewrite Stem, Beam and Rhythmic_grouping (hairy)
 	- [c8. c32 c32]
  	- interbeam height
 	- doc on Rhythmic_grouping
-	- general shaving
+	- general shaving on Beam and Stem
 	- use plet grouping
 	- abbreviations [c2 c2]1/2
 	- separate visual from rhythmic info even more
@@ -124,7 +124,10 @@ verplichte regels
 
 ****************
 
+
 BUGS
+	* RPM permissions -> redhat!
+
 	* spurious Weird stem size warnings
 
 	* staccato dot positions.
@@ -132,8 +135,6 @@ BUGS
 	* stacked scripts.
 
 	* lilypond - -> crash
-
-	* chlapik balk ruimte 
 
 	* standchen triool beam up/down
 
@@ -182,9 +183,7 @@ PROJECTS
 
 SMALLISH PROJECTS
 
-	* handle do_substitute_dependency in more derived classes.
-
-	* replace member access by get()/set() methods, to enable
+	* replace Score_elem member access by get()/set() methods, to enable
 	future embedded code.
 
 	* --fast/--draft: leave out constraints
@@ -206,7 +205,7 @@ SMALLISH PROJECTS
 
 	* adaptive accidental spacing.
 
-	* Score_elem invible_b_ flag
+	* Score_elem invisible_b_ flag
 	
 	* unix style paths for LILYINCLUDE env
 
@@ -261,7 +260,6 @@ SMALLISH PROJECTS
 
 	* detect -pipe
 
-
 DOC
 	* Score_elem structure.
 
@@ -287,7 +285,8 @@ FUTURE
 
 	* guitar chord
 
-	* Junk Staff_column, and find the requests while walking the Voices.?
+	* Junk Staff_column, and find the requests while walking the
+	Voices.?
 
 	* better beamslope calculation:	QLP for beams?
 
@@ -299,12 +298,10 @@ FUTURE
 
 	* volta
 
-	* piano staff
-
-	* vertical spanner
-
 IDEAS
-	* derive PCol from Score_elem?
+	* check out CORBA for Score_elems?
+
+	* derive PCol from Score_elem? More in Score_elems? Spacing?
 
 	* scoping in Lexer: do general id- assignments in mudela.
 

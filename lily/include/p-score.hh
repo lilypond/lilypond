@@ -60,6 +60,8 @@ public:
     PCursor<PCol *> find_col(PCol const *)const;
 
     Link_array<PCol> col_range(PCol *left_l, PCol *right_l) const;
+    Link_array<PCol> breakable_col_range(PCol*,PCol*) const;
+    Link_array<PCol> broken_col_range(PCol*,PCol*) const;
     
     /* MAIN ROUTINES */
     void process();

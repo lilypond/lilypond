@@ -46,7 +46,7 @@ Stem_info::Stem_info(Stem const *s)
     x = s->hpos_f();
     int dir = s->dir_i_;
     idealy  = dir * s->stem_end_f();
-    miny = dir * s->stem_start_f();
+    miny = dir * s->stem_start_f() + 2;	// ugh
     assert(miny <= idealy);
 }
 
