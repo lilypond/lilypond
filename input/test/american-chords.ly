@@ -1,3 +1,9 @@
+%{
+  See scm/chord-names.scm: chord::names-alist-american
+  James Hammons <jlhamm@pacificnet.net>
+%}
+
+\include "english.ly"
 #(set! chord::names-alist-american
       (append 
       '(
@@ -9,8 +15,8 @@
 chord = \notes\transpose c''\chords{
 \property ChordNames.chordNameStyle = "american"
 c
-c:m
-c:m5-
+cs:m
+df:m5-
 c:5^3
 c:4^3
 c:5+
@@ -30,6 +36,7 @@ c:9^7
 c:6.9^7
 c:9
 c:7+.9
+c:m7.9
 }
 
 \score{
