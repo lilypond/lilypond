@@ -1,0 +1,21 @@
+# Musical vocabulary, correspondance from British.
+# Copyright (C) 1993 Free Software Foundation, Inc.
+# Neil Jerram <nj104@cus.cam.ac.uk>, 1993.
+
+British				American
+
+breve				double whole note
+crotchet			quarter note
+crotchet rest			quarter rest
+demisemiquaver			thirty-second note
+demisemiquaver rest		thirty-second rest
+hemidemisemiquaver		sixty-fourth note
+hemidemisemiquaver rest		sixty-fourth rest
+minim				half note
+minim rest			half rest
+quaver				eighth note
+quaver rest			eighth rest
+semibreve			whole note
+semibreve rest			whole rest
+semiquaver			sixteenth note
+semiquaver rest			sixteenth rest
