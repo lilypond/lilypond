@@ -154,7 +154,7 @@ Accidental_interface::get_fontcharname (String style, int alteration)
       case SHARP: return "mensural1";
       }
   
-  if (style == "neo_mensural")
+  if (style == "neomensural")
     style = ""; // currently same as default
   if (style == "default")
     style = "";

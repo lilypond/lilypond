@@ -1,4 +1,4 @@
-\version "2.3.8"
+\version "2.3.9"
 % TODO: split ancient-font into seperate files; possibly in
 % different locations.
 \header {
@@ -121,8 +121,8 @@ lowerStaff = \context MensuralStaff = lowerStaff <<
 
      \transpose c c {
 	\set autoBeaming = ##f
-	\override NoteHead  #'style = #'neo_mensural
-	\override Rest  #'style = #'neo_mensural
+	\override NoteHead  #'style = #'neomensural
+	\override Rest  #'style = #'neomensural
 	\key a \major
 
 % FIXME: lily crashes on some (invalid?) ligatures with:
@@ -134,7 +134,7 @@ lowerStaff = \context MensuralStaff = lowerStaff <<
 
 	cis'1 d'\breve gis'\breve e'\breve \[ e'\longa fis'\longa \]
 	\set Staff.forceClef = ##t
-	\clef "neo_mensural_c2"
+	\clef "neomensural_c2"
 	cis1
 	\bar "|"
 %	\break % 2 (16*1)
@@ -172,11 +172,11 @@ lowerStaff = \context MensuralStaff = lowerStaff <<
 
 	r\breve 
 	\clef "mensural_f"
-	% FIXME: must set Stem flag-style to #'neo_mensural to avoid
+	% FIXME: must set Stem flag-style to #'neomensural to avoid
 	% segmentation fault on r8/r16/r32.  (Strange: what has
 	% Stem flag-style to do with mensural rests?)
-	\override Stem  #'flag-style = #'neo_mensural
-	% FIXME: produces warnings about "flag `neo_mensurald4' (or 3) not found".
+	\override Stem  #'flag-style = #'neomensural
+	% FIXME: produces warnings about "flag `neomensurald4' (or 3) not found".
 	r2 r4 r8 r16 r16
 	\override Stem  #'flag-style = #'mensural
 	\set Staff.forceClef = ##t

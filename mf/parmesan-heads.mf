@@ -100,7 +100,7 @@ def draw_neo_left_stemmed_head (expr wid) =
 	draw z6 .. z7;
 enddef;
 
-fet_beginchar("Left stemmed notehead", "lneo_mensural", "mensuralleftstemmedhead");
+fet_beginchar("Left stemmed notehead", "lneomensural", "mensuralleftstemmedhead");
 	draw_neo_left_stemmed_head (2 staff_space#);
 fet_endchar;
 
@@ -129,15 +129,15 @@ enddef;
 %
 % (ze is wel breed)
 % 
-fet_beginchar("Maxima notehead", "-3neo_mensural", "neomensuralmaximahead");
+fet_beginchar("Maxima notehead", "-3neomensural", "neomensuralmaximahead");
 	draw_neo_longa (2.6 staff_space#)
 fet_endchar;
 
-fet_beginchar("Longa notehead", "-2neo_mensural", "neomensurallongahead");
+fet_beginchar("Longa notehead", "-2neomensural", "neomensurallongahead");
 	draw_neo_longa (2 staff_space#)
 fet_endchar;
 
-fet_beginchar("Brevis notehead", "-1neo_mensural", "neomensuralbrevishead")
+fet_beginchar("Brevis notehead", "-1neomensural", "neomensuralbrevishead")
 	draw_neo_brevis(2 staff_space#);
 fet_endchar;
 
@@ -181,7 +181,7 @@ def draw_neo_mensural_open_head (expr wid, height)=
 	unfill z5 -- z6 -- z7 -- z8 --cycle;
 enddef;
 
-fet_beginchar("Neo-mensural open head","0neo_mensural","neomensuralsemibrevishead")
+fet_beginchar("Neo-mensural open head","0neomensural","neomensuralsemibrevishead")
       draw_neo_mensural_open_head (staff_space#, noteheight#);
 fet_endchar;
 
@@ -198,11 +198,11 @@ fet_beginchar("Harmonic notehead (Neo-mensural open)",
 fet_endchar;
 
 
-fet_beginchar("Neo-mensural open head","1neo_mensural","neomensuralminimahead")
+fet_beginchar("Neo-mensural open head","1neomensural","neomensuralminimahead")
       draw_neo_mensural_open_head (staff_space#, noteheight#);
 fet_endchar;
 
-fet_beginchar("Neo-mensural black head","2neo_mensural","neomensuralsemiminimahead")
+fet_beginchar("Neo-mensural black head","2neomensural","neomensuralsemiminimahead")
       draw_neo_mensural_black_head (staff_space#, noteheight#);
 fet_endchar;
 

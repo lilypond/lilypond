@@ -1,4 +1,4 @@
-\version "2.3.4"
+\version "2.3.9"
 \header{
 texidoc="
 Note head shapes may be set from several choices.  
@@ -36,7 +36,7 @@ pattern =  <<
     \pattern
         \break
 
-    \override Staff.NoteHead  #'style = #'neo_mensural
+    \override Staff.NoteHead  #'style = #'neomensural
     s1*0^\markup { "neomensural" }
     \pattern
 

@@ -2126,6 +2126,13 @@ def conv (str):
 conversions.append (((2, 3, 8), conv,
 		     '''remove \\consistsend, strip \\lyrics from \\lyricsto.'''))
 
+def conv (str):
+	str = re.sub (r'neo_mensural', 'neomensural', str)
+	return str
+
+conversions.append (((2, 3, 9), conv,
+		     '''neo_mensural -> neomensural'''))
+
 
 def conv_mode_experiment (str):
 	str = re.sub (r'\\chords\b', r'\\chordmode', str)

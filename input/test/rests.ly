@@ -1,5 +1,5 @@
 
-\version "2.3.8"
+\version "2.3.9"
 \header {
     texidoc = "@cindex Rests
 
@@ -20,8 +20,8 @@ Rests may be used in various styles.
     r\longa r\breve r1 r2 r4 r8 r16 r32 r64 r128 r128
     \bar "" 
 
-    \override Staff.Rest  #'style = #'neo_mensural
-    r\maxima^\markup \typewriter { neo_mensural }
+    \override Staff.Rest  #'style = #'neomensural
+    r\maxima^\markup \typewriter { neomensural }
     r\longa r\breve r1 r2 r4 r8 r16 r32 r64 r128 r128
     \bar "" 
 
