@@ -1,0 +1,87 @@
+%
+% Real accidentals
+
+%\tracingequations:= tracingonline := 1;
+%proofing := 2;
+
+fet_begingroup("foobars");
+
+begingroup;
+
+fet_beginchar(incr code, 1.1 interline#, 1.5 interline#, 
+		1.5 interline#, 0, "Sharp" , "1", "sharp");
+
+	save interbeam, interstem, beamheight, beamwidth, 
+		stemwidth;
+
+	interbeam := 1.1 interline;
+	interstem := 7/16 ;
+	beamheight := 4 stafflinethickness;
+	beamwidth := w;
+	stemwidth := 1.3 stafflinethickness;
+
+	2 horizontal_protrusion  + interstem * beamwidth + stemwidth
+		= beamwidth;
+
+	pickup pensquare xscaled horizontal_protrusion yscaled beamheight;
+	pair center;
+	center = (.5 w, 0);
+	
+	z2 - z1 = (beamwidth - horizontal_protrusion, beamheight/2);
+	z1 + z2 = 2*center;
+	beamslope = (y2-y1)/(x2-x1);
+	path beam;
+	beam:=  z1 .. z2;
+	draw beam shifted (0, -interbeam/2);
+	draw beam shifted (0,interbeam/2);
+
+	pickup pencircle scaled stemwidth;
+	x3 = x4 = xpart center;
+	bot y3 = -1.5 interline + ypart center;
+	top y4 = 1.5 interline + ypart center;
+
+	path stem;
+	stem := z3 .. z4;
+	numeric xs;
+	xs := interstem* beamwidth / 2;
+	draw stem shifted (- xs, - xs* beamslope);
+	draw stem shifted (xs , xs *beamslope);
+	endchar;
+
+fet_beginchar(incr code, 8/12 interline#, 1.5 interline#, 1.5 interline#, 0,
+	"Natural", "0", "natural")
+
+
+	save interbeam, interstem, beamheight, beamwidth, 
+		stemwidth;
+
+	beamheight = 4.5 stafflinethickness;
+	interstem + stemwidth =  w;
+	stemwidth = 1.3 stafflinethickness;
+
+	z2 -z1 = (interstem, slope * interstem);
+	xpart .5 [z2,z1] = xcenter ;
+	xcenter = w/2;
+
+
+	pickup penrazor scaled beamheight rotated 90;
+	top y2 = interline - 3/2 stafflinethickness ;
+	slope =  stafflinethickness / interstem;
+	
+	draw z1 .. z2;
+	draw (xpart z1, -y2) .. (xpart z2, -y1);
+	beamtop = top y2;
+	
+	pickup pencircle scaled stemwidth;
+	xpart z3 = xpart z1;
+	xpart z4 = xpart z2;
+	top y3 = 1.5 interline;
+	top y4 = beamtop;
+
+	draw (xpart z1, -y4) .. z3;
+	draw (xpart z2, -y3) .. z4;
+
+	labels(1,2,3,4);
+	endchar;
+endgroup;
+fet_endgroup("foobars");

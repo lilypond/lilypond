@@ -75,9 +75,6 @@ table_sixteen=
 	"tenor_change"	"\caltoclef" 	0.0\pt	11.2\pt	0.0\pt	16.0\pt
      }
 
-     % ugh what's our outdir called?
-     \include "font-en-tja16.ly"
-
      "slur" = \table {
 	"whole"	"\slurchar%{%}"
 	"half"	"\hslurchar%{%}"
@@ -86,8 +83,8 @@ table_sixteen=
      "accidentals" = \table {
 	"-2"	"\flatflat"	0.0\pt 	8.16\pt	-2.5\pt 7.5\pt
 	"-1"	"\flat"		0.0\pt	4.8\pt	-2.5\pt 7.5\pt
-	"0"	"\natural"	0.0\pt	4.8\pt	-7.5\pt 7.5\pt
-	"1"	"\sharp" 	0.0\pt	3.6\pt	-7.5\pt 7.5\pt
+	"0"	"\natural"	0.0\pt	4.0\pt	-6.\pt 6.\pt
+	"1"	"\sharp" 	0.0\pt	4.4\pt	-6.\pt 6.\pt
 	"2"	"\sharpsharp"	0.0\pt	4.8\pt	-2.5\pt 7.5\pt
      }
 
@@ -166,10 +163,12 @@ table_sixteen=
      }
 
      "beamslopes" = \table {
-	"uslope"	"\beamuslope{%}{%}"  2.0\pt 64.0\pt 0.0\pt 0.0\pt
-	"dslope"	"\beamdslope{%}{%}"  2.0\pt 64.0\pt 0.0\pt 0.0\pt
+	"slope"		"\beamslope{%}{%}"  2.0\pt 64.0\pt 0.0\pt 0.0\pt	
 	"horizontal"	"\rulesym{%}{%}"	
      }
+     % ugh what's our outdir called?
+     \include "font-en-tja16.ly"
+
 
 }
 
