@@ -6,9 +6,6 @@ Here's an example of bagpipe music.
 "
 }
 
-#(add-to-grace-init "Voice" 'Stem 'length 6)
-#(add-to-grace-init "Voice" 'Stem 'stroke-style '())
-
 % doen't work??  
 %#(add-to-grace-init "Voice" 'Stem 'font-relative-size )
 
@@ -51,6 +48,11 @@ gcdg =  \notes{ \grace {  g'32[ c d]}}
 % 
 \score {
   \notes  { \time 6/8 \partial 4
+
+ #(add-grace-property "Voice" 'Stem 'length 6)
+ #(add-grace-property "Voice" 'Stem 'stroke-style '())
+
+	    
   \tieUp
   \slurUp
 f4 |

@@ -28,7 +28,7 @@ LY_DEFINE(ly_get_context_property,
 }
 
 LY_DEFINE(ly_set_context_property,
-	  "ly:set-context-property", 3, 0, 0,
+	  "ly:set-context-property!", 3, 0, 0,
 	  (SCM context, SCM name, SCM val),
 	  "set value of property @var{name} in context @var{context} to @var{val}.")
 {

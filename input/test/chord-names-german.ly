@@ -22,10 +22,10 @@ scm = \chords {
 \score {
 \notes <
     \context ChordNames { \scm }
-    \newcontext ChordNames {
+    \new ChordNames {
 	\property ChordNames.instrument = #"german"
 	\germanChords \scm }
-    \newcontext ChordNames {
+    \new ChordNames {
 	\property ChordNames.instrument =#"semi-german"
 	\semiGermanChords \scm }
     \context Voice {  \scm } >

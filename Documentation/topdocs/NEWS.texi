@@ -10,11 +10,21 @@
 @itemize
 
 @item
-Two new commands for grace note have been added, @code{\accacciatura}
-and @code{\appogiatura}. Both reflect the traditional meanings of
-accacciatura and ap
+Two new commands for grace notes have been added, @code{\accacciatura}
+and @code{\appoggiatura},
 
+@example
+  \appoggiatura f8 e4
+  \accacciatura g8 f4
+@end example
 
+Both reflect the traditional meanings of accacciatura and appogiatura,
+and both insert insert a slur from the first grace note to the main
+note.
+
+@item 
+Layout options for grace notes are now stored in a context property,
+and may now be set separately from musical content.
 
 @item
 The @code{\new} command will create a context with a unique
