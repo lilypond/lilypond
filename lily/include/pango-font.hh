@@ -22,6 +22,7 @@
 class Pango_font : public Font_metric
 {
   PangoContext *context_;
+  PangoFontDescription *description_; 
   PangoAttrList *attribute_list_;
   Real scale_;
   SCM subfonts_;
