@@ -13,7 +13,7 @@ copyright	public domain
  Tested Features:breaking algorithm, chords, multivoice, accents
 %}
 
-\version "0.1.5";
+\version "0.1.6";
 
 %% Stuff from MPP version
 % \lefttitle{Menuetto}
@@ -60,14 +60,14 @@ IImenuetto = \melodic{
 %%10
 	< [ e'8 g8 > d' cis'_"2" e' a~  g8 ] |
 %%11
-	< \multi 2;  
+	\multi 2 <  
 		{\stemup a4~  d'4 cis'4-. }
 		{ \stemdown f2 e4 } > |
 %%12
 	< [ g'8^"4" d8 > f' e' f' d'^"3"~   c' ] |
 %%13
 	\clef "alto";
-	< \multi 2;
+	\multi 2 <
 		 { \stemup bes2 c'4 }
 		 { \stemdown g4~  f4 e4 }% ugh
 	> |
@@ -86,9 +86,9 @@ IImenuetto = \melodic{
 %%20
 	< { [ c'8 ( bes8 a8 )bes g~  bes8 ] }  d8  g8  > |
 %%21
-	< \multi 2;  
-		{\stemup  d'4 (\stemup ) cis'4 d'4 }  
-		{ \stemdown g2 f4 } 
+	\multi 2 <  
+		{\stemup  d'4( \stemup )cis'4 d'4 }  
+		{ \stemdown g2 f4 }
 	> |
 %%22
 	< { [ g8 ~  f8 g8 e8 ] }  cis8  > < f4 d4 > |

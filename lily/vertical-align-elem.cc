@@ -64,7 +64,7 @@ Vertical_align_element::contains_b (Score_elem const *e) const
 Vertical_align_element::Vertical_align_element()
 {
   transparent_b_ = true;
-  empty_b_ =true;
+  set_empty (true);
 }
 
 

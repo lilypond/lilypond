@@ -26,8 +26,8 @@ protected:
 
 public:
     DECLARE_MY_RUNTIME_TYPEINFO;
-    virtual void add_element (Score_elem*);
-    virtual void remove_element (Score_elem*);
+    virtual void add_element (Graphical_element*);
+    virtual void remove_element (Graphical_element*);
 
 };
 /**
@@ -39,8 +39,8 @@ protected:
     virtual void remove_all();
 
 public:
-    virtual void add_element (Score_elem*);
-    virtual void remove_element (Score_elem*);
+    virtual void add_element (Graphical_element*);
+    virtual void remove_element (Graphical_element*);
     DECLARE_MY_RUNTIME_TYPEINFO;
 };
 
@@ -54,8 +54,8 @@ class Horizontal_vertical_group_element : public Vertical_group_element,
 protected:
     virtual void remove_all();
 public:
-    virtual void add_element (Score_elem*);
-    virtual void remove_element (Score_elem*);
+    virtual void add_element (Graphical_element*);
+    virtual void remove_element (Graphical_element*);
     
     DECLARE_MY_RUNTIME_TYPEINFO;    
 };

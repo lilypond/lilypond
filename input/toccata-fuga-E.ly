@@ -1,5 +1,4 @@
 \header{
-
 filename	toccata-fuga-E.ly
 title	toccata and fuga in E-major 
 opus	BWV 566
@@ -21,7 +20,7 @@ copyright	public domain
 %}
 
 
-\version "0.1.5";
+\version "0.1.6";
 
 toccata_commands = \melodic{
 	\meter 4/4;
@@ -32,7 +31,7 @@ toccata_right = \melodic{
 	\$toccata_commands 
 	% 13 -- how to type -- where to split -- this more neatly ?
 	\octave c';
-	<\multi 2;
+	\multi 2 <
 	 	{ \stemup r4 dis'4 e'4.-. e'8( | \property Voice.hshift = 1 )e'4 [d'8 fis'8] \property Voice.hshift = 0 gis'4 [gis'8 fis'16 e'16] | fis'4~  [fis'8 e'16 dis'16] e'4 r8 e'8 }
 		{ \stemup \property Voice.hshift = 1 r4 bis4 cis'4-. cis'4 | \property Voice.hshift = 0 a'4~  [a'16 gis'16 a'16 b'16] \property Voice.hshift = 1 dis'4 cis'4~  [cis'8 dis'16 a16] bis4 cis'4 r8 b8 }
 		{ \stemdown r4 < gis4 fis4 dis4 > gis4-. gis4 | a4. cis'8 gis2 | fis4 gis4 gis4 r8 e8 }
@@ -45,7 +44,7 @@ toccata_left = \melodic{
 	\octave c;
 	\clef bass;
 	% 13
-	<\multi 2;
+	\multi 2 <
 		{ \stemup bis2 cis'4-. cis'4~  [cis'8 a8 d'8 cis'8] [bis8 gis8] cis'4 | dis'2 cis'4 r8 cis'8 }
 		{ \stemup \property Voice.hshift = 1 r4 gis4. gis8~  gis4 | \stemdown \property Voice.hshift = 0 a4. fis8 gis4. a8~  a4 gis4-. gis4 r8 gis8 }
 		{ \stemdown r4 < dis4 fis4 > < cis4 e4 > }
@@ -76,7 +75,7 @@ fuga2_right = \melodic{
 	\clef violin;
 	% 15
 	\octave c';
-	<\multi 2;
+	\multi 2 <
 		{ \stemup [b8 fis8] b4 }
 		{ \stemdown fis2 }
 	>
@@ -88,14 +87,14 @@ fuga2_right = \melodic{
            |x
            |
 	%}
-	< \multi 2;
+	\multi 2 <
 		{ \stemup \property Voice.hshift = 0 e'4 }
 		{ \stemup \property Voice.hshift = 1 cis'4 }
 		{ \stemup \property Voice.hshift = 2 ais4 }
 		{ \stemdown fis4 }
 	> |
 	% 16
-	<\multi 2;
+	\multi 2 <
 		{ \stemup dis'2 dis'4 | cis'2 cis'4 | b4~  [b8 cis'8 dis'8 e'8] }
 		{ \stemup \property Voice.hshift = 1 [b8 fis8] b2~  [b8 a16 g16] a2 | a4 gis2 }
 		{ \stemdown fis2.~  fis2.~  fis4 e2 }
@@ -109,7 +108,7 @@ fuga2_left = \melodic{
 	\clef bass;
 	% 15
 	b2 
-	<\multi 2; 
+	\multi 2 < 
 		{ \stemup ais4 | bes2. }
 		{ \stemdown e4  | fis2 fis4 }
 	>
@@ -140,8 +139,8 @@ break = \melodic{
 
 % these should be two separate scores...
 \score{
-	< \multi 1;
-		 \type Grandstaff = ""  < \multi 3;
+	\multi 1 <
+		 \type Grandstaff  \multi 3 <
 		   {\toccata_right     \break   \fuga2_right }
 		   { \toccata_left  \break   \fuga2_left }
 		> 

@@ -39,7 +39,7 @@ part of the basso continuo
  
 %}
 
-\version "0.1.5";
+\version "0.1.6";
 
 vi1=\melodic{
   \meter 4/4;
@@ -221,7 +221,7 @@ bc=\melodic{
 }
 
 \score{
-  < \multi 3;
+  \type Staff_group <
     \vi1
     \vi2
     \bc

@@ -40,7 +40,6 @@ public:
   
   Translator_group * daddy_trans_l_ ;
  
-  virtual void add_processing ();
   void print () const;
   
   /**
@@ -54,6 +53,7 @@ public:
     */
   bool try_request (Request*);
   void pre_move_processing();
+  void add_processing ();
   void creation_processing ();
   void process_requests();
   void post_move_processing();
@@ -86,6 +86,7 @@ protected:
 	@see{try_request}
 	Default: always return false
 	*/
+  virtual void do_add_processing ();
   virtual bool do_try_request (Request *req_l);
   virtual void do_print () const;
   virtual void do_pre_move_processing(){}

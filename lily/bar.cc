@@ -35,7 +35,7 @@ Bar::brew_molecule_p() const
 {    
   Paper_def *p = paper();
   Symbol s = p->lookup_l()->bar (type_str_, 
-				   p->get_var ("bar_size"));
+				 p->get_var ("bar_size"));
   Molecule*output = new Molecule (Atom (s));
   return output;
 }

@@ -24,8 +24,8 @@ protected:
   virtual void do_unlink () { Axis_group_spanner::do_unlink (); }
 public:
   DECLARE_MY_RUNTIME_TYPEINFO;
-  virtual void add_element (Score_elem*e) { Vertical_group_element::add_element (e); }
-  virtual void remove_element (Score_elem*e) { Vertical_group_element::remove_element (e); }  
+  virtual void add_element (Graphical_element*e) { Vertical_group_element::add_element (e); }
+  virtual void remove_element (Graphical_element*e) { Vertical_group_element::remove_element (e); }  
 };
 
 #endif // SPAN_VERTICAL_GROUP_HH

@@ -10,7 +10,7 @@
 #include "spanner.hh"
 #include "p-col.hh"
 #include "p-score.hh"
-
+#include "outputter.hh"
 
 IMPLEMENT_IS_TYPE_B1(Spanner,Score_elem);
 
@@ -113,11 +113,15 @@ Spanner::Spanner()
   spanned_drul_[RIGHT]=0;
 }
 
-String
-Spanner::do_TeX_output_str () const
+void
+Spanner::do_brew_molecule () 
 {
+  if (transparent_b_)
+    return ;
+  Molecule *output= brew_molecule_p ();
   Offset left_off (spanned_drul_[LEFT]->absolute_coordinate(X_AXIS), 0);
-  return make_TeX_string (absolute_offset() + left_off);
+  Offset o = absolute_offset() + left_off;
+  pscore_l_->outputter_l_->output_molecule (output, o);
 }
 
 Interval

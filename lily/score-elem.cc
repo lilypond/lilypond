@@ -5,9 +5,7 @@
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
-/*
-  too big. Should split.
- */
+#include "outputter.hh"
 #include "p-score.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
@@ -23,15 +21,13 @@
 
 Score_elem::Score_elem()
 {
-  transparent_b_ = empty_b_ = false;
-  axis_group_l_a_[0] = axis_group_l_a_[1] =0;
+  transparent_b_ = false;
   pscore_l_=0;
-  offset_ = Offset (0,0);
-  output = 0;
-  status_ = ORPHAN;
+  status_i_ = 0;
 }
 
 Score_elem::Score_elem (Score_elem const&s)
+  : Graphical_element (s)
 {
   /* called from derived ctor, so most info points to the same deps
      as (Directed_graph_node&)s. Nobody points to us, so don't copy
@@ -39,22 +35,14 @@ Score_elem::Score_elem (Score_elem const&s)
    */
   copy_edges_out (s);
   transparent_b_ = s.transparent_b_;
-  empty_b_ = s.empty_b_;
-  axis_group_l_a_[0] = axis_group_l_a_[1] =0;
-  status_ = s.status_;
-  assert (!s.output);
-  output = 0;
+  status_i_ = s.status_i_;
   pscore_l_ = s.pscore_l_;
-  offset_ = Offset (0,0);
 }
 
 Score_elem::~Score_elem()
 {
-  // some paranoia to prevent weird segv's
-  assert (status_ < DELETED);
-  delete output;
-  status_ = DELETED;
-  output = 0;
+  assert (status_i_ >=0);
+  status_i_ = -1;
 }
 
 Score_elem*
@@ -81,130 +69,17 @@ Score_elem::dependent_size() const
   return get_in_edge_arr().size ();
 }
 
-String
-Score_elem::make_TeX_string (Offset o)const
-{
-  String s ("\\placebox{%}{%}{%}");
-  Array<String> a;
-  a.push (print_dimen (o.y()));
-  a.push (print_dimen (o.x()));
-  String t = output->TeX_string();
-  if (!t)
-    return t;
 
-  a.push (t);
-  String r;
-  if (check_debug)
-    r = String ("\n%start: ") + name() + "\n";
-  r += substitute_args (s, a);
-  return r;
-}
-String
-Score_elem::do_TeX_output_str () const
-{
-  return make_TeX_string(absolute_offset());
-}
-
-/*
-  GEOMETRY
- */
-Real
-Score_elem::absolute_coordinate (Axis a) const
-{
-  Real r = offset_[a];
-  for (Axis_group_element * axis_group_l = axis_group_l_a_[a];
-	axis_group_l; axis_group_l = axis_group_l->axis_group_l_a_[a])
-	
-    r += axis_group_l->offset_[a];
-  return r;
-}
- 
-
-Offset
-Score_elem::absolute_offset() const
-{
-  return Offset (absolute_coordinate (X_AXIS), absolute_coordinate (Y_AXIS));
-}
-
-void
-Score_elem::translate (Real y, Axis a)
-{
-  offset_[a] += y;
-}
-
-Real
-Score_elem::relative_coordinate (Axis_group_element*e, Axis a) const
-{
-  Real r =0.0;
-  for (Axis_group_element * axis_group_l = axis_group_l_a_[a];
-	axis_group_l != e;
-	axis_group_l = axis_group_l->axis_group_l_a_[a])
-    r +=  axis_group_l->offset_[a];
-
-  return r;
-}
-
-Axis_group_element* 
-Score_elem::common_group (Score_elem const* s, Axis a) const
-{
-  Link_array<Axis_group_element> my_groups;
-  for (Axis_group_element * axis_group_l = axis_group_l_a_[a];
-	axis_group_l;
-	axis_group_l = axis_group_l->axis_group_l_a_[a])
-    my_groups.push (axis_group_l);
-
-  Axis_group_element* common_l=0;
-  for (Axis_group_element * axis_group_l = s->axis_group_l_a_[a];
-	!common_l && axis_group_l;
-	axis_group_l = axis_group_l->axis_group_l_a_[a])
-    common_l = my_groups.find_l (axis_group_l);
-
-  return common_l;
-}
-
-
-
-void
-Score_elem::translate (Offset O)
-{
-  offset_ += O;
-}
 
 Interval
 Score_elem::do_width() const 
 {
   Interval r;
 
-  if (!output)
-    {
-      Molecule*m = brew_molecule_p();
-      r = m->extent().x ();
-      delete m;
-    }
-  else
-    r = output->extent().x ();
-  return r;
-}
-
-Interval
-Score_elem::width() const
-{
-  return extent (X_AXIS);
-}
-
-Interval
-Score_elem::extent (Axis a) const
-{
-  Interval r;
-  if (!empty_b_) 
-    {
-	
-      r = (a == X_AXIS)? do_width(): do_height ();
-    }
+  Molecule*m = brew_molecule_p();
+  r = m->extent().x ();
+  delete m;
   
-  if (!r.empty_b()) // float exception on DEC Alpha
-    r+=offset_[a];
-
   return r;
 }
 
@@ -212,22 +87,12 @@ Interval
 Score_elem::do_height() const 
 {
   Interval r;
-  if (!output)
-    {
-      Molecule*m = brew_molecule_p();
-      r = m->extent().y ();
-      delete m;
-    }
-  else
-    r = output->extent().y ();
+  Molecule*m = brew_molecule_p();
+  r = m->extent().y ();
+  delete m;
   return r;
 }
 
-Interval
-Score_elem::height() const
-{
-  return extent (Y_AXIS);
-}
 
 /*
   STANDARD METHS
@@ -239,13 +104,9 @@ Score_elem::print() const
   DOUT << name() << "{\n";
   DOUT << "dets: " << dependent_size() << "dependencies: " << 
     dependency_size();
-  if (offset_.x() || offset_.y ())
-    DOUT << "offset (" << offset_.x() << ", " << offset_.y () <<")";
-  DOUT << "\n";
-
+ 
+  Graphical_element::print ();
   do_print();
-  if (output)
-    output->print();
   
   DOUT <<  "}\n";
 #endif
@@ -259,161 +120,47 @@ Score_elem::paper()  const
   return pscore_l_->paper_l_;
 }
 
+
 void
 Score_elem::add_processing()
 {
-  if (status_ >= VIRGIN)
+  if (status_i_)
     return;
-  status_ = VIRGIN;
+  status_i_ ++;
   do_add_processing();
 }
 
+
 void
-Score_elem::pre_processing()
+Score_elem::calcalute_dependencies (int final, int busy,
+				    Score_elem_method_pointer funcptr)
 {
-  if (status_ >= PRECALCED)
+   if (status_i_ >= final)
     return;
 
-  assert (status_ != PRECALCING); // cyclic dependency
-  status_ = PRECALCING;
+   assert (status_i_!= busy);
+   status_i_= busy;
 
   for (int i=0; i < dependency_size(); i++)
-    dependency (i)->pre_processing();
+    dependency (i)->calcalute_dependencies (final, busy, funcptr);
 
   Link_array<Score_elem> extra (get_extra_dependencies());
   for (int i=0; i < extra.size(); i++)
-    extra[i]->pre_processing();
+    extra[i]->calcalute_dependencies (final, busy, funcptr);
   
-  do_pre_processing();
-  status_ = PRECALCED;
+  invalidate_cache (X_AXIS);
+  invalidate_cache (Y_AXIS);
+  (this->*funcptr)();
+  status_i_= final;
 }
 
 void
-Score_elem::breakable_col_processing()
+Score_elem::do_brew_molecule () 
 {
-  if (status_ >= PREBROKEN)
-    return;
-
-  if (status_== PREBREAKING) 
-    {
-      status_ = PREBROKEN;
-      return ;
-    }
-  status_ = PREBREAKING;
-
-  for (int i=0; i < dependency_size(); i++)
-    dependency (i)->breakable_col_processing();
-
-  Link_array<Score_elem> extra (get_extra_dependencies());
-  for (int i=0; i < extra.size(); i++)
-    extra[i]->breakable_col_processing();
-  
-  
-  do_breakable_col_processing();
-  status_ = PREBROKEN;
-}
-
-void
-Score_elem::break_processing()
-{
-  if (status_ >= BROKEN)
-    return;
-
-  if (status_ == BREAKING) 
-    {
-      status_ = BROKEN;
-      return;
-    }
-  status_ = BREAKING;
-
-  for (int i=0; i < dependency_size(); i++)
-    dependency (i)->break_processing();
-
-  Link_array<Score_elem> extra (get_extra_dependencies());
-  for (int i=0; i < extra.size(); i++)
-    extra[i]->break_processing();
-  
-
-  
-  do_break_processing();
-  status_ = BROKEN;
-
-}
-
-void
-Score_elem::do_break_processing()
-{
-  handle_broken_dependencies();
-}
-
-
-void
-Score_elem::post_processing()
-{
-  if (status_ >= POSTCALCED)
-    return;
-  assert (status_ != POSTCALCING);// cyclic dependency
-  status_=POSTCALCING;	
-
-  
-  for (int i=0; i < dependency_size(); i++)
-    dependency (i)->post_processing();
-
-  Link_array<Score_elem> extra (get_extra_dependencies());
-  for (int i=0; i < extra.size(); i++)
-    extra[i]->post_processing();
-  
-
-  do_post_processing();
-  status_=POSTCALCED;
-}
-
-Score_elem::Status
-Score_elem::status() const
-{
-  return status_;
-}
-
-void 
-Score_elem::molecule_processing()
-{
-  if (status_ >= BREWED)
-    return;
-  status_ = BREWED;		// do it only once.
-  
-  for (int i=0; i < dependency_size(); i++)
-    dependency (i)->molecule_processing();
-
-  Link_array<Score_elem> extra (get_extra_dependencies());
-  for (int i=0; i < extra.size(); i++)
-    extra[i]->molecule_processing();
-  
-
-  if (transparent_b_)
+   if (transparent_b_)
     return ;
-  output= brew_molecule_p();
-}
-
-String
-Score_elem::TeX_output_str() const
-{
-  String s;
-  if (status_ >= TEXOUTPUT)
-    return "";
-
-  ((Score_elem*)this)->status_ = TEXOUTPUT;
-
-  for (int i=0; i < dependency_size(); i++)
-    s += dependency (i)->TeX_output_str();
-
-  Link_array<Score_elem> extra (get_extra_dependencies());
-  for (int i=0; i < extra.size(); i++)
-    s += extra[i]->TeX_output_str ();
-  
-  if (!transparent_b_)
-    s+= do_TeX_output_str();
-
-  return s;
+   Molecule *output= brew_molecule_p ();
+   pscore_l_->outputter_l_->output_molecule (output, absolute_offset ());
 }
 
 /*
@@ -421,6 +168,13 @@ Score_elem::TeX_output_str() const
   VIRTUAL STUBS
 
  */
+
+void
+Score_elem::do_break_processing()
+{
+  handle_broken_dependencies();
+}
+
 void
 Score_elem::do_post_processing()
 {
@@ -461,7 +215,7 @@ Score_elem::do_junk_links()
 {
 }
 
-IMPLEMENT_IS_TYPE_B(Score_elem);
+IMPLEMENT_IS_TYPE_B1(Score_elem, Graphical_element);
 
 Molecule*
 Score_elem::brew_molecule_p() const
@@ -540,7 +294,7 @@ Score_elem::handle_broken_dependencies()
   for (int i=0;  i <remove_us_arr.size(); i++)
     remove_dependency (remove_us_arr[i]);
 
-  status_ = BROKEN;
+  //  status_i_= BROKEN;
 }
 
 /*
@@ -589,23 +343,16 @@ Score_elem::handle_prebroken_dependencies()
       substitute_dependency (old_arr[i], new_arr[i]);
 	
 	
-  status_ = PREBROKEN;
+  //  status_i_= PREBROKEN;
 }
 
 
-
 void
-Score_elem::unlink_all()
+Score_elem::junk_links ()
 {
-  for (int i=0; i < dependency_size(); i++) 
-    dependency (i)->unlink_all();
-  Link_array<Score_elem> extra (get_extra_dependencies());
-  for (int i=0; i < extra.size(); i++)
-    extra[i]->unlink_all();
-  
-  junk_links();
-  axis_group_l_a_[X_AXIS] = axis_group_l_a_[Y_AXIS] =0;
-  do_unlink();
+  Directed_graph_node::junk_links();
+  Graphical_element::junk_links ();
+  do_junk_links();
 }
 
 void
@@ -624,19 +371,8 @@ Score_elem::unlink()
   for (int j=0; j < 2; j++)
     if (axis_group_l_a_[j])
       axis_group_l_a_[j]->remove_element (this);
-
 }
 
-void
-Score_elem::OK() const
-{
-#ifndef NDEBUG
-  for (int i=0; i < dependency_size(); i++) 
-    {
-      dependency (i)->OK();
-    }
-#endif
-}
 
 Link_array<Score_elem>
 Score_elem::get_extra_dependencies() const
@@ -651,3 +387,5 @@ Score_elem::linked_b() const
   return get_extra_dependencies().size() || 
     dependency_size();
 }
+
+

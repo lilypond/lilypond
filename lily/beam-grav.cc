@@ -116,11 +116,7 @@ Beam_engraver::acknowledge_element (Score_elem_info i)
    */
   current_grouping_p_->add_child (get_staff_info().time_C_->whole_in_measure_,
 				  rhythmic_req->duration ());
-  /* 
-   TODO
-   should change repr. of flags too.
-   */
-  s->flag_i_ = Duration_convert::type2_i (rhythmic_req->duration_.durlog_i_);
+  s->flag_i_ = rhythmic_req->duration_.durlog_i_;
   beam_p_->add (s);
 } 
     

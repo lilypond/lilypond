@@ -94,6 +94,7 @@ Key_item::do_pre_processing()
 {
   if (default_b_) 
     {
-	empty_b_ = transparent_b_ = (break_status_i() != 1);
+	transparent_b_ = (break_status_i() != 1);
+	set_empty (transparent_b_);
     }
 }

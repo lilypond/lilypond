@@ -18,10 +18,12 @@
 class Stem_engraver : public Engraver
 {
   Direction dir_;
+  int default_abbrev_i_;
   Stem *stem_p_;
   Rhythmic_req *rhythmic_req_l_;
   Abbreviation_req* abbrev_req_l_;
 protected:
+  virtual void do_creation_processing ();
   virtual void acknowledge_element (Score_elem_info);
   virtual void do_pre_move_processing ();
   virtual bool do_try_request (Request*);

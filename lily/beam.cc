@@ -262,7 +262,7 @@ Beam::set_grouping (Rhythmic_grouping def, Rhythmic_grouping cur)
       {
 	Stem *s = stems[j];
 
-	int f = intlog2(abs (s->flag_i_))-2;
+	int f = s->flag_i_ - 2;
 	assert (f>0);
 	flags.push (f);
       }

@@ -27,8 +27,8 @@ protected:
   }
   virtual void do_print() const;
 public:
-  virtual void add_element (Score_elem*e) { Horizontal_group_element::add_element (e); }
-  virtual void remove_element (Score_elem*e) { Horizontal_group_element::remove_element (e); }
+  virtual void add_element (Graphical_element*e) { Horizontal_group_element::add_element (e); }
+  virtual void remove_element (Graphical_element*e) { Horizontal_group_element::remove_element (e); }
   DECLARE_MY_RUNTIME_TYPEINFO;
   SCORE_ELEM_CLONE(Horizontal_group_item);
 };

@@ -232,9 +232,9 @@ IMPLEMENT_IS_TYPE_B1(Score_engraver,Engraver_group_engraver);
 ADD_THIS_TRANSLATOR(Score_engraver);
 
 void
-Score_engraver::add_processing ()
+Score_engraver::do_add_processing ()
 {
-  Translator_group::add_processing ();
+  Translator_group::do_add_processing ();
   assert (output_def_l_->is_type_b (Paper_def::static_name ()));
   assert (!daddy_trans_l_);
   pscore_p_ = new Paper_score;

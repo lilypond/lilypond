@@ -26,8 +26,8 @@ void
 Item::do_print() const
 {
 #ifndef NPRINT
-  DOUT << "breakable_b_: " << breakable_b_;
-  DOUT << "break_status_i_: " <<break_status_i_;
+  DOUT << "breakable_b_: " << breakable_b_ << 
+    " break_status_i_: " <<break_status_i_;
 #endif
 }
 

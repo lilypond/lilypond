@@ -14,6 +14,7 @@
 #include "scoreline.hh"
 #include "p-score.hh"
 #include "p-col.hh"
+#include "cpu-timer.hh"
 
 String
 Col_stats::str() const { 
@@ -163,7 +164,17 @@ Break_algorithm::OK() const
 Array<Col_hpositions>
 Break_algorithm::solve() const
 {
-  return do_solve();
+  Cpu_timer timer;
+
+  Array<Col_hpositions> h= do_solve();
+  
+  if (approx_stats_.count_i_)
+    *mlog << "\nApproximated: " << approx_stats_.str() << "\n";
+  if (exact_stats_.count_i_)
+    *mlog << "Calculated exactly: " << exact_stats_.str() << "\n";
+  *mlog << "Time: " << String(timer.read (), "%.2f") << " seconds\n";
+  
+  return h;
 }
 
 void
@@ -172,11 +183,3 @@ Break_algorithm::do_set_pscore()
   
 }
 
-void
-Break_algorithm::print_stats() const
-{
-  if (approx_stats_.count_i_)
-    *mlog << "\nApproximated: " << approx_stats_.str() << "\n";
-  if (exact_stats_.count_i_)
-    *mlog << "Calculated exactly: " << exact_stats_.str() << "\n";
-}

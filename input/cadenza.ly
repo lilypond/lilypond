@@ -11,7 +11,7 @@ copyright	public domain
 Tested Features: cadenza mode
 %}
 
-\version "0.1.5";
+\version "0.1.6";
 
 
 cad = \melodic  {

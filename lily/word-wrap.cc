@@ -101,7 +101,6 @@ Word_wrap::do_solve() const
       *mlog << "[" <<break_idx_i<<"]"<<flush;
       breaking.push (minimum);
     }
-  print_stats();
   return breaking;
 }
 

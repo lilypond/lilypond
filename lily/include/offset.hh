@@ -26,6 +26,7 @@ struct Offset {
   Real operator[](Axis i) const{
     return coordinate_a_[i];
   }
+  String str () const;
     
   Offset operator+=(Offset o) {
     x()+=o.x ();

@@ -143,9 +143,10 @@ Lookup::dots (int j) const
 }
 
 Symbol
-Lookup::flag (int j) const
+Lookup::flag (int j, Direction d) const
 {
-  return (*symtables_)("flags")->lookup (j);
+  char c = (d == UP) ? 'u' : 'd';
+  return (*symtables_)("flags")->lookup (c + String (j));
 }
 
 Symbol

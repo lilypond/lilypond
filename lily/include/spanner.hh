@@ -56,7 +56,7 @@ protected:
 
   virtual void do_unlink();
   virtual void do_junk_links();
-  virtual String do_TeX_output_str () const;
+  virtual void do_brew_molecule ();
   virtual void do_break_processing();
   virtual Interval do_width() const;
   virtual void do_print() const;

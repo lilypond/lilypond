@@ -11,7 +11,7 @@ copyright		Public Domain
 %{
 	
 %}
-\version "0.1.5";
+\version "0.1.6";
 
 
 global = 
@@ -183,13 +183,12 @@ bass =
         
 \score {
     \melodic \type Grandstaff < 
-	       \multi 1;
-                 < \multi 2;
+  	         \multi 2 <
                        \global 
                        \soprane
                        \tenor
                  >
-                 < \multi 2;
+                 \multi 2 <
                        \global
                        \alt
 		       \bass

@@ -12,7 +12,7 @@
 #include <iostream.h>
 
 // mmm
-#define MUDELA_VERSION "0.1.5"
+#define MUDELA_VERSION "0.1.6"
 
 #include "scalar.hh"
 #include "translation-property.hh"
@@ -38,6 +38,7 @@
 #include "music-list.hh"
 #include "header.hh"
 #include "duration-convert.hh"
+#include "change-translator.hh"
 
 #ifndef NDEBUG
 #define YYDEBUG 1
@@ -210,7 +211,7 @@ yylex (YYSTYPE *s,  void * v_l)
 
 %type <scalar>  scalar
 %type <music>	Music transposed_music
-%type <music>	propertydef
+%type <music>	property_def translator_change
 %type <musiclist> Voice Voice_body
 %type <chord>	Chord Chord_body
 %type <paper>	paper_block paper_body
@@ -472,7 +473,7 @@ paper_block:
 
 paper_body:
 	/* empty */		 	{
-		$$ = THIS->default_paper (); // paper / video / engrave
+		$$ = THIS->default_paper ();
 	}
 	| PAPER_IDENTIFIER	{
 		$$ = $1->paperdef ();
@@ -581,20 +582,24 @@ Music:
 		{ THIS->lexer_p_->push_lyric_state (); }
 	Music
 		{ $$ = $3; THIS->lexer_p_->pop_state (); }
-	| propertydef
+	| property_def
+	| translator_change
 	;
 
-propertydef:
+translator_change:
 	TRANSLATOR STRING '=' STRING  {
-		/* kluge.  Could use Music just as well */
-		Translation_property * t = new Translation_property;
-		t-> translator_type_str_ = *$2;
-		t-> translator_id_str_ = *$4;
+		Change_translator * t = new Change_translator;
+		t-> change_to_type_str_ = *$2;
+		t-> change_to_id_str_ = *$4;
+
 		$$ = t;
 		delete $2;
 		delete $4;
 	}
-	| PROPERTY STRING '.' STRING '=' scalar	{
+	;
+
+property_def:
+	PROPERTY STRING '.' STRING '=' scalar	{
 		Translation_property *t = new Translation_property;
 		t-> translator_type_str_ = *$2;
 		t-> var_str_ = *$4;
@@ -614,15 +619,16 @@ scalar:
 
 Chord:
 	'<' Chord_body '>'	{ $$  = $2; }
+	| MULTI INT Chord {
+		$$ = $3;
+		$$->multi_level_i_=$2;
+	}
 	;
 
 Chord_body:
 	/**/	{
 		$$ = new Chord;
 		$$-> multi_level_i_ = 1;
-	}
-	| Chord_body MULTI INT ';' {
-		$$->multi_level_i_=$3;
 	}
 	| Chord_body Music {
 		$$->add ($2);
@@ -978,7 +984,7 @@ voice_command:
 
 			c' -> default_octave_i_ == 1
 		*/
-		/* why can't we have \oct{0} iso \oct{c'}*/
+		/* why can't we have \oct 0 iso \oct{c'}*/
 		THIS->default_octave_i_ = 1; }
 /* cont */
 	steno_melodic_req {
@@ -1052,15 +1058,17 @@ explicit_steno_duration:
 
 
 abbrev_type: 
-	':' int {
+	':'	{
+		$$ =0;
+	}
+	| ':' int {
 		if (!Duration::duration_type_b ($2))
 			THIS->parser_error ("Not a duration");
 		else if ($2 < 8)
 			THIS->parser_error ("Can't abbreviate");
-		else
-			THIS->set_last_abbrev ($2);
-		$$ = THIS->default_abbrev_type_i_;
+		$$ = $2;
 	}
+
 	;
 
 music_elt:

@@ -12,7 +12,7 @@ copyright		Public Domain
  Tested Features: stem direction, multivoice, forced accidentals.
 %}
 
-\version "0.1.5";
+\version "0.1.6";
 
                                     % should add \need{dutch.ini} for
                                     % correct parsing of note names
@@ -157,21 +157,21 @@ bassdux =
         [F16 G] As4 [G16 F] Es4 r8 es |
         [d c g G]
 %% 30
-        < \multi 2;
-        { \stemup c2~ | c1~ | c1 }
-        { \stemdown C2~ | C1~ | C1 }
+        \multi 2 <
+        	{ \stemup c2~ | c1~ | c1 }
+	        { \stemdown C2~ | C1~ | C1 }
         >
     }
 
         
 \score {
     \melodic \type Grandstaff < 
-	\type Staff=treble < \multi 2; 
+	\type Staff=treble  < 
                        \global 
                        \dux
                        \comes 
                  >
-	\type Staff=bass < \multi 2;
+	\type Staff=bass  <
                        \global
                        \bassdux
                  >

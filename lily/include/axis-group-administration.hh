@@ -20,7 +20,7 @@
   Do the dirty work for Axis_group_element.
  */
 struct Axis_group_administration {
-  Link_array<Score_elem> elem_l_arr_;
+  Link_array<Graphical_element> elem_l_arr_;
     
   Interval extent (Axis) const;
   void print() const ;
@@ -28,9 +28,9 @@ struct Axis_group_administration {
   Axis_group_administration(){}
   void remove_all (Axis a1,   Axis a2);
 
-  bool contains_b (Score_elem const *) const;
-  void add_element (Score_elem*, Axis_group_element*, Axis a1, Axis a2);
-  void remove_element (Score_elem*, Axis a1, Axis a2);
+  bool contains_b (Graphical_element const *) const;
+  void add_element (Graphical_element*, Axis_group_element*, Axis a1, Axis a2);
+  void remove_element (Graphical_element*, Axis a1, Axis a2);
 };
 
 #endif // AXIS_GROUP_ADMINISTRATION_HH

@@ -9,7 +9,6 @@ Staff =	\translator {
 	\consists "Meter_performer";
 }
 
-
 Thread =\translator
 {
 	\type "Performer_group_performer";
@@ -40,12 +39,19 @@ Lyrics = \translator {
 	\consists "Meter_performer";
 }
 
+Staff_group = \translator
+{
+	\type Performer_group_performer;
+	\accepts Staff;
+}
+
 Score = \translator {
 	\type "Score_performer";
 	instrument = piano;
 	\accepts Staff;
 	\accepts Grandstaff;
 	\accepts Lyrics; 
+	\accepts Staff_group;
 	\consists "Swallow_performer";
 }
 

@@ -7,9 +7,7 @@
 
 table_sixteen= 
 \symboltables {
-
    \texid 	"\input lilyponddefs \musixsixteendefs"
-
    % index TeXstring, 	xmin xmax ymin ymax
 
     "scripts" = \table {
@@ -156,16 +154,16 @@ table_sixteen=
      }
 
      "flags" = \table {
-	"8"	"\eighthflag"		0.0\pt	4.0\pt	0.0\pt	0.0\pt
-	"16"	"\sixteenthflag"		0.0\pt	4.0\pt	0.0\pt	0.0\pt
-	"32"	"\thirtysecondflag"	0.0\pt	4.0\pt	0.0\pt	0.0\pt
-	"64"	"\sixtyfourthflag"	0.0\pt	4.0\pt	0.0\pt	0.0\pt
-	"128"	"\hundredtwentyeighthflag"	0.0\pt	4.0\pt	0.0\pt	0.0\pt
-	"-8"	"\deighthflag"		0.0\pt	4.0\pt	0.0\pt	0.0\pt
-	"-16"	"\dsixteenthflag"		0.0\pt	4.0\pt	0.0\pt	0.0\pt
-	"-32"	"\dthirtysecondflag"	0.0\pt	4.0\pt	0.0\pt	0.0\pt
-	"-64"	"\dsixtyfourthflag"	0.0\pt	4.0\pt	0.0\pt	0.0\pt
-	"-128"	"\dhundredtwentyeighthflag"	0.0\pt	4.0\pt	0.0\pt	0.0\pt
+	"u3"	"\eighthflag"		0.0\pt	4.0\pt	0.0\pt	0.0\pt
+	"u4"	"\sixteenthflag"		0.0\pt	4.0\pt	0.0\pt	0.0\pt
+	"u5"	"\thirtysecondflag"	0.0\pt	4.0\pt	0.0\pt	0.0\pt
+	"u6"	"\sixtyfourthflag"	0.0\pt	4.0\pt	0.0\pt	0.0\pt
+	"u7"	"\hundredtwentyeighthflag"	0.0\pt	4.0\pt	0.0\pt	0.0\pt
+	"d3"	"\deighthflag"		0.0\pt	4.0\pt	0.0\pt	0.0\pt
+	"d4"	"\dsixteenthflag"		0.0\pt	4.0\pt	0.0\pt	0.0\pt
+	"d5"	"\dthirtysecondflag"	0.0\pt	4.0\pt	0.0\pt	0.0\pt
+	"d6"	"\dsixtyfourthflag"	0.0\pt	4.0\pt	0.0\pt	0.0\pt
+	"d7"	"\dhundredtwentyeighthflag"	0.0\pt	4.0\pt	0.0\pt	0.0\pt
      }
 
      "beamslopes" = \table {

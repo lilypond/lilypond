@@ -10,21 +10,24 @@ Tested Features: \multi
 %}
 
 
-\version "0.1.5";
+\version "0.1.6";
 
 \score{
 	\melodic 
 		{ \octave c'; c4 c4 
-			< \multi 1;  { c2 c2 } { c'2 c'2 } > 
-			< \multi 2;  { \stemdown c2 c2 } { \stemup c'2 c'2 } > 
-			< \multi 3;  { \clef "bass"; c2 c2 } { \meter 2/4;\bar "||"; \key fis cis gis; c'2 c'2 } > 
+			\multi 1 <  { c2 c2 } { c'2 c'2 } > 
+			\multi 2 <  { \stemdown c2 c2 } { \stemup c'2 c'2 } > 
+			\multi 3 < { \clef "bass"; c2 c2 } 
+                           { \meter 2/4;\bar "||";
+				 \key fis cis gis; c'2 c'2 } 
+> 
 	 			c2 c1 
 			c1 c1
-			< \multi 1; < \multi 3; 
+			\multi 1 < \multi 3 < 
 				{ \meter 2/4; \clef "violin"; c2 c2 }
 				{ \meter 2/4; \clef "bass"; c2 c2 }
 			>
-			< \multi 3; 
+			\multi 3 < 
 				{ \meter 2/4; \clef "violin"; c2 c2 }
 				{ \meter 2/4; \clef "bass"; c2 c2 }
 			>

@@ -22,6 +22,7 @@
     */
 
 class Paper_score : public Music_output {
+  void tex_output ();
 public:
   Paper_def *paper_l_;
 
@@ -33,7 +34,8 @@ public:
 
   /// other elements
   Pointer_list<Score_elem*> elem_p_list_;
-    
+  
+  Outputter *outputter_l_;  
   Super_elem *super_elem_l_;
     
   Paper_score ();
@@ -55,7 +57,6 @@ public:
     
     
   /* STANDARD ROUTINES */
-  void OK() const;
   void print() const;
   
   void typeset_element (Score_elem*);

@@ -26,13 +26,14 @@ void
 Chord_iterator::construct_children()
 {
   int j = 0;
-  for (PCursor<Music*> i (chord_C_->music_p_list_.top());  //, int j = 0; 
+  for (PCursor<Music*> i (chord_C_->music_p_list_.top());  
        i.ok(); j++, i++) 
     {
-      Music_iterator * mi =  get_iterator_p (i.ptr());
+      Music_iterator * mi = get_iterator_p (i.ptr());
       if (mi->ok()) 
 	{
-	  set_translator (mi->report_to_l()->ancestor_l (chord_C_->multi_level_i_));
+	  if  (!chord_C_->translator_type_str_)
+	    set_translator (mi->report_to_l()->ancestor_l (chord_C_->multi_level_i_));
 	  children_p_list_.bottom().add (mi);
 	}
       else 

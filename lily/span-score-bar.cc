@@ -23,7 +23,8 @@ Span_score_bar::do_pre_processing()
   
   if (break_status_i() != 1) 
     {
-	empty_b_ = transparent_b_ = true;
+      set_empty (true);
+      transparent_b_ = true;
     }
 }
 

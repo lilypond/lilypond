@@ -4,6 +4,8 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 1996,1997 Han-Wen Nienhuys <hanwen@stack.nl>
+
+  TODO: This is way too hairy
 */
 
 #include "stem.hh"
@@ -33,8 +35,8 @@ Stem::Stem ()
   beams_right_i_ = 0;
 
   stem_bottom_f_ = stem_top_f_ = 0;
-  flag_i_ = 4;
-  dir_ =CENTER;
+  flag_i_ = 2;
+  dir_ = CENTER;
   staff_size_i_ = 8;
 
   stem_xoffset_f_ =0;
@@ -64,7 +66,9 @@ void
 Stem::do_print () const
 {
 #ifndef NPRINT
-  DOUT << "flag "<< flag_i_ << " print_flag? " << !(bool)beam_l_ << "abbrev_flag_i_" << abbrev_flag_i_;
+  DOUT << "flag "<< flag_i_ << "abbrev_flag_i_" << abbrev_flag_i_;
+  if (beam_l_)
+    DOUT << "beamed";
 #endif
 }
 
@@ -109,7 +113,7 @@ void
 Stem::add (Note_head *n)
 {
   n->add_dependency (this);
-      head_l_arr_.push (n);
+  head_l_arr_.push (n);
 }
  
 void
@@ -123,13 +127,12 @@ bool
 Stem::invisible_b () const
 {
   
-  return !head_l_arr_.size () || 
-    head_l_arr_[0]->balltype_i_ <= 0;
+  return (!head_l_arr_.size () || 
+    head_l_arr_[0]->balltype_i_ <= 0);
 
 }
 
 // if dir_ is set we return fake values.
-
 int
 Stem::get_center_distance_from_top ()
 {
@@ -159,7 +162,7 @@ Stem::get_default_dir ()
   if (dir_)
     return dir_;
   return (get_center_distance_from_top () >=
-    get_center_distance_from_bottom ()) ? 
+	  get_center_distance_from_bottom ()) ? 
     (Direction)-1 : (Direction)1;
 }
 
@@ -178,8 +181,8 @@ Stem::set_default_stemlen ()
 
   // ugh... how about non 5-line staffs?
   bool on_ledger_line_b = ((max_head_i () < -2 && dir_ == 1)
-//    || (min_head_i () > staff_size_i_ && dir_ == -1));
-    || (min_head_i () > staff_size_i_ + 3 && dir_ == -1));
+			   //    || (min_head_i () > staff_size_i_ && dir_ == -1));
+			   || (min_head_i () > staff_size_i_ + 3 && dir_ == -1));
   if (on_ledger_line_b)
     {
       set_stemend (staff_size_i_ / 2 - 1);
@@ -254,10 +257,9 @@ Stem::do_pre_processing ()
   if (stem_bottom_f_== stem_top_f_)
     set_default_extents ();
   set_noteheads ();
-  flag_i_ = dir_ * abs (flag_i_);
+  flag_i_ = flag_i_;
   transparent_b_ = invisible_b ();
-  empty_b_ = invisible_b ();
-
+  set_empty (invisible_b ());
 }
 
 
@@ -269,68 +271,68 @@ Stem::do_width () const
     {
       r = abbrev_mol ().extent ().x ();
     }
-  else if (beam_l_ || abs (flag_i_) <= 4)
+  else if (beam_l_ || abs (flag_i_) <= 2)
     ;	// TODO!
   else
     {
       Paper_def*p= paper ();
-      r = p->lookup_l ()->flag (flag_i_).dim.x ();
+      r = p->lookup_l ()->flag (flag_i_, dir_).dim.x ();
       r+= stem_xoffset_f_;
     }
   return r;
 }
 
 
- 
+  
 Molecule
-Stem::abbrev_mol () const
+ Stem::abbrev_mol () const
 {
   Real dy = paper ()->interbeam_f ();
   Real w = 1.5 * paper ()->lookup_l ()->ball (2).dim.x ().length ();
   Real beamdy = paper ()->interline_f () / 2;
-
+ 
   int beams_i = 0;
   Real slope = paper ()->internote_f () / 4;
-
+ 
   if (beam_l_) {
     // huh?
-    slope = 2 * beam_l_->slope;
+      slope = 2 * beam_l_->slope;
     // ugh, rather calc from Abbreviation_req
-    beams_i = beams_right_i_ >? beams_left_i_; 
+      beams_i = beams_right_i_ >? beams_left_i_; 
   }
   paper ()->lookup_l ()->beam (slope, 20 PT);
-
+  
   Molecule beams;
   Atom a (paper ()->lookup_l ()->beam (slope, w));
   a.translate (Offset(- w / 2, stem_end_f () - (w / 2 * slope)));
   // ugh
-  if (!beams_i)
-    a.translate (dy + beamdy - dir_ * dy, Y_AXIS);
-  else
-    a.translate (2 * beamdy - dir_ * (beamdy - dy), Y_AXIS);
-  	
+    if (!beams_i)
+      a.translate (dy + beamdy - dir_ * dy, Y_AXIS);
+    else
+      a.translate (2 * beamdy - dir_ * (beamdy - dy), Y_AXIS);
+  
   for (int i = 0; i < abbrev_flag_i_; i++) 
     {
       Atom b (a);
       b.translate (-dir_ * dy * (beams_i + i), Y_AXIS);
       beams.add (b);
     }
-
+  
   return beams;
 }
 
 Molecule*
-Stem::brew_molecule_p () const 
+ Stem::brew_molecule_p () const 
 {
   Molecule *mol_p =new Molecule;
-      
+  
   Real bot  = stem_bottom_f_;
   Real top = stem_top_f_;
   
   assert (bot!=top);
- 
+  
   Paper_def *p =paper ();
-
+  
   Real dy = p->internote_f ();
   if (!invisible_b ())
     {
@@ -338,23 +340,13 @@ Stem::brew_molecule_p () const
       mol_p->add (Atom (ss));
     }
   
-  if (!beam_l_ &&abs (flag_i_) > 4)
+  if (!beam_l_ &&abs (flag_i_) > 2)
     {
-      Symbol fl = p->lookup_l ()->flag (flag_i_);
-      Molecule m (fl);
-      if (flag_i_ < -4)
-	{
-	  mol_p->add_at_edge (Y_AXIS, DOWN, m);
-	}
-      else if (flag_i_ > 4) 
-	{
-	  mol_p->add_at_edge (Y_AXIS, UP, m);
-	}
-      else
-	assert (false); 
-         assert (!abbrev_flag_i_);
- }
-
+      Symbol fl = p->lookup_l ()->flag (flag_i_, dir_);
+      mol_p->add_at_edge (Y_AXIS, dir_, Molecule (Atom (fl)));
+      assert (!abbrev_flag_i_);
+    }
+  
   if (abbrev_flag_i_)
     mol_p->add (abbrev_mol ());
   
@@ -363,14 +355,14 @@ Stem::brew_molecule_p () const
 }
 
 Real
-Stem::hpos_f () const
+ Stem::hpos_f () const
 {
   return Item::hpos_f () + stem_xoffset_f_;
 }
 
 
 void
-Stem::do_substitute_dependency (Score_elem*o,Score_elem*n)
+ Stem::do_substitute_dependency (Score_elem*o,Score_elem*n)
 {
   Item * o_l = o->item ();
   Item * n_l = n? n->item () : 0;

@@ -14,6 +14,8 @@
 #include "request-iterator.hh"
 #include "translator-group.hh"
 #include "translation-property.hh"
+#include "change-iterator.hh"
+#include "change-translator.hh"
 
 IMPLEMENT_IS_TYPE_B(Music_iterator);
 
@@ -130,14 +132,15 @@ Music_iterator::static_get_iterator_p (Music *m,
     p =  new Voice_iterator ((Voice*) m);
   else if (m->is_type_b (Translation_property::static_name ()))
     p = new Property_iterator((Translation_property *) m);
-      
+  else if (m->is_type_b (Change_translator::static_name ()))
+    p = new Change_iterator((Change_translator*) m);
+  
   if (m -> translator_type_str_)
     {
       Translator_group* a =report_l->
 	find_create_translator_l (m-> translator_type_str_, m->translator_id_str_);
       p->set_translator (a);
     }
-
 
   if (! p->report_to_l())
     p ->set_translator (report_l);

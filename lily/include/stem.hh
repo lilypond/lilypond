@@ -57,7 +57,7 @@ public:
   /// how many abbrev beam don't reach stem?
   int beam_gap_i_;
 
-  /// flagtype? 4 none, 8 8th flag, 0 = beam.
+  /// log of the duration. Eg. 4 -> 16th note -> 2 flags
   int flag_i_;
 
   /** 

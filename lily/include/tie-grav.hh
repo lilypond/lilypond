@@ -23,7 +23,7 @@ class Tie_engraver : public Engraver {
     Melodic_req  * melodic_req_l_;
     
 protected:
-    virtual ~Tie_engraver();
+    virtual void do_removal_processing ();
     virtual void acknowledge_element (Score_elem_info);
     virtual bool do_try_request (Request*);
     virtual bool acceptable_request_b (Request*);

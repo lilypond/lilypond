@@ -1,22 +1,17 @@
-%{MudelaHeader
+\header{
+enteredby	jcn
+copyright	PD
+TestedFeatures	simple abbreviations
+}
 
- filename: abbrev.ly
- title: 
- description: 
- composer(s): 
- entered-by: jcn
- copyright: PD
-
- Tested Features: simple abbreviations
-EndMudelaHeader
-%}
-
-\version "0.1.5";
+\version "0.1.6";
 
 \score{
 	\melodic{ 
 		\octave c'';
 		\meter 4/4;
+		% default abbreviations
+		c4 c4: c4:32 c4: c4 c2.
 		'a1
 		'a1:32
 		'c4:8 c' 'c4:16 c'

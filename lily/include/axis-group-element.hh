@@ -25,11 +25,12 @@ protected:
   virtual void do_junk_links();
 
 public:
+  virtual Link_array<Score_elem> elem_l_arr() const;
   Axis_group_element();
   virtual void remove_all()=0;
-  virtual void add_element (Score_elem*)=0;
-  virtual void remove_element (Score_elem*)=0;
-  virtual bool contains_b (Score_elem const *) const;
+  virtual void add_element (Graphical_element*)=0;
+  virtual void remove_element (Graphical_element*)=0;
+  virtual bool contains_b (Graphical_element const *) const;
   DECLARE_MY_RUNTIME_TYPEINFO;
 };
 

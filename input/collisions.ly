@@ -10,12 +10,12 @@
  Tested Features:test the Collision resolution 
 EndMudelaHeader
 %}
-\version "0.1.5";
+\version "0.1.6";
 
 
 
 two_voice = \melodic 
-	< \multi 2; 
+	\multi 2 < 
 	  { \stemdown \octave c'; 
 		c4 d e f g2~  g4 a [c8 d e f] c2| }
 	  { \stemup
@@ -24,7 +24,7 @@ two_voice = \melodic
 	>
 
 two_voice_steminvert = \melodic 
-	< \multi 2;  
+	\multi 2 <  
 	  { 
 		\octave c'; \stemup
 % the f and g on 4th beat are exceptionally ugh.
@@ -35,7 +35,7 @@ two_voice_steminvert = \melodic
 	>
 
 three_voice = \melodic 
-	< \multi 2;
+	\multi 2 <
 	{ \stemup 
 		g4 f e f g a g2 }
 	{ \stemup \property Voice.hshift = 1 
@@ -46,7 +46,7 @@ three_voice = \melodic
 
 
 rests = \melodic  
-	< \multi 2;
+	\multi 2 <
 	{ \stemup
 		| r8 r r r  r r r r 
 		[c' b a g] [f e d c]
@@ -59,20 +59,20 @@ rests = \melodic
 
 restsII = \melodic {
 	\octave c'; 
-			< \multi2;  
+	\multi 2 < 
 				{ \stemup  g' f' e' d' c' b a g f e d c }
 				{ \stemdown r  r  r  r  r  r r r r r r r }
 			>
-			< \multi2;  
+	\multi 2 <
 				{ \stemup  r r r r r r r r  r  r  r  r }
 				{ \stemdown c d e f g a b c' d' e' f' g' }
 			>
 			r8 r4
-			< \multi2;  r8 r8 >
-			< \multi2;  r8 r8 r8 >
-			< \multi2;  r8 r8 r8 r8 >
-			< \multi2;  r r >
-			< \multi2;  r r r >
+			\multi 2 <  r8 r8 >
+			\multi 2 <  r8 r8 r8 >
+			\multi 2 <  r8 r8 r8 r8 >
+			\multi 2 <  r r >
+			\multi 2 <  r r r >
 			\stemup
 			[c''8 r8 c''8 c''8]
 			[c8 r8 c8 c8]

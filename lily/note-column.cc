@@ -68,12 +68,10 @@ Note_column::set (Stem * stem_l)
   stem_l_ = stem_l;
   /* 
      don't add stem to support; mostly invisible for rest-columns (and possibly taken . .)
-    
    */
   Score_elem::add_dependency (stem_l);
   for (int i=0; i < script_l_arr_.size(); i++)
     script_l_arr_[i]->set_stem (stem_l);
-
 }
 
 void
@@ -125,6 +123,7 @@ Note_column::add (Rhythmic_head *h)
 void
 Note_column::translate_rests (int dy_i)
 {
+  invalidate_cache (Y_AXIS);
   for (int i=0; i < rest_l_arr_.size(); i++)
     rest_l_arr_[i]->position_i_ += dy_i;
 }

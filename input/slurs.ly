@@ -11,7 +11,7 @@
 EndMudelaHeader
 %}
 
-\version "0.1.5";
+\version "0.1.6";
 
 \score{
 	\melodic{\octave c';
@@ -28,7 +28,7 @@ EndMudelaHeader
 		< { c ~ d }
 		  { e ~ f }
 		>
-	< \multi 2;
+	\multi 2 <
 	{ \stemup c'8 ~g ~e( ~c~ [c'~ g' e' )c'] c'' ~ c'' c~c }
 	{ \stemdown c (e g )c'~( [b a g )d]   	r2 } 
 	>

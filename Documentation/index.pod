@@ -11,9 +11,9 @@ TeX file and and (mechanical) performances to MIDI files.
 This is not a Fanmail/Hype page. These pages were entirely created from
 the LilyPond package-sources. 
 
-B<These pages are created from the latest development
-snapshots of LilyPond>.  You can look at the bottom if you want to
-know which version this was.
+Note: These pages are created from the latest B<development snapshots>
+of LilyPond.  You can look at the bottom if you want to know which
+version this was.
 
 =head2 Examples
 
