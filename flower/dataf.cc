@@ -110,16 +110,14 @@ String Data_file::get_line()
 void
 Data_file::gobble_leading_white() 
 {
-    char c;
-    
     // eat blank lines.
-    while (!eof()) 
-	{
-	c = data_get();		    
-	if (!isspace(c))
+    while (!eof()) {
+	char c = data_get();		    
+	if (!isspace(c)) {
+	    data_unget(c);
 	    break;
 	}
-    data_unget(c);
+    }
 }
 
 
