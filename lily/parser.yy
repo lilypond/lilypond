@@ -164,6 +164,27 @@ set_property_music (SCM sym, SCM value)
 	return p;
 }
 
+Music*
+make_music_relative (Pitch start, Music *music)
+{
+	Music *relative = MY_MAKE_MUSIC ("RelativeOctaveMusic");
+ 	relative->set_property ("element", music->self_scm ());
+	
+ 	Pitch last = music->to_relative_octave (start);
+ 	if (lily_1_8_relative)
+ 		music->set_property ("last-pitch", last.smobbed_copy ());
+	return relative;
+}
+
+Music*
+make_lyric_combine_music (SCM name, Music *music)
+{
+	Music *combine = MY_MAKE_MUSIC ("NewLyricCombineMusic");
+	combine->set_property ("element", music->self_scm ());
+ 	combine->set_property ("associated-context", name);
+	return combine;
+}
+
 %}
 
 /* We use SCMs to do strings, because it saves us the trouble of
@@ -196,19 +217,10 @@ yylex (YYSTYPE *s, void *v)
 
 %}
 
-%expect 4
+%expect 3
 
 /*
-  Four shift/reduce problems:
-
-1.	foo = bar.
-
-	"bar" -> String -> Lyric -> Music -> music-assignment
-
-	"bar" -> String -> string-assignment
-
-
-Similar problem for
+  Three shift/reduce problems:
 
 2. \markup identifier.
 
@@ -225,9 +237,6 @@ or
     \repeat { \repeat } \alternative 
 
 )
-
---hwn
-
  */
 
 
@@ -517,41 +526,8 @@ toplevel_expression:
 	}
 	;
 
-/* FIXME: Experimental kludge for automatic relative music
-          This will change or go away.  */
-language: '@'
-	| '@' STRING {
-		/* FIXME? */
-		THIS->lexer_->push_initial_state ();
-		THIS->lexer_->new_input (ly_scm2string ($2) + ".ly",
-					 THIS->lexer_->sources_);
-		THIS->lexer_->pop_state ();
-	}
-	;
-
 toplevel_music:
 	Composite_music {
-	}
-	/* FIXME: Experimental kludge for automatic relative music
-	          This will change or go away.
-		  
-		  How to introduce: [\notes]\relative 'c { } in an
-		  implicit or otherwise intuitive way? */
-	| language Music_list {
-	  	SCM lst = $2;
-		Music *m = MY_MAKE_MUSIC ("SequentialMusic");
-		m->set_property ("elements", ly_car (lst));
-		m->set_spot (THIS->here_input ());
-		
-		Pitch middle_c;
-		$$ = MY_MAKE_MUSIC ("RelativeOctaveMusic");
-		$$->set_property ("element", m->self_scm ());
-
-		Pitch last = m->to_relative_octave (middle_c);
-		if (lily_1_8_relative)
-			$$->set_property ("last-pitch", last.smobbed_copy ());
-
-		scm_gc_unprotect_object (m->self_scm ());
 	}
 	;
 
@@ -559,8 +535,6 @@ embedded_scm:
 	SCM_T
 	| SCM_IDENTIFIER
 	;
-
-
 
 
 lilypond_header_body:
@@ -1192,33 +1166,39 @@ basic music objects too, since the meaning is different.
 
 relative_music:
 	RELATIVE absolute_pitch Music {
-		Music *p = $3;
-		Pitch pit = *unsmob_pitch ($2);
-		$$ = MY_MAKE_MUSIC ("RelativeOctaveMusic");
-
-		$$->set_property ("element", p->self_scm ());
-		scm_gc_unprotect_object (p->self_scm ());
-
-		Pitch last = p->to_relative_octave (pit);
-		if (lily_1_8_relative)
-			$$->set_property ("last-pitch", last.smobbed_copy ());
+		Music *m = $3;
+		Pitch start = *unsmob_pitch ($2);
+		$$ = make_music_relative (start, m);
+		scm_gc_unprotect_object (m->self_scm ());
+	}
+	| RELATIVE Composite_music {
+		Music *m = $2;
+		/* FIXME: why is octave==0 and default not middleC? */
+		Pitch middle_c (-1, 0, 0);
+		$$ = make_music_relative (middle_c, m);
+		scm_gc_unprotect_object (m->self_scm ());
 	}
 	;
 
 re_rhythmed_music:
-	ADDLYRICS Music Music {
-	Music *l = MY_MAKE_MUSIC ("LyricCombineMusic");
-	  l->set_property ("elements", scm_listify ($2->self_scm (), $3->self_scm (), SCM_UNDEFINED));
-	  scm_gc_unprotect_object ($3->self_scm ());
-	  scm_gc_unprotect_object ($2->self_scm ());
-	  $$ = l;
+	ADDLYRICS { THIS->lexer_->push_lyric_state (); }
+	/* cont */
+	Music {
+		THIS->lexer_->pop_state ();
+
+		Music *music = $3;
+		SCM name = scm_makfrom0str ("");
+		Music *combined = make_lyric_combine_music (name, music);
+		SCM context = scm_makfrom0str ("Lyrics");
+		$$ = context_spec_music (context, SCM_UNDEFINED, combined,
+			SCM_EOL);
+		scm_gc_unprotect_object (music->self_scm ());
 	}
 	| LYRICSTO string Music {
-	  Music *l = MY_MAKE_MUSIC ("NewLyricCombineMusic");
-	  l->set_property ("element", $3->self_scm ());
-	  scm_gc_unprotect_object ($3->self_scm ());
-	  $$ = l;
-	  l->set_property ("associated-context", $2);
+		Music *music = $3;
+		SCM name = $2;
+		$$ = make_lyric_combine_music (name, music);
+		scm_gc_unprotect_object (music->self_scm ());
 	}
 	;
 
@@ -1496,30 +1476,30 @@ command_element:
 	}
 	| OCTAVE { THIS->push_spot (); }
  	  pitch {
-		Music *l = MY_MAKE_MUSIC ("RelativeOctaveCheck");
-		$$ = l;
+		Music *m = MY_MAKE_MUSIC ("RelativeOctaveCheck");
+		$$ = m;
 		$$->set_spot (THIS->pop_spot ());
 		$$->set_property ("pitch", $3);
 	}
 	| E_LEFTSQUARE {
-		Music *l = MY_MAKE_MUSIC ("LigatureEvent");
-		l->set_property ("span-direction", scm_int2num (START));
-		l->set_spot (THIS->here_input ());
+		Music *m = MY_MAKE_MUSIC ("LigatureEvent");
+		m->set_property ("span-direction", scm_int2num (START));
+		m->set_spot (THIS->here_input ());
 
 		$$ = MY_MAKE_MUSIC ("EventChord");
-		$$->set_property ("elements", scm_cons (l->self_scm (), SCM_EOL));
-		scm_gc_unprotect_object (l->self_scm ());
+		$$->set_property ("elements", scm_cons (m->self_scm (), SCM_EOL));
+		scm_gc_unprotect_object (m->self_scm ());
 		$$->set_spot (THIS->here_input ());
 	}
 	| E_RIGHTSQUARE {
-		Music *l = MY_MAKE_MUSIC ("LigatureEvent");
-		l->set_property ("span-direction", scm_int2num (STOP));
-		l->set_spot (THIS->here_input ());
+		Music *m = MY_MAKE_MUSIC ("LigatureEvent");
+		m->set_property ("span-direction", scm_int2num (STOP));
+		m->set_spot (THIS->here_input ());
 
 		$$ = MY_MAKE_MUSIC ("EventChord");
-		$$->set_property ("elements", scm_cons (l->self_scm (), SCM_EOL));
+		$$->set_property ("elements", scm_cons (m->self_scm (), SCM_EOL));
 		$$->set_spot (THIS->here_input ());
-		scm_gc_unprotect_object (l->self_scm ());
+		scm_gc_unprotect_object (m->self_scm ());
 	}
 	| E_BACKSLASH {
 		$$ = MY_MAKE_MUSIC ("VoiceSeparator");

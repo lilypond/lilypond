@@ -102,7 +102,8 @@ Copyright @copyright{} 1999--2004 by the authors
 
 @vskip 20pt
 
-  
+%% Not yet debugged or reported.  This crashes gs-8.01:
+%% compiling gs-8.01 right now... -- jcn
 @lilypond[raggedright]
 \score {
     \context Lyrics \notes {
@@ -117,7 +118,6 @@ Copyright @copyright{} 1999--2004 by the authors
      }
 }
 @end lilypond
-  
 
 @end titlepage
 

@@ -20,6 +20,7 @@ Pitch::Pitch (int o, int n, int a)
   normalise ();
 }
 
+/* FIXME: why is octave == 0 and default not middleC ? */
 Pitch::Pitch ()
 {
   notename_ = 0;

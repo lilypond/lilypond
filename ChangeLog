@@ -1,9 +1,26 @@
 2004-04-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* lily/lexer.ll:
-	* lily/parser.yy: In lyrics mode, return LYRICS_STRING.  Use notes
-	mode at start of maininput.  Grok toplevel composite music
-	expression, put in score and book.
+	* Documentation/user/lilypond.tely: Add comment and workaround for
+	gs-8.01 crash.  Fixes make web.
+
+	Simplification of toplevel music.
+	
+	* lily/lexer.ll, lily/parser.yy:
+
+	* In LYRICS mode, return LYRICS_STRING.  This fixes one
+	shift/reduce problem.
+
+	* Use NOTES mode at start of maininput.
+
+	* Grok toplevel composite music expression, put in score and book.
+
+	* Grok \relative COMPOSITE_MUSIC, make relative on middleC.
+
+	* \addlyrics is a shortcut for \context Lyrics \lyricsto "" \lyrics
+
+	* input/simple.ly: New file.
+	
+	* input/simple-song.ly: Idem.
 
 2004-04-16  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
