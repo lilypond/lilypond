@@ -1992,7 +1992,7 @@ simple_element:
 
 new_chord:
 	steno_tonic_pitch optional_notemode_duration   {
-		$$ = make_chord ($1, $2, SCM_EOL)
+		$$ = make_chord ($1, $2, SCM_EOL);
 	}
 	| steno_tonic_pitch optional_notemode_duration chord_separator chord_items {
 		SCM its = scm_reverse_x ($4, SCM_EOL);

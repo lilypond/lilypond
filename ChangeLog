@@ -1,3 +1,9 @@
+2003-02-24  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* ly/spanners-init.ly (cresc, dim): Update to new markup text.
+
+	* lily/parser.yy (new_chord): Compile fix.
+
 2003-02-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/percent-repeat-engraver.cc (try_music): add correct
@@ -18,9 +24,11 @@
 	* input/test/*: lots of cleanups/comment-outs/removals in chord
 	examples
 	
-	* input/regression/*: lots of cleanups/comment-outs/removals in chord examples
+	* input/regression/*: lots of cleanups/comment-outs/removals in
+	chord examples
 	
-	* scripts/lilypond-book.py (check_texidoc): add no-texidoc to options
+	* scripts/lilypond-book.py (check_texidoc): add no-texidoc to
+	options
 
 	* lily/new-chord-name-engraver.cc (process_music): give original
 	inversion pitch to chord name routine.
