@@ -27,8 +27,7 @@
    c' ^\markup \override #'(dot-color . white) {
                 \override #'(finger-code . in-dot) 
                 \fret-diagram-verbose #'((mute 6) (place-fret 5 3 1) (place-fret 4 5 2) (place-fret 3 5 3) (place-fret 2 5 4) (place-fret 1 3 1) (barre 5 1 3)) }
-   % the chord below won't label on frets, because dot-color is black
-   c' ^\markup \fret-diagram #"f:1;c:5-1-3;6-x;5-3-1;4-5-2;3-5-3;2-5-4;1-3-1;"
+   c' ^\markup \override #'(barre-type . straight) \fret-diagram #"f:1;c:5-1-3;6-x;5-3-1;4-5-2;3-5-3;2-5-4;1-3-1;"
    c' ^\markup  \override #'(dot-radius . 0.35) {
                 \override #'(finger-code . in-dot) {
                 \override #'(dot-color . white) {

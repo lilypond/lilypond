@@ -42,6 +42,7 @@
 	     filledbox
 	     round-filled-box
 	     text
+	     white-text
 	     tuplet
 	     polygon
 	     draw-line
@@ -169,7 +170,9 @@
 			s))
 		   "}")))
 
-
+(define (white-text s)
+   (embedded-ps (list 'white-text s)))
+   
 (define (tuplet ht gapx dx dy thick dir)
   (embedded-ps (list 'tuplet  ht gapx dx dy thick dir)))
 

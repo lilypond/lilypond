@@ -80,4 +80,9 @@ encloses the contents.
   (let* ((b  (ly:text-dimension font-metric text)))
     (ly:make-stencil
      `(text ,font-metric ,text) (car b) (cdr b))))
-
+     
+(define-public (fontify-text-white font-metric text)
+  "Set TEXT with font FONT-METRIC, in color white, returning a stencil."
+  (let* ((b  (ly:text-dimension font-metric text))
+         (c  `(white-text ,text)))
+    (ly:make-stencil c  (car b) (cdr b))))  ;urg -- extent is not from ps font, but we hope it's close

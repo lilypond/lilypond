@@ -412,6 +412,7 @@ L1 is copied, L2 not.
     text
     tuplet
     white-dot
+    white-text
     zigzag-line
     ))
 
@@ -565,4 +566,3 @@ L1 is copied, L2 not.
 	   (string-append "\n *** Failed files: " (string-join failed) "\n"))
 	  (exit 1))
 	(exit 0))))
-
