@@ -1,7 +1,6 @@
 /*
   libc-extension.cc --  compensate for lacking libc functions.
 
-
   source file of the flowerlib
 
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
@@ -163,9 +162,9 @@ extern "C" {
 #if HAVE_FUNOPEN
   
   FILE *
-  fopencookie (void *cookie, char const *mode, cookie_io_functions_t *fun)
+  fopencookie (void *cookie, char const *mode, cookie_io_functions_t fun)
   {
-    return funopen (cookie, fun->read, fun->write, fun->seek, fun->close);
+    return funopen (cookie, fun.read, fun.write, fun.seek, fun.close);
   }
 
 #else /* ! HAVE_FUNOPEN */
