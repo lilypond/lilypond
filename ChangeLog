@@ -1,3 +1,7 @@
+2004-12-17  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/output-svg.scm (string->entities): Update.
+
 2004-12-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/framework-scm.scm (output-framework): new file.
