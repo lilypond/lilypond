@@ -3,7 +3,7 @@
 % check with ancient- stuff.  rename, merge, something.  -gp
 
 \header { texidoc = "@cindex Ancient Mensural Ligatures
-Lilypond can print mensural ligatures."
+LilyPond can print mensural ligatures."
 }
 
 

@@ -8,7 +8,7 @@ Container By splitting the grouping (Axis_group_engraver) and creation
 functionality into separate contexts, you can override interesting
 things.
 
-Notation like this is used in modern scores. Note that Lilypond is not
+Notation like this is used in modern scores. Note that LilyPond is not
 especially prepared for it: the clefs and time-signatures don't do
 what you would expect.
 

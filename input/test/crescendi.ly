@@ -1,7 +1,7 @@
 \version "1.7.18"
 \header{
 	texidoc="@cindex Crescendi
-Lilypond can print crescendi in a number of different ways.
+LilyPond can print crescendi in a number of different ways.
 " }
 \score{
 \notes\relative c''{

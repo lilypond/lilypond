@@ -1,7 +1,7 @@
 \version "1.7.18"
 
 \header { texidoc = "@cindex Stem Extend
-You can stop Lilypond from extending stems to the center line. "
+You can stop LilyPond from extending stems to the center line. "
 }
 
 \score { 

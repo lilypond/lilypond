@@ -41,7 +41,7 @@ properties will quite definitely change, and maybe the syntax of the
 
 \score { 
   \context Voice \notes\relative c {
-    % Lilypond doesn't understand 'default => it does what you want
+    % LilyPond doesn't understand 'default => it does what you want
     \property Staff.TimeSignature \override #'style = #'default
     \time 1/1
     c''1^"TimeSignature style = \#'default" 

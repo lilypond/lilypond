@@ -1,7 +1,7 @@
 \version "1.7.18"
 \header{
 	texidoc="@cindex Cautionary Accidentals
-Lilypond can display cautionary accidentals in different ways.
+LilyPond can display cautionary accidentals in different ways.
 " }
 \score { \notes \context Staff \transpose c c'' {
   \key d \major

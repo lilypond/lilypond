@@ -2,7 +2,7 @@
 % TODO: check about other ottava functions.
 
 \header { texidoc = "@cindex Ottava Spanner
-You can make Lilypond print ottava spanners. "
+You can make LilyPond print ottava spanners. "
 }
 
 \score{
