@@ -34,15 +34,15 @@ int compare(Voice_l const &p1, Voice_l const &p2);
 class Pulk_voices
 {
 PQueue< Voice_l > voice_pq_;
-    IPointerList< Pulk_voice * > pulk_p_list_;
-    PointerList<Staff *> staff_l_list_;
+    IPointer_list< Pulk_voice * > pulk_p_list_;
+    Pointer_list<Staff *> staff_l_list_;
     Moment next_mom_;
 
 public:
     Moment last_;
     bool ok() const;
     Moment next_mom() { return next_mom_; }
-    Pulk_voices(PointerList<Staff*> const&);
+    Pulk_voices(Pointer_list<Staff*> const&);
     void get_aligned_request(Request_column *col_l );
 };
 

@@ -12,14 +12,14 @@
 /**
   A list of pointers.
   
-  Use for list of pointers, e.g. PointerList<AbstractType*>. 
+  Use for list of pointers, e.g. Pointer_list<AbstractType*>. 
   This class does no deletion of the pointers, but it knows how to
   copy itself (shallow copy). We could have derived it from List<T>,
-  but this design saves a lot of code dup; for all PointerLists in the
+  but this design saves a lot of code dup; for all Pointer_lists in the
   program only one parent List<void*> is instantiated.
   */
 template<class T>
-class PointerList : public List<void *>
+class Pointer_list : public List<void *>
 {
  public:
     PCursor<T> top() const{
@@ -29,11 +29,11 @@ class PointerList : public List<void *>
 	return PCursor<T> (List<void*>::bottom());
     }
     PCursor<T> find(T) const;
-    void concatenate(PointerList<T> const &s) { List<void*>::concatenate(s); }
-    PointerList() {}
+    void concatenate(Pointer_list<T> const &s) { List<void*>::concatenate(s); }
+    Pointer_list() {}
 };
 
-/**   PointerList which deletes pointers given to it. 
+/**   Pointer_list which deletes pointers given to it. 
   NOTE:
   
   The copy constructor doesn't do what you'd want:
@@ -41,25 +41,25 @@ class PointerList : public List<void *>
 
     new T(*cursor)
 
-  You have to copy this yourself, or use the macro PointerList__copy
+  You have to copy this yourself, or use the macro Pointer_list__copy
   
   */
 template<class T>
-class IPointerList : public PointerList<T> {
+class IPointer_list : public Pointer_list<T> {
 public:
-    IPointerList(IPointerList const &) { set_empty(); }
-    IPointerList() { }
-    ~IPointerList();
+    IPointer_list(IPointer_list const &) { set_empty(); }
+    IPointer_list() { }
+    ~IPointer_list();
 };
 
-#define IPointerList__copy(T, to, from, op)   \
+#define IPointer_list__copy(T, to, from, op)   \
   for (PCursor<T> _pc_(from); _pc_.ok(); _pc_++)\
       to.bottom().add(_pc_->op)\
   \
 
 
 template<class T>
-void PL_copy(IPointerList<T*> &dst,IPointerList<T*> const&src);
+void PL_copy(IPointer_list<T*> &dst,IPointer_list<T*> const&src);
 
 
 

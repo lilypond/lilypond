@@ -41,6 +41,7 @@ Tie::Tie()
 {
     right_head_l_ =0;
     left_head_l_ =0;
+    same_pitch_b_ =false;
 }
 
 void

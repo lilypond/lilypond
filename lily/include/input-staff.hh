@@ -16,7 +16,7 @@
 class Input_staff:public Input {
 public:
     
-    IPointerList<Input_music*> music_;
+    IPointer_list<Input_music*> music_;
     Input_register * ireg_p_;
     
     /* *************** */

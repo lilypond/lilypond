@@ -1,3 +1,24 @@
+pl 61
+	- scales.ly bugfix: dimensions default to ((0,0),(0,0))
+	- naming: PointerList->Pointer_list
+	- tied notes don't get accidental
+	- bf: crescendo size
+	- fixes: make_patch,
+	- bf: _"text" direction
+	- mailing list into lilypond.pod
+
+pl 60.mb
+	- set_flower_debug: Warning if -d is used when NPRINT is defined.
+	- Fixed several TeX details. vcenter renamed since it interfered
+	  with LaTeX. Position of accents changed.
+	- New example; scriptS.ly
+	- table_sixteen: added scriptdefinition (Lilypond breaks if a
+	  script is defined without dimensions).
+	- bf: ifndef typos in p-score.cc, choleski.cc
+	- bf: Slur::do_post_processing(), whole notes caused SIGSEGV.
+
+
+*******
 pl 60
 	- Request_register::get_feature(), tie direction, Slur direction
 	- lilypond output is now directly texable. 
@@ -13,6 +34,14 @@ pl 59
 
 ******
 may 2
+pl 58.jnc1
+	- bf: toccata-fuga-E.ly
+
+pl 57.jcn4
+ 	- mi2mu handles rests (quantified only)
+ 	- fixed configure buglet
+        - "!date" Fri May  2 02:18:12 MET DST 1997
+ 
 pl 58
 	- lexer cleanup
 	- national chars in lyrics

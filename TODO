@@ -24,8 +24,7 @@ IMPORTANT
 
 	* a Hands on tutorial [HKN]
 
-
-PROJECT:
+PROJECTS
 
 	* Output class, handles 
 	- help text /(c) notice?
@@ -34,21 +33,35 @@ PROJECT:
 	- quiet/ignore-version options
 	- logfile output
 
-
 	* elaborate Staff_side baseclass:
-	 - scripts
-	 - text
-	 - slur start/end
+	- scripts
+	- text
+	- slur start/end
 
 	* Output an output format independent (ofi) typeset file; and 
 	  make ofi2 TeX, MusixTex, PostScript, Ascii... interpreters.
 	- poor man's ascii output possible?
-	- MusixTeX output possible?
+	- MusixTeX output possible? (would have to be done before break calc.)
+	- NIFF ?
 	- PostScript output (esp. Beams, Slurs, etc)
 
-PARSER
-	* Duration-> Musical_duration, typedef Rational Duration?
+	* TeX spanners , use texbeam.cc as an example
+	- Glissando
+	- trill
+	- bracket
 
+	* Rewrite Beam and Rhythmic_grouping
+	- [c8. c32 c32]
+	- interbeam height
+	- general shaving
+	- use plet grouping
+	- abbreviations [c2 c2]1/2
+	- separate visual from rhythmic info
+
+PARSER
+	* Duration -> Musical_duration, typedef Rational Duration?
+
+**********************
 HKN buglist:
 
 \bar || ook dunne streepjes? Sluit de balk niet af! (soms met de
@@ -60,20 +73,11 @@ Hele rusten ook in andere maatsoort dan 4/4 (en centreren in de maat)
 barcheck failed in lyric mode -> assert (zie barcheck.ly) (0.0.57)
 ------------------------/
 
-optie om te stoppen na eerste barcheck fail? (en wellicht in eerder
-stadium van preprocessing)
-
 noten staan vaak te dicht aan de rechterkant van de maatstreep.
 
 optie om nummers/markers boven maatstrepen te zetten
 
 tekst staat erg ver van notenbalken af
-
-barcheck her-synchroniseren? (evt met optie)
-
-script ^"3" onder ondanks boven?
-
-symbolen voor triller? (dus "tr---")
 
 waarom geen ; achter dingen in \paper? (\textwidth 180\mm)
 (sowieso: wanneer wel en geen ; ?)
@@ -88,18 +92,6 @@ midi: instrumenten definieren?
 midi: tempo halverwege het stuk wijzigen?
 midi: gebonden noten niet herhalen?
 
---------/\
-De beam van de triool klopt niet.
-        <[d8. b8.> \duration 32; <e'32*2/3 cis'32*2/3> <d'32*2/3 b32*2/3>
-        <cis'32*2/3 a32*2/3> \duration 16; <b gis> <d' fis> <cis' e>
-<b d]> |
-(zie ook ergens in lacidarem-pianoI.ly)
---------/
-scales.ly compileert niet meer (vanwege transpose?)
-
-Lengte van de stokken klopt vaak niet, zie bijv. de eerste maat van
-langestok.ly.
-
 Triolen enzo: het zou handig zijn als je het cijfer "3" ook _tussen_
 twee noten kon plaatsen. Dat is bijvoorbeeld nodig in
 c4*2/3 c8*2/3
@@ -107,26 +99,22 @@ c4*2/3 c8*2/3
 ---------------\
 \bar "||" \meter 6/8; op het eind van de regel staat door elkaar
 gedrukt.
-
+****************
 
 BUGS
 
 	* detect -pipe
 	
+	* staccato dot positions.
+
+	* stacked scripts.
+
 	* redo timing stuff <-> pulk to allow \meter 2/4; e2. to work
 	out correctly
 
 	* key transposition.
 
-	* hairpin width
-
 	* help-lines for rests
-
-	* [c8. c32 c32]
-
-	* \duration 8; e*2/3
-
-	* cis ( | ) cis
 
 	* lilypond - -> crash
 
@@ -155,6 +143,9 @@ INPUTLANGUAGE
 
 	* relative mode for pitch entering
 
+	* \duration 8; e*2/3
+
+
 	* configure pitch_byte
 
 	* special key.
@@ -168,6 +159,8 @@ INPUTLANGUAGE
 	* subtime with Subtle_reqs
 
 SMALLISH PROJECTS
+
+	* write Dynamic_line (to group dynamics horizontally)
 
 	* write Rest_collision
 
@@ -218,9 +211,6 @@ SMALLISH PROJECTS
 
 	* stafftypes: voice names/ instrument names.
 
-	* Lookup::tex_glissando, Lookup::tex_bracket,  (use texbeam.cc as an
-	example.)
-
 	* Decent TeX titledefs (\tempo, \metron, etc. )
 
 	* C meter iso 4/4
@@ -263,8 +253,6 @@ FUTURE
 
 	* put scripts on bars
 
-	* glissando
-
 	* guitar chord
 
 	* Junk Staff_column, and find the requests while walking the Voices.?
@@ -301,10 +289,11 @@ IDEAS
 
 	* move MIDI stuff (including Quantization) to a ANSI C libmidi library.
 
-	* use an embedded language: scheme, lisp, S-lang, Perl, GUILE, ?
+	* use an embedded language: Python, Scheme?
 	for : 
 		- Items/Spanners
 		- Registers
+		- Complex mudela
 
 	* y -dims in internote?
 
@@ -350,3 +339,4 @@ IDEAS
 	    %  --|---         --|---
           (where "to" is a tiny bow)
 
+	* move towards incremental algorithms.

@@ -1,4 +1,10 @@
+/*
+  dstream.cc -- implement Dstream
 
+  source file of the Flower Library
+
+  (c) 1996,1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
 
 #include <fstream.h>
 #include "assoc.hh"
@@ -6,7 +12,7 @@
 #include "scalar.hh"
 #include "text-db.hh"
 #include "string-convert.hh"
-
+#include "assoc-iter.hh"
 /// indent of each level 
 const INDTAB = 2;
 
@@ -38,25 +44,25 @@ strip_member(String pret)
 Dstream&
 Dstream::identify_as(String name)
 {
-    if (!os)
+    if (!os_l_)
 	return *this;
     
     String mem(strip_pretty(name));
     String cl(strip_member(mem));
     String idx = cl;
     
-    if (silent->elt_b(mem))
+    if (silent_assoc_p_->elt_b(mem))
 	idx  = mem;
-    else if (silent->elt_b(cl))
+    else if (silent_assoc_p_->elt_b(cl))
 	idx = cl;
     else {
-	(*silent)[idx] = false;
+	(*silent_assoc_p_)[idx] = false;
     }
-    local_silence = (*silent)[idx];
-    if (classname != idx && !local_silence) {
-	classname=idx;
-	if (!(*silent)["Dstream"])
-	    *os << "[" << classname << ":]"; // messy.
+    local_silence_b_ = (*silent_assoc_p_)[idx];
+    if (current_classname_str_ != idx && !local_silence_b_) {
+	current_classname_str_=idx;
+	if (!(*silent_assoc_p_)["Dstream"])
+	    *os_l_ << "[" << current_classname_str_ << ":]"; // messy.
     }
     return *this;
 }
@@ -64,9 +70,9 @@ Dstream::identify_as(String name)
 bool
 Dstream::silence(String s)
 {
-    if (!silent->elt_b(s))
+    if (!silent_assoc_p_->elt_b(s))
 	return false;
-    return (*silent)[s];
+    return (*silent_assoc_p_)[s];
 }
 
 /** Output a string via the Dstream. This is the only output
@@ -95,31 +101,31 @@ Dstream::operator<<(char const *ch_l)
 void
 Dstream::output(String s)
 {
-    if (local_silence|| !os)
+    if (local_silence_b_|| !os_l_)
 	return ;
     
     for (char const *cp = s  ; *cp; cp++)
 	switch(*cp) {
 	    case '{':
 	    case '[':
-	    case '(': indentlvl += INDTAB;
-		*os << *cp;		
+	    case '(': indent_level_i_ += INDTAB;
+		*os_l_ << *cp;		
 		break;
 		
 	    case ')':
 	    case ']':
 	    case '}':
-		indentlvl -= INDTAB;
-		*os << *cp		;
+		indent_level_i_ -= INDTAB;
+		*os_l_ << *cp		;
 		
-		assert  (indentlvl>=0) ;
+		assert  (indent_level_i_>=0) ;
 		break;
 		
 	    case '\n':
-		*os << '\n' << String (' ', indentlvl) << flush;
+		*os_l_ << '\n' << String (' ', indent_level_i_) << flush;
 		break;	      
 	    default:
-		*os << *cp;
+		*os_l_ << *cp;
 		break;
 	    }
     return ;    
@@ -128,10 +134,10 @@ Dstream::output(String s)
 
 Dstream::Dstream(ostream *r, char const * cfg_nm )
 {
-    os = r;
-    silent = new Assoc<String,bool>;
-    indentlvl = 0;
-    if (!os)
+    os_l_ = r;
+    silent_assoc_p_ = new Assoc<String,bool>;
+    indent_level_i_ = 0;
+    if (!os_l_)
 	return;
     
     char const * fn =cfg_nm ? cfg_nm : ".dstreamrc";
@@ -148,7 +154,7 @@ Dstream::Dstream(ostream *r, char const * cfg_nm )
 	     r.message("not enough fields in Dstream init.");
 	     continue;
 	 }
-	 (*silent)[r[0]] = (bool)(int)(Scalar(r[1]));
+	 (*silent_assoc_p_)[r[0]] = (bool)(int)(Scalar(r[1]));
     }
 
 }
@@ -156,6 +162,15 @@ Dstream::Dstream(ostream *r, char const * cfg_nm )
 
 Dstream::~Dstream()
 {    
-    delete silent;
-    assert(!indentlvl) ;
+    delete silent_assoc_p_;
+    assert(!indent_level_i_) ;
+}
+
+void
+Dstream::clear_silence() 
+{
+    for (Assoc_iter<String, bool> i(*silent_assoc_p_); i.ok(); i++) {
+	i.val() = 0;
+    }
+			
 }

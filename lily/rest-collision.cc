@@ -28,7 +28,7 @@ Rest_collision::add(Collision * c_l)
 void
 Rest_collision::do_post_processing()
 {
-    #if 0
+#if 0
         bool rest_b_a[4];
 	rest_b_a[j] = (col_l_a[j]) ? col_l_a[j]->rest_b_ : false;	
     do {

@@ -40,7 +40,7 @@ LOADLIBES +=
 
 # main target of this module:
 #
-MAINTARGET = $(EXECUTABLE)
+MAINTARGET = 
 
 default: $(MAINTARGET)
 #

@@ -13,7 +13,7 @@
 #include "request-column.hh"
 #include "debug.hh"
 
-Pulk_voices::Pulk_voices(PointerList<Staff*> const& l)
+Pulk_voices::Pulk_voices(Pointer_list<Staff*> const& l)
     : staff_l_list_(l)
 {
     int staff_i = 0;

@@ -19,6 +19,8 @@ class Tie_register : public Request_register {
     Tie_req * req_l_;
     int dir_i_;
     Tie_req *end_req_l_;
+    Melodic_req * end_melodic_req_l_;
+    Melodic_req  * melodic_req_l_;
     
 protected:
     virtual ~Tie_register();

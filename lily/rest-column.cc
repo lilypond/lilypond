@@ -25,3 +25,9 @@ Rest_column::translate_y(Real dy_f)
 }
 
 IMPLEMENT_STATIC_NAME(Rest_column);
+
+Rest_column::Rest_column()
+{
+    dir_i_ = 0;
+}
+    

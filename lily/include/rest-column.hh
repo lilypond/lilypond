@@ -23,6 +23,7 @@ public:
     void add(Notehead *);
     NAME_MEMBERS(Rest_column);
     void translate_y(Real dy);
+    Rest_column();
 };
 
 #endif // REST_COLUMN_HH

@@ -49,6 +49,8 @@ get_scriptdef(char c)
 	break;
     case  '.' : s = "staccato";
 	break;
+    default:
+	assert(false);
     }
     return new String(s);
 }

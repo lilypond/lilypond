@@ -1093,7 +1093,7 @@ symboldef:
 		delete $2;
 	}
 	| STRING {
-		Box b;
+		Box b(Interval(0,0), Interval(0,0));
 		$$ = new Symbol(*$1, b);
 		delete $1;
 	}

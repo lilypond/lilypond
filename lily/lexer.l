@@ -63,7 +63,7 @@ KEYWORD		\\{WORD}
 WHITE		[ \n\t\f]
 BLACK		[^ \n\t\f]
 RESTNAME	[rs]
-NOTECOMMAND	\\{WORD}
+NOTECOMMAND	\\{A}+
 DOTS		\.+
 LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
 

@@ -35,8 +35,10 @@ then
    tar zfx $oldarc
 fi
 
-#(cd $nm$old; touch depend; make clean)
-#(cd $nm$new; touch depend; make clean)
+# not interested in auto generated files.
+for a in lilypond.lsm INSTALL.text AUTHORS.text lilypond.spec configure; do
+    rm `find  $nm$old $nm$new  -name $a`
+done    
 
 echo 'use cd source-dir; patch -E -p0 < this_patch'> patch-$new
 

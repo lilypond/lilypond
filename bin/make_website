@@ -67,10 +67,12 @@ sub gen_examples
 	    "dvips -o $a.ps $texfile;";
 
 	}
+
+	my_system "mv lelie.midi $a.midi; " 	if ( -f "lelie.midi" );
+
 	# generate the pixmap at twice the size, then rescale (for antialiasing)
 	if ( ! -f "$a.gif" ) {
-	    my_system "mv lelie.midi $a.midi; ",
-	     "gs -q -sDEVICE=ppmraw -sOutputFile=- -r200 -dNOPAUSE  $a.ps -c quit |pnmscale 0.5| ppmtogif > $a.gif",
+	    my_system "gs -q -sDEVICE=ppmraw -sOutputFile=- -r200 -dNOPAUSE  $a.ps -c quit |pnmscale 0.5| ppmtogif > $a.gif",
 	     "gzip $a.ps";
 	}   
     }

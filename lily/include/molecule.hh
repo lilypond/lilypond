@@ -30,7 +30,7 @@ struct Atom {
 /** a group of individually translated symbols. You can add molecules
     to the top, to the right, etc.  */
 struct Molecule {
-    IPointerList<Atom*> ats;	// change to List<Atom>? 
+    IPointer_list<Atom*> ats;	// change to List<Atom>? 
 
     /* *************** */
     

@@ -1,17 +1,24 @@
-% toccata-fuga-E.ly
-% 
-% toccata and fuga in E-major
-% Johann Sebastian Bach (1685-1750)
-% bwv 566
-%
-% toccata: 3 bar excerpt
-% 2nd fuga: transposed subject --- 4 bar except
-%
-% purpose of this file is testing: 
-%     * real-life collisions
-%     * multi-voice input --- splitting?
-%     * organ staff...
-%
+%{MudelaHeader
+
+ filename: toccata-fuga-E.ly
+ title: toccata and fuga in E-major bwv 566
+ description:  
+ toccata: 3 bar excerpt
+ 2nd fuga: transposed subject --- 4 bar excerpt
+
+ composers: Johann Sebastian Bach (1685-1750)
+ entered-by: JCN
+ copyright:
+
+ Tested Features:
+ purpose of this file is testing: 
+     * real-life collisions
+     * multi-voice input --- splitting?
+     * organ staff...
+
+EndMudelaHeader
+%}
+
 
 \version "0.0.57";
 
@@ -53,9 +60,9 @@ toccata_pedal = \melodic{
 	% 13
 	r4 'fis4-\ltoe 'e4.-\lheel e8-\rheel | 
 	% 14
-	fis4.-\rtoe fis8-.-\rtoe fis4-\rtoe [e8-\ltoe ais8-\rtoe] | 
+	fis4.-\rtoe fis8-.-\rtoe fis4-\rtoe [e8-\ltoe a8-\rtoe] | 
 	% 15
-	dis4-\ltoe gis4-\rtoe [cis8-\ltoe 'b8-\lheel 'ais8-\rtoe 'gis8-\ltoe] |
+	dis4-\ltoe gis4-\rtoe [cis8-\ltoe 'b8-\lheel 'a8-\rtoe 'gis8-\ltoe] |
 	% 16
 }
 

@@ -150,7 +150,7 @@ PScore::select_items(PStaff*ps, PCol*pc)
 void
 PScore::OK()const
 {
-#ifdef NDEBUG
+#ifndef NDEBUG
     for (iter_top(cols,cc); cc.ok(); cc++)
 	cc->OK();
     for (iter_top(suz,i); i.ok(); i++)

@@ -6,6 +6,15 @@ FAQ - GNU LilyPond FAQs
 
 Some questions that have been answered before.
 
+=head2 Installing
+
+Q: I get all kinds of errors while  compiling parser.cc
+
+A: LilyPond uses features of bison version 1.25. Please confirm that
+you are using a version 1.25 or better. If the problem persists, then
+please mail me.
+
+
 =head2 Language: mudela
 
 Q: Why can't you type C<#c> in stead of C<cis> ?

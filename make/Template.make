@@ -55,8 +55,9 @@ LOADLIBES +=
 
 # main target of this module:
 #
-MAINTARGET = $(EXECUTABLE)
+# MAINTARGET = $(EXECUTABLE)
 # MAINTARGET = $(LIBRARY)
+MAINTARGET = 
 
 default: $(MAINTARGET)
 #

@@ -21,7 +21,7 @@
   */
 class Register_group_register : public Request_register {
 protected:
-    IPointerList<Request_register*> reg_list_;
+    IPointer_list<Request_register*> reg_list_;
     virtual void do_print()const;
 public:
 

@@ -1,3 +1,10 @@
+/*
+  dstream.hh -- declare Dstream
+
+  source file of the Flower Library
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
 
 #ifndef DSTREAM_HH
 #define DSTREAM_HH
@@ -27,14 +34,14 @@ struct Assoc;
   */
 class Dstream
 {
-    ostream *os;
-    int indentlvl;
-    bool local_silence;
-    String classname;
+    ostream *os_l_;
+    int indent_level_i_;
+    bool local_silence_b_;
+    String current_classname_str_;
     void output(String s);
-    Assoc<String, bool> *silent;
+    Assoc<String, bool> *silent_assoc_p_;
 public:
-
+    void clear_silence();
     bool silence(String);
     
     /**

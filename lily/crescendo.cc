@@ -27,8 +27,9 @@ Crescendo::do_break_at(PCol*, PCol*)const
 
 
 Molecule*
-Crescendo::brew_molecule_p() const return m_p ;
+Crescendo::brew_molecule_p() const
 {
+    Molecule* m_p =0;
     Real x_off_dim=0.0;
     Real absdyn_dim = 10 PT;	// ugh
     
@@ -46,10 +47,14 @@ Crescendo::brew_molecule_p() const return m_p ;
 	error("Crescendo too small");
 	w_dim = 0;
     }
-    Symbol s( paper()->lookup_l()->hairpin(w_dim, grow_dir_i_ < 0) );
+    Real lookup_wid = w_dim * 0.9; // make it slightly smaller.
+
+    Symbol s( paper()->lookup_l()->hairpin( lookup_wid, grow_dir_i_ < 0) );
     m_p->add(Atom(s));
     int pos = get_position_i(s.dim.y);
-    m_p->translate(Offset(x_off_dim,pos * paper()->internote()));
+    m_p->translate(Offset(x_off_dim + 0.05 * w_dim, 
+			  pos * paper()->internote()));
+    return m_p;
 }
 
 IMPLEMENT_STATIC_NAME(Crescendo);

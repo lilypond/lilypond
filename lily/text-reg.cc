@@ -39,7 +39,7 @@ void
 Text_register::process_requests()
 {
     if (text_req_l_) {
-	text_p_ = new Text_item(text_req_l_->tdef_p_, 0); // ugh
+	text_p_ = new Text_item(text_req_l_->tdef_p_, text_req_l_->dir_i_); // ugh
 	announce_element(Staff_elem_info(text_p_, text_req_l_));
     }
 }
@@ -47,7 +47,8 @@ void
 Text_register::pre_move_processing()
 {
     if (text_p_) {
-	text_p_->dir_i_ = dir_i_;
+	if (dir_i_ && !text_p_->dir_i_)
+	    text_p_->dir_i_ = dir_i_;
 	Staff_symbol* s_l = get_staff_info().staff_sym_l_;
 	text_p_->set_staffsym(s_l);
 	typeset_element(text_p_);

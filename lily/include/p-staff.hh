@@ -11,8 +11,8 @@ struct PStaff {
     PScore * pscore_l_;
     
     
-    PointerList<Spanner const *> spans;
-    PointerList<Item*> its;
+    Pointer_list<Spanner const *> spans;
+    Pointer_list<Item*> its;
 
     /* *************** */
     void add(Item*i);
