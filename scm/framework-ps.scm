@@ -193,6 +193,15 @@
 		 (supplies-or-needs paper load-fonts?)
 		 "%%EndComments\n"))
 
+(define (procset name)
+  (string-append
+   (format
+    "%%BeginResource: procset (~a) 1 0
+~a
+%%EndResource
+"
+    name (ly:gulp-file name))))
+
 (define (preamble paper load-fonts?)
   (define (load-fonts paper)
     (let* ((fonts (ly:paper-fonts paper))
@@ -232,14 +241,13 @@
 
   (list
    (output-variables paper)
-   (ly:gulp-file "music-drawing-routines.ps")
-   (ly:gulp-file "lilyponddefs.ps")
+   (procset "music-drawing-routines.ps")
+   (procset "lilyponddefs.ps")
    (if load-fonts?
-       (load-fonts paper)
-       "")
+       (load-fonts paper))
    (define-fonts paper)))
 
-(define-public (output-framework basename book scopes fields )
+(define-public (output-framework basename book scopes fields)
   (let* ((filename (format "~a.ps" basename))
 	 (outputter  (ly:make-paper-outputter filename
 					      (ly:output-backend)))
