@@ -41,6 +41,7 @@ public:
 
   /* available area for text.  */
   Real text_height () const;
+  Real left_margin () const;
   SCM to_stencil () const;
 };
 
