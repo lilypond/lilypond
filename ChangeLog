@@ -13,6 +13,8 @@
 
 	* input/test/ {various}: modified comments, marked some for deletion.
 
+	* input/test/lines.ly: deleted file; duplicate of embedded-postscript.ly
+
 2003-06-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/chord-name.scm (note-name->markup): don't superscript root
