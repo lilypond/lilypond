@@ -70,7 +70,7 @@ for @TeX{} output, to be processed with La@TeX{}
 @item scm
  for a dump of the raw, internal Scheme-based drawing commands.
 @cindex Scheme dump
-@end itemize 
+@end table
  
 @cindex output format, setting
 
