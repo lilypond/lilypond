@@ -220,17 +220,6 @@
 	   (mean (/ (apply + densities) (length densities)))
 	   (diff (map (lambda (x) (- x mean)) densities))
 	   (var (map sqr (map (lambda (x) (* (car p-heights) x)) diff))))
-      (if #f
-	  (begin
-	    (format (current-error-port) "\nDENSITIES")
-	    (format (current-error-port) "lines: ~S\n"
-		    (map robust-line-number height-nodes))
-	    (format (current-error-port) "page-heighs: ~S\n" p-heights)
-	    (format (current-error-port) "heights: ~S\n" heights)
-	    (format (current-error-port) "densities: ~S\n" densities)
-	    (format (current-error-port) "mean: ~S\n" mean)
-	    (format (current-error-port) "diff: ~S\n" diff)
-	    (format (current-error-port) "density-var: ~S\n" var)))
       (apply + var)))
 
   (define (walk-paths best node lines nodes paths)
@@ -247,24 +236,22 @@
 	   (path-score (if (null? paths) 0 (node-score (car paths))))
 	   (score (add-scores path-score this-score)))
 
-      (if #f
-	  (begin
-	    (format (current-error-port) "page-score: ~S\n" page-score)
-	    (format (current-error-port) "density-score: ~S\n" density-score)
-	    (format (current-error-port) "this-score: ~S\n" this-score)))
-      
       (if (and (>= score 0)
-	       (or (< score (node-score best))
+	       (or (<= score (node-score best))
 		   (= (node-score best) -1)))
 	  (begin
 	    (set! (node-score best) score)
 	    (set! (node-page best) next-page)
 	    (set! (node-height best) height)
-	    (set! (node-prev best) node)))
-      
-      (if (null? nodes)
+	    (set! (node-prev best) (car paths))))
+
+      (if (or (null? nodes)
+	      ;; short circuit
+	      (and (= path-score -1)
+		   (> (- (/ height page) 1) MAX-CRAMP)))
 	  best
-	  (walk-paths best (car paths) (cons (node-line node) lines)
+	  (walk-paths best (car nodes)
+		      (cons (node-line (car paths)) lines)
 		      (cdr nodes) (cdr paths)))))
 
   (define (walk-lines lines nodes paths)
@@ -273,9 +260,8 @@
 	(let* ((prev (node-prev (car nodes)))
 	       (this (make-node prev (car lines) 0 INFINITY))
 	       (next (make-node this (cadr lines) 0 0))
-	       (best (walk-paths this (car paths)
-				 (list (node-line (car nodes)))
-				 (cddr nodes) (cdr paths))))
+	       (best (walk-paths this prev (list (node-line (car nodes)))
+				 (cddr nodes) paths)))
 	  (walk-lines (cdr lines) (cons next nodes) (cons best paths)))))
   
   (let* ((dummy (make-node '() '() 0 0))
@@ -288,8 +274,7 @@
     (format (current-error-port) "ESTIMATE: ~S\n"
 	    (/ book-height text-height))
     (format (current-error-port) "breaks: ~S\n" breaks)
+    ;; TODO: if solution is bad return no breaks and revert to
+    ;;       ragged bottom
     (force-output (current-error-port))
-
-    (if #f (format (current-error-port) "scores: ~S\n" (map node-score path)))
-	  
     (list->vector breaks)))
