@@ -52,7 +52,7 @@ make -C Documentation
 
 # make  html
 make web-doc top-web 
-make -C Documentation/user/ omf
+make -C Documentation/user/ install
 
 
 %install
