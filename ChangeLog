@@ -1,5 +1,13 @@
 2002-06-23  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* Documentation/topdocs/INSTALL.texi (Top): Add some warnings
+	about guile --with-threads.  Hopefully this issue can be resolved
+	rsn, but maybe we should even add warnings for the standard Debian
+	and Red Hat packages?
+
+	* configure.in: Warn if guile is configured to use threads.  Maybe
+	we should make this an error (ie, add to REQUIRED list?)
+
 	* config.make.in (PACKAGE_NAME):
 	(PACKAGE, package):  Don't hardcode.
 
