@@ -1,6 +1,6 @@
 % property-init.ly
 
-\version "1.9.0"
+\version "1.9.1"
 
 stemUp = \property Voice.Stem \set #'direction = #1
 stemDown = \property Voice.Stem \set #'direction = #-1 
@@ -220,7 +220,7 @@ forgetAccidentals = {
 %% DO NOT USE THIS. IT CAN LEAD TO CRASHES.
 turnOff = #'()
 
-% For drawing vertical chord brackets with -\arpeggio
+% For drawing vertical chord brackets with \arpeggio
 % This is a shorthand for the value of the molecule-callback property 
 % of either Staff.Arpeggio or PianoStaff.Arpeggio, depending whether 
 % cross-staff brackets are desired. 
@@ -255,10 +255,10 @@ unHideNotes =  \sequential {
 }
 
 germanChords = {
-    \property ChordNames. chordRootNamer = #(chord-name->german-markup #t)
-    \property ChordNames. chordNoteNamer = #note-name->german-markup
+    \property ChordNames. chordRootNamer = #(chord-name->german@\markup #t)
+    \property ChordNames. chordNoteNamer = #note-name->german@\markup
 }
 semiGermanChords = {
-    \property ChordNames. chordRootNamer = #(chord-name->german-markup #f)
-    \property ChordNames. chordNoteNamer = #note-name->german-markup
+    \property ChordNames. chordRootNamer = #(chord-name->german@\markup #f)
+    \property ChordNames. chordNoteNamer = #note-name->german@\markup
 }

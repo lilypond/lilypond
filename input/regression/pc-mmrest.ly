@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header {
 texidoc="Multi measure rests of second voice should not disappear."
 }
@@ -14,14 +14,14 @@ TODO:  what does this test? The contexts are tweaked too much.
 #(ly:set-point-and-click 'line-column)
 one = \notes\relative c'' {
 
-	f4 e-\!-.-\f r2|
+	f4 e\!-.\f r2|
 	R1|
-	f2-\p-(es -)|
+	f2\p(es )|
 	d1\<|
 	d1|
 	d2 d2|
 	d2 d2|
-	f1-\!-\ff  |
+	f1\!\ff  |
 	f1
 }
 

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 
 
 \header {
@@ -20,10 +20,10 @@ barTwo = \notes { \once \property Staff.BarLine \override #'extra-offset = #'(0 
 \notes \relative c' {
 	\property Score.timing = ##f
 	\property Staff.Stem \set #'transparent = ##t
-	f4 a2 \barTwo g4 a2  f2 \barOne g4( f-) f(
+	f4 a2 \barTwo g4 a2  f2 \barOne g4( f) f(
 	\bar "empty" 
 	\break
-	g-) a2
+	g) a2
 }
 
 }

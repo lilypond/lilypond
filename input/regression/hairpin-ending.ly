@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 
 \header {
 
@@ -11,7 +11,7 @@ into them."
 
 
 \score {
-\notes \relative c'' { c4 \> c4 c4-\! c4_\ff \> c4 c4-\!-\p }
+\notes \relative c'' { c4 \> c4 c4\! c4_\ff \> c4 c4\!\p }
 \paper { raggedright = ##t} 
 }
 

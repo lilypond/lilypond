@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header {
 
     texidoc = "
@@ -7,7 +7,7 @@
 " 
 }
 
-sopMusic = \notes  \relative c'' { c4 c c8-[-( b-)-] c4 }
+sopMusic = \notes  \relative c'' { c4 c c8[( b)] c4 }
 sopWords = \lyrics { hi4 hi hi hi  }
 
 altoMusic = \notes  \relative c' { e4 f d e }

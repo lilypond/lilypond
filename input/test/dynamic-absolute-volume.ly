@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header {
     texidoc = "@cindex Dynamic Absolute Volume
 Absolute dynamics have effect in MIDI files.
@@ -10,13 +10,13 @@ Absolute dynamics have effect in MIDI files.
 \score{
 \notes\relative c''{
 %segfault in engraver
-a1-\ppp 
-a1-\pp
-a-\p
-a-\mp
-a-\mf
-a-\f
-a-\ff
+a1\ppp 
+a1\pp
+a\p
+a\mp
+a\mf
+a\f
+a\ff
 a\fff
 a\sf
 }

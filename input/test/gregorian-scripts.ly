@@ -1,4 +1,4 @@
-\version "1.9.0"
+\version "1.9.1"
 \header {
     title	= "Gregorian Scripts"
     texidoc     = "@cindex Gregorian Scripts
@@ -25,13 +25,13 @@ FIXME: padding/minimum-distance is fragile.
   \context VaticanaVoice {
     \property VaticanaVoice.Script \set #'padding = #-0.5
     \notes {
-      a-\ictus
-      a-\circulus
-      a-\semicirculus
-      a-\accentus
+      a\ictus
+      a\circulus
+      a\semicirculus
+      a\accentus
 
       %{ %% TODO: augmentum:
-	a-\augmentum
+	a\augmentum
 	\[ \augmentumInitium b \flexa a \augmentumFinis \]
       %}
 

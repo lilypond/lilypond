@@ -1406,7 +1406,6 @@ if 1:
 Postfix articulations, new chord syntax."""))
 
 def conv (str):
-
 	str = re.sub ('-\\markup', '@\\markup', str)
 	str = re.sub (r'-\\', r'\\', str)
 	str = re.sub (r'-\)', ')', str)

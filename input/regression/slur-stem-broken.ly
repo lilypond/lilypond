@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header {
 texidoc="Trend of broken slur with user-overridden stem attachment should also
 follow the same vertical direction it would have had in unbroken state."
@@ -8,7 +8,7 @@ follow the same vertical direction it would have had in unbroken state."
   \notes\relative c' {
     \property Voice.Slur \override #'attachment = #'(stem . stem)
     f( c' c c \break
-    c c c \stemUp  c-)
+    c c c \stemUp  c)
   }
   \paper {
     linewidth=40*\staffspace

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 
 \header { texidoc = "@cindex Staff Size
 
@@ -19,10 +19,10 @@ Setting staff sizes is a little clumsy.  There are two options: using
 	\dynamicUp\stemDown
 
 	%\key gis \major
-	c8 d  e-[ f g a] b c -\ff
+	c8 d  e[ f g a] b c \ff
   }
 
-\context Staff = SB \relative c'' { \dynamicDown c,,4 -\ff c c c  }
+\context Staff = SB \relative c'' { \dynamicDown c,,4 \ff c c c  }
 \context Staff = SC {
   \context Staff \outputproperty #(make-type-checker 'staff-symbol-interface)
     #'staff-space =  #0.8

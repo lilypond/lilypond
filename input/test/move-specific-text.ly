@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 % possible rename to scheme- or something like that.  -gp
 \header { texidoc = "@cindex Scheme Move Text
 You can move objects around with scheme.  This example shows how to
@@ -11,7 +11,7 @@ move text around. " }
 \score {
   \notes\relative c''' {
     \property Voice.Stem \set #'direction = #1
-    \outputproperty #(make-text-checker (make-simple-markup "m.d."))
+    \outputproperty #(make-text-checker (make-simple@\markup "m.d."))
       #'extra-offset = #'(-3.5 . -4.5)
     a^2^"m.d."
   }

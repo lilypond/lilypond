@@ -1,4 +1,4 @@
-\version "1.9.0"
+\version "1.9.1"
 % TODO: check to see if this example can be simplified using \small
 % or \tiny.
 \header { texidoc = "@cindex Cue Notes
@@ -29,7 +29,7 @@ Cue notes should be set in smaller type. "
 	\property Voice.Beam \override #'space-function =
 	   #(lambda (beam mult) (* 0.8 (Beam::space_function beam mult)))
 
-	r8^"Bsn." c'8  f'8-[ f'8]
+	r8^"Bsn." c'8  f'8[ f'8]
 
 % note: the clef should be cancelled from the cue.  
 %  this is under debate; I don't think it should.  - Graham

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header{
 
 texidoc = "Concave beams should be horizontal. Informally spoken,
@@ -47,27 +47,27 @@ beams this way."
     %% sloped
     %% concaveness: 0.00
     \stemUp
-     d,16-[ a' b cis]
+     d,16[ a' b cis]
 
     %% Sarabande: m25
     %% horizontal
     %% concaveness:a: 0.12
-     a'16-[^"horiz." b c b]
+     a'16[^"horiz." b c b]
     
 % Hmm.  Concaveness of both: 1.75
 %     %% SCS-VI Prelude, m81
 %     %% slope = 0.0
 %     \stemBoth
 %     \key d\major
-%      e,8-[ cis a']
+%      e,8[ cis a']
     
 %     %% SCS-VI Prelude, m82
 %     %% slope = 0.1ss (possibly b.o. context?)
-%      g,-[ e' cis]
+%      g,[ e' cis]
 
     
 %%% Han-Wen: this should be concave
-     a,16-[^"horiz." a' a a]
+     a,16[^"horiz." a' a a]
 
     \clef treble
 

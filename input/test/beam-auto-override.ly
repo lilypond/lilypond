@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header {
 
     texidoc = "@cindex Auto Beaming Override
@@ -34,7 +34,7 @@ The beam will be ended also when now % beamAutoEnd = 0.
 
       	c8 c c c
 	% manually override autobeam with weird beaming
-      	c8  c-[ c] c
+      	c8  c[ c] c
       	c8 c c r
       	c8 c c4
       	r8 c c c

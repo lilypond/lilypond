@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header{
   texidoc="Lyric phrasing
 
@@ -28,7 +28,7 @@
     \context Voice = "v" \notes  \relative c'' {
       \property Staff.automaticMelismata = ##t
       \autoBeamOff
-      a a a8 ( a-) a4
+      a a a8 ( a) a4
     }
     \context Lyrics <
       \context LyricsVoice = "v-1" \lyrics {

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header
 {
     texidoc ="Slurs may be placed over rest. The slur will avoid colliding with
@@ -7,11 +7,11 @@ the rest.
 
 "
 }
-\score{ \notes  { \stemDown c'4 ( r4  c'2-)
+\score{ \notes  { \stemDown c'4 ( r4  c'2)
 
 		  \relative c'' { 
 	% Finish with F if played separately 
-	c8-.(   r c,-. r  c4-) r4|  }
+	c8-.(   r c,-. r  c4) r4|  }
 		  
 
 	      }

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header{
 texidoc="
 Beams should always reach the middle staff line.  The second beam
@@ -12,14 +12,14 @@ Override with @code{noStemExtend}.
 
 \score { 
   \context Voice \notes\relative c {
-     f8-[ f]   f64-[ f] 
+     f8[ f]   f64[ f] 
     \grace { 
-       f8-[ e8] 
+       f8[ e8] 
       \property Voice.Stem \override #'no-stem-extend = ##f
-       f8-[ e8] 
+       f8[ e8] 
       \property Voice.Stem \revert #'no-stem-extend
     }
-	 f8-[ f]
+	 f8[ f]
 	
   }
   \paper {

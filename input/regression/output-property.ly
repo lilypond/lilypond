@@ -11,7 +11,7 @@ possible to use @code{\override} would shift both texts.
 
 }
 
-\version "1.9.0"
+\version "1.9.1"
 
 #(define (make-text-checker text)
    (lambda (grob) (equal? text (ly:get-grob-property grob 'text))))
@@ -20,7 +20,7 @@ possible to use @code{\override} would shift both texts.
   \notes\relative c''' {
     a^"two"^"m.d."
     \context Voice
-      \outputproperty #(make-text-checker (make-simple-markup "m.d."))
+      \outputproperty #(make-text-checker (make-simple@\markup "m.d."))
         #'extra-offset = #'(-4.0 . -3.5)
     a^"two"^"m.d."    
     a^"two"^"m.d."    

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header {
 texidoc= "Text spanners should not repeat start text when broken."
 }
@@ -9,7 +9,7 @@ texidoc= "Text spanners should not repeat start text when broken."
     \property Voice.crescendoText = #"cresc."
     \property Voice.crescendoSpanner = #'dashed-line
     c1\< c \break
-    c1 c-\! \break
+    c1 c\! \break
     }
   \paper {
     linewidth = 40*\staffspace

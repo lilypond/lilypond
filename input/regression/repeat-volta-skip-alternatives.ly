@@ -1,4 +1,4 @@
-\version "1.9.0"
+\version "1.9.1"
 \header {
     texidoc = "When too few alternatives are present, the first alternative is repeated,
 by printing a range for the 1st repeat."

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header {
 texidoc = "Bar line should come before the grace note."
 }
@@ -9,7 +9,7 @@ texidoc = "Bar line should come before the grace note."
 
 
 \score  {\notes \relative c' \context Staff  { 
- f1 \grace {  a'16-[ f]  } g1 }
+ f1 \grace {  a'16[ f]  } g1 }
 		\paper { raggedright = ##t}
  } 
 

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header{
 	texidoc="@cindex Beam Neutral Direction
 When a beam falls in the middle of the staff, LilyPond normally
@@ -8,11 +8,11 @@ altered if desired.
 " }
 
 fragment = \notes {
-   b''8-[ b]
+   b''8[ b]
   \property Voice.Beam \set #'neutral-direction = #-1
-   b-[ b]
+   b[ b]
   \property Voice.Beam \set #'neutral-direction = #1
-   b-[ b]
+   b[ b]
 }
 
 \paper { raggedright = ##t} 

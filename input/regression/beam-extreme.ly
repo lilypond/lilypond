@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header{
 texidoc="
 Beams should behave reasonably well, even under extreme circumstances.
@@ -11,19 +11,19 @@ Beam.auto-knee-gap was set to false.
 
 extreme = \notes\relative c'' {
   \stemBoth
-   g8-[ c c,]
-   c16-[ c'' a f]
+   g8[ c c,]
+   c16[ c'' a f]
   \stemUp 
-   c,,32-[ c'' a f]
+   c,,32[ c'' a f]
 
   %%%%%%%
   \stemBoth
-  \times 2/3{ d16-[ fis' d,]} \times 2/3{ cis-[ g'' cis,,]}
+  \times 2/3{ d16[ fis' d,]} \times 2/3{ cis[ g'' cis,,]}
   a'16 cis a, g''' % Used to give a nice beam directed upwards.
   \stemBoth
 
   \transpose c c {
-	  \stemDown  e'8-[ e e']
+	  \stemDown  e'8[ e e']
       }
 }
 

@@ -1,4 +1,4 @@
-\version "1.9.0"
+\version "1.9.1"
 \header {
     texidoc ="@cindex Artificial Harmonics
 For stringed instruments, artificial harmonics are notated with

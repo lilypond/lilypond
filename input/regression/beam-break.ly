@@ -4,9 +4,9 @@
 "
 
 }
-\version "1.9.0"
+\version "1.9.1"
     \paper { raggedright= ##t }
 
 \score { \notes \relative c''  {
     \property Score.forbidBeamBreak = ##f
-    c2. c8-[ c8 \break c8 c8-]   } }
+    c2. c8[ c8 \break c8 c8]   } }

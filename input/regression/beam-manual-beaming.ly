@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 
 
 \header {
@@ -8,7 +8,7 @@ texidoc =
 }
 \score {
 \notes \relative c'' {
-  c32-[ c
+  c32[ c
 
 
 %% WARNING: #'beaming is written, so this

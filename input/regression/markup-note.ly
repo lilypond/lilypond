@@ -3,7 +3,7 @@
     texidoc = "The note markup function is used to make metronome
  markings. It works for a variety of flag dot and duration settings."
 }
-\version "1.9.0"
+\version "1.9.1"
 
 \score { \notes { c4^\markup {
     \note #0 #0 #1

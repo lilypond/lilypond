@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0" 
+\version "1.9.1" 
 \header {
 
 texidoc = "The @code{\applyoutput} expression is the most flexible way to
@@ -20,16 +20,16 @@ position.
   (if (and (memq 'note-head-interface ifs)
 	   (memq sp '(-2 -3 -5)))
       (begin
-	(ly:set-grob-property! gr 'molecule-callback brew-new-markup-molecule)
+	(ly:set-grob-property! gr 'molecule-callback brew-new@\markup-molecule)
 	(ly:set-grob-property! gr 'font-family 'roman)
 	(ly:set-grob-property!
 	 gr 'text
-	 (make-raise-markup -0.5
+	 (make-raise@\markup -0.5
 			    (case sp
-			      ((-5) (make-simple-markup "m"))
-			      ((-3) (make-simple-markup "c "))
-			      ((-2) (make-smaller-markup (make-bold-markup "2")))
-			      (else (make-simple-markup "bla"))
+			      ((-5) (make-simple@\markup "m"))
+			      ((-3) (make-simple@\markup "c "))
+			      ((-2) (make-smaller@\markup (make-bold@\markup "2")))
+			      (else (make-simple@\markup "bla"))
 			      ))))
       )))
 

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header{
     texidoc="@cindex Bar Number Show All
 Second line has bar numbers on start of every measure.

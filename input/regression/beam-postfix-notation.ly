@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header {
 
 texidoc = "Beams and ties may be entered in postfix notation, separating the
@@ -13,6 +13,6 @@ texidoc = "Beams and ties may be entered in postfix notation, separating the
 {
  \notes\relative c''
    {
-       c8-[-~ c-]
+       c8[~ c]
    }
 }

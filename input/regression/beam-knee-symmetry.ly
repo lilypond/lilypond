@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header {
 
     texidoc = "Point-symmetric beams should receive the same
@@ -9,8 +9,8 @@
 
 \score{
     \notes\relative c'{
-	 a8-[ b'' a,, b'']
-	 b8-[ a,, b'' a,,]
+	 a8[ b'' a,, b'']
+	 b8[ a,, b'' a,,]
     }
     \paper{
 	raggedright = ##t 

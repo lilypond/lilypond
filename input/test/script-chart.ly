@@ -1,4 +1,4 @@
-\version "1.9.0"
+\version "1.9.1"
 
 % this chart is used in the manual too.
 
@@ -18,19 +18,19 @@ A chart showing all feta scripts.
 	\property Score.timing = ##f
 	\property Score.barAlways = ##t
 	\property Staff.BarLine \override #'transparent = ##t
-        c''-\accent             c''-\marcato            c''-\staccatissimo
-        c''-\staccato           c''-\tenuto             c''-\portato
-        c''-\upbow              c''-\downbow            c''-\flageolet
-        c''-\thumb              c''^\lheel              c''-\rheel
-        c''^\ltoe               c''-\rtoe               c''-\open
-        c''-\stopped            c''-\turn               c''-\reverseturn
-        c''-\trill              c''-\prall              c''-\mordent
-        c''-\prallprall         c''-\prallmordent       c''-\upprall
-        c''-\downprall          c''-\upmordent          c''-\downmordent
-        c''-\pralldown          c''-\prallup            c''-\lineprall
-        c''-\signumcongruentiae c''-\shortfermata       c''-\fermata
-        c''-\longfermata        c''-\verylongfermata    c''-\segno
-        c''-\coda               c''-\varcoda
+        c''\accent             c''\marcato            c''\staccatissimo
+        c''\staccato           c''\tenuto             c''\portato
+        c''\upbow              c''\downbow            c''\flageolet
+        c''\thumb              c''^\lheel              c''\rheel
+        c''^\ltoe               c''\rtoe               c''\open
+        c''\stopped            c''\turn               c''\reverseturn
+        c''\trill              c''\prall              c''\mordent
+        c''\prallprall         c''\prallmordent       c''\upprall
+        c''\downprall          c''\upmordent          c''\downmordent
+        c''\pralldown          c''\prallup            c''\lineprall
+        c''\signumcongruentiae c''\shortfermata       c''\fermata
+        c''\longfermata        c''\verylongfermata    c''\segno
+        c''\coda               c''\varcoda
       }
       \context Lyrics \lyrics {
         accent__                marcato__               staccatissimo__

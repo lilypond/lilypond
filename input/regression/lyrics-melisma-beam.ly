@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header
 {
     texidoc = "Melismata are triggered by manual beams." 
@@ -12,7 +12,7 @@
              \context Staff = mel
              \notes \relative c'' {
 		 \property Staff.autoBeaming = ##f
-		 c8 c8-[ c8 c8-]  c8    }
+		 c8 c8[ c8 c8]  c8    }
           	
              \context Lyrics \lyrics { bla bla bla }
         }

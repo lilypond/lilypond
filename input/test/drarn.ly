@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header{texidoc="@cindex Drarn
 You can attach slurs and ties to noteheads.
 " }
@@ -12,14 +12,14 @@ You can attach slurs and ties to noteheads.
       \property Voice.Tie \set #'direction = #1
       \property Voice.Slur \set #'direction = #1
       \property Voice.Slur \set #'attachment = #'(head . head)
-      c8~c(c-)  
+      c8~c(c)  
     }
     \context Voice=two \relative c'' {
       \property Voice.Stem \set #'direction = #-1
       \property Voice.Tie \set #'direction = #-1
       \property Voice.Slur \set #'direction = #-1
       \property Voice.Slur \set #'attachment = #'(head . head)
-      a8(a-)-~a  
+      a8(a)~a  
     }
   >
   \paper { linewidth = 40*\staffspace

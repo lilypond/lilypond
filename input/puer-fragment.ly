@@ -1,4 +1,4 @@
-\version "1.9.0"
+\version "1.9.1"
 \header {
     title	= "Puer natus est nobis (excerptum)"
     subtitle	= "Antiphona ad introitum VII"
@@ -28,59 +28,59 @@ cantus = \notes {
   \[ g4
     (		%%% Pu-
     \pes
-    d'-)
+    d')
   \]
   d'		%%% er
   \[ d'
     (		%%% na-
     \pes e' \flexa
-    d'-)
+    d')
   \]
   c'		%%% tus
   \[ c'
     (		%%% est
     c'
-    c'-)
+    c')
   \]
   \[ d'
     (		%%% no-
     \flexa c' e' \flexa
-    d'-)
+    d')
   \]
   d'            %%% bis,
   \divisioMaior
   \[ g
     (		%%% et
     \pes \deminutum
-    d'-)
+    d')
   \]
   \[ d'
     (		%%% fi-
     \pes e' \flexa
-    d'-)
+    d')
   \]
   \[ c'
     (		%%% li-
     \flexa
-    b-)
+    b)
   \]
   a		%%% us
   \[ c'
     (		%%% da-
     c' \pes
-    d'-)
+    d')
   \]
   c'		%%% tus-
   c'		%%% est
   \[ c'
     (		%%% no-
     \pes d' \flexa c'
-    c'-)
+    c')
   \]
   \[ g
     (		%%% bis:
     \pes a \flexa
-    g-)
+    g)
   \]
   \divisioMaxima
 }

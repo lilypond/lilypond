@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 
 \header{
     texidoc="Beams in unnatural direction, have shortened stems, but do not look too short."
@@ -12,7 +12,7 @@
 	 ,Beam::check_concave
 	 ,Beam::slope_damping)
 	\stemUp
-        f'4  f8-[ f]  f16-[ f]  f32-[ f]  f64-[ f]  f128-[ f] 
+        f'4  f8[ f]  f16[ f]  f32[ f]  f64[ f]  f128[ f] 
     }
     \paper{ raggedright = ##t}
 }          

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header{
 texidoc="
 The same goes for slurs. They behave decently when broken across
@@ -12,32 +12,32 @@ linebreak.
 	\context PianoStaff <
 	\context Staff=one \notes\relative c'{
 		\stemUp \slurUp
-		 c4( c \translator Staff=two c  c-) |
+		 c4( c \translator Staff=two c  c) |
 		\translator Staff=one
 		\stemUp \slurUp
-		 c4( c \translator Staff=two c  c-) |
+		 c4( c \translator Staff=two c  c) |
 		\stemUp \slurUp
-		 c4( c \translator Staff=one c  c-) |
+		 c4( c \translator Staff=one c  c) |
 		\translator Staff=two
 		\stemUp \slurUp
-		 c4( c \translator Staff=one c  c-) |
+		 c4( c \translator Staff=one c  c) |
 		\translator Staff=two
 		\stemUp \slurUp
-		 c4( \translator Staff=one c c  c-) |
+		 c4( \translator Staff=one c c  c) |
 		r2
 		\translator Staff=two
 		\stemUp \slurUp
 		 c4( \translator Staff=one c
 		   \break
-		c  c-)
+		c  c)
 		r2
 %		\stemDown \slurDown
-%		 c4( \translator Staff=two c c \translator Staff=one  c-)
+%		 c4( \translator Staff=two c c \translator Staff=one  c)
 		\stemDown \slurDown
-		 d4( \translator Staff=two c c \translator Staff=one  d-)
+		 d4( \translator Staff=two c c \translator Staff=one  d)
 		\translator Staff=two
 		\stemUp \slurUp
-		 c4( \translator Staff=one c c \translator Staff=two  c-)
+		 c4( \translator Staff=one c c \translator Staff=two  c)
 		r1
 	}
 	\context Staff=two \notes\relative c'{
