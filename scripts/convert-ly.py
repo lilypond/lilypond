@@ -1868,8 +1868,8 @@ def conv (str):
 	return str
 
 conversions.append (((2,1,22), conv, """new syntax for property settings:
-	\set A.B = #C , \unset A.B
-	\override A.B #C = #D, \revert A.B #C
+	\\set A.B = #C , \\unset A.B
+	\\override A.B #C = #D, \\revert A.B #C
 
 """))
 
