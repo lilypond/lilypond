@@ -163,11 +163,6 @@ fet_beginchar("portato/single tenuto", "tenuto", "tenuto")
 	draw_rounded_block((-b,-thick/2),(w,thick/2),thick);
 fet_endchar;
 
-
-%
-% Portato by Heikki Junes <heikki.junes@hut.fi>
-%
-
 def draw_portato = 
 	save thick, radius;
 	thick# = 1.4 stafflinethickness#;
@@ -227,6 +222,7 @@ fet_endchar;
 % The down marcato char (not very much used). 
 % Contrary to what some MF/TeX `gurus' believe
 % it is *point*-symmetric with the "up" version
+%
 fet_beginchar("marcato down", "dmarcato", "dmarcato")
 	draw_marcato;
 	xy_mirror_char;
