@@ -1,3 +1,13 @@
+2004-07-10  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/translation-functions.scm (format-metronome-markup): make
+	note smaller, align to bottom.
+
+	* scm/define-grobs.scm (all-grob-descriptions): noone
+
+	* lily/metronome-engraver.cc (stop_translation_timestep): attach
+	metronome to musical column. Don't ack time sigs or bar lines.
+
 2004-07-10  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* THANKS: sort, add David. Kristof contributed code, he is a
