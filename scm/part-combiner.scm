@@ -1,10 +1,11 @@
-
+;;;; part-combiner.scm -- 
+;;;;
+;;;;  source file of the GNU LilyPond music typesetter
+;;;; 
+;;;; (c)  1998--2004  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 ;; todo: figure out how to make module,
 ;; without breaking nested ly scopes
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; part-combiner.
 
 (define-class <Voice-state> ()
   (event-list #:init-value '() #:accessor events #:init-keyword #:events)

@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c)  2002--2003 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; (c)  2002--2004 Jan Nieuwenhuizen <janneke@gnu.org>
 
 ;;;; NOTE:
 ;;;;
