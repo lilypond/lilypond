@@ -55,6 +55,7 @@
 ;; (also tried to vary the order of this list, with little effect)
 (define paper20-style-sheet-alist
   '(
+    ;; why are font-names strings, not symbols?
     ((3 medium upright number feta-nummer 13) . "feta-nummer13")
     ((2 medium upright number feta-nummer 13) . "feta-nummer13")
     ((1 medium upright number feta-nummer 11) . "feta-nummer11")
@@ -255,15 +256,17 @@
       )
   ))
 
+(define (wild-eq? x y)
+  (or (eq? x y)
+      (eq? x '*)
+      (eq? y '*)))
+       
 (define (font-qualifies? qualifiers font-desc)
   "does FONT-DESC satisfy QUALIFIERS?"
   (if (null? qualifiers) #t
-      (if (eq? (font-field (caar qualifiers) font-desc) (cdar qualifiers))
+      (if (wild-eq? (font-field (caar qualifiers) font-desc) (cdar qualifiers))
 	  (font-qualifies? (cdr qualifiers) font-desc)
-	  #f
-	  )
-	)
-  )
+	  #f)))
 
 (define (find-first-font qualifiers fonts)
   (if (null? fonts)
@@ -304,29 +307,27 @@ and warn if the selected font is not unique.
 (define (chain-assoc x alist-list)
   (if (null? alist-list)
       #f
-      (let* (
-	     (handle (assoc x (car alist-list)))
-	     )
+      (let* ((handle (assoc x (car alist-list))))
 	(if (pair? handle)
 	    handle
-	    (chain-assoc x (cdr alist-list))
-	    )
-	)
-      )
-  )
+	    (chain-assoc x (cdr alist-list))))))
 
 ;; TODO
 ;; the C++ version  in font-interface.cc is usually used.
+;;
+;; FIXME: this has silently been broken by the introduction
+;;        of wildcards in the font list.    
 (define (properties-to-font-name fonts properties-alist-list)
   (let*  (
 	  ;; change order to change priorities of qualifiers.
-	  (q-order    '(font-name font-family font-series font-shape font-design-size font-relative-size))
-	  (rawqualifiers (map (lambda (x) (chain-assoc x  properties-alist-list))
+	  (q-order '(font-name font-family font-series font-shape
+			       font-design-size font-relative-size))
+	  (rawqualifiers (map (lambda (x)
+				(chain-assoc x properties-alist-list))
 			      q-order))
 	  (qualifiers (filter-list pair? rawqualifiers))
-	  (selected     (find-first-font qualifiers fonts))
-	  (err (current-error-port))	  
-	  )
+	  (selected (find-first-font qualifiers fonts))
+	  (err (current-error-port)))
 
     (if (equal? selected "")
 	(begin

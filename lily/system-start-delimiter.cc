@@ -141,8 +141,17 @@ System_start_delimiter::brew_molecule (SCM smob)
 Molecule
 System_start_delimiter::staff_brace (Grob*me,Real y)  
 {
+
+  /*
+    FIXME: should look at afm/tfm file for dimensions.
+    
+    (This breaks ascii-art output: it hasn't got 255 symbols)
+   */
+
+  // ugrhn
   int lo = 0;
   int hi = 255;
+  
   Font_metric *fm = Font_interface::get_default_font (me);
   Box b;
 

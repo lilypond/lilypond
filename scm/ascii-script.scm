@@ -1,6 +1,77 @@
 (debug-enable 'backtrace)
 
-;;;; AsciiScript as
+; (define cmr-alist
+;   '(("bold" . "as-dummy") 
+;     ("brace" . "as-braces")
+;     ("dynamic" . "as-dummy") 
+;     ("default" . "as-dummy") 
+;     ("feta" . "feta") 
+;     ("feta-1" . "feta") 
+;     ("feta-2" . "feta") 
+;     ("finger" . "as-number") 
+;     ("typewriter" . "as-dummy") 
+;     ("italic" . "as-dummy") 
+;     ("roman" . "as-dummy") 
+;     ("script" . "as-dummy") 
+;     ("large" . "as-dummy") 
+;     ("Large" . "as-dummy") 
+;     ("mark" . "as-number") 
+;     ("number" . "as-number") 
+;     ("timesig" . "as-number")
+;     ("volta" . "as-number"))
+; )
+
+
+(define as-font-alist-alist
+  '(
+    (as5 .
+	 (
+	  (feta16 . as5)
+	  (feta20 . as5)
+	  (feta-nummer6 . as-number1)
+	  (feta-nummer8 . as-number1)
+	  (feta-braces16 . as-braces9)
+	  (cmr7 . as-dummy)
+	  (cmr8 . as-dummy)
+	  (cmr10 . as-dummy)
+	  ))
+    (as9 .
+	 (
+	  (feta16 . as9)
+	  (feta20 . as9)
+	  (feta-nummer4 . as-number1)
+	  (feta-nummer8 . as-number4)
+	  (feta-braces16 . as-braces9)
+	  (cmr7 . as-dummy)
+	  (cmr8 . as-dummy)
+	  (cmr10 . as-dummy)
+	  (cmr12 . as-dummy)
+	 ))
+  ))
+
+(define (as-properties-to-font-name size fonts properties-alist-list)
+  (let* ((feta-name (properties-to-font-name fonts properties-alist-list))
+	 (as-font-alist (cdr (assoc size as-font-alist-alist)))
+	 (font (assoc (string->symbol feta-name) as-font-alist)))
+    (if font (symbol->string (cdr font))
+	(let ((e (current-error-port)))
+	  (newline e)
+	  (display "can't find font: " e)
+	  (write feta-name e)
+	  ;;(symbol->string size)
+	  "as-dummy"
+	  ))))
+
+;; FIXME: making a full style-sheet is a pain, so we parasite on
+;; paper16 and translate the result.
+;;
+(define (as-make-style-sheet size)
+  (let ((sheet (make-style-sheet 'paper16)))
+    (assoc-set! sheet 'properties-to-font
+		(lambda (x y) (as-properties-to-font-name size x y)))
+    sheet))
+
+;;;; AsciiScript as  -- ascii art output
 (define (as-scm action-name)
 
   (define (beam width slope thick)
@@ -32,7 +103,10 @@
 		      (func "rmove-to" (- dx 1) (if (< 0 dir) -1 0))
 		      (func "put" (if (< 0 dir) "\\\\" "/"))))))
 
-  (define (bracket arch_angle arch_width arch_height width height arch_thick thick)
+
+  (define (bracket arch_angle arch_width arch_height height arch_thick thick)
+    ;; width now fixed?
+    (let ((width 1))
 	  (string-append
 	   (func "rmove-to" (+ width 1) (- (/ height -2) 1))
 	   (func "put" "\\\\")
@@ -41,7 +115,7 @@
 	   (func "v-line" (+ height 1))
 	   (func "rmove-to" 0 (+ height 1))
 	   (func "put" "/")
-	   ))
+	   )))
 
   (define (char i)
     (func "char" i))
@@ -70,6 +144,10 @@
 		    (func "h-line" dx))))))
 
   (define (font-load-command name-mag command)
+   ;; (display "name-mag: ")
+   ;; (write name-mag)
+   ;; (display "command: ")
+   ;; (write command)
     (func "load-font" (car name-mag) (cdr name-mag)))
 
   (define (header creator generate) 
@@ -83,11 +161,13 @@
 	  (string-append "(define " key " " (arg->string val) ")\n"))
 
   (define (lily-def key val)
-	  (if 
-	   (or (equal? key "lilypondpaperlinewidth")
-	       (equal? key "lilypondpaperstaffheight"))
-	   (string-append "(define " key " " (arg->string val) ")\n")
-	   ""))
+    (if
+     ;; let's not have all bloody definitions
+     (or (equal? key "lilypondpaperlinewidth")
+	 (equal? key "lilypondpaperstaffheight")
+	 (equal? key "lilypondpaperoutputscale"))
+     (string-append "(define " key " " (arg->string val) ")\n")
+     ""))
 
   (define (no-origin) "")
   

@@ -53,25 +53,13 @@
 
 ;;; Un-assorted stuff
 
-;; URG guile-1.3/1.4 compatibility
+;; URG guile-1.4/1.4.x compatibility
 (define (ly-eval x) (eval2 x #f))
 
 (define (sign x)
   (if (= x 0)
       1
       (if (< x 0) -1 1)))
-
-
-;;(define major-scale
-;;  '(
-;;    (0 . 0)
-;;    (1 . 0)
-;;    (2 . 0)
-;;    (3 . 0)
-;;    (4 . 0)
-;;    (5 . 0)
-;;    (6 . 0)
-;;   ))
 
 
 (map (lambda (x) (eval-string (ly-gulp-file x)))

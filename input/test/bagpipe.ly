@@ -14,7 +14,7 @@
 
 	NoteHead \override #'font-relative-size = #-2
 	NoteHead \override #'font-relative-size = #-2	
-        Stem \override #'flag-style = ##f
+        Stem \override #'flag-style = #""
     % The following determines the length of stems without beams
     % default is between 2.8 and 4.0 depending on the number of flags
          Stem \override #'length = #6	
@@ -24,8 +24,9 @@
  
   }
   \translator { \StaffContext
-  	TimeSignature \override #'style = #"C4/4"
-  	TimeSignature \override #'visibility-function = #begin-of-line-visible
+  	TimeSignature \override #'style = #'C4/4
+%  	TimeSignature \override #'visibility-function = #begin-of-line-visible
+  	TimeSignature \override #'visibility-lambda = #begin-of-line-visible
   }	
 }
 

@@ -123,6 +123,8 @@ Options:
 
 (define first-line #t)
 
+(define scaling 1)
+
 ;; cursor
 (define cur-x 0)
 (define cur-y 0)
@@ -189,32 +191,38 @@ Options:
   (cond ((equal? new " ") old)
 	(else new)))
 
-(define (plot x y c)
-  (let ((ny (- (* -1 y) 1)))
-       (if (array-in-bounds? canvas ny x)
-	   (array-set! canvas (merge-chars (array-ref canvas ny x) c) ny x)
-	   (display (string-append "ouch: " (number->string x)  ","
-				   (number->string ny) "\n")))))
+(define (plot-raw x y c)
+  (if (array-in-bounds? canvas y x)
+      (array-set! canvas (merge-chars (array-ref canvas y x) c) y x)
+      (display (string-append "ouch: " (number->string x)  ","
+			      (number->string y) "\n")
+	       (current-error-port))))
+
+(define (plot x neg-y c)
+  (let ((y (- (* -1 neg-y) 1)))
+    (plot-raw (inexact->exact x) (inexact->exact y) c)))
 
 (define (plot-char c)
   (let ((bbox (car c))
-	(glyph (cadr c))) 
-       ;; BBox: (llx lly urx ury) * 1000
-       (let ((dx (inexact->exact (* .001 (car bbox))))
-	     ;(dy (inexact->exact (* .001 (cadr bbox))))
-	     (dy (inexact->exact (- (* .001 (cadddr bbox)) 1)))
-	     (len (length glyph)))
-	    ;;(display "Bbox: ") (display bbox) (newline)
-	    ;;(display "dy: ") (display dy) (newline)
-	    (do ((line glyph (cdr line))
-		 (i 0 (+ i 1)))
-		((= i len))
-		(plot-string (+ cur-x dx) (+ (- cur-y i) dy) (car line))))))
-
+	(glyph (cadr c))
+	(scur-x (* scaling cur-x))
+	(scur-y (* scaling cur-y)))
+    ;; BBox: (llx lly urx ury) * 1000
+    (let ((dx (inexact->exact (* .001 (car bbox))))
+	  ;;(dy (inexact->exact (* .001 (cadr bbox))))
+	  (dy (inexact->exact (- (* .001 (cadddr bbox)) 1)))
+	  (len (length glyph)))
+      ;;(display "Bbox: ") (display bbox) (newline)
+      ;;(display "dy: ") (display dy) (newline)
+      (do ((line glyph (cdr line))
+	   (i 0 (+ i 1)))
+	  ((= i len))
+	(plot-string (+ scur-x dx) (+ (- scur-y i) dy) (car line))))))
+  
 (define (plot-string x y s)
   (do ((i 0 (+ i 1)))
       ((= i (string-length s)))
-      (plot (+ x i) y (substring s i (+ i 1)))))
+    (plot (+ x i) y (substring s i (+ i 1)))))
 
 (define (show-char char)
   (display char))
@@ -274,7 +282,7 @@ Options:
 		   (assoc (+ n 0.5) font))
 	      (get-char font (+ n 0.5))
 	      (get-char font n))))
-	 (if c
+	 (if (pair? c)
 	     (plot-char c))))
 
 (define (end-output) 
@@ -286,16 +294,24 @@ Options:
   (close cur-output-file)
   (set! cur-output-file '()))
 
+;; use plot-string
 (define (h-line len)
-  (let ((step (sign len)))
-       (do ((i 0 (+ i step)))
-	   ((= i len))
-	   (plot (+ cur-x i) cur-y line-char))))
+  (let ((scur-x (* scaling cur-x))
+	(scur-y (* scaling cur-y))
+	(slen (* scaling len)))
+    (let ((step (sign len)))
+	  (do ((i 0 (+ i step)))
+	      ((= i slen))
+	    (plot (+ scur-x i) scur-y line-char)))))
 
 (define (v-line len)
-  (let ((step (sign len)))
-       (do ((i 0 (+ i step)))
-	   ((= i len)) (plot cur-x (+ cur-y i) line-char))))
+  (let ((scur-x (* scaling cur-x))
+	(scur-y (* scaling cur-y))
+	(slen (* scaling len)))
+    (let ((step (sign len)))
+      (do ((i 0 (+ i step)))
+	  ((= i len))
+	(plot scur-x (+ scur-y i) line-char)))))
 
 (define (header x y)
   ;(display (string-append x y "\n") (current-error-port))
@@ -303,6 +319,7 @@ Options:
 
 (define (header-end) "")
 
+;; FIXME: scale
 (define (rline-to dx dy)
   (plot (inexact->exact cur-x) (inexact->exact cur-y) line-char)
   (plot (inexact->exact (+ cur-x dx)) (inexact->exact (+ cur-y dy)) line-char)
@@ -378,11 +395,19 @@ Options:
       (begin
        (set! fonts (cons (cons "default" (generate-default-font)) fonts))
        (display "\n" (current-error-port))
-       (if (and (defined? 'lilypondpaperlinewidth)
-		(> (string->number lilypondpaperlinewidth) 0))
-	   (set! canvas-width 
-		 (inexact->exact (string->number lilypondpaperlinewidth))))))
-  (set! canvas-height height)
+       (if (defined? 'lilypondpaperoutputscale)
+	   (set! scaling (inexact->exact (string->number lilypondpaperoutputscale))))
+       (if (defined? 'lilypondpaperlinewidth)
+	   (let ((width (inexact->exact
+			 (string->number lilypondpaperlinewidth))))
+	     (if (> width 0)
+		 (set! canvas-width width)
+		 ;; need long line...
+		 ;;(set! canvas-width 200)
+		 (set! canvas-width 80)
+		 )))
+       ))
+  (set! canvas-height (inexact->exact (* scaling height)))
   (set! canvas (make-array " " canvas-height canvas-width)))
 
 (define (stop-line)
@@ -410,6 +435,6 @@ Options:
 	   ((= i n)) 
 	    (let* ((n (char->integer (string-ref s i)))
 		   (c (get-char font n)))
-		  (plot-char c)
+	      (if (pair? c) (plot-char c))
 		  (rmove-to (char-width c) 0)))))
 
