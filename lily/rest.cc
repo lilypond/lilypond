@@ -23,7 +23,6 @@ Rest::after_line_breaking (SCM smob)
   int bt = gh_scm2int (me->get_elt_property ("duration-log"));
   if (bt == 0)
     {
-
       me->translate_axis (Staff_symbol_referencer::staff_space (me) , Y_AXIS);
     }
 
