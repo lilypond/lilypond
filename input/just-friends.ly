@@ -30,6 +30,18 @@ of a certain tune (Jazz, Real Book, for example), like
 
 %}
 
+%{
+
+FIXME
+
+This should (and once used to) look like:
+
+    | Fmaj7  | Fmaj7  | F7 | Bes7 |
+
+but all bar lines (note bar line at line start) are now gone.
+
+%}
+
 \score{
 	\context ChordNames \chords{
 		\property Score.barAtLineStart = 1
@@ -47,10 +59,17 @@ of a certain tune (Jazz, Real Book, for example), like
 	}
 	\paper{
 		indent = 0.0\mm
-		linewidth = 100.0\mm
+		linewidth = 120.0\mm
 		\translator{
 			\ChordNamesContext
 			barNonAuto = ##f
+
+			% added 
+			barAuto = ##t
+			defaultBarType = #"|"
+			Bar \override #'bar-size = #4
+			%ChordName \override #'word-space = #3
+			
 			\consists Bar_engraver
 			\consists "Volta_engraver"
 		}
