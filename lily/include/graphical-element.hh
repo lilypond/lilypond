@@ -57,7 +57,7 @@ public:
     translate in one direction
     */
     
-  void translate (Real, Axis);
+  void translate_axis (Real, Axis);
 
   Real relative_coordinate (Axis_group_element*group, Axis) const;
   Offset absolute_offset() const;

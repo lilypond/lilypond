@@ -22,10 +22,10 @@ Vertical_align_element::do_substitute_dependency (Score_elem*o,Score_elem*n)
 {
   int i;
   while ((i = elem_l_arr_.find_i (o))>=0) 
-	if (n) 
-	    elem_l_arr_[i] = n;
-	else
-	    elem_l_arr_.del (i);
+    if (n) 
+      elem_l_arr_[i] = n;
+    else
+      elem_l_arr_.del (i);
 }
 
 /**
@@ -40,18 +40,18 @@ Vertical_align_element::do_post_processing()
   Array<Interval> dims;
   for (int i=0; i < elem_l_arr_.size(); i++) 
     {
-	Interval y = elem_l_arr_[i]->height() ;
-	if (y.empty_b())
-	    y = Interval (0,0);
+      Interval y = elem_l_arr_[i]->height() ;
+      if (y.empty_b())
+	y = Interval (0,0);
 	
-	dims.push (y);
+      dims.push (y);
     }
 
   Real where_f=0;
   for (int i=0 ;  i < elem_l_arr_.size(); i++) 
     {
-	elem_l_arr_[i]->translate (- dims[i][1] - where_f, Y_AXIS);
-	where_f += dims[i].length();
+      elem_l_arr_[i]->translate_axis (- dims[i][1] - where_f, Y_AXIS);
+      where_f += dims[i].length();
     }
 }
 

@@ -25,6 +25,8 @@ Local_key_item::Local_key_item (int i)
 void
 Local_key_item::add_support (Item*head_l)
 {
+  if (support_items_.find_l(head_l))
+    return ;
   support_items_.push (head_l);
   add_dependency (head_l);
 }
@@ -70,18 +72,17 @@ Local_key_item::brew_molecule_p() const
 	  if (octave_mol_p)
 	    {
 	      Real dy =lastoct*7*paper()->internote_f ();
-	      octave_mol_p->translate (dy, Y_AXIS);
+	      octave_mol_p->translate_axis (dy, Y_AXIS);
 	      output->add (*octave_mol_p);
 	      delete octave_mol_p;
 	    }
 	  octave_mol_p= new Molecule;
 	}
       lastoct = accs[i].octave_i_;
-      
       Real dy = (accs[i].name_i_ + c0_position) * paper()->internote_f ();
       Atom a (paper()->lookup_l ()->accidental (accs[i].accidental_i_));
-      a.dim_[X_AXIS] += 1 PT; // todo
-      a.translate (dy, Y_AXIS);
+
+      a.translate_axis (dy, Y_AXIS);
       Molecule m(a);
       octave_mol_p->add_at_edge (X_AXIS, RIGHT, m);
     }
@@ -89,7 +90,7 @@ Local_key_item::brew_molecule_p() const
   if (octave_mol_p)
     {
       Real dy =lastoct*7*paper()->internote_f ();
-      octave_mol_p->translate (dy, Y_AXIS);
+      octave_mol_p->translate_axis (dy, Y_AXIS);
       output->add (*octave_mol_p);
       delete octave_mol_p;
     }
@@ -100,8 +101,22 @@ Local_key_item::brew_molecule_p() const
       Molecule m (paper()->lookup_l ()->fill (b));
       output->add_at_edge (X_AXIS, RIGHT, m);
     }
-  Interval head_width=itemlist_width (support_items_);
-  output->translate (-output->extent().x ().right + head_width.left , X_AXIS);
+
+  Interval x_int;
+  for (int i=0; i < support_items_.size(); i++) 
+    {
+      Axis_group_element *common = 
+	common_group (support_items_[i], X_AXIS);
+
+      Real x = support_items_[i]->relative_coordinate (common, X_AXIS)  
+	-relative_coordinate (common, X_AXIS);
+
+      x_int.unite (x + support_items_[i]->width());
+    }
+  if (x_int.empty_b ())
+    x_int = Interval(0,0);
+  
+  output->translate_axis (-output->extent()[X_AXIS][RIGHT] + x_int[LEFT], X_AXIS);
   
   return output;
 }

@@ -110,7 +110,7 @@ Span_bar::brew_molecule_p() const
 
   Atom s = get_bar_sym (y_int.length());
   Molecule*output = new Molecule (Atom (s));
-  output->translate (y_int[-1], Y_AXIS);
+  output->translate_axis (y_int[-1], Y_AXIS);
   return output;
 }
 

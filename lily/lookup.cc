@@ -132,7 +132,7 @@ Lookup::clef (String s) const
 }
  
 Atom
-Lookup::dots (int j) const
+Lookup::dots () const
 {
   return (*symtables_)("dots")->lookup ("dot");
 }
@@ -193,11 +193,10 @@ Lookup::hairpin (Real &wid, bool decresc) const
 }
 
 Atom
-Lookup::linestaff (int lines, Real wid) const
+Lookup::linestaff (int lines, Real interline_f, Real wid) const
 {
-  Real internote_f = paper_l_ ->internote_f();
   Atom s;
-  Real dy = (lines >0) ? (lines-1)*internote_f : 0;
+  Real dy = (lines >0) ? (lines-1)*interline_f : 0;
   s.dim_ = Box (Interval (0,wid), Interval (0,dy));
 
   Array<String> a;
@@ -206,6 +205,9 @@ Lookup::linestaff (int lines, Real wid) const
 
   s.tex_ = (*symtables_)("param")->lookup ("linestaf").tex_;
   s.tex_ = substitute_args (s.tex_, a);
+
+
+  s.translate_axis (-s.extent ()[Y_AXIS].center (), Y_AXIS);
 
   return s;
 }

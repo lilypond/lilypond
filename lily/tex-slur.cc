@@ -69,7 +69,7 @@ Lookup::half_slur_middlepart (Real &dx, Direction dir) const
 
   f +=String ("{") + String (idx) + "}";
   s.tex_ = f;
-  s.translate (dx/2, X_AXIS);
+  s.translate_axis (dx/2, X_AXIS);
 
   return s;
 }
@@ -206,7 +206,7 @@ Lookup::slur (int dy , Real &dx, Direction dir) const
   s.tex_ = f;
 
 
-  s.translate (dx/2, X_AXIS);
+  s.translate_axis (dx/2, X_AXIS);
   return s;    
 }
 
@@ -239,7 +239,7 @@ Lookup::big_slur (int dy , Real &dx, Direction dir) const
   mol.add_at_edge (X_AXIS, RIGHT, a);
   mol.add_at_edge (X_AXIS, RIGHT, r);
 
-  mol.translate (l_dy * internote_f, Y_AXIS);
+  mol.translate_axis (l_dy * internote_f, Y_AXIS);
   Atom s;
   s.tex_ = mol.TeX_string();
   s.dim_ = mol.extent();
