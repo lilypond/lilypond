@@ -157,9 +157,6 @@ into one staff.")
  'chordNameFunction procedure?
  "The function that converts lists of pitches to chord names.")
 (translator-property-description
- 'chordNameStyle symbol?
- "The chord name style: ignatzek, banter or jazz.")
-(translator-property-description
  'chordNoteNamer procedure?
  "Function that converts from a pitch object to a text markup. Used for single pitches.")
 (translator-property-description

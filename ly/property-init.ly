@@ -64,8 +64,6 @@ tupletBoth = {
   \property Voice.TupletBracket \revert #'direction
 }
 
-
-
 cadenzaOn = \property Timing.timing = ##f
 cadenzaOff = {
   \property Timing.timing = ##t
@@ -251,19 +249,21 @@ setMmRestFermata =
 
 
 hideNotes =\sequential {
-                % hide notes, accidentals, etc.
-                \property Voice.NoteHead \override #'transparent = ##t
-                \property Voice.Stem \override #'transparent = ##t
-                \property Voice.Beam \override #'transparent = ##t
-                \property Staff.Accidental \override #'transparent = ##t
+				% hide notes, accidentals, etc.
+    \property Voice.Dots \override #'transparent = ##t
+    \property Voice.NoteHead \override #'transparent = ##t
+    \property Voice.Stem \override #'transparent = ##t
+    \property Voice.Beam \override #'transparent = ##t
+    \property Staff.Accidental \override #'transparent = ##t
 }
 
 
 unHideNotes =  \sequential {
-\property Voice.NoteHead \revert #'transparent
-\property Voice.Stem \revert #'transparent
-\property Voice.Beam \revert #'transparent
-\property Staff.Accidental \revert #'transparent
+  \property Staff.Accidental \revert #'transparent
+  \property Voice.Beam \revert #'transparent
+  \property Voice.Stem \revert #'transparent
+  \property Voice.NoteHead \revert #'transparent
+  \property Voice.Dots \revert #'transparent 
 }
 
 germanChords = {

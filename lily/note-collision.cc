@@ -203,7 +203,7 @@ check_meshing_chords (Grob*me,
       else if (upball_type > dnball_type)
 	wipe_ball = nu;
 
-      if (wipe_ball)
+      if (wipe_ball && wipe_ball->live ())
 	{
 	  wipe_ball->set_grob_property ("transparent", SCM_BOOL_T);
 	  wipe_ball->set_grob_property ("molecule", SCM_EOL);	  

@@ -1,8 +1,10 @@
 \version "1.7.18"
 
 \header {
-    texidoc = "test file for new-new-chord names, ie, double-plus-new-chord-name
-"
+
+texidoc = "test file for new-new-chord names, ie, chord-generic-names
+    "
+    
 }
 
 efullmusic = \notes {
@@ -94,13 +96,9 @@ ch = \notes \transpose c c'
 \score{
     <
 	\context ChordNames {
-	% #(set-chord-name-style 'jazz)
-	% #(set-chord-name-style 'double-plus-new-banter)
-	% #(set-chord-name-style 'double-plus-new-jazz)
-	
-	#(set-chord-name-style 'banter)
+       \property ChordNames.chordNameFunction = #banter-chord-names
 	\ch
-	#(set-chord-name-style 'jazz)
+       \property ChordNames.chordNameFunction = #jazz-chord-names
 	
 	\ch
     }
