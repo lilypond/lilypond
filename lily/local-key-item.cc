@@ -3,9 +3,9 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-#include "dimen.hh"
+#include "dimension.hh"
 #include "local-key-item.hh"
 #include "molecule.hh"
 #include "scalar.hh"
@@ -15,9 +15,9 @@
 #include "note-head.hh"
 #include "misc.hh"
 
-Local_key_item::Local_key_item (int i)
+Local_key_item::Local_key_item ()
 {
-  c0_position  = i;
+  c0_position_i_  = 0;
 }
 
 void
@@ -61,14 +61,14 @@ Local_key_item::brew_molecule_p() const
 	    {
 	      Real dy =lastoct*7*paper()->internote_f ();
 	      octave_mol_p->translate_axis (dy, Y_AXIS);
-	      output->add (*octave_mol_p);
+	      output->add_molecule (*octave_mol_p);
 	      delete octave_mol_p;
 	    }
 	  octave_mol_p= new Molecule;
 	}
       lastoct = accs[i].octave_i_;
-      Real dy = (accs[i].notename_i_ + c0_position) * paper()->internote_f ();
-      Atom a (paper()->lookup_l ()->accidental (accs[i].accidental_i_));
+      Real dy = (accs[i].notename_i_ + c0_position_i_) * paper()->internote_f ();
+      Atom a (lookup_l ()->accidental (accs[i].accidental_i_));
 
       a.translate_axis (dy, Y_AXIS);
       Molecule m(a);
@@ -79,21 +79,21 @@ Local_key_item::brew_molecule_p() const
     {
       Real dy =lastoct*7*paper()->internote_f ();
       octave_mol_p->translate_axis (dy, Y_AXIS);
-      output->add (*octave_mol_p);
+      output->add_molecule (*octave_mol_p);
       delete octave_mol_p;
     }
   
  if (accs.size()) 
     {
       Box b(Interval (0, paper()->internote_f ()), Interval (0,0));
-      Molecule m (paper()->lookup_l ()->fill (b));
+      Molecule m (lookup_l ()->fill (b));
       output->add_at_edge (X_AXIS, RIGHT, m);
     }
 
   Interval x_int;
   for (int i=0; i < support_items_.size(); i++) 
     {
-      Axis_group_element *common = 
+      Graphical_axis_group *common = 
 	common_group (support_items_[i], X_AXIS);
 
       Real x = support_items_[i]->relative_coordinate (common, X_AXIS)  
@@ -112,10 +112,10 @@ Local_key_item::brew_molecule_p() const
 IMPLEMENT_IS_TYPE_B1(Local_key_item,Item);
 
 void
-Local_key_item::do_substitute_dependency (Score_elem*o,Score_elem*n)
+Local_key_item::do_substitute_dependency (Score_element*o,Score_element*n)
 {
-  Item* o_l = o->item();
-  Item* n_l = n?n->item():0;
+  Item* o_l = o->access_Item ();
+  Item* n_l = n?n->access_Item ():0;
 
   support_items_.substitute (o_l, n_l);
 }
