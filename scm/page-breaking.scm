@@ -61,7 +61,7 @@
       #:pageno page-num
       #:penalty penalty))
 
-  (define INFINITY 1e9)
+  (define MAXPENALTY 1e9)
 
   
   (define (line-height line)
@@ -76,9 +76,15 @@
 	 ;; scale independent
 	 (relative-empty (/ left available)))
 
-      ;; Convexity: two half-empty pages is better than 1 completely
-      ;; empty page
-      (* (1+ relative-empty) relative-empty)))
+      (if (negative? left)
+
+	  ;
+	  ; too full 
+	  MAXPENALTY
+
+	  ;; Convexity: two half-empty pages is better than 1 completely
+	  ;; empty page
+	  (* (1+ relative-empty) relative-empty))))
   
 
   ;; TODO: rewrite
@@ -151,13 +157,13 @@ CURRENT-BEST is the best result sofar, or #f."
 		      "height " page-height " spc used: " space-used "\n"
 		      "pen " this-page-penalty " lines: " current-lines  "\n"))
 	 
-	 (foo (display debug-info))
+;	 (foo (display debug-info))
 	 )
 
       (if (and (pair? done-lines)
 	       
 	       ;; if this page is too full, adding another line won't help
-	       (positive? this-page-penalty))
+	       (< this-page-penalty MAXPENALTY))
 	  (walk-paths (cdr done-lines) (cdr best-paths) (cons (car done-lines) current-lines)
 		      last? new-best)
 	  new-best)))
@@ -197,7 +203,7 @@ DONE."
        (break-numbers (map line-number break-nodes))
        )
 
-    (display break-lines)
+;    (display break-lines)
     
     (if (ly:get-option 'verbose)
 	(begin
