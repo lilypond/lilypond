@@ -9,13 +9,12 @@
 
 #include "musical-request.hh"
 #include "paper-column.hh"
-
-#include "spacing-spanner.hh"
 #include "engraver.hh"
 #include "pqueue.hh"
 #include "note-spacing.hh"
 #include "staff-spacing.hh"
 #include "group-interface.hh"
+#include "spanner.hh"
 
 struct Rhythmic_tuple
 {
@@ -123,16 +122,17 @@ Spacing_engraver::stop_translation_timestep ()
 	}
     }
   
-  Moment starter, inf;
-  inf.set_infinite (1);
-  starter=inf;
+  Moment starter;
+  starter.set_infinite (1);
+
   for (int i=0; i < now_durations_.size (); i++)
     {
       Moment m = now_durations_[i].info_.music_cause ()->length_mom ();
       if (m.to_bool ())
-	starter = starter <? m;
-
-      playing_durations_.insert (now_durations_[i]);
+	{
+	  starter = starter <? m;
+	  playing_durations_.insert (now_durations_[i]);
+	}
     }
   now_durations_.clear ();
   
@@ -141,6 +141,7 @@ Spacing_engraver::stop_translation_timestep ()
   Paper_column * sc
     = dynamic_cast<Paper_column*> (unsmob_grob (get_property ("currentMusicalColumn")));
 
+  assert (starter.to_bool ());
   SCM sh = shortest_playing.smobbed_copy ();
   SCM st = starter.smobbed_copy ();
 

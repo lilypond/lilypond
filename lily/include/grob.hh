@@ -73,6 +73,8 @@ public:
   void set_immutable_grob_property (const char * , SCM val);
   void set_immutable_grob_property (SCM key, SCM val);
 #endif
+
+  void warning (String);
   
   void set_elt_pointer (const char*, SCM val);
   friend class Property_engraver; //  UGHUGHUGH.

@@ -14,6 +14,9 @@ fet_begingroup("clefs");
 %
 % [Ross] says that clefs take 1 staff_space space on the left and right
 %
+% this is now handled in the lilypond spacing engine. 
+%
+
 def set_horizontal_spacing =
 	save left_space ,right_space;
 	left_space# = 0;
@@ -24,17 +27,17 @@ enddef;
 % [Wanske] says the bulbs should be positioned about 1/4 right of the
 % "arrow"
 def draw_c_clef (expr reduction) = 
-	save hair, norm, reduced_il, right_edge;
-	reduced_il#=staff_space#*reduction;
-	norm#:=2/3reduced_il#;
+	save hair, norm, reduced_ss, right_edge;
+	reduced_ss#=staff_space#*reduction;
+	norm#:=2/3reduced_ss#;
 	hair#:=1/6norm#;
 
 	set_horizontal_spacing;
 	right_edge# = 15/4norm#+2hair#;
 
 	set_char_box (left_space#, right_edge# + right_space#, 
-		2 reduced_il#, 2 reduced_il#);
-	define_pixels (hair,norm,reduced_il, right_edge);
+		2 reduced_ss#, 2 reduced_ss#);
+	define_pixels (hair,norm,reduced_ss, right_edge);
 
 	draw_block ((0,-d), (3/4norm+1/2hair,h));
 	draw_block ((3/4norm+2hair,-d), 
@@ -50,7 +53,7 @@ def draw_c_clef (expr reduction) =
 	z3=(((right_edge -xoff)/2)+xoff,2hair);
 
 	penpos4(hair,0);
-	z4=(xoff+1/2norm+1/2hair,reduced_il-hair);
+	z4=(xoff+1/2norm+1/2hair,reduced_ss-hair);
 	
 	penpos5(4hair,0);
 	z5=(xoff+5/4hair,0);
@@ -64,7 +67,6 @@ def draw_c_clef (expr reduction) =
 	p = z5l..z4l{up}..z4r{down}..z3r{right}..tension t..z2r{up}
 		..tension t..
 		flare_path(z1l,180,90,hair,norm-1/2hair, -1)
-%z1r{left}..z1l{right}
 		..tension t..z2l{down}
 		..z3l{left}..z6r..z5r{down};
 	pickup pencircle scaled 1pt#;
@@ -90,64 +92,154 @@ fet_beginchar ("C clef", "C_change", "caltoclef")
 fet_endchar;
 
 %
-% Inspired by Baerenreiter and Breitkopf
-% 
-% FIXME: dims
-% FIXME: right vertical tangent seems to be lower than the F-line
-% FIXME: bulb curve smoothly into "long curve" on the  inside
+% New bulb routine:
+%
+% Insert a brushed piece of the path, and draw a bulb separately
+%
+% The bulb is  circular form. Neat merging of the bulb and brushed path
+% is done by playing with tension.
 %
 %
-% [Wanske] says that the extreme x point should be exactly between 
-% the dots, but her picture shows that the extreme is ~ 0.2 ss lower
+
+def new_bulb (expr outer_tangent_point, 
+    big_radius, bulb_radius, flare, direction) =
+  begingroup;
+    save p, oldpen;
+    path p;
+    pen oldpen;
+    save center;
+    pair center;
+    clearxy;
+    
+    center = outer_tangent_point +big_radius* dir(0) + big_radius* dir(-90)
+      - bulb_radius * dir (-90);
+
+    z1 = center + bulb_radius * dir 180;
+    z2 = center + bulb_radius * dir 270;
+
+    z9 = center + bulb_radius * dir (0);
+    z10 = center + bulb_radius * dir (90);
+    z3 = outer_tangent_point + flare * dir (0);
+
+    labels(1,2,3,9,10);
+
+    % tension is needed to open up the space between return path and the
+    % ball.
+    fill
+      z9 .. z10 .. tension 1.1  .. z1 .. z2 .. cycle;
+    
+    p:=    outer_tangent_point{down}
+       .. tension 0.97
+       .. {up}z9 -- z3
+     ;
+    if direction = 1:
+      p
+    else:
+      reverse p
+    fi
+  endgroup
+enddef;
+
+
+
+%
+%
+% There is  some variation is shape of bass clefs. Important points
+%
+% * the size of the swoosh tip: in some clefs, it almost reaches the
+% bottom staff line, in some it crosses the 2nd line from the bottom
+% with a small overshoot.
+%
+% The most popular design is where the X part of the tip is aligned 
+% left bulb boundary, and the Y part ends on the 2nd staffline exactly. 
+% This is what we do.
+%
+% * The size of the bulb. The diameter of the bulb is the width of the 
+% open space.
+%
+% * The y-alignment of the bulb. The center of the bulb can be on or slightly 
+% above the staff line.
+%
+% * The position of the dots. They can be symmetrical around the
+% staffline, centered in the staff space. The Baerenreiter SCS has the
+% bottom dot raised by approx. 0.1 ss.
+%
+% * uncarefully set music may have overshoots at the top. We have none. 
+%
+% * It is not exactly clear where the vertical tangent at the right
+% of the swoosh should be.
+%
+%
 
 def draw_bass_clef(expr exact_center, reduction) = 
-        save reduced_il, left_tilt, left_thick, ball_to_right;
-        reduced_il# = staff_space# * reduction;
-        
+        save reduced_ss, left_tilt, left_thick, swoosh_width;
+	save right_thickness, tip_protude;
+	pair tip_protude;
+        save dot_diam;
+        reduced_ss# = staff_space# * reduction;
+
+
+        2.2 dot_diam = round reduction* (staff_space - stafflinethickness);
+	right_thickness = 0.48;
+        left_thick = .25;
+        swoosh_width# = 2.1 reduced_ss#;
+%	tip_protude := (-stafflinethickness, -.2 staff_space);
+	tip_protude := (0, 0);	
         set_horizontal_spacing;
-        ball_to_right# = 2.1 reduced_il#;
+	bulb_y_offset := 0.15 staff_space;
+	overshoot_top := 0.0;
+	%% 
+
         set_char_box(left_space# +
                 - xpart exact_center,
                 right_space# +
-                xpart exact_center + ball_to_right# + 7/12 reduced_il#, 
-                - ypart exact_center + 2.5 reduced_il#, 
-                ypart exact_center +reduced_il#);
+                xpart exact_center + swoosh_width# + 7/12 reduced_ss#, 
+                - ypart exact_center + 2.5 reduced_ss#, 
+                ypart exact_center +reduced_ss#);
 
-        define_pixels(reduced_il, ball_to_right);
+        define_pixels(swoosh_width);
+	define_whole_pixels(reduced_ss); 
         left_tilt = 5;
-        left_thick = .25  reduced_il;
 
-        x1r - x1l = left_thick;
-        z1l = (hround_pixels(xpart exact_center), 
-                vround_pixels(ypart exact_center));
+	y1 = bulb_y_offset;
+	x1 = 0;
 
-        y2 = reduced_il;
-
-        x3l - x1l =  ball_to_right;
         x2 = .5 [x1,x3];
-        x3l - x3r = .48 reduced_il;
-        y3l = -0.05 staff_space;
-        x4 = x1l - stafflinethickness;
-        y4 = -2.2  reduced_il;
-        z5 = (x3l +  1/3 reduced_il, .5 reduced_il);
+	x2l = x2r = x2;
 
-        penpos1(whatever, left_tilt);
-        penpos2(1.2 stafflinethickness, -90);
+	y2l := vround_pixels (reduced_ss#  + 0.5 stafflinethickness#);
+	y2l - y2r = (1.0 + overshoot_top) * stafflinethickness;
+	y2 = .5 [y2l, y2r];
+
+        x3l - x1 =  swoosh_width;
+        x3l - x3r = right_thickness * reduced_ss;
+
+	% try to correct: the top dot seems farther away if y3l = 0.
+        y3l = 0.05 staff_space;
+	
+        z4 =  - (0, 2.0 reduced_ss) + tip_protude;
+
+        z5 = (x3l +  1/3 reduced_ss, .5 reduced_ss);
+
         penpos3(whatever,  185);
         penpos4(stafflinethickness, 135);
 
-        draw_bulb(1, z1r,  z1l, .45 reduced_il, 1.0);
+	pickup pencircle scaled 1; 
+%	draw
+	fill
+           new_bulb (z1, 0.4 reduced_ss, 0.35 reduced_ss, 2 stafflinethickness,  1)
 
-
-        fill z1r{up} .. z2r{right} .. tension 1.0 .. z3r{down}  .. {curl 0} 
+{dir (90)}
+	        .. z2r{right} .. tension 1.0 .. z3r{down}  .. {curl 0} 
                 simple_serif(z4r, z4l, 90) {curl 0}
                 .. z3l{up} .. tension 0.9 .. z2l{left} 
-                .. z1l{dir (-90 + left_tilt)} -- cycle;
+                 .. cycle
+		;
         labels(2,4);
-        penlabels(1,2,3,4);
+        labels(range 1 thru 12);
 
-        save dot_diam;
-        2 dot_diam = round reduction* (staff_space - stafflinethickness);
+	penlabels(2,3,4);
+
         pickup pencircle scaled dot_diam;
         drawdot z5;
         drawdot z5 yscaled -1;
@@ -160,11 +252,11 @@ fet_beginchar("F clef ", "F", "bassclef")
 	if test = 1:
 		draw_staff(-3,1, 0.0);
 	fi;
-	draw_bass_clef((.5 staff_space#, 0), 1.0);
+	draw_bass_clef((0, 0), 1.0);
 fet_endchar;
 
 fet_beginchar("F clef (reduced)", "F_change", "cbassclef")
-	draw_bass_clef((.4 staff_space#, 0),0.8);
+	draw_bass_clef((0, 0),0.8);
 fet_endchar;
 
 
@@ -189,11 +281,11 @@ fet_endchar;
 %
 
 def draw_gclef (expr exact_center, reduction)=
-	save reduced_il, downstroke_dir, downstroke_angle, hair, center;
+	save reduced_ss, downstroke_dir, downstroke_angle, hair, center;
 	save breapth_factor, inner_thick_end, thinness, thickness, thinnib;
 	save inner_start_angle, thinness, thinpen;
-	reduced_il# = staff_space# * reduction;
-	define_pixels(reduced_il);
+	reduced_ss# = staff_space# * reduction;
+	define_pixels(reduced_ss);
 	pair downstroke_dir, center;
 
 	center := (hround_pixels(xpart exact_center), 
@@ -206,7 +298,7 @@ def draw_gclef (expr exact_center, reduction)=
 	breapth_factor = 11/7;
 	inner_thick_end = 45;
 	inner_start_angle = downstroke_angle - 43;
-	thickness = .4 reduced_il - hair;
+	thickness = .4 reduced_ss - hair;
 
 	thinnib = thinness - hair;
 	thinpen = thinness;
@@ -214,45 +306,45 @@ def draw_gclef (expr exact_center, reduction)=
 	
 	set_char_box(
 		left_space# +
-		-xpart exact_center + 1.0 * breapth_factor* reduced_il#, 
+		-xpart exact_center + 1.0 * breapth_factor* reduced_ss#, 
 		right_space# +
-		xpart exact_center + .66 breapth_factor* reduced_il#,
-		-ypart exact_center + 3 * reduced_il#,
-		ypart exact_center + 5 * reduced_il#);
+		xpart exact_center + .66 breapth_factor* reduced_ss#,
+		-ypart exact_center + 3 * reduced_ss#,
+		ypart exact_center + 5 * reduced_ss#);
 	
 	pickup pencircle scaled hair;
 	downstroke_angle = angle downstroke_dir;
 
 	z1 = center + whatever * dir (inner_start_angle);
-	x1 = xpart center -.28 reduced_il;
+	x1 = xpart center -.28 reduced_ss;
 	
-	top z2r = center + (0,reduced_il + stafflinethickness/2);
+	top z2r = center + (0,reduced_ss + stafflinethickness/2);
 	
-	x4 = xpart center - .1 reduced_il;
-	bot y4r = -(reduced_il + .5 stafflinethickness);
+	x4 = xpart center - .1 reduced_ss;
+	bot y4r = -(reduced_ss + .5 stafflinethickness);
 
 	z3 = (z4 - center) rotated inner_thick_end + center;
 	
-	z5r = (- breapth_factor, .37)* reduced_il + center;
+	z5r = (- breapth_factor, .37)* reduced_ss + center;
 	penpos5(thickness, 135);
 
 	z6 = center + whatever * downstroke_dir;
-	y6 = ypart center + 2 reduced_il;
+	y6 = ypart center + 2 reduced_ss;
 
 	z7l - z6 = whatever *(z5- z6) ;
-	y7l = 3.5 reduced_il;
+	y7l = 3.5 reduced_ss;
 	z8r = .4 [z9r, z7r] + 1.5 stafflinethickness * dir 52;
 
 	x9 = .7 [x10, x7r];
-	top y9l = 5 reduced_il;
+	top y9l = 5 reduced_ss;
 
-	y10 = 3. reduced_il;
-	y11 = -11/7 reduced_il;
+	y10 = 3. reduced_ss;
+	y11 = -11/7 reduced_ss;
 
-	y12 = ypart center - 18.5/7 reduced_il;
-	x12 = x11 - 5 /7 reduced_il;	
+	y12 = ypart center - 18.5/7 reduced_ss;
+	x12 = x11 - 5 /7 reduced_ss;	
 
-	z13 = z12 + .6 reduced_il*(-1,1);
+	z13 = z12 + .6 reduced_ss*(-1,1);
 
 	(z10r - z10l) dotprod (unitvector downstroke_dir rotated 90) = 
 		thinnib;
@@ -293,7 +385,7 @@ def draw_gclef (expr exact_center, reduction)=
 
 	filldraw z12r{left} .. z13r{up} -- z13l{down} .. z12l{right} .. cycle;
 
-	draw_bulb(-1,  z13l, lft z13r, 6/14 reduced_il, 1.0);
+	draw_bulb(-1,  z13l, lft z13r, 6/14 reduced_ss, 1.0);
 
 	pickup pencircle scaled (thinpen);
 	draw z10 --- z14 .. z11  .. tension 0.85 ..  z12{left};
@@ -319,11 +411,11 @@ fet_endchar;
 
 
 def draw_percussion_clef(expr reduction) =
-	save reduced_il;
-	reduced_il# = staff_space# * reduction;
-	define_pixels(reduced_il);
-	set_char_box(-.67reduced_il#,2.0reduced_il#,reduced_il#,reduced_il#);
-	razt := 0.45reduced_il;
+	save reduced_ss;
+	reduced_ss# = staff_space# * reduction;
+	define_pixels(reduced_ss);
+	set_char_box(-.67reduced_ss#,2.0reduced_ss#,reduced_ss#,reduced_ss#);
+	razt := 0.45reduced_ss;
 	draw_block((-b,-d),(-b+razt,h));
 	draw_block((w-razt,-d),(w,h));
 enddef;
@@ -492,23 +584,23 @@ def draw_tab_B(expr pos, siz, slant) =
 enddef;
 
 def draw_tab_clef(expr reduction) =
-        save reduced_il,vx,vy,letterheight,penw,penh;
-	reduced_il# = staff_space# * reduction;
-	letterheight# = 1.8*reduced_il#;
-	define_pixels(reduced_il,letterheight);
-	set_char_box(-.2*reduced_il#,2.8*reduced_il#,1.6*letterheight#,1.6*letterheight#);
+        save reduced_ss,vx,vy,letterheight,penw,penh;
+	reduced_ss# = staff_space# * reduction;
+	letterheight# = 1.8*reduced_ss#;
+	define_pixels(reduced_ss,letterheight);
+	set_char_box(-.2*reduced_ss#,2.8*reduced_ss#,1.6*letterheight#,1.6*letterheight#);
 
 		%draw_staff (-3,2, 0.5);
 
-	penw = .45reduced_il;
-	penh = .2reduced_il;
+	penw = .45reduced_ss;
+	penh = .2reduced_ss;
 
-	draw_tab_T((-b+.15reduced_il,h-letterheight),
-	  (2.1*reduced_il,letterheight),0.2);
-	draw_tab_A((-b-.05reduced_il,-.5letterheight +.15reduced_il),
-	  (2.2*reduced_il,letterheight),0.4);
-	draw_tab_B((-b+.025reduced_il,-d),
-	  (2.1*reduced_il,letterheight),0.25);
+	draw_tab_T((-b+.15reduced_ss,h-letterheight),
+	  (2.1*reduced_ss,letterheight),0.2);
+	draw_tab_A((-b-.05reduced_ss,-.5letterheight +.15reduced_ss),
+	  (2.2*reduced_ss,letterheight),0.4);
+	draw_tab_B((-b+.025reduced_ss,-d),
+	  (2.1*reduced_ss,letterheight),0.25);
 enddef;
 
 fet_beginchar("tab clef", "tab", "tabclef")

@@ -17,7 +17,7 @@ struct Spaceable_grob
 {
   /// set a minimum distance
   static void add_rod (Grob*me, Grob * to, Real distance);
-  static void add_spring (Grob*me,Grob * to, Real dist, Real strength);
+  static void add_spring (Grob*me,Grob * to, Real dist, Real strength, bool);
   static void set_interface (Grob*);
   static void remove_interface (Grob*);
   static SCM get_minimum_distances (Grob*);

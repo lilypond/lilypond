@@ -49,7 +49,8 @@ struct Interval_t : public Drul_array<T> {
     set_empty ();
   }
   Interval_t (T m, T M) : Drul_array<T> (m,M)
-    {}
+    {
+    }
   Interval_t<T> &operator -= (T r) {
     *this += -r;
     return *this;
@@ -65,11 +66,9 @@ struct Interval_t : public Drul_array<T> {
       {
 	elem (LEFT) *= r;
 	elem (RIGHT) *= r;
-	if (r < T (0)) {
-	  T t = elem (LEFT);
-	  elem (LEFT) = elem (RIGHT);
-	  elem (RIGHT) = t;
-	}
+	if (r < T (0))
+	  swap();
+
       }
     return *this;
   }
@@ -85,6 +84,14 @@ struct Interval_t : public Drul_array<T> {
     T l = -elem (RIGHT);
     elem (LEFT) = l;
     elem (RIGHT) =r;
+  }
+private:
+
+  void swap ()
+  {
+    T t = elem (LEFT);
+    elem (LEFT) = elem (RIGHT);
+    elem (RIGHT) = t;
   }
 };
 

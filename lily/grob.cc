@@ -283,7 +283,7 @@ Grob::get_uncached_molecule ()const
   
   if (unsmob_molecule (mol))
     {
-      SCM origin =	ly_symbol2scm ("no-origin");
+      SCM origin = ly_symbol2scm ("no-origin");
       
       if (store_locations_global_b){
 	SCM cause = get_grob_property ("cause");
@@ -756,6 +756,24 @@ Grob::fixup_refpoint (SCM smob)
   return smob;
 }
 
+void
+Grob::warning (String s)
+{
+  SCM cause = self_scm();
+  while (cause != SCM_EOL && !unsmob_music (cause))
+    {
+      Grob * g = unsmob_grob (cause);
+      cause = g->get_grob_property ("cause");
+    }
+
+  if (Music *m = unsmob_music (cause))
+    {
+      m->origin()->warning (s);
+    }
+  else
+    ::warning (s);
+      
+}
 
 
 /****************************************************

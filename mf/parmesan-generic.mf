@@ -22,6 +22,7 @@ make_picture_stack;
 input feta-params;
 
 font_x_height  staff_space#;
+font_coding_scheme "parmesan music";
 
 if test = 0: 
 	input parmesan-rests;

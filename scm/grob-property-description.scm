@@ -42,8 +42,11 @@ This procedure is called (using dependency resolution) after line breaking. Retu
 (grob-property-description 'arch-height number? "height of the hook of a system brace.")
 (grob-property-description 'arch-thick number? "thickness of the hook of system brace.")
 (grob-property-description 'arch-width number? "width of the hook of a system brace.")
-(grob-property-description 'arithmetic-basicspace number? "see @ref{spacing-spanner-interface}.")
-(grob-property-description 'arithmetic-multiplier number? "see @ref{spacing-spanner-interface}.")
+(grob-property-description 'shortest-duration-space number? "Start
+with this much space for the shortest duration. This is explessed in @code{spacing-increment} as unit. See also
+@ref{spacing-spanner-interface}.")
+(grob-property-description 'spacing-increment number? "Add this much space for a doubled duration. Typically, the width of a note head. See also @ref{spacing-spanner-interface}.")
+
 (grob-property-description 'arpeggio-direction dir? "If set, put an
 arrow on the arpeggio squiggly line.")
 (grob-property-description 'attachment pair? "cons of symbols, '(LEFT-TYPE . RIGHT-TYPE), where both types may be alongside-stem, stem, head or loose-end.")

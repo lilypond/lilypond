@@ -90,12 +90,12 @@ Beam::before_line_breaking (SCM smob)
   
   if (visible_stem_count (me) < 2)
     {
-      warning (_ ("beam has less than two visible stems"));
+      me->warning (_ ("beam has less than two visible stems"));
 
       SCM stems = me->get_grob_property ("stems");
       if (scm_ilength (stems) == 1)
 	{
-	  warning (_("Beam has less than two stems. Removing beam."));
+	  me->warning (_("Beam has less than two stems. Removing beam."));
 
 	  unsmob_grob (gh_car (stems))->remove_grob_property ("beam");
 	  me->suicide ();
@@ -657,7 +657,7 @@ Beam::check_stem_length_f (Grob*me,Real y, Real dy)
     }
 
   if (lengthen && shorten)
-    warning (_ ("weird beam vertical offset"));
+    me->warning (_ ("weird beam vertical offset"));
 
   /* when all stems are too short, normal stems win */
   return dir * ((shorten) ?  shorten : lengthen);

@@ -277,8 +277,6 @@ ADD_SCM_INIT_FUNC (cname,cname ## _init_func);\
 GLOBAL_SYMBOL (offset_sym , "translate-molecule");
 GLOBAL_SYMBOL (placebox_sym , "placebox");
 GLOBAL_SYMBOL (combine_sym , "combine-molecule");
-GLOBAL_SYMBOL (no_origin_sym , "no-origin");
-GLOBAL_SYMBOL (define_origin_sym , "define-origin");
 
 
 
@@ -297,24 +295,24 @@ Line_of_score::output_molecule (SCM expr, Offset o)
 	  Input * ip = unsmob_input (head);
       
 
-	  pscore_l_->outputter_l_->output_scheme (scm_list_n (define_origin_sym,
+	  pscore_l_->outputter_l_->output_scheme (scm_list_n (ly_symbol2scm ("define-origin"),
 							   ly_str02scm (ip->file_str ().ch_C ()),
 							   gh_int2scm (ip->line_number ()),
 							   gh_int2scm (ip->column_number ()),
 							   SCM_UNDEFINED));
 	  expr = ly_cadr (expr);
 	}
-      else  if (head ==  no_origin_sym)
+      else  if (head ==  ly_symbol2scm ("no-origin"))
 	{
-	  pscore_l_->outputter_l_->output_scheme (scm_list_n (no_origin_sym, SCM_UNDEFINED));
+	  pscore_l_->outputter_l_->output_scheme (scm_list_n (head, SCM_UNDEFINED));
 	  expr = ly_cadr (expr);
 	}
-      else if (head == offset_sym)
+      else if (head == ly_symbol2scm ("translate-molecule"))
 	{
 	  o += ly_scm2offset (ly_cadr (expr));
 	  expr = ly_caddr (expr);
 	}
-      else if (head == combine_sym)
+      else if (head == ly_symbol2scm ("combine-molecule"))
 	{
 	  output_molecule (ly_cadr (expr), o);
 	  expr = ly_caddr (expr);

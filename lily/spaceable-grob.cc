@@ -10,6 +10,8 @@
 #include "spaceable-grob.hh"
 #include "grob.hh"
 #include "warn.hh"
+#include "spring.hh"
+#include "group-interface.hh"
 
 SCM
 Spaceable_grob::get_minimum_distances (Grob*me)
@@ -40,25 +42,28 @@ Spaceable_grob::add_rod (Grob *me , Grob * p, Real d)
 }
 
 void
-Spaceable_grob::add_spring (Grob*me, Grob * p, Real d, Real strength)
+Spaceable_grob::add_spring (Grob*me, Grob * p, Real d, Real strength, bool expand_only)
 {
+#ifndef NDEBUG
   SCM mins = me->get_grob_property ("ideal-distances");
-  
-  
-  SCM newdist= gh_double2scm (d);
   for (SCM s = mins; gh_pair_p (s); s = ly_cdr (s))
     {
-      SCM dist = ly_car (s);
-      if (ly_car (dist) == p->self_scm ())
+      Spring_smob * sp = unsmob_spring(ly_car (s));
+      if (sp->other_ == p)
 	{
 	  programming_error ("already have that spring");
 	  return ;
 	}
     }
-  SCM newstrength= gh_double2scm (strength);  
+#endif
   
-  mins = gh_cons (gh_cons (p->self_scm (), gh_cons (newdist, newstrength)), mins);
-  me->set_grob_property ("ideal-distances", mins);
+  Spring_smob spring;
+  spring.strength_f_ = strength;
+  spring.distance_f_ = d;
+  spring.expand_only_b_ = expand_only;
+  spring.other_ = p;
+  
+  Group_interface::add_thing (me, ly_symbol2scm ("ideal-distances"), spring.smobbed_copy ());
 }
 
 

@@ -118,7 +118,7 @@ Text_spanner::brew_molecule (SCM smob)
   
   if (width < 0)
     {
-      warning (_ ("Text_spanner too small"));
+      me->warning (_ ("Text_spanner too small"));
       width = 0;
     }
 

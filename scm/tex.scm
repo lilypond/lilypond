@@ -259,7 +259,7 @@
   )
 (define (define-origin file line col)
   (if (procedure? point-and-click)
-      (string-append "\\special{src\\string:"
+      (string-append "\\special{src:" ;;; \\string ? 
 		     (point-and-click line col file)
 		     "}" )
       "")

@@ -22,8 +22,47 @@
 #include "spaceable-grob.hh"
 #include "dimensions.hh"
 
+
+/*
+   A simple spacing constraint solver. The approach:
+
+   Stretch the line uniformly until none of the constraints (rods)
+   block.  It then is very wide.
+
+      Compress until the next constraint blocks,
+
+      Mark the springs over the constrained part to be non-active.
+      
+   Repeat with the smaller set of non-active constraints, until all
+   constraints blocked, or until the line is as short as desired.
+
+   This is much simpler, and much much faster than full scale
+   Constrained QP. On the other hand, a situation like this will not
+   be typeset as dense as possible, because
+
+   c4                   c4           c4                  c4
+   veryveryverylongsyllable2         veryveryverylongsyllable2
+   " "4                 veryveryverylongsyllable2        syllable4
+
+
+   can be further compressed to
+
+
+   c4    c4                        c4   c4
+   veryveryverylongsyllable2       veryveryverylongsyllable2
+   " "4  veryveryverylongsyllable2      syllable4
+
+
+   Perhaps this is not a bad thing, because the 1st looks better anyway.  */
+
+
 Simple_spacer::Simple_spacer ()
 {
+  /*
+    Give an extra penalty for compression. Needed to avoid compressing
+    tightly spaced lines.
+  */
+  compression_penalty_b_ = false;
   active_count_ = 0;
   force_f_ = 0.;
   indent_f_ =0.0;
@@ -66,7 +105,10 @@ Simple_spacer::range_stiffness (int l, int r) const
 {
   Real den =0.0;
   for (int i=l; i < r; i++)
-    den += 1 / springs_[i].hooke_f_;
+    {
+      if (springs_[i].active_b_)
+	den += 1 / springs_[i].hooke_f_;
+    }
 
   return 1 / den;
 }
@@ -98,8 +140,7 @@ Simple_spacer::active_springs_stiffness () const
 void
 Simple_spacer::set_active_states ()
 {
-  // safe, since
-  // force is only copied.
+  /* float comparison is safe, since force is only copied.  */
   for (int i=0 ; i <springs_.size (); i++)
     if (springs_[i].active_b_
 	&& springs_[i].block_force_f_ >= force_f_)
@@ -117,14 +158,6 @@ Simple_spacer::configuration_length () const
     l += springs_[i].length (force_f_);
 
   return l;
-}
-
-Real
-Spring_description::length (Real f) const
-{
-  if (!active_b_)
-    f = block_force_f_;
-  return ideal_f_ + f / hooke_f_ ;
 }
 
 bool
@@ -179,23 +212,24 @@ Simple_spacer::add_columns (Link_array<Grob> cols)
   spaced_cols_ = cols;
   for (int i=0; i < cols.size () - 1; i++)
     {
-      SCM spring_params = SCM_EOL;
+      Spring_smob *spring = 0;
+
       for (SCM s = cols[i]->get_grob_property ("ideal-distances");
-	   !gh_pair_p (spring_params) && gh_pair_p (s);
+	   !spring && gh_pair_p (s);
 	   s = ly_cdr (s))
 	{
-	  Grob *other = unsmob_grob (ly_caar (s));
-	  if (other != cols[i+1])
-	    continue;
-
-	  spring_params = ly_cdar (s);
+	  Spring_smob *sp = unsmob_spring (ly_car (s));
+	  
+	  
+	  if (sp->other_ == cols[i+1])
+	    spring = sp;
 	}
 
       Spring_description desc;
-      if (gh_pair_p (spring_params))
+      if (spring)
 	{
-	  desc.ideal_f_ = gh_scm2double (ly_car (spring_params));
-	  desc.hooke_f_ = gh_scm2double (ly_cdr (spring_params));
+	  desc.ideal_f_ = spring->distance_f_;
+	  desc.hooke_f_ = spring->strength_f_;
 	}
       else
 	{
@@ -204,6 +238,8 @@ Simple_spacer::add_columns (Link_array<Grob> cols)
 				));
 	  desc.hooke_f_ = 1.0;
 	  desc.ideal_f_ = default_space_f_;
+
+	  continue;
 	}
 
       if (!desc.sane_b ())
@@ -215,10 +251,25 @@ Simple_spacer::add_columns (Link_array<Grob> cols)
 	  desc.hooke_f_ = 1.0;
 	  desc.ideal_f_ = 1.0;
 	}
+
+      if (isinf (desc.hooke_f_))
+	{
+	  desc.active_b_ = false;
+	  springs_.push (desc);
+	}
+      else
+	{
+	  desc.block_force_f_ = - desc.hooke_f_ * desc.ideal_f_; // block at distance 0
+	  springs_.push (desc);
       
-      desc.block_force_f_ = - desc.hooke_f_ * desc.ideal_f_; // block at distance 0
-      springs_.push (desc);
-      active_count_ ++;
+	  active_count_ ++;
+	}
+
+      if (spring->expand_only_b_)
+	{
+	  compression_penalty_b_ = true;
+	}
+      
     }
   
   for (int i=0; i < cols.size () - 1; i++)
@@ -244,10 +295,17 @@ Simple_spacer::add_columns (Link_array<Grob> cols)
     my_solve_linelen ();
 }
 
+#include <stdio.h>
+
 void
 Simple_spacer::solve (Column_x_positions *positions) const
 {
   positions->force_f_ = force_f_;
+  if (compression_penalty_b_ &&  (force_f_ < 0))
+    {
+
+	positions->force_f_ *= 2; //  hmm.
+    }
   
   positions->config_.push (indent_f_);
   for (int i=0; i <springs_.size (); i++)
@@ -282,10 +340,7 @@ Simple_spacer::solve (Column_x_positions *positions) const
     positions->satisfies_constraints_b_ && break_satisfy;
 }
 
-
-
-
-
+/****************************************************************/
 
 Spring_description::Spring_description ()
 {
@@ -299,7 +354,13 @@ Spring_description::Spring_description ()
 bool
 Spring_description::sane_b () const
 {
-  return (hooke_f_ > 0) &&  ! isinf (ideal_f_) && !isnan (ideal_f_);
+  return (hooke_f_ > 0) &&  !isinf (ideal_f_) && !isnan (ideal_f_);
 }
 
-
+Real
+Spring_description::length (Real f) const
+{
+  if (!active_b_)
+    f = block_force_f_;
+  return ideal_f_ + f / hooke_f_ ;
+}

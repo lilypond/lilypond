@@ -199,8 +199,8 @@ Moment
 Moment::operator - () const
 {
   Moment m;
-  m.grace_part_ = -grace_part_;
-  m.main_part_ = -main_part_;
+  m.grace_part_ = - grace_part_;
+  m. main_part_ = - main_part_ ;
   return m;
 }
 

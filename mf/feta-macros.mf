@@ -189,6 +189,8 @@ enddef;
 
 
 %
+% Bulb with smooth inside curve.
+%
 % alpha = start direction.
 % beta = which side to turn to.
 % flare = diameter of the bulb

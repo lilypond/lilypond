@@ -64,7 +64,7 @@ template<class T>
 T
 Interval_t<T>::length () const 
 {
-  if (elem (RIGHT) < elem (LEFT)) 
+  if (elem (RIGHT) <= elem (LEFT)) 
     return 0;
   else 
     return elem (RIGHT)-elem (LEFT);

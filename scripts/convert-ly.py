@@ -832,6 +832,14 @@ if 1:
 		return str
 	conversions.append (((1,5,33), conv, 'SystemStartDelimiter -> systemStartDelimiter'))
 
+if 1:
+	def conv (str):
+		str = re.sub ('arithmetic-multiplier', 'spacing-increment', str)
+		str = re.sub ('arithmetic-basicspace', 'shortest-duration-space', str)		
+		return str
+	
+	conversions.append (((1,5,38), conv, 'SystemStartDelimiter -> systemStartDelimiter'))
+
 
 ################################
 #	END OF CONVERSIONS	

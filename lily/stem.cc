@@ -113,7 +113,7 @@ Stem::set_stemend (Grob*me, Real se)
   Direction d= get_direction (me);
   
   if (d && d * head_positions (me)[get_direction (me)] >= se*d)
-    warning (_ ("Weird stem size; check for narrow beams"));
+    me->warning (_ ("Weird stem size; check for narrow beams"));
 
   me->set_grob_property ("stem-end-position", gh_double2scm (se));
 }

@@ -166,7 +166,7 @@ Separating_line_group_engraver::stop_translation_timestep ()
 
       break_malt_p_ =0;
     }
-
+  
   if (Item * sp = current_spacings_.staff_spacing_)
     {
       /*
@@ -180,6 +180,7 @@ Separating_line_group_engraver::stop_translation_timestep ()
       typeset_grob (sp);
     }
 
+  
   if (!current_spacings_.empty ())
     {
       last_spacings_ = current_spacings_;

@@ -174,7 +174,7 @@ Score_engraver::typeset_all ()
 		if (elem_p->immutable_property_alist_ == SCM_EOL)
 		  ; // gdb hook
 		else
-		  ::warning (_f ("unbound spanner `%s'", s->name ().ch_C ()));
+		  elem_p->warning (_f ("unbound spanner `%s'", s->name ().ch_C ()));
 	      }
 	  } while (flip (&d) != LEFT);
 	}

@@ -1,3 +1,66 @@
+2002-03-11  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/grob.cc (warning): Use cause tracking to give more
+	meaningful errors from the backend. 
+
+	* lily/property-iterator.cc (check_grob): Warn if setting grob
+	property in unknown grob. 
+
+	* mf/feta-toevallig.mf: brushed stems for natural sign.
+
+	* lily/molecule.cc (align_to): don't translate empty molecule.
+	(this triggers a very subtle bug in time-signature.)  
+
+2002-03-10  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/spring.cc: remove file.
+
+	* input/regression/spacing-stem-bar.ly: new file
+
+	* lily/score.cc (run_translator): resurrect point-and-click
+
+	* input/baerenreiter-sarabande.ly: Copy Barenreiter beaming for
+	sarabande layout
+
+	* lily/spacing-spanner.cc (find_shortest): Shortest note for
+	spacing is now globally determined, using the most common shortest
+	note. Notes that are shorter are spaced geometrically, and with
+	expand hints. This makes spacing more even, and measures that have
+	very short notes won't be that stretched out.  
+
+	* mf/feta-klef.mf: F-clef fixes, documentation on the
+	shape. (WARNING: font changed.)
+
+2002-03-09  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/simple-spacer.cc (add_columns): support for infinitely
+	stiff springs.
+ 
+	* lily/staff-spacing.cc (get_spacing_params): space after
+	prefatory matter is fixed.
+
+2002-03-08  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/note-spacing.cc (stem_dir_correction): Correct spacing for
+	barline following an upstem.
+
+	* lily/staff-spacing.cc (extremal_break_aligned_grob): destill
+	function from next_notes_correction().
+	(bar_y_positions): idem.
+
+2002-03-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/regression/break.ly (texidoc): bugfix: escape \ in
+	strings.
+
+	* lily/staff-spacing.cc (next_notes_correction): Correct the
+	spacing of a note following a barline.
+
+
+2002-03-04  Glen Prideaux
+
+	* mf/feta-solfa.mf: Shaped note heads
+
 2002-03-03  Han-Wen  <hanwen@cs.uu.nl>
 
 	* VERSION: 1.5.37 released
