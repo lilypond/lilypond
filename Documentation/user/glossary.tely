@@ -1003,7 +1003,6 @@ enharmonisk, S: enharmonisk, N: .
 Two notes, intervals, or scales are enharmonic if they have different names
 but equal pitch.
 
-@
 
 @mudela[13pt,eps]
 \property Score.barNonAuto = ##t
@@ -1044,9 +1043,7 @@ clef symbol indicates that the notes must be played an octave higher (for
 example bass recorder) while 8 below the clef symbol indicates playing an
 octave lower (for example on double bass @w{@ar{}@strong{strings}}).
 
-@
 
-@c @ignore
 @mudela[13pt,eps] 
 \property Score.barNonAuto = ##t 
 \property Staff.clefStyle = #"fullSizeChanges"
@@ -1075,14 +1072,12 @@ octave lower (for example on double bass @w{@ar{}@strong{strings}}).
   "octaved down" 
 }
 @end mudela
-@c @end ignore
 
 @item fermata
 I: corona, F: pause, D: Fermate, NL: fermate, DK: fermat, S: fermat, N: .
 
 Prolonged note or rest of indefinite duration.
 
-@
 
 @mudela[13pt,eps]
 \time 4/4;
@@ -1112,7 +1107,6 @@ DK: fane, S: flagga, N: .
 Ornament at the end of the stem of a note used for notes with values less than
 a quarter note. The number of flags determines the @w{@ar{}@strong{note value}}.
 
-@
 
 @mudela[13pt,eps]
 \property Score.barNonAuto = ##t
