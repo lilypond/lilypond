@@ -452,63 +452,7 @@ the Nth element of the list gives the amount stem shortening of a note with N fl
 (grob-property-description 'style symbol? "a string determining what style of  glyph is typeset. Valid choices depend on the function that is reading this property. .")
 (grob-property-description 'support-head ly:grob? "the note head at
 one end of the stem.")
-(grob-property-description 'text markup? "
-Scheme markup text.  It is defined as follows:
-
-@example
-text: string | (head? text+)
-head: markup | (markup+)
-markup-item: property | abbrev
-property: (@var{key} . @var{value})
-abbrev: @code{columns lines roman music bold italic named super sub overstrike text}
-        @code{finger volta timesig mmrest mark script large Large dynamic}
-@end example
-
-
-The following abbreviations are currently defined:
-@table @samp
-@item columns
- horizontal mode: set all text on one line (default)
-@item lines
- vertical mode: set every text on new line
-@item roman
- select roman font
-@item music
- select feta font, and lookup by character name
-@item bold
- select bold series
-@item italic
- select italic shape
-@item named
- lookup by character name
-@item text
- plain text lookup (by character value)
-@item super
- superscript
-@item sub
- subscript
-@item overstrike
- the next text or character overstrikes this one
-@item finger
- select fingering number fontstyle
-@item volta
- select volta number fontstyle
-@item timesig
- select time signature number fontstyle
-@item mmrest
- select multi measure rest number fontstyle
-@item mark
- select mark number fontstyle
-@item script
- select scriptsize roman fontstyle
-@item large
- select large roman fontstyle
-@item Large
- select Large roman fontstyle
-@item dynamic
- select dynamics fontstyle
-@end table
-.")
+(grob-property-description 'text markup? "Text markup.  See reference manual for more information.")
 (grob-property-description 'text-start boolean? "Indicator for whether a piano pedal bracket has leading text, such as Ped.")
 (grob-property-description 'thick-thickness number? "thickness, measured in stafflinethickness.")
 (grob-property-description 'thickness number? "thickness, measured in stafflinethickness.")
@@ -534,22 +478,19 @@ Like @code{bracket-visibility}, but for the number.")
 
 (grob-property-description 'break-visibility procedure? "a function that takes the break direction and returns a  cons of booleans containing (TRANSPARENT . EMPTY).
 
-
 Some items need special treatment for line breaking. For example, a
-clef is normally only printed at the start of a line (i.e. after a line
-break).  To model this, `breakable' items (clef, key signature, bar lines,
-etc.) are copied twice. Then we have three versions of each breakable
-item: one version if there is no line break, one version that is printed
-before the line break (at the end of a system), one version that is
-printed after the line break.
+clef is normally only printed at the start of a line (i.e. after a
+line break).  To model this, `breakable' items (clef, key signature,
+bar lines, etc.) are copied twice. Then we have three versions of each
+breakable item: one version if there is no line break, one version
+that is printed before the line break (at the end of a system), one
+version that is printed after the line break.
 
 Whether these versions are visible and take up space, is determined by
 the outcome of the @code{break-visibility}. This grob property is a
-function taking a direction (-1, 0 or 1) as argument. It returns a cons
-of booleans, signifying whether this grob should be transparent and have
-no extent.
-
-")
+function taking a direction (-1, 0 or 1) as argument. It returns a
+cons of booleans, signifying whether this grob should be transparent
+and have no extent.")
 (grob-property-description 'virga boolean? "is this neume a virga?.")
 (grob-property-description 'when ly:moment? "when does this column happen?.")
 (grob-property-description 'word-space ly:dimension? "elongate left by this much (FIXME: cumbersome semantics).")
@@ -583,7 +524,6 @@ columns.
 (grob-property-description 'right-neighbors grob-list? "see left-neighbors")
 (grob-property-description 'left-items grob-list? "")
 (grob-property-description 'right-items grob-list? "")
-
 (grob-property-description 'cause scheme? "Any kind of causation objects (i.e. music, or perhaps translator) that was the cause for this grob.  ")
 (grob-property-description 'font ly:font-metric? "Cached font metric object")
 (grob-property-description 'break-alignment-done boolean? "mark flag to signal we've done alignment already.")
