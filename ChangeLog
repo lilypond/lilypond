@@ -1,3 +1,7 @@
+2004-11-05  Heikki Junes <hjunes@cc.hut.fi>
+
+	* Documentation/index.html.in: remove <hr>.
+
 2004-11-05  Jan Nieuwenhuizen  <jannneke@gnu.org>
 
 	* scm/output-gnome.scm: More fontconfig comment.
