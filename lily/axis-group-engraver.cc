@@ -41,16 +41,16 @@ Axis_group_engraver::Axis_group_engraver ()
 void
 Axis_group_engraver::process_music ()
 {
-if (!staffline_)
-  {
-    staffline_ = get_spanner ();
+  if (!staffline_)
+    {
+      staffline_ = get_spanner ();
 
-  Grob *  it = unsmob_grob (get_property ("currentCommandColumn"));
+      Grob *  it = unsmob_grob (get_property ("currentCommandColumn"));
 
-  staffline_->set_bound (LEFT,it);
+      staffline_->set_bound (LEFT,it);
 
-  announce_grob(staffline_, SCM_EOL);
-}
+      announce_grob(staffline_, SCM_EOL);
+    }
 } 
 
 Spanner*
@@ -66,6 +66,12 @@ Axis_group_engraver::get_spanner () const
 void
 Axis_group_engraver::finalize ()
 {
+  if (!staffline_)
+    {
+      programming_error ("Huh? This context never lived?");
+      return ;
+    }
+  
   String type = get_daddy_grav ()->context_name ();
   SCM dims = get_property ("verticalExtent");
   
