@@ -83,8 +83,10 @@ dux =  \context Voice=two \notes \relative c''{
   c16 f es d
    c
   \translator Staff = bass
+  \stemUp
    bes! as g 
   f8 \translator Staff = treble
+  \stemDown
   as' g f |
   es d es f b, c d b |
   c4 r8 e8 f f16 e f8 c |

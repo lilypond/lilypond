@@ -85,7 +85,19 @@ this and other documentation.
 @mbinclude dedication.itely
 
 @menu
-* Index::                       Unified index.
+* Preface::                        Preface.
+* Introduction::                   What, Why, How.
+* Tutorial::                       A tutorial introduction to LilyPond.
+* Reference Manual::               Reference Manual.
+* Advanced Topics::                How it all works.
+* Invoking LilyPond::              Operation.
+* Converting from other formats::  Converting to lilypond source format.
+* Integrating text and music with lilypond-book::
+                                   The lilypond-book manual.
+* Literature::                     Additional reading material.
+* Index::                          Unified index.
+* Refman appendix::                
+* GNU Free Documentation License:: FDL.
 @end menu
 @end ifnottex
 

@@ -90,6 +90,11 @@ Rhythmic_column_engraver::process_acknowledged_grobs ()
 
          spacing_ = new Item (get_property ("NoteSpacing"));
          spacing_->set_grob_property ("left-items", gh_cons (note_column_->self_scm (), SCM_EOL));
+
+	 /*
+	   Should insert a cause. Collision warnings go into the  void.
+	   
+	  */
          announce_grob(spacing_, SCM_EOL);
 
          if (last_spacing_)

@@ -126,4 +126,4 @@ ADD_INTERFACE (Custos, "custos-interface",
   beginning of the 20th century.
 
 [TODO: add to glossary]",
-  "style adjust-if-on-staffline neutral-position");
+  "style adjust-if-on-staffline neutral-direction neutral-position");

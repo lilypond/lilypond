@@ -2762,8 +2762,8 @@ However, there is a also an automated procedure:
 If you use HTML, La@TeX{} or texinfo, you can mix text and LilyPond
 code. A script called @code{lilypond-book} will extract the music
 fragments, run LilyPond on them, and put back the resulting notation.
-This utility program is described fully in the chapter @ref{Insert
-music snippets into your texts using lilypond-book}. Here we show a
+This utility program is described fully in the chapter
+@ref{Integrating text and music with lilypond-book}. Here we show a
 small example. Since the example also contains explanatory text, we
 won't comment on the contents.
 

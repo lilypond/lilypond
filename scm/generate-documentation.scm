@@ -9,10 +9,9 @@
 
 ;;; Running LilyPond on this file generates the documentation
 
-
+(debug-enable 'debug)
 (debug-enable 'backtrace)
-
-
+(read-enable 'positions)
 
 ;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;; TODO : make modules of these!
@@ -24,7 +23,6 @@
 		     "music-documentation-lib.scm"
 		     "backend-documentation-lib.scm"
 		     ))
-
 (map load-from-path load-files)
 
 

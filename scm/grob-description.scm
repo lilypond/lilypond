@@ -252,7 +252,10 @@
 	(space-alist . (
 			(first-note . (minimum-space . 0.0))
 			))
-	(meta . ((interfaces . (custos-interface staff-symbol-referencer-interface break-aligned-interface item-interface ))))
+	(meta . ((interfaces
+		  . (custos-interface staff-symbol-referencer-interface
+				      font-interface
+				      break-aligned-interface item-interface ))))
 	))
 
 
@@ -434,7 +437,9 @@
 	(stem-attachment-function . ,note-head-style->attachment-coordinates)
 	(font-family . ancient)
 	(style . mensural)
-	(meta . ((interfaces . (ligature-head-interface rhythmic-head-interface note-head-interface staff-symbol-referencer-interface))))
+	(meta . ((interfaces . (ligature-head-interface rhythmic-head-interface
+							font-interface
+							note-head-interface staff-symbol-referencer-interface))))
 	))
 
     (LyricHyphen
@@ -481,7 +486,7 @@
 	(ligature-primitive-callback . ,Mensural_ligature::brew_ligature_primitive)
 	(molecule-callback . ,Mensural_ligature::brew_molecule)
 	(font-family . ancient)
-	(meta . ((interfaces . (mensural-ligature-interface))))
+	(meta . ((interfaces . (mensural-ligature-interface font-interface))))
 	))
 
     (Porrectus
@@ -777,7 +782,8 @@
 	(thin-kern . 3.0)
 	(hair-thickness . 1.6)
 	(thick-thickness . 6.0)
-	(meta . ((interfaces . (span-bar-interface bar-line-interface item-interface ))))
+	(meta . ((interfaces . (span-bar-interface font-interface
+						   bar-line-interface item-interface ))))
 	))
 
     (StanzaNumber
@@ -1148,7 +1154,6 @@
 (define (completize-grob-entry x)
   "transplant assoc key into 'name entry of 'meta of X
 "
-
   (let* ((name-sym  (car x))
 	 (grob-entry (cdr x))
 	 (metaentry (cdr (assoc 'meta grob-entry)))

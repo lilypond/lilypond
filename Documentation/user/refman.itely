@@ -4501,7 +4501,7 @@ value assigned in the @code{\paper} block), systems are evenly
 distributed vertically on the last page.  This might produce ugly
 results in case there are not enough systems on the last page.  Note
 that @command{lilypond-book} ignores @code{lastpagefill}.  See
-@ref{lilypond-book: integrating text and music} for
+@ref{Integrating text and music with lilypond-book} for
 more information.
 
 @cindex @code{lastpagefill}
