@@ -18,7 +18,7 @@
  (gnome gtk gdk-event)
  (gnome gw canvas))
 
-(define-public (output-framework outputter book scopes fields basename)
+(define-public (output-framework basename book scopes fields )
   (gnome-main book basename))
 
 (define SCROLLBAR-SIZE 20)

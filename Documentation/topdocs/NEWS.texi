@@ -9,9 +9,9 @@
 @itemize @bullet
 
 @item
-LilyPond now optionally uses Pango and FontConfig for selecting and
-rendering internationalized text. This is supported for backends other
-than @TeX{}. A font may be selected by using a FontConfig name,
+LilyPond now uses Pango and FontConfig for selecting and rendering
+internationalized text in non-@TeX{} backends. A font may be selected
+by using a FontConfig name,
 
 @example
 \override TextScript #'font-name = #"Serif"
@@ -19,10 +19,10 @@ than @TeX{}. A font may be selected by using a FontConfig name,
 
 
 @noindent
-or by setting individual properties,
+or using the classic font selection mechanism
 
 @example
-\override TextScript #'font-family = #'Times
+\override TextScript #'font-family = #'roman
 \override TextScript #'font-series = #'bold
 @end example
 
