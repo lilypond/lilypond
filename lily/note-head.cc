@@ -186,7 +186,8 @@ Note_head::brew_molecule (SCM smob)
 Interval
 Note_head::head_extent (Grob *me, Axis a)
 {
-  return me->get_molecule()->extent (a);
+  Molecule * mol = me->get_molecule();
+  return mol ? mol ->extent (a) : Interval(0,0);
 }
 
 
