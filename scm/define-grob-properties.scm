@@ -150,9 +150,6 @@ negative, no line is drawn at all.")
 dash-period. Should be between 0.0 (no line) and 1.0 (continuous
 line).")
 
-     ;; use dash-period/dash-fraction instead;
-     (dashed ,number? " number representing the length of the dashes.")
- 
      ;; todo: why is this tunable?
      (dir-function ,procedure? "The function to determine the
 direction of a beam. Choices include: 
