@@ -81,7 +81,7 @@
      ((end * * 12 8) . ,(make-moment 3 8))
      ((end 1 16 12 8) . ,(make-moment 3 8))
      ((end 1 32 12 8) . ,(make-moment 1 8))
-     (meta . ,(element-description  "autoBeamSettings"))
+     (meta . ,(grob-description  "autoBeamSettings"))
      ))
 
 ;;; Users may override in most cases, simply by issuing

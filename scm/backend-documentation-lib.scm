@@ -25,10 +25,10 @@
 	  desc)
     ))
 
-(define (document-element-property sym element-description only-doc-if-set)
+(define (document-grob-property sym grob-description only-doc-if-set)
   (let*
       (
-       (handle (assoc sym element-description))
+       (handle (assoc sym grob-description))
        (defval (if (eq? handle #f)
 		   ""
 		   (scm->texi (cdr handle))
@@ -43,22 +43,22 @@
 					   defval)))
     ))
 
-(define (document-interface where interface element-description)
+(define (document-interface where interface grob-description)
   "
 
 "
-  (let* ((level (if (eq? where 'element) 3 2))
+  (let* ((level (if (eq? where 'grob) 3 2))
 	 (name (car interface))
 	 (desc (cadr interface))
 	 (props (caddr interface))
 	 (docfunc  (lambda (x)
-		    (document-element-property
-		     x element-description (eq? where 'element))))
+		    (document-grob-property
+		     x grob-description (eq? where 'grob))))
 	 (docs (map docfunc props))
 	 )
 
     (string-append
-     (texi-section level (string-append (interface-name (symbol->string name))) (eq? where 'element)) ;gur.
+     (texi-section level (string-append (interface-name (symbol->string name))) (eq? where 'grob)) ;gur.
      desc
      
      (description-list->texi docs)
@@ -72,8 +72,8 @@
      (node (interface-name name))
      (document-interface 'self interface '()))))
 
-;; First level element description
-(define (document-element iname description)
+;; First level grob description
+(define (document-grob iname description)
   (processing iname)
   (let* ((metah (assoc 'meta description))
 	 
@@ -84,51 +84,51 @@
 	 
 	 (name (cdr (assoc 'name meta)))
 	 (ifaces (cdr (assoc 'interface-descriptions meta)))
-	 (ifacedoc (map (lambda (x) (document-interface 'element x description))
+	 (ifacedoc (map (lambda (x) (document-interface 'grob x description))
 			(reverse ifaces))))
     
     (string-append
-     (node (element-name name))
-     (texi-section 2 (element-name name) #f)
+     (node (grob-name name))
+     (texi-section 2 (grob-name name) #f)
      "\n"
 
-     (let* ((element (string->symbol name))
+     (let* ((grob (string->symbol name))
 	    (engravers
 	     (apply append
 		    (map (lambda (x)
 			   (let ((engraver (car x))
 				 (objs (cadddr x)))
-			     (if (member element objs)
+			     (if (member grob objs)
 				 (list engraver)
 				 '())))
 			 engraver-description-alist))))
        (string-append
-	name " elements are created by: "
+	name " grobs are created by: "
 	(human-listify (map reffy (map engraver-name engravers)))))
 
      (apply string-append ifacedoc))))
      
 
-(define (document-all-elements name)
+(define (document-all-grobs name)
   (let* ((doc (apply string-append
-		     (map (lambda (x) (document-element (car x) (cdr x)))
-			  all-element-descriptions)))
-	 (names (map car all-element-descriptions)))
+		     (map (lambda (x) (document-grob (car x) (cdr x)))
+			  all-grob-descriptions)))
+	 (names (map car all-grob-descriptions)))
 
     (string-append
-     (texi-node-menu name (map (lambda (x) (cons (element-name x) ""))
+     (texi-node-menu name (map (lambda (x) (cons (grob-name x) ""))
 			       names))
      doc)))
 
 ;; testin.. -- how to do this
 (eval-string (ly-gulp-file "interface.scm"))
 (define xinterface-description-alist
-  `(
-    (general-element . ,general-element-interface)
-    (beam . ,beam-interface)
-    (clef . ,clef-interface)
-    (slur . ,slur-interface)
-    ))
+      `(
+	(general-grob . ,general-grob-interface)
+	(beam . ,beam-interface)
+	(clef . ,clef-interface)
+	(slur . ,slur-interface)
+	))
 
 ;; burp, need these for running outside of LilyPond
 (if #f

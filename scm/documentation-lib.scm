@@ -133,8 +133,8 @@ Add a ref if REF is set
 (define (engraver-name name)
   name)
 
-(define (element-name name)
-  (string-append "Element " name))
+(define (grob-name name)
+  (string-append "Grob " name))
 
 (define (interface-name name)
   name)

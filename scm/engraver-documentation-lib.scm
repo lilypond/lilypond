@@ -43,8 +43,8 @@
 	  ""
 	  (string-append
 	   "This engraver creates \n "
-	   (human-listify (map reffy (map element-name objs)))
-	   " elements.")
+	   (human-listify (map reffy (map grob-name objs)))
+	   " grobs.")
 	  )
 
      "\n\n"

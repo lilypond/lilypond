@@ -65,10 +65,6 @@ Hairpin::brew_molecule (SCM smob)
   // FIXME: ecs tells us
   width += gh_scm2double (me->get_grob_property ("width-correct"));
   /* /Ugh */
-
-
-
-
   
   if (width < 0)
     {

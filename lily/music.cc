@@ -81,11 +81,28 @@ Music::length_mom () const
   return 0;
 }
 
+void
+print_alist (SCM a, SCM port)
+{
+  for (SCM s = a; gh_pair_p (s); s = gh_cdr (s))
+    {
+      scm_display (gh_caar (s), port);
+      scm_puts (" = ", port); 
+      scm_write (gh_cdar (s), port);
+      scm_puts ("\n", port);
+    }
+}
+
 int
 Music::print_smob(SCM s, SCM p, scm_print_state*)
 {
   scm_puts ("#<Music ", p);
-  scm_puts (classname(unsmob_music (s)),p);
+  Music* m = unsmob_music (s);
+  scm_puts (classname(m),p);
+
+  print_alist (m->mutable_property_alist_, p);
+  print_alist (m->immutable_property_alist_, p);
+  
   scm_puts (">",p);
   return 1;
 }
