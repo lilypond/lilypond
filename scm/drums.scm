@@ -165,12 +165,9 @@
 ;;
 
 (define (make-articulation-script x) 
-     (let* (  (m (ly-make-music "Articulation_req"))
-           )
+     (let* ((m (make-music-by-name "Articulation_req")))
      (ly-set-mus-property! m 'articulation-type x)
-     m
-     )
- )
+     m))
 
 ;; adds the articulation script x to m if x is not #f.
 (define (add-articulation-script m x)
@@ -191,8 +188,7 @@
  )
 
 (define (make-head-type-elem t)
-   (let* ( (m (ly-make-music "Music"))
-         )
+   (let* ( (m (make-music-by-name "Music")))
      (set-mus-properties!
       m
       `((iterator-ctor . ,Push_property_iterator::constructor)

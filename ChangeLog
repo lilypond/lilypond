@@ -1,5 +1,10 @@
 2002-09-23  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scm/drums.scm (make-head-type-elem, make-articulation-script):
+	More ly-make-music renamings.
+
+	* lily/command-request.cc: ADD_MUSIC: arpeggio_req.
+
 	* lily/music-constructor.cc (make_music): Add debugging info.
 
 	* scm/music-functions.scm (make-simultaneous-music,
