@@ -1,8 +1,23 @@
+2003-06-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/regression/span-bar.ly: smaller file.
+
+	* input/regression/spacing-{natural,tight,loose}.ly: remove
+
+	* input/test/markup.ly: remove
+
+	* scripts/lilypond-book.py: put printfilename in separate chunk,
+	so texidoc is printed after the filename.  
+
 2003-06-12  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* make/lilypond.mandrake.spec.in: fix docdirs.
 
 2003-06-13  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/regression/beam-french.ly: bugfix.
+
+	* buildscripts/lys-to-tely.py (name2line): sort filenames. 
 
 	* input/regression/(various).ly: add raggedright = #t.
 
