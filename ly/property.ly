@@ -139,16 +139,16 @@ pleton = {
 	\property Voice.pletvisibility = 3
 }
 tiny  = {
-	\property Voice.fontsize= "-2"
+	\property Voice.fontSize= "-2"
 	\pletoff %urg
 }
 
 small  = {
-	\property Voice.fontsize= "-1"
+	\property Voice.fontSize= "-1"
 }
 
 normalsize = {
-	\property Voice.fontsize= "0"
+	\property Voice.fontSize= "0"
 	\pleton %urg
 }
 

@@ -411,10 +411,10 @@ fis r g d'-. \p |
 [g8 e ) d ] g, ( |
 [g' e ) d ] b ( |
 [b' g ) fis] b |
-f2 ~ |
-fis!4 r8 b ( |
-) f2 ~ |
-fis!4 r8 b |
+f2 ( |
+) fis!4 r8 b ( |
+) f2 ( |
+) fis!4 r8 b |
 f r e r |
 d r d r |
 cis r r4 |
@@ -432,12 +432,12 @@ b2 ~ |
   \context Voice = x {s8.. \tiny cis8 } >
 [fis''-. f-. f-. e-. ] |
 [e-. \< dis-. dis-. \! d-. ] |
-d r b4 \f ~ |
-cis8 [a'16-> ( b] ) a8 fis-. \p | % \p added
+d r b4 \f ( |
+) cis8 [a'16-> ( b] ) a8 fis-. \p | % \p added
 [fis-. f-. f-. e-. ] |
 [e-. dis-. dis-. d-. ] |
-d r b4 \f ~ |
-cis8 [a'16-> ( b] ) a8 r |
+d r b4 \f ( |
+) cis8 [a'16-> ( b] ) a8 r |
 d,4. r8 |
 d4.-> r8 |
 R2*2 |
@@ -448,56 +448,56 @@ cis4.-> fis8-. \p | % \p added
 [fis-. \< f-. f-. e-. ] |
 [\! e-. d-. d-. ] [fis16 \mf ( g ] |
 ) fis8 [f16 ( g] ) f8-. [e16 \< ( fis ] |
-) e8 [\! d16 ( e ] ) d8-. c! \f ~ |
-c'4.-> b8 |
-[g-. fis-. e-.] g,8 ~ |
-b'4. \fz a,8 ~ |
-a'4. \fz a,8 ~ |
-fis' r a4-> ~ | % -> added
-fis8 r a4-> ~ |
-fis8 r f4 ~ |
-e8 [a,16 ( b ] ) a8 a ~ |
-fis' r a4-> ~ |
-fis8 r a4-> ~ |
-fis8 r f4 ~ |
-e8 [a,16 ( b ] ) a8 a ~ |
-fis' r a4_"dim." ~ |
-fis8 r e4 ~ |
-fis8 r a4 ~ |
-fis8 r e4 \p ~ |
-fis8 r r4 |
+) e8 [\! d16 ( e ] ) d8-. c! \f ( |
+) c'4.-> b8 |
+[g-. fis-. e-.] g,8 ( |
+) b'4. \fz a,8 ( |
+) a'4. \fz a,8 ( |
+) fis' r a4-> ( | % -> added
+) fis8 r a4-> ( |
+) fis8 r f4 ( |
+) e8 [a,16 ( b ] ) a8 a ( |
+) fis' r a4-> ( |
+) fis8 r a4-> ( |
+) fis8 r f4 ( |
+) e8 [a,16 ( b ] ) a8 a ( |
+) fis' r a4_"dim." ( |
+) fis8 r e4 ( |
+) fis8 r a4 ( |
+) fis8 r e4 \p ( |
+) fis8 r r4 |
 R2*3 |
 fis,2 \pp ~ |
 fis ~ |
 fis ~ |
 fis4 r |
 R2*4 |
-e'2 \fz \> ~ |
-\! fis,4 r |
-b2 \> ~ |
-\! ais4 r |
+e'2 \fz \> ( |
+) \! fis,4 r |
+b2 \> ( |
+) \! ais4 r |
 fis2 \pp \< ~ |
 \! fis ~ |
 fis \> ~ |
 \! fis4 r |
 R2*4 |
-e'2 \fz \> ~ |
-\! fis,4 r |
-e'2 \p ~ |
-ais, |
+e'2 \fz \> ( |
+) \! fis,4 r |
+e'2 \p ( |
+) ais, |
 R2*2 |
-e'2 \p ~ |
-ais, |
-b ~ |
-ais |
-b_"dim." ~ |
-ais ~ |
+e'2 \p ( |
+) ais, |
 b ( |
+) ais |
+b_"dim." ( |
+) ais ( |
+) b ( |
 c4 ) b8 r |
 e-. r e-. r |
 e-. r e-. r |
-c2 ( ~ |
-d4 ) c8 r |
+c2 ( ( |
+) d4 ) c8 r |
 d-. r d-. r |
 d-. r [d-. d-. ] |
 [c-. \< b-. a-. g-. ] |
@@ -509,11 +509,11 @@ d-. r [d-. d-. ] |
 [g a g e][c e g a] |
 [c8 a ) g ] c, ( |
 [c' a ) g] r |
-[e ( c ) b ] e ~ |
-ais,2 ~ |
-b4 r8 e ~ |
-ais,2 ~ |
-b4 r8 e |
+[e ( c ) b ] e ( |
+) ais,2 ( |
+) b4 r8 e ( |
+) ais,2 ( |
+) b4 r8 e |
 bes r a r |
 g r e' r |
 d [a16 ( b ][c! d c b] |
@@ -530,41 +530,41 @@ e2 ~ |
 ) fis r r [d'16 \p ( e] |
 ) d8-. [cis16 ( d] ) cis8-. [c16 ( d] |
 ) c8-. [ b16 ( c] ) b8-. [bes16 ( c ] |
-) bes8-. r e4 \f ~ |
-[fis8 d16 ( e] ) d8 [d16 \p ( e] |
+) bes8-. r e4 \f ( |
+[ ) fis8 d16 ( e] ) d8 [d16 \p ( e] |
 ) d8-. \< [cis16 ( d] ) cis8-. [c16 ( d] |
 ) c8-. [ b16 ( c] ) b8-. [bes16 ( \! c ] |
-) bes8-. r e4 \f ~ |
-[fis8 d16 ( e] ) d8 f ~ |
-b4.-> f8 ~ |
-b4.-> r8 |
+) bes8-. r e4 \f ( |
+[ ) fis8 d16 ( e] ) d8 f ( |
+) b4.-> f8 ( |
+) b4.-> r8 |
 R2 |
-r4 r8 f \f ~ |
-b4.-> f8 ~ |
-b4.-> r8 |
+r4 r8 f \f ( |
+) b4.-> f8 ( |
+) b4.-> r8 |
 R2 |
 r4 r8 [d,16 \p ( e] |
 ) d8-. [cis16 ( d] ) cis8-. [c16 ( d] |
 ) c8-. \< [ b16 ( c] ) \! b8-. [b'16 ( c ] |
 ) b8-. [bes16 ( c ] ) bes8-. [a16 ( b ] |
-) a8-. [g16 ( as ] ) g8 b, \f ~ |
-f'4.-> r8 |
-r4 r8 c ~ |
-e'4. \fz d,8 ~ |
-d'4. d,8 ~ |
-b' r a4-> ~ |
-g8 r a4-> ~ |
-g8 r g4 ~ |
-fis8 [d16 ( e] ) d8 d ~ |
-g r a4 ~ |
-g8 r a4 ~ |
-g8 r g4 ~ |
-fis8 [d16 ( e] ) d8 c ~ |
-b r c4 ~ |
-b8 r c4_"dim." ~ |
-b8 r c4 ~ |
-b8 r a4 \p ~ |
-g8 r r4 |
+) a8-. [g16 ( as ] ) g8 b, \f ( |
+) f'4.-> r8 |
+r4 r8 c ( |
+) e'4. \fz d,8 ( |
+) d'4. d,8 ( |
+) b' r a4-> ( |
+) g8 r a4-> ( |
+) g8 r g4 ( |
+) fis8 [d16 ( e] ) d8 d ( |
+) g r a4 ( |
+) g8 r a4 ( |
+) g8 r g4 ( |
+) fis8 [d16 ( e] ) d8 c ( |
+) b r c4 ( |
+) b8 r c4_"dim." ( |
+) b8 r c4 ( |
+) b8 r a4 \p ( |
+) g8 r r4 |
 R2 |
 b'4^"solo" \p ( fis \> |
 g [d8. \! e16 ] |
@@ -583,30 +583,30 @@ R2*2 |
 d4. \fz d8 \> |
 [d d \! d] r |
 R2*3 |
-r4 r8 c \f ~ |
-c'4. e,8 ~ |
-e'4. d,8 ~ |
-d'4. d,8 ~ |
-a'4. fis8 ~ |
-g4 r8 g ~ |
-c4 ~ b8 fis ~ |
-g4 r8 g ~ |
-c4 ~ b8 cis, ~ |
-g'4. c,!8 ~ |
-fis4. fis8 |
+r4 r8 c \f ( |
+) c'4. e,8 ( |
+) e'4. d,8 ( |
+) d'4. d,8 ( |
+) a'4. fis8 ( |
+) g4 r8 g ( |
+) c4 () b8 fis ( |
+) g4 r8 g ( |
+) c4 () b8 cis, ( |
+) g'4. c,!8 ( |
+) fis4. fis8 |
 [g-. fis-. g-. fis-. ] |
 [g-. fis-. g-. fis-. ] |
 g-. r fis-. r |
 g r d r |
 [d16 ( e d e][d e d e] |
 [d e d e] [d e d e] |
-) d4 r8 d ~ |
-b'4 r8 d, ~ |
-g4 r8 d ~ |
-b'4 r8 d, ~ |
-g,2 ~ |
-g ~ |
-g'4-. \fz r^\fermata
+) d4 r8 d ( |
+) b'4 r8 d, ( |
+) g4 r8 d ( |
+) b'4 r8 d, ( |
+) g,2 ~ |
+g ( |
+) g'4-. \fz r^\fermata
 }
 
 
@@ -642,11 +642,11 @@ r4 r8 d-. \p |
 [d e d b][g b d e] |
 [g8 e ) d ] g, ( |
 [g' e ) d ] g, ( |
-[g' e ) d ] b' ~ |
-f2 ~ |
-fis!4 r8 b ( |
-) f2 ~ |
-fis!4 r8 b, ~ |
+[g' e ) d ] b' ( |
+) f2 ( |
+) fis!4 r8 b ( |
+) f2 ( |
+) fis!4 r8 b, ~ |
 b r b r |
 b r b r |
 a r r4 |
@@ -661,11 +661,11 @@ b4 \> a |
 g2 ~ |
 \! ) g4 r |
 R2*3 |
-r4 gis \f ~ | 
-[ g!8 a16-> ( b ] ) a8 r |
+r4 gis \f ( | 
+[ ) g!8 a16-> ( b ] ) a8 r |
 R2*2 |
-r4 gis \f ~ | 
-[ g!8 a16 ( b ] ) a8 r |
+r4 gis \f ( | 
+[ ) g!8 a16 ( b ] ) a8 r |
 fis4. r8 |
 fis4. r8 |
 R2*2 |
@@ -676,20 +676,20 @@ g4. -> r8 |
 R2 |
 r4 r8 a-. \mf |
 [a-. gis-. gis-. g-. ] |
-g [ fis-. fis-. ] fis \f ~ | % \f added
-dis'4.-> r8 |
-r4 r8 g,8 ~ |
-e'4. \fz g,8 ~ |
-e'4. \fz g,8 ~ |
-fis r a4-> ~ |
+g [ fis-. fis-. ] fis \f ( | % \f added
+) dis'4.-> r8 |
+r4 r8 g,8 ( |
+) e'4. \fz g,8 ( |
+) e'4. \fz g,8 ( |
+) fis r a4-> ~ |
 a8 r a4-> ~ |
-a8 r gis4 ~ |
-[g!8 g-. g-. g~ ] |
-fis! r a4 ~ |
+a8 r gis4 ( |
+[ ) g!8 g-. g-. g ( ] |
+) fis! r a4 ~ |
 a8 r a4-> ~ |
-a8 r gis4 ~ |
-g!8 [g-. g-.] g~ |
-fis! r a4_"dim." ~ | % dim. added
+a8 r gis4 ( |
+) g!8 [g-. g-.] g ( |
+) fis! r a4_"dim." ~ | % dim. added
 a8 r a4 ~ |
 a8 r a4 ~ |
 a8 r a4 \p ~ |
@@ -700,17 +700,17 @@ fis ~ |
 \! fis \>~ |
 \! fis4 r |
 R2*4 |
-g2 \f \> ~ |
-\! fis4 r |
-b2 \> ~ |
-\! ais4 r |
+g2 \f \> ( |
+) \! fis4 r |
+b2 \> ( |
+) \! ais4 r |
 fis2 \pp \< ~ |
 fis ~ |
 \! fis \>~ |
 \! fis4 r |
 R2*16 |
-f2 \pp ~ |
-g4. r8 |
+f2 \pp ( |
+) g4. r8 |
 b-. r a-. r |
 b-. r a-. r |
 a2 ~ |
@@ -726,12 +726,12 @@ a r [g-. \p d'-. ] |
 [g a g e][c e g a] |
 [c8 a ) g ] c, ( |
 [c' a ) g] r |
-[c, ( a ) g ] e' ~ |
-ais,2 ~ |
-b4 r8 e ~ |
-ais,2 ~ |
-b4 r8 e ~ |
-bes r a r |
+[c, ( a ) g ] e' ( |
+) ais,2 ( |
+) b4 r8 e ( |
+) ais,2 ( |
+) b4 r8 e ( |
+) bes r a r |
 g r g r |
 [fis ( a16 b ][c! d c b] |
 [a b a g] ) fis8 r |
@@ -747,62 +747,62 @@ fis4  \> g_"dim." ( |
 r r8 b-. \p |
 b [ais-. \< ais-. a-. ] |
 [a-. gis-. \! gis-. g-. ] |
-g r cis4 \f ~ |
-c! r8 b!-. \p |
+g r cis4 \f ( |
+) c! r8 b!-. \p |
 b [ais-. \< ais-. a-. ] |
 [a-. gis-. \! gis-. g-. ] |
-g r cis4 \f ~ |
-c! r8 b ~ |
-f'4.-> b,8 ~ |
-f'4.-> r8 |
+g r cis4 \f ( |
+) c! r8 b ( |
+) f'4.-> b,8 ( |
+) f'4.-> r8 |
 R2 |
-r4 r8 b,8 \f ~ |
-f'4.-> b,8 ~ |
-f'4.-> r8 |
+r4 r8 b,8 \f ( |
+) f'4.-> b,8 ( |
+) f'4.-> r8 |
 R2 |
 r4 r8 b,8-. \p |
 b-. [ais-. ais-. a-. ] |
 [a-. g-. g-. ]  [b16 ( c ] |
 ) b8-. \< [bes16 ( c ] ) bes8-. [a16 ( b ] |
-) \! a8-. [g16 ( as ] ) g8 f \f ~ |
-b4.-> r8 |
-r4 r8 c ~ |
-a'4. \fz c,8 ~ |
-a'4. \fz c,8 ~ |
-b r c4-> ~ |
-b8 r c4-> ~ |
-b8 r bes4 ~ |
-[a8 d16 ( e ] [) d8 c ~ ] |
-b! r c4 ~ |
-b8 r c4 ~ |
-b8 r bes4-> ~ |
-[a8 d16 ( e ] ) d8 a ~ |
-g r a4 ~ |
-g8_"dim." r a4 ~ |
-g8 r a4 ~ |
-g8 r fis4 ~ |
-g8 \p r r4 |
+) \! a8-. [g16 ( as ] ) g8 f \f ( |
+) b4.-> r8 |
+r4 r8 c ( |
+) a'4. \fz c,8 ( |
+) a'4. \fz c,8 ( |
+) b r c4-> ( |
+) b8 r c4-> ( |
+) b8 r bes4 ( |
+[ ) a8 d16 ( e ] [) d8 c ( ] |
+) b! r c4 ( |
+) b8 r c4 ( |
+) b8 r bes4-> ( |
+[ ) a8 d16 ( e ] ) d8 a ( |
+) g r a4 ( |
+) g8_"dim." r a4 ( |
+) g8 r a4 ( |
+) g8 r fis4 ( |
+) g8 \p r r4 |
 R2*6 |
 r4 [g8. ( \f a16 ] |
-) g2 ~ |
-d_"dim." ~ |
+) g2 ( |
+) d_"dim." ~ |
 d ~ |
 d4. r8 |
 R2*6 |
 fis4. \fz \> \! g8 |
 [a-. b-. c-. ] r |
 R2*3 |
-r4 r8 e, \f ~ |
-e'4. a,8 ~ |
-a'4. a,8 ~ |
-a'4. fis,8 ~ |
-d'4. c8 ~ |
-b4 r8 g ( |
+r4 r8 e, \f ( |
+) e'4. a,8 ( |
+) a'4. a,8 ( |
+) a'4. fis,8 ( |
+) d'4. c8 ( |
+) b4 r8 g ( |
 e'4 [d8 ) c ] |
 b4 r8 g ( |
-e'4~ ) d8 g, |
-cis4. fis,8 ~ |
-c'!4. c8 |
+e'4 () ) d8 g, |
+cis4. fis,8 ( |
+) c'!4. c8 |
 [b-. c-. b-. c-. ] |
 [b-. c-. b-. c-. ] |
 b r a r |
@@ -812,10 +812,10 @@ b r c r |
 d4 r |
 d4 r |
 b4 r |
-d4 r8 d, ~ |
-g2 ~ |
-g ~ |
-b4-. \fz r^\fermata 
+d4 r8 d, ( |
+) g2 ~ |
+g ( |
+) b4-. \fz r^\fermata 
 }
 
 fagotto=\notes\relative c' {
@@ -833,16 +833,16 @@ R2*2 |
 bes8-. r a-. r |
 bes8-. r [a-. c-.] |
 [bes-. \< a-. g-. f-. ] |
-[e-. \! d-. c-. ] c \f ~ |
-c'4. r8 |
-d4 ~ c8 r |
-d4 ~ c8 r |
-d4 ~ [c8 a16 ( b ] |
-[c d c b] ) a8 f-> ~ |
-e4 r8 [ a16 ( b ] |
-[c d c b] ) a8 f-> ~ |
-e4 r8 a ~ |
-c r d r |
+[e-. \! d-. c-. ] c \f ( |
+) c'4. r8 |
+d4 () c8 r |
+d4 () c8 r |
+d4 ( [ ) c8 a16 ( b ] |
+[c d c b] ) a8 f-> ( |
+) e4 r8 [ a16 ( b ] |
+[c d c b] ) a8 f-> ( |
+) e4 r8 a ( |
+) c r d r |
 es r d r |
 d4 \fz r |
 R2*2 |
@@ -862,36 +862,36 @@ g \f [c16 ( d] [es8 d16 c ] |
 [g g g g] |
 [g g g g] |
 g [c16 ( d] [es8 d16 c ] |
-) d4 r8 c ~ |
-g4.-> c8 ~ |
-g4.-> r8 |
-r4 r8 a ~ |
-b4. g8 \f ~ |
-c4.-> g8 ~ |
-c4.-> r8 |
-r4 r8 a \f ~ |
-d4. \clef "tenor"; [g16 \p ( a] |
+) d4 r8 c ( |
+) g4.-> c8 ( |
+) g4.-> r8 |
+r4 r8 a ( |
+) b4. g8 \f ( |
+) c4.-> g8 ( |
+) c4.-> r8 |
+r4 r8 a \f ( |
+) d4. \clef "tenor"; [g16 \p ( a] |
 ) g8 [fis16 ( g] ) fis8-. \< [f16 ( g ] |
 ) f8-. [e16 ( \! f ] ) e8 g-. \mf |
 [g-. fis-. \< fis-. f-. ] |
-[f-. e-. \! e-. ] \clef "bass"; cis \f ~ |
-e4. a,8 |
-[d,-. e-. f-. ] f' ~ |
-d4. d8 |
-b4.  b8 ~ |
-c r f4-> ~ |
-e8 r f4-> ~ |
-e8 r c4 ~ |
-[d8-. f-. d-. b ~ ] |
-c r f4-> ~ |
-e8 r f4-> ~ |
-e8 r c4 ~ |
-[d8-. f-. d-. b ~ ] |
-c r f4 ~ |
-e8 r f4_"dim." ~ |
-e8 r f4 ~ |
-e8 r f4 \p ~ |
-e8 r r4 |
+[f-. e-. \! e-. ] \clef "bass"; cis \f ( |
+) e4. a,8 |
+[d,-. e-. f-. ] f' ( |
+) d4. d8 |
+b4.  b8 ( |
+) c r f4-> ( |
+) e8 r f4-> ( |
+) e8 r c4 ( |
+[ ) d8-. f-. d-. b ( ] |
+) c r f4-> ( |
+) e8 r f4-> ( |
+) e8 r c4 ( |
+[ ) d8-. f-. d-. b ( ] |
+) c r f4 ( |
+) e8 r f4_"dim." ( |
+) e8 r f4 ( |
+) e8 r f4 \p ( |
+) e8 r r4 |
 r8 [g,-.^"solo" \p a-. b-. ] |
 c r r4 |
 R2 |
@@ -903,10 +903,10 @@ e2 \p \< ~ |
 \! e \> ~ |
 \! e \< ~ |
 \! e \> |
-\tiny \! d'8 \fz *1/2 ~ \normalsize f2 \> *7/8 ~ |
-\! e4. r8 |
-f,2 \> ( ~ |
-[ \! e8 d c ) b ] | 
+\tiny \! d'8 \fz ( *1/2 \normalsize ) f2 \> ( *7/8 |
+) \! e4. r8 |
+f,2 \> ( ( |
+[ ) \! e8 d c ) b ] | 
 a2 \pp \< ~ |
 \! a |
 e' \> ~ |
@@ -915,41 +915,41 @@ e2 \p ~
 e ~ |
 e ~ |
 e |
-\tiny d'8 \fz *1/2 ~ \normalsize f2 \> *7/8 ~ |
-\! e4. r8 |
-f,2 \p ~ |
-e4 r |
-f'2-> ~ |
-e4. r8 |
-f,2 ~ |
-e |
+\tiny d'8 \fz ( *1/2 \normalsize ) f2 \> ( *7/8 |
+) \! e4. r8 |
+f,2 \p ( |
+) e4 r |
+f'2-> ( |
+) e4. r8 |
+f,2 ( |
+) e |
 d' \p ~ |
 d ~ |
 d_"dim." ~ |
-d ~ |
-c \pp ~ |
-d4 ~ c8 r |
+d ( |
+) c \pp ( |
+) d4 () c8 r |
 c r bes r |
 c r bes r |
-d2 ~ |
-es4 ~ d8 r |
+d2 ( |
+) es4 () d8 r |
 e! r f-. r |
 bes,-.  r [a-. c-.] |
 [bes-. a-. g-. f-. ] |
-[e-. d-. c-. ] c ~ |
-c'4. \f r8 |
-d4 ~ c8 r |
-d4 ~ c8 a-. |
+[e-. d-. c-. ] c ( |
+) c'4. \f r8 |
+d4 () c8 r |
+d4 () c8 a-. |
 [bes-. c-. d-. es-. ] |
 d4.-> r8 |
-es4 ~ d8 r |
-es4 ~ d8 r |
+es4 () d8 r |
+es4 () d8 r |
 d4 ~ d8 [d16 ( e! ] |
-[f g f e] ) d8 bes ~ |
-a4 r8 [d16 ( e ] |
-[f g f e] ) d8 bes ~ |
-a4 r8 d ~ |
-f r g r |
+[f g f e] ) d8 bes ( |
+) a4 r8 [d16 ( e ] |
+[f g f e] ) d8 bes ( |
+) a4 r8 d ( |
+) f r g r |
 as r g r |
 c,4 \fz r |
 R2*6 |
@@ -965,37 +965,37 @@ r r8 c' |
 [c \< c c c] |
 [c c c c] |
 [\! c \f c c c] |
-[c c c ] f ~ |
-c4.-> f8 ~ |
-c4.-> r8 |
-r4 r8 f8 ~ |
-e!4. c8 \f ~ |
-f4.-> c8 ~ | % slur added
-f4.-> r8 |
-r4 r8 d ~ |
-e4. r8 |
+[c c c ] f ( |
+) c4.-> f8 ( |
+) c4.-> r8 |
+r4 r8 f8 ( |
+) e!4. c8 \f ( |
+) f4.-> c8 ( | % slur added
+) f4.-> r8 |
+r4 r8 d ( |
+) e4. r8 |
 R2 |
 r4 r8 c \p |
 [c-. \< d-. d-. e-. ] |
 [ \! e-. f-. f-. ] r |
 fis4. \f d,8-. |
-[g-. a-. bes-. ] e! ~ |
-g4. \f g8 ~ |
-e4. e8 ~ |
-f r c4-> ~ |
+[g-. a-. bes-. ] e! ( |
+) g4. \f g8 ( |
+) e4. e8 ( |
+) f r c4-> ~ |
 c c-> ~ |
-c d ~ |
-e r8 c ~ |
-f4 c~ |
+c d ( |
+) e r8 c ( |
+) f4 c~ |
 c c~ |
-c d ~ |
-e r8 c ~ |
-f4 c~ |
+c d ( |
+) e r8 c ( |
+) f4 c~ |
 c c~ |
 c r |
 R2*5 |
-es2 \p \> ( ~ |
-\! d4 \< \! ) des |
+es2 \p \> ( ( |
+) \! d4 \< \! ) des |
 c \f ( bes |
 a b |
 ) c r |
@@ -1004,35 +1004,35 @@ a8-. \p r r4 |
 g8-. r r4 |
 R2*4 |
 a2 \p \< ~ |
-a4 ~ \! gis8 g ~ |
-c4. \fz c8 \> |
+a4 () \! gis8 g ( |
+) c4. \fz c8 \> |
 [c c \! c ] r8 |
 R2*2 |
 es2 \p \< ~ |
-\! es4. d8 \f ~ |
-f,4. bes8 ~ |
-d,4. c'8 ~ |
-c,4. c'8 ~ |
-c,4. bes'8 ~ |
-a4 r8 c~ |
-d4 ~ c8 bes ~ |
-a4 r8 c~ |
-d4 ~ c8 d ~ |
-g,4. g'8 ~ |
-c,4.  c,8 |
+\! es4. d8 \f ( |
+) f,4. bes8 ( |
+) d,4. c'8 ( |
+) c,4. c'8 ( |
+) c,4. bes'8 ( |
+) a4 r8 c( |
+) d4 () c8 bes ( |
+) a4 r8 c( |
+) d4 () c8 d ( |
+) g,4. g'8 ( |
+) c,4.  c,8 |
 [f-. c-. f-. c-. ] |
 [f-. c-. f-. c-. ] |
 f-. r c'-. r |
 c-. r c-. r |
 [c16 ( d c d][c d c d] |
 [c16 d c d][c d c d] |
-) c4 r8 c ~ |
-f4 r8 c ~ |
-f,4 r8 c' ~ |
-f4 r8 c ~ |
-f,2 ~ |
-f ~ |
-c'4 \fz r^\fermata
+) c4 r8 c ( |
+) f4 r8 c ( |
+) f,4 r8 c' ( |
+) f4 r8 c ( |
+) f,2 ~ |
+f ( |
+) c'4 \fz r^\fermata
 }
 
 oboehelp=\notes\relative c'' {

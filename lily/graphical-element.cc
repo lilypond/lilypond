@@ -130,3 +130,13 @@ Graphical_element::name () const
 {
   return classname (this);
 }
+
+void
+Graphical_element::print () const
+{
+#ifndef NPRINT
+  DOUT << classname (this) << "{\n";
+  do_print ();
+  DOUT << "}\n";
+#endif
+}  

@@ -10,6 +10,7 @@
 #ifndef G_STAFF_SIDE_HH
 #define G_STAFF_SIDE_HH
 
+#include "spanner.hh"
 #include "item.hh"
 #include "staff-symbol-referencer.hh"
 
@@ -23,7 +24,7 @@
 
     Amount of extra space to add.
 */
-class G_staff_side_item : public Item, public Staff_symbol_referencer
+class G_staff_side_element :  public Staff_symbol_referencer
 {
   void position_self ();
 
@@ -35,7 +36,7 @@ public:
   //junkme.
   bool staff_support_b_;
   
-  G_staff_side_item ();
+  G_staff_side_element ();
   void set_victim (Score_element*);
   void add_support (Score_element*);
 
@@ -43,12 +44,28 @@ public:
   virtual Direction get_default_direction () const;
 protected:
   virtual Interval do_height () const;
-  virtual Interval do_width () const;
   virtual void do_print () const;
   virtual void do_add_processing ();
   virtual void do_substitute_element_pointer (Score_element*,Score_element*);
   virtual void do_pre_processing ();
   virtual void do_post_processing ();
+};
+
+class G_staff_side_item : public G_staff_side_element, public Item
+{
+public:
+  VIRTUAL_COPY_CONS(Score_element);
+protected:
+  virtual Interval do_width () const;
+  virtual void do_print () const;
+};
+
+class G_staff_side_spanner : public G_staff_side_element, public Spanner
+{
+public:
+  VIRTUAL_COPY_CONS(Score_element);
+protected:
+  virtual void do_print () const;
 };
 
 #endif /* G_STAFF_SIDE_HH */

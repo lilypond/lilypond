@@ -10,12 +10,11 @@
 #ifndef CRESCENDO_HH
 #define CRESCENDO_HH
 
-#include "staff-side.hh"
 #include "spanner.hh"
 /**
   The hairpin symbol. (cresc)
  */
-class Crescendo : public Spanner , public Staff_side {
+class Crescendo : public Spanner {
 public:
   int grow_dir_;
     
@@ -26,8 +25,6 @@ public:
 protected:
   VIRTUAL_COPY_CONS(Score_element);
   virtual Molecule*do_brew_molecule_p() const;
-  virtual Interval symbol_height() const;
-  
     
 private:
   Molecule get_symbol() const;

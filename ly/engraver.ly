@@ -114,12 +114,19 @@ VoiceContext = \translator {
 	\consists "Slur_engraver";
 	\consists "Tie_engraver";
 	\consists "Tuplet_engraver";	
-	\consists "Note_heads_engraver" ;	
 	\consists "Skip_req_swallow_translator";
+	\accepts Thread; % bug if you leave out this!
 };
 
 \translator {\VoiceContext}
 
+ThreadContext = \translator{
+	\type Engraver_group_engraver;
+	\consists "Note_heads_engraver" ;	
+	\name Thread;
+};
+
+\translator{\ThreadContext}
 GrandStaffContext=\translator{
 	\type "Engraver_group_engraver";
 	\name GrandStaff;

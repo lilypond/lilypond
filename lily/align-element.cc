@@ -97,6 +97,15 @@ Align_element::do_side_processing ()
 	{
 	  dims.push (y);
 	  Score_element *e =dynamic_cast<Score_element*>(elem_l_arr_[i]);
+
+	  SCM extra_dims = e->get_elt_property (extra_space_scm_sym);
+	  if (extra_dims != SCM_BOOL_F)
+	    {
+	      extra_dims = SCM_CDR (extra_dims);
+	      dims.top ()[LEFT] -= gh_scm2double (SCM_CAR (extra_dims));
+	      dims.top ()[RIGHT] += gh_scm2double (SCM_CAR (extra_dims));
+	    }
+
 	  elems.push (e);
 	}
     }

@@ -39,7 +39,7 @@ Single_malt_grouping_item::my_width () const
       if (pc != il->column_l ())
 	{
 	  /* this shouldn't happen, but let's continue anyway. */
-	  warning (_("Single_malt_grouping_item: I've been drinking too much (fixme)"));
+	  programming_error (_("Single_malt_grouping_item: I've been drinking too much"));
 	  continue;		/*UGH UGH*/ 
 	}
 

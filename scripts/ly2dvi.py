@@ -63,7 +63,7 @@ class Input:
 
         for i in [''] + Props.get('include')[0:]:
             ifile = os.path.join(i,file)
-            for j in ['','.ly','.fly', 'sly']:
+            for j in ['','.ly','.fly', '.sly']:
                 jfile = ifile+j
                 try:
                     this.__fd = open( jfile, 'r' )

@@ -123,7 +123,7 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
 	textstyle = "italic";
 	textScriptPadding = 5.0;
         textEmptyDimension = 1;
-        oldTieBehavior = 1;
+%        oldTieBehavior = 1;
     }
     \translator { \VoiceContext
         oldTieBehavior = 1;

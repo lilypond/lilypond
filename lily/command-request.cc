@@ -1,5 +1,5 @@
 /*
-  commandrequest.cc -- implement Nonmusical reqs
+  command-request.cc -- implement non-musical reqs
 
   source file of the GNU LilyPond music typesetter
 
@@ -91,9 +91,6 @@ Partial_measure_req::do_print() const
   DOUT << length_mom_;
 }
 
-
-
-
 void
 Time_signature_change_req::do_print() const
 {
@@ -105,7 +102,8 @@ Time_signature_change_req::do_print() const
 bool
 Time_signature_change_req::do_equal_b (Request * r) const
 {
-  Time_signature_change_req * m = dynamic_cast <Time_signature_change_req *> (r);
+  Time_signature_change_req * m
+    = dynamic_cast <Time_signature_change_req *> (r);
 
   return m && m->beats_i_ == beats_i_
     && one_beat_i_ == m->one_beat_i_;

@@ -7,16 +7,20 @@
 # (not finished.)
 # 
 
-name = 'abc-to-ly'
+program_name = 'abc-to-ly'
 version = '0.1'
-
+import __main__
 import getopt
 import sys
 import re
 import string
+
+
 header = {}
 global_voice_stuff = []
 default_len = 4
+global_key = [0] * 7			# UGH
+
 
 
 def dump_header (hdr):
@@ -26,20 +30,10 @@ def dump_header (hdr):
  	print '};'
 
 def set_default_length (s):
-	m =  re.match ('1/(.*)$', s)
+	m =  re.search ('1/([0-9]+)', s)
 	if m:
-		default_len = string.atoi ( m.group (1))
+		__main__.default_len = string.atoi ( m.group (1))
 
-def parse_timesig (s):
-	m =  re.match ('^M: *(.*)$', s)
-	if m:
-		print '\meter %s; ' % m.group (1)
-
-def parse_key (s):
-	m =  re.match ('^K: *(.*)$', s)
-	if m:
-		print '\key %s; ' % m.group (1)
-	
 def gulp_file(f):
 	try:
 		i = open(f)
@@ -56,6 +50,104 @@ def gulp_file(f):
 	return s
 
 
+# pitch manipulation. Tuples are (name, alteration).
+# 0 is (central) C. Alteration -1 is a flat, Alteration +1 is a sharp
+# pitch in semitones. 
+def semitone_pitch  (tup):
+	p =0
+
+	t = tup[0]
+	p = p + 12 * (t / 7)
+	t = t % 7
+	
+	if t > 2:
+		p = p- 1
+		
+	p = p + t* 2 + tup[1]
+	return p
+
+def fifth_above_pitch (tup):
+	(n, a)  = (tup[0] + 4, tup[1])
+
+	difference = 7 - (semitone_pitch ((n,a)) - semitone_pitch (tup))
+	a = a + difference
+	
+	return (n,a)
+
+def sharp_keys ():
+	p = (0,0)
+	l = []
+	k = 0
+	while 1:
+		l.append (p)
+		(t,a) = fifth_above_pitch (p)
+		if semitone_pitch((t,a)) % 12 == 0:
+			break
+
+		p = (t % 7, a)
+	return l
+
+def flat_keys ():
+	p = (0,0)
+	l = []
+	k = 0
+	while 1:
+		l.append (p)
+		(t,a) = quart_above_pitch (p)
+		if semitone_pitch((t,a)) % 12 == 0:
+			break
+
+		p = (t % 7, a)
+	return l
+
+def quart_above_pitch (tup):
+	(n, a)  = (tup[0] + 3, tup[1])
+
+	difference = 5 - (semitone_pitch ((n,a)) - semitone_pitch (tup))
+	a = a + difference
+	
+	return (n,a)
+
+
+def compute_key (k):
+	k = string.lower (k)
+	intkey = (ord (k[0]) - ord('a') + 5) % 7
+	intkeyacc =0
+	k = k[1:]
+	
+	if k and k[0] == 'b':
+		intkeyacc = -1
+		k = k[1:]
+	elif  k and k[0] == '#':
+		intkeyacc = 1
+		k = k[1:]
+
+	keytup = (intkey, intkeyacc)
+	
+	sharp_key_seq = sharp_keys ()
+	flat_key_seq = flat_keys ()
+
+	accseq = None
+	accsign = 0
+	if keytup in sharp_key_seq:
+		accsign = 1
+		key_count = sharp_key_seq.index (keytup)
+		accseq = map (lambda x: (4*x -1 ) % 7, range (1, key_count + 1))
+
+	elif keytup in flat_key_seq:
+		accsign = -1
+		key_count = flat_key_seq.index (keytup)
+		accseq = map (lambda x: (3*x + 3 ) % 7, range (1, key_count + 1))
+	else:
+		raise "Huh"
+	
+	key_table = [0] * 7
+	for a in accseq:
+		 key_table[a] = key_table[a] + accsign
+		
+
+	return key_table
+
 def try_parse_header_line (ln):
 	m = re.match ('^(.): *(.*)$', ln)
 
@@ -67,6 +159,8 @@ def try_parse_header_line (ln):
 		if g == 'M':
 			global_voice_stuff.append ('\\time %s;' % a)
 		if g == 'K':
+			__main__.global_key  =compute_key (a)# ugh.
+
 			global_voice_stuff.append ('\\key %s;' % a)
 		if g == 'O': 
 			header ['origin'] = a
@@ -87,9 +181,44 @@ def try_parse_header_line (ln):
 
 	return m
 
+def pitch_to_mudela_name (name, acc):
+	s = ''
+	if acc < 0:
+		s = 'es'
+		acc = -acc
+	elif acc > 0:
+		s = 'is'
+
+	if name > 4:
+		name = name -7
+	return chr (name  + ord('c'))  + s * acc
+
+def octave_to_mudela_quotes (o):
+	s =''
+	if o < 0:
+		o = -o
+		s=','
+	else:
+		s ='\''
+
+	return s * o
+
+def parse_num (str):
+	durstr = ''
+	while str[0] in "1234567890":
+		durstr = durstr + str[0]
+		str = str[1:]
+
+	n = None
+	if durstr:
+		n  =string.atoi (durstr) 
+	return (str,n)
+
+
+def duration_to_mudela_duration  (multiply_tup, defaultlen):
+	base = 1
 
 # WAT IS ABC EEN ONTZETTENDE PROGRAMMEERPOEP  !
-
 def try_parse_note (str):
 	mud = ''
 
@@ -98,7 +227,7 @@ def try_parse_note (str):
 		slur_begin = 1
 		str = str[1:]
 
-	acc = None
+	acc = 0
 	if str[0] in '^=_':
 		c = str[0]
 		str = str[1:]
@@ -117,7 +246,7 @@ def try_parse_note (str):
 
 	notename = 0
 	if str[0] in "abcdefg":
-		notename = ord(str[0]) - ord('a')
+		notename = (ord(str[0]) - ord('a') + 5)%7
 		str = str[1:]
 	else:
 		return str		# failed; not a note!
@@ -128,20 +257,24 @@ def try_parse_note (str):
 	while str[0] == '\'':
 		 octave = octave + 1
 		 str = str[1:]
-	divide =0
+
+	num = 0
+	den = 0
+
+	(str, num) = parse_num (str)
+	if not num:
+		num = 1
+	
 	if str[0] == '/':
 		divide =1
 		str = str[1:]
-	durstr = ''
-	while str[0] in "1234567890":
-		durstr = durstr + str[0]
-		str = str[1:]
+		(str, den) =parse_num (str)
 
-	duration_mult = 1
-	if durstr:
-		duration_mult = string.atoi (durstr)
+	if not den: den = 1
+		
+	print duration_to_mudela_duration ((num,den), default_len)
+	print '%s%s%d' %  (pitch_to_mudela_name(notename, acc + global_key[notename]) , octave_to_mudela_quotes (octave), duration_mult)
 
-	
 	slur_end =0
 	if str[0] == ')':
 		slur_begin = 1
@@ -191,7 +324,7 @@ def parse_file (fn):
 
 
 def identify():
-	print '%s %s' % (name, version)
+	print '%s %s' % (program_name, version)
 
 def help ():
 	print r"""
@@ -200,6 +333,8 @@ says huh when confused.  Does not do chords.  Go ahead and fix me.
 
 -h, --help   this help.
 """
+
+
 
 identify()
 (options, files) = getopt.getopt (sys.argv[1:], 'h', ['help'])

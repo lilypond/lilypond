@@ -73,6 +73,7 @@ public:
   String style_str_;
 protected:
   VIRTUAL_COPY_CONS(Music);
+  virtual bool do_equal_b (Request*)const;
   virtual void do_print () const;
 };
 

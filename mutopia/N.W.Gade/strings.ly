@@ -118,8 +118,8 @@ b2 \p | % \p added
 \! e ) b |
 \tiny d8*1/2 \normalsize f2 \fz ( *7/8 |
 b,4 [c8 ) b] |
-a2-> ~ |
-gis4 e |
+a2-> ( |
+) gis4 e |
 a ( ) e' |
 e-.  \< () \! e-. |
 e ( \fz \> [ d8 \! c ] |
@@ -130,8 +130,8 @@ e ( \fz \> [ d8 \! c ] |
 \! e ) b |
 \tiny d8*1/2 \normalsize f2 \fz ( *7/8 |
 b,4 [c8 ) b] |
-a2 \p ~ |
-gis |
+a2 \p ( |
+) gis |
 \tiny a8*1/2 \normalsize d2 ( \> *7/8 |
 b4 [ c8 \! b ] |
 a2 \p |
@@ -213,8 +213,8 @@ e^\trill \tiny [d16*1/2 e*1/2] \normalsize [f8 *1/2 ) es' \f ( ] |
 \! f2 ( ~ |
 f4 g |
 f ) e |
-es2 ~ |
-d4 r |
+es2 ( |
+) d4 r |
 \tiny f'8*1/2 \normalsize a4 \fz ( *3/4 e |
 f b, |
 ) c r |
@@ -413,10 +413,10 @@ f2 ( \> |
 [ a,16 ( d a d ][a d a d] |
 [ b16 d b d ][b d b ) d] |
 R2 |
-r8 [e16^"solo" ( f] ) e4 ~ |
-d2_"dim." ~ |
-d ~ |
-c4 r |
+r8 [e16^"solo" ( f] ) e4 ( |
+) d2_"dim." ~ |
+d ( |
+) c4 r |
 r r8 d' ( |
 [ ) a bes () g d' ( ] |
 [ a ) bes g ] r |
@@ -595,9 +595,9 @@ c, ~ c' r |
 [c,8 ( g' ][ c g c a ] |
 [bes c ] ) a4 r |
 R2. |
-r4 r dis, \< ~ |
-\! e r dis' \pp ~ |
-e r r |
+r4 r dis, \< ( |
+) \! e r dis' \pp ( |
+) e r r |
 R2. |
 r4 r c, \pp ~ |
 c2. ~ |
@@ -770,8 +770,8 @@ r r8 <f \p c'> |
 <f2:8 c'2:8> |
 <f2:8 \< c'2:8> |
 <f2:8 \! c'2:8> |
-<{[f8 f f fis \f ~ ]}{[c'8 c c s]}> |
-<a4. fis'4.> fis'8 |
+<{[f8 f f fis \f (( ]}{[c'8 c c s]}> |
+< ) a4. ) fis'4.> fis'8 |
 [g d g <g, ( c,> ] |
 <c4. \fz ) g'> <g8 ( c,> |
 <c4. \fz ) g'> c,8 ( |
@@ -813,10 +813,10 @@ g f4 \f f8 ( |
 <bes4._> ) f' > g8 ( |
 <d'4._> ) bes' > e,!8 ( |
 <c'4._> ) g' > <g8 ( c, > |
-<c4._> ) g' > c,8 ~ |
-f4. a8 ( |
-[d f ) a ] c,,8 ~ |
-f4. a8 ( |
+<c4._> ) g' > c,8 ( |
+) f4. a8 ( |
+[d f ) a ] c,,8 ( |
+) f4. a8 ( |
 [d f ) a ] [f16 ( g ] |
 [f g f d ][ ) b8 bes'!16 ( c ] |
 [bes c bes g][ ) e8 c'16 ( d ] |
@@ -970,8 +970,8 @@ g4:16 \< \! a4:16 |
 g4:16 \> a4:16 |
 g4:16 \! a4:16 |
 gis2 \fz ~ |
-gis ~ |
-f \p \> |
+gis ( |
+) f \p \> |
 \! e_"dim." |
 d |
 e |
@@ -1218,9 +1218,9 @@ e2 \> ~ |
 e2 \> ~ |
 \! e4 r |
 e2 \fz ~ |
-e ~ |
-f \p ~ |
-e |
+e ( |
+) f \p ( |
+) e |
 d \> ( |
 e |
 \! f \p |
