@@ -1,5 +1,3 @@
-# empty
-
 convert-ly: local-convert-ly
 	$(LOOP)
 
@@ -13,5 +11,4 @@ local-ly-help:
   convert-ly  convert all LilyPond sources\n\
 "\
 #
-
 
