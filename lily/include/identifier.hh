@@ -37,7 +37,7 @@ virtual Class *  access_content_ ## Class (bool) const { error (#Class  + String
 /**
    A declarable data structure in mudela.
 
-   TODO: use SCM and SMOBS for union datatype.
+   TODO: use SMOBS for the union type, and junk all derived classes.
    */
 struct Identifier : public Input {
   bool init_b_;
