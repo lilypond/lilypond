@@ -23,8 +23,8 @@ here is the new implementation @code{\applymusic},
 @item @code{\apply} has been renamed to @code{\applymusic}.
 
 @item Music can be used as a markup.
-When inserting a @code{score} block as part of a @code{\markup},
-it produces a rendered markup of the music.
+When inserting a @code{\score} block as part of a @code{\markup}, it
+produces a rendered markup of the music.
 
 @example
 @c TODO, see input/test/markup-score.ly
@@ -41,22 +41,23 @@ introduced using a @code{$} character (@code{$$} results in a single
    (ly:export
      #@{ \override Voice.TextScript #'extra-offset = #(cons $dx $dy) #@}))
 
-\score @{
-  \notes @{
-    c'^"normal text"
-    %% the following statement is the same as
-    %% \override Voice.TextScript #'extra-offset = #(cons 2 -3)
-    #(textoffset 2 -3)
-    c'^"text with offset" 
-  @}
+@{
+  c'^"normal text"
+  %% The following embedded scheme call is the same as
+  %% \override Voice.TextScript #'extra-offset = #(cons 2 -3)
+  #(textoffset 2 -3)
+  c'^"text with offset" 
 @}
 @end example
 
-@item Music lists are allowed at toplevel.
+@item A music list at toplevel is interpreted as implicit @code{\score}
+a @code{\score} block at toplevel is interpreted as an implicit
+@code{\book} and @code{\notes} mode is the default lexer mode.  The
+result is that
 
 @example
 \header @{ title = "The Title" @}
-\notes @{ a b c @}
+@{ a b c @}
 @end example
 
 is the same as
@@ -70,11 +71,12 @@ is the same as
 @}    
 @end example
 
-These toplevel forms are handled by
-@code{default-toplevel-music-handler}.  Similarly, a @code{score}
+Actually, a toplevel music list is now handled quite flexibly by
+@code{default-toplevel-music-handler}.  Similarly, a @code{\score}
 block at toplevel is handled by @code{default-toplevel-score-handler}
 and a @code{book} at toplevel is handled by
-@code{default-toplevel-book-handler}.
+@code{default-toplevel-book-handler}.  The default behavior of these
+handlers produces the results described above.
 
 @ignore
 
@@ -113,8 +115,8 @@ Syntactically, @code{\newlyrics} acts like an infix operator.
 @code{ly:parse-file}, so the following fragment processes two files
 
 @verbatim
-  #(ly:parse-file "another.ly")
-  \score { \notes  { c4 }}
+#(ly:parse-file "another.ly")
+\score { \notes { c4 }}
 @end verbatim
 
 @item The @code{font-encoding} property can now be used to select

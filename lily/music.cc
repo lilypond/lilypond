@@ -371,7 +371,6 @@ LY_DEFINE (ly_music_compress, "ly:music-compress",
   return sc->self_scm ();
 }
 
-
 LY_DEFINE (ly_music_scorify, "ly:music-scorify",
 	   1, 0, 0,
 	   (SCM music),
@@ -391,4 +390,3 @@ LY_DEFINE (ly_music_scorify, "ly:music-scorify",
   scm_gc_unprotect_object (score->self_scm ());
   return score->self_scm ();
 }
-

@@ -1258,10 +1258,25 @@ The header for each piece of music can be put inside the @code{\score}
 block.  The @code{piece} name from the header will be printed before
 each movement.
 
-@c FIXME: introduce \BOOK
+@ignore
 
-@c FIXME: Using "Adagio" as a name is confusing, it's more common to be
-@c a plain tempo indication.
+FIXME: introduce \BOOK
+
+FIXME: Using "Adagio" as a name is confusing, it's more common to be
+a plain tempo indication.
+
+Since today (CVS-1.211) we also allow headers and composite music
+inside book:
+
+  \header { ... }
+  \book {
+    \header { ... }
+    { ... }
+    \header { ... }
+    { ... }
+  }
+
+@end ignore
 
 @cindex Engraved by LilyPond
 @cindex signature line
